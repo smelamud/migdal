@@ -4,6 +4,7 @@
 
 $input='Makefile.in' if $input eq '';
 $config='conf/migdal.conf' if $config eq '';
+$status=0;
 
 print "# Created automatically from Makefile.in\n";
 open IN,$input;
@@ -21,8 +22,17 @@ while(<IN>)
 	  s/#.*$//;
 	  next if /^\s*$/;
 	  my ($name,$value)=/^\$(\w+)=(.*);\s*$/;
-	  print "$name=$value\n";
+	  if($name eq '' || $value eq '')
+	    {
+	    print STDERR "confmake: Incorrect config line $.: $_";
+	    $status=1;
+	    }
+	  else
+	    {
+	    print "$name=$value\n";
+	    }
 	  }
      close CONF;
      }
 close IN;
+exit $status;

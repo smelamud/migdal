@@ -362,5 +362,5 @@ INSERT INTO complain_scripts VALUES (1,'Закрыть жалобу','=update complains set c
 # Dumping data for table 'mailing_types'
 #
 
-INSERT INTO mailing_types VALUES (1,'register','mailings/register.mail');
+INSERT INTO mailing_types VALUES (1,'register','register.mail');
 

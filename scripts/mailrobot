@@ -66,7 +66,7 @@ my ($mail)=@_;
 
 return if $mail->{'email_disabled'};
 my $path=$mail->{'text'};
-$path=$Config{'siteDir'}."/$path" unless $path=~/^\//;
+$path=$Config{'mailingsDir'}."/$path" unless $path=~/^\//;
 open IN,$path;
 my @script=<IN>;
 close IN;
