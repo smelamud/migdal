@@ -10,6 +10,7 @@ dbOpen();
 session($sessionid);
 header('Location: '.remakeURI($okdir,array(),array('st' => $style,
                                                    'bt' => $biff,
-						   'rk' => $koi)));
+						   'rk' => empty($koi)
+						           ? -1 : 1)));
 dbClose();
 ?>

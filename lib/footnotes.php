@@ -61,7 +61,7 @@ return stotextToHTML($this->getFormat(),$this->getBody());
 
 function extractFootnotes($s,$format,$no,&$notes)
 {
-$pattern='/(^|\s+)(?:&#039;((?:[^&]*(?:&[^#;]+;)?)+)&#039;\s)?{{([^}]+)}}/';
+$pattern='/(^|\s+)(?:&#039;((?:[^&]*(?:&[^#;]+;)?)+)&#039;\s)?{{((?:[^}]|}[^}])+)}}/';
 if(!is_array($notes))
   $notes=array();
 do
@@ -72,12 +72,12 @@ do
   $note=new Footnote($no++,$matches[2],$format,$matches[3]);
   $notes[]=$note;
   if($note->isNumbered())
-    $s=preg_replace($pattern,"<a name='#_ref".$note->getNo().
+    $s=preg_replace($pattern,"<a name='_ref".$note->getNo().
                              "'></a><sup><a href='#_note".$note->getNo().
 			     "' title='".$note->getInplaceBody().
 			     "'>".$note->getNo()."</a></sup>",$s,1);
   else
-    $s=preg_replace($pattern,$matches[1]."<a name='#_ref".$note->getNo().
+    $s=preg_replace($pattern,$matches[1]."<a name='_ref".$note->getNo().
                              "'></a><a href='#_note".$note->getNo().
 			     "' title='".$note->getInplaceBody().
 			     "'>".$note->getTerm()."</a>",$s,1);

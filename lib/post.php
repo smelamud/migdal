@@ -15,7 +15,9 @@ function postString($name)
 {
 global $HTTP_POST_VARS;
 
-$GLOBALS[$name]=convertInput($GLOBALS[$name]);
-$HTTP_POST_VARS[$name]=convertInput($HTTP_POST_VARS[$name]);
+if(isset($GLOBALS[$name]))
+  $GLOBALS[$name]=convertInput($GLOBALS[$name]);
+if(isset($HTTP_POST_VARS[$name]))
+  $HTTP_POST_VARS[$name]=convertInput($HTTP_POST_VARS[$name]);
 }
 ?>

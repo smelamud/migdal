@@ -23,6 +23,11 @@ next($this->vars);
 return $val;
 }
 
+function getCount()
+{
+return count($this->vars);
+}
+
 }
 
 class SortedArrayIterator

@@ -55,7 +55,7 @@ return $proper;
 
 function userRights()
 {
-global $sessionid,$userId,$userRightNames;
+global $sessionid,$userId,$userRightNames,$sessionTimeout;
 
 settype($sessionid,'integer');
 

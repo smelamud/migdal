@@ -27,7 +27,7 @@ function convertOutput($s)
 {
 global $userReadKOI;
 
-return convert_cyr_string($userReadKOI
+return convert_cyr_string($userReadKOI>0
        ? str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;"),
                      array('"','"','--','"','"'),$s)
        : str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;",

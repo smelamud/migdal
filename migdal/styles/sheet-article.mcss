@@ -77,6 +77,14 @@
 	text-align: justify;
 }
 
+.article .notes {
+	border-style: none;
+	color: %article_notes_split;
+	background-color: %article_notes_split;
+	height: 1px;
+	width: 200px;
+}
+
 .article .source {
 	color: %article_source;
 	font-size: 9pt;

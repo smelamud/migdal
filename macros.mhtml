@@ -59,6 +59,8 @@
 <deciter macro='forum_answerlist' class='ForumAnswerListIterator'
          file='lib/forums.php' params='up,limit,offset'
 	 defaults='limit=20 offset=0'>
+<deciter macro='footnotes' class='FootnoteIterator' file='lib/paragraphs.php'
+         params='source' defaults="source='$;'">
 <deciter macro='grps' class='GrpIterator' file='lib/grputils.php'>
 <deciter macro='imageset' class='ImageSetIterator' file='lib/images.php'
          params='imageset'>

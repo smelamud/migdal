@@ -112,6 +112,23 @@
 </ifnzero>
 </element>
 
+<element name='footnotes' params='source'>
+<iterate_footnotes source='$source'>
+<ifnzero what='$;Count'><p>
+ <hr class='notes' align=left>
+ <for>
+  <a href='#_ref$.No'>
+  <if what='$.isNumbered'>
+   <sup>$.No</sup><asp>
+  <else>
+   $.Term<asp>
+  </if>
+  <asp></a> ---
+  <a name='_note$.No'></a>$.HTMLBody<br>
+ </for>
+</p></ifnzero>
+</element>
+
 <string name='artid'>
 <grps>
 <text_formats>
@@ -143,6 +160,7 @@
    </for>
    </p>
    <if what='$,LargeFormat==*TF_PRE'></pre></if>
+   <footnotes source='$;'>
    <ifne what='$,Source'>
     <div class='source' align=right>$,HTMLSource</div>
    </ifne>

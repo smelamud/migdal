@@ -5,6 +5,7 @@ require_once('lib/iterator.php');
 require_once('lib/text.php');
 require_once('lib/stotext-images.php');
 require_once('lib/footnotes.php');
+require_once('lib/array.php');
 
 class Paragraph
 {
@@ -112,6 +113,17 @@ $notes=$this->notes;
 $this->noteOffset+=count($notes);
 $this->notes=array();
 return $notes;
+}
+
+}
+
+class FootnoteIterator
+      extends ArrayIterator
+{
+
+function FootnoteIterator($source)
+{
+$this->ArrayIterator($source->exportFootnotes());
 }
 
 }
