@@ -54,10 +54,6 @@ exit;
 sub init
 {
 readConfig();
-print('DBI:mysql:database='.$Config{'dbName'}.';host='.
-                  $Config{'dbHost'},$Config{'dbUser'},$Config{'dbPassword'},
-		  {'AutoCommit' => 1,'PrintError' => 1,
-		   'ShowErrorStatement' => 1});
 $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
                   $Config{'dbHost'},$Config{'dbUser'},$Config{'dbPassword'},
 		  {'AutoCommit' => 1,'PrintError' => 1,
