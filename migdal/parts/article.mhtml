@@ -46,24 +46,29 @@
 </if>
 </macro>
 
-<element name='pic' params='posting,par,dropLeft'>
+<element name='pic' params='posting,par,drop_left'>
 <image_placements>
+<if what='$drop_left'>
+ <assign name='clear' value=' style="clear: left"'>
+<else>
+ <assign name='clear' value=''>
+</if>
 <ifnzero what='$par.ImageId'>
  <notplaced place='IPL_TOP'>
   </p>
  </notplaced>
  <isplaced place='IPL_BOTTOM'>
-  <if what='$dropLeft'><p style='clear: left'><else><p></if>
+  <p$clear>
  </isplaced>
  <isplaced place='IPL_VCENTER'>
   <isplaced place='IPL_LEFT'>
-   <table width=100%><tr><td align=left>
+   <table$clear width=100%><tr><td align=left>
   </isplaced>
   <isplaced place='IPL_HCENTER'>
-   <table width=100%><tr><td align=center>
+   <table$clear width=100%><tr><td align=center>
   </isplaced>
   <isplaced place='IPL_RIGHT'>
-   <table width=100%><tr><td align=right>
+   <table$clear width=100%><tr><td align=right>
   </isplaced>
  </isplaced>
   <isplaced place='IPL_LEFT'>
@@ -95,17 +100,17 @@
   </p>
  </isplaced>
  <notplaced place='IPL_BOTTOM'>
-  <if what='$dropLeft'><p style='clear: left'><else><p></if>
+  <p$clear>
  </notplaced>
 <else>
  </p>
  <isedit what='$posting'>
-  <p>
+  <p$clear>
   <a href='liminsert.php?postid=$$artid&par=$par.Number&redirid=$_'
      class='piclink'>Картинка</a>
   </p>
  </isedit>
- <if what='$dropLeft'><p style='clear: left'><else><p></if>
+ <p$clear>
 </ifnzero>
 </element>
 
@@ -133,7 +138,7 @@
 <iterate_posting_paragraphs posting='$posting'>
 <p>
 <for>
- <pic posting='$posting' par='$.' dropLeft='$.isDropLeft'>
+ <pic posting='$posting' par='$.' drop_left='$.isDropLeft'>
  $.HTMLBody
 </for>
 </p>

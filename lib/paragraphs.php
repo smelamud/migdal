@@ -110,10 +110,10 @@ if(list($key,$value)=each($this->pars))
   $text=extractFootnotes($value,$this->format,
 		         count($this->notes)+$this->noteOffset,
   			 $this->notes);
-  if(substr($text,0,2)=='<-')
+  if(substr($text,0,5)=='&lt;-')
     {
     $dropLeft=true;
-    $text=substr($text,2);
+    $text=substr($text,5);
     }
   else
     $dropLeft=false;
