@@ -7,6 +7,10 @@
 	text-decoration: underline;
 }
 
+.ring B A {
+	font-size: 10pt;
+}
+
 .ring A:hover {
 	color: %book_ring_hover;
 }
