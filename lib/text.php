@@ -66,7 +66,7 @@ return $c;
 
 function replaceQuoting($s)
 {
-return preg_replace('/(&gt;.*)(\n|$)/','<i>\\1</i>'."\n",$s);
+return preg_replace('/(^|\n)((&gt;\s*)+.*)(\n|$)/','<i>\\1</i>'."\n",$s);
 }
 
 function replaceCenter($s)
