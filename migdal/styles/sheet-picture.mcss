@@ -16,7 +16,7 @@
 
 .picture .top A.name {
 	color: %picture_name;
-	text-decoration: none;
+	font-weight: normal;
 }
 
 .picture .top A:hover {

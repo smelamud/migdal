@@ -33,53 +33,34 @@
    <if what='$topic<0'>
     <th>Раздел</th>
    </if>
-   <th>Тема</th><th colspan=2>Начало / Последнее сообщение</th>
-   <th class='answer'>Ответы</th>
+   <th>Тема</th><th colspan=2>Начало / Последнее сообщение</th><th>Ответы</th>
   </tr>
   <for>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <if what='$topic<0'>
-     <td class='topic' rowspan=2>
+     <td class='topic ninept' rowspan=2 align=center>
       <a href='forumcatalog.php?redirid=$_&topic_id=$.TopicId'
-	 class='topic' title='$.TopicDescription'>$.TopicName</a>
+	 title='$.TopicDescription'>$.TopicName</a>
      </td>
     </if>
-    <td class='subject' rowspan=2>
+    <td class='subject ninept' rowspan=2>
      <biff time='$.Sent'>
      <a href='forum.php?redirid=$_&msgid=$.Id'>$.SubjectDesc</a>
     </td>
-    <td>
-     <if what='$.isRebe'>
-      <span class='rebe'>
-     </if>
-     <senderlink message='$.'>
-     <if what='$.isRebe'>
-      </span>
-     </if>
-    </td>
-    <td><sentview date='$.Sent'></td>
-    <td class='answer' rowspan=2>
+    <td class='eightpt'><senderlink message='$.'></td>
+    <td class='eightpt'><sentview date='$.Sent'></td>
+    <td class='ninept' rowspan=2 align=center>
      <biff time='$.LastAnswer' small='*true'>
-     <a href='forum.php?redirid=$_&msgid=$.Id'>$.AnswerCount</a>
+     $.AnswerCount
     </td>
    </tr>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <ifnzero what='$.LastAnswer'>
      <zone>
       <forum_answer_author up='$.MessageId' sent='$.LastAnswer'>
-      <td>
-       <if what='$.isRebe'>
-	<span class='rebe'>
-       </if>
-       <senderlink message='$,'>
-       <if what='$.isRebe'>
-	</span>
-       </if>
-      </td>
+      <td class='eightpt'><senderlink message='$,'></td>
      </zone>
-     <td>
-      <sentview date='$.LastAnswer'>
-     </td>
+     <td class='eightpt'><sentview date='$.LastAnswer'></td>
     <else>
      <td>&nbsp;</td><td>&nbsp;</td>
     </ifnzero>

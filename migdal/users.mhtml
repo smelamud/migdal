@@ -33,20 +33,20 @@
  <batcher_users>
  <table width=100% class='catalog'>
   <tr valign=top>
-   <th class='subject'>Ник</th><th>Имя</th><th>Возраст</th>
+   <th>Ник</th><th>Имя</th><th>Возраст</th>
    <th><img src='pics/tower.gif' title='Мигдалевец'></th>
    <th>Адрес</th><th>Последний раз<br>был здесь</th>
   </tr>
   <iterate_userlist>
   <for>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
-    <td class='subject'>
+    <td class='subject ninept'>
      <a href="userinfo.php?id=$.id&redirid=$_">$.Login</a>
     </td>
-    <td>$.FullName</td>
+    <td class='eightpt'>$.FullName</td>
     <if what='$.isConfirmed'>
-     <td align='center'>$.Age</td>
-     <td align='center'>
+     <td align=center class='eightpt'>$.Age</td>
+     <td align=center>
       <if what='$.isMigdalStudent'>
        <img src='pics/check.gif'>
       <else>
@@ -55,14 +55,16 @@
      </td>
      <td>
       <ifne what='$.EmailLink'>
-       <span class='email'>$.EmailLink</span>
+       <span class='email ninept'>$.EmailLink</span>
        <ifne what='$.ICQ'><br></ifne>
       </ifne>
-      $.ICQStatusImage&nbsp;$.ICQ
+      <ifne what='$.ICQ'>
+       <span class='eightpt'>$.ICQStatusImage&nbsp;$.ICQ</span>
+      </ifne>
      </td>
-     <lastonline_cell user='$.'>
+     <lastonline_cell user='$.' class='eightpt'>
     <else>
-     <td colspan=4>
+     <td colspan=4 class='eightpt'>
       <zone>
        <array vals='остался,осталось,осталось'>
        <plural name='lasts' value='$.ConfirmDays'>
@@ -70,7 +72,7 @@
        <plural name='days' value='$.ConfirmDays'>
        Идет регистрация ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
        <admin_users>
-        <a href='/actions/userconfirm.php?id=$.Id' class='control'>
+        <a href='/actions/userconfirm.php?id=$.Id'>
 	 Подтвердить</a>
        </admin_users>
       </zone>

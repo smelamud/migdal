@@ -30,13 +30,9 @@
 	font-weight: bold;
 }
 
-.forum A.name {
+.forum .name {
 	color: %forum_name;
-	text-decoration: none;
-}
-
-.forum A:hover {
-	text-decoration: underline;
+	font-weight: normal;
 }
 
 .forum .controls {

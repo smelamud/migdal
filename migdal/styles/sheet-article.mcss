@@ -88,16 +88,6 @@
 	font: 9pt %verdana;
 }
 
-.article A.name {
-	color: %article_name;
-	font: bold 9pt %verdana;
-	text-decoration: none;
-}
-
-.article A.name:hover {
-	text-decoration: underline;
-}
-
 .article .preface {
 	border-left: solid 5px %article_preface;
 	padding-left: 1ex;

@@ -55,7 +55,7 @@
     компактным и будет хорошо смотреться на любом компьютере при любом
     разрешении экрана.
    </div>
-   <table width=100% class='catalog'>
+   <table width=100% class='catalog eightpt'>
     <col width=50%>
     <tbody>
      <tr><th>Что вводили</th><th>Что получили</th></tr>

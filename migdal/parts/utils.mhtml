@@ -58,8 +58,13 @@
 </element>
 
 <element name='lastonline_cell'>
+<ifne what='$class'>
+ <assign name='cl' value#=" class=$class">
+<else>
+ <assign name='cl' value=''>
+</ifne>
 <if what='$user.isOnline'>
- <td align=center>
+ <td align=center$cl>
   <ifnzero what='$user.LastMinutes'>
    <zone>
     <array vals='минуту,минуты,минут'>
@@ -76,9 +81,9 @@
  </td>
 <else>
  <if what='$user.isTooOld'>
-  <td align=center>Очень давно</td>
+  <td align=center$cl>Очень давно</td>
  <else>
-  <td>
+  <td$cl>
    <sentview date='$user.LastOnline'>
    <biff time='$user.LastOnline'>
   </td>

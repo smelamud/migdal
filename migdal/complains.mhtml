@@ -55,39 +55,31 @@
  <table width=100% class='catalog'>
   <tr valign=top>
    <th>No.</th><th>Прислано</th><th>Автор</th><th>Заголовок</th>
-   <th>Рассматривает</th><th>Закрыто</th><th class='answer'>Ответы</th>
+   <th>Рассматривает</th><th>Закрыто</th><th>Ответы</th>
   </tr>
  <assign name='closed' value='*true'>
  <for name='complain'>
   <row>
-   <td align=right>$.Id</td>
-   <td><sentview date='$.Sent'></td>
-   <td>
-    <if what='$.isRebe'>
-     <span class='rebe'>
-    </if>
-    <senderlink message='$.'>
-    <if what='$.isRebe'>
-     </span>
-    </if>
-   </td>
-   <td class='subject'>
+   <td align=right class='eightpt'>$.Id</td>
+   <td class='eightpt'><sentview date='$.Sent'></td>
+   <td class='eightpt'><senderlink message='$.'></td>
+   <td class='subject ninept'>
     <a href='complainforum.php?compid=$.Id&redirid=$_'>$.Subject</a>
     <biff time='$.Sent'>
    </td>
    <if what='$.isAssigned'>
-    <td><senderlink message='$.RecipientInfo'></td>
+    <td class='eightpt'><senderlink message='$.RecipientInfo'></td>
    <else>
     <td align=center>-</td>
    </if>
    <if what='$.isClosed'>
-    <td><sentview date='$.Closed'></td>
+    <td class='eightpt'><sentview date='$.Closed'></td>
    <else>
-    <td align=center>Нет</td>
+    <td align=center class='eightpt'>Нет</td>
    </if>
-   <td class='answer'>
+   <td class='ninept' align=center>
     <biff time='$.LastAnswer'>
-    <a href='complainforum.php?compid=$.Id&redirid=$_'>$.AnswerCount</a>
+    $.AnswerCount
    </td>
   </tr>
  </for>
