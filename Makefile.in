@@ -6,7 +6,7 @@
 	./miparser $< > $@
 
 all: forum.php index.php messageedit.php messages.php topics.php topicedit.php \
-     userok.php users.php
+     useredit.php userok.php users.php
 	(cd parts; $(MAKE) all)
 
 Makefile: Makefile.in

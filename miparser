@@ -115,6 +115,8 @@ return "$st\$$result->".getGetName($1)."()$ed"
        if $s=~/^\$,(\w+)$/;
 return "$st\$$1->".getGetName($2)."()$ed"
        if $s=~/^\$(\w+)[\.,](\w+)$/;
+return "$st\$".getGlobal($1).'->'.getGetName($2)."()$ed"
+       if $s=~/^\$\$(\w+)[\.,](\w+)$/;
 return "${st}urlencode(\$$item->".getGetName($1)."())$ed"
        if $s=~/^\$#\.(\w+)$/;
 return "${st}urlencode(\$$result->".getGetName($1)."())$ed"

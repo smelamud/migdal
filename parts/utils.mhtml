@@ -9,7 +9,7 @@ return "<tr>
 	</tr>";
 }
 
-function condEdit($title,$edit,$value,$name,$size,$length)
+function condEdit($title,$edit,$value,$name,$size,$length) #COMPATIBILITY
 {
 return !$edit ?
        $value!='' ? "<tr><td><b>$title:</b></td><td>$value</td></tr>" : '' :
@@ -30,7 +30,7 @@ return !$edit ?
 	</tr>";
 }
 
-function condEditValue($title,$edit,$value,$valueEdit,$name,$size,$length)
+function condEditValue($title,$edit,$value,$valueEdit,$name,$size,$length) #COMPATIBILITY
 {
 return !$edit ?
        $value!='' ? "<tr><td><b>$title:</b></td><td>$value</td></tr>" : '' :
@@ -45,7 +45,7 @@ return "<tr><td colspan=$span>
 	</td></tr>";
 }
 
-function condCheckBox($edit,$name,$value,$title,$textOn='',$textOff='',$span=1)
+function condCheckBox($edit,$name,$value,$title,$textOn='',$textOff='',$span=1) #COMPATIBILITY
 {
 return !$edit ? "<tr><td colspan=$span>
                   <i>".($value ? $textOn : $textOff).'</i>
@@ -80,7 +80,7 @@ $message.LoginLink
 <?php
 function perror($code,$message,$color='red',$span=1) #COMPATIBILITY
 {
-displayError($code,$message,$color,$span);
+displayPError($code,$message,$color,$span);
 }
 
 function displayNavigator($list)

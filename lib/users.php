@@ -195,6 +195,11 @@ function isEmailDisabled()
 return $this->email_disabled;
 }
 
+function isEmailEnabled()
+{
+return $this->email_disabled==0;
+}
+
 function getLastOnline()
 {
 if(isset($this->online))
