@@ -22,6 +22,7 @@
        <assign name='name' value#='$name...'>
       </if>
      </if>
+     <assign name='comment' value=''>
      <if what='$.hasLarge'>
       <assign name='comment' value#='(${.SmallX}x${.SmallY})'>
      </if>
