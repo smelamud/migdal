@@ -35,7 +35,7 @@ register_hover=blue
 login_border=blue
 login_text=blue
 return_normal=%g
-:default return_image=pics/return.gif
+:default return_image=pics/return-animated.gif
 :contrast return_image=pics/return_back.gif
 :test return_image=pics/return.gif
 :default return_word=false
@@ -111,7 +111,7 @@ catalog_subject=black
 catalog_subject_hover=blue
 :default details_image=pics/info-bullet.gif
 :contrast details_image=pics/info-test.gif
-:test details_image=pics/info.gif
+:test details_image=pics/info-bullet.gif
 :default details_noleft=true
 :contrast details_noleft=false
 :test details_noleft=false
@@ -215,13 +215,9 @@ BODY {
 	padding: 0;
 }
 
-.state .bottomimage {
-	padding: 0;
-	background-color: %state_date_back;
-}
-
 .state .style {
 	background-color: %state_date_back;
+	text-align: center;
 }
 
 .state .style A {
@@ -239,6 +235,7 @@ BODY {
 	font-weight: bold;
 	color: %state_date;
 	background-color: %state_date_back;
+	text-align: right;
 	vertical-align: middle;
 	padding-right: 1em;
 }

@@ -3,17 +3,21 @@
 
 <element name='Top'>
 <menu ident='$ident'>
-<table class='state'>
- <tr>
-  <td class='topimage'><img src='$image'></td>
-  <td colspan=2 align=right><login flags='$flags' err='$$err'></td>
- </tr>
- <tr>
-  <td class='bottomimage'><img src='pics/state.gif'></td>
-  <td class='style'><a href='/style.php?redir=$_'>Настроить вид</a></td>
-  <td align=right valign=top class='date'><today></td>
- </tr>
- <tr><td>&nbsp;</td></tr>
- <backtrace redir='$$redir'>
+<table class='state'><tr>
+ <td class='topimage'>
+  <img src='pics/migdal-online.gif'>
+  <img src='pics/big-tower.gif'>
+  <img src='$image'>
+ </td>
+ <td align=right><login flags='$flags' err='$$err'></td>
+</tr></table>
+<table class='state'><tr>
+ <td class='style'>
+  <a href='/style.php?redir=$_'>Настроить вид</a>
+ </td>
+ <td class='date'><today></td>
+</tr></table>
+<p>
+<backtrace redir='$$redir'>
 </table>
 </element>
