@@ -113,6 +113,37 @@ foreach($codings as $key=>$value)
 return $vars;
 }
 
+define('HOR_WE_KNOW',true);
+define('HOR_THEY_KNOW',false);
+
+function getHorisont($host,$weKnow)
+{
+$result=mysql_query('select '.($weKnow ? 'we_know' : 'they_know')."
+                     from horisonts
+		     where host='$host'")
+  or journalFailure('Cannot get horisont.');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function setHorisont($host,$horisont,$weKnow)
+{
+$host=addslashes($host);
+$result=mysql_query("select host
+                     from horisonts
+		     where host='$host'")
+  or journalFailure('Cannot select horisont.');
+if(mysql_num_rows($result)<=0)
+  mysql_query('insert into horisonts(host,'.($weKnow ? 'we_know'
+                                                     : 'they_know').")
+			      values('$host',$horisont)")
+    or journalFailure('Cannot insert horisont.');
+else
+  mysql_query('update horisonts
+               set '.($weKnow ? 'we_know' : 'they_know')."=$horisont
+	       where host='$host'")
+    or journalFailure('Cannot update horisont.');
+}
+
 class JournalLine
       extends DataObject
 {

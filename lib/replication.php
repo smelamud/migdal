@@ -16,6 +16,8 @@ dbOpen();
 session();
 redirect();
 
+setHorisont($host,$from,HOR_THEY_KNOW);
+
 noCacheHeaders();
 header("Content-Type: $replicationType");
 $iter=new JournalIterator($from);
