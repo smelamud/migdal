@@ -1,51 +1,54 @@
 << @(#) $Id$ >>
 
-<element name='navi_main' params='ident'>
+<element name='navi_main' params='ident,span' defaults='span=1'>
 <topics_line href='index.php' title='На главную страницу'
-	     text='Главная' arrow!="$ident=='index'">
-
+	     text='Главная' arrow!="$ident=='index'" span='$span'>
 </element>
 
-<element name='navi_migdal' params='ident'>
+<element name='navi_migdal' params='ident,span' defaults='span=1'>
 <topic_obj name='migdal' id='$`migdal`'>
 
 <posting_last topic_id='$`migdal`' recursive='*true'>
 <topics_line time='$,' href='migdal.php' title='$migdal.Description'
-	     text='$migdal.Name' arrow!="$ident=='migdal'">
+	     text='$migdal.Name' arrow!="$ident=='migdal'" span='$span'>
 </element>
 
-<element name='navi_times' params='ident'>
+<element name='navi_times' params='ident,span' defaults='span=1'>
 <topic_obj name='times' id='$`migdal-times`'>
 
 <posting_last topic_id='$`migdal-times`' recursive='*true'>
 <topics_line time='$,' href='times.php' title='$times.Description'
-	     text='$times.Name' arrow!="$ident=='times'">
+	     text='$times.Name' arrow!="$ident=='times'" span='$span'>
 </element>
 
-<element name='navi_taglit' params='ident'>
+<element name='navi_taglit' params='ident,span' defaults='span=1'>
 <topic_obj name='taglit' id='$`taglit`'>
 
 <posting_last topic_id='$`taglit`' recursive='*false'>
 <topics_line time='$,' href='taglit.php' title='$taglit.Description'
 	     text='$taglit.Name' arrow!="$ident=='taglit'"
-	     class='item ninept'>
+	     class='item ninept' span='$span'>
 </element>
 
 <element name='topics_major'>
-<topics_table title='Разделы'>
+<assign name='spn' value!='$unroll ? 2 : 1'>
+<topics_table title='Разделы' span='$spn'>
  <admin_topics>
-  <tr><td colspan=2>
+  <tr><tdspan span='$spn'>
    <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
-  </td></tr>
+  </tdspan></tr>
  </admin_topics>
  <admin_users>
-  <tr><td colspan=2>
+  <tr><tdspan span='$spn'>
    <a href='journal.php?redirid=$_' class='edit'>Журнал</a>
-  </td></tr>
+  </tdspan></tr>
  </admin_users>
- <navi_main ident='$ident'>
- <navi_migdal ident='$ident'>
- <navi_times ident='$ident'>
- <navi_taglit ident='$ident'>
+ <navi_main ident='$ident' span='$spn'>
+ <navi_migdal ident='$ident' span='$spn'>
+ <if what='$unroll'>
+  <topics_migdal_main>
+ </if>
+ <navi_times ident='$ident' span='$spn'>
+ <navi_taglit ident='$ident' span='$spn'>
 </topics_table>
 </element>

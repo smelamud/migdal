@@ -68,30 +68,26 @@
 
 <element name='topics_migdal_main'>
 <grps>
-<topics_table title='' nomargin='*true' span=2>
- <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-                      topic='$`migdal`' recursive='*false'>
- <for>
-  <topics_line time='$.Sent' text='$.Subject'
-               href#='migdal.php?artid=$.Id'
-	       indent!="$.Id==$`postings:migdal` ? -1 : 0"
-	       span!="$.Id==$`postings:migdal` ? 2 : 1"
-	       class!="$.Id==$`postings:migdal` ? 'ninept' : 'item eightpt'"
-	       nobullet!='$.Id==$`postings:migdal`'>
- </for>
- <posting_last topic_id='$`mazltov`' recursive='*true'>
- <topics_line time='$,' text='Мазл Тов'
-              href#='migdal.php?artid=$`postings:mazltov`'
-              class='item eightpt'>
- <posting_last topic_id='$`kes`' recursive='*true'>
- <topics_line time='$,' text='Клуб Еврейского Студента'
-              href#='migdal.php?artid=$`postings:kes`'
-              class='item eightpt'>
- <posting_last topic_id='$`methodics`' recursive='*true'>
- <topics_line time='$,' text='Методический кабинет' href#='methodics.php'
-              class='item eightpt'>
- <posting_last topic_id='$`kaitana`' recursive='*true'>
- <topics_line time='$,' text='Площадка' href='kaitana.php'
-              class='item eightpt'>
-</topics_table>
+<iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
+		     topic='$`migdal`' recursive='*false'>
+<for>
+ <if what='$.Id!=$`postings:migdal`'>
+  <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
+               indent=1 class='item eightpt'>
+ </if>
+</for>
+<posting_last topic_id='$`mazltov`' recursive='*true'>
+<topics_line time='$,' text='Мазл Тов'
+	     href#='migdal.php?artid=$`postings:mazltov`' indent=1
+	     class='item eightpt'>
+<posting_last topic_id='$`kes`' recursive='*true'>
+<topics_line time='$,' text='Клуб Еврейского Студента'
+	     href#='migdal.php?artid=$`postings:kes`' indent=1
+	     class='item eightpt'>
+<posting_last topic_id='$`methodics`' recursive='*true'>
+<topics_line time='$,' text='Методический кабинет' href#='methodics.php'
+             indent=1 class='item eightpt'>
+<posting_last topic_id='$`kaitana`' recursive='*true'>
+<topics_line time='$,' text='Площадка' href='kaitana.php' indent=1
+	     class='item eightpt'>
 </element>
