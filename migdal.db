@@ -56,6 +56,16 @@ CREATE TABLE complains (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'cross_topics'
+--
+
+CREATE TABLE cross_topics (
+  topic_id int(11) NOT NULL default '0',
+  peer_id int(11) NOT NULL default '0',
+  KEY topic_id (topic_id,peer_id)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'forums'
 --
 
@@ -166,7 +176,6 @@ CREATE TABLE messages (
   hidden tinyint(4) NOT NULL default '0',
   disabled tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
-  topic_link int(11) NOT NULL default '0',
   url_domain varchar(70) NOT NULL default '',
   url varchar(250) NOT NULL default '',
   url_check datetime NOT NULL default '0000-00-00 00:00:00',

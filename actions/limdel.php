@@ -32,6 +32,6 @@ $err=deleteImage($posting);
 if($err==ELID_OK)
   header('Location: '.remakeURI($okdir,array('err'),array('editid' => 0)));
 else
-  header('Location: '.remakeURI($faildir,array(),array('err' => $err)));
+  header('Location: '.remakeURI($faildir,array(),array('err' => $err)).'#error');
 dbClose();
 ?>

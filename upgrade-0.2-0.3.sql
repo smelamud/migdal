@@ -37,3 +37,9 @@ CREATE TABLE `links` (
  INDEX (`message_id`, `url_check`, `url_check_success`)
  );
 ALTER TABLE `messages` ADD INDEX(`sent`);
+ALTER TABLE `messages` DROP `topic_link`;
+CREATE TABLE cross_topics (
+  topic_id int(11) NOT NULL default '0',
+  peer_id int(11) NOT NULL default '0',
+  KEY topic_id (topic_id,peer_id)
+);

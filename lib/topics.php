@@ -276,14 +276,16 @@ class TopicNamesIterator
 {
 var $names;
 var $up;
+var $delimiter;
 
-function TopicNamesIterator($grp,$up=-1,$recursive=false)
+function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ')
 {
 $this->up=idByIdent('topics',$up);
+$this->delimiter=$delimiter;
 $this->TopicIterator('select id,track,name
 		      from topics'.
 		      $this->getWhere($grp,$this->up,'',false,$recursive).
-		     'order by track');
+		    ' order by track');
 }
 
 function create($row)
@@ -301,7 +303,7 @@ while($n)
 	 $up=-1;
      $n=strtok(' ');
      }
-$row['full_name']=join(' :: ',$nm);
+$row['full_name']=join($this->delimiter,$nm);
 return TopicIterator::create($row);
 }
 
@@ -311,9 +313,10 @@ class SortedTopicNamesIterator
       extends ArrayIterator
 {
 
-function SortedTopicNamesIterator($grp,$up=-1,$recursive=false)
+function SortedTopicNamesIterator($grp,$up=-1,$recursive=false,
+                                  $delimiter=' :: ')
 {
-$iterator=new TopicNamesIterator($grp,$up,$recursive);
+$iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter);
 $topics=array();
 while($item=$iterator->next())
      $topics[$item->getFullName()]=$item;
@@ -341,6 +344,23 @@ for($id=idByIdent('topics',$topic_id);$id>0 && $id!=$root;)
 if(!$reverse)
   $topics=array_reverse($topics);
 $this->ArrayIterator($topics);
+}
+
+}
+
+class CrossTopicIterator
+      extends SelectIterator
+{
+
+function CrossTopicIterator($cross)
+{
+$this->SelectIterator('Topic',
+                      "select id,name
+		       from topics
+		            left join cross_topics
+			         on topics.id=cross_topics.peer_id
+		       where topic_id=$cross
+		       order by track");
 }
 
 }

@@ -1,0 +1,37 @@
+<< @(#) $Id$ >>
+
+<int name='topic_id'>
+<int name='peer_id'>
+<grps>
+<topic_name id='$topic_id'>
+<pagetitle title#='Добавление перекрестной ссылки к теме "$,Name"'>
+
+<html>
+<preamble>
+<body>
+ <top ident='links'>
+ <center>
+  <formtable title='Добавить перекрестную ссылку'>
+   <form method=post action='actions/topiclinkadd.php'>
+    <hidden name='okdir' value='$--'>
+    <hidden name='faildir' value='$-'>
+    <hidden name='topic_id' value='$topic_id'>
+    <table>
+     <starinfo span=2>
+     <error id='*ETLA_NO_ADD' span=2
+	    text='Добавлять перекрестные ссылки может только администратор'>
+     <error id='*ETLA_TOPIC_ABSENT' text='Такой ссылки не существует' span=2>
+     <error id='*ETLA_SQL_CHECK' color='magenta' span=2
+	    text='Ошибка базы данных при проверке наличия ссылки'>
+     <error id='*ETLA_SQL_INSERT' color='magenta' span=2
+	    text='Ошибка базы данных при добавлении записи'>
+     <topicselect name='peer_id' value='$peer_id' grp='*GRP_LINKS'
+		  mandatory='*true' root='links' recursive='*true'>
+     <formbuttons title='Добавить' span=2>
+    </table>
+   </form>
+  </formtable>
+ </center>
+ <bottom>
+</body>
+</html>

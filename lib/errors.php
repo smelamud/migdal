@@ -195,4 +195,15 @@ define('EDM_NO_POSTING',352);
 define('EPL_OK',360);
 define('EPL_NO_LOGIN',361);
 define('EPL_STORE_SQL',362);
+
+define('ETLA_OK',370);
+define('ETLA_NO_ADD',371);
+define('ETLA_TOPIC_ABSENT',372);
+define('ETLA_SQL_CHECK',373);
+define('ETLA_SQL_INSERT',374);
+
+define('ETLD_OK',380);
+define('ETLD_NO_DEL',381);
+define('ETLD_SQL_CHECK',382);
+define('ETLD_SQL_DELETE',383);
 ?>

@@ -99,6 +99,6 @@ else
 				          'okdir',
 					  'faildir'),
 				    array('err'     => $err,
-					  'titleid' => $titleId)));
+					  'titleid' => $titleId)).'#error');
 dbClose();
 ?>

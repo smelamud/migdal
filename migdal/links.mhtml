@@ -7,13 +7,18 @@
 <ifzero what='$topic_id'>
  <assign name='topic_id' value='-1'>
 </ifzero>
-<pagetitle title='Ссылки'>
+<if what='$topic_id<=0'>
+ <pagetitle title='Ссылки'>
+<else>
+ <topic_name id='$topic_id'>
+ <assign name='topic_name' value='$,Name'>
+ <pagetitle title#='Ссылки - $topic_name'>
+</if>
 
 <element name='current' params='topic_id'>
 <if what='$topic_id>0'>
- <topic_name id='$topic_id'>
  <table class='topics' style='margin: 0'>
-  <tr><th>$,Name</th></tr>
+  <tr><th>$$topic_name</th></tr>
  </table>
  <div class='ninept' style='padding-left: 20px; padding-top: 5px'>
    <a href#='$[topic_id=-1 offset]'>Ссылки</a>
@@ -62,6 +67,45 @@
 </tr></table>
 </element>
 
+<element name='fullname' params='topic_id'>
+<iterate_topic_hierarchy topic_id='$topic_id' root='links'>
+<for>
+ <if what='!$;isFirst'>
+  &sp;/
+ </if>
+ $.Name
+</for>
+</element>
+
+<element name='seealso' params='topic_id'>
+<if what='$topic_id>0'>
+ <table class='topics ninept' style='margin: 0'>
+  <admin_topics>
+   <tr><td>
+    <a href='topiclinkadd.php?topic_id=$topic_id&redirid=$_'
+       class='edit'>Добавить</a>
+   </td></tr>
+  </admin_topics>
+  <iterate_topic_cross cross='$topic_id'>
+  <ifnzero what='$;Count'>
+   <tr><td><b>См. также:</b></td></tr>
+   <tr><td>
+    <for>
+     <if what='!$;isFirst'><br></if>
+     <a href='$[topic_id=$.Id offset]'><fullname topic_id=$.Id></a><asp>
+     <admin_topics>
+      <asp>&nbsp;<asp>
+      <a href='actions/topiclinkdel.php?topic_id=$topic_id&peer_id=$.Id&okdir=$#-&faildir=$#-'
+         class='edit'><asp>
+       <asp>Удалить</a>
+     </admin_topics>
+    </for>
+   </td></tr>
+  </ifnzero>
+ </table>
+</if>
+</element>
+
 <html>
 <preamble>
 <body>
@@ -71,6 +115,7 @@
    <current topic_id='$topic_id'>
    <admin>
    <navigator topic_id='$topic_id'>
+   <seealso topic_id='$topic_id'>
   </td></tr>
   <tr valign=top><td class='cframe'>
    <postings grp='*GRP_LINKS' topic='$topic_id' root='links'
