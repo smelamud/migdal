@@ -1,11 +1,14 @@
 << @(#) $Id$ >>
 << GRP >>
-<macro name='grp' defaults='name=g ignore=0' x=>
+<macro name='grpdata' defaults='name=g ignore=0'>
+ <require name='lib/grputils.php'>
+ <obj name='%name' class='GrpData' arg1='$grp' arg2='%ignore'>
+</macro>
+<macro name='grp' defaults='name=g ignore=0'>
  <header>
   <require name='lib/grps.php'>
-  <require name='lib/grputils.php'>
-  <obj name='%name' class='GrpData' arg1='$grp' arg2='%ignore'>
-  <reload why='$g.Invalid' var='grp' value='*GRP_FORUMS'>
+  <grpdata name='%name' ignore='%ignore'>
+  <reload why='$%name.Invalid' var='grp' value='*GRP_FORUMS'>
  </header>
 </macro>
 <macro name='grps'>
@@ -20,14 +23,19 @@
  <perror id='%id' text='%text' color='%color' span='%span'>
 </macro>
 << Iterators >>
-<macro name='iterate_menu'>
- <require name='lib/menu.php'>
- <iterate name='%name' class='MenuIterator' arg1='%ident'>
-</macro>
 <macro name='iterate_forumlist'>
  <require name='lib/messages.php'>
  <iterate name='%name' class='ForumListIterator'
           arg1='%up' arg2='%limit' arg3='%offset'>
+</macro>
+<macro name='iterate_menu'>
+ <require name='lib/menu.php'>
+ <iterate name='%name' class='MenuIterator' arg1='%ident'>
+</macro>
+<macro name='iterate_messagelist' defaults="grp='$grp'">
+ <require name='lib/messages.php'>
+ <iterate name='%name' class='MessageListIterator'
+          arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset'>
 </macro>
 <macro name='iterate_topiclist'>
  <require name='lib/topics.php'>
