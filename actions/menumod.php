@@ -18,7 +18,8 @@ if($item->name=='')
   return EMI_NAME_ABSENT;
 if($item->ident=='')
   return EMI_IDENT_ABSENT;
-if($item->id!=idByIdent('menu',$item->ident))
+$id=idByIdent('menu',$item->ident);
+if($item->id!=$id && $id!=0)
   return EMI_IDENT_UNIQUE;
 if(!$item->store())
   return EMI_STORE_SQL;

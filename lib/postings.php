@@ -201,7 +201,8 @@ class PostingListIterator
 {
 
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
-                             $offset=0,$personal=0,$sort=SORT_SENT)
+                             $offset=0,$personal=0,$sort=SORT_SENT,
+			     $withAnswers=false)
 {
 global $userId,$userModerator;
 
@@ -218,6 +219,8 @@ $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
              SORT_NAME     => 'subject',
              SORT_ACTIVITY => 'age desc'));
+$answerFilter=$withAnswers ? 'having count(forummesgs.id)<>0' : '';
+$countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
@@ -259,16 +262,26 @@ $this->LimitSelectIterator(
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
 	group by messages.id
+	$answerFilter
 	$order",$limit,$offset,
-       "select count(*)
+       "select count(distinct postings.id)
 	from postings
 	     left join messages
 	          on postings.message_id=messages.id
 	     left join topics
 		  on postings.topic_id=topics.id
-	where (messages.hidden<$hide or sender_id=$userId) and
-	      (messages.disabled<$hide or sender_id=$userId) and
-	      personal_id=$personal and (grp & $grp)<>0 $topicFilter");
+	     left join forums
+		  on messages.id=forums.up
+	     left join messages as forummesgs
+	          on forums.message_id=forummesgs.id and
+	             (forummesgs.hidden<$hide or
+		      forummesgs.sender_id=$userId) and
+	             (forummesgs.disabled<$hide or
+		      forummesgs.sender_id=$userId)
+	where (messages.hidden<$hide or messages.sender_id=$userId) and
+	      (messages.disabled<$hide or messages.sender_id=$userId) and
+	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
+	      $topicFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }

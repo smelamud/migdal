@@ -28,8 +28,8 @@
 <decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'
        defaults="complain='*true'">
 <decel name='forumcatalog' file='parts/forumcatalog.php'
-       params='grp,topic,limit,offset,title'
-       defaults="topic=-1 limit=10 offset=0 title=''">
+       params='topic,limit,offset'
+       defaults="topic=-1 limit=10 offset=0">
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'
@@ -57,8 +57,9 @@
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php' params='ident,flags,image'
        defaults="flags=''">
-<decel name='topics' file='parts/topics.php' params='g,topic_id,title'
-       defaults="title='' topic_id=0">
+<decel name='topics' file='parts/topics.php'
+       params='g,topic_id,title,withpostings,withanswers'
+       defaults="title='' topic_id=0 withpostings='*false' withanswers='*false'">
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory' defaults="mandatory='*false'">
 <decel name='uploader' file='parts/uploader.php'

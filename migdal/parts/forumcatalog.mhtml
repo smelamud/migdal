@@ -1,34 +1,8 @@
 << @(#) $Id$ >>
 << Based-on: migdal/parts/postings.mhtml 1.18 >>
 
-<element name='batcher_forumcatalog' params='value,list,topic,grp'>
-<grpdata>
-<grpitemtitle>
-<grpitemstitle>
+<element name='batcher_forumcatalog' params='value,list,topic'>
 <table width=100% class='batcher'><tr>
- <td align=left><table><tr valign=bottom><td>
-  <logged>
-   <if what='$g.Valid'>
-    <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
-       class='add'>Добавить $grpitemtitle</a>
-   <else>
-    <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
-       class='add'>Добавить новость</a>
-    </td><td width=10></td><td>
-    <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
-       class='add'>Добавить статью</a>
-   </if>
-  <else>
-   <span class='advert'>
-    <if what='$g.Valid'>
-     Хотите добавлять $grpitemstitle?
-    <else>
-     Хотите добавлять новости и статьи?
-    </if>
-    <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
-   </span>
-  </logged>
- </td></tr></table></td>
  <td align=right><table><tr valign=center>
   <form method=get action='$~'>
    <hiddenget remove='fcp'>
@@ -69,10 +43,12 @@
 </element>
 
 <element name='ForumCatalog'>
-<iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
-                     sort='*SORT_ACTIVITY'>
+<grps>
+<iterate_postinglist grp='*GRP_ALL' topic='$topic' limit='$limit'
+                     offset='$offset' sort='*SORT_ACTIVITY'
+		     withanswers='*true'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher_forumcatalog value='$limit' list='$;' topic='$topic' grp='$grp'>
+ <batcher_forumcatalog value='$limit' list='$;' topic='$topic' grp='*GRP_ALL'>
  <table>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -89,7 +65,7 @@
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <if what='$topic<0'>
      <td class='topic' rowspan=2>
-      <a href='forumcatalog.php?redir=$_&grp=$grp&topic_id=$.TopicId'
+      <a href='forumcatalog.php?redir=$_&topic_id=$.TopicId'
 	 class='topic' title='$.TopicDescription'>$.TopicName</a>
      </td>
     </if>
@@ -132,7 +108,7 @@
   </for>
  </table>
  <ifnzero what='$;Count'>
-  <batcher_forumcatalog value='$limit' list='$;' topic='$topic' grp='$grp'>
+  <batcher_forumcatalog value='$limit' list='$;' topic='$topic'>
  </ifnzero>
 <else>
  &nbsp;

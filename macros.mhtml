@@ -31,10 +31,10 @@
  <obj name='%name' class='GrpData' arg1='%grp' arg2='%ignore'>
 </macro>
 
-<macro name='grp' defaults='name=g ignore=0'>
+<macro name='grp' defaults="name=g grp='$grp' ignore=0">
  <header>
   <require name='lib/grps.php'>
-  <grpdata name='%name' ignore='%ignore'>
+  <grpdata name='%name' grp='%grp' ignore='%ignore'>
  </header>
 </macro>
 
@@ -150,11 +150,11 @@
 </macro>
 
 <macro name='iterate_postinglist'
-       defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT'">
+       defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*false'">
  <require name='lib/postings.php'>
  <iterate name='%name' class='PostingListIterator'
           arg1='%grp' arg2='%topic' arg3='%recursive' arg4='%limit'
-	  arg5='%offset' arg6='%personal' arg7='%sort'>
+	  arg5='%offset' arg6='%personal' arg7='%sort' arg8='%withanswers'>
 </macro>
 
 <macro name='iterate_received_instant_messagelist'>
@@ -172,9 +172,11 @@
  <iterate name='%name' class='StyleNamesIterator'>
 </macro>
 
-<macro name='iterate_topiclist' defaults="up=0">
+<macro name='iterate_topiclist'
+       defaults="up=0 withpostings='*false' withanswers='*false'">
  <require name='lib/topics.php'>
- <iterate name='%name' class='TopicListIterator' arg1='%grp' arg2='%up'>
+ <iterate name='%name' class='TopicListIterator' arg1='%grp' arg2='%up'
+          arg3='%withpostings' arg4='%withanswers'>
 </macro>
 
 <macro name='iterate_topicnames'>

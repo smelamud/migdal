@@ -230,14 +230,15 @@ class TopicIterator
       extends SelectIterator
 {
 
-function getWhere($grp,$up=0,$prefix='')
+function getWhere($grp,$up=0,$prefix='',$withAnswers=false)
 {
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
 $uf=$up>=0 ? 'and '.byIdent($up,'topics.up','uptopics.ident') : '';
 $gf="and (${prefix}allow & $grp)!=0";
-return " where $prefix"."hidden<$hide $uf $gf ";
+$af=$withAnswers ? "and forummesgs.id is not null" : '';
+return " where $prefix"."hidden<$hide $uf $gf $af ";
 }
 
 function TopicIterator($query)
@@ -251,15 +252,16 @@ class TopicListIterator
       extends TopicIterator
 {
 
-function TopicListIterator($grp,$up=0)
+function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$postFilter=$withPostings ? 'having message_count<>0' : '';
 $this->TopicIterator(
       "select topics.id as id,topics.up as up,topics.name as name,
               topics.stotext_id as stotext_id,stotexts.body as description,
-	      count(messages.id) as message_count
+	      count(distinct messages.id) as message_count
        from topics
             left join stotexts
 	         on stotexts.id=topics.stotext_id
@@ -269,11 +271,20 @@ $this->TopicIterator(
 	         on uptopics.id=topics.up
             left join messages
 	         on postings.message_id=messages.id
- 	 	    and (messages.hidden<$hide or sender_id=$userId)
-		    and (messages.disabled<$hide or sender_id=$userId)".
-       $this->getWhere($grp,$up,'topics.').
-      'group by topics.id
-       order by topics.name');
+ 	 	    and (messages.hidden<$hide or messages.sender_id=$userId)
+		    and (messages.disabled<$hide or messages.sender_id=$userId)
+	    left join forums
+		 on messages.id=forums.up
+	    left join messages as forummesgs
+		 on forums.message_id=forummesgs.id and
+		    (forummesgs.hidden<$hide or
+		     forummesgs.sender_id=$userId) and
+		    (forummesgs.disabled<$hide or
+		     forummesgs.sender_id=$userId)".
+       $this->getWhere($grp,$up,'topics.',$withAnswers).
+      "group by topics.id
+       $postFilter
+       order by topics.name");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }

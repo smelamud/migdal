@@ -2,7 +2,8 @@
 << Based-on: demo/parts/topics.mhtml 1.5 >>
 
 <element name='topics'>
-<iterate_topiclist grp='$g.Effective'>
+<iterate_topiclist grp='$g.Effective' withpostings='$withpostings'
+                   withanswers='$withanswers'>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%>
   <col width='0*'>

@@ -3,22 +3,21 @@
 
 <int name='topic_id'>
 <int name='offset'>
-<grp ignore='$ignoregrp'>
-<grptitle>
-<grpident>
 <html>
 <head>
- <title>Мигдаль - $grptitle</title>
+ <title>Мигдаль - Обсуждения</title>
 </head>
 <body>
- <top ident='$grpident' image='pics/forums.gif'>
+ <top ident='discuss' image='pics/forums.gif'>
  <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
-  <td width=20%><topics g='$g' topic_id='$topic_id' title='Разделы'></td>
+  <grp grp='*GRP_ALL' ignore='$ignoregrp'>
+  <td width=20%><topics g='$g' topic_id='$topic_id' title='Разделы'
+                        withpostings='*true' withanswers='*true'></td>
   <td width=20>&nbsp;</td>
-  <td><forumcatalog grp='$grp' topic='$topic_id' title='$grptitle'
-                    limit='$userForumCatalogPortion' offset='$offset'></td>
+  <td><forumcatalog topic='$topic_id' limit='$userForumCatalogPortion'
+                    offset='$offset'></td>
  </tr></table>
  <bottom>
 </body>
