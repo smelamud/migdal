@@ -213,10 +213,12 @@
 <deccall macro='time' func='time'>
 <deccall macro='tmptext' func='tmpTextRestore' file='lib/tmptexts.php'
          params='id'>
-<deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
-         params='id,up' defaults='name=topic id="$topic_id" up=0'>
+<deccall macro='topic_count' func='getSubtopicsCountById' file='lib/topics.php'
+         params='id,recursive' defaults="name=topic recursive='*false'">
 <deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
          params='id' defaults='name=topic id="$topic_id"'>
+<deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
+         params='id,up' defaults='name=topic id="$topic_id" up=0'>
 <decexec macro='update_last_chat' func='updateLastChat' file='lib/users.php'>
 <deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
 <deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>

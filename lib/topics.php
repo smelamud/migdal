@@ -455,6 +455,15 @@ $result=mysql_query("select user_id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+function getSubtopicsCountById($id,$recursive=false)
+{
+$result=mysql_query('select count(*)
+                     from topics
+		     where '.byIdentRecursive('topics',$id,$recursive))
+	  or sqlbug('Ошибка SQL при получении количества подтем');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0)-1 : 0;
+}
+
 function topicExists($id)
 {
 global $userAdminTopics;

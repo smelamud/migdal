@@ -9,11 +9,31 @@
 </ifzero>
 <if what='$topic_id<=0'>
  <pagetitle title='Ссылки'>
+ <topictitle title='Каталог еврейских ресурсов'>
 <else>
  <topic_name id='$topic_id'>
  <assign name='topic_name' value='$,Name'>
  <pagetitle title#='Ссылки - $topic_name'>
 </if>
+
+<element name='intro'>
+<subtitle>
+<postings_info grp='*GRP_LINKS' topic_id='links' recursive='*true'>
+<zone>
+ <array vals='ссылку,ссылки,ссылок'>
+ <plural name='links' value='$,Total'>
+</zone>
+<zone>
+ <topic_count name='subs' id='links' recursive='*true'>
+ <array vals='категории,категориям,категориям'>
+ <plural name='cats' value='$subs'>
+</zone>
+<span class='ninept'>
+ Каталог содержит <em>$,Total</em> $links на различные ресурсы, имеющие
+ отношение к евреям и еврейству. Ссылки тщательно отсортированы по
+ <em>$subs</em> $cats.
+</span>
+</element>
 
 <element name='current' params='topic_id'>
 <if what='$topic_id>0'>
@@ -56,6 +76,15 @@
      $.Name&nbsp;<span class='answers'>($,Total)</span><asp>
     <asp></a><asp>
     <biff time='$,MaxSent' small='*true'>
+    <topic_count id='$.Id' recursive='*true'>
+    <ifnzero what='$,'>
+     <br>
+     <zone>
+      <array vals='подкатегория,подкатегории,подкатегорий'>
+      <plural name='subs' value='$,'>
+     </zone>
+     <span class='eightpt'><em>$,</em> $subs
+    </ifnzero>
    </td></tr>
    <if what='$;isEol'>
     </tbody></table></td>
@@ -111,8 +140,12 @@
 <body>
  <top ident='links'>
  <table width=100% cellpadding=5>
-  <tr valign=top><td class='eframe' colspan=2>
-   <current topic_id='$topic_id'>
+  <tr valign=top><td class='aframe' colspan=2>
+   <if what='$topic<=0'>
+    <intro>
+   <else>
+    <current topic_id='$topic_id'>
+   </if>
    <admin>
    <navigator topic_id='$topic_id'>
    <seealso topic_id='$topic_id'>
