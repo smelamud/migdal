@@ -84,6 +84,7 @@
        defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
+<decel name='identify' file='parts/identify.php' params='&posting'>
 <decel name='image_linked_tag' file='parts/utils.php'
        params='id,enlarge,align'
        defaults="enlarge=true align=''">
@@ -188,11 +189,9 @@
        params='ident,no_new,target,showimages,transref,nologin'
        defaults="no_new='*false' target='' showimages='*true' transref=''
                  nologin='*false'">
-<decel name='topiclink' file='parts/posting.php' params='posting,class'
+<decel name='topiclink' file='parts/posting.php' params='&posting,class'
        defaults="class='topic'">
-<decel name='topiclink_all' file='parts/posting.php'
-       params='posting,&href,&ghref,&name,&title'>
-<decel name='topiclink_gallery' file='parts/posting.php' params='posting,class'
+<decel name='topiclink_gallery' file='parts/posting.php' params='&posting,class'
        defaults="class='topic'">
 <decel name='topics' file='parts/topics-general.php' params='posting,ident'
        defaults="posting=0 ident=''">

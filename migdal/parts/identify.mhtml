@@ -1,0 +1,206 @@
+<< @(#) $Id$ >>
+
+<macro name='identifier'>
+ <element name='identify_%name' params='posting,&href,&ghref,&mhref,&name,
+                                        &title,&root'
+          defaults="posting='$posting' href='$href' ghref='$ghref'
+	            mhref='$mhref' name='$name' title='$title' root='$root'">
+</macro>
+
+<macro name='/identifier'>
+ </element>
+</macro>
+
+<identifier name='links'>
+<assign name='href' value#='links.php?topic_id=$posting.TopicId'>
+<assign name='ghref' value=''>
+<assign name='name' value=''>
+<assign name='title' value='$posting.TopicDescription'>
+<iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
+<for>
+ <if what='!$;isFirst'><assign name='name' value#='$name / '></if>
+ <assign name='name' value#='$name$.Name'>
+</for>
+<assign name='root' value='$`links`'>
+</identifier>
+
+<identifier name='migdal_news'>
+<topic_obj id='$`migdal-news`'>
+<if what='$posting.TopicId==$`migdal-news`'>
+ <assign name='href' value='migdal-news.php'>
+ <assign name='ghref' value=''>
+ <assign name='title' value='$,Description'>
+ <assign name='name' value='$,Name'>
+<else>
+ <assign name='href' value#='migdal-news.php?topic_id=$posting.TopicId'>
+ <assign name='ghref' value#='gallery.php?topic_id=$posting.TopicId'>
+ <assign name='title' value='$posting.TopicDescription'>
+ <assign name='name' value#='$,Name :: $posting.TopicName'>
+</if>
+</identifier>
+
+<identifier name='taglit'>
+<ifnzero what='$posting.SenderId'>
+ <assign name='href' value#='taglit-user.php?user_id=$posting.SenderId'>
+ <assign name='ghref'
+	 value#='gallery.php?topic_id=$`taglit`&user_id=$posting.SenderId'>
+<else>
+ <assign name='href' value#='taglit.php'>
+ <assign name='ghref' value='$href'>
+</ifnzero>
+<assign name='mhref' value='$href'>
+<assign name='title' value='$posting.TopicDescription'>
+<assign name='name' value='$posting.TopicName'>
+<assign name='root' value='$`taglit`'>
+</identifier>
+
+<identifier name='times'>
+<ifzero what='$posting.Index1'>
+ <assign name='href' value#='times.php?issue=$posting.Index1'>
+<else>
+ <assign name='href' value#='times.php'>
+</ifnzero>
+<assign name='ghref' value=''>
+<assign name='title' value='$posting.TopicDescription'>
+<assign name='name' value=''>
+<if what='$posting.TopicId!=$`migdal-times`'>
+ <assign name='name' value='Мигдаль Times :: '>
+</if>
+<assign name='name' value#='$name$posting.TopicName'>
+<assign name='root' value='$`migdal-times`'>
+</identifier>
+
+<identifier name='veterans'>
+<ifnzero what='$posting.SenderId'>
+ <assign name='href' value#='veterans-user.php?user_id=$posting.SenderId'>
+ <assign name='ghref'
+	 value#='gallery.php?topic_id=$`veterans`&user_id=$posting.SenderId'>
+<else>
+ <assign name='href' value#='veterans.php'>
+ <assign name='ghref' value='$href'>
+</ifnzero>
+<assign name='mhref' value='$href'>
+<assign name='title' value='$posting.TopicDescription'>
+<assign name='name' value='$posting.TopicName'>
+<assign name='root' value='$`veterans`'>
+</identifier>
+
+<identifier name='all'>
+<if what='$/$posting.TopicId,0/==$`migdal,e`'>
+ <assign name='href' value='index.php'>
+ <assign name='ghref' value=''>
+ <assign name='title' value=''>
+ <assign name='name' value='Migdal'>
+<elif what='$/$posting.TopicId,0/==$`migdal`'>
+ <assign name='root' value='$`migdal`'>
+ <if what='($posting.Grp & *GRP_GALLERY)==0'>
+  <assign name='href' value='migdal.php'>
+  <assign name='ghref' value#='gallery.php?topic_id=$`migdal`'>
+  <assign name='title' value=''>
+  <assign name='name' value='Мигдаль'>
+  <if what='$/$posting.TopicId,1/==$`migdal-library`'>
+   <topic_obj id='$`migdal-library`'>
+   <assign name='href' value='migdal-library.php'>
+   <assign name='ghref' value=''>
+   <assign name='title' value='$,Description'>
+   <assign name='name' value#='Мигдаль :: $,Name'>
+   <assign name='root' value='$`migdal-library`'>
+   <if what='($posting.Grp & *GRP_LIBRARY_ANNOUNCES)!=0'>
+    <assign name='href' value='migdal-library-news.php'>
+    <assign name='ghref' value=''>
+    <assign name='title' value=''>
+    <assign name='name' value#='$name :: Новые поступления'>
+   </if>
+  <elif what='$/$posting.TopicId,1/==$`methodics`'>
+   <topic_obj id='$`methodics`'>
+   <assign name='href' value='methodics.php'>
+   <assign name='ghref' value=''>
+   <assign name='title' value='$,Description'>
+   <assign name='name' value='$,Name'>
+   <assign name='root' value='$`methodics`'>
+  <elif what='$/$posting.TopicId,1/==$`jcc`'>
+   <topic_obj id='$`jcc`'>
+   <assign name='href' value#='jcc.php'>
+   <assign name='ghref' value#='gallery.php?topic_id=$`jcc`'>
+   <assign name='title' value='$,Description'>
+   <assign name='name' value#='Мигдаль :: $,Name'>
+   <if what='$/$posting.TopicId,2/==$`kaitana`'>
+    <topic_obj id='$`kaitana`'>
+    <assign name='href' value#='kaitana.php?topic_id=$posting.TopicId'>
+    <assign name='ghref' value#='gallery.php?topic_id=$posting.TopicId'>
+    <assign name='title' value='$,Description'>
+    <assign name='name' value#='$name :: $,Name'>
+    <assign name='root' value='$posting.TopicId'>
+   </if>
+  </if>
+ <else>
+  <assign name='href' value#='gallery.php?topic_id=$posting.TopicId'>
+  <assign name='ghref' value='$href'>
+  <assign name='title' value='$posting.TopicDescription'>
+  <assign name='name' value#='Мигдаль :: $posting.TopicName'>
+  <assign name='mhref' value='migdal.php'>
+  <if what='$/$posting.TopicId,1/==$`jcc`'>
+   <assign name='mhref' value='jcc.php'>
+   <if what='$/$posting.TopicId,2/==$`kaitana`'>
+    <assign name='mhref' value#='kaitana.php?topic_id=$posting.TopicId'>
+   <elif what='$/$posting.TopicId,2/==$`kes`'>
+    <assign name='mhref' value#='migdal.php?artid=$`postings:kes`'>
+   </if>
+  <elif what='$/$posting.TopicId,1/==$`mazltov`'>
+   <assign name='mhref' value#='migdal.php?artid=$`postings:mazltov`'>
+  </if>
+ </if>
+<elif what='$/$posting.TopicId,0/==$`migdal-times`'>
+ <identify_times>
+<elif what='$/$posting.TopicId,0/==$`general`'>
+ <assign name='root' value='$`general`'>
+ <if what='($posting.Grp & *GRP_GALLERY)==0'>
+  <assign name='href' value#='index.php?topic_id=$posting.TopicId'>
+  <assign name='ghref' value='$href'>
+  <assign name='title' value='$posting.TopicDescription'>
+  <assign name='name' value='$posting.TopicName'>
+  <if what='$/$posting.TopicId,1/==$`inet-news`'>
+   <topic_obj id='$`inet-news`'>
+   <assign name='href' value='links.php'>
+   <assign name='ghref' value=''>
+   <assign name='title' value='$,Description'>
+   <assign name='name' value='$,Name'>
+  <elif what='$/$posting.TopicId,1/==$`migdal-news`'>
+   <identify_migdal_news>
+  </if>
+ <else>
+  <assign name='href' value#='gallery.php?topic_id=$posting.TopicId'>
+  <assign name='ghref' value='$href'>
+  <assign name='title' value='$posting.TopicDescription'>
+  <assign name='name' value='$posting.TopicName'>
+ </if>
+<elif what='$/$posting.TopicId,0/==$`taglit`'>
+ <identify_taglit>
+<elif what='$/$posting.TopicId,0/==$`veterans`'>
+ <identify_veterans>
+</if>
+<if what='($posting.Grp & *GRP_LINKS)!=0'>
+ <identify_links>
+<elif what='($posting.Grp & *GRP_TIPS)!=0'>
+ <assign name='href' value='tips.php'>
+ <assign name='ghref' value=''>
+ <assign name='title' value='$posting.TopicDescription'>
+ <assign name='name' value='$posting.TopicName'>
+ <assign name='root' value='$`tips`'>
+<elif what='($posting.Grp & *GRP_BOOK_CHAPTERS)!=0'>
+ <assign name='root' value='$posting.TopicId'>
+</if>
+</identifier>
+
+<element name='identify'>
+<if what='!$posting.Identified'>
+ <identify_all>
+ <setup name='posting' var='GeneralHref' value='$href'>
+ <setup name='posting' var='GalleryHref' value='$ghref'>
+ <setup name='posting' var='MainHref' value='$mhref'>
+ <setup name='posting' var='FullTopicName' value='$name'>
+ <setup name='posting' var='FullTopicDescription' value='$title'>
+ <setup name='posting' var='RootId' value='$root'>
+ <setup name='posting' var='Identified' value='*true'>
+</if>
+</element>

@@ -1,144 +1,15 @@
 << @(#) $Id$ >>
 
-<element name='topiclink_galleries' params='posting,&href,&ghref,&name,&title'>
-<assign name='href' value#='gallery.php?topic_id=$posting.TopicId'>
-<assign name='ghref' value='$href'>
-<assign name='name' value!='$/$posting.TopicId,0/==$`migdal`
-			    ? "Мигдаль :: ".$posting.TopicName
-			    : $posting.TopicName'>
-<assign name='title' value='$posting.TopicDescription'>
-</element>
-
-<element name='topiclink_links' params='posting,&href,&ghref,&name,&title'>
-<assign name='href' value#='links.php?topic_id=$posting.TopicId'>
-<assign name='ghref' value=''>
-<assign name='name' value=''>
-<assign name='title' value='$posting.TopicDescription'>
-<iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
-<for>
- <if what='!$;isFirst'><assign name='name' value#='$name / '></if>
- <assign name='name' value#='$name$.Name'>
-</for>
-</element>
-
-<element name='topiclink_times' params='posting,&href,&ghref,&name,&title'>
-<ifzero what='$posting.Index1'>
- <assign name='href' value#='times.php?issue=$posting.Index1'>
-<else>
- <assign name='href' value#='times.php'>
-</ifnzero>
-<assign name='ghref' value=''>
-<assign name='name' value=''>
-<assign name='title' value='$posting.TopicDescription'>
-<if what='$posting.TopicId!=$`migdal-times`'>
- <assign name='name' value='Мигдаль Times :: '>
-</if>
-<assign name='name' value#='$name$posting.TopicName'>
-</element>
-
-<element name='topiclink_all'>
-<if what='($posting.Grp & *GRP_GALLERY)!=0'>
- <topiclink_galleries posting='$posting' href='$href' ghref='$ghref'
-                      name='$name' title='$title'>
-<elif what='($posting.Grp & *GRP_LINKS)!=0'>
- <topiclink_links posting='$posting' href='$href' ghref='$ghref' name='$name'
-                  title='$title'>
-<elif what='($posting.Grp & *GRP_TIPS)!=0'>
- <assign name='href' value='tips.php'>
- <assign name='ghref' value=''>
- <assign name='title' value='$posting.TopicDescription'>
- <assign name='name' value='$posting.TopicName'>
-<elif what='$/$posting.TopicId,0/==$`migdal-times`'>
- <topiclink_times posting='$posting' href='$href' ghref='$ghref' name='$name'
-                  title='$title'>
-<elif what='$/$posting.TopicId,0/==$`taglit`'>
- <assign name='href' value#='taglit-user.php?user_id=$posting.SenderId'>
- <assign name='ghref'
-         value#='gallery.php?topic_id=$`taglit`&user_id=$posting.SenderId'>
- <assign name='title' value='$posting.TopicDescription'>
- <assign name='name' value='$posting.TopicName'>
-<elif what='$/$posting.TopicId,0/==$`veterans`'>
- <assign name='href' value#='veterans-user.php?user_id=$posting.SenderId'>
- <assign name='ghref'
-         value#='gallery.php?topic_id=$`veterans`&user_id=$posting.SenderId'>
- <assign name='title' value='$posting.TopicDescription'>
- <assign name='name' value='$posting.TopicName'>
-<elif what='$/$posting.TopicId,0/==$`migdal`'>
- <if what='$/$posting.TopicId,1/==$`methodics`'>
-  <topic_obj id='$`methodics`'>
-  <assign name='href' value='methodics.php'>
-  <assign name='ghref' value=''>
-  <assign name='title' value='$,Description'>
-  <assign name='name' value='$,Name'>
- <elif what='$/$posting.TopicId,1/==$`migdal-library`'>
-  <topic_obj id='$`migdal-library`'>
-  <assign name='href' value='migdal-library.php'>
-  <assign name='ghref' value=''>
-  <assign name='title' value='$,Description'>
-  <assign name='name' value#='Мигдаль :: $,Name'>
- <elif what='$/$posting.TopicId,1/==$`jcc`'>
-  <topic_obj id='$`jcc`'>
-  <assign name='href' value#='migdal.php?topic_id=$`jcc`'>
-  <assign name='ghref' value#='gallery.php?topic_id=$`jcc`'>
-  <assign name='title' value='$,Description'>
-  <assign name='name' value#='Мигдаль :: $,Name'>
-  <if what='$/$posting.TopicId,2/==$`kaitana`'>
-   <topic_obj id='$`kaitana`'>
-   <assign name='href' value#='migdal.php?topic_id=$posting.TopicId'>
-   <assign name='ghref' value#='gallery.php?topic_id=$posting.TopicId'>
-   <assign name='title' value='$,Description'>
-   <assign name='name' value#='$name :: $,Name'>
-  </if>
- <else>
-  <assign name='href' value='migdal.php'>
-  <assign name='ghref' value#='gallery.php?topic_id=$`migdal`'>
-  <assign name='title' value=''>
-  <assign name='name' value='Мигдаль'>
- </if>
-<elif what='$/$posting.TopicId,0/==$`migdal,e`'>
- <assign name='href' value='index.php'>
- <assign name='ghref' value=''>
- <assign name='title' value=''>
- <assign name='name' value='Migdal'>
-<else>
- <if what='$/$posting.TopicId,1/==$`inet-news`'>
-  <topic_obj id='$`inet-news`'>
-  <assign name='href' value='links.php'>
-  <assign name='ghref' value=''>
-  <assign name='title' value='$,Description'>
-  <assign name='name' value='$,Name'>
- <elif what='$/$posting.TopicId,1/==$`migdal-news`'>
-  <topic_obj id='$`migdal-news`'>
-  <if what='$posting.TopicId==$`migdal-news`'>
-   <assign name='href' value='migdal-news.php'>
-   <assign name='ghref' value=''>
-   <assign name='title' value='$,Description'>
-   <assign name='name' value='$,Name'>
-  <else>
-   <assign name='href' value#='migdal-news.php?topic_id=$posting.TopicId'>
-   <assign name='ghref' value#='gallery.php?topic_id=$posting.TopicId'>
-   <assign name='title' value='$posting.TopicDescription'>
-   <assign name='name' value#='$,Name :: $posting.TopicName'>
-  </if>
- <else>
-  <assign name='href' value#='index.php?topic_id=$posting.TopicId'>
-  <assign name='ghref' value#='gallery.php?topic_id=$posting.TopicId'>
-  <assign name='title' value='$posting.TopicDescription'>
-  <assign name='name' value='$posting.TopicName'>
- </if>
-</if>
-</element>
-
 <element name='topiclink'>
-<topiclink_all posting='$posting' href='$href' ghref='$ghref' name='$name'
-               title='$title'>
-<at href='$href' class='$class' title='$title'>$name</at>
+<identify posting='$posting'>
+<at href='$posting.GeneralHref' class='$class'
+    title='$posting.FullTopicDescription'>$posting.FullTopicName</at>
 </element>
 
 <element name='topiclink_gallery'>
-<topiclink_all posting='$posting' href='$href' ghref='$ghref' name='$name'
-               title='$title'>
-<at href='$ghref' class='$class' title='$title'>$name</at>
+<identify posting='$posting'>
+<at href='$posting.GalleryHref' class='$class'
+    title='$posting.FullTopicDescription'>$posting.FullTopicName</at>
 </element>
 
 <element name='editlink'>

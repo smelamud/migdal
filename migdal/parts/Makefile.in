@@ -7,7 +7,7 @@ OBJECTS = article.php backtrace.php banners.php blog.php blog-gallery.php \
 	  complain.php discussions.php formutils.php forumanswer.php \
 	  forumcatalog.php forums.php gallery.php gallery-main.php \
 	  googleru.php grpselect.php hannukah.php help-link.php hit-parade.php \
-	  hotlog.php ioc.php jewishru.php kaitana-announce.php \
+	  hotlog.php identify.php ioc.php jewishru.php kaitana-announce.php \
 	  kaitana-picture.php langselect.php link-posting.php \
 	  links-switcher.php login.php mailru.php menu.php picture.php \
 	  picture-main.php posting.php posting-book.php posting-general.php \

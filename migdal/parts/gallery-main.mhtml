@@ -41,16 +41,14 @@
     <topiclink_gallery posting='$posting'>
    </p>
    <p>
-    <topiclink_all posting='$posting' href='$href' ghref='$ghref' name='$name'
-                   title='$title'>
     <array vals='0,1,2'>
     <plural value='$count'>
     <if what='$,==0'>
-     Добавлена <a href='$ghref'>$count новая картинка</a>.
+     Добавлена <a href='$posting.GalleryHref'>$count новая картинка</a>.
     <elif what='$,==1'>
-     Добавлены <a href='$ghref'>$count новые картинки</a>.
+     Добавлены <a href='$posting.GalleryHref'>$count новые картинки</a>.
     <else>
-     Добавлены <a href='$ghref'>$count новых картинок</a>.
+     Добавлены <a href='$posting.GalleryHref'>$count новых картинок</a>.
     </if>
    </p>
    <p class='sent'>
