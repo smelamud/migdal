@@ -1,0 +1,172 @@
+#!/usr/bin/perl
+
+# @(#) $Id$
+
+$Line='';
+$LineN=1;
+$Eof=0;
+$Token='';
+
+%Quotes=('<!--' => 'Comment',
+         '<?'   => 'PHP',
+	 '<<'   => 'Remark',
+         '<'    => 'Tag',
+	 ''     => 'Text');
+
+package Token;
+
+sub new
+{
+my ($class,$n)=@_;
+
+return bless {'token' => ::drop($n)},$class;
+}
+
+sub getToken
+{
+my ($self)=@_;
+
+return $self->{'token'};
+}
+
+sub print
+{
+my ($self)=@_;
+
+::display('Token: "'.$self->getToken()."\"\n");
+}
+
+package Text;
+
+@ISA=qw(Token);
+
+sub new
+{
+my ($class)=@_;
+
+my $i=index $::Line,'<';
+$i=$i<0 ? length($::Line) : $i;
+return Token::new($class,$i);
+}
+
+package QuotedToken;
+
+@ISA=qw(Token);
+
+sub new
+{
+my ($class,$quote)=@_;
+
+my $i;
+::more() while(($i=index($::Line,$quote))<0 && !$::Eof);
+$::Line.=$quote if $i<0;
+$i=index($::Line,$quote)+length($quote);
+return Token::new($class,$i);
+}
+
+package Tag;
+
+@ISA=qw(Token);
+
+sub new
+{
+my ($class)=@_;
+
+::more() while($::Line !~ /<(([^>'"]*)|('[^']*')|("[^"]*"))*>/ && !$::Eof);
+my ($token)=$::Line =~ /(<(([^>'"]*)|('[^']*')|("[^"]*"))*>)/;
+return Token::new($class,length($token));
+}
+
+package Comment;
+
+@ISA=qw(QuotedToken);
+
+sub new
+{
+my ($class)=@_;
+
+return QuotedToken::new($class,'-->');
+}
+
+package Remark;
+
+@ISA=qw(QuotedToken);
+
+sub new
+{
+my ($class)=@_;
+
+return QuotedToken::new($class,'>>');
+}
+
+package PHP;
+
+@ISA=qw(QuotedToken);
+
+sub new
+{
+my ($class)=@_;
+
+return QuotedToken::new($class,'?>');
+}
+
+package main;
+
+sub more
+{
+return if $Eof;
+my $s=<>;
+if(defined($s))
+  {
+  $Line.=$s;
+  }
+else
+  {
+  $Eof=1;
+  }
+}
+
+sub pull
+{
+more() while(!$Eof && $Line eq '');
+}
+
+sub drop
+{
+my $n=shift;
+
+my $s=substr($Line,0,$n);
+$LineN+=$s=~/\n/;
+substr($Line,0,$n)='';
+pull;
+return $s;
+}
+
+sub pullToken
+{
+my $quote='';
+my $class='';
+while(my($q,$c)=each(%Quotes))
+     {
+     if(substr($Line,0,length($q)) eq $q && length($q)>=length($quote))
+       {
+       $quote=$q;
+       $class=$c;
+       }
+     }
+my $name=$class.'::new';
+return $Token=&$name($class);
+}
+
+sub display
+{
+print @_;
+}
+
+$|=1;
+pull;
+while($Line ne '')
+     {
+     pullToken;
+     $Token->print();
+     }
