@@ -9,6 +9,9 @@
    <a href='%link?grp=*GRP_%^group&topic_id=$topic_id'><asp>
     <image border=0 src='pics/%{file}-gray.gif' title='%title'></a>&nbsp;
   </if>
+ <else>
+  <a href='%link?grp=*GRP_%^group&topic_id=-1'><asp>
+   <image border=0 src='pics/%{file}-gray.gif' title='%title'></a>&nbsp;
  </ifnzero>
 </macro>
 
