@@ -23,9 +23,9 @@
 </element>
 
 <element name='navi_times' params='ident'>
-<topic_obj name='times' id='migdal-times'>
+<topic_obj name='times' id='$`migdal-times`'>
 
-<posting_last topic_id='$times.Id' recursive='*true'>
+<posting_last topic_id='$`migdal-times`' recursive='*true'>
 <topics_line time='$,' href='times.php' title='$times.Description'
 	     text='$times.Name' arrow!="$ident=='times'">
 </element>

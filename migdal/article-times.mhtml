@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/article-times.mhtml 1.30 >>
+<< Based-on: migdal/article.mhtml 1.30 >>
 
 <ident name='artid' table='postings'>
 <read_posting id='$artid'>
@@ -13,16 +13,15 @@
 <preamble>
 <body>
  <top ident='index'>
- <zone><topic_obj name='times' id='migdal-times'></zone>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=120 class='eframe'>
    <topics_major ident='times'>
   </td>
   <td class='article cframe'>
-   <article_controls posting='$,' root='$times.Id'>
+   <article_controls posting='$,' root='$`migdal-times`'>
    <ifnzero what='$,Id'>
     <zone>
-     <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic='$times.Id'
+     <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic='$`migdal-times`'
 		  index1='$,Index1'>
      <times_issue issue='$,Index1' month='$,Source' separate='*true' align=right>
     </zone>
@@ -37,7 +36,7 @@
     </ifne>
    </h1>
    <article_full posting='$,'>
-   <article_controls posting='$,' root='$times.Id'>
+   <article_controls posting='$,' root='$`migdal-times`'>
   </td>
  </tr></table>
  <bottom>

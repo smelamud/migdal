@@ -12,7 +12,7 @@
 <element name='cover' params='times,cover'>
 <editor>
  <div class=batcher>
-  <a href='postingedit.php?root=$times.Id&topic_id=$times.Id&grp=*GRP_TIMES_COVERS&redirid=$_'
+  <a href='postingedit.php?root=$`migdal-times`&topic_id=$`migdal-times`&grp=*GRP_TIMES_COVERS&redirid=$_'
      class=add>Добавить обложку</a>
  </div>
 </editor>
@@ -25,7 +25,7 @@
  <table width=150 class=bottom><tr>
   <editor>
    <td>
-    <a href="postingedit.php?editid=$cover.Id&root=$times.Id&topic_id=$times.Id&grp=$cover.Grp&redirid=$_"
+    <a href="postingedit.php?editid=$cover.Id&root=$`migdal-times`&topic_id=$`migdal-times`&grp=$cover.Grp&redirid=$_"
      >Изменить</a>
    </td>
   </editor>
@@ -39,7 +39,7 @@
 <element name='batcher' params='times,issue'>
 <editor>
  <div class='batcher'>
-  <a href='postingedit.php?root=$times.Id&grp=*GRP_TIMES_ARTICLES&redirid=$_'
+  <a href='postingedit.php?root=$`migdal-times`&grp=*GRP_TIMES_ARTICLES&redirid=$_'
      class=add>Добавить статью</a>
   <if what='$issue>0'>
    &nbsp;<a href='times-reorder.php?issue=$issue&redirid=$_'
@@ -86,7 +86,9 @@
   <if what='$issue>=26'>
    <dd>Полина Блиндер</dd>
   </if>
-  <dd>Елена Каракина</dd>
+  <if what='$issue<27'>
+   <dd>Елена Каракина</dd>
+  </if>
   <dd>Анна Мисюк</dd>
   <dd>Инна Найдис</dd>
   <dd>Леонид Штекель</dd>
@@ -116,7 +118,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <topic_obj name='times' id='migdal-times'>
+ <topic_obj name='times' id='$`migdal-times`'>
  <ifzero what='$issue'><zone>
   <posting_index index=1 grp='*GRP_TIMES_ARTICLES'>
   <assign name='issue' value='$,'>
@@ -126,7 +128,7 @@
   <td width=120 class='eframe'>
    <topics_major ident='times'>
   </td>
-  <posting_full name='cover' grp='*GRP_TIMES_COVERS' topic='$times.Id'
+  <posting_full name='cover' grp='*GRP_TIMES_COVERS' topic='$`migdal-times`'
 		index1!='$issue<0 ? 0 : $issue'>
   <td class='mtimes cframe'>
    <table><tr valign=bottom><td>
@@ -145,14 +147,14 @@
      <select_issue issue='$issue'>
      <p>
      <batcher times='$times' issue='$issue'>
-     <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='migdal-times'
+     <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='$`migdal-times`'
 			  recursive='*true' limit=0 sort='*SORT_INDEX0'
 			  index1!='$issue<0 ? 0 : $issue'>
      <assign name='topicname' value=''>
      <for>
       <if what='$topicname!=$.TopicName'>
        <assign name='topicname'
-               value!="$.TopicIdent!='migdal-times' ? $.TopicName : ''">
+               value!="$.TopicId!=$`migdal-times` ? $.TopicName : ''">
        <ifne what='$topicname'>
         <table width=100% class=heading><tr>
 	 <td align=left><image src='pics/times-bullet.gif'></td>
@@ -160,7 +162,7 @@
 	</tr></table>
        </ifne>
       </if>
-      <posting_times posting='$.' times='$times' showtopic='*false'
+      <posting_times posting='$.' showtopic='*false'
                      showdiscuss='$$communityDomain'>
      </for>
      <ifnzero what='$;Count'>

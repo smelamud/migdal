@@ -24,9 +24,9 @@
    <hidden name='faildir' value='$-'>
    <hidden name='issue' value='$issue'>
    <iterate_postinglist name='sels' grp='*GRP_TIMES_ARTICLES' 
-                        topic='migdal-times' recursive='*true' limit=0
+                        topic='$`migdal-times`' recursive='*true' limit=0
 			sort='*SORT_INDEX0' index1!='$issue'>
-   <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='migdal-times'
+   <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='$`migdal-times`'
 			recursive='*true' limit=0 sort='*SORT_INDEX0'
 			index1!='$issue'>
    <table>

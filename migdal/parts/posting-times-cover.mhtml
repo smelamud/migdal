@@ -15,11 +15,11 @@
 <asp></a>&nbsp;
 </element>
 
-<element name='controls' params='posting,showdiscuss,times'>
+<element name='controls' params='posting,showdiscuss'>
 <table width=90% class='bottom'><tr>
  <td>
   <isedit what='$posting'>
-   <a href="postingedit.php?editid=$posting.Id&root=$times.Id&topic_id=$times.Id&grp=$posting.Grp&redirid=$_"
+   <a href="postingedit.php?editid=$posting.Id&root=$`migdal-times`&topic_id=$`migdal-times`&grp=$posting.Grp&redirid=$_"
     >Изменить</a>
    <moderator>
     &nbsp;
@@ -43,9 +43,6 @@
 </element>
 
 <element name='posting_times_cover'>
-<ifzero what='$times'>
- <topic_obj name='times' id='migdal-times'>
-</ifzero>
 <dl class='posting'>
  <dt class='subject'>
   <topic posting='$posting' showtopic='$showtopic'>
@@ -72,6 +69,6 @@
    <sentview date='$posting.Sent'>&nbsp;
    <senderlink message='$posting'>
  </div>
- <controls posting='$posting' showdiscuss='$showdiscuss' times='$times'>
+ <controls posting='$posting' showdiscuss='$showdiscuss'>
 </dl>
 </element>
