@@ -17,7 +17,7 @@ $result=mysql_query("select user_id,real_user_id
                      from sessions
 		     where sid=$sessionId")
 	  or sqlbug('Ошибка SQL при выборке сессии');
-return mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : 0;
+return mysql_num_rows($result)>0 ? mysql_fetch_array($result) : 0;
 }
 
 function updateSessionTimestamp($sessionId)

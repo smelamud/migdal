@@ -67,7 +67,8 @@ return $proper;
 
 function userRights($aUserId=0)
 {
-global $sessionid,$userId,$userRightNames,$sessionTimeout,$siteDomain;
+global $sessionid,$userId,$realUserId,$userRightNames,$sessionTimeout,
+       $siteDomain;
 
 settype($sessionid,'integer');
 
@@ -79,9 +80,12 @@ if(!$sessionid && $aUserId<=0)
 else
   if($aUserId<=0)
     {
-    $userId=getUserIdBySessionId($sessionid);
-    if($userId<=0)
+    list($userId,$realUserId)=getUserIdsBySessionId($sessionid);
+    if($userId<=0 && $realUserId<=0)
+      {
+      $userId=$realUserId=0;
       SetCookie('sessionid',0,0,'/',$siteDomain);
+      }
     else
       {
       updateSessionTimestamp($sessionid);
@@ -90,7 +94,7 @@ else
       }
     }
   else
-    $userId=$aUserId;
+    $userId=$realUserId=$aUserId;
 
 if($userId>0)
   {
