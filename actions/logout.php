@@ -9,36 +9,8 @@ require_once('lib/uri.php');
 require_once('lib/post.php');
 require_once('lib/random.php');
 require_once('lib/errors.php');
-require_once('lib/logs.php');
-require_once('lib/sessions.php');
 require_once('lib/session.php');
-require_once('lib/users.php');
-require_once('lib/chat-users.php');
-
-function logout($sessionid)
-{
-$row=getUserIdsBySessionId($sessionid);
-$guestId=getGuestId();
-if($row)
-  {
-  list($userId,$realUserId)=$row;
-  logEvent('logout',"user($userId)");
-  if($userId!=0 && $userId!=$realUserId)
-    {
-    updateSession($sessionid,$realUserId,$realUserId);
-    return ELO_OK;
-    }
-  if(isChatLogged($userId))
-    {
-    clearLastChat($userId);
-    chatLogout($userId);
-    postChatSwitchMessage($guestId,$userId);
-    chatLogin($guestId);
-    }
-  }
-updateSession($sessionid,0,$guestId);
-return ELO_OK;
-}
+require_once('lib/logging.php');
 
 dbOpen();
 session();

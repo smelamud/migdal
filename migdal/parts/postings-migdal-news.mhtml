@@ -8,16 +8,11 @@
   <table><tr valign=center>
    <td><image src='pics/sheet.gif'></td>
    <td>
-    <if what='$access'>
-     <assign name='script' value='postingedit.php'>
-    <else>
-     <assign name='script' value='login.php'>
-    </if>
-    <a href='$script?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
+    <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$access&redirid=$_'
        >Добавить новость</a>,
-    <a href='$script?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
+    <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$access&redirid=$_'
        >статью</a>,
-    <a href='$script?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
+    <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&noguests=$access&redirid=$_'
        >книгу</a>
    </td>
   </tr></table>

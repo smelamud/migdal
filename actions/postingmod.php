@@ -22,6 +22,7 @@ require_once('lib/forums.php');
 require_once('lib/redirs.php');
 require_once('lib/modbits.php');
 require_once('lib/counters.php');
+require_once('lib/logging.php');
 
 function setImageTitle($image_set,$title)
 {
@@ -153,6 +154,11 @@ if($original->getId()==0)
 return EP_OK;
 }
 
+postInteger('relogin');
+postString('login');
+postString('password');
+postInteger('remember');
+
 postInteger('editid');
 postInteger('grp');
 postInteger('index1');
@@ -185,6 +191,11 @@ if($err==EIU_OK && $message->getImageSet()!=0)
 if($err==EIU_OK || $err==EP_OK)
   $err=uploadLargeText($message->stotext);
 if($err==EUL_OK)
+  if($original->getId()==0 && $relogin)
+    $err=login($login,$password,$remember);
+  else
+    $err=EL_OK;
+if($err==EL_OK)
   $err=modifyPosting($message,$original);
 if($err==EP_OK)
   {

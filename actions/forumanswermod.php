@@ -18,6 +18,7 @@ require_once('lib/permissions.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings-info.php');
 require_once('lib/answers.php');
+require_once('lib/logging.php');
 
 function modifyForumAnswer($answer,$original)
 {
@@ -44,6 +45,11 @@ if(!$answer->store())
 return EFA_OK;
 }
 
+postInteger('relogin');
+postString('login');
+postString('password');
+postInteger('remember');
+
 postInteger('editid');
 postInteger('parent_id');
 postString('body');
@@ -58,6 +64,11 @@ $img=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
 if($img)
   $answer->setImageSet($img->getImageSet());
 if($err==EIU_OK)
+  if($original->getId()==0 && $relogin)
+    $err=login($login,$password,$remember);
+  else
+    $err=EL_OK;
+if($err==EL_OK)
   $err=modifyForumAnswer($answer,$original);
 if($err==EFA_OK)
   {
@@ -73,10 +84,10 @@ else
           remakeMakeURI($faildir,
 			$HTTP_POST_VARS,
 			array('body','subject','okdir','faildir'),
-			array('bodyid'       => $bodyId,
-			      'subjectid'    => $subjectId,
-			      'image_set'    => $answer->getImageSet(),
-			      'err'          => $err)).'#error');
+			array('bodyid'    => $bodyId,
+			      'subjectid' => $subjectId,
+			      'image_set' => $answer->getImageSet(),
+			      'err'       => $err)).'#error');
   }
 dbClose();
 ?>

@@ -8,15 +8,10 @@
     <table><tr valign=center>
      <td><image src='pics/sheet.gif'></td>
      <td>
-      <logged>
-       <assign name='script' value='postingedit.php'>
-      <else>
-       <assign name='script' value='login.php'>
-      </logged>
       <if what='$topic_id<=0'>
        <assign name='topic_id' value='$`general`'>
       </if>
-      <a href='$script?topic_id=$topic_id&grp=*GRP_GALLERY&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_GALLERY&noguests=1&redirid=$_'
 	 >Добавить картинку</a>
      </td>
     </tr></table>

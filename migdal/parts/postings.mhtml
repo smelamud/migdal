@@ -10,20 +10,16 @@
    <table><tr valign=center>
     <td><image src='pics/sheet.gif'></td>
     <td>
-     <if what='$access'>
-      <assign name='script' value='postingedit.php'>
-     <else>
-      <assign name='script' value='login.php'>
-     </if>
+     <assign name='noguests' value!='$access ? 0 : 1'>
      <if what='$,isValid'>
-      <a href='$script?topic_id=$topic_id&grp=$grp&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&grp=$grp&noguests=$noguests&redirid=$_'
 	 >Добавить $,GrpItemTitle</a>
      <else>
-      <a href='$script?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$noguests&redirid=$_'
 	 >Добавить новость</a>,
-      <a href='$script?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$noguests&redirid=$_'
 	 >статью</a>,
-      <a href='$script?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&noguests=$noguests&redirid=$_'
 	 >книгу</a>
      </if>
     </td>

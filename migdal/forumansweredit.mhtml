@@ -9,7 +9,7 @@
 <html>
 <preamble>
 <body>
- <top ident='discuss'>
+ <top ident='discuss' nologin='$$userId<=0'>
  <ifnzero what='$peerid'>
   <forum_answer_obj id='$peerid'>
   <assign name='quote' value='$,Body'>
@@ -45,6 +45,9 @@
 	    text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
      <error id='*EFA_BODY_ABSENT'
 	    text='Напишите хотя бы пару строчек в теле сообщения'>
+     <if what='!$editid'>
+      <relogin>
+     </if>
      <editor_line name='body' title='Текст' body='$answer.Body'
 		  mandatory='$$forumanswerMandatoryBody' rows=12 cols=65>
      <help_link href='stotext-help-subs.php'

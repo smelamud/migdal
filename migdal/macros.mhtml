@@ -179,6 +179,8 @@
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
        defaults="showtitle='*true'">
+<decel name='relogin' file='parts/relogin.php' params='title,noguests'
+       defaults="title='комментарий' noguests='*false'">
 <decel name='seealso_links' file='parts/seealso.php'
        params='topic_id,title,topic_grp'
        defaults="title='См. также' topic_grp='*GRP_ALL'">

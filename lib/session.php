@@ -125,6 +125,9 @@ if($userId>0)
   while(list($group_id)=mysql_fetch_array($result))
        $userGroups[]=$group_id;
   }
+else
+  if($realUserId>0)
+    $GLOBALS['userLogin']=getUserLoginById($realUserId);
 
 if($userId>0)
   {

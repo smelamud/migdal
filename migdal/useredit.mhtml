@@ -54,13 +54,21 @@
      <td>Пол</td>
      <td>
       <if what='$,isMan'>
-       <input type='radio' name='gender' value='mine' checked>Мужской</input>
+       <label>
+        <input type='radio' name='gender' value='mine' checked>Мужской
+       </label>
        &nbsp;
-       <input type='radio' name='gender' value='femine'>Женский</input>
+       <label>
+        <input type='radio' name='gender' value='femine'>Женский
+       </label>
       <else>
-       <input type='radio' name='gender' value='mine'>Мужской</input>
+       <label>
+        <input type='radio' name='gender' value='mine'>Мужской
+       </label>
        &nbsp;
-       <input type='radio' name='gender' value='femine' checked>Женский</input>
+       <label>
+        <input type='radio' name='gender' value='femine' checked>Женский
+       </label>
       </if>
      </td>
     </tr>

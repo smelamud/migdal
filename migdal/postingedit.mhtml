@@ -14,6 +14,7 @@
 <int name='grp'>
 <int name='up'>
 <int name='full'>
+<int name='noguests'>
 <posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'
              fields='*SELECT_GENERAL'>
 <identify posting='$message'>
@@ -37,7 +38,7 @@
 <html>
 <preamble>
 <body>
- <top ident='index'>
+ <top ident='index' nologin='$userId<=0'>
  <setup>
  <if what='$editid'>
   <assign name='head' value#='Изменить $message.GrpItemTitle'>
@@ -74,6 +75,9 @@
     <error id='*EP_LOOP_UP' text='Сообщение не может быть подчиненным себе'>
     <error id='*EP_UP_APPEND'
            text='Вы не имеете права присоединять сообщения к этому сообщению'>
+    <if what='!$editid'>
+     <relogin title='$message.GrpItemTitle' noguests='$noguests'>
+    </if>
     <moderator>
      <tr><td><table><tr valign=center>
       <full>
