@@ -7,10 +7,27 @@ require_once('lib/users.php');
 
 require_once('top.php');
 
-function condEdit($edit,$value,$name,$size,$length)
+function condEdit($title,$edit,$value,$name,$size,$length)
 {
-return !$edit ? $value : "<input type=text name='$name' value='$value'
-                          size=$size maxlength=$length>";
+return !$edit ?
+       $value!='' ? "<td><b>$title:</b></td><td>$value</td>" : '' :
+       "<td>$title</td><td><input type=text name='$name' value='$value'
+                            size=$size maxlength=$length></td>";
+}
+
+function condEditValue($title,$edit,$value,$valueEdit,$name,$size,$length)
+{
+return !$edit ?
+       $value!='' ? "<td><b>$title:</b></td><td>$value</td>" : '' :
+       "<td>$title</td><td><input type=text name='$name' value='$valueEdit'
+                            size=$size maxlength=$length></td>";
+}
+
+function condCheckBox($edit,$name,$value,$title,$textOn='',$textOff='')
+{
+return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
+              : "<input type=checkbox name=$name value=1 ".
+	        ($value ? 'checked' : '')."> $title";
 }
 
 ?>
@@ -24,6 +41,7 @@ return !$edit ? $value : "<input type=text name='$name' value='$value'
   displayTop('users');
   ?>
   <p>
+  <a href="useredit.php">Зарегистрироваться</a><br>
   <?php
   $user=getUserById($editid);
   if($user->isEditable())
@@ -31,10 +49,43 @@ return !$edit ? $value : "<input type=text name='$name' value='$value'
   ?>
   <table>
    <tr>
-    <td>Ник:</td>
-    <td>
     <?php
-    echo condEdit($user->isEditable(),$user->getLogin(),'login',30,30);
+    echo condEdit('Ник',$user->isEditable(),$user->getLogin(),'login',20,30);
+    ?>
+   </tr>
+   <?php
+   if($user->isEditable())
+     {
+     ?>
+     <tr>
+      <td>Пароль</td><td><input type=password name='password' size=20></td>
+     </tr>
+     <?php
+     }
+     ?>
+   <tr>
+    <?php
+    echo condEdit('Имя',$user->isEditable(),$user->getName(),'name',30,30);
+    echo condEdit('Еврейское имя',$user->isEditable(),$user->getJewishName(),
+                  'jewish_name',30,30);
+    ?>
+   </tr>
+   <tr>
+    <?php
+    echo condEdit('Фамилия',$user->isEditable(),$user->getSurname(),'surname',
+                  30,30);
+    ?>
+   </tr>
+   <tr>
+    <td><b>Дата рождения:</b></td>
+    <td><?php echo $user->getBirthday() ?></td>
+   </tr>
+   <tr>
+    <td colspan=2>
+    <?php
+     echo condCheckBox($user->isEditable(),'migdal_student',
+                       $user->isMigdalStudent(),'Занимаюсь в "Мигдале"',
+		       'Занимается в "Мигдале"');
     ?>
     </td>
    </tr>
@@ -42,12 +93,70 @@ return !$edit ? $value : "<input type=text name='$name' value='$value'
    if($user->isEditable())
      {
      ?>
+     <tr><td colspan=4>Коротко о себе</td></tr>
+     <tr><td colspan=4>
+      <textarea name='info' rows=10 cols=50 wrap='virtual'><?php
+       echo $user->getInfo()
+      ?></textarea>
+     </td></tr>
+     <?php
+     }
+   else
+     if($user->getInfo()!='')
+       {
+       ?>
+       <tr><td colspan=2><b>Коротко о себе:</b></td></tr>
+       <tr><td colspan=2><?php echo $user->getInfo() ?></td></tr>
+       <?php
+       }
+   ?>
+   <tr>
+    <?php
+    echo condEditValue('E-mail',$user->isEditable(),$user->getEmailLink(),
+                       $user->getEmail(),'email',30,70);
+    ?>
+   </tr>
+   <?php
+    if($user->isEditable())
+      {
+      ?>
+      <tr>
+       <td colspan=2>
+       <?php
+	echo condCheckBox($user->isEditable(),'email_enabled',
+	                  $user->isEmailDisabled()==0,
+			  'Разрешаю посылать почту на мой адрес');
+       ?>
+       </td>
+      </tr>
+      <?php
+      }
+    if($user->isEmailDisabled()==2)
+      {
+      ?>
+      <tr><td colspan=4><font color=red>
+       Посылка почты на этот адрес временно приостановлена, поскольку адрес не
+       работает
+      </font></td></tr>
+      <?php
+      }
+   ?>
+   <tr>
+    <?php
+    echo condEdit('ICQ',$user->isEditable(),$user->getICQ(),'icq',15,15);
+    ?>
+   </tr>
+   <?php
+   if(!$user->isEditable())
+     {
+     ?>
      <tr>
-      <td>Пароль:</td><td><input type=password name='password' size=30></td>
+      <td><b>Последний раз<br>заходил сюда:</b></td>
+      <td><?php echo $user->getLastOnline() ?></td>
      </tr>
      <?php
      }
-     ?>
+   ?>
   </table>
   <?php
   if($user->isEditable())

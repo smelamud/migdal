@@ -3,6 +3,7 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
+require_once('lib/months.php');
 
 class User
       extends DataObject
@@ -11,6 +12,7 @@ var $id;
 var $login;
 var $password;
 var $name;
+var $jewish_name;
 var $surname;
 var $info;
 var $birthday;
@@ -40,10 +42,30 @@ function getLogin()
 return $this->login;
 }
 
+function getName()
+{
+return $this->name;
+}
+
+function getJewishName()
+{
+return $this->jewish_name;
+}
+
+function getSurname()
+{
+return $this->surname;
+}
+
 function getFullName()
 {
 return $this->name.($this->jewish_name!='' ? ' ('.$this->jewish_name.')' : '').
        ' '.$this->surname;
+}
+
+function getInfo()
+{
+return $this->info;
 }
 
 function getAge()
@@ -55,9 +77,25 @@ $jt=GregorianToJD($t['mon'],$t['mday'],$t['year']);
 return (int)(($jt-$jbt)/365.25);
 }
 
+function getBirthday()
+{
+$bt=explode('-',$this->birthday);
+return $bt[2].' '.getRussianMonth((int)$bt[1]).' '.$bt[0];
+}
+
+function isMigdalStudent()
+{
+return $this->migdal_student;
+}
+
 function getMigdalStudent()
 {
 return $this->migdal_student ? 'Да' : 'Нет';
+}
+
+function getEmail()
+{
+return $this->email;
 }
 
 function getEmailLink()
@@ -70,6 +108,11 @@ return $this->email!=''
 function getICQ()
 {
 return $this->icq;
+}
+
+function isEmailDisabled()
+{
+return $this->email_disabled;
 }
 
 function getLastOnline()
