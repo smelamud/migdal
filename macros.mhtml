@@ -19,6 +19,10 @@
 </macro>
 
 << Errors >>
+<macro name='conf'>
+ <require name='conf/migdal.conf'>
+</macro>
+
 <macro name='errors'>
  <require name='lib/errors.php'>
 </macro>
@@ -147,6 +151,13 @@
  <call name='%name' func='getFullMessageById' arg1='%id' arg2='%grp'>
 </macro>
 
+<macro name='reload'>
+ <require name='lib/utils.php'>
+ <zone>
+  <call func='reloadParameter' arg1='%why' arg2='%var' arg3='%value'>
+ </zone>
+</macro>
+
 <macro name='topic_obj' defaults='id="$topic_id"'>
  <require name='lib/topics.php'>
  <call name='%name' func='getTopicById' arg1='%id'>
@@ -270,7 +281,6 @@
        defaults="list='$;'">
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
-<decel name='reload' file='lib/utils.php' params='why,var,value'>
 <decel name='senderlink' file='lib/utils.php' params='message'>
 <decel name='top' file='parts/top.php' params='ident,flags'
        defaults="flags=''">

@@ -86,6 +86,22 @@ if(!$this->id)
 return $result;
 }
 
+function preconfirm()
+{
+global $regConfirmTimeout;
+
+$s='';
+srand(time());
+for($i=0;$i<20;$i++)
+   {
+   $s.=chr(rand(ord('A'),ord('Z')));
+   }
+return mysql_query("update users
+                    set no_login=1,hidden=1,confirm_code='$s',
+		        confirm_deadline=now()+interval $regConfirmTimeout day
+ 	            where id=$this->id");
+}
+
 function isEditable()
 {
 global $userId,$userAdminUsers;

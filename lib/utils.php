@@ -14,12 +14,6 @@ if($cond)
   }
 }
 
-// Canonical name to use from miparser
-function displayReload($cond,$key,$value)
-{
-reloadParameter($cond,$key,$value);
-}
-
 function makeValue($value)
 {
 $c=is_int($value) ? '' : '"';

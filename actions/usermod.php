@@ -8,6 +8,7 @@ require_once('lib/users.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
+require_once('lib/mailings.php');
 
 function modifyUser($user)
 {
@@ -35,6 +36,12 @@ if(!checkdate($user->getMonthOfBirth(),$user->getDayOfBirth(),
   return EUM_BIRTHDAY;
 if(!$user->store())
   return EUM_STORE_SQL;
+if($editid==0)
+  {
+  if(!$user->preconfirm())
+    return EUM_PRECONFIRM_SQL;
+  sendMail('register',$user->getId(),$user->getId());
+  }
 return $editid ? EUM_UPDATE_OK : EUM_INSERT_OK;
 }
 

@@ -9,6 +9,7 @@ admin = select email \
         where admin_users<>0
   
 Subject: Подтверждение регистрации на сайте КЕС
+Reply-to: $admin:email
 
 Уважаем%gender_end %full_name!
 

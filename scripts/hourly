@@ -87,6 +87,9 @@ foreach my $info(@{$lasts})
 		 where id='.$info->[0]);
        }
 $dbh->do('delete
+          from users
+	  where confirm_deadline is not null and confirm_deadline<now()');
+$dbh->do('delete
           from sessions
 	  where last+interval '.$Config{'sessionTimeout'}.' hour<now()');
 $dbh->do('delete

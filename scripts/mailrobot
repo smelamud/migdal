@@ -113,7 +113,8 @@ my $path=$mail->{'text'};
 $path=$Config{'siteDir'}."/$path" unless $path=~/^\//;
 my $vals={};
 open IN,$path;
-open OUT,'>/tmp/mailrobot';
+open OUT,'|sendmail -t';
+print OUT 'To: ',$mail->{'email'},"\n";
 $cont=0;
 $preamble=1;
 while(<IN>)
@@ -157,6 +158,8 @@ my $mails=$dbh->selectall_hashref(
 	          on mailings.type_id=mailing_types.id
 	     left join users
 	          on mailings.receiver_id=users.id');
+$dbh->do('delete from mailings');
+$dbh->do('unlock tables');
 foreach my $mail(@{$mails})
         {
 	$mail->{'gender_end'}=$mail->{'gender'} eq 'mine' ? 'ый' : 'ая';
@@ -166,8 +169,6 @@ foreach my $mail(@{$mails})
 			     : $mail->{'name'}.' '.$mail->{'surname'};
 	sendMail $mail;
 	}
-#$dbh->do('delete from mailings');
-$dbh->do('unlock tables');
 }
 
 sub done

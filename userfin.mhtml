@@ -1,0 +1,38 @@
+<< @(#) $Id$ >>
+
+<conf>
+<errors>
+<int name='err'>
+<html>
+<head>
+ <title>Клуб Еврейского Студента - Подтверждение регистрации</title>
+</head>
+<body bgcolor=white>
+ <top ident='users'>
+ <center><h1>
+  <ifzero what='err'>
+   <font color=green>
+    Регистрация пользователя "$login" успешно завершена.<br>
+    Добро пожаловать!
+   </font>
+  </if>
+  <if what='err==*EUC_NO_USER'>
+   <font color=red>
+    Код подтверждения регистрации неверен.<br>
+    Проверьте еще раз правильность кода и убедитесь, что с момента регистрации
+    прошло не более $$regConfirmTimeout дней.
+   </font>
+  </if>
+  <if what='err==*EUC_SQL_SELECT'>
+   <font color=red>
+    Ошибка SQL при выборке кода регистрации
+   </font>
+  </if>
+  <if what='err==*EUC_SQL_CONFIRM'>
+   <font color=red>
+    Ошибка SQL при подтверждении регистрации
+   </font>
+  </if>
+ </h1></center>
+</body>
+</html>
