@@ -80,12 +80,22 @@ $titleId=tmpTextSave($title);
 if($err==ELIM_OK)
   header('Location: '.remakeMakeURI($okdir,
 				    $HTTP_POST_VARS,
-				    array('err','title','edittag'),
+				    array('err',
+				          'title',
+					  'titleid',
+					  'edittag',
+					  'small_x',
+					  'small_y',
+					  'has_large',
+					  'okdir',
+				          'faildir'),
 				    array('titleid' => $titleId)));
 else
   header('Location: '.remakeMakeURI($faildir,
 				    $HTTP_POST_VARS,
-				    array('title'),
+				    array('title',
+				          'okdir',
+					  'faildir'),
 				    array('err'     => $err,
 					  'titleid' => $titleId)));
 dbClose();

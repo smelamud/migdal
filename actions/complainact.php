@@ -52,7 +52,7 @@ else
   header('Location: '.
          remakeMakeURI($faildir,
 		       $HTTP_POST_VARS,
-		       array('text'),
+		       array('text','okdir','faildir'),
 		       array('err'    => $err,
 			     'textid' => $textId)));
   }

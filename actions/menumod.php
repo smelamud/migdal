@@ -40,7 +40,7 @@ if($err==EMI_OK)
 else
   header('Location: '.remakeMakeURI($faildir,
                                     $HTTP_POST_VARS,
-                                    array('editid'),
+                                    array('editid','okdir','faildir'),
 				    array('menuid' => $editid,
                                           'err'    => $err)));
 dbClose();

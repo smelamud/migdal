@@ -78,7 +78,8 @@ else
   header('Location: '.
 	  remakeMakeURI($faildir,
 			$HTTP_POST_VARS,
-			array('password','dup_password','info'),
+			array('password','dup_password','info','okdir',
+			      'faildir'),
 			array('infoid' => $infoId,'err' => $err)).'#error');
   }
 dbClose();

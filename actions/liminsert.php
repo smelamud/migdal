@@ -37,7 +37,7 @@ if($err==ELII_OK)
 else
   header('Location: '.remakeMakeURI($faildir,
                                     $HTTP_POST_VARS,
-                                    array(),
+                                    array('okdir','faildir'),
 				    array('err' => $err)));
 dbClose();
 ?>

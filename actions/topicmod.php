@@ -66,7 +66,9 @@ else
           remakeMakeURI($faildir,
 			$HTTP_POST_VARS,
 			array('description',
-			      'large_description'),
+			      'large_description',
+			      'okdir',
+			      'faildir'),
 			array('descriptionid'       => $descriptionId,
 			      'large_descriptionid' => $largeDescriptionId,
 			      'err'                 => $err)).'#error');

@@ -46,13 +46,14 @@ $textId=tmpTextSave($text);
 header('Location: '.($err==ECAM_OK
        ? remakeMakeURI($okdir,
 		       $HTTP_POST_VARS,
-		       array('err','edittag','name','text','type_id'),
+		       array('err','edittag','name','text','type_id','okdir',
+		             'faildir'),
 		       array('typeid' => $type_id,
 			     'nameid' => $nameId,
 			     'textid' => $textId))
        : remakeMakeURI($faildir,
 		       $HTTP_POST_VARS,
-		       array('name','text','type_id'),
+		       array('name','text','type_id','okdir','faildir'),
 		       array('err'    => $err,
 			     'typeid' => $type_id,
 			     'nameid' => $nameId,

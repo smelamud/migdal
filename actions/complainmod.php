@@ -48,8 +48,7 @@ else
   header('Location: '.
           remakeMakeURI($faildir,
 			$HTTP_POST_VARS,
-			array('body',
-			      'subject'),
+			array('body','subject','okdir','faildir'),
 			array('bodyid'       => $bodyId,
 			      'subjectid'    => $subjectId,
 			      'err'          => $err)).'#error');
