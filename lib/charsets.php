@@ -6,9 +6,9 @@ function isKOI($s)
 $c=0;
 for($i=0;$i<strlen($s);$i++)
    {
-   if($s[$i]>='á' && $s[$i]<='ñ')
+   if($s[$i]>='à' && $s[$i]<='ÿ')
      $c++;
-   if($s[$i]>='Á' && $s[$i]<='Ñ')
+   if($s[$i]>='À' && $s[$i]<='ß')
      $c--;
    }
 return $c<=0;
