@@ -3,18 +3,27 @@
 <element name='bottom'>
 <backtrace target='$target'>
 <div class='bottom'>
- <table width=100%><tr valign=bottom>
-  <td align=left>
-   Сайт создан и поддерживается <b>Клубом Еврейского Студента</b><br>
-   Еврейского Общинного Центра "<b>Мигдаль</b>", Одесса
-  </td>
-  <td align=right>
-   // Powered by
-   <a href='/sources/migdal-0.1.tar.bz2'>Migdal website kernel 0.1</a><br>
-   Вебмастер живет по адресу
-   <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
-  </td>
- </tr></table>
+ <table width=100%>
+  <tr>
+   <td>&nbsp;</td>
+   <td align=right>
+    <image src='pics/book.gif'>&nbsp;
+    <a class='big' href='complains.php'>Замечания/предложения по работе сайта</a>
+   </td>
+  </tr>
+  <tr valign=bottom>
+   <td align=left>
+    Сайт создан и поддерживается <b>Клубом Еврейского Студента</b><br>
+    Еврейского Общинного Центра "<b>Мигдаль</b>", Одесса
+   </td>
+   <td align=right>
+    // Powered by
+    <a href='/sources/migdal-0.1.tar.bz2'>Migdal website kernel 0.1</a><br>
+    Вебмастер живет по адресу
+    <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+   </td>
+  </tr>
+ </table>
  <hr>
  <center>
   <jewishru>

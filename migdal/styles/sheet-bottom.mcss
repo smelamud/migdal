@@ -14,6 +14,16 @@
 	text-decoration: underline;
 }
 
+.bottom A.big {
+	color: %bottom_biglink;
+	font-size: 9pt;
+	font-weight: bold;
+}
+
+.bottom A.big:hover {
+	color: %bottom_biglink_hover;
+}
+
 .bottom HR {
 	margin: 0;
 	border-width: 0;
