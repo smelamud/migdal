@@ -67,7 +67,7 @@
 	    filename='$message.LargeFilename'>
   <td>Формат</td>
   <td><select name='large_format'>
-   <array vals='Простой,TeX-подобный,HTML-подобный,Преформатированный'>
+   <array vals='Простой,TeX-подобный,HTML-подобный,Преформатированный,Письмо'>
    <iterate_array>
    <for>
     <if what='$;Position==$message.LargeFormat'>
