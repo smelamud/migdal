@@ -7,16 +7,22 @@ define('GRP_NEWS',2);
 define('GRP_GALLERY',4);
 define('GRP_EVENTS',7);
 define('GRP_ARTICLES',8);
+define('GRP_QUOTES',16);
+define('GRP_PHRASES',32);
+define('GRP_INT_FORUMS',64);
 define('GRP_TAPE',10);
-define('GRP_DISCUSS',15);
-define('GRP_NOT_FORUMS',14);
-define('GRP_ALL',15);
+define('GRP_DISCUSS',127);
+define('GRP_NOT_FORUMS',126);
+define('GRP_ALL',127);
 
-$grpClassNames=array(GRP_FORUMS   => 'Forum',
-                     GRP_NEWS     => 'News',
-                     GRP_GALLERY  => 'Gallery',
-		     GRP_ARTICLES => 'Article',
-		     GRP_ALL      => 'Posting');
+$grpClassNames=array(GRP_FORUMS     => 'Forum',
+                     GRP_NEWS       => 'News',
+                     GRP_GALLERY    => 'Gallery',
+		     GRP_ARTICLES   => 'Article',
+		     GRP_QUOTES     => 'Quote',
+		     GRP_PHRASES    => 'Phrase',
+		     GRP_INT_FORUMS => 'InternalForum',
+		     GRP_ALL        => 'Posting');
 
 function getGrpClassName($grp)
 {

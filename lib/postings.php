@@ -191,6 +191,42 @@ $this->grp=GRP_ARTICLES;
 
 }
 
+class Quote
+      extends Posting
+{
+
+function Quote($row)
+{
+$this->Posting($row);
+$this->grp=GRP_QUOTES;
+}
+
+}
+
+class Phrase
+      extends Posting
+{
+
+function Phrase($row)
+{
+$this->Posting($row);
+$this->grp=GRP_PHRASES;
+}
+
+}
+
+class InternalForum
+      extends Posting
+{
+
+function InternalForum($row)
+{
+$this->Posting($row);
+$this->grp=GRP_INT_FORUM;
+}
+
+}
+
 function newPosting($row)
 {
 $name=getGrpClassName($row['grp']);

@@ -248,6 +248,69 @@ $articleMandatoryIdent=false;
 $articleHasTopic=true;
 $articleMandatoryTopic=true;
 
+# --- Quote ---
+
+$quoteHasSubject=false;
+$quoteMandatorySubject=false;
+$quoteHasAuthor=true;
+$quoteMandatoryAuthor=false;
+$quoteHasSource=false;
+$quoteMandatorySource=false;
+$quoteHasBody=true;
+$quoteMandatoryBody=true;
+$quoteHasLargeBody=false;
+$quoteMandatoryLargeBody=false;
+$quoteHasImage=false;
+$quoteMandatoryImage=false;
+$quoteHasTitle=false;
+$quoteMandatoryTitle=false;
+$quoteHasIdent=true;
+$quoteMandatoryIdent=false;
+$quoteHasTopic=false;
+$quoteMandatoryTopic=false;
+
+# --- Phrase ---
+
+$phraseHasSubject=false;
+$phraseMandatorySubject=false;
+$phraseHasAuthor=false;
+$phraseMandatoryAuthor=false;
+$phraseHasSource=false;
+$phraseMandatorySource=false;
+$phraseHasBody=true;
+$phraseMandatoryBody=true;
+$phraseHasLargeBody=false;
+$phraseMandatoryLargeBody=false;
+$phraseHasImage=false;
+$phraseMandatoryImage=false;
+$phraseHasTitle=false;
+$phraseMandatoryTitle=false;
+$phraseHasIdent=true;
+$phraseMandatoryIdent=false;
+$phraseHasTopic=false;
+$phraseMandatoryTopic=false;
+
+# --- InternalForum ---
+
+$internalforumHasSubject=false;
+$internalforumMandatorySubject=false;
+$internalforumHasAuthor=false;
+$internalforumMandatoryAuthor=false;
+$internalforumHasSource=false;
+$internalforumMandatorySource=false;
+$internalforumHasBody=true;
+$internalforumMandatoryBody=true;
+$internalforumHasLargeBody=false;
+$internalforumMandatoryLargeBody=false;
+$internalforumHasImage=true;
+$internalforumMandatoryImage=false;
+$internalforumHasTitle=true;
+$internalforumMandatoryTitle=false;
+$internalforumHasIdent=true;
+$internalforumMandatoryIdent=false;
+$internalforumHasTopic=true;
+$internalforumMandatoryTopic=true;
+
 # Пользователи
 
 # Супервизор
