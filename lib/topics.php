@@ -344,9 +344,8 @@ function SortedTopicNamesIterator($grp,$up=-1,$recursive=false,
 $iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter);
 $topics=array();
 while($item=$iterator->next())
-     $topics[$item->getFullName()]=$item;
-setlocale('LC_COLLATE','ru_RU.KOI8-R');
-uksort($topics,'strcoll');
+     $topics[convertSort($item->getFullName())]=$item;
+ksort($topics);
 $this->ArrayIterator($topics);
 }
 
