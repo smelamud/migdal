@@ -12,6 +12,10 @@ $Token='';
 	 '<<'   => 'Remark',
          '<'    => 'Tag',
 	 ''     => 'Text');
+	 
+$Header='';
+$Body='';
+$Footer='';
 
 package Token;
 
@@ -29,11 +33,11 @@ my ($self)=@_;
 return $self->{'token'};
 }
 
-sub print
+sub process
 {
 my ($self)=@_;
 
-::display('Token: "'.$self->getToken()."\"\n");
+::body($self->getToken());
 }
 
 package Text;
@@ -126,6 +130,10 @@ my ($class)=@_;
 return QuotedToken::new($class,'>>');
 }
 
+sub process
+{
+}
+
 package PHP;
 
 @ISA=qw(QuotedToken);
@@ -185,15 +193,46 @@ my $name=$class.'::new';
 return $Token=&$name($class);
 }
 
-sub display
+sub header
 {
-print @_;
+$Header.=join '',@_;
 }
 
+sub body
+{
+$Body.=join '',@_;
+}
+
+sub footer
+{
+$Footer.=join '',@_;
+}
+
+sub display
+{
+print STDERR @_;
+}
+
+sub init
+{
 $|=1;
 pull;
+}
+
+sub run
+{
 while($Line ne '')
      {
      pullToken;
-     $Token->print();
+     $Token->process();
      }
+}
+
+sub done
+{
+print $Header,$Body,$Footer;
+}
+
+init;
+run;
+done;
