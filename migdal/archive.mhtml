@@ -1,0 +1,43 @@
+<< @(#) $Id$ >>
+
+<grps>
+<pagetitle title='Архив'>
+<topictitle title='Архив'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics_major ident='archive'>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <iterate_postinglist grp='*GRP_ARCHIVE' limit=0 showshadows='*false'
+                         fields='*SELECT_GENERAL'>
+    <assign name='day' value=0>
+    <style><!--
+     DL.archive DT {
+     	font-weight: bold;
+	padding-top: 5px;
+     }
+    // -->
+    </style>
+    <dl class='ninept archive'>
+     <for>
+      <if what='$day!=$.Sent@d'>
+       <dt>$.Sent@d.$.Sent@m.$.Sent@Y
+       <assign name='day' value='$.Sent@d'>
+      </if>
+      <dd>$.Sent@H:$.Sent@i&sp;
+	  <a href='$.DetailsFile?$.DetailsId=$.Id'>$.SubjectDesc</a>
+     </for>
+    </dl>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</body>
+</html>

@@ -69,5 +69,7 @@
  <navi_times ident='$ident' span='$spn'>
  <navi_taglit ident='$ident' span='$spn'>
  <navi_veterans ident='$ident' span='$spn'>
+ <topics_line href='archive.php' text='Архив' arrow!="$ident=='archive'"
+              class='item eightpt' span='$spn'>
 </topics_table>
 </element>

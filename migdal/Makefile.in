@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-OBJECTS = article.php article-times.php book.php book-chapter.php \
+OBJECTS = archive.php article.php article-times.php book.php book-chapter.php \
 	  chat.php chatboard.php chatbottom.php chatconsole.php \
 	  chattop.php chattune.php chatusers.php chmod.php \
 	  complainactionedit.php complainanswer.php complainedit.php \
