@@ -55,6 +55,10 @@ return preg_replace('/\n\s*\n/','<p>',$s);
 
 function getURLTag($url,$protocol,$content)
 {
+global $redir;
+
+if($protocol=='')
+  $url=remakeURI($url,array(),array('redirid' => $redir->getId()));
 return "<a href='$url'".($protocol!='' ? ' target=_blank>' : '>').
        "$content</a>";
 }

@@ -111,6 +111,11 @@
 	text-align: justify;
 }
 
+.article BLOCKQUOTE P {
+	font-family: %verdana;
+	font-size: 10pt;
+}
+
 .article .notes {
 	border-style: none;
 	color: %article_notes_split;
