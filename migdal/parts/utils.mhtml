@@ -11,36 +11,17 @@
 </element>
 
 <element name='SenderLink'>
-<span class='name'>$message.LoginLink</span>&nbsp;<asp>
-<if what='$message.isSenderVisible'>
- <asp><a href='useredit.php?editid=$message.SenderId&redir=$_'
-         title='подробнее'><img src='pics/info.gif' border=0></a>
+<if what="$align=='right'">
+ <span class='name'>$message.LoginLink</span>&nbsp;<asp>
+ <if what='$message.isSenderVisible'>
+  <asp><a href='useredit.php?editid=$message.SenderId&redir=$_'
+	  title='подробнее'><img src='pics/info.gif' border=0></a>
+ </if>
+<else>
+ <if what='$message.isSenderVisible'>
+  <a href='useredit.php?editid=$message.SenderId&redir=$_'
+     title='подробнее'><img src='pics/info.gif' border=0></a>&nbsp;<asp>
+ </if>
+ <asp><span class='name'>$message.LoginLink</span>
 </if>
-</element>
-
-<element name='Navigator'>
-<br><table width=100%><tr>
- <td align=left width=30%>
-  <ifnzero what='$list.Offset'>
-   <a href="$[offset='$list.PrevOffset']">&lt;-- Предыдущие</a>
-  </ifzero>
- </td>
- <td align=center width=40%>
-  <if what='$list.Size<=$list.Limit'>
-   Всего: $list.Size
-  <else>
-   <form method=post action='actions/goto.php'>
-    <hidden name='redir' value='$-'>
-    <hidden name='size' value='$list.Size'>
-    [<edit name='value' value='$list.BeginValue' size=2 maxlength=5><<
-    >>-$list.EndValue] из $list.Size
-   </form>
-  </if>
- </td>
- <td align=right width=30%>
-  <if what='$list.EndValue<$list.Size'>
-   <a href="$[offset='$list.NextOffset']">Следующие --&gt;</a>
-  </if>
- </td>
-</tr></table><br>
 </element>

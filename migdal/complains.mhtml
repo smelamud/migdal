@@ -72,7 +72,7 @@
     <if what='$.isRebe'>
      <span class='rebe'>
     </if>
-    <senderlink message='$.'>
+    <senderlink message='$.' align='left'>
     <if what='$.isRebe'>
      </span>
     </if>
@@ -81,7 +81,7 @@
     <a href='complainforum.php?compid=$.Id&redir=$_'>$.Subject</a>
    </td>
    <if what='$.isAssigned'>
-    <td><senderlink message='$.RecipientInfo'></td>
+    <td><senderlink message='$.RecipientInfo' align='left'></td>
    <else>
     <td align=center>-</td>
    </if>

@@ -4,11 +4,13 @@
 define('SORT_NONE',0);
 define('SORT_SENT',1);
 define('SORT_NAME',2);
+define('SORT_ACTIVITY',3);
 define('SORT_ORDER',255);
 define('SORT_PRIORITY',256);
 
 define('SORT_PSENT',SORT_PRIORITY|SORT_SENT);
 define('SORT_PNAME',SORT_PRIORITY|SORT_NAME);
+define('SORT_PACTIVITY',SORT_PRIORITY|SORT_ACTIVITY);
 
 function getOrderBy($sort,$names,$priority='priority')
 {

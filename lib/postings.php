@@ -214,8 +214,10 @@ $topicFilter=$topic<0
 		 	                  track(idByIdent('topics',$topic)).
 					  "%' "
 				        : ''));
-$order=getOrderBy($sort,array(SORT_SENT => 'sent desc',
-                              SORT_NAME => 'subject'));
+$order=getOrderBy($sort,
+       array(SORT_SENT     => 'sent desc',
+             SORT_NAME     => 'subject',
+             SORT_ACTIVITY => 'age desc'));
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
@@ -227,8 +229,9 @@ $this->LimitSelectIterator(
 	       images.has_large as has_large_image,images.title as title,
 	       topics.name as topic_name,topictexts.body as topic_description,
 	       login,gender,email,hide_email,rebe,
-	       count(forums.up) as answer_count,
-	       max(forummesgs.sent) as last_answer
+	       count(forummesgs.id) as answer_count,
+	       max(forummesgs.sent) as last_answer,
+	       ifnull(max(forummesgs.sent),messages.sent) as age
 	from postings
 	     left join messages
 	          on postings.message_id=messages.id
@@ -245,7 +248,11 @@ $this->LimitSelectIterator(
 	     left join forums
 		  on messages.id=forums.up
 	     left join messages as forummesgs
-	          on forums.message_id=forummesgs.id
+	          on forums.message_id=forummesgs.id and
+	             (forummesgs.hidden<$hide or
+		      forummesgs.sender_id=$userId) and
+	             (forummesgs.disabled<$hide or
+		      forummesgs.sender_id=$userId)
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter

@@ -187,7 +187,7 @@ function ComplainListIterator($limit=20,$offset=0)
 $this->LimitSelectIterator(
        'Complain',
        'select complains.id as id,messages.subject as subject,
-               messages.sent as sent,closed,recipient_id,
+               messages.sent as sent,sender_id,closed,recipient_id,
                users.login as login,users.gender as gender,
 	       users.email as email,users.hide_email as hide_email,
 	       users.rebe as rebe,users.hidden as sender_hidden,

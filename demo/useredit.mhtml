@@ -160,7 +160,7 @@
   <noedit name='user'>
    <tr>
     <td><b>Последний раз<br>заходил сюда:</b></td>
-    <td><sentview date='$.LastOnline'></td>
+    <td><sentview date='$,LastOnline'></td>
    </tr>
   </noedit>
   <admin_users>

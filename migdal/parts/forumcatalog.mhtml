@@ -62,7 +62,7 @@
 
 <element name='ForumCatalog'>
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
-                     sort='*SORT_PSENT'>
+                     sort='*SORT_ACTIVITY'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher_forumcatalog value='$limit' list='$;' topic='$topic' grp='$grp'>
  <table>
@@ -92,7 +92,7 @@
      <if what='$.isRebe'>
       <span class='rebe'>
      </if>
-     <senderlink message='$.'>
+     <senderlink message='$.' align='left'>
      <if what='$.isRebe'>
       </span>
      </if>
@@ -110,7 +110,7 @@
        <if what='$.isRebe'>
 	<span class='rebe'>
        </if>
-       <senderlink message='$,'>
+       <senderlink message='$,' align='left'>
        <if what='$.isRebe'>
 	</span>
        </if>
