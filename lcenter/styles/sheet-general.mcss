@@ -42,3 +42,11 @@ A {
 TT {
 	font-family: %courier;
 }
+
+.eframe {
+	border-right: solid 1px %eframe_border;
+}
+
+A.edit {
+	font-size: 8pt;
+}

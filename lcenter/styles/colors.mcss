@@ -13,7 +13,9 @@ dbl=#003366	! Dark
 sbl=#567297	! Desaturated
 lbl=#3f689d	! Light
 bbl=#bdd0e9	! Background
+rbl=#dde9f8	! Bright
 
 ! Orange
 
 mor=#f26622	! Medium
+ror=#f8f0dd	! Bright

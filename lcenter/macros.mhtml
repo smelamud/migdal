@@ -28,6 +28,17 @@
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
 <decel name='top' file='parts/top.php' params='ident'>
+<decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
+<decel name='topics_line' params='arrow,text,title,href,class'
+       defaults="arrow='*false' text='' title='' href='' class='item'"
+       file='parts/topicsutils.php'>
+<decel name='topics_table' params='class,title' defaults="class='' title=''"
+       file='parts/topicsutils.php'>
+<decel name='topics_table_end' file='parts/topicsutils.php'>
+
+<macro name='/topics_table'>
+ <topics_table_end>
+</macro>
 
 << HTML shortcuts >>
 <macro name='edit_line' defaults="mandatory='*false'">

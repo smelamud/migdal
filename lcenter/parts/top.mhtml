@@ -13,6 +13,9 @@
 <element name='menu' params='ident'>
  <menuitem ident='index' text='Главная' href='/'>
  <menuitem ident='about' text='О нас' href='/about/'>
+ <moderator>
+  <menuitem ident='admin' text='Админ' href='/topicorg.php'>
+ </moderator>
 </element>
 
 <element name='top'>

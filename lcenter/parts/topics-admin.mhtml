@@ -1,0 +1,14 @@
+<< @(#) $Id$ >>
+
+<element name='topics_admin'>
+<topics_table title='Администратор'>
+ <topics_line arrow!="$ident=='admin-topics'"
+              text='Темы' href='/topicorg.php'>
+ <topics_line arrow!="$ident=='admin-messages'"
+              text='Сообщения' href='/postingorg.php'>
+ <topics_line arrow!="$ident=='admin-groups'"
+              text='Группы' href='/grouporg.php'>
+ <topics_line arrow!="$ident=='admin-journal'"
+              text='Журнал' href='/journal.php'>
+</topics_table>
+</element>
