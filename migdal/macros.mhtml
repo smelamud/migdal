@@ -226,6 +226,7 @@
  <require name='parts/posting-times.php'>
  <require name='parts/posting-times-cover.php'>
  <require name='parts/taglit-gallery-picture.php'>
+ <require name='parts/kaitana-picture.php'>
  <require name='parts/tip-posting.php'>
  <require name='parts/link-posting.php'>
  <if what='%posting.TapeCenter'><center></if>
