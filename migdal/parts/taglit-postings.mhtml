@@ -4,7 +4,7 @@
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left>
   <logged>
-   <a href='postingedit.php?topic_id=$taglit_id&up=$taglit_id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
+   <a href='postingedit.php?topic_id=$taglit_id&root=$taglit_id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
       class='add'>
     Добавить мнение</a>
   </logged>

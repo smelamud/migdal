@@ -4,7 +4,7 @@
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left>
   <logged>
-   <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_FORUMS&redirid=$_'
+   <a href='postingedit.php?topic_id=$topic&root=general&grp=*GRP_FORUMS&redirid=$_'
       class='add'>Добавить мнение</a>
   <else>
    <span class='info'>
@@ -57,7 +57,7 @@
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <ifnzero what='$.LastAnswer'>
      <zone>
-      <forum_answer_author up='$.MessageId' sent='$.LastAnswer'>
+      <forum_answer_author parent_id='$.MessageId' sent='$.LastAnswer'>
       <td class='eightpt'><senderlink message='$,'></td>
      </zone>
      <td class='eightpt'><sentview date='$.LastAnswer'></td>

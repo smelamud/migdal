@@ -16,8 +16,8 @@
 
 << Elements >>
 <decel name='article' file='parts/article.php' params='posting'>
-<decel name='article_controls' file='parts/article.php' params='posting,up'
-       defaults="up=general">
+<decel name='article_controls' file='parts/article.php' params='posting,root'
+       defaults="root=general">
 <decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='at' file='parts/utils.php' params='target,class,href'
        defaults="target='' class=''">
@@ -36,7 +36,7 @@
 <decel name='forumcatalog' file='parts/forumcatalog.php'
        params='topic,limit,offset'
        defaults="topic=-1 limit=10 offset=0">
-<decel name='forums' file='parts/forums.php' params='up,limit,offset'
+<decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='friends' file='parts/friends.php'>
 <decel name='gallery' file='parts/gallery.php'
@@ -45,8 +45,8 @@
 <decel name='gallery_main' file='parts/gallery-main.php'
        params='cols,subdomain' defaults="cols=5 subdomain=-1">
 <decel name='gallery_picture' file='parts/gallery-picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten,up'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' up=general">
+       params='picture,showtopic,showdiscuss,showcomplain,shorten,root'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' root=general">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='hit_parade' file='parts/hit-parade.php' params='grp,topic_id'
@@ -69,8 +69,8 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten,up,topiclink'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' up=general">
+       params='picture,showtopic,showdiscuss,showcomplain,shorten,root,topiclink'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' root=general">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,text,image_id' defaults="text=''">
 <decel name='posting_general' file='parts/posting.php'
@@ -132,8 +132,8 @@
 <decel name='topics_table_end' file='parts/topics.php'>
 <decel name='topics_taglit' params='taglit,id' file='parts/topics-taglit.php'>
 <decel name='topicselect' file='parts/topicselect.php'
-       params='name,value,grp,mandatory,title,up'
-       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' up='-1'">
+       params='name,value,grp,mandatory,title,root'
+       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
 <decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'

@@ -40,9 +40,9 @@
       свободно добавлять свои рассказы и фотографии.
      <else>
       нажать на ссылку
-      <a href='postingedit.php?topic_id=$,Id&up=$,Id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'>
+      <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'>
        "Добавить мнение"</a> или
-      <a href='postingedit.php?topic_id=$,Id&up=$,Id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'>
+      <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'>
        "Добавить фотографию"</a>.
      </notlogged>
      Для каждого пользователя автоматически создается отдельный раздел.
@@ -54,10 +54,10 @@
    <p>
    <logged>
     <div class='batcher'>
-     <a href='postingedit.php?topic_id=$,Id&up=$,Id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
+     <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
         class='add'>
       Добавить мнение</a>&nbsp;
-     <a href='postingedit.php?topic_id=$,Id&up=$,Id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+     <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
         class='add'>
       Добавить фотографию</a>
     </div>

@@ -19,7 +19,7 @@
    <topics_major ident='times'>
   </td>
   <td class='article cframe'>
-   <article_controls posting='$,' up='$times.Id'>
+   <article_controls posting='$,' root='$times.Id'>
    <ifnzero what='$,Id'>
     <zone>
      <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic='$times.Id'
@@ -37,7 +37,7 @@
     </ifne>
    </h1>
    <article_full posting='$,'>
-   <article_controls posting='$,' up='$times.Id'>
+   <article_controls posting='$,' root='$times.Id'>
   </td>
  </tr></table>
  <bottom>

@@ -17,7 +17,7 @@
  </ifnzero>
  <isedit what='$picture'>
   <tr><td class=batcher align=center>
-   <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&up=$kaitana.Id&grp=$picture.Grp&redirid=$_"
+   <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$kaitana.Id&grp=$picture.Grp&redirid=$_"
     >Изменить</a>
   </td></tr>
  </isedit>

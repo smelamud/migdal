@@ -85,11 +85,6 @@ function isValid()
 return $this->grp!=GRP_NONE;
 }
 
-function getUpValue()
-{
-return $this->up;
-}
-
 function getIdent()
 {
 return $this->ident;

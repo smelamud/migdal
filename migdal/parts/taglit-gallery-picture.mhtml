@@ -6,6 +6,6 @@
  <assign name='taglit_id' value='$taglit.Id'>
 </ifzero>
 <picture picture='$picture' showtopic='$showtopic' showdiscuss='$showdiscuss'
-         showcomplain='$showcomplain' shorten='$shorten' up='$taglit_id'
+         showcomplain='$showcomplain' shorten='$shorten' root='$taglit_id'
          topiclink#='taglit-user.php?user_id=$picture.SenderId'>
 </element>

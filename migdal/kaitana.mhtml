@@ -24,7 +24,7 @@
  <tr>
   <editor>
    <td>
-    <a href="postingedit.php?editid=$posting.Id&up=$kaitana.Id&grp=$posting.Grp&redirid=$_"
+    <a href="postingedit.php?editid=$posting.Id&root=$kaitana.Id&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
    </td>
    <if what='$posting.isModerable'>
@@ -58,10 +58,10 @@
    <subtitle>
    <editor>
     <div class=batcher>
-     <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
+     <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
 	class=add>Добавить новость</a>
      &nbsp;
-     <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+     <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
 	class=add>Добавить картинку</a>
     </div>
    </editor>

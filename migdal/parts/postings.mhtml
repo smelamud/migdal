@@ -9,12 +9,12 @@
   <td align=left>
    <logged>
     <if what='$,isValid'>
-     <a href='postingedit.php?topic_id=$topic&up=general&grp=$grp&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic&root=general&grp=$grp&redirid=$_'
 	class='add'>Добавить $,GrpItemTitle</a>
     <else>
-     <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_NEWS&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic&root=general&grp=*GRP_NEWS&redirid=$_'
 	class='add'>Добавить новость</a>,
-     <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_ARTICLES&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic&root=general&grp=*GRP_ARTICLES&redirid=$_'
 	class='add'>статью</a>
     </if>
    <else>

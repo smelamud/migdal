@@ -83,7 +83,7 @@
       &nbsp;
      </admin_domain>
      <isedit what='$posting'>
-      <a href="postingedit.php?editid=$posting.Id&up=general&grp=$posting.Grp&redirid=$_"
+      <a href="postingedit.php?editid=$posting.Id&root=general&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
       <if what='$posting.isModerable'>
        &nbsp;

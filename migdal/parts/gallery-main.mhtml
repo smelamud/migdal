@@ -5,7 +5,7 @@
                    cols='$cols' subdomain='$subdomain'>
 <div class='batcher'>
  <logged>
-  <a href='postingedit.php?topic_id=-1&up=general&grp=*GRP_GALLERY&redirid=$_'
+  <a href='postingedit.php?topic_id=-1&root=general&grp=*GRP_GALLERY&redirid=$_'
      class='add'>Добавить картинку</a>
  <else>
   <span class='info'>

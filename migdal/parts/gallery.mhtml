@@ -5,7 +5,7 @@
  <table width=100% class='batcher'><tr valign=bottom>
   <td align=left>
    <logged>
-    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_GALLERY&redirid=$_'
+    <a href='postingedit.php?topic_id=$topic&root=general&grp=*GRP_GALLERY&redirid=$_'
        class='add'>Добавить картинку</a>
    <else>
     <span class='info'>

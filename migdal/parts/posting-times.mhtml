@@ -43,7 +43,7 @@
  <table width=90% class='bottom'><tr>
   <td>
    <isedit what='$posting'>
-    <a href="postingedit.php?editid=$posting.Id&up=$times.Id&grp=$posting.Grp&redirid=$_"
+    <a href="postingedit.php?editid=$posting.Id&root=$times.Id&grp=$posting.Grp&redirid=$_"
      >Изменить</a>
    </isedit>
   </td>

@@ -2,6 +2,6 @@
 
 <element name='gallery_picture'>
 <picture picture='$picture' showtopic='$showtopic' showdiscuss='$showdiscuss'
-         showcomplain='$showcomplain' shorten='$shorten' up='$up'
+         showcomplain='$showcomplain' shorten='$shorten' root='$root'
          topiclink#='gallery.php?topic_id=$picture.TopicId'>
 </element>

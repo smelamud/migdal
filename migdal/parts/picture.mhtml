@@ -28,7 +28,7 @@
   <logged>
    <tr><td class='modify'>
     <isedit what='$picture'>
-     <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&up=$up&grp=$picture.Grp&redirid=$_"
+     <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$root&grp=$picture.Grp&redirid=$_"
       >Изменить</a>
     <else>
      <if what='$showcomplain'>

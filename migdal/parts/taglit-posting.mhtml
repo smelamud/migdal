@@ -19,8 +19,8 @@
    </dt>
   </if>
   <dt class='sent'>
-   <biff time='$posting.Sent'>
    <sentview date='$posting.Sent'>
+   <biff time='$posting.Sent'>
    <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
 	       image='$$style_cframe_back_pic'>
   </dt>
@@ -48,7 +48,7 @@
    <table width=90% class='bottom'><tr>
     <td>
      <isedit what='$posting'>
-      <a href="postingedit.php?editid=$posting.Id&up=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
+      <a href="postingedit.php?editid=$posting.Id&root=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
       <if what='$posting.isModerable'>
        &nbsp;

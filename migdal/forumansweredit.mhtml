@@ -2,7 +2,7 @@
 
 <force_community>
 <int name='editid'>
-<int name='up'>
+<int name='parent_id'>
 <pagetitle title='Сообщение в форуме'>
 <conf>
 
@@ -10,7 +10,7 @@
 <preamble>
 <body>
  <top ident='discuss'>
- <forum_answer_obj id='$editid' up='$up'>
+ <forum_answer_obj id='$editid' parent_id='$parent_id'>
  <setup>
  <if what='$editid'>
   <assign name='head' value='Изменить сообщение в форуме'>

@@ -19,7 +19,7 @@
   </ifne>
   <complain complain='$,' discuss='*false'>
  </table>
- <forums up='$,MessageId' limit='$$userForumPortion'>
+ <forums parent_id='$,MessageId' limit='$$userForumPortion'>
  <bottom>
 </body>
 </html>

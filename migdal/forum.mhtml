@@ -20,7 +20,7 @@
    <posting posting='$posting' shorten='*true' showdiscuss='*false'
             showcomplain='$$communityDomain'>
    <p>
-   <forums up='$,MessageId' limit='$$userForumPortion'>
+   <forums parent_id='$,MessageId' limit='$$userForumPortion'>
   </td>
  </tr></table>
  <bottom>

@@ -1,13 +1,13 @@
 << @(#) $Id$ >>
 
 <element name='topicselect'>
-<iterate_sortedtopicnames grp='$grp' up='$up'>
+<iterate_sortedtopicnames grp='$grp' up='$root'>
 <ifnzero what='$;Count'>
  <tr>
   <td>$title <if what='$mandatory'><star></if></td>
   <td>
    <select name='$name'>
-    <assign name='none' value!='$up<0 ? 0 : $up'>
+    <assign name='none' value!='$root<0 ? 0 : $root'>
     <radio title='-- Без темы --' value='$none' peervalue='$value'>
     <for>
      <radio title='$.FullName' value='$.Id' peervalue='$value'>
@@ -16,6 +16,6 @@
   </td>
  </tr>
 <else>
- <hidden name='$name' value='$up'>
+ <hidden name='$name' value='$root'>
 </ifnzero>
 </element>

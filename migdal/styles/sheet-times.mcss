@@ -29,6 +29,9 @@
 
 .mtimes .heading {
 	border-bottom: solid 3px %times_topic_split;
+}
+
+.mtimes .heading TD {
 	font-weight: bold;
 }
 

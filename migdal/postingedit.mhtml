@@ -2,7 +2,7 @@
 
 <int name='editid'>
 <int name='topic_id'>
-<string name='up'>
+<string name='root'>
 <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
 <pagetitle title#='Редактирование $message.GrpItemsTitle'>
 
@@ -29,7 +29,7 @@
      <hidden name='faildir' value='$-'>
      <hidden name='editid' value='$editid'>
      <hidden name='personal_id' value='$message.PersonalId'>
-     <hidden name='up' value='$up'>
+     <hidden name='up' value='$message.UpValue'>
      <table>
      <starinfo>
      <error id='*EP_NO_SEND'
@@ -62,7 +62,7 @@
       </moderator>
       <if what='$message.hasTopic'>
        <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
-		    mandatory='$message.mandatoryTopic' up='$up'>
+		    mandatory='$message.mandatoryTopic' root='$root'>
       </if>
       <moderator>
        <if what='$message.hasIdent'>

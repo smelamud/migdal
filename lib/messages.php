@@ -119,6 +119,11 @@ function getId()
 return $this->id;
 }
 
+function getUpValue()
+{
+return $this->up;
+}
+
 function getSubject()
 {
 return $this->subject;

@@ -33,7 +33,7 @@
     <error id='*ET_NO_UP' text='Такой темы не существует' span=2>
     <error id='*ET_LOOP_UP' text='Тема не может быть подтемой самой себя' span=2>
     <topicselect title='Надтема' name='up' grp='*GRP_ALL' value='$,UpValue'
-                 up=-1>
+                 root=-1>
     <error id='*ET_NAME_ABSENT' text='Название не было введено' span=2>
     <edit_line title='Название' value=$,Name name='name' size=30 maxlength=70
                mandatory='*true'>
