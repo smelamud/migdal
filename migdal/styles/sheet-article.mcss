@@ -100,7 +100,7 @@
 	font-family: %verdana;
 }
 
-.article TT {
+.article TT,.article TT * {
 	font-size: 10pt;
 	font-family: %courier;
 }
