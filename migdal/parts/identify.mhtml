@@ -65,6 +65,10 @@
    <assign name='name' value#='$name :: Новые поступления'>
   </if>
  <elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
+  <topic_obj id='$`migdal-ohr`'>
+  <assign name='href' value#='migdal.php?artid=$`postings:migdal-ohr`'>
+  <assign name='title' value='$,Description'>
+  <assign name='name' value='$,Name'>
   <assign name='tel' value='topics_migdal_ohr'>
   <assign name='uhref' value='migdal.php'>
   <assign name='utitle' value='Мигдаль'>
