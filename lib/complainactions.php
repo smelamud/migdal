@@ -3,6 +3,7 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/tmptexts.php');
+require_once('lib/selectiterator.php');
 
 class ComplainAction
       extends DataObject
@@ -24,8 +25,12 @@ function setup($vars)
 {
 if(!isset($vars['edittag']))
   return;
-foreach($this->getCorrespondentVars() as $var)
+$list=$vars['edittag']==2 ? $this->getEditCorrespondentVars()
+                          : $this->getCorrespondentVars();
+foreach($list as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+if(isset($vars['nameid']))
+  $this->text=tmpTextRestore($vars['nameid']);
 if(isset($vars['textid']))
   $this->text=tmpTextRestore($vars['textid']);
 }
@@ -33,6 +38,30 @@ if(isset($vars['textid']))
 function getCorrespondentVars()
 {
 return array('text');
+}
+
+function getEditCorrespondentVars()
+{
+return array('type_id','name','text','automatic','script_id');
+}
+
+function getWorldVars()
+{
+return array('type_id','name','text','automatic','script_id');
+}
+
+function store()
+{
+$normal=$this->getNormal();
+$result=mysql_query($this->id 
+                    ? makeUpdate('complain_actions',
+		                 $normal,
+				 array('id' => $this->id))
+                    : makeInsert('complain_actions',
+		                 $normal));
+if(!$this->id)
+  $this->id=mysql_insert_id();
+return $result;
 }
 
 function getId()

@@ -57,9 +57,17 @@ function getScriptBodyById($id)
 {
 $result=mysql_query("select script
 		     from complain_scripts
-		     where id=$id");
-if(!$result)
-  die('Ошибка SQL при получении тела скрипта реакции на жалобу');
+		     where id=$id")
+             or die('Ошибка SQL при получении тела скрипта реакции на жалобу');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
+}
+
+function complainScriptExists($id)
+{
+$result=mysql_query("select id
+                     from complain_scripts
+		     where id=$id")
+             or die('Ошибка SQL при проверке наличия скрипта реакции на жалобу');
+return mysql_num_rows($result)>0;
 }
 ?>

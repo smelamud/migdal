@@ -124,4 +124,12 @@ define('ELII_STORE_SQL',254);
 define('ELID_OK',260);
 define('ELID_NO_EDIT',261);
 define('ELID_DELETE_SQL',262);
+
+define('ECAM_OK',270);
+define('ECAM_NO_EDIT',271);
+define('ECAM_NO_TYPE',272);
+define('ECAM_NAME_ABSENT',273);
+define('ECAM_TEXT_ABSENT',274);
+define('ECAM_NO_SCRIPT',275);
+define('ECAM_SQL_STORE',276);
 ?>

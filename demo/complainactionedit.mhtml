@@ -17,20 +17,20 @@
   <td><select name='typeid'>
    <iterate_complain_types>
    <for>
-    <if what='$.Id==$type.Id'>
+    <if what='$.Id==$typeid'>
      <option label='$.Name' value='$.Id' selected>
     <else>
      <option label='$.Name' value='$.Id'>
     </if>
    </for>
   </select></td>
-  <td><input type=submit value='Изменить'></td>
+  <td><input type=submit value='Просмотр'></td>
  </tr></table></form>
  <p>
  <table width=100%>
   <tr valign=top>
    <td>
-    <iterate_complain_actionlist type='$type.Id'>
+    <iterate_complain_actionlist type='$typeid'>
     <for>
      <if what='$editid==$.Id'>
       <a href='$[err edittag editid=$.Id]'><b>$.Name</b></a>
@@ -53,34 +53,17 @@
     <complain_action_obj id='$editid'>
     <setup>
     <form method=post action='actions/camod.php'>
-     <input type=hidden name='edittag' value=1>
+     <input type=hidden name='edittag' value=2>
      <input type=hidden name='redir' value='$redir'>
      <input type=hidden name='type_id' value='$typeid'>
      <input type=hidden name='editid' value='$editid'>
-      <<
-      <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'
-	     span=2>
-      <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'
-	     span=2>
-      <error id='*ELIM_DELETE_SQL' color=magenta span=2
-	     text='Ошибка при удалении старого изображения'>
-      <error id='*ELID_DELETE_SQL' color=magenta span=2
-	     text='Ошибка при удалении изображения'>
-      <error id='*ELIM_IMAGE_ABSENT' text='Такого изображения не существует'
-	     span=2>
-      <error id='*ELIM_SET_SQL' text='Ошибка при установке набора изображений'
-	     color=magenta span=2>
-      <error id='*ELIM_SETID_SQL' color=magenta span=2
-	     text='Ошибка при установке идентификатора изображения'>
-      <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
-      <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
-	     span=2>
-      <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
-	     color='magenta' span=2>
-      <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
-	     text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
-      >>
      <table>
+      <error id='*ECAM_NO_EDIT' text='Вы не администратор'>
+      <error id='*ECAM_NO_TYPE' text='Такого типа жалобы не существует'>
+      <error id='*ECAM_SQL_STORE' color=magenta
+             text='Ошибка базы данных при обновлении записи'>
+     <table>
+      <error id='*ECAM_NO_SCRIPT' text='Такого скрипта не существует' span=2>
       <tr>
        <td><select name='script_id'>
 	<iterate_complain_scriptlist ident='$type.Ident'>
@@ -100,8 +83,11 @@
       </tr>
      </table>
      <table>
+      <error id='*ECAM_NAME_ABSENT' text='Укажите заголовок ответа' span=2>
       <edit_line name='name' value='$,Name' title='Заголовок' size=40
                  maxlength=70>
+      <error id='*ECAM_TEXT_ABSENT' span=2
+             text='Напишите хотя бы пару строчек в теле ответа'>
       <editor_line name='text' body='$,Text' title='Текст' span=2>
      </table>
      <if what='$editid'>
