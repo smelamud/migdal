@@ -27,3 +27,7 @@ DROP TABLE `menu`;
 ALTER TABLE `users` DROP `admin_menu`;
 ALTER TABLE `topics` ADD `user_id` INT NOT NULL AFTER `name`;
 ALTER TABLE `topics` ADD INDEX (`user_id`);
+ALTER TABLE `topics` ADD `name_sort` VARCHAR(140) NOT NULL AFTER `name`;
+ALTER TABLE `topics` ADD INDEX (`name_sort`); 
+ALTER TABLE `users` ADD `login_sort` VARCHAR(60) NOT NULL AFTER `login`;
+ALTER TABLE `users` ADD INDEX (`login_sort`);

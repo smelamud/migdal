@@ -89,6 +89,7 @@ global $userAdminUsers;
 $normal=$this->getNormal($userAdminUsers);
 if(!$this->id || $this->dup_password!='')
   $normal=array_merge($normal,array('password' => md5($this->password)));
+$normal['login_sort']=convertSort($normal['login']);
 $result=mysql_query($this->id 
                     ? makeUpdate('users',$normal,array('id' => $this->id))
                     : makeInsert('users',$normal));
@@ -349,7 +350,7 @@ $this->SelectIterator('User',
 				    and sessions.last+interval 1 hour>now()
 		       where hidden<$hide
 		       group by users.id
-		       order by login");
+		       order by login_sort");
 }
 
 }

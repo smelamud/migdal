@@ -11,6 +11,7 @@ require_once('lib/ident.php');
 require_once('lib/stotext.php');
 require_once('lib/array.php');
 require_once('lib/track.php');
+require_once('lib/charsets.php');
 
 class Topic
       extends UserTag
@@ -85,6 +86,7 @@ function getNormal($isAdmin=false)
 {
 $normal=UserTag::getNormal($isAdmin);
 $normal['stotext_id']=$this->stotext->getId();
+$normal['name_sort']=convertSort($normal['name']);
 return $normal;
 }
 
@@ -265,7 +267,7 @@ $this->TopicIterator(
        $this->getWhere($grp,$up,'topics.',$withAnswers).
       "group by topics.id
        $postFilter
-       order by topics.name");
+       order by topics.name_sort");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }
