@@ -25,6 +25,11 @@ function User($row)
 $this->DataObject($row);
 }
 
+function isEditable()
+{
+return $this->id==0;
+}
+
 function getId()
 {
 return $this->id;
@@ -88,5 +93,14 @@ $this->SelectIterator('User',
 		       order by login');
 }
 
+}
+
+function getUserById($id)
+{
+$result=mysql_query("select *
+                     from users
+		     where id=$id");
+return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                          : array());
 }
 ?>
