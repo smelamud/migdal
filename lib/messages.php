@@ -468,6 +468,11 @@ function isDisabled()
 return $this->disabled;
 }
 
+function getModbits()
+{
+return $this->modbits;
+}
+
 function getSent()
 {
 return strtotime($this->sent);
@@ -532,6 +537,22 @@ $result=mysql_query("select id
 		     where id=$id and $hide")
           or sqlbug('Ошибка SQL при проверке наличия сообщения');
 return mysql_num_rows($result)>0;
+}
+
+function setHiddenByMessageId($id,$hidden)
+{
+if($hidden)
+  $op='& ~0x1100';
+else
+  $op='| 0x1100';
+mysql_query("update messages
+             set perms=perms $op
+	     where id=$id")
+  or sqlbug('Ошибка SQL при скрытии сообщения');
+journal("update messages
+         set perms=perms $op
+	 where id=".journalVar('messages',$id));
+dropPostingsInfoCache(DPIC_POSTINGS);
 }
 
 function setDisabledByMessageId($id,$disabled)

@@ -11,6 +11,7 @@ require_once('lib/users.php');
 require_once('lib/forums.php');
 require_once('lib/complainscripts.php');
 require_once('lib/postings.php');
+require_once('lib/modbits.php');
 
 function deleteCond($table,$cond)
 {
@@ -70,10 +71,26 @@ while($row=mysql_fetch_assoc($result))
      }
 }
 
+function enableMessages()
+{
+global $messageEnableTimeout;
+
+$result=mysql_query('select id
+                     from messages
+		     where disabled<>0 and (modbits & '.MOD_MODERATE.")!=0 and
+		           last_updated+
+			   interval $messageEnableTimeout hour<now()");
+if(!$result)
+  die(mysql_error());
+while($row=mysql_fetch_assoc($result))
+     setDisabledByMessageId($row['id'],0);
+}
+
 dbOpen();
 session(getShamesId());
 cleanup();
 closeComplains();
+enableMessages();
 dbClose();
 
 ?>

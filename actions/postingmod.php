@@ -35,7 +35,7 @@ journal("update images
 return $result ? EP_OK : EP_TITLE_SQL;
 }
 
-function isPremoderated($message)
+function isDisabledSet($message)
 {
 global $userId,$userModerator;
 
@@ -45,48 +45,36 @@ return (((int)getPremoderateByTopicId($message->getTopicId())
        && !$userModerator;
 }
 
-function isLogged($message)
+function isModerateSet($message)
+{
+global $userId,$userModerator;
+
+return (((int)getPremoderateByTopicId($message->getTopicId())
+         & (int)$message->getGrp())!=0
+	|| $message->getLargeFormat()==TF_HTML)
+       && !$userModerator;
+}
+
+function isEditSet($message)
 {
 global $userModerator;
 
 return !$userModerator;
 }
 
-function setDisabled($message)
+function setDisabled($message,$original)
 {
-$modbits=$message->getModmask();
+if($original->getId()==0)
+  if(isDisabledSet($message))
+    setDisabledByMessageId($message->getMessageId(),1);
+$modbits=$message->getModmask() & MOD_USER;
+if(isModerateSet($message))
+  $modbits|=MOD_MODERATE;
 if($message->getLargeFormat()==TF_HTML)
   $modbits|=MOD_HTML;
-else
-  $modbits&=~MOD_HTML;
+if(isEditSet($message))
+  $modbits|=MOD_EDIT;
 setModbitsByMessageId($message->getMessageId(),$modbits);
-
-$complain=getComplainInfoByLink(COMPL_AUTO_POSTING,$message->getId());
-if($complain->getId()==0)
-  {
-  if(isPremoderated($message))
-    setDisabledByMessageId($message->getMessageId(),1);
-  if(isLogged($message))
-    sendAutomaticComplain(COMPL_AUTO_POSTING,
-			  'Автоматическая проверка сообщения "'.
-			   $message->getSubjectDesc().'"',
-			  $message->getLargeFormat()!=TF_HTML
-			   ? ''
-			   : '~Внимание!~ Этот текст в формате HTML.',
-			  $message->getId(),
-			  $message->getLargeFormat()==TF_HTML);
-  }
-else
-  if(isLogged($message))
-    {
-    if($complain->isClosed())
-      reopenComplain($complain->getId(),true);
-    if(!postForumAnswer($complain->getMessageId(),
-			'Сообщение было изменено.',
-			getShamesId()))
-      return false;
-    }
-return true;
 }
 
 function modifyPosting($message,$original)
@@ -156,8 +144,7 @@ if(!$message->store())
   return EP_STORE_SQL;
 if(!updateTracks('messages',$message->message_id))
   return EP_TRACK_SQL;
-if(!setDisabled($message))
-  return EP_DISABLE_SQL;
+setDisabled($message,$original);
 return EP_OK;
 }
 

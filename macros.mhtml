@@ -12,6 +12,7 @@
 <decconst name='errors' file='lib/errors.php'>
 <decconst name='grps' file='lib/grps.php'>
 <decconst name='image_placements' file='lib/stotext-images.php'>
+<decconst name='modbits' file='lib/modbits.php'>
 <decconst name='sorts' file='lib/sort.php'>
 <decconst name='text_formats' file='lib/text.php'>
 
@@ -92,6 +93,7 @@
 <deciter macro='mnogosearch' class='MnogosearchIterator'
          file='lib/mnogosearch.php' params='query,limit,offset'
 	 defaults="limit=20 offset=0">
+<deciter macro='modbits' class='ModbitIterator' file='lib/modbits.php'>
 <deciter macro='packages' class='PackagesIterator' file='lib/packages.php'
          params='posting_id'>
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
@@ -110,11 +112,13 @@
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic_id,recursive,limit,offset,personal,sort,withanswers,
-	         user,index1,later,subdomain,up,showshadows,fields,modbits'
+	         user,index1,later,subdomain,up,showshadows,fields,modbits,
+		 hidden,disabled'
          defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0
 		   index1=-1 later=0 subdomain=-1 up=-1 showshadows='*true'
-		   fields='*SELECT_ALLPOSTING' modbits='*MOD_NONE'">
+		   fields='*SELECT_ALLPOSTING' modbits='*MOD_NONE' hidden=-1
+		   disabled=-1">
 <deciter macro='random_seq' class='RandomSequenceIterator' file='lib/random.php'
          params='n,min,max'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>

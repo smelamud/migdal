@@ -247,7 +247,8 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
 			     $subdomain=-1,$up=-1,$showShadows=true,
-			     $fields=SELECT_ALLPOSTING,$modbits=MOD_NONE)
+			     $fields=SELECT_ALLPOSTING,$modbits=MOD_NONE,
+			     $hidden=-1,$disabled=-1)
 {
 $this->topicFilter='';
 $this->addTopicFilter($topic_id,$recursive);
@@ -283,7 +284,8 @@ $Select="postings.id as id,postings.ident as ident,
 	 messages.url_domain as url_domain,messages.sender_id as sender_id,
 	 messages.group_id as group_id,messages.perms as perms,
 	 if((messages.perms & 0x1100)=0,1,0) as hidden,
-	 messages.disabled as disabled,users.hidden as sender_hidden,
+	 messages.disabled as disabled,messages.modbits as modbits,
+	 users.hidden as sender_hidden,
 	 postings.index0 as index0,postings.index1 as index1,
 	 postings.index2 as index2,subdomain,shadow,
 	 $imageFields
@@ -337,11 +339,15 @@ $sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
 $subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
 $childFilter=$up>=0 ? "and messages.up=$up" : '';
 $shadowFilter=!$showShadows ? 'and shadow=0' : '';
-$modbitsFilter=$modbits>0 ? "and (modbits & $modbits)!=0" : '';
+$modbitsFilter=$modbits>0 ? "and (messages.modbits & $modbits)!=0" : '';
+$hiddenFilter=$hidden>0 ? "and (messages.perms & 0x1100)=0" :
+             ($hidden=0 ? "and (messages.perms & 0x1100)<>0" : '');
+$disabledFilter=$disabled>0 ? "and messages.disabled<>0" :
+               ($disabled=0 ? "and messages.disabled=0" : '');
 
 $Where="$hideMessages and personal_id=$personal and $grpFilter @topic@
 	$userFilter $index1Filter $sentFilter $subdomainFilter $childFilter
-	$shadowFilter $modbitsFilter";
+	$shadowFilter $modbitsFilter $hiddenFilter $disabledFilter";
 /* Group by */
 $GroupBy=($fields & SELECT_ANSWERS)!=0 ? 'group by postings.id' : '';
 /* Having */
@@ -367,7 +373,8 @@ $Order=getOrderBy($sort,
 	                        'vote_count desc,sent desc',
 	     SORT_URL_DOMAIN => 'url_domain,url',
 	     SORT_TOPIC_INDEX0_INDEX0
-	                     => 'topics.index0,postings.index0'));
+	                     => 'topics.index0,postings.index0',
+             SORT_RSENT      => 'sent asc'));
 /* Query */
 $this->LimitSelectIterator(
        'Message',
@@ -389,7 +396,8 @@ $this->LimitSelectIterator(
 	          on forums.message_id=forummesgs.id and $hideAnswers
 	where $hideMessages and personal_id=$personal and $grpFilter
 	      $countAnswerFilter @topic@ $userFilter $index1Filter $sentFilter
-	      $subdomainFilter $childFilter $shadowFilter");
+	      $subdomainFilter $childFilter $shadowFilter $modbitsFilter
+	      $hiddenFilter $disabledFilter");
 }
 
 function addTopicFilter($topic_id,$recursive=false)
@@ -603,7 +611,8 @@ $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
 			    comment1,url,topic_id,personal_id,sender_id,
 			    group_id,grp,priority,image_set,
 			    index0,index1,index2,subdomain,sent,
-			    perms,if((perms & 0x1100)=0,1,0) as hidden,disabled
+			    perms,if((perms & 0x1100)=0,1,0) as hidden,
+			    disabled,modbits
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
