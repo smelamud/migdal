@@ -371,7 +371,8 @@ global $userModerator;
 
 return $userModerator
        ||
-       perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
+       perm($this->getUserId(),$this->getGroupId(),
+            ($this->getPerms() & ~$this->getDisabled()),$right);
 }
 
 function isReadable()
@@ -397,6 +398,11 @@ return $this->isPermitted(PERM_POST);
 function isHidden()
 {
 return $this->hidden;
+}
+
+function getDisabled()
+{
+return $this->disabled;
 }
 
 function isDisabled()
@@ -448,7 +454,7 @@ function messagesPermFilter($right,$prefix='')
 global $userModerator;
 
 if($userModerator)
-  return '';
+  return '1';
 return permFilter($right,'sender_id',true,$prefix);
 }
 

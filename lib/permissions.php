@@ -166,26 +166,26 @@ function permFilter($right,$user_id='user_id',$useDisabled=false,$prefix='')
 {
 global $userId,$userGroups;
 
-if($prefix!='')
+if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 $perms=$useDisabled
        ? "(${prefix}perms & ~${prefix}disabled)"
        : "${prefix}perms";
 if($userId<=0)
-  return "($perms & ".$right<<PB_GUEST.')<>0';
+  return "($perms & ".($right<<PB_GUEST).')<>0';
 $groups=array();
 foreach($userGroups as $g)
        $groups[]="${prefix}group_id=$g";
 $groups[]="${prefix}group_id=$userId";
 return "($userId=${prefix}$user_id and
-       ($perms & ".$right<<PB_USER.')<>0
-       or
-       ('.join(' or ',$groups).") and
-       ($perms & ".$right<<PB_GROUP.")!=0
-       or
-       ($perms & ".$right<<PB_OTHER.")<>0
-       or
-       ($perms & ".$right<<PB_GUEST.')<>0)';
+	($perms & ".($right<<PB_USER).')<>0
+	or
+	('.join(' or ',$groups).") and
+	($perms & ".($right<<PB_GROUP).")<>0
+	or
+	($perms & ".($right<<PB_OTHER).")<>0
+	or
+	($perms & ".($right<<PB_GUEST).')<>0)';
 }
 
 function permString($s)

@@ -104,3 +104,6 @@ ALTER TABLE `topics` ADD INDEX ( `group_id` ) ;
 ALTER TABLE `messages` ADD `group_id` INT NOT NULL AFTER `sender_id` ,
 ADD `perms` INT NOT NULL AFTER `group_id` ;
 ALTER TABLE `messages` ADD INDEX ( `group_id` ) ;
+UPDATE topics SET perms = IF(user_id=0,0x19FF,0x11FF);
+UPDATE topics SET user_id = 3 WHERE user_id = 0;
+UPDATE topics SET group_id = user_id;

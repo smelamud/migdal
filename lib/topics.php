@@ -15,6 +15,7 @@ require_once('lib/track.php');
 require_once('lib/charsets.php');
 require_once('lib/grpiterator.php');
 require_once('lib/cache.php');
+require_once('lib/permissions.php');
 
 class Topic
       extends UserTag
@@ -26,6 +27,7 @@ var $name;
 var $full_name;
 var $user_id;
 var $group_id;
+var $group_login;
 var $perms;
 var $stotext;
 var $hidden;
@@ -153,6 +155,11 @@ function getGroupId()
 return $this->group_id;
 }
 
+function getGroupLogin()
+{
+return $this->group_login;
+}
+
 function getPerms()
 {
 return $this->perms;
@@ -276,9 +283,9 @@ function topicsPermFilter($right,$prefix='')
 global $userAdminTopics,$userModerator;
 
 if($userAdminTopics && $right!=PERM_POST)
-  return '';
+  return '1';
 if($userModerator && $right==PERM_POST)
-  return '';
+  return '1';
 return permFilter($right,'user_id',false,$prefix);
 }
 
@@ -289,14 +296,12 @@ class TopicIterator
 function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
                   $withSeparate=true)
 {
-global $userAdminTopics;
-
-$hide=$userAdminTopics ? 2 : 1;
+$hide=topicsPermFilter(PERM_READ,$prefix);
 $userFilter=$up>=0 ? 'and topics.'.subtree($up,$recursive,'up') : '';
-$grpFilter="and (${prefix}allow & $grp)!=0";
+$grpFilter="and (${prefix}allow & $grp)<>0";
 $answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
 $sepFilter=!$withSeparate ? "and ${prefix}separate=0" : '';
-return " where ${prefix}hidden<$hide $userFilter $grpFilter $answerFilter $sepFilter ";
+return " where $hide $userFilter $grpFilter $answerFilter $sepFilter ";
 }
 
 function TopicIterator($query)
@@ -320,20 +325,22 @@ $postFilter=$withPostings ? 'having message_count<>0' : '';
 $subdomainFilter=$subdomain>=0 ? "and postings.subdomain=$subdomain" : '';
 $this->TopicIterator(
       "select topics.id as id,topics.ident as ident,topics.up as up,
-              topics.name as name,topics.stotext_id as stotext_id,login,
-	      stotexts.body as description,
+              topics.name as name,topics.stotext_id as stotext_id,
+	      topics.user_id as user_id,topics.group_id as group_id,
+	      users.login as login,gusers.login as group_login,
+	      topics.perms as perms,stotexts.body as description,
 	      count(distinct messages.id) as message_count,
 	      max(messages.sent) as last_message
        from topics
 	    left join users
 		 on topics.user_id=users.id
+	    left join users as gusers
+		 on topics.group_id=gusers.id
             left join stotexts
 	         on stotexts.id=topics.stotext_id
 	    left join postings
 	         on topics.id=postings.topic_id and (postings.grp & $grp)<>0
 		    $subdomainFilter
-	    left join topics as uptopics
-	         on uptopics.id=topics.up
             left join messages
 	         on postings.message_id=messages.id
  	 	    and (messages.hidden<$hide or messages.sender_id=$userId)
@@ -451,12 +458,10 @@ $this->SelectIterator('Topic',
 
 function getAllowByTopicId($id)
 {
-global $userAdminTopics;
-
-$hide=$userAdminTopics ? 2 : 1;
+$hide=topicsPermFilter(PERM_READ);
 $result=mysql_query("select allow
                      from topics
-		     where id=$id and hidden<$hide")
+		     where id=$id and $hide")
           or sqlbug('Ошибка SQL при выборке маски допустимых постингов');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : GRP_ALL;
@@ -464,12 +469,12 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
 
 function getPremoderateByTopicId($id)
 {
-global $userAdminTopics,$defaultPremoderate;
+global $defaultPremoderate;
 
-$hide=$userAdminTopics ? 2 : 1;
+$hide=topicsPermFilter(PERM_READ);
 $result=mysql_query("select premoderate
                      from topics
-		     where id=$id and hidden<$hide")
+		     where id=$id and $hide")
           or sqlbug('Ошибка SQL при выборке маски модерирования');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultPremoderate;
@@ -477,9 +482,10 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
 
 function getTopicById($id,$up)
 {
-global $userId,$userAdminTopics;
+global $userId,$userModerator;
 
-$hide=$userAdminTopics ? 2 : 1;
+$mhide=$userModerator ? 2 : 1;
+$hide=topicsPermFilter(PERM_READ,'topics');
 $result=mysql_query(
        "select topics.id as id,topics.up as up,topics.name as name,
                topics.stotext_id as stotext_id,
@@ -503,9 +509,9 @@ $result=mysql_query(
 	          on postings.topic_id=topics.id
 	     left join messages
 		  on postings.message_id=messages.id
-		     and (messages.hidden<$hide or messages.sender_id=$userId)
-		     and (messages.disabled<$hide or messages.sender_id=$userId)
-	where topics.id=$id and topics.hidden<$hide
+		     and (messages.hidden<$mhide or messages.sender_id=$userId)
+		     and (messages.disabled<$mhide or messages.sender_id=$userId)
+	where topics.id=$id and $hide
 	group by topics.id")
  or sqlbug('Ошибка SQL при выборке темы'.mysql_error());
 if(mysql_num_rows($result)>0)
@@ -523,12 +529,10 @@ else
 
 function getTopicNameById($id)
 {
-global $userAdminTopics;
-
-$hide=$userAdminTopics ? 2 : 1;
+$hide=topicsPermFilter(PERM_READ,'topics');
 $result=mysql_query("select id,name
 		     from topics
-		     where id=$id and topics.hidden<$hide")
+		     where id=$id and $hide")
 	  or sqlbug('Ошибка SQL при выборке названия темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
@@ -559,12 +563,10 @@ return mysql_num_rows($result)>0
 
 function topicExists($id)
 {
-global $userAdminTopics;
-
-$hide=$userAdminTopics ? 2 : 1;
+$hide=topicsPermFilter(PERM_READ);
 $result=mysql_query("select id
 		     from topics
-		     where id=$id and hidden<$hide")
+		     where id=$id and $hide")
 	  or sqlbug('Ошибка SQL при проверке наличия темы');
 return mysql_num_rows($result)>0;
 }
