@@ -10,6 +10,7 @@ require_once('lib/journal.php');
 require_once('lib/horisonts.php');
 require_once('lib/track.php');
 require_once('lib/permissions.php');
+require_once('lib/postings-info.php');
 
 function executeTrackQuery($query)
 {
@@ -120,5 +121,9 @@ endJournal();
 session();
 replicate($argv[1]);
 beginJournal();
+dbClose();
+
+dbOpen();
+dropPostingsInfoCache(DPIC_BOTH);
 dbClose();
 ?>
