@@ -115,6 +115,7 @@ $this->SelectIterator('Redir',
                       "select id,name,uri
 		       from redirs
 		       where '$track' like concat(track,'%')
+		             and track<>''
 		       order by length(track)");
 }
 
