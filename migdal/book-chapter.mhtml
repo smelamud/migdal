@@ -1,0 +1,40 @@
+<< @(#) $Id$ >>
+
+<ident name='chapid' table='postings'>
+<read_posting id='$chapid'>
+<posting_full id='$chapid' grp='*GRP_BOOK_CHAPTERS'>
+<zone>
+ <message_posting id='$,UpValue'>
+ <posting_obj name='book' id='$,' grp='*GRP_BOOK'>
+</zone>
+<log event=chapter text#='post($,Id) post($book.Id)'>
+<pagetitle title#='$book.Subject - $,Subject'>
+
+<html>
+<stylesheet ident='article'>
+<stylesheet ident='book'>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=120 class='eframe'>
+   <book_chapters book='$book' id='$,Id'>
+   <topics posting='$,'>
+  </td>
+  <td class='article cframe'>
+   <article_controls posting='$,'>
+   <table align=right class='sent'>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td align=right><sentview date='$,Sent'></td></tr>
+    <tr><td align=right><senderlink message='$,'></td></tr>
+   </table>
+   <book_ring book='$book' index='$,Index0'>
+   <h1>$,Subject</h1>
+   <article posting='$,'>
+   <book_ring book='$book' index='$,Index0'>
+   <article_controls posting='$,'>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>
