@@ -122,7 +122,7 @@ function getPostingsInfo($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE,
 $msgInfo=getPostingsMessagesInfo($grp,$topic_id,$user_id,$recursive);
 $ansInfo=getPostingsAnswersInfo($answers,$topic_id,$user_id,$recursive);
 return new PostingsInfo(array('total' => $msgInfo->getTotal()+
-                                        $ansInfo->getTotal(),
+                                         $ansInfo->getTotal(),
 			      'max_sent' => max($msgInfo->getMaxSent(),
 						$ansInfo->getMaxSent())));
 }
