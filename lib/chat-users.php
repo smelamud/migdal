@@ -49,7 +49,7 @@ function updateLastChat()
 global $userId,$realUserId,$allowGuestChat;
 
 $id=$userId!=0 || !$allowGuestChat ? $userId : $realUserId;
-if(!isChatLogged($id))
+if($id!=0 && !isChatLogged($id))
   {
   postChatLoginMessage($id);
   chatLogin($id);
