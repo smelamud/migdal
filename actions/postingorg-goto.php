@@ -19,7 +19,8 @@ header('Location: '.remakeMakeURI($okdir,
                                   $HTTP_POST_VARS,
                                   array('okdir',
 				        'faildir',
-					'grp[]'),
+					'grp[]',
+					'offset'),
 			          array('recursive' => $recursive ? 1 : -1,
 				        'grp' => $grpf)));
 ?>
