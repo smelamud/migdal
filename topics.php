@@ -4,17 +4,18 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/topics.php');
+require_once('lib/grps.php');
 
 require_once('top.php');
 ?>
 <html>
 <head>
- <title>Клуб Еврейского Студента - Темы</title>
+ <title>Клуб Еврейского Студента - <?php echo getGrpTitle($grp) ?></title>
 </head>
 <body bgcolor=white>
   <?php
   dbOpen();
-  displayTop('topics');
+  displayTop(getGrpName($grp));
   $requestURI=urlencode($REQUEST_URI);
   ?>
   <center><h1>Темы</h1></center>
@@ -24,9 +25,15 @@ require_once('top.php');
     ?>
     <p>
     <a href='topicedit.php?redir=<?php echo $requestURI ?>'>Добавить</a>
+    &nbsp;&nbsp;
+    <a href='topics.php?<?php
+     echo makeQuery($HTTP_GET_VARS,
+                    array(),
+		    array('ignoregrp' => $ignoregrp ? 0 : 1))
+    ?>'><?php echo $ignoregrp ? 'Показать активные' : 'Показать все' ?></a>
     <?php
     }
-  $list=new TopicListIterator();
+  $list=new TopicListIterator($ignoregrp ? -1 : $grp);
   while($item=$list->next())
        {
        echo '<p>';

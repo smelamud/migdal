@@ -38,17 +38,15 @@ $this->DataObject($row);
 
 function setup($vars)
 {
+if(!isset($vars['edittag']))
+  return;
 foreach($this->getCorrespondentVars() as $var)
-       if(isset($vars[$var]))
-         $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 if(isset($vars['infoid']))
   $this->info=tmpTextRestore($vars['infoid']);
-if(isset($vars['birth_day']))
-  {
-  $this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
-					  .'-'.$vars['birth_day'];
-  $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
-  }
+$this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
+					.'-'.$vars['birth_day'];
+$this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 }
 
 function getCorrespondentVars()

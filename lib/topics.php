@@ -4,6 +4,7 @@
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
+require_once('lib/grps.php');
 
 class Topic
       extends DataObject
@@ -23,12 +24,12 @@ $this->DataObject($row);
 
 function setup($vars)
 {
+if(!isset($vars['edittag']))
+  return;
 foreach($this->getCorrespondentVars() as $var)
-       if(isset($vars[$var]))
-         $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 foreach($this->getInverseVars() as $var => $inv_var)
-       if(isset($vars[$inv_var]))
-         $this->$var=$vars[$inv_var] ? 0 : 1;
+       $this->$var=$vars[$inv_var] ? 0 : 1;
 if(isset($vars['descriptionid']))
   $this->description=tmpTextRestore($vars['descriptionid']);
 }
@@ -109,15 +110,16 @@ class TopicListIterator
       extends SelectIterator
 {
 
-function TopicListIterator()
+function TopicListIterator($grp)
 {
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
+$grpFilter=$grp==GRP_ANY ? '' : 'and no_'.getGrpName($grp).'=0';
 $this->SelectIterator('Topic',
                       "select id,name,description
 		       from topics
-		       where hidden<$hide
+		       where hidden<$hide $grpFilter
 		       order by name");
 }
 

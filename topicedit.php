@@ -52,6 +52,7 @@ if($err==$code)
  $topic->setup($HTTP_GET_VARS);
  ?>
  <form method=post action='actions/topicmod.php'>
+ <input type=hidden name='edittag' value=0>
  <input type=hidden name='redir' value='<?php echo $redir ?>'>
  <input type=hidden name='editid' value='<?php echo $editid ?>'>
  <table>
