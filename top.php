@@ -3,6 +3,8 @@
 
 require_once('lib/menu.php');
 require_once('lib/session.php');
+require_once('lib/errors.php');
+require_once('lib/login.php');
 
 function displayMenu($current)
 {
@@ -15,11 +17,27 @@ while($item=$menu->next())
      }
 }
 
+function displayError()
+{
+global $err;
+
+if($err!=EL_INVALID)
+  return;
+?>
+<tr><td colspan=5><a name='error'>
+ <font color='red'>Неверный ник или пароль</font>
+</td></tr>
+<?php
+}
+
 function displayLogin($flags)
 {
 global $userId,$REQUEST_URI;
 
-echo '<form><table>';
+echo "<form method=post action='actions/login.php'>
+      <input type=hidden name='redir' value='".makeRedirURL()."'>
+      <table>";
+displayError();
 if($userId<0)
   {
   echo '<tr>
@@ -37,7 +55,8 @@ if($userId<0)
   }
 else
   echo '<tr><td colspan=5><input type=submit value=\'Выйти\'></td></tr>';
-echo '</table></form>';
+echo '</table>
+      </form>';
 }
 
 function displayTop($current,$flags='')

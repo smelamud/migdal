@@ -11,4 +11,7 @@ define('EUM_LOGIN_ABSENT',7);
 define('EUM_LOGIN_EXISTS',8);
 define('EUM_BIRTHDAY',9);
 define('EUM_NO_EDIT',10);
+
+define('EL_INVALID',11);
+define('EL_OK',12);
 ?>

@@ -20,6 +20,7 @@ else
   $userId=mysql_result($result,0,0);
   mysql_query("update sessions set last=null where id=$sessionId")
                    or die('Ошибка SQL при обновлении TIMESTAMP сессии');
+  SetCookie('sessionid',$sessionId,time()+7200);
   }
 }
 ?>
