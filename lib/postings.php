@@ -453,7 +453,7 @@ $result=mysql_query("select postings.id as id,ident,message_id,stotext_id,body,
                             large_filename,large_format,large_body,
 			    large_imageset,subject,author,source,url,topic_id,
 			    personal_id,sender_id,grp,priority,image_set,
-			    index1,subdomain,hidden,disabled
+			    index1,subdomain,sent,hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
