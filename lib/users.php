@@ -503,13 +503,10 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function getUserIdByLoginPassword($login,$password)
 {
-global $userAdminUsers;
-
-$hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select id
                      from users
 		     where login='$login' and password='".md5($password)."'
-		           and hidden<$hide and no_login=0")
+		           and no_login=0")
 	  or sqlbug('Ошибка SQL при выборке данных пользователя');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
