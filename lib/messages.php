@@ -10,6 +10,7 @@ class Message
 {
 var $id;
 var $body;
+var $large_body;
 var $subject;
 var $image_set;
 var $image_id;
@@ -32,18 +33,20 @@ foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 if(isset($vars['bodyid']))
   $this->body=tmpTextRestore($vars['bodyid']);
+if(isset($vars['large_bodyid']))
+  $this->large_body=tmpTextRestore($vars['large_bodyid']);
 if(isset($vars['subjectid']))
   $this->subject=tmpTextRestore($vars['subjectid']);
 }
 
 function getCorrespondentVars()
 {
-return array('body','subject','image_set','hidden','disabled');
+return array('body','large_body','subject','image_set','hidden','disabled');
 }
 
 function getWorldVars()
 {
-return array('body','subject','image_set','hidden');
+return array('body','large_body','subject','image_set','hidden');
 }
 
 function getAdminVars()
@@ -79,6 +82,16 @@ return true;
 function mandatorySubject()
 {
 return $this->hasSubject();
+}
+
+function hasLargeBody()
+{
+return false;
+}
+
+function mandatoryLargeBody()
+{
+return $this->hasLargeBody();
 }
 
 function hasImage()
@@ -123,6 +136,16 @@ return $this->body;
 function getHTMLBody()
 {
 return enrichedTextToHTML($this->body);
+}
+
+function getLargeBody()
+{
+return $this->large_body;
+}
+
+function getHTMLLargeBody()
+{
+return enrichedTextToHTML($this->large_body);
 }
 
 function getImageSet()

@@ -37,6 +37,7 @@ define('EP_NO_PERSONAL',137);
 define('EP_NO_SEND',138);
 define('EP_IMAGE_ABSENT',139);
 define('EP_NO_IMAGE',1310);
+define('EP_LARGE_BODY_ABSENT',1311);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);

@@ -9,7 +9,7 @@
 <body bgcolor=white>
 <top ident='forums'>
 <p>
-<posting_obj id='$msgid' grp='*GRP_FORUMS'>
+<posting_full id='$msgid' grp='*GRP_FORUMS'>
 <posting posting='$,' grp='*GRP_FORUMS' discuss='*false'>
 <center><h1>Обсуждение</h1></center>
 <forums up='$,MessageId' limit='$$userForumPortion'>

@@ -72,9 +72,16 @@
    </ifzero>
   </if>
  </table></td></tr>
- <error id='*EP_BODY_ABSENT'
-        text='Напишите хотя бы пару строчек в теле сообщения'>
- <editor_line name='body' title='Текст' body='$message.Body'>
+ <if what='$message.hasLargeBody'>
+  <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
+  <editor_line name='body' title='Аннотация' body='$message.Body'>
+  <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
+  <editor_line name='large_body' title='Текст' body='$message.LargeBody'>
+ <else>
+  <error id='*EP_BODY_ABSENT'
+         text='Напишите хотя бы пару строчек в теле сообщения'>
+  <editor_line name='body' title='Текст' body='$message.Body'>
+ </if>
  <checkbox_line name='hidden' value='$message.isHidden' title='Не показывать'>
  <moderator>
   <checkbox_line name='disabled' value='$message.isDisabled'

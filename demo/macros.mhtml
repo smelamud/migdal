@@ -27,10 +27,10 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='posting' file='parts/posting.php'
-       params='posting,grp,topic,discuss' defaults="topic=0 discuss='*true'">
+       params='posting,grp,topic,discuss' defaults="topic=-1 discuss='*true'">
 <decel name='postings' file='parts/postings.php'
        params='grp,topic,limit,offset,title'
-       defaults="topic=0 limit=10 offset=0 title=''">
+       defaults="topic=-1 limit=10 offset=0 title=''">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php' params='ident,flags'
        defaults="flags=''">

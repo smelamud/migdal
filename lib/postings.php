@@ -157,6 +157,16 @@ $this->grp=GRP_ARTICLES;
 $this->Posting($row);
 }
 
+function hasLargeBody()
+{
+return true;
+}
+
+function hasImage()
+{
+return false;
+}
+
 }
 
 function newPosting($row)
@@ -254,13 +264,15 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select messages.id as id,body,subject,grp,sent,topic_id,sender_id,
+	"select postings.id as id,postings.message_id as message_id,body,large_body,
+	        subject,grp,sent,topic_id,sender_id,
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,topics.name as topic_name,
 		images.small_x<images.large_x or
 		images.small_y<images.large_y as has_large_image,
-		login,gender,email,hide_email,rebe
+		login,gender,email,hide_email,rebe,
+	        count(forums.up) as answer_count
 	 from postings
 	      left join messages
 	           on postings.message_id=messages.id
@@ -270,12 +282,15 @@ $result=mysql_query(
 		   on postings.topic_id=topics.id
 	      left join users
 		   on messages.sender_id=users.id
+	      left join forums
+	 	   on messages.id=forums.up
 	 where (messages.hidden<$hide or sender_id=$userId) and
 	       (messages.disabled<$hide or sender_id=$userId) and
-	       postings.id=$id")
+	       postings.id=$id
+	 group by messages.id")
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке постинга');
+ or die('Ошибка SQL при выборке постинга'.mysql_error());
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }

@@ -15,6 +15,6 @@ $result=mysql_query("select value from tmp_texts where id=$id")
 mysql_query("update tmp_texts set last_access=null where id=$id")
            or die('Ошибка SQL при обновлении timestamp временно сохраненного
 	           текста');
-return mysql_result($result,0,0);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
 }
 ?>

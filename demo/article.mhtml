@@ -1,0 +1,46 @@
+<< @(#) $Id$ >>
+
+<element name='controls' params='posting'>
+<table width=100%>
+ <tr>
+  <td>
+   <isedit name='posting'>
+    <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
+     >[Изменить]</a>
+    <if what='$posting.isModerable'>
+     <if what='$posting.isDisabled'>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&redir=$_"
+       >[Разрешить показ]</a>
+     <else>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&redir=$_"
+       >[Запретить показ]</a>
+     </if>
+    </if>
+   </isedit>
+  </td>
+  <td align=right>
+   <a href='forum.php?redir=$_&msgid=$posting.Id'
+    >Обсудить ($posting.AnswerCount)</a>
+  </td>
+ </tr>
+</table>
+</element>
+
+<int name='artid'>
+<grps>
+<posting_full id='$artid' grp='*GRP_FORUMS'>
+<html>
+<head>
+ <title>Демо - Статьи - $,Subject</title>
+</head>
+<body bgcolor=white>
+ <top ident='articles'>
+ <p>
+ <controls posting='$,'>
+ <p>
+ <center><h1>$,Subject</h1></center>
+ $,HTMLLargeBody
+ <p>
+ <controls posting='$,'>
+</body>
+</html>

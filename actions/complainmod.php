@@ -47,9 +47,9 @@ else
           makeQuery($HTTP_POST_VARS,
 	            array('body',
 		          'subject'),
-		    array('bodyid'    => $bodyId,
-		          'subjectid' => $subjectId,
-		          'err'       => $err)).'#error');
+		    array('bodyid'       => $bodyId,
+		          'subjectid'    => $subjectId,
+		          'err'          => $err)).'#error');
   }
 dbClose();
 ?>

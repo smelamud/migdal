@@ -11,7 +11,7 @@
 <element name='Posting'>
 <table width=100% class='posting'>
 <tr>
- <ifzero what='$topic'>
+ <if what='$topic<0'>
   <td>
    <a href='postings.php?redir=$_&grp=$grp&topic_id=$posting.TopicId'>
     $posting.TopicName
@@ -23,7 +23,13 @@
  <td align=right><sentview date='$posting.Sent'></td>
 </tr>
 <tr>
- <td><b><rebe>$posting.Subject</rebe></b></td>
+ <td><b><rebe>
+  <if what='$posting.hasLargeBody'>
+   <a href='article.php?redir=$_&artid=$posting.Id'>$posting.Subject</a>
+  <else>
+   $posting.Subject
+  </if>
+ </rebe></b></td>
  <td align=right><rebe><senderlink message='$posting'></rebe></td>
 </tr>
 <tr><td colspan=2>

@@ -26,6 +26,8 @@ if($message->body=='')
   return EP_BODY_ABSENT;
 if($message->mandatorySubject() && $message->subject=='')
   return EP_SUBJECT_ABSENT;
+if($message->mandatoryLargeBody() && $message->large_body=='')
+  return EP_LARGE_BODY_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
 if($message->topic_id!=0 && !topicExists($message->topic_id))
@@ -59,15 +61,18 @@ if($err==EP_OK)
 else
   {
   $bodyId=tmpTextSave($body);
+  $largeBodyId=tmpTextSave($large_body);
   $subjectId=tmpTextSave($subject);
   header('Location: /postingedit.php?'.
           makeQuery($HTTP_POST_VARS,
 	            array('body',
+		          'large_body',
 		          'subject'),
-		    array('bodyid'    => $bodyId,
-		          'subjectid' => $subjectId,
-		          'image_set' => $message->getImageSet(),
-		          'err'       => $err)).'#error');
+		    array('bodyid'       => $bodyId,
+		          'large_bodyid' => $largeBodyId,
+		          'subjectid'    => $subjectId,
+		          'image_set'    => $message->getImageSet(),
+		          'err'          => $err)).'#error');
   }
 dbClose();
 ?>
