@@ -2,27 +2,33 @@
 
 <grps>
 
-<element name='batcher' params='list,topic_id,grp,showadvert'>
+<element name='batcher' params='list,topic_id,grp,showadvert,public'>
 <posting_new grp='$grp'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <logged>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <if what='$,isValid'>
-      <a href='postingedit.php?topic_id=$topic_id&grp=$grp&redirid=$_'
-	 >Добавить $,GrpItemTitle</a>
-     <else>
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
-	 >Добавить новость</a>,
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
-	 >статью</a>,
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
-	 >книгу</a>
-     </if>
-    </td>
-   </tr></table>
+   <if what='$topic_id>0'><zone>
+    <topic_obj name='topic' id='$topic_id'>
+   </zone></if>
+   <if what='$public || $topic_id<0 || $topic.UserId==$$userId ||
+             $$userModerator'>
+    <table><tr valign=center>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <if what='$,isValid'>
+       <a href='postingedit.php?topic_id=$topic_id&grp=$grp&redirid=$_'
+	  >Добавить $,GrpItemTitle</a>
+      <else>
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
+	  >Добавить новость</a>,
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
+	  >статью</a>,
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
+	  >книгу</a>
+      </if>
+     </td>
+    </tr></table>
+   </if>
   <else>
    <if what='$showadvert'>
     <em>

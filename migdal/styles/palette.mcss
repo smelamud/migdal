@@ -46,6 +46,7 @@ posting_topic_hover=blue
 posting_subject=%mrd
 posting_subject_hover=blue
 posting_author=black
+posting_em=%mrd
 posting_sent=%mrm
 posting_split=%mrd
 posting_controls=%mrd

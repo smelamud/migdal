@@ -10,14 +10,15 @@ OBJECTS = article.php backtrace.php blog.php blog-gallery.php \
 	  hit-parade.php hotlog.php jewishru.php kaitana-announce.php \
 	  kaitana-picture.php langselect.php link-posting.php login.php \
 	  mailru.php menu.php picture.php picture-main.php posting.php \
-	  posting-book.php posting-general.php posting-times.php \
-	  posting-times-cover.php postings.php postings-links.php rabbi.php \
-	  rambler.php seealso.php spin.php subtitle.php times-articles.php \
-	  tip.php tip-posting.php today.php top.php topics.php \
-	  topics-general.php topics-kaitana.php topics-kaitanot.php \
-	  topics-links.php topics-major.php topics-migdal.php topics-minor.php \
-	  topics-taglit.php topics-veterans.php topicselect.php tune.php \
-	  unititle.php uploader.php userinfo.php utils.php vote.php
+	  posting-book.php posting-general.php posting-library-announce.php \
+	  posting-times.php posting-times-cover.php postings.php \
+	  postings-links.php rabbi.php rambler.php seealso.php spin.php \
+	  subtitle.php times-articles.php tip.php tip-posting.php today.php \
+	  top.php topics.php topics-general.php topics-kaitana.php \
+	  topics-kaitanot.php topics-links.php topics-major.php \
+	  topics-migdal.php topics-minor.php topics-taglit.php \
+	  topics-veterans.php topicselect.php tune.php unititle.php \
+	  uploader.php userinfo.php utils.php vote.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

@@ -39,6 +39,11 @@
 	color: %posting_author;
 }
 
+.posting EM {
+	font: bold 12pt %times;
+	color: %posting_em;
+}
+
 .posting .sent {
 	color: %posting_sent;
 	font-size: 9pt;

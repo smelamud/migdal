@@ -49,9 +49,13 @@
  <if what='$/$posting.TopicId,1/==$`methodics`'>
   <topic_obj id='$`methodics`'>
   <at href='methodics.php' class='$class' title='$,Description'>$,Name</at>
+ <else><if what='$/$posting.TopicId,1/==$`migdal-library`'>
+  <topic_obj id='$`migdal-library`'>
+  <at href='migdal-library.php' class='$class' title='$,Description'>
+   Мигдаль :: $,Name</at>
  <else>
   <at href='migdal.php' class='$class'>Мигдаль</at>
- </if>
+ </if></if>
 <else>
  <if what='$/$posting.TopicId,1/==$`inet-news`'>
   <topic_obj id='$`inet-news`'>
@@ -94,6 +98,7 @@
 <require name='parts/picture.php'>
 <require name='parts/blog-posting.php'>
 <require name='parts/posting-book.php'>
+<require name='parts/posting-library-announce.php'>
 <require name='parts/posting-times.php'>
 <require name='parts/posting-times-cover.php'>
 <require name='parts/kaitana-picture.php'>

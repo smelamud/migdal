@@ -2,7 +2,8 @@
 
 <element name='topics'>
 <if what='($posting.Grp & (*GRP_FORUMS|*GRP_NEWS|*GRP_ARTICLES|*GRP_QUOTES|
-	                   *GRP_BOOKS|*GRP_BOOK_CHAPTERS|*GRP_REVIEWS))!=0'>
+	                   *GRP_BOOKS|*GRP_BOOK_CHAPTERS|*GRP_REVIEWS|
+			   *GRP_LIBRARY_ANNOUNCES))!=0'>
  <if what='$/$posting.TopicId,0/!=$`migdal` &&
            $/$posting.TopicId,1/!=$`migdal-news`'>
   <topics_major ident='index'>

@@ -1,0 +1,53 @@
+<< @(#) $Id$ >>
+
+<element name='controls' params='posting,showdiscuss,showcomplain'>
+<table width=100% class='bottom'><tr>
+ <td>
+  <isedit what='$posting'>
+   <editlink posting='$posting'>
+  <else>
+   <if what='!$$userModerator && $showcomplain'>
+    <logged>
+     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
+      >Жалоба</a>
+    </logged>
+   </if>
+  </isedit>
+ </td>
+ <if what='$showdiscuss'>
+  <td align=right><discusslink posting='$posting'></td>
+ </if>
+</tr></table>
+</element>
+
+<element name='posting_library_announce'>
+<div class='posting'>
+ <table width=100%>
+  <if what='$showtopic'>
+   <tr><td colspan=2 class='subject'><topiclink posting='$posting'></td></tr>
+  </if>
+  <tr valign=top>
+   <ifnzero what='$posting.ImageSet'>
+    <td class='pic'>
+     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+    </td>
+   </ifnzero>
+   <td>
+    <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
+		image='$$style_cframe_back_pic'>
+    <biff time='$posting.Sent'>
+    <em>$posting.Subject</em>
+    <p>$posting.HTMLBody&nbsp;</p>
+   </td>
+  </tr>
+ </table>
+ <table width=100%><tr>
+  <td align=left class='sent'>
+   <sentview date='$posting.Sent'>&nbsp;
+   <senderlink message='$posting'>
+  </td>
+ </tr></table>
+ <controls posting='$posting' showdiscuss='$showdiscuss'
+	   showcomplain='$showcomplain'>
+</div>
+</element>

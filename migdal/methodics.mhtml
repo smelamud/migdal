@@ -8,42 +8,6 @@
 <pagetitle title='Методические пособия'>
 <topictitle title='Методические пособия'>
 
-<element name='batcher' params='list'>
-<table width=100%><tr valign=bottom>
- <if what='$$methodics.UserId==$$userId || $$userModerator'>
-  <td align=left class='info'>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <a href='postingedit.php?topic_id=$`methodics`&grp=*GRP_BOOKS&redirid=$_'
-	>Добавить книгу</a>
-    </td>
-   </tr></table>
-  </td>
- </if>
- <td align=center><spin list='$list'></td>
-</tr></table>
-</element>
-
-<element name='catalog' params='offset'>
-<iterate_postinglist grp='*GRP_BOOKS' topic_id='$`methodics`'
-                     limit='$$userMsgPortion' offset='$offset'
-                     sort='*SORT_PSENT' showshadows='*true'>
-<if what='$$userId>0 || $;Count!=0'>
- <batcher list='$;'>
- <for>
-  <assign name='post' value='$.'>
-  <posting posting='$post' showtopic='*false' shorten='*true'
-           showdiscuss='*true' showcomplain='*false'>
- </for>
- <ifnzero what='$;Count'>
-  <batcher list='$;'>
- </ifnzero>
-<else>
- &nbsp;
-</if>
-</element>
-
 <html>
 <preamble>
 <body>
@@ -57,7 +21,10 @@
   </td>
   <td class='cframe'>
    <subtitle>
-   <catalog offset='$offset'>
+   <seealso_links topic_id='$`methodics`' title='См. также в разделе ссылок'>
+   <postings grp='*GRP_BOOKS' topic_id='$`methodics`'
+	     limit='$userMsgPortion' offset='$offset' showshadows='*true'
+	     showadvert='*false' public='*false'>
   </td>
  </tr></table>
  <bottom>

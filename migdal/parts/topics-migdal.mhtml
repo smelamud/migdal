@@ -5,7 +5,7 @@
  <posting_obj id='$rid'>
  <topics_line time='$,Sent' text='$rtitle' href#='migdal.php?artid=$rid'
               arrow!='$posting.Id==$rid' class='item ninept'>
- <posting_last grp='*GRP_GALLERY' topic_id='$id' recursive='*true'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$id' recursive='*false'>
  <topics_line time='$,' text='Галерея' href#='gallery.php?topic_id=$id'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$id'
 	      class='item ninept'>
@@ -65,6 +65,21 @@
 </topics_table>
 </element>
 
+<element name='topics_migdal_library' params='posting'>
+<topics_table title='Библиотека'>
+ <topics_line text='О библиотеке' href#='migdal-library.php'
+              arrow!='$posting.Id==$`postings:migdal-library`'
+	      class='item ninept'>
+ <posting_last grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
+               recursive='*false'>
+ <topics_line time='$,' text='Новые поступления'
+              href#='migdal-library-news.php'
+              arrow!='$posting.Grp==*GRP_LIBRARY_ANNOUNCES &&
+	              $posting.TopicId==$`migdal-library`'
+	      class='item ninept'>
+</topics_table>
+</element>
+
 <element name='topics_migdal'>
 <grps>
 <if what='$/$posting.TopicId,1/==$`jcc`'>
@@ -76,6 +91,9 @@
 </if>
 <if what='$/$posting.TopicId,1/==$`methodics`'>
  <topics_methodics posting='$posting'>
+</if>
+<if what='$/$posting.TopicId,1/==$`migdal-library`'>
+ <topics_migdal_library posting='$posting'>
 </if>
 <topic_obj id='$`migdal`'>
 <topics_table title='$,Name' span=2>
@@ -104,6 +122,10 @@
               title='Живопись, музыка, танцы, программы для всех возрастов'
 	      arrow!="$/$posting.TopicId,1/==$`jcc`" indent=1
 	      class='item eightpt'>
+ <posting_last topic_id='$`migdal-library`' recursive='*true'>
+ <topics_line time='$,' href#='migdal-library.php' text='Библиотека'
+	      arrow!="$/$posting.TopicId,1/==$`migdal-library`" indent=1
+	      class='item eightpt'>
  <for>
   <if what='$.Id!=$`postings:migdal`'>
    <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
@@ -131,6 +153,9 @@
 <posting_last topic_id='$`jcc`' recursive='*true'>
 <topics_line time='$,' href#='jcc.php' indent=1 text='Общинный центр (JCC)'
              title='Живопись, музыка, танцы, программы для всех возрастов'
+             class='item eightpt'>
+<posting_last topic_id='$`migdal-library`' recursive='*true'>
+<topics_line time='$,' href#='migdal-library.php' indent=1 text='Библиотека'
              class='item eightpt'>
 <for>
  <if what='$.Id!=$`postings:migdal`'>

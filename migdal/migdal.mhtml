@@ -7,6 +7,10 @@
 </ifzero>
 
 << Traps >>
+<if what='$artid==$`postings:migdal-library`'>
+ <trap text='Migdal library'>
+ <reload href='migdal-library.php'>
+</if>
 << /Traps >>
 
 <posting_full id='$artid' grp='*GRP_REVIEW'>
