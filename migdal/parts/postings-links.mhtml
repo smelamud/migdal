@@ -4,22 +4,25 @@
 <grps>
 
 <element name='batcher' params='list,topic_id'>
-<table width=100% class='batcher'><tr valign=bottom>
- <td align=left>
+<table width=100%><tr valign=bottom>
+ <td align=left class='info'>
   <logged>
-   <a href='postingedit.php?topic_id=$topic_id&root=$`links`&grp=*GRP_LINKS&redirid=$_'
-      class='add'>Добавить ссылку</a><asp>
-   <if what='$topic_id<=0'>
-    <asp>, <a href='postingedit.php?topic_id=$`inet-news`&root=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
-	      class='add'>новость</a>
-   </if>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='postingedit.php?topic_id=$topic_id&root=$`links`&grp=*GRP_LINKS&redirid=$_'
+	>Добавить ссылку</a><asp>
+     <if what='$topic_id<=0'>
+      <asp>, <a href='postingedit.php?topic_id=$`inet-news`&root=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
+		>новость</a>
+     </if>
+    </td>
+   </tr></table>
   <else>
    <em>
     Хотите добавлять ссылки<if what='$topic_id<=0'> и новости</if>?
    </em>
-   <span class='info'>
-    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-   </span>
+   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
   </logged>
  </td>
  <td align=center><spin list='$list'></td>

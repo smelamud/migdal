@@ -2,16 +2,19 @@
 
 <element name='batcher' params='list,topic'>
 <table width=100% class='batcher'><tr valign=bottom>
- <td align=left>
+ <td align=left class='info'>
   <logged>
-   <assign name='root' value!='$/$topic,0/==$`migdal` ? $`migdal` : $`general`'>
-   <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_GALLERY&redirid=$_'
-      class='add'>Добавить картинку</a>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <assign name='root' value!='$/$topic,0/==$`migdal` ? $`migdal` : $`general`'>
+     <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_GALLERY&redirid=$_'
+	>Добавить картинку</a>
+    </td>
+   </tr></table>
   <else>
    <em>Хотите добавлять картинки?</em>
-   <span class='info'>
-    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-   </span>
+   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
   </logged>
  </td>
  <td><spin list='$list'></td>

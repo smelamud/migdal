@@ -10,7 +10,7 @@
 	color: %info_link;
 }
 
-EM {
+EM,.info EM {
 	color: %em;
 	font-weight: bold;
 	font-style: normal;

@@ -10,7 +10,7 @@
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'><zone>
+  <td width=150 class='eframe'><zone>
    <topics_taglit>
    <topics_major ident='taglit'>
   </zone></td>
@@ -51,14 +51,19 @@
    </div>
    <p>
    <logged>
-    <div class='batcher'>
-     <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
-        class='add'>
-      Добавить мнение</a>&nbsp;
-     <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
-        class='add'>
-      Добавить фотографию</a>
-    </div>
+    <table class='info'><tr valign=center>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
+	 >Добавить мнение</a>
+     </td>
+     <td>&nbsp;</td>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+	 >Добавить фотографию</a>
+     </td>
+    </tr></table>
    </logged>
    <taglit>
   </td>

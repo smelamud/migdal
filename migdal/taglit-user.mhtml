@@ -13,14 +13,14 @@
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'><zone>
+  <td width=150 class='eframe'><zone>
    <topics_taglit id='$user.Id'>
    <topics_major ident='taglit'>
   </zone></td>
   <td>
    <div class='cframe' style='padding: 5'>
     <subtitle icon='pics/taglit.gif'>
-    <div class='batcher'>
+    <div class='ninept'>
      <a href='userinfo.php?id=$user.Id&redirid=$_'
 	onClick="UserInfo($user.Id);return false"
 	class='add'>О пользователе $user.Login</a>

@@ -32,13 +32,19 @@
 
 <element name='batcher' params='kaitana'>
 <editor>
- <div class=batcher>
-  <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
-     class=add>Добавить новость</a>
-  &nbsp;
-  <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
-     class=add>Добавить картинку</a>
- </div>
+ <table class='info'><tr valign=center>
+  <td><image src='pics/sheet.gif'></td>
+  <td>
+   <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
+      >Добавить новость</a>
+  </td>
+  <td>&nbsp;</td>
+  <td><image src='pics/sheet.gif'></td>
+  <td>
+   <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+      >Добавить картинку</a>
+  </td>
+ </tr></table>
 </editor>
 </element>
 

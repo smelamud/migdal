@@ -4,20 +4,25 @@
 
 <element name='batcher' params='list,topic,grp,root,showadvert'>
 <posting_new grp='$grp'>
-<table width=100% class='batcher'><tr valign=bottom>
- <td align=left>
+<table width=100%><tr valign=bottom>
+ <td align=left class='info'>
   <logged>
-   <if what='$,isValid'>
-    <a href='postingedit.php?topic_id=$topic&root=$root&grp=$grp&redirid=$_'
-       class='add'>Добавить $,GrpItemTitle</a>
-   <else>
-    <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_NEWS&redirid=$_'
-       class='add'>Добавить новость</a>,
-    <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_ARTICLES&redirid=$_'
-       class='add'>статью</a>,
-    <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_BOOKS&redirid=$_'
-       class='add'>книгу</a>
-   </if>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <if what='$,isValid'>
+      <a href='postingedit.php?topic_id=$topic&root=$root&grp=$grp&redirid=$_'
+	 >Добавить $,GrpItemTitle</a>
+     <else>
+      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_NEWS&redirid=$_'
+	 >Добавить новость</a>,
+      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_ARTICLES&redirid=$_'
+	 >статью</a>,
+      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_BOOKS&redirid=$_'
+	 >книгу</a>
+     </if>
+    </td>
+   </tr></table>
   <else>
    <if what='$showadvert'>
     <em>
@@ -27,9 +32,7 @@
       Хотите добавлять новости и статьи?
      </if>
     </em>
-    <span class='info'>
-     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-    </span>
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </if>
   </logged>
  </td>

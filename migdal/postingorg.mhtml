@@ -9,7 +9,7 @@
 <assign name='grp' value!='$grp>0 ? $grp : ($grp==0 ? *GRP_TAPE : 0)'>
 
 <element name='batcher' params='list'>
-<table width=100% class='batcher'><tr valign=bottom>
+<table width=100%><tr valign=bottom>
  <td align=center><spin list='$list'></td>
 </tr></table>
 </element>

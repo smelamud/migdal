@@ -6,7 +6,7 @@
   <hidden name='okdir' value='$-'>
   <hidden name='pagesize' value='$list.Limit'>
   <hidden name='size' value='$list.Size'>
-  <table cellspacing=0 cellpadding=0><tr valign=center>
+  <table cellspacing=0 cellpadding=0 class='spin eightpt'><tr valign=center>
    <td align=right width=32>
     <ifnzero what='$list.Offset'>
      <a href="$[offset='$list.PrevOffset']" title='Предыдущая страница'>

@@ -8,7 +8,8 @@
 
 <element name='controls' params='user,target' defaults="user='$,'">
 <isedit what='$user'>
- <p class='batcher'>
+ <p class='ninept'>
+  &nbsp;
   <at href#='/useredit.php?editid=$user.Id&redirid=$_'
       target='$target'>Изменить информацию о пользователе</at>
  </p>

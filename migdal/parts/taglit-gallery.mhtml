@@ -1,14 +1,18 @@
 << @(#) $Id$ >>
 
 <element name='batcher' params='list'>
-<table width=100% class='batcher'><tr valign=bottom>
-<logged>
- <td align=left>
-  <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
-     class='add'>
-   Добавить фотографию</a>
- </td>
-</logged>
+<table width=100%><tr valign=bottom>
+ <logged>
+  <td align=left class='info'>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+	>Добавить фотографию</a>
+    </td>
+   </tr></table>
+  </td>
+ </logged>
  <td><spin list='$list'></td>
 </tr></table>
 </element>

@@ -1,16 +1,19 @@
 << @(#) $Id$ >>
 
 <element name='batcher' params='list'>
-<table width=100% class='batcher'><tr>
- <td align=left>
+<table width=100%><tr>
+ <td align=left class='info'>
   <logged>
-   <a href='complainedit.php?type_id=*COMPL_NORMAL&redirid=$_'
-      class='add'>Добавить жалобу</a>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='complainedit.php?type_id=*COMPL_NORMAL&redirid=$_'
+	>Добавить жалобу</a>
+    </td>
+   </tr></table>
   <else>
    <em>Хотите посылать жалобы?</em>
-   <span class='info'>
-    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-   </span>
+   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
   </logged>
  </td>
  <td><spin list='$list'></td>

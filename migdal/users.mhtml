@@ -10,10 +10,15 @@
 <pagetitle title='Пользователи'>
 
 <element name='batcher' params='list'>
-<table width=100% class='batcher'><tr valign=bottom>
+<table width=100%><tr valign=bottom>
  <admin_users>
-  <td align=left>
-   <a href='register.php?redirid=$_' class='add'>Добавить пользователя</a>
+  <td align=left class='info'>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='register.php?redirid=$_' class='add'>Добавить пользователя</a>
+    </td>
+   </tr></table>
   </td>
  </admin_users>
  <td align=center><spin list='$list'></td>

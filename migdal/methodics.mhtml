@@ -8,13 +8,18 @@
 <unititle topic_id='$`methodics`'>
 
 <element name='batcher' params='list'>
-<table width=100% class='batcher'><tr valign=bottom>
- <td align=left>
-  <if what='$$methodics.UserId==$$userId || $$userModerator'>
-   <a href='postingedit.php?topic_id=$`methodics`&root=$`methodics`&grp=*GRP_BOOKS&redirid=$_'
-      class='add'>Добавить книгу</a>
-  </if>
- </td>
+<table width=100%><tr valign=bottom>
+ <if what='$$methodics.UserId==$$userId || $$userModerator'>
+  <td align=left class='info'>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='postingedit.php?topic_id=$`methodics`&root=$`methodics`&grp=*GRP_BOOKS&redirid=$_'
+	>Добавить книгу</a>
+    </td>
+   </tr></table>
+  </td>
+ </if>
  <td align=center><spin list='$list'></td>
 </tr></table>
 </element>

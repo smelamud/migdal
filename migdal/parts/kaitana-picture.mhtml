@@ -12,7 +12,7 @@
   </td></tr>
  </ifnzero>
  <isedit what='$picture'>
-  <tr><td class=batcher align=center>
+  <tr><td class='eightpt' align=center>
    <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$`kaitana`&grp=$picture.Grp&redirid=$_"
     >Изменить</a>
   </td></tr>

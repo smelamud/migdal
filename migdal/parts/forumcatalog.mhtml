@@ -1,16 +1,19 @@
 << @(#) $Id$ >>
 
 <element name='batcher' params='list,topic'>
-<table width=100% class='batcher'><tr valign=bottom>
- <td align=left>
+<table width=100%><tr valign=bottom>
+ <td align=left class='info'>
   <logged>
-   <a href='postingedit.php?topic_id=$topic&root=$`general`&grp=*GRP_FORUMS&redirid=$_'
-      class='add'>Добавить мнение</a>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='postingedit.php?topic_id=$topic&root=$`general`&grp=*GRP_FORUMS&redirid=$_'
+	>Добавить мнение</a>
+    </td>
+   </tr></table>
   <else>
    <em>Хотите добавлять мнения?</em>
-   <span class='info'>
-    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-   </span>
+   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
   </logged>
  </td>
  <td><spin list='$list'></td>
