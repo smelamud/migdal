@@ -4,12 +4,13 @@
 <int name='offset'>
 <grp ignore='$ignoregrp'>
 <grptitle>
+<grpident>
 <html>
 <head>
  <title>Демо - $grptitle</title>
 </head>
 <body bgcolor=white>
- <top ident='$g.ident'>
+ <top ident='$grpident'>
  <topic_obj id='$topic_id'>
 
  <ifnzero what='$topic_id'>

@@ -4,12 +4,13 @@
 <int name='topic_id'>
 <grp>
 <grptitle>
+<grpident>
 <html>
 <head>
  <title>Демо - $grptitle</title>
 </head>
 <body bgcolor=white>
- <top ident='$g.ident'>
+ <top ident='$grpident'>
  <p>
  <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
  <setup>
