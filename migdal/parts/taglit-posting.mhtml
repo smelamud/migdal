@@ -1,39 +1,19 @@
 << @(#) $Id$ >>
+<< Based-on: migdal/parts/posting.mhtml 1.28 >>
 
 <grps>
-<element name='posting_further' params='id'>
+<element name='taglit_posting_further' params='id'>
  <asp><a href='forum.php?redirid=$_&msgid=$id'><asp>
   <image src='pics/further.gif' border=0 title='Читать дальше'>
  <asp></a>&nbsp;<asp>
 </element>
 
-<element name='posting_further_article' params='id'>
- <asp><a href='article.php?redirid=$_&artid=$id'><asp>
-  <image src='pics/further.gif' border=0 title='Читать статью'>
- <asp></a>&nbsp;<asp>
-</element>
-
-<element name='posting'>
+<element name='taglit_posting'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <dl class='posting'>
-  <dt class='subject'>
+  <dt class='sent'>
    <biff time='$posting.Sent'>
-   <if what='$topic<0'>
-    <a href='index.php?topic_id=$posting.TopicId'
-       class='topic' title='$posting.TopicDescription'>
-     $posting.TopicName
-    </a>
-    <br>
-   </if>
-   <if what='$posting.hasLargeBody'>
-    <a href='article.php?redirid=$_&artid=$posting.Id'
-       title='Читать'>$posting.Subject</a>
-   <else>
-    $posting.Subject
-   </if>
-   <ifne what='$posting.Author'>
-    <br><span class='author'>$posting.Author</span>
-   </ifne>
+   <sentview date='$posting.Sent'>
   </dt>
   <dd><p>
   <ifnzero what='$posting.ImageSet'>
@@ -49,34 +29,15 @@
   <if what='$shorten'>
    $posting.HTMLBodyMedium&nbsp;<asp>
    <if what='!$posting.isBodyMedium'>
-    <posting_further id='$posting.Id'>
+    <taglit_posting_further id='$posting.Id'>
    </if>
   <else>
    $posting.HTMLBody&nbsp;<asp>
   </if>
-  <if what='$posting.hasLargeBody'>
-   <posting_further_article id='$posting.Id'>
-  </if>
   </p>
-  <table width=100% style="clear: left"><tr>
-   <td align=left class='sent'>
-    <sentview date='$posting.Sent'>&nbsp;
-    <senderlink message='$posting'>
-   </td>
-   <ifne what='$posting.Source'>
-    <td class='source'>
-     $posting.HTMLSource
-    </td>
-   </ifne>
-  </tr></table>
-  <if what='$$userId>0 || $discuss || $posting.hasLargeBody'>
+  <if what='$$userId>0 || $discuss'>
    <table width=100% class='bottom'><tr>
     <td>
-     <if what='$posting.hasLargeBody'>
-      <a href='article.php?redirid=$_&artid=$posting.Id'
-	      class='read'>Читать</a>
-      &nbsp;
-     </if>
      <isedit what='$posting'>
       <a href="postingedit.php?editid=$posting.Id&up=general&grp=$posting.Grp&redirid=$_"
        >Изменить</a>

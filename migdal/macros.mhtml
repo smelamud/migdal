@@ -85,6 +85,11 @@
        params='taglit_id,user_id,rows,cols,offset'>
 <decel name='taglit_picture' file='parts/taglit-picture.php'
        params='picture,user'>
+<decel name='taglit_posting' file='parts/taglit-posting.php'
+       params='posting,discuss,complain,shorten'
+       defaults="discuss='*true' complain='*true' shorten='*false'">
+<decel name='taglit_postings' file='parts/taglit-postings.php'
+       params='taglit_id,user_id'>
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
        params='ident,flags,target,showimages'

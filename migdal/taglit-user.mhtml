@@ -28,13 +28,8 @@
     </ife>
    </div>
    <p>
-   <logged>
-    <div class='batcher'>
-     <a href='postingedit.php?topic_id=$taglit.Id&up=$taglit.Id&grp=*GRP_INT_FORUMS&redirid=$_'
-        class='add'>
-      Добавить мнение</a>
-    </div>
-   </logged>
+   <taglit_postings taglit_id='$taglit.Id' user_id='$,Id'>
+   <p>
    <taglit_gallery taglit_id='$taglit.Id' user_id='$,Id'
                    rows='$userPictureRowPortion'
  		   cols='$userPictureColumnPortion' offset='$offset'>

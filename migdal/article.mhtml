@@ -147,10 +147,10 @@
        title='$,TopicDescription'>$,TopicName</a>
     <br>
     $,Subject
+    <ifne what='$,Author'>
+     <div class='author'>$,HTMLAuthor</div>
+    </ifne>
    </h1>
-   <ifne what='$,Author'>
-    <div class='author'>$,HTMLAuthor</div>
-   </ifne>
    <if what='$,LargeFormat==*TF_PRE'><pre></if>
    <iterate_posting_paragraphs posting='$,'>
    <p>

@@ -75,7 +75,9 @@
 }
 
 .article .author {
+	color: %article_author;
 	font-style: italic;
+	font-weight: normal;
 }
 
 .article .imagetitle {

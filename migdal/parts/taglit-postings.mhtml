@@ -1,0 +1,27 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/parts/postings.mhtml 1.30 >>
+
+<element name='batcher_taglit_postings' params='list,taglit_id'>
+<table width=100% class='batcher'><tr valign=bottom>
+ <td align=left>
+  <logged>
+   <a href='postingedit.php?topic_id=$taglit_id&up=$taglit_id&grp=*GRP_INT_FORUMS&redirid=$_'
+      class='add'>
+    Добавить мнение</a>
+  </logged>
+ </td>
+ <td><spin list='$list'></td>
+</tr></table>
+</element>
+
+<element name='taglit_postings'>
+<iterate_postinglist grp='*GRP_INT_FORUMS' topic='$taglit_id'
+                     sort='*SORT_PSENT' user='$user_id'>
+<batcher_taglit_postings list='$;' taglit_id='$taglit_id'>
+<for>
+ <taglit_posting posting='$.' shorten='*true'>
+</for>
+<ifnzero what='$;Count'>
+ <batcher_taglit_postings list='$;' taglit_id='$taglit_id'>
+</ifnzero>
+</element>
