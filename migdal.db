@@ -269,6 +269,21 @@ CREATE TABLE ratings (
 ) TYPE=MyISAM;
 
 #
+# Table structure for table 'redirs'
+#
+
+CREATE TABLE redirs (
+  id int(11) NOT NULL auto_increment,
+  up int(11) NOT NULL default '0',
+  track varchar(255) NOT NULL default '',
+  name varchar(255) NOT NULL default '',
+  uri text NOT NULL,
+  last_access timestamp(14) NOT NULL,
+  PRIMARY KEY  (id),
+  KEY id (id,up,track,last_access)
+) TYPE=MyISAM;
+
+#
 # Table structure for table 'sessions'
 #
 
