@@ -70,7 +70,7 @@ else
 	       or die('Ошибка SQL при выборке сессии');
   if(mysql_num_rows($result)<=0)
     {
-    SetCookie('sessionid');
+    SetCookie('sessionid',0);
     $userId=-1;
     }
   else

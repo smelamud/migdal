@@ -5,6 +5,7 @@ require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/errors.php');
 require_once('lib/utils.php');
+require_once('lib/statistics.php');
 
 function startSession()
 {
@@ -21,6 +22,7 @@ srand(time());
 $sid=rand();
 mysql_query("insert into sessions(user_id,sid) values($id,$sid)")
      or die('Ошибка SQL при создании сессии');
+incLogins();
 SetCookie('sessionid',$sid,time()+7200);
 return EL_OK;
 }
