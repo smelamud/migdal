@@ -109,5 +109,10 @@ mysql_query("update $table
                  perms='.$perms->getPerms()."
 	     where id=$id")
   or sqlbug('Ошибка SQL при установке прав');
+journal("update $table
+         set $user=".journalVar('users',$perms->getUserId()).',
+	     group_id='.journalVar('users',$perms->getGroupId()).',
+	     perms='.$perms->getPerms().'
+	 where id='.journalVar($table,$id));
 }
 ?>
