@@ -28,6 +28,9 @@ SetCookie('sessionid',$sid,time()+7200,'/');
 return EL_OK;
 }
 
+postString('login');
+postString('password');
+
 dbOpen();
 $err=startSession();
 if($err==EL_OK)
