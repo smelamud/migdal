@@ -22,6 +22,13 @@ return mysql_query("update messages
 		    where id=".$posting->getMessageId());
 }
 
+function setImageId($oldId,$newId)
+{
+return mysql_query("update images
+                    set id=$newId
+		    where id=$oldId");
+}
+
 function storeImage($posting)
 {
 global $editid,$loaded,$has_large,$small_x,$small_y;
@@ -38,6 +45,8 @@ if($loaded)
   $image=uploadMemoryImage($image->getContent(),$image->getFilename(),
                            $image->getFormat(),$has_large,$small_x,$small_y,
 			   $err,$posting->getLargeImageSet());
+  if(!setImageId($image->getId(),$editid))
+    return ELIM_SETID_SQL;
   }
 else
   $image=uploadImage('image',$has_large,$small_x,$small_y,$err,

@@ -49,6 +49,8 @@
             span=2>
      <error id='*ELIM_SET_SQL' text='Ошибка при установке набора изображений'
             color=magenta span=2>
+     <error id='*ELIM_SETID_SQL' color=magenta span=2
+            text='Ошибка при установке идентификатора изображения'>
      <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
      <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
             span=2>

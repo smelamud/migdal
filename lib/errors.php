@@ -113,6 +113,7 @@ define('ELIM_NO_EDIT',241);
 define('ELIM_DELETE_SQL',242);
 define('ELIM_IMAGE_ABSENT',243);
 define('ELIM_SET_SQL',244);
+define('ELIM_SETID_SQL',245);
 
 define('ELII_OK',250);
 define('ELII_NO_EDIT',251);
