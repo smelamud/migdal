@@ -23,11 +23,13 @@
   <td width=5>&nbsp;</td>
   <td class='article'>
    <article_controls posting='$,' up='$times.Id'>
-   <zone>
-    <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic='$times.Id'
-		 index1!='$,Index1'>
-    <times_issue issue='$,Index1' month='$,Source' separate='*true' align=right>
-   </zone>
+   <ifnzero what='$,Id'>
+    <zone>
+     <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic='$times.Id'
+		  index1='$,Index1'>
+     <times_issue issue='$,Index1' month='$,Source' separate='*true' align=right>
+    </zone>
+   </ifnzero>
    <h1>
     <a href='index.php?topic_id=$,TopicId' class='topic'
        title='$,TopicDescription'>$,TopicName</a>
