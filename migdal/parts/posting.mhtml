@@ -21,7 +21,7 @@
 <table cellspacing=0 cellpadding=0><tr>
  <td>
   <a href='forum.php?msgid=$posting.Id'>
-   <asp><notenglish>Обсудить<else>Comments</notenglish><asp>
+   <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
    <ifnzero what='$posting.AnswerCount'>
     <asp>&nbsp;($posting.AnswerCount)<asp>
    </ifnzero>

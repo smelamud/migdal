@@ -7,37 +7,21 @@
              fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
 <log event=forum text#='post($,Id)'>
 <notenglish>
- <pagetitle title#='Обсуждение &lt;&lt;$,SubjectDesc&gt;&gt;'>
+ <pagetitle title#='Форум - $,SubjectDesc'>
 <else>
- <pagetitle title#='Comments: $,SubjectDesc'>
+ <pagetitle title#='Forum - $,SubjectDesc'>
 </notenglish>
 
 <html>
 <preamble>
 <body>
- <top ident='$,MenuIndex'>
- <table width=100% cellpadding=5>
-  <tr valign=top>
-   <if what='$,Grp!=*GRP_LINKS'>
-    <td width=150 class='eframe'>
-     <topics posting='$,'>
-     <ears>
-    </td>
-   <else>
-    <td class='nframe'>
-     <topics_links posting='$,'>
-    </td>
-   </tr>
-   <tr valign=top>
-   </if>
-   <td class='cframe'>
-    <posting posting='$posting' shorten='*true' showdiscuss='*false'
-	     showcomplain='*true'>
-    <p>
-    <forums parent_id='$,MessageId' limit='$$userForumPortion' offset='$offset'>
-   </td>
-  </tr>
- </table>
+ <top ident='discuss'>
+ <table width=100% cellpadding=5><tr valign=top><td class='cframe'>
+  <posting posting='$posting' shorten='*true' showdiscuss='*false'
+	   showcomplain='*true'>
+  <p>
+  <forums parent_id='$,MessageId' limit='$$userForumPortion' offset='$offset'>
+ </td></tr></table>
  <bottom>
 </body>
 </html>

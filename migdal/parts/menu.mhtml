@@ -31,7 +31,7 @@
 	      current='$ident'>
     <menuitem ident='times' alt='Мигдаль Times' link='times.php'
               target='$target' current='$ident' time='$times_time'>
-    <menuitem ident='discuss' alt='Обсуждения' link='forumcatalog.php'
+    <menuitem ident='discuss' alt='Форум' link='forumcatalog.php'
 	      target='$target' current='$ident' time='$forums_time'>
     <menuitem ident='gallery' alt='Галерея' link='gallery.php' target='$target'
 	      current='$ident' time='$gallery_time'>

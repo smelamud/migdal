@@ -35,12 +35,11 @@
  <trace url='migdal-news.php'>
  <assign name='name' value='$,Name'>
 <elif what="$basename=='forumcatalog.php'">
- <assign name='name' value='Обсуждения'>
+ <assign name='name' value='Форум'>
 <elif what="$basename=='forum.php'">
  <posting_obj id='$msgid' fields='*SELECT_GENERAL'>
- <identify posting='$,'>
- <trace url#='$,DetailsHref'>
- <assign name='name' value='Обсуждение'>
+ <trace url='forumcatalog.php'>
+ <assign name='name' value='$,SubjectDesc'>
 <elif what="$basename=='gallery.php'">
  <if what='$topic_id<=0'>
   <assign name='name' value='Галерея'>

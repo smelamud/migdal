@@ -14,7 +14,7 @@
 <log event=forumcatalog text#='offset=$offset'>
 
 <grps>
-<pagetitle title='Обсуждения'>
+<pagetitle title='Форум'>
 
 <html>
 <preamble>

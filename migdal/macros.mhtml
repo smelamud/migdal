@@ -48,7 +48,7 @@
        params='complain,discuss' defaults="discuss='*true'">
 <decel name='discussions' file='parts/discussions.php'
        params='topic_id,title,limit'
-       defaults="topic_id='-1' title='Обсуждения' limit=5">
+       defaults="topic_id='-1' title='Форум' limit=5">
 <decel name='discusslink' file='parts/posting.php' params='posting'>
 <decel name='ears' file='parts/ears.php'>
 <decel name='editlink' file='parts/posting.php' params='posting'>

@@ -25,7 +25,8 @@
  <batcher list='$;'>
  <table width=100% class='catalog'>
   <tr>
-   <th>Тема</th><th colspan=2>Последнее сообщение</th><th>Ответы</th>
+   <th>&nbsp;</th><th>Тема</th><th>Прислал</th><th>Ответов</th>
+   <th>Последний ответ</th>
   </tr>
   <for>
    <if what='$;isOdd'>
@@ -34,27 +35,37 @@
     <tr height=40>
    </if>
     <td>
-     <biff time='$.Sent'>
+     <ifzero what='$.LastAnswer'>
+      <biff time='$.Sent'>
+     <else>
+      <biff time='$.LastAnswer'>
+     </ifzero>
+    </td>
+    <td>
      <a href='forum.php?msgid=$.Id' class='ninept'>$.SubjectDesc</a>
      <if what='$.TopicId!=$`forums`'>
       <br>
       <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
      </if>
     </td>
-    <ifzero what='$.LastAnswer'>
-     <td><senderlink message='$.'></td>
-     <td class='ninept'><sentview date='$.Sent'></td>
-    <else>
-     <zone>
-      <forum_answer_author parent_id='$.MessageId' sent='$.LastAnswer'>
-      <td><senderlink message='$,'></td>
-     </zone>
-     <td class='ninept'><sentview date='$.LastAnswer'></td>
-    </ifzero>
-    <td class='ninept' align=center>
-     <biff time='$.LastAnswer' small='*true'>
-     $.AnswerCount
+    <td align=center><senderlink message='$.'></td>
+    <td align=center>
+     <a href='forum.php?msgid=$.Id' class='ninept'>$.AnswerCount</a>
     </td>
+    <ifzero what='$.LastAnswer'>
+     <td class='ninept'>
+      <sentview date='$.Sent'><br>
+      Автор: <senderlink message='$.'>
+     </td>
+    <else>
+     <td class='ninept'>
+      <sentview date='$.LastAnswer'><br>
+      <zone>
+       <forum_answer_author parent_id='$.MessageId' sent='$.LastAnswer'>
+       Автор: <senderlink message='$,'>
+      </zone>
+     </td>
+    </ifzero>
    </tr>
   </for>
  </table>
