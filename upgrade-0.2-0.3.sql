@@ -185,3 +185,5 @@ PRIMARY KEY ( `id` )
 ALTER TABLE `packages` ADD INDEX ( `posting_id` );
 ALTER TABLE `packages` ADD INDEX ( `type` );
 ALTER TABLE `packages` ADD INDEX ( `created` );
+ALTER TABLE `packages` ADD `used` TINYINT NOT NULL;
+ALTER TABLE `packages` ADD INDEX ( `used` );

@@ -47,7 +47,8 @@
 </if>
 </macro>
 
-<element name='pic' params='posting,par,drop_left'>
+<element name='pic' params='posting,par,drop_left,static'
+                    defaults="static='*false'">
 <image_placements>
 <if what='$drop_left'>
  <assign name='clear' value=' style="clear: left"'>
@@ -102,7 +103,8 @@
    </isedit>
   </notprint>
    <tr><td align=center>
-    <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
+    <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'
+                      static='$static'>
    </td></tr>
    <ifne what='$par.Title'>
     <tr><td class='imagetitle'>$par.HTMLTitle</td></tr>
@@ -131,7 +133,7 @@
 </ifnzero>
 </element>
 
-<element name='footnotes' params='source'>
+<element name='footnotes' params='&source'>
 <iterate_footnotes source='$source'>
 <ifnzero what='$;Count'><p>
  <hr class='notes' align=left>
@@ -152,10 +154,13 @@
 
 <element name='article'>
 <if what='$posting.LargeFormat==*TF_PRE'><pre></if>
-<iterate_posting_paragraphs posting='$posting'>
+<assign name='note_base'
+        value!="$note_base_var!='' ? $GLOBALS[$note_base_var] : 1">
+<iterate_posting_paragraphs name='list' posting='$posting'
+                            note_base='$note_base'>
 <p>
 <for>
- <pic posting='$posting' par='$.' drop_left='$.isDropLeft'>
+ <pic posting='$posting' par='$.' drop_left='$.isDropLeft' static='$static'>
  $.HTMLBody
 </for>
 </p>
@@ -165,6 +170,9 @@
 	     image='$$style_cframe_back_pic'>
 </if>
 <footnotes source='$;'>
+<ifne what='$note_base_var'>
+ <?php $GLOBALS[$note_base_var]=$list->getNoteOffset(); ?>
+</ifne>
 </element>
 
 <element name='article_full'>

@@ -113,6 +113,10 @@ tag('messages');
 useLinks('messages','up','messages','id');
 deleteTagged('messages');
 
+tag('packages');
+useLinks('packages','posting_id','postings','id');
+deleteTagged('packages');
+
 tag('postings');
 useLinks('postings','message_id','messages','id');
 deleteTagged('postings');

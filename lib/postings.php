@@ -485,10 +485,10 @@ class PostingParagraphIterator
 {
 var $images;
 
-function PostingParagraphIterator($posting)
+function PostingParagraphIterator($posting,$noteBase=1)
 {
 $this->ParagraphIterator($posting->getLargeFormat(),$posting->getLargeBody(),
-                         $posting->getMessageId());
+                         $posting->getMessageId(),$noteBase);
 $this->loadImages($posting);
 }
 
@@ -498,7 +498,7 @@ $this->images=array();
 $sid=$posting->getStotextId();
 settype($sid,'integer');
 $result=mysql_query("select stotext_id,par,image_id,placement,
-                            has_large as has_large_image,title
+                            has_large as has_large_image,title,format
 		     from stotext_images
 		          left join images
 			       on images.id=stotext_images.image_id

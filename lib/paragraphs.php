@@ -60,6 +60,11 @@ function hasLargeImage()
 return $this->image ? $this->image->hasLargeImage() : false;
 }
 
+function getImageFormat()
+{
+return $this->image ? $this->image->getFormat() : '';
+}
+
 function getPlacement()
 {
 return $this->image ? $this->image->getPlacement() : IPL_CENTER;
@@ -99,15 +104,16 @@ class ParagraphIterator
 var $format;
 var $pars;
 var $notes=array();
-var $noteOffset=1;
+var $noteOffset;
 var $message_id;
 
-function ParagraphIterator($format,$text,$messageId=0)
+function ParagraphIterator($format,$text,$messageId=0,$noteBase=1)
 {
 $this->Iterator();
 $this->format=$format;
 $this->message_id=$messageId;
 $this->pars=preg_split("/\n\s*\n/",$text);
+$this->noteOffset=$noteBase;
 reset($this->pars);
 }
 
@@ -126,8 +132,8 @@ if(list($key,$value)=each($this->pars))
     }
   else
     $dropLeft=false;
-  return new Paragraph($this->getPosition(),$this->format,$text,$this->message_id,
-                       $dropLeft);
+  return new Paragraph($this->getPosition(),$this->format,$text,
+                       $this->message_id,$dropLeft);
   }
 else
   return false;
@@ -141,13 +147,18 @@ $this->notes=array();
 return $notes;
 }
 
+function getNoteOffset()
+{
+return $this->noteOffset;
+}
+
 }
 
 class FootnoteIterator
       extends ArrayIterator
 {
 
-function FootnoteIterator($source)
+function FootnoteIterator(&$source)
 {
 $this->ArrayIterator($source->exportFootnotes());
 }

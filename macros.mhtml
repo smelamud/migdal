@@ -92,15 +92,19 @@
 <deciter macro='mnogosearch' class='MnogosearchIterator'
          file='lib/mnogosearch.php' params='query,limit,offset'
 	 defaults="limit=20 offset=0">
+<deciter macro='packages' class='PackagesIterator' file='lib/packages.php'
+         params='posting_id'>
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
-         params='format,body'>
+         params='format,body,message_id,note_base'
+	 defaults="message_id=0 note_base=1">
 <deciter macro='posting_alphabet' class='PostingAlphabetIterator'
          file='lib/postings.php'
 	 params='sort,topic_id,recursive,grp,showshadows'
 	 defaults="sort='*SORT_URL_DOMAIN' topic_id=-1 recursive='*false'
 	           grp='*GRP_ALL' showshadows='*false'">
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
-         file='lib/postings.php' params='posting'>
+         file='lib/postings.php' params='posting,note_base'
+	 defaults="note_base=1">
 <deciter macro='posting_users' class='PostingUsersIterator'
          file='lib/postings.php' params='grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
@@ -212,10 +216,10 @@
 <deccall macro='image_name' func='getImageNameBySet' file='lib/images.php'
          params='set' defaults='name=image'>
 <deccall macro='image_tag' func='getImageTagById' file='lib/images.php'
-         params='id,align,size,src'
-	 defaults="align='' size=small src='lib/image.php'">
+         params='id,align,size,src,static'
+	 defaults="align='' size=small src='lib/image.php' static='*false'">
 <deccall macro='image_link' func='getImageEnlargeLinkById' file='lib/images.php'
-         params='id'>
+         params='id,static' defaults="static='*false'">
 <decexec macro='inner' func='beginInner' file='lib/inner.php'>
 <decexec macro='/inner' func='endInner' file='lib/inner.php'>
 <deccall macro='last_chat' func='getLastChat' file='lib/chat-users.php'
@@ -293,9 +297,10 @@
 <decel name='image' file='parts/utils.php' params='src,alt,title,border'
        defaults="src='' alt='' title='' border=''">
 
-<macro name='image_tag_put' defaults="align='' size=small src='lib/image.php'">
+<macro name='image_tag_put' defaults="align='' size=small src='lib/image.php'
+                                      static='*false'">
  <zone><image_tag id%!id='%id' align%!align='%align' size%!size=%size
-                  src%!src='%src'>$,</zone>
+                  src%!src='%src' static%!static='%static'>$,</zone>
 </macro>
 
 <macro name='parse_url'>

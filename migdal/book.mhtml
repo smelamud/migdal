@@ -64,6 +64,25 @@
 	    <td><a href='book-print.php?bookid=$bookid&print=1'>Вся книга
 	     для печати</a></td>
 	   </tr>
+	   <iterate_packages posting_id='$bookid'>
+	   <for>
+	    <tr valign=center>
+	     <td align=right>???</td>
+	     <td>&nbsp;</td>
+	     <td>
+	      <if what='$.Type==*PT_BOOK_ONEFILE'>
+	       <assign name='title' value='Вся книга одним файлом в архиве'>
+	      <else>
+	       <assign name='title' value='Вся книга по главам в архиве'>
+	      </if>
+	      <a href='/lib/package.php/migdal-book-${bookid}.zip?id=$.Id'
+	         >$title</a>
+	      </td>
+	    </tr>
+	    <tr valign=center>
+	     <td colspan=2>&nbsp;</td>
+	     <td><i>(ZIP, ${.SizeKB}KB)</i></td>
+	   </for>
 	  </table>
 	 </p>
 	</if>

@@ -3,6 +3,12 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/bug.php');
+require_once('lib/utils.php');
+require_once('lib/selectiterator.php');
+
+define('PT_UNDEFINED',0);
+define('PT_BOOK_ONEFILE',1);
+define('PT_BOOK_SPLIT',2);
 
 class Package
       extends DataObject
@@ -20,6 +26,33 @@ var $created;
 function Package($row)
 {
 $this->DataObject($row);
+}
+
+function getWorldVars()
+{
+return array('posting_id','type','mime_type','title','body','size','url');
+}
+
+function getAdminVars()
+{
+return array();
+}
+
+function store()
+{
+$normal=$this->getNormal(false);
+if($this->id)
+  $result=mysql_query(makeUpdate('packages',
+                                 $normal,
+				 array('id' => $this->id)));
+else
+  {
+  $normal['created']=date('Y-m-d H:i:s',time());
+  $result=mysql_query(makeInsert('packages',$normal));
+  $this->id=mysql_insert_id();
+  $this->created=$normal['created'];
+  }
+return $result;
 }
 
 function getId()
@@ -57,6 +90,11 @@ function getSize()
 return $this->size;
 }
 
+function getSizeKB()
+{
+return (int)($this->size/1024);
+}
+
 function getURL()
 {
 return $this->url;
@@ -65,6 +103,21 @@ return $this->url;
 function getCreated()
 {
 return strtotime($this->created);
+}
+
+}
+
+class PackagesIterator
+      extends SelectIterator
+{
+
+function PackagesIterator($posting_id)
+{
+$this->SelectIterator('Package',
+                      "select id,posting_id,type,title,size
+		       from packages
+		       where posting_id=$posting_id
+		       order by type,created");
 }
 
 }

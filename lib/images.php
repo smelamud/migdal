@@ -275,7 +275,8 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
-function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php')
+function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php',
+                         $static=false)
 {
 global $uiName,$thumbnailType;
 
@@ -285,12 +286,14 @@ $size=mysql_fetch_row(
  	           where id=$id"));
 $al=$align!='' ? "align=$align" : '';
 $ext=getImageExtension($size[2] ? $thumbnailType : $size[3]);
+$href=!$static ? "$src/$uiName-$id.$ext?id=$id&size=$aSize"
+               : "pics/$uiName-$id".($aSize=='small' ? '-small' : '').".$ext";
 return '<img border=0 width='.$size[0].
                     ' height='.$size[1].
-		    " $al src='$src/$uiName-$id.$ext?id=$id&size=$aSize'>";
+		    " $al src='$href'>";
 }
 
-function getImageEnlargeLinkById($id)
+function getImageEnlargeLinkById($id,$static=false)
 {
 global $uiName;
 
@@ -298,8 +301,9 @@ $result=mysql_query("select format
                      from images
  	             where id=$id");
 $ext=getImageExtension(mysql_result($result,0,0));
-return "<a href='lib/image.php/$uiName-$id.$ext?id=$id&size=large' target=_blank".
-       " title='Увеличить'>";
+$href=!$static ? "lib/image.php/$uiName-$id.$ext?id=$id&size=large"
+               : "pics/$uiName-$id.$ext";
+return "<a href='$href' target=_blank title='Увеличить'>";
 }
 
 function imageSetExists($image_set)

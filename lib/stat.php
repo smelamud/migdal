@@ -68,12 +68,12 @@ $cmd=str_replace(array('#','%'),
 		 $compressCommand);
 echo `$cmd`;
 
-#unlink("$dir/users");
-#unlink("$dir/topics");
-#unlink("$dir/postings");
-#unlink("$dir/log");
-#unlink("$dir/timestamp");
-#rmdir($dir);
+unlink("$dir/users");
+unlink("$dir/topics");
+unlink("$dir/postings");
+unlink("$dir/log");
+unlink("$dir/timestamp");
+rmdir($dir);
 
 dbClose();
 ?>

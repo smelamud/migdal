@@ -1,11 +1,10 @@
 ! @(#) $Id$
 
-.ring A {
+.ring * {
 	font-family: %verdana;
 	font-size: 9pt;
-	text-decoration: underline;
 }
 
-.ring B A {
+.ring B {
 	font-size: 10pt;
 }

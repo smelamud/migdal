@@ -31,6 +31,7 @@ var $image_id;
 var $has_large_image;
 var $title;
 var $placement;
+var $format;
 
 function StotextImage($row)
 {
@@ -118,6 +119,11 @@ return $this->title;
 function getHTMLTitle()
 {
 return stotextToHTML(TF_MAIL,$this->title);
+}
+
+function getFormat()
+{
+return $this->format;
 }
 
 }

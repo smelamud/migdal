@@ -20,8 +20,11 @@ TIMESNFO_PARTS = colors.mcss fonts.mcss palette.mcss sheet-timesnfo.mcss
 VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-votes.mcss
 
+STATIC_ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
+	sheet-article.mcss
+
 all: style.stamp article.stamp book.stamp chat.stamp complain.stamp \
-	index.stamp times.stamp timesnfo.stamp votes.stamp
+	index.stamp times.stamp timesnfo.stamp votes.stamp static-article.css
 
 style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
@@ -103,6 +106,9 @@ votes-%.css: votes.mcss $(VOTES_PARTS) ../../cssparser
 
 votes.stamp: $(patsubst %,votes-%.css,$(FLAVOURS)) $(patsubst %,votes-%.php,$(FLAVOURS))
 	touch $@
+
+static-article.css: static-article.mcss $(STATIC_ARTICLE_PARTS) ../../cssparser
+	../../cssparser -s static-article.css $< > $@
 
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ > Makefile
