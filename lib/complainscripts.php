@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/messages.php');
+require_once('lib/postings.php');
 
 define('CSCR_NONE',0);
 define('CSCR_CLOSE',1);
