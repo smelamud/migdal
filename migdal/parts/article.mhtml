@@ -110,7 +110,7 @@
  </p>
  <isedit what='$posting'>
   <p$clear>
-  <a href='liminsert.php?postid=$$artid&par=$par.Number&redirid=$_'
+  <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
      class='piclink'>Картинка</a>
   </p>
  </isedit>
