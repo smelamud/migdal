@@ -5,8 +5,7 @@
 <grps>
 <topic_obj name='methodics' id='$`methodics`'>
 <log event=review text#='topic($`methodics`)'>
-<pagetitle title='Методический центр'>
-<topictitle title='Методический центр'>
+<unititle topic_id='$`methodics`'>
 
 <element name='batcher' params='list'>
 <table width=100% class='batcher'><tr valign=bottom>

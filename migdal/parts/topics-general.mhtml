@@ -4,7 +4,8 @@
 <if what='$posting.Grp==*GRP_FORUMS || $posting.Grp==*GRP_NEWS ||
           $posting.Grp==*GRP_ARTICLES || $posting.Grp==*GRP_QUOTES ||
 	  $posting.Grp==*GRP_BOOKS || $posting.Grp==*GRP_BOOK_CHAPTERS'>
- <if what='$/$posting.TopicId,0/!=$`migdal`'>
+ <if what='$/$posting.TopicId,0/!=$`migdal` &&
+           $/$posting.TopicId,1/!=$`migdal-news`'>
   <topics_major ident='index'>
   <topics_minor id='$posting.TopicId' withpostings='$$officialDomain'
 		grp='*GRP_TAPE' href='index.php' title='Раздельчики'>

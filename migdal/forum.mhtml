@@ -12,7 +12,7 @@
 <body>
  <top ident='discuss'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'>
+  <td width=150 class='eframe'>
    <topics posting='$,'>
   </td>
   <td class='cframe'>

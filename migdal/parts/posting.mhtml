@@ -8,8 +8,13 @@
   <topic_obj id='$`inet-news`'>
   <a href='links.php' class='topic' title='$,Description'>$,Name</a>
  <else>
-  <a href='index.php?topic_id=$posting.TopicId' class='topic'
-     title='$posting.TopicDescription'>$posting.TopicName</a>
+  <if what='$/$posting.TopicId,1/==$`migdal-news`'>
+   <topic_obj id='$`migdal-news`'>
+   <a href='migdal-news.php' class='topic' title='$,Description'>$,Name</a>
+  <else>
+   <a href='index.php?topic_id=$posting.TopicId' class='topic'
+      title='$posting.TopicDescription'>$posting.TopicName</a>
+  </if>
  </if>
  <br>
 </if>

@@ -40,7 +40,7 @@
   // $posting.GrpTitle
  </td></tr>
  <tr><td>
-  <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
+  <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id&redirid=$_'>
    $posting.SubjectDesc</a>
   <ifne what='$posting.Ident'>
    [$posting.Ident=$posting.Id]

@@ -36,14 +36,18 @@
  </if>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
                       topic='$,Id' recursive='*false'>
+ <posting_last topic_id='$`migdal-news`' recursive='*true'>
+ <topics_line time='$,' href#='migdal-news.php'
+              text='Новости &lt;&lt;Мигдаля&gt;&gt;'
+              arrow!="$/$posting.TopicId,1/==$`migdal-news`" span=2
+	      class='item ninept'>
  <for>
   <topics_line time='$.Sent' text='$.Subject'
                href#='migdal.php?artid=$.Id' arrow!='$.Id==$posting.Id'
 	       indent!="$.Id==$`postings:migdal` ? 0 : 1"
 	       span!="$.Id==$`postings:migdal` ? 2 : 1"
 	       class!="$.Id==$`postings:migdal`
-	               ? 'item ninept' : 'item eightpt'"
-	       nobullet!='$.Id==$`postings:migdal`'>
+	               ? 'item ninept' : 'item eightpt'">
  </for>
  <posting_last topic_id='$`mazltov`' recursive='*true'>
  <topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`'
@@ -58,7 +62,8 @@
  <posting_last topic_id='$`methodics`' recursive='*true'>
  <topics_line time='$,' text='Методический центр' href#='methodics.php'
               arrow!="$/$posting.TopicId,1/==$`methodics`" indent=1
-	      class='item eightpt'>
+	      class='item eightpt'
+	      title='Южно-Украинский региональный методический центр'>
  <posting_last topic_id='$`kaitana`' recursive='*true'>
  <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
               arrow!="$/$posting.TopicId,1/==$`kaitana`" indent=1
