@@ -113,11 +113,17 @@
    </if>
   <elif what='$/$posting.TopicId,1/==$`methodics`'>
    <topic_obj id='$`methodics`'>
-   <assign name='href' value='methodics.php'>
+   <assign name='href' value='methodic-center.php'>
    <assign name='ghref' value=''>
    <assign name='title' value='$,Description'>
    <assign name='name' value='$,Name'>
    <assign name='root' value='$`methodics`'>
+   <if what='($posting.Grp & *GRP_BOOKS)!=0'>
+    <assign name='href' value='methodics.php'>
+    <assign name='ghref' value=''>
+    <assign name='title' value=''>
+    <assign name='name' value#='$name :: Методические пособия'>
+   </if>
   <elif what='$/$posting.TopicId,1/==$`jcc`'>
    <topic_obj id='$`jcc`'>
    <assign name='href' value#='jcc.php'>
