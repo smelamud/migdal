@@ -45,7 +45,7 @@ return $this->text;
 
 function getHTMLText()
 {
-return enrichedTextToHTML($this->text);
+return stotextToHTML(TF_MAIL,$this->text);
 }
 
 }
