@@ -10,7 +10,7 @@
   </tr>
   <if what='$topic<0'>
    <tr><td class='topic'>
-     <a href='postings.php?redir=$_&grp=$grp&topic_id=$picture.TopicId'
+     <a href='gallery.php?redir=$_&grp=$grp&topic_id=$picture.TopicId'
 	class='topic' title='$picture.TopicDescription'>
       $picture.TopicName
      </a>

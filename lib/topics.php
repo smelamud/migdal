@@ -258,10 +258,12 @@ class TopicListIterator
       extends TopicIterator
 {
 
-function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false)
+function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
+                           $cols=5)
 {
 global $userId,$userModerator;
 
+$this->cols=$cols;
 $hide=$userModerator ? 2 : 1;
 $postFilter=$withPostings ? 'having message_count<>0' : '';
 $this->TopicIterator(
@@ -294,6 +296,11 @@ $this->TopicIterator(
        order by topics.name");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
+}
+
+function isEol()
+{
+return ($this->getPosition() % $this->cols)==$this->cols-1;
 }
 
 }

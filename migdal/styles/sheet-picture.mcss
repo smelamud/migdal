@@ -22,11 +22,6 @@
 	color: %picture_name;
 }
 
-.rebe .picture .top .name {
-	color: %picture_rebe_name;
-	font-weight: bold;
-}
-
 .picture .top .name A {
 	color: %picture_name;
 	text-decoration: none;

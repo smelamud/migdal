@@ -31,7 +31,7 @@
     <grpicon grp='$posting.Grp'>
     <image src='$grpicon' title='$grpitemtitlei'>&nbsp;
     <if what='$topic<0'>
-     <a href='postings.php?redir=$_&grp=$grp&topic_id=$posting.TopicId'
+     <a href='index.php?grp=$grp&topic_id=$posting.TopicId'
 	class='topic' title='$posting.TopicDescription'>
       $posting.TopicName
      </a>

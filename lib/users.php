@@ -9,6 +9,7 @@ require_once('lib/calendar.php');
 require_once('lib/utils.php');
 require_once('lib/tmptexts.php');
 require_once('lib/calendar.php');
+require_once('lib/random.php');
 
 class User
       extends UserTag
@@ -101,10 +102,9 @@ function preconfirm()
 global $regConfirmTimeout;
 
 $s='';
-srand(time());
 for($i=0;$i<20;$i++)
    {
-   $s.=chr(rand(ord('A'),ord('Z')));
+   $s.=chr(random(ord('A'),ord('Z')));
    }
 return mysql_query("update users
                     set no_login=1,confirm_code='$s',

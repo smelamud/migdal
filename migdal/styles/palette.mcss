@@ -157,7 +157,6 @@ picture_top_back=%nd
 :old		picture_whole_back=%nll
 picture_sent=white
 picture_name=yellow
-picture_rebe_name=%r
 picture_discuss=black
 picture_discuss_hover=blue
 picture_modify=black

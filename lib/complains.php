@@ -6,6 +6,7 @@ require_once('lib/messages.php');
 require_once('lib/complaintypes.php');
 require_once('lib/sendertag.php');
 require_once('lib/users.php');
+require_once('lib/random.php');
 
 class Complain
       extends Message
@@ -79,8 +80,7 @@ $result=mysql_query("select id
              or die('Ошибка SQL при выборке пользователя для автопривязки');
 if(mysql_num_rows($result)<=0)
   return 0;
-srand(time());
-return mysql_result($result,rand(0,mysql_num_rows($result)-1),0);
+return mysql_result($result,random(0,mysql_num_rows($result)-1),0);
 }
 
 function store()

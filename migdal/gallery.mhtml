@@ -19,9 +19,14 @@
    <topics g='$g' topic_id='$topic_id' navi='*true' file='gallery.php'>
   </td>
   <td width=20>&nbsp;</td>
-  <td><gallery grp='$grp' topic='$topic_id' rows='$userPictureRowPortion'
-               cols='$userPictureColumnPortion' offset='$offset'
-	       title='$grptitle'></td>
+  <td>
+   <if what='$topic_id==-1'>
+    <gallery_main grp='$grp' cols='$userPictureColumnPortion'>
+   <else>
+    <gallery grp='$grp' topic='$topic_id' rows='$userPictureRowPortion'
+	     cols='$userPictureColumnPortion' offset='$offset'>
+   </if>
+  </td>
  </tr></table>
  <bottom>
 </body>

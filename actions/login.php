@@ -7,6 +7,7 @@ require_once('lib/errors.php');
 require_once('lib/utils.php');
 require_once('lib/post.php');
 require_once('lib/statistics.php');
+require_once('lib/random.php');
 
 function startSession()
 {
@@ -19,8 +20,7 @@ $result=mysql_query('select id from users where login="'
 if(mysql_num_rows($result)==0)
   return EL_INVALID;
 $id=mysql_result($result,0,0);
-srand(time());
-$sid=rand();
+$sid=rnd();
 mysql_query("insert into sessions(user_id,sid) values($id,$sid)")
      or die('Ошибка SQL при создании сессии');
 incLogins();

@@ -37,8 +37,10 @@
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'
-       params='grp,topic,rows,cols,offset,title'
-       defaults="topic=-1 rows=4 cols=5 offset=0 title=''">
+       params='grp,topic,rows,cols,offset'
+       defaults="topic=-1 rows=4 cols=5 offset=0">
+<decel name='gallery_main' file='parts/gallery-main.php'
+       params='grp,cols' defaults="cols=5">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='hotlog_count' file='parts/hotlog.php'>
@@ -56,6 +58,8 @@
 <decel name='picture' file='parts/picture.php'
        params='picture,grp,topic,discuss,complain'
        defaults="topic=-1 discuss='*true' complain='*true'">
+<decel name='picture_main' file='parts/picture-main.php'
+       params='picture,grp'>
 <decel name='posting' file='parts/posting.php'
        params='posting,grp,topic,discuss,complain'
        defaults="topic=-1 discuss='*true' complain='*true'">

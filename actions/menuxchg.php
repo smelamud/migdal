@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/menu.php');
+require_once('lib/random.php');
 
 function setMenuIndex($id,$index)
 {
@@ -44,10 +45,9 @@ mysql_query('unlock tables')
      or die('ïÛÉÂËÁ ĞÒÉ ÒÁÚÂÌÏËÉÒÏ×ÁÎÉÉ ÔÁÂÌÉÃ');
 if($err==EMIX_OK)
   {
-  srand(time());
   header('Location: '.remakeURI($okdir,
                                 array('err'),
-				array('reload' => rand(0,999))));
+				array('reload' => random(0,999))));
   }
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)));

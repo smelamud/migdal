@@ -77,8 +77,8 @@
          params='values' defaults="values='$*'">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
-         params='grp,up,withpostings,withanswers'
-         defaults="up=0 withpostings='*false' withanswers='*false'">
+         params='grp,up,withpostings,withanswers,cols'
+         defaults="up=0 withpostings='*false' withanswers='*false' cols=5">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp'>
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'>
@@ -129,6 +129,9 @@
          params='id,grp' defaults='name=message grp=*GRP_ALL'>
 <deccall macro='posting_last' func='getLastPostingDate' file='lib/postings.php'
          params='grp,topic_id' defaults='grp=*GRP_ALL topic_id=-1'>
+<deccall macro='posting_random' func='getRandomPostingId'
+         file='lib/postings.php' params='grp,topic_id'
+	 defaults='grp=*GRP_ALL topic_id=-1'>
 <deccall macro='read_posting' func='incPostingReadCount'
          file='lib/postings.php' params='id'>
 <deccall macro='stotext_image_obj' func='getStotextImageByParagraph'

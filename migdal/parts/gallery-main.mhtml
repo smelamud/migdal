@@ -1,0 +1,47 @@
+<< @(#) $Id$ >>
+
+<element name='gallery_main'>
+<grpdata>
+<grpitemtitle>
+<iterate_topiclist grp='$g.Effective' withpostings='*true' cols='$cols'>
+<div class='batcher'>
+ <logged>
+  <if what='$g.Valid'>
+   <a href='postingedit.php?topic_id=-1&grp=$grp&redir=$_'
+      class='add'>Добавить $grpitemtitle</a>
+  <else>
+   <a href='postingedit.php?topic_id=-1&grp=*GRP_NEWS&redir=$_'
+      class='add'>Добавить новость</a>,
+   <a href='postingedit.php?topic_id=-1&grp=*GRP_FORUMS&redir=$_'
+      class='add'>мнение</a>,
+   <a href='postingedit.php?topic_id=-1&grp=*GRP_ARTICLES&redir=$_'
+      class='add'>статью</a>
+  </if>
+ <else>
+  <span class='advert'>
+   <if what='$g.Valid'>
+    Хотите добавлять $grpitemstitle?
+   <else>
+    Хотите добавлять новости и статьи?
+   </if>
+  <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
+  </span>
+ </logged>
+</div>
+<table width=100%>
+ <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+ <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+ <tr valign=top>
+  <for>
+   <td>
+    <posting_random grp='$grp' topic_id='$.Id'>
+    <posting_full id='$,' grp='$grp'>
+    <picture_main picture='$,' grp='$grp' topic='-1'>
+   </td>
+   <if what='$;isEol'>
+    </tr><tr valign=top>
+   </if>
+  </for>
+ </tr>
+</table>
+</element>

@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/utils.php');
+require_once('lib/random.php');
 
 function modifyMessage($editid,$hide)
 {
@@ -33,7 +34,7 @@ dbOpen();
 session($sessionid);
 $err=modifyMessage($editid,$hide ? 1 : 0);
 if($err==EMH_OK)
-  header('Location: '.remakeURI($okdir,array(),array('reload' => rand(0,999))));
+  header('Location: '.remakeURI($okdir,array(),array('reload' => random(0,999))));
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)).'#error');
 dbClose();

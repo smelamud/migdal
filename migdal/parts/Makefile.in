@@ -4,11 +4,11 @@
 
 OBJECTS = backtrace.php bottom.php complain.php cs_forum.php cs_normal.php \
 	  cs_posting.php formutils.php forumanswer.php forumcatalog.php \
-	  forums.php gallery.php googleru.php grpselect.php hotlog.php \
-	  jewishru.php login.php mailru.php menu.php picture.php posting.php \
-	  postings.php rambler.php stotext-help-navi.php today.php top.php \
-	  topics.php topicselect.php tune.php uploader.php userinfo.php \
-	  utils.php
+	  forums.php gallery.php gallery-main.php googleru.php grpselect.php \
+	  hotlog.php jewishru.php login.php mailru.php menu.php picture.php \
+	  picture-main.php posting.php postings.php rambler.php \
+	  stotext-help-navi.php today.php top.php topics.php topicselect.php \
+	  tune.php uploader.php userinfo.php utils.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@
