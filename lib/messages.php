@@ -10,6 +10,7 @@ class Message
 {
 var $id;
 var $body;
+var $large_filename;
 var $large_body;
 var $subject;
 var $image_set;
@@ -46,7 +47,7 @@ return array('body','large_body','subject','image_set','hidden','disabled');
 
 function getWorldVars()
 {
-return array('body','large_body','subject','image_set','hidden');
+return array('body','large_filename','large_body','subject','image_set','hidden');
 }
 
 function getAdminVars()
@@ -136,6 +137,11 @@ return $this->body;
 function getHTMLBody()
 {
 return enrichedTextToHTML($this->body);
+}
+
+function getLargeFilename()
+{
+return $this->large_filename;
 }
 
 function getLargeBody()

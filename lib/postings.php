@@ -243,8 +243,9 @@ function getPostingById($id,$grp=0,$topic=0)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$result=mysql_query("select postings.id as id,message_id,body,subject,topic_id,
-                            personal_id,sender_id,grp,image_set,hidden,disabled
+$result=mysql_query("select postings.id as id,message_id,body,large_filename,subject,
+                            topic_id,personal_id,sender_id,grp,image_set,
+			    hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id

@@ -175,7 +175,9 @@ CREATE TABLE menu (
 
 CREATE TABLE messages (
   id int(11) NOT NULL auto_increment,
-  body mediumtext NOT NULL,
+  body text NOT NULL,
+  large_filename varchar(70) NOT NULL default '',
+  large_body mediumtext NOT NULL,
   subject varchar(250) NOT NULL default '',
   sender_id int(11) NOT NULL default '0',
   image_set int(11) NOT NULL default '0',
@@ -245,6 +247,8 @@ CREATE TABLE tmp_texts (
 
 CREATE TABLE topics (
   id int(11) NOT NULL auto_increment,
+  up int(11) NOT NULL default '0',
+  track varchar(255) NOT NULL default '',
   name varchar(70) NOT NULL default '',
   description varchar(250) NOT NULL default '',
   hidden tinyint(4) NOT NULL default '0',
@@ -254,7 +258,9 @@ CREATE TABLE topics (
   no_articles tinyint(4) NOT NULL default '0',
   ident varchar(15) NOT NULL default '',
   PRIMARY KEY  (id),
-  KEY ident (ident)
+  KEY ident (ident),
+  KEY up (up),
+  KEY track (track)
 ) TYPE=MyISAM;
 
 #

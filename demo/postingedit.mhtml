@@ -59,13 +59,16 @@
              title='Картинка' loaded='(уже загружена)' notloaded='Другая'
              filename='$file'>
   </if>
- </table></td></tr>
  <if what='$message.hasLargeBody'>
+  <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
+  <uploader name='large_body' loadedname='large_loaded' loadedvalue=1 title='Текст'
+            loaded='(уже загружен)' notloaded='Другой'
+	    filename='$message.LargeFilename'>
+  </table></td></tr>
   <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
   <editor_line name='body' title='Аннотация' body='$message.Body'>
-  <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
-  <editor_line name='large_body' title='Текст' body='$message.LargeBody'>
  <else>
+  </table></td></tr>
   <error id='*EP_BODY_ABSENT'
          text='Напишите хотя бы пару строчек в теле сообщения'>
   <editor_line name='body' title='Текст' body='$message.Body'>
