@@ -4,7 +4,7 @@
 <table width=100% style='clear: both' class='ring'>
  <if what='$index>=0'>
   <tr valign=bottom><td width=33%>&nbsp;</td><td align=center width=33%>
-   <a href='book.php?bookid=$book.Id'>$book.Subject</a>
+   <b><a href='book.php?bookid=$book.Id'>$book.Subject</a></b>
   </td><td width=33%>&nbsp;</td></tr>
  </if>
  <tr valign=center>

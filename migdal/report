@@ -272,6 +272,8 @@ $c='[Мигдаль Times]' if $type eq 'times';
 $c='[О пользователе]' if $type eq 'userinfo';
 $c='[Голосование]' if $type eq 'vote';
 $c='[Ссылки]' if $type eq 'links';
+$c='[Книга]' if $type eq 'book';
+$c='[Глава книги]' if $type eq 'chapter';
 return $c.specify($s);
 }
 

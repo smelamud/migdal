@@ -1,7 +1,8 @@
 ! @(#) $Id$
 
 .ring A {
-	font: 9pt %verdana;
+	font-family: %verdana;
+	font-size: 9pt;
 	color: %book_ring;
 	text-decoration: underline;
 }
