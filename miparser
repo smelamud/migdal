@@ -738,8 +738,8 @@ my ($self)=@_;
 my $period=$self->getVarArg('period');
 my $url=$self->getVarArg('url');
 ::header("<?php header('Refresh: '.$period.'; URL='.$url); ?>\n");
-::body("<meta http-equiv='Refresh' value='<?php echo $period
-                                           ?>;URL=<?php echo $url ?>'>\n");
+::body("<meta http-equiv='Refresh' content='<?php echo $period
+                                             ?>;URL=<?php echo $url ?>'>\n");
 }
 
 sub elHtml

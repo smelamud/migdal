@@ -41,12 +41,17 @@
 <element name='navigator' params='topic_id'>
 <table cellspacing=5><tr valign=top>
  <td><table class='topics' style='margin: 0'><tbody class='names'>
-  <iterate_topiclist grp='*GRP_LINKS' up!='$topic_id<=0 ? "links" : $topic_id'>
+  <iterate_sortedtopicnames grp='*GRP_LINKS'
+                            up!='$topic_id<=0 ? "links" : $topic_id'>
   <iterate_fixed_rows rows=5 mincols=3>
   <for>
-   <tr><td><a href='$[topic_id=$.Id offset]' class='item'>
-    $.Name&nbsp;<span class='answers'>($.MessageCount)</span><asp>
-   <asp></a></td></tr>
+   <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
+   <tr><td>
+    <a href='$[topic_id=$.Id offset]' class='item'>
+     $.Name&nbsp;<span class='answers'>($,Total)</span><asp>
+    <asp></a><asp>
+    <biff time='$,MaxSent' small='*true'>
+   </td></tr>
    <if what='$;isEol'>
     </tbody></table></td>
     <td>&nbsp;</td>

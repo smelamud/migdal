@@ -176,7 +176,8 @@ CREATE TABLE messages (
   KEY stotext_id (stotext_id),
   KEY up (up,track),
   KEY url_domain (url_domain),
-  KEY url_check (url_check,url_check_success)
+  KEY url_check (url_check,url_check_success),
+  KEY sent (sent)
 ) TYPE=MyISAM;
 
 --

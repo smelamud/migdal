@@ -140,8 +140,8 @@
 <decel name='topics_table_end' file='parts/topics.php'>
 <decel name='topics_taglit' params='taglit,id' file='parts/topics-taglit.php'>
 <decel name='topicselect' file='parts/topicselect.php'
-       params='name,value,grp,mandatory,title,root'
-       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'">
+       params='name,value,grp,mandatory,title,root,recursive'
+       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1' recursive='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
 <decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'

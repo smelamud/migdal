@@ -60,7 +60,8 @@
      </moderator>
      <if what='$message.hasTopic'>
       <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
-		   mandatory='$message.mandatoryTopic' root='$root'>
+		   mandatory='$message.mandatoryTopic' root='$root'
+		   recursive='*true'>
      </if>
      <moderator>
       <if what='$message.hasIdent'>

@@ -36,3 +36,4 @@ CREATE TABLE `links` (
  PRIMARY KEY (`id`),
  INDEX (`message_id`, `url_check`, `url_check_success`)
  );
+ALTER TABLE `messages` ADD INDEX(`sent`);
