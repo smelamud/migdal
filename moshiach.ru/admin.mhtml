@@ -1,5 +1,9 @@
 << @(#) $Id$ >>
 
+<element name='test'>
+ Test
+</element>
+
 <html>
 <preamble_admin>
 <body>
@@ -10,7 +14,7 @@
     <topics_admin ident='news'>
    </td>
    <td>
-    &nbsp;
+    <test>
    </td>
   </tr></table>
  </moderator>

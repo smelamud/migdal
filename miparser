@@ -350,6 +350,7 @@ sub getElementFuncName
 {
 my ($s)=@_;
 
+$s=lc $s;
 $s=~tr{/}{_};
 return "display$s";
 }
@@ -398,9 +399,9 @@ package Element;
 
 sub new
 {
-my ($class,$file,$params,$defaults)=@_;
+my ($class,$name,$file,$params,$defaults)=@_;
 
-my $self=bless {'file' => $file},$class;
+my $self=bless {'name' => $name,'file' => $file},$class;
 $params=~s/^\s+//;
 $params=~s/\s+$//;
 $self->{'params'}=[];
@@ -408,6 +409,13 @@ $self->{'params'}=[];
 $self->{'defaults'}={};
 ::splitParams($defaults,$self->{'defaults'});
 return $self;
+}
+
+sub getName
+{
+my ($self)=@_;
+
+return $self->{'name'};
 }
 
 sub getFile
@@ -707,7 +715,7 @@ elsif(defined($::Macros{$tagName}))
 elsif(defined($::Elements{$tagName}))
   {
   ::request($::Elements{$tagName}->getFile());
-  my $func=::getElementFuncName($self->getName());
+  my $func=$::Elements{$tagName}->getName();
   ::body("<?php $func(",
          $::Elements{$tagName}->getParams($self->getArgs(),
 	                                  $self->getTypes()),'); ?>');
@@ -1058,8 +1066,10 @@ sub elDecel #XXX Possibly empty name
 {
 my ($self)=@_;
 
-$::Elements{lc $self->getConstArg('name')}=
+my $name=lc $self->getConstArg('name');
+$::Elements{$name}=
    Element->new(
+             ::getElementFuncName($name),
              $self->getConstArg('file'),
              $self->getConstArg('params'),
              $self->getConstArg('defaults')
@@ -1071,12 +1081,14 @@ sub elElement #XXX Possibly empty name or incorrect closure
 my ($self)=@_;
 
 $::ElementName=lc $self->getConstArg('name');
-$::ElementName=~s/\//_/g;
 $::ElementBody='';
 @::ElementGlobals=();
 if(!exists $::Elements{$::ElementName})
   {
-  $::Elements{$::ElementName}=Element->new('',$self->getConstArg('params'),
+  $::Elements{$::ElementName}=Element->new(::getElementFuncName($::ElementName).
+                                           "_$$",
+                                           '',
+                                           $self->getConstArg('params'),
 					   $self->getConstArg('defaults'));
   }
 $::Stack->push();
@@ -1089,11 +1101,12 @@ my ($self)=@_;
 $::Stack->pop();
 my $name=$::ElementName;
 $::ElementName='';
+my $func=$::Elements{$name}->{'name'};
 my @params=map "\$$_",@{$::Elements{$name}->{'params'}};
 my $globals='';
 $globals="global ".join(',',map {"\$$_"} @::ElementGlobals).";\n"
          if scalar(@::ElementGlobals)>0;
-::body("<?php\nfunction display$name(",join(',',@params),")\n{\n",
+::body("<?php\nfunction $func(",join(',',@params),")\n{\n",
        $globals,"?>\n",$::ElementBody,"<?php\n}\n?>\n");
 }
 
