@@ -13,7 +13,7 @@ OBJECTS = archive.php article.php article-times.php book.php book-chapter.php \
 	  kaitana.php kaitana-main.php limedit.php liminsert.php links.php \
 	  login.php methodic-center.php methodics.php migdal.php \
 	  migdal-library.php migdal-library-news.php migdal-news.php \
-	  moderator.php posting.php postingedit.php postingorg.php \
+	  modbits.php moderator.php posting.php postingedit.php postingorg.php \
 	  printings.php rating.php register.php reorder.php search.php \
 	  stotext-help-subs.php stotext-help-types.php style.php taglit.php \
 	  taglit-user.php times.php tips.php topicdel.php topicedit.php \

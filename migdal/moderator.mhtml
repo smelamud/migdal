@@ -31,8 +31,8 @@
  </td>
  <form method=get action='$-'>
   <td><select name='bit'>
-   <radio title='(h) hidden' value='-2' peervalue='$$bit'>
-   <radio title='(d) disabled' value='-1' peervalue='$$bit'>
+   <radio title='(h) Не показывать' value='-2' peervalue='$$bit'>
+   <radio title='(d) Запретить' value='-1' peervalue='$$bit'>
    <iterate_modbits>
    <for>
     <radio title#='($.Letter) $.Name' value='$.Bit' peervalue='$$bit'>

@@ -109,6 +109,8 @@
       >Удалить</a>
    &nbsp;
    <a href="chmod.php?msgid=$posting.MessageId&redirid=$_">Права</a>
+   &nbsp;
+   <a href="modbits.php?postid=$posting.Id&redirid=$_">Флаги</a>
   </td></tr>
  </table>
 <ifnzero what='$posting.Shadow'></blockquote></ifnzero>

@@ -258,4 +258,8 @@ define('ETO_NO_TOPIC',464);
 define('EMM_OK',470);
 define('EMM_NO_MODERATE',471);
 define('EMM_NO_MESSAGE',472);
+
+define('EMO_OK',480);
+define('EMO_NO_MODERATE',481);
+define('EMO_NO_MESSAGE',482);
 ?>
