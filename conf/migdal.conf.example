@@ -117,6 +117,9 @@ $inplaceSize=256;
 $inplaceSizeMinus=128;
 $inplaceSizePlus=128;
 
+# Размер, до которого укорачиваются URL'ы (при помощи многоточия)
+$urlEllipSize=60;
+
 # Домашний каталог пользователя на Web-сервере
 $homeDir='/home/balu/prog/migdal-html';
 

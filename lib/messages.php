@@ -358,6 +358,13 @@ function getURL()
 return $this->url;
 }
 
+function getURLEllip()
+{
+global $urlEllipSize;
+
+return ellipsize($this->url,$urlEllipSize);
+}
+
 function getURLFailTime()
 {
 return $this->url_fail_time;

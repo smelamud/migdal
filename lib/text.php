@@ -290,4 +290,10 @@ foreach($patterns as $pat)
        }
 return substr($s,0,$len);
 }
+
+function ellipsize($s,$len)
+{
+$c=substr($s,0,($len-3)/2);
+return "$c...".substr($s,strlen($s)-$len-3-strlen($c));
+}
 ?>
