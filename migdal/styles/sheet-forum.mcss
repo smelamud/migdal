@@ -15,8 +15,9 @@
 .forum .body {
 	background-color: %forum_body_back;
 	background-image: url("../%forum_body_back_pic");
-	padding-left: 1em;
+	padding-left: .5em;
 	padding-top: .5em;
+	padding-bottom: 1em;
 	text-align: left;
 	vertical-align: top;
 }
@@ -30,7 +31,7 @@
 	background-color: %forum_body_back;
 	background-image: url("../%forum_body_back_pic");
 	vertical-align: bottom;
-	padding-bottom: 0.5ex;
+ 	padding-bottom: 0.5ex;
 }
 
 .forum .controls A {
