@@ -8,14 +8,16 @@ class SearchItem
 var $postid;
 var $topic_id;
 var $body;
+var $title;
 
-function SearchItem($postid,$topic_id,$body)
+function SearchItem($postid,$topic_id,$body,$title)
 {
 $this->postid=$postid;
 $this->topic_id=$topic_id;
 settype($this->postid,'integer');
 settype($this->topic_id,'integer');
 $this->body=$body;
+$this->title=$title;
 }
 
 function getPostingId()
@@ -31,6 +33,11 @@ return $this->topic_id;
 function getBody()
 {
 return $this->body;
+}
+
+function getTitle()
+{
+return $this->title;
 }
 
 }
@@ -53,7 +60,8 @@ $this->limit=$limit;
 $this->offset=$offset;
 $this->fd=fopen("http://$siteDomain/cgi-bin/search.cgi?q=".
 	        urlencode(convert_cyr_string($query,'k','w')).
-		'&wf=14442&np='.$this->getPage().'&ps='.$this->getLimit(),'r');
+		'&wf=14442&np='.($this->getPage()-1).'&ps='.$this->getLimit().
+		'&GroupBySite=no','r');
 $this->status=$this->nextLine();
 if($this->status=='OK')
   {
@@ -155,12 +163,13 @@ $parts=parse_url($url);
 $vars=parseQuery($parts['query']);
 $s=$this->nextLine();
 $body=$this->nextLine();
+$title=$this->nextLine();
 do
   {
   $s=$this->nextLine();
   }
 while($s!='ITEM' && $s!='EOF');
-return new SearchItem($vars['postid'],$vars['topic_id'],$body);
+return new SearchItem($vars['postid'],$vars['topic_id'],$body,$title);
 }
 
 }

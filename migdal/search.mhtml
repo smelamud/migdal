@@ -57,7 +57,7 @@
        <ifnzero what='$.PostingId'>
 	<posting_full id='$.PostingId'>
 	<identify posting='$,'>
-	<a href='$,DetailsHref'>$,SubjectDesc</a><br>
+	<a href='$,DetailsHref'>$.Title</a><br>
 	<span class='eightpt'>(Раздел <topiclink posting='$,'>)</span><br>
 	$.Body
        </ifnzero>

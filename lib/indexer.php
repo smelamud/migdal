@@ -18,6 +18,9 @@ for($i=0;$i<strlen($scheme);$i++)
 	 case 'J':
 	      $s.=' '.$posting->getSubject();
 	      break;
+	 case 'D':
+	      $s.=' '.$posting->getSubjectDesc();
+	      break;
 	 case 'A':
 	      $s.=' '.$posting->getHTMLAuthor();
 	      break;
@@ -29,6 +32,12 @@ for($i=0;$i<strlen($scheme);$i++)
 	      break;
 	 case 'L':
 	      $s.='<p>'.$posting->getHTMLLargeBody();
+	      break;
+	 case 'p':
+	      $s.=' Картинка';
+	      break;
+	 case 't':
+	      $s.=' Мигдаль Times N '.$posting->getIndex1();
 	      break;
 	 case '-':
 	      $ports[]=$s;

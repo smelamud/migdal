@@ -47,7 +47,7 @@
  }
 
  .edit {
- 	color: $style_gr;
+ 	color: $style_grm;
  }
 
  .edit:hover {
