@@ -87,7 +87,7 @@ if(!$result)
 while($row=mysql_fetch_assoc($result))
      setDisabledByMessageId($row['id'],0);
 }
-
+?><?php
 function rotateCounters()
 {
 $result=mysql_query("select message_id,mode
