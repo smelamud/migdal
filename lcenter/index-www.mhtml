@@ -1,5 +1,7 @@
 << @(#) $Id$ >>
 
+<int name='offset'>
+
 << Traps >>
 << /Traps >>
 
@@ -75,7 +77,7 @@ A.c_link {
  <table width='100%' cellspacing='3' cellpadding='5'><tr valign='top'>
   <td width='60%'>
    <subtitle>
-   <iterate_postinglist grp='*GRP_NEWS' topic_id='$`news`'
+   <iterate_postinglist grp='*GRP_NEWS' topic_id='$`news`' offset='$offset'
                         fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_TOPICS'>
    <for>
     <table width='100%'><tr><td class='posting'>
