@@ -40,7 +40,7 @@
       нажать на ссылку
       <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_BLOG_FORUMS&redirid=$_'>
        &lt;&lt;Добавить мнение&gt;&gt;</a> или
-      <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_BLOG_GALLERY&redirid=$_'>
+      <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_GALLERY&redirid=$_'>
        &lt;&lt;Добавить фотографию&gt;&gt;</a>.
      </notlogged>
      Для каждого пользователя автоматически создается отдельный раздел.
@@ -60,7 +60,7 @@
      <td>&nbsp;</td>
      <td><image src='pics/sheet.gif'></td>
      <td>
-      <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_BLOG_GALLERY&redirid=$_'
+      <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_GALLERY&redirid=$_'
 	 >Добавить фотографию</a>
      </td>
     </tr></table>

@@ -6,9 +6,9 @@
  <table cellspacing=10 cellpadding=0><tr valign=top>
  <for>
   <td>
-   <posting_random grp='*GRP_BLOG_GALLERY' topic_id='$topic_id'
+   <posting_random grp='*GRP_GALLERY' topic_id='$topic_id'
                    user_id='$.Id'>
-   <posting_full id='$,' grp='*GRP_BLOG_GALLERY'>
+   <posting_full id='$,' grp='*GRP_GALLERY'>
    <picture_main href#='$href?user_id=$.Id' biff='$.LastMessage'
                  name='$.FullName' image_id='$,ImageId'>
   </td>

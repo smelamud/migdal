@@ -14,19 +14,22 @@
    <topics_migdal posting='$posting'>
    <topics_major ident='migdal' posting='$posting'>
   </if>
- </if>
- <if what='$posting.Grp==*GRP_GALLERY'>
-  <if what='$/$posting.TopicId,0/!=$`migdal`'>
-   <topics_gallery posting='$posting'>
-  <else>
+ <elif what='$posting.Grp==*GRP_GALLERY'>
+  <if what='$/$posting.TopicId,0/==$`taglit`'>
+   <topics_taglit id='$posting.SenderId'>
+   <topics_major ident='taglit'>
+  <elif what='$/$posting.TopicId,0/==$`veterans`'>
+   <topics_veterans id='$posting.SenderId'>
+   <topics_major ident='veterans'>
+  <elif what='$/$posting.TopicId,0/==$`migdal`'>
    <topics_migdal posting='$posting'>
    <topics_major ident='migdal' posting='$posting'>
+  <else>
+   <topics_gallery posting='$posting'>
   </if>
- </if>
- <if what='($posting.Grp & (*GRP_TIMES_COVERS|*GRP_TIMES_ARTICLES))!=0'>
+ <elif what='($posting.Grp & (*GRP_TIMES_COVERS|*GRP_TIMES_ARTICLES))!=0'>
   <times_articles issue='$posting.Index1' id='$posting.Id'>
- </if>
- <if what='($posting.Grp & (*GRP_BLOG_FORUMS|*GRP_BLOG_GALLERY))!=0'>
+ <elif what='($posting.Grp & *GRP_BLOG_FORUMS)!=0'>
   <if what='$/$posting.TopicId,0/==$`taglit`'>
    <topics_taglit id='$posting.SenderId'>
    <topics_major ident='taglit'>
@@ -34,14 +37,12 @@
    <topics_veterans id='$posting.SenderId'>
    <topics_major ident='veterans'>
   </if>
- </if>
- <if what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
+ <elif what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
   <topics_kaitana day='$posting.Index1' topic_id='$posting.TopicId'>
   <topics_kaitanot topic_id='$posting.TopicId'>
   <topics_migdal posting='$posting'>
   <topics_major ident='migdal' posting='$posting'>
- </if>
- <if what='$posting.Grp==*GRP_TIPS'>
+ <elif what='$posting.Grp==*GRP_TIPS'>
   <topics_help ident='help-tips'>
   <topics_major ident='help'>
  </if>
