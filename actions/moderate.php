@@ -8,6 +8,8 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/utils.php');
 require_once('lib/random.php');
+/* Required to prevent inclusion of Posting class before Message */
+require_once('lib/postings.php');
 require_once('lib/messages.php');
 
 function modifyMessage($editid,$hide)
