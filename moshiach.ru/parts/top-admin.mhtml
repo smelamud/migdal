@@ -1,0 +1,5 @@
+<< @(#) $Id$ >>
+
+<element name='top_admin'>
+<login>
+</element>

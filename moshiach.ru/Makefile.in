@@ -3,7 +3,7 @@
 # @(#) $Id$
 # Based-on: migdal/Makefile.in 1.28
 
-OBJECTS =
+OBJECTS = admin.php
 
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@

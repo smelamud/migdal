@@ -4,8 +4,9 @@
 
 FLAVOURS = default
 STYLE_PARTS =
+ADMIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss
 
-all: style.stamp
+all: style.stamp admin.stamp
 
 style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
@@ -14,6 +15,15 @@ style-%.css: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
 style.stamp: $(patsubst %,style-%.css,$(FLAVOURS)) $(patsubst %,style-%.php,$(FLAVOURS))
+	touch $@
+
+admin-%.php: admin.mcss $(ADMIN_PARTS) ../../cssparser
+	../../cssparser -p -s $* $< > $@
+
+admin-%.css: admin.mcss $(ADMIN_PARTS) ../../cssparser
+	../../cssparser -s $* $< > $@
+
+admin.stamp: $(patsubst %,admin-%.css,$(FLAVOURS)) $(patsubst %,admin-%.php,$(FLAVOURS))
 	touch $@
 
 Makefile: Makefile.in ../../conf/migdal.conf

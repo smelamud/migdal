@@ -1,11 +1,11 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/utils.mhtml 1.19 >>
+<< Based-on: migdal/parts/utils.mhtml 1.27 (perror) >>
 
 <element name='perror'>
 <if what='$$err==$id'>
  <tr><tdspan span=$span>
   <a name='error'></a>
-  <font color='$color'>$text</font>
+  <span class='error' color='$color'>$text</span>
  </tdspan></tr>
 </if>
 </element>

@@ -9,5 +9,16 @@
 
 << Elements >>
 
+<decel name='login' file='parts/login.php'>
+<decel name='perror' file='parts/utils.php' params='id,text,color,span'
+       defaults='color="red" span=0'>
+<decel name='top_admin' file='parts/top-admin.php'>
+
 << HTML shortcuts >>
 
+<macro name='preamble_admin'>
+ <stylesheet ident='admin'>
+ <head><title>
+  Штаб Мошиаха - Администратор<ifne what='$pageTitle'> - $pageTitle</ifne>
+ </title></head>
+</macro>
