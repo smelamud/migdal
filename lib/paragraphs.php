@@ -3,12 +3,14 @@
 
 require_once('lib/iterator.php');
 require_once('lib/text.php');
+require_once('lib/message-images.php');
 
 class Paragraph
 {
 var $number;
 var $format;
 var $body;
+var $image;
 
 function Paragraph($number,$format,$body)
 {
@@ -37,6 +39,32 @@ function getHTMLBody()
 return stotextToHTML($this->format,$this->body);
 }
 
+function setImage($image)
+{
+$this->image=$image;
+}
+
+function getImageId()
+{
+return $this->image ? $this->image->getImageId() : 0;
+}
+
+function hasLargeImage()
+{
+return $this->image ? $this->image->hasLargeImage() : false;
+}
+
+function getPlacement()
+{
+return $this->image ? $this->image->getPlacement() : IPL_CENTER;
+}
+
+function isPlaced($place)
+{
+return $place<=IPL_HORIZONTAL ? ($this->getPlacement() & IPL_HORIZONTAL)==$place
+                              : ($this->getPlacement() & IPL_VERTICAL)==$place;
+}
+
 }
 
 class ParagraphIterator
@@ -60,11 +88,6 @@ if(list($key,$value)=each($this->pars))
   return new Paragraph($this->getPosition(),$this->format,$value);
 else
   return false;
-}
-
-function getLastPosition()
-{
-return count($this->pars);
 }
 
 }

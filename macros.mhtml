@@ -13,6 +13,10 @@
  <require name='lib/errors.php'>
 </macro>
 
+<macro name='image_placements'>
+ <require name='lib/message-images.php'>
+</macro>
+
 <macro name='text_formats'>
  <require name='lib/text.php'>
 </macro>
@@ -91,6 +95,11 @@
 <macro name='iterate_paragraphs'>
  <require name='lib/paragraphs.php'>
  <iterate name='%name' class='ParagraphIterator' arg1='%format' arg2='%body'>
+</macro>
+
+<macro name='iterate_posting_paragraphs'>
+ <require name='lib/postings.php'>
+ <iterate name='%name' class='PostingParagraphIterator' arg1='%posting'>
 </macro>
 
 <macro name='iterate_postinglist'

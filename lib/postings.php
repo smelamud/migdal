@@ -2,11 +2,13 @@
 # @(#) $Id$
 
 require_once('lib/messages.php');
+require_once('lib/message-images.php');
 require_once('lib/selectiterator.php');
 require_once('lib/limitselect.php');
 require_once('lib/grps.php');
 require_once('lib/topics.php');
 require_once('lib/text.php');
+require_once('lib/paragraphs.php');
 
 class Posting
       extends Message
@@ -187,7 +189,8 @@ function PostingListIterator($grp,$topic=-1,$limit=10,$offset=0,$personal=0)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topicFilter=$topic<0 ? '' : ' and '.byIdent($topic,'topic_id','topics.ident').' ';
+$topicFilter=$topic<0 ? '' 
+                      : ' and '.byIdent($topic,'topic_id','topics.ident').' ';
 $grpFilter=getPackedGrpFilter($grp);
 $this->LimitSelectIterator(
        'Message',
@@ -234,6 +237,45 @@ return newPosting($row);
 
 }
 
+class PostingParagraphIterator
+      extends ParagraphIterator
+{
+var $images;
+
+function PostingParagraphIterator($posting)
+{
+$this->ParagraphIterator($posting->getLargeFormat(),$posting->getLargeBody());
+$this->loadImages($posting);
+}
+
+function loadImages($posting)
+{
+$this->images=array();
+$result=mysql_query('select message_id,par,image_id,placement,
+                            has_large as has_large_image
+		     from message_images
+		          left join images
+			       on images.id=message_images.image_id
+		     where message_id='.$posting->getMessageId());
+if(!$result)
+  die('Ошибка SQL при выборке иллюстраций к постингу');
+while($row=mysql_fetch_assoc($result))
+     {
+     $image=new MessageImage($row);
+     $this->images[$image->getPar()]=$image;
+     }
+}
+
+function next()
+{
+$paragraph=parent::next();
+if($paragraph)
+  $paragraph->setImage($this->images[$paragraph->getNumber()]);
+return $paragraph;
+}
+
+}
+
 function getPostingById($id,$grp=0,$topic=0)
 {
 global $userId,$userModerator;
@@ -253,7 +295,8 @@ $result=mysql_query("select postings.id as id,message_id,body,large_filename,
 		       просмотр TODO */
 	     or die('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
-                                 : newGrpPosting($grp,array('topic_id' => $topic));
+                                 : newGrpPosting($grp,
+				                 array('topic_id' => $topic));
 }
 
 function getFullPostingById($id,$grp=0)

@@ -27,11 +27,85 @@
 </table>
 </element>
 
-<element name='pic' params='posting,n'>
-<isedit name='posting'>
+<macro name='isplaced'>
+<if what='$par->isPlaced(%place)'>
+</macro>
+
+<macro name='/isplaced'>
+</if>
+</macro>
+
+<macro name='notplaced'>
+<if what='!$par->isPlaced(%place)'>
+</macro>
+
+<macro name='/notplaced'>
+</if>
+</macro>
+
+<element name='pic' params='posting,par'>
+<image_placements>
+<ifnzero what='$par.ImageId'>
+ <notplaced place='IPL_TOP'>
+  </p>
+ </notplaced>
+ <isplaced place='IPL_BOTTOM'>
+  <p>
+ </isplaced>
+ <isplaced place='IPL_VCENTER'>
+  <isplaced place='IPL_LEFT'>
+   <table width=100%><tr><td align=left>
+  </isplaced>
+  <isplaced place='IPL_HCENTER'>
+   <table width=100%><tr><td align=center>
+  </isplaced>
+  <isplaced place='IPL_RIGHT'>
+   <table width=100%><tr><td align=right>
+  </isplaced>
+ </isplaced>
+  <isplaced place='IPL_LEFT'>
+   <table align=left>
+  </isplaced>
+  <isplaced place='IPL_HCENTER'>
+   <table>
+  </isplaced>
+  <isplaced place='IPL_RIGHT'>
+   <table align=right>
+  </isplaced>
+  <isedit name='posting'>
+   <tr><td align=center>
+    <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
+       >[Картинка]</a>
+   </td></tr>
+  </isedit>
+   <tr><td>
+    <image_tag id='$par.ImageId'>
+    <if what='$par.hasLargeImage'>
+     <a href='lib/image.php?id=$par.ImageId&size=large'>$,</a>
+    <else>
+     $,
+    </if>
+   </td></tr>
+  </table>
+ <isplaced place='IPL_VCENTER'>
+  </td></tr></table>
+ </isplaced>
+ <isplaced place='IPL_TOP'>
+  </p>
+ </isplaced>
+ <notplaced place='IPL_BOTTOM'>
+  <p>
+ </notplaced>
+<else>
+ </p>
+ <isedit name='posting'>
+  <p>
+  <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
+     >[Картинка]</a>
+  </p>
+ </isedit>
  <p>
- <a href='liminsert.php?postid=$$artid&par=$n&redir=$_'>[Картинка]</a>
-</isedit>
+</ifnzero>
 </element>
 
 <int name='artid'>
@@ -49,13 +123,13 @@
  <p>
  <center><h1>$,Subject</h1></center>
  <if what='$,LargeFormat==*TF_PRE'><pre></if>
- <iterate_paragraphs format='$,LargeFormat' body='$,LargeBody'>
+ <iterate_posting_paragraphs posting='$,'>
+ <p>
  <for>
-  <pic posting='$,' n='$.Number'>
-  <p>
+  <pic posting='$,' par='$.'>
   $.HTMLBody
  </for>
- <pic posting='$,' n='$;LastPosition'>
+ </p>
  <if what='$,LargeFormat==*TF_PRE'></pre></if>
  <p>
  <controls posting='$,'>

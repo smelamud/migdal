@@ -183,4 +183,13 @@ $result=mysql_query("select id
 	     or die('Ошибка SQL при выборке набора изображений');
 return mysql_num_rows($result)>0;
 }
+
+function imageExists($id)
+{
+$result=mysql_query("select id
+		     from images
+		     where id=$id")
+	     or die('Ошибка SQL при выборке изображения');
+return mysql_num_rows($result)>0;
+}
 ?>
