@@ -73,3 +73,7 @@
 .catalog .email A:hover {
 	text-decoration: underline;
 }
+
+.catalog .name {
+	font-weight: normal;
+}

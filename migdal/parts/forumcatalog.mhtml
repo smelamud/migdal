@@ -43,13 +43,13 @@
     </td>
     <ifzero what='$.LastAnswer'>
      <td><senderlink message='$.'></td>
-     <td class='sent ninept'><sentview date='$.Sent'></td>
+     <td class='ninept'><sentview date='$.Sent'></td>
     <else>
      <zone>
       <forum_answer_author parent_id='$.MessageId' sent='$.LastAnswer'>
       <td><senderlink message='$,'></td>
      </zone>
-     <td class='sent ninept'><sentview date='$.LastAnswer'></td>
+     <td class='ninept'><sentview date='$.LastAnswer'></td>
     </ifzero>
     <td class='ninept' align=center>
      <biff time='$.LastAnswer' small='*true'>
