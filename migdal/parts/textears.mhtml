@@ -3,7 +3,7 @@
 <grps>
 
 <element name='textears'>
-<iterate_postinglist grp='*GRP_TEXTEARS' topic_id='$`textears`' limit=0
+<iterate_postinglist grp='*GRP_TEXTEARS' topic_id='$`textears`' limit=3
                      fields='*SELECT_TOPICS'>
 <ifnzero what='$;Count'>
  <table style='margin: 0'>
