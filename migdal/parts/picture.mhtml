@@ -39,8 +39,25 @@
   </td></tr>
   <if what='$discuss'>
    <tr><td class='discuss'>
-    <a href='forum.php?redir=$_&msgid=$picture.Id'
-     >Обсудить ($picture.AnswerCount)</a>
+    <logged>
+     <if what='$discuss'>
+      <biff time='$picture.LastAnswer'>
+      <a href='forum.php?redir=$_&msgid=$picture.Id'>
+       Обсудить
+       <ifnzero what='$picture.AnswerCount'>
+	($picture.AnswerCount)<asp>
+       </ifnzero>
+      <asp></a>
+     </if>
+    <else>
+     <if what='$discuss'>
+      <biff time='$picture.LastAnswer'>
+      <ifnzero what='$picture.AnswerCount'>
+       <a href='forum.php?redir=$_&msgid=$picture.Id'>
+	Обсуждение&nbsp;($picture.AnswerCount)</a>
+      </ifnzero>
+     </if>
+    </logged>
    </td></tr>
   </if>
   <ifnzero what='$picture.ImageSet'>

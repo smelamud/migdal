@@ -54,6 +54,11 @@
 	text-decoration: underline;
 }
 
+.posting .author {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-style: italic;
+}
+
 .posting .topic {
 	font-family: "Times New Roman", Helvetica, sans-serif;
 	font-style: italic;

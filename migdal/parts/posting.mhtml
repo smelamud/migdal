@@ -13,17 +13,18 @@
    <td align=right><senderlink message='$posting'></td>
   </tr></table></td></tr>
   <tr><td><table width=100%><tr>
-   <td width=75% align=left class='subject'>
+   <td width=75% align=left>
+    <span class='subject'>
     <if what='$posting.hasLargeBody'>
      <a href='article.php?redir=$_&artid=$posting.Id'
-        title='Читать'>$posting.Subject
-      <ifne what='$posting.Author'>
-       &nbsp;(Автор:&nbsp;$posting.Author)
-      </ifne>
-     <asp></a>
+        title='Читать'>$posting.Subject</a>
     <else>
      $posting.Subject
     </if>
+    </span>
+    <ifne what='$posting.Author'>
+     <br><span class='author'>$posting.Author</span>
+    </ifne>
    </td>
    <td width=25% align=right>
     <grpitemtitlei grp='$posting.Grp'>
@@ -81,15 +82,25 @@
      </isedit>
     </td>
     <td align=right>
-     <if what='$discuss'>
-      <biff time='$posting.LastAnswer'>
-      <a href='forum.php?redir=$_&msgid=$posting.Id'>
-       Обсудить
+     <logged>
+      <if what='$discuss'>
+       <biff time='$posting.LastAnswer'>
+       <a href='forum.php?redir=$_&msgid=$posting.Id'>
+	Обсудить
+	<ifnzero what='$posting.AnswerCount'>
+	 ($posting.AnswerCount)<asp>
+	</ifnzero>
+       <asp></a>
+      </if>
+     <else>
+      <if what='$discuss'>
+       <biff time='$posting.LastAnswer'>
        <ifnzero what='$posting.AnswerCount'>
-        ($posting.AnswerCount)<asp>
+        <a href='forum.php?redir=$_&msgid=$posting.Id'>
+	 Обсуждение&nbsp;($posting.AnswerCount)</a>
        </ifnzero>
-      <asp></a>
-     </if>
+      </if>
+     </logged>
     </td>
    </tr></table></td></tr>
   </if>
