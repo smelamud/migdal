@@ -189,3 +189,16 @@ ALTER TABLE `packages` ADD `used` TINYINT NOT NULL;
 ALTER TABLE `packages` ADD INDEX ( `used` );
 ALTER TABLE `packages` CHANGE `posting_id` `message_id` INT( 11 ) DEFAULT '0' NOT NULL;
 TRUNCATE TABLE `packages`;
+CREATE TABLE `postings_info` (
+`grp` INT NOT NULL ,
+`topic_id` INT NOT NULL ,
+`answers` INT NOT NULL ,
+`user_id` INT NOT NULL ,
+`recursive` SMALLINT NOT NULL ,
+`total` INT NOT NULL ,
+`max_sent` INT NOT NULL,
+PRIMARY KEY  (grp,topic_id,answers,user_id,recursive)
+);
+ALTER TABLE `postings_info` ADD INDEX ( `grp` );
+ALTER TABLE `postings_info` ADD INDEX ( `answers` );
+ALTER TABLE `postings_info` ADD INDEX ( `topic_id` );

@@ -14,6 +14,7 @@ require_once('lib/grps.php');
 require_once('lib/topics.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings.php');
+require_once('lib/postings-info.php');
 require_once('lib/complains.php');
 require_once('lib/stotext.php');
 require_once('lib/track.php');
@@ -186,7 +187,10 @@ if($err==EIU_OK || $err==EP_OK)
 if($err==EUL_OK)
   $err=modifyPosting($message);
 if($err==EP_OK)
+  {
   header("Location: $okdir");
+  dropPostingsInfoCache(DPIC_POSTINGS);
+  }
 else
   {
   $bodyId=tmpTextSave($body);

@@ -6,6 +6,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/postings.php');
+require_once('lib/postings-info.php');
 require_once('lib/bug.php');
 
 function deletePosting($id)
@@ -49,7 +50,10 @@ dbOpen();
 session();
 $err=deletePosting($id);
 if($err==EPD_OK)
+  {
   header('Location: '.remakeURI($okdir,array('err')));
+  dropPostingsInfoCache(DPIC_POSTINGS);
+  }
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)));
 dbClose();

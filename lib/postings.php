@@ -336,6 +336,8 @@ $Where="(messages.hidden<$hide or messages.sender_id=$userId) and
 	personal_id=$personal and $grpFilter @topic@
 	$userFilter $index1Filter $sentFilter $subdomainFilter
 	$childFilter $shadowFilter";
+/* Group by */
+$GroupBy=($fields & SELECT_ANSWERS)!=0 ? 'group by postings.id' : '';
 /* Having */
 if($withAnswers!=GRP_NONE)
   {
@@ -366,7 +368,7 @@ $this->LimitSelectIterator(
        "select $Select
 	from $From
 	where $Where
-	group by postings.id
+	$GroupBy
 	$Having
 	$Order",$limit,$offset,
        "select count(distinct postings.id)

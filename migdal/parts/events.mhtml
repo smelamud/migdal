@@ -10,7 +10,7 @@
   </td></tr>
  </iswrite>
  <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
-                    sort='*SORT_RINDEX0'>
+                    sort='*SORT_RINDEX0' fields='*SELECT_INFO'>
  <for>
   <topics_line time='$.LastMessage' text='$.Name' title='$.Description'
                href#='event.php?topic_id=$.Id'>

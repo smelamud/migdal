@@ -11,6 +11,7 @@ require_once('lib/ctypes.php');
 require_once('lib/stotext.php');
 require_once('lib/langs.php');
 require_once('lib/url-domain.php');
+require_once('lib/postings-info.php');
 
 class Message
       extends SenderTag
@@ -515,5 +516,6 @@ mysql_query("update messages
 journal("update messages
          set disabled=$disabled
 	 where id=".journalVar('messages',$id));
+dropPostingsInfoCache(DPIC_POSTINGS);
 }
 ?>

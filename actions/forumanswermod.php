@@ -13,6 +13,7 @@ require_once('lib/tmptexts.php');
 require_once('lib/forums.php');
 require_once('lib/messages.php');
 require_once('lib/image-upload.php');
+require_once('lib/postings-info.php');
 
 function modifyForumAnswer($answer)
 {
@@ -52,7 +53,10 @@ if($img)
 if($err==EIU_OK)
   $err=modifyForumAnswer($answer);
 if($err==EFA_OK)
+  {
   header("Location: $okdir");
+  dropPostingsInfoCache(DPIC_FORUMS);
+  }
 else
   {
   $bodyId=tmpTextSave($body);

@@ -13,6 +13,7 @@ require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/track.php');
 require_once('lib/users.php');
+require_once('lib/postings-info.php');
 
 function modifyTopic($topic,$original)
 {
@@ -86,7 +87,10 @@ $err=uploadLargeText($topic->stotext);
 if($err==EUL_OK)
   $err=modifyTopic($topic,$original);
 if($err==ET_OK)
+  {
   header("Location: $okdir");
+  dropPostingsInfoCache(DPIC_POSTINGS);
+  }
 else
   {
   $descriptionId=tmpTextSave($description);

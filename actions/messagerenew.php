@@ -8,6 +8,7 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/random.php');
 require_once('lib/messages.php');
+require_once('lib/postings-info.php');
 
 function renewMessage($id)
 {
@@ -34,9 +35,12 @@ dbOpen();
 session();
 $err=renewMessage($id);
 if($err==EMR_OK)
+  {
   header('Location: '.remakeURI($okdir,
                                 array(),
 				array('reload' => random(0,999))));
+  dropPostingsInfoCache(DPIC_BOTH);
+  }
 else
   header('Location: '.remakeURI($faildir,
                                 array(),

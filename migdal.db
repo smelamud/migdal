@@ -183,22 +183,6 @@ CREATE TABLE journal_vars (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'links'
---
-
-CREATE TABLE links (
-  id int(11) NOT NULL default '0',
-  message_id int(11) NOT NULL default '0',
-  title varchar(250) NOT NULL default '',
-  url varchar(250) NOT NULL default '',
-  url_check datetime NOT NULL default '0000-00-00 00:00:00',
-  url_check_success datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (id),
-  KEY url_check (url_check),
-  KEY url_check_success (url_check_success)
-) TYPE=MyISAM;
-
---
 -- Table structure for table 'logs'
 --
 
@@ -251,6 +235,7 @@ CREATE TABLE messages (
   url_check datetime NOT NULL default '0000-00-00 00:00:00',
   url_check_success datetime NOT NULL default '0000-00-00 00:00:00',
   used tinyint(4) NOT NULL default '0',
+  last_updated timestamp(14) NOT NULL,
   PRIMARY KEY  (id),
   KEY sender_id (sender_id),
   KEY stotext_id (stotext_id),
@@ -263,7 +248,9 @@ CREATE TABLE messages (
   KEY up (up),
   KEY track (track),
   KEY url_check (url_check),
-  KEY url_check_success (url_check_success)
+  KEY url_check_success (url_check_success),
+  KEY hidden (hidden),
+  KEY last_updated (last_updated)
 ) TYPE=MyISAM;
 
 --
@@ -274,6 +261,28 @@ CREATE TABLE multisites (
   domain varchar(70) NOT NULL default '',
   replacer varchar(70) NOT NULL default '',
   KEY domain (domain)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'packages'
+--
+
+CREATE TABLE packages (
+  id int(11) NOT NULL auto_increment,
+  message_id int(11) NOT NULL default '0',
+  type int(11) NOT NULL default '0',
+  mime_type varchar(50) NOT NULL default '',
+  title varchar(250) NOT NULL default '',
+  body longblob NOT NULL,
+  size int(11) NOT NULL default '0',
+  url varchar(250) NOT NULL default '',
+  created datetime NOT NULL default '0000-00-00 00:00:00',
+  used tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY posting_id (message_id),
+  KEY type (type),
+  KEY created (created),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
@@ -316,6 +325,24 @@ CREATE TABLE postings (
   KEY index2 (index2),
   KEY index3 (index3),
   KEY index4 (index4)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'postings_info'
+--
+
+CREATE TABLE postings_info (
+  grp int(11) NOT NULL default '0',
+  topic_id int(11) NOT NULL default '0',
+  answers int(11) NOT NULL default '0',
+  user_id int(11) NOT NULL default '0',
+  recursive smallint(6) NOT NULL default '0',
+  total int(11) NOT NULL default '0',
+  max_sent int(11) NOT NULL default '0',
+  PRIMARY KEY  (grp,topic_id,answers,user_id,recursive),
+  KEY grp (grp),
+  KEY answers (answers),
+  KEY topic_id (topic_id)
 ) TYPE=MyISAM;
 
 --
@@ -364,6 +391,15 @@ CREATE TABLE redirs (
   KEY up (up),
   KEY track (track),
   KEY last_access (last_access)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'robots'
+--
+
+CREATE TABLE robots (
+  hostinfo varchar(127) NOT NULL default '',
+  path varchar(127) NOT NULL default ''
 ) TYPE=MyISAM;
 
 --
@@ -454,7 +490,6 @@ CREATE TABLE topics (
   separate tinyint(4) NOT NULL default '0',
   used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
-  KEY ident (ident),
   KEY up (up),
   KEY track (track),
   KEY stotext_id (stotext_id),
@@ -467,7 +502,8 @@ CREATE TABLE topics (
   KEY index1 (index1),
   KEY index2 (index2),
   KEY index3 (index3),
-  KEY index4 (index4)
+  KEY index4 (index4),
+  KEY ident (ident)
 ) TYPE=MyISAM;
 
 --

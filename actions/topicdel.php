@@ -79,9 +79,12 @@ dbOpen();
 session();
 $err=deleteTopic($id,$destid);
 if($err==ETD_OK)
+  {
   header('Location: '.remakeURI($okdir,
                                 array('err','destid'),
 				array('reload' => random(0,999))));
+  dropPostingsInfoCache(DPIC_POSTINGS);
+  }
 else
   header('Location: '.remakeURI($faildir,
                                 array(),

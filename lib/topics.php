@@ -34,8 +34,7 @@ var $stotext;
 var $allow;
 var $premoderate;
 var $ident;
-var $message_count;
-var $last_message;
+var $postings_info;
 var $sub_count;
 var $separate;
 
@@ -285,14 +284,26 @@ function isSeparate()
 return $this->separate!=0;
 }
 
+function getPostingsInfo()
+{
+return $this->postings_info;
+}
+
+function setPostingsInfo($postings_info)
+{
+$this->postings_info=$postings_info;
+}
+
 function getMessageCount()
 {
-return $this->message_count;
+$info=$this->getPostingsInfo();
+return $info ? $info->getTotal() : 0;
 }
 
 function getLastMessage()
 {
-return !empty($this->last_message) ? strtotime($this->last_message) : 0;
+$info=$this->getPostingsInfo();
+return $info ? $info->getMaxSent() : 0;
 }
 
 function getSubCount()
@@ -341,57 +352,87 @@ $this->SelectIterator('Topic',$query);
 class TopicListIterator
       extends TopicIterator
 {
+var $fields;
+var $grp;
 
 function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
-                           $subdomain=-1,$withSeparate=true,$sort=SORT_NAME,
-			   $recursive=false,$level=1)
+                           $subdomain=-1 /* obsolete */,$withSeparate=true,
+			   $sort=SORT_NAME,$recursive=false,$level=1,
+			   $fields=SELECT_GENERAL)
 {
 global $userId,$userModerator;
 
-$hide=$userModerator ? 2 : 1;
+$this->fields=$fields;
+$this->grp=$grp;
+/* Select */
+$Select="topics.id as id,topics.ident as ident,topics.up as up,
+         topics.name as name,topics.stotext_id as stotext_id,
+	 topics.user_id as user_id,topics.group_id as group_id,
+	 users.login as login,gusers.login as group_login,
+	 topics.perms as perms,stotexts.body as description";
+/* From */
 $grpFilter=grpFilter($grp,'grp','postings');
-$postFilter=$withPostings ? 'having message_count<>0' : '';
-$subdomainFilter=$subdomain>=0 ? "and postings.subdomain=$subdomain" : '';
-$order=getOrderBy($sort,
+$hide=$userModerator ? 2 : 1;
+
+$postTables=$withPostings ?
+            "left join postings
+		  on topics.id=postings.topic_id and $grpFilter
+	     left join messages
+		  on postings.message_id=messages.id
+		     and (messages.hidden<$hide or messages.sender_id=$userId)
+		     and (messages.disabled<$hide or
+		          messages.sender_id=$userId)" :
+	    '';
+$forumsTables=$withAnswers ?
+	      "left join forums
+		    on messages.id=forums.parent_id
+	       left join messages as forummesgs
+		    on forums.message_id=forummesgs.id and
+		       (forummesgs.hidden<$hide or
+			forummesgs.sender_id=$userId) and
+		       (forummesgs.disabled<$hide or
+			forummesgs.sender_id=$userId)" :
+	      '';
+
+$From="topics
+       left join users
+	    on topics.user_id=users.id
+       left join users as gusers
+	    on topics.group_id=gusers.id
+       left join stotexts
+	    on stotexts.id=topics.stotext_id
+       $postTables
+       $forumsTables";
+/* Where */
+$Where=$this->getWhere($grp,$up,'topics.',$withAnswers,$recursive,$withSeparate,
+                       $level);
+/* Group by */
+$GroupBy=$withAnswers || $withPostings ? 'group by topics.id' : '';
+/* Having */
+$Having=$withPostings ? 'having message_count<>0' : '';
+/* Order */
+$Order=getOrderBy($sort,
        array(SORT_NAME       => 'topics.name_sort',
 	     SORT_INDEX0     => 'topics.index0',
 	     SORT_RINDEX0    => 'topics.index0 desc',
 	     SORT_INDEX1     => 'topics.index1',
 	     SORT_RINDEX1    => 'topics.index1 desc'));
+/* Query */
 $this->TopicIterator(
-      "select topics.id as id,topics.ident as ident,topics.up as up,
-              topics.name as name,topics.stotext_id as stotext_id,
-	      topics.user_id as user_id,topics.group_id as group_id,
-	      users.login as login,gusers.login as group_login,
-	      topics.perms as perms,stotexts.body as description,
-	      count(distinct messages.id) as message_count,
-	      max(messages.sent) as last_message
-       from topics
-	    left join users
-		 on topics.user_id=users.id
-	    left join users as gusers
-		 on topics.group_id=gusers.id
-            left join stotexts
-	         on stotexts.id=topics.stotext_id
-	    left join postings
-	         on topics.id=postings.topic_id and $grpFilter $subdomainFilter
-            left join messages
-	         on postings.message_id=messages.id
- 	 	    and (messages.hidden<$hide or messages.sender_id=$userId)
-		    and (messages.disabled<$hide or messages.sender_id=$userId)
-	    left join forums
-		 on messages.id=forums.parent_id
-	    left join messages as forummesgs
-		 on forums.message_id=forummesgs.id and
-		    (forummesgs.hidden<$hide or
-		     forummesgs.sender_id=$userId) and
-		    (forummesgs.disabled<$hide or
-		     forummesgs.sender_id=$userId)".
-       $this->getWhere($grp,$up,'topics.',$withAnswers,$recursive,$withSeparate,
-                       $level).
-      "group by topics.id
-       $postFilter
-       $order");
+      "select $Select
+       from $From
+       $Where
+       $GroupBy
+       $Having
+       $Order");
+}
+
+function create($row)
+{
+$topic=TopicIterator::create($row);
+if(($this->fields & SELECT_INFO)!=0)
+  $topic->setPostingsInfo(getPostingsInfo($this->grp,$row['id']));
+return $topic;
 }
 
 }
@@ -460,7 +501,7 @@ function TopicHierarchyIterator($topic_id,$root=-1,$reverse=false)
 $topics=array();
 for($id=idByIdent('topics',$topic_id);$id>0 && $id!=$root;)
    {
-   $topic=getTopicById($id,0);
+   $topic=getTopicById($id);
    $topics[]=$topic;
    $id=$topic->getUpValue();
    }
@@ -495,7 +536,7 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultPremoderate;
 }
 
-function getTopicById($id,$up)
+function getTopicById($id,$up=0,$fields=SELECT_GENERAL)
 {
 global $userId,$userLogin,$userModerator,$defaultPremoderate,
        $rootTopicGroupName,$rootTopicPerms;
@@ -504,6 +545,16 @@ if(hasCachedValue('obj','topics',$id))
   return getCachedValue('obj','topics',$id);
 $mhide=$userModerator ? 2 : 1;
 $hide=topicsPermFilter(PERM_READ,'topics');
+$subsFields=($fields & SELECT_TOPICS)!=0 ?
+            ',count(distinct subtopics.id) as sub_count' :
+	    '';
+$subsTables=($fields & SELECT_TOPICS)!=0 ?
+	    'left join topics as subtopics
+	          on subtopics.up=topics.id' :
+            '';
+$GroupBy=($fields & SELECT_TOPICS)!=0 ?
+         'group by topics.id' :
+	 '' ;
 $result=mysql_query(
        "select topics.id as id,topics.up as up,topics.name as name,
                topics.stotext_id as stotext_id,
@@ -513,12 +564,11 @@ $result=mysql_query(
 	       large_imageset,topics.allow as allow,
 	       topics.premoderate as premoderate,topics.ident as ident,
 	       topics.separate as separate,
-	       max(messages.sent) as last_message,
 	       topics.user_id as user_id,users.login as login,
 	       users.gender as gender,users.email as email,
 	       users.hide_email as hide_email,users.rebe as rebe,
 	       topics.group_id as group_id,gusers.login as group_login,
-	       topics.perms as perms,count(distinct subtopics.id) as sub_count
+	       topics.perms as perms $subsFields
 	from topics
 	     left join users
 	          on topics.user_id=users.id
@@ -526,16 +576,9 @@ $result=mysql_query(
 	          on topics.group_id=gusers.id
 	     left join stotexts
 		  on topics.stotext_id=stotexts.id
-	     left join topics as subtopics
-	          on subtopics.up=topics.id
-	     left join postings
-	          on postings.topic_id=topics.id
-	     left join messages
-		  on postings.message_id=messages.id
-		     and (messages.hidden<$mhide or messages.sender_id=$userId)
-		     and (messages.disabled<$mhide or messages.sender_id=$userId)
+	     $subsTables
 	where topics.id=$id and $hide
-	group by topics.id")
+	$GroupBy")
  or sqlbug('Ошибка SQL при выборке темы'.mysql_error());
 if(mysql_num_rows($result)>0)
   {
@@ -543,12 +586,14 @@ if(mysql_num_rows($result)>0)
   if($row['ident']!='')
     setCachedValue('ident','topics',$row['ident'],$row['id']);
   $topic=new Topic($row); 
+  if(($fields & SELECT_INFO)!=0)
+    $topic->setPostingsInfo(getPostingsInfo(GRP_ALL,$id));
   setCachedValue('obj','topics',$id,$topic);
   }
 else
   if($up>0)
     {
-    $topic=getTopicById($up,0);
+    $topic=getTopicById($up);
     $topic=new Topic(array('up'          => $topic->getId(),
 			   'allow'       => $topic->getAllow(),
 			   'premoderate' => $topic->getPremoderate(),

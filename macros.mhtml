@@ -134,10 +134,10 @@
 	 defaults="root=-1 reverse='*false'">
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
          params='grp,up,withpostings,withanswers,subdomain,withsep,sort,
-	         recursive,level'
+	         recursive,level,fields'
          defaults="up=0 withpostings='*false' withanswers='*false'
 	           subdomain=-1 withsep='*true' sort='*SORT_NAME'
-		   recursive='*false' level=1">
+		   recursive='*false' level=1 fields='*SELECT_GENERAL'">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up,recursive,delimiter'
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">
@@ -287,7 +287,8 @@
 <deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
          params='id' defaults='name=topic id="$topic_id"'>
 <deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
-         params='id,up' defaults='name=topic id="$topic_id" up=0'>
+         params='id,up,fields'
+	 defaults="name=topic id='$topic_id' up=0 fields='*SELECT_GENERAL'">
 <decexec macro='update_last_chat' func='updateLastChat'
          file='lib/chat-users.php'>
 <deccall macro='user_login' func='getUserLoginById' file='lib/users.php'

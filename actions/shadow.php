@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/postings.php');
+require_once('lib/postings-info.php');
 require_once('lib/utils.php');
 
 function shadowPosting($postid)
@@ -45,9 +46,12 @@ dbOpen();
 session();
 $err=shadowPosting($postid);
 if($err==ESP_OK)
+  {
   header('Location: '.remakeURI($okdir,
                                 array('err'),
 				array('reload' => random(0,999))));
+  dropPostingsInfoCache(DPIC_POSTINGS);
+  }
 else
   header('Location: '.remakeURI($faildir,
                                 array(),
