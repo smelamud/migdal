@@ -187,6 +187,7 @@ CREATE TABLE messages (
   hidden tinyint(4) NOT NULL default '0',
   disabled tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
+  url varchar(250) NOT NULL default '',
   PRIMARY KEY  (id),
   KEY sender_id (sender_id),
   KEY stotext_id (stotext_id)
