@@ -99,7 +99,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+ <table width=100% cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
    <topics posting='$posting'>
   </zone></td>
@@ -111,13 +111,13 @@
 			 sort='*SORT_RATING' limit=0
  	                 index1!='$posting.Id!=0 ? $posting.Index1 : $day'
 			 fields!='*SELECT_IMAGES|*SELECT_TOPICS'>
-    <td width=140>
+    <outer><td width=140><inner>
      <for>
       <if what='$;isOdd'>
        <kaitana_picture picture='$.'>
       </if>
      </for>
-    </td>
+    </inner></td></outer>
     <td>
      <controls posting='$posting' halom='$halom'>
      <ifnzero what='$posting.Id'>
@@ -142,7 +142,7 @@
        <kaitana_picture picture='$.'>
       </if>
      </for>
-    </td>
+    </inner></td></outer>
    </tr></table>
   </td>
  </tr></table>

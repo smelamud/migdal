@@ -103,25 +103,25 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+ <table width=100% cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
    <topics posting='$posting'>
   </zone></td>
   <td class='cframe'>
    <subtitle>
    <batcher kaitana='$kaitana'>
-   <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
+   <table class='article' width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
 			 sort='*SORT_RATING' limit=0
- 	                 index1!='$posting.Id!=0 ? $posting.Index1 : $day'
+			 index1!='$posting.Id!=0 ? $posting.Index1 : $day'
 			 fields!='*SELECT_IMAGES|*SELECT_TOPICS'>
-    <td width=140>
+    <outer><td width=140><inner>
      <for>
       <if what='$;isOdd'>
        <kaitana_picture picture='$.'>
       </if>
      </for>
-    </td>
+    </inner></td></outer>
     <td>
      <controls posting='$posting' kaitana='$kaitana'>
      <ifnzero what='$posting.Id'>
@@ -139,14 +139,14 @@
       <controls posting='$posting' kaitana='$kaitana'>
      </ifnzero>
     </td>
-    <td width=140>
+    <outer><td width=140><inner>
      <reset_iterator>
      <for>
       <if what='!$;isOdd'>
        <kaitana_picture picture='$.'>
       </if>
      </for>
-    </td>
+    </inner></td></outer>
    </tr></table>
   </td>
  </tr></table>
