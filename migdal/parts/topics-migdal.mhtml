@@ -1,12 +1,22 @@
 << @(#) $Id$ >>
 
-<element name='topics_migdal_chapter' params='posting'>
+<element name='topics_kes' params='posting'>
+<topics_table title='КЕС'>
+ <posting_obj id='$`postings:kes`'>
+ <topics_line time='$,Sent' text='О клубе'
+              href#='migdal.php?artid=$`postings:kes`'
+              arrow!='$posting.Id==$`postings:kes`' class='item eightpt'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*true'>
+ <topics_line time='$,' text='Галерея' href#='gallery.php?topic_id=$`kes`'
+              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`kes`'
+	      class='item eightpt'>
+</topics_table>
 </element>
 
 <element name='topics_migdal'>
 <grps>
-<if what='posting.TopicId!=$`migdal`'>
- <topics_migdal_chapter posting='$posting'>
+<if what='$/$posting.TopicId,1/==$`kes`'>
+ <topics_kes posting='$posting'>
 </if>
 <topic_obj id='$`migdal`'>
 <topics_table title='$,Name' span=2>
