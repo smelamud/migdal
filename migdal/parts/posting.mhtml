@@ -51,7 +51,7 @@
    </ifnzero>
    $posting.HTMLBody&nbsp;<asp>
   </td></tr>
-  <if what='$$userId>0 || ($discuss && $posting.AnswerCount>0) || $posting.hasLargeBody'>
+  <if what='$$userId>0 || $discuss || $posting.hasLargeBody'>
    <tr><td><table width=100% class='bottom'><tr>
     <td>
      <if what='$posting.hasLargeBody'>
@@ -95,10 +95,12 @@
      <else>
       <if what='$discuss'>
        <biff time='$posting.LastAnswer'>
-       <ifnzero what='$posting.AnswerCount'>
-        <a href='forum.php?redir=$_&msgid=$posting.Id'>
-	 Обсуждение&nbsp;($posting.AnswerCount)</a>
-       </ifnzero>
+       <a href='forum.php?redir=$_&msgid=$posting.Id'>
+	Обсуждение
+	<ifnzero what='$posting.AnswerCount'>
+	 &nbsp;($posting.AnswerCount)<asp>
+	</ifnzero>
+       <asp></a>
       </if>
      </logged>
     </td>
