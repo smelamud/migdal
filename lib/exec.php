@@ -5,16 +5,22 @@ require_once('conf/migdal.conf');
 
 function echoCommand($cmd)
 {
-global $siteDomain;
+global $siteDomain,$cgiExec;
 
-readfile("http://$siteDomain/cgi-bin/getexec.pl?cmd=".urlencode($cmd));
+if($cgiExec)
+  readfile("http://$siteDomain/cgi-bin/getexec.pl?cmd=".urlencode($cmd));
+else
+  echo `$cmd`;
 }
 
 function getCommand($cmd)
 {
-global $siteDomain;
+global $siteDomain,$cgiExec;
 
-return file_get_contents("http://$siteDomain/cgi-bin/getexec.pl?cmd="
-                         .urlencode($cmd));
+if($cgiExec)
+  return file_get_contents("http://$siteDomain/cgi-bin/getexec.pl?cmd="
+			   .urlencode($cmd));
+else
+  return `$cmd`;
 }
 ?>

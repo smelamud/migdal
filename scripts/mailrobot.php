@@ -9,7 +9,7 @@ require_once('lib/mailings.php');
 
 function send($mail)
 {
-global $mailingsDir;
+global $mailingsDir,$siteDomain;
 
 if($mail->isEmailDisabled() && !$mail->isForceSend())
   return;
@@ -20,7 +20,10 @@ if(substr($path,0,1)!='/')
   $path="$mailingsDir/$path";
 $link=$mail->getLink();
 $userId=$mail->getReceiverId();
-preg_match("/^(.+?\n)\n(.*)$/s",`../php $path link=$link $userId`,$mailparts);
+$linkParam=urlencode("link=$link");
+preg_match("/^(.+?\n)\n(.*)$/s",
+           file_get_contents("http://$siteDomain/lib/run-script?name=$path&argv[]=$linkParam&argv[]=$userId"),
+	   $mailparts);
 $heads=explode("\n",$mailparts[1]);
 $newheads=array();
 foreach($heads as $head)

@@ -200,6 +200,10 @@ $bookCompressCommand='(cd #; zip -r -q - %)';
 
 $bookCompressType='application/zip';
 
+# Использовать ли getexec.pl для обхода ограничений на запуск команд из PHP
+
+$cgiExec=false;
+
 # Маленькое изображение, используемое в случае, когда невозможно изменить
 # размеры большого (путь задается относительно библиотеки, т.е. каталога lib/)
 $defaultThumbnail='../migdal/pics/click_here.jpg';

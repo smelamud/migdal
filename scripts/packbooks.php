@@ -11,6 +11,7 @@ require_once('lib/postings.php');
 require_once('lib/images.php');
 require_once('lib/image-types.php');
 require_once('lib/packages.php');
+require_once('lib/exec.php');
 
 $copied=array();
 
@@ -110,7 +111,7 @@ $cmd=str_replace(array('#','%'),
 		 $bookCompressCommand);
 if($bookCompressDir=='')
   {
-  $body=`$cmd`;
+  $body=getCommand($cmd);
   $package=new Package(array('message_id' => $message_id,
 			     'type'       => $type,
 			     'mime_type'  => $bookCompressType,
@@ -120,7 +121,7 @@ if($bookCompressDir=='')
 else
   {
   $pname=getPackageFileName($type,$message_id,$bookCompressType);
-  system("$cmd > $bookCompressDir/$pname");
+  getCommand("$cmd > $bookCompressDir/$pname");
   $package=new Package(array('message_id' => $message_id,
 			     'type'       => $type,
 			     'mime_type'  => $bookCompressType,
