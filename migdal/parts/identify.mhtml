@@ -52,6 +52,9 @@
   <assign name='title' value='$,Description'>
   <assign name='name' value#='Мигдаль :: $,Name'>
   <assign name='root' value='$`migdal-library`'>
+  <assign name='tel' value='topics_migdal_library'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
   <if what='($posting.Grp & *GRP_LIBRARY_ANNOUNCES)!=0'>
    <assign name='href' value='migdal-library-news.php'>
    <assign name='ghref' value=''>
@@ -59,6 +62,10 @@
    <assign name='title' value=''>
    <assign name='name' value#='$name :: Новые поступления'>
   </if>
+ <elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
+  <assign name='tel' value='topics_migdal_ohr'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
  <elif what='$/$posting.TopicId,1/==$`printings`'>
   <topic_obj id='$`printings`'>
   <assign name='href' value='printings.php'>
@@ -73,6 +80,9 @@
   <assign name='title' value='$,Description'>
   <assign name='name' value='$,Name'>
   <assign name='root' value='$`methodics`'>
+  <assign name='tel' value='topics_methodics'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
   <if what='($posting.Grp & *GRP_BOOKS)!=0'>
    <assign name='href' value='methodics.php'>
    <assign name='ghref' value=''>
@@ -155,6 +165,9 @@
   </if>
  <elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
   <assign name='mhref' value#='migdal.php?artid=$`postings:migdal-ohr`'>
+  <assign name='tel' value='topics_migdal_ohr'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
  <elif what='$/$posting.TopicId,1/==$`mazltov`'>
   <assign name='mhref' value#='migdal.php?artid=$`postings:mazltov`'>
  </if>

@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='topics_kes' params='posting'>
+<element name='topics_kes'>
 <topics_table title='КЕС'>
  <posting_obj id='$`postings:kes`'>
  <topics_line time='$,Sent' text='О клубе'
@@ -72,28 +72,27 @@
 </topics_table>
 </element>
 
-<element name='topics_methodics' params='posting'>
-<topics_table title='Методический центр' span=2>
+<element name='topics_methodics'>
+<topics_table title='Методический центр'>
  <posting_obj id='$`postings:methodic-center`'>
- <topics_line time='$,Sent' text='О центре' span=2 href#='methodic-center.php'
+ <topics_line time='$,Sent' text='О центре' href='methodic-center.php'
               arrow!='$posting.Id==$,Id' class='item ninept'>
  <posting_last grp='*GRP_BOOKS' topic_id='$`methodics`' recursive='*true'>
- <topics_line time='$,' text='Методические пособия' indent=1
-              href#='methodics.php'
+ <topics_line time='$,' text='Методические пособия' href='methodics.php'
               arrow!='($posting.Grp & (*GRP_BOOKS|*GRP_BOOK_CHAPTERS))!=0 &&
 	              $posting.TopicId==$`methodics`'
 	      class='item eightpt'>
 </topics_table>
 </element>
 
-<element name='topics_migdal_library' params='posting'>
-<topics_table title='Библиотека' span=2>
- <topics_line text='О библиотеке' span=2 href#='migdal-library.php'
+<element name='topics_migdal_library'>
+<topics_table title='Библиотека'>
+ <topics_line text='О библиотеке' href#='migdal-library.php'
               arrow!='$posting.Id==$`postings:migdal-library`'
 	      class='item ninept'>
  <posting_last grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
                recursive='*false'>
- <topics_line time='$,' text='Новые поступления' indent=1
+ <topics_line time='$,' text='Новые поступления'
               href#='migdal-library-news.php'
               arrow!='$posting.Grp==*GRP_LIBRARY_ANNOUNCES &&
 	              $posting.TopicId==$`migdal-library`'
@@ -101,14 +100,14 @@
 </topics_table>
 </element>
 
-<element name='topics_migdal_ohr' params='posting'>
-<topics_table title='Мигдаль-ор' span=2>
+<element name='topics_migdal_ohr'>
+<topics_table title='Мигдаль-ор'>
  <posting_obj id='$`postings:migdal-ohr`'>
- <topics_line time='$,Sent' text='О театре' span=2
+ <topics_line time='$,Sent' text='О театре'
               href#='migdal.php?artid=$`postings:migdal-ohr`'
               arrow!='$posting.Id==$`postings:migdal-ohr`' class='item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`migdal-ohr`' recursive='*false'>
- <topics_line time='$,' text='Галерея' indent=1
+ <topics_line time='$,' text='Галерея'
               href#='gallery.php?topic_id=$`migdal-ohr`&general=1'
               arrow!='$posting.Grp==*GRP_GALLERY &&
 	              $posting.TopicId==$`migdal-ohr`'
@@ -134,15 +133,9 @@
 <<element name='topics_migdal'>
 <if what='$/$posting.TopicId,1/==$`events`'>
  <topics_events posting='$posting'>
-<elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
- <topics_migdal_ohr posting='$posting'>
 <elif what='$/$posting.TopicId,1/==$`mazltov` ||
             $/$posting.TopicId,2/==$`mazltov-news`'>
  <topics_mazltov posting='$posting'>
-<elif what='$/$posting.TopicId,1/==$`methodics`'>
- <topics_methodics posting='$posting'>
-<elif what='$/$posting.TopicId,1/==$`migdal-library`'>
- <topics_migdal_library posting='$posting'>
 <elif what='$/$posting.TopicId,1/==$`museum` ||
             $/$posting.TopicId,2/==$`museum-news`'>
  <topics_museum posting='$posting'>
