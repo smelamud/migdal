@@ -98,21 +98,21 @@
  <top ident='index'>
  <table class='ninept aframe' style='padding: 5px'>
   <form method=post action='actions/postingorg-goto.php'>
+   <hidden name='okdir' value='$-'>
+   <hidden name='faildir' value='$-'>
+   <hidden name='redirid' value='$redirid'>
    <tr><td colspan=2>
     <a href='topicorg.php?redirid=$_'>Организатор тем</a>
    </td></tr>
+   <tr><td colspan=2><table>
+    <topicselect name='topic_id' value='$topic_id'>
+   </table></td></tr>
    <tr valign=top>
-    <td><table>
-     <hidden name='okdir' value='$-'>
-     <hidden name='faildir' value='$-'>
-     <hidden name='redirid' value='$redirid'>
-     <topicselect name='topic_id' value='$topic_id'>
-     <tr><td>&nbsp;</td><td>
-      <checkbox title='С подтемами' name='recursive' value='$recursive'>
-     </td></tr>
-     <formbuttons title='Просмотр' span=2>
+    <td align=center><table>
+     <checkbox_line title='С подтемами' name='recursive' value='$recursive'>
+     <formbuttons title='Просмотр'>
     </table></td>
-    <td>
+    <td align=right>
      <select name='grp[]' size=6 multiple>
       <iterate_grps>
       <for>
