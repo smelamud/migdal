@@ -2,7 +2,7 @@
 
 <element name='day' params='n'>
 <time>
-<assign name='current_kaitana' value=3>
+<assign name='current_kaitana' value=2>
 <assign name='link' value='*false'>
 <if what='$n==3 || $n==10'>
  <td class=sh>
