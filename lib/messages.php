@@ -97,6 +97,16 @@ function mandatorySubject()
 return $this->hasSubject() && $this->getLocalConf('MandatorySubject');
 }
 
+function hasBody()
+{
+return $this->getLocalConf('HasBody');
+}
+
+function mandatoryBody()
+{
+return $this->hasBody() && $this->getLocalConf('MandatoryBody');
+}
+
 function hasLargeBody()
 {
 return $this->getLocalConf('HasLargeBody');

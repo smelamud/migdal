@@ -22,7 +22,8 @@ $result=mysql_query($cquery)
 $this->size=mysql_result($result,0,0);
 $this->limit=$limit;
 $this->offset=$offset;
-$this->SelectIterator($aClass,"$query limit $offset,$limit");
+$this->SelectIterator($aClass,$limit==0 ? $query
+                                        : "$query limit $offset,$limit" );
 }
 
 function getSize()

@@ -1,5 +1,9 @@
 << @(#) $Id$ >>
 << Based-on: demo/postings.mhtml 1.6 >>
+<< Based-on: demo/parts/postings.mhtml 1.3 >>
+
+<grps>
+
 <html>
 
 <head>
@@ -28,18 +32,13 @@
       <b>$^upper.Name / $^,Name /</b>
      </td></tr>   
      <tr><td>
-      <a href=galut.htm>ηΑΜΥΤ</a><br>  
-      <a href=geula.htm>ηΕΥΜΑ</a><br>  
-      <a href=article.htm>νΟΫΙΑΘ</a><br>  
-      <a href=prophet.htm>πÒΟÒΟΛ</a><br> 
-      <a href=res.htm>χΟΣΛÒΕΫΕΞΙΕ ΙΪ ΝΕÒΤΧΩΘ</a><br>
-      <a href="gloss/australia.htm">αχστςαμιρ, στςαξα</a><br> 
-      <a href="gloss/adam.htm">αδαν α-ςιϋοξ - πεςχωκ ώεμοχελ</a><br> 
-      <a href="gloss/alef.htm">αμεζ, βυλχα</a><br>
-      <a href="gloss/amolek.htm">αναμελ, ξαςοδ</a><br>
-      <a href="gloss/america.htm">ανεςιλα, στςαξα</a><br>
-      <a href="gloss/anger.htm">ηξεχ</a><br>
-      <a href="gloss/argument.htm">σπος - ναθμολεσ</a> 
+      <logged>
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&redir=$_'
+          class='admin'>δΟΒΑΧΙΤΨ ΣΤΑΤΨΐ</a><br>
+      </logged>
+      <iterate_postinglist grp='*GRP_ARTICLES' topic='$topic_id' limit=0
+                           sort='*SORT_PNAME'>
+      <for><a href='none.html?artid=$.Id'>$.Subject</a><br></for>
      </td></tr> 
     </table>
     <qanda>

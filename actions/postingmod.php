@@ -63,7 +63,7 @@ if($userId<=0)
   return EP_NO_SEND;
 if(!$message->isEditable())
   return EP_NO_EDIT;
-if($message->stotext->body=='')
+if($message->mandatoryBody() && $message->stotext->body=='')
   return EP_BODY_ABSENT;
 if($message->mandatorySubject() && $message->subject=='')
   return EP_SUBJECT_ABSENT;

@@ -96,13 +96,17 @@
 	    filename='$message.LargeFilename'>
   <upload_format format='$message.LargeFormat'>
   </table></td></tr>
-  <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
-  <editor_line name='body' title='Аннотация' body='$message.Body'>
+  <if what='$message.hasBody'>
+   <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
+   <editor_line name='body' title='Аннотация' body='$message.Body'>
+  </if>
  <else>
   </table></td></tr>
-  <error id='*EP_BODY_ABSENT'
-         text='Напишите хотя бы пару строчек в теле сообщения'>
-  <editor_line name='body' title='Текст' body='$message.Body'>
+  <if what='$message.hasBody'>
+   <error id='*EP_BODY_ABSENT'
+	  text='Напишите хотя бы пару строчек в теле сообщения'>
+   <editor_line name='body' title='Текст' body='$message.Body'>
+  </if>
  </if>
  <checkbox_line name='hidden' value='$message.isHidden' title='Не показывать'>
  <moderator>
