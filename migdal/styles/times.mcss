@@ -5,4 +5,3 @@ include 'fonts.mcss'
 include 'palette.mcss'
 
 include 'sheet-times.mcss'
-include 'sheet-times-posting.mcss'

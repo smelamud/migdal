@@ -11,8 +11,7 @@ STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-article.mcss
 COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
 CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-chat.mcss
-TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss \
-	sheet-times-posting.mcss
+TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
 
 style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@

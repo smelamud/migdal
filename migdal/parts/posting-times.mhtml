@@ -11,7 +11,7 @@
 <ifzero what='$times'>
  <topic_obj name='times' id='migdal-times'>
 </ifzero>
-<dl class='times'>
+<dl class='posting'>
  <dt class='subject'>
   <biff time='$posting.Sent'>
   <a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'>

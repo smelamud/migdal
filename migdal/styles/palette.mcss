@@ -59,6 +59,7 @@ posting_topic_hover=blue
 :contrast	posting_subject=%md
 :test		posting_subject=%nd
 :old		posting_subject=%md
+posting_subject_hover=blue
 posting_author=black
 posting_sent=%ndl
 posting_name=%ndl
