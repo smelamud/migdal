@@ -8,7 +8,7 @@
    <posting_obj id='$.' grp='*GRP_EARS' fields='*SELECT_IMAGES'>
    <a href='actions/ear.php?postid=$,Id&okdir=$#,URL'>
     <img src='lib/earview.php?message_id=$,MessageId&image_id=$,ImageId'
-         alt='$,Body' title='$,Body' border=0></a>
+         alt='$,Body' title='$,Body' width=150 height=80 border=0></a>
   </td></tr> 
  </for>
 </table></p>
