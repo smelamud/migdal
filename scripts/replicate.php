@@ -26,10 +26,14 @@ foreach($action as $line)
        if(substr($query,0,5)=='track')
          executeTrackQuery($query);
        else
+         {
 	 mysql_query($query)
 	   or journalFailure('Error executing replicated query in seq '.
 			     $line->getSeq().' id='.$line->getId().
 			     ": $query");
+         if($line->getTable()!='' && $line->getResultId()!=mysql_insert_id())
+	   journalFailure('Identifier shift detected.');
+	 }
        }
 }
 
