@@ -8,6 +8,12 @@
 
 <topictitle title='Новости'>
 
+<element name='batcher' params='list'>
+<outer><div align='center' style='padding: 5'><inner>
+ <spin list='$list'>
+</inner></div></outer>
+</element>
+
 <element name='news' params='posting'>
 <dl>
  <dt><a href='news.php?id=$posting.Id' class='subject'>$posting.Subject</a></dt>
@@ -71,11 +77,13 @@ A.c_link {
    <subtitle>
    <iterate_postinglist grp='*GRP_NEWS' topic_id='$`news`'
                         fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_TOPICS'>
+   <batcher list='$;'>
    <for>
     <table width='100%'><tr><td class='posting'>
      <news posting='$.'>
     </td></tr></table>
    </for>
+   <batcher list='$;'>
   </td>
   <td width='40%' class='oframe'>
    <courses_announce>
