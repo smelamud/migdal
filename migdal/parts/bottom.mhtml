@@ -2,7 +2,7 @@
 
 <element name='kernel'>
 // Powered by
-<a href='/sources/migdal-0.2.tar.bz2'>Migdal website kernel 0.2</a><br>
+<b>Migdal website kernel</b><br>
 </element>
 
 <element name='email' params='addr'>
