@@ -22,4 +22,22 @@ return mysql_query("update $table
                     set track='$track'
 		    where id=$id");
 }
+
+function updateTracks($table,$id)
+{
+$result=mysql_query("select id,up,track
+                     from $table
+		     where track like '%".track($id)."%'");
+if(!$result)
+  return false;
+$tracks=array();
+while($row=mysql_fetch_assoc($result))
+     {
+     if(!isset($tracks[$row['up']]))
+       $tracks[$row['up']]=trackById($table,$row['up']);
+     $tracks[$row['id']]=track($row['id'],$tracks[$row['up']]);
+     updateTrackById($table,$row['id'],$tracks[$row['id']]);
+     }
+return true;
+}
 ?>

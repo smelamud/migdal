@@ -11,11 +11,6 @@ require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/track.php');
 
-function getTrack($topic)
-{
-return track($topic->id,trackById('topics',$topic->up));
-}
-
 function modifyTopic($topic)
 {
 global $userAdminTopics;
@@ -37,8 +32,7 @@ if($topic->allow==0)
   return ET_MUST_ALLOW;
 if(!$topic->store())
   return ET_STORE_SQL;
-$topic->track=getTrack($topic);
-if(!updateTrackById('topics',$topic->id,$topic->track))
+if(!updateTracks('topics',$topic->id))
   return ET_TRACK_SQL;
 return ET_OK;
 }

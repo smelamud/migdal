@@ -9,6 +9,8 @@ require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/ident.php');
 require_once('lib/stotext.php');
+require_once('lib/array.php');
+require_once('lib/track.php');
 
 class Topic
       extends DataObject
@@ -35,6 +37,8 @@ $this->allow=GRP_ALL;
 $this->premoderate=$defaultPremoderate;
 $this->DataObject($row);
 $this->stotext=new Stotext($row,'description');
+if($this->track=='')
+  $this->track=track($this->id);
 }
 
 function setup($vars)
@@ -313,10 +317,10 @@ var $up;
 
 function TopicNamesIterator($grp,$up=-1)
 {
-$this->up=$up;
+$this->up=$up<0 ? $up : idByIdent('topics',$up);
 $this->TopicIterator('select id,track,name
 		      from topics'.
-		      $this->getWhere($grp,$up).
+		      $this->getWhere($grp,$this->up).
 		     'order by track');
 }
 
@@ -330,8 +334,9 @@ while($n)
      {
      if($up<0)
        $nm[]=$this->names[(int)$n];
-     if((int)$n==$up)
-       $up=-1;
+     else
+       if((int)$n==$up)
+	 $up=-1;
      $n=strtok(' ');
      }
 $row['full_name']=join(' :: ',$nm);
