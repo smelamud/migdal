@@ -742,6 +742,7 @@ BODY {
 
 .catalog .name {
 	color: %catalog_name;
+	font-size: 9pt;
 }
 
 .catalog .rebe .name {
