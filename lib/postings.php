@@ -473,12 +473,12 @@ $result=mysql_query(
 	 where (postings.id is not null or forums.id is not null) and
 	       (messages.hidden<$hide or messages.sender_id=$userId) and
 	       (messages.disabled<$hide or messages.sender_id=$userId) and
-	       (msgs.id is null or
+	       (forums.id is null or
 	        (msgs.hidden<$hide or msgs.sender_id=$userId) and
 	        (msgs.disabled<$hide or msgs.sender_id=$userId)) and
                (postings.id is null or (postings.grp & $grp)<>0 $tpf) and
-               (posts.id is null or (posts.grp & $answers)<>0 $taf)")
- or die('Ошибка SQL при определении даты последнего постинга/ответа'.mysql_error());
+               (forums.id is null or (posts.grp & $answers)<>0 $taf)")
+ or die('Ошибка SQL при определении даты последнего постинга/ответа');
 return mysql_num_rows($result)>0 ? strtotime(mysql_result($result,0,0)) : 0;
 }
 
