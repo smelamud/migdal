@@ -19,7 +19,6 @@ list($gx,$gy,$hx,$hy)=array(imageSX($glass),imageSY($glass),
 for($x=0;$x<$gx;$x++)
    for($y=0;$y<$gy;$y++)
       {
-      echo "($x,$y)<br>";
       $colors=imageColorsForIndex($glass,imageColorAt($glass,$x,$y));
       $r=$colors['red'];
       $g=$colors['green'];
