@@ -1,0 +1,40 @@
+<< @(#) $Id$ >>
+
+<?php header("HTTP/1.1 500 Server Error"); ?>
+
+<int name='sent'>
+
+<log event=fail text#='code(404) $-'>
+<pagetitle title!='$$userDomain=="www" ? "Ошибка сервера"
+                                       : "Server error"'>
+<topictitle title!='$$userDomain=="www" ? "500 --- Ошибка сервера"
+                                        : "500 --- Server error"'>
+
+<html>
+<preamble>
+<body style='background-color: $$style_body_404_back; background-image: none;
+             padding: 10px'>
+ <top_404>
+ <p><table width='600'><tr><td>
+  <p>
+   <ifzero what='$sent'>
+    При попытке получить страницу, которую вы запросили, произошла внутренняя
+    ошибка сервера. К сожалению, никто не застрахован от ошибок.
+   <else>
+    <i>Большое спасибо за ваше сообщение. Мы приложим все усилия, чтобы
+    устранить проблему как можно скорее.</i>
+   </ifzero>
+  </p>
+  <p>
+   <b>Вы можете поступить одним из следующих способов:</b>
+  </p>
+  <ul>
+   <li>
+    Попробуйте перезагрузить страницу --- возможно, ошибка была случайной и уже
+    исчезла.
+   </li>
+   <failpage>
+  </ul>
+ </td></tr></table></p>
+</body>
+</html>

@@ -53,6 +53,7 @@
 <decel name='ears' file='parts/ears.php'>
 <decel name='editlink' file='parts/posting.php' params='posting'>
 <decel name='events' file='parts/events.php'>
+<decel name='failpage' file='parts/failpage.php'>
 <decel name='formbuttons' file='parts/formutils.php' params='title,span'
        defaults="title='Изменить',span=0">
 <decel name='formtable' file='parts/formutils.php' params='title'>

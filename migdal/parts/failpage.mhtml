@@ -1,0 +1,51 @@
+<< @(#) $Id$ >>
+
+<element name='failpage'>
+<li>
+ Можете начать с <a href='/index.php'>главной страницы</a>.
+</li>
+<li>
+ Можете воспользоваться поиском:<br>
+ <table cellspacing=0><tr valign=center>
+  <form method=post action='actions/search.php'>
+   <hidden name='okdir' value='/search.php'>
+   <hidden name='faildir' value='/search.php'>
+   <td><edit name='q' value='$q' size=45 maxlength=255></td>
+   <td><input type=submit value='Найти'></td>
+  </form>
+ </tr></table>
+</li>
+<ifzero what='$sent'>
+ <li>
+  Можете сообщить об ошибке вебмастеру по электронной почте
+  <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+ </li>
+ <li>
+  Или отправить это сообщение прямо с сайта:<br>
+  <form method=post action='actions/complainmod.php'>
+   <hidden name='edittag' value="1">
+   <hidden name='okdir' value="/404.php?sent=1">
+   <hidden name='faildir' value="/404.php">
+   <hidden name='editid' value="0">
+   <hidden name='type_id' value="1">
+   <hidden name='link' value="0">
+   <hidden name='subject' value#="404 - $-">
+   <table>
+    <error id='*EC_NO_SEND'
+	   text='Посылать жалобы могут только зарегистрированные пользователи'>
+    <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
+    <error id='*EC_NO_TYPE' text='Такого типа жалобы не существует'>
+    <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
+    <error id='*EC_BODY_ABSENT'
+	   text='Напишите хотя бы пару строчек в теле жалобы'>
+    <editor_line name='body'>
+    <tr><td>
+     <input type=submit value='Отправить'>
+     &nbsp;
+     <input type=reset value='Очистить'>
+    </td></tr>
+   </table>
+  </form>
+ </li>
+</ifzero>
+</element>
