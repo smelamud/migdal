@@ -2,9 +2,8 @@
 
 # @(#) $Id$
 
-OBJECTS = article.php backtrace.php bottom.php complain.php cs_forum.php \
-          cs_normal.php cs_posting.php formutils.php forumanswer.php \
-	  forumcatalog.php forums.php friends.php gallery.php \
+OBJECTS = article.php backtrace.php bottom.php complain.php formutils.php \
+	  forumanswer.php forumcatalog.php forums.php friends.php gallery.php \
 	  gallery-main.php gallery-picture.php googleru.php grpselect.php \
 	  hit-parade.php hotlog.php jewishru.php kaitana-announce.php \
 	  kaitana-picture.php login.php mailru.php menu.php picture.php \

@@ -1,9 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='complain_subject' params='link'>
-<tr><th colspan=2>Жалоба на сообщение в форуме</th></tr>
-<forum_answer_full id='$link'>
-<tr class='quote'><td colspan=2 style='padding: 1em'>
- <forum_answer answer='$,' complain='*false'>
-</td></tr>
-</element>
