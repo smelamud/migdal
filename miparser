@@ -692,6 +692,11 @@ return QuotedToken::new($class,'?>');
 
 package main;
 
+use Getopt::Long;
+Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
+
+$VERSION='0.0.1';
+
 sub more
 {
 return if $Eof;
@@ -789,11 +794,45 @@ sub display
 print STDERR @_;
 }
 
+sub help
+{
+print <<EOF;
+Usage: $0 [<options>] [<file>]
+
+Migdal website kernel MHTML macro language preprocessor
+
+  -h, --help                Print this help and exit
+  -M, --macros=<filename>   Set macro file path (default is `macros.mhtml')
+  -v, --version             Print version information and exit
+
+Report bugs to <balu\@yes.ru>
+EOF
+exit;
+}
+
+sub version
+{
+print <<EOF;
+miparser (migdal $VERSION)
+Copyright (C) 2001 by Dmitry E. Melamud.
+
+This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License (see COPYING).
+
+EOF
+exit;
+}
+
 sub init
 {
 $|=1;
+my $macros='macros.mhtml';
+GetOptions('help|h|?'	=> \&help,
+           'macros|M=s'	=> \$macros,
+           'version|v'	=> \&version);
 $Stack=Stack->new();
-unshift @ARGV,'macros.mhtml' if -r 'macros.mhtml';
+unshift @ARGV,$macros if -r $macros;
 pull;
 }
 
