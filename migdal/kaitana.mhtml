@@ -3,12 +3,20 @@
 <int name='day'>
 <int name='postid'>
 <int name='topic_id'>
+
+<< Traps >>
+<if what='$topic_id<=0'>
+ <trap text='Kaitana'>
+ <reload href='$[topic_id=$`kaitana-s-5762`]'>
+</if>
+<< /Traps >>
+
 <grps>
 <ifnzero what='$postid'>
  <posting_full name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'>
  <topic_obj name='kaitana' id='$posting.TopicId'>
 <else>
- <topic_obj name='kaitana' id!='$topic_id<=0 ? $`kaitana-s-5762` : $topic_id'>
+ <topic_obj name='kaitana' id='$topic_id'>
  <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'
                index1!='$day<=0 ? 1 : $day'>
 </ifzero>
