@@ -10,8 +10,6 @@ require_once('lib/packages.php');
 
 postInteger('message_id');
 postInteger('type');
-postInteger('mime_type');
-postInteger('fname');
 
 function dropBook($message_id,$type)
 {
