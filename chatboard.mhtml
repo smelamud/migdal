@@ -1,0 +1,13 @@
+<< @(#) $Id$ >>
+
+<html>
+<head></head>
+<body bgcolor=white>
+ <iterate_chat>
+ <table>
+  <for>
+   <tr><td>[$.SentTimeView]</td><td><b>$.Login</b></td><td>$.HTMLText</td></tr>
+  </for>
+ </table>
+</body>
+</html>

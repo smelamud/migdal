@@ -1,0 +1,32 @@
+<< @(#) $Id$ >>
+
+<html>
+<head>
+ <title>Клуб Еврейского Студента - Чат</title>
+</head>
+<body bgcolor=white>
+ <top ident='chat'>
+ <iframe width=100% height=100% src='chatboard.php'>
+  Ваш браузер не поддерживает фреймы. Увы...
+ </iframe>
+ <logged>
+  <form method=post action='actions/chatpost.php'>
+  <input type=hidden name='redir' value='$-'>
+  <table>
+   <error id='*ECHP_NO_ADD' span=3
+	  text='Добавлять сообщения может только зарегистрированный пользователь'>
+   <error id='*ECHP_NO_PERSON' text='Нет такого пользователя' span=3>
+   <error id='*ECHP_SQL_INSERT' text='Ошибка SQL при добавлении записи' span=3
+	  color=magenta>
+   <tr>
+    <td><edit name='personal' value='$personal' size=10 maxlength=30></td>
+    <td><input type=text autocomplete='off' name='message' value='$message'
+	       size=70 maxlength=250></td>
+    <td><input type=submit value='Отправить'></td>
+   </tr>
+   <tr><td align=center><u>лично</u></td></tr>
+  </table>
+  </form>
+ </logged>
+</body>
+</html>

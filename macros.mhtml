@@ -33,6 +33,11 @@
 </macro>
 
 << Iterators >>
+<macro name='iterate_chat' defaults='limit=20'>
+ <require name='lib/chat.php'>
+ <iterate name='%name' class='ChatMessageListIterator' arg1='%limit'>
+</macro>
+
 <macro name='iterate_complainlist' defaults='limit=20 offset=0'>
  <require name='lib/complains.php'>
  <iterate name='%name' class='ComplainListIterator' arg1='%limit'

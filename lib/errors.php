@@ -67,4 +67,9 @@ define('EUC_OK',80);
 define('EUC_SQL_SELECT',81);
 define('EUC_NO_USER',82);
 define('EUC_SQL_CONFIRM',83);
+
+define('ECHP_OK',90);
+define('ECHP_NO_PERSON',91);
+define('ECHP_SQL_INSERT',92);
+define('ECHP_NO_ADD',93);
 ?>

@@ -34,5 +34,10 @@ function getCount()
 return $this->count;
 }
 
+function getResult()
+{
+return $this->result;
+}
+
 }
 ?>

@@ -32,7 +32,7 @@ return $this->email!='' && !$this->hide_email
 
 function isMan()
 {
-return $this->gender=='mine';
+return $this->gender=='mine' || $this->gender=='';
 }
 
 function isWoman()
