@@ -97,13 +97,19 @@ else
     <bottom_english>
    </notenglish>
   </table>
-  <hr>
-  <center>
-   <banners>
-   <jewishru>
-   <mailru_logo>
-   <rambler_logo>
-  </center>
+  <p><hr></p>
+  <p>
+   <table width=100%><tr>
+    <td align=left>
+     <banners>
+    </td>
+    <td align=right>
+     <jewishru>
+     <mailru_logo>
+     <rambler_logo>
+    </td>
+   </tr></table>
+  </p>
  </div>
 </notprint>
 </element>
