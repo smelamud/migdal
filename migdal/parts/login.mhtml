@@ -34,11 +34,7 @@
  </tr>
  <if what="$flags!='no_new'">
   <tr><td colspan=5 align=right>
-   <ife what='$re'>
-    <concat name='link' value='/register.php?redir=$_'>
-   <else>
-    <concat name='link' value='/register.php?redir=$re?$?'>
-   </ife>
+   <concat name='link' value='/register.php?redirid=$_'>
    <at href='$link' target='$target'>Зарегистрироваться</at>
   </td></tr>
  </if>
@@ -49,7 +45,7 @@
    <if what='$$userHidden'>
     $$userLogin
    <else>
-    <concat value='/userinfo.php?id=$$userId&redir=$_'>
+    <concat value='/userinfo.php?id=$$userId&redirid=$_'>
     <at href='$*' class='name' target='$target'>$$userLogin</at>
    </if>
    </b>

@@ -2,9 +2,11 @@
 
 <int name='editid'>
 <int name='up'>
+<pagetitle title='Сообщение в форуме'>
+
 <html>
 <head>
- <title>Мигдаль - Сообщение в форуме</title>
+ <titletag>
 </head>
 <body>
  <top ident='forums'>

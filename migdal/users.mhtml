@@ -1,8 +1,10 @@
 << @(#) $Id$ >>
 
+<pagetitle title='Пользователи'>
+
 <html>
 <head>
- <title>Мигдаль - Пользователи</title>
+ <titletag>
 </head>
 <body>
  <top ident='users'>
@@ -30,7 +32,7 @@
   <for>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <td class='subject'>
-     <a href="userinfo.php?id=$.id&redir=$_">$.Login</a>
+     <a href="userinfo.php?id=$.id&redirid=$_">$.Login</a>
     </td>
     <td>$.FullName</td>
     <if what='$.isConfirmed'>
@@ -59,8 +61,8 @@
        <plural name='days' value='$.ConfirmDays'>
        Идет регистрация ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
        <admin_users>
-        <a href='/actions/userconfirm.php?id=$.Id&redir$_'
-	   class='control'>Подтвердить</a>
+        <a href='/actions/userconfirm.php?id=$.Id' class='control'>
+	 Подтвердить</a>
        </admin_users>
       </zone>
      </td>

@@ -94,6 +94,13 @@ $dbh->do('delete
 	  where last_access+interval '.$Config{'tmpTextTimeout'}.' hour<now()');
 }
 
+sub clearRedirs
+{
+$dbh->do('delete
+          from redirs
+	  where last_access+interval '.$Config{'redirTimeout'}.' hour<now()');
+}
+
 sub useImagesFrom
 {
 my ($select)=@_;

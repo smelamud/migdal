@@ -1,8 +1,10 @@
 << @(#) $Id$ >>
 
+<pagetitle title='Настройка вида'>
+
 <html>
 <head>
- <title>Демо - Настройка вида</title>
+ <titletag>
 </head>
 <body>
  <top ident='style'>

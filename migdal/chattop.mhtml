@@ -5,11 +5,11 @@
 </head>
 <body>
  <update_last_chat>
- <top ident='chat' target=_top re='/chat.php' showimages='*false'>
+ <top ident='chat' target=_top showimages='*false'>
  <notlogged>
   <span class='advert'>
    Хотите общаться в чате?
-   <a href='/register.php?redir=/chat.php&$?' target=_top>
+   <a href='/register.php?redirid=$_' target=_top>
     Зарегистрируйтесь!</a>
   </span>
  </notlogged>

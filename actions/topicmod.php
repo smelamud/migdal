@@ -13,16 +13,7 @@ require_once('lib/track.php');
 
 function getTrack($topic)
 {
-$tr=trackById('topics',$topic->up);
-$add=track($topic->id);
-return $tr!='' ? "$tr $add" : $add;
-}
-
-function storeTrack($topic)
-{
-return mysql_query("update topics
-                    set track='".$topic->track."'
-		    where id=".$topic->id);
+return track($topic->id,trackById('topics',$topic->up));
 }
 
 function modifyTopic($topic)
@@ -47,7 +38,7 @@ if($topic->allow==0)
 if(!$topic->store())
   return ET_STORE_SQL;
 $topic->track=getTrack($topic);
-if(!storeTrack($topic))
+if(!updateTrackById('topics',$topic->id,$topic->track))
   return ET_TRACK_SQL;
 return ET_OK;
 }

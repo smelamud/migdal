@@ -2,21 +2,22 @@
 << Based-on: migdal/index.mhtml 1.12 >>
 
 <int name='topic_id'>
-<int name='grp'>
 <int name='offset'>
+<grps>
+<pagetitle title='Обсуждения'>
+
 <html>
 <head>
- <title>Мигдаль - Обсуждения</title>
+ <titletag>
 </head>
 <body>
  <top ident='discuss'>
  <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
-  <grp grp='*GRP_DISCUSS'>
   <td width=120>
-   <topics g='$g' topic_id='$topic_id' withpostings='*true' withanswers='*true'
-           file='forumcatalog.php'>
+   <topics grp='*GRP_DISCUSS' topic_id='$topic_id' withpostings='*true'
+           withanswers='*true' file='forumcatalog.php'>
   </td>
   <td width=10>&nbsp;</td>
   <td><forumcatalog topic='$topic_id' limit='$userForumCatalogPortion'

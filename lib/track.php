@@ -1,9 +1,10 @@
 <?php
 # @(#) $Id$
 
-function track($id)
+function track($id,$prev='')
 {
-return sprintf('%010u',$id);
+$track=sprintf('%010u',$id);
+return $prev!='' ? "$prev $track" : $track;
 }
 
 function trackById($table,$id)
@@ -13,5 +14,12 @@ $result=mysql_query("select track
 		     where id=$id")
 	     or die("Ошибка SQL при выборке маршрута из $table");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
+}
+
+function updateTrackById($table,$id,$track)
+{
+return mysql_query("update $table
+                    set track='$track'
+		    where id=$id");
 }
 ?>

@@ -21,7 +21,7 @@
   </ifnzero>
   <admin_topics>
    <tr><td class='modify'>
-    <a href="topicedit.php?editid=$picture.TopicId&redir=$_">Изменить</a>
+    <a href="topicedit.php?editid=$picture.TopicId&redirid=$_">Изменить</a>
    </td></tr>
   </admin_topics>
   <tr><td class='body'>

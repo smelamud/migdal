@@ -20,10 +20,10 @@
   </td>
   <td align=right>
    <today><br>
-   <login flags='$flags' err='$$err' target='$target' re='$re'>
+   <login flags='$flags' err='$$err' target='$target'>
   </td>
  </tr>
 </table>
-<menu ident='$ident' re='$re' target='$target'>
+<menu ident='$ident' target='$target'>
 <backtrace redir='$$redir' target='$target'>
 </element>

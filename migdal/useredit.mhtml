@@ -1,9 +1,11 @@
 << @(#) $Id$ >>
 
 <int name='editid'>
+<pagetitle title='Изменение информации о пользователе'>
+
 <html>
 <head>
- <title>Мигдаль - Изменение информации о пользователе</title>
+ <titletag>
 </head>
 <body>
  <top ident='users'>

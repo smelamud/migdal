@@ -29,13 +29,13 @@
 <if what="$align=='right' || $$style_details_noleft">
  <span class='name'>$message.LoginLink</span>&nbsp;<asp>
  <if what='$message.isSenderVisible'>
-  <asp><a href='userinfo.php?id=$message.SenderId&redir=$_'
+  <asp><a href='userinfo.php?id=$message.SenderId&redirid=$_'
           onClick="UserInfo($message.SenderId);return false"
 	  title='подробнее'><image src='$$style_details_image' border=0></a>
  </if>
 <else>
  <if what='$message.isSenderVisible'>
-  <a href='userinfo.php?id=$message.SenderId&redir=$_'
+  <a href='userinfo.php?id=$message.SenderId&redirid=$_'
      onClick="UserInfo($message.SenderId);return false"
      title='подробнее'><image src='$$style_details_image' border=0></a>&nbsp;<asp>
  </if>

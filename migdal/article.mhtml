@@ -6,26 +6,26 @@
   <tr>
    <isedit what='$posting'>
     <td>
-     <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
+     <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redirid=$_"
 	>Изменить</a>
     </td>
     <td>
-     <a href="limedit.php?postid=$posting.Id&redir=$_">Список иллюстраций</a>
+     <a href="limedit.php?postid=$posting.Id&redirid=$_">Список иллюстраций</a>
     </td>
     <if what='$posting.isModerable'>
      <td>
       <if what='$posting.isDisabled'>
-       <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$_&faildir=$_"
+       <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
 	>Разрешить показ</a>
       <else>
-       <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$_&faildir=$_"
+       <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
 	>Запретить показ</a>
       </if>
      </td>
     </if>
    </isedit>
    <td>
-    <a href='forum.php?redir=$_&msgid=$posting.Id'
+    <a href='forum.php?redirid=$_&msgid=$posting.Id'
      >Обсудить ($posting.AnswerCount)</a>
    </td>
   </tr>
@@ -80,7 +80,7 @@
   </isplaced>
   <isedit what='$posting'>
    <tr><td align=center>
-    <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
+    <a href='liminsert.php?postid=$$artid&par=$par.Number&redirid=$_'
        class='piclink'>Картинка</a>
    </td></tr>
   </isedit>
@@ -104,7 +104,7 @@
  </p>
  <isedit what='$posting'>
   <p>
-  <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
+  <a href='liminsert.php?postid=$$artid&par=$par.Number&redirid=$_'
      class='piclink'>Картинка</a>
   </p>
  </isedit>
@@ -117,18 +117,16 @@
 <text_formats>
 <read_posting id='$artid'>
 <posting_full id='$artid' grp='*GRP_FORUMS'>
+<pagetitle title='$,Subject'>
+
 <html>
 <head>
- <title>Мигдаль - Статьи - $,Subject</title>
+ <titletag>
 </head>
 <body>
  <top ident='articles'>
  <table width=100%><tr valign=top>
-  <zone>
-   <require name='lib/grps.php'>
-   <grpdata name='g' grp='$,Grp'>
-  </zone>
-  <td width=120><topics g='$g' topic_id='$,TopicId' navi='*true'></td>
+  <td width=120><topics grp='$,Grp' topic_id='$,TopicId' navi='*true'></td>
   <td width=10>&nbsp;</td>
   <td class='article'>
    <controls posting='$,'>

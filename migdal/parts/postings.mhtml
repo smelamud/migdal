@@ -8,14 +8,14 @@
  <td align=left><table><tr valign=bottom><td>
   <logged>
    <if what='$g.Valid'>
-    <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
+    <a href='postingedit.php?topic_id=$topic&grp=$grp&redirid=$_'
        class='add'>Добавить $grpitemtitle</a>
    <else>
-    <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
+    <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redirid=$_'
        class='add'>Добавить новость</a>,
-    <a href='postingedit.php?topic_id=$topic&grp=*GRP_FORUMS&redir=$_'
+    <a href='postingedit.php?topic_id=$topic&grp=*GRP_FORUMS&redirid=$_'
        class='add'>мнение</a>,
-    <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
+    <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redirid=$_'
        class='add'>статью</a>
    </if>
   <else>
@@ -25,7 +25,7 @@
     <else>
      Хотите добавлять новости и статьи?
     </if>
-    <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </span>
   </logged>
  </td></tr></table></td>

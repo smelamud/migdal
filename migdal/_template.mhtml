@@ -2,9 +2,11 @@
 
 << This is a template of user-viewable page >>
 
+<pagetitle title='&lt;шаблон&gt;'>
+
 <html>
 <head>
- <title>Демо - &lt;шаблон&gt;</title>
+ <titletag>
 </head>
 <body>
  <top ident='template'>

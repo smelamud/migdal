@@ -2,20 +2,18 @@
 
 <int name='msgid'>
 <grps>
+<read_posting id='$msgid'>
+<posting_full id='$msgid' grp='*GRP_FORUMS'>
+<pagetitle title='$,SubjectDesc'>
+
 <html>
 <head>
- <title>Мигдаль - Обсуждение</title>
+ <titletag>
 </head>
 <body>
  <top ident='forums'>
- <read_posting id='$msgid'>
- <posting_full id='$msgid' grp='*GRP_FORUMS'>
  <table width=100%><tr valign=top>
-  <zone>
-   <require name='lib/grps.php'>
-   <grpdata name='g' grp='$,Grp'>
-  </zone>
-  <td width=120><topics g='$g' topic_id='$,TopicId' navi='*true'></td>
+  <td width=120><topics grp='$,Grp' topic_id='$,TopicId' navi='*true'></td>
   <td width=10>&nbsp;</td>
   <td>
    <center>

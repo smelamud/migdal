@@ -11,7 +11,7 @@
   </td></tr>
   <if what='$topic<0'>
    <tr><td class='topic'>
-     <a href='gallery.php?redir=$_&grp=$grp&topic_id=$picture.TopicId'
+     <a href='gallery.php?redirid=$_&grp=$grp&topic_id=$picture.TopicId'
 	class='topic' title='$picture.TopicDescription'>
       $picture.TopicName
      </a>
@@ -25,11 +25,11 @@
   <logged>
    <tr><td class='modify'>
     <isedit what='$picture'>
-     <a href="postingedit.php?editid=$picture.Id&grp=$picture.Grp&redir=$_"
+     <a href="postingedit.php?editid=$picture.Id&grp=$picture.Grp&redirid=$_"
       >Изменить</a>
     <else>
      <if what='$complain'>
-      <a href="complainedit.php?ident=posting&link=$picture.Id&redir=$_"
+      <a href="complainedit.php?ident=posting&link=$picture.Id&redirid=$_"
        >Жалоба</a>
      </if>
     </isedit>
@@ -43,7 +43,7 @@
     <logged>
      <if what='$discuss'>
       <biff time='$picture.LastAnswer'>
-      <a href='forum.php?redir=$_&msgid=$picture.Id'>
+      <a href='forum.php?redirid=$_&msgid=$picture.Id'>
        Обсудить
        <ifnzero what='$picture.AnswerCount'>
 	($picture.AnswerCount)<asp>
@@ -54,7 +54,7 @@
      <if what='$discuss'>
       <biff time='$picture.LastAnswer'>
       <ifnzero what='$picture.AnswerCount'>
-       <a href='forum.php?redir=$_&msgid=$picture.Id'>
+       <a href='forum.php?redirid=$_&msgid=$picture.Id'>
 	Обсуждение&nbsp;($picture.AnswerCount)</a>
       </ifnzero>
      </if>

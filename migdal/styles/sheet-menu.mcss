@@ -3,7 +3,6 @@
 .menu {
 	background-color: %menu_back;
 	padding-left: 1em;
-	margin-bottom: 1.5ex;
 }
 
 .menu .minor A {

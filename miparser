@@ -46,7 +46,7 @@ my ($s)=@_;
 @subs=();
 %params=();
 request('lib/uri.php');
-getGlobal('REQUEST_URI');
+getGlobal('redir');
 splitParams($s,\%params);
 while(my($name,$value)=each(%params))
      {
@@ -59,8 +59,8 @@ while(my($name,$value)=each(%params))
        push @subs,"'$name' => ".subVar($value);
        }
      }
-return 'remakeURI($REQUEST_URI,array('.join(',',@del).'),array('
-                                      .join(',',@subs).'))';
+return 'remakeURI($redir->getURI(),array('.join(',',@del).'),array('
+                                          .join(',',@subs).'))';
 }
 
 sub getGetName
@@ -104,10 +104,12 @@ return "${st}urlencode(".constructRemake($1).")$ed"
        if $s=~/^\$#\[([^\]]*)\]$/;
 return "$st$1$ed"
        if $s=~/^\*{?(\w+)}?$/;
-return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
+return "$st\$".getGlobal('redir')."->getId()$ed"
        if $s=~/^\$_$/;
 return "$st\$".getGlobal('REQUEST_URI').$ed
        if $s=~/^\$-$/;
+return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
+       if $s=~/^\$#-$/;
 return "$st\$".getGlobal('SCRIPT_NAME').$ed
        if $s=~/^\$~$/;
 return "$st\$".getGlobal('QUERY_STRING').$ed
@@ -684,7 +686,9 @@ sub elHead
 my ($self)=@_;
 
 ::request('lib/style.php');
+::request('lib/redirs.php');
 ::body(<<EOT);
+<?php redirect(); ?>
 <head>
 <link rel='stylesheet' href='/styles/style-<?php echo getStyle(\$userStyle) ?>.css'>
 <?php include('styles/style-'.getStyle(\$userStyle).'.php') ?>

@@ -1,9 +1,11 @@
 << @(#) $Id$ >>
 
 <int name='id'>
+<pagetitle title='Информация о пользователе'>
+
 <html>
 <head>
- <title>Мигдаль - Информация о пользователе</title>
+ <titletag>
 </head>
 <body>
  <userinfo id='$id' target='_blank'>

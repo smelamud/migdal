@@ -2,9 +2,11 @@
 
 <int name='editid'>
 <int name='link'>
+<pagetitle title='Жалоба'>
+
 <html>
 <head>
- <title>Мигдаль - Жалоба</title>
+ <titletag>
 </head>
 <body>
  <top ident='complains'>

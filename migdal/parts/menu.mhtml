@@ -20,7 +20,7 @@
   </admin_menu>
  </td>
  <td align=right class='minor'>
-  <tune ident='$ident' re='$re' target='$target'>
+  <tune ident='$ident' target='$target'>
  </td>
 </tr></table>
 </element>

@@ -1,9 +1,11 @@
 << @(#) $Id$ >>
 << Based-on: doc/stotext.txt 1.13 >>
 
+<pagetitle title='Справка'>
+
 <html>
 <head>
- <title>Мигдаль - Справка</title>
+ <titletag>
 </head>
 <body>
  <top ident='index'>

@@ -1,8 +1,9 @@
 << @(#) $Id$ >>
 
 <element name='complain_subject' params='link'>
+<grps>
 <posting_full id='$link'>
-<zone><grpdata grp='$,Grp'><grpitemtitle grp='$,Grp'></zone>
+<grpitemtitle grp='$,Grp'>
 <tr><th colspan=2>Жалоба на $grpitemtitle</th></tr>
 <tr class='quote'><td colspan=2 align=center>
  <if what='$,Grp!=*GRP_GALLERY'>

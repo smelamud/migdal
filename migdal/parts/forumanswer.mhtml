@@ -18,15 +18,15 @@
   <tr>
    <td class='controls'>&nbsp;
     <isedit what='$answer'>
-     <a href="forumansweredit.php?editid=$answer.Id&redir=$_"
+     <a href="forumansweredit.php?editid=$answer.Id&redirid=$_"
       >Изменить</a>
      <moderator>
       &nbsp;
       <if what='$answer.isDisabled'>
-       <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&okdir=$_&faildir=$_"
+       <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&okdir=$#-&faildir=$#-"
 	>Разрешить&nbsp;показ</a>
       <else>
-       <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&okdir=$_&faildir=$_"
+       <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&okdir=$#-&faildir=$#-"
 	>Запретить&nbsp;показ</a>
       </if>
      </moderator>

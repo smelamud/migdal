@@ -10,9 +10,11 @@
 
 <int name='postid'>
 <int name='par'>
+<pagetitle title='Размещение картинки'>
+
 <html>
 <head>
- <title>Мигдаль - Размещение картинки</title>
+ <titletag>
 </head>
 <body>
  <top ident='articles'>
@@ -52,7 +54,7 @@
       </select>
      </td>
      <td>
-      <a href='/limedit.php?postid=$postid&editid=$image.ImageId&redir=$_'
+      <a href='/limedit.php?postid=$postid&editid=$image.ImageId&redirid=$_'
 	 >Список &gt;&gt;&gt;</a>
      </td>
     </tr>

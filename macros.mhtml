@@ -77,6 +77,7 @@
          defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*false'">
 <deciter macro='received_instant_messagelist'
          class='ReceivedInstantMessageListIterator' file='lib/instants.php'>
+<deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
 <deciter macro='sortarray' class='SortedArrayIterator' file='lib/array.php'
          params='values' defaults="values='$*'">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
@@ -181,16 +182,9 @@
 </macro>
 
 << GRP >>
-<macro name='grpdata' defaults="name=g grp='$grp' ignore=0">
+<macro name='grpdata' defaults="name=g grp='$grp'">
  <require name='lib/grputils.php'>
- <obj name='%name' class='GrpData' arg1='%grp' arg2='%ignore'>
-</macro>
-
-<macro name='grp' defaults="name=g grp='$grp' ignore=0">
- <header>
-  <require name='lib/grps.php'>
-  <grpdata name='%name' grp='%grp' ignore='%ignore'>
- </header>
+ <obj name='%name' class='GrpData' arg1='%grp'>
 </macro>
 
 <macro name='decgrpmesgs' defaults="grp='%grp'">

@@ -9,12 +9,8 @@
 <element name='controls_userinfo' params='user,target' defaults="user='$,'">
 <isedit what='$user'>
  <div class='batcher'>
-  <ifne what='$target'>
-   <a href='/useredit.php?editid=$user.Id&redir=$_' target='$target'>
-  <else>
-   <a href='/useredit.php?editid=$user.Id&redir=$_'>
-  </ifne>
-  Изменить</a>
+  <concat value='/useredit.php?editid=$user.Id&redirid=$_'>
+  <at href='$*' target='$target'>Изменить</at>
  </div>
 </isedit>
 </element>

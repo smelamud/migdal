@@ -4,9 +4,8 @@
 <int name='topic_id'>
 <int name='grp'>
 <int name='offset'>
-<grp ignore='$ignoregrp'>
 <grpbigicon>
-<unititle topic_id='$topic_id' grp='$g.Effective'>
+<unititle topic_id='$topic_id' grp='$grp'>
 
 <html>
 <head>
@@ -18,7 +17,7 @@
 
  <table width=100%><tr valign=top>
   <td width=120>
-   <topics g='$g' topic_id='$topic_id' navi='*true' file='gallery.php'>
+   <topics grp='$grp' topic_id='$topic_id' navi='*true' file='gallery.php'>
   </td>
   <td width=10>&nbsp;</td>
   <td>

@@ -2,9 +2,11 @@
 
 <int name='typeid'>
 <int name='editid'>
+<pagetitle title='Ответы на жалобы'>
+
 <html>
 <head>
- <title>Мигдаль - Ответы на жалобы</title>
+ <titletag>
 </head>
 <body>
  <top ident='complains'>
@@ -39,7 +41,7 @@
 	<a href='$[err edittag editid=$.Id]'>$.Name</a>
 	<if what='$editid==$.Id'>
 	 &nbsp;
-	 <a href='/actions/cadel.php?editid=$.Id&okdir=$_&faildir=$_'
+	 <a href='/actions/cadel.php?editid=$.Id&okdir=$#-&faildir=$#-'
 	    class='edit'>Удалить</a>
 	</if>
        </td>

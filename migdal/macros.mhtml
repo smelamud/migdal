@@ -47,12 +47,12 @@
 <decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='jewishru' file='parts/jewishru.php'>
 <decel name='lastonline_cell' file='parts/utils.php' params='user'>
-<decel name='login' file='parts/login.php' params='flags,err,target,re'
-       defaults="target='' re=''">
+<decel name='login' file='parts/login.php' params='flags,err,target'
+       defaults="target=''">
 <decel name='mailru_count' file='parts/mailru.php'>
 <decel name='mailru_logo' file='parts/mailru.php'>
-<decel name='menu' file='parts/menu.php' params='ident,re,target'
-       defaults="re='' target=''">
+<decel name='menu' file='parts/menu.php' params='ident,target'
+       defaults="target=''">
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
@@ -77,17 +77,17 @@
        params='ident,link,title,article' defaults="article='*false'">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
-       params='ident,flags,target,re,showimages'
-       defaults="flags='' target='' re='' showimages='*true'">
+       params='ident,flags,target,showimages'
+       defaults="flags='' target='' showimages='*true'">
 <decel name='topics' file='parts/topics.php'
-       params='g,topic_id,withpostings,withanswers,navi,file'
-       defaults="topic_id=0 withpostings='*false' withanswers='*false' navi='*false' file='index.php'">
+       params='grp,topic_id,withpostings,withanswers,navi,file'
+       defaults="grp='*GRP_TAPE' topic_id=0 withpostings='*false' withanswers='*false' navi='*false' file='index.php'">
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory' defaults="mandatory='*false'">
-<decel name='tune' file='parts/tune.php' params='ident,re,target'
-       defaults="re='' target=''">
+<decel name='tune' file='parts/tune.php' params='ident,target'
+       defaults="target=''">
 <decel name='unititle' file='parts/unititle.php' params='topic_id,grp'
-       defaults="topic_id='-1',grp='*GRP_TAPE'">
+       defaults="topic_id='-1' grp='*GRP_TAPE'">
 <decel name='uploader' file='parts/uploader.php'
        params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,mandatory'
        defaults="mandatory='*false'">

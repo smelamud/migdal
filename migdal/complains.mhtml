@@ -4,12 +4,12 @@
 <table width=100% class='batcher'><tr>
  <td align=left><table><tr valign=bottom><td>
   <logged>
-   <a href='complainedit.php?ident=normal&redir=$_'
+   <a href='complainedit.php?ident=normal&redirid=$_'
       class='add'>Добавить жалобу</a>
   <else>
    <span class='advert'>
     Хотите посылать жалобы?
-    <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </span>
   </logged>
  </td></tr></table></td>
@@ -61,9 +61,11 @@
 </macro>
 
 <int name='offset'>
+<pagetitle title='Жалобная книга'>
+
 <html>
 <head>
- <title>Мигдаль - Жалобная книга</title>
+ <titletag>
 </head>
 <body>
  <top ident='complains'>
@@ -88,7 +90,7 @@
     </if>
    </td>
    <td class='subject'>
-    <a href='complainforum.php?compid=$.Id&redir=$_'>$.Subject</a>
+    <a href='complainforum.php?compid=$.Id&redirid=$_'>$.Subject</a>
     <biff time='$.Sent'>
    </td>
    <if what='$.isAssigned'>
@@ -103,7 +105,7 @@
    </if>
    <td class='answer'>
     <biff time='$.LastAnswer'>
-    <a href='complainforum.php?compid=$.Id&redir=$_'>$.AnswerCount</a>
+    <a href='complainforum.php?compid=$.Id&redirid=$_'>$.AnswerCount</a>
    </td>
   </tr>
  </for>

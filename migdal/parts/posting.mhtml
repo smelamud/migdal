@@ -2,13 +2,13 @@
 
 <grps>
 <element name='posting_further' params='id'>
- <asp><a href='forum.php?redir=$_&msgid=$id'><asp>
+ <asp><a href='forum.php?redirid=$_&msgid=$id'><asp>
   <image src='pics/further.gif' border=0 title='Читать дальше'>
  <asp></a>&nbsp;<asp>
 </element>
 
 <element name='posting_further_article' params='id'>
- <asp><a href='article.php?redir=$_&artid=$id'><asp>
+ <asp><a href='article.php?redirid=$_&artid=$id'><asp>
   <image src='pics/further.gif' border=0 title='Читать статью'>
  <asp></a>&nbsp;<asp>
 </element>
@@ -27,7 +27,7 @@
    <td width=75% align=left>
     <span class='subject'>
     <if what='$posting.hasLargeBody'>
-     <a href='article.php?redir=$_&artid=$posting.Id'
+     <a href='article.php?redirid=$_&artid=$posting.Id'
         title='Читать'>$posting.Subject</a>
     <else>
      $posting.Subject
@@ -76,27 +76,27 @@
    <tr><td><table width=100% class='bottom'><tr>
     <td>
      <if what='$posting.hasLargeBody'>
-      <a href='article.php?redir=$_&artid=$posting.Id'
+      <a href='article.php?redirid=$_&artid=$posting.Id'
 	      class='read'>Читать</a>
       &nbsp;
      </if>
      <isedit what='$posting'>
-      <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
+      <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
       <if what='$posting.isModerable'>
        &nbsp;
        <if what='$posting.isDisabled'>
-	<a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$_&faildir=$_"
+	<a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
 	 >Разрешить показ</a>
        <else>
-	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$_&faildir=$_"
+	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
 	 >Запретить показ</a>
        </if>
       </if>
      <else>
       <if what='!$posting.isModerable && $complain'>
        <logged>
-	<a href="complainedit.php?ident=posting&link=$posting.Id&redir=$_"
+	<a href="complainedit.php?ident=posting&link=$posting.Id&redirid=$_"
 	 >Жалоба</a>
        </logged>
       </if>
@@ -106,7 +106,7 @@
      <logged>
       <if what='$discuss'>
        <biff time='$posting.LastAnswer'>
-       <a href='forum.php?redir=$_&msgid=$posting.Id'>
+       <a href='forum.php?redirid=$_&msgid=$posting.Id'>
 	Обсудить
 	<ifnzero what='$posting.AnswerCount'>
 	 ($posting.AnswerCount)<asp>
@@ -116,7 +116,7 @@
      <else>
       <if what='$discuss'>
        <biff time='$posting.LastAnswer'>
-       <a href='forum.php?redir=$_&msgid=$posting.Id'>
+       <a href='forum.php?redirid=$_&msgid=$posting.Id'>
 	Обсуждение
 	<ifnzero what='$posting.AnswerCount'>
 	 &nbsp;($posting.AnswerCount)<asp>

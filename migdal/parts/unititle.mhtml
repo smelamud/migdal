@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='unititle'>
+<grps>
 <grptitle>
 <if what='$topic_id==-1'>
  <if what='$grp==*GRP_TAPE'>

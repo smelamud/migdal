@@ -1,20 +1,16 @@
 << @(#) $Id$ >>
 
 <element name='Backtrace'>
-<if what="isset($redir) && $redir!=''">
- <div class='return'>
-  <if what='$$style_return_word'>
-   <table><tr align=center>
-    <td>
-     <at href='$redir' target='$target'>
-      <img src='$$style_return_image' border=0></at>
-    </td>
-    <td><at href='$redir' target='$target'>Вернуться</at></td>
-   </tr></table>
-  <else>
-   <at href='$redir' target='$target'>
-    <img src='$$style_return_image' border=0></at>
-  </if>
- </div>
-</if>
+<iterate_redirs>
+<div class='return'>
+ <if what='$;Count>1'>
+  <for>
+   <notlast what='$;'>
+    <a href='$.URI'><ife what='$.Name'>Главная<else>$.Name</ife></a> &gt;
+   <else>
+    $.Name
+   </notlast>
+  </for>
+ </if>
+</div>
 </element>

@@ -2,9 +2,11 @@
 
 <int name='postid'>
 <int name='editid'>
+<pagetitle title='Список иллюстраций'>
+
 <html>
 <head>
- <title>Мигдаль - Список иллюстраций</title>
+ <titletag>
 </head>
 <body>
  <top ident='articles'>
@@ -26,7 +28,7 @@
 	<a href='$[err edittag editid=$.Id]'>$.Filename</a>
 	<if what='$editid==$.Id'>
 	 &nbsp;
-	 <a href='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$_&faildir=$_'
+	 <a href='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$#-&faildir=$#-'
 	    class='edit'>Удалить</a>
 	</if>
        </td>

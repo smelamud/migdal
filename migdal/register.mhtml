@@ -1,8 +1,10 @@
 << @(#) $Id$ >>
 
+<pagetitle title='Регистрация пользователя'>
+
 <html>
 <head>
- <title>Мигдаль - Регистрация пользователя</title>
+ <titletag>
 </head>
 <body>
  <top ident='users' flags='no_new'>

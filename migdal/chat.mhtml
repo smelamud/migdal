@@ -1,21 +1,23 @@
 << @(#) $Id$ >>
 
+<pagetitle title='Чат'>
+
 <html>
 <head>
- <title>Мигдаль - Чат</title>
+ <titletag>
 </head>
 <logged>
- <frameset rows='115,*,60' border=0>
+ <frameset rows='115,*,45' border=0>
 <else>
  <frameset rows='140,*' border=0>
 </logged>
- <frame src='chattop.php?$?' noresize>
+ <frame src='chattop.php?globalid=$_&$?' noresize>
  <frameset cols='*,120' border=0>
-  <frame name='board' src='chatboard.php?$?' noresize>
-  <frame src='chatusers.php?$?' noresize>
+  <frame name='board' src='chatboard.php?globalid=$_&$?' noresize>
+  <frame src='chatusers.php?globalid=$_&$?' noresize>
  </frameset>
  <logged>
-  <frame src='chatbottom.php?$?' noresize>
+  <frame src='chatbottom.php?globalid=$_&$?' noresize>
  </logged>
  <noframes>
   Ваш браузер не поддерживает фреймы. Увы...

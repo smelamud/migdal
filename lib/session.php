@@ -139,26 +139,9 @@ if($globs!=$cookieSettings)
   SetCookie('settings',$globs,time()+3600*24*366,'/');
 }
 
-function redirect()
-{
-global $REQUEST_URI,$HTTP_GET_VARS,$redir,$redirid;
-
-if(isset($HTTP_GET_VARS['redir']) && $HTTP_GET_VARS['redir']!='')
-  {
-  $redirid=tmpTextSave($HTTP_GET_VARS['redir']);
-  header('Location: '.remakeURI($REQUEST_URI,
-                                array('redir'),
-		                array('redirid' => $redirid)));
-  exit(0);
-  }
-if($redirid!=0)
-  $redir=tmpTextRestore($redirid);
-}
-
 function session()
 {
 userRights();
 userSettings();
-redirect();
 }
 ?>

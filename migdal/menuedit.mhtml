@@ -1,9 +1,11 @@
 << @(#) $Id$ >>
 
 <int name='menuid'>
+<pagetitle title='Редактирование главного меню'>
+
 <html>
 <head>
- <title>Мигдаль - Главное меню</title>
+ <titletag>
 </head>
 <body>
  <menu_obj id='$menuid'>
@@ -30,14 +32,14 @@
      <for>
       <ifnzero what='$next'>
        <tr><td></td><td>
-	<a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&okdir=$_&faildir=$_'>
+	<a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&okdir=$#-&faildir=$#-'>
 	 <img src='pics/menudown.png' alt='Переместить ниже' border=0></a>
 	<assign name='next' value='0'>
        </td></tr>
       </ifnzero>
       <if what='$.Id==$menuid && !$;isFirst'>
        <tr><td></td><td>
-	<a href='actions/menuxchg.php?firstid=$prev&secondid=$.Id&okdir=$_&faildir=$_'>
+	<a href='actions/menuxchg.php?firstid=$prev&secondid=$.Id&okdir=$#-&faildir=$#-'>
 	 <img src='pics/menuup.png' alt='Переместить выше' border=0></a>
        </td></tr>
       </if>
@@ -51,7 +53,7 @@
 	<a href='$[err edittag menuid=$.Id]'>$.Name</a>
 	<if what='$.Id==$menuid'>
 	 &nbsp;
-	 <a href='/actions/menudel.php?id=$.Id&okdir=$_&faildir=$_'
+	 <a href='/actions/menudel.php?id=$.Id&okdir=$#-&faildir=$#-'
 	    class='edit'>Удалить</a>
 	 <assign name='next' value='$.Id'>
 	</if>

@@ -1,19 +1,20 @@
 ! @(#) $Id$
 
 .return {
-	margin-top: 1.5ex;
+	margin-top: .5ex;
 	margin-bottom: 1.5ex;
-}
-
-.return IMG {
-	border-width: 0px;
+	font-size: 9pt;
+	font-weight: bold;
 }
 
 .return A {
 	color: %return_normal;
+	font-size: 9pt;
+	font-weight: normal;
 	text-decoration: none;
 }
 
 .return A:hover {
+	color: %return_hover;
 	text-decoration: underline;
 }

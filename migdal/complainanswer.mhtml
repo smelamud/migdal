@@ -2,9 +2,11 @@
 
 <int name='complain_id'>
 <int name='actid'>
+<pagetitle title='Ответ на жалобу'>
+
 <html>
 <head>
- <title>Мигдаль - Ответ на жалобу</title>
+ <titletag>
 </head>
 <body>
  <top ident='complains'>

@@ -4,14 +4,14 @@
 <if what="$align=='right' || $$style_details_noleft">
  <span class='name'>$user.LoginLink</span>&nbsp;<asp>
  <if what='$user.isVisible'>
-  <asp><a href='userinfo.php?id=$user.Id&redir=$_'
+  <asp><a href='userinfo.php?id=$user.Id&redirid=$_'
           onClick="UserInfo($user.Id);return false"
 	  title='подробнее'
 	  target=_blank><img src='$$style_details_image' border=0></a>
  </if>
 <else>
  <if what='$user.isVisible'>
-  <a href='userinfo.php?id=$user.Id&redir=$_'
+  <a href='userinfo.php?id=$user.Id&redirid=$_'
      onClick="UserInfo($user.Id);return false"
      title='подробнее'
      target=_blank><img src='$$style_details_image' border=0></a>&nbsp;<asp>

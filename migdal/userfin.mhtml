@@ -3,9 +3,11 @@
 <conf>
 <errors>
 <int name='err'>
+<pagetitle title='Завершение регистрации'>
+
 <html>
 <head>
- <title>Мигдаль - Завершение регистрации</title>
+ <titletag>
 </head>
 <body>
  <top ident='users'>

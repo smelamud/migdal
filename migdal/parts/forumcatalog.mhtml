@@ -65,12 +65,12 @@
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <if what='$topic<0'>
      <td class='topic' rowspan=2>
-      <a href='forumcatalog.php?redir=$_&topic_id=$.TopicId'
+      <a href='forumcatalog.php?redirid=$_&topic_id=$.TopicId'
 	 class='topic' title='$.TopicDescription'>$.TopicName</a>
      </td>
     </if>
     <td class='subject' rowspan=2>
-     <a href='forum.php?redir=$_&msgid=$.Id'>$.SubjectDesc</a>
+     <a href='forum.php?redirid=$_&msgid=$.Id'>$.SubjectDesc</a>
     </td>
     <td>
      <if what='$.isRebe'>
@@ -84,7 +84,7 @@
     <td><sentview date='$.Sent'></td>
     <td class='answer' rowspan=2>
      <biff time='$.LastAnswer'>
-     <a href='forum.php?redir=$_&msgid=$.Id'>$.AnswerCount</a>
+     <a href='forum.php?redirid=$_&msgid=$.Id'>$.AnswerCount</a>
     </td>
    </tr>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>

@@ -2,9 +2,11 @@
 
 <int name='compid'>
 <grps>
+<pagetitle title='Обсуждение жалобы'>
+
 <html>
 <head>
- <title>Мигдаль - Обсуждение жалобы</title>
+ <titletag>
 </head>
 <body>
  <top ident='complains'>

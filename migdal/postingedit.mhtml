@@ -2,12 +2,15 @@
 
 <int name='editid'>
 <int name='topic_id'>
-<grp>
 <grptitle>
 <grpitemtitle>
+<grpitemstitle>
+<concat value='Редактирование $grpitemstitle'>
+<pagetitle title='$*'>
+
 <html>
 <head>
- <title>Мигдаль - $grptitle</title>
+ <titletag>
 </head>
 <body>
  <top ident='index'>

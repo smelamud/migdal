@@ -1,9 +1,11 @@
 << @(#) $Id$ >>
 
+<pagetitle title='Редактирование темы'>
+
 <int name='editid'>
 <html>
 <head>
- <title>Мигдаль - Тема</title>
+ <titletag>
 </head>
 <body>
  <top ident='topics'>

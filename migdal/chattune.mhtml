@@ -1,8 +1,10 @@
 << @(#) $Id$ >>
 
+<pagetitle title='Настроить чат'>
+
 <html>
 <head>
- <title>Мигдаль - Настроить чат</title>
+ <titletag>
 </head>
 <body>
  <top ident='chattune'>

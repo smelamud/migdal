@@ -2,7 +2,7 @@
 
 <macro name='grayed' defaults="link='index.php'">
  <ifnzero what='$topic.Allow & *GRP_%^group'>
-  <if what='$g.Effective==*GRP_%^group'>
+  <if what='$grp==*GRP_%^group'>
    <image src='pics/%file.gif' title='%title'>&nbsp;
   <else>
    <a href='%link?grp=*GRP_%^group&topic_id=$topic_id'><asp>
@@ -34,7 +34,7 @@
 
 <element name='topics'>
 <topic_obj id='$topic_id'>
-<iterate_topiclist grp='$g.Effective' withpostings='$withpostings'
+<iterate_topiclist grp='$grp' withpostings='$withpostings'
                    withanswers='$withanswers'>
 <if what='$navi'>
  <grayed group='tape' file='all' title='Все'>
@@ -56,23 +56,23 @@
   <col width=0*>
   <admin_topics>
    <tr class='controls'><td colspan=2>
-    <a href='topicedit.php?redir=$_'>Добавить</a>
+    <a href='topicedit.php?redirid=$_'>Добавить</a>
    </td></tr>
   </admin_topics>
   <tbody class='names'>
    <tr>
     <arrow id='-1'>
-    <td><a href='$file?grp=$g.Grp&topic_id=-1' class='new'>Все темы</a></td>
+    <td><a href='$file?grp=$grp&topic_id=-1' class='new'>Все темы</a></td>
    </tr>
    <for>
     <tr>
      <arrow id='$.Id' time='$.LastMessage'>
      <td>
-      <a href='$file?grp=$g.Grp&topic_id=$.Id' title='$.Description'>
+      <a href='$file?grp=$grp&topic_id=$.Id' title='$.Description'>
 	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
       <admin_topics>
        <br>
-       <a href='topicedit.php?editid=$.Id&redir=$_' class='edit'>Изменить</a>
+       <a href='topicedit.php?editid=$.Id&redirid=$_' class='edit'>Изменить</a>
       </admin_topics>
      </td>
     </tr>

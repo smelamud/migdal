@@ -8,12 +8,12 @@
   <tr>
    <td align=left>
     <logged>
-     <a href='forumansweredit.php?up=$up&redir=$_'
+     <a href='forumansweredit.php?up=$up&redirid=$_'
         class='add'>Добавить сообщение</a>
     <else>
      <span class='advert'>
       Хотите участвовать в обсуждении?
-      <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
+      <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
      </span>
     </logged>
    </td>

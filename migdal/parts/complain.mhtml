@@ -67,7 +67,7 @@
     </form> 
    </if>
    <admin_complain_answers>
-    <td><a href='complainactionedit.php?typeid=$complain.TypeId&redir=$_'>
+    <td><a href='complainactionedit.php?typeid=$complain.TypeId&redirid=$_'>
      Редактировать&nbsp;список&nbsp;&gt;&gt;&gt;</a></td>
    </admin_complain_answers>
   </tr></table></td>
@@ -87,7 +87,7 @@
  <tr class='controls'>
   <td>
    <isedit what='$complain'>
-    <a href="complainedit.php?editid=$complain.Id&redir=$_"
+    <a href="complainedit.php?editid=$complain.Id&redirid=$_"
      >Изменить</a>
    <else>
     &nbsp;
@@ -95,7 +95,7 @@
   </td>
   <td align=right>
    <if what='$discuss'>
-    <a href='complainforum.php?redir=$_&compid=$complain.Id'
+    <a href='complainforum.php?redirid=$_&compid=$complain.Id'
        >Обсудить ($complain.AnswerCount)</a>
    <else>
     &nbsp;
