@@ -1,79 +1,70 @@
 /* @(#) $Id$ */
 
-INPUT {
-	BACKGROUND: #ffffff;
-	BORDER-BOTTOM: 1px solid;
-	BORDER-LEFT: 1px solid;
-	BORDER-RIGHT: 1px solid;
-	BORDER-TOP: 1px solid;
-	COLOR: #000000;
-	FONT-FAMILY: verdana;
-	FONT-SIZE: 10px
+input {
+	background: white;
+	font-family: verdana;
+	font-size: 10px;
+	border: 1px solid;
+	color: 000000;
+	cursor: no-resize;
+	background: #ffffff;
 }
 
 .b {
-	COLOR: #ffffff;
-	FONT-FAMILY: tahoma,arial;
-	FONT-SIZE: 14px;
-	FONT-WEIGHT: bold;
-	TEXT-DECORATION: none
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+	color:#ffffff;
+	font-family: tahoma,arial;
 }
 
-A {
-	COLOR: #000000;
-	FONT-FAMILY: tahoma,Arial;
-	FONT-SIZE: 13px;
-	FONT-WEIGHT: bold;
-	TEXT-DECORATION: none
+a {
+	font-size: 13px;
+	font-family: tahoma,Arial;
+	text-decoration: none;
+	color: #000000;
+	font-weight: bold;
 }
 
 A:hover {
-	COLOR: #c76b4b;
-	TEXT-DECORATION: underline
+	color: #C76B4B;
+	text-decoration: underline;
 }
 
-SMALL {
-	COLOR: #000000;
-	FONT-FAMILY: tahoma,arial;
-	FONT-SIZE: 11px
+small {
+	font-size: 11px;
+	font-family: tahoma,arial;
+	color: #000000;
 }
 
 .hiddenlink {
-	COLOR: #000000;
-	TEXT-DECORATION: none
+	color: #000000;
+	text-decoration: none;
 }
 
-B {
-	COLOR: #ffffff;
-	FONT-FAMILY: tahoma,Arial;
-	FONT-SIZE: 12px
+b {
+	font-size: 12px;
+	font-family: tahoma,Arial;
+	color: #ffffff;
 }
 
 .r {
-	COLOR: #000000
+	color: #000000;
 }
 
 .red {
-	COLOR: #c76b4b
+	color: #C76B4B;
 }
 
-TD {
-	COLOR: #000000;
-	FONT-FAMILY: tahoma,Arial;
-	FONT-SIZE: 13px;
-	FONT-WEIGHT: normal;
-	TEXT-DECORATION: none
-}
-
-A.under {
-	COLOR: #000000;
-	FONT-FAMILY: tahoma,Arial;
-	FONT-SIZE: 13px;
-	FONT-WEIGHT: normal;
-	TEXT-DECORATION: none
+td,a.under {
+	font-size: 13px;
+	font-family: tahoma,Arial;
+	text-decoration: none;
+	color: #000000;
+	font-weight: normal;
 }
 
 A.under:hover {
-	COLOR: #c76b4b;
-	TEXT-DECORATION: none
+	color: #C76B4B;
+	text-decoration: none;
 }

@@ -1,0 +1,27 @@
+<< @(#) $Id$ >>
+
+<element name='top'>
+<table border=0 width=100% cellspacing=1 cellpadding=0 bgcolor=#000000><td>
+       <table border=0 width=100% BGCOLOR=ffffff cellspacing=3 cellpadding=0>
+ <tr>
+  <td width=30%>
+   <small><a href=indexasp1.htm>
+    <img src="lo1.gif" border=0 width=155 height=25 hspace=5
+	 alt="Moshiach Center for Russian Jews"></a><br>
+   &nbsp;&nbsp;
+   <time>$,@Jj&nbsp;$,@Jk&nbsp;$,@JY г. ($,@j.$,@m.$,@Y)
+  </td>
+  <td width=40% align=center><img src="r1.jpg" border=0 width=268 height=60></td>
+  <td width=30% align=center>
+   <small>Под эгидой Объединения Любавичских хасидов в Израиле
+  </td>
+ </tr>
+ <tr><td colspan=3 align=center><b class=red>
+  <a href=study.htm>УЧЕБНЫЙ ЦЕНТР</a> ::
+  <a href=yesterday.htm>ВЧЕРА</a> ::
+  <a href=now.htm>СЕЙЧАС</a> ::
+  <a href=morrow.htm>ВЗГЛЯД В БУДУЩЕЕ</a> ::
+  <a href=index.htm>РАЗНОЕ</a>
+ </b></td></tr>
+</table></td></table>
+</element>

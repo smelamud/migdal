@@ -7,3 +7,4 @@
 </macro>
 
 << Elements >>
+<decel name='top' file='parts/top.php' params='ident'>
