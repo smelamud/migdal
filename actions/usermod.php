@@ -43,7 +43,7 @@ $user->setup($HTTP_POST_VARS);
 $err=modifyUser($user);
 if($err==EUM_INSERT_OK)
   header('Location: /userok.php?'.
-          makeQuery('login' => $login,'redir' => $redir);
+          makeQuery(array('login' => $login,'redir' => $redir)));
 else
   header('Location: /useredit.php?'.
           makeQuery($HTTP_POST_VARS,array('password','dup_password')).
