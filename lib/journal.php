@@ -328,7 +328,9 @@ mysql_query("delete from journal
 
 function isJournalEmpty()
 {
-$result=mysql_query('select count(*) from journal')
+global $dbName;
+
+$result=mysql_query("select count(*) from $dbName.journal")
   or journalFailure('Cannot determine size of journal.');
 return mysql_result($result,0,0)==0;
 }
