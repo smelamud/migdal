@@ -30,6 +30,7 @@
   </if>
  </td>
  <form method=get action='$-'>
+  <hidden name='sort' value='$$sort'>
   <td><select name='bit'>
    <radio title='(h) Не показывать' value='-2' peervalue='$$bit'>
    <radio title='(d) Запретить' value='-1' peervalue='$$bit'>
