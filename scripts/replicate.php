@@ -140,5 +140,6 @@ dbClose();
 
 dbOpen();
 dropPostingsInfoCache(DPIC_BOTH);
+answersRecalculate();
 dbClose();
 ?>
