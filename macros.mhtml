@@ -88,6 +88,11 @@
  <iterate name='%name' class='MonthsIterator'>
 </macro>
 
+<macro name='iterate_paragraphs'>
+ <require name='lib/paragraphs.php'>
+ <iterate name='%name' class='ParagraphIterator' arg1='%format' arg2='%body'>
+</macro>
+
 <macro name='iterate_postinglist'
        defaults="grp='$grp' topic=-1 limit=10 offset=0 personal=0">
  <require name='lib/postings.php'>

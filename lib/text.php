@@ -44,6 +44,11 @@ if($tag)
 return $c;
 }
 
+function replaceParagraphs($s)
+{
+return preg_replace('/\n\s*\n/','<p>',$s);
+}
+
 function replaceURLs($s)
 {
 $c=preg_replace('/\S+:\/\/\S+/','<a href="\\0" target=_blank>\\0</a>',$s);
@@ -54,7 +59,7 @@ return $c;
 
 function replaceQuoting($s)
 {
-return preg_replace('/(&gt;.*)\n/','<i>\\1</i>'."\n",$s);
+return preg_replace('/(&gt;.*)(\n|$)/','<i>\\1</i>'."\n",$s);
 }
 
 function textToStotext($format,$s)
@@ -72,20 +77,20 @@ switch($format)
 	   $c=replaceQuoting($c);
       case TF_PLAIN:
 	   $c=replaceURLs($c);
-	   $c=str_replace("\n\n",'<p>',$c);
+	   $c=replaceParagraphs($c);
 	   $c=str_replace("\n",'<br>',$c);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   break;
       case TF_TEX:
-	   $c=str_replace("\n\n",'<p>',$c);
+	   $c=replaceParagraphs($c);
 	   $c=str_replace('\\\\','<br>',$c);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   $c=replaceURLs($c);
 	   break;
       case TF_HTML:
-	   $c=str_replace("\n\n",'<p>',$c);
+	   $c=replaceParagraphs($c);
 	   break;
       case TF_PRE:
 	   $c=replaceURLs($c);

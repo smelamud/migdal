@@ -27,6 +27,13 @@
 </table>
 </element>
 
+<element name='pic' params='posting,n'>
+<isedit name='posting'>
+ <p>
+ <a href='liminsert.php?artid=$$artid&par=$n'>[Картинка]</a>
+</isedit>
+</element>
+
 <int name='artid'>
 <grps>
 <text_formats>
@@ -41,9 +48,14 @@
  <controls posting='$,'>
  <p>
  <center><h1>$,Subject</h1></center>
- <p>
  <if what='$,LargeFormat==*TF_PRE'><pre></if>
- $,HTMLLargeBody
+ <iterate_paragraphs format='$,LargeFormat' body='$,LargeBody'>
+ <for>
+  <pic posting='$,' n='$.Number'>
+  <p>
+  $.HTMLBody
+ </for>
+ <pic posting='$,' n='$;LastPosition'>
  <if what='$,LargeFormat==*TF_PRE'></pre></if>
  <p>
  <controls posting='$,'>
