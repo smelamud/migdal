@@ -237,7 +237,7 @@ return $line;
 
 function parseJournalTransfer($s)
 {
-$list=explode("\t",$s);
+$list=explode("\t",chop($s));
 $row=array('id' => $list[0],
            'seq' => $list[1],
 	   'result_table' => ($list[2]=='%' ? '' : $list[2]),
