@@ -27,7 +27,8 @@ dbinfo:
 pack: all
 	tar zchf $(uiName).tar.gz --exclude 'CVS' --exclude '*.mhtml' \
 		--exclude 'Makefile*' --exclude '_template*' \
-		--exclude '.cvsignore' --exclude '.xvpics' $(uiName) crontab
+		--exclude '.cvsignore' --exclude '.xvpics' $(uiName) scripts \
+		crontab
 
 clean:
 	-rm $(OBJECTS)
