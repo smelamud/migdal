@@ -36,7 +36,10 @@ sub new
 {
 my ($class)=@_;
 
-my $self=bless {'line' => 0,'token' => undef,'current' => ''},$class;
+my $self=bless {'line'    => 0,
+                'token'   => undef,
+		'current' => '',
+		'comment' => 0},$class;
 $self->next();
 return $self;
 }
@@ -47,10 +50,30 @@ my ($self)=@_;
 
 while($self->{'current'}=~/^\s*$/)
      {
-     $self->{'current'}=<>;
+     my $current=<>;
      $self->{'line'}++;
-     $self->{'current'}='',last if !defined($self->{'current'});
-     chomp $self->{'current'};
+     $current='',last if !defined($current);
+     chomp $current;
+     $current=~s/#.*$//;
+     $current=~s/\/\/.*$//;
+     $current=~s/\/\*.*\*\///;
+     if($self->{'comment'}!=0)
+       {
+       if($current=~/\*\//)
+         {
+         $current=~s/^.*\*\///,$self->{'comment'}=0;
+	 }
+       else
+         {
+	 $current='';
+	 }
+       $current=~s/\/\*.*$//,$self->{'comment'}=1 if $current=~/\/\*/;
+       }
+     else
+       {
+       $current=~s/\/\*.*$//,$self->{'comment'}=1 if $current=~/\/\*/;
+       }
+     $self->{'current'}=$current;
      }
 return $self->{'current'};
 }
