@@ -23,6 +23,8 @@ $LastItem='';
 
 $Stack='';
 
+%Macros=();
+
 #### Utility functions ####
 
 sub subVars
@@ -43,6 +45,14 @@ sub subVarsText
 my ($s)=@_;
 
 return subVars($s,'<?php echo ',' ?>');
+}
+
+sub subMacroParams
+{
+my ($s,$params)=@_;
+
+$s=~s/%(\w+)/$params->{$1}/ge;
+return $s;
 }
 
 #### StackFrame ####
@@ -241,6 +251,11 @@ if($self->can($name))
   {
   &$name($self);
   }
+elsif(defined($::Macros{$self->getName()}))
+  {
+  $::Line=::subMacroParams($::Macros{$self->getName()},$self->getArgs())
+          .$::Line;
+  }
 else
   {
   ::body(::subVarsText($self->getToken()));
@@ -311,6 +326,21 @@ my ($self)=@_;
 
 $::Stack->pop();
 ::body("<?php } ?>");
+}
+
+sub elMacro #XXX Possibly empty name
+{
+my ($self)=@_;
+
+my $body='';
+::pullToken();
+while((ref($::Token) ne 'Tag' || $::Token->getName() ne '/macro')
+      && $::Line ne '')
+     {
+     $body.=$::Token->getToken();
+     ::pullToken();
+     }
+$::Macros{$self->getArgs()->{'name'}}=$body;
 }
 
 #### Comment ####

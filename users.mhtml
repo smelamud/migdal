@@ -2,6 +2,7 @@
 <?php
 require_once('parts/top.php');
 ?>
+<macro name='t'><tr></macro>
 <html>
 <head>
  <title>Клуб Еврейского Студента - Пользователи</title>
@@ -17,7 +18,7 @@ require_once('parts/top.php');
    <require name='lib/users.php'>
    <iterate class='UserListIterator'>
    <for>
-    <tr>
+    <t>
      <td align=center>
       <a href="useredit.php?editid=$.id&redir=$_">$.Login</a>
      </td>
