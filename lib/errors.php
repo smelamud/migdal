@@ -165,12 +165,8 @@ define('EUL_LARGE',291);
 define('EUS_OK',300);
 define('EUS_NO_SWITCH',301);
 define('EUS_NO_USER',302);
-define('EUS_SQL',303);
 
 define('ELO_OK',310);
-define('ELO_SQL_GET',311);
-define('ELO_SQL_SWITCH',312);
-define('ELO_SQL_DROP',313);
 
 define('EMR_OK',320);
 define('EMR_NO_RENEW',321);

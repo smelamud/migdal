@@ -476,6 +476,19 @@ $result=mysql_query("select id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+function getUserIdByLoginPassword($login,$password)
+{
+global $userAdminUsers;
+
+$hide=$userAdminUsers ? 2 : 1;
+$result=mysql_query("select id
+                     from users
+		     where login='$login' and password='".md5($password)."'
+		           and hidden<$hide and no_login=0")
+	  or sqlbug('Ошибка SQL при выборке данных пользователя');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
 function getShamesId()
 {
 $result=mysql_query('select id
@@ -483,6 +496,29 @@ $result=mysql_query('select id
 		     where shames=1')
 	  or sqlbug('Ошибка SQL при выборке данных шамеса');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function updateLastOnline($userId)
+{
+mysql_query("update users set last_online=now() where id=$userId")
+  or sqlbug('Ошибка SQL при обновлении времени захода пользователя');
+}
+
+function getSettingsByUserId($userId)
+{
+$result=mysql_query("select settings
+		     from users
+		     where id=$userId")
+	  or sqlbug('Ошибка SQL при выборке установок пользователя');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
+}
+
+function updateUserSettings($userId,$settings)
+{
+mysql_query("update users
+	     set settings='$settings'
+	     where id=$userId")
+  or sqlbug('Ошибка SQL при сохранении установок пользователя');
 }
 
 function personalExists($id)

@@ -7,6 +7,7 @@ require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/uri.php');
 require_once('lib/utils.php');
+require_once('lib/sessions.php');
 require_once('grp/subdomains.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics',
@@ -78,18 +79,12 @@ if(!$sessionid && $aUserId<=0)
 else
   if($aUserId<=0)
     {
-    $result=mysql_query("select user_id from sessions where sid=$sessionid")
-	      or sqlbug('Ошибка SQL при выборке сессии');
-    if(mysql_num_rows($result)<=0)
-      {
+    $userId=getUserIdBySessionId($sessionid);
+    if($userId<=0)
       SetCookie('sessionid',0,0,'/',$siteDomain);
-      $userId=-1;
-      }
     else
       {
-      $userId=mysql_result($result,0,0);
-      mysql_query("update sessions set last=null where sid=$sessionid")
-        or sqlbug('Ошибка SQL при обновлении TIMESTAMP сессии');
+      updateSessionTimestamp($sessionid);
       SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/',
                 $siteDomain);
       }
@@ -108,8 +103,7 @@ if($userId>0)
 	 $GLOBALS['user'.getProperName($name)]=$value;
   if($GLOBALS['userAdminUsers'] && $GLOBALS['userHidden']>0)
     $GLOBALS['userHidden']--;
-  mysql_query("update users set last_online=now() where id=$userId")
-    or sqlbug('Ошибка SQL при обновлении времени захода пользователя');
+  updateLastOnline($userId);
   }
 }
 
@@ -120,11 +114,7 @@ global $userId,$HTTP_GET_VARS,$HTTP_COOKIE_VARS,
        
 if($userId>0)
   {
-  $result=mysql_query("select settings
-                       from users
-	               where id=$userId")
-	    or sqlbug('Ошибка SQL при выборке установок пользователя');
-  $dbSettings=mysql_result($result,0,0);
+  $dbSettings=getSettingsByUserId($userId);
   $row=explode(':',$dbSettings);
   }
 else
@@ -152,10 +142,7 @@ foreach($userSetNames as $name)
        }
 $globs=join(':',$update);
 if($userId>0 && $globs!=$dbSettings)
-  mysql_query("update users
-               set settings='$globs'
-	       where id=$userId")
-    or sqlbug('Ошибка SQL при сохранении установок пользователя');
+  updateUserSettings($userId,$globs);
 if($globs!=$cookieSettings)
   SetCookie('settings',$globs,time()+3600*24*366,'/',$siteDomain);
 }

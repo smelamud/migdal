@@ -19,16 +19,8 @@
 <ifne what='$$err'>
  <table class='ninept'>
   <error id='*EL_INVALID' text='Неверный ник или пароль'>
-  <error id='*ELO_SQL_GET' text='Ошибка базы данных при выборке записи'
-	 color=magenta>
-  <error id='*ELO_SQL_SWITCH' text='Ошибка базы данных при обновлении записи'
-	 color=magenta>
-  <error id='*ELO_SQL_DROP' text='Ошибка базы данных при удалении записи'
-	 color=magenta>
   <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
   <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
-  <error id='*EUS_SQL' text='Ошибка базы данных при обновлении записи'
-	 color=magenta>
  </table>
 </ifne>
 <table class='login ninept' cellspacing=0 cellpadding=0>

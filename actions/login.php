@@ -9,25 +9,19 @@ require_once('lib/errors.php');
 require_once('lib/bug.php');
 require_once('lib/utils.php');
 require_once('lib/post.php');
-require_once('lib/random.php');
 require_once('lib/logs.php');
+require_once('lib/sessions.php');
+require_once('lib/users.php');
 
 function startSession()
 {
 global $login,$password,$siteDomain,$sid;
 
-$result=mysql_query('select id from users where login="'
-                     .addslashes($login).'" and password="'
-		     .addslashes(md5($password)).'" and no_login=0')
-          or sqlbug('Ошибка SQL при выборке логина и пароля');
-if(mysql_num_rows($result)==0)
+$id=getUserIdByLoginPassword(addslashes($login),$password);
+if($id==0)
   return EL_INVALID;
-$id=mysql_result($result,0,0);
 logEvent('login',"user($id)");
-$sid=rnd();
-mysql_query("insert into sessions(user_id,real_user_id,sid)
-             values($id,$id,$sid)")
-  or sqlbug('Ошибка SQL при создании сессии');
+$sid=createSession($id,$id);
 SetCookie('sessionid',$sid,time()+7200,'/',$siteDomain);
 return EL_OK;
 }
