@@ -59,8 +59,6 @@ if(!$upPerms->isAppendable())
 $cid=idByIdent('topics',$topic->ident);
 if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
-if($topic->allow==0)
-  return ET_MUST_ALLOW;
 $topic->track='';
 if(!$topic->store())
   return ET_STORE_SQL;

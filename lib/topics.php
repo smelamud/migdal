@@ -334,7 +334,7 @@ function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
 {
 $hide=topicsPermFilter(PERM_READ,$prefix);
 $userFilter=$up>=0 ? 'and topics.'.subtree('topics',$up,$recursive,'up') : '';
-$grpFilter="and (${prefix}allow & $grp)<>0";
+$grpFilter=$grp!=GRP_ALL ? "and (${prefix}allow & $grp)<>0" : '';
 $answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
 $sepFilter=!$withSeparate ? "and ${prefix}separate=0" : '';
 $levelFilter=$level<=1 || $up<0 ? '' : "and topics.id<>$up and topics.up<>$up";

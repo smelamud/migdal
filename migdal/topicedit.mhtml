@@ -57,8 +57,6 @@
    <editor_line title='Описание' name='description' body='$,Description'
                 mandatory='$topicMandatoryDescription'>
    <checkbox_line name='separate' value='$,isSeparate' title='Отдельная'>
-   <error id='*ET_MUST_ALLOW'
-          text='Тема должна быть для какого-то вида сообщений'>
    <tr><td><table width=100%>
     <iterate_grps>
     <for>
