@@ -2,6 +2,8 @@
 # @(#) $Id$
 
 require_once('lib/limitselect.php');
+/* Required to prevent inclusion of Posting class before Message */
+require_once('lib/postings.php');
 require_once('lib/messages.php');
 require_once('lib/sendertag.php');
 require_once('lib/users.php');

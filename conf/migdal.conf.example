@@ -221,7 +221,7 @@ $rootForumPerms=0x5557;
 # Права по умолчанию для жалобы
 $rootComplainUserName='admin';
 $rootComplainGroupName='admin';
-$rootComplainPerms=0x999B;
+$rootComplainPerms=0xDDDF;
 
 # Маска премодерируемых по умолчанию постингов
 $defaultPremoderate=GRP_ALL;

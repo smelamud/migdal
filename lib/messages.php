@@ -12,6 +12,7 @@ require_once('lib/stotext.php');
 require_once('lib/langs.php');
 require_once('lib/url-domain.php');
 require_once('lib/postings-info.php');
+require_once('lib/permissions.php');
 
 class Message
       extends SenderTag
