@@ -1,0 +1,44 @@
+! @(#) $Id$
+
+* {
+	font-size: 10pt;
+	font-family: %verdana;
+}
+
+.ninept,.ninept * {
+	font-size: 9pt;
+}
+
+.eightpt,.eightpt * {
+	font-size: 8pt;
+}
+
+.error {
+	color: %error_red;
+}
+
+.error[color='magenta'] {
+	color: %error_magenta;
+}
+
+BODY {
+	background-color: %body_back;
+}
+
+.pic IMG {
+	border: 1px solid %image_border;
+}
+
+.pic TD {
+	text-align: center;
+	font-style: italic;
+	font-size: 8pt;
+}
+
+A {
+	color: %link;
+}
+
+.bottom {
+	border-top: solid %bottom_hr 1px;
+}

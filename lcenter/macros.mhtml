@@ -1,0 +1,91 @@
+<< @(#) $Id$ >>
+
+<< Errors >>
+<macro name='error'>
+ <errors>
+ <perror id%!id='%id' text%!text='%text' color%!color='%color'
+         span%!span='%span'>
+</macro>
+
+<< Date/Time >>
+<macro name='sentview'>
+ %date@j.%date@m.%date@Y&nbsp;%date@H:%date@i
+</macro>
+
+<< Styles >>
+<<decstyle ident='test' desc='Тестовый'>>
+
+<< Elements >>
+<decel name='bottom' file='parts/bottom.php'>
+<decel name='formbuttons' file='parts/formutils.php' params='title,span'
+       defaults="title='Изменить',span=0">
+<decel name='formtable' file='parts/formutils.php' params='title'>
+<decel name='/formtable' file='parts/formutils.php'>
+<decel name='top' file='parts/top.php' params='ident'>
+
+<< HTML shortcuts >>
+<macro name='edit_line' defaults="mandatory='*false'">
+ <tr>
+  <td>%title <if what='%mandatory'><star></if></td>
+  <tdspan span=%span>
+   <edit name='%name' value='%value' size=%size maxlength=%maxlength>
+  </tdspan>
+ </tr>
+</macro>
+
+<macro name='editor_line' defaults="span=0 rows=10 cols=50 mandatory='*false'">
+ <tr><tdspan span=%span>%title <if what='%mandatory'><star></if></tdspan></tr>
+ <tr><tdspan span=%span>
+  <textarea name='%name' rows=%rows cols=%cols wrap='virtual'>%body</textarea>
+ </tdspan></tr>
+</macro>
+
+<macro name='meta_noindex' defaults="value='*true'">
+ <assign_global name='metaNoIndex' value%!value='%value'>
+</macro>
+
+<macro name='preamble'>
+ <stylesheet ident='style'>
+ <preamble_tiny>
+</macro>
+
+<macro name='preamble_tiny'>
+ <assign_global name='wwwDomain' value!="$$userDomain=='www'">
+ <print>
+  <meta_noindex>
+ </print>
+ <head>
+  <notprint>
+   <link rel='alternate' media='print' href='$[print=1]'>
+  </notprint>
+  <link rel='search' href='search.php'>
+  <ifne what="'%stylesheet'">
+   <link rel='stylesheet' href='%stylesheet'>
+  </ife>
+  <if what='$metaNoIndex'>
+   <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+  </if>
+  <title>Lcenter.net
+  <ifne what='$pageTitle'>&sp;- $pageTitle</ifne></title>
+ </head>
+</macro>
+
+<< Subdomains >>
+<macro name='force_www'>
+ <force_domain domain='www'>
+</macro>
+
+<macro name='www'>
+ <if what="$$userDomain=='www'">
+</macro>
+<endif name='/www'>
+
+<macro name='notwww'>
+ <if what="$$userDomain=='notwww'">
+</macro>
+<endif name='/notwww'>
+
+<< Logging >>
+<macro name='trap'>
+ <log event=trap text#='%text [$$HTTP_REFERER]'>
+</macro>

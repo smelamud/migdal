@@ -1,0 +1,11 @@
+! @(#) $Id$
+
+error_red=red
+error_magenta=magenta
+body_back=white
+image_border=black
+link=%dbl
+lcenter=%mor
+menu_item=%lbl
+menu_current=%dbl
+bottom_hr=%lbl

@@ -1,0 +1,18 @@
+! @(#) $Id$
+
+! Gray
+
+grd=#333333	! Dark
+grm=#666666	! Medium
+gr=#999999	! Normal
+grl=#EAEAEA	! Light
+
+! Blue
+
+dbl=#003366	! Dark
+sbl=#567297	! Desaturated
+lbl=#3f689d	! Light
+
+! Orange
+
+mor=#f26622	! Medium

@@ -3,7 +3,8 @@
 # @(#) $Id$
 
 FLAVOURS = default print
-STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss
+STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
+	sheet-menu.mcss
 
 all: style.stamp
 

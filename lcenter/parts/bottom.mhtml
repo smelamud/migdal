@@ -1,0 +1,41 @@
+<< @(#) $Id$ >>
+
+<element name='kernel'>
+// Powered by
+<b>Migdal website kernel</b><br>
+</element>
+
+<element name='snapshot'>
+<?php
+$fd=fopen('http://www.migdal.ru/sources/current','r');
+if($fd)
+  {
+  $date=trim(fgets($fd));
+  fclose($fd);
+  }
+else
+  $date='';
+?>
+<ifne what='$date'>
+ Download <a href='http://www.migdal.ru/sources/migdal-snapshot-${date}.tar.bz2'>
+ current CVS snapshot ($date)</a><br>
+</ifne>
+</element>
+
+<element name='bottom'>
+<p>
+ <table width="100%" border="0" cellspacing="0" cellpadding="10"
+	class='bottom eightpt'>
+  <tr valign="top">
+   <td align="left">
+    Вебмастер живет по адресу
+    <a href='mailto:webmaster@lcenter.net'>webmaster@lcenter.net</a>
+   </td>
+   <td align="right">
+    <kernel>
+    <snapshot>
+   </td>
+  </tr>
+ </table>
+<p>
+</element>

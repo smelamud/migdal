@@ -314,7 +314,7 @@
 <deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>
 <deccall macro='vote' func='getVote' file='lib/votes.php' params='id'>
 
-<decel name='image' file='parts/utils.php' params='src,alt,title,border'
+<decel name='image' file='lib/utils.php' params='src,alt,title,border'
        defaults="src='' alt='' title='' border=''">
 
 <macro name='image_tag_put' defaults="align='' size=small src='lib/image.php'

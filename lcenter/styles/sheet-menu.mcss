@@ -1,0 +1,39 @@
+! @(#) $Id$
+
+.lcenter {
+	color: %lcenter;
+	font: 20pt bold %times;
+	padding-left: 1ex;
+}
+
+.fhor {
+	background-image: url("/pics/fhor.gif");
+	background-repeat: repeat;
+}
+
+.fver {
+	background-image: url("/pics/fver.gif");
+	background-repeat: repeat;
+}
+
+.ful {
+	background-image: url("/pics/ful.gif");
+}
+
+.fdr {
+	background-image: url("/pics/fdr.gif");
+}
+
+.onepx {
+	font-size: 1px;
+}
+
+.menuitem {
+	font-weight: bold;
+	color: %menu_item;
+}
+
+.menucurrent {
+	font-weight: bold;
+	color: %menu_current;
+}
