@@ -16,68 +16,70 @@
 
 <errors>
 <element name='login'>
-<ifne what='$$err'>
- <table class='ninept'>
-  <error id='*EL_INVALID' text='Неверный ник или пароль'>
-  <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
-  <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
- </table>
-</ifne>
-<table class='login ninept' cellspacing=0 cellpadding=0>
- <notlogged>
-  <tform action='actions/login.php'>
-   <tr>
-    <td>Ник</td>
-    <td><image src='pics/leftinput.gif'></td>
-    <td><input class=line type=text name='login' size=6 maxlength=30></td>
-    <td><image src='pics/rightinput.gif'></td>
-    <td>&nbsp;</td>
-    <td>Пароль</td>
-    <td><image src='pics/leftinput.gif'></td>
-    <td><input class=line type=password name='password' size=6></td>
-    <td><image src='pics/rightinput.gif'></td>
-    <td>&nbsp;</td>
-    <td><input type=image src='pics/enter.gif'></td>
-   </tr>
-   <master>
-    <if what='!$no_new'>
-     <tr><td colspan=11 align=right>
-      <at href#='register.php?redirid=$_'
-	  target='$target'>Зарегистрироваться<asp></at>&nbsp;&nbsp;<asp>
-      <at href#='userlost.php?redirid=$_'
-	  target='$target'>Забыли пароль?</at>
-     </td></tr>
-    </if>
-   </master>
-  </tform>
- <else>
-  <tform action='actions/logout.php'>
-   <tr>
-    <admin_users><td colspan=3><else><td></admin_users>
-     <b>
-     <if what='$$userHidden'>
-      $$userLogin
-     <else>
-      <at href#='/userinfo.php?id=$$userId&redirid=$_' class='name'
-          target='$target'>$$userLogin</at>
-     </if>
-     </b>
-    </td>
-    <td>&nbsp;</td>
-    <td><input type=image src='pics/exit.gif'></td>
-   </tr>
-  </tform>
-  <admin_users>
-   <tform action='actions/userswitch.php'>
+<notenglish>
+ <ifne what='$$err'>
+  <table class='ninept'>
+   <error id='*EL_INVALID' text='Неверный ник или пароль'>
+   <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
+   <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
+  </table>
+ </ifne>
+ <table class='login ninept' cellspacing=0 cellpadding=0>
+  <notlogged>
+   <tform action='actions/login.php'>
     <tr>
+     <td>Ник</td>
      <td><image src='pics/leftinput.gif'></td>
-     <td><input class=line type=text name='login' size=10 maxlength=30></td>
+     <td><input class=line type=text name='login' size=6 maxlength=30></td>
      <td><image src='pics/rightinput.gif'></td>
      <td>&nbsp;</td>
-     <td><input type=image src='pics/su.gif'></td>
+     <td>Пароль</td>
+     <td><image src='pics/leftinput.gif'></td>
+     <td><input class=line type=password name='password' size=6></td>
+     <td><image src='pics/rightinput.gif'></td>
+     <td>&nbsp;</td>
+     <td><input type=image src='pics/enter.gif'></td>
+    </tr>
+    <master>
+     <if what='!$no_new'>
+      <tr><td colspan=11 align=right>
+       <at href#='register.php?redirid=$_'
+	   target='$target'>Зарегистрироваться<asp></at>&nbsp;&nbsp;<asp>
+       <at href#='userlost.php?redirid=$_'
+	   target='$target'>Забыли пароль?</at>
+      </td></tr>
+     </if>
+    </master>
+   </tform>
+  <else>
+   <tform action='actions/logout.php'>
+    <tr>
+     <admin_users><td colspan=3><else><td></admin_users>
+      <b>
+      <if what='$$userHidden'>
+       $$userLogin
+      <else>
+       <at href#='/userinfo.php?id=$$userId&redirid=$_' class='name'
+	   target='$target'>$$userLogin</at>
+      </if>
+      </b>
+     </td>
+     <td>&nbsp;</td>
+     <td><input type=image src='pics/exit.gif'></td>
     </tr>
    </tform>
-  </admin_users>
- </notlogged>
-</table>
+   <admin_users>
+    <tform action='actions/userswitch.php'>
+     <tr>
+      <td><image src='pics/leftinput.gif'></td>
+      <td><input class=line type=text name='login' size=10 maxlength=30></td>
+      <td><image src='pics/rightinput.gif'></td>
+      <td>&nbsp;</td>
+      <td><input type=image src='pics/su.gif'></td>
+     </tr>
+    </tform>
+   </admin_users>
+  </notlogged>
+ </table>
+</notenglish>
 </element>

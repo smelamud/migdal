@@ -53,7 +53,6 @@
        defaults="topic_id=-1 limit=10 offset=0">
 <decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
        defaults='limit=10 offset=0'>
-<decel name='friends' file='parts/friends.php'>
 <decel name='gallery' file='parts/gallery.php'
        params='topic_id,rows,cols,offset,subdomain,sort'
        defaults="topic_id=-1 rows=4 cols=5 offset=0 subdomain=-1
@@ -264,7 +263,8 @@
  <assign_global name='wwwDomain' value!="$$userDomain=='www'">
  <assign_global name='englishDomain' value!="$$userDomain=='english'">
  <head>
-  <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
+  <title><notenglish>Мигдаль<else>Migdal</notenglish>
+  <ifne what='$pageTitle'> - $pageTitle</ifne></title>
  </head>
 </macro>
 
@@ -293,10 +293,20 @@
 </macro>
 <endif name='/english'>
 
+<macro name='notenglish'>
+ <if what="$$userDomain!='english'">
+</macro>
+<endif name='/notenglish'>
+
 <macro name='www'>
  <if what="$$userDomain=='www'">
 </macro>
 <endif name='/www'>
+
+<macro name='notwww'>
+ <if what="$$userDomain=='notwww'">
+</macro>
+<endif name='/notwww'>
 
 << Logging >>
 <macro name='trap'>

@@ -1,0 +1,85 @@
+<< @(#) $Id$ >>
+
+<ident name='topic_id' table='topics'>
+<int name='offset'>
+<ifzero what='$topic_id'>
+ <assign name='topic_id' value='-1'>
+</ifzero>
+
+<< Traps >>
+<if what='$topic_id==5'>
+ <trap text='Jewish Internet'>
+ <reload href='links.php'>
+</if>
+<if what='$topic_id==12'>
+ <trap text='Migdal'>
+ <reload href='migdal.php'>
+</if>
+<if what='$topic_id==13'>
+ <trap text='KES'>
+ <reload href='migdal.php?artid=1479'>
+</if>
+<if what='$topic_id==146'>
+ <trap text='Methodics'>
+ <reload href='methodics.php'>
+</if>
+<if what='$topic_id==24'>
+ <trap text='Tu bi-Shvat'>
+ <reload href='$[topic_id=6]'>
+</if>
+<if what='$topic_id==27'>
+ <trap text='Veterans'>
+ <reload href='veterans.php'>
+</if>
+<ifnzero what='$grp'>
+ <trap text='grp!=0 in index.php'>
+ <reload href='$[grp]'>
+</ifnzero>
+<< /Traps >>
+
+<log event=index text#='topic($topic_id) offset=$offset'>
+<ifzero what='$offset'>
+ <log event=enter text#='domain=$$userDomain'>
+</ifzero>
+<grps>
+<unititle topic_id='$topic_id'>
+
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics_major ident='index' unroll='*true'>
+    <topics_minor id='$topic_id' withpostings='*false' grp='*GRP_TAPE'
+                  href='index.php' title='Раздельчики'>
+    <if what='$topic_id<=0'>
+     <p>&nbsp;</p>
+     <rabbi>
+     <p>
+     <ioc_text>
+    </if>
+   </td>
+   <td class='cframe'>
+    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
+     <td>
+      <subtitle>
+      <seealso_links topic_id='$topic_id'
+		     title='См. также в разделе ссылок'>
+      <postings grp='*GRP_TAPE' topic_id='$topic_id' limit='$userMsgPortion'
+		offset='$offset' showshadows!='$topic_id>0'>
+     </td>
+     <td width=130 class='nframe'>
+      <tip>
+      <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'
+			showshadows!='$topic_id>0'>
+      <if what='$topic_id<=0'>
+       <discussions limit=7>
+      </if>
+     </td>
+    </tr></table>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</body>

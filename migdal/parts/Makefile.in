@@ -5,7 +5,7 @@
 OBJECTS = article.php backtrace.php blog.php blog-gallery.php \
 	  blog-posting.php book-chapters.php book-ring.php bottom.php \
 	  complain.php discussions.php formutils.php forumanswer.php \
-	  forumcatalog.php forums.php friends.php gallery.php gallery-main.php \
+	  forumcatalog.php forums.php gallery.php gallery-main.php \
 	  googleru.php grpselect.php hannukah.php help-link.php help-navi.php \
 	  hit-parade.php hotlog.php ioc.php jewishru.php kaitana-announce.php \
 	  kaitana-picture.php langselect.php link-posting.php login.php \

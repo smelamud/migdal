@@ -164,6 +164,43 @@ switch($f)
       }
 }
 
+function formatEJewishDate($f,$time=0)
+{
+global $ejewDow3,$ejewDow3L,$ejewDow,$ejewDowL,$ejewMonth3,$ejewMonth3L,
+       $ejewMonthI,$ejewMonthIL;
+
+switch($f)
+      {
+      case 'c':
+           return $ejewDow3L[formatEnglishDate('w',$time)];
+      case 'C':
+           return $ejewDowL[formatEnglishDate('w',$time)];
+      case 'D':
+           return $ejewDow3[formatEnglishDate('w',$time)];
+      case 'F':
+           return $ejewMonthI[formatJewishDate('v',$time)];
+      case 'J':
+           return $ejewMonth3L[formatJewishDate('v',$time)];
+      case 'K':
+           return $ejewMonthIL[formatJewishDate('v',$time)];
+      case 'l':
+           return $ejewDow[formatEnglishDate('w',$time)];
+      case 'M':
+           return $ejewMonth3[formatJewishDate('v',$time)];
+      case 'S':
+           $n=formatJewishDate('j',$time);
+	   return $n==1 || $n==21
+	                ? 'st'
+	                : ($n==2 || $n==22
+			         ? 'nd'
+				 : ($n==3 || $n==23
+				          ? 'rd'
+					  : 'th'));
+      default:
+           return formatJewishDate($f,$time);
+      }
+}
+
 function formatAnyDate($f,$time=0,$fix=true)
 {
 global $fixTime;
@@ -185,6 +222,8 @@ else
 	     return formatRussianDate($f[1],$time);
 	case 'J':
 	     return formatJewishDate($f[1],$time);
+	case 'I':
+	     return formatEJewishDate($f[1],$time);
 	}
 }
 ?>

@@ -1,24 +1,19 @@
 << @(#) $Id$ >>
 
-<ident name='artid' table='postings'>
-
-<ifzero what='$artid'>
- <assign name='artid' value='$`postings:migdal`'>
-</ifzero>
+<assign name='topic_id' value='-1'>
+<assign name='offset' value='0'>
 
 << Traps >>
-<if what='$artid==$`postings:migdal-library`'>
- <trap text='Migdal library'>
- <reload href='migdal-library.php'>
-</if>
 << /Traps >>
 
-<posting_full id='$artid' grp='*GRP_REVIEW'>
-<log event=review text#='post($,Id)'>
-<pagetitle title='$,Subject'>
-<topictitle title='$,Subject'>
+<log event=index text#='topic($topic_id) offset=$offset'>
+<ifzero what='$offset'>
+ <log event=enter text#='domain=$$userDomain'>
+</ifzero>
+<grps>
 
-<html>
+<posting_full id='$`postings:migdal`' grp='*GRP_REVIEW'>
+
 <stylesheet ident='article'>
 <preamble>
 <body>
