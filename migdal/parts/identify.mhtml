@@ -223,6 +223,15 @@
  <identify_taglit>
 <elif what='$/$posting.TopicId,0/==$`veterans`'>
  <identify_veterans>
+<elif what='$/$posting.TopicId,0/==$`help`'>
+ <topic_obj id='$`help`'>
+ <assign name='href' value='tips.php'>
+ <assign name='ghref' value=''>
+ <assign name='mhref' value=''>
+ <assign name='dhref' value#='help.php?artid=$posting.Id'>
+ <assign name='name' value='$,Name'>
+ <assign name='title' value='$,Description'>
+ <assign name='root' value='$`help`'>
 </if>
 <if what='($posting.Grp & *GRP_LINKS)!=0'>
  <identify_links>

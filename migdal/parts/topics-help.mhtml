@@ -1,14 +1,32 @@
 << @(#) $Id$ >>
 
 <element name='topics_help'>
+<perms name='help' table='topics' id='$`help`'>
 <topics_table class='ninept' title='Справка'>
  <topics_line arrow!="$ident=='help-tips'" class='item'
               text='Знаете ли вы, что...' href#='/tips.php'>
+ <ispost what='$help'>
+  <tr><td colspan=3>
+   <a href='postingedit.php?redirid=$_&topic_id=$help.Id&grp=*GRP_REVIEWS'
+      class='edit'>Добавить</a>
+  </td></tr>
+  <tr><td colspan=3>
+   <a href='reorder.php?redirid=$_&issue=-1&topic_id=$help.Id&grp=*GRP_REVIEWS'
+      class='edit'>Расставить</a>
+  </td></tr>
+ </ispost>
+ <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
+                      topic_id='$help.Id' recursive='*false'
+		      fields='*SELECT_TOPICS'>
+ <for>
+  <topics_line time='$.Sent' arrow!="$posting!=0 && $.Id==$posting.Id"
+               class='item' text='$.Subject' href#='help.php?artid=$.Id'>
+ </for>
  <topics_line arrow!="$ident=='help-subs'" class='item'
               text='Список обозначений, используемых в тексте.'
-              href#='/stotext-help-subs.php'>
+              href#='stotext-help-subs.php'>
  <topics_line arrow!="$ident=='help-types'" class='item'
 	      text='Какой формат статьи выбрать?'
-	      href#='/stotext-help-types.php'>
+	      href#='stotext-help-types.php'>
 </topics_table>
 </element>
