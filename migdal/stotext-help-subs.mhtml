@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: doc/stotext.txt 1.13 >>
+<< Based-on: doc/stotext.txt 1.16 >>
 
 <pagetitle title='Справка'>
 
@@ -10,23 +10,22 @@
 	 font-family: "Times New Roman", Helvetica, sans-serif;
  }
 
- .catalog H1 {
+ .catalog TD H1 {
 	 font-size: 18pt;
 	 font-weight: bold;
  }
 
- .catalog H2 {
+ .catalog TD H2 {
 	 font-size: 16pt;
 	 font-weight: bold;
  }
 
- .catalog H3 {
+ .catalog TD H3 {
 	 font-size: 14pt;
 	 font-weight: bold;
-	 font-style: italic;
  }
 
- .catalog H4 {
+ .catalog TD H4 {
 	 font-size: 12pt;
 	 font-weight: bold;
 	 text-decoration: underline;
@@ -36,12 +35,12 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100%><tr valign=top>
-  <td width=200>
+ <table width=100% cellpadding=5><tr valign=top>
+  <td width=200 class='eframe'>
    <stotext_help_navi ident='subs' link='$link' title='$title'
                       article='$article'>
   </td>
-  <td>
+  <td class='cframe'>
    <div class='article'>
     <h1>Список обозначений, используемых в тексте</h1>
     <p>
@@ -74,13 +73,17 @@
       <td>Текст набран <i>курсивом</i></td>
      </tr>
      <tr>
+      <td>Текст поднят ^над^ строкой</td>
+      <td>Текст поднят <sup>над</sup> строкой</td>
+     </tr>
+     <tr>
       <td>Шрифт #печатной# машинки</td>
       <td>Шрифт <tt>печатной</tt> машинки</td>
      </tr>
      <tr class='active'><td colspan=2>
       Обратите внимание, что специальные символы срабатывают только тогда,
       когда они расположены <b>вокруг</b> слов. <b>Внутри</b> слов они не
-      работают.
+      работают (кроме символа ^).
      </td></tr>
      <tr>
       <td>_Этот_ текст =выделяется=</td>

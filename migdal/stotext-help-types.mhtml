@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: doc/stotext.txt 1.13 >>
+<< Based-on: doc/stotext.txt 1.16 >>
 
 <pagetitle title='Справка'>
 
@@ -8,12 +8,12 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100%><tr valign=top>
-  <td width=200>
+ <table width=100% cellpadding=5><tr valign=top>
+  <td width=200 class='eframe'>
    <stotext_help_navi ident='types' link='$link' title='$title'
                       article='$article'>
   </td>
-  <td>
+  <td class='cframe'>
    <div class='article'>
     <h1>Какой формат статьи выбрать?</h1>
     <p>
