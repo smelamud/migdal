@@ -38,9 +38,10 @@ while($s ne '')
      my $head,$var;
      ($head,$var,$s)=$s=~/^([^\$]*)((?:\$%?(?:(?:\w*\.?\w+)|_))?)(.*)$/;
      $c.=$head;
-     if($var=~/\$(\w+)/)
+     if($var=~/\$%?\w+/)
        {
-       $var="$st\$$1$ed";
+       $var=~s/\$(\w+)/$st\$\1$ed/;
+       $var=~s/\$%(\w+)/${st}urlencode(\$\1)$ed/;
        }
      else
        {
