@@ -19,7 +19,7 @@
      <assign name='name' value='$.Name'>
     </ifne>
     <ifne what='$.Login'>
-     <assign name='name' value#='$name <span class="owner">($.Login)</span>'>
+     <assign name='name' value#='$name <i>($.Login)</i>'>
     </ifne>
     <admin_topics>
      <li><a href='topicedit.php?editid=$.Id&redirid=$_'

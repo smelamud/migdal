@@ -262,8 +262,8 @@ $childFilter=$up>=0 ? "and messages.up=$up" : '';
 $shadowFilter=!$showShadows ? 'and shadow=0' : '';
 $this->LimitSelectIterator(
        'Message',
-       "select postings.id as id,messages.track as track,
-               postings.message_id as message_id,
+       "select postings.id as id,postings.ident as ident,
+               messages.track as track,postings.message_id as message_id,
                messages.stotext_id as stotext_id,stotexts.body as body,
 	       messages.lang as lang,messages.subject as subject,
 	       messages.author as author,messages.source as source,grp,

@@ -5,8 +5,14 @@
 <int name='grp'>
 <int name='up'>
 <ident name='root' table='topics'>
+<int name='full'>
 <posting_obj id='$editid' grp='$grp' topic='$topic_id' up='$up'>
 <pagetitle title#='Редактирование $message.GrpItemsTitle'>
+
+<macro name='full'>
+ <if what='$$full'>
+</macro>
+<endif name='/full'>
 
 <html>
 <preamble>
@@ -49,15 +55,15 @@
     <error id='*EP_NO_UP' text='Вышестоящего сообщения не существует'>
     <error id='*EP_LOOP_UP' text='Сообщение не может быть подчиненным себе'>
     <tr><td><table>
-     <moderator>
+     <full>
       <grpselect name='grp' value='$message.Grp'>
      <else>
       <hidden name='grp' value='$message.Grp'>
-     </moderator>
-     <moderator>
+     </full>
+     <full>
       <edit_line title='Приоритет' name='priority' value='$message.Priority'
 		 size=4 maxlength=3>
-     </moderator>
+     </full>
      <if what='$message.hasTopic'>
       <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
 		   mandatory='$message.mandatoryTopic' root='$root'
@@ -65,7 +71,7 @@
      <else>
       <hidden name='topic_id' value='$message.TopicId'>
      </if>
-     <moderator>
+     <full>
       <if what='$message.hasIdent'>
        <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
        <error id='*EP_IDENT_UNIQUE' span=2
@@ -75,7 +81,7 @@
       <else>
        <hidden name='ident' value='$,Ident'>
       </if>
-     </moderator>
+     </full>
      <if what='$message.hasIndex1'>
       <error id='*EP_INDEX1_ABSENT' text='Номер не указан' span=2>
       <edit_line title='Номер' value='$message.Index1' name='index1'
@@ -214,10 +220,10 @@
     </if>
     <checkbox_line name='hidden' value='$message.isHidden'
 		   title='Не показывать'>
-    <moderator>
+    <full>
      <checkbox_line name='disabled' value='$message.isDisabled'
 		    title='Запретить показ'>
-    </moderator>
+    </full>
     <if what='$editid'>
      <formbuttons title='Изменить'>
     <else>

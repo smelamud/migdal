@@ -305,7 +305,7 @@ var $delimiter;
 
 function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ')
 {
-$this->up=idByIdent('topics',$up);
+$this->up=$up;
 $this->delimiter=$delimiter;
 $this->TopicIterator('select id,track,name
 		      from topics'.

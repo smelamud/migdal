@@ -42,28 +42,36 @@
  <tr><td>
   <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
    $posting.SubjectDesc</a>
+  <ifne what='$posting.Ident'>
+   [$posting.Ident=$posting.Id]
+  <else>
+   [$posting.Id]
+  </ifne>
  </td></tr>
  <tr><td class='sent'>
   <sentview date='$posting.Sent'>&nbsp;
   <senderlink message='$posting'>
  </td></tr>
  <tr><td class='bottom'>
+  <a href="postingedit.php?editid=$posting.Id&grp=*GRP_ALL&root=-1&full=1&redirid=$_"
+     >Изменить</a>
+  &nbsp;
   <if what='$posting.isDisabled'>
    <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-    >Разрешить&nbsp;показ</a>
+      >Разрешить&nbsp;показ</a>
   <else>
    <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-    >Запретить&nbsp;показ</a>
+      >Запретить&nbsp;показ</a>
   </if>
   &nbsp;
   <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
      >Тень<ifnzero what='$posting.Shadow'> (*)</ifnzero></a>
   &nbsp;
   <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
-   >Осовременить</a>
+     >Осовременить</a>
   &nbsp;
   <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
-   >Удалить</a>
+     >Удалить</a>
  </td></tr>
 </table>
 <p>
@@ -77,6 +85,9 @@
 <body>
  <top ident='index'>
  <table class='ninept aframe' style='padding: 5px'>
+  <tr><td colspan=2>
+   <a href='topicorg.php?redirid=$_'>Организатор тем</a>
+  </td></tr>
   <form action='postingorg.php'>
    <hidden name='redirid' value='$redirid'>
    <topicselect name='topic_id' value='$topic_id'>
@@ -86,7 +97,7 @@
    <formbuttons title='Просмотр' span=2>
   </form>
  </table>
- <div class='ninept cframe' style='padding: 5px'>
+ <table class='ninept cframe' width=100%><tr><td>
   <error_lines>
   <iterate_postinglist topic='$topic_id' limit=20 offset='$offset'
 		       showshadows='*true' grp='*GRP_ALL'
@@ -98,7 +109,7 @@
    </for>
    <batcher list='$;'>
   </ifnzero>
- </div>
+ </td></tr></table>
  <bottom>
 </body>
 </html>

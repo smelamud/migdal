@@ -4,7 +4,8 @@
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left>
   <logged>
-   <a href='postingedit.php?topic_id=$topic&root=$`general`&grp=*GRP_GALLERY&redirid=$_'
+   <assign name='root' value!='$/$topic,0/==$`migdal` ? $`migdal` : $`general`'>
+   <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_GALLERY&redirid=$_'
       class='add'>Добавить картинку</a>
   <else>
    <em>Хотите добавлять картинки?</em>
