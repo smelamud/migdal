@@ -185,7 +185,9 @@
    <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=5 sort='*SORT_RINDEX1'>
    <for>
     <table>
-     <tr><td align=right><rating value='$.Vote20' showtitle='*false'></td></tr>
+     <tr><td align=right>
+      <rating value!='$.VoteCount!=0 ? $.Vote20 : -1' showtitle='*false'>
+     </td></tr>
      <tr><td class=pic>
       <a href='times.php?issue=$.Index1'><image_tag_put id='$.ImageId'></a>
      </td></tr>
