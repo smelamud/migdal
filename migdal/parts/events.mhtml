@@ -11,7 +11,7 @@
    <assign name='year' value='$.Index4'>
    <assign name='gyearp' value!='$year-3761'>
    <assign name='gyear' value!='$year-3760'>
-   <topics_section title='$year/$gyearp-$gyear Ç.' nobullet='*true'>
+   <topics_section title#='$year/$gyearp-$gyear Ç.' nobullet='*true'>
    <iswrite what='$topic'>
     <tr><td colspan=2>
      <a href='topics-reorder.php?up=$,Id&level=2&index4=$year&redirid=$_'
