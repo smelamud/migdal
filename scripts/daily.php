@@ -67,6 +67,8 @@ while($row=mysql_fetch_assoc($result))
        mysql_query('delete from journal
                     where seq='.$row['seq'])
             or die(mysql_error());
+mysql_query('optimize table journal')
+     or die(mysql_error());
 }
 
 function cleanup()
