@@ -2,6 +2,7 @@
 << Based-on: demo/postings.mhtml 1.8 >>
 
 <int name='topic_id'>
+<int name='grp'>
 <int name='offset'>
 <reloadnot why='$topic_id' var='topic_id' value='-1'>
 <reloadnot why='$grp' var='grp' value='*GRP_TAPE'>

@@ -2,6 +2,7 @@
 << Based-on: migdal/postings.mhtml 1.11 >>
 
 <int name='topic_id'>
+<int name='grp'>
 <int name='offset'>
 <html>
 <head>
