@@ -2,9 +2,9 @@
 
 <element name='Messages'>
 <grpdata>
-<if what='$g.Valid'><logged>
+<if what='$g.ValidItem'><logged>
  <a href='messageedit.php?topic_id=$topic&grp=$grp&redir=$_'
-  >Добавить $g.title</a>
+  >Добавить $g.ItemTitle</a>
 </logged></if>
 <iterate_messagelist grp='$grp' topic='$topic' limit='$limit' offset='$offset'>
 <batcher value='$limit' var='mp'>

@@ -10,10 +10,13 @@ var $size;
 var $limit;
 var $offset;
 
-function LimitSelectIterator($aClass,$query,$limit=10,$offset=0)
+function LimitSelectIterator($aClass,$query,$limit=10,$offset=0,$cquery='')
 {
-preg_match('/^(.*select)(.*)(from.*)$/is',$query,$parts);
-$cquery=$parts[1].' count(*) '.$parts[3];
+if($cquery=='')
+  {
+  preg_match('/^(.*select)(.*)(from.*)$/is',$query,$parts);
+  $cquery=$parts[1].' count(*) '.$parts[3];
+  }
 $result=mysql_query($cquery)
 	     or die("Ошибка SQL в лимитированном итераторе $cquery");
 $this->size=mysql_result($result,0,0);

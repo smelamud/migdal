@@ -62,6 +62,12 @@ $ident=$this->getIdent();
 return isset($ident);
 }
 
+function getValidItem()
+{
+$item=$this->getItemTitle();
+return isset($item);
+}
+
 function getInvalid()
 {
 return !$this->getValid();

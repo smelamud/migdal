@@ -354,7 +354,13 @@ $this->LimitSelectIterator(
 	       messages.personal_id=$personal and messages.up=0
 	       $grpFilter $topicFilter
 	 group by messages.id
-	 order by messages.sent desc",$limit,$offset);
+	 order by messages.sent desc",$limit,$offset,
+	"select count(*)
+	 from messages
+	 where (messages.hidden<$hide or messages.sender_id=$userId) and
+	       (messages.disabled<$hide or messages.sender_id=$userId) and
+	       messages.personal_id=$personal and messages.up=0
+	       $grpFilter $topicFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }
