@@ -116,6 +116,7 @@
 <string name='artid'>
 <grps>
 <text_formats>
+<read_posting id='$artid'>
 <posting_full id='$artid' grp='*GRP_FORUMS'>
 <html>
 <head>

@@ -9,6 +9,7 @@
 </head>
 <body>
  <top ident='forums'>
+ <read_posting id='$msgid'>
  <posting_full id='$msgid' grp='*GRP_FORUMS'>
  <table width=100%><tr valign=top>
   <zone>

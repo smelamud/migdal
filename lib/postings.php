@@ -454,7 +454,15 @@ $result=mysql_query(
 	           on postings.message_id=messages.id
 	 where (hidden<$hide or sender_id=$userId) and
 	       (disabled<$hide or sender_id=$userId) and
-               (grp & $grp)<>0 $tf");
+               (grp & $grp)<>0 $tf")
+ or die('Ошибка SQL при определении даты последнего постинга');
 return mysql_num_rows($result)>0 ? strtotime(mysql_result($result,0,0)) : 0;
+}
+
+function incPostingReadCount($id)
+{
+mysql_query("update postings
+             set read_count=read_count+1
+	     where id=$id");
 }
 ?>

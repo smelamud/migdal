@@ -447,7 +447,8 @@ global $userAdminUsers;
 $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select count(*),count(confirm_deadline)
                      from users
-		     where hidden<$hide");
+		     where hidden<$hide")
+  	     or die('Ошибка SQL при получении общей информации о пользователях');
 return mysql_num_rows($result)>0 ?
        new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
                         mysql_result($result,0,1)) :

@@ -129,6 +129,8 @@
          params='id,grp' defaults='name=message grp=*GRP_ALL'>
 <deccall macro='posting_last' func='getLastPostingDate' file='lib/postings.php'
          params='grp,topic_id' defaults='grp=*GRP_ALL topic_id=-1'>
+<deccall macro='read_posting' func='incPostingReadCount'
+         file='lib/postings.php' params='id'>
 <deccall macro='stotext_image_obj' func='getStotextImageByParagraph'
          file='lib/stotext-images.php' params='id,par' defaults='name=image'>
 <deccall macro='time' func='time'>
