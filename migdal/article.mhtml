@@ -1,6 +1,14 @@
 << @(#) $Id$ >>
 
 <ident name='artid' table='postings'>
+
+<< Traps >>
+<if what='$artid>=283 && $artid<=286 || $artid==301'>
+ <trap text='Ecology and Torah'>
+ <reload href#="book-chapter.php?chapid=$artid">
+</if>
+<< /Traps >>
+
 <read_posting id='$artid'>
 <posting_full id='$artid' grp='*GRP_FORUMS'>
 <log event=article text#='post($,Id)'>

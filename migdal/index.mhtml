@@ -5,14 +5,22 @@
 <ifzero what='$topic_id'>
  <assign name='topic_id' value='-1'>
 </ifzero>
+
+<< Traps >>
 <if what='$topic_id==5'>
  <trap text='Jewish Internet'>
  <reload href='links.php'>
+</if>
+<if what='$topic_id==24'>
+ <trap text='Tu bi-Shvat'>
+ <reload href='$[topic_id=6]'>
 </if>
 <ifnzero what='$grp'>
  <trap text='grp!=0 in index.php'>
  <reload href='$[grp]'>
 </ifnzero>
+<< /Traps >>
+
 <zone>
  <ident_id table='topics' ident='$topic_id'>
  <log event=index text#='topic($,) offset=$offset'>
