@@ -45,7 +45,11 @@
 	      target='$target' current='$ident'>
    <asp></td>
    <td align=right><asp>
-    <asp><noindex><tune ident='$ident' target='$target'></noindex><asp>
+    <menuitem ident='search' alt='Поиск' link='search.php'
+              target='$target' current='$ident'>
+    <asp><noindex><menuitem ident='style' alt='Настройки'
+                            link#='style.php?redirid=$_' target='$target'
+			    current='$ident'></noindex><asp>
    <asp></td>
   </tr>
  </notenglish>

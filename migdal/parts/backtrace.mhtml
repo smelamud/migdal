@@ -154,7 +154,6 @@
  <trace url='migdal.php'>
  <assign name='name' value='Издательский центр'>
 <elif what="$basename=='search.php'">
- <trace url='index.php'>
  <assign name='name' value='Поиск'>
 <elif what="$basename=='stotext-help-subs.php'">
  <trace url='index.php'>
@@ -162,6 +161,8 @@
 <elif what="$basename=='stotext-help-types.php'">
  <trace url='index.php'>
  <assign name='name' value='Какой формат статьи выбрать?'>
+<elif what="$basename=='style.php'">
+ <assign name='name' value='Настройки'>
 <elif what="$basename=='taglit.php'">
  <trace url='index.php'>
  <assign name='name' value='Таглит'>

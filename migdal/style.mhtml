@@ -1,12 +1,12 @@
 << @(#) $Id$ >>
 
-<pagetitle title='Настройка вида'>
+<pagetitle title='Настройки'>
 
 <html>
 <preamble>
 <body>
  <top ident='style'>
- <formtable title='Настройка вида'>
+ <formtable title='Настройки'>
  <form method=post action='actions/style.php'>
   <hidden name='okdir' value='$--'>
   <table><tr valign=top>
@@ -61,15 +61,6 @@
     </tr>
     <tr>
      <td>
-      <select_portion name='fcp' value='$$userForumCatalogPortion'
-		      vals='10 15 20 25 30 35 40'>
-     </td>
-     <td colspan=3>
-      <bymessages value='$$userForumCatalogPortion'> на странице "Обсуждения"
-     </td>
-    </tr>
-    <tr>
-     <td>
       <select_portion name='prp' value='$$userPictureRowPortion'
                       vals='1 2 3 4 5 6 7 8 9 10'>
      </td>
@@ -87,6 +78,31 @@
       <plural name='cname' value='$$userPictureColumnPortion'>
       $cname&sp;в галерее
      </td>
+    </tr>
+    <tr><td colspan=4>&nbsp;</td></tr>
+    <tr><td colspan=4 style='text-align: center; font-weight: bold'>
+     Чат
+    </td></tr>
+    <tr>
+     <td>
+      <select_portion name='chr' value='$$userChatRefresh'
+		      vals='5 7 10 12 15 17 20 25 30'>
+     </td>
+     <td colspan=3>сек. между обновлениями</td>
+    </tr>
+    <tr>
+     <td>
+      <select_portion name='chur' value='$$userChatUsersRefresh'
+		      vals='30 45 60 120 180 240 300'>
+     </td>
+     <td colspan=3>сек. между обновлениями списка пользователей</td>
+    </tr>
+    <tr>
+     <td>
+      <select_portion name='chp' value='$$userChatPortion'
+                      vals='10 15 20 25 30 35 40'>
+     </td>
+     <td colspan=3>сообщений на странице</td>
     </tr>
    </table></td>
    <formbuttons title='Применить' span=4>
