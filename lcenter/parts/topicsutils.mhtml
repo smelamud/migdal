@@ -1,0 +1,33 @@
+<< @(#) $Id$ >>
+
+<element name='topics_line'>
+<if what='$arrow'>
+ <li class='arrow'>$text</li>
+<else>
+ <li>
+  <ifne what='$title'>
+   <a href='$href' title='$title' class='$class'><asp>
+  <else>
+   <a href='$href' class='$class'><asp>
+  </ifne>
+  <asp>$text</a>
+ </li>
+</if>
+</element>
+
+<element name='topics_table'>
+<ifne what='$class'>
+ <div class='topics $class'>
+<else>
+ <div class='topics'>
+</ifne>
+ <ifne what='$title'>
+  <span class='header'>$title</span>
+ </ifne>
+ <ul>
+</element>
+
+<element name='topics_table_end'>
+ </ul>
+</div>
+</element>

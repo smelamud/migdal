@@ -1,0 +1,27 @@
+! @(#) $Id$
+
+.topics .header {
+	color: %topics_header;
+	font-weight: bold;
+	font-size: 11pt;
+}
+
+.topics UL {
+	padding-left: 2ex;
+	padding-top: 1ex;
+	margin: 0;
+}
+
+.topics LI {
+	color: %topics_item;
+}
+
+.topics LI A {
+	color: %topics_item;
+}
+
+.topics LI.arrow {
+	color: %topics_current;
+	font-weight: bold;
+	list-style-image: url("/pics/select.gif");
+}
