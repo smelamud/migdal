@@ -37,11 +37,14 @@ function replicate($host)
 {
 global $siteDomain,$maxImage;
 
+if(isReplicationLocked($host))
+  return;
 $from=getHorisont($host,HOR_WE_KNOW);
 $fd=fopen("http://$host/lib/replication.php?host=".urlencode($siteDomain)
                                          ."&from=$from",'r');
 if(!$fd)
   return;
+lockReplication($host);
 $action=array();
 while(!feof($fd))
      {
@@ -56,8 +59,10 @@ while(!feof($fd))
        executeAction($action);
        $action=array();
        setHorisont($host,$line->getSeq(),HOR_WE_KNOW);
+       updateReplicationLock($host);
        }
      }
+unlockReplication($host);
 fclose($fd);
 }
 

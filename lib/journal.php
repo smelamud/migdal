@@ -247,4 +247,38 @@ $row=array('id' => $list[0],
 	                            : ($list[5]=='%' ? '' : $list[5])));
 return new JournalLine($row);
 }
+
+function lockReplication($host)
+{
+mysql_query("update horisonts
+             set lock=now()
+	     where host='".addslashes($host)."'")
+  or journalFailure('Cannot lock replication process.');
+}
+
+function unlockReplication($host)
+{
+mysql_query("update horisonts
+             set lock=null
+	     where host='".addslashes($host)."'")
+  or journalFailure('Cannot unlock replication process.');
+}
+
+function updateReplicationLock($host)
+{
+lockReplication($host);
+}
+
+function isReplicationLocked($host)
+{
+global $replicationLockTimeout;
+
+$result=mysql_query("select host
+                     from horisonts
+	             where host='".addslashes($host)."' and
+		           lock is not null and
+	                   lock-interval $replicationLockTimeout minute")
+  or journalFailure('Cannot get replication lock.');
+return mysql_num_rows($result)>0;
+}
 ?>

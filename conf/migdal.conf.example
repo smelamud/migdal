@@ -216,4 +216,7 @@ $replicationMaster=true;
 
 # Тип (MIME-type) репликационной информации
 $replicationType='application/x-migdal-replication';
+
+# Время жизни (в минутах) блокировки репликации
+$replicationLockTimeout=5;
 ?>
