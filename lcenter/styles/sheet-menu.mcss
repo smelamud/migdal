@@ -41,7 +41,7 @@ A.menuitem {
 	color: %menu_item;
 }
 
-.menucurrent {
+A.menucurrent {
 	font-weight: bold;
 	color: %menu_current;
 }
