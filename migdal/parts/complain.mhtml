@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/complain.mhtml 1.4 >>
+<< Based-on: demo/parts/complain.mhtml 1.5 >>
 
 <macro name='rebe'>
  <if what='$complain.isRebe'><font color=red></if>

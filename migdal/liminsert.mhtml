@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/liminsert.mhtml 1.4 >>
+<< Based-on: demo/liminsert.mhtml 1.5 >>
 
 <element name=place params='value'>
 <if what='$value==$$image.Placement'>

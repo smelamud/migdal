@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/menuedit.mhtml 1.5 >>
+<< Based-on: demo/menuedit.mhtml 1.6 >>
 
 <int name='menuid'>
 <html>

@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/chat.mhtml 1.3 >>
+<< Based-on: demo/chat.mhtml 1.4 >>
 
 <element name='batcher_chat' params='limit,refresh'>
 <table>

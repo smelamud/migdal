@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/login.mhtml 1.1 >>
+<< Based-on: demo/parts/login.mhtml 1.3 >>
 
 <html>
 <head><title>Штаб Мошиаха - Вход</title></head>
@@ -13,11 +13,7 @@
    <form method=post action='actions/logout.php'>
   </notlogged>
   <hidden name='redir' value="$[err]">
-  <if what='$err==EL_INVALID'>
-   <tr><td colspan=2><a name='error'>
-    <font color='red'>Неверный ник или пароль</font>
-   </td></tr>
-  </if>
+  <error id='*EL_INVALID' text='Неверный ник или пароль' span=2>
   <notlogged>
    <tr>
     <td>Ник</td>
