@@ -155,7 +155,11 @@
  <trace url='taglit.php'>
  <assign name='name' value='$,FullName'>
 <elif what="$basename=='times.php'">
- <assign name='name' value#='&lt;&lt;Мигдаль Times&gt;&gt; No.$issue'>
+ <if what='$issue>0'>
+  <assign name='name' value#='&lt;&lt;Мигдаль Times&gt;&gt; No.$issue'>
+ <else>
+  <assign name='name' value#='&lt;&lt;Мигдаль Times&gt;&gt;'>
+ </if>
 <elif what="$basename=='userinfo.php'">
  <user_obj id='$id'>
  <trace url='users.php'>
