@@ -62,7 +62,7 @@ else
       $GLOBALS['userHidden']--;
     mysql_query("update sessions set last=null where sid=$sessionid")
 	 or die('Ошибка SQL при обновлении TIMESTAMP сессии');
-    SetCookie('sessionid',$sessionid,time()+($sessionTimeout+1)*3600,'/');
+    SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/');
     }
   }
 }
