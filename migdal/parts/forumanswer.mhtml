@@ -9,7 +9,7 @@
     <tr><td><senderlink message='$answer'></td></tr>
     <tr><td class='sent'><sentview date='$answer.Sent'></td></tr>
    </table></td>
-   <td class='body'>
+   <td class='body' rowspan=2>
     $answer.HTMLBody
    </td>
   </tr>
@@ -30,7 +30,6 @@
      </moderator>
     </isedit>
    </td>
-   <td class='body'>&nbsp;</td>
   </tr>
  </table>
 <if what='$answer.isRebe'></span></if>
