@@ -3,7 +3,7 @@
 <element name='forum_answer'>
 <table width=100% class='forum' cellspacing=1 cellpadding=0>
  <tr>
-  <td class='header' rowspan=2 width=155>
+  <td class='header' rowspan=2 width=150>
    <table cellpadding=0>
     <tr>
      <td><senderlink message='$answer'></td>
