@@ -271,12 +271,18 @@ forums_batcher_input_text=%vd
 .forum .header {
 	background-color: %forum_header_back;
 	padding-left: .5em;
+	text-align: left;
+	vertical-align: middle;
+	width: 25%;
 }
 
 .forum .body {
 	background-color: %forum_body_back;
 	padding-left: 1em;
 	padding-top: .5em;
+	text-align: left;
+	vertical-align: top;
+	width: 75%;
 }
 
 .forum .sent {
