@@ -47,8 +47,6 @@ settype($editid,'integer');
  displayTop('topics');
  ?>
  <p>
- <a href='<?php echo $redir ?>'>&lt;&lt; Вернуться</a>
- <p>
  <?php
  $topic=getTopicById($editid);
  $topic->setup($HTTP_GET_VARS);

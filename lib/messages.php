@@ -65,9 +65,7 @@ function store()
 {
 global $userId,$userModerator;
 
-$normal=$this->getWorldVarValues();
-if($userModerator)
-  $normal=array_merge($normal,$this->getAdminVarValues());
+$normal=$this->getNormal($userModerator);
 if($this->id)
   $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->id)));
 else

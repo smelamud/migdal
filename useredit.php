@@ -69,8 +69,6 @@ settype($editid,'integer');
   displayTop('users',$editid ? '' : 'no_new');
   ?>
   <p>
-  <a href='<?php echo $redir ?>'>&lt;&lt; Вернуться</a>
-  <p>
   <?php
   $user=getUserById($editid);
   $user->setup($HTTP_GET_VARS);

@@ -37,5 +37,13 @@ foreach($this->getAdminVars() as $var)
 return $vals;
 }
 
+function getNormal($isAdmin=false)
+{
+$normal=$this->getWorldVarValues();
+if($isAdmin)
+  $normal=array_merge($normal,$this->getAdminVarValues());
+return $normal;
+}
+
 }
 ?>

@@ -72,11 +72,9 @@ function store()
 {
 global $userAdminUsers;
 
-$normal=$this->getWorldVarValues();
+$normal=$this->getNormal($userAdminUsers);
 if(!$this->id || $this->dup_password!='')
   $normal=array_merge($normal,array('password' => md5($this->password)));
-if($userAdminUsers)
-  $normal=array_merge($normal,$this->getAdminVarValues());
 $result=mysql_query($this->id 
                     ? makeUpdate('users',$normal,array('id' => $this->id))
                     : makeInsert('users',$normal));

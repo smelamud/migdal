@@ -69,8 +69,6 @@ settype($up,'integer');
  displayTop($ident);
  ?>
  <p>
- <a href='<?php echo $redir ?>'>&lt;&lt; Вернуться</a>
- <p>
  <?php
  $message=getMessageById($editid,$grp);
  $message->setUpValue($up);

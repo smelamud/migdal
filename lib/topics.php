@@ -45,22 +45,14 @@ return array('no_news' => 'news','no_forums' => 'forums',
              'no_gallery' => 'gallery');
 }
 
-function getAdminVars()
+function getWorldVars()
 {
 return array('name','description','hidden','no_news','no_forums','no_gallery');
 }
 
-function getAdminVarValues()
-{
-$vals=array();
-foreach($this->getAdminVars() as $var)
-       $vals[$var]=$this->$var;
-return $vals;
-}
-
 function store()
 {
-$normal=$this->getAdminVarValues();
+$normal=$this->getNormal();
 $result=mysql_query($this->id 
                     ? makeUpdate('topics',$normal,array('id' => $this->id))
                     : makeInsert('topics',$normal));

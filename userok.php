@@ -22,7 +22,5 @@ require_once('parts/top.php');
   <h1>Пользователь <?php echo $login?> успешно зарегистрирован.<br>
       Добро пожаловать!</h1>
  </font></center>
- <p>
- <a href='<?php echo $redir ?>'>&lt;&lt; Вернуться</a>
 </body>
 </html>

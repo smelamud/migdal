@@ -34,8 +34,6 @@ settype($topic_id,'integer');
   displayTop($ident);
   $topic=getTopicNameById($topic_id);
   ?>
-  <p>
-  <a href='<?php echo $redir ?>'>&lt;&lt; Вернуться</a>
   <center><h1><?php echo $title ?> по теме &quot;<?php
    echo $topic->getName();
   ?>&quot;</h1></center>
