@@ -82,6 +82,43 @@ function getPerms()
 return $this->perms;
 }
 
+function isPermitted($right)
+{
+global $userId,$userGroups;
+
+return $userId==$this->getUserId() &&
+       ($this->getPerms() & $right<<PB_USER)!=0
+       ||
+       ($userId==$this->getGroupId() || in_array($this->getGroupId(),
+                                                 $userGroups)) &&
+       ($this->getPerms() & $right<<PB_GROUP)!=0
+       ||
+       $userId>0 &&
+       ($this->getPerms() & $right<<PB_OTHER)!=0
+       ||
+       ($this->getPerms() & $right<<PB_GUEST)!=0;
+}
+
+function isReadable()
+{
+return $this->isPermitted(PERM_READ);
+}
+
+function isWritable()
+{
+return $this->isPermitted(PERM_WRITE);
+}
+
+function isAppendable()
+{
+return $this->isPermitted(PERM_APPEND);
+}
+
+function isPostable()
+{
+return $this->isPermitted(PERM_POST);
+}
+
 }
 
 function getPermsById($table,$id)
