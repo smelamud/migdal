@@ -73,22 +73,6 @@ return array('admin_users','admin_topics','moderator','hidden','no_login',
              'has_personal');
 }
 
-function getWorldVarValues()
-{
-$vals=array();
-foreach($this->getWorldVars() as $var)
-       $vals[$var]=$this->$var;
-return $vals;
-}
-
-function getAdminVarValues()
-{
-$vals=array();
-foreach($this->getAdminVars() as $var)
-       $vals[$var]=$this->$var;
-return $vals;
-}
-
 function store()
 {
 global $userAdminUsers;

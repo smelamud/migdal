@@ -28,14 +28,6 @@ return array('filename','small','small_x','small_y','large','large_x','large_y',
              'format');
 }
 
-function getWorldVarValues()
-{
-$vals=array();
-foreach($this->getWorldVars() as $var)
-       $vals[$var]=$this->$var;
-return $vals;
-}
-
 function store()
 {
 global $userId;

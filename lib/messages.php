@@ -51,14 +51,6 @@ return array('body','subject','topic_id','grp','image_set','up','hidden',
              'personal_id');
 }
 
-function getWorldVarValues()
-{
-$vals=array();
-foreach($this->getWorldVars() as $var)
-       $vals[$var]=$this->$var;
-return $vals;
-}
-
 function store()
 {
 global $userId;
