@@ -10,9 +10,9 @@
  <top ident='index'>
  <posting_obj id='$postid'>
  <table width=100%><tr valign=top>
-  <td>
+  <td class='eframe' width=150>
    <iterate_imageset imageset='$,LargeImageSet'>
-   <topics_table class='ninept'>
+   <topics_table class='ninept' title='Иллюстрации'>
     <for>
      <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
 		  text='$.Filename'>
@@ -22,7 +22,7 @@
      </if>
     </for>
     <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
-                 class='new' text='Добавить'>
+                 class='new' text='-- Добавить --'>
    </topics_table>
   </td>
   <td>
