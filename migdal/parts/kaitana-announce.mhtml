@@ -81,10 +81,9 @@
 <element name='kaitana_announce'>
 <kaitana_style>
 <div class='aframe ninept' style='padding: 5'>
- <topic_obj name='kaitana' id='kaitana'>
  <posting_index name='index' index=1 grp='*GRP_KAITANA_GALLERY'
-                topic_id='$kaitana.Id'>
- <posting_random grp='*GRP_KAITANA_GALLERY' topic_id='$kaitana.Id' index1='$,'>
+                topic_id='$`kaitana`'>
+ <posting_random grp='*GRP_KAITANA_GALLERY' topic_id='$`kaitana`' index1='$,'>
  <posting_full id='$,' grp='*GRP_KAITANA_GALLERY'>
  <table width=100%><tr valign=top>
   <td width=110>
@@ -101,7 +100,7 @@
   </td>
  </tr></table>
  <p>
- <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_NEWS'
+ <iterate_postinglist topic_id='$`kaitana`' grp='*GRP_KAITANA_NEWS'
                       sort='*SORT_RINDEX1' limit=5>
  <for>
   <b>$.Subject:</b>

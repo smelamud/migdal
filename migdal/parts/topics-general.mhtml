@@ -21,8 +21,7 @@
  <topics_major ident='taglit'>
 </if>
 <if what='$posting.Grp==*GRP_KAITANA_NEWS || $posting.Grp==*GRP_KAITANA_GALLERY'>
- <topic_obj name='kaitana' id='kaitana'>
- <topics_kaitana kaitana='$kaitana' day='$posting.Index1'>
+ <topics_kaitana day='$posting.Index1'>
  <topics_major ident='kaitana'>
 </if>
 <if what='$posting.Grp==*GRP_TIPS'>

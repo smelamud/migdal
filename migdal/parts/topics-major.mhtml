@@ -1,9 +1,9 @@
 << @(#) $Id$ >>
 
 <element name='navi_kaitana' params='ident'>
-<topic_obj name='kaitana' id='kaitana'>
+<topic_obj name='kaitana' id='$`kaitana`'>
 
-<posting_last topic_id='$kaitana.Id' recursive='*false'>
+<posting_last topic_id='$`kaitana`' recursive='*false'>
 <topics_line time='$,' href='kaitana.php' title='$kaitana.Description'
 	     text='$kaitana.Name' arrow!="$ident=='kaitana'">
 </element>

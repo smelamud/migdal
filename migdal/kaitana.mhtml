@@ -3,11 +3,11 @@
 <int name='day'>
 <int name='postid'>
 <grps>
-<topic_obj name='kaitana' id='kaitana'>
+<topic_obj name='kaitana' id='$`kaitana`'>
 <ifnzero what='$postid'>
  <posting_full name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'>
 <else>
- <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic='$kaitana.Id'
+ <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic='$`kaitana`'
                index1!='$day<=0 ? 1 : $day'>
 </ifzero>
 <pagetitle title='Летняя площадка - 5762'>
@@ -24,7 +24,7 @@
  <tr>
   <editor>
    <td>
-    <a href="postingedit.php?editid=$posting.Id&root=$kaitana.Id&grp=$posting.Grp&redirid=$_"
+    <a href="postingedit.php?editid=$posting.Id&root=$`kaitana`&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
    </td>
    <moderator>
@@ -51,22 +51,22 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
-   <topics_kaitana kaitana='$kaitana' day!='$day<=0 ? 1 : $day'>
+   <topics_kaitana day!='$day<=0 ? 1 : $day'>
    <topics_major ident='kaitana'>
   </zone></td>
   <td class='cframe'>
    <subtitle>
    <editor>
     <div class=batcher>
-     <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
+     <a href='postingedit.php?root=$`kaitana`&topic_id=$`kaitana`&grp=*GRP_KAITANA_NEWS&redirid=$_'
 	class=add>Добавить новость</a>
      &nbsp;
-     <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+     <a href='postingedit.php?root=$`kaitana`&topic_id=$`kaitana`&grp=*GRP_KAITANA_GALLERY&redirid=$_'
 	class=add>Добавить картинку</a>
     </div>
    </editor>
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
-    <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
+    <iterate_postinglist topic_id='$`kaitana`' grp='*GRP_KAITANA_GALLERY'
 			 sort='*SORT_RATING' limit=0
  	     index1!='$posting.Id!=0 ? $posting.Index1 : ($day<=0 ? 1 : $day)'>
     <td width=140>

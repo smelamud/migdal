@@ -1,10 +1,6 @@
 << @(#) $Id$ >>
 
 <element name='kaitana_picture'>
-<ifzero what='$kaitana_id'>
- <topic_obj name='kaitana' id='kaitana'>
- <assign name='kaitana_id' value='$kaitana.Id'>
-</ifzero>
 <table>
  <tr><td>
   <vote_frame id='$picture.Id' color='$$style_cframe_back'
@@ -17,7 +13,7 @@
  </ifnzero>
  <isedit what='$picture'>
   <tr><td class=batcher align=center>
-   <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$kaitana.Id&grp=$picture.Grp&redirid=$_"
+   <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$`kaitana`&grp=$picture.Grp&redirid=$_"
     >Изменить</a>
   </td></tr>
  </isedit>
