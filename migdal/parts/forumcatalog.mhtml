@@ -19,7 +19,7 @@
 <grps>
 <iterate_postinglist grp='*GRP_DISCUSS' limit=20 offset='$offset'
                      sort='*SORT_ACTIVITY' withanswers='*GRP_NOT_FORUMS'
-		     showshadows='*true'
+		     showshadows='*false'
 		     fields!='*SELECT_TOPICS|*SELECT_ANSWERS'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher list='$;'>
