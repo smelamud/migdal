@@ -33,7 +33,7 @@ BODY {
 
 .title TD {
 	color: %title;
-	font: bold 18pt %times;
+	font: bold 16pt %courier;
 	border-bottom: solid 3px %title;
 }
 
