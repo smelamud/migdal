@@ -34,9 +34,9 @@
       свободно добавлять свои рассказы и фотографии.
      <else>
       нажать на ссылку
-      <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_BLOG_FORUMS&redirid=$_'>
+      <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_BLOG_FORUMS&noguests=1&redirid=$_'>
        &lt;&lt;Добавить текст&gt;&gt;</a> или
-      <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_GALLERY&redirid=$_'>
+      <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_GALLERY&noguests=1&redirid=$_'>
        &lt;&lt;Добавить фотографию&gt;&gt;</a>.
      </notlogged>
      Для каждого пользователя автоматически создается отдельный раздел.
@@ -46,21 +46,20 @@
     </p>
    </div>
    <p>
-   <logged>
     <table class='info'><tr valign=center>
      <td><image src='pics/sheet.gif'></td>
      <td>
-      <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_BLOG_FORUMS&redirid=$_'
+      <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_BLOG_FORUMS&noguests=1&redirid=$_'
 	 >Добавить мнение</a>
      </td>
      <td>&nbsp;</td>
      <td><image src='pics/sheet.gif'></td>
      <td>
-      <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_GALLERY&redirid=$_'
+      <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_GALLERY&noguests=1&redirid=$_'
 	 >Добавить фотографию</a>
      </td>
     </tr></table>
-   </logged>
+   </p>
    <blog topic_id='$`veterans`' href='veterans-user.php'>
   </td>
  </tr></table>
