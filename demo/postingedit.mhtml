@@ -65,7 +65,12 @@
              filename='$file'>
    <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи' color=magenta
           span=2>
-   <editor_line name='title' body='$image.Title' title='Подпись под картинкой'
+   <ifnzero what='$message.ImageSet'>
+    <assign name='ttext' value='$image.Title'>
+   <else>
+    <assign name='ttext' value=''>
+   </ifnzero>
+   <editor_line name='title' body='$ttext' title='Подпись под картинкой'
                 rows=5 span=2>
   </if>
  <if what='$message.hasLargeBody'>
