@@ -251,7 +251,7 @@ return new JournalLine($row);
 function lockReplication($host)
 {
 mysql_query("update horisonts
-             set lock=now()
+             set `lock`=now()
 	     where host='".addslashes($host)."'")
   or journalFailure('Cannot lock replication process.');
 }
@@ -259,7 +259,7 @@ mysql_query("update horisonts
 function unlockReplication($host)
 {
 mysql_query("update horisonts
-             set lock=null
+             set `lock`=null
 	     where host='".addslashes($host)."'")
   or journalFailure('Cannot unlock replication process.');
 }
