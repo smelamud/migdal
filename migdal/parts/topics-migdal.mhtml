@@ -64,6 +64,11 @@
               arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
 	              $posting.TopicId==$`beitenu-news`'
 	      class='item ninept'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`beitenu`' recursive='*false'>
+ <topics_line time='$,' text='Галерея'
+              href#='gallery.php?topic_id=$`beitenu`&general=1'
+              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`beitenu`'
+	      class='item ninept'>
 </topics_table>
 </element>
 
