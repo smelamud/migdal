@@ -1,3 +1,4 @@
+AddDefaultCharset koi8-r
 php_value include_path ".:.."
 php_flag magic_quotes_gpc off
 php_flag magic_quotes_runtime off
