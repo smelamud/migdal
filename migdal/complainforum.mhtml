@@ -13,9 +13,11 @@
  <complain_full id='$compid'>
  <div class='cframe' style='padding: 5px'>
   <if what='$,TypeId==*COMPL_POSTING || $,TypeId==*COMPL_AUTO_POSTING'><zone>
-   <posting_full name='posting' id='$,Link'>
-   <posting posting='$posting' showcomplain='*false'>
-   <p>
+   <posting_full name='posting' id='$,Link' grp='*GRP_NONE'>
+   <if what='$posting.Grp!=*GRP_NONE'>
+    <posting posting='$posting' showcomplain='*false'>
+    <p>
+   </if>
   </zone></if>
   <if what='$,TypeId==*COMPL_FORUM'><zone>
    <forum_answer_full id='$,Link'>

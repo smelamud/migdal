@@ -49,6 +49,8 @@
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' root=general">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
+<decel name='help_link' file='parts/help-link.php' params='href,title,span'
+       defaults='span=0'>
 <decel name='hit_parade' file='parts/hit-parade.php' params='grp,topic_id'
        defaults="grp='*GRP_ALL' topic_id='-1'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
@@ -96,7 +98,7 @@
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
 <decel name='stotext_help_navi' file='parts/stotext-help-navi.php'
-       params='ident,link,title,article' defaults="article='*false'">
+       params='ident'>
 <decel name='subtitle' file='parts/subtitle.php' params='icon'
        defaults="icon=''">
 <decel name='taglit' file='parts/taglit.php' params='topic_id'>

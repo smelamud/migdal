@@ -7,7 +7,7 @@
 <stylesheet ident='article'>
 <preamble>
 <body>
- <top ident='index'>
+ <top ident='help'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=200 class='eframe'>
    <stotext_help_navi ident='types' link='$link' title='$title'

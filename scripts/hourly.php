@@ -9,6 +9,8 @@ require_once('lib/session.php');
 require_once('lib/complains.php');
 require_once('lib/users.php');
 require_once('lib/forums.php');
+require_once('lib/complainscripts.php');
+require_once('lib/postings.php');
 
 function deleteCond($table,$cond)
 {
@@ -36,8 +38,8 @@ deleteCond('votes',"user_id<>0 and sent+interval $userVoteTimeout hour<now()");
 function closeComplains()
 {
 $result=mysql_query(
-	'select complains.id as complain_id,complains.type_id as type_id,
-	        message_id,link,text,script_id,unix_timestamp(sent) as sent
+	'select complains.id as id,complains.type_id as type_id,message_id,
+	        link,text,script_id,unix_timestamp(sent) as sent
 	 from complains
 	      left join messages
 		   on complains.message_id=messages.id
@@ -57,7 +59,8 @@ while($row=mysql_fetch_assoc($result))
        {
        if($row['text']!='')
          {
-         $forum=new ForumAnswer(array('body' => $row['text']));
+         $forum=new ForumAnswer(array('body'      => $row['text'],
+	                              'parent_id' => $complain->getMessageId()));
          if(!$forum->store())
 	   die(mysql_error());
 	 }

@@ -17,49 +17,46 @@
  <else>
   <assign name='head' value='Добавить сообщение в форум'>
  </if>
- <table width=100%><tr valign=top>
-  <td width=200>
-   <stotext_help_navi ident='add' link='$-' title='$head'>
-  </td>
-  <td>
-   <formtable title='$head'>
-    <form method=post enctype='multipart/form-data'
-	  action='actions/forumanswermod.php'>
-     <hidden name='edittag' value=1>
-     <hidden name='okdir' value='$--'>
-     <hidden name='faildir' value='$-'>
-     <hidden name='editid' value='$editid'>
-     <hidden name='parent_id' value='$answer.ParentId'>
-     <table>
-      <starinfo>
-      <error id='*EFA_NO_SEND'
-	     text='Посылать сообщения могут только зарегистрированные пользователи'>
-      <error id='*EFA_NO_EDIT'
-             text='У вас нет права редактировать это сообщение'>
-      <error id='*EFA_STORE_SQL' color='magenta'
-             text='Ошибка базы данных при обновлении записи'>
-      <error id='*EFA_NO_UP'
-	     text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
-      <error id='*EFA_BODY_ABSENT'
-	     text='Напишите хотя бы пару строчек в теле сообщения'>
-      <editor_line name='body' title='Текст' body='$answer.Body'
-		   mandatory='$$forumanswerMandatoryBody'>
-      <checkbox_line name='hidden' value='$answer.isHidden'
-                     title='Не показывать'>
-      <moderator>
-       <checkbox_line name='disabled' value='$answer.isDisabled'
-		      title='Запретить показ'>
-      </moderator>
-      <if what='$editid'>
-       <formbuttons title='Изменить'>
-      <else>
-       <formbuttons title='Добавить'>
-      </if>
-     </table>
-    </form>
-   </formtable>
-  </td>
- </tr></table>
+ <center>
+  <formtable title='$head'>
+   <form method=post enctype='multipart/form-data'
+	 action='actions/forumanswermod.php'>
+    <hidden name='edittag' value=1>
+    <hidden name='okdir' value='$--'>
+    <hidden name='faildir' value='$-'>
+    <hidden name='editid' value='$editid'>
+    <hidden name='parent_id' value='$answer.ParentId'>
+    <table>
+     <starinfo>
+     <error id='*EFA_NO_SEND'
+	    text='Посылать сообщения могут только зарегистрированные пользователи'>
+     <error id='*EFA_NO_EDIT'
+	    text='У вас нет права редактировать это сообщение'>
+     <error id='*EFA_STORE_SQL' color='magenta'
+	    text='Ошибка базы данных при обновлении записи'>
+     <error id='*EFA_NO_UP'
+	    text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
+     <error id='*EFA_BODY_ABSENT'
+	    text='Напишите хотя бы пару строчек в теле сообщения'>
+     <editor_line name='body' title='Текст' body='$answer.Body'
+		  mandatory='$$forumanswerMandatoryBody'>
+     <help_link href='stotext-help-subs.php'
+		title='Список обозначений, используемых в тексте'>
+     <checkbox_line name='hidden' value='$answer.isHidden'
+		    title='Не показывать'>
+     <moderator>
+      <checkbox_line name='disabled' value='$answer.isDisabled'
+		     title='Запретить показ'>
+     </moderator>
+     <if what='$editid'>
+      <formbuttons title='Изменить'>
+     <else>
+      <formbuttons title='Добавить'>
+     </if>
+    </table>
+   </form>
+  </formtable>
+ </center>
  <bottom>
 </body>
 </html>
