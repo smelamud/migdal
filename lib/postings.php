@@ -472,8 +472,8 @@ $hide=$userModerator ? 2 : 1;
 $filter=$id>=0 ? "postings.id=$id"
                : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0"
 	                     : '');
-$result=mysql_query("select postings.id as id,ident,message_id,stotext_id,body,
-                            large_filename,large_format,large_body,
+$result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
+                            body,large_filename,large_format,large_body,
 			    large_imageset,lang,subject,author,source,url,
 			    topic_id,personal_id,sender_id,grp,priority,
 			    image_set,index1,subdomain,sent,hidden,disabled
