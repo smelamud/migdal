@@ -10,12 +10,12 @@
  <array name='pics'
 	val1='pics/ioc.gif'
 	val2='pics/lookstein.gif'
-	val3='pics/jerant.jpg'
+	val3='http://www.antho.net/banners/88/88x31-03.gif'
 	val4='http://www.rjews.net/gazeta/a7ban.gif'>
  <array name='alts'
         val1=''
         val2=''
-        val3=''
+        val3='Jerusalem Anthologia'
 	val4='Jerusalem chronikles'>
  <iterate_random_seq n=3 min=1 max=4>
  <for>
