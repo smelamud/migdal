@@ -580,9 +580,6 @@ mysql_query("update postings
              set read_count=read_count+1,last_read=now()
 	     where id=$id")
   or sqlbug('Ошибка SQL при обновлении счетчика прочтений постинга');
-journal('update postings
-         set read_count=read_count+1,last_read=now()
-	 where id='.journalVar('postings',$id));
 }
 
 function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)
