@@ -26,3 +26,4 @@
 </macro>
 << Elements >>
 <decel name='reload' file='lib/utils.php' params='why,var,value'>
+<decel name='top' file='parts/top.php' params='ident'>

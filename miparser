@@ -148,13 +148,15 @@ package Element;
 
 sub new
 {
-my ($class,$file,$params)=@_;
+my ($class,$file,$params,$defaults)=@_;
 
 my $self=bless {'file' => $file},$class;
 $params=~s/^\s+//;
 $params=~s/\s+$//;
 $self->{'params'}=[];
 @{$self->{'params'}}=map{s/^\$//;$_} split(/[\s,]+/,$params);
+$self->{'defaults'}={};
+::splitParams($defaults,$self->{'defaults'});
 return $self;
 }
 
@@ -172,9 +174,8 @@ my ($self,$args)=@_;
 my @list=();
 foreach(@{$self->{'params'}})
        {
-	::display("$_\n");
-        ::display($args->{$_},"\n");
-       push @list,::subVar($args->{$_});
+       push @list,::subVar(exists $args->{$_} ? $args->{$_}
+                                              : $self->{'defaults'}->{$_});
        }
 return join ',',@list;
 }
@@ -381,6 +382,7 @@ elsif(defined($::Macros{$self->getName()}))
   }
 elsif(defined($::Elements{$self->getName()}))
   {
+  ::request($::Elements{$self->getName()}->getFile());
   ::body('<?php display',$self->getName(),'(',
          $::Elements{$self->getName()}->getParams($self->getArgs()),') ?>');
   }
@@ -520,7 +522,8 @@ sub elDecel
 my ($self)=@_;
 
 $::Elements{$self->getArg('name')}=Element->new($self->getArg('file'),
-                                                $self->getArg('params'));
+                                                $self->getArg('params'),
+                                                $self->getArg('defaults'));
 }
 
 #### Comment ####

@@ -1,12 +1,11 @@
 << @(#) $Id$ >>
-<require name='parts/top.php'>
 <grp ignore='$ignoregrp'>
 <html>
 <head>
  <title>Клуб Еврейского Студента - $g.title</title>
 </head>
 <body bgcolor=white>
-  <?php displayTop($ident); ?>
+  <top ident='$g.Ident'>
   <center><h1>Темы</h1></center>
   <admin_topics>
    <p>

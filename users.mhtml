@@ -4,8 +4,7 @@
  <title>Клуб Еврейского Студента - Пользователи</title>
 </head>
 <body bgcolor=white>
-  <require name='parts/top.php'>
-  <?php displayTop('users'); ?>
+  <top ident='users'>
   <p>
   <table>
    <tr valign=top>
