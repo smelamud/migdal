@@ -162,8 +162,8 @@ $max_sent=$info->getMaxSent();
 mysql_query("insert into postings_info(reader_id,grp,topic_id,answers,user_id,
                                        recursive,total,max_sent)
 	     values($userId,$grp,$topic_id,$answers,$user_id,
-	            $recursive,$total,$max_sent)")
-  or sqlbug('Ошибка SQL при сохранении в кэше информации о постингах');
+	            $recursive,$total,$max_sent)");
+// На ошибку не проверяем, чтобы избежать race condition
 }
 
 define('DPIC_NONE',0);
