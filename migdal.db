@@ -1,8 +1,8 @@
--- MySQL dump 9.10
+-- MySQL dump 9.11
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	4.0.18-log
+-- Server version	4.0.20-log
 
 --
 -- Table structure for table `chat_messages`
@@ -351,6 +351,7 @@ CREATE TABLE `postings` (
   `index4` int(11) NOT NULL default '0',
   `subdomain` tinyint(4) NOT NULL default '0',
   `used` tinyint(4) NOT NULL default '0',
+  `test` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `message_id` (`message_id`),
   KEY `topic_id` (`topic_id`),
@@ -644,11 +645,11 @@ CREATE TABLE `votes` (
   KEY `sent` (`sent`)
 ) TYPE=MyISAM;
 
--- MySQL dump 9.10
+-- MySQL dump 9.11
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	4.0.18-log
+-- Server version	4.0.20-log
 
 --
 -- Dumping data for table `version`
