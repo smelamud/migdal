@@ -185,4 +185,9 @@
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`methodics`"
 	     indent=1 class='item eightpt'
 	     title='Южно-украинский региональный методический центр'>
+<posting_last topic_id='$`printings`' recursive='*true'>
+<topics_line time='$,' text='Издательский центр'
+	     href#='printings.php'
+	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`printings`"
+	     indent=1 class='item eightpt'>
 </element>

@@ -12,13 +12,13 @@ OBJECTS = archive.php article.php article-times.php book.php book-chapter.php \
 	  journal.php kaitana.php kaitana-main.php limedit.php liminsert.php \
 	  links.php login.php methodic-center.php methodics.php migdal.php \
 	  migdal-library.php migdal-library-news.php migdal-news.php \
-	  posting.php postingedit.php postingorg.php rating.php register.php \
-	  reorder.php stotext-help-subs.php stotext-help-types.php style.php \
-	  taglit.php taglit-user.php times.php tips.php topicdel.php \
-	  topicedit.php topiclinkadd.php topicorg.php topics-reorder.php \
-	  urls.php useredit.php userfin.php userinfo.php userinfo-panel.php \
-	  userlost.php userok.php userrepair.php users.php veterans.php \
-	  veterans-user.php
+	  posting.php postingedit.php postingorg.php printings.php rating.php \
+	  register.php reorder.php stotext-help-subs.php \
+	  stotext-help-types.php style.php taglit.php taglit-user.php \
+	  times.php tips.php topicdel.php topicedit.php topiclinkadd.php \
+	  topicorg.php topics-reorder.php urls.php useredit.php userfin.php \
+	  userinfo.php userinfo-panel.php userlost.php userok.php \
+	  userrepair.php users.php veterans.php veterans-user.php
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@

@@ -111,6 +111,13 @@
     <assign name='title' value=''>
     <assign name='name' value#='$name :: Новые поступления'>
    </if>
+  <elif what='$/$posting.TopicId,1/==$`printings`'>
+   <topic_obj id='$`printings`'>
+   <assign name='href' value='printings.php'>
+   <assign name='ghref' value=''>
+   <assign name='title' value='$,Description'>
+   <assign name='name' value='$,Name'>
+   <assign name='root' value='$`printings`'>
   <elif what='$/$posting.TopicId,1/==$`methodics`'>
    <topic_obj id='$`methodics`'>
    <assign name='href' value='methodic-center.php'>

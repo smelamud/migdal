@@ -1,0 +1,73 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+
+<grps>
+<log event=review text#='topic($`printings`)'>
+<pagetitle title='Издательский центр'>
+<topictitle title='Издательский центр'>
+
+<element name='batcher' params='printings'>
+<ispost what='$printings'>
+ <table class='info'><tr valign=center>
+  <td><image src='pics/sheet.gif'></td>
+  <td>
+   <a href='postingedit.php?topic_id=$`printings`&grp=*GRP_LIBRARY_ANNOUNCES&redirid=$_'
+      >Добавить анонс</a>
+  </td>
+  <td>&nbsp;</td>
+  <td>
+   <a href='reorder.php?topic_id=$`printings`&grp=*GRP_LIBRARY_ANNOUNCES&up=-1&redirid=$_'
+      >Расставить</a>
+  </td>
+ </tr></table>
+</ispost>
+</element>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <posting_new grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`printings`'>
+    <topics posting='$,'>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <outer><div class='nframe' style='padding: 5'><inner>
+     <seealso_links topic_id='$`printings`'
+                    topic_grp='*GRP_LIBRARY_ANNOUNCES'
+		    title='См. также в разделе ссылок'>
+     <seealso_other topic_id='$`printings`'
+                    topic_grp='*GRP_LIBRARY_ANNOUNCES'
+		    title='По этой теме в других разделах'>
+    </inner></div></outer>
+    <perms name='printings' table='topics' id='$`printings`'>
+    <batcher printings='$printings'>
+    <iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`printings`'
+			 recursive='*true' limit=0 sort='*SORT_INDEX0'>
+    <assign name='topicname' value=''>
+    <for>
+     <if what='$topicname!=$.TopicName'>
+      <assign name='topicname'
+	      value!="$.TopicId!=$`printings` ? $.TopicName : ''">
+      <ifne what='$topicname'>
+       <table width=100% class=heading><tr>
+	<td align=left><image src='pics/times-bullet.gif'></td>
+	<td align=right>$^topicname</td>
+       </tr></table>
+      </ifne>
+     </if>
+     <posting posting='$.' showtopic='*false' showdiscuss='*true'>
+    </for>
+    <ifnzero what='$;Count'>
+     <batcher printings='$printings'>
+    </ifnzero>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</body>
+</html>
