@@ -1,0 +1,122 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/postingedit.mhtml 1.19 >>
+
+<int name='editid'>
+<int name='topic_id'>
+<grp>
+<html>
+<head>
+ <title>Штаб Мошиаха - $g.title</title>
+</head>
+<body bgcolor=white>
+ <top ident='$g.ident'>
+ <p>
+ <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
+ <setup>
+ <form method=post enctype='multipart/form-data'
+       action='actions/postingmod.php'>
+ <input type=hidden name='edittag' value=1>
+ <input type=hidden name='redir' value='$redir'>
+ <input type=hidden name='editid' value='$editid'>
+ <input type=hidden name='grp' value='$message.Grp'>
+ <input type=hidden name='personal_id' value='$message.PersonalId'>
+ <table>
+ <error id='*EP_NO_SEND'
+        text='Посылать сообщения могут только зарегистрированные пользователи'>
+ <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+ <error id='*EP_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+        color='magenta'>
+ <error id='*EP_DISABLE_SQL' color='magenta'
+        text='Ошибка базы данных при установке признака модерирования'>
+ <error id='*EP_NO_PERSONAL'
+        text='У этого пользователя нет персональной страницы'>
+ <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
+ <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
+ <tr><td><table>
+  <moderator>
+   <edit_line title='Приоритет' name='priority' value='$message.Priority'
+              size=4 maxlength=3>
+  </moderator>
+  <if what='$message.hasTopic'>
+   <topicselect name='topic_id' value='$message.TopicId' grp='$grp'>
+  </if>
+  <moderator>
+   <if what='$message.hasIdent'>
+    <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
+    <error id='*EP_IDENT_UNIQUE' span=2
+	   text='Так уже обозначено другое сообщение'>
+    <edit_line title='Обозначение' name='ident' value='$,Ident'
+	       size=15 maxlength=15>
+   </if>
+  </moderator>
+  <if what='$message.hasSubject'>
+   <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
+   <edit_line title='Заголовок' value='$message.Subject' name='subject'
+              size=42 maxlength=250>
+  </if>
+  <if what='$message.hasImage'>
+   <error id='*EP_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
+	  span=2>
+   <error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
+   <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+   <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+	  span=2>
+   <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
+	  color='magenta' span=2>
+   <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+          text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+   <ifnzero what='$message.ImageSet'>
+    <image_name set='$message.ImageSet'>
+    <assign name='file' value='$image.Filename'>
+   <else>
+    <assign name='file' value=''>
+   </ifnzero>
+   <if what='$message.hasLargeBody'>
+    <assign name='ititle' value='Картинка для аннотации'>
+   <else>
+    <assign name='ititle' value='Картинка'>
+   </if>
+   <uploader name='image' loadedname='image_set' loadedvalue='$message.ImageSet'
+             title='$ititle' loaded='(уже загружена)' notloaded='Другая'
+             filename='$file'>
+   <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи' color=magenta
+          span=2>
+   <ifnzero what='$message.ImageSet'>
+    <assign name='ttext' value='$image.Title'>
+   <else>
+    <assign name='ttext' value=''>
+   </ifnzero>
+   <editor_line name='title' body='$ttext' title='Подпись под картинкой'
+                rows=5 span=2>
+  </if>
+ <if what='$message.hasLargeBody'>
+  <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
+  <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
+  <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
+            title='Текст' loaded='(уже загружен)' notloaded='Другой'
+	    filename='$message.LargeFilename'>
+  <upload_format format='$message.LargeFormat'>
+  </table></td></tr>
+  <if what='$message.hasBody'>
+   <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
+   <editor_line name='body' title='Аннотация' body='$message.Body'>
+  </if>
+ <else>
+  </table></td></tr>
+  <if what='$message.hasBody'>
+   <error id='*EP_BODY_ABSENT'
+	  text='Напишите хотя бы пару строчек в теле сообщения'>
+   <editor_line name='body' title='Текст' body='$message.Body'>
+  </if>
+ </if>
+ <checkbox_line name='hidden' value='$message.isHidden' title='Не показывать'>
+ </table>
+ <if what='$editid'>
+  <input type=submit value='Изменить'>
+ <else>
+  <input type=submit value='Добавить'>
+ </if>
+ <input type=reset value='Очистить'>
+ </form>
+</body>
+</html>
