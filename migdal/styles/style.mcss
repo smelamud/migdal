@@ -11,6 +11,7 @@ nll=#DCECFF
 r=#FF5500
 vd=#5B1900
 vm=#F8BF19
+vmm=#FFE69B
 vl=#FFF8E8
 md=#91089D
 ml=#BA00FF
@@ -25,6 +26,7 @@ body_back=white
 menu_back=%bl
 menu_normal=white
 menu_selected=yellow
+bottom=%gr
 state_date_back=%bl
 state_date=%vm
 state_style=blue
@@ -74,6 +76,8 @@ topics_controls_hover=blue
 catalog_border=black
 catalog_header=%nd
 catalog_header_text=white
+catalog_active_even=%vmm
+catalog_active_odd=%vl
 :default catalog_even=%nm
 :contrast catalog_even=%grl
 :test catalog_even=%nm
@@ -146,6 +150,19 @@ BODY {
 
 .menu A:hover {
 	text-decoration: underline;
+}
+
+! Bottom
+
+.bottom {
+	margin-top: 2ex;
+	border-top: 2px solid %bottom;
+	width: 100%;
+}
+
+.bottom * {
+	color: %bottom;
+	font-size: 8pt;
 }
 
 ! State
@@ -527,6 +544,14 @@ BODY {
 
 .catalog TR.odd {
 	background-color: %catalog_odd;
+}
+
+.catalog TR.active {
+	background-color: %catalog_active_even;
+}
+
+.catalog TR.activeodd {
+	background-color: %catalog_active_odd;
 }
 
 .catalog .topic {

@@ -197,5 +197,6 @@
   <input type=reset value='Очистить'>
   </form>
  </isedit>
+ <bottom>
 </body>
 </html>

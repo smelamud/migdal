@@ -75,14 +75,15 @@
       <checkbox name='hidden' value='$,isHidden' title='Не показывать'>
      </td>
     </table>
-   <if what='$menuid'>
-    <input type=submit value='Изменить'>
-   <else>
-    <input type=submit value='Добавить'>
-   </if>
-   <input type=reset value='Очистить'>
+    <if what='$menuid'>
+     <input type=submit value='Изменить'>
+    <else>
+     <input type=submit value='Добавить'>
+    </if>
+    <input type=reset value='Очистить'>
    </form>
   </td>
  </tr></table>
+ <bottom>
 </body>
 </html>

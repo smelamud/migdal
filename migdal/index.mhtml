@@ -14,5 +14,6 @@
    <postings grp='*GRP_ALL' limit='$userMsgPortion' offset='$offset'>
   </td></tr>
  </table>
+ <bottom>
 </body>
 </html>

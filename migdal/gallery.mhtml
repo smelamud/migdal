@@ -21,5 +21,6 @@
                cols='$userPictureColumnPortion' offset='$offset'
 	       title='$grptitle'></td>
  </tr></table>
+ <bottom>
 </body>
 </html>

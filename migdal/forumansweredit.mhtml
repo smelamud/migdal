@@ -14,72 +14,73 @@
  <setup>
  <form method=post enctype='multipart/form-data'
        action='actions/forumanswermod.php'>
- <hidden name='edittag' value=1>
- <hidden name='redir' value='$redir'>
- <hidden name='editid' value='$editid'>
- <hidden name='up' value='$answer.UpValue'>
- <table>
- <error id='*EFA_NO_SEND'
-        text='Посылать сообщения могут только зарегистрированные пользователи'>
- <error id='*EFA_NO_EDIT' text='У вас нет права редактировать это сообщение'>
- <error id='*EFA_STORE_SQL' text='Ошибка базы данных при обновлении записи'
-        color='magenta'>
- <error id='*EFA_NO_UP'
-        text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
- <tr><td><table>
-  <if what='$answer.hasSubject'>
-   <edit_line title='Заголовок' value='$answer.Subject' name='subject'
-              size=42 maxlength=250>
+  <hidden name='edittag' value=1>
+  <hidden name='redir' value='$redir'>
+  <hidden name='editid' value='$editid'>
+  <hidden name='up' value='$answer.UpValue'>
+  <table>
+   <error id='*EFA_NO_SEND'
+	  text='Посылать сообщения могут только зарегистрированные пользователи'>
+   <error id='*EFA_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+   <error id='*EFA_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+	  color='magenta'>
+   <error id='*EFA_NO_UP'
+	  text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
+   <tr><td><table>
+    <if what='$answer.hasSubject'>
+     <edit_line title='Заголовок' value='$answer.Subject' name='subject'
+		size=42 maxlength=250>
+    </if>
+    <if what='$answer.hasImage'>
+     <error id='*EFA_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
+	    span=2>
+     <error id='*EFA_NO_IMAGE' text='Указанной картинки не существует' span=2>
+     <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+     <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+	    span=2>
+     <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
+	    color='magenta' span=2>
+     <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+	    text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+     <ifzero what='$answer.ImageSet'>
+      <tr>
+       <td>Картинка</td>
+       <td><input type=file name='image' size=35></td>
+      </tr>
+     <else>
+      <image_name set='$answer.ImageSet'>
+      <tr><td colspan=2><table>
+       <tr><td>Картинка</td></tr>
+       <tr>
+	<td>
+	 <input type=radio name='image_set' value='$answer.ImageSet' checked>
+	 &nbsp;$image.Filename&nbsp;<i>(уже загружена)</i>
+	</td>
+       </tr>
+       <tr><td>
+	<input type=radio name='image_set' value=0>&nbsp;Другая&nbsp;
+	<input type=file name='image' size=35>
+       </td></tr>
+      </table></td></tr>
+     </ifzero>
+    </if>
+   </table></td></tr>
+   <error id='*EFA_BODY_ABSENT'
+	  text='Напишите хотя бы пару строчек в теле сообщения'>
+   <editor_line name='body' title='Текст' body='$answer.Body'>
+   <checkbox_line name='hidden' value='$answer.isHidden' title='Не показывать'>
+   <moderator>
+    <checkbox_line name='disabled' value='$answer.isDisabled'
+		   title='Запретить показ'>
+   </moderator>
+  </table>
+  <if what='$editid'>
+   <input type=submit value='Изменить'>
+  <else>
+   <input type=submit value='Добавить'>
   </if>
-  <if what='$answer.hasImage'>
-   <error id='*EFA_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
-	  span=2>
-   <error id='*EFA_NO_IMAGE' text='Указанной картинки не существует' span=2>
-   <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
-   <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
-	  span=2>
-   <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
-	  color='magenta' span=2>
-   <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
-          text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
-   <ifzero what='$answer.ImageSet'>
-    <tr>
-     <td>Картинка</td>
-     <td><input type=file name='image' size=35></td>
-    </tr>
-   <else>
-    <image_name set='$answer.ImageSet'>
-    <tr><td colspan=2><table>
-     <tr><td>Картинка</td></tr>
-     <tr>
-      <td>
-       <input type=radio name='image_set' value='$answer.ImageSet' checked>
-       &nbsp;$image.Filename&nbsp;<i>(уже загружена)</i>
-      </td>
-     </tr>
-     <tr><td>
-      <input type=radio name='image_set' value=0>&nbsp;Другая&nbsp;
-      <input type=file name='image' size=35>
-     </td></tr>
-    </table></td></tr>
-   </ifzero>
-  </if>
- </table></td></tr>
- <error id='*EFA_BODY_ABSENT'
-        text='Напишите хотя бы пару строчек в теле сообщения'>
- <editor_line name='body' title='Текст' body='$answer.Body'>
- <checkbox_line name='hidden' value='$answer.isHidden' title='Не показывать'>
- <moderator>
-  <checkbox_line name='disabled' value='$answer.isDisabled'
-                 title='Запретить показ'>
- </moderator>
- </table>
- <if what='$editid'>
-  <input type=submit value='Изменить'>
- <else>
-  <input type=submit value='Добавить'>
- </if>
- <input type=reset value='Очистить'>
+  <input type=reset value='Очистить'>
  </form>
+ <bottom>
 </body>
 </html>

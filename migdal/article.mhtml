@@ -134,5 +134,6 @@
  <if what='$,LargeFormat==*TF_PRE'></pre></if>
  <p>
  <controls posting='$,'>
+ <bottom>
 </body>
 </html>

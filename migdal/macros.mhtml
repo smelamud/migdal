@@ -18,6 +18,7 @@
 << Elements >>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
 <decel name='batcher' file='parts/messages.php' params='value,var'>
+<decel name='bottom' file='parts/bottom.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
 <decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'

@@ -2,10 +2,10 @@
 
 # @(#) $Id$
 
-OBJECTS = backtrace.php complain.php cs_forum.php cs_normal.php cs_posting.php \
-	  forumanswer.php forumcatalog.php forums.php gallery.php login.php \
-	  menu.php picture.php posting.php postings.php today.php top.php \
-	  topics.php topicselect.php uploader.php utils.php
+OBJECTS = backtrace.php bottom.php complain.php cs_forum.php cs_normal.php \
+	  cs_posting.php forumanswer.php forumcatalog.php forums.php \
+	  gallery.php login.php menu.php picture.php posting.php postings.php \
+	  today.php top.php topics.php topicselect.php uploader.php utils.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

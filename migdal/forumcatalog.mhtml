@@ -19,5 +19,6 @@
   <td><forumcatalog grp='$grp' topic='$topic_id' title='$grptitle'
                     limit='$userForumCatalogPortion' offset='$offset'></td>
  </tr></table>
+ <bottom>
 </body>
 </html>

@@ -48,6 +48,14 @@
 </tr></table>
 </element>
 
+<macro name='row'>
+ <if what='$.isClosed'>
+  <if what='$;isOdd'><tr class='odd'><else><tr></if>
+ <else>
+  <if what='$;isOdd'><tr class='activeodd'><else><tr class='active'></if>
+ </if>
+</macro>
+
 <int name='offset'>
 <html>
 <head>
@@ -63,7 +71,7 @@
    <th>Рассматривает</th><th>Закрыто</th><th class='answer'>Ответы</th>
   </tr>
  <for name='complain'>
-  <if what='$;isOdd'><tr class='odd'><else><tr></if>
+  <row>
    <td align=right>$.Id</td>
    <td><sentview date='$.Sent'></td>
    <td>
@@ -95,5 +103,6 @@
  </for>
  </table>
  <batcher_complains value='$$userComplainPortion' list='$;'>
+ <bottom>
 </body>
 </html>

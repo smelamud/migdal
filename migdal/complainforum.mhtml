@@ -8,17 +8,18 @@
  <title>Мигдаль - Обсуждение жалобы</title>
 </head>
 <body>
-<top ident='complains' image='pics/complain.gif'>
-<p>
-<complain_full id='$compid'>
-<if what="$,Display!=''">
- <include name='$,Display'>
- <decel name='complain_subject' params='link'>
- <complain_subject link='$,Link'>
+ <top ident='complains' image='pics/complain.gif'>
  <p>
-</if>
-<complain complain='$,' discuss='*false'>
-<center><h1>Обсуждение</h1></center>
-<forums up='$,MessageId' limit='$$userForumPortion'>
+ <complain_full id='$compid'>
+ <if what="$,Display!=''">
+  <include name='$,Display'>
+  <decel name='complain_subject' params='link'>
+  <complain_subject link='$,Link'>
+  <p>
+ </if>
+ <complain complain='$,' discuss='*false'>
+ <center><h1>Обсуждение</h1></center>
+ <forums up='$,MessageId' limit='$$userForumPortion'>
+ <bottom>
 </body>
 </html>
