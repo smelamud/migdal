@@ -35,46 +35,56 @@ return $result ? EP_OK : EP_TITLE_SQL;
 
 function isPremoderated($message)
 {
-global $userId,$userModerator;
+global $userModerator;
 
 return (((int)getPremoderateByTopicId($message->getTopicId())
-         & (int)$message->getGrp())!=0 || $message->getLargeFormat()==TF_HTML
-	|| $userId<=0) && !$userModerator;
+         & (int)$message->getGrp())!=0 || $message->getLargeFormat()==TF_HTML)
+       && !$userModerator;
+}
+
+function isLogged($message)
+{
+global $userModerator;
+
+return !$userModerator;
 }
 
 function setDisabled($message)
 {
-if(!isPremoderated($message))
-  return true;
 $complain=getComplainInfoByLink(COMPL_AUTO_POSTING,$message->getId());
 if($complain->getId()==0)
   {
-  $result=mysql_query('update messages
-		       set disabled=1
-		       where id='.$message->getMessageId());
-  if(!$result)
-    return false;
-  journal('update messages
-	   set disabled=1
-	   where id='.journalVar('messages',$message->getMessageId()));
-  sendAutomaticComplain(COMPL_AUTO_POSTING,
-			'Автоматическая проверка сообщения "'.
-			 $message->getSubjectDesc().'"',
-			$message->getLargeFormat()!=TF_HTML
-			 ? ''
-			 : '~Внимание!~ Этот текст в формате HTML.',
-			$message->getId(),
-			$message->getLargeFormat()==TF_HTML);
+  if(isPremoderated($message))
+    {
+    $result=mysql_query('update messages
+			 set disabled=1
+			 where id='.$message->getMessageId());
+    if(!$result)
+      return false;
+    journal('update messages
+	     set disabled=1
+	     where id='.journalVar('messages',$message->getMessageId()));
+    }
+  if(isLogged($message))
+    sendAutomaticComplain(COMPL_AUTO_POSTING,
+			  'Автоматическая проверка сообщения "'.
+			   $message->getSubjectDesc().'"',
+			  $message->getLargeFormat()!=TF_HTML
+			   ? ''
+			   : '~Внимание!~ Этот текст в формате HTML.',
+			  $message->getId(),
+			  $message->getLargeFormat()==TF_HTML);
   }
 else
-  {
-  if($complain->isClosed())
-    reopenComplain($complain->getId(),true);
-  if(!postForumAnswer($complain->getMessageId(),
-		      'Сообщение было изменено.',
-		      getShamesId()))
-    return false;
-  }
+  if(isLogged($message))
+    {
+    if($complain->isClosed())
+      reopenComplain($complain->getId(),true);
+    if(!postForumAnswer($complain->getMessageId(),
+			'Сообщение было изменено.',
+			getShamesId()))
+      return false;
+    }
 return true;
 }
 
