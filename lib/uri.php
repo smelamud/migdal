@@ -66,7 +66,10 @@ var $rm;
 function HTTPVarsIterator($vars,$rm='')
 {
 $this->vars=$vars;
-$this->rm=$rm;
+if(is_array($rm))
+  $this->rm=$rm;
+else
+  $this->rm=array($rm);
 reset($this->vars);
 }
 
@@ -76,7 +79,7 @@ do
   {
   $cur=each($this->vars);
   }
-while($cur && $cur[0]==$this->rm);
+while($cur && in_array($cur[0],$this->rm));
 return $cur ? new HTTPVar($cur[0],$cur[1]) : 0;
 }
 

@@ -63,7 +63,8 @@
 
 <macro name='hiddenget'>
  <zone>
-  <iterate_http remove='%remove'>
+  <array vals='%remove'>
+  <iterate_http remove='$*'>
   <for><input type=hidden name='$.Name' value='$.Value'></for>
  </zone>
 </macro>

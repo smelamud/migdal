@@ -43,25 +43,31 @@ $message.LoginLink
 </tr></table><br>
 </element>
 
+<macro name='select_portion'>
+<select name='%name'>
+ <array val1='%vals' val2='%value'>
+ <iterate_sortarray>
+ <for>
+  <if what='%value==$.'>
+   <option value=$. selected>$.
+  <else>
+   <option value=$.>$.
+  </if>
+ </for>
+</select>
+</macro>
+
 <element name='Batcher'>
 <table width=100%>
  <form method=get action='$~'>
   <hiddenget remove='$var'>
   <tr><td align=right><table><tr valign=center>
-  <td>Показывать по&nbsp;</td>
-  <td><select name='$var'>
-   <array val1='10 15 20 25 30 35 40' val2='$value'>
-   <iterate_sortarray>
-   <for>
-    <if what='$value==$.'>
-     <option value=$. selected>$.
-    <else>
-     <option value=$.>$.
-    </if>
-   </for>
-  </select></td>
-  <td>сообщений&nbsp;</td>
-  <td><input type=submit value='Изменить'></td>
+   <td>Показывать по&nbsp;</td>
+   <td>
+    <select_portion name='$var' value='$value' vals='10 15 20 25 30 35 40'>
+   </td>
+   <td>сообщений&nbsp;</td>
+   <td><input type=submit value='Изменить'></td>
   </tr></table></td></tr>
  </form>
 </table><br>
