@@ -642,7 +642,7 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
              : ' and topics.'.byIdentRecursive('topics',$topic_id,$recursive);
-$result=mysql_query("select max(index$index)
+$result=mysql_query("select max(postings.index$index)
                      from postings
 			  left join messages
 			       on postings.message_id=messages.id
