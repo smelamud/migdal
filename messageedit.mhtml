@@ -1,0 +1,121 @@
+<< @(#) $Id$ >>
+<?php
+require_once('parts/utils.php');
+?>
+<int name='editid'>
+<int name='up'>
+<int name='topic_id'>
+<grp>
+<html>
+<head>
+ <title>Клуб Еврейского Студента - $g.title</title>
+</head>
+<body bgcolor=white>
+ <top ident='$ident'>
+ <p>
+ <message id='$editid' grp='$grp' topic='$topic_id'>
+ <ifzero what='$message.Id'>
+  <setup var='UpValue' value='$up'>
+ </if>
+ <setup>
+ <form method=post enctype='multipart/form-data'
+       action='actions/messagemod.php'>
+ <input type=hidden name='edittag' value=1>
+ <input type=hidden name='redir' value='$redir'>
+ <input type=hidden name='editid' value='$editid'>
+ <input type=hidden name='grp' value='$message.Grp'>
+ <input type=hidden name='up' value='$message.UpValue'>
+ <input type=hidden name='personal_id' value='$message.PersonalId'>
+ <table>
+ <?php
+ perror(EM_NO_SEND,'Посылать сообщения могут только зарегистрированные
+                    пользователи');
+ perror(EM_NO_EDIT,'У вас нет права редактировать это сообщение');
+ perror(EM_STORE_SQL,'Ошибка базы данных при обновлении записи','magenta');
+ perror(EM_FORUM_ANSWER,'Отвечать можно только в форуме');
+ perror(EM_NO_UP,'Сообщение, на которое вы пытаетесь ответить, еще не написано');
+ perror(EM_NO_PERSONAL,'У этого пользователя нет персональной страницы');
+ perror(EM_TOPIC_ABSENT,'Тема должна быть выбрана');
+ perror(EM_NO_TOPIC,'Такой темы не существует');
+ ?>
+ <tr><td><table>
+  <if what='$message.hasTopic'>
+   <tr>
+    <td>Тема</td>
+    <td>
+     <select name='topic_id'>
+      <?php
+      echo elementOption('-- Не выбрана --',0,$message->getTopicId());
+      ?>
+      <iterate_topicnames grp='$grp'>
+      <for>
+       <?php echo elementOption($item->getName(),$item->getId(),
+			  $message->getTopicId()); ?>
+      </for>
+     </select>
+    </td>
+   </tr>
+  </if>
+  <?php
+  if($message->hasSubject())
+    {
+    perror(EM_SUBJECT_ABSENT,'Заголовок пуст',2);
+    echo elementEdit('Заголовок',$message->getSubject(),'subject',42,250);
+    }
+  if($message->hasImage())
+    {
+    perror(EM_IMAGE_ABSENT,'Нужно указать картинку для отображения','red',2);
+    perror(EM_NO_IMAGE,'Указанной картинки не существует','red',2);
+    perror(EM_UNKNOWN_IMAGE,'Неизвестный формат картинки','red',2);
+    perror(EM_IMAGE_LARGE,'Картинка слишком велика (больше 2M)','red',2);
+    perror(EM_IMAGE_SQL,'Ошибка базы данных при загрузке картинки','magenta',2);
+    ?>
+    <ifzero what='$message.ImageSet'>
+     <tr>
+      <td>Картинка</td>
+      <td><input type=file name='image' size=35></td>
+     </tr>
+    <else>
+     <image_name set='$message.ImageSet'>
+     <tr><td colspan=2><table>
+      <tr><td>Картинка</td></tr>
+      <tr>
+       <td>
+	<input type=radio name='image_set' value='$message.ImageSet' checked>
+	&nbsp;$image.Filename&nbsp;<i>(уже загружена)</i>
+       </td>
+      </tr>
+      <tr><td>
+       <input type=radio name='image_set' value=0>&nbsp;Другая&nbsp;
+       <input type=file name='image' size=35>
+      </td></tr>
+     </table></td></tr>
+    </if>
+      <?php
+    }
+  ?>
+ </table></td></tr>
+ <?php
+ perror(EM_BODY_ABSENT,'Напишите хотя бы пару строчек в теле сообщения');
+ ?>
+ <tr><td>Текст</td></tr>
+ <tr><td>
+  <textarea name='body' rows=10 cols=50 wrap='virtual'>
+   $message.Body
+  </textarea>
+ </td></tr>
+ <?php
+ echo elementCheckBox('hidden',$message->isHidden(),'Не показывать');
+ if($userModerator)
+   echo elementCheckBox('disabled',$message->isDisabled(),'Запретить показ');
+ ?>
+ </table>
+ <if what='$editid'>
+  <input type=submit value='Изменить'>
+ <else>
+  <input type=submit value='Добавить'>
+ </if>
+ <input type=reset value='Очистить'>
+ </form>
+</body>
+</html>

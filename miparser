@@ -12,7 +12,8 @@ $Token='';
 	 '<<'   => 'Remark',
          '<'    => 'Tag',
 	 ''     => 'Text');
-	 
+@GetPrefixes=('get','is','has');
+
 @Requests=();
 $Header='';
 $Body='';
@@ -55,6 +56,17 @@ return 'remakeURI($REQUEST_URI,array('.join(',',@del).'),array('
                                       .join(',',@subs).'))';
 }
 
+sub getGetName
+{
+my ($name)=@_;
+
+foreach(@GetPrefixes)
+       {
+       return $name if lc(substr($name,0,length $_)) eq $_;
+       }
+return "get$name";
+}
+
 sub subVar
 {
 my ($s,$st,$ed)=@_;
@@ -62,19 +74,32 @@ my ($s,$st,$ed)=@_;
 my $item=$Stack->top()->getItem();
 my $result=$Stack->top()->getResult();
 
-return $st.constructRemake($1).$ed if $s=~/^\$\[([^\]]*)\]$/;
-return "${st}urlencode(".constructRemake($1).")$ed" if $s=~/^\$%\[([^\]]*)\]$/;
-return "$st$1$ed" if $s=~/^\*(\w+)$/;
-return "${st}urlencode(\$REQUEST_URI)$ed" if $s=~/^\$_$/;
-return "$st\$$1$ed" if $s=~/^\$(\w+)$/;
-return "$st\$$1$ed" if $s=~/^\$\$(\w+)$/;
-return "${st}urlencode(\$$1)$ed" if $s=~/^\$%(\w+)$/;
-return "$st\$$item->get$1()$ed" if $s=~/^\$\.(\w+)$/;
-return "$st\$$result->get$1()$ed" if $s=~/^\$,(\w+)$/;
-return "$st\$$1->get$2()$ed" if $s=~/^\$(\w+)[\.,](\w+)$/;
-return "${st}urlencode(\$$item->get$1())$ed" if $s=~/^\$%\.(\w+)$/;
-return "${st}urlencode(\$$result->get$1())$ed" if $s=~/^\$%,(\w+)$/;
-return "${st}urlencode(\$$1->get$2())$ed" if $s=~/^\$%(\w+)[\.,](\w+)$/;
+return $st.constructRemake($1).$ed
+       if $s=~/^\$\[([^\]]*)\]$/;
+return "${st}urlencode(".constructRemake($1).")$ed"
+       if $s=~/^\$%\[([^\]]*)\]$/;
+return "$st$1$ed"
+       if $s=~/^\*(\w+)$/;
+return "${st}urlencode(\$REQUEST_URI)$ed"
+       if $s=~/^\$_$/;
+return "$st\$$1$ed"
+       if $s=~/^\$(\w+)$/;
+return "$st\$$1$ed"
+       if $s=~/^\$\$(\w+)$/;
+return "${st}urlencode(\$$1)$ed"
+       if $s=~/^\$%(\w+)$/;
+return "$st\$$item->".getGetName($1)."()$ed"
+       if $s=~/^\$\.(\w+)$/;
+return "$st\$$result->".getGetName($1)."()$ed"
+       if $s=~/^\$,(\w+)$/;
+return "$st\$$1->".getGetName($2)."()$ed"
+       if $s=~/^\$(\w+)[\.,](\w+)$/;
+return "${st}urlencode(\$$item->".getGetName($1)."())$ed"
+       if $s=~/^\$%\.(\w+)$/;
+return "${st}urlencode(\$$result->".getGetName($1)."())$ed"
+       if $s=~/^\$%,(\w+)$/;
+return "${st}urlencode(\$$1->".getGetName($2)."())$ed"
+       if $s=~/^\$%(\w+)[\.,](\w+)$/;
 return "'$st$s$ed'";
 }
 
@@ -97,7 +122,7 @@ sub subVarsText
 {
 my ($s)=@_;
 
-return subVars($s,'<?php echo ',' ?>');
+return subVars($s,'<?php echo ','; ?>');
 }
 
 sub subMacroParams
@@ -429,7 +454,7 @@ elsif(defined($::Elements{$self->getName()}))
   {
   ::request($::Elements{$self->getName()}->getFile());
   ::body('<?php display',$self->getName(),'(',
-         $::Elements{$self->getName()}->getParams($self->getArgs()),') ?>');
+         $::Elements{$self->getName()}->getParams($self->getArgs()),'); ?>');
   }
 else
   {
@@ -480,7 +505,7 @@ my $name=$self->getArg('name');
 $name='iter'.($::LastIter++) if $name eq '';
 $::Stack->top()->setIterator($name);
 ::body("<?php \$$name=new ",$self->getArg('class'),
-       '(',::constructParams($self->getArgs()),') ?>');
+       '(',::constructParams($self->getArgs()),'); ?>');
 }
 
 sub elFor #XXX Possibly empty list
@@ -526,6 +551,13 @@ my ($self)=@_;
 ::body('<?php if(',::subVars($self->getArg('what')),') { ?>');
 }
 
+sub elIfzero
+{
+my ($self)=@_;
+
+::body('<?php if(',::subVars($self->getArg('what')),'==0) { ?>');
+}
+
 sub elElse #XXX Possibly incorrect closure
 {
 my ($self)=@_;
@@ -548,7 +580,7 @@ my $name=$self->getArg('name');
 $name='result'.($::LastResult++) if $name eq '';
 $::Stack->top()->setResult($name);
 ::body("<?php \$$name=new ",$self->getArg('class'),
-       '(',::constructParams($self->getArgs()),') ?>');
+       '(',::constructParams($self->getArgs()),'); ?>');
 }
 
 sub elCall #XXX Possibly empty func
@@ -559,7 +591,7 @@ my $name=$self->getArg('name');
 $name='result'.($::LastResult++) if $name eq '';
 $::Stack->top()->setResult($name);
 ::body("<?php \$$name=",$self->getArg('func'),
-       '(',::constructParams($self->getArgs()),') ?>');
+       '(',::constructParams($self->getArgs()),'); ?>');
 }
 
 sub elHeader
@@ -590,7 +622,27 @@ sub elSettype #XXX Possibly empty name,type or unknown type
 my ($self)=@_;
 
 ::body('<?php settype($',$self->getArg('name'),',\'',
-                         $self->getArg('type'),'\') ?>');
+                         $self->getArg('type'),'\'); ?>');
+}
+
+sub elSetup
+{
+my ($self)=@_;
+
+my $name=$self->getArg('name');
+$name=$::Stack->top()->getResult() if $name eq '';
+if($self->getArg('var') eq '')
+  {
+  my $method=$self->getArg('method');
+  $method='get' if $method eq '';
+  $method=uc $method;
+  ::body("<?php \$$name->setup(\$HTTP_${method}_VARS); ?>");
+  }
+else
+  {
+  ::body("<?php \$$name->set".$self->getArg('var').
+         '('.::subVar($self->getArg('value')).'); ?>');
+  }
 }
 
 #### Comment ####
@@ -706,6 +758,8 @@ else
   $data=~s/^\s*\n\s*/\n/;
   }
 $$var.=$data;
+$$var=~s/\s\?>\s*\n\s*<\?php\s/\n/sg;
+$$var=~s/\s\?>\s*<\?php\s//sg;
 }
 
 sub header
@@ -754,13 +808,16 @@ while($Line ne '')
 
 sub done
 {
-print "<?php\n";
+my $s="<?php\n";
 foreach(@Requests)
        {
-       print "require_once('$_');\n";
+       $s.="require_once('$_');\n";
        }
-print "?>\n";
-print $Header,$Body,$Footer;
+$s.="?>\n";
+$s="$s$Header$Body$Footer";
+$s=~s/\s\?>\s*\n\s*<\?php\s/\n/sg;
+$s=~s/\s\?>\s*<\?php\s//sg;
+print $s;
 }
 
 init;

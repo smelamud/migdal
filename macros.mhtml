@@ -17,10 +17,22 @@
  <require name='lib/topics.php'>
  <iterate name='%name' class='TopicListIterator' arg1='%grp'>
 </macro>
+<macro name='iterate_topicnames'>
+ <require name='lib/topics.php'>
+ <iterate name='%name' class='TopicNamesIterator' arg1='%grp'>
+</macro>
 << Calls >>
 <macro name='topic_name' defaults='name=topic id="$topic_id"'>
  <require name='lib/topics.php'>
  <call name='%name' func='getTopicNameById' arg1='%id'>
+</macro>
+<macro name='message' defaults='name=message grp=0 topic=0'>
+ <require name='lib/messages.php'>
+ <call name='%name' func='getMessageById' arg1='%id' arg2='%grp' arg3='%topic'>
+</macro>
+<macro name='image_name' defaults='name=image'>
+ <require name='lib/images.php'>
+ <call name='%name' func='getImageNameBySet' arg1='%set'>
 </macro>
 << Permissions >>
 <macro name='admin_topics'>
