@@ -1,0 +1,58 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/parts/postings.mhtml 1.49 >>
+
+<grps>
+
+<element name='batcher' params='list,topic_id'>
+<community>
+ <table width=100% class='batcher'><tr valign=bottom>
+  <td align=left>
+   <logged>
+    <a href='postingedit.php?topic_id=$topic_id&root=$`links`&grp=*GRP_LINKS&redirid=$_'
+       class='add'>Добавить ссылку</a><asp>
+    <if what='$topic_id<=0'>
+     <asp>, <a href='postingedit.php?topic_id=$`inet-news`&root=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
+               class='add'>новость</a>
+    </if>
+   <else>
+    <em>
+     Хотите добавлять ссылки<if what='$topic_id<=0'> и новости</if>?
+    </em>
+    <span class='info'>
+     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+    </span>
+   </logged>
+  </td>
+  <td align=center><spin list='$list'></td>
+ </tr></table>
+</community>
+</element>
+
+<element name='postings_links'>
+<iterate_postinglist grp!='*GRP_LINKS|*GRP_NEWS' limit='$limit' offset='$offset'
+		     sort!='$topic_id>0 ? *SORT_RATING : *SORT_PSENT'
+	             showshadows!='$topic_id>0 || $$userModerator'>
+<if what='$topic_id<0'>
+ <filter_topic topic_id='$`links`' recursive='*true'>
+ <filter_topic topic_id='$`inet-news`'>
+<else>
+ <filter_topic topic_id='$topic_id'>
+</if>
+<batcher list='$;' topic_id='$topic_id'>
+<table>
+ <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+ <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+ <error id='*EMR_NO_RENEW' text='Вы не модератор'>
+ <error id='*EMR_NO_MESSAGE' text='Такого сообщения не существует'>
+ <error id='*EMR_SQL' text='Ошибка базы данных при обновлении записи'>
+</table>
+<for>
+ <assign name='post' value='$.'>
+ <posting posting='$post' showtopic!='$topic_id<0 && $.Grp==*GRP_LINKS'
+          shorten='*true' showdiscuss='$$communityDomain'
+	  showcomplain='$$communityDomain'>
+</for>
+<ifnzero what='$;Count'>
+ <batcher list='$;' topic_id='$topic_id'>
+</ifnzero>
+</element>

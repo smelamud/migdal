@@ -115,10 +115,8 @@
   </td></tr>
   <tr valign=top>
    <td class='cframe'>
-    <postings grp='*GRP_LINKS' topic='$topic_id' root='links'
-              limit='$userMsgPortion' offset='$offset'
-	      showshadows!='$topic_id>0 || $$userModerator'
-              sort!='$topic_id>0 ? *SORT_RATING : *SORT_PSENT'>
+    <postings_links topic_id='$topic_id' limit='$userMsgPortion'
+                    offset='$offset'>
    </td>
    <td width=150 class='eframe'>
     <hit_parade grp='*GRP_LINKS' topic_id='$topic_id'

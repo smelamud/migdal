@@ -113,9 +113,9 @@
          file='lib/topics.php' params='topic_id,root,reverse'
 	 defaults="root=-1 reverse='*false'">
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
-         params='grp,up,withpostings,withanswers,subdomain'
+         params='grp,up,withpostings,withanswers,subdomain,withsep'
          defaults="up=0 withpostings='*false' withanswers='*false'
-	           subdomain=-1">
+	           subdomain=-1 withsep='*true'">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up,recursive,delimiter'
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">
@@ -127,6 +127,11 @@
 
 <macro name='reset_iterator' defaults="list='$;'">
  <call object%!list='%list' func='reset'>
+</macro>
+
+<macro name='filter_topic' defaults="list='$;' recursive='*false'">
+ <call object%!list='%list' func='addTopicFilter' arg1%!topic_id='%topic_id'
+       arg2%!recursive='%recursive'>
 </macro>
 
 << Calls >>

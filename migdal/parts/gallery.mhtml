@@ -25,8 +25,8 @@
                      offset='$offset' limit='$limit' sort='*SORT_RATING'
 		     subdomain='$subdomain'>
 <iterate_rows cols='$cols'>
+<batcher list='$list' topic='$topic' grp='*GRP_GALLERY'>
 <if what='$$userId>0 || $list.Count!=0'>
- <batcher list='$list' topic='$topic' grp='*GRP_GALLERY'>
  <table cellspacing=10 cellpadding=0>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'
          span='$cols'>
@@ -47,7 +47,5 @@
  <ifnzero what='$list.Count'>
   <batcher list='$list' topic='$topic' grp='*GRP_GALLERY'>
  </ifnzero>
-<else>
- &nbsp;
 </if>
 </element>

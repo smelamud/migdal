@@ -115,6 +115,17 @@ function getId()
 return $this->id;
 }
 
+function getTrack()
+{
+return $this->track;
+}
+
+function getParentTop()
+{
+$path=explode(' ',$this->track);
+return (int)$path[0];
+}
+
 function getUpValue()
 {
 return $this->up;

@@ -162,8 +162,8 @@ if($globs!=$cookieSettings)
 
 function subDomain()
 {
-global $forceDomain,$SERVER_NAME,$siteDomain,$userDomain,$REQUEST_URI,$subdomains,
-       $userIndexPage;
+global $forceDomain,$SERVER_NAME,$siteDomain,$userDomain,$REQUEST_URI,
+       $subdomains,$userIndexPage;
 
 if($SERVER_NAME=='')
   return;

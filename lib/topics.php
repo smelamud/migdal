@@ -32,6 +32,7 @@ var $ident;
 var $message_count;
 var $last_message;
 var $sub_count;
+var $separate;
 
 function Topic($row)
 {
@@ -66,13 +67,13 @@ $this->stotext->setup($vars,'description');
 
 function getCorrespondentVars()
 {
-return array('up','name','hidden','ident','login');
+return array('up','name','hidden','ident','login','separate');
 }
 
 function getWorldVars()
 {
 return array('up','track','name','user_id','hidden','allow','premoderate',
-             'ident');
+             'ident','separate');
 }
 
 function getNormal($isAdmin=false)
@@ -182,6 +183,11 @@ function getIdent()
 return $this->ident;
 }
 
+function isSeparate()
+{
+return $this->separate!=0;
+}
+
 function getMessageCount()
 {
 return $this->message_count;
@@ -203,17 +209,19 @@ class TopicIterator
       extends SelectIterator
 {
 
-function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false)
+function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
+                  $withSeparate=true)
 {
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$uf=$up>=0 ? 'and '.byIdentRecursive('topics',$up,$recursive,
-                                     'topics.up','uptopics.ident',
-				     'topics.track') : '';
-$gf="and (${prefix}allow & $grp)!=0";
-$af=$withAnswers ? "and forummesgs.id is not null" : '';
-return " where $prefix"."hidden<$hide $uf $gf $af ";
+$userFilter=$up>=0 ? 'and '.byIdentRecursive('topics',$up,$recursive,
+                                             'topics.up','uptopics.ident',
+				             'topics.track') : '';
+$grpFilter="and (${prefix}allow & $grp)!=0";
+$answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
+$sepFilter=!$withSeparate ? "and ${prefix}separate=0" : '';
+return " where ${prefix}hidden<$hide $userFilter $grpFilter $answerFilter $sepFilter ";
 }
 
 function TopicIterator($query)
@@ -228,7 +236,7 @@ class TopicListIterator
 {
 
 function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
-                           $subdomain=-1)
+                           $subdomain=-1,$withSeparate=true)
 {
 global $userId,$userModerator;
 
@@ -261,7 +269,7 @@ $this->TopicIterator(
 		     forummesgs.sender_id=$userId) and
 		    (forummesgs.disabled<$hide or
 		     forummesgs.sender_id=$userId)".
-       $this->getWhere($grp,$up,'topics.',$withAnswers).
+       $this->getWhere($grp,$up,'topics.',$withAnswers,false,$withSeparate).
       "group by topics.id
        $postFilter
        order by topics.name_sort");
@@ -405,6 +413,7 @@ $result=mysql_query(
 	       stotexts.large_body as large_description,
 	       large_imageset,topics.hidden as hidden,topics.allow as allow,
 	       topics.premoderate as premoderate,topics.ident as ident,
+	       topics.separate as separate,
 	       max(messages.sent) as last_message,
 	       topics.user_id as user_id,login,gender,email,hide_email,rebe,
 	       count(distinct subtopics.id) as sub_count

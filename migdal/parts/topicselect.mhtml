@@ -2,7 +2,7 @@
 
 <element name='topicselect'>
 <iterate_sortedtopicnames grp='$grp' up='$root' recursive='$recursive'>
-<ifnzero what='$;Count'>
+<ifnzero what='$;Count-$recursive'>
  <tr>
   <td>$title <if what='$mandatory'><star></if></td>
   <td>

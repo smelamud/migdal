@@ -211,6 +211,7 @@ return newPosting(array('grp'       => $grp,
 class PostingListIterator
       extends LimitSelectIterator
 {
+var $topicFilter;
 
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
@@ -220,8 +221,8 @@ function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topicFilter=($topic<0 || $recursive && $topic==0) ? ''
-             : ' and topics.'.byIdentRecursive('topics',$topic,$recursive);
+$this->topicFilter='';
+$this->addTopicFilter($topic,$recursive);
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
@@ -246,7 +247,8 @@ $childFilter=$up>=0 ? "and messages.up=$up" : '';
 $shadowFilter=!$showShadows ? 'and shadow=0' : '';
 $this->LimitSelectIterator(
        'Message',
-       "select postings.id as id,postings.message_id as message_id,
+       "select postings.id as id,messages.track as track,
+               postings.message_id as message_id,
                messages.stotext_id as stotext_id,stotexts.body as body,
 	       messages.lang as lang,messages.subject as subject,
 	       messages.author as author,messages.source as source,grp,
@@ -293,7 +295,7 @@ $this->LimitSelectIterator(
 		      forummesgs.sender_id=$userId)
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
-	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
+	      personal_id=$personal and (grp & $grp)<>0 @topic@
 	      $userFilter $index1Filter $sentFilter $subdomainFilter
 	      $childFilter $shadowFilter
 	group by postings.id
@@ -316,10 +318,27 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
-	      $topicFilter $userFilter $index1Filter $sentFilter
+	      @topic@ $userFilter $index1Filter $sentFilter
 	      $subdomainFilter $childFilter $shadowFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
+}
+
+function addTopicFilter($topic_id,$recursive=false)
+{
+if($topic_id<0 || $recursive && $topic_id==0)
+  return;
+if($this->topicFilter!='')
+  $this->topicFilter.=' or ';
+$this->topicFilter.='topics.'.byIdentRecursive('topics',$topic_id,$recursive);
+}
+
+function select()
+{
+$filter=$this->topicFilter!='' ? " and ({$this->topicFilter})" : '';
+$this->setQuery(str_replace('@topic@',$filter,$this->getQuery()));
+$this->setCountQuery(str_replace('@topic@',$filter,$this->getCountQuery()));
+LimitSelectIterator::select();
 }
 
 function create($row)
@@ -484,8 +503,8 @@ $filter=$id>=0 ? 'postings.'.byIdent($id)
                : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0"
 	                     : '');
 $result=mysql_query(
-	"select postings.id as id,postings.ident as ident,
-	        postings.message_id as message_id,
+	"select postings.id as id,messages.track as track,
+	        postings.ident as ident,postings.message_id as message_id,
 		messages.stotext_id as stotext_id,stotexts.body as body,
 		stotexts.large_format as large_format,
 		stotexts.large_body as large_body,messages.lang as lang,

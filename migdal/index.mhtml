@@ -5,6 +5,10 @@
 <ifzero what='$topic_id'>
  <assign name='topic_id' value='-1'>
 </ifzero>
+<if what='$topic_id==5'>
+ <trap text='Jewish Internet'>
+ <reload href='links.php'>
+</if>
 <ifnzero what='$grp'>
  <trap text='grp!=0 in index.php'>
  <reload href='$[grp]'>
