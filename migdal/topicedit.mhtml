@@ -54,7 +54,8 @@
 		   title='Новости премодерируются'></td>
     </tr>
     <tr>
-     <td><checkbox name='forums' value='$,isForums' title='Тема для форума'></td>
+     <td><checkbox name='forums' value='$,isForums'
+                   title='Тема для форума'></td>
      <td><checkbox name='premoderate_forums' value='$,isForumsPremoderated'
 		   title='Форумы премодерируются'></td>
     </tr>
@@ -69,6 +70,25 @@
 		   title='Тема для статей'></td>
      <td><checkbox name='premoderate_articles' value='$,isArticlesPremoderated'
 		   title='Статьи премодерируются'></td>
+    </tr>
+    <tr>
+     <td><checkbox name='quotes' value='$,isQuotes'
+		   title='Тема для цитат'></td>
+     <td><checkbox name='premoderate_quotes' value='$,isQuotesPremoderated'
+		   title='Цитаты премодерируются'></td>
+    </tr>
+    <tr>
+     <td><checkbox name='phrases' value='$,isPhrases'
+		   title='Тема для фраз'></td>
+     <td><checkbox name='premoderate_phrases' value='$,isPhrasesPremoderated'
+		   title='Фразы премодерируются'></td>
+    </tr>
+    <tr>
+     <td><checkbox name='int_forums' value='$,isIntForums'
+		   title='Тема для<br>внутренних форумов'></td>
+     <td><checkbox name='premoderate_int_forums'
+                   value='$,isIntForumsPremoderated'
+		   title='Внутренние форумы<br>премодерируются'></td>
     </tr>
    </table></td></tr>
   <if what='$editid'>

@@ -1,16 +1,20 @@
 << @(#) $Id$ >>
 
 <element name='topicselect'>
-<tr>
- <td>$title <if what='$mandatory'><star></if></td>
- <td>
-  <select name='$name'>
-   <radio title='-- Без темы --' value=0 peervalue='$value'>
-   <iterate_sortedtopicnames grp='$grp' up='$up'>
-   <for>
-    <radio title='$.FullName' value='$.Id' peervalue='$value'>
-   </for>
-  </select>
- </td>
-</tr>
+<iterate_sortedtopicnames grp='$grp' up='$up'>
+<ifnzero what='$;Count'>
+ <tr>
+  <td>$title <if what='$mandatory'><star></if></td>
+  <td>
+   <select name='$name'>
+    <radio title='-- Без темы --' value=0 peervalue='$value'>
+    <for>
+     <radio title='$.FullName' value='$.Id' peervalue='$value'>
+    </for>
+   </select>
+  </td>
+ </tr>
+<else>
+ <hidden name='$name' value='$up'>
+</ifnzero>
 </element>
