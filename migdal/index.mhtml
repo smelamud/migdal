@@ -25,13 +25,14 @@
  <table width=100%><tr valign=top>
   <td width=120>
    <posting_new grp='*GRP_NEWS' topic_id='$topic_id'>
-   <topics posting='$,' showchapters='*true' withpostings!="$$userDomain=='info'">
+   <topics posting='$,' showchapters='*true' withpostings='$$officialDomain'
+           subdomain!='$$officialDomain ? 1 : -1'>
   </td>
   <td width=5>&nbsp;</td>
   <td>
    <subtitle icon='pics/all-big.gif'>
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
-             offset='$offset'>
+             offset='$offset' subdomain!='$$officialDomain ? 1 : -1'>
   </td>
   <community>
    <td width=5>&nbsp;</td>

@@ -76,6 +76,16 @@
 	      class='read'>Читать</a>
       &nbsp;
      </if>
+     <admin_domain>
+      <ifzero what='$posting.Subdomain'>
+       <a href="actions/domainmod.php?editid=$posting.Id&domain=1&okdir=$#-&faildir=$#-"
+	>На&nbsp;официальную</a>
+      <else>
+       <a href="actions/domainmod.php?editid=$posting.Id&domain=0&okdir=$#-&faildir=$#-"
+	>Убрать&nbsp;с&nbsp;официальной</a>
+      </if>
+      &nbsp;
+     </admin_domain>
      <isedit what='$posting'>
       <a href="postingedit.php?editid=$posting.Id&up=general&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
@@ -83,10 +93,10 @@
        &nbsp;
        <if what='$posting.isDisabled'>
 	<a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	 >Разрешить показ</a>
+	 >Разрешить&nbsp;показ</a>
        <else>
 	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	 >Запретить показ</a>
+	 >Запретить&nbsp;показ</a>
        </if>
        &nbsp;
        <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"

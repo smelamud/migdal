@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/uri.php');
@@ -11,6 +13,8 @@ require_once('lib/logs.php');
 
 function logout($sessionid)
 {
+global $siteDomain;
+
 $result=mysql_query("select user_id,real_user_id
                      from sessions
 		     where sid=$sessionid");
@@ -34,7 +38,7 @@ $result=mysql_query("delete from sessions
 		     where sid=$sessionid");
 if(!$result)
   return ELO_SQL_DROP;
-SetCookie('sessionid',0,0,'/');
+SetCookie('sessionid',0,0,'/',$siteDomain);
 return ELO_OK;
 }
 

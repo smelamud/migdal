@@ -181,4 +181,8 @@ define('EV_NO_POSTING',341);
 define('EV_ALREADY_VOTED',342);
 define('EV_SQL_VOTES',343);
 define('EV_SQL_POSTINGS',344);
+
+define('EDM_OK',350);
+define('EDM_NO_CHANGE',351);
+define('EDM_NO_POSTING',352);
 ?>

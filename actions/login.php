@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/errors.php');
@@ -11,7 +13,7 @@ require_once('lib/logs.php');
 
 function startSession()
 {
-global $login,$password;
+global $login,$password,$siteDomain;
 
 $result=mysql_query('select id from users where login="'
                      .addslashes($login).'" and password="'
@@ -25,7 +27,7 @@ $sid=rnd();
 mysql_query("insert into sessions(user_id,real_user_id,sid)
              values($id,$id,$sid)")
      or die('Ошибка SQL при создании сессии');
-SetCookie('sessionid',$sid,time()+7200,'/');
+SetCookie('sessionid',$sid,time()+7200,'/',$siteDomain);
 return EL_OK;
 }
 

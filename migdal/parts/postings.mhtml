@@ -3,37 +3,39 @@
 <grps>
 
 <element name='batcher_postings' params='list,topic,grp'>
-<posting_new grp='$grp'>
-<table width=100% class='batcher'><tr valign=bottom>
- <td align=left>
-  <logged>
-   <if what='$,isValid'>
-    <a href='postingedit.php?topic_id=$topic&up=general&grp=$grp&redirid=$_'
-       class='add'>Добавить $,GrpItemTitle</a>
-   <else>
-    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_NEWS&redirid=$_'
-       class='add'>Добавить новость</a>,
-    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_ARTICLES&redirid=$_'
-       class='add'>статью</a>
-   </if>
-  <else>
-   <span class='advert'>
+<community>
+ <posting_new grp='$grp'>
+ <table width=100% class='batcher'><tr valign=bottom>
+  <td align=left>
+   <logged>
     <if what='$,isValid'>
-     Хотите добавлять $,GrpItemsTitle?
+     <a href='postingedit.php?topic_id=$topic&up=general&grp=$grp&redirid=$_'
+	class='add'>Добавить $,GrpItemTitle</a>
     <else>
-     Хотите добавлять новости и статьи?
+     <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_NEWS&redirid=$_'
+	class='add'>Добавить новость</a>,
+     <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_ARTICLES&redirid=$_'
+	class='add'>статью</a>
     </if>
-    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-   </span>
-  </logged>
- </td>
- <td><spin list='$list'></td>
-</tr></table>
+   <else>
+    <span class='advert'>
+     <if what='$,isValid'>
+      Хотите добавлять $,GrpItemsTitle?
+     <else>
+      Хотите добавлять новости и статьи?
+     </if>
+     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+    </span>
+   </logged>
+  </td>
+  <td><spin list='$list'></td>
+ </tr></table>
+</community>
 </element>
 
 <element name='postings'>
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
-                     sort='*SORT_PSENT'>
+                     sort='*SORT_PSENT' subdomain='$subdomain'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher_postings list='$;' topic='$topic' grp='$grp'>
  <table>
@@ -45,7 +47,8 @@
  </table>
  <for>
   <assign name='post' value='$.'>
-  <posting posting='$post' showtopic!='$topic<0' shorten='*true'>
+  <posting posting='$post' showtopic!='$topic<0' shorten='*true'
+           showdiscuss='$$communityDomain' showcomplain='$$communityDomain'>
  </for>
  <ifnzero what='$;Count'>
   <batcher_postings list='$;' topic='$topic' grp='$grp'>

@@ -29,6 +29,7 @@ var $priority;
 var $read_count;
 var $vote;
 var $vote_count;
+var $subdomain;
 
 function Posting($row)
 {
@@ -159,6 +160,11 @@ function getIndex1()
 return $this->index1;
 }
 
+function getSubdomain()
+{
+return $this->subdomain;
+}
+
 }
 
 require_once('grp/postings.php');
@@ -188,7 +194,8 @@ class PostingListIterator
 
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
-			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0)
+			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
+			     $subdomain=-1)
 {
 global $userId,$userModerator;
 
@@ -213,6 +220,7 @@ $answerFilter=$withAnswers!=GRP_NONE
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
 $index1Filter=$index1>=0 ? "and index1=$index1" : '';
 $sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
+$subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
@@ -222,7 +230,7 @@ $this->LimitSelectIterator(
 	       messages.url as url,messages.sender_id as sender_id,
 	       messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
-	       index1,images.image_set as image_set,images.id as image_id,
+	       index1,subdomain,images.image_set as image_set,images.id as image_id,
 	       images.has_large as has_large_image,images.title as title,
 	       if(images.has_large,length(images.large),
 	                           length(images.small)) as image_size,
@@ -259,7 +267,7 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
-	      $userFilter $index1Filter $sentFilter
+	      $userFilter $index1Filter $sentFilter $subdomainFilter
 	group by messages.id
 	$answerFilter
 	$order",$limit,$offset,
@@ -280,7 +288,7 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
-	      $topicFilter $userFilter $index1Filter $sentFilter");
+	      $topicFilter $userFilter $index1Filter $sentFilter $subdomainFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }
@@ -300,11 +308,12 @@ var $cols;
 
 function PictureListIterator($grp,$topic=-1,$recursive=false,$rows=4,$cols=5,
                              $offset=0,$personal=0,$sort=SORT_SENT,
-			     $withAnswers=GRP_NONE,$user=0)
+			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
+			     $subdomain=-1)
 {
 $this->cols=$cols;
 $this->PostingListIterator($grp,$topic,$recursive,$rows*$cols,$offset,
-                           $personal,$sort,$withAnswers,$user);
+                           $personal,$sort,$withAnswers,$user,$index1,$later,$subdomain);
 }
 
 function isEol()
@@ -442,7 +451,7 @@ $result=mysql_query("select postings.id as id,ident,message_id,stotext_id,body,
                             large_filename,large_format,large_body,
 			    large_imageset,subject,author,source,url,topic_id,
 			    personal_id,sender_id,grp,priority,image_set,
-			    index1,hidden,disabled
+			    index1,subdomain,hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
@@ -474,7 +483,7 @@ $result=mysql_query(
 		stotexts.large_format as large_format,
 		stotexts.large_body as large_body,messages.subject as subject,
 		messages.author as author,messages.source as source,
-		messages.url as url,grp,index1,
+		messages.url as url,grp,index1,subdomain,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,
 		messages.hidden as hidden,messages.disabled as disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,

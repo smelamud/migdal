@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<force_community>
 <int name='offset'>
 <int name='user_id'>
 <grps>

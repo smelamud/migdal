@@ -40,10 +40,12 @@
 	      text='Все темы' class='new' span=2>
  <if what='$showchapters'>
   <navi_times posting='$posting'>
-  <navi_taglit posting='$posting'>
+  <community>
+   <navi_taglit posting='$posting'>
+  </community>
  </if>
  <iterate_topiclist grp='$posting.PageGroup' withpostings='$withpostings'
-		    withanswers='$withanswers' up='$up'>
+		    withanswers='$withanswers' up='$up' subdomain='$subdomain'>
  <for>
   <topics_line arrow!='$posting.TopicId==$.Id' time='$.LastMessage'
 	       href#='$posting.PageFile?topic_id=$.Id' title='$.Description'

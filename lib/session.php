@@ -58,7 +58,7 @@ return $proper;
 
 function userRights()
 {
-global $sessionid,$userId,$userRightNames,$sessionTimeout;
+global $sessionid,$userId,$userRightNames,$sessionTimeout,$siteDomain;
 
 settype($sessionid,'integer');
 
@@ -73,7 +73,7 @@ else
 	       or die('Ошибка SQL при выборке сессии');
   if(mysql_num_rows($result)<=0)
     {
-    SetCookie('sessionid',0,0,'/');
+    SetCookie('sessionid',0,0,'/',$siteDomain);
     $userId=-1;
     }
   else
@@ -92,7 +92,7 @@ else
 	 or die('Ошибка SQL при обновлении TIMESTAMP сессии');
     mysql_query("update users set last_online=now() where id=$userId")
 	 or die('Ошибка SQL при обновлении времени захода пользователя');
-    SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/');
+    SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/',$siteDomain);
     }
   }
 }
@@ -100,7 +100,7 @@ else
 function userSettings()
 {
 global $userId,$HTTP_GET_VARS,$HTTP_COOKIE_VARS,
-       $userSetNames,$userSetDefaults,$userSetParams;
+       $userSetNames,$userSetDefaults,$userSetParams,$siteDomain;
        
 if($userId>0)
   {
@@ -141,7 +141,7 @@ if($userId>0 && $globs!=$dbSettings)
 	       where id=$userId")
        or die('Ошибка SQL при сохранении установок пользователя');
 if($globs!=$cookieSettings)
-  SetCookie('settings',$globs,time()+3600*24*366,'/');
+  SetCookie('settings',$globs,time()+3600*24*366,'/',$siteDomain);
 }
 
 function subDomain()

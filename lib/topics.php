@@ -225,13 +225,14 @@ class TopicListIterator
 {
 
 function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
-                           $cols=5)
+                           $cols=5,$subdomain=-1)
 {
 global $userId,$userModerator;
 
 $this->cols=$cols;
 $hide=$userModerator ? 2 : 1;
 $postFilter=$withPostings ? 'having message_count<>0' : '';
+$subdomainFilter=$subdomain>=0 ? "and postings.subdomain=$subdomain" : '';
 $this->TopicIterator(
       "select topics.id as id,topics.up as up,topics.name as name,
               topics.stotext_id as stotext_id,stotexts.body as description,
@@ -242,6 +243,7 @@ $this->TopicIterator(
 	         on stotexts.id=topics.stotext_id
 	    left join postings
 	         on topics.id=postings.topic_id and (postings.grp & $grp)<>0
+		    $subdomainFilter
 	    left join topics as uptopics
 	         on uptopics.id=topics.up
             left join messages

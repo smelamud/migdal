@@ -9,6 +9,7 @@ require_once('lib/postings.php');
 require_once('lib/votes.php');
 require_once('lib/errors.php');
 require_once('lib/random.php');
+require_once('lib/logs.php');
 
 function vote($id,$vote)
 {
@@ -20,6 +21,7 @@ if(getVote($id))
   return EV_ALREADY_VOTED;
 if(!addVote($id,$vote))
   return EV_SQL_VOTES;
+logEvent('vote',"post($id)");
 $weight=$userModerator ? $moderatorVoteWeight : ($userId>0 ? $userVoteWeight : 1);
 $result=mysql_query("update postings
                      set vote=vote+$weight*$vote,vote_count=vote_count+$weight

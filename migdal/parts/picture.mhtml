@@ -37,6 +37,17 @@
     </isedit>
    </td></tr>
   </logged>
+  <admin_domain>
+   <tr><td class='modify'>
+    <ifzero what='$picture.Subdomain'>
+     <a href="actions/domainmod.php?editid=$picture.Id&domain=1&okdir=$#-&faildir=$#-"
+      >На&nbsp;официальную</a>
+    <else>
+     <a href="actions/domainmod.php?editid=$picture.Id&domain=0&okdir=$#-&faildir=$#-"
+      >Убрать&nbsp;с&nbsp;официальной</a>
+    </if>
+   </td></tr>
+  </admin_domain>
   <tr><td class='body'>
    $picture.HTMLBody
   </td></tr>

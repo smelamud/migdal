@@ -41,10 +41,10 @@
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'
-       params='topic,rows,cols,offset'
-       defaults="topic=-1 rows=4 cols=5 offset=0">
+       params='topic,rows,cols,offset,subdomain'
+       defaults="topic=-1 rows=4 cols=5 offset=0 subdomain=-1">
 <decel name='gallery_main' file='parts/gallery-main.php'
-       params='cols' defaults="cols=5">
+       params='cols,subdomain' defaults="cols=5 subdomain=-1">
 <decel name='gallery_picture' file='parts/gallery-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten,up'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' up=general">
@@ -79,8 +79,8 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten,times'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' times=0">
 <decel name='postings' file='parts/postings.php'
-       params='grp,topic,limit,offset'
-       defaults="topic=-1 limit=10 offset=0">
+       params='grp,topic,limit,offset,subdomain'
+       defaults="topic=-1 limit=10 offset=0 subdomain=-1">
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
@@ -116,8 +116,8 @@
        params='ident,no_new,target,showimages'
        defaults="no_new='*false' target='' showimages='*true'">
 <decel name='topics' file='parts/topics-general.php'
-       params='withpostings,withanswers,showchapters,up,posting'
-       defaults="withpostings='*false' withanswers='*false' showchapters='*false' up='general'">
+       params='withpostings,withanswers,showchapters,up,posting,subdomain'
+       defaults="withpostings='*false' withanswers='*false' showchapters='*false' up='general' subdomain=-1">
 <decel name='topics_line' params='time,arrow,text,title,href,count,class,indent,span,rating'
        defaults="time=0 arrow='*false' text='' title='' href='' count='' class='item' indent=0 span=1 rating=''"
        file='parts/topics.php'>
@@ -192,6 +192,8 @@
 
 <macro name='preamble'>
  <zone>
+  <assign_global name='communityDomain' value!="$$userDomain=='community'">
+  <assign_global name='officialDomain' value!="$$userDomain=='info'">
   <stylesheet ident='style'>
   <head>
    <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>

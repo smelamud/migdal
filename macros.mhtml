@@ -82,13 +82,13 @@
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
          params='format,body'>
 <deciter macro='picturelist' class='PictureListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,rows,cols,offset,personal,sort,withanswers,user'
-         defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0">
+         params='grp,topic,recursive,rows,cols,offset,personal,sort,withanswers,user,index1,later,subdomain'
+         defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1 later=0 subdomain=-1">
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting'>
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user,index1,later'
-         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1 later=0">
+         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user,index1,later,subdomain'
+         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1 later=0 subdomain=-1">
 <deciter macro='posting_users' class='PostingUsersIterator'
          file='lib/postings.php' params='grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
@@ -101,8 +101,8 @@
          file='lib/topics.php' params='grp,up' defaults="up='-1'">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
-         params='grp,up,withpostings,withanswers,cols'
-         defaults="up=0 withpostings='*false' withanswers='*false' cols=5">
+         params='grp,up,withpostings,withanswers,cols,subdomain'
+         defaults="up=0 withpostings='*false' withanswers='*false' cols=5 subdomain=-1">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up' defaults="up='-1'">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'>

@@ -18,16 +18,19 @@
  <table width=100%><tr valign=top>
   <td width=120>
    <posting_new grp='*GRP_GALLERY' topic_id='$topic_id'>
-   <topics posting='$,'>
+   <topics posting='$,' subdomain!='$$officialDomain ? 1 : -1'
+           withpostings='$$officialDomain'>
   </td>
   <td width=5>&nbsp;</td>
   <td>
    <subtitle icon='pics/gall-big.gif'>
    <if what='$topic_id==-1'>
-    <gallery_main cols='$userPictureColumnPortion'>
+    <gallery_main cols='$userPictureColumnPortion'
+                  subdomain!='$$officialDomain ? 1 : -1'>
    <else>
     <gallery topic='$topic_id' rows='$userPictureRowPortion'
-	     cols='$userPictureColumnPortion' offset='$offset'>
+	     cols='$userPictureColumnPortion' offset='$offset'
+	     subdomain!='$$officialDomain ? 1 : -1'>
    </if>
   </td>
  </tr></table>

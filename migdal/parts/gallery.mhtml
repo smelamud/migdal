@@ -2,25 +2,28 @@
 << Based-on: migdal/parts/postings.mhtml 1.23 >>
 
 <element name='batcher_gallery' params='list,topic'>
-<table width=100% class='batcher'><tr valign=bottom>
- <td align=left>
-  <logged>
-   <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_GALLERY&redirid=$_'
-      class='add'>Добавить картинку</a>
-  <else>
-   <span class='advert'>
-    Хотите добавлять картинки?
-    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-   </span>
-  </logged>
- </td>
- <td><spin list='$list'></td>
-</tr></table>
+<community>
+ <table width=100% class='batcher'><tr valign=bottom>
+  <td align=left>
+   <logged>
+    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_GALLERY&redirid=$_'
+       class='add'>Добавить картинку</a>
+   <else>
+    <span class='advert'>
+     Хотите добавлять картинки?
+     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+    </span>
+   </logged>
+  </td>
+  <td><spin list='$list'></td>
+ </tr></table>
+</community>
 </element>
 
 <element name='gallery'>
 <iterate_picturelist grp='*GRP_GALLERY' topic='$topic' rows='$rows'
-                     cols='$cols' offset='$offset' sort='*SORT_RATING'>
+                     cols='$cols' offset='$offset' sort='*SORT_RATING'
+		     subdomain='$subdomain'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher_gallery list='$;' topic='$topic' grp='*GRP_GALLERY'>
  <table width=100%>
@@ -28,7 +31,10 @@
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
   <tr valign=top>
    <for>
-    <td><gallery_picture picture='$.' showtopic!='$topic<0'></td>
+    <td>
+     <gallery_picture picture='$.' showtopic!='$topic<0' showdiscuss='$$communityDomain'
+                      showcomplain='$$communityDomain'>
+    </td>
     <if what='$;isEol'>
      </tr><tr valign=top>
     </if>

@@ -28,7 +28,9 @@
      >Изменить</a>
    </td>
   </editor>
-  <td align=right><discusslink posting='$cover'></td>
+  <community>
+   <td align=right><discusslink posting='$cover'></td>
+  </community>
  </tr></table>
 </ifnzero>
 </element>
@@ -154,7 +156,8 @@
 	</tr></table>
        </ifne>
       </if>
-      <posting_times posting='$.' times='$times' showtopic='*false'>
+      <posting_times posting='$.' times='$times' showtopic='*false'
+                     showdiscuss='$$communityDomain'>
      </for>
      <ifnzero what='$;Count'>
       <batcher_times times='$times' issue='$issue'>
