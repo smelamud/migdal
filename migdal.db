@@ -196,6 +196,7 @@ CREATE TABLE messages (
 
 CREATE TABLE postings (
   id int(11) NOT NULL auto_increment,
+  ident varchar(15) NOT NULL default '',
   message_id int(11) NOT NULL default '0',
   topic_id int(11) NOT NULL default '0',
   personal_id int(11) NOT NULL default '0',
@@ -204,7 +205,8 @@ CREATE TABLE postings (
   KEY message_id (message_id),
   KEY topic_id (topic_id),
   KEY personal_id (personal_id),
-  KEY grp (grp)
+  KEY grp (grp),
+  KEY ident (ident)
 ) TYPE=MyISAM;
 
 #
