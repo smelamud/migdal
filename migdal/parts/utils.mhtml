@@ -39,23 +39,22 @@
 </element>
 
 <element name='discusslink'>
-<logged>
- <biff time='$posting.LastAnswer'>
- <a href='forum.php?redirid=$_&msgid=$posting.Id'>
-  Обсудить<asp>
-  <ifnzero what='$posting.AnswerCount'>
-   &nbsp;($posting.AnswerCount)<asp>
-  </ifnzero>
- <asp></a>
-<else>
- <biff time='$posting.LastAnswer'>
- <a href='forum.php?redirid=$_&msgid=$posting.Id'>
-  Обсуждение<asp>
-  <ifnzero what='$posting.AnswerCount'>
-   &nbsp;($posting.AnswerCount)<asp>
-  </ifnzero>
- <asp></a>
-</logged>
+<ifbiff time='$posting.LastAnswer'>
+ <table cellspacing=0 cellpadding=0><tr><td>
+</ifbiff>
+<a href='forum.php?redirid=$_&msgid=$posting.Id'>
+ <logged>
+  <asp>Обсудить<asp>
+ <else>
+  <asp>Обсуждение<asp>
+ </logged>
+ <ifnzero what='$posting.AnswerCount'>
+  <asp>&nbsp;($posting.AnswerCount)<asp>
+ </ifnzero>
+<asp></a>
+<ifbiff time='$posting.LastAnswer'>
+ </td><td>&nbsp;<image src='pics/ner-small.gif'></td></tr></table>
+</ifbiff>
 </element>
 
 <element name='lastonline_cell'>

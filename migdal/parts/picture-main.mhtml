@@ -3,7 +3,7 @@
 <element name='picture_main'>
 <table class='picture'>
  <tr><td class='top topic'>
-  <biff time='$biff'>
+  <biff time='$biff' small='*true'>
   <ifne what='$text'>
    <a href='$href' class='name' title='$text'>$name</a>
   <else>

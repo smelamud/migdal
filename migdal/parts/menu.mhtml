@@ -2,12 +2,16 @@
 
 <element name='menuitem' params='ident,link,target,current,time'
          defaults='time=0'>
-<<biff time='$time'>>
+<ifbiff time='$time'>
+ <assign name='biff' value='-ner'>
+<else>
+ <assign name='biff' value=''>
+</ifbiff>
 <at href='$link' target='$target'>
  <if what='$current==$ident'>
-  <image src#='pics/menu-${ident}.gif' border=0>
+  <image src#='pics/menu$biff-${ident}.gif' border=0>
  <else>
-  <image src#='pics/menu-${ident}-na.gif' border=0>
+  <image src#='pics/menu$biff-${ident}-na.gif' border=0>
  </if>
 </at>
 </element>

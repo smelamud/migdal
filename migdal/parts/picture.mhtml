@@ -6,7 +6,7 @@
 <if what='$picture.isRebe'><span class='rebe'></if>
  <table class='picture'>
   <tr class='top'><td align=right>
-   <biff time='$picture.Sent'>
+   <biff time='$picture.Sent' small='*true'>
    <senderlink message='$picture'>
   </td></tr>
   <if what='$showtopic'>

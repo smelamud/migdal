@@ -60,7 +60,7 @@
     </td>
     <td><sentview date='$.Sent'></td>
     <td class='answer' rowspan=2>
-     <biff time='$.LastAnswer'>
+     <biff time='$.LastAnswer' small='*true'>
      <a href='forum.php?redirid=$_&msgid=$.Id'>$.AnswerCount</a>
     </td>
    </tr>
