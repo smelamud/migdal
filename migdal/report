@@ -6,6 +6,7 @@ use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 use POSIX qw(mktime);
 use locale;
+use Date::Calc qw(check_date Week_of_Year);
 
 $VERSION='0.3';
 
@@ -105,6 +106,8 @@ Migdal report generator (for 'migdal' interface)
 	search       Search phrases report
 	traps        Traps activity report
 	visits       Output number of individual visits
+	visitsm	     Number of individual visits per month
+	visitsw	     Number of individual visits per week
   -t, --to=<date>           Final date for statistics
   -v, --version             Print version information and exit
   -V, --verbose             More verbose
@@ -208,6 +211,20 @@ sub initTraps
 sub initVisits
 {
 $counter=new Counter;
+}
+
+sub initVisitsm
+{
+$counter=new Counter;
+$cmonth=-1;
+$cyear=-1;
+}
+
+sub initVisitsw
+{
+$counter=new Counter;
+$cweek=-1;
+$cyear=-1;
 }
 
 @Months=('Jan','Feb','Mar','Apr','May','Jun',
@@ -394,6 +411,65 @@ my ($log)=@_;
 $counter->inc($$log[2],$$log[1]);
 }
 
+sub runVisitsm
+{
+my ($log)=@_;
+
+my (undef,undef,undef,undef,$month,$year)=localtime($$log[1]);
+$year+=1900;
+if($cmonth==-1 || $cyear==-1)
+  {
+  $cmonth=$month;
+  $cyear=$year;
+  }
+if($cmonth>=$month && $cyear==$year || $cyear>$year)
+  {
+  $counter->inc($$log[2],$$log[1]);
+  }
+else
+  {
+  print $cmonth+1,"\t$cyear\t",$counter->getValue(),"\n";
+  $cmonth=$month;
+  $cyear=$year;
+  $counter=new Counter;
+  $counter->inc($$log[2],$$log[1]);
+  }
+}
+
+sub runVisitsw
+{
+my ($log)=@_;
+
+my (undef,undef,undef,$day,$month,$year)=localtime($$log[1]);
+$year+=1900;
+my $week;
+if(check_date($year,$month+1,$day))
+  {
+  ($week,$year)=Week_of_Year($year,$month+1,$day);
+  }
+else
+  {
+  ($week,$year)=(0,1970);
+  }
+if($cweek==-1 || $cyear==-1)
+  {
+  $cweek=$week;
+  $cyear=$year;
+  }
+if($cweek>=$week && $cyear==$year || $cyear>$year)
+  {
+  $counter->inc($$log[2],$$log[1]);
+  }
+else
+  {
+  print "$cweek\t$cyear\t",$counter->getValue(),"\n";
+  $cweek=$week;
+  $cyear=$year;
+  $counter=new Counter;
+  $counter->inc($$log[2],$$log[1]);
+  }
+}
+
 sub getDoneSub
 {
 return 'done'.ucfirst(lc $report);
@@ -482,6 +558,16 @@ for my $trap(@traps)
 sub doneVisits
 {
 print $counter->getValue(),"\n";
+}
+
+sub doneVisitsm
+{
+print $cmonth+1,"\t$cyear\t",$counter->getValue(),"\n";
+}
+
+sub doneVisitsw
+{
+print "$cweek\t$cyear\t",$counter->getValue(),"\n";
 }
 
 GetOptions('directory|d=s'  => \$directory,
