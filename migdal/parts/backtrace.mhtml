@@ -96,7 +96,8 @@
   <assign name='name' value='$,Name'>
  <else>
   <if what='$postid<=0'>
-   <posting_obj name='posting' topic_id='$,Id' index1='$day'>
+   <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$,Id'
+                index1='$day'>
   <else>
    <posting_obj name='posting' id='$postid'>
   </if>
