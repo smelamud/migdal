@@ -5,6 +5,7 @@ require_once('conf/migdal.conf');
 
 require_once('lib/images.php');
 require_once('lib/image-types.php');
+require_once('lib/exec.php');
 
 function uploadImageUsingMogrify($image,$image_name,$image_size,$image_type,
                                  $thumbnailX,$thumbnailY,&$err)
@@ -35,7 +36,7 @@ $large=fread($fd,$maxImage);
 fclose($fd);
 
 $geometry=$thumbnailX.'x'.$thumbnailY;
-exec("$mogrifyPath -format $smallExt -geometry '$geometry>' $largeFile");
+getCommand("$mogrifyPath -format $smallExt -geometry '$geometry>' $largeFile");
 
 $small_size=getImageSize($smallFile);
 $fd=fopen($smallFile,'r');
