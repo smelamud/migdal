@@ -155,6 +155,15 @@ function getFullName()
 return $this->full_name;
 }
 
+function getFullNameShort()
+{
+global $fullNameShortSize;
+
+$s=$this->getFullName();
+if(strlen($s)>$fullNameShortSize)
+  return '...'.substr($s,0,$fullNameShortSize-3);
+}
+
 function getComment0()
 {
 return $this->comment0;

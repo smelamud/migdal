@@ -14,7 +14,7 @@
     <radio title='-- Без темы --' value='$none' peervalue='$value'>
     <for>
      <ifne what='$.FullName'>
-      <radio title='$.FullName' value='$.Id' peervalue='$value'>
+      <radio title='$.FullNameShort' value='$.Id' peervalue='$value'>
      </ifne>
     </for>
    </select>
