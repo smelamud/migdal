@@ -21,7 +21,7 @@
   </td></tr>
  </if>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-                      topic_id='$,Id' recursive='*false'>
+                      topic='$,Id' recursive='*false'>
  <for>
   <topics_line time='$.Sent' text='$.Subject'
                href#='migdal.php?artid=$.Id' arrow!='$.Id==$posting.Id'
