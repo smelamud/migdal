@@ -11,6 +11,7 @@
    <assign name='year' value='$.Index4'>
    <assign name='gyearp' value!='$year-3761'>
    <assign name='gyear' value!='$year-3760'>
+   <tr><td colspan=2>&nbsp;</td></tr>
    <topics_section title#='$year/$gyearp-$gyear Ç.' nobullet='*true'>
    <iswrite what='$topic'>
     <tr><td colspan=2>
