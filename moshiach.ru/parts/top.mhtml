@@ -1,4 +1,5 @@
 << @(#) $Id$ >>
+<< Based-on: demo/parts/backtrace.mhtml 1.1 >>
 
 <element name='top'>
 <span class='pretty'>
@@ -6,6 +7,11 @@
 	<table border=0 width=100% BGCOLOR=ffffff cellspacing=3 cellpadding=0>
   <banner>
   <menu ident='$ident'>
+  <if what="isset($$redir) && $$redir!=''">
+   <tr><td>
+    <a href='$$redir' class='admin'><img src='pics/redir.gif'>&nbsp;Вернуться</a>
+   </td></tr>
+  </if>
  </table></td></table>
 </span>
 </element>
