@@ -31,6 +31,8 @@ if($topic->login!='')
   }
 if($topicMandatoryDescription && $topic->stotext->body=='')
   return ET_DESCRIPTION_ABSENT;
+if($topic->up<0)
+  $topic->up=0;
 if($topic->up!=0 && !topicExists($topic->up))
   return ET_NO_UP;
 if($topic->up!=0 && $topic->up==$topic->id)
