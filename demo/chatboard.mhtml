@@ -1,10 +1,10 @@
 << @(#) $Id$ >>
 
-<refresh period=10 url='$-'>
+<refresh period='$$userChatRefresh' url='$-'>
 <html>
 <head></head>
 <body bgcolor=white>
- <iterate_chat>
+ <iterate_chat limit='$$userChatPortion'>
  <table>
   <for>
    <tr><td>[$.SentTimeView]</td><td><b>$.Login</b></td><td>$.HTMLText</td></tr>

@@ -9,7 +9,7 @@
 
 << Elements >>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
-<decel name='batcher' file='parts/utils.php' params='value,var'>
+<decel name='batcher' file='parts/messages.php' params='value,var'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
 <decel name='forum' file='parts/forum.php' params='forum,complain'

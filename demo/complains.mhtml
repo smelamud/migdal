@@ -8,6 +8,22 @@
  <if what='$complain.isRebe'></font></if>
 </macro>
 
+<element name='batcher_complains' params='value'>
+<table width=100%>
+ <form method=get action='$~'>
+  <hiddenget remove='cp'>
+  <tr><td align=right><table><tr valign=center>
+   <td>Показывать по&nbsp;</td>
+   <td>
+    <select_portion name='cp' value='$value' vals='20 25 30 35 40 45 50'>
+   </td>
+   <td>сообщений&nbsp;</td>
+   <td><input type=submit value='Изменить'></td>
+  </tr></table></td></tr>
+ </form>
+</table><br>
+</element>
+
 <int name='offset'>
 <html>
 <head>
@@ -17,7 +33,7 @@
  <top ident='complains'>
  <iterate_complainlist limit='$$userComplainPortion' offset='$offset'>
  <navigator>
- <batcher var='cp' value='$$userComplainPortion'>
+ <batcher_complains value='$$userComplainPortion'>
  <logged>
   <a href='complainedit.php?redir=$_'>Добавить жалобу</a>
  </logged>

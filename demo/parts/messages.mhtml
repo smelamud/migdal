@@ -1,5 +1,21 @@
 << @(#) $Id$ >>
 
+<element name='batcher_messages' params='value'>
+<table width=100%>
+ <form method=get action='$~'>
+  <hiddenget remove='mp'>
+  <tr><td align=right><table><tr valign=center>
+   <td>Показывать по&nbsp;</td>
+   <td>
+    <select_portion name='mp' value='$value' vals='10 15 20 25 30 35 40'>
+   </td>
+   <td>сообщений&nbsp;</td>
+   <td><input type=submit value='Изменить'></td>
+  </tr></table></td></tr>
+ </form>
+</table><br>
+</element>
+
 <element name='Messages'>
 <grpdata>
 <if what='$g.ValidItem'><logged>
@@ -7,7 +23,7 @@
   >Добавить $g.ItemTitle</a>
 </logged></if>
 <iterate_messagelist grp='$grp' topic='$topic' limit='$limit' offset='$offset'>
-<batcher value='$limit' var='mp'>
+<batcher_messages value='$limit'>
 <navigator>
 <table width=100%>
 <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>

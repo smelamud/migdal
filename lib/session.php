@@ -7,12 +7,16 @@ require_once('lib/utils.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics',
                       'moderator','judge');
-$userSetNames=array('mp' => 'msg_portion',
-                    'fp' => 'forum_portion',
-                    'cp' => 'complain_portion');
-$userSetDefaults=array('mp' => 10,
-                       'fp' => 10,
-		       'cp' => 20);
+$userSetNames=array('mp'  => 'msg_portion',
+                    'fp'  => 'forum_portion',
+                    'cp'  => 'complain_portion',
+		    'chp' => 'chat_portion',
+		    'chr' => 'chat_refresh');
+$userSetDefaults=array('mp'  => 10,
+                       'fp'  => 10,
+		       'cp'  => 20,
+		       'chp' => 20,
+		       'chr' => 10);
 
 function getProperName($name)
 {

@@ -1,5 +1,21 @@
 << @(#) $Id$ >>
 
+<element name='batcher_forums' params='value'>
+<table width=100%>
+ <form method=get action='$~'>
+  <hiddenget remove='fp'>
+  <tr><td align=right><table><tr valign=center>
+   <td>Показывать по&nbsp;</td>
+   <td>
+    <select_portion name='fp' value='$value' vals='10 15 20 25 30 35 40'>
+   </td>
+   <td>сообщений&nbsp;</td>
+   <td><input type=submit value='Изменить'></td>
+  </tr></table></td></tr>
+ </form>
+</table><br>
+</element>
+
 <element name='forums'>
 <grps>
 <logged>
@@ -7,7 +23,7 @@
   >Добавить сообщение</a>
 </logged>
 <iterate_forumlist up='$up' limit='$limit' offset='$offset'>
-<batcher value='$limit' var='fp'>
+<batcher_forums value='$limit'>
 <navigator list='$;'>
 <table width=100%>
  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>

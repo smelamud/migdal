@@ -316,3 +316,13 @@
   <option value='%value'>%title
  </if>
 </macro>
+
+<macro name='select_portion'>
+<select name='%name'>
+ <array val1='%vals' val2='%value'>
+ <iterate_sortarray>
+ <for>
+  <radio value='$.' peervalue='%value' title='$.'>
+ </for>
+</select>
+</macro>
