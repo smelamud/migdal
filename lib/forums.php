@@ -3,6 +3,7 @@
 
 require_once('lib/limitselect.php');
 require_once('lib/messages.php');
+require_once('lib/utils.php');
 
 class ForumAnswer
       extends Message
@@ -77,7 +78,7 @@ $hide=$userModerator ? 2 : 1;
 $this->LimitSelectIterator(
        'ForumAnswer',
 	"select forums.id as id,message_id,stotext_id,body,sent,sender_id,
-	        messages.hidden as hidden,disabled,
+	        parent_id,messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,
 		login,gender,email,hide_email,rebe
 	 from forums
@@ -97,7 +98,7 @@ $this->LimitSelectIterator(
 
 }
 
-function getForumAnswerById($id,$parent_id=0)
+function getForumAnswerById($id,$parent_id=0,$quote='',$quoteWidth=75)
 {
 global $userId,$userModerator;
 
@@ -116,7 +117,10 @@ $result=mysql_query("select forums.id as id,message_id,stotext_id,body,
 	     or die('Ошибка SQL при выборке сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0
                        ? mysql_fetch_assoc($result)
-                       : array('parent_id' => $parent_id));
+                       : array('parent_id' => $parent_id,
+		               'body'      => $quote!=''
+			                       ? getQuote($quote,$quoteWidth)
+			                       : ''));
 }
 
 function getForumAnswerAuthorBySent($parent_id,$sent)

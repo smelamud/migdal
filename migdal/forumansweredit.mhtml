@@ -3,6 +3,7 @@
 <force_community>
 <int name='editid'>
 <int name='parent_id'>
+<int name='peerid'>
 <pagetitle title='Сообщение в форуме'>
 <conf>
 
@@ -10,7 +11,14 @@
 <preamble>
 <body>
  <top ident='discuss'>
- <forum_answer_obj id='$editid' parent_id='$parent_id'>
+ <ifnzero what='$peerid'>
+  <forum_answer_obj id='$peerid'>
+  <assign name='quote' value='$,Body'>
+ <else>
+  <assign name='quote' value=''>
+ </ifnzero>
+ <forum_answer_obj id='$editid' parent_id='$parent_id' quote='$quote'
+                   quote_width=65>
  <setup>
  <if what='$editid'>
   <assign name='head' value='Изменить сообщение в форуме'>
@@ -39,7 +47,7 @@
      <error id='*EFA_BODY_ABSENT'
 	    text='Напишите хотя бы пару строчек в теле сообщения'>
      <editor_line name='body' title='Текст' body='$answer.Body'
-		  mandatory='$$forumanswerMandatoryBody'>
+		  mandatory='$$forumanswerMandatoryBody' rows=12 cols=65>
      <help_link href='stotext-help-subs.php'
 		title='Список обозначений, используемых в тексте'>
      <checkbox_line name='hidden' value='$answer.isHidden'

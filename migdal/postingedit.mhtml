@@ -79,18 +79,18 @@
      <if what='$message.hasSubject'>
       <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
       <edit_line title='Заголовок' value='$message.Subject' name='subject'
-		 size=42 maxlength=250 mandatory='$message.mandatorySubject'>
+		 size=52 maxlength=250 mandatory='$message.mandatorySubject'>
      </if>
      <if what='$message.hasAuthor'>
       <error id='*EP_AUTHOR_ABSENT' text='Автор не указан' span=2>
       <edit_line title='Автор' value='$message.Author' name='author'
-		 size=42 maxlength=250 mandatory='$message.mandatoryAuthor'>
+		 size=52 maxlength=250 mandatory='$message.mandatoryAuthor'>
      </if>
      <if what='$message.hasSource'>
       <error id='*EP_SOURCE_ABSENT' text#='$message.SourceTitle не указан'
 	     span=2>
       <edit_line title='$message.SourceTitle' value='$message.Source'
-		 name='source' size=42 maxlength=250
+		 name='source' size=52 maxlength=250
 		 mandatory='$message.mandatorySource'>
      </if>
      <if what='$message.hasImage'>
@@ -128,7 +128,7 @@
 	<assign name='ttext' value=''>
        </ifnzero>
        <editor_line name='title' body='$ttext' title='Подпись под картинкой'
-		    rows=5 span=2 mandatory='$message.mandatoryTitle'>
+		    rows=4 span=2 mandatory='$message.mandatoryTitle'>
       </if>
      </if>
     <if what='$message.hasLargeBody'>
@@ -151,7 +151,7 @@
      <if what='$message.hasBody'>
       <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
       <editor_line name='body' title='Аннотация' body='$message.Body'
-		   mandatory='$message.mandatoryBody'>
+		   rows=11 cols=60 mandatory='$message.mandatoryBody'>
       <td><help_link href='stotext-help-subs.php'
 	  	     title='Список обозначений, используемых в тексте'></td>
      </if>
@@ -161,7 +161,7 @@
       <error id='*EP_BODY_ABSENT'
 	     text='Напишите хотя бы пару строчек в теле сообщения'>
       <editor_line name='body' title='Текст' body='$message.Body'
-		   mandatory='$message.mandatoryBody'>
+		   rows=11 cols=60 mandatory='$message.mandatoryBody'>
       <help_link href='stotext-help-subs.php'
 		 title='Список обозначений, используемых в тексте'>
      </if>
@@ -170,7 +170,7 @@
      <table><tr><td>
       <error id='*EP_URL_ABSENT' text='Ссылка не указана' span=2>
       <edit_line title='Ссылка' value='$message.URL' name='url'
-		 size=42 maxlength=250 mandatory='$message.mandatoryURL'>
+		 size=52 maxlength=250 mandatory='$message.mandatoryURL'>
      </table></td></tr>
     </if>
     <checkbox_line name='hidden' value='$message.isHidden'

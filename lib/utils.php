@@ -56,6 +56,11 @@ $b=((int)$n/10)%10;
 return $b==1 || $a>=5 || $a==0 ? $forms[2] : ($a==1 ? $forms[0] : $forms[1]);
 }
 
+function getQuote($s,$width)
+{
+return preg_replace('/^/m','> ',wordwrap($s,$width));
+}
+
 function displayImage($src='',$alt='',$title='',$border='')
 {
 static $sizes=array();

@@ -205,10 +205,10 @@
  </tr>
 </macro>
 
-<macro name='editor_line' defaults="span=0 rows=10 mandatory='*false'">
+<macro name='editor_line' defaults="span=0 rows=10 cols=50 mandatory='*false'">
  <tr><tdspan span=%span>%title <if what='%mandatory'><star></if></tdspan></tr>
  <tr><tdspan span=%span>
-  <textarea name='%name' rows=%rows cols=50 wrap='virtual'>%body</textarea>
+  <textarea name='%name' rows=%rows cols=%cols wrap='virtual'>%body</textarea>
  </tdspan></tr>
 </macro>
 
