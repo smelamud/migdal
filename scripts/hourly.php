@@ -96,7 +96,7 @@ if(!$replicationMaster)
   return;
 $result=mysql_query("select message_id,mode
                      from counters
-		     where finished<now()");
+		     where finished<now() and serial=0");
 if(!$result)
   die(mysql_error());
 while(list($message_id,$mode)=mysql_fetch_array($result))
