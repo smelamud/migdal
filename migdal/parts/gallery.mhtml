@@ -36,8 +36,8 @@
   <tr valign=top>
    <for>
     <td>
-     <gallery_picture picture='$.' showtopic!='$topic_id<0' showdiscuss='*true'
-                      showcomplain='*true'>
+     <picture picture='$.' showtopic!='$topic_id<0' showdiscuss='*true'
+              showcomplain='*true'>
     </td>
     <if what='$;isEol'>
      </tr><tr valign=top>

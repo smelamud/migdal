@@ -11,21 +11,33 @@
 <asp></at>
 </element>
 
+<element name='topiclink_times' params='posting,class'>
+<at href#='times.php?issue=$posting.Index1' class='$class'
+    title='$posting.TopicDescription'>
+ <if what='$posting.TopicId!=$`migdal-times`'>
+  <asp>Мигдаль Times ::&sp;
+ </if>
+ $posting.TopicName
+</at>
+</element>
+
 <element name='topiclink'>
 <if what='($posting.Grp & *GRP_GALLERY)!=0'>
  <at href#='gallery.php?topic_id=$posting.TopicId' class='$class'
      title='$posting.TopicDescription'>$posting.TopicName</at>
-<else><if what='($posting.Grp & (*GRP_BLOG_GALLERY|*GRP_BLOG_FORUMS))!=0'>
- <at href#='taglit-user.php?user_id=$posting.SenderId' class='$class'
-     title='$posting.TopicDescription'>$posting.TopicName</at>
 <else><if what='($posting.Grp & *GRP_LINKS)!=0'>
  <topiclink_links posting='$posting' class='$class'>
-<else><if what='($posting.Grp & (*GRP_TIMES_ARTICLES|*GRP_TIMES_COVERS))!=0'>
- <at href#='times.php?issue=$posting.Index1' class='$class'
-     title='$posting.TopicDescription'>$posting.TopicName</at>
 <else><if what='($posting.Grp & *GRP_TIPS)!=0'>
  <at href='tips.php' class='$class' title='$posting.TopicDescription'
      >$posting.TopicName</at>
+<else><if what='$/$posting.TopicId,0/==$`migdal-times`'>
+ <topiclink_times posting='$posting' class='$class'>
+<else><if what='$/$posting.TopicId,0/==$`taglit`'>
+ <at href#='taglit-user.php?user_id=$posting.SenderId' class='$class'
+     title='$posting.TopicDescription'>$posting.TopicName</at>
+<else><if what='$/$posting.TopicId,0/==$`veterans`'>
+ <at href#='veterans-user.php?user_id=$posting.SenderId' class='$class'
+     title='$posting.TopicDescription'>$posting.TopicName</at>
 <else><if what='$/$posting.TopicId,0/==$`migdal`'>
  <if what='$/$posting.TopicId,1/==$`methodics`'>
   <topic_obj id='$`methodics`'>
@@ -44,7 +56,7 @@
   <at href#='index.php?topic_id=$posting.TopicId' class='$class'
       title='$posting.TopicDescription'>$posting.TopicName</at>
  </if></if>
-</if></if></if></if></if></if>
+</if></if></if></if></if></if></if>
 </element>
 
 <element name='editlink'>
@@ -72,12 +84,11 @@
 
 <element name='posting'>
 <require name='parts/posting-general.php'>
-<require name='parts/gallery-picture.php'>
+<require name='parts/picture.php'>
 <require name='parts/blog-posting.php'>
 <require name='parts/posting-book.php'>
 <require name='parts/posting-times.php'>
 <require name='parts/posting-times-cover.php'>
-<require name='parts/blog-gallery-picture.php'>
 <require name='parts/kaitana-picture.php'>
 <require name='parts/tip-posting.php'>
 <require name='parts/link-posting.php'>

@@ -27,10 +27,6 @@
 <decel name='blog_gallery' file='parts/blog-gallery.php'
        params='user_id,rows,cols,offset,sort,topic_id'
        defaults="sort='*SORT_PSENT'">
-<decel name='blog_gallery_picture' file='parts/blog-gallery-picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
 <decel name='blog_posting' file='parts/blog-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
@@ -64,10 +60,6 @@
                  sort='*SORT_PSENT'">
 <decel name='gallery_main' file='parts/gallery-main.php'
        params='cols,subdomain' defaults="cols=5 subdomain=-1">
-<decel name='gallery_picture' file='parts/gallery-picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='hannukah' file='parts/hannukah.php'>

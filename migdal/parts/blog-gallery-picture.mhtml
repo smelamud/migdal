@@ -1,6 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='blog_gallery_picture'>
-<picture picture='$picture' showtopic='$showtopic' showdiscuss='$showdiscuss'
-         showcomplain='$showcomplain' shorten='$shorten'>
-</element>

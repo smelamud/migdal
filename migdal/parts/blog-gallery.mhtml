@@ -33,7 +33,7 @@
  <tr valign=top>
   <for>
    <td>
-    <blog_gallery_picture picture='$.' showtopic='*false'>
+    <picture picture='$.' showtopic='*false'>
    </td>
    <if what='$;isEol'>
     </tr><tr valign=top>
