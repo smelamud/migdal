@@ -31,6 +31,7 @@ md=#990099	! Dark
 grd=#333333	! Dark
 grm=#666666	! Medium
 gr=#999999	! Normal
+grld=#CCCCCC	! Light Dark
 grl=#EAEAEA	! Light
 
 ! Maroon
@@ -40,6 +41,7 @@ mrm=#996600
 mrl=#f4f1cb
 
 ! Replacers
+
 r_b=#e9d9a6
 r_c=#e9dabd
 r_d=#c4b1a0

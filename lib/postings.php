@@ -582,13 +582,14 @@ mysql_query('update postings
      or die('Ошибка SQL при обновлении счетчика прочтений постинга');
 }
 
-function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0)
+function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic_id>=0 ? " and topic_id=$topic_id " : '';
 $userFilter=$user_id<=0 ? '' : " and messages.sender_id=$user_id ";
+$index1Filter=$index1>=0 ? "and index1=$index1" : '';
 $result=mysql_query(
         "select priority,count(*)
          from postings
@@ -597,6 +598,7 @@ $result=mysql_query(
 	 where (hidden<$hide or sender_id=$userId) and
 	       (disabled<$hide or sender_id=$userId) and
                priority<=0 and (grp & $grp)<>0 $topicFilter $userFilter
+	       $index1Filter
 	 group by priority
 	 order by priority")
  or die('Ошибка SQL при определении количества постингов по приоритетам');
@@ -629,6 +631,7 @@ $result=mysql_query(
 	 where (hidden<$hide or sender_id=$userId) and
 	       (disabled<$hide or sender_id=$userId) and
                priority<=0 and (grp & $grp)<>0 $topicFilter $userFilter
+	       $index1Filter
 	 order by priority,sent desc
 	 limit $realpos,1")
  or die('Ошибка SQL при получении постинга по позиции');
@@ -657,8 +660,8 @@ $result=mysql_query("select max(index$index)
 			       on postings.message_id=messages.id
 			  left join topics
 			       on postings.topic_id=topics.id
-		     where (hidden<$hide or sender_id=$userId) and
-			   (disabled<$hide or sender_id=$userId) and
+		     where (messages.hidden<$hide or sender_id=$userId) and
+			   (messages.disabled<$hide or sender_id=$userId) and
 		           (grp & $grp)<>0 $topicFilter")
 	     or die('Ошибка SQL при получении максимального индекса постинга');
 return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;

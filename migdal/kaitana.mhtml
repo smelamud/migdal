@@ -11,7 +11,6 @@
                index1!='$day<=0 ? 1 : $day'>
 </ifzero>
 <pagetitle title='Летняя площадка - 5762'>
-<topictitle title='Летняя площадка - 5762'>
 <zone><log event=kaitana text#='post($posting.Id)'></zone>
 
 <macro name='editor'>
@@ -60,14 +59,18 @@
    <topics posting='$,' showchapters='*true'>
   </zone></td>
   <td class='cframe'>
-   <subtitle>
-   <div class=batcher>
-    <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
-       class=add>Добавить новость</a>
-    &nbsp;
-    <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
-       class=add>Добавить картинку</a>
+   <div style='font: bold 22pt $$style_times; padding-bottom: 2ex;'>
+    Летняя площадка - 5762
    </div>
+   <editor>
+    <div class=batcher>
+     <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
+	class=add>Добавить новость</a>
+     &nbsp;
+     <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+	class=add>Добавить картинку</a>
+    </div>
+   </editor>
    <ifnzero what='$posting'>
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
@@ -91,7 +94,7 @@
      $posting.HTMLBody
      </p>
      <vote_frame id='$posting.Id' color='$$style_cframe_back'
-		 image='$$style_cframe_back_pic'>
+		 image='$$style_cframe_back_pic' align=center>
      <kaitana_controls posting='$posting' kaitana='$kaitana'>
     </td>
     <td width=140>
