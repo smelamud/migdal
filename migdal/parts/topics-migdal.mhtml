@@ -62,7 +62,7 @@
  <posting_last grp='*GRP_NEWS' topic_id='$`mazltov-news`' recursive='*false'>
  <topics_line time='$,' text='Новости' indent=1
               href#='migdal-news.php?topic_id=$`mazltov-news`'
-              arrow!='$posting.Grp==*GRP_NEWS &&
+              arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
 	              $posting.TopicId==$`mazltov-news`'
 	      class='item eightpt'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*false'>
@@ -112,7 +112,7 @@
  <posting_last grp='*GRP_NEWS' topic_id='$`museum-news`' recursive='*false'>
  <topics_line time='$,' text='Новости' indent=1
               href#='migdal-news.php?topic_id=$`museum-news`'
-              arrow!='$posting.Grp==*GRP_NEWS &&
+              arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
 	              $posting.TopicId==$`museum-news`'
 	      class='item eightpt'>
 </topics_table>
