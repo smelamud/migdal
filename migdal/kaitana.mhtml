@@ -63,7 +63,9 @@
   <td class='cframe'>
    <table class=article width=100%
           cellspacing=5 cellpadding=0><tr valign=bottom>
-    <td rowspan=2 width=210><image src='pics/kaitana.gif'></td>
+    <editor>
+     <td rowspan=2 width=210><image src='pics/kaitana.gif'></td>
+    </editor>
     <td colspan=2 style='font: bold 24pt $$style_times; color: teal;'>
      Летняя площадка - 5762
     </td>
@@ -72,7 +74,7 @@
     <td align=right>
      <kaitana_controls posting='$posting' kaitana='$kaitana'>
     </td>
-    <td width=120>
+    <td width=140>
      <editor>
       <div class=batcher>
        <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
