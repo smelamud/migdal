@@ -189,6 +189,16 @@ global $queryEllipSize;
 return ellipsize($this->query,$queryEllipSize);
 }
 
+function getQuerySize()
+{
+return strlen($this->query);
+}
+
+function getQuerySizeK()
+{
+return (int)($this->getQuerySize()/1024);
+}
+
 function getSent()
 {
 return $this->sent;

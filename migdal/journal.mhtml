@@ -60,7 +60,12 @@
 	<td class='ninept' align=left>$.ResultTable</td>
 	<td class='ninept' align=right>$.ResultId</td>
 	<td class='ninept' align=right>$.ResultVar</td>
-	<td class='eightpt' align=left>$.QueryShort</td>
+	<td class='eightpt' align=left>
+	 $.QueryShort
+	 <if what='$.QuerySize>10240'>
+	  <br><b>(Размер: ${.QuerySizeK}K)</b>
+	 </if>
+	</td>
 	<td class='eightpt' align=left><sentprecview date='$.Sent'></td>
        </tr>
       </for>
