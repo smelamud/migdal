@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/errors.php');
 require_once('lib/users.php');
 require_once('lib/post.php');
+require_once('lib/text.php');
 
 function postMessage($personal,$message)
 {
@@ -36,7 +37,15 @@ postString('personal');
 
 dbOpen();
 session($sessionid);
-$err=postMessage($personal,$message);
+do
+  {
+  $s=shorten($message,200,100,40);
+  $err=postMessage($personal,$s);
+  $message=substr($message,strlen($s));
+  if($message!='')
+    sleep(1);
+  }
+while($err==ECHP_OK & $message!='');
 if($err==ECHP_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err','message'),
