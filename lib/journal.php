@@ -27,8 +27,9 @@ global $journalSeq;
 
 if($journalSeq==0)
   bug('No sequence.');
-mysql_query("insert into journal(seq) values($journalSeq)")
-  or journalFailure('Closing sequence failed.');
+if($journalSeq>0)
+  mysql_query("insert into journal(seq) values($journalSeq)")
+    or journalFailure('Closing sequence failed.');
 $journalSeq=0;
 }
 
@@ -48,7 +49,7 @@ if($table!='' || $journalSeq<0)
   mysql_query('update journal
                set '.($table!='' ? "result_var=$var" : '')
 	            .($table!='' && $journalSeq<0 ? ',' : '')
-                    .($journalSeq<0 ? "seq=$id" : ''));
+                    .($journalSeq<0 ? "seq=$id" : ''))
     or journalFailure('Set sequence/variable failed.');
   if($journalSeq<0)
     $journalSeq=$id;
@@ -94,5 +95,15 @@ return $c;
 function jdecode($s)
 {
 return rawurldecode($s);
+}
+
+function jencodeVars($vars,$codings)
+{
+foreach($codings as $key=>$value)
+       if($codings[$key]=='')
+         $vars[$key]=jencode($vars[$key]);
+       else
+         $vars[$key]=journalVar($codings[$key],$vars[$key]);
+return $vars;
 }
 ?>
