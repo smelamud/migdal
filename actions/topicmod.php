@@ -27,7 +27,7 @@ if(!$userAdminTopics)
   return ET_NO_EDIT;
 if($topic->name=='')
   return ET_NAME_ABSENT;
-if($topic->description=='')
+if($topic->stotext->body=='')
   return ET_DESCRIPTION_ABSENT;
 if($topic->up!=0 && !topicExists($topic->up))
   return ET_NO_UP;
@@ -44,10 +44,11 @@ return ET_OK;
 }
 
 settype($editid,'integer');
+settype($up,'integer');
 
 dbOpen();
 session($sessionid);
-$topic=getTopicById($editid);
+$topic=getTopicById($editid,$up);
 $topic->setup($HTTP_POST_VARS);
 $err=uploadLargeText($topic->stotext);
 if($err==EUL_OK)
