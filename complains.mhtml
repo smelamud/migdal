@@ -25,7 +25,7 @@
  <table>
   <tr valign=top>
    <th>No.</th><th>Прислано</th><th>Автор</th><th>Заголовок</th>
-   <th>Закрыто</th><th>Ответы</th>
+   <th>Рассматривает</th><th>Закрыто</th><th>Ответы</th>
   </tr>
  <for name='complain'>
   <tr>
@@ -35,6 +35,11 @@
    <td><rebe>
     <a href='complainforum.php?compid=$.Id&redir=$_'>$.Subject</a>
    </rebe></td>
+   <if what='$.isAssigned'>
+    <td><senderlink message='$.RecipientInfo'></td>
+   <else>
+    <td align=center>-</td>
+   </if>
    <if what='$.isClosed'>
     <td>$.ClosedView</td>
    <else>

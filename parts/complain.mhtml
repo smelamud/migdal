@@ -12,6 +12,10 @@
 <table width=100% class='complain'>
 <tr><td>
  <table width=100%>
+  <tr>
+   <td>$complain.SentView</td>
+   <td align=right><b>Закрыто: </b>$complain.ClosedView</td>
+  </tr>
   <error id='*EC_NO_ASSIGN' span=2
          text='Вы не имеете права направлять жалобы на рассмотрение'>
   <error id='*EC_NO_COMPLAIN' text='Такой жалобы не существует' span=2>
@@ -20,30 +24,28 @@
   <error id='*EC_SQL_ASSIGN' text='Ошибка SQL при обновлении записи'
          color=magenta span=2>
   <tr>
-   <td>
+   <td><rebe><b>Прислано: </b><senderlink message='$complain'></rebe></td>
+   <td align=right>
     <judge>
-     <form method=post action='actions/complainassign.php'>
-     <input type=hidden name='redir' value='$-'>
-     <input type=hidden name='id' value='$complain.Id'>
-      <table>
-       <tr>
-	<td><edit name='login' size=15 maxlength=30></td>
-	<td><input type=submit value='Поручить'></td>
-       </tr>
-      </table>
-     </form>
+     <table>
+      <tr>
+       <form method=post action='actions/complainassign.php'>
+       <input type=hidden name='redir' value='$-'>
+       <input type=hidden name='id' value='$complain.Id'>
+       <td><b>Рассматривает</b></td>
+       <td><edit name='login' value='$complain.RecipientLogin' size=10
+                 maxlength=30></td>
+       <td><input type=submit value='Поручить'></td>
+       </form>
+      </tr>
+     </table>
     <else>
-     &nbsp;
+     <b>Рассматривает: </b><senderlink message='$complain.RecipientInfo'>
     </judge>
    </td>
   </tr>
   <tr>
-   <td>$complain.SentView</td>
-   <td align=right><b>Закрыто: </b>$complain.ClosedView</td>
-  </tr>
-  <tr>
-   <td><b><rebe>$complain.Subject</rebe></b></td>
-   <td align=right><rebe><senderlink message='$complain'></rebe></td>
+   <td colspan=2><b><rebe>$complain.Subject</rebe></b></td>
   </tr>
  </table>
 </td></tr>

@@ -48,6 +48,16 @@ return new ComplainType(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                   : array());
 }
 
+function getComplainTypeById($id)
+{
+$result=mysql_query("select id,assign
+                     from complain_types
+		     where id='$id'")
+	     or die('Ошибка SQL при выборке типа жалобы');
+return new ComplainType(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                                  : array());
+}
+
 function complainTypeExists($id)
 {
 $result=mysql_query("select id

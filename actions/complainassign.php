@@ -17,7 +17,7 @@ if(!$userJudge)
 if(!complainExists($id))
   return EC_NO_COMPLAIN;
 $peerId=getUserIdByLogin(addslashes($login));
-if($peerId==0)
+if($peerId==0 && $login!='')
   return EC_LOGIN_ASSIGN;
 $result=mysql_query("update complains
                      set recipient_id=$peerId
@@ -32,7 +32,7 @@ settype($id,'integer');
 dbOpen();
 session($sessionid);
 $err=assignComplain($id,$login);
-header('Location: '.($err==EC_OK ? $redir
+header('Location: '.($err==EC_OK ? remakeURI($redir,array('err'))
                                  : remakeURI($redir,
 				             array(),
 					     array('err' => $err))));

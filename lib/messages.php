@@ -1,7 +1,7 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/usertag.php');
+require_once('lib/sendertag.php');
 require_once('lib/selectiterator.php');
 require_once('lib/limitselect.php');
 require_once('lib/tmptexts.php');
@@ -11,7 +11,7 @@ require_once('lib/topics.php');
 require_once('lib/text.php');
 
 class Message
-      extends UserTag
+      extends SenderTag
 {
 var $id;
 var $body;
@@ -19,8 +19,6 @@ var $subject;
 var $topic_id;
 var $topic_name;
 var $personal_id;
-var $sender_id;
-var $sender_hidden;
 var $grp;
 var $image_set;
 var $image_id;
@@ -32,7 +30,7 @@ var $answer_count;
 
 function Message($row)
 {
-$this->UserTag($row);
+$this->SenderTag($row);
 }
 
 function setup($vars)
@@ -201,29 +199,6 @@ return $this->topic_name;
 function getPersonalId()
 {
 return $this->personal_id;
-}
-
-function getSenderId()
-{
-return $this->sender_id;
-}
-
-function isSenderHidden()
-{
-return $this->sender_hidden ? 1 : 0;
-}
-
-function isSenderAdminHidden()
-{
-return $this->sender_hidden>1 ? 1 : 0;
-}
-
-function isSenderVisible()
-{
-global $userAdminUsers;
-
-return !$this->isSenderHidden()
-       || ($userAdminUsers && !$this->isSenderAdminHidden());
 }
 
 function getSentView()
