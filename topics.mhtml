@@ -18,7 +18,7 @@
 		   array('ignoregrp' => $ignoregrp ? 0 : 1)),'">';
    ?>Показать <if what='$ignoregrp'>активные<else>все</if></a>
   </admin_topics>
-  <iterate_topiclist params='$g.Effective'>
+  <iterate_topiclist grp='$g.Effective'>
   <for>
    <p>
    <b><a href='messages.php?grp=$grp&redir=$_&topic_id=$.Id'>

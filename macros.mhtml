@@ -3,8 +3,9 @@
 <macro name='grp' defaults='name=g ignore=0' x=>
  <header>
   <require name='lib/grps.php'>
-  <obj name='%name' class='GrpData' params='$grp,%ignore'>
-  <reload why='$g.Invalid' var='grp' value='GRP_FORUMS'>
+  <require name='lib/grputils.php'>
+  <obj name='%name' class='GrpData' arg1='$grp' arg2='%ignore'>
+  <reload why='$g.Invalid' var='grp' value='*GRP_FORUMS'>
  </header>
 </macro>
 << Iterators >>
@@ -14,7 +15,7 @@
 </macro>
 <macro name='iterate_topiclist'>
  <require name='lib/topics.php'>
- <iterate name='%name' class='TopicListIterator' params='%params'>
+ <iterate name='%name' class='TopicListIterator' arg1='%grp'>
 </macro>
 << Permissions >>
 <macro name='admin_topics'>
@@ -23,3 +24,5 @@
 <macro name='/admin_topics'>
  </if>
 </macro>
+<< Elements >>
+<decel name='reload' file='lib/utils.php' params='why,var,value'>
