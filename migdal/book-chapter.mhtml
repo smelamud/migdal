@@ -29,7 +29,11 @@
     <tr><td align=right><senderlink message='$,'></td></tr>
    </table>
    <book_ring book='$book' index='$,Index0'>
-   <h1>$,Subject</h1>
+   <h1>$,Subject
+    <ifne what='$,Author'>
+     <div class='author'>$,HTMLAuthor</div>
+    </ifne>
+   </h1>
    <article posting='$,'>
    <book_ring book='$book' index='$,Index0'>
    <article_controls posting='$,'>
