@@ -41,7 +41,7 @@ postString('body');
 postString('subject');
 
 dbOpen();
-session($sessionid);
+session();
 $answer=getForumAnswerById($editid);
 $answer->setup($HTTP_POST_VARS);
 $img=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);

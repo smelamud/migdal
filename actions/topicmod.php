@@ -56,7 +56,7 @@ postString('description');
 postString('large_description');
 
 dbOpen();
-session($sessionid);
+session();
 $topic=getTopicById($editid,$up);
 $topic->setup($HTTP_POST_VARS);
 $err=uploadLargeText($topic->stotext);

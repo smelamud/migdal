@@ -123,7 +123,7 @@ postString('title');
 postString('url');
 
 dbOpen();
-session($sessionid);
+session();
 $message=getPostingById($editid,$grp);
 $message->setup($HTTP_POST_VARS);
 $image=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);

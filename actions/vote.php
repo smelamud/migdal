@@ -35,7 +35,7 @@ postInteger('postid');
 postInteger('vote');
 
 dbOpen();
-session($sessionid);
+session();
 $err=vote($postid,$vote);
 if($err==EV_OK)
   header('Location: '.remakeURI($okdir,

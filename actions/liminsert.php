@@ -27,7 +27,7 @@ postInteger('postid');
 postInteger('par');
 
 dbOpen();
-session($sessionid);
+session();
 $posting=getPostingById($postid);
 $image=getStotextImageByParagraph($posting->getStotextId(),$par);
 $image->setup($HTTP_POST_VARS);

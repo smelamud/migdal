@@ -36,7 +36,7 @@ postString('message');
 postString('personal');
 
 dbOpen();
-session($sessionid);
+session();
 do
   {
   $s=shorten($message,200,100,40);

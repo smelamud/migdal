@@ -73,7 +73,7 @@ postInteger('small_y');
 postString('title');
 
 dbOpen();
-session($sessionid);
+session();
 $posting=getPostingById($postid);
 $err=storeImage($posting);
 $titleId=tmpTextSave($title);

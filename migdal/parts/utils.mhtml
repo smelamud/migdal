@@ -42,15 +42,15 @@
 <logged>
  <biff time='$posting.LastAnswer'>
  <a href='forum.php?redirid=$_&msgid=$posting.Id'>
-  Обсудить
+  Обсудить<asp>
   <ifnzero what='$posting.AnswerCount'>
-   ($posting.AnswerCount)<asp>
+   &nbsp;($posting.AnswerCount)<asp>
   </ifnzero>
  <asp></a>
 <else>
  <biff time='$posting.LastAnswer'>
  <a href='forum.php?redirid=$_&msgid=$posting.Id'>
-  Обсуждение
+  Обсуждение<asp>
   <ifnzero what='$posting.AnswerCount'>
    &nbsp;($posting.AnswerCount)<asp>
   </ifnzero>

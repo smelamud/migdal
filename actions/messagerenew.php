@@ -28,7 +28,7 @@ return EMR_OK;
 postInteger('id');
 
 dbOpen();
-session($sessionid);
+session();
 $err=renewMessage($id);
 if($err==EMR_OK)
   header('Location: '.remakeURI($okdir,

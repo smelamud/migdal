@@ -36,7 +36,7 @@ return EUC_OK;
 postInteger('id');
 
 dbOpen();
-session($sessionid);
+session();
 $err=confirmUser($id,$code,$userLogin);
 if($err!=EUC_OK)
   header("Location: /userfin.php?err=$err");

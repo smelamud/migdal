@@ -30,7 +30,7 @@ return ECAD_OK;
 postInteger('editid');
 
 dbOpen();
-session($sessionid);
+session();
 $err=removeComplainAction($editid);
 if($err==ECAD_OK)
   header('Location: '.remakeURI($okdir,array('err'),array('editid' => 0)));

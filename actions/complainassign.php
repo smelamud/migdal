@@ -32,7 +32,7 @@ postInteger('id');
 postString('login');
 
 dbOpen();
-session($sessionid);
+session();
 $err=assignComplain($id,$login);
 header('Location: '.($err==EC_OK ? remakeURI($okdir,array('err'))
                                  : remakeURI($faildir,

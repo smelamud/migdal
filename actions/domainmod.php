@@ -29,7 +29,7 @@ postInteger('editid');
 postInteger('domain');
 
 dbOpen();
-session($sessionid);
+session();
 $err=modifyPosting($editid,$domain);
 if($err==EDM_OK)
   header('Location: '.remakeURI($okdir,array(),array('reload' => random(0,999))));

@@ -31,7 +31,7 @@ postString('login');
 settype($sessionid,'integer');
 
 dbOpen();
-session($sessionid);
+session();
 $err=switchUser($sessionid,$login);
 if($err==EUS_OK)
   header("Location: $okdir");

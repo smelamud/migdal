@@ -35,7 +35,7 @@ postInteger('issue');
 postIntegerArray('art');
 
 dbOpen();
-session($sessionid);
+session();
 $err=reorderArts($art);
 if($err==EO_OK)
   header("Location: $okdir");

@@ -7,7 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 
 dbOpen();
-session($sessionid);
+session();
 header('Location: '.remakeURI($okdir,array(),array('st'  => $style,
                                                    'bt'  => $biff,
 						   'rk'  => empty($koi)

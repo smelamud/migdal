@@ -26,7 +26,7 @@ postInteger('postid');
 postInteger('editid');
 
 dbOpen();
-session($sessionid);
+session();
 $posting=getPostingById($postid);
 $err=deleteImage($posting);
 if($err==ELID_OK)

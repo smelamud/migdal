@@ -35,7 +35,7 @@ postString('body');
 postString('subject');
 
 dbOpen();
-session($sessionid);
+session();
 $complain=getComplainById($editid);
 $complain->setup($HTTP_POST_VARS);
 $err=modifyComplain($complain);

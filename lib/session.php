@@ -79,7 +79,13 @@ else
       $userId=-1;
       }
     else
+      {
       $userId=mysql_result($result,0,0);
+      mysql_query("update sessions set last=null where sid=$sessionid")
+	   or die('Ошибка SQL при обновлении TIMESTAMP сессии');
+      SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/',
+                $siteDomain);
+      }
     }
   else
     $userId=$aUserId;
@@ -95,11 +101,8 @@ if($userId>0)
 	 $GLOBALS['user'.getProperName($name)]=$value;
   if($GLOBALS['userAdminUsers'] && $GLOBALS['userHidden']>0)
     $GLOBALS['userHidden']--;
-  mysql_query("update sessions set last=null where sid=$sessionid")
-       or die('Ошибка SQL при обновлении TIMESTAMP сессии');
   mysql_query("update users set last_online=now() where id=$userId")
        or die('Ошибка SQL при обновлении времени захода пользователя');
-  SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/',$siteDomain);
   }
 }
 

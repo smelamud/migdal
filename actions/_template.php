@@ -9,7 +9,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 
 dbOpen();
-session($sessionid);
+session();
 header("Location: $okdir");
 dbClose();
 ?>

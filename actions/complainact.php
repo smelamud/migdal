@@ -40,7 +40,7 @@ postInteger('complain_id');
 postString('text');
 
 dbOpen();
-session($sessionid);
+session();
 $action=getComplainActionById($actid);
 $action->setup($HTTP_POST_VARS);
 $err=executeAction($action,$complain_id);

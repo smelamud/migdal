@@ -37,7 +37,7 @@ postString('name');
 postString('text');
 
 dbOpen();
-session($sessionid);
+session();
 $action=getComplainActionById($editid);
 $action->setup($HTTP_POST_VARS);
 $err=modifyComplainAction($action);

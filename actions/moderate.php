@@ -28,7 +28,7 @@ return EMH_OK;
 postInteger('editid');
 
 dbOpen();
-session($sessionid);
+session();
 $err=modifyMessage($editid,$hide ? 1 : 0);
 if($err==EMH_OK)
   header('Location: '.remakeURI($okdir,array(),array('reload' => random(0,999))));

@@ -7,7 +7,7 @@ require_once('lib/session.php');
 require_once('lib/logs.php');
 
 dbOpen();
-session($sessionid);
+session();
 logEvent('link',"msg($msgid) $okdir");
 header("Location: $okdir");
 dbClose();

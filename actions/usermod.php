@@ -71,7 +71,7 @@ postString('jewish_name');
 postString('surname');
 
 dbOpen();
-session($sessionid);
+session();
 $user=getUserById($editid);
 $user->setup($HTTP_POST_VARS);
 $err=modifyUser($user);
