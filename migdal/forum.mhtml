@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <int name='msgid'>
+<int name='offset'>
 <grps>
 <posting_full name='posting' id='$msgid' grp='*GRP_FORUMS'>
 <log event=forum text#='post($,Id)'>
@@ -14,7 +15,7 @@
 <preamble>
 <body>
  <top ident='discuss'>
- <table width=100% cellspacing=5 cellpadding=5>
+ <table width=100% cellpadding=5>
   <tr valign=top>
    <if what='$,Grp!=*GRP_LINKS'>
     <td width=150 class='eframe'>
@@ -31,7 +32,7 @@
     <posting posting='$posting' shorten='*true' showdiscuss='*false'
 	     showcomplain='*true'>
     <p>
-    <forums parent_id='$,MessageId' limit='$$userForumPortion'>
+    <forums parent_id='$,MessageId' limit='$$userForumPortion' offset='$offset'>
    </td>
   </tr>
  </table>
