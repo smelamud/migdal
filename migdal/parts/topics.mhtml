@@ -33,13 +33,13 @@
   <tbody class='names'>
    <tr>
     <arrow id='-1'>
-    <td><a href='$file?grp=$grp&topic_id=-1' class='new'>Все темы</a></td>
+    <td><a href='$file?topic_id=-1' class='new'>Все темы</a></td>
    </tr>
    <for>
     <tr>
      <arrow id='$.Id' time='$.LastMessage'>
      <td>
-      <a href='$file?grp=$grp&topic_id=$.Id' title='$.Description'>
+      <a href='$file?topic_id=$.Id' title='$.Description'>
 	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
       <admin_topics>
        <br>

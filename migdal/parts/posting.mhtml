@@ -19,7 +19,7 @@
   <dt>
    <biff time='$posting.Sent'>
    <if what='$topic<0'>
-    <a href='index.php?grp=$grp&topic_id=$posting.TopicId'
+    <a href='index.php?topic_id=$posting.TopicId'
        class='topic' title='$posting.TopicDescription'>
      $posting.TopicName
     </a>

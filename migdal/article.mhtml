@@ -142,7 +142,12 @@
   <td width=5>&nbsp;</td>
   <td class='article'>
    <controls posting='$,'>
-   <h1>$,Subject</h1>
+   <h1>
+    <a href='index.php?topic_id=$,TopicId' class='topic'
+       title='$,TopicDescription'>$,TopicName</a>
+    <br>
+    $,Subject
+   </h1>
    <ifne what='$,Author'>
     <div class='author'>$,HTMLAuthor</div>
    </ifne>

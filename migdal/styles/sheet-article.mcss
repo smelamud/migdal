@@ -31,6 +31,16 @@
 	text-decoration: underline;
 }
 
+.article A.topic {
+	color: %article_topic;
+	font: bold 10pt %times;
+	text-decoration: underline;
+}
+
+.article A.topic:hover {
+	color: %article_topic_hover;
+}
+
 .article H1,.article H2,.article H3,.article H4,.article P,.article B,
 .article I,.article U,.article .author {
 	font-family: %times;

@@ -108,8 +108,6 @@
              vals='сообщения,мнения,новости,картинки,статьи'>
 <decgrpmesgs name='grpitemtitlei'
              vals='Сообщение,Мнение,Новость,Картинка,Статья'>
-<decgrpmesgs name='grpicon'
-             vals='pics/all.gif,pics/opinion.gif,pics/new.gif,pics/gall.gif,pics/article.gif'>
 
 <macro name='bymessages'>
  <zone>
