@@ -24,8 +24,7 @@
     <posting_last name='times_time' topic_id='$`migdal-times`'
                   recursive='*true'>
     <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
-    <posting_last name='gallery_time' grp='*GRP_GRAPHICS' topic_id='$`general`'
-		  recursive='*true'>
+    <posting_last name='gallery_time' grp='*GRP_GRAPHICS' topic_id='-1'>
     <posting_last name='links_time' grp='*GRP_LINKS' topic_id='$`links`'
 		  recursive='*true'>
     <menuitem ident='index' alt='Главная' link='index.php' target='$target'
