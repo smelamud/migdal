@@ -11,10 +11,7 @@
 <body bgcolor=white>
  <top ident='$g.ident'>
  <p>
- <message_obj id='$editid' grp='$grp' topic='$topic_id'>
- <ifzero what='$message.Id'>
-  <setup var='UpValue' value='$up'>
- </ifzero>
+ <message_obj id='$editid' grp='$grp' topic='$topic_id' up='$up'>
  <setup>
  <form method=post enctype='multipart/form-data'
        action='actions/messagemod.php'>

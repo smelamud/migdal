@@ -165,20 +165,9 @@ function getTypeId()
 return $this->type_id;
 }
 
-function setIdent($ident)
-{
-$type=getComplainTypeByIdent(addslashes($ident!='' ? $ident : 'normal'));
-$this->type_id=$type->getId();
-}
-
 function getLink()
 {
 return $this->link;
-}
-
-function setLink($link)
-{
-$this->link=$link;
 }
 
 function isClosed()
@@ -253,7 +242,7 @@ $this->LimitSelectIterator(
 
 }
 
-function getComplainById($id,$ident='normal')
+function getComplainById($id,$ident='normal',$link=0)
 {
 $result=mysql_query("select complains.id as id,body,subject,
                             message_id,type_id,link,display
@@ -270,7 +259,8 @@ else
   {
   $type=getComplainTypeByIdent($ident);
   return new Complain(array('type_id' => $type->getId(),
-                            'display' => $type->getDisplay()));
+                            'display' => $type->getDisplay(),
+			    'link'    => $link));
   }
 }
 

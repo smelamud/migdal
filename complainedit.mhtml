@@ -8,11 +8,7 @@
 </head>
 <body bgcolor=white>
  <top ident='complains'>
- <complain_obj id='$editid' ident='$ident'>
- <ifzero what='$,Id'>
-  <setup var='Ident' value='$ident'>
-  <setup var='Link' value='$link'>
- </ifzero>
+ <complain_obj id='$editid' ident='$ident' link='$link'>
  <setup>
  <if what="$,Display!=''">
   <include name='$,Display'>

@@ -4,14 +4,13 @@
 define('EUM_INSERT_OK',10);
 define('EUM_UPDATE_OK',11);
 define('EUM_STORE_SQL',12);
-define('EUM_ONLINE_SQL',13);
-define('EUM_PASSWORD_LEN',14);
-define('EUM_PASSWORD_DIFF',15);
-define('EUM_LOGIN_ABSENT',16);
-define('EUM_LOGIN_EXISTS',17);
-define('EUM_GENDER',18);
-define('EUM_BIRTHDAY',19);
-define('EUM_NO_EDIT',110);
+define('EUM_PASSWORD_LEN',13);
+define('EUM_PASSWORD_DIFF',14);
+define('EUM_LOGIN_ABSENT',15);
+define('EUM_LOGIN_EXISTS',16);
+define('EUM_GENDER',17);
+define('EUM_BIRTHDAY',18);
+define('EUM_NO_EDIT',19);
 
 define('EL_INVALID',21);
 define('EL_OK',22);

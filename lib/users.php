@@ -86,13 +86,6 @@ if(!$this->id)
 return $result;
 }
 
-function online()
-{
-if(!$this->id)
-  return false;
-return mysql_query('update users set last_online=now() where id='.$this->id);
-}
-
 function isEditable()
 {
 global $userId,$userAdminUsers;

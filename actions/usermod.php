@@ -35,8 +35,6 @@ if(!checkdate($user->getMonthOfBirth(),$user->getDayOfBirth(),
   return EUM_BIRTHDAY;
 if(!$user->store())
   return EUM_STORE_SQL;
-if(!$user->online())
-  return EUM_ONLINE_SQL;
 return $editid ? EUM_UPDATE_OK : EUM_INSERT_OK;
 }
 

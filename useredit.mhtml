@@ -59,8 +59,6 @@
          text='У вас нет права менять информацию для этого пользователя'>
   <error id='*EUM_STORE_SQL' text='Ошибка базы данных при обновлении записи'
 	 color='magenta' span=2>
-  <error id='*EUM_ONLINE_SQL' text='Ошибка базы данных при записи last_update'
-	 color='magenta' span=2>
   <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен' span=2>
   <error id='*EUM_LOGIN_EXISTS' span=2
          text='Пользователь с таким ником уже существует'>
