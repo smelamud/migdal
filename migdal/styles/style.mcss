@@ -11,6 +11,7 @@ nl=#CDE4FF
 nll=#DCECFF
 r=#FF5500
 vd=#5B1900
+vmd=#D5A516
 vm=#F8BF19
 vmm=#FFE69B
 vld=#FFEDC3
@@ -25,6 +26,7 @@ mr=#9E4F00
 error_red=red
 error_magenta=magenta
 body_back=white
+advert=%vmd
 menu_back=%bl
 menu_normal=white
 menu_selected=yellow
@@ -186,6 +188,12 @@ complain_controls_hover=blue
 
 BODY {
 	background-color: %body_back;
+}
+
+.advert {
+	color: %advert;
+	font-size: 8pt;
+	font-weight: bold;
 }
 
 ! Menu
