@@ -17,7 +17,6 @@
  <input type=hidden name='redir' value='$redir'>
  <input type=hidden name='editid' value='$editid'>
  <input type=hidden name='up' value='$answer.UpValue'>
- <input type=hidden name='personal_id' value='$answer.PersonalId'>
  <table>
  <error id='*EFA_NO_SEND'
         text='Посылать сообщения могут только зарегистрированные пользователи'>
@@ -26,8 +25,6 @@
         color='magenta'>
  <error id='*EM_NO_UP'
         text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
- <error id='*EM_NO_PERSONAL'
-        text='У этого пользователя нет персональной страницы'>
  <tr><td><table>
   <if what='$answer.hasSubject'>
    <edit_line title='Заголовок' value='$answer.Subject' name='subject'

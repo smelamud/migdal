@@ -176,21 +176,31 @@ CREATE TABLE messages (
   id int(11) NOT NULL auto_increment,
   body mediumtext NOT NULL,
   subject varchar(250) NOT NULL default '',
-  topic_id int(11) NOT NULL default '0',
-  personal_id int(11) NOT NULL default '0',
   sender_id int(11) NOT NULL default '0',
-  grp tinyint(4) NOT NULL default '0',
   image_set int(11) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
   disabled tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
-  selected tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
-  KEY topic_id (topic_id),
   KEY sender_id (sender_id),
-  KEY grp (grp),
-  KEY image_set (image_set),
-  KEY private_id (personal_id)
+  KEY image_set (image_set)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'postings'
+#
+
+CREATE TABLE postings (
+  id int(11) NOT NULL auto_increment,
+  message_id int(11) NOT NULL default '0',
+  topic_id int(11) NOT NULL default '0',
+  personal_id int(11) NOT NULL default '0',
+  grp tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY message_id (message_id),
+  KEY topic_id (topic_id),
+  KEY personal_id (personal_id),
+  KEY grp (grp)
 ) TYPE=MyISAM;
 
 #

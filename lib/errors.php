@@ -80,7 +80,6 @@ define('EFA_NO_EDIT',202);
 define('EFA_BODY_ABSENT',203);
 define('EFA_IMAGE_ABSENT',204);
 define('EFA_NO_IMAGE',205);
-define('EFA_NO_PERSONAL',206);
-define('EFA_NO_UP',207);
-define('EFA_STORE_SQL',208);
+define('EFA_NO_UP',206);
+define('EFA_STORE_SQL',207);
 ?>

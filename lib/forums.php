@@ -115,7 +115,7 @@ function getForumAnswerById($id,$up=0)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$result=mysql_query("select forums.id as id,body,personal_id,sender_id,image_set,up,
+$result=mysql_query("select forums.id as id,body,sender_id,image_set,up,
                             hidden,disabled
 		     from forums
 		          left join messages

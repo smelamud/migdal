@@ -26,8 +26,6 @@ if($answer->mandatoryImage() && $answer->image_set==0)
   return EFA_IMAGE_ABSENT;
 if($answer->image_set!=0 && !imageSetExists($answer->image_set))
   return EFA_NO_IMAGE;
-if($answer->personal_id!=0 && !personalExists($answer->personal_id))
-  return EFA_NO_PERSONAL;
 if(!messageExists($answer->up))
   return EFA_NO_UP;
 if(!$answer->store())
