@@ -1,7 +1,8 @@
 ! @(#) $Id$
 
 * {
-	font: 10pt %verdana;
+	font-size: 10pt;
+	font-family: %verdana;
 }
 
 .ninept,.ninept * {
