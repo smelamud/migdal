@@ -1,18 +1,15 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/topics.mhtml 1.5 >>
 
-<macro name='grayed'>
- <if what='$g.Effective==*GRP_%^group'>
-  <img src='pics/%file.gif' title='%title'>
- <else>
-  <if what='*GRP_%^group==*GRP_GALLERY'>
-   <assign name='fname' value='gallery.php'>
+<macro name='grayed' defaults="link='index.php'">
+ <ifnzero what='$topic.Allow & *GRP_%^group'>
+  <if what='$g.Effective==*GRP_%^group'>
+   <img src='pics/%file.gif' title='%title'>
   <else>
-   <assign name='fname' value='index.php'>
+   <a href='%link?grp=*GRP_%^group&topic_id=$topic_id'>
+    <img border=0 src='pics/%{file}-gray.gif' title='%title'></a>
   </if>
-  <a href='$fname?grp=*GRP_%^group&topic_id=$topic_id'>
-   <img border=0 src='pics/%{file}-gray.gif' title='%title'></a>
- </if>
+ </ifnzero>
 </macro>
 
 <macro name='arrow'>
@@ -34,6 +31,7 @@
 </macro>
 
 <element name='topics'>
+<topic_obj id='$topic_id'>
 <iterate_topiclist grp='$g.Effective' withpostings='$withpostings'
                    withanswers='$withanswers'>
 <if what='$navi'>
@@ -41,7 +39,7 @@
  <grayed group='news' file='new' title='Новости'>
  <grayed group='forums' file='opinion' title='Мнения'>
  <grayed group='articles' file='article' title='Статьи'>
- <grayed group='gallery' file='gall' title='Галерея'>
+ <grayed group='gallery' file='gall' link='gallery.php' title='Галерея'>
 </if>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%>

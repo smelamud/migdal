@@ -131,7 +131,7 @@
          file='lib/stotext-images.php' params='id,par' defaults='name=image'>
 <deccall macro='time' func='time'>
 <deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
-         params='id,up' defaults='id="$topic_id" up=0'>
+         params='id,up' defaults='name=topic id="$topic_id" up=0'>
 <deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
          params='id' defaults='name=topic id="$topic_id"'>
 <deccall macro='update_last_chat' func='updateLastChat' file='lib/users.php'>
