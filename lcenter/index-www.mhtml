@@ -77,7 +77,6 @@ A.c_link {
    <subtitle>
    <iterate_postinglist grp='*GRP_NEWS' topic_id='$`news`'
                         fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_TOPICS'>
-   <batcher list='$;'>
    <for>
     <table width='100%'><tr><td class='posting'>
      <news posting='$.'>

@@ -13,6 +13,7 @@
       <image src='$picprev' border=0></a>
     </ifzero>
    </td>
+   <td align=center>стр.&nbsp;</td>
    <td align=right>
     <edit name='value' value='$list.Page' size=2 maxlength=5>
    </td>
