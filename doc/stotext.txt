@@ -20,11 +20,16 @@
     Текст                               Заменяется на
     -----                               -------------
 
-    http://www.site.com                 <a href="http://www.site.com">
-                                        http://www.site.com</a>
+    http://www.site.com                 <a href="http://www.site.com"
+                                           target=_blank>
+					http://www.site.com</a>
 
-    'Сайт' http://www.site.com  (*)     <a href="http://www.site.com">
+    'Сайт' http://www.site.com  (*)     <a href="http://www.site.com"
+                                           target=_blank>
                                         Сайт</a>
+
+    'Статья' /article.php  (***)        <a href="/article.php">
+                                        Статья</a>
 
     balu@yes.ru                         <a href="mailto:balu@yes.ru">
                                         balu@yes.ru</a>
@@ -41,6 +46,9 @@
        пробелами или переводами строки от окружающего текста, то есть фраза
        "Это _надо_ подсвечивать" подсвечивается, а фраза
        "Это_не_надо_подсвечивать" не подсвечивается.
+  (***) Текст должен быть заключен в _одинарные_ кавычки ('') и отделен от
+        URL'а _одним_ пробелом. URL должен начинаться со слэша (/) и это
+	означает, что ссылка локальная, поэтому открывается в том же окне.
 
 TeX-подобный (TF_TEX)
 
@@ -96,7 +104,7 @@ htmlspecialchars() для нейтрализации тегов HTML в целях безопасности.
 HTML-страницу. Ядро будет форсировать такую проверку и выдавать
 предупреждения, где только возможно. [NIF]
 
-Based-on: lib/text.php 1.11
+Based-on: lib/text.php 1.12
 Based-on: lib/messages.php 1.51 (формат сообщений)
 Based-on: lib/chat.php 1.3 (формат чата)
 Based-on: lib/topics.php 1.30 (формат описаний)
