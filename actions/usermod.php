@@ -41,7 +41,7 @@ if(!checkdate($user->getMonthOfBirth(),$user->getDayOfBirth(),
   return EUM_BIRTHDAY;
 if($user->email=='')
   return EUM_EMAIL_ABSENT;
-if(!preg_match('/^[A-Za-z-_]+(\.[A-Za-z-_]+)*@[A-Za-z-]+(\.[A-Za-z-]+)*$/',
+if(!preg_match('/^[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*$/',
                $user->email))
   return EUM_NOT_EMAIL;
 if(!$user->store())
