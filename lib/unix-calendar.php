@@ -14,7 +14,7 @@ function UNIXToSDN($time=0)
 {
 if($time==0)
   $time=time();
-return ((int)($time/UNIX_DAY_SECONDS))+UNIX_SDN_OFFSET;
+return ((int)(($time+gmmktime()-mktime())/UNIX_DAY_SECONDS))+UNIX_SDN_OFFSET;
 }
 
 ?>
