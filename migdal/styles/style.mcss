@@ -29,7 +29,8 @@ menu_selected=yellow
 bottom=%gr
 state_date_back=%bl
 state_date=%vm
-state_style=white
+state_style=%vm
+state_style_hover=white
 register_hover=blue
 login_border=blue
 login_text=blue
@@ -139,8 +140,8 @@ form_starinfo=%grd
 form_buttons_ruler=%nd
 form_buttons_back=%nm
 form_buttons=white
-article_split=black
-article_controls=black
+article_split=blue
+article_controls=blue
 article_controls_hover=blue
 article_picture=blue
 
@@ -224,6 +225,10 @@ BODY {
 	font-size: 10pt;
 	color: %state_style;
 	text-decoration: underline;
+}
+
+.state .style A:hover {
+	color: %state_style_hover;
 }
 
 .state .date {
