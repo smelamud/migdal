@@ -1254,7 +1254,7 @@ sub drop
 my $n=shift;
 
 my $s=substr($Line,0,$n);
-$LineN+=$s=~/\n/;
+$LineN+=$s=~tr/\n/\n/;
 substr($Line,0,$n)='';
 pull;
 return $s;
