@@ -283,6 +283,7 @@
                  recursive='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
+<decel name='tzdaka' file='parts/tzdaka.php'>
 <decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'
        defaults="chapter='' topic_id='-1'">
 <decel name='uploader' file='parts/uploader.php'

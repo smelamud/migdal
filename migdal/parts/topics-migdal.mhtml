@@ -10,8 +10,9 @@
  <topics_line time='$,' text='Галерея'
               href#='gallery.php?topic_id=$`kes`&general=1'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`kes`'
-	      class='item eightpt'>
+	      class='item ninept'>
 </topics_table>
+<tzdaka>
 </element>
 
 <element name='topics_jcc'>
@@ -50,6 +51,7 @@
               href#='migdal.php?artid=$`postings:kes`'
               arrow!="$/$posting.TopicId,2/==$`kes`" class='item eightpt'>
 </topics_table>
+<tzdaka>
 </element>
 
 <element name='topics_mazltov'>
@@ -63,13 +65,14 @@
               href#='migdal-news.php?topic_id=$`mazltov-news`'
               arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
 	              $posting.TopicId==$`mazltov-news`'
-	      class='item eightpt'>
+	      class='item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*false'>
  <topics_line time='$,' text='Галерея'
               href#='gallery.php?topic_id=$`mazltov`&general=1'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`mazltov`'
-	      class='item eightpt'>
+	      class='item ninept'>
 </topics_table>
+<tzdaka>
 </element>
 
 <element name='topics_methodics'>
@@ -81,8 +84,9 @@
  <topics_line time='$,' text='Методические пособия' href='methodics.php'
               arrow!='($posting.Grp & (*GRP_BOOKS|*GRP_BOOK_CHAPTERS))!=0 &&
 	              $posting.TopicId==$`methodics`'
-	      class='item eightpt'>
+	      class='item ninept'>
 </topics_table>
+<tzdaka>
 </element>
 
 <element name='topics_migdal_library'>
@@ -96,8 +100,9 @@
               href#='migdal-library-news.php'
               arrow!='$posting.Grp==*GRP_LIBRARY_ANNOUNCES &&
 	              $posting.TopicId==$`migdal-library`'
-	      class='item eightpt'>
+	      class='item ninept'>
 </topics_table>
+<tzdaka>
 </element>
 
 <element name='topics_migdal_ohr'>
@@ -111,8 +116,9 @@
               href#='gallery.php?topic_id=$`migdal-ohr`&general=1'
               arrow!='$posting.Grp==*GRP_GALLERY &&
 	              $posting.TopicId==$`migdal-ohr`'
-	      class='item eightpt'>
+	      class='item ninept'>
 </topics_table>
+<tzdaka>
 </element>
 
 <element name='topics_museum'>
@@ -126,8 +132,9 @@
               href#='migdal-news.php?topic_id=$`museum-news`'
               arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
 	              $posting.TopicId==$`museum-news`'
-	      class='item eightpt'>
+	      class='item ninept'>
 </topics_table>
+<tzdaka>
 </element>
 
 <element name='topics_migdal'>
@@ -187,4 +194,7 @@
 	     href#='printings.php'
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`printings`"
 	     indent=1 class='item eightpt'>
+<if what='$posting!=0 && $/$posting.TopicId,0/==$`migdal`'>
+ <tr><td colspan=3><tzdaka></td></tr>
+</if>
 </element>

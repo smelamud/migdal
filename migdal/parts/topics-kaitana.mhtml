@@ -55,6 +55,7 @@
  <topics_kaitanot topic_id='$posting.TopicId' root='$`kaitana`'
 		  href='kaitana.php'>
 </if>
+<tzdaka>
 </element>
 
 <element name='topics_halom'>
@@ -63,4 +64,5 @@
 <else>
  <topics_kaitanot topic_id='$posting.TopicId' root='$`halom`' href='halom.php'>
 </if>
+<tzdaka>
 </element>
