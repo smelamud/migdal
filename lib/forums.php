@@ -6,6 +6,7 @@ require_once('lib/messages.php');
 require_once('lib/permissions.php');
 require_once('lib/utils.php');
 require_once('lib/bug.php');
+require_once('lib/answers.php');
 
 class ForumAnswer
       extends Message
@@ -205,5 +206,24 @@ $forum=new ForumAnswer(array('body'      => $body,
 			     'group_id'  => $group_id,
 			     'perms'     => $rootForumPerms));
 return $forum->store();
+}
+
+function getForumAnswerInfoByMessageId($message_id)
+{
+global $userId;
+
+if($userId<=0)
+  return answerGet($message_id)
+else
+  {
+  $hide=messagesPermFilter(PERM_READ,'messages');
+  $result=mysql_query("select count(*) as answers,max(sent) as last_answer
+                       from forums
+		            left join messages
+			         on forums.message_id=messages.id
+                       where parent_id=$message_id and $hide")
+            or sqlbug("Ошибка SQL при получении числа ответов");
+  return mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
+  }
 }
 ?>
