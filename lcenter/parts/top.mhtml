@@ -6,7 +6,7 @@
  <if what='$ident!=$current'>
   <a class='menuitem' href='$href'>$text</a>
  <else>
-  <span class='menucurrent'>$text</span>
+  <a class='menucurrent' href='$href'>$text</a>
  </if>
 </element>
 

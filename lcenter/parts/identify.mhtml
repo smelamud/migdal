@@ -17,7 +17,11 @@
  <if what='$/$posting.TopicId,1/==$`courses-details`'>
   <assign name='dhref' value#='/course-details.php?id=$posting.Id'>
  <else>
-  <assign name='dhref' value='/courses.php'>
+  <if what='$posting.Id==$`postings:courses`'>
+   <assign name='dhref' value='/courses.php'>
+  <else>
+   <assign name='dhref' value='/courses.php?id=$posting.Id'>
+  </if>
  </if>
 <elif what='$/$posting.TopicId,0/==$`news`'>
  <assign name='dhref' value#='/news.php?id=$posting.Id'>
