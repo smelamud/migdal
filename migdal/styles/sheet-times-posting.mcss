@@ -9,6 +9,10 @@
 	font-size: 9pt;
 }
 
+.times DD,.times DD P {
+	text-align: justify;
+}
+
 .times .pic IMG {
 	border: 1px solid %times_image_border;
 }
