@@ -76,21 +76,21 @@
 << GRP >>
 <macro name='grptitle' defaults="grp='$grp'">
  <zone>
-  <array vals='Сообщения,Форумы,Новости,Галерея,Статьи'>
+  <array vals='Сообщения,Мнения,Новости,Галерея,Статьи'>
   <grpword name='grptitle' grp='%grp'>
  </zone>
 </macro>
 
 <macro name='grpitemtitle' defaults="grp='$grp'">
  <zone>
-  <array vals='сообщение,обсуждение,новость,картинку,статью'>
+  <array vals='сообщение,мнение,новость,картинку,статью'>
   <grpword name='grpitemtitle' grp='%grp'>
  </zone>
 </macro>
 
 <macro name='grpitemstitle' defaults="grp='$grp'">
  <zone>
-  <array vals='сообщения,обсуждения,новости,картинки,статьи'>
+  <array vals='сообщения,мнения,новости,картинки,статьи'>
   <grpword name='grpitemstitle' grp='%grp'>
  </zone>
 </macro>
