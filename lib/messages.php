@@ -269,6 +269,11 @@ $this->grp=GRP_GALLERY;
 $this->Message($row);
 }
 
+function mandatoryImage()
+{
+return true;
+}
+
 }
 
 class Poll

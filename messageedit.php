@@ -34,7 +34,8 @@ session();
  <p>
  <?php
  $message=getMessageById($editid,$grp,$topic_id);
- $message->setUpValue($up);
+ if($message->getId()==0)
+   $message->setUpValue($up);
  $message->setup($HTTP_GET_VARS);
  ?>
  <form method=post enctype='multipart/form-data'
@@ -82,16 +83,16 @@ session();
     }
   if($message->hasSubject())
     {
-    perror(EM_SUBJECT_ABSENT,'Заголовок пуст');
+    perror(EM_SUBJECT_ABSENT,'Заголовок пуст',2);
     echo elementEdit('Заголовок',$message->getSubject(),'subject',42,250);
     }
   if($message->hasImage())
     {
-    perror(EM_IMAGE_ABSENT,'Нужно указать картинку для отображения');
-    perror(EM_NO_IMAGE,'Указанной картинки не существует');
-    perror(EM_UNKNOWN_IMAGE,'Неизвестный формат картинки');
-    perror(EM_IMAGE_LARGE,'Картинка слишком велика (больше 2M)');
-    perror(EM_IMAGE_SQL,'Ошибка базы данных при загрузке картинки','magenta');
+    perror(EM_IMAGE_ABSENT,'Нужно указать картинку для отображения','red',2);
+    perror(EM_NO_IMAGE,'Указанной картинки не существует','red',2);
+    perror(EM_UNKNOWN_IMAGE,'Неизвестный формат картинки','red',2);
+    perror(EM_IMAGE_LARGE,'Картинка слишком велика (больше 2M)','red',2);
+    perror(EM_IMAGE_SQL,'Ошибка базы данных при загрузке картинки','magenta',2);
     if($message->getImageSet()==0)
       {
       ?>

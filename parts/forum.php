@@ -9,7 +9,7 @@ global $REQUEST_URI,$userModerator;
 
 $requestURI=urlencode($REQUEST_URI);
 
-if($message->isRebe())
+if($forum->isRebe())
   {
   $startFont='<font color=red>';
   $endFont='</font>';
@@ -22,7 +22,7 @@ else
 ?>
 <table width=100%>
 <tr>
- <td width=40%>
+ <td width=25%>
  <?php
  echo $startFont;
  echo $forum->getLoginLink();
@@ -31,9 +31,9 @@ else
 			      "&redir=$requestURI'>подробнее</a>)";
  echo $endFont;
  ?><br><?php
- echo $forum->sentView();
+ echo $forum->getSentView();
  ?><br><?php
- if($message->isEditable())
+ if($forum->isEditable())
    {
    echo '<a href="messageedit.php?editid='.$forum->getId().
 				'&grp='.GRP_FORUMS.
@@ -46,26 +46,9 @@ else
    }
  ?>
  </td>
- <td width=60%>
+ <td width=75% align=left valign=top>
  <?php echo $startFont.$forum->getBody().$endFont ?>
  </td>
-</tr>
-<tr>
-<td>
-<?php
-if($message->isEditable())
-  {
-  echo '<a href="messageedit.php?editid='.$message->getId().
-                               '&grp='.$message->getGrp().
-			       "&redir=$requestURI\">[Изменить]</a>";
-  if($userModerator)
-    echo '<a href="actions/moderate.php?editid='.$message->getId().
-                                      '&hide='.($message->isDisabled() ? 0 : 1).
-				      "&redir=$requestURI\">[".
-	  ($message->isDisabled() ? 'Разрешить' : 'Запретить').' показ]</a>';
-  }
-?>
-</td>
 </tr>
 </table>
 <?php

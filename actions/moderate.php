@@ -21,7 +21,7 @@ if(mysql_num_rows($result)<=0)
   return EMH_NO_MESSAGE;
 $result=mysql_query("update messages
                      set disabled=$hide
-		     where id=$editid");
+		     where id=$editid")
 	     or die('Ошибка SQL при модерировании сообщения');
 return EMH_OK;
 }
