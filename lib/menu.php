@@ -18,6 +18,16 @@ function MenuItem($row)
 $this->DataObject($row);
 }
 
+function getName()
+{
+return $this->name;
+}
+
+function getLink()
+{
+return $this->link;
+}
+
 }
 
 class MenuIterator

@@ -14,7 +14,7 @@ require_once('lib/menu.php');
   dbOpen();
   $menu=new MenuIterator();
   while($item=$menu->next())
-       echo '<a href="'.$item->link.'">['.$item->name.']</a>';
+       echo '<a href="'.$item->getLink().'">['.$item->getName().']</a>';
   dbClose();
   ?>
 </body>
