@@ -2,13 +2,13 @@
 
 <element name='topics_migdal_english'>
 <topic_obj name='migdal' id='$`migdal,e`'>
-<topics_table>
+<topics_table title='Migdal'>
  <ispost what='$migdal'>
-  <tr><td colspan=3>
+  <tr><td colspan=2>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Add</a>
   </td></tr>
-  <tr><td colspan=3>
+  <tr><td colspan=2>
    <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Reorder</a>
   </td></tr>
@@ -17,11 +17,11 @@
                       topic_id='$,Id' recursive='*false'>
  <posting_obj id='$`postings:migdal,e`'>
  <topics_line time='$,Sent' text='Home' href#='index.php'
-              arrow!='$,Id==$posting.Id' indent=0 span=2 class='item'>
+              arrow!='$,Id==$posting.Id' class='item'>
  <for>
   <if what='$.Id!=$`postings:migdal,e`'>
    <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
-                arrow!='$.Id==$posting.Id' indent=1 span=1 class='item ninept'>
+                arrow!='$.Id==$posting.Id' class='item ninept'>
   </if>
  </for>
 </topics_table>

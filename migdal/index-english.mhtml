@@ -6,6 +6,8 @@
 <grps>
 
 <posting_full id='$`postings:migdal,e`' grp='*GRP_REVIEW'>
+<topictitle title='$,Subject'>
+
 <log event=review text#='post($,Id)'>
 <log event=enter text#='domain=$$userDomain'>
 
