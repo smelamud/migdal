@@ -22,6 +22,8 @@ mysql_query("delete from packages
 
 function uploadBook($message_id,$type,$mime_type,$fname)
 {
+global $bookCompressDir,$bookCompressURL;
+
 $package=new Package(array('message_id' => $message_id,
 			   'type'       => $type,
 			   'mime_type'  => $mime_type,
