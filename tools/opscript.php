@@ -1,6 +1,9 @@
 <?php
+# @(#) $Id$
+
 require_once('lib/database.php');
 require_once('lib/opscript.php');
+
 dbOpen();
 ?>
 <html>
