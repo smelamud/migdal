@@ -447,7 +447,7 @@ $result=mysql_query(
 		stotexts.large_format as large_format,
 		stotexts.large_body as large_body,messages.subject as subject,
 		messages.author as author,messages.source as source,
-		messages.url as url,grp,
+		messages.url as url,grp,index1,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,
 		messages.hidden as hidden,messages.disabled as disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,

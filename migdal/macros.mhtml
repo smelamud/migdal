@@ -97,7 +97,8 @@
 <decel name='taglit_postings' file='parts/taglit-postings.php'
        params='taglit_id,user_id'>
 <decel name='times_issue' file='parts/times-issue.php'
-       params='issue,month,showlink' defaults="showlink='*false'">
+       params='issue,month,separate,align'
+       defaults="separate='*false' align=''">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
        params='ident,no_new,target,showimages'

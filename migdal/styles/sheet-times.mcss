@@ -1,12 +1,30 @@
 ! @(#) $Id$
 
+.mtsep {
+	margin: 1em;
+	padding: 1em;
+	background-color: %times_back;
+}
+
+.mtimes .issuehead {
+	text-align: center;
+}
+
+.mtimes .issuehead A {
+	color: %times_issuehead;
+	font-size: 9pt;
+	text-decoration: underline;
+}
+
 .mtimes .issue {
 	font: bold 24pt %times;
+	text-align: center;
 }
 
 .mtimes .month {
 	font-family: %courier;
 	font-size: 9pt;
+	text-align: center;
 }
 
 .mtimes .pic IMG {
