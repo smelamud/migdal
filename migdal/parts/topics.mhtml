@@ -5,7 +5,7 @@
  <if what='$g.Effective==*GRP_%^group'>
   <img src='pics/%file.gif' title='%title'>
  <else>
-  <a href='$[grp=*GRP_%^group]'>
+  <a href='index.php?grp=*GRP_%^group&topic_id=$topic_id'>
    <img border=0 src='pics/%{file}-gray.gif' title='%title'></a>
  </if>
 </macro>
@@ -48,13 +48,13 @@
   <tbody class='names'>
    <tr>
     <arrow id='-1'>
-    <td><a href='$[topic_id=-1 offset]' class='new'>NEW!</a></td>
+    <td><a href='index.php?grp=$g.Grp&topic_id=-1' class='new'>NEW!</a></td>
    </tr>
    <for>
     <tr>
      <arrow id='$.Id' time='$.LastMessage'>
      <td>
-      <a href='$[topic_id=$.Id offset]' title='$.Description'>
+      <a href='index.php?grp=$g.Grp&topic_id=$.Id' title='$.Description'>
 	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
       <admin_topics>
        <br>
