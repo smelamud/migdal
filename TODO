@@ -132,7 +132,6 @@
      * session() (использовать сессионные переменные можно только после <html>)
      * MHTML (intro, tags, subs (особый случай - $[...] до redirect()),
               entities)
-     * opscripts
      * mailings
      * MCSS
      * postInteger/String
