@@ -24,9 +24,7 @@ function Stotext($row,$body='body')
 {
 $row['id']=$row['stotext_id'];
 $row['body']=$row[$body];
-unset($row[$body]);
 $row['large_body']=$row["large_$body"];
-unset($row["large_$body"]);
 $this->DataObject($row);
 }
 
