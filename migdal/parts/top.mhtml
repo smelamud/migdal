@@ -20,7 +20,7 @@
   </td>
   <td align=right>
    <today><br>
-   <login flags='$flags' err='$$err' target='$target'>
+   <login no_new='$no_new' err='$$err' target='$target'>
   </td>
  </tr>
 </table>

@@ -5,7 +5,7 @@
 <html>
 <preamble>
 <body>
- <top ident='users' flags='no_new'>
+ <top ident='users' no_new='*true'>
  <user_obj name='user' id=0>
  <setup>
  <formtable title='Введите информацию о себе'>

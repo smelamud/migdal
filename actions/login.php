@@ -21,7 +21,8 @@ if(mysql_num_rows($result)==0)
   return EL_INVALID;
 $id=mysql_result($result,0,0);
 $sid=rnd();
-mysql_query("insert into sessions(user_id,sid) values($id,$sid)")
+mysql_query("insert into sessions(user_id,real_user_id,sid)
+             values($id,$id,$sid)")
      or die('Ошибка SQL при создании сессии');
 incLogins();
 SetCookie('sessionid',$sid,time()+7200,'/');
@@ -34,7 +35,7 @@ postString('password');
 dbOpen();
 $err=startSession();
 if($err==EL_OK)
-  header('Location: '.$okdir);
+  header("Location: $okdir");
 else
   header('Location: '.remakeURI($faildir,
                                 array(),
