@@ -48,7 +48,7 @@
    <for>
     /
     <if what='$.Id!=$topic_id'>
-     <a href#='$[topic_id=$.Id offset]'>$.Name</a>
+     <a href='$[topic_id=$.Id offset]'>$.Name</a>
     <else>
      <b>$.Name</b>
     </if>
