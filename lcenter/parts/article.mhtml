@@ -160,7 +160,7 @@
 
 <element name='article_full'>
 <ifnzero what='$posting.ImageSet'>
- <table align='left' class='pic'>
+ <table align='left'>
   <tr><td>
    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
   </td></tr>
