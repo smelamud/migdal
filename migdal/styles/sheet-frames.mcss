@@ -14,7 +14,6 @@
 
 .aframe {
 	background-color: %aframe_back;
-	background-image: url("../%aframe_back_pic");
 	border: solid 1px %aframe_border;
 	margin-bottom: 0.5ex;
 }

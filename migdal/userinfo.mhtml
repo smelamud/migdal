@@ -7,7 +7,7 @@
 <preamble>
 <body>
  <top ident='users'>
- <div style='padding: 3'>
+ <div style='padding: 5px'>
   <userinfo id='$id'>
  </div>
  <bottom>

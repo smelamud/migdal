@@ -20,49 +20,51 @@
 <user_obj name='user' id='$id'>
 <log event=userinfo text#='user($user.Id)'>
 <controls target='$target'>
-<table class='userinfo' width=100% cellspacing=0>
- <infoline title='Ник' value='$,Login'>
- <infoline title='Имя' value='$,Name'>
- <infoline title='Еврейское имя' value='$,JewishName'>
- <infoline title='Фамилия' value='$,Surname'>
- <if what='$,isMan'>
-  <infoline title='Пол' value='Мужской'>
- <else>
-  <infoline title='Пол' value='Женский'>
- </if>
- <if what="$,Age!='-'">
-  <infoline title='Дата рождения' value#='$,Birthday / $,JewishBirthday'>
- </if>
- <if what='$,isMigdalStudent'>
-  <infoline title='Мигдалевец' value='Да'>
- <else>
-  <infoline title='Мигдалевец' value='Нет'>
- </if>
- <infoline title='Коротко о себе' value='$,HTMLInfo'>
- <if what='!$,isHideEmail'>
+<table class='userinfos' width=100% cellspacing=0 cellpadding=0><tr><td>
+ <table class='userinfo' width=100% cellspacing=1>
+  <infoline title='Ник' value='$,Login'>
+  <infoline title='Имя' value='$,Name'>
+  <infoline title='Еврейское имя' value='$,JewishName'>
+  <infoline title='Фамилия' value='$,Surname'>
+  <if what='$,isMan'>
+   <infoline title='Пол' value='Мужской'>
+  <else>
+   <infoline title='Пол' value='Женский'>
+  </if>
+  <if what="$,Age!='-'">
+   <infoline title='Дата рождения' value#='$,Birthday / $,JewishBirthday'>
+  </if>
+  <if what='$,isMigdalStudent'>
+   <infoline title='Мигдалевец' value='Да'>
+  <else>
+   <infoline title='Мигдалевец' value='Нет'>
+  </if>
+  <infoline title='Коротко о себе' value='$,HTMLInfo'>
+  <if what='!$,isHideEmail'>
+   <tr>
+    <th>E-mail</th>
+    <td>
+     $,EmailLink
+     <if what='$,isEmailDisabled==2'>
+      <span class='error'>
+       Посылка почты на этот адрес временно приостановлена, поскольку адрес не
+       работает
+      </span>
+     </if>
+    </td>
+   </tr>
+  </if>
+  <ifne what='$,ICQ'>
+   <tr>
+    <th>ICQ</th>
+    <td>$,ICQStatusImage&nbsp;$,ICQ</td>
+   </tr>
+  </ifne>
   <tr>
-   <th>E-mail</th>
-   <td>
-    $,EmailLink
-    <if what='$,isEmailDisabled==2'>
-     <span class='error'>
-      Посылка почты на этот адрес временно приостановлена, поскольку адрес не
-      работает
-     </span>
-    </if>
-   </td>
+   <th>Последний раз<br>заходил сюда</th>
+   <lastonline_cell user='$,'>
   </tr>
- </if>
- <ifne what='$,ICQ'>
-  <tr>
-   <th>ICQ</th>
-   <td>$,ICQStatusImage&nbsp;$,ICQ</td>
-  </tr>
- </ifne>
- <tr>
-  <th>Последний раз<br>заходил сюда</th>
-  <lastonline_cell user='$,'>
- </tr>
-</table>
+ </table>
+</td></tr></table>
 <controls target='$target'>
 </element>
