@@ -1,6 +1,5 @@
 # @(#) $Id$
 
-$configPath='conf/migdal.conf';
 %Config=();
 
 sub readConfig
