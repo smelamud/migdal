@@ -62,6 +62,7 @@ postString('password');
 postString('dup_password');
 postString('info');
 postString('name');
+postString('jewish_name');
 postString('surname');
 
 dbOpen();
