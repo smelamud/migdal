@@ -58,6 +58,10 @@
  <require name='lib/messages.php'>
  <call name='%name' func='getFullMessageById' arg1='%id' arg2='%grp'>
 </macro>
+<macro name='topic_obj' defaults='id="$topic_id"'>
+ <require name='lib/topics.php'>
+ <call name='%name' func='getTopicById' arg1='%id'>
+</macro>
 <macro name='topic_name' defaults='name=topic id="$topic_id"'>
  <require name='lib/topics.php'>
  <call name='%name' func='getTopicNameById' arg1='%id'>

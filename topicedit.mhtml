@@ -1,0 +1,40 @@
+<< @(#) $Id$ >>
+
+<int name='editid'>
+<html>
+<head>
+ <title>Клуб Еврейского Студента - Тема</title>
+</head>
+<body bgcolor=white>
+ <top ident='topics'>
+ <p>
+ <topic_obj id='$editid'>
+ <setup>
+ <form method=post action='actions/topicmod.php'>
+ <input type=hidden name='edittag' value=1>
+ <input type=hidden name='redir' value='$redir'>
+ <input type=hidden name='editid' value='$editid'>
+ <table>
+ <error id='*ET_NO_EDIT' text='У вас нет права менять список тем'>
+ <error id='*ET_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+        color='magenta'>
+ <error id='*ET_NAME_ABSENT' text='Название не было введено'>
+ <tr><td><table>
+  <edit_line title='Название' value=$,Name name='name' size=30 maxlength=70>
+ </table></td></tr>
+ <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
+ <editor_line title='Описание' name='description' body='$,Description'>
+ <checkbox_line name='hidden' value='$,isHidden' title='Не показывать в списке'>
+ <checkbox_line name='news' value='$,isNews' title='Тема для новостей'>
+ <checkbox_line name='forums' value='$,isForums' title='Тема для форума'>
+ <checkbox_line name='gallery' value='$,isGallery' title='Тема для галереи'>
+ </table>
+ <if what='$editid'>
+  <input type=submit value='Изменить'>
+ <else>
+  <input type=submit value='Добавить'>
+ </if>
+ <input type=reset value='Очистить'>
+ </form>
+</body>
+</html>
