@@ -10,7 +10,7 @@ OBJECTS = archive.php article.php article-times.php book.php book-chapter.php \
 	  forumcatalog.php gallery.php groupadd.php grouporg.php \
 	  horisontedit.php index.php index-english.php index-www.php jcc.php \
 	  journal.php kaitana.php kaitana-main.php limedit.php liminsert.php \
-	  links.php methodic-center.php methodics.php migdal.php \
+	  links.php login.php methodic-center.php methodics.php migdal.php \
 	  migdal-library.php migdal-library-news.php migdal-news.php \
 	  posting.php postingedit.php postingorg.php rating.php register.php \
 	  reorder.php stotext-help-subs.php stotext-help-types.php style.php \

@@ -6,34 +6,28 @@
 <posting_new grp='$grp'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
-  <if what='$access'>
+  <if what='$access || $showadvert'>
    <table><tr valign=center>
     <td><image src='pics/sheet.gif'></td>
     <td>
+     <if what='$access'>
+      <assign name='script' value='postingedit.php'>
+     <else>
+      <assign name='script' value='login.php'>
+     </if>
      <if what='$,isValid'>
-      <a href='postingedit.php?topic_id=$topic_id&grp=$grp&redirid=$_'
+      <a href='$script?topic_id=$topic_id&grp=$grp&redirid=$_'
 	 >Добавить $,GrpItemTitle</a>
      <else>
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
+      <a href='$script?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
 	 >Добавить новость</a>,
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
+      <a href='$script?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
 	 >статью</a>,
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
+      <a href='$script?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
 	 >книгу</a>
      </if>
     </td>
    </tr></table>
-  <else>
-   <if what='$showadvert'>
-    <em>
-     <if what='$,isValid'>
-      Хотите добавлять $,GrpItemsTitle?
-     <else>
-      Хотите добавлять новости и статьи?
-     </if>
-    </em>
-    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-   </if>
   </if>
  </td>
  <td align=center><spin list='$list'></td>

@@ -19,6 +19,7 @@ Disallow: /horisontedit.php
 Disallow: /journal.php
 Disallow: /limedit.php
 Disallow: /liminsert.php
+Disallow: /login.php
 Disallow: /postingedit.php
 Disallow: /postingorg.php
 Disallow: /rating.php

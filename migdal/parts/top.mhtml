@@ -55,7 +55,8 @@
 </ifne>
 </element>
 
-<element name='top_web' params='ident,no_new,target,showimages,transref'>
+<element name='top_web'
+         params='ident,no_new,target,showimages,transref,nologin'>
 <script src='/window.js' language='JavaScript'></script>
 <table width=100% cellspacing=0 cellpadding=0>
  <tr valign=top>
@@ -72,11 +73,13 @@
    </tr></table></outer>
   </td>
  </tr>
- <tr>
-  <td align=right style='padding-right: 8px'>
-   <login no_new='$no_new' target='$target'>
-  </td>
- </tr>
+ <if what='!$nologin'>
+  <tr>
+   <td align=right style='padding-right: 8px'>
+    <login no_new='$no_new' target='$target'>
+   </td>
+  </tr>
+ </if>
  <error id='*EL_NO_COOKIES' span=2
 	text='Не работают cookies. Включите поддержку cookies в настройках вашего браузера.'>
 </table>
@@ -87,6 +90,6 @@
 <element name='top'>
 <notprint>
  <top_web ident='$ident' no_new='$no_new' target='$target'
-          showimages='$showimages' transref='$transref'>
+          showimages='$showimages' transref='$transref' nologin='$nologin'>
 </notprint>
 </element>

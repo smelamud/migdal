@@ -1,0 +1,45 @@
+<< @(#) $Id$ >>
+
+<logged>
+ <reload href#='postingedit.php?$?'>
+</logged>
+
+<int name='grp'>
+
+<pagetitle title#='Вход'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index' nologin='*true'>
+ <table width=100%><tr valign=top><td width=25%>&nbsp;</td><td width=50%>
+  <formtable title='Вход'>
+   <form method=post action='actions/login.php'>
+    <hidden name='okdir' value='/postingedit.php?$?'>
+    <hidden name='faildir' value='$-'>
+    <table>
+     <tr><td colspan=2>
+      <posting_new grp='$grp'>
+      Добавление $,GrpItemsTitle в этот раздел требует
+      <a href='register.php?redirid=$_'>регистрации</a>. Если
+      вы уже зарегистрированы, введите свой ник и пароль.
+     </td></tr>
+     <tr class='ninept'><td colspan=2>&nbsp;</td></tr>
+     <error id='*EL_INVALID' text='Неверный ник или пароль' span=2>
+     <error id='*EUS_NO_SWITCH' text='Вы не администратор' span=2>
+     <error id='*EUS_NO_USER' text='Такого пользователя не существует' span=2>
+     <edit_line title='Ник' name='login' size=30 maxlength=30>
+     <tr>
+      <td>Пароль </td>
+      <td>
+       <input class=line type=password name='password' size=30 maxlength=30>
+      </td>
+     </tr>
+     <formbuttons title='Войти' span=2>
+    </table>
+   </form>
+  </formtable>
+ </td><td>&nbsp;</td></tr></table>
+ <bottom>
+</body>
+</html>

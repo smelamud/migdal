@@ -3,17 +3,16 @@
 <element name='batcher' params='&list,topic_id,access'>
 <table width=100%>
  <tr valign=bottom>
-  <if what='$access'>
-   <td align=left class='info'>
-    <table><tr valign=center>
-     <td><image src='pics/sheet.gif'></td>
-     <td>
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_GALLERY&redirid=$_'
-	 >Добавить картинку</a>
-     </td>
-    </tr></table>
-   </td>
-  </if>
+  <assign name='script' value!="$access ? 'postingedit.php' : 'login.php'">
+  <td align=left class='info'>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='$script?topic_id=$topic_id&grp=*GRP_GALLERY&redirid=$_'
+	>Добавить картинку</a>
+    </td>
+   </tr></table>
+  </td>
   <td align=center><spin list='$list'></td>
   <td align=right class='eightpt'>
    <b>Сортировать</b>

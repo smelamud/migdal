@@ -81,12 +81,6 @@
 		    title='См. также в разделе ссылок'>
      <seealso_other topic_id='$topic_id' topic_grp='*GRP_GALLERY'
 		    title='По этой теме в других разделах'>
-     <notlogged>
-      <div class='info'>
-       <em>Хотите добавлять картинки?</em>
-       <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-      </div>
-     </notlogged>
     </div>
     <gallery topic_id='$topic_id' rows='$userPictureRowPortion'
 	     cols='$userPictureColumnPortion' offset='$offset' sort='$sort'

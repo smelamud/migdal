@@ -4,18 +4,18 @@
 <table width=100%>
  <tr valign=bottom>
   <td align=left class='info'>
-   <logged>
-    <table><tr valign=center>
-     <td><image src='pics/sheet.gif'></td>
-     <td>
-      <a href='postingedit.php?topic_id=$`general`&grp=*GRP_GALLERY&redirid=$_'
-	 >Добавить картинку</a>
-     </td>
-    </tr></table>
-   <else>
-    <em>Хотите добавлять картинки?</em>
-    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-   </logged>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <logged>
+      <assign name='script' value='postingedit.php'>
+     <else>
+      <assign name='script' value='login.php'>
+     </logged>
+     <a href='$script?topic_id=$`general`&grp=*GRP_GALLERY&redirid=$_'
+	>Добавить картинку</a>
+    </td>
+   </tr></table>
   </td>
   <td align=center><spin list='$list'></td>
  </tr>

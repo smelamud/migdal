@@ -3,18 +3,18 @@
 <element name='batcher' params='&list,topic_id'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
-  <logged>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_FORUMS&redirid=$_'
-	>Добавить мнение</a>
-    </td>
-   </tr></table>
-  <else>
-   <em>Хотите добавлять мнения?</em>
-   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-  </logged>
+  <table><tr valign=center>
+   <td><image src='pics/sheet.gif'></td>
+   <td>
+    <logged>
+     <assign name='script' value='postingedit.php'>
+    <else>
+     <assign name='script' value='login.php'>
+    </logged>
+    <a href='$script?topic_id=$topic_id&grp=*GRP_FORUMS&redirid=$_'
+       >Добавить мнение</a>
+   </td>
+  </tr></table>
  </td>
  <td><spin list='$list'></td>
 </tr></table>

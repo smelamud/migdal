@@ -11,7 +11,7 @@ postInteger('svalue');
 
 dbOpen();
 if($sessionid==$svalue)
-  header("Location: $okdir");
+  header('Location: '.remakeURI($okdir,array('err')));
 else
   header('Location: '.remakeURI($faildir,
                                 array(),
