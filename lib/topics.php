@@ -500,6 +500,8 @@ function getTopicById($id,$up)
 global $userId,$userLogin,$userModerator,$defaultPremoderate,
        $rootTopicGroupName,$rootTopicPerms;
 
+if(hasCachedValue('obj','topics',$id))
+  return getCachedValue('obj','topics',$id);
 $mhide=$userModerator ? 2 : 1;
 $hide=topicsPermFilter(PERM_READ,'topics');
 $result=mysql_query(
@@ -540,13 +542,14 @@ if(mysql_num_rows($result)>0)
   $row=mysql_fetch_assoc($result);
   if($row['ident']!='')
     setCachedValue('ident','topics',$row['ident'],$row['id']);
-  return new Topic($row); 
+  $topic=new Topic($row); 
+  setCachedValue('obj','topics',$id,$topic);
   }
 else
   if($up>0)
     {
     $topic=getTopicById($up,0);
-    return new Topic(array('up'          => $topic->getId(),
+    $topic=new Topic(array('up'          => $topic->getId(),
 			   'allow'       => $topic->getAllow(),
 			   'premoderate' => $topic->getPremoderate(),
 			   'user_id'     => $userId,
@@ -556,13 +559,14 @@ else
 			   'perms'       => $topic->getPerms()));
     }
   else
-    return new Topic(array('allow'       => GRP_ALL,
+    $topic=new Topic(array('allow'       => GRP_ALL,
 			   'premoderate' => $defaultPremoderate,
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,
 			   'group_id'    => getUserIdByLogin($rootTopicGroupName),
 			   'group_login' => $rootTopicGroupName,
 			   'perms'       => $rootTopicPerms));
+return $topic;
 }
 
 function getTopicNameById($id)
