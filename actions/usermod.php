@@ -12,6 +12,8 @@ function modifyUser($user)
 {
 global $editid;
 
+if(!$editid)
+  $editid=0;
 if(!$user->isEditable())
   return EUM_NO_EDIT;
 if((!$editid || $user->password!='') && strlen($user->password)<5)
@@ -20,13 +22,10 @@ if($user->password!=$user->dup_password)
   return EUM_PASSWORD_DIFF;
 if($user->login=='')
   return EUM_LOGIN_ABSENT;
-if(!$editid)
-  {
-  $result=mysql_query('select id from users where login="'.
-                     AddSlashes($user->login).'"');
-  if(mysql_num_rows($result)>0)
-    return EUM_LOGIN_EXISTS;
-  }
+$result=mysql_query('select id from users where login="'.
+		    AddSlashes($user->login)."\" and id<>$editid");
+if(mysql_num_rows($result)>0)
+  return EUM_LOGIN_EXISTS;
 if(!checkdate($user->getMonthOfBirth(),$user->getDayOfBirth(),
               '19'.$user->getYearOfBirth()))
   return EUM_BIRTHDAY;
