@@ -69,7 +69,7 @@
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
  </table>
- <table width=100% class='forumcatalog'>
+ <table width=100% class='catalog'>
   <tr>
    <if what='$topic<0'>
     <th>Раздел</th>
