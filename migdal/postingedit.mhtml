@@ -2,6 +2,7 @@
 
 <int name='editid'>
 <int name='topic_id'>
+<string name='up'>
 <grptitle>
 <grpitemtitle>
 <grpitemstitle>
@@ -33,6 +34,7 @@
      <hidden name='faildir' value='$-'>
      <hidden name='editid' value='$editid'>
      <hidden name='personal_id' value='$message.PersonalId'>
+     <hidden name='up' value='$up'>
      <table>
      <starinfo>
      <error id='*EP_NO_SEND'
@@ -59,7 +61,7 @@
       </moderator>
       <if what='$message.hasTopic'>
        <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
-		    mandatory='$message.mandatorySubject'>
+		    mandatory='$message.mandatorySubject' up='$up'>
       </if>
       <moderator>
        <if what='$message.hasIdent'>

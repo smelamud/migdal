@@ -6,7 +6,7 @@
   <tr>
    <isedit what='$posting'>
     <td>
-     <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redirid=$_"
+     <a href="postingedit.php?editid=$posting.Id&up=general&grp=$posting.Grp&redirid=$_"
 	>Изменить</a>
     </td>
     <td>

@@ -332,7 +332,7 @@ $nm=array();
 $up=$this->up;
 while($n)
      {
-     if($up<0)
+     if($up<=0)
        $nm[]=$this->names[(int)$n];
      else
        if((int)$n==$up)

@@ -20,7 +20,7 @@
 
 <element name='topics'>
 <iterate_topiclist grp='$grp' withpostings='$withpostings'
-                   withanswers='$withanswers'>
+                   withanswers='$withanswers' up='general'>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='ninept topics' width=100%>
   <col width=0*>

@@ -8,12 +8,12 @@
  <td align=left><table><tr valign=bottom><td>
   <logged>
    <if what='$g.Valid'>
-    <a href='postingedit.php?topic_id=$topic&grp=$grp&redirid=$_'
+    <a href='postingedit.php?topic_id=$topic&up=general&grp=$grp&redirid=$_'
        class='add'>Добавить $grpitemtitle</a>
    <else>
-    <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redirid=$_'
+    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_NEWS&redirid=$_'
        class='add'>Добавить новость</a>,
-    <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redirid=$_'
+    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_ARTICLES&redirid=$_'
        class='add'>статью</a>
    </if>
   <else>

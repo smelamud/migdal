@@ -17,11 +17,11 @@
  <tbody class='names'>
   <help_navi_link ident='add' link='$link' class='class=new' title='$title'>
   <concat value='/stotext-help-subs.php?link=$#link&title=$#title&article=$#article&redir=$$#redir'>
-  <help_navi_link ident='subs' link='$*'
+  <help_navi_link ident='subs' link='$*' class='class=item'
                   title='Список обозначений, используемых в тексте'>
   <if what='$article'>
    <concat value='/stotext-help-types.php?link=$#link&title=$#title&article=$#article&redir=$$#redir'>
-   <help_navi_link ident='types' link='$*'
+   <help_navi_link ident='types' link='$*' class='class=item'
                    title='Какой формат статьи выбрать?'>
   </if>
  </tbody>

@@ -5,7 +5,7 @@
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left><table><tr valign=bottom><td>
   <logged>
-   <a href='postingedit.php?topic_id=$topic&grp=*GRP_FORUMS&redirid=$_'
+   <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_FORUMS&redirid=$_'
       class='add'>Добавить мнение</a>
   <else>
    <span class='advert'>
