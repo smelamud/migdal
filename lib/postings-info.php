@@ -35,6 +35,24 @@ $info=getPostingsInfo($grp,$topic_id,$answers,$user_id,$recursive);
 return $info->getMaxSent();
 }
 
+function getInfoTopicFilter($topic_id=-1,$recursive=false)
+{
+if(is_array($topic_id))
+  {
+  $topicFilter='';
+  $op='';
+  foreach($topic_id as $id => $recursive)
+         {
+         $topicFilter.=" $op topics.".subtree($id,$recursive);
+	 $op='or';
+	 }
+  $topicFilter=" and ($topicFilter)";
+  }
+else
+  $topicFilter=$topic_id<0 ? '' : " and topics.".subtree($topic_id,$recursive);
+return $topicFilter;
+}
+
 function getPostingsMessagesInfo($grp=GRP_ALL,$topic_id=-1,$user_id=0,
                                  $recursive=false)
 {
@@ -43,7 +61,7 @@ global $userId,$userModerator;
 if($grp==GRP_NONE)
   return new PostingsInfo();
 $hide=$userModerator ? 2 : 1;
-$topicFilter=$topic_id<0 ? '' : " and topics.".subtree($topic_id,$recursive);
+$topicFilter=getInfoTopicFilter($topic_id,$recursive);
 $userFilter=$user_id>0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
         "select count(*) as total,max(messages.sent) as max_sent
@@ -70,7 +88,7 @@ global $userId,$userModerator;
 if($grp==GRP_NONE)
   return new PostingsInfo();
 $hide=$userModerator ? 2 : 1;
-$topicFilter=$topic_id<0 ? '' : " and topics.".subtree($topic_id,$recursive);
+$topicFilter=getInfoTopicFilter($topic_id,$recursive);
 $userFilter=$user_id>0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
         "select count(*) as total,max(messages.sent) as max_sent

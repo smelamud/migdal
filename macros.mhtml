@@ -145,6 +145,10 @@
        arg2%!recursive='%recursive'>
 </macro>
 
+<macro name='hash_topic' defaults="recursive='*false'">
+ <mapping key%!topic_id='%topic_id' value%!recursive='%recursive'>
+</macro>
+
 << Calls >>
 <macro name='deccall' defaults="name='%name'">
  <macro name='%macro' defaults="%defaults">

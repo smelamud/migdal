@@ -34,6 +34,8 @@ $LastConst='';
 
 $Stack='';
 
+$MappingStart=1;
+
 %Macros=();
 %Elements=();
 
@@ -993,6 +995,35 @@ my ($self)=@_;
 
 $::Stack->pop();
 ::body("<?php } ?>");
+}
+
+sub elHash
+{
+my ($self)=@_;
+
+my $name=$self->getConstArg('name');
+$name='const'.($::LastConst++) if $name eq '';
+::body("<?php \$$name=array( ?>");
+$::Stack->top()->setConst($name);
+$::MappingStart=1;
+}
+
+sub elMapping
+{
+my ($self)=@_;
+
+$key=$self->getVarArg('key');
+$value=$self->getVarArg('value');
+$key=",$key" unless $::MappingStart;
+$::MappingStart=0;
+::body("<?php $key => $value ?>");
+}
+
+sub el_hash
+{
+my ($self)=@_;
+
+::body("<?php ); ?>");
 }
 
 sub elMacro #XXX Possibly empty name

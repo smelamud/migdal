@@ -153,18 +153,26 @@
 <topics_line time='$,' href#='migdal-library.php' text='Библиотека'
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-library`"
 	     indent=1 class='item eightpt'>
-<posting_last topic_id='$`museum`' recursive='*true'>
+<hash>
+ <hash_topic topic_id='$`museum`' recursive='*true'>
+ <hash_topic topic_id='$`museum-news`' recursive='*true'>
+</hash>
+<posting_last topic_id='$*'>
 <topics_line time='$,' href#='migdal.php?artid=$`postings:museum`'
 	     text='Музей евреев Одессы'
 	     arrow!="$posting!=0 &&
 	             ($/$posting.TopicId,1/==$`museum` ||
 		      $/$posting.TopicId,2/==$`museum-news`)" indent=1
 	     class='item eightpt'>
-<topics_line time='$,' href#='migdal.php?artid=$`postings:migdal-ohr`'
+<topics_line href#='migdal.php?artid=$`postings:migdal-ohr`'
 	     text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-ohr`"
 	     indent=1 class='item eightpt'>
-<posting_last topic_id='$`mazltov`' recursive='*true'>
+<hash>
+ <hash_topic topic_id='$`mazltov`' recursive='*true'>
+ <hash_topic topic_id='$`mazltov-news`' recursive='*true'>
+</hash>
+<posting_last topic_id='$*'>
 <topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`'
 	     text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
 	     arrow!="$posting!=0 &&
