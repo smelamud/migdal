@@ -1,15 +1,17 @@
 << @(#) $Id$ >>
 
 <element name='article_controls'>
-<notprint>
- <p class='ninept' style='clear: both'>
-  <a href="/postingedit.php?editid=$posting.Id&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
-     >Изменить</a>
-  &nbsp;
-  <a href="/limedit.php?postid=$posting.Id&redirid=$_"
-     >Список иллюстраций</a>
- </p>
-</notprint>
+<iswrite what='$posting'>
+ <notprint>
+  <p class='ninept' style='clear: both'>
+   <a href="/postingedit.php?editid=$posting.Id&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
+      >Изменить</a>
+   &nbsp;
+   <a href="/limedit.php?postid=$posting.Id&redirid=$_"
+      >Список иллюстраций</a>
+  </p>
+ </notprint>
+</iswrite>
 </element>
 
 <macro name='isplaced'>
