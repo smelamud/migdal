@@ -71,9 +71,13 @@ function userRights($aUserId=0)
 global $sessionid,$userId,$realUserId,$userRightNames;
 
 settype($sessionid,'integer');
+settype($globalsid,'integer');
 
 foreach($userRightNames as $name)
        $GLOBALS['user'.getProperName($name)]='';
+
+if($globalsid!=0)
+  $sessionid=$globalsid;
 
 if(!$sessionid && $aUserId<=0)
   {

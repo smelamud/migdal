@@ -6,8 +6,8 @@
 <stylesheet ident='chat'>
 <preamble>
 <frameset rows='*,35' border=0>
- <frame src='chatboard.php?$?' noresize>
- <frame src='chatbottom.php?$?' noresize scrolling=no>
+ <frame src='chatboard.php?globalsid=$$sessionid&$?' noresize>
+ <frame src='chatbottom.php?globalsid=$$sessionid&$?' noresize scrolling=no>
  <noframes>
   Ваш браузер не поддерживает фреймы. Увы...
  </noframes>
