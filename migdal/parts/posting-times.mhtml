@@ -8,18 +8,19 @@
 </element>
 
 <element name='further' params='posting,title'>
+<identify posting='$posting'>
 <p><image src='pics/further.gif'>&sp;
-<a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>$title</a>
+<a href='$posting.DetailsHref'>$title</a>
 </element>
 
 <element name='posting_times'>
+<identify posting='$posting'>
 <dl class='posting'>
  <dt class='subject'>
   <topic posting='$posting' showtopic='$showtopic'>
   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
               image='$$style_cframe_back_pic'>
-  <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
-     $posting.Subject</a>
+  <a href='$posting.DetailsHref'>$posting.Subject</a>
   <ifne what='$posting.Author'>
    <br><span class='author'>$posting.Author</span>
   </ifne>

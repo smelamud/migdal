@@ -17,8 +17,8 @@
                       topic_id='$,Id' recursive='*false'
 		      fields='*SELECT_TOPICS'>
  <for>
-  <topics_line time='$.Sent' text='$.Subject'
-               href#='$.DetailsFile?$.DetailsId=$.Id'
+  <identify posting='$.'>
+  <topics_line time='$.Sent' text='$.Subject' href#='$.DetailsHref'
 	       arrow!='$.Id==$posting.Id'>
  </for>
  <ifnzero what='$;Count'>

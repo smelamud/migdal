@@ -21,13 +21,14 @@
     <assign name='day' value=0>
     <dl class='ninept index'>
      <for>
+      <identify posting='$.'>
       <if what='$day!=$.Sent@d'>
        <ifnzero what='$day'><dt>&nbsp;</ifnzero>
        <dt>$.Sent@d.$.Sent@m.$.Sent@Y
        <assign name='day' value='$.Sent@d'>
       </if>
       <dd>$.Sent@H:$.Sent@i&sp;
-	  <a href='$.DetailsFile?$.DetailsId=$.Id'>$.SubjectDesc</a>
+	  <a href='$.DetailsHref'>$.SubjectDesc</a>
      </for>
     </dl>
    </td>

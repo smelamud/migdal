@@ -38,7 +38,8 @@
  <assign name='name' value='Обсуждения'>
 <elif what="$basename=='forum.php'">
  <posting_obj id='$msgid'>
- <trace url#='$,DetailsFile?$,DetailsId=$,Id'>
+ <identify posting='$,'>
+ <trace url#='$,DetailsHref'>
  <assign name='name' value='Обсуждение'>
 <elif what="$basename=='gallery.php'">
  <if what='$topic_id<=0'>

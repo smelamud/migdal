@@ -7,9 +7,9 @@
 		      recursive='*true' limit=0 sort='*SORT_INDEX0'
 		      index1='$issue'>
  <for>
-  <topics_line time='$.Sent' text='$.Subject'
-               href#='$.DetailsFile?$.DetailsId=$.Id'
-	       arrow!='$.Id==$id' class='item ninept'>
+  <identify posting='$.'>
+  <topics_line time='$.Sent' text='$.Subject' href#='$.DetailsHref'
+               arrow!='$.Id==$id' class='item ninept'>
  </for>
 </topics_table>
 </element>

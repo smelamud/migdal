@@ -1,10 +1,11 @@
 << @(#) $Id$ >>
 
 <macro name='identifier'>
- <element name='identify_%name' params='posting,&href,&ghref,&mhref,&name,
-                                        &title,&root'
+ <element name='identify_%name' params='posting,&href,&ghref,&mhref,&dhref,
+                                        &name,&title,&root'
           defaults="posting='$posting' href='$href' ghref='$ghref'
-	            mhref='$mhref' name='$name' title='$title' root='$root'">
+	            mhref='$mhref' dhref='$dhref' name='$name' title='$title'
+		    root='$root'">
 </macro>
 
 <macro name='/identifier'>
@@ -22,6 +23,16 @@
  <assign name='name' value#='$name$.Name'>
 </for>
 <assign name='root' value='$`links`'>
+</identifier>
+
+<identifier name='migdal_details'>
+<if what='$posting.Id==$`postings:jcc`'>
+ <assign name='dhref' value='jcc.php'>
+<elif what='$posting.Id==$`postings:migdal-library`'>
+ <assign name='dhref' value='migdal-library.php'>
+<elif what='$posting.Id==$`postings:methodic-center`'>
+ <assign name='dhref' value='methodic-center.php'>
+</if>
 </identifier>
 
 <identifier name='migdal_news'>
@@ -86,6 +97,8 @@
 </identifier>
 
 <identifier name='all'>
+<assign name='dhref'
+        value#='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
 <if what='$/$posting.TopicId,0/==$`migdal,e`'>
  <assign name='href' value='index.php'>
  <assign name='ghref' value=''>
@@ -106,6 +119,7 @@
   <assign name='ghref' value#='gallery.php?topic_id=$`migdal`'>
   <assign name='title' value=''>
   <assign name='name' value='Мигдаль'>
+  <identify_migdal_details>
   <if what='$/$posting.TopicId,1/==$`migdal-library`'>
    <topic_obj id='$`migdal-library`'>
    <assign name='href' value='migdal-library.php'>
@@ -229,6 +243,7 @@
  <setup name='posting' var='GeneralHref' value='$href'>
  <setup name='posting' var='GalleryHref' value='$ghref'>
  <setup name='posting' var='MainHref' value='$mhref'>
+ <setup name='posting' var='DetailsHref' value='$dhref'>
  <setup name='posting' var='FullTopicName' value='$name'>
  <setup name='posting' var='FullTopicDescription' value='$title'>
  <setup name='posting' var='RootId' value='$root'>

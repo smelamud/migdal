@@ -36,11 +36,11 @@
 </element>
 
 <element name='printlink'>
+<identify posting='$posting'>
 <table cellspacing=0 cellpadding=0><tr>
  <td><image src='pics/print.gif'>&nbsp;</td>
  <td>
- <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id&print=1'
-    target=_blank>Для печати</a>
+ <a href='$posting.DetailsHref&print=1' target=_blank>Для печати</a>
  </td>
 </tr></table>
 </element>

@@ -9,8 +9,9 @@
 </element>
 
 <element name='further' params='posting,title'>
+<identify posting='$posting'>
 <p><image src='pics/further.gif'>&sp;
-<a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>$title</a>
+<a href='$posting.DetailsHref'>$title</a>
 </element>
 
 <element name='further_url' params='posting,url'>
@@ -20,6 +21,7 @@
 </element>
 
 <element name='posting_general'>
+<identify posting='$posting'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <dl class='posting'>
   <dt class='subject'>
@@ -28,8 +30,7 @@
                image='$$style_cframe_back_pic'>
    <biff time='$posting.Sent'>
    <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
-    <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
-     $posting.Subject</a>
+    <a href='$posting.DetailsHref'>$posting.Subject</a>
    <else>
     $posting.Subject
    </if>

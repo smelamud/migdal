@@ -84,12 +84,13 @@
    <assign name='domain' value=''>
    <dl class='ninept index'>
     <for>
+     <identify posting='$.'>
      <if what='$domain!=$.URLDomain'>
       <ifne what='$domain'><dt>&nbsp;</ifne>
       <dt>$.URLDomain
       <assign name='domain' value='$.URLDomain'>
      </if>
-     <dd><a href='$.DetailsFile?$.DetailsId=$.Id'>$.SubjectDesc</a>
+     <dd><a href='$.DetailsHref'>$.SubjectDesc</a>
      <dd class='url'>$.URL
     </for>
    </dl>
