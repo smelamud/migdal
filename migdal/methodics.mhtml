@@ -23,7 +23,7 @@
 <element name='catalog' params='offset'>
 <iterate_postinglist grp='*GRP_BOOKS' topic='$`methodics`'
                      limit='$$userMsgPortion' offset='$offset'
-                     sort='*SORT_PSENT' showshadows='$$userModerator'>
+                     sort='*SORT_PSENT' showshadows='*true'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher list='$;'>
  <table>
