@@ -13,6 +13,7 @@
  <p>
  <complain_type_obj id='$typeid'>
  <form method=get action='$~'><table><tr>
+  <input type=hidden name='redir' value='$redir'>
   <td>Тип</td>
   <td><select name='typeid'>
    <iterate_complain_types>
@@ -69,11 +70,18 @@
      </table>
      <table>
       <error id='*ECAM_NO_SCRIPT' text='Такого скрипта не существует' span=2>
+      <error id='*ECAM_ILLEGAL_SCRIPT' span=2
+             text='Этот скрипт нельзя прикреплять к такому типу жалобы'>
       <tr>
        <td><select name='script_id'>
 	<iterate_complain_scriptlist ident='$type.Ident'>
+	<ifzero what='$,ScriptId'>
+ 	 <option label='-- Ничего не делать --' value=0 selected>
+	<else>
+ 	 <option label='-- Ничего не делать --' value=0>
+	</if>
 	<for>
-	 <if what='$.Id==$script_id'>
+	 <if what='$.Id==$,ScriptId'>
 	  <option label='$.Name' value='$.Id' selected>
 	 <else>
 	  <option label='$.Name' value='$.Id'>

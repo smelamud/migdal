@@ -131,7 +131,8 @@ define('ECAM_NO_TYPE',272);
 define('ECAM_NAME_ABSENT',273);
 define('ECAM_TEXT_ABSENT',274);
 define('ECAM_NO_SCRIPT',275);
-define('ECAM_STORE_SQL',276);
+define('ECAM_ILLEGAL_SCRIPT',276);
+define('ECAM_STORE_SQL',277);
 
 define('ECAD_OK',280);
 define('ECAD_NO_EDIT',281);

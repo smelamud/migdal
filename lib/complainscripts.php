@@ -70,4 +70,18 @@ $result=mysql_query("select id
              or die('Ошибка SQL при проверке наличия скрипта реакции на жалобу');
 return mysql_num_rows($result)>0;
 }
+
+function checkScriptToTypeBinding($script_id,$type_id)
+{
+$result=mysql_query("select ident
+                     from complain_types
+		          left join complain_scripts
+			       on complain_types.ident
+			          =complain_scripts.type_ident
+				  or complain_scripts.type_ident=''
+		     where complain_scripts.id=$script_id
+		           and complain_types.id=$type_id")
+     or die('Ошибка SQL при проверке соответствия скрипта реакции типу жалобы');
+return mysql_num_rows($result)>0;
+}
 ?>

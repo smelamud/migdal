@@ -21,8 +21,11 @@ if($action->name=='')
   return ECAM_NAME_ABSENT;
 if($action->text=='')
   return ECAM_TEXT_ABSENT;
-if(!complainScriptExists($action->script_id))
+if($action->script_id!=0 && !complainScriptExists($action->script_id))
   return ECAM_NO_SCRIPT;
+if($action->script_id!=0 &&
+   !checkScriptToTypeBinding($action->script_id,$action->type_id))
+  return ECAM_ILLEGAL_SCRIPT;
 if(!$action->store())
   return ECAM_STORE_SQL;
 return ECAM_OK;
