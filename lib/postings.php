@@ -349,10 +349,10 @@ $answersTables=($fields & SELECT_ANSWERS)!=0 && $sortByAnswers && $userId>0 ?
 	     '';
 $countersTables=$sort==SORT_CTR ?
              "left join counters as counter0
-	           on messages.id=counter0.message_id and counter0.serial=0
+	           on messages.id=counter0.message_id and counter0.serial=1
 		      and counter0.mode=".CMODE_EAR_HITS."
               left join counters as counter1
-	           on messages.id=counter1.message_id and counter1.serial=0
+	           on messages.id=counter1.message_id and counter1.serial=1
 		      and counter1.mode=".CMODE_EAR_CLICKS :
 	     '';
 
