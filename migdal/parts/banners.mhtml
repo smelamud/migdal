@@ -6,18 +6,26 @@
 	val1='http://www.odessitclub.org/'
 	val2='http://www.lookstein.org/russian/'
 	val3='http://www.antho.net/'
-	val4='http://www.rjews.net/gazeta/news.html'>
+	val4='http://www.rjews.net/gazeta/news.html'
+	val5='http://www.spectr.org/'>
  <array name='pics'
 	val1='pics/ioc.gif'
 	val2='pics/lookstein.gif'
 	val3='http://www.antho.net/banners/88/88x31-03.gif'
-	val4='http://www.rjews.net/gazeta/a7ban.gif'>
+	val4='http://www.rjews.net/gazeta/a7ban.gif'
+	val5='http://www.spectr.org/images/spectr88x31.gif'>
  <array name='alts'
         val1=''
         val2=''
         val3='Jerusalem&sp;Anthologia'
-	val4='Jerusalem&sp;chronikles'>
- <iterate_random_seq n=3 min=1 max=4>
+	val4='Jerusalem&sp;chronikles'
+	val5='Журнал "Спектр"'>
+ <assign name='url' value!='$urls[4]'>
+ <assign name='pic' value!='$pics[4]'>
+ <assign name='alt' value!='$alts[4]'>
+ <a href='$url' target=_blank>
+  <img src='$pic' width=88 height=31 border=0 alt='$alt'></a>
+ <iterate_random_seq n=2 min=1 max=4>
  <for>
   <assign name='url' value!='$urls[$. - 1]'>
   <assign name='pic' value!='$pics[$. - 1]'>
