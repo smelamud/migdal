@@ -19,11 +19,11 @@
 <table class='state'><tr>
  <td class='style'>
   <zone>
-   <concat value='/style.php?redir=$_'>
+   <concat name='link' value='/style.php?redir=$_'>
    <if what="$ident!='style'">
-    <at href='$*' target='$target'>Настроить вид</a>
+    <at href='$link' target='$target'>Настроить вид</a>
    <else>
-    <at href='$*' class='active' target='$target'>Настроить вид</a>
+    <at href='$link' class='active' target='$target'>Настроить вид</a>
    </if>
   </zone>
  </td>
