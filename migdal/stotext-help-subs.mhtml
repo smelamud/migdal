@@ -5,6 +5,34 @@
 <head>
  <title>Мигдаль - Справка</title>
 </head>
+<style><!--
+ .catalog H1,.catalog H2,.catalog H3,.catalog H4 {
+	 font-family: "Times New Roman", Helvetica, sans-serif;
+ }
+
+ .catalog H1 {
+	 font-size: 18pt;
+	 font-weight: bold;
+ }
+
+ .catalog H2 {
+	 font-size: 16pt;
+	 font-weight: bold;
+ }
+
+ .catalog H3 {
+	 font-size: 14pt;
+	 font-weight: bold;
+	 font-style: italic;
+ }
+
+ .catalog H4 {
+	 font-size: 12pt;
+	 font-weight: bold;
+	 text-decoration: underline;
+ }
+ // -->
+</style>
 <body>
  <top ident='index' image='pics/index.gif'>
  <table width=100%><tr valign=top>
@@ -60,6 +88,34 @@
      <tr>
       <td>А этот_текст_не_выделяется <noparse>2*2=4</noparse></td>
       <td>А этот_текст_не_выделяется <noparse>2*2=4</noparse></td>
+     </tr>
+     <tr class='div'><td colspan=2>Заголовки</td></tr>
+     <tr>
+      <td><pre>
+       Заголовок первого уровня
+       ========================
+      </pre></td>
+      <td>
+       <h2>Заголовок первого уровня</h2>
+      </td>
+     </tr>
+     <tr>
+      <td><pre>
+       Заголовок второго уровня
+       ------------------------
+      </pre></td>
+      <td>
+       <h3>Заголовок второго уровня</h3>
+      </td>
+     </tr>
+     <tr>
+      <td><pre>
+       Заголовок третьего уровня
+       ~~~~~~~~~~~~~~~~~~~~~~~~~
+      </pre></td>
+      <td>
+       <h4>Заголовок третьего уровня</h4>
+      </td>
      </tr>
      <tr class='div'><td colspan=2>Ссылки и адреса</td></tr>
      <tr class='active'><td colspan=2>

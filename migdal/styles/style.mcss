@@ -962,7 +962,8 @@ BODY {
 	text-decoration: underline;
 }
 
-.article H1,.article P,.article B,.article I,.article U,.article .author {
+.article H1,.article H2,.article H3,.article H4,.article P,.article B,
+.article I,.article U,.article .author {
 	font-family: "Times New Roman", Helvetica, sans-serif;
 	font-size: 12pt;
 }
@@ -971,6 +972,26 @@ BODY {
 	font-size: 18pt;
 	font-weight: bold;
 	margin: 20px;
+}
+
+.article H2 {
+	font-size: 16pt;
+	font-weight: bold;
+	margin: 15px;
+}
+
+.article H3 {
+	font-size: 14pt;
+	font-weight: bold;
+	font-style: italic;
+	margin: 10px;
+}
+
+.article H4 {
+	font-size: 12pt;
+	font-weight: bold;
+	text-decoration: underline;
+	margin: 5px;
 }
 
 .article .author {

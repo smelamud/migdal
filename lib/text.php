@@ -81,6 +81,17 @@ return preg_replace('/(^|\n)\s*ву&quot;д\s*(\n|$)/',
                     '\\1<div align=right><img src="pics/bsd.gif"></div>\\2',$s);
 }
 
+function replaceHeading($s,$n,$c)
+{
+return preg_replace('/(^\s*|\n\s*)([^\n]*)\n\s*'.$c.'{3}'.$c.'*(\n|$)/',
+                    '\\1<h'.$n.'>\\2</h'.$n.'>\\3',$s);
+}
+
+function replaceHeadings($s)
+{
+return replaceHeading(replaceHeading(replaceHeading($s,2,'='),3,'-'),4,'~');
+}
+
 function textToStotext($format,$s)
 {
 return $format==TF_HTML ? $s : htmlspecialchars($s,ENT_QUOTES);
@@ -97,6 +108,7 @@ switch($format)
       case TF_PLAIN:
  	   $c=replaceURLs($c);
  	   $c=replaceBSD($c);
+	   $c=replaceHeadings($c);
  	   $c=replaceCenter($c);
  	   $c=replaceParagraphs($c);
  	   $c=str_replace("\n",'<br>',$c);
@@ -108,6 +120,7 @@ switch($format)
       case TF_TEX:
 	   $c=replaceURLs($c);
 	   $c=replaceBSD($c);
+	   $c=replaceHeadings($c);
 	   $c=replaceCenter($c);
 	   $c=replaceParagraphs($c);
 	   $c=str_replace('\\\\','<br>',$c);
