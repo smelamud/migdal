@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<assign_global name='current_kaitana' value=3>
+<assign_global name='current_kaitana' value=4>
 
 <macro name='day'>
  <assign name='link' value='*false'>
@@ -105,7 +105,7 @@
                       sort='*SORT_RINDEX1' limit=3>
  <for>
   <b>$.Subject:</b>
-  <a href#='kaitana.php?day=$.Index1'>$.Source</a>
+  <a href='kaitana.php?day=$.Index1'>$.Source</a>
   <biff time='$.Sent' small='*true'>
   <br>
  </for>
