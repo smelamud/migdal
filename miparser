@@ -21,6 +21,10 @@ $Footer='';
 
 $BodyToHeader=0;
 
+$ElementName='';
+$ElementBody='';
+@ElementGlobals=();
+
 $LastIter='';
 $LastItem='';
 $LastResult='';
@@ -439,22 +443,23 @@ sub process
 {
 my ($self)=@_;
 
-my $name=$self->getName();
+my $tagName=lc $self->getName();
+my $name=$tagName;
 $name=~tr/\//_/;
 $name='el'.ucfirst($name);
 if($self->can($name))
   {
   &$name($self);
   }
-elsif(defined($::Macros{$self->getName()}))
+elsif(defined($::Macros{$tagName}))
   {
   $::Line=$::Macros{$self->getName()}->getInstance($self->getArgs()).$::Line;
   }
-elsif(defined($::Elements{$self->getName()}))
+elsif(defined($::Elements{$tagName}))
   {
-  ::request($::Elements{$self->getName()}->getFile());
+  ::request($::Elements{$tagName}->getFile());
   ::body('<?php display',$self->getName(),'(',
-         $::Elements{$self->getName()}->getParams($self->getArgs()),'); ?>');
+         $::Elements{$tagName}->getParams($self->getArgs()),'); ?>');
   }
 else
   {
@@ -541,7 +546,7 @@ while((ref($::Token) ne 'Tag' || $::Token->getName() ne '/macro')
      $body.=$::Token->getToken();
      ::pullToken();
      }
-$::Macros{$self->getArg('name')}=Macro->new($body,$self->getArg('defaults'));
+$::Macros{lc $self->getArg('name')}=Macro->new($body,$self->getArg('defaults'));
 }
 
 sub elIf
@@ -549,13 +554,6 @@ sub elIf
 my ($self)=@_;
 
 ::body('<?php if(',::subVars($self->getArg('what')),') { ?>');
-}
-
-sub elIfzero
-{
-my ($self)=@_;
-
-::body('<?php if(',::subVars($self->getArg('what')),'==0) { ?>');
 }
 
 sub elElse #XXX Possibly incorrect closure
@@ -612,9 +610,46 @@ sub elDecel #XXX Possibly empty name
 {
 my ($self)=@_;
 
-$::Elements{$self->getArg('name')}=Element->new($self->getArg('file'),
-                                                $self->getArg('params'),
-                                                $self->getArg('defaults'));
+$::Elements{lc $self->getArg('name')}=Element->new($self->getArg('file'),
+                                                   $self->getArg('params'),
+                                                   $self->getArg('defaults'));
+}
+
+sub elElement #XXX Possibly empty name
+{
+my ($self)=@_;
+
+$::ElementName=lc $self->getArg('name');
+if(!exists $::Elements{$::ElementName})
+  {
+  $::Elements{$::ElementName}=Element->new('',$self->getArg('params'),
+					   $self->getArg('defaults'));
+  }
+}
+
+sub el_element
+{
+my ($self)=@_;
+
+my $name=$::ElementName;
+$::ElementName='';
+my @params=();
+foreach(@{$::Elements{$name}->{'params'}})
+       {
+       if(exists $::Elements{$name}->{'defaults'}->{$_})
+         {
+	 push @params,"\$$_=".$::Elements{$name}->{'defaults'}->{$_};
+	 }
+       else
+         {
+	 push @params,"\$$_";
+	 }
+       }
+my $globals='';
+$globals="global ".join(',',map {"\$$_"} @::ElementGlobals)."\n"
+         if scalar(@::ElementGlobals)>0;
+::body("<?php\nfunction display$name(",join(',',@params),")\n{\n",
+       $globals,"?>\n",$::ElementBody,"<?php\n}\n?>\n");
 }
 
 sub elSettype #XXX Possibly empty name,type or unknown type
@@ -778,6 +813,10 @@ if($BodyToHeader)
   {
   header(@_);
   }
+elsif($ElementName ne '')
+  {
+  printVar(\$ElementBody,@_);
+  }
 else
   {
   printVar(\$Body,@_);
@@ -853,7 +892,7 @@ foreach(@Requests)
        $s.="require_once('$_');\n";
        }
 $s.="?>\n";
-$s="$s$Header$Body$Footer";
+$s=$s.$Header.$Body.$Footer;
 $s=~s/\s\?>\s*\n\s*<\?php\s/\n/sg;
 $s=~s/\s\?>\s*<\?php\s//sg;
 print $s;

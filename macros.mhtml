@@ -34,6 +34,10 @@
  <require name='lib/images.php'>
  <call name='%name' func='getImageNameBySet' arg1='%set'>
 </macro>
+<< Conditionals >>
+<macro name='ifzero'>
+ <if what='%what==0'>
+</macro>
 << Permissions >>
 <macro name='admin_topics'>
  <if what='$$userAdminTopics'>
@@ -52,3 +56,4 @@
 <decel name='top' file='parts/top.php' params='ident'>
 <decel name='messages' file='parts/messages.php'
        params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
+<decel name='backtrace' file='parts/backtrace.php' params='redir'>

@@ -1,0 +1,6 @@
+<< @(#) $Id$ >>
+<element name='backtrace'>
+ <if what="isset($redir) && $redir!=''">
+  <a href='$redir'>&lt;&lt; Вернуться</a>
+ </if>
+</element>
