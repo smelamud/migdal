@@ -1,20 +1,33 @@
 << @(#) $Id$ >>
 
+<element name='backtrace_url' params='url,target,isbottom'
+         defaults="isbottom='*true'">
+<parse_url url='$url'>
+<if what='!$isbottom'>
+ <at href='$_url' target='$target'>$_name</at>&sp;&gt;&sp;
+</if>
+</element>
+
 <element name='backtrace'>
 <iterate_redirs name='redirs'>
-<div class='return'>
- <if what='$;Count>1'>
+<outer>
+ <div class='return'>
   <for>
-   <notlast what='$redirs'>
+   <isfirst what='$redirs'>
+    <inner>
+    <backtrace_url url='$.URI' target='$target'>
+   </isfirst>
+   <islast what='$redirs'>
+    </inner>
+    $.Name
+   <else>
     <at href='$.URI' target='$target'>
      <ife what='$.Name'>
       <notenglish>Главная<else>Home</notenglish>
      <else>
-      $.Name</ife></a> &gt;
-   <else>
-    $.Name
-   </notlast>
+      $.Name</ife></at>&sp;&gt;
+   </islast>
   </for>
- </if>
-</div>
+ </div>
+</outer>
 </element>

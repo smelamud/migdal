@@ -291,6 +291,15 @@
                   src%!src='%src'>$,</zone>
 </macro>
 
+<macro name='parse_url'>
+<assign name='fragments' value!='parse_url(%url)'>
+<?php
+$pathinfo=pathinfo($fragments['path']);
+$basename=$pathinfo['basename'];
+parse_str($fragments['query']);
+?>
+</macro>
+
 << GRP >>
 <deccall macro='grpword' func='getGrpWord' file='lib/grps.php'
          params='grp,words' defaults="grp='$grp' words='$*'">
