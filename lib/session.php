@@ -3,7 +3,7 @@
 
 function session($sessionId)
 {
-global $userId,$userAdminUsers,$userAdminTopics;
+global $userId,$userAdminUsers,$userAdminTopics,$moderator;
 
 if(!$sessionId)
   {
@@ -20,13 +20,13 @@ if(mysql_num_rows($result)<=0)
 else
   {
   $userId=mysql_result($result,0,0);
-  $rights=mysql_query("select admin_users,admin_topics
+  $rights=mysql_query("select admin_users,admin_topics,moderator
                        from users
 		       where id=$userId")
-          or die('Ошибка SQL при получении прав пользователя');
-  list($userAdminUsers,$userAdminTopics)=mysql_fetch_row($rights);
+               or die('Ошибка SQL при получении прав пользователя');
+  list($userAdminUsers,$userAdminTopics,$moderator)=mysql_fetch_row($rights);
   mysql_query("update sessions set last=null where sid=$sessionId")
-                   or die('Ошибка SQL при обновлении TIMESTAMP сессии');
+       or die('Ошибка SQL при обновлении TIMESTAMP сессии');
   SetCookie('sessionid',$sessionId,time()+7200);
   }
 }

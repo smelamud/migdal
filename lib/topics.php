@@ -106,7 +106,27 @@ return $this->no_gallery ? 0 : 1;
 
 }
 
-function _noEqZero($vars)
+class BaseTopicListIterator
+      extends SelectIterator
+{
+
+function BaseTopicListIterator($sql)
+{
+$this->SelectIterator('Topic',$sql);
+}
+
+function getWhere($grp)
+{
+global $userAdminTopics;
+
+$hide=$userAdminTopics ? 2 : 1;
+$grpFilter=$grp==GRP_ANY ? '' 
+                         : 'and ('.join(' or ',
+			                $this->noEqZero(getGrpNames($grp))).')';
+return " where hidden<$hide $grpFilter ";
+}
+
+function noEqZero($vars)
 {
 $conds=array();
 foreach($vars as $var)
@@ -114,23 +134,32 @@ foreach($vars as $var)
 return $conds;
 }
 
+}
+
 class TopicListIterator
-      extends SelectIterator
+      extends BaseTopicListIterator
 {
 
 function TopicListIterator($grp)
 {
-global $userAdminTopics;
+$this->BaseTopicListIterator('select id,name,description
+		              from topics'
+			      .$this->getWhere($grp).
+		             'order by name');
+}
 
-$hide=$userAdminTopics ? 2 : 1;
-$grpFilter=$grp==GRP_ANY ? '' 
-                         : 'and ('.join(' or ',
-			                _noEqZero(getGrpNames($grp))).')';
-$this->SelectIterator('Topic',
-                      "select id,name,description
-		       from topics
-		       where hidden<$hide $grpFilter
-		       order by name");
+}
+
+class TopicNamesIterator
+      extends BaseTopicListIterator
+{
+
+function TopicNamesIterator($grp)
+{
+$this->BaseTopicListIterator('select id,name
+		              from topics'
+			      .$this->getWhere($grp).
+		             'order by name');
 }
 
 }

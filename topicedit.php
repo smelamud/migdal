@@ -61,14 +61,14 @@ if($err==$code)
  perror(ET_STORE_SQL,'Ошибка базы данных при обновлении записи','magenta');
  perror(ET_NAME_ABSENT,'Название не было введено');
  ?>
- <tr></td><table>
+ <tr><td><table>
   <?php echo elementEdit('Название',$topic->getName(),'name',30,70); ?>
  </table></td></tr>
  <?php perror(ET_DESCRIPTION_ABSENT,'Описание не было задано'); ?>
  <tr><td>Описание</td></tr>
  <tr><td>
   <textarea name='description' rows=10 cols=50 wrap='virtual'><?php
-   echo $topic->getDescription()
+   echo $topic->getDescription();
   ?></textarea>
  </td></tr>
  <?php
