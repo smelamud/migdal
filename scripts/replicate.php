@@ -18,11 +18,16 @@ if($command=='tracks')
   updateTracks($table,$id,false);
 }
 
-function executeAction($action)
+function executeAction($host,$action)
 {
+global $replicationMaster;
+
 foreach($action as $line)
        {
-       $query=jdecode($line->getQuery());
+       $query=$line->getQuery();
+       if($replicationMaster)
+         $query=subJournalVars($host,$query);
+       $query=jdecode($query);
        if(substr($query,0,5)=='track')
          executeTrackQuery($query);
        else
@@ -31,9 +36,14 @@ foreach($action as $line)
 	   or journalFailure('Error executing replicated query in seq '.
 			     $line->getSeq().' id='.$line->getId().
 			     ": $query");
-         if($line->getResultTable()!='' &&
-	    $line->getResultId()!=mysql_insert_id())
-	   journalFailure('Identifier shift detected.');
+         if($line->getResultTable()!='')
+	   if($replicationMaster)
+	     {
+	     if($line->getResultId()!=mysql_insert_id())
+	       journalFailure('Identifier shift detected.');
+	     }
+	   else
+	     setJournalVar($host,$line->getResultVar(),mysql_insert_id());
 	 }
        }
 }
@@ -61,7 +71,7 @@ while(!feof($fd))
        $action[]=$line;
      else
        {
-       executeAction($action);
+       executeAction($host,$action);
        $action=array();
        setHorisont($host,$line->getSeq(),HOR_WE_KNOW);
        updateReplicationLock($host);

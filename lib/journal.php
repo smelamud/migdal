@@ -281,4 +281,36 @@ $result=mysql_query("select host
   or journalFailure('Cannot get replication lock.');
 return mysql_num_rows($result)>0;
 }
+
+function getJournalVar($host,$var)
+{
+$result=mysql_query("select value
+                     from journal_vars
+		     where host='".addslashes($host)."' and var=$var")
+  or journalFailure('Cannot get journaled variable.');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function setJournalVar($host,$var,$value)
+{
+$host=addslashes($host);
+$result=mysql_query("select value
+                     from journal_vars
+		     where host='$host' and var=$var")
+  or journalFailure('Cannot check journaled variable.');
+if(mysql_num_rows($result)>0)
+  mysql_query("update journal_vars
+               set value=$value
+	       where host='$host' and var=$var")
+    or journalFailure('Cannot update journaled variable.');
+else
+  mysql_query("insert into journal_vars(var,host,value)
+               values($var,'$host',$value)")
+    or journalFailure('Cannot insert journaled variable.');
+}
+
+function subJournalVars($host,$query)
+{
+return preg_replace('/\$([0-9]+)/e',"getJournalVar('$host',\\1)",$s);
+}
 ?>
