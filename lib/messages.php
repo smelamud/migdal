@@ -15,6 +15,7 @@ var $id;
 var $body;
 var $subject;
 var $topic_id;
+var $topic_name;
 var $personal_id;
 var $sender_id;
 var $grp;
@@ -165,6 +166,11 @@ function getTopicId()
 return $this->topic_id;
 }
 
+function getTopicName()
+{
+return $this->topic_name;
+}
+
 function getPersonalId()
 {
 return $this->personal_id;
@@ -254,24 +260,45 @@ return new $name($row);
 }
 
 class MessageListIterator
-      extends GroupSelectIterator
+      extends SelectIterator
 {
 
-function MessageListIterator($grp,$personal=0)
+function MessageListIterator($grp,$topic=0,$personal=0)
 {
 global $userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$topicFilter=$topic==0 ? '' : " and messages.topic_id=$topic ";
 $grpFilter=$this->getGrpCondition($grp);
-$this->GroupSelectIterator('Message',
-                           "select messages.id as id,body,subject,grp,sent,
-			           images.image_set as image_set,
-				   images.id as image_id
-		            from messages left join images
-			         on messages.image_set=images.image_set
-		            where hidden<$hide and personal_id=$personal
-		            and up=0 $grpFilter
-		            order by sent desc");
+$this->SelectIterator('Message',
+		      "select messages.id as id,body,subject,grp,sent,topic_id,
+			      images.image_set as image_set,
+			      images.id as image_id,
+			      topics.name as topic_name
+		       from messages
+			     left join images
+				  on messages.image_set=images.image_set
+			     left join topics
+				  on messages.topic_id=topics.id
+		       where messages.hidden<$hide and
+			     personal_id=$personal
+		       and up=0 $grpFilter $topicFilter
+		       order by sent desc");
+}
+
+function getGrpCondition($grp)
+{
+return $grp==GRP_ANY ? ''
+                     : 'and ('.join(' or ',
+		               $this->Eq(getGrpNumbers($grp))).')';
+}
+
+function Eq($nums)
+{
+$conds=array();
+foreach($nums as $num)
+       $conds[]="grp=$num";
+return $conds;
 }
 
 function create($row)

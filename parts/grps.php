@@ -3,16 +3,19 @@
 
 require_once('lib/grps.php');
 
-$grpTitles=array(GRP_FORUMS  => 'Форумы',
+$grpTitles=array(GRP_ANY     => 'Все сообщения',
+                 GRP_FORUMS  => 'Форумы',
                  GRP_NEWS    => 'Новости',
 		 GRP_GALLERY => 'Галерея');
-$grpOneTitles=array(GRP_FORUMS  => 'Форум',
+$grpOneTitles=array(GRP_ANY     => 'Все сообщения',
+                    GRP_FORUMS  => 'Форум',
                     GRP_NEWS    => 'Новости',
 	   	    GRP_GALLERY => 'Галерея');
 $grpItemTitles=array(GRP_FORUMS  => 'сообщение',
                      GRP_NEWS    => 'новость',
 		     GRP_GALLERY => 'картинку');
-$grpIdents=array(GRP_FORUMS  => 'forums',
+$grpIdents=array(GRP_ANY     => 'messages',
+                 GRP_FORUMS  => 'forums',
                  GRP_NEWS    => 'news',
 		 GRP_GALLERY => 'gallery');
 

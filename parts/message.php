@@ -3,12 +3,26 @@
 
 require_once('lib/images.php');
 
-function displayMessage($message)
+function displayMessage($message,$grp,$topic)
 {
+global $REQUEST_URI;
+
+$requestURI=urlencode($REQUEST_URI);
 ?>
 <table width=100%>
 <tr><td>&nbsp;</td></tr>
-<tr><td align=right><?php echo $message->getSentView() ?></td></tr>
+<tr>
+ <?php
+ if($topic==0)
+   echo "<td>
+          <a href='messages.php?redir=$requestURI&grp=$grp&topic_id="
+                  .$message->getTopicId()."'>"
+	  .$message->getTopicName().
+	 '</a>
+	 </td>';
+ ?>
+ <td align=right><?php echo $message->getSentView() ?></td>
+</tr>
 <tr><td><b><?php echo $message->getSubject() ?></b></td></tr>
 <tr><td>
  <?php

@@ -188,6 +188,18 @@ return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
+function getTopicNameById($id)
+{
+global $userAdminTopics;
+
+$hide=$userAdminTopics ? 2 : 1;
+$result=mysql_query("select id,name
+		     from topics
+		     where id=$id and hidden<$hide");
+return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                           : array());
+}
+
 function topicExists($id)
 {
 global $userAdminTopics;

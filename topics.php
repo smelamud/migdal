@@ -48,11 +48,15 @@ if(!isset($ident))
   $list=new TopicListIterator($ignoregrp ? GRP_ANY : $grp);
   while($item=$list->next())
        {
+       $topicId=$item->getId();
        echo '<p>';
-       echo '<b>'.$item->getName().'</b>&nbsp;';
+       echo "<b><a href='messages.php?grp=$grp&redir=$requestURI&".
+	                                      "topic_id=$topicId'>".
+	      $item->getName().
+	    '</a></b>&nbsp;';
        if($userAdminTopics)
-         echo "<a href='topicedit.php?editid=".$item->getId()
-	                            ."&redir=$requestURI'>[Изменить]</a>";
+         echo "<a href='topicedit.php?editid=$topicId&redir=$requestURI'>".
+	       '[Изменить]</a>';
        echo '<br>'.$item->getDescription();
        }
   dbClose();
