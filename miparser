@@ -30,14 +30,29 @@ $Stack='';
 sub subVars
 {
 my ($s,$st,$ed)=@_;
+my $c='';
 
 my $item=$::Stack->top()->getItem();
-$s=~s/\$_/${st}urlencode(\$REQUEST_URI)$ed/g;
-$s=~s/\$(\w+)\.(\w+)/$st\$\1->get\2()$ed/g;
-$s=~s/\$\.(\w+)/$st\$$item->get\1()$ed/g;
-$s=~s/\$%(\w+)\.(\w+)/${st}urlencode(\$\1->get\2())$ed/g;
-$s=~s/\$%\.(\w+)/${st}urlencode(\$$item->get\1())$ed/g;
-return $s;
+while($s ne '')
+     {
+     my $head,$var;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:\$%?(?:(?:\w*\.?\w+)|_))?)(.*)$/;
+     $c.=$head;
+     if($var=~/\$(\w+)/)
+       {
+       $var="$st\$$1$ed";
+       }
+     else
+       {
+       $var=~s/\$_/${st}urlencode(\$REQUEST_URI)$ed/g;
+       $var=~s/\$(\w+)\.(\w+)/$st\$\1->get\2()$ed/g;
+       $var=~s/\$\.(\w+)/$st\$$item->get\1()$ed/g;
+       $var=~s/\$%(\w+)\.(\w+)/${st}urlencode(\$\1->get\2())$ed/g;
+       $var=~s/\$%\.(\w+)/${st}urlencode(\$$item->get\1())$ed/g;
+       }
+     $c.=$var;
+     }
+return $c;
 }
 
 sub subVarsText

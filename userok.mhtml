@@ -1,0 +1,14 @@
+<< @(#) $Id$ >>
+<html>
+<head>
+ <title>Клуб Еврейского Студента - Пользователь зарегистрирован</title>
+</head>
+<body bgcolor=white>
+ <require name='parts/top.php'>
+ <?php displayTop('users'); ?>
+ <center><font color=green>
+  <h1>Пользователь $login успешно зарегистрирован.<br>
+      Добро пожаловать!</h1>
+ </font></center>
+</body>
+</html>

@@ -5,7 +5,10 @@
 %.php: %.mhtml miparser macros.mhtml
 	./miparser $< > $@
 
-all: users.php ;
+all: users.php userok.php ;
+
+Makefile: Makefile.in
+	cp Makefile.in Makefile
 
 conf/migdal.conf: configure
 	./configure
