@@ -53,8 +53,9 @@ return strtoupper($s);
 
 function unhtmlentities($s)
 {
-return strtr($s,
-             array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES)));
+$table=array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES));
+$table['&#039;']="'";
+return strtr($s,$table);
 }
 
 function getPlural($n,$forms)
