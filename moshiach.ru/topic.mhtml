@@ -29,9 +29,17 @@
    <bldot>
    <td bgcolor=ffffff width=56%>
     <table cellPadding=2 cellSpacing=3 width=100% border=0>
-     <tr bgcolor=darkblue><td align=center>
-      <b>$^upper.Name / $^,Name /</b>
-     </td></tr>   
+     <tr bgcolor=darkblue>
+      <td align=center>
+       <b>$^upper.Name / $^,Name /</b>
+      </td>
+      <admin_topics>
+       <td align=center>
+	&nbsp;<a href='topicedit.php?editid=$,Id&redir=$_' class='adminbold'
+		 >Изменить</a>
+       </td>
+      </admin_topics>
+     </tr>   
      <tr><td>
       <logged>
        <a href='postingedit.php?topic_id=$,Id&grp=*GRP_ARTICLES&redir=$_'

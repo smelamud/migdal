@@ -2,6 +2,7 @@
 << Based-on: demo/topicedit.mhtml 1.9 >>
 
 <int name='editid'>
+<int name='desc'>
 <html>
 <head>
  <title>Штаб Мошиаха - Тема</title>
@@ -30,7 +31,11 @@
               size=15 maxlength=15>
   </table></td></tr>
   <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
-  <input type='hidden' name='description' value='Без описания'>
+  <if what='$desc'>
+   <editor_line title='Описание' name='description' body='$,Description'>
+  <else>
+   <input type='hidden' name='description' value='Без описания'>
+  </if>
   <error id='*EUL_LARGE' text='Описание слишком велико (больше 2M)'>
   <checkbox_line name='hidden' value='$,isHidden'
                  title='Не показывать в списке'>

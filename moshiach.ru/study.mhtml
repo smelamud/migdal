@@ -22,22 +22,19 @@
    <bldot>
    <td bgcolor=ffffff width=56%>
     <table cellPadding=2 cellSpacing=3 width=100% border=0>
-     <tr bgcolor=darkblue><td align=center>
-      <b>УЧЕБНЫЙ ЦЕНТР - СОДЕРЖАНИЕ ::</b>
-     </td></tr>
+     <tr bgcolor=darkblue>
+      <td align=center>
+       <b>УЧЕБНЫЙ ЦЕНТР - СОДЕРЖАНИЕ ::</b>
+      </td>
+      <admin_topics>
+       <td align=center>
+	&nbsp;<a href='topicedit.php?editid=$,Id&desc=1&redir=$_'
+	         class='adminbold'>Изменить</a>
+       </td>
+      </admin_topics>
+     </tr>
      <tr><td>
-      В данном разделе приводятся объяснения специальных терминов и незнакомых
-      слов встречающихся в текстах - словарь по иудаизму, словарь по хасидизму
-      и словарь по каббале; энциклопедические статьи: <a href=2.htm>Галут</a>
-      <a href=2.htm>Геула</a> <a href=moshiach.htm>Мошиах</a>
-      <a href=2.htm>Пророк</a> <a href=2.htm>Воскрешение из мертвых</a>,
-      сборник цитат из первоисточников:
-      <a href=2.htm>ТАНАХ (Тора, Пророки, Писания)</a>
-      <a href=2.htm>Мишна и Талмуд</a> <a href=2.htm>Мидраш</a>
-      <a href=2.htm>Каббала</a> <a href=2.htm>Мудрецы</a>
-      <a href=2.htm>Хасидизм</a> <a href=2.htm>РАМБАМ</a>, 
-      Уроки по: <a href=2.htm>Каббале</a> <a href=2.htm>Хасидизму</a>
-      <a href=2.htm>Еврейскому закону</a> <a href=2.htm>Тании</a>
+      $,HTMLDescription
      </td></tr>
     </table>
     <qanda>
