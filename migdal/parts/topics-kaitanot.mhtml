@@ -2,7 +2,8 @@
 
 <element name='topics_kaitanot'>
 <topic_obj id='$`kaitana`'>
-<iterate_topiclist grp='*GRP_KAITANA_GALLERY' up=$`kaitana`>
+<iterate_topiclist grp='*GRP_KAITANA_GALLERY' up=$`kaitana`
+                   sort='*SORT_RINDEX0'>
 <topics_table class='eightpt' title='$,Name'>
  <for>
   <posting_last topic_id='$.Id' recursive='*false'>

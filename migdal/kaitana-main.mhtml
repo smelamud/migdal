@@ -26,7 +26,8 @@
     &lt;&lt;площадок&gt;&gt;), которые два раза в год проводит центр
     <a href='migdal.php'>&lt;&lt;Мигдаль&gt;&gt;</a>.
    </p>
-   <iterate_topiclist grp='*GRP_KAITANA_GALLERY' up=$`kaitana`>
+   <iterate_topiclist grp='*GRP_KAITANA_GALLERY' up=$`kaitana`
+                      sort='*SORT_RINDEX0'>
    <table class='posting'>
     <for>
      <tr valign=top>
