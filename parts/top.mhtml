@@ -1,0 +1,7 @@
+<< @(#) $Id$ >>
+
+<element name='Top'>
+<menu ident='$ident'><br>
+<login flags='$flags' err='$$err'><br>
+<backtrace redir='$$redir'><br>
+</element>

@@ -1,0 +1,14 @@
+<< @(#) $Id$ >>
+
+<element name='Menu'>
+<iterate_menu ident='$ident'>
+<for>
+ <a href='$.Link()'>
+  <if what='$.isCurrent'>
+   <b>[$.Name]</b>
+  <else>
+   [$.Name]
+  </if>
+ </a>
+</for>
+</element>

@@ -25,6 +25,10 @@
  <require name='lib/topics.php'>
  <iterate name='%name' class='TopicNamesIterator' arg1='%grp'>
 </macro>
+<macro name='iterate_menu'>
+ <require name='lib/menu.php'>
+ <iterate name='%name' class='MenuIterator' arg1='%ident'>
+</macro>
 << Calls >>
 <macro name='topic_name' defaults='name=topic id="$topic_id"'>
  <require name='lib/topics.php'>
@@ -72,13 +76,15 @@
 </macro>
 << Elements >>
 <decel name='reload' file='lib/utils.php' params='why,var,value'>
-<decel name='top' file='parts/top.php' params='ident'>
+<decel name='top' file='parts/top.php' params='ident,flags'
+       defaults="flags=''">
 <decel name='messages' file='parts/messages.php'
        params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
 <decel name='login' file='parts/login.php' params='flags,err'>
 <decel name='error' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
+<decel name='menu' file='parts/menu.php' params='ident'>
 << HTML shortcuts >>
 <macro name='tdspan' defaults='span=0'>
  <ifzero what='%span'><td><else><td colspan=%span></ifzero>

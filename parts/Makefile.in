@@ -5,7 +5,7 @@
 %.php: %.mhtml ../miparser ../macros.mhtml
 	../miparser -M ../macros.mhtml $< > $@
 
-all: backtrace.php login.php utils.php ;
+all: backtrace.php login.php menu.php top.php utils.php ;
 
 Makefile: Makefile.in
 	cp Makefile.in Makefile
