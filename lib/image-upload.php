@@ -221,7 +221,8 @@ return new Image(array('filename'  => $image_name,
 		       'format'    => $image_type));
 }
 
-function uploadImage($name,$hasThumbnail,$thumbnailX,$thumbnailY,&$err)
+function uploadImage($name,$hasThumbnail,$thumbnailX,$thumbnailY,&$err,
+                     $image_set=0)
 {
 global $HTTP_POST_FILES,$maxImage,$useMogrify,$tmpDir;
 
@@ -262,6 +263,41 @@ unlink($image_tmpname);
 
 if(!$img)
   return $img;
+$img->setImageSet($image_set);
+if(!$img->store())
+  {
+  $err=EIU_IMAGE_SQL;
+  return false;
+  }
+$err=EIU_OK;
+return $img;
+}
+
+function uploadMemoryImage($content,$image_name,$image_type,$hasThumbnail,
+                           $thumbnailX,$thumbnailY,&$err,$image_set=0)
+{
+global $HTTP_POST_FILES,$useMogrify,$tmpDir;
+
+$image_tmpname=tempnam($tmpDir,'mig-');
+$image_size=strlen($content);
+$fd=fopen($image_tmpname,'w');
+fwrite($fd,$content,$image_size);
+fclose($fd);
+if(!$hasThumbnail)
+  $img=uploadImageByDefault($image_tmpname,$image_name,$image_size,$image_type,
+                            $hasThumbnail,$thumbnailX,$thumbnailY,$err);
+else
+  if($useMogrify)
+    $img=uploadImageUsingMogrify($image_tmpname,$image_name,$image_size,
+				 $image_type,$thumbnailX,$thumbnailY,$err);
+  else
+    $img=uploadImageUsingGD($image_tmpname,$image_name,$image_size,$image_type,
+			    $thumbnailX,$thumbnailY,$err);
+unlink($image_tmpname);
+
+if(!$img)
+  return $img;
+$img->setImageSet($image_set);
 if(!$img->store())
   {
   $err=EIU_IMAGE_SQL;

@@ -119,6 +119,7 @@ CREATE TABLE images (
   small mediumblob NOT NULL,
   small_x smallint(6) NOT NULL default '0',
   small_y smallint(6) NOT NULL default '0',
+  has_large tinyint(4) NOT NULL default '0',
   large mediumblob NOT NULL,
   large_x smallint(6) NOT NULL default '0',
   large_y smallint(6) NOT NULL default '0',
@@ -181,6 +182,7 @@ CREATE TABLE messages (
   large_filename varchar(70) NOT NULL default '',
   large_format tinyint(4) NOT NULL default '0',
   large_body mediumtext NOT NULL,
+  large_imageset int(11) NOT NULL default '0',
   subject varchar(250) NOT NULL default '',
   sender_id int(11) NOT NULL default '0',
   image_set int(11) NOT NULL default '0',
@@ -189,7 +191,8 @@ CREATE TABLE messages (
   sent datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id),
   KEY sender_id (sender_id),
-  KEY image_set (image_set)
+  KEY image_set (image_set),
+  KEY large_imageset (large_imageset)
 ) TYPE=MyISAM;
 
 #

@@ -107,4 +107,10 @@ define('EMID_OK',230);
 define('EMID_NO_EDIT',231);
 define('EMID_NO_ITEM',232);
 define('EMID_SQL',233);
+
+define('ELIM_OK',240);
+define('ELIM_NO_EDIT',241);
+define('ELIM_DELETE_SQL',242);
+define('ELIM_IMAGE_ABSENT',243);
+define('ELIM_SET_SQL',244);
 ?>

@@ -34,13 +34,13 @@ foreach($this->getCorrespondentVars() as $var)
 
 function getCorrespondentVars()
 {
-return array('has_large');
+return array('has_large','small_x','small_y');
 }
 
 function getWorldVars()
 {
-return array('filename','small','small_x','small_y','has_large','large',
-             'large_x','large_y','format');
+return array('image_set','filename','small','small_x','small_y','has_large',
+             'large','large_x','large_y','format');
 }
 
 function store()
@@ -54,11 +54,14 @@ else
   {
   $result=mysql_query(makeInsert('images',$normal));
   $this->id=mysql_insert_id();
-  $this->image_set=$this->id;
-  $result=mysql_query('update images
-                       set image_set='.$this->id.
-		     ' where id='.$this->id)
-               or die('Ошибка SQL при установке набора для изображения');
+  if($this->image_set==0)
+    {
+    $this->image_set=$this->id;
+    $result=mysql_query('update images
+			 set image_set='.$this->id.
+		       ' where id='.$this->id)
+		 or die('Ошибка SQL при установке набора для изображения');
+    }
   }
 return $result;
 }
@@ -73,14 +76,44 @@ function getImageSet()
 return $this->image_set;
 }
 
+function setImageSet($image_set)
+{
+$this->image_set=$image_set;
+}
+
 function getFilename()
 {
 return $this->filename;
 }
 
+function getSmallX()
+{
+return $this->small_x;
+}
+
+function getSmallY()
+{
+return $this->small_y;
+}
+
+function getContent()
+{
+return $this->has_large ? $this->large : $this->small;
+}
+
+function isEmpty()
+{
+return ($this->has_large ? $this->large : $this->small)=='';
+}
+
 function hasLarge()
 {
 return $this->has_large;
+}
+
+function getFormat()
+{
+return $this->format;
 }
 
 }
@@ -102,6 +135,17 @@ $this->SelectIterator('Image',
 function getImageById($id)
 {
 $result=mysql_query("select id,image_set,filename,small_x,small_y,has_large
+                     from images
+		     where id=$id")
+	     or die('Ошибка SQL при выборке изображения');
+return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                           : array());
+}
+
+function getImageContentById($id)
+{
+$result=mysql_query("select id,filename,if(has_large,'',small) as small,
+                            has_large,large,format
                      from images
 		     where id=$id")
 	     or die('Ошибка SQL при выборке изображения');
