@@ -8,5 +8,8 @@
 <posting_last topic_id='$`mazltov-news`' recursive='*true'>
 <topics_line time='$,' text='Мазл Тов'
 	     href#='migdal-news.php?topic_id=$`mazltov-news`'>
+<posting_last topic_id='$`beitenu-news`' recursive='*true'>
+<topics_line time='$,' text='Бейтену'
+	     href#='migdal-news.php?topic_id=$`beitenu-news`'>
 </topics_table>
 </element>
