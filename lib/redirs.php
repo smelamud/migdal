@@ -68,7 +68,7 @@ settype($globalid,'integer');
 
 if($redirid!=0 && !redirExists($redirid))
   {
-  logEvent('trap',"outdated or incorrect redirid [$HTTP_REFERER]");
+  logEvent('trap','outdated or incorrect redirid');
   reload(remakeURI($REQUEST_URI,array('redirid')));
   }
 if($globalid==0)

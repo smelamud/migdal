@@ -1,38 +1,13 @@
 << @(#) $Id$ >>
+<< Based-on: migdal/macros.mhtml 1.87 (Все, кроме элементов)
 
 << Errors >>
 <macro name='error'>
- <require name='lib/errors.php'>
+ <errors>
  <perror id='%id' text='%text' color='%color' span='%span'>
 </macro>
 
 << Elements >>
-<decel name='actual_interview' file='parts/actual-interview.php'>
-<decel name='advert' file='parts/advert.php'>
-<decel name='articles_topic' file='parts/articles-topic.php' params='id,title'>
-<decel name='banner' file='parts/banner.php'>
-<decel name='bldot' file='parts/bldot.php'>
-<decel name='bottom' file='parts/bottom.php'>
-<decel name='editors' file='parts/editors.php'>
-<decel name='first_face' file='parts/first-face.php'>
-<decel name='igrot' file='parts/igrot.php'>
-<decel name='links' file='parts/links.php'>
-<decel name='menu' file='parts/menu.php' params='ident'>
-<decel name='news' file='parts/news.php'>
-<decel name='qanda' file='parts/qanda.php'>
-<decel name='perror' file='parts/utils.php' params='id,text,color,span'
-       defaults='color="red" span=0'>
-<decel name='search' file='parts/search.php'>
-<decel name='spreading' file='parts/spreading.php'>
-<decel name='subscribe' file='parts/subscribe.php'>
-<decel name='subtopics' file='parts/subtopics.php' params='id'>
-<decel name='talking' file='parts/talking.php'>
-<decel name='top' file='parts/top.php' params='ident'>
-<decel name='topicofday' file='parts/topicofday.php'>
-<decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>
-<decel name='updates' file='parts/updates.php'>
-<decel name='updates_chapter' file='parts/updates-chapter.php' params='id'>
-<decel name='uploader' file='parts/uploader.php'
-       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename'>
-<decel name='upload_format' file='parts/uploader.php'
-       params='name,format' defaults="name='large_format'">
+
+<< HTML shortcuts >>
+

@@ -1,12 +1,9 @@
 # Makefile for moshiach.ru website
 
 # @(#) $Id$
+# Based-on: migdal/Makefile.in 1.28
 
-# Based-on: migdal/Makefile.in 1.15
-
-OBJECTS = article.php index.php limedit.php liminsert.php login.php \
-	menuedit.php postingedit.php study.php topic.php topicedit.php \
-	useredit.php
+OBJECTS =
 
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
