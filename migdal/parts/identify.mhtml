@@ -123,7 +123,21 @@
   <assign name='tel' value='topics_jcc'>
   <assign name='uhref' value='migdal.php'>
   <assign name='utitle' value='Мигдаль'>
-  <if what='$/$posting.TopicId,2/==$`kaitana`'>
+  <if what='$/$posting.TopicId,2/==$`choir`'>
+   <assign name='href' value#='migdal.php?artid=$`postings:choir`'>
+   <assign name='title' value='Хоровые коллективы'>
+   <assign name='name' value='Мигдаль :: Хоровые коллективы'>
+   <assign name='tel' value='topics_choir'>
+   <assign name='uhref' value='jcc.php'>
+   <assign name='utitle' value='Общинный центр (JCC)'>
+  <elif what='$/$posting.TopicId,2/==$`dances`'>
+   <assign name='href' value#='migdal.php?artid=$`postings:dances`'>
+   <assign name='title' value='Танцевальные коллективы'>
+   <assign name='name' value='Мигдаль :: Танцевальные коллективы'>
+   <assign name='tel' value='topics_dances'>
+   <assign name='uhref' value='jcc.php'>
+   <assign name='utitle' value='Общинный центр (JCC)'>
+  <elif what='$/$posting.TopicId,2/==$`kaitana`'>
    <topic_obj id='$`kaitana`'>
    <assign name='href' value#='kaitana.php?topic_id=$posting.TopicId'>
    <assign name='ghref' value#='gallery.php?topic_id=$posting.TopicId'>

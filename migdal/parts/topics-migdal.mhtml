@@ -1,5 +1,25 @@
 << @(#) $Id$ >>
 
+<element name='topics_choir'>
+<topics_table title='Хоровые коллективы'>
+ <posting_obj id='$`postings:choir`' fields='*SELECT_GENERAL'>
+ <topics_line time='$,Sent' text='О коллективах'
+              href#='migdal.php?artid=$`postings:choir`'
+              arrow!='$posting.Id==$`postings:choir`' class='item ninept'>
+</topics_table>
+<history topic_id='$`choir`' current='$posting.Id' today=$`postings:choir`>
+</element>
+
+<element name='topics_dances'>
+<topics_table title='Танцевальные коллективы'>
+ <posting_obj id='$`postings:dances`' fields='*SELECT_GENERAL'>
+ <topics_line time='$,Sent' text='О коллективах'
+              href#='migdal.php?artid=$`postings:dances`'
+              arrow!='$posting.Id==$`postings:dances`' class='item ninept'>
+</topics_table>
+<history topic_id='$`dances`' current='$posting.Id' today='$`postings:dances`'>
+</element>
+
 <element name='topics_kes'>
 <topics_table title='КЕС'>
  <posting_obj id='$`postings:kes`' fields='*SELECT_GENERAL'>
@@ -33,6 +53,14 @@
  <posting_obj id='$`postings:jcc`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='Об общинном центре' href='jcc.php'
               arrow!='$,Id==$posting.Id' class='item ninept'>
+ <posting_last topic_id='$`choir`' recursive='*true'>
+ <topics_line time='$,' text='Хоровые коллективы'
+              href#='migdal.php?artid=$`postings:choir`'
+              arrow!="$/$posting.TopicId,2/==$`choir`" class='item eightpt'>
+ <posting_last topic_id='$`dances`' recursive='*true'>
+ <topics_line time='$,' text='Танцевальные коллективы'
+              href#='migdal.php?artid=$`postings:dances`'
+              arrow!="$/$posting.TopicId,2/==$`dances`" class='item eightpt'>
  <for>
   <if what='$.Id!=$`postings:jcc`'>
    <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
@@ -153,6 +181,7 @@
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`museum`'
 	      class='item ninept'>
 </topics_table>
+<history topic_id='$`museum`' current='$posting.Id' today='$`postings:museum`'>
 </element>
 
 <element name='topics_migdal'>

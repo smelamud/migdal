@@ -138,4 +138,14 @@ return new StotextImage(mysql_num_rows($result)>0
                         : array('stotext_id' => $textid,
 			        'par'        => $par));
 }
+
+function getStotextImageByImageId($image_id)
+{
+$result=mysql_query("select stotext_id,par,image_id,placement
+                     from stotext_images
+                     where image_id=$image_id");
+return new StotextImage(mysql_num_rows($result)>0
+                        ? mysql_fetch_assoc($result)
+                        : array('image_id' => $image_id));
+}
 ?>

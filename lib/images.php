@@ -84,13 +84,7 @@ else
   if($this->image_set==0)
     {
     $this->image_set=$this->id;
-    $result=mysql_query('update images
-			 set image_set='.$this->id.
-		       ' where id='.$this->id)
-	      or sqlbug('Ошибка SQL при установке набора для изображения');
-    journal('update images
-	     set image_set='.journalVar('images',$this->id).
-	   ' where id='.journalVar('images',$this->id));
+    $result=setSelfImageSet($this->id);
     }
   }
 return $result;
@@ -345,5 +339,17 @@ $imageFrom="ImageCreateFrom$ext";
 $handle=$imageFrom($tmpFile);
 unlink($tmpFile);
 return $handle;
+}
+
+function setSelfImageSet($id)
+{
+$result=mysql_query("update images
+		     set image_set=$id
+		     where id=$id")
+	  or sqlbug('Ошибка SQL при установке набора для изображения');
+journal('update images
+	 set image_set='.journalVar('images',$id).
+       ' where id='.journalVar('images',$id));
+return $result;
 }
 ?>

@@ -265,4 +265,9 @@ define('EMO_NO_MESSAGE',482);
 define('EMS_OK',490);
 define('EMS_NO_HIDE',491);
 define('EMS_NO_MESSAGE',492);
+
+define('EPC_OK',500);
+define('EPC_NO_COPY',501);
+define('EPC_NO_POSTING',502);
+define('EPC_STORE_SQL',503);
 ?>

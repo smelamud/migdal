@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<modbits>
 <ident name='artid' table='postings'>
 
 <ifzero what='$artid'>
@@ -20,8 +21,13 @@
 
 <posting_obj id='$artid' grp='*GRP_REVIEWS' fields='*SELECT_ALLPOSTING'>
 <log event=review text#='post($,Id)'>
-<pagetitle title='$,Subject'>
-<topictitle title='$,Subject'>
+<ifzero what='$,Modbits & MOD_ARCHIVE'>
+ <pagetitle title#='$,Subject'>
+ <topictitle title#='$,Subject'>
+<else>
+ <pagetitle title#='$,Subject (архив от $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
+ <topictitle title#='$,Subject<br>(архив от $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
+</ifzero>
 
 <html>
 <stylesheet ident='article'>

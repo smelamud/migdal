@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<element name='history'>
+<iterate_postinglist grp='*GRP_REVIEWS' topic_id='$topic_id' limit=0
+		     sort='*SORT_SENT' fields='*SELECT_TOPICS'>
+<ifnzero what='$;Count'>
+ <topics_table title='Страницы истории'>
+  <for>
+   <if what='$.Id!=$today'>
+    <topics_line time='$.Sent' text#='$.Sent@Rj $.Sent@Rk $.Sent@RY'
+		 href#='migdal.php?artid=$.Id'
+		 arrow!='$.Id==$current' class='item ninept'>
+   </if>
+  </for>
+ </topics_table>
+</ifnzero>
+</element>

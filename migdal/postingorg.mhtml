@@ -105,6 +105,9 @@
    <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
       >Тень</a>
    &nbsp;
+   <a href='actions/postingcopy.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
+      >Скопировать</a>
+   &nbsp;
    <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
       >Осовременить</a>
    &nbsp;

@@ -138,7 +138,9 @@ else
     $normal['sender_id']=$senderId;
   if($normal['group_id']<=0)
     $normal['group_id']=$normal['sender_id'];
-  $normal['sent']=$sent;
+  if($this->sent=='')
+    $this->sent=$sent;
+  $normal['sent']=$this->sent;
   $result=mysql_query(makeInsert('messages',$normal));
   $this->$id=mysql_insert_id();
   journal(makeInsert('messages',
@@ -146,7 +148,6 @@ else
 	  'messages',$this->$id);
   $this->sender_id=$normal['sender_id'];
   $this->group_id=$normal['group_id'];
-  $this->sent=$sent;
   }
 journal("track messages ".journalVar('messages',$this->$id));
 return $result;
@@ -237,6 +238,11 @@ return $this->stotext;
 function getStotextId()
 {
 return $this->stotext->getId();
+}
+
+function setStotextId($id)
+{
+$this->stotext->setId($id);
 }
 
 function getBody()
@@ -342,6 +348,11 @@ return stotextToHTML($this->getLargeFormat(),$this->getLargeBody(),$this->getMes
 function getLargeImageSet()
 {
 return $this->stotext->getLargeImageset();
+}
+
+function setLargeImageSet($image_set)
+{
+$this->stotext->setLargeImageSet($image_set);
 }
 
 function getImageSet()

@@ -56,12 +56,13 @@ if(isset($vars["${body}id"]))
 
 function getCorrespondentVars()
 {
-return array('large_format','image_set');
+return array('large_format','image_set','large_imageset');
 }
 
 function getWorldVars()
 {
-return array('body','large_filename','large_format','large_body','image_set');
+return array('body','large_filename','large_format','large_body','image_set',
+             'large_imageset');
 }
 
 function getAdminVars()
@@ -103,6 +104,11 @@ function getId()
 return $this->id;
 }
 
+function setId($id)
+{
+$this->id=$id;
+}
+
 function getBody()
 {
 return $this->body;
@@ -126,6 +132,11 @@ return $this->large_body;
 function getLargeImageSet()
 {
 return $this->large_imageset;
+}
+
+function setLargeImageSet($image_set)
+{
+$this->large_imageset=$image_set;
 }
 
 function getImageSet()
