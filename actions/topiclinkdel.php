@@ -24,7 +24,7 @@ if(mysql_result($result,0,0)==0)
   return ETLD_OK;
 $result=mysql_query("delete from cross_topics
                      where topic_id=$topic_id and topic_grp=$topic_grp and
-		           peer_id=$peer_id peer_grp=$peer_grp or
+		           peer_id=$peer_id and peer_grp=$peer_grp or
 		           topic_id=$peer_id and topic_grp=$peer_grp and
 			   peer_id=$topic_id and peer_grp=$topic_grp");
 journal('delete from cross_topics
