@@ -244,7 +244,8 @@
 <decel name='batcher' file='parts/utils.php' params='value,var'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
-<decel name='forum' file='parts/forum.php' params='forum'>
+<decel name='forum' file='parts/forum.php' params='forum,complain'
+       defaults="complain='*true'">
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='login' file='parts/login.php' params='flags,err'>

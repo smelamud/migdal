@@ -571,6 +571,13 @@ my ($self)=@_;
 ::request($self->getArg('name'));
 }
 
+sub elInclude
+{
+my ($self)=@_;
+
+::body('<?php include(',::subVar($self->getArg('name')),'); ?>');
+}
+
 sub elArray
 {
 my ($self)=@_;

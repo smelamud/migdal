@@ -5,9 +5,9 @@
 %.php: %.mhtml miparser macros.mhtml
 	./miparser $< > $@
 
-all: complainedit.php complainforum.php complains.php forum.php index.php \
-     messageedit.php messages.php topics.php topicedit.php useredit.php \
-     userok.php users.php
+all: complainedit.php complainforum.php complains.php forum.php \
+     index.php messageedit.php messages.php topics.php topicedit.php \
+     useredit.php userok.php users.php
 	(cd parts; $(MAKE) all)
 
 Makefile: Makefile.in

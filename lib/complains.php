@@ -3,13 +3,16 @@
 
 require_once('lib/grps.php');
 require_once('lib/messages.php');
+require_once('lib/complaintypes.php');
 
 class Complain
       extends Message
 {
 var $message_id;
 var $type_id;
+var $link;
 var $closed;
+var $display;
 
 function Complain($row)
 {
@@ -17,18 +20,9 @@ $this->grp=GRP_COMPLAIN;
 $this->Message($row);
 }
 
-function setup($vars)
-{
-if(!isset($vars['edittag']))
-  return;
-parent::setup($vars);
-if(isset($vars['ident']))
-  $this->type_id=getComplainTypeIdByIdent($vars['ident']);
-}
-
 function getCorrespondentVars()
 {
-return array('body','subject','type_id');
+return array('body','subject','type_id','link');
 }
 
 function getWorldMessageVars()
@@ -43,7 +37,7 @@ return array();
 
 function getWorldComplainVars()
 {
-return array('message_id','type_id');
+return array('message_id','type_id','link');
 }
 
 function getAdminComplainVars()
@@ -104,7 +98,7 @@ function isEditable()
 {
 global $userId;
 
-return $this->sender_id==0 || $this->sender_id==$userId;
+return !$this->isClosed() && ($this->sender_id==0 || $this->sender_id==$userId);
 }
 
 function isModerable()
@@ -132,15 +126,36 @@ function getTypeId()
 return $this->type_id;
 }
 
+function setIdent($ident)
+{
+$type=getComplainTypeByIdent(addslashes($ident!='' ? $ident : 'normal'));
+$this->type_id=$type->getId();
+}
+
+function getLink()
+{
+return $this->link;
+}
+
+function setLink($link)
+{
+$this->link=$link;
+}
+
 function isClosed()
 {
-return $this->closed{0}!='0';
+return $this->closed!='';
 }
 
 function getClosedView()
 {
 $t=strtotime($this->closed);
 return $this->isClosed() ? date('j/m/Y в H:i:s',$t) : 'Нет';
+}
+
+function getDisplay()
+{
+return $this->display;
 }
 
 }
@@ -165,7 +180,7 @@ $this->LimitSelectIterator(
 	     left join messages as answers
 	          on messages.id=answers.up
 	group by messages.id
-        order by sent desc',$limit,$offset,
+        order by closed is null desc,sent desc',$limit,$offset,
        'select count(*)
         from complains');
 }
@@ -175,47 +190,45 @@ $this->LimitSelectIterator(
 function getComplainById($id,$ident='normal')
 {
 $result=mysql_query("select complains.id as id,body,subject,
-                            message_id,type_id
+                            message_id,type_id,link,display
 		     from complains
 		          left join messages
 			       on messages.id=complains.message_id
+			  left join complain_types
+			       on complains.type_id=complain_types.id
 		     where complains.id=$id")
 	     or die('Ошибка SQL при выборке полной жалобы');
-return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                    : array('type_id' => getComplainTypeIdByIdent($ident)));
+if(mysql_num_rows($result)>0)
+  return new Complain(mysql_fetch_assoc($result));
+else
+  {
+  $type=getComplainTypeByIdent($ident);
+  return new Complain(array('type_id' => $type->getId(),
+                            'display' => $type->getDisplay()));
+  }
 }
 
 function getFullComplainById($id,$ident='normal')
 {
 $result=mysql_query("select complains.id as id,body,subject,sender_id,
-                            sent,closed,message_id,type_id,
+                            sent,closed,message_id,type_id,link,display,
                             login,gender,email,hide_email,rebe
 		     from complains
 		          left join messages
 			       on messages.id=complains.message_id
 			  left join users
 			       on messages.sender_id=users.id
+			  left join complain_types
+			       on complains.type_id=complain_types.id
 		     where complains.id=$id")
 	     or die('Ошибка SQL при выборке жалобы');
-return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                    : array('type_id' => getComplainTypeIdByIdent($ident)));
-}
-
-function getComplainTypeIdByIdent($ident)
-{
-$result=mysql_query("select id
-                     from complain_types
-		     where ident='$ident'")
-	     or die('Ошибка SQL при выборке типа жалобы');
-return mysql_result($result,0,0);
-}
-
-function complainTypeExists($id)
-{
-$result=mysql_query("select id
-                     from complain_types
-		     where id=$id")
-	     or die('Ошибка SQL при выборке типа жалобы');
-return mysql_num_rows($result)>0;
+if(mysql_num_rows($result)>0)
+  return new Complain(mysql_fetch_assoc($result));
+else
+  {
+  $type=getComplainTypeByIdent($ident);
+  return new Complain(array('type_id' => $type->getId(),
+                            'display' => $type->getDisplay()));
+  }
 }
 ?>

@@ -27,6 +27,10 @@
      >[Запретить показ]</a>
    </if>
   </moderator>
+ <else>
+  <if what='$complain'>
+   <a href="complainedit.php?ident=forum&link=$forum.Id&redir=$_">[Жалоба]</a>
+  </if>
  </isedit>
  </td>
  <td width=75% align=left valign=top>

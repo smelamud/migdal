@@ -1,20 +1,32 @@
 << @(#) $Id$ >>
 
 <int name='editid'>
+<int name='link'>
 <html>
 <head>
  <title>Клуб Еврейского Студента - Жалоба</title>
 </head>
 <body bgcolor=white>
  <top ident='complains'>
- <complain_obj id='$editid'>
+ <complain_obj id='$editid' ident='$ident'>
+ <ifzero what='$,Id'>
+  <setup var='Ident' value='$ident'>
+  <setup var='Link' value='$link'>
+ </ifzero>
  <setup>
+ <if what="$,Display!=''">
+  <include name='$,Display'>
+  <decel name='complain_subject' params='link'>
+  <complain_subject link='$,Link'>
+  <p>
+ </if>
  <form method=post enctype='multipart/form-data'
        action='actions/complainmod.php'>
  <input type=hidden name='edittag' value=1>
  <input type=hidden name='redir' value='$redir'>
  <input type=hidden name='editid' value='$editid'>
  <input type=hidden name='type_id' value='$,TypeId'>
+ <input type=hidden name='link' value='$,Link'>
  <table>
  <error id='*EC_NO_SEND'
         text='Посылать жалобы могут только зарегистрированные пользователи'>

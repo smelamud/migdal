@@ -10,15 +10,19 @@
 
 <element name='Complain'>
 <table width=100%>
-<tr><td>&nbsp;</td></tr>
-<tr>
- <td align=right>$complain.SentView</td>
-</tr>
-<tr>
- <td><b><rebe>$complain.Subject</rebe></b></td>
- <td align=right><rebe><senderlink message='$complain'></rebe></td>
-</tr>
-<tr><td colspan=2>
+<tr><td>
+ <table width=100%>
+  <tr>
+   <td>$complain.SentView</td>
+   <td align=right><b>Закрыто: </b>$complain.ClosedView</td>
+  </tr>
+  <tr>
+   <td><b><rebe>$complain.Subject</rebe></b></td>
+   <td align=right><rebe><senderlink message='$complain'></rebe></td>
+  </tr>
+ </table>
+</td></tr>
+<tr><td>
  <rebe>$complain.HTMLBody</rebe>
 </td></tr>
 <tr>
