@@ -6,7 +6,7 @@
  <reload href='$[topic_id=-1]'>
 </ifzero>
 <ifnzero what='$grp'>
- <log event=trap text='grp!=0 in index.php'>
+ <trap text='grp!=0 in index.php'>
  <reload href='$[grp]'>
 </ifnzero>
 <zone>

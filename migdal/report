@@ -327,8 +327,10 @@ sub runTraps
 my ($log)=@_;
 
 return if $$log[0] ne 'trap';
-$counters{$$log[3]}=new Counter() unless defined $counters{$$log[3]};
-$counters{$$log[3]}->inc($$log[2],$$log[1]);
+my $type=$$log[3];
+$type=~s/\s+\[[^\]]*\]$//;
+$counters{$type}=new Counter() unless defined $counters{$type};
+$counters{$type}->inc($$log[2],$$log[1]);
 }
 
 sub runVisits

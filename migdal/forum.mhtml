@@ -8,7 +8,6 @@
 <log event=forum text#='post($,Id)'>
 <pagetitle title#='Обсуждение &lt;&lt;$,SubjectDesc&gt;&gt;'>
 
-<ifne what='$,TapeStylesheet'><stylesheet ident='$,TapeStylesheet'></ifne>
 <html>
 <preamble>
 <body>

@@ -232,3 +232,8 @@
  <if what="$$userDomain=='community'">
 </macro>
 <endif name='/community'>
+
+<< Logging >>
+<macro name='trap'>
+ <log event=trap text#='%text [$$HTTP_REFERER]'>
+</macro>

@@ -3,11 +3,11 @@
 <string name='topic_id'>
 <int name='offset'>
 <if what='$topic_id==8'>
- <log event=trap text='Taglit gallery'>
+ <trap text='Taglit gallery'>
  <reload href='taglit.php'>
 </if>
 <ifnzero what='$grp'>
- <log event=trap text='grp!=0 in gallery.php'>
+ <trap text='grp!=0 in gallery.php'>
  <reload href='$[grp]'>
 </ifnzero>
 <grps>
