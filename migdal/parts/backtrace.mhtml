@@ -32,8 +32,11 @@
  <assign name='name' value='$,Subject'>
 <elif what="$basename=='event.php'">
  <topic_obj id='$topic_id'>
- <trace url='migdal-news.php'>
+ <trace url='events.php'>
  <assign name='name' value='$,Name'>
+<elif what="$basename=='events.php'">
+ <trace url='migdal.php'>
+ <assign name='name' value='События'>
 <elif what="$basename=='forumcatalog.php'">
  <assign name='name' value='Форум'>
 <elif what="$basename=='forum.php'">

@@ -39,8 +39,8 @@
  <assign name='name' value#='События :: $,Name'>
  <assign name='root' value='$,Id'>
  <assign name='tel' value='topics_events'>
- <assign name='uhref' value='migdal-news.php'>
- <assign name='utitle' value='Новости &lt;&lt;Мигдаля&gt;&gt;'>
+ <assign name='uhref' value='migdal.php'>
+ <assign name='utitle' value='Мигдаль'>
 <else>
  <assign name='href' value='migdal.php'>
  <assign name='ghref' value#='gallery.php?topic_id=$`migdal`'>

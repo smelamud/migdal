@@ -359,7 +359,7 @@ return permFilter('topics',$right,'user_id',$prefix);
 }
 
 class TopicIterator
-      extends SelectIterator
+      extends LimitSelectIterator
 {
 
 function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
@@ -376,9 +376,9 @@ return " where $hide $userFilter $grpFilter $answerFilter $levelFilter
                $index4Filter ";
 }
 
-function TopicIterator($query)
+function TopicIterator($query,$limit=0,$offset=0)
 {
-$this->SelectIterator('Topic',$query);
+$this->LimitSelectIterator('Topic',$query,$limit,$offset);
 }
 
 }
@@ -393,7 +393,7 @@ function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
                            $subdomain=-1 /* deprecated */,
 			   $withSeparate=true /* deprecated */,
 			   $sort=SORT_NAME,$recursive=false,$level=1,
-			   $fields=SELECT_GENERAL,$index4=-1)
+			   $fields=SELECT_GENERAL,$index4=-1,$limit=0,$offset=0)
 {
 $this->fields=$fields;
 $this->grp=$grp;
@@ -454,7 +454,7 @@ $this->TopicIterator(
        $Where
        $GroupBy
        $Having
-       $Order");
+       $Order",$limit,$offset);
 }
 
 function create($row)

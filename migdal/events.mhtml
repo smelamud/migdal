@@ -13,7 +13,7 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
-    <posting_new topic_id='$topic_id' grp='*GRP_NEWS'>
+    <posting_new topic_id='$`events`' grp='*GRP_NEWS'>
     <topics posting='$,'>
     <ears>
    </td>
@@ -22,16 +22,41 @@
     <iterate_topiclist grp='*GRP_EVENT' up='$`events`' recursive='*true'
                        level=2 sort='*SORT_RINDEX4_RINDEX0'
 		       fields='*SELECT_INFO' limit=5>
-    <center><table style='margin: 0'>
-     <tr><td class='textears-title'>Последние события:</td></tr>
-     <tr><td><ul class='ninept'>
+    <table width=100% style='margin: 0'><tr valign='center'>
+     <td width=200 align='center' class='pic'>
+      <assign name='picid' value=0>
+      <assign name='topicid' value=0>
       <for>
-       <li>
-        <a href='event.php?topic_id=$.Id' title='$.Description'>$.Comment0</a>
-       </li>
+       <if what='$picid<=0'>
+        <posting_random grp!='*GRP_KAITANA_GALLERY|*GRP_GALLERY'
+	                topic_id='$.Id'>
+	<assign name='picid' value='$,'>
+	<assign name='topicid' value='$.Id'>
+       </if>
       </for>
-     </ul></td></tr>
-    </table></center>
+      <posting_obj id='$picid' grp='*GRP_GALLERY' fields='*SELECT_IMAGES'>
+      <ifnzero what='$,ImageId'>
+       <a href='event.php?topic_id=$topicid'><asp>
+	<image_tag_put id='$,ImageId'>
+       <asp></a><br>
+       <topic_name id='$topicid'>
+       $,Name
+      <else>
+       &nbsp;
+      </ifnzero>
+     </td>
+     <td align='left'><table style='margin: 0'>
+      <tr><td class='textears-title'>Последние события:</td></tr>
+      <tr><td><ul class='ninept'>
+       <reset_iterator>
+       <for>
+	<li>
+	 <a href='event.php?topic_id=$.Id' title='$.Description'>$.Comment0</a>
+	</li>
+       </for>
+      </ul></td></tr>
+     </table></td>
+    </tr></table>
     <table width=100% cellspacing=0 cellpadding=0 class='eightpt'>
      <tr>
       <td rowspan=2 width=15% height=5>&nbsp;</td>
