@@ -91,7 +91,7 @@ if($this->id)
   $result=mysql_query(makeUpdate('postings',$normal,array('id' => $this->id)));
   journal(makeUpdate('postings',
                      jencodeVars($normal,$this->getJencodedPostingVars()),
-		     array('id' => $this->id)));
+		     array('id' => journalVar('postings',$this->id))));
   }
 else
   {

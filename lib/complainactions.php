@@ -75,7 +75,7 @@ else
 				 array('id' => $this->id)));
   journal(makeUpdate('complain_actions',
 		     jencodeVars($normal,$this->getJencodedVars()),
-		     array('id' => $this->id)));
+		     array('id' => journalVar('complain_actions',$this->id))));
   }
 return $result;
 }

@@ -85,7 +85,7 @@ if($this->id)
 				 array('id' => $this->id)));
   journal(makeUpdate('stotexts',
                      jencodeVars($normal,$this->getJencodedVars()),
-		     array('id' => $this->id)));
+		     array('id' => journalVar('stotexts',$this->id))));
   }
 else
   {

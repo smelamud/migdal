@@ -50,7 +50,7 @@ if($this->id)
   $result=mysql_query(makeUpdate('instants',$normal,array('id' => $this->id)));
   journal(makeUpdate('instants',
                      jencodeVars($normal,$this->getJencodedInstantVars()),
-		     array('id' => $this->id)));
+		     array('id' => journalVar('instants',$this->id))));
   }
 else
   {

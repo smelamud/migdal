@@ -113,7 +113,7 @@ if($this->id)
   $result=mysql_query(makeUpdate('users',$normal,array('id' => $this->id)));
   journal(makeUpdate('users',
                      jencodeVars($normal,$this->getJencodedVars()),
-		     array('id' => $this->id)));
+		     array('id' => journalVar('users',$this->id))));
   }
 else
   {

@@ -55,7 +55,7 @@ if($this->id)
   $result=mysql_query(makeUpdate('forums',$normal,array('id' => $this->id)));
   journal(makeUpdate('forums',
                      jencodeVars($normal,$this->getJencodedForumVars()),
-		     array('id' => $this->id)));
+		     array('id' => journalVar('forums',$this->id))));
   }
 else
   {

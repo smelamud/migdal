@@ -105,7 +105,7 @@ if($this->id)
 				 array('id' => $this->id)));
   journal(makeUpdate('complains',
                      jencodeVars($complain,$this->getJencodedComplainVars()),
-		     array('id' => $this->id)));
+		     array('id' => journalVar('complains',$this->id))));
   }
 else
   {

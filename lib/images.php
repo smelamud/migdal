@@ -69,7 +69,7 @@ if($this->id)
   $result=mysql_query(makeUpdate('images',$normal,array('id' => $this->id)));
   journal(makeUpdate('images',
                      jencodeVars($normal,$this->getJencodedVars()),
-		     array('id' => $this->id)));
+		     array('id' => journalVar('images',$this->id))));
   }
 else
   {
