@@ -23,7 +23,7 @@ for($x=0;$x<$gx;$x++)
       $r=$colors['red'];
       $g=$colors['green'];
       $b=$colors['blue'];
-      if($r==255 && $g==255 && $b==255)
+      if($r==255 && $g==0 && $b==0)
         continue;
       $color=imageColorAllocate($handle,$r,$g,$b);
       imageSetPixel($handle,$hx-$gx+$x,$hy-$gy+$y,$color);
