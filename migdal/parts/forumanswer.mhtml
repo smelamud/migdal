@@ -2,8 +2,8 @@
 
 <element name='forum_answer'>
 <table width=100% class='forum' cellspacing=1 cellpadding=0>
- <tr>
-  <td class='header' rowspan=2 width=150>
+ <tr valign=top>
+  <td class='header' rowspan=2 width=150 align=left>
    <table cellpadding=0>
     <tr>
      <td><senderlink message='$answer'></td>
@@ -18,11 +18,11 @@
    </p>
    <p>>
   </td>
-  <td class='body ninept'>
+  <td class='body ninept' align=left>
    $answer.HTMLBody
   </td>
  </tr>
- <tr>
+ <tr valign=bottom>
   <td class='controls' height=22>&nbsp;
    <a href="forumansweredit.php?parent_id=$answer.ParentId&peerid=$answer.Id&redirid=$_"
       title='Ответить с цитированием'>Ответить</a>
