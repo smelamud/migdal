@@ -39,10 +39,13 @@
        params='grp,topic,rows,cols,offset,title'
        defaults="topic=-1 rows=4 cols=5 offset=0 title=''">
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
-<decel name='hotlog' file='parts/hotlog.php'>
+<decel name='hotlog_count' file='parts/hotlog.php'>
+<decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='jewishru' file='parts/jewishru.php'>
 <decel name='login' file='parts/login.php' params='flags,err,target,re'
        defaults="target='' re=''">
+<decel name='mailru_count' file='parts/mailru.php'>
+<decel name='mailru_logo' file='parts/mailru.php'>
 <decel name='menu' file='parts/menu.php' params='ident,target'
        defaults="target=''">
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'

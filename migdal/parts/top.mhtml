@@ -3,7 +3,8 @@
 
 <element name='Top'>
 <rambler_count>
-<hotlog>
+<hotlog_count>
+<mailru_count>
 <menu ident='$ident' target='$target'>
 <table class='state'><tr>
  <td class='topimage'>

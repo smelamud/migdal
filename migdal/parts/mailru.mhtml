@@ -1,0 +1,59 @@
+<< @(#) $Id$ >>
+
+<element name='mailru_count'>
+ <!--Rating@Mail.ru COUNTER-->
+  <script language="JavaScript">
+   <!--
+   d=document;
+   a='';
+   a+=';r='+escape(d.referrer)
+   js=10
+   //-->
+  </script>
+  <script language="JavaScript1.1">
+   <!--
+   a+=';j='+navigator.javaEnabled()
+   js=11
+   //-->
+  </script>
+  <script language="JavaScript1.2">
+   <!--
+   s=screen;
+   a+=';s='+s.width+'*'+s.height
+   a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth)
+   js=12
+   //-->
+  </script>
+  <script language="JavaScript1.3">
+   <!--
+   js=13
+   //-->
+  </script>
+  <script language="JavaScript">
+   <!--
+   d.write('<img src="http://top.list.ru/counter'+'?id=284568;js='+js+a+
+           ';rand='+Math.random()+'" height=1 width=1>')
+   if(js>11)
+     d.write('<'+'!-- ')
+   //-->
+  </script>
+  <noscript>
+   <img src="http://top.list.ru/counter?js=na;id=284568" height=1 width=1
+        alt="">
+  </noscript>
+  <script language="JavaScript">
+   <!--
+   if(js>11)
+     d.write('--'+'>')
+   //-->
+  </script>
+ <!--/COUNTER-->
+</element>
+
+<element name='mailru_logo'>
+ <!--Rating@Mail.ru LOGO-->
+  <a target=_top href="http://top.mail.ru/jump?from=284568">
+   <img src="http://top.list.ru/counter?id=284568;t=56;l=1" border=0 height=31
+        width=88 alt="Рейтинг@Mail.ru"></a>
+ <!--/LOGO-->
+</element>

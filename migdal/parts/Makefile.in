@@ -5,8 +5,9 @@
 OBJECTS = backtrace.php bottom.php complain.php cs_forum.php cs_normal.php \
 	  cs_posting.php formutils.php forumanswer.php forumcatalog.php \
 	  forums.php gallery.php grpselect.php hotlog.php jewishru.php \
-	  login.php menu.php picture.php posting.php postings.php rambler.php \
-	  today.php top.php topics.php topicselect.php uploader.php utils.php
+	  login.php mailru.php menu.php picture.php posting.php postings.php \
+	  rambler.php today.php top.php topics.php topicselect.php \
+	  uploader.php utils.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@
