@@ -18,7 +18,7 @@ function modifyTopic($topic,$original)
 {
 global $userLogin,$topicMandatoryDescription;
 
-if(!$original->isWritable())
+if($original->getId()!=0 && !$original->isWritable())
   return ET_NO_EDIT;
 if($topic->name=='')
   return ET_NAME_ABSENT;
