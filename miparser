@@ -1474,7 +1474,7 @@ sub version
 {
 print <<EOF;
 miparser (migdal $VERSION)
-Copyright (C) 2001-02 by Dmitry E. Melamud.
+Copyright (C) 2001-03 by Dmitry E. Melamud.
 
 This program is free software; you can redistribute it
 and/or modify it under the terms of the GNU General Public

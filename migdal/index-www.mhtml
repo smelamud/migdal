@@ -72,10 +72,10 @@
                 showshadows!='$topic_id>0'>
      </td>
      <td width=130 class='nframe'>
+      <tzdaka>
       <tip>
       <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'
 			showshadows!='$topic_id>0'>
-      <tzdaka>
       <if what='$topic_id<=0'>
        <discussions limit=7>
       </if>

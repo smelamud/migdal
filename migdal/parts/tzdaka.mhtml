@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
 <element name='tzdaka'>
- <p align=center><a href='/migdal.php?artid=$`postings:tzdaka`'>
-  <image src='pics/tzdaka.gif' alt='Копилка для цдаки' border=0></a></p>
+<a href='/migdal.php?artid=$`postings:tzdaka`'>
+ <image src='pics/tzedaka.jpg' alt='Наши реквизиты для цдаки' border=0></a>
 </element>
