@@ -4,4 +4,7 @@ include 'colors.mcss'
 include 'fonts.mcss'
 include 'palette.mcss'
 
+body_back_pic=
+
+include 'sheet-general.mcss'
 include 'sheet-chat.mcss'

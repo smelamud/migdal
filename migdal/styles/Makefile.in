@@ -11,7 +11,8 @@ STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-form.mcss sheet-userinfo.mcss
 ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-article.mcss
 COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
-CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-chat.mcss
+CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
+	sheet-chat.mcss
 TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
 TIMESNFO_PARTS = colors.mcss fonts.mcss palette.mcss sheet-timesnfo.mcss
 VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-votes.mcss

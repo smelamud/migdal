@@ -4,7 +4,7 @@
 
 <html>
 <stylesheet ident='chat'>
-<preamble>
+<preamble_tiny>
 <body class='chatbottom'>
  <form method=post action='actions/chatpost.php' style='margin: 0; padding: 0'
        target=board name='post'>

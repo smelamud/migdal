@@ -195,6 +195,10 @@ while(!$Input->eof())
 	       print "\$style_$1=$q".$Vars{$1}."$q;\n";
 	       }
 	 }
+       else
+         {
+	 delete $Vars{$1};
+	 }
        }
      else
        {

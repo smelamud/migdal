@@ -18,7 +18,7 @@
 <html>
 <refresh period='$$userChatUsersRefresh' url='$-'>
 <stylesheet ident='chat'>
-<preamble>
+<preamble_tiny>
 <body class='chatusersframe'>
  <script src='/window.js' language='JavaScript'></script>
  <update_last_chat>

@@ -246,9 +246,13 @@
 </macro>
 
 <macro name='preamble'>
+ <stylesheet ident='style'>
+ <preamble_tiny>
+</macro>
+
+<macro name='preamble_tiny'>
  <assign_global name='communityDomain' value!="$$userDomain=='www'">
  <assign_global name='officialDomain' value!="$$userDomain=='info'">
- <stylesheet ident='style'>
  <head>
   <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
  </head>
