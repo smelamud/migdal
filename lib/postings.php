@@ -240,9 +240,9 @@ var $topicFilter;
 
 function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
-			     $withAnswers=GRP_NONE,$user=0,$index1=-1,
-			     $later=0 /* deprecated */,$subdomain=-1,$up=-1,
-			     $showShadows=true,$fields=SELECT_ALLPOSTING)
+			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
+			     $subdomain=-1,$up=-1,$showShadows=true,
+			     $fields=SELECT_ALLPOSTING)
 {
 global $userId,$userModerator;
 
@@ -326,6 +326,7 @@ $grpFilter=grpFilter($grp);
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
 $index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
+$sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
 $subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
 $childFilter=$up>=0 ? "and messages.up=$up" : '';
 $shadowFilter=!$showShadows ? 'and shadow=0' : '';
@@ -333,7 +334,8 @@ $shadowFilter=!$showShadows ? 'and shadow=0' : '';
 $Where="(messages.hidden<$hide or messages.sender_id=$userId) and
 	(messages.disabled<$hide or messages.sender_id=$userId) and
 	personal_id=$personal and $grpFilter @topic@
-	$userFilter $index1Filter $subdomainFilter $childFilter $shadowFilter";
+	$userFilter $index1Filter $sentFilter $subdomainFilter $childFilter
+	$shadowFilter";
 /* Group by */
 $GroupBy=($fields & SELECT_ANSWERS)!=0 ? 'group by postings.id' : '';
 /* Having */
