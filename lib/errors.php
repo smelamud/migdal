@@ -12,6 +12,10 @@ define('EUM_GENDER',107);
 define('EUM_BIRTHDAY',108);
 define('EUM_NO_EDIT',109);
 define('EUM_PRECONFIRM_SQL',1010);
+define('EUM_NAME_ABSENT',1011);
+define('EUM_SURNAME_ABSENT',1012);
+define('EUM_EMAIL_ABSENT',1013);
+define('EUM_NOT_EMAIL',1014);
 
 define('EL_INVALID',110);
 define('EL_OK',111);

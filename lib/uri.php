@@ -35,6 +35,21 @@ $end=$location=='#' ? $end : $location;
 return "$start?".remakeQuery($query,$remove,$subs).($end!='' ? "#$end" : '');
 }
 
+function remakeMakeQuery($query,$vars,$remove=array(),$subs=array())
+{
+$all=array_merge($vars,parseQuery($query));
+return makeQuery($all,$remove,$subs);
+}
+
+function remakeMakeURI($uri,$vars,$remove=array(),$subs=array(),$location='#')
+{
+list($start,$end)=explode('?',$uri);
+list($query,$end)=explode('#',$end);
+$end=$location=='#' ? $end : $location;
+return "$start?".remakeMakeQuery($query,$vars,$remove,$subs)
+                .($end!='' ? "#$end" : '');
+}
+
 class HTTPVar
 {
 var $name;

@@ -7,6 +7,9 @@
   <logged>
    <a href='complainedit.php?ident=normal&redir=$_'
       class='add'>Добавить жалобу</a>
+  <else>
+   Хотите посылать жалобы?
+   <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
   </logged>
  </td></tr></table></td>
  <td align=right><table><tr valign=center>

@@ -57,6 +57,7 @@
      <hidden name='postid' value='$postid'>
      <hidden name='editid' value='$editid'>
      <table>
+      <starinfo span=2>
       <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'
 	     span=2>
       <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'
@@ -80,7 +81,7 @@
 	     text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
       <uploader name='image' loadedname='loaded' loadedvalue='1'
 		title='Изображение' loaded='(уже загружено)' notloaded='Другое'
-		filename='$,Filename'>
+		filename='$,Filename' mandatory='*true'>
       <checkbox_line name='has_large' value='$,hasLarge'
 		     title='Вставлять в уменьшенном виде' span=2>
       <td>Размер</td>

@@ -82,6 +82,13 @@
  </zone>
 </macro>
 
+<macro name='grpitemstitle' defaults="grp='$grp'">
+ <zone>
+  <array vals='сообщения,обсуждения,новости,картинки,статьи'>
+  <grpword name='grpitemstitle' grp='%grp'>
+ </zone>
+</macro>
+
 <macro name='grpident' defaults="grp='$grp'">
  <zone>
   <array vals='messages,forums,news,gallery,articles'>

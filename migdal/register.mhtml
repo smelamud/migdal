@@ -1,0 +1,102 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/useredit.mhtml 1.9 >>
+
+<html>
+<head>
+ <title>Мигдаль - Регистрация пользователя</title>
+</head>
+<body>
+ <top ident='users' flags='no_new' image='pics/users.gif'>
+ <user_obj name='user' id=0>
+ <setup>
+ <formtable title='Введите информацию о себе'>
+  <form method=post action='actions/usermod.php'>
+   <hidden name='edittag' value=1>
+   <hidden name='redir' value='$redir'>
+   <hidden name='caller' value='$-'>
+   <hidden name='editid' value=0>
+   <table>
+    <starinfo span=2>
+    <error id='*EUM_NO_EDIT' span=2
+	   text='У вас нет права менять информацию для этого пользователя'>
+    <error id='*EUM_STORE_SQL' text='Ошибка SQL при обновлении записи'
+	   color='magenta' span=2>
+    <error id='*EUM_PRECONFIRM_SQL' color='magenta' span=2
+	   text='Ошибка SQL при подготовке кода подтверждения'>
+    <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен' span=2>
+    <error id='*EUM_LOGIN_EXISTS' span=2
+	   text='Пользователь с таким ником уже существует'>
+    <edit_line title='Ник' value='$,Login' name='login' size=20 maxlength=30
+               mandatory='*true'>
+    <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'
+	   span=2>
+    <error id='*EUM_PASSWORD_DIFF' span=2
+	   text='Опечатка при вводе пароля - введите еще раз'>
+    <tr>
+     <td>Пароль <star></td>
+     <td><input type=password name='password' size=20></td>
+    </tr>
+    <tr>
+     <td>Пароль (еще раз) <star></td>
+     <td><input type=password name='dup_password' size=20></td>
+    </tr>
+    <error id='*EUM_NAME_ABSENT' text='Имя не введено' span=2>
+    <edit_line title='Имя' value='$,Name' name='name' size=30 maxlength=30
+               mandatory='*true'>
+    <edit_line title='Еврейское имя' value='$,JewishName' name='jewish_name'
+	       size=30 maxlength=30>
+    <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена' span=2>
+    <edit_line title='Фамилия' value='$,Surname' name='surname' size=30
+	       maxlength=30 mandatory='*true'>
+    <error id='*EUM_GENDER' text='Неизвестный пол' span=2>
+    <tr>
+     <td>Пол</td>
+     <td>
+      <if what='$,isMan'>
+       <input type='radio' name='gender' value='mine' checked>Мужской</input>
+       &nbsp;
+       <input type='radio' name='gender' value='femine'>Женский</input>
+      <else>
+       <input type='radio' name='gender' value='mine'>Мужской</input>
+       &nbsp;
+       <input type='radio' name='gender' value='femine' checked>Женский</input>
+      </if>
+     </td>
+    </tr>
+    <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения' span=2>
+    <tr>
+     <td>Дата рождения</td>
+     <td>
+      <edit name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
+      <select name='birth_month'>
+       <array vals='глюкабря,января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря'>
+       <iterate_array>
+       <for>
+	<if what='!$;isFirst'>
+	 <call func='$user->isMonthOfBirth' arg1='$;Position'>
+	 <radio value='$;Position' peervalue='$,' title='$.'>
+	</if>
+       </for>
+      </select>
+      19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
+     </td>
+    </tr>
+    <checkbox_line name='migdal_student' value='$,isMigdalStudent'
+		   title='Занимаюсь в "Мигдале"' span=2>
+    <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен' span=2>
+    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>
+    <edit_line title='E-mail' value='$,Email' name='email' size=30
+               maxlength=70 mandatory='*true'>
+    <checkbox_line name='hide_email' value='$,isHideEmail'
+		   title='Не показывать E-mail на сайте' span=2>
+    <checkbox_line name='email_enabled' value='$,isEmailEnabled'
+		   title='Разрешаю посылать почту на мой адрес' span=2>
+    <edit_line title='ICQ' status='$,ICQStatusImage' value='$,ICQ' name='icq'
+	       size=15 maxlength=15>
+    <formbuttons title='Зарегистрировать' span=2>
+   </table>
+  </form>
+ </formtable>
+ <bottom>
+</body>
+</html>

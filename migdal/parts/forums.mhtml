@@ -11,6 +11,9 @@
     <logged>
      <a href='forumansweredit.php?up=$up&redir=$_'
         class='add'>Добавить сообщение</a>
+    <else>
+     Хотите участвовать в обсуждении?
+     <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
     </logged>
    </td>
    <td align=right><table><tr valign=center>

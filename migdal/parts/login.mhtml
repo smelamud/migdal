@@ -21,7 +21,7 @@
  </tr>
  <if what="$flags!='no_new'">
   <tr><td colspan=5 align=right>
-   <a href='/useredit.php?redir=$_'>Зарегистрироваться</a>
+   <a href='/register.php?redir=$_'>Зарегистрироваться</a>
   </td></tr>
  </if>
 <else>

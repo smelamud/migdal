@@ -3,7 +3,7 @@
 <element name='perror'>
 <if what='$$err==$id'>
  <tr><tdspan span=$span>
-  <a name='error'>
+  <a name='error'></a>
   <font color='$color'>$text</font>
  </tdspan></tr>
 </if>

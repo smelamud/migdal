@@ -24,6 +24,7 @@
   <hidden name='editid' value='$editid'>
   <hidden name='up' value='$answer.UpValue'>
   <table>
+   <starinfo>
    <error id='*EFA_NO_SEND'
 	  text='Посылать сообщения могут только зарегистрированные пользователи'>
    <error id='*EFA_NO_EDIT' text='У вас нет права редактировать это сообщение'>

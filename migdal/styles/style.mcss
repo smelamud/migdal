@@ -42,6 +42,7 @@ return_normal=%g
 :contrast return_word=true
 :test return_word=false
 batcher_normal=blue
+batcher_link=blue
 batcher_input_border=blue
 batcher_input_text=blue
 posting_border=%nd
@@ -285,6 +286,12 @@ BODY {
 
 .batcher {
 	font-size: 8pt;
+}
+
+.batcher A {
+	color: %batcher_link;
+	font-size: 8pt;
+	text-decoration: underline;
 }
 
 .batcher A.add {

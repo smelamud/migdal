@@ -50,6 +50,7 @@
   <form method=post action='actions/usermod.php'>
   <hidden name='edittag' value=1>
   <hidden name='redir' value='$redir'>
+  <hidden name='caller' value='$-'>
   <hidden name='editid' value='$editid'>
  </isedit>
  <table>
@@ -76,9 +77,11 @@
     <td><input type=password name='dup_password' size=20></td>
    </tr>
   </isedit>
+  <error id='*EUM_NAME_ABSENT' text='Имя не введено' span=2>
   <may_edit title='Имя' value='$,Name' name='name' size=30 maxlength=30>
   <may_edit title='Еврейское имя' value='$,JewishName' name='jewish_name'
             size=30 maxlength=30>
+  <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена' span=2>
   <may_edit title='Фамилия' value='$,Surname' name='surname' size=30
             maxlength=30>
   <error id='*EUM_GENDER' text='Неизвестный пол' span=2>
@@ -113,11 +116,7 @@
       <for>
        <if what='!$;isFirst'>
         <call func='$user->isMonthOfBirth' arg1='$;Position'>
-        <if what='$,'>
- 	 <option selected value=$;Position>$.</option>
-        <else>
-	 <option value=$;Position>$.</option>
-        </if>
+	<radio value='$;Position' peervalue='$,' title='$.'>
        </if>
       </for>
      </select>
@@ -139,6 +138,8 @@
     <tr><td colspan=2>$,Info</td></tr>
    </if>
   </isedit>
+  <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен' span=2>
+  <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>
   <may_edit title='E-mail' showvalue='$,EmailLink' value='$,Email'
             name='email' size=30 maxlength=70>
   <isedit name='user'>

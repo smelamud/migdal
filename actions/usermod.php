@@ -29,11 +29,20 @@ $result=mysql_query('select id from users where login="'.
  	     or die('Ошибка SQL при выборке пользователя');
 if(mysql_num_rows($result)>0)
   return EUM_LOGIN_EXISTS;
+if($user->name=='')
+  return EUM_NAME_ABSENT;
+if($user->surname=='')
+  return EUM_SURNAME_ABSENT;
 if($user->getGender()!='mine' && $user->getGender()!='femine')
   return EUM_GENDER;
 if(!checkdate($user->getMonthOfBirth(),$user->getDayOfBirth(),
               '19'.$user->getYearOfBirth()))
   return EUM_BIRTHDAY;
+if($user->email=='')
+  return EUM_EMAIL_ABSENT;
+if(!preg_match('/^[A-Za-z-]+(\.[A-Za-z-]+)*@[A-Za-z-]+(\.[A-Za-z-]+)*$/',
+               $user->email))
+  return EUM_NOT_EMAIL;
 if(!$user->store())
   return EUM_STORE_SQL;
 if($editid==0)
@@ -61,10 +70,11 @@ else
   else
     {
     $infoId=tmpTextSave($info);
-    header('Location: /useredit.php?'.
-	    makeQuery($HTTP_POST_VARS,
-		      array('password','dup_password','info'),
-		      array('infoid' => $infoId,'err' => $err)).'#error');
+    header('Location: '.
+	    remakeMakeURI($caller,
+	                  $HTTP_POST_VARS,
+		          array('password','dup_password','info'),
+		          array('infoid' => $infoId,'err' => $err)).'#error');
     }
 dbClose();
 ?>
