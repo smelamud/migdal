@@ -117,11 +117,11 @@
 </macro>
 
 <macro name='iterate_postinglist'
-       defaults="grp='$grp' topic=-1 limit=10 offset=0 personal=0 sort='*SORT_SENT'">
+       defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT'">
  <require name='lib/postings.php'>
  <iterate name='%name' class='PostingListIterator'
-          arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset'
-	  arg5='%personal' arg6='%sort'>
+          arg1='%grp' arg2='%topic' arg3='%recursive' arg4='%limit'
+	  arg5='%offset' arg6='%personal' arg7='%sort'>
 </macro>
 
 <macro name='iterate_sortarray' defaults="values='$*'">

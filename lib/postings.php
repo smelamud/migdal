@@ -10,6 +10,7 @@ require_once('lib/topics.php');
 require_once('lib/text.php');
 require_once('lib/paragraphs.php');
 require_once('lib/sort.php');
+require_once('lib/track.php');
 
 class Posting
       extends Message
@@ -193,14 +194,19 @@ class PostingListIterator
       extends LimitSelectIterator
 {
 
-function PostingListIterator($grp,$topic=-1,$limit=10,$offset=0,$personal=0,
-                             $sort=SORT_SENT)
+function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
+                             $offset=0,$personal=0,$sort=SORT_SENT)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topicFilter=$topic<0 ? '' 
-                      : ' and topic_id='.idByIdent('topics',$topic).' ';
+$topicFilter=$topic<0
+            ? '' 
+            : !$recursive ? ' and topic_id='.
+	                    byIdent($topic,'topic_id','topics.ident').' '
+	                  : $topic>0 ? " and topics.track like '%".
+		 	               track(idByIdent('topics',$topic))."%' "
+				     : '';
 $order=getOrderBy($sort,array(SORT_SENT => 'sent desc',
                               SORT_NAME => 'subject'));
 $this->LimitSelectIterator(
@@ -236,6 +242,8 @@ $this->LimitSelectIterator(
 	from postings
 	     left join messages
 	          on postings.message_id=messages.id
+	     left join topics
+		  on postings.topic_id=topics.id
 	where (messages.hidden<$hide or sender_id=$userId) and
 	      (messages.disabled<$hide or sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter");
