@@ -15,17 +15,51 @@ for($i=0;$i<$len;$i+=2)
 return $c;
 }
 
+function delicateSpecialChars($s)
+{
+return strtr($s,array('<' => '&lt;',
+                      '"' => '&quot;'));
+}
+
+function delicateAmps($s,$xmlEntities=true)
+{
+if($xmlEntities)
+  $entities='lt|amp|quot';
+else
+  $entities='[A-Za-z]+';
+$c='';
+for($i=0;$i<strlen($s);$i++)
+   switch($s{$i})
+         {
+	 case '&':
+	      if(preg_match("/^&(?:#[0-9]{1,5}|#x[0-9A-Fa-f]{1,4}|$entities);/",
+	                    substr($s,$i)))
+	        $c.='&';
+	      else
+	        $c.='&amp;';
+	      break;
+	 default:
+	      $c.=$s{$i};
+	 }
+return $c;
+}
+
 function makeTag($name,$attrs=array(),$empty=false)
 {
 $s='<'.strtolower($name);
 foreach($attrs as $key => $value)
        {
        $key=strtolower($key);
-       $value=htmlspecialchars(utf8DecodeMarkup($value));
+       $value=delicateSpecialChars(utf8DecodeMarkup($value));
        $s.=" $key=\"$value\"";
        }
 $s.=$empty ? ' />' : '>';
 return $s;
+}
+
+function makeText($text)
+{
+return delicateSpecialChars(utf8DecodeMarkup($text));
 }
 
 class XMLParser

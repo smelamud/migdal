@@ -43,6 +43,7 @@ if(!c_digit($this->large_format) || $this->large_format>TF_MAX)
   $this->large_format=TF_PLAIN;
 
 if($vars["large_$body"]!='')
+  // FIXME no such function
   $this->large_body=textToStotext($this->large_format,$vars["large_$body"]);
 if(isset($vars["large_${body}id"]))
   {
@@ -186,6 +187,7 @@ if(!move_uploaded_file($large_file,$large_file_tmpname))
 $fd=fopen($large_file_tmpname,'r');
 $stotext->large_filename=$large_file_name;
 $text=fread($fd,$maxLargeText);
+// FIXME no such function
 $stotext->large_body=textToStotext($stotext->large_format,
                                    isKOI($text) ? $text : convertInput($text));
 fclose($fd);

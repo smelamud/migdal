@@ -153,7 +153,6 @@
 <text_formats>
 
 <element name='article'>
-<if what='$posting.LargeFormat==*TF_PRE'><pre></if>
 <assign name='note_base'
         value!="$note_base_var!='' ? $GLOBALS[$note_base_var] : 1">
 <iterate_posting_paragraphs name='list' posting='$posting'
@@ -164,7 +163,6 @@
  $.HTMLBody
 </for>
 </p>
-<if what='$posting.LargeFormat==*TF_PRE'></pre></if>
 <if what='$withvote'>
  <vote_frame id='$posting.Id' color='$$style_cframe_back'
 	     image='$$style_cframe_back_pic'>

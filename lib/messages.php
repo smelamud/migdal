@@ -284,6 +284,7 @@ function getCleanBodyTiny()
 {
 global $tinySize,$tinySizeMinus,$tinySizePlus;
 
+// FIXME user shortenNote()
 return shorten(clearStotext(TF_MAIL,$this->getBody()),
                $tinySize,$tinySizeMinus,$tinySizePlus);
 }

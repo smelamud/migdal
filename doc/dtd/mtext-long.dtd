@@ -8,6 +8,8 @@
 <!ELEMENT mtext-long (p|quote|center|h2|h3|h4|table)*>
 
 <!ELEMENT p (#PCDATA|%para;)*>
+<!ATTLIST p
+          clear (none|left|right|both) "none">
 
 <!ELEMENT quote (p|quote|center|h2|h3|h4|br)*>
 

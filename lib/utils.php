@@ -45,31 +45,6 @@ return "update $table set ".makeKeyValue(',',$what).
                     ' where '.makeKeyValue(' and ',$where);
 }
 
-function uc($s)
-{
-setlocale('LC_CTYPE','ru_RU.KOI8-R');
-return strtoupper($s);
-}
-
-function unhtmlentities($s)
-{
-$table=array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES));
-$table['&#039;']="'";
-return strtr($s,$table);
-}
-
-function getPlural($n,$forms)
-{
-$a=$n%10;
-$b=((int)$n/10)%10;
-return $b==1 || $a>=5 || $a==0 ? $forms[2] : ($a==1 ? $forms[0] : $forms[1]);
-}
-
-function getQuote($s,$width)
-{
-return preg_replace('/^/m','> ',wordwrap($s,$width));
-}
-
 function displayImage($src='',$alt='',$title='',$border='')
 {
 static $sizes=array();

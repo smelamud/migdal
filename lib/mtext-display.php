@@ -6,10 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/xml.php');
 require_once('lib/mtext-shorten.php');
 require_once('lib/callbacks.php');
-
-define('MTEXT_LINE',1);
-define('MTEXT_SHORT',2);
-define('MTEXT_LONG',3);
+require_once('lib/text.php');
 
 $mtextRootTag=array(MTEXT_LINE  => 'mtext-line',
                     MTEXT_SHORT => 'mtext-short',
@@ -76,6 +73,7 @@ function parse($body)
 global $mtextRootTag;
 
 parent::parse($mtextRootTag[$this->format],$body);
+$this->htmlBody=delicateAmps($this->htmlBody,false);
 }
 
 function getBodyHTML()
@@ -134,11 +132,18 @@ switch($name)
 	     break;
 	     }
            $this->html.=makeTag('a',array('href' => 'mailto:'.$attrs['ADDR']));
-           $this->html.=$attrs['ADDR'];
+           $this->html.=makeText($attrs['ADDR']);
 	   $this->html.=makeTag('/a');
 	   break;
       case 'BR':
            $this->html.=makeTag($name,$attrs,true);
+	   break;
+      case 'P':
+           $clear=isset($attrs['CLEAR']) ? $attrs['CLEAR'] : 'none';
+	   if($clear=='none')
+	     $this->html.=makeTag($name);
+	   else
+	     $this->html.=makeTag($name,array('style' => "clear: $clear"));
 	   break;
       case 'LI':
            if(count($this->listStyles)==0)
@@ -152,7 +157,7 @@ switch($name)
 	     if($this->listStyles[0]!='d')
 	       {
 	       $this->html.=makeTag($this->listFonts[0]);
-	       $this->html.=$attrs['TITLE'];
+	       $this->html.=makeText($attrs['TITLE']);
 	       $this->html.=makeTag('/'.$this->listFonts[0]);
 	       $this->html.=' ';
 	       }
@@ -160,7 +165,7 @@ switch($name)
 	       {
 	       $this->html.=makeTag('dt');
 	       $this->html.=makeTag($this->listFonts[0]);
-	       $this->html.=$attrs['TITLE'];
+	       $this->html.=makeText($attrs['TITLE']);
 	       $this->html.=makeTag('/'.$this->listFonts[0]);
 	       $this->html.=makeTag('/dt');
 	       }
@@ -274,7 +279,7 @@ switch($name)
 	     $this->html.=makeTag('a',
 				  array('href'  => '#_note'.$this->noteNo,
 					'title' => $this->getInplaceFootnote()));
-	     $this->html.=$this->footnoteTitle;
+	     $this->html.=makeText($this->footnoteTitle);
 	     $this->html.=makeTag('/a');
 	     }
 	   $this->noteNo++;
@@ -288,7 +293,7 @@ if($this->inFootnote)
 
 function characterData($parser,$data)
 {
-$s=utf8DecodeMarkup($data);
+$s=makeText($data);
 $this->html.=$s;
 if($this->inFootnote)
   $this->xmlFootnote.=$s;

@@ -194,6 +194,7 @@ function getCleanTitlePea()
 {
 global $peaSize,$peaSizeMinus,$peaSizePlus;
 
+// FIXME user shortenNote()
 return shorten(clearStotext(TF_MAIL,$this->getTitle()),
                $peaSize,$peaSizeMinus,$peaSizePlus);
 }

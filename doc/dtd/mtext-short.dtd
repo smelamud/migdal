@@ -6,6 +6,8 @@
 <!ELEMENT mtext-short (p|quote|center|h2|h3|h4)*>
 
 <!ELEMENT p (#PCDATA|%line;|ul|ol|dl)*>
+<!ATTLIST p
+          clear (none|left|right|both) "none">
 
 <!ELEMENT quote (p|quote|center|h2|h3|h4|br)*>
 
