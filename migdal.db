@@ -251,7 +251,10 @@ CREATE TABLE topics (
   no_news tinyint(4) NOT NULL default '0',
   no_forums tinyint(4) NOT NULL default '0',
   no_gallery tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (id)
+  no_articles tinyint(4) NOT NULL default '0',
+  ident varchar(15) NOT NULL default '',
+  PRIMARY KEY  (id),
+  KEY ident (ident)
 ) TYPE=MyISAM;
 
 #
