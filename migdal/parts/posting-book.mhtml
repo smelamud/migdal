@@ -38,6 +38,16 @@
  </ifnzero>
  $posting.HTMLBody&nbsp;<asp>
  <further posting='$posting'>
+ <iterate_packages posting_id='$posting.Id'>
+ <for>
+  <br><image src='pics/package.gif' border=0>&sp;
+  <if what='$.Type==*PT_BOOK_ONEFILE'>
+   <assign name='title' value='Вся книга одним файлом в архиве'>
+  <else>
+   <assign name='title' value='Вся книга по главам в архиве'>
+  </if>
+  <a href='$.Href'>$title</a>&sp;<i>(ZIP, ${.SizeKB}KB)</i>
+ </for>
  </p>
  <table width=100% style="clear: left"><tr>
   <td align=left class='sent'>
