@@ -2,9 +2,49 @@
 
 <int name='offset'>
 
+<grps>
+<topic_obj name='methodics' id='$`methodics`'>
 <log event=review text#='topic($`methodics`)'>
 <pagetitle title='Методический кабинет'>
 <topictitle title='Методический кабинет'>
+
+<element name='batcher' params='list'>
+<table width=100% class='batcher'><tr valign=bottom>
+ <td align=left>
+  <if what='$$methodics.UserId==$$userId || $$userModerator'>
+   <a href='postingedit.php?topic_id=$`methodics`&root=$`methodics`&grp=*GRP_BOOKS&redirid=$_'
+      class='add'>Добавить книгу</a>
+  </if>
+ </td>
+ <td align=center><spin list='$list'></td>
+</tr></table>
+</element>
+
+<element name='catalog'>
+<iterate_postinglist grp='*GRP_BOOKS' topic='$`methodics`'
+                     limit='$$userMsgPortion' offset='$offset'
+                     sort='*SORT_PSENT' showshadows='$$userModerator'>
+<if what='$$userId>0 || $;Count!=0'>
+ <batcher list='$;'>
+ <table>
+  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+  <error id='*EMR_NO_RENEW' text='Вы не модератор'>
+  <error id='*EMR_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMR_SQL' text='Ошибка базы данных при обновлении записи'>
+ </table>
+ <for>
+  <assign name='post' value='$.'>
+  <posting posting='$post' showtopic='*false' shorten='*true'
+           showdiscuss='$$communityDomain' showcomplain='*false'>
+ </for>
+ <ifnzero what='$;Count'>
+  <batcher list='$;'>
+ </ifnzero>
+<else>
+ &nbsp;
+</if>
+</element>
 
 <html>
 <preamble>
@@ -19,9 +59,7 @@
   </td>
   <td class='cframe'>
    <subtitle>
-   <postings grp='*GRP_BOOKS' topic='$`methodics`' limit='$userMsgPortion'
-	     offset='$offset' subdomain!='$$officialDomain ? 1 : -1'
-	     showshadows='$$userModerator'>
+   <catalog offset='$offset'>
   </td>
  </tr></table>
  <bottom>
