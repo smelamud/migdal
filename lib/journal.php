@@ -80,7 +80,7 @@ function jencode($s)
 $c='';
 for($i=0;$i<strlen($s);$i++)
    if($s[$i]=='$' || $s[$i]=='%')
-     $c.=sprintf('%02X',ord($s[$i]));
+     $c.=sprintf('%s%02X','%',ord($s[$i]));
    else
      $c.=$s[$i];
 return $c;
