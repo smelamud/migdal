@@ -6,8 +6,8 @@
  <else>
   <form method=post action='%action'>
  </ifne>
- <hidden name='okdir' value="$[err]">
- <hidden name='faildir' value="$[err]">
+ <hidden name='okdir' value="$$[err]">
+ <hidden name='faildir' value="$$[err]">
 </macro>
 
 <macro name='/tform'>

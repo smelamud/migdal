@@ -41,14 +41,14 @@ $Stack='';
 
 sub constructRemake
 {
-my ($s)=@_;
+my ($s,$after)=@_;
 my $redir='';
 
 @del=();
 @subs=();
 %params=();
 request('lib/uri.php');
-if($AfterRedirect && !$BodyToHeader)
+if($after || $AfterRedirect && !$BodyToHeader)
   {
   getGlobal('redir');
   $redir='$redir->getURI()';
@@ -108,9 +108,11 @@ if($s=~/^(.*)@([ERJ]?\w)$/)
   return "${st}formatAnyDate('$2',".subVar($1).")$ed";
   }
 request('lib/utils.php') if $s=~/^\$\$?\^/;
-return $st.constructRemake($1).$ed
+return $st.constructRemake($1,0).$ed
        if $s=~/^\$\[([^\]]*)\]$/;
-return "${st}urlencode(".constructRemake($1).")$ed"
+return $st.constructRemake($1,1).$ed
+       if $s=~/^\$\$\[([^\]]*)\]$/;
+return "${st}urlencode(".constructRemake($1,0).")$ed"
        if $s=~/^\$#\[([^\]]*)\]$/;
 return "$st$1$ed"
        if $s=~/^\*{?(\w+)}?$/;
