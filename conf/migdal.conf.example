@@ -64,6 +64,9 @@ $useMogrify=true;
 # Путь к mogrify
 $mogrifyPath='mogrify';
 
+# Команда для отправки почты
+$sendmailCommand='/usr/sbin/sendmail -t'
+
 # Маленькое изображение, используемое в случае, когда невозможно изменить
 # размеры большого (путь задается относительно библиотеки, т.е. каталога lib/)
 $defaultThumbnail='../demo/pics/click_here.jpg';

@@ -71,7 +71,7 @@ open IN,$path;
 my @script=<IN>;
 close IN;
 
-open OUT,'|sendmail -t';
+open OUT,'|'.$Config{'sendmailCommand'};
 print OUT 'To: ',$mail->{'email'},"\n";
 print OUT opScript($dbh,\@script,$mail);
 close OUT;
