@@ -626,8 +626,8 @@ sub new
 {
 my ($class)=@_;
 
-::more() while($::Line !~ /^<(([^>'"]*)|('[^']*')|("[^"]*"))*>/s && !$::Eof);
-my ($token)=$::Line =~ /^(<(([^>'"]*)|('[^']*')|("[^"]*"))*>)/s;
+::more() while($::Line !~ /^<([^>'"]*|'[^']*'|"[^"]*")*>/s && !$::Eof);
+my ($token)=$::Line =~ /^(<([^>'"]*|'[^']*'|"[^"]*")*>)/s;
 my $self=Token::new($class,length($token));
 $token=substr $token,1,-1;
 ($self->{'name'},$token)=$token=~/^\s*(\/?\w+)(.*)$/s;
