@@ -906,14 +906,18 @@ BODY {
 	text-decoration: underline;
 }
 
-.article H1 {
+.article H1,.article P,.article B,.article I,.article U {
 	font-family: "Times New Roman", Helvetica, sans-serif;
+}
+
+.article H1 {
 	font-size: 18pt;
 	font-weight: bold;
 	margin: 20px;
 }
 
 .article P {
+	font-size: 12pt;
 	text-align: justify;
 }
 

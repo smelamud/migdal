@@ -32,7 +32,8 @@
      </td>
      <td>
       <if what="$.EmailLink!=''">
-       <span class='email'>$.EmailLink</span>&nbsp;/&nbsp;
+       <span class='email'>$.EmailLink</span>
+       <if what="$.ICQ!=''"><br></if>
       </if>
       $.ICQStatusImage&nbsp;$.ICQ
      </td>

@@ -67,6 +67,18 @@ function replaceQuoting($s)
 return preg_replace('/(&gt;.*)(\n|$)/','<i>\\1</i>'."\n",$s);
 }
 
+function replaceCenter($s)
+{
+return preg_replace('/(^|\n)\s{10}\s*(\S+)\s*(\n|$)/',
+                    '\\1<center>\\2</center>\\3',$s);
+}
+
+function replaceBSD($s)
+{
+return preg_replace('/(^|\n)\s*ву&quot;д\s*(\n|$)/',
+                    '\\1<div align=right><img src="pics/bsd.gif"></div>\\2',$s);
+}
+
 function textToStotext($format,$s)
 {
 return $format==TF_HTML ? $s : htmlspecialchars($s,ENT_QUOTES);
@@ -82,19 +94,25 @@ switch($format)
 	   $c=replaceQuoting($c);
       case TF_PLAIN:
 	   $c=replaceURLs($c);
+	   $c=replaceBSD($c);
+	   $c=replaceCenter($c);
 	   $c=replaceParagraphs($c);
 	   $c=str_replace("\n",'<br>',$c);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   $c=flipReplace('=','<i>','</i>',$c);
+	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_TEX:
 	   $c=replaceURLs($c);
+	   $c=replaceBSD($c);
+	   $c=replaceCenter($c);
 	   $c=replaceParagraphs($c);
 	   $c=str_replace('\\\\','<br>',$c);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   $c=flipReplace('=','<i>','</i>',$c);
+	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_HTML:
 	   $c=replaceParagraphs($c);
