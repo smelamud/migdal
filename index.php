@@ -4,7 +4,9 @@
 </head>
 <body>
  <center><h1>
- <?php echo 'Hello, Migdal\'s world!'?>
+ <?php
+  include('conf/migdal.conf');
+  echo $hello?>
  </h1></center>
 </body>
 </html>
