@@ -375,7 +375,8 @@ $hide=$userAdminUsers ? 2 : 1;
 $order=getOrderBy($sort,
                   array(SORT_LOGIN       => 'login_sort',
 		        SORT_NAME        => 'name_sort',
-			SORT_JEWISH_NAME => 'jewish_name_sort',
+			SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
+			                        jewish_name_sort,name_sort)',
 			SORT_SURNAME     => 'surname_sort'));
 $this->LimitSelectIterator(
        'User',
@@ -414,11 +415,12 @@ $hide=$userAdminUsers ? 2 : 1;
 $order=getOrderBy($sort,
                   array(SORT_LOGIN       => 'login_sort',
 		        SORT_NAME        => 'name_sort',
-			SORT_JEWISH_NAME => 'jewish_name_sort',
+			SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
+			                        jewish_name_sort,name_sort)',
 			SORT_SURNAME     => 'surname_sort'));
 $fields=array(SORT_LOGIN       => 'login',
 	      SORT_NAME        => 'name',
-	      SORT_JEWISH_NAME => 'jewish_name',
+	      SORT_JEWISH_NAME => 'if(jewish_name<>"",jewish_name,name)',
 	      SORT_SURNAME     => 'surname');
 $field=@$fields[$sort]!='' ? $fields[$sort] : 'login';
 $this->AlphabetIterator("select left($field,1) as letter,count(*) as count
