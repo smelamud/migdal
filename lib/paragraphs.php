@@ -4,6 +4,7 @@
 require_once('lib/iterator.php');
 require_once('lib/text.php');
 require_once('lib/stotext-images.php');
+require_once('lib/footnotes.php');
 
 class Paragraph
 {
@@ -82,6 +83,8 @@ class ParagraphIterator
 {
 var $format;
 var $pars;
+var $notes=array();
+var $noteOffset=1;
 
 function ParagraphIterator($format,$text)
 {
@@ -95,11 +98,21 @@ function next()
 {
 Iterator::next();
 if(list($key,$value)=each($this->pars))
-  return new Paragraph($this->getPosition(),$this->format,$value);
+  return new Paragraph($this->getPosition(),$this->format,
+                       extractFootnotes($value,$this->format,
+		                        count($this->notes)+$this->noteOffset,
+					$this->notes));
 else
   return false;
 }
 
+function exportFootnotes()
+{
+$notes=$this->notes;
+$this->noteOffset+=count($notes);
+$this->notes=array();
+return $notes;
 }
 
+}
 ?>

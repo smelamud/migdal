@@ -148,6 +148,11 @@ switch($format)
 return cropHTML($c);
 }
 
+function clearStotext($format,$s)
+{
+return preg_replace('/<[^>]+>/','',stotextToHTML($format,$s));
+}
+
 function strpos_all($haystack,$needle,&$found)
 {
 if(is_array($needle))
