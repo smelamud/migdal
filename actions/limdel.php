@@ -19,6 +19,9 @@ $result=mysql_query("delete
 	             where id=$editid");
 if(!$result)
   return ELID_DELETE_SQL;
+journal('delete
+         from images
+	 where id='.journalVar('images',$editid));
 return ELID_OK;
 }
 

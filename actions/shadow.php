@@ -31,6 +31,11 @@ $values['shadow']=1;
 $result=mysql_query(makeInsert('postings',$values));
 if(!$result)
   return ESP_COPY_SQL;
+journal(makeInsert('postings',
+                   jencodeVars($values,array('message_id' => 'messages',
+		                             'topic_id' => 'topics',
+                                             'personal_id' => 'users'))),
+        'postings',mysql_insert_id());
 return ESP_OK;
 }
 

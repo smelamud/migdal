@@ -26,6 +26,9 @@ if(!$image_set)
 $result=mysql_query("update images
                      set title='$title'
 		     where image_set=$image_set");
+journal("update images
+         set title='".jencode($title)."'
+	 where image_set=".journalVar('images',$image_set));
 return $result ? EP_OK : EP_TITLE_SQL;
 }
 
@@ -49,6 +52,9 @@ if(isPremoderated($message))
 			 where id='.$message->getMessageId());
     if(!$result)
       return false;
+    journal('update messages
+	     set disabled=1
+	     where id='.journalVar('messages',$message->getMessageId()));
     sendAutomaticComplain(COMPL_AUTO_POSTING,
 			  'Автоматическая проверка сообщения "'.
 			   $message->getSubjectDesc().'"',

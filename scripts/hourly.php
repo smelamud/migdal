@@ -37,6 +37,10 @@ deleteCond('votes',"user_id<>0 and sent+interval $userVoteTimeout hour<now()");
 
 function closeComplains()
 {
+global $replicationMaster;
+
+if(!$replicationMaster)
+  return;
 $result=mysql_query(
 	'select complains.id as id,complains.type_id as type_id,message_id,
 	        link,text,script_id,unix_timestamp(sent) as sent

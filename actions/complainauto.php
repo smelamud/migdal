@@ -23,6 +23,9 @@ $result=mysql_query("update complains
 		     where id=$id");
 if(!$result)
   return EC_SQL_AUTO;
+journal("update complains
+         set no_auto=$no_auto
+	 where id=".journalVar('complains',$id));
 return EC_OK;
 }
 

@@ -21,7 +21,11 @@ global $userId,$REMOTE_ADDR;
 
 $uid=$userId<=0 ? 0 : $userId;
 $ip=$userId<=0 ? IPToInteger($REMOTE_ADDR) : 0;
-return mysql_query("insert into votes(posting_id,ip,user_id,vote)
-                    values($id,$ip,$uid,$vote)");
+$result=mysql_query("insert into votes(posting_id,ip,user_id,vote)
+                     values($id,$ip,$uid,$vote)");
+journal("insert into votes(posting_id,ip,user_id,vote)
+         values(".journalVar('postings',$id).",$ip,
+	        ".journalVar('users',$uid).",$vote)");
+return $result;
 }
 ?>

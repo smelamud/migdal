@@ -15,6 +15,9 @@ mysql_query("update messages
              set sent=now(),hidden=0
 	     where id=$msgid")
      or die('Ошибка SQL при выкладке постинга');
+journal('update messages
+         set sent=now(),hidden=0
+	 where id='.journalVar('messages',$msgid));
 }
 
 dbOpen();

@@ -51,17 +51,32 @@ function getWorldVars()
 return array('type_id','name','text','automatic','script_id');
 }
 
+function getJencodedVars()
+{
+return array('name' => '','text' => '');
+}
+
 function store()
 {
 $normal=$this->getNormal();
-$result=mysql_query($this->id 
-                    ? makeUpdate('complain_actions',
-		                 $normal,
-				 array('id' => $this->id))
-                    : makeInsert('complain_actions',
-		                 $normal));
 if(!$this->id)
+  {
+  $result=mysql_query(makeInsert('complain_actions',
+				 $normal));
   $this->id=mysql_insert_id();
+  journal(makeInsert('complain_actions',
+		     jencodeVars($normal,$this->getJencodedVars())),
+		     'complain_actions',$this->id);
+  }
+else
+  {
+  $result=mysql_query(makeUpdate('complain_actions',
+				 $normal,
+				 array('id' => $this->id)));
+  journal(makeUpdate('complain_actions',
+		     jencodeVars($normal,$this->getJencodedVars()),
+		     array('id' => $this->id)));
+  }
 return $result;
 }
 

@@ -28,6 +28,9 @@ $result=mysql_query("update postings
 		     where id=$id");
 if(!$result)
   return EV_SQL_POSTINGS;
+journal("update postings
+         set vote=vote+$weight*$vote,vote_count=vote_count+$weight
+	 where id=".journalVar('postings',$id));
 return EV_OK;
 }
 

@@ -14,6 +14,9 @@ mysql_query('update messages
              set url_check=sent,url_check_success=sent
 	     where url_check=0 or url_check_success=0')
      or die('Ошибка SQL при инициализации времени проверки URL');
+journal('update messages
+         set url_check=sent,url_check_success=sent
+	 where url_check=0 or url_check_success=0');
 }
 
 function checkURLs()
@@ -38,6 +41,9 @@ while($row=mysql_fetch_assoc($result))
                   set url_check=now()'.($rc==0 ? ',url_check_success=now()' : '').
 		' where id='.$row['id'])
 	  or die('Ошибка SQL при сохранении результатов проверки URL');
+     journal('update messages
+              set url_check=now()'.($rc==0 ? ',url_check_success=now()' : '').
+	    ' where id='.journalVar('messages',$row['id']));
      }
 }
 

@@ -24,6 +24,9 @@ $result=mysql_query("update users
 		     where id=$id");
 if(!$result)
   return EPL_STORE_SQL;
+journal("update users
+         set password=md5('".jencode($password)."')
+	 where id=".journalVar('users',$id));
 $passwordId=tmpTextSave($password);
 sendMail(MAIL_REPAIR_PASSWORD,$id,$passwordId);
 sendMailAdmin(MAIL_REPAIRING_PASSWORD,'admin_users',$id);

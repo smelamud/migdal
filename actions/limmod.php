@@ -11,9 +11,13 @@ require_once('lib/errors.php');
 
 function deleteImage($id)
 {
-return mysql_query("delete
-                    from images
-	            where id=$id");
+$result=mysql_query("delete
+                     from images
+	             where id=$id");
+journal('delete
+         from images
+	 where id='.journalVar('images',$id));
+return $result;
 }
 
 function setLargeImageSet($posting,$image_set)
@@ -23,16 +27,25 @@ $result=mysql_query("select stotext_id
 		     where id=".$posting->getMessageId());
 if(!$result)
   return $result;
-return mysql_query("update stotexts
-                    set large_imageset=$image_set
-		    where id=".mysql_result($result,0,0));
+$id=mysql_result($result,0,0);
+$result=mysql_query("update stotexts
+                     set large_imageset=$image_set
+		     where id=$id");
+journal('update stotexts
+         set large_imageset='.journalVar('images',$image_set).'
+	 where id='.journalVar('stotexts',$id));
+return $result;
 }
 
 function setImageId($oldId,$newId)
 {
-return mysql_query("update images
-                    set id=$newId
-		    where id=$oldId");
+$result=mysql_query("update images
+                     set id=$newId
+		     where id=$oldId");
+journal('update images
+         set id='.journalVar('images',$newId).'
+	 where id='.journalVar('images',$oldId));
+return $result;
 }
 
 function storeImage($posting)

@@ -38,20 +38,31 @@ $result=mysql_query("delete from topics
                      where id=$id");
 if(!$result)
   return ETD_DELETE_SQL;
+journal('delete from topics
+         where id='.journalVar('topics',$id));
 $result=mysql_query("delete from cross_topics
                      where topic_id=$id or peer_id=$id");
 if(!$result)
   return ETD_CROSS_SQL;
+journal('delete from cross_topics
+         where topic_id='.journalVar('topics',$id).' or
+	       peer_id='.journalVar('topics',$id));
 $result=mysql_query("update topics
 		     set up=$destid
 		     where up=$id");
 if(!$result)
   return ETD_NEW_UP_SQL;
+journal('update topics
+         set up='.journalVar('topics',$destid).'
+	 where up='.journalVar('topics',$id));
 $result=mysql_query("update postings
 		     set topic_id=$destid
 		     where topic_id=$id");
 if(!$result)
   return ETD_NEW_TOPIC_SQL;
+journal('update postings
+         set topic_id='.journalVar('topics',$destid).'
+	 where topic_id='.journalVar('topics',$id));
 foreach($tops as $tid)
        if(!updateTracks('topics',$tid))
          return ETD_UPDATE_SQL;

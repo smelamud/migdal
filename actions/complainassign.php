@@ -25,6 +25,9 @@ $result=mysql_query("update complains
 		     where id=$id");
 if(!$result)
   return EC_SQL_ASSIGN;
+journal('update complains
+         set recipient_id='.journalVar('users',$peerId).'
+	 where id='.journalVar('complains',$id));
 return EC_OK;
 }
 

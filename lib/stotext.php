@@ -69,17 +69,31 @@ function getAdminVars()
 return array();
 }
 
+function getJencodedVars()
+{
+return array('body' => '','image_set' => 'images','large_filename' => '',
+             'large_body' => '','large_imageset' => 'images');
+}
+
 function store($admin)
 {
 $normal=$this->getNormal($admin);
 if($this->id)
+  {
   $result=mysql_query(makeUpdate('stotexts',
                                  $normal,
 				 array('id' => $this->id)));
+  journal(makeUpdate('stotexts',
+                     jencodeVars($normal,$this->getJencodedVars()),
+		     array('id' => $this->id)));
+  }
 else
   {
   $result=mysql_query(makeInsert('stotexts',$normal));
   $this->id=mysql_insert_id();
+  journal(makeInsert('stotexts',
+                     jencodeVars($normal,$this->getJencodedVars())),
+	  'stotexts',$this->id);
   }
 return $result;
 }

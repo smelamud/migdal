@@ -26,6 +26,11 @@ if(mysql_result($result,0,0)!=0)
 $result=mysql_query("insert into cross_topics(topic_id,peer_id)
                      values($topic_id,$peer_id),
 		           ($peer_id,$topic_id)");
+journal('insert into cross_topics(topic_id,peer_id)
+         values('.journalVar('topics',$topic_id).',
+	        '.journalVar('topics',$peer_id).'),
+	       ('.journalVar('topics',$peer_id).',
+	        '.journalVar('topics',$topic_id).')');
 return !$result ? ETLA_SQL_INSERT : ETLA_OK;
 }
 

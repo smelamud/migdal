@@ -53,17 +53,31 @@ return array('image_set','filename','small','small_x','small_y','has_large',
              'large','large_x','large_y','format','title');
 }
 
+function getJencodedVars()
+{
+return array('image_set' => 'images','filename' => '','small' => '',
+             'large' => '','title' => '');
+}
+
 function store()
 {
 global $userId;
 
 $normal=$this->getNormal();
 if($this->id)
+  {
   $result=mysql_query(makeUpdate('images',$normal,array('id' => $this->id)));
+  journal(makeUpdate('images',
+                     jencodeVars($normal,$this->getJencodedVars()),
+		     array('id' => $this->id)));
+  }
 else
   {
   $result=mysql_query(makeInsert('images',$normal));
   $this->id=mysql_insert_id();
+  journal(makeInsert('images',
+                     jencodeVars($normal,$this->getJencodedVars()),
+	  'images',$this->id));
   if($this->image_set==0)
     {
     $this->image_set=$this->id;
@@ -71,6 +85,9 @@ else
 			 set image_set='.$this->id.
 		       ' where id='.$this->id)
 	      or sqlbug('Ошибка SQL при установке набора для изображения');
+    journal('update images
+	     set image_set='.journalVar('images',$this->id).
+	   ' where id='.journalVar('images',$this->id));
     }
   }
 return $result;

@@ -26,6 +26,9 @@ foreach($art as $id)
 			    where id=$id");
        if(!$result)
          return EO_SQL;
+       journal("update postings
+                set index0=$index
+		where id=".journalVar('postings',$id));
        $index++;
        }
 return EO_OK;

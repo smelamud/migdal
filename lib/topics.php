@@ -76,6 +76,12 @@ return array('up','track','name','user_id','hidden','allow','premoderate',
              'ident','separate');
 }
 
+function getJencodedVars()
+{
+return array('up' => 'topics','name' => '','name_sort' => '',
+             'user_id' => 'users','stotext_id' => 'stotexts');
+}
+
 function getNormal($isAdmin=false)
 {
 $normal=UserTag::getNormal($isAdmin);
@@ -90,11 +96,21 @@ $result=$this->stotext->store();
 if(!$result)
   return $result;
 $normal=$this->getNormal();
-$result=mysql_query($this->id 
-                    ? makeUpdate('topics',$normal,array('id' => $this->id))
-                    : makeInsert('topics',$normal));
-if(!$this->id)
+if($this->id)
+  {
+  $result=mysql_query(makeUpdate('topics',$normal,array('id' => $this->id)));
+  journal(makeUpdate('topics',
+                     jencodeVars($normal,$this->getJencodedVars()),
+		     array('id' => $this->id)));
+  }
+else
+  {
+  $result=mysql_query(makeInsert('topics',$normal));
   $this->id=mysql_insert_id();
+  journal(makeInsert('topics',
+                     jencodeVars($normal,$this->getJencodedVars())),
+	  'topics',$this->id);
+  }
 return $result;
 }
 

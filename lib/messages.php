@@ -72,6 +72,12 @@ function getAdminVars()
 return array('disabled');
 }
 
+function getJencodedVars()
+{
+return array('up' => 'messages','subject' => '','author' => '','source' => '',
+             'stotext_id' => 'stotexts','sender_id' => 'users','url' => '');
+}
+
 function getNormal($isAdmin=false)
 {
 $normal=SenderTag::getNormal($isAdmin);
@@ -88,7 +94,12 @@ if(!$result)
   return $result;
 $normal=$this->getNormal($GLOBALS[$admin]);
 if($this->$id)
+  {
   $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->$id)));
+  journal(makeUpdate('messages',
+                     jencodeVars($normal,$this->getJencodedVars()),
+		     array('id' => $this->$id)));
+  }
 else
   {
   $sent=date('Y-m-d H:i:s',time());
@@ -97,6 +108,9 @@ else
   $normal['sent']=$sent;
   $result=mysql_query(makeInsert('messages',$normal));
   $this->$id=mysql_insert_id();
+  journal(makeInsert('messages',
+                     jencodeVars($normal,$this->getJencodedVars())),
+	  'messages',$this->id);
   $this->sender_id=$userId;
   $this->sent=$sent;
   }
@@ -403,5 +417,8 @@ mysql_query("update messages
              set disabled=$disabled
 	     where id=$id")
   or sqlbug('Ошибка SQL при модерировании сообщения');
+journal("update messages
+         set disabled=$disabled
+	 where id=".journalVar('messages',$id));
 }
 ?>

@@ -23,6 +23,9 @@ $result=mysql_query("update postings
                      set subdomain=$domain
 		     where id=$editid")
           or sqlbug('Ошибка SQL при изменении субдомена сообщения');
+journal("update postings
+         set subdomain=$domain
+	 where id=".journalVar('postings',$editid))
 return EDM_OK;
 }
 

@@ -20,6 +20,9 @@ $body=addslashes($body);
 mysql_query("insert into logs(event,ip,body)
              values('$event',$ip,'$body')")
   or sqlbug("Ошибка SQL при добавлении в лог");
+journal("insert into logs(event,ip,body)
+         values('$event',$ip,'".jencode($body)."')",
+	'logs',mysql_insert_id()); 
 }
 
 class LogLine

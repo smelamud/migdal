@@ -10,8 +10,11 @@ require_once('lib/errors.php');
 
 function deleteComplainAction($id)
 {
-return mysql_query("delete from complain_actions
-                    where id=$id");
+$result=mysql_query("delete from complain_actions
+                     where id=$id");
+journal('delete from complain_actions
+         where id='.journalVar('complain_actions',$id));
+return $result;
 }
 
 function removeComplainAction($editid)

@@ -33,6 +33,9 @@ mysql_query("update complains
              set closed=now()
 	     where id=$id")
   or sqlbug('Ошибка SQL при закрытии жалобы');
+journal('update complains
+         set closed=now()
+	 where id='.journalVar('complains',$id));
 }
 
 function cscrCloseEnable($complain)

@@ -22,6 +22,9 @@ $result=mysql_query("update messages
 		     where id=$id");
 if(!$result)
   return EMR_SQL;
+journal('update messages
+         set sent=now()
+	 where id='.journalVar('messages',$id));
 return EMR_OK;
 }
 

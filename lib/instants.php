@@ -24,6 +24,11 @@ function getAdminInstantVars()
 return array();
 }
 
+function getJencodedInstantVars()
+{
+return array('message_id' => 'messages','recipient_id' => 'users');
+}
+
 function getNormalInstant($isAdmin=false)
 {
 $normal=$this->collectVars($this->getWorldInstantVars());
@@ -41,11 +46,19 @@ if(!$result)
   return $result;
 $normal=$this->getNormalInstant($userModerator);
 if($this->id)
+  {
   $result=mysql_query(makeUpdate('instants',$normal,array('id' => $this->id)));
+  journal(makeUpdate('instants',
+                     jencodeVars($normal,$this->getJencodedInstantVars()),
+		     array('id' => $this->id)));
+  }
 else
   {
   $result=mysql_query(makeInsert('instants',$normal));
   $this->id=mysql_insert_id();
+  journal(makeInsert('instants',
+                     jencodeVars($normal,$this->getJencodedInstantVars())),
+          'instants',$this->id);
   }
 return $result;
 }

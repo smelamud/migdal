@@ -29,6 +29,11 @@ function getAdminForumVars()
 return array();
 }
 
+function getJencodedForumVars()
+{
+return array('message_id' => 'messages','parent_id' => 'messages');
+}
+
 function getNormalForum($isAdmin=false)
 {
 $normal=$this->collectVars($this->getWorldForumVars());
@@ -46,11 +51,19 @@ if(!$result)
   return $result;
 $normal=$this->getNormalForum($userModerator);
 if($this->id)
+  {
   $result=mysql_query(makeUpdate('forums',$normal,array('id' => $this->id)));
+  journal(makeUpdate('forums',
+                     jencodeVars($normal,$this->getJencodedForumVars()),
+		     array('id' => $this->id)));
+  }
 else
   {
   $result=mysql_query(makeInsert('forums',$normal));
   $this->id=mysql_insert_id();
+  journal(makeInsert('forums',
+                     jencodeVars($normal,$this->getJencodedForumVars())),
+	  'forums',$this->id);
   }
 return $result;
 }

@@ -64,6 +64,12 @@ function getAdminPostingVars()
 return array('ident','priority');
 }
 
+function getJencodedPostingVars()
+{
+return array('message_id' => 'messages','topic_id' => 'topics',
+             'personal_id' => 'users');
+}
+
 function getNormalPosting($isAdmin=false)
 {
 $normal=$this->collectVars($this->getWorldPostingVars());
@@ -81,11 +87,19 @@ if(!$result)
   return $result;
 $normal=$this->getNormalPosting($userModerator);
 if($this->id)
+  {
   $result=mysql_query(makeUpdate('postings',$normal,array('id' => $this->id)));
+  journal(makeUpdate('postings',
+                     jencodeVars($normal,$this->getJencodedVars()),
+		     array('id' => $this->id)));
+  }
 else
   {
   $result=mysql_query(makeInsert('postings',$normal));
   $this->id=mysql_insert_id();
+  journal(makeInsert('postings',
+                     jencodeVars($normal,$this->getJencodedVars())),
+	  'postings',$this->id);
   }
 return $result;
 }
@@ -566,6 +580,9 @@ mysql_query("update postings
              set read_count=read_count+1,last_read=now()
 	     where id=$id")
   or sqlbug('Ошибка SQL при обновлении счетчика прочтений постинга');
+journal('update postings
+         set read_count=read_count+1,last_read=now()
+	 where id='.journalVar('postings',$id));
 }
 
 function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)

@@ -58,6 +58,12 @@ function getAdminComplainVars()
 return array();
 }
 
+function getJencodedComplainVars()
+{
+return array('recipient_id' => 'users','message_id' => 'messages',
+             'link' => $this->getLinkTable());
+}
+
 function getNormalComplain($isAdmin=false)
 {
 $normal=$this->collectVars($this->getWorldComplainVars());
@@ -93,14 +99,22 @@ if(!$result)
   return $result;
 $complain=$this->getNormalComplain($userJudge);
 if($this->id)
+  {
   $result=mysql_query(makeUpdate('complains',
                                  $complain,
 				 array('id' => $this->id)));
+  journal(makeUpdate('complains',
+                     jencodeVars($complain,$this->getJencodedComplainVars()),
+		     array('id' => $this->id)));
+  }
 else
   {
   $this->recipient_id=$this->getAutoAssign();
   $complain=$this->getNormalComplain($userJudge);
   $result=mysql_query(makeInsert('complains',$complain));
+  journal(makeInsert('complains',
+                     jencodeVars($complain,$this->getJencodedComplainVars())),
+	  'complains',mysql_insert_id());
   }
 return $result;
 }
@@ -338,5 +352,8 @@ mysql_query("update complains
              set closed=null,no_auto=$no_auto
 	     where id=$id")
   or sqlbug('Ошибка SQL при возобновлении жалобы');
+journal("update complains
+         set closed=null,no_auto=$no_auto
+	 where id=".journalVar('complains',$id));
 }
 ?>

@@ -61,15 +61,28 @@ function getAdminVars()
 return array();
 }
 
+function getJencodedVars()
+{
+return array('stotext_id' => 'stotexts','image_id' => 'images');
+}
+
 function store()
 {
 $result=mysql_query('delete from stotext_images
                      where stotext_id='.$this->stotext_id.
 		   ' and par='.$this->par);
+if($result)
+  journal('delete from stotext_images
+           where stotext_id='.journalVar('stotexts',$this->stotext_id).
+	 ' and par='.$this->par);
 if(!$result || $this->image_id==0)
   return $result;
 $normal=$this->getNormal();
-return mysql_query(makeInsert('stotext_images',$normal));
+$result=mysql_query(makeInsert('stotext_images',$normal));
+if($result)
+  journal(makeInsert('stotext_images',
+                     jencodeVars($normal,$this->getJencodedVars())));
+return $result;
 }
 
 function getStotextId()

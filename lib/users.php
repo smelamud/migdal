@@ -89,6 +89,14 @@ return array('accepts_complains','admin_users','admin_topics',
 	     'no_login','has_personal');
 }
 
+function getJencodedVars()
+{
+return array('login' => '','login_sort' => '','password' => '','name' => '',
+             'name_sort' => '','jewish_name' => '','jewish_name_sort' => '',
+	     'surname' => '','surname_sort' => '','info' => '','email' => '',
+	     'icq' => '','settings' => '');
+}
+
 function store()
 {
 global $userAdminUsers;
@@ -100,11 +108,21 @@ $normal['login_sort']=convertSort($normal['login']);
 $normal['name_sort']=convertSort($normal['name']);
 $normal['jewish_name_sort']=convertSort($normal['jewish_name']);
 $normal['surname_sort']=convertSort($normal['surname']);
-$result=mysql_query($this->id 
-                    ? makeUpdate('users',$normal,array('id' => $this->id))
-                    : makeInsert('users',$normal));
-if(!$this->id)
+if($this->id)
+  {
+  $result=mysql_query(makeUpdate('users',$normal,array('id' => $this->id)));
+  journal(makeUpdate('users',
+                     jencodeVars($normal,$this->getJencodedVars()),
+		     array('id' => $this->id)));
+  }
+else
+  {
+  $result=mysql_query(makeInsert('users',$normal));
   $this->id=mysql_insert_id();
+  journal(makeInsert('users',
+                     jencodeVars($normal,$this->getJencodedVars())),
+	  'users',$this->id);
+  }
 return $result;
 }
 
@@ -117,10 +135,15 @@ for($i=0;$i<20;$i++)
    {
    $s.=chr(random(ord('A'),ord('Z')));
    }
-return mysql_query("update users
-                    set no_login=1,confirm_code='$s',
-		        confirm_deadline=now()+interval $regConfirmTimeout day
- 	            where id=$this->id");
+$result=mysql_query("update users
+                     set no_login=1,confirm_code='$s',
+		         confirm_deadline=now()+interval $regConfirmTimeout day
+ 	             where id=$this->id");
+journal("update users
+         set no_login=1,confirm_code='$s',
+	     confirm_deadline=now()+interval $regConfirmTimeout day
+ 	 where id=".journalVar('users',$this->id));
+return $result;
 }
 
 function isEditable()
@@ -567,7 +590,12 @@ mysql_query("insert into users(login,login_sort,email_disabled,guest,hidden,
                                no_login)
              values('$login','$login_sort',1,1,2,1)")
   or sqlbug('Ошибка SQL при создании гостя');
-return mysql_insert_id();
+$id=mysql_insert_id();
+journal("insert into users(login,login_sort,email_disabled,guest,hidden,
+                           no_login)
+         values('".jencode($login)."','".jencode($login_sort)."',1,1,2,1)",
+	 'users',$id);
+return $id;
 }
 
 function updateLastOnline($userId)
@@ -591,6 +619,9 @@ mysql_query("update users
 	     set settings='$settings'
 	     where id=$userId")
   or sqlbug('Ошибка SQL при сохранении установок пользователя');
+journal("update users
+	 set settings='".jencode($settings)."'
+	 where id=".journalVar('users',$userId));
 }
 
 function personalExists($id)

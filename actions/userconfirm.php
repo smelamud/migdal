@@ -32,6 +32,9 @@ $result=mysql_query("update users
 		     where login='$userLogin'");
 if(!$result)
   return EUC_SQL_CONFIRM;
+journal("update users
+         set no_login=0,hidden=0,confirm_deadline=null
+	 where login='".jencode($userLogin)."'");
 sendMailAdmin(MAIL_CONFIRMED,'admin_users',$id);
 return EUC_OK;
 }

@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/ident.php');
 require_once('lib/array.php');
 require_once('lib/dataobject.php');
@@ -9,6 +11,10 @@ require_once('grp/mailtypes.php');
 
 function sendMail($type_id,$userId,$link=0)
 {
+global $replicationMaster;
+
+if(!$replicationMaster)
+  return;
 mysql_query("insert into mailings(type_id,receiver_id,link)
              values($type_id,$userId,$link)")
   or sqlbug('Ошибка SQL при регистрации почтового сообщения');
@@ -16,6 +22,10 @@ mysql_query("insert into mailings(type_id,receiver_id,link)
 
 function sendMailAdmin($type_id,$admin,$link=0)
 {
+global $replicationMaster;
+
+if(!$replicationMaster)
+  return;
 mysql_query("insert into mailings(type_id,receiver_id,link)
              select $type_id,id,$link
 	     from users
