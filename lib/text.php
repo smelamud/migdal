@@ -15,6 +15,11 @@ function is_delim($c)
 return c_cntrl($c) || c_space($c) || c_punct($c);
 }
 
+function is_space($c)
+{
+return c_cntrl($c) || c_space($c);
+}
+
 function flipReplace($foo,$bar,$_bar,$s,$delim=true)
 {
 $c='';
@@ -37,7 +42,9 @@ for($n=0;$n<strlen($s);$n++)
      }
    elseif(!$intag && $tag && $s[$n]==$foo
           && ($n==strlen($s) || (!$delim || is_delim($s[$n+1])))
-          && $n!=0 && (!$delim || !is_delim($s[$n-1])))
+          && $n!=0 && (!$delim || !is_space($s[$n-1])))
+	                                 # final punctuation is part
+					 # of the word
      {
      $c.=$_bar;
      $tag=0;
@@ -163,8 +170,10 @@ return preg_replace('/(^|\n)\s*ву&quot;д\s*(\n|$)/',
 
 function replaceHeading($s,$n,$c)
 {
-return preg_replace('/(^\s*|[\n\r]\s*)([^\n\r]*)[\n\r]\s*'.$c.'{3}'.$c.'*([\n\r]|$)/',
+return preg_replace('/(^\s*|\n\s*)([^\n]*)\n\s*'.$c.'{3}'.$c.'*(\n|$)/',
                     '\\1<h'.$n.'>\\2</h'.$n.'>\\3',$s);
+/*return preg_replace('/(^\s*|[\n\r]\s*)([^\n\r]*)[\n\r]\s*'.$c.'{3}'.$c.'*([\n\r]|$)/',
+                    '\\1<h'.$n.'>\\2</h'.$n.'>\\3',$s);*/
 }
 
 function replaceHeadings($s)
