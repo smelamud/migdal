@@ -49,4 +49,5 @@ define('EC_NO_EDIT',63);
 define('EC_STORE_SQL',64);
 define('EC_SUBJECT_ABSENT',65);
 define('EC_BODY_ABSENT',66);
+define('EC_NO_TYPE',67);
 ?>

@@ -591,6 +591,16 @@ for(my $n=1;exists $self->getArgs()->{"val$n"};$n++)
 ::body(join(',',@vals),'); ?>');
 }
 
+sub elAssign #XXX Possibly empty value
+{
+my ($self)=@_;
+
+my $name=$self->getArg('name');
+$name='const'.($::LastConst++) if $name eq '';
+$::Stack->top()->setConst($name);
+::body("<?php \$$name=",::subVar($self->getArg('value')),'; ?>');
+}
+
 sub elIterate #XXX Possibly empty class
 {
 my ($self)=@_;

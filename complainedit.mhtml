@@ -14,10 +14,12 @@
  <input type=hidden name='edittag' value=1>
  <input type=hidden name='redir' value='$redir'>
  <input type=hidden name='editid' value='$editid'>
+ <input type=hidden name='type_id' value='$,TypeId'>
  <table>
  <error id='*EC_NO_SEND'
         text='Посылать жалобы могут только зарегистрированные пользователи'>
  <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
+ <error id='*EC_NO_TYPE' text='Такого типа жалобы не существует'>
  <error id='*EC_STORE_SQL' text='Ошибка базы данных при обновлении записи'
         color='magenta'>
  <tr><td><table>

@@ -8,7 +8,7 @@
 </logged></if>
 <iterate_messagelist grp='$grp' topic='$topic' limit='$limit' offset='$offset'>
 <batcher value='$limit' var='mp'>
-<navigator list='$;'>
+<navigator>
 <table width=100%>
 <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
 <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -16,5 +16,5 @@
  <tr><td><message message='$.' grp='$grp' topic='$topic'></td></tr>
 </for>
 </table>
-<navigator list='$;'>
+<navigator>
 </element>

@@ -44,7 +44,7 @@
 <isedit name='message'>
  <a href="messageedit.php?editid=$message.Id&grp=$message.Grp&redir=$_"
   >[Изменить]</a>
- <moderator>
+ <if what='$message.isModerable'>
   <if what='$message.isDisabled'>
    <a href="actions/moderate.php?editid=$message.Id&hide=0&redir=$_"
     >[Разрешить показ]</a>
@@ -52,7 +52,7 @@
    <a href="actions/moderate.php?editid=$message.Id&hide=1&redir=$_"
     >[Запретить показ]</a>
   </if>
- </moderator>
+ </if>
 </isedit>
 </td>
 <td align=right>

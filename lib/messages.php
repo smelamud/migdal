@@ -121,6 +121,13 @@ global $userId,$userModerator;
 return $this->sender_id==0 || $this->sender_id==$userId || $userModerator;
 }
 
+function isModerable()
+{
+global $userModerator;
+
+return $userModerator;
+}
+
 function getGrp()
 {
 return $this->grp;
@@ -330,37 +337,37 @@ $topicFilter=$topic==0 ? '' : " and messages.topic_id=$topic ";
 $grpFilter=getPackedGrpFilter($grp,'messages.');
 $this->LimitSelectIterator(
        'Message',
-	"select messages.id as id,messages.body as body,
-	        messages.subject as subject,messages.grp as grp,
-		messages.sent as sent,messages.topic_id as topic_id,
-		messages.sender_id as sender_id,messages.hidden as hidden,
-		messages.disabled as disabled,users.hidden as sender_hidden,
-		images.image_set as image_set,images.id as image_id,
-		topics.name as topic_name,users.login as login,
-		users.gender as gender,users.email as email,
-		users.hide_email as hide_email,users.rebe as rebe,
-		count(answers.up) as answer_count
-	 from messages
-	       left join images
-		    on messages.image_set=images.image_set
-	       left join topics
-		    on messages.topic_id=topics.id
-	       left join users
-		    on messages.sender_id=users.id
-	       left join messages as answers
-	            on messages.id=answers.up
-	 where (messages.hidden<$hide or messages.sender_id=$userId) and
-	       (messages.disabled<$hide or messages.sender_id=$userId) and
-	       messages.personal_id=$personal and messages.up=0
-	       $grpFilter $topicFilter
-	 group by messages.id
-	 order by messages.sent desc",$limit,$offset,
-	"select count(*)
-	 from messages
-	 where (messages.hidden<$hide or messages.sender_id=$userId) and
-	       (messages.disabled<$hide or messages.sender_id=$userId) and
-	       messages.personal_id=$personal and messages.up=0
-	       $grpFilter $topicFilter");
+       "select messages.id as id,messages.body as body,
+	       messages.subject as subject,messages.grp as grp,
+	       messages.sent as sent,messages.topic_id as topic_id,
+	       messages.sender_id as sender_id,messages.hidden as hidden,
+	       messages.disabled as disabled,users.hidden as sender_hidden,
+	       images.image_set as image_set,images.id as image_id,
+	       topics.name as topic_name,users.login as login,
+	       users.gender as gender,users.email as email,
+	       users.hide_email as hide_email,users.rebe as rebe,
+	       count(answers.up) as answer_count
+	from messages
+	      left join images
+		   on messages.image_set=images.image_set
+	      left join topics
+		   on messages.topic_id=topics.id
+	      left join users
+		   on messages.sender_id=users.id
+	      left join messages as answers
+		   on messages.id=answers.up
+	where (messages.hidden<$hide or messages.sender_id=$userId) and
+	      (messages.disabled<$hide or messages.sender_id=$userId) and
+	      messages.personal_id=$personal and messages.up=0
+	      $grpFilter $topicFilter
+	group by messages.id
+	order by messages.sent desc",$limit,$offset,
+       "select count(*)
+	from messages
+	where (messages.hidden<$hide or messages.sender_id=$userId) and
+	      (messages.disabled<$hide or messages.sender_id=$userId) and
+	      messages.personal_id=$personal and messages.up=0
+	      $grpFilter $topicFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }

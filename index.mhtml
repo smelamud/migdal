@@ -9,7 +9,7 @@
   <top ident='index'>
   <table width=100%>
    <tr><td>
-    <messages grp='*GRP_ANY' limit='$userMsgPortion' offset='$offset'>
+    <messages grp='*GRP_EVENTS' limit='$userMsgPortion' offset='$offset'>
    </td></tr>
   </table>
 </body>

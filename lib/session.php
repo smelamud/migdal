@@ -4,11 +4,14 @@
 require_once('lib/utils.php');
 
 $userSetDBNames=array('mp' => 'msg_portion',
-                      'fp' => 'forum_portion');
+                      'fp' => 'forum_portion',
+		      'cp' => 'complain_portion');
 $userSetGlobalNames=array('mp' => 'MsgPortion',
-                          'fp' => 'ForumPortion');
+                          'fp' => 'ForumPortion',
+			  'cp' => 'ComplainPortion');
 $userSetDefaults=array('mp' => 10,
-                       'fp' => 10);
+                       'fp' => 10,
+		       'cp' => 20);
 
 function userSettings()
 {
@@ -52,7 +55,8 @@ if($userId>0 && count($update)!=0)
 function session()
 {
 global $sessionid,
-       $userId,$userAdminUsers,$userAdminTopics,$userModerator,$userJudge;
+       $userId,$userHidden,$userLogin,$userAdminUsers,$userAdminTopics,
+       $userModerator,$userJudge;
 
 settype($sessionid,'integer');
 
@@ -70,12 +74,15 @@ else
   else
     {
     $userId=mysql_result($result,0,0);
-    $rights=mysql_query("select admin_users,admin_topics,moderator,judge
+    $rights=mysql_query("select login,hidden,admin_users,admin_topics,
+                                moderator,judge
 			 from users
 			 where id=$userId")
 		 or die('Ошибка SQL при получении прав пользователя');
-    list($userAdminUsers,$userAdminTopics,
+    list($userLogin,$userHidden,$userAdminUsers,$userAdminTopics,
          $userModerator,$userJudge)=mysql_fetch_row($rights);
+    if($userAdminUsers)
+      $userHidden--;
     mysql_query("update sessions set last=null where sid=$sessionid")
 	 or die('Ошибка SQL при обновлении TIMESTAMP сессии');
     SetCookie('sessionid',$sessionid,time()+7200);

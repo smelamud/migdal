@@ -10,7 +10,7 @@
 <top ident='forums'>
 <p>
 <message_full id='$msgid' grp='*GRP_FORUMS'>
-<message message='$,' grp='*GRP_FORUMS' discuss=false>
+<message message='$,' grp='*GRP_FORUMS' discuss='*false'>
 <center><h1>Обсуждение</h1></center>
 <forums up='$msgid' limit='$$userForumPortion'>
 </body>

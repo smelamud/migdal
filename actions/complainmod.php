@@ -21,12 +21,16 @@ if($complain->body=='')
   return EC_BODY_ABSENT;
 if($complain->subject=='')
   return EC_SUBJECT_ABSENT;
+if(!complainTypeExists($complain->type_id))
+  return EC_NO_TYPE;
 if(!$complain->store())
   return EC_STORE_SQL;
 return EC_OK;
 }
 
 settype($editid,'integer');
+settype($type_id,'integer');
+settype($HTTP_POST_VARS['type_id'],'integer');
 
 dbOpen();
 session($sessionid);

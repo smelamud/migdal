@@ -1,14 +1,48 @@
 << @(#) $Id$ >>
 
+<macro name='rebe'>
+ <if what='$complain.isRebe'><font color=red></if>
+</macro>
+
+<macro name='/rebe'>
+ <if what='$complain.isRebe'></font></if>
+</macro>
+
+<int name='offset'>
 <html>
 <head>
  <title>Клуб Еврейского Студента - Жалобная книга</title>
 </head>
 <body bgcolor=white>
  <top ident='complains'>
- <p>
+ <iterate_complainlist limit='$$userComplainPortion' offset='$offset'>
+ <navigator>
+ <batcher var='cp' value='$$userComplainPortion'>
  <logged>
   <a href='complainedit.php?redir=$_'>Добавить жалобу</a>
  </logged>
+ <p>
+ <table>
+  <tr valign=top>
+   <th>Прислано</th><th>Автор</th><th>Заголовок</th><th>Закрыто</th>
+   <th>Ответы</th>
+  </tr>
+ <for name='complain'>
+  <tr>
+   <td>$.SentView</td>
+   <td><rebe><senderlink message='$.'></rebe></td>
+   <td><rebe>
+    <a href='complainforum.php?compid=$.Id&redir=$_'>$.Subject</a>
+   </rebe></td>
+   <if what='$.isClosed'>
+    <td>$.ClosedView</td>
+   <else>
+    <td align=center>Нет</td>
+   </if>
+   <td align=center>$.AnswerCount</td>
+  </tr>
+ </for>
+ </table>
+ <navigator>
 </body>
 </html>

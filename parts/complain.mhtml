@@ -1,0 +1,38 @@
+<< @(#) $Id$ >>
+
+<macro name='rebe'>
+ <if what='$complain.isRebe'><font color=red></if>
+</macro>
+
+<macro name='/rebe'>
+ <if what='$complain.isRebe'></font></if>
+</macro>
+
+<element name='Complain'>
+<table width=100%>
+<tr><td>&nbsp;</td></tr>
+<tr>
+ <td align=right>$complain.SentView</td>
+</tr>
+<tr>
+ <td><b><rebe>$complain.Subject</rebe></b></td>
+ <td align=right><rebe><senderlink message='$complain'></rebe></td>
+</tr>
+<tr><td colspan=2>
+ <rebe>$complain.HTMLBody</rebe>
+</td></tr>
+<tr>
+<td>
+<isedit name='complain'>
+ <a href="complainedit.php?editid=$complain.Id&redir=$_"
+  >[Изменить]</a>
+</isedit>
+</td>
+<td align=right>
+<if what='$discuss'>
+ <a href='complainforum.php?redir=$_&compid=$complain.Id'>Обсудить ($complain.AnswerCount)</a>
+</if>
+</td>
+</tr>
+</table>
+</element>

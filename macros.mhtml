@@ -29,6 +29,12 @@
 </macro>
 
 << Iterators >>
+<macro name='iterate_complainlist' defaults='limit=20 offset=0'>
+ <require name='lib/complains.php'>
+ <iterate name='%name' class='ComplainListIterator' arg1='%limit'
+          arg2='%offset'>
+</macro>
+
 <macro name='iterate_forumlist'>
  <require name='lib/messages.php'>
  <iterate name='%name' class='ForumListIterator'
@@ -85,9 +91,19 @@
 </macro>
 
 << Calls >>
-<macro name='complain_obj' defaults='name=complain'>
+<macro name='complain_obj' defaults='name=complain ident=normal'>
  <require name='lib/complains.php'>
- <call name='%name' func='getComplainById' arg1='%id'>
+ <call name='%name' func='getComplainById' arg1='%id' arg2='%ident'>
+</macro>
+
+<macro name='complain_full' defaults='name=complain ident=normal'>
+ <require name='lib/complains.php'>
+ <call name='%name' func='getFullComplainById' arg1='%id' arg2='%ident'>
+</macro>
+
+<macro name='complain_type_id'>
+ <require name='lib/complains.php'>
+ <call name='%name' func='getComplainTypeIdByIdent' arg1='%ident'>
 </macro>
 
 <macro name='image_name' defaults='name=image'>
@@ -226,8 +242,8 @@
 << Elements >>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
 <decel name='batcher' file='parts/utils.php' params='value,var'>
-<decel name='perror' file='parts/utils.php' params='id,text,color,span'
-       defaults='color="red" span=0'>
+<decel name='complain' file='parts/complain.php'
+       params='complain,discuss' defaults="discuss='*true'">
 <decel name='forum' file='parts/forum.php' params='forum'>
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
@@ -237,7 +253,10 @@
        params='message,grp,topic,discuss' defaults="topic=0 discuss='*true'">
 <decel name='messages' file='parts/messages.php'
        params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
-<decel name='navigator' file='parts/utils.php' params='list'>
+<decel name='navigator' file='parts/utils.php' params='list'
+       defaults="list='$;'">
+<decel name='perror' file='parts/utils.php' params='id,text,color,span'
+       defaults='color="red" span=0'>
 <decel name='reload' file='lib/utils.php' params='why,var,value'>
 <decel name='senderlink' file='lib/utils.php' params='message'>
 <decel name='top' file='parts/top.php' params='ident,flags'

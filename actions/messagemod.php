@@ -96,6 +96,7 @@ return EM_OK;
 
 settype($editid,'integer');
 settype($grp,'integer');
+settype($HTTP_POST_VARS['grp'],'integer');
 
 dbOpen();
 session($sessionid);

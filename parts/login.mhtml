@@ -31,7 +31,18 @@
   </td></tr>
  </if>
 <else>
- <tr><td colspan=5><input type=submit value='Выйти'></td></tr>
+ <tr>
+  <td>Пользователь: 
+   <b>
+   <if what='$$userHidden'>
+    $$userLogin
+   <else>
+    <a href='/useredit.php?editid=$$userId&redir=$_'>$$userLogin</a>
+   </if>
+   </b>
+  </td>
+  <td><input type=submit value='Выйти'></td>
+ </tr>
 </notlogged>
 </table>
 </form>
