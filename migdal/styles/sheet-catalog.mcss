@@ -7,7 +7,7 @@
 }
 
 .catalog TT,.catalog PRE {
-	font-family: "Courier New", Courier, sans-serif;
+	font-family: %courier;
 	font-size: 10pt;
 }
 

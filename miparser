@@ -761,6 +761,14 @@ $name='const'.($::LastConst++) if $name eq '';
 $::Stack->top()->setConst($name);
 }
 
+sub elAssign_global #XXX Possibly empty value
+{
+my ($self)=@_;
+
+::getGlobal($self->getArg('name'));
+elAssign @_;
+}
+
 sub elConcat
 {
 my ($self)=@_;
@@ -872,14 +880,14 @@ sub elHeader
 {
 my ($self)=@_;
 
-$::BodyToHeader=1;
+$::BodyToHeader++;
 }
 
 sub el_header
 {
 my ($self)=@_;
 
-$::BodyToHeader=0;
+$::BodyToHeader--;
 }
 
 sub elDecel #XXX Possibly empty name

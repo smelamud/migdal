@@ -1,7 +1,7 @@
 ! @(#) $Id$
 
 * {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: %verdana;
 	font-size: 10pt;
 }
 
@@ -40,4 +40,14 @@ BODY {
 	font-size: 8pt;
 	font-weight: bold;
 	font-style: normal;
+}
+
+.title {
+	margin-bottom: 1ex;
+}
+
+.title TD {
+	font-family: %times;
+	font-size: 16pt;
+	font-weight: bold;
 }

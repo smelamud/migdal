@@ -33,7 +33,7 @@
 
 .article H1,.article H2,.article H3,.article H4,.article P,.article B,
 .article I,.article U,.article .author {
-	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-family: %times;
 	font-size: 12pt;
 }
 

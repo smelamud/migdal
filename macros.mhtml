@@ -14,6 +14,10 @@
 <decconst name='sorts' file='lib/sort.php'>
 <decconst name='text_formats' file='lib/text.php'>
 
+<macro name='pagetitle' defaults="title=''">
+ <assign_global name='pageTitle' value='%title'>
+</macro>
+
 << Iterators >>
 <macro name='deciter' defaults="name='%name'">
  <macro name='iterate_%macro' defaults="%defaults">

@@ -1,0 +1,20 @@
+<< @(#) $Id$ >>
+
+<element name='unititle'>
+<grptitle>
+<if what='$topic_id==-1'>
+ <if what='$grp==*GRP_TAPE'>
+  <pagetitle>
+ <else>
+  <pagetitle title='$grptitle'>
+ </if>
+<else>
+ <topic_obj id='$topic_id'>
+ <if what='$grp==*GRP_TAPE'>
+  <concat name='title' value='$,Name - Все'>
+ <else>
+  <concat name='title' value='$,Name - $grptitle'>
+ </if>
+ <pagetitle title='$title'>
+</if>
+</element>

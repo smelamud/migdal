@@ -86,6 +86,8 @@
        params='name,value,grp,mandatory' defaults="mandatory='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,re,target'
        defaults="re='' target=''">
+<decel name='unititle' file='parts/unititle.php' params='topic_id,grp'
+       defaults="topic_id='-1',grp='*GRP_TAPE'">
 <decel name='uploader' file='parts/uploader.php'
        params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,mandatory'
        defaults="mandatory='*false'">
@@ -101,7 +103,10 @@
              vals='сообщения,мнения,новости,картинки,статьи'>
 <decgrpmesgs name='grpitemtitlei'
              vals='Сообщение,Мнение,Новость,Картинка,Статья'>
-<decgrpmesgs name='grpicon' vals='pics/all.gif,pics/opinion.gif,pics/new.gif,pics/all.gif,pics/article.gif'>
+<decgrpmesgs name='grpicon'
+             vals='pics/all.gif,pics/opinion.gif,pics/new.gif,pics/gall.gif,pics/article.gif'>
+<decgrpmesgs name='grpbigicon'
+             vals='pics/all-big.gif,pics/opinion-big.gif,pics/new-big.gif,pics/gall-big.gif,pics/article-big.gif'>
 
 <macro name='ofmessages'>
  <zone>
@@ -130,6 +135,19 @@
  <tr><tdspan span=%span>
   <textarea name='%name' rows=%rows cols=50 wrap='virtual'>%body</textarea>
  </tdspan></tr>
+</macro>
+
+<macro name='titletag'>
+ <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
+</macro>
+
+<macro name='subtitle'>
+ <ifne what='$pageTitle'>
+  <table class='title'><tr valign=center>
+   <td><image src='%icon'></td>
+   <td>&nbsp;$pageTitle</td>
+  </tr></table>
+ </ifne>
 </macro>
 
 << Biff >>

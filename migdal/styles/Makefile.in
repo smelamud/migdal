@@ -4,8 +4,8 @@
 
 STYLES = default old contrast test
 OBJECTS = $(patsubst %,style-%.css,$(STYLES)) $(patsubst %,style-%.php,$(STYLES))
-PARTS = colors.mcss palette.mcss sheet-general.mcss sheet-menu.mcss \
-	sheet-bottom.mcss sheet-state.mcss sheet-return.mcss \
+PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
+	sheet-menu.mcss sheet-bottom.mcss sheet-state.mcss sheet-return.mcss \
 	sheet-batcher.mcss sheet-posting.mcss sheet-forum.mcss \
 	sheet-forum-batcher.mcss sheet-topics.mcss sheet-catalog.mcss \
 	sheet-picture.mcss sheet-form.mcss sheet-article.mcss \

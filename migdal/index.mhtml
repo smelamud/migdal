@@ -6,20 +6,24 @@
 <reloadnot why='$topic_id' var='topic_id' value='-1'>
 <reloadnot why='$grp' var='grp' value='*GRP_TAPE'>
 <grp>
-<grptitle>
+<grpbigicon>
+<unititle topic_id='$topic_id' grp='$g.Effective'>
+
 <html>
 <head>
- <title>Мигдаль<if what='$g.Effective!=*GRP_TAPE'> - $grptitle</if></title>
+ <titletag>
 </head>
 <body>
  <top ident='index'>
- <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
   <td width=120><topics g='$g' topic_id='$topic_id' navi='*true'></td>
   <td width=10>&nbsp;</td>
-  <td><postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
-                offset='$offset' title='$grptitle'></td>
+  <td>
+   <subtitle icon='$grpbigicon'>
+   <postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
+             offset='$offset' title='$grptitle'>
+  </td>
  </tr></table>
  <bottom>
 </body>

@@ -5,10 +5,12 @@
 <int name='grp'>
 <int name='offset'>
 <grp ignore='$ignoregrp'>
-<grptitle>
+<grpbigicon>
+<unititle topic_id='$topic_id' grp='$g.Effective'>
+
 <html>
 <head>
- <title>Мигдаль - $grptitle</title>
+ <titletag>
 </head>
 <body>
  <top ident='index'>
@@ -20,6 +22,7 @@
   </td>
   <td width=10>&nbsp;</td>
   <td>
+   <subtitle icon='$grpbigicon'>
    <if what='$topic_id==-1'>
     <gallery_main grp='$grp' cols='$userPictureColumnPortion'>
    <else>
