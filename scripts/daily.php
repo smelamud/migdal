@@ -8,6 +8,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/users.php');
 require_once('lib/journal.php');
+require_once('lib/answers.php');
 
 function deleteCond($table,$cond)
 {
@@ -137,6 +138,7 @@ deleteTagged('stotexts');
 tag('topics');
 useLinks('topics','stotext_id','stotexts','id');
 deleteTagged('topics');
+answersRecalculate();
 
 cleanupJournal();
 }
