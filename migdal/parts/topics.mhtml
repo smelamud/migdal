@@ -64,7 +64,7 @@
    <if what='$nobullet'>
     &nbsp;
    <else>
-    <image src='pics/bullet.gif'>
+    <image src='pics/bullet-mrd.gif'>
    </if>
   </td>
  </if>

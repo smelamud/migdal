@@ -8,7 +8,7 @@
               arrow!='$posting.Id==$`postings:kes`' class='item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*false'>
  <topics_line time='$,' text='Галерея' indent=1
-              href#='gallery.php?topic_id=$`kes`'
+              href#='gallery.php?topic_id=$`kes`&general=1'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`kes`'
 	      class='item eightpt'>
 </topics_table>
@@ -69,7 +69,7 @@
 	      class='item eightpt'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*false'>
  <topics_line time='$,' text='Галерея' indent=1
-              href#='gallery.php?topic_id=$`mazltov`'
+              href#='gallery.php?topic_id=$`mazltov`&general=1'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`mazltov`'
 	      class='item eightpt'>
 </topics_table>

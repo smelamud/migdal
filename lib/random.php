@@ -18,4 +18,9 @@ function rnd()
 random(0,1);
 return rand();
 }
+
+function array_random($array)
+{
+return $array[random(0,count($array)-1)];
+}
 ?>

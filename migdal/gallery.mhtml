@@ -4,11 +4,13 @@
 <ifzero what='$topic_id'>
  <assign name='topic_id' value='-1'>
 </ifzero>
+<int name='user_id'>
 <int name='offset'>
 <int name='sort'>
 <ifzero what='$sort'>
  <assign name='sort' value='*SORT_PSENT'>
 </ifzero>
+<int name='general'>
 
 << Traps >>
 <if what='$topic_id==4'>
@@ -18,10 +20,6 @@
 <if what='$topic_id==143'>
  <trap text='Museum gallery'>
  <reload href='migdal.php?artid=1582'>
-</if>
-<if what='$topic_id==27'>
- <trap text='Veterans gallery'>
- <reload href='veterans.php'>
 </if>
 <ifnzero what='$grp'>
  <trap text='grp!=0 in gallery.php'>
@@ -35,22 +33,48 @@
  <log event=gallery text#='topic($,) offset=$offset'>
 </zone>
 <unititle chapter='Галерея' topic_id='$topic_id'>
+<if what='$topic_id<=0'>
+ <topictitle title='Галерея'>
+</if>
 
 <html>
 <preamble>
 <body>
  <top ident='gallery'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+ <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
    <zone>
     <posting_new grp='*GRP_GALLERY' topic_id='$topic_id'>
-    <topics_gallery posting='$,'>
+    <if what='$general'>
+     <topics posting='$,'>
+    <else>
+     <topics_gallery posting='$,'>
+    </if>
    </zone>
   </td>
-  <td>
-   <if what='$topic_id<=0'>
-    <gallery_main cols='$userPictureColumnPortion'>
-   <else>
+  <if what='$user_id<=0 && ($topic_id<=0 || $topic_id==$`kaitana` ||
+            $topic_id==$`migdal` || $topic_id==$`jcc` ||
+	    $topic_id==$`taglit` || $topic_id==$`veterans`)'>
+   <td class='cframe'><outer>
+    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
+     <td><common>
+      <subtitle icon='pics/gall-big.gif'>
+      <outer><div class='nframe' style='padding: 5'><inner>
+       <seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'
+		      title='См. также в разделе ссылок'>
+       <seealso_other topic_id='$topic_id' topic_grp='*GRP_GALLERY'
+		      title='По этой теме в других разделах'>
+      </inner></div></outer>
+      <gallery_main topic_id='$topic_id' offset='$offset'>
+     </common></td>
+     <td width=130 class='nframe'><inner>
+      <hit_parade_gallery_month grp='*GRP_GRAPHICS' topic_id='$topic_id'
+			        showshadows!='$topic_id>0'>
+     </inner></td>
+    </tr></table>
+   </outer></td>
+  <else>
+   <td>
     <div class='nframe' style='margin-bottom: 5px; padding: 5px'>
      <subtitle icon='pics/gall-big.gif'>
      <seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'
@@ -65,9 +89,10 @@
      </notlogged>
     </div>
     <gallery topic_id='$topic_id' rows='$userPictureRowPortion'
-	     cols='$userPictureColumnPortion' offset='$offset' sort='$sort'>
-   </if>
-  </td>
+	     cols='$userPictureColumnPortion' offset='$offset' sort='$sort'
+	     user_id='$user_id'>
+   </td>
+  </if>
  </tr></table>
  <bottom>
 </body>

@@ -1,7 +1,12 @@
 << @(#) $Id$ >>
 
 <element name='topics_gallery'>
-<topics_gallery_major posting='$posting'>
-<topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
-	      href='gallery.php' title='Раздельчики'>
+<if what='$/$posting.TopicId,0/!=$`migdal`'>
+ <topics_gallery_major posting='$posting'>
+ <topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
+	       href='gallery.php' title='Раздельчики'>
+<else>
+ <topics_gallery_migdal posting='$posting'>
+ <topics_gallery_major posting='$posting'>
+</if>
 </element>

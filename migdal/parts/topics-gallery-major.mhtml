@@ -1,4 +1,24 @@
 << @(#) $Id$ >>
 
 <element name='topics_gallery_major'>
+<topics_table title='Разделы' span=2>
+ <topics_line href='gallery.php' title='На главную страницу галереи'
+	      text='Главная' arrow!="$posting.TopicId<=0" span=2>
+ <topics_line href#='gallery.php?topic_id=$`migdal`' text='Мигдаль'
+	      arrow!="$posting!=0 && $posting.TopicId==$`migdal`"
+	      span=2 class='item'>
+ <topics_gallery_migdal_main posting='$posting'>
+ <topic_obj name='taglit' id='$`taglit`'>
+ <posting_last grp='*GRP_GRAPHICS' topic_id='$`taglit`' recursive='*false'>
+ <topics_line time='$,' href#='gallery.php?topic_id=$`taglit`'
+              title='$taglit.Description' text='$taglit.Name'
+	      arrow!="$posting!=0 && $posting.TopicId==$`taglit`"
+	      class='item ninept' span=2>
+ <topic_obj name='veterans' id='$`veterans`'>
+ <posting_last grp='*GRP_GRAPHICS' topic_id='$`veterans`' recursive='*false'>
+ <topics_line time='$,' href#='gallery.php?topic_id=$`veterans`'
+              title='$veterans.Description' text='$veterans.Name'
+	      arrow!="$posting!=0 && $posting.TopicId==$`veterans`"
+	      class='item ninept' span=2>
+</topics_table>
 </element>

@@ -56,11 +56,11 @@
 <decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'
-       params='topic_id,rows,cols,offset,subdomain,sort'
+       params='topic_id,rows,cols,offset,subdomain,sort,user_id'
        defaults="topic_id=-1 rows=4 cols=5 offset=0 subdomain=-1
-                 sort='*SORT_PSENT'">
+                 sort='*SORT_PSENT' user_id=0">
 <decel name='gallery_main' file='parts/gallery-main.php'
-       params='cols,subdomain' defaults="cols=5 subdomain=-1">
+       params='offset,topic_id' defaults="offset=0 topic_id=-1">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php'
        params='name,value,title,mandatory'
@@ -72,6 +72,13 @@
        params='grp,topic_id,title,later,limit,sort,showshadows'
        defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
                  limit=10 sort='*SORT_RATING' showshadows='*true'">
+<decel name='hit_parade_gallery' file='parts/hit-parade.php'
+       params='grp,topic_id,title,later,limit,sort,showshadows'
+       defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
+                 limit=10 sort='*SORT_RATING' showshadows='*true'">
+<decel name='hit_parade_gallery_month' file='parts/hit-parade.php'
+       params='grp,topic_id,showshadows'
+       defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
 <decel name='hit_parade_month' file='parts/hit-parade.php'
        params='grp,topic_id,showshadows'
        defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
@@ -182,12 +189,20 @@
        defaults="no_new='*false' target='' showimages='*true' transref=''">
 <decel name='topiclink' file='parts/posting.php' params='posting,class'
        defaults="class='topic'">
+<decel name='topiclink_all' file='parts/posting.php'
+       params='posting,&href,&ghref,&name,&title'>
+<decel name='topiclink_gallery' file='parts/posting.php' params='posting,class'
+       defaults="class='topic'">
 <decel name='topics' file='parts/topics-general.php' params='posting,ident'
        defaults="posting=0 ident=''">
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
 <decel name='topics_gallery' file='parts/topics-gallery-general.php'
        params='posting'>
 <decel name='topics_gallery_major' file='parts/topics-gallery-major.php'
+       params='posting'>
+<decel name='topics_gallery_migdal' file='parts/topics-gallery-migdal.php'
+       params='posting'>
+<decel name='topics_gallery_migdal_main' file='parts/topics-gallery-migdal.php'
        params='posting'>
 <decel name='topics_help' file='parts/topics-help.php' params='ident'>
 <decel name='topics_kaitana' file='parts/topics-kaitana.php'

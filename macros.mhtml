@@ -167,6 +167,10 @@
 <decexec macro='decstyle' func='declareStyle' file='lib/style.php'
          params='ident,desc'>
 
+<deccall macro='array_push' func='array_push' params='array,value'
+         defaults="array='$*'">
+<deccall macro='array_random' func='array_random' file='lib/random.php'
+         params='array' defaults="array='$*'">
 <deccall macro='chat_users_count' func='getChatUsersCount'
          file='lib/chat-users.php'>
 <decexec macro='common' func='beginCommon' file='lib/inner.php'>

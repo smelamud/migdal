@@ -1,43 +1,96 @@
 << @(#) $Id$ >>
 
-<element name='batcher'>
-<div>
- <logged>
-  <table class='info'><tr valign=center>
-   <td><image src='pics/sheet.gif'></td>
-   <td>
-    <a href='postingedit.php?topic_id=$`general`&grp=*GRP_GALLERY&redirid=$_'
-       >Добавить картинку</a>
-   </td>
-  </tr></table>
- <else>
-  <span class='info'>
-   <em>Хотите добавлять картинки?</em>
-   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-  </span>
- </logged>
-</div>
+<element name='batcher' params='&list'>
+<table width=100%>
+ <tr valign=bottom>
+  <td align=left class='info'>
+   <logged>
+    <table><tr valign=center>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <a href='postingedit.php?topic_id=$`general`&grp=*GRP_GALLERY&redirid=$_'
+	 >Добавить картинку</a>
+     </td>
+    </tr></table>
+   <else>
+    <em>Хотите добавлять картинки?</em>
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+   </logged>
+  </td>
+  <td align=center><spin list='$list'></td>
+ </tr>
+</table>
+</element>
+
+<element name='announce' params='posting,count'>
+<table class='posting' width=100%>
+ <tr valign=top>
+  <td align=center width='$$thumbnailWidth' class='pic'>
+   <ifnzero what='$posting.ImageSet'>
+    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+   </ifnzero>
+  </td>
+  <td width=10>&nbsp;</td>
+  <td align=left>
+   <p class='subject'>
+    <topiclink_gallery posting='$posting'>
+   </p>
+   <p>
+    <topiclink_all posting='$posting' href='$href' ghref='$ghref' name='$name'
+                   title='$title'>
+    <array vals='0,1,2'>
+    <plural value='$count'>
+    <if what='$,==0'>
+     Добавлена <a href='$ghref'>$count новая картинка</a>.
+    <elif what='$,==1'>
+     Добавлены <a href='$ghref'>$count новые картинки</a>.
+    <else>
+     Добавлены <a href='$ghref'>$count новых картинок</a>.
+    </if>
+   </p>
+   <p class='sent'>
+    <sentview date='$posting.Sent'><br>
+    <senderlink message='$posting'>
+   </p>
+  </td>
+ </tr>
+ <tr><td colspan=3>
+  <table width=100% class='bottom'><tr><td>&nbsp;</td></tr></table>
+ </td></tr>
+</table>
 </element>
 
 <element name='gallery_main'>
-<iterate_topiclist up='$`general`' grp='*GRP_GALLERY' withpostings='*true'
-                   subdomain='$subdomain'>
-<iterate_rows cols='$cols'>
-<batcher>
-<table cellspacing=10 cellpadding=0>
- <tr valign=top>
-  <for>
-   <td>
-    <posting_random grp='*GRP_GALLERY' topic_id='$.Id'>
-    <posting_full id='$,' grp='*GRP_GALLERY'>
-    <picture_main href#='gallery.php?topic_id=$,TopicId'
-                  biff='$.LastMessage' name='$,TopicName'
-		  text='$,TopicDescription' image_id='$,ImageId'>
-   </td>
-   <if what='$;isEol'>
-    </tr><tr valign=top>
-   </if>
-  </for>
- </tr>
-</table>
+<iterate_postinglist grp='*GRP_GRAPHICS' topic_id='$topic_id' limit=40
+                     offset='$offset' recursive='*true'>
+<batcher list='$;'>
+<assign name='count' value=0>
+<assign name='topic_id' value=0>
+<assign name='user_id' value=0>
+<assign name='sent' value=0>
+<array name='postings'>
+<for>
+ <if what='$topic_id!=$.TopicId || $user_id!=$.UserId ||
+           ($sent-$.Sent)/3600>$$userBiffTime'>
+  <ifnzero what='$topic_id'>
+   <array_random array='$postings'>
+   <announce posting='$,' count='$count'>
+  </ifnzero>
+  <assign name='count' value=1>
+  <assign name='topic_id' value='$.TopicId'>
+  <assign name='user_id' value='$.UserId'>
+  <array name='postings' val1='$.'>
+ <else>
+  <assign name='count' value!='$count+1'>
+  <array_push array='$postings' value='$.'>
+ </if>
+ <assign name='sent' value='$.Sent'>
+</for>
+<ifnzero what='$topic_id'>
+ <array_random array='$postings'>
+ <announce posting='$,' count='$count'>
+</ifnzero>
+<ifnzero what='$;Count'>
+ <batcher list='$;'>
+</ifnzero>
 </element>
