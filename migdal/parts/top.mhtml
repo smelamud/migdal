@@ -11,11 +11,16 @@
      <tr valign=bottom>
       <td>
        <at href='/index.php' target='$target'>
-        <image src='$$style_banner_logo' alt='Башня' border=0></at>
+        <image src='$$style_banner_logo'
+	       alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></at>
       </td>
       <td align=center>
        <at href='/index.php' target='$target'>
-        <image src='$$style_banner_migdal' alt='Мигдаль' border=0><br>
+	<notenglish>
+         <image src='$$style_banner_migdal' alt='Мигдаль' border=0><br>
+	<else>
+         <image src='$$style_banner_migdal_english' alt='Migdal' border=0><br>
+	</notenglish>
         <image src='$$style_banner_online' alt='on-line' border=0></at>
       </td>
       <<td style='padding-left: 20px'>

@@ -32,6 +32,7 @@ bottom_biglink=%mrm
 bottom_biglink_hover=blue
 banner_logo=pics/big-tower.gif
 banner_migdal=pics/migdal.jpg
+banner_migdal_english=pics/migdal-english.gif
 banner_online=pics/online.jpg
 state_date=%nd
 register_hover=blue
