@@ -38,14 +38,13 @@ $this->stotext=new Stotext($row,'description');
 
 function setup($vars)
 {
-global $grpNames;
-
 if(!isset($vars['edittag']))
   return;
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 $this->allow=0;
 $this->premoderate=0;
+$grpNames=$this->getGrpVars();
 foreach($grpNames as $code => $name)
        {
        if($vars[$name])
@@ -59,6 +58,14 @@ $this->stotext->setup($vars,'description');
 function getCorrespondentVars()
 {
 return array('up','name','hidden','ident');
+}
+
+function getGrpVars()
+{
+return array(GRP_NEWS     => 'news',
+             GRP_FORUMS   => 'forums',
+	     GRP_GALLERY  => 'gallery',
+	     GRP_ARTICLES => 'articles');
 }
 
 function getWorldVars()
