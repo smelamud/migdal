@@ -23,16 +23,6 @@
 <if what='$$userId>0 || $showdiscuss'>
  <table width=90% class='bottom'><tr>
   <td>
-   <admin_domain>
-    <ifzero what='$posting.Subdomain'>
-     <a href="actions/domainmod.php?editid=$posting.Id&domain=1&okdir=$#-&faildir=$#-"
-      >На&nbsp;официальную</a>
-    <else>
-     <a href="actions/domainmod.php?editid=$posting.Id&domain=0&okdir=$#-&faildir=$#-"
-      >Убрать&nbsp;с&nbsp;официальной</a>
-    </if>
-    &nbsp;
-   </admin_domain>
    <isedit what='$posting'>
     <a href="postingedit.php?editid=$posting.Id&root=$`general`&grp=$posting.Grp&redirid=$_"
      >Изменить</a>

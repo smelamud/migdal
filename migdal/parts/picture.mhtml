@@ -32,16 +32,6 @@
        >Жалоба</a>
    </if>
   </isedit>
-  <admin_domain>
-   <br>
-   <ifzero what='$picture.Subdomain'>
-    <a href="actions/domainmod.php?editid=$picture.Id&domain=1&okdir=$#-&faildir=$#-"
-       >На&nbsp;официальную</a>
-   <else>
-    <a href="actions/domainmod.php?editid=$picture.Id&domain=0&okdir=$#-&faildir=$#-"
-       >Убрать&nbsp;с&nbsp;официальной</a>
-   </if>
-  </admin_domain>
  </td></tr>
 </logged>
 </element>
