@@ -7,7 +7,7 @@
 
 <element name='email' params='addr'>
 <assign name='title'
-        value!='!$englishDomain ? "Написать письмо" : "Send e-mail"'>
+        value!='!$$englishDomain ? "Написать письмо" : "Send e-mail"'>
 <a href="mailto:$addr" title="$title">
    <image src="pics/mail.gif" border=0></a>
 </element>
