@@ -11,7 +11,13 @@ require_once('lib/journal.php');
 function executeAction($action)
 {
 foreach($action as $line)
-       echo $line->getQuery();
+       {
+       $query=jdecode($line->getQuery());
+       mysql_query($query)
+         or journalFailure('Error executing replicated query in seq '.
+	                   $line->getSeq().' id='.$line->getId().
+			   ": $query");
+       }
 }
 
 function replicate($host)
@@ -33,6 +39,7 @@ while(!feof($fd))
        {
        executeAction($action);
        $action=array();
+       setHorisont($host,$line->getSeq(),HOR_WE_KNOW);
        }
      }
 fclose($fd);
