@@ -29,5 +29,4 @@ dbOpen();
 session(getShamesId());
 cleanup();
 dbClose();
-
 ?>

@@ -150,5 +150,4 @@ while($rating=$iter->next())
      $name($rating);
      }
 dbClose();
-
 ?>

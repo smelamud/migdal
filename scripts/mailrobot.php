@@ -37,5 +37,4 @@ $iter=new MailingsExtractIterator();
 while($mail=$iter->next())
      send($mail);
 dbClose();
-
 ?>

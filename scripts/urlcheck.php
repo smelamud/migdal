@@ -52,5 +52,4 @@ session(getShamesId());
 initCheckTimes();
 checkURLs();
 dbClose();
-
 ?>
