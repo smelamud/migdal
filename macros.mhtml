@@ -146,11 +146,6 @@
  <zone><image_tag id='$posting.ImageId'>$,</zone>
 </macro>
 
-<macro name='jdate' defaults='time=0'>
- <require name='lib/calendar.php'>
- <call name='%name' func='getJewishFromUNIX' arg1='%time'>
-</macro>
-
 <macro name='posting_obj' defaults='name=message grp=0 topic=0'>
  <require name='lib/postings.php'>
  <call name='%name' func='getPostingById' arg1='%id' arg2='%grp' arg3='%topic'>
@@ -166,6 +161,10 @@
  <zone>
   <call func='reloadParameter' arg1='%why' arg2='%var' arg3='%value'>
  </zone>
+</macro>
+
+<macro name='time'>
+ <call name='%name' func='time'>
 </macro>
 
 <macro name='topic_obj' defaults='id="$topic_id"'>

@@ -4,7 +4,7 @@
 <menu ident='$ident'><br>
 <table width=100%><tr>
  <td align=left><login flags='$flags' err='$$err'></td>
- <td align=right>Сегодня <jdate><u>$,</u></td>
+ <td align=right><today></td>
 </tr></table>
 <backtrace redir='$$redir'><br>
 </element>

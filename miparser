@@ -91,6 +91,11 @@ my $iter=$Stack->top()->getIterator();
 my $result=$Stack->top()->getResult();
 my $const=$Stack->top()->getConst();
 
+if($s=~/^(.*)&([ERJ]\w)$/)
+  {
+  request('lib/calendar.php');
+  return "${st}formatAnyDate('$2',".subVar($1).")$ed";
+  }
 return $st.constructRemake($1).$ed
        if $s=~/^\$\[([^\]]*)\]$/;
 return "${st}urlencode(".constructRemake($1).")$ed"
@@ -142,7 +147,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$\*]*)((?:(?:\$[#\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;~\*\-]))|(?:\*\w+))?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^\$\*]*)((?:(?:(?:\$[#\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;~\*\-]))|(?:\*\w+))(?:&[ERJ]\w)?)?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      if($head eq '' && $var eq '')
