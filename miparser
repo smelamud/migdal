@@ -597,11 +597,25 @@ my ($self)=@_;
 return $self->{'args'};
 }
 
-sub getArg
+sub getConstArg
 {
 my ($self,$name)=@_;
 
 return $self->{'args'}->{$name};
+}
+
+sub getExpressionArg
+{
+my ($self,$name)=@_;
+
+return ::subVars($self->{'args'}->{$name});
+}
+
+sub getArg
+{
+my ($self,$name)=@_;
+
+return ::subVar($self->{'args'}->{$name});
 }
 
 sub process
@@ -643,8 +657,8 @@ sub elRefresh #XXX Possibly empty period,url
 {
 my ($self)=@_;
 
-my $period=::subVar($self->getArg('period'));
-my $url=::subVar($self->getArg('url'));
+my $period=$self->getArg('period');
+my $url=$self->getArg('url');
 ::header("<?php header('Refresh: '.$period.'; URL='.$url); ?>\n");
 ::body("<meta http-equiv='Refresh' value='<?php echo $period
                                            ?>;URL=<?php echo $url ?>'>\n");
@@ -749,7 +763,7 @@ my ($self)=@_;
 
 my $token=$self->getToken();
 $token=~s/>/ target='$::Retarget'>/ if $::Retarget ne ''
-                                    && $self->getArg('target') eq '';
+                                    && $self->getConstArg('target') eq '';
 ::body(::subVarsText($token));
 }
 
@@ -757,14 +771,14 @@ sub elRequire
 {
 my ($self)=@_;
 
-::request($self->getArg('name'));
+::request($self->getConstArg('name'));
 }
 
 sub elInclude
 {
 my ($self)=@_;
 
-::body('<?php include(',::subVar($self->getArg('name')),'); ?>');
+::body('<?php include(',$self->getArg('name'),'); ?>');
 }
 
 sub pushArray
@@ -773,7 +787,7 @@ sub pushArray
 
 if(exists $self->getArgs()->{$name})
   {
-  my $value=::subVar($self->getArg($name));
+  my $value=$self->getArg($name);
   if($value=~/^'([^']*)'$/)
     {
     $value=~s/^'([^']*)'$/\1/;
@@ -790,7 +804,7 @@ sub elArray
 {
 my ($self)=@_;
 
-my $name=$self->getArg('name');
+my $name=$self->getConstArg('name');
 $name='const'.($::LastConst++) if $name eq '';
 ::body("<?php \$$name=array(");
 my @vals=();
@@ -807,9 +821,9 @@ sub elAssign #XXX Possibly empty value
 {
 my ($self)=@_;
 
-my $name=$self->getArg('name');
+my $name=$self->getConstArg('name');
 $name='const'.($::LastConst++) if $name eq '';
-::body("<?php \$$name=",::subVar($self->getArg('value')),'; ?>');
+::body("<?php \$$name=",$self->getArg('value'),'; ?>');
 $::Stack->top()->setConst($name);
 }
 
@@ -817,7 +831,7 @@ sub elAssign_global #XXX Possibly empty value
 {
 my ($self)=@_;
 
-::getGlobal($self->getArg('name'));
+::getGlobal($self->getConstArg('name'));
 elAssign @_;
 }
 
@@ -825,9 +839,9 @@ sub elConcat
 {
 my ($self)=@_;
 
-my $name=$self->getArg('name');
+my $name=$self->getConstArg('name');
 $name='const'.($::LastConst++) if $name eq '';
-my $value="'".::subVars($self->getArg('value'),"'.",".'")."'";
+my $value="'".::subVars($self->getConstArg('value'),"'.",".'")."'";
 $value=~s/^''\.//;
 $value=~s/\.''$//;
 ::body("<?php \$$name=$value; ?>");
@@ -838,9 +852,9 @@ sub elIterate #XXX Possibly empty class
 {
 my ($self)=@_;
 
-my $name=$self->getArg('name');
+my $name=$self->getConstArg('name');
 $name='iter'.($::LastIter++) if $name eq '';
-::body("<?php \$$name=new ",$self->getArg('class'),
+::body("<?php \$$name=new ",$self->getConstArg('class'),
        '(',::constructParams($self->getArgs()),'); ?>');
 $::Stack->top()->setIterator($name);
 }
@@ -849,9 +863,9 @@ sub elFor #XXX Possibly empty list
 {
 my ($self)=@_;
 
-my $list=$self->getArg('list');
+my $list=$self->getConstArg('list');
 $list=$::Stack->top()->getIterator() if $list eq '';
-my $name=$self->getArg('name');
+my $name=$self->getConstArg('name');
 $name='item'.($::LastItem++) if $name eq '';
 ::body("<?php while(\$$name=\$$list->next()) { ?>");
 $::Stack->push();
@@ -882,14 +896,15 @@ while($level!=0 && $::Line ne '')
        }
      $body.=$::Token->getToken() if $level!=0;
      }
-$::Macros{lc $self->getArg('name')}=Macro->new($body,$self->getArg('defaults'));
+$::Macros{lc $self->getConstArg('name')}=
+   Macro->new($body,$self->getConstArg('defaults'));
 }
 
 sub elIf
 {
 my ($self)=@_;
 
-::body('<?php if(',::subVars($self->getArg('what')),') { ?>');
+::body('<?php if(',$self->getExpressionArg('what'),') { ?>');
 }
 
 sub elElse #XXX Possibly incorrect closure
@@ -910,9 +925,9 @@ sub elObj #XXX Possibly empty class
 {
 my ($self)=@_;
 
-my $name=$self->getArg('name');
+my $name=$self->getConstArg('name');
 $name='result'.($::LastResult++) if $name eq '';
-::body("<?php \$$name=new ",$self->getArg('class'),
+::body("<?php \$$name=new ",$self->getConstArg('class'),
        '(',::constructParams($self->getArgs()),'); ?>');
 $::Stack->top()->setResult($name);
 }
@@ -921,9 +936,9 @@ sub elCall #XXX Possibly empty func
 {
 my ($self)=@_;
 
-my $name=$self->getArg('name');
+my $name=$self->getConstArg('name');
 $name='result'.($::LastResult++) if $name eq '';
-::body("<?php \$$name=",$self->getArg('func'),
+::body("<?php \$$name=",$self->getConstArg('func'),
        '(',::constructParams($self->getArgs()),'); ?>');
 $::Stack->top()->setResult($name);
 }
@@ -946,23 +961,26 @@ sub elDecel #XXX Possibly empty name
 {
 my ($self)=@_;
 
-$::Elements{lc $self->getArg('name')}=Element->new($self->getArg('file'),
-                                                   $self->getArg('params'),
-                                                   $self->getArg('defaults'));
+$::Elements{lc $self->getConstArg('name')}=
+   Element->new(
+             $self->getConstArg('file'),
+             $self->getConstArg('params'),
+             $self->getConstArg('defaults')
+            );
 }
 
 sub elElement #XXX Possibly empty name or incorrect closure
 {
 my ($self)=@_;
 
-$::ElementName=lc $self->getArg('name');
+$::ElementName=lc $self->getConstArg('name');
 $::ElementName=~s/\//_/g;
 $::ElementBody='';
 @::ElementGlobals=();
 if(!exists $::Elements{$::ElementName})
   {
-  $::Elements{$::ElementName}=Element->new('',$self->getArg('params'),
-					   $self->getArg('defaults'));
+  $::Elements{$::ElementName}=Element->new('',$self->getConstArg('params'),
+					   $self->getConstArg('defaults'));
   }
 $::Stack->push();
 }
@@ -986,9 +1004,9 @@ sub elSettype #XXX Possibly empty name,type or unknown type
 {
 my ($self)=@_;
 
-my $name=$self->getArg('name');
-my $type=$self->getArg('type');
-my $method=$self->getArg('method');
+my $name=$self->getConstArg('name');
+my $type=$self->getConstArg('type');
+my $method=$self->getConstArg('method');
 $method=$method eq '' ? 'GET' : uc $method;
 ::body(<<EOT);
 <?php
@@ -1002,19 +1020,19 @@ sub elSetup
 {
 my ($self)=@_;
 
-my $name=$self->getArg('name');
+my $name=$self->getConstArg('name');
 $name=$::Stack->top()->getResult() if $name eq '';
-if($self->getArg('var') eq '')
+if($self->getConstArg('var') eq '')
   {
-  my $method=$self->getArg('method');
+  my $method=$self->getConstArg('method');
   $method='get' if $method eq '';
   $method=uc $method;
   ::body("<?php \$$name->setup(\$",::getGlobal("HTTP_${method}_VARS"),"); ?>");
   }
 else
   {
-  ::body("<?php \$$name->set".$self->getArg('var').
-         '('.::subVar($self->getArg('value')).'); ?>');
+  ::body("<?php \$$name->set".$self->getConstArg('var').
+         '('.$self->getArg('value').'); ?>');
   }
 }
 
