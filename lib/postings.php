@@ -23,6 +23,7 @@ var $topic_description;
 var $personal_id;
 var $grp;
 var $priority;
+var $read_count;
 
 function Posting($row)
 {
@@ -237,6 +238,7 @@ $this->LimitSelectIterator(
  	       if(images.has_large,images.large_y,images.small_y) as image_y,
 	       topics.name as topic_name,topictexts.body as topic_description,
 	       login,gender,email,hide_email,rebe,
+	       read_count,
 	       count(forummesgs.id) as answer_count,
 	       max(forummesgs.sent) as last_answer,
 	       ifnull(max(forummesgs.sent),messages.sent) as age
@@ -404,6 +406,7 @@ $result=mysql_query(
 		topics.name as topic_name,topictexts.body as topic_description,
 		images.has_large as has_large_image,images.title as title,
 		login,gender,email,hide_email,rebe,
+	        read_count,
 	        count(forummesgs.id) as answer_count,
 	        max(forummesgs.sent) as last_answer
 	 from postings

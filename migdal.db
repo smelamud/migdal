@@ -2,7 +2,7 @@
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.46-log
+# Server version	3.23.47-log
 
 #
 # Table structure for table 'chat_messages'
@@ -220,13 +220,20 @@ CREATE TABLE postings (
   personal_id int(11) NOT NULL default '0',
   grp tinyint(4) NOT NULL default '0',
   priority tinyint(4) NOT NULL default '0',
+  read_count int(11) NOT NULL default '0',
+  index0 int(11) NOT NULL default '0',
+  index1 int(11) NOT NULL default '0',
+  index2 int(11) NOT NULL default '0',
+  index3 int(11) NOT NULL default '0',
+  index4 int(11) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY message_id (message_id),
   KEY topic_id (topic_id),
   KEY personal_id (personal_id),
   KEY grp (grp),
   KEY ident (ident),
-  KEY priority (priority)
+  KEY priority (priority),
+  KEY read_count (read_count,index0,index1,index2,index3,index4)
 ) TYPE=MyISAM;
 
 #
@@ -381,12 +388,14 @@ CREATE TABLE users (
   no_login tinyint(4) NOT NULL default '0',
   has_personal tinyint(4) NOT NULL default '0',
   settings varchar(70) NOT NULL default '',
+  last_chat datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id),
   KEY login (login),
   KEY password (password),
   KEY confirm_deadline (confirm_deadline),
   KEY confirm_code (confirm_code),
-  KEY confirm_deadline_2 (confirm_deadline)
+  KEY confirm_deadline_2 (confirm_deadline),
+  KEY last_chat (last_chat)
 ) TYPE=MyISAM;
 
 #
@@ -401,7 +410,7 @@ CREATE TABLE version (
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.46-log
+# Server version	3.23.47-log
 
 #
 # Dumping data for table 'complain_types'
