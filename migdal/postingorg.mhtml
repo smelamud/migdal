@@ -116,6 +116,9 @@
 <preamble>
 <body>
  <top ident='index'>
+ <iterate_postinglist topic_id='$topic_id' limit=20 offset='$offset'
+		      showshadows='*true' grp='$grp' recursive='$recursive'>
+ <assign name='size' value='$;Size'>
  <table class='ninept nframe' style='padding: 5px'>
   <form method=post action='actions/postingorg-goto.php'>
    <hidden name='okdir' value='$-'>
@@ -136,22 +139,25 @@
      <formbuttons title='Просмотр'>
     </table></td>
     <td align=right>
-     <select name='grp[]' size=6 multiple>
+     <select name='grp[]' size=6 multiple><zone>
       <iterate_grps>
       <for>
        <if what='$.isValid'>
 	<radio title='$.GrpTitle' value='$.Grp' peervalue!='$grp & $.Grp'>
        </if>
       </for>
-     </select>
+     </zone></select>
     </td>
    </tr>
   </form>
+  <tr><td colspan=2 class='info'>
+   <array vals='сообщение,сообщения,сообщений'>
+   <plural value='$size'>
+   Выбрано&nbsp;<em>$size</em>&nbsp;$,
+  </td></tr>
  </table>
  <table class='ninept cframe' width=100%><tr><td>
   <error_lines>
-  <iterate_postinglist topic_id='$topic_id' limit=20 offset='$offset'
-		       showshadows='*true' grp='$grp' recursive='$recursive'>
   <batcher list='$;'>
   <ifnzero what='$;Count'>
    <for>
