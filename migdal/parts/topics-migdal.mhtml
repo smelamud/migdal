@@ -119,9 +119,6 @@
 </element>
 
 <element name='topics_migdal'>
-
-<grps>
-
 <if what='$/$posting.TopicId,1/==$`jcc`'>
  <topics_jcc posting='$posting'>
 </if>
@@ -184,9 +181,6 @@
 </element>
 
 <element name='topics_migdal_main'>
-<grps>
-<iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-		     topic_id='$`migdal`' recursive='*false'>
 <posting_last topic_id='$`migdal-news`' recursive='*true'>
 <topics_line time='$,' href#='migdal-news.php' indent=1 text='Новости'
 	     class='item eightpt'>
@@ -200,12 +194,10 @@
 <posting_last topic_id='$`museum`' recursive='*true'>
 <topics_line time='$,' href#='migdal.php?artid=$`postings:museum`' indent=1
              text='Музей евреев Одессы' class='item eightpt'>
-<for>
- <if what='$.Id!=$`postings:migdal`'>
-  <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
-               indent=1 class='item eightpt'>
- </if>
-</for>
+<posting_last topic_id='$`migdal-ohr`' recursive='*true'>
+<topics_line time='$,' href#='migdal.php?artid=$`postings:migdal-ohr`' indent=1
+             text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+	     class='item eightpt'>
 <posting_last topic_id='$`mazltov`' recursive='*true'>
 <topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`' indent=1
              text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'

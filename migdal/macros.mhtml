@@ -261,8 +261,8 @@
 </macro>
 
 <macro name='preamble_tiny'>
- <assign_global name='communityDomain' value!="$$userDomain=='www'">
- <assign_global name='officialDomain' value!="$$userDomain=='info'">
+ <assign_global name='wwwDomain' value!="$$userDomain=='www'">
+ <assign_global name='englishDomain' value!="$$userDomain=='english'">
  <head>
   <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
  </head>
@@ -280,23 +280,23 @@
 </macro>
 
 << Subdomains >>
-<macro name='force_official'>
- <force_domain domain='info'>
+<macro name='force_english'>
+ <force_domain domain='english'>
 </macro>
 
-<macro name='force_community'>
+<macro name='force_www'>
  <force_domain domain='www'>
 </macro>
 
-<macro name='official'>
- <if what="$$userDomain=='info'">
+<macro name='english'>
+ <if what="$$userDomain=='english'">
 </macro>
-<endif name='/official'>
+<endif name='/english'>
 
-<macro name='community'>
+<macro name='www'>
  <if what="$$userDomain=='www'">
 </macro>
-<endif name='/community'>
+<endif name='/www'>
 
 << Logging >>
 <macro name='trap'>
