@@ -1,9 +1,9 @@
 << @(#) $Id$ >>
 
 <element name='article_controls'>
-<div align=right>
- <table class='controls'>
-  <tr>
+<outer>
+ <div align=right>
+  <table class='controls'><tr><inner>
    <isedit what='$posting'>
     <td>
      <editlink posting='$posting'>
@@ -15,10 +15,12 @@
      &nbsp;
     </td>
    </isedit>
-   <td><discusslink posting='$posting'></td>
-  </tr>
- </table>
-</div>
+   <if what='!$nodiscuss'>
+    <td><discusslink posting='$posting'></td>
+   </if>
+  </inner></tr></table>
+ </div>
+</outer>
 </element>
 
 <macro name='isplaced'>

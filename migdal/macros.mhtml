@@ -17,7 +17,8 @@
 << Elements >>
 <decel name='article' file='parts/article.php' params='posting,withvote'
        defaults="withvote='*true'">
-<decel name='article_controls' file='parts/article.php' params='posting'>
+<decel name='article_controls' file='parts/article.php'
+       params='posting,nodiscuss' defaults="nodiscuss='*false'">
 <decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='at' file='parts/utils.php' params='target,class,href,title'
        defaults="target='' class='' title=''">
@@ -267,7 +268,7 @@
  <assign_global name='englishDomain' value!="$$userDomain=='english'">
  <head>
   <title><notenglish>Мигдаль<else>Migdal</notenglish>
-  <ifne what='$pageTitle'> - $pageTitle</ifne></title>
+  <ifne what='$pageTitle'>&sp;- $pageTitle</ifne></title>
  </head>
 </macro>
 

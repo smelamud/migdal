@@ -3,7 +3,7 @@
 <int name='editid'>
 <int name='parent_id'>
 <int name='peerid'>
-<pagetitle title='Сообщение в форуме'>
+<pagetitle title='Комментарий'>
 <conf>
 
 <html>
@@ -20,9 +20,9 @@
                    quote_width=65>
  <setup>
  <if what='$editid'>
-  <assign name='head' value='Изменить сообщение в форуме'>
+  <assign name='head' value='Изменить комментарий'>
  <else>
-  <assign name='head' value='Добавить сообщение в форум'>
+  <assign name='head' value='Добавить комментарий'>
  </if>
  <center>
   <formtable title='$head'>
@@ -36,7 +36,7 @@
     <table>
      <starinfo>
      <error id='*EFA_NO_SEND'
-	    text='Посылать сообщения могут только зарегистрированные пользователи'>
+	    text='Добавлять комментарии могут только зарегистрированные пользователи'>
      <error id='*EFA_NO_EDIT'
 	    text='У вас нет права редактировать это сообщение'>
      <error id='*EFA_STORE_SQL' color='magenta'
