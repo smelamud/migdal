@@ -1,65 +1,4 @@
 << @(#) $Id$ >>
-<?php
-function elementEdit($title,$value,$name,$size,$length) #COMPATIBILITY
-{
-return "<tr>
-         <td>$title </td>
-         <td><input type=text name='$name' value='$value' size=$size
-	            maxlength=$length></td>
-	</tr>";
-}
-
-function condEdit($title,$edit,$value,$name,$size,$length) #COMPATIBILITY
-{
-return !$edit ?
-       $value!='' ? "<tr><td><b>$title:</b></td><td>$value</td></tr>" : '' :
-       elementEdit($title,$value,$name,$size,$length);
-}
-
-function condEditStatus($title,$edit,$status,$value,$name,$size,$length)
-{
-return !$edit ?
-       $value!='' ? "<tr>
-                      <td><b>$title:</b></td><td>$status&nbsp;$value</td>
-		     </tr>"
-                  : '' :
-       "<tr>
-         <td>$title </td>
-	 <td>$status&nbsp;<input type=text name='$name' value='$value'
-	                         size=$size maxlength=$length></td>
-	</tr>";
-}
-
-function condEditValue($title,$edit,$value,$valueEdit,$name,$size,$length) #COMPATIBILITY
-{
-return !$edit ?
-       $value!='' ? "<tr><td><b>$title:</b></td><td>$value</td></tr>" : '' :
-       elementEdit($title,$valueEdit,$name,$size,$length);
-}
-
-function elementCheckBox($name,$value,$title,$span=1) #COMPATIBILITY
-{
-return "<tr><td colspan=$span>
-         <input type=checkbox name=$name value=1 ".($value ? 'checked' : '')
-                                                 ."> $title
-	</td></tr>";
-}
-
-function condCheckBox($edit,$name,$value,$title,$textOn='',$textOff='',$span=1) #COMPATIBILITY
-{
-return !$edit ? "<tr><td colspan=$span>
-                  <i>".($value ? $textOn : $textOff).'</i>
-                 </td></tr>'
-              : elementCheckBox($name,$value,$title,$span);
-}
-
-function elementOption($label,$value,$peervalue) #COMPATIBILITY
-{
-return "<option label='$label' value=$value".
-       ($value==$peervalue ? ' selected ' : '').
-       '>';
-}
-?>
 
 <element name='perror'>
 <if what='$$err==$id'>
@@ -77,12 +16,6 @@ $message.LoginLink
 </if>
 </element>
 
-<?php
-function perror($code,$message,$color='red',$span=1) #COMPATIBILITY
-{
-displayPError($code,$message,$color,$span);
-}
-?>
 <element name='Navigator'>
 <br><table width=100%><tr>
  <td align=left width=30%>
