@@ -5,6 +5,9 @@ require_once('lib/errorreporting.php');
 require_once('lib/uri.php');
 require_once('lib/post.php');
 
+postInteger('value');
+postInteger('pagesize');
+
 $offset=($value-1)*(empty($pagesize) ? 1 : $pagesize);
 if($offset<0)
   $offset=0;

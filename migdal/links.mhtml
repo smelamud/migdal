@@ -59,7 +59,9 @@
 <element name='admin'>
 <moderator>
  <table class='topics'><tr><td>
-  <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
+   <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
+   &nbsp;
+   <a href='postingorg.php?redirid=$_' class='edit'>Сообщения</a>
  </td></tr></table>
 </moderator>
 </element>

@@ -1,0 +1,84 @@
+<< @(#) $Id$ >>
+
+<int name='topic_id'>
+<int name='offset'>
+<int name='recursive'>
+
+<element name='batcher' params='list'>
+<table width=100% class='batcher'><tr valign=bottom>
+ <td align=center><spin list='$list'></td>
+</tr></table>
+</element>
+
+<element name='post' params='posting'>
+<div class='posting'>
+ <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
+ <span class='subject'>
+  <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
+     class='topic'><asp>
+   <for>
+    <if what='!$;isFirst'>&sp;::&sp;</if>
+    $.Name
+   </for>
+  <asp></a>
+ </span>
+ // $posting.GrpTitle <br>
+ <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
+  $posting.SubjectDesc</a><br>
+ <div class='sent' style='padding-top: 5px'>
+  <sentview date='$posting.Sent'>&nbsp;
+  <senderlink message='$posting'>
+ </div>
+ <table width=100% class='bottom'><tr><td>
+  <if what='$posting.isDisabled'>
+   <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+    >Разрешить&nbsp;показ</a>
+  <else>
+   <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+    >Запретить&nbsp;показ</a>
+  </if>
+  &nbsp;
+  <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
+     >Тень<ifnzero what='$posting.Shadow'> (*)</ifnzero></a>
+  &nbsp;
+  <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
+   >Осовременить</a>
+ </td></tr></table>
+</div>
+<p>
+</element>
+
+<grps>
+<pagetitle title='Организатор сообщений'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <moderator>
+  <table class='ninept aframe' style='padding: 5px'>
+   <form action='postingorg.php'>
+    <hidden name='redirid' value='$redirid'>
+    <topicselect name='topic_id' value='$topic_id'>
+    <tr><td>&nbsp;</td><td>
+     <checkbox title='С подтемами' name='recursive' value='$recursive'>
+    </td></tr>
+    <formbuttons title='Просмотр' span=2>
+   </form>
+  </table>
+  <div class='ninept cframe' style='padding: 5px'>
+   <iterate_postinglist topic='$topic_id' limit=20 offset='$offset'
+			showshadows='*true' grp='*GRP_ALL'
+			recursive='$recursive'>
+   <batcher list='$;'>
+   <ifnzero what='$;Count'>
+    <for>
+     <post posting='$.'>
+    </for>
+    <batcher list='$;'>
+   </ifnzero>
+  </div>
+ </moderator>
+ <bottom>
+</body>
+</html>
