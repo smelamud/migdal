@@ -209,6 +209,11 @@ $regularPassword='test';
 # Гость
 $guestLogin='Гость';
 
+# Репликация
+
 # Роль хоста в репликации
 $replicationMaster=true;
+
+# Тип (MIME-type) репликационной информации
+$replicationType='application/x-migdal-replication';
 ?>

@@ -19,7 +19,7 @@ return preg_replace('/\s+/',' ',$s);
 settype($from,'integer');
 
 dbOpen();
-session($sessionid);
+session();
 redirect();
 
 $dir=tempnam($tmpDir,'mig-stat-');
