@@ -12,6 +12,7 @@ $result=mysql_query("select large_body
 		     where id=$id")
 	     or die('Ошибка SQL при выборке текста');
 header('Content-Type: text/plain');
-echo mysql_result($result,0,0);
+echo strtr(mysql_result($result,0,0),
+           array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES)));
 dbClose();
 ?>
