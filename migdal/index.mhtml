@@ -53,6 +53,10 @@
     <topics_major ident='index' unroll='*true'>
     <topics_minor id='$topic_id' withpostings='*false' grp='*GRP_TAPE'
                   href='index.php' title='Раздельчики'>
+    <if what='$topic_id<=0'>
+     <p>
+     <rabbi>
+    </if>
    </td>
    <td style='padding: 0'>
     <table width=100% cellspacing=0 cellpadding=0>

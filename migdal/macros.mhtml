@@ -124,6 +124,7 @@
 <decel name='postings_links' file='parts/postings-links.php'
        params='topic_id,limit,offset'
        defaults="topic_id=-1 limit=10 offset=0">
+<decel name='rabbi' file='parts/rabbi.php'>
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
