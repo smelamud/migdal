@@ -334,7 +334,7 @@
 
 << HTML shortcuts >>
 <macro name='tdspan' defaults='span=0'>
- <ifzero what='%span'><td><else><td colspan=%span></ifzero>
+ <if what='(%span)==0 || (%span)==1'><td><else><td colspan=%span></ifzero>
 </macro>
 
 <macro name='/tdspan'>
