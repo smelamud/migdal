@@ -40,6 +40,7 @@
   </td>
   <community>
    <td width=115 class='eframe'>
+    <tip>
     <hit_parade grp='*GRP_WRITINGS' topic_id='$topic_id'>
     <<friends>>
    </td>

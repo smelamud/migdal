@@ -93,6 +93,11 @@ $tinySize=64;
 $tinySizeMinus=32;
 $tinySizePlus=32;
 
+# Параметры сокращения текстов до "маленького" размера
+$smallSize=256;
+$smallSizeMinus=128;
+$smallSizePlus=128;
+
 # Параметры сокращения текстов до "среднего" размера
 $mediumSize=1024;
 $mediumSizeMinus=512;

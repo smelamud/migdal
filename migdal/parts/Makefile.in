@@ -11,7 +11,7 @@ OBJECTS = article.php backtrace.php bottom.php complain.php formutils.php \
 	  posting-times-cover.php postings.php rambler.php spin.php \
 	  subtitle.php taglit.php taglit-gallery.php \
 	  taglit-gallery-picture.php taglit-posting.php taglit-postings.php \
-	  times-issue.php tip-posting.php today.php top.php topics.php \
+	  times-issue.php tip.php tip-posting.php today.php top.php topics.php \
 	  topics-general.php topics-kaitana.php topics-major.php \
 	  topics-minor.php topics-taglit.php topicselect.php tune.php \
 	  unititle.php uploader.php userinfo.php utils.php vote.php

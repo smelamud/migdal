@@ -201,6 +201,25 @@ return shorten(clearStotext(TF_MAIL,$this->getBody()),
                $tinySize,$tinySizeMinus,$tinySizePlus);
 }
 
+function isBodySmall()
+{
+global $smallSize,$smallSizeMinus,$smallSizePlus;
+
+return strlen($this->getBody())<=$smallSize+$smallSizePlus;
+}
+
+function getBodySmall()
+{
+global $smallSize,$smallSizeMinus,$smallSizePlus;
+
+return shorten($this->getBody(),$smallSize,$smallSizeMinus,$smallSizePlus);
+}
+
+function getHTMLBodySmall()
+{
+return stotextToHTML(TF_MAIL,$this->getBodySmall(),$this->getMessageId());
+}
+
 function isBodyMedium()
 {
 global $mediumSize,$mediumSizeMinus,$mediumSizePlus;

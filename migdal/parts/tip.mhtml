@@ -1,0 +1,22 @@
+<< @(#) $Id$ >>
+
+<element name='further' params='posting'>
+ <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
+  <image src='pics/further.gif' border=0 title='Читать дальше'>
+ <asp></a>&nbsp;<asp>
+</element>
+
+<element name='tip'>
+<topics_table class='eightpt' title='Знаете ли вы, что...'>
+ <posting_random grp='*GRP_TIPS'>
+ <posting_obj id='$,' grp='*GRP_TIPS'>
+ <tr><td>
+  <biff time='$,Sent' small='*true'>
+  $,HTMLBodySmall&nbsp;<asp>
+  <if what='!$,isBodySmall'>
+   <further posting='$,'>
+  </if>
+ </td></tr>
+ <tr><td align=center><a href='tips.php?redirid=$_'>Все советы</a></td></tr>
+</topics_table>
+</element>
