@@ -8,6 +8,9 @@
   <reload why='$g.Invalid' var='grp' value='*GRP_FORUMS'>
  </header>
 </macro>
+<macro name='grps'>
+ <require name='lib/grps.php'>
+</macro>
 << Errors >>
 <macro name='errors'>
  <require name='lib/errors.php'>
@@ -97,13 +100,15 @@
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
 <decel name='error' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
+<decel name='forum' file='parts/forum.php' params='forum'>
 <decel name='login' file='parts/login.php' params='flags,err'>
 <decel name='menu' file='parts/menu.php' params='ident'>
-<decel name='messages' file='parts/messages.php'
-       params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
 <decel name='message' file='parts/message.php'
        params='message,grp,topic,discuss' defaults="discuss='*true'">
+<decel name='messages' file='parts/messages.php'
+       params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
 <decel name='reload' file='lib/utils.php' params='why,var,value'>
+<decel name='senderlink' file='lib/utils.php' params='message'>
 <decel name='top' file='parts/top.php' params='ident,flags'
        defaults="flags=''">
 << HTML shortcuts >>

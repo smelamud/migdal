@@ -25,14 +25,7 @@
 </tr>
 <tr>
  <td><b><rebe>$message.Subject</rebe></b></td>
- <td align=right>
-  <rebe>
-  $message.LoginLink
-  <if what='$message.isSenderVisible'>
-   (<a href='useredit.php?editid=$message.SenderId&redir=$_'>подробнее</a>)
-  </if>
-  </rebe>
- </td>
+ <td align=right><rebe><senderlink message='$message'></rebe></td>
 </tr>
 <tr><td colspan=2>
  <ifnzero what='$message.ImageSet'>

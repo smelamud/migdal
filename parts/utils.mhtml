@@ -62,12 +62,19 @@ return "<option label='$label' value=$value".
 ?>
 
 <element name='error'>
- <if what='$$err==$id'>
-  <tr><tdspan span=$span>
-   <a name='error'>
-   <font color='$color'>$text</font>
-  </tdspan></tr>
- </if>
+<if what='$$err==$id'>
+ <tr><tdspan span=$span>
+  <a name='error'>
+  <font color='$color'>$text</font>
+ </tdspan></tr>
+</if>
+</element>
+
+<element name='SenderLink'>
+$message.LoginLink
+<if what='$message.isSenderVisible'>
+ (<a href='useredit.php?editid=$message.SenderId&redir=$_'>подробнее</a>)
+</if>
 </element>
 
 <?php

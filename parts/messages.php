@@ -31,7 +31,7 @@ while($item=$list->next())
      ?>
      <tr><td>
      <?php
-     displayMessage($item,$grp,$topic);
+     displayMessage($item,$grp,$topic,true);
      ?>
      </td></tr>
      <?php

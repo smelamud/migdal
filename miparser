@@ -634,6 +634,8 @@ sub elElement #XXX Possibly empty name or incorrect closure
 my ($self)=@_;
 
 $::ElementName=lc $self->getArg('name');
+$::ElementBody='';
+@::ElementGlobals=();
 if(!exists $::Elements{$::ElementName})
   {
   $::Elements{$::ElementName}=Element->new('',$self->getArg('params'),

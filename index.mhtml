@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 <int name='offset'>
-<require name='lib/grps.php'>
+<grps>
 <html>
 <head>
  <title>Клуб Еврейского Студента</title>
