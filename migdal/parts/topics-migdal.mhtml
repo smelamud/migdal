@@ -33,6 +33,8 @@
 	      class='item ninept'>
 </topics_table>
 <topics_common_events id='$`youth-confs`'>
+<topics_common_events id='$`oels`'>
+<topics_common_events id='$`others`'>
 </element>
 
 <element name='topics_jcc'>
@@ -115,6 +117,7 @@
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`mazltov`'
 	      class='item ninept'>
 </topics_table>
+<topics_common_events id='$`mazltov-births`'>
 </element>
 
 <element name='topics_methodics'>
@@ -128,6 +131,10 @@
 	              $posting.TopicId==$`methodics`'
 	      class='item ninept'>
 </topics_table>
+<topics_common_events id='$`abokers`'>
+<topics_common_events id='$`halom`'>
+<topics_common_events id='$`youth-confs`'>
+<topics_common_events id='$`jewishcivs`'>
 </element>
 
 <element name='topics_migdal_library'>
@@ -143,6 +150,8 @@
 	              $posting.TopicId==$`migdal-library`'
 	      class='item ninept'>
 </topics_table>
+<topics_common_events id='$`abokers`'>
+<topics_common_events id='$`ofeks`'>
 </element>
 
 <element name='topics_migdal_ohr'>
@@ -161,7 +170,7 @@
 </element>
 
 <element name='topics_museum'>
-<topics_table title='Музей евреев Одессы'>
+<topics_table title='Музей истории евреев Одессы'>
  <posting_obj id='$`postings:museum`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О музее'
               href#='migdal.php?artid=$`postings:museum`'
@@ -179,6 +188,7 @@
 	      class='item ninept'>
 </topics_table>
 <history topic_id='$`museum`' current='$posting.Id' today='$`postings:museum`'>
+<topics_common_events id='$`jewishcivs`'>
 </element>
 
 <element name='topics_migdal'>
@@ -209,7 +219,7 @@
 </hash>
 <posting_last topic_id='$*'>
 <topics_line time='$,' href#='migdal.php?artid=$`postings:museum`'
-	     text='Музей евреев Одессы'
+	     text='Музей истории евреев Одессы'
 	     arrow!="$posting!=0 &&
 	             ($/$posting.TopicId,1/==$`museum` ||
 		      $/$posting.TopicId,2/==$`museum-news`)" indent=1
