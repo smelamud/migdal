@@ -1,42 +1,41 @@
 << @(#) $Id$ >>
 
 <macro name='rebe'>
- <if what='$forum.isRebe'><font color=red></if>
+ <if what='$answer.isRebe'><font color=red></if>
 </macro>
 
 <macro name='/rebe'>
- <if what='$forum.isRebe'></font></if>
+ <if what='$answer.isRebe'></font></if>
 </macro>
 
-<element name='Forum'>
-<grps>
+<element name='Forum_Answer'>
 <table width=100% class='forum'>
 <tr>
  <td width=25%>
- <rebe><senderlink message='$forum'></rebe><br>
- $forum.SentView<br>
- <isedit name='forum'>
-  <a href="messageedit.php?editid=$forum.Id&grp=*GRP_FORUMS&redir=$_"
+ <rebe><senderlink message='$answer'></rebe><br>
+ $answer.SentView<br>
+ <isedit name='answer'>
+  <a href="forumansweredit.php?editid=$answer.Id&redir=$_"
    >[Изменить]</a>
   <moderator>
-   <if what='$forum.isDisabled'>
-    <a href="actions/moderate.php?editid=$forum.Id&hide=0&redir=$_"
+   <if what='$answer.isDisabled'>
+    <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&redir=$_"
      >[Разрешить показ]</a>
    <else>
-    <a href="actions/moderate.php?editid=$forum.Id&hide=1&redir=$_"
+    <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&redir=$_"
      >[Запретить показ]</a>
    </if>
   </moderator>
  <else>
   <if what='$complain'>
    <logged>
-    <a href="complainedit.php?ident=forum&link=$forum.Id&redir=$_">[Жалоба]</a>
+    <a href="complainedit.php?ident=forum&link=$answer.Id&redir=$_">[Жалоба]</a>
    </logged>
   </if>
  </isedit>
  </td>
  <td width=75% align=left valign=top>
-  <rebe>$forum.HTMLBody</rebe>
+  <rebe>$answer.HTMLBody</rebe>
  </td>
 </tr>
 </table>

@@ -17,19 +17,18 @@
 </element>
 
 <element name='forums'>
-<grps>
 <logged>
- <a href='messageedit.php?grp=*GRP_FORUMS&up=$up&redir=$_'
+ <a href='forumansweredit.php?up=$up&redir=$_'
   >Добавить сообщение</a>
 </logged>
-<iterate_forumlist up='$up' limit='$limit' offset='$offset'>
+<iterate_forum_answerlist up='$up' limit='$limit' offset='$offset'>
 <batcher_forums value='$limit'>
 <navigator list='$;'>
 <table width=100%>
  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
  <for>
-  <tr><td><forum forum='$.'></td></tr>
+  <tr><td><forum_answer forum='$.'></td></tr>
  </for>
 </table>
 <navigator list='$;'>

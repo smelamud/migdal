@@ -81,7 +81,7 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $this->LimitSelectIterator(
        'ForumAnswer',
-	"select messages.id as id,body,sent,sender_id,
+	"select messages.id as id,message_id,body,sent,sender_id,
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,
 		login,gender,email,hide_email,rebe
@@ -125,7 +125,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select messages.id as id,body,sent,sender_id,
+	"select messages.id as id,message_id,body,sent,sender_id,
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,

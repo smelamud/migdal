@@ -12,7 +12,7 @@
 <decel name='batcher' file='parts/messages.php' params='value,var'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
-<decel name='forum' file='parts/forum.php' params='forum,complain'
+<decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'
        defaults="complain='*true'">
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
