@@ -90,7 +90,9 @@
    <else>
     <td align=center>Нет</td>
    </if>
-   <td class='answer'>$.AnswerCount</td>
+   <td class='answer'>
+    <a href='complainforum.php?compid=$.Id&redir=$_'>$.AnswerCount</a>
+   </td>
   </tr>
  </for>
  </table>

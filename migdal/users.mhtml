@@ -6,27 +6,36 @@
  <title>Мигдаль - Пользователи</title>
 </head>
 <body bgcolor=white>
-  <top ident='users' image='pics/users.gif'>
-  <p>
-  <table>
-   <tr valign=top>
-    <th>Ник</th><th>Имя</th><th>Возраст</th><th>Мигдалевец</th><th>E-mail</th>
-    <th>ICQ</th><th>Последний раз<br>был здесь</th>
+ <top ident='users' image='pics/users.gif'>
+ <p>
+ <table width=100% class='catalog'>
+  <tr valign=top>
+   <th class='subject'>Ник</th><th>Имя</th><th>Возраст</th>
+   <th><img src='pics/tower.gif'></th>
+   <th>Адрес</th><th>Последний раз<br>был здесь</th>
+  </tr>
+  <iterate_userlist>
+  <for>
+   <if what='$;isOdd'><tr class='odd'><else><tr></if>
+    <td class='subject'>
+     <a href="useredit.php?editid=$.id&redir=$_">$.Login</a>
+    </td>
+    <td>$.FullName</td>
+    <td align='center'>$.Age</td>
+    <td align='center'>$.MigdalStudent</td>
+    <td>
+     <if what="$.EmailLink!=''">
+      <span class='email'>$.EmailLink</span>&nbsp;/&nbsp;
+     </if>
+     $.ICQStatusImage&nbsp;$.ICQ
+    </td>
+    <if what='$.isOnline'>
+     <td align=center>Сейчас</td>
+    <else>
+     <td><sentview date='$.LastOnline'></td>
+    </if>
    </tr>
-   <iterate_userlist>
-   <for>
-    <tr>
-     <td align=center>
-      <a href="useredit.php?editid=$.id&redir=$_">$.Login</a>
-     </td>
-     <td align=center>$.FullName</td>
-     <td align=center>$.Age</td>
-     <td align=center>$.MigdalStudent</td>
-     <td align=center>$.EmailLink</td>
-     <td align=center>$.ICQStatusImage&nbsp;$.ICQ</td>
-     <td align=center>$.LastOnline</td>
-    </tr>
-   </for>
-  </table>
+  </for>
+ </table>
 </body>
 </html>

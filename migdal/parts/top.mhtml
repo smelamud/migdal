@@ -12,6 +12,7 @@
   <td class='bottomimage'><img src='pics/state.gif'></td>
   <td align=right valign=top class='date'><today></td>
  </tr>
+ <tr><td>&nbsp;</td></tr>
  <backtrace redir='$$redir'>
 </table>
 </element>

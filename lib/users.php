@@ -223,15 +223,14 @@ function isEmailEnabled()
 return $this->email_disabled==0;
 }
 
+function isOnline()
+{
+return isset($this->online);
+}
+
 function getLastOnline()
 {
-if(isset($this->online))
-  return 'Сейчас';
-else
-  {
-  $t=strtotime($this->last_online);
-  return date('j/m/Y в H:i:s',$t);
-  }
+return strtotime($this->last_online);
 }
 
 function isAcceptsComplains()

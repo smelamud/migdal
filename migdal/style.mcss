@@ -457,6 +457,7 @@ BODY {
 	font-size: 9pt;
 	background-color: %catalog_header;
 	color: %catalog_header_text;
+	vertical-align: middle;
 }
 
 .catalog TD {
@@ -540,6 +541,15 @@ BODY {
 
 .catalog .answer A:hover {
 	color: %catalog_answer_hover;
+	text-decoration: underline;
+}
+
+.catalog .email A {
+	font-size: 9pt;
+	text-decoration: none;
+}
+
+.catalog .email A:hover {
 	text-decoration: underline;
 }
 

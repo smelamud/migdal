@@ -3,9 +3,8 @@
 
 <element name='Backtrace'>
 <if what="isset($redir) && $redir!=''">
- <tr class='return'><td colspan=2><table><tr valign=center>
-  <td><a href='$redir'><img src='pics/return.gif'></a></td>
-  <td><a href='$redir'>Вернуться</a></td>
- </tr></table></td></tr>
+ <tr class='return'><td colspan=2>
+  <a href='$redir'><img src='pics/return.gif' border=0></a>
+ </td></tr>
 </if>
 </element>
