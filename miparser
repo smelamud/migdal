@@ -295,27 +295,28 @@ return $c;
 
 sub splitParams
 {
-my ($token,$args)=@_;
+my ($token,$args,$types)=@_;
 
 while($token!~/^\s*$/)
      {
      my $name,$value;
-     ($name,$value,$token)=$token=~m/
-                                     ^\s*(\w+)\s*
-				     (?:
-                                      =\s*
-				      (
-				       (?: [^\s'"]+ )
-				       |
-				       (?: '[^']*' )
-				       |
-				       (?: "[^"]*" )
-				      )
-				     )?
-				     (.*)$
-				    /sx;
+     ($name,$type,$value,$token)=$token=~m/
+					   ^\s*(\w+)([\$#%!]?)\s*
+					   (?:
+					    =\s*
+					    (
+					     (?: [^\s'"]+ )
+					     |
+					     (?: '[^']*' )
+					     |
+					     (?: "[^"]*" )
+					    )
+					   )?
+					   (.*)$
+					  /sx;
      $value=substr $value,1,-1 if $value=~/^['"]/;
      $args->{lc $name}=$value;
+     $types->{lc $name}=$type if defined($types);
      }
 }
 
@@ -602,7 +603,8 @@ $token=substr $token,1,-1;
 ($self->{'name'},$token)=$token=~/^\s*(\/?\w+)(.*)$/s;
 $self->{'name'}=lc $self->{'name'};
 $self->{'args'}={};
-::splitParams($token,$self->{'args'});
+$self->{'types'}={};
+::splitParams($token,$self->{'args'},$self->{'types'});
 return $self;
 }
 
