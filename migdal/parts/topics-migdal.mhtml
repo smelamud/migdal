@@ -12,6 +12,46 @@
 </topics_table>
 </element>
 
+<element name='topics_jcc' params='posting'>
+<if what='$/$posting.TopicId,2/==$`kes`'>
+ <topics_chapters posting='$posting' title='КЕС' id='$`kes`'
+                  rtitle='О клубе' rid='$`postings:kes`'>
+</if>
+<topic_obj id='$`jcc`'>
+<topics_table title='$,Name' span=2>
+ <if what='$,UserId==$$userId || $$userModerator'>
+  <tr><td colspan=3>
+   <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
+      class='edit'>Добавить</a>
+  </td></tr>
+  <tr><td colspan=3>
+   <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
+      class='edit'>Расставить</a>
+  </td></tr>
+ </if>
+ <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
+                      topic_id='$,Id' recursive='*false'>
+ <posting_obj id='$`postings:jcc`'>
+ <topics_line time='$,Sent' text='$,Subject' href#='migdal.php'
+              arrow!='$,Id==$posting.Id' indent=0 span=2 class='item ninept'>
+ <for>
+  <if what='$.Id!=$`postings:jcc`'>
+   <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
+                arrow!='$.Id==$posting.Id' indent=1 span=1 class='item eightpt'>
+  </if>
+ </for>
+ <posting_last topic_id='$`kes`' recursive='*true'>
+ <topics_line time='$,' text='Клуб Еврейского Студента'
+              href#='migdal.php?artid=$`postings:kes`'
+              arrow!="$/$posting.TopicId,2/==$`kes`" indent=1
+	      class='item eightpt'>
+ <posting_last topic_id='$`kaitana`' recursive='*true'>
+ <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
+              arrow!="$/$posting.TopicId,2/==$`kaitana`" indent=1
+	      class='item eightpt'>
+</topics_table>
+</element>
+
 <element name='topics_methodics' params='posting'>
 <topics_table title='Методический центр'>
  <posting_obj id='$`postings:methodic-center`'>
@@ -27,9 +67,8 @@
 
 <element name='topics_migdal'>
 <grps>
-<if what='$/$posting.TopicId,1/==$`kes`'>
- <topics_chapters posting='$posting' title='КЕС' id='$`kes`'
-                  rtitle='О клубе' rid='$`postings:kes`'>
+<if what='$/$posting.TopicId,1/==$`jcc`'>
+ <topics_jcc posting='$posting'>
 </if>
 <if what='$/$posting.TopicId,1/==$`mazltov`'>
  <topics_chapters posting='$posting' title='Мазл Тов' id='$`mazltov`'
@@ -57,23 +96,23 @@
               text='Новости &lt;&lt;Мигдаля&gt;&gt;'
               arrow!="$/$posting.TopicId,1/==$`migdal-news`" span=2
 	      class='item ninept'>
+ <posting_obj id='$`postings:migdal`'>
+ <topics_line time='$,Sent' text='$,Subject' href#='migdal.php'
+              arrow!='$,Id==$posting.Id' indent=0 span=2 class='item ninept'>
+ <posting_last topic_id='$`jcc`' recursive='*true'>
+ <topics_line time='$,' href#='jcc.php' text='Общинный центр (JCC)'
+              arrow!="$/$posting.TopicId,1/==$`jcc`" indent=1
+	      class='item eightpt'>
  <for>
-  <topics_line time='$.Sent' text='$.Subject'
-               href#='migdal.php?artid=$.Id' arrow!='$.Id==$posting.Id'
-	       indent!="$.Id==$`postings:migdal` ? 0 : 1"
-	       span!="$.Id==$`postings:migdal` ? 2 : 1"
-	       class!="$.Id==$`postings:migdal`
-	               ? 'item ninept' : 'item eightpt'">
+  <if what='$.Id!=$`postings:migdal`'>
+   <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
+                arrow!='$.Id==$posting.Id' indent=1 span=1 class='item eightpt'>
+  </if>
  </for>
  <posting_last topic_id='$`mazltov`' recursive='*true'>
  <topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`'
               text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
               arrow!="$/$posting.TopicId,1/==$`mazltov`" indent=1
-	      class='item eightpt'>
- <posting_last topic_id='$`kes`' recursive='*true'>
- <topics_line time='$,' text='Клуб Еврейского Студента'
-              href#='migdal.php?artid=$`postings:kes`'
-              arrow!="$/$posting.TopicId,1/==$`kes`" indent=1
 	      class='item eightpt'>
  <posting_last topic_id='$`methodics`' recursive='*true'>
  <topics_line time='$,' text='Методический центр'
@@ -81,10 +120,6 @@
               arrow!="$/$posting.TopicId,1/==$`methodics`" indent=1
 	      class='item eightpt'
 	      title='Южно-украинский региональный методический центр'>
- <posting_last topic_id='$`kaitana`' recursive='*true'>
- <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
-              arrow!="$/$posting.TopicId,1/==$`kaitana`" indent=1
-	      class='item eightpt'>
 </topics_table>
 </element>
 
@@ -92,6 +127,9 @@
 <grps>
 <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
 		     topic_id='$`migdal`' recursive='*false'>
+<posting_last topic_id='$`jcc`' recursive='*true'>
+<topics_line time='$,' href#='jcc.php' indent=1 text='Общинный центр (JCC)'
+             class='item eightpt'>
 <for>
  <if what='$.Id!=$`postings:migdal`'>
   <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'

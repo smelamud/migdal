@@ -1,0 +1,29 @@
+<< @(#) $Id$ >>
+
+<posting_full id='$`postings:jcc`' grp='*GRP_REVIEW'>
+<log event=review text#='post($,Id)'>
+<pagetitle title='$,Subject'>
+<topictitle title='$,Subject'>
+
+<html>
+<stylesheet ident='article'>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5><tr valign=top>
+  <td width=150 class='eframe'>
+   <topics_migdal posting='$,'>
+   <topics_major ident='migdal'>
+  </td>
+  <td class='article cframe'>
+   <ifnzero what='$,Id'>
+    <subtitle>
+    <article_controls posting='$,'>
+    <article posting='$,' withvote='*false'>
+    <article_controls posting='$,'>
+   </ifnzero>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>
