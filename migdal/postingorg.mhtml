@@ -1,10 +1,8 @@
 << @(#) $Id$ >>
 
 <grps>
-<int name='topic_id'>
+<int_array name='topic_id'>
 <int name='offset'>
-<int name='recursive'>
-<assign name='recursive' value!='$recursive>=0 ? 1 : 0'>
 <int name='grp'>
 <assign name='grp' value!='$grp>0 ? $grp : ($grp==0 ? *GRP_TAPE : 0)'>
 
@@ -116,9 +114,8 @@
 <preamble>
 <body>
  <top ident='index'>
- <iterate_postinglist topic_id='$topic_id' limit=20 offset='$offset'
-		      showshadows='*true' grp='$grp' recursive='$recursive'>
- <assign name='size' value='$;Size'>
+ <iterate_postinglist name='postings' limit=20 offset='$offset'
+                      showshadows='*true' grp='$grp'>
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
@@ -130,30 +127,57 @@
       <hidden name='okdir' value='$-'>
       <hidden name='faildir' value='$-'>
       <hidden name='redirid' value='$redirid'>
-      <tr><td colspan=2>
+      <tr><td>
        <subtitle>
       </td></tr>
-      <tr><td colspan=2><table>
-       <topicselect name='topic_id' value='$topic_id'>
-      </table></td></tr>
-      <tr valign=top>
-       <td align=center><table>
-	<checkbox_line title='С подтемами' name='recursive' value='$recursive'>
-	<formbuttons title='Просмотр'>
-       </table></td>
-       <td align=right>
-	<select name='grp[]' size=6 multiple><zone>
-	 <iterate_grps>
-	 <for>
-	  <if what='$.isValid'>
-	   <radio title='$.GrpTitle' value='$.Grp' peervalue!='$grp & $.Grp'>
-	  </if>
-	 </for>
-	</zone></select>
-       </td>
-      </tr>
+      <tr><td align=left><table><zone>
+       <assign name='title' value='Тема'>
+       <iterate_array values='$topic_id'>
+       <assign name='n' value=0>
+       <for>
+	<assign name='id' value!='abs($.)'>
+	<assign name='rec' value!='$.<=0'>
+	<filter_topic list='$postings' topic_id='$id' recursive='$rec'>
+	<topicselect name='topic_id[]' value='$id' title='$title'>
+	<tr>
+	 <td>&nbsp;</td>
+	 <td>
+	  <checkbox title='С подтемами' name#='recursive($n)' value='$rec'>
+	 </td>
+	</tr>
+        <assign name='title' value='<i>Или</i>'>
+        <assign name='n' value!='$n+1'>
+       </for>
+       <topicselect name='topic_id[]' value=0 title='$title'>
+       <tr>
+	<td>&nbsp;</td>
+	<td>
+	 <checkbox title='С подтемами' name#='recursive($n)' value='*true'>
+	</td>
+       </tr>
+      </zone></table></td></tr>
+      <tr><td align=left>
+       Тип сообщения
+      </td></tr>
+      <tr><td align=left>
+       <select name='grp[]' size=6 multiple><zone>
+	<iterate_grps>
+	<for>
+	 <if what='$.isValid'>
+	  <radio title='$.GrpTitle' value='$.Grp' peervalue!='$grp & $.Grp'>
+	 </if>
+	</for>
+       </zone></select>
+      </td></tr>
+      <tr><td align=left>
+       <table cellspacing=10><tr>
+	<td><input type=submit value='Просмотр'></td>
+	<td><input type=reset value='Очистить'></td>
+       </tr></table>
+      </td></tr>
      </form>
-     <tr><td colspan=2 class='info'>
+     <assign name='size' value='$;Size'>
+     <tr><td class='info'>
       <array vals='сообщение,сообщения,сообщений'>
       <plural value='$size'>
       Выбрано&nbsp;<em>$size</em>&nbsp;$,

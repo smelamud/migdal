@@ -16,10 +16,16 @@ function postIntegerArray($name)
 {
 global $HTTP_POST_VARS;
 
-foreach($GLOBALS[$name] as $var)
-       settype($var,'integer');
-foreach($HTTP_POST_VARS[$name] as $var);
-       settype($var,'integer');
+if(!is_array($GLOBALS[$name]))
+  $GLOBALS[$name]=array();
+else
+  foreach($GLOBALS[$name] as $var)
+	 settype($var,'integer');
+if(!is_array($HTTP_POST_VARS[$name]))
+  $HTTP_POST_VARS[$name]=array();
+else
+  foreach($HTTP_POST_VARS[$name] as $var);
+	 settype($var,'integer');
 }
 
 function postIdent($name,$table)

@@ -496,6 +496,13 @@ parse_str($fragments['query']);
  </header>
 </macro>
 
+<macro name='int_array'>
+ <header>
+  <require name='lib/post.php'>
+  <exec func='postIntegerArray' arg1='$%name'>
+ </header>
+</macro>
+
 <macro name='string'>
  <header><zone>
   <call name='%name' func='addslashes' arg1='$%name'>
