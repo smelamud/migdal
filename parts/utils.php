@@ -106,10 +106,10 @@ return "<br><table width=100%><tr>
 
 function batcher($current)
 {
-$s='<table width=100%><tr><td align=right><table><form>
+$s='<table width=100%><tr><td align=right><table><form method=get>
     <tr valign=center>
      <td>Показывать по&nbsp;</td>
-     <td><select>';
+     <td><select name="mp">';
 $shows=array(10,15,20,25,30,35,40);
 $shows[]=$current;
 sort($shows);

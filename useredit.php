@@ -5,6 +5,7 @@ require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/users.php');
 require_once('lib/errors.php');
+require_once('lib/session.php');
 
 require_once('parts/top.php');
 require_once('parts/utils.php');
