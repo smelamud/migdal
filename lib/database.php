@@ -22,6 +22,8 @@ function dbClose()
 {
 global $dbLink;
 
+if($dbLink<=0)
+  return;
 endJournal();
 mysql_close($dbLink);
 $dbLink=0;

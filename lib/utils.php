@@ -2,10 +2,12 @@
 # @(#) $Id$
 
 require_once('lib/uri.php');
+require_once('lib/database.php');
 
 function reload($href)
 {
 header("Location: $href");
+dbClose();
 exit;
 }
 
