@@ -65,8 +65,6 @@
  </if>
  <navi_times ident='$ident' span='$spn'>
  <navi_taglit ident='$ident' span='$spn'>
- <moderator>
-  <navi_veterans ident='$ident' span='$spn'>
- </moderator>
+ <navi_veterans ident='$ident' span='$spn'>
 </topics_table>
 </element>

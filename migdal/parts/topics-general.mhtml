@@ -26,7 +26,7 @@
  <topics_major ident='times'>
 </if>
 <if what='($posting.Grp & (*GRP_TAGLIT_FORUMS|*GRP_TAGLIT_GALLERY))!=0'>
- <if what='$/$posting.TopicId,0/!=$`taglit`'>
+ <if what='$/$posting.TopicId,0/==$`taglit`'>
   <topics_taglit id='$posting.SenderId'>
   <topics_major ident='taglit'>
  <else>

@@ -147,7 +147,8 @@
        defaults="icon=''">
 <decel name='taglit' file='parts/taglit.php' params='topic_id,href'>
 <decel name='taglit_gallery' file='parts/taglit-gallery.php'
-       params='user_id,rows,cols,offset,sort' defaults="sort='*SORT_PSENT'">
+       params='user_id,rows,cols,offset,sort,topic_id'
+       defaults="sort='*SORT_PSENT'">
 <decel name='taglit_gallery_picture' file='parts/taglit-gallery-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
@@ -156,8 +157,6 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
-<decel name='taglit_postings' file='parts/taglit-postings.php'
-       params='user_id'>
 <decel name='times_articles' file='parts/times-articles.php' params='issue,id'>
 <decel name='tip' file='parts/tip.php'>
 <decel name='tip_posting' file='parts/tip-posting.php'

@@ -38,7 +38,8 @@
     </ifzero>
    </div>
    <p>
-   <taglit_gallery user_id='$user.Id' rows='$userPictureRowPortion'
+   <taglit_gallery topic_id='$`taglit`' user_id='$user.Id'
+                   rows='$userPictureRowPortion'
  		   cols='$userPictureColumnPortion' offset='$offset'
 		   sort='$sort'>
   </td>

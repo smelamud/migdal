@@ -1,13 +1,13 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='list'>
+<element name='batcher' params='list,topic_id'>
 <table width=100%><tr valign=bottom>
  <logged>
   <td align=left class='info'>
    <table><tr valign=center>
     <td><image src='pics/sheet.gif'></td>
     <td>
-     <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic_id&root=$topic_id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
 	>Добавить фотографию</a>
     </td>
    </tr></table>
@@ -24,11 +24,11 @@
 
 <element name='taglit_gallery'>
 <?php $limit=$rows*$cols; ?>
-<iterate_postinglist name='list' grp='*GRP_TAGLIT_GALLERY' topic_id='$`taglit`'
+<iterate_postinglist name='list' grp='*GRP_TAGLIT_GALLERY' topic_id='$topic_id'
                      offset='$offset' limit='$limit' sort='$sort'
 		     user='$user_id'>
 <iterate_rows cols='$cols'>
-<batcher list='$list'>
+<batcher list='$list' topic_id='$topic_id'>
 <table cellspacing=10 cellpadding=0>
  <tr valign=top>
   <for>
@@ -42,6 +42,6 @@
  </tr>
 </table>
 <ifnzero what='$list.Count'>
- <batcher list='$list'>
+ <batcher list='$list' topic_id='$topic_id'>
 </ifnzero>
 </element>

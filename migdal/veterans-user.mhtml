@@ -19,7 +19,7 @@
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=150 class='eframe'><zone>
    <topics_veterans id='$user.Id'>
-   <topics_major ident='taglit'>
+   <topics_major ident='veterans'>
   </zone></td>
   <td>
    <div class='cframe' style='padding: 5'>
@@ -39,8 +39,9 @@
     </ifzero>
    </div>
    <p>
-   <taglit_gallery user_id='$user.Id' rows='$userPictureRowPortion'
- 		   cols='$userPictureColumnPortion' offset='$offset'
+   <taglit_gallery topic_id='$`veterans`' user_id='$user.Id'
+                   rows='$userPictureRowPortion'
+		   cols='$userPictureColumnPortion' offset='$offset'
 		   sort='$sort'>
   </td>
  </tr></table>
