@@ -3,7 +3,7 @@
 <element name='history'>
 <iterate_postinglist grp='*GRP_REVIEWS' topic_id='$topic_id' limit=0
 		     sort='*SORT_SENT' fields='*SELECT_TOPICS'>
-<ifnzero what='$;Count'>
+<if what='$;Count>1'>
  <topics_table title='Страницы истории'>
   <for>
    <if what='$.Id!=$today'>
@@ -13,5 +13,5 @@
    </if>
   </for>
  </topics_table>
-</ifnzero>
+</if>
 </element>
