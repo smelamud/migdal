@@ -15,7 +15,7 @@ require_once('lib/image-upload.php');
 require_once('lib/postings.php');
 require_once('lib/complains.php');
 
-function uploadLargeText(&$message)
+function uploadLargeText(&$stotext)
 {
 global $large_file,$large_file_size,$large_file_type,$large_file_name,
        $large_loaded,
@@ -33,8 +33,8 @@ $large_file_tmpname=tempnam($tmpDir,'mig-');
 if(!move_uploaded_file($large_file,$large_file_tmpname))
   return EP_OK;
 $fd=fopen($large_file_tmpname,'r');
-$message->large_filename=$large_file_name;
-$message->large_body=textToStotext($message->large_format,
+$stotext->large_filename=$large_file_name;
+$stotext->large_body=textToStotext($stotext->large_format,
                                    fread($fd,$maxLargeText));
 fclose($fd);
 unlink($large_file_tmpname);
@@ -128,7 +128,7 @@ if($img)
 if($err==EIU_OK && $message->getImageSet()!=0)
   $err=setImageTitle($message->getImageSet(),$title);
 if($err==EIU_OK || $err==EP_OK)
-  $err=uploadLargeText($message);
+  $err=uploadLargeText($message->getStotext());
 if($err==EP_OK)
   $err=modifyPosting($message);
 if($err==EP_OK)
