@@ -86,3 +86,7 @@ CREATE TABLE `horisonts` (
 `horisont` INT NOT NULL ,
 PRIMARY KEY ( `host` )
 );
+ALTER TABLE `horisonts` DROP `horisont`;
+ALTER TABLE `horisonts` ADD `we_know` INT NOT NULL ,
+ADD `they_know` INT NOT NULL ;
+ALTER TABLE `horisonts` ADD `calling` TINYINT NOT NULL ;

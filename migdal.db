@@ -88,7 +88,9 @@ CREATE TABLE forums (
 
 CREATE TABLE horisonts (
   host varchar(30) NOT NULL default '',
-  horisont int(11) NOT NULL default '0',
+  we_know int(11) NOT NULL default '0',
+  they_know int(11) NOT NULL default '0',
+  calling tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (host)
 ) TYPE=MyISAM;
 
