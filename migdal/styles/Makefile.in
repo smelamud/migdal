@@ -14,13 +14,14 @@ BOOK_PARTS = colors.mcss fonts.mcss palette.mcss sheet-book.mcss
 CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-chat.mcss
 COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
+INDEX_PARTS = colors.mcss fonts.mcss palette.mcss sheet-index.mcss
 TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
 TIMESNFO_PARTS = colors.mcss fonts.mcss palette.mcss sheet-timesnfo.mcss
 VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-votes.mcss
 
 all: style.stamp article.stamp book.stamp chat.stamp complain.stamp \
-	times.stamp timesnfo.stamp votes.stamp
+	index.stamp times.stamp timesnfo.stamp votes.stamp
 
 style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
@@ -65,6 +66,15 @@ complain-%.css: complain.mcss $(COMPLAIN_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
 complain.stamp: $(patsubst %,complain-%.css,$(FLAVOURS)) $(patsubst %,complain-%.php,$(FLAVOURS))
+	touch $@
+
+index-%.php: index.mcss $(INDEX_PARTS) ../../cssparser
+	../../cssparser -p -s $* $< > $@
+
+index-%.css: index.mcss $(INDEX_PARTS) ../../cssparser
+	../../cssparser -s $* $< > $@
+
+index.stamp: $(patsubst %,index-%.css,$(FLAVOURS)) $(patsubst %,index-%.php,$(FLAVOURS))
 	touch $@
 
 times-%.php: times.mcss $(TIMES_PARTS) ../../cssparser

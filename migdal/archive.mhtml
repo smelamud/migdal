@@ -5,6 +5,7 @@
 <topictitle title='áÒÈÉ×'>
 
 <html>
+<stylesheet ident='index'>
 <preamble>
 <body>
  <top ident='index'>
@@ -18,16 +19,10 @@
     <iterate_postinglist grp='*GRP_ARCHIVE' limit=0 showshadows='*false'
                          fields='*SELECT_GENERAL'>
     <assign name='day' value=0>
-    <style><!--
-     DL.archive DT {
-     	font-weight: bold;
-	padding-top: 5px;
-     }
-    // -->
-    </style>
-    <dl class='ninept archive'>
+    <dl class='ninept index'>
      <for>
       <if what='$day!=$.Sent@d'>
+       <ifnzero what='$day'><dt>&nbsp;</ifnzero>
        <dt>$.Sent@d.$.Sent@m.$.Sent@Y
        <assign name='day' value='$.Sent@d'>
       </if>

@@ -1,0 +1,5 @@
+! @(#) $Id$
+
+.index DT {
+	font-weight: bold;
+}
