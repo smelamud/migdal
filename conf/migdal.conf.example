@@ -227,8 +227,10 @@ $rootComplainUserName='admin';
 $rootComplainGroupName='admin';
 $rootComplainPerms=0xDDDF;
 
-# Маска премодерируемых по умолчанию постингов
-$defaultPremoderate=GRP_ALL;
+# Флаги модерирования/редактирования по умолчанию
+$defaultPremoderate=1;
+$defaultModerate=1;
+$defaultEdit=1;
 
 # Настройки тем
 
