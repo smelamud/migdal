@@ -7,7 +7,8 @@
   <td>
    <posting_random grp='*GRP_TAGLIT_GALLERY' topic_id='$topic_id' user_id='$.Id'>
    <posting_full id='$,' grp='*GRP_TAGLIT_GALLERY'>
-   <taglit_picture picture='$,' user='$.'>
+   <picture_main href#='taglit-user.php?user_id=$.Id' biff='$.LastMessage'
+                 name='$.FullName' image_id='$,ImageId'>
   </td>
  </for>
  </tr></table>

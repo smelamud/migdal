@@ -22,7 +22,9 @@
    <td>
     <posting_random grp='*GRP_GALLERY' topic_id='$.Id'>
     <posting_full id='$,' grp='*GRP_GALLERY'>
-    <picture_main picture='$,' grp='*GRP_GALLERY' topic='$.'>
+    <picture_main href#='gallery.php?grp=*GRP_GALLERY&topic_id=$,TopicId'
+                  biff='$.LastMessage' name='$,TopicName'
+		  text='$,TopicDescription' image_id='$,ImageId'>
    </td>
    <if what='$;isEol'>
     </tr><tr valign=top>

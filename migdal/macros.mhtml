@@ -68,7 +68,7 @@
        params='picture,showtopic,showdiscuss,showcomplain,shorten,up,topiclink'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' up=general">
 <decel name='picture_main' file='parts/picture-main.php'
-       params='picture,grp,topic'>
+       params='href,biff,name,text,image_id' defaults="text=''">
 <decel name='posting_general' file='parts/posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
@@ -101,8 +101,6 @@
 <decel name='taglit_gallery_picture' file='parts/taglit-gallery-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten,taglit_id'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' taglit_id=0">
-<decel name='taglit_picture' file='parts/taglit-picture.php'
-       params='picture,user'>
 <decel name='taglit_posting' file='parts/taglit-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
