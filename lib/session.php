@@ -66,6 +66,15 @@ foreach($parts as $part)
 return $proper;
 }
 
+function sessionGuest()
+{
+global $userId,$realUserId,$sessionid;
+
+$userId=$realUserId=0;
+$sessionid=createSession(0,0);
+setSessionCookie($sessionid);
+}
+
 function userRights($aUserId=0)
 {
 global $sessionid,$userId,$realUserId,$userRightNames;
@@ -80,25 +89,27 @@ if($globalsid!=0)
   $sessionid=$globalsid;
 
 if(!$sessionid && $aUserId<=0)
-  {
-  $userId=$realUserId=0;
-  $sessionid=createSession(0,0);
-  setSessionCookie($sessionid);
-  }
+  sessionGuest();
 else
   if($aUserId<=0)
     {
-    list($userId,$realUserId)=getUserIdsBySessionId($sessionid);
-    if($userId<=0 && $realUserId<=0)
-      {
-      $userId=0;
-      $realUserId=getGuestId();
-      updateSession($sessionid,0,$realUserId);
-      }
+    $row=getUserIdsBySessionId($sessionid);
+    if(!$row)
+      sessionGuest();
     else
       {
-      updateSessionTimestamp($sessionid);
-      setSessionCookie($sessionid);
+      list($userId,$realUserId)=$row;
+      if($userId<=0 && $realUserId<=0)
+	{
+	$userId=0;
+	$realUserId=getGuestId();
+	updateSession($sessionid,0,$realUserId);
+	}
+      else
+	{
+	updateSessionTimestamp($sessionid);
+	setSessionCookie($sessionid);
+	}
       }
     }
   else
