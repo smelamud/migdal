@@ -41,3 +41,5 @@
 <decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>
 <decel name='uploader' file='parts/uploader.php'
        params='name,loadedname,loadedvalue,title,loaded,notloaded,filename'>
+<decel name='upload_format' file='parts/uploader.php'
+       params='name,format' defaults="name='large_format'">

@@ -1,6 +1,12 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/text.php');
+
+define('SB_POSTING_BODY',1);
+define('SB_TOPIC_DESC',2);
+define('SB_MAX',2);
+
 class Stotext
       extends DataObject
 {
@@ -14,8 +20,14 @@ var $large_imageset;
 var $image_id;
 var $has_large_image;
 
-function Stotext($row)
+function Stotext($row,$body='body')
 {
+$s=$row[$body];
+$row[$body]='';
+$row['body']=$s;
+$s=$row["large_$body"];
+$row["large_$body"]='';
+$row['large_body']=$s;
 $this->DataObject($row);
 }
 
@@ -133,16 +145,16 @@ global $large_file,$large_file_size,$large_file_type,$large_file_name,
        $maxLargeText,$tmpDir;
 
 if(isset($large_loaded) && $large_loaded==1)
-  return EP_OK;
+  return EUL_OK;
 if(!isset($large_file) || $large_file=='' || !is_uploaded_file($large_file)
    || filesize($large_file)!=$large_file_size)
-  return EP_OK;
+  return EUL_OK;
 if($large_file_size>$maxLargeText)
-  return EP_LARGE_BODY_LARGE;
+  return EUL_LARGE;
 
 $large_file_tmpname=tempnam($tmpDir,'mig-');
 if(!move_uploaded_file($large_file,$large_file_tmpname))
-  return EP_OK;
+  return EUL_OK;
 $fd=fopen($large_file_tmpname,'r');
 $stotext->large_filename=$large_file_name;
 $stotext->large_body=textToStotext($stotext->large_format,
@@ -150,6 +162,6 @@ $stotext->large_body=textToStotext($stotext->large_format,
 fclose($fd);
 unlink($large_file_tmpname);
 
-return EP_OK;
+return EUL_OK;
 }
 ?>

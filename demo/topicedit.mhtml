@@ -10,7 +10,7 @@
  <p>
  <topic_obj id='$editid' up='$up'>
  <setup>
- <form method=post action='actions/topicmod.php'>
+ <form method=post enctype='multipart/form-data' action='actions/topicmod.php'>
  <input type=hidden name='edittag' value=1>
  <input type=hidden name='redir' value='$redir'>
  <input type=hidden name='editid' value='$editid'>
@@ -32,7 +32,15 @@
   </table></td></tr>
   <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
   <editor_line title='Описание' name='description' body='$,Description'>
-  <checkbox_line name='hidden' value='$,isHidden' title='Не показывать в списке'>
+  <tr><td colspan=2><table>
+   <error id='*EUL_LARGE' text='Описание слишком велико (больше 2M)'>
+   <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
+	     title='Подробное описание' loaded='(уже загружено)'
+	     notloaded='Другое' filename='$,LargeFilename'>
+   <upload_format format='$,LargeFormat'>
+  </table></td></tr>
+  <checkbox_line name='hidden' value='$,isHidden'
+                 title='Не показывать в списке'>
   <tr><td><table width=100%>
    <tr>
     <td><checkbox name='news' value='$,isNews' title='Тема для новостей'></td>

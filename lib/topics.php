@@ -33,7 +33,7 @@ global $defaultPremoderate;
 $this->allow=GRP_ALL;
 $this->premoderate=$defaultPremoderate;
 $this->DataObject($row);
-$this->stotext=new Stotext($row);
+$this->stotext=new Stotext($row,'description');
 }
 
 function setup($vars)
@@ -107,9 +107,34 @@ function getFullName()
 return $this->full_name;
 }
 
+function getStotext()
+{
+return $this->stotext;
+}
+
 function getDescription()
 {
-return $this->description;
+return $this->stotext->getBody();
+}
+
+function getLargeFilename()
+{
+return $this->stotext->getLargeFilename();
+}
+
+function getLargeFormat()
+{
+return $this->stotext->getLargeFormat();
+}
+
+function getLargeDescription()
+{
+return $this->stotext->getLargeBody();
+}
+
+function getHTMLLargeDescription()
+{
+return stotextToHTML($this->getLargeFormat(),$this->getLargeDescription());
 }
 
 function isHidden()
@@ -287,8 +312,10 @@ global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select topics.id as id,up,name,stotext_id,
-                            stotexts.body as description,hidden,allow,
-			    premoderate,ident
+                            stotexts.body as description,image_set,
+			    large_filename,large_format,
+			    stotexts.large_body as large_description,
+			    large_imageset,hidden,allow,premoderate,ident
 		     from topics
 		          left join stotexts
 			       on topics.stotext_id=stotexts.id

@@ -85,11 +85,11 @@ switch($format)
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   break;
       case TF_TEX:
+	   $c=replaceURLs($c);
 	   $c=replaceParagraphs($c);
 	   $c=str_replace('\\\\','<br>',$c);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
-	   $c=replaceURLs($c);
 	   break;
       case TF_HTML:
 	   $c=replaceParagraphs($c);

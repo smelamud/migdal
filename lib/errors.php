@@ -38,9 +38,8 @@ define('EP_NO_SEND',138);
 define('EP_IMAGE_ABSENT',139);
 define('EP_NO_IMAGE',1310);
 define('EP_LARGE_BODY_ABSENT',1311);
-define('EP_LARGE_BODY_LARGE',1312);
-define('EP_TITLE_SQL',1313);
-define('EP_DISABLE_SQL',1314);
+define('EP_TITLE_SQL',1312);
+define('EP_DISABLE_SQL',1313);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);
@@ -138,4 +137,7 @@ define('ECAD_OK',280);
 define('ECAD_NO_EDIT',281);
 define('ECAD_NO_ACTION',282);
 define('ECAD_DELETE_SQL',283);
+
+define('EUL_OK',290);
+define('EUL_LARGE',291);
 ?>

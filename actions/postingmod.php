@@ -102,8 +102,8 @@ if($img)
 if($err==EIU_OK && $message->getImageSet()!=0)
   $err=setImageTitle($message->getImageSet(),$title);
 if($err==EIU_OK || $err==EP_OK)
-  $err=uploadLargeText($message->getStotext());
-if($err==EP_OK)
+  $err=uploadLargeText($message->stotext);
+if($err==EUL_OK)
   $err=modifyPosting($message);
 if($err==EP_OK)
   header("Location: $redir");

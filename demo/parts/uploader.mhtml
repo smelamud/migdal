@@ -22,3 +22,20 @@
  </table></td></tr>
 </ifzero>
 </element>
+
+<element name='upload_format'>
+<tr>
+ <td>Формат</td>
+ <td><select name='$name'>
+  <array vals='Простой,TeX-подобный,HTML-подобный,Преформатированный,Письмо'>
+  <iterate_array>
+  <for>
+   <if what='$;Position==$format'>
+    <option selected value=$;Position>$.</option>
+   <else>
+    <option value=$;Position>$.</option>
+   </if>
+  </for>
+ </select></td>
+</tr>
+</element>

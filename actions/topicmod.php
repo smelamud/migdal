@@ -49,17 +49,22 @@ dbOpen();
 session($sessionid);
 $topic=getTopicById($editid);
 $topic->setup($HTTP_POST_VARS);
-$err=modifyTopic($topic);
+$err=uploadLargeText($topic->stotext);
+if($err==EUL_OK)
+  $err=modifyTopic($topic);
 if($err==ET_OK)
   header("Location: $redir");
 else
   {
   $descriptionId=tmpTextSave($description);
+  $largeDescriptionId=tmpTextSave($large_description);
   header('Location: /topicedit.php?'.
           makeQuery($HTTP_POST_VARS,
-	            array('description'),
-		    array('descriptionid' => $descriptionId,
-		          'err'           => $err)).'#error');
+	            array('description',
+		          'large_description'),
+		    array('descriptionid'       => $descriptionId,
+		          'large_descriptionid' => $largeDescriptionId,
+		          'err'                 => $err)).'#error');
   }
 dbClose();
 ?>
