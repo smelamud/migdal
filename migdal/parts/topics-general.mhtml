@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='topics'>
+<element name='topics_www' params='posting'>
 <if what='($posting.Grp & (*GRP_FORUMS|*GRP_NEWS|*GRP_ARTICLES|*GRP_QUOTES|
 	                   *GRP_BOOKS|*GRP_BOOK_CHAPTERS|*GRP_REVIEWS|
 			   *GRP_LIBRARY_ANNOUNCES))!=0'>
@@ -47,4 +47,16 @@
 <if what='$posting.Grp==*GRP_LINKS'>
  <topics_links topic_id='$posting.TopicId'>
 </if>
+</element>
+
+<element name='topics_english' params='posting'>
+ <topics_migdal_english posting='$posting'>
+</element>
+
+<element name='topics'>
+<notenglish>
+ <topics_www posting='$posting'>
+<else>
+ <topics_english posting='$posting'>
+</notenglish>
 </element>

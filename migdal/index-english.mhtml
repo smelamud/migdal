@@ -1,18 +1,13 @@
 << @(#) $Id$ >>
 
-<assign name='topic_id' value='-1'>
-<assign name='offset' value='0'>
-
 << Traps >>
 << /Traps >>
 
-<log event=index text#='topic($topic_id) offset=$offset'>
-<ifzero what='$offset'>
- <log event=enter text#='domain=$$userDomain'>
-</ifzero>
 <grps>
 
-<posting_full id='$`postings:migdal`' grp='*GRP_REVIEW'>
+<posting_full id='$`postings:migdal,e`' grp='*GRP_REVIEW'>
+<log event=review text#='post($,Id)'>
+<log event=enter text#='domain=$$userDomain'>
 
 <stylesheet ident='article'>
 <preamble>

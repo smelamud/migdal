@@ -181,6 +181,8 @@
 <decel name='topics_major' file='parts/topics-major.php' params='ident,unroll'
        defaults="unroll='*false'">
 <decel name='topics_migdal' file='parts/topics-migdal.php' params='posting'>
+<decel name='topics_migdal_english' file='parts/topics-migdal-english.php'
+       params='posting'>
 <decel name='topics_migdal_main' file='parts/topics-migdal.php'>
 <decel name='topics_minor' file='parts/topics-minor.php'
        params='id,withpostings,withanswers,up,subdomain,grp,href,title'

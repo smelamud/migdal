@@ -77,14 +77,14 @@
 
 <element name='editlink'>
 <a href="postingedit.php?editid=$posting.Id&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
-   >Изменить</a>
+   ><notenglish>Изменить<else>Edit</notenglish></a>
 </element>
 
 <element name='discusslink'>
 <table cellspacing=0 cellpadding=0><tr>
  <td>
   <a href='forum.php?redirid=$_&msgid=$posting.Id'>
-   <asp>Обсудить<asp>
+   <asp><notenglish>Обсудить<else>Comments</notenglish><asp>
    <ifnzero what='$posting.AnswerCount'>
     <asp>&nbsp;($posting.AnswerCount)<asp>
    </ifnzero>

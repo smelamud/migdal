@@ -10,7 +10,8 @@
      &nbsp;
     </td>
     <td>
-     <a href="limedit.php?postid=$posting.Id&redirid=$_">Список иллюстраций</a>
+     <a href="limedit.php?postid=$posting.Id&redirid=$_">
+      <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
      &nbsp;
     </td>
    </isedit>

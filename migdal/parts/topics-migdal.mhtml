@@ -18,6 +18,7 @@
 <if what='$/$posting.TopicId,2/==$`kes`'>
  <topics_kes posting='$posting'>
 </if>
+
 <topic_obj name='jcc' id='$`jcc`'>
 <topics_table title='$,Name' span=2>
  <ispost what='$jcc'>

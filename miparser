@@ -110,7 +110,7 @@ if($s=~/^(.*)@([ERJI]?\w)$/)
 if($s=~/^\$`([^`]*)`$/)
   {
   request('lib/ident.php');
-  my ($table,$ident)=$1=~/^\s*(?:(\w+):)?([\w-]+)$/;
+  my ($table,$ident)=$1=~/^\s*(?:(\w+):)?([^`]+)$/;
   $table='topics' if $table eq '';
   $table=subTypedValue('','%',$table);
   $ident=subTypedValue('','%',$ident);

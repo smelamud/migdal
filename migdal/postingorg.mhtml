@@ -10,6 +10,15 @@
 
 <element name='batcher' params='list'>
 <table width=100%><tr valign=bottom>
+ <td align=left class='info'>
+  <table><tr valign=center>
+   <td><image src='pics/sheet.gif'></td>
+   <td>
+    <a href='postingedit.php?grp=*GRP_NEWS&full=1&redirid=$_'
+       >Добавить сообщение</a>
+   </td>
+  </tr></table>
+ </td>
  <td align=center><spin list='$list'></td>
 </tr></table>
 </element>
