@@ -142,6 +142,7 @@ CREATE TABLE messages (
   id int(11) NOT NULL auto_increment,
   up int(11) NOT NULL default '0',
   track varchar(255) NOT NULL default '',
+  lang varchar(5) NOT NULL default '',
   subject varchar(250) NOT NULL default '',
   author varchar(250) NOT NULL default '',
   source varchar(250) NOT NULL default '',
@@ -150,11 +151,17 @@ CREATE TABLE messages (
   hidden tinyint(4) NOT NULL default '0',
   disabled tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
+  topic_link int(11) NOT NULL default '0',
+  url_domain varchar(70) NOT NULL default '',
   url varchar(250) NOT NULL default '',
+  url_check datetime NOT NULL default '0000-00-00 00:00:00',
+  url_check_success datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id),
   KEY sender_id (sender_id),
   KEY stotext_id (stotext_id),
-  KEY up (up,track)
+  KEY up (up,track),
+  KEY url_domain (url_domain),
+  KEY url_check (url_check,url_check_success)
 ) TYPE=MyISAM;
 
 --
@@ -306,16 +313,23 @@ CREATE TABLE topics (
   user_id int(11) NOT NULL default '0',
   stotext_id int(11) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
+  virtual tinyint(4) NOT NULL default '0',
   allow int(11) NOT NULL default '0',
   premoderate int(11) NOT NULL default '0',
   ident varchar(15) NOT NULL default '',
+  index0 int(11) NOT NULL default '0',
+  index1 int(11) NOT NULL default '0',
+  index2 int(11) NOT NULL default '0',
+  index3 int(11) NOT NULL default '0',
+  index4 int(11) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY ident (ident),
   KEY up (up),
   KEY track (track),
   KEY stotext_id (stotext_id),
   KEY user_id (user_id),
-  KEY name_sort (name_sort)
+  KEY name_sort (name_sort),
+  KEY index0 (index0,index1,index2,index3,index4)
 ) TYPE=MyISAM;
 
 --
@@ -328,8 +342,11 @@ CREATE TABLE users (
   login_sort varchar(60) NOT NULL default '',
   password varchar(40) NOT NULL default '',
   name varchar(30) NOT NULL default '',
+  name_sort varchar(60) NOT NULL default '',
   jewish_name varchar(30) NOT NULL default '',
+  jewish_name_sort varchar(60) NOT NULL default '',
   surname varchar(30) NOT NULL default '',
+  surname_sort varchar(60) NOT NULL default '',
   gender enum('mine','femine') NOT NULL default 'mine',
   info text NOT NULL,
   birthday date NOT NULL default '0000-00-00',
@@ -362,7 +379,10 @@ CREATE TABLE users (
   KEY confirm_code (confirm_code),
   KEY confirm_deadline_2 (confirm_deadline),
   KEY last_chat (last_chat),
-  KEY login_sort (login_sort)
+  KEY login_sort (login_sort),
+  KEY name_sort (name_sort),
+  KEY jewish_name_sort (jewish_name_sort),
+  KEY surname_sort (surname_sort)
 ) TYPE=MyISAM;
 
 --

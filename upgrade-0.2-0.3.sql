@@ -18,3 +18,6 @@ ALTER TABLE `messages` ADD `topic_link` INT NOT NULL AFTER `sent`;
 ALTER TABLE `messages` ADD `url_check` DATETIME NOT NULL, ADD `url_check_success` DATETIME NOT NULL;
 ALTER TABLE `messages` ADD INDEX (`url_check`, `url_check_success`); 
 ALTER TABLE `messages` ADD `lang` CHAR(5) NOT NULL AFTER `track`;
+ALTER TABLE `topics` ADD `virtual` TINYINT NOT NULL AFTER `hidden`;
+ALTER TABLE `topics` ADD `index0` INT NOT NULL, ADD `index1` INT NOT NULL, ADD `index2` INT NOT NULL, ADD `index3` INT NOT NULL, ADD `index4` INT NOT NULL;
+ALTER TABLE `topics` ADD INDEX (`index0`, `index1`, `index2`, `index3`, `index4`);
