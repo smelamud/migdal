@@ -69,12 +69,12 @@ return $result;
 
 function hasTopic()
 {
-return true;
+return $this->getLocalConf('HasTopic');
 }
 
 function mandatoryTopic()
 {
-return $this->hasTopic();
+return $this->hasTopic() && $this->getLocalConf('MandatoryTopic');
 }
 
 function getMessageId()
@@ -114,11 +114,6 @@ $this->grp=GRP_FORUMS;
 $this->Posting($row);
 }
 
-function hasImage()
-{
-return false;
-}
-
 }
 
 class News
@@ -143,11 +138,6 @@ $this->grp=GRP_GALLERY;
 $this->Posting($row);
 }
 
-function mandatoryImage()
-{
-return true;
-}
-
 }
 
 class Article
@@ -159,11 +149,6 @@ function Article($row)
 $this->grp=GRP_ARTICLES;
 $this->large_format=TF_TEX;
 $this->Posting($row);
-}
-
-function hasLargeBody()
-{
-return true;
 }
 
 }

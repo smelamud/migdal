@@ -53,16 +53,6 @@ else
 return $result;
 }
 
-function hasSubject()
-{
-return false;
-}
-
-function hasImage()
-{
-return false;
-}
-
 function getMessageId()
 {
 return $this->message_id;

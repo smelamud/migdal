@@ -127,34 +127,39 @@ else
 return $result;
 }
 
+function getLocalConf($name)
+{
+return $GLOBALS[get_class($this).$name];
+}
+
 function hasSubject()
 {
-return true;
+return $this->getLocalConf('HasSubject');
 }
 
 function mandatorySubject()
 {
-return $this->hasSubject();
+return $this->hasSubject() && $this->getLocalConf('MandatorySubject');
 }
 
 function hasLargeBody()
 {
-return false;
+return $this->getLocalConf('HasLargeBody');
 }
 
 function mandatoryLargeBody()
 {
-return $this->hasLargeBody();
+return $this->hasLargeBody() && $this->getLocalConf('MandatoryLargeBody');
 }
 
 function hasImage()
 {
-return true;
+return $this->getLocalConf('HasImage');
 }
 
 function mandatoryImage()
 {
-return false;
+return $this->hasImage() && $this->getLocalConf('MandatoryImage');
 }
 
 function isEditable()

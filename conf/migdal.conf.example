@@ -65,4 +65,77 @@ $defaultThumbnail='../demo/images/click_here.jpg';
 
 # Каталог для временных файлов
 $tmpDir='/tmp';
+
+# --- Message ---
+
+$messageHasSubject=true;
+$messageMandatorySubject=true;
+$messageHasLargeBody=false;
+$messageMandatoryLargeBody=false;
+$messageHasImage=true;
+$messageMandatoryImage=false;
+
+# --- ForumAnswer ---
+
+$forumanswerHasSubject=false;
+$forumanswerMandatorySubject=false;
+$forumanswerHasLargeBody=false;
+$forumanswerMandatoryLargeBody=false;
+$forumanswerHasImage=false;
+$forumanswerMandatoryImage=false;
+
+# --- Posting ---
+
+$postingHasSubject=true;
+$postingMandatorySubject=true;
+$postingHasLargeBody=false;
+$postingMandatoryLargeBody=false;
+$postingHasImage=true;
+$postingMandatoryImage=false;
+$postingHasTopic=true;
+$postingMandatoryTopic=true;
+
+# --- Forum ---
+
+$forumHasSubject=true;
+$forumMandatorySubject=true;
+$forumHasLargeBody=false;
+$forumMandatoryLargeBody=false;
+$forumHasImage=false;
+$forumMandatoryImage=false;
+$forumHasTopic=true;
+$forumMandatoryTopic=true;
+
+# --- News ---
+
+$newsHasSubject=true;
+$newsMandatorySubject=true;
+$newsHasLargeBody=false;
+$newsMandatoryLargeBody=false;
+$newsHasImage=true;
+$newsMandatoryImage=false;
+$newsHasTopic=true;
+$newsMandatoryTopic=true;
+
+# --- Gallery ---
+
+$galleryHasSubject=true;
+$galleryMandatorySubject=true;
+$galleryHasLargeBody=false;
+$galleryMandatoryLargeBody=false;
+$galleryHasImage=true;
+$galleryMandatoryImage=true;
+$galleryHasTopic=true;
+$galleryMandatoryTopic=true;
+
+# --- Article ---
+
+$articleHasSubject=true;
+$articleMandatorySubject=true;
+$articleHasLargeBody=true;
+$articleMandatoryLargeBody=false;
+$articleHasImage=true;
+$articleMandatoryImage=false;
+$articleHasTopic=true;
+$articleMandatoryTopic=true;
 ?>
