@@ -123,7 +123,7 @@ return $this->subject;
 
 function getSubjectDesc()
 {
-return $this->getSubject()!='' ? $this->getSubject() : clearStotext($this->getBodyTiny());
+return $this->getSubject()!='' ? $this->getSubject() : $this->getCleanBodyTiny();
 }
 
 function getAuthor()
@@ -183,6 +183,13 @@ return shorten($this->getBody(),$tinySize,$tinySizeMinus,$tinySizePlus);
 function getHTMLBodyTiny()
 {
 return stotextToHTML(TF_MAIL,$this->getBodyTiny(),$this->getMessageId());
+}
+
+function getCleanBodyTiny()
+{
+global $tinySize,$tinySizeMinus,$tinySizePlus;
+
+return shorten(clearStotext($this->getBody()),$tinySize,$tinySizeMinus,$tinySizePlus);
 }
 
 function isBodyMedium()
