@@ -22,6 +22,11 @@ BODY.chatboard * {
 	font-weight: bold;
 }
 
+.chatboard .split {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
 .chatusers {
 	border-bottom: 1px solid %chatusers_split;
 	margin-bottom: 1ex;
