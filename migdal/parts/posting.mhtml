@@ -107,29 +107,9 @@
       </if>
      </isedit>
     </td>
-    <td align=right>
-     <logged>
-      <if what='$discuss'>
-       <biff time='$posting.LastAnswer'>
-       <a href='forum.php?redirid=$_&msgid=$posting.Id'>
-	Обсудить
-	<ifnzero what='$posting.AnswerCount'>
-	 ($posting.AnswerCount)<asp>
-	</ifnzero>
-       <asp></a>
-      </if>
-     <else>
-      <if what='$discuss'>
-       <biff time='$posting.LastAnswer'>
-       <a href='forum.php?redirid=$_&msgid=$posting.Id'>
-	Обсуждение
-	<ifnzero what='$posting.AnswerCount'>
-	 &nbsp;($posting.AnswerCount)<asp>
-	</ifnzero>
-       <asp></a>
-      </if>
-     </logged>
-    </td>
+    <if what='$discuss'>
+     <td align=right><discusslink posting='$posting'></td>
+    </if>
    </tr></table></td></tr>
   </if>
  </table>

@@ -24,6 +24,7 @@
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
+<decel name='discusslink' file='parts/utils.php' params='posting'>
 <decel name='formbuttons' file='parts/formutils.php' params='title,span'
        defaults="title='Изменить',span=0">
 <decel name='formtable' file='parts/formutils.php' params='title'>

@@ -7,9 +7,9 @@
  <titletag>
 </head>
 <logged>
- <frameset rows='115,*,45' border=0>
+ <frameset rows='120,*,45' border=0>
 <else>
- <frameset rows='140,*' border=0>
+ <frameset rows='145,*' border=0>
 </logged>
  <frame src='chattop.php?globalid=$_&$?' noresize>
  <frameset cols='*,120' border=0>

@@ -34,6 +34,26 @@
 </ife>
 </element>
 
+<element name='discusslink'>
+<logged>
+ <biff time='$posting.LastAnswer'>
+ <a href='forum.php?redirid=$_&msgid=$posting.Id'>
+  Обсудить
+  <ifnzero what='$posting.AnswerCount'>
+   ($posting.AnswerCount)<asp>
+  </ifnzero>
+ <asp></a>
+<else>
+ <biff time='$posting.LastAnswer'>
+ <a href='forum.php?redirid=$_&msgid=$posting.Id'>
+  Обсуждение
+  <ifnzero what='$posting.AnswerCount'>
+   &nbsp;($posting.AnswerCount)<asp>
+  </ifnzero>
+ <asp></a>
+</logged>
+</element>
+
 <element name='lastonline_cell'>
 <if what='$user.isOnline'>
  <td align=center>

@@ -24,10 +24,7 @@
      </td>
     </if>
    </isedit>
-   <td>
-    <a href='forum.php?redirid=$_&msgid=$posting.Id'
-     >Обсудить ($posting.AnswerCount)</a>
-   </td>
+   <td><discusslink posting='$posting'></td>
   </tr>
  </table>
 </div>
