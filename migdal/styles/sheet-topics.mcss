@@ -70,3 +70,8 @@
 .topics .comment {
 	color: %topics_comment;
 }
+
+.topics .topicsect {
+	color: %topics_section;
+	font: bold 11pt %times;
+}

@@ -70,6 +70,8 @@ return ET_OK;
 postInteger('editid');
 postInteger('up');
 postString('name');
+postString('comment0');
+postString('comment1');
 postString('login');
 postString('group_login');
 postString('perm_string');

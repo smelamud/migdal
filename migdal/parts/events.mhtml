@@ -3,16 +3,21 @@
 <element name='events'>
 <topic_obj name='topic' id='$`events`'>
 <topics_table class='eightpt' title='События'>
- <iswrite what='$topic'>
-  <tr><td colspan=2>
-   <a href='topics-reorder.php?up=$,Id&level=2&redirid=$_'
-      class='edit'>Расставить</a>
-  </td></tr>
- </iswrite>
  <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
-                    sort='*SORT_RINDEX0' fields='*SELECT_INFO'>
+                    sort='*SORT_RINDEX4_RINDEX0' fields='*SELECT_INFO'>
+ <assign name='year' value='0'>
  <for>
-  <topics_line time='$.LastMessage' text='$.Name' title='$.Description'
+  <if what='$.Index4!=$year && $.Index4!=0'>
+   <assign name='year' value='$.Index4'>
+   <topics_section title='$year' nobullet='*true'>
+   <iswrite what='$topic'>
+    <tr><td colspan=2>
+     <a href='topics-reorder.php?up=$,Id&level=2&index4=$year&redirid=$_'
+	class='edit'>Расставить</a>
+    </td></tr>
+   </iswrite>
+  </if>
+  <topics_line time='$.LastMessage' text='$.Comment0' title='$.Description'
                href#='event.php?topic_id=$.Id'>
  </for>
 </topics_table>

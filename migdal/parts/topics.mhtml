@@ -22,9 +22,9 @@
 
 <element name='topics_line'>
 <if what='$arrow'>
- <tr class=arrow valign=top>
+ <tr class='arrow' valign='top'>
 <else>
- <tr valign=top>
+ <tr valign='top'>
 </if>
  <if what='$indent>0'>
   <tdspan span='$indent'>&nbsp;</tdspan>
@@ -47,9 +47,19 @@
 </tr>
 </element>
 
+<element name='topics_section'>
+<tr valign='top'>
+ <if what='$indent>0'>
+  <tdspan span='$indent'>&nbsp;</tdspan>
+ </if>
+ <assign name='headspan' value!='$span+1'>
+ <tdspan span='$headspan'><span class='$class'>$title</span></tdspan>
+</tr>
+</element>
+
 <element name='topics_splitter'>
 <assign name='splitspan' value!='$span+$indent+1'>
-<tr valign=top>
+<tr valign='top'>
  <tdspan span='$splitspan'>$text</tdspan>
 </tr>
 </element>

@@ -25,6 +25,8 @@ var $up;
 var $track;
 var $name;
 var $full_name;
+var $comment0;
+var $comment1;
 var $user_id;
 var $group_id;
 var $group_login;
@@ -36,6 +38,7 @@ var $premoderate;
 var $moderate;
 var $edit;
 var $ident;
+var $index4;
 var $postings_info;
 var $sub_count;
 
@@ -77,14 +80,14 @@ $this->stotext->setup($vars,'description');
 
 function getCorrespondentVars()
 {
-return array('up','name','ident','login','group_login','perm_string',
-             'premoderate','moderate','edit');
+return array('up','name','comment0','comment1','ident','login','group_login',
+             'perm_string','premoderate','moderate','edit','index4');
 }
 
 function getWorldVars()
 {
-return array('up','track','name','user_id','group_id','perms','allow',
-             'premoderate','moderate','edit','ident');
+return array('up','track','name','comment0','comment1','user_id','group_id',
+             'perms','allow','premoderate','moderate','edit','ident','index4');
 }
 
 function getJencodedVars()
@@ -150,6 +153,16 @@ return str_replace(' ','&nbsp;',$this->getName());
 function getFullName()
 {
 return $this->full_name;
+}
+
+function getComment0()
+{
+return $this->comment0;
+}
+
+function getComment1()
+{
+return $this->comment1;
 }
 
 function getUserId()
@@ -290,6 +303,11 @@ function getIdent()
 return $this->ident;
 }
 
+function getIndex4()
+{
+return $this->index4;
+}
+
 function getPostingsInfo()
 {
 return $this->postings_info;
@@ -335,15 +353,17 @@ class TopicIterator
 {
 
 function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
-                  $level=1)
+                  $level=1,$index4=-1)
 {
 $hide=topicsPermFilter(PERM_READ,$prefix);
 $userFilter=$up>=0 ? 'and topics.'.subtree('topics',$up,$recursive,'up') : '';
 $grpFilter=$grp!=GRP_ALL ? "and (${prefix}allow & $grp)<>0" : '';
 $answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
 $levelFilter=$level<=1 || $up<0 ? '' : "and topics.id<>$up and topics.up<>$up";
+$index4Filter=$index4<0 ? '' : "and index4=$index4";
 // TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
-return " where $hide $userFilter $grpFilter $answerFilter $levelFilter ";
+return " where $hide $userFilter $grpFilter $answerFilter $levelFilter 
+               $index4Filter ";
 }
 
 function TopicIterator($query)
@@ -363,17 +383,18 @@ function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
                            $subdomain=-1 /* deprecated */,
 			   $withSeparate=true /* deprecated */,
 			   $sort=SORT_NAME,$recursive=false,$level=1,
-			   $fields=SELECT_GENERAL)
+			   $fields=SELECT_GENERAL,$index4=-1)
 {
 $this->fields=$fields;
 $this->grp=$grp;
 /* Select */
 $Select="topics.id as id,topics.ident as ident,topics.up as up,
-         topics.name as name,topics.stotext_id as stotext_id,
+         topics.name as name,topics.comment0 as comment0,
+	 topics.comment1 as comment1,topics.stotext_id as stotext_id,
 	 topics.user_id as user_id,topics.group_id as group_id,
 	 users.login as login,gusers.login as group_login,
 	 topics.perms as perms,stotexts.body as description,
-	 topics.allow as allow";
+	 topics.allow as allow,topics.index4 as index4";
 /* From */
 $grpFilter=grpFilter($grp,'grp','postings');
 $hidePostings=messagesPermFilter(PERM_READ,'messages');
@@ -402,18 +423,20 @@ $From="topics
        $postTables
        $forumsTables";
 /* Where */
-$Where=$this->getWhere($grp,$up,'topics.',$withAnswers,$recursive,$level);
+$Where=$this->getWhere($grp,$up,'topics.',$withAnswers,$recursive,$level,
+                       $index4);
 /* Group by */
 $GroupBy=$withAnswers || $withPostings ? 'group by topics.id' : '';
 /* Having */
 $Having=$withPostings ? 'having message_count<>0' : '';
 /* Order */
 $Order=getOrderBy($sort,
-       array(SORT_NAME       => 'topics.name_sort',
-	     SORT_INDEX0     => 'topics.index0',
-	     SORT_RINDEX0    => 'topics.index0 desc',
-	     SORT_INDEX1     => 'topics.index1',
-	     SORT_RINDEX1    => 'topics.index1 desc'));
+       array(SORT_NAME            => 'topics.name_sort',
+	     SORT_INDEX0          => 'topics.index0',
+	     SORT_RINDEX0         => 'topics.index0 desc',
+	     SORT_INDEX1          => 'topics.index1',
+	     SORT_RINDEX1         => 'topics.index1 desc',
+	     SORT_RINDEX4_RINDEX0 => 'topics.index4 desc,topics.index0 desc'));
 /* Query */
 $this->TopicIterator(
       "select $Select
@@ -580,6 +603,7 @@ $GroupBy=($fields & SELECT_TOPICS)!=0 ?
 	 '' ;
 $result=mysql_query(
        "select topics.id as id,topics.up as up,topics.name as name,
+               topics.comment0 as comment0,topics.comment1 as comment1,
                topics.stotext_id as stotext_id,
                stotexts.body as description,image_set,
 	       large_filename,large_format,
@@ -591,7 +615,7 @@ $result=mysql_query(
 	       users.gender as gender,users.email as email,
 	       users.hide_email as hide_email,users.rebe as rebe,
 	       topics.group_id as group_id,gusers.login as group_login,
-	       topics.perms as perms $subsFields
+	       topics.perms as perms,topics.index4 as index4 $subsFields
 	from topics
 	     left join users
 	          on topics.user_id=users.id

@@ -38,8 +38,13 @@
     <topicselect title='Надтема' name='up' grp='*GRP_ALL' value='$,UpValue'
                  root=-1>
     <error id='*ET_NAME_ABSENT' text='Название не было введено' span=2>
-    <edit_line title='Название' value=$,Name name='name' size=30 maxlength=70
+    <edit_line title='Название' value='$,Name' name='name' size=35 maxlength=70
                mandatory='*true'>
+    <edit_line title='Комментарий 0' value='$,Comment0' name='comment0' size=35
+               maxlength=70>
+    <edit_line title='Комментарий 1' value='$,Comment1' name='comment1' size=35
+               maxlength=70>
+    <edit_line title='Год' value='$,Index4' name='index4' size=6 maxlength=6>
     <error id='*ET_IDENT_UNIQUE' text='Так уже обозначена другая тема' span=2>
     <edit_line title='Обозначение' name='ident' value='$,Ident'
 	       size=15 maxlength=15>

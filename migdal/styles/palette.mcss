@@ -80,6 +80,7 @@ topics_controls_hover=blue
 topics_arrow=pics/arrow.gif
 topics_ner_arrow=pics/arrow-ner.gif
 topics_comment=%mrd
+topics_section=%mrd
 topics_arrow_width=13
 catalog_border=%mrd
 catalog_header=%r_n
