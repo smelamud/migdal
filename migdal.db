@@ -1,8 +1,8 @@
--- MySQL dump 8.21
+-- MySQL dump 8.22
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.49-log
+-- Server version	3.23.52-log
 
 --
 -- Table structure for table 'chat_messages'
@@ -370,6 +370,7 @@ CREATE TABLE topics (
   index2 int(11) NOT NULL default '0',
   index3 int(11) NOT NULL default '0',
   index4 int(11) NOT NULL default '0',
+  separate tinyint(4) NOT NULL default '0',
   used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY ident (ident),
@@ -379,7 +380,8 @@ CREATE TABLE topics (
   KEY user_id (user_id),
   KEY name_sort (name_sort),
   KEY index0 (index0,index1,index2,index3,index4),
-  KEY used (used)
+  KEY used (used),
+  KEY separate (separate)
 ) TYPE=MyISAM;
 
 --
@@ -456,11 +458,11 @@ CREATE TABLE votes (
   KEY posting_id (posting_id,ip,user_id,sent)
 ) TYPE=MyISAM;
 
--- MySQL dump 8.21
+-- MySQL dump 8.22
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.49-log
+-- Server version	3.23.52-log
 
 --
 -- Dumping data for table 'version'

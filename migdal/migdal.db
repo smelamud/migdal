@@ -1,8 +1,8 @@
--- MySQL dump 8.21
+-- MySQL dump 8.22
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.49-log
+-- Server version	3.23.52-log
 
 --
 -- Dumping data for table 'ratings'
