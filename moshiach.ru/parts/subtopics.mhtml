@@ -13,7 +13,7 @@
   <!--<a class=under href=2.htm> Глоссарий</a><br>-->
   <iterate_topiclist grp='*GRP_ARTICLES' up='study'>
   <for>
-   <a class=under href='none.html?topic_id=$.Id'
+   <a class=under href='topic.php?topic_id=$.Id'
     >$.Name<img border=0 src='pics/a1.gif' width=30 height=11></a><br>
   </for>
   <admin_topics>

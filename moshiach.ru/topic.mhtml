@@ -1,0 +1,57 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/postings.mhtml 1.6 >>
+<html>
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=koi8-r">
+ <meta name="Keywords" content="Мошиах, Машиах">
+ <script src="window.js" language="javascript"></script>
+ <title>Штаб Мошиаха</title>
+</head>
+
+<body bgcolor=#F6F7FA topmargin=3 leftmargin=3 marginwidth=3 marginheight=3>
+ <span class='pretty'>
+  <topic_obj id='$topic_id'>
+  <zone><topic_obj name='upper' id='$,UpValue'></zone>
+  <top ident='study'>
+  <table border=0 width=100% cellPadding=0 cellSpacing=0><tr valign=top>
+   <td width=20% bgcolor=F6F7FA>
+    <subtopics>
+    <search>
+    <subscribe>
+    <editors>
+   </td>
+   <bldot>
+   <td bgcolor=ffffff width=56%>
+    <table cellPadding=2 cellSpacing=3 width=100% border=0>
+     <tr bgcolor=darkblue><td align=center>
+      <b>$^upper.Name / $^,Name /</b>
+     </td></tr>   
+     <tr><td>
+      <a href=galut.htm>Галут</a><br>  
+      <a href=geula.htm>Геула</a><br>  
+      <a href=article.htm>Мошиах</a><br>  
+      <a href=prophet.htm>Пророк</a><br> 
+      <a href=res.htm>Воскрешение из мертвых</a><br>
+      <a href="gloss/australia.htm">АВСТРАЛИЯ, СТРАНА</a><br> 
+      <a href="gloss/adam.htm">АДАМ А-РИШОН - ПЕРВЫЙ ЧЕЛОВЕК</a><br> 
+      <a href="gloss/alef.htm">АЛЕФ, БУКВА</a><br>
+      <a href="gloss/amolek.htm">АМАЛЕК, НАРОД</a><br>
+      <a href="gloss/america.htm">АМЕРИКА, СТРАНА</a><br>
+      <a href="gloss/anger.htm">ГНЕВ</a><br>
+      <a href="gloss/argument.htm">СПОР - МАХЛОКЕС</a> 
+     </td></tr> 
+    </table>
+    <qanda>
+   </td>
+   <bldot>
+   <td width=22% bgcolor=F6F7FA>
+    <updates_chapter> 
+    <talking> 
+   </td>
+  </tr></table> 
+  <bottom>
+ </span>         		   
+</body>
+
+</html>

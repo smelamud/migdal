@@ -96,6 +96,7 @@ if($s=~/^(.*)@([ERJ]?\w)$/)
   request('lib/calendar.php');
   return "${st}formatAnyDate('$2',".subVar($1).")$ed";
   }
+request('lib/utils.php') if $s=~/^\$\$?\^/;
 return $st.constructRemake($1).$ed
        if $s=~/^\$\[([^\]]*)\]$/;
 return "${st}urlencode(".constructRemake($1).")$ed"
@@ -110,18 +111,28 @@ return "$st\$".getGlobal('SCRIPT_NAME').$ed
        if $s=~/^\$~$/;
 return "$st\$$item$ed"
        if $s=~/^\$\.$/;
+return "${st}uc(\$$item)$ed"
+       if $s=~/^\$\^\.$/;
 return "$st\$$result$ed"
        if $s=~/^\$,$/;
+return "${st}uc(\$$result)$ed"
+       if $s=~/^\$\^,$/;
 return "$st\$$iter$ed"
        if $s=~/^\$;$/;
 return "$st\$$const$ed"
        if $s=~/^\$\*$/;
 return "$st\$$1$ed"
        if $s=~/^\${?(\w+)}?$/;
+return "${st}uc(\$$1)$ed"
+       if $s=~/^\$\^{?(\w+)}?$/;
 return "$st\$".getGlobal($1).$ed
        if $s=~/^\$\${?(\w+)}?$/;
+return "${st}uc(\$".getGlobal($1).")$ed"
+       if $s=~/^\$\$\^{?(\w+)}?$/;
 return "${st}urlencode(\$$1)$ed"
        if $s=~/^\$#{?(\w+)}?$/;
+return "${st}urlencode(\$".getGlobal($1).")$ed"
+       if $s=~/^\$\$#{?(\w+)}?$/;
 return "$st\$$item->".getGetName($1)."()$ed"
        if $s=~/^\${?\.(\w+)}?$/;
 return "$st\$$result->".getGetName($1)."()$ed"
@@ -132,6 +143,16 @@ return "$st\$$1->".getGetName($2)."()$ed"
        if $s=~/^\${?(\w+)[\.,;](\w+)}?$/;
 return "$st\$".getGlobal($1).'->'.getGetName($2)."()$ed"
        if $s=~/^\$\${?(\w+)[\.,;](\w+)}?$/;
+return "${st}uc(\$$item->".getGetName($1)."())$ed"
+       if $s=~/^\$\^{?\.(\w+)}?$/;
+return "${st}uc(\$$result->".getGetName($1)."())$ed"
+       if $s=~/^\$\^{?,(\w+)}?$/;
+return "${st}uc(\$$iter->".getGetName($1)."())$ed"
+       if $s=~/^\$\^{?;(\w+)}?$/;
+return "${st}uc(\$$1->".getGetName($2)."())$ed"
+       if $s=~/^\$\^{?(\w+)[\.,;](\w+)}?$/;
+return "${st}uc(\$".getGlobal($1).'->'.getGetName($2)."())$ed"
+       if $s=~/^\$\$\^{?(\w+)[\.,;](\w+)}?$/;
 return "${st}urlencode(\$$item->".getGetName($1)."())$ed"
        if $s=~/^\$#{?\.(\w+)}?$/;
 return "${st}urlencode(\$$result->".getGetName($1)."())$ed"
@@ -140,6 +161,8 @@ return "${st}urlencode(\$$iter->".getGetName($1)."())$ed"
        if $s=~/^\$#{?;(\w+)}?$/;
 return "${st}urlencode(\$$1->".getGetName($2)."())$ed"
        if $s=~/^\$#{?(\w+)[\.,;](\w+)}?$/;
+return "${st}urlencode(\$".getGlobal($1).'->'.getGetName($2)."())$ed"
+       if $s=~/^\$\$#{?(\w+)[\.,;](\w+)}?$/;
 return "'$st$s$ed'";
 }
 
@@ -157,7 +180,7 @@ while($s ne '')
 			    (?:
 			     (?:
 			      (?:
-			       \$[\#\$]?
+			       \$\$?[\#\^]?
 			       (?:
 				(?: {? \w* [\.,;]? \w+ }? )
 				|

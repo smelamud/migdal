@@ -47,4 +47,10 @@ function makeUpdate($table,$what,$where)
 return "update $table set ".makeKeyValue(',',$what).
                     ' where '.makeKeyValue(' and ',$where);
 }
+
+function uc($s)
+{
+return strtr(strtoupper($s),'ÁÂ×ÇÄÅÖÚÉÊËÌÍÎÏÐÒÓÔÕÆÈÃÞÛÝßÙØÜÀÑ',
+                            'áâ÷çäåöúéêëìíîïðòóôõæèãþûýÿùøüàñ');
+}
 ?>
