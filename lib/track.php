@@ -29,6 +29,14 @@ $tracks[$table][$id]=$track;
 return $track;
 }
 
+function ancestorById($table,$id,$level=-1)
+{
+if($level<0)
+  return trackById($table,$id);
+$levels=explode(' ',trackById($table,$id));
+return (int)($levels[$level]);
+}
+
 function updateTrackById($table,$id,$track)
 {
 return mysql_query("update $table

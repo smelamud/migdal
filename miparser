@@ -116,6 +116,17 @@ if($s=~/^\$`([^`]*)`$/)
   $ident=subTypedValue('','%',$ident);
   return "${st}idByIdent($table,$ident)$ed";
   }
+if($s=~/^\$\[([^\]]*)\]$/)
+  {
+  request('lib/track.php');
+  my ($table,$id,$level)=$1=~/^\s*(?:(\w+):)?([\w\$]+)(?:,([\w\$]+))?$/;
+  $table='topics' if $table eq '';
+  $table=subTypedValue('','%',$table);
+  $id=subTypedValue('','%',$id);
+  $level=subTypedValue('','%',$level);
+  $level=-1 if $level eq "''";
+  return "${st}ancestorById($table,$id,$level)$ed";
+  }
 request('lib/utils.php') if $s=~/^\$\$?\^/;
 return $st.constructRemake($1,0).$ed
        if $s=~/^\$\[([^\]]*)\]$/;
@@ -223,6 +234,8 @@ while($s ne '')
 				(?: \[[^\]]*\] )
 				|
 				(?: `[^`]*` )
+				|
+				(?: \[[^\]]*\] )
 				|
 				(?: [_\.,;\~\*\-\?]+ )
 			       )
