@@ -13,81 +13,91 @@
  <forum_answer_obj id='$editid' up='$up'>
  <setup>
  <if what='$editid'>
-  <formtable title='Изменить сообщение в форуме'>
+  <assign name='head' value='Изменить сообщение в форуме'>
  <else>
-  <formtable title='Добавить сообщение в форум'>
+  <assign name='head' value='Добавить сообщение в форум'>
  </if>
- <form method=post enctype='multipart/form-data'
-       action='actions/forumanswermod.php'>
-  <hidden name='edittag' value=1>
-  <hidden name='redir' value='$redir'>
-  <hidden name='editid' value='$editid'>
-  <hidden name='up' value='$answer.UpValue'>
-  <table>
-   <starinfo>
-   <error id='*EFA_NO_SEND'
-	  text='Посылать сообщения могут только зарегистрированные пользователи'>
-   <error id='*EFA_NO_EDIT' text='У вас нет права редактировать это сообщение'>
-   <error id='*EFA_STORE_SQL' text='Ошибка базы данных при обновлении записи'
-	  color='magenta'>
-   <error id='*EFA_NO_UP'
-	  text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
-   <tr><td><table>
-    <if what='$answer.hasSubject'>
-     <edit_line title='Заголовок' value='$answer.Subject' name='subject'
-		size=42 maxlength=250 mandatory='$answer.mandatorySubject'>
-    </if>
-    <if what='$answer.hasImage'>
-     <error id='*EP_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
-	    span=2>
-     <error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
-     <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
-     <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
-	    span=2>
-     <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
-	    color='magenta' span=2>
-     <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
-	    text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
-     <ifnzero what='$answer.ImageSet'>
-      <image_name set='$answer.ImageSet'>
-      <assign name='file' value='$image.Filename'>
-     <else>
-      <assign name='file' value=''>
-     </ifnzero>
-     <uploader name='image' loadedname='image_set'
-               loadedvalue='$answer.ImageSet'
-	       title='Картинка' loaded='(уже загружена)' notloaded='Другая'
-	       filename='$file' mandatory='$answer.mandatoryImage'>
-     <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи'
-            color=magenta span=2>
-     <if what='$answer.hasTitle'>
-      <ifnzero what='$answer.ImageSet'>
-       <assign name='ttext' value='$image.Title'>
+ <table width=100%><tr valign=top>
+  <td width=200>
+   <stotext_help_navi ident='add' link='$-' title='$head'>
+  </td>
+  <td>
+   <formtable title='$head'>
+    <form method=post enctype='multipart/form-data'
+	  action='actions/forumanswermod.php'>
+     <hidden name='edittag' value=1>
+     <hidden name='redir' value='$redir'>
+     <hidden name='editid' value='$editid'>
+     <hidden name='up' value='$answer.UpValue'>
+     <table>
+      <starinfo>
+      <error id='*EFA_NO_SEND'
+	     text='Посылать сообщения могут только зарегистрированные пользователи'>
+      <error id='*EFA_NO_EDIT'
+             text='У вас нет права редактировать это сообщение'>
+      <error id='*EFA_STORE_SQL' color='magenta'
+             text='Ошибка базы данных при обновлении записи'>
+      <error id='*EFA_NO_UP'
+	     text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
+      <tr><td><table>
+       <if what='$answer.hasSubject'>
+	<edit_line title='Заголовок' value='$answer.Subject' name='subject'
+		   size=42 maxlength=250 mandatory='$answer.mandatorySubject'>
+       </if>
+       <if what='$answer.hasImage'>
+	<error id='*EP_IMAGE_ABSENT' span=2
+	       text='Нужно указать картинку для отображения'>
+	<error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
+	<error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+	<error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+	       span=2>
+	<error id='*EIU_IMAGE_SQL' color='magenta' span=2
+	       text='Ошибка базы данных при загрузке картинки'>
+	<error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+	       text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+	<ifnzero what='$answer.ImageSet'>
+	 <image_name set='$answer.ImageSet'>
+	 <assign name='file' value='$image.Filename'>
+	<else>
+	 <assign name='file' value=''>
+	</ifnzero>
+	<uploader name='image' loadedname='image_set'
+		  loadedvalue='$answer.ImageSet'
+		  title='Картинка' loaded='(уже загружена)' notloaded='Другая'
+		  filename='$file' mandatory='$answer.mandatoryImage'>
+	<error id='*EP_TITLE_SQL' text='Ошибка при установке подписи'
+	       color=magenta span=2>
+	<if what='$answer.hasTitle'>
+	 <ifnzero what='$answer.ImageSet'>
+	  <assign name='ttext' value='$image.Title'>
+	 <else>
+	  <assign name='ttext' value=''>
+	 </ifnzero>
+	 <editor_line name='title' body='$ttext' title='Подпись под картинкой'
+		      rows=5 span=2 mandatory='$answer.mandatoryTitle'>
+	</if>
+       </if>
+      </table></td></tr>
+      <error id='*EFA_BODY_ABSENT'
+	     text='Напишите хотя бы пару строчек в теле сообщения'>
+      <editor_line name='body' title='Текст' body='$answer.Body'
+		   mandatory='$answer.mandatoryBody'>
+      <checkbox_line name='hidden' value='$answer.isHidden'
+                     title='Не показывать'>
+      <moderator>
+       <checkbox_line name='disabled' value='$answer.isDisabled'
+		      title='Запретить показ'>
+      </moderator>
+      <if what='$editid'>
+       <formbuttons title='Изменить'>
       <else>
-       <assign name='ttext' value=''>
-      </ifnzero>
-      <editor_line name='title' body='$ttext' title='Подпись под картинкой'
-		   rows=5 span=2 mandatory='$answer.mandatoryTitle'>
-     </if>
-    </if>
-   </table></td></tr>
-   <error id='*EFA_BODY_ABSENT'
-	  text='Напишите хотя бы пару строчек в теле сообщения'>
-   <editor_line name='body' title='Текст' body='$answer.Body'
-                mandatory='$answer.mandatoryBody'>
-   <checkbox_line name='hidden' value='$answer.isHidden' title='Не показывать'>
-   <moderator>
-    <checkbox_line name='disabled' value='$answer.isDisabled'
-		   title='Запретить показ'>
-   </moderator>
-   <if what='$editid'>
-    <formbuttons title='Изменить'>
-   <else>
-    <formbuttons title='Добавить'>
-   </if>
-  </table>
- </form>
- </formtable>
+       <formbuttons title='Добавить'>
+      </if>
+     </table>
+    </form>
+   </formtable>
+  </td>
+ </tr></table>
  <bottom>
 </body>
 </html>

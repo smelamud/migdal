@@ -17,16 +17,16 @@
  <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
  <setup>
  <if what='$editid'>
-  <concat value='Изменить $grpitemtitle'>
+  <concat name='head' value='Изменить $grpitemtitle'>
  <else>
-  <concat value='Добавить $grpitemtitle'>
+  <concat name='head' value='Добавить $grpitemtitle'>
  </if>
  <table width=100%><tr valign=top>
   <td width=200>
-   <stotext_help_navi ident='add' link='$-' title='$*' article='*true'>
+   <stotext_help_navi ident='add' link='$-' title='$head' article='*true'>
   </td>
   <td>
-   <formtable title='$*'>
+   <formtable title='$head'>
     <form method=post enctype='multipart/form-data'
 	  action='actions/postingmod.php'>
      <hidden name='edittag' value=1>
