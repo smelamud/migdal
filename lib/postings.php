@@ -387,11 +387,21 @@ $this->LimitSelectIterator(
 
 function addTopicFilter($topic_id,$recursive=false)
 {
-if($topic_id<0 || $recursive && $topic_id==0)
-  return;
-if($this->topicFilter!='')
-  $this->topicFilter.=' or ';
-$this->topicFilter.='topics.'.subtree($topic_id,$recursive);
+if(!is_array($topic_id))
+  {
+  if($topic_id<0 || $recursive && $topic_id==0)
+    return;
+  if($this->topicFilter!='')
+    $this->topicFilter.=' or ';
+  $this->topicFilter.='topics.'.subtree($topic_id,$recursive);
+  }
+else
+  foreach($topic_id as $id => $rec)
+	 {
+	 if($this->topicFilter!='')
+	   $this->topicFilter.=' or ';
+	 $this->topicFilter.='topics.'.subtree($id,$rec);
+	 }
 }
 
 function getTopicFilterCondition()

@@ -159,6 +159,8 @@
 <decel name='postings_links' file='parts/postings-links.php'
        params='topic_id,limit,offset'
        defaults="topic_id=-1 limit=10 offset=0">
+<decel name='postings_migdal_news' file='parts/postings-migdal-news.php'
+       params='topic_id,offset' defaults="offset=0">
 <decel name='printlink' file='parts/posting.php' params='posting'>
 <decel name='rabbi' file='parts/rabbi.php'>
 <decel name='rambler_count' file='parts/rambler.php'>

@@ -1,0 +1,47 @@
+<< @(#) $Id$ >>
+
+<grps>
+
+<element name='batcher' params='&list,topic_id,access'>
+<table width=100%><tr valign=bottom>
+ <td align=left class='info'>
+  <table><tr valign=center>
+   <td><image src='pics/sheet.gif'></td>
+   <td>
+    <if what='$access'>
+     <assign name='script' value='postingedit.php'>
+    <else>
+     <assign name='script' value='login.php'>
+    </if>
+    <a href='$script?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
+       >Добавить новость</a>,
+    <a href='$script?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
+       >статью</a>,
+    <a href='$script?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
+       >книгу</a>
+   </td>
+  </tr></table>
+ </td>
+ <td align=center><spin list='$list'></td>
+</tr></table>
+</element>
+
+<element name='postings_migdal_news'>
+<perms table='topics' id='$topic_id'>
+<assign name='access' value='$,isPostable'>
+<iterate_postinglist grp='*GRP_TAPE' limit=10 offset='$offset'>
+<if what='$topic_id==$`migdal-news`'>
+ <filter_topic topic_id='$topic_id' recursive='*true'>
+ <filter_topic topic_id='$`events`' recursive='*true'>
+<else>
+ <filter_topic topic_id='$topic_id' recursive='*false'>
+</if>
+<batcher list='$;' topic_id='$topic_id' access='$access'>
+<for>
+ <posting posting='$.' showtopic!='$topic_id==$`migdal-news`' shorten='*true'
+	  showdiscuss='*true' showcomplain='*true'>
+</for>
+<ifnzero what='$;Count'>
+ <batcher list='$;' topic_id='$topic_id' access='$access'>
+</ifnzero>
+</element>

@@ -37,8 +37,7 @@
        <seealso_other topic_id='$topic_id' topic_grp='*GRP_NEWS'
 		      title='По этой теме в других разделах'>
       </inner></div></outer>
-      <postings grp='*GRP_TAPE' topic_id='$topic_id' limit=10 offset='$offset'
-		recursive!='$topic_id==$`migdal-news`'>
+      <postings_migdal_news topic_id='$topic_id' offset='$offset'>
      </common></td>
      <td width=130 class='nframe'><inner>
       <if what='$topic_id==$`migdal-news`'>
