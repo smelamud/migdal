@@ -1123,9 +1123,12 @@ my $func=$::Elements{$name}->{'name'};
 my @params=();
 foreach(@{$::Elements{$name}->{'params'}})
        {
+       my $def='';
+       $def=$::Elements{$name}->{'defaults'}->{$_}
+            if exists($::Elements{$name}->{'defaults'}->{$_});
        push @params,"\$$_".
-                    (exists($::Elements{$name}->{'defaults'}->{$_})
-                     ? '='.::subVar($::Elements{$name}->{'defaults'}->{$_})
+                    ($def!='' && substr($def,0,1)!='$'
+                     ? '='.::subVar($def)
 		     : '');
        }
 my $globals='';
