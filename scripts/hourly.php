@@ -79,8 +79,8 @@ global $messageEnableTimeout;
 
 $result=mysql_query('select id
                      from messages
-		     where disabled<>0 and (modbits & '.MOD_MODERATE.")!=0 and
-		           last_updated+
+		     where disabled<>0 and (modbits & '.MOD_MODERATE.')!=0 and
+		           (modbits & '.MOD_HTML.")==0 and last_updated+
 			   interval $messageEnableTimeout hour<now()");
 if(!$result)
   die(mysql_error());
