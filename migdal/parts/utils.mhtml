@@ -11,9 +11,12 @@
 </element>
 
 <element name='SenderLink'>
-$message.LoginLink
+<span class='name'>$message.LoginLink</span>
 <if what='$message.isSenderVisible'>
- (<a href='useredit.php?editid=$message.SenderId&redir=$_'>подробнее</a>)
+ <span class='details'>
+  (<a href='useredit.php?editid=$message.SenderId&redir=$_' title='подробнее'
+    >...</a>)
+ </span>
 </if>
 </element>
 

@@ -1,82 +1,74 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/posting.mhtml 1.8 >>
 
-<macro name='rebe'>
- <if what='$posting.isRebe'><font color=red></if>
-</macro>
-
-<macro name='/rebe'>
- <if what='$posting.isRebe'></font></if>
-</macro>
-
 <grps>
 <element name='Posting'>
-<table width=100% class='posting'>
-<tr>
- <if what='$topic<0'>
-  <td>
-   <a href='postings.php?redir=$_&grp=$grp&topic_id=$posting.TopicId'>
-    $posting.TopicName
-   </a>
-  </td>
- <else>
-  <td>&nbsp;</td>
- </ifzero>
- <td align=right><sentview date='$posting.Sent'></td>
-</tr>
-<tr>
- <td><b><rebe>
-  <if what='$posting.hasLargeBody'>
-   <a href='article.php?redir=$_&artid=$posting.Id'>$posting.Subject</a>
-  <else>
-   $posting.Subject
-  </if>
- </rebe></b></td>
- <td align=right><rebe><senderlink message='$posting'></rebe></td>
-</tr>
-<tr><td colspan=2>
- <ifnzero what='$posting.ImageSet'>
-  <table align=left>
-   <tr><td>
-    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
-   </td></tr>
-   <if what="$posting.Title!=''">
-    <tr><td>
-     <center><i>$posting.HTMLTitle</i></center>
-    </td></tr>
+<if what='$posting.isRebe'><span class='rebe'></if>
+ <table width=100% class='posting'>
+  <tr class='top'><td><table width=100%><tr>
+   <td align=left class='sent'><sentview date='$posting.Sent'></td>
+   <td align=right><senderlink message='$posting'></td>
+  </tr></table></td></tr>
+  <tr><td>
+   <span class='subject'>
+    <if what='$posting.hasLargeBody'>
+     <a href='article.php?redir=$_&artid=$posting.Id'>$posting.Subject</a>
+    <else>
+     $posting.Subject
+    </if>
+   </span>
+   <if what='$topic<0'>
+    <a href='postings.php?redir=$_&grp=$grp&topic_id=$posting.TopicId'
+       class='topic'>
+     $posting.TopicName
+    </a>
+   </ifzero>
+  </td></tr>
+  <tr><td>
+   <ifnzero what='$posting.ImageSet'>
+    <table align=left>
+     <tr><td>
+      <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+     </td></tr>
+     <if what="$posting.Title!=''">
+      <tr><td>
+       <center><i>$posting.HTMLTitle</i></center>
+      </td></tr>
+     </if>
+    </table>
+   </ifnzero>
+   $posting.HTMLBody
+  </td></tr>
+  <tr><td><table width=100% class='bottom'><tr>
+   <td>
+   <isedit name='posting'>
+    <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
+     >Изменить</a>
+    <if what='$posting.isModerable'>
+     &nbsp;
+     <if what='$posting.isDisabled'>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&redir=$_"
+       >Разрешить показ</a>
+     <else>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&redir=$_"
+       >Запретить показ</a>
+     </if>
+    </if>
+   <else>
+    <if what='!$posting.isModerable && $complain'>
+     <logged>
+      <a href="complainedit.php?ident=posting&link=$posting.Id&redir=$_">Жалоба</a>
+     </logged>
+    </if>
+   </isedit>
+   </td>
+   <td align=right>
+   <if what='$discuss'>
+    <a href='forum.php?redir=$_&msgid=$posting.Id'
+     >Обсудить ($posting.AnswerCount)</a>
    </if>
-  </table>
- </ifnzero>
- <rebe>$posting.HTMLBody</rebe>
-</td></tr>
-<tr>
-<td>
-<isedit name='posting'>
- <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
-  >[Изменить]</a>
- <if what='$posting.isModerable'>
-  <if what='$posting.isDisabled'>
-   <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&redir=$_"
-    >[Разрешить показ]</a>
-  <else>
-   <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&redir=$_"
-    >[Запретить показ]</a>
-  </if>
- </if>
-<else>
- <if what='!$posting.isModerable && $complain'>
-  <logged>
-   <a href="complainedit.php?ident=posting&link=$posting.Id&redir=$_">[Жалоба]</a>
-  </logged>
- </if>
-</isedit>
-</td>
-<td align=right>
-<if what='$discuss'>
- <a href='forum.php?redir=$_&msgid=$posting.Id'
-  >Обсудить ($posting.AnswerCount)</a>
-</if>
-</td>
-</tr>
-</table>
+   </td>
+  </tr></table></td></tr>
+ </table>
+<if what='$posting.isRebe'></span></if>
 </element>

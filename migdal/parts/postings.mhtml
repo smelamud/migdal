@@ -22,20 +22,22 @@
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
                      sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
- <center><h2>$title</h2></center>
- <if what='$g.ValidItem'><logged>
-  <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
-   >Добавить $g.ItemTitle</a>
- </logged></if>
- <batcher_postings value='$limit'>
- <navigator>
- <table width=100%>
- <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
- <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
- <for>
-  <tr><td><posting posting='$.' grp='$grp' topic='$topic'></td></tr>
- </for>
- </table>
- <navigator>
+ <table class='postings' width=100%><tr><td>
+  <center><h2>$title</h2></center>
+  <if what='$g.ValidItem'><logged>
+   <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
+    >Добавить $g.ItemTitle</a>
+  </logged></if>
+  <batcher_postings value='$limit'>
+  <navigator>
+  <<table width=100%>>
+  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+  <for>
+   <<tr><td>><posting posting='$.' grp='$grp' topic='$topic'><</td></tr>>
+  </for>
+  </table>
+  <navigator>
+ </td></tr></table>
 </if>
 </element>

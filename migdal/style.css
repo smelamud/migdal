@@ -5,6 +5,8 @@
 	font-size: 10pt;
 }
 
+
+
 .error[color='red'] {
 	color: red;
 }
@@ -86,10 +88,101 @@
 }
 
 
+.postings {
+	border-style: solid;
+	border-color: #42E8DA;
+	border-width: 2px;
+}
+
 .posting {
 	border-style: solid;
 	border-color: #0C20A5;
 	border-width: 2px;
+	margin: 0.5ex;
+}
+
+.posting .top {
+	background-color: #0C20A5;
+}
+
+.posting .top .sent {
+	color: white;
+	font-weight: bold;
+}
+
+.posting .top .name {
+	color: yellow;
+}
+
+.rebe .posting .top .name {
+	color: #FF5500;
+	font-weight: bold;
+}
+
+.posting .top .name A {
+	color: yellow;
+	text-decoration: none;
+}
+
+.rebe .posting .top .name A {
+	color: #FF5500;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.rebe .posting .top A:hover {
+	text-decoration: underline;
+}
+
+.posting .top A:hover {
+	text-decoration: underline;
+}
+
+.posting .top .details {
+	color: white;
+	font-weight: bold;
+}
+
+.posting .top .details A {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.posting .top .details A:hover {
+	text-decoration: underline;
+}
+
+.posting .subject {
+	font-weight: bold;
+	font-size: 12pt;
+  	padding-right: 2ex;
+	padding-bottom: 2ex;
+	color: #F1BE06;
+}
+
+.posting .topic {
+	font-style: italic;
+	text-decoration: none;
+}
+
+.posting A.topic:hover {
+	text-decoration: underline;
+}
+
+.posting .bottom {
+	border-top: 1px solid #0C20A5;
+}
+
+.posting .bottom A {
+	font-size: 8pt;
+	color: black;
+	text-decoration: none;
+}
+
+.posting .bottom A:hover {
+	color: blue;
+	text-decoration: underline;
 }
 /* TABLE.forum {
 	background-color: #FFF09B;
