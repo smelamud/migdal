@@ -23,13 +23,15 @@
    <article_controls posting='$,'>
    <article_full posting='$,'>
    <article_controls posting='$,'>
-   <iterate_postinglist grp='*GRP_REVIEWS' topic_id='$`courses-details`'
-                        limit=0	sort='*SORT_NAME' fields='*SELECT_TOPICS'>
-   <ul>
-    <for>
-     <li><a href='/course-details.php?id=$.Id'>$.Subject</a></li>
-    </for>
-   </ul>
+   <if what='$id==$`postings:courses`'>
+    <iterate_postinglist grp='*GRP_REVIEWS' topic_id='$`courses-details`'
+			 limit=0	sort='*SORT_NAME' fields='*SELECT_TOPICS'>
+    <ul>
+     <for>
+      <li><a href='/course-details.php?id=$.Id'>$.Subject</a></li>
+     </for>
+    </ul>
+   </if>
   </td>
  </tr></table>
  <bottom>
