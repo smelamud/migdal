@@ -32,7 +32,7 @@ session();
  ?>
 <center><h1>Обсуждение</h1></center>
 <?php
-displayForums($msgid);
+displayForums($msgid,$userForumPortion);
 ?>
 </body>
 </html>

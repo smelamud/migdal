@@ -18,7 +18,7 @@ if($userId>0)
   echo "<a href='messageedit.php?grp=".GRP_FORUMS.
                 "&up=$up&redir=$requestURI'>Добавить сообщение</a>";
 $list=new ForumListIterator($up,$limit,$offset);
-echo batcher($limit);
+echo batcher($limit,'fp');
 echo navigator($list);
 ?>
 <table width=100%>

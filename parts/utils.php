@@ -105,7 +105,7 @@ return "<br><table width=100%><tr>
 	</tr></table><br>';
 }
 
-function batcher($current)
+function batcher($current,$var)
 {
 global $SCRIPT_NAME,$HTTP_GET_VARS;
 
@@ -114,9 +114,9 @@ $s="<table width=100%>
 foreach($HTTP_GET_VARS as $key => $value)
        if($key!='mp')
          $s.="<input type=hidden name='$key' value='$value'>";
-$s.=' <tr><td align=right><table><tr valign=center>
+$s.=" <tr><td align=right><table><tr valign=center>
       <td>Показывать по&nbsp;</td>
-      <td><select name="mp">';
+      <td><select name='$var'>";
 $shows=array(10,15,20,25,30,35,40);
 $shows[]=$current;
 sort($shows);
