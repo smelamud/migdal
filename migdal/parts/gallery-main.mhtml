@@ -41,6 +41,7 @@
     <topiclink_gallery posting='$posting'>
    </p>
    <p>
+    <biff time='$posting.Sent'>
     <array vals='0,1,2'>
     <plural value='$count'>
     <if what='$,==0'>
