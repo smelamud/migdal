@@ -111,16 +111,21 @@
 <body>
  <top ident='links'>
  <table width=100% cellpadding=5>
-  <tr valign=top><td class='eframe'>
+  <tr valign=top><td class='eframe' colspan=2>
    <current topic_id='$topic_id'>
    <admin>
    <navigator topic_id='$topic_id'>
    <seealso topic_id='$topic_id'>
   </td></tr>
-  <tr valign=top><td class='cframe'>
-   <postings grp='*GRP_LINKS' topic='$topic_id' root='links'
-             limit='$userMsgPortion' offset='$offset'>
-  </td></tr>
+  <tr valign=top>
+   <td class='cframe'>
+    <postings grp='*GRP_LINKS' topic='$topic_id' root='links'
+              limit='$userMsgPortion' offset='$offset'>
+   </td>
+   <td width=150 class='eframe'>
+    <hit_parade grp='*GRP_LINKS' topic_id='$topic_id'>
+   </td>
+  </tr>
  </table>
  <bottom>
 </body>

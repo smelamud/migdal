@@ -38,7 +38,7 @@
   <community>
    <td width=130 class='eframe'>
     <tip>
-    <hit_parade grp='*GRP_WRITINGS' topic_id='$topic_id'>
+    <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'>
     <<friends>>
    </td>
   </community>

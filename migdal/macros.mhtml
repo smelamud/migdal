@@ -52,8 +52,11 @@
 <decel name='help_link' file='parts/help-link.php' params='href,title,span'
        defaults='span=0'>
 <decel name='help_navi' file='parts/help-navi.php' params='ident'>
-<decel name='hit_parade' file='parts/hit-parade.php' params='grp,topic_id'
-       defaults="grp='*GRP_ALL' topic_id='-1'">
+<decel name='hit_parade' file='parts/hit-parade.php'
+       params='grp,topic_id,title,later'
+       defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0">
+<decel name='hit_parade_month' file='parts/hit-parade.php'
+       params='grp,topic_id' defaults="grp='*GRP_ALL' topic_id='-1'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='jewishru' file='parts/jewishru.php'>
