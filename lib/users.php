@@ -12,6 +12,7 @@ class User
 var $id;
 var $login;
 var $password;
+var $dup_password;
 var $name;
 var $jewish_name;
 var $surname;
@@ -32,7 +33,7 @@ function setupHTTP($vars)
 {
 if(!isset($vars['login']))
   return;
-foreach(array('login','password','name','jewish_name','surname',
+foreach(array('login','password','dup_password','name','jewish_name','surname',
               'migdal_student','info','email','icq') as $var)
        $this->$var=htmlspecialchars($vars[$var]);
 $this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']

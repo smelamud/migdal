@@ -14,6 +14,7 @@ if($user->isEditable())
   $user->store();
   $user->online();
   }
-header('Location: /useredit.php?'.makeQuery($HTTP_POST_VARS,array('password')));
+header('Location: /useredit.php?'.makeQuery($HTTP_POST_VARS,
+                                            array('password','dup_password')));
 dbClose();
 ?>

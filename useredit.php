@@ -72,6 +72,10 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
      <tr>
       <td>Пароль </td><td><input type=password name='password' size=20></td>
      </tr>
+     <tr>
+      <td>Пароль (еще раз) </td>
+      <td><input type=password name='dup_password' size=20></td>
+     </tr>
      <?php
      }
      ?>
