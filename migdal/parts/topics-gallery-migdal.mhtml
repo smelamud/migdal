@@ -12,36 +12,22 @@
 </topics_table>
 </element>
 
-<element name='topics_gallery_jcc' params='posting'>
+<element name='topics_gallery_migdal'>
 <if what='$/$posting.TopicId,2/==$`kaitana`'>
  <topics_gallery_kaitanot posting='$posting'>
-</if>
-
-<topic_obj name='jcc' id='$`jcc`'>
-<topics_table title='$,Name'>
- <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*true'>
- <topics_line time='$,' text='Клуб Еврейского Студента'
-              href#='gallery.php?topic_id=$`kes`'
-              arrow!="$/$posting.TopicId,2/==$`kes`" class='item ninept'>
- <posting_last grp='*GRP_GALLERY' topic_id='$`kaitana`' recursive='*true'>
- <topics_line time='$,' text='Дневные детские лагеря'
-              href#='gallery.php?topic_id=$`kaitana`'
-              arrow!="$/$posting.TopicId,2/==$`kaitana`" class='item ninept'>
-</topics_table>
-</element>
-
-<element name='topics_gallery_migdal'>
-<if what='$/$posting.TopicId,1/==$`jcc`'>
- <topics_gallery_jcc posting='$posting'>
 </if>
 </element>
 
 <element name='topics_gallery_migdal_main'>
-<posting_last grp='*GRP_GALLERY' topic_id='$`jcc`' recursive='*true'>
-<topics_line time='$,' href#='gallery.php?topic_id=$`jcc`'
-             text='Общинный центр (JCC)'
-	     title='Живопись, музыка, танцы, программы для всех возрастов'
-	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`jcc`" indent=1
+<posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*true'>
+<topics_line time='$,' text='Клуб Еврейского Студента'
+	     href#='gallery.php?topic_id=$`kes`'
+	     arrow!="$/$posting.TopicId,2/==$`kes`" indent=1
+	     class='item eightpt'>
+<posting_last grp='*GRP_GALLERY' topic_id='$`kaitana`' recursive='*true'>
+<topics_line time='$,' text='Дневные детские лагеря'
+	     href#='gallery.php?topic_id=$`kaitana`'
+	     arrow!="$/$posting.TopicId,2/==$`kaitana`" indent=1
 	     class='item eightpt'>
 <posting_last grp='*GRP_GALLERY' topic_id='$`mazl-tov`' recursive='*true'>
 <topics_line time='$,' href#='gallery.php?topic_id=$`mazltov`'
