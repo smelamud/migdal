@@ -4,16 +4,16 @@
  <assign name='link' value#='%file?redirid=$_'>
  <at href='$link' target='$target'>
   <if what="$ident=='%ident'">
-   <image src#='pics/menu-%{ident}.gif' border=0>
+   <image src#='pics/menu-%{ident}.gif' alt='%alt' border=0>
   <else>
-   <image src#='pics/menu-%{ident}-na.gif' border=0>
+   <image src#='pics/menu-%{ident}-na.gif' alt='%alt' border=0>
   </if>
  </at>
 </macro>
 
 <element name='tune'>
- <tuneitem file='/style.php' ident='style'>
+ <tuneitem file='/style.php' ident='style' alt='Настроить вид'>
  <if what="$ident=='chat' || $ident=='chattune'">
-  <tuneitem file='/chattune.php' ident='chattune'>
+  <tuneitem file='/chattune.php' ident='chattune' alt='Настроить чат'>
  </if>
 </element>

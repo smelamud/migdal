@@ -10,12 +10,13 @@
      <col width=0* span=2>
      <tr valign=bottom>
       <td>
-       <a href='/index.php'><image src='$$style_banner_logo' border=0></a>
+       <a href='/index.php'><image src='$$style_banner_logo' 
+                                   alt='Башня' border=0></a>
       </td>
       <td align=center>
        <a href='/index.php'>
-        <image src='$$style_banner_migdal' border=0><br>
-        <image src='$$style_banner_online' border=0></a>
+        <image src='$$style_banner_migdal' alt='Мигдаль' border=0><br>
+        <image src='$$style_banner_online' alt='on-line' border=0></a>
       </td>
      </tr>
     </table>

@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
-<element name='menuitem' params='ident,link,target,current,time'
-         defaults='time=0'>
+<element name='menuitem' params='ident,link,target,current,time,alt'
+         defaults="time=0 alt=''">
 <ifbiff time='$time'>
  <assign name='biff' value='-ner'>
 <else>
@@ -9,9 +9,9 @@
 </ifbiff>
 <at href='$link' target='$target'>
  <if what='$current==$ident'>
-  <image src#='pics/menu$biff-${ident}.gif' border=0>
+  <image src#='pics/menu$biff-${ident}.gif' alt='$alt' border=0>
  <else>
-  <image src#='pics/menu$biff-${ident}-na.gif' border=0>
+  <image src#='pics/menu$biff-${ident}-na.gif' alt='$alt' border=0>
  </if>
 </at>
 </element>
@@ -23,17 +23,20 @@
    <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
    <posting_last name='gallery_time' grp='*GRP_GALLERY' topic_id='general'
 		 recursive='*true'>
-   <menuitem ident='index' link='index.php?topic_id=-1' target='$target'
-             current='$ident'>
+   <menuitem ident='index' alt='Главная' link='index.php?topic_id=-1'
+             target='$target' current='$ident'>
    <community>
-    <menuitem ident='discuss' link='forumcatalog.php?topic_id=-1'
-              target='$target' current='$ident' time='$forums_time'>
+    <menuitem ident='discuss' alt='Обсуждения'
+              link='forumcatalog.php?topic_id=-1' target='$target'
+	      current='$ident' time='$forums_time'>
    </community>
-   <menuitem ident='gallery' link='gallery.php?topic_id=-1' target='$target'
-             current='$ident' time='$gallery_time'>
+   <menuitem ident='gallery' alt='Галерея' link='gallery.php?topic_id=-1'
+             target='$target' current='$ident' time='$gallery_time'>
    <community>
-    <menuitem ident='chat' link='chat.php' target='$target' current='$ident'>
-    <menuitem ident='users' link='users.php' target='$target' current='$ident'>
+    <menuitem ident='chat' alt='Чат' link='chat.php' target='$target'
+              current='$ident'>
+    <menuitem ident='users' alt='Пользователи' link='users.php'
+              target='$target' current='$ident'>
    </community>
   <asp></td>
   <td align=right><asp>
