@@ -44,6 +44,12 @@ while($topic=$iter->next())
      fputs($fd,$topic->getId()."\t".$topic->getFullName()."\n");
 fclose($fd);
 
+$fd=fopen("$dir/users",'w');
+$iter=new UserListIterator();
+while($user=$iter->next())
+     fputs($fd,$user->getId()."\t".$user->getLogin()."\n");
+fclose($fd);
+
 noCacheHeaders();
 header("Content-Type: $compressType");
 header("Content-Encoding: $compressEncoding");
@@ -53,6 +59,7 @@ $cmd=str_replace(array('#','%'),
 		 $compressCommand);
 echo `$cmd`;
 
+unlink("$dir/users");
 unlink("$dir/topics");
 unlink("$dir/postings");
 unlink("$dir/log");

@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/users.php');
+require_once('lib/logs.php');
 
 function switchUser($sessionid,$login)
 {
@@ -17,6 +18,7 @@ if(!$userAdminUsers)
 $id=getUserIdByLogin($login);
 if($id<=0)
   return EUS_NO_USER;
+logEvent('su',"user($id)");
 $result=mysql_query("update sessions
                      set user_id=$id
 	             where sid=$sessionid");

@@ -7,6 +7,7 @@ require_once('lib/uri.php');
 require_once('lib/post.php');
 require_once('lib/random.php');
 require_once('lib/errors.php');
+require_once('lib/logs.php');
 
 function logout($sessionid)
 {
@@ -18,6 +19,7 @@ if(!$result)
 if(mysql_num_rows($result)>0)
   {
   $row=mysql_fetch_assoc($result);
+  logEvent('logout','user('.$row['user_id'].')');
   if($row['user_id']!=$row['real_user_id'])
     {
     $result=mysql_query("update sessions

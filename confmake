@@ -2,6 +2,21 @@
 
 # @(#) $Id$
 
+sub stripComment
+{
+my ($s)=@_;
+
+my $quoted=0;
+my $pos=0;
+while($pos<length($s))
+     {
+     $quoted=1-$quoted if substr($s,$pos,1) eq "'" || substr($s,$pos,1) eq '"';
+     last if !$quoted && substr($s,$pos,1) eq '#';
+     $pos++;
+     }
+return substr($s,0,$pos);
+}
+
 ($input,$config)=@ARGV;
 
 $input='Makefile.in' if $input eq '';
@@ -21,7 +36,7 @@ while(<IN>)
      while(<CONF>)
 	  {
 	  next if /\?>/ || /<\?/ || /^\s*require/;
-	  s/#.*$//;
+	  $_=stripComment($_);
 	  next if /^\s*$/;
 	  my ($name,$value)=/^\$(\w+)=(.*);\s*$/;
 	  if($name eq '' || $value eq '')

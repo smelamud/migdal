@@ -8,6 +8,7 @@ require_once('lib/utils.php');
 require_once('lib/post.php');
 require_once('lib/statistics.php');
 require_once('lib/random.php');
+require_once('lib/logs.php');
 
 function startSession()
 {
@@ -20,6 +21,7 @@ $result=mysql_query('select id from users where login="'
 if(mysql_num_rows($result)==0)
   return EL_INVALID;
 $id=mysql_result($result,0,0);
+logEvent('login',"user($id)");
 $sid=rnd();
 mysql_query("insert into sessions(user_id,real_user_id,sid)
              values($id,$id,$sid)")

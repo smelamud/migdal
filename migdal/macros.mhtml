@@ -190,7 +190,6 @@
  <zone>
   <stylesheet ident='style'>
   <head>
-   <log event=read text='$[reload redir redirid]'>
    <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
   </head>
  </zone>
