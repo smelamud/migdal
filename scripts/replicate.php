@@ -7,6 +7,7 @@ require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/journal.php');
+require_once('lib/horisont.php');
 require_once('lib/track.php');
 
 function executeTrackQuery($query)
