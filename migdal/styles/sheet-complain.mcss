@@ -1,16 +1,16 @@
 ! @(#) $Id$
 
-.complain {
+.complains {
+	background-color: %complain_border;
+}
+
+.complain TD {
 	background-color: %complain_back;
-	background-image: url("../%complain_back_pic");
-	border-collapse: collapse;
-	border-spacing: 0;
 }
 
 .complain > TBODY > TR > TD {
 	padding-left: 5px;
 	padding-right: 5px;
-	border: 1px solid %complain_border;
 }
 
 .complain .subject {
@@ -23,10 +23,4 @@
 
 .complain A:hover {
 	text-decoration: underline;
-}
-
-.complain .name {
-	font-size: 9pt;
-	font-weight: bold;
-	color: %name;
 }
