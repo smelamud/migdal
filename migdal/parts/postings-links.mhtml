@@ -6,24 +6,17 @@
 <assign name='topic_id' value!='$topic_id<0 ? $`links` : $topic_id'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
-  <logged>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_LINKS&redirid=$_'
-	>Добавить ссылку</a><asp>
-     <if what='$topic_id==$`links`'>
-      <asp>, <a href='postingedit.php?topic_id=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
-		>новость</a>
-     </if>
-    </td>
-   </tr></table>
-  <else>
-   <em>
-    Хотите добавлять ссылки<if what='$topic_id==$`links`'> и новости</if>?
-   </em>
-   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-  </logged>
+  <table><tr valign=center>
+   <td><image src='pics/sheet.gif'></td>
+   <td>
+    <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_LINKS&redirid=$_'
+       >Добавить ссылку</a><asp>
+    <if what='$topic_id==$`links`'>
+     <asp>, <a href='postingedit.php?topic_id=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
+	       >новость</a>
+    </if>
+   </td>
+  </tr></table>
  </td>
  <td align=center><spin list='$list'></td>
 </tr></table>
