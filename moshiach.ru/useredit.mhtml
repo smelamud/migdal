@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/useredit.mhtml 1.4 >>
+<< Based-on: demo/useredit.mhtml 1.5 >>
 
 <element name='may_edit'
          params='title,showvalue,value,name,size,maxlength,status'
@@ -169,6 +169,9 @@
 		  title='Администратор тем'>
    <checkbox_line name='admin_menu' value='$,isAdminMenu' span=2
 		  title='Администратор меню'>
+   <checkbox_line name='admin_complain_answers' span=2
+                  value='$,isAdminComplainAnswers'
+		  title='Администратор ответов на жалобы'>
    <checkbox_line name='moderator' value='$,isModerator' span=2
 		  title='Модератор'>
    <checkbox_line name='judge' value='$,isJudge' span=2
