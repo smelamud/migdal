@@ -77,6 +77,7 @@
 <preamble>
 <body>
  <top ident='users'>
+ <p>
  <navigator>
  <p>
  <iterate_userlist limit=30 offset='$offset' sort='$sort'>

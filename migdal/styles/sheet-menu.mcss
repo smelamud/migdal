@@ -6,9 +6,4 @@
 	border: solid 1px %menu_date_border;
 	color: %menu_date;
 	font: bold 12pt %times;
-	text-align: right;
-}
-
-.menu .minor A {
-	font-size: 8pt;
 }

@@ -49,6 +49,6 @@
    <asp></td>
   </tr>
  </notenglish>
- <tr><td colspan=2 class='date'><today>&nbsp;</td></tr>
+ <tr><td colspan=2 class='date' align=right><today>&nbsp;</td></tr>
 </table>
 </element>
