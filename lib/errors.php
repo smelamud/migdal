@@ -261,4 +261,8 @@ define('EMM_NO_MESSAGE',472);
 define('EMO_OK',480);
 define('EMO_NO_MODERATE',481);
 define('EMO_NO_MESSAGE',482);
+
+define('EMS_OK',490);
+define('EMS_NO_HIDE',491);
+define('EMS_NO_MESSAGE',492);
 ?>

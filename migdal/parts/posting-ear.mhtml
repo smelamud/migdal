@@ -1,31 +1,55 @@
 <element name='posting_ear'>
 <table class='posting'>
- <tr>
-  <td width=150 rowspan=2>
+ <tr valign=top>
+  <td width=150>
    <a href='$posting.URL'>
     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'></a>
   </td>
-  <td width=5 rowspan=2>&nbsp;</td>
+  <td width=5>&nbsp;</td>
   <td width=250>
    $posting.HTMLBody
    <p>
    <a href='$posting.URL'>$posting.URL</a>
    <p>
-   $posting.CounterValue1/$posting.CounterValue0
+   <table cellspacing=0 class='statistics'><tr>
+    <td width=25 align=left>
+     <if what='!$posting.isHidden && $posting.Priority<-1'>
+      <assign name='priority' value!='-$posting.Priority'>
+      <b>*$priority</b>
+     <else>
+      &nbsp;
+     </if>
+    </td>
+    <td width=50 align=right>
+     <if what='!$posting.isHidden'>
+      $posting.CounterValue1/$posting.CounterValue0
+     <else>
+      &nbsp;
+     </if>
+    </td>
+    <td width=5>&nbsp;</td>
+    <td width=20 align=left>
+     <if what='!$posting.isHidden'>
+      [<a href="actions/hide.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"><asp>
+          <asp><b>&nbsp;</b></a>]
+     <else>
+      [<a href="actions/hide.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"><asp>
+          <asp><b>X</b></a>]
+     </if>
+    </td>
+   </tr></table>
   </td>
  </tr>
- <iswrite what='$posting'>
-  <tr height=20><td class='bottom'>
-   <if what='$posting.isHidden'>
-    <b>[X]</b>
-    &nbsp;
-   </if>
+ <tr height=20><td class='bottom' colspan=3>
+  <iswrite what='$posting'>
    <a href="postingedit.php?editid=$posting.Id&topic_id=$`ears`&grp=*GRP_EARS&redirid=$_"
       >Изменить</a>
    &nbsp;
    <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
       >Удалить</a>
-  </td></tr>
- </iswrite>
+  <else>
+   &nbsp;
+  </iswrite>
+ </td></tr>
 </table>
 </element>

@@ -44,6 +44,11 @@
 	color: %posting_em;
 }
 
+.posting .statistics, .posting .statistics * {
+	font-family: %courier;
+	font-size: 10pt;
+}
+
 .posting .source {
 	font-style: italic;
 	font-size: 9pt;

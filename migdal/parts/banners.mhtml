@@ -15,8 +15,8 @@
  <array name='alts'
         val1=''
         val2=''
-        val3='Jerusalem Anthologia'
-	val4='Jerusalem chronikles'>
+        val3='Jerusalem&sp;Anthologia'
+	val4='Jerusalem&sp;chronikles'>
  <iterate_random_seq n=3 min=1 max=4>
  <for>
   <assign name='url' value!='$urls[$. - 1]'>

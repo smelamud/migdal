@@ -4,7 +4,7 @@
 <iterate_posting_random limit=3 grp='*GRP_EARS' topic_id='$`ears`'>
 <p><table cellpadding=0 cellspacing=0 width=100%>
  <for>
-  <tr><td align=left style='padding-bottom: 5'>
+  <tr><td align=left style='padding-bottom: 5px'>
    <posting_obj id='$.' grp='*GRP_EARS' fields='*SELECT_IMAGES'>
    <a href='actions/ear.php?postid=$,Id&okdir=$#,URL'>
     <img src='lib/earview.php?message_id=$,MessageId&image_id=$,ImageId'

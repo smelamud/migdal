@@ -318,7 +318,7 @@ $Select="postings.id as id,postings.ident as ident,
 	 messages.disabled as disabled,messages.modbits as modbits,
 	 users.hidden as sender_hidden,
 	 postings.index0 as index0,postings.index1 as index1,
-	 postings.index2 as index2,subdomain,shadow,
+	 postings.index2 as index2,subdomain,shadow,priority,
 	 $imageFields
 	 $topicFields
 	 login,gender,email,hide_email,rebe,
