@@ -184,7 +184,7 @@
   <td>%title <if what='%mandatory'><star></if></td>
   <tdspan span=%span>
    <edit name='%name' value='%value' size=%size maxlength=%maxlength>
-  </td>
+  </tdspan>
  </tr>
 </macro>
 

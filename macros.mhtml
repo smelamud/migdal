@@ -353,9 +353,9 @@
 << HTML shortcuts >>
 <macro name='tdspan' defaults='span=0'>
  <if what='(%span)==0 || (%span)==1'>
-  <asp><td class='%class'><asp>
+  <asp><td><asp>
  <else>
-  <asp><td class='%class' colspan=%span><asp>
+  <asp><td colspan=%span><asp>
  </if>
 </macro>
 

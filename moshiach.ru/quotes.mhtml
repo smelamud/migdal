@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <int name='offset'>
+<pagetitle title='Цитаты'>
 
 <html>
 <preamble_admin>

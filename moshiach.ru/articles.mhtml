@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <int name='offset'>
+<pagetitle title='Статьи'>
 
 <html>
 <preamble_admin>
@@ -12,7 +13,7 @@
     <topics_admin ident='articles'>
    </td>
    <td>
-    <postings grp='*GRP_ARTICLES' offset='$offset'>
+    <postings grp='*GRP_ARTICLES' offset='$offset' root=general>
    </td>
   </tr></table>
  </moderator>

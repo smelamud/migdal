@@ -23,7 +23,7 @@
 </element>
 
 <element name='formbuttons'>
-<tr><tdspan span='$span'>&nbsp;</td></tr>
+<tr><tdspan span='$span'>&nbsp;</tdspan></tr>
 <tr>
  <ifzero what='$span'>
   <td class='buttons'>
