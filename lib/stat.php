@@ -64,16 +64,16 @@ header("Content-Type: $compressType");
 header("Content-Encoding: $compressEncoding");
 $cmd=str_replace(array('#','%'),
                  array($tmpDir,substr($dir,strlen($tmpDir)+
-		                           ($tmpDir[strlen($tmpDir)] ? 1 : 0))),
+		                           ($dir[strlen($tmpDir)]=='/' ? 1 : 0))),
 		 $compressCommand);
 echo `$cmd`;
 
-unlink("$dir/users");
-unlink("$dir/topics");
-unlink("$dir/postings");
-unlink("$dir/log");
-unlink("$dir/timestamp");
-rmdir($dir);
+#unlink("$dir/users");
+#unlink("$dir/topics");
+#unlink("$dir/postings");
+#unlink("$dir/log");
+#unlink("$dir/timestamp");
+#rmdir($dir);
 
 dbClose();
 ?>
