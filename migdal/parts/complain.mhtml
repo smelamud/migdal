@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='Complain'>
+<element name='complain'>
 <error id='*EC_NO_ASSIGN' span=2
        text='Вы не имеете права направлять жалобы на рассмотрение'>
 <error id='*EC_NO_COMPLAIN' text='Такой жалобы не существует' span=2>

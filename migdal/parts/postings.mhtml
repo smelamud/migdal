@@ -2,7 +2,7 @@
 
 <grps>
 
-<element name='batcher_postings' params='list,topic,grp'>
+<element name='batcher' params='list,topic,grp'>
 <community>
  <posting_new grp='$grp'>
  <table width=100% class='batcher'><tr valign=bottom>
@@ -39,7 +39,7 @@
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
                      sort='*SORT_PSENT' subdomain='$subdomain'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher_postings list='$;' topic='$topic' grp='$grp'>
+ <batcher list='$;' topic='$topic' grp='$grp'>
  <table>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -53,7 +53,7 @@
            showdiscuss='$$communityDomain' showcomplain='$$communityDomain'>
  </for>
  <ifnzero what='$;Count'>
-  <batcher_postings list='$;' topic='$topic' grp='$grp'>
+  <batcher list='$;' topic='$topic' grp='$grp'>
  </ifnzero>
 <else>
  &nbsp;

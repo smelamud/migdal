@@ -36,7 +36,7 @@
 </ifnzero>
 </element>
 
-<element name='batcher_times' params='times,issue'>
+<element name='batcher' params='times,issue'>
 <editor>
  <div class='batcher'>
   <a href='postingedit.php?root=$times.Id&grp=*GRP_TIMES_ARTICLES&redirid=$_'
@@ -136,7 +136,7 @@
     <td>
      <select_issue issue='$issue'>
      <p>
-     <batcher_times times='$times' issue='$issue'>
+     <batcher times='$times' issue='$issue'>
      <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='migdal-times'
 			  recursive='*true' limit=0 sort='*SORT_INDEX0'
 			  index1!='$issue<0 ? 0 : $issue'>
@@ -156,7 +156,7 @@
                      showdiscuss='$$communityDomain'>
      </for>
      <ifnzero what='$;Count'>
-      <batcher_times times='$times' issue='$issue'>
+      <batcher times='$times' issue='$issue'>
      </ifnzero>
     </td>
    </tr></table>

@@ -2,7 +2,7 @@
 
 <force_community>
 
-<element name='batcher_users'>
+<element name='batcher'>
 <admin_users>
  <div class='batcher'>
   <a href='register.php?redirid=$_' class='add'>Добавить пользователя</a>
@@ -30,7 +30,7 @@
   </span>
  </zone>
  <p>
- <batcher_users>
+ <batcher>
  <table width=100% class='catalog'>
   <tr valign=top>
    <th>Ник</th><th>Имя</th><th>Возраст</th>
@@ -81,7 +81,7 @@
    </tr>
   </for>
  </table>
- <batcher_users>
+ <batcher>
  <bottom>
 </body>
 </html>

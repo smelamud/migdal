@@ -2,7 +2,7 @@
 
 <force_community>
 
-<element name='batcher_complains' params='value,list'>
+<element name='batcher' params='value,list'>
 <table width=100% class='batcher'><tr>
  <td align=left>
   <logged>
@@ -51,7 +51,7 @@
 <body>
  <top ident='index'>
  <iterate_complainlist limit='$$userComplainPortion' offset='$offset'>
- <batcher_complains value='$$userComplainPortion' list='$;'>
+ <batcher value='$$userComplainPortion' list='$;'>
  <table width=100% class='catalog'>
   <tr valign=top>
    <th>No.</th><th>Прислано</th><th>Автор</th><th>Заголовок</th>
@@ -84,7 +84,7 @@
   </tr>
  </for>
  </table>
- <batcher_complains value='$$userComplainPortion' list='$;'>
+ <batcher value='$$userComplainPortion' list='$;'>
  <bottom>
 </body>
 </html>

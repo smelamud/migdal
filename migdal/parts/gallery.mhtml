@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher_gallery' params='list,topic'>
+<element name='batcher' params='list,topic'>
 <community>
  <table width=100% class='batcher'><tr valign=bottom>
   <td align=left>
@@ -24,7 +24,7 @@
                      cols='$cols' offset='$offset' sort='*SORT_RATING'
 		     subdomain='$subdomain'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher_gallery list='$;' topic='$topic' grp='*GRP_GALLERY'>
+ <batcher list='$;' topic='$topic' grp='*GRP_GALLERY'>
  <table width=100%>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -42,7 +42,7 @@
   </tr>
  </table>
  <ifnzero what='$;Count'>
-  <batcher_gallery list='$;' topic='$topic' grp='*GRP_GALLERY'>
+  <batcher list='$;' topic='$topic' grp='*GRP_GALLERY'>
  </ifnzero>
 <else>
  &nbsp;

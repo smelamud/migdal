@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='times_posting_further' params='posting,title'>
+<element name='further' params='posting,title'>
  <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
   <image src='pics/further.gif' border=0 title='$title'>
  <asp></a>&nbsp;<asp>
@@ -39,7 +39,7 @@
   </table>
  </ifnzero>
  $posting.HTMLBody&nbsp;<asp>
- <times_posting_further posting='$posting' title='Читать статью'>
+ <further posting='$posting' title='Читать статью'>
  <table width=90% class='bottom'><tr>
   <td>
    <isedit what='$posting'>

@@ -6,7 +6,7 @@
 </ifne>
 </element>
 
-<element name='controls_userinfo' params='user,target' defaults="user='$,'">
+<element name='controls' params='user,target' defaults="user='$,'">
 <isedit what='$user'>
  <p class='batcher'>
   <at href#='/useredit.php?editid=$user.Id&redirid=$_'
@@ -18,7 +18,7 @@
 <element name='userinfo'>
 <user_obj name='user' id='$id'>
 <log event=userinfo text#='user($user.Id)'>
-<controls_userinfo target='$target'>
+<controls target='$target'>
 <table class='userinfo' width=100% cellspacing=0>
  <infoline title='Ник' value='$,Login'>
  <infoline title='Имя' value='$,Name'>
@@ -63,5 +63,5 @@
   <lastonline_cell user='$,'>
  </tr>
 </table>
-<controls_userinfo target='$target'>
+<controls target='$target'>
 </element>

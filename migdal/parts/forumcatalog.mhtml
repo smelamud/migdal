@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher_forumcatalog' params='list,topic'>
+<element name='batcher' params='list,topic'>
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left>
   <logged>
@@ -23,7 +23,7 @@
                      offset='$offset' sort='*SORT_ACTIVITY'
 		     withanswers='*GRP_NOT_FORUMS'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher_forumcatalog list='$;' topic='$topic'>
+ <batcher list='$;' topic='$topic'>
  <table>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -68,7 +68,7 @@
   </for>
  </table>
  <ifnzero what='$;Count'>
-  <batcher_forumcatalog list='$;' topic='$topic'>
+  <batcher list='$;' topic='$topic'>
  </ifnzero>
 <else>
  &nbsp;

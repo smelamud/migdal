@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher_forums' params='list,parent_id'>
+<element name='batcher' params='list,parent_id'>
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left>
   <logged>
@@ -23,7 +23,7 @@
 <iterate_forum_answerlist parent_id='$parent_id' limit='$limit'
                           offset='$offset'>
 <div class='forums'>
- <batcher_forums list='$;' parent_id='$parent_id'>
+ <batcher list='$;' parent_id='$parent_id'>
  <table width=100%>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -32,7 +32,7 @@
   </for>
  </table>
  <ifnzero what='$;Count'>
-  <batcher_forums list='$;' parent_id='$parent_id'>
+  <batcher list='$;' parent_id='$parent_id'>
  </ifnzero>
 </span>
 </element>

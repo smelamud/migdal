@@ -1,12 +1,12 @@
 << @(#) $Id$ >>
 
-<element name='posting_further' params='posting,title'>
+<element name='further' params='posting,title'>
  <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
   <image src='pics/further.gif' border=0 title='$title'>
  <asp></a>&nbsp;<asp>
 </element>
 
-<element name='posting_further_url' params='posting,url'>
+<element name='further_url' params='posting,url'>
  <asp><a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url' target=_blank><asp>
   <image src='pics/further-far.gif' border=0
          title='Подробности на другом сайте'>
@@ -46,16 +46,16 @@
   <if what='$shorten && !$posting.hasLargeBody'>
    $posting.HTMLBodyMedium&nbsp;<asp>
    <if what='!$posting.isBodyMedium'>
-    <posting_further posting='$posting' title='Читать дальше'>
+    <further posting='$posting' title='Читать дальше'>
    </if>
   <else>
    $posting.HTMLBody&nbsp;<asp>
   </if>
   <if what='$posting.hasLargeBody'>
-   <posting_further posting='$posting' title='Читать статью'>
+   <further posting='$posting' title='Читать статью'>
   </if>
   <ifne what='$posting.URL'>
-   <posting_further_url posting='$posting' url='$posting.URL'>
+   <further_url posting='$posting' url='$posting.URL'>
   </ifne>
   </p>
   <table width=90% style="clear: left"><tr>

@@ -19,7 +19,7 @@
 </macro>
 <endif name='/editor'>
 
-<element name='kaitana_controls' params='posting,kaitana'>
+<element name='controls' params='posting,kaitana'>
 <div align=right><table class=controls>
  <tr>
   <editor>
@@ -77,7 +77,7 @@
      </for>
     </td>
     <td>
-     <kaitana_controls posting='$posting' kaitana='$kaitana'>
+     <controls posting='$posting' kaitana='$kaitana'>
      <ifnzero what='$posting.Id'>
       <table class=sent align=right>
        <tr><td>&nbsp;</td></tr>
@@ -88,7 +88,7 @@
       <p>$posting.HTMLBody</p>
       <vote_frame id='$posting.Id' color='$$style_cframe_back'
 		  image='$$style_cframe_back_pic' align=center>
-      <kaitana_controls posting='$posting' kaitana='$kaitana'>
+      <controls posting='$posting' kaitana='$kaitana'>
      </ifnzero>
     </td>
     <td width=140>

@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='Backtrace'>
+<element name='backtrace'>
 <iterate_redirs name='redirs'>
 <div class='return'>
  <if what='$;Count>1'>

@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher_taglit_postings' params='list,taglit_id'>
+<element name='batcher' params='list,taglit_id'>
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left>
   <logged>
@@ -16,11 +16,11 @@
 <element name='taglit_postings'>
 <iterate_postinglist grp='*GRP_TAGLIT_FORUMS' topic='$taglit_id'
                      sort='*SORT_PSENT' user='$user_id'>
-<batcher_taglit_postings list='$;' taglit_id='$taglit_id'>
+<batcher list='$;' taglit_id='$taglit_id'>
 <for>
  <taglit_posting posting='$.' showtopic='*false' shorten='*true'>
 </for>
 <ifnzero what='$;Count'>
- <batcher_taglit_postings list='$;' taglit_id='$taglit_id'>
+ <batcher list='$;' taglit_id='$taglit_id'>
 </ifnzero>
 </element>

@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher_taglit_gallery' params='taglit_id,list'>
+<element name='batcher' params='taglit_id,list'>
 <table width=100% class='batcher'><tr valign=bottom>
 <logged>
  <td align=left>
@@ -17,7 +17,7 @@
 <iterate_picturelist grp='*GRP_TAGLIT_GALLERY' topic='$taglit_id' rows='$rows'
                      cols='$cols' offset='$offset' sort='*SORT_RATING'
 		     user='$user_id'>
-<batcher_taglit_gallery taglit_id='$taglit_id' list='$;'>
+<batcher taglit_id='$taglit_id' list='$;'>
 <table width=100%>
  <tr valign=top>
   <for>
@@ -31,6 +31,6 @@
  </tr>
 </table>
 <ifnzero what='$;Count'>
- <batcher_taglit_gallery taglit_id='$taglit_id' list='$;'>
+ <batcher taglit_id='$taglit_id' list='$;'>
 </ifnzero>
 </element>
