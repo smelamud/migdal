@@ -1,19 +1,11 @@
 << @(#) $Id$ >>
 
-<element name='topics_ner' params='arrow,time' defaults='time=0'>
-<if what='$arrow'>
- <ifbiff time='$time'>
-  <image src='$$style_topics_ner_arrow' title='новое'>
- <else>
-  <image src='$$style_topics_arrow'>
- </ifbiff>
+<element name='topics_ner' params='time' defaults='time=0'>
+<ifbiff time='$time'>
+ <image src='pics/ner-small.gif' title='новое'>
 <else>
- <ifbiff time='$time'>
-  <image src='pics/ner-small.gif' title='новое'>
- <else>
-  &nbsp;
- </ifbiff>
-</if>
+ &nbsp;
+</ifbiff>
 </element>
 
 <element name='topics_line'>

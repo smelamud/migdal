@@ -1,0 +1,47 @@
+<< @(#) $Id$ >>
+
+<element name='navi_kaitana' params='ident'>
+<topic_obj name='kaitana' id='kaitana'>
+
+<posting_last topic_id='$kaitana.Id' recursive='*false'>
+<topics_line time='$,' href='kaitana.php' title='$kaitana.Description'
+	     text='$kaitana.Name' arrow!="$ident=='kaitana'">
+</element>
+
+<element name='navi_main' params='ident'>
+<topics_line href='index.php?topic_id=-1' title='На главную страницу'
+	     text='Главная' arrow!="$ident=='index'">
+
+</element>
+
+<element name='navi_taglit' params='ident'>
+<topic_obj name='taglit' id='taglit'>
+
+<posting_last topic_id='$taglit.Id' recursive='*false'>
+<topics_line time='$,' href='taglit.php' title='$taglit.Description'
+	     text='$taglit.Name' arrow!="$ident=='taglit'">
+</element>
+
+<element name='navi_times' params='ident'>
+<topic_obj name='times' id='migdal-times'>
+
+<posting_last topic_id='$times.Id' recursive='*true'>
+<topics_line time='$,' href='times.php' title='$times.Description'
+	     text='$times.Name' arrow!="$ident=='times'">
+</element>
+
+<element name='topics_major'>
+<topics_table title='Разделы'>
+ <admin_topics>
+  <tr><td colspan=2>
+   <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
+  </td></tr>
+ </admin_topics>
+ <navi_main ident='$ident'>
+ <navi_times ident='$ident'>
+ <community>
+  <navi_taglit ident='$ident'>
+ </community>
+ <navi_kaitana ident='$ident'>
+</topics_table>
+</element>
