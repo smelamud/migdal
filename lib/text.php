@@ -27,7 +27,9 @@ for($n=0;$n<strlen($s);$n++)
    if($s[$n]=='>')
      $intag--;
    if(!$intag && !$tag && $s[$n]==$foo
-      && ($n==0 || is_delim($s[$n-1])))
+      && ($n==0 || is_delim($s[$n-1]) && $s[$n-1]!='&'))
+                                         # &#entity; combinations are
+					 # not replaced
      {
      $c.=$bar;
      $tag=1;
@@ -93,15 +95,15 @@ switch($format)
       case TF_MAIL:
 	   $c=replaceQuoting($c);
       case TF_PLAIN:
-	   $c=replaceURLs($c);
-	   $c=replaceBSD($c);
-	   $c=replaceCenter($c);
-	   $c=replaceParagraphs($c);
-	   $c=str_replace("\n",'<br>',$c);
-	   $c=flipReplace('_','<u>','</u>',$c);
-	   $c=flipReplace('~','<b>','</b>',$c);
-	   $c=flipReplace('=','<i>','</i>',$c);
-	   $c=flipReplace('#','<tt>','</tt>',$c);
+ 	   $c=replaceURLs($c);
+ 	   $c=replaceBSD($c);
+ 	   $c=replaceCenter($c);
+ 	   $c=replaceParagraphs($c);
+ 	   $c=str_replace("\n",'<br>',$c);
+ 	   $c=flipReplace('_','<u>','</u>',$c);
+ 	   $c=flipReplace('~','<b>','</b>',$c);
+ 	   $c=flipReplace('=','<i>','</i>',$c);
+ 	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_TEX:
 	   $c=replaceURLs($c);
