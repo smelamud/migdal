@@ -39,11 +39,11 @@ return $editid ? EUM_UPDATE_OK : EUM_INSERT_OK;
 dbOpen();
 session($sessionid);
 $user=getUserById($editid);
-$user->setupHTTP($HTTP_POST_VARS);
+$user->setup($HTTP_POST_VARS);
 $err=modifyUser($user);
 if($err==EUM_INSERT_OK)
-  header('Location: /userok.php?login='.urlencode($login)
-                             .'&redir='.urlencode($redir));
+  header('Location: /userok.php?'.
+          makeQuery('login' => $login,'redir' => $redir);
 else
   header('Location: /useredit.php?'.
           makeQuery($HTTP_POST_VARS,array('password','dup_password')).

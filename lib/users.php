@@ -30,45 +30,59 @@ function User($row)
 $this->DataObject($row);
 }
 
-function setupHTTP($vars)
+function setup($vars)
 {
 if(!isset($vars['login']))
   return;
-foreach(array('login','password','dup_password','name','jewish_name','surname',
-              'migdal_student','info','email','icq','admin_users') as $var)
+foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var]);
 $this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
                                         .'-'.$vars['birth_day'];
 $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 }
 
-function isEditable()
+function getCorrespondentVars()
 {
-global $userId,$userAdminUsers;
+return array('login','password','dup_password','name','jewish_name','surname',
+             'migdal_student','info','email','icq','admin_users');
+}
 
-return $this->id==0 || $this->id==$userId || $userAdminUsers;
+function getWorldVars()
+{
+return array('login','name','jewish_name','surname','info','birthday',
+             'migdal_student','email','icq','email_disabled');
+}
+
+function getAdminVars()
+{
+return array('admin_users');
+}
+
+function getWorldVarValues()
+{
+$vals=array();
+foreach($this->getWorldVars() as $var)
+       $vals[$var]=$this->$var;
+return $vals;
+}
+
+function getAdminVarValues()
+{
+$vals=array();
+foreach($this->getAdminVars() as $var)
+       $vals[$var]=$this->$var;
+return $vals;
 }
 
 function store()
 {
 global $userAdminUsers;
 
-$normal=array('login'          => $this->login,
-	      'name'           => $this->name,
-	      'jewish_name'    => $this->jewish_name,
-	      'surname'        => $this->surname,
-	      'info'           => $this->info,
-	      'birthday'       => $this->birthday,
-	      'migdal_student' => $this->migdal_student,
-	      'email'          => $this->email,
-	      'icq'            => $this->icq,
-	      'email_disabled' => $this->email_disabled);
-if(!$this->id || $this->password!='')
-  $normal=array_merge($normal,
-        array('password'       => md5($this->password)));
+$normal=$this->getWorldVarValues();
+if(!$this->id || $this->dup_password!='')
+  $normal=array_merge($normal,array('password' => md5($this->password)));
 if($userAdminUsers)
-  $normal=array_merge($normal,
-        array('admin_users'    => $this->admin_users));
+  $normal=array_merge($normal,$this->getAdminVarValues());
 $result=mysql_query($this->id 
                     ? makeUpdate('users',$normal,array('id' => $this->id))
                     : makeInsert('users',$normal));
@@ -82,6 +96,13 @@ function online()
 if(!$this->id)
   return false;
 return mysql_query('update users set last_online=now() where id='.$this->id);
+}
+
+function isEditable()
+{
+global $userId,$userAdminUsers;
+
+return $this->id==0 || $this->id==$userId || $userAdminUsers;
 }
 
 function getId()
