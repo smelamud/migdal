@@ -1,0 +1,12 @@
+<< @(#) $Id$ >>
+
+<html>
+<preamble>
+<frameset rows='*,45' border=0>
+ <frame src='chatboard.php?globalid=$_&$?' noresize>
+ <frame src='chatbottom.php?globalid=$_&$?' noresize>
+ <noframes>
+  Ваш браузер не поддерживает фреймы. Увы...
+ </noframes>
+</frameset>
+</html>
