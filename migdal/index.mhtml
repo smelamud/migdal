@@ -56,6 +56,11 @@
   </td>
   <community>
    <td width=130 class='eframe'>
+    <if what='$topic_id<=0'>
+     <div class='ninept'>
+      <a href='migdal.php'>Что такое &lt;&lt;Мигдаль&gt;&gt;?</a>
+     </div>
+    </if>
     <tip>
     <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'>
     <if what='$topic_id<=0'>

@@ -24,5 +24,9 @@
 	       class!="$.Id==$`postings:migdal`
 	               ? 'item ninept' : 'item eightpt'">
  </for>
+ <posting_last topic_id='$`kaitana`' recursive='*true'>
+ <topics_line time='$,' text='Площадка' href='kaitana.php'
+              arrow!="$topic_id==$`kaitana`" indent=1 span=2
+	      class='item eightpt'>
 </topics_table>
 </element>
