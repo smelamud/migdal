@@ -659,7 +659,12 @@ sub elHead
 {
 my ($self)=@_;
 
-::body("<head>\n<link rel='stylesheet' href='/style.css'>\n");
+::request('lib/style.php');
+::body(<<EOT);
+<head>
+<link rel='stylesheet' href='/styles/style-<?php echo getStyle(\$userStyle) ?>.css'>
+<?php include('styles/style-'.getStyle(\$userStyle).'.php') ?>
+EOT
 }
 
 sub elRequire

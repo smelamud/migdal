@@ -15,12 +15,12 @@
  <span class='name'>$message.LoginLink</span>&nbsp;<asp>
  <if what='$message.isSenderVisible'>
   <asp><a href='useredit.php?editid=$message.SenderId&redir=$_'
-	  title='подробнее'><img src='pics/info.gif' border=0></a>
+	  title='подробнее'><img src='$$style_details_image' border=0></a>
  </if>
 <else>
  <if what='$message.isSenderVisible'>
   <a href='useredit.php?editid=$message.SenderId&redir=$_'
-     title='подробнее'><img src='pics/info.gif' border=0></a>&nbsp;<asp>
+     title='подробнее'><img src='$$style_details_image' border=0></a>&nbsp;<asp>
  </if>
  <asp><span class='name'>$message.LoginLink</span>
 </if>

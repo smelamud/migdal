@@ -8,7 +8,7 @@
 <head>
  <title>Мигдаль - Подтверждение регистрации</title>
 </head>
-<body bgcolor=white>
+<body>
  <top ident='users' image='pics/users.gif'>
  <center><h1>
   <ifzero what='err'>

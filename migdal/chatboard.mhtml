@@ -4,7 +4,7 @@
 <html>
 <refresh period='$$userChatRefresh' url='$-'>
 <head></head>
-<body bgcolor=white>
+<body>
  <iterate_chat limit='$$userChatPortion'>
  <table>
   <for>

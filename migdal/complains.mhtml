@@ -53,7 +53,7 @@
 <head>
  <title>Мигдаль - Жалобная книга</title>
 </head>
-<body bgcolor=white>
+<body>
  <top ident='complains' image='pics/complain.gif'>
  <iterate_complainlist limit='$$userComplainPortion' offset='$offset'>
  <batcher_complains value='$$userComplainPortion' list='$;'>

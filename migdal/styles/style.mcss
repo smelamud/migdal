@@ -15,6 +15,7 @@ vl=#FFF8E8
 md=#91089D
 ml=#BA00FF
 gr=#C3C3C3
+grl=#EAEAEA
 grd=#5C5C5C
 mr=#9E4F00
 
@@ -26,16 +27,25 @@ menu_normal=white
 menu_selected=yellow
 state_date_back=%bl
 state_date=%vm
+state_style=blue
 register_hover=blue
 login_border=blue
 login_text=blue
 return_normal=%g
+:default return_image=pics/return.gif
+:contrast return_image=pics/return_back.gif
+:test return_image=pics/return.gif
+:default return_word=false
+:contrast return_word=true
+:test return_word=false
 batcher_normal=blue
 batcher_input_border=blue
 batcher_input_text=blue
 posting_border=%nd
 posting_back=%nd
-posting_whole_back=%nll
+:default posting_whole_back=%nll
+:contrast posting_whole_back=white
+:test posting_whole_back=%nll
 posting_sent=white
 posting_name=yellow
 posting_rebe_name=%r
@@ -64,8 +74,12 @@ topics_controls_hover=blue
 catalog_border=black
 catalog_header=%nd
 catalog_header_text=white
-catalog_even=%nm
-catalog_odd=%nl
+:default catalog_even=%nm
+:contrast catalog_even=%grl
+:test catalog_even=%nm
+:default catalog_odd=%nl
+:contrast catalog_odd=white
+:test catalog_odd=%nl
 catalog_name=%mr
 catalog_rebe_name=%r
 catalog_answer=black
@@ -73,6 +87,9 @@ catalog_answer_hover=blue
 catalog_topic=blue
 catalog_subject=black
 catalog_subject_hover=blue
+:default details_image=pics/info.gif
+:contrast details_image=pics/info.gif
+:test details_image=pics/info-test.gif
 
 ! Global
 
@@ -144,10 +161,16 @@ BODY {
 
 .state .login TD {
 	font-size: 8pt;
+	padding: 0;
 }
 
 .state .login A {
 	font-size: 8pt;
+}
+
+.state .login A.style {
+	font-size: 9pt;
+	color: %state_style;
 }
 
 .state .login A.name {

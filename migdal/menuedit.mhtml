@@ -6,7 +6,7 @@
 <head>
  <title>Мигдаль - Главное меню</title>
 </head>
-<body bgcolor=white>
+<body>
  <menu_obj id='$menuid'>
  <setup>
  <top ident='$,Ident' image='pics/index.gif'>

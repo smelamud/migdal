@@ -11,7 +11,7 @@
 <head>
  <title>Мигдаль - $grptitle</title>
 </head>
-<body bgcolor=white>
+<body>
  <top ident='$grpident' image='$grppic'>
  <p>
  <posting_obj id='$editid' grp='$grp' topic='$topic_id'>

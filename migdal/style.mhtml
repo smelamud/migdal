@@ -1,0 +1,29 @@
+<< @(#) $Id$ >>
+
+<html>
+<head>
+ <title>Демо - Настройка вида</title>
+</head>
+<body>
+ <top ident='index' image='pics/index.gif'>
+ <p>
+ <form method=post action='actions/style.php'>
+ <hidden name='redir' value='$redir'>
+ <table>
+  <tr>
+   <td>Стиль</td>
+   <td>
+    <select name='style'>
+     <iterate_styles>
+     <for>
+      <radio title='$.' value='$;NextPosition' peervalue='$$userStyle'>
+     </for>
+    </select>
+   </td>
+  </tr>
+ </table>
+ <input type=submit value='Применить'>
+ <input type=reset value='Очистить'>
+ </form>
+</body>
+</html>

@@ -7,7 +7,7 @@
 <head>
  <title>Мигдаль - Жалоба</title>
 </head>
-<body bgcolor=white>
+<body>
  <top ident='complains' image='pics/complain.gif'>
  <complain_obj id='$editid' ident='$ident' link='$link'>
  <setup>

@@ -38,6 +38,9 @@
   <td><input type=submit value='Выйти'></td>
  </tr>
 </notlogged>
+<tr><td colspan=5 align=right>
+ <a class='style' href='/style.php?redir=$_'>Настроить вид</a>
+</td></tr>
 </table>
 </form>
 </element>

@@ -37,7 +37,7 @@
 <head>
  <title>Мигдаль - Информация о пользователе</title>
 </head>
-<body bgcolor=white>
+<body>
  <if what='$editid'>
   <top ident='users' image='pics/users.gif'>
  <else>

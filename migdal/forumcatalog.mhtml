@@ -10,7 +10,7 @@
 <head>
  <title>Мигдаль - $grptitle</title>
 </head>
-<body bgcolor=white>
+<body>
  <top ident='$grpident' image='pics/forums.gif'>
  <topic_obj id='$topic_id'>
 

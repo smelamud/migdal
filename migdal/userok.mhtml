@@ -5,7 +5,7 @@
 <head>
  <title>Мигдаль - Пользователь зарегистрирован</title>
 </head>
-<body bgcolor=white>
+<body>
  <top ident='users' image='pics/users.gif'>
  <center><font color=green>
   <h1>Пользователь "$login" успешно зарегистрирован.<br>

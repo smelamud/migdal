@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-DIRS='. demo demo/parts moshiach.ru moshiach.ru/parts migdal migdal/parts'
+DIRS='. demo demo/parts moshiach.ru moshiach.ru/parts migdal migdal/parts migdal/styles'
 
 for s in $DIRS; do
     ./confmake $s/Makefile.in conf/migdal.conf > $s/Makefile

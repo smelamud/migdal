@@ -117,7 +117,7 @@
 <head>
  <title>Мигдаль - Статьи - $,Subject</title>
 </head>
-<body bgcolor=white>
+<body>
  <top ident='articles' image='pics/articles.gif'>
  <p>
  <controls posting='$,'>

@@ -15,19 +15,22 @@ $userSetNames=array('MsgPortion',
                     'ComplainPortion',
 	            'ChatPortion',
 	            'ChatRefresh',
-		    'ForumCatalogPortion');
+		    'ForumCatalogPortion',
+		    'Style');
 $userSetDefaults=array('MsgPortion'          => 10,
                        'ForumPortion'        => 10,
                        'ComplainPortion'     => 20,
 	               'ChatPortion'         => 20,
 	               'ChatRefresh'         => 10,
-		       'ForumCatalogPortion' => 20);
+		       'ForumCatalogPortion' => 20,
+		       'Style'               => 1);
 $userSetParams=array('MsgPortion'          => 'mp',
                      'ForumPortion'        => 'fp',
 		     'ComplainPortion'     => 'cp',
 		     'ChatPortion'         => 'chp',
 		     'ChatRefresh'         => 'chr',
-		     'ForumCatalogPortion' => 'fcp');
+		     'ForumCatalogPortion' => 'fcp',
+		     'Style'               => 'st');
 
 function getProperName($name)
 {

@@ -7,6 +7,9 @@ Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 
 $VERSION='0.0.1';
 
+$Style='default';
+$css=1;
+
 %Vars=();
 
 sub display
@@ -21,8 +24,11 @@ Usage: $0 [<options>] [<file>]
 
 Migdal website kernel MCSS macro language preprocessor
 
+  -c, --css                 Create CSS stylesheet
   -h, --help                Print this help and exit
   -M, --macros=<filename>   Set macro file path
+  -s, --style=<name>        Compile the style <name>
+  -p, --php                 Create PHP include
   -v, --version             Print version information and exit
 
 Report bugs to <balu\@yes.ru>
@@ -51,11 +57,24 @@ my (undef,$macros)=@_;
 unshift @ARGV,$macros if -r $macros;
 }
 
+sub setCSS
+{
+$css=1;
+}
+
+sub setPHP
+{
+$css=0;
+}
+
 sub init
 {
 $|=1;
-GetOptions('help|h|?'	=> \&help,
+GetOptions('css|c'      => \&setCSS,
+           'help|h|?'	=> \&help,
            'macros|M=s'	=> \&macros,
+	   'php|p'      => \&setPHP,
+           'style|s=s'	=> \$Style,
            'version|v'	=> \&version);
 }
 
@@ -69,20 +88,32 @@ return $s;
 
 sub run
 {
+print "<?php\n" unless $css;
 while(<>)
      {
      chomp;
      s/!.*$//;
      next if /^\s*$/;
+     if(/^\s*:\s*(\w+)/)
+       {
+       next if lc $1 ne lc $Style;
+       s/^\s*:\s*\w+//;
+       }
      if(/^\s*(\w+)\s*=\s*(.*)$/)
        {
        $Vars{$1}=subVars($2);
+       unless($css)
+             {
+	     my $q="'" unless $Vars{$1} eq 'false' || $Vars{$1} eq 'true';
+             print "\$style_$1=$q".$Vars{$1}."$q;\n";
+	     }
        }
      else
        {
-       print subVars($_),"\n";
+       print subVars($_),"\n" if $css;
        }
      }
+print "?>\n" unless $css;
 }
 
 sub done

@@ -38,5 +38,10 @@ function getPosition()
 return $this->position;
 }
 
+function getNextPosition()
+{
+return $this->position+1;
+}
+
 }
 ?>

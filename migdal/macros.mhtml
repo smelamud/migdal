@@ -11,6 +11,10 @@
  %date@j/%date@m/%date@Y&nbsp;%date@H:%date@i
 </macro>
 
+<< Styles >>
+<decstyle ident='contrast' name='Контрастный'>
+<decstyle ident='test' name='Тестовый'>
+
 << Elements >>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
 <decel name='batcher' file='parts/messages.php' params='value,var'>

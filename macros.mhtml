@@ -139,6 +139,11 @@
  <iterate name='%name' class='SortedArrayIterator' arg1='%values'>
 </macro>
 
+<macro name='iterate_styles'>
+ <require name='lib/style.php'>
+ <iterate name='%name' class='StyleNamesIterator'>
+</macro>
+
 <macro name='iterate_topiclist' defaults="up=0">
  <require name='lib/topics.php'>
  <iterate name='%name' class='TopicListIterator' arg1='%grp' arg2='%up'>
@@ -155,6 +160,11 @@
 </macro>
 
 << Calls >>
+<macro name='decstyle'>
+ <require name='lib/style.php'>
+ <call func='declareStyle' arg1='%ident' arg2='%name'>
+</macro>
+
 <macro name='complain_action_obj' defaults='name=act'>
  <require name='lib/complainactions.php'>
  <call name='%name' func='getComplainActionById' arg1='%id'>

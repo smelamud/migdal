@@ -7,7 +7,7 @@
 <head>
  <title>Мигдаль - Список иллюстраций</title>
 </head>
-<body bgcolor=white>
+<body>
  <top ident='articles' image='pics/articles.gif'>
  <p>
  <posting_obj id='$postid'>
