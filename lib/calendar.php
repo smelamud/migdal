@@ -19,36 +19,25 @@ if(!isCalendarAvailable())
   include('lib/gregor-calendar.php');
   include('lib/unix-calendar.php');
   }
-  
-$jmonths=array(1 => 'тишрей','хешвана','кислева','тевета','швата','адара I',
-               'адара II','нисана','ияра','сивана','тамуза','ава','элула');
+
+include('lib/jewish-calendar-utils.php');
+
+require_once('lib/calendar-tables.php');
 
 function getJewishFromDate($month,$day,$year)
 {
-global $jmonths;
+global $jewMonthRL;
 
-if(isCalendarAvailable())
-  $dt=explode('/',JDToJewish(GregorianToJD($month,$day,$year)));
-else
-  {
-  $dt=array();
-  SDNToJewish(GregorianToSDN($month,$day,$year),$dt[0],$dt[1],$dt[2]);
-  }
-return $dt[1].' '.$jmonths[$dt[0]].' '.$dt[2];
+getJewishFromDateDetailed($month,$day,$year,$jmonth,$jday,$jyear);
+return $jday.' '.$jewMonthRL[$jmonth].' '.$jyear;
 }
 
 function getJewishFromUNIX($time=0)
 {
-global $jmonths;
+global $jewMonthRL;
 
-if(isCalendarAvailable())
-  $dt=explode('/',JDToJewish($time!=0 ? UNIXToJD($time) : UNIXToJD()));
-else
-  {
-  $dt=array();
-  SDNToJewish(UNIXToSDN($time),$dt[0],$dt[1],$dt[2]);
-  }
-return $dt[1].' '.$jmonths[$dt[0]].' '.$dt[2];
+getJewishFromUNIXDetailed($time,$jmonth,$jday,$jyear);
+return $jday.' '.$jewMonthRL[$jmonth].' '.$jyear;
 }
 
 function getCalendarAge($bMonth,$bDay,$bYear,$month,$day,$year)
@@ -64,5 +53,129 @@ else
   $jt=GregorianToSDN($month,$day,$year);
   }
 return (int)(($jt-$jbt)/365.25);
+}
+
+function formatEnglishDate($f,$time=0)
+{
+return $time!=0 ? date($f,$time) : date($f);
+}
+
+function formatRussianDate($f,$time=0)
+{
+global $rusDow3,$rusDow3L,$rusDow2,$rusDow2L,$rusDow,$rusDowL,$rusMonth3,$rusMonth3L,
+       $rusMonthI,$rusMonthIL,$rusMonthR,$rusMonthRL;
+
+switch($f)
+      {
+      case 'c':
+           return $rusDow3L[formatEnglishDate('w',$time)];
+      case 'C':
+           return $rusDowL[formatEnglishDate('w',$time)];
+      case 'D':
+           return $rusDow3[formatEnglishDate('w',$time)];
+      case 'e':
+           return $rusDow2[formatEnglishDate('w',$time)];
+      case 'E':
+           return $rusDow2L[formatEnglishDate('w',$time)];
+      case 'f':
+           return $rusMonthR[formatEnglishDate('n',$time)];
+      case 'F':
+           return $rusMonthI[formatEnglishDate('n',$time)];
+      case 'J':
+           return $rusMonth3L[formatEnglishDate('n',$time)];
+      case 'k':
+           return $rusMonthRL[formatEnglishDate('n',$time)];
+      case 'K':
+           return $rusMonthIL[formatEnglishDate('n',$time)];
+      case 'l':
+           return $rusDow[formatEnglishDate('w',$time)];
+      case 'M':
+           return $rusMonth3[formatEnglishDate('n',$time)];
+      case 'S':
+           return 'ое';
+      default:
+           return formatEnglishDate($f,$time);
+      }
+}
+
+function formatJewishDate($f,$time=0)
+{
+global $jewDow3,$jewDow3L,$jewDow,$jewDowL,$jewMonth3,$jewMonth3L,
+       $jewMonthI,$jewMonthIL,$jewMonthR,$jewMonthRL;
+
+switch($f)
+      {
+      case 'c':
+           return $jewDow3L[formatEnglishDate('w',$time)];
+      case 'C':
+           return $jewDowL[formatEnglishDate('w',$time)];
+      case 'd':
+           $jday=formatJewishDate('j',$time);
+	   return strlen($jday)==1 ? "0$jday" : $jday;
+      case 'D':
+           return $jewDow3[formatEnglishDate('w',$time)];
+      case 'f':
+           return $jewMonthR[formatJewishDate('v',$time)];
+      case 'F':
+           return $jewMonthI[formatJewishDate('v',$time)];
+      case 'j':
+           getJewishFromUNIXDetailed($time,$jmonth,$jday,$jyear);
+	   return $jday;
+      case 'J':
+           return $jewMonth3L[formatJewishDate('v',$time)];
+      case 'k':
+           return $jewMonthRL[formatJewishDate('v',$time)];
+      case 'K':
+           return $jewMonthIL[formatJewishDate('v',$time)];
+      case 'l':
+           return $jewDow[formatEnglishDate('w',$time)];
+      case 'L':
+           return isLeapJewishYear(formatJewishDate('Y',$time)) ? 1 : 0;
+      case 'm':
+           $jmonth=formatJewishDate('n',$time);
+	   return strlen($jmonth)==1 ? "0$jmonth" : $jmonth;
+      case 'M':
+           return $jewMonth3[formatJewishDate('v',$time)];
+      case 'n':
+           getJewishFromUNIXDetailed($time,$jmonth,$jday,$jyear);
+	   return $jmonth;
+      case 'q':
+           return getJewishYearDelay(formatJewishDate('Y',$time));
+      case 'Q':
+           return getJewishYearLength(formatJewishDate('Y',$time));
+      case 'S':
+           return 'ое';
+      case 't':
+           getJewishFromUNIXDetailed($time,$jmonth,$jday,$jyear);
+           return getJewishMonthLength($jmonth,$jyear);
+      case 'v':
+           getJewishFromUNIXDetailed($time,$jmonth,$jday,$jyear);
+           return ($jmonth!=6 || isLeapJewishYear($jyear)) ? $jmonth : 14;
+      case 'y':
+	   return formatJewishDate('Y',$time)%100;
+      case 'Y':
+           getJewishFromUNIXDetailed($time,$jmonth,$jday,$jyear);
+	   return $jyear;
+      case 'z':
+           return getJewishAbsoluteDayFromUNIX($time);
+      default:
+           return formatEnglishDate($f,$time);
+      }
+}
+
+function formatAnyDate($f,$time=0)
+{
+if(strlen($f)!=2)
+  return formatEnglishDate($f,$time);
+else
+  switch($f[0])
+        {
+	case 'E':
+	     return formatEnglishDate($f[1],$time);
+	case 'R':
+	     return formatRussianDate($f[1],$time);
+	case 'J':
+	     return formatJewishDate($f[1],$time);
+	}
 }
 ?>
