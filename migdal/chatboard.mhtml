@@ -20,7 +20,11 @@
    <tr>
     <td class='time'>[$.Sent@H:$.Sent@i:$.Sent@s]</td>
     <td>&nbsp;</td>
-    <td><span class='name'>$.Login:</span> $.HTMLText</td>
+    <if what='$.Login=="shames"'>
+     <td class='system'>$.HTMLText</td>
+    <else>
+     <td><span class='name'>$.Login:</span> $.HTMLText</td>
+    </if>
    </tr>
   </for>
  </table>

@@ -91,6 +91,10 @@
                  shorten='*false' root=$`general`">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,text,image_id' defaults="text=''">
+<decel name='posting_book' file='parts/posting-book.php'
+       params='posting,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
 <decel name='posting_general' file='parts/posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
@@ -201,6 +205,7 @@
  <require name='parts/posting.php'>
  <require name='parts/gallery-picture.php'>
  <require name='parts/taglit-posting.php'>
+ <require name='parts/posting-book.php'>
  <require name='parts/posting-times.php'>
  <require name='parts/posting-times-cover.php'>
  <require name='parts/taglit-gallery-picture.php'>

@@ -67,7 +67,9 @@ $hebrewCodes=array(
                    'ô' => 'FB4A',
                    'ó' => '05EA',
                    '+' => 'FB29',
-                   '-' => '05BE'
+                   '-' => '05BE',
+		   "'" => '05F3',
+		   '"' => '05F4'
                   );
 		  
 function convertHebrew($s)

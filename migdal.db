@@ -425,6 +425,7 @@ CREATE TABLE users (
   has_personal tinyint(4) NOT NULL default '0',
   settings varchar(70) NOT NULL default '',
   last_chat datetime NOT NULL default '0000-00-00 00:00:00',
+  in_chat tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY login (login),
   KEY password (password),
@@ -435,7 +436,8 @@ CREATE TABLE users (
   KEY login_sort (login_sort),
   KEY name_sort (name_sort),
   KEY jewish_name_sort (jewish_name_sort),
-  KEY surname_sort (surname_sort)
+  KEY surname_sort (surname_sort),
+  KEY in_chat (in_chat)
 ) TYPE=MyISAM;
 
 --

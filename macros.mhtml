@@ -57,7 +57,8 @@
          file='lib/postings.php' params='articlegrp,covergrp'>
 <deciter macro='chat' class='ChatMessageListIterator' file='lib/chat.php'
          params='limit' defaults='limit=20'>
-<deciter macro='chat_users' class='ChatUsersIterator' file='lib/users.php'>
+<deciter macro='chat_users' class='ChatUsersIterator'
+         file='lib/chat-users.php'>
 <deciter macro='complainlist' class='ComplainListIterator'
          file='lib/complains.php' params='limit,offset'
 	 defaults='limit=20 offset=0'>
@@ -153,7 +154,7 @@
          params='ident,desc'>
 
 <deccall macro='chat_users_count' func='getChatUsersCount'
-         file='lib/users.php'>
+         file='lib/chat-users.php'>
 <deccall macro='complain_action_obj' func='getComplainActionById'
          file='lib/complainactions.php' params='id' defaults='name=act'>
 <deccall macro='complain_full' func='getFullComplainById'
@@ -184,6 +185,8 @@
          params='id,align,size,src'
 	 defaults="align='' size=small src='lib/image.php'">
 <deccall macro='image_link' func='getImageEnlargeLinkById' file='lib/images.php'
+         params='id'>
+<deccall macro='last_chat' func='getLastChat' file='lib/chat-users.php'
          params='id'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
 <deccall macro='plural' func='getPlural' file='lib/utils.php'
@@ -230,7 +233,10 @@
          params='id' defaults='name=topic id="$topic_id"'>
 <deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
          params='id,up' defaults='name=topic id="$topic_id" up=0'>
-<decexec macro='update_last_chat' func='updateLastChat' file='lib/users.php'>
+<decexec macro='update_last_chat' func='updateLastChat'
+         file='lib/chat-users.php'>
+<deccall macro='user_login' func='getUserLoginById' file='lib/users.php'
+         params='id'>
 <deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
 <deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>
 <deccall macro='vote' func='getVote' file='lib/votes.php' params='id'>

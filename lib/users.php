@@ -464,6 +464,18 @@ return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());
 }
 
+function getUserLoginById($id)
+{
+// Hidden users' logins must be returned, because system users must be
+// identified
+
+$result=mysql_query("select login
+                     from users
+		     where id=$id")
+	  or sqlbug('Ошибка SQL при выборке данных пользователя');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
 function getUserIdByLogin($login)
 {
 global $userAdminUsers;
@@ -619,52 +631,5 @@ return mysql_num_rows($result)>0 ?
        new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
                         mysql_result($result,0,1)) :
        new UsersSummary(0,0);
-}
-
-class ChatUsersIterator
-      extends SelectIterator
-{
-
-function ChatUsersIterator()
-{
-global $chatTimeout;
-
-$this->SelectIterator('User',
-                      "select id,login,gender,email,hide_email,hidden
-		       from users
-		       where last_chat+interval $chatTimeout minute>now()
-		       order by login_sort");
-}
-
-}
-
-function getChatUsersCount()
-{
-global $chatTimeout;
-
-$result=mysql_query("select count(*)
-		     from users
-		     where last_chat+interval $chatTimeout minute>now()")
-          or sqlbug('Ошибка SQL при получении количества пользователей в чате');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-}
-
-function updateLastChat()
-{
-global $userId,$realUserId,$allowGuestChat;
-
-$id=$userId!=0 || !$allowGuestChat ? $userId : $realUserId;
-mysql_query("update users
-             set last_chat=now()
-	     where id=$id")
-  or sqlbug('Ошибка SQL при обновлении времени присутствия в чате');
-}
-
-function clearLastChat($id)
-{
-mysql_query("update users
-             set last_chat=0
-	     where id=$id")
-  or sqlbug('Ошибка SQL при сбросе времени присутствия в чате');
 }
 ?>

@@ -18,7 +18,7 @@
 
 <html>
 <stylesheet ident='votes'>
-<preamble>
+<preamble_tiny>
 <body>
  <style><!--
   BODY {

@@ -63,3 +63,5 @@ ALTER TABLE `topics` ADD INDEX (`used`);
 ALTER TABLE `topics` ADD `separate` TINYINT NOT NULL AFTER `index4`;
 ALTER TABLE `topics` ADD INDEX (`separate`);
 alter table users add guest tinyint after shames;
+ALTER TABLE `users` ADD `in_chat` TINYINT NOT NULL;
+ALTER TABLE `users` ADD INDEX ( `in_chat` );

@@ -25,6 +25,10 @@
 	text-decoration: underline;
 }
 
+.chatboard .system {
+	font-weight: bold;
+}
+
 .chatusersframe {
 	background-color: %chatusers_back;
 }

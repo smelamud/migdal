@@ -4,6 +4,7 @@
 require_once('lib/sendertag.php');
 require_once('lib/text.php');
 require_once('lib/selectiterator.php');
+require_once('lib/users.php');
 
 class ChatMessage
       extends SenderTag
@@ -64,5 +65,28 @@ $this->SelectIterator('ChatMessage',
 		       limit $limit");
 }
 
+}
+
+function postChatAdminMessage($message)
+{
+return mysql_query("insert into chat_messages(sender_id,text)
+                    values(".getShamesId().",'".
+		    addslashes(htmlspecialchars($message))."')");
+}
+
+function postChatLoginMessage($id)
+{
+postChatAdminMessage('В чат зашел _'.getUserLoginById($id).'_');
+}
+
+function postChatSwitchMessage($id,$prevId)
+{
+postChatAdminMessage('_'.getUserLoginById($prevId).'_ переименовался в _'.
+                         getUserLoginById($id).'_');
+}
+
+function postChatLogoutMessage($id)
+{
+postChatAdminMessage('Нас покинул _'.getUserLoginById($id).'_');
 }
 ?>

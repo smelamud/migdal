@@ -15,7 +15,9 @@
      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_NEWS&redirid=$_'
 	class='add'>Добавить новость</a>,
      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_ARTICLES&redirid=$_'
-	class='add'>статью</a>
+	class='add'>статью</a>,
+     <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_BOOKS&redirid=$_'
+	class='add'>книгу</a>
     </if>
    <else>
     <if what='$showadvert'>

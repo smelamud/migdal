@@ -13,6 +13,7 @@ require_once('lib/logs.php');
 require_once('lib/sessions.php');
 require_once('lib/session.php');
 require_once('lib/users.php');
+require_once('lib/chat-users.php');
 
 function startSession()
 {
@@ -22,7 +23,14 @@ $id=getUserIdByLoginPassword(addslashes($login),$password);
 if($id==0)
   return EL_INVALID;
 logEvent('login',"user($id)");
-clearLastChat($userId!=0 ? $userId : $realUserId);
+$prevId=$userId!=0 ? $userId : $realUserId;
+if(isChatLogged($prevId))
+  {
+  clearLastChat($prevId);
+  chatLogout($prevId);
+  postChatSwitchMessage($id,$prevId);
+  chatLogin($id);
+  }
 updateSession($sessionid,$id,$id);
 return EL_OK;
 }

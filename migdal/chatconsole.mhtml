@@ -4,7 +4,7 @@
 
 <html>
 <stylesheet ident='chat'>
-<preamble>
+<preamble_tiny>
 <frameset rows='*,35' border=0>
  <frame src='chatboard.php?globalsid=$$sessionid&$?' noresize>
  <frame src='chatbottom.php?globalsid=$$sessionid&$?' noresize scrolling=no>
