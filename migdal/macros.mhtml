@@ -45,6 +45,9 @@
        defaults="topic=-1 rows=4 cols=5 offset=0">
 <decel name='gallery_main' file='parts/gallery-main.php'
        params='cols' defaults="cols=5">
+<decel name='gallery_picture' file='parts/gallery-picture.php'
+       params='picture,showtopic,showdiscuss,showcomplain,shorten,up'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' up=general">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='hit_parade' file='parts/hit-parade.php' params='grp,topic_id'
@@ -62,7 +65,7 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten,up'
+       params='picture,showtopic,showdiscuss,showcomplain,shorten,up,topiclink'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' up=general">
 <decel name='picture_main' file='parts/picture-main.php'
        params='picture,grp,topic'>
@@ -93,6 +96,9 @@
 <decel name='taglit' file='parts/taglit.php' params='topic_id'>
 <decel name='taglit_gallery' file='parts/taglit-gallery.php'
        params='taglit_id,user_id,rows,cols,offset'>
+<decel name='taglit_gallery_picture' file='parts/taglit-gallery-picture.php'
+       params='picture,showtopic,showdiscuss,showcomplain,shorten,taglit_id'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' taglit_id=0">
 <decel name='taglit_picture' file='parts/taglit-picture.php'
        params='picture,user'>
 <decel name='taglit_posting' file='parts/taglit-posting.php'
@@ -146,10 +152,11 @@
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
  <zone>
   <require name='parts/posting.php'>
-  <require name='parts/picture.php'>
+  <require name='parts/gallery-picture.php'>
   <require name='parts/taglit-posting.php'>
   <require name='parts/posting-times.php'>
   <require name='parts/posting-times-cover.php'>
+  <require name='parts/taglit-gallery-picture.php'>
   <if what='%posting.TapeCenter'><center></if>
   <call element='%posting.TapeElement' arg1%!posting='%posting'
 	arg2%!showtopic='%showtopic' arg3%!showdiscuss='%showdiscuss'

@@ -4,7 +4,7 @@
 <table width=100% class='batcher'><tr valign=bottom>
 <logged>
  <td align=left>
-  <a href='postingedit.php?topic_id=$taglit_id&up=$taglit_id&grp=*GRP_GALLERY&redirid=$_'
+  <a href='postingedit.php?topic_id=$taglit_id&up=$taglit_id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
      class='add'>
    Добавить фотографию</a>
  </td>
@@ -14,7 +14,7 @@
 </element>
 
 <element name='taglit_gallery'>
-<iterate_picturelist grp='*GRP_GALLERY' topic='$taglit_id' rows='$rows'
+<iterate_picturelist grp='*GRP_TAGLIT_GALLERY' topic='$taglit_id' rows='$rows'
                      cols='$cols' offset='$offset' sort='*SORT_PSENT'
 		     user='$user_id'>
 <batcher_taglit_gallery taglit_id='$taglit_id' list='$;'>
@@ -22,7 +22,7 @@
  <tr valign=top>
   <for>
    <td>
-    <picture picture='$.' showtopic='*false' up=$taglit_id>
+    <taglit_gallery_picture picture='$.' showtopic='*false' taglit_id=$taglit_id>
    </td>
    <if what='$;isEol'>
     </tr><tr valign=top>

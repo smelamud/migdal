@@ -14,7 +14,7 @@
  <top ident='index'>
  <table width=100%><tr valign=top>
   <td width=120><zone>
-   <posting_new grp='*GRP_INT_FORUMS' topic_id='$taglit.Id'
+   <posting_new grp='*GRP_TAGLIT_FORUMS' topic_id='$taglit.Id'
                 sender_id='$user.Id'>
    <topics posting='$,' showchapters='*true'>
   </zone></td>

@@ -1,0 +1,7 @@
+<< @(#) $Id$ >>
+
+<element name='gallery_picture'>
+<picture picture='$picture' showtopic='$showtopic' showdiscuss='$showdiscuss'
+         showcomplain='$showcomplain' shorten='$shorten' up='$up'
+         topiclink#='$picture.PageFile?grp=$picture.PageGroup&topic_id=$picture.TopicId'>
+</element>

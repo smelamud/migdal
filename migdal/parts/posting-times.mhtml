@@ -14,6 +14,13 @@
 <dl class='posting'>
  <dt class='subject'>
   <biff time='$posting.Sent'>
+  <if what='$showtopic'>
+   <a href='times.php?issue=$posting.Index1' class='topic'
+      title='$posting.TopicDescription'>
+    $posting.TopicName
+   </a>
+   <br>
+  </if>
   <a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'>
      $posting.Subject</a>
   <ifne what='$posting.Author'>

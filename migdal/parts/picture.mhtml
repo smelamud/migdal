@@ -11,8 +11,7 @@
   </td></tr>
   <if what='$showtopic'>
    <tr><td class='topic'>
-     <a href='$picture.PageFile?grp=$picture.PageGroup&topic_id=$picture.TopicId'
-	class='topic' title='$picture.TopicDescription'>
+     <a href='$topiclink' class='topic' title='$picture.TopicDescription'>
       $picture.TopicName
      </a>
    </td></tr>
