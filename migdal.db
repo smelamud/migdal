@@ -2,7 +2,7 @@
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.39-log
+# Server version	3.23.40-log
 
 #
 # Table structure for table 'chat_messages'
@@ -266,6 +266,8 @@ CREATE TABLE users (
   msg_portion tinyint(4) NOT NULL default '10',
   forum_portion tinyint(4) NOT NULL default '10',
   complain_portion tinyint(4) NOT NULL default '20',
+  chat_portion tinyint(4) NOT NULL default '20',
+  chat_refresh tinyint(4) NOT NULL default '10',
   PRIMARY KEY  (id),
   KEY login (login),
   KEY password (password),
@@ -278,7 +280,7 @@ CREATE TABLE users (
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.39-log
+# Server version	3.23.40-log
 
 #
 # Dumping data for table 'menu'
