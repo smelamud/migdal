@@ -77,15 +77,15 @@
  </if>
 </for>
 <posting_last topic_id='$`mazltov`' recursive='*true'>
-<topics_line time='$,' text='Мазл Тов'
-	     href#='migdal.php?artid=$`postings:mazltov`' indent=1
+<topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`' indent=1
+             text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
 	     class='item eightpt'>
 <posting_last topic_id='$`kes`' recursive='*true'>
 <topics_line time='$,' text='Клуб Еврейского Студента'
 	     href#='migdal.php?artid=$`postings:kes`' indent=1
 	     class='item eightpt'>
 <posting_last topic_id='$`methodics`' recursive='*true'>
-<topics_line time='$,' text='Методический кабинет' href#='methodics.php'
+<topics_line time='$,' text='Методический центр' href#='methodics.php'
              indent=1 class='item eightpt'>
 <posting_last topic_id='$`kaitana`' recursive='*true'>
 <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
