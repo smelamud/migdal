@@ -15,11 +15,16 @@ $this->result=mysql_query($query) or die ("Query failed: $query");
 $this->class=$aClass;
 }
 
+function create($row)
+{
+$c=$this->class;
+return new $c($row);
+}
+
 function next()
 {
 $row=mysql_fetch_assoc($this->result);
-$c=$this->class;
-return $row ? new $c($row) : 0;
+return $row ? $this->create($row) : 0;
 }
 
 }
