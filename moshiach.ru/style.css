@@ -1,0 +1,79 @@
+/* @(#) $Id$ */
+
+INPUT {
+	BACKGROUND: #ffffff;
+	BORDER-BOTTOM: 1px solid;
+	BORDER-LEFT: 1px solid;
+	BORDER-RIGHT: 1px solid;
+	BORDER-TOP: 1px solid;
+	COLOR: #000000;
+	FONT-FAMILY: verdana;
+	FONT-SIZE: 10px
+}
+
+.b {
+	COLOR: #ffffff;
+	FONT-FAMILY: tahoma,arial;
+	FONT-SIZE: 14px;
+	FONT-WEIGHT: bold;
+	TEXT-DECORATION: none
+}
+
+A {
+	COLOR: #000000;
+	FONT-FAMILY: tahoma,Arial;
+	FONT-SIZE: 13px;
+	FONT-WEIGHT: bold;
+	TEXT-DECORATION: none
+}
+
+A:hover {
+	COLOR: #c76b4b;
+	TEXT-DECORATION: underline
+}
+
+SMALL {
+	COLOR: #000000;
+	FONT-FAMILY: tahoma,arial;
+	FONT-SIZE: 11px
+}
+
+.hiddenlink {
+	COLOR: #000000;
+	TEXT-DECORATION: none
+}
+
+B {
+	COLOR: #ffffff;
+	FONT-FAMILY: tahoma,Arial;
+	FONT-SIZE: 12px
+}
+
+.r {
+	COLOR: #000000
+}
+
+.red {
+	COLOR: #c76b4b
+}
+
+TD {
+	COLOR: #000000;
+	FONT-FAMILY: tahoma,Arial;
+	FONT-SIZE: 13px;
+	FONT-WEIGHT: normal;
+	TEXT-DECORATION: none
+}
+
+A.under {
+	COLOR: #000000;
+	FONT-FAMILY: tahoma,Arial;
+	FONT-SIZE: 13px;
+	FONT-WEIGHT: normal;
+	TEXT-DECORATION: none
+}
+
+A.under:hover {
+	COLOR: #c76b4b;
+	TEXT-DECORATION: none
+}

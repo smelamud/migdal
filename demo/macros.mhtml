@@ -1,7 +1,6 @@
 << @(#) $Id$ >>
 
 << Errors >>
-
 <macro name='error'>
  <require name='lib/errors.php'>
  <perror id='%id' text='%text' color='%color' span='%span'>
