@@ -1139,6 +1139,9 @@ BODY {
 
 BODY.chatboard {
 	background-color: %chatboard_back;
+}
+
+BODY.chatboard * {
 	font-size: 9pt;
 }
 
