@@ -32,10 +32,15 @@
 
 <macro name='row'>
  <if what='$.isClosed'>
-  <if what='$;isOdd'><tr class='odd'><else><tr></if>
+  <if what='!$closed'>
+   <if what='$;isOdd'><tr class='odd split'><else><tr class='split'></if>
+  <else>
+   <if what='$;isOdd'><tr class='odd'><else><tr></if>
+  </if>
  <else>
   <if what='$;isOdd'><tr class='activeodd'><else><tr class='active'></if>
  </if>
+ <assign name='closed' value='$.isClosed'>
 </macro>
 
 <int name='offset'>
@@ -52,6 +57,7 @@
    <th>No.</th><th>Прислано</th><th>Автор</th><th>Заголовок</th>
    <th>Рассматривает</th><th>Закрыто</th><th class='answer'>Ответы</th>
   </tr>
+ <assign name='closed' value='*true'>
  <for name='complain'>
   <row>
    <td align=right>$.Id</td>

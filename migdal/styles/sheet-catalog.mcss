@@ -70,6 +70,10 @@
 	background-image: url("../%catalog_active_odd_pic");
 }
 
+.catalog TR.split {
+	border-top: solid 3px %catalog_split;
+}
+
 .catalog .topic {
 	text-align: center;
 }
