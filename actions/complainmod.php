@@ -36,7 +36,7 @@ postString('subject');
 
 dbOpen();
 session();
-$complain=getComplainById($editid);
+$complain=getComplainById($editid,$type_id);
 $complain->setup($HTTP_POST_VARS);
 $err=modifyComplain($complain);
 if($err==EC_OK)

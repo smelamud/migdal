@@ -110,7 +110,7 @@ else
   $this->$id=mysql_insert_id();
   journal(makeInsert('messages',
                      jencodeVars($normal,$this->getJencodedVars())),
-	  'messages',$this->id);
+	  'messages',$this->$id);
   $this->sender_id=$userId;
   $this->sent=$sent;
   }

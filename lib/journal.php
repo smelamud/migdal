@@ -49,7 +49,8 @@ if($table!='' || $journalSeq<0)
   mysql_query('update journal
                set '.($table!='' ? "result_var=$id" : '')
 	            .($table!='' && $journalSeq<0 ? ',' : '')
-                    .($journalSeq<0 ? "seq=$id" : ''))
+                    .($journalSeq<0 ? "seq=$id" : '').
+	     " where id=$id")
     or journalFailure('Set sequence/variable failed.');
   if($journalSeq<0)
     $journalSeq=$id;
@@ -60,8 +61,8 @@ function journalVar($table,$id)
 {
 global $replicationMaster;
 
-if($replicationMaster)
-  return $id;
+//if($replicationMaster)
+//  return $id;
 if($id==0)
   return 0;
 $result=mysql_query("select result_var
@@ -69,7 +70,7 @@ $result=mysql_query("select result_var
 		     where result_table='$table' and result_id=$id");
 if(!$result)
   journalFailure('Variable query failed.');
-return mysql_num_rows($result)>0 ? '$'.mysql_result($table,0,0) : $id;
+return mysql_num_rows($result)>0 ? '$'.mysql_result($result,0,0) : $id;
 }
 
 function jencode($s)

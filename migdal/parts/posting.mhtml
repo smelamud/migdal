@@ -1,5 +1,7 @@
 << @(#) $Id$ >>
 
+<complains>
+
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
  <if what='$/$posting.TopicId,1/==$`inet-news`'>

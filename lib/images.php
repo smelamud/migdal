@@ -76,8 +76,8 @@ else
   $result=mysql_query(makeInsert('images',$normal));
   $this->id=mysql_insert_id();
   journal(makeInsert('images',
-                     jencodeVars($normal,$this->getJencodedVars()),
-	  'images',$this->id));
+                     jencodeVars($normal,$this->getJencodedVars())),
+	  'images',$this->id);
   if($this->image_set==0)
     {
     $this->image_set=$this->id;

@@ -8,6 +8,7 @@
 </macro>
 
 <decconst name='conf' file='conf/migdal.conf'>
+<decconst name='complains' file='lib/complains.php'>
 <decconst name='errors' file='lib/errors.php'>
 <decconst name='grps' file='lib/grps.php'>
 <decconst name='image_placements' file='lib/stotext-images.php'>

@@ -90,7 +90,7 @@ if($this->id)
   {
   $result=mysql_query(makeUpdate('postings',$normal,array('id' => $this->id)));
   journal(makeUpdate('postings',
-                     jencodeVars($normal,$this->getJencodedVars()),
+                     jencodeVars($normal,$this->getJencodedPostingVars()),
 		     array('id' => $this->id)));
   }
 else
@@ -98,7 +98,7 @@ else
   $result=mysql_query(makeInsert('postings',$normal));
   $this->id=mysql_insert_id();
   journal(makeInsert('postings',
-                     jencodeVars($normal,$this->getJencodedVars())),
+                     jencodeVars($normal,$this->getJencodedPostingVars())),
 	  'postings',$this->id);
   }
 return $result;
