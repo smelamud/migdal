@@ -57,7 +57,7 @@
 </td>
 <td align=right>
 <if what='$discuss'>
- <a href='forum.php?redir=$_&msgid=$message.Id'>Обсудить</a>
+ <a href='forum.php?redir=$_&msgid=$message.Id'>Обсудить ($message.AnswerCount)</a>
 </if>
 </td>
 </tr>
