@@ -21,6 +21,6 @@
  <table width=100%><tr valign=top>
   <td><topics g='$g' up='$topic_id' title='Темы'></td>
   <td><postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
-	        offset='$offset' title='$g,title'></td>
+	        offset='$offset' title='$grptitle'></td>
 </body>
 </html>
