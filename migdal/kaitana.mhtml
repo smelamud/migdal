@@ -52,7 +52,7 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
-   <topics_kaitana kaitana='$kaitana' day='$day'>
+   <topics_kaitana kaitana='$kaitana' day!='$day<=0 ? 1 : $day'>
    <topics_major ident='kaitana'>
   </zone></td>
   <td class='cframe'>
