@@ -46,15 +46,14 @@
 <element name='bottom_english'>
 <tr valign=bottom>
  <td>
-  Сайт создан и поддерживается
-  <a href='migdal.php?artid=1479&redirid=$_'>Клубом Еврейского Студента</a>
+  Programming, design and maintenance by <b>Jewish Student Club</b> of
   <br>
-  Международного Еврейского Общинного Центра
-  <a href='migdal.php?redirid=$_'>&lt;&lt;Мигдаль&gt;&gt;</a>
-  <email addr='migdal@migdal.ru'>, Одесса.
+  the International Center of Jewish Community Programs
+  <a href='index.php?redirid=$_'>&lt;&lt;Migdal&gt;&gt;</a>
+  <email addr='migdal@migdal.ru'>, Odessa.
   <p>
-  Председатель правления центра &lt;&lt;Мигдаль&gt;&gt; --- Кира Верховская
-  <email addr='verkhov@tm.odessa.ua'>.
+  <b>Kira Verkhovskaya</b> <email addr='verkhov@tm.odessa.ua'>, the President
+  of the JCC &lt;&lt;Migdal&gt;&gt; center.
  </td>
  <td align=right>
   <kernel>
