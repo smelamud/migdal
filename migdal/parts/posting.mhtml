@@ -116,7 +116,7 @@
   <td>
    <outer><table cellspacing=0 cellpadding=0><tr>
     <td><common><printlink posting='$posting'></common></td>
-    <td>&nbsp;&nbsp;</td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
     <td><inner>
      <isedit what='$posting'>
       <editlink posting='$posting'>
