@@ -75,8 +75,11 @@ function cleanup()
 {
 global $disabledMessageTimeout,$journalVarTimeout;
 
-deleteCond('messages',"disabled<>0 and
-                       sent+interval $disabledMessageTimeout day<now()");
+if($disabledMessageTimeout>=0)
+  {
+  deleteCond('messages',"disabled<>0 and
+			 sent+interval $disabledMessageTimeout day<now()");
+  }
 deleteCond('journal_vars',"last_read+interval $journalVarTimeout day<now()");
 
 tag('images');
