@@ -39,12 +39,12 @@
    <mailru_count>
    <rambler_count>
   </td>
-  <td align=right>
+  <td align=right style='padding-right: 5px; padding-top: 5px'>
    <image src='pics/bsd-main.gif' alt='ву"д'>
   </td>
  </tr>
  <tr>
-  <td align=right>
+  <td align=right style='padding-right: 8px'>
    <community>
     <login no_new='$no_new' target='$target'>
    </community>

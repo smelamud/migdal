@@ -24,6 +24,7 @@
 BODY {
 	background-color: %body_back;
 	background-image: url("../%body_back_pic");
+	margin: 0;
 }
 
 .title {
