@@ -1,15 +1,15 @@
 << @(#) $Id$ >>
 
+<grps>
+
 <element name='batcher_postings' params='list,topic,grp'>
-<grpdata>
-<grpitemtitle>
-<grpitemstitle>
+<posting_new grp='$grp'>
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left>
   <logged>
-   <if what='$g.Valid'>
+   <if what='$,isValid'>
     <a href='postingedit.php?topic_id=$topic&up=general&grp=$grp&redirid=$_'
-       class='add'>Добавить $grpitemtitle</a>
+       class='add'>Добавить $,GrpItemTitle</a>
    <else>
     <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_NEWS&redirid=$_'
        class='add'>Добавить новость</a>,
@@ -18,8 +18,8 @@
    </if>
   <else>
    <span class='advert'>
-    <if what='$g.Valid'>
-     Хотите добавлять $grpitemstitle?
+    <if what='$,isValid'>
+     Хотите добавлять $,GrpItemsTitle?
     <else>
      Хотите добавлять новости и статьи?
     </if>

@@ -1,29 +1,16 @@
 << @(#) $Id$ >>
 
 <element name='gallery_main'>
-<grpdata>
-<grpitemtitle>
-<grpitemstitle>
-<iterate_topiclist up='general' grp='$grp' withpostings='*true' cols='$cols'>
+<iterate_topiclist up='general' grp='*GRP_GALLERY' withpostings='*true'
+                   cols='$cols'>
 <div class='batcher'>
  <logged>
-  <if what='$g.Valid'>
-   <a href='postingedit.php?topic_id=-1&up=general&grp=$grp&redirid=$_'
-      class='add'>Добавить $grpitemtitle</a>
-  <else>
-   <a href='postingedit.php?topic_id=-1&up=general&grp=*GRP_NEWS&redirid=$_'
-      class='add'>Добавить новость</a>,
-   <a href='postingedit.php?topic_id=-1&up=general&grp=*GRP_ARTICLES&redirid=$_'
-      class='add'>статью</a>
-  </if>
+  <a href='postingedit.php?topic_id=-1&up=general&grp=*GRP_GALLERY&redirid=$_'
+     class='add'>Добавить картинку</a>
  <else>
   <span class='advert'>
-   <if what='$g.Valid'>
-    Хотите добавлять $grpitemstitle?
-   <else>
-    Хотите добавлять новости и статьи?
-   </if>
-  <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+   Хотите добавлять картинки?
+   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
   </span>
  </logged>
 </div>
@@ -33,9 +20,9 @@
  <tr valign=top>
   <for>
    <td>
-    <posting_random grp='$grp' topic_id='$.Id'>
-    <posting_full id='$,' grp='$grp'>
-    <picture_main picture='$,' grp='$grp' topic='$.'>
+    <posting_random grp='*GRP_GALLERY' topic_id='$.Id'>
+    <posting_full id='$,' grp='*GRP_GALLERY'>
+    <picture_main picture='$,' grp='*GRP_GALLERY' topic='$.'>
    </td>
    <if what='$;isEol'>
     </tr><tr valign=top>

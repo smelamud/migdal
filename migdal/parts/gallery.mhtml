@@ -1,30 +1,16 @@
 << @(#) $Id$ >>
 << Based-on: migdal/parts/postings.mhtml 1.23 >>
 
-<element name='batcher_gallery' params='list,topic,grp'>
-<grpdata>
-<grpitemtitle>
-<grpitemstitle>
+<element name='batcher_gallery' params='list,topic'>
 <table width=100% class='batcher'><tr valign=bottom>
  <td align=left>
   <logged>
-   <if what='$g.Valid'>
-    <a href='postingedit.php?topic_id=$topic&up=general&grp=$grp&redirid=$_'
-       class='add'>Добавить $grpitemtitle</a>
-   <else>
-    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_NEWS&redirid=$_'
-       class='add'>Добавить новость</a>,
-    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_ARTICLES&redirid=$_'
-       class='add'>статью</a>
-   </if>
+   <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_GALLERY&redirid=$_'
+      class='add'>Добавить картинку</a>
   <else>
    <span class='advert'>
-    <if what='$g.Valid'>
-     Хотите добавлять $grpitemstitle?
-    <else>
-     Хотите добавлять новости и статьи?
-    </if>
-   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+    Хотите добавлять картинки?
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </span>
   </logged>
  </td>
@@ -33,10 +19,10 @@
 </element>
 
 <element name='gallery'>
-<iterate_picturelist grp='$grp' topic='$topic' rows='$rows' cols='$cols'
-                     offset='$offset' sort='*SORT_PSENT'>
+<iterate_picturelist grp='*GRP_GALLERY' topic='$topic' rows='$rows'
+                     cols='$cols' offset='$offset' sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher_gallery list='$;' topic='$topic' grp='$grp'>
+ <batcher_gallery list='$;' topic='$topic' grp='*GRP_GALLERY'>
  <table width=100%>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -47,7 +33,7 @@
     <else>
      <assign name='showtopic' value='*false'>
     </if>
-    <td><picture picture='$.' grp='$grp' showtopic='$showtopic'></td>
+    <td><picture picture='$.' grp='*GRP_GALLERY' showtopic='$showtopic'></td>
     <if what='$;isEol'>
      </tr><tr valign=top>
     </if>
@@ -55,7 +41,7 @@
   </tr>
  </table>
  <ifnzero what='$;Count'>
-  <batcher_gallery list='$;' topic='$topic' grp='$grp'>
+  <batcher_gallery list='$;' topic='$topic' grp='*GRP_GALLERY'>
  </ifnzero>
 <else>
  &nbsp;

@@ -315,7 +315,17 @@ while($Input->getToken()->getName() ne 'eof')
      {
      if($Input->getToken()->getName() eq 'ident')
        {
-       defineClass();
+       if($Input->getToken()->getValue() ne 'reserved')
+	 {
+         defineClass();
+	 }
+       else
+         {
+	 $FlagValue*=2;
+	 $Input->next();
+	 error("';' expected") if $Input->getToken()->getValue() ne ';';
+	 $Input->next();
+	 }
        }
      else
        {
@@ -397,7 +407,7 @@ for(@Classes)
    {
    printClassName($_);
    }
-print GRPS " GRP_ALL => 'Posting'\n";
+print GRPS " GRP_NONE => 'Posting'\n";
 print GRPS ");\n";
 print GRPS "?>\n";
 print POSTINGS "?>\n";

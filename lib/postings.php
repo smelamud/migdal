@@ -30,7 +30,7 @@ var $read_count;
 function Posting($row)
 {
 $this->Message($row);
-$this->grp=GRP_ALL;
+$this->grp=GRP_NONE;
 }
 
 function getCorrespondentVars()
@@ -74,6 +74,11 @@ else
   $this->id=mysql_insert_id();
   }
 return $result;
+}
+
+function isValid()
+{
+return $this->grp!=GRP_NONE;
 }
 
 function getIdent()

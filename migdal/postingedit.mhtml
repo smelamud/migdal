@@ -3,21 +3,19 @@
 <int name='editid'>
 <int name='topic_id'>
 <string name='up'>
-<grpitemtitle>
-<grpitemstitle>
-<concat value='Редактирование $grpitemstitle'>
+<posting_obj id='$editid' grp='$grp' topic='$topic_id'>
+<concat value='Редактирование $message.GrpItemsTitle'>
 <pagetitle title='$*'>
 
 <html>
 <preamble>
 <body>
  <top ident='index'>
- <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
  <setup>
  <if what='$editid'>
-  <concat name='head' value='Изменить $grpitemtitle'>
+  <concat name='head' value='Изменить $message.GrpItemTitle'>
  <else>
-  <concat name='head' value='Добавить $grpitemtitle'>
+  <concat name='head' value='Добавить $message.GrpItemTitle'>
  </if>
  <table width=100%><tr valign=top>
   <td width=200>

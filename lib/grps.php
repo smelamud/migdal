@@ -7,7 +7,7 @@ function getGrpClassName($grp)
 global $grpClassNames;
 
 $name=$grpClassNames[$grp];
-return isset($name) ? $name : 'Message';
+return isset($name) ? $name : 'Posting';
 }
 
 function getGrpOrder($grp)
@@ -17,7 +17,10 @@ return round(log($grp)/M_LN2);
 
 function getGrpValid($grp)
 {
-return round(exp(getGrpOrder($grp)*M_LN2))==$grp;
+global $grpClassNames;
+
+return round(exp(getGrpOrder($grp)*M_LN2))==$grp
+       && isset($grpClassNames[$grp]);
 }
 
 function getGrpWord($grp,$words)

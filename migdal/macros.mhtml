@@ -37,10 +37,10 @@
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'
-       params='grp,topic,rows,cols,offset'
+       params='topic,rows,cols,offset'
        defaults="topic=-1 rows=4 cols=5 offset=0">
 <decel name='gallery_main' file='parts/gallery-main.php'
-       params='grp,cols' defaults="cols=5">
+       params='cols' defaults="cols=5">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='hit_parade' file='parts/hit-parade.php' params='grp,topic_id'
@@ -110,15 +110,6 @@
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
 <decel name='userinfo' file='parts/userinfo.php' params='id,target'>
-
-<< GRP >>
-<decgrpmesgs name='grptitle' vals='Сообщения,Мнения,Новости,Галерея,Статьи,Цитаты,Фразы,Внутр.мнения'>
-<decgrpmesgs name='grpitemtitle'
-             vals='сообщение,мнение,новость,картинку,статью,цитату,фразу,мнение'>
-<decgrpmesgs name='grpitemstitle'
-             vals='сообщения,мнения,новости,картинки,статьи,цитаты,фразы,мнения'>
-<decgrpmesgs name='grpitemtitlei'
-             vals='Сообщение,Мнение,Новость,Картинка,Статья,Цитата,Фраза,Мнение'>
 
 <macro name='bymessages'>
  <zone>

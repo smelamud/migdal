@@ -66,7 +66,7 @@
 	 defaults='limit=20 offset=0'>
 <deciter macro='footnotes' class='FootnoteIterator' file='lib/paragraphs.php'
          params='source' defaults="source='$;'">
-<deciter macro='grps' class='GrpIterator' file='lib/grputils.php'>
+<deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>
 <deciter macro='imageset' class='ImageSetIterator' file='lib/images.php'
          params='imageset'>
 <deciter macro='instant_messagelist' class='InstantMessageListIterator'
@@ -199,20 +199,6 @@
 </macro>
 
 << GRP >>
-<macro name='grpdata' defaults="name=g grp='$grp'">
- <require name='lib/grputils.php'>
- <obj name='%name' class='GrpData' arg1='%grp'>
-</macro>
-
-<macro name='decgrpmesgs' defaults="grp='%grp'">
- <macro name='%name' defaults="grp='$grp'">
-  <zone>
-   <array vals='%vals'>
-   <grpword name='%name' grp='%grp'>
-  </zone>
- </macro>
-</macro>
-
 <deccall macro='grpword' func='getGrpWord' file='lib/grps.php'
          params='grp,words' defaults="grp='$grp' words='$*'">
 <deccall macro='grpplural' func='getGrpPlural' file='lib/grps.php'

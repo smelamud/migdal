@@ -48,48 +48,29 @@
    <error id='*ET_MUST_ALLOW'
           text='Тема должна быть для какого-то вида сообщений'>
    <tr><td><table width=100%>
-    <tr>
-     <td><checkbox name='news' value='$,isNews' title='Тема для новостей'></td>
-     <td><checkbox name='premoderate_news' value='$,isNewsPremoderated'
-		   title='Новости премодерируются'></td>
-    </tr>
-    <tr>
-     <td><checkbox name='forums' value='$,isForums'
-                   title='Тема для форума'></td>
-     <td><checkbox name='premoderate_forums' value='$,isForumsPremoderated'
-		   title='Форумы премодерируются'></td>
-    </tr>
-    <tr>
-     <td><checkbox name='gallery' value='$,isGallery'
-		   title='Тема для галереи'></td>
-     <td><checkbox name='premoderate_gallery' value='$,isGalleryPremoderated'
-		   title='Галереи премодерируются'></td>
-    </tr>
-    <tr>
-     <td><checkbox name='articles' value='$,isArticles'
-		   title='Тема для статей'></td>
-     <td><checkbox name='premoderate_articles' value='$,isArticlesPremoderated'
-		   title='Статьи премодерируются'></td>
-    </tr>
-    <tr>
-     <td><checkbox name='quotes' value='$,isQuotes'
-		   title='Тема для цитат'></td>
-     <td><checkbox name='premoderate_quotes' value='$,isQuotesPremoderated'
-		   title='Цитаты премодерируются'></td>
-    </tr>
-    <tr>
-     <td><checkbox name='phrases' value='$,isPhrases'
-		   title='Тема для фраз'></td>
-     <td><checkbox name='premoderate_phrases' value='$,isPhrasesPremoderated'
-		   title='Фразы премодерируются'></td>
-    </tr>
-    <tr>
-     <td><checkbox name='int_forums' value='$,isIntForums'
-		   title='Тема для<br>внутренних форумов'></td>
-     <td><checkbox name='premoderate_int_forums'
-                   value='$,isIntForumsPremoderated'
-		   title='Внутренние форумы<br>премодерируются'></td>
-    </tr>
+    <iterate_grps>
+    <for>
+     <if what='$.isValid'>
+      <concat name='premoderateIdent' value='premoderate_$.GrpIdent'>
+      <if what='($,Allow & $.Grp)!=0'>
+       <assign name='allow' value='*true'>
+      <else>
+       <assign name='allow' value='*false'>
+      </if>
+      <if what='($,Premoderate & $.Grp)!=0'>
+       <assign name='premoderate' value='*true'>
+      <else>
+       <assign name='premoderate' value='*false'>
+      </if>
+      <concat name='foritems' value='Тема для $.GrpForItemsTitle'>
+      <concat name='titles' value='$.GrpTitles премодерируются'>
+      <tr>
+       <td><checkbox name='$.GrpIdent' value='$allow' title='$foritems'></td>
+       <td><checkbox name='$premoderateIdent' value='$premoderate'
+		     title='$titles'></td>
+      </tr>
+     </if>
+    </for>
    </table></td></tr>
   <if what='$editid'>
    <formbuttons title='Изменить'>

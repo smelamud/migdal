@@ -170,79 +170,9 @@ function getAllow()
 return $this->allow;
 }
 
-function isNews()
-{
-return ($this->getAllow() & GRP_NEWS)!=0;
-}
-
-function isForums()
-{
-return ($this->getAllow() & GRP_FORUMS)!=0;
-}
-
-function isGallery()
-{
-return ($this->getAllow() & GRP_GALLERY)!=0;
-}
-
-function isArticles()
-{
-return ($this->getAllow() & GRP_ARTICLES)!=0;
-}
-
-function isQuotes()
-{
-return ($this->getAllow() & GRP_QUOTES)!=0;
-}
-
-function isPhrases()
-{
-return ($this->getAllow() & GRP_PHRASES)!=0;
-}
-
-function isIntForums()
-{
-return ($this->getAllow() & GRP_INT_FORUMS)!=0;
-}
-
 function getPremoderate()
 {
 return $this->premoderate;
-}
-
-function isNewsPremoderated()
-{
-return ($this->getPremoderate() & GRP_NEWS)!=0;
-}
-
-function isForumsPremoderated()
-{
-return ($this->getPremoderate() & GRP_FORUMS)!=0;
-}
-
-function isGalleryPremoderated()
-{
-return ($this->getPremoderate() & GRP_GALLERY)!=0;
-}
-
-function isArticlesPremoderated()
-{
-return ($this->getPremoderate() & GRP_ARTICLES)!=0;
-}
-
-function isQuotesPremoderated()
-{
-return ($this->getPremoderate() & GRP_QUOTES)!=0;
-}
-
-function isPhrasesPremoderated()
-{
-return ($this->getPremoderate() & GRP_PHRASES)!=0;
-}
-
-function isIntForumsPremoderated()
-{
-return ($this->getPremoderate() & GRP_INT_FORUMS)!=0;
 }
 
 function getIdent()

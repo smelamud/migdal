@@ -19,9 +19,9 @@
   <td>
    <subtitle icon='pics/gall-big.gif'>
    <if what='$topic_id==-1'>
-    <gallery_main grp='*GRP_GALLERY' cols='$userPictureColumnPortion'>
+    <gallery_main cols='$userPictureColumnPortion'>
    <else>
-    <gallery grp='*GRP_GALLERY' topic='$topic_id' rows='$userPictureRowPortion'
+    <gallery topic='$topic_id' rows='$userPictureRowPortion'
 	     cols='$userPictureColumnPortion' offset='$offset'>
    </if>
   </td>

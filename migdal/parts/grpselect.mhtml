@@ -7,8 +7,9 @@
   <select name='$name'>
    <iterate_grps>
    <for>
-    <grptitle grp='$.Grp'>
-    <radio title='$grptitle' value='$.Grp' peervalue='$value'>
+    <if what='$.isValid'>
+     <radio title='$.GrpTitle' value='$.Grp' peervalue='$value'>
+    </if>
    </for>
   </select>
  </td>
