@@ -18,9 +18,9 @@
     </td>
     <td>
      <if what='$.Grp==*GRP_ARTICLES'>
-      <a href='article.php?redirid=$_&artid=$.Id'>
+      <a href='article.php?redirid=$_&artid=$.Id' class='item'>
      <else>
-      <a href='forum.php?redirid=$_&msgid=$.Id'>
+      <a href='forum.php?redirid=$_&msgid=$.Id' class='item'>
      </if>
       $.SubjectDesc&nbsp;<span class='answers'>($.ReadCount)</span></a>
     </td>

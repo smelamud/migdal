@@ -19,15 +19,21 @@
 	padding-bottom: 0;
 }
 
+.topics A {
+	text-decoration: none;
+}
+
+.topics A:hover {
+	text-decoration: underline;
+}
+
 .topics A.edit {
 	color: %topics_controls;
 	font-size: 8pt;
-	text-decoration: none;
 }
 
 .topics A.edit:hover {
 	color: %topics_controls_hover;
-	text-decoration: underline;
 }
 
 .topics .names {
@@ -36,12 +42,10 @@
 
 .topics .names A.item {
 	color: %topics_names;
-	text-decoration: none;
 }
 
 .topics .names A.item:hover {
 	color: %topics_names_hover;
-	text-decoration: underline;
 }
 
 .topics .names A.new {
