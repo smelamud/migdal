@@ -58,10 +58,10 @@
    <error id='*EM_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
 	  span=2>
    <error id='*EM_NO_IMAGE' text='Указанной картинки не существует' span=2>
-   <error id='*EM_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
-   <error id='*EM_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+   <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+   <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
 	  span=2>
-   <error id='*EM_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
+   <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
 	  color='magenta' span=2>
    <ifzero what='$message.ImageSet'>
     <tr>

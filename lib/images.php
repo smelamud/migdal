@@ -91,19 +91,19 @@ global $userId;
 if(!isset($image) || $image=='' || !is_uploaded_file($image)
    || filesize($image)!=$image_size)
   {
-  $err=EM_OK;
+  $err=EIU_OK;
   return false;
   }
 if($image_size>$maxImage)
   {
-  $err=EM_IMAGE_LARGE;
+  $err=EIU_IMAGE_LARGE;
   return false;
   }
 $largeExt=getImageExtension($image_type);
 $smallExt=getImageExtension($thumbnailType);
 if($largeExt=='')
   {
-  $err=EM_UNKNOWN_IMAGE;
+  $err=EIU_UNKNOWN_IMAGE;
   return false;
   }
 
@@ -114,7 +114,7 @@ $smallFile="/tmp/mig-$hash.$smallExt";
 
 if(!move_uploaded_file($image,$largeFile))
   {
-  $err=EM_OK;
+  $err=EIU_OK;
   return false;
   }
 $large_size=getImageSize($largeFile);
@@ -149,12 +149,14 @@ $img=uploadImageUsingMogrify($HTTP_POST_FILES[$name]['tmp_name'],
 			     $HTTP_POST_FILES[$name]['size'],
 			     $HTTP_POST_FILES[$name]['type'],
 			     $thumbnail,$err);
+if(!$img)
+  return $img;
 if(!$img->store())
   {
-  $err=EM_IMAGE_SQL;
+  $err=EIU_IMAGE_SQL;
   return false;
   }
-$err=EM_OK;
+$err=EIU_OK;
 return $img;
 }
 

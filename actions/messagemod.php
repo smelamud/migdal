@@ -55,7 +55,7 @@ $message->setup($HTTP_POST_VARS);
 $img=uploadImage('image',true,$err);
 if($img)
   $message->setImageSet($img->getImageSet());
-if($err==EM_OK)
+if($err==EIU_OK)
   $err=modifyMessage($message);
 if($err==EM_OK)
   header("Location: $redir");
