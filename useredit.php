@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/users.php');
+require_once('lib/errors.php');
 
 require_once('top.php');
 
@@ -30,6 +31,15 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
 	        ($value ? 'checked' : '')."> $title";
 }
 
+function perror($code,$message,$color='red')
+{
+global $user,$err;
+
+if($user->isEditable() && $err==$code)
+  echo "<tr><td colspan=4><a name='error'>
+         <font color='$color'>$message</font>
+	</td></tr>";
+}
 ?>
 <html>
 <head>
@@ -60,14 +70,24 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
     }
   ?>
   <table>
+   <?php
+   perror(EUM_UPDATE_OK,'Новая информация принята и записана','green');
+   perror(EUM_NO_EDIT,'У вас нет права менять информацию для этого пользователя');
+   perror(EUM_STORE_SQL,'Ошибка базы данных при обновлении записи','magenta');
+   perror(EUM_ONLINE_SQL,'Ошибка базы данных при записи last_update','magenta');
+   ?>
    <tr>
     <?php
+    perror(EUM_LOGIN_ABSENT,'Ник не был введен');
+    perror(EUM_LOGIN_EXISTS,'Пользователь с таким ником уже существует');
     echo condEdit('Ник',$user->isEditable(),$user->getLogin(),'login',20,30);
     ?>
    </tr>
    <?php
    if($user->isEditable())
      {
+     perror(EUM_PASSWORD_LEN,'Пароль должен быть не менее 5 символов');
+     perror(EUM_PASSWORD_DIFF,'Опечатка при вводе пароля - введите еще раз');
      ?>
      <tr>
       <td>Пароль </td><td><input type=password name='password' size=20></td>
@@ -92,6 +112,9 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
                   30,30);
     ?>
    </tr>
+   <?php
+   perror(EUM_BIRTHDAY,'Совершенно идиотская дата рождения');
+   ?>
    <tr>
     <?php
     if($user->isEditable())
