@@ -4,8 +4,7 @@
 
 <element name='topic' params='posting'>
 <dt class='subject'>
- <a href='taglit-user.php?user_id=$posting.SenderId'
-    class='topic' title='$posting.TopicDescription'>
+ <a href='tips.php' class='topic' title='$posting.TopicDescription'>
   $posting.TopicName</a>
 </dt>
 </element>

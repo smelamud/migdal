@@ -15,9 +15,9 @@
 </element>
 
 <element name='navi_taglit' params='ident'>
-<topic_obj name='taglit' id='taglit'>
+<topic_obj name='taglit' id='$`taglit`'>
 
-<posting_last topic_id='$taglit.Id' recursive='*false'>
+<posting_last topic_id='$`taglit`' recursive='*false'>
 <topics_line time='$,' href='taglit.php' title='$taglit.Description'
 	     text='$taglit.Name' arrow!="$ident=='taglit'">
 </element>

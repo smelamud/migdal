@@ -1,11 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='taglit_gallery_picture'>
-<ifzero what='$taglit_id'>
- <topic_obj name='taglit' id='taglit'>
- <assign name='taglit_id' value='$taglit.Id'>
-</ifzero>
 <picture picture='$picture' showtopic='$showtopic' showdiscuss='$showdiscuss'
-         showcomplain='$showcomplain' shorten='$shorten' root='$taglit_id'
+         showcomplain='$showcomplain' shorten='$shorten' root='$`taglit`'
          topiclink#='taglit-user.php?user_id=$picture.SenderId'>
 </element>

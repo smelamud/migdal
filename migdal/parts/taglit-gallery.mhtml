@@ -1,10 +1,10 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='taglit_id,list'>
+<element name='batcher' params='list'>
 <table width=100% class='batcher'><tr valign=bottom>
 <logged>
  <td align=left>
-  <a href='postingedit.php?topic_id=$taglit_id&root=$taglit_id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+  <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
      class='add'>
    Добавить фотографию</a>
  </td>
@@ -15,16 +15,16 @@
 
 <element name='taglit_gallery'>
 <?php $limit=$rows*$cols; ?>
-<iterate_postinglist name='list' grp='*GRP_TAGLIT_GALLERY' topic='$taglit_id'
+<iterate_postinglist name='list' grp='*GRP_TAGLIT_GALLERY' topic='$`taglit`'
                      offset='$offset' limit='$limit' sort='*SORT_RATING'
 		     user='$user_id'>
 <iterate_rows cols='$cols'>
-<batcher taglit_id='$taglit_id' list='$list'>
+<batcher list='$list'>
 <table cellspacing=10 cellpadding=0>
  <tr valign=top>
   <for>
    <td>
-    <taglit_gallery_picture picture='$.' showtopic='*false' taglit_id=$taglit_id>
+    <taglit_gallery_picture picture='$.' showtopic='*false'>
    </td>
    <if what='$;isEol'>
     </tr><tr valign=top>
@@ -33,6 +33,6 @@
  </tr>
 </table>
 <ifnzero what='$list.Count'>
- <batcher taglit_id='$taglit_id' list='$list'>
+ <batcher list='$list'>
 </ifnzero>
 </element>

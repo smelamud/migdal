@@ -4,7 +4,6 @@
 <int name='offset'>
 <int name='user_id'>
 <grps>
-<topic_obj name='taglit' id='taglit'>
 <user_obj name='user' id='$user_id'>
 <pagetitle title#='Таглит - $user.FullName'>
 <topictitle title='$user.FullName'>
@@ -16,7 +15,7 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=120 class='eframe'><zone>
-   <topics_taglit taglit='$taglit' id='$user.Id'>
+   <topics_taglit id='$user.Id'>
    <topics_major ident='taglit'>
   </zone></td>
   <td>
@@ -32,13 +31,12 @@
     </div>
     <ifzero what='$offset'>
      <p>
-     <postings grp='*GRP_TAGLIT_FORUMS' topic='$taglit.Id' root='$taglit.Id'
+     <postings grp='*GRP_TAGLIT_FORUMS' topic='$`taglit`' root='$`taglit`'
                limit=0 user_id='$user.Id' showadvert='*false'>
     </ifzero>
    </div>
    <p>
-   <taglit_gallery taglit_id='$taglit.Id' user_id='$user.Id'
-                   rows='$userPictureRowPortion'
+   <taglit_gallery user_id='$user.Id' rows='$userPictureRowPortion'
  		   cols='$userPictureColumnPortion' offset='$offset'>
   </td>
  </tr></table>

@@ -10,10 +10,9 @@
 <preamble>
 <body>
  <top ident='index'>
- <topic_obj name='taglit' id='taglit'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=120 class='eframe'><zone>
-   <topics_taglit taglit='$taglit'>
+   <topics_taglit>
    <topics_major ident='taglit'>
   </zone></td>
   <td>
@@ -40,9 +39,9 @@
       свободно добавлять свои рассказы и фотографии.
      <else>
       нажать на ссылку
-      <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'>
+      <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_FORUMS&redirid=$_'>
        &lt;&lt;Добавить мнение&gt;&gt;</a> или
-      <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'>
+      <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'>
        &lt;&lt;Добавить фотографию&gt;&gt;</a>.
      </notlogged>
      Для каждого пользователя автоматически создается отдельный раздел.
@@ -54,15 +53,15 @@
    <p>
    <logged>
     <div class='batcher'>
-     <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
+     <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
         class='add'>
       Добавить мнение</a>&nbsp;
-     <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+     <a href='postingedit.php?topic_id=$`taglit`&root=$`taglit`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
         class='add'>
       Добавить фотографию</a>
     </div>
    </logged>
-   <taglit topic_id='$,Id'>
+   <taglit>
   </td>
  </tr></table>
  <bottom>

@@ -126,19 +126,19 @@
        defaults='span=0'>
 <decel name='subtitle' file='parts/subtitle.php' params='icon'
        defaults="icon=''">
-<decel name='taglit' file='parts/taglit.php' params='topic_id'>
+<decel name='taglit' file='parts/taglit.php'>
 <decel name='taglit_gallery' file='parts/taglit-gallery.php'
-       params='taglit_id,user_id,rows,cols,offset'>
+       params='user_id,rows,cols,offset'>
 <decel name='taglit_gallery_picture' file='parts/taglit-gallery-picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten,taglit_id'
+       params='picture,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false' taglit_id=0">
+                 shorten='*false'">
 <decel name='taglit_posting' file='parts/taglit-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
 <decel name='taglit_postings' file='parts/taglit-postings.php'
-       params='taglit_id,user_id'>
+       params='user_id'>
 <decel name='times_issue' file='parts/times-issue.php'
        params='issue,month,separate,align'
        defaults="separate='*false' align=''">
@@ -167,7 +167,7 @@
 <decel name='topics_table' params='class,span,title'
        defaults="class='' span=1 title=''" file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
-<decel name='topics_taglit' params='taglit,id' file='parts/topics-taglit.php'>
+<decel name='topics_taglit' params='id' file='parts/topics-taglit.php'>
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,root,recursive'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
