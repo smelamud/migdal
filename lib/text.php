@@ -190,6 +190,7 @@ switch($format)
  	   $c=flipReplace('_','<u>','</u>',$c);
  	   $c=flipReplace('~','<b>','</b>',$c);
  	   $c=flipReplace('=','<i>','</i>',$c);
+ 	   $c=flipReplace('^','<sup>','</sup>',$c);
  	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_TEX:
@@ -202,6 +203,7 @@ switch($format)
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   $c=flipReplace('=','<i>','</i>',$c);
+ 	   $c=flipReplace('^','<sup>','</sup>',$c);
 	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_HTML:
@@ -212,6 +214,7 @@ switch($format)
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   $c=flipReplace('=','<i>','</i>',$c);
+ 	   $c=flipReplace('^','<sup>','</sup>',$c);
 	   break;
       }
 return cropHTML($c);
