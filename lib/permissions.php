@@ -152,4 +152,27 @@ journal("update $table
 	     perms='.$perms->getPerms().'
 	 where id='.journalVar($table,$id));
 }
+
+function permitted($right,$user_id='user_id',$prefix='')
+{
+global $userId,$userGroups;
+
+if($prefix!='')
+  $prefix.='.';
+if($userId<=0)
+  return "(${prefix}perms & ".$right<<PB_GUEST.')<>0';
+$groups=array();
+foreach($userGroups as $g)
+       $groups[]="${prefix}group_id=$g";
+$groups[]="${prefix}group_id=$userId";
+return "$userId=${prefix}$user_id and
+       (${prefix}perms & ".$right<<PB_USER.')<>0
+       or
+       ('.join(' or ',$groups).") and
+       (${prefix}perms & ".$right<<PB_GROUP.")!=0
+       or
+       (${prefix}perms & ".$right<<PB_OTHER.")<>0
+       or
+       (${prefix}perms & ".$right<<PB_GUEST.')<>0';
+}
 ?>
