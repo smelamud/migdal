@@ -10,13 +10,13 @@
      <col width=0* span=2>
      <tr valign=bottom>
       <td>
-       <a href='/index.php'><image src='$$style_banner_logo' 
-                                   alt='Башня' border=0></a>
+       <at href='/index.php' target='$target'>
+        <image src='$$style_banner_logo' alt='Башня' border=0></at>
       </td>
       <td align=center>
-       <a href='/index.php'>
+       <at href='/index.php' target='$target'>
         <image src='$$style_banner_migdal' alt='Мигдаль' border=0><br>
-        <image src='$$style_banner_online' alt='on-line' border=0></a>
+        <image src='$$style_banner_online' alt='on-line' border=0></at>
       </td>
       <<td style='padding-left: 20px'>
        <hannukah>

@@ -8,7 +8,7 @@
 		      index1='$issue'>
  <for>
   <topics_line time='$.Sent' text='$.Subject'
-               href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
+               href#='$.DetailsFile?$.DetailsId=$.Id'
 	       arrow!='$.Id==$id' class='item ninept'>
  </for>
 </topics_table>
