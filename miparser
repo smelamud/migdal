@@ -56,7 +56,7 @@ while(my($name,$value)=each(%params))
        }
      else
        {
-       push @subs,"'$name' => ".subVar($value);
+       push @subs,"'$name' => ".subTypedValue('','%',$value);
        }
      }
 return 'remakeURI($redir->getURI(),array('.join(',',@del).'),array('
@@ -230,6 +230,27 @@ my ($s)=@_;
 return subVars($s,'<?php echo ','; ?>');
 }
 
+sub subConcat
+{
+my ($s)=@_;
+
+my $value="'".subVars($s,"'.",".'")."'";
+$value=~s/^''\.//;
+$value=~s/\.''$//;
+return $value;
+}
+
+sub subTypedValue
+{
+my ($type,$default,$s)=@_;
+
+$type=$type eq '' ? $default : $type;
+return $s if $type eq '$';
+return subVar($s) if $type eq '%';
+return subVars($s) if $type eq '!';
+return subConcat($s) if $type eq '#';
+}
+
 sub getArgList
 {
 my ($s)=@_;
@@ -305,7 +326,7 @@ my ($args)=@_;
 my @params=();
 for(my $n=1;exists $args->{"arg$n"};$n++)
    {
-   push @params,subVar($args->{"arg$n"});
+   push @params,subTypedValue('','%',$args->{"arg$n"});
    }
 return join ',',@params;
 }
@@ -380,8 +401,10 @@ my ($self,$args)=@_;
 my @list=();
 foreach(@{$self->{'params'}})
        {
-       push @list,::subVar(exists $args->{$_} && $args->{$_} ne ''
-                           ? $args->{$_} : $self->{'defaults'}->{$_});
+       push @list,::subTypedValue('','%',
+                    exists $args->{$_} && $args->{$_} ne ''
+                    ? $args->{$_} : $self->{'defaults'}->{$_},
+		  );
        }
 return join ',',@list;
 }
@@ -597,25 +620,39 @@ my ($self)=@_;
 return $self->{'args'};
 }
 
+sub getTypedArg
+{
+my ($self,$name,$default)=@_;
+
+return ::subTypedValue('',$default,$self->{'args'}->{$name});
+}
+
 sub getConstArg
 {
 my ($self,$name)=@_;
 
-return $self->{'args'}->{$name};
+return $self->getTypedArg($name,'$');
 }
 
 sub getExpressionArg
 {
 my ($self,$name)=@_;
 
-return ::subVars($self->{'args'}->{$name});
+return $self->getTypedArg($name,'!');
 }
 
-sub getArg
+sub getConcatArg
 {
 my ($self,$name)=@_;
 
-return ::subVar($self->{'args'}->{$name});
+return $self->getTypedArg($name,'#');
+}
+
+sub getVarArg
+{
+my ($self,$name)=@_;
+
+return $self->getTypedArg($name,'%');
 }
 
 sub process
@@ -657,8 +694,8 @@ sub elRefresh #XXX Possibly empty period,url
 {
 my ($self)=@_;
 
-my $period=$self->getArg('period');
-my $url=$self->getArg('url');
+my $period=$self->getVarArg('period');
+my $url=$self->getVarArg('url');
 ::header("<?php header('Refresh: '.$period.'; URL='.$url); ?>\n");
 ::body("<meta http-equiv='Refresh' value='<?php echo $period
                                            ?>;URL=<?php echo $url ?>'>\n");
@@ -778,7 +815,7 @@ sub elInclude
 {
 my ($self)=@_;
 
-::body('<?php include(',$self->getArg('name'),'); ?>');
+::body('<?php include(',$self->getVarArg('name'),'); ?>');
 }
 
 sub pushArray
@@ -787,7 +824,7 @@ sub pushArray
 
 if(exists $self->getArgs()->{$name})
   {
-  my $value=$self->getArg($name);
+  my $value=$self->getVarArg($name);
   if($value=~/^'([^']*)'$/)
     {
     $value=~s/^'([^']*)'$/\1/;
@@ -823,7 +860,7 @@ my ($self)=@_;
 
 my $name=$self->getConstArg('name');
 $name='const'.($::LastConst++) if $name eq '';
-::body("<?php \$$name=",$self->getArg('value'),'; ?>');
+::body("<?php \$$name=",$self->getVarArg('value'),'; ?>');
 $::Stack->top()->setConst($name);
 }
 
@@ -841,10 +878,7 @@ my ($self)=@_;
 
 my $name=$self->getConstArg('name');
 $name='const'.($::LastConst++) if $name eq '';
-my $value="'".::subVars($self->getConstArg('value'),"'.",".'")."'";
-$value=~s/^''\.//;
-$value=~s/\.''$//;
-::body("<?php \$$name=$value; ?>");
+::body("<?php \$$name=".$self->getConcatArg('value').'; ?>');
 $::Stack->top()->setConst($name);
 }
 
@@ -1032,7 +1066,7 @@ if($self->getConstArg('var') eq '')
 else
   {
   ::body("<?php \$$name->set".$self->getConstArg('var').
-         '('.$self->getArg('value').'); ?>');
+         '('.$self->getVarArg('value').'); ?>');
   }
 }
 
@@ -1054,7 +1088,7 @@ sub elRetarget
 {
 my ($self)=@_;
 
-$::Retarget=$self->getArg('target');
+$::Retarget=$self->getVarArg('target');
 }
 
 sub elNoparse
