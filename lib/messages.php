@@ -23,7 +23,6 @@ var $grp;
 var $image_set;
 var $image_id;
 var $has_large_image;
-var $up;
 var $hidden;
 var $disabled;
 var $sent;
@@ -48,13 +47,13 @@ if(isset($vars['subjectid']))
 
 function getCorrespondentVars()
 {
-return array('body','subject','topic_id','grp','image_set','up','hidden',
-             'disabled','personal_id');
+return array('body','subject','topic_id','grp','image_set','hidden','disabled',
+             'personal_id');
 }
 
 function getWorldVars()
 {
-return array('body','subject','topic_id','grp','image_set','up','hidden',
+return array('body','subject','topic_id','grp','image_set','hidden',
              'personal_id');
 }
 
@@ -63,20 +62,20 @@ function getAdminVars()
 return array('disabled');
 }
 
-function store()
+function store($id='id',$admin='userModerator')
 {
-global $userId,$userModerator;
+global $userId;
 
-$normal=$this->getNormal($userModerator);
-if($this->id)
-  $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->id)));
+$normal=$this->getNormal($GLOBALS[$admin]);
+if($this->$id)
+  $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->$id)));
 else
   {
   $sent=date('Y-m-d H:i:s',time());
   $normal['sender_id']=$userId;
   $normal['sent']=$sent;
   $result=mysql_query(makeInsert('messages',$normal));
-  $this->id=mysql_insert_id();
+  $this->$id=mysql_insert_id();
   $this->sender_id=$userId;
   $this->sent=$sent;
   }
@@ -172,16 +171,6 @@ function hasLargeImage()
 return $this->has_large_image;
 }
 
-function getUpValue()
-{
-return $this->up;
-}
-
-function setUpValue($up)
-{
-$this->up=$up;
-}
-
 function isHidden()
 {
 return $this->hidden;
@@ -228,16 +217,6 @@ function Forum($row)
 {
 $this->grp=GRP_FORUMS;
 $this->Message($row);
-}
-
-function hasSubject()
-{
-return $this->up==0;
-}
-
-function hasTopic()
-{
-return $this->up==0;
 }
 
 function hasImage()
