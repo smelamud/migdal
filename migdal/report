@@ -11,12 +11,42 @@ $VERSION='0.2';
 $directory='.';
 $fromDate=0;
 $toDate=0;
+$report='raw';
+$interval=1;
+$popularity=0;
 
 @topics=();
 @postings=();
 @messages=();
 @imagesets=();
 @users=();
+
+package Counter;
+
+sub new
+{
+my ($class)=@_;
+
+return bless {'value'  => 0,
+              'visits' => {}},$class;
+}
+
+sub inc
+{
+my ($self,$addr,$time)=@_;
+
+$self->{'value'}++ if $time-$self->{'visits'}->{$addr}>=$::interval*3600;
+$self->{'visits'}->{$addr}=$time;
+}
+
+sub getValue
+{
+my ($self)=@_;
+
+return $self->{'value'};
+}
+
+package main;
 
 sub parseDate
 {
@@ -60,6 +90,15 @@ Migdal report generator (for 'migdal' interface)
                             current directory)
   -f, --from=<date>         Starting date for statistics
   -h, --help                Print this help and exit
+  -i, --interval=<n>        Minimal interval in hours between visits from the
+                            same address, considered to be different visits
+			    (1 hour by default)
+  -p, --popularity=<n>      Minimal popularity to output
+  -r, --report=<type>       Output some kind of report
+	domains      Domains popularity report
+	popularity   Popularity report
+        raw          Raw user-readable log (default)
+	visits       Output number of individual visits
   -t, --to=<date>           Final date for statistics
   -v, --version             Print version information and exit
 
@@ -121,11 +160,35 @@ while(<IN>)
 close IN;
 }
 
+sub getInitSub
+{
+return 'init'.ucfirst(lc $report);
+}
+
 sub init
 {
 initTopics();
 initPostings();
 initUsers();
+die "report: unknown report type\n" if !defined(&{getInitSub()});
+&{getInitSub()}();
+}
+
+sub initDomains
+{
+}
+
+sub initPopularity
+{
+}
+
+sub initRaw
+{
+}
+
+sub initVisits
+{
+$counter=new Counter;
 }
 
 @Months=('Jan','Feb','Mar','Apr','May','Jun',
@@ -151,47 +214,160 @@ for($i=3;$i>=0;$i--)
 return join '.',@ip;
 }
 
-sub comment
+sub specify
 {
 my ($s)=@_;
 
+my $c='';
 my @specs=$s=~/\w+\(-?\d+\)/g;
 foreach(@specs)
        {
        my ($name,$value)=/^(\w+)\((-?\d+)\)$/;
-       $s.=' /* '.$topics[$value].' */' if $name eq 'topic' && $value>0;
-       $s.=' /* Все темы */' if $name eq 'topic' && $value<=0;
-       $s.=' /* '.$users[$value].' */' if $name eq 'user';
-       $s.=' /* '.$postings[$value].' */' if $name eq 'post';
-       $s.=' /* '.$messages[$value].' */' if $name eq 'msg';
-       $s.=' /* '.$imagesets[$value].' */' if $name eq 'imageset';
+       $c.=' '.$topics[$value] if $name eq 'topic' && $value>0;
+       $c.=' Все темы' if $name eq 'topic' && $value<=0;
+       $c.=' '.$users[$value] if $name eq 'user';
+       $c.=' '.$postings[$value] if $name eq 'post';
+       $c.=' '.$messages[$value] if $name eq 'msg';
+       $c.=' '.$imagesets[$value] if $name eq 'imageset';
+       $c.=" N$value" if $name eq 'issue';
        }
+return $c;
+}
+
+sub comment
+{
+my ($s)=@_;
+
+my $c=specify($s);
+$s.=" /*$c */" if $c!~/^\s*$/;
 return $s;
+}
+
+sub describe
+{
+my ($s)=@_;
+
+my ($type)=$s=~/^(\w+):/;
+my $c='';
+$c='[Статья]' if $type eq 'article';
+$c='[Обсуждение]' if $type eq 'forum';
+$c='[Обсуждения]' if $type eq 'forumcatalog';
+$c='[Галерея]' if $type eq 'gallery';
+$c='[Картинка]' if $type eq 'imageview';
+$c='[Главная]' if $type eq 'index';
+$c='[Ссылка]' if $type eq 'link';
+$c='[Сообщение]' if $type eq 'posting';
+$c='[Таглит]' if $type eq 'taglit';
+$c='[Мигдаль Times]' if $type eq 'times';
+$c='[О пользователе]' if $type eq 'userinfo';
+$c='[Голосование]' if $type eq 'vote';
+return $c.specify($s);
+}
+
+sub getRunSub
+{
+return 'run'.ucfirst(lc $report);
 }
 
 sub run
 {
+die "report: unknown report type\n" if !defined(&{getRunSub()});
 open IN,"$directory/log";
 while(<IN>)
      {
      chomp;
      my @log=split /\t/;
      next if $log[1]<$fromDate || $toDate!=0 && $log[1]>=$toDate;
-     print getTimeStr($log[1]).' '.getAddress($log[2])."\t".$log[0].': '.
-           comment($log[3])."\n";
+     &{getRunSub()}(\@log);
      }
 close IN;
 }
 
+sub runDomains
+{
+my ($log)=@_;
+
+return if $$log[0] ne 'enter';
+my ($domain)=$$log[3]=~/domain=(\w+)/;
+$counters{$domain}=new Counter() unless defined $counters{$domain};
+$counters{$domain}->inc($$log[2],$$log[1]);
+}
+
+sub runPopularity
+{
+my ($log)=@_;
+
+return if $$log[0] eq 'trap' || $$log[0] eq 'enter' || $$log[0] eq 'login'
+          || $$log[0] eq 'logout';
+my $s=$$log[0].': '.$$log[3];
+$counters{$s}=new Counter() unless defined $counters{$s};
+$counters{$s}->inc($$log[2],$$log[1]);
+}
+
+sub runRaw
+{
+my ($log)=@_;
+
+print getTimeStr($$log[1]).' '.getAddress($$log[2])."\t".$$log[0].': '.
+      comment($$log[3])."\n";
+}
+
+sub runVisits
+{
+my ($log)=@_;
+
+$counter->inc($$log[2],$$log[1]);
+}
+
+sub getDoneSub
+{
+return 'done'.ucfirst(lc $report);
+}
+
 sub done
+{
+die "report: unknown report type\n" if !defined(&{getDoneSub()});
+&{getDoneSub()}();
+}
+
+sub doneDomains
+{
+@domains=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+              keys %counters;
+for my $domain(@domains)
+    {
+    printf "%5i  %s\n",$counters{$domain}->getValue(),$domain;
+    }
+}
+
+sub donePopularity
+{
+@pages=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+            keys %counters;
+for my $page(@pages)
+    {
+    printf "%5i  %s\n",$counters{$page}->getValue(),describe($page)
+           if $counters{$page}->getValue()>=$popularity;
+    }
+}
+
+sub doneRaw
 {
 }
 
-GetOptions('directory|d=s' => \$directory,
-           'from|f=s'      => \&fromDate,
-           'help|h|?'	   => \&help,
-           'to|t=s'        => \&toDate,
-	   'version|v'	   => \&version);
+sub doneVisits
+{
+print $counter->getValue(),"\n";
+}
+
+GetOptions('directory|d=s'  => \$directory,
+           'from|f=s'       => \&fromDate,
+           'help|h|?'	    => \&help,
+	   'interval|i=i'   => \$interval,
+	   'popularity|p=i' => \$popularity,
+	   'report|r=s'     => \$report,
+           'to|t=s'         => \&toDate,
+	   'version|v'	    => \&version);
 
 init();
 run();

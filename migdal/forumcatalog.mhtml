@@ -4,6 +4,7 @@
 <force_community>
 <int name='topic_id'>
 <int name='offset'>
+<log event=forumcatalog text#='topic($topic_id) offset=$offset'>
 <grps>
 <unititle chapter='Обсуждения' topic_id='$topic_id'>
 
