@@ -1,9 +1,9 @@
 << @(#) $Id$ >>
 
 <element name='Menu'>
-<iterate_menu ident='$ident'>
+<iterate_menu>
 <for>
- <if what='$.isCurrent'>
+ <if what='$.Ident==$ident'>
   <a href='$.Link'><b>[$.Name]</b></a>
  <else>
   <a href='$.Link'>[$.Name]</a>

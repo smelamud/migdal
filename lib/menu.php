@@ -13,13 +13,10 @@ var $ident;
 var $link;
 var $hidden;
 var $menu_index;
-var $current;
 
-function MenuItem($row,$aCurrent=0)
+function MenuItem($row)
 {
 $this->DataObject($row);
-$this->current=is_integer($aCurrent) ? $this->id==$aCurrent
-                                     : $this->ident==$aCurrent;
 }
 
 function setup($vars)
@@ -81,17 +78,11 @@ function getMenuIndex()
 return $this->menu_index;
 }
 
-function isCurrent()
-{
-return $this->current;
-}
-
 }
 
 class MenuIterator
       extends SelectIterator
 {
-var $current;
 
 function MenuIterator($aCurrent)
 {
@@ -103,12 +94,6 @@ $this->SelectIterator('MenuItem',
 		       from menu
 		       where hidden<$hide
 		       order by menu_index");
-$this->current=$aCurrent;
-}
-
-function create($row)
-{
-return new MenuItem($row,$this->current);
 }
 
 }
