@@ -23,14 +23,14 @@ $counterModes=array(
 			      'ttl'        => 168,
 			      'period'     => 0,
 			      'grp'        => GRP_EARS,
-			      'max_serial' => 0
+			      'max_serial' => 2
 			     ),
 		    CMODE_EAR_CLICKS
 		     => array(
 			      'ttl'        => 168,
 			      'period'     => 0,
 			      'grp'        => GRP_EARS,
-			      'max_serial' => 0
+			      'max_serial' => 2
 			     ),
                    );
 ?>
