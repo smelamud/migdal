@@ -24,6 +24,9 @@ var $email;
 var $icq;
 var $email_disabled;
 var $admin_users;
+var $hidden;
+var $online;
+var $no_login;
 
 function User($row)
 {
@@ -44,7 +47,8 @@ $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 function getCorrespondentVars()
 {
 return array('login','password','dup_password','name','jewish_name','surname',
-             'migdal_student','info','email','icq','admin_users');
+             'migdal_student','info','email','icq','admin_users','hidden',
+	     'no_login');
 }
 
 function getWorldVars()
@@ -55,7 +59,7 @@ return array('login','name','jewish_name','surname','info','birthday',
 
 function getAdminVars()
 {
-return array('admin_users');
+return array('admin_users','hidden','no_login');
 }
 
 function getWorldVarValues()
@@ -222,13 +226,28 @@ return $this->email_disabled;
 
 function getLastOnline()
 {
-$t=strtotime($this->last_online);
-return date('j/m/Y в H:i:s',$t);
+if(isset($this->online))
+  return 'Сейчас';
+else
+  {
+  $t=strtotime($this->last_online);
+  return date('j/m/Y в H:i:s',$t);
+  }
 }
 
 function isAdminUsers()
 {
 return $this->admin_users;
+}
+
+function isHidden()
+{
+return $this->hidden;
+}
+
+function isNoLogin()
+{
+return $this->no_login;
 }
 
 }
@@ -239,20 +258,35 @@ class UserListIterator
 
 function UserListIterator()
 {
+global $userAdminUsers;
+
+$hide=$userAdminUsers ? 2 : 1;
 $this->SelectIterator('User',
-                      'select id,login,name,jewish_name,surname,birthday,
-		              migdal_student,email,icq,last_online
-		       from users
-		       order by login');
+                      "select distinct users.id as id,login,name,jewish_name,
+		              surname,birthday,migdal_student,email,icq,
+			      last_online,sessions.user_id as online
+		       from users left join sessions
+		                  on users.id=sessions.user_id
+				  and sessions.last+interval 1 hour>now()
+		       where hidden<$hide
+		       order by login");
 }
 
 }
 
 function getUserById($id)
 {
-$result=mysql_query("select *
-                     from users
-		     where id=$id");
+global $userAdminUsers;
+
+$hide=$userAdminUsers ? 2 : 1;
+$result=mysql_query("select distinct users.id as id,login,name,jewish_name,
+                            surname,info,birthday,migdal_student,last_online,
+			    email,icq,email_disabled,admin_users,hidden,
+			    no_login,sessions.user_id as online
+		     from users left join sessions
+				on users.id=sessions.user_id
+				and sessions.last+interval 1 hour>now()
+		     where users.id=$id and hidden<$hide");
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());
 }

@@ -237,6 +237,16 @@ if($user->isEditable() && $err==$code)
      echo condCheckBox($userAdminUsers,'admin_users',
 		       $user->isAdminUsers(),'Администратор пользователей');
     ?>
+    <br>
+    <?php
+     echo condCheckBox($userAdminUsers,'hidden',
+		       $user->isHidden(),'Не показывать в списке пользователей');
+    ?>
+    <br>
+    <?php
+     echo condCheckBox($userAdminUsers,'no_login',
+		       $user->isNoLogin(),'Запретить вход');
+    ?>
     </td>
    </tr>
   </table>

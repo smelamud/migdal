@@ -11,7 +11,7 @@ global $login,$password;
 
 $result=mysql_query('select id from users where login="'
                      .AddSlashes($login).'" and password="'
-		     .AddSlashes(md5($password)).'"');
+		     .AddSlashes(md5($password)).'" and no_login=0');
 if(!$result)
   die('Ошибка SQL при выборке логина и пароля');
 if(mysql_num_rows($result)==0)
