@@ -9,10 +9,10 @@
  <moderator>
   <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
    <td width=150>
-    <topics_admin ident='news'>
+    <topics_admin ident='quotes'>
    </td>
    <td>
-    <postings grp='*GRP_NEWS' offset='$offset' root='general'>
+    <postings grp='*GRP_QUOTES' offset='$offset'>
    </td>
   </tr></table>
  </moderator>

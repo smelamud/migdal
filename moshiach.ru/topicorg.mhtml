@@ -32,14 +32,15 @@
 <preamble_admin>
 <body>
  <top_admin>
- <table width=100%><tr valign=top>
-  <td width=150>
-   <topics_admin ident='topics'>
-  </td>
-  <td class='ninept topics'>
-   <branch up=0>
-  </td>
- </tr></table>
- <bottom>
+ <moderator>
+  <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
+   <td width=150>
+    <topics_admin ident='topics'>
+   </td>
+   <td class='ninept topics'>
+    <branch up=0>
+   </td>
+  </tr></table>
+ </moderator>
 </body>
 </html>

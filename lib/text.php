@@ -209,6 +209,7 @@ switch($format)
  	   $c=replaceCenter($c);
  	   $c=replaceParagraphs($c);
  	   $c=str_replace("\n",'<br>',$c);
+	   $c=str_replace('\\\\','<br>',$c);
  	   $c=flipReplace('_','<u>','</u>',$c);
  	   $c=flipReplace('~','<b>','</b>',$c);
  	   $c=flipReplace('=','<i>','</i>',$c);

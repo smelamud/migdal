@@ -11,6 +11,40 @@
 </element>
 
 <element name='posting' params='posting'>
+<dl class='posting'>
+ <dt class='subject'>
+  <span class='topic'>$posting.TopicName</span>
+  <br>
+  $posting.Subject
+  <ifne what='$posting.Author'>
+   <br><span class='author'>$posting.HTMLAuthor</span>
+  </ifne>
+ </dt>
+ <dd><p>
+ <ifnzero what='$posting.ImageSet'>
+  <table align=left class='pic'>
+   <tr><td>
+    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+   </td></tr>
+   <ifne what='$posting.Title'>
+    <tr><td>$posting.HTMLTitle</td></tr>
+   </ifne>
+  </table>
+ </ifnzero>
+ $posting.HTMLBody&nbsp;<asp>
+ </p>
+ <ifne what='$posting.Source'>
+  <div class='source' style="width: 90%; clear: left">
+   $posting.HTMLSource
+  </div>
+ </ifne>
+ <table width=90% class='bottom'><tr>
+  <td>
+   <a href="postingedit.php?editid=$posting.Id&root=general&grp=$posting.Grp&redirid=$_"
+    >Изменить</a>
+  </td>
+ </tr></table>
+</dl>
 </element>
 
 <element name='postings'>

@@ -4,5 +4,6 @@
 <topics_table title='Администратор'>
  <topics_line text='Новости' href='admin.php' arrow!="$ident=='news'">
  <topics_line text='Темы' href='topicorg.php' arrow!="$ident=='topics'">
+ <topics_line text='Цитаты' href='quotes.php' arrow!="$ident=='quotes'">
 </topics_table>
 </element>
