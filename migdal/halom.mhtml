@@ -136,7 +136,7 @@
       <controls posting='$posting' halom='$halom'>
      </ifnzero>
     </td>
-    <td width=140>
+    <outer><td width=140><inner>
      <reset_iterator>
      <for>
       <if what='!$;isOdd'>
