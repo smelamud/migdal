@@ -90,6 +90,10 @@ while($row=mysql_fetch_assoc($result))
 
 function rotateCounters()
 {
+global $replicationMaster;
+
+if(!$replicationMaster)
+  return;
 $result=mysql_query("select message_id,mode
                      from counters
 		     where finished<now()");
