@@ -16,11 +16,17 @@ return $c<=0;
 
 function convertInput($s)
 {
-$c=str_replace(array("\xAB","\xBB","\x96","\x97","\x84",
-                     "\x93","\xAE","\x99","\xB9","\x85"),
+$c=str_replace(array("\xAB","\xBB","\x96","\x97","\x93",
+                     "\x94","\xAE","\x99","\xB9","\x85"),
                array('<<','>>','---','---','``',
 	             "''",'(r)','(tm)','No.','...'),$s);
-return convert_cyr_string($c,'w','k');
+$cc=convert_cyr_string($c,'w','k');
+$fd=fopen('/tmp/msgs.log','a');
+fputs($fd,"$s\n");
+fputs($fd,"$c\n");
+fputs($fd,"$cc\n");
+fclose($fd);
+return $cc;
 }
 
 function convertOutput($s)
@@ -33,7 +39,7 @@ return convert_cyr_string($userReadKOI>0
        : str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;",
                            '(c)','(C)','(r)','(R)','(tm)',
 			   '(TM)','No.'),
-                     array('&laquo;','&raquo;','&mdash;','&bdquo;','&rdquo;',
+                     array('&laquo;','&raquo;','&mdash;','&ldquo;','&rdquo;',
 		           '&copy;','&copy;','&reg;','&reg;','&trade;',
 			   '&trade;','&#8470;'),$s),'k','w');
 }
