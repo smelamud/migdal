@@ -47,9 +47,11 @@ function getInplaceBody()
 {
 global $inplaceSize,$inplaceSizeMinus,$inplaceSizePlus;
 
-return clearStotext($this->getFormat(),
-		    shorten($this->getBody(),$inplaceSize,
-			    $inplaceSizeMinus,$inplaceSizePlus));
+$shortBody=shorten($this->getBody(),$inplaceSize,
+                   $inplaceSizeMinus,$inplaceSizePlus);
+if($shortBody!=$this->getBody())
+  $shortBody.='...';
+return clearStotext($this->getFormat(),$shortBody);
 }
 
 function getHTMLBody()
