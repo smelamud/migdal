@@ -5,7 +5,7 @@
  <assign name='recursive' value='*false'>
 </if>
 <iterate_sortedtopicnames grp='$grp' up='$root' recursive='$recursive'>
-<ifnzero what='$;Count-$recursive'>
+<if what='$;Count-$recursive>0'>
  <tr>
   <td>$title <if what='$mandatory'><star></if></td>
   <td>
@@ -22,5 +22,5 @@
  </tr>
 <else>
  <hidden name='$name' value='$root'>
-</ifnzero>
+</if>
 </element>
