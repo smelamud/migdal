@@ -74,7 +74,7 @@
   </td></tr>
   <ifne what='$posting.Source'>
    <tr><td class='source'>
-    $posting.Source
+    $posting.HTMLSource
    </td></tr>
   </ifne>
   <if what='$$userId>0 || $discuss || $posting.hasLargeBody'>
