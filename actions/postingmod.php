@@ -35,29 +35,28 @@ return $result ? EP_OK : EP_TITLE_SQL;
 
 function isPremoderated($message)
 {
-global $userModerator;
+global $userId,$userModerator;
 
 return (((int)getPremoderateByTopicId($message->getTopicId())
-        & (int)$message->getGrp())!=0 || $message->getLargeFormat()==TF_HTML)
-       && !$userModerator;
+         & (int)$message->getGrp())!=0 || $message->getLargeFormat()==TF_HTML
+	|| $userId<=0) && !$userModerator;
 }
 
 function setDisabled($message)
 {
+if(!isPremoderated($message))
+  return true;
 $complain=getComplainInfoByLink(COMPL_AUTO_POSTING,$message->getId());
 if($complain->getId()==0)
   {
-  if(isPremoderated($message))
-    {
-    $result=mysql_query('update messages
-			 set disabled=1
-			 where id='.$message->getMessageId());
-    if(!$result)
-      return false;
-    journal('update messages
-	     set disabled=1
-	     where id='.journalVar('messages',$message->getMessageId()));
-    }
+  $result=mysql_query('update messages
+		       set disabled=1
+		       where id='.$message->getMessageId());
+  if(!$result)
+    return false;
+  journal('update messages
+	   set disabled=1
+	   where id='.journalVar('messages',$message->getMessageId()));
   sendAutomaticComplain(COMPL_AUTO_POSTING,
 			'Автоматическая проверка сообщения "'.
 			 $message->getSubjectDesc().'"',
