@@ -42,9 +42,9 @@
  </table>
  <for>
   <if what='$topic<0'>
-   <assing name='showtopic' value='*true'>
+   <assign name='showtopic' value='*true'>
   <else>
-   <assing name='showtopic' value='*false'>
+   <assign name='showtopic' value='*false'>
   </if>
   <posting posting='$.' grp='$grp' showtopic='$showtopic' shorten='*true'>
  </for>
