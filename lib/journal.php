@@ -80,7 +80,7 @@ function jencode($s)
 $c='';
 for($i=0;$i<strlen($s);$i++)
    if($s[$i]=='$' || $s[$i]=='%')
-     $c.='%'.dechex(ord($s[$i]));
+     $c.=sprintf('%02X',ord($s[$i]));
    else
      $c.=$s[$i];
 return $c;
@@ -91,7 +91,7 @@ function jtencode($s)
 $c='';
 for($i=0;$i<strlen($s);$i++)
    if(ord($s[$i])>=0 && ord($s[$i])<=32)
-     $c.='%'.dechex(ord($s[$i]));
+     $c.=sprintf('%02X',ord($s[$i]));
    else
      $c.=$s[$i];
 return $c;
