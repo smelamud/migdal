@@ -25,8 +25,7 @@
 
 .posting .subject A.topic {
 	color: %posting_topic;
-	font-family: %times;
-	font-size: 10pt;
+	font: bold 10pt %times;
 	text-decoration: underline;
 }
 
