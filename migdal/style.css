@@ -1,10 +1,11 @@
 /* @(#) $Id$ */
 
+/* Global */
+
 * {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10pt;
 }
-
 
 .error[color='red'] {
 	color: red;
@@ -13,6 +14,8 @@
 .error[color='magenta'] {
 	color: magenta;
 }
+
+/* Menu */
 
 .menu {
 	background-color: #0C20A5;
@@ -33,6 +36,7 @@
 	text-decoration: underline;
 }
 
+/* State */
 
 .state {
 	font-size: 8pt;
@@ -70,6 +74,7 @@
 	font-size: 8pt;
 }
 
+/* Return */
 
 .return IMG {
 	border-width: 0px;
@@ -84,6 +89,7 @@
 	text-decoration: underline;
 }
 
+/* Batcher */
 
 .batcher {
 	font-size: 8pt;
@@ -117,6 +123,8 @@
 	border-width: 1px;
 	font-size: 8pt;
 }
+
+/* Posting */
 
 .posting {
 	border: 1px solid #52739C;
@@ -207,14 +215,9 @@
 	color: blue;
 	text-decoration: underline;
 }
-/* TABLE.forum {
-	background-color: #FFF09B;
-}
 
-TABLE.complain {
-	background-color: #FFBFB9;
-}
+/* Chat */
 
-TABLE.topics {
-	background-color: #E8E8E8;
-}*/
+IFRAME {
+	border-width: 0px;
+}
