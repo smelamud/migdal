@@ -8,9 +8,9 @@ OBJECTS = article.php article-times.php book.php book-chapter.php chat.php \
 	  complainedit.php complainforum.php complains.php forum.php \
 	  forumansweredit.php forumcatalog.php gallery.php index.php \
 	  kaitana.php limedit.php liminsert.php links.php posting.php \
-	  postingedit.php rating.php register.php stotext-help-subs.php \
-	  stotext-help-types.php style.php taglit.php taglit-user.php \
-	  times.php times-reorder.php tips.php topicdel.php topicedit.php \
+	  postingedit.php rating.php register.php reorder.php \
+	  stotext-help-subs.php stotext-help-types.php style.php taglit.php \
+	  taglit-user.php times.php tips.php topicdel.php topicedit.php \
 	  topiclinkadd.php topicorg.php useredit.php userfin.php userinfo.php \
 	  userinfo-panel.php userlost.php userok.php userrepair.php users.php
 	  

@@ -3,6 +3,9 @@
 <pagetitle title='Расстановка статей'>
 
 <int name='issue'>
+<int name='topic_id'>
+<int name='grp'>
+<int name='up'>
 
 <element name='order_selector' params='sels,current'>
 <select name='art[]'>
@@ -22,13 +25,11 @@
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
-   <hidden name='issue' value='$issue'>
-   <iterate_postinglist name='sels' grp='*GRP_TIMES_ARTICLES' 
-                        topic='$`migdal-times`' recursive='*true' limit=0
-			sort='*SORT_INDEX0' index1!='$issue'>
-   <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='$`migdal-times`'
-			recursive='*true' limit=0 sort='*SORT_INDEX0'
-			index1!='$issue'>
+   <iterate_postinglist name='sels' grp='$grp' topic='$topic_id'
+                        recursive='*true' limit=0 sort='*SORT_INDEX0'
+			index1!='$issue' up='$up'>
+   <iterate_postinglist grp='$grp' topic='$topic_id' recursive='*true' limit=0
+                        sort='*SORT_INDEX0' index1!='$issue' up='$up'>
    <table>
     <error id='*EO_DUPS' text='Некоторые статьи указаны дважды' span=2>
     <error id='*EO_NO_ARTICLE' text='Статьи не существует' span=2>

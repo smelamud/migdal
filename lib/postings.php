@@ -505,6 +505,7 @@ $filter=$id>=0 ? "postings.id=$id"
 $result=mysql_query(
 	"select postings.id as id,messages.track as track,
 	        postings.ident as ident,postings.message_id as message_id,
+		messages.up as up,
 		messages.stotext_id as stotext_id,stotexts.body as body,
 		stotexts.large_format as large_format,
 		stotexts.large_body as large_body,messages.lang as lang,
@@ -658,6 +659,15 @@ $result=mysql_query("select id,vote,vote_count
 	  or sqlbug('Ошибка SQL при получении рейтинга постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
+}
+
+function getPostingIdByMessageId($id)
+{
+$result=mysql_query("select id
+                     from postings
+		     where message_id=$id")
+	  or sqlbug('Ошибка SQL при получении постинга по сообщению');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function postingExists($id)

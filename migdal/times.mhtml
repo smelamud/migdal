@@ -55,7 +55,7 @@
   <a href='postingedit.php?root=$`migdal-times`&grp=*GRP_TIMES_ARTICLES&redirid=$_'
      class=add>Добавить статью</a>
   <if what='$issue>0'>
-   &nbsp;<a href='times-reorder.php?issue=$issue&redirid=$_'
+   &nbsp;<a href='reorder.php?issue=$issue&topic_id=$`migdal-times`&grp=*GRP_TIMES_ARTICLES&up=-1&redirid=$_'
             class=add>Расставить</a>
   </if>
  </div>

@@ -31,7 +31,6 @@ foreach($art as $id)
 return EO_OK;
 }
 
-postInteger('issue');
 postIntegerArray('art');
 
 dbOpen();
