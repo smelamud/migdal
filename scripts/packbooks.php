@@ -99,8 +99,7 @@ if($type==PT_BOOK_SPLIT)
 $list->reset();
 while($item=$list->next())
      {
-     $chap=getFullPostingById($item->getId(),GRP_BOOK_CHAPTERS,-1,-1,
-                              SELECT_IMAGES);
+     $chap=getPostingById($item->getId(),GRP_BOOK_CHAPTERS,-1,-1,SELECT_IMAGES);
      $pars=new PostingParagraphIterator($chap);
      while($par=$pars->next())
           copyImage($dir,$par);
