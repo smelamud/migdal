@@ -1,5 +1,19 @@
 << @(#) $Id$ >>
 
+<element name='translation' params='href'>
+<ifne what='$href'>
+ <table class='ninept'><tr valign=center>
+  <english>
+   <td><image src='pics/lang-ru.gif'></td>
+   <td><a href='$href'>Русская версия</a>&nbsp;&nbsp;</td>
+  <else>
+   <td><image src='pics/lang-us.gif'></td>
+   <td><a href='$href'>English version</a>&nbsp;&nbsp;</td>
+  </english>
+ </tr></table>
+</ifne>
+</element>
+
 <element name='top'>
 <script src='/window.js' language='JavaScript'></script>
 <table width=100% cellspacing=0 cellpadding=0>
@@ -48,7 +62,10 @@
    <rambler_count>
   </td>
   <td align=right style='padding-right: 5px; padding-top: 5px'>
-   <image src='pics/bsd-main.gif' alt='БС"Д'>
+   <outer><table cellspacing=0 cellpadding=0><tr valign=top>
+    <td><inner><translation href='$transref'></inner></td>
+    <td><common><image src='pics/bsd-main.gif' alt='БС"Д'></common></td>
+   </tr></table></outer>
   </td>
  </tr>
  <tr>

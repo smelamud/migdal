@@ -164,8 +164,8 @@
                  shorten='*false'">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
-       params='ident,no_new,target,showimages'
-       defaults="no_new='*false' target='' showimages='*true'">
+       params='ident,no_new,target,showimages,transref'
+       defaults="no_new='*false' target='' showimages='*true' transref=''">
 <decel name='topiclink' file='parts/posting.php' params='posting,class'
        defaults="class='topic'">
 <decel name='topics' file='parts/topics-general.php' params='posting'>

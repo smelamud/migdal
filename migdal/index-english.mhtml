@@ -14,7 +14,7 @@
 <stylesheet ident='article'>
 <preamble>
 <body>
- <top ident='index'>
+ <top ident='index' transref='http://www.migdal.ru/migdal.php'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
    <topics posting='$,'>
