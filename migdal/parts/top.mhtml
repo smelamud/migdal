@@ -5,8 +5,8 @@
 <menu ident='$ident' target='$target'>
 <table class='state'><tr>
  <td class='topimage'>
-  <img src='pics/migdal-online.gif'>
-  <img src='pics/big-tower.gif'>
+  <a href='/index.php'><img src='$$style_banner_name' border=0></a>
+  <img src='$$style_banner_logo'>
   <img src='$image'>
  </td>
  <td align=right><login flags='$flags' err='$$err' target='$target'
@@ -14,12 +14,14 @@
 </tr></table>
 <table class='state'><tr>
  <td class='style'>
-  <if what="$ident!='style'">
-   <at href='/style.php?redir=$_' target='$target'>Настроить вид</a>
-  <else>
-   <at href='/style.php?redir=$_' class='active'
-       target='$target'>Настроить вид</a>
-  </if>
+  <zone>
+   <concat value='/style.php?redir=$_'>
+   <if what="$ident!='style'">
+    <at href='$*' target='$target'>Настроить вид</a>
+   <else>
+    <at href='$*' class='active' target='$target'>Настроить вид</a>
+   </if>
+  </zone>
  </td>
  <td class='date'><today></td>
 </tr></table>
