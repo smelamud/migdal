@@ -6,16 +6,6 @@
 <html>
 <preamble>
 <body>
- <style><!--
- .edit {
- 	color: $style_grm;
- }
-
- .edit:hover {
- 	color: blue;
- }
- //-->
- </style>
  <top ident='index'>
  <table width=100% cellpadding=5>
   <tr valign=top>

@@ -24,7 +24,12 @@
 }
 
 .topics A.edit {
+	color: %topics_controls;
 	font-size: 8pt;
+}
+
+.topics A.edit:hover {
+	color: %topics_controls_hover;
 }
 
 .topics .names {

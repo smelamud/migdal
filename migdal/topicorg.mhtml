@@ -45,14 +45,6 @@
  TT {
  	font-family: $style_courier;
  }
-
- .edit {
- 	color: $style_grm;
- }
-
- .edit:hover {
- 	color: blue;
- }
  //-->
  </style>
  <top ident='index'>
