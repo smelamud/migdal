@@ -71,6 +71,16 @@
     <edit_line title='Заголовок' value='$message.Subject' name='subject'
 	       size=42 maxlength=250 mandatory='$message.mandatorySubject'>
    </if>
+   <if what='$message.hasAuthor'>
+    <error id='*EP_AUTHOR_ABSENT' text='Автор не указан' span=2>
+    <edit_line title='Автор' value='$message.Author' name='author'
+	       size=42 maxlength=250 mandatory='$message.mandatoryAuthor'>
+   </if>
+   <if what='$message.hasSource'>
+    <error id='*EP_SOURCE_ABSENT' text='Источник не указан' span=2>
+    <edit_line title='Источник' value='$message.Source' name='source'
+	       size=42 maxlength=250 mandatory='$message.mandatorySource'>
+   </if>
    <if what='$message.hasImage'>
     <error id='*EP_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
 	   span=2>
@@ -113,7 +123,8 @@
    <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
    <if what="$message.LargeFilename!=''">
     <tr><td>
-     <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>Загрузить текст</a>
+     <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>
+        Загрузить текст</a>
     </td></tr>
    </if>
    <uploader name='large_file' loadedname='large_loaded' loadedvalue=1

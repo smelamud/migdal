@@ -202,6 +202,7 @@ article_split=blue
 article_controls=blue
 article_controls_hover=blue
 article_picture=blue
+article_source=
 complain_back=%vl
 complain_border=%vmm
 complain_title_back=%vmm
@@ -935,7 +936,7 @@ BODY {
 	text-decoration: underline;
 }
 
-.article H1,.article P,.article B,.article I,.article U {
+.article H1,.article P,.article B,.article I,.article U,.article .author {
 	font-family: "Times New Roman", Helvetica, sans-serif;
 	font-size: 12pt;
 }
@@ -946,8 +947,19 @@ BODY {
 	margin: 20px;
 }
 
+.article .author {
+	font-style: italic;
+}
+
 .article P {
 	text-align: justify;
+}
+
+.article .source {
+	color: %article_source;
+	font-size: 9pt;
+	font-style: italic;
+	padding-bottom: 2ex;
 }
 
 ! Complain

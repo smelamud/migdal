@@ -84,6 +84,10 @@ $defaultPremoderate=15;
 
 $messageHasSubject=true;
 $messageMandatorySubject=true;
+$messageHasAuthor=false;
+$messageMandatoryAuthor=false;
+$messageHasSource=false;
+$messageMandatorySource=false;
 $messageHasBody=true;
 $messageMandatoryBody=true;
 $messageHasLargeBody=false;
@@ -97,6 +101,10 @@ $messageMandatoryTitle=false;
 
 $forumanswerHasSubject=false;
 $forumanswerMandatorySubject=false;
+$forumanswerHasAuthor=false;
+$forumanswerMandatoryAuthor=false;
+$forumanswerHasSource=false;
+$forumanswerMandatorySource=false;
 $forumanswerHasBody=true;
 $forumanswerMandatoryBody=true;
 $forumanswerHasLargeBody=false;
@@ -110,6 +118,10 @@ $forumanswerMandatoryTitle=false;
 
 $postingHasSubject=true;
 $postingMandatorySubject=true;
+$postingHasAuthor=false;
+$postingMandatoryAuthor=false;
+$postingHasSource=false;
+$postingMandatorySource=false;
 $postingHasBody=true;
 $postingMandatoryBody=true;
 $postingHasLargeBody=false;
@@ -127,6 +139,10 @@ $postingMandatoryTopic=true;
 
 $forumHasSubject=true;
 $forumMandatorySubject=true;
+$forumHasAuthor=false;
+$forumMandatoryAuthor=false;
+$forumHasSource=false;
+$forumMandatorySource=false;
 $forumHasBody=true;
 $forumMandatoryBody=true;
 $forumHasLargeBody=false;
@@ -144,6 +160,10 @@ $forumMandatoryTopic=true;
 
 $newsHasSubject=true;
 $newsMandatorySubject=true;
+$newsHasAuthor=false;
+$newsMandatoryAuthor=false;
+$newsHasSource=false;
+$newsMandatorySource=false;
 $newsHasBody=true;
 $newsMandatoryBody=true;
 $newsHasLargeBody=false;
@@ -161,6 +181,10 @@ $newsMandatoryTopic=true;
 
 $galleryHasSubject=true;
 $galleryMandatorySubject=true;
+$galleryHasAuthor=false;
+$galleryMandatoryAuthor=false;
+$galleryHasSource=false;
+$galleryMandatorySource=false;
 $galleryHasBody=true;
 $galleryMandatoryBody=true;
 $galleryHasLargeBody=false;
@@ -178,6 +202,10 @@ $galleryMandatoryTopic=true;
 
 $articleHasSubject=true;
 $articleMandatorySubject=true;
+$articleHasAuthor=true;
+$articleMandatoryAuthor=false;
+$articleHasSource=true;
+$articleMandatorySource=false;
 $articleHasBody=true;
 $articleMandatoryBody=true;
 $articleHasLargeBody=true;

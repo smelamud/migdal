@@ -69,6 +69,10 @@ if($message->mandatoryBody() && $message->stotext->body=='')
   return EP_BODY_ABSENT;
 if($message->mandatorySubject() && $message->subject=='')
   return EP_SUBJECT_ABSENT;
+if($message->mandatoryAuthor() && $message->author=='')
+  return EP_AUTHOR_ABSENT;
+if($message->mandatorySource() && $message->source=='')
+  return EP_SOURCE_ABSENT;
 if($message->mandatoryLargeBody() && $message->stotext->large_body=='')
   return EP_LARGE_BODY_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
@@ -119,16 +123,22 @@ else
   $bodyId=tmpTextSave($body);
   $largeBodyId=tmpTextSave($large_body);
   $subjectId=tmpTextSave($subject);
+  $authorId=tmpTextSave($author);
+  $sourceId=tmpTextSave($source);
   $titleId=tmpTextSave($title);
   header('Location: /postingedit.php?'.
           makeQuery($HTTP_POST_VARS,
 	            array('body',
 		          'large_body',
 		          'subject',
+			  'author',
+			  'source',
 			  'title'),
 		    array('bodyid'       => $bodyId,
 		          'large_bodyid' => $largeBodyId,
 		          'subjectid'    => $subjectId,
+		          'authorid'     => $authorId,
+		          'sourceid'     => $sourceId,
 		          'titleid'      => $titleId,
 		          'image_set'    => $message->getImageSet(),
 		          'err'          => $err)).'#error');

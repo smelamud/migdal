@@ -12,6 +12,8 @@ class Message
 {
 var $id;
 var $subject;
+var $author;
+var $source;
 var $stotext;
 var $title;
 var $image_size;
@@ -38,16 +40,20 @@ foreach($this->getCorrespondentVars() as $var)
 $this->stotext->setup($vars);
 if(isset($vars['subjectid']))
   $this->subject=tmpTextRestore($vars['subjectid']);
+if(isset($vars['authorid']))
+  $this->author=tmpTextRestore($vars['authorid']);
+if(isset($vars['sourceid']))
+  $this->source=tmpTextRestore($vars['sourceid']);
 }
 
 function getCorrespondentVars()
 {
-return array('subject','hidden','disabled');
+return array('subject','author','source','hidden','disabled');
 }
 
 function getWorldVars()
 {
-return array('subject','hidden','sender_id');
+return array('subject','author','source','hidden','sender_id');
 }
 
 function getAdminVars()
@@ -99,6 +105,26 @@ return $this->getLocalConf('HasSubject');
 function mandatorySubject()
 {
 return $this->hasSubject() && $this->getLocalConf('MandatorySubject');
+}
+
+function hasAuthor()
+{
+return $this->getLocalConf('HasAuthor');
+}
+
+function mandatoryAuthor()
+{
+return $this->hasAuthor() && $this->getLocalConf('MandatoryAuthor');
+}
+
+function hasSource()
+{
+return $this->getLocalConf('HasSource');
+}
+
+function mandatorySource()
+{
+return $this->hasSource() && $this->getLocalConf('MandatorySource');
 }
 
 function hasBody()
@@ -163,6 +189,16 @@ return $this->id;
 function getSubject()
 {
 return $this->subject;
+}
+
+function getAuthor()
+{
+return $this->author;
+}
+
+function getSource()
+{
+return $this->source;
 }
 
 function getStotext()

@@ -154,6 +154,7 @@ CREATE TABLE mailing_types (
   id int(11) NOT NULL auto_increment,
   text varchar(70) NOT NULL default '',
   ident varchar(15) NOT NULL default '',
+  force_send tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY ident (ident)
 ) TYPE=MyISAM;
@@ -195,6 +196,8 @@ CREATE TABLE menu (
 CREATE TABLE messages (
   id int(11) NOT NULL auto_increment,
   subject varchar(250) NOT NULL default '',
+  author varchar(250) NOT NULL default '',
+  source varchar(250) NOT NULL default '',
   stotext_id int(11) NOT NULL default '0',
   sender_id int(11) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
@@ -386,6 +389,14 @@ CREATE TABLE users (
   KEY confirm_deadline_2 (confirm_deadline)
 ) TYPE=MyISAM;
 
+#
+# Table structure for table 'version'
+#
+
+CREATE TABLE version (
+  db_version int(11) NOT NULL default '0'
+) TYPE=MyISAM;
+
 # MySQL dump 8.16
 #
 # Host: localhost    Database: migdal
@@ -411,6 +422,12 @@ INSERT INTO complain_scripts VALUES (4,'Закрыть жалобу','=update complains set c
 # Dumping data for table 'mailing_types'
 #
 
-INSERT INTO mailing_types VALUES (1,'register.mail','register');
-INSERT INTO mailing_types VALUES (2,'registering.mail','registering');
+INSERT INTO mailing_types VALUES (1,'register.mail','register',1);
+INSERT INTO mailing_types VALUES (2,'registering.mail','registering',0);
+
+#
+# Dumping data for table 'version'
+#
+
+INSERT INTO version VALUES (1);
 

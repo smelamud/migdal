@@ -129,6 +129,9 @@
  <div class='article'>
   <controls posting='$,'>
   <center><h1>$,Subject</h1></center>
+  <if what="$,Author!=''">
+   <div class='author' align=center>$,Author</div>
+  </if>
   <if what='$,LargeFormat==*TF_PRE'><pre></if>
   <iterate_posting_paragraphs posting='$,'>
   <p>
@@ -138,6 +141,9 @@
   </for>
   </p>
   <if what='$,LargeFormat==*TF_PRE'></pre></if>
+  <if what="$,Source!=''">
+   <div class='source' align=right>$,Source</div>
+  </if>
   <controls posting='$,'>
  </div>
  <bottom>

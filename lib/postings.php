@@ -225,7 +225,8 @@ $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
                messages.stotext_id as stotext_id,stotexts.body as body,
-	       messages.subject as subject,grp,messages.sent as sent,topic_id,
+	       messages.subject as subject,messages.author as author,
+	       messages.source as source,grp,messages.sent as sent,topic_id,
 	       messages.sender_id as sender_id,messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
@@ -364,8 +365,9 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query('select postings.id as id,ident,message_id,stotext_id,body,
                             large_filename,large_format,large_body,
-			    large_imageset,subject,topic_id,personal_id,
-			    sender_id,grp,priority,image_set,hidden,disabled
+			    large_imageset,subject,author,source,topic_id,
+			    personal_id,sender_id,grp,priority,image_set,
+			    hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
@@ -392,8 +394,8 @@ $result=mysql_query(
 	        postings.message_id as message_id,
 		messages.stotext_id as stotext_id,stotexts.body as body,
 		stotexts.large_format as large_format,
-		stotexts.large_body as large_body,subject,grp,sent,topic_id,
-		sender_id,messages.hidden as hidden,disabled,
+		stotexts.large_body as large_body,subject,author,source,grp,
+		sent,topic_id,sender_id,messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,length(images.large) as image_size,
 		images.large_x as image_x,images.large_y as image_y,

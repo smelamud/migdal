@@ -13,8 +13,11 @@
    <td width=75% align=left class='subject'>
     <if what='$posting.hasLargeBody'>
      <a href='article.php?redir=$_&artid=$posting.Id'
-        title='Статья'>$posting.Subject&nbsp;
-	<img border=0 src='pics/article.gif'></a>
+        title='Статья'>$posting.Subject
+      <if what="$posting.Author!=''">
+       &nbsp;(Автор:&nbsp;$posting.Author)
+      </if>
+      &nbsp;<img border=0 src='pics/article.gif'></a>
     <else>
      $posting.Subject
     </if>
