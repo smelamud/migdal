@@ -605,6 +605,6 @@ $result=mysql_query("select max(index$index)
                      from postings
 		     where (grp & $grp)<>0")
 	     or die('Ошибка SQL при получении максимального индекса постинга');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
 }
 ?>
