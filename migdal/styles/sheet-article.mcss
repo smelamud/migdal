@@ -107,7 +107,7 @@
 	padding-left: 1ex;
 }
 
-.article P {
+.article P,.article BLOCKQUOTE {
 	text-align: justify;
 }
 
