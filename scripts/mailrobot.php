@@ -9,7 +9,7 @@ require_once('lib/mailings.php');
 
 function send($mail)
 {
-global $mailingsDir,$siteDomain,/* */$tmpDir;
+global $mailingsDir,$siteDomain;
 
 if($mail->isEmailDisabled() && !$mail->isForceSend())
   return;
@@ -22,11 +22,6 @@ $path=urlencode($path);
 $link=$mail->getLink();
 $userId=$mail->getReceiverId();
 $linkParam=urlencode("link=$link");
-// -- Test --
-$fd=fopen("$tmpDir/mailrobot-log",'a');
-fputs($fd,"Send mail: http://$siteDomain/lib/run-script?name=$path&args[]=$linkParam&args[]=$userId");
-fclose($fd);
-// -- Test --
 preg_match("/^(.+?\n)\n(.*)$/s",
            file_get_contents("http://$siteDomain/lib/run-script.php?name=$path&args[]=$linkParam&args[]=$userId"),
 	   $mailparts);
