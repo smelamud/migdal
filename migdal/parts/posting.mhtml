@@ -58,54 +58,52 @@
    <posting_further_article id='$posting.Id'>
   </if>
   </p>
-  <table cellspacing=0 cellpadding=0><tr><td>
-   <table width=100% style="clear: left"><tr>
-    <td align=left class='sent'>
-     <sentview date='$posting.Sent'>&nbsp;
-     <senderlink message='$posting'>
+  <table width=90% style="clear: left"><tr>
+   <td align=left class='sent'>
+    <sentview date='$posting.Sent'>&nbsp;
+    <senderlink message='$posting'>
+   </td>
+   <ifne what='$posting.Source'>
+    <td class='source'>
+     $posting.HTMLSource
     </td>
-    <ifne what='$posting.Source'>
-     <td class='source'>
-      $posting.HTMLSource
-     </td>
-    </ifne>
-   </tr></table>
-   <if what='$$userId>0 || $showdiscuss || $posting.hasLargeBody'>
-    <table width=100% class='bottom'><tr>
-     <td>
-      <if what='$posting.hasLargeBody'>
-       <a href='article.php?redirid=$_&artid=$posting.Id'
-	       class='read'>Читать</a>
-       &nbsp;
-      </if>
-      <isedit what='$posting'>
-       <a href="postingedit.php?editid=$posting.Id&up=general&grp=$posting.Grp&redirid=$_"
-	>Изменить</a>
-       <if what='$posting.isModerable'>
-	&nbsp;
-	<if what='$posting.isDisabled'>
-	 <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	  >Разрешить показ</a>
-	<else>
-	 <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	  >Запретить показ</a>
-	</if>
-       </if>
-      <else>
-       <if what='!$posting.isModerable && $showcomplain'>
-	<logged>
-	 <a href="complainedit.php?ident=posting&link=$posting.Id&redirid=$_"
-	  >Жалоба</a>
-	</logged>
-       </if>
-      </isedit>
-     </td>
-     <if what='$showdiscuss'>
-      <td align=right><discusslink posting='$posting'></td>
+   </ifne>
+  </tr></table>
+  <if what='$$userId>0 || $showdiscuss || $posting.hasLargeBody'>
+   <table width=90% class='bottom'><tr>
+    <td>
+     <if what='$posting.hasLargeBody'>
+      <a href='article.php?redirid=$_&artid=$posting.Id'
+	      class='read'>Читать</a>
+      &nbsp;
      </if>
-    </tr></table>
-   </if>
-  </td></tr></table>
+     <isedit what='$posting'>
+      <a href="postingedit.php?editid=$posting.Id&up=general&grp=$posting.Grp&redirid=$_"
+       >Изменить</a>
+      <if what='$posting.isModerable'>
+       &nbsp;
+       <if what='$posting.isDisabled'>
+	<a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+	 >Разрешить показ</a>
+       <else>
+	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+	 >Запретить показ</a>
+       </if>
+      </if>
+     <else>
+      <if what='!$posting.isModerable && $showcomplain'>
+       <logged>
+	<a href="complainedit.php?ident=posting&link=$posting.Id&redirid=$_"
+	 >Жалоба</a>
+       </logged>
+      </if>
+     </isedit>
+    </td>
+    <if what='$showdiscuss'>
+     <td align=right><discusslink posting='$posting'></td>
+    </if>
+   </tr></table>
+  </if>
  </dl>
 <if what='$posting.isRebe'></span></if>
 </element>
