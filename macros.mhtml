@@ -195,6 +195,8 @@
 <decexec macro='stylesheet' func='declareStylesheet' file='lib/style.php'
          params='ident'>
 <deccall macro='time' func='time'>
+<deccall macro='tmptext' func='tmpTextRestore' file='lib/tmptexts.php'
+         params='id'>
 <deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
          params='id,up' defaults='name=topic id="$topic_id" up=0'>
 <deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'

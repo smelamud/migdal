@@ -191,4 +191,8 @@ define('EV_SQL_POSTINGS',344);
 define('EDM_OK',350);
 define('EDM_NO_CHANGE',351);
 define('EDM_NO_POSTING',352);
+
+define('EPL_OK',360);
+define('EPL_NO_LOGIN',361);
+define('EPL_STORE_SQL',362);
 ?>

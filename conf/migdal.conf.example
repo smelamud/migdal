@@ -118,6 +118,9 @@ $mailingsDir='/home/balu/prog/migdal-html/migdal/mailings';
 # Команда для запуска PHP4 в режиме командной строки
 $phpCommand='/usr/bin/php4';
 
+# Команда для генерации пароля
+$passwdCommand='pwgen 8 1';
+
 # Использовать mogrify (из пакета ImageMagick) для обработки картинок
 $useMogrify=true;
 

@@ -1,0 +1,36 @@
+<< @(#) $Id$ >>
+
+<force_community>
+<string name='login'>
+<pagetitle title='Восстановление пароля'>
+
+<html>
+<preamble>
+<body>
+ <top ident='users'>
+ <formtable title='Восстановление пароля'>
+  <tr><td>
+   Если Вы забыли пароль --- не отчаивайтесь. Введите свой ник в форму внизу,
+   нажмите кнопку <b>&lt;&lt;Отправить&gt;&gt;</b> и на тот адрес E-mail,
+   который Вы вводили при регистрации, будет выслан новый пароль. При помощи
+   этого пароля Вы сможете зайти на сайт и, если хотите, изменить этот пароль
+   на любой понравившийся. Ваш старый пароль будет аннулирован автоматически в
+   тот момент, когда вы нажмете кнопку <b>&lt;&lt;Отправить&gt;&gt;</b>.
+  </td></tr>
+  <tr><td>&nbsp;</td></tr>
+  <error id='*EPL_NO_LOGIN' text='Пользователя с таким ником не существует'>
+  <error id='*EPL_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+	 color=magenta>
+  <tr><td><form method=post action='actions/userlost.php'>
+   <hidden name='okdir' value='/userrepair.php?redirid=$$redirid'>
+   <hidden name='faildir' value='$-'>
+   <center><table>
+    <td>Ник </td>
+    <td><edit name='login' value='$login' size=15 maxlength=30></td>
+    <td><input type=submit value='Отправить'></td>
+   </table></center>
+  </form></td></tr>
+ </formtable>
+ <bottom>
+</body>
+</html>

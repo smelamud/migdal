@@ -50,7 +50,9 @@
    <if what='!$no_new'>
     <tr><td colspan=11 align=right>
      <at href#='register.php?redirid=$_'
-         target='$target'>Зарегистрироваться</at>
+         target='$target'>Зарегистрироваться</at>&nbsp;&nbsp;<asp>
+     <at href#='userlost.php?redirid=$_'
+         target='$target'>Забыли пароль?</at>
     </td></tr>
    </if>
   </tform>

@@ -2,7 +2,8 @@
 
 # @(#) $Id$
 
-OBJECTS = confirmed.php register.php registering.php
+OBJECTS = confirmed.php register.php registering.php repair-password.php \
+	repairing-password.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

@@ -7,7 +7,8 @@
 }
 
 .form * {
-	font: 12pt %times;
+	font-size: 12pt;
+	font-family: %times;
 }
 
 .form P {

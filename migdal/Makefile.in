@@ -11,7 +11,7 @@ OBJECTS = article.php article-times.php chat.php chatboard.php chatbottom.php \
 	  register.php stotext-help-subs.php stotext-help-types.php style.php \
 	  taglit.php taglit-user.php times.php times-reorder.php topicedit.php \
 	  topicorg.php useredit.php userfin.php userinfo.php \
-	  userinfo-panel.php userok.php users.php
+	  userinfo-panel.php userlost.php userok.php userrepair.php users.php
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
