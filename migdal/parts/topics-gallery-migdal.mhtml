@@ -29,7 +29,12 @@
 	     href#='gallery.php?topic_id=$`kaitana`'
 	     arrow!="$/$posting.TopicId,2/==$`kaitana`" indent=1
 	     class='item eightpt'>
-<posting_last grp='*GRP_GALLERY' topic_id='$`mazl-tov`' recursive='*true'>
+<posting_last grp='*GRP_GALLERY' topic_id='$`migdal-ohr`' recursive='*true'>
+<topics_line time='$,' href#='gallery.php?topic_id=$`migdal-ohr`'
+	     text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-ohr`"
+	     indent=1 class='item eightpt'>
+<posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*true'>
 <topics_line time='$,' href#='gallery.php?topic_id=$`mazltov`'
 	     text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`mazltov`" indent=1

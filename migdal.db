@@ -66,9 +66,10 @@ CREATE TABLE cross_topics (
   topic_grp int(11) NOT NULL default '0',
   peer_id int(11) NOT NULL default '0',
   peer_grp int(11) NOT NULL default '0',
-  KEY topic_id (topic_id,peer_id),
   KEY topic_grp (topic_grp),
-  KEY peer_grp (peer_grp)
+  KEY peer_grp (peer_grp),
+  KEY topic_id (topic_id),
+  KEY peer_id (peer_id)
 ) TYPE=MyISAM;
 
 --
@@ -93,7 +94,8 @@ CREATE TABLE forums (
 CREATE TABLE groups (
   user_id int(11) NOT NULL default '0',
   group_id int(11) NOT NULL default '0',
-  KEY user_id (user_id,group_id)
+  KEY user_id (user_id),
+  KEY group_id (group_id)
 ) TYPE=MyISAM;
 
 --
@@ -159,7 +161,11 @@ CREATE TABLE journal (
   query mediumblob NOT NULL,
   sent timestamp(14) NOT NULL,
   PRIMARY KEY  (id),
-  KEY seq (seq,result_table,result_id,result_var,sent)
+  KEY seq (seq),
+  KEY result_table (result_table),
+  KEY result_id (result_id),
+  KEY result_var (result_var),
+  KEY sent (sent)
 ) TYPE=MyISAM;
 
 --
@@ -171,7 +177,9 @@ CREATE TABLE journal_vars (
   host varchar(30) NOT NULL default '',
   value int(11) NOT NULL default '0',
   last_read timestamp(14) NOT NULL,
-  KEY var (var,host)
+  KEY var (var),
+  KEY host (host),
+  KEY last_read (last_read)
 ) TYPE=MyISAM;
 
 --
@@ -186,7 +194,8 @@ CREATE TABLE links (
   url_check datetime NOT NULL default '0000-00-00 00:00:00',
   url_check_success datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id),
-  KEY message_id (message_id,url_check,url_check_success)
+  KEY url_check (url_check),
+  KEY url_check_success (url_check_success)
 ) TYPE=MyISAM;
 
 --
@@ -200,7 +209,8 @@ CREATE TABLE logs (
   ip int(10) unsigned NOT NULL default '0',
   body varchar(250) NOT NULL default '',
   PRIMARY KEY  (id),
-  KEY id (id,event,sent)
+  KEY event (event),
+  KEY sent (sent)
 ) TYPE=MyISAM;
 
 --
@@ -244,14 +254,16 @@ CREATE TABLE messages (
   PRIMARY KEY  (id),
   KEY sender_id (sender_id),
   KEY stotext_id (stotext_id),
-  KEY up (up,track),
   KEY url_domain (url_domain),
-  KEY url_check (url_check,url_check_success),
   KEY sent (sent),
   KEY used (used),
   KEY group_id (group_id),
   KEY disabled (disabled),
-  KEY url (url)
+  KEY url (url),
+  KEY up (up),
+  KEY track (track),
+  KEY url_check (url_check),
+  KEY url_check_success (url_check_success)
 ) TYPE=MyISAM;
 
 --
@@ -295,10 +307,15 @@ CREATE TABLE postings (
   KEY grp (grp),
   KEY ident (ident),
   KEY priority (priority),
-  KEY read_count (read_count,index0,index1,index2,index3,index4),
   KEY subdomain (subdomain),
   KEY shadow (shadow),
-  KEY used (used)
+  KEY used (used),
+  KEY read_count (read_count),
+  KEY index0 (index0),
+  KEY index1 (index1),
+  KEY index2 (index2),
+  KEY index3 (index3),
+  KEY index4 (index4)
 ) TYPE=MyISAM;
 
 --
@@ -344,7 +361,9 @@ CREATE TABLE redirs (
   uri text NOT NULL,
   last_access timestamp(14) NOT NULL,
   PRIMARY KEY  (id),
-  KEY id (id,up,track,last_access)
+  KEY up (up),
+  KEY track (track),
+  KEY last_access (last_access)
 ) TYPE=MyISAM;
 
 --
@@ -375,7 +394,8 @@ CREATE TABLE stotext_images (
   used tinyint(4) NOT NULL default '0',
   KEY stotext_id (stotext_id),
   KEY image_id (image_id),
-  KEY used (used)
+  KEY used (used),
+  KEY par (par)
 ) TYPE=MyISAM;
 
 --
@@ -405,7 +425,8 @@ CREATE TABLE tmp_texts (
   id int(11) NOT NULL auto_increment,
   value mediumtext NOT NULL,
   last_access timestamp(14) NOT NULL,
-  PRIMARY KEY  (id)
+  PRIMARY KEY  (id),
+  KEY last_access (last_access)
 ) TYPE=MyISAM;
 
 --
@@ -439,10 +460,14 @@ CREATE TABLE topics (
   KEY stotext_id (stotext_id),
   KEY user_id (user_id),
   KEY name_sort (name_sort),
-  KEY index0 (index0,index1,index2,index3,index4),
   KEY used (used),
   KEY separate (separate),
-  KEY group_id (group_id)
+  KEY group_id (group_id),
+  KEY index0 (index0),
+  KEY index1 (index1),
+  KEY index2 (index2),
+  KEY index3 (index3),
+  KEY index4 (index4)
 ) TYPE=MyISAM;
 
 --
@@ -519,7 +544,10 @@ CREATE TABLE votes (
   user_id int(11) NOT NULL default '0',
   sent timestamp(14) NOT NULL,
   vote int(11) NOT NULL default '0',
-  KEY posting_id (posting_id,ip,user_id,sent)
+  KEY posting_id (posting_id),
+  KEY ip (ip),
+  KEY user_id (user_id),
+  KEY sent (sent)
 ) TYPE=MyISAM;
 
 -- MySQL dump 9.08

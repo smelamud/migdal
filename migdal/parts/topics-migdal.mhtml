@@ -110,6 +110,21 @@
 </topics_table>
 </element>
 
+<element name='topics_migdal_ohr' params='posting'>
+<topics_table title='Мигдаль-ор' span=2>
+ <posting_obj id='$`postings:migdal-ohr`'>
+ <topics_line time='$,Sent' text='О театре' span=2
+              href#='migdal.php?artid=$`postings:migdal-ohr`'
+              arrow!='$posting.Id==$`postings:migdal-ohr`' class='item ninept'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`migdal-ohr`' recursive='*false'>
+ <topics_line time='$,' text='Галерея' indent=1
+              href#='gallery.php?topic_id=$`migdal-ohr`&general=1'
+              arrow!='$posting.Grp==*GRP_GALLERY &&
+	              $posting.TopicId==$`migdal-ohr`'
+	      class='item eightpt'>
+</topics_table>
+</element>
+
 <element name='topics_museum' params='posting'>
 <topics_table title='Музей евреев Одессы' span=2>
  <posting_obj id='$`postings:museum`'>
@@ -130,6 +145,8 @@
  <topics_events posting='$posting'>
 <elif what='$/$posting.TopicId,1/==$`jcc`'>
  <topics_jcc posting='$posting'>
+<elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
+ <topics_migdal_ohr posting='$posting'>
 <elif what='$/$posting.TopicId,1/==$`mazltov` ||
             $/$posting.TopicId,2/==$`mazltov-news`'>
  <topics_mazltov posting='$posting'>
@@ -173,7 +190,8 @@
 	             ($/$posting.TopicId,1/==$`museum` ||
 		      $/$posting.TopicId,2/==$`museum-news`)" indent=1
 	     class='item eightpt'>
-<topics_line href#='migdal.php?artid=$`postings:migdal-ohr`'
+<posting_last topic_id='$`migdal-ohr`' recursive='*true'>
+<topics_line time='$,' href#='migdal.php?artid=$`postings:migdal-ohr`'
 	     text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-ohr`"
 	     indent=1 class='item eightpt'>

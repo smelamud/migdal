@@ -47,13 +47,15 @@
 </if>
 
 <element name='notonly' params='posting'>
-<identify posting='$posting'>
-<ifne what='$posting.MainHref'>
- <div class='ninept'>
-  Этот раздел содержит не только картинки.
-  <a href='$posting.MainHref'>Увидеть раздел полностью.</a>
- </div>
-</ifne>
+<if what='!$$general'>
+ <identify posting='$posting'>
+ <ifne what='$posting.MainHref'>
+  <div class='ninept'>
+   Этот раздел содержит не только картинки.
+   <a href='$posting.MainHref'>Увидеть раздел полностью.</a>
+  </div>
+ </ifne>
+</if>
 </element>
 
 <html>

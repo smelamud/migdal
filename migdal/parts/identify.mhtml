@@ -167,6 +167,8 @@
    <elif what='$/$posting.TopicId,2/==$`kes`'>
     <assign name='mhref' value#='migdal.php?artid=$`postings:kes`'>
    </if>
+  <elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
+   <assign name='mhref' value#='migdal.php?artid=$`postings:migdal-ohr`'>
   <elif what='$/$posting.TopicId,1/==$`mazltov`'>
    <assign name='mhref' value#='migdal.php?artid=$`postings:mazltov`'>
   </if>
