@@ -107,6 +107,21 @@ CREATE TABLE instants (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'links'
+--
+
+CREATE TABLE links (
+  id int(11) NOT NULL default '0',
+  message_id int(11) NOT NULL default '0',
+  title varchar(250) NOT NULL default '',
+  url varchar(250) NOT NULL default '',
+  url_check datetime NOT NULL default '0000-00-00 00:00:00',
+  url_check_success datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (id),
+  KEY message_id (message_id,url_check,url_check_success)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'logs'
 --
 
@@ -162,6 +177,16 @@ CREATE TABLE messages (
   KEY up (up,track),
   KEY url_domain (url_domain),
   KEY url_check (url_check,url_check_success)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'multisites'
+--
+
+CREATE TABLE multisites (
+  domain varchar(70) NOT NULL default '',
+  replacer varchar(70) NOT NULL default '',
+  KEY domain (domain)
 ) TYPE=MyISAM;
 
 --
