@@ -80,7 +80,7 @@
               href#='migdal.php?artid=$`postings:methodic-center`'
               arrow!="$/$posting.TopicId,1/==$`methodics`" indent=1
 	      class='item eightpt'
-	      title='Южно-Украинский региональный методический центр'>
+	      title='Южно-украинский региональный методический центр'>
  <posting_last topic_id='$`kaitana`' recursive='*true'>
  <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
               arrow!="$/$posting.TopicId,1/==$`kaitana`" indent=1
@@ -110,7 +110,7 @@
 <topics_line time='$,' text='Методический центр'
              href#='migdal.php?artid=$`postings:methodic-center`'
              indent=1 class='item eightpt'
-	     title='Южно-Украинский региональный методический центр'>
+	     title='Южно-украинский региональный методический центр'>
 <posting_last topic_id='$`kaitana`' recursive='*true'>
 <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
 	     indent=1 class='item eightpt'>
