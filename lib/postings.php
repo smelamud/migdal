@@ -816,6 +816,21 @@ $result=mysql_query("select postings.id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+function getSiblingIssue($grp,$topic_id,$index1,$next=true)
+{
+$issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
+$order=$next ? 'asc' : 'desc';
+$topicFilter=$topic_id>=0 ? "and topic_id=$topic_id" : '';
+$result=mysql_query("select postings.id
+                     from postings
+		          left join messages
+			       on postings.message_id=messages.id
+		     where (grp & $grp)<>0 $topicFilter $issueFilter
+		     order by index1 $order
+		     limit 1");
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
 function postingExists($id)
 {
 global $userId,$userModerator;

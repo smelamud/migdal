@@ -66,6 +66,54 @@
 </ifnzero>
 </element>
 
+<element name='kaitana_ring' params='posting'>
+<notprint>
+ <table width=100% style='clear: both' class='ring'>
+  <tr valign=center>
+   <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$posting.TopicId'
+                  index1='$posting.Index1' next='*false'>
+   <if what='$,>0'>
+    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS'>
+    <td align=left width=40%>
+     <table cellspacing=0 cellpadding=0><tr valign=center>
+      <td>
+       <a href='kaitana.php?topic_id=$topic_id&day=$,Index1'>$,Subject</a>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+       <a href='kaitana.php?topic_id=$topic_id&day=$,Index1'
+          title='Предыдущий выпуск'><image src='pics/left.gif' border=0></a>
+      </td>
+     </tr></table>
+    </td>
+   <else>
+    <td width=40%>&nbsp;</td>
+   </if>
+   <td width=20%>&nbsp;</td>
+   <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$posting.TopicId'
+                  index1='$posting.Index1' next='*true'>
+   <if what='$,>0'>
+    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS'>
+    <td align=right width=40%>
+     <table cellspacing=0 cellpadding=0><tr valign=center>
+      <td>
+       <a href='kaitana.php?topic_id=$topic_id&day=$,Index1'
+          title='Следующий выпуск'><image src='pics/right.gif' border=0></a>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+       <a href='kaitana.php?topic_id=$topic_id&day=$,Index1'>$,Subject</a>
+      </td>
+     </tr></table>
+    </td>
+   <else>
+    <td width=40%>&nbsp;</td>
+   </if>
+  </tr>
+ </table>
+</notprint>
+</element>
+
 <html>
 <stylesheet ident='article'>
 <preamble>
@@ -98,10 +146,12 @@
        <tr><td align=right><sentview date='$posting.Sent'></td></tr>
        <tr><td align=right><senderlink message='$posting'></td></tr>
       </table>
+      <kaitana_ring posting='$posting'>
       <h1 style='clear: both'>$posting.Subject</h1>
       <p>$posting.HTMLBody</p>
       <vote_frame id='$posting.Id' color='$$style_cframe_back'
 		  image='$$style_cframe_back_pic' align=center>
+      <kaitana_ring posting='$posting'>
       <controls posting='$posting' kaitana='$kaitana'>
      </ifnzero>
     </td>
