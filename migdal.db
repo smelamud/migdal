@@ -126,6 +126,7 @@ CREATE TABLE users (
   name varchar(30) NOT NULL default '',
   jewish_name varchar(30) NOT NULL default '',
   surname varchar(30) NOT NULL default '',
+  gender enum('mine','femine') NOT NULL default 'mine',
   info text NOT NULL,
   birthday date NOT NULL default '0000-00-00',
   migdal_student tinyint(4) NOT NULL default '0',

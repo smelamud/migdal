@@ -27,6 +27,8 @@ $result=mysql_query('select id from users where login="'.
 		    AddSlashes($user->login)."\" and id<>$editid");
 if(mysql_num_rows($result)>0)
   return EUM_LOGIN_EXISTS;
+if($user->getGender()!='mine' && $user->getGender()!='femine')
+  return EUM_GENDER;
 if(!checkdate($user->getMonthOfBirth(),$user->getDayOfBirth(),
               '19'.$user->getYearOfBirth()))
   return EUM_BIRTHDAY;

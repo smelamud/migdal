@@ -120,6 +120,34 @@ if($user->isEditable() && $err==$code)
     ?>
    </tr>
    <?php
+   perror(EUM_GENDER,'Неизвестный пол');
+   ?>
+   <tr>
+   <?php
+   if(!$user->isEditable())
+     {
+     ?>
+     <td><b>Пол:</b></td>
+     <td><?php echo $user->isMan() ? 'Мужской' : 'Женский' ?></td>
+     <?php
+     }
+   else
+     {
+     ?>
+     <td>Пол</td>
+     <td>
+      <input type='radio' name='gender' value='mine' <?php
+       echo ($user->isMan() ? ' checked ' : '')
+      ?> >Мужской</input>&nbsp;
+      <input type='radio' name='gender' value='femine' <?php
+       echo ($user->isWoman() ? ' checked ' : '')
+      ?> >Женский</input>
+     </td>
+     <?php
+     }
+   ?>
+   </tr>
+   <?php
    perror(EUM_BIRTHDAY,'Совершенно идиотская дата рождения');
    ?>
    <tr>

@@ -17,6 +17,7 @@ var $dup_password;
 var $name;
 var $jewish_name;
 var $surname;
+var $gender;
 var $info;
 var $birthday;
 var $migdal_student;
@@ -33,6 +34,7 @@ var $no_login;
 
 function User($row)
 {
+$gender='mine';
 $this->DataObject($row);
 }
 
@@ -52,13 +54,13 @@ $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 function getCorrespondentVars()
 {
 return array('login','password','dup_password','name','jewish_name','surname',
-             'migdal_student','info','email','hide_email','icq','admin_users',
-	     'admin_topics','hidden','no_login');
+             'gender','migdal_student','info','email','hide_email','icq',
+	     'admin_users','admin_topics','hidden','no_login');
 }
 
 function getWorldVars()
 {
-return array('login','name','jewish_name','surname','info','birthday',
+return array('login','name','jewish_name','surname','gender','info','birthday',
              'migdal_student','email','hide_email','icq','email_disabled');
 }
 
@@ -143,6 +145,26 @@ function getFullName()
 {
 return $this->name.($this->jewish_name!='' ? ' ('.$this->jewish_name.')' : '').
        ' '.$this->surname;
+}
+
+function isMan()
+{
+return $this->gender=='mine';
+}
+
+function isWoman()
+{
+return $this->gender=='femine';
+}
+
+function getGender()
+{
+return $this->gender;
+}
+
+function getGenderIndex()
+{
+return $this->isMan() ? 1 : 2;
 }
 
 function getInfo()
@@ -278,8 +300,9 @@ global $userAdminUsers;
 $hide=$userAdminUsers ? 2 : 1;
 $this->SelectIterator('User',
                       "select distinct users.id as id,login,name,jewish_name,
-		              surname,birthday,migdal_student,email,hide_email,
-			      icq,last_online,sessions.user_id as online
+		              surname,gender,birthday,migdal_student,email,
+			      hide_email,icq,last_online,
+			      sessions.user_id as online
 		       from users left join sessions
 		                  on users.id=sessions.user_id
 				  and sessions.last+interval 1 hour>now()
@@ -295,9 +318,9 @@ global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
-                            surname,info,birthday,migdal_student,last_online,
-			    email,hide_email,icq,email_disabled,admin_users,
-			    admin_topics,hidden,no_login,
+                            surname,gender,info,birthday,migdal_student,
+			    last_online,email,hide_email,icq,email_disabled,
+			    admin_users,admin_topics,hidden,no_login,
 			    sessions.user_id as online
 		     from users left join sessions
 				on users.id=sessions.user_id
