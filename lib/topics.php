@@ -11,6 +11,7 @@ class Topic
       extends DataObject
 {
 var $id;
+var $up;
 var $name;
 var $description;
 var $hidden;
@@ -40,7 +41,7 @@ if(isset($vars['descriptionid']))
 
 function getCorrespondentVars()
 {
-return array('name','description','hidden','ident');
+return array('up','name','description','hidden','ident');
 }
 
 function getInverseVars()
@@ -53,7 +54,7 @@ return array('no_news' => 'news',
 
 function getWorldVars()
 {
-return array('name','description','hidden','no_news','no_forums','no_gallery',
+return array('up','name','description','hidden','no_news','no_forums','no_gallery',
              'no_articles','ident');
 }
 
@@ -71,6 +72,11 @@ return $result;
 function getId()
 {
 return $this->id;
+}
+
+function getUpValue()
+{
+return $this->up;
 }
 
 function getName()
@@ -124,13 +130,14 @@ class TopicIterator
       extends SelectIterator
 {
 
-function getWhere($grp,$prefix='')
+function getWhere($grp,$up=0,$prefix='')
 {
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
+$uf=$up>=0 ? "and $prefix"."up=$up" : '';
 $gf=getUnpackedGrpFilter($grp,$prefix);
-return " where $prefix"."hidden<$hide $gf ";
+return " where $prefix"."hidden<$hide $uf $gf ";
 }
 
 function TopicIterator($query)
@@ -144,14 +151,14 @@ class TopicListIterator
       extends TopicIterator
 {
 
-function TopicListIterator($grp)
+function TopicListIterator($grp,$up=0)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $gf=getPackedGrpFilter($grp,'postings.');
 $this->TopicIterator(
-      "select topics.id as id,topics.name as name,description,
+      "select topics.id as id,topics.up as up,topics.name as name,description,
 	      count(messages.id) as message_count
        from topics
 	    left join postings
@@ -160,7 +167,7 @@ $this->TopicIterator(
 	         on postings.message_id=messages.id
  	 	    and (messages.hidden<$hide or sender_id=$userId)
 		    and (messages.disabled<$hide or sender_id=$userId)".
-       $this->getWhere($grp,'topics.').
+       $this->getWhere($grp,$up,'topics.').
       'group by topics.id
        order by topics.name');
       /* здесь нужно поменять, если будут другие ограничения на
@@ -177,7 +184,7 @@ function TopicNamesIterator($grp)
 {
 $this->TopicIterator('select id,name
 		      from topics'.
-		      $this->getWhere($grp).
+		      $this->getWhere($grp,-1).
 		     'order by name');
 }
 

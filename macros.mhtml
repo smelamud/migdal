@@ -74,10 +74,11 @@
  <iterate name='%name' class='MonthsIterator'>
 </macro>
 
-<macro name='iterate_postinglist' defaults="grp='$grp'">
+<macro name='iterate_postinglist'
+       defaults="grp='$grp' topic=-1 limit=10 offset=0 personal=0">
  <require name='lib/postings.php'>
  <iterate name='%name' class='PostingListIterator'
-          arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset'>
+          arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset' arg5='%personal'>
 </macro>
 
 <macro name='iterate_sortarray' defaults="values='$*'">
@@ -85,9 +86,9 @@
  <iterate name='%name' class='SortedArrayIterator' arg1='%values'>
 </macro>
 
-<macro name='iterate_topiclist'>
+<macro name='iterate_topiclist' defaults="up=0">
  <require name='lib/topics.php'>
- <iterate name='%name' class='TopicListIterator' arg1='%grp'>
+ <iterate name='%name' class='TopicListIterator' arg1='%grp' arg2='%up'>
 </macro>
 
 <macro name='iterate_topicnames'>

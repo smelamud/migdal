@@ -175,12 +175,12 @@ class PostingListIterator
       extends LimitSelectIterator
 {
 
-function PostingListIterator($grp,$topic=0,$limit=10,$offset=0,$personal=0)
+function PostingListIterator($grp,$topic=-1,$limit=10,$offset=0,$personal=0)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topicFilter=$topic==0 ? '' : " and topic_id=$topic ";
+$topicFilter=$topic<0 ? '' : " and topic_id=$topic ";
 $grpFilter=getPackedGrpFilter($grp);
 $this->LimitSelectIterator(
        'Message',

@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<grp>
+<grp ignore='$ignoregrp'>
 <int name='topic_id'>
 <int name='offset'>
 <html>
@@ -9,8 +9,22 @@
 <body bgcolor=white>
   <top ident='$g.ident'>
   <topic_name id='$topic_id'>
+  
   <center><h1>
-   $g.title по теме &quot;$,Name&quot;
+   <ifzero what='$topic_id'>
+    Темы
+   <else>
+    Подтемы темы "$,Name"
+   </ifzero>
+  </h1></center>
+  <topics g='$g' up='$topic_id'>
+  
+  <center><h1>
+   <ifnzero what='$topic_id'>
+    $g.title по теме &quot;$,Name&quot;
+   <else>
+    $g.title без темы
+   </ifnzero>
   </h1></center>
   <table width=100%>
    <tr><td>
