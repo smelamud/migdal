@@ -4,10 +4,10 @@
 <if what='$answer.isRebe'><span class='rebe'></if>
  <table width=100% class='forum'>
   <tr>
-   <td class='header' rowspan=2><table cellpadding=0>
+   <td class='header' rowspan=2 width=150><table cellpadding=0>
     <tr><td><senderlink message='$answer'></td></tr>
     <tr><td class='sent'>
-     <sentview date='$answer.Sent'>
+     <sentview date='$answer.Sent'><br>
      <biff time='$answer.Sent'>
     </td></tr>
    </table></td>
