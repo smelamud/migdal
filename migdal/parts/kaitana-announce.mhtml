@@ -1,83 +1,5 @@
 << @(#) $Id$ >>
 
-<element name='day' params='n'>
-<time>
-<assign name='current_kaitana' value!='$,@z-165'>
-<assign name='link' value='*false'>
-<if what='$n==6 || $n==13'>
- <td class=sh>
-<else>
- <if what='$n<$$current_kaitana'>
-  <td class=p>
-  <assign name='link' value='*true'>
- <else>
-  <if what='$n==$$current_kaitana'>
-   <td class=n>
-  <else>
-   <td class=f>
-  </if>
- </if>
-</if>
- <if what='$link'>
-  <a href='kaitana.php?topic_id=$`kaitana-s-5763`&day=$n'><asp>
- </if>
- <if what='$n>=1 && $n<=9'>&nbsp;</if>$n
- <if what='$link'>
-  <asp></a>
- </if>
-</td>
-</element>
-
-<element name='kaitana_style'>
-<style><!--
- .kaitana {
-	 border-spacing: 2;
-	 border-padding: 0;
-	 margin: 0;
-	 padding: 0;
- }
-
- .kaitana TD {
-	 margin: 0;
-	 padding: 2;
- }
-
- .kaitana .p {
-	 background-color: $$style_mrd;
- }
-
- .kaitana .p A {
-	 color: white;
-	 font-weight: bold;
-	 text-decoration: none;
- }
-
- .kaitana .n {
-	 background-color: $$style_r;
-	 color: white;
-	 font-weight: bold;
- }
-
- .kaitana .f {
-	 background-color: $$style_grld;
-	 color: white;
-	 font-weight: bold;
- }
-
- .kaitana .sh {
-	 background-color: $$style_mrl;
-	 color: $$style_mrm;
-	 font-weight: bold;
- }
-
- .kaitana A:hover {
-         color: yellow;
-	 text-decoration: underline;
- }
-// -->
-</style>
-</element>
-
 <<element name='kaitana_announce'>
 <kaitana_style>
 <div class='aframe ninept' style='padding: 3'>
@@ -139,19 +61,11 @@
   <tr><td><ul class='ninept'>
    <for>
     <li>
-     <b>$.Subject</b> <a href='$.URL'>$.Source</a>
+     <b>$.Subject.</b> <a href='$.URL'>$.Source</a>
      <biff time='$.Sent' small='*true'>
     </li>
    </for>
   </ul></td></tr>
  </table>
- <<table width=100% cellspacing=0 cellpadding=0 class='eightpt'>
-  <tr>
-   <td rowspan=2 width=15% height=5>&nbsp;</td>
-   <td width=70% height=5>&nbsp;</td>
-   <td rowspan=2 width=15% height=5>&nbsp;</td>
-  </tr>
-  <tr><td class='textears-split' height=5>&nbsp;</td></tr>
- </table>>
 </ifnzero>
 </element>
