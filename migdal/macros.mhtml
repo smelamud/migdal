@@ -45,9 +45,9 @@
 <decel name='gallery_main' file='parts/gallery-main.php'
        params='cols,subdomain' defaults="cols=5 subdomain=-1">
 <decel name='gallery_picture' file='parts/gallery-picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten,root'
+       params='picture,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false' root=$`general`">
+                 shorten='*false'">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='help_link' file='parts/help-link.php' params='href,title,span'
