@@ -25,7 +25,7 @@
  <batcher list='$;'>
  <table width=100% class='catalog'>
   <tr>
-   <th>&nbsp;</th><th>Тема</th><th>Прислал</th><th>Ответов</th>
+   <th>&nbsp;</th><th>Тема</th><th>Прислал(а)</th><th>Ответов</th>
    <th>Последний ответ</th>
   </tr>
   <for>
@@ -34,7 +34,7 @@
    <else>
     <tr height=40>
    </if>
-    <td>
+    <td width=30>
      <ifzero what='$.LastAnswer'>
       <biff time='$.Sent'>
      <else>
