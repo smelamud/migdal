@@ -16,10 +16,9 @@
  </for>
 </div>
 <postings_info grp='*GRP_LINKS' topic_id='$posting.TopicId'
-	       recursive='*true'>
-<assign name='post_count' value='$,Total'>
-<topic_count id='$posting.TopicId' recursive='*true'>
-<assign name='topic_count' value='$,'>
+	       recursive='*false'>
+<assign name='post_count' value!='$,Total-1'>
+<topic_count name='topic_count' id='$posting.TopicId' recursive='*true'>
 <if what='$post_count!=0 || $topic_count!=0'>
  <p>
  <a href='/links.php?topic_id=$posting.TopicId'>
