@@ -5,6 +5,8 @@
 <int name='sort'>
 <ifzero what='$sort'>
  <assign name='sort' value='*SORT_PSENT'>
+<else>
+ <meta_noindex>
 </ifzero>
 <grps>
 <user_obj name='user' id='$user_id'>

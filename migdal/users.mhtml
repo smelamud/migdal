@@ -5,6 +5,8 @@
 <int name='sort'>
 <ifzero what='$sort'>
  <assign name='sort' value='*SORT_LOGIN'>
+<else>
+ <meta_noindex>
 </ifzero>
 
 <pagetitle title='Пользователи'>

@@ -5,13 +5,13 @@
  <outer>
   <div align=right>
    <table class='controls'><tr><inner>
+    <td>
+     <printlink posting='$posting'>
+    </td>
+    <td>
+     &nbsp;&nbsp;
+    </td>
     <isedit what='$posting'>
-     <td>
-      <printlink posting='$posting'>
-     </td>
-     <td>
-      &nbsp;&nbsp;
-     </td>
      <td style='padding-bottom: 3px'>
       <editlink posting='$posting'>
       &nbsp;

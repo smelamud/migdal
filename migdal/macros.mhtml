@@ -295,6 +295,10 @@
  </tdspan></tr>
 </macro>
 
+<macro name='meta_noindex' defaults="value='*true'">
+ <assign_global name='metaNoIndex' value%!value='%value'>
+</macro>
+
 <macro name='preamble'>
  <stylesheet ident='style'>
  <preamble_tiny>
@@ -303,7 +307,16 @@
 <macro name='preamble_tiny'>
  <assign_global name='wwwDomain' value!="$$userDomain=='www'">
  <assign_global name='englishDomain' value!="$$userDomain=='english'">
+ <print>
+  <meta_noindex>
+ </print>
  <head>
+  <notprint>
+   <link rel='alternate' media='print' href='$[print=1]'>
+  </notprint>
+  <if what='$metaNoIndex'>
+   <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+  </if>
   <title><notenglish>Мигдаль<else>Migdal</notenglish>
   <ifne what='$pageTitle'>&sp;- $pageTitle</ifne></title>
  </head>
