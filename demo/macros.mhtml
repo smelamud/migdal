@@ -1,5 +1,12 @@
 << @(#) $Id$ >>
 
+<< Errors >>
+
+<macro name='error'>
+ <require name='lib/errors.php'>
+ <perror id='%id' text='%text' color='%color' span='%span'>
+</macro>
+
 << Elements >>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
 <decel name='batcher' file='parts/utils.php' params='value,var'>
