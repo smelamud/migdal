@@ -2,7 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/sendertag.php');
-require_once('lib/text.php');
+require_once('lib/mtext-display.php');
 require_once('lib/selectiterator.php');
 require_once('lib/users.php');
 require_once('lib/sql.php');
@@ -14,6 +14,7 @@ var $id;
 var $private_id;
 var $sent;
 var $text;
+var $text_display;
 
 function ChatMessage($row)
 {
@@ -40,9 +41,14 @@ function getText()
 return $this->text;
 }
 
-function getHTMLText()
+function getTextDisplay()
 {
-return stotextToHTML(TF_MAIL,$this->text);
+return $this->text_display;
+}
+
+function getTextHTML()
+{
+return mtextToHTML($this->getTextDisplay(),MTEXT_LINE);
 }
 
 }
@@ -56,7 +62,7 @@ function ChatMessageListIterator($limit=20)
 global $userId;
 
 $this->SelectIterator('ChatMessage',
-                      "select chat_messages.id as id,login,text,
+                      "select chat_messages.id as id,login,text,text_display,
 		              unix_timestamp(sent) as sent
 		       from chat_messages
 		            left join users

@@ -100,6 +100,7 @@ $state=0;
 $st=0;
 $ed=0;
 while($ed<strlen($s))
+     {
      switch($state)
            {
 	   case 0:
@@ -123,7 +124,7 @@ while($ed<strlen($s))
                 if(!preg_match('/^\s+((\S+:\/)?\/[^\s&;]\S*[^\s.,:;\(\)&\\\\])/',
 		               substr($s,$ed),$matches))
 		  {
-		  $ed-=6;
+		  $ed-=1;
 		  goFurther($c,$s,$st,$ed,$state);
 		  }
 		else
@@ -137,6 +138,7 @@ while($ed<strlen($s))
 		$state=0;
 		break;
 	   }
+     }
 if($ed>$st)
   $c.=substr($s,$st,$ed-$st);
 $c=preg_replace('/[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*/',

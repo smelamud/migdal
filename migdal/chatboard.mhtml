@@ -19,9 +19,9 @@
     <td class='time'>[$.Sent@H:$.Sent@i:$.Sent@s]</td>
     <td>&nbsp;</td>
     <if what='$.Login=="shames"'>
-     <td class='system'>$.HTMLText</td>
+     <td class='system'>$.TextHTML</td>
     <else>
-     <td><span class='name'>$.Login:</span> $.HTMLText</td>
+     <td><span class='name'>$.Login:</span> $.TextHTML</td>
     </if>
    </tr>
   </for>
