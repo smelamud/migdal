@@ -1,0 +1,24 @@
+<< @(#) $Id$ >>
+
+<element name='discussions'>
+<grps>
+<topics_table class='eightpt' title='$title'>
+ <iterate_postinglist grp='*GRP_DISCUSS' topic='$topic_id' limit='$limit'
+		      sort='*SORT_ACTIVITY'
+		      withanswers='*GRP_NOT_FORUMS'>
+ <for>
+  <ifzero what='$.LastAnswer'>
+   <assign name='last' value='$.Sent'>
+   <assign name='login' value='$.Login'>
+  <else>
+   <assign name='last' value='$.LastAnswer'>
+   <forum_answer_author parent_id='$.MessageId' sent='$.LastAnswer'>
+   <assign name='login' value='$,Login'>
+  </ifzero>
+  <topics_line time!='$.Sent>$.LastAnswer ? $.Sent : $.LastAnswer'
+               href#='forum.php?redirid=$_&msgid=$.Id'
+               text#='$.SubjectDesc' count='$.AnswerCount'
+               title#='$login - $last@j.$last@m.$last@Y&sp;$last@H:$last@i'>
+ </for>
+</topics_table>
+</element>
