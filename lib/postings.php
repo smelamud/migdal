@@ -262,7 +262,7 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
-	      $topicFilter $userFilter");
+	      $topicFilter $userFilter $index1Filter $sentFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }

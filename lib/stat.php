@@ -10,6 +10,11 @@ require_once('lib/session.php');
 require_once('lib/logs.php');
 require_once('lib/postings.php');
 
+function removeControlChars($s)
+{
+return preg_replace('/\s+/',' ',$s);
+}
+
 settype($from,'integer');
 
 dbOpen();
@@ -35,7 +40,7 @@ $fd=fopen("$dir/postings",'w');
 $iter=new PostingListIterator(GRP_ALL,-1,false,0,0,0,SORT_SENT,GRP_NONE,0,-1,$from);
 while($post=$iter->next())
      fputs($fd,$post->getId()."\t".$post->getTopicId()."\t".$post->getMessageId()."\t".
-               $post->getImageSet()."\t".$post->getSubjectDesc()."\n");
+               $post->getImageSet()."\t".removeControlChars($post->getSubjectDesc())."\n");
 fclose($fd);
 
 $fd=fopen("$dir/topics",'w');
