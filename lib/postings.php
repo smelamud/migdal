@@ -221,9 +221,9 @@ $order=getOrderBy($sort,
              SORT_NAME     => 'subject',
              SORT_ACTIVITY => 'age desc',
 	     SORT_READ     => 'read_count desc,sent desc',
-	     SORT_INDEX0   => 'index0',
-	     SORT_INDEX1   => 'index1',
-	     SORT_RINDEX1  => 'index1 desc',
+	     SORT_INDEX0   => 'postings.index0',
+	     SORT_INDEX1   => 'postings.index1',
+	     SORT_RINDEX1  => 'postings.index1 desc',
 	     SORT_RATING   => 'if(vote_count=0,2.5,vote/vote_count) desc,'.
 	                      'vote_count desc,sent desc'));
 $answerFilter=$withAnswers!=GRP_NONE
@@ -232,7 +232,7 @@ $answerFilter=$withAnswers!=GRP_NONE
 		: "having (grp & $withAnswers)=0 or count(forummesgs.id)<>0"
 	      : '';
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
-$index1Filter=$index1>=0 ? "and index1=$index1" : '';
+$index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
 $sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
 $subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
 $childFilter=$up>=0 ? "and messages.up=$up" : '';
@@ -424,7 +424,7 @@ $this->SelectIterator(
 	        cover_messages.sender_id=$userId) and
                (cover_messages.disabled<$hide or
 	        cover_messages.sender_id=$userId))
-	order by index1 desc");
+	order by postings.index1 desc");
 }
 
 function create($row)
@@ -577,7 +577,7 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic_id>=0 ? " and topic_id=$topic_id " : '';
 $userFilter=$user_id<=0 ? '' : " and messages.sender_id=$user_id ";
-$index1Filter=$index1>=0 ? "and index1=$index1" : '';
+$index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
 $result=mysql_query(
         "select priority,count(*)
          from postings
