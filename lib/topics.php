@@ -260,11 +260,13 @@ $postFilter=$withPostings ? 'having message_count<>0' : '';
 $subdomainFilter=$subdomain>=0 ? "and postings.subdomain=$subdomain" : '';
 $this->TopicIterator(
       "select topics.id as id,topics.ident as ident,topics.up as up,
-              topics.name as name,topics.stotext_id as stotext_id,
+              topics.name as name,topics.stotext_id as stotext_id,login,
 	      stotexts.body as description,
 	      count(distinct messages.id) as message_count,
 	      max(messages.sent) as last_message
        from topics
+	    left join users
+		 on topics.user_id=users.id
             left join stotexts
 	         on stotexts.id=topics.stotext_id
 	    left join postings

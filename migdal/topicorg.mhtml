@@ -18,6 +18,9 @@
     <else>
      <assign name='name' value='$.Name'>
     </ifne>
+    <ifne what='$.Login'>
+     <assign name='name' value#='$name <span class="owner">($.Login)</span>'>
+    </ifne>
     <admin_topics>
      <li><a href='topicedit.php?editid=$.Id&redirid=$_'
 	    title='$.Description' class='item'>$name</a>
@@ -34,6 +37,13 @@
 <preamble>
 <body>
  <top ident='index'>
+ <style><!--
+  .owner {
+  	color: green;
+	font-weight: bold;
+  }
+  //-->
+ </style>
  <div class='ninept topics cframe' style='padding: 5px'>
   <branch up=0>
  </div>
