@@ -3,15 +3,7 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
-
-function IPToInteger($addr)
-{
-$octets=explode('.',$addr);
-$ip=0;
-foreach($octets as $oct)
-       $ip=$ip*256+$oct;
-return $ip;
-}
+require_once('lib/ip.php');
 
 function logEvent($event,$body)
 {

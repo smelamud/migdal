@@ -42,3 +42,12 @@ INDEX (`id`, `event`, `sent`)
 );
 ALTER TABLE `logs` ADD `ip` INT UNSIGNED NOT NULL AFTER `sent`;
 DROP TABLE statistics;
+ALTER TABLE `postings` ADD `vote` INT NOT NULL AFTER `last_read`, ADD `vote_count` INT UNSIGNED NOT NULL AFTER `vote`;
+CREATE TABLE votes (
+  posting_id int(11) NOT NULL default '0',
+  ip int(10) unsigned NOT NULL default '0',
+  user_id int(11) NOT NULL default '0',
+  sent timestamp(14) NOT NULL,
+  vote int(11) NOT NULL default '0',
+  KEY posting_id (posting_id,ip,user_id,sent)
+);

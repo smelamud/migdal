@@ -16,6 +16,7 @@
     <a href='taglit-user.php?user_id=$posting.SenderId'
        class='topic' title='$posting.TopicDescription'>
      $posting.TopicName</a>
+    <vote_frame align=right id='$posting.Id' color='$$style_body_back'>
    </dt>
   </if>
   <dt class='sent'>

@@ -27,6 +27,8 @@ var $personal_id;
 var $grp;
 var $priority;
 var $read_count;
+var $vote;
+var $vote_count;
 
 function Posting($row)
 {
@@ -132,6 +134,21 @@ function getReadCount()
 return $this->read_count;
 }
 
+function getVote()
+{
+return $this->vote_count==0 ? 2.5 : $this->vote/$this->vote_count;
+}
+
+function getVoteString()
+{
+return sprintf("%1.2f",$this->getVote());
+}
+
+function getVote20()
+{
+return (int)round($this->getVote()*4);
+}
+
 function getIndex0()
 {
 return $this->index0;
@@ -186,7 +203,8 @@ $order=getOrderBy($sort,
 	     SORT_READ     => 'read_count desc,sent desc',
 	     SORT_INDEX0   => 'index0',
 	     SORT_INDEX1   => 'index1',
-	     SORT_RINDEX1  => 'index1 desc'));
+	     SORT_RINDEX1  => 'index1 desc',
+	     SORT_RATING   => 'if(vote_count=0,2.5,vote/vote_count) desc,sent desc'));
 $answerFilter=$withAnswers!=GRP_NONE
               ? $withAnswers==GRP_ALL
 	        ? 'having count(forummesgs.id)<>0'
@@ -213,7 +231,7 @@ $this->LimitSelectIterator(
 	       topics.name as topic_name,topictexts.body as topic_description,
 	       topics.ident as topic_ident,
 	       login,gender,email,hide_email,rebe,
-	       read_count,
+	       read_count,vote,vote_count,
 	       count(forummesgs.id) as answer_count,
 	       max(forummesgs.sent) as last_answer,
 	       ifnull(max(forummesgs.sent),messages.sent) as age
@@ -465,7 +483,7 @@ $result=mysql_query(
 		topics.name as topic_name,topictexts.body as topic_description,
 		images.has_large as has_large_image,images.title as title,
 		login,gender,email,hide_email,rebe,
-	        read_count,
+	        read_count,vote,vote_count,
 	        count(forummesgs.id) as answer_count,
 	        max(forummesgs.sent) as last_answer
 	 from postings
@@ -616,5 +634,15 @@ $result=mysql_query("select max(index$index)
 		     where (grp & $grp)<>0")
 	     or die('Ошибка SQL при получении максимального индекса постинга');
 return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
+}
+
+function getVoteInfoByPostingId($id,$grp=GRP_ALL)
+{
+$result=mysql_query("select id,vote,vote_count
+                     from postings
+		     where id=$id")
+	     or die('Ошибка SQL при получении рейтинга постинга'.mysql_error());
+return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
+                                 : newGrpPosting($grp);
 }
 ?>

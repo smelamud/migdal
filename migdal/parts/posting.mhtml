@@ -25,6 +25,7 @@
     </a>
     <br>
    </if>
+   <vote_frame align=right id='$posting.Id' color='$$style_body_back'>
    $posting.Subject
    <ifne what='$posting.Author'>
     <br><span class='author'>$posting.Author</span>

@@ -39,6 +39,15 @@ shift;
 $toDate=parseDate(shift);
 }
 
+sub fixEntities
+{
+my ($s)=@_;
+
+$s=~s/&gt;/>/g;
+$s=~s/&lt;/</g;
+return $s;
+}
+
 sub help
 {
 print <<EOF;
@@ -79,7 +88,7 @@ while(<IN>)
      {
      chomp;
      my @line=split /\t/;
-     $topics[$line[0]]=$line[1];
+     $topics[$line[0]]=fixEntities($line[1]);
      }
 close IN;
 }
@@ -91,7 +100,7 @@ while(<IN>)
      {
      chomp;
      my @line=split /\t/;
-     my $info=$line[4].', '.$topics[$line[1]];
+     my $info=fixEntities($line[4]).', '.$topics[$line[1]];
      $postings[$line[0]]=$info;
      $messages[$line[2]]=$info;
      $imagesets[$line[3]]=$info if $line[3] ne '';

@@ -20,6 +20,7 @@
  <div class=pic>
   <image_tag_put id='$cover.ImageId' size=large>
  </div>
+ <vote_frame align=right id='$cover.Id' color='$$style_body_back'>
  <table width=150 class=bottom><tr>
   <editor>
    <td>
@@ -147,13 +148,13 @@
        <assign name='topicname'
                value!="$.TopicIdent!='migdal-times' ? $.TopicName : ''">
        <ifne what='$topicname'>
-        <table width=100% class=topic><tr>
+        <table width=100% class=heading><tr>
 	 <td align=left><image src='pics/times-bullet.gif'></td>
 	 <td align=right>$^topicname</td>
 	</tr></table>
        </ifne>
       </if>
-      <posting_times posting='$.' times='$times'>
+      <posting_times posting='$.' times='$times' showtopic='*false'>
      </for>
      <ifnzero what='$;Count'>
       <batcher_times times='$times' issue='$issue'>
@@ -164,6 +165,7 @@
      <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=5 sort='*SORT_RINDEX1'>
      <for>
       <table>
+       <tr><td align=right><rating value='$.Vote20' showtitle='*false'></td></tr>
        <tr><td class=pic>
         <a href='times.php?issue=$.Index1'><image_tag_put id='$.ImageId'></a>
        </td></tr>

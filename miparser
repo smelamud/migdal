@@ -1162,6 +1162,13 @@ my ($class)=@_;
 return QuotedToken::new($class,'-->');
 }
 
+sub process
+{
+my ($self)=@_;
+
+::body(::subVarsText($self->getToken()));
+}
+
 #### Remark ####
 
 package Remark;

@@ -168,6 +168,8 @@
 <deccall macro='posting_random' func='getRandomPostingId'
          file='lib/postings.php' params='grp,topic_id,user_id'
 	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0'>
+<deccall macro='posting_vote' func='getVoteInfoByPostingId'
+         file='lib/postings.php' params='id,grp' defaults="grp='*GRP_ALL'">
 <deccall macro='read_posting' func='incPostingReadCount'
          file='lib/postings.php' params='id'>
 <deccall macro='reload' func='reload' file='lib/utils.php' params='href'>
@@ -183,6 +185,7 @@
 <deccall macro='update_last_chat' func='updateLastChat' file='lib/users.php'>
 <deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
 <deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>
+<deccall macro='vote' func='getVote' file='lib/votes.php' params='id'>
 
 <decel name='image' file='parts/utils.php' params='src,alt,title,border'
        defaults="src='' alt='' title='' border=''">

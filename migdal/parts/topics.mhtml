@@ -30,8 +30,9 @@
   <else>
    <a href='$href' class='$class'><asp>
   </ifne>
-     <asp>$text<asp>
-     <ifne what='$count'>&nbsp;<span class='answers'>($count)</span></ifne></a>
+  <asp>$text<asp>
+  <ifne what='$count'>&nbsp;<span class='answers'>($count)</span></ifne></a>
+  <ifne what='$rating'><br><rating value='$rating'></ifne>
  </tdspan>
 </tr>
 </element>

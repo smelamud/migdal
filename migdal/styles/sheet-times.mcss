@@ -27,7 +27,7 @@
 	text-align: center;
 }
 
-.mtimes .topic {
+.mtimes .heading {
 	border-bottom: solid 3px %times_topic_split;
 	font-weight: bold;
 }

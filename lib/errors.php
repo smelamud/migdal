@@ -174,4 +174,10 @@ define('EO_NO_REORDER',331);
 define('EO_DUPS',332);
 define('EO_SQL',333);
 define('EO_NO_ARTICLE',334);
+
+define('EV_OK',340);
+define('EV_NO_POSTING',341);
+define('EV_ALREADY_VOTED',342);
+define('EV_SQL_VOTES',343);
+define('EV_SQL_POSTINGS',344);
 ?>

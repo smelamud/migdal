@@ -71,7 +71,7 @@
 .posting .bottom {
 	border-top: 1px solid %posting_split;
 	margin-top: .5ex;
-	clear: left;
+	clear: both;
 }
 
 .posting .bottom A {

@@ -9,6 +9,7 @@ define('SORT_READ',4);
 define('SORT_INDEX0',5);
 define('SORT_INDEX1',6);
 define('SORT_RINDEX1',7);
+define('SORT_RATING',8);
 define('SORT_ORDER',255);
 define('SORT_PRIORITY',256);
 

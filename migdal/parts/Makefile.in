@@ -12,7 +12,7 @@ OBJECTS = article.php backtrace.php bottom.php complain.php cs_forum.php \
 	  taglit-gallery.php taglit-gallery-picture.php taglit-picture.php \
 	  taglit-posting.php taglit-postings.php times-issue.php today.php top.php \
 	  topics.php topics-general.php topicselect.php tune.php unititle.php \
-	  uploader.php userinfo.php utils.php
+	  uploader.php userinfo.php utils.php vote.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

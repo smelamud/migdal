@@ -1,0 +1,57 @@
+! @(#) $Id$
+
+BODY {
+	margin: 0;
+	padding: 0;
+}
+
+TABLE {
+	border-spacing: 2;
+	border-padding: 0;
+	margin: 0;
+	padding: 0;
+}
+
+TD {
+	margin: 0;
+	padding-left: 2;
+	padding-right: 2;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+TD.eh {
+	background-color: red;
+}
+
+TD.st {
+	background-color: purple;
+}
+
+TD.sl {
+	background-color: navy;
+}
+
+TD.ar {
+	background-color: teal;
+}
+
+TD.hm {
+	background-color: green;
+}
+
+TD.sel {
+	color: yellow;
+	font-weight: bold;
+}
+
+A {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+A:hover {
+	color: yellow;
+	text-decoration: underline;
+}

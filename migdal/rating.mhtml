@@ -1,0 +1,57 @@
+<< @(#) $Id$ >>
+
+<int name='postid'>
+<pagetitle title='Рейтинг сообщения'>
+
+<element name='votebtn' params='id,class,vote,peer,text'>
+<ifzero what='$peer'>
+ <td class=$class><a href='actions/vote.php?postid=$id&vote=$vote&okdir=$#-&faildir=$#-'
+  		     title='$text'>$vote</a></td>
+<else>
+ <if what='$peer==$vote'>
+  <td class='$class sel' align=left>$vote</td>
+ <else>
+  <td class='empty' align=left>$vote</td>
+ </if>
+</ifzero>
+</element>
+
+<html>
+<zone>
+ <stylesheet ident='votes'>
+ <preamble>
+</zone>
+<body>
+ <style><!--
+  BODY {
+	 background-color: $color;
+  }
+
+  TD.empty {
+	  background-color: $color;
+	  color: $color;
+  }
+  // -->
+ </style>
+
+ <posting_vote id='$postid'>
+ <table class='eightpt' width=130>
+  <tr><td colspan=6 align=right>
+   $,VoteString&nbsp;<image src#='pics/bar-${,Vote20}.gif'>
+  </td></tr>
+  <tr>
+   <vote id='$postid'>
+   <ifzero what='$,'>
+    <td>Оцените:</td>
+   <else>
+    <td>Оценка:</td>
+   </ifzero>
+   <votebtn id='$postid' class=eh vote=1 peer='$,' text='Ужасно :('>
+   <votebtn id='$postid' class=st vote=2 peer='$,' text='Плохо'>
+   <votebtn id='$postid' class=sl vote=3 peer='$,' text='Так себе'>
+   <votebtn id='$postid' class=ar vote=4 peer='$,' text='Хорошо'>
+   <votebtn id='$postid' class=hm vote=5 peer='$,' text='Отлично!'>
+  </tr>
+ </table>
+</body>
+</html>

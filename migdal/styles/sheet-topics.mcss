@@ -69,3 +69,7 @@
 .topics A:hover .answers {
 	color: %topics_names_hover;
 }
+
+.topics .rating {
+	font-size: 7pt;
+}

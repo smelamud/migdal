@@ -88,6 +88,16 @@ $dbh->do('delete
 	  where last_access+interval '.$Config{'redirTimeout'}.' hour<now()');
 }
 
+sub clearVotes
+{
+$dbh->do('delete
+          from votes
+	  where user_id=0 and sent+interval '.$Config{'anonVoteTimeout'}.' hour<now()');
+$dbh->do('delete
+          from votes
+	  where user_id<>0 and sent+interval '.$Config{'userVoteTimeout'}.' hour<now()');
+}
+
 sub useImagesFrom
 {
 my ($select)=@_;
@@ -157,6 +167,7 @@ clearSessions();
 clearUsers();
 clearTmpTexts();
 clearRedirs();
+clearVotes();
 clearImages();
 closeComplains();
 }
