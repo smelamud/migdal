@@ -91,8 +91,11 @@
          file='lib/postings.php' params='grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user,index1,later,subdomain,up'
-         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1 later=0 subdomain=-1 up=-1">
+         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,
+	         user,index1,later,subdomain,up,showshadows'
+         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0
+	           personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0
+		   index1=-1 later=0 subdomain=-1 up=-1 showshadows='*true'">
 <deciter macro='received_instant_messagelist'
          class='ReceivedInstantMessageListIterator' file='lib/instants.php'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
@@ -111,7 +114,8 @@
 	 defaults="root=-1 reverse='*false'">
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
          params='grp,up,withpostings,withanswers,subdomain'
-         defaults="up=0 withpostings='*false' withanswers='*false' subdomain=-1">
+         defaults="up=0 withpostings='*false' withanswers='*false'
+	           subdomain=-1">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up,recursive,delimiter'
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">
@@ -191,7 +195,8 @@
 <deccall macro='posting_last' func='getLastPostingDate'
          file='lib/postings-info.php'
 	 params='grp,topic_id,answers,user_id,recursive'
-	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0 recursive=*false'>
+	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
+	           recursive=*false'>
 <deccall macro='posting_new' func='newDetailedPosting' file='lib/postings.php'
          params='grp,topic_id,sender_id' defaults="topic_id=-1 sender_id=0">
 <deccall macro='posting_random' func='getRandomPostingId'
@@ -202,7 +207,8 @@
 <deccall macro='postings_info' func='getPostingsInfo'
          file='lib/postings-info.php'
 	 params='grp,topic_id,answers,user_id,recursive'
-	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0 recursive=*false'>
+	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
+	           recursive=*false'>
 <decexec macro='read_posting' func='incPostingReadCount'
          file='lib/postings.php' params='id'>
 <decexec macro='reload' func='reload' file='lib/utils.php' params='href'>

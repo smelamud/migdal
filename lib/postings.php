@@ -31,6 +31,7 @@ var $read_count;
 var $vote;
 var $vote_count;
 var $subdomain;
+var $shadow;
 
 function Posting($row)
 {
@@ -179,6 +180,11 @@ function getSubdomain()
 return $this->subdomain;
 }
 
+function getShadow()
+{
+return $this->shadow;
+}
+
 }
 
 require_once('grp/postings.php');
@@ -209,7 +215,7 @@ class PostingListIterator
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
-			     $subdomain=-1,$up=-1)
+			     $subdomain=-1,$up=-1,$showShadows=true)
 {
 global $userId,$userModerator;
 
@@ -237,6 +243,7 @@ $index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
 $sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
 $subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
 $childFilter=$up>=0 ? "and messages.up=$up" : '';
+$shadowFilter=!$showShadows ? 'and shadow=0' : '';
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
@@ -246,7 +253,7 @@ $this->LimitSelectIterator(
 	       messages.sent as sent,topic_id,messages.url as url,
 	       messages.sender_id as sender_id,messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
-	       postings.index1 as index1,subdomain,
+	       postings.index1 as index1,subdomain,shadow,
 	       images.image_set as image_set,images.id as image_id,
 	       images.has_large as has_large_image,images.title as title,
 	       if(images.has_large,length(images.large),
@@ -288,8 +295,8 @@ $this->LimitSelectIterator(
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
 	      $userFilter $index1Filter $sentFilter $subdomainFilter
-	      $childFilter
-	group by messages.id
+	      $childFilter $shadowFilter
+	group by postings.id
 	$answerFilter
 	$order",$limit,$offset,
        "select count(distinct postings.id)
@@ -310,7 +317,7 @@ $this->LimitSelectIterator(
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
 	      $topicFilter $userFilter $index1Filter $sentFilter
-	      $subdomainFilter $childFilter");
+	      $subdomainFilter $childFilter $shadowFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }
@@ -484,7 +491,7 @@ $result=mysql_query(
 		stotexts.large_body as large_body,messages.lang as lang,
 		messages.subject as subject,messages.author as author,
 		messages.source as source,messages.url as url,grp,
-		postings.index1 as index1,subdomain,
+		postings.index1 as index1,subdomain,shadow,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,
 		messages.hidden as hidden,messages.disabled as disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,

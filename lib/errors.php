@@ -207,4 +207,9 @@ define('ETLD_OK',380);
 define('ETLD_NO_DEL',381);
 define('ETLD_SQL_CHECK',382);
 define('ETLD_SQL_DELETE',383);
+
+define('ESP_OK',390);
+define('ESP_NO_SHADOW',391);
+define('ESP_POSTING_ABSENT',392);
+define('ESP_COPY_SQL',393);
 ?>

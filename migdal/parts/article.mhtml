@@ -12,7 +12,7 @@
     <td>
      <a href="limedit.php?postid=$posting.Id&redirid=$_">Список иллюстраций</a>
     </td>
-    <if what='$posting.isModerable'>
+    <moderator>
      <td>
       <if what='$posting.isDisabled'>
        <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
@@ -22,7 +22,11 @@
 	>Запретить показ</a>
       </if>
      </td>
-    </if>
+     <td>
+      <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
+	 >Тень<ifnzero what='$posting.Shadow'> (*)</ifnzero></a>
+     </td>
+    </moderator>
    </isedit>
    <td><discusslink posting='$posting'></td>
   </tr>

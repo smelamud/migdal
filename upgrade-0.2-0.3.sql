@@ -43,3 +43,6 @@ CREATE TABLE cross_topics (
   peer_id int(11) NOT NULL default '0',
   KEY topic_id (topic_id,peer_id)
 );
+ALTER TABLE `topics` DROP `virtual`;
+ALTER TABLE `postings` ADD `shadow` TINYINT NOT NULL AFTER `message_id`;
+ALTER TABLE `postings` ADD INDEX (`shadow`);

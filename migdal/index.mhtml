@@ -33,7 +33,8 @@
   <td class='cframe'>
    <subtitle>
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
-	     offset='$offset' subdomain!='$$officialDomain ? 1 : -1'>
+	     offset='$offset' subdomain!='$$officialDomain ? 1 : -1'
+	     showshadows!='$topic_id>0 || $$userModerator'>
   </td>
   <community>
    <td width=130 class='eframe'>

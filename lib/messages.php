@@ -110,13 +110,6 @@ global $userId,$userModerator;
 return $this->sender_id==0 || $this->sender_id==$userId || $userModerator;
 }
 
-function isModerable()
-{
-global $userModerator;
-
-return $userModerator;
-}
-
 function getId()
 {
 return $this->id;

@@ -153,7 +153,8 @@
   <tr valign=top>
    <td class='cframe'>
     <postings grp='*GRP_LINKS' topic='$topic_id' root='links'
-              limit='$userMsgPortion' offset='$offset'>
+              limit='$userMsgPortion' offset='$offset'
+	      showshadows!='$topic_id>0 || $$userModerator'>
    </td>
    <td width=150 class='eframe'>
     <hit_parade grp='*GRP_LINKS' topic_id='$topic_id'>

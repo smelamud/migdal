@@ -46,7 +46,8 @@
        params='cols,subdomain' defaults="cols=5 subdomain=-1">
 <decel name='gallery_picture' file='parts/gallery-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten,root'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' root=general">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false' root=general">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='help_link' file='parts/help-link.php' params='href,title,span'
@@ -54,7 +55,8 @@
 <decel name='help_navi' file='parts/help-navi.php' params='ident'>
 <decel name='hit_parade' file='parts/hit-parade.php'
        params='grp,topic_id,title,later,limit'
-       defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0 limit=10">
+       defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
+                 limit=10">
 <decel name='hit_parade_month' file='parts/hit-parade.php'
        params='grp,topic_id' defaults="grp='*GRP_ALL' topic_id='-1'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
@@ -63,7 +65,8 @@
 <decel name='kaitana_announce' file='parts/kaitana-announce.php'>
 <decel name='kaitana_picture' file='parts/kaitana-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten,kaitana_id'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' kaitana_id=0">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false' kaitana_id=0">
 <decel name='langselect' file='parts/langselect.php'
        params='name,value,mandatory,title'
        defaults="mandatory='*false' title='Язык'">
@@ -71,7 +74,8 @@
        defaults="class=''">
 <decel name='link_posting' file='parts/link-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
 <decel name='login' file='parts/login.php' params='no_new,target'
        defaults="no_new='*false' target=''">
 <decel name='mailru_count' file='parts/mailru.php'>
@@ -81,22 +85,29 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten,root,topiclink'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' root=general">
+       params='picture,showtopic,showdiscuss,showcomplain,shorten,root,
+               topiclink'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false' root=general">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,text,image_id' defaults="text=''">
 <decel name='posting_general' file='parts/posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
 <decel name='posting_times' file='parts/posting-times.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten,times'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' times=0">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false' times=0">
 <decel name='posting_times_cover' file='parts/posting-times-cover.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten,times'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' times=0">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false' times=0">
 <decel name='postings' file='parts/postings.php'
-       params='grp,topic,limit,offset,subdomain,root,user_id,showadvert'
-       defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='general' user_id=0 showadvert='*true'">
+       params='grp,topic,limit,offset,subdomain,root,user_id,showadvert,
+               showshadows'
+       defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='general'
+                 user_id=0 showadvert='*true' showshadows='*true'">
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
@@ -114,10 +125,12 @@
        params='taglit_id,user_id,rows,cols,offset'>
 <decel name='taglit_gallery_picture' file='parts/taglit-gallery-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten,taglit_id'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' taglit_id=0">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false' taglit_id=0">
 <decel name='taglit_posting' file='parts/taglit-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
 <decel name='taglit_postings' file='parts/taglit-postings.php'
        params='taglit_id,user_id'>
 <decel name='times_issue' file='parts/times-issue.php'
@@ -126,7 +139,8 @@
 <decel name='tip' file='parts/tip.php'>
 <decel name='tip_posting' file='parts/tip-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
        params='ident,no_new,target,showimages'
@@ -134,26 +148,31 @@
 <decel name='topics' file='parts/topics-general.php' params='posting'>
 <decel name='topics_kaitana' params='kaitana,day'
        file='parts/topics-kaitana.php'>
-<decel name='topics_line' params='time,arrow,text,title,href,count,class,indent,span,rating'
-       defaults="time=0 arrow='*false' text='' title='' href='' count='' class='item' indent=0 span=1 rating=''"
+<decel name='topics_line'
+       params='time,arrow,text,title,href,count,class,indent,span,rating'
+       defaults="time=0 arrow='*false' text='' title='' href='' count=''
+                 class='item' indent=0 span=1 rating=''"
        file='parts/topics.php'>
 <decel name='topics_major' file='parts/topics-major.php' params='ident'>
 <decel name='topics_minor' file='parts/topics-minor.php'
        params='id,withpostings,withanswers,up,subdomain,grp,href,title'
-       defaults="withpostings='*false' withanswers='*false' up='general' subdomain=-1 grp='*GRP_ALL' href='index.php'">
+       defaults="withpostings='*false' withanswers='*false' up='general'
+                 subdomain=-1 grp='*GRP_ALL' href='index.php'">
 <decel name='topics_table' params='class,span,title'
        defaults="class='' span=1 title=''" file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
 <decel name='topics_taglit' params='taglit,id' file='parts/topics-taglit.php'>
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,root,recursive'
-       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1' recursive='*false'">
+       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
+                 recursive='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
 <decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'
        defaults="chapter='' topic_id='-1'">
 <decel name='uploader' file='parts/uploader.php'
-       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,mandatory'
+       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,
+               mandatory'
        defaults="mandatory='*false'">
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
@@ -174,7 +193,8 @@
 </macro>
 
 <macro name='posting'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
  <require name='parts/posting.php'>
  <require name='parts/gallery-picture.php'>
  <require name='parts/taglit-posting.php'>

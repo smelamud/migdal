@@ -17,21 +17,29 @@
  <tr><td class='modify'>
   <isedit what='$picture'>
    <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$root&grp=$picture.Grp&redirid=$_"
-    >Изменить</a>
+      >Изменить</a>
+   <moderator>
+    <br>
+    <a href="actions/messagerenew.php?id=$picture.MessageId&okdir=$#-&faildir=$#-"
+       >Осовременить</a>
+    <br>
+    <a href='actions/shadow.php?postid=$picture.Id&okdir=$#-&faildir=$#-'
+       >Тень<ifnzero what='$picture.Shadow'> (*)</ifnzero></a>
+   </moderator>
   <else>
    <if what='$showcomplain'>
     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
-     >Жалоба</a>
+       >Жалоба</a>
    </if>
   </isedit>
   <admin_domain>
    <br>
    <ifzero what='$picture.Subdomain'>
     <a href="actions/domainmod.php?editid=$picture.Id&domain=1&okdir=$#-&faildir=$#-"
-     >На&nbsp;официальную</a>
+       >На&nbsp;официальную</a>
    <else>
     <a href="actions/domainmod.php?editid=$picture.Id&domain=0&okdir=$#-&faildir=$#-"
-     >Убрать&nbsp;с&nbsp;официальной</a>
+       >Убрать&nbsp;с&nbsp;официальной</a>
    </if>
   </admin_domain>
  </td></tr>

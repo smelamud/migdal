@@ -21,7 +21,7 @@
   <isedit what='$posting'>
    <a href="postingedit.php?editid=$posting.Id&root=$times.Id&topic_id=$times.Id&grp=$posting.Grp&redirid=$_"
     >Изменить</a>
-   <if what='$posting.isModerable'>
+   <moderator>
     &nbsp;
     <if what='$posting.isDisabled'>
      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
@@ -33,7 +33,7 @@
     &nbsp;
     <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
      >Осовременить</a>
-   </if>
+   </moderator>
   </isedit>
  </td>
  <if what='$showdiscuss'>

@@ -21,7 +21,8 @@
 <grps>
 <iterate_postinglist grp='*GRP_DISCUSS' topic='$topic' limit='$limit'
                      offset='$offset' sort='*SORT_ACTIVITY'
-		     withanswers='*GRP_NOT_FORUMS'>
+		     withanswers='*GRP_NOT_FORUMS'
+		     showshadows!='$topic>0 || $$userModerator'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher list='$;' topic='$topic'>
  <table>
