@@ -15,7 +15,8 @@ CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-chat.mcss
 TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
 TIMESNFO_PARTS = colors.mcss fonts.mcss palette.mcss sheet-timesnfo.mcss
-VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-votes.mcss
+VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
+	sheet-votes.mcss
 
 all: style.stamp article.stamp complain.stamp chat.stamp times.stamp \
 	timesnfo.stamp votes.stamp
