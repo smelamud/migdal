@@ -28,9 +28,9 @@
   <td class='article cframe'>
    <ifnzero what='$,Id'>
     <subtitle>
-    <article_controls posting='$,' root='$`migdal`'>
+    <article_controls posting='$,'>
     <article posting='$,' withvote='*false'>
-    <article_controls posting='$,' root='$`migdal`'>
+    <article_controls posting='$,'>
    </ifnzero>
   </td>
  </tr></table>

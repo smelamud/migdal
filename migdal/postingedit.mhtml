@@ -43,9 +43,11 @@
   <assign name='root' value='$`veterans`'>
  <else><if what='$/$message.TopicId,0/==$`links`'>
   <assign name='root' value='$`links`'>
+ <else><if what='$/$message.TopicId,0/==$`tips`'>
+  <assign name='root' value='$`tips`'>
  <else>
   <assign name='root' value='$`general`'>
- </if></if></if></if></if></if>
+ </if></if></if></if></if></if></if>
 </full>
 
 <html>

@@ -2,6 +2,6 @@
 
 <element name='taglit_gallery_picture'>
 <picture picture='$picture' showtopic='$showtopic' showdiscuss='$showdiscuss'
-         showcomplain='$showcomplain' shorten='$shorten' root='$`taglit`'
+         showcomplain='$showcomplain' shorten='$shorten'
          topiclink#='taglit-user.php?user_id=$picture.SenderId'>
 </element>

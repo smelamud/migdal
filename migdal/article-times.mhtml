@@ -19,7 +19,7 @@
    <topics_major ident='times'>
   </td>
   <td class='article cframe'>
-   <article_controls posting='$,' root='$`migdal-times`'>
+   <article_controls posting='$,'>
    <h1>
     <table align=right class='timesnfo aframe'><tr valign=center>
      <td><a href='/times.php?issue=$,Index1'>
@@ -36,7 +36,7 @@
     </ifne>
    </h1>
    <article_full posting='$,'>
-   <article_controls posting='$,' root='$`migdal-times`'>
+   <article_controls posting='$,'>
   </td>
  </tr></table>
  <bottom>

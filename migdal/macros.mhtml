@@ -17,8 +17,7 @@
 << Elements >>
 <decel name='article' file='parts/article.php' params='posting,withvote'
        defaults="withvote='*true'">
-<decel name='article_controls' file='parts/article.php' params='posting,root'
-       defaults="root=$`general`">
+<decel name='article_controls' file='parts/article.php' params='posting'>
 <decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='at' file='parts/utils.php' params='target,class,href'
        defaults="target='' class=''">
@@ -97,10 +96,9 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten,root,
-               topiclink'
+       params='picture,showtopic,showdiscuss,showcomplain,shorten,topiclink'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false' root=$`general`">
+                 shorten='*false'">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,text,image_id' defaults="text=''">
 <decel name='posting' file='parts/posting.php'
@@ -124,11 +122,10 @@
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
 <decel name='postings' file='parts/postings.php'
-       params='grp,topic_id,limit,offset,subdomain,root,user_id,showadvert,
+       params='grp,topic_id,limit,offset,subdomain,user_id,showadvert,
                showshadows,sort'
-       defaults="topic_id=-1 limit=10 offset=0 subdomain=-1 root='$`general`'
-                 user_id=0 showadvert='*true' showshadows='*true'
-		 sort='*SORT_PSENT'">
+       defaults="topic_id=-1 limit=10 offset=0 subdomain=-1 user_id=0
+                 showadvert='*true' showshadows='*true' sort='*SORT_PSENT'">
 <decel name='postings_links' file='parts/postings-links.php'
        params='topic_id,limit,offset'
        defaults="topic_id=-1 limit=10 offset=0">
