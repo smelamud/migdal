@@ -77,7 +77,7 @@ global $hebrewCodes;
 $c='';
 for($i=0;$i<strlen($s);$i++)
    $c.='&#x'.$hebrewCodes[$s[$i]].';';
-return $c;
+return "$c&lrm;";
 }
 
 function convertOutput($s,$koiChars=false,$koiCharset=false)
