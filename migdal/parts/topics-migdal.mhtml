@@ -202,7 +202,7 @@
 </hash>
 <posting_last topic_id='$*'>
 <topics_line time='$,' href#='migdal.php?artid=$`postings:beitenu`'
-	     text='&lt;&lt;Бейтену&gt;&gt;'
+	     text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
 	     arrow!="$posting!=0 &&
 	             ($/$posting.TopicId,1/==$`beitenu` ||
 		      $/$posting.TopicId,2/==$`beitenu-news`)" indent=1
