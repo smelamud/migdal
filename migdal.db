@@ -102,10 +102,10 @@ CREATE TABLE complains (
 CREATE TABLE forums (
   id int(11) NOT NULL auto_increment,
   message_id int(11) NOT NULL default '0',
-  up int(11) NOT NULL default '0',
+  parent_id int(11) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY message_id (message_id),
-  KEY up (up)
+  KEY up (parent_id)
 ) TYPE=MyISAM;
 
 --
