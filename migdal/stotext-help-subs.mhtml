@@ -2,7 +2,7 @@
 << Based-on: doc/stotext.txt 1.16 >>
 
 <force_community>
-<pagetitle title='Справка'>
+<pagetitle title='Справка - Список обозначений, используемых в тексте'>
 
 <html>
 <stylesheet ident='article'>
