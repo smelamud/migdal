@@ -82,6 +82,82 @@ switch($mime_type)
   }
 }
 
+function uploadImageUsingMogrify($image,$image_name,$image_size,$image_type,
+                                 $thumbnail,&$err)
+{
+global $maxImage,$thumbnailType,$thumbnailWidth,$thumbnailHeight;
+global $userId;
+
+if(!isset($image) || $image=='' || !is_uploaded_file($image)
+   || filesize($image)!=$image_size)
+  {
+  $err=EM_OK;
+  return false;
+  }
+if($image_size>$maxImage)
+  {
+  $err=EM_IMAGE_LARGE;
+  return false;
+  }
+$largeExt=getImageExtension($image_type);
+$smallExt=getImageExtension($thumbnailType);
+if($largeExt=='')
+  {
+  $err=EM_UNKNOWN_IMAGE;
+  return false;
+  }
+
+srand(time());
+$hash=rand();
+$largeFile="/tmp/mig-$hash.$largeExt";
+$smallFile="/tmp/mig-$hash.$smallExt";
+
+if(!move_uploaded_file($image,$largeFile))
+  {
+  $err=EM_OK;
+  return false;
+  }
+$large_size=getImageSize($largeFile);
+$fd=fopen($largeFile,'r');
+$large=fread($fd,$maxImage);
+fclose($fd);
+
+$geometry=$thumbnailWidth.'x'.$thumbnailHeight;
+exec("mogrify -format $smallExt -geometry '$geometry>' $largeFile");
+
+$small_size=getImageSize($smallFile);
+$fd=fopen($smallFile,'r');
+$small=fread($fd,$maxImage);
+fclose($fd);
+
+return new Image(array('filename' => $image_name,
+		       'small'    => $small,
+		       'small_x'  => $small_size[0],
+		       'small_y'  => $small_size[1],
+		       'large'    => $large,
+		       'large_x'  => $large_size[0],
+		       'large_y'  => $large_size[1],
+		       'format'   => $image_type));
+}
+
+function uploadImage($name,$thumbnail,&$err)
+{
+global $HTTP_POST_FILES;
+
+$img=uploadImageUsingMogrify($HTTP_POST_FILES[$name]['tmp_name'],
+			     $HTTP_POST_FILES[$name]['name'],
+			     $HTTP_POST_FILES[$name]['size'],
+			     $HTTP_POST_FILES[$name]['type'],
+			     $thumbnail,$err);
+if(!$img->store())
+  {
+  $err=EM_IMAGE_SQL;
+  return false;
+  }
+$err=EM_OK;
+return $img;
+}
+
 function getImageNameBySet($image_set)
 {
 $result=mysql_query("select id,image_set,filename
