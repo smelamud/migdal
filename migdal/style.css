@@ -35,15 +35,15 @@
 
 
 .state {
-	background-color: #42E887;
+	background-color: #42E8DA;
 	font-size: 8pt;
 	padding: 0pt;
 }
 
 .state .date {
 	font-size: 11pt;
-	font-weight: bold;
-	color: white;
+	font-style: italic;
+	color: blue;
 	padding-right: 1em;
 }
 
@@ -51,12 +51,13 @@
 	font-size: inherit;
 }
 
-.state .login {
-	font-size: inherit;
+.state .login TD {
+	font-size: 8pt;
 	color: blue;
 }
 
 .state .login A {
+	font-size: 8pt;
 	color: inherit;
 }
 
@@ -68,18 +69,20 @@
 	border-color: blue;
 	border-width: 1px;
 	color: blue;
+	font-size: 8pt;
 }
 
 .state .login INPUT[type='submit'] {
-	background-color: #42E887;
+	background-color: #42E8DA;
 }
 
 .state .login INPUT[type='text'],INPUT[type='password'] {
-	background-color: #B8E8B1;
+	background-color: #B1E8E3;
 }
 
 .state .login .error {
 	color: #FF0080;
+	font-size: 8pt;
 }
 
 
