@@ -1,5 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='complain_subject' params='link'>
-<center><h1>Общая жалоба</h1></center>
-</element>

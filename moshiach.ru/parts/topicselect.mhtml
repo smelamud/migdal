@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/topicselect.mhtml 1.2 >>
+<< Based-on: migdal/parts/topicselect.mhtml 1.3 >>
 
 <element name='topicselect'>
 <tr>

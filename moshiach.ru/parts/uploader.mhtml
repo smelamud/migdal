@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/uploader.mhtml 1.2 >>
+<< Based-on: migdal/parts/uploader.mhtml 1.4 >>
 
 <element name='uploader'>
 <ife what='$filename'>

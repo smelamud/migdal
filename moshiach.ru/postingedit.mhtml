@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/postingedit.mhtml 1.24 >>
+<< Based-on: migdal/postingedit.mhtml 1.18 >>
 
 <int name='editid'>
 <int name='topic_id'>

@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/limedit.mhtml 1.7 >>
+<< Based-on: migdal/limedit.mhtml 1.12 >>
 
 <int name='postid'>
 <int name='editid'>

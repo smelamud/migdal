@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
-<< Based-on: demo/postings.mhtml 1.8 >>
-<< Based-on: demo/parts/postings.mhtml 1.6 >>
+<< Based-on: migdal/index.mhtml 1.12 >>
+<< Based-on: migdal/parts/postings.mhtml 1.23 >>
 
-<string name='topic_id'
+<string name='topic_id'>
 <grps>
 
 <html>

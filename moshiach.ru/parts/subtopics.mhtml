@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/topics.mhtml 1.5 >>
-<< Based-on: demo/postings.mhtml 1.8 >>
-<< Based-on: demo/parts/postings.mhtml 1.6 >>
+<< Based-on: migdal/parts/topics.mhtml 1.24 >>
+<< Based-on: migdal/index.mhtml 1.12 >>
+<< Based-on: migdal/parts/postings.mhtml 1.23 >>
 
 <element name='subtopics'>
 <table border=0 cellPadding=2 cellSpacing=3 width=100%>

@@ -1,9 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='complain_subject' params='link'>
-<posting_full id='$link'>
-<zone><grpdata grp='$,Grp'><grpitemtitle grp='$,Grp'></zone>
-<center><h1>Жалоба на $grpitemtitle</h1></center>
-<p>
-<posting posting='$,' complain='*false'>
-</element>

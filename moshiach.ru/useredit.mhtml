@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
-<< Based-on: demo/useredit.mhtml 1.10 >>
+<< Based-on: migdal/useredit.mhtml 1.16 >>
+<< Based-on: migdal/userinfo.mhtml 1.3 >>
 
 <element name='may_edit'
          params='title,showvalue,value,name,size,maxlength,status'

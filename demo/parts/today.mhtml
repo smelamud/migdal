@@ -1,5 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='Today'>
-Сегодня <time><u>$,@Jj&nbsp;$,@Jk&nbsp;$,@JY</u>
-</element>

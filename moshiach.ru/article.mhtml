@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/article.mhtml 1.10 >>
+<< Based-on: migdal/article.mhtml 1.15 >>
 
 <macro name='isplaced'>
 <if what='$par->isPlaced(%place)'>

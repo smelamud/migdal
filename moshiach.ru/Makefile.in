@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-# Based-on: demo/Makefile.in 1.12
+# Based-on: migdal/Makefile.in 1.15
 
 OBJECTS = article.php index.php limedit.php liminsert.php login.php \
 	menuedit.php postingedit.php study.php topic.php topicedit.php \

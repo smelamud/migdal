@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/topicedit.mhtml 1.11 >>
+<< Based-on: migdal/topicedit.mhtml 1.13 >>
 
 <int name='editid'>
 <int name='desc'>
@@ -51,6 +51,8 @@
   <hidden name='premoderate_gallery' value='$,isGalleryPremoderated'>
   <hidden name='articles' value='$,isArticles'>
   <hidden name='premoderate_articles' value='$,isArticlesPremoderated'>
+  <error id='*ET_MUST_ALLOW'
+         text='Тема должна быть для какого-то вида сообщений'>
  </table>
  <if what='$editid'>
   <input type=submit value='Изменить'>
