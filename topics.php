@@ -15,6 +15,7 @@ require_once('top.php');
   <?php
   dbOpen();
   displayTop('topics');
+  $requestURI=urlencode($REQUEST_URI);
   ?>
   <center><h1>Темы</h1></center>
   <?php
@@ -22,17 +23,18 @@ require_once('top.php');
     {
     ?>
     <p>
-    <a href='topicedit.php'>Добавить</a>
+    <a href='topicedit.php?redir=<?php echo $requestURI ?>'>Добавить</a>
     <?php
     }
   $list=new TopicListIterator();
   while($item=$list->next())
        {
        echo '<p>';
+       echo '<b>'.$item->getName().'</b>&nbsp;';
        if($userAdminTopics)
-         echo '<a href=\'topicedit.php?id='.$item->getId().'>Изменить</a><br>';
-       echo '<b>'.$item->getName().'</b><br>';
-       echo $item->getDescription();
+         echo "<a href='topicedit.php?id=".$item->getId()
+	                            ."&redir=$requestURI'>Изменить</a>";
+       echo '<br>'.$item->getDescription();
        }
   dbClose();
   ?>
