@@ -83,6 +83,8 @@ if(!getGrpValid($message->grp))
   return EP_INVALID_GRP;
 if($message->mandatoryBody() && $message->stotext->body=='')
   return EP_BODY_ABSENT;
+if($message->mandatoryLang() && $message->lang=='')
+  return EP_LANG_ABSENT;
 if($message->mandatorySubject() && $message->subject=='')
   return EP_SUBJECT_ABSENT;
 if($message->mandatoryAuthor() && $message->author=='')

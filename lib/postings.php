@@ -241,10 +241,10 @@ $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
                messages.stotext_id as stotext_id,stotexts.body as body,
-	       messages.subject as subject,messages.author as author,
-	       messages.source as source,grp,messages.sent as sent,topic_id,
-	       messages.url as url,messages.sender_id as sender_id,
-	       messages.hidden as hidden,
+	       messages.lang as lang,messages.subject as subject,
+	       messages.author as author,messages.source as source,grp,
+	       messages.sent as sent,topic_id,messages.url as url,
+	       messages.sender_id as sender_id,messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
 	       postings.index1 as index1,subdomain,
 	       images.image_set as image_set,images.id as image_id,
@@ -448,9 +448,9 @@ $filter=$id>=0 ? 'postings.'.byIdent($id)
 	                     : '');
 $result=mysql_query("select postings.id as id,ident,message_id,stotext_id,body,
                             large_filename,large_format,large_body,
-			    large_imageset,subject,author,source,url,topic_id,
-			    personal_id,sender_id,grp,priority,image_set,
-			    index1,subdomain,sent,hidden,disabled
+			    large_imageset,lang,subject,author,source,url,
+			    topic_id,personal_id,sender_id,grp,priority,
+			    image_set,index1,subdomain,sent,hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
@@ -481,9 +481,10 @@ $result=mysql_query(
 	        postings.message_id as message_id,
 		messages.stotext_id as stotext_id,stotexts.body as body,
 		stotexts.large_format as large_format,
-		stotexts.large_body as large_body,messages.subject as subject,
-		messages.author as author,messages.source as source,
-		messages.url as url,grp,postings.index1 as index1,subdomain,
+		stotexts.large_body as large_body,messages.lang as lang,
+		messages.subject as subject,messages.author as author,
+		messages.source as source,messages.url as url,grp,
+		postings.index1 as index1,subdomain,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,
 		messages.hidden as hidden,messages.disabled as disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,

@@ -82,6 +82,7 @@
          params='imageset'>
 <deciter macro='instant_messagelist' class='InstantMessageListIterator'
          file='lib/instants.php'>
+<deciter macro='langs' class='LangIterator' file='lib/langs.php'>
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
          params='format,body'>
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'

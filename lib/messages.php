@@ -9,6 +9,7 @@ require_once('lib/tmptexts.php');
 require_once('lib/text.php');
 require_once('lib/ctypes.php');
 require_once('lib/stotext.php');
+require_once('lib/langs.php');
 
 class Message
       extends SenderTag
@@ -57,13 +58,13 @@ if(isset($vars['urlid']))
 
 function getCorrespondentVars()
 {
-return array('up','subject','author','source','hidden','disabled','url');
+return array('up','lang','subject','author','source','hidden','disabled','url');
 }
 
 function getWorldVars()
 {
-return array('up','track','subject','author','source','hidden','sender_id',
-             'url');
+return array('up','track','lang','subject','author','source','hidden',
+             'sender_id','url');
 }
 
 function getAdminVars()
@@ -124,6 +125,18 @@ return $this->id;
 function getUpValue()
 {
 return $this->up;
+}
+
+function getLang()
+{
+return $this->lang;
+}
+
+function getLangName()
+{
+global $langCodes;
+
+return $langCodes[$this->lang];
 }
 
 function getSubject()

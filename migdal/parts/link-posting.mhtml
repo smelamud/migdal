@@ -73,6 +73,9 @@
     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
    </td></tr></table>
   </ifnzero>
+  <if what="$posting.Lang!='' && $posting.Lang!='ru'">
+   <i>(Язык: $posting.LangName)</i>
+  </if>
   $posting.HTMLBody
  </p>
  <div width=90% style="clear: left; text-align: left" class='sent'>

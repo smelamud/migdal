@@ -77,6 +77,11 @@
       <edit_line title='Номер' value='$message.Index1' name='index1'
 		 size=3 maxlength=5 mandatory='$message.mandatoryIndex1'>
      </if>
+     <if what='$message.hasLang'>
+      <error id='*EP_LANG_ABSENT' text='Язык не указан' span=2>
+      <langselect value='$message.Lang' name='lang'
+                  mandatory='$message.mandatoryLang'>
+     </if>
      <if what='$message.hasSubject'>
       <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
       <edit_line title='Заголовок' value='$message.Subject' name='subject'

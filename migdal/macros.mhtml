@@ -61,6 +61,9 @@
 <decel name='kaitana_picture' file='parts/kaitana-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten,kaitana_id'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' kaitana_id=0">
+<decel name='langselect' file='parts/langselect.php'
+       params='name,value,mandatory,title'
+       defaults="mandatory='*false' title='ñÚÙË'">
 <decel name='lastonline_cell' file='parts/utils.php' params='user,class'
        defaults="class=''">
 <decel name='link_posting' file='parts/link-posting.php'
