@@ -76,17 +76,20 @@ return mysql_query("insert into chat_messages(sender_id,text)
 
 function postChatLoginMessage($id)
 {
-postChatAdminMessage('В чат зашел _'.getUserLoginById($id).'_');
+$s=getUserGenderById($id)=='male' ? 'зашел' : 'зашла';
+postChatAdminMessage("В чат $s _".getUserLoginById($id).'_');
 }
 
 function postChatSwitchMessage($id,$prevId)
 {
-postChatAdminMessage('_'.getUserLoginById($prevId).'_ переименовался в _'.
+$s=getUserGenderById($prevId)=='male' ? 'переименовался' : 'переименовалась';
+postChatAdminMessage('_'.getUserLoginById($prevId)."_ $s в _".
                          getUserLoginById($id).'_');
 }
 
 function postChatLogoutMessage($id)
 {
-postChatAdminMessage('Нас покинул _'.getUserLoginById($id).'_');
+$s=getUserGenderById($id)=='male' ? 'покинул' : 'покинула';
+postChatAdminMessage("Нас $s _".getUserLoginById($id).'_');
 }
 ?>

@@ -476,6 +476,19 @@ $result=mysql_query("select login
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+
+function getUserGenderById($id)
+{
+global $userAdminUsers;
+
+$hide=$userAdminUsers ? 2 : 1;
+$result=mysql_query("select gender
+                     from users
+		     where id=$id and hidden<$hide")
+	  or sqlbug('Ошибка SQL при выборке пола пользователя');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
 function getUserIdByLogin($login)
 {
 global $userAdminUsers;
