@@ -80,7 +80,9 @@ foreach(@script)
        if($s=~/^\s*\w*\s*=/)
 	 {
 	 my ($name,$sql)=$s=~/^\s*(\w*)\s*=(.*)$/;
-	 $vars->{lc $name}=$dbh->selectall_hashref($sql);
+	 my $sth=$dbh->prepare($sql);
+	 $sth->execute;
+	 $vars->{lc $name}=$sth->fetchall_arrayref({});
 	 }
        else
 	 {

@@ -89,7 +89,7 @@ my $sth=$dbh->prepare('select mailings.id as id,link,receiver_id,text,
 			    left join users
 				 on mailings.receiver_id=users.id');
 $sth->execute;
-my $mails=$sth->fetchrow_hashref;
+my $mails=$sth->fetchall_arrayref({});
 $dbh->do('delete from mailings');
 $dbh->do('unlock tables');
 foreach my $mail(@{$mails})
