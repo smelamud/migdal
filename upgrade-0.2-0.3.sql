@@ -202,3 +202,6 @@ PRIMARY KEY  (grp,topic_id,answers,user_id,recursive)
 ALTER TABLE `postings_info` ADD INDEX ( `grp` );
 ALTER TABLE `postings_info` ADD INDEX ( `answers` );
 ALTER TABLE `postings_info` ADD INDEX ( `topic_id` );
+ALTER TABLE `postings_info` ADD `reader_id` INT NOT NULL FIRST ;
+ALTER TABLE `postings_info` DROP PRIMARY KEY;
+alter tabke add PRIMARY KEY (reader_id,grp,topic_id,answers,user_id,recursive);

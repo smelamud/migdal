@@ -138,10 +138,13 @@ return $info;
 
 function loadPostingsInfoCache($grp,$topic_id,$answers,$user_id,$recursive)
 {
+global $userId;
+
 $recursive=$recursive ? 1 : 0;
 $result=mysql_query("select total,max_sent
                      from postings_info
-		     where grp=$grp and topic_id=$topic_id and answers=$answers
+		     where reader_id=$userId and grp=$grp
+		           and topic_id=$topic_id and answers=$answers
 		           and user_id=$user_id and recursive=$recursive")
 	  or sqlbug('Ошибка SQL при выборке из кэша информации о постингах');
 return mysql_num_rows($result)>0 ? new PostingsInfo(mysql_fetch_assoc($result))
@@ -151,13 +154,15 @@ return mysql_num_rows($result)>0 ? new PostingsInfo(mysql_fetch_assoc($result))
 function storePostingsInfoCache($grp,$topic_id,$answers,$user_id,$recursive,
                                 $info)
 {
+global $userId;
+
 $recursive=$recursive ? 1 : 0;
 $total=$info->getTotal();
 $max_sent=$info->getMaxSent();
-mysql_query("insert into postings_info(grp,topic_id,answers,user_id,recursive,
-                                       total,max_sent)
-	     values($grp,$topic_id,$answers,$user_id,$recursive,
-	            $total,$max_sent)")
+mysql_query("insert into postings_info(reader_id,grp,topic_id,answers,user_id,
+                                       recursive,total,max_sent)
+	     values($userId,$grp,$topic_id,$answers,$user_id,
+	            $recursive,$total,$max_sent)")
   or sqlbug('Ошибка SQL при сохранении в кэше информации о постингах');
 }
 
