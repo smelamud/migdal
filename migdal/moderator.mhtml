@@ -75,13 +75,15 @@
       </inner></table></outer>
       <table width=100% class='catalog'>
        <tr>
-	<th width=40>id</th><th>Заголовок</th><th width=20>h</th><th width=20>d</th>
+	<th width=40>id</th><th>Заголовок</th><th width=20>h</th>
+	<th width=20>d</th>
 	<zone>
 	 <iterate_modbits>
 	 <for>
 	  <th width=20>$.Letter</th>
 	 </for>
 	</zone>
+	<th width=20>&nbsp;</th>
        </tr>
        <for name='posting'>
         <identify posting='$.'>
@@ -113,6 +115,9 @@
 	   </td>
 	  </for>
 	 </zone>
+	 <td align=center><b>
+	  <a href='actions/postingdel.php?id=$.Id&okdir=$#-&faildir=$#-'></a>
+	 </b></td>
 	</tr>
        </for>
       </table>
