@@ -2,9 +2,6 @@
 << Based-on: demo/parts/top.mhtml 1.2 >>
 
 <element name='Top'>
-<hotlog_count>
-<mailru_count>
-<rambler_count>
 <script src='/window.js' language='JavaScript'></script>
 <menu ident='$ident' target='$target'>
 <table class='state'><tr>
@@ -12,6 +9,9 @@
   <a href='/index.php'><img src='$$style_banner_name' border=0></a>
   <img src='$$style_banner_logo'>
   <img src='$image'>
+  <hotlog_count>
+  <mailru_count>
+  <rambler_count>
  </td>
  <td align=right><login flags='$flags' err='$$err' target='$target'
                         re='$re'></td>
