@@ -107,6 +107,13 @@
   <assign name='tel' value='topics_mazltov'>
   <assign name='uhref' value='migdal.php'>
   <assign name='utitle' value='Мигдаль'>
+ <elif what='$/$posting.TopicId,1/==$`beitenu`'>
+  <assign name='href' value#='migdal.php?artid=$`postings:beitenu`'>
+  <assign name='title' value=''>
+  <assign name='name' value='Бейтену'>
+  <assign name='tel' value='topics_beitenu'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
  <elif what='$/$posting.TopicId,1/==$`jcc`'>
   <topic_obj id='$`jcc`'>
   <assign name='href' value#='jcc.php'>
@@ -234,6 +241,10 @@
  <assign name='utitle' value='Мигдаль'>
 <elif what='$/$posting.TopicId,2/==$`mazltov-news`'>
  <assign name='tel' value='topics_mazltov'>
+ <assign name='uhref' value='migdal.php'>
+ <assign name='utitle' value='Мигдаль'>
+<elif what='$/$posting.TopicId,2/==$`beitenu-news`'>
+ <assign name='tel' value='topics_beitenu'>
  <assign name='uhref' value='migdal.php'>
  <assign name='utitle' value='Мигдаль'>
 </if>

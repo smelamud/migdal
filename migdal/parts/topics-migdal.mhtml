@@ -52,6 +52,21 @@
 </topics_table>
 </element>
 
+<element name='topics_beitenu'>
+<topics_table title='Бейтену'>
+ <posting_obj id='$`postings:beitenu`' fields='*SELECT_GENERAL'>
+ <topics_line time='$,Sent' text='О программе'
+              href#='migdal.php?artid=$`postings:beitenu`'
+              arrow!='$posting.Id==$`postings:beitenu`' class='item ninept'>
+ <posting_last grp='*GRP_NEWS' topic_id='$`beitenu-news`' recursive='*false'>
+ <topics_line time='$,' text='Новости'
+              href#='migdal-news.php?topic_id=$`beitenu-news`'
+              arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
+	              $posting.TopicId==$`beitenu-news`'
+	      class='item ninept'>
+</topics_table>
+</element>
+
 <element name='topics_mazltov'>
 <topics_table title='Мазл Тов'>
  <posting_obj id='$`postings:mazltov`' fields='*SELECT_GENERAL'>
@@ -180,6 +195,17 @@
 	     arrow!="$posting!=0 &&
 	             ($/$posting.TopicId,1/==$`mazltov` ||
 		      $/$posting.TopicId,2/==$`mazltov-news`)" indent=1
+	     class='item eightpt'>
+<hash>
+ <hash_topic topic_id='$`beitenu`' recursive='*true'>
+ <hash_topic topic_id='$`beitenu-news`' recursive='*true'>
+</hash>
+<posting_last topic_id='$*'>
+<topics_line time='$,' href#='migdal.php?artid=$`postings:beitenu`'
+	     text='&lt;&lt;Бейтену&gt;&gt;'
+	     arrow!="$posting!=0 &&
+	             ($/$posting.TopicId,1/==$`beitenu` ||
+		      $/$posting.TopicId,2/==$`beitenu-news`)" indent=1
 	     class='item eightpt'>
 <posting_last topic_id='$`methodics`' recursive='*true'>
 <topics_line time='$,' text='Методический центр'

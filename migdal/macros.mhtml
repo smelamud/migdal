@@ -193,6 +193,7 @@
        defaults='span=0'>
 <decel name='subtitle' file='parts/subtitle.php' params='icon'
        defaults="icon=''">
+<decel name='textears' file='parts/textears.php'>
 <decel name='times_no' file='parts/posting-times-cover.php'
        params='index1,index2'>
 <decel name='tip' file='parts/tip.php'>
@@ -212,6 +213,7 @@
 <decel name='topics' file='parts/topics-general.php' params='posting,ident'
        defaults="posting=0 ident=''">
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
+<decel name='topics_beitenu' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_book' file='parts/topics-book.php' params='posting'>
 <decel name='topics_events' file='parts/topics-events.php' params='posting'>
 <decel name='topics_gallery' file='parts/topics-gallery-general.php'

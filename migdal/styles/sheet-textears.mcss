@@ -1,0 +1,10 @@
+! @(#) $Id$
+
+.textears-title {
+	font-weight: bold;
+	color: %textears_title;
+}
+
+.textears-split {
+	border-top: 1px solid %textears_split;
+}
