@@ -122,7 +122,7 @@
      <tr><td align=center><strong>"$,Subject"</strong></td></tr>
      <tr><td>
       <a href='index.php'>Главная</a> /
-      <a href='topic.php?topic_id=$high.Id'>$high.Name</a> /
+      <a href='study.php'>$high.Name</a> /
       <a href='topic.php?topic_id=$topic.Id'>$topic.Name</a> /
       <if what='$,LargeFormat==*TF_PRE'><pre></if>
       <iterate_posting_paragraphs posting='$,'>
