@@ -1,0 +1,127 @@
+# MySQL dump 8.14
+#
+# Host: localhost    Database: migdal
+#--------------------------------------------------------
+# Server version	3.23.38-log
+
+#
+# Table structure for table 'images'
+#
+
+CREATE TABLE images (
+  id int(11) NOT NULL auto_increment,
+  image_set int(11) NOT NULL default '0',
+  small mediumblob NOT NULL,
+  large mediumblob NOT NULL,
+  format varchar(30) NOT NULL default '',
+  PRIMARY KEY  (id),
+  KEY image_set (image_set)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'menu'
+#
+
+CREATE TABLE menu (
+  id int(11) NOT NULL auto_increment,
+  name varchar(30) NOT NULL default '',
+  ident varchar(15) NOT NULL default '',
+  link varchar(70) NOT NULL default '',
+  hidden tinyint(4) NOT NULL default '0',
+  menu_index tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY menu_index (menu_index)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'messages'
+#
+
+CREATE TABLE messages (
+  id int(11) NOT NULL auto_increment,
+  body mediumtext NOT NULL,
+  subject varchar(250) NOT NULL default '',
+  topic_id int(11) NOT NULL default '0',
+  sender_id int(11) NOT NULL default '0',
+  private_id int(11) NOT NULL default '0',
+  grp tinyint(4) NOT NULL default '0',
+  image_set int(11) NOT NULL default '0',
+  up int(11) NOT NULL default '0',
+  hide tinyint(4) NOT NULL default '0',
+  sent datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (id),
+  KEY topic_id (topic_id),
+  KEY sender_id (sender_id),
+  KEY private_id (private_id),
+  KEY grp (grp),
+  KEY image_set (image_set),
+  KEY up (up)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'sessions'
+#
+
+CREATE TABLE sessions (
+  id int(11) NOT NULL auto_increment,
+  user_id int(11) NOT NULL default '0',
+  last timestamp(14) NOT NULL,
+  sid int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY user_id (user_id),
+  KEY sid (sid),
+  KEY last (last),
+  KEY last_2 (last)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'tmp_texts'
+#
+
+CREATE TABLE tmp_texts (
+  id int(11) NOT NULL auto_increment,
+  value mediumtext NOT NULL,
+  last_access timestamp(14) NOT NULL,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'topics'
+#
+
+CREATE TABLE topics (
+  id int(11) NOT NULL auto_increment,
+  name varchar(70) NOT NULL default '',
+  no_news tinyint(4) NOT NULL default '0',
+  no_forums tinyint(4) NOT NULL default '0',
+  no_gallery tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'users'
+#
+
+CREATE TABLE users (
+  id int(11) NOT NULL auto_increment,
+  login varchar(30) NOT NULL default '',
+  password varchar(40) NOT NULL default '',
+  name varchar(30) NOT NULL default '',
+  jewish_name varchar(30) NOT NULL default '',
+  surname varchar(30) NOT NULL default '',
+  info text NOT NULL,
+  birthday date NOT NULL default '0000-00-00',
+  migdal_student tinyint(4) NOT NULL default '0',
+  last_online datetime NOT NULL default '0000-00-00 00:00:00',
+  email varchar(70) NOT NULL default '',
+  hide_email tinyint(4) NOT NULL default '0',
+  icq varchar(15) NOT NULL default '',
+  email_disabled tinyint(4) NOT NULL default '0',
+  admin_users tinyint(4) NOT NULL default '0',
+  hidden tinyint(4) NOT NULL default '0',
+  no_login tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY login (login),
+  KEY password (password)
+) TYPE=MyISAM;
+
