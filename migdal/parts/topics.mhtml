@@ -4,8 +4,8 @@
 <element name='topics'>
 <iterate_topiclist grp='$g.Effective'>
 <if what='$$userAdminTopics || $;Count!=0'>
- <table class='topics'>
-  <colgroup span=2 width='0*'>
+ <table class='topics' width=100%>
+  <col width='0*'>
   <if what="$title!=''">
    <tr><th colspan=2>$title</th></tr>
   </if>
@@ -37,10 +37,9 @@
      <td>
       <a href='postings.php?grp=$g.Effective&redir=$_&topic_id=$.Id'
 	 title='$.Description'>
-       $.NbName&nbsp;($.MessageCount)</a><asp>
+       $.Name&nbsp;($.MessageCount)</a>
      <admin_topics>
-      <asp>&nbsp;<a href='topicedit.php?editid=$.Id&redir=$_'
-		    class='edit'>Изменить</a>
+      <a href='topicedit.php?editid=$.Id&redir=$_' class='edit'>Изменить</a>
      </admin_topics>
      </td>
     </tr>
