@@ -30,7 +30,7 @@
        </ifzero>
       </td>
       <td align=right>
-       <edit name='value' value='$list.BeginValue' size=2 maxlength=5>
+       <edit name='offset' value='$list.BeginValue' size=2 maxlength=5>
       </td>
       <td align=center>-</td>
       <td align=right>

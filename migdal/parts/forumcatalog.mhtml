@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.13 >>
+<< Based-on: migdal/parts/postings.mhtml 1.14 >>
 
 <element name='batcher_forumcatalog' params='value,list,topic,grp'>
 <grpdata>
@@ -40,7 +40,7 @@
        </ifzero>
       </td>
       <td align=right>
-       <edit name='value' value='$list.BeginValue' size=2 maxlength=5>
+       <edit name='offset' value='$list.BeginValue' size=2 maxlength=5>
       </td>
       <td align=center>-</td>
       <td align=right>
