@@ -66,7 +66,6 @@
 <decel name='hannukah' file='parts/hannukah.php'>
 <decel name='help_link' file='parts/help-link.php' params='href,title,span'
        defaults='span=0'>
-<decel name='help_navi' file='parts/help-navi.php' params='ident'>
 <decel name='hit_parade' file='parts/hit-parade.php'
        params='grp,topic_id,title,later,limit,sort,showshadows'
        defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
@@ -168,7 +167,9 @@
        defaults="no_new='*false' target='' showimages='*true' transref=''">
 <decel name='topiclink' file='parts/posting.php' params='posting,class'
        defaults="class='topic'">
-<decel name='topics' file='parts/topics-general.php' params='posting'>
+<decel name='topics' file='parts/topics-general.php' params='posting,ident'
+       defaults="posting=0 ident=''">
+<decel name='topics_help' file='parts/topics-help.php' params='ident'>
 <decel name='topics_kaitana' file='parts/topics-kaitana.php'
        params='day,topic_id'>
 <decel name='topics_kaitanot' file='parts/topics-kaitanot.php'

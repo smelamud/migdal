@@ -41,10 +41,10 @@ $maxLargeText=2097152;
 $thumbnailType='image/jpeg';
 
 # Ширина уменьшенной картинки (в пикселах)
-$thumbnailWidth=50;
+$thumbnailWidth=100;
 
 # Высота уменьшенной картинки (в пикселах)
-$thumbnailHeight=50;
+$thumbnailHeight=100;
 
 # Максимальное время (в часах) неактивности сессии, после истечения которого
 # она удаляется

@@ -7,10 +7,10 @@
 <stylesheet ident='article'>
 <preamble>
 <body>
- <top ident='help'>
+ <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=180 class='eframe'>
-   <help_navi ident='types'>
+  <td width=150 class='eframe'>
+   <topics ident='help-types'>
   </td>
   <td class='cframe'>
    <div class='article'>

@@ -1,59 +1,67 @@
 << @(#) $Id$ >>
 
-<element name='topics_www' params='posting'>
-<if what='($posting.Grp & (*GRP_FORUMS|*GRP_NEWS|*GRP_ARTICLES|*GRP_QUOTES|
-	                   *GRP_BOOKS|*GRP_BOOK_CHAPTERS|*GRP_REVIEWS|
-			   *GRP_LIBRARY_ANNOUNCES))!=0'>
- <if what='$/$posting.TopicId,0/!=$`migdal` &&
-           $/$posting.TopicId,1/!=$`migdal-news`'>
-  <topics_major ident='index'>
-  <topics_minor id='$posting.TopicId' withpostings='$$officialDomain'
-		grp='*GRP_TAPE' href='index.php' title='Раздельчики'>
- <else>
+<element name='topics_www' params='posting,ident'>
+<ifnzero what='$posting'>
+ <if what='($posting.Grp & (*GRP_FORUMS|*GRP_NEWS|*GRP_ARTICLES|*GRP_QUOTES|
+			    *GRP_BOOKS|*GRP_BOOK_CHAPTERS|*GRP_REVIEWS|
+			    *GRP_LIBRARY_ANNOUNCES))!=0'>
+  <if what='$/$posting.TopicId,0/!=$`migdal` &&
+	    $/$posting.TopicId,1/!=$`migdal-news`'>
+   <topics_major ident='index'>
+   <topics_minor id='$posting.TopicId' withpostings='$$officialDomain'
+		 grp='*GRP_TAPE' href='index.php' title='Раздельчики'>
+  <else>
+   <topics_migdal posting='$posting'>
+   <topics_major ident='migdal'>
+  </if>
+ </if>
+ <if what='$posting.Grp==*GRP_GALLERY'>
+  <if what='$/$posting.TopicId,0/!=$`migdal`'>
+   <topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
+		 href='gallery.php' title='Галерея'>
+  <else>
+   <topics_migdal posting='$posting'>
+   <topics_major ident='migdal'>
+  </if>
+ </if>
+ <if what='($posting.Grp & (*GRP_TIMES_COVERS|*GRP_TIMES_ARTICLES))!=0'>
+  <times_articles issue='$posting.Index1' id='$posting.Id'>
+ </if>
+ <if what='($posting.Grp & (*GRP_BLOG_FORUMS|*GRP_BLOG_GALLERY))!=0'>
+  <if what='$/$posting.TopicId,0/==$`taglit`'>
+   <topics_taglit id='$posting.SenderId'>
+   <topics_major ident='taglit'>
+  <else>
+   <topics_veterans id='$posting.SenderId'>
+   <topics_major ident='veterans'>
+  </if>
+ </if>
+ <if what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
+  <topics_kaitana day='$posting.Index1' topic_id='$posting.TopicId'>
+  <topics_kaitanot topic_id='$posting.TopicId'>
   <topics_migdal posting='$posting'>
   <topics_major ident='migdal'>
  </if>
-</if>
-<if what='$posting.Grp==*GRP_GALLERY'>
- <if what='$/$posting.TopicId,0/!=$`migdal`'>
-  <topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
-                href='gallery.php' title='Галерея'>
- <else>
-  <topics_migdal posting='$posting'>
-  <topics_major ident='migdal'>
+ <if what='$posting.Grp==*GRP_TIPS'>
+  <topics_help ident='help-tips'>
+  <topics_major ident='help'>
  </if>
-</if>
-<if what='($posting.Grp & (*GRP_TIMES_COVERS|*GRP_TIMES_ARTICLES))!=0'>
- <topics_major ident='times'>
-</if>
-<if what='($posting.Grp & (*GRP_BLOG_FORUMS|*GRP_BLOG_GALLERY))!=0'>
- <if what='$/$posting.TopicId,0/==$`taglit`'>
-  <topics_taglit id='$posting.SenderId'>
-  <topics_major ident='taglit'>
- <else>
-  <topics_veterans id='$posting.SenderId'>
-  <topics_major ident='veterans'>
+<else>
+ <if what="$ident=='help-subs' || $ident=='help-types' || $ident=='help-tips'">
+  <topics_help ident='$ident'>
+  <topics_major ident='help'>
  </if>
-</if>
-<if what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
- <topics_kaitana day='$posting.Index1' topic_id='$posting.TopicId'>
- <topics_kaitanot topic_id='$posting.TopicId'>
- <topics_migdal posting='$posting'>
- <topics_major ident='migdal'>
-</if>
-<if what='$posting.Grp==*GRP_TIPS'>
- <help_navi ident='tips'>
-</if>
+</ifnzero>
 </element>
 
-<element name='topics_english' params='posting'>
+<element name='topics_english' params='posting,ident'>
  <topics_migdal_english posting='$posting'>
 </element>
 
 <element name='topics'>
 <notenglish>
- <topics_www posting='$posting'>
+ <topics_www ident='$ident' posting='$posting'>
 <else>
- <topics_english posting='$posting'>
+ <topics_english ident='$ident' posting='$posting'>
 </notenglish>
 </element>

@@ -8,10 +8,10 @@
 <html>
 <preamble>
 <body>
- <top ident='help'>
+ <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=180 class='eframe'>
-   <help_navi ident='tips'>
+  <td width=150 class='eframe'>
+   <topics ident='help-tips'>
   </td>
   <td class='cframe'>
    <subtitle>

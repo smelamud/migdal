@@ -34,10 +34,10 @@
 </style>
 <preamble>
 <body>
- <top ident='help'>
+ <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=180 class='eframe'>
-   <help_navi ident='subs'>
+  <td width=150 class='eframe'>
+   <topics ident='help-subs'>
   </td>
   <td class='cframe'>
    <div class='article'>

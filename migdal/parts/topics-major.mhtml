@@ -13,14 +13,6 @@
 	     text='$migdal.Name' arrow!="$ident=='migdal'" span='$span'>
 </element>
 
-<element name='navi_times' params='ident,span' defaults='span=1'>
-<topic_obj name='times' id='$`migdal-times`'>
-
-<posting_last topic_id='$`migdal-times`' recursive='*true'>
-<topics_line time='$,' href='times.php' title='$times.Description'
-	     text='$times.Name' arrow!="$ident=='times'" span='$span'>
-</element>
-
 <element name='navi_taglit' params='ident,span' defaults='span=1'>
 <topic_obj name='taglit' id='$`taglit`'>
 
@@ -36,6 +28,15 @@
 <posting_last topic_id='$`veterans`' recursive='*false'>
 <topics_line time='$,' href='veterans.php' title='$veterans.Description'
 	     text='$veterans.Name' arrow!="$ident=='veterans'"
+	     class='item ninept' span='$span'>
+</element>
+
+<element name='navi_help' params='ident,span' defaults='span=1'>
+<topic_obj name='tips' id='$`tips`'>
+
+<posting_last topic_id='$`tips`' recursive='*false'>
+<topics_line time='$,' href='tips.php' title='Помощь по работе с сайтом'
+	     text='Справка' arrow!="$ident=='help'"
 	     class='item ninept' span='$span'>
 </element>
 
@@ -66,9 +67,9 @@
  <if what='$unroll'>
   <topics_migdal_main>
  </if>
- <navi_times ident='$ident' span='$spn'>
  <navi_taglit ident='$ident' span='$spn'>
  <navi_veterans ident='$ident' span='$spn'>
+ <navi_help ident='$ident' span='$spn'>
  <topics_line href='archive.php' text='Архив' arrow!="$ident=='archive'"
               class='item eightpt' span='$spn'>
 </topics_table>

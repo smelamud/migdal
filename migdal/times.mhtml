@@ -20,17 +20,17 @@
  </tr></table>
 </editor>
 <ifnzero what='$cover.Id'>
- <div class=pic>
+ <center class=pic>
   <image_tag_put id='$cover.ImageId' size=large>
- </div>
+ </center>
  <vote_frame align=right id='$cover.Id' color='$$style_cframe_back'
-             image='$$style_cframe_back_pic'>
- <div class='posting'><table width=150 class='bottom'><tr>
+             image='$$style_nframe_back_pic'>
+ <center class='posting'><table width=150 class='bottom'><tr>
   <editor>
    <td><editlink posting='$cover'></td>
   </editor>
   <td align=right><discusslink posting='$cover'></td>
- </tr></table></div>
+ </tr></table></center>
 </ifnzero>
 </element>
 
@@ -67,9 +67,8 @@
 </element>
 
 <element name='select_issue' params='issue'>
-<form method=get action='$~'><table class='eightpt form'>
+<form method=get action='$~'><table class='ninept nframe'>
  <tr>
-  <th rowspan=2>&nbsp;</th>
   <td>Номер</td>
   <td><select name='issue'>
    <iterate_article_covers articlegrp='*GRP_TIMES_ARTICLES'
@@ -81,7 +80,7 @@
   </select></td>
  </tr>
  <tr>
-  <td class='buttons-nosplit' colspan=2 align=right>
+  <td colspan=2 align=right>
    <input type=submit value='Выбрать'>
   </td>
  </tr>
@@ -134,7 +133,7 @@
 <stylesheet ident='times'>
 <preamble>
 <body>
- <top ident='index'>
+ <top ident='times'>
  <topic_obj name='times' id='$`migdal-times`'>
  <ifzero what='$issue'><zone>
   <posting_index index=1 grp='*GRP_TIMES_ARTICLES'>
@@ -142,9 +141,6 @@
  </zone></ifzero>
  <log event=times text#='issue($issue)'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'>
-   <topics_major ident='times'>
-  </td>
   <posting_full name='cover' grp='*GRP_TIMES_COVERS' topic='$`migdal-times`'
 		index1!='$issue<0 ? 0 : $issue'>
   <td class='mtimes cframe'>
@@ -155,11 +151,11 @@
    </td></tr></table>
    <p>
    <table width=100% cellspacing=5 cellpadding=0><tr valign=top>
-    <td width=150>
+    <td width=150><div class='nframe' style='padding: 5px'>
      <cover times='$times' cover='$cover'>
      <p>
      <times_info issue='$issue'>
-    </td>
+    </div></td>
     <td>
      <select_issue issue='$issue'>
      <p>

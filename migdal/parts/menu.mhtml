@@ -21,6 +21,8 @@
  <notenglish>
   <tr valign=bottom>
    <td><asp>
+    <posting_last name='times_time' topic_id='$`migdal-times`'
+                  recursive='*true'>
     <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
     <posting_last name='gallery_time' grp='*GRP_GALLERY' topic_id='$`general`'
 		  recursive='*true'>
@@ -28,6 +30,8 @@
 		  recursive='*true'>
     <menuitem ident='index' alt='Главная' link='index.php' target='$target'
 	      current='$ident'>
+    <menuitem ident='times' alt='Мигдаль Times' link='times.php'
+              target='$target' current='$ident' time='$times_time'>
     <menuitem ident='discuss' alt='Обсуждения' link='forumcatalog.php'
 	      target='$target' current='$ident' time='$forums_time'>
     <menuitem ident='gallery' alt='Галерея' link='gallery.php' target='$target'
@@ -40,8 +44,6 @@
     </master>
     <menuitem ident='users' alt='Пользователи' link='users.php'
 	      target='$target' current='$ident'>
-    <menuitem ident='help' alt='Справка' link='tips.php' target='$target'
-	      current='$ident'>
    <asp></td>
    <td align=right><asp>
     <asp><noindex><tune ident='$ident' target='$target'></noindex><asp>
