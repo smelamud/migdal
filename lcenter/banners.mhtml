@@ -23,14 +23,14 @@
      <assign name='b' value!='$. + 1'>
      <tr valign='center'>
       <td>
-       <a href='http://www.lcenter.net/' alt='Одесский центр Linux'
-          title='Одесский центр Linux'>
-	<image src#='/pics/banners/${b}.png' border='0'></a>
+       <a href='http://www.lcenter.net/' title='Одесский центр Linux'>
+	<image src#='/pics/banners/${b}.png' alt='Одесский центр Linux'
+	       border='0'></a>
       </td>
       <td>
        <textarea cols='60' rows='5' style='font: 10pt $$style_courier'>
-        <a href='http://www.lcenter.net/' alt='Одесский центр Linux' title='Одесский центр Linux'>
-	<img width='81' height='31' src='http://www.lcenter.net/pics/banners/${b}.png' border='0'></a>
+        <a href='http://www.lcenter.net/' title='Одесский центр Linux'>
+	<img width='81' height='31' src='http://www.lcenter.net/pics/banners/${b}.png' alt='Одесский центр Linux' border='0'></a>
        </textarea>
       </td>
      </tr>
