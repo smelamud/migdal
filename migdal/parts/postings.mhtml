@@ -32,7 +32,7 @@
     </if>
    </logged>
   </td>
-  <td><spin list='$list'></td>
+  <td align=center><spin list='$list'></td>
  </tr></table>
 </community>
 </element>

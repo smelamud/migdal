@@ -86,6 +86,8 @@
     <checkbox_line name='migdal_student' value='$,isMigdalStudent'
 		   title='Мигдалевец' span=2>
     <editor_line title='Коротко о себе' name='info' body='$,Info' span=2>
+    <help_link href='stotext-help-subs.php'
+    	       title='Список обозначений, используемых в тексте' span=2>
     <if what='$,isEditable'>
      <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен' span=2>
      <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>
