@@ -11,6 +11,7 @@ Disallow: /complainactionedit.php
 Disallow: /complainanswer.php
 Disallow: /complainedit.php
 Disallow: /complainforum.php
+Disallow: /complains.php
 Disallow: /forum.php
 Disallow: /forumansweredit.php
 Disallow: /forumcatalog.php
