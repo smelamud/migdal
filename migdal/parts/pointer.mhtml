@@ -1,0 +1,23 @@
+<< @(#) $Id$ >>
+
+<element name='pointer'>
+<table cellspacing=0 cellpadding=0><tr valign=center>
+ <if what='$left'>
+  <td>
+   <a href='$href'>$text</a>
+  </td>
+  <td>&nbsp;</td>
+  <td>
+   <a href='$href' title='$title'><image src='pics/left.gif' border=0></a>
+  </td>
+ <else>
+  <td>
+   <a href='$href' title='$title'><image src='pics/right.gif' border=0></a>
+  </td>
+  <td>&nbsp;</td>
+  <td>
+   <a href='$href'>$text</a>
+  </td>
+ </if>
+</tr></table>
+</element>
