@@ -4,7 +4,7 @@
 <table width=100%>
  <tr>
   <td>
-   <isedit name='posting'>
+   <isedit what='$posting'>
     <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
      >[Изменить]</a>
     <a href="limedit.php?postid=$posting.Id&redir=$_">[Список иллюстраций]</a>
@@ -72,7 +72,7 @@
   <isplaced place='IPL_RIGHT'>
    <table align=right>
   </isplaced>
-  <isedit name='posting'>
+  <isedit what='$posting'>
    <tr><td align=center>
     <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
        >[Картинка]</a>
@@ -81,11 +81,11 @@
    <tr><td>
     <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
    </td></tr>
-   <if what="$par.Title!=''">
+   <ifne what='$par.Title'>
     <tr><td align=center>
      <i>$par.HTMLTitle</i>
     </td></tr>
-   </if>
+   </ifne>
   </table>
  <isplaced place='IPL_VCENTER'>
   </td></tr></table>
@@ -98,7 +98,7 @@
  </notplaced>
 <else>
  </p>
- <isedit name='posting'>
+ <isedit what='$posting'>
   <p>
   <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
      >[Картинка]</a>

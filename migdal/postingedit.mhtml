@@ -128,12 +128,12 @@
      <if what='$message.hasLargeBody'>
       <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
       <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
-      <if what="$message.LargeFilename!=''">
+      <ifne what='$message.LargeFilename'>
        <tr><td>
 	<a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>
 	   Загрузить текст</a>
        </td></tr>
-      </if>
+      </ifne>
       <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
 		title='Текст' loaded='(уже загружен)' notloaded='Другой'
 		filename='$message.LargeFilename'

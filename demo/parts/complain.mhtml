@@ -47,11 +47,11 @@
      </tr></table>
     <else>
      <b>Рассматривает: </b>
-     <if what="$complain.RecipientLogin!=''">
+     <ifne what='$complain.RecipientLogin'>
       <senderlink message='$complain.RecipientInfo'>
      <else>
       Никто
-     </if>
+     </ifne>
     </judge>
    </td>
   </tr>
@@ -90,7 +90,7 @@
 </if>
 <tr>
 <td>
-<isedit name='complain'>
+<isedit what='$complain'>
  <a href="complainedit.php?editid=$complain.Id&redir=$_"
   >[Изменить]</a>
 </isedit>

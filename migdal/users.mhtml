@@ -30,10 +30,10 @@
       </if>
      </td>
      <td>
-      <if what="$.EmailLink!=''">
+      <ifne what='$.EmailLink'>
        <span class='email'>$.EmailLink</span>
-       <if what="$.ICQ!=''"><br></if>
-      </if>
+       <ifne what='$.ICQ'><br></ifne>
+      </ifne>
       $.ICQStatusImage&nbsp;$.ICQ
      </td>
      <lastonline_cell user='$.'>

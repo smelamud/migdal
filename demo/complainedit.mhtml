@@ -10,12 +10,12 @@
  <top ident='complains'>
  <complain_obj id='$editid' ident='$ident' link='$link'>
  <setup>
- <if what="$,Display!=''">
+ <ifne what='$,Display'>
   <include name='$,Display'>
   <decel name='complain_subject' params='link'>
   <complain_subject link='$,Link'>
   <p>
- </if>
+ </ifne>
  <form method=post enctype='multipart/form-data'
        action='actions/complainmod.php'>
  <hidden name='edittag' value=1>

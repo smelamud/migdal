@@ -4,9 +4,9 @@
 <iterate_topiclist grp='$g.Effective' up='$up'>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%><tr><td>
-  <if what="$title!=''">
+  <ifne what='$title'>
    <center><h2>$title</h2></center>
-  </if>
+  </ifne>
   <admin_topics>
    <p>
    <a href='topicedit.php?up=$up&redir=$_'>Добавить</a>

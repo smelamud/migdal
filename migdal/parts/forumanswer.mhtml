@@ -18,7 +18,7 @@
   </tr>
   <tr>
    <td class='controls'>&nbsp;
-    <isedit name='answer'>
+    <isedit what='$answer'>
      <a href="forumansweredit.php?editid=$answer.Id&redir=$_"
       >Изменить</a>
      <moderator>

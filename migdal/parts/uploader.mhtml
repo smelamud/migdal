@@ -2,7 +2,7 @@
 << Based-on: demo/parts/uploader.mhtml 1.2 >>
 
 <element name='uploader'>
-<if what="$filename==''">
+<ife what='$filename'>
  <tr>
   <td>$title&nbsp;<if what='$mandatory'><star></if></td>
   <td><input type=file name='$name' size=35></td>
@@ -21,7 +21,7 @@
    <input type=file name='$name' size=35>
   </td></tr>
  </table></td></tr>
-</ifzero>
+</ife>
 </element>
 
 <element name='upload_format'>

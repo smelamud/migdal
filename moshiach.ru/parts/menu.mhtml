@@ -6,7 +6,7 @@
  <b class=red>
   <iterate_menu name='menu'>
   <for>
-   <notfirst name='menu'>&nbsp;::&nbsp;</notfirst>
+   <notfirst what='$menu'>&nbsp;::&nbsp;</notfirst>
    <if what='$ident==$.Ident'>
     $.Name
    <else>

@@ -4,17 +4,17 @@
          params='title,showvalue,value,name,size,maxlength,status'
          defaults="showvalue='' status=''">
 <tr>
- <if what='$$user.isEditable'>
+ <isedit what='$$user'>
   <td>$title</td>
   <td>
-   <if what="$status!=''">$status&nbsp;</if>
+   <ifne what='$status'>$status&nbsp;</ifne>
    <edit name='$name' value='$value' size='$size' maxlength='$maxlength'>
   </td>
  <else>
   <td><b>$title:</b></td>
   <td>
-   <if what="$status!=''">$status&nbsp;</if>
-   <if what="$showvalue==''">$value<else>$showvalue</if>
+   <ifne what='$status'>$status&nbsp;</ifne>
+   <ife what='$showvalue'>$value<else>$showvalue</ife>
   </td>
  </if>
 </tr>
@@ -22,7 +22,7 @@
 
 <element name='may_checkbox' params='name,value,title,texton,textoff'
          defaults='texton="" textoff=""'>
-<if what='$$user.isEditable'>
+<isedit what='$$user'>
  <checkbox_line name='$name' value='$value' title='$title' span=2>
 <else>
  <tr><td colspan=2>
@@ -45,7 +45,7 @@
  <p>
  <user_obj name='user' id='$editid'>
  <setup>
- <isedit name='user'>
+ <isedit what='$user'>
   <center><h1>Введите информацию о себе</h1></center>
   <form method=post action='actions/usermod.php'>
   <hidden name='edittag' value=1>
@@ -74,7 +74,7 @@
          span=2>
   <error id='*EUM_PASSWORD_DIFF' span=2
          text='Опечатка при вводе пароля - введите еще раз'>
-  <isedit name='user'>
+  <isedit what='$user'>
    <tr>
     <td>Пароль </td><td><input type=password name='password' size=20></td>
    </tr>
@@ -92,7 +92,7 @@
             maxlength=30>
   <error id='*EUM_GENDER' text='Неизвестный пол' span=2>
   <tr>
-  <isedit name='user'>
+  <isedit what='$user'>
    <td>Пол</td>
    <td>
     <if what='$,isMan'>
@@ -112,7 +112,7 @@
   </tr>
   <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения' span=2>
   <tr>
-   <isedit name='user'>
+   <isedit what='$user'>
     <td>Дата рождения</td>
     <td>
      <input type=text name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
@@ -132,23 +132,23 @@
    <else>
     <td><b>Дата рождения:</b></td>
     <td>$,Birthday / $,JewishBirthday</td>
-   </if>
+   </isedit>
   </tr>
   <may_checkbox name='migdal_student' value='$,isMigdalStudent'
                 title='Занимаюсь в "Мигдале"' texton='Занимается в "Мигдале"'>
-  <isedit name='user'>
+  <isedit what='$user'>
    <editor_line title='Коротко о себе' name='info' body='$,Info' span=2>
   <else>
-   <if what="$,Info!=''">
+   <ifne what='$,Info'>
     <tr><td colspan=2><b>Коротко о себе:</b></td></tr>
     <tr><td colspan=2>$,Info</td></tr>
-   </if>
+   </ifne>
   </isedit>
   <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен' span=2>
   <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>
   <may_edit title='E-mail' showvalue='$,EmailLink' value='$,Email'
             name='email' size=30 maxlength=70>
-  <isedit name='user'>
+  <isedit what='$user'>
    <checkbox_line name='hide_email' value='$,isHideEmail'
                   title='Не показывать E-mail на сайте' span=2>
    <checkbox_line name='email_enabled' value='$,isEmailEnabled'
@@ -162,7 +162,7 @@
   </if>
   <may_edit title='ICQ' status='$,ICQStatusImage' value='$,ICQ' name='icq'
             size=15 maxlength=15>
-  <noedit name='user'>
+  <noedit what='$user'>
    <tr>
     <td><b>Последний раз<br>заходил сюда:</b></td>
     <td><sentview date='$,LastOnline'></td>
@@ -192,7 +192,7 @@
                   title='Запретить вход'>
   </admin_users>
  </table>
- <isedit name='user'>
+ <isedit what='$user'>
   <if what='$editid'>
    <input type=submit value='Обновить'>
   <else>

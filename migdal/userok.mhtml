@@ -27,7 +27,7 @@
   автоматически и Вам придется регистрироваться заново. За ходом регистрации Вы
   можете следить на странице <a href='/users.php'>"Пользователи"</a>.
   <p class='controls'>
-  <if what="$redir!=''"><a href='$redir'>Вернуться</a></if>
+  <ifne what='$redir'><a href='$redir'>Вернуться</a></ifne>
  </formtable>
  <bottom>
 </body>

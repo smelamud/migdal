@@ -4,25 +4,25 @@
 <errors>
 <element name='Login'>
 <notlogged>
- <if what="$target!=''">
+ <ifne what='$target'>
   <form method=post action='actions/login.php' target='$target'>
  <else>
   <form method=post action='actions/login.php'>
- </if>
+ </ifne>
 <else>
- <if what="$target!=''">
+ <ifne what='$target'>
   <form method=post action='actions/logout.php' target='$target'>
  <else>
   <form method=post action='actions/logout.php'>
- </if>
+ </ifne>
 </notlogged>
-<if what="$re==''">
+<ife what='$re'>
  <hidden name='okdir' value="$[err]">
  <hidden name='faildir' value="$[err]">
 <else>
  <hidden name='okdir' value="$re">
  <hidden name='faildir' value="$re">
-</if>
+</ife>
 <table class='login'>
 <error id='*EL_INVALID' text='Неверный ник или пароль' span=5>
 <notlogged>
@@ -35,11 +35,11 @@
  </tr>
  <if what="$flags!='no_new'">
   <tr><td colspan=5 align=right>
-   <if what="$re==''">
+   <ife what='$re'>
     <concat name='link' value='/register.php?redir=$_'>
    <else>
     <concat name='link' value='/register.php?redir=$re?$?'>
-   </if>
+   </ife>
    <at href='$link' target='$target'>Зарегистрироваться</at>
   </td></tr>
  </if>

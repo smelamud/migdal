@@ -2,19 +2,19 @@
 << Based-on: demo/useredit.mhtml 1.10 >>
 
 <element name='infoline' params='title,value'>
-<if what="$value!=''">
+<ifne what='$value'>
  <tr><th>$title</th><td>$value</td></tr>
-</if>
+</ifne>
 </element>
 
 <element name='controls_userinfo' params='user,target' defaults="user='$,'">
-<isedit name='user'>
+<isedit what='$user'>
  <div class='batcher'>
-  <if what="$target!=''">
+  <ifne what='$target'>
    <a href='/useredit.php?editid=$user.Id&redir=$_' target='$target'>
   <else>
    <a href='/useredit.php?editid=$user.Id&redir=$_'>
-  </if>
+  </ifne>
   Изменить</a>
  </div>
 </isedit>
@@ -57,12 +57,12 @@
    </td>
   </tr>
  </if>
- <if what="$,ICQ!=''">
+ <ifne what='$,ICQ'>
   <tr>
    <th>ICQ</th>
    <td>$,ICQStatusImage&nbsp;$,ICQ</td>
   </tr>
- </if>
+ </ifne>
  <tr>
   <th>Последний раз<br>заходил сюда</th>
   <lastonline_cell user='$,'>

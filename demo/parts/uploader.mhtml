@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='uploader'>
-<if what="$filename==''">
+<ife what='$filename'>
  <tr>
   <td>$title</td>
   <td><input type=file name='$name' size=35></td>
@@ -20,7 +20,7 @@
    <input type=file name='$name' size=35>
   </td></tr>
  </table></td></tr>
-</ifzero>
+</ife>
 </element>
 
 <element name='upload_format'>

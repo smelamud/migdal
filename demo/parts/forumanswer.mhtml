@@ -14,7 +14,7 @@
  <td width=25%>
  <rebe><senderlink message='$answer'></rebe><br>
  <sentview date='$answer.Sent'><br>
- <isedit name='answer'>
+ <isedit what='$answer'>
   <a href="forumansweredit.php?editid=$answer.Id&redir=$_"
    >[Изменить]</a>
   <moderator>

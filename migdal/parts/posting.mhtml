@@ -17,9 +17,9 @@
     <if what='$posting.hasLargeBody'>
      <a href='article.php?redir=$_&artid=$posting.Id'
         title='Статья'>$posting.Subject
-      <if what="$posting.Author!=''">
+      <ifne what='$posting.Author'>
        &nbsp;(Автор:&nbsp;$posting.Author)
-      </if>
+      </ifne>
       &nbsp;<img border=0 src='pics/article.gif'></a>
     <else>
      $posting.Subject
@@ -40,9 +40,9 @@
      <tr><td>
       <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
      </td></tr>
-     <if what="$posting.Title!=''">
+     <ifne what='$posting.Title'>
       <tr><td class='imagetitle'>$posting.HTMLTitle</td></tr>
-     </if>
+     </ifne>
     </table>
    </ifnzero>
    $posting.HTMLBody&nbsp;<asp>
@@ -55,7 +55,7 @@
 	      class='read'>Читать</a>
       &nbsp;
      </if>
-     <isedit name='posting'>
+     <isedit what='$posting'>
       <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
        >Изменить</a>
       <if what='$posting.isModerable'>

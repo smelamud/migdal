@@ -2,19 +2,19 @@
 << Based-on: demo/parts/utils.mhtml 1.4 >>
 
 <element name='at' params='target,class,href' defaults="target='' class=''">
-<if what="$target!=''">
- <if what="$class!=''">
+<ifne what='$target'>
+ <ifne what='$class'>
   <a href='$href' target='$target' class='$class'>
  <else>
   <a href='$href' target='$target'>
- </if>
+ </ifne>
 <else>
- <if what="$class!=''">
+ <ifne what='$class'>
   <a href='$href' class='$class'>
  <else>
   <a href='$href'>
- </if>
-</if>
+ </ifne>
+</ifne>
 </element>
 
 <element name='perror'>

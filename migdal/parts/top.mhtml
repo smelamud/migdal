@@ -21,11 +21,11 @@
 <table class='state'><tr>
  <td class='style'>
   <zone>
-   <if what="$re==''">
+   <ife what='$re'>
     <concat name='link' value='/style.php?redir=$_'>
    <else>
     <concat name='link' value='/style.php?redir=$re?$?'>
-   </if>
+   </ife>
    <if what="$ident!='style'">
     <at href='$link' target='$target'>Настроить вид</a>
    <else>

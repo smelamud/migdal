@@ -5,7 +5,7 @@
 <div align=right>
  <table class='controls'>
   <tr>
-   <isedit name='posting'>
+   <isedit what='$posting'>
     <td>
      <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
 	>Изменить</a>
@@ -79,7 +79,7 @@
   <isplaced place='IPL_RIGHT'>
    <table align=right>
   </isplaced>
-  <isedit name='posting'>
+  <isedit what='$posting'>
    <tr><td align=center>
     <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
        class='piclink'>Картинка</a>
@@ -88,9 +88,9 @@
    <tr><td>
     <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
    </td></tr>
-   <if what="$par.Title!=''">
+   <ifne what='$par.Title'>
     <tr><td class='imagetitle'>$par.HTMLTitle</td></tr>
-   </if>
+   </ifne>
   </table>
  <isplaced place='IPL_VCENTER'>
   </td></tr></table>
@@ -103,7 +103,7 @@
  </notplaced>
 <else>
  </p>
- <isedit name='posting'>
+ <isedit what='$posting'>
   <p>
   <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
      class='piclink'>Картинка</a>
@@ -126,9 +126,9 @@
  <div class='article'>
   <controls posting='$,'>
   <center><h1>$,Subject</h1></center>
-  <if what="$,Author!=''">
+  <ifne what='$,Author'>
    <div class='author' align=center>$,HTMLAuthor</div>
-  </if>
+  </ifne>
   <if what='$,LargeFormat==*TF_PRE'><pre></if>
   <iterate_posting_paragraphs posting='$,'>
   <p>
@@ -138,9 +138,9 @@
   </for>
   </p>
   <if what='$,LargeFormat==*TF_PRE'></pre></if>
-  <if what="$,Source!=''">
+  <ifne what='$,Source'>
    <div class='source' align=right>$,HTMLSource</div>
-  </if>
+  </ifne>
   <controls posting='$,'>
  </div>
  <bottom>

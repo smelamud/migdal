@@ -10,7 +10,7 @@
   <else>
    <at href='$.Link' target='$target'>$.Name</at>
   </if>
-  <notlast name='menu'>
+  <notlast what='$menu'>
    &nbsp;
   </notlast>
  </for>

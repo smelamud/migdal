@@ -11,11 +11,11 @@
  <top ident='complains' image='pics/complain.gif'>
  <table width=100% class='complain'>
   <complain_full id='$compid'>
-  <if what="$,Display!=''">
+  <ifne what='$,Display'>
    <include name='$,Display'>
    <decel name='complain_subject' params='link'>
    <complain_subject link='$,Link'>
-  </if>
+  </ifne>
   <complain complain='$,' discuss='*false'>
  </table>
  <forums up='$,MessageId' limit='$$userForumPortion'>

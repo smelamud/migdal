@@ -33,11 +33,11 @@
    </tr></table>
   <else>
    Рассматривает:
-   <if what="$complain.RecipientLogin!=''">
+   <ifne what='$complain.RecipientLogin'>
     <senderlink message='$complain.RecipientInfo'>
    <else>
     Никто
-   </if>
+   </ifne>
   </judge>
  </td>
 </tr>
@@ -87,7 +87,7 @@
 <if what='$complain.isEditable || $discuss'>
  <tr class='controls'>
   <td>
-   <isedit name='complain'>
+   <isedit what='$complain'>
     <a href="complainedit.php?editid=$complain.Id&redir=$_"
      >Изменить</a>
    <else>

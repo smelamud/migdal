@@ -7,9 +7,9 @@
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%>
   <col width='0*'>
-  <if what="$title!=''">
+  <ifne what='$title'>
    <tr><th colspan=2>$title</th></tr>
-  </if>
+  </ifne>
   <admin_topics>
    <tr class='controls'><td colspan=2>
     <a href='topicedit.php?redir=$_'>Добавить</a>

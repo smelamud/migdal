@@ -202,33 +202,43 @@
 </macro>
 <endif name='/ifnzero'>
 
+<macro name='ife'>
+ <if what="%what==''">
+</macro>
+<endif name='/ife'>
+
+<macro name='ifne'>
+ <if what="%what!=''">
+</macro>
+<endif name='/ifne'>
+
 <macro name='isedit'>
- <if what='$%name.isEditable'>
+ <if what='%what.isEditable'>
 </macro>
 <endif name='/isedit'>
 
 <macro name='noedit'>
- <if what='!$%name.isEditable'>
+ <if what='!%what.isEditable'>
 </macro>
 <endif name='/noedit'>
 
 <macro name='isfirst'>
- <if what='$%name.isFirst'>
+ <if what='%what.isFirst'>
 </macro>
 <endif name='/isfirst'>
 
 <macro name='notfirst'>
- <if what='!$%name.isFirst'>
+ <if what='!%what.isFirst'>
 </macro>
 <endif name='/notfirst'>
 
 <macro name='islast'>
- <if what='$%name.isLast'>
+ <if what='%what.isLast'>
 </macro>
 <endif name='/islast'>
 
 <macro name='notlast'>
- <if what='!$%name.isLast'>
+ <if what='!%what.isLast'>
 </macro>
 <endif name='/notlast'>
 

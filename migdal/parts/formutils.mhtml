@@ -2,9 +2,9 @@
 
 <element name='formtable'>
 <center><table class='form'>
- <if what="$title!=''">
+ <ifne what='$title'>
   <tr><th>$title</th></tr>
- </if>
+ </ifne>
 <tr><td>
 </element>
 

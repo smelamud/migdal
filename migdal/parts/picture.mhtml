@@ -23,7 +23,7 @@
   </ifnzero>
   <logged>
    <tr><td class='modify'>
-    <isedit name='picture'>
+    <isedit what='$picture'>
      <a href="postingedit.php?editid=$picture.Id&grp=$picture.Grp&redir=$_"
       >Изменить</a>
     <else>
