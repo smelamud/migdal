@@ -13,6 +13,7 @@ $Token='';
          '<'    => 'Tag',
 	 ''     => 'Text');
 	 
+@Requests=();
 $Header='';
 $Body='';
 $Footer='';
@@ -108,6 +109,51 @@ my ($self)=@_;
 return $self->{'args'};
 }
 
+sub process
+{
+my ($self)=@_;
+
+my $name=$self->getName();
+$name=~tr/\//_/;
+$name='el'.ucfirst($name);
+if($self->can($name))
+  {
+  &$name($self);
+  }
+else
+  {
+  ::body($self->getToken());
+  }
+}
+
+sub elHtml
+{
+my ($self)=@_;
+
+::request('lib/errorreporting.php');
+::request('lib/database.php');
+::request('lib/session.php');
+::header(<<EOT);
+<?php
+dbOpen();
+session();
+?>
+EOT
+::body($self->getToken());
+}
+
+sub el_html
+{
+my ($self)=@_;
+
+::footer(<<EOT);
+<?php
+dbClose();
+?>
+EOT
+::body($self->getToken());
+}
+
 package Comment;
 
 @ISA=qw(QuotedToken);
@@ -193,6 +239,13 @@ my $name=$class.'::new';
 return $Token=&$name($class);
 }
 
+sub request
+{
+my ($name)=@_;
+
+push @Requests,$name;
+}
+
 sub header
 {
 $Header.=join '',@_;
@@ -230,6 +283,12 @@ while($Line ne '')
 
 sub done
 {
+print "<?php\n";
+foreach(@Requests)
+       {
+       print "require_once('$_');\n";
+       }
+print "?>\n";
 print $Header,$Body,$Footer;
 }
 

@@ -2,12 +2,12 @@
 
 # @(#) $Id$
 
-%.php: %.mhtml
+%.php: %.mhtml miparser
 	./miparser $< > $@
+
+all: users.php ;
 
 conf/migdal.conf: configure
 	./configure
-
-all: ;
 
 install: all ;
