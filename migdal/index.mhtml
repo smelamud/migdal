@@ -11,7 +11,7 @@
  <top ident='index' image='pics/index.gif'>
  <table width=100%>
   <tr><td>
-   <postings grp='*GRP_ALL' limit='$userMsgPortion' offset='$offset'>
+   <postings grp='*GRP_TAPE' limit='$userMsgPortion' offset='$offset'>
   </td></tr>
  </table>
  <bottom>
