@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
@@ -11,9 +13,9 @@ require_once('lib/text.php');
 
 function postMessage($personal,$message)
 {
-global $userId;
+global $userId,$realUserId,$allowGuestChat;
 
-if($userId<=0)
+if($userId<=0 && ($realUserId<=0 || !$allowGuestChat))
   return ECHP_NO_ADD;
 $privateId=0;
 if($personal!='')
@@ -24,8 +26,9 @@ if($personal!='')
   }
 if($message=='')
   return ECHP_OK;
+$senderId=$userId<=0 ? $realUserId : $userId;
 $result=mysql_query("insert into chat_messages(sender_id,private_id,text)
-                     values($userId,$privateId,'".
+                     values($senderId,$privateId,'".
 		     addslashes(htmlspecialchars($message))."')");
 if(!$result)
   return ECHP_SQL_INSERT;

@@ -7,18 +7,10 @@
 <html>
 <stylesheet ident='chat'>
 <preamble>
-<logged>
- <frameset rows='125,*' border=0>
-<else>
- <frameset rows='130,*' border=0>
-</logged>
+<frameset rows='125,*' border=0>
  <frame src='chattop.php?globalid=$_&$?' noresize scrolling=no>
  <frameset cols='*,120' border=0>
-  <logged>
-   <frame name='board' src='chatconsole.php?globalid=$_&$?' noresize>
-  <else>
-   <frame name='board' src='chatboard.php?globalid=$_&$?' noresize>
-  </logged>
+  <frame name='board' src='chatconsole.php?globalid=$_&$?' noresize>
   <frame src='chatusers.php?globalid=$_&$?' noresize>
  </frameset>
  <noframes>
