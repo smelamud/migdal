@@ -15,6 +15,7 @@ while(<>)
      s/\xB9/No./g;
      s/\x85/.../g;
      s/\x95/*/g;
+     s/\x83/h/g;
      print OUT "$_\n";
      }
 close OUT;

@@ -122,7 +122,7 @@
   <assign name='issue' value='$,'>
  </zone></ifzero>
  <log event=times text#='issue($issue)'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+ <table width=100% cellpadding=5><tr valign=top>
   <td width=120 class='eframe'>
    <topics_major ident='times'>
   </td>
