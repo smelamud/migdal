@@ -27,14 +27,12 @@ define('EM_NO_EDIT',131);
 define('EM_BODY_ABSENT',132);
 define('EM_SUBJECT_ABSENT',133);
 define('EM_STORE_SQL',134);
-define('EM_FORUM_ANSWER',135);
-define('EM_TOPIC_ABSENT',136);
-define('EM_NO_TOPIC',137);
-define('EM_NO_PERSONAL',138);
-define('EM_NO_UP',139);
-define('EM_NO_SEND',1310);
-define('EM_IMAGE_ABSENT',1311);
-define('EM_NO_IMAGE',1312);
+define('EM_TOPIC_ABSENT',135);
+define('EM_NO_TOPIC',136);
+define('EM_NO_PERSONAL',137);
+define('EM_NO_SEND',138);
+define('EM_IMAGE_ABSENT',139);
+define('EM_NO_IMAGE',1310);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);
@@ -75,4 +73,14 @@ define('EIU_IMAGE_LARGE',191);
 define('EIU_UNKNOWN_IMAGE',192);
 define('EIU_IMAGE_SQL',193);
 define('EIU_UNKNOWN_THUMBNAIL',194);
+
+define('EFA_OK',200);
+define('EFA_NO_SEND',201);
+define('EFA_NO_EDIT',202);
+define('EFA_BODY_ABSENT',203);
+define('EFA_IMAGE_ABSENT',204);
+define('EFA_NO_IMAGE',205);
+define('EFA_NO_PERSONAL',206);
+define('EFA_NO_UP',207);
+define('EFA_STORE_SQL',208);
 ?>

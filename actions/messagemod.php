@@ -35,10 +35,6 @@ if($message->image_set!=0 && !imageSetExists($message->image_set))
   return EM_NO_IMAGE;
 if($message->personal_id!=0 && !personalExists($message->personal_id))
   return EM_NO_PERSONAL;
-if($message->up!=0 && $message->grp!=GRP_FORUMS)
-  return EM_FORUM_ANSWER;
-if($message->up!=0 && !messageExists($message->up))
-  return EM_NO_UP;
 if(!$message->store())
   return EM_STORE_SQL;
 return EM_OK;

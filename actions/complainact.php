@@ -21,8 +21,8 @@ if($complain->getId()==0)
   return EECA_NO_COMPLAIN;
 if($complain->getRecipientId()!=$userId)
   return EECA_NO_EXEC;
-$forum=new Forum(array('body' => $action->getText(),
-		       'up'   => $complain->getMessageId()));
+$forum=new ForumAnswer(array('body' => $action->getText(),
+		             'up'   => $complain->getMessageId()));
 if(!$forum->store())
   return EECA_SQL_FORUM;
 if($action->getOpcode()!=0)
