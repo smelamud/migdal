@@ -1,22 +1,20 @@
 << @(#) $Id$ >>
 
 <element name='batcher' params='list,topic'>
-<community>
- <table width=100% class='batcher'><tr valign=bottom>
-  <td align=left>
-   <logged>
-    <a href='postingedit.php?topic_id=$topic&root=$`general`&grp=*GRP_GALLERY&redirid=$_'
-       class='add'>Добавить картинку</a>
-   <else>
-    <em>Хотите добавлять картинки?</em>
-    <span class='info'>
-     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-    </span>
-   </logged>
-  </td>
-  <td><spin list='$list'></td>
- </tr></table>
-</community>
+<table width=100% class='batcher'><tr valign=bottom>
+ <td align=left>
+  <logged>
+   <a href='postingedit.php?topic_id=$topic&root=$`general`&grp=*GRP_GALLERY&redirid=$_'
+      class='add'>Добавить картинку</a>
+  <else>
+   <em>Хотите добавлять картинки?</em>
+   <span class='info'>
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+   </span>
+  </logged>
+ </td>
+ <td><spin list='$list'></td>
+</tr></table>
 </element>
 
 <element name='gallery'>
@@ -34,9 +32,8 @@
   <tr valign=top>
    <for>
     <td>
-     <gallery_picture picture='$.' showtopic!='$topic<0'
-                      showdiscuss='$$communityDomain'
-                      showcomplain='$$communityDomain'>
+     <gallery_picture picture='$.' showtopic!='$topic<0' showdiscuss='*true'
+                      showcomplain='*true'>
     </td>
     <if what='$;isEol'>
      </tr><tr valign=top>

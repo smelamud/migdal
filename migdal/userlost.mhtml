@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <string name='login'>
 <pagetitle title='Восстановление пароля'>
 

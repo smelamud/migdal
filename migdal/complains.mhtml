@@ -1,7 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
-
 <element name='batcher' params='list'>
 <table width=100% class='batcher'><tr>
  <td align=left>

@@ -36,7 +36,7 @@
  <for>
   <assign name='post' value='$.'>
   <posting posting='$post' showtopic='*false' shorten='*true'
-           showdiscuss='$$communityDomain' showcomplain='*false'>
+           showdiscuss='*true' showcomplain='*false'>
  </for>
  <ifnzero what='$;Count'>
   <batcher list='$;'>

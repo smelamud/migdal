@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <int name='topic_id'>
 <int name='offset'>
 <ifzero what='$topic_id'>

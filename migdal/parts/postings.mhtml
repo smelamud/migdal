@@ -3,40 +3,38 @@
 <grps>
 
 <element name='batcher' params='list,topic,grp,root,showadvert'>
-<community>
- <posting_new grp='$grp'>
- <table width=100% class='batcher'><tr valign=bottom>
-  <td align=left>
-   <logged>
-    <if what='$,isValid'>
-     <a href='postingedit.php?topic_id=$topic&root=$root&grp=$grp&redirid=$_'
-	class='add'>Добавить $,GrpItemTitle</a>
-    <else>
-     <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_NEWS&redirid=$_'
-	class='add'>Добавить новость</a>,
-     <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_ARTICLES&redirid=$_'
-	class='add'>статью</a>,
-     <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_BOOKS&redirid=$_'
-	class='add'>книгу</a>
-    </if>
+<posting_new grp='$grp'>
+<table width=100% class='batcher'><tr valign=bottom>
+ <td align=left>
+  <logged>
+   <if what='$,isValid'>
+    <a href='postingedit.php?topic_id=$topic&root=$root&grp=$grp&redirid=$_'
+       class='add'>Добавить $,GrpItemTitle</a>
    <else>
-    <if what='$showadvert'>
-     <em>
-      <if what='$,isValid'>
-       Хотите добавлять $,GrpItemsTitle?
-      <else>
-       Хотите добавлять новости и статьи?
-      </if>
-     </em>
-     <span class='info'>
-      <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-     </span>
-    </if>
-   </logged>
-  </td>
-  <td align=center><spin list='$list'></td>
- </tr></table>
-</community>
+    <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_NEWS&redirid=$_'
+       class='add'>Добавить новость</a>,
+    <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_ARTICLES&redirid=$_'
+       class='add'>статью</a>,
+    <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_BOOKS&redirid=$_'
+       class='add'>книгу</a>
+   </if>
+  <else>
+   <if what='$showadvert'>
+    <em>
+     <if what='$,isValid'>
+      Хотите добавлять $,GrpItemsTitle?
+     <else>
+      Хотите добавлять новости и статьи?
+     </if>
+    </em>
+    <span class='info'>
+     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+    </span>
+   </if>
+  </logged>
+ </td>
+ <td align=center><spin list='$list'></td>
+</tr></table>
 </element>
 
 <element name='postings'>
@@ -56,7 +54,7 @@
  <for>
   <assign name='post' value='$.'>
   <posting posting='$post' showtopic!='$topic<0' shorten='*true'
-           showdiscuss='$$communityDomain' showcomplain='$$communityDomain'>
+           showdiscuss='*true' showcomplain='*true'>
  </for>
  <ifnzero what='$;Count'>
   <batcher list='$;' topic='$topic' grp='$grp' root='$root'

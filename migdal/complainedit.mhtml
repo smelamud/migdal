@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <int name='editid'>
 <int name='type_id'>
 <int name='link'>

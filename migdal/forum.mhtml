@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <int name='msgid'>
 <grps>
 <read_posting id='$msgid'>
@@ -18,7 +17,7 @@
   </td>
   <td class='cframe'>
    <posting posting='$posting' shorten='*true' showdiscuss='*false'
-            showcomplain='$$communityDomain'>
+            showcomplain='*true'>
    <p>
    <forums parent_id='$,MessageId' limit='$$userForumPortion'>
   </td>

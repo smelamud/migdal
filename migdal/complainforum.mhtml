@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <int name='compid'>
 <grps>
 <pagetitle title='Обсуждение жалобы'>

@@ -48,9 +48,7 @@
  </tr>
  <tr>
   <td align=right style='padding-right: 8px'>
-   <community>
-    <login no_new='$no_new' target='$target'>
-   </community>
+   <login no_new='$no_new' target='$target'>
   </td>
  </tr>
  <error id='*EL_NO_COOKIES' span=2

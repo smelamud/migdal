@@ -1,7 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
-
 <element name='userlink' params='user'>
 <if what='!$user.isHidden'>
  <a href='userinfo.php?id=$user.Id&redirid=$_'

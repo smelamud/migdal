@@ -4,28 +4,26 @@
 <grps>
 
 <element name='batcher' params='list,topic_id'>
-<community>
- <table width=100% class='batcher'><tr valign=bottom>
-  <td align=left>
-   <logged>
-    <a href='postingedit.php?topic_id=$topic_id&root=$`links`&grp=*GRP_LINKS&redirid=$_'
-       class='add'>Добавить ссылку</a><asp>
-    <if what='$topic_id<=0'>
-     <asp>, <a href='postingedit.php?topic_id=$`inet-news`&root=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
-               class='add'>новость</a>
-    </if>
-   <else>
-    <em>
-     Хотите добавлять ссылки<if what='$topic_id<=0'> и новости</if>?
-    </em>
-    <span class='info'>
-     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-    </span>
-   </logged>
-  </td>
-  <td align=center><spin list='$list'></td>
- </tr></table>
-</community>
+<table width=100% class='batcher'><tr valign=bottom>
+ <td align=left>
+  <logged>
+   <a href='postingedit.php?topic_id=$topic_id&root=$`links`&grp=*GRP_LINKS&redirid=$_'
+      class='add'>Добавить ссылку</a><asp>
+   <if what='$topic_id<=0'>
+    <asp>, <a href='postingedit.php?topic_id=$`inet-news`&root=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
+	      class='add'>новость</a>
+   </if>
+  <else>
+   <em>
+    Хотите добавлять ссылки<if what='$topic_id<=0'> и новости</if>?
+   </em>
+   <span class='info'>
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+   </span>
+  </logged>
+ </td>
+ <td align=center><spin list='$list'></td>
+</tr></table>
 </element>
 
 <element name='postings_links'>
@@ -49,8 +47,7 @@
 <for>
  <assign name='post' value='$.'>
  <posting posting='$post' showtopic!='$topic_id<0 && $.Grp==*GRP_LINKS'
-          shorten='*true' showdiscuss='$$communityDomain'
-	  showcomplain='$$communityDomain'>
+          shorten='*true' showdiscuss='*true' showcomplain='*true'>
 </for>
 <ifnzero what='$;Count'>
  <batcher list='$;' topic_id='$topic_id'>

@@ -16,8 +16,7 @@
    <topics posting='$,'>
   </td>
   <td class='cframe'>
-   <posting posting='$posting' showdiscuss='$$communityDomain'
-            showcomplain='$$communityDomain'>
+   <posting posting='$posting' showdiscuss='*true' showcomplain='*true'>
   </td>
  </tr></table>
  <bottom>

@@ -51,17 +51,15 @@
   <tr valign=top>
    <td width=150 class='eframe'>
     <topics_major ident='index'>
-    <topics_minor id='$topic_id' withpostings='$$officialDomain'
-		  subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'
-		  href='index.php' title='Раздельчики'>
+    <topics_minor id='$topic_id' withpostings='*false' grp='*GRP_TAPE'
+                  href='index.php' title='Раздельчики'>
    </td>
    <td class='cframe'>
     <subtitle>
     <seealso_links topic_id='$topic_id'
 		   title='См. также в разделе ссылок'>
     <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
-	      offset='$offset' subdomain!='$$officialDomain ? 1 : -1'
-	      showshadows!='$topic_id>0 || $$userModerator'>
+	      offset='$offset' showshadows!='$topic_id>0 || $$userModerator'>
    </td>
    <td width=130 class='eframe'>
     <if what='$topic_id<=0'>

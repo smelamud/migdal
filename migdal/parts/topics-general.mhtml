@@ -7,8 +7,7 @@
  <if what='$/$posting.TopicId,0/!=$`migdal`'>
   <topics_major ident='index'>
   <topics_minor id='$posting.TopicId' withpostings='$$officialDomain'
-		subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'
-		href='index.php' title='Раздельчики'>
+		grp='*GRP_TAPE' href='index.php' title='Раздельчики'>
  <else>
   <topics_migdal posting='$posting'>
   <topics_major ident='migdal'>
@@ -16,9 +15,8 @@
 </if>
 <if what='$posting.Grp==*GRP_GALLERY'>
  <if what='$/$posting.TopicId,0/!=$`migdal`'>
-  <topics_minor id='$posting.TopicId' subdomain!='$$officialDomain ? 1 : -1'
-		withpostings='$$officialDomain' grp='*GRP_GALLERY'
-		href='gallery.php' title='Галерея'>
+  <topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
+                href='gallery.php' title='Галерея'>
  <else>
   <topics_migdal posting='$posting'>
   <topics_major ident='migdal'>

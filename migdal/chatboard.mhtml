@@ -1,7 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
-
 <html>
 <refresh period='$$userChatRefresh' url='$-'>
 <stylesheet ident='chat'>

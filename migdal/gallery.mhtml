@@ -38,8 +38,7 @@
   </td>
   <td>
    <if what='$topic_id<=0'>
-    <gallery_main cols='$userPictureColumnPortion'
-                  subdomain!='$$officialDomain ? 1 : -1'>
+    <gallery_main cols='$userPictureColumnPortion'>
    <else>
     <div class='aframe' style='margin-bottom: 5px; padding: 5px'>
      <subtitle icon='pics/gall-big.gif'>
@@ -47,8 +46,7 @@
 		    title='См. также в разделе ссылок'>
     </div>
     <gallery topic='$topic_id' rows='$userPictureRowPortion'
-	     cols='$userPictureColumnPortion' offset='$offset'
-	     subdomain!='$$officialDomain ? 1 : -1'>
+	     cols='$userPictureColumnPortion' offset='$offset'>
    </if>
   </td>
  </tr></table>

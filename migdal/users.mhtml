@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <sorts>
 <int name='offset'>
 <int name='sort'>

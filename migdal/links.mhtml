@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <grps>
 <ident name='topic_id' table='topics'>
 <int name='offset'>

@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <int name='editid'>
 <pagetitle title='Изменение информации о пользователе'>
 

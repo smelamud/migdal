@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <grps>
 <int name='offset'>
 <pagetitle title='Справка - Знаете ли вы, что...'>

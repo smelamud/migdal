@@ -61,35 +61,33 @@
       <bymessages value='$$userMsgPortion'> на главной странице
      </td>
     </tr>
-    <community>
-     <tr>
-      <td>
-       <select_portion name='fp' value='$$userForumPortion'
-		       vals='10 15 20 25 30 35 40'>
-      </td>
-      <td colspan=3><bymessages value='$$userForumPortion'> в обсуждениях</td>
-     </tr>
-     <tr>
-      <td>
-       <select_portion name='fcp' value='$$userForumCatalogPortion'
-		       vals='10 15 20 25 30 35 40'>
-      </td>
-      <td colspan=3>
-       <bymessages value='$$userForumCatalogPortion'> на странице "Обсуждения"
-      </td>
-     </tr>
-     <tr>
-      <td>
-       <select_portion name='up' value='$$userUserPortion'
-		       vals='20 25 30 40 50 60 100'>
-      </td>
-      <td colspan=3>
-       <array vals='пользователю пользователя пользователей'>
-       <plural name='uname' value='$$userUserPortion'>
-       $uname&sp;в списке пользователей
-      </td>
-     </tr>
-    </community>
+    <tr>
+     <td>
+      <select_portion name='fp' value='$$userForumPortion'
+		      vals='10 15 20 25 30 35 40'>
+     </td>
+     <td colspan=3><bymessages value='$$userForumPortion'> в обсуждениях</td>
+    </tr>
+    <tr>
+     <td>
+      <select_portion name='fcp' value='$$userForumCatalogPortion'
+		      vals='10 15 20 25 30 35 40'>
+     </td>
+     <td colspan=3>
+      <bymessages value='$$userForumCatalogPortion'> на странице "Обсуждения"
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <select_portion name='up' value='$$userUserPortion'
+		      vals='20 25 30 40 50 60 100'>
+     </td>
+     <td colspan=3>
+      <array vals='пользователю пользователя пользователей'>
+      <plural name='uname' value='$$userUserPortion'>
+      $uname&sp;в списке пользователей
+     </td>
+    </tr>
     <tr>
      <td>
       <select_portion name='prp' value='$$userPictureRowPortion'

@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<force_community>
 <int name='editid'>
 <int name='parent_id'>
 <int name='peerid'>

@@ -46,8 +46,6 @@
  <navi_main ident='$ident'>
  <navi_migdal ident='$ident'>
  <navi_times ident='$ident'>
- <community>
-  <navi_taglit ident='$ident'>
- </community>
+ <navi_taglit ident='$ident'>
 </topics_table>
 </element>

@@ -4,15 +4,13 @@
 <backtrace target='$target'>
 <div class='bottom'>
  <table width=100%>
-  <community>
-   <tr>
-    <td>&nbsp;</td>
-    <td align=right>
-     <image src='pics/book.gif'>&nbsp;
-     <a class='big' href='complains.php'>Замечания/предложения по работе сайта</a>
-    </td>
-   </tr>
-  </community>
+  <tr>
+   <td>&nbsp;</td>
+   <td align=right>
+    <image src='pics/book.gif'>&nbsp;
+    <a class='big' href='complains.php'>Замечания/предложения по работе сайта</a>
+   </td>
+  </tr>
   <tr valign=bottom>
    <td align=left>
     Сайт создан и поддерживается <b>Клубом Еврейского Студента</b><br>
