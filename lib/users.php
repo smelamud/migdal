@@ -6,7 +6,7 @@ require_once('lib/selectiterator.php');
 require_once('lib/months.php');
 require_once('lib/utils.php');
 require_once('lib/tmptexts.php');
-require_once('lib/jdate.php');
+require_once('lib/calendar.php');
 
 class User
       extends UserTag

@@ -137,7 +137,7 @@
 </macro>
 
 <macro name='jdate' defaults='time=0'>
- <require name='lib/jdate.php'>
+ <require name='lib/calendar.php'>
  <call name='%name' func='getJewishFromUNIX' arg1='%time'>
 </macro>
 
