@@ -11,12 +11,13 @@ require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/topics.php');
-require_once('lib/images.php');
+require_once('lib/image-upload.php');
 require_once('lib/postings.php');
 
 function uploadLargeText(&$message)
 {
-global $large_file,$large_file_size,$large_file_type,$large_file_name,$large_loaded,
+global $large_file,$large_file_size,$large_file_type,$large_file_name,
+       $large_loaded,
        $maxLargeText,$tmpDir;
 
 if(isset($large_loaded) && $large_loaded==1)
