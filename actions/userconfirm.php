@@ -28,12 +28,14 @@ if(mysql_num_rows($result)<=0)
 $userLogin=mysql_result($result,0,0);
 $id=mysql_result($result,0,1);
 $result=mysql_query("update users
-                     set no_login=0,hidden=0,confirm_deadline=null
+                     set no_login=0,hidden=0,confirm_deadline=null,
+		         last_online=now()
 		     where login='$userLogin'");
 if(!$result)
   return EUC_SQL_CONFIRM;
 journal("update users
-         set no_login=0,hidden=0,confirm_deadline=null
+         set no_login=0,hidden=0,confirm_deadline=null,
+	     last_online=now()
 	 where login='".jencode($userLogin)."'");
 sendMailAdmin(MAIL_CONFIRMED,'admin_users',$id);
 return EUC_OK;
