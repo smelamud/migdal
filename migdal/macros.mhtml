@@ -23,6 +23,7 @@
        defaults="target='' class=''">
 <decel name='backtrace' file='parts/backtrace.php' params='target'
        defaults="target=''">
+<decel name='book_chapters' file='parts/book-chapters.php' params='book'>
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">

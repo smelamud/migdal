@@ -5,7 +5,7 @@
 <int name='grp'>
 <int name='up'>
 <ident name='root' table='topics'>
-<posting_obj id='$editid' grp='$grp' topic='$topic_id'>
+<posting_obj id='$editid' grp='$grp' topic='$topic_id' up='$up'>
 <pagetitle title#='Редактирование $message.GrpItemsTitle'>
 
 <html>

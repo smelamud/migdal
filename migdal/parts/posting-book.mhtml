@@ -86,10 +86,12 @@
  $posting.HTMLBody&nbsp;<asp>
  <further posting='$posting'>
  </p>
- <span class='sent'>
-  <sentview date='$posting.Sent'>&nbsp;
-  <senderlink message='$posting'>
- </span>
+ <table width=100% style="clear: left"><tr>
+  <td align=left class='sent'>
+   <sentview date='$posting.Sent'>&nbsp;
+   <senderlink message='$posting'>
+  </td>
+ </tr></table>
  <controls posting='$posting' showdiscuss='$showdiscuss'
 	   showcomplain='$showcomplain'>
 </dl>
