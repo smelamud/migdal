@@ -54,9 +54,12 @@ while($row=mysql_fetch_assoc($result))
      if($complain->getDeadline()!=0
         && $row['sent']+$complain->getDeadline()*60*60<time())
        {
-       $forum=new ForumAnswer(array('body' => $row['text']));
-       if(!$forum->store())
-	 die(mysql_error());
+       if($row['text']!='')
+         {
+         $forum=new ForumAnswer(array('body' => $row['text']));
+         if(!$forum->store())
+	   die(mysql_error());
+	 }
        $script=getComplainScriptById($row['script_id']);
        $script->exec($complain);
        }

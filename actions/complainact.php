@@ -24,10 +24,13 @@ if($complain->getId()==0)
   return EECA_NO_COMPLAIN;
 if($complain->getRecipientId()!=$userId)
   return EECA_NO_EXEC;
-$forum=new ForumAnswer(array('body'      => $action->getText(),
-		             'parent_id' => $complain->getMessageId()));
-if(!$forum->store())
-  return EECA_SQL_FORUM;
+if($action->getText()!='')
+  {
+  $forum=new ForumAnswer(array('body'      => $action->getText(),
+			       'parent_id' => $complain->getMessageId()));
+  if(!$forum->store())
+    return EECA_SQL_FORUM;
+  }
 $script=getComplainScriptById($action->getScriptId());
 $script->exec($complain);
 return EECA_OK;

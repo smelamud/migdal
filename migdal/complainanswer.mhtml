@@ -30,7 +30,7 @@
       <error id='*EECA_NO_EXEC' text='Вам не поручено рассмотрение этой жалобы'>
       <error id='*EECA_SQL_FORUM' color=magenta
 	     text='Ошибка SQL при добавлении сообщения в форум'>
-      <editor_line name='text' title='Текст' body='$,Text' mandatory='*true'>
+      <editor_line name='text' title='Текст' body='$,Text'>
       <formbuttons title='Ответить'>
      </table>
     </form>
