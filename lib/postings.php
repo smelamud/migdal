@@ -6,6 +6,7 @@ require_once('lib/selectiterator.php');
 require_once('lib/limitselect.php');
 require_once('lib/grps.php');
 require_once('lib/topics.php');
+require_once('lib/text.php');
 
 class Posting
       extends Message
@@ -154,6 +155,7 @@ class Article
 function Article($row)
 {
 $this->grp=GRP_ARTICLES;
+$this->large_format=TF_TEX;
 $this->Posting($row);
 }
 
@@ -244,8 +246,8 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query("select postings.id as id,message_id,body,large_filename,
-                            large_body,subject,topic_id,personal_id,sender_id,grp,
-			    image_set,hidden,disabled
+                            large_format,large_body,subject,topic_id,
+			    personal_id,sender_id,grp,image_set,hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
@@ -265,8 +267,8 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select postings.id as id,postings.message_id as message_id,body,large_body,
-	        subject,grp,sent,topic_id,sender_id,
+	"select postings.id as id,postings.message_id as message_id,body,
+	        large_format,large_body,subject,grp,sent,topic_id,sender_id,
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,topics.name as topic_name,

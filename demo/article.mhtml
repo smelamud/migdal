@@ -28,6 +28,7 @@
 
 <int name='artid'>
 <grps>
+<text_formats>
 <posting_full id='$artid' grp='*GRP_FORUMS'>
 <html>
 <head>
@@ -39,7 +40,9 @@
  <controls posting='$,'>
  <p>
  <center><h1>$,Subject</h1></center>
+ <if what='$,LargeFormat==*TF_PRE'><pre></if>
  $,HTMLLargeBody
+ <if what='$,LargeFormat==*TF_PRE'></pre></if>
  <p>
  <controls posting='$,'>
 </body>

@@ -11,6 +11,7 @@ class Message
 var $id;
 var $body;
 var $large_filename;
+var $large_format;
 var $large_body;
 var $subject;
 var $image_set;
@@ -33,6 +34,9 @@ if(!isset($vars['edittag']))
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 
+if(!ctype_digit($this->large_format) || $this->large_format>TF_MAX)
+  $this->large_format=TF_PLAIN;
+
 if($vars['large_body']!='')
   $this->large_body=htmlspecialchars($vars['large_body'],ENT_QUOTES);
 if(isset($vars['large_bodyid']))
@@ -50,12 +54,13 @@ if(isset($vars['subjectid']))
 
 function getCorrespondentVars()
 {
-return array('body','subject','image_set','hidden','disabled');
+return array('body','large_format','subject','image_set','hidden','disabled');
 }
 
 function getWorldVars()
 {
-return array('body','large_filename','large_body','subject','image_set','hidden');
+return array('body','large_filename','large_format','large_body','subject',
+             'image_set','hidden');
 }
 
 function getAdminVars()
@@ -144,12 +149,17 @@ return $this->body;
 
 function getHTMLBody()
 {
-return enrichedTextToHTML($this->body);
+return stotextToHTML(TF_PLAIN,$this->body);
 }
 
 function getLargeFilename()
 {
 return $this->large_filename;
+}
+
+function getLargeFormat()
+{
+return $this->large_format;
 }
 
 function getLargeBody()
@@ -159,7 +169,7 @@ return $this->large_body;
 
 function getHTMLLargeBody()
 {
-return enrichedTextToHTML($this->large_body);
+return stotextToHTML($this->large_format,$this->large_body);
 }
 
 function getImageSet()

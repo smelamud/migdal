@@ -62,9 +62,21 @@
  <if what='$message.hasLargeBody'>
   <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
   <error id='*EP_LARGE_BODY_LARGE' text='Статья слишком велика (больше 2M)'>
-  <uploader name='large_file' loadedname='large_loaded' loadedvalue=1 title='Текст'
-            loaded='(уже загружен)' notloaded='Другой'
+  <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
+            title='Текст' loaded='(уже загружен)' notloaded='Другой'
 	    filename='$message.LargeFilename'>
+  <td>Формат</td>
+  <td><select name='large_format'>
+   <array vals='Простой,TeX-подобный,HTML-подобный,Преформатированный'>
+   <iterate_array>
+   <for>
+    <if what='$;Position==$message.LargeFormat'>
+     <option selected value=$;Position>$.</option>
+    <else>
+     <option value=$;Position>$.</option>
+    </if>
+   </for>
+  </select></td>
   </table></td></tr>
   <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
   <editor_line name='body' title='Аннотация' body='$message.Body'>

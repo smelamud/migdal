@@ -1,5 +1,22 @@
 << @(#) $Id$ >>
 
+<< Constants  & Globals >>
+<macro name='grps'>
+ <require name='lib/grps.php'>
+</macro>
+
+<macro name='conf'>
+ <require name='conf/migdal.conf'>
+</macro>
+
+<macro name='errors'>
+ <require name='lib/errors.php'>
+</macro>
+
+<macro name='text_formats'>
+ <require name='lib/text.php'>
+</macro>
+
 << GRP >>
 <macro name='grpdata' defaults='name=g ignore=0'>
  <require name='lib/grputils.php'>
@@ -12,19 +29,6 @@
   <grpdata name='%name' ignore='%ignore'>
   <reload why='$%name.Invalid' var='grp' value='*GRP_FORUMS'>
  </header>
-</macro>
-
-<macro name='grps'>
- <require name='lib/grps.php'>
-</macro>
-
-<< Errors >>
-<macro name='conf'>
- <require name='conf/migdal.conf'>
-</macro>
-
-<macro name='errors'>
- <require name='lib/errors.php'>
 </macro>
 
 << Iterators >>
@@ -79,6 +83,11 @@
  <require name='lib/postings.php'>
  <iterate name='%name' class='PostingListIterator'
           arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset' arg5='%personal'>
+</macro>
+
+<macro name='iterate_array' defaults="values='$*'">
+ <require name='lib/array.php'>
+ <iterate name='%name' class='ArrayIterator' arg1='%values'>
 </macro>
 
 <macro name='iterate_sortarray' defaults="values='$*'">
