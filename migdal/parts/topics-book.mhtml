@@ -1,0 +1,11 @@
+<< @(#) $Id$ >>
+
+<element name='topics_book'>
+<if what='$posting.Grp==*GRP_BOOKS'>
+ <book_chapters book='$posting'>
+<else>
+ <message_posting id='$posting.UpValue'>
+ <posting_obj id='$,' grp='*GRP_BOOKS'>
+ <book_chapters book='$,' id='$posting.Id'>
+</if>
+</element>

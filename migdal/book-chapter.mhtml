@@ -4,7 +4,7 @@
 <posting_full id='$chapid' grp='*GRP_BOOK_CHAPTERS'>
 <zone>
  <message_posting id='$,UpValue'>
- <posting_obj name='book' id='$,' grp='*GRP_BOOK'>
+ <posting_obj name='book' id='$,' grp='*GRP_BOOKS'>
 </zone>
 <log event=chapter text#='post($,Id) post($book.Id)'>
 <pagetitle title#='$book.Subject - $,Subject'>
@@ -18,7 +18,6 @@
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <book_chapters book='$book' id='$,Id'>
     <topics posting='$,'>
    </td>
   </notprint>

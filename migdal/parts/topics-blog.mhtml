@@ -1,0 +1,25 @@
+<< @(#) $Id$ >>
+
+<element name='topics_blog' params='title,topic_id,href,upref,id'>
+<topics_table title='$title'>
+ <iterate_posting_users topic_id='$topic_id'>
+ <topics_line text='Все пользователи' href='$upref' arrow!='$id<=0'
+              class='ninept item'>
+ <for>
+  <topics_line time='$.LastMessage' text='$.FullName'
+	       href#='$href?user_id=$.Id' arrow!='$.Id==$id'
+	       class='eightpt item'>
+ </for>
+</topics_table>
+</element>
+
+<element name='topics_taglit'>
+<topics_blog title='Таглит' topic_id='$`taglit`' href='taglit-user.php'
+             upref='taglit.php' id='$posting.SenderId'>
+</element>
+
+<element name='topics_veterans'>
+<topics_blog title='Уголок ветерана' topic_id='$`veterans`'
+             href='veterans-user.php' upref='veterans.php'
+	     id='$posting.SenderId'>
+</element>

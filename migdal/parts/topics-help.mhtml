@@ -31,6 +31,10 @@
 </topics_table>
 </element>
 
+<element name='topics_help_info'>
+ <topics_help posting='$posting'>
+</element>
+
 <element name='topics_tips'>
  <topics_help posting='$posting'>
 </element>

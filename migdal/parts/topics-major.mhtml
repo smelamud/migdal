@@ -23,7 +23,7 @@
 <element name='general' params='posting,span' defaults='span=1'>
 <admin_topics>
  <tr><td colspan=3 class='eightpt'>
-  <a href='topiclinks.php?topic_id=$`major`&topic_grp=*GRP_NEWS&peer_grp=*GRP_NEWS'>
+  <a href='topiclinks.php?topic_id=$`major`&topic_grp=*GRP_NEWS&peer_grp=*GRP_NEWS&redirid=$_'>
      Изменить</a>
  </td></tr>
 </admin_topics>
@@ -44,7 +44,7 @@
 <topics_table title='Разделы' span=2>
  <navi_main ident='$ident' span=2>
  <navi_migdal posting='$posting' span=2>
- <topics_migdal_main posting='$posting'>
+ <topics_migdal posting='$posting'>
  <general posting='$posting' span=2>
  <topics_splitter>
  <navi_help ident='$ident' span=2>

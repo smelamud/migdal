@@ -14,7 +14,6 @@
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <book_chapters book='$,'>
     <topics posting='$,'>
    </td>
   </notprint>

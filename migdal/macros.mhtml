@@ -188,8 +188,6 @@
        defaults='span=0'>
 <decel name='subtitle' file='parts/subtitle.php' params='icon'
        defaults="icon=''">
-<decel name='times_articles' file='parts/times-articles.php'
-       params='issue,id,length'>
 <decel name='times_no' file='parts/posting-times-cover.php'
        params='index1,index2'>
 <decel name='tip' file='parts/tip.php'>
@@ -209,6 +207,7 @@
 <decel name='topics' file='parts/topics-general.php' params='posting,ident'
        defaults="posting=0 ident=''">
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
+<decel name='topics_book' file='parts/topics-book.php' params='posting'>
 <decel name='topics_events' file='parts/topics-events.php' params='posting'>
 <decel name='topics_gallery' file='parts/topics-gallery-general.php'
        params='&posting'>
@@ -231,6 +230,7 @@
 <decel name='topics_halom' file='parts/topics-kaitana.php' params='posting'>
 <decel name='topics_help' file='parts/topics-help.php' params='posting,ident'
        defaults="posting=0 ident=''">
+<decel name='topics_help_info' file='parts/topics-help.php' params='posting'>
 <decel name='topics_home' file='parts/topics-home.php' params='posting'
        defaults="posting=0">
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='posting'>
@@ -245,12 +245,12 @@
 <decel name='topics_links' params='posting' file='parts/topics-links.php'>
 <decel name='topics_major' file='parts/topics-major.php' params='ident,posting'
        defaults="posting=0">
+<decel name='topics_mazltov' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_methodics' file='parts/topics-migdal.php' params='posting'>
+<decel name='topics_migdal' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_migdal_english' file='parts/topics-migdal-english.php'
        params='posting'>
 <decel name='topics_migdal_library' file='parts/topics-migdal.php'
-       params='posting'>
-<decel name='topics_migdal_main' file='parts/topics-migdal.php'
        params='posting'>
 <decel name='topics_migdal_ohr' file='parts/topics-migdal.php'
        params='posting'>
@@ -258,6 +258,7 @@
        params='id,withpostings,withanswers,up,subdomain,grp,href,title'
        defaults="withpostings='*false' withanswers='*false' up='$`general`'
                  subdomain=-1 grp='*GRP_ALL' href='index.php'">
+<decel name='topics_museum' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_splitter' file='parts/topics.php'
        params='class,indent,span' defaults="class='ninept' indent=0 span=1">
 <decel name='topics_static' file='parts/topics.php'
@@ -267,10 +268,10 @@
        defaults="class='' span=1 title='' nomargin='*false'"
        file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
-<decel name='topics_taglit' params='id' file='parts/topics-taglit.php'>
-<decel name='topics_tips' file='parts/topics-help.php' params='posting'
-       defaults="posting=0">
-<decel name='topics_veterans' params='id' file='parts/topics-veterans.php'>
+<decel name='topics_taglit' params='posting' file='parts/topics-blog.php'>
+<decel name='topics_times' params='posting' file='parts/topics-times.php'>
+<decel name='topics_tips' file='parts/topics-help.php' params='posting'>
+<decel name='topics_veterans' params='posting' file='parts/topics-blog.php'>
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,root,recursive'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'

@@ -52,20 +52,20 @@
 </topics_table>
 </element>
 
-<element name='topics_mazltov' params='posting'>
-<topics_table title='Мазл Тов' span=2>
+<element name='topics_mazltov'>
+<topics_table title='Мазл Тов'>
  <posting_obj id='$`postings:mazltov`'>
- <topics_line time='$,Sent' text='О программе' span=2
+ <topics_line time='$,Sent' text='О программе'
               href#='migdal.php?artid=$`postings:mazltov`'
               arrow!='$posting.Id==$`postings:mazltov`' class='item ninept'>
  <posting_last grp='*GRP_NEWS' topic_id='$`mazltov-news`' recursive='*false'>
- <topics_line time='$,' text='Новости' indent=1
+ <topics_line time='$,' text='Новости'
               href#='migdal-news.php?topic_id=$`mazltov-news`'
               arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
 	              $posting.TopicId==$`mazltov-news`'
 	      class='item eightpt'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*false'>
- <topics_line time='$,' text='Галерея' indent=1
+ <topics_line time='$,' text='Галерея'
               href#='gallery.php?topic_id=$`mazltov`&general=1'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`mazltov`'
 	      class='item eightpt'>
@@ -115,14 +115,14 @@
 </topics_table>
 </element>
 
-<element name='topics_museum' params='posting'>
-<topics_table title='Музей евреев Одессы' span=2>
+<element name='topics_museum'>
+<topics_table title='Музей евреев Одессы'>
  <posting_obj id='$`postings:museum`'>
- <topics_line time='$,Sent' text='О музее' span=2
+ <topics_line time='$,Sent' text='О музее'
               href#='migdal.php?artid=$`postings:museum`'
               arrow!='$posting.Id==$`postings:museum`' class='item ninept'>
  <posting_last grp='*GRP_NEWS' topic_id='$`museum-news`' recursive='*false'>
- <topics_line time='$,' text='Новости' indent=1
+ <topics_line time='$,' text='Новости'
               href#='migdal-news.php?topic_id=$`museum-news`'
               arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
 	              $posting.TopicId==$`museum-news`'
@@ -130,19 +130,7 @@
 </topics_table>
 </element>
 
-<<element name='topics_migdal'>
-<if what='$/$posting.TopicId,1/==$`events`'>
- <topics_events posting='$posting'>
-<elif what='$/$posting.TopicId,1/==$`mazltov` ||
-            $/$posting.TopicId,2/==$`mazltov-news`'>
- <topics_mazltov posting='$posting'>
-<elif what='$/$posting.TopicId,1/==$`museum` ||
-            $/$posting.TopicId,2/==$`museum-news`'>
- <topics_museum posting='$posting'>
-</if>
-</element>>
-
-<element name='topics_migdal_main'>
+<element name='topics_migdal'>
 <hash>
  <hash_topic topic_id='$`events`' recursive='*true'>
  <hash_topic topic_id='$`migdal-news`' recursive='*true'>

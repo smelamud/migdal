@@ -38,6 +38,9 @@
  <assign name='title' value='$,Description'>
  <assign name='name' value#='События :: $,Name'>
  <assign name='root' value='$,Id'>
+ <assign name='tel' value='topics_events'>
+ <assign name='uhref' value='migdal-news.php'>
+ <assign name='utitle' value='Новости &lt;&lt;Мигдаля&gt;&gt;'>
 <elif what='($posting.Grp & *GRP_GALLERY)==0'>
 << Articles >>
  <assign name='href' value='migdal.php'>
@@ -83,12 +86,20 @@
   <assign name='tel' value='topics_methodics'>
   <assign name='uhref' value='migdal.php'>
   <assign name='utitle' value='Мигдаль'>
-  <if what='($posting.Grp & *GRP_BOOKS)!=0'>
+  <if what='($posting.Grp & (*GRP_BOOKS|*GRP_BOOK_CHAPTERS))!=0'>
    <assign name='href' value='methodics.php'>
    <assign name='ghref' value=''>
    <assign name='title' value=''>
    <assign name='name' value#='$name :: Методические пособия'>
   </if>
+ <elif what='$/$posting.TopicId,1/==$`museum`'>
+  <assign name='tel' value='topics_museum'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
+ <elif what='$/$posting.TopicId,1/==$`mazltov`'>
+  <assign name='tel' value='topics_mazltov'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
  <elif what='$/$posting.TopicId,1/==$`jcc`'>
   <topic_obj id='$`jcc`'>
   <assign name='href' value#='jcc.php'>
@@ -170,6 +181,9 @@
   <assign name='utitle' value='Мигдаль'>
  <elif what='$/$posting.TopicId,1/==$`mazltov`'>
   <assign name='mhref' value#='migdal.php?artid=$`postings:mazltov`'>
+  <assign name='tel' value='topics_mazltov'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
  </if>
 </if>
 </identifier>
@@ -197,6 +211,15 @@
  <assign name='title' value='$posting.TopicDescription'>
  <assign name='name' value#='$,Name :: $posting.TopicName'>
 </if>
+<if what='$/$posting.TopicId,2/==$`museum-news`'>
+ <assign name='tel' value='topics_museum'>
+ <assign name='uhref' value='migdal.php'>
+ <assign name='utitle' value='Мигдаль'>
+<elif what='$/$posting.TopicId,2/==$`mazltov-news`'>
+ <assign name='tel' value='topics_mazltov'>
+ <assign name='uhref' value='migdal.php'>
+ <assign name='utitle' value='Мигдаль'>
+</if>
 </identifier>
 
 <identifier name='taglit'>
@@ -213,6 +236,8 @@
 <assign name='title' value='$posting.TopicDescription'>
 <assign name='name' value='$posting.TopicName'>
 <assign name='root' value='$`taglit`'>
+<assign name='tel' value='topics_taglit'>
+<assign name='uhref' value='index.php'>
 <assign name='gtel' value='topics_gallery_taglit'>
 <assign name='guhref' value='gallery.php'>
 </identifier>
@@ -231,6 +256,7 @@
 </if>
 <assign name='name' value#='$name$posting.TopicName'>
 <assign name='root' value='$`migdal-times`'>
+<assign name='tel' value='topics_times'>
 </identifier>
 
 <identifier name='veterans'>
@@ -247,6 +273,8 @@
 <assign name='title' value='$posting.TopicDescription'>
 <assign name='name' value='$posting.TopicName'>
 <assign name='root' value='$`veterans`'>
+<assign name='tel' value='topics_veterans'>
+<assign name='uhref' value='index.php'>
 <assign name='gtel' value='topics_gallery_veterans'>
 <assign name='guhref' value='gallery.php'>
 </identifier>
@@ -300,6 +328,8 @@
  <assign name='name' value='Форум'>
  <assign name='title' value=''>
  <assign name='root' value='$`forums`'>
+<elif what='$/$posting.TopicId,0/==$`links`'>
+ <identify_links>
 <elif what='$/$posting.TopicId,0/==$`taglit`'>
  <identify_taglit>
 <elif what='$/$posting.TopicId,0/==$`veterans`'>
@@ -313,19 +343,23 @@
  <assign name='name' value='$,Name'>
  <assign name='title' value='$,Description'>
  <assign name='root' value='$`help`'>
-</if>
-<if what='($posting.Grp & *GRP_LINKS)!=0'>
- <identify_links>
-<elif what='($posting.Grp & *GRP_TIPS)!=0'>
- <assign name='href' value='tips.php'>
- <assign name='ghref' value=''>
- <assign name='title' value='$posting.TopicDescription'>
- <assign name='name' value='$posting.TopicName'>
- <assign name='root' value='$`tips`'>
- <assign name='tel' value='topics_tips'>
+ <assign name='tel' value='topics_help_info'>
  <assign name='uhref' value='index.php'>
-<elif what='($posting.Grp & *GRP_BOOK_CHAPTERS)!=0'>
+ <if what='$/$posting.TopicId,1/==$`tips`'>
+  <assign name='href' value='tips.php'>
+  <assign name='ghref' value=''>
+  <assign name='title' value='$posting.TopicDescription'>
+  <assign name='name' value='$posting.TopicName'>
+  <assign name='root' value='$`tips`'>
+  <assign name='tel' value='topics_tips'>
+ </if>
+</if>
+<if what='($posting.Grp & *GRP_BOOK_CHAPTERS)!=0 ||
+          ($posting.Grp & *GRP_BOOKS)!=0 && $posting.Id>0'>
  <assign name='root' value='$posting.TopicId'>
+ <assign name='tel' value='topics_book'>
+ <assign name='uhref' value='$href'>
+ <assign name='utitle' value='$posting.TopicName'>
 </if>
 </identifier>
 

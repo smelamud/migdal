@@ -1,0 +1,26 @@
+<< @(#) $Id$ >>
+
+<element name='times_articles' params='issue,id,length,cover'>
+<grps>
+<assign name='nlast' value!='$issue+$length'>
+<assign name='no' value!='$issue>=$nlast ? $issue : "$issue-$nlast"'>
+<topics_table title#='В номере No.$no'>
+ <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`migdal-times`'
+		      recursive='*true' limit=0 sort='*SORT_INDEX0'
+		      index1='$issue'>
+ <identify posting='$cover'>
+ <topics_line text='Обложка' href='$cover.DetailsHref' arrow!='$id==$cover.Id'
+              class='item ninept'>
+ <for>
+  <identify posting='$.'>
+  <topics_line time='$.Sent' text='$.Subject' href='$.DetailsHref'
+               arrow!='$.Id==$id' class='item ninept'>
+ </for>
+</topics_table>
+</element>
+
+<element name='topics_times'>
+<posting_obj grp='*GRP_TIMES_COVERS' index1='$posting.Index1' topic_id='-1'>
+<times_articles issue='$posting.Index1' length='$,Index2' id='$posting.Id'
+                cover='$,'>
+</element>
