@@ -9,6 +9,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/logs.php');
 require_once('lib/postings.php');
+require_once('lib/redirs.php');
 
 function removeControlChars($s)
 {
@@ -19,6 +20,7 @@ settype($from,'integer');
 
 dbOpen();
 session($sessionid);
+redirect();
 
 $dir=tempnam($tmpDir,'mig-stat-');
 unlink($dir);
