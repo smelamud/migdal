@@ -1,23 +1,12 @@
 << @(#) $Id$ >>
 
-<element name='UserLink' params='align,user'>
-<if what="$align=='right' || $$style_details_noleft">
- <span class='name'>$user.LoginLink</span>&nbsp;<asp>
- <if what='$user.isVisible'>
-  <asp><a href='userinfo.php?id=$user.Id&redirid=$_'
-          onClick="UserInfo($user.Id);return false"
-	  title='подробнее'
-	  target=_blank><img src='$$style_details_image' border=0></a>
- </if>
-<else>
- <if what='$user.isVisible'>
-  <a href='userinfo.php?id=$user.Id&redirid=$_'
-     onClick="UserInfo($user.Id);return false"
-     title='подробнее'
-     target=_blank><img src='$$style_details_image' border=0></a>&nbsp;<asp>
- </if>
- <asp><span class='name'>$user.LoginLink</span>
-</if>
+<element name='userlink' params='user'>
+<a href='userinfo.php?id=$user.Id&redirid=$_'
+   onClick="UserInfo($user.Id);return false"
+   title='подробнее' class='name'>$user.Login</a><asp>
+<ifne what='$user.ReplyLink'>
+ <asp>&nbsp;$user.ReplyLink<image src='$$style_mail_image' border=0></a>
+</ife>
 </element>
 
 <html>
@@ -39,7 +28,7 @@
  <table cellspacing=0 cellpadding=0>
   <for>
    <tr>
-    <td><userlink align='left' user='$.'></td>
+    <td><userlink user='$.'></td>
    </tr>
   </for>
  </table>

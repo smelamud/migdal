@@ -17,7 +17,7 @@ BODY.chatboard * {
 	font-size: 7pt;
 }
 
-.chatboard .name{
+.chatboard .name {
 	color: %chatboard_name;
 	font-weight: bold;
 }

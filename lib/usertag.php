@@ -18,6 +18,12 @@ $gender='mine';
 $this->DataObject($row);
 }
 
+function getReplyLink()
+{
+return $this->email!='' && !$this->hide_email
+       ? '<a href="mailto:'.$this->email.'" title="Написать письмо">' : '';
+}
+
 function getLogin()
 {
 return $this->login;
@@ -25,9 +31,8 @@ return $this->login;
 
 function getLoginLink()
 {
-return $this->email!='' && !$this->hide_email
-       ? '<a href="mailto:'.$this->email.'">'.$this->login.'</a>'
-       : $this->login;
+$link=$this->getReplyLink();
+return $link!='' ? $link.$this->login.'</a>' : $this->login;
 }
 
 function isMan()
@@ -57,9 +62,8 @@ return $this->email;
 
 function getEmailLink()
 {
-return $this->email!='' && !$this->hide_email
-       ? '<a href="mailto:'.$this->email.'">'.$this->email.'</a>'
-       : '';
+$link=$this->getReplyLink();
+return $link!='' ? $link.$this->email.'</a>' : '';
 }
 
 function isHideEmail()

@@ -19,16 +19,7 @@
 	font-weight: bold;
 }
 
-.posting .top .name {
-	color: %posting_name;
-}
-
-.rebe .posting .top .name {
-	color: %posting_rebe_name;
-	font-weight: bold;
-}
-
-.posting .top .name A {
+.posting .top A.name {
 	color: %posting_name;
 	text-decoration: none;
 }

@@ -62,5 +62,15 @@ function getEndValue()
 return $this->offset+$this->getCount();
 }
 
+function getPage()
+{
+return (int)($this->offset/$this->limit)+1;
+}
+
+function getPageCount()
+{
+return $this->size==0 ? 0 : (int)(($this->size-1)/$this->limit)+1;
+}
+
 }
 ?>

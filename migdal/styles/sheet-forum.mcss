@@ -29,16 +29,7 @@
 	font-weight: bold;
 }
 
-.forum .name {
-	color: %forum_name;
-}
-
-.rebe .forum .name {
-	color: %forum_rebe_name;
-	font-weight: bold;
-}
-
-.forum .name A {
+.forum A.name {
 	color: %forum_name;
 	text-decoration: none;
 }

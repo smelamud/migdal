@@ -84,18 +84,9 @@
 	color: %catalog_subject_hover;
 }
 
-.catalog .name {
+.catalog A.name {
 	color: %catalog_name;
 	font-size: 9pt;
-}
-
-.catalog .rebe .name {
-	color: %catalog_rebe_name;
-	font-weight: bold;
-}
-
-.catalog .name A {
-	color: %catalog_name;
 	text-decoration: none;
 }
 

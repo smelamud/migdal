@@ -21,7 +21,6 @@
        defaults="target='' class=''">
 <decel name='backtrace' file='parts/backtrace.php' params='target'
        defaults="target=''">
-<decel name='batcher' file='parts/messages.php' params='value,var'>
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
@@ -68,8 +67,9 @@
        defaults="topic=-1 limit=10 offset=0 title=''">
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>
-<decel name='senderlink' file='parts/utils.php' params='message,align'
-       defaults="align='right'">
+<decel name='senderlink' file='parts/utils.php' params='message'>
+<decel name='spin' file='parts/spin.php' params='list,picprev,picnext'
+       defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
 <decel name='star' file='parts/formutils.php'>
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
@@ -108,9 +108,9 @@
 <decgrpmesgs name='grpbigicon'
              vals='pics/all-big.gif,pics/opinion-big.gif,pics/new-big.gif,pics/gall-big.gif,pics/article-big.gif'>
 
-<macro name='ofmessages'>
+<macro name='bymessages'>
  <zone>
-  <array vals='сообщения,сообщений,сообщений'>
+  <array vals='сообщению,сообщения,сообщений'>
   <plural value='%value'>
   $,
  </zone>

@@ -18,11 +18,7 @@
 	font-weight: bold;
 }
 
-.picture .top .name {
-	color: %picture_name;
-}
-
-.picture .top .name A {
+.picture .top A.name {
 	color: %picture_name;
 	text-decoration: none;
 }

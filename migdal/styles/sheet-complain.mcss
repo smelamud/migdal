@@ -33,12 +33,7 @@
 	color: %complain_sent;
 }
 
-.complain .head .name {
-	color: %complain_name;
-	font-weight: normal;
-}
-
-.complain .head .name A,.complain .tail A {
+.complain .head A.name,.complain .tail A {
 	color: %complain_name;
 	font-weight: normal;
 	text-decoration: none;

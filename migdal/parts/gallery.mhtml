@@ -45,33 +45,9 @@
    <td>
     <select_portion name='pcp' value='$cols' vals='1 2 3 4 5 6 7 8 9 10'>
    </td>
-   <td>$cname&nbsp;из&nbsp;$list.Size</td>
+   <td>$cname</td>
   </form>
-  <if what='$list.Size>$list.Limit'>
-   <form method=post action='actions/goto.php'>
-    <hidden name='okdir' value='$-'>
-    <hidden name='size' value='$list.Size'>
-    <td align=right width=32>
-     <ifnzero what='$list.Offset'>
-      <a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
-       <img src='pics/left.gif' border=0></a>
-     </ifzero>
-    </td>
-    <td align=right>
-     <edit name='value' value='$list.BeginValue' size=2 maxlength=5>
-    </td>
-    <td align=center>-</td>
-    <td align=right>
-     $list.EndValue
-    </td>
-    <td align=left width=32>
-     <if what='$list.EndValue<$list.Size'>
-      <a href="$[offset='$list.NextOffset']" title='Следующие'>
-       <img src='pics/right.gif' border=0></a>
-     </if>
-    </td>
-   </form>
-  </if>
+  <spin list='$list'>
  </tr></table></td>
 </tr></table>
 </element>

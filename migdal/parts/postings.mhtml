@@ -37,33 +37,9 @@
    <td>
     <select_portion name='mp' value='$value' vals='10 15 20 25 30 35 40'>
    </td>
-   <td>из&nbsp;$list.Size&nbsp;<asp><ofmessages value='$list.Size'></td>
+   <td><bymessages value='$value'></td>
   </form>
-  <if what='$list.Size>$list.Limit'>
-   <form method=post action='actions/goto.php'>
-    <hidden name='okdir' value='$-'>
-    <hidden name='size' value='$list.Size'>
-    <td align=right width=32>
-     <ifnzero what='$list.Offset'>
-      <a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
-       <img src='pics/left.gif' border=0></a>
-     </ifzero>
-    </td>
-    <td align=right>
-     <edit name='value' value='$list.BeginValue' size=2 maxlength=5>
-    </td>
-    <td align=center>-</td>
-    <td align=right>
-     $list.EndValue
-    </td>
-    <td align=left width=32>
-     <if what='$list.EndValue<$list.Size'>
-      <a href="$[offset='$list.NextOffset']" title='Следующие'>
-       <img src='pics/right.gif' border=0></a>
-     </if>
-    </td>
-   </form>
-  </if>
+  <spin list='$list'>
  </tr></table></td>
 </tr></table>
 </element>

@@ -25,22 +25,13 @@
 </if>
 </element>
 
-<element name='SenderLink'>
-<if what="$align=='right' || $$style_details_noleft">
- <span class='name'>$message.LoginLink</span>&nbsp;<asp>
- <if what='$message.isSenderVisible'>
-  <asp><a href='userinfo.php?id=$message.SenderId&redirid=$_'
-          onClick="UserInfo($message.SenderId);return false"
-	  title='подробнее'><image src='$$style_details_image' border=0></a>
- </if>
-<else>
- <if what='$message.isSenderVisible'>
-  <a href='userinfo.php?id=$message.SenderId&redirid=$_'
-     onClick="UserInfo($message.SenderId);return false"
-     title='подробнее'><image src='$$style_details_image' border=0></a>&nbsp;<asp>
- </if>
- <asp><span class='name'>$message.LoginLink</span>
-</if>
+<element name='senderlink'>
+<a href='userinfo.php?id=$message.SenderId&redirid=$_'
+   onClick="UserInfo($message.SenderId);return false"
+   title='подробнее' class='name'>$message.Login</a><asp>
+<ifne what='$message.ReplyLink'>
+ <asp>&nbsp;$message.ReplyLink<image src='$$style_mail_image' border=0></a>
+</ife>
 </element>
 
 <element name='lastonline_cell'>
