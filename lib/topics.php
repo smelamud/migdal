@@ -311,7 +311,7 @@ function getTopicById($id,$up)
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query("select topics.id as id,up,name,stotext_id,
+$result=mysql_query('select topics.id as id,up,name,stotext_id,
                             stotexts.body as description,image_set,
 			    large_filename,large_format,
 			    stotexts.large_body as large_description,
@@ -319,7 +319,7 @@ $result=mysql_query("select topics.id as id,up,name,stotext_id,
 		     from topics
 		          left join stotexts
 			       on topics.stotext_id=stotexts.id
-		     where topics.".byIdent($id)." and hidden<$hide")
+		     where topics.'.byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0
                  ? mysql_fetch_assoc($result)
