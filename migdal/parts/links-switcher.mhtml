@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<macro name='navi'>
+ <if what="$ident=='%ident'">
+  <b>%title</b>
+ <else>
+  <a href='%href'>%title</a>
+ </if>
+</macro>
+
+<element name='links_switcher'>
+<table width=100%><tr><td align=right class='eightpt'>
+ <navi ident='catalog' title='Тематический каталог' href='links.php'>
+ |
+ <navi ident='index' title='Алфавитный указатель' href='urls.php'>
+</td></tr></table>
+</element>
