@@ -17,7 +17,7 @@ session($sessionid);
 
 $dir=tempnam($tmpDir,'mig-stat-');
 unlink($dir);
-mkdir($dir,0700);
+mkdir($dir,0777);
 
 $fd=fopen("$dir/timestamp",'w');
 fputs($fd,"$from\n");
@@ -48,7 +48,8 @@ noCacheHeaders();
 header("Content-Type: $compressType");
 header("Content-Encoding: $compressEncoding");
 $cmd=str_replace(array('#','%'),
-                 array($tmpDir,substr($dir,strlen($tmpDir)+1)),
+                 array($tmpDir,substr($dir,strlen($tmpDir)+
+		                           ($tmpDir[strlen($tmpDir)] ? 1 : 0))),
 		 $compressCommand);
 echo `$cmd`;
 
