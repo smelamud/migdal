@@ -10,6 +10,10 @@
 	background-color: %posting_top_back;
 }
 
+.posting .top * {
+	font-size: 9pt;
+}
+
 .posting .top .sent {
 	color: %posting_sent;
 	font-weight: bold;
@@ -56,6 +60,7 @@
 
 .posting .author {
 	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-size: 11pt;
 	font-style: italic;
 }
 

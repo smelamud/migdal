@@ -51,6 +51,7 @@
 }
 
 .picture .body {
+	font-size: 9pt;
 	padding: 0.25em;
 	vertical-align: middle;
 }
