@@ -546,7 +546,7 @@ $filter=permFilter('messages',$right,'sender_id',$prefix);
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 return "$filter and (${prefix}disabled=0".
-       ($userId>0 ? " or ${prefix}sender_id=$userId)" : '');
+       ($userId>0 ? " or ${prefix}sender_id=$userId)" : ')');
 }
 
 function messageExists($id)
