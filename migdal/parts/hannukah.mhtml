@@ -1,28 +1,12 @@
 << @(#) $Id$ >>
 
-<macro name='kandelika'>
- <if what='$current>=%n'>
-  <td><image src='pics/h%n-1.gif'></td>
- <else>
-  <td><image src='pics/h%n-0.gif'></td>
- </if>
-</macro>
-
 <element name='hannukah'>
-<table><tr valign=bottom>
- <time>
- <assign name='current' value!='$,@z-332'>
- <if what='$,@G>=17'>
-  <assign name='current' value!='$current+1'>
- </if>
- <kandelika n=8>
- <kandelika n=7>
- <kandelika n=6>
- <kandelika n=5>
- <td><image src='pics/h0.gif'></td>
- <kandelika n=4>
- <kandelika n=3>
- <kandelika n=2>
- <kandelika n=1>
-</tr></table>
+<time>
+<assign name='current' value!='$,@z-352'>
+<if what='$,@G>17'>
+ <assign name='current' value!='$current+1'>
+</if>
+<if what='$current>=1 && $current<=8'>
+ <image src#='pics/hk-${current}.gif'>
+</if>
 </element>

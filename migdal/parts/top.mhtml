@@ -11,17 +11,25 @@
 	    alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></at>
    </td>
    <td align=center>
-    <at href='/index.php' target='$target'>
+    <table cellspacing=0 cellpadding=0>
      <notenglish>
-      <image src='$$style_banner_migdal' alt='Мигдаль' border=0><br>
+      <tr><td><hannukah></td></tr>
+      <tr><td>
+       <at href='/index.php' target='$target'>
+	<image src='$$style_banner_migdal' alt='Мигдаль' border=0></at>
+      </td></tr>
      <else>
-      <image src='$$style_banner_migdal_english' alt='Migdal' border=0><br>
+      <tr><td>
+       <at href='/index.php' target='$target'>
+	<image src='$$style_banner_migdal_english' alt='Migdal' border=0></at>
+      </td></tr>
      </notenglish>
-     <image src='$$style_banner_online' alt='on-line' border=0></at>
+     <tr><td>
+      <at href='/index.php' target='$target'>
+       <image src='$$style_banner_online' alt='on-line' border=0></at>
+     </td></tr>
+    </table>
    </td>
-   <<td style='padding-left: 20px'>
-    <hannukah>
-   </td>>
   </tr>
  </table>
 <else>
