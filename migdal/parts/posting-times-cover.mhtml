@@ -49,7 +49,8 @@
   <biff time='$posting.Sent'>
   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
               image='$$style_cframe_back_pic'>
-  &lt;&lt;Мигдаль Times&gt;&gt; No.$posting.Index1
+  <a href='times.php?issue=$posting.Index1'>
+   &lt;&lt;Мигдаль Times&gt;&gt; No.$posting.Index1</a>
  </dt>
  <dd><p>
  <ifnzero what='$posting.ImageSet'>

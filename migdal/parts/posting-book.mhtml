@@ -70,7 +70,8 @@
   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
 	      image='$$style_cframe_back_pic'>
   <biff time='$posting.Sent'>
-  $posting.Subject
+  <a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'>
+   $posting.Subject</a>
   <ifne what='$posting.Author'>
    <br><span class='author'>$posting.Author</span>
   </ifne>

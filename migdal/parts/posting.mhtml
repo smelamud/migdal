@@ -83,7 +83,12 @@
    <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
                image='$$style_cframe_back_pic'>
    <biff time='$posting.Sent'>
-   $posting.Subject
+   <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
+    <a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'>
+     $posting.Subject</a>
+   <else>
+    $posting.Subject
+   </if>
    <ifne what='$posting.Author'>
     <br><span class='author'>$posting.Author</span>
    </ifne>

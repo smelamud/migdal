@@ -23,12 +23,7 @@
 	color: %posting_topic_hover;
 }
 
-.posting .subject {
-	font: bold 14pt %times;
-	color: %posting_subject;
-}
-
-.posting .subject A {
+.posting .subject,.posting .subject A {
 	font: bold 14pt %times;
 	color: %posting_subject;
 	text-decoration: none;
