@@ -2,7 +2,7 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <if what='$/$posting.TopicId,0/==$`inet-news`'>
+ <if what='$/$posting.TopicId,1/==$`inet-news`'>
   <topic_obj id='$`inet-news`'>
   <a href='links.php' class='topic' title='$,Description'>$,Name</a>
  <else>
