@@ -20,6 +20,8 @@ if($personal!='')
   if($privateId==0)
     return ECHP_NO_PERSON;
   }
+if($message=='')
+  return ECHP_OK;
 $result=mysql_query("insert into chat_messages(sender_id,private_id,text)
                      values($userId,$privateId,'".
 		     addslashes(htmlspecialchars($message))."')");
