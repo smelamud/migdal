@@ -208,6 +208,15 @@ $rootTopicUserName='admin';
 $rootTopicGroupName='admin';
 $rootTopicPerms=0x19FF;
 
+# Права по умолчанию для постинга
+$rootPostingPerms=0x99FF
+
+# Права по умолчанию для форума
+$rootForumPerms=0x5577
+
+# Права по умолчанию для жалобы
+$rootComplainPerms=0x999B
+
 # Маска премодерируемых по умолчанию постингов
 $defaultPremoderate=GRP_ALL;
 
