@@ -186,6 +186,11 @@
    <assign name='uhref' value='jcc.php'>
    <assign name='utitle' value='Общинный центр (JCC)'>
   </if>
+ <elif what='$/$posting.TopicId,1/==$`museum`'>
+  <assign name='mhref' value#='migdal.php?artid=$`postings:museum`'>
+  <assign name='tel' value='topics_museum'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
  <elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
   <assign name='mhref' value#='migdal.php?artid=$`postings:migdal-ohr`'>
   <assign name='tel' value='topics_migdal_ohr'>

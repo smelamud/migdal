@@ -133,6 +133,11 @@
               arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
 	              $posting.TopicId==$`museum-news`'
 	      class='item ninept'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`museum`' recursive='*false'>
+ <topics_line time='$,' text='Галерея'
+              href#='gallery.php?topic_id=$`museum`&general=1'
+              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`museum`'
+	      class='item ninept'>
 </topics_table>
 <tzdaka>
 </element>

@@ -38,6 +38,12 @@
 	     count='$,Total' href#='gallery.php?topic_id=$`halom`'
 	     arrow!="$/$posting.TopicId,2/==$`halom`" indent=1
 	     class='item eightpt'>
+<posting_info grp='*GRP_GRAPHICS' topic_id='$`museum`' recursive='*true'>
+<topics_line time='$,MaxSent' count='$,Total'
+             href#='gallery.php?topic_id=$`museum`'
+	     text='Музей евреев Одессы'
+	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`museum`" indent=1
+	     class='item eightpt'>
 <posting_info grp='*GRP_GRAPHICS' topic_id='$`migdal-ohr`' recursive='*true'>
 <topics_line time='$,MaxSent' count='$,Total'
              href#='gallery.php?topic_id=$`migdal-ohr`'
