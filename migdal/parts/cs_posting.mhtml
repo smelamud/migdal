@@ -5,11 +5,13 @@
 <posting_full id='$link'>
 <grpitemtitle grp='$,Grp'>
 <tr><th colspan=2>Жалоба на $grpitemtitle</th></tr>
-<tr class='quote'><td colspan=2 align=center>
+<tr class='quote'><td colspan=2>
  <if what='$,Grp!=*GRP_GALLERY'>
   <posting posting='$,' grp='*GRP_FORUMS' complain='*false'>
  <else>
-  <picture picture='$,' grp='*GRP_GALLERY' complain='*false'>
+  <center>
+   <picture picture='$,' grp='*GRP_GALLERY' complain='*false'>
+  </center>
  </if>
 </td></tr>
 </element>

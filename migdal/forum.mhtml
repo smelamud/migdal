@@ -14,13 +14,13 @@
   <td width=120><topics grp='$,Grp' topic_id='$,TopicId'></td>
   <td width=5>&nbsp;</td>
   <td>
-   <center>
     <if what='$,Grp!=*GRP_GALLERY'>
      <posting posting='$,' grp='*GRP_FORUMS' discuss='*false'>
     <else>
-     <picture picture='$,' grp='*GRP_GALLERY' discuss='*false'>
+     <center>
+      <picture picture='$,' grp='*GRP_GALLERY' discuss='*false'>
+     </center>
     </if>
-   </center>
    <p>
    <forums up='$,MessageId' limit='$$userForumPortion'>
   </td>
