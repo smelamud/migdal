@@ -8,6 +8,10 @@
   <reload why='$g.Invalid' var='grp' value='*GRP_FORUMS'>
  </header>
 </macro>
+<< Errors >>
+<macro name='errors'>
+ <require name='lib/errors.php'>
+</macro>
 << Iterators >>
 <macro name='iterate_userlist'>
  <require name='lib/users.php'>
@@ -39,6 +43,12 @@
  <if what='%what==0'>
 </macro>
 << Permissions >>
+<macro name='notlogged'>
+ <if what='$$userId<0'>
+</macro>
+<macro name='/notlogged'>
+ </if>
+</macro>
 <macro name='admin_topics'>
  <if what='$$userAdminTopics'>
 </macro>
@@ -57,3 +67,4 @@
 <decel name='messages' file='parts/messages.php'
        params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
+<decel name='login' file='parts/login.php' params='flags,err'>

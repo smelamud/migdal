@@ -76,7 +76,8 @@ sub getGlobal
 {
 my ($name)=@_;
 
-push @ElementGlobals,$name if $ElementName ne '';
+push @ElementGlobals,$name if $ElementName ne '' and
+                              !grep {$_ eq $name} @ElementGlobals;
 return $name;
 }
 
