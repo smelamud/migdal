@@ -139,10 +139,12 @@
 </macro>
 
 <macro name='preamble'>
- <stylesheet ident='style'>
- <head>
-  <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
- </head>
+ <zone>
+  <stylesheet ident='style'>
+  <head>
+   <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
+  </head>
+ </zone>
 </macro>
 
 << Biff >>
