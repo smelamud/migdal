@@ -42,6 +42,9 @@
 <macro name='ifzero'>
  <if what='%what==0'>
 </macro>
+<macro name='/ifzero'>
+ </if>
+</macro>
 << Permissions >>
 <macro name='notlogged'>
  <if what='$$userId<0'>
@@ -53,6 +56,12 @@
  <if what='$$userAdminTopics'>
 </macro>
 <macro name='/admin_topics'>
+ </if>
+</macro>
+<macro name='moderator'>
+ <if what='$$userModerator'>
+</macro>
+<macro name='/moderator'>
  </if>
 </macro>
 << Typecasts >>
@@ -68,3 +77,50 @@
        params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
 <decel name='login' file='parts/login.php' params='flags,err'>
+<decel name='error' file='parts/utils.php' params='id,text,color,span'
+       defaults='color="red" span=0'>
+<< HTML shortcuts >>
+<macro name='tdspan' defaults='span=0'>
+ <ifzero what='%span'><td><else><td colspan=%span></ifzero>
+</macro>
+<macro name='/tdspan'>
+ </td>
+</macro>
+<macro name='edit' defaults='size=40 maxlength=250'>
+ <input type=text name='%name' value='%value' size=%size maxlength=%maxlength>
+</macro>
+<macro name='edit_line'>
+ <tr>
+  <td>%title </td>
+  <tdspan span=%span>
+   <edit name='%name' value='%value' size=%size maxlength=%maxlength>
+  </td>
+ </tr>
+</macro>
+<macro name='editor_line' defaults='span=0'>
+ <tr><tdspan span=%span>%title</tdspan></tr>
+ <tr><tdspan span=%span>
+  <textarea name='%name' rows=10 cols=50 wrap='virtual'>
+   %body
+  </textarea>
+ </tdspan></tr>
+</macro>
+<macro name='checkbox' defaults='value=0'>
+ <ifzero what='%value'>
+  <input type=checkbox name='%name' value=1> %title
+ <else>
+  <input type=checkbox name='%name' value=1 checked> %title
+ </ifzero>
+</macro>
+<macro name='checkbox_line'>
+ <tr><tdspan span=%span>
+  <checkbox name='%name' value='%value' title='%title'>
+ </td></tr>
+</macro>
+<macro name='radio' defaults='peervalue="-1"'>
+ <if what='%value==%peervalue'>
+  <option label='%title' value='%value' selected>
+ <else>
+  <option label='%title' value='%value'>
+ </if>
+</macro>

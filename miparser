@@ -125,7 +125,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|_))|(?:\*\w+))?)(.*)$/;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|_))|(?:\*\w+))?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      }
@@ -205,7 +205,7 @@ while(my($name,$value)=each(%{$self->{'defaults'}}))
      }
 while(my($name,$value)=each(%{$params}))
      {
-     $args{$name}=$value;
+     $args{$name}=$value if $value ne '';
      }
 my $s=::subMacroParams($self->getBody(),\%args);
 return $s;
@@ -650,7 +650,7 @@ foreach(@{$::Elements{$name}->{'params'}})
        {
        if(exists $::Elements{$name}->{'defaults'}->{$_})
          {
-	 push @params,"\$$_=".$::Elements{$name}->{'defaults'}->{$_};
+	 push @params,"\$$_='".$::Elements{$name}->{'defaults'}->{$_}."'";
 	 }
        else
          {

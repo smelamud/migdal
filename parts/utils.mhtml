@@ -1,8 +1,6 @@
+<< @(#) $Id$ >>
 <?php
-# @(#) $Id$
-
-
-function elementEdit($title,$value,$name,$size,$length)
+function elementEdit($title,$value,$name,$size,$length) #COMPATIBILITY
 {
 return "<tr>
          <td>$title </td>
@@ -39,7 +37,7 @@ return !$edit ?
        elementEdit($title,$valueEdit,$name,$size,$length);
 }
 
-function elementCheckBox($name,$value,$title,$span=1)
+function elementCheckBox($name,$value,$title,$span=1) #COMPATIBILITY
 {
 return "<tr><td colspan=$span>
          <input type=checkbox name=$name value=1 ".($value ? 'checked' : '')
@@ -55,21 +53,27 @@ return !$edit ? "<tr><td colspan=$span>
               : elementCheckBox($name,$value,$title,$span);
 }
 
-function elementOption($label,$value,$peervalue)
+function elementOption($label,$value,$peervalue) #COMPATIBILITY
 {
 return "<option label='$label' value=$value".
        ($value==$peervalue ? ' selected ' : '').
        '>';
 }
+?>
 
-function perror($code,$message,$color='red',$span=1)
+<element name='error'>
+ <if what='$$err==$id'>
+  <tr><tdspan span=$span>
+   <a name='error'>
+   <font color='$color'>$text</font>
+  </tdspan></tr>
+ </if>
+</element>
+
+<?php
+function perror($code,$message,$color='red',$span=1) #COMPATIBILITY
 {
-global $err;
-
-if($err==$code)
-  echo "<tr><td colspan=$span><a name='error'>
-         <font color='$color'>$message</font>
-	</td></tr>";
+displayError($code,$message,$color,$span);
 }
 
 function navigator($list)
