@@ -35,7 +35,8 @@ for($n=0;$n<strlen($s);$n++)
       && ($n==0 || (!$delim || is_delim($s[$n-1])) && $s[$n-1]!='&')
                                          # &#entity; combinations are
 					 # not replaced
-      && $n!=strlen($s) && (!$delim || !is_delim($s[$n+1])))
+      && $n!=strlen($s) && (!$delim || !is_delim($s[$n+1]) || $s[$n+1]=='&'))
+                                         # word may start by entity
      {
      $c.=$bar;
      $tag=1;
