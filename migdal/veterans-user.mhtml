@@ -8,9 +8,9 @@
 </ifzero>
 <grps>
 <user_obj name='user' id='$user_id'>
-<pagetitle title#='Таглит - $user.FullName'>
+<pagetitle title#='Уголок ветерана - $user.FullName'>
 <topictitle title='$user.FullName'>
-<log event=taglit text#='user($user.Id) offset=$offset'>
+<log event=veterans text#='user($user.Id) offset=$offset'>
 
 <html>
 <preamble>
@@ -18,7 +18,7 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=150 class='eframe'><zone>
-   <topics_taglit id='$user.Id'>
+   <topics_veterans id='$user.Id'>
    <topics_major ident='taglit'>
   </zone></td>
   <td>
@@ -33,8 +33,9 @@
     </div>
     <ifzero what='$offset'>
      <p>
-     <postings grp='*GRP_TAGLIT_FORUMS' topic_id='$`taglit`' root='$`taglit`'
-               limit=0 user_id='$user.Id' showadvert='*false'>
+     <postings grp='*GRP_TAGLIT_FORUMS' topic_id='$`veterans`'
+               root='$`veterans`' limit=0 user_id='$user.Id'
+	       showadvert='*false'>
     </ifzero>
    </div>
    <p>

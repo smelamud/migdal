@@ -26,8 +26,13 @@
  <topics_major ident='times'>
 </if>
 <if what='($posting.Grp & (*GRP_TAGLIT_FORUMS|*GRP_TAGLIT_GALLERY))!=0'>
- <topics_taglit id='$posting.SenderId'>
- <topics_major ident='taglit'>
+ <if what='$/$posting.TopicId,0/!=$`taglit`'>
+  <topics_taglit id='$posting.SenderId'>
+  <topics_major ident='taglit'>
+ <else>
+  <topics_veterans id='$posting.SenderId'>
+  <topics_major ident='veterans'>
+ </if>
 </if>
 <if what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
  <topics_kaitana day='$posting.Index1' topic_id='$posting.TopicId'>

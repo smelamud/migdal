@@ -29,7 +29,7 @@
 		    title='См. также в разделе ссылок'>
     </div>
    </if>
-   <forumcatalog topic='$topic_id' limit='$userForumCatalogPortion'
+   <forumcatalog topic_id='$topic_id' limit='$userForumCatalogPortion'
                  offset='$offset'>
   </td>
  </tr></table>

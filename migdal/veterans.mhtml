@@ -1,0 +1,68 @@
+<< @(#) $Id$ >>
+
+<grps>
+<pagetitle title='Уголок ветерана'>
+<topictitle title='Уголок ветерана'>
+<log event=veterans>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=150 class='eframe'><zone>
+   <topics_veterans>
+   <topics_major ident='veterans'>
+  </zone></td>
+  <td>
+   <div class='ninept cframe' style='padding: 5'>
+    <subtitle>
+    <p align=justify>
+     Судьба разбросала мигдалевцев по разным городам и странам. Много лет
+     прошло с тех пор и много поколений сменилось. Но годы, прожитые в
+     &lt;&lt;Мигдале&gt;&gt; не забываются. Поэтому мы решили создать раздел,
+     где нынешние мигдалевские пенсионеры могли бы встречаться и вспоминать
+     былые времена.
+    </p>
+    <p align=justify>
+     Если вы хотите поделиться с другими мигдалевскими ветеранами своими
+     фотографиями, историями, впечатлениями или просто поболтать, вам
+     достаточно
+     <notlogged>
+      <a href='register.php?redirid=$_'>зарегистрироваться</a> --- и можете
+      свободно добавлять свои рассказы и фотографии.
+     <else>
+      нажать на ссылку
+      <a href='postingedit.php?topic_id=$`veterans`&root=$`veterans`&grp=*GRP_TAGLIT_FORUMS&redirid=$_'>
+       &lt;&lt;Добавить текст&gt;&gt;</a> или
+      <a href='postingedit.php?topic_id=$`veterans`&root=$`veterans`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'>
+       &lt;&lt;Добавить фотографию&gt;&gt;</a>.
+     </notlogged>
+     Для каждого пользователя автоматически создается отдельный раздел.
+    </p>
+    <p align=justify>
+     Чтобы открыть соответствующий раздел, нажмите на имя пользователя:
+    </p>
+   </div>
+   <p>
+   <logged>
+    <table class='info'><tr valign=center>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <a href='postingedit.php?topic_id=$`veterans`&root=$`veterans`&grp=*GRP_TAGLIT_FORUMS&redirid=$_'
+	 >Добавить мнение</a>
+     </td>
+     <td>&nbsp;</td>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <a href='postingedit.php?topic_id=$`veterans`&root=$`veterans`&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+	 >Добавить фотографию</a>
+     </td>
+    </tr></table>
+   </logged>
+   <taglit topic_id='$`veterans`' href='veterans-user.php'>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

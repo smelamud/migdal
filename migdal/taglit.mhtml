@@ -65,7 +65,7 @@
      </td>
     </tr></table>
    </logged>
-   <taglit>
+   <taglit topic_id='$`taglit`' href='taglit-user.php'>
   </td>
  </tr></table>
  <bottom>

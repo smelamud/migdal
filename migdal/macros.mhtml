@@ -41,14 +41,14 @@
 <decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'
        defaults="complain='*true'">
 <decel name='forumcatalog' file='parts/forumcatalog.php'
-       params='topic,limit,offset'
-       defaults="topic=-1 limit=10 offset=0">
+       params='topic_id,limit,offset'
+       defaults="topic_id=-1 limit=10 offset=0">
 <decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='friends' file='parts/friends.php'>
 <decel name='gallery' file='parts/gallery.php'
-       params='topic,rows,cols,offset,subdomain,sort'
-       defaults="topic=-1 rows=4 cols=5 offset=0 subdomain=-1
+       params='topic_id,rows,cols,offset,subdomain,sort'
+       defaults="topic_id=-1 rows=4 cols=5 offset=0 subdomain=-1
                  sort='*SORT_PSENT'">
 <decel name='gallery_main' file='parts/gallery-main.php'
        params='cols,subdomain' defaults="cols=5 subdomain=-1">
@@ -122,9 +122,9 @@
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
 <decel name='postings' file='parts/postings.php'
-       params='grp,topic,limit,offset,subdomain,root,user_id,showadvert,
+       params='grp,topic_id,limit,offset,subdomain,root,user_id,showadvert,
                showshadows,sort'
-       defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='$`general`'
+       defaults="topic_id=-1 limit=10 offset=0 subdomain=-1 root='$`general`'
                  user_id=0 showadvert='*true' showshadows='*true'
 		 sort='*SORT_PSENT'">
 <decel name='postings_links' file='parts/postings-links.php'
@@ -145,7 +145,7 @@
        defaults='span=0'>
 <decel name='subtitle' file='parts/subtitle.php' params='icon'
        defaults="icon=''">
-<decel name='taglit' file='parts/taglit.php'>
+<decel name='taglit' file='parts/taglit.php' params='topic_id,href'>
 <decel name='taglit_gallery' file='parts/taglit-gallery.php'
        params='user_id,rows,cols,offset,sort' defaults="sort='*SORT_PSENT'">
 <decel name='taglit_gallery_picture' file='parts/taglit-gallery-picture.php'
@@ -193,6 +193,7 @@
        file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
 <decel name='topics_taglit' params='id' file='parts/topics-taglit.php'>
+<decel name='topics_veterans' params='id' file='parts/topics-veterans.php'>
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,root,recursive'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'

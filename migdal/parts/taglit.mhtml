@@ -1,14 +1,15 @@
 << @(#) $Id$ >>
 
 <element name='taglit'>
- <iterate_posting_users topic_id='$`taglit`'>
+ <iterate_posting_users topic_id='$topic_id'>
  <iterate_rows cols='$$userPictureColumnPortion'>
  <table cellspacing=10 cellpadding=0><tr valign=top>
  <for>
   <td>
-   <posting_random grp='*GRP_TAGLIT_GALLERY' topic_id='$`taglit`' user_id='$.Id'>
+   <posting_random grp='*GRP_TAGLIT_GALLERY' topic_id='$topic_id'
+                   user_id='$.Id'>
    <posting_full id='$,' grp='*GRP_TAGLIT_GALLERY'>
-   <picture_main href#='taglit-user.php?user_id=$.Id' biff='$.LastMessage'
+   <picture_main href#='$href?user_id=$.Id' biff='$.LastMessage'
                  name='$.FullName' image_id='$,ImageId'>
   </td>
   <if what='$;isEol'>

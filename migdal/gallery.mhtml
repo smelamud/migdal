@@ -58,7 +58,7 @@
       </div>
      </notlogged>
     </div>
-    <gallery topic='$topic_id' rows='$userPictureRowPortion'
+    <gallery topic_id='$topic_id' rows='$userPictureRowPortion'
 	     cols='$userPictureColumnPortion' offset='$offset' sort='$sort'>
    </if>
   </td>

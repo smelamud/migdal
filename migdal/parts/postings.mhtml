@@ -2,7 +2,7 @@
 
 <grps>
 
-<element name='batcher' params='list,topic,grp,root,showadvert'>
+<element name='batcher' params='list,topic_id,grp,root,showadvert'>
 <posting_new grp='$grp'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
@@ -11,14 +11,14 @@
     <td><image src='pics/sheet.gif'></td>
     <td>
      <if what='$,isValid'>
-      <a href='postingedit.php?topic_id=$topic&root=$root&grp=$grp&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&root=$root&grp=$grp&redirid=$_'
 	 >Добавить $,GrpItemTitle</a>
      <else>
-      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_NEWS&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&root=$root&grp=*GRP_NEWS&redirid=$_'
 	 >Добавить новость</a>,
-      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_ARTICLES&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&root=$root&grp=*GRP_ARTICLES&redirid=$_'
 	 >статью</a>,
-      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_BOOKS&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&root=$root&grp=*GRP_BOOKS&redirid=$_'
 	 >книгу</a>
      </if>
     </td>
@@ -41,19 +41,19 @@
 </element>
 
 <element name='postings'>
-<iterate_postinglist grp='$grp' topic_id='$topic' limit='$limit'
+<iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
                      offset='$offset' sort='$sort' subdomain='$subdomain'
 		     user='$user_id' showshadows='$showshadows'>
 <if what='$$userId>0 || $showadvert || $;Count!=0'>
- <batcher list='$;' topic='$topic' grp='$grp' root='$root'
+ <batcher list='$;' topic_id='$topic_id' grp='$grp' root='$root'
           showadvert='$showadvert'>
  <for>
   <assign name='post' value='$.'>
-  <posting posting='$post' showtopic!='$topic<0' shorten='*true'
+  <posting posting='$post' showtopic!='$topic_id<0' shorten='*true'
            showdiscuss='*true' showcomplain='*true'>
  </for>
  <ifnzero what='$;Count'>
-  <batcher list='$;' topic='$topic' grp='$grp' root='$root'
+  <batcher list='$;' topic_id='$topic_id' grp='$grp' root='$root'
            showadvert='$showadvert'>
  </ifnzero>
 <else>

@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='list,topic'>
+<element name='batcher' params='list,topic_id'>
 <table width=100%>
  <tr valign=bottom>
   <logged>
@@ -8,8 +8,8 @@
     <table><tr valign=center>
      <td><image src='pics/sheet.gif'></td>
      <td>
-      <assign name='root' value!='$/$topic,0/==$`migdal` ? $`migdal` : $`general`'>
-      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_GALLERY&redirid=$_'
+      <assign name='root' value!='$/$topic_id,0/==$`migdal` ? $`migdal` : $`general`'>
+      <a href='postingedit.php?topic_id=$topic_id&root=$root&grp=*GRP_GALLERY&redirid=$_'
 	 >Добавить картинку</a>
      </td>
     </tr></table>
@@ -27,17 +27,17 @@
 
 <element name='gallery'>
 <?php $limit=$rows*$cols; ?>
-<iterate_postinglist name='list' grp='*GRP_GALLERY' topic_id='$topic'
+<iterate_postinglist name='list' grp='*GRP_GALLERY' topic_id='$topic_id'
                      offset='$offset' limit='$limit' sort='$sort'
 		     subdomain='$subdomain'>
 <iterate_rows cols='$cols'>
-<batcher list='$list' topic='$topic' grp='*GRP_GALLERY'>
+<batcher list='$list' topic_id='$topic_id' grp='*GRP_GALLERY'>
 <if what='$$userId>0 || $list.Count!=0'>
  <table cellspacing=10 cellpadding=0>
   <tr valign=top>
    <for>
     <td>
-     <gallery_picture picture='$.' showtopic!='$topic<0' showdiscuss='*true'
+     <gallery_picture picture='$.' showtopic!='$topic_id<0' showdiscuss='*true'
                       showcomplain='*true'>
     </td>
     <if what='$;isEol'>
@@ -47,7 +47,7 @@
   </tr>
  </table>
  <ifnzero what='$list.Count'>
-  <batcher list='$list' topic='$topic' grp='*GRP_GALLERY'>
+  <batcher list='$list' topic_id='$topic_id' grp='*GRP_GALLERY'>
  </ifnzero>
 </if>
 </element>

@@ -21,7 +21,7 @@
     <subtitle>
     <seealso_links topic_id='$`migdal-news`'
 		   title='См. также в разделе ссылок'>
-    <postings grp='*GRP_TAPE' topic='$`migdal-news`' limit='$userMsgPortion'
+    <postings grp='*GRP_TAPE' topic_id='$`migdal-news`' limit='$userMsgPortion'
 	      offset='$offset'>
    </td>
   </tr>

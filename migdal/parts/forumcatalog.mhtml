@@ -1,13 +1,13 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='list,topic'>
+<element name='batcher' params='list,topic_id'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <logged>
    <table><tr valign=center>
     <td><image src='pics/sheet.gif'></td>
     <td>
-     <a href='postingedit.php?topic_id=$topic&root=$`general`&grp=*GRP_FORUMS&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic_id&root=$`general`&grp=*GRP_FORUMS&redirid=$_'
 	>Добавить мнение</a>
     </td>
    </tr></table>
@@ -22,22 +22,22 @@
 
 <element name='forumcatalog'>
 <grps>
-<iterate_postinglist grp='*GRP_DISCUSS' topic_id='$topic' limit='$limit'
+<iterate_postinglist grp='*GRP_DISCUSS' topic_id='$topic_id' limit='$limit'
                      offset='$offset' sort='*SORT_ACTIVITY'
 		     withanswers='*GRP_NOT_FORUMS'
 		     showshadows!='$topic>0 || $$userModerator'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher list='$;' topic='$topic'>
+ <batcher list='$;' topic_id='$topic_id'>
  <table width=100% class='catalog'>
   <tr>
-   <if what='$topic<0'>
+   <if what='$topic_id<0'>
     <th>Раздел</th>
    </if>
    <th>Тема</th><th colspan=2>Начало / Последнее сообщение</th><th>Ответы</th>
   </tr>
   <for>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
-    <if what='$topic<0'>
+    <if what='$topic_id<0'>
      <td class='topic ninept' rowspan=2 align=center>
       <a href='forumcatalog.php?redirid=$_&topic_id=$.TopicId'
 	 title='$.TopicDescription'>$.TopicName</a>
@@ -68,7 +68,7 @@
   </for>
  </table>
  <ifnzero what='$;Count'>
-  <batcher list='$;' topic='$topic'>
+  <batcher list='$;' topic_id='$topic_id'>
  </ifnzero>
 <else>
  &nbsp;

@@ -30,6 +30,15 @@
 	     class='item ninept' span='$span'>
 </element>
 
+<element name='navi_veterans' params='ident,span' defaults='span=1'>
+<topic_obj name='veterans' id='$`veterans`'>
+
+<posting_last topic_id='$`veterans`' recursive='*false'>
+<topics_line time='$,' href='veterans.php' title='$veterans.Description'
+	     text='$veterans.Name' arrow!="$ident=='veterans'"
+	     class='item ninept' span='$span'>
+</element>
+
 <element name='topics_major'>
 <assign name='spn' value!='$unroll ? 2 : 1'>
 <assign name='sp' value!='$spn+1'>
@@ -56,5 +65,8 @@
  </if>
  <navi_times ident='$ident' span='$spn'>
  <navi_taglit ident='$ident' span='$spn'>
+ <moderator>
+  <navi_veterans ident='$ident' span='$spn'>
+ </moderator>
 </topics_table>
 </element>
