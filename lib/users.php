@@ -514,12 +514,9 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 'mine';
 
 function getUserIdByLogin($login)
 {
-global $userAdminUsers;
-
-$hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select id
                      from users
-		     where login='$login' and hidden<$hide")
+		     where login='$login'")
 	  or sqlbug('Ошибка SQL при выборке данных пользователя');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }

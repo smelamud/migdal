@@ -107,3 +107,4 @@ ALTER TABLE `messages` ADD INDEX ( `group_id` ) ;
 UPDATE topics SET perms = IF(user_id=0,0x19FF,0x11FF);
 UPDATE topics SET user_id = 3 WHERE user_id = 0;
 UPDATE topics SET group_id = user_id;
+ALTER TABLE `topics` DROP `hidden`;

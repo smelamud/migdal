@@ -29,8 +29,8 @@ var $user_id;
 var $group_id;
 var $group_login;
 var $perms;
+var $perm_string;
 var $stotext;
-var $hidden;
 var $allow;
 var $premoderate;
 var $ident;
@@ -55,6 +55,8 @@ if(!isset($vars['edittag']))
   return;
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+if($this->perm_string!='')
+  $this->perms=permString($this->perm_string);
 $this->allow=0;
 $this->premoderate=0;
 $iter=new GrpIterator();
@@ -72,13 +74,14 @@ $this->stotext->setup($vars,'description');
 
 function getCorrespondentVars()
 {
-return array('up','name','hidden','ident','login','separate');
+return array('up','name','ident','login','group_login','perm_string',
+             'separate');
 }
 
 function getWorldVars()
 {
-return array('up','track','name','user_id','hidden','allow','premoderate',
-             'ident','separate');
+return array('up','track','name','user_id','group_id','perms','allow',
+             'premoderate','ident','separate');
 }
 
 function getJencodedVars()
@@ -167,12 +170,14 @@ return $this->perms;
 
 function getPermString()
 {
-return strPerms($this->getPerms());
+return $this->perm_string!='' ? $this->perm_string
+                              : strPerms($this->getPerms());
 }
 
 function getPermHTML()
 {
-return strPerms($this->getPerms(),true);
+return $this->perm_string!='' ? str_replace('-','-&nil;',$this->perm_string)
+                              : strPerms($this->getPerms(),true);
 }
 
 function isPermitted($right)
@@ -239,11 +244,6 @@ return $this->stotext->getLargeBody();
 function getHTMLLargeDescription()
 {
 return stotextToHTML($this->getLargeFormat(),$this->getLargeDescription());
-}
-
-function isHidden()
-{
-return $this->hidden;
 }
 
 function getAllow()
@@ -497,15 +497,20 @@ $result=mysql_query(
                stotexts.body as description,image_set,
 	       large_filename,large_format,
 	       stotexts.large_body as large_description,
-	       large_imageset,topics.hidden as hidden,topics.allow as allow,
+	       large_imageset,topics.allow as allow,
 	       topics.premoderate as premoderate,topics.ident as ident,
 	       topics.separate as separate,
 	       max(messages.sent) as last_message,
-	       topics.user_id as user_id,login,gender,email,hide_email,rebe,
-	       count(distinct subtopics.id) as sub_count
+	       topics.user_id as user_id,users.login as login,
+	       users.gender as gender,users.email as email,
+	       users.hide_email as hide_email,users.rebe as rebe,
+	       topics.group_id as group_id,gusers.login as group_login,
+	       topics.perms as perms,count(distinct subtopics.id) as sub_count
 	from topics
 	     left join users
 	          on topics.user_id=users.id
+	     left join users as gusers
+	          on topics.group_id=gusers.id
 	     left join stotexts
 		  on topics.stotext_id=stotexts.id
 	     left join topics as subtopics

@@ -32,6 +32,8 @@ define('ET_LOOP_UP',127);
 define('ET_TRACK_SQL',128);
 define('ET_MUST_ALLOW',129);
 define('ET_NO_USER',1210);
+define('ET_NO_GROUP',1211);
+define('ET_BAD_PERMS',1212);
 
 define('EP_OK',130);
 define('EP_NO_EDIT',131);

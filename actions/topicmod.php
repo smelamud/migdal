@@ -16,19 +16,26 @@ require_once('lib/users.php');
 
 function modifyTopic($topic)
 {
-global $userAdminTopics,$topicMandatoryDescription;
+global $userLogin,$topicMandatoryDescription;
 
-if(!$userAdminTopics)
+if(!$topic->isWritable())
   return ET_NO_EDIT;
 if($topic->name=='')
   return ET_NAME_ABSENT;
-if($topic->login!='')
-  {
-  $uid=getUserIdByLogin($topic->login);
-  if($uid==0)
-    return ET_NO_USER;
-  $topic->user_id=$uid;
-  }
+if($topic->login=='')
+  $topic->login=$userLogin;
+$uid=getUserIdByLogin($topic->login);
+if($uid==0)
+  return ET_NO_USER;
+$topic->user_id=$uid;
+if($topic->group_login=='')
+  $topic->group_login=$userLogin;
+$gid=getUserIdByLogin($topic->group_login);
+if($gid==0)
+  return ET_NO_GROUP;
+$topic->group_id=$gid;
+if($topic->perms<0)
+  return ET_BAD_PERMS;
 if($topicMandatoryDescription && $topic->stotext->body=='')
   return ET_DESCRIPTION_ABSENT;
 if($topic->up<0)
@@ -54,6 +61,8 @@ postInteger('editid');
 postInteger('up');
 postString('name');
 postString('login');
+postString('group_login');
+postString('perms');
 postString('description');
 postString('large_description');
 
