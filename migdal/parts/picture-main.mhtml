@@ -18,6 +18,11 @@
     </a>
    </td></tr>
   </ifnzero>
+  <admin_topics>
+   <tr><td class='modify'>
+    <a href="topicedit.php?editid=$picture.TopicId&redir=$_">Изменить</a>
+   </td></tr>
+  </admin_topics>
   <tr><td class='body'>
    $picture.TopicDescription
   </td></tr>
