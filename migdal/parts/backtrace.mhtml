@@ -71,7 +71,7 @@
    <assign name='name' value#='$,FullName'>
   </if>
  </if>
-<elif what="$basename=='index.php'">
+<elif what="$basename=='index.php' || $basename==''">
  <if what='$topic_id<=0'>
   <notenglish>
    <assign name='name' value='Главная'>
