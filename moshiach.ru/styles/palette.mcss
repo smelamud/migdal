@@ -10,3 +10,7 @@ topics_answers=green
 topics_controls=blue
 topics_controls_hover=blue
 topics_arrow=pics/arrow.gif
+batcher_link=blue
+batcher_input_back=%mrl
+batcher_input_border=%mrd
+batcher_input_text=%mrm

@@ -1,0 +1,23 @@
+<< @(#) $Id$ >>
+
+<element name='batcher' params='list,grp'>
+<table width=100% class='batcher'><tr valign=bottom>
+ <td><a href='postingedit.php?topic_id=-1&root=-1&grp=$grp&redirid=$_'
+        >Добавить</a></td>
+ <td><spin list='$list'></td>
+</tr></table>
+</element>
+
+<element name='posting' params='posting'>
+</element>
+
+<element name='postings'>
+<iterate_postinglist grp='$grp' offset='$offset'>
+<batcher list='$;'>
+<for>
+ <posting posting='$.'>
+</for>
+<ifnzero what='$;Count'>
+ <batcher list='$;'>
+</ifnzero>
+</element>

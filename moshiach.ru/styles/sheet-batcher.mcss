@@ -6,16 +6,11 @@
 
 .batcher A {
 	color: %batcher_link;
-	text-decoration: underline;
-}
-
-.batcher A.add {
-	color: %batcher_normal;
 	text-decoration: none;
 	margin-left: 1em;
 }
 
-.batcher A.add:hover {
+.batcher A:hover {
 	text-decoration: underline;
 }
 

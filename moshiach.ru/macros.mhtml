@@ -12,6 +12,8 @@
 <decel name='login' file='parts/login.php'>
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
+<decel name='postings' file='parts/postings.php' params='grp,offset'
+       defaults="offset=0">
 <decel name='spin' file='parts/spin.php' params='list,picprev,picnext'
        defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
 <decel name='top_admin' file='parts/top-admin.php'>
