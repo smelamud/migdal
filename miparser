@@ -429,7 +429,13 @@ my $self=bless {'name' => $name,'file' => $file},$class;
 $params=~s/^\s+//;
 $params=~s/\s+$//;
 $self->{'params'}=[];
-@{$self->{'params'}}=map{s/^\$//;$_} split(/[\s,]+/,$params);
+$self->{'byref'}={};
+foreach(split(/[\s,]+/,$params))
+       {
+       tr/$//d;
+       $self->{'byref'}->{$_}=1 if tr/&//d;
+       push @{$self->{'params'}},$_;
+       }
 $self->{'defaults'}={};
 ::splitParams($defaults,$self->{'defaults'});
 return $self;
@@ -1158,7 +1164,8 @@ foreach(@{$::Elements{$name}->{'params'}})
        my $def='';
        $def=$::Elements{$name}->{'defaults'}->{$_}
             if exists($::Elements{$name}->{'defaults'}->{$_});
-       push @params,"\$$_".
+       push @params,($::Elements{$name}->{'byref'}->{$_} ? '&' : '').
+                    "\$$_".
                     ($def ne '' && substr($def,0,1) ne '$'
                      ? '='.::subVar($def)
 		     : '');

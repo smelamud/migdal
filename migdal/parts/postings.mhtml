@@ -2,7 +2,7 @@
 
 <grps>
 
-<element name='batcher' params='list,topic_id,grp,showadvert,access'>
+<element name='batcher' params='&list,topic_id,grp,showadvert,access'>
 <posting_new grp='$grp'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>

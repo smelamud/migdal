@@ -9,7 +9,7 @@
 
 <pagetitle title='Пользователи'>
 
-<element name='batcher' params='list'>
+<element name='batcher' params='&list'>
 <table width=100%><tr valign=bottom>
  <admin_users>
   <td align=left class='info'>

@@ -3,7 +3,7 @@
 <int name='offset'>
 <pagetitle title='Журнал репликаций'>
 
-<element name='batcher' params='list'>
+<element name='batcher' params='&list'>
 <table width=100%><tr valign=bottom>
  <td align=center><spin list='$list'></td>
 </tr></table>

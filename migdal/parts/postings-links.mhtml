@@ -2,7 +2,7 @@
 
 <grps>
 
-<element name='batcher' params='list,topic_id'>
+<element name='batcher' params='&list,topic_id'>
 <assign name='topic_id' value!='$topic_id<0 ? $`links` : $topic_id'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>

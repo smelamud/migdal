@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='list'>
+<element name='batcher' params='&list'>
 <table width=100%><tr>
  <td align=left class='info'>
   <logged>

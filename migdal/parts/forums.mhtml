@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='list,parent_id'>
+<element name='batcher' params='&list,parent_id'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <table><tr valign=center>

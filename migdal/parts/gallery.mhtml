@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='list,topic_id,access'>
+<element name='batcher' params='&list,topic_id,access'>
 <table width=100%>
  <tr valign=bottom>
   <if what='$access'>
