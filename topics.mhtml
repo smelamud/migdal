@@ -11,11 +11,8 @@
    <p>
    <a href='topicedit.php?redir=$_'>Добавить</a>
    &nbsp;&nbsp;
-   <?php
-    echo '<a href="',remakeURI($REQUEST_URI,
-		   array(),
-		   array('ignoregrp' => $ignoregrp ? 0 : 1)),'">';
-   ?>Показать <if what='$ignoregrp'>активные<else>все</if></a>
+   <a href="$[ignoregrp='$g.InvIgnore']">Показать
+    <if what='$ignoregrp'>активные<else>все</if></a>
   </admin_topics>
   <iterate_topiclist grp='$g.Effective'>
   <for>

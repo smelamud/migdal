@@ -72,6 +72,16 @@ function getEffective()
 return $this->ignore ? GRP_ANY : $this->grp;
 }
 
+function getIgnore()
+{
+return $this->ignore ? 1 : 0;
+}
+
+function getInvIgnore()
+{
+return $this->ignore ? 0 : 1;
+}
+
 function getName()
 {
 return getGrpName($this->grp);

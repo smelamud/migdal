@@ -30,12 +30,37 @@ $Stack='';
 
 #### Utility functions ####
 
+sub constructRemake
+{
+my ($s)=@_;
+
+@del=();
+@subs=();
+%params=();
+request('lib/utils.php');
+splitParams($s,\%params);
+while(my($name,$value)=each(%params))
+     {
+     if($value eq '')
+       {
+       push @del,"'$name'";
+       }
+     else
+       {
+       push @subs,"'$name' => ".subVar($value);
+       }
+     }
+return 'remakeURI($REQUEST_URI,array('.join(',',@del).'),array('
+                                      .join(',',@subs).'))';
+}
+
 sub subVar
 {
 my ($s,$st,$ed)=@_;
 
 my $item=$Stack->top()->getItem();
 
+return $st.constructRemake($1).$ed if $s=~/^\$\[([^\]]*)\]$/;
 return "$st$1$ed" if $s=~/^\*(\w+)$/;
 return "${st}urlencode(\$REQUEST_URI)$ed" if $s=~/^\$_$/;
 return "$st\$$1$ed" if $s=~/^\$(\w+)$/;
@@ -56,7 +81,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*\.?\w+)|_))|(?:\*\w+))?)(.*)$/;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*\.?\w+)|(?:\[[^\]]*\])|_))|(?:\*\w+))?)(.*)$/;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      }
@@ -517,7 +542,7 @@ my ($self)=@_;
 $::BodyToHeader=0;
 }
 
-sub elDecel
+sub elDecel #XXX Possibly empty name
 {
 my ($self)=@_;
 
@@ -623,7 +648,7 @@ sub request
 {
 my ($name)=@_;
 
-push @Requests,$name unless grep {$_ eq $name} @Requests;
+push @Requests,$name unless $name eq '' or grep {$_ eq $name} @Requests;
 }
 
 sub printVar

@@ -2,10 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/errorreporting.php');
-require_once('lib/database.php');
 
-dbOpen();
-SetCookie('sessionid');
+SetCookie('sessionid',0);
 header("Location: $redir");
-dbClose();
 ?>
