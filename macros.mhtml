@@ -50,13 +50,17 @@
  <iterate name='%name' class='UserListIterator'>
 </macro>
 << Calls >>
-<macro name='topic_name' defaults='name=topic id="$topic_id"'>
- <require name='lib/topics.php'>
- <call name='%name' func='getTopicNameById' arg1='%id'>
-</macro>
 <macro name='message_obj' defaults='name=message grp=0 topic=0'>
  <require name='lib/messages.php'>
  <call name='%name' func='getMessageById' arg1='%id' arg2='%grp' arg3='%topic'>
+</macro>
+<macro name='message_full' defaults='grp=0'>
+ <require name='lib/messages.php'>
+ <call name='%name' func='getFullMessageById' arg1='%id' arg2='%grp'>
+</macro>
+<macro name='topic_name' defaults='name=topic id="$topic_id"'>
+ <require name='lib/topics.php'>
+ <call name='%name' func='getTopicNameById' arg1='%id'>
 </macro>
 <macro name='image_name' defaults='name=image'>
  <require name='lib/images.php'>
@@ -130,7 +134,7 @@
 <decel name='login' file='parts/login.php' params='flags,err'>
 <decel name='menu' file='parts/menu.php' params='ident'>
 <decel name='message' file='parts/message.php'
-       params='message,grp,topic,discuss' defaults="discuss='*true'">
+       params='message,grp,topic,discuss' defaults="topic=0 discuss='*true'">
 <decel name='messages' file='parts/messages.php'
        params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
 <decel name='navigator' file='parts/utils.php' params='list'>
