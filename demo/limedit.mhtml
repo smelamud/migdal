@@ -69,6 +69,7 @@
       x
       <input type=text name='small_y' value='$,SmallY' size=4 maxlength=4>
      </td>
+     <editor_line name='title' body='$,Title' title='Подпись' rows=5 span=2>
     </table>
     <if what='$editid'>
      <input type=submit value='Изменить'>

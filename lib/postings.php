@@ -199,7 +199,7 @@ $this->LimitSelectIterator(
 	       messages.hidden as hidden,messages.disabled as disabled,
 	       users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
-	       images.has_large as has_large_image,
+	       images.has_large as has_large_image,images.title as title,
 	       topics.name as topic_name,
 	       login,gender,email,hide_email,rebe,
 	       count(forums.up) as answer_count
@@ -252,7 +252,7 @@ function loadImages($posting)
 {
 $this->images=array();
 $result=mysql_query('select message_id,par,image_id,placement,
-                            has_large as has_large_image
+                            has_large as has_large_image,title
 		     from message_images
 		          left join images
 			       on images.id=message_images.image_id
@@ -293,7 +293,7 @@ $result=mysql_query("select postings.id as id,message_id,body,large_filename,
 			   and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при выборке постинга');
+	     or die('Ошибка SQL при выборке постинга'.mysql_error());
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp,
 				                 array('topic_id' => $topic));
@@ -310,7 +310,7 @@ $result=mysql_query(
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,topics.name as topic_name,
-		images.has_large as has_large_image,
+		images.has_large as has_large_image,images.title as title,
 		login,gender,email,hide_email,rebe,
 	        count(forums.up) as answer_count
 	 from postings

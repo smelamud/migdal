@@ -3,6 +3,8 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
+require_once('lib/tmptexts.php');
+require_once('lib/text.php');
 
 class Image
       extends DataObject
@@ -18,6 +20,7 @@ var $large;
 var $large_x;
 var $large_y;
 var $format;
+var $title;
 
 function Image($row)
 {
@@ -30,17 +33,20 @@ if(!isset($vars['edittag']))
   return;
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+
+if(isset($vars['titleid']))
+  $this->title=tmpTextRestore($vars['titleid']);
 }
 
 function getCorrespondentVars()
 {
-return array('has_large','small_x','small_y');
+return array('has_large','small_x','small_y','title');
 }
 
 function getWorldVars()
 {
 return array('image_set','filename','small','small_x','small_y','has_large',
-             'large','large_x','large_y','format');
+             'large','large_x','large_y','format','title');
 }
 
 function store()
@@ -116,6 +122,21 @@ function getFormat()
 return $this->format;
 }
 
+function getTitle()
+{
+return $this->title;
+}
+
+function getHTMLTitle()
+{
+return stotextToHTML(TF_MAIL,$this->title);
+}
+
+function setTitle($title)
+{
+$this->title=$title;
+}
+
 }
 
 class ImageSetIterator
@@ -134,7 +155,8 @@ $this->SelectIterator('Image',
 
 function getImageById($id)
 {
-$result=mysql_query("select id,image_set,filename,small_x,small_y,has_large
+$result=mysql_query("select id,image_set,filename,small_x,small_y,has_large,
+                            title
                      from images
 		     where id=$id")
 	     or die('Ошибка SQL при выборке изображения');
@@ -155,7 +177,7 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 
 function getImageNameBySet($image_set)
 {
-$result=mysql_query("select id,image_set,filename
+$result=mysql_query("select id,image_set,filename,title
                      from images
 		     where image_set=$image_set")
 	     or die('Ошибка SQL при выборке набора изображений');

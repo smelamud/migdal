@@ -222,7 +222,7 @@ return new Image(array('filename'  => $image_name,
 }
 
 function uploadImage($name,$hasThumbnail,$thumbnailX,$thumbnailY,&$err,
-                     $image_set=0)
+                     $title='',$image_set=0)
 {
 global $HTTP_POST_FILES,$maxImage,$useMogrify,$tmpDir;
 
@@ -264,6 +264,7 @@ unlink($image_tmpname);
 if(!$img)
   return $img;
 $img->setImageSet($image_set);
+$img->setTitle($title);
 if(!$img->store())
   {
   $err=EIU_IMAGE_SQL;
@@ -274,7 +275,8 @@ return $img;
 }
 
 function uploadMemoryImage($content,$image_name,$image_type,$hasThumbnail,
-                           $thumbnailX,$thumbnailY,&$err,$image_set=0)
+                           $thumbnailX,$thumbnailY,&$err,$title='',
+			   $image_set=0)
 {
 global $HTTP_POST_FILES,$useMogrify,$tmpDir;
 
@@ -298,6 +300,7 @@ unlink($image_tmpname);
 if(!$img)
   return $img;
 $img->setImageSet($image_set);
+$img->setTitle($title);
 if(!$img->store())
   {
   $err=EIU_IMAGE_SQL;

@@ -41,6 +41,16 @@ unlink($large_file_tmpname);
 return EP_OK;
 }
 
+function setImageTitle($image_set,$title)
+{
+if(!$image_set)
+  return EP_OK;
+$result=mysql_query("update images
+                     set title='$title'
+		     where image_set=$image_set");
+return $result ? EP_OK : EP_TITLE_SQL;
+}
+
 function modifyPosting($message)
 {
 global $userId;
@@ -73,6 +83,7 @@ return EP_OK;
 settype($editid,'integer');
 settype($grp,'integer');
 settype($HTTP_POST_VARS['grp'],'integer');
+$title=addslashes($title);
 
 dbOpen();
 session($sessionid);
@@ -81,7 +92,9 @@ $message->setup($HTTP_POST_VARS);
 $img=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
 if($img)
   $message->setImageSet($img->getImageSet());
-if($err==EIU_OK)
+if($err==EIU_OK && $message->getImageSet()!=0)
+  $err=setImageTitle($message->getImageSet(),$title);
+if($err==EIU_OK || $err==EP_OK)
   $err=uploadLargeText($message);
 if($err==EP_OK)
   $err=modifyPosting($message);
@@ -92,14 +105,17 @@ else
   $bodyId=tmpTextSave($body);
   $largeBodyId=tmpTextSave($large_body);
   $subjectId=tmpTextSave($subject);
+  $titleId=tmpTextSave($title);
   header('Location: /postingedit.php?'.
           makeQuery($HTTP_POST_VARS,
 	            array('body',
 		          'large_body',
-		          'subject'),
+		          'subject',
+			  'title'),
 		    array('bodyid'       => $bodyId,
 		          'large_bodyid' => $largeBodyId,
 		          'subjectid'    => $subjectId,
+		          'titleid'      => $titleId,
 		          'image_set'    => $message->getImageSet(),
 		          'err'          => $err)).'#error');
   }

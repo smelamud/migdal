@@ -86,6 +86,11 @@
      $,
     </if>
    </td></tr>
+   <if what="$par.Title!=''">
+    <tr><td align=center>
+     <i>$par.HTMLTitle</i>
+    </td></tr>
+   </if>
   </table>
  <isplaced place='IPL_VCENTER'>
   </td></tr></table>

@@ -18,6 +18,7 @@ var $subject;
 var $image_set;
 var $image_id;
 var $has_large_image;
+var $title;
 var $hidden;
 var $disabled;
 var $sent;
@@ -201,6 +202,16 @@ return $this->image_id;
 function hasLargeImage()
 {
 return $this->has_large_image;
+}
+
+function getTitle()
+{
+return $this->title;
+}
+
+function getHTMLTitle()
+{
+return stotextToHTML(TF_MAIL,$this->title);
 }
 
 function isHidden()

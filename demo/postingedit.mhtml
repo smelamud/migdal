@@ -56,13 +56,17 @@
     <assign name='file' value=''>
    </ifnzero>
    <if what='$message.hasLargeBody'>
-    <assign name='title' value='Картинка для аннотации'>
+    <assign name='ititle' value='Картинка для аннотации'>
    <else>
-    <assign name='title' value='Картинка'>
+    <assign name='ititle' value='Картинка'>
    </if>
    <uploader name='image' loadedname='image_set' loadedvalue='$message.ImageSet'
-             title='$title' loaded='(уже загружена)' notloaded='Другая'
+             title='$ititle' loaded='(уже загружена)' notloaded='Другая'
              filename='$file'>
+   <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи' color=magenta
+          span=2>
+   <editor_line name='title' body='$image.Title' title='Подпись под картинкой'
+                rows=5 span=2>
   </if>
  <if what='$message.hasLargeBody'>
   <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>

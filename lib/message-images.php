@@ -29,6 +29,7 @@ var $message_id;
 var $par;
 var $image_id;
 var $has_large_image;
+var $title;
 var $placement;
 
 function MessageImage($row)
@@ -94,6 +95,16 @@ return $this->has_large_image;
 function getPlacement()
 {
 return $this->placement;
+}
+
+function getTitle()
+{
+return $this->title;
+}
+
+function getHTMLTitle()
+{
+return stotextToHTML(TF_MAIL,$this->title);
 }
 
 }

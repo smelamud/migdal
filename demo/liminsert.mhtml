@@ -50,7 +50,8 @@
       </select>
      </td>
      <td>
-      <a href='/limedit.php?postid=$postid&redir=$_'>Список &gt;&gt;&gt;</a>
+      <a href='/limedit.php?postid=$postid&editid=$image.ImageId&redir=$_'
+         >Список &gt;&gt;&gt;</a>
      </td>
     </tr>
     <tr>

@@ -124,6 +124,7 @@ CREATE TABLE images (
   large_x smallint(6) NOT NULL default '0',
   large_y smallint(6) NOT NULL default '0',
   format varchar(30) NOT NULL default '',
+  title varchar(250) NOT NULL default '',
   used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY image_set (image_set),
@@ -170,6 +171,19 @@ CREATE TABLE menu (
   PRIMARY KEY  (id),
   UNIQUE KEY ident (ident),
   KEY menu_index (menu_index)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'message_images'
+#
+
+CREATE TABLE message_images (
+  message_id int(11) NOT NULL default '0',
+  par int(11) NOT NULL default '0',
+  image_id int(11) NOT NULL default '0',
+  placement tinyint(4) NOT NULL default '0',
+  KEY message_id (message_id),
+  KEY image_id (image_id)
 ) TYPE=MyISAM;
 
 #

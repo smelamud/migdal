@@ -380,10 +380,10 @@
  </tr>
 </macro>
 
-<macro name='editor_line' defaults='span=0'>
+<macro name='editor_line' defaults='span=0 rows=10'>
  <tr><tdspan span=%span>%title</tdspan></tr>
  <tr><tdspan span=%span>
-  <textarea name='%name' rows=10 cols=50 wrap='virtual'>%body</textarea>
+  <textarea name='%name' rows=%rows cols=50 wrap='virtual'>%body</textarea>
  </tdspan></tr>
 </macro>
 

@@ -31,7 +31,7 @@ return mysql_query("update images
 
 function storeImage($posting)
 {
-global $editid,$loaded,$has_large,$small_x,$small_y;
+global $editid,$loaded,$has_large,$small_x,$small_y,$title;
 
 if(!$posting->isEditable())
   return ELIM_NO_EDIT;
@@ -44,16 +44,15 @@ if($loaded)
     return ELIM_IMAGE_ABSENT;
   $image=uploadMemoryImage($image->getContent(),$image->getFilename(),
                            $image->getFormat(),$has_large,$small_x,$small_y,
-			   $err,$posting->getLargeImageSet());
+			   $err,$title,$posting->getLargeImageSet());
   if(!setImageId($image->getId(),$editid))
     return ELIM_SETID_SQL;
   }
 else
   $image=uploadImage('image',$has_large,$small_x,$small_y,$err,
-                     $posting->getLargeImageSet());
+                     $title,$posting->getLargeImageSet());
 if(!$image)
   return $err;
-$editid=$image->getId();
 if($posting->getLargeImageSet()==0)
   if(!setLargeImageSet($posting,$image->getImageSet()))
     return ELIM_SET_SQL;
@@ -65,19 +64,21 @@ settype($editid,'integer');
 settype($has_large,'integer');
 settype($small_x,'integer');
 settype($small_y,'integer');
+$title=addslashes($title);
 
 dbOpen();
 session($sessionid);
 $posting=getPostingById($postid);
 $err=storeImage($posting);
+$titleId=tmpTextSave($title);
 if($err==ELIM_OK)
   header('Location: /limedit.php?'.makeQuery($HTTP_POST_VARS,
-                                             array('err'),
-					     array('postid' => $postid,
-					           'editid' => $editid)));
+                                             array('err','title'),
+					     array('titleid' => $titleId)));
 else
   header('Location: /limedit.php?'.makeQuery($HTTP_POST_VARS,
-                                             array(),
-					     array('err' => $err)));
+                                             array('title'),
+					     array('err'     => $err,
+					           'titleid' => $titleId)));
 dbClose();
 ?>

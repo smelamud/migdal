@@ -65,6 +65,16 @@ return $place<=IPL_HORIZONTAL ? ($this->getPlacement() & IPL_HORIZONTAL)==$place
                               : ($this->getPlacement() & IPL_VERTICAL)==$place;
 }
 
+function getTitle()
+{
+return $this->image ? $this->image->getTitle() : '';
+}
+
+function getHTMLTitle()
+{
+return $this->image ? $this->image->getHTMLTitle() : '';
+}
+
 }
 
 class ParagraphIterator
