@@ -6,6 +6,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
+require_once('lib/packages.php');
 
 postInteger('message_id');
 postInteger('type');
