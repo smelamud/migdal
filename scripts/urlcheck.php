@@ -7,6 +7,7 @@ require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/users.php');
+require_once('lib/exec.php');
 
 function initCheckTimes()
 {
@@ -33,10 +34,9 @@ if(!$result)
   die('Ошибка SQL при выборке URL для проверки');
 while($row=mysql_fetch_assoc($result))
      {
-     $output=array();
      $url=addslashes(strtr($row['url'],
            array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES))));
-     exec("$wgetPath -q --spider '$url'",$output,$rc);
+     $rc=getCommand("$wgetPath -q --spider '$url' >/dev/null;echo $?");
      mysql_query('update messages
                   set url_check=now()'.($rc==0 ? ',url_check_success=now()' : '').
 		' where id='.$row['id'])
