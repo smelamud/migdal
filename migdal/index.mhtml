@@ -46,6 +46,9 @@
    <td width=130 class='eframe'>
     <tip>
     <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'>
+    <if what='$topic_id<=0'>
+     <discussions limit=5>
+    </if>
     <<friends>>
    </td>
   </community>

@@ -26,6 +26,9 @@
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
+<decel name='discussions' file='parts/discussions.php'
+       params='topic_id,title,limit'
+       defaults="topic_id='-1' title='Обсуждения' limit=5">
 <decel name='discusslink' file='parts/utils.php' params='posting'>
 <decel name='formbuttons' file='parts/formutils.php' params='title,span'
        defaults="title='Изменить',span=0">
