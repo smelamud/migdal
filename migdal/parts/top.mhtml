@@ -28,12 +28,12 @@
      <col width=0* span=2>
      <tr valign=bottom>
       <td>
-       <a href='/index.php'>
-        <image src='$$style_banner_migdal' border=0>
+       <at href='/index.php' target='$target'>
+        <image src='$$style_banner_migdal' border=0></at>
       </td>
       <td>
-       <a href='/index.php'>
-        <image src='$$style_banner_online' border=0></a>
+       <at href='/index.php' target='$target'>
+        <image src='$$style_banner_online' border=0></at>
       </td>
      </tr>
     </table>
