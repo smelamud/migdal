@@ -132,13 +132,13 @@ return $bt[2].' '.getRussianMonth((int)$bt[1]).' '.$bt[0];
 function getDayOfBirth()
 {
 $bt=explode('-',$this->birthday);
-return $bt[2];
+return $bt[2] ? $bt[2] : 1;
 }
 
 function getMonthOfBirth()
 {
 $bt=explode('-',$this->birthday);
-return $bt[1];
+return $bt[1] ? $bt[1] : 1;
 }
 
 function isMonthOfBirth($month)
@@ -149,7 +149,8 @@ return $this->getMonthOfBirth()==$month;
 function getYearOfBirth()
 {
 $bt=explode('-',$this->birthday);
-return substr($bt[0],2);
+$c=substr($bt[0],2);
+return $c ? $c : '00';
 }
 
 function isMigdalStudent()
