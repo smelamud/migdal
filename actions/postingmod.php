@@ -17,6 +17,7 @@ require_once('lib/postings.php');
 require_once('lib/complains.php');
 require_once('lib/stotext.php');
 require_once('lib/track.php');
+require_once('lib/forums.php');
 
 function setImageTitle($image_set,$title)
 {
@@ -40,21 +41,34 @@ function setDisabled($message)
 {
 if(isPremoderated($message))
   {
-  $result=mysql_query('update messages
-                       set disabled=1
-	               where id='.$message->getMessageId());
-  if($result)
+  $complain=getComplainInfoByLink(COMPL_AUTO_POSTING,$message->getId());
+  if($complain->getId()==0)
     {
+    $result=mysql_query('update messages
+			 set disabled=1
+			 where id='.$message->getMessageId());
+    if(!$result)
+      return false;
     sendAutomaticComplain(COMPL_AUTO_POSTING,
-                          'Автоматическая проверка сообщения "'.
+			  'Автоматическая проверка сообщения "'.
 			   $message->getSubjectDesc().'"',
-			  '',
-			  $message->getId());
+			  $message->getLargeFormat()!=TF_HTML
+			   ? ''
+			   : '~Внимание!~ Этот текст в формате HTML.',
+			  $message->getId(),
+			  $message->getLargeFormat()==TF_HTML);
     }
-  return $result;
+  else
+    {
+    if($complain->isClosed())
+      reopenComplain($complain->getId(),true);
+    if(!postForumAnswer($complain->getMessageId(),
+                        'Сообщение было изменено.',
+			getShamesId()))
+      return false;
+    }
   }
-else
-  return true;
+return true;
 }
 
 function modifyPosting($message)

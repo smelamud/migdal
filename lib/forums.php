@@ -175,4 +175,12 @@ $result=mysql_query(
 return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                  : array());
 }
+
+function postForumAnswer($message_id,$body,$sender_id=0)
+{
+$forum=new ForumAnswer(array('body'      => $body,
+                             'parent_id' => $message_id,
+    			     'sender_id' => $sender_id));
+return $forum->store();
+}
 ?>

@@ -46,6 +46,7 @@ CREATE TABLE complains (
   type_id int(11) NOT NULL default '0',
   link int(11) NOT NULL default '0',
   closed datetime default NULL,
+  no_auto tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY id (id),
   KEY recipient_id (recipient_id),

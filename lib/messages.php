@@ -349,6 +349,7 @@ return mysql_num_rows($result)>0;
 
 function setDisabledByMessageId($id,$disabled)
 {
+$disabled=(int)$disabled;
 mysql_query("update messages
              set disabled=$disabled
 	     where id=$id")

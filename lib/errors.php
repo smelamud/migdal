@@ -74,6 +74,8 @@ define('EC_LOGIN_ASSIGN',157);
 define('EC_NO_ASSIGN',158);
 define('EC_NO_COMPLAIN',159);
 define('EC_SQL_ASSIGN',1510);
+define('EC_SQL_AUTO',1511);
+define('EC_NO_AUTO',1512);
 
 define('EECA_OK',160);
 define('EECA_NO_ACTION',161);

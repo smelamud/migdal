@@ -15,6 +15,7 @@ var $message_id;
 var $type_id;
 var $link;
 var $closed;
+var $no_auto;
 var $recipient_id;
 
 var $recipient_info;
@@ -48,7 +49,7 @@ return $list;
 
 function getWorldComplainVars()
 {
-return array('message_id','type_id','link','recipient_id');
+return array('message_id','type_id','link','recipient_id','no_auto');
 }
 
 function getAdminComplainVars()
@@ -150,6 +151,11 @@ function getClosed()
 return strtotime($this->closed);
 }
 
+function isNoAuto()
+{
+return $this->no_auto!=0;
+}
+
 function getDisplay()
 {
 return $this->display;
@@ -235,7 +241,7 @@ return new $name($row);
 function getComplainById($id,$type_id=COMPL_NORMAL,$link=0)
 {
 $result=mysql_query("select complains.id as id,stotext_id,body,subject,
-                            message_id,type_id,link
+                            message_id,type_id,link,closed,no_auto
 		     from complains
 		          left join messages
 			       on messages.id=complains.message_id
@@ -262,11 +268,21 @@ return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					      : array());
 }
 
+function getComplainInfoByLink($type_id,$link)
+{
+$result=mysql_query("select id,type_id,message_id,recipient_id,link,closed
+		     from complains
+		     where type_id=$type_id and link=$link")
+	     or die('Ошибка SQL при выборке информации о жалобе');
+return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+					      : array());
+}
+
 function getFullComplainById($id,$type_id=COMPL_NORMAL)
 {
 $result=mysql_query("select complains.id as id,stotext_id,body,subject,
-                            sender_id,sent,closed,message_id,type_id,link,
-			    users.login as login,
+                            sender_id,sent,closed,no_auto,message_id,type_id,
+			    link,users.login as login,
 			    users.gender as gender,users.email as email,
 			    users.hide_email as hide_email,users.rebe as rebe,
 			    users.hidden as sender_hidden,recipient_id,
@@ -303,13 +319,23 @@ $result=mysql_query("select id
 return mysql_num_rows($result)>0;
 }
 
-function sendAutomaticComplain($type_id,$subject,$body,$link)
+function sendAutomaticComplain($type_id,$subject,$body,$link,$no_auto=false)
 {
 $complain=new Complain(array('type_id'   => $type_id,
                              'link'      => $link,
                              'subject'   => $subject,
 			     'body'      => $body,
-			     'sender_id' => getShamesId()));
+			     'sender_id' => getShamesId(),
+			     'no_auto'   => (int)$no_auto));
 $complain->store() or die('Ошибка SQL при посылке автоматической жалобы');
+}
+
+function reopenComplain($id,$no_auto=false)
+{
+$no_auto=(int)$no_auto;
+mysql_query("update complains
+             set closed=null,no_auto=$no_auto
+	     where id=$id")
+     or die('Ошибка SQL при возобновлении жалобы');
 }
 ?>

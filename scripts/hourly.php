@@ -47,7 +47,7 @@ $result=mysql_query(
 		   on messages.sender_id=users.id
 	      left join complain_actions
 		   on complains.type_id=complain_actions.type_id
-	 where closed is null and users.shames<>0
+	 where closed is null and no_auto=0 and users.shames<>0
 	       and complain_actions.automatic<>0');
 if(!$result)
   die(mysql_error());

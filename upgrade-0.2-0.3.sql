@@ -5,3 +5,4 @@ update version set db_version=2;
 DROP TABLE `choices`;
 DROP TABLE `complain_scripts`;
 DROP TABLE `complain_types`;
+ALTER TABLE `complains` ADD `no_auto` TINYINT NOT NULL;
