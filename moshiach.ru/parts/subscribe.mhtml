@@ -1,0 +1,15 @@
+<< @(#) $Id$ >>
+
+<element name='subscribe'>
+<table border=0 cellPadding=2 cellSpacing=3 width=100%>
+ <tr bgcolor=B1BECB><td align=center><b>Подписка на рассылку</b></td></tr>      
+ <tr><td align=left>
+  <form method="get" action="">
+   <input size=18 name="sp-q" value="e-mail: ">
+   <input type=submit value=" Да ">
+   <input type=hidden name="sp-a" value="000121ba-sp00000000">
+   <input type=hidden name="sp-f" value="windows-1251">
+  </form>
+ </td></tr> 
+</table>  
+</element>

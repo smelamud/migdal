@@ -1,0 +1,14 @@
+<< @(#) $Id$ >>
+
+<element name='advert'>
+<table border=0 cellPadding=2 cellSpacing=3 width=100%>
+ <tr bgcolor=000000><td align=center><b>телмбнб</b></td></tr>
+ <tr><td align=center>
+  <a href="index.htm">
+   <img src="m/banner/7.gif" border=0 width=160 height=50 alt=""></a>
+  <p align=center>
+  <a href="index.htm">
+   <img src="m/banner/9.gif" border=0 width=160 height=50 alt=""></a>
+ </td></tr> 
+</table>         
+</element>

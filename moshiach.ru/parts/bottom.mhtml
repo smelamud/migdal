@@ -1,0 +1,20 @@
+<< @(#) $Id$ >>
+
+<element name='bottom'>
+<table border=0 width=100% cellspacing=1 cellpadding=0 bgcolor=000000><td>
+       <table border=0 width=100% BGCOLOR=ffffff><tr><td valign=center> 
+ <script language="JavaScript">
+  if (navigator.appName !="Netscape"){
+      document.write("<a onclick=\"window.external.AddFavorite(location.href,document.title);this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.moshiach.ru/')\"  style=\"BEHAVIOR: url(#default#homepage); CURSOR: hand\" title=\"Добавить в избранное и сделать стартовой страницей\"><img src=home2.gif width=20 height=20 border=0 align=left></a>");
+   };
+ </script>
+ <div align=right>
+ <small> 
+ <a href=golus.htm>О нас</a>  |
+ <a href=razdel1.htm>Бесплатная почта</a> |
+ <a href=index.htm>Сотрудничество</a>
+</td></tr></table></td></table>
+<div align=center><b class=r>
+ ДА ЖИВЕТ ВЕЧНО НАШ ГОСПОДИН, УЧИТЕЛЬ И РЕБЕ КОРОЛЬ МОШИАХ!
+</b></div>
+</element>

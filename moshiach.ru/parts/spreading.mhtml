@@ -1,0 +1,14 @@
+<< @(#) $Id$ >>
+
+<element name='spreading'>
+<table border=0 cellPadding=2 cellSpacing=3 width=100%>
+ <tr bgcolor=52739c><td align=center><b>Трансляция</b></td></tr>
+ <tr bgcolor=F6F7FA><td>
+  <a class=under href=>
+   <img src="m/ico.gif" border=0 width=16 height=16 alt="">Радио Геула 97.5 FM</a><br>
+  <a class=under href=>
+   <img src="m/icv.gif" border=0 width=16 height=16 alt="">Видео из 770</a>
+  <p>
+ </td></tr>
+</table>
+</element>

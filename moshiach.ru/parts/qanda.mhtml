@@ -1,0 +1,23 @@
+<< @(#) $Id$ >>
+
+<element name='qanda'>
+<table cellPadding=2 cellSpacing=3 width=100%  border=0>
+ <tr bgcolor=B1BECB><td align=center><b> ВЫ СПРАШИВАЕТЕ МЫ ОТВЕЧАЕМ</b></td></tr>
+ <tr><td>
+  <b class=r>ВОПРОС: </b>
+  Если Освобождение очень близко, то, может быть, Мошиах уже родился, живет среди
+  нас, даже в нашем городе, но пока еще сам не знает, кто он?<br>
+  <div align=right>Никонова Елена, 15 лет</div><br>
+  <b class=r>ОТВЕТ: </b>
+  Мошиах это известная личность; более того, человека можно считать Мошиахом только
+  после того, как он совершает определенные действия: понуждает еврейский народ
+  соблюдать Тору, исправляет мир...
+  <div align=right>
+   <a href="allquestions.htm">Все вопросы
+    <img src=m/a1.gif width=30 border=0 height=11></a><br>
+   <a href="1.htm">Задайте ваш вопрос
+    <img src=m/a1.gif width=30 border=0 height=11></a>
+  </div>
+ </td></tr>
+</table>
+</element>

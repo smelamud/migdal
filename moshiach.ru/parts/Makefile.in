@@ -2,7 +2,9 @@
 
 # @(#) $Id$
 
-OBJECTS = banner.php menu.php top.php
+OBJECTS = actual-interview.php advert.php banner.php bottom.php editors.php \
+	first-face.php igrot.php links.php menu.php news.php qanda.php search.php \
+	spreading.php subscribe.php talking.php top.php topicofday.php updates.php
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@
 

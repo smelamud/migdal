@@ -7,6 +7,21 @@
 </macro>
 
 << Elements >>
+<decel name='actual_interview' file='parts/actual-interview.php'>
+<decel name='advert' file='parts/advert.php'>
 <decel name='banner' file='parts/banner.php'>
+<decel name='bottom' file='parts/bottom.php'>
+<decel name='editors' file='parts/editors.php'>
+<decel name='first_face' file='parts/first-face.php'>
+<decel name='igrot' file='parts/igrot.php'>
+<decel name='links' file='parts/links.php'>
 <decel name='menu' file='parts/menu.php' params='ident'>
+<decel name='news' file='parts/news.php'>
+<decel name='qanda' file='parts/qanda.php'>
+<decel name='search' file='parts/search.php'>
+<decel name='spreading' file='parts/spreading.php'>
+<decel name='subscribe' file='parts/subscribe.php'>
+<decel name='talking' file='parts/talking.php'>
 <decel name='top' file='parts/top.php' params='ident'>
+<decel name='topicofday' file='parts/topicofday.php'>
+<decel name='updates' file='parts/updates.php'>

@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<element name='actual_interview'>
+<table cellPadding=2 cellSpacing=3 width=100% border=0>
+ <tr bgcolor=B1BECB><td align=center><b> АКТУАЛЬНОЕ ИНТЕРВЬЮ</b></td></tr>
+ <tr><td>
+  <a href=s1.htm>
+   <img src=m/pic/co.jpg border=0 width=75 height=75 vspace=1 hspace=5 align=left>
+   <strong>Геула в Лондоне</strong>
+   <img border=0 src=m/a.gif width=30 height=11></a><br>
+  Реб Хаим-Ицхак Коэн из Стамфорд Хилл это человек, который держит на своих плечах
+  весь мир... Обязанность привести Мошиаха становится сегодня реальностью для
+  хасида...
+  <div align=right><small> Ш. Лугов | 23.10.2001  | Прочитали: 108
+ </td></tr> 
+</table>
+</element>

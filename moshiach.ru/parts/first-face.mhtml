@@ -1,0 +1,15 @@
+<< @(#) $Id$ >>
+
+<element name='first_face'>
+<table border=0 cellPadding=2 cellSpacing=3 width=100%>
+ <tr bgcolor=B1BECB><td align=center><b> ОТ ПЕРВОГО ЛИЦА</b></td></tr>
+ <tr><td>
+  <a href=yakov.htm>
+   <img src=yakov.jpg border=0 width=75 height=75 vspace=3 hspace=5 align=left>
+   <strong>Чудесное излечение</strong>
+   <img border=0 src=m/a.gif width=30 height=11></a><br>
+  Через день профессор Левинский сообщил отцу, что у дочери воспалена печень, есть
+  опухоль, идет абцесс и она нуждается в срочной пересадке печени.
+ </td></tr>
+</table>  
+</element>
