@@ -73,14 +73,14 @@ mysql_query('optimize table journal')
 
 function cleanup()
 {
-global $disabledMessageTimeout,$journalVarTimeout;
+global $disabledMessageTimeout,$journalVarTimeout,$statisticsTimeout;
 
 if($disabledMessageTimeout>=0)
-  {
   deleteCond('messages',"disabled<>0 and
 			 sent+interval $disabledMessageTimeout day<now()");
-  }
 deleteCond('journal_vars',"last_read+interval $journalVarTimeout day<now()");
+if($statisticsTimeout>0)
+  deleteCond('logs',"sent+interval $statisticsTimeout day<now()");
 
 tag('images');
 useLinks('images','image_set','stotexts','image_set');
