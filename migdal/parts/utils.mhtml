@@ -1,6 +1,22 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/utils.mhtml 1.4 >>
 
+<element name='at' params='target,class,href' defaults="target='' class=''">
+<if what="$target!=''">
+ <if what="$class!=''">
+  <a href='$href' target='$target' class='$class'>
+ <else>
+  <a href='$href' target='$target'>
+ </if>
+<else>
+ <if what="$class!=''">
+  <a href='$href' class='$class'>
+ <else>
+  <a href='$href'>
+ </if>
+</if>
+</element>
+
 <element name='perror'>
 <if what='$$err==$id'>
  <tr><tdspan span=$span>

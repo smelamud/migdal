@@ -4,11 +4,23 @@
 <errors>
 <element name='Login'>
 <notlogged>
- <form method=post action='actions/login.php'>
+ <if what="$target!=''">
+  <form method=post action='actions/login.php' target='$target'>
+ <else>
+  <form method=post action='actions/login.php'>
+ </if>
 <else>
- <form method=post action='actions/logout.php'>
+ <if what="$target!=''">
+  <form method=post action='actions/logout.php' target='$target'>
+ <else>
+  <form method=post action='actions/logout.php'>
+ </if>
 </notlogged>
-<hidden name='redir' value="$[err]">
+<if what="$re==''">
+ <hidden name='redir' value="$[err]">
+<else>
+ <hidden name='redir' value="$re">
+</if>
 <table class='login'>
 <error id='*EL_INVALID' text='Неверный ник или пароль' span=5>
 <notlogged>
@@ -21,7 +33,7 @@
  </tr>
  <if what="$flags!='no_new'">
   <tr><td colspan=5 align=right>
-   <a href='/register.php?redir=$_'>Зарегистрироваться</a>
+   <at href='/register.php?redir=$_' target='$target'>Зарегистрироваться</at>
   </td></tr>
  </if>
 <else>
@@ -31,7 +43,8 @@
    <if what='$$userHidden'>
     $$userLogin
    <else>
-    <a href='/useredit.php?editid=$$userId&redir=$_' class='name'>$$userLogin</a>
+    <at href='/useredit.php?editid=$$userId&redir=$_' class='name'
+        target='$target'>$$userLogin</at>
    </if>
    </b>
   </td>

@@ -1,0 +1,28 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/chat.mhtml 1.4 >>
+
+<html>
+<head>
+</head>
+<body> 
+ <formtable>
+  <form method=post action='actions/chatpost.php'>
+  <hidden name='redir' value='$-'>
+  <table>
+   <error id='*ECHP_NO_ADD' span=3
+	  text='Добавлять сообщения может только зарегистрированный пользователь'>
+   <error id='*ECHP_NO_PERSON' text='Нет такого пользователя' span=3>
+   <error id='*ECHP_SQL_INSERT' text='Ошибка SQL при добавлении записи' span=3
+	  color=magenta>
+   <tr>
+    <<td><edit name='personal' value='$personal' size=10 maxlength=30></td>>
+    <td><input type=text autocomplete='off' name='message' value='$message'
+	       size=80 maxlength=250></td>
+    <td class='buttons-nosplit'><input type=submit value='Отправить'></td>
+   </tr>
+   <<tr><td align=center><u>лично</u></td></tr>>
+  </table>
+  </form>
+ </formtable>
+</body>
+</html>

@@ -20,6 +20,7 @@ $Body='';
 $Footer='';
 
 $BodyToHeader=0;
+$Retarget='';
 
 $ElementName='';
 $ElementBody='';
@@ -669,6 +670,16 @@ my ($self)=@_;
 EOT
 }
 
+sub elA
+{
+my ($self)=@_;
+
+my $token=$self->getToken();
+$token=~s/>/ target='$::Retarget'>/ if $::Retarget ne ''
+                                    && $self->getArg('target') eq '';
+::body(::subVarsText($token));
+}
+
 sub elRequire
 {
 my ($self)=@_;
@@ -931,6 +942,13 @@ sub el_zone
 my ($self)=@_;
 
 $::Stack->pop();
+}
+
+sub elRetarget
+{
+my ($self)=@_;
+
+$::Retarget=$self->getArg('target');
 }
 
 #### Comment ####

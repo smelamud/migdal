@@ -16,7 +16,10 @@
 <decstyle ident='test' name='Тестовый'>
 
 << Elements >>
-<decel name='backtrace' file='parts/backtrace.php' params='redir'>
+<decel name='at' file='parts/utils.php' params='target,class,href'
+       defaults="target='' class=''">
+<decel name='backtrace' file='parts/backtrace.php' params='redir,target'
+       defaults="target=''">
 <decel name='batcher' file='parts/messages.php' params='value,var'>
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='complain' file='parts/complain.php'
@@ -36,8 +39,10 @@
        params='grp,topic,rows,cols,offset,title'
        defaults="topic=-1 rows=4 cols=5 offset=0 title=''">
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
-<decel name='login' file='parts/login.php' params='flags,err'>
-<decel name='menu' file='parts/menu.php' params='ident'>
+<decel name='login' file='parts/login.php' params='flags,err,target,re'
+       defaults="target='' re=''">
+<decel name='menu' file='parts/menu.php' params='ident,target'
+       defaults="target=''">
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
@@ -55,8 +60,8 @@
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
 <decel name='today' file='parts/today.php'>
-<decel name='top' file='parts/top.php' params='ident,flags,image'
-       defaults="flags=''">
+<decel name='top' file='parts/top.php' params='ident,flags,image,target,re'
+       defaults="flags='' target='' re=''">
 <decel name='topics' file='parts/topics.php'
        params='g,topic_id,title,withpostings,withanswers'
        defaults="title='' topic_id=0 withpostings='*false' withanswers='*false'">
@@ -113,6 +118,10 @@
 </macro>
 
 << HTML shortcuts >>
+<macro name='/at'>
+ </a>
+</macro>
+
 <macro name='edit_line' defaults="mandatory='*false'">
  <tr>
   <td>%title <if what='%mandatory'><star></if></td>

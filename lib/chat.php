@@ -53,7 +53,6 @@ return stotextToHTML(TF_MAIL,$this->text);
 class ChatMessageListIterator
       extends SelectIterator
 {
-var $index;
 
 function ChatMessageListIterator($limit=20)
 {
@@ -68,18 +67,6 @@ $this->SelectIterator('ChatMessage',
 		       where private_id=0 or private_id=$userId
 		       order by sent desc
 		       limit $limit");
-$this->index=$this->getCount()-1;
-}
-
-function next()
-{
-if($this->index<0)
-  return 0;
-else
-  {
-  mysql_data_seek($this->getResult(),$this->index--);
-  return SelectIterator::next();
-  }
 }
 
 }

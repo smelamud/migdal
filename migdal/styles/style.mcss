@@ -171,6 +171,7 @@ complain_input_text=%vd
 :contrast	complain_controls=%nd
 :test		complain_controls=%vd
 complain_controls_hover=blue
+chatboard_back=%vl
 
 ! Global
 
@@ -385,16 +386,6 @@ BODY {
 	text-decoration: none;
 }
 
-.rebe .posting .top .name A {
-	color: %posting_rebe_name;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.rebe .posting .top A:hover {
-	text-decoration: underline;
-}
-
 .posting .top A:hover {
 	text-decoration: underline;
 }
@@ -494,16 +485,6 @@ BODY {
 .forum .name A {
 	color: %forum_name;
 	text-decoration: none;
-}
-
-.rebe .forum .name A {
-	color: %forum_rebe_name;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.rebe .forum A:hover {
-	text-decoration: underline;
 }
 
 .forum A:hover {
@@ -691,17 +672,7 @@ BODY {
 	text-decoration: none;
 }
 
-.catalog .rebe .name A {
-	color: %catalog_rebe_name;
-	font-weight: bold;
-	text-decoration: none;
-}
-
 .catalog A:hover {
-	text-decoration: underline;
-}
-
-.catalog .rebe A:hover {
 	text-decoration: underline;
 }
 
@@ -756,16 +727,6 @@ BODY {
 .picture .top .name A {
 	color: %picture_name;
 	text-decoration: none;
-}
-
-.rebe .picture .top .name A {
-	color: %picture_rebe_name;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.rebe .picture .top A:hover {
-	text-decoration: underline;
 }
 
 .picture .top A:hover {
@@ -1039,6 +1000,10 @@ BODY {
 
 ! Chat
 
-IFRAME {
-	border-width: 0;
+BODY.chatboard {
+	background-color: %chatboard_back;
+}
+
+FRAME.chatboard {
+	border: 3px solid %vm;
 }

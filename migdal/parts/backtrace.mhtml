@@ -6,11 +6,15 @@
  <tr class='return'><td colspan=2>
   <if what='$$style_return_word'>
    <table><tr align=center>
-    <td><a href='$redir'><img src='$$style_return_image' border=0></a></td>
-    <td><a href='$redir'>Вернуться</a></td>
+    <td>
+     <at href='$redir' target='$target'>
+      <img src='$$style_return_image' border=0></at>
+    </td>
+    <td><at href='$redir' target='$target'>Вернуться</at></td>
    </tr></table>
   <else>
-   <a href='$redir'><img src='$$style_return_image' border=0></a>
+   <at href='$redir' target='$target'>
+    <img src='$$style_return_image' border=0></at>
   </if>
  </td></tr>
 </if>

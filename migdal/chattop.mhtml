@@ -1,0 +1,31 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/chat.mhtml 1.4 >>
+
+<element name='batcher_chat' params='limit,refresh'>
+<table class='batcher' align=right>
+ <form method=get action='/chat.php' target='_top'>
+  <hiddenget remove='chr chp'>
+  <tr valign=center>
+   <td>Обновлять каждые&nbsp;</td>
+   <td>
+    <select_portion name='chr' value='$refresh' vals='5 7 10 12 15 17 20 25 30'>
+   </td>
+   <td>сек. и показывать по&nbsp;</td>
+   <td>
+    <select_portion name='chp' value='$limit' vals='10 15 20 25 30 35 40'>
+   </td>
+   <td>сообщений&nbsp;</td>
+   <td><input type=submit value='Изменить'></td>
+  </tr>
+ </form>
+</table>
+</element>
+
+<html>
+<head>
+</head>
+<body>
+ <top ident='chat' image='pics/chat.gif' target=_top re='/chat.php'>
+ <batcher_chat limit='$$userChatPortion' refresh='$$userChatRefresh'>
+</body>
+</html>

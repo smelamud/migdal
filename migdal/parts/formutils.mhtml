@@ -1,7 +1,11 @@
 << @(#) $Id$ >>
 
 <element name='formtable'>
-<center><table class='form'><tr><th>$title</th></tr><tr><td>
+<center><table class='form'>
+ <if what="$title!=''">
+  <tr><th>$title</th></tr>
+ </if>
+<tr><td>
 </element>
 
 <element name='/formtable'>

@@ -48,4 +48,31 @@ return $this->result;
 }
 
 }
+
+class ReverseSelectIterator
+{
+var $index;
+
+function ReverseSelectIterator($class,$query,$reverse=true)
+{
+$this->SelectIterator($class,$query);
+if($reverse)
+  $this->index=$this->getCount()-1;
+}
+
+function next()
+{
+if($reverse)
+  if($this->index<0)
+    return 0;
+  else
+    {
+    mysql_data_seek($this->getResult(),$this->index--);
+    return SelectIterator::next();
+    }
+else
+  return SelectIterator::next();
+}
+
+}
 ?>

@@ -2,26 +2,28 @@
 << Based-on: demo/parts/top.mhtml 1.2 >>
 
 <element name='Top'>
-<menu ident='$ident'>
+<menu ident='$ident' target='$target'>
 <table class='state'><tr>
  <td class='topimage'>
   <img src='pics/migdal-online.gif'>
   <img src='pics/big-tower.gif'>
   <img src='$image'>
  </td>
- <td align=right><login flags='$flags' err='$$err'></td>
+ <td align=right><login flags='$flags' err='$$err' target='$target'
+                        re='$re'></td>
 </tr></table>
 <table class='state'><tr>
  <td class='style'>
   <if what="$ident!='style'">
-   <a href='/style.php?redir=$_'>Настроить вид</a>
+   <at href='/style.php?redir=$_' target='$target'>Настроить вид</a>
   <else>
-   <a href='/style.php?redir=$_' class='active'>Настроить вид</a>
+   <at href='/style.php?redir=$_' class='active'
+       target='$target'>Настроить вид</a>
   </if>
  </td>
  <td class='date'><today></td>
 </tr></table>
 <p>
-<backtrace redir='$$redir'>
+<backtrace redir='$$redir' target='$target'>
 </table>
 </element>

@@ -6,13 +6,13 @@
  <iterate_menu>
  <for>
   <if what='$.Ident==$ident'>
-   <a href='$.Link' class='selected'>$.Name</a>
+   <at href='$.Link' class='selected' target='$target'>$.Name</at>
   <else>
-   <a href='$.Link'>$.Name</a>
+   <at href='$.Link' target='$target'>$.Name</at>
   </if>
   &nbsp;
  </for>
  &nbsp;
- <admin_menu><a href='menuedit.php'>Изменить</a></admin_menu>
+ <admin_menu><at href='menuedit.php' target='$target'>Изменить</at></admin_menu>
 </td></tr></table>
 </element>
