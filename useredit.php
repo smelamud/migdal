@@ -196,6 +196,15 @@ if($user->isEditable() && $err==$code)
       <tr>
        <td colspan=2>
        <?php
+	echo condCheckBox($user->isEditable(),'hide_email',
+	                  $user->isHideEmail(),
+			  'Не показывать E-mail на сайте');
+       ?>
+       </td>
+      </tr>
+      <tr>
+       <td colspan=2>
+       <?php
 	echo condCheckBox($user->isEditable(),'email_enabled',
 	                  $user->isEmailDisabled()==0,
 			  'Разрешаю посылать почту на мой адрес');
@@ -237,12 +246,18 @@ if($user->isEditable() && $err==$code)
      echo condCheckBox($userAdminUsers,'admin_users',
 		       $user->isAdminUsers(),'Администратор пользователей');
     ?>
-    <br>
+    </td>
+   </tr>
+   <tr>
+    <td colspan=2>
     <?php
      echo condCheckBox($userAdminUsers,'hidden',
 		       $user->isHidden(),'Не показывать в списке пользователей');
     ?>
-    <br>
+    </td>
+   </tr>
+   <tr>
+    <td colspan=2>
     <?php
      echo condCheckBox($userAdminUsers,'no_login',
 		       $user->isNoLogin(),'Запретить вход');

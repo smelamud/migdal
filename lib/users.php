@@ -24,6 +24,7 @@ var $last_online;
 var $email;
 var $icq;
 var $email_disabled;
+var $hide_email;
 var $admin_users;
 var $hidden;
 var $online;
@@ -50,14 +51,14 @@ $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 function getCorrespondentVars()
 {
 return array('login','password','dup_password','name','jewish_name','surname',
-             'migdal_student','info','email','icq','admin_users','hidden',
-	     'no_login');
+             'migdal_student','info','email','hide_email','icq','admin_users',
+	     'hidden','no_login');
 }
 
 function getWorldVars()
 {
 return array('login','name','jewish_name','surname','info','birthday',
-             'migdal_student','email','icq','email_disabled');
+             'migdal_student','email','hide_email','icq','email_disabled');
 }
 
 function getAdminVars()
@@ -205,9 +206,14 @@ return $this->email;
 
 function getEmailLink()
 {
-return $this->email!=''
+return $this->email!='' && !$this->hide_email
        ? '<a href="mailto:'.$this->email.'">'.$this->email.'</a>'
        : '';
+}
+
+function isHideEmail()
+{
+return $this->hide_email;
 }
 
 function getICQ()
@@ -266,8 +272,8 @@ global $userAdminUsers;
 $hide=$userAdminUsers ? 2 : 1;
 $this->SelectIterator('User',
                       "select distinct users.id as id,login,name,jewish_name,
-		              surname,birthday,migdal_student,email,icq,
-			      last_online,sessions.user_id as online
+		              surname,birthday,migdal_student,email,hide_email,
+			      icq,last_online,sessions.user_id as online
 		       from users left join sessions
 		                  on users.id=sessions.user_id
 				  and sessions.last+interval 1 hour>now()
@@ -284,8 +290,8 @@ global $userAdminUsers;
 $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
                             surname,info,birthday,migdal_student,last_online,
-			    email,icq,email_disabled,admin_users,hidden,
-			    no_login,sessions.user_id as online
+			    email,hide_email,icq,email_disabled,admin_users,
+			    hidden,no_login,sessions.user_id as online
 		     from users left join sessions
 				on users.id=sessions.user_id
 				and sessions.last+interval 1 hour>now()
