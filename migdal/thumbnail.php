@@ -20,10 +20,12 @@ for($x=0;$x<$gx;$x++)
    for($y=0;$y<$gy;$y++)
       {
       $colors=imageColorsForIndex($glass,imageColorAt($glass,$x,$y));
-      if($colors['alpha']>0)
+      $r=$colors['red'];
+      $g=$colors['green'];
+      $b=$colors['blue'];
+      if($r==255 && $g==255 && $b==255)
         continue;
-      $color=imageColorAllocate($handle,$colors['red'],$colors['green'],
-                                $colors['blue']);
+      $color=imageColorAllocate($handle,$r,$g,$b);
       imageSetPixel($handle,$hx-$gx+$x,$hy-$gy+$y,$color);
       }
 header("Content-Type: $thumbnailType");
