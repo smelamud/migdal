@@ -8,6 +8,7 @@ require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/ident.php');
+require_once('lib/stotext.php');
 
 class Topic
       extends DataObject
@@ -17,13 +18,7 @@ var $up;
 var $track;
 var $name;
 var $full_name;
-var $stotext_id;
-var $description;
-var $image_set;
-var $large_filename;
-var $large_format;
-var $large_description;
-var $large_imageset;
+var $stotext;
 var $hidden;
 var $allow;
 var $premoderate;
@@ -38,6 +33,7 @@ global $defaultPremoderate;
 $this->allow=GRP_ALL;
 $this->premoderate=$defaultPremoderate;
 $this->DataObject($row);
+$this->stotext=new Stotext($row);
 }
 
 function setup($vars)
@@ -57,23 +53,31 @@ foreach($grpNames as $code => $name)
        if($vars["premoderate_$name"])
          $this->premoderate|=$code;
        }
-if(isset($vars['descriptionid']))
-  $this->description=tmpTextRestore($vars['descriptionid']);
+$this->stotext->setup($vars,'description');
 }
 
 function getCorrespondentVars()
 {
-return array('up','name','description','hidden','ident');
+return array('up','name','hidden','ident');
 }
 
 function getWorldVars()
 {
-return array('up','track','name','description','hidden','allow','premoderate',
-             'ident');
+return array('up','track','name','hidden','allow','premoderate','ident');
+}
+
+function getNormal($isAdmin=false)
+{
+$normal=DataObject::getNormal($isAdmin);
+$normal['stotext_id']=$this->stotext->getId();
+return $normal;
 }
 
 function store()
 {
+$result=$this->stotext->store();
+if(!$result)
+  return $result;
 $normal=$this->getNormal();
 $result=mysql_query($this->id 
                     ? makeUpdate('topics',$normal,array('id' => $this->id))
@@ -288,7 +292,7 @@ $result=mysql_query("select topics.id as id,up,name,stotext_id,
 		     from topics
 		          left join stotexts
 			       on topics.stotext_id=stotexts.id
-		     where ".byIdent($id)." and hidden<$hide")
+		     where topics.".byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0
                  ? mysql_fetch_assoc($result)
