@@ -185,8 +185,7 @@
      <assign name='topicname' value=''>
      <for>
       <if what='$topicname!=$^.Comment0'>
-       <assign name='topicname'
-               value!="$.TopicId!=$`migdal-times` ? $^.Comment0 : ''">
+       <assign name='topicname' value='$^.Comment0'>
        <ifne what='$topicname'>
         <table width=100% class=heading><tr>
 	 <td align=left><image src='pics/times-bullet.gif'></td>
