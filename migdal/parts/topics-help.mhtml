@@ -1,0 +1,14 @@
+<< @(#) $Id$ >>
+
+<element name='topics_help'>
+<topics_table class='ninept' title='Справка'>
+ <topics_line arrow!="$ident=='help-tips'" class='item'
+              text='Знаете ли вы, что...' href#='/tips.php?redirid=$$#redirid'>
+ <topics_line arrow!="$ident=='help-subs'" class='item'
+              text='Список обозначений, используемых в тексте.'
+              href#='/stotext-help-subs.php?redirid=$$#redirid'>
+ <topics_line arrow!="$ident=='help-types'" class='item'
+	      text='Какой формат статьи выбрать?'
+	      href#='/stotext-help-types.php?redirid=$$#redirid'>
+</topics_table>
+</element>

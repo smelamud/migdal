@@ -41,36 +41,32 @@
 </element>
 
 <element name='topics_major'>
-<assign name='spn' value!='$unroll ? 2 : 1'>
-<assign name='sp' value!='$spn+1'>
-<topics_table title='Разделы' span='$spn'>
+<topics_table title='Разделы' span=2>
  <admin_topics>
-  <tr><tdspan span='$sp'>
+  <tr><tdspan span=3>
    <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
   </tdspan></tr>
  </admin_topics>
  <moderator>
-  <tr><tdspan span='$sp'>
+  <tr><tdspan span=3>
    <a href='postingorg.php?redirid=$_' class='edit'>Сообщения</a>
   </tdspan></tr>
  </moderator>
  <admin_users>
-  <tr><tdspan span='$sp'>
+  <tr><tdspan span=3>
    <a href='grouporg.php?redirid=$_' class='edit'>Группы</a>
   </tdspan></tr>
-  <tr><tdspan span='$sp'>
+  <tr><tdspan span=3>
    <a href='journal.php?redirid=$_' class='edit'>Журнал</a>
   </tdspan></tr>
  </admin_users>
- <navi_main ident='$ident' span='$spn'>
- <navi_migdal ident='$ident' span='$spn'>
- <if what='$unroll'>
-  <topics_migdal_main>
- </if>
- <navi_taglit ident='$ident' span='$spn'>
- <navi_veterans ident='$ident' span='$spn'>
- <navi_help ident='$ident' span='$spn'>
+ <navi_main ident='$ident' span=2>
+ <navi_migdal ident='$ident' span=2>
+ <topics_migdal_main>
+ <navi_taglit ident='$ident' span=2>
+ <navi_veterans ident='$ident' span=2>
+ <navi_help ident='$ident' span=2>
  <topics_line href='archive.php' text='Архив' arrow!="$ident=='archive'"
-              class='item eightpt' span='$spn'>
+              class='item eightpt' span=2>
 </topics_table>
 </element>
