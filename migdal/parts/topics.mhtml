@@ -5,7 +5,12 @@
  <if what='$g.Effective==*GRP_%^group'>
   <img src='pics/%file.gif' title='%title'>
  <else>
-  <a href='index.php?grp=*GRP_%^group&topic_id=$topic_id'>
+  <if what='*GRP_%^group==*GRP_GALLERY'>
+   <assign name='fname' value='gallery.php'>
+  <else>
+   <assign name='fname' value='index.php'>
+  </if>
+  <a href='$fname?grp=*GRP_%^group&topic_id=$topic_id'>
    <img border=0 src='pics/%{file}-gray.gif' title='%title'></a>
  </if>
 </macro>
@@ -31,11 +36,12 @@
 <element name='topics'>
 <iterate_topiclist grp='$g.Effective' withpostings='$withpostings'
                    withanswers='$withanswers'>
-<ife what='$title'>
+<if what='$navi'>
  <grayed group='tape' file='all' title='Все'>
  <grayed group='news' file='new' title='Новости'>
  <grayed group='forums' file='opinion' title='Мнения'>
  <grayed group='articles' file='article' title='Статьи'>
+ <grayed group='gallery' file='gall' title='Галерея'>
 </if>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%>
@@ -45,16 +51,21 @@
     <a href='topicedit.php?redir=$_'>Добавить</a>
    </td></tr>
   </admin_topics>
+  <if what='$g.Grp==*GRP_GALLERY'>
+   <assign name='fname' value='gallery.php'>
+  <else>
+   <assign name='fname' value='index.php'>
+  </if>
   <tbody class='names'>
    <tr>
     <arrow id='-1'>
-    <td><a href='index.php?grp=$g.Grp&topic_id=-1' class='new'>NEW!</a></td>
+    <td><a href='$fname?grp=$g.Grp&topic_id=-1' class='new'>NEW!</a></td>
    </tr>
    <for>
     <tr>
      <arrow id='$.Id' time='$.LastMessage'>
      <td>
-      <a href='index.php?grp=$g.Grp&topic_id=$.Id' title='$.Description'>
+      <a href='$fname?grp=$g.Grp&topic_id=$.Id' title='$.Description'>
 	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
       <admin_topics>
        <br>
