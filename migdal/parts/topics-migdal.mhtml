@@ -150,6 +150,9 @@
 <grps>
 <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
 		     topic_id='$`migdal`' recursive='*false'>
+<posting_last topic_id='$`migdal-news`' recursive='*true'>
+<topics_line time='$,' href#='migdal-news.php' indent=1 text='Новости'
+	     class='item eightpt'>
 <posting_last topic_id='$`jcc`' recursive='*true'>
 <topics_line time='$,' href#='jcc.php' indent=1 text='Общинный центр (JCC)'
              title='Живопись, музыка, танцы, программы для всех возрастов'
