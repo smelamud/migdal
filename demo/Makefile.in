@@ -3,9 +3,9 @@
 # @(#) $Id$
 
 OBJECTS = chat.php chatboard.php complainanswer.php complainedit.php \
-          complainforum.php complains.php forum.php index.php messageedit.php \
-          messages.php topics.php topicedit.php useredit.php userfin.php \
-          userok.php users.php
+          complainforum.php complains.php forum.php forumansweredit.php index.php \
+	  messageedit.php messages.php topics.php topicedit.php useredit.php \
+	  userfin.php userok.php users.php
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@

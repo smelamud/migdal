@@ -1,58 +1,42 @@
 << @(#) $Id$ >>
 
 <int name='editid'>
-<int name='topic_id'>
-<grp>
+<int name='up'>
 <html>
 <head>
- <title>Демо - $g.title</title>
+ <title>Демо - Сообщение в форуме</title>
 </head>
 <body bgcolor=white>
- <top ident='$g.ident'>
+ <top ident='forums'>
  <p>
- <message_obj id='$editid' grp='$grp' topic='$topic_id'>
+ <forum_answer_obj id='$editid' up='$up'>
  <setup>
  <form method=post enctype='multipart/form-data'
        action='actions/messagemod.php'>
  <input type=hidden name='edittag' value=1>
  <input type=hidden name='redir' value='$redir'>
  <input type=hidden name='editid' value='$editid'>
- <input type=hidden name='grp' value='$message.Grp'>
- <input type=hidden name='personal_id' value='$message.PersonalId'>
+ <input type=hidden name='up' value='$answer.UpValue'>
+ <input type=hidden name='personal_id' value='$answer.PersonalId'>
  <table>
- <error id='*EM_NO_SEND'
+ <error id='*EFA_NO_SEND'
         text='Посылать сообщения могут только зарегистрированные пользователи'>
- <error id='*EM_NO_EDIT' text='У вас нет права редактировать это сообщение'>
- <error id='*EM_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+ <error id='*EFA_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+ <error id='*EFA_STORE_SQL' text='Ошибка базы данных при обновлении записи'
         color='magenta'>
+ <error id='*EM_NO_UP'
+        text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
  <error id='*EM_NO_PERSONAL'
         text='У этого пользователя нет персональной страницы'>
- <error id='*EM_TOPIC_ABSENT' text='Тема должна быть выбрана'>
- <error id='*EM_NO_TOPIC' text='Такой темы не существует'>
  <tr><td><table>
-  <if what='$message.hasTopic'>
-   <tr>
-    <td>Тема</td>
-    <td>
-     <select name='topic_id'>
-      <radio title='-- Не выбрана --' value=0 peervalue='$message.TopicId'>
-      <iterate_topicnames grp='$grp'>
-      <for>
-       <radio title='$.Name' value='$.Id' peervalue='$message.TopicId'>
-      </for>
-     </select>
-    </td>
-   </tr>
-  </if>
-  <if what='$message.hasSubject'>
-   <error id='*EM_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
-   <edit_line title='Заголовок' value='$message.Subject' name='subject'
+  <if what='$answer.hasSubject'>
+   <edit_line title='Заголовок' value='$answer.Subject' name='subject'
               size=42 maxlength=250>
   </if>
-  <if what='$message.hasImage'>
-   <error id='*EM_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
+  <if what='$answer.hasImage'>
+   <error id='*EFA_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
 	  span=2>
-   <error id='*EM_NO_IMAGE' text='Указанной картинки не существует' span=2>
+   <error id='*EFA_NO_IMAGE' text='Указанной картинки не существует' span=2>
    <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
    <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
 	  span=2>
@@ -60,18 +44,18 @@
 	  color='magenta' span=2>
    <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
           text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
-   <ifzero what='$message.ImageSet'>
+   <ifzero what='$answer.ImageSet'>
     <tr>
      <td>Картинка</td>
      <td><input type=file name='image' size=35></td>
     </tr>
    <else>
-    <image_name set='$message.ImageSet'>
+    <image_name set='$answer.ImageSet'>
     <tr><td colspan=2><table>
      <tr><td>Картинка</td></tr>
      <tr>
       <td>
-       <input type=radio name='image_set' value='$message.ImageSet' checked>
+       <input type=radio name='image_set' value='$answer.ImageSet' checked>
        &nbsp;$image.Filename&nbsp;<i>(уже загружена)</i>
       </td>
      </tr>
@@ -83,12 +67,12 @@
    </ifzero>
   </if>
  </table></td></tr>
- <error id='*EM_BODY_ABSENT'
+ <error id='*EFA_BODY_ABSENT'
         text='Напишите хотя бы пару строчек в теле сообщения'>
- <editor_line name='body' title='Текст' body='$message.Body'>
- <checkbox_line name='hidden' value='$message.isHidden' title='Не показывать'>
+ <editor_line name='body' title='Текст' body='$answer.Body'>
+ <checkbox_line name='hidden' value='$answer.isHidden' title='Не показывать'>
  <moderator>
-  <checkbox_line name='disabled' value='$message.isDisabled'
+  <checkbox_line name='disabled' value='$answer.isDisabled'
                  title='Запретить показ'>
  </moderator>
  </table>

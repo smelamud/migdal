@@ -341,13 +341,13 @@ return newMessage($row);
 
 }
 
-function getMessageById($id,$grp=0,$topic=0,$up=0)
+function getMessageById($id,$grp=0,$topic=0)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query("select id,body,subject,topic_id,personal_id,sender_id,grp,
-                     image_set,up,hidden,disabled
+                     image_set,hidden,disabled
 		     from messages
 		     where id=$id and (hidden<$hide or sender_id=$userId) and
 		     (disabled<$hide or sender_id=$userId)")
@@ -355,9 +355,7 @@ $result=mysql_query("select id,body,subject,topic_id,personal_id,sender_id,grp,
 		       просмотр TODO */
 	     or die('Ошибка SQL при выборке сообщения');
 return mysql_num_rows($result)>0 ? newMessage(mysql_fetch_assoc($result))
-                                 : newGrpMessage($grp,
-				                 array('topic_id' => $topic,
-						       'up'       => $up));
+                                 : newGrpMessage($grp,array('topic_id' => $topic));
 }
 
 function getFullMessageById($id,$grp=0)
