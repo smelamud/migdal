@@ -17,10 +17,10 @@
   <td width=5>&nbsp;</td>
   <td>
     <if what='$,Grp!=*GRP_GALLERY'>
-     <posting posting='$,' grp='*GRP_FORUMS' showdiscuss='*false'>
+     <posting posting='$,' showdiscuss='*false'>
     <else>
      <center>
-      <picture picture='$,' grp='*GRP_GALLERY' showdiscuss='*false'>
+      <picture picture='$,' showdiscuss='*false'>
      </center>
     </if>
    <p>

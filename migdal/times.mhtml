@@ -13,7 +13,7 @@
 <element name='batcher_times' params='times,issue'>
 <editor>
  <div class='batcher'>
-  <a href='postingedit.php?up=$times.Id&grp=*GRP_TIMES_ARTICLE&redirid=$_'
+  <a href='postingedit.php?up=$times.Id&grp=*GRP_TIMES_ARTICLES&redirid=$_'
      class=add>Добавить статью</a>
   <if what='$issue>0'>
    &nbsp;<a href='times-reorder.php?issue=$issue&redirid=$_'

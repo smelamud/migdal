@@ -11,7 +11,7 @@
   </td></tr>
   <if what='$showtopic'>
    <tr><td class='topic'>
-     <a href='gallery.php?redirid=$_&grp=$grp&topic_id=$picture.TopicId'
+     <a href='$picture.PageFile?grp=$picture.PageGroup&topic_id=$picture.TopicId'
 	class='topic' title='$picture.TopicDescription'>
       $picture.TopicName
      </a>

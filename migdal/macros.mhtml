@@ -62,7 +62,7 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,grp,showtopic,showdiscuss,showcomplain,up'
+       params='picture,showtopic,showdiscuss,showcomplain,up'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' up=general">
 <decel name='picture_main' file='parts/picture-main.php'
        params='picture,grp,topic'>

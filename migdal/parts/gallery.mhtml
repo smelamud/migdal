@@ -28,7 +28,7 @@
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
   <tr valign=top>
    <for>
-    <td><picture picture='$.' grp='*GRP_GALLERY' showtopic!='$topic<0'></td>
+    <td><picture picture='$.' showtopic!='$topic<0'></td>
     <if what='$;isEol'>
      </tr><tr valign=top>
     </if>

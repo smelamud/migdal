@@ -983,8 +983,23 @@ my ($self)=@_;
 
 my $name=$self->getConstArg('name');
 $name='result'.($::LastResult++) if $name eq '';
-my $el=$self->getConstArg('element');
-my $func=$el ne '' ? $el : $self->getConstArg('func');
+my $el=$self->getVarArg('element');
+if($el ne '' && $el ne "''")
+  {
+  if($el=~/^'([^']*)'$/)
+    {
+    $func=::getElementFuncName($1);
+    }
+  else
+    {
+    ::body("<?php \$cel='display'.strtr(".$el.",'/','_'); ?>");
+    $func='$cel';
+    }
+  }
+else
+  {
+  $func=$self->getConstArg('func');
+  }
 my $obj=$self->getVarArg('object');
 $obj=$obj!~/^'[^']*'$/ ? "$obj->" : '';
 ::body("<?php \$$name=$obj$func(",
