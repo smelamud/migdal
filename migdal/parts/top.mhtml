@@ -20,7 +20,9 @@
   </td>
   <td align=right>
    <today><br>
-   <login no_new='$no_new' err='$$err' target='$target'>
+   <community>
+    <login no_new='$no_new' err='$$err' target='$target'>
+   </community>
   </td>
  </tr>
 </table>

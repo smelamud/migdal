@@ -2,7 +2,6 @@
 
 <int name='issue'>
 <grps>
-
 <pagetitle title='Мигдаль Times'>
 
 <macro name='editor'>
@@ -112,6 +111,7 @@
   <posting_index index=1 grp='*GRP_TIMES_ARTICLES'>
   <assign name='issue' value='$,'>
  </zone></ifzero>
+ <zone><log event=times text#='issue($issue)'></zone>
  <table width=100%><tr valign=top>
   <td width=120><zone>
    <posting_new grp='*GRP_TIMES_ARTICLES' topic_id='$times.Id'>

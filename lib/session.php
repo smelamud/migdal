@@ -6,6 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/tmptexts.php');
 require_once('lib/uri.php');
 require_once('lib/utils.php');
+require_once('grp/subdomains.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics',
                       'admin_complain_answers','moderator','judge');
@@ -19,7 +20,8 @@ $userSetNames=array('MsgPortion',
 		    'PictureRowPortion',
 		    'PictureColumnPortion',
 		    'BiffTime',
-		    'ReadKOI');
+		    'ReadKOI',
+		    'IndexPage');
 $userSetDefaults=array('MsgPortion'           => 10,
                        'ForumPortion'         => 10,
                        'ComplainPortion'      => 20,
@@ -30,7 +32,8 @@ $userSetDefaults=array('MsgPortion'           => 10,
 		       'PictureRowPortion'    => 4,
 		       'PictureColumnPortion' => 5,
 		       'BiffTime'             => 24,
-		       'ReadKOI'              => 0);
+		       'ReadKOI'              => 0,
+		       'IndexPage'            => 1);
 $userSetParams=array('MsgPortion'           => 'mp',
                      'ForumPortion'         => 'fp',
 		     'ComplainPortion'      => 'cp',
@@ -41,7 +44,8 @@ $userSetParams=array('MsgPortion'           => 'mp',
 		     'PictureRowPortion'    => 'prp',
 		     'PictureColumnPortion' => 'pcp',
 		     'BiffTime'             => 'bt',
-		     'ReadKOI'              => 'rk');
+		     'ReadKOI'              => 'rk',
+		     'IndexPage'            => 'ip');
 
 function getProperName($name)
 {
@@ -140,9 +144,37 @@ if($globs!=$cookieSettings)
   SetCookie('settings',$globs,time()+3600*24*366,'/');
 }
 
+function subDomain()
+{
+global $forceDomain,$SERVER_NAME,$siteDomain,$userDomain,$REQUEST_URI,$subdomains,
+       $userIndexPage;
+
+if(strlen($SERVER_NAME)>strlen($siteDomain))
+  $currentDomain=substr(strtolower($SERVER_NAME),0,
+                        strlen($SERVER_NAME)-strlen($siteDomain)-1);
+else
+  $currentDomain=strtolower($SERVER_NAME);
+if($forceDomain!='')
+  $userDomain=$forceDomain;
+else
+  if(in_array($currentDomain,$subdomains))
+    $userDomain=$currentDomain;
+  else
+    if(!empty($subdomains[$userIndexPage]))
+      $userDomain=$subdomains[$userIndexPage];
+    else
+      $userDomain=$subdomains[1];
+if($userDomain!=$currentDomain)
+  {
+  header("Location: http://$userDomain.$siteDomain$REQUEST_URI");
+  exit;
+  }
+}
+
 function session()
 {
 userRights();
 userSettings();
+subDomain();
 }
 ?>

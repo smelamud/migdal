@@ -1,5 +1,7 @@
 << @(#) $Id$ >>
 
+<force_community>
+
 <element name='userlink' params='user'>
 <a href='userinfo.php?id=$user.Id&redirid=$_'
    onClick="UserInfo($user.Id);return false"

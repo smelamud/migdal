@@ -1,5 +1,7 @@
 << @(#) $Id$ >>
 
+<force_community>
+
 <element name='batcher_users'>
 <admin_users>
  <div class='batcher'>

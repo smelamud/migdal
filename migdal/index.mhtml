@@ -9,6 +9,10 @@
  <log event=trap text='grp!=0 in index.php'>
  <reload href='$[grp]'>
 </ifnzero>
+<zone>
+ <log event=index text#='topic($topic_id) offset=$offset'>
+ <log event=enter text#='domain=$$userDomain'>
+</zone>
 <grps>
 <unititle topic_id='$topic_id'>
 

@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<force_community>
 <int name='editid'>
 <int name='link'>
 <pagetitle title='Жалоба'>

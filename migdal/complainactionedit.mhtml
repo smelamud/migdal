@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<force_community>
 <int name='typeid'>
 <int name='editid'>
 <pagetitle title='Ответы на жалобы'>

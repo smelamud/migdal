@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<force_community>
 <int name='complain_id'>
 <int name='actid'>
 <pagetitle title='Ответ на жалобу'>

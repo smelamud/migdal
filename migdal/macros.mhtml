@@ -201,3 +201,22 @@
   &nbsp;<image src='pics/ner.gif' title='новое'>&nbsp;
  </ifbiff>
 </macro>
+
+<< Subdomains >>
+<macro name='force_official'>
+ <force_domain domain='info'>
+</macro>
+
+<macro name='force_community'>
+ <force_domain domain='community'>
+</macro>
+
+<macro name='official'>
+ <if what="$$userDomain=='info'">
+</macro>
+<endif name='/official'>
+
+<macro name='community'>
+ <if what="$$userDomain=='community'">
+</macro>
+<endif name='/community'>

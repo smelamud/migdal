@@ -1,5 +1,7 @@
 << @(#) $Id$ >>
 
+<force_community>
+
 <html>
 <refresh period='$$userChatRefresh' url='$-'>
 <zone>

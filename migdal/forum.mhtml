@@ -4,6 +4,7 @@
 <grps>
 <read_posting id='$msgid'>
 <posting_full name='posting' id='$msgid' grp='*GRP_FORUMS'>
+<zone><log event=forum text#='post($,Id)'></zone>
 <pagetitle title='$,SubjectDesc'>
 
 <zone>

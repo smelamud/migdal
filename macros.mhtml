@@ -23,6 +23,12 @@
  <assign_global name='topicTitle' value%!title='%title'>
 </macro>
 
+<macro name='force_domain' defaults="domain=''">
+ <header>
+  <assign_global name='forceDomain' value%!domain='%domain'>
+ </header>
+</macro>
+
 << Iterators >>
 <macro name='deciter' defaults="name='%name'">
  <macro name='iterate_%macro' defaults="%defaults">

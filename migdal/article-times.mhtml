@@ -4,6 +4,7 @@
 <string name='artid'>
 <read_posting id='$artid'>
 <posting_full id='$artid' grp='*GRP_TIMES_ARTICLES'>
+<zone><log event=article text#='post($,Id)'></zone>
 <pagetitle title='$,Subject'>
 
 <html>

@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<force_community>
 <int name='editid'>
 <int name='up'>
 <pagetitle title='Сообщение в форуме'>

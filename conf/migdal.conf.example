@@ -22,6 +22,9 @@ $dbUser='root';
 # Пароль БД
 $dbPassword='xxxxxxxx';
 
+# Домен сайта
+$siteDomain='migdal.localhost';
+
 # Отладочный режим (включает отладочные сообщения PHP)
 $debug=0;
 

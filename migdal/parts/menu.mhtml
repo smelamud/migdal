@@ -19,15 +19,19 @@
                 recursive='*true'>
   <menuitem ident='index' name='Главная' link='index.php?topic_id=-1'
             target='$target' current='$ident'>
-  <menuitem ident='discuss' name='Обсуждения'
-            link='forumcatalog.php?topic_id=-1' target='$target'
-	    current='$ident' time='$forums_time'>
+  <community>
+   <menuitem ident='discuss' name='Обсуждения'
+	     link='forumcatalog.php?topic_id=-1' target='$target'
+	     current='$ident' time='$forums_time'>
+  </community>
   <menuitem ident='gallery' name='Галерея' link='gallery.php?topic_id=-1'
             target='$target' current='$ident' time='$gallery_time'>
-  <menuitem ident='chat' name='Чат' link='chat.php'
-            target='$target' current='$ident'>
-  <menuitem ident='users' name='Пользователи' link='users.php'
-            target='$target' current='$ident'>
+  <community>
+   <menuitem ident='chat' name='Чат' link='chat.php'
+	     target='$target' current='$ident'>
+   <menuitem ident='users' name='Пользователи' link='users.php'
+	     target='$target' current='$ident'>
+  </community>
  </td>
  <td align=right class='minor'>
   <tune ident='$ident' target='$target'>

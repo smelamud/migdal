@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<force_community>
 <conf>
 <errors>
 <int name='err'>
