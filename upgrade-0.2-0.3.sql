@@ -46,3 +46,17 @@ CREATE TABLE cross_topics (
 ALTER TABLE `topics` DROP `virtual`;
 ALTER TABLE `postings` ADD `shadow` TINYINT NOT NULL AFTER `message_id`;
 ALTER TABLE `postings` ADD INDEX (`shadow`);
+ALTER TABLE `forums` ADD `used` TINYINT NOT NULL;
+ALTER TABLE `forums` ADD INDEX (`used`);
+ALTER TABLE `messages` ADD `used` TINYINT NOT NULL;
+ALTER TABLE `messages` ADD INDEX (`used`); 
+ALTER TABLE `postings` ADD `used` TINYINT NOT NULL;
+ALTER TABLE `postings` ADD INDEX (`used`); 
+ALTER TABLE `stotexts` ADD `used` TINYINT NOT NULL;
+ALTER TABLE `stotexts` ADD INDEX (`used`);
+ALTER TABLE `stotext_images` ADD `used` TINYINT NOT NULL;
+ALTER TABLE `stotext_images` ADD INDEX (`used`);
+ALTER TABLE `complains` ADD `used` TINYINT NOT NULL;
+ALTER TABLE `complains` ADD INDEX (`used`); 
+ALTER TABLE `topics` ADD `used` TINYINT NOT NULL;
+ALTER TABLE `topics` ADD INDEX (`used`);

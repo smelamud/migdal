@@ -47,12 +47,14 @@ CREATE TABLE complains (
   link int(11) NOT NULL default '0',
   closed datetime default NULL,
   no_auto tinyint(4) NOT NULL default '0',
+  used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY id (id),
   KEY recipient_id (recipient_id),
   KEY message_id (message_id),
   KEY type_id (type_id),
-  KEY link (link)
+  KEY link (link),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
@@ -73,9 +75,11 @@ CREATE TABLE forums (
   id int(11) NOT NULL auto_increment,
   message_id int(11) NOT NULL default '0',
   parent_id int(11) NOT NULL default '0',
+  used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY message_id (message_id),
-  KEY up (parent_id)
+  KEY up (parent_id),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
@@ -180,13 +184,15 @@ CREATE TABLE messages (
   url varchar(250) NOT NULL default '',
   url_check datetime NOT NULL default '0000-00-00 00:00:00',
   url_check_success datetime NOT NULL default '0000-00-00 00:00:00',
+  used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY sender_id (sender_id),
   KEY stotext_id (stotext_id),
   KEY up (up,track),
   KEY url_domain (url_domain),
   KEY url_check (url_check,url_check_success),
-  KEY sent (sent)
+  KEY sent (sent),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
@@ -222,6 +228,7 @@ CREATE TABLE postings (
   index3 int(11) NOT NULL default '0',
   index4 int(11) NOT NULL default '0',
   subdomain tinyint(4) NOT NULL default '0',
+  used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY message_id (message_id),
   KEY topic_id (topic_id),
@@ -231,7 +238,8 @@ CREATE TABLE postings (
   KEY priority (priority),
   KEY read_count (read_count,index0,index1,index2,index3,index4),
   KEY subdomain (subdomain),
-  KEY shadow (shadow)
+  KEY shadow (shadow),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
@@ -305,8 +313,10 @@ CREATE TABLE stotext_images (
   par int(11) NOT NULL default '0',
   image_id int(11) NOT NULL default '0',
   placement tinyint(4) NOT NULL default '0',
+  used tinyint(4) NOT NULL default '0',
   KEY stotext_id (stotext_id),
-  KEY image_id (image_id)
+  KEY image_id (image_id),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
@@ -321,9 +331,11 @@ CREATE TABLE stotexts (
   large_format tinyint(4) NOT NULL default '0',
   large_body mediumtext NOT NULL,
   large_imageset int(11) NOT NULL default '0',
+  used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY image_set (image_set),
-  KEY large_imageset (large_imageset)
+  KEY large_imageset (large_imageset),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
@@ -358,6 +370,7 @@ CREATE TABLE topics (
   index2 int(11) NOT NULL default '0',
   index3 int(11) NOT NULL default '0',
   index4 int(11) NOT NULL default '0',
+  used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY ident (ident),
   KEY up (up),
@@ -365,7 +378,8 @@ CREATE TABLE topics (
   KEY stotext_id (stotext_id),
   KEY user_id (user_id),
   KEY name_sort (name_sort),
-  KEY index0 (index0,index1,index2,index3,index4)
+  KEY index0 (index0,index1,index2,index3,index4),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
