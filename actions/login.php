@@ -11,18 +11,18 @@ require_once('lib/utils.php');
 require_once('lib/post.php');
 require_once('lib/logs.php');
 require_once('lib/sessions.php');
+require_once('lib/session.php');
 require_once('lib/users.php');
 
 function startSession()
 {
-global $login,$password,$siteDomain,$sid;
+global $login,$password,$sessionid;
 
 $id=getUserIdByLoginPassword(addslashes($login),$password);
 if($id==0)
   return EL_INVALID;
 logEvent('login',"user($id)");
-$sid=createSession($id,$id);
-SetCookie('sessionid',$sid,time()+7200,'/',$siteDomain);
+updateSession($sessionid,$id,$id);
 return EL_OK;
 }
 
@@ -30,10 +30,11 @@ postString('login');
 postString('password');
 
 dbOpen();
+session();
 $err=startSession();
 if($err==EL_OK)
   header('Location: /actions/checkcookies.php?'.
-          makeQuery(array('svalue'  => $sid,
+          makeQuery(array('svalue'  => $sessionid,
 	                  'okdir'   => $okdir,
 			  'faildir' => $faildir)));
 else

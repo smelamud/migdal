@@ -66,10 +66,19 @@ foreach($parts as $part)
 return $proper;
 }
 
+function sessionGuest()
+{
+global $sessionid,$userId,$realUserId;
+
+$userId=0;
+$realUserId=getGuestId();
+$sessionid=$realUserId>0 ? createSession($userId,$realUserId) : 0;
+setSessionCookie($sessionid);
+}
+
 function userRights($aUserId=0)
 {
-global $sessionid,$userId,$realUserId,$userRightNames,$sessionTimeout,
-       $siteDomain;
+global $sessionid,$userId,$realUserId,$userRightNames;
 
 settype($sessionid,'integer');
 
@@ -77,21 +86,17 @@ foreach($userRightNames as $name)
        $GLOBALS['user'.getProperName($name)]='';
 
 if(!$sessionid && $aUserId<=0)
-  $userId=-1;
+  sessionGuest();
 else
   if($aUserId<=0)
     {
     list($userId,$realUserId)=getUserIdsBySessionId($sessionid);
     if($userId<=0 && $realUserId<=0)
-      {
-      $userId=$realUserId=0;
-      SetCookie('sessionid',0,0,'/',$siteDomain);
-      }
+      sessionGuest();
     else
       {
       updateSessionTimestamp($sessionid);
-      SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/',
-                $siteDomain);
+      setSessionCookie($sessionid);
       }
     }
   else
@@ -110,6 +115,9 @@ if($userId>0)
     $GLOBALS['userHidden']--;
   updateLastOnline($userId);
   }
+
+if($realUserId>0)
+  updateLastOnline($realUserId);
 }
 
 function userSettings()

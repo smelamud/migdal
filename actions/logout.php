@@ -11,11 +11,10 @@ require_once('lib/random.php');
 require_once('lib/errors.php');
 require_once('lib/logs.php');
 require_once('lib/sessions.php');
+require_once('lib/session.php');
 
 function logout($sessionid)
 {
-global $siteDomain;
-
 $row=getUserIdsBySessionId($sessionid);
 if($row)
   {
@@ -26,14 +25,12 @@ if($row)
     return ELO_OK;
     }
   }
-deleteSession($sessionid);
-SetCookie('sessionid',0,0,'/',$siteDomain);
+sessionGuest();
 return ELO_OK;
 }
 
-settype($sessionid,'integer');
-
 dbOpen();
+session();
 $err=logout($sessionid);
 if($err==ELO_OK)
   header('Location: '.remakeURI($okdir,

@@ -57,4 +57,15 @@ mysql_query("delete from sessions
 	     where sid=$sessionId")
   or sqlbug('Ошибка SQL при удалении сессии');
 }
+
+function setSessionCookie($sessionId)
+{
+global $sessionTimeout,$siteDomain;
+
+if($sessionId==0)
+  SetCookie('sessionid',0,0,'/',$siteDomain);
+else
+  SetCookie('sessionid',$sessionId,time()+($sessionTimeout+24)*3600,'/',
+	    $siteDomain);
+}
 ?>

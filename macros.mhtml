@@ -319,7 +319,7 @@
 <endif name='/logged'>
 
 <macro name='notlogged'>
- <if what='$$userId<0'>
+ <if what='$$userId<=0'>
 </macro>
 <endif name='/notlogged'>
 

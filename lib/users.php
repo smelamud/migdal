@@ -498,6 +498,56 @@ $result=mysql_query('select id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+function getGuestId()
+{
+global $allowGuests,$sessionTimeout,$guestLogin;
+
+if(!$allowGuests)
+  return 0;
+$result=mysql_query("select id
+                     from users
+		     where guest<>0 and
+		           last_online+interval $sessionTimeout hour<now()
+		     order by login_sort
+		     limit 1")
+	  or sqlbug('Ошибка SQL при поиске свободного гостя');
+if(mysql_num_rows($result)>0)
+  return mysql_result($result,0,0);
+$result=mysql_query("select login
+                     from users
+		     where guest<>0
+		     order by login_sort desc
+		     limit 1")
+	  or sqlbug('Ошибка SQL при поиске последнего гостя');
+if(mysql_num_rows($result)>0)
+  {
+  $login=mysql_result($result,0,0);
+  $lt=$login{strlen($login)-1};
+  switch($lt)
+        {
+	case '9':
+	     $lt='A';
+	     break;
+	case 'Z':
+	     $lt='a';
+	     break;
+	case 'z':
+	     return 0;
+	default:
+	     $lt=chr(ord($lt)+1);
+	}
+  $login{strlen($login)-1}=$lt;
+  }
+else
+  $login="$guestLogin-0";
+$login_sort=convertSort($login);
+mysql_query("insert into users(login,login_sort,email_disabled,guest,hidden,
+                               no_login)
+             values('$login','$login_sort',1,1,1,1)")
+  or sqlbug('Ошибка SQL при создании гостя');
+return mysql_insert_id();
+}
+
 function updateLastOnline($userId)
 {
 mysql_query("update users set last_online=now() where id=$userId")
