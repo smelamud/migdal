@@ -73,6 +73,9 @@ if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
 if($message->topic_id!=0 && !topicExists($message->topic_id))
   return EP_NO_TOPIC;
+$cid=idByIdent('postings',$message->ident);
+if($message->ident!='' && $cid!=0 && $message->id!=$cid)
+  return EP_IDENT_UNIQUE;
 if($message->mandatoryImage() && $message->stotext->image_set==0)
   return EP_IMAGE_ABSENT;
 if($message->stotext->image_set!=0

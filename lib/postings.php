@@ -13,6 +13,7 @@ require_once('lib/paragraphs.php');
 class Posting
       extends Message
 {
+var $ident;
 var $message_id;
 var $topic_id;
 var $topic_name;
@@ -28,13 +29,13 @@ $this->grp=GRP_ALL;
 function getCorrespondentVars()
 {
 $list=Message::getCorrespondentVars();
-array_push($list,'topic_id','grp','personal_id');
+array_push($list,'ident','topic_id','grp','personal_id');
 return $list;
 }
 
 function getWorldPostingVars()
 {
-return array('message_id','topic_id','grp','personal_id');
+return array('ident','message_id','topic_id','grp','personal_id');
 }
 
 function getAdminPostingVars()
@@ -76,6 +77,11 @@ return $this->getLocalConf('HasTopic');
 function mandatoryTopic()
 {
 return $this->hasTopic() && $this->getLocalConf('MandatoryTopic');
+}
+
+function getIdent()
+{
+return $this->ident;
 }
 
 function getMessageId()
@@ -268,7 +274,7 @@ function getPostingById($id,$grp=GRP_ALL,$topic=0)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$result=mysql_query("select postings.id as id,message_id,stotext_id,body,
+$result=mysql_query('select postings.id as id,ident,message_id,stotext_id,body,
                             large_filename,large_format,large_body,
 			    large_imageset,subject,topic_id,personal_id,
 			    sender_id,grp,image_set,hidden,disabled
@@ -277,12 +283,12 @@ $result=mysql_query("select postings.id as id,message_id,stotext_id,body,
 			       on postings.message_id=messages.id
 	                  left join stotexts
 	                       on stotexts.id=messages.stotext_id
-		     where postings.id=$id
-		           and (hidden<$hide or sender_id=$userId)
+		     where postings.'.byIdent($id).
+		         " and (hidden<$hide or sender_id=$userId)
 			   and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при выборке постинга'.mysql_error());
+	     or die('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp,
 				                 array('topic_id' => $topic));
@@ -294,7 +300,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select postings.id as id,postings.message_id as message_id,
+	"select postings.id as id,ident,postings.message_id as message_id,
 	        messages.stotext_id as stotext_id,body,large_format,large_body,
 		subject,grp,sent,topic_id,sender_id,messages.hidden as hidden,
 		disabled,users.hidden as sender_hidden,
@@ -317,8 +323,8 @@ $result=mysql_query(
 	 	   on messages.id=forums.up
 	 where (messages.hidden<$hide or sender_id=$userId) and
 	       (messages.disabled<$hide or sender_id=$userId) and
-	       postings.id=$id
-	 group by messages.id")
+	       postings.".byIdent($id).
+       ' group by messages.id')
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
  or die('Ошибка SQL при выборке постинга');

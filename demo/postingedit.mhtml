@@ -35,6 +35,10 @@
   <if what='$message.hasTopic'>
    <topicselect name='topic_id' value='$message.TopicId' grp='$grp'>
   </if>
+  <error id='*EP_IDENT_UNIQUE' span=2
+         text='Так уже обозначено другое сообщение'>
+  <edit_line title='Обозначение' name='ident' value='$,Ident'
+             size=15 maxlength=15>
   <if what='$message.hasSubject'>
    <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
    <edit_line title='Заголовок' value='$message.Subject' name='subject'
