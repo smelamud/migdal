@@ -67,7 +67,8 @@ function setDisabled($message,$original)
 if($original->getId()==0)
   if(isDisabledSet($message))
     setDisabledByMessageId($message->getMessageId(),1);
-$modbits=$message->getModmask() & MOD_USER;
+$modbits=($original->getId()==0 ? $message->getCreateModmask()
+                                : $message->getModifyModmask()) & MOD_USER;
 if(isModerateSet($message))
   $modbits|=MOD_MODERATE;
 if($message->getLargeFormat()==TF_HTML)
