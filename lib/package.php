@@ -9,9 +9,9 @@ require_once('lib/packages.php');
 dbOpen();
 $id=addslashes($id);
 $package=getPackageContentById($id);
+logEvent('download','packid('.$package->getId().')');
 if($package->getURL()!='')
   reload($package->getURL());
-logEvent('download','packid('.$package->getId().')');
 header('Content-Type: '.$package->getMimeType());
 echo $package->getBody();
 dbClose();

@@ -14,18 +14,18 @@ define('PT_BOOK_SPLIT',2);
 $packageNamePrefixes=array(PT_BOOK_ONEFILE => 'book-',
                            PT_BOOK_SPLIT   => 'book-split-');
 
-function getPackageFileName($type,$posting_id,$mime_type)
+function getPackageFileName($type,$message_id,$mime_type)
 {
 global $packageNamePrefixes;
 
-return $packageNamePrefixes[$type].$posting_id.'.'.getMimeExtension($mime_type);
+return $packageNamePrefixes[$type].$message_id.'.'.getMimeExtension($mime_type);
 }
 
 class Package
       extends DataObject
 {
 var $id;
-var $posting_id;
+var $message_id;
 var $type;
 var $mime_type;
 var $title;
@@ -41,7 +41,7 @@ $this->DataObject($row);
 
 function getWorldVars()
 {
-return array('posting_id','type','mime_type','title','body','size','url');
+return array('message_id','type','mime_type','title','body','size','url');
 }
 
 function getAdminVars()
@@ -71,9 +71,9 @@ function getId()
 return $this->id;
 }
 
-function getPostingId()
+function getMessageId()
 {
-return $this->posting_id;
+return $this->message_id;
 }
 
 function getType()
@@ -117,7 +117,7 @@ if($this->getURL()!='')
   return $this->getURL();
 else
   return '/lib/package.php/'.getPackageFileName($this->getType(),
-                                                $this->getPostingId(),
+                                                $this->getMessageId(),
 						$this->getMimeType()).
 	 '?id='.$this->getId();
 }
@@ -136,9 +136,12 @@ class PackagesIterator
 function PackagesIterator($posting_id)
 {
 $this->SelectIterator('Package',
-                      "select id,posting_id,type,mime_type,title,size,url
+                      "select packages.id as id,postings.id as posting_id,type,
+		              mime_type,title,size,url
 		       from packages
-		       where posting_id=$posting_id
+		            left join postings
+			         on packages.message_id=postings.message_id
+		       where postings.id=$posting_id
 		       order by type,created");
 }
 
@@ -146,7 +149,7 @@ $this->SelectIterator('Package',
 
 function getPackageContentById($id)
 {
-$result=mysql_query("select id,posting_id,mime_type,body,url
+$result=mysql_query("select id,message_id,mime_type,body,url
                      from packages
 		     where id=$id")
           or sqlbug('Ошибка SQL при выборке содержимого пакета');

@@ -60,21 +60,20 @@ if($id!=0)
   }
 }
 
-function packBook($id,$type)
+function packBook($id,$message_id,$type)
 {
 global $tmpDir,$siteDomain,$bookCompressCommand,$bookCompressType,
        $bookCompressDir,$bookCompressURL;
 
-$dir="$tmpDir/book-$id";
+$dir="$tmpDir/book-$message_id";
 unlink($dir);
 mkdir($dir,0777);
 mkdir("$dir/style",0777);
 mkdir("$dir/pics",0777);
 
-$msgid=getMessageIdByPostingId($id);
 $list=new PostingListIterator(GRP_BOOK_CHAPTERS,'-1',false,'0','0','0',
-                              SORT_INDEX0,GRP_NONE,'0','-1','0','-1',$msgid,
-			      true,SELECT_GENERAL);
+                              SORT_INDEX0,GRP_NONE,'0','-1','0','-1',
+			      $message_id,true,SELECT_GENERAL);
 
 if($type==PT_BOOK_ONEFILE)
   copyFile("http://$siteDomain/book-static.php?bookid=$id","$dir/index.html");
@@ -107,12 +106,12 @@ while($item=$list->next())
      }
 
 $cmd=str_replace(array('#','%'),
-                 array($tmpDir,"book-$id"),
+                 array($tmpDir,"book-$message_id"),
 		 $bookCompressCommand);
 if($bookCompressDir=='')
   {
   $body=`$cmd`;
-  $package=new Package(array('posting_id' => $id,
+  $package=new Package(array('message_id' => $message_id,
 			     'type'       => $type,
 			     'mime_type'  => $bookCompressType,
 			     'body'       => $body,
@@ -120,9 +119,9 @@ if($bookCompressDir=='')
   }
 else
   {
-  $pname=getPackageFileName($type,$id,$bookCompressType);
+  $pname=getPackageFileName($type,$message_id,$bookCompressType);
   system("$cmd > $bookCompressDir/$pname");
-  $package=new Package(array('posting_id' => $id,
+  $package=new Package(array('message_id' => $message_id,
 			     'type'       => $type,
 			     'mime_type'  => $bookCompressType,
 			     'size'       => filesize("$bookCompressDir/$pname"),
@@ -137,19 +136,19 @@ rmdir("$dir/style");
 rmdir($dir);
 }
 
-function dropBook($id)
+function dropBook($message_id)
 {
 mysql_query("delete from packages
-             where posting_id=$id and
+             where message_id=$message_id and
 	           (type=".PT_BOOK_ONEFILE.' or type='.PT_BOOK_SPLIT.')')
   or sqlbug('Ошибка SQL при удалении старых архивов книг');
 }
 
-function arePackagesReady($id)
+function arePackagesReady($message_id)
 {
 $result=mysql_query("select min(created)
 		     from packages
-		     where posting_id=$id and
+		     where message_id=$message_id and
 			   (`type`=".PT_BOOK_ONEFILE.' or
 			    `type`='.PT_BOOK_SPLIT.')')
 	  or sqlbug('Ошибка SQL при получении даты создания архивов книг');
@@ -159,10 +158,9 @@ $packs=mysql_result($result,0,0);
 if($packs=='')
   return false;
 $packs=strtotime($packs);
-$msgid=getMessageIdByPostingId($id);
 $result=mysql_query('select from_unixtime(max(unix_timestamp(last_updated)))
                      from messages
-		     where '.subtree('messages',$msgid,true))
+		     where '.subtree('messages',$message_id,true))
 	  or sqlbug('Ошибка SQL при получении даты обновления глав книги');
 if(mysql_num_rows($result)<=0)
   return true;
@@ -178,11 +176,11 @@ function run()
 $iter=new PostingListIterator(GRP_BOOKS,-1,true,0,0,0,SORT_SENT,GRP_NONE,0,-1,
                               0,-1,-1,false,SELECT_GENERAL);
 while($item=$iter->next())
-     if(!arePackagesReady($item->getId()))
+     if(!arePackagesReady($item->getMessageId()))
        {
-       dropBook($item->getId());
-       packBook($item->getId(),PT_BOOK_ONEFILE);
-       packBook($item->getId(),PT_BOOK_SPLIT);
+       dropBook($item->getMessageId());
+       packBook($item->getId(),$item->getMessageId(),PT_BOOK_ONEFILE);
+       packBook($item->getId(),$item->getMessageId(),PT_BOOK_SPLIT);
        }
 }
 

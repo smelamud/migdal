@@ -187,3 +187,5 @@ ALTER TABLE `packages` ADD INDEX ( `type` );
 ALTER TABLE `packages` ADD INDEX ( `created` );
 ALTER TABLE `packages` ADD `used` TINYINT NOT NULL;
 ALTER TABLE `packages` ADD INDEX ( `used` );
+ALTER TABLE `packages` CHANGE `posting_id` `message_id` INT( 11 ) DEFAULT '0' NOT NULL;
+TRUNCATE TABLE `packages`;

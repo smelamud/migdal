@@ -114,7 +114,7 @@ useLinks('messages','up','messages','id');
 deleteTagged('messages');
 
 tag('packages');
-useLinks('packages','posting_id','postings','id');
+useLinks('packages','message_id','messages','id');
 deleteTagged('packages');
 
 tag('postings');
