@@ -18,8 +18,10 @@ function integerToIP($ip)
 $octets=array();
 for($i=0;$i<4;$i++)
    {
-   $octets[]=$ip % 256;
-   $ip/=256;
+   $octets[$i]=$ip % 256;
+   if($octets[$i]<0)
+     $octets[$i]+=256;
+   $ip=(int)($ip/256);
    }
 return join('.',array_reverse($octets));
 }
