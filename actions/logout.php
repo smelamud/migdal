@@ -19,7 +19,7 @@ $row=getUserIdsBySessionId($sessionid);
 if($row)
   {
   logEvent('logout','user('.$row['user_id'].')');
-  if($row['user_id']!=$row['real_user_id'])
+  if($row['user_id']!=0 && $row['user_id']!=$row['real_user_id'])
     {
     updateSession($sessionid,$row['real_user_id'],$row['real_user_id']);
     return ELO_OK;
