@@ -18,6 +18,114 @@ $Header='';
 $Body='';
 $Footer='';
 
+$LastIter='';
+$LastItem='';
+
+$Stack='';
+
+#### Utility functions ####
+
+sub subVars
+{
+my ($s,$st,$ed)=@_;
+
+my $item=$::Stack->top()->getItem();
+$s=~s/\$_/${st}urlencode(\$REQUEST_URI)$ed/g;
+$s=~s/\$(\w+)\.(\w+)/$st\$\1->get\2()$ed/g;
+$s=~s/\$\.(\w+)/$st\$$item->get\1()$ed/g;
+$s=~s/\$%(\w+)\.(\w+)/${st}urlencode(\$\1->get\2())$ed/g;
+$s=~s/\$%\.(\w+)/${st}urlencode(\$$item->get\1())$ed/g;
+return $s;
+}
+
+sub subVarsText
+{
+my ($s)=@_;
+
+return subVars($s,'<?php echo ',' ?>');
+}
+
+#### StackFrame ####
+
+package StackFrame;
+
+sub new
+{
+my ($class,$frame)=@_;
+
+my $data={'iterator' => '',
+          'item'     => ''};
+if(defined($frame))
+  {
+  $data->{$name}=$value while(my($name,$value)=each(%{$frame}));
+  }
+return bless $data,$class;
+}
+
+sub getIterator
+{
+my ($self)=@_;
+
+return $self->{'iterator'};
+}
+
+sub setIterator
+{
+my ($self,$value)=@_;
+
+return $self->{'iterator'}=$value;
+}
+
+sub getItem
+{
+my ($self)=@_;
+
+return $self->{'item'};
+}
+
+sub setItem
+{
+my ($self,$value)=@_;
+
+return $self->{'item'}=$value;
+}
+
+#### Stack ####
+
+package Stack;
+
+sub new
+{
+my ($class)=@_;
+
+$self=bless {'stack' => []},$class;
+$self->push();
+return $self;
+}
+
+sub top
+{
+my ($self)=@_;
+
+return ${$self->{'stack'}}[$#{$self->{'stack'}}];
+}
+
+sub pop
+{
+my ($self)=@_;
+
+return pop @{$self->{'stack'}};
+}
+
+sub push
+{
+my ($self)=@_;
+
+return push @{$self->{'stack'}},StackFrame->new($self->top());
+}
+
+#### Token ####
+
 package Token;
 
 sub new
@@ -41,6 +149,8 @@ my ($self)=@_;
 ::body($self->getToken());
 }
 
+#### Text ####
+
 package Text;
 
 @ISA=qw(Token);
@@ -53,6 +163,15 @@ my $i=index $::Line,'<';
 $i=$i<0 ? length($::Line) : $i;
 return Token::new($class,$i);
 }
+
+sub process
+{
+my ($self)=@_;
+
+::body(::subVarsText($self->getToken()));
+}
+
+#### QuotedToken ####
 
 package QuotedToken;
 
@@ -68,6 +187,8 @@ $::Line.=$quote if $i<0;
 $i=index($::Line,$quote)+length($quote);
 return Token::new($class,$i);
 }
+
+#### Tag ####
 
 package Tag;
 
@@ -122,7 +243,7 @@ if($self->can($name))
   }
 else
   {
-  ::body($self->getToken());
+  ::body(::subVarsText($self->getToken()));
   }
 }
 
@@ -154,6 +275,46 @@ EOT
 ::body($self->getToken());
 }
 
+sub elRequire
+{
+my ($self)=@_;
+
+::request($self->getArgs()->{'name'});
+}
+
+sub elIterate #XXX Possibly empty class
+{
+my ($self)=@_;
+
+my $name=$self->getArgs()->{'name'};
+$name='iter'.($::LastIter++) if $name eq '';
+$::Stack->top()->setIterator($name);
+::body("<?php \$$name=new ",$self->getArgs()->{'class'},"() ?>");
+}
+
+sub elFor #XXX Possibly empty list
+{
+my ($self)=@_;
+
+my $list=$self->getArgs()->{'list'};
+$list=$::Stack->top()->getIterator() if $list eq '';
+my $name=$self->getArgs()->{'name'};
+$name='item'.($::LastItem++) if $name eq '';
+::body("<?php while(\$$name=\$$list->next()) { ?>");
+$::Stack->push();
+$::Stack->top()->setItem($name);
+}
+
+sub el_for
+{
+my ($self)=@_;
+
+$::Stack->pop();
+::body("<?php } ?>");
+}
+
+#### Comment ####
+
 package Comment;
 
 @ISA=qw(QuotedToken);
@@ -164,6 +325,8 @@ my ($class)=@_;
 
 return QuotedToken::new($class,'-->');
 }
+
+#### Remark ####
 
 package Remark;
 
@@ -180,6 +343,8 @@ sub process
 {
 }
 
+#### PHP ####
+
 package PHP;
 
 @ISA=qw(QuotedToken);
@@ -190,6 +355,8 @@ my ($class)=@_;
 
 return QuotedToken::new($class,'?>');
 }
+
+#### main ####
 
 package main;
 
@@ -269,6 +436,7 @@ print STDERR @_;
 sub init
 {
 $|=1;
+$Stack=Stack->new();
 pull;
 }
 

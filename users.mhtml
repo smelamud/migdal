@@ -1,7 +1,5 @@
 << @(#) $Id$ >>
 <?php
-require_once('lib/users.php');
-
 require_once('parts/top.php');
 ?>
 <html>
@@ -16,24 +14,21 @@ require_once('parts/top.php');
     <th>Ник</th><th>Имя</th><th>Возраст</th><th>Мигдалевец</th><th>E-mail</th>
     <th>ICQ</th><th>Последний раз<br>был здесь</th>
    </tr>
-   <?php
-   $list=new UserListIterator();
-   while($item=$list->next())
-        {
-	echo '<tr>';
-	echo '<td align=center><a href="useredit.php?editid='.$item->getId().
-	     '&redir='.urlencode($REQUEST_URI).'">'.$item->getLogin().
-	     '</a></td>';
-	echo '<td align=center>'.$item->getFullName().'</td>';
-	echo '<td align=center>'.$item->getAge().'</td>';
-	echo '<td align=center>'.$item->getMigdalStudent().'</td>';
-	echo '<td align=center>'.$item->getEmailLink().'</td>';
-	echo '<td align=center>'.$item->getICQStatusImage().'&nbsp;'
-	                        .$item->getICQ().'</td>';
-	echo '<td align=center>'.$item->getLastOnline().'</td>';
-	echo '</tr>';
-	}
-   ?>
+   <require name='lib/users.php'>
+   <iterate class='UserListIterator'>
+   <for>
+    <tr>
+     <td align=center>
+      <a href="useredit.php?editid=$.id&redir=$_">$.Login</a>
+     </td>
+     <td align=center>$.FullName</td>
+     <td align=center>$.Age</td>
+     <td align=center>$.MigdalStudent</td>
+     <td align=center>$.EmailLink</td>
+     <td align=center>$.ICQStatusImage&nbsp;$.ICQ</td>
+     <td align=center>$.LastOnline</td>
+    </tr>
+   </for>
   </table>
 </body>
 </html>
