@@ -32,7 +32,7 @@ if(!move_uploaded_file($large_file,$large_file_tmpname))
   return EP_OK;
 $fd=fopen($large_file_tmpname,'r');
 $message->large_filename=$large_file_name;
-$message->large_body=fread($fd,$maxLargeText);
+$message->large_body=htmlspecialchars(fread($fd,$maxLargeText),ENT_QUOTES);
 fclose($fd);
 unlink($large_file_tmpname);
 
