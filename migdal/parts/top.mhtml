@@ -3,8 +3,8 @@
 <element name='top'>
 <script src='/window.js' language='JavaScript'></script>
 <table width=100% cellspacing=0 cellpadding=0>
- <tr>
-  <td align=left>
+ <tr valign=top>
+  <td align=left rowspan=2>
    <if what='$showimages'>
     <table>
      <col width=0* span=2>
@@ -39,6 +39,11 @@
    <mailru_count>
    <rambler_count>
   </td>
+  <td align=right>
+   <image src='pics/bsd-main' alt='ву"д'>
+  </td>
+ </tr>
+ <tr>
   <td align=right>
    <community>
     <login no_new='$no_new' err='$$err' target='$target'>

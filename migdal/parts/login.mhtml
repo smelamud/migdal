@@ -16,10 +16,24 @@
 
 <errors>
 <element name='login'>
+<ifne what='$err'>
+ <table class='ninept'>
+  <error id='*EL_INVALID' text='Неверный ник или пароль'>
+  <error id='*ELO_SQL_GET' text='Ошибка базы данных при выборке записи'
+	 color=magenta>
+  <error id='*ELO_SQL_SWITCH' text='Ошибка базы данных при обновлении записи'
+	 color=magenta>
+  <error id='*ELO_SQL_DROP' text='Ошибка базы данных при удалении записи'
+	 color=magenta>
+  <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
+  <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
+  <error id='*EUS_SQL' text='Ошибка базы данных при обновлении записи'
+	 color=magenta>
+ </table>
+</ifne>
 <table class='login ninept' cellspacing=0 cellpadding=0>
  <notlogged>
   <tform action='actions/login.php'>
-   <error id='*EL_INVALID' text='Неверный ник или пароль' span=11>
    <tr>
     <td>Ник</td>
     <td><image src='pics/leftinput.gif'></td>
@@ -42,14 +56,8 @@
   </tform>
  <else>
   <tform action='actions/logout.php'>
-   <error id='*ELO_SQL_GET' text='Ошибка базы данных при выборке записи'
-          span=2 color=magenta>
-   <error id='*ELO_SQL_SWITCH' text='Ошибка базы данных при обновлении записи'
-          span=2 color=magenta>
-   <error id='*ELO_SQL_DROP' text='Ошибка базы данных при удалении записи'
-          span=2 color=magenta>
    <tr>
-    <td>
+    <admin_users><td colspan=3><else><td></admin_users>
      <b>
      <if what='$$userHidden'>
       $$userLogin
@@ -65,14 +73,12 @@
   </tform>
   <admin_users>
    <tform action='actions/userswitch.php'>
-    <error id='*EUS_NO_SWITCH' text='Вы не администратор' span=2>
-    <error id='*EUS_NO_USER' text='Такого пользователя не существует' span=2>
-    <error id='*EUS_SQL' text='Ошибка базы данных при обновлении записи'
-	   span=2 color=magenta>
     <tr>
-     <td align=right><input type=text name='login' size=10 maxlength=30></td>
+     <td><image src='pics/leftinput.gif'></td>
+     <td><input class=line type=text name='login' size=10 maxlength=30></td>
+     <td><image src='pics/rightinput.gif'></td>
      <td>&nbsp;</td>
-     <td><input type=submit value='Сменить'></td>
+     <td><input type=image src='pics/su.gif'></td>
     </tr>
    </tform>
   </admin_users>
