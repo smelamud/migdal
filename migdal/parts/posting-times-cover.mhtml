@@ -41,8 +41,6 @@
  </div>
  <table width=90% class='bottom'><tr>
   <td>
-   <a href='times.php?issue=$posting.Index1' class='read'>Читать</a>
-   &nbsp;
    <isedit what='$posting'>
     <a href="postingedit.php?editid=$posting.Id&up=$times.Id&topic_id=$times.Id&grp=$posting.Grp&redirid=$_"
      >Изменить</a>
