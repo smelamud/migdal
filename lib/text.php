@@ -92,6 +92,12 @@ function replaceHeadings($s)
 return replaceHeading(replaceHeading(replaceHeading($s,2,'='),3,'-'),4,'~');
 }
 
+function cropHTML($s)
+{
+$s=preg_replace('/^(\s|<[pP]>|<[bB][rR]>)*/','',$s);
+return preg_replace('/(\s|<[pP]>|<[bB][rR]>)*$/','',$s);
+}
+
 function textToStotext($format,$s)
 {
 return $format==TF_HTML ? $s : htmlspecialchars($s,ENT_QUOTES);
@@ -139,6 +145,48 @@ switch($format)
 	   $c=flipReplace('=','<i>','</i>',$c);
 	   break;
       }
-return $c;
+return cropHTML($c);
+}
+
+function strpos_all($haystack,$needle,&$found)
+{
+if(is_array($needle))
+  foreach($needle as $s)
+         strpos_all($haystack,$s,$found);
+else
+  {
+  $pos=strpos($haystack,$needle);
+  while($pos!==false)
+       {
+       $found[]=$pos;
+       $pos=strpos($haystack,$needle,$pos+1);
+       }
+  }
+return count($found);
+}
+
+function shorten($s,$len,$mdlen,$pdlen)
+{
+if(strlen($s)<=$len+$pdlen)
+  return $s;
+$st=$len-$mdlen;
+$st=$st<0 ? 0 : $st;
+$c=substr($s,$st,$mdlen+$pdlen);
+$c=preg_replace('/\n\s*\n/',"\n\n",$c);
+$patterns=array("\n\n",
+                array('. ','! ','? '),
+                array(': ',', ','; ',') '));
+foreach($patterns as $pat)
+       {
+       $matches=array();
+       if(!strpos_all($c,$pat,$matches))
+         continue;
+       $bestpos=-1;
+       foreach($matches as $pos)
+              if($bestpos<0 || abs($bestpos-$mdlen)>abs($pos-$mdlen))
+	        $bestpos=$pos;
+       return substr($s,0,$bestpos+$len-$mdlen+2);
+       }
+return substr($s,0,$len);
 }
 ?>

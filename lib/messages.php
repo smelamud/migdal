@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/sendertag.php');
 require_once('lib/tmptexts.php');
 require_once('lib/text.php');
@@ -229,6 +231,25 @@ return $this->stotext->getBody();
 function getHTMLBody()
 {
 return stotextToHTML(TF_MAIL,$this->getBody());
+}
+
+function isBodyMedium()
+{
+global $mediumSize,$mediumSizeMinus,$mediumSizePlus;
+
+return strlen($this->getBody())<=$mediumSize+$mediumSizePlus;
+}
+
+function getBodyMedium()
+{
+global $mediumSize,$mediumSizeMinus,$mediumSizePlus;
+
+return shorten($this->getBody(),$mediumSize,$mediumSizeMinus,$mediumSizePlus);
+}
+
+function getHTMLBodyMedium()
+{
+return stotextToHTML(TF_MAIL,$this->getBodyMedium());
 }
 
 function getLargeFilename()

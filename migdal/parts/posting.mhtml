@@ -2,7 +2,19 @@
 << Based-on: demo/parts/posting.mhtml 1.8 >>
 
 <grps>
-<element name='Posting'>
+<element name='posting_further' params='id'>
+ <asp><a href='forum.php?redir=$_&msgid=$id'><asp>
+  <image src='pics/further.gif' border=0 title='Читать дальше'>
+ <asp></a>&nbsp;<asp>
+</element>
+
+<element name='posting_further_article' params='id'>
+ <asp><a href='article.php?redir=$_&artid=$id'><asp>
+  <image src='pics/further.gif' border=0 title='Читать статью'>
+ <asp></a>&nbsp;<asp>
+</element>
+
+<element name='posting'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <table width=100% class='posting'>
   <tr class='top'><td><table width=100%><tr>
@@ -49,7 +61,17 @@
      </ifne>
     </table>
    </ifnzero>
-   $posting.HTMLBody&nbsp;<asp>
+   <if what='$shorten'>
+    $posting.HTMLBodyMedium&nbsp;<asp>
+    <if what='!$posting.isBodyMedium'>
+     <posting_further id='$posting.Id'>
+    </if>
+   <else>
+    $posting.HTMLBody&nbsp;<asp>
+   </if>
+   <if what='$posting.hasLargeBody'>
+    <posting_further_article id='$posting.Id'>
+   </if>
   </td></tr>
   <if what='$$userId>0 || $discuss || $posting.hasLargeBody'>
    <tr><td><table width=100% class='bottom'><tr>

@@ -59,6 +59,11 @@ $instantViews=3;
 # Корректировка (в часах) отображаемого времени относительно хранимого
 $fixTime=0;
 
+# Параметры сокращения текстов до "среднего" размера
+$mediumSize=1024;
+$mediumSizeMinus=512;
+$mediumSizePlus=512;
+
 # Каталог, в котором находится сайт на Web-сервере
 $siteDir='/home/balu/prog/migdal/demo';
 
