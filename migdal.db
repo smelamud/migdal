@@ -413,6 +413,7 @@ CREATE TABLE users (
   accepts_complains tinyint(4) NOT NULL default '0',
   rebe tinyint(4) NOT NULL default '0',
   shames tinyint(4) NOT NULL default '0',
+  guest tinyint(4) default NULL,
   admin_users tinyint(4) NOT NULL default '0',
   admin_topics tinyint(4) NOT NULL default '0',
   admin_complain_answers tinyint(4) NOT NULL default '0',
