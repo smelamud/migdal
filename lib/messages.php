@@ -9,13 +9,14 @@ class Message
       extends SenderTag
 {
 var $id;
+var $subject;
+var $stotext_id;
 var $body;
+var $image_set;
 var $large_filename;
 var $large_format;
 var $large_body;
 var $large_imageset;
-var $subject;
-var $image_set;
 var $image_id;
 var $has_large_image;
 var $title;
@@ -54,15 +55,47 @@ if(isset($vars['subjectid']))
   $this->subject=tmpTextRestore($vars['subjectid']);
 }
 
+function getWorldStotextVars()
+{
+return array('body','large_filename','large_format','large_body','image_set');
+}
+
+function getAdminStotextVars()
+{
+return array();
+}
+
+function getNormalStotext($isAdmin=false)
+{
+$normal=$this->collectVars($this->getWorldStotextVars());
+if($isAdmin)
+  $normal=array_merge($normal,$this->collectVars($this->getAdminStotextVars()));
+return $normal;
+}
+
+function storeStotext($id='id',$admin='userModerator')
+{
+$normal=$this->getNormalStotext($GLOBALS[$admin]);
+if($this->$id)
+  $result=mysql_query(makeUpdate('stotexts',
+                                 $normal,
+				 array('id' => $this->stotext_id)));
+else
+  {
+  $result=mysql_query(makeInsert('stotexts',$normal));
+  $this->stotext_id=mysql_insert_id();
+  }
+return $result;
+}
+
 function getCorrespondentVars()
 {
-return array('body','large_format','subject','image_set','hidden','disabled');
+return array('body','large_format','image_set','subject','hidden','disabled');
 }
 
 function getWorldVars()
 {
-return array('body','large_filename','large_format','large_body','subject',
-             'image_set','hidden');
+return array('subject','stotext_id','hidden');
 }
 
 function getAdminVars()
@@ -74,6 +107,9 @@ function store($id='id',$admin='userModerator')
 {
 global $userId;
 
+$result=$this->storeStotext($id,$admin);
+if(!$result)
+  return $result;
 $normal=$this->getNormal($GLOBALS[$admin]);
 if($this->$id)
   $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->$id)));
@@ -142,6 +178,11 @@ return $this->id;
 function getSubject()
 {
 return $this->subject;
+}
+
+function getStotextId()
+{
+return $this->stotext_id;
 }
 
 function getBody()

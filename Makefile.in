@@ -21,7 +21,7 @@ install: all
 pack: all
 	tar zchf $(uiName).tar.gz --exclude 'CVS' --exclude '*.mhtml' \
 		--exclude 'Makefile*' --exclude '_template*' \
-		--exclude '.cvsignore' $(uiName)
+		--exclude '.cvsignore' --exclude '.xvpics' $(uiName)
 
 clean:
 	-rm $(OBJECTS)

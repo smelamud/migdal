@@ -111,10 +111,10 @@ $dbh->do('delete
 $dbh->do('update images
           set used=1');
 useImagesFrom('select image_set
-               from messages
+               from stotexts
 	       where image_set<>0');
 useImagesFrom('select large_imageset
-               from messages
+               from stotexts
 	       where large_imageset<>0');
 $dbh->do('delete
           from images

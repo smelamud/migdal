@@ -20,7 +20,7 @@
  <center><h1>Размещение картинки</h1></center>
  <p>
  <posting_obj id='$postid'>
- <zone><message_image_obj id='$,MessageId' par='$par'><setup></zone>
+ <zone><stotext_image_obj id='$,StotextId' par='$par'><setup></zone>
  <form method=post action='actions/liminsert.php'>
   <input type='hidden' name='edittag' value=1>
   <input type='hidden' name='redir' value='$redir'>
@@ -60,20 +60,20 @@
       <table>
        << Disabled due to incorrect behavior of rendering engine TODO
 	<tr>
-	 <td><place value='*IPL_TOPLEFT'></td>
-	 <td></td>
-	 <td><place value='*IPL_TOPRIGHT'></td>
+	 <td align=center><place value='*IPL_TOPLEFT'></td>
+	 <td align=center></td>
+	 <td align=center><place value='*IPL_TOPRIGHT'></td>
 	</tr>
        >>
        <tr>
-	<td><place value='*IPL_CENTERLEFT'></td>
-	<td><place value='*IPL_CENTER'></td>
-	<td><place value='*IPL_CENTERRIGHT'></td>
+	<td align=center><place value='*IPL_CENTERLEFT'></td>
+	<td align=center><place value='*IPL_CENTER'></td>
+	<td align=center><place value='*IPL_CENTERRIGHT'></td>
        </tr>
        <tr>
-	<td><place value='*IPL_BOTTOMLEFT'></td>
-	<td></td>
-	<td><place value='*IPL_BOTTOMRIGHT'></td>
+	<td align=center><place value='*IPL_BOTTOMLEFT'></td>
+	<td align=center><i>Абзац</i></td>
+	<td align=center><place value='*IPL_BOTTOMRIGHT'></td>
        </tr>
       </table>
      </td>

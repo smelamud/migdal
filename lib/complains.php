@@ -213,11 +213,13 @@ $this->LimitSelectIterator(
 
 function getComplainById($id,$ident='normal',$link=0)
 {
-$result=mysql_query("select complains.id as id,body,subject,
+$result=mysql_query("select complains.id as id,stotext_id,body,subject,
                             message_id,type_id,link,display
 		     from complains
 		          left join messages
 			       on messages.id=complains.message_id
+			  left join stotexts
+			       on stotexts.id=messages.stotext_id
 			  left join complain_types
 			       on complains.type_id=complain_types.id
 		     where complains.id=$id")
@@ -245,10 +247,10 @@ return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 
 function getFullComplainById($id,$ident='normal')
 {
-$result=mysql_query("select complains.id as id,body,subject,sender_id,
-                            sent,closed,message_id,type_id,link,display,
-                            users.login as login,users.gender as gender,
-			    users.email as email,
+$result=mysql_query("select complains.id as id,stotext_id,body,subject,
+                            sender_id,sent,closed,message_id,type_id,link,
+			    display,users.login as login,
+			    users.gender as gender,users.email as email,
 			    users.hide_email as hide_email,users.rebe as rebe,
 			    recipient_id,
 			    recs.login as rec_login,recs.gender as rec_gender,
@@ -258,6 +260,8 @@ $result=mysql_query("select complains.id as id,body,subject,sender_id,
 		     from complains
 		          left join messages
 			       on messages.id=complains.message_id
+			  left join stotexts
+			       on stotexts.id=messages.stotext_id
 			  left join users
 			       on messages.sender_id=users.id
 			  left join users as recs

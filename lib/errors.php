@@ -121,4 +121,8 @@ define('ELII_NO_EDIT',251);
 define('ELII_MESSAGE_ABSENT',252);
 define('ELII_IMAGE_ABSENT',253);
 define('ELII_STORE_SQL',254);
+
+define('ELID_OK',260);
+define('ELID_NO_EDIT',261);
+define('ELID_DELETE_SQL',262);
 ?>

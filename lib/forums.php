@@ -91,13 +91,15 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $this->LimitSelectIterator(
        'ForumAnswer',
-	"select forums.id as id,message_id,body,sent,sender_id,
+	"select forums.id as id,message_id,stotext_id,body,sent,sender_id,
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,
 		login,gender,email,hide_email,rebe
 	 from forums
 	      left join messages
 		   on forums.message_id=messages.id
+	      left join stotexts
+	           on stotexts.id=messages.stotext_id
 	      left join users
 		   on messages.sender_id=users.id
 	 where (messages.hidden<$hide or sender_id=$userId) and
@@ -115,11 +117,13 @@ function getForumAnswerById($id,$up=0)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$result=mysql_query("select forums.id as id,body,sender_id,image_set,up,
-                            hidden,disabled
+$result=mysql_query("select forums.id as id,stotext_id,body,sender_id,
+                            image_set,up,hidden,disabled
 		     from forums
 		          left join messages
 			       on forums.message_id=messages.id
+	                  left join stotexts
+	                       on stotexts.id=messages.stotext_id
 		     where forums.id=$id and (hidden<$hide or sender_id=$userId)
 		           and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
@@ -135,7 +139,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select forums.id as id,message_id,body,sent,sender_id,
+	"select forums.id as id,message_id,stotext_id,body,sent,sender_id,
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,
@@ -145,8 +149,10 @@ $result=mysql_query(
 	 from forums
 	      left join messages
 		   on forums.message_id=messages.id
+	      left join stotexts
+	           on stotexts.id=messages.stotext_id
 	      left join images
-		   on messages.image_set=images.image_set
+		   on stotexts.image_set=images.image_set
 	      left join users
 		   on messages.sender_id=users.id
 	 where (messages.hidden<$hide or sender_id=$userId) and

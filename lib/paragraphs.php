@@ -3,7 +3,7 @@
 
 require_once('lib/iterator.php');
 require_once('lib/text.php');
-require_once('lib/message-images.php');
+require_once('lib/stotext-images.php');
 
 class Paragraph
 {

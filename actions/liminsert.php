@@ -6,7 +6,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/postings.php');
 require_once('lib/images.php');
-require_once('lib/message-images.php');
+require_once('lib/stotext-images.php');
 require_once('lib/errors.php');
 
 function modifyMessageImage($posting,$image)
@@ -28,7 +28,7 @@ settype($par,'integer');
 dbOpen();
 session($sessionid);
 $posting=getPostingById($postid);
-$image=getMessageImageByParagraph($posting->getMessageId(),$par);
+$image=getStotextImageByParagraph($posting->getStotextId(),$par);
 $image->setup($HTTP_POST_VARS);
 $err=modifyMessageImage($posting,$image);
 if($err==ELII_OK)

@@ -17,9 +17,14 @@ return mysql_query("delete
 
 function setLargeImageSet($posting,$image_set)
 {
-return mysql_query("update messages
+$result=mysql_query("select stotext_id
+                     from messages
+		     where id=".$posting->getMessageId());
+if(!$result)
+  return $result;
+return mysql_query("update stotexts
                     set large_imageset=$image_set
-		    where id=".$posting->getMessageId());
+		    where id=".mysql_result($result,0,0));
 }
 
 function setImageId($oldId,$newId)
@@ -73,7 +78,7 @@ $err=storeImage($posting);
 $titleId=tmpTextSave($title);
 if($err==ELIM_OK)
   header('Location: /limedit.php?'.makeQuery($HTTP_POST_VARS,
-                                             array('err','title'),
+                                             array('err','title','edittag'),
 					     array('titleid' => $titleId)));
 else
   header('Location: /limedit.php?'.makeQuery($HTTP_POST_VARS,

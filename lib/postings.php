@@ -2,7 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/messages.php');
-require_once('lib/message-images.php');
+require_once('lib/stotext-images.php');
 require_once('lib/selectiterator.php');
 require_once('lib/limitselect.php');
 require_once('lib/grps.php');
@@ -194,8 +194,8 @@ $topicFilter=$topic<0 ? ''
 $grpFilter=getPackedGrpFilter($grp);
 $this->LimitSelectIterator(
        'Message',
-       "select postings.id as id,postings.message_id as message_id,body,
-	       subject,grp,sent,topic_id,sender_id,
+       "select postings.id as id,postings.message_id as message_id,stotext_id,
+               body,subject,grp,sent,topic_id,sender_id,
 	       messages.hidden as hidden,messages.disabled as disabled,
 	       users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
@@ -206,8 +206,10 @@ $this->LimitSelectIterator(
 	from postings
 	     left join messages
 	          on postings.message_id=messages.id
+	     left join stotexts
+	          on stotexts.id=messages.stotext_id
 	     left join images
-		  on messages.image_set=images.image_set
+		  on stotexts.image_set=images.image_set
 	     left join topics
 		  on postings.topic_id=topics.id
 	     left join users
@@ -251,17 +253,17 @@ $this->loadImages($posting);
 function loadImages($posting)
 {
 $this->images=array();
-$result=mysql_query('select message_id,par,image_id,placement,
+$result=mysql_query('select stotext_id,par,image_id,placement,
                             has_large as has_large_image,title
-		     from message_images
+		     from stotext_images
 		          left join images
-			       on images.id=message_images.image_id
-		     where message_id='.$posting->getMessageId());
+			       on images.id=stotext_images.image_id
+		     where stotext_id='.$posting->getStotextId());
 if(!$result)
   die('Ошибка SQL при выборке иллюстраций к постингу');
 while($row=mysql_fetch_assoc($result))
      {
-     $image=new MessageImage($row);
+     $image=new StotextImage($row);
      $this->images[$image->getPar()]=$image;
      }
 }
@@ -281,13 +283,15 @@ function getPostingById($id,$grp=0,$topic=0)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$result=mysql_query("select postings.id as id,message_id,body,large_filename,
-                            large_format,large_body,large_imageset,subject,
-			    topic_id,personal_id,sender_id,grp,image_set,
-			    hidden,disabled
+$result=mysql_query("select postings.id as id,message_id,stotext_id,body,
+                            large_filename,large_format,large_body,
+			    large_imageset,subject,topic_id,personal_id,
+			    sender_id,grp,image_set,hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
+	                  left join stotexts
+	                       on stotexts.id=messages.stotext_id
 		     where postings.id=$id
 		           and (hidden<$hide or sender_id=$userId)
 			   and (disabled<$hide or sender_id=$userId)")
@@ -305,9 +309,9 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select postings.id as id,postings.message_id as message_id,body,
-	        large_format,large_body,subject,grp,sent,topic_id,sender_id,
-	        messages.hidden as hidden,disabled,
+	"select postings.id as id,postings.message_id as message_id,stotext_id,
+	        body,large_format,large_body,subject,grp,sent,topic_id,
+		sender_id,messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,topics.name as topic_name,
 		images.has_large as has_large_image,images.title as title,
@@ -316,8 +320,10 @@ $result=mysql_query(
 	 from postings
 	      left join messages
 	           on postings.message_id=messages.id
+	      left join stotexts
+	           on stotexts.id=messages.stotext_id
 	      left join images
-		   on messages.image_set=images.image_set
+		   on stotexts.image_set=images.image_set
 	      left join topics
 		   on postings.topic_id=topics.id
 	      left join users

@@ -14,7 +14,7 @@
 </macro>
 
 <macro name='image_placements'>
- <require name='lib/message-images.php'>
+ <require name='lib/stotext-images.php'>
 </macro>
 
 <macro name='text_formats'>
@@ -185,9 +185,9 @@
  <call name='%name' func='getMenuItemById' arg1='%id'>
 </macro>
 
-<macro name='message_image_obj' defaults='name=image'>
- <require name='lib/message-images.php'>
- <call name='%name' func='getMessageImageByParagraph' arg1='%id' arg2='%par'>
+<macro name='stotext_image_obj' defaults='name=image'>
+ <require name='lib/stotext-images.php'>
+ <call name='%name' func='getStotextImageByParagraph' arg1='%id' arg2='%par'>
 </macro>
 
 <macro name='posting_obj' defaults='name=message grp=0 topic=0'>

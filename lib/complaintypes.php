@@ -41,7 +41,7 @@ return $this->display;
 
 function getComplainTypeById($id)
 {
-$result=mysql_query('select id,assign
+$result=mysql_query('select id,assign,display
                      from complain_types
 		     where '.byIdent($id))
 	     or die('Ошибка SQL при выборке типа жалобы');

@@ -174,39 +174,20 @@ CREATE TABLE menu (
 ) TYPE=MyISAM;
 
 #
-# Table structure for table 'message_images'
-#
-
-CREATE TABLE message_images (
-  message_id int(11) NOT NULL default '0',
-  par int(11) NOT NULL default '0',
-  image_id int(11) NOT NULL default '0',
-  placement tinyint(4) NOT NULL default '0',
-  KEY message_id (message_id),
-  KEY image_id (image_id)
-) TYPE=MyISAM;
-
-#
 # Table structure for table 'messages'
 #
 
 CREATE TABLE messages (
   id int(11) NOT NULL auto_increment,
-  body text NOT NULL,
-  large_filename varchar(70) NOT NULL default '',
-  large_format tinyint(4) NOT NULL default '0',
-  large_body mediumtext NOT NULL,
-  large_imageset int(11) NOT NULL default '0',
   subject varchar(250) NOT NULL default '',
+  stotext_id int(11) NOT NULL default '0',
   sender_id int(11) NOT NULL default '0',
-  image_set int(11) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
   disabled tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id),
   KEY sender_id (sender_id),
-  KEY image_set (image_set),
-  KEY large_imageset (large_imageset)
+  KEY stotext_id (stotext_id)
 ) TYPE=MyISAM;
 
 #
@@ -248,6 +229,36 @@ CREATE TABLE sessions (
 
 CREATE TABLE statistics (
   logins int(11) NOT NULL default '0'
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'stotext_images'
+#
+
+CREATE TABLE stotext_images (
+  stotext_id int(11) NOT NULL default '0',
+  par int(11) NOT NULL default '0',
+  image_id int(11) NOT NULL default '0',
+  placement tinyint(4) NOT NULL default '0',
+  KEY stotext_id (stotext_id),
+  KEY image_id (image_id)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'stotexts'
+#
+
+CREATE TABLE stotexts (
+  id int(11) NOT NULL auto_increment,
+  body text NOT NULL,
+  image_set int(11) NOT NULL default '0',
+  large_filename varchar(70) NOT NULL default '',
+  large_format tinyint(4) NOT NULL default '0',
+  large_body mediumtext NOT NULL,
+  large_imageset int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY image_set (image_set),
+  KEY large_imageset (large_imageset)
 ) TYPE=MyISAM;
 
 #

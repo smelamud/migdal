@@ -19,7 +19,8 @@
     <if what='$editid==$.Id'>
      <a href='$[err edittag editid=$.Id]'><b>$.Filename</b></a>
      &nbsp;
-     <a href='/actions/limdel.php?id=$.Id&redir=$_'>[Удалить]</a>
+     <a href='/actions/limdel.php?postid=$postid&editid=$.Id&redir=$_'
+        >[Удалить]</a>
     <else>
      <a href='$[err edittag editid=$.Id]'>$.Filename</a>
     </if>
@@ -43,8 +44,12 @@
     <table>
      <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'
             span=2>
+     <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'
+            span=2>
      <error id='*ELIM_DELETE_SQL' color=magenta span=2
             text='Ошибка при удалении старого изображения'>
+     <error id='*ELID_DELETE_SQL' color=magenta span=2
+            text='Ошибка при удалении изображения'>
      <error id='*ELIM_IMAGE_ABSENT' text='Такого изображения не существует'
             span=2>
      <error id='*ELIM_SET_SQL' text='Ошибка при установке набора изображений'

@@ -22,17 +22,17 @@ define('IPL_BOTTOMLEFT',IPL_BOTTOM|IPL_LEFT);
 define('IPL_BOTTOMCENTER',IPL_BOTTOM|IPL_HCENTER);
 define('IPL_BOTTOMRIGHT',IPL_BOTTOM|IPL_RIGHT);
 
-class MessageImage
+class StotextImage
       extends DataObject
 {
-var $message_id;
+var $stotext_id;
 var $par;
 var $image_id;
 var $has_large_image;
 var $title;
 var $placement;
 
-function MessageImage($row)
+function StotextImage($row)
 {
 $this->placement=IPL_CENTER;
 $this->DataObject($row);
@@ -53,7 +53,7 @@ return array('par','image_id','placement');
 
 function getWorldVars()
 {
-return array('message_id','par','image_id','placement');
+return array('stotext_id','par','image_id','placement');
 }
 
 function getAdminVars()
@@ -63,18 +63,18 @@ return array();
 
 function store()
 {
-$result=mysql_query('delete from message_images
-                     where message_id='.$this->message_id.
+$result=mysql_query('delete from stotext_images
+                     where stotext_id='.$this->stotext_id.
 		   ' and par='.$this->par);
 if(!$result || $this->image_id==0)
   return $result;
 $normal=$this->getNormal();
-return mysql_query(makeInsert('message_images',$normal));
+return mysql_query(makeInsert('stotext_images',$normal));
 }
 
-function getMessageId()
+function getStotextId()
 {
-return $this->message_id;
+return $this->stotext_id;
 }
 
 function getPar()
@@ -109,14 +109,14 @@ return stotextToHTML(TF_MAIL,$this->title);
 
 }
 
-function getMessageImageByParagraph($msgid,$par)
+function getStotextImageByParagraph($textid,$par)
 {
-$result=mysql_query("select message_id,par,image_id,placement
-                     from message_images
-                     where message_id=$msgid and par=$par");
-return new MessageImage(mysql_num_rows($result)>0
+$result=mysql_query("select stotext_id,par,image_id,placement
+                     from stotext_images
+                     where stotext_id=$textid and par=$par");
+return new StotextImage(mysql_num_rows($result)>0
                         ? mysql_fetch_assoc($result)
-                        : array('message_id' => $msgid,
+                        : array('stotext_id' => $textid,
 			        'par'        => $par));
 }
 ?>
