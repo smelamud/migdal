@@ -34,7 +34,7 @@
      <div class='author'>$,HTMLAuthor</div>
     </ifne>
    </h1>
-   <article posting='$,'>
+   <article posting='$,' withvote='*false'>
    <book_ring book='$book' index='$,Index0'>
    <article_controls posting='$,'>
   </td>
