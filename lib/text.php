@@ -15,7 +15,7 @@ function is_delim($c)
 return c_cntrl($c) || c_space($c) || c_punct($c);
 }
 
-function flipReplace($foo,$bar,$_bar,$s)
+function flipReplace($foo,$bar,$_bar,$s,$delim=true)
 {
 $c='';
 $tag=0;
@@ -27,7 +27,7 @@ for($n=0;$n<strlen($s);$n++)
    if($s[$n]=='>')
      $intag--;
    if(!$intag && !$tag && $s[$n]==$foo
-      && ($n==0 || is_delim($s[$n-1]) && $s[$n-1]!='&'))
+      && ($n==0 || (!$delim || is_delim($s[$n-1])) && $s[$n-1]!='&'))
                                          # &#entity; combinations are
 					 # not replaced
      {
@@ -35,7 +35,7 @@ for($n=0;$n<strlen($s);$n++)
      $tag=1;
      }
    elseif(!$intag && $tag && $s[$n]==$foo
-          && ($n==strlen($s) || is_delim($s[$n+1])))
+          && ($n==strlen($s) || (!$delim || is_delim($s[$n+1]))))
      {
      $c.=$_bar;
      $tag=0;
@@ -190,7 +190,7 @@ switch($format)
  	   $c=flipReplace('_','<u>','</u>',$c);
  	   $c=flipReplace('~','<b>','</b>',$c);
  	   $c=flipReplace('=','<i>','</i>',$c);
- 	   $c=flipReplace('^','<sup>','</sup>',$c);
+ 	   $c=flipReplace('^','<sup>','</sup>',$c,false);
  	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_TEX:
@@ -203,7 +203,7 @@ switch($format)
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   $c=flipReplace('=','<i>','</i>',$c);
- 	   $c=flipReplace('^','<sup>','</sup>',$c);
+ 	   $c=flipReplace('^','<sup>','</sup>',$c,false);
 	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_HTML:
@@ -214,7 +214,7 @@ switch($format)
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   $c=flipReplace('=','<i>','</i>',$c);
- 	   $c=flipReplace('^','<sup>','</sup>',$c);
+ 	   $c=flipReplace('^','<sup>','</sup>',$c,false);
 	   break;
       }
 return cropHTML($c);
