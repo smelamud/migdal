@@ -76,6 +76,7 @@
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='ioc_logo' file='parts/ioc.php'>
+<decel name='ioc_text' file='parts/ioc.php'>
 <decel name='jewishru' file='parts/jewishru.php'>
 <decel name='kaitana_announce' file='parts/kaitana-announce.php'>
 <decel name='kaitana_picture' file='parts/kaitana-picture.php'
