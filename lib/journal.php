@@ -61,8 +61,8 @@ function journalVar($table,$id)
 {
 global $replicationMaster;
 
-//if($replicationMaster)
-//  return $id;
+if($replicationMaster)
+  return $id;
 if($id==0)
   return 0;
 $result=mysql_query("select result_var
