@@ -22,7 +22,7 @@
                      sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
  <center><h2>$title</h2></center>
- <if what='$g.ValidItem'><logged>
+ <if what='$g.Valid'><logged>
   <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
    >Добавить $g.ItemTitle</a>
  </logged></if>

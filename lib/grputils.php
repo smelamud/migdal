@@ -1,5 +1,6 @@
 <?php
 require_once('lib/grps.php');
+require_once('lib/utils.php');
 
 $grpTitles=array(GRP_FORUMS   => 'Форумы',
                  GRP_NEWS     => 'Новости',
@@ -66,6 +67,11 @@ function getValid()
 return getGrpValid($this->grp);
 }
 
+function getGrp()
+{
+return $this->grp;
+}
+
 function getEffective()
 {
 return $this->ignore ? GRP_ALL : $this->grp;
@@ -79,11 +85,6 @@ return $this->ignore ? 1 : 0;
 function getInvIgnore()
 {
 return $this->ignore ? 0 : 1;
-}
-
-function getName()
-{
-return getGrpName($this->grp);
 }
 
 function getTitle()
