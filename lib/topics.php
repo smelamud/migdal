@@ -308,15 +308,16 @@ return ($this->getPosition() % $this->cols)==$this->cols-1;
 class TopicNamesIterator
       extends TopicIterator
 {
-
 var $names;
+var $up;
 
-function TopicNamesIterator($grp)
+function TopicNamesIterator($grp,$up=-1)
 {
+$this->up=$up;
 $this->TopicIterator('select id,track,name
 		      from topics'.
-		      $this->getWhere($grp,-1).
-		     'order by track,name');
+		      $this->getWhere($grp,$up).
+		     'order by track');
 }
 
 function create($row)
@@ -324,13 +325,34 @@ function create($row)
 $this->names[(int)$row['id']]=$row['name'];
 $n=strtok($row['track'],' ');
 $nm=array();
+$up=$this->up;
 while($n)
      {
-     $nm[]=$this->names[(int)$n];
+     if($up<0)
+       $nm[]=$this->names[(int)$n];
+     if((int)$n==$up)
+       $up=-1;
      $n=strtok(' ');
      }
 $row['full_name']=join(' :: ',$nm);
 return TopicIterator::create($row);
+}
+
+}
+
+class SortedTopicNamesIterator
+      extends ArrayIterator
+{
+
+function SortedTopicNamesIterator($grp,$up=-1)
+{
+$iterator=new TopicNamesIterator($grp,$up);
+$topics=array();
+while($item=$iterator->next())
+     $topics[$item->getFullName()]=$item;
+setlocale('LC_COLLATE','ru_RU.KOI8-R');
+uksort($topics,'strcoll');
+$this->ArrayIterator($topics);
 }
 
 }

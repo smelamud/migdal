@@ -19,15 +19,15 @@
 </macro>
 
 <element name='topics'>
-<topic_obj id='$topic_id'>
 <iterate_topiclist grp='$grp' withpostings='$withpostings'
                    withanswers='$withanswers'>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='ninept topics' width=100%>
   <col width=0*>
   <admin_topics>
-   <tr class='controls'><td colspan=2>
-    <a href='topicedit.php?redirid=$_'>Добавить</a>
+   <tr><td colspan=2>
+    <a href='topicedit.php?redirid=$_' class='edit'>Добавить</a>
+    <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
    </td></tr>
   </admin_topics>
   <tbody class='names'>
@@ -39,7 +39,7 @@
     <tr>
      <arrow id='$.Id' time='$.LastMessage'>
      <td>
-      <a href='$file?topic_id=$.Id' title='$.Description'>
+      <a href='$file?topic_id=$.Id' title='$.Description' class='item'>
 	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
       <admin_topics>
        <br>

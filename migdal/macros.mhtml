@@ -88,7 +88,8 @@
        params='grp,topic_id,withpostings,withanswers,file'
        defaults="grp='*GRP_TAPE' topic_id=0 withpostings='*false' withanswers='*false' file='index.php'">
 <decel name='topicselect' file='parts/topicselect.php'
-       params='name,value,grp,mandatory' defaults="mandatory='*false'">
+       params='name,value,grp,mandatory,title,up'
+       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' up='-1'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
 <decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'

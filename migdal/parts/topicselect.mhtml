@@ -2,11 +2,11 @@
 
 <element name='topicselect'>
 <tr>
- <td>Тема <if what='$mandatory'><star></if></td>
+ <td>$title <if what='$mandatory'><star></if></td>
  <td>
   <select name='$name'>
    <radio title='-- Без темы --' value=0 peervalue='$value'>
-   <iterate_topicnames grp='$grp'>
+   <iterate_sortedtopicnames grp='$grp' up='$up'>
    <for>
     <radio title='$.FullName' value='$.Id' peervalue='$value'>
    </for>

@@ -82,12 +82,14 @@
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
 <deciter macro='sortarray' class='SortedArrayIterator' file='lib/array.php'
          params='values' defaults="values='$*'">
+<deciter macro='sortedtopicnames' class='SortedTopicNamesIterator'
+         file='lib/topics.php' params='grp,up' defaults="up='-1'">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
          params='grp,up,withpostings,withanswers,cols'
          defaults="up=0 withpostings='*false' withanswers='*false' cols=5">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
-         params='grp'>
+         params='grp,up' defaults="up='-1'">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'>
 
 << Calls >>

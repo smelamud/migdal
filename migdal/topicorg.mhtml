@@ -1,0 +1,34 @@
+<< @(#) $Id$ >>
+
+<pagetitle title='Организатор тем'>
+
+<element name='branch' params='up'>
+ <iterate_topiclist grp='*GRP_ALL' up='$up'>
+ <admin_topics>
+  <a href='topicedit.php?redirid=$_&up=$up' class='edit'>Добавить</a>
+ </admin_topics>
+ <ifnzero what='$;Count'>
+  <ul class='names'>
+   <for>
+    <admin_topics>
+     <li><a href='topicedit.php?editid=$.Id&redirid=$_'
+	    title='$.Description' class='item'>$.Name</a>
+    <else>
+     <li>$.Name
+    </admin_topics>
+    <branch up='$.Id'>
+   </for>
+  </ul>
+ </ifnzero>
+</element>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <div class='ninept topics'>
+  <branch up=0>
+ </div>
+ <bottom>
+</body>
+</html>
