@@ -6,6 +6,13 @@ require_once('lib/database.php');
 require_once('lib/users.php');
 
 require_once('top.php');
+
+function condEdit($edit,$value,$name,$size,$length)
+{
+return !$edit ? $value : "<input type=text name='$name' value='$value'
+                          size=$size maxlength=$length>";
+}
+
 ?>
 <html>
 <head>
@@ -27,9 +34,7 @@ require_once('top.php');
     <td>Ник:</td>
     <td>
     <?php
-    echo !$user->isEditable() ? $user->getLogin() 
-                              : '<input type=text name="login" value="'.
-	 		         $user->getLogin().'" size=30 maxlength=30>';
+    echo condEdit($user->isEditable(),$user->getLogin(),'login',30,30);
     ?>
     </td>
    </tr>
