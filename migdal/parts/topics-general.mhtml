@@ -48,9 +48,6 @@
    <topics_veterans id='$posting.SenderId'>
    <topics_major posting='$posting'>
   </if>
- <elif what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
-  <topics_migdal posting='$posting'>
-  <topics_major ident='migdal' posting='$posting'>
  </if>>
 <elif what="$ident=='help-subs' || $ident=='help-types'">
  <upper_level href='index.php' title='На главную страницу'>

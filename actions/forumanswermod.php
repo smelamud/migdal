@@ -11,6 +11,7 @@ require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/forums.php');
+require_once('lib/postings.php');
 require_once('lib/messages.php');
 require_once('lib/permissions.php');
 require_once('lib/image-upload.php');
