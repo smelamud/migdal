@@ -14,9 +14,7 @@
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
    <posting_new topic_id='$`kaitana`'>
-   <topics_kaitanot>
-   <topics_migdal posting='$,'>
-   <topics_major ident='migdal' posting='$,'>
+   <topics posting='$,'>
   </zone></td>
   <td class='cframe'>
    <subtitle>
