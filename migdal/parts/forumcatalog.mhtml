@@ -21,11 +21,11 @@
  </td></tr></table></td>
  <td align=right><table><tr valign=center>
   <form method=get action='$~'>
-   <hiddenget remove='mp'>
+   <hiddenget remove='fcp'>
    <td><input type=submit value='Показывать'></td>
    <td>по</td>
    <td>
-    <select_portion name='mp' value='$value' vals='10 15 20 25 30 35 40'>
+    <select_portion name='fcp' value='$value' vals='10 15 20 25 30 35 40'>
    </td>
    <td>из&nbsp;$list.Size&nbsp;<asp><ofmessages value='$list.Size'></td>
   </form>
