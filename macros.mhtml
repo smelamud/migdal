@@ -54,7 +54,7 @@
  <require name='lib/topics.php'>
  <call name='%name' func='getTopicNameById' arg1='%id'>
 </macro>
-<macro name='message' defaults='name=message grp=0 topic=0'>
+<macro name='message_obj' defaults='name=message grp=0 topic=0'>
  <require name='lib/messages.php'>
  <call name='%name' func='getMessageById' arg1='%id' arg2='%grp' arg3='%topic'>
 </macro>
@@ -159,9 +159,7 @@
 <macro name='editor_line' defaults='span=0'>
  <tr><tdspan span=%span>%title</tdspan></tr>
  <tr><tdspan span=%span>
-  <textarea name='%name' rows=10 cols=50 wrap='virtual'>
-   %body
-  </textarea>
+  <textarea name='%name' rows=10 cols=50 wrap='virtual'>%body</textarea>
  </tdspan></tr>
 </macro>
 <macro name='checkbox' defaults='value=0'>

@@ -10,7 +10,7 @@
 <body bgcolor=white>
  <top ident='$ident'>
  <p>
- <message id='$editid' grp='$grp' topic='$topic_id'>
+ <message_obj id='$editid' grp='$grp' topic='$topic_id'>
  <ifzero what='$message.Id'>
   <setup var='UpValue' value='$up'>
  </ifzero>

@@ -92,7 +92,7 @@ my $result=$Stack->top()->getResult();
 return $st.constructRemake($1).$ed
        if $s=~/^\$\[([^\]]*)\]$/;
 return "${st}urlencode(".constructRemake($1).")$ed"
-       if $s=~/^\$%\[([^\]]*)\]$/;
+       if $s=~/^\$#\[([^\]]*)\]$/;
 return "$st$1$ed"
        if $s=~/^\*(\w+)$/;
 return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
@@ -108,7 +108,7 @@ return "$st\$$1$ed"
 return "$st\$".getGlobal($1).$ed
        if $s=~/^\$\$(\w+)$/;
 return "${st}urlencode(\$$1)$ed"
-       if $s=~/^\$%(\w+)$/;
+       if $s=~/^\$#(\w+)$/;
 return "$st\$$item->".getGetName($1)."()$ed"
        if $s=~/^\$\.(\w+)$/;
 return "$st\$$result->".getGetName($1)."()$ed"
@@ -116,11 +116,11 @@ return "$st\$$result->".getGetName($1)."()$ed"
 return "$st\$$1->".getGetName($2)."()$ed"
        if $s=~/^\$(\w+)[\.,](\w+)$/;
 return "${st}urlencode(\$$item->".getGetName($1)."())$ed"
-       if $s=~/^\$%\.(\w+)$/;
+       if $s=~/^\$#\.(\w+)$/;
 return "${st}urlencode(\$$result->".getGetName($1)."())$ed"
-       if $s=~/^\$%,(\w+)$/;
+       if $s=~/^\$#,(\w+)$/;
 return "${st}urlencode(\$$1->".getGetName($2)."())$ed"
-       if $s=~/^\$%(\w+)[\.,](\w+)$/;
+       if $s=~/^\$#(\w+)[\.,](\w+)$/;
 return "'$st$s$ed'";
 }
 
@@ -132,7 +132,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;]))|(?:\*\w+))?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[#\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;]))|(?:\*\w+))?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      }

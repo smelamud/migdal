@@ -3,12 +3,10 @@
 <element name='Menu'>
 <iterate_menu ident='$ident'>
 <for>
- <a href='$.Link()'>
-  <if what='$.isCurrent'>
-   <b>[$.Name]</b>
-  <else>
-   [$.Name]
-  </if>
- </a>
+ <if what='$.isCurrent'>
+  <a href='$.Link'><b>[$.Name]</b></a>
+ <else>
+  <a href='$.Link'>[$.Name]</a>
+ </if>
 </for>
 </element>
