@@ -11,7 +11,7 @@
    <td>
     <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_LINKS&redirid=$_'
        >Добавить ссылку</a><asp>
-    <if what='$topic_id==$`links`'>
+    <if what='$topic_id==$`links` && $$userId>0'>
      <asp>, <a href='postingedit.php?topic_id=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
 	       >новость</a>
     </if>
