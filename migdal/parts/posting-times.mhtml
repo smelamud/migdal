@@ -13,7 +13,6 @@
 </ifzero>
 <dl class='posting'>
  <dt class='subject'>
-  <biff time='$posting.Sent'>
   <if what='$showtopic'>
    <a href='times.php?issue=$posting.Index1' class='topic'
       title='$posting.TopicDescription'>
