@@ -44,7 +44,7 @@
 
 <element name='ForumCatalog'>
 <grps>
-<iterate_postinglist grp='*GRP_ALL' topic='$topic' limit='$limit'
+<iterate_postinglist grp='*GRP_DISCUSS' topic='$topic' limit='$limit'
                      offset='$offset' sort='*SORT_ACTIVITY'
 		     withanswers='*true'>
 <if what='$$userId>0 || $;Count!=0'>

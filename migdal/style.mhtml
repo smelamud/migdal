@@ -5,7 +5,7 @@
  <title>Демо - Настройка вида</title>
 </head>
 <body>
- <top ident='index' image='pics/index.gif'>
+ <top ident='style' image='pics/style.gif'>
  <p>
  <formtable title='Настройка вида'>
  <form method=post action='actions/style.php'>

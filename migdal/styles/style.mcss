@@ -34,6 +34,7 @@ bottom=%gr
 state_date_back=%bl
 state_date=%vm
 state_style=%vm
+state_style_active=yellow
 state_style_hover=white
 register_hover=blue
 login_border=blue
@@ -253,6 +254,10 @@ BODY {
 	font-size: 10pt;
 	color: %state_style;
 	text-decoration: underline;
+}
+
+.state .style A.active {
+	color: %state_style_active;
 }
 
 .state .style A:hover {
@@ -871,7 +876,7 @@ BODY {
 	border-top: 2px solid %form_buttons_ruler;
 }
 
-.form .buttons INPUT {
+.form .buttons INPUT,.form .buttons-nosplit INPUT {
 	background-color: %form_buttons_back;
 	color: %form_buttons;
 }

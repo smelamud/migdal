@@ -7,6 +7,7 @@ define('GRP_GALLERY',4);
 define('GRP_EVENTS',7);
 define('GRP_ARTICLES',8);
 define('GRP_TAPE',11);
+define('GRP_DISCUSS',11);
 define('GRP_ALL',15);
 
 $grpClassNames=array(GRP_FORUMS   => 'Forum',

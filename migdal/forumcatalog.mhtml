@@ -12,7 +12,7 @@
  <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
-  <grp grp='*GRP_ALL' ignore='$ignoregrp'>
+  <grp grp='*GRP_DISCUSS' ignore='$ignoregrp'>
   <td width=20%><topics g='$g' topic_id='$topic_id' title='Разделы'
                         withpostings='*true' withanswers='*true'></td>
   <td width=20>&nbsp;</td>
