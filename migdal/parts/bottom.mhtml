@@ -17,7 +17,7 @@
 $fd=fopen('sources/current','r');
 if($fd)
   {
-  $date=fgets($fd);
+  $date=trim(fgets($fd));
   fclose($fd);
   }
 else
