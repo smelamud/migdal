@@ -52,6 +52,25 @@
 </topics_table>
 </element>
 
+<element name='topics_mazltov' params='posting'>
+<topics_table title='Мазл Тов'>
+ <posting_obj id='$`postings:mazltov`'>
+ <topics_line time='$,Sent' text='О программе'
+              href#='migdal.php?artid=$`postings:mazltov`'
+              arrow!='$posting.Id==$`postings:mazltov`' class='item ninept'>
+ <posting_last grp='*GRP_NEWS' topic_id='$`mazltov-news`' recursive='*false'>
+ <topics_line time='$,' text='Новости'
+              href#='migdal-news.php?topic_id=$`mazltov-news`'
+              arrow!='$posting.Grp==*GRP_NEWS &&
+	              $posting.TopicId==$`mazltov-news`'
+	      class='item ninept'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*false'>
+ <topics_line time='$,' text='Галерея' href#='gallery.php?topic_id=$`mazltov`'
+              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`mazltov`'
+	      class='item ninept'>
+</topics_table>
+</element>
+
 <element name='topics_methodics' params='posting'>
 <topics_table title='Методический центр'>
  <posting_obj id='$`postings:methodic-center`'>
@@ -85,9 +104,9 @@
 <if what='$/$posting.TopicId,1/==$`jcc`'>
  <topics_jcc posting='$posting'>
 </if>
-<if what='$/$posting.TopicId,1/==$`mazltov`'>
- <topics_chapters posting='$posting' title='Мазл Тов' id='$`mazltov`'
-                  rtitle='О программе' rid='$`postings:mazltov`'>
+<if what='$/$posting.TopicId,1/==$`mazltov` ||
+          $/$posting.TopicId,2/==$`mazltov-news`'>
+ <topics_mazltov posting='$posting'>
 </if>
 <if what='$/$posting.TopicId,1/==$`methodics`'>
  <topics_methodics posting='$posting'>
@@ -109,14 +128,13 @@
  </ispost>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
                       topic_id='$,Id' recursive='*false'>
- <posting_last topic_id='$`migdal-news`' recursive='*true'>
- <topics_line time='$,' href#='migdal-news.php'
-              text='Новости &lt;&lt;Мигдаля&gt;&gt;'
-              arrow!="$/$posting.TopicId,1/==$`migdal-news`" span=2
-	      class='item ninept'>
  <posting_obj id='$`postings:migdal`'>
  <topics_line time='$,Sent' text='$,Subject' href#='migdal.php'
               arrow!='$,Id==$posting.Id' indent=0 span=2 class='item ninept'>
+ <posting_last topic_id='$`migdal-news`' recursive='*true'>
+ <topics_line time='$,' href#='migdal-news.php' text='Новости'
+              arrow!="$posting.TopicId==$`migdal-news`" indent=1
+	      class='item eightpt'>
  <posting_last topic_id='$`jcc`' recursive='*true'>
  <topics_line time='$,' href#='jcc.php' text='Общинный центр (JCC)'
               title='Живопись, музыка, танцы, программы для всех возрастов'
@@ -135,7 +153,8 @@
  <posting_last topic_id='$`mazltov`' recursive='*true'>
  <topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`'
               text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
-              arrow!="$/$posting.TopicId,1/==$`mazltov`" indent=1
+              arrow!="$/$posting.TopicId,1/==$`mazltov` ||
+                      $/$posting.TopicId,2/==$`mazltov-news`" indent=1
 	      class='item eightpt'>
  <posting_last topic_id='$`methodics`' recursive='*true'>
  <topics_line time='$,' text='Методический центр'

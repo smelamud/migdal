@@ -506,7 +506,8 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
 
 function getTopicById($id,$up)
 {
-global $userId,$userModerator;
+global $userId,$userLogin,$userModerator,$defaultPremoderate,
+       $rootTopicGroupName,$rootTopicPerms;
 
 $mhide=$userModerator ? 2 : 1;
 $hide=topicsPermFilter(PERM_READ,'topics');
@@ -551,9 +552,26 @@ if(mysql_num_rows($result)>0)
   return new Topic($row); 
   }
 else
-  return new Topic(array('up'          => idByIdent('topics',$up),
-		         'allow'       => getAllowByTopicId($up),
-                         'premoderate' => getPremoderateByTopicId($up)));
+  if($up>0)
+    {
+    $topic=getTopicById($up,0);
+    return new Topic(array('up'          => $topic->getId(),
+			   'allow'       => $topic->getAllow(),
+			   'premoderate' => $topic->getPremoderate(),
+			   'user_id'     => $userId,
+			   'login'       => $userLogin,
+			   'group_id'    => $topic->getGroupId(),
+			   'group_login' => $topic->getGroupLogin(),
+			   'perms'       => $topic->getPerms()));
+    }
+  else
+    return new Topic(array('allow'       => GRP_ALL,
+			   'premoderate' => $defaultPremoderate,
+			   'user_id'     => $userId,
+			   'login'       => $userLogin,
+			   'group_id'    => getUserIdByLogin($rootTopicGroupName),
+			   'group_login' => $rootTopicGroupName,
+			   'perms'       => $rootTopicPerms));
 }
 
 function getTopicNameById($id)

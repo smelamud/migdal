@@ -1,10 +1,21 @@
 << @(#) $Id$ >>
 
+<ident name='topic_id' table='topics'>
 <int name='offset'>
+<ifzero what='$topic_id'>
+ <assign name='topic_id' value='$`migdal-news`'>
+</ifzero>
 
-<log event=index text#='topic($`migdal-news`) offset=$offset'>
+<log event=index text#='topic($topic_id) offset=$offset'>
 <grps>
-<unititle topic_id='$`migdal-news`'>
+<topic_obj id='$`migdal-news`'>
+<assign name='title' value='$,Name'>
+<if what='$topic_id!=$`migdal-news`'>
+ <topic_obj id='$topic_id'>
+ <assign name='title' value#='$title :: $,Name'>
+</if>
+<pagetitle title='$title'>
+<topictitle title='$title'>
 
 <html>
 <preamble>
@@ -13,16 +24,14 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
-    <posting_new topic_id='$`migdal-news`' grp='*GRP_NEWS'>
-    <topics_migdal posting='$,'>
-    <topics_major ident='migdal'>
+    <posting_new topic_id='$topic_id' grp='*GRP_NEWS'>
+    <topics posting='$,'>
    </td>
    <td class='cframe'>
     <subtitle>
-    <seealso_links topic_id='$`migdal-news`'
-		   title='См. также в разделе ссылок'>
-    <postings grp='*GRP_TAPE' topic_id='$`migdal-news`' limit='$userMsgPortion'
-	      offset='$offset'>
+    <seealso_links topic_id='$topic_id' title='См. также в разделе ссылок'>
+    <postings grp='*GRP_TAPE' topic_id='$topic_id' limit='$userMsgPortion'
+	      offset='$offset' recursive!='$topic_id==$`migdal-news`'>
    </td>
   </tr>
  </table>

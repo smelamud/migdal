@@ -16,7 +16,8 @@ require_once('lib/users.php');
 
 function modifyTopic($topic,$original)
 {
-global $userLogin,$topicMandatoryDescription;
+global $userLogin,$topicMandatoryDescription,$rootTopicUserName,
+       $rootTopicGroupName,$rootTopicPerms;
 
 if($original->getId()!=0 && !$original->isWritable())
   return ET_NO_EDIT;
@@ -47,9 +48,13 @@ if($topic->up!=0)
   if($topic->up==$topic->id)
     return ET_LOOP_UP;
   $upPerms=getPermsById('topics',$topic->up);
-  if(!$upPerms->isAppendable())
-    return ET_NO_APPEND;
   }
+else
+  $upPerms=new Topic(array('user_id'  => getUserIdByLogin($rootTopicUserName),
+                           'group_id' => getUserIdByLogin($rootTopicGroupName),
+                           'perms'    => $rootTopicPerms));
+if(!$upPerms->isAppendable())
+  return ET_NO_APPEND;
 $cid=idByIdent('topics',$topic->ident);
 if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;

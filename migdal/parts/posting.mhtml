@@ -62,7 +62,12 @@
   <at href='links.php' class='$class' title='$,Description'>$,Name</at>
  <else><if what='$/$posting.TopicId,1/==$`migdal-news`'>
   <topic_obj id='$`migdal-news`'>
-  <at href='migdal-news.php' class='$class' title='$,Description'>$,Name</at>
+  <if what='$posting.TopicId==$`migdal-news`'>
+   <at href='migdal-news.php' class='$class' title='$,Description'>$,Name</at>
+  <else>
+   <at href#='migdal-news.php?topic_id=$posting.TopicId' class='$class'
+       title='$posting.TopicDescription'>$,Name :: $posting.TopicName</at>
+  </if>
  <else>
   <at href#='index.php?topic_id=$posting.TopicId' class='$class'
       title='$posting.TopicDescription'>$posting.TopicName</at>

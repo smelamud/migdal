@@ -133,10 +133,10 @@
                  shorten='*false'">
 <decel name='postings' file='parts/postings.php'
        params='grp,topic_id,limit,offset,subdomain,user_id,showadvert,
-               showshadows,sort,public'
+               showshadows,sort,recursive'
        defaults="topic_id=-1 limit=10 offset=0 subdomain=-1 user_id=0
                  showadvert='*true' showshadows='*true' sort='*SORT_PSENT'
-		 public='*true'">
+		 recursive='*false'">
 <decel name='postings_links' file='parts/postings-links.php'
        params='topic_id,limit,offset'
        defaults="topic_id=-1 limit=10 offset=0">

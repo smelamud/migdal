@@ -180,6 +180,11 @@ $defaultThumbnail='../migdal/pics/click_here.jpg';
 # Каталог для временных файлов
 $tmpDir='/tmp';
 
+# Права на несуществующую "корневую" тему
+$rootTopicUserName='admin';
+$rootTopicGroupName='admin';
+$rootTopicPerms=0x19FF;
+
 # Маска премодерируемых по умолчанию постингов
 $defaultPremoderate=GRP_ALL;
 
