@@ -95,6 +95,10 @@ tag('postings');
 useLinks('postings','message_id','messages','id');
 deleteTagged('postings');
 
+tag('postings');
+useLinks('postings','topic_id','topics','id');
+deleteTagged('postings');
+
 tag('stotext_images');
 useLinks('stotext_images','stotext_id','stotexts','id');
 deleteTagged('stotext_images');

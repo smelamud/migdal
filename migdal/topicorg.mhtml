@@ -6,6 +6,9 @@
  <iterate_topiclist grp='*GRP_ALL' up='$up'>
  <admin_topics>
   <a href='topicedit.php?redirid=$_&up=$up' class='edit'>Добавить</a>
+  <ifnzero what='$up'>
+   <a href='topicdel.php?redirid=$_&topic_id=$up' class='edit'>Удалить</a>
+  </ifnzero>
  </admin_topics>
  <ifnzero what='$;Count'>
   <ul class='names'>
