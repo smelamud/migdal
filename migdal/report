@@ -229,7 +229,7 @@ return join '.',@ip;
 
 sub specify
 {
-my ($s)=@_;
+my ($event,$s)=@_;
 
 my $c='';
 my @specs=$s=~/\w+\(-?\d+\)/g;
@@ -244,14 +244,21 @@ foreach(@specs)
        $c.=' '.$imagesets[$value] if $name eq 'imageset';
        $c.=" N$value" if $name eq 'issue';
        }
+if($event eq 'search')
+  {
+  my ($ss)=$s=~/=([^=]*)$/;
+  $ss=~s/%([0-9A-F]{2})/chr(hex($1))/ge;
+  $ss=~tr/+/ /;
+  $c.=" $ss";
+  }
 return $c;
 }
 
 sub comment
 {
-my ($s)=@_;
+my ($event,$s)=@_;
 
-my $c=specify($s);
+my $c=specify($event,$s);
 $s.=" /*$c */" if $c!~/^\s*$/;
 return $s;
 }
@@ -341,7 +348,7 @@ sub runRaw
 my ($log)=@_;
 
 print getTimeStr($$log[1]).' '.getAddress($$log[2])."\t".$$log[0].': '.
-      comment($$log[3])."\n";
+      comment($$log[0],$$log[3])."\n";
 }
 
 sub runTraps

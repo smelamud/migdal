@@ -14,7 +14,7 @@
   <for>
    <identify posting='$.'>
    <topics_line time='$.Sent' href#='$.DetailsHref' text#='$.Subject'
-                class='item eightpt'>
+                class='item ninept'>
   </for>
  </topics_table>
 </ifnzero>
