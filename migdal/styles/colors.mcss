@@ -1,37 +1,10 @@
 ! @(#) $Id$
 
-! Navy
-
-nd=#336699	! Dark
-ndl=#6699CC	! Dark light
-nm=#99CCFF	! Medium
-nl=#CCE4FF	! Light
-nll=#DCECFF	! Light light
-
-! Red
-
-r=#FF3300
-
-! Orange
-
-vd=#5B1900	! Dark
-vmd=#D5A516	! Medium dark
-vm=#F8BF19	! Medium
-vmm=#FFE69B	! Medium medium
-vld=#FFEDC3	! Light dark
-vl=#FFF8E8	! Light
-
-! Magenta
-
-ml=#AA00FF	! Light
-md=#990099	! Dark
-
 ! Gray
 
 grd=#333333	! Dark
 grm=#666666	! Medium
 gr=#999999	! Normal
-grld=#CCCCCC	! Light Dark
 grl=#EAEAEA	! Light
 
 ! Maroon
@@ -44,9 +17,6 @@ mrl=#f4f1cb
 
 r_b=#e9d9a6
 r_c=#e9dabd
-r_ch=#e5d3b2
-r_cv=#f4e5c8
-r_chv=#f2dfbf
 r_d=#c4b1a0
 r_k=#efe4d0
 r_l=#f8f0dd
