@@ -13,8 +13,13 @@ exit;
 
 function makeValue($value)
 {
-$c=is_int($value) ? '' : '"';
-return $c.addslashes($value).$c;
+if(!is_null($value))
+  {
+  $c=is_numeric($value) ? '' : '"';
+  return $c.addslashes($value).$c;
+  }
+else
+  return 'null';
 }
 
 function makeKeyValue($join,$list)

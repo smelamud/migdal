@@ -71,6 +71,7 @@ if($original->getId()==0)
     setDisabledByMessageId($message->getMessageId(),1);
 $modbits=($original->getId()==0 ? $message->getCreateModmask()
                                 : $message->getModifyModmask()) & MOD_USER;
+				// FIXME MOD_USER is deprecated
 if(isModerateSet($message))
   $modbits|=MOD_MODERATE;
 if($message->getLargeFormat()==TF_HTML)

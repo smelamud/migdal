@@ -108,12 +108,12 @@ return $koiCharset ? $s : convert_cyr_string($s,'k','w');
 function convertSort($s)
 {
 $c=convert_cyr_string(
-   str_replace(array('&lt;&lt;','&gt;&gt;','&LT;&LT;','&GT;&GT;','---','``',
-                     "&#039;&#039;",'(c)','(C)','(r)','(R)','(tm)',
-		     '(TM)','No.'),
-	       array("\xAB","\xBB","\xAB","\xBB","\x96","\x93",
-	             "\x94","\xA9","\xA9","\xAE","\xAE","\x99",
-		     "\x99","\xB9"),$s),'k','w');
+   str_replace(array('<<','>>','---','``',"''",
+                     '(c)','(C)','(r)','(R)',
+		     '(tm)','(TM)','No.'),
+	       array("\xAB","\xBB","\x96","\x93","\x94",
+	             "\xA9","\xA9","\xAE","\xAE",
+		     "\x99","\x99","\xB9"),$s),'k','w');
 $cc='';
 for($i=0;$i<strlen($c);$i++)
    {

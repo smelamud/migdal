@@ -4,17 +4,32 @@
 require_once('lib/bug.php');
 require_once('lib/journal.php');
 require_once('lib/sql.php');
-require_once('grp/modbits.php');
 
 define('MOD_NONE',0x0000);
 define('MOD_MODERATE',0x0001);
 define('MOD_HTML',0x0002);
 define('MOD_EDIT',0x0004);
-define('MOD_USER',~0x0007);
+define('MOD_ATTENTION',0x0008);
+define('MOD_MULTIPART',0x0010);
+define('MOD_ARCHIVE',0x0020);
+define('MOD_ALL',0x003f);
+
+$modbitLetters=array('M','H','E','S','L','A');
+$modbitNames=array('Модерировать',
+		   'HTML',
+		   'Редактировать',
+		   'Особо проверить',
+		   'Многостраничное',
+		   'Архив');
 
 define('MODC_NONE',0x0000);
 define('MODC_CLOSED',0x0001);
 define('MODC_NO_AUTO',0x0002);
+
+define('MODT_NONE',0x0000);
+define('MODT_PREMODERATE',0x0001);
+define('MODT_MODERATE',0x0002);
+define('MODT_EDIT',0x0004);
 
 class Modbit
 {
