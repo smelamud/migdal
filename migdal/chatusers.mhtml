@@ -12,7 +12,7 @@
 </element>
 
 <html>
-<refresh period='$$userChatRefresh' url='$-'>
+<refresh period='$$userChatUsersRefresh' url='$-'>
 <zone>
  <stylesheet ident='chat'>
  <preamble>

@@ -7,7 +7,7 @@
 <preamble>
 <body>
  <top ident='chattune'>
- <formtable title='Настроика чата'>
+ <formtable title='Настройка чата'>
   <form method=get action='/chat.php'>
    <hiddenget remove='chr chp redir redirid'>
    <table>
@@ -16,6 +16,14 @@
      <td>
       <select_portion name='chr' value='$$userChatRefresh'
 		      vals='5 7 10 12 15 17 20 25 30'>
+     </td>
+     <td>сек.</td>
+    </tr>
+    <tr>
+     <td>Обновлять пользователей каждые</td>
+     <td>
+      <select_portion name='chur' value='$$userChatUsersRefresh'
+		      vals='30 45 60 120 180 240 300'>
      </td>
      <td>сек.</td>
     </tr>
