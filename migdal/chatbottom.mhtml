@@ -18,15 +18,7 @@
    <<td><edit name='personal' value='$personal' size=10 maxlength=30></td>>
    <td><input type=text autocomplete='off' name='message' value='$message'
 	      size=80 maxlength=250></td>
-   <td class='buttons-nosplit'>
-    <script language='JavaScript'><!--
-     document.write("<input type=submit value='Отправить' onClick='post.submit();message.value=\"\"'>");
-     // -->
-    </script>
-    <noscript>
-     <input type=submit value='Отправить'>
-    </noscript>
-   </td>
+   <td class='buttons-nosplit'><input type=submit value='Отправить'></td>
   </tr>
   <<tr><td align=center><u>лично</u></td></tr>>
  </table>
