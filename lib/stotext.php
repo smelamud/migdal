@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/text.php');
+require_once('lib/charsets.php');
 
 define('SB_POSTING_BODY',1);
 define('SB_TOPIC_DESC',2);
@@ -155,7 +156,7 @@ if(!move_uploaded_file($large_file,$large_file_tmpname))
 $fd=fopen($large_file_tmpname,'r');
 $stotext->large_filename=$large_file_name;
 $stotext->large_body=textToStotext($stotext->large_format,
-                                   fread($fd,$maxLargeText));
+                                   toKOI(fread($fd,$maxLargeText)));
 fclose($fd);
 unlink($large_file_tmpname);
 
