@@ -99,8 +99,9 @@
 	text-align: justify;
 }
 
-.article BLOCKQUOTE P {
-	font: 10pt %verdana;
+.article BLOCKQUOTE,.article BLOCKQUOTE P {
+	font-size: 10pt;
+	font-family: %verdana;
 }
 
 .article .notes {
