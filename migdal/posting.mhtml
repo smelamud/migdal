@@ -10,7 +10,7 @@
 <preamble>
 <body>
  <top ident='$,MenuIndex'>
- <table width=100% cellspacing=5 cellpadding=5>
+ <table width=100% cellpadding=5>
   <tr valign=top>
    <notprint>
     <if what='$,Grp!=*GRP_LINKS'>
