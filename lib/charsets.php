@@ -86,15 +86,15 @@ function convertOutput($s,$koiChars=false,$koiCharset=false)
 {
 $s=$koiChars
        ? str_replace(array('&lt;&lt;','&gt;&gt;','&LT;&LT;','&GT;&GT;','---',
-                           '``','&#039;&#039;','&sp;'),
+                           '``','&#039;&#039;','&sp;','&nil;'),
                      array('"','"','"','"','--',
-		           '"','"',' '),$s)
+		           '"','"',' ',''),$s)
        : str_replace(array('&lt;&lt;','&gt;&gt;','&LT;&LT;','&GT;&GT;','---',
                            '``','&#039;&#039;','(c)','(C)','(r)',
-			   '(R)','(tm)','(TM)','No.','&sp;'),
+			   '(R)','(tm)','(TM)','No.','&sp;','&nil;'),
                      array('&laquo;','&raquo;','&laquo;','&raquo;','&mdash;',
 		           '&ldquo;','&rdquo;','&copy;','&copy;','&reg;',
-			   '&reg;','&trade;','&trade;','&#8470;',' '),$s);
+			   '&reg;','&trade;','&trade;','&#8470;',' ',''),$s);
 $s=preg_replace('/\$(-?)(\S+)\$/e',
                 "'\\1'=='-' ? convertHebrew(strrev('\\2'))
 		            : convertHebrew('\\2')",$s);

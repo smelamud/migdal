@@ -31,7 +31,7 @@
      <li>$.Name&sp;$info&sp;
     </iswrite>
     <br>
-    <tt>$.PermString&nbsp;$.Login:$.GroupLogin</tt>
+    <tt>$.PermHTML&nbsp;$.Login:$.GroupLogin</tt>
     <branch up='$.Id' append='$.isAppendable'>
    </for>
   </ul>

@@ -170,6 +170,11 @@ function getPermString()
 return strPerms($this->getPerms());
 }
 
+function getPermHTML()
+{
+return strPerms($this->getPerms(),true);
+}
+
 function isPermitted($right)
 {
 global $userAdminTopics,$userModerator;

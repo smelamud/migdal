@@ -205,7 +205,7 @@ for($i=0;$i<strlen($tmpl);$i++,$right*=2)
 return $perm;
 }
 
-function strPerms($perm)
+function strPerms($perm,$escape=false)
 {
 $tmpl="rwaprwaprwaprwap";
 $s='';
@@ -214,7 +214,7 @@ for($i=0;$i<strlen($tmpl);$i++,$right*=2)
    if(($perm & $right)!=0)
      $s.=$tmpl{$i};
    else
-     $s.='-';
+     $s.=$escape ? '&nil;-' : '-';
 return $s;
 }
 ?>
