@@ -76,26 +76,6 @@ else
 return $result;
 }
 
-function hasTopic()
-{
-return $this->getLocalConf('HasTopic');
-}
-
-function mandatoryTopic()
-{
-return $this->hasTopic() && $this->getLocalConf('MandatoryTopic');
-}
-
-function hasIdent()
-{
-return $this->getLocalConf('HasIdent');
-}
-
-function mandatoryIdent()
-{
-return $this->hasIdent() && $this->getLocalConf('MandatoryIdent');
-}
-
 function getIdent()
 {
 return $this->ident;

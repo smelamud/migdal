@@ -16,15 +16,15 @@ require_once('lib/image-upload.php');
 
 function modifyForumAnswer($answer)
 {
-global $userId;
+global $userId,$forumanswerMandatoryBody,$forumanswerMandatoryImage;
 
 if($userId<=0)
   return EFA_NO_SEND;
 if(!$answer->isEditable())
   return EFA_NO_EDIT;
-if($answer->stotext->body=='')
+if($forumanswerMandatoryBody && $answer->stotext->body=='')
   return EFA_BODY_ABSENT;
-if($answer->mandatoryImage() && $answer->stotext->image_set==0)
+if($forumanswerMandatoryImage && $answer->stotext->image_set==0)
   return EFA_IMAGE_ABSENT;
 if($answer->stotext->image_set!=0
    && !imageSetExists($answer->stotext->image_set))
