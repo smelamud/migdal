@@ -352,6 +352,12 @@
   <assign name='root' value='$`tips`'>
   <assign name='tel' value='topics_tips'>
  </if>
+<elif what='$/$posting.TopicId,0/==$`ears`'>
+ <assign name='href' value='ears.php'>
+ <assign name='ghref' value=''>
+ <assign name='title' value=''>
+ <assign name='name' value='$posting.TopicName'>
+ <assign name='root' value='$`ears`'>
 </if>
 <if what='($posting.Grp & *GRP_BOOK_CHAPTERS)!=0 ||
           ($posting.Grp & *GRP_BOOKS)!=0 && $posting.Id>0'>

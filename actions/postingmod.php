@@ -171,7 +171,8 @@ redirect();
 $message=getPostingById($editid,$grp,$topic_id,$index1,$up);
 $original=$message;
 $message->setup($HTTP_POST_VARS);
-$image=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
+$image=uploadImage('image',$message->createThumbnail(),
+                   $thumbnailWidth,$thumbnailHeight,$err);
 if($image)
   $message->setImageSet($image->getImageSet());
 if($err==EIU_OK && $message->getImageSet()!=0)

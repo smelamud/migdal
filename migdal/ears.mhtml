@@ -1,0 +1,67 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+
+<pagetitle title='Ушки'>
+<topictitle title='Ушки'>
+
+<element name='batcher' params='&list'>
+<table width=100%>
+ <tr valign=bottom>
+  <td align=left class='info'>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='postingedit.php?topic_id=$`ears`&grp=*GRP_EARS&redirid=$_'
+	>Добавить ушко</a>
+    </td>
+   </tr></table>
+  </td>
+  <td align=center><spin list='$list'></td>
+ </tr>
+</table>
+</element>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics_admin ident='ears'>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <iterate_postinglist name='list' grp='*GRP_EARS' topic_id='$`ears`'
+			 limit=24 offset='$offset'
+			 fields!='*SELECT_IMAGES|*SELECT_TOPICS'>
+    <batcher list='$list'>
+    <for name='post'>
+     <table class='posting'>
+      <tr>
+       <td width=150 rowspan=2>
+	<image_linked_tag id='$.ImageId' enlarge='$.hasLargeImage'>
+       </td>
+       <td width=250>$.HTMLBody</td>
+      </tr>
+      <iswrite what='$post'>
+       <tr height=20><td class='bottom'>
+	<a href="postingedit.php?editid=$.Id&topic_id=$`ears`&grp=*GRP_EARS&redirid=$_"
+	   >Изменить</a>
+	&nbsp;
+	<a href="actions/postingdel.php?id=$.Id&okdir=$#-&faildir=$#-"
+	   >Удалить</a>
+       </td></tr>
+      </iswrite>
+     </table>
+    </for>
+    <ifnzero what='$list.Count'>
+     <batcher list='$list'>
+    </ifnzero>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</body>
+</html>

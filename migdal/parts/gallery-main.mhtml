@@ -72,7 +72,8 @@
  <assign name='noedit' value='*false'>
 </if>
 <iterate_postinglist grp='*GRP_GRAPHICS' topic_id='$topic_id' limit=40
-                     offset='$offset' recursive='*true'>
+                     offset='$offset' recursive='*true'
+		     fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
 <batcher list='$;' topic_id='$topic_id' noedit='$noedit'>
 <assign name='count' value=0>
 <assign name='topic_id' value=0>

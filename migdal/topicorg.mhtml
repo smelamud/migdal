@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
-<pagetitle title='Организатор тем'>
-<topictitle title='Организатор тем'>
+<pagetitle title='Темы'>
+<topictitle title='Темы'>
 
 <element name='branch' params='up,append,write'>
  <iterate_topiclist grp='*GRP_ALL' up='$up'>

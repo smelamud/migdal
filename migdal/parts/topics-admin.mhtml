@@ -13,5 +13,8 @@
               text='Группы' href#='grouporg.php'>
  <topics_line arrow!="$ident=='admin-journal'" class='item'
               text='Журнал' href#='journal.php'>
+ <topics_splitter>
+ <topics_line arrow!="$ident=='ears'" class='item'
+              text='Ушки' href#='ears.php'>
 </topics_table>
 </element>

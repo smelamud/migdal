@@ -8,6 +8,9 @@
 <int name='index1'>
 <int name='use_index1'>
 
+<pagetitle title='Сообщения'>
+<topictitle title='Сообщения'>
+
 <element name='batcher' params='&list'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
@@ -116,9 +119,6 @@
 <ifnzero what='$posting.Shadow'></blockquote></ifnzero>
 <p>
 </element>
-
-<pagetitle title='Организатор сообщений'>
-<topictitle title='Организатор сообщений'>
 
 <html>
 <preamble>
