@@ -51,7 +51,7 @@
 }
 
 .posting .bottom {
-	border-top: 1px solid %posting_split;
+	border-bottom: 1px solid %posting_split;
 	margin-top: .5ex;
 	clear: both;
 }
