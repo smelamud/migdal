@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# $Id$
+
+make_config()
+{
+echo '<?php'
+echo '# Migdal website configuration file'
+echo
+echo "\$hello='Hello, Migdal\\'s world!';"
+echo '?>'
+}
+
+make_config > conf/migdal.conf
