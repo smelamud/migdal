@@ -33,20 +33,12 @@
    <!--
    d.write('<img src="http://top.list.ru/counter'+'?id=284568;js='+js+a+
            ';rand='+Math.random()+'" height=1 width=1>')
-   if(js>11)
-     d.write('<'+'!-- ')
    //-->
   </script>
   <noscript>
    <img src="http://top.list.ru/counter?js=na;id=284568" height=1 width=1
         alt="">
   </noscript>
-  <script language="JavaScript">
-   <!--
-   if(js>11)
-     d.write('--'+'>')
-   //-->
-  </script>
  <!--/COUNTER-->
 </element>
 
