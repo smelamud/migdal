@@ -59,21 +59,26 @@ session();
  perror(EM_NO_TOPIC,'Такой темы не существует');
  ?>
  <tr><td><table>
-  <tr>
-   <td>Тема</td>
-   <td>
-    <select name='topic_id'>
-     <?php
-     echo elementOption('-- Не выбрана --',0,$message->getTopicId());
-     $list=new TopicNamesIterator($grp);
-     while($item=$list->next())
-	  echo elementOption($item->getName(),$item->getId(),
-	                     $message->getTopicId());
-     ?>
-    </select>
-   </td>
-  </tr>
   <?php
+  if($message->hasTopic())
+    {
+    ?>
+    <tr>
+     <td>Тема</td>
+     <td>
+      <select name='topic_id'>
+       <?php
+       echo elementOption('-- Не выбрана --',0,$message->getTopicId());
+       $list=new TopicNamesIterator($grp);
+       while($item=$list->next())
+	    echo elementOption($item->getName(),$item->getId(),
+			       $message->getTopicId());
+       ?>
+      </select>
+     </td>
+    </tr>
+    <?php
+    }
   if($message->hasSubject())
     {
     perror(EM_SUBJECT_ABSENT,'Заголовок пуст');

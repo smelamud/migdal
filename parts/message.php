@@ -3,7 +3,7 @@
 
 require_once('lib/images.php');
 
-function displayMessage($message,$grp,$topic)
+function displayMessage($message,$grp,$topic,$discuss=true)
 {
 global $REQUEST_URI,$userModerator;
 
@@ -66,10 +66,11 @@ else
    echo $startFont.$message->getBody().$endFont;
  ?>
 </td></tr>
+<tr>
+<td>
 <?php
 if($message->isEditable())
   {
-  echo '<tr><td>';
   echo '<a href="messageedit.php?editid='.$message->getId().
                                '&grp='.$message->getGrp().
 			       "&redir=$requestURI\">[Изменить]</a>";
@@ -78,9 +79,17 @@ if($message->isEditable())
                                       '&hide='.($message->isDisabled() ? 0 : 1).
 				      "&redir=$requestURI\">[".
 	  ($message->isDisabled() ? 'Разрешить' : 'Запретить').' показ]</a>';
-  echo '</td></tr>';
   }
 ?>
+</td>
+<td align=right>
+<?php
+if($discuss)
+  echo "<a href='forum.php?redir=$requestURI&msgid=".
+       $message->getId()."'>Обсудить</a>";
+?>
+</td>
+</tr>
 </table>
 <?php
 }

@@ -107,10 +107,16 @@ return "<br><table width=100%><tr>
 
 function batcher($current)
 {
-$s='<table width=100%><tr><td align=right><table><form method=get>
-    <tr valign=center>
-     <td>Показывать по&nbsp;</td>
-     <td><select name="mp">';
+global $SCRIPT_NAME,$HTTP_GET_VARS;
+
+$s="<table width=100%>
+     <form method=get action='$SCRIPT_NAME'>";
+foreach($HTTP_GET_VARS as $key => $value)
+       if($key!='mp')
+         $s.="<input type=hidden name='$key' value='$value'>";
+$s.=' <tr><td align=right><table><tr valign=center>
+      <td>Показывать по&nbsp;</td>
+      <td><select name="mp">';
 $shows=array(10,15,20,25,30,35,40);
 $shows[]=$current;
 sort($shows);
@@ -119,11 +125,12 @@ foreach($shows as $val)
        $s.="<option label=$val value=$val ".
                                ($val==$current ? 'selected' : '').
 	   ' >';
-return "  $s
-         </select></td>
-         <td>сообщений&nbsp;</td>
-         <td><input type=submit value='Изменить'></td>
-         </tr>
-        </form></table></td></tr></table>";
+return "$s
+      </select></td>
+      <td>сообщений&nbsp;</td>
+      <td><input type=submit value='Изменить'></td>
+      </tr></table></td></tr>
+     </form>
+    </table><br>";
 }
 ?>

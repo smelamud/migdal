@@ -10,7 +10,7 @@ foreach(count($subs)!=0 ? array_merge($vars,$subs) : $vars as $key => $value)
 return $s;
 }
 
-function remakeQuery($query,$remove=array(),$subs=array())
+function parseQuery($query)
 {
 $asses=explode('&',$query);
 $vars=array();
@@ -19,7 +19,12 @@ foreach($asses as $ass)
        list($key,$value)=explode('=',$ass); 
        $vars[$key]=urldecode($value);
        }
-return makeQuery($vars,$remove,$subs);
+return $vars;
+}
+
+function remakeQuery($query,$remove=array(),$subs=array())
+{
+return makeQuery(parseQuery($query),$remove,$subs);
 }
 
 function remakeURI($uri,$remove=array(),$subs=array(),$location='#')

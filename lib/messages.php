@@ -235,6 +235,11 @@ function hasSubject()
 return $this->up==0;
 }
 
+function hasTopic()
+{
+return $this->up==0;
+}
+
 function hasImage()
 {
 return false;
@@ -335,6 +340,39 @@ return newMessage($row);
 
 }
 
+class ForumListIterator
+      extends LimitSelectIterator
+{
+
+function ForumListIterator($up,$limit=10,$offset=0)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$this->LimitSelectIterator(
+       'Message',
+	"select messages.id as id,body,subject,sent,sender_id,
+	        messages.hidden as hidden,disabled,
+		users.hidden as sender_hidden,
+		login,gender,email,hide_email,rebe
+	 from messages
+	       left join users
+		    on messages.sender_id=users.id
+	 where (messages.hidden<$hide or sender_id=$userId) and
+	       (messages.disabled<$hide or sender_id=$userId) and
+	       up=$up
+	 order by sent desc",$limit,$offset);
+      /* здесь нужно поменять, если будут другие ограничения на
+	 просмотр TODO */
+}
+
+function create($row)
+{
+return newMessage($row);
+}
+
+}
+
 function getMessageById($id,$grp=0)
 {
 global $userId,$userModerator;
@@ -348,6 +386,34 @@ $result=mysql_query("select id,body,subject,topic_id,personal_id,sender_id,grp,
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
 	     or die('Ошибка SQL при выборке сообщения');
+return mysql_num_rows($result)>0 ? newMessage(mysql_fetch_assoc($result))
+                                 : newGrpMessage($grp);
+}
+
+function getFullMessageById($id,$grp=0)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$result=mysql_query(
+	"select messages.id as id,body,subject,grp,sent,topic_id,sender_id,
+	        messages.hidden as hidden,disabled,
+		users.hidden as sender_hidden,images.image_set as image_set,
+		images.id as image_id,topics.name as topic_name,
+		login,gender,email,hide_email,rebe
+	 from messages
+	       left join images
+		    on messages.image_set=images.image_set
+	       left join topics
+		    on messages.topic_id=topics.id
+	       left join users
+		    on messages.sender_id=users.id
+	 where (messages.hidden<$hide or sender_id=$userId) and
+	       (messages.disabled<$hide or sender_id=$userId) and
+	       messages.id=$id")
+      /* здесь нужно поменять, если будут другие ограничения на
+	 просмотр TODO */
+ or die('Ошибка SQL при выборке сообщения');
 return mysql_num_rows($result)>0 ? newMessage(mysql_fetch_assoc($result))
                                  : newGrpMessage($grp);
 }
