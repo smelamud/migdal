@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/forums.mhtml 1.4 >>
-<< Based-on: migdal/parts/postings.mhtml 1.18 >>
+<< Based-on: migdal/parts/postings.mhtml 1.20 >>
 
 <element name='batcher_forums' params='value,list,up'>
 <table width=100% class='batcher'>

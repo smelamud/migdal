@@ -1,5 +1,6 @@
 <?php
 require_once('lib/grps.php');
+require_once('lib/iterator.php');
 
 class GrpData
 {

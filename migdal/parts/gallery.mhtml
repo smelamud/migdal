@@ -1,11 +1,11 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.19 >>
+<< Based-on: migdal/parts/postings.mhtml 1.20 >>
 
 <element name='batcher_gallery' params='rows,cols,list,topic,grp'>
 <grpdata>
 <grpitemtitle>
 <grpitemstitle>
-<table width=100% class='batcher'><tr>
+<table width=100% class='batcher'><tr valign=bottom>
  <td align=left><table><tr valign=bottom><td>
   <logged>
    <if what='$g.Valid'>

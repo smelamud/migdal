@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.18 >>
+<< Based-on: migdal/parts/postings.mhtml 1.20 >>
 
 <element name='batcher_forumcatalog' params='value,list,topic'>
-<table width=100% class='batcher'><tr>
+<table width=100% class='batcher'><tr valign=bottom>
  <td align=right><table><tr valign=center>
   <form method=get action='$~'>
    <hiddenget remove='fcp'>

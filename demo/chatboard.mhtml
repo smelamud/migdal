@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
-<refresh period='$$userChatRefresh' url='$-'>
 <html>
+<refresh period='$$userChatRefresh' url='$-'>
 <head></head>
 <body bgcolor=white>
  <iterate_chat limit='$$userChatPortion'>
