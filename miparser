@@ -783,7 +783,7 @@ my ($self)=@_;
 <?php
 parse_str(\$argv[1]);
 dbOpen();
-session();
+session(\$argv[2]);
 ob_start();
 ?>
 EOT

@@ -17,7 +17,8 @@ $path=$mail->getText();
 if(substr($path,0,1)!='/')
   $path="$mailingsDir/$path";
 $link=$mail->getLink();
-preg_match("/^(.+?\n)\n(.*)$/s",`../php $path link=$link`,$mailparts);
+$userId=$mail->getReceiverId();
+preg_match("/^(.+?\n)\n(.*)$/s",`../php $path link=$link $userId`,$mailparts);
 $heads=explode("\n",$mailparts[1]);
 $newheads=array();
 foreach($heads as $head)
