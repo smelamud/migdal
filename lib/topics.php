@@ -360,7 +360,8 @@ $Select="topics.id as id,topics.ident as ident,topics.up as up,
          topics.name as name,topics.stotext_id as stotext_id,
 	 topics.user_id as user_id,topics.group_id as group_id,
 	 users.login as login,gusers.login as group_login,
-	 topics.perms as perms,stotexts.body as description";
+	 topics.perms as perms,stotexts.body as description,
+	 topics.allow as allow";
 /* From */
 $grpFilter=grpFilter($grp,'grp','postings');
 $hidePostings=messagesPermFilter(PERM_READ,'messages');

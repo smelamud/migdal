@@ -229,7 +229,7 @@
 	 value#='gallery.php?topic_id=$`taglit`&user_id=$posting.SenderId'>
 <else>
  <assign name='href' value#='taglit.php'>
- <assign name='ghref' value='$href'>
+ <assign name='ghref' value#='gallery.php?topic_id=$`taglit`'>
  <assign name='gnews' value='*true'>
 </ifnzero>
 <assign name='mhref' value='$href'>
@@ -266,7 +266,7 @@
 	 value#='gallery.php?topic_id=$`veterans`&user_id=$posting.SenderId'>
 <else>
  <assign name='href' value#='veterans.php'>
- <assign name='ghref' value='$href'>
+ <assign name='ghref' value#='gallery.php?topic_id=$`veterans`'>
  <assign name='gnews' value='*true'>
 </ifnzero>
 <assign name='mhref' value='$href'>
