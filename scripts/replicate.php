@@ -8,6 +8,12 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/journal.php');
 
+function executeAction($action)
+{
+foreach($action as $line)
+       echo $line->getQuery();
+}
+
 function replicate($host)
 {
 global $siteDomain,$maxImage;
@@ -17,8 +23,18 @@ $fd=fopen("http://$host/lib/replication.php?host=".urlencode($host)
                                          ."&from=$from",'r');
 if(!$fd)
   return;
+$action=array();
 while(!feof($fd))
-     echo fgets($fd,$maxImage);
+     {
+     $line=parseJournalTransfer(fgets($fd,$maxImage));
+     if($line->getQuery()!='')
+       $action[]=$line;
+     else
+       {
+       executeAction($action);
+       $action=array();
+       }
+     }
 fclose($fd);
 }
 

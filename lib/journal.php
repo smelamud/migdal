@@ -234,4 +234,16 @@ return $line;
 }
 
 }
+
+function parseJournalTransfer($s)
+{
+$list=explode("\t",$s);
+$row=array('id' => $list[0],
+           'seq' => $list[1],
+	   'result_table' => ($list[2]=='%' ? '' : $list[2]),
+	   'result_id' => $list[3],
+	   'result_var' => $list[4],
+	   'query' => ($list[5]=='%' ? '' : $list[5]));
+return new JournalLine($row);
+}
 ?>
