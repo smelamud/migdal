@@ -23,7 +23,7 @@
 		   title='См. также в разделе ссылок'>
     <postings grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
               limit='$userMsgPortion' offset='$offset' showshadows='*true'
-	      showadvert='*false' public='*false'>
+	      showadvert='*false'>
    </td>
   </tr>
  </table>
