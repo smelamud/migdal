@@ -2,13 +2,11 @@
 
 .form {
 	background-color: %form_back;
-	background-image: url("../%form_back_pic");
 	padding: 5px;
 }
 
 .form * {
-	font-size: 12pt;
-	font-family: %times;
+	font-size: 9pt;
 }
 
 .form P {
@@ -21,24 +19,24 @@
 
 .form TH {
 	background-color: %form_title_back;
-	background-image: url("../%form_title_back_pic");
 	color: %form_title;
+	font-size: 10pt;
 	font-weight: bold;
 }
 
 .form .star {
-	font-size: 12pt;
+	font-size: 9pt;
 	color: %form_star;
 }
 
 .form .starinfo TD {
 	padding-bottom: 2ex;
-	font-size: 10pt;
+	font-size: 8pt;
 	color: %form_starinfo;
 }
 
 .form .comment TD {
-	font-size: 10pt;
+	font-size: 9pt;
 	color: %form_comment;
 }
 
@@ -48,6 +46,10 @@
 
 .form .buttons {
 	border-top: 2px solid %form_buttons_ruler;
+}
+
+.form .buttons INPUT {
+	font-size: 10pt;
 }
 
 .form A {

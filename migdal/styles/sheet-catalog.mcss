@@ -13,7 +13,7 @@
 .catalog TH {
 	font-size: 9pt;
 	background-color: %catalog_header;
-	background-image: url("../%catalog_header_pic");
+	background-image: none;
 	color: %catalog_header_text;
 	vertical-align: middle;
 	text-align: center;
@@ -31,7 +31,7 @@
 
 .catalog TR.div {
 	background-color: %catalog_div;
-	background-image: url("../%catalog_div_pic");
+	background-image: none;
 	color: %catalog_div_text;
 	font-size: 9pt;
 	font-weight: bold;

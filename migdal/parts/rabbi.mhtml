@@ -4,7 +4,6 @@
 <style><!--
  .rabbi {
  	border: solid 1px $$style_rabbi_border;
-	background-image: url("$$style_rabbi_back_pic");
 	background-color: $$style_rabbi_back;
 	font-weight: bold;
 	color: $$style_rabbi_text;

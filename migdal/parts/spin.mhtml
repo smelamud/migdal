@@ -13,11 +13,9 @@
       <image src='$picprev' border=0></a>
     </ifzero>
    </td>
-   <td><image src='pics/left-input-small.gif'></td>
    <td align=right>
     <edit name='value' value='$list.Page' size=2 maxlength=5>
    </td>
-   <td><image src='pics/right-input-small.gif'></td>
    <td align=center>&nbsp;из&nbsp;</td>
    <td align=right>
     $list.PageCount
