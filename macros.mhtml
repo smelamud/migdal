@@ -35,7 +35,6 @@
  <header>
   <require name='lib/grps.php'>
   <grpdata name='%name' ignore='%ignore'>
-  <reload why='$%name.Invalid' var='grp' value='*GRP_FORUMS'>
  </header>
 </macro>
 

@@ -31,4 +31,9 @@ global $grpClassNames;
 $name=$grpClassNames[$grp];
 return isset($name) ? $name : 'Message';
 }
+
+function getGrpValid($grp)
+{
+return round(exp(round(log($grp)/M_LN2)*M_LN2))==$grp;
+}
 ?>

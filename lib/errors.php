@@ -41,6 +41,7 @@ define('EP_TITLE_SQL',1312);
 define('EP_DISABLE_SQL',1313);
 define('EP_IDENT_ABSENT',1314);
 define('EP_IDENT_UNIQUE',1315);
+define('EP_INVALID_GRP',1316);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);

@@ -53,4 +53,11 @@ function uc($s)
 return strtr(strtoupper($s),'ÁÂ×ÇÄÅÖÚÉÊËÌÍÎÏÐÒÓÔÕÆÈÃÞÛÝßÙØÜÀÑ',
                             'áâ÷çäåöúéêëìíîïðòóôõæèãþûýÿùøüàñ');
 }
+
+function getPlural($n,$forms)
+{
+$a=$n%10;
+$b=$n/10%10;
+return $b==1 || $a>=5 ? $forms[2] : ($a==1 ? $forms[0] : $forms[1]);
+}
 ?>
