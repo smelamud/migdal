@@ -4,9 +4,10 @@
 
 bl=#0C20A5
 g=#52A945
-nd=#52739C
+nd=#4C6A90
 nm=#9BC8FF
 nl=#CDE4FF
+nll=#DCECFF
 r=#FF5500
 vd=#5B1900
 vm=#F8BF19
@@ -15,9 +16,11 @@ md=#91089D
 ml=#BA00FF
 gr=#C3C3C3
 grd=#5C5C5C
+mr=#9E4F00
 
 error_red=red
 error_magenta=magenta
+body_back=white
 menu_back=%bl
 menu_normal=white
 menu_selected=yellow
@@ -32,6 +35,7 @@ batcher_input_border=blue
 batcher_input_text=blue
 posting_border=%nd
 posting_back=%nd
+posting_whole_back=%nl
 posting_sent=white
 posting_name=yellow
 posting_rebe_name=%r
@@ -52,21 +56,21 @@ forum_controls_hover=blue
 forums_batcher_normal=%vd
 forums_batcher_input_border=%vd
 forums_batcher_input_text=%vd
-topics_title=%gr
+topics_title=%nm
 topics_names=black
 topics_names_hover=blue
-topics_answers=%gr
+topics_answers=%nm
 topics_new=red
 topics_controls=%gr
 topics_controls_hover=blue
-forumcatalog_border=%grd
-forumcatalog_header=white
-forumcatalog_header_text=%grd
+forumcatalog_border=black
+forumcatalog_header=%nd
+forumcatalog_header_text=white
 forumcatalog_even=%nm
 forumcatalog_odd=%nl
-forumcatalog_name=%ml
+forumcatalog_name=%mr
 forumcatalog_rebe_name=%r
-forumcatalog_details=white
+forumcatalog_details=%nd
 forumcatalog_answer=black
 forumcatalog_answer_hover=blue
 forumcatalog_topic=blue
@@ -86,6 +90,10 @@ forumcatalog_subject_hover=blue
 
 .error[color='magenta'] {
 	color: %error_magenta;
+}
+
+BODY {
+	background-color: %body_back;
 }
 
 ! Menu
@@ -215,6 +223,7 @@ forumcatalog_subject_hover=blue
 .posting {
 	border: 1px solid %posting_border;
 	margin: 0.5ex;
+	background-color: %posting_whole_back;
 }
 
 .posting .top {
@@ -410,7 +419,9 @@ forumcatalog_subject_hover=blue
 ! Topics
 
 .topics {
-	margin: 10px;
+	margin-left: 5px;
+	margin-right: 15px;
+	margin-top: 10px;
 }
 
 .topics TH {

@@ -13,9 +13,9 @@
 <element name='SenderLink'>
 <span class='name'>$message.LoginLink</span>&nbsp;<asp>
 <if what='$message.isSenderVisible'>
- <asp><span class='details'>(<a
+ <asp><span class='details'><a
             href='useredit.php?editid=$message.SenderId&redir=$_'
-            title='подробнее'>...</a>)
+            title='подробнее'><img src='pics/info.gif' border=0></a>
  </span>
 </if>
 </element>
