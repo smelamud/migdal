@@ -11,3 +11,4 @@ ALTER TABLE `users` ADD `last_chat` DATETIME NOT NULL;
 ALTER TABLE `users` ADD INDEX (`last_chat`);
 ALTER TABLE `postings` ADD `read_count` INT NOT NULL, ADD `index0` INT NOT NULL, ADD `index1` INT NOT NULL, ADD `index2` INT NOT NULL, ADD `index3` INT NOT NULL, ADD `index4` INT NOT NULL;
 ALTER TABLE `postings` ADD INDEX (`read_count`, `index0`, `index1`, `index2`, `index3`, `index4`);
+ALTER TABLE postings ADD last_read DATETIME NOT NULL AFTER read_count;

@@ -221,6 +221,7 @@ CREATE TABLE postings (
   grp tinyint(4) NOT NULL default '0',
   priority tinyint(4) NOT NULL default '0',
   read_count int(11) NOT NULL default '0',
+  last_read datetime NOT NULL default '0000-00-00 00:00:00',
   index0 int(11) NOT NULL default '0',
   index1 int(11) NOT NULL default '0',
   index2 int(11) NOT NULL default '0',

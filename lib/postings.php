@@ -462,7 +462,8 @@ return mysql_num_rows($result)>0 ? strtotime(mysql_result($result,0,0)) : 0;
 function incPostingReadCount($id)
 {
 mysql_query("update postings
-             set read_count=read_count+1
-	     where id=$id");
+             set read_count=read_count+1,last_read=now()
+	     where id=$id")
+     or die('Ошибка SQL при обновлении счетчика прочтений постинга');
 }
 ?>
