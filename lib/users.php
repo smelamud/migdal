@@ -54,7 +54,6 @@ function store()
 global $userAdminUsers;
 
 $normal=array('login'          => $this->login,
-              'password'       => md5($this->password),
 	      'name'           => $this->name,
 	      'jewish_name'    => $this->jewish_name,
 	      'surname'        => $this->surname,
@@ -64,6 +63,9 @@ $normal=array('login'          => $this->login,
 	      'email'          => $this->email,
 	      'icq'            => $this->icq,
 	      'email_disabled' => $this->email_disabled);
+if(!$this->id || $this->password!='')
+  $normal=array_merge($normal,
+        array('password'       => md5($this->password)));
 if($userAdminUsers)
   $normal=array_merge($normal,
         array('admin_users'    => $this->admin_users));
