@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/posting.mhtml 1.21 >>
 
 <grps>
+
 <element name='picture'>
 <if what='$picture.isRebe'><span class='rebe'></if>
  <table class='picture'>

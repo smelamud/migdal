@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.23 >>
 
 <element name='batcher_forumcatalog' params='list,topic'>
 <table width=100% class='batcher'><tr valign=bottom>

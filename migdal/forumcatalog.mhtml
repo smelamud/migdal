@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/index.mhtml 1.12 >>
 
 <force_community>
 <int name='topic_id'>

@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/posting.mhtml 1.35 >>
 
 <element name='times_posting_further' params='posting,title'>
  <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>

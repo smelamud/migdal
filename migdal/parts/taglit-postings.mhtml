@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.34 >>
 
 <element name='batcher_taglit_postings' params='list,taglit_id'>
 <table width=100% class='batcher'><tr valign=bottom>

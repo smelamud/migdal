@@ -1,28 +1,22 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.23 >>
 
 <element name='batcher_forums' params='list,up'>
-<table width=100% class='batcher'>
- <form method=get action='$~'>
-  <hiddenget remove='fp'>
-  <tr>
-   <td align=left>
-    <logged>
-     <a href='forumansweredit.php?up=$up&redirid=$_'
-        class='add'>Добавить сообщение</a>
-    <else>
-     <span class='info'>
-      <b>Хотите участвовать в обсуждении?</b>
-      <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-     </span>
-    </logged>
-   </td>
-   <td>
-    <spin list='$list'>
-   </td>
-  </tr>
- </form>
-</table>
+<table width=100% class='batcher'><tr valign=bottom>
+ <td align=left>
+  <logged>
+   <a href='forumansweredit.php?up=$up&redirid=$_'
+      class='add'>Добавить сообщение</a>
+  <else>
+   <span class='info'>
+    <b>Хотите участвовать в обсуждении?</b>
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+   </span>
+  </logged>
+ </td>
+ <td>
+  <spin list='$list'>
+ </td>
+</tr></table>
 </element>
 
 <element name='forums'>

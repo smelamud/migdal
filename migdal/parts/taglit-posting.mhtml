@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/posting.mhtml 1.33 >>
 
 <grps>
 
@@ -55,10 +54,10 @@
        &nbsp;
        <if what='$posting.isDisabled'>
 	<a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	 >Разрешить показ</a>
+	 >Разрешить&nbsp;показ</a>
        <else>
 	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	 >Запретить показ</a>
+	 >Запретить&nbsp;показ</a>
        </if>
        &nbsp;
        <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
