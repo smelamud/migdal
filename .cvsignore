@@ -1,5 +1,4 @@
 Makefile
-*.php
 crontab
 php
 dbcreate.sql
