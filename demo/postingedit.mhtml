@@ -49,27 +49,15 @@
 	  color='magenta' span=2>
    <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
           text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
-   <ifzero what='$message.ImageSet'>
-    <tr>
-     <td>Картинка</td>
-     <td><input type=file name='image' size=35></td>
-    </tr>
-   <else>
+   <ifnzero what='$message.ImageSet'>
     <image_name set='$message.ImageSet'>
-    <tr><td colspan=2><table>
-     <tr><td>Картинка</td></tr>
-     <tr>
-      <td>
-       <input type=radio name='image_set' value='$message.ImageSet' checked>
-       &nbsp;$image.Filename&nbsp;<i>(уже загружена)</i>
-      </td>
-     </tr>
-     <tr><td>
-      <input type=radio name='image_set' value=0>&nbsp;Другая&nbsp;
-      <input type=file name='image' size=35>
-     </td></tr>
-    </table></td></tr>
-   </ifzero>
+    <assign name='file' value='$image.Filename'>
+   <else>
+    <assign name='file' value=''>
+   </ifnzero>
+   <uploader name='image' loadedname='image_set' loadedvalue='$message.ImageSet'
+             title='Картинка' loaded='(уже загружена)' notloaded='Другая'
+             filename='$file'>
   </if>
  </table></td></tr>
  <if what='$message.hasLargeBody'>

@@ -1,0 +1,24 @@
+<< @(#) $Id$ >>
+
+<element name='uploader'>
+<if what="$filename==''">
+ <tr>
+  <td>$title</td>
+  <td><input type=file name='$name' size=35></td>
+ </tr>
+<else>
+ <tr><td colspan=2><table>
+  <tr><td>$title</td></tr>
+  <tr>
+   <td>
+    <input type=radio name='$loadedname' value='$loadedvalue' checked>
+    &nbsp;$filename&nbsp;<i>$loaded</i>
+   </td>
+  </tr>
+  <tr><td>
+   <input type=radio name='$loadedname' value=0>&nbsp;$notloaded&nbsp;
+   <input type=file name='$name' size=35>
+  </td></tr>
+ </table></td></tr>
+</ifzero>
+</element>
