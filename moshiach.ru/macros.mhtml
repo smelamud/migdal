@@ -10,6 +10,7 @@
 <decel name='actual_interview' file='parts/actual-interview.php'>
 <decel name='advert' file='parts/advert.php'>
 <decel name='banner' file='parts/banner.php'>
+<decel name='bldot' file='parts/bldot.php'>
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='editors' file='parts/editors.php'>
 <decel name='first_face' file='parts/first-face.php'>
@@ -21,7 +22,9 @@
 <decel name='search' file='parts/search.php'>
 <decel name='spreading' file='parts/spreading.php'>
 <decel name='subscribe' file='parts/subscribe.php'>
+<decel name='subtopics' file='parts/subtopics.php'>
 <decel name='talking' file='parts/talking.php'>
 <decel name='top' file='parts/top.php' params='ident'>
 <decel name='topicofday' file='parts/topicofday.php'>
 <decel name='updates' file='parts/updates.php'>
+<decel name='updates_chapter' file='parts/updates-chapter.php'>

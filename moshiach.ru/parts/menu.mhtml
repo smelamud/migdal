@@ -2,12 +2,19 @@
 << Based-on: demo/parts/menu.mhtml 1.3 >>
 
 <element name='menu'>
-<tr><td colspan=3 align=center><b class=red>
-    <iterate_menu name='menu'>
- <for>
-  <notfirst name='menu'> :: </notfirst><a href=$.Link>$.Name</a>
- </for>
+<tr><td colspan=3 align=center>
+ <b class=red>
+  <iterate_menu name='menu'>
+  <for>
+   <notfirst name='menu'> :: </notfirst>
+   <if what='$ident==$.Ident'>
+    $.Name
+   <else>
+    <a class='menu' href=$.Link>$.Name</a>
+   </if>
+  </for>
+ </b>
  &nbsp;
  <admin_menu><a href='menuedit.php'>&lt;Изменить&gt;</a></admin_menu>
-</b></td></tr>
+</td></tr>
 </element>

@@ -1,0 +1,23 @@
+<< @(#) $Id$ >>
+
+<element name='subtopics'>
+<table border=0 cellPadding=2 cellSpacing=3 width=100%>
+ <tr BGCOLOR=C76B4B><td align=center><b>ВСЕ ПОДРАЗДЕЛЫ</b></td></tr>
+ <tr><td>
+  <a class=under href=2.htm>Словарь по иудаизму</a><br>
+  <a class=under href=2.htm>Словарь по хасидизму</a><br>
+  <a class=under href=2.htm>Словарь по каббале</a><br>
+  <a class=under href=2.htm>Имена</a><br>
+  <a class=under href=2.htm>Список литературы</a><br>
+  <!--<a class=under href=2.htm> Глоссарий</a><br>-->
+  <a class=under href=encic.htm>Энциклопедия<img border=0 src=m/a1.gif
+     width=30 height=11></a><br>
+  <a class=under href=2.htm>Первоисточники<img border=0 src=m/a1.gif
+     width=30 height=11></a><br>
+  <a class=under href=2.htm>Уроки<img border=0 src=m/a1.gif
+     width=30 height=11></a><br>
+  <a class=under href=2.htm>Библиотека<img border=0 src=m/a1.gif
+     width=30 height=11></a><br>
+ </td></tr>
+</table>
+</element>

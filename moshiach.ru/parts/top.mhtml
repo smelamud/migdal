@@ -1,9 +1,11 @@
 << @(#) $Id$ >>
 
 <element name='top'>
-<table border=0 width=100% cellspacing=1 cellpadding=0 bgcolor=#000000><td>
-       <table border=0 width=100% BGCOLOR=ffffff cellspacing=3 cellpadding=0>
- <banner>
- <menu ident='$ident'>
-</table></td></table>
+<span class='pretty'>
+ <table border=0 width=100% cellspacing=1 cellpadding=0 bgcolor=#000000><td>
+	<table border=0 width=100% BGCOLOR=ffffff cellspacing=3 cellpadding=0>
+  <banner>
+  <menu ident='$ident'>
+ </table></td></table>
+</span>
 </element>
