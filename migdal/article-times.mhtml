@@ -1,0 +1,45 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/article-times.mhtml 1.30 >>
+
+<string name='artid'>
+<read_posting id='$artid'>
+<posting_full id='$artid' grp='*GRP_TIMES_ARTICLES'>
+<pagetitle title='$,Subject'>
+
+<html>
+<zone>
+ <stylesheet ident='article'>
+ <stylesheet ident='times'>
+ <preamble>
+</zone>
+<body>
+ <top ident='index'>
+ <zone><topic_obj name='times' id='migdal-times'></zone>
+ <table width=100%><tr valign=top>
+  <td width=120>
+   <topics posting='$,' showchapters='*true'>
+  </td>
+  <td width=5>&nbsp;</td>
+  <td class='article'>
+   <article_controls posting='$,' up='$times.Id'>
+   <zone>
+    <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic='$times.Id'
+		 index1!='$,Index1'>
+    <times_issue issue='$,Index1' month='$,Source' separate='*true' align=right>
+   </zone>
+   <h1>
+    <a href='index.php?topic_id=$,TopicId' class='topic'
+       title='$,TopicDescription'>$,TopicName</a>
+    <br>
+    $,Subject
+    <ifne what='$,Author'>
+     <div class='author'>$,HTMLAuthor</div>
+    </ifne>
+   </h1>
+   <article_full posting='$,'>
+   <article_controls posting='$,' up='$times.Id'>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>
