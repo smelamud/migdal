@@ -333,6 +333,7 @@
 <assign name='gutitle' value=''>
 <assign name='gnews' value='*false'>
 
+<< English version >>
 <if what='$/$posting.TopicId,0/==$`migdal,e`'>
  <assign name='href' value='index.php'>
  <assign name='ghref' value=''>
@@ -344,6 +345,8 @@
  <assign name='title' value=''>
  <assign name='name' value='Events'>
  <assign name='root' value='$`events,e`'>
+ <assign name='tel' value='topics_migdal_english'>
+<< Russian version >>
 <elif what='$/$posting.TopicId,0/==$`migdal`'>
  <identify_migdal>
 <elif what='$/$posting.TopicId,0/==$`migdal-times`'>
