@@ -30,8 +30,10 @@
  <topics_major ident='taglit'>
 </if>
 <if what='$posting.Grp==*GRP_KAITANA_NEWS || $posting.Grp==*GRP_KAITANA_GALLERY'>
- <topics_kaitana day='$posting.Index1'>
- <topics_major ident='kaitana'>
+ <topics_kaitana day='$posting.Index1' topic_id='$posting.TopicId'>
+ <topics_kaitanot topic_id='$posting.TopicId'>
+ <topics_migdal posting='$posting'>
+ <topics_major ident='migdal'>
 </if>
 <if what='$posting.Grp==*GRP_TIPS'>
  <help_navi ident='tips'>
