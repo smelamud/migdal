@@ -156,6 +156,7 @@
        defaults="time=0 arrow='*false' text='' title='' href='' count=''
                  class='item' indent=0 span=1 rating=''"
        file='parts/topics.php'>
+<decel name='topics_links' params='topic_id' file='parts/topics-links.php'>
 <decel name='topics_major' file='parts/topics-major.php' params='ident'>
 <decel name='topics_minor' file='parts/topics-minor.php'
        params='id,withpostings,withanswers,up,subdomain,grp,href,title'

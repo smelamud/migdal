@@ -28,4 +28,7 @@
 <if what='$posting.Grp==*GRP_TIPS'>
  <help_navi ident='tips'>
 </if>
+<if what='$posting.Grp==*GRP_LINKS'>
+ <topics_links topic_id='$posting.TopicId'>
+</if>
 </element>
