@@ -59,7 +59,7 @@ if($replicationMaster)
 
 function replicate($host)
 {
-global $siteDomain,$maxImage;
+global $siteDomain,$maxImage,$replicationMaster;
 
 if(isReplicationLocked($host))
   return;

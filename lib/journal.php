@@ -284,6 +284,10 @@ return mysql_num_rows($result)>0;
 
 function getJournalVar($host,$var)
 {
+mysql_query("update journal_vars
+	     set last_read=null
+	     where host='$host' and var=$var")
+  or journalFailure('Cannot update timestamp of journaled variable.');
 $result=mysql_query("select value
                      from journal_vars
 		     where host='".addslashes($host)."' and var=$var")

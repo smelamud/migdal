@@ -222,4 +222,7 @@ $replicationLockTimeout=5;
 
 # Имя авторитетной базы данных при репликации на slave
 $replicationDbName='migdal_a';
+
+# Время жизни (в сутках) журнальной переменной
+$journalVarTimeout=3;
 ?>
