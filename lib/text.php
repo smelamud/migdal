@@ -126,7 +126,7 @@ while($ed<strlen($s))
 		$state=3;
 		break;
 	   case 3:
-                if(!preg_match('/^\s+((\S+:\/)?\/\S*[^\s.,:;\(\)])/',
+                if(!preg_match('/^\s+((\S+:\/)?\/[^\s;]*[^\s.,:;\(\)])/',
 		               substr($s,$ed),$matches))
 		  {
 		  $ed-=6;
