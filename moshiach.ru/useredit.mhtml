@@ -1,0 +1,188 @@
+<< @(#) $Id$ >>
+
+<element name='may_edit'
+         params='title,showvalue,value,name,size,maxlength,status'
+         defaults="showvalue='' status=''">
+<tr>
+ <if what='$$user.isEditable'>
+  <td>$title</td>
+  <td>
+   <if what="$status!=''">$status&nbsp;</if>
+   <edit name='$name' value='$value' size='$size' maxlength='$maxlength'>
+  </td>
+ <else>
+  <td><b>$title:</b></td>
+  <td>
+   <if what="$status!=''">$status&nbsp;</if>
+   <if what="$showvalue==''">$value<else>$showvalue</if>
+  </td>
+ </if>
+</tr>
+</element>
+
+<element name='may_checkbox' params='name,value,title,texton,textoff'
+         defaults='texton="" textoff=""'>
+<if what='$$user.isEditable'>
+ <checkbox_line name='$name' value='$value' title='$title' span=2>
+<else>
+ <tr><td colspan=2>
+  <i><if what='$value'>$textOn<else>$textOff</if></i>
+ </td></tr>
+</if>
+</element>
+
+<int name='editid'>
+<html>
+<head>
+ <title>Штаб Мошиаха - Информация о пользователе</title>
+</head>
+<body bgcolor=white>
+ <top ident='users'>
+ <p>
+ <user_obj name='user' id='$editid'>
+ <setup>
+ <isedit name='user'>
+  <center><h1>Введите информацию о себе</h1></center>
+  <form method=post action='actions/usermod.php'>
+  <input type=hidden name='edittag' value=1>
+  <input type=hidden name='redir' value='$redir'>
+  <input type=hidden name='editid' value='$editid'>
+ </isedit>
+ <table>
+  <error id='*EUM_UPDATE_OK' text='Новая информация принята и записана'
+         color='green' span=2>
+  <error id='*EUM_NO_EDIT' span=2
+         text='У вас нет права менять информацию для этого пользователя'>
+  <error id='*EUM_STORE_SQL' text='Ошибка SQL при обновлении записи'
+	 color='magenta' span=2>
+  <error id='*EUM_PRECONFIRM_SQL' color='magenta' span=2
+         text='Ошибка SQL при подготовке кода подтверждения'>
+  <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен' span=2>
+  <error id='*EUM_LOGIN_EXISTS' span=2
+         text='Пользователь с таким ником уже существует'>
+  <may_edit title='Ник' value='$,Login' name='login' size=20 maxlength=30>
+  <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'
+         span=2>
+  <error id='*EUM_PASSWORD_DIFF' span=2
+         text='Опечатка при вводе пароля - введите еще раз'>
+  <isedit name='user'>
+   <tr>
+    <td>Пароль </td><td><input type=password name='password' size=20></td>
+   </tr>
+   <tr>
+    <td>Пароль (еще раз) </td>
+    <td><input type=password name='dup_password' size=20></td>
+   </tr>
+  </isedit>
+  <may_edit title='Имя' value='$,Name' name='name' size=30 maxlength=30>
+  <may_edit title='Еврейское имя' value='$,JewishName' name='jewish_name'
+            size=30 maxlength=30>
+  <may_edit title='Фамилия' value='$,Surname' name='surname' size=30
+            maxlength=30>
+  <error id='*EUM_GENDER' text='Неизвестный пол' span=2>
+  <tr>
+  <isedit name='user'>
+   <td>Пол</td>
+   <td>
+    <if what='$,isMan'>
+     <input type='radio' name='gender' value='mine' checked>Мужской</input>
+     &nbsp;
+     <input type='radio' name='gender' value='femine'>Женский</input>
+    <else>
+     <input type='radio' name='gender' value='mine'>Мужской</input>
+     &nbsp;
+     <input type='radio' name='gender' value='femine' checked>Женский</input>
+    </if>
+   </td>
+  <else>
+   <td><b>Пол:</b></td>
+   <td><if what='$,isMan'>Мужской<else>Женский</if></td>
+  </isedit>
+  </tr>
+  <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения' span=2>
+  <tr>
+   <isedit name='user'>
+    <td>Дата рождения</td>
+    <td>
+     <input type=text name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
+     <select name='birth_month'>
+      <iterate_months>
+      <for>
+       <call func='$user->isMonthOfBirth' arg1='$.Id'>
+       <if what='$,'>
+	<option selected value=$.Id>$.Name</option>
+       <else>
+	<option value=$.Id>$.Name</option>
+       </if>
+      </for>
+     </select>
+     19<input type=text name='birth_year' size=2 maxlength=2
+	      value='$,YearOfBirth'>
+    </td>
+   <else>
+    <td><b>Дата рождения:</b></td>
+    <td>$,Birthday / $,JewishBirthday</td>
+   </if>
+  </tr>
+  <isedit name='user'>
+   <editor_line title='Коротко о себе' name='info' body='$,Info' span=2>
+  <else>
+   <if what="$,Info!=''">
+    <tr><td colspan=2><b>Коротко о себе:</b></td></tr>
+    <tr><td colspan=2>$,Info</td></tr>
+   </if>
+  </isedit>
+  <may_edit title='E-mail' showvalue='$,EmailLink' value='$,Email'
+            name='email' size=30 maxlength=70>
+  <isedit name='user'>
+   <checkbox_line name='hide_email' value='$,isHideEmail'
+                  title='Не показывать E-mail на сайте' span=2>
+   <checkbox_line name='email_enabled' value='$,isEmailEnabled'
+		  title='Разрешаю посылать почту на мой адрес' span=2>
+  </isedit>
+  <if what='$,isEmailDisabled==2'>
+   <tr><td colspan=2><font color=red>
+    Посылка почты на этот адрес временно приостановлена, поскольку адрес не
+    работает
+   </font></td></tr>
+  </if>
+  <may_edit title='ICQ' status='$,ICQStatusImage' value='$,ICQ' name='icq'
+            size=15 maxlength=15>
+  <noedit name='user'>
+   <tr>
+    <td><b>Последний раз<br>заходил сюда:</b></td>
+    <td>$,LastOnline</td>
+   </tr>
+  </noedit>
+  <admin_users>
+   <checkbox_line name='has_personal' value='$,isHasPersonal' span=2
+		  title='Имеет персональную страницу'>
+   <checkbox_line name='accepts_complains' value='$,isAcceptsComplains' span=2
+		  title='Принимает жалобы'>
+   <checkbox_line name='admin_users' value='$,isAdminUsers' span=2
+		  title='Администратор пользователей'>
+   <checkbox_line name='admin_topics' value='$,isAdminTopics' span=2
+		  title='Администратор тем'>
+   <checkbox_line name='admin_menu' value='$,isAdminMenu' span=2
+		  title='Администратор меню'>
+   <checkbox_line name='moderator' value='$,isModerator' span=2
+		  title='Модератор'>
+   <checkbox_line name='judge' value='$,isJudge' span=2
+		  title='Арбитр'>
+   <checkbox_line name='hidden' value='$,isHidden' span=2
+		  title='Не показывать в списке пользователей'>
+   <checkbox_line name='no_login' value='$,isNoLogin' span=2
+                  title='Запретить вход'>
+  </admin_users>
+ </table>
+ <isedit name='user'>
+  <if what='$editid'>
+   <input type=submit value='Обновить'>
+  <else>
+   <input type=submit value='Зарегистрировать'>
+  </if>
+  <input type=reset value='Очистить'>
+  </form>
+ </isedit>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<< @(#) $Id$ >>
+
+<element name='menu'>
+<tr><td colspan=3 align=center><b class=red>
+    <iterate_menu name='menu' ident='$ident'>
+ <for>
+  <notfirst name='menu'> :: </notfirst><a href=$.Link>$.Name</a>
+ </for>
+ &nbsp;
+ <admin_menu><a href='menuedit.php'>&lt;Изменить&gt;</a></admin_menu>
+</b></td></tr>
+</element>

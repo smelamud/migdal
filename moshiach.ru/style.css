@@ -48,6 +48,12 @@ b {
 	color: #ffffff;
 }
 
+b.admin {
+	font-size: 12px;
+	font-family: tahoma,Arial;
+	color: #ff0000;
+}
+
 .r {
 	color: #000000;
 }

@@ -7,4 +7,6 @@
 </macro>
 
 << Elements >>
+<decel name='banner' file='parts/banner.php'>
+<decel name='menu' file='parts/menu.php' params='ident'>
 <decel name='top' file='parts/top.php' params='ident'>

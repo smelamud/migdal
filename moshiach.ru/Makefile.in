@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-OBJECTS = index.php
+OBJECTS = index.php login.php menuedit.php useredit.php
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
 
