@@ -155,4 +155,17 @@ $articleHasIdent=true;
 $articleMandatoryIdent=false;
 $articleHasTopic=true;
 $articleMandatoryTopic=true;
+
+# Пользователи
+
+# Супервизор
+$rebeLogin='admin';
+$rebePassword='test';
+
+# Псевдопользователь
+$shamesLogin='nobody';
+
+# Обычный пользователь
+$regularLogin='test';
+$regularPassword='test';
 ?>

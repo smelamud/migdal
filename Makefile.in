@@ -14,8 +14,25 @@ crontab: Makefile conf/migdal.conf
 	echo '  0-50/10 *   *   *   *  $(scriptsDir)/mailrobot -c $(siteDir)/conf/migdal.conf -L $(scriptsDir)';\
 	) > crontab
 
-dbcreate.sql:
+dbcreate.sql: Makefile conf/migdal.conf
 	cat migdal.db $(uiName)/migdal.db > dbcreate.sql
+	(\
+	if [ $(rebeLogin) ]; then\
+	echo "insert into users(login,password,birthday,email_disabled,rebe,\
+	admin_users,admin_topics,admin_menu,admin_complain_answers,moderator,\
+	judge,hidden) select $(rebeLogin),MD5($(rebePassword)),\
+	'1900-01-01',1,1,1,1,1,1,1,1,2";\
+	fi;\
+	if [ $(shamesLogin) ]; then\
+	echo "insert into users(login,birthday,hide_email,email_disabled,\
+	shames,hidden,no_login) values($(shamesLogin),'1900-01-01',1,1,1,2,\
+	1)";\
+	fi;\
+	if [ $(regularLogin) ]; then\
+	echo "insert into users(login,password,birthday) \
+	select $(regularLogin),MD5($(regularPassword)),'1900-01-01'";\
+	fi\
+	) >> dbcreate.sql
 
 Makefile: Makefile.in conf/migdal.conf
 	./confmake $^ > Makefile
