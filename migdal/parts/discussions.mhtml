@@ -16,7 +16,7 @@
    <assign name='login' value='$,Login'>
   </ifzero>
   <topics_line time!='$.Sent>$.LastAnswer ? $.Sent : $.LastAnswer'
-               href#='forum.php?redirid=$_&msgid=$.Id'
+               href#='forum.php?msgid=$.Id'
                text#='$.SubjectDesc' count='$.AnswerCount'
                title#='$login - $last@j.$last@m.$last@Y&sp;$last@H:$last@i'>
  </for>

@@ -116,6 +116,7 @@
    <if what='($posting.Grp & *GRP_LIBRARY_ANNOUNCES)!=0'>
     <assign name='href' value='migdal-library-news.php'>
     <assign name='ghref' value=''>
+    <assign name='uref' value='migdal-library.php'>
     <assign name='title' value=''>
     <assign name='name' value#='$name :: Новые поступления'>
    </if>

@@ -21,7 +21,7 @@
  <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'
                index1='$day'>
 </ifzero>
-<pagetitle title='$kaitana.Name'>
+<pagetitle title#='$kaitana.Name - $posting.Subject'>
 <topictitle title='$kaitana.Name'>
 <log event=kaitana text#='topic($kaitana.Id) post($posting.Id)'>
 

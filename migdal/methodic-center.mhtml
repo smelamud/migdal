@@ -12,7 +12,7 @@
 <ifnzero what='$;Count'>
  <topics_table title='Методические пособия'>
   <for>
-   <topics_line time='$.Sent' href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
+   <topics_line time='$.Sent' href#='$.DetailsFile?$.DetailsId=$.Id'
 		text#='$.Subject' class='item eightpt'>
   </for>
  </topics_table>

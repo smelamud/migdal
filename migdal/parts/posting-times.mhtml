@@ -8,7 +8,7 @@
 </element>
 
 <element name='further' params='posting,title'>
- <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
+ <asp><a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'><asp>
   <image src='pics/further.gif' border=0 title='$title'>
  <asp></a>&nbsp;<asp>
 </element>
@@ -19,7 +19,7 @@
   <topic posting='$posting' showtopic='$showtopic'>
   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
               image='$$style_cframe_back_pic'>
-  <a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'>
+  <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
      $posting.Subject</a>
   <ifne what='$posting.Author'>
    <br><span class='author'>$posting.Author</span>

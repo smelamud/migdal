@@ -20,7 +20,7 @@
 <element name='discusslink'>
 <table cellspacing=0 cellpadding=0><tr>
  <td>
-  <a href='forum.php?redirid=$_&msgid=$posting.Id'>
+  <a href='forum.php?msgid=$posting.Id'>
    <asp><notenglish>Обсудить<else>Comments</notenglish><asp>
    <ifnzero what='$posting.AnswerCount'>
     <asp>&nbsp;($posting.AnswerCount)<asp>

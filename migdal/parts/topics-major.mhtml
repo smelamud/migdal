@@ -42,20 +42,20 @@
 <topics_table title='Разделы' span=2>
  <admin_topics>
   <tr><tdspan span=3>
-   <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
+   <a href='topicorg.php' class='edit'>Организовать</a>
   </tdspan></tr>
  </admin_topics>
  <moderator>
   <tr><tdspan span=3>
-   <a href='postingorg.php?redirid=$_' class='edit'>Сообщения</a>
+   <a href='postingorg.php' class='edit'>Сообщения</a>
   </tdspan></tr>
  </moderator>
  <admin_users>
   <tr><tdspan span=3>
-   <a href='grouporg.php?redirid=$_' class='edit'>Группы</a>
+   <a href='grouporg.php' class='edit'>Группы</a>
   </tdspan></tr>
   <tr><tdspan span=3>
-   <a href='journal.php?redirid=$_' class='edit'>Журнал</a>
+   <a href='journal.php' class='edit'>Журнал</a>
   </tdspan></tr>
  </admin_users>
  <navi_main ident='$ident' span=2>

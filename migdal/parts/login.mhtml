@@ -59,7 +59,7 @@
       <if what='$$userHidden'>
        $$userLogin
       <else>
-       <at href#='/userinfo.php?id=$$userId&redirid=$_' class='name'
+       <at href#='/userinfo.php?id=$$userId' class='name'
 	   target='$target'>$$userLogin</at>
       </if>
       </b>

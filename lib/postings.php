@@ -599,8 +599,10 @@ function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=0,$index1=-1,$up=-1)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
 $filter=$id>=0 ? "postings.id=$id"
-               : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0"
+               : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0
+	                        $topicFilter"
 	                     : '');
 $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
                             body,large_filename,large_format,large_body,

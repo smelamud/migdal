@@ -35,7 +35,7 @@
    </if>
     <td>
      <biff time='$.Sent'>
-     <a href='forum.php?msgid=$.Id&redirid=$_' class='ninept'>$.SubjectDesc</a>
+     <a href='forum.php?msgid=$.Id' class='ninept'>$.SubjectDesc</a>
      <if what='$.TopicId!=$`forums`'>
       <br>
       <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>

@@ -9,7 +9,7 @@
 </element>
 
 <element name='further' params='posting,title'>
- <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
+ <asp><a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'><asp>
   <image src='pics/further.gif' border=0 title='$title'>
  <asp></a>&nbsp;<asp>
 </element>
@@ -30,7 +30,7 @@
                image='$$style_cframe_back_pic'>
    <biff time='$posting.Sent'>
    <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
-    <a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'>
+    <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
      $posting.Subject</a>
    <else>
     $posting.Subject

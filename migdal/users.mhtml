@@ -90,7 +90,7 @@
   <for>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <td class='subject ninept'>
-     <a href="userinfo.php?id=$.id&redirid=$_">$.Login</a>
+     <a href='userinfo.php?id=$.id'>$.Login</a>
     </td>
     <td class='eightpt'><fullname user='$.'></td>
     <if what='$.isConfirmed'>

@@ -18,7 +18,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+ <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'><zone>
    <posting_new grp='*GRP_NEWS' topic_id='$,Id'>
    <topics posting='$,'>

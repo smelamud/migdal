@@ -7,7 +7,7 @@
 <ifnzero what='$;Count'>
  <topics_table class='eightpt' title='$title'>
   <for>
-   <topics_line time='$.Sent' href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
+   <topics_line time='$.Sent' href#='$.DetailsFile?$.DetailsId=$.Id'
 		text#='$.SubjectDesc' rating!='$.VoteCount!=0 ? $.Vote20 : -1'>
   </for>
  </topics_table>
@@ -25,7 +25,7 @@
    <topics_splitter>
    <tr><td colspan=2 class='pic' align=center>
     <ifnzero what='$.ImageSet'>
-     <a href='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'>
+     <a href='$.DetailsFile?$.DetailsId=$.Id'>
       <image_tag_put id='$.ImageId'></a>
     </ifnzero>
    </td></tr>

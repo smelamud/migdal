@@ -13,7 +13,7 @@
                     sort='*SORT_RINDEX0'>
  <for>
   <topics_line time='$.LastMessage' text='$.Name' title='$.Description'
-               href#='event.php?topic_id=$.Id&redirid=$_'>
+               href#='event.php?topic_id=$.Id'>
  </for>
 </topics_table>
 </element>

@@ -9,7 +9,7 @@
 </element>
 
 <element name='further' params='posting'>
-<asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
+<asp><a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'><asp>
  <image src='pics/further.gif' border=0 title='Читать дальше'>
 <asp></a>&nbsp;<asp>
 </element>

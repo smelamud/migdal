@@ -14,7 +14,7 @@
 <pagetitle title='$,Subject'>
 
 <html>
-<stylesheet ident='article'>
+<stylesheet ident='$,MenuIndex'>
 <preamble>
 <body>
  <top ident='index'>

@@ -14,7 +14,7 @@
 <html>
 <preamble>
 <body>
- <top ident='discuss'>
+ <top ident='$,MenuIndex'>
  <table width=100% cellpadding=5>
   <tr valign=top>
    <if what='$,Grp!=*GRP_LINKS'>

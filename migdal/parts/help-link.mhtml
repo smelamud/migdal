@@ -3,6 +3,6 @@
 <element name='help_link'>
 <tr><tdspan span='$span'><table><tr align=center>
  <td><image src='pics/help.gif'></td>
- <td><a href='$href?redirid=$_'>$title</a></td>
+ <td><a href='$href'>$title</a></td>
 </tr></table></tdspan></tr>
 </element>
