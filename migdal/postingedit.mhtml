@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/postingedit.mhtml 1.23 >>
+<< Based-on: demo/postingedit.mhtml 1.24 >>
 
 <int name='editid'>
 <int name='topic_id'>
@@ -85,13 +85,15 @@
              filename='$file'>
    <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи' color=magenta
           span=2>
-   <ifnzero what='$message.ImageSet'>
-    <assign name='ttext' value='$image.Title'>
-   <else>
-    <assign name='ttext' value=''>
-   </ifnzero>
-   <editor_line name='title' body='$ttext' title='Подпись под картинкой'
-                rows=5 span=2>
+   <if what='$message.hasTitle'>
+    <ifnzero what='$message.ImageSet'>
+     <assign name='ttext' value='$image.Title'>
+    <else>
+     <assign name='ttext' value=''>
+    </ifnzero>
+    <editor_line name='title' body='$ttext' title='Подпись под картинкой'
+		 rows=5 span=2>
+   </if>
   </if>
  <if what='$message.hasLargeBody'>
   <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>

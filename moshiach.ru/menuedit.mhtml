@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/menuedit.mhtml 1.6 >>
+<< Based-on: demo/menuedit.mhtml 1.7 >>
 
 <int name='menuid'>
 <html>
@@ -30,7 +30,7 @@
    <for>
     <ifnzero what='$next'>
      <a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&redir=$_'>
-      <img src='pics/menudown.png' alt='Переместить ниже'></a><br>
+      <img src='pics/menudown.png' alt='Переместить ниже' border=0></a><br>
      <assign name='next' value='0'>
     </ifnzero>
     <if what='$.Id==$menuid'>

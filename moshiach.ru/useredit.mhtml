@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/useredit.mhtml 1.6 >>
+<< Based-on: demo/useredit.mhtml 1.8 >>
 
 <element name='may_edit'
          params='title,showvalue,value,name,size,maxlength,status'
@@ -155,7 +155,7 @@
   <noedit name='user'>
    <tr>
     <td><b>Последний раз<br>заходил сюда:</b></td>
-    <td>$,LastOnline</td>
+    <td><sentview date='$,LastOnline'></td>
    </tr>
   </noedit>
   <admin_users>
