@@ -1,3 +1,7 @@
+Order allow,deny
+Allow from all
+Deny from 195.161.113.0/5
+
 AddDefaultCharset Windows-1251
 php_value include_path ".:.."
 php_flag magic_quotes_gpc off
