@@ -4,8 +4,8 @@
 
 OBJECTS = 404.php 500.php archive.php article.php article-times.php book.php \
 	  book-chapter.php book-chapter-split.php book-print.php \
-	  book-split.php book-static.php chat.php chatboard.php chatbottom.php \
-	  chatconsole.php chattop.php chatusers.php chmod.php \
+	  book-split.php book-static.php callbacks.php chat.php chatboard.php \
+	  chatbottom.php chatconsole.php chattop.php chatusers.php chmod.php \
 	  complainactionedit.php complainanswer.php complainedit.php \
 	  complainforum.php complains.php ears.php event.php events.php \
 	  events-english.php forum.php forumansweredit.php forumcatalog.php \

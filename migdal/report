@@ -368,7 +368,8 @@ sub runPopularity
 my ($log)=@_;
 
 return if $$log[0] eq 'trap' || $$log[0] eq 'enter' || $$log[0] eq 'login'
-          || $$log[0] eq 'logout' || $$log[0] eq 'bug' || $$log[0] eq 'search';
+          || $$log[0] eq 'logout' || $$log[0] eq 'bug' || $$log[0] eq 'search'
+	  || $$log[0] eq 'fail';
 my $s=$$log[0].': '.$$log[3];
 $counters{$s}=new Counter() unless defined $counters{$s};
 $counters{$s}->inc($$log[2],$$log[1]);

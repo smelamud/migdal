@@ -289,7 +289,7 @@ function clearStotext($format,$s)
 return preg_replace('/<[^>]+>/','',stotextToHTML($format,$s));
 }
 
-function strpos_all($haystack,$needle,&$found)
+/*function strpos_all($haystack,$needle,&$found)
 {
 if(is_array($needle))
   foreach($needle as $s)
@@ -329,7 +329,7 @@ foreach($patterns as $pat)
        return substr($s,0,$bestpos+$len-$mdlen+2);
        }
 return substr($s,0,$len);
-}
+}*/
 
 function ellipsize($s,$len)
 {

@@ -334,6 +334,25 @@ parse_str($fragments['query']);
 ?>
 </macro>
 
+<< Callbacks >>
+<macro name='deccallback'>
+ <require name='lib/callbacks.php'>
+ <require name='%file'>
+ <decel name='%name' file='%file' params='%params'>
+ <?php setCallback('%event','%?name'); ?>
+</macro>
+
+<macro name='callback'>
+ <require name='lib/callbacks.php'>
+ <element name='%name' params='%params'>
+ <?php beginCallback(); ?>
+</macro>
+
+<macro name='/callback'>
+ <?php return endCallback(); ?>
+ </element>
+</macro>
+
 << GRP >>
 <deccall macro='grpword' func='getGrpWord' file='lib/grps.php'
          params='grp,words' defaults="grp='$grp' words='$*'">

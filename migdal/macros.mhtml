@@ -15,6 +15,9 @@
 << Styles >>
 <<decstyle ident='test' desc='Тестовый'>>
 
+<< Callbacks >>
+<require name='callbacks.php'>
+
 << Elements >>
 <decel name='article' file='parts/article.php'
        params='posting,withvote,static,note_base_var'

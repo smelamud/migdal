@@ -315,6 +315,8 @@ return $types->{$1}
        if $s=~/^%!{?(\w+)}?$/;
 return getArgList($params->{$1})
        if $s=~/^%\@{?(\w+)}?$/;
+return getElementFuncName($params->{$1})
+       if $s=~/^%\?{?(\w+)}?$/;
 return $s;
 }
 
@@ -326,7 +328,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^%]*)((?:%[\^@!]?{?\w+}?)?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^%]*)((?:%[?\^@!]?{?\w+}?)?)(.*)$/s;
      $c.=$head;
      $c.=subMacroParam($var,$params,$types) if $var ne '';
      }

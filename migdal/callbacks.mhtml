@@ -1,0 +1,4 @@
+<< @(#) $Id$ >>
+
+<deccallback event='image' name='inner_image' file='parts/inner-image.php'
+             params='id'>

@@ -27,6 +27,8 @@
           addr CDATA #REQUIRED>
 
 <!ELEMENT footnote (#PCDATA|%noteline;)*>
+<!ATTLIST footnote
+          title CDATA #IMPLIED>
 
 <!ELEMENT img EMPTY>
 
