@@ -15,7 +15,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+ <table width=100% cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
     <topics posting='$,'>
