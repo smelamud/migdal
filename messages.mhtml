@@ -7,7 +7,7 @@
  <title>Клуб Еврейского Студента - $g.title</title>
 </head>
 <body bgcolor=white>
-  <top ident='$ident'>
+  <top ident='$g.ident'>
   <topic_name id='$topic_id'>
   <center><h1>
    $g.title по теме &quot;$,Name&quot;

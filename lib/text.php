@@ -30,8 +30,8 @@ return $c;
 
 function enrichedTextToHTML($s)
 {
-$c=preg_replace('/\n\n/','<p>',$s);
-$c=preg_replace('/\n/','<br>',$c);
+$c=str_replace("\n\n",'<p>',$s);
+$c=str_replace("\n",'<br>',$c);
 $c=flipReplace('_','<u>','</u>',$c);
 $c=flipReplace('~','<b>','</b>',$c);
 return $c;

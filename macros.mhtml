@@ -235,7 +235,7 @@
 << Typecasts >>
 <macro name='int'>
  <header>
-  <settype name='%name' type='integer'>
+  <settype name='%name' type='integer' method='%method'>
  </header>
 </macro>
 

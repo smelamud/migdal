@@ -9,7 +9,7 @@
  <title>Клуб Еврейского Студента - $g.title</title>
 </head>
 <body bgcolor=white>
- <top ident='$ident'>
+ <top ident='$g.ident'>
  <p>
  <message_obj id='$editid' grp='$grp' topic='$topic_id'>
  <ifzero what='$message.Id'>

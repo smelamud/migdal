@@ -748,8 +748,16 @@ sub elSettype #XXX Possibly empty name,type or unknown type
 {
 my ($self)=@_;
 
-::body('<?php settype($',$self->getArg('name'),',\'',
-                         $self->getArg('type'),'\'); ?>');
+my $name=$self->getArg('name');
+my $type=$self->getArg('type');
+my $method=$self->getArg('method');
+$method=$method eq '' ? 'GET' : uc $method;
+::body(<<EOT);
+<?php
+settype(\$$name,'$type');
+settype(\$HTTP_${method}_VARS['$name'],'$type');
+?>
+EOT
 }
 
 sub elSetup
