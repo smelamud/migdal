@@ -83,7 +83,7 @@ else
     $info=mysql_fetch_assoc($rights);
     foreach($info as $name => $value)
            $GLOBALS['user'.getProperName($name)]=$value;
-    if($GLOBALS['userAdminUsers'])
+    if($GLOBALS['userAdminUsers'] && $GLOBALS['userHidden']>0)
       $GLOBALS['userHidden']--;
     mysql_query("update sessions set last=null where sid=$sessionid")
 	 or die('Ошибка SQL при обновлении TIMESTAMP сессии');
