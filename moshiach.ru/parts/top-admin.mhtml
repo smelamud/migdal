@@ -1,6 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='top_admin'>
-<login>
-<backtrace>
-</element>

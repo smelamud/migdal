@@ -1,4 +1,0 @@
-AddDefaultCharset Windows-1251
-php_value include_path ".:.."
-php_flag magic_quotes_gpc off
-php_flag magic_quotes_runtime off

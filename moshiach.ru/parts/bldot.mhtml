@@ -1,7 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='bldot'>
-<td bgcolor=ffffff width=1% align=center>
- <img src=pics/bldot.gif width=1 border=0 height=100%>
-</td>
-</element>
