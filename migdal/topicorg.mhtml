@@ -14,18 +14,18 @@
   <ul class='names'>
    <for>
     <ifne what='$.Ident'>
-     <assign name='name' value#='$.Name [$.Ident]'>
+     <assign name='info' value#='[$.Ident=$.Id]'>
     <else>
-     <assign name='name' value='$.Name'>
+     <assign name='info' value#='[$.Id]'>
     </ifne>
     <ifne what='$.Login'>
-     <assign name='name' value#='$name <i>($.Login)</i>'>
+     <assign name='info' value#='$info <i>($.Login)</i>'>
     </ifne>
     <admin_topics>
      <li><a href='topicedit.php?editid=$.Id&redirid=$_'
-	    title='$.Description' class='item'>$name</a>
+	    title='$.Description' class='item'>$.Name</a>&sp;$info&sp;
     <else>
-     <li>$name
+     <li>$.Name&sp;$info&sp;
     </admin_topics>
     <branch up='$.Id'>
    </for>
