@@ -12,7 +12,7 @@ $Token='';
 	 '<<'   => 'Remark',
          '<'    => 'Tag',
 	 ''     => 'Text');
-@GetPrefixes=('get','is','has');
+@GetPrefixes=('get','is','has','mandatory');
 
 @Requests=();
 $Header='';
@@ -596,7 +596,9 @@ elsif(defined($::Macros{$tagName}))
 elsif(defined($::Elements{$tagName}))
   {
   ::request($::Elements{$tagName}->getFile());
-  ::body('<?php display',$self->getName(),'(',
+  my $func=$self->getName();
+  $func=~s/\//_/g;
+  ::body("<?php display$func(",
          $::Elements{$tagName}->getParams($self->getArgs()),'); ?>');
   }
 else
@@ -727,6 +729,16 @@ $name='const'.($::LastConst++) if $name eq '';
 $::Stack->top()->setConst($name);
 }
 
+sub elConcat
+{
+my ($self)=@_;
+
+my $name=$self->getArg('name');
+$name='const'.($::LastConst++) if $name eq '';
+::body("<?php \$$name='",::subVars($self->getArg('value'),"'.",".'"),"'; ?>");
+$::Stack->top()->setConst($name);
+}
+
 sub elIterate #XXX Possibly empty class
 {
 my ($self)=@_;
@@ -845,6 +857,7 @@ sub elElement #XXX Possibly empty name or incorrect closure
 my ($self)=@_;
 
 $::ElementName=lc $self->getArg('name');
+$::ElementName=~s/\//_/g;
 $::ElementBody='';
 @::ElementGlobals=();
 if(!exists $::Elements{$::ElementName})

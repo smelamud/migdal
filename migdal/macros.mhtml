@@ -21,6 +21,10 @@
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
+<decel name='formbuttons' file='parts/formutils.php' params='title,span'
+       defaults="title='Изменить',span=0">
+<decel name='formtable' file='parts/formutils.php' params='title'>
+<decel name='/formtable' file='parts/formutils.php'>
 <decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'
        defaults="complain='*true'">
 <decel name='forumcatalog' file='parts/forumcatalog.php'
@@ -46,14 +50,19 @@
        defaults="topic=-1 limit=10 offset=0 title=''">
 <decel name='senderlink' file='parts/utils.php' params='message,align'
        defaults="align='right'">
+<decel name='star' file='parts/formutils.php'>
+<decel name='starinfo' file='parts/formutils.php' params='span'
+       defaults='span=0'>
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php' params='ident,flags,image'
        defaults="flags=''">
 <decel name='topics' file='parts/topics.php' params='g,topic_id,title'
        defaults="title='' topic_id=0">
-<decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>
+<decel name='topicselect' file='parts/topicselect.php'
+       params='name,value,grp,mandatory' defaults="mandatory='*false'">
 <decel name='uploader' file='parts/uploader.php'
-       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename'>
+       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,mandatory'
+       defaults="mandatory='*false'">
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
 
@@ -92,4 +101,21 @@
   <plural value='%value'>
   $,
  </zone>
+</macro>
+
+<< HTML shortcuts >>
+<macro name='edit_line' defaults="mandatory='*false'">
+ <tr>
+  <td>%title <if what='%mandatory'><star></if></td>
+  <tdspan span=%span>
+   <edit name='%name' value='%value' size=%size maxlength=%maxlength>
+  </td>
+ </tr>
+</macro>
+
+<macro name='editor_line' defaults="span=0 rows=10 mandatory='*false'">
+ <tr><tdspan span=%span>%title <if what='%mandatory'><star></if></tdspan></tr>
+ <tr><tdspan span=%span>
+  <textarea name='%name' rows=%rows cols=50 wrap='virtual'>%body</textarea>
+ </tdspan></tr>
 </macro>

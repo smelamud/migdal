@@ -111,6 +111,16 @@ picture_modify=black
 picture_modify_hover=blue
 picture_bottom_back=%nd
 picture_bottom=white
+form_back=%nll
+form_title_back=%nd
+form_title=white
+form_input_border=%nm
+form_input_text=black
+form_star=red
+form_starinfo=%grd
+form_buttons_ruler=%nd
+form_buttons_back=%nm
+form_buttons=white
 
 ! Global
 
@@ -729,6 +739,44 @@ BODY {
 	color: %picture_bottom;
 	font-weight: bold;
 	text-align: center;
+}
+
+! Form
+
+.form {
+	background-color: %form_back;
+	padding: 5px;
+}
+
+.form TH {
+	background-color: %form_title_back;
+	color: %form_title;
+	font-weight: bold;
+}
+
+.form INPUT,.form SELECT,.form TEXTAREA {
+	border: 1px solid %form_input_border;
+	color: %form_input_text;
+}
+
+.form .star {
+	font-size: 12pt;
+	color: %form_star;
+}
+
+.form .starinfo TD {
+	padding-bottom: 2ex;
+	font-size: 8pt;
+	color: %form_starinfo;
+}
+
+.form .buttons {
+	border-top: 2px solid %form_buttons_ruler;
+}
+
+.form .buttons INPUT {
+	background-color: %form_buttons_back;
+	color: %form_buttons;
 }
 
 ! Chat

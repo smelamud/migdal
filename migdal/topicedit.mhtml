@@ -8,14 +8,19 @@
 </head>
 <body>
  <top ident='topics' image='pics/index.gif'>
- <p>
  <topic_obj id='$editid' up='$up'>
  <setup>
+ <if what='$editid'>
+  <formtable title='Изменить тему'>
+ <else>
+  <formtable title='Добавить тему'>
+ </if>
  <form method=post enctype='multipart/form-data' action='actions/topicmod.php'>
   <hidden name='edittag' value=1>
   <hidden name='redir' value='$redir'>
   <hidden name='editid' value='$editid'>
   <table>
+   <starinfo>
    <error id='*ET_NO_EDIT' text='У вас нет права менять список тем'>
    <error id='*ET_STORE_SQL' text='Ошибка базы данных при обновлении записи'
 	  color='magenta'>
@@ -24,22 +29,17 @@
    <tr><td><table>
     <error id='*ET_NO_UP' text='Такой темы не существует' span=2>
     <error id='*ET_LOOP_UP' text='Тема не может быть подтемой самой себя' span=2>
-    <topicselect name='up' value='$,UpValue' grp='*GRP_ALL'>
+    <topicselect name='up' value='$,UpValue' grp='*GRP_ALL' mandatory='*true'>
     <error id='*ET_NAME_ABSENT' text='Название не было введено' span=2>
-    <edit_line title='Название' value=$,Name name='name' size=30 maxlength=70>
+    <edit_line title='Название' value=$,Name name='name' size=30 maxlength=70
+               mandatory='*true'>
     <error id='*ET_IDENT_UNIQUE' text='Так уже обозначена другая тема' span=2>
     <edit_line title='Обозначение' name='ident' value='$,Ident'
 	       size=15 maxlength=15>
    </table></td></tr>
    <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
-   <editor_line title='Описание' name='description' body='$,Description'>
-   <tr><td colspan=2><table>
-    <error id='*EUL_LARGE' text='Описание слишком велико (больше 2M)'>
-    <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
-	      title='Подробное описание' loaded='(уже загружено)'
-	      notloaded='Другое' filename='$,LargeFilename'>
-    <upload_format format='$,LargeFormat'>
-   </table></td></tr>
+   <editor_line title='Описание' name='description' body='$,Description'
+                mandatory='*true'>
    <checkbox_line name='hidden' value='$,isHidden'
 		  title='Не показывать в списке'>
    <tr><td><table width=100%>
@@ -66,14 +66,14 @@
 		   title='Статьи премодерируются'></td>
     </tr>
    </table></td></tr>
-  </table>
   <if what='$editid'>
-   <input type=submit value='Изменить'>
+   <formbuttons title='Изменить'>
   <else>
-   <input type=submit value='Добавить'>
+   <formbuttons title='Добавить'>
   </if>
-  <input type=reset value='Очистить'>
+  </table>
  </form>
+ </formtable>
  <bottom>
 </body>
 </html>

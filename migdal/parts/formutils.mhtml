@@ -1,0 +1,35 @@
+<< @(#) $Id$ >>
+
+<element name='formtable'>
+<center><table class='form'><tr><th>$title</th></tr><tr><td>
+</element>
+
+<element name='/formtable'>
+</td></tr></table></center>
+</element>
+
+<element name='star'>
+<span class='star'>*</span>
+</element>
+
+<element name='starinfo'>
+<tr class='starinfo'><tdspan span='$span'>
+ Поля, отмеченные <star>, обязательны для заполнения
+</tdspan></tr>
+</element>
+
+<element name='formbuttons'>
+<tr><tdspan span='$span'>&nbsp;</td></tr>
+<tr>
+ <ifzero what='$span'>
+  <td class='buttons'>
+ <else>
+  <td colspan=$span class='buttons'>
+ </ifzero>
+ <table width=100% cellspacing=10><tr>
+  <td align=right><input type=submit value='$title'></td>
+  <td align=left><input type=reset value='Очистить'></td>
+ </tr></table>
+ </td>
+</tr>
+</element>

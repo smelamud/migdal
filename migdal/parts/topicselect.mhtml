@@ -3,7 +3,7 @@
 
 <element name='topicselect'>
 <tr>
- <td>Тема</td>
+ <td>Тема <if what='$mandatory'><star></if></td>
  <td>
   <select name='$name'>
    <radio title='-- Без темы --' value=0 peervalue='$value'>

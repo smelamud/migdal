@@ -4,12 +4,12 @@
 <element name='uploader'>
 <if what="$filename==''">
  <tr>
-  <td>$title</td>
+  <td>$title&nbsp;<if what='$mandatory'><star></if></td>
   <td><input type=file name='$name' size=35></td>
  </tr>
 <else>
  <tr><td colspan=2><table>
-  <tr><td>$title</td></tr>
+  <tr><td>$title&nbsp;<if what='$mandatory'><star></if></td></tr>
   <tr>
    <td>
     <input type=radio name='$loadedname' value='$loadedvalue' checked>

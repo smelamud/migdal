@@ -9,9 +9,6 @@
 </head>
 <body>
  <top ident='complains' image='pics/complain.gif'>
- <p>
- <center><h1>Ответы на жалобы</h1></center>
- <p>
  <complain_type_obj id='$typeid'>
  <form method=get action='$~'><table><tr>
   <hidden name='redir' value='$redir'>
@@ -50,12 +47,18 @@
    <td>
     <complain_action_obj id='$editid'>
     <setup>
+    <if what='$editid'>
+     <formtable title='Изменить ответ на жалобу'>
+    <else>
+     <formtable title='Добавить ответ на жалобу'>
+    </if>
     <form method=post action='actions/camod.php'>
      <hidden name='edittag' value=2>
      <hidden name='redir' value='$redir'>
      <hidden name='type_id' value='$typeid'>
      <hidden name='editid' value='$editid'>
      <table>
+      <starinfo>
       <error id='*ECAM_NO_EDIT' text='Вы не администратор'>
       <error id='*ECAD_NO_EDIT' text='Вы не администратор'>
       <error id='*ECAD_NO_ACTION' text='Такого ответа на жалобу не существует'>
@@ -80,25 +83,26 @@
        </td>
        <td>
         <checkbox name='automatic' value='$,isAutomatic'
-	          title='Выполнять автоматически'>
+	          title='Автоматически'>
        </td>
       </tr>
      </table>
      <table>
       <error id='*ECAM_NAME_ABSENT' text='Укажите заголовок ответа' span=2>
       <edit_line name='name' value='$,Name' title='Заголовок' size=40
-                 maxlength=70>
+                 maxlength=70 mandatory='*true'>
       <error id='*ECAM_TEXT_ABSENT' span=2
              text='Напишите хотя бы пару строчек в теле ответа'>
-      <editor_line name='text' body='$,Text' title='Текст' span=2>
-     </table>
+      <editor_line name='text' body='$,Text' title='Текст' span=2
+                   mandatory='*true'>
      <if what='$editid'>
-      <input type=submit value='Изменить'>
+      <formbuttons title='Изменить' span=3>
      <else>
-      <input type=submit value='Добавить'>
+      <formbuttons title='Добавить' span=3>
      </if>
-     <input type=reset value='Очистить'>
+     </table>
     </form>
+    </formtable>
    </td>
   </tr>
  </table>

@@ -10,8 +10,6 @@
  <menu_obj id='$menuid'>
  <setup>
  <top ident='$,Ident' image='pics/index.gif'>
- <center><h1>Главное меню</h1></center>
- <p>
  <table>
   <error id='*EMIX_NO_EDIT' text='Вы не администратор'>
   <error id='*EMIX_NO_FIRST' text='Первого пункта меню не существует'>
@@ -57,30 +55,36 @@
    </ifzero>
   </td>
   <td>
+   <if what='$menuid'>
+    <formtable title='Изменить пункт меню'>
+   <else>
+    <formtable title='Добавить пункт меню'>
+   </if>
    <form method=post action='actions/menumod.php'>
     <hidden name='edittag' value=1>
     <hidden name='editid' value='$menuid'>
     <table>
+     <starinfo span=2>
      <error id='*EMI_NO_EDIT' text='Вы не администратор' span=2>
      <error id='*EMI_NAME_ABSENT' text='Название не указано' span=2>
      <error id='*EMI_STORE_SQL' text='Ошибка базы данных при обновлении записи'
             color='magenta' span=2>
-     <edit_line title='Название' name='name' value='$,Name' size=30 maxlength=30>
+     <edit_line title='Название' name='name' value='$,Name' size=30
+                maxlength=30 mandatory='*true'>
      <error id='*EMI_IDENT_ABSENT' text='Обозначение не указано' span=2>
      <error id='*EMI_IDENT_UNIQUE' text='Так уже обозначен другой пункт меню' span=2>
      <edit_line title='Обозначение' name='ident' value='$,Ident' size=15
-                maxlength=15>
+                maxlength=15 mandatory='*true'>
      <edit_line title='Ссылка' name='link' value='$,Link' size=40 maxlength=70>
      <tr><td></td><td>
       <checkbox name='hidden' value='$,isHidden' title='Не показывать'>
      </td>
-    </table>
     <if what='$menuid'>
-     <input type=submit value='Изменить'>
+     <formbuttons title='Изменить' span=2>
     <else>
-     <input type=submit value='Добавить'>
+     <formbuttons title='Добавить' span=2>
     </if>
-    <input type=reset value='Очистить'>
+    </table>
    </form>
   </td>
  </tr></table>
