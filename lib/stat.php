@@ -27,7 +27,7 @@ fclose($fd);
 $fd=fopen("$dir/log",'w');
 $iter=new LogIterator($from);
 while($line=$iter->next())
-     fputs($fd,$line->getEvent()."\t".$line->getSent()."\t".$line->getAddress()."\t".
+     fputs($fd,$line->getEvent()."\t".$line->getSent()."\t".$line->getIP()."\t".
            $line->getBody()."\n");
 fclose($fd);
 
