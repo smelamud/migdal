@@ -1,0 +1,7 @@
+<< @(#) $Id$ >>
+
+<element name='topics_gallery'>
+<topics_gallery_major posting='$posting'>
+<topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
+	      href='gallery.php' title='Раздельчики'>
+</element>

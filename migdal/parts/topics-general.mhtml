@@ -17,8 +17,7 @@
  </if>
  <if what='$posting.Grp==*GRP_GALLERY'>
   <if what='$/$posting.TopicId,0/!=$`migdal`'>
-   <topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
-		 href='gallery.php' title='Галерея'>
+   <topics_gallery posting='$posting'>
   <else>
    <topics_migdal posting='$posting'>
    <topics_major ident='migdal' posting='$posting'>
@@ -46,11 +45,9 @@
   <topics_help ident='help-tips'>
   <topics_major ident='help'>
  </if>
-<else>
- <if what="$ident=='help-subs' || $ident=='help-types' || $ident=='help-tips'">
-  <topics_help ident='$ident'>
-  <topics_major ident='help'>
- </if>
+<elif what="$ident=='help-subs' || $ident=='help-types' || $ident=='help-tips'">
+ <topics_help ident='$ident'>
+ <topics_major ident='help'>
 </ifnzero>
 </element>
 

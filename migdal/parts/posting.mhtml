@@ -32,37 +32,37 @@
 <element name='topiclink'>
 <if what='($posting.Grp & *GRP_GALLERY)!=0'>
  <topiclink_gallery posting='$posting' class='$class'>
-<else><if what='($posting.Grp & *GRP_LINKS)!=0'>
+<elif what='($posting.Grp & *GRP_LINKS)!=0'>
  <topiclink_links posting='$posting' class='$class'>
-<else><if what='($posting.Grp & *GRP_TIPS)!=0'>
+<elif what='($posting.Grp & *GRP_TIPS)!=0'>
  <at href='tips.php' class='$class' title='$posting.TopicDescription'
      >$posting.TopicName</at>
-<else><if what='$/$posting.TopicId,0/==$`migdal-times`'>
+<elif what='$/$posting.TopicId,0/==$`migdal-times`'>
  <topiclink_times posting='$posting' class='$class'>
-<else><if what='$/$posting.TopicId,0/==$`taglit`'>
+<elif what='$/$posting.TopicId,0/==$`taglit`'>
  <at href#='taglit-user.php?user_id=$posting.SenderId' class='$class'
      title='$posting.TopicDescription'>$posting.TopicName</at>
-<else><if what='$/$posting.TopicId,0/==$`veterans`'>
+<elif what='$/$posting.TopicId,0/==$`veterans`'>
  <at href#='veterans-user.php?user_id=$posting.SenderId' class='$class'
      title='$posting.TopicDescription'>$posting.TopicName</at>
-<else><if what='$/$posting.TopicId,0/==$`migdal`'>
+<elif what='$/$posting.TopicId,0/==$`migdal`'>
  <if what='$/$posting.TopicId,1/==$`methodics`'>
   <topic_obj id='$`methodics`'>
   <at href='methodics.php' class='$class' title='$,Description'>$,Name</at>
- <else><if what='$/$posting.TopicId,1/==$`migdal-library`'>
+ <elif what='$/$posting.TopicId,1/==$`migdal-library`'>
   <topic_obj id='$`migdal-library`'>
   <at href='migdal-library.php' class='$class' title='$,Description'>
    Мигдаль :: $,Name</at>
  <else>
   <at href='migdal.php' class='$class'>Мигдаль</at>
- </if></if>
-<else><if what='$/$posting.TopicId,0/==$`migdal,e`'>
+ </if>
+<elif what='$/$posting.TopicId,0/==$`migdal,e`'>
  <at href='index.php' class='$class'>Migdal</at>
 <else>
  <if what='$/$posting.TopicId,1/==$`inet-news`'>
   <topic_obj id='$`inet-news`'>
   <at href='links.php' class='$class' title='$,Description'>$,Name</at>
- <else><if what='$/$posting.TopicId,1/==$`migdal-news`'>
+ <elif what='$/$posting.TopicId,1/==$`migdal-news`'>
   <topic_obj id='$`migdal-news`'>
   <if what='$posting.TopicId==$`migdal-news`'>
    <at href='migdal-news.php' class='$class' title='$,Description'>$,Name</at>
@@ -73,8 +73,8 @@
  <else>
   <at href#='index.php?topic_id=$posting.TopicId' class='$class'
       title='$posting.TopicDescription'>$posting.TopicName</at>
- </if></if>
-</if></if></if></if></if></if></if></if>
+ </if>
+</if>
 </element>
 
 <element name='editlink'>

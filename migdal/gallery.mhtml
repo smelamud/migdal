@@ -44,7 +44,7 @@
   <td width=150 class='eframe'>
    <zone>
     <posting_new grp='*GRP_GALLERY' topic_id='$topic_id'>
-    <topics posting='$,'>
+    <topics_gallery posting='$,'>
    </zone>
   </td>
   <td>

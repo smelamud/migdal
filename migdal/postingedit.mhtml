@@ -27,29 +27,29 @@
 <else>
  <if what='$message.Grp==*GRP_BOOK_CHAPTERS'>
   <assign name='root' value='$message.TopicId'>
- <else><if what='$/$message.TopicId,0/==$`migdal`'>
+ <elif what='$/$message.TopicId,0/==$`migdal`'>
   <if what='$/$message.TopicId,1/==$`kaitana`'>
    <assign name='root' value='$message.TopicId'>
-  <else><if what='$/$message.TopicId,1/==$`methodics`'>
+  <elif what='$/$message.TopicId,1/==$`methodics`'>
    <assign name='root' value='$`methodics`'>
-  <else><if what='$/$message.TopicId,1/==$`migdal-library`'>
+  <elif what='$/$message.TopicId,1/==$`migdal-library`'>
    <assign name='root' value='$`migdal-library`'>
   <else>
    <assign name='root' value='$`migdal`'>
-  </if></if></if>
- <else><if what='$/$message.TopicId,0/==$`taglit`'>
+  </if>
+ <elif what='$/$message.TopicId,0/==$`taglit`'>
   <assign name='root' value='$`taglit`'>
- <else><if what='$/$message.TopicId,0/==$`migdal-times`'>
+ <elif what='$/$message.TopicId,0/==$`migdal-times`'>
   <assign name='root' value='$`migdal-times`'>
- <else><if what='$/$message.TopicId,0/==$`veterans`'>
+ <elif what='$/$message.TopicId,0/==$`veterans`'>
   <assign name='root' value='$`veterans`'>
- <else><if what='$/$message.TopicId,0/==$`links`'>
+ <elif what='$/$message.TopicId,0/==$`links`'>
   <assign name='root' value='$`links`'>
- <else><if what='$/$message.TopicId,0/==$`tips`'>
+ <elif what='$/$message.TopicId,0/==$`tips`'>
   <assign name='root' value='$`tips`'>
  <else>
   <assign name='root' value='$`general`'>
- </if></if></if></if></if></if></if>
+ </if>
 </full>
 
 <html>

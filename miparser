@@ -1060,6 +1060,18 @@ my ($self)=@_;
 ::body('<?php } else { ?>');
 }
 
+sub elElif #XXX Possibly incorrect closure
+{
+elElseif(@_);
+}
+
+sub elElseif #XXX Possibly incorrect closure
+{
+my ($self)=@_;
+
+::body('<?php } elseif(',$self->getExpressionArg('what'),') { ?>');
+}
+
 sub el_if #XXX Possibly incorrect closure
 {
 my ($self)=@_;
