@@ -2,7 +2,7 @@
 
 <element name='menuitem' params='ident,link,target,current,time'
          defaults='time=0'>
-<biff time='$time'>
+<<biff time='$time'>>
 <at href='$link' target='$target'>
  <if what='$current==$ident'>
   <image src#='pics/menu-${ident}.gif' border=0>
