@@ -17,19 +17,28 @@ function flipReplace($foo,$bar,$_bar,$s)
 {
 $c='';
 $tag=0;
+$intag=0;
 for($n=0;$n<strlen($s);$n++)
-   if(!$tag && $s[$n]==$foo && ($n==0 || is_delim($s[$n-1])))
+   {
+   if($s[$n]=='<')
+     $intag++;
+   if($s[$n]=='>')
+     $intag--;
+   if(!$intag && !$tag && $s[$n]==$foo
+      && ($n==0 || is_delim($s[$n-1])))
      {
      $c.=$bar;
      $tag=1;
      }
-   elseif($tag && $s[$n]==$foo && ($n==strlen($s) || is_delim($s[$n+1])))
+   elseif(!$intag && $tag && $s[$n]==$foo
+          && ($n==strlen($s) || is_delim($s[$n+1])))
      {
      $c.=$_bar;
      $tag=0;
      }
    else
      $c.=$s[$n];
+   }
 if($tag)
   $c.=$_bar;
 return $c;
@@ -37,7 +46,7 @@ return $c;
 
 function replaceURLs($s)
 {
-$c=preg_replace('/\S+:\/\/\S+/','<a href="\\0">\\0</a>',$s);
+$c=preg_replace('/\S+:\/\/\S+/','<a href="\\0" target=_blank>\\0</a>',$s);
 $c=preg_replace('/[A-Za-z-]+(\.[A-Za-z-]+)*@[A-Za-z-]+(\.[A-Za-z-]+)*/',
                 '<a href="mailto:\\0">\\0</a>',$c);
 return $c;

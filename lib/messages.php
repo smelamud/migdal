@@ -157,6 +157,11 @@ function getLargeFilename()
 return $this->large_filename;
 }
 
+function isLargeTextAvailable()
+{
+return $this->large_filename!='';
+}
+
 function getLargeFormat()
 {
 return $this->large_format;

@@ -1,8 +1,8 @@
-# MySQL dump 8.14
+# MySQL dump 8.16
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.41-log
+# Server version	3.23.42-log
 
 #
 # Table structure for table 'chat_messages'
@@ -123,8 +123,10 @@ CREATE TABLE images (
   large_x smallint(6) NOT NULL default '0',
   large_y smallint(6) NOT NULL default '0',
   format varchar(30) NOT NULL default '',
+  used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
-  KEY image_set (image_set)
+  KEY image_set (image_set),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 #
@@ -177,6 +179,7 @@ CREATE TABLE messages (
   id int(11) NOT NULL auto_increment,
   body text NOT NULL,
   large_filename varchar(70) NOT NULL default '',
+  large_format tinyint(4) NOT NULL default '0',
   large_body mediumtext NOT NULL,
   subject varchar(250) NOT NULL default '',
   sender_id int(11) NOT NULL default '0',
@@ -308,11 +311,11 @@ CREATE TABLE users (
   KEY confirm_deadline_2 (confirm_deadline)
 ) TYPE=MyISAM;
 
-# MySQL dump 8.14
+# MySQL dump 8.16
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.41-log
+# Server version	3.23.42-log
 
 #
 # Dumping data for table 'complain_types'

@@ -55,8 +55,13 @@
    <else>
     <assign name='file' value=''>
    </ifnzero>
+   <if what='$message.hasLargeBody'>
+    <assign name='title' value='Картинка для аннотации'>
+   <else>
+    <assign name='title' value='Картинка'>
+   </if>
    <uploader name='image' loadedname='image_set' loadedvalue='$message.ImageSet'
-             title='Картинка' loaded='(уже загружена)' notloaded='Другая'
+             title='$title' loaded='(уже загружена)' notloaded='Другая'
              filename='$file'>
   </if>
  <if what='$message.hasLargeBody'>
