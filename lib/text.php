@@ -160,6 +160,7 @@ for($i=0;$i<=strlen($s)-4;$i+=5)
      $n++;
    else
      return $n;
+return $n;
 }
 
 function replaceQuoting($s)
