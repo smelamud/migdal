@@ -85,6 +85,7 @@ switch($format)
 	   $c=str_replace("\n",'<br>',$c);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
+	   $c=flipReplace('=','<i>','</i>',$c);
 	   break;
       case TF_TEX:
 	   $c=replaceURLs($c);
@@ -92,6 +93,7 @@ switch($format)
 	   $c=str_replace('\\\\','<br>',$c);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
+	   $c=flipReplace('=','<i>','</i>',$c);
 	   break;
       case TF_HTML:
 	   $c=replaceParagraphs($c);
@@ -100,6 +102,7 @@ switch($format)
 	   $c=replaceURLs($c);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
+	   $c=flipReplace('=','<i>','</i>',$c);
 	   break;
       }
 return $c;

@@ -158,7 +158,7 @@ return $this->stotext->getBody();
 
 function getHTMLBody()
 {
-return stotextToHTML(TF_PLAIN,$this->getBody());
+return stotextToHTML(TF_MAIL,$this->getBody());
 }
 
 function getLargeFilename()

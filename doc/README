@@ -50,5 +50,6 @@ based-on.txt.
 README         Общие сведения о документации
 based-on.txt   Система меток Based-on:
 ident.txt      Система идентификации
+stotext.txt    Текстовые форматы
 
 @(#) $Id$
