@@ -142,13 +142,18 @@ else
   $small_size_y=$large_size_y;
   }
   
-$sHandle=ImageCreate($small_size_x,$small_size_y);
 if($useCopyResampled)
+  {
+  $sHandle=ImageCreateTrueColor($small_size_x,$small_size_y);
   ImageCopyResampled($sHandle,$lHandle,0,0,0,0,$small_size_x,$small_size_y,
 		     $large_size_x,$large_size_y);
+  }
 else
+  {
+  $sHandle=ImageCreate($small_size_x,$small_size_y);
   ImageCopyResized($sHandle,$lHandle,0,0,0,0,$small_size_x,$small_size_y,
 		   $large_size_x,$large_size_y);
+  }
 
 $sFname=getImageTypeName($thumbnailType);
 if((ImageTypes() & getImageTypeCode($thumbnailType))==0 || $sFname=='')
