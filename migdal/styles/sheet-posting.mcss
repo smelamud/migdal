@@ -7,9 +7,12 @@
 	background-color: %posting_back;
 }
 
-.posting DD,.posting DD * {
-	text-align: justify;
+.posting * {
 	font-size: 9pt;
+}
+
+.posting DD,.posting DD P {
+	text-align: justify;
 }
 
 .posting .pic IMG {
