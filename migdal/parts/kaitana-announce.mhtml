@@ -1,32 +1,32 @@
 << @(#) $Id$ >>
 
-<assign_global name='current_kaitana' value=8>
-
-<macro name='day'>
- <assign name='link' value='*false'>
- <if what='(%n)==6 || (%n)==13'>
-  <td class=sh>
+<element name='day' params='n'>
+<time>
+<assign name='current_kaitana' value!='$,@j-16'>
+<assign name='link' value='*false'>
+<if what='$n==6 || $n==13'>
+ <td class=sh>
+<else>
+ <if what='$n<$$current_kaitana'>
+  <td class=p>
+  <assign name='link' value='*true'>
  <else>
-  <if what='(%n)<$$current_kaitana'>
-   <td class=p>
-   <assign name='link' value='*true'>
+  <if what='$n==$$current_kaitana'>
+   <td class=n>
   <else>
-   <if what='(%n)==$$current_kaitana'>
-    <td class=n>
-   <else>
-    <td class=f>
-   </if>
+   <td class=f>
   </if>
  </if>
-  <if what='$link'>
-   <a href='kaitana.php?day=%n'><asp>
-  </if>
-  <if what='(%n)>=1 && (%n)<=9'>&nbsp;</if>%n
-  <if what='$link'>
-   <asp></a>
-  </if>
- </td>
-</macro>
+</if>
+ <if what='$link'>
+  <a href='kaitana.php?day=$n'><asp>
+ </if>
+ <if what='$n>=1 && $n<=9'>&nbsp;</if>$n
+ <if what='$link'>
+  <asp></a>
+ </if>
+</td>
+</element>
 
 <element name='kaitana_style'>
 <style><!--
