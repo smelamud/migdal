@@ -25,6 +25,8 @@ var $track;
 var $name;
 var $full_name;
 var $user_id;
+var $group_id;
+var $perms;
 var $stotext;
 var $hidden;
 var $allow;
@@ -144,6 +146,47 @@ return $this->full_name;
 function getUserId()
 {
 return $this->user_id;
+}
+
+function getGroupId()
+{
+return $this->group_id;
+}
+
+function getPerms()
+{
+return $this->perms;
+}
+
+function isPermitted($right)
+{
+global $userAdminTopics,$userModerator;
+
+return $userAdminTopics && $right!=PERM_POST
+       ||
+       $userModerator && $right==PERM_POST
+       ||
+       perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
+}
+
+function isReadable()
+{
+return $this->isPermitted(PERM_READ);
+}
+
+function isWritable()
+{
+return $this->isPermitted(PERM_WRITE);
+}
+
+function isAppendable()
+{
+return $this->isPermitted(PERM_APPEND);
+}
+
+function isPostable()
+{
+return $this->isPermitted(PERM_POST);
 }
 
 function getStotext()

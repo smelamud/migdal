@@ -30,6 +30,22 @@ define('PERM_EW',0x2000);
 define('PERM_EA',0x4000);
 define('PERM_EP',0x8000);
 
+function perm($user_id,$group_id,$perms,$right)
+{
+global $userId,$userGroups;
+
+return $userId==$user_id &&
+       ($perms & $right<<PB_USER)!=0
+       ||
+       ($userId==$group_id || in_array($group_id,$userGroups)) &&
+       ($perms & $right<<PB_GROUP)!=0
+       ||
+       $userId>0 &&
+       ($perms & $right<<PB_OTHER)!=0
+       ||
+       ($perms & $right<<PB_GUEST)!=0;
+}
+
 class Permissions
       extends DataObject
 {
@@ -84,19 +100,7 @@ return $this->perms;
 
 function isPermitted($right)
 {
-global $userId,$userGroups;
-
-return $userId==$this->getUserId() &&
-       ($this->getPerms() & $right<<PB_USER)!=0
-       ||
-       ($userId==$this->getGroupId() || in_array($this->getGroupId(),
-                                                 $userGroups)) &&
-       ($this->getPerms() & $right<<PB_GROUP)!=0
-       ||
-       $userId>0 &&
-       ($this->getPerms() & $right<<PB_OTHER)!=0
-       ||
-       ($this->getPerms() & $right<<PB_GUEST)!=0;
+return perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
 }
 
 function isReadable()
@@ -153,10 +157,12 @@ journal("update $table
 	 where id='.journalVar($table,$id));
 }
 
-function permitted($right,$user_id='user_id',$prefix='')
+function permitted($right,$admin,$user_id='user_id',$prefix='')
 {
 global $userId,$userGroups;
 
+if($admin)
+  return '';
 if($prefix!='')
   $prefix.='.';
 if($userId<=0)
@@ -165,7 +171,7 @@ $groups=array();
 foreach($userGroups as $g)
        $groups[]="${prefix}group_id=$g";
 $groups[]="${prefix}group_id=$userId";
-return "$userId=${prefix}$user_id and
+return "($userId=${prefix}$user_id and
        (${prefix}perms & ".$right<<PB_USER.')<>0
        or
        ('.join(' or ',$groups).") and
@@ -173,6 +179,28 @@ return "$userId=${prefix}$user_id and
        or
        (${prefix}perms & ".$right<<PB_OTHER.")<>0
        or
-       (${prefix}perms & ".$right<<PB_GUEST.')<>0';
+       (${prefix}perms & ".$right<<PB_GUEST.')<>0)';
+}
+
+function visible($admin,$user_id='user_id',$prefix='')
+{
+return permitted(PERM_READ,$admin,$user_id,$prefix);
+}
+
+function permString($s)
+{
+$tmpl="rwaprwaprwaprwap";
+if(strlen($s)!=strlen($tmpl))
+  return -1;
+$s=strtolower($s);
+$perm=0;
+$right=1;
+for($i=0;$i<strlen($tmpl);$i++,$right*=2)
+   if($s{$i}==$tmpl{$i})
+     $perm|=$right;
+   else
+     if($s{$i}!='-')
+       return -1;
+return $perm;
 }
 ?>

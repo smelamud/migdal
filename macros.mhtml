@@ -306,6 +306,46 @@
 </macro>
 <endif name='/noedit'>
 
+<macro name='isread'>
+ <if what='%what.isReadable'>
+</macro>
+<endif name='/isread'>
+
+<macro name='notread'>
+ <if what='!%what.isReadable'>
+</macro>
+<endif name='/notread'>
+
+<macro name='iswrite'>
+ <if what='%what.isWritable'>
+</macro>
+<endif name='/iswrite'>
+
+<macro name='notwrite'>
+ <if what='!%what.isWritable'>
+</macro>
+<endif name='/notwrite'>
+
+<macro name='isappend'>
+ <if what='%what.isAppendable'>
+</macro>
+<endif name='/isappend'>
+
+<macro name='notappend'>
+ <if what='!%what.isAppendable'>
+</macro>
+<endif name='/notappend'>
+
+<macro name='ispost'>
+ <if what='%what.isPostable'>
+</macro>
+<endif name='/ispost'>
+
+<macro name='notpost'>
+ <if what='!%what.isPostable'>
+</macro>
+<endif name='/notpost'>
+
 <macro name='isfirst'>
  <if what='%what.isFirst'>
 </macro>
