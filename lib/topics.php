@@ -16,6 +16,7 @@ var $hidden;
 var $no_news;
 var $no_forums;
 var $no_gallery;
+var $message_count;
 
 function Topic($row)
 {
@@ -96,73 +97,71 @@ function isGallery()
 return $this->no_gallery ? 0 : 1;
 }
 
+function getMessageCount()
+{
+return $this->message_count;
 }
 
-class GroupSelectIterator
+}
+
+class TopicIterator
       extends SelectIterator
 {
 
-function getGrpCondition($grp)
-{
-return $grp==GRP_ANY ? ''
-                     : 'and ('.join(' or ',
-		               $this->noEqZero(getGrpNames($grp))).')';
-}
-
-function noEqZero($vars)
-{
-$conds=array();
-foreach($vars as $var)
-       $conds[]="no_$var=0";
-return $conds;
-}
-
-}
-
-class BaseTopicListIterator
-      extends GroupSelectIterator
-{
-
-function BaseTopicListIterator($sql)
-{
-$this->GroupSelectIterator('Topic',$sql);
-}
-
-function getWhere($grp)
+function getWhere($grp,$prefix='')
 {
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$grpFilter=$this->getGrpCondition($grp);
-return " where hidden<$hide $grpFilter ";
+$gf=getUnpackedGrpFilter($grp,$prefix);
+return " where $prefix"."hidden<$hide $gf ";
+}
+
+function TopicIterator($query)
+{
+$this->SelectIterator('Topic',$query);
 }
 
 }
 
 class TopicListIterator
-      extends BaseTopicListIterator
+      extends TopicIterator
 {
+
+function getJoin($grp)
+{
+global $userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$gf=getPackedGrpFilter($grp,'messages.');
+return " and messages.hidden<$hide $gf ";
+}
 
 function TopicListIterator($grp)
 {
-$this->BaseTopicListIterator('select id,name,description
-		              from topics'
-			      .$this->getWhere($grp).
-		             'order by name');
+$this->TopicIterator('select topics.id as id,topics.name as name,
+			     description,
+			     count(messages.topic_id) as message_count
+		      from topics left join messages
+			on topics.id=messages.topic_id'.
+		      $this->getJoin($grp).
+		      $this->getWhere($grp,'topics.').
+		     'group by topics.id
+		      order by topics.name');
 }
 
 }
 
 class TopicNamesIterator
-      extends BaseTopicListIterator
+      extends TopicIterator
 {
 
 function TopicNamesIterator($grp)
 {
-$this->BaseTopicListIterator('select id,name
-		              from topics'
-			      .$this->getWhere($grp).
-		             'order by name');
+$this->TopicIterator('select id,name
+		      from topics'.
+		      $this->getWhere($grp).
+		     'order by name');
 }
 
 }

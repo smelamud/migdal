@@ -305,7 +305,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic==0 ? '' : " and messages.topic_id=$topic ";
-$grpFilter=$this->getGrpCondition($grp);
+$grpFilter=getPackedGrpFilter($grp);
 $this->LimitSelectIterator(
        'Message',
 	"select messages.id as id,body,subject,grp,sent,topic_id,sender_id,
@@ -326,21 +326,6 @@ $this->LimitSelectIterator(
 	 order by sent desc",$limit,$offset);
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
-}
-
-function getGrpCondition($grp)
-{
-return $grp==GRP_ANY ? ''
-                     : 'and ('.join(' or ',
-		               $this->Eq(getGrpNumbers($grp))).')';
-}
-
-function Eq($nums)
-{
-$conds=array();
-foreach($nums as $num)
-       $conds[]="grp=$num";
-return $conds;
 }
 
 function create($row)

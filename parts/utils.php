@@ -90,12 +90,13 @@ return "<br><table width=100%><tr>
 	  <a href=$prevURI>".
 	  ($list->getOffset()!=0 ? '<-- Предыдущие' : '').
 	 '</a>
-	 </td>
-	 <td align=center width=40%>
-	  ['.($list->getOffset()+1).'-'.($list->getOffset()+$list->getCount()).']
-	  из '.$list->getSize()."
-	 </td>
-         <td align=right width=30%>
+	 </td>'.
+	($list->getCount()==0 ? '' :
+	'<td align=center width=40%>
+	  ['.($list->getOffset()+1).'-'.
+	     ($list->getOffset()+$list->getCount()).'] из '.$list->getSize().
+	'</td>').
+        "<td align=right width=30%>
 	  <a href=$nextURI>".
 	  ($list->getOffset()+$list->getCount()<$list->getSize()
 	   ? 'Следующие -->' : '').

@@ -48,7 +48,7 @@ session();
        echo '<p>';
        echo "<b><a href='messages.php?grp=$grp&redir=$requestURI&".
 	                                      "topic_id=$topicId'>".
-	      $item->getName().
+	      $item->getName().' ('.$item->getMessageCount().')'.
 	    '</a></b>&nbsp;';
        if($userAdminTopics)
          echo "<a href='topicedit.php?editid=$topicId&redir=$requestURI'>".
