@@ -60,7 +60,7 @@
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' kaitana_id=0">
 <decel name='lastonline_cell' file='parts/utils.php' params='user,class'
        defaults="class=''">
-<decel name='login' file='parts/login.php' params='no_new,err,target'
+<decel name='login' file='parts/login.php' params='no_new,target'
        defaults="no_new='*false' target=''">
 <decel name='mailru_count' file='parts/mailru.php'>
 <decel name='mailru_logo' file='parts/mailru.php'>

@@ -46,7 +46,7 @@
  <tr>
   <td align=right>
    <community>
-    <login no_new='$no_new' err='$$err' target='$target'>
+    <login no_new='$no_new' target='$target'>
    </community>
   </td>
  </tr>

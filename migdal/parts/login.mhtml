@@ -16,7 +16,7 @@
 
 <errors>
 <element name='login'>
-<ifne what='$err'>
+<ifne what='$$err'>
  <table class='ninept'>
   <error id='*EL_INVALID' text='Неверный ник или пароль'>
   <error id='*ELO_SQL_GET' text='Ошибка базы данных при выборке записи'
