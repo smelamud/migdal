@@ -7,7 +7,6 @@
 </head>
 <body>
  <top ident='users' image='pics/users.gif'>
- <p>
  <formtable title='Подтверждение регистрации'>
   Пользователь <b>$login</b> успешно зарегистрирован.
   <p>

@@ -6,7 +6,7 @@ use DBI;
 use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 
-$VERSION='0.0.1';
+$VERSION='0.2';
 $configPath='conf/migdal.conf';
 @libpath=();
 GetOptions('config|c=s'	 => \$configPath,
@@ -58,6 +58,7 @@ $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
                   $Config{'dbHost'},$Config{'dbUser'},$Config{'dbPassword'},
 		  {'AutoCommit' => 1,'PrintError' => 1,
 		   'ShowErrorStatement' => 1});
+$Wget=$Config{'wgetPath'};
 }
 
 sub scanJewishru
@@ -67,7 +68,7 @@ my $pos=0;
 
 for my $n (1..20)
     {
-    open IN,"wget -qO - 'http://www.jewish.ru/topjews/index.asp?page=$n' |";
+    open IN,"$Wget -qO - 'http://www.jewish.ru/topjews/index.asp?page=$n' |";
     my $pl=0;
     while(<IN>)
          {
@@ -85,7 +86,7 @@ sub scanMailru
 my ($id,undef)=@_;
 my ($td,$tw,$gd,$gw)=(0,0,0,0);
 
-open IN,"wget -qO - 'http://top.mail.ru/stat?id=$id' |";
+open IN,"$Wget -qO - 'http://top.mail.ru/stat?id=$id' |";
 while(<IN>)
      {
      $td=$1 if /^<td><a href="\/Rating\/MassMedia-News\/Today\/Hosts\/\d*.html#(\d+)">/;
@@ -106,7 +107,7 @@ my %pages=(''     => \$td,'24hho2' => \$td,'24hho3' => \$td,
 
 while(my ($s,$var)=each(%pages))
     {
-    open IN,"wget -qO - 'http://www.topcto.ru/other/index$s.html' |";
+    open IN,"$Wget -qO - 'http://www.topcto.ru/other/index$s.html' |";
     my $pl=0;
     while(<IN>)
          {
@@ -131,7 +132,7 @@ sub scanRambler
 my ($id,undef)=@_;
 my ($td,$tw,$gd,$gw)=(0,0,0,0);
 
-open IN,"wget -qO - 'http://top100.rambler.ru/cgi-bin/stats_top100.cgi?id=$id&page=6' |";
+open IN,"$Wget -qO - 'http://top100.rambler.ru/cgi-bin/stats_top100.cgi?id=$id&page=6' |";
 my $vd=\$td;
 my $vw=\$tw;
 my $sites=0;

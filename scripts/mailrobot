@@ -6,7 +6,7 @@ use DBI;
 use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 
-$VERSION='0.0.1';
+$VERSION='0.2';
 $configPath='conf/migdal.conf';
 @libpath=();
 GetOptions('config|c=s'	 => \$configPath,

@@ -228,6 +228,7 @@ complain_controls_hover=blue
 chatboard_back=%vl
 chatboard_time=%gr
 chatboard_name=%nd
+chatusers_split=black
 userinfo_info_back=%nll
 userinfo_title_back=%nl
 
@@ -281,6 +282,10 @@ BODY {
 
 ! Bottom
 
+.bottom {
+	margin-top: 1.5ex;
+}
+
 .bottom * {
 	color: %bottom;
 	font-size: 8pt;
@@ -301,6 +306,7 @@ BODY {
 ! State
 
 .state {
+	margin-bottom: 1.5ex;
 	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 8pt;
@@ -366,6 +372,11 @@ BODY {
 }
 
 ! Return
+
+.return {
+	margin-top: 1.5ex;
+	margin-bottom: 1.5ex;
+}
 
 .return IMG {
 	border-width: 0px;
@@ -1137,6 +1148,15 @@ BODY.chatboard {
 .chatboard .name{
 	color: %chatboard_name;
 	font-weight: bold;
+}
+
+.chatusers {
+	border-bottom: 1px solid %chatusers_split;
+	margin-bottom: 1ex;
+}
+
+.chatusers TD {
+	font-size: 8pt;
 }
 
 ! User info

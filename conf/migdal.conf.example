@@ -71,6 +71,9 @@ $useMogrify=true;
 # Путь к mogrify
 $mogrifyPath='mogrify';
 
+# Путь к wget
+$wgetPath='wget';
+
 # Команда для отправки почты
 $sendmailCommand='/usr/sbin/sendmail -t';
 

@@ -9,7 +9,6 @@
 </head>
 <body>
  <top ident='complains' image='pics/complain.gif'>
- <p>
  <table width=100% class='complain'>
   <complain_full id='$compid'>
   <if what="$,Display!=''">

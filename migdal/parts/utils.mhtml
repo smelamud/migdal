@@ -56,7 +56,10 @@
   <else>
    Сейчас
   </if>
-  <biff time='$user.LastOnline'>
+  <zone>
+   <time>
+   <biff time='$,'>
+  </zone>
  </td>
 <else>
  <if what='$user.isTooOld'>

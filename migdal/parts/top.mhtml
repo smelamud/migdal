@@ -29,6 +29,5 @@
  </td>
  <td class='date'><today></td>
 </tr></table>
-<p>
 <backtrace redir='$$redir' target='$target'>
 </element>

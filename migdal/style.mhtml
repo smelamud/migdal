@@ -6,7 +6,6 @@
 </head>
 <body>
  <top ident='style' image='pics/style.gif'>
- <p>
  <formtable title='Настройка вида'>
  <form method=post action='actions/style.php'>
   <hidden name='redir' value='$redir'>

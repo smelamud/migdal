@@ -7,7 +7,6 @@
 </head>
 <body>
  <top ident='users' image='pics/users.gif'>
- <p>
  <table width=100% class='catalog'>
   <tr valign=top>
    <th class='subject'>Ник</th><th>Имя</th><th>Возраст</th>

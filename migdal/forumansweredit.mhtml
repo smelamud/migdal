@@ -9,7 +9,6 @@
 </head>
 <body>
  <top ident='forums' image='pics/forums.gif'>
- <p>
  <forum_answer_obj id='$editid' up='$up'>
  <setup>
  <if what='$editid'>

@@ -2,9 +2,6 @@
 
 <element name='bottom'>
 <backtrace redir='$$redir' target='$target'>
-<if what="$$redir!=''">
- <p>
-</if>
 <div class='bottom'>
  <table width=100%><tr valign=bottom>
   <td align=left>
