@@ -1,0 +1,5 @@
+! @(#) $Id$
+
+.posting .subject {
+	font: bold 14pt %times;
+}

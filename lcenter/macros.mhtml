@@ -24,6 +24,9 @@
 <decel name='grpselect' file='parts/grpselect.php'
        params='name,value,title,mandatory'
        defaults="title='ôÉÐ' mandatory='*false'">
+<decel name='image_linked_tag' file='parts/utils.php'
+       params='id,enlarge,align,static,title'
+       defaults="enlarge=true align='' static='*false' title=''">
 <decel name='langselect' file='parts/langselect.php'
        params='name,value,mandatory,title'
        defaults="mandatory='*false' title='ñÚÙË'">

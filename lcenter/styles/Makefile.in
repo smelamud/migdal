@@ -5,7 +5,7 @@
 FLAVOURS = default print
 STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-menu.mcss sheet-bottom.mcss sheet-form.mcss sheet-topics.mcss \
-	sheet-catalog.mcss sheet-info.mcss
+	sheet-catalog.mcss sheet-info.mcss sheet-posting.mcss
 
 all: style.stamp
 

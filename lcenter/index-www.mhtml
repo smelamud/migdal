@@ -6,8 +6,45 @@
 <log event='index' text=''>
 <grps>
 
+<topictitle title='Новости'>
+
+<element name='news' params='posting'>
+<dl class='posting'>
+ <dt class='subject'>$posting.Subject</dt>
+ <dd class='ninept'>
+  <ifnzero what='$posting.ImageSet'>
+   <table align='left' class='pic'>
+    <tr><td>
+     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+    </td></tr>
+    <ifne what='$posting.Title'>
+     <tr><td>$posting.HTMLTitle</td></tr>
+    </ifne>
+   </table>
+  </ifnzero>
+  $posting.HTMLBody
+ </dd>
+</dl>
+</element>
+
 <preamble>
 <body>
  <top ident='index'>
+ <table width="100%" cellspacing="3" cellpadding="5"><tr valign="top">
+  <td width="25%">
+   &nbsp;
+  </td>
+  <td width="50%">
+   <subtitle>
+   <iterate_postinglist grp='*GRP_NEWS' topic_id='$`news`'
+                        fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_TOPICS'>
+   <for>
+    <p><news posting='$.'></p>
+   </for>
+  </td>
+  <td width="25%">
+   &nbsp;
+  </td>
+ </tr></table>
  <bottom>
 </body>
