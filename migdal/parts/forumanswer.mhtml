@@ -14,28 +14,26 @@
    $answer.HTMLBody
   </td>
  </tr>
- <logged>
-  <tr>
-   <td class='controls'>&nbsp;
-    <a href="forumansweredit.php?parent_id=$answer.ParentId&peerid=$answer.Id&redirid=$_"
-       title='Ответить с цитированием'>Ответить</a>
-    <isedit what='$answer'>
+ <tr>
+  <td class='controls'>&nbsp;
+   <a href="forumansweredit.php?parent_id=$answer.ParentId&peerid=$answer.Id&redirid=$_"
+      title='Ответить с цитированием'>Ответить</a>
+   <isedit what='$answer'>
+    &nbsp;
+    <a href="forumansweredit.php?editid=$answer.Id&redirid=$_"
+     >Изменить</a>
+    <moderator>
      &nbsp;
-     <a href="forumansweredit.php?editid=$answer.Id&redirid=$_"
-      >Изменить</a>
-     <moderator>
-      &nbsp;
-      <if what='$answer.isDisabled'>
-       <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	>Разрешить&nbsp;показ</a>
-      <else>
-       <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	>Запретить&nbsp;показ</a>
-      </if>
-     </moderator>
-    </isedit>
-   </td>
-  </tr>
- </logged>
+     <if what='$answer.isDisabled'>
+      <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&okdir=$#-&faildir=$#-"
+       >Разрешить&nbsp;показ</a>
+     <else>
+      <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&okdir=$#-&faildir=$#-"
+       >Запретить&nbsp;показ</a>
+     </if>
+    </moderator>
+   </isedit>
+  </td>
+ </tr>
 </table>
 </element>

@@ -51,7 +51,7 @@
     <topics_minor id='$topic_id' withpostings='*false' grp='*GRP_TAPE'
                   href='index.php' title='Раздельчики'>
     <if what='$topic_id<=0'>
-     <p>
+     <p>&nbsp;</p>
      <rabbi>
     </if>
    </td>
