@@ -83,8 +83,12 @@
     <td align=right>
      <if what='$discuss'>
       <biff time='$posting.LastAnswer'>
-      <a href='forum.php?redir=$_&msgid=$posting.Id'
-       >Обсудить ($posting.AnswerCount)</a>
+      <a href='forum.php?redir=$_&msgid=$posting.Id'>
+       Обсудить
+       <ifnzero what='$posting.AnswerCount'>
+        ($posting.AnswerCount)<asp>
+       </ifnzero>
+      <asp></a>
      </if>
     </td>
    </tr></table></td></tr>
