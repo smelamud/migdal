@@ -61,7 +61,8 @@
   </if>
  <if what='$message.hasLargeBody'>
   <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
-  <uploader name='large_body' loadedname='large_loaded' loadedvalue=1 title='Текст'
+  <error id='*EP_LARGE_BODY_LARGE' text='Статья слишком велика (больше 2M)'>
+  <uploader name='large_file' loadedname='large_loaded' loadedvalue=1 title='Текст'
             loaded='(уже загружен)' notloaded='Другой'
 	    filename='$message.LargeFilename'>
   </table></td></tr>

@@ -14,6 +14,31 @@ require_once('lib/topics.php');
 require_once('lib/images.php');
 require_once('lib/postings.php');
 
+function uploadLargeText(&$message)
+{
+global $large_file,$large_file_size,$large_file_type,$large_file_name,$large_loaded,
+       $maxLargeText,$tmpDir;
+
+if(isset($large_loaded) && $large_loaded==1)
+  return EP_OK;
+if(!isset($large_file) || $large_file=='' || !is_uploaded_file($large_file)
+   || filesize($large_file)!=$large_file_size)
+  return EP_OK;
+if($large_file_size>$maxLargeText)
+  return EP_LARGE_BODY_LARGE;
+
+$large_file_tmpname=tempnam($tmpDir,'mig-');
+if(!move_uploaded_file($large_file,$large_file_tmpname))
+  return EP_OK;
+$fd=fopen($large_file_tmpname,'r');
+$message->large_filename=$large_file_name;
+$message->large_body=fread($fd,$maxLargeText);
+fclose($fd);
+unlink($large_file_tmpname);
+
+return EP_OK;
+}
+
 function modifyPosting($message)
 {
 global $userId;
@@ -55,6 +80,8 @@ $img=uploadImage('image',true,$err);
 if($img)
   $message->setImageSet($img->getImageSet());
 if($err==EIU_OK)
+  $err=uploadLargeText($message);
+if($err==EP_OK)
   $err=modifyPosting($message);
 if($err==EP_OK)
   header("Location: $redir");
