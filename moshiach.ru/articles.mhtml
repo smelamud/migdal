@@ -19,7 +19,8 @@
     <topics_admin ident='articles'>
    </td>
    <td>
-    <postings grp='*GRP_ARTICLES' offset='$offset' root=general>
+    <postings grp='*GRP_ARTICLES' offset='$offset' root=general
+              topic_id='$topic_id'>
    </td>
   </tr></table>
  </moderator>

@@ -1,91 +1,85 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/limedit.mhtml 1.12 >>
+<< Based-on: migdal/limedit.mhtml 1.20 >>
 
 <int name='postid'>
 <int name='editid'>
+<pagetitle title='Список иллюстраций'>
+
 <html>
-<head>
- <title>Демо - Список иллюстраций</title>
-</head>
-<body bgcolor=white>
- <top ident='articles'>
- <p>
+<preamble_admin>
+<body>
+ <top_admin>
  <posting_obj id='$postid'>
- <center><h1>Иллюстрации к статье "$,Subject"</h1></center>
- <p>
  <table width=100%><tr valign=top>
   <td>
    <iterate_imageset imageset='$,LargeImageSet'>
-   <for>
-    <if what='$editid==$.Id'>
-     <a href='$[err edittag editid=$.Id]'><b>$.Filename</b></a>
-     &nbsp;
-     <a href='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$_&faildir=$_'
-        >[Удалить]</a>
-    <else>
-     <a href='$[err edittag editid=$.Id]'>$.Filename</a>
-    </if>
-    <br>
-   </for>
-   <p>
-   <ifzero what='$editid'>
-    <a href='$[err edittag editid=0]'><b>&lt;Добавить&gt;</b></a>
-   <else>
-    <a href='$[err edittag editid=0]'>&lt;Добавить&gt;</a>
-   </ifzero>
+   <topics_table class='ninept'>
+    <for>
+     <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
+		  text='$.Filename'>
+     <if what='$editid==$.Id'>
+      <topics_line href#='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$#-&faildir=$#-'
+		   class='edit' text='Удалить'>
+     </if>
+    </for>
+    <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
+                 class='new' text='Добавить'>
+   </topics_table>
   </td>
   <td>
-   <image_obj id='$editid'>
-   <setup>
-   <form method=post enctype='multipart/form-data' action='actions/limmod.php'>
-    <hidden name='edittag' value=1>
-    <hidden name='redir' value='$redir'>
-    <hidden name='okdir' value='$-'>
-    <hidden name='faildir' value='$-'>
-    <hidden name='postid' value='$postid'>
-    <hidden name='editid' value='$editid'>
-    <table>
-     <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'
-            span=2>
-     <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'
-            span=2>
-     <error id='*ELIM_DELETE_SQL' color=magenta span=2
-            text='Ошибка при удалении старого изображения'>
-     <error id='*ELID_DELETE_SQL' color=magenta span=2
-            text='Ошибка при удалении изображения'>
-     <error id='*ELIM_IMAGE_ABSENT' text='Такого изображения не существует'
-            span=2>
-     <error id='*ELIM_SET_SQL' text='Ошибка при установке набора изображений'
-            color=magenta span=2>
-     <error id='*ELIM_SETID_SQL' color=magenta span=2
-            text='Ошибка при установке идентификатора изображения'>
-     <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
-     <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
-            span=2>
-     <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
-	    color='magenta' span=2>
-     <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
-	    text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
-     <uploader name='image' loadedname='loaded' loadedvalue='1'
-               title='Изображение' loaded='(уже загружено)' notloaded='Другое'
-               filename='$,Filename'>
-     <checkbox_line name='has_large' value='$,hasLarge'
-                    title='Вставлять в уменьшенном виде'>
-     <td>Размер</td>
-     <td>
-      <input type=text name='small_x' value='$,SmallX' size=4 maxlength=4>
-      x
-      <input type=text name='small_y' value='$,SmallY' size=4 maxlength=4>
-     </td>
-     <editor_line name='title' body='$,Title' title='Подпись' rows=5 span=2>
-    </table>
-    <if what='$editid'>
-     <input type=submit value='Изменить'>
-    <else>
-     <input type=submit value='Добавить'>
-    </if>
-    <input type=reset value='Очистить'>
-   </form>
+   <formtable title#='Иллюстрации к статье "$,Subject"'>
+    <image_obj id='$editid'>
+    <setup>
+    <form method=post enctype='multipart/form-data'
+	  action='actions/limmod.php'>
+     <hidden name='edittag' value=1>
+     <hidden name='okdir' value='$-'>
+     <hidden name='faildir' value='$-'>
+     <hidden name='postid' value='$postid'>
+     <hidden name='editid' value='$editid'>
+     <table>
+      <starinfo span=2>
+      <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'
+	     span=2>
+      <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'
+	     span=2>
+      <error id='*ELIM_DELETE_SQL' color=magenta span=2
+	     text='Ошибка при удалении старого изображения'>
+      <error id='*ELID_DELETE_SQL' color=magenta span=2
+	     text='Ошибка при удалении изображения'>
+      <error id='*ELIM_IMAGE_ABSENT' text='Такого изображения не существует'
+	     span=2>
+      <error id='*ELIM_SET_SQL' text='Ошибка при установке набора изображений'
+	     color=magenta span=2>
+      <error id='*ELIM_SETID_SQL' color=magenta span=2
+	     text='Ошибка при установке идентификатора изображения'>
+      <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+      <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+	     span=2>
+      <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
+	     color='magenta' span=2>
+      <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+	     text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+      <uploader name='image' loadedname='loaded' loadedvalue='1'
+		title='Изображение' loaded='(уже загружено)' notloaded='Другое'
+		filename='$,Filename' mandatory='*true'>
+      <checkbox_line name='has_large' value='$,hasLarge'
+		     title='Вставлять в уменьшенном виде' span=2>
+      <td>Размер</td>
+      <td>
+       <input type=text name='small_x' value='$,SmallX' size=4 maxlength=4>
+       x
+       <input type=text name='small_y' value='$,SmallY' size=4 maxlength=4>
+      </td>
+      <editor_line name='title' body='$,Title' title='Подпись' rows=5 span=2>
+      <if what='$editid'>
+       <formbuttons title='Изменить' span=2>
+      <else>
+       <formbuttons title='Добавить' span=2>
+      </if>
+     </table>
+    </form>
+   </formtable>
   </td>
  </tr></table>
 </body>

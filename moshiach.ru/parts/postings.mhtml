@@ -58,7 +58,7 @@
 </element>
 
 <element name='postings'>
-<iterate_postinglist grp='$grp' offset='$offset'>
+<iterate_postinglist grp='$grp' offset='$offset' topic='$topic_id'>
 <batcher>
 <for>
  <posting posting='$.'>

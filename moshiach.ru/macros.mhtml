@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/macros.mhtml 1.87 (Все, кроме элементов)
+<< Based-on: migdal/macros.mhtml 1.89 (Все, кроме элементов)
 
 << Errors >>
 <macro name='error'>

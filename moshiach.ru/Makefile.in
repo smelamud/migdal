@@ -3,8 +3,8 @@
 # @(#) $Id$
 # Based-on: migdal/Makefile.in 1.28
 
-OBJECTS = admin.php article-admin.php articles.php postingedit.php quotes.php \
-	topicedit.php topicorg.php
+OBJECTS = admin.php article-admin.php articles.php limedit.php liminsert.php \
+	postingedit.php quotes.php topicedit.php topicorg.php
 
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
