@@ -60,14 +60,15 @@ mysql_query("update redirs
 
 function redirect()
 {
-global $redir,$lastRedir,$redirid,$globalid,$pageTitle,$REQUEST_URI;
+global $redir,$lastRedir,$redirid,$globalid,$pageTitle,$REQUEST_URI,
+       $HTTP_REFERER;
 
 settype($redirid,'integer');
 settype($globalid,'integer');
 
 if($redirid!=0 && !redirExists($redirid))
   {
-  logEvent('trap','outdated or incorrect redirid');
+  logEvent('trap',"outdated or incorrect redirid [$HTTP_REFERER]");
   reload(remakeURI($REQUEST_URI,array('redirid')));
   }
 if($globalid==0)
