@@ -7,15 +7,15 @@
 <preamble>
 <body>
  <top ident='admin'>
- <table width=100% cellpadding=5>
-  <tr valign=top>
-   <td width=150 class='eframe'>
+ <table width="100%" cellspacing="3" cellpadding="5">
+  <tr valign="top">
+   <td width="150" class='eframe'>
     <topics_admin ident='admin-groups'>
    </td>
    <td>
     <table>
      <admin_users>
-      <tr><td colspan=2>
+      <tr><td colspan="2">
        <a href='groupadd.php?redirid=$_' class='edit'>Добавить</a>
       </td></tr>
      </admin_users>

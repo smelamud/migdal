@@ -42,7 +42,7 @@
 <preamble>
 <body>
  <top ident='admin'>
- <table width="100%" cellpadding="5">
+ <table width="100%" cellspacing="3" cellpadding="5">
   <tr valign="top">
    <td width="150" class="eframe">
     <topics_admin ident='admin-topics'>

@@ -1,9 +1,18 @@
 ! @(#) $Id$
 
+.top {
+	background-color: %top_back;
+}
+
+.banner {
+	background-color: %banner_back;
+}
+
 .lcenter {
 	color: %lcenter;
 	font: 20pt bold %times;
 	padding-left: 1ex;
+	padding-top: 1ex;
 }
 
 .fhor {
