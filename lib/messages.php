@@ -398,12 +398,12 @@ return strPerms($this->getPerms(),true);
 
 function isPermitted($right)
 {
-global $userModerator;
+global $userModerator,$userId;
 
 return $userModerator
        ||
-       perm($this->getUserId(),$this->getGroupId(),
-            ($this->getPerms() & ~$this->getDisabled()),$right);
+       (!$this->isDisabled() || $this->getUserId()==$userId) &&
+       perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
 }
 
 function isReadable()
@@ -429,11 +429,6 @@ return $this->isPermitted(PERM_POST);
 function isHidden()
 {
 return $this->hidden;
-}
-
-function getDisabled()
-{
-return $this->disabled;
 }
 
 function isDisabled()
@@ -487,11 +482,14 @@ return !empty($this->last_answer) ? strtotime($this->last_answer) : 0;
 
 function messagesPermFilter($right,$prefix='')
 {
-global $userModerator;
+global $userModerator,$userId;
 
 if($userModerator)
   return '1';
-return permFilter($right,'sender_id',true,$prefix);
+$filter=permFilter($right,'sender_id',$prefix);
+if($prefix!='' && substr($prefix,-1)!='.')
+  $prefix.='.';
+return "$filter and (${prefix}disabled=0 or ${prefix}sender_id=$userId)";
 }
 
 function messageExists($id)

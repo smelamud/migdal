@@ -118,7 +118,7 @@ $set[]="perms=(perms & $andMask) | $orMask";
 $set=join(',',$set);
 mysql_query("update $table
              set $set
-	     where ".subtree($id,true))
+	     where ".subtree($table,$id,true))
   or sqlbug('Ошибка SQL при рекурсивной установке прав');
 if($journalSeq!=0)
   journal("perms $table ".journalVar($table,$id).
@@ -126,15 +126,13 @@ if($journalSeq!=0)
 		      ' '.journalVar('users',$group_id)." $perms");
 }
 
-function permFilter($right,$user_id='user_id',$useDisabled=false,$prefix='')
+function permFilter($right,$user_id='user_id',$prefix='')
 {
 global $userId,$userGroups;
 
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
-$perms=$useDisabled
-       ? "(${prefix}perms & ~${prefix}disabled)"
-       : "${prefix}perms";
+$perms="${prefix}perms";
 if($userId<=0)
   return "($perms & ".($right<<PB_GUEST).')<>0';
 $groups=array();
