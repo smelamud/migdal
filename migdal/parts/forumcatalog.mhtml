@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.17 >>
+<< Based-on: migdal/parts/postings.mhtml 1.18 >>
 
 <element name='batcher_forumcatalog' params='value,list,topic,grp'>
 <grpdata>
@@ -19,12 +19,14 @@
        class='add'>Добавить статью</a>
    </if>
   <else>
-   <if what='$g.Valid'>
-    Хотите добавлять $grpitemstitle?
-   <else>
-    Хотите добавлять новости и статьи?
-   </if>
-   <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
+   <span class='advert'>
+    <if what='$g.Valid'>
+     Хотите добавлять $grpitemstitle?
+    <else>
+     Хотите добавлять новости и статьи?
+    </if>
+    <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
+   </span>
   </logged>
  </td></tr></table></td>
  <td align=right><table><tr valign=center>

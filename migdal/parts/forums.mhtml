@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/forums.mhtml 1.4 >>
-<< Based-on: migdal/parts/postings.mhtml 1.17 >>
+<< Based-on: migdal/parts/postings.mhtml 1.18 >>
 
 <element name='batcher_forums' params='value,list,up'>
 <table width=100% class='batcher'>
@@ -12,8 +12,10 @@
      <a href='forumansweredit.php?up=$up&redir=$_'
         class='add'>Добавить сообщение</a>
     <else>
-     Хотите участвовать в обсуждении?
-     <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
+     <span class='advert'>
+      Хотите участвовать в обсуждении?
+      <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
+     </span>
     </logged>
    </td>
    <td align=right><table><tr valign=center>
