@@ -173,9 +173,9 @@
  <call name='%name' func='time'>
 </macro>
 
-<macro name='topic_obj' defaults='id="$topic_id"'>
+<macro name='topic_obj' defaults='id="$topic_id" up=0'>
  <require name='lib/topics.php'>
- <call name='%name' func='getTopicById' arg1='%id'>
+ <call name='%name' func='getTopicById' arg1='%id' arg2='%up'>
 </macro>
 
 <macro name='topic_name' defaults='name=topic id="$topic_id"'>

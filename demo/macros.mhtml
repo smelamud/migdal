@@ -34,3 +34,4 @@
 <decel name='top' file='parts/top.php' params='ident,flags'
        defaults="flags=''">
 <decel name='topics' file='parts/topics.php' params='g,up' defaults='up=0'>
+<decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>

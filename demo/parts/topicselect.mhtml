@@ -1,0 +1,16 @@
+<< @(#) $Id$ >>
+
+<element name='topicselect'>
+<tr>
+ <td>Тема</td>
+ <td>
+  <select name='$name'>
+   <radio title='-- Без темы --' value=0 peervalue='$value'>
+   <iterate_topicnames grp='$grp'>
+   <for>
+    <radio title='$.Name' value='$.Id' peervalue='$value'>
+   </for>
+  </select>
+ </td>
+</tr>
+</element>

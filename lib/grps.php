@@ -5,6 +5,7 @@ define('GRP_NEWS',2);
 define('GRP_GALLERY',4);
 define('GRP_EVENTS',7);
 define('GRP_ARTICLES',8);
+define('GRP_ALL',15);
 
 $grpNames=array(GRP_FORUMS   => 'forums',
                 GRP_NEWS     => 'news',

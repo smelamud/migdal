@@ -4,7 +4,7 @@
 
 OBJECTS = backtrace.php complain.php cs_forum.php cs_normal.php forumanswer.php \
           forums.php login.php menu.php posting.php postings.php today.php top.php \
-          topics.php utils.php
+          topics.php topicselect.php utils.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

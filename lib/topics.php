@@ -21,6 +21,7 @@ var $no_gallery;
 var $no_articles;
 var $ident;
 var $message_count;
+var $sub_count;
 
 function Topic($row)
 {
@@ -124,6 +125,11 @@ function getMessageCount()
 return $this->message_count;
 }
 
+function getSubCount()
+{
+return $this->sub_count;
+}
+
 }
 
 class TopicIterator
@@ -190,7 +196,7 @@ $this->TopicIterator('select id,name
 
 }
 
-function getTopicById($id)
+function getTopicById($id,$up)
 {
 global $userAdminTopics;
 
@@ -201,7 +207,7 @@ $result=mysql_query("select id,name,description,hidden,no_news,no_forums,
 		     where ".byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                           : array());
+                                           : array('up' => $up));
 }
 
 function getTopicNameById($id)
@@ -209,12 +215,12 @@ function getTopicNameById($id)
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query("select id,name
+$result=mysql_query('select id,name
 		     from topics
-		     where ".byIdent($id)." and hidden<$hide")
-	     or die('Ошибка SQL при выборке темы');
+		     where '.byIdent($id)." and topics.hidden<$hide")
+	     or die('Ошибка SQL при выборке названия темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                           : array());
+					   : array());
 }
 
 function topicExists($id)

@@ -3,7 +3,7 @@
 <element name='topics'>
 <admin_topics>
  <p>
- <a href='topicedit.php?redir=$_'>Добавить</a>
+ <a href='topicedit.php?up=$up&redir=$_'>Добавить</a>
  &nbsp;&nbsp;
  <a href="$[ignoregrp='$g.InvIgnore']">Показать
   <if what='$g.Ignore'>активные<else>все</if></a>

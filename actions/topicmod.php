@@ -19,6 +19,8 @@ if($topic->name=='')
   return ET_NAME_ABSENT;
 if($topic->description=='')
   return ET_DESCRIPTION_ABSENT;
+if($topic->up!=0 && !topicExists($topic->up))
+  return ET_NO_UP;
 $cid=idByIdent('topics',$topic->ident);
 if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;

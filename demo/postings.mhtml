@@ -26,11 +26,7 @@
     $g.title без темы
    </ifnzero>
   </h1></center>
-  <table width=100%>
-   <tr><td>
-    <postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
-              offset='$offset'>
-   </td></tr>
-  </table>
+  <postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
+	    offset='$offset'>
 </body>
 </html>

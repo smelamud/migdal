@@ -31,18 +31,7 @@
  <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
  <tr><td><table>
   <if what='$message.hasTopic'>
-   <tr>
-    <td>Тема</td>
-    <td>
-     <select name='topic_id'>
-      <radio title='-- Не выбрана --' value=0 peervalue='$message.TopicId'>
-      <iterate_topicnames grp='$grp'>
-      <for>
-       <radio title='$.Name' value='$.Id' peervalue='$message.TopicId'>
-      </for>
-     </select>
-    </td>
-   </tr>
+   <topicselect name='topic_id' value='$message.TopicId' grp='$grp'>
   </if>
   <if what='$message.hasSubject'>
    <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
