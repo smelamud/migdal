@@ -258,13 +258,37 @@
 <element name='identify'>
 <if what='!$posting.Identified'>
  <identify_all>
+
+ << Ссылка на страницу темы, к которой относится этот постинг. >>
  <setup name='posting' var='GeneralHref' value='$href'>
+
+ << Ссылка на страницу галереи, к которой относится этот постинг. Может быть
+    пустым, если этот постинг не может попасть в галерею (это не картинка).
+    Может совпадать с GeneralHref, если наилучшим способом отображения этого
+    постинга является помещение в галерею. >>
  <setup name='posting' var='GalleryHref' value='$ghref'>
+
+ << Если тема отображается в виде галереи, но существует лучший способ
+    отображения этой темы, то эта ссылка указывает на него. При этом сам
+    постинг может не попасть в это "улучшенное" отображение и в этом случае
+    MainHref не совпадает с GeneralHref. GeneralHref, в отличие от MainHref,
+    указывает на наилучший способ отображения самого постинга, а не темы, к
+    которой он относится. >>
  <setup name='posting' var='MainHref' value='$mhref'>
+
+ << Ссылка на страницу с полным, детальным представлением постинга. >>
  <setup name='posting' var='DetailsHref' value='$dhref'>
+
+ << Удобное для прочтения название темы, к которой относится этот постинг. >>
  <setup name='posting' var='FullTopicName' value='$name'>
+
+ << Описание темы, к которой относится этот постинг. >>
  <setup name='posting' var='FullTopicDescription' value='$title'>
+
+ << Корень поддерева дерева тем, которое будет отображаться при редактировании
+    этого постинга. >>
  <setup name='posting' var='RootId' value='$root'>
+
  <setup name='posting' var='Identified' value='*true'>
 </if>
 </element>
