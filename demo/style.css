@@ -14,3 +14,8 @@ TABLE.posting {
 	background-color: #D8E2FF;
 	/*border: 1px solid black;*/
 }
+
+TABLE.topics {
+	background-color: #E8E8E8;
+	/*border: 1px solid black;*/
+}

@@ -1,21 +1,26 @@
 << @(#) $Id$ >>
 
 <element name='topics'>
-<admin_topics>
- <p>
- <a href='topicedit.php?up=$up&redir=$_'>Добавить</a>
- &nbsp;&nbsp;
- <a href="$[ignoregrp='$g.InvIgnore']">Показать
-  <if what='$g.Ignore'>активные<else>все</if></a>
-</admin_topics>
-<iterate_topiclist grp='$g.Effective' up='$up'>
-<for>
- <p>
- <b><a href='postings.php?grp=$g.Effective&redir=$_&topic_id=$.Id'>
-	$.Name ($.MessageCount)</a></b>&nbsp;
+<table class='topics' width=100%><tr><td>
+ <iterate_topiclist grp='$g.Effective' up='$up'>
+ <if what="$title!='' && ($$userAdminTopics || $;Count!=0)">
+  <center><h2>$title</h2></center>
+ </if>
  <admin_topics>
-  <a href='topicedit.php?editid=$.Id&redir=$_'>[Изменить]</a>
+  <p>
+  <a href='topicedit.php?up=$up&redir=$_'>Добавить</a>
+  &nbsp;&nbsp;
+  <a href="$[ignoregrp='$g.InvIgnore']">Показать
+   <if what='$g.Ignore'>активные<else>все</if></a>
  </admin_topics>
- <br>$.Description
-</for>
+ <for>
+  <p>
+  <b><a href='postings.php?grp=$g.Effective&redir=$_&topic_id=$.Id'>
+	 $.Name ($.MessageCount)</a></b>&nbsp;
+  <admin_topics>
+   <a href='topicedit.php?editid=$.Id&redir=$_'>[Изменить]</a>
+  </admin_topics>
+  <br>$.Description
+ </for>
+</td><tr></table>
 </element>
