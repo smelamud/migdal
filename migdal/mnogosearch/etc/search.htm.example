@@ -13,7 +13,7 @@
 # Database parameters are to be used with SQL backend
 # and do not matter for built-in text files support
 # Format: <DBType>:[//[DBUser[:DBPass]@]DBHost[:DBPort]]/DBName/[?dbmode=mode]
-DBAddr	mysql://root:mu8dhrse@localhost/migdal_mnogosearch/?dbmode=crc
+DBAddr	mysql://user:password@localhost/migdal_mnogosearch/?dbmode=crc
 
 # Uncomment this line to enable query tracking facility
 #TrackQuery yes

@@ -1,7 +1,7 @@
 # MnoGoSearch indexer configuration for Migdal website
 
 # Database address
-DBAddr mysql://root:mu8dhrse@localhost/migdal_mnogosearch/?dbmode=crc
+DBAddr mysql://user:password@localhost/migdal_mnogosearch/?dbmode=crc
 
 # Document language
 DefaultLang ru
