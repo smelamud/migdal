@@ -11,7 +11,7 @@ function condEdit($title,$edit,$value,$name,$size,$length)
 {
 return !$edit ?
        $value!='' ? "<td><b>$title:</b></td><td>$value</td>" : '' :
-       "<td>$title</td><td><input type=text name='$name' value='$value'
+       "<td>$title </td><td><input type=text name='$name' value='$value'
                             size=$size maxlength=$length></td>";
 }
 
@@ -19,7 +19,7 @@ function condEditValue($title,$edit,$value,$valueEdit,$name,$size,$length)
 {
 return !$edit ?
        $value!='' ? "<td><b>$title:</b></td><td>$value</td>" : '' :
-       "<td>$title</td><td><input type=text name='$name' value='$valueEdit'
+       "<td>$title </td><td><input type=text name='$name' value='$valueEdit'
                             size=$size maxlength=$length></td>";
 }
 
@@ -48,7 +48,8 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
     {
     ?>
     <center><h1>Введите информацию о себе</h1></center>
-    <form>
+    <form method=post action='lib/usermod.php'>
+    <input type=hidden name='redir' value='<?php echo $REQUEST_URI ?>'>
     <?php
     }
   ?>
@@ -63,7 +64,7 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
      {
      ?>
      <tr>
-      <td>Пароль</td><td><input type=password name='password' size=20></td>
+      <td>Пароль </td><td><input type=password name='password' size=20></td>
      </tr>
      <?php
      }
