@@ -36,3 +36,4 @@ Disallow: /userfin.php
 Disallow: /userlost.php
 Disallow: /userok.php
 Disallow: /userrepair.php
+Disallow: /users.php
