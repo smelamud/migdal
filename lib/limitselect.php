@@ -37,5 +37,26 @@ function getOffset()
 return $this->offset;
 }
 
+function getPrevOffset()
+{
+$n=$this->offset-$this->limit;
+return $n<0 ? 0 : $n;
+}
+
+function getNextOffset()
+{
+return $this->offset+$this->limit;
+}
+
+function getBeginValue()
+{
+return $this->offset+1;
+}
+
+function getEndValue()
+{
+return $this->offset+$this->getCount();
+}
+
 }
 ?>

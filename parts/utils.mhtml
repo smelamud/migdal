@@ -82,40 +82,29 @@ function perror($code,$message,$color='red',$span=1) #COMPATIBILITY
 {
 displayPError($code,$message,$color,$span);
 }
-
-function displayNavigator($list)
-{
-global $REQUEST_URI;
-
-$prev=$list->getOffset()-$list->getLimit();
-$prev=$prev<0 ? 0 : $prev;
-$next=$list->getOffset()+$list->getLimit();
-$prevURI=remakeURI($REQUEST_URI,
-                   array(),
-		   array('offset' => $prev));
-$nextURI=remakeURI($REQUEST_URI,
-                   array(),
-		   array('offset' => $next));
-echo "<br><table width=100%><tr>
-         <td align=left width=30%>
-	  <a href=$prevURI>".
-	  ($list->getOffset()!=0 ? '<-- Предыдущие' : '').
-	 '</a>
-	 </td>
-	 <td align=center width=40%>'.
-	 ($list->getSize()<=$list->getLimit() ? 'Всего: '.$list->getSize() :
-	 '['.($list->getOffset()+1).'-'.
-	     ($list->getOffset()+$list->getCount()).'] из '.$list->getSize()).
-        "</td>
-	 <td align=right width=30%>
-	  <a href=$nextURI>".
-	  ($list->getOffset()+$list->getCount()<$list->getSize()
-	   ? 'Следующие -->' : '').
-	 '</a>
-	 </td>
-	</tr></table><br>';
-}
-
+?>
+<element name='Navigator'>
+<br><table width=100%><tr>
+ <td align=left width=30%>
+  <ifnzero what='$list.Offset'>
+   <a href="$[offset='$list.PrevOffset']">&lt;-- Предыдущие</a>
+  </ifzero>
+ </td>
+ <td align=center width=40%>
+  <if what='$list.Size<=$list.Limit'>
+   Всего: $list.Size
+  <else>
+   [$list.BeginValue-$list.EndValue] из $list.Size
+  </if>
+ </td>
+ <td align=right width=30%>
+  <if what='$list.EndValue<$list.Size'>
+   <a href="$[offset='$list.NextOffset']">Следующие --&gt;</a>
+  </if>
+ </td>
+</tr></table><br>
+</element>
+<?
 function displayBatcher($current,$var)
 {
 global $SCRIPT_NAME,$HTTP_GET_VARS;
