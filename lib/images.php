@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/dataobject.php');
+require_once('lib/selectiterator.php');
 
 class Image
       extends DataObject
@@ -12,6 +13,7 @@ var $filename;
 var $small;
 var $small_x;
 var $small_y;
+var $has_large;
 var $large;
 var $large_x;
 var $large_y;
@@ -22,10 +24,23 @@ function Image($row)
 $this->DataObject($row);
 }
 
+function setup($vars)
+{
+if(!isset($vars['edittag']))
+  return;
+foreach($this->getCorrespondentVars() as $var)
+       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+}
+
+function getCorrespondentVars()
+{
+return array('has_large');
+}
+
 function getWorldVars()
 {
-return array('filename','small','small_x','small_y','large','large_x','large_y',
-             'format');
+return array('filename','small','small_x','small_y','has_large','large',
+             'large_x','large_y','format');
 }
 
 function store()
@@ -63,6 +78,35 @@ function getFilename()
 return $this->filename;
 }
 
+function hasLarge()
+{
+return $this->has_large;
+}
+
+}
+
+class ImageSetIterator
+      extends SelectIterator
+{
+
+function ImageSetIterator($image_set)
+{
+$this->SelectIterator('Image',
+                      "select id,filename,small_x,small_y
+		       from images
+		       where image_set=$image_set");
+}
+
+}
+
+function getImageById($id)
+{
+$result=mysql_query("select id,image_set,filename,small_x,small_y,has_large
+                     from images
+		     where id=$id")
+	     or die('Ошибка SQL при выборке изображения');
+return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                           : array());
 }
 
 function getImageNameBySet($image_set)

@@ -106,13 +106,16 @@
     <td>
      <input type=text name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
      <select name='birth_month'>
-      <iterate_months>
+      <array vals='глюкабря,января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря'>
+      <iterate_array>
       <for>
-       <call func='$user->isMonthOfBirth' arg1='$.Id'>
-       <if what='$,'>
-	<option selected value=$.Id>$.Name</option>
-       <else>
-	<option value=$.Id>$.Name</option>
+       <if what='!$;isFirst'>
+        <call func='$user->isMonthOfBirth' arg1='$;Position'>
+        <if what='$,'>
+ 	 <option selected value=$;Position>$.</option>
+        <else>
+	 <option value=$;Position>$.</option>
+        </if>
        </if>
       </for>
      </select>

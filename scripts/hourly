@@ -71,6 +71,19 @@ $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
 		   'ShowErrorStatement' => 1});
 }
 
+sub useImagesFrom
+{
+my ($select)=@_;
+
+my $used=$dbh->selectall_arrayref($select);
+foreach my $info(@{$used})
+       {
+       $dbh->do('update images
+                 set used=0
+		 where image_set='.$info->[0]);
+       }
+}
+
 sub run
 {
 my $lasts=$dbh->selectall_arrayref(
@@ -97,15 +110,12 @@ $dbh->do('delete
 	  where last_access+interval '.$Config{'tmpTextTimeout'}.' hour<now()');
 $dbh->do('update images
           set used=1');
-my $used=$dbh->selectall_arrayref('select image_set
-                                   from messages
-				   where image_set<>0');
-foreach my $info(@{$used})
-       {
-       $dbh->do('update images
-                 set used=0
-		 where image_set='.$info->[0]);
-       }
+useImagesFrom('select image_set
+               from messages
+	       where image_set<>0');
+useImagesFrom('select large_imageset
+               from messages
+	       where large_imageset<>0');
 $dbh->do('delete
           from images
           where used=1');

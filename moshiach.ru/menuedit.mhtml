@@ -3,7 +3,7 @@
 <int name='menuid'>
 <html>
 <head>
- <title>Штаб Мошиаха - Главное меню</title>
+ <title>Демо - Главное меню</title>
 </head>
 <body bgcolor=white>
  <menu_obj id='$menuid'>
@@ -38,21 +38,21 @@
        <img src='pics/menuup.png' alt='Переместить выше' border=0></a>
       <br>
      </if>
-     <a href='/menuedit.php?menuid=$.Id'><b class=admin>$.Name</b></a>
+     <a href='$[err edittag menuid=$.Id]'><b>$.Name</b></a>
      &nbsp;
      <a href='/actions/menudel.php?id=$.Id&redir=$_'>[Удалить]</a>
      <assign name='next' value='$.Id'>
     <else>
-     <a href='/menuedit.php?menuid=$.Id'>$.Name</a>
+     <a href='$[err edittag menuid=$.Id]'>$.Name</a>
     </if>
     <br>
     <assign name='prev' value='$.Id'>
    </for>
    <p>
    <ifzero what='$menuid'>
-    <a href='$[menuid=0]'><b class=admin>&lt;Добавить&gt;</b></a>
+    <a href='$[err edittag menuid=0]'><b>&lt;Добавить&gt;</b></a>
    <else>
-    <a href='$[menuid=0]'>&lt;Добавить&gt;</a>
+    <a href='$[err edittag menuid=0]'>&lt;Добавить&gt;</a>
    </ifzero>
   </td>
   <td>

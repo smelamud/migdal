@@ -196,8 +196,7 @@ $this->LimitSelectIterator(
 	       messages.hidden as hidden,messages.disabled as disabled,
 	       users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
-	       images.small_x<images.large_x or
-	       images.small_y<images.large_y as has_large_image,
+	       images.has_large as has_large_image,
 	       topics.name as topic_name,
 	       login,gender,email,hide_email,rebe,
 	       count(forums.up) as answer_count
@@ -241,8 +240,9 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query("select postings.id as id,message_id,body,large_filename,
-                            large_format,large_body,subject,topic_id,
-			    personal_id,sender_id,grp,image_set,hidden,disabled
+                            large_format,large_body,large_imageset,subject,
+			    topic_id,personal_id,sender_id,grp,image_set,
+			    hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
@@ -267,8 +267,7 @@ $result=mysql_query(
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,topics.name as topic_name,
-		images.small_x<images.large_x or
-		images.small_y<images.large_y as has_large_image,
+		images.has_large as has_large_image,
 		login,gender,email,hide_email,rebe,
 	        count(forums.up) as answer_count
 	 from postings

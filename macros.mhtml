@@ -32,6 +32,11 @@
 </macro>
 
 << Iterators >>
+<macro name='iterate_array' defaults="values='$*'">
+ <require name='lib/array.php'>
+ <iterate name='%name' class='ArrayIterator' arg1='%values'>
+</macro>
+
 <macro name='iterate_chat' defaults='limit=20'>
  <require name='lib/chat.php'>
  <iterate name='%name' class='ChatMessageListIterator' arg1='%limit'>
@@ -68,6 +73,11 @@
  </zone>
 </macro>
 
+<macro name='iterate_imageset'>
+ <require name='lib/images.php'>
+ <iterate name='%name' class='ImageSetIterator' arg1='%imageset'>
+</macro>
+
 <macro name='iterate_menu'>
  <require name='lib/menu.php'>
  <iterate name='%name' class='MenuIterator' arg1='%ident'>
@@ -83,11 +93,6 @@
  <require name='lib/postings.php'>
  <iterate name='%name' class='PostingListIterator'
           arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset' arg5='%personal'>
-</macro>
-
-<macro name='iterate_array' defaults="values='$*'">
- <require name='lib/array.php'>
- <iterate name='%name' class='ArrayIterator' arg1='%values'>
 </macro>
 
 <macro name='iterate_sortarray' defaults="values='$*'">
@@ -140,6 +145,11 @@
 <macro name='forum_answer_full' defaults='name=answer'>
  <require name='lib/forums.php'>
  <call name='%name' func='getFullForumAnswerById' arg1='%id'>
+</macro>
+
+<macro name='image_obj' defaults='name=image id=0'>
+ <require name='lib/images.php'>
+ <call name='%name' func='getImageById' arg1='%id'>
 </macro>
 
 <macro name='image_name' defaults='name=image'>

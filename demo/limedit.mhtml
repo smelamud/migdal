@@ -1,0 +1,62 @@
+<< @(#) $Id$ >>
+
+<int name='postid'>
+<int name='editid'>
+<html>
+<head>
+ <title>Демо - Список иллюстраций</title>
+</head>
+<body bgcolor=white>
+ <top ident='articles'>
+ <p>
+ <posting_obj id='$postid'>
+ <center><h1>Иллюстрации к статье "$,Subject"</h1></center>
+ <p>
+ <table width=100%><tr valign=top>
+  <td>
+   <iterate_imageset imageset='$,LargeImageSet'>
+   <for>
+    <a href='$[err edittag editid=$.Id]'><b>$.Filename</b></a>
+    &nbsp;
+    <a href='/actions/limdel.php?id=$.Id&redir=$_'>[Удалить]</a>
+   </for>
+   <p>
+   <ifzero what='$editid'>
+    <a href='$[err edittag editid=0]'><b>&lt;Добавить&gt;</b></a>
+   <else>
+    <a href='$[err edittag editid=0]'>&lt;Добавить&gt;</a>
+   </ifzero>
+  </td>
+  <td>
+   <image_obj id='$editid'>
+   <setup>
+   <form method=post action='actions/limmod.php'>
+    <input type=hidden name='edittag' value=1>
+    <input type=hidden name='postid' value='$postid'>
+    <input type=hidden name='editid' value='$editid'>
+    <table>
+     <uploader name='image' loadedname='loaded' loadedvalue='1'
+               title='Изображение' loaded='(уже загружено)' notloaded='Другое'
+               filename='$,Filename'>
+     <checkbox_line name='has_large' value='$,hasLarge'
+                    title='Вставлять в уменьшенном виде'>
+     <td>Размер</td>
+     <td>
+      <input type=text name='thumbnail_x' value='$thumbnail_x' size=4
+             maxlength=4>
+      x
+      <input type=text name='thumbnail_y' value='$thumbnail_y' size=4
+             maxlength=4>
+     </td>
+    </table>
+    <if what='$menuid'>
+     <input type=submit value='Изменить'>
+    <else>
+     <input type=submit value='Добавить'>
+    </if>
+    <input type=reset value='Очистить'>
+   </form>
+  </td>
+ </tr></table>
+</body>
+</html>

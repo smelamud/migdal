@@ -13,6 +13,7 @@ var $body;
 var $large_filename;
 var $large_format;
 var $large_body;
+var $large_imageset;
 var $subject;
 var $image_set;
 var $image_id;
@@ -175,6 +176,11 @@ return $this->large_body;
 function getHTMLLargeBody()
 {
 return stotextToHTML($this->large_format,$this->large_body);
+}
+
+function getLargeImageSet()
+{
+return $this->large_imageset;
 }
 
 function getImageSet()
