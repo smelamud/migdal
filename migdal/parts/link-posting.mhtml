@@ -2,8 +2,14 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
+ <iterate_topic_hierarchy topic_id='$posting.TopicId' root='links'>
  <a href='links.php?topic_id=$posting.TopicId' class='topic'
-    title='$posting.TopicDescription'>$posting.TopicName</a>
+    title='$posting.TopicDescription'><asp>
+  <for>
+   <if what='!$;isFirst'>&sp;/&sp;</if>
+   $.Name
+  </for>
+ <asp></a>
  <br>
 </if>
 </element>
