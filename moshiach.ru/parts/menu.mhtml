@@ -1,4 +1,5 @@
 << @(#) $Id$ >>
+<< Based-on: demo/parts/menu.mhtml 1.2 >>
 
 <element name='menu'>
 <tr><td colspan=3 align=center><b class=red>
