@@ -24,7 +24,7 @@ else
   $date='';
 ?>
 <ifne what='$date'>
- Download <a href='sources/migdal-snapshot-$date.tar.bz2'>
+ Download <a href='sources/migdal-snapshot-${date}.tar.bz2'>
  current CVS snapshot ($date)</a><br>
 </ifne>
 </element>
