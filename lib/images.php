@@ -107,7 +107,8 @@ return $imageTypeCodes[$mime_type];
 function uploadImageUsingMogrify($image,$image_name,$image_size,$image_type,
                                  $thumbnail,&$err)
 {
-global $mogrifyPath,$maxImage,$thumbnailType,$thumbnailWidth,$thumbnailHeight;
+global $mogrifyPath,$maxImage,$thumbnailType,$thumbnailWidth,$thumbnailHeight,
+       $tmpDir;
 
 $largeExt=getImageExtension($image_type);
 $smallExt=getImageExtension($thumbnailType);
@@ -119,8 +120,8 @@ if($largeExt=='')
 
 srand(time());
 $hash=rand();
-$largeFile="/tmp/mig-$hash.$largeExt";
-$smallFile="/tmp/mig-$hash.$smallExt";
+$largeFile="$tmpDir/mig-$hash.$largeExt";
+$smallFile="$tmpDir/mig-$hash.$smallExt";
 
 if(!move_uploaded_file($image,$largeFile))
   {
@@ -178,7 +179,7 @@ return new Image(array('filename' => $image_name,
 function uploadImageUsingGD($image,$image_name,$image_size,$image_type,
                             $thumbnail,&$err)
 {
-global $maxImage,$thumbnailType,$thumbnailWidth,$thumbnailHeight;
+global $maxImage,$thumbnailType,$thumbnailWidth,$thumbnailHeight,$tmpDir;
 
 if((ImageTypes() & getImageTypeCode($image_type))==0)
   return uploadImageByDefault($image,$image_name,$image_size,$image_type,
@@ -225,7 +226,7 @@ if((ImageTypes() & getImageTypeCode($thumbnailType))==0 || $sFname=='')
 $imageTo="Image$sFname";
 srand(time());
 $hash=rand();
-$smallFile="/tmp/mig-$hash";
+$smallFile="$tmpDir/mig-$hash";
 $imageTo($sHandle,$smallFile);
 
 $fd=fopen($image,'r');
