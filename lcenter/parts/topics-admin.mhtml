@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='topics_admin'>
-<topics_table title='Администратор'>
+<topics_table>
  <topics_line arrow!="$ident=='admin-topics'"
               text='Темы' href='/topicorg.php'>
  <topics_line arrow!="$ident=='admin-messages'"

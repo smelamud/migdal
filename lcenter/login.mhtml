@@ -17,7 +17,7 @@
    <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
   </inner></table></outer>
   <notlogged>
-   <form method="post" action="actions/login.php">
+   <form method="post" action="/actions/login.php">
     <table>
      <hidden name='okdir' value="$$[err]">
      <hidden name='faildir' value="$$[err]">
@@ -31,7 +31,7 @@
     </table>
    </form>
   <else>
-   <form method="post" action="actions/logout.php">
+   <form method="post" action="/actions/logout.php">
     <hidden name='okdir' value="$$[err]">
     <hidden name='faildir' value="$$[err]">
     <table>
@@ -50,7 +50,7 @@
  </formtable>
  <admin_users>
   <formtable title="Смена пользователя">
-   <form method="post" action="actions/userswitch.php">
+   <form method="post" action="/actions/userswitch.php">
     <hidden name='okdir' value="$$[err]">
     <hidden name='faildir' value="$$[err]">
     <table>

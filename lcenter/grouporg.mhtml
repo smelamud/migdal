@@ -35,7 +35,7 @@
 	 </admin_users>
       </if>
       <admin_users>
-       <a href='actions/groupdel.php?user_id=$.UserId&group_id=$.GroupId&okdir=$#-&faildir=$#-'
+       <a href='/actions/groupdel.php?user_id=$.UserId&group_id=$.GroupId&okdir=$#-&faildir=$#-'
 	  >$.UserName</a>&nbsp;
       <else>
        $.UserName&nbsp;

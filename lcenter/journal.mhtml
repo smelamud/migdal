@@ -34,7 +34,7 @@
       <for>
        <if what='$;isOdd'><tr class='odd'><else><tr></if>
 	<td class='ninept' align='left'>
-	 <a href='horisontedit.php?host=$#.Host&redirid=$_'>$.Host</a>
+	 <a href='/horisontedit.php?host=$#.Host&redirid=$_'>$.Host</a>
 	</td>
 	<td class='ninept' align='right'>$.WeKnow</td>
 	<td class='ninept' align='right'>$.TheyKnow</td>

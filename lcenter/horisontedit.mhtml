@@ -1,0 +1,32 @@
+<< @(#) $Id$ >>
+
+<pagetitle title='Редактирование горизонта'>
+
+<html>
+<preamble>
+<body>
+ <top ident='admin'>
+ <horisont_obj host='$host'>
+ <setup>
+ <formtable title#='Изменить горизонт для $host'>
+  <form method=post action='/actions/horisontmod.php'>
+   <hidden name='edittag' value=1>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <hidden name='host' value='$host'>
+   <table>
+    <starinfo span=2>
+    <error id='*ET_NO_EDIT' text='У вас нет права менять список тем' span=2>
+    <error id='*ET_TRACK_SQL' color='magenta' span=2
+	   text='Ошибка базы данных при обновлении маршрута темы'>
+    <edit_line title='Мы о них' name='we_know' value='$,WeKnow' size=5
+               maxlength=10>
+    <edit_line title='Они о нас' name='they_know' value='$,TheyKnow' size=5
+               maxlength=10>
+    <formbuttons title='Изменить' span=2>
+   </table>
+  </form>
+ </formtable>
+ <bottom>
+</body>
+</html>

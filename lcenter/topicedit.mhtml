@@ -17,7 +17,7 @@
  <else>
   <formtable title='Добавить тему'>
  </if>
- <form method=post enctype='multipart/form-data' action='actions/topicmod.php'>
+ <form method=post enctype='multipart/form-data' action='/actions/topicmod.php'>
   <hidden name='edittag' value=1>
   <hidden name='okdir' value='$--'>
   <hidden name='faildir' value='$-'>

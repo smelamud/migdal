@@ -7,7 +7,7 @@
 <body>
  <top ident='admin'>
  <formtable title='Добавление пользователя в группу'>
-  <form method=post action='actions/groupadd.php'>
+  <form method=post action='/actions/groupadd.php'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <table>

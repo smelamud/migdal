@@ -45,7 +45,7 @@
  </if>
  <formtable title='$head'>
   <form method='post' enctype='multipart/form-data'
-	action='actions/postingmod.php'>
+	action='/actions/postingmod.php'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>

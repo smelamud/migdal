@@ -23,7 +23,7 @@
  <perms table='$table' id='$id'>
  <setup>
  <formtable title#='Изменение прав на $itemname'>
-  <form method=post action='actions/chmod.php'>
+  <form method=post action='/actions/chmod.php'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='msgid' value='$msgid'>
