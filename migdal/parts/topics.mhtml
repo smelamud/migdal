@@ -47,6 +47,31 @@
 </tr>
 </element>
 
+<element name='topics_splitter'>
+<assign name='splitspan' value!='$span+$indent+1'>
+<tr valign=top>
+ <tdspan span='$splitspan'>$text</tdspan>
+</tr>
+</element>
+
+<element name='topics_static'>
+<tr valign=top>
+ <if what='$indent>0'>
+  <tdspan span='$indent'>&nbsp;</tdspan>
+ </if>
+ <if what='$indent>=0'>
+  <td width=$$style_topics_arrow_width>
+   <if what='$nobullet'>
+    &nbsp;
+   <else>
+    <image src='pics/bullet.gif'>
+   </if>
+  </td>
+ </if>
+ <tdspan span='$span'>$text</tdspan>
+</tr>
+</element>
+
 <element name='topics_table'>
 <ifne what='$class'>
  <assign name='tableclass' value#='topics $class'>
