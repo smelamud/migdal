@@ -11,9 +11,10 @@ crontab: Makefile conf/migdal.conf
 	echo 'PATH=/usr/local/bin:/bin:/usr/bin';\
 	echo;\
 	echo '# m       h  dom mon dow command';\
-	echo '  30      *   *   *   *  $(homeDir)/php $(scriptsDir)/hourly';\
-	echo '  0-50/10 *   *   *   *  $(homeDir)/php $(scriptsDir)/mailrobot';\
-	echo '  10      22  *   *   *  $(homeDir)/php $(scriptsDir)/ratings';\
+	echo '  30      *   *   *   *  $(homeDir)/php $(scriptsDir)/hourly.php';\
+	echo '  0-50/10 *   *   *   *  $(homeDir)/php $(scriptsDir)/mailrobot.php';\
+	echo '  10      22  *   *   *  $(homeDir)/php $(scriptsDir)/ratings.php';\
+	echo;\
 	) > crontab
 
 php: Makefile conf/migdal.conf
