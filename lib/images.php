@@ -118,12 +118,10 @@ if($largeExt=='')
   return false;
   }
 
-srand(time());
-$hash=rand();
-$largeFile="$tmpDir/mig-$hash.$largeExt";
-$smallFile="$tmpDir/mig-$hash.$smallExt";
+$largeFile=tempnam($tmpDir,'mig-').$largeExt;
+$smallFile=tempnam($tmpDir,'mig-').$smallExt;
 
-if(!move_uploaded_file($image,$largeFile))
+if(rename($image,$largeFile))
   {
   $err=EIU_OK;
   return false;
@@ -224,9 +222,7 @@ if((ImageTypes() & getImageTypeCode($thumbnailType))==0 || $sFname=='')
   return false;
   }
 $imageTo="Image$sFname";
-srand(time());
-$hash=rand();
-$smallFile="$tmpDir/mig-$hash";
+$smallFile=tempnam($tmpDir,'mig-');
 $imageTo($sHandle,$smallFile);
 
 $fd=fopen($image,'r');
@@ -249,7 +245,7 @@ return new Image(array('filename' => $image_name,
 
 function uploadImage($name,$thumbnail,&$err)
 {
-global $HTTP_POST_FILES,$maxImage,$useMogrify;
+global $HTTP_POST_FILES,$maxImage,$useMogrify,$tmpDir;
 
 $image=$HTTP_POST_FILES[$name]['tmp_name'];
 $image_name=$HTTP_POST_FILES[$name]['name'];
@@ -268,11 +264,17 @@ if($image_size>$maxImage)
   return false;
   }
 
+$image_tmpname=tempnam($tmpDir,'mig-');
+if(!move_uploaded_file($image,$image_tmpname))
+  {
+  $err=EIU_OK;
+  return false;
+  }
 if($useMogrify)
-  $img=uploadImageUsingMogrify($image,$image_name,$image_size,$image_type,
-                               $thumbnail,$err);
+  $img=uploadImageUsingMogrify($image_tmpname,$image_name,$image_size,
+                               $image_type,$thumbnail,$err);
 else
-  $img=uploadImageUsingGD($image,$image_name,$image_size,$image_type,
+  $img=uploadImageUsingGD($image_tmpname,$image_name,$image_size,$image_type,
                           $thumbnail,$err);
 
 if(!$img)
