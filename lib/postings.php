@@ -643,7 +643,8 @@ else
     $group_id=0;
     $perms=$rootPostingPerms;
     }
-  return newGrpPosting($grp,array('topic_id' => $topic_id,
+  return newGrpPosting($grp,array('id'       => 0,
+                                  'topic_id' => $topic_id,
                                   'up'       => $up,
 				  'group_id' => $group_id,
 				  'perms'    => $perms));
