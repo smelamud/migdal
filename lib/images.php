@@ -118,10 +118,11 @@ if($largeExt=='')
   return false;
   }
 
-$largeFile=tempnam($tmpDir,'mig-').$largeExt;
-$smallFile=tempnam($tmpDir,'mig-').$smallExt;
+$anyFile=tempnam($tmpDir,'mig-');
+$largeFile="$anyFile.$largeExt";
+$smallFile="$anyFile.$smallExt";
 
-if(rename($image,$largeFile))
+if(!rename($image,$largeFile))
   {
   $err=EIU_OK;
   return false;
