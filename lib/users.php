@@ -126,7 +126,8 @@ $bt=explode('-',$this->birthday);
 $t=getdate();
 $jbt=GregorianToJD($bt[1],$bt[2],$bt[0]);
 $jt=GregorianToJD($t['mon'],$t['mday'],$t['year']);
-return (int)(($jt-$jbt)/365.25);
+$age=(int)(($jt-$jbt)/365.25);
+return $age<100 ? $age : '-';
 }
 
 function getBirthday()

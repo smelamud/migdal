@@ -6,8 +6,11 @@ function makeQuery($vars,$remove=array(),$subs=array())
 $s='';
 foreach($vars as $key=>$value)
        if(!in_array($key,$remove))
-         $s.=($s!='' ? '&' : '')."$key=".
-	     urlencode((isset($subs[$key]) ? $subs[$key] : $vars[$key]));
+         {
+	 $value=(isset($subs[$key]) ? $subs[$key] : $vars[$key]);
+	 if($value!='')
+           $s.=($s!='' ? '&' : '')."$key=".urlencode($value);
+	 }
 return $s;
 }
 
