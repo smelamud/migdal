@@ -4,6 +4,7 @@
 require_once('lib/sendertag.php');
 require_once('lib/tmptexts.php');
 require_once('lib/text.php');
+require_once('lib/ctypes.php');
 
 class Message
       extends SenderTag
@@ -37,7 +38,7 @@ if(!isset($vars['edittag']))
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 
-if(!ctype_digit($this->large_format) || $this->large_format>TF_MAX)
+if(!c_digit($this->large_format) || $this->large_format>TF_MAX)
   $this->large_format=TF_PLAIN;
 
 if($vars['large_body']!='')

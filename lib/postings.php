@@ -270,7 +270,7 @@ while($row=mysql_fetch_assoc($result))
 
 function next()
 {
-$paragraph=Message::next();
+$paragraph=ParagraphIterator::next();
 if($paragraph)
   $paragraph->setImage($this->images[$paragraph->getNumber()]);
 return $paragraph;

@@ -1,10 +1,12 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/ctypes.php');
+
 function byIdent($id,$byId='id',$byIdent='ident')
 {
-return (is_int($id) || $id!='' && ctype_digit($id)) ? "$byId=$id" 
-                                                    : "$byIdent='$id'";
+return (is_int($id) || $id!='' && c_digit($id)) ? "$byId=$id" 
+                                                : "$byIdent='$id'";
 }
 
 function idByIdent($table,$ident)

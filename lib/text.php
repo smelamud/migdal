@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/ctypes.php');
+
 define('TF_PLAIN',0);
 define('TF_TEX',1);
 define('TF_HTML',2);
@@ -10,7 +12,7 @@ define('TF_MAX',4);
 
 function is_delim($c)
 {
-return ctype_cntrl($c) || ctype_space($c) || ctype_punct($c);
+return c_cntrl($c) || c_space($c) || c_punct($c);
 }
 
 function flipReplace($foo,$bar,$_bar,$s)
