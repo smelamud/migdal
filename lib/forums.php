@@ -12,7 +12,7 @@ var $up;
 
 function getCorrespondentVars()
 {
-$list=parent::getCorrespondentVars();
+$list=Message::getCorrespondentVars();
 array_push($list,'up');
 return $list;
 }
@@ -39,7 +39,7 @@ function store()
 {
 global $userModerator;
 
-$result=parent::store('message_id');
+$result=Message::store('message_id');
 if(!$result)
   return $result;
 $normal=$this->getNormalForum($userModerator);

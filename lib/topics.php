@@ -216,7 +216,7 @@ while($n)
      $n=strtok(' ');
      }
 $row['full_name']=join(' :: ',$nm);
-return parent::create($row);
+return TopicIterator::create($row);
 }
 
 }

@@ -40,7 +40,7 @@ $this->recipient_info=
 
 function getCorrespondentVars()
 {
-$list=parent::getCorrespondentVars();
+$list=Message::getCorrespondentVars();
 array_push($list,'type_id','link');
 return $list;
 }
@@ -86,7 +86,7 @@ function store()
 {
 global $userJudge;
 
-$result=parent::store('message_id');
+$result=Message::store('message_id');
 if(!$result)
   return $result;
 $complain=$this->getNormalComplain($userJudge);

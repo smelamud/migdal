@@ -17,7 +17,7 @@ reset($this->vars);
 
 function next()
 {
-parent::next();
+Iterator::next();
 $val=current($this->vars);
 next($this->vars);
 return $val;

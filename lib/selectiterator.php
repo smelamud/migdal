@@ -27,7 +27,7 @@ return new $c($row);
 
 function next()
 {
-parent::next();
+Iterator::next();
 $row=mysql_fetch_assoc($this->result);
 return $row ? $this->create($row) : 0;
 }

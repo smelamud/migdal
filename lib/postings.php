@@ -26,7 +26,7 @@ $this->Message($row);
 
 function getCorrespondentVars()
 {
-$list=parent::getCorrespondentVars();
+$list=Message::getCorrespondentVars();
 array_push($list,'topic_id','grp','personal_id');
 return $list;
 }
@@ -53,7 +53,7 @@ function store()
 {
 global $userModerator;
 
-$result=parent::store('message_id');
+$result=Message::store('message_id');
 if(!$result)
   return $result;
 $normal=$this->getNormalPosting($userModerator);
@@ -270,7 +270,7 @@ while($row=mysql_fetch_assoc($result))
 
 function next()
 {
-$paragraph=parent::next();
+$paragraph=Message::next();
 if($paragraph)
   $paragraph->setImage($this->images[$paragraph->getNumber()]);
 return $paragraph;

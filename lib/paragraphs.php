@@ -93,7 +93,7 @@ reset($this->pars);
 
 function next()
 {
-parent::next();
+Iterator::next();
 if(list($key,$value)=each($this->pars))
   return new Paragraph($this->getPosition(),$this->format,$value);
 else

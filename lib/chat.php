@@ -78,7 +78,7 @@ if($this->index<0)
 else
   {
   mysql_data_seek($this->getResult(),$this->index--);
-  return parent::next();
+  return SelectIterator::next();
   }
 }
 
