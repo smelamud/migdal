@@ -89,6 +89,9 @@
 	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
 	 >Запретить показ</a>
        </if>
+       &nbsp;
+       <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
+        >Осовременить</a>
       </if>
      <else>
       <if what='!$posting.isModerable && $showcomplain'>

@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/posting.mhtml 1.28 >>
+<< Based-on: migdal/parts/posting.mhtml 1.33 >>
 
 <grps>
 <element name='taglit_posting_further' params='id'>
@@ -36,7 +36,7 @@
   </if>
   </p>
   <if what='$$userId>0 || $showdiscuss'>
-   <table width=100% class='bottom'><tr>
+   <table width=90% class='bottom'><tr>
     <td>
      <isedit what='$posting'>
       <a href="postingedit.php?editid=$posting.Id&up=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
@@ -50,6 +50,9 @@
 	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
 	 >Запретить показ</a>
        </if>
+       &nbsp;
+       <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
+        >Осовременить</a>
       </if>
      <else>
       <if what='!$posting.isModerable && $showcomplain'>

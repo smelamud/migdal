@@ -527,4 +527,13 @@ $result=mysql_query(
  or die('Ошибка SQL при получении постинга по позиции');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
+
+function getMessageIdByPostingId($id)
+{
+$result=mysql_query("select message_id
+                     from postings
+		     where id=$id")
+	     or die('Ошибка SQL при получении идентификатора сообщения в постинге');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
 ?>
