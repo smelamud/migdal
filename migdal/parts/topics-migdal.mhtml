@@ -18,6 +18,10 @@
 <if what='$/$posting.TopicId,2/==$`kes`'>
  <topics_kes posting='$posting'>
 </if>
+<if what='$/$posting.TopicId,2/==$`kaitana`'>
+ <topics_kaitana posting='$posting'>
+ <topics_kaitanot topic_id='$posting.TopicId'>
+</if>
 
 <topic_obj name='jcc' id='$`jcc`'>
 <topics_table title='$,Name' span=2>

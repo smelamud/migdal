@@ -1,14 +1,35 @@
 << @(#) $Id$ >>
 
 <element name='topics_kaitana'>
-<topic_obj id='$topic_id'>
+<topic_obj name='kaitana' id='$posting.TopicId'>
 <topics_table class='eightpt' title='$,Name'>
- <iterate_postinglist topic_id='$topic_id' grp='*GRP_KAITANA_NEWS'
+ <ispost what='$kaitana'>
+  <tr><td colspan=2>
+   <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_ARTICLES'
+      class='edit'>Добавить</a>
+  </td></tr>
+  <tr><td colspan=2>
+   <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_ARTICLES'
+      class='edit'>Расставить</a>
+  </td></tr>
+ </ispost>
+ <iterate_postinglist grp='*GRP_ARTICLES' limit=0 sort='*SORT_INDEX0'
+                      topic_id='$,Id' recursive='*false'
+		      fields='*SELECT_TOPICS'>
+ <for>
+  <topics_line time='$.Sent' text='$.Subject'
+               href#='$.DetailsFile?$.DetailsId=$.Id'
+	       arrow!='$.Id==$posting.Id'>
+ </for>
+ <ifnzero what='$;Count'>
+  <topics_splitter>
+ </ifnzero>
+ <iterate_postinglist topic_id='$,Id' grp='*GRP_KAITANA_NEWS'
                       sort='*SORT_INDEX1' limit=0 fields='*SELECT_TOPICS'>
  <for>
   <topics_line time='$.Sent' text='$.Subject'
-               href#='kaitana.php?topic_id=$topic_id&day=$.Index1'
-               arrow!='$day==$.Index1'>
+               href#='kaitana.php?topic_id=$,Id&day=$.Index1'
+               arrow!='$posting.Index1==$.Index1'>
  </for>
 </topics_table>
 </element>

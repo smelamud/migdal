@@ -38,8 +38,6 @@
    <topics_major ident='veterans'>
   </if>
  <elif what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
-  <topics_kaitana day='$posting.Index1' topic_id='$posting.TopicId'>
-  <topics_kaitanot topic_id='$posting.TopicId'>
   <topics_migdal posting='$posting'>
   <topics_major ident='migdal' posting='$posting'>
  <elif what='$posting.Grp==*GRP_TIPS'>
