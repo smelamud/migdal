@@ -18,14 +18,6 @@
   <isedit what='$picture'>
    <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$root&grp=$picture.Grp&redirid=$_"
       >Изменить</a>
-   <moderator>
-    <br>
-    <a href="actions/messagerenew.php?id=$picture.MessageId&okdir=$#-&faildir=$#-"
-       >Осовременить</a>
-    <br>
-    <a href='actions/shadow.php?postid=$picture.Id&okdir=$#-&faildir=$#-'
-       >Тень<ifnzero what='$picture.Shadow'> (*)</ifnzero></a>
-   </moderator>
   <else>
    <if what='$showcomplain'>
     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
