@@ -23,19 +23,20 @@ return convert_cyr_string(
 	                 "''",'(r)','(tm)','No.','...'),$s),'w','k');
 }
 
-function convertOutput($s)
+function convertOutput($s,$koiChars=false,$koiCharset=false)
 {
-global $userReadKOI;
-
-return convert_cyr_string($userReadKOI>0
-       ? str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;"),
-                     array('"','"','--','"','"'),$s)
-       : str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;",
+$s=$koiChars
+       ? str_replace(array('&lt;&lt;','&gt;&gt;','---','``','&#039;&#039;',
+                           '&sp;'),
+                     array('"','"','--','"','"',
+		           ' '),$s)
+       : str_replace(array('&lt;&lt;','&gt;&gt;','---','``','&#039;&#039;',
                            '(c)','(C)','(r)','(R)','(tm)',
-			   '(TM)','No.'),
+			   '(TM)','No.','&sp;'),
                      array('&laquo;','&raquo;','&mdash;','&ldquo;','&rdquo;',
 		           '&copy;','&copy;','&reg;','&reg;','&trade;',
-			   '&trade;','&#8470;'),$s),'k','w');
+			   '&trade;','&#8470;',' '),$s);
+return $koiCharset ? $s : convert_cyr_string($s,'k','w');
 }
 
 function convertSort($s)

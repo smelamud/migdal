@@ -764,7 +764,7 @@ my ($self)=@_;
 <?php
 \$Output=ob_get_contents();
 ob_end_clean();
-echo convertOutput(\$Output);
+echo convertOutput(\$Output,\$userReadKOI>0);
 dbClose();
 ?>
 EOT
@@ -778,7 +778,7 @@ my ($self)=@_;
 ::request('lib/errorreporting.php');
 ::request('lib/database.php');
 ::request('lib/session.php');
-::request('lib/charsets.php');
+::request('lib/mail.php');
 ::header(<<EOT);
 <?php
 parse_str(\$argv[1]);
@@ -797,7 +797,7 @@ my ($self)=@_;
 <?php
 \$Output=ob_get_contents();
 ob_end_clean();
-echo convertOutput(\$Output);
+echo convertMailOutput(\$Output);
 dbClose();
 ?>
 EOT
@@ -817,13 +817,6 @@ my ($self)=@_;
 <?php include("styles/\$sheet-".getStyle(\$userStyle).'.php'); } ?>
 EOT
 $AfterRedirect=1;
-}
-
-sub elBreak
-{
-my ($self)=@_;
-
-::body('<?php echo "\n"; ?>');
 }
 
 sub elA

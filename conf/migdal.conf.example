@@ -109,6 +109,9 @@ $scriptsDir='/home/balu/prog/migdal-html/scripts';
 # Каталог, в котором находятся файлы с образцами писем на Web-сервере
 $mailingsDir='/home/balu/prog/migdal-html/migdal/mailings';
 
+# Команда для запуска PHP4 в режиме командной строки
+$phpCommand='/usr/bin/php4';
+
 # Использовать mogrify (из пакета ImageMagick) для обработки картинок
 $useMogrify=true;
 

@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-all: crontab dbcreate.sql
+all: crontab php dbcreate.sql
 	(cd $(uiName); $(MAKE) all)
 	ln -sf $(uiName)/grp grp
 
@@ -16,6 +16,14 @@ crontab: Makefile conf/migdal.conf
 	echo '  10      22  *   *   *  $(scriptsDir)/ratings -c $(siteDir)/conf/migdal.conf -L $(scriptsDir)';\
 	) > crontab
 
+php: Makefile conf/migdal.conf
+	(\
+	echo '#!/bin/sh';\
+	echo;\
+	echo '$(phpCommand) -q -d include_path=.:.. $$*';\
+	) > php
+	chmod +x php
+	
 dbcreate.sql: Makefile conf/migdal.conf
 	cat migdal.db $(uiName)/migdal.db > dbcreate.sql
 	(\
@@ -52,7 +60,8 @@ pack: all
 		--exclude '*.mcss' --exclude 'Makefile*' \
 		--exclude '_template*' --exclude '.cvsignore' \
 		--exclude '.xvpics' --exclude 'migdal.db' \
-		--exclude 'groups.conf' $(uiName) scripts crontab dbcreate.sql
+		--exclude 'groups.conf' $(uiName) scripts crontab \
+		dbcreate.sql php
 
 clean:
 	-rm $(OBJECTS) crontab dbcreate.sql

@@ -39,6 +39,7 @@ var $hidden;
 var $online;
 var $no_login;
 var $has_personal;
+var $confirm_code;
 var $confirmed;
 var $confirm_days;
 var $last_message;
@@ -312,6 +313,11 @@ function isHasPersonal()
 return $this->has_personal;
 }
 
+function getConfirmCode()
+{
+return $this->confirm_code;
+}
+
 function isConfirmed()
 {
 return $this->confirmed;
@@ -376,6 +382,7 @@ $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
 			    min(floor((unix_timestamp(now())
 				      -unix_timestamp(sessions.last))/60))
 				 as last_minutes,
+			    confirm_code,
 			    confirm_deadline is null as confirmed,
 			    floor((unix_timestamp(confirm_deadline)
 				   -unix_timestamp(now()))/86400)

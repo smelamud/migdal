@@ -150,6 +150,8 @@ function subDomain()
 global $forceDomain,$SERVER_NAME,$siteDomain,$userDomain,$REQUEST_URI,$subdomains,
        $userIndexPage;
 
+if($SERVER_NAME=='')
+  return;
 if(strlen($SERVER_NAME)>strlen($siteDomain))
   $currentDomain=substr(strtolower($SERVER_NAME),0,
                         strlen($SERVER_NAME)-strlen($siteDomain)-1);
