@@ -7,7 +7,10 @@
  <iterate_chat limit='$$userChatPortion'>
  <table>
   <for>
-   <tr><td>[$.SentTimeView]</td><td><b>$.Login</b></td><td>$.HTMLText</td></tr>
+   <tr>
+    <td>[$.Sent@H:$.Sent@i:$.Sent@s]</td>
+    <td><b>$.Login</b></td>
+    <td>$.HTMLText</td></tr>
   </for>
  </table>
 </body>
