@@ -399,6 +399,7 @@ CREATE TABLE users (
   admin_complain_answers tinyint(4) NOT NULL default '0',
   moderator tinyint(4) NOT NULL default '0',
   judge tinyint(4) NOT NULL default '0',
+  admin_domain tinyint(4) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
   no_login tinyint(4) NOT NULL default '0',
   has_personal tinyint(4) NOT NULL default '0',
@@ -463,8 +464,8 @@ INSERT INTO complain_scripts VALUES (3,'Закрыть жалобу и разрешить показ','=upda
 --
 
 
-INSERT INTO mailing_types VALUES (1,'register.mail','register',1);
-INSERT INTO mailing_types VALUES (2,'registering.mail','registering',0);
+INSERT INTO mailing_types VALUES (1,'register.php','register',1);
+INSERT INTO mailing_types VALUES (2,'registering.php','registering',0);
 
 --
 -- Dumping data for table 'version'
