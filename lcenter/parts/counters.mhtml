@@ -43,11 +43,18 @@
 </noparse>
 </element>
 
+<element name='lafox'>
+<a href='http://lafox.net/counter/'>
+ <img src='http://lafox.net/counter/pic/?uid=10' width='88' height='31'
+      border='0' alt='Linux counter' title='Linux counter'></a>
+</element>
+
 <element name='counters_top'>
  <mailru_top>
 </element>
 
 <element name='counters'>
+ <lafox>
  <mailru>
  <hotlog>
 </element>
