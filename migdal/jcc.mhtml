@@ -14,7 +14,7 @@
   <td width=150 class='eframe'>
    <topics posting='$,'>
   </td>
-  <td class='article cframe'>
+  <td class='cframe'>
    <ifnzero what='$,Id'>
     <subtitle>
     <outer><div class='nframe' style='padding: 5'><inner>
@@ -23,9 +23,11 @@
      <seealso_other topic_id='$`jcc`' topic_grp='*GRP_REVIEWS'
 		    title='По этой теме в других разделах'>
     </inner></div></outer>
-    <article_controls posting='$,'>
-    <article posting='$,' withvote='*false'>
-    <article_controls posting='$,'>
+    <div class='article'>
+     <article_controls posting='$,'>
+     <article posting='$,' withvote='*false'>
+     <article_controls posting='$,'>
+    </div>
    </ifnzero>
   </td>
  </tr></table>
