@@ -73,5 +73,6 @@
 
 .topics .topicsect {
 	color: %topics_section;
-	font: bold 11pt %times;
+	font-weight: bold;
+	font-size: 8pt;
 }
