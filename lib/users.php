@@ -5,6 +5,7 @@ require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/months.php');
 require_once('lib/utils.php');
+require_once('lib/tmptexts.php');
 
 class User
       extends DataObject
@@ -35,10 +36,12 @@ $this->DataObject($row);
 
 function setup($vars)
 {
-if(!isset($vars['login']))
+if(!isset($vars['birth_day']))
   return;
 foreach($this->getCorrespondentVars() as $var)
-       $this->$var=htmlspecialchars($vars[$var]);
+       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+if(isset($vars['infoid']))
+  $this->info=tmpTextRestore($vars['infoid']);
 $this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
                                         .'-'.$vars['birth_day'];
 $this->email_disabled=$vars['email_enabled'] ? 0 : 1;

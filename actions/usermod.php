@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/users.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
+require_once('lib/tmptexts.php');
 
 function modifyUser($user)
 {
@@ -45,9 +46,12 @@ if($err==EUM_INSERT_OK)
   header('Location: /userok.php?'.
           makeQuery(array('login' => $login,'redir' => $redir)));
 else
+  {
+  $infoId=tmpTextSave($info);
   header('Location: /useredit.php?'.
           makeQuery($HTTP_POST_VARS,
-	            array('password','dup_password'),
-		    array('err' => $err)).'#error');
+	            array('password','dup_password','info'),
+		    array('infoid' => $infoId,'err' => $err)).'#error');
+  }
 dbClose();
 ?>
