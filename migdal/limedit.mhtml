@@ -44,8 +44,7 @@
    </table>
   </td>
   <td>
-   <concat value='Иллюстрации к статье "$,Subject"'>
-   <formtable title='$*'>
+   <formtable title#='Иллюстрации к статье "$,Subject"'>
     <image_obj id='$editid'>
     <setup>
     <form method=post enctype='multipart/form-data'

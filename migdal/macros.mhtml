@@ -114,7 +114,7 @@
 <macro name='bymessages'>
  <zone>
   <array vals='сообщению,сообщения,сообщений'>
-  <plural value='%value'>
+  <plural value%!value='%value'>
   $,
  </zone>
 </macro>
@@ -151,7 +151,7 @@
 
 << Biff >>
 <macro name='biff'>
- <ifbiff time='%time'>
+ <ifbiff time%!time='%time'>
   &nbsp;<image src='pics/ner.gif' title='новое'>&nbsp;
  </ifbiff>
 </macro>

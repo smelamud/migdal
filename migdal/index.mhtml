@@ -2,7 +2,7 @@
 
 <int name='topic_id'>
 <int name='offset'>
-<reloadnot why='$topic_id' var='topic_id' value='-1'>
+<reload why!='!$topic_id' var='topic_id' value='-1'>
 <grps>
 <unititle topic_id='$topic_id'>
 

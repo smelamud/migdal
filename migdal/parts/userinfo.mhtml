@@ -9,8 +9,8 @@
 <element name='controls_userinfo' params='user,target' defaults="user='$,'">
 <isedit what='$user'>
  <div class='batcher'>
-  <concat value='/useredit.php?editid=$user.Id&redirid=$_'>
-  <at href='$*' target='$target'>Изменить</at>
+  <at href#='/useredit.php?editid=$user.Id&redirid=$_'
+      target='$target'>Изменить</at>
  </div>
 </isedit>
 </element>
@@ -29,8 +29,7 @@
   <infoline title='Пол' value='Женский'>
  </if>
  <if what="$,Age!='-'">
-  <concat value='$,Birthday / $,JewishBirthday'>
-  <infoline title='Дата рождения' value='$*'>
+  <infoline title='Дата рождения' value#='$,Birthday / $,JewishBirthday'>
  </if>
  <if what='$,isMigdalStudent'>
   <infoline title='Мигдалевец' value='Да'>

@@ -54,19 +54,11 @@
     <iterate_grps>
     <for>
      <if what='$.isValid'>
-      <concat name='premoderateIdent' value='premoderate_$.GrpIdent'>
-      <if what='($,Allow & $.Grp)!=0'>
-       <assign name='allow' value='*true'>
-      <else>
-       <assign name='allow' value='*false'>
-      </if>
-      <if what='($,Premoderate & $.Grp)!=0'>
-       <assign name='premoderate' value='*true'>
-      <else>
-       <assign name='premoderate' value='*false'>
-      </if>
-      <concat name='foritems' value='Тема для $.GrpForItemsTitle'>
-      <concat name='titles' value='$.GrpTitles премодерируются'>
+      <assign name='premoderateIdent' value#='premoderate_$.GrpIdent'>
+      <assign name='allow' value!='($,Allow & $.Grp)!=0'>
+      <assign name='premoderate' value!='($,Premoderate & $.Grp)!=0'>
+      <assign name='foritems' value#='Тема для $.GrpForItemsTitle'>
+      <assign name='titles' value#='$.GrpTitles премодерируются'>
       <tr>
        <td><checkbox name='$.GrpIdent' value='$allow' title='$foritems'></td>
        <td><checkbox name='$premoderateIdent' value='$premoderate'

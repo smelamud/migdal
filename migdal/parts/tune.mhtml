@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <macro name='tuneitem'>
- <concat name='link' value='%file?redirid=$_'>
+ <assign name='link' value#='%file?redirid=$_'>
  <if what="$ident!='%ident'">
   <at href='$link' target='$target'>%title</a>
  <else>

@@ -15,7 +15,7 @@
    <admin_users>
     <hidden name='okdir' value='$--'>
    <else>
-    <concat value='/userok.php?redirid=$_'>
+    <assign value#='/userok.php?redirid=$_'>
     <hidden name='okdir' value='$*'>
    </admin_users>
    <hidden name='faildir' value='$-'>

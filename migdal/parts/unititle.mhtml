@@ -12,9 +12,9 @@
  <topic_obj id='$topic_id'>
  <topictitle title='$,Name'>
  <ife what='$chapter'>
-  <concat name='title' value='$,Name'>
+  <assign name='title' value#='$,Name'>
  <else>
-  <concat name='title' value='$chapter - $,Name'>
+  <assign name='title' value#='$chapter - $,Name'>
  </if>
  <pagetitle title='$title'>
 </if>

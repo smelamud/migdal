@@ -28,12 +28,7 @@
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
   <tr valign=top>
    <for>
-    <if what='$topic<0'>
-     <assign name='showtopic' value='*true'>
-    <else>
-     <assign name='showtopic' value='*false'>
-    </if>
-    <td><picture picture='$.' grp='*GRP_GALLERY' showtopic='$showtopic'></td>
+    <td><picture picture='$.' grp='*GRP_GALLERY' showtopic!='$topic<0'></td>
     <if what='$;isEol'>
      </tr><tr valign=top>
     </if>

@@ -259,7 +259,7 @@ my $ss='';
 my $i=1;
 foreach(map{s/^\$//;$_} split(/[\s,]+/,$s))
        {
-       $ss.="arg$i='\%$_' ";
+       $ss.="arg$i\%!$_='\%$_' ";
        $i++;
        }
 return $ss;
@@ -267,12 +267,14 @@ return $ss;
 
 sub subMacroParam
 {
-my ($s,$params)=@_;
+my ($s,$params,$types)=@_;
 
 return $params->{$1}
        if $s=~/^%{?(\w+)}?$/;
 return uc($params->{$1})
        if $s=~/^%\^{?(\w+)}?$/;
+return $types->{$1}
+       if $s=~/^%!{?(\w+)}?$/;
 return getArgList($params->{$1})
        if $s=~/^%\@{?(\w+)}?$/;
 return $s;
@@ -280,15 +282,15 @@ return $s;
 
 sub subMacroParams
 {
-my ($s,$params)=@_;
+my ($s,$params,$types)=@_;
 my $c='';
 
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^%]*)((?:%[\^@]?{?\w+}?)?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^%]*)((?:%[\^@!]?{?\w+}?)?)(.*)$/s;
      $c.=$head;
-     $c.=subMacroParam($var,$params) if $var ne '';
+     $c.=subMacroParam($var,$params,$types) if $var ne '';
      }
 return $c;
 }
@@ -322,12 +324,12 @@ while($token!~/^\s*$/)
 
 sub constructParams
 {
-my ($args)=@_;
+my ($args,$types)=@_;
 
 my @params=();
 for(my $n=1;exists $args->{"arg$n"};$n++)
    {
-   push @params,subTypedValue('','%',$args->{"arg$n"});
+   push @params,subTypedValue($types->{"arg$n"},'%',$args->{"arg$n"});
    }
 return join ',',@params;
 }
@@ -355,7 +357,7 @@ return $self->{'body'};
 
 sub getInstance
 {
-my ($self,$params)=@_;
+my ($self,$params,$types)=@_;
 
 my %args=();
 while(my($name,$value)=each(%{$self->{'defaults'}}))
@@ -366,7 +368,7 @@ while(my($name,$value)=each(%{$params}))
      {
      $args{$name}=$value if $value ne '';
      }
-my $s=::subMacroParams($self->getBody(),\%args);
+my $s=::subMacroParams($self->getBody(),\%args,$types);
 return $s;
 }
 
@@ -397,12 +399,12 @@ return $self->{'file'};
 
 sub getParams
 {
-my ($self,$args)=@_;
+my ($self,$args,$types)=@_;
 
 my @list=();
 foreach(@{$self->{'params'}})
        {
-       push @list,::subTypedValue('','%',
+       push @list,::subTypedValue($types->{$_},'%',
                     exists $args->{$_} && $args->{$_} ne ''
                     ? $args->{$_} : $self->{'defaults'}->{$_},
 		  );
@@ -622,11 +624,19 @@ my ($self)=@_;
 return $self->{'args'};
 }
 
+sub getTypes
+{
+my ($self)=@_;
+
+return $self->{'types'};
+}
+
 sub getTypedArg
 {
 my ($self,$name,$default)=@_;
 
-return ::subTypedValue('',$default,$self->{'args'}->{$name});
+return ::subTypedValue($self->{'types'}->{$name},$default,
+                       $self->{'args'}->{$name});
 }
 
 sub getConstArg
@@ -671,7 +681,8 @@ if($self->can($name))
   }
 elsif(defined($::Macros{$tagName}))
   {
-  $::Line=$::Macros{$self->getName()}->getInstance($self->getArgs()).$::Line;
+  $::Line=$::Macros{$self->getName()}->getInstance($self->getArgs(),
+                                                   $self->getTypes()).$::Line;
   }
 elsif(defined($::Elements{$tagName}))
   {
@@ -679,7 +690,8 @@ elsif(defined($::Elements{$tagName}))
   my $func=$self->getName();
   $func=~s/\//_/g;
   ::body("<?php display$func(",
-         $::Elements{$tagName}->getParams($self->getArgs()),'); ?>');
+         $::Elements{$tagName}->getParams($self->getArgs(),
+	                                  $self->getTypes()),'); ?>');
   }
 else
   {
@@ -874,16 +886,6 @@ my ($self)=@_;
 elAssign @_;
 }
 
-sub elConcat
-{
-my ($self)=@_;
-
-my $name=$self->getConstArg('name');
-$name='const'.($::LastConst++) if $name eq '';
-::body("<?php \$$name=".$self->getConcatArg('value').'; ?>');
-$::Stack->top()->setConst($name);
-}
-
 sub elIterate #XXX Possibly empty class
 {
 my ($self)=@_;
@@ -891,7 +893,7 @@ my ($self)=@_;
 my $name=$self->getConstArg('name');
 $name='iter'.($::LastIter++) if $name eq '';
 ::body("<?php \$$name=new ",$self->getConstArg('class'),
-       '(',::constructParams($self->getArgs()),'); ?>');
+       '(',::constructParams($self->getArgs(),$self->getTypes()),'); ?>');
 $::Stack->top()->setIterator($name);
 }
 
@@ -964,7 +966,7 @@ my ($self)=@_;
 my $name=$self->getConstArg('name');
 $name='result'.($::LastResult++) if $name eq '';
 ::body("<?php \$$name=new ",$self->getConstArg('class'),
-       '(',::constructParams($self->getArgs()),'); ?>');
+       '(',::constructParams($self->getArgs(),$self->getTypes()),'); ?>');
 $::Stack->top()->setResult($name);
 }
 
@@ -975,7 +977,7 @@ my ($self)=@_;
 my $name=$self->getConstArg('name');
 $name='result'.($::LastResult++) if $name eq '';
 ::body("<?php \$$name=",$self->getConstArg('func'),
-       '(',::constructParams($self->getArgs()),'); ?>');
+       '(',::constructParams($self->getArgs(),$self->getTypes()),'); ?>');
 $::Stack->top()->setResult($name);
 }
 

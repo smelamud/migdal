@@ -4,8 +4,7 @@
 <int name='topic_id'>
 <string name='up'>
 <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
-<concat value='Редактирование $message.GrpItemsTitle'>
-<pagetitle title='$*'>
+<pagetitle title#='Редактирование $message.GrpItemsTitle'>
 
 <html>
 <preamble>
@@ -13,9 +12,9 @@
  <top ident='index'>
  <setup>
  <if what='$editid'>
-  <concat name='head' value='Изменить $message.GrpItemTitle'>
+  <assign name='head' value#='Изменить $message.GrpItemTitle'>
  <else>
-  <concat name='head' value='Добавить $message.GrpItemTitle'>
+  <assign name='head' value#='Добавить $message.GrpItemTitle'>
  </if>
  <table width=100%><tr valign=top>
   <td width=200>

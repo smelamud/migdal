@@ -16,11 +16,6 @@ if($cond)
   }
 }
 
-function reloadNotParameter($cond,$key,$value)
-{
-reloadParameter($cond==0,$key,$value);
-}
-
 function makeValue($value)
 {
 $c=is_int($value) ? '' : '"';

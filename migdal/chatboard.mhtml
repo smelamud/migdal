@@ -9,17 +9,14 @@
 <body class='chatboard'>
  <update_last_chat>
  <iterate_chat limit='$$userChatPortion'>
- <assign name='day' value=''>
+ <time>
+ <assign name='day' value='$,@d'>
  <table cellspacing=0 cellpadding=0>
   <for>
-   <ifne what='$day'>
-    <if what='$day!=$.Sent@d'>
-     <tr><td colspan=2 class='split'>$.Sent@d.$.Sent@m.$.Sent@Y</td></tr>
-     <assign name='day' value='$.Sent@d'>
-    </if>
-   <else>
+   <if what='$day!=$.Sent@d'>
+    <tr><td colspan=2 class='split'>$.Sent@d.$.Sent@m.$.Sent@Y</td></tr>
     <assign name='day' value='$.Sent@d'>
-   </ifne>
+   </if>
    <tr>
     <td class='time'>[$.Sent@H:$.Sent@i:$.Sent@s]</td>
     <td>&nbsp;</td>

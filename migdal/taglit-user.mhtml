@@ -5,8 +5,7 @@
 <grps>
 <topic_obj name='taglit' id='taglit'>
 <user_obj name='user' id='$user_id'>
-<concat name='title' value='Таглит - $user.FullName'>
-<pagetitle title='$title'>
+<pagetitle title#='Таглит - $user.FullName'>
 <topictitle title='$user.FullName'>
 
 <html>
