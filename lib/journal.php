@@ -327,6 +327,11 @@ return preg_replace('/\$([0-9]+)/e',"getJournalVar('$host',\\1)",$query);
 
 function clearJournal()
 {
+mysql_query('insert into journal(seq) values(0)')
+  or journalFailure('Cannot insert increment barrier.');
+$id=mysql_insert_id();
+mysql_query("update journal set seq=$id where id=$id")
+  or journalFailure('Cannot update increment barrier.');
 $result=mysql_query('select min(they_know)
                      from horisonts')
   or journalFailure('Cannot determine minimal horisont.');
@@ -340,7 +345,9 @@ function isJournalEmpty()
 {
 global $dbName;
 
-$result=mysql_query("select count(*) from $dbName.journal")
+$result=mysql_query("select count(*)
+                     from $dbName.journal
+		     where query<>''")
   or journalFailure('Cannot determine size of journal.');
 return mysql_result($result,0,0)==0;
 }
