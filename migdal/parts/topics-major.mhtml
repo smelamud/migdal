@@ -32,14 +32,15 @@
 
 <element name='topics_major'>
 <assign name='spn' value!='$unroll ? 2 : 1'>
+<assign name='sp' value!='$spn+1'>
 <topics_table title='Разделы' span='$spn'>
  <admin_topics>
-  <tr><tdspan span='$spn'>
+  <tr><tdspan span='$sp'>
    <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
   </tdspan></tr>
  </admin_topics>
  <admin_users>
-  <tr><tdspan span='$spn'>
+  <tr><tdspan span='$sp'>
    <a href='journal.php?redirid=$_' class='edit'>Журнал</a>
   </tdspan></tr>
  </admin_users>

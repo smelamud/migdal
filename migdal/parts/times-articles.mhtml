@@ -1,0 +1,15 @@
+<< @(#) $Id$ >>
+
+<element name='times_articles'>
+<grps>
+<topics_table title='В номере'>
+ <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='$`migdal-times`'
+		      recursive='*true' limit=0 sort='*SORT_INDEX0'
+		      index1='$issue'>
+ <for>
+  <topics_line time='$.Sent' text='$.Subject'
+               href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
+	       arrow!='$.Id==$id' class='item ninept'>
+ </for>
+</topics_table>
+</element>

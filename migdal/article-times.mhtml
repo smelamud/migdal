@@ -14,7 +14,8 @@
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'>
+  <td width=150 class='eframe'>
+   <times_articles issue='$,Index1' id='$,Id'>
    <topics_major ident='times'>
   </td>
   <td class='article cframe'>
