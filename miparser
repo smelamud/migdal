@@ -624,7 +624,7 @@ $::Elements{lc $self->getArg('name')}=Element->new($self->getArg('file'),
                                                    $self->getArg('defaults'));
 }
 
-sub elElement #XXX Possibly empty name
+sub elElement #XXX Possibly empty name or incorrect closure
 {
 my ($self)=@_;
 
@@ -634,12 +634,14 @@ if(!exists $::Elements{$::ElementName})
   $::Elements{$::ElementName}=Element->new('',$self->getArg('params'),
 					   $self->getArg('defaults'));
   }
+$::Stack->push();
 }
 
-sub el_element
+sub el_element #XXX Possibly incorrect closure
 {
 my ($self)=@_;
 
+$::Stack->pop();
 my $name=$::ElementName;
 $::ElementName='';
 my @params=();
