@@ -71,7 +71,7 @@
    <ifnzero what='$posting'>
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
-                         sort='*SORT_RATING'>
+                         sort='*SORT_RATING' limit=0>
     <td width=110>
      <for>
       <if what='$;isOdd'>
