@@ -56,7 +56,6 @@
    <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
    <editor_line title='Описание' name='description' body='$,Description'
                 mandatory='$topicMandatoryDescription'>
-   <checkbox_line name='separate' value='$,isSeparate' title='Отдельная'>
    <tr><td><table width=100%>
     <iterate_grps>
     <for>

@@ -32,15 +32,6 @@ index3 (INT)
 index4 (INT)
   Резерв.
 
-separate (TINYINT)
-  Флаг, отмечающий "из ряда вон выходящие" темы. Это поле устарело и в
-  ближайшее время будет удалено.
-   Класс Topic воспринимает это поле как общедоступное, устанавливаемое в
-    соответствии с запросом пользователя.
-   Есть Topic::isSeparate().
-   TopicListIterator возвращает это поле.
-   TopicListIterator умеет сортировать по этому полю.
-
 Таблица postings
 ----------------
 
@@ -118,9 +109,9 @@ comment1 (VARCHAR(250))
    PostingListIterator возвращает это поле.
    getPostingById() и getFullPostingById() возвращают это поле.
 
-Based-on: migdal.db 1.74
+Based-on: migdal.db 1.76
 Based-on: lib/messages.php 1.100
 Based-on: lib/postings.php 1.131
-Based-on: lib/topics.php 1.90
+Based-on: lib/topics.php 1.93
 
 @(#) $Id$

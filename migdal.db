@@ -398,15 +398,6 @@ CREATE TABLE redirs (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'robots'
---
-
-CREATE TABLE robots (
-  hostinfo varchar(127) NOT NULL default '',
-  path varchar(127) NOT NULL default ''
-) TYPE=MyISAM;
-
---
 -- Table structure for table 'sessions'
 --
 
@@ -491,23 +482,21 @@ CREATE TABLE topics (
   index2 int(11) NOT NULL default '0',
   index3 int(11) NOT NULL default '0',
   index4 int(11) NOT NULL default '0',
-  separate tinyint(4) NOT NULL default '0',
   used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
+  KEY ident (ident),
   KEY up (up),
   KEY track (track),
   KEY stotext_id (stotext_id),
   KEY user_id (user_id),
   KEY name_sort (name_sort),
   KEY used (used),
-  KEY separate (separate),
   KEY group_id (group_id),
   KEY index0 (index0),
   KEY index1 (index1),
   KEY index2 (index2),
   KEY index3 (index3),
   KEY index4 (index4),
-  KEY ident (ident),
   KEY perms (perms)
 ) TYPE=MyISAM;
 

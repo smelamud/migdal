@@ -36,7 +36,6 @@ var $premoderate;
 var $ident;
 var $postings_info;
 var $sub_count;
-var $separate;
 
 function Topic($row)
 {
@@ -77,14 +76,13 @@ $this->stotext->setup($vars,'description');
 
 function getCorrespondentVars()
 {
-return array('up','name','ident','login','group_login','perm_string',
-             'separate');
+return array('up','name','ident','login','group_login','perm_string');
 }
 
 function getWorldVars()
 {
 return array('up','track','name','user_id','group_id','perms','allow',
-             'premoderate','ident','separate');
+             'premoderate','ident');
 }
 
 function getJencodedVars()
@@ -280,11 +278,6 @@ function getIdent()
 return $this->ident;
 }
 
-function isSeparate()
-{
-return $this->separate!=0;
-}
-
 function getPostingsInfo()
 {
 return $this->postings_info;
@@ -330,17 +323,15 @@ class TopicIterator
 {
 
 function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
-                  $withSeparate=true,$level=1)
+                  $level=1)
 {
 $hide=topicsPermFilter(PERM_READ,$prefix);
 $userFilter=$up>=0 ? 'and topics.'.subtree('topics',$up,$recursive,'up') : '';
 $grpFilter=$grp!=GRP_ALL ? "and (${prefix}allow & $grp)<>0" : '';
 $answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
-$sepFilter=!$withSeparate ? "and ${prefix}separate=0" : '';
 $levelFilter=$level<=1 || $up<0 ? '' : "and topics.id<>$up and topics.up<>$up";
 // TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
-return " where $hide $userFilter $grpFilter $answerFilter $sepFilter".
-       " $levelFilter ";
+return " where $hide $userFilter $grpFilter $answerFilter $levelFilter ";
 }
 
 function TopicIterator($query)
@@ -357,7 +348,8 @@ var $fields;
 var $grp;
 
 function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
-                           $subdomain=-1 /* deprecated */,$withSeparate=true,
+                           $subdomain=-1 /* deprecated */,
+			   $withSeparate=true /* deprecated */,
 			   $sort=SORT_NAME,$recursive=false,$level=1,
 			   $fields=SELECT_GENERAL)
 {
@@ -397,8 +389,7 @@ $From="topics
        $postTables
        $forumsTables";
 /* Where */
-$Where=$this->getWhere($grp,$up,'topics.',$withAnswers,$recursive,$withSeparate,
-                       $level);
+$Where=$this->getWhere($grp,$up,'topics.',$withAnswers,$recursive,$level);
 /* Group by */
 $GroupBy=$withAnswers || $withPostings ? 'group by topics.id' : '';
 /* Having */
@@ -556,7 +547,6 @@ $result=mysql_query(
 	       stotexts.large_body as large_description,
 	       large_imageset,topics.allow as allow,
 	       topics.premoderate as premoderate,topics.ident as ident,
-	       topics.separate as separate,
 	       topics.user_id as user_id,users.login as login,
 	       users.gender as gender,users.email as email,
 	       users.hide_email as hide_email,users.rebe as rebe,
