@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/article.mhtml 1.30 >>
 
 <ident name='artid' table='postings'>
 <posting_full id='$artid' grp='*GRP_TIMES_ARTICLES'>
