@@ -3,6 +3,7 @@
 
 require_once('lib/ident.php');
 require_once('lib/bug.php');
+require_once('lib/cache.php');
 
 function track($id,$prev='')
 {
@@ -19,22 +20,18 @@ $result=mysql_query("select up
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-$tracks=array();
-
 function trackById($table,$id)
 {
-global $tracks;
-
-if(isset($tracks[$table]) && isset($tracks[$table][$id]))
-  return $tracks[$table][$id];
+if($id<=0)
+  return 0;
+if(hasCachedValue('track',$table,$id))
+  return getCachedValue('track',$table,$id);
 $result=mysql_query("select track
                      from $table
 		     where id=$id")
 	  or sqlbug("Ошибка SQL при выборке маршрута из $table");
 $track=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-if(!isset($tracks[$table]))
-  $tracks[$table]=array();
-$tracks[$table][$id]=$track;
+setCachedValue('track',$table,$id,$track);
 return $track;
 }
 

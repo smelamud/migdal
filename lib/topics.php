@@ -14,6 +14,7 @@ require_once('lib/array.php');
 require_once('lib/track.php');
 require_once('lib/charsets.php');
 require_once('lib/grpiterator.php');
+require_once('lib/cache.php');
 
 class Topic
       extends UserTag
@@ -448,9 +449,15 @@ $result=mysql_query(
 	where topics.id=$id and topics.hidden<$hide
 	group by topics.id")
  or sqlbug('Ошибка SQL при выборке темы'.mysql_error());
-return new Topic(mysql_num_rows($result)>0
-                 ? mysql_fetch_assoc($result)
-                 : array('up'          => idByIdent('topics',$up),
+if(mysql_num_rows($result)>0)
+  {
+  $row=mysql_fetch_assoc($result);
+  if($row['ident']!='')
+    setCachedValue('ident','topics',$row['ident'],$row['id']);
+  return new Topic($row); 
+  }
+else
+  return new Topic(array('up'          => idByIdent('topics',$up),
 		         'allow'       => getAllowByTopicId($up),
                          'premoderate' => getPremoderateByTopicId($up)));
 }

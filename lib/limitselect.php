@@ -20,6 +20,7 @@ if($cquery=='')
   $cquery=$parts[1].' count(*) '.$parts[3];
   }
 $this->count_query=$cquery;
+$this->size=-1;
 $this->limit=$limit;
 $this->offset=$offset;
 $this->SelectIterator($aClass,$limit==0 ? $query
@@ -28,9 +29,12 @@ $this->SelectIterator($aClass,$limit==0 ? $query
 
 function select()
 {
-$result=mysql_query($this->count_query)
-       or sqlbug("Ошибка SQL в лимитированном итераторе {$this->count_query}");
-$this->size=mysql_result($result,0,0);
+if($this->size<0)
+  {
+  $result=mysql_query($this->count_query)
+	 or sqlbug("Ошибка SQL в лимитированном итераторе {$this->count_query}");
+  $this->size=mysql_result($result,0,0);
+  }
 SelectIterator::select();
 }
 

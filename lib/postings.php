@@ -14,6 +14,7 @@ require_once('lib/track.php');
 require_once('lib/random.php');
 require_once('lib/users.php');
 require_once('lib/bug.php');
+require_once('lib/cache.php');
 
 class Posting
       extends Message
@@ -277,8 +278,9 @@ $this->LimitSelectIterator(
 	                           length(images.small)) as image_size,
  	       if(images.has_large,images.large_x,images.small_x) as image_x,
  	       if(images.has_large,images.large_y,images.small_y) as image_y,
-	       topics.name as topic_name,topictexts.body as topic_description,
-	       topics.ident as topic_ident,
+	       topics.id as topic_id,topics.name as topic_name,
+	       topictexts.body as topic_description,
+	       topics.ident as topic_ident,topics.track as topic_track,
 	       login,gender,email,hide_email,rebe,
 	       read_count,vote,vote_count,
 	       count(forummesgs.id) as answer_count,
@@ -358,6 +360,18 @@ LimitSelectIterator::select();
 
 function create($row)
 {
+if($row['topic_id']>0)
+  {
+  if($row['topic_ident']!='')
+    setCachedValue('ident','topics',$row['topic_ident'],$row['topic_id']);
+  setCachedValue('track','topics',$row['topic_id'],$row['topic_track']);
+  }
+if($row['id']>0)
+  {
+  if($row['ident']!='')
+    setCachedValue('ident','postings',$row['ident'],$row['id']);
+  setCachedValue('track','postings',$row['id'],$row['track']);
+  }
 return newPosting($row);
 }
 
