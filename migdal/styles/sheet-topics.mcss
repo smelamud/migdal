@@ -1,0 +1,60 @@
+! @(#) $Id$
+
+.topics {
+	margin-left: 5px;
+	margin-top: 10px;
+}
+
+.topics TH {
+	border-bottom: solid 2px %topics_title;
+	font-size: 11pt;
+	color: %topics_title;
+	text-align: center;
+}
+
+.topics .names {
+	vertical-align: middle;
+}
+
+.topics .names A {
+	color: %topics_names;
+	font-size: 9pt;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.topics .names A:hover {
+	color: %topics_names_hover;
+	text-decoration: underline;
+}
+
+.topics .names A.new {
+	color: %topics_new;
+	font-style: italic;
+}
+
+.topics .names A.new:hover {
+	color: %topics_names_hover;
+}
+
+.topics .controls A,.topics .names A.edit {
+	color: %topics_controls;
+	font-size: 8pt;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+.topics .controls A:hover,.topics .names A.edit:hover {
+	color: %topics_controls_hover;
+	text-decoration: underline;
+}
+
+.topics A .answers {
+	color: %topics_answers;
+	font-weight: normal;
+	font-style: italic;
+}
+
+.topics A:hover .answers {
+	color: %topics_names_hover;
+}

@@ -1,0 +1,15 @@
+! @(#) $Id$
+
+.forums .batcher A.add {
+	color: %forums_batcher_normal;
+}
+
+.forums .batcher INPUT {
+	border-color: %forums_batcher_input_border;
+	color: %forums_batcher_input_text;
+}
+
+.forums .batcher SELECT {
+	border-color: %forums_batcher_input_border;
+	color: %forums_batcher_input_text;
+}

@@ -1,0 +1,19 @@
+! @(#) $Id$
+
+.return {
+	margin-top: 1.5ex;
+	margin-bottom: 1.5ex;
+}
+
+.return IMG {
+	border-width: 0px;
+}
+
+.return A {
+	color: %return_normal;
+	text-decoration: none;
+}
+
+.return A:hover {
+	text-decoration: underline;
+}

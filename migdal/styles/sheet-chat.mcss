@@ -1,0 +1,32 @@
+! @(#) $Id$
+
+BODY.chatboard {
+	background-color: %chatboard_back;
+}
+
+BODY.chatboard * {
+	font-size: 9pt;
+}
+
+.chatboard TR {
+	vertical-align: middle;
+}
+
+.chatboard .time {
+	color: %chatboard_time;
+	font-size: 7pt;
+}
+
+.chatboard .name{
+	color: %chatboard_name;
+	font-weight: bold;
+}
+
+.chatusers {
+	border-bottom: 1px solid %chatusers_split;
+	margin-bottom: 1ex;
+}
+
+.chatusers TD {
+	font-size: 8pt;
+}

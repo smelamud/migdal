@@ -1,0 +1,84 @@
+! @(#) $Id$
+
+.article .controls {
+	border-bottom: 1px solid %article_split;
+	border-spacing: 0;
+}
+
+.article .controls TD {
+	padding-right: 10px;
+}
+
+.article .controls A {
+	font-size: 8pt;
+	color: %article_controls;
+	text-decoration: none;
+}
+
+.article .controls A:hover {
+	color: %article_controls_hover;
+	text-decoration: underline;
+}
+
+.article A.piclink {
+	color: %article_picture;
+	font-size: 10pt;
+	font-style: italic;
+	text-decoration: none;
+}
+
+.article A.piclink:hover {
+	text-decoration: underline;
+}
+
+.article H1,.article H2,.article H3,.article H4,.article P,.article B,
+.article I,.article U,.article .author {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-size: 12pt;
+}
+
+.article H1 {
+	font-size: 18pt;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.article H2 {
+	font-size: 16pt;
+	font-weight: bold;
+	margin: 15px;
+}
+
+.article H3 {
+	font-size: 14pt;
+	font-weight: bold;
+	font-style: italic;
+	margin: 10px;
+}
+
+.article H4 {
+	font-size: 12pt;
+	font-weight: bold;
+	text-decoration: underline;
+	margin: 5px;
+}
+
+.article .author {
+	font-style: italic;
+}
+
+.article .imagetitle {
+	text-align: center;
+	font-style: italic;
+}
+
+.article P {
+	text-align: justify;
+}
+
+.article .source {
+	color: %article_source;
+	font-size: 9pt;
+	font-style: italic;
+	padding-bottom: 2ex;
+}

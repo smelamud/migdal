@@ -1,0 +1,55 @@
+! @(#) $Id$
+
+.form {
+	background-color: %form_back;
+	padding: 5px;
+}
+
+.form P {
+	text-align: justify;
+}
+
+.form P.controls {
+	text-align: center;
+}
+
+.form TH {
+	background-color: %form_title_back;
+	color: %form_title;
+	font-weight: bold;
+}
+
+.form INPUT,.form SELECT,.form TEXTAREA {
+	border: 1px solid %form_input_border;
+	color: %form_input_text;
+}
+
+.form .star {
+	font-size: 12pt;
+	color: %form_star;
+}
+
+.form .starinfo TD {
+	padding-bottom: 2ex;
+	font-size: 8pt;
+	color: %form_starinfo;
+}
+
+.form .comment TD {
+	font-size: 8pt;
+	color: %form_comment;
+}
+
+.form .buttons {
+	border-top: 2px solid %form_buttons_ruler;
+}
+
+.form .buttons INPUT,.form .buttons-nosplit INPUT {
+	background-color: %form_buttons_back;
+	color: %form_buttons;
+}
+
+.form A {
+	color: %form_link;
+	text-decoration: underline;
+}

@@ -1,0 +1,91 @@
+! @(#) $Id$
+
+.posting {
+	border: 3px solid %posting_border;
+	margin: 0.5ex;
+	background-color: %posting_back;
+}
+
+.posting .top {
+	background-color: %posting_top_back;
+}
+
+.posting .top .sent {
+	color: %posting_sent;
+	font-weight: bold;
+}
+
+.posting .top .name {
+	color: %posting_name;
+}
+
+.rebe .posting .top .name {
+	color: %posting_rebe_name;
+	font-weight: bold;
+}
+
+.posting .top .name A {
+	color: %posting_name;
+	text-decoration: none;
+}
+
+.posting .top A:hover {
+	text-decoration: underline;
+}
+
+.posting .subject {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14pt;
+  	padding-right: 2ex;
+	padding-bottom: 1.5ex;
+	color: %posting_subject;
+}
+
+.posting .subject A {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14pt;
+	color: %posting_subject;
+	text-decoration: none;
+}
+
+.posting .subject A:hover {
+	text-decoration: underline;
+}
+
+.posting .topic {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-style: italic;
+	font-size: 12pt;
+	text-decoration: none;
+}
+
+.posting A.topic:hover {
+	text-decoration: underline;
+}
+
+.posting .imagetitle {
+	text-align: center;
+	font-style: italic;
+}
+
+.posting .bottom {
+	border-top: 1px solid %posting_split;
+	margin-top: 1.5ex;
+}
+
+.posting .bottom A {
+	font-size: 8pt;
+	color: %posting_controls;
+	text-decoration: none;
+}
+
+.posting .bottom A:hover {
+	color: %posting_controls_hover;
+	text-decoration: underline;
+}
+
+.posting .bottom A.read {
+	color: %posting_read;
+}

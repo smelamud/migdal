@@ -1,0 +1,102 @@
+! @(#) $Id$
+
+.complain {
+	background-color: %complain_back;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid %complain_border;
+}
+
+.complain TH {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	background-color: %complain_title_back;
+	color: %complain_title;
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+.complain > TBODY > TR > TD {
+	padding-left: .5em;
+	padding-right: .5em;
+}
+
+.complain .head {
+	background-color: %complain_head_back;
+}
+
+.complain .head TD {
+	color: %complain_head;
+	font-weight: bold;
+}
+
+.complain .head .sent {
+	color: %complain_sent;
+}
+
+.complain .head .name {
+	color: %complain_name;
+	font-weight: normal;
+}
+
+.complain .head .name A,.complain .tail A {
+	color: %complain_name;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+.complain .head A:hover,.complain .tail A:hover {
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+.complain .quote {
+	background-color: %complain_quote_back;
+}
+
+.complain .subject {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14pt;
+  	padding-right: 2ex;
+	padding-bottom: 1.5ex;
+	color: %complain_subject;
+}
+
+.complain .tail {
+	background-color: %complain_tail_back;
+	color: %complain_tail;
+	font-weight: bold;
+}
+
+.complain INPUT {
+	background-color: %complain_input_back;
+	border-color: %complain_input_border;
+	border-width: 1px;
+	color: %complain_input_text;
+	font-weight: normal;
+}
+
+.complain SELECT {
+	background-color: %complain_input_back;
+	border-color: %complain_input_border;
+	border-width: 1px;
+	color: %complain_input_text;
+	font-weight: normal;
+}
+
+.complain .controls {
+	background-color: %complain_tail_back;
+	vertical-align: bottom;
+	padding-bottom: 0.5ex;
+}
+
+.complain .controls A {
+	font-size: 8pt;
+	color: %complain_controls;
+	text-decoration: none;
+}
+
+.complain .controls A:hover {
+	color: %complain_controls_hover;
+	text-decoration: underline;
+}

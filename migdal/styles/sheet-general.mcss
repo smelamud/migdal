@@ -1,0 +1,24 @@
+! @(#) $Id$
+
+* {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+.error {
+	color: %error_red;
+}
+
+.error[color='magenta'] {
+	color: %error_magenta;
+}
+
+BODY {
+	background-color: %body_back;
+}
+
+.advert {
+	color: %advert;
+	font-size: 8pt;
+	font-weight: bold;
+}

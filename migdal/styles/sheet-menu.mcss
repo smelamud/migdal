@@ -1,0 +1,20 @@
+! @(#) $Id$
+
+.menu {
+	background-color: %menu_back;
+	padding-left: 1em;
+	margin-bottom: .5ex;
+}
+
+.menu A {
+	color: %menu_normal;
+	text-decoration: none;
+}
+
+.menu A.selected {
+	color: %menu_selected;
+}
+
+.menu A:hover {
+	text-decoration: underline;
+}

@@ -1,0 +1,38 @@
+! @(#) $Id$
+
+.batcher {
+	font-size: 8pt;
+}
+
+.batcher A {
+	color: %batcher_link;
+	font-size: 8pt;
+	text-decoration: underline;
+}
+
+.batcher A.add {
+	color: %batcher_normal;
+	font-size: 8pt;
+	text-decoration: none;
+	margin-left: 1em;
+}
+
+.batcher A.add:hover {
+	text-decoration: underline;
+}
+
+.batcher TD,.batcher TD * {
+	font-size: 8pt;
+}
+
+.batcher INPUT {
+	border-color: %batcher_input_border;
+	border-width: 1px;
+	color: %batcher_input_text;
+}
+
+.batcher SELECT {
+	border-color: %batcher_input_border;
+	color: %batcher_input_text;
+	border-width: 1px;
+}

@@ -4,11 +4,17 @@
 
 STYLES = default contrast test
 OBJECTS = $(patsubst %,style-%.css,$(STYLES)) $(patsubst %,style-%.php,$(STYLES))
+PARTS = colors.mcss palette.mcss sheet-general.mcss sheet-menu.mcss \
+	sheet-bottom.mcss sheet-state.mcss sheet-return.mcss \
+	sheet-batcher.mcss sheet-posting.mcss sheet-forum.mcss \
+	sheet-forum-batcher.mcss sheet-topics.mcss sheet-catalog.mcss \
+	sheet-picture.mcss sheet-form.mcss sheet-article.mcss \
+	sheet-complain.mcss sheet-chat.mcss sheet-userinfo.mcss
 
-style-%.php: style.mcss ../../cssparser
+style-%.php: style.mcss $(PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-style-%.css: style.mcss ../../cssparser
+style-%.css: style.mcss $(PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
 all: $(OBJECTS)

@@ -1,0 +1,65 @@
+! @(#) $Id$
+
+.forum {
+	border-collapse: collapse;
+	border-spacing: 0;
+	padding: 0;
+	border: solid 3px %forum_border;
+}
+
+.forum .header {
+	background-color: %forum_header_back;
+	padding-left: .5em;
+	text-align: left;
+	vertical-align: top;
+	width: 25%;
+}
+
+.forum .body {
+	background-color: %forum_body_back;
+	padding-left: 1em;
+	padding-top: .5em;
+	text-align: left;
+	vertical-align: top;
+	width: 75%;
+}
+
+.forum .sent {
+	color: %forum_sent;
+	font-weight: bold;
+}
+
+.forum .name {
+	color: %forum_name;
+}
+
+.rebe .forum .name {
+	color: %forum_rebe_name;
+	font-weight: bold;
+}
+
+.forum .name A {
+	color: %forum_name;
+	text-decoration: none;
+}
+
+.forum A:hover {
+	text-decoration: underline;
+}
+
+.forum .controls {
+	background-color: %forum_header_back;
+	vertical-align: bottom;
+	padding-bottom: 0.5ex;
+}
+
+.forum .controls A {
+	font-size: 8pt;
+	color: %forum_controls;
+	text-decoration: none;
+}
+
+.forum .controls A:hover {
+	color: %forum_controls_hover;
+	text-decoration: underline;
+}

@@ -1,0 +1,67 @@
+! @(#) $Id$
+
+.state {
+	margin-bottom: 1.5ex;
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 8pt;
+	padding: 0;
+	width: 100%;
+}
+
+.state .topimage {
+	padding: 0;
+}
+
+.state .style {
+	background-color: %state_back;
+	text-align: center;
+}
+
+.state .style A {
+	font-size: 10pt;
+	color: %state_style;
+	text-decoration: underline;
+}
+
+.state .style A.active {
+	color: %state_style_active;
+}
+
+.state .style A:hover {
+	color: %state_style_hover;
+}
+
+.state .date {
+	font-size: 10pt;
+	font-weight: bold;
+	color: %state_date;
+	background-color: %state_back;
+	text-align: right;
+	vertical-align: middle;
+	padding-right: 1em;
+}
+
+.state .login TD {
+	font-size: 8pt;
+	padding: 0;
+}
+
+.state .login A {
+	font-size: 8pt;
+}
+
+.state .login A.name {
+	text-decoration: underline;
+}
+
+.state .login A:hover {
+	color: %register_hover;
+}
+
+.state .login INPUT {
+	border-color: %login_border;
+	border-width: 1px;
+	color: %login_text;
+	font-size: 8pt;
+}

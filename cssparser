@@ -12,9 +12,67 @@ $css=1;
 
 %Vars=();
 
+package Input;
+
+sub new
+{
+my ($class)=@_;
+return bless {'current' => '','files' => []},$class;
+}
+
+sub insert
+{
+my ($self,$name)=@_;
+
+open my $in,$name or ::error("Cannot open include file '$name'");
+unshift @{$self->{'files'}},$in;
+}
+
+sub eof
+{
+my ($self)=@_;
+
+return $#{$self->{'files'}}<0;
+}
+
+sub get
+{
+my ($self)=@_;
+
+return $self->{'current'};
+}
+
+sub next
+{
+my ($self)=@_;
+
+while(!$self->eof())
+     {
+     my $in=${$self->{'files'}}[0];
+     if(!eof($in))
+       {
+       $self->{'current'}=<$in>;
+       return;
+       }
+     close $in;
+     shift @{$self->{'files'}};
+     }
+$self->{'current'}='';
+}
+
+package main;
+
 sub display
 {
 print STDERR @_;
+}
+
+sub error
+{
+my ($msg)=@_;
+
+display "cssparser: $msg\n";
+exit(1);
 }
 
 sub help
@@ -76,6 +134,8 @@ GetOptions('css|c'      => \&setCSS,
 	   'php|p'      => \&setPHP,
            'style|s=s'	=> \$Style,
            'version|v'	=> \&version);
+$Input=Input->new();
+$Input->insert(shift @ARGV);
 }
 
 sub getVar
@@ -105,17 +165,25 @@ return $err ? '' : $s;
 sub run
 {
 print "<?php\n" unless $css;
-while(<>)
+$Input->next();
+while(!$Input->eof())
      {
-     chomp;
-     s/\s*!.*$//;
-     next if /^\s*$/;
-     if(/^\s*:\s*(\w+)/)
+     my $c=$Input->get();
+     chomp $c;
+     $c=~s/\s*!.*$//;
+     next if $c=~/^\s*$/;
+     if(my ($name)=$c=~/^\s*include\s+(\S+|"[^"]*"|'[^']*')\s*$/)
+       {
+       $name=~s/(^["'])|(['"]$)//g;
+       $Input->insert($name);
+       next;
+       }
+     if($c=~/^\s*:\s*(\w+)/)
        {
        next if lc $1 ne lc $Style;
-       s/^\s*:\s*\w+//;
+       $c=~s/^\s*:\s*\w+//;
        }
-     if(/^\s*(\w+)\s*=\s*(.*)$/)
+     if($c=~/^\s*(\w+)\s*=\s*(.*)$/)
        {
        my $s=subVars($2);
        if($s ne '')
@@ -130,9 +198,13 @@ while(<>)
        }
      else
        {
-       $s=subVars($_);
+       $s=subVars($c);
        print "$s\n" if $css && $s ne '';
        }
+     }
+continue
+     {
+     $Input->next();
      }
 print "?>\n" unless $css;
 }

@@ -1,0 +1,13 @@
+! @(#) $Id$
+
+.userinfo TH {
+	background-color: %userinfo_title_back;
+	font-weight: bold;
+	width: 150px;
+	text-align: left;
+}
+
+.userinfo TD {
+	background-color: %userinfo_info_back;
+	text-align: left;
+}

@@ -1,0 +1,22 @@
+! @(#) $Id$
+
+.bottom {
+	margin-top: 1.5ex;
+}
+
+.bottom * {
+	color: %bottom;
+	font-size: 8pt;
+}
+
+.bottom A {
+	color: %bottom_link;
+	text-decoration: underline;
+}
+
+.bottom HR {
+	margin: 0;
+	border-width: 0;
+	border-top: 2px solid %bottom;
+	width: 100%;
+}

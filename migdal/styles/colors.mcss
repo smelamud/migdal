@@ -1,0 +1,46 @@
+! @(#) $Id$
+
+! Blue
+
+bl=#0C20A5
+
+! Green
+
+g=#52A945
+
+! Navy
+
+nd=#4C6A90	! Dark
+ndl=#6F99D1	! Dark light
+nm=#9BC8FF	! Medium
+nl=#CDE4FF	! Light
+nll=#DCECFF	! Light light
+
+! Red
+
+r=#FF5500
+
+! Orange
+
+vd=#5B1900	! Dark
+vmd=#D5A516	! Medium dark
+vm=#F8BF19	! Medium
+vmm=#FFE69B	! Medium medium
+vld=#FFEDC3	! Light dark
+vl=#FFF8E8	! Light
+
+! Magenta
+
+ml=#BA00FF	! Light
+md=#91089D	! Dark
+
+! Gray
+
+grd=#5C5C5C	! Dark
+grm=#AAAAAA	! Medium
+gr=#C3C3C3	! Normal
+grl=#EAEAEA	! Light
+
+! Maroon
+
+mr=#9E4F00
