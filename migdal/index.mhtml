@@ -27,6 +27,10 @@
  <trap text='Tu bi-Shvat'>
  <reload href='$[topic_id=6]'>
 </if>
+<if what='$topic_id==27'>
+ <trap text='Veterans'>
+ <reload href='veterans.php'>
+</if>
 <ifnzero what='$grp'>
  <trap text='grp!=0 in index.php'>
  <reload href='$[grp]'>

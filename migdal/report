@@ -280,6 +280,7 @@ $c='[Ссылки]' if $type eq 'links';
 $c='[Книга]' if $type eq 'book';
 $c='[Глава книги]' if $type eq 'chapter';
 $c='[Обзор]' if $type eq 'review';
+$c='[Уголок ветерана]' if $type eq 'veterans';
 return $c.specify($s);
 }
 

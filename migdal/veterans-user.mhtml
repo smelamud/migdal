@@ -23,7 +23,7 @@
   </zone></td>
   <td>
    <div class='cframe' style='padding: 5'>
-    <subtitle icon='pics/taglit.gif'>
+    <subtitle>
     <div class='ninept'>
      <a href='userinfo.php?id=$user.Id&redirid=$_'
 	onClick="UserInfo($user.Id);return false">О пользователе $user.Login</a>
