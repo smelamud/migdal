@@ -271,6 +271,7 @@ $c='[Таглит]' if $type eq 'taglit';
 $c='[Мигдаль Times]' if $type eq 'times';
 $c='[О пользователе]' if $type eq 'userinfo';
 $c='[Голосование]' if $type eq 'vote';
+$c='[Ссылки]' if $type eq 'links';
 return $c.specify($s);
 }
 
