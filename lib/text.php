@@ -73,6 +73,7 @@ function getURLTag($whole,$url,$protocol,$content,$id=0)
 {
 if(strchr($whole,"'") || strchr($whole,'<') || strchr($whole,'>'))
   return $whole;
+$url=unhtmlentities($url);
 if($protocol!='' && $id!=0)
   $url="actions/link.php?msgid=$id&okdir=".urlencode($url);
 return "<a href='$url'".($protocol!='' ? " target='_blank'>" : '>').
