@@ -1,7 +1,7 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/global.php');
+require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/users.php');
 
@@ -41,14 +41,19 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
   displayTop('users');
   ?>
   <p>
-  <a href="useredit.php">Новый пользователь</a><br>
   <?php
+  if($editid)
+    {
+    ?>
+    <a href="useredit.php">Новый пользователь</a><br>
+    <?php
+    }
   $user=getUserById($editid);
   if($user->isEditable())
     {
     ?>
     <center><h1>Введите информацию о себе</h1></center>
-    <form method=post action='lib/usermod.php'>
+    <form method=post action='actions/usermod.php'>
     <input type=hidden name='redir' value='<?php echo $REQUEST_URI ?>'>
     <?php
     }
@@ -199,7 +204,8 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
   if($user->isEditable())
     {
     ?>
-    <input type=submit value='Отправить'>
+    <input type=submit value='<?php echo $editid ? 'Обновить' 
+                                                 : 'Зарегистрировать' ?>'>
     <input type=reset value='Очистить'>
     </form>
     <?php
