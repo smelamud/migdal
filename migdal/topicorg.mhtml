@@ -14,6 +14,7 @@
  <if what='$up!=0 && $write'>
   <a href='topicdel.php?redirid=$_&topic_id=$up' class='edit'>Удалить</a>
   <a href='chmod.php?redirid=$_&topic_id=$up' class='edit'>Права</a>
+  <a href='topics-reorder.php?redirid=$_&up=$up' class='edit'>Расставить</a>
  </if>
  <ifnzero what='$;Count'>
   <ul class='names'>

@@ -248,4 +248,10 @@ define('ECHM_NO_USER',451);
 define('ECHM_NO_GROUP',452);
 define('ECHM_NO_ADD',453);
 define('ECHM_BAD_PERMS',454);
+
+define('ETO_OK',460);
+define('ETO_NO_REORDER',461);
+define('ETO_DUPS',462);
+define('ETO_SQL',463);
+define('ETO_NO_TOPIC',464);
 ?>

@@ -340,13 +340,19 @@ class TopicListIterator
 {
 
 function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
-                           $subdomain=-1,$withSeparate=true)
+                           $subdomain=-1,$withSeparate=true,$sort=SORT_NAME)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $postFilter=$withPostings ? 'having message_count<>0' : '';
 $subdomainFilter=$subdomain>=0 ? "and postings.subdomain=$subdomain" : '';
+$order=getOrderBy($sort,
+       array(SORT_NAME       => 'topics.name_sort',
+	     SORT_INDEX0     => 'topics.index0',
+	     SORT_RINDEX0    => 'topics.index0 desc',
+	     SORT_INDEX1     => 'topics.index1',
+	     SORT_RINDEX1    => 'topics.index1 desc'));
 $this->TopicIterator(
       "select topics.id as id,topics.ident as ident,topics.up as up,
               topics.name as name,topics.stotext_id as stotext_id,
@@ -380,7 +386,7 @@ $this->TopicIterator(
        $this->getWhere($grp,$up,'topics.',$withAnswers,false,$withSeparate).
       "group by topics.id
        $postFilter
-       order by topics.name_sort");
+       $order");
 }
 
 }
