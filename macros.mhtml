@@ -410,13 +410,13 @@
 </macro>
 
 <macro name='checkbox' defaults='value=0'>
- <checkbox_button name='%name' value=%value> %title
+ <checkbox_button name='%name' value='%value'> %title
 </macro>
 
 <macro name='checkbox_line'>
  <tr><tdspan span=%span>
   <checkbox name='%name' value='%value' title='%title'>
- </td></tr>
+ </tdspan></tr>
 </macro>
 
 <macro name='radio' defaults='peervalue="-1"'>
