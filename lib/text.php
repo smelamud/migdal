@@ -71,18 +71,10 @@ return preg_replace('/\n\s*\n/','<p>',$s);
 
 function getURLTag($whole,$url,$protocol,$content,$id=0)
 {
-global $redir;
-
 if(strchr($whole,"'") || strchr($whole,'<') || strchr($whole,'>'))
   return $whole;
-if($protocol=='')
-  {
-  if($redir)
-    $url=remakeURI($url,array(),array('redirid' => $redir->getId()));
-  }
-else
-  if($id!=0)
-    $url="actions/link.php?msgid=$id&okdir=".urlencode($url);
+if($protocol!='' && $id!=0)
+  $url="actions/link.php?msgid=$id&okdir=".urlencode($url);
 return "<a href='$url'".($protocol!='' ? " target='_blank'>" : '>').
        "$content</a>";
 }

@@ -197,7 +197,7 @@
 <element name='backtrace'>
 <iterate_redirs name='redirs'>
 <outer>
- <div class='return'>
+ <div class='return ninept'>
   <for>
    <assign name='name' value='$.Name'>
    <isfirst what='$redirs'>
@@ -206,7 +206,7 @@
    </isfirst>
    <islast what='$redirs'>
     </inner>
-    <nobr>$name</nobr>
+    <nobr><b>$name</b></nobr>
    <else>
     <nobr><at href='$.URI' target='$target'>$name</at>&sp;&gt;</nobr>
    </islast>
