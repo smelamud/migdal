@@ -34,7 +34,8 @@ function displayLogin($flags)
 {
 global $userId,$REQUEST_URI;
 
-echo "<form method=post action='actions/login.php'>
+echo "<form method=post action='actions/".
+                     ($userId<0 ? 'login.php' : 'logout.php')."'>
       <input type=hidden name='redir' value='".makeRedirURL()."'>
       <table>";
 displayError();

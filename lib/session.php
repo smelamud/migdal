@@ -14,7 +14,10 @@ $result=mysql_query("select user_id from sessions where id=$sessionId");
 if(!$result)
   die('Ошибка SQL при выборке сессии');
 if(mysql_num_rows($result)<=0)
+  {
+  SetCookie('sessionid');
   $userId=-1;
+  }
 else
   {
   $userId=mysql_result($result,0,0);
