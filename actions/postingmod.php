@@ -172,6 +172,8 @@ postString('large_body');
 postString('subject');
 postString('author');
 postString('source');
+postString('comment0');
+postString('comment1');
 postString('title');
 postString('url');
 postIdent('topic_id','topics');
@@ -204,6 +206,8 @@ else
   $subjectId=tmpTextSave($subject);
   $authorId=tmpTextSave($author);
   $sourceId=tmpTextSave($source);
+  $comment0Id=tmpTextSave($comment0);
+  $comment1Id=tmpTextSave($comment1);
   $titleId=tmpTextSave($title);
   $urlId=tmpTextSave($url);
   header('Location: '.
@@ -214,6 +218,8 @@ else
 			      'subject',
 			      'author',
 			      'source',
+			      'comment0',
+			      'comment1',
 			      'title',
 			      'url',
 			      'okdir',
@@ -223,6 +229,8 @@ else
 			      'subjectid'    => $subjectId,
 			      'authorid'     => $authorId,
 			      'sourceid'     => $sourceId,
+			      'comment0id'   => $comment0Id,
+			      'comment1id'   => $comment1Id,
 			      'titleid'      => $titleId,
 			      'urlid'        => $urlId,
 			      'image_set'    => $message->getImageSet(),

@@ -22,6 +22,8 @@ var $track;
 var $subject;
 var $author;
 var $source;
+var $comment0;
+var $comment1;
 var $stotext;
 var $title;
 var $image_size;
@@ -69,6 +71,10 @@ if(isset($vars['authorid']))
   $this->author=tmpTextRestore($vars['authorid']);
 if(isset($vars['sourceid']))
   $this->source=tmpTextRestore($vars['sourceid']);
+if(isset($vars['comment0id']))
+  $this->comment0=tmpTextRestore($vars['comment0id']);
+if(isset($vars['comment1id']))
+  $this->comment1=tmpTextRestore($vars['comment1id']);
 if(isset($vars['urlid']))
   $this->url=tmpTextRestore($vars['urlid']);
 }
@@ -76,13 +82,14 @@ if(isset($vars['urlid']))
 function getCorrespondentVars()
 {
 return array('up','login','group_login','perm_string','hidden','lang',
-             'subject','author','source','disabled','url');
+             'subject','author','source','comment0','comment1','disabled',
+	     'url');
 }
 
 function getWorldVars()
 {
-return array('up','track','lang','subject','author','source','sender_id',
-             'group_id','perms','url','url_domain');
+return array('up','track','lang','subject','author','source','comment0',
+             'comment1','sender_id','group_id','perms','url','url_domain');
 }
 
 function getAdminVars()
@@ -93,8 +100,9 @@ return array('disabled');
 function getJencodedVars()
 {
 return array('up' => 'messages','subject' => '','author' => '','source' => '',
-             'stotext_id' => 'stotexts','sender_id' => 'users',
-	     'group_id' => 'users','url' => '','url_domain' => '');
+             'comment0' => '','comment1' => '','stotext_id' => 'stotexts',
+	     'sender_id' => 'users','group_id' => 'users','url' => '',
+	     'url_domain' => '');
 }
 
 function getNormal($isAdmin=false)
@@ -198,6 +206,26 @@ return $this->source;
 function getHTMLSource()
 {
 return stotextToHTML(TF_MAIL,$this->getSource(),$this->getMessageId());
+}
+
+function getComment0()
+{
+return $this->comment0;
+}
+
+function getHTMLComment0()
+{
+return stotextToHTML(TF_MAIL,$this->getComment0(),$this->getMessageId());
+}
+
+function getComment1()
+{
+return $this->comment1;
+}
+
+function getHTMLComment1()
+{
+return stotextToHTML(TF_MAIL,$this->getComment1(),$this->getMessageId());
 }
 
 function getStotext()

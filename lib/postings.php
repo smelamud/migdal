@@ -277,7 +277,8 @@ $Select="postings.id as id,postings.ident as ident,
          messages.track as track,postings.message_id as message_id,
          messages.stotext_id as stotext_id,stotexts.body as body,
 	 messages.lang as lang,messages.subject as subject,
-	 messages.author as author,messages.source as source,grp,
+	 messages.author as author,messages.source as source,
+	 messages.comment0 as comment0,messages.comment1 as comment1,grp,
 	 messages.sent as sent,topic_id,messages.url as url,
 	 messages.url_domain as url_domain,messages.sender_id as sender_id,
 	 messages.group_id as group_id,messages.perms as perms,
@@ -597,11 +598,11 @@ $filter=$id>=0 ? "postings.id=$id"
 	                     : '');
 $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
                             body,large_filename,large_format,large_body,
-			    large_imageset,lang,subject,author,source,url,
-			    topic_id,personal_id,sender_id,group_id,grp,
-			    priority,image_set,index0,index1,index2,subdomain,
-			    sent,perms,if((perms & 0x1100)=0,1,0) as hidden,
-			    disabled
+			    large_imageset,lang,subject,author,source,comment0,
+			    comment1,url,topic_id,personal_id,sender_id,
+			    group_id,grp,priority,image_set,
+			    index0,index1,index2,subdomain,sent,
+			    perms,if((perms & 0x1100)=0,1,0) as hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
@@ -657,7 +658,8 @@ $result=mysql_query(
 		stotexts.large_format as large_format,
 		stotexts.large_body as large_body,messages.lang as lang,
 		messages.subject as subject,messages.author as author,
-		messages.source as source,messages.url as url,grp,
+		messages.source as source,messages.comment0 as comment0,
+		messages.comment1 as comment1,messages.url as url,grp,
 		postings.index0 as index0,postings.index1 as index1,
 		postings.index2 as index2,subdomain,shadow,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,

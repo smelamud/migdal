@@ -184,13 +184,13 @@
 			  index1!='$issue<0 ? 0 : $issue'>
      <assign name='topicname' value=''>
      <for>
-      <if what='$topicname!=$.TopicName'>
+      <if what='$topicname!=$^.Comment0'>
        <assign name='topicname'
-               value!="$.TopicId!=$`migdal-times` ? $.TopicName : ''">
+               value!="$.TopicId!=$`migdal-times` ? $^.Comment0 : ''">
        <ifne what='$topicname'>
         <table width=100% class=heading><tr>
 	 <td align=left><image src='pics/times-bullet.gif'></td>
-	 <td align=right>$^topicname</td>
+	 <td align=right>$topicname</td>
 	</tr></table>
        </ifne>
       </if>

@@ -223,6 +223,8 @@ CREATE TABLE messages (
   subject varchar(250) NOT NULL default '',
   author varchar(250) NOT NULL default '',
   source varchar(250) NOT NULL default '',
+  comment0 varchar(250) NOT NULL default '',
+  comment1 varchar(250) NOT NULL default '',
   stotext_id int(11) NOT NULL default '0',
   sender_id int(11) NOT NULL default '0',
   group_id int(11) NOT NULL default '0',

@@ -105,6 +105,12 @@
      <else>
       <hidden name='topic_id' value='$message.TopicId'>
      </if>
+     <if what='$message.hasComment0 || $full'>
+      <edit_line title='$message.Comment0Title' value='$message.Comment0'
+		 name='comment0' size=52 maxlength=250 mandatory='*false'>
+     <else>
+      <hidden name='comment0' value='$message.Comment0'>
+     </if>
      <full>
       <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
       <error id='*EP_IDENT_UNIQUE' span=2

@@ -95,13 +95,32 @@ source (VARCHAR(250))
    actions/postingmod.php умеет модифицировать это поле.
    Есть Message::getSource() и Message::getHTMLSource().
    Класс Message воспринимает это поле как общедоступное, устанавливаемое в
-    соответствии с запросом пользователя.
+    соответствии с запросом пользователя и кодируемое при отправке в журнал.
    PostingListIterator возвращает это поле.
    getPostingById() и getFullPostingById() возвращают это поле.
 
-Based-on: migdal.db 1.71
-Based-on: lib/messages.php 1.98
-Based-on: lib/postings.php 1.129
+comment0 (VARCHAR(250))
+  Используется в качестве названия рубрики, если создавать тему для каждой
+  рубрики неэффективно.
+   actions/postingmod.php умеет модифицировать это поле.
+   Есть Message::getComment0() и Message::getHTMLComment0().
+   Класс Message воспринимает это поле как общедоступное, устанавливаемое в
+    соответствии с запросом пользователя и кодируемое при отправке в журнал.
+   PostingListIterator возвращает это поле.
+   getPostingById() и getFullPostingById() возвращают это поле.
+
+comment1 (VARCHAR(250))
+  Резерв.
+   actions/postingmod.php умеет модифицировать это поле.
+   Есть Message::getComment1() и Message::getHTMLComment1().
+   Класс Message воспринимает это поле как общедоступное, устанавливаемое в
+    соответствии с запросом пользователя и кодируемое при отправке в журнал.
+   PostingListIterator возвращает это поле.
+   getPostingById() и getFullPostingById() возвращают это поле.
+
+Based-on: migdal.db 1.74
+Based-on: lib/messages.php 1.100
+Based-on: lib/postings.php 1.131
 Based-on: lib/topics.php 1.90
 
 @(#) $Id$
