@@ -5,8 +5,9 @@
 <head>
 </head>
 <body> 
- <form method=post action='actions/chatpost.php' style='margin: 0; padding: 0'>
- <hidden name='redir' value='$-'>
+ <form method=post action='actions/chatpost.php' style='margin: 0; padding: 0'
+       target=_top>
+ <hidden name='redir' value='/chat.php?$?'>
  <table class='form' style='align: center; margin: 0; padding: 0'>
   <error id='*ECHP_NO_ADD' span=3
 	 text='Добавлять сообщения может только зарегистрированный пользователь'>

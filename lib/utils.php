@@ -58,6 +58,6 @@ function getPlural($n,$forms)
 {
 $a=$n%10;
 $b=((int)$n/10)%10;
-return $b==1 || $a>=5 ? $forms[2] : ($a==1 ? $forms[0] : $forms[1]);
+return $b==1 || $a>=5 || $a==0 ? $forms[2] : ($a==1 ? $forms[0] : $forms[1]);
 }
 ?>
