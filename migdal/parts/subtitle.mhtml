@@ -4,7 +4,9 @@
 <ifne what='$$topicTitle'>
  <table class=title width=100% cellspacing=0>
   <col width=10>
-  <col width=0*>
+  <ifne what='$icon'>
+   <col width=0*>
+  </ifne>
   <tr valign=center>
    <th>&nbsp;</th>
    <ifne what='$icon'>
