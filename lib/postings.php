@@ -15,6 +15,7 @@ require_once('lib/random.php');
 require_once('lib/users.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
+require_once('lib/select.php');
 
 class Posting
       extends Message
@@ -232,15 +233,109 @@ var $topicFilter;
 function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
-			     $subdomain=-1,$up=-1,$showShadows=true)
+			     $subdomain=-1,$up=-1,$showShadows=true,
+			     $fields=SELECT_ALLPOSTING)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $this->topicFilter='';
 $this->addTopicFilter($topic_id,$recursive);
+if($withAnswers)
+  $fields|=SELECT_ANSWERS;
+/* Select */
+$imageFields=($fields & SELECT_IMAGES)!=0 ?
+             "images.image_set as image_set,images.id as image_id,
+	      images.has_large as has_large_image,images.title as title,
+	      if(images.has_large,length(images.large),
+				  length(images.small)) as image_size,
+	      if(images.has_large,images.large_x,images.small_x) as image_x,
+	      if(images.has_large,images.large_y,images.small_y) as image_y," :
+	     "stotexts.image_set as image_set,";
+$topicFields=($fields & SELECT_TOPICS)!=0 ?
+	     "topics.id as topic_id,topics.name as topic_name,
+	      topictexts.body as topic_description,
+	      topics.ident as topic_ident,topics.track as topic_track," :
+	     "postings.topic_id as topic_id,";
+$answersFields=($fields & SELECT_ANSWERS)!=0 ?
+	     "count(forummesgs.id) as answer_count,
+	      max(forummesgs.sent) as last_answer,
+	      ifnull(max(forummesgs.sent),messages.sent) as age," :
+	     '';
+
+$Select="postings.id as id,postings.ident as ident,
+         messages.track as track,postings.message_id as message_id,
+         messages.stotext_id as stotext_id,stotexts.body as body,
+	 messages.lang as lang,messages.subject as subject,
+	 messages.author as author,messages.source as source,grp,
+	 messages.sent as sent,topic_id,messages.url as url,
+	 messages.sender_id as sender_id,messages.hidden as hidden,
+	 messages.disabled as disabled,users.hidden as sender_hidden,
+	 postings.index1 as index1,subdomain,shadow,
+	 $imageFields
+	 $topicFields
+	 login,gender,email,hide_email,rebe,
+	 read_count,vote,vote_count,
+	 $answersFields
+	 if(messages.url_check_success=0,0,
+	    unix_timestamp()-unix_timestamp(messages.url_check_success))
+	                                            as url_fail_time";
+/* From */
+$imageTables=($fields & SELECT_IMAGES)!=0 ?
+	     "left join images
+		   on stotexts.image_set=images.image_set" :
+	     '';
+$topicTables=($fields & SELECT_TOPICS)!=0 ?
+	     "left join topics
+		   on postings.topic_id=topics.id
+	      left join stotexts as topictexts
+		   on topictexts.id=topics.stotext_id" :
+	     '';
+$answersTables=($fields & SELECT_ANSWERS)!=0 ?
+	     "left join forums
+		   on messages.id=forums.parent_id
+	      left join messages as forummesgs
+		   on forums.message_id=forummesgs.id and
+		      (forummesgs.hidden<$hide or
+		       forummesgs.sender_id=$userId) and
+		      (forummesgs.disabled<$hide or
+		       forummesgs.sender_id=$userId)" :
+	     '';
+
+$From="postings
+       left join messages
+	    on postings.message_id=messages.id
+       left join stotexts
+	    on stotexts.id=messages.stotext_id
+       $imageTables
+       $topicTables
+       left join users
+	    on messages.sender_id=users.id
+       $answersTables";
+/* Where */
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
-$order=getOrderBy($sort,
+$countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
+$index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
+$sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
+$subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
+$childFilter=$up>=0 ? "and messages.up=$up" : '';
+$shadowFilter=!$showShadows ? 'and shadow=0' : '';
+
+$Where="(messages.hidden<$hide or messages.sender_id=$userId) and
+	(messages.disabled<$hide or messages.sender_id=$userId) and
+	personal_id=$personal and (grp & $grp)<>0 @topic@
+	$userFilter $index1Filter $sentFilter $subdomainFilter
+	$childFilter $shadowFilter";
+/* Having */
+$answerFilter=$withAnswers!=GRP_NONE
+              ? $withAnswers==GRP_ALL
+	        ? 'having count(forummesgs.id)<>0'
+		: "having (grp & $withAnswers)=0 or count(forummesgs.id)<>0"
+	      : '';
+
+$Having=$answerFilter;
+/* Order */
+$Order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
              SORT_NAME     => 'subject',
              SORT_ACTIVITY => 'age desc',
@@ -250,74 +345,15 @@ $order=getOrderBy($sort,
 	     SORT_RINDEX1  => 'postings.index1 desc',
 	     SORT_RATING   => 'if(vote_count=0,2.5,vote/vote_count) desc,'.
 	                      'vote_count desc,sent desc'));
-$answerFilter=$withAnswers!=GRP_NONE
-              ? $withAnswers==GRP_ALL
-	        ? 'having count(forummesgs.id)<>0'
-		: "having (grp & $withAnswers)=0 or count(forummesgs.id)<>0"
-	      : '';
-$countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
-$index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
-$sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
-$subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
-$childFilter=$up>=0 ? "and messages.up=$up" : '';
-$shadowFilter=!$showShadows ? 'and shadow=0' : '';
+/* Query */
 $this->LimitSelectIterator(
        'Message',
-       "select postings.id as id,postings.ident as ident,
-               messages.track as track,postings.message_id as message_id,
-               messages.stotext_id as stotext_id,stotexts.body as body,
-	       messages.lang as lang,messages.subject as subject,
-	       messages.author as author,messages.source as source,grp,
-	       messages.sent as sent,topic_id,messages.url as url,
-	       messages.sender_id as sender_id,messages.hidden as hidden,
-	       messages.disabled as disabled,users.hidden as sender_hidden,
-	       postings.index1 as index1,subdomain,shadow,
-	       images.image_set as image_set,images.id as image_id,
-	       images.has_large as has_large_image,images.title as title,
-	       if(images.has_large,length(images.large),
-	                           length(images.small)) as image_size,
- 	       if(images.has_large,images.large_x,images.small_x) as image_x,
- 	       if(images.has_large,images.large_y,images.small_y) as image_y,
-	       topics.id as topic_id,topics.name as topic_name,
-	       topictexts.body as topic_description,
-	       topics.ident as topic_ident,topics.track as topic_track,
-	       login,gender,email,hide_email,rebe,
-	       read_count,vote,vote_count,
-	       count(forummesgs.id) as answer_count,
-	       max(forummesgs.sent) as last_answer,
-	       ifnull(max(forummesgs.sent),messages.sent) as age,
-	       if(messages.url_check_success=0,0,
-	          unix_timestamp()-unix_timestamp(messages.url_check_success))
-	                                                  as url_fail_time
-	from postings
-	     left join messages
-	          on postings.message_id=messages.id
-	     left join stotexts
-	          on stotexts.id=messages.stotext_id
-	     left join images
-		  on stotexts.image_set=images.image_set
-	     left join topics
-		  on postings.topic_id=topics.id
-	     left join stotexts as topictexts
-	          on topictexts.id=topics.stotext_id
-	     left join users
-		  on messages.sender_id=users.id
-	     left join forums
-		  on messages.id=forums.parent_id
-	     left join messages as forummesgs
-	          on forums.message_id=forummesgs.id and
-	             (forummesgs.hidden<$hide or
-		      forummesgs.sender_id=$userId) and
-	             (forummesgs.disabled<$hide or
-		      forummesgs.sender_id=$userId)
-	where (messages.hidden<$hide or messages.sender_id=$userId) and
-	      (messages.disabled<$hide or messages.sender_id=$userId) and
-	      personal_id=$personal and (grp & $grp)<>0 @topic@
-	      $userFilter $index1Filter $sentFilter $subdomainFilter
-	      $childFilter $shadowFilter
+       "select $Select
+	from $From
+	where $Where
 	group by postings.id
-	$answerFilter
-	$order",$limit,$offset,
+	$Having
+	$Order",$limit,$offset,
        "select count(distinct postings.id)
 	from postings
 	     left join messages

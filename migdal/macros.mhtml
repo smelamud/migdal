@@ -148,7 +148,7 @@
 <decel name='seealso_links' file='parts/seealso.php' params='topic_id,title'
        defaults="title='óÍ. ÔÁËÖÅ'">
 <decel name='senderlink' file='parts/utils.php' params='message'>
-<decel name='spin' file='parts/spin.php' params='list,picprev,picnext'
+<decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'
        defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
 <decel name='star' file='parts/formutils.php'>
 <decel name='starinfo' file='parts/formutils.php' params='span'

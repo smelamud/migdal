@@ -5,7 +5,7 @@
 <topics_table class='eightpt' title='$title'>
  <iterate_postinglist grp='*GRP_DISCUSS' topic_id='$topic_id' limit='$limit'
 		      sort='*SORT_ACTIVITY'
-		      withanswers='*GRP_NOT_FORUMS'>
+		      withanswers='*GRP_NOT_FORUMS' fields='*SELECT_ANSWERS'>
  <for>
   <ifzero what='$.LastAnswer'>
    <assign name='last' value='$.Sent'>

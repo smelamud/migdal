@@ -32,7 +32,8 @@
   </td></tr>
  </ispost>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-                      topic_id='$,Id' recursive='*false'>
+                      topic_id='$,Id' recursive='*false'
+		      fields='*SELECT_TOPICS'>
  <posting_obj id='$`postings:jcc`'>
  <topics_line time='$,Sent' text='$,Subject' href#='migdal.php'
               arrow!='$,Id==$posting.Id' indent=0 span=2 class='item ninept'>

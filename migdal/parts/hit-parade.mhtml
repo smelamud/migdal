@@ -3,7 +3,7 @@
 <element name='hit_parade'>
 <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
 		     sort='$sort' recursive='*true' later='$later'
-		     showshadows='$showshadows'>
+		     showshadows='$showshadows' fields='*SELECT_GENERAL'>
 <ifnzero what='$;Count'>
  <topics_table class='eightpt' title='$title'>
   <for>

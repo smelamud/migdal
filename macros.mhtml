@@ -98,10 +98,11 @@
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic_id,recursive,limit,offset,personal,sort,withanswers,
-	         user,index1,later,subdomain,up,showshadows'
+	         user,index1,later,subdomain,up,showshadows,fields'
          defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0
-		   index1=-1 later=0 subdomain=-1 up=-1 showshadows='*true'">
+		   index1=-1 later=0 subdomain=-1 up=-1 showshadows='*true'
+		   fields='*SELECT_ALLPOSTING'">
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
 <deciter macro='rows' class='RowsIterator' file='lib/rowscols.php'
          params='iterator,cols' defaults="iterator='$;' cols=5">

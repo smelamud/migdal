@@ -188,7 +188,8 @@
    </tr></table>
   </td>
   <td width=80 align=center class='mtimes'>
-   <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=5 sort='*SORT_RINDEX1'>
+   <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=5 sort='*SORT_RINDEX1'
+                        fields='*SELECT_IMAGES'>
    <for>
     <table>
      <tr><td align=right>

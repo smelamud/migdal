@@ -27,9 +27,10 @@
    <hidden name='faildir' value='$-'>
    <iterate_postinglist name='sels' grp='$grp' topic_id='$topic_id'
                         recursive='*true' limit=0 sort='*SORT_INDEX0'
-			index1!='$issue' up='$up'>
+			index1!='$issue' up='$up' fields='*SELECT_TOPICS'>
    <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='*true'
-                        limit=0 sort='*SORT_INDEX0' index1!='$issue' up='$up'>
+                        limit=0 sort='*SORT_INDEX0' index1!='$issue' up='$up'
+			fields='*SELECT_TOPICS'>
    <table>
     <error id='*EO_DUPS' text='Некоторые статьи указаны дважды' span=2>
     <error id='*EO_NO_ARTICLE' text='Статьи не существует' span=2>

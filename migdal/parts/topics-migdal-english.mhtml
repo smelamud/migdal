@@ -14,7 +14,8 @@
   </td></tr>
  </ispost>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-                      topic_id='$,Id' recursive='*false'>
+                      topic_id='$,Id' recursive='*false'
+		      fields='*SELECT_TOPICS'>
  <posting_obj id='$`postings:migdal,e`'>
  <topics_line time='$,Sent' text='Home' href#='index.php'
               arrow!='$,Id==$posting.Id' class='item'>
