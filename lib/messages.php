@@ -10,6 +10,7 @@ require_once('lib/text.php');
 require_once('lib/ctypes.php');
 require_once('lib/stotext.php');
 require_once('lib/langs.php');
+require_once('lib/url-domain.php');
 
 class Message
       extends SenderTag
@@ -72,7 +73,7 @@ return array('up','login','group_login','lang','subject','author','source',
 function getWorldVars()
 {
 return array('up','track','lang','subject','author','source','hidden',
-             'sender_id','url');
+             'sender_id','url','url_domain');
 }
 
 function getAdminVars()
@@ -83,7 +84,8 @@ return array('disabled');
 function getJencodedVars()
 {
 return array('up' => 'messages','subject' => '','author' => '','source' => '',
-             'stotext_id' => 'stotexts','sender_id' => 'users','url' => '');
+             'stotext_id' => 'stotexts','sender_id' => 'users','url' => '',
+	     'url_domain' => '');
 }
 
 function getNormal($isAdmin=false)
@@ -101,6 +103,8 @@ $result=$this->stotext->store($GLOBALS[$admin]);
 if(!$result)
   return $result;
 $normal=$this->getNormal($GLOBALS[$admin]);
+if(isset($normal['url']))
+  $normal['url_domain']=getURLDomain($normal['url']);
 if($this->$id)
   {
   $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->$id)));
