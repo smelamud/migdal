@@ -1,7 +1,13 @@
 << @(#) $Id$ >>
 
+<element name='topics_migdal_chapter' params='posting'>
+</element>
+
 <element name='topics_migdal'>
 <grps>
+<if what='posting.TopicId!=$`migdal`'>
+ <topics_migdal_chapter posting='$posting'>
+</if>
 <topic_obj id='$`migdal`'>
 <topics_table title='$,Name' span=2>
  <if what='$,UserId==$$userId || $$userModerator'>
@@ -24,6 +30,11 @@
 	       class!="$.Id==$`postings:migdal`
 	               ? 'item ninept' : 'item eightpt'">
  </for>
+ <posting_last topic_id='$`kes`' recursive='*true'>
+ <topics_line time='$,' text='Клуб Еврейского Студента'
+              href='migdal.php?artid=$`postings:kes`'
+              arrow!="$/$posting.TopicId,1/==$`kes`" indent=1 span=2
+	      class='item eightpt'>
  <posting_last topic_id='$`kaitana`' recursive='*true'>
  <topics_line time='$,' text='Площадка' href='kaitana.php'
               arrow!="$posting.TopicId==$`kaitana`" indent=1 span=2

@@ -8,10 +8,6 @@
 </ifzero>
 
 << Traps >>
-<if what='$topic_id==8'>
- <trap text='Taglit gallery'>
- <reload href='taglit.php'>
-</if>
 <ifnzero what='$grp'>
  <trap text='grp!=0 in gallery.php'>
  <reload href='$[grp]'>
