@@ -1,0 +1,36 @@
+<< @(#) $Id$ >>
+
+<int name='msgid'>
+<pagetitle title='Изменение прав на сообщение'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <perms table='messages' id='$msgid'>
+ <setup>
+ <formtable title='Изменение прав на сообщение'>
+  <form method=post action='actions/chmod.php'>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <hidden name='msgid' value='$msgid'>
+   <hidden name='edittag' value=1>
+   <table>
+    <starinfo span=2>
+    <error id='*ECHM_NO_CHMOD' span=2
+           text='Вы не можете менять права на это сообщение'>
+    <<error id='*ECHM_GROUP_EMPTY' text='Укажите имя группы' span=2>
+    <error id='*ECHM_NO_GROUP' text='Такой группы не существует' span=2>
+    <edit_line title='Группа' mandatory='*true' name='group_name'
+               value='$,GroupName' size=20 maxlength=30>>
+    <error id='*ECHM_USER_EMPTY' text='Укажите имя пользователя' span=2>
+    <error id='*ECHM_NO_USER' text='Такого пользователя не существует' span=2>
+    <edit_line title='Пользователь' mandatory='*true' name='user_name'
+               value='$,UserName' size=20 maxlength=30>
+   </table>
+   <formbuttons title='Изменить'>
+  </form>
+ </formtable>
+ <bottom>
+</body>
+</html>

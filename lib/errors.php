@@ -239,4 +239,11 @@ define('EGD_OK',440);
 define('EGD_NO_USER',441);
 define('EGD_NO_GROUP',442);
 define('EGD_NO_DELETE',443);
+
+define('ECHM_OK',450);
+define('ECHM_USER_EMPTY',451);
+define('ECHM_GROUP_EMPTY',452);
+define('ECHM_NO_USER',453);
+define('ECHM_NO_GROUP',454);
+define('ECHM_NO_ADD',455);
 ?>

@@ -85,6 +85,8 @@
   &nbsp;
   <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
      >Удалить</a>
+  &nbsp;
+  <a href="chmod.php?msgid=$posting.MessageId&redirid=$_">Права</a>
  </td></tr>
 </table>
 <p>

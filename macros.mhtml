@@ -198,6 +198,8 @@
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
 <deccall macro='message_posting' func='getPostingIdByMessageId'
          file='lib/postings.php' params='id'>
+<deccall macro='perms' func='getPermsById' file='lib/permissions.php'
+         params='table,id'>
 <deccall macro='plural' func='getPlural' file='lib/utils.php'
          params='value,words' defaults="words='$*'">
 <deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
