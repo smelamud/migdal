@@ -1,0 +1,152 @@
+<< @(#) $Id$ >>
+
+<element name='article_controls'>
+<div align=right>
+ <table class='controls'>
+  <tr>
+   <isedit what='$posting'>
+    <td>
+     <a href="postingedit.php?editid=$posting.Id&up=general&grp=$posting.Grp&redirid=$_"
+	>Изменить</a>
+    </td>
+    <td>
+     <a href="limedit.php?postid=$posting.Id&redirid=$_">Список иллюстраций</a>
+    </td>
+    <if what='$posting.isModerable'>
+     <td>
+      <if what='$posting.isDisabled'>
+       <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+	>Разрешить показ</a>
+      <else>
+       <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+	>Запретить показ</a>
+      </if>
+     </td>
+    </if>
+   </isedit>
+   <td><discusslink posting='$posting'></td>
+  </tr>
+ </table>
+</div>
+</element>
+
+<macro name='isplaced'>
+<if what='$par->isPlaced(%place)'>
+</macro>
+
+<macro name='/isplaced'>
+</if>
+</macro>
+
+<macro name='notplaced'>
+<if what='!$par->isPlaced(%place)'>
+</macro>
+
+<macro name='/notplaced'>
+</if>
+</macro>
+
+<element name='pic' params='posting,par'>
+<image_placements>
+<ifnzero what='$par.ImageId'>
+ <notplaced place='IPL_TOP'>
+  </p>
+ </notplaced>
+ <isplaced place='IPL_BOTTOM'>
+  <p>
+ </isplaced>
+ <isplaced place='IPL_VCENTER'>
+  <isplaced place='IPL_LEFT'>
+   <table width=100%><tr><td align=left>
+  </isplaced>
+  <isplaced place='IPL_HCENTER'>
+   <table width=100%><tr><td align=center>
+  </isplaced>
+  <isplaced place='IPL_RIGHT'>
+   <table width=100%><tr><td align=right>
+  </isplaced>
+ </isplaced>
+  <isplaced place='IPL_LEFT'>
+   <table align=left>
+  </isplaced>
+  <isplaced place='IPL_HCENTER'>
+   <table>
+  </isplaced>
+  <isplaced place='IPL_RIGHT'>
+   <table align=right>
+  </isplaced>
+  <isedit what='$posting'>
+   <tr><td align=center>
+    <a href='liminsert.php?postid=$$artid&par=$par.Number&redirid=$_'
+       class='piclink'>Картинка</a>
+   </td></tr>
+  </isedit>
+   <tr><td>
+    <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
+   </td></tr>
+   <ifne what='$par.Title'>
+    <tr><td class='imagetitle'>$par.HTMLTitle</td></tr>
+   </ifne>
+  </table>
+ <isplaced place='IPL_VCENTER'>
+  </td></tr></table>
+ </isplaced>
+ <isplaced place='IPL_TOP'>
+  </p>
+ </isplaced>
+ <notplaced place='IPL_BOTTOM'>
+  <p>
+ </notplaced>
+<else>
+ </p>
+ <isedit what='$posting'>
+  <p>
+  <a href='liminsert.php?postid=$$artid&par=$par.Number&redirid=$_'
+     class='piclink'>Картинка</a>
+  </p>
+ </isedit>
+ <p>
+</ifnzero>
+</element>
+
+<element name='footnotes' params='source'>
+<iterate_footnotes source='$source'>
+<ifnzero what='$;Count'><p>
+ <hr class='notes' align=left>
+ <for>
+  <a href='#_ref$.No'>
+  <if what='$.isNumbered'>
+   <sup>$.No</sup><asp>
+  <else>
+   $.Term<asp>
+  </if>
+  <asp></a> ---
+  <a name='_note$.No'></a>$.HTMLBody<br>
+ </for>
+</p></ifnzero>
+</element>
+
+<text_formats>
+
+<element name='article'>
+<if what='$posting.LargeFormat==*TF_PRE'><pre></if>
+<iterate_posting_paragraphs posting='$posting'>
+<p>
+<for>
+ <pic posting='$posting' par='$.'>
+ $.HTMLBody
+</for>
+</p>
+<if what='$posting.LargeFormat==*TF_PRE'></pre></if>
+<footnotes source='$;'>
+</element>
+
+<element name='article_full'>
+<blockquote class='preface'>
+ $posting.HTMLBody
+</blockquote>
+<article posting='$posting'>
+<ifne what='$posting.Source'>
+ <div class='source' align=right>$posting.HTMLSource</div>
+</ifne>
+</element>

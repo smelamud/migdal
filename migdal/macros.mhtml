@@ -17,6 +17,9 @@
 <decstyle ident='old' desc='Старый'>
 
 << Elements >>
+<decel name='article' file='parts/article.php' params='posting'>
+<decel name='article_controls' file='parts/article.php' params='posting'>
+<decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='at' file='parts/utils.php' params='target,class,href'
        defaults="target='' class=''">
 <decel name='backtrace' file='parts/backtrace.php' params='target'
