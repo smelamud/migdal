@@ -44,6 +44,7 @@ my ($s)=@_;
 @subs=();
 %params=();
 request('lib/utils.php');
+getGlobal('REQUEST_URI');
 splitParams($s,\%params);
 while(my($name,$value)=each(%params))
      {
@@ -71,6 +72,14 @@ foreach(@GetPrefixes)
 return "get$name";
 }
 
+sub getGlobal
+{
+my ($name)=@_;
+
+push @ElementGlobals,$name if $ElementName ne '';
+return $name;
+}
+
 sub subVar
 {
 my ($s,$st,$ed)=@_;
@@ -84,11 +93,11 @@ return "${st}urlencode(".constructRemake($1).")$ed"
        if $s=~/^\$%\[([^\]]*)\]$/;
 return "$st$1$ed"
        if $s=~/^\*(\w+)$/;
-return "${st}urlencode(\$REQUEST_URI)$ed"
+return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
        if $s=~/^\$_$/;
 return "$st\$$1$ed"
        if $s=~/^\$(\w+)$/;
-return "$st\$$1$ed"
+return "$st\$".getGlobal($1).$ed
        if $s=~/^\$\$(\w+)$/;
 return "${st}urlencode(\$$1)$ed"
        if $s=~/^\$%(\w+)$/;
@@ -646,7 +655,7 @@ foreach(@{$::Elements{$name}->{'params'}})
 	 }
        }
 my $globals='';
-$globals="global ".join(',',map {"\$$_"} @::ElementGlobals)."\n"
+$globals="global ".join(',',map {"\$$_"} @::ElementGlobals).";\n"
          if scalar(@::ElementGlobals)>0;
 ::body("<?php\nfunction display$name(",join(',',@params),")\n{\n",
        $globals,"?>\n",$::ElementBody,"<?php\n}\n?>\n");
@@ -671,7 +680,7 @@ if($self->getArg('var') eq '')
   my $method=$self->getArg('method');
   $method='get' if $method eq '';
   $method=uc $method;
-  ::body("<?php \$$name->setup(\$HTTP_${method}_VARS); ?>");
+  ::body("<?php \$$name->setup(\$",::getGlobal("HTTP_${method}_VARS"),"); ?>");
   }
 else
   {
