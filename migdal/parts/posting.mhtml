@@ -26,11 +26,11 @@
 <element name='posting'>
 <require name='parts/posting-general.php'>
 <require name='parts/gallery-picture.php'>
-<require name='parts/taglit-posting.php'>
+<require name='parts/blog-posting.php'>
 <require name='parts/posting-book.php'>
 <require name='parts/posting-times.php'>
 <require name='parts/posting-times-cover.php'>
-<require name='parts/taglit-gallery-picture.php'>
+<require name='parts/blog-gallery-picture.php'>
 <require name='parts/kaitana-picture.php'>
 <require name='parts/tip-posting.php'>
 <require name='parts/link-posting.php'>

@@ -7,7 +7,7 @@
    <table><tr valign=center>
     <td><image src='pics/sheet.gif'></td>
     <td>
-     <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BLOG_GALLERY&redirid=$_'
 	>Добавить фотографию</a>
     </td>
    </tr></table>
@@ -22,9 +22,9 @@
 </tr></table>
 </element>
 
-<element name='taglit_gallery'>
+<element name='blog_gallery'>
 <?php $limit=$rows*$cols; ?>
-<iterate_postinglist name='list' grp='*GRP_TAGLIT_GALLERY' topic_id='$topic_id'
+<iterate_postinglist name='list' grp='*GRP_BLOG_GALLERY' topic_id='$topic_id'
                      offset='$offset' limit='$limit' sort='$sort'
 		     user='$user_id'>
 <iterate_rows cols='$cols'>
@@ -33,7 +33,7 @@
  <tr valign=top>
   <for>
    <td>
-    <taglit_gallery_picture picture='$.' showtopic='*false'>
+    <blog_gallery_picture picture='$.' showtopic='*false'>
    </td>
    <if what='$;isEol'>
     </tr><tr valign=top>

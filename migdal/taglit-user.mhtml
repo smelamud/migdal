@@ -33,12 +33,12 @@
     </div>
     <ifzero what='$offset'>
      <p>
-     <postings grp='*GRP_TAGLIT_FORUMS' topic_id='$`taglit`' limit=0
+     <postings grp='*GRP_BLOG_FORUMS' topic_id='$`taglit`' limit=0
                user_id='$user.Id' showadvert='*false'>
     </ifzero>
    </div>
    <p>
-   <taglit_gallery topic_id='$`taglit`' user_id='$user.Id'
+   <blog_gallery topic_id='$`taglit`' user_id='$user.Id'
                    rows='$userPictureRowPortion'
  		   cols='$userPictureColumnPortion' offset='$offset'
 		   sort='$sort'>
