@@ -61,6 +61,7 @@ advert=%vmd
 menu_normal=white
 menu_selected=yellow
 bottom=%gr
+bottom_link=blue
 :default	banner_name=pics/migdal-online.gif
 :contrast	banner_name=pics/migdal-online.gif
 :test		banner_name=pics/migdal-online-grl.gif
@@ -281,6 +282,11 @@ BODY {
 .bottom * {
 	color: %bottom;
 	font-size: 8pt;
+}
+
+.bottom A {
+	color: %bottom_link;
+	text-decoration: underline;
 }
 
 .bottom HR {
