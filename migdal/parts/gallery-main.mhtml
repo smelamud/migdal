@@ -2,7 +2,8 @@
 
 <element name='gallery_main'>
 <iterate_topiclist up='general' grp='*GRP_GALLERY' withpostings='*true'
-                   cols='$cols' subdomain='$subdomain'>
+                   subdomain='$subdomain'>
+<iterate_rows cols='$cols'>
 <div class='batcher'>
  <logged>
   <a href='postingedit.php?topic_id=-1&root=general&grp=*GRP_GALLERY&redirid=$_'

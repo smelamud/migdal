@@ -14,10 +14,12 @@
 </element>
 
 <element name='taglit_gallery'>
-<iterate_picturelist grp='*GRP_TAGLIT_GALLERY' topic='$taglit_id' rows='$rows'
-                     cols='$cols' offset='$offset' sort='*SORT_RATING'
+<?php $limit=$rows*$cols; ?>
+<iterate_postinglist name='list' grp='*GRP_TAGLIT_GALLERY' topic='$taglit_id'
+                     offset='$offset' limit='$limit' sort='*SORT_RATING'
 		     user='$user_id'>
-<batcher taglit_id='$taglit_id' list='$;'>
+<iterate_rows cols='$cols'>
+<batcher taglit_id='$taglit_id' list='$list'>
 <table width=100%>
  <tr valign=top>
   <for>
@@ -30,7 +32,7 @@
   </for>
  </tr>
 </table>
-<ifnzero what='$;Count'>
- <batcher taglit_id='$taglit_id' list='$;'>
+<ifnzero what='$list.Count'>
+ <batcher taglit_id='$taglit_id' list='$list'>
 </ifnzero>
 </element>

@@ -309,28 +309,6 @@ return newPosting($row);
 
 }
 
-class PictureListIterator
-      extends PostingListIterator
-{
-var $cols;
-
-function PictureListIterator($grp,$topic=-1,$recursive=false,$rows=4,$cols=5,
-                             $offset=0,$personal=0,$sort=SORT_SENT,
-			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
-			     $subdomain=-1)
-{
-$this->cols=$cols;
-$this->PostingListIterator($grp,$topic,$recursive,$rows*$cols,$offset,
-                           $personal,$sort,$withAnswers,$user,$index1,$later,$subdomain);
-}
-
-function isEol()
-{
-return ($this->getPosition() % $this->cols)==$this->cols-1;
-}
-
-}
-
 class PostingUsersIterator
       extends SelectIterator
 {

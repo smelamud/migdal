@@ -81,9 +81,6 @@
          file='lib/instants.php'>
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
          params='format,body'>
-<deciter macro='picturelist' class='PictureListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,rows,cols,offset,personal,sort,withanswers,user,index1,later,subdomain'
-         defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1 later=0 subdomain=-1">
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting'>
 <deciter macro='posting_users' class='PostingUsersIterator'
@@ -95,6 +92,8 @@
 <deciter macro='received_instant_messagelist'
          class='ReceivedInstantMessageListIterator' file='lib/instants.php'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
+<deciter macro='rows' class='RowsIterator' file='lib/rowscols.php'
+         params='iterator,cols' defaults="iterator='$;' cols=5">
 <deciter macro='sortarray' class='SortedArrayIterator' file='lib/array.php'
          params='values' defaults="values='$*'">
 <deciter macro='sortedtopicnames' class='SortedTopicNamesIterator'
@@ -105,8 +104,8 @@
          file='lib/topics.php' params='topic_id,root,reverse'
 	 defaults="root='-1' reverse='*false'">
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
-         params='grp,up,withpostings,withanswers,cols,subdomain'
-         defaults="up=0 withpostings='*false' withanswers='*false' cols=5 subdomain=-1">
+         params='grp,up,withpostings,withanswers,subdomain'
+         defaults="up=0 withpostings='*false' withanswers='*false' subdomain=-1">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up,recursive' defaults="up='-1' recursive='*false'">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'>

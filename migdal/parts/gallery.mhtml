@@ -20,11 +20,13 @@
 </element>
 
 <element name='gallery'>
-<iterate_picturelist grp='*GRP_GALLERY' topic='$topic' rows='$rows'
-                     cols='$cols' offset='$offset' sort='*SORT_RATING'
+<?php $limit=$rows*$cols; ?>
+<iterate_postinglist name='list' grp='*GRP_GALLERY' topic='$topic'
+                     offset='$offset' limit='$limit' sort='*SORT_RATING'
 		     subdomain='$subdomain'>
-<if what='$$userId>0 || $;Count!=0'>
- <batcher list='$;' topic='$topic' grp='*GRP_GALLERY'>
+<iterate_rows cols='$cols'>
+<if what='$$userId>0 || $list.Count!=0'>
+ <batcher list='$list' topic='$topic' grp='*GRP_GALLERY'>
  <table width=100%>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -41,8 +43,8 @@
    </for>
   </tr>
  </table>
- <ifnzero what='$;Count'>
-  <batcher list='$;' topic='$topic' grp='*GRP_GALLERY'>
+ <ifnzero what='$list.Count'>
+  <batcher list='$list' topic='$topic' grp='*GRP_GALLERY'>
  </ifnzero>
 <else>
  &nbsp;
