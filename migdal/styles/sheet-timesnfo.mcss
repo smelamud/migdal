@@ -2,6 +2,7 @@
 
 .timesnfo {
 	padding: .5em;
+	margin: .5em;
 }
 
 .timesnfo A {
