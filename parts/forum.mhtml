@@ -29,7 +29,9 @@
   </moderator>
  <else>
   <if what='$complain'>
-   <a href="complainedit.php?ident=forum&link=$forum.Id&redir=$_">[Жалоба]</a>
+   <logged>
+    <a href="complainedit.php?ident=forum&link=$forum.Id&redir=$_">[Жалоба]</a>
+   </logged>
   </if>
  </isedit>
  </td>

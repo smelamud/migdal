@@ -35,6 +35,11 @@
           arg2='%offset'>
 </macro>
 
+<macro name='iterate_complain_actionlist'>
+ <require name='lib/complainactions.php'>
+ <iterate name='%name' class='ComplainActionListIterator' arg1='%type'>
+</macro>
+
 <macro name='iterate_forumlist'>
  <require name='lib/messages.php'>
  <iterate name='%name' class='ForumListIterator'
@@ -91,6 +96,11 @@
 </macro>
 
 << Calls >>
+<macro name='complain_action_obj' defaults='name=act'>
+ <require name='lib/complainactions.php'>
+ <call name='%name' func='getComplainActionById' arg1='%id'>
+</macro>
+
 <macro name='complain_obj' defaults='name=complain ident=normal'>
  <require name='lib/complains.php'>
  <call name='%name' func='getComplainById' arg1='%id' arg2='%ident'>

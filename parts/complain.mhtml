@@ -27,18 +27,16 @@
    <td><rebe><b>Прислано: </b><senderlink message='$complain'></rebe></td>
    <td align=right>
     <judge>
-     <table>
-      <tr>
-       <form method=post action='actions/complainassign.php'>
-       <input type=hidden name='redir' value='$-'>
-       <input type=hidden name='id' value='$complain.Id'>
-       <td><b>Рассматривает</b></td>
-       <td><edit name='login' value='$complain.RecipientLogin' size=10
-                 maxlength=30></td>
-       <td><input type=submit value='Поручить'></td>
-       </form>
-      </tr>
-     </table>
+     <table><tr>
+      <form method=post action='actions/complainassign.php'>
+      <input type=hidden name='redir' value='$-'>
+      <input type=hidden name='id' value='$complain.Id'>
+      <td><b>Рассматривает</b></td>
+      <td><edit name='login' value='$complain.RecipientLogin' size=10
+		maxlength=30></td>
+      <td><input type=submit value='Изменить'></td>
+      </form>
+     </tr></table>
     <else>
      <b>Рассматривает: </b><senderlink message='$complain.RecipientInfo'>
     </judge>
@@ -52,6 +50,27 @@
 <tr><td>
  <rebe>$complain.HTMLBody</rebe>
 </td></tr>
+<if what='$$userId==$complain.RecipientId'>
+ <tr><td>
+  <form method=get action='complainanswer.php'>
+  <input type=hidden name='redir' value='$-'>
+  <input type=hidden name='complain_id' value='$complain.Id'>
+  <table><tr>
+   <td><select name='actid'>
+    <iterate_complain_actionlist type='$complain.TypeId'>
+    <for>
+     <if what='$.isAutomatic'>
+      <option label='$.Name' value='$.Id' selected>
+     <else>
+      <option label='$.Name' value='$.Id'>
+     </if>
+    </for>
+   </select></td>
+   <td><input type=submit value='Ответить'></td>
+  </tr></table>
+  </form> 
+ </td><tr>
+</if>
 <tr>
 <td>
 <isedit name='complain'>

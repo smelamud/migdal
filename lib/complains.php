@@ -26,6 +26,7 @@ var $rec_hidden;
 
 function Complain($row)
 {
+$this->id=0;
 $this->grp=GRP_COMPLAIN;
 $this->Message($row);
 $this->recipient_info=
@@ -271,6 +272,16 @@ else
   return new Complain(array('type_id' => $type->getId(),
                             'display' => $type->getDisplay()));
   }
+}
+
+function getComplainInfoById($id)
+{
+$result=mysql_query("select id,message_id,recipient_id,link
+		     from complains
+		     where id=$id")
+	     or die('Ошибка SQL при выборке информации о жалобе');
+return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+					      : array());
 }
 
 function getFullComplainById($id,$ident='normal')

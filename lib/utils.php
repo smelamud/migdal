@@ -53,4 +53,9 @@ function makeUpdate($table,$what,$where)
 return "update $table set ".makeKeyValue(',',$what).
                     ' where '.makeKeyValue(' and ',$where);
 }
+
+function subParams($text,$params)
+{
+return preg_replace('/%(\w+)/e','$params[$1]',$text);
+}
 ?>

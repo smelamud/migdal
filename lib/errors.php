@@ -54,4 +54,12 @@ define('EC_LOGIN_ASSIGN',68);
 define('EC_NO_ASSIGN',69);
 define('EC_NO_COMPLAIN',610);
 define('EC_SQL_ASSIGN',611);
+
+define('EECA_OK',71);
+define('EECA_NO_ACTION',72);
+define('EECA_NO_COMPLAIN',73);
+define('EECA_NO_EXEC',74);
+define('EECA_SQL_FORUM',75);
+define('EECA_SQL_STATEMENTS',76);
+define('EECA_SQL_EXEC',77);
 ?>
