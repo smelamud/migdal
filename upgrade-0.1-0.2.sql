@@ -57,4 +57,3 @@ ALTER TABLE `users` ADD `admin_domain` TINYINT NOT NULL AFTER `judge`;
 update mailing_types set text='register.php' where text='register.mail';
 update mailing_types set text='registering.php' where text='registering.mail';
 drop table mailing_types;
-ALTER TABLE `logs` ADD `referer` VARCHAR(250) NOT NULL;
