@@ -74,7 +74,7 @@ function getURLTag($whole,$url,$protocol,$content,$id=0)
 if(strchr($whole,"'") || strchr($whole,'<') || strchr($whole,'>'))
   return $whole;
 for($i=0;$i<strlen($url);$i++)
-   if(ord($i)>127)
+   if(ord($url{$i})>127)
      return $whole;
 $url=unhtmlentities($url);
 if($protocol!='' && $id!=0)
