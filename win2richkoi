@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+open OUT,'|iconv -t KOI8-U -f CP1251';
+while(<>)
+     {
+     s/[\r\n]*$//;
+     s/\xAB/<</g;
+     s/\xBB/>>/g;
+     s/\x96/---/g;
+     s/\x97/---/g;
+     s/\x93/``/g;
+     s/\x94/''/g;
+     s/\xAE/(r)/g;
+     s/\x99/(tm)/g;
+     s/\xB9/No./g;
+     s/\x85/.../g;
+     print OUT "$_\n";
+     }
+close OUT;
