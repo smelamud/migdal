@@ -19,6 +19,13 @@ if($command=='tracks')
   updateTracks($table,$id,false);
 }
 
+function setId($table,$id,$newId)
+{
+return mysql_query("update $table
+                    set id=$newId
+		    where id=$id");
+}
+
 function executeAction($host,$action)
 {
 global $replicationMaster;
@@ -43,7 +50,8 @@ foreach($action as $line)
 	 $lastId=mysql_insert_id();
 	 if(!$replicationMaster)
 	   {
-	   if($line->getResultId()!=$lastId)
+	   if($line->getResultId()!=$lastId
+	      && !setId($line->getResultTable(),$lastId,$line->getResultId()))
 	     journalFailure("Identifier shift detected in '".
 	                     $line->getResultTable().
 			     "': got $lastId instead of ".$line->getResultId());
