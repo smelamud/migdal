@@ -1,0 +1,11 @@
+! @(#) $Id$
+
+.ring A {
+	font: 9pt %verdana;
+	color: %book_ring;
+	text-decoration: underline;
+}
+
+.ring A:hover {
+	color: %book_ring_hover;
+}

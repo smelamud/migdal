@@ -10,16 +10,17 @@ STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-catalog.mcss sheet-picmain.mcss sheet-picture.mcss \
 	sheet-form.mcss sheet-userinfo.mcss
 ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-article.mcss
-COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
+BOOK_PARTS = colors.mcss fonts.mcss palette.mcss sheet-book.mcss
 CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-chat.mcss
+COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
 TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
 TIMESNFO_PARTS = colors.mcss fonts.mcss palette.mcss sheet-timesnfo.mcss
 VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-votes.mcss
 
-all: style.stamp article.stamp complain.stamp chat.stamp times.stamp \
-	timesnfo.stamp votes.stamp
+all: style.stamp article.stamp book.stamp chat.stamp complain.stamp \
+	times.stamp timesnfo.stamp votes.stamp
 
 style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
@@ -39,13 +40,13 @@ article-%.css: article.mcss $(ARTICLE_PARTS) ../../cssparser
 article.stamp: $(patsubst %,article-%.css,$(FLAVOURS)) $(patsubst %,article-%.php,$(FLAVOURS))
 	touch $@
 
-complain-%.php: complain.mcss $(COMPLAIN_PARTS) ../../cssparser
+book-%.php: book.mcss $(BOOK_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-complain-%.css: complain.mcss $(COMPLAIN_PARTS) ../../cssparser
+book-%.css: book.mcss $(BOOK_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-complain.stamp: $(patsubst %,complain-%.css,$(FLAVOURS)) $(patsubst %,complain-%.php,$(FLAVOURS))
+book.stamp: $(patsubst %,book-%.css,$(FLAVOURS)) $(patsubst %,book-%.php,$(FLAVOURS))
 	touch $@
 
 chat-%.php: chat.mcss $(CHAT_PARTS) ../../cssparser
@@ -55,6 +56,15 @@ chat-%.css: chat.mcss $(CHAT_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
 chat.stamp: $(patsubst %,chat-%.css,$(FLAVOURS)) $(patsubst %,chat-%.php,$(FLAVOURS))
+	touch $@
+
+complain-%.php: complain.mcss $(COMPLAIN_PARTS) ../../cssparser
+	../../cssparser -p -s $* $< > $@
+
+complain-%.css: complain.mcss $(COMPLAIN_PARTS) ../../cssparser
+	../../cssparser -s $* $< > $@
+
+complain.stamp: $(patsubst %,complain-%.css,$(FLAVOURS)) $(patsubst %,complain-%.php,$(FLAVOURS))
 	touch $@
 
 times-%.php: times.mcss $(TIMES_PARTS) ../../cssparser

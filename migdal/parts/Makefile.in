@@ -2,11 +2,11 @@
 
 # @(#) $Id$
 
-OBJECTS = article.php backtrace.php book-chapters.php bottom.php complain.php \
-	  discussions.php formutils.php forumanswer.php forumcatalog.php \
-	  forums.php friends.php gallery.php gallery-main.php \
-	  gallery-picture.php googleru.php grpselect.php help-link.php \
-	  help-navi.php hit-parade.php hotlog.php jewishru.php \
+OBJECTS = article.php backtrace.php book-chapters.php book-ring.php \
+	  bottom.php complain.php discussions.php formutils.php \
+	  forumanswer.php forumcatalog.php forums.php friends.php gallery.php \
+	  gallery-main.php gallery-picture.php googleru.php grpselect.php \
+	  help-link.php help-navi.php hit-parade.php hotlog.php jewishru.php \
 	  kaitana-announce.php kaitana-picture.php langselect.php \
 	  link-posting.php login.php mailru.php menu.php picture.php \
 	  picture-main.php posting.php posting-book.php posting-times.php \

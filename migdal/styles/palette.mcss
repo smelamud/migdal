@@ -145,3 +145,5 @@ timesnfo_hover=blue
 times_issue_link=black
 times_issue_link_hover=blue
 times_topic_split=black
+book_ring=%mrd
+book_ring_hover=blue

@@ -511,6 +511,7 @@ $result=mysql_query(
 		stotexts.large_body as large_body,messages.lang as lang,
 		messages.subject as subject,messages.author as author,
 		messages.source as source,messages.url as url,grp,
+		postings.index0 as index0,
 		postings.index1 as index1,subdomain,shadow,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,
 		messages.hidden as hidden,messages.disabled as disabled,
@@ -667,6 +668,17 @@ $result=mysql_query("select id
                      from postings
 		     where message_id=$id")
 	  or sqlbug('Ошибка SQL при получении постинга по сообщению');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function getSibling($up,$index0,$next=true)
+{
+$filter=$next ? "index0>$index0" : "index0<$index0";
+$result=mysql_query("select postings.id
+                     from postings
+		          left join messages
+			       on postings.message_id=messages.id
+		     where up=$up and $filter");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 

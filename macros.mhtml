@@ -222,6 +222,8 @@
 <decexec macro='read_posting' func='incPostingReadCount'
          file='lib/postings.php' params='id'>
 <decexec macro='reload' func='reload' file='lib/utils.php' params='href'>
+<deccall macro='sibling' func='getSibling' file='lib/postings.php'
+         params='up,index0,next' defaults="next='*true'">
 <deccall macro='stotext_image_obj' func='getStotextImageByParagraph'
          file='lib/stotext-images.php' params='id,par' defaults='name=image'>
 <decexec macro='stylesheet' func='declareStylesheet' file='lib/style.php'
