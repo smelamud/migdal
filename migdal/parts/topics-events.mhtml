@@ -55,7 +55,7 @@
 <element name='topics_common_events'>
 <topic_obj name='topic' id='$id'>
 <topics_table class='ninept' title='$,Name'>
- <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*false'
+ <iterate_topiclist grp!='*GRP_EVENT' up='$,Id' recursive='*false'
                     sort='*SORT_RINDEX4_RINDEX0' fields='*SELECT_INFO'>
  <for>
   <topics_line time='$.LastMessage' text='$.Comment1' title='$.Description'

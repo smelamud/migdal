@@ -232,8 +232,6 @@
        params='posting'>
 <decel name='topics_gallery_home' file='parts/topics-gallery-general.php'
        params='posting'>
-<decel name='topics_gallery_kaitana' file='parts/topics-gallery-migdal.php'
-       params='posting'>
 <decel name='topics_gallery_major' file='parts/topics-gallery-major.php'
        params='posting'>
 <decel name='topics_gallery_migdal' file='parts/topics-gallery-migdal.php'

@@ -116,13 +116,10 @@
 <elif what="$basename=='jcc.php'">
  <trace url='migdal.php'>
  <assign name='name' value='Общинный центр (JCC)'>
-<elif what="$basename=='kaitana-main.php'">
- <trace url='jcc.php'>
- <assign name='name' value='Дневные детские лагеря'>
 <elif what="$basename=='kaitana.php'">
  <if what='$day<=0 && $postid<=0'>
   <topic_obj id='$topic_id'>
-  <trace url='kaitana-main.php'>
+  <trace url='events.php'>
   <assign name='name' value='$,Name'>
  <else>
   <if what='$postid<=0'>

@@ -1,61 +1,8 @@
 << @(#) $Id$ >>
 
-<grps>
-<topic_obj name='kaitana' id='$`kaitana`'>
-<pagetitle title='$kaitana.Name'>
-<topictitle title='$kaitana.Name'>
-<log event=kaitana text#='topic($kaitana.Id)'>
+<< Tue Jun 29 01:31:11 EEST 2004 >>
+<trap text='Kaitanot'>
+<reload href='events.php'>
 
 <html>
-<stylesheet ident='article'>
-<preamble>
-<body>
- <top ident='index'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=140 class='eframe'><zone>
-   <posting_new grp='*GRP_KAITANA_NEWS' topic_id='$`kaitana`'>
-   <topics posting='$,'>
-   <ears>
-  </zone></td>
-  <td class='cframe'>
-   <subtitle>
-   <p align=justify class='ninept'>
-    В этом разделе вы можете посмотреть фотографии и прочесть ежедневные
-    репортажи с дневных детских лагерей (&lt;&lt;кайтанот&gt;&gt; или просто
-    &lt;&lt;площадок&gt;&gt;), которые два раза в год проводит центр
-    <a href='migdal.php'>&lt;&lt;Мигдаль&gt;&gt;</a>.
-   </p>
-   <iterate_topiclist grp='*GRP_KAITANA_GALLERY' up=$`kaitana`
-                      sort='*SORT_RINDEX0'>
-   <table class='posting'>
-    <for>
-     <tr valign=top>
-      <td width=100>&nbsp;</td>
-      <posting_random grp='*GRP_KAITANA_GALLERY' topic_id='$.Id'>
-      <posting_obj id='$,' grp='*GRP_KAITANA_GALLERY' fields='*SELECT_IMAGES'>
-      <td width=110 class='pic'>
-       <ifnzero what='$,ImageId'>
-	<a href='kaitana.php?topic_id=$.Id'><asp>
-	 <image_tag_put id='$,ImageId' align=left>
-	<asp></a>
-       <else>
-        &nbsp;
-       </ifnzero>
-      </td>
-      <td>
-       <span class='subject'>
-        <posting_last topic_id='$.Id' recursive='*false'>
-        <a href='kaitana.php?topic_id=$.Id'>$.Name</a><biff time='$,'>
-       </span>
-       <p>
-       $.HTMLDescription
-      </td>
-     </tr>
-     <tr><td colspan=2>&nbsp;</td></tr>
-    </for>
-   </table>
-  </td>
- </tr></table>
- <bottom>
-</body>
 </html>

@@ -15,6 +15,11 @@
 <int name='general'>
 
 << Traps >>
+<< Tue Jun 29 01:28:28 EEST 2004 >>
+<if what='$topic_id==159'>
+ <trap text='Kaitanot gallery'>
+ <reload href='gallery.php'>
+</if>
 <if what='$topic_id==4'>
  <trap text='Arab-Israel gallery'>
  <reload href='index.php?topic_id=4'>

@@ -9,6 +9,11 @@
  <meta_noindex>
 </ifzero>
 <grps>
+
+<if what='$/$topic_id,2/==$`kaitana`'>
+ <reload href#='kaitana.php?topic_id=$topic_id'>
+</if>
+
 <topic_obj id='$topic_id'>
 <pagetitle title#='$,Name'>
 <topictitle title='$,Name'>
