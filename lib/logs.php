@@ -1,14 +1,18 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/ip.php');
 
 function logEvent($event,$body)
 {
-global $REMOTE_ADDR;
+global $disableLogging,$REMOTE_ADDR;
 
+if($disableLogging)
+  return;
 $event=addslashes($event);
 $ip=IPToInteger($REMOTE_ADDR);
 $body=addslashes($body);
