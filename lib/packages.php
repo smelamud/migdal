@@ -10,6 +10,7 @@ require_once('lib/mime.php');
 define('PT_UNDEFINED',0);
 define('PT_BOOK_ONEFILE',1);
 define('PT_BOOK_SPLIT',2);
+define('PT_PDF',3);
 
 $packageNamePrefixes=array(PT_BOOK_ONEFILE => 'book-',
                            PT_BOOK_SPLIT   => 'book-split-');
