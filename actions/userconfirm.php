@@ -6,12 +6,19 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/errors.php');
 
-function confirmUser($code,&$userLogin)
+function confirmUser($id,$code,&$userLogin)
 {
-$result=mysql_query('select login
-                     from users
-		     where confirm_code=\''.addslashes($code).'\'
-		           and hidden<2');
+global $userAdminUsers;
+
+if($userAdminUsers && $id!=0)
+  $result=mysql_query("select login
+		       from users
+		       where id=$id and hidden<2");
+else
+  $result=mysql_query('select login
+		       from users
+		       where confirm_code=\''.addslashes($code).'\'
+			     and hidden<2');
 if(!$result)
   return EUC_SQL_SELECT;
 if(mysql_num_rows($result)<=0)
@@ -25,11 +32,13 @@ if(!$result)
 return EUC_OK;
 }
 
+settype($id,'integer');
+
 dbOpen();
 session($sessionid);
-$err=confirmUser($code,$userLogin);
+$err=confirmUser($id,$code,$userLogin);
 if($err!=EUC_OK)
-  header("Location: /userfin.php?err=$code");
+  header("Location: /userfin.php?err=$err");
 else
   header('Location: /userfin.php?login='.urlencode($userLogin));
 dbClose();

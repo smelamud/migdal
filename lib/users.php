@@ -21,6 +21,7 @@ var $info;
 var $birthday;
 var $migdal_student;
 var $last_online;
+var $last_minutes;
 var $icq;
 var $email_disabled;
 var $accepts_complains;
@@ -35,6 +36,8 @@ var $hidden;
 var $online;
 var $no_login;
 var $has_personal;
+var $confirmed;
+var $confirm_days;
 
 function User($row)
 {
@@ -102,7 +105,7 @@ for($i=0;$i<20;$i++)
    $s.=chr(rand(ord('A'),ord('Z')));
    }
 return mysql_query("update users
-                    set no_login=1,hidden=1,confirm_code='$s',
+                    set no_login=1,confirm_code='$s',
 		        confirm_deadline=now()+interval $regConfirmTimeout day
  	            where id=$this->id");
 }
@@ -238,6 +241,11 @@ function getLastOnline()
 return strtotime($this->last_online);
 }
 
+function getLastMinutes()
+{
+return $this->last_minutes;
+}
+
 function isAcceptsComplains()
 {
 return $this->accepts_complains;
@@ -293,6 +301,16 @@ function isHasPersonal()
 return $this->has_personal;
 }
 
+function isConfirmed()
+{
+return $this->confirmed;
+}
+
+function getConfirmDays()
+{
+return $this->confirm_days;
+}
+
 }
 
 class UserListIterator
@@ -308,10 +326,18 @@ $this->SelectIterator('User',
                       "select distinct users.id as id,login,name,jewish_name,
 		              surname,gender,birthday,migdal_student,email,
 			      hide_email,icq,last_online,
-			      sessions.user_id as online
-		       from users left join sessions
-		                  on users.id=sessions.user_id
-				  and sessions.last+interval 1 hour>now()
+			      sessions.user_id as online,
+			      floor((unix_timestamp(now())
+			             -unix_timestamp(sessions.last))/60)
+			           as last_minutes,
+			      confirm_deadline is null as confirmed,
+			      floor((unix_timestamp(confirm_deadline)
+			             -unix_timestamp(now()))/86400)
+			           as confirm_days
+		       from users
+		            left join sessions
+		                 on users.id=sessions.user_id
+				    and sessions.last+interval 1 hour>now()
 		       where hidden<$hide
 		       order by login");
 }

@@ -603,6 +603,10 @@ BODY {
 	font-size: 9pt;
 }
 
+.catalog TD A.control {
+	font-size: 8pt;
+}
+
 .catalog TR {
 	background-color: %catalog_even;
 }
@@ -801,6 +805,14 @@ BODY {
 .form {
 	background-color: %form_back;
 	padding: 5px;
+}
+
+.form P {
+	text-align: justify;
+}
+
+.form P.controls {
+	text-align: center;
 }
 
 .form TH {

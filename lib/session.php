@@ -118,8 +118,8 @@ foreach($userSetNames as $name)
        settype($par,'integer');
        settype($cook,'integer');
        $glob=!empty($par) ? $par :
-            (!empty($cook) ? $cook :
-            (!empty($db) ? $db : $userSetDefaults[$name]));
+            (!empty($db) ? $db :
+            (!empty($cook) ? $cook : $userSetDefaults[$name]));
        $update[]=$glob;
        $GLOBALS["user$name"]=$glob;
        }

@@ -21,22 +21,48 @@
      <a href="useredit.php?editid=$.id&redir=$_">$.Login</a>
     </td>
     <td>$.FullName</td>
-    <td align='center'>$.Age</td>
-    <td align='center'>$.MigdalStudent</td>
-    <td>
-     <if what="$.EmailLink!=''">
-      <span class='email'>$.EmailLink</span>&nbsp;/&nbsp;
-     </if>
-     $.ICQStatusImage&nbsp;$.ICQ
-    </td>
-    <if what='$.isOnline'>
-     <td align=center>Сейчас</td>
-    <else>
-     <if what='$.isTooOld'>
-      <td align=center>Очень давно</td>
+    <if what='$.isConfirmed'>
+     <td align='center'>$.Age</td>
+     <td align='center'>$.MigdalStudent</td>
+     <td>
+      <if what="$.EmailLink!=''">
+       <span class='email'>$.EmailLink</span>&nbsp;/&nbsp;
+      </if>
+      $.ICQStatusImage&nbsp;$.ICQ
+     </td>
+     <if what='$.isOnline'>
+      <td align=center>
+       <ifnzero what='$.LastMinutes'>
+	<zone>
+	 <array vals='минуту,минуты,минут'>
+	 <plural value='$.LastMinutes'>
+	 $.lastMinutes&nbsp;$, назад
+	</zone>
+       <else>
+	Сейчас
+       </if>
+      </td>
      <else>
-      <td><sentview date='$.LastOnline'></td>
+      <if what='$.isTooOld'>
+       <td align=center>Очень давно</td>
+      <else>
+       <td><sentview date='$.LastOnline'></td>
+      </if>
      </if>
+    <else>
+     <td colspan=4>
+      <zone>
+       <array vals='остался,осталось,осталось'>
+       <plural name='lasts' value='$.ConfirmDays'>
+       <array vals='день,дня,дней'>
+       <plural name='days' value='$.ConfirmDays'>
+       Идет регистрация ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
+       <admin_users>
+        <a href='/actions/userconfirm.php?id=$.Id&redir$_'
+	   class='control'>Подтвердить</a>
+       </admin_users>
+      </zone>
+     </td>
     </if>
    </tr>
   </for>

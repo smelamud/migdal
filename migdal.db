@@ -381,4 +381,5 @@ INSERT INTO complain_scripts VALUES (4,'Закрыть жалобу','=update complains set c
 #
 
 INSERT INTO mailing_types VALUES (1,'register.mail','register');
+INSERT INTO mailing_types VALUES (2,'registering.mail','registering');
 
