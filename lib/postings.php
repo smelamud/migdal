@@ -539,9 +539,9 @@ return $time!='' ? strtotime($time) : 0;
 
 function incPostingReadCount($id)
 {
-mysql_query("update postings
+mysql_query('update postings
              set read_count=read_count+1,last_read=now()
-	     where id=$id")
+	     where '.byIdent($id))
      or die('Ошибка SQL при обновлении счетчика прочтений постинга');
 }
 
