@@ -1,0 +1,42 @@
+<< @(#) $Id$ >>
+
+<element name='perror'>
+<if what='$$err==$id'>
+ <tr><tdspan span=$span>
+  <a name='error'></a>
+  <span class='error' color='$color'>$text</span>
+ </tdspan></tr>
+</if>
+</element>
+
+<<element name='senderlink'>
+<if what='$message.isSenderVisible'>
+ <a href='userinfo.php?id=$message.SenderId&redirid=$_'
+    onClick="UserInfo($message.SenderId);return false"
+    title='подробнее' class='name'>$message.Login</a><asp>
+<else>
+ <span class='name'>$message.Login</span><asp>
+</if>
+<ifne what='$message.ReplyLink'>
+ <asp>&nbsp;$message.ReplyLink<image src='$$style_mail_image' border=0></a>
+</ife>
+</element>>
+
+<element name='navi_sort'>
+<if what='$$sort!=$value'>
+ <a href='$[sort=$value offset]'>$title</a>
+<else>
+ <b>$title</b>
+</if>
+</element>
+
+<<element name='image_linked_tag'>
+<if what='$enlarge && ($$userStyle!=-1 || $static)'>
+ <image_link id='$id' static='$static'>$,<image_tag_put id='$id' align='$align'
+                                                        src='thumbnail.php'
+							static='$static'
+							title='$title'></a>
+<else>
+ <image_tag_put id='$id' align='$align' static='$static' title='$title'>
+</if>
+</element>>

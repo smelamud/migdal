@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-OBJECTS = bottom.php top.php
+OBJECTS = bottom.php formutils.php top.php utils.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

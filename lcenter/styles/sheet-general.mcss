@@ -38,3 +38,7 @@ BODY {
 A {
 	color: %link;
 }
+
+TT {
+	font-family: %courier;
+}

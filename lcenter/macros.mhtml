@@ -21,6 +21,12 @@
        defaults="title='Изменить',span=0">
 <decel name='formtable' file='parts/formutils.php' params='title'>
 <decel name='/formtable' file='parts/formutils.php'>
+<decel name='navi_sort' file='parts/utils.php' params='value,title'>
+<decel name='perror' file='parts/utils.php' params='id,text,color,span'
+       defaults='color="red" span=0'>
+<decel name='star' file='parts/formutils.php'>
+<decel name='starinfo' file='parts/formutils.php' params='span'
+       defaults='span=0'>
 <decel name='top' file='parts/top.php' params='ident'>
 
 << HTML shortcuts >>
