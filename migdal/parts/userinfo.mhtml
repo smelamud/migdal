@@ -33,8 +33,10 @@
  <else>
   <infoline title='Пол' value='Женский'>
  </if>
- <concat value='$,Birthday / $,JewishBirthday'>
- <infoline title='Дата рождения' value='$*'>
+ <if what="$,Age!='-'">
+  <concat value='$,Birthday / $,JewishBirthday'>
+  <infoline title='Дата рождения' value='$*'>
+ </if>
  <if what='$,isMigdalStudent'>
   <infoline title='Мигдалевец' value='Да'>
  <else>
