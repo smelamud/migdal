@@ -1,12 +1,6 @@
 <?php
 require_once('lib/grps.php');
-require_once('lib/utils.php');
 
-$grpTitles=array(GRP_FORUMS   => 'Форумы',
-                 GRP_NEWS     => 'Новости',
-		 GRP_GALLERY  => 'Галерея',
-		 GRP_ARTICLES => 'Статьи',
-                 GRP_ALL      => 'Все сообщения');
 $grpOneTitles=array(GRP_FORUMS   => 'Форум',
                     GRP_NEWS     => 'Новости',
 	   	    GRP_GALLERY  => 'Галерея',
@@ -22,13 +16,6 @@ $grpIdents=array(GRP_FORUMS   => 'forums',
 		 GRP_GALLERY  => 'gallery',
 		 GRP_ARTICLES => 'articles',
                  GRP_ALL      => 'messages');
-
-function getGrpTitle($grp)
-{
-global $grpTitles;
-
-return $grpTitles[$grp];
-}
 
 function getGrpOneTitle($grp)
 {
@@ -85,11 +72,6 @@ return $this->ignore ? 1 : 0;
 function getInvIgnore()
 {
 return $this->ignore ? 0 : 1;
-}
-
-function getTitle()
-{
-return getGrpTitle($this->grp);
 }
 
 function getOneTitle()

@@ -1,4 +1,6 @@
 <?php
+require_once('lib/utils.php');
+
 define('GRP_FORUMS',1);
 define('GRP_NEWS',2);
 define('GRP_GALLERY',4);

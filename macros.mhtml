@@ -38,6 +38,17 @@
  </header>
 </macro>
 
+<macro name='grpword' defaults="grp='$grp' words='$*'">
+ <require name='lib/grps.php'>
+ <call name='%name' func='getGrpWord' arg1='%grp' arg2='%words'>
+</macro>
+
+<macro name='grpplural' defaults="grp='$grp' words='$*'">
+ <require name='lib/grps.php'>
+ <call name='%name' func='getGrpPlural' arg1='%value' arg2='%grp'
+       arg3='%words'>
+</macro>
+
 << Iterators >>
 <macro name='iterate_array' defaults="values='$*'">
  <require name='lib/array.php'>
@@ -214,9 +225,9 @@
  <call name='%name' func='getMenuItemById' arg1='%id'>
 </macro>
 
-<macro name='stotext_image_obj' defaults='name=image'>
- <require name='lib/stotext-images.php'>
- <call name='%name' func='getStotextImageByParagraph' arg1='%id' arg2='%par'>
+<macro name='plural' defaults="words='$*'">
+ <require name='lib/utils.php'>
+ <call name='%name' func='getPlural' arg1='%value' arg2='%words'>
 </macro>
 
 <macro name='posting_obj' defaults='name=message grp=*GRP_ALL topic=0'>
@@ -234,6 +245,11 @@
  <zone>
   <call func='reloadParameter' arg1='%why' arg2='%var' arg3='%value'>
  </zone>
+</macro>
+
+<macro name='stotext_image_obj' defaults='name=image'>
+ <require name='lib/stotext-images.php'>
+ <call name='%name' func='getStotextImageByParagraph' arg1='%id' arg2='%par'>
 </macro>
 
 <macro name='time'>

@@ -43,3 +43,11 @@
        params='name,loadedname,loadedvalue,title,loaded,notloaded,filename'>
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
+
+<< GRP >>
+<macro name='grptitle'>
+ <zone>
+  <array vals='Сообщения,Форумы,Новости,Галерея,Статьи'>
+  <grpword name='grptitle'>
+ </zone>
+</macro>

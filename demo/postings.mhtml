@@ -1,10 +1,12 @@
 << @(#) $Id$ >>
-<grp ignore='$ignoregrp'>
+
 <int name='topic_id'>
 <int name='offset'>
+<grp ignore='$ignoregrp'>
+<grptitle>
 <html>
 <head>
- <title>Демо - $g.title</title>
+ <title>Демо - $grptitle</title>
 </head>
 <body bgcolor=white>
  <top ident='$g.ident'>
@@ -22,6 +24,6 @@
  <topics g='$g' up='$topic_id' title='Темы'>
  
  <postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
-	   offset='$offset' title='$g,title'>
+	   offset='$offset' title='$grptitle'>
 </body>
 </html>

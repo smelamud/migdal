@@ -3,9 +3,10 @@
 <int name='editid'>
 <int name='topic_id'>
 <grp>
+<grptitle>
 <html>
 <head>
- <title>Демо - $g.title</title>
+ <title>Демо - $grptitle</title>
 </head>
 <body bgcolor=white>
  <top ident='$g.ident'>
