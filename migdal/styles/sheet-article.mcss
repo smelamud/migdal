@@ -85,7 +85,8 @@
 
 .article .sent * {
 	color: %article_sent;
-	font: 9pt %verdana;
+	font-size: 9pt;
+	font-family: %verdana;
 }
 
 .article .preface {
