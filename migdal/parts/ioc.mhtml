@@ -1,0 +1,6 @@
+<< @(#) $Id$ >>
+
+<element name='ioc_logo'>
+<a href='http://www.odessitclub.org/' target=_blank>
+ <image src='pics/ioc.gif' border=0></a>
+</element>
