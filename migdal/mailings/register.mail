@@ -15,7 +15,7 @@ Content-Type: text/plain; charset=koi8-r
 Для завершения регистрации Вам нужно ввести следующий URL в строке адреса
 Вашего браузера:
 
-http://66.96.244.212/actions/userconfirm.php?code=$confirm_code
+http://www.migdal.ru/actions/userconfirm.php?code=$confirm_code
 
 В большинстве современных почтовых программ для завершения регистрации
 достаточно щелкнуть по этой ссылке и дождаться загрузки страницы.
