@@ -9,6 +9,7 @@ require_once('lib/session.php');
 require_once('lib/journal.php');
 require_once('lib/horisonts.php');
 require_once('lib/track.php');
+require_once('lib/permissions.php');
 
 function executeTrackQuery($query)
 {
@@ -17,6 +18,12 @@ $up=upById($table,$id);
 updateTrackById($table,$id,track($id,$up==0 ? '' : trackById($table,$up)));
 if($command=='tracks')
   updateTracks($table,$id,false);
+}
+
+function executePermsQuery($query)
+{
+list($command,$table,$id,$user_id,$group_id,$perms)=explode(' ',$query);
+setPermsRecursive($table,$id,$user_id,$group_id,$perms);
 }
 
 function setId($table,$id,$newId)
@@ -40,6 +47,8 @@ foreach($action as $line)
        $query=jdecode($query);
        if(substr($query,0,5)=='track')
          executeTrackQuery($query);
+       elseif(substr($query,0,5)=='perms')
+         executePermsQuery($query);
        else
 	 mysql_query($query)
 	   or journalFailure('Error executing replicated query in seq '.

@@ -109,11 +109,9 @@ mysql_query("update $table
              set $set
 	     where ".subtree($id,true))
   or sqlbug('Ошибка SQL при рекурсивной установке прав');
-/*journal("update $table
-         set $user=".journalVar('users',$perms->getUserId()).',
-	     group_id='.journalVar('users',$perms->getGroupId()).',
-	     perms='.$perms->getPerms().'
-	 where id='.journalVar($table,$perms->getId()));*/
+journal("perms $table ".journalVar($table,$id).
+                    ' '.journalVar('users',$user_id).
+                    ' '.journalVar('users',$group_id)." $perms");
 }
 
 function permFilter($right,$user_id='user_id',$useDisabled=false,$prefix='')
