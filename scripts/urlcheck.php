@@ -31,7 +31,9 @@ if(!$result)
 while($row=mysql_fetch_assoc($result))
      {
      $output=array();
-     exec("$wgetPath -q --spider ".$row['url'],$output,$rc);
+     $url=addslashes(strtr($row['url'],
+           array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES))));
+     exec("$wgetPath -q --spider '$url'",$output,$rc);
      mysql_query('update messages
                   set url_check=now()'.($rc==0 ? ',url_check_success=now()' : '').
 		' where id='.$row['id'])
