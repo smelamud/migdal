@@ -27,7 +27,7 @@
       <td align=right width=32>
        <ifnzero what='$list.Offset'>
 	<a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
-	 <img src='pics/left.gif' border=0></a>
+	 <img src='pics/vleft.gif' border=0></a>
        </ifzero>
       </td>
       <td align=right>
@@ -40,7 +40,7 @@
       <td align=left width=32>
        <if what='$list.EndValue<$list.Size'>
 	<a href="$[offset='$list.NextOffset']" title='Следующие'>
-	 <img src='pics/right.gif' border=0></a>
+	 <img src='pics/vright.gif' border=0></a>
        </if>
       </td>
      </form>

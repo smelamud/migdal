@@ -3,7 +3,6 @@
 ! Colors
 
 bl=#0C20A5
-o=#F1BE06
 g=#52A945
 nd=#52739C
 r=#FF5500
@@ -17,7 +16,7 @@ error_magenta=magenta
 menu_back=%bl
 menu_normal=white
 menu_selected=yellow
-state_date=%o
+state_date=%vm
 register_hover=blue
 login_border=blue
 login_text=blue
