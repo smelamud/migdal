@@ -1,0 +1,13 @@
+! @(#) $Id$
+
+.qanda TH {
+	font-weight: bold;
+	font-size: 11pt;
+	color: %qanda_header;
+	border-bottom: solid 1px %qanda_header;
+	text-align: center;
+}
+
+.qanda TD {
+	background-color: %qanda_back;
+}

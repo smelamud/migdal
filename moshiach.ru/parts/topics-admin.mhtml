@@ -6,5 +6,6 @@
  <topics_line text='Темы' href='topicorg.php' arrow!="$ident=='topics'">
  <topics_line text='Статьи' href='articles.php' arrow!="$ident=='articles'">
  <topics_line text='Цитаты' href='quotes.php' arrow!="$ident=='quotes'">
+ <topics_line text='Вопросы/ответы' href='qanda.php' arrow!="$ident=='qanda'">
 </topics_table>
 </element>

@@ -1,0 +1,51 @@
+<< @(#) $Id$ >>
+
+<element name='batcher' params='list' defaults="list='$;'">
+<table width=100% class='batcher'><tr valign=bottom>
+ <td><a href='postingedit.php?topic_id=-1&root=-1&grp=*GRP_QUESTIONS&redirid=$_'
+        >Добавить вопрос</a></td>
+ <td><spin list='$list'></td>
+</tr></table>
+</element>
+
+<element name='posting' params='posting'>
+<div class='posting'>
+ <p>$posting.HTMLBody&nbsp;</p>
+ <ifne what='$posting.Author'>
+  <div class='source'>$posting.HTMLAuthor</div>
+ </ifne>
+ <div width=100% class='bottom'>
+  <a href="postingedit.php?editid=$posting.Id&root=general&grp=$posting.Grp&redirid=$_"
+   >Изменить</a>
+ </div>
+</div>
+</element>
+
+<element name='qanda_admin'>
+<iterate_postinglist grp='*GRP_QUESTIONS' offset='$offset' up=0>
+<batcher>
+<table width=100% cellspacing=5 cellpadding=5 class='qanda'>
+ <tr valign=bottom><th>Вопрос</th><th>Ответ</th></tr>
+ <for>
+  <tr valign=top>
+   <td width=50%><posting posting='$.'></td>
+   <td width=50%>
+    <iterate_postinglist grp='*GRP_QUESTIONS' up='$.Id'>
+    <ifnzero what='$;Count'>
+     <for>
+      <posting posting='$.'>
+     </for>
+    <else>
+     <span class='batcher'>
+      <a href='postingedit.php?topic_id=-1&root=-1&grp=*GRP_QUESTIONS&up=$.Id&redirid=$_'
+        >Добавить ответ</a>
+     </span>
+    </ifnzero>
+   </td>
+  </tr>
+ </for>
+</table>
+<ifnzero what='$;Count'>
+ <batcher>
+</ifnzero>
+</element>

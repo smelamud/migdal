@@ -195,7 +195,7 @@ class PostingListIterator
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
-			     $subdomain=-1)
+			     $subdomain=-1,$up=-1)
 {
 global $userId,$userModerator;
 
@@ -222,6 +222,7 @@ $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
 $index1Filter=$index1>=0 ? "and index1=$index1" : '';
 $sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
 $subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
+$childFilter=$up>=0 ? "and messages.up=$up" : '';
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
@@ -269,6 +270,7 @@ $this->LimitSelectIterator(
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
 	      $userFilter $index1Filter $sentFilter $subdomainFilter
+	      $childFilter
 	group by messages.id
 	$answerFilter
 	$order",$limit,$offset,
@@ -289,7 +291,8 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
-	      $topicFilter $userFilter $index1Filter $sentFilter $subdomainFilter");
+	      $topicFilter $userFilter $index1Filter $sentFilter
+	      $subdomainFilter $childFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }
@@ -447,7 +450,7 @@ return newGrpPosting(GRP_TIMES_COVER,$row);
 
 }
 
-function getPostingById($id=-1,$grp=GRP_ALL,$topic=0,$index1=-1)
+function getPostingById($id=-1,$grp=GRP_ALL,$topic=0,$index1=-1,$up=-1)
 {
 global $userId,$userModerator;
 
@@ -473,7 +476,8 @@ $result=mysql_query("select postings.id as id,ident,message_id,stotext_id,body,
 	     or die('Ошибка SQL при выборке постинга'.mysql_error());
 return mysql_num_rows($result)>0
        ? newPosting(mysql_fetch_assoc($result))
-       : newGrpPosting($grp,array('topic_id' => idByIdent('topics',$topic)));
+       : newGrpPosting($grp,array('topic_id' => idByIdent('topics',$topic),
+                                  'up'       => $up));
 }
 
 function getFullPostingById($id=-1,$grp=GRP_ALL,$index1=-1)

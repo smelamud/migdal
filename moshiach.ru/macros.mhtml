@@ -25,6 +25,8 @@
 <decel name='postings' file='parts/postings.php'
        params='grp,offset,topic_id,root'
        defaults="offset=0 topic_id=-1 root=-1">
+<decel name='qanda_admin' file='parts/qanda-admin.php' params='offset'
+       defaults="offset=0">
 <decel name='spin' file='parts/spin.php' params='list,picprev,picnext'
        defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
 <decel name='star' file='parts/formutils.php'>
