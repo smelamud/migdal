@@ -13,12 +13,14 @@ var $number;
 var $format;
 var $body;
 var $image;
+var $dropLeft;
 
-function Paragraph($number,$format,$body)
+function Paragraph($number,$format,$body,$dropLeft=false)
 {
 $this->number=$number;
 $this->format=$format;
 $this->body=$body;
+$this->dropLeft=$dropLeft;
 }
 
 function getNumber()
@@ -77,6 +79,11 @@ function getHTMLTitle()
 return $this->image ? $this->image->getHTMLTitle() : '';
 }
 
+function isDropLeft()
+{
+return $this->dropLeft;
+}
+
 }
 
 class ParagraphIterator
@@ -99,10 +106,19 @@ function next()
 {
 Iterator::next();
 if(list($key,$value)=each($this->pars))
-  return new Paragraph($this->getPosition(),$this->format,
-                       extractFootnotes($value,$this->format,
-		                        count($this->notes)+$this->noteOffset,
-					$this->notes));
+  {
+  $text=extractFootnotes($value,$this->format,
+		         count($this->notes)+$this->noteOffset,
+  			 $this->notes);
+  if(substr($text,0,2)=='<-')
+    {
+    $dropLeft=true;
+    $text=substr($text,2);
+    }
+  else
+    $dropLeft=false;
+  return new Paragraph($this->getPosition(),$this->format,$text,$dropLeft);
+  }
 else
   return false;
 }

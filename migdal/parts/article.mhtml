@@ -46,14 +46,14 @@
 </if>
 </macro>
 
-<element name='pic' params='posting,par'>
+<element name='pic' params='posting,par,dropLeft'>
 <image_placements>
 <ifnzero what='$par.ImageId'>
  <notplaced place='IPL_TOP'>
   </p>
  </notplaced>
  <isplaced place='IPL_BOTTOM'>
-  <p>
+  <if what='$dropLeft'><p style='clear: left'><else><p></if>
  </isplaced>
  <isplaced place='IPL_VCENTER'>
   <isplaced place='IPL_LEFT'>
@@ -95,7 +95,7 @@
   </p>
  </isplaced>
  <notplaced place='IPL_BOTTOM'>
-  <p>
+  <if what='$dropLeft'><p style='clear: left'><else><p></if>
  </notplaced>
 <else>
  </p>
@@ -105,7 +105,7 @@
      class='piclink'>Картинка</a>
   </p>
  </isedit>
- <p>
+ <if what='$dropLeft'><p style='clear: left'><else><p></if>
 </ifnzero>
 </element>
 
@@ -133,7 +133,7 @@
 <iterate_posting_paragraphs posting='$posting'>
 <p>
 <for>
- <pic posting='$posting' par='$.'>
+ <pic posting='$posting' par='$.' dropLeft='$.isDropLeft'>
  $.HTMLBody
 </for>
 </p>
