@@ -40,6 +40,7 @@
        defaults="topic=-1 limit=10 offset=0">
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
+<decel name='friends' file='parts/friends.php'>
 <decel name='gallery' file='parts/gallery.php'
        params='topic,rows,cols,offset,subdomain'
        defaults="topic=-1 rows=4 cols=5 offset=0 subdomain=-1">

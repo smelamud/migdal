@@ -4,15 +4,16 @@
 
 OBJECTS = article.php backtrace.php bottom.php complain.php cs_forum.php \
           cs_normal.php cs_posting.php formutils.php forumanswer.php \
-	  forumcatalog.php forums.php gallery.php gallery-main.php gallery-picture.php \
-	  googleru.php grpselect.php hit-parade.php hotlog.php jewishru.php \
-	  login.php mailru.php menu.php picture.php picture-main.php \
-	  posting.php posting-times.php posting-times-cover.php postings.php \
-	  rambler.php spin.php stotext-help-navi.php subtitle.php taglit.php \
-	  taglit-gallery.php taglit-gallery-picture.php taglit-posting.php \
-	  taglit-postings.php times-issue.php today.php top.php topics.php \
-	  topics-general.php topics-taglit.php topicselect.php tune.php \
-	  unititle.php uploader.php userinfo.php utils.php vote.php
+	  forumcatalog.php forums.php friends.php gallery.php \
+	  gallery-main.php gallery-picture.php googleru.php grpselect.php \
+	  hit-parade.php hotlog.php jewishru.php login.php mailru.php \
+	  menu.php picture.php picture-main.php posting.php posting-times.php \
+	  posting-times-cover.php postings.php rambler.php spin.php \
+	  stotext-help-navi.php subtitle.php taglit.php taglit-gallery.php \
+	  taglit-gallery-picture.php taglit-posting.php taglit-postings.php \
+	  times-issue.php today.php top.php topics.php topics-general.php \
+	  topics-taglit.php topicselect.php tune.php unititle.php \
+	  uploader.php userinfo.php utils.php vote.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@
