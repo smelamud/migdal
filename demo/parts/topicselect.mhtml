@@ -8,7 +8,7 @@
    <radio title='-- Без темы --' value=0 peervalue='$value'>
    <iterate_topicnames grp='$grp'>
    <for>
-    <radio title='$.Name' value='$.Id' peervalue='$value'>
+    <radio title='$.FullName' value='$.Id' peervalue='$value'>
    </for>
   </select>
  </td>

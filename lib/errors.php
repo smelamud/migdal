@@ -23,6 +23,8 @@ define('ET_NO_EDIT',123);
 define('ET_STORE_SQL',124);
 define('ET_IDENT_UNIQUE',125);
 define('ET_NO_UP',126);
+define('ET_LOOP_UP',127);
+define('ET_TRACK_SQL',128);
 
 define('EP_OK',130);
 define('EP_NO_EDIT',131);

@@ -12,7 +12,9 @@ class Topic
 {
 var $id;
 var $up;
+var $track;
 var $name;
+var $full_name;
 var $description;
 var $hidden;
 var $no_news;
@@ -55,8 +57,8 @@ return array('no_news' => 'news',
 
 function getWorldVars()
 {
-return array('up','name','description','hidden','no_news','no_forums','no_gallery',
-             'no_articles','ident');
+return array('up','track','name','description','hidden','no_news','no_forums',
+             'no_gallery','no_articles','ident');
 }
 
 function store()
@@ -83,6 +85,11 @@ return $this->up;
 function getName()
 {
 return $this->name;
+}
+
+function getFullName()
+{
+return $this->full_name;
 }
 
 function getDescription()
@@ -186,12 +193,28 @@ class TopicNamesIterator
       extends TopicIterator
 {
 
+var $names;
+
 function TopicNamesIterator($grp)
 {
-$this->TopicIterator('select id,name
+$this->TopicIterator('select id,track,name
 		      from topics'.
 		      $this->getWhere($grp,-1).
-		     'order by name');
+		     'order by track,name');
+}
+
+function create($row)
+{
+$this->names[(int)$row['id']]=$row['name'];
+$n=strtok($row['track'],' ');
+$nm=array();
+while($n)
+     {
+     $nm[]=$this->names[(int)$n];
+     $n=strtok(' ');
+     }
+$row['full_name']=join(' :: ',$nm);
+return parent::create($row);
 }
 
 }
@@ -201,7 +224,7 @@ function getTopicById($id,$up)
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query("select id,name,description,hidden,no_news,no_forums,
+$result=mysql_query("select id,up,name,description,hidden,no_news,no_forums,
                             no_gallery,no_articles,ident
 		     from topics
 		     where ".byIdent($id)." and hidden<$hide")
@@ -221,6 +244,15 @@ $result=mysql_query('select id,name
 	     or die('Ошибка SQL при выборке названия темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
+}
+
+function getTopicTrackById($id)
+{
+$result=mysql_query("select track
+                     from topics
+		     where id=$id")
+	     or die('Ошибка SQL при выборке маршрута темы');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
 }
 
 function topicExists($id)

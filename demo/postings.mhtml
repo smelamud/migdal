@@ -7,17 +7,17 @@
  <title>Демо - $g.title</title>
 </head>
 <body bgcolor=white>
-  <top ident='$g.ident'>
-  <topic_name id='$topic_id'>
+ <top ident='$g.ident'>
+ <topic_name id='$topic_id'>
+
+ <ifnzero what='$topic_id'>
+  <center><h1><u>$,Name</u></h1></center>
+  <p>
+ </ifnzero>
+
+ <topics g='$g' up='$topic_id' title='Темы'>
  
-  <ifnzero what='$topic_id'>
-   <center><h1><u>$,Name</u></h1></center>
-   <p>
-  </ifnzero>
- 
-  <topics g='$g' up='$topic_id' title='Темы'>
-  
-  <postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
-	    offset='$offset' title='$g,title'>
+ <postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
+	   offset='$offset' title='$g,title'>
 </body>
 </html>
