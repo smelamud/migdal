@@ -6,8 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
-require_once('lib/forums.php');
-require_once('lib/opscript.php');
+require_once('lib/complains.php');
 require_once('lib/users.php');
 
 function deleteCond($table,$cond)
@@ -36,31 +35,31 @@ deleteCond('votes',"user_id<>0 and sent+interval $userVoteTimeout hour<now()");
 function closeComplains()
 {
 $result=mysql_query(
-	'select complains.id as complain_id,message_id,link,text,script,
-		users.id as shames_id
+	'select complains.id as complain_id,complains.type_id as type_id,
+	        message_id,link,text,script_id,unix_timestamp(sent) as sent
 	 from complains
 	      left join messages
 		   on complains.message_id=messages.id
 	      left join users
 		   on messages.sender_id=users.id
-	      left join complain_types
-		   on complain_types.id=complains.type_id
 	      left join complain_actions
 		   on complains.type_id=complain_actions.type_id
-	      left join complain_scripts
-		   on complain_scripts.type_ident=complain_types.ident
 	 where closed is null and users.shames<>0
-	       and complain_types.deadline<>0
-	       and messages.sent+interval complain_types.deadline hour<now()
 	       and complain_actions.automatic<>0');
 if(!$result)
   die(mysql_error());
 while($row=mysql_fetch_assoc($result))
      {
-     $forum=new ForumAnswer(array('body' => $row['text']));
-     if(!$forum->store())
-       die(mysql_error());
-     opScript($row['script'],$row);
+     $complain=newComplain($row['type_id'],$row);
+     if($complain->getDeadline()!=0
+        && $row['sent']+$complain->getDeadline()*60*60<time())
+       {
+       $forum=new ForumAnswer(array('body' => $row['text']));
+       if(!$forum->store())
+	 die(mysql_error());
+       $script=getComplainScriptById($row['script_id']);
+       $script->exec($complain);
+       }
      }
 }
 

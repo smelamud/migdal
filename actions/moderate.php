@@ -18,10 +18,7 @@ if(!$userModerator)
   return EMH_NO_MODERATE;
 if(!messageExists($editid))
   return EMH_NO_MESSAGE;
-$result=mysql_query("update messages
-                     set disabled=$hide
-		     where id=$editid")
-	     or die('Ошибка SQL при модерировании сообщения');
+setDisabledByMessageId($editid,$hide);
 return EMH_OK;
 }
 

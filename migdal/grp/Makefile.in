@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-all: groups.stamp mailings.stamp
+all: groups.stamp mailings.stamp complains.stamp
 
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ > Makefile
@@ -18,4 +18,9 @@ groups.stamp: groups.conf ../../grpparser
 mailings.stamp: mailings.conf ../../grpparser
 	../../grpparser -C mailtypes.php -L mailings.php -p MAIL_ -i Mailing \
 		-f type_id -a mailing $<
+	touch $@
+
+complains.stamp: complains.conf ../../grpparser
+	../../grpparser -C compltypes.php -L complains.php -p COMPL_ \
+		-i Complain -f type_id -a complain $<
 	touch $@

@@ -2,11 +2,11 @@
 
 <force_community>
 
-<element name='batcher' params='value,list'>
+<element name='batcher' params='list'>
 <table width=100% class='batcher'><tr>
  <td align=left>
   <logged>
-   <a href='complainedit.php?ident=normal&redirid=$_'
+   <a href='complainedit.php?type_id=*COMPL_NORMAL&redirid=$_'
       class='add'>Добавить жалобу</a>
   <else>
    <span class='info'>
@@ -15,18 +15,7 @@
    </span>
   </logged>
  </td>
- <td align=right><table><tr valign=center>
-  <form method=get action='$~'>
-   <hiddenget remove='cp'>
-   <td><input type=submit value='Показывать'></td>
-   <td>по</td>
-   <td>
-    <select_portion name='cp' value='$value' vals='20 25 30 35 40 45 50'>
-   </td>
-   <td><bymessages value='$value'></td>
-  </form>
-  <spin list='$list'>
- </tr></table></td>
+ <td><spin list='$list'></td>
 </tr></table>
 </element>
 
@@ -51,7 +40,7 @@
 <body>
  <top ident='index'>
  <iterate_complainlist limit='$$userComplainPortion' offset='$offset'>
- <batcher value='$$userComplainPortion' list='$;'>
+ <batcher list='$;'>
  <table width=100% class='catalog'>
   <tr valign=top>
    <th>No.</th><th>Прислано</th><th>Автор</th><th>Заголовок</th>
@@ -78,13 +67,13 @@
     <td align=center class='eightpt'>Нет</td>
    </if>
    <td class='ninept' align=center>
-    <biff time='$.LastAnswer'>
+    <biff time='$.LastAnswer' small='*true'>
     $.AnswerCount
    </td>
   </tr>
  </for>
  </table>
- <batcher value='$$userComplainPortion' list='$;'>
+ <batcher list='$;'>
  <bottom>
 </body>
 </html>

@@ -55,7 +55,6 @@
 .topics .names A.new {
 	color: %topics_new;
 	font-style: italic;
-	font-weight: bold;
 }
 
 .topics .names A.new:hover {

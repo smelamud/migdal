@@ -101,7 +101,7 @@
      <else>
       <if what='!$posting.isModerable && $showcomplain'>
        <logged>
-	<a href="complainedit.php?ident=posting&link=$posting.Id&redirid=$_"
+	<a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
 	 >Жалоба</a>
        </logged>
       </if>

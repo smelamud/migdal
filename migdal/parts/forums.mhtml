@@ -34,5 +34,5 @@
  <ifnzero what='$;Count'>
   <batcher list='$;' parent_id='$parent_id'>
  </ifnzero>
-</span>
+</div>
 </element>

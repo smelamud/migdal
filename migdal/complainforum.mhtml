@@ -10,16 +10,22 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100% class='complain'>
-  <complain_full id='$compid'>
-  <ifne what='$,Display'>
-   <include name='$,Display'>
-   <decel name='complain_subject' params='link'>
-   <complain_subject link='$,Link'>
-  </ifne>
+ <complain_full id='$compid'>
+ <div class='cframe' style='padding: 5px'>
+  <if what='$,TypeId==*COMPL_POSTING || $,TypeId==*COMPL_AUTO_POSTING'><zone>
+   <posting_full name='posting' id='$,Link'>
+   <posting posting='$posting' showcomplain='*false'>
+   <p>
+  </zone></if>
+  <if what='$,TypeId==*COMPL_FORUM'><zone>
+   <forum_answer_full id='$,Link'>
+   <forum_answer answer='$,' complain='*false'>
+   <p>
+  </zone></if>
   <complain complain='$,' discuss='*false'>
- </table>
- <forums parent_id='$,MessageId' limit='$$userForumPortion'>
+  <p>
+  <forums parent_id='$,MessageId' limit='$$userForumPortion'>
+ </div>
  <bottom>
 </body>
 </html>

@@ -346,4 +346,12 @@ $result=mysql_query("select id
 	     or die('Ошибка SQL при проверке наличия сообщения');
 return mysql_num_rows($result)>0;
 }
+
+function setDisabledByMessageId($id,$disabled)
+{
+mysql_query("update messages
+             set disabled=$disabled
+	     where id=$id")
+     or die('Ошибка SQL при модерировании сообщения');
+}
 ?>

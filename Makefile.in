@@ -53,8 +53,7 @@ dbinfo:
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
 		--no-data > migdal.db
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
-		complain_types complain_scripts version \
-		--no-create-info >> migdal.db
+		version --no-create-info >> migdal.db
 	(cd $(uiName); $(MAKE) dbinfo)
 
 pack: all

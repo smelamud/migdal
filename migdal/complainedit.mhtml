@@ -2,6 +2,7 @@
 
 <force_community>
 <int name='editid'>
+<int name='type_id'>
 <int name='link'>
 <pagetitle title='Жалоба'>
 
@@ -10,16 +11,8 @@
 <preamble>
 <body>
  <top ident='index'>
- <complain_obj id='$editid' ident='$ident' link='$link'>
+ <complain_obj id='$editid' type_id='$type_id' link='$link'>
  <setup>
- <table width=100% class='complain'>
-  <ifne what='$,Display'>
-   <include name='$,Display'>
-   <decel name='complain_subject' params='link'>
-   <complain_subject link='$,Link'>
-  </ifne>
- </table>
- <p>
  <table width=100%><tr valign=top>
   <td width=200>
    <stotext_help_navi ident='add' link='$-' title='Жалоба'>

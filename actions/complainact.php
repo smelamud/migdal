@@ -10,8 +10,7 @@ require_once('lib/complains.php');
 require_once('lib/complainactions.php');
 require_once('lib/complainscripts.php');
 require_once('lib/forums.php');
-require_once('lib/utils.php');
-require_once('lib/opscript.php');
+require_once('lib/uri.php');
 require_once('lib/tmptexts.php');
 
 function executeAction($action,$complain_id)
@@ -25,13 +24,12 @@ if($complain->getId()==0)
   return EECA_NO_COMPLAIN;
 if($complain->getRecipientId()!=$userId)
   return EECA_NO_EXEC;
-$forum=new ForumAnswer(array('body' => $action->getText(),
-		             'up'   => $complain->getMessageId()));
+$forum=new ForumAnswer(array('body'      => $action->getText(),
+		             'parent_id' => $complain->getMessageId()));
 if(!$forum->store())
   return EECA_SQL_FORUM;
-opScript(getScriptBodyById($action->getScriptId()),
-	 array('complain_id' => $complain_id,
-	       'link'        => $complain->getLink()));
+$script=getComplainScriptById($action->getScriptId());
+$script->exec($complain);
 return EECA_OK;
 }
 

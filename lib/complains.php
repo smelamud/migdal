@@ -3,10 +3,10 @@
 
 require_once('lib/limitselect.php');
 require_once('lib/messages.php');
-require_once('lib/complaintypes.php');
 require_once('lib/sendertag.php');
 require_once('lib/users.php');
 require_once('lib/random.php');
+require_once('grp/compltypes.php');
 
 class Complain
       extends Message
@@ -15,7 +15,6 @@ var $message_id;
 var $type_id;
 var $link;
 var $closed;
-var $display;
 var $recipient_id;
 
 var $recipient_info;
@@ -70,7 +69,7 @@ function getAutoAssign()
 settype($this->recipient_id,'integer');
 if($this->recipient_id!=0)
   return $this->recipient_id;
-$type=getComplainTypeById($this->type_id);
+$type=newComplain($this->type_id);
 $assign=$type->getAssign();
 if($assign=='')
   return 0;
@@ -178,6 +177,8 @@ return $this->rec_login;
 
 }
 
+require_once('grp/complains.php');
+
 class ComplainListIterator
       extends LimitSelectIterator
 {
@@ -223,28 +224,32 @@ $this->LimitSelectIterator(
 
 }
 
-function getComplainById($id,$ident='normal',$link=0)
+function newComplain($typeid,$row=array())
+{
+global $complainClassNames;
+
+$name=$complainClassNames[$typeid];
+return new $name($row);
+}
+
+function getComplainById($id,$type_id=COMPL_NORMAL,$link=0)
 {
 $result=mysql_query("select complains.id as id,stotext_id,body,subject,
-                            message_id,type_id,link,display
+                            message_id,type_id,link
 		     from complains
 		          left join messages
 			       on messages.id=complains.message_id
 			  left join stotexts
 			       on stotexts.id=messages.stotext_id
-			  left join complain_types
-			       on complains.type_id=complain_types.id
 		     where complains.id=$id")
 	     or die('Ошибка SQL при выборке полной жалобы');
 if(mysql_num_rows($result)>0)
-  return new Complain(mysql_fetch_assoc($result));
-else
   {
-  $type=getComplainTypeById($ident);
-  return new Complain(array('type_id' => $type->getId(),
-                            'display' => $type->getDisplay(),
-			    'link'    => $link));
+  $row=mysql_fetch_assoc($result);
+  return newComplain($row['type_id'],$row);
   }
+else
+  return newComplain($type_id,array('link' => $link));
 }
 
 function getComplainInfoById($id)
@@ -257,11 +262,11 @@ return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					      : array());
 }
 
-function getFullComplainById($id,$ident='normal')
+function getFullComplainById($id,$type_id=COMPL_NORMAL)
 {
 $result=mysql_query("select complains.id as id,stotext_id,body,subject,
                             sender_id,sent,closed,message_id,type_id,link,
-			    display,users.login as login,
+			    users.login as login,
 			    users.gender as gender,users.email as email,
 			    users.hide_email as hide_email,users.rebe as rebe,
 			    users.hidden as sender_hidden,recipient_id,
@@ -278,18 +283,15 @@ $result=mysql_query("select complains.id as id,stotext_id,body,subject,
 			       on messages.sender_id=users.id
 			  left join users as recs
 			       on complains.recipient_id=recs.id
-			  left join complain_types
-			       on complains.type_id=complain_types.id
 		     where complains.id=$id")
 	     or die('Ошибка SQL при выборке жалобы');
 if(mysql_num_rows($result)>0)
-  return new Complain(mysql_fetch_assoc($result));
-else
   {
-  $type=getComplainTypeById($ident);
-  return new Complain(array('type_id' => $type->getId(),
-                            'display' => $type->getDisplay()));
+  $row=mysql_fetch_assoc($result);
+  return newComplain($row['type_id'],$row);
   }
+else
+  return newComplain($type_id,array());
 }
 
 function complainExists($id)
@@ -301,10 +303,9 @@ $result=mysql_query("select id
 return mysql_num_rows($result)>0;
 }
 
-function sendAutomaticComplain($ident,$subject,$body,$link)
+function sendAutomaticComplain($type_id,$subject,$body,$link)
 {
-$type=getComplainTypeById($ident);
-$complain=new Complain(array('type_id'   => $type->getId(),
+$complain=new Complain(array('type_id'   => $type_id,
                              'link'      => $link,
                              'subject'   => $subject,
 			     'body'      => $body,

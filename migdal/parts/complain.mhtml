@@ -1,106 +1,107 @@
 << @(#) $Id$ >>
 
-<element name='complain'>
-<error id='*EC_NO_ASSIGN' span=2
-       text='Вы не имеете права направлять жалобы на рассмотрение'>
-<error id='*EC_NO_COMPLAIN' text='Такой жалобы не существует' span=2>
-<error id='*EC_LOGIN_ASSIGN' text='Такой пользователь не зарегистрирован'
-       span=2>
-<error id='*EC_SQL_ASSIGN' text='Ошибка SQL при обновлении записи'
-       color=magenta span=2>
-<tr class='head'>
- <td>
-  <sentview date='$complain.Sent'>
-  <biff time='$complain.Sent'>
- </td>
- <td align=right><senderlink message='$complain'></td>
-</tr>
-<tr class='head'>
- <td>&nbsp;</td>
- <td align=right>
-  <judge>
-   <table><tr>
-    <form method=post action='actions/complainassign.php'>
-    <hidden name='okdir' value='$-'>
-    <hidden name='faildir' value='$-'>
-    <hidden name='id' value='$complain.Id'>
-    <td>Рассматривает</td>
-    <td><edit name='login' value='$complain.RecipientLogin' size=10
-	      maxlength=30></td>
-    <td><input type=submit value='Изменить'></td>
-    </form>
-   </tr></table>
-  <else>
-   Рассматривает:
-   <ifne what='$complain.RecipientLogin'>
-    <senderlink message='$complain.RecipientInfo'>
-   <else>
-    Никто
-   </ifne>
-  </judge>
- </td>
-</tr>
-<tr><td colspan=2>
- <span class='subject'>$complain.Subject</span>
-</td></tr>
-<tr><td colspan=2>
- $complain.HTMLBody
-</td></tr>
-<tr class='tail'>
- <if what='$$userId==$complain.RecipientId || $$adminComplainAnswers'>
-  <td><table><tr>
-   <if what='$$userId==$complain.RecipientId'>
-    <form method=get action='complainanswer.php'>
-     <hidden name='redirid' value='$_'>
-     <hidden name='complain_id' value='$complain.Id'>
-     <td><select name='actid'>
-      <iterate_complain_actionlist type='$complain.TypeId'>
-      <for>
-       <if what='$.isAutomatic'>
-	<option value='$.Id' selected>$.Name
-       <else>
-	<option value='$.Id'>$.Name
-       </if>
-      </for>
-     </select></td>
-     <td><input type=submit value='Ответить'></td>
-    </form> 
-   </if>
-   <admin_complain_answers>
-    <td><a href='complainactionedit.php?typeid=$complain.TypeId&redirid=$_'>
-     Редактировать&nbsp;список&nbsp;&gt;&gt;&gt;</a></td>
-   </admin_complain_answers>
-  </tr></table></td>
- <else>
+<element name='complain_assign' params='complain'>
+<judge>
+ <table cellspacing=0 cellpadding=0><tr>
+  <form method=post action='actions/complainassign.php'>
+  <hidden name='okdir' value='$-'>
+  <hidden name='faildir' value='$-'>
+  <hidden name='id' value='$complain.Id'>
+  <td>Рассматривает:</td>
   <td>&nbsp;</td>
- </if>
- <td align=right>
-  <b>Закрыто: </b>
-  <if what='$complain.isClosed'>
-   <sentview date='$complain.Closed'>
-  <else>
-   Нет
-  </if>
- </td>
-</tr>
-<if what='$complain.isEditable || $discuss'>
- <tr class='controls'>
+  <ifne what='$complain.RecipientLogin'>
+   <td class='name'>$complain.RecipientLogin</td>
+   <td>&nbsp;</td>
+  </ifne>
+  <td><edit name='login' value='$complain.RecipientLogin' size=8
+	    maxlength=30></td>
+  <td><input type=submit value='Назначить'></td>
+  </form>
+ </tr></table>
+<else>
+ Рассматривает:
+ <ifne what='$complain.RecipientLogin'>
+  <senderlink message='$complain.RecipientInfo'>
+ <else>
+  Никто
+ </ifne>
+</judge>
+</element>
+
+<element name='answerselect' params='complain'>
+<td><table><tr>
+ <form method=get action='complainanswer.php'>
+  <hidden name='redirid' value='$_'>
+  <hidden name='complain_id' value='$complain.Id'>
+  <td><select name='actid'>
+   <iterate_complain_actionlist type='$complain.TypeId'>
+   <for>
+    <if what='$.isAutomatic'>
+     <option value='$.Id' selected>$.Name
+    <else>
+     <option value='$.Id'>$.Name
+    </if>
+   </for>
+  </select></td>
+  <td><input type=submit value='Ответить'></td>
+ </form> 
+ <admin_complain_answers>
   <td>
-   <isedit what='$complain'>
-    <a href="complainedit.php?editid=$complain.Id&redirid=$_"
-     >Изменить</a>
-   <else>
-    &nbsp;
-   </isedit>
+   <a href='complainactionedit.php?typeid=$complain.TypeId&redirid=$_'
+      >Редактировать&nbsp;список&nbsp;&gt;&gt;&gt;</a>
   </td>
-  <td align=right>
-   <if what='$discuss'>
-    <a href='complainforum.php?redirid=$_&compid=$complain.Id'
-       >Обсудить ($complain.AnswerCount)</a>
+ </admin_complain_answers>
+</tr></table></td>
+</element>
+
+<element name='complain'>
+<table width=100% class='complain'>
+ <error id='*EC_NO_ASSIGN' span=3
+	text='Вы не имеете права направлять жалобы на рассмотрение'>
+ <error id='*EC_NO_COMPLAIN' text='Такой жалобы не существует' span=3>
+ <error id='*EC_LOGIN_ASSIGN' text='Такой пользователь не зарегистрирован'
+	span=3>
+ <error id='*EC_SQL_ASSIGN' text='Ошибка SQL при обновлении записи'
+	color=magenta span=3>
+ <tr>
+  <td width=200 class='eightpt'>Автор: <senderlink message='$complain'></td>
+  <td rowspan=2 class='subject'>
+   <biff time='$complain.Sent'>$complain.Subject
+  </td>
+  <td width=200 class='eightpt'><complain_assign complain='$complain'></td>
+ </tr>
+ <tr>
+  <td width=200 class='eightpt'>Послано: <sentview date='$complain.Sent'></td>
+  <td width=200 class='eightpt'>Закрыто: 
+   <if what='$complain.isClosed'>
+    <sentview date='$complain.Closed'>
    <else>
-    &nbsp;
+    Нет
    </if>
   </td>
  </tr>
-</if>
+ <ifne what='$complain.Body'>
+  <tr valign=top><td align=left class='ninept' colspan=3>
+   $complain.HTMLBody
+  </td></tr>
+ </ifne>
+ <if what='$complain.isEditable || $discuss || $$userId==$complain.RecipientId || $$adminComplainAnswers'>
+  <tr class='eightpt'><td colspan=3><table width=100%><tr>
+   <if what='$$userId==$complain.RecipientId || $$adminComplainAnswers'>
+    <answerselect complain='$complain'> 
+   </if>
+   <isedit what='$complain'>
+    <td>
+     <a href='complainedit.php?editid=$complain.Id&redirid=$_'>Изменить</a>
+    </td>
+   </isedit>
+   <if what='$discuss'>
+    <td align=right>
+     <a href='complainforum.php?redirid=$_&compid=$complain.Id'
+	>Обсудить ($complain.AnswerCount)</a>
+    </td>
+   </if>
+  </tr></table></td></tr>
+ </if>
+</table>
 </element>

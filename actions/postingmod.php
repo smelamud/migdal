@@ -45,12 +45,10 @@ if(isPremoderated($message))
 	               where id='.$message->getMessageId());
   if($result)
     {
-    sendAutomaticComplain('posting',
+    sendAutomaticComplain(COMPL_AUTO_POSTING,
                           'Автоматическая проверка сообщения "'.
 			   $message->getSubjectDesc().'"',
-			  'Прошу Модератора проверить соответствие данного
-			   сообщения политике сайта и открыть к нему публичный
-			   доступ.',
+			  '',
 			  $message->getId());
     }
   return $result;
@@ -105,6 +103,8 @@ if($message->stotext->image_set!=0
   return EP_NO_IMAGE;
 if($message->personal_id!=0 && !personalExists($message->personal_id))
   return EP_NO_PERSONAL;
+if($message->up<0)
+  $message->up=0;
 if($message->up!=0 && !messageExists($message->up))
   return EP_NO_UP;
 if($message->up!=0 && $message->up==$message->message_id)

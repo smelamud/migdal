@@ -32,7 +32,7 @@
       >Изменить</a>
     <else>
      <if what='$showcomplain'>
-      <a href="complainedit.php?ident=posting&link=$picture.Id&redirid=$_"
+      <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
        >Жалоба</a>
      </if>
     </isedit>

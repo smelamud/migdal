@@ -2,85 +2,24 @@
 # @(#) $Id$
 
 require_once('lib/dataobject.php');
-require_once('lib/ident.php');
-
-class ComplainType
-      extends DataObject
-{
-var $id;
-var $ident;
-var $name;
-var $assign;
-var $deadline;
-var $display;
-
-function ComplainType($row)
-{
-$this->DataObject($row);
-}
-
-function getId()
-{
-return $this->id;
-}
-
-function getIdent()
-{
-return $this->ident;
-}
-
-function getName()
-{
-return $this->name;
-}
-
-function getAssign()
-{
-return $this->assign;
-}
-
-function getDeadline()
-{
-return $this->deadline;
-}
-
-function getDisplay()
-{
-return $this->display;
-}
-
-}
+require_once('lib/iterator.php');
+require_once('lib/complains.php');
 
 class ComplainTypeListIterator
-      extends SelectIterator
+      extends Iterator
 {
+var $id;
 
 function ComplainTypeListIterator()
 {
-$this->SelectIterator('ComplainType',
-                      'select id,name
-		       from complain_types
-		       order by id');
+$this->id=COMPL_NONE;
 }
 
-}
-
-function getComplainTypeById($id)
+function next()
 {
-$result=mysql_query('select id,ident,assign,display
-                     from complain_types
-		     where '.byIdent($id))
-	     or die('ïÛÉÂËÁ SQL ĞÒÉ ×ÙÂÏÒËÅ ÔÉĞÁ ÖÁÌÏÂÙ');
-return new ComplainType(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                                  : array());
+$this->id++;
+return $this->id<=COMPL_MAX ? newComplain($this->id) : 0;
 }
 
-function complainTypeExists($id)
-{
-$result=mysql_query("select id
-                     from complain_types
-		     where id=$id")
-	     or die('ïÛÉÂËÁ SQL ĞÒÉ ĞÒÏ×ÅÒËÅ ÎÁÌÉŞÉÑ ÔÉĞÁ ÖÁÌÏÂÙ');
-return mysql_num_rows($result)>0;
 }
 ?>

@@ -64,7 +64,7 @@
 <deciter macro='complain_actionlist' class='ComplainActionListIterator'
          file='lib/complainactions.php' params='type'>
 <deciter macro='complain_scriptlist' class='ComplainScriptListIterator'
-         file='lib/complainscripts.php' params='ident'>
+         file='lib/complainscripts.php' params='mask'>
 <deciter macro='complain_types' class='ComplainTypeListIterator'
          file='lib/complaintypes.php'>
 <deciter macro='confirm_instant_messagelist'
@@ -137,13 +137,14 @@
          file='lib/users.php'>
 <deccall macro='complain_action_obj' func='getComplainActionById'
          file='lib/complainactions.php' params='id' defaults='name=act'>
-<deccall macro='complain_obj' func='getComplainById' file='lib/complains.php'
-         params='id,ident,link' defaults='name=complain ident=normal link=0'>
 <deccall macro='complain_full' func='getFullComplainById'
-         file='lib/complains.php' params='id,ident'
-	 defaults='name=complain ident=normal'>
-<deccall macro='complain_type_obj' func='getComplainTypeById'
-         file='lib/complaintypes.php' params='id' defaults='name=type'>
+         file='lib/complains.php' params='id,type_id'
+	 defaults="name=complain type_id='*COMPL_NORMAL'">
+<deccall macro='complain_new' func='newComplain' file='lib/complains.php'
+         params='type_id'>
+<deccall macro='complain_obj' func='getComplainById' file='lib/complains.php'
+         params='id,type_id,link'
+	 defaults="name=complain type_id='*COMPL_NORMAL' link=0">
 <deccall macro='forum_answer_obj' func='getForumAnswerById'
          file='lib/forums.php' params='id,parent_id'
 	 defaults='name=answer parent_id=0'>

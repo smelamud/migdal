@@ -16,17 +16,20 @@ global $userAdminComplainAnswers;
 
 if(!$userAdminComplainAnswers)
   return ECAM_NO_EDIT;
-if(!complainTypeExists($action->type_id))
+if($action->type_id<=COMPL_NONE || $action->type_id>COMPL_MAX)
   return ECAM_NO_TYPE;
 if($action->name=='')
   return ECAM_NAME_ABSENT;
 if($action->text=='')
   return ECAM_TEXT_ABSENT;
-if($action->script_id!=0 && !complainScriptExists($action->script_id))
-  return ECAM_NO_SCRIPT;
-if($action->script_id!=0 &&
-   !checkScriptToTypeBinding($action->script_id,$action->type_id))
-  return ECAM_ILLEGAL_SCRIPT;
+if($action->script_id!=0)
+  {
+  if(($action->script_id & CSCR_ALL)==0)
+    return ECAM_NO_SCRIPT;
+  $type=newComplain($action->type_id);
+  if(($action->script_id & $type->getScriptMask())==0)
+    return ECAM_ILLEGAL_SCRIPT;
+  }
 if(!$action->store())
   return ECAM_STORE_SQL;
 return ECAM_OK;

@@ -1,20 +1,56 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/dataobject.php');
-require_once('lib/selectiterator.php');
+require_once('lib/messages.php');
+
+define('CSCR_NONE',0);
+define('CSCR_CLOSE',1);
+define('CSCR_CLOSE_ENABLE',2);
+define('CSCR_ALL',3);
+define('CSCR_MASK_NORMAL',CSCR_CLOSE);
+define('CSCR_MASK_FORUM',CSCR_CLOSE);
+define('CSCR_MASK_POSTING',CSCR_CLOSE|CSCR_CLOSE_ENABLE);
+
+$cscrProcNames=array(CSCR_CLOSE        => 'cscrClose',
+		     CSCR_CLOSE_ENABLE => 'cscrCloseEnable');
+
+$cscrTitles=array(CSCR_CLOSE        => 'úÁËÒÙÔØ ÖÁÌÏÂÕ',
+		  CSCR_CLOSE_ENABLE => 'úÁËÒÙÔØ ÖÁÌÏÂÕ É ÏÔËÒÙÔØ ÄÏÓÔÕĞ');
+
+function cscrClose($complain)
+{
+$id=$complain->getId();
+mysql_query("update complains
+             set closed=now()
+	     where id=$id")
+     or die('ïÛÉÂËÁ SQL ĞÒÉ ÚÁËÒÙÔÉÉ ÖÁÌÏÂÙ');
+}
+
+function cscrCloseEnable($complain)
+{
+cscrClose($complain);
+$message_id=getMessageIdByPostingId($complain->getLink());
+setDisabledByMessageId($message_id,0);
+}
 
 class ComplainScript
-      extends DataObject
 {
 var $id;
-var $name;
-var $script;
-var $type_ident;
 
-function ComplainScript($row)
+function ComplainScript($id)
 {
-$this->DataObject($row);
+$this->id=$id;
+}
+
+function exec($complain)
+{
+global $cscrProcNames;
+
+if($this->id>CSCR_NONE && $this->id<=CSCR_ALL)
+  {
+  $proc=$cscrProcNames[$this->id];
+  $proc($complain);
+  }
 }
 
 function getId()
@@ -22,66 +58,53 @@ function getId()
 return $this->id;
 }
 
-function getName()
+function getTitle()
 {
-return $this->name;
-}
+global $cscrTitles;
 
-function getScript()
-{
-return $this->script;
-}
-
-function getTypeIdent()
-{
-return $this->type_ident;
+return ($this->id>CSCR_NONE && $this->id<=CSCR_ALL)
+       ? $cscrTitles[$this->id] : '';
 }
 
 }
 
 class ComplainScriptListIterator
-      extends SelectIterator
+      extends Iterator
 {
+var $id;
+var $mask;
 
-function ComplainScriptListIterator($ident)
+function ComplainScriptListIterator($mask)
 {
-$this->SelectIterator('ComplainScript',
-                      "select id,name
-		       from complain_scripts
-		       where type_ident='$ident' or type_ident=''");
+$this->Iterator();
+$this->id=1;
+$this->mask=$mask;
+$this->roll();
+}
+
+function roll()
+{
+while(($this->id & $this->mask)==0 && $this->id<=CSCR_ALL)
+     $this->id*=2;
+}
+
+function next()
+{
+if($this->id<=CSCR_ALL)
+  {
+  $script=new ComplainScript($this->id);
+  $this->id*=2;
+  $this->roll();
+  return $script;
+  }
+else
+  return 0;
 }
 
 }
 
-function getScriptBodyById($id)
+function getComplainScriptById($id)
 {
-$result=mysql_query("select script
-		     from complain_scripts
-		     where id=$id")
-             or die('ïÛÉÂËÁ SQL ĞÒÉ ĞÏÌÕŞÅÎÉÉ ÔÅÌÁ ÓËÒÉĞÔÁ ÒÅÁËÃÉÉ ÎÁ ÖÁÌÏÂÕ');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
-}
-
-function complainScriptExists($id)
-{
-$result=mysql_query("select id
-                     from complain_scripts
-		     where id=$id")
-             or die('ïÛÉÂËÁ SQL ĞÒÉ ĞÒÏ×ÅÒËÅ ÎÁÌÉŞÉÑ ÓËÒÉĞÔÁ ÒÅÁËÃÉÉ ÎÁ ÖÁÌÏÂÕ');
-return mysql_num_rows($result)>0;
-}
-
-function checkScriptToTypeBinding($script_id,$type_id)
-{
-$result=mysql_query("select ident
-                     from complain_types
-		          left join complain_scripts
-			       on complain_types.ident
-			          =complain_scripts.type_ident
-				  or complain_scripts.type_ident=''
-		     where complain_scripts.id=$script_id
-		           and complain_types.id=$type_id")
-     or die('ïÛÉÂËÁ SQL ĞÒÉ ĞÒÏ×ÅÒËÅ ÓÏÏÔ×ÅÔÓÔ×ÉÑ ÓËÒÉĞÔÁ ÒÅÁËÃÉÉ ÔÉĞÕ ÖÁÌÏÂÙ');
-return mysql_num_rows($result)>0;
+return new ComplainScript($id);
 }
 ?>

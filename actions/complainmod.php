@@ -22,7 +22,7 @@ if($complain->stotext->body=='')
   return EC_BODY_ABSENT;
 if($complain->subject=='')
   return EC_SUBJECT_ABSENT;
-if(!complainTypeExists($complain->type_id))
+if($complain->type_id<=COMPL_NONE || $complain->type_id>COMPL_MAX)
   return EC_NO_TYPE;
 if(!$complain->store())
   return EC_STORE_SQL;
