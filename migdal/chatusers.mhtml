@@ -29,6 +29,14 @@
  <update_last_chat>
  <iterate_chat_users>
  <table cellspacing=0 cellpadding=0>
+  <tr><td>
+   <zone>
+    <chat_users_count name='count'>
+    <array vals='человек,человека,человек'>
+    <plural value='$count'>
+    В чате сейчас $count&nbsp;$,
+   </zone>
+  </td></tr>
   <for>
    <tr>
     <td><userlink align='left' user='$.'></td>

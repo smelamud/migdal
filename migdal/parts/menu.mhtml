@@ -6,15 +6,15 @@
  <iterate_menu name='menu'>
  <for>
   <assign name='name' value='$.Name'>
-  <if what="$.Ident=='chat'">
-   <zone>
-    <chat_users_count>
-    <concat name='name' value='$name ($,)'>
-   </zone>
-  </if>
   <if what='$.Ident==$ident'>
    <at href='$.Link' class='selected' target='$target'>$name</at>
   <else>
+   <if what="$.Ident=='chat'">
+    <zone>
+     <chat_users_count>
+     <concat name='name' value='$name ($,)'>
+    </zone>
+   </if>
    <at href='$.Link' target='$target'>$name</at>
   </if>
   <notlast name='menu'>

@@ -9,12 +9,7 @@
  <top ident='chat' image='pics/chat.gif' target=_top re='/chat.php'>
  <table class='batcher' width=100%><tr>
   <td align=left>
-   <zone>
-    <chat_users_count name='count'>
-    <array vals='человек,человека,человек'>
-    <plural value='$count'>
-    В чате сейчас $count&nbsp;$,
-   </zone>
+   &nbsp;
   </td>
   <td align=right>
    <notlogged>
