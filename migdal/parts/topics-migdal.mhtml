@@ -19,7 +19,7 @@
               arrow!='$posting.Id==$,Id' class='item ninept'>
  <posting_last grp='*GRP_BOOKS' topic_id='$`methodics`' recursive='*true'>
  <topics_line time='$,' text='Методические пособия' href#='methodics.php'
-              arrow!='$posting.Grp==*GRP_BOOKS &&
+              arrow!='($posting.Grp & (*GRP_BOOKS|*GRP_BOOK_CHAPTERS))!=0 &&
 	              $posting.TopicId==$`methodics`'
 	      class='item ninept'>
 </topics_table>
