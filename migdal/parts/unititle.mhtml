@@ -12,9 +12,9 @@
 <else>
  <topic_obj id='$topic_id'>
  <if what='$grp==*GRP_TAPE'>
-  <concat name='title' value='$,Name - Все'>
+  <concat name='title' value='$,Name'>
  <else>
-  <concat name='title' value='$,Name - $grptitle'>
+  <concat name='title' value='$grptitle --- $,Name'>
  </if>
  <pagetitle title='$title'>
 </if>

@@ -1,13 +1,15 @@
 <?php
 require_once('lib/utils.php');
 
+define('GRP_NONE',0);
 define('GRP_FORUMS',1);
 define('GRP_NEWS',2);
 define('GRP_GALLERY',4);
 define('GRP_EVENTS',7);
 define('GRP_ARTICLES',8);
-define('GRP_TAPE',11);
+define('GRP_TAPE',10);
 define('GRP_DISCUSS',15);
+define('GRP_NOT_FORUMS',14);
 define('GRP_ALL',15);
 
 $grpClassNames=array(GRP_FORUMS   => 'Forum',

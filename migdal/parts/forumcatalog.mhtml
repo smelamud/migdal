@@ -3,6 +3,17 @@
 
 <element name='batcher_forumcatalog' params='value,list,topic'>
 <table width=100% class='batcher'><tr valign=bottom>
+ <td align=left><table><tr valign=bottom><td>
+  <logged>
+   <a href='postingedit.php?topic_id=$topic&grp=*GRP_FORUMS&redirid=$_'
+      class='add'>Добавить мнение</a>
+  <else>
+   <span class='advert'>
+    Хотите добавлять мнения?
+    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+   </span>
+  </logged>
+ </td></tr></table></td>
  <td align=right><table><tr valign=center>
   <form method=get action='$~'>
    <hiddenget remove='fcp'>
@@ -18,11 +29,11 @@
 </tr></table>
 </element>
 
-<element name='ForumCatalog'>
+<element name='forumcatalog'>
 <grps>
 <iterate_postinglist grp='*GRP_DISCUSS' topic='$topic' limit='$limit'
                      offset='$offset' sort='*SORT_ACTIVITY'
-		     withanswers='*true'>
+		     withanswers='*GRP_NOT_FORUMS'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher_forumcatalog value='$limit' list='$;' topic='$topic' grp='*GRP_ALL'>
  <table>
@@ -46,6 +57,7 @@
      </td>
     </if>
     <td class='subject' rowspan=2>
+     <biff time='$.Sent'>
      <a href='forum.php?redirid=$_&msgid=$.Id'>$.SubjectDesc</a>
     </td>
     <td>

@@ -13,8 +13,6 @@
    <else>
     <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redirid=$_'
        class='add'>Добавить новость</a>,
-    <a href='postingedit.php?topic_id=$topic&grp=*GRP_FORUMS&redirid=$_'
-       class='add'>мнение</a>,
     <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redirid=$_'
        class='add'>статью</a>
    </if>

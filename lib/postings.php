@@ -204,7 +204,7 @@ class PostingListIterator
 
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
-			     $withAnswers=false)
+			     $withAnswers=GRP_NONE)
 {
 global $userId,$userModerator;
 
@@ -221,7 +221,11 @@ $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
              SORT_NAME     => 'subject',
              SORT_ACTIVITY => 'age desc'));
-$answerFilter=$withAnswers ? 'having count(forummesgs.id)<>0' : '';
+$answerFilter=$withAnswers!=GRP_NONE
+              ? $withAnswers==GRP_ALL
+	        ? 'having count(forummesgs.id)<>0'
+		: "having (grp & $withAnswers)=0 or count(forummesgs.id)<>0"
+	      : '';
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
 $this->LimitSelectIterator(
        'Message',

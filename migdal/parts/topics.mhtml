@@ -1,19 +1,5 @@
 << @(#) $Id$ >>
 
-<macro name='grayed' defaults="link='index.php'">
- <ifnzero what='$topic.Allow & *GRP_%^group'>
-  <if what='$grp==*GRP_%^group'>
-   <image src='pics/%file.gif' title='%title'>&nbsp;
-  <else>
-   <a href='%link?grp=*GRP_%^group&topic_id=$topic_id'><asp>
-    <image border=0 src='pics/%{file}-gray.gif' title='%title'></a>&nbsp;
-  </if>
- <else>
-  <a href='%link?grp=*GRP_%^group&topic_id=-1'><asp>
-   <image border=0 src='pics/%{file}-gray.gif' title='%title'></a>&nbsp;
- </ifnzero>
-</macro>
-
 <macro name='arrow'>
  <td>
   <if what='$topic_id==%id'>
@@ -36,21 +22,6 @@
 <topic_obj id='$topic_id'>
 <iterate_topiclist grp='$grp' withpostings='$withpostings'
                    withanswers='$withanswers'>
-<if what='$navi'>
- <grayed group='tape' file='all' title='Все'>
- <grayed group='news' file='new' title='Новости'>
- <grayed group='forums' file='opinion' title='Мнения'>
- <grayed group='articles' file='article' title='Статьи'>
- <zone>
-  <posting_last grp='*GRP_GALLERY'>
-  <ifbiff time='$,'>
-   <grayed group='gallery' file='gall-ner' link='gallery.php'
-	   title='Галерея (новое)'>
-  <else>
-   <grayed group='gallery' file='gall' link='gallery.php' title='Галерея'>
-  </ifbiff>
- </zone>
-</if>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%>
   <col width=0*>

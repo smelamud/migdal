@@ -12,12 +12,12 @@
  <titletag>
 </head>
 <body>
- <top ident='index'>
+ <top ident='gallery'>
  <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
   <td width=120>
-   <topics grp='$grp' topic_id='$topic_id' navi='*true' file='gallery.php'>
+   <topics grp='$grp' topic_id='$topic_id' file='gallery.php'>
   </td>
   <td width=10>&nbsp;</td>
   <td>

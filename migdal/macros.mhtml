@@ -81,8 +81,8 @@
        params='ident,flags,target,showimages'
        defaults="flags='' target='' showimages='*true'">
 <decel name='topics' file='parts/topics.php'
-       params='grp,topic_id,withpostings,withanswers,navi,file'
-       defaults="grp='*GRP_TAPE' topic_id=0 withpostings='*false' withanswers='*false' navi='*false' file='index.php'">
+       params='grp,topic_id,withpostings,withanswers,file'
+       defaults="grp='*GRP_TAPE' topic_id=0 withpostings='*false' withanswers='*false' file='index.php'">
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory' defaults="mandatory='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'

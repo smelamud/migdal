@@ -5,6 +5,10 @@
  <td>
   <iterate_menu name='menu'>
   <for>
+   <if what="$.Ident=='gallery'">
+    <posting_last grp='*GRP_GALLERY'>
+    <biff time='$,'>
+   </if>
    <if what='$.Ident==$ident'>
     <at href='$.Link' class='selected' target='$target'>$.Name</at>
    <else>
