@@ -1,0 +1,52 @@
+<< @(#) $Id$ >>
+
+<posting_full id='$`postings:methodic-center`' grp='*GRP_REVIEW'>
+<log event=review text#='post($,Id)'>
+<pagetitle title='$,Subject'>
+<topictitle title='$,Subject'>
+
+<element name='methodics'>
+<iterate_postinglist grp='*GRP_BOOKS' topic_id='$`methodics`'
+                     recursive='*false' limit=0 sort='*SORT_PSENT'
+		     fields='*SELECT_TOPICS' showshadows='*true'>
+<ifnzero what='$;Count'>
+ <topics_table title='Методические пособия'>
+  <for>
+   <topics_line time='$.Sent' href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
+		text#='$.Subject' class='item eightpt'>
+  </for>
+ </topics_table>
+</ifnzero>
+</element>
+
+<html>
+<stylesheet ident='article'>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5><tr valign=top>
+  <td width=150 class='eframe'>
+   <topics posting='$,'>
+  </td>
+  <td class='cframe'>
+   <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
+    <td>
+     <ifnzero what='$,Id'>
+      <subtitle>
+      <news>
+      <span class='article'>
+       <article_controls posting='$,'>
+       <article posting='$,' withvote='*false'>
+       <article_controls posting='$,'>
+      </span>
+     </ifnzero>
+    </td>
+    <td width=130 class='nframe'>
+     <methodics>
+    </td>
+   </tr></table>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>
