@@ -80,6 +80,7 @@
 <deciter macro='footnotes' class='FootnoteIterator' file='lib/paragraphs.php'
          params='source' defaults="source='$;'">
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>
+<deciter macro='horisonts' class='HorisontsIterator' file='lib/horisonts.php'>
 <deciter macro='imageset' class='ImageSetIterator' file='lib/images.php'
          params='imageset'>
 <deciter macro='instant_messagelist' class='InstantMessageListIterator'
@@ -176,6 +177,8 @@
 	 defaults='name=answer parent_id=0'>
 <deccall macro='forum_answer_full' func='getFullForumAnswerById'
          file='lib/forums.php' params='id' defaults='name=answer'>
+<deccall macro='horisont_obj' func='getHorisontByHost' file='lib/horisonts.php'
+         params='host'>
 <deccall macro='id_ident' func='identById' file='lib/ident.php'
          params='table,id'>
 <deccall macro='ident_id' func='idByIdent' file='lib/ident.php'

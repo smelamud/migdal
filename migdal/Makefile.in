@@ -6,13 +6,13 @@ OBJECTS = article.php article-times.php book.php book-chapter.php \
 	  chat.php chatboard.php chatbottom.php chatconsole.php \
 	  chattop.php chattune.php chatusers.php complainactionedit.php \
 	  complainanswer.php complainedit.php complainforum.php complains.php \
-	  forum.php forumansweredit.php forumcatalog.php gallery.php index.php \
-	  journal.php kaitana.php limedit.php liminsert.php links.php \
-	  methodics.php migdal.php posting.php postingedit.php rating.php \
-	  register.php reorder.php stotext-help-subs.php \
-	  stotext-help-types.php style.php taglit.php taglit-user.php \
-	  times.php tips.php topicdel.php topicedit.php topiclinkadd.php \
-	  topicorg.php useredit.php userfin.php userinfo.php \
+	  forum.php forumansweredit.php forumcatalog.php gallery.php \
+	  horisontedit.php index.php journal.php kaitana.php limedit.php \
+	  liminsert.php links.php methodics.php migdal.php posting.php \
+	  postingedit.php rating.php register.php reorder.php \
+	  stotext-help-subs.php stotext-help-types.php style.php taglit.php \
+	  taglit-user.php times.php tips.php topicdel.php topicedit.php \
+	  topiclinkadd.php topicorg.php useredit.php userfin.php userinfo.php \
 	  userinfo-panel.php userlost.php userok.php userrepair.php users.php
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml

@@ -17,8 +17,23 @@
 <preamble>
 <body>
  <top ident='index'>
- <iterate_journallist offset='$offset'>
  <admin_users>
+  <iterate_horisonts>
+  <table class='catalog'>
+   <tr>
+    <th>Хост</th><th>Мы о них</th><th>Они о нас</th>
+   </tr>
+   <for>
+    <if what='$;isOdd'><tr class='odd'><else><tr></if>
+     <td class='ninept' align=left>
+      <a href='horisontedit.php?host=$#.Host&redirid=$_'>$.Host</a>
+     </td>
+     <td class='ninept' align=right>$.WeKnow</td>
+     <td class='ninept' align=right>$.TheyKnow</td>
+    </tr>
+   </for>
+  </table>
+  <iterate_journallist offset='$offset'>
   <batcher list='$;'>
   <table width=100% class='catalog'>
    <tr>

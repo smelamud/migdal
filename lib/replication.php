@@ -7,6 +7,7 @@ require_once('lib/errorreporting.php');
 require_once('lib/no-cache.php');
 require_once('lib/database.php');
 require_once('lib/journal.php');
+require_once('lib/horisonts.php');
 
 settype($from,'integer');
 
