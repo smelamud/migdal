@@ -2,13 +2,14 @@
 
 # @(#) $Id$
 
-DIRS='. migdal migdal/grp migdal/parts migdal/styles migdal/mailings'
+DIRS='. migdal migdal/grp migdal/parts migdal/styles migdal/mailings \
+      lcenter lcenter/grp lcenter/parts lcenter/styles lcenter/mailings'
 
 for s in $DIRS; do
     ./confmake $s/Makefile.in conf/migdal.conf > $s/Makefile
 done
 
-INTERFACES='migdal'
+INTERFACES='migdal lcenter'
 LINKS='actions conf lib tools'
 
 for s in $INTERFACES; do
