@@ -23,7 +23,7 @@
 <element name='general' params='posting,span' defaults='span=1'>
 <admin_topics>
  <tr><td colspan=3 class='eightpt'>
-  <a href='topiclinks.php?topic_id=$`major`&topic_grp=*GRP_NEWS&peer_grp=*GRP_ALL'>
+  <a href='topiclinks.php?topic_id=$`major`&topic_grp=*GRP_NEWS&peer_grp=*GRP_NEWS'>
      Изменить</a>
  </td></tr>
  <iterate_topic_cross topic_id='$`major`' topic_grp='*GRP_NEWS'

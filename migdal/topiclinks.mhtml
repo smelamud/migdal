@@ -22,7 +22,7 @@
   <subtitle>
   <table class='topics ninept' width=100%>
    <iterate_topic_cross topic_id='$topic_id' topic_grp='$topic_grp'
-			peer_grp='$peer_grp'>
+			peer_grp='*GRP_ALL'>
    <admin_topics>
     <tr><td>
      <a href='topiclinkadd.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=$peer_grp&redirid=$_'
