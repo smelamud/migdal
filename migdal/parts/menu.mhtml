@@ -1,10 +1,14 @@
 << @(#) $Id$ >>
 
-<element name='Menu'>
+<element name='menu'>
 <table class='menu' width=100%><tr>
  <td>
   <iterate_menu name='menu'>
   <for>
+   <if what="$.Ident=='discuss'">
+    <posting_last grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
+    <biff time='$,'>
+   </if>
    <if what="$.Ident=='gallery'">
     <posting_last grp='*GRP_GALLERY'>
     <biff time='$,'>

@@ -446,21 +446,33 @@ return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }
 
-function getLastPostingDate($grp=GRP_ALL,$topic_id=-1)
+function getLastPostingDate($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$tf=$topic_id>=0 ? "and topic_id=$topic_id" : '';
+$tpf=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
+$taf=$topic_id>=0 ? "and posts.topic_id=$topic_id" : '';
 $result=mysql_query(
-        "select max(sent)
-         from postings
-	      left join messages
+        "select max(messages.sent)
+         from messages
+	      left join postings
 	           on postings.message_id=messages.id
-	 where (hidden<$hide or sender_id=$userId) and
-	       (disabled<$hide or sender_id=$userId) and
-               (grp & $grp)<>0 $tf")
- or die('Ошибка SQL при определении даты последнего постинга');
+	      left join forums
+	           on forums.message_id=messages.id
+	      left join messages as msgs
+	           on forums.up=msgs.id
+	      left join postings as posts
+	           on posts.message_id=msgs.id
+	 where (postings.id is not null or forums.id is not null) and
+	       (messages.hidden<$hide or messages.sender_id=$userId) and
+	       (messages.disabled<$hide or messages.sender_id=$userId) and
+	       (msgs.id is null or
+	        (msgs.hidden<$hide or msgs.sender_id=$userId) and
+	        (msgs.disabled<$hide or msgs.sender_id=$userId)) and
+               (postings.id is null or (postings.grp & $grp)<>0 $tpf) and
+               (posts.id is null or (posts.grp & $answers)<>0 $taf)")
+ or die('Ошибка SQL при определении даты последнего постинга/ответа'.mysql_error());
 return mysql_num_rows($result)>0 ? strtotime(mysql_result($result,0,0)) : 0;
 }
 
