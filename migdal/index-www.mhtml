@@ -64,6 +64,7 @@
                       title='По этой теме в других разделах'>
       </inner></div></outer>
       <if what='$topic_id<=0'>
+       <kaitana_announce>
        <textears>
       </if>
       <postings grp='*GRP_TAPE' topic_id='$topic_id' limit=10 offset='$offset'

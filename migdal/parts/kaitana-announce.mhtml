@@ -78,7 +78,7 @@
 </style>
 </element>
 
-<element name='kaitana_announce'>
+<<element name='kaitana_announce'>
 <kaitana_style>
 <div class='aframe ninept' style='padding: 3'>
  <posting_index name='index' index=1 grp='*GRP_KAITANA_GALLERY'
@@ -128,4 +128,30 @@
   <day n=14>
  </tr></table>
 </div>
+</element>>
+
+<element name='kaitana_announce'>
+<iterate_postinglist topic_id='$`kaitana-s-5764`' grp='*GRP_KAITANA_NEWS'
+                     sort='*SORT_RINDEX1' limit=0 fields='*SELECT_TOPICS'>
+<ifnzero what='$;Count'>
+ <table style='margin: 0'>
+  <tr><td class='textears-title'>Летняя площадка</td></tr>
+  <tr><td><ul class='ninept'>
+   <for>
+    <li>
+     <b>$.Subject</b> <a href='$.URL'>$.Source</a>
+     <biff time='$.Sent' small='*true'>
+    </li>
+   </for>
+  </ul></td></tr>
+ </table>
+ <<table width=100% cellspacing=0 cellpadding=0 class='eightpt'>
+  <tr>
+   <td rowspan=2 width=15% height=5>&nbsp;</td>
+   <td width=70% height=5>&nbsp;</td>
+   <td rowspan=2 width=15% height=5>&nbsp;</td>
+  </tr>
+  <tr><td class='textears-split' height=5>&nbsp;</td></tr>
+ </table>>
+</ifnzero>
 </element>
