@@ -25,7 +25,7 @@
   <td rowspan="3" class='banner' width="90" align="center">
    <a href='/' title='На главную'><image src='/pics/logo.png' border=0></a>
   </td>
-  <td width="15" class='banner'>&nbsp;</td>
+  <td width="15" class='banner'><counters_top></td>
   <td class='lcenter banner'>Одесский центр Linux</td>
  </tr>
  <tr height="15" valign="center">

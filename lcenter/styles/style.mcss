@@ -5,6 +5,7 @@ include 'fonts.mcss'
 include 'palette.mcss'
 
 include 'sheet-general.mcss'
+include 'sheet-frames.mcss'
 include 'sheet-menu.mcss'
 include 'sheet-bottom.mcss'
 include 'sheet-form.mcss'

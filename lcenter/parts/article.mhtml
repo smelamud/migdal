@@ -2,10 +2,13 @@
 
 <element name='article_controls'>
 <notprint>
- <div class='ninept'>
-     <a href="/limedit.php?postid=$posting.Id&redirid=$_"
-        >Список иллюстраций</a>
- </div>
+ <p class='ninept' style='clear: both'>
+  <a href="/postingedit.php?editid=$posting.Id&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
+     >Изменить</a>
+  &nbsp;
+  <a href="/limedit.php?postid=$posting.Id&redirid=$_"
+     >Список иллюстраций</a>
+ </p>
 </notprint>
 </element>
 
@@ -154,6 +157,16 @@
 </element>
 
 <element name='article_full'>
+<ifnzero what='$posting.ImageSet'>
+ <table align='left' class='pic'>
+  <tr><td>
+   <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+  </td></tr>
+  <ifne what='$posting.Title'>
+   <tr><td>$posting.HTMLTitle</td></tr>
+  </ifne>
+ </table>
+</ifnzero>
 $posting.HTMLBody
 <article posting='$posting'>
 <ifne what='$posting.Source'>

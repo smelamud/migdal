@@ -24,8 +24,16 @@ else
 
 <element name='bottom'>
 <p>
- <table width="100%" border="0" cellspacing="0" cellpadding="10"
+ <table width="100%" border="0" cellspacing="0" cellpadding="5"
 	class='bottom eightpt'>
+  <tr valign="top">
+   <td align="left">
+    <banners>
+   </td>
+   <td align="right">
+    <counters>
+   </td>
+  </tr>
   <tr valign="top">
    <td align="left">
     Вебмастер живет по адресу

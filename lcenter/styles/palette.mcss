@@ -13,6 +13,7 @@ em=%mor
 title=%lor
 sent=%grm
 eframe_border=%lbl
+oframe_border=%lbl
 :default	nframe_back=%rbl
 :print		nframe_back=white
 :default	nframe_border=%dbl
