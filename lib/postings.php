@@ -674,11 +674,14 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 function getSibling($up,$index0,$next=true)
 {
 $filter=$next ? "index0>$index0" : "index0<$index0";
+$order=$next ? 'asc' : 'desc';
 $result=mysql_query("select postings.id
                      from postings
 		          left join messages
 			       on postings.message_id=messages.id
-		     where up=$up and $filter");
+		     where up=$up and $filter
+		     order by index0 $order
+		     limit 1");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
