@@ -6,6 +6,7 @@ require_once('lib/database.php');
 require_once('lib/grps.php');
 require_once('lib/messages.php');
 require_once('lib/topics.php');
+require_once('lib/utils.php');
 
 require_once('parts/top.php');
 require_once('parts/grps.php');
@@ -48,14 +49,7 @@ $title=getGrpOneTitle($grp);
 $ident=getGrpIdent($grp);
 $requestURI=urlencode($REQUEST_URI);
 
-if(!isset($ident))
-  {
-  header('Location: '.remakeURI($REQUEST_URI,
-                                array(),
-				array('grp' => GRP_FORUMS)));
-  exit;
-  }
-
+reloadParameter(!isset($ident),'grp',GRP_FORUMS);
 settype($editid,'integer');
 settype($up,'integer');
 ?>

@@ -23,6 +23,17 @@ $end=$location=='#' ? $end : $location;
 return "$start?".remakeQuery($query,$remove,$subs).($end!='' ? "#$end" : '');
 }
 
+function reloadParameter($cond,$key,$value)
+{
+if($cond)
+  {
+  header('Location: '.remakeURI($REQUEST_URI,
+                                array(),
+				array($key => $value)));
+  exit;
+  }
+}
+
 function makeValue($value)
 {
 $c=is_int($value) ? '' : '"';
