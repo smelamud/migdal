@@ -26,6 +26,7 @@ var $icq;
 var $email_disabled;
 var $hide_email;
 var $admin_users;
+var $admin_topics;
 var $hidden;
 var $online;
 var $no_login;
@@ -52,7 +53,7 @@ function getCorrespondentVars()
 {
 return array('login','password','dup_password','name','jewish_name','surname',
              'migdal_student','info','email','hide_email','icq','admin_users',
-	     'hidden','no_login');
+	     'admin_topics','hidden','no_login');
 }
 
 function getWorldVars()
@@ -63,7 +64,7 @@ return array('login','name','jewish_name','surname','info','birthday',
 
 function getAdminVars()
 {
-return array('admin_users','hidden','no_login');
+return array('admin_users','admin_topics','hidden','no_login');
 }
 
 function getWorldVarValues()
@@ -249,6 +250,11 @@ function isAdminUsers()
 return $this->admin_users;
 }
 
+function isAdminTopics()
+{
+return $this->admin_topics;
+}
+
 function isHidden()
 {
 return $this->hidden;
@@ -291,7 +297,8 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
                             surname,info,birthday,migdal_student,last_online,
 			    email,hide_email,icq,email_disabled,admin_users,
-			    hidden,no_login,sessions.user_id as online
+			    admin_topics,hidden,no_login,
+			    sessions.user_id as online
 		     from users left join sessions
 				on users.id=sessions.user_id
 				and sessions.last+interval 1 hour>now()

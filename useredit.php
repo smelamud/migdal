@@ -251,6 +251,14 @@ if($user->isEditable() && $err==$code)
    <tr>
     <td colspan=2>
     <?php
+     echo condCheckBox($userAdminUsers,'admin_topics',
+		       $user->isAdminTopics(),'Администратор тем');
+    ?>
+    </td>
+   </tr>
+   <tr>
+    <td colspan=2>
+    <?php
      echo condCheckBox($userAdminUsers,'hidden',
 		       $user->isHidden(),'Не показывать в списке пользователей');
     ?>
