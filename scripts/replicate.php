@@ -32,7 +32,7 @@ function replicate($host)
 global $siteDomain,$maxImage;
 
 $from=getHorisont($host,HOR_WE_KNOW);
-$fd=fopen("http://$host/lib/replication.php?host=".urlencode($host)
+$fd=fopen("http://$host/lib/replication.php?host=".urlencode($siteDomain)
                                          ."&from=$from",'r');
 if(!$fd)
   return;
