@@ -24,7 +24,7 @@ if($action->text=='')
 if(!complainScriptExists($action->script_id))
   return ECAM_NO_SCRIPT;
 if(!$action->store())
-  return ECAM_SQL_STORE;
+  return ECAM_STORE_SQL;
 return ECAM_OK;
 }
 

@@ -114,9 +114,19 @@ function getComplainActionById($id)
 {
 $result=mysql_query("select id,name,text,automatic,script_id
                      from complain_actions
-		     where id=$id");
+		     where id=$id")
+	     or die('Ошибка SQL при выборке ответа на жалобу');
 return new ComplainAction(mysql_num_rows($result)>0
                           ? mysql_fetch_assoc($result)
 			  : array());
+}
+
+function complainActionExists($id)
+{
+$result=mysql_query("select id
+                     from complain_actions
+		     where id=$id")
+	     or die('Ошибка SQL при проверке наличия ответа на жалобу');
+return mysql_num_rows($result)>0;
 }
 ?>
