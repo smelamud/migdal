@@ -1,0 +1,42 @@
+<< @(#) $Id$ >>
+
+<errors>
+<element name='login'>
+<ifne what='$$err'>
+ <table>
+  <error id='*EL_INVALID' text='Неверный ник или пароль'>
+  <error id='*ELO_SQL_GET' text='Ошибка базы данных при выборке записи'
+	 color=magenta>
+  <error id='*ELO_SQL_SWITCH' text='Ошибка базы данных при обновлении записи'
+	 color=magenta>
+  <error id='*ELO_SQL_DROP' text='Ошибка базы данных при удалении записи'
+	 color=magenta>
+  <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
+  <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
+  <error id='*EUS_SQL' text='Ошибка базы данных при обновлении записи'
+	 color=magenta>
+ </table>
+</ifne>
+<table class='login'>
+ <notlogged>
+  <form action='actions/login.php'>
+   <hidden name='okdir' value="$$[err]">
+   <hidden name='faildir' value="$$[err]">
+   <hidden name='login' value='admin'>
+   <tr>
+    <td>Пароль</td>
+    <td><input type=password name='password' size=8></td>
+    <td><input type=submit value='Войти'></td>
+   </tr>
+  </form>
+ <else>
+  <form action='actions/logout.php'>
+   <hidden name='okdir' value="$$[err]">
+   <hidden name='faildir' value="$$[err]">
+   <tr>
+    <td><input type=submit value='Выйти'></td>
+   </tr>
+  </form>
+ </notlogged>
+</table>
+</element>
