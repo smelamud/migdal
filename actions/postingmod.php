@@ -30,8 +30,8 @@ function isPremoderated($message)
 {
 global $userModerator;
 
-return (getPremoderateByTopicId($message->getTopicId())
-        & $message->getGrp())!=0 && !$userModerator;
+return ((int)getPremoderateByTopicId($message->getTopicId())
+        & (int)$message->getGrp())!=0 && !$userModerator;
 }
 
 function setDisabled($message)
