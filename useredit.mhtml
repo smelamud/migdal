@@ -110,13 +110,15 @@
     <td>
      <input type=text name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
      <select name='birth_month'>
-      <?php
-      foreach(array(1 => 'январь','февраль','март','апрель','май','июнь',
-		    'июль','август','сентябрь','октябрь','ноябрь','декабрь')
-	      as $key=>$value)
-	     echo "<option ".($user->isMonthOfBirth($key) ? 'selected' : '')
-			    ." value=$key>$value</option>";
-      ?>
+      <iterate_months>
+      <for>
+       <call func='$user->isMonthOfBirth' arg1='$.Id'>
+       <if what='$,'>
+	<option selected value=$.Id>$.Name</option>
+       <else>
+	<option value=$.Id>$.Name</option>
+       </if>
+      </for>
      </select>
      19<input type=text name='birth_year' size=2 maxlength=2
 	      value='$,YearOfBirth'>

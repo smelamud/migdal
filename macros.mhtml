@@ -46,6 +46,11 @@
           arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset'>
 </macro>
 
+<macro name='iterate_months'>
+ <require name='lib/months.php'>
+ <iterate name='%name' class='MonthsIterator'>
+</macro>
+
 <macro name='iterate_topiclist'>
  <require name='lib/topics.php'>
  <iterate name='%name' class='TopicListIterator' arg1='%grp'>
