@@ -305,8 +305,8 @@ $st=$st<0 ? 0 : $st;
 $c=substr($s,$st,$mdlen+$pdlen);
 $c=preg_replace('/\n\s*\n/',"\n\n",$c);
 $patterns=array("\n\n",
-                array('. ','! ','? '),
-                array(': ',', ','; ',') '));
+                array('. ','! ','? ',".\n","!\n","?\n"),
+                array(': ',', ','; ',') ',":\n",",\n",";\n",")\n"));
 foreach($patterns as $pat)
        {
        $matches=array();
