@@ -34,7 +34,7 @@
 <int name='editid'>
 <html>
 <head>
- <title>Клуб Еврейского Студента - Информация о пользователе</title>
+ <title>Демо - Информация о пользователе</title>
 </head>
 <body bgcolor=white>
  <if what='$editid'>
