@@ -100,6 +100,9 @@ $inplaceSize=256;
 $inplaceSizeMinus=128;
 $inplaceSizePlus=128;
 
+# Домашний каталог пользователя на Web-сервере
+$homeDir='/home/balu/prog/migdal-html';
+
 # Каталог, в котором находится сайт на Web-сервере
 $siteDir='/home/balu/prog/migdal-html/migdal';
 
