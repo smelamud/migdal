@@ -8,7 +8,7 @@
  <form method=get action='$~'>
   <hiddenget remove='mp'>
   <tr>
-   <td align=left><table><tr valign=bottom><td>
+   <td align=left><table cellspacing=0><tr valign=bottom><td>
     <logged>
      <if what='$g.Valid'>
       <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
@@ -16,7 +16,7 @@
      <else>
       <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
        >Добавить новость</a>
-      /
+      </td><td width=20></td><td>
       <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
        >Добавить статью</a>
      </if>
