@@ -11,7 +11,9 @@
 </ifnzero>
 <zone>
  <log event=index text#='topic($topic_id) offset=$offset'>
- <log event=enter text#='domain=$$userDomain'>
+ <ifzero what='$offset'>
+  <log event=enter text#='domain=$$userDomain'>
+ </ifzero>
 </zone>
 <grps>
 <unititle topic_id='$topic_id'>
