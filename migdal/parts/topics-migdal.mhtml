@@ -1,21 +1,22 @@
 << @(#) $Id$ >>
 
-<element name='topics_chapters' params='posting,title,id,rtitle,rid'>
-<topics_table title='$title'>
- <posting_obj id='$rid'>
- <topics_line time='$,Sent' text='$rtitle' href#='migdal.php?artid=$rid'
-              arrow!='$posting.Id==$rid' class='item ninept'>
- <posting_last grp='*GRP_GALLERY' topic_id='$id' recursive='*false'>
- <topics_line time='$,' text='Галерея' href#='gallery.php?topic_id=$id'
-              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$id'
-	      class='item ninept'>
+<element name='topics_kes' params='posting'>
+<topics_table title='КЕС' span=2>
+ <posting_obj id='$`postings:kes`'>
+ <topics_line time='$,Sent' text='О клубе' span=2
+              href#='migdal.php?artid=$`postings:kes`'
+              arrow!='$posting.Id==$`postings:kes`' class='item ninept'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*false'>
+ <topics_line time='$,' text='Галерея' indent=1
+              href#='gallery.php?topic_id=$`kes`'
+              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`kes`'
+	      class='item eightpt'>
 </topics_table>
 </element>
 
 <element name='topics_jcc' params='posting'>
 <if what='$/$posting.TopicId,2/==$`kes`'>
- <topics_chapters posting='$posting' title='КЕС' id='$`kes`'
-                  rtitle='О клубе' rid='$`postings:kes`'>
+ <topics_kes posting='$posting'>
 </if>
 <topic_obj name='jcc' id='$`jcc`'>
 <topics_table title='$,Name' span=2>
@@ -53,49 +54,52 @@
 </element>
 
 <element name='topics_mazltov' params='posting'>
-<topics_table title='Мазл Тов'>
+<topics_table title='Мазл Тов' span=2>
  <posting_obj id='$`postings:mazltov`'>
- <topics_line time='$,Sent' text='О программе'
+ <topics_line time='$,Sent' text='О программе' span=2
               href#='migdal.php?artid=$`postings:mazltov`'
               arrow!='$posting.Id==$`postings:mazltov`' class='item ninept'>
  <posting_last grp='*GRP_NEWS' topic_id='$`mazltov-news`' recursive='*false'>
- <topics_line time='$,' text='Новости'
+ <topics_line time='$,' text='Новости' indent=1
               href#='migdal-news.php?topic_id=$`mazltov-news`'
               arrow!='$posting.Grp==*GRP_NEWS &&
 	              $posting.TopicId==$`mazltov-news`'
-	      class='item ninept'>
+	      class='item eightpt'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*false'>
- <topics_line time='$,' text='Галерея' href#='gallery.php?topic_id=$`mazltov`'
+ <topics_line time='$,' text='Галерея' indent=1
+              href#='gallery.php?topic_id=$`mazltov`'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`mazltov`'
-	      class='item ninept'>
+	      class='item eightpt'>
 </topics_table>
 </element>
 
 <element name='topics_methodics' params='posting'>
-<topics_table title='Методический центр'>
+<topics_table title='Методический центр' span=2>
  <posting_obj id='$`postings:methodic-center`'>
- <topics_line time='$,Sent' text='О центре' href#='migdal.php?artid=$,Id'
+ <topics_line time='$,Sent' text='О центре' span=2
+              href#='migdal.php?artid=$,Id'
               arrow!='$posting.Id==$,Id' class='item ninept'>
  <posting_last grp='*GRP_BOOKS' topic_id='$`methodics`' recursive='*true'>
- <topics_line time='$,' text='Методические пособия' href#='methodics.php'
+ <topics_line time='$,' text='Методические пособия' indent=1
+              href#='methodics.php'
               arrow!='($posting.Grp & (*GRP_BOOKS|*GRP_BOOK_CHAPTERS))!=0 &&
 	              $posting.TopicId==$`methodics`'
-	      class='item ninept'>
+	      class='item eightpt'>
 </topics_table>
 </element>
 
 <element name='topics_migdal_library' params='posting'>
-<topics_table title='Библиотека'>
- <topics_line text='О библиотеке' href#='migdal-library.php'
+<topics_table title='Библиотека' span=2>
+ <topics_line text='О библиотеке' span=2 href#='migdal-library.php'
               arrow!='$posting.Id==$`postings:migdal-library`'
 	      class='item ninept'>
  <posting_last grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
                recursive='*false'>
- <topics_line time='$,' text='Новые поступления'
+ <topics_line time='$,' text='Новые поступления' indent=1
               href#='migdal-library-news.php'
               arrow!='$posting.Grp==*GRP_LIBRARY_ANNOUNCES &&
 	              $posting.TopicId==$`migdal-library`'
-	      class='item ninept'>
+	      class='item eightpt'>
 </topics_table>
 </element>
 
