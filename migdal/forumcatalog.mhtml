@@ -14,8 +14,8 @@
  <top ident='discuss'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=120 class='eframe'>
-   <posting_new grp='*GRP_FORUMS' topic_id='$topic_id'>
-   <topics posting='$,' withpostings='*true' withanswers='*true' up=-1>
+   <topics_minor id='$topic_id' withpostings='*true' withanswers='*true' up=-1
+                 grp='*GRP_DISCUSS' href='forumcatalog.php' title='Обсуждения'>
   </td>
   <td>
    <subtitle icon='pics/opinion-big.gif'>

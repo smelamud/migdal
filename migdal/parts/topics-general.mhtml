@@ -1,62 +1,28 @@
 << @(#) $Id$ >>
 
-<element name='navi_kaitana' params='posting'>
-<topic_obj name='kaitana' id='kaitana'>
-
-<posting_last topic_id='$kaitana.Id' recursive='*false'>
-<topics_line time='$,' href='kaitana.php' title='$kaitana.Description'
-	     text='$kaitana.Name' class='item large'>
-
-</element>
-
-<element name='navi_main' params='posting'>
-<topics_line href='index.php?topic_id=-1' title='На главную страницу'
-	     text='Главная' class='item large'>
-
-</element>
-
-<element name='navi_taglit' params='posting'>
-<topic_obj name='taglit' id='taglit'>
-
-<posting_last topic_id='$taglit.Id' recursive='*false'>
-<topics_line time='$,' href='taglit.php' title='$taglit.Description'
-	     text='$taglit.Name' class='item large'>
-
-</element>
-
-<element name='navi_times' params='posting'>
-<topic_obj name='times' id='migdal-times'>
-
-<posting_last topic_id='$times.Id' recursive='*true'>
-<topics_line time='$,' href='times.php' title='$times.Description'
-	     text='$times.Name' class='item large'>
-</element>
-
 <element name='topics'>
-<topics_table class='ninept' title='Разделы'>
- <admin_topics>
-  <tr><td colspan=2>
-   <a href='topicedit.php?redirid=$_' class='edit'>Добавить</a>
-   <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
-  </td></tr>
- </admin_topics>
- <if what='$showchapters'>
-  <navi_main posting='$posting'>
-  <navi_times posting='$posting'>
-  <community>
-   <navi_taglit posting='$posting'>
-  </community>
-  <navi_kaitana posting='$posting'>
- </if>
- <iterate_topiclist grp='$posting.PageGroup' withpostings='$withpostings'
-		    withanswers='$withanswers' up='$up' subdomain='$subdomain'>
- <for>
-  <topics_line time='$.LastMessage' href#='$posting.PageFile?topic_id=$.Id'
-               title='$.Description' text='$.Name' count='$.MessageCount'>
-  <admin_topics>
-   <topics_line href#='topicedit.php?editid=$.Id&redirid=$_' class='edit'
-		text='Изменить'>
-  </admin_topics>
- </for>
-</topics_table>
+<if what='$posting.Grp==*GRP_FORUMS || $posting.Grp==*GRP_NEWS || $posting.Grp==*GRP_ARTICLES || $posting.Grp==*GRP_QUOTES'>
+ <topics_major ident='index'>
+ <topics_minor id='$posting.TopicId' withpostings='$$officialDomain'
+               subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'
+               href='index.php' title='Раздельчики'>
+</if>
+<if what='$posting.Grp==*GRP_GALLERY'>
+ <topics_minor id='$posting.TopicId' subdomain!='$$officialDomain ? 1 : -1'
+	       withpostings='$$officialDomain' grp='*GRP_GALLERY'
+	       href='gallery.php' title='Галерея'>
+</if>
+<if what='$posting.Grp==*GRP_TIMES_COVERS || $posting.Grp==*GRP_TIMES_ARTICLES'>
+ <topics_major ident='times'>
+</if>
+<if what='$posting.Grp==*GRP_TAGLIT_FORUMS || $posting.Grp==*GRP_TAGLIT_GALLERY'>
+ <topic_obj name='taglit' id='taglit'>
+ <topics_taglit taglit='$taglit' id='$posting.SenderId'>
+ <topics_major ident='taglit'>
+</if>
+<if what='$posting.Grp==*GRP_KAITANA_NEWS || $posting.Grp==*GRP_KAITANA_GALLERY'>
+ <topic_obj name='kaitana' id='kaitana'>
+ <topics_kaitana kaitana='$kaitana' day='$posting.Index1'>
+ <topics_major ident='kaitana'>
+</if>
 </element>

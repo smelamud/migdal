@@ -20,16 +20,7 @@
 }
 
 .topics .arrow {
-	border: solid 1px %topics_arrow_border;
-	background-image: url("../%topics_arrow_back_pic");
-}
-
-.topics .arrow TD:first-child {
-	border-left: solid 1px %topics_arrow_border;
-}
-
-.topics .arrow TD:last-child {
-	border-right: solid 1px %topics_arrow_border;
+	font-weight: bold;
 }
 
 .topics A {
@@ -51,11 +42,6 @@
 
 .topics .names {
 	vertical-align: middle;
-}
-
-.topics .names A.large {
-	font-weight: bold;
-	font-size: 10pt;
 }
 
 .topics .names A.item {

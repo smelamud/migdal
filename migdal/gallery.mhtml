@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/index.mhtml 1.12 >>
 
 <string name='topic_id'>
 <int name='offset'>
@@ -7,6 +6,10 @@
  <log event=trap text='Taglit gallery'>
  <reload href='taglit.php'>
 </if>
+<ifnzero what='$grp'>
+ <log event=trap text='grp!=0 in gallery.php'>
+ <reload href='$[grp]'>
+</ifnzero>
 <grps>
 <zone>
  <ident_id table='topics' ident='$topic_id'>
@@ -20,9 +23,9 @@
  <top ident='gallery'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=120 class='eframe'>
-   <posting_new grp='*GRP_GALLERY' topic_id='$topic_id'>
-   <topics posting='$,' subdomain!='$$officialDomain ? 1 : -1'
-           withpostings='$$officialDomain'>
+   <topics_minor id='$topic_id' subdomain!='$$officialDomain ? 1 : -1'
+                 withpostings='$$officialDomain' grp='*GRP_GALLERY'
+		 href='gallery.php' title='Галерея'>
   </td>
   <td>
    <subtitle icon='pics/gall-big.gif'>

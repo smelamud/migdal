@@ -14,8 +14,7 @@
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=120 class='eframe'><zone>
    <topics_taglit taglit='$taglit'>
-   <posting_new grp='*GRP_TAGLIT_FORUMS' topic_id='$taglit.Id'>
-   <topics posting='$,' showchapters='*true'>
+   <topics_major ident='taglit'>
   </zone></td>
   <td>
    <subtitle icon='pics/taglit.gif'>

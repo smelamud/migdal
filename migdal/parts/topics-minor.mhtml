@@ -1,17 +1,18 @@
 << @(#) $Id$ >>
 
 <element name='topics_minor'>
-<topics_table class='ninept' title='Раздельчики'>
+<topics_table class='ninept' title='$title'>
  <admin_topics>
   <tr><td colspan=2>
    <a href='topicedit.php?redirid=$_' class='edit'>Добавить</a>
   </td></tr>
  </admin_topics>
- <iterate_topiclist grp='$posting.PageGroup' withpostings='$withpostings'
+ <iterate_topiclist grp='$grp' withpostings='$withpostings'
 		    withanswers='$withanswers' up='$up' subdomain='$subdomain'>
  <for>
-  <topics_line time='$.LastMessage' href#='$posting.PageFile?topic_id=$.Id'
-               title='$.Description' text='$.Name' count='$.MessageCount'>
+  <topics_line time='$.LastMessage' href#='$href?topic_id=$.Id'
+               title='$.Description' text='$.Name' count='$.MessageCount'
+	       arrow!='$.Id==$id'>
   <admin_topics>
    <topics_line href#='topicedit.php?editid=$.Id&redirid=$_' class='edit'
 		text='Изменить'>

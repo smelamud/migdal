@@ -15,7 +15,7 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=120 class='eframe'>
-   <topics posting='$,' showchapters='*true'>
+   <topics posting='$,'>
   </td>
   <td class='article cframe'>
    <article_controls posting='$,'>

@@ -7,5 +7,5 @@
 </ifzero>
 <picture picture='$picture' showtopic='$showtopic' showdiscuss='$showdiscuss'
          showcomplain='$showcomplain' shorten='$shorten' up='$taglit_id'
-         topiclink#='$picture.PageFile?user_id=$picture.SenderId'>
+         topiclink#='taglit-user.php?user_id=$picture.SenderId'>
 </element>

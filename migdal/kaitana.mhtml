@@ -52,9 +52,8 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
-   <topics_kaitana kaitana='$kaitana'>
-   <posting_new grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'>
-   <topics posting='$,' showchapters='*true'>
+   <topics_kaitana kaitana='$kaitana' day='$day'>
+   <topics_major ident='kaitana'>
   </zone></td>
   <td class='cframe'>
    <div style='font: bold 24pt $$style_times; color: teal; padding-bottom: 1.5ex;'>

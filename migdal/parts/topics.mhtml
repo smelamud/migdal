@@ -1,11 +1,19 @@
 << @(#) $Id$ >>
 
-<element name='topics_ner' params='time' defaults='time=0'>
-<ifbiff time='$time'>
- <image src='pics/ner-small.gif' title='новое'>
+<element name='topics_ner' params='time,arrow' defaults='time=0'>
+<if what='$arrow'>
+ <ifbiff time='$time'>
+  <image src='pics/arrow-ner.gif'>
+ <else>
+  <image src='pics/arrow.gif'>
+ </ifbiff>
 <else>
- &nbsp;
-</ifbiff>
+ <ifbiff time='$time'>
+  <image src='pics/ner-small.gif' title='новое'>
+ <else>
+  &nbsp;
+ </ifbiff>
+</if>
 </element>
 
 <element name='topics_line'>
@@ -18,7 +26,7 @@
   <tdspan span='$indent'>&nbsp;</tdspan>
  </ifnzero>
  <td>
-  <topics_ner time='$time'>
+  <topics_ner time='$time' arrow='$arrow'>
  </td>
  <tdspan span='$span'>
   <ifne what='$title'>

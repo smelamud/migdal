@@ -5,7 +5,7 @@
  <iterate_posting_users topic_id='$taglit.Id'>
  <for>
   <topics_line time='$.LastMessage' text='$.FullName'
-	       href#='taglit-user.php?user_id=$.Id'>
+	       href#='taglit-user.php?user_id=$.Id' arrow!='$.Id==$id'>
  </for>
 </topics_table>
 </element>
