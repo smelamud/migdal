@@ -201,12 +201,13 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic<0
-            ? '' 
-            : !$recursive ? ' and topic_id='.
-	                    byIdent($topic,'topic_id','topics.ident').' '
-	                  : $topic>0 ? " and topics.track like '%".
-		 	               track(idByIdent('topics',$topic))."%' "
-				     : '';
+             ? '' 
+             : (!$recursive ? ' and '.
+	                      byIdent($topic,'topic_id','topics.ident').' '
+	                    : ($topic>0 ? " and topics.track like '%".
+		 	                  track(idByIdent('topics',$topic)).
+					  "%' "
+				        : ''));
 $order=getOrderBy($sort,array(SORT_SENT => 'sent desc',
                               SORT_NAME => 'subject'));
 $this->LimitSelectIterator(

@@ -30,4 +30,4 @@
 <decel name='topicofday' file='parts/topicofday.php'>
 <decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>
 <decel name='updates' file='parts/updates.php'>
-<decel name='updates_chapter' file='parts/updates-chapter.php'>
+<decel name='updates_chapter' file='parts/updates-chapter.php' params='id'>

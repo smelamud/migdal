@@ -45,8 +45,8 @@
    </td>
    <bldot>
    <td width=22% bgcolor=F6F7FA>
-    <updates_chapter> 
-    <talking> 
+    <updates_chapter id='$upper.Id'>
+    <talking>
    </td>
   </tr></table> 
   <bottom>

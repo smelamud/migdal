@@ -1,17 +1,16 @@
 << @(#) $Id$ >>
+<< Based-on: demo/parts/postings.mhtml 1.3 >>
 
 <element name='updates_chapter'>
 <table border=0 cellPadding=2 cellSpacing=3 width=100%>
  <tr bgcolor=B1BECB><td align=center><b>Новые поступления раздела</b></td></tr>
  <tr><td>
-  <a class=under href=s1.htm>25.05 "Весь мир готов"</a><br>
-  <a class=under href=s1.htm>23.05 "Весь мир готов"</a><br> 
-  <a class=under href=s1.htm>21.05 "Весь мир готов"</a><br>
-  <a class=under href=s1.htm>14.05 "Весь мир готов"</a><br> 
-  <a class=under href=s1.htm>25.05 "Весь мир готов"</a><br>
-  <a class=under href=s1.htm>23.05 "Весь мир готов"</a><br> 
-  <a class=under href=s1.htm>21.05 "Весь мир готов"</a><br>
-  <a class=under href=s1.htm>14.05 "Весь мир готов"</a><br> 
+  <iterate_postinglist grp='*GRP_ARTICLES' topic='$id' recursive='*true'
+                       limit=9 sort='*SORT_SENT'>
+  <for>
+   <a class=under href='none.html?artid=$.Id'>$.Sent@d.$.Sent@m "$.Subject"</a>
+   <br>
+  </for>
  </td></tr>
 </table> 
 </element>
