@@ -38,10 +38,11 @@ answerUpdate($id);
 
 function setId($table,$id,$newId)
 {
-return sql("update $table
-	    set id=$newId
-	    where id=$id",
-	   'setId');
+return mysql_query("update $table
+		    set id=$newId
+		    where id=$id");
+// Здесь не пользуемся sql(), потому что проверка на ошибку происходит ниже и
+// выводится более соответствующее ситуации сообщение.
 }
 
 // NOTE: Functions used here should not create journal records. Check
@@ -76,7 +77,8 @@ foreach($action as $line)
 	   {
 	   if($line->getResultId()!=$lastId
 	      && !setId($line->getResultTable(),$lastId,$line->getResultId()))
-	     bug("Identifier shift detected in '".$line->getResultTable().
+	     bug("journal: Identifier shift detected in '".
+	         $line->getResultTable().
 		 "': got $lastId instead of ".$line->getResultId());
 	   }
 	 else
