@@ -5,19 +5,19 @@
  <array name='urls'
 	val1='http://www.odessitclub.org/'
 	val2='http://www.lookstein.org/russian/'
-	val3='http://www.antho.net/'>
+	val3='http://www.antho.net/'
+	val4='http://www.rjews.net/gazeta/news.html'>
  <array name='pics'
 	val1='pics/ioc.gif'
 	val2='pics/lookstein.gif'
-	val3='pics/jerant.jpg'>
+	val3='pics/jerant.jpg'
+	val4='http://www.rjews.net/gazeta/a7ban.gif'>
  <array name='alts'
         val1=''
         val2=''
-        val3=''>
- <a href='http://www.rjews.net/gazeta/news.html' target=_blank>
-  <img src='http://www.rjews.net/gazeta/a7ban.gif' width=88 height=31
-       border=0 alt='Jerusalem chronikles'></a>
- <iterate_random_seq n=2 min=1 max=3>
+        val3=''
+	val4='Jerusalem chronikles'>
+ <iterate_random_seq n=2 min=1 max=4>
  <for>
   <assign name='url' value!='$urls[$. - 1]'>
   <assign name='pic' value!='$pics[$. - 1]'>
