@@ -3,9 +3,9 @@
 <element name='topics_ner' params='time,arrow' defaults='time=0'>
 <if what='$arrow'>
  <ifbiff time='$time'>
-  <image src='pics/arrow-ner.gif'>
+  <image src='$$style_topics_arrow'>
  <else>
-  <image src='pics/arrow.gif'>
+  <image src='$$style_topics_ner_arrow'>
  </ifbiff>
 <else>
  <ifbiff time='$time'>
