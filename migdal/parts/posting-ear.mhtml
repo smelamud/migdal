@@ -4,6 +4,7 @@
   <td width=150>
    <a href='$posting.URL'>
     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'></a>
+   <br><span class='sent'>$posting.Sent@j.$posting.Sent@m.$posting.Sent@Y</span>
   </td>
   <td width=5>&nbsp;</td>
   <td width=250>
