@@ -8,7 +8,7 @@ function isCalendarAvailable()
 global $calendarAvailableCache;
 
 if($calendarAvailableCache<0)
-  $calendarAvailableCache=array_search('Calendar',get_loaded_extensions(),
+  $calendarAvailableCache=array_search('calendar',get_loaded_extensions(),
                                        false);
 return $calendarAvailableCache;
 }
@@ -49,5 +49,20 @@ else
   SDNToJewish(UNIXToSDN($time),$dt[0],$dt[1],$dt[2]);
   }
 return $dt[1].' '.$jmonths[$dt[0]].' '.$dt[2];
+}
+
+function getCalendarAge($bMonth,$bDay,$bYear,$month,$day,$year)
+{
+if(isCalendarAvailable())
+  {
+  $jbt=GregorianToJD($bMonth,$bDay,$bYear);
+  $jt=GregorianToJD($month,$day,$year);
+  }
+else
+  {
+  $jbt=GregorianToSDN($bMonth,$bDay,$bYear);
+  $jt=GregorianToSDN($month,$day,$year);
+  }
+return (int)(($jt-$jbt)/365.25);
 }
 ?>

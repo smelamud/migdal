@@ -146,9 +146,7 @@ function getAge()
 {
 $bt=explode('-',$this->birthday);
 $t=getdate();
-$jbt=GregorianToJD($bt[1],$bt[2],$bt[0]);
-$jt=GregorianToJD($t['mon'],$t['mday'],$t['year']);
-$age=(int)(($jt-$jbt)/365.25);
+$age=getCalendarAge($bt[1],$bt[2],$bt[0],$t['mon'],$t['mday'],$t['year']);
 return $age<100 ? $age : '-';
 }
 
