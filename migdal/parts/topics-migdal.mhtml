@@ -1,14 +1,13 @@
 << @(#) $Id$ >>
 
-<element name='topics_kes' params='posting'>
-<topics_table title='КЕС'>
- <posting_obj id='$`postings:kes`'>
- <topics_line time='$,Sent' text='О клубе'
-              href#='migdal.php?artid=$`postings:kes`'
-              arrow!='$posting.Id==$`postings:kes`' class='item eightpt'>
- <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*true'>
- <topics_line time='$,' text='Галерея' href#='gallery.php?topic_id=$`kes`'
-              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`kes`'
+<element name='topics_chapters' params='posting,title,id,rtitle,rid'>
+<topics_table title='$title'>
+ <posting_obj id='$rid'>
+ <topics_line time='$,Sent' text='$rtitle' href#='migdal.php?artid=$rid'
+              arrow!='$posting.Id==$rid' class='item eightpt'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$id' recursive='*true'>
+ <topics_line time='$,' text='Галерея' href#='gallery.php?topic_id=$id'
+              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$id'
 	      class='item eightpt'>
 </topics_table>
 </element>
@@ -16,7 +15,12 @@
 <element name='topics_migdal'>
 <grps>
 <if what='$/$posting.TopicId,1/==$`kes`'>
- <topics_kes posting='$posting'>
+ <topics_chapters posting='$posting' title='КЕС' id='$`kes`'
+                  rtitle='О клубе' rid='$`postings:kes`'>
+</if>
+<if what='$/$posting.TopicId,1/==$`mazltov`'>
+ <topics_chapters posting='$posting' title='Мазл Тов' id='$`mazltov`'
+                  rtitle='О программе' rid='$`postings:mazltov`'>
 </if>
 <topic_obj id='$`migdal`'>
 <topics_table title='$,Name' span=2>
@@ -40,6 +44,11 @@
 	       class!="$.Id==$`postings:migdal`
 	               ? 'item ninept' : 'item eightpt'">
  </for>
+ <posting_last topic_id='$`mazltov`' recursive='*true'>
+ <topics_line time='$,' text='Мазл Тов'
+              href#='migdal.php?artid=$`postings:mazltov`'
+              arrow!="$/$posting.TopicId,1/==$`mazltov`" indent=1 span=2
+	      class='item eightpt'>
  <posting_last topic_id='$`kes`' recursive='*true'>
  <topics_line time='$,' text='Клуб Еврейского Студента'
               href#='migdal.php?artid=$`postings:kes`'
