@@ -2,8 +2,9 @@
 << Based-on: migdal/parts/posting.mhtml 1.33 >>
 
 <grps>
-<element name='taglit_posting_further' params='id'>
- <asp><a href='forum.php?redirid=$_&msgid=$id'><asp>
+
+<element name='taglit_posting_further' params='posting'>
+ <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
   <image src='pics/further.gif' border=0 title='Читать дальше'>
  <asp></a>&nbsp;<asp>
 </element>
@@ -37,7 +38,7 @@
   <if what='$shorten'>
    $posting.HTMLBodyMedium&nbsp;<asp>
    <if what='!$posting.isBodyMedium'>
-    <taglit_posting_further id='$posting.Id'>
+    <taglit_posting_further posting='$posting'>
    </if>
   <else>
    $posting.HTMLBody&nbsp;<asp>

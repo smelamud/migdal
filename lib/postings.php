@@ -211,7 +211,8 @@ $order=getOrderBy($sort,
 	     SORT_INDEX0   => 'index0',
 	     SORT_INDEX1   => 'index1',
 	     SORT_RINDEX1  => 'index1 desc',
-	     SORT_RATING   => 'if(vote_count=0,2.5,vote/vote_count) desc,sent desc'));
+	     SORT_RATING   => 'if(vote_count=0,2.5,vote/vote_count) desc,'.
+	                      'vote_count desc,sent desc'));
 $answerFilter=$withAnswers!=GRP_NONE
               ? $withAnswers==GRP_ALL
 	        ? 'having count(forummesgs.id)<>0'

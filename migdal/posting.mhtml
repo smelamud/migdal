@@ -1,12 +1,11 @@
 << @(#) $Id$ >>
 
-<force_community>
-<int name='msgid'>
+<int name='postid'>
 <grps>
-<read_posting id='$msgid'>
-<posting_full name='posting' id='$msgid' grp='*GRP_FORUMS'>
-<zone><log event=forum text#='post($,Id)'></zone>
-<pagetitle title#='Обсуждение &lt;&lt;$,SubjectDesc&gt;&gt;'>
+<read_posting id='$postid'>
+<posting_full name='posting' id='$postid' grp='*GRP_FORUMS'>
+<zone><log event=posting text#='post($,Id)'></zone>
+<pagetitle title='$,SubjectDesc'>
 
 <zone>
  <ifne what='$,TapeStylesheet'><stylesheet ident='$,TapeStylesheet'></ifne>
@@ -21,10 +20,8 @@
   </td>
   <td width=5>&nbsp;</td>
   <td>
-   <posting posting='$posting' shorten='*true' showdiscuss='*false'
+   <posting posting='$posting' showdiscuss='$$communityDomain'
             showcomplain='$$communityDomain'>
-   <p>
-   <forums up='$,MessageId' limit='$$userForumPortion'>
   </td>
  </tr></table>
  <bottom>
