@@ -1,0 +1,11 @@
+<< @(#) $Id$ >>
+
+<element name='topics_minor'>
+<topics_table title='$title'>
+ <iterate_topiclist grp='$grp' up='$up'>
+ <for>
+  <topics_line text='$.Name' title='$.Description' href#='$href?topic_id=$.Id'
+               count='$.MessageCount' arrow!='$.Id==$id'>
+ </for>
+</topics_table>
+</element>

@@ -337,7 +337,7 @@ function TopicHierarchyIterator($topic_id,$root=-1,$reverse=false)
 {
 $root=idByIdent('topics',$root);
 $topics=array();
-for($id=idByIdent('topics',$topic_id);$id!=0 && $id!=$root;)
+for($id=idByIdent('topics',$topic_id);$id>0 && $id!=$root;)
    {
    $topic=getTopicById($id,0);
    $topics[]=$topic;
@@ -374,14 +374,18 @@ $result=mysql_query(
                stotexts.body as description,image_set,
 	       large_filename,large_format,
 	       stotexts.large_body as large_description,
-	       large_imageset,topics.hidden as hidden,allow,premoderate,
-	       topics.ident as ident,max(messages.sent) as last_message,
-	       user_id,login,gender,email,hide_email,rebe
+	       large_imageset,topics.hidden as hidden,topics.allow as allow,
+	       topics.premoderate as premoderate,topics.ident as ident,
+	       max(messages.sent) as last_message,
+	       topics.user_id as user_id,login,gender,email,hide_email,rebe,
+	       count(distinct subtopics.id) as sub_count
 	from topics
 	     left join users
 	          on topics.user_id=users.id
 	     left join stotexts
 		  on topics.stotext_id=stotexts.id
+	     left join topics as subtopics
+	          on subtopics.up=topics.id
 	     left join postings
 	          on postings.topic_id=topics.id
 	     left join messages

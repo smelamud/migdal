@@ -28,9 +28,15 @@
        defaults='span=0'>
 <decel name='top_admin' file='parts/top-admin.php'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
+<decel name='topics_branch' file='parts/topics-branch.php'
+       params='topic_id,root,grp,href'
+       defaults="root='general' grp='*GRP_ALL' href='articles.php'">
 <decel name='topics_line' params='arrow,text,title,href,count,class,indent,span'
        defaults="arrow='*false' text='' title='' href='' count='' class='item' indent=0 span=1"
        file='parts/topics.php'>
+<decel name='topics_minor' file='parts/topics-minor.php'
+       params='id,up,grp,href,title'
+       defaults="up='general' grp='*GRP_ALL' href='articles.php'">
 <decel name='topics_table' params='class,span,title'
        defaults="class='' span=1 title=''" file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
