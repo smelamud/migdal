@@ -49,8 +49,10 @@
 		  mandatory='$$forumanswerMandatoryBody' rows=12 cols=65>
      <help_link href='stotext-help-subs.php'
 		title='Список обозначений, используемых в тексте'>
-     <checkbox_line name='hidden' value='$answer.isHidden'
-		    title='Не показывать'>
+     <logged>
+      <checkbox_line name='hidden' value='$answer.isHidden'
+		     title='Не показывать'>
+     </logged>
      <moderator>
       <checkbox_line name='disabled' value='$answer.isDisabled'
 		     title='Запретить показ'>

@@ -251,8 +251,10 @@
     <else>
      <hidden name='url' value='$message.URL'>
     </if>
-    <checkbox_line name='hidden' value='$message.isHidden'
-		   title='Не показывать'>
+    <logged>
+     <checkbox_line name='hidden' value='$message.isHidden'
+		    title='Не показывать'>
+    </logged>
     <full>
      <checkbox_line name='disabled' value='$message.isDisabled'
 		    title='Запретить показ'>
