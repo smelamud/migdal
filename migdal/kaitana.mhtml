@@ -26,7 +26,7 @@
 <log event=kaitana text#='topic($kaitana.Id) post($posting.Id)'>
 
 <macro name='editor'>
- <if what='$kaitana.UserId==$$userId || $$userModerator'>
+ <ispost what='$kaitana'>
 </macro>
 <endif name='/editor'>
 

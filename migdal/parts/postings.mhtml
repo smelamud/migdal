@@ -2,33 +2,27 @@
 
 <grps>
 
-<element name='batcher' params='list,topic_id,grp,showadvert,public'>
+<element name='batcher' params='list,topic_id,grp,showadvert,access'>
 <posting_new grp='$grp'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
-  <logged>
-   <if what='$topic_id>0'><zone>
-    <topic_obj name='topic' id='$topic_id'>
-   </zone></if>
-   <if what='$public || $topic_id<0 || $topic.UserId==$$userId ||
-             $$userModerator'>
-    <table><tr valign=center>
-     <td><image src='pics/sheet.gif'></td>
-     <td>
-      <if what='$,isValid'>
-       <a href='postingedit.php?topic_id=$topic_id&grp=$grp&redirid=$_'
-	  >Добавить $,GrpItemTitle</a>
-      <else>
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
-	  >Добавить новость</a>,
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
-	  >статью</a>,
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
-	  >книгу</a>
-      </if>
-     </td>
-    </tr></table>
-   </if>
+  <if what='$access'>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <if what='$,isValid'>
+      <a href='postingedit.php?topic_id=$topic_id&grp=$grp&redirid=$_'
+	 >Добавить $,GrpItemTitle</a>
+     <else>
+      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&redirid=$_'
+	 >Добавить новость</a>,
+      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&redirid=$_'
+	 >статью</a>,
+      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&redirid=$_'
+	 >книгу</a>
+     </if>
+    </td>
+   </tr></table>
   <else>
    <if what='$showadvert'>
     <em>
@@ -40,26 +34,32 @@
     </em>
     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </if>
-  </logged>
+  </if>
  </td>
  <td align=center><spin list='$list'></td>
 </tr></table>
 </element>
 
 <element name='postings'>
+<if what='$topic_id>0'>
+ <perms table='topics' id='$topic_id'>
+ <assign name='access' value='$,isPostable'>
+<else>
+ <assign name='access' value!='$$userId>0'>
+</if>
 <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
                      offset='$offset' sort='$sort' subdomain='$subdomain'
 		     user='$user_id' showshadows='$showshadows'>
-<if what='$$userId>0 || $showadvert || $;Count!=0'>
+<if what='$access || $showadvert || $;Count!=0'>
  <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'
-          public='$public'>
+          access='$access'>
  <for>
   <posting posting='$.' showtopic!='$topic_id<0' shorten='*true'
            showdiscuss='*true' showcomplain='*true'>
  </for>
  <ifnzero what='$;Count'>
   <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'
-           public='$public'>
+           access='$access'>
  </ifnzero>
 <else>
  &nbsp;

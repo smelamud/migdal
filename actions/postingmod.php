@@ -104,13 +104,13 @@ if($message->mandatoryURL() && $message->url=='')
   return EP_URL_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
-if($message->topic_id!=0 && !topicExists(addslashes($message->topic_id)))
-  return EP_NO_TOPIC;
-if($message->topic_id!=0 && !$userModerator)
+if($message->topic_id!=0)
   {
-  $ownerId=getTopicOwnerById(addslashes($message->topic_id));
-  if($ownerId!=0 && $ownerId!=$userId)
-    return EP_OWNED_TOPIC;
+  $perms=getPermsById('topics',addslashes($message->topic_id));
+  if(!$perms)
+    return EP_NO_TOPIC;
+  if(!$perms->isPostable())
+    return EP_TOPIC_ACCESS;
   }
 if($message->mandatoryIdent() && $message->ident=='')
   return EP_IDENT_ABSENT;

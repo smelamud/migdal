@@ -17,9 +17,9 @@
  <topics_chapters posting='$posting' title='КЕС' id='$`kes`'
                   rtitle='О клубе' rid='$`postings:kes`'>
 </if>
-<topic_obj id='$`jcc`'>
+<topic_obj name='jcc' id='$`jcc`'>
 <topics_table title='$,Name' span=2>
- <if what='$,UserId==$$userId || $$userModerator'>
+ <ispost what='$jcc'>
   <tr><td colspan=3>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Добавить</a>
@@ -28,7 +28,7 @@
    <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Расставить</a>
   </td></tr>
- </if>
+ </ispost>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
                       topic_id='$,Id' recursive='*false'>
  <posting_obj id='$`postings:jcc`'>
@@ -95,9 +95,9 @@
 <if what='$/$posting.TopicId,1/==$`migdal-library`'>
  <topics_migdal_library posting='$posting'>
 </if>
-<topic_obj id='$`migdal`'>
+<topic_obj name='migdal' id='$`migdal`'>
 <topics_table title='$,Name' span=2>
- <if what='$,UserId==$$userId || $$userModerator'>
+ <ispost what='$migdal'>
   <tr><td colspan=3>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Добавить</a>
@@ -106,7 +106,7 @@
    <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Расставить</a>
   </td></tr>
- </if>
+ </ispost>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
                       topic_id='$,Id' recursive='*false'>
  <posting_last topic_id='$`migdal-news`' recursive='*true'>

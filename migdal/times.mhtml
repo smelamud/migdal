@@ -5,7 +5,7 @@
 <pagetitle title='Мигдаль Times'>
 
 <macro name='editor'>
- <if what='$times.UserId==$$userId || $$userModerator'>
+ <ispost what='$times'>
 </macro>
 <endif name='/editor'>
 
