@@ -4,6 +4,7 @@
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/months.php');
+require_once('lib/utils.php');
 
 class User
       extends DataObject
@@ -31,9 +32,9 @@ function setupHTTP($vars)
 {
 if(!isset($vars['login']))
   return;
-foreach(array('login','name','jewish_name','surname','migdal_student','info',
-              'email','icq') as $var)
-       $this->$var=quotemeta($vars[$var]);
+foreach(array('login','password','name','jewish_name','surname',
+              'migdal_student','info','email','icq') as $var)
+       $this->$var=htmlspecialchars($vars[$var]);
 $this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
                                         .'-'.$vars['birth_day'];
 $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
@@ -42,6 +43,39 @@ $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 function isEditable()
 {
 return $this->id==0;
+}
+
+function isAdmined()
+{
+return false;
+}
+
+function store()
+{
+$normal=array('login'          => $this->login,
+              'password'       => md5($this->password),
+	      'name'           => $this->name,
+	      'jewish_name'    => $this->jewish_name,
+	      'surname'        => $this->surname,
+	      'info'           => $this->info,
+	      'birthday'       => $this->birthday,
+	      'migdal_student' => $this->migdal_student,
+	      'email'          => $this->email,
+	      'icq'            => $this->icq,
+	      'email_disabled' => $this->email_disabled);
+$result=mysql_query($this->id 
+                    ? makeUpdate('users',$normal,array('id' => $this->id))
+                    : makeInsert('users',$normal));
+if(!$this->id)
+  $this->id=mysql_insert_id();
+return $result;
+}
+
+function online()
+{
+if(!$this->id)
+  return false;
+return mysql_query('update users set last_online=now() where id='.$this->id);
 }
 
 function getId()
