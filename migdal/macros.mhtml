@@ -2,7 +2,7 @@
 
 << Errors >>
 <macro name='error'>
- <require name='lib/errors.php'>
+ <errors>
  <perror id='%id' text='%text' color='%color' span='%span'>
 </macro>
 
@@ -80,40 +80,14 @@
        params='name,format' defaults="name='large_format'">
 
 << GRP >>
-<macro name='grptitle' defaults="grp='$grp'">
- <zone>
-  <array vals='Сообщения,Мнения,Новости,Галерея,Статьи'>
-  <grpword name='grptitle' grp='%grp'>
- </zone>
-</macro>
-
-<macro name='grpitemtitle' defaults="grp='$grp'">
- <zone>
-  <array vals='сообщение,мнение,новость,картинку,статью'>
-  <grpword name='grpitemtitle' grp='%grp'>
- </zone>
-</macro>
-
-<macro name='grpitemstitle' defaults="grp='$grp'">
- <zone>
-  <array vals='сообщения,мнения,новости,картинки,статьи'>
-  <grpword name='grpitemstitle' grp='%grp'>
- </zone>
-</macro>
-
-<macro name='grpident' defaults="grp='$grp'">
- <zone>
-  <array vals='messages,forums,news,gallery,articles'>
-  <grpword name='grpident' grp='%grp'>
- </zone>
-</macro>
-
-<macro name='grppic' defaults="grp='$grp'">
- <zone>
-  <array vals='pics/forums.gif,pics/forums.gif,pics/news.gif,pics/gallery.gif,pics/articles.gif'>
-  <grpword name='grppic' grp='%grp'>
- </zone>
-</macro>
+<decgrpmesgs name='grptitle' vals='Сообщения,Мнения,Новости,Галерея,Статьи'>
+<decgrpmesgs name='grpitemtitle'
+             vals='сообщение,мнение,новость,картинку,статью'>
+<decgrpmesgs name='grpitemstitle'
+             vals='сообщения,мнения,новости,картинки,статьи'>
+<decgrpmesgs name='grpident' vals='messages,forums,news,gallery,articles'>
+<decgrpmesgs name='grppic'
+             vals='pics/forums.gif,pics/forums.gif,pics/news.gif,pics/gallery.gif,pics/articles.gif'>
 
 <macro name='ofmessages'>
  <zone>

@@ -220,18 +220,29 @@ my ($s)=@_;
 return subVars($s,'<?php echo ','; ?>');
 }
 
+sub getArgList
+{
+my ($s)=@_;
+
+my $ss='';
+my $i=1;
+foreach(map{s/^\$//;$_} split(/[\s,]+/,$s))
+       {
+       $ss.="arg$i='\%$_' ";
+       }
+return $ss;
+}
+
 sub subMacroParam
 {
 my ($s,$params)=@_;
 
 return $params->{$1}
-       if $s=~/^%(\w+)$/;
+       if $s=~/^%{?(\w+)}?$/;
 return uc($params->{$1})
-       if $s=~/^%\^(\w+)$/;
-return $params->{$1}
-       if $s=~/^%{(\w+)}$/;
-return uc($params->{$1})
-       if $s=~/^%\^{(\w+)}$/;
+       if $s=~/^%\^{?(\w+)}?$/;
+return getArgList($params->{$1})
+       if $s=~/^%\@{?(\w+)}?$/;
 return $s;
 }
 
@@ -243,7 +254,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^%]*)((?:%[\^]?{?\w+}?)?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^%]*)((?:%[\^@]?{?\w+}?)?)(.*)$/s;
      $c.=$head;
      $c.=subMacroParam($var,$params) if $var ne '';
      }
@@ -791,12 +802,16 @@ sub elMacro #XXX Possibly empty name
 my ($self)=@_;
 
 my $body='';
-::pullToken();
-while((ref($::Token) ne 'Tag' || $::Token->getName() ne '/macro')
-      && $::Line ne '')
+my $level=1;
+while($level!=0 && $::Line ne '')
      {
-     $body.=$::Token->getToken();
      ::pullToken();
+     if(ref($::Token) eq 'Tag')
+       {
+       $level++ if $::Token->getName() eq 'macro';
+       $level-- if $::Token->getName() eq '/macro';
+       }
+     $body.=$::Token->getToken() if $level!=0;
      }
 $::Macros{lc $self->getArg('name')}=Macro->new($body,$self->getArg('defaults'));
 }

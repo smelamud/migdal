@@ -1,100 +1,25 @@
 << @(#) $Id$ >>
 
 << Constants  & Globals >>
-<macro name='grps'>
- <require name='lib/grps.php'>
+<macro name='decconst'>
+ <macro name='%name'>
+  <require name='%file'>
+ </macro>
 </macro>
 
-<macro name='conf'>
- <require name='conf/migdal.conf'>
-</macro>
-
-<macro name='errors'>
- <require name='lib/errors.php'>
-</macro>
-
-<macro name='image_placements'>
- <require name='lib/stotext-images.php'>
-</macro>
-
-<macro name='sorts'>
- <require name='lib/sort.php'>
-</macro>
-
-<macro name='text_formats'>
- <require name='lib/text.php'>
-</macro>
-
-<< GRP >>
-<macro name='grpdata' defaults="name=g grp='$grp' ignore=0">
- <require name='lib/grputils.php'>
- <obj name='%name' class='GrpData' arg1='%grp' arg2='%ignore'>
-</macro>
-
-<macro name='grp' defaults="name=g grp='$grp' ignore=0">
- <header>
-  <require name='lib/grps.php'>
-  <grpdata name='%name' grp='%grp' ignore='%ignore'>
- </header>
-</macro>
-
-<macro name='grpword' defaults="grp='$grp' words='$*'">
- <require name='lib/grps.php'>
- <call name='%name' func='getGrpWord' arg1='%grp' arg2='%words'>
-</macro>
-
-<macro name='grpplural' defaults="grp='$grp' words='$*'">
- <require name='lib/grps.php'>
- <call name='%name' func='getGrpPlural' arg1='%value' arg2='%grp'
-       arg3='%words'>
-</macro>
+<decconst name='conf' file='conf/migdal.conf'>
+<decconst name='errors' file='lib/errors.php'>
+<decconst name='grps' file='lib/grps.php'>
+<decconst name='image_placements' file='lib/stotext-images.php'>
+<decconst name='sorts' file='lib/sort.php'>
+<decconst name='text_formats' file='lib/text.php'>
 
 << Iterators >>
-<macro name='iterate_array' defaults="values='$*'">
- <require name='lib/array.php'>
- <iterate name='%name' class='ArrayIterator' arg1='%values'>
-</macro>
-
-<macro name='iterate_chat' defaults='limit=20'>
- <require name='lib/chat.php'>
- <iterate name='%name' class='ChatMessageListIterator' arg1='%limit'>
-</macro>
-
-<macro name='iterate_complainlist' defaults='limit=20 offset=0'>
- <require name='lib/complains.php'>
- <iterate name='%name' class='ComplainListIterator' arg1='%limit'
-          arg2='%offset'>
-</macro>
-
-<macro name='iterate_complain_actionlist'>
- <require name='lib/complainactions.php'>
- <iterate name='%name' class='ComplainActionListIterator' arg1='%type'>
-</macro>
-
-<macro name='iterate_complain_scriptlist'>
- <require name='lib/complainscripts.php'>
- <iterate name='%name' class='ComplainScriptListIterator' arg1='%ident'>
-</macro>
-
-<macro name='iterate_complain_types'>
- <require name='lib/complaintypes.php'>
- <iterate name='%name' class='ComplainTypeListIterator'>
-</macro>
-
-<macro name='iterate_confirm_instant_messagelist'>
- <require name='lib/instants.php'>
- <iterate name='%name' class='ConfirmInstantMessageListIterator'>
-</macro>
-
-<macro name='iterate_forum_answerlist'>
- <require name='lib/forums.php'>
- <iterate name='%name' class='ForumAnswerListIterator'
-          arg1='%up' arg2='%limit' arg3='%offset'>
-</macro>
-
-<macro name='iterate_grps'>
- <require name='lib/grputils.php'>
- <iterate name='%name' class='GrpIterator'>
+<macro name='deciter' defaults="name='%name'">
+ <macro name='iterate_%macro' defaults='%defaults'>
+  <require name='%file'>
+  <iterate name='%name' class='%class' %@params>
+ </macro>
 </macro>
 
 <macro name='iterate_http' defaults="method=get remove=''">
@@ -111,148 +36,105 @@
  </zone>
 </macro>
 
-<macro name='iterate_imageset'>
- <require name='lib/images.php'>
- <iterate name='%name' class='ImageSetIterator' arg1='%imageset'>
-</macro>
-
-<macro name='iterate_instant_messagelist'>
- <require name='lib/instants.php'>
- <iterate name='%name' class='InstantMessageListIterator'>
-</macro>
-
-<macro name='iterate_menu'>
- <require name='lib/menu.php'>
- <iterate name='%name' class='MenuIterator' arg1='%ident'>
-</macro>
-
-<macro name='iterate_months'>
- <require name='lib/months.php'>
- <iterate name='%name' class='MonthsIterator'>
-</macro>
-
-<macro name='iterate_paragraphs'>
- <require name='lib/paragraphs.php'>
- <iterate name='%name' class='ParagraphIterator' arg1='%format' arg2='%body'>
-</macro>
-
-<macro name='iterate_picturelist'
-       defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT'">
- <require name='lib/postings.php'>
- <iterate name='%name' class='PictureListIterator'
-          arg1='%grp' arg2='%topic' arg3='%recursive' arg4='%rows' arg5='%cols'
-	  arg6='%offset' arg7='%personal' arg8='%sort'>
-</macro>
-
-<macro name='iterate_posting_paragraphs'>
- <require name='lib/postings.php'>
- <iterate name='%name' class='PostingParagraphIterator' arg1='%posting'>
-</macro>
-
-<macro name='iterate_postinglist'
-       defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*false'">
- <require name='lib/postings.php'>
- <iterate name='%name' class='PostingListIterator'
-          arg1='%grp' arg2='%topic' arg3='%recursive' arg4='%limit'
-	  arg5='%offset' arg6='%personal' arg7='%sort' arg8='%withanswers'>
-</macro>
-
-<macro name='iterate_received_instant_messagelist'>
- <require name='lib/instants.php'>
- <iterate name='%name' class='ReceivedInstantMessageListIterator'>
-</macro>
-
-<macro name='iterate_sortarray' defaults="values='$*'">
- <require name='lib/array.php'>
- <iterate name='%name' class='SortedArrayIterator' arg1='%values'>
-</macro>
-
-<macro name='iterate_styles'>
- <require name='lib/style.php'>
- <iterate name='%name' class='StyleNamesIterator'>
-</macro>
-
-<macro name='iterate_topiclist'
-       defaults="up=0 withpostings='*false' withanswers='*false'">
- <require name='lib/topics.php'>
- <iterate name='%name' class='TopicListIterator' arg1='%grp' arg2='%up'
-          arg3='%withpostings' arg4='%withanswers'>
-</macro>
-
-<macro name='iterate_topicnames'>
- <require name='lib/topics.php'>
- <iterate name='%name' class='TopicNamesIterator' arg1='%grp'>
-</macro>
-
-<macro name='iterate_userlist'>
- <require name='lib/users.php'>
- <iterate name='%name' class='UserListIterator'>
-</macro>
+<deciter macro='array' class='ArrayIterator' file='lib/array.php'
+         params='values' defaults="values='$*'">
+<deciter macro='chat' class='ChatMessageListIterator' file='lib/chat.php'
+         params='limit' defaults='limit=20'>
+<deciter macro='complainlist' class='ComplainListIterator'
+         file='lib/complains.php' params='limit,offset'
+	 defaults='limit=20 offset=0'>
+<deciter macro='complain_actionlist' class='ComplainActionListIterator'
+         file='lib/complainactions.php' params='type'>
+<deciter macro='complain_scriptlist' class='ComplainScriptListIterator'
+         file='lib/complainscripts.php' params='ident'>
+<deciter macro='complain_types' class='ComplainTypeListIterator'
+         file='lib/complaintypes.php'>
+<deciter macro='confirm_instant_messagelist'
+         class='ConfirmInstantMessageListIterator' file='lib/instants.php'>
+<deciter macro='forum_answerlist' class='ForumAnswerListIterator'
+         file='lib/forums.php' params='up,limit,offset'
+	 defaults='limit=20 offset=0'>
+<deciter macro='grps' class='GrpIterator' file='lib/grputils.php'>
+<deciter macro='imageset' class='ImageSetIterator' file='lib/images.php'
+         params='imageset'>
+<deciter macro='instant_messagelist' class='InstantMessageListIterator'
+         file='lib/instants.php'>
+<deciter macro='menu' class='MenuIterator' file='lib/menu.php' params='ident'>
+<deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
+         params='format,body'>
+<deciter macro='picturelist' class='PictureListIterator' file='lib/postings.php'
+         params='grp,topic,recursive,rows,cols,offset,personal,sort'
+         defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT'">
+<deciter macro='posting_paragraphs' class='PostingParagraphIterator'
+         file='lib/postings.php' params='posting'>
+<deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
+         params='grp,topic,recursive,limit,offset,personal,sort,withanswers'
+         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*false'">
+<deciter macro='received_instant_messagelist'
+         class='ReceivedInstantMessageListIterator' file='lib/instants.php'>
+<deciter macro='sortarray' class='SortedArrayIterator' file='lib/array.php'
+         params='values' defaults="values='$*'">
+<deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
+<deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
+         params='grp,up,withpostings,withanswers'
+         defaults="up=0 withpostings='*false' withanswers='*false'">
+<deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
+         params='grp'>
+<deciter macro='userlist' class='UserListIterator' file='lib/users.php'>
 
 << Calls >>
-<macro name='decstyle'>
- <require name='lib/style.php'>
- <call func='declareStyle' arg1='%ident' arg2='%name'>
+<macro name='deccall' defaults="name='%name'">
+ <macro name='%macro' defaults='%defaults'>
+  <require name='%file'>
+  <call name='%name' func='%func' %@params>
+ </macro>
 </macro>
 
-<macro name='complain_action_obj' defaults='name=act'>
- <require name='lib/complainactions.php'>
- <call name='%name' func='getComplainActionById' arg1='%id'>
-</macro>
+<deccall macro='decstyle' func='declareStyle' file='lib/style.php'
+         params='ident,desc'>
 
-<macro name='complain_obj' defaults='name=complain ident=normal link=0'>
- <require name='lib/complains.php'>
- <call name='%name' func='getComplainById' arg1='%id' arg2='%ident'
-       arg3='%link'>
-</macro>
-
-<macro name='complain_full' defaults='name=complain ident=normal'>
- <require name='lib/complains.php'>
- <call name='%name' func='getFullComplainById' arg1='%id' arg2='%ident'>
-</macro>
-
-<macro name='complain_type_obj' defaults='name=type'>
- <require name='lib/complaintypes.php'>
- <call name='%name' func='getComplainTypeById' arg1='%id'>
-</macro>
-
-<macro name='forum_answer_obj' defaults='name=answer up=0'>
- <require name='lib/forums.php'>
- <call name='%name' func='getForumAnswerById' arg1='%id' arg2='%up'>
-</macro>
-
-<macro name='forum_answer_author' defaults='name=answer up=0'>
- <require name='lib/forums.php'>
- <call name='%name' func='getForumAnswerAuthorBySent' arg1='%up' arg2='%sent'>
-</macro>
-
-<macro name='forum_answer_full' defaults='name=answer'>
- <require name='lib/forums.php'>
- <call name='%name' func='getFullForumAnswerById' arg1='%id'>
-</macro>
-
-<macro name='image_obj' defaults='name=image id=0'>
- <require name='lib/images.php'>
- <call name='%name' func='getImageById' arg1='%id'>
-</macro>
-
-<macro name='image_name' defaults='name=image'>
- <require name='lib/images.php'>
- <call name='%name' func='getImageNameBySet' arg1='%set'>
-</macro>
-
-<macro name='image_tag' defaults="align=''">
- <require name='lib/images.php'>
- <call name='%name' func='getImageTagById' arg1='%id' arg2='%align'>
-</macro>
+<deccall macro='complain_action_obj' func='getComplainActionById'
+         file='lib/complainactions.php' params='id' defaults='name=act'>
+<deccall macro='complain_obj' func='getComplainById' file='lib/complains.php'
+         params='id,ident,link' defaults='name=complain ident=normal link=0'>
+<deccall macro='complain_full' func='getFullComplainById'
+         file='lib/complains.php' params='id,ident'
+	 defaults='name=complain ident=normal'>
+<deccall macro='complain_type_obj' func='getComplainTypeById'
+         file='lib/complaintypes.php' params='id' defaults='name=type'>
+<deccall macro='forum_answer_obj' func='getForumAnswerById'
+         file='lib/forums.php' params='id,up' defaults='name=answer up=0'>
+<deccall macro='forum_answer_author' func='getForumAnswerAuthorBySent'
+         file='lib/forums.php' params='up,sent' defaults='name=answer up=0'>
+<deccall macro='forum_answer_full' func='getFullForumAnswerById'
+         file='lib/forums.php' params='id' defaults='name=answer'>
+<deccall macro='image_obj' func='getImageById' file='lib/images.php' params='id'
+         defaults='name=image id=0'>
+<deccall macro='image_name' func='getImageNameBySet' file='lib/images.php'
+         params='set' defaults='name=image'>
+<deccall macro='image_tag' func='getImageTagById' file='lib/images.php'
+         params='id,align' defaults="align=''">
+<deccall macro='image_link' func='getImageEnlargeLinkById' file='lib/images.php'
+         params='id'>
+<deccall macro='menu_obj' func='getMenuItemById' file='lib/menu.php'
+         params='id' defaults='name=menu id=0'>
+<deccall macro='plural' func='getPlural' file='lib/utils.php'
+         params='value,words' defaults="words='$*'">
+<deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
+         params='id,grp,topic' defaults='name=message grp=*GRP_ALL topic=0'>
+<deccall macro='posting_full' func='getFullPostingById' file='lib/postings.php'
+         params='id,grp' defaults='name=message grp=*GRP_ALL'>
+<deccall macro='stotext_image_obj' func='getStotextImageByParagraph'
+         file='lib/stotext-images.php' params='id,par' defaults='name=image'>
+<deccall macro='time' func='time'>
+<deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
+         params='id,up' defaults='id="$topic_id" up=0'>
+<deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
+         params='id' defaults='name=topic id="$topic_id"'>
+<deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
 
 <macro name='image_tag_put' defaults="align=''">
  <zone><image_tag id='%id' align=%align>$,</zone>
-</macro>
-
-<macro name='image_link'>
- <require name='lib/images.php'>
- <call name='%name' func='getImageEnlargeLinkById' arg1='%id'>
 </macro>
 
 <macro name='image_linked_tag' defaults="enlarge=true align=''">
@@ -265,26 +147,6 @@
  </zone>
 </macro>
 
-<macro name='menu_obj' defaults='name=menu id=0'>
- <require name='lib/menu.php'>
- <call name='%name' func='getMenuItemById' arg1='%id'>
-</macro>
-
-<macro name='plural' defaults="words='$*'">
- <require name='lib/utils.php'>
- <call name='%name' func='getPlural' arg1='%value' arg2='%words'>
-</macro>
-
-<macro name='posting_obj' defaults='name=message grp=*GRP_ALL topic=0'>
- <require name='lib/postings.php'>
- <call name='%name' func='getPostingById' arg1='%id' arg2='%grp' arg3='%topic'>
-</macro>
-
-<macro name='posting_full' defaults='name=message grp=*GRP_ALL'>
- <require name='lib/postings.php'>
- <call name='%name' func='getFullPostingById' arg1='%id' arg2='%grp'>
-</macro>
-
 <macro name='reload'>
  <require name='lib/utils.php'>
  <zone>
@@ -292,159 +154,120 @@
  </zone>
 </macro>
 
-<macro name='stotext_image_obj' defaults='name=image'>
- <require name='lib/stotext-images.php'>
- <call name='%name' func='getStotextImageByParagraph' arg1='%id' arg2='%par'>
+<< GRP >>
+<macro name='grpdata' defaults="name=g grp='$grp' ignore=0">
+ <require name='lib/grputils.php'>
+ <obj name='%name' class='GrpData' arg1='%grp' arg2='%ignore'>
 </macro>
 
-<macro name='time'>
- <call name='%name' func='time'>
+<macro name='grp' defaults="name=g grp='$grp' ignore=0">
+ <header>
+  <require name='lib/grps.php'>
+  <grpdata name='%name' grp='%grp' ignore='%ignore'>
+ </header>
 </macro>
 
-<macro name='topic_obj' defaults='id="$topic_id" up=0'>
- <require name='lib/topics.php'>
- <call name='%name' func='getTopicById' arg1='%id' arg2='%up'>
+<macro name='decgrpmesgs' defaults="grp='%grp'">
+ <macro name='%name' defaults="grp='$grp'">
+  <zone>
+   <array vals='%vals'>
+   <grpword name='grptitle' grp='%grp'>
+  </zone>
+ </macro>
 </macro>
 
-<macro name='topic_name' defaults='name=topic id="$topic_id"'>
- <require name='lib/topics.php'>
- <call name='%name' func='getTopicNameById' arg1='%id'>
-</macro>
-
-<macro name='user_obj'>
- <require name='lib/users.php'>
- <call name='%name' func='getUserById' arg1='%id'>
-</macro>
+<deccall macro='grpword' func='getGrpWord' file='lib/grps.php'
+         params='grp,words' defaults="grp='$grp' words='$*'">
+<deccall macro='grpplural' func='getGrpPlural' file='lib/grps.php'
+         params='value,grp,words' defaults="grp='$grp' words='$*'">
 
 << Conditionals >>
+<macro name='endif'>
+ <macro name='%name'>
+  </if>
+ </macro>
+</macro>
+
 <macro name='ifzero'>
  <if what='%what==0'>
 </macro>
-
-<macro name='/ifzero'>
- </if>
-</macro>
+<endif name='/ifzero'>
 
 <macro name='ifnzero'>
  <if what='%what!=0'>
 </macro>
-
-<macro name='/ifnzero'>
- </if>
-</macro>
+<endif name='/ifnzero'>
 
 <macro name='isedit'>
  <if what='$%name.isEditable'>
 </macro>
-
-<macro name='/isedit'>
- </if>
-</macro>
+<endif name='/isedit'>
 
 <macro name='noedit'>
  <if what='!$%name.isEditable'>
 </macro>
-
-<macro name='/noedit'>
- </if>
-</macro>
+<endif name='/noedit'>
 
 <macro name='isfirst'>
  <if what='$%name.isFirst'>
 </macro>
-
-<macro name='/isfirst'>
- </if>
-</macro>
+<endif name='/isfirst'>
 
 <macro name='notfirst'>
  <if what='!$%name.isFirst'>
 </macro>
-
-<macro name='/notfirst'>
- </if>
-</macro>
+<endif name='/notfirst'>
 
 <macro name='islast'>
  <if what='$%name.isLast'>
 </macro>
-
-<macro name='/islast'>
- </if>
-</macro>
+<endif name='/islast'>
 
 <macro name='notlast'>
  <if what='!$%name.isLast'>
 </macro>
-
-<macro name='/notlast'>
- </if>
-</macro>
+<endif name='/notlast'>
 
 << Permissions >>
 <macro name='logged'>
  <if what='$$userId>0'>
 </macro>
-
-<macro name='/logged'>
- </if>
-</macro>
+<endif name='/logged'>
 
 <macro name='notlogged'>
  <if what='$$userId<0'>
 </macro>
-
-<macro name='/notlogged'>
- </if>
-</macro>
+<endif name='/notlogged'>
 
 <macro name='admin_users'>
  <if what='$$userAdminUsers'>
 </macro>
-
-<macro name='/admin_users'>
- </if>
-</macro>
+<endif name='/admin_users'>
 
 <macro name='admin_topics'>
  <if what='$$userAdminTopics'>
 </macro>
-
-<macro name='/admin_topics'>
- </if>
-</macro>
+<endif name='/admin_topics'>
 
 <macro name='admin_menu'>
  <if what='$$userAdminMenu'>
 </macro>
-
-<macro name='/admin_menu'>
- </if>
-</macro>
+<endif name='/admin_menu'>
 
 <macro name='admin_complain_answers'>
  <if what='$$userAdminComplainAnswers'>
 </macro>
-
-<macro name='/admin_complain_answers'>
- </if>
-</macro>
+<endif name='/admin_complain_answers'>
 
 <macro name='moderator'>
  <if what='$$userModerator'>
 </macro>
-
-<macro name='/moderator'>
- </if>
-</macro>
+<endif name='/moderator'>
 
 <macro name='judge'>
  <if what='$$userJudge'>
 </macro>
-
-<macro name='/judge'>
- </if>
-</macro>
+<endif name='/judge'>
 
 << Typecasts >>
 <macro name='int'>
