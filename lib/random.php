@@ -33,7 +33,7 @@ class RandomSequenceIterator
 function RandomSequenceIterator($n,$min,$max)
 {
 $seq=array();
-while(count($seq)<$n)
+while(count($seq)<$n && count($seq)<$max-$min+1)
      {
      $k=random($min,$max);
      if(!in_array($k,$seq))
