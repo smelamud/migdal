@@ -32,6 +32,9 @@ define('PERM_EW',0x2000);
 define('PERM_EA',0x4000);
 define('PERM_EP',0x8000);
 
+define('PERM_NONE',0x0000);
+define('PERM_ALL',0xFFFF);
+
 function perm($user_id,$group_id,$perms,$right)
 {
 global $userId,$userGroups;
@@ -89,6 +92,30 @@ journal("update $table
 	 where id='.journalVar($table,$perms->getId()));
 }
 
+function setPermsRecursive($table,$id,$user_id,$group_id,$perms)
+{
+global $permModels;
+
+list($class,$user)=$permModels[$table];
+$set=array();
+if($user_id!=0)
+  $set[]="$user=$user_id";
+if($group_id!=0)
+  $set[]="group_id=$group_id";
+permStringMask($perms,&$andMask,&$orMask);
+$set[]="perms=(perms & $andMask) | $orMask";
+$set=join(',',$set);
+mysql_query("update $table
+             set $set
+	     where ".subtree($id,true))
+  or sqlbug('Ошибка SQL при рекурсивной установке прав');
+/*journal("update $table
+         set $user=".journalVar('users',$perms->getUserId()).',
+	     group_id='.journalVar('users',$perms->getGroupId()).',
+	     perms='.$perms->getPerms().'
+	 where id='.journalVar($table,$perms->getId()));*/
+}
+
 function permFilter($right,$user_id='user_id',$useDisabled=false,$prefix='')
 {
 global $userId,$userGroups;
@@ -115,7 +142,7 @@ return "($userId=${prefix}$user_id and
 	($perms & ".($right<<PB_GUEST).')<>0)';
 }
 
-function permString($s)
+function permString($s,$default='----------------')
 {
 $tmpl="rwaprwaprwaprwap";
 if(strlen($s)!=strlen($tmpl))
@@ -124,12 +151,35 @@ $s=strtolower($s);
 $perm=0;
 $right=1;
 for($i=0;$i<strlen($tmpl);$i++,$right*=2)
-   if($s{$i}==$tmpl{$i})
+   {
+   $c=$s{$i}=='?' ? $default{$i} : $s{$i};
+   if($c==$tmpl{$i})
      $perm|=$right;
    else
-     if($s{$i}!='-')
+     if($c!='-')
        return -1;
+   }
 return $perm;
+}
+
+function permStringMask($s,&$andMask,&$orMask)
+{
+$tmpl="rwaprwaprwaprwap";
+$andMask=PERM_ALL;
+$orMask=PERM_NONE;
+if(strlen($s)!=strlen($tmpl))
+  return -1;
+$s=strtolower($s);
+$right=1;
+for($i=0;$i<strlen($tmpl);$i++,$right*=2)
+   if($s{$i}==$tmpl{$i})
+     $orMask|=$right;
+   else
+     if($s{$i}=='-')
+       $andMask&=~$right;
+     else
+       if($s{$i}!='?')
+	 return -1;
 }
 
 function strPerms($perm,$escape=false)

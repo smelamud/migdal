@@ -8,35 +8,61 @@ require_once('lib/post.php');
 require_once('lib/permissions.php');
 require_once('lib/errors.php');
 
-function doChmod($msgid,$perms)
+function doChmod($id,$perms)
 {
-global $userModerator;
+global $userModerator,$table,$r_user_name,$r_group_name,$r_perm,$perm_string;
 
-if(!$userModerator)
+if(get_class($perms)=='Message' && !$userModerator || !$perms->isWritable())
   return ECHM_NO_CHMOD;
-if($perms->getUserName()=='')
-  return ECHM_USER_EMPTY;
-//if($perms->getGroupName()=='')
-//  return ECHM_GROUP_EMPTY;
-$perms->setUserId(getUserIdByLogin(addslashes($perms->getUserName())));
-if($perms->getUserId()<=0)
-  return ECHM_NO_USER;
-//$perms->setGroupId(getUserIdByLogin(addslashes($perms->getGroupName())));
-//if($perms->getGroupId()<=0)
-//  return ECHM_NO_GROUP;
+if($perms->getUserName()!='')
+  {
+  $perms->setUserId(getUserIdByLogin(addslashes($perms->getUserName())));
+  if($perms->getUserId()<=0)
+    return ECHM_NO_USER;
+  }
+if($table!='messages')
+  if($perms->getGroupName()!='')
+    {
+    $perms->setGroupId(getUserIdByLogin(addslashes($perms->getGroupName())));
+    if($perms->getGroupId()<=0)
+      return ECHM_NO_GROUP;
+    }
+if($perms->perms<0)
+  return ECHM_BAD_PERMS;
 setPermsById($perms);
+if($table!='messages')
+  if($r_user_name || $r_group_name || $r_perm)
+    setPermsRecursive($table,$id,
+                      $r_user_name ? $perms->getUserId() : 0,
+                      $r_group_name ? $perms->getGroupId() : 0,
+		      $r_perm ? $perm_string : '????????????????');
 return ECHM_OK;
 }
 
 postInteger('msgid');
+postInteger('topic_id');
 postString('user_name');
 postString('group_name');
+postString('perm_string');
+postInteger('r_user_name');
+postInteger('r_group_name');
+postInteger('r_perm');
 
 dbOpen();
 session();
-$perms=getPermsById('messages',$msgid);
+if($msgid==0)
+  {
+  $id=$topic_id;
+  $table='topics';
+  }
+else
+  {
+  $id=$msgid;
+  $table='messages';
+  }
+$perms=getPermsById($table,$id);
 $perms->setup($HTTP_POST_VARS);
-$err=doChmod($msgid,$perms);
+$err=doChmod($id,$perms);
 if($err==ECHM_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err')));

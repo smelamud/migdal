@@ -73,7 +73,7 @@ postInteger('up');
 postString('name');
 postString('login');
 postString('group_login');
-postString('perms');
+postString('perm_string');
 postString('description');
 postString('large_description');
 
