@@ -14,10 +14,10 @@
 <pagetitle title='$,Subject'>
 
 <html>
-<stylesheet ident='$,MenuIndex'>
+<stylesheet ident='article'>
 <preamble>
 <body>
- <top ident='index'>
+ <top ident='$,MenuIndex'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
