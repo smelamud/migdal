@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-STYLES = default contrast test
+STYLES = default old contrast test
 OBJECTS = $(patsubst %,style-%.css,$(STYLES)) $(patsubst %,style-%.php,$(STYLES))
 PARTS = colors.mcss palette.mcss sheet-general.mcss sheet-menu.mcss \
 	sheet-bottom.mcss sheet-state.mcss sheet-return.mcss \

@@ -60,7 +60,7 @@
   <tbody class='names'>
    <tr>
     <arrow id='-1'>
-    <td><a href='$file?grp=$g.Grp&topic_id=-1' class='new'>NEW!</a></td>
+    <td><a href='$file?grp=$g.Grp&topic_id=-1' class='new'>Все темы</a></td>
    </tr>
    <for>
     <tr>

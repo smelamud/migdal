@@ -14,6 +14,7 @@
 << Styles >>
 <decstyle ident='contrast' desc='Контрастный'>
 <decstyle ident='test' desc='Тестовый'>
+<decstyle ident='old' desc='Старый'>
 
 << Elements >>
 <decel name='at' file='parts/utils.php' params='target,class,href'
