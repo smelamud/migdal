@@ -189,7 +189,8 @@ function getCleanBodyTiny()
 {
 global $tinySize,$tinySizeMinus,$tinySizePlus;
 
-return shorten(clearStotext($this->getBody()),$tinySize,$tinySizeMinus,$tinySizePlus);
+return shorten(clearStotext(TF_MAIL,$this->getBody()),
+               $tinySize,$tinySizeMinus,$tinySizePlus);
 }
 
 function isBodyMedium()
