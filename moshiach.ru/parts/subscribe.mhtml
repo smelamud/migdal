@@ -7,8 +7,8 @@
   <form method="get" action="">
    <input size=18 name="sp-q" value="e-mail: ">
    <input type=submit value=" Да ">
-   <input type=hidden name="sp-a" value="000121ba-sp00000000">
-   <input type=hidden name="sp-f" value="windows-1251">
+   <hidden name="sp-a" value="000121ba-sp00000000">
+   <hidden name="sp-f" value="windows-1251">
   </form>
  </td></tr> 
 </table>  

@@ -37,10 +37,10 @@
    <image_obj id='$editid'>
    <setup>
    <form method=post enctype='multipart/form-data' action='actions/limmod.php'>
-    <input type=hidden name='edittag' value=1>
-    <input type=hidden name='redir' value='$redir'>
-    <input type=hidden name='postid' value='$postid'>
-    <input type=hidden name='editid' value='$editid'>
+    <hidden name='edittag' value=1>
+    <hidden name='redir' value='$redir'>
+    <hidden name='postid' value='$postid'>
+    <hidden name='editid' value='$editid'>
     <table>
      <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'
             span=2>

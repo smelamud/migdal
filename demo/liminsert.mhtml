@@ -22,10 +22,10 @@
  <posting_obj id='$postid'>
  <zone><stotext_image_obj id='$,StotextId' par='$par'><setup></zone>
  <form method=post action='actions/liminsert.php'>
-  <input type='hidden' name='edittag' value=1>
-  <input type='hidden' name='redir' value='$redir'>
-  <input type='hidden' name='postid' value='$postid'>
-  <input type='hidden' name='par' value='$par'>
+  <hidden name='edittag' value=1>
+  <hidden name='redir' value='$redir'>
+  <hidden name='postid' value='$postid'>
+  <hidden name='par' value='$par'>
   <center>
    <error id='*ELII_NO_EDIT'
           text='Вы не имеете права редактировать это сообщение'>

@@ -13,7 +13,7 @@
  <p>
  <complain_type_obj id='$typeid'>
  <form method=get action='$~'><table><tr>
-  <input type=hidden name='redir' value='$redir'>
+  <hidden name='redir' value='$redir'>
   <td>Тип</td>
   <td><select name='typeid'>
    <iterate_complain_types>
@@ -54,10 +54,10 @@
     <complain_action_obj id='$editid'>
     <setup>
     <form method=post action='actions/camod.php'>
-     <input type=hidden name='edittag' value=2>
-     <input type=hidden name='redir' value='$redir'>
-     <input type=hidden name='type_id' value='$typeid'>
-     <input type=hidden name='editid' value='$editid'>
+     <hidden name='edittag' value=2>
+     <hidden name='redir' value='$redir'>
+     <hidden name='type_id' value='$typeid'>
+     <hidden name='editid' value='$editid'>
      <table>
       <error id='*ECAM_NO_EDIT' text='Вы не администратор'>
       <error id='*ECAD_NO_EDIT' text='Вы не администратор'>

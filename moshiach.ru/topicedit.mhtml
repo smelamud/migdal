@@ -13,9 +13,9 @@
  <topic_obj id='$editid' up='$up'>
  <setup>
  <form method=post enctype='multipart/form-data' action='actions/topicmod.php'>
- <input type=hidden name='edittag' value=1>
- <input type=hidden name='redir' value='$redir'>
- <input type=hidden name='editid' value='$editid'>
+ <hidden name='edittag' value=1>
+ <hidden name='redir' value='$redir'>
+ <hidden name='editid' value='$editid'>
  <table>
   <error id='*ET_NO_EDIT' text='У вас нет права менять список тем'>
   <error id='*ET_STORE_SQL' text='Ошибка базы данных при обновлении записи'
@@ -34,21 +34,19 @@
   <if what='$desc'>
    <editor_line title='Описание' name='description' body='$,Description'>
   <else>
-   <input type='hidden' name='description' value='Без описания'>
+   <hidden name='description' value='Без описания'>
   </if>
   <error id='*EUL_LARGE' text='Описание слишком велико (больше 2M)'>
   <checkbox_line name='hidden' value='$,isHidden'
                  title='Не показывать в списке'>
-  <input type='hidden' name='news' value='$,isNews'>
-  <input type='hidden' name='premoderate_news' value='$,isNewsPremoderated'>
-  <input type='hidden' name='forums' value='$,isForums'>
-  <input type='hidden' name='premoderate_forums' value='$,isForumsPremoderated'>
-  <input type='hidden' name='gallery' value='$,isGallery'>
-  <input type='hidden' name='premoderate_gallery'
-         value='$,isGalleryPremoderated'>
-  <input type='hidden' name='articles' value='$,isArticles'>
-  <input type='hidden' name='premoderate_articles'
-         value='$,isArticlesPremoderated'>
+  <hidden name='news' value='$,isNews'>
+  <hidden name='premoderate_news' value='$,isNewsPremoderated'>
+  <hidden name='forums' value='$,isForums'>
+  <hidden name='premoderate_forums' value='$,isForumsPremoderated'>
+  <hidden name='gallery' value='$,isGallery'>
+  <hidden name='premoderate_gallery' value='$,isGalleryPremoderated'>
+  <hidden name='articles' value='$,isArticles'>
+  <hidden name='premoderate_articles' value='$,isArticlesPremoderated'>
  </table>
  <if what='$editid'>
   <input type=submit value='Изменить'>

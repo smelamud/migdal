@@ -13,10 +13,10 @@
  <complain_action_obj id='$actid'>
  <setup>
  <form method=post action='actions/complainact.php'>
- <input type=hidden name='edittag' value=1>
- <input type=hidden name='redir' value='$redir'>
- <input type=hidden name='actid' value='$actid'>
- <input type=hidden name='complain_id' value='$complain_id'>
+ <hidden name='edittag' value=1>
+ <hidden name='redir' value='$redir'>
+ <hidden name='actid' value='$actid'>
+ <hidden name='complain_id' value='$complain_id'>
  <table>
  <error id='*EECA_NO_ACTION' text='Такого стандартного ответа не существует'>
  <error id='*EECA_NO_COMPLAIN' text='Такой жалобы не существует'>

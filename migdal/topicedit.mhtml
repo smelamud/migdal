@@ -12,9 +12,9 @@
  <topic_obj id='$editid' up='$up'>
  <setup>
  <form method=post enctype='multipart/form-data' action='actions/topicmod.php'>
- <input type=hidden name='edittag' value=1>
- <input type=hidden name='redir' value='$redir'>
- <input type=hidden name='editid' value='$editid'>
+ <hidden name='edittag' value=1>
+ <hidden name='redir' value='$redir'>
+ <hidden name='editid' value='$editid'>
  <table>
   <error id='*ET_NO_EDIT' text='У вас нет права менять список тем'>
   <error id='*ET_STORE_SQL' text='Ошибка базы данных при обновлении записи'

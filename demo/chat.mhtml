@@ -32,7 +32,7 @@
  </iframe>
  <logged>
   <form method=post action='actions/chatpost.php'>
-  <input type=hidden name='redir' value='$-'>
+  <hidden name='redir' value='$-'>
   <table>
    <error id='*ECHP_NO_ADD' span=3
 	  text='Добавлять сообщения может только зарегистрированный пользователь'>

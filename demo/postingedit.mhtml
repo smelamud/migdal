@@ -14,11 +14,11 @@
  <setup>
  <form method=post enctype='multipart/form-data'
        action='actions/postingmod.php'>
- <input type=hidden name='edittag' value=1>
- <input type=hidden name='redir' value='$redir'>
- <input type=hidden name='editid' value='$editid'>
- <input type=hidden name='grp' value='$message.Grp'>
- <input type=hidden name='personal_id' value='$message.PersonalId'>
+ <hidden name='edittag' value=1>
+ <hidden name='redir' value='$redir'>
+ <hidden name='editid' value='$editid'>
+ <hidden name='grp' value='$message.Grp'>
+ <hidden name='personal_id' value='$message.PersonalId'>
  <table>
  <error id='*EP_NO_SEND'
         text='Посылать сообщения могут только зарегистрированные пользователи'>

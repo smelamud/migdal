@@ -36,8 +36,8 @@
     <judge>
      <table><tr>
       <form method=post action='actions/complainassign.php'>
-      <input type=hidden name='redir' value='$-'>
-      <input type=hidden name='id' value='$complain.Id'>
+      <hidden name='redir' value='$-'>
+      <hidden name='id' value='$complain.Id'>
       <td><b>Рассматривает</b></td>
       <td><edit name='login' value='$complain.RecipientLogin' size=10
 		maxlength=30></td>
@@ -66,8 +66,8 @@
  <tr><td><table><tr>
   <if what='$$userId==$complain.RecipientId'>
    <form method=get action='complainanswer.php'>
-    <input type=hidden name='redir' value='$-'>
-    <input type=hidden name='complain_id' value='$complain.Id'>
+    <hidden name='redir' value='$-'>
+    <hidden name='complain_id' value='$complain.Id'>
     <td><select name='actid'>
      <iterate_complain_actionlist type='$complain.TypeId'>
      <for>

@@ -408,6 +408,10 @@
  </td>
 </macro>
 
+<macro name='hidden'>
+ <input type=hidden name='%name' value='%value'>
+</macro>
+
 <macro name='edit' defaults='size=40 maxlength=250'>
  <input type=text name='%name' value='%value' size=%size maxlength=%maxlength>
 </macro>

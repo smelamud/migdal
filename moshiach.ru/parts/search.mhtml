@@ -7,8 +7,8 @@
   <form method="get" action="http://search.atomz.com/search/">
    <input size=15 name="sp-q">
    <input type=submit value="Найти">
-   <input type=hidden name="sp-a" value="000121ba-sp00000000">
-   <input type=hidden name="sp-f" value="windows-1251">
+   <hidden name="sp-a" value="000121ba-sp00000000">
+   <hidden name="sp-f" value="windows-1251">
    <br>
    <a class=under href="advsearch.htm">Расширенный поиск</a>
    <br>

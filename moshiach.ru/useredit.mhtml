@@ -45,9 +45,9 @@
  <isedit name='user'>
   <center><h1>Введите информацию о себе</h1></center>
   <form method=post action='actions/usermod.php'>
-  <input type=hidden name='edittag' value=1>
-  <input type=hidden name='redir' value='$redir'>
-  <input type=hidden name='editid' value='$editid'>
+  <hidden name='edittag' value=1>
+  <hidden name='redir' value='$redir'>
+  <hidden name='editid' value='$editid'>
  </isedit>
  <table>
   <error id='*EUM_UPDATE_OK' text='Новая информация принята и записана'

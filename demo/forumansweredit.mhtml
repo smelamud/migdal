@@ -13,10 +13,10 @@
  <setup>
  <form method=post enctype='multipart/form-data'
        action='actions/forumanswermod.php'>
- <input type=hidden name='edittag' value=1>
- <input type=hidden name='redir' value='$redir'>
- <input type=hidden name='editid' value='$editid'>
- <input type=hidden name='up' value='$answer.UpValue'>
+ <hidden name='edittag' value=1>
+ <hidden name='redir' value='$redir'>
+ <hidden name='editid' value='$editid'>
+ <hidden name='up' value='$answer.UpValue'>
  <table>
  <error id='*EFA_NO_SEND'
         text='Посылать сообщения могут только зарегистрированные пользователи'>

@@ -57,8 +57,8 @@
   </td>
   <td>
    <form method=post action='actions/menumod.php'>
-    <input type=hidden name='edittag' value=1>
-    <input type=hidden name='editid' value='$menuid'>
+    <hidden name='edittag' value=1>
+    <hidden name='editid' value='$menuid'>
     <table>
      <error id='*EMI_NO_EDIT' text='Вы не администратор' span=2>
      <error id='*EMI_NAME_ABSENT' text='Название не указано' span=2>
