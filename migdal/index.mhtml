@@ -11,6 +11,10 @@
  <trap text='Jewish Internet'>
  <reload href='links.php'>
 </if>
+<if what='$topic_id==12'>
+ <trap text='Migdal'>
+ <reload href='migdal.php'>
+</if>
 <if what='$topic_id==24'>
  <trap text='Tu bi-Shvat'>
  <reload href='$[topic_id=6]'>
