@@ -1,5 +1,25 @@
 << @(#) $Id$ >>
+<< GRP >>
+<macro name='grp' defaults='name=g ignore=0' x=>
+ <header>
+  <require name='lib/grps.php'>
+  <obj name='%name' class='GrpData' params='$grp,%ignore'>
+  <reload why='$g.Invalid' var='grp' value='GRP_FORUMS'>
+ </header>
+</macro>
+<< Iterators >>
 <macro name='iterate_userlist'>
  <require name='lib/users.php'>
  <iterate name='%name' class='UserListIterator'>
+</macro>
+<macro name='iterate_topiclist'>
+ <require name='lib/topics.php'>
+ <iterate name='%name' class='TopicListIterator' params='%params'>
+</macro>
+<< Permissions >>
+<macro name='admin_topics'>
+ <if what='$$userAdminTopics'>
+</macro>
+<macro name='/admin_topics'>
+ </if>
 </macro>

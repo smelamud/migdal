@@ -1,0 +1,32 @@
+<< @(#) $Id$ >>
+<require name='parts/top.php'>
+<grp ignore='$ignoregrp'>
+<html>
+<head>
+ <title>Клуб Еврейского Студента - $g.title</title>
+</head>
+<body bgcolor=white>
+  <?php displayTop($ident); ?>
+  <center><h1>Темы</h1></center>
+  <admin_topics>
+   <p>
+   <a href='topicedit.php?redir=$_'>Добавить</a>
+   &nbsp;&nbsp;
+   <?php
+    echo '<a href="',remakeURI($REQUEST_URI,
+		   array(),
+		   array('ignoregrp' => $ignoregrp ? 0 : 1)),'">';
+   ?>Показать <if what='$ignoregrp'>активные<else>все</if></a>
+  </admin_topics>
+  <iterate_topiclist params='$g.Effective'>
+  <for>
+   <p>
+   <b><a href='messages.php?grp=$grp&redir=$_&topic_id=$.Id'>
+	  $.Name ($.MessageCount)</a></b>&nbsp;
+   <admin_topics>
+    <a href='topicedit.php?editid=$.Id&redir=$_'>[Изменить]</a>
+   </admin_topics>
+   <br>$.Description
+  </for>
+</body>
+</html>

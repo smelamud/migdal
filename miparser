@@ -18,6 +18,8 @@ $Header='';
 $Body='';
 $Footer='';
 
+$BodyToHeader=0;
+
 $LastIter='';
 $LastItem='';
 
@@ -36,20 +38,24 @@ my $item=$::Stack->top()->getItem();
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:\$%?(?:(?:\w*\.?\w+)|_))?)(.*)$/;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:\$[%\$]?(?:(?:\w*\.?\w+)|_))?)(.*)$/;
      $c.=$head;
-     if($var=~/\$%?\w+/)
+     if($var=~/^\$_$/)
        {
-       $var=~s/\$(\w+)/$st\$\1$ed/;
-       $var=~s/\$%(\w+)/${st}urlencode(\$\1)$ed/;
+       $var="${st}urlencode(\$REQUEST_URI)$ed";
+       }
+     elsif($var=~/^\$[%\$]?\w+$/)
+       {
+       $var=~s/^\$(\w+)$/$st\$\1$ed/;
+       $var=~s/^\$\$(\w+)$/$st\$\1$ed/;
+       $var=~s/^\$%(\w+)$/${st}urlencode(\$\1)$ed/;
        }
      else
        {
-       $var=~s/\$_/${st}urlencode(\$REQUEST_URI)$ed/g;
-       $var=~s/\$(\w+)\.(\w+)/$st\$\1->get\2()$ed/g;
-       $var=~s/\$\.(\w+)/$st\$$item->get\1()$ed/g;
-       $var=~s/\$%(\w+)\.(\w+)/${st}urlencode(\$\1->get\2())$ed/g;
-       $var=~s/\$%\.(\w+)/${st}urlencode(\$$item->get\1())$ed/g;
+       $var=~s/^\$(\w+)\.(\w+)$/$st\$\1->get\2()$ed/g;
+       $var=~s/^\$\.(\w+)$/$st\$$item->get\1()$ed/g;
+       $var=~s/^\$%(\w+)\.(\w+)$/${st}urlencode(\$\1->get\2())$ed/g;
+       $var=~s/^\$%\.(\w+)$/${st}urlencode(\$$item->get\1())$ed/g;
        }
      $c.=$var;
      }
@@ -68,6 +74,58 @@ sub subMacroParams
 my ($s,$params)=@_;
 
 $s=~s/%(\w+)/$params->{$1}/ge;
+return $s;
+}
+
+sub splitParams
+{
+my ($token,$args)=@_;
+
+while($token!~/^\s*$/)
+     {
+     my $name,$value;
+     ($name,$value,$token)=
+         $token=~/^\s*(\w+)\s*(?:=\s*((?:[^\s'"]+)|(?:'[^']*')|(?:"[^"]*")))?(.*)$/;
+     $value=substr $value,1,-1 if $value=~/^['"]/;
+     $args->{lc $name}=$value;
+     }
+}
+
+#### Macro ####
+
+package Macro;
+
+sub new
+{
+my ($class,$body,$defaults)=@_;
+
+my $self=bless {'body' => $body},$class;
+$self->{'defaults'}={};
+::splitParams($defaults,$self->{'defaults'});
+return $self;
+}
+
+sub getBody
+{
+my ($self)=@_;
+
+return $self->{'body'};
+}
+
+sub getInstance
+{
+my ($self,$params)=@_;
+
+my %args=();
+while(my($name,$value)=each(%{$self->{'defaults'}}))
+     {
+     $args{$name}=$value;
+     }
+while(my($name,$value)=each(%{$params}))
+     {
+     $args{$name}=$value;
+     }
+my $s=::subMacroParams($self->getBody(),\%args);
 return $s;
 }
 
@@ -231,14 +289,7 @@ $token=substr $token,1,-1;
 ($self->{'name'},$token)=$token=~/^\s*(\/?\w+)(.*)$/;
 $self->{'name'}=lc $self->{'name'};
 $self->{'args'}={};
-while($token!~/^\s*$/)
-     {
-     my $name,$value;
-     ($name,undef,$value,undef,undef,undef,$token)=
-         $token=~/^\s*(\w+)\s*(=\s*((\S*)|('[^']*')|("[^"]*")))?(.*)$/;
-     $value=substr $value,1,-1 if $value=~/^['"]/;
-     $self->{'args'}{lc $name}=$value;
-     }
+::splitParams($token,$self->{'args'});
 return $self;
 }
 
@@ -256,6 +307,13 @@ my ($self)=@_;
 return $self->{'args'};
 }
 
+sub getArg
+{
+my ($self,$name)=@_;
+
+return $self->{'args'}->{$name};
+}
+
 sub process
 {
 my ($self)=@_;
@@ -269,8 +327,7 @@ if($self->can($name))
   }
 elsif(defined($::Macros{$self->getName()}))
   {
-  $::Line=::subMacroParams($::Macros{$self->getName()},$self->getArgs())
-          .$::Line;
+  $::Line=$::Macros{$self->getName()}->getInstance($self->getArgs()).$::Line;
   }
 else
   {
@@ -310,33 +367,34 @@ sub elRequire
 {
 my ($self)=@_;
 
-::request($self->getArgs()->{'name'});
+::request($self->getArg('name'));
 }
 
 sub elIterate #XXX Possibly empty class
 {
 my ($self)=@_;
 
-my $name=$self->getArgs()->{'name'};
+my $name=$self->getArg('name');
 $name='iter'.($::LastIter++) if $name eq '';
 $::Stack->top()->setIterator($name);
-::body("<?php \$$name=new ",$self->getArgs()->{'class'},"() ?>");
+::body("<?php \$$name=new ",$self->getArg('class'),
+       '(',::subVars($self->getArg('params')),') ?>');
 }
 
 sub elFor #XXX Possibly empty list
 {
 my ($self)=@_;
 
-my $list=$self->getArgs()->{'list'};
+my $list=$self->getArg('list');
 $list=$::Stack->top()->getIterator() if $list eq '';
-my $name=$self->getArgs()->{'name'};
+my $name=$self->getArg('name');
 $name='item'.($::LastItem++) if $name eq '';
 ::body("<?php while(\$$name=\$$list->next()) { ?>");
 $::Stack->push();
 $::Stack->top()->setItem($name);
 }
 
-sub el_for
+sub el_for #XXX Possibly incorrect closure
 {
 my ($self)=@_;
 
@@ -356,7 +414,60 @@ while((ref($::Token) ne 'Tag' || $::Token->getName() ne '/macro')
      $body.=$::Token->getToken();
      ::pullToken();
      }
-$::Macros{$self->getArgs()->{'name'}}=$body;
+$::Macros{$self->getArg('name')}=Macro->new($body,$self->getArg('defaults'));
+}
+
+sub elIf
+{
+my ($self)=@_;
+
+::body('<?php if(',::subVars($self->getArg('what')),') { ?>');
+}
+
+sub elElse #XXX Possibly incorrect closure
+{
+my ($self)=@_;
+
+::body('<?php } else { ?>');
+}
+
+sub el_if #XXX Possibly incorrect closure
+{
+my ($self)=@_;
+
+::body('<?php } ?>');
+}
+
+sub elObj #XXX Possibly empty name,class
+{
+my ($self)=@_;
+
+::body('<?php $',$self->getArg('name'),'=new ',$self->getArg('class'),
+       '(',::subVars($self->getArg('params')),') ?>');
+}
+
+sub elReload #XXX Possibly empty why,var,value
+{
+my ($self)=@_;
+
+::request('lib/utils.php');
+::body('<?php reloadParameter(',::subVars($self->getArg('why')),',',
+                                $self->getArg('var'),',',
+				$self->getArg('value'),') ?>');
+}
+
+sub elHeader
+{
+my ($self)=@_;
+
+$::BodyToHeader=1;
+}
+
+sub el_header
+{
+my ($self)=@_;
+
+$::BodyToHeader=0;
 }
 
 #### Comment ####
@@ -456,20 +567,20 @@ sub request
 {
 my ($name)=@_;
 
-push @Requests,$name;
+push @Requests,$name unless grep {$_ eq $name} @Requests;
 }
 
 sub printVar
 {
 $var=shift;
 $data=join '',@_;
-if($$var=~/\n$/)
+if($$var=~/\n$/ || $$var eq '')
   {
   $data=~s/^\s+//;
   }
 else
   {
-  $data=~s/^\s*\n/\n/;
+  $data=~s/^\s*\n\s*/\n/;
   }
 $$var.=$data;
 }
@@ -481,7 +592,14 @@ printVar(\$Header,@_);
 
 sub body
 {
-printVar(\$Body,@_);
+if($BodyToHeader)
+  {
+  header(@_);
+  }
+else
+  {
+  printVar(\$Body,@_);
+  }
 }
 
 sub footer
