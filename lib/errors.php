@@ -74,4 +74,5 @@ define('EIU_OK',190);
 define('EIU_IMAGE_LARGE',191);
 define('EIU_UNKNOWN_IMAGE',192);
 define('EIU_IMAGE_SQL',193);
+define('EIU_UNKNOWN_THUMBNAIL',194);
 ?>

@@ -63,6 +63,8 @@
 	  span=2>
    <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
 	  color='magenta' span=2>
+   <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+          text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
    <ifzero what='$message.ImageSet'>
     <tr>
      <td>Картинка</td>
