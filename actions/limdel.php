@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/images.php');
+require_once('lib/modbits.php');
 
 function deleteImage($posting)
 {
@@ -22,6 +23,7 @@ if(!$result)
 journal('delete
          from images
 	 where id='.journalVar('images',$editid));
+setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
 return ELID_OK;
 }
 

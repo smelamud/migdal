@@ -8,6 +8,7 @@ require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/image-upload.php');
 require_once('lib/errors.php');
+require_once('lib/modbits.php');
 
 function deleteImage($id)
 {
@@ -77,6 +78,7 @@ if(!$image)
 if($posting->getLargeImageSet()==0)
   if(!setLargeImageSet($posting,$image->getImageSet()))
     return ELIM_SET_SQL;
+setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
 return ELIM_OK;
 }
 

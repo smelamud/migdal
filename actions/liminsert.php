@@ -9,6 +9,7 @@ require_once('lib/postings.php');
 require_once('lib/images.php');
 require_once('lib/stotext-images.php');
 require_once('lib/errors.php');
+require_once('lib/modbits.php');
 
 function modifyMessageImage($posting,$image)
 {
@@ -20,6 +21,7 @@ if($image->getImageId()!=0 && !imageExists($image->getImageId()))
   return ELII_IMAGE_ABSENT;
 if(!$image->store())
   return ELII_STORE_SQL;
+setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
 return ELII_OK;
 }
 
