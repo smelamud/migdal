@@ -98,6 +98,11 @@ function getPerms()
 return $this->perms;
 }
 
+function getPermString()
+{
+return strPerms($this->getPerms());
+}
+
 function isPermitted($right)
 {
 return perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
@@ -202,5 +207,18 @@ for($i=0;$i<strlen($tmpl);$i++,$right*=2)
      if($s{$i}!='-')
        return -1;
 return $perm;
+}
+
+function strPerms($perm)
+{
+$tmpl="rwaprwaprwaprwap";
+$s='';
+$right=1;
+for($i=0;$i<strlen($tmpl);$i++,$right*=2)
+   if(($perm & $right)!=0)
+     $s.=$tmpl{$i};
+   else
+     $s.='-';
+return $s;
 }
 ?>

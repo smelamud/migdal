@@ -360,6 +360,11 @@ function getPerms()
 return $this->perms;
 }
 
+function getPermString()
+{
+return strPerms($this->getPerms());
+}
+
 function isPermitted($right)
 {
 global $userModerator;
