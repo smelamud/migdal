@@ -5,8 +5,8 @@
  <table width=100%><tr valign=top>
  <for>
   <td>
-   <posting_random grp='*GRP_GALLERY' topic_id='$topic_id' user_id='$.Id'>
-   <posting_full id='$,' grp='*GRP_GALLERY'>
+   <posting_random grp='*GRP_TAGLIT_GALLERY' topic_id='$topic_id' user_id='$.Id'>
+   <posting_full id='$,' grp='*GRP_TAGLIT_GALLERY'>
    <taglit_picture picture='$,' user='$.'>
   </td>
  </for>
