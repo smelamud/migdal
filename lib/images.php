@@ -119,6 +119,7 @@ if($largeExt=='')
   }
 
 $anyFile=tempnam($tmpDir,'mig-');
+unlink($anyFile);
 $largeFile="$anyFile.$largeExt";
 $smallFile="$anyFile.$smallExt";
 
@@ -139,6 +140,9 @@ $small_size=getImageSize($smallFile);
 $fd=fopen($smallFile,'r');
 $small=fread($fd,$maxImage);
 fclose($fd);
+
+unlink($largeFile);
+unlink($smallFile);
 
 return new Image(array('filename' => $image_name,
 		       'small'    => $small,
@@ -234,6 +238,8 @@ $fd=fopen($smallFile,'r');
 $small=fread($fd,$maxImage);
 fclose($fd);
 
+unlink($smallFile);
+
 return new Image(array('filename' => $image_name,
 		       'small'    => $small,
 		       'small_x'  => $small_size_x,
@@ -277,6 +283,7 @@ if($useMogrify)
 else
   $img=uploadImageUsingGD($image_tmpname,$image_name,$image_size,$image_type,
                           $thumbnail,$err);
+unlink($image_tmpname);
 
 if(!$img)
   return $img;
