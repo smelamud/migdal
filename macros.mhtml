@@ -366,6 +366,12 @@
  </zone></header>
 </macro>
 
+<macro name='ident'>
+ <header><zone>
+  <call name='%name' func='idByIdent' arg1='%table' arg2='$%name'>
+ </zone></header>
+</macro>
+
 << HTML shortcuts >>
 <macro name='tdspan' defaults='span=0'>
  <if what='(%span)==0 || (%span)==1'>

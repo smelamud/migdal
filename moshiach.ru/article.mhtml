@@ -82,7 +82,7 @@
 </ifnzero>
 </element>
 
-<string name='artid'>
+<ident name='artid' table='postings'>
 <grps>
 <text_formats>
 

@@ -107,6 +107,15 @@ if($s=~/^(.*)@([ERJ]?\w)$/)
   request('lib/calendar.php');
   return "${st}formatAnyDate('$2',".subVar($1).")$ed";
   }
+if($s=~/^\$`([^`]*)`$/)
+  {
+  request('lib/ident.php');
+  my ($table,$ident)=$1=~/^\s*(?:(\w+):)?(\w+)$/;
+  $table='topics' if $table eq '';
+  $table=subTypedValue('','%',$table);
+  $ident=subTypedValue('','%',$ident);
+  return "${st}idByIdent($table,$ident)$ed";
+  }
 request('lib/utils.php') if $s=~/^\$\$?\^/;
 return $st.constructRemake($1,0).$ed
        if $s=~/^\$\[([^\]]*)\]$/;
@@ -212,6 +221,8 @@ while($s ne '')
 				(?: {? \w* [\.,;]? \w+ }? )
 				|
 				(?: \[[^\]]*\] )
+				|
+				(?: `[^`]*` )
 				|
 				(?: [_\.,;\~\*\-\?]+ )
 			       )

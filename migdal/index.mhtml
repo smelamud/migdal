@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<string name='topic_id'>
+<ident name='topic_id' table='topics'>
 <int name='offset'>
 <ifzero what='$topic_id'>
  <assign name='topic_id' value='-1'>

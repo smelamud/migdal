@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/charsets.php');
+require_once('lib/ident.php');
 
 function postInteger($name)
 {
@@ -19,6 +20,14 @@ foreach($GLOBALS[$name] as $var)
        settype($var,'integer');
 foreach($HTTP_POST_VARS[$name] as $var);
        settype($var,'integer');
+}
+
+function postIdent($name,$table)
+{
+global $HTTP_POST_VARS;
+
+$GLOBALS[$name]=idByIdent($table,addslashes($GLOBALS[$name]));
+$HTTP_POST_VARS[$name]=idByIdent($table,addslashes($HTTP_POST_VARS[$name]));
 }
 
 function postString($name)

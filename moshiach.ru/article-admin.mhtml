@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<string name='artid'>
+<ident name='artid' table='postings'>
 <posting_full id='$artid' grp='*GRP_ARTICLES'>
 <pagetitle title='$,Subject'>
 

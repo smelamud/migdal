@@ -5,7 +5,7 @@
 <int name='topic_id'>
 <int name='grp'>
 <int name='up'>
-<string name='root'>
+<ident name='root' table='topics'>
 <posting_obj id='$editid' grp='$grp' topic='$topic_id' up='$up'>
 <pagetitle title#='Редактирование $message.OfItemTitle'>
 

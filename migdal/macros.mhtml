@@ -17,7 +17,7 @@
 << Elements >>
 <decel name='article' file='parts/article.php' params='posting'>
 <decel name='article_controls' file='parts/article.php' params='posting,root'
-       defaults="root=general">
+       defaults="root=$`general`">
 <decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='at' file='parts/utils.php' params='target,class,href'
        defaults="target='' class=''">
@@ -47,7 +47,7 @@
 <decel name='gallery_picture' file='parts/gallery-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten,root'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false' root=general">
+                 shorten='*false' root=$`general`">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='help_link' file='parts/help-link.php' params='href,title,span'
@@ -88,7 +88,7 @@
        params='picture,showtopic,showdiscuss,showcomplain,shorten,root,
                topiclink'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false' root=general">
+                 shorten='*false' root=$`general`">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,text,image_id' defaults="text=''">
 <decel name='posting_general' file='parts/posting.php'
@@ -106,7 +106,7 @@
 <decel name='postings' file='parts/postings.php'
        params='grp,topic,limit,offset,subdomain,root,user_id,showadvert,
                showshadows,sort'
-       defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='general'
+       defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='$`general`'
                  user_id=0 showadvert='*true' showshadows='*true'
 		 sort='*SORT_PSENT'">
 <decel name='rambler_count' file='parts/rambler.php'>
@@ -160,7 +160,7 @@
 <decel name='topics_major' file='parts/topics-major.php' params='ident'>
 <decel name='topics_minor' file='parts/topics-minor.php'
        params='id,withpostings,withanswers,up,subdomain,grp,href,title'
-       defaults="withpostings='*false' withanswers='*false' up='general'
+       defaults="withpostings='*false' withanswers='*false' up='$`general`'
                  subdomain=-1 grp='*GRP_ALL' href='index.php'">
 <decel name='topics_table' params='class,span,title'
        defaults="class='' span=1 title=''" file='parts/topics.php'>
