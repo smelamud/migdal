@@ -77,7 +77,7 @@
  <top ident='users'>
  <navigator>
  <p>
- <iterate_userlist limit='$$userUserPortion' offset='$offset' sort='$sort'>
+ <iterate_userlist limit=30 offset='$offset' sort='$sort'>
  <batcher list='$;'>
  <table width=100% class='catalog'>
   <tr valign=top>

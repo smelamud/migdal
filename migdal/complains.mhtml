@@ -40,7 +40,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <iterate_complainlist limit='$$userComplainPortion' offset='$offset'>
+ <iterate_complainlist limit=20 offset='$offset'>
  <batcher list='$;'>
  <table width=100% class='catalog'>
   <tr valign=top>

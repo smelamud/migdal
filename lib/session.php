@@ -14,9 +14,9 @@ require_once('grp/subdomains.php');
 $userRightNames=array('login','hidden','admin_users','admin_topics',
                       'admin_complain_answers','moderator','judge',
 		      'admin_domain');
-$userSetNames=array('MsgPortion',
+$userSetNames=array('MsgPortion', // obsolete
                     'ForumPortion',
-                    'ComplainPortion',
+                    'ComplainPortion', // obsolete
 	            'ChatPortion',
 	            'ChatRefresh',
 		    'ForumCatalogPortion',
@@ -27,10 +27,10 @@ $userSetNames=array('MsgPortion',
 		    'ReadKOI',
 		    'IndexPage',
 		    'ChatUsersRefresh',
-		    'UserPortion');
-$userSetDefaults=array('MsgPortion'           => 10,
+		    'UserPortion'); // obsolete
+$userSetDefaults=array('MsgPortion'           => 10, // obsolete
                        'ForumPortion'         => 10,
-                       'ComplainPortion'      => 20,
+                       'ComplainPortion'      => 20, // obsolete
 	               'ChatPortion'          => 20,
 	               'ChatRefresh'          => 10,
 		       'ForumCatalogPortion'  => 20,
@@ -41,10 +41,10 @@ $userSetDefaults=array('MsgPortion'           => 10,
 		       'ReadKOI'              => 0,
 		       'IndexPage'            => 1,
 		       'ChatUsersRefresh'     => 60,
-		       'UserPortion'          => 30);
-$userSetParams=array('MsgPortion'           => 'mp',
+		       'UserPortion'          => 30); // obsolete
+$userSetParams=array('MsgPortion'           => 'mp', // obsolete
                      'ForumPortion'         => 'fp',
-		     'ComplainPortion'      => 'cp',
+		     'ComplainPortion'      => 'cp', // obsolete
 		     'ChatPortion'          => 'chp',
 		     'ChatRefresh'          => 'chr',
 		     'ForumCatalogPortion'  => 'fcp',
@@ -55,7 +55,7 @@ $userSetParams=array('MsgPortion'           => 'mp',
 		     'ReadKOI'              => 'rk',
 		     'IndexPage'            => 'ip',
 		     'ChatUsersRefresh'     => 'chur',
-		     'UserPortion'          => 'up');
+		     'UserPortion'          => 'up'); // obsolete
 
 function getProperName($name)
 {

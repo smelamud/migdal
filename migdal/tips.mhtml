@@ -15,8 +15,7 @@
   </td>
   <td class='cframe'>
    <subtitle>
-   <postings grp='*GRP_TIPS' topic_id='$`tips`' limit='$userMsgPortion'
-             offset='$offset'>
+   <postings grp='*GRP_TIPS' topic_id='$`tips`' limit=10 offset='$offset'>
   </td>
  </tr></table>
  <bottom>

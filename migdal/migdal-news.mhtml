@@ -33,8 +33,8 @@
      <seealso_links topic_id='$topic_id' topic_grp='*GRP_NEWS'
                     title='См. также в разделе ссылок'>
     </inner></div></outer>
-    <postings grp='*GRP_TAPE' topic_id='$topic_id' limit='$userMsgPortion'
-	      offset='$offset' recursive!='$topic_id==$`migdal-news`'>
+    <postings grp='*GRP_TAPE' topic_id='$topic_id' limit=10 offset='$offset'
+              recursive!='$topic_id==$`migdal-news`'>
    </td>
   </tr>
  </table>

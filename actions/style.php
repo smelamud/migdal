@@ -12,12 +12,10 @@ header('Location: '.remakeURI($okdir,array(),array('st'  => $style,
                                                    'bt'  => $biff,
 						   'rk'  => empty($koi)
 						            ? -1 : 1,
-						   'mp'  => $mp,
 						   'fp'  => $fp,
 						   'fcp' => $fcp,
 						   'prp' => $prp,
-						   'pcp' => $pcp,
-						   'up'  => $up
+						   'pcp' => $pcp
 						   )));
 dbClose();
 ?>
