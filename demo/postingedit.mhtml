@@ -25,6 +25,8 @@
  <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
  <error id='*EP_STORE_SQL' text='Ошибка базы данных при обновлении записи'
         color='magenta'>
+ <error id='*EP_DISABLE_SQL' color='magenta'
+        text='Ошибка базы данных при установке признака модерирования'>
  <error id='*EP_NO_PERSONAL'
         text='У этого пользователя нет персональной страницы'>
  <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>

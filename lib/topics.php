@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
@@ -256,6 +258,19 @@ return TopicIterator::create($row);
 
 }
 
+function getPremoderateByTopicId($id)
+{
+global $userAdminTopics,$defaultPremoderate;
+
+$hide=$userAdminTopics ? 2 : 1;
+$result=mysql_query("select premoderate
+                     from topics
+		     where id=$id and hidden<$hide")
+	     or die('Ошибка SQL при выборке маски модерирования');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
+                                 : $defaultPremoderate;
+}
+
 function getTopicById($id,$up)
 {
 global $userAdminTopics;
@@ -266,20 +281,10 @@ $result=mysql_query("select id,up,name,description,hidden,no_news,no_forums,
 		     from topics
 		     where ".byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');
-if(mysql_num_rows($result)>0)
-  return new Topic(mysql_fetch_assoc($result));
-else
-  if($up!=0)
-    {
-    $result=mysql_query("select premoderate
-                         from topics
-			 where id=$up and hidden<$hide")
-	         or die('Ошибка SQL при выборке вышестоящей темы');
-    return new Topic(array('up'          => $up,
-                           'premoderate' => mysql_result($result,0,0)));
-    }
-  else
-    return new Topic(array('up' => $up));
+return new Topic(mysql_num_rows($result)>0
+                 ? mysql_fetch_assoc($result)
+                 : array('up'          => $up,
+                         'premoderate' => getPremoderateByTopicId($up)));
 }
 
 function getTopicNameById($id)

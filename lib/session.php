@@ -3,6 +3,7 @@
 
 require_once('conf/migdal.conf');
 
+require_once('lib/tmptexts.php');
 require_once('lib/uri.php');
 require_once('lib/utils.php');
 

@@ -51,6 +51,24 @@ $result=mysql_query("update images
 return $result ? EP_OK : EP_TITLE_SQL;
 }
 
+function isPremoderated($message)
+{
+global $userModerator;
+
+return (getPremoderateByTopicId($message->getTopicId())
+        & $message->getGrp())!=0 && !$userModerator;
+}
+
+function setDisabled($message)
+{
+if(isPremoderated($message))
+  return mysql_query('update messages
+                      set disabled=1
+	              where id='.$message->getMessageId());
+else
+  return true;
+}
+
 function modifyPosting($message)
 {
 global $userId;
@@ -77,6 +95,8 @@ if($message->personal_id!=0 && !personalExists($message->personal_id))
   return EP_NO_PERSONAL;
 if(!$message->store())
   return EP_STORE_SQL;
+if(!setDisabled($message))
+  return EP_DISABLE_SQL;
 return EP_OK;
 }
 
