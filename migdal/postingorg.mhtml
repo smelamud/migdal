@@ -91,6 +91,7 @@
 </element>
 
 <pagetitle title='Организатор сообщений'>
+<topictitle title='Организатор сообщений'>
 
 <html>
 <preamble>
@@ -101,6 +102,9 @@
    <hidden name='okdir' value='$-'>
    <hidden name='faildir' value='$-'>
    <hidden name='redirid' value='$redirid'>
+   <tr><td colspan=2>
+    <subtitle>
+   </td></tr>
    <tr><td colspan=2>
     <a href='topicorg.php?redirid=$_'>Организатор тем</a>
    </td></tr>

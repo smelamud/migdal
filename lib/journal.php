@@ -323,8 +323,8 @@ function duplicateDatabase()
 {
 global $dbName;
 
-$tables=array('complain_actions','complains','cross_topics','forums','images',
-              'instants','links','messages','multisites','postings',
+$tables=array('complain_actions','complains','cross_topics','forums','groups',
+              'images','instants','links','messages','multisites','postings',
 	      'stotext_images','stotexts','topics','users','votes');
 foreach($tables as $table)
        {

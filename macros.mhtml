@@ -80,6 +80,7 @@
 <deciter macro='footnotes' class='FootnoteIterator' file='lib/paragraphs.php'
          params='source' defaults="source='$;'">
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>
+<deciter macro='groups' class='GroupsIterator' file='lib/groups.php'>
 <deciter macro='horisonts' class='HorisontsIterator' file='lib/horisonts.php'>
 <deciter macro='imageset' class='ImageSetIterator' file='lib/images.php'
          params='imageset'>

@@ -93,3 +93,14 @@ ALTER TABLE `horisonts` ADD `calling` TINYINT NOT NULL ;
 ALTER TABLE `journal_vars` ADD `last_read` TIMESTAMP NOT NULL ;
 ALTER TABLE `horisonts` DROP `calling` ;
 ALTER TABLE `horisonts` ADD `lock` DATETIME;
+CREATE TABLE `groups` (
+`user_id` INT NOT NULL ,
+`group_id` INT NOT NULL ,
+INDEX ( `user_id` , `group_id` )
+);
+ALTER TABLE `topics` ADD `group_id` INT NOT NULL AFTER `user_id` ,
+ADD `perms` INT NOT NULL AFTER `group_id` ;
+ALTER TABLE `topics` ADD INDEX ( `group_id` ) ;
+ALTER TABLE `messages` ADD `group_id` INT NOT NULL AFTER `sender_id` ,
+ADD `perms` INT NOT NULL AFTER `group_id` ;
+ALTER TABLE `messages` ADD INDEX ( `group_id` ) ;

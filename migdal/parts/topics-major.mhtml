@@ -55,6 +55,9 @@
  </moderator>
  <admin_users>
   <tr><tdspan span='$sp'>
+   <a href='grouporg.php?redirid=$_' class='edit'>Группы</a>
+  </tdspan></tr>
+  <tr><tdspan span='$sp'>
    <a href='journal.php?redirid=$_' class='edit'>Журнал</a>
   </tdspan></tr>
  </admin_users>

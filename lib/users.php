@@ -636,6 +636,18 @@ $result=mysql_query("select id
 return mysql_num_rows($result)>0;
 }
 
+function userExists($id)
+{
+global $userAdminUsers;
+
+$hide=$userAdminUsers ? 2 : 1;
+$result=mysql_query("select id
+		     from users
+		     where id=$id and hidden<$hide")
+	  or sqlbug('Ошибка SQL при проверке наличия пользователя');
+return mysql_num_rows($result)>0;
+}
+
 class UsersSummary
 {
 var $total;

@@ -1,0 +1,30 @@
+<< @(#) $Id$ >>
+
+<pagetitle title='Добавление пользователя в группу'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <formtable title='Добавление пользователя в группу'>
+  <form method=post action='actions/groupadd.php'>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <table>
+    <starinfo span=2>
+    <error id='*EGA_NO_ADD' text='Вы не администратор' span=2>
+    <error id='*EGA_GROUP_EMPTY' text='Укажите имя группы' span=2>
+    <error id='*EGA_NO_GROUP' text='Такой группы не существует' span=2>
+    <edit_line title='Группа' mandatory='*true' name='group_name'
+               value='$group_name' size=20 maxlength=30>
+    <error id='*EGA_USER_EMPTY' text='Укажите имя пользователя' span=2>
+    <error id='*EGA_NO_USER' text='Такого пользователя не существует' span=2>
+    <edit_line title='Пользователь' mandatory='*true' name='user_name'
+               value='$user_name' size=20 maxlength=30>
+   </table>
+   <formbuttons title='Изменить'>
+  </form>
+ </formtable>
+ <bottom>
+</body>
+</html>

@@ -227,4 +227,16 @@ define('EH_NO_MODIFY',411);
 define('EPD_OK',420);
 define('EPD_NO_DELETE',421);
 define('EPD_POSTING_ABSENT',422);
+
+define('EGA_OK',430);
+define('EGA_USER_EMPTY',431);
+define('EGA_GROUP_EMPTY',432);
+define('EGA_NO_USER',433);
+define('EGA_NO_GROUP',434);
+define('EGA_NO_ADD',435);
+
+define('EGD_OK',440);
+define('EGD_NO_USER',441);
+define('EGD_NO_GROUP',442);
+define('EGD_NO_DELETE',443);
 ?>

@@ -77,7 +77,7 @@ setSessionCookie($sessionid);
 
 function userRights($aUserId=0)
 {
-global $sessionid,$userId,$realUserId,$userRightNames;
+global $sessionid,$userId,$realUserId,$userGroups,$userRightNames;
 
 settype($sessionid,'integer');
 settype($globalsid,'integer');
@@ -114,6 +114,17 @@ else
     }
   else
     $userId=$realUserId=$aUserId;
+
+$userGroups=array();
+if($userId>0)
+  {
+  $result=mysql_query("select group_id
+                       from groups
+		       where user_id=$userId")
+            or sqlbug('Ошибка SQL при получении групп пользователя');
+  while(list($group_id)=mysql_fetch_array($result))
+       $userGroups[]=$group_id;
+  }
 
 if($userId>0)
   {
