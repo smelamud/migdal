@@ -33,7 +33,7 @@ session($sessionid);
 $err=postMessage($personal,$message);
 if($err==ECHP_OK)
   header('Location: '.remakeURI($redir,
-                                array('err'),
+                                array('err','message'),
 				array('personal' => $personal)));
 else
   header('Location: '.remakeURI($redir,
