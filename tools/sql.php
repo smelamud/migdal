@@ -31,42 +31,45 @@ if($dbhost=='')
 <html>
 <head><title>Migdal - SQL</title></head>
 <body>
- <table>
-  <form method=post action='<?php echo $SCRIPT_NAME ?>#error'>
-   <tr>
-    <td>Database</td>
-    <td>
-     <input type=text name='dbname' size=30 value='<?php echo $dbname ?>'>
-    </td>
-   </tr>
-   <tr>
-    <td>User</td>
-    <td>
-     <input type=text name='dbuser' size=30 value='<?php echo $dbuser ?>'>
-    </td>
-   </tr>
-   <tr>
-    <td>Password</td>
-    <td>
-     <input type=password name='dbpasswd' size=30
-            value='<?php echo $dbpasswd ?>'>
-    </td>
-   </tr>
-   <tr>
-    <td>Host</td>
-    <td>
-     <input type=text name='dbhost' size=30 value='<?php echo $dbhost ?>'>
-    </td>
-   </tr>
-   <tr><td colspan=2>Query</td></tr>
-   <tr><td colspan=2>
-    <textarea name='sql' rows=10 cols=50><?php echo $sql ?></textarea>
-   </td></tr>
-   <tr><td colspan=2>
-    <input type=submit value='Execute'><input type=reset value='Reset'>
-   </td></tr>
-  </form>
- </table>
+ <form method=post action='<?php echo $SCRIPT_NAME ?>#error'>
+  <table>
+   <tr><td><table>
+    <tr>
+     <td>Database</td>
+     <td>
+      <input type=text name='dbname' size=20 value='<?php echo $dbname ?>'>
+     </td>
+    </tr>
+    <tr>
+     <td>User</td>
+     <td>
+      <input type=text name='dbuser' size=20 value='<?php echo $dbuser ?>'>
+     </td>
+    </tr>
+    <tr>
+     <td>Password</td>
+     <td>
+      <input type=password name='dbpasswd' size=20
+	     value='<?php echo $dbpasswd ?>'>
+     </td>
+    </tr>
+    <tr>
+     <td>Host</td>
+     <td>
+      <input type=text name='dbhost' size=20 value='<?php echo $dbhost ?>'>
+     </td>
+    </tr>
+   </table></td><td><table>
+    <tr><td colspan=2>Query</td></tr>
+    <tr><td colspan=2>
+     <textarea name='sql' rows=10 cols=50><?php echo $sql ?></textarea>
+    </td></tr>
+    <tr><td colspan=2>
+     <input type=submit value='Execute'><input type=reset value='Reset'>
+    </td></tr>
+   </table></td></tr>
+  </table>
+ </form>
  <a name='error'>
  <?php
  if(mysql_errno()!=0)
