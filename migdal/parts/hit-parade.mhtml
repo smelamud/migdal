@@ -3,7 +3,8 @@
 <element name='hit_parade'>
 <topics_table class='eightpt' title='$title'>
  <iterate_postinglist grp='$grp' topic='$topic_id' limit='$limit'
-                      sort='*SORT_RATING' recursive='*true' later='$later'>
+                      sort='*SORT_RATING' recursive='*true' later='$later'
+		      showshadows='*false'>
  <for>
   <topics_line time='$.Sent' href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
                text#='$.SubjectDesc' rating='$.Vote20'>
