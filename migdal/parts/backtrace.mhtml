@@ -118,13 +118,13 @@
  <trace url='jcc.php'>
  <assign name='name' value='Дневные детские лагеря'>
 <elif what="$basename=='kaitana.php'">
- <topic_obj id='$topic_id'>
  <if what='$day<=0 && $postid<=0'>
+  <topic_obj id='$topic_id'>
   <trace url='kaitana-main.php'>
   <assign name='name' value='$,Name'>
  <else>
   <if what='$postid<=0'>
-   <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$,Id'
+   <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$topic_id'
                 index1='$day' fields='*SELECT_GENERAL'>
   <else>
    <posting_obj name='posting' id='$postid' fields='*SELECT_GENERAL'>
