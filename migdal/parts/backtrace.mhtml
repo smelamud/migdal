@@ -115,7 +115,7 @@
   <assign name='name' value='Мигдаль'>
  <else>
   <posting_obj name='posting' id='$artid'>
-  <if what='$/$posting.TopicId,1/==$`jcc` || $,TopicId!=$`jcc`'>
+  <if what='$/$posting.TopicId,1/==$`jcc` && $,TopicId!=$`jcc`'>
    <trace url='jcc.php'>
   <else>
    <trace url='migdal.php'>
