@@ -377,6 +377,8 @@ BODY {
 
 .forum .controls {
 	background-color: %forum_header_back;
+	vertical-align: bottom;
+	padding-bottom: 0.5ex;
 }
 
 .forum .controls A {
