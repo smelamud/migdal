@@ -43,7 +43,7 @@
    </td></tr>
   </ifnzero>
   <controls picture='$picture' showcomplain='$showcomplain'>
-  <tr><td class='body'>
+  <tr><td class='body ninept'>
    $picture.HTMLBody
   </td></tr>
   <if what='$showdiscuss'>
