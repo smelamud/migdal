@@ -78,8 +78,8 @@ while($ed<strlen($s))
      switch($state)
            {
 	   case 0:
-	        $ed=strpos($s,'&#039;',$st);
-		$ed=$ed===false ? strlen($s) : $ed;
+	        $pos=strpos($s,'&#039;',$st);
+		$ed=$pos===false ? strlen($s) : $pos;
 		goFurther($c,$s,$st,$ed,$state,1);
 		break;
            case 1:
@@ -90,8 +90,8 @@ while($ed<strlen($s))
 		  $state=2;
 		break;
 	   case 2:
-	        $ed=strpos($s,'&#039;',$ed);
-		$ed=$ed===false ? strlen($s) : $ed+6;
+	        $pos=strpos($s,'&#039;',$ed);
+		$ed=$pos===false ? strlen($s) : $pos+6;
 		$state=3;
 		break;
 	   case 3:
