@@ -38,10 +38,10 @@ for($n=0;$n<strlen($s);$n++)
                                                    && $s[$n-1]!=$foo)
       && $n!=strlen($s) && (!$delim || !is_delim($s[$n+1]) || $s[$n+1]=='&'
                             || $s[$n+1]=='=' || $s[$n+1]=='~' || $s[$n+1]=='-'
-			    || $s[$n+1]=='<' || $s[$n+1]=='(')
+			    || $s[$n+1]=='<' || $s[$n+1]=='(' || $s[$n+1]=='[')
                                          # word may start by entity or font
 					 # style markup or by dash or by tag
-					 # or by parenthesis
+					 # or by parenthesis or by bracket
 			&& $s[$n+1]!=$foo)
      {
      $c.=$bar;
