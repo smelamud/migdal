@@ -2,8 +2,13 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <a href='index.php?topic_id=$posting.TopicId' class='topic'
-    title='$posting.TopicDescription'>$posting.TopicName</a>
+ <if what='$/$posting.Id,1/==$`methodics`'>
+  <topic_obj id='$`methodics`'>
+  <a href='methodics.php' class='topic' title='$,Description'>$,Name</a>
+ <else>
+  <a href='index.php?topic_id=$posting.TopicId' class='topic'
+     title='$posting.TopicDescription'>$posting.TopicName</a>
+ </if>
  <br>
 </if>
 </element>
