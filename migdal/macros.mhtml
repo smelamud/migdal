@@ -48,8 +48,8 @@
        defaults="target='' re=''">
 <decel name='mailru_count' file='parts/mailru.php'>
 <decel name='mailru_logo' file='parts/mailru.php'>
-<decel name='menu' file='parts/menu.php' params='ident,target'
-       defaults="target=''">
+<decel name='menu' file='parts/menu.php' params='ident,re,target'
+       defaults="re='' target=''">
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
@@ -79,6 +79,8 @@
        defaults="topic_id=0 withpostings='*false' withanswers='*false' navi='*false' file='index.php'">
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory' defaults="mandatory='*false'">
+<decel name='tune' file='parts/tune.php' params='ident,re,target'
+       defaults="re='' target=''">
 <decel name='uploader' file='parts/uploader.php'
        params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,mandatory'
        defaults="mandatory='*false'">
@@ -94,10 +96,7 @@
              vals='сообщения,мнения,новости,картинки,статьи'>
 <decgrpmesgs name='grpitemtitlei'
              vals='Сообщение,Мнение,Новость,Картинка,Статья'>
-<decgrpmesgs name='grpident' vals='messages,forums,news,gallery,articles'>
 <decgrpmesgs name='grpicon' vals='pics/all.gif,pics/opinion.gif,pics/new.gif,pics/all.gif,pics/article.gif'>
-<decgrpmesgs name='grppic'
-             vals='pics/index.gif,pics/forums.gif,pics/news.gif,pics/gallery.gif,pics/articles.gif'>
 
 <macro name='ofmessages'>
  <zone>

@@ -6,24 +6,13 @@
 </head>
 <body>
  <update_last_chat>
- <top ident='chat' image='pics/chat.gif' target=_top re='/chat.php'
-      showimages='*false'>
- <table class='batcher' width=100%><tr>
-  <td align=left>
-   &nbsp;
-  </td>
-  <td align=right>
-   <notlogged>
-    <span class='advert'>
-     Хотите общаться в чате?
-     <a href='/register.php?redir=/chat.php&$?' target=_top>
-      Зарегистрируйтесь!</a>
-    </span>
-   <else>
-    <a href='/chattune.php?redir=/chat.php&$?' target=_top>
-     Настроить чат</a>
-   </notlogged>
-  </td>
- </tr></table>
+ <top ident='chat' target=_top re='/chat.php' showimages='*false'>
+ <notlogged>
+  <span class='advert'>
+   Хотите общаться в чате?
+   <a href='/register.php?redir=/chat.php&$?' target=_top>
+    Зарегистрируйтесь!</a>
+  </span>
+ </notlogged>
 </body>
 </html>

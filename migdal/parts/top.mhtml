@@ -3,38 +3,28 @@
 
 <element name='Top'>
 <script src='/window.js' language='JavaScript'></script>
-<menu ident='$ident' target='$target'>
-<table class='state'><tr>
- <td class='topimage'>
-  <if what='$showimages'>
-   <a href='/index.php'>
-    <image src='$$style_banner_logo' border=0></a>
-   <a href='/index.php'>
-    <image src='$$style_banner_name' border=0></a>
-  </if>
-  <hotlog_count>
-  <mailru_count>
-  <rambler_count>
- </td>
- <td align=right><login flags='$flags' err='$$err' target='$target'
-                        re='$re'></td>
-</tr></table>
-<table class='state'><tr>
- <td class='style'>
-  <zone>
-   <ife what='$re'>
-    <concat name='link' value='/style.php?redir=$_'>
-   <else>
-    <concat name='link' value='/style.php?redir=$re?$?'>
-   </ife>
-   <if what="$ident!='style'">
-    <at href='$link' target='$target'>Настроить вид</a>
-   <else>
-    <at href='$link' class='active' target='$target'>Настроить вид</a>
+<table class='state'>
+ <col width=*>
+ <col width=0*>
+ <col width=0*>
+ <tr>
+  <td class='topimage'>
+   <if what='$showimages'>
+    <a href='/index.php'>
+     <image src='$$style_banner_logo' border=0></a>
+    <a href='/index.php'>
+     <image src='$$style_banner_name' border=0></a>
    </if>
-  </zone>
- </td>
- <td class='date'><today></td>
-</tr></table>
+   <hotlog_count>
+   <mailru_count>
+   <rambler_count>
+  </td>
+  <td align=right>
+   <today><br>
+   <login flags='$flags' err='$$err' target='$target' re='$re'>
+  </td>
+ </tr>
+</table>
+<menu ident='$ident' re='$re' target='$target'>
 <backtrace redir='$$redir' target='$target'>
 </element>

@@ -6,7 +6,7 @@
  <title>Мигдаль - Чат</title>
 </head>
 <logged>
- <frameset rows='125,*,60' border=0>
+ <frameset rows='115,*,60' border=0>
 <else>
  <frameset rows='140,*' border=0>
 </logged>

@@ -6,14 +6,12 @@
 <grp>
 <grptitle>
 <grpitemtitle>
-<grpident>
-<grppic>
 <html>
 <head>
  <title>Мигдаль - $grptitle</title>
 </head>
 <body>
- <top ident='$grpident' image='$grppic'>
+ <top ident='index'>
  <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
  <setup>
  <if what='$editid'>

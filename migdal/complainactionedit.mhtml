@@ -8,7 +8,7 @@
  <title>Мигдаль - Ответы на жалобы</title>
 </head>
 <body>
- <top ident='complains' image='pics/complain.gif'>
+ <top ident='complains'>
  <complain_type_obj id='$typeid'>
  <form method=get action='$~'><table class='form'><tr>
   <hidden name='redir' value='$redir'>

@@ -1,7 +1,6 @@
 ! @(#) $Id$
 
 .state {
-	margin-bottom: 1.5ex;
 	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 8pt;
@@ -13,33 +12,10 @@
 	padding: 0;
 }
 
-.state .style {
-	background-color: %state_back;
-	text-align: center;
-}
-
-.state .style A {
-	font-size: 10pt;
-	color: %state_style;
-	text-decoration: underline;
-}
-
-.state .style A.active {
-	color: %state_style_active;
-}
-
-.state .style A:hover {
-	color: %state_style_hover;
-}
-
 .state .date {
-	font-size: 10pt;
-	font-weight: bold;
 	color: %state_date;
-	background-color: %state_back;
-	text-align: right;
-	vertical-align: middle;
-	padding-right: 1em;
+	border-bottom: solid 1px %state_date;
+	font-size: 9pt;
 }
 
 .state .login TD {

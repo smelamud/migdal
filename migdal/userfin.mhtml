@@ -9,7 +9,7 @@
  <title>Мигдаль - Завершение регистрации</title>
 </head>
 <body>
- <top ident='users' image='pics/users.gif'>
+ <top ident='users'>
  <ifzero what='$err'>
   <formtable title='Регистрация завершена'>
  <else>

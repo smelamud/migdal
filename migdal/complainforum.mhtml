@@ -8,7 +8,7 @@
  <title>Мигдаль - Обсуждение жалобы</title>
 </head>
 <body>
- <top ident='complains' image='pics/complain.gif'>
+ <top ident='complains'>
  <table width=100% class='complain'>
   <complain_full id='$compid'>
   <ifne what='$,Display'>

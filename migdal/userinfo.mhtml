@@ -7,7 +7,7 @@
  <title>Мигдаль - Информация о пользователе</title>
 </head>
 <body>
- <top ident='users' image='pics/users.gif'>
+ <top ident='users'>
  <userinfo id='$id'>
  <bottom>
 </body>

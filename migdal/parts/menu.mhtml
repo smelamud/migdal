@@ -2,21 +2,26 @@
 << Based-on: demo/parts/menu.mhtml 1.3 >>
 
 <element name='Menu'>
-<table class='menu' width=100%><tr><td>
- <iterate_menu name='menu'>
- <for>
-  <if what='$.Ident==$ident'>
-   <at href='$.Link' class='selected' target='$target'>$.Name</at>
-  <else>
-   <at href='$.Link' target='$target'>$.Name</at>
-  </if>
-  <notlast what='$menu'>
+<table class='menu' width=100%><tr>
+ <td>
+  <iterate_menu name='menu'>
+  <for>
+   <if what='$.Ident==$ident'>
+    <at href='$.Link' class='selected' target='$target'>$.Name</at>
+   <else>
+    <at href='$.Link' target='$target'>$.Name</at>
+   </if>
+   <notlast what='$menu'>
+    &nbsp;
+   </notlast>
+  </for>
+  <admin_menu>
    &nbsp;
-  </notlast>
- </for>
- <admin_menu>
-  &nbsp;
-  <at href='menuedit.php' target='$target'>Изменить</at>
- </admin_menu>
-</td></tr></table>
+   <at href='menuedit.php' target='$target'>Изменить</at>
+  </admin_menu>
+ </td>
+ <td align=right class='minor'>
+  <tune ident='$ident' re='$re' target='$target'>
+ </td>
+</tr></table>
 </element>

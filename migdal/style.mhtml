@@ -5,7 +5,7 @@
  <title>Демо - Настройка вида</title>
 </head>
 <body>
- <top ident='style' image='pics/style.gif'>
+ <top ident='style'>
  <formtable title='Настройка вида'>
  <form method=post action='actions/style.php'>
   <hidden name='okdir' value='$redir'>

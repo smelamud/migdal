@@ -16,7 +16,7 @@
  <title>Мигдаль - Размещение картинки</title>
 </head>
 <body>
- <top ident='articles' image='pics/articles.gif'>
+ <top ident='articles'>
  <posting_obj id='$postid'>
  <zone><stotext_image_obj id='$,StotextId' par='$par'><setup></zone>
  <formtable title='Размещение картинки'>

@@ -9,7 +9,7 @@
  <title>Мигдаль - Обсуждения</title>
 </head>
 <body>
- <top ident='discuss' image='pics/forums.gif'>
+ <top ident='discuss'>
  <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>

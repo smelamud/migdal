@@ -7,7 +7,7 @@
  <title>Демо - &lt;шаблон&gt;</title>
 </head>
 <body>
- <top ident='template' image='pics/index.gif'>
+ <top ident='template'>
  <bottom>
 </body>
 </html>

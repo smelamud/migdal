@@ -5,7 +5,7 @@
  <title>Мигдаль - Настроить чат</title>
 </head>
 <body>
- <top ident='chat' image='pics/chat.gif'>
+ <top ident='chattune'>
  <formtable title='Настроика чата'>
   <form method=get action='/chat.php'>
    <hiddenget remove='chr chp redir redirid'>

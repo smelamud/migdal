@@ -6,7 +6,7 @@
  <title>Мигдаль - Справка</title>
 </head>
 <body>
- <top ident='index' image='pics/index.gif'>
+ <top ident='index'>
  <table width=100%><tr valign=top>
   <td width=200>
    <stotext_help_navi ident='types' link='$link' title='$title'

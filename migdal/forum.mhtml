@@ -8,7 +8,7 @@
  <title>Мигдаль - Обсуждение</title>
 </head>
 <body>
- <top ident='forums' image='pics/forums.gif'>
+ <top ident='forums'>
  <posting_full id='$msgid' grp='*GRP_FORUMS'>
  <table width=100%><tr valign=top>
   <zone>

@@ -7,7 +7,7 @@
  <title>Мигдаль - Тема</title>
 </head>
 <body>
- <top ident='topics' image='pics/index.gif'>
+ <top ident='topics'>
  <topic_obj id='$editid' up=0>
  <setup>
  <if what='$editid'>

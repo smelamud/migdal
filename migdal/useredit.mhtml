@@ -7,7 +7,7 @@
  <title>Мигдаль - Изменение информации о пользователе</title>
 </head>
 <body>
- <top ident='users' image='pics/users.gif'>
+ <top ident='users'>
  <user_obj name='user' id='$editid'>
  <setup>
  <formtable title='Информация о пользователе'>

@@ -1,0 +1,21 @@
+<< @(#) $Id$ >>
+
+<macro name='tuneitem'>
+ <ife what='$re'>
+  <concat name='link' value='%file?redir=$_'>
+ <else>
+  <concat name='link' value='%file?redir=$re?$?'>
+ </ife>
+ <if what="$ident!='%ident'">
+  <at href='$link' target='$target'>%title</a>
+ <else>
+  <at href='$link' class='selected' target='$target'>%title</a>
+ </if>
+</macro>
+
+<element name='tune'>
+ <tuneitem file='/style.php' ident='style' title='Настроить вид'>
+ <if what="$ident=='chat' || $ident=='chattune'">
+  <tuneitem file='/chattune.php' ident='chattune' title=', чат'>
+ </if>
+</element>

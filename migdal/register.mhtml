@@ -6,7 +6,7 @@
  <title>Мигдаль - Регистрация пользователя</title>
 </head>
 <body>
- <top ident='users' flags='no_new' image='pics/users.gif'>
+ <top ident='users' flags='no_new'>
  <user_obj name='user' id=0>
  <setup>
  <formtable title='Введите информацию о себе'>

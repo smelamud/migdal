@@ -6,7 +6,7 @@
  <title>Мигдаль - Подтверждение регистрации</title>
 </head>
 <body>
- <top ident='users' image='pics/users.gif'>
+ <top ident='users'>
  <formtable title='Подтверждение регистрации'>
   Пользователь <b>$login</b> успешно зарегистрирован.
   <p>

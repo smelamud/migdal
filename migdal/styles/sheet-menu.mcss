@@ -3,7 +3,11 @@
 .menu {
 	background-color: %menu_back;
 	padding-left: 1em;
-	margin-bottom: .5ex;
+	margin-bottom: 1.5ex;
+}
+
+.menu .minor A {
+	font-size: 8pt;
 }
 
 .menu A {

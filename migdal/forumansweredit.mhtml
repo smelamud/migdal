@@ -8,7 +8,7 @@
  <title>Мигдаль - Сообщение в форуме</title>
 </head>
 <body>
- <top ident='forums' image='pics/forums.gif'>
+ <top ident='forums'>
  <forum_answer_obj id='$editid' up='$up'>
  <setup>
  <if what='$editid'>

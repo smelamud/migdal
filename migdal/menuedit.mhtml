@@ -9,7 +9,7 @@
 <body>
  <menu_obj id='$menuid'>
  <setup>
- <top ident='$,Ident' image='pics/index.gif'>
+ <top ident='$,Ident'>
  <table>
   <error id='*EMIX_NO_EDIT' text='Вы не администратор'>
   <error id='*EMIX_NO_FIRST' text='Первого пункта меню не существует'>

@@ -8,13 +8,12 @@
 <reloadnot why='$grp' var='grp' value='*GRP_TAPE'>
 <grp>
 <grptitle>
-<grppic>
 <html>
 <head>
  <title>Мигдаль<if what='$g.Effective!=*GRP_TAPE'> - $grptitle</if></title>
 </head>
 <body>
- <top ident='index' image='$grppic'>
+ <top ident='index'>
  <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
