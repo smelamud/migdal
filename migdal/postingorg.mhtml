@@ -36,74 +36,76 @@
 </element>
 
 <element name='post' params='posting'>
-<table class='posting' width=100%>
- <tr><td>
-  <iterate_topic_hierarchy topic_id='$posting.TopicId'>
-  <span class='subject'>
-   <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
-      class='topic'><asp>
-    <for>
-     <if what='!$;isFirst'>&sp;::&sp;</if>
-     $.Name
-    </for>
-   <asp></a>
-  </span>
-  // $posting.GrpTitle
- </td></tr>
- <tr><td>
-  <identify posting='$posting'>
-  <b><a href='$posting.DetailsHref'>$posting.SubjectDesc</a></b>
-  <ifne what='$posting.Ident'>
-   [$posting.Ident=$posting.Id]
-  <else>
-   [$posting.Id]
-  </ifne>
- </td></tr>
- <ifnzero what='$posting.VoteCount'>
+<ifnzero what='$posting.Shadow'><blockquote></ifnzero>
+ <table class='posting' width=100%>
   <tr><td>
-   $posting.VoteString&nbsp;<image src#='pics/bar-${posting.Vote20}.gif'>
-   &nbsp;
-   <array vals='голос,голоса,голосов'>
-   <plural value='$posting.VoteCount'>
-   ($posting.VoteCount&sp;$,)
+   <iterate_topic_hierarchy topic_id='$posting.TopicId'>
+   <span class='subject'>
+    <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
+       class='topic'><asp>
+     <for>
+      <if what='!$;isFirst'>&sp;::&sp;</if>
+      $.Name
+     </for>
+    <asp></a>
+   </span>
+   // $posting.GrpTitle
   </td></tr>
- </ifnzero>
- <ifnzero what='$posting.ImageSet'>
   <tr><td>
-   <image_link id='$posting.ImageId'>
-   $,Картинка</a>
-   &nbsp;
-   ${posting.ImageX}x${posting.ImageY}, ${posting.ImageSizeKB}KB
+   <identify posting='$posting'>
+   <b><a href='$posting.DetailsHref'>$posting.SubjectDesc</a></b>
+   <ifne what='$posting.Ident'>
+    [$posting.Ident=$posting.Id]
+   <else>
+    [$posting.Id]
+   </ifne>
   </td></tr>
- </ifnzero>
- <tr><td class='sent'>
-  <sentview date='$posting.Sent'>&nbsp;
-  <senderlink message='$posting'>
- </td></tr>
- <tr><td class='bottom'>
-  <a href="postingedit.php?editid=$posting.Id&grp=*GRP_ALL&full=1&redirid=$_"
-     >Изменить</a>
-  &nbsp;
-  <if what='$posting.isDisabled'>
-   <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-      >Разрешить&nbsp;показ</a>
-  <else>
-   <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-      >Запретить&nbsp;показ</a>
-  </if>
-  &nbsp;
-  <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
-     >Тень<ifnzero what='$posting.Shadow'> (*)</ifnzero></a>
-  &nbsp;
-  <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
-     >Осовременить</a>
-  &nbsp;
-  <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
-     >Удалить</a>
-  &nbsp;
-  <a href="chmod.php?msgid=$posting.MessageId&redirid=$_">Права</a>
- </td></tr>
-</table>
+  <ifnzero what='$posting.VoteCount'>
+   <tr><td>
+    $posting.VoteString&nbsp;<image src#='pics/bar-${posting.Vote20}.gif'>
+    &nbsp;
+    <array vals='голос,голоса,голосов'>
+    <plural value='$posting.VoteCount'>
+    ($posting.VoteCount&sp;$,)
+   </td></tr>
+  </ifnzero>
+  <ifnzero what='$posting.ImageSet'>
+   <tr><td>
+    <image_link id='$posting.ImageId'>
+    $,Картинка</a>
+    &nbsp;
+    ${posting.ImageX}x${posting.ImageY}, ${posting.ImageSizeKB}KB
+   </td></tr>
+  </ifnzero>
+  <tr><td class='sent'>
+   <sentview date='$posting.Sent'>&nbsp;
+   <senderlink message='$posting'>
+  </td></tr>
+  <tr><td class='bottom'>
+   <a href="postingedit.php?editid=$posting.Id&grp=*GRP_ALL&full=1&redirid=$_"
+      >Изменить</a>
+   &nbsp;
+   <if what='$posting.isDisabled'>
+    <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+       >Разрешить&nbsp;показ</a>
+   <else>
+    <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+       >Запретить&nbsp;показ</a>
+   </if>
+   &nbsp;
+   <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
+      >Тень</a>
+   &nbsp;
+   <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
+      >Осовременить</a>
+   &nbsp;
+   <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
+      >Удалить</a>
+   &nbsp;
+   <a href="chmod.php?msgid=$posting.MessageId&redirid=$_">Права</a>
+  </td></tr>
+ </table>
+<ifnzero what='$posting.Shadow'></blockquote></ifnzero>
 <p>
 </element>
 
