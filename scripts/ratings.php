@@ -15,10 +15,10 @@ $pos=0;
 
 for($n=1;$n<=20;$n++)
    {
-   $fd=popen("$wgetPath -qO - 'http://www.jewish.ru/topjews/index.asp?page=$n'",
+   $fd=popen("$wgetPath -qO - -T 30 'http://www.jewish.ru/topjews/index.asp?page=$n'",
              'r');
    $pl=0;
-   while(!feof($fd))
+   while($fd && !feof($fd))
 	{
 	$s=fgets($fd);
 	if(preg_match('/^<TR><TD class="TDITEM">(\d+)<\/TD>/',$s,$matches))
@@ -46,9 +46,9 @@ $topicWeek=0;
 $globalDay=0;
 $globalWeek=0;
 
-$fd=popen("$wgetPath -qO - 'http://top.mail.ru/stat?id=".
+$fd=popen("$wgetPath -qO - -T 30 'http://top.mail.ru/stat?id=".
            $rating->getRegId()."'",'r');
-while(!feof($fd))
+while($fd && !feof($fd))
      {
      $s=fgets($fd);
      if(preg_match('/^<td><a href="\/Rating\/MassMedia-News\/Today\/Hosts\/\d*.html#(\d+)">/',
@@ -81,9 +81,10 @@ $pages=array(''       => 'topicDay' ,'24hho2' => 'topicDay',
 reset($pages);
 while(list($s,$var)=each($pages))
      {
-     $fd=popen("$wgetPath -qO - 'http://www.topcto.ru/other/index$s.html'",'r');
+     $fd=popen("$wgetPath -qO - -T 30 'http://www.topcto.ru/other/index$s.html'",
+               'r');
      $pl=0;
-     while(!feof($fd))
+     while($fd && !feof($fd))
 	  {
 	  $c=fgets($fd);
 	  if(preg_match('/^\s*<font size="-1">&nbsp;(\d+)&nbsp;<\/font>\s*$/',
@@ -116,12 +117,12 @@ $topicWeek=0;
 $globalDay=0;
 $globalWeek=0;
 
-$fd=popen("$wgetPath -qO - 'http://top100.rambler.ru/cgi-bin/stats_top100.cgi?id=".
+$fd=popen("$wgetPath -qO - -T 30 'http://top100.rambler.ru/cgi-bin/stats_top100.cgi?id=".
            $rating->getId()."&page=6'",'r');
 $vd='topicDay';
 $vw='topicWeek';
 $sites=0;
-while(!feof($fd))
+while($fd && !feof($fd))
      {
      $s=fgets($fd);
      if(preg_match('/^<tr bgcolor="#e0e0e0" align=right><td colspan=4 align=center><small><i>Рейтинг сайтов<\/i><\/small><\/td><\/tr>/',
