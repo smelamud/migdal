@@ -3,7 +3,7 @@
 <string name='topic_id'>
 <int name='offset'>
 <ifzero what='$topic_id'>
- <reload href='$[topic_id=-1]'>
+ <assign name='topic_id' value='-1'>
 </ifzero>
 <ifnzero what='$grp'>
  <trap text='grp!=0 in index.php'>

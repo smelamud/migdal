@@ -3,7 +3,13 @@
 <force_community>
 <int name='topic_id'>
 <int name='offset'>
-<log event=forumcatalog text#='topic($topic_id) offset=$offset'>
+<ifzero what='$topic_id'>
+ <assign name='topic_id' value='-1'>
+</ifzero>
+<zone>
+ <ident_id table='topics' ident='$topic_id'>
+ <log event=forumcatalog text#='topic($,) offset=$offset'>
+</zone>
 <grps>
 <unititle chapter='Обсуждения' topic_id='$topic_id'>
 

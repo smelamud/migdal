@@ -23,15 +23,14 @@
    <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
    <posting_last name='gallery_time' grp='*GRP_GALLERY' topic_id='general'
 		 recursive='*true'>
-   <menuitem ident='index' alt='Главная' link='index.php?topic_id=-1'
-             target='$target' current='$ident'>
+   <menuitem ident='index' alt='Главная' link='index.php' target='$target'
+             current='$ident'>
    <community>
-    <menuitem ident='discuss' alt='Обсуждения'
-              link='forumcatalog.php?topic_id=-1' target='$target'
-	      current='$ident' time='$forums_time'>
+    <menuitem ident='discuss' alt='Обсуждения' link='forumcatalog.php'
+              target='$target' current='$ident' time='$forums_time'>
    </community>
-   <menuitem ident='gallery' alt='Галерея' link='gallery.php?topic_id=-1'
-             target='$target' current='$ident' time='$gallery_time'>
+   <menuitem ident='gallery' alt='Галерея' link='gallery.php' target='$target'
+             current='$ident' time='$gallery_time'>
    <community>
     <menuitem ident='chat' alt='Чат' link='chat.php' target='$target'
               current='$ident'>
