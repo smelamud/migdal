@@ -9,13 +9,15 @@ var $no;
 var $term;
 var $format;
 var $body;
+var $message_id;
 
-function Footnote($no,$term,$format,$body)
+function Footnote($no,$term,$format,$body,$messageId=0)
 {
 $this->no=$no;
 $this->term=$term;
 $this->format=$format;
 $this->body=$body;
+$this->message_id=$messageId;
 }
 
 function getNo()
@@ -56,12 +58,17 @@ return clearStotext($this->getFormat(),$shortBody);
 
 function getHTMLBody()
 {
-return stotextToHTML($this->getFormat(),$this->getBody());
+return stotextToHTML($this->getFormat(),$this->getBody(),$this->message_id);
+}
+
+function getMessageId()
+{
+return $this->message_id;
 }
 
 }
 
-function extractFootnotes($s,$format,$no,&$notes)
+function extractFootnotes($s,$format,$no,&$notes,$message_id=0)
 {
 $pattern='/(^|\s+)(?:&#039;((?:[^&]*(?:&[^#;]+;)?)+)&#039;\s)?{{((?:[^}]|}[^}])+)}}/';
 if(!is_array($notes))
@@ -71,7 +78,7 @@ do
   $matches=array();
   if(!preg_match($pattern,$s,$matches))
     break;
-  $note=new Footnote($no++,$matches[2],$format,$matches[3]);
+  $note=new Footnote($no++,$matches[2],$format,$matches[3],$message_id);
   $notes[]=$note;
   if($note->isNumbered())
     $s=preg_replace($pattern,"<a name='_ref".$note->getNo().

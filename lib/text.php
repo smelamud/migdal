@@ -53,29 +53,34 @@ function replaceParagraphs($s)
 return preg_replace('/\n\s*\n/','<p>',$s);
 }
 
-function getURLTag($url,$protocol,$content)
+function getURLTag($whole,$url,$protocol,$content,$id=0)
 {
 global $redir;
 
+if(strchr($whole,"'") || strchr($whole,'<') || strchr($whole,'>'))
+  return $whole;
 if($protocol=='')
   $url=remakeURI($url,array(),array('redirid' => $redir->getId()));
+else
+  if($id!=0)
+    $url="actions/link.php?msgid=$id&okdir=".urlencode($url);
 return "<a href='$url'".($protocol!='' ? ' target=_blank>' : '>').
        "$content</a>";
 }
 
-function goFurther(&$out,$in,&$start,&$end,&$state,$target=0)
+function goFurther(&$out,$in,&$start,&$end,&$state,$id=0,$target=0)
 {
 if($end>$start)
   {
   $out.=preg_replace('/(^|[\s.,:;\(\)])(([^\s\(\)]+:\/)?\/\S*[^\s.,:;\(\)])/e',
-		     "'\\1'.getURLTag('\\2','\\3','\\2')",
+		     "'\\1'.getURLTag('\\0','\\2','\\3','\\2',$id)",
 		     substr($in,$start,$end-$start));
   $start=$end;
   }
 $state=$target;
 }
 
-function replaceURLs($s)
+function replaceURLs($s,$id=0)
 {
 $c='';
 $state=0;
@@ -87,12 +92,12 @@ while($ed<strlen($s))
 	   case 0:
 	        $ed=strpos($s,'&#039;',$st);
                 $ed=$ed===false ? strlen($s) : $ed;
-		goFurther($c,$s,$st,$ed,$state,1);
+		goFurther($c,$s,$st,$ed,$state,$id,1);
 		break;
            case 1:
 	        $ed=$st+6;
 	        if($st!=0 && !is_delim($s[$st-1]))
-		  goFurther($c,$s,$st,$ed,$state);
+		  goFurther($c,$s,$st,$ed,$state,$id);
 		else
 		  $state=2;
 		break;
@@ -106,14 +111,14 @@ while($ed<strlen($s))
 		               substr($s,$ed),$matches))
 		  {
 		  $ed-=6;
-		  goFurther($c,$s,$st,$ed,$state);
+		  goFurther($c,$s,$st,$ed,$state,$id);
 		  }
 		else
 		  $state=4;
 		break;
 	   case 4:
-	        $c.=getURLTag($matches[1],$matches[2],
-		              substr($s,$st+6,$ed-$st-12));
+	        $c.=getURLTag($matches[0],$matches[1],$matches[2],
+		              substr($s,$st+6,$ed-$st-12),$id);
 	        $st=$ed+strlen($matches[0]);
 		$ed=$st;
 		$state=0;
@@ -176,7 +181,7 @@ function textToStotext($format,$s)
 return $format==TF_HTML ? $s : htmlspecialchars($s,ENT_QUOTES);
 }
 
-function stotextToHTML($format,$s)
+function stotextToHTML($format,$s,$id=0)
 {
 $c=$s;
 switch($format)
@@ -185,7 +190,7 @@ switch($format)
       case TF_MAIL:
 	   $c=replaceQuoting($c);
       case TF_PLAIN:
- 	   $c=replaceURLs($c);
+ 	   $c=replaceURLs($c,$id);
  	   $c=replaceBSD($c);
 	   $c=replaceHeadings($c);
  	   $c=replaceCenter($c);
@@ -198,7 +203,7 @@ switch($format)
  	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_TEX:
-	   $c=replaceURLs($c);
+	   $c=replaceURLs($c,$id);
 	   $c=replaceBSD($c);
 	   $c=replaceHeadings($c);
 	   $c=replaceCenter($c);
@@ -214,7 +219,7 @@ switch($format)
 	   $c=replaceParagraphs($c);
 	   break;
       case TF_PRE:
-	   $c=replaceURLs($c);
+	   $c=replaceURLs($c,$id);
 	   $c=flipReplace('_','<u>','</u>',$c);
 	   $c=flipReplace('~','<b>','</b>',$c);
 	   $c=flipReplace('=','<i>','</i>',$c);

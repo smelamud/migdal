@@ -14,12 +14,14 @@ var $format;
 var $body;
 var $image;
 var $dropLeft;
+var $message_id;
 
-function Paragraph($number,$format,$body,$dropLeft=false)
+function Paragraph($number,$format,$body,$messageId=0,$dropLeft=false)
 {
 $this->number=$number;
 $this->format=$format;
 $this->body=$body;
+$this->message_id=$messageId;
 $this->dropLeft=$dropLeft;
 }
 
@@ -40,7 +42,7 @@ return $this->body;
 
 function getHTMLBody()
 {
-return stotextToHTML($this->format,$this->body);
+return stotextToHTML($this->format,$this->body,$this->message_id);
 }
 
 function setImage($image)
@@ -79,6 +81,11 @@ function getHTMLTitle()
 return $this->image ? $this->image->getHTMLTitle() : '';
 }
 
+function getMessageId()
+{
+return $this->message_id;
+}
+
 function isDropLeft()
 {
 return $this->dropLeft;
@@ -93,11 +100,13 @@ var $format;
 var $pars;
 var $notes=array();
 var $noteOffset=1;
+var $message_id;
 
-function ParagraphIterator($format,$text)
+function ParagraphIterator($format,$text,$messageId=0)
 {
 $this->Iterator();
 $this->format=$format;
+$this->message_id=$messageId;
 $this->pars=preg_split("/\n\s*\n/",$text);
 reset($this->pars);
 }
@@ -109,7 +118,7 @@ if(list($key,$value)=each($this->pars))
   {
   $text=extractFootnotes($value,$this->format,
 		         count($this->notes)+$this->noteOffset,
-  			 $this->notes);
+  			 $this->notes,$this->message_id);
   if(substr($text,0,5)=='&lt;-')
     {
     $dropLeft=true;
@@ -117,7 +126,8 @@ if(list($key,$value)=each($this->pars))
     }
   else
     $dropLeft=false;
-  return new Paragraph($this->getPosition(),$this->format,$text,$dropLeft);
+  return new Paragraph($this->getPosition(),$this->format,$text,$this->message_id,
+                       $dropLeft);
   }
 else
   return false;

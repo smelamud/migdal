@@ -336,7 +336,8 @@ var $images;
 
 function PostingParagraphIterator($posting)
 {
-$this->ParagraphIterator($posting->getLargeFormat(),$posting->getLargeBody());
+$this->ParagraphIterator($posting->getLargeFormat(),$posting->getLargeBody(),
+                         $posting->getMessageId());
 $this->loadImages($posting);
 }
 
