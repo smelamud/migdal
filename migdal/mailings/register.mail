@@ -5,6 +5,7 @@
   where id=%link
 
 Subject: Подтверждение регистрации на сайте КЕС
+Content-Type: text/plain; charset=koi8-r
 
 Уважаем%gender_end %full_name!
 
