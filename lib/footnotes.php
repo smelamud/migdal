@@ -43,6 +43,15 @@ function getBody()
 return $this->body;
 }
 
+function getInplaceBody()
+{
+global $inplaceSize,$inplaceSizeMinus,$inplaceSizePlus;
+
+return clearStotext($this->getFormat(),
+		    shorten($this->getBody(),$inplaceSize,
+			    $inplaceSizeMinus,$inplaceSizePlus));
+}
+
 function getHTMLBody()
 {
 return stotextToHTML($this->getFormat(),$this->getBody());
@@ -65,10 +74,12 @@ do
   if($note->isNumbered())
     $s=preg_replace($pattern,"<a name='#_ref".$note->getNo().
                              "'></a><sup><a href='#_note".$note->getNo().
+			     "' title='".$note->getInplaceBody().
 			     "'>".$note->getNo()."</a></sup>",$s,1);
   else
     $s=preg_replace($pattern,$matches[1]."<a name='#_ref".$note->getNo().
                              "'></a><a href='#_note".$note->getNo().
+			     "' title='".$note->getInplaceBody().
 			     "'>".$note->getTerm()."</a>",$s,1);
   }
 while(true);

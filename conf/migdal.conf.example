@@ -73,6 +73,11 @@ $mediumSize=1024;
 $mediumSizeMinus=512;
 $mediumSizePlus=512;
 
+# Параметры сокращения текстов для вставки в виде примечаний по ссылке
+$inplaceSize=256;
+$inplaceSizeMinus=128;
+$inplaceSizePlus=128;
+
 # Каталог, в котором находится сайт на Web-сервере
 $siteDir='/home/balu/prog/migdal-html/migdal';
 
