@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-OBJECTS = backtrace.php complain.php cs_forum.php cs_normal.php forum.php \
+OBJECTS = backtrace.php complain.php cs_forum.php cs_normal.php forumanswer.php \
           forums.php login.php menu.php message.php messages.php top.php \
           utils.php
 	  
