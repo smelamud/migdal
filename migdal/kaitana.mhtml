@@ -12,13 +12,14 @@
 << /Traps >>
 
 <grps>
+<assign name='day' value!='$day<=0 ? 1 : $day'>
 <ifnzero what='$postid'>
  <posting_full name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'>
  <topic_obj name='kaitana' id='$posting.TopicId'>
 <else>
  <topic_obj name='kaitana' id='$topic_id'>
  <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'
-               index1!='$day<=0 ? 1 : $day'>
+               index1='$day'>
 </ifzero>
 <pagetitle title='$kaitana.Name'>
 <topictitle title='$kaitana.Name'>
@@ -77,7 +78,7 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
-   <topics_kaitana day!='$day<=0 ? 1 : $day' topic_id='$kaitana.Id'>
+   <topics_kaitana day='$day' topic_id='$kaitana.Id'>
    <topics_kaitanot topic_id='$kaitana.Id'>
    <topics_migdal posting='$posting'>
    <topics_major ident='migdal'>
@@ -88,7 +89,7 @@
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
 			 sort='*SORT_RATING' limit=0
- 	     index1!='$posting.Id!=0 ? $posting.Index1 : ($day<=0 ? 1 : $day)'>
+ 	                 index1!='$posting.Id!=0 ? $posting.Index1 : $day'>
     <td width=140>
      <for>
       <if what='$;isOdd'>
