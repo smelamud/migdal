@@ -100,6 +100,11 @@
 	font-family: %verdana;
 }
 
+.article TT {
+	font-size: 10pt;
+	font-family: %courier;
+}
+
 .article .notes {
 	border-style: none;
 	color: %article_notes_split;
