@@ -94,6 +94,9 @@ if(!$message->store())
 return EM_OK;
 }
 
+settype($editid,'integer');
+settype($grp,'integer');
+
 dbOpen();
 session($sessionid);
 $message=getMessageById($editid,$grp);

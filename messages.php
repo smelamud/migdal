@@ -22,7 +22,7 @@ if(!isset($ident))
   exit;
   }
 
-$topic_id=addslashes($topic_id);
+settype($topic_id,'integer');
 ?>
 <html>
 <head>

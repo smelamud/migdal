@@ -39,6 +39,8 @@ if(!$user->online())
 return $editid ? EUM_UPDATE_OK : EUM_INSERT_OK;
 }
 
+settype($editid,'integer');
+
 dbOpen();
 session($sessionid);
 $user=getUserById($editid);

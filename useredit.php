@@ -56,6 +56,8 @@ if($user->isEditable() && $err==$code)
          <font color='$color'>$message</font>
 	</td></tr>";
 }
+
+settype($editid,'integer');
 ?>
 <html>
 <head>

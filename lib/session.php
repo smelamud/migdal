@@ -5,6 +5,7 @@ function session($sessionId)
 {
 global $userId,$userAdminUsers,$userAdminTopics,$moderator;
 
+settype($sessionId,'integer');
 if(!$sessionId)
   {
   $userId=-1;

@@ -24,6 +24,8 @@ if(!$topic->store())
 return ET_OK;
 }
 
+settype($editid,'integer');
+
 dbOpen();
 session($sessionid);
 $topic=getTopicById($editid);

@@ -55,6 +55,9 @@ if(!isset($ident))
 				array('grp' => GRP_FORUMS)));
   exit;
   }
+
+settype($editid,'integer');
+settype($up,'integer');
 ?>
 <html>
 <head>

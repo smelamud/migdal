@@ -56,7 +56,8 @@ if($message->isEditable())
   {
   echo '<tr><td>';
   echo '<a href="messageedit.php?editid='.$message->getId().
-                               '&grp='.$message->getGrp().'">[Изменить]</a>';
+                               '&grp='.$message->getGrp().
+			       "&redir=$requestURI\">[Изменить]</a>";
   echo '</td></tr>';
   }
 ?>
