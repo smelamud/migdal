@@ -38,7 +38,7 @@ var $subdomain;
 var $shadow;
 var $counter_value0;
 var $counter_value1;
-var $ctr;
+var $co_ctr;
 
 function Posting($row)
 {
@@ -223,7 +223,7 @@ return $this->counter_value1;
 
 function getCTR()
 {
-return $this->ctr;
+return 1/$this->co_ctr;
 }
 
 }
@@ -301,8 +301,8 @@ $answersFields=$sortByAnswers && $userId>0 ?
 $countersFields=$sort==SORT_CTR ?
 	     "counter0.value as counter_value0,
 	      counter1.value as counter_value1,
-	      if(counter0.value is null or counter0.value=0,
-	         0,counter1.value/counter0.value) as ctr," :
+	      if(counter1.value is null or counter1.value=0,
+	         1000000,counter0.value/counter1.value) as co_ctr," :
 	     "";
 
 $Select="postings.id as id,postings.ident as ident,
@@ -424,7 +424,7 @@ $Order=getOrderBy($sort,
        array(SORT_SENT       => 'sent desc',
              SORT_NAME       => 'subject',
              SORT_ACTIVITY   => 'age desc',
-	     SORT_CTR        => 'ctr desc,counter_value0 desc',
+	     SORT_CTR        => 'hidden asc,co_ctr asc,counter_value0 asc',
 	     SORT_INDEX0     => 'postings.index0',
 	     SORT_INDEX1     => 'postings.index1',
 	     SORT_RINDEX1    => 'postings.index1 desc',
