@@ -10,6 +10,10 @@ define('POBJ_PAGE',1);
 define('POBJ_FUNCTION',2);
 define('POBJ_SQL',3);
 
+define('PLEVEL_NONE',0);
+define('PLEVEL_PAGES',1);
+define('PLEVEL_ALL',2);
+
 $profileStack=array();
 
 function millitime()
@@ -20,30 +24,35 @@ return (int)((float)$usec*1000)+$sec%1000*1000;
 
 function beginProfiling($object,$name,$comment='')
 {
-global $profileStack,$disableProfiling;
+global $profileStack,$profilingLevel;
 
-if($disableProfiling)
+if($profilingLevel<=PLEVEL_NONE)
   return;
-if(count($profileStack)==0)
-  $up=0;
+if($object==POBJ_PAGE || $profilingLevel>PLEVEL_PAGES)
+  {
+  if(count($profileStack)==0)
+    $up=0;
+  else
+    $up=$profileStack[count($profileStack)-1];
+  $time=millitime();
+  $name=addslashes($name);
+  $comment=addslashes($comment);
+  sql("insert into profiling(up,object,name,begin_time,comment)
+       values($up,$object,'$name',$time,'$comment')",
+      'beginProfiling','','',false);
+  $id=sql_insert_id();
+  array_push($profileStack,$id);
+  updateTrackById('profiling',$id,track($profileStack));
+  }
 else
-  $up=$profileStack[count($profileStack)-1];
-$time=millitime();
-$name=addslashes($name);
-$comment=addslashes($comment);
-sql("insert into profiling(up,object,name,begin_time,comment)
-     values($up,$object,'$name',$time,'$comment')",
-    'beginProfiling','','',false);
-$id=sql_insert_id();
-array_push($profileStack,$id);
-updateTrackById('profiling',$id,track($profileStack));
+  array_push($profileStack,0);
 }
 
 function endProfiling()
 {
-global $profileStack,$disableProfiling;
+global $profileStack,$profilingLevel;
 
-if($disableProfiling)
+if($profilingLevel<=plevel_none)
   return;
 $id=array_pop($profileStack);
 if(!$id)
