@@ -25,7 +25,7 @@
       <img src='$$style_topics_arrow' width=11 height=12>
      </if>
     </td>
-    <td><a href='$[topic_id=-1,offset]' class='new'>NEW!</a></td>
+    <td><a href='$[topic_id=-1 offset]' class='new'>NEW!</a></td>
    </tr>
    <for>
     <tr>
@@ -35,8 +35,9 @@
       </if>
      </td>
      <td>
-      <a href='$[topic_id=$.Id,offset]' title='$.Description'>
+      <a href='$[topic_id=$.Id offset]' title='$.Description'>
 	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
+      <biff time='$.LastMessage'>
       <admin_topics>
        <br>
        <a href='topicedit.php?editid=$.Id&redir=$_' class='edit'>Изменить</a>

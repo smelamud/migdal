@@ -24,6 +24,7 @@ var $allow;
 var $premoderate;
 var $ident;
 var $message_count;
+var $last_message;
 var $sub_count;
 
 function Topic($row)
@@ -219,6 +220,11 @@ function getMessageCount()
 return $this->message_count;
 }
 
+function getLastMessage()
+{
+return $this->last_message;
+}
+
 function getSubCount()
 {
 return $this->sub_count;
@@ -261,7 +267,8 @@ $postFilter=$withPostings ? 'having message_count<>0' : '';
 $this->TopicIterator(
       "select topics.id as id,topics.up as up,topics.name as name,
               topics.stotext_id as stotext_id,stotexts.body as description,
-	      count(distinct messages.id) as message_count
+	      count(distinct messages.id) as message_count,
+	      max(messages.sent) as last_message
        from topics
             left join stotexts
 	         on stotexts.id=topics.stotext_id

@@ -5,17 +5,10 @@
 <table class='menu' width=100%><tr><td>
  <iterate_menu name='menu'>
  <for>
-  <assign name='name' value='$.Name'>
   <if what='$.Ident==$ident'>
-   <at href='$.Link' class='selected' target='$target'>$name</at>
+   <at href='$.Link' class='selected' target='$target'>$.Name</at>
   <else>
-   <if what="$.Ident=='chat'">
-    <zone>
-     <chat_users_count>
-     <concat name='name' value='$name ($,)'>
-    </zone>
-   </if>
-   <at href='$.Link' target='$target'>$name</at>
+   <at href='$.Link' target='$target'>$.Name</at>
   </if>
   <notlast name='menu'>
    &nbsp;
