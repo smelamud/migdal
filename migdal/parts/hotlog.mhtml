@@ -42,7 +42,7 @@
 </element>
 
 <element name='hotlog_logo'>
- <a href=http://www.hotlog.ru/ target=_top>
-  <img src="http://www.hotlog.ru/buttons/88_31_12.gif" width="88" height="31"
-       alt="HotLog" border="0"></a>
+<a href=http://www.hotlog.ru/ target=_top>
+ <img src="http://www.hotlog.ru/buttons/88_31_12.gif" width="88" height="31"
+      alt="HotLog" border="0"></a>
 </element>

@@ -9,7 +9,7 @@ require_once('lib/utils.php');
 require_once('grp/subdomains.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics',
-                      'admin_complain_answers','moderator','judge');
+                      'admin_complain_answers','moderator','judge','admin_domain');
 $userSetNames=array('MsgPortion',
                     'ForumPortion',
                     'ComplainPortion',

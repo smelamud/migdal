@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='googleru'>
+<noparse>
  <!--TOPCTO begin-->
   <script>
    <!--
@@ -21,4 +22,5 @@
    // -->
   </script>
  <!--TOPCTO end-->
+</noparse>
 </element>

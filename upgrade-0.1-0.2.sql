@@ -53,3 +53,4 @@ CREATE TABLE votes (
 );
 ALTER TABLE `postings` ADD `subdomain` TINYINT NOT NULL;
 ALTER TABLE `postings` ADD INDEX (`subdomain`);
+ALTER TABLE `users` ADD `admin_domain` TINYINT NOT NULL AFTER `judge`;

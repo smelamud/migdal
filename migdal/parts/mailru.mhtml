@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='mailru_count'>
+<noparse>
  <!--Rating@Mail.ru COUNTER-->
   <script language="JavaScript">
    <!--
@@ -40,12 +41,13 @@
         alt="">
   </noscript>
  <!--/COUNTER-->
+</noparse>
 </element>
 
 <element name='mailru_logo'>
- <!--Rating@Mail.ru LOGO-->
-  <a target=_top href="http://top.mail.ru/jump?from=284568">
-   <img src="http://top.list.ru/counter?id=284568;t=57;l=1" border=0 height=31
-        width=88 alt="Рейтинг@Mail.ru"></a>
- <!--/LOGO-->
+<!--Rating@Mail.ru LOGO-->
+ <a target=_top href="http://top.mail.ru/jump?from=284568">
+  <img src="http://top.list.ru/counter?id=284568;t=57;l=1" border=0 height=31
+       width=88 alt="Рейтинг@Mail.ru"></a>
+<!--/LOGO-->
 </element>
