@@ -4,11 +4,11 @@
 <topics_table title='$title'>
  <posting_obj id='$rid'>
  <topics_line time='$,Sent' text='$rtitle' href#='migdal.php?artid=$rid'
-              arrow!='$posting.Id==$rid' class='item eightpt'>
+              arrow!='$posting.Id==$rid' class='item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$id' recursive='*true'>
  <topics_line time='$,' text='Галерея' href#='gallery.php?topic_id=$id'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$id'
-	      class='item eightpt'>
+	      class='item ninept'>
 </topics_table>
 </element>
 
