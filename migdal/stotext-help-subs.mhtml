@@ -4,35 +4,38 @@
 <pagetitle title='Справка'>
 
 <html>
-<preamble>
-<style><!--
- .catalog H1,.catalog H2,.catalog H3,.catalog H4 {
-	 font-family: "Times New Roman", Helvetica, sans-serif;
- }
+<zone>
+ <stylesheet ident='article'>
+ <style><!--
+  .catalog H1,.catalog H2,.catalog H3,.catalog H4 {
+	  font-family: "Times New Roman", Helvetica, sans-serif;
+  }
 
- .catalog H1 {
-	 font-size: 18pt;
-	 font-weight: bold;
- }
+  .catalog H1 {
+	  font-size: 18pt;
+	  font-weight: bold;
+  }
 
- .catalog H2 {
-	 font-size: 16pt;
-	 font-weight: bold;
- }
+  .catalog H2 {
+	  font-size: 16pt;
+	  font-weight: bold;
+  }
 
- .catalog H3 {
-	 font-size: 14pt;
-	 font-weight: bold;
-	 font-style: italic;
- }
+  .catalog H3 {
+	  font-size: 14pt;
+	  font-weight: bold;
+	  font-style: italic;
+  }
 
- .catalog H4 {
-	 font-size: 12pt;
-	 font-weight: bold;
-	 text-decoration: underline;
- }
- // -->
-</style>
+  .catalog H4 {
+	  font-size: 12pt;
+	  font-weight: bold;
+	  text-decoration: underline;
+  }
+  // -->
+ </style>
+ <preamble>
+</zone>
 <body>
  <top ident='index'>
  <table width=100%><tr valign=top>

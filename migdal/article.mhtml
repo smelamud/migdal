@@ -134,7 +134,10 @@
 <pagetitle title='$,Subject'>
 
 <html>
-<preamble>
+<zone>
+ <stylesheet ident='article'>
+ <preamble>
+</zone>
 <body>
  <top ident='articles'>
  <table width=100%><tr valign=top>
@@ -144,6 +147,11 @@
   <td width=5>&nbsp;</td>
   <td class='article'>
    <controls posting='$,'>
+   <table align=right class='sent'>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td align=right><sentview date='$,Sent'></td></tr>
+    <tr><td align=right><senderlink message='$,'></td></tr>
+   </table>
    <h1>
     <a href='index.php?topic_id=$,TopicId' class='topic'
        title='$,TopicDescription'>$,TopicName</a>
@@ -153,6 +161,9 @@
      <div class='author'>$,HTMLAuthor</div>
     </ifne>
    </h1>
+   <p class='preface'>
+    $,HTMLBody
+   </p>
    <if what='$,LargeFormat==*TF_PRE'><pre></if>
    <iterate_posting_paragraphs posting='$,'>
    <p>

@@ -1,7 +1,10 @@
 << @(#) $Id$ >>
 
 <html>
-<preamble>
+<zone>
+ <stylesheet ident='chat'>
+ <preamble>
+</zone>
 <body>
  <update_last_chat>
  <top ident='chat' target=_top showimages='*false'>

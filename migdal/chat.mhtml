@@ -3,7 +3,10 @@
 <pagetitle title='þมิ'>
 
 <html>
-<preamble>
+<zone>
+ <stylesheet ident='chat'>
+ <preamble>
+</zone>
 <logged>
  <frameset rows='125,*' border=0>
 <else>

@@ -1,7 +1,10 @@
 << @(#) $Id$ >>
 
 <html>
-<preamble>
+<zone>
+ <stylesheet ident='chat'>
+ <preamble>
+</zone>
 <frameset rows='*,45' border=0>
  <frame src='chatboard.php?$?' noresize>
  <frame src='chatbottom.php?$?' noresize>

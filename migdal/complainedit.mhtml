@@ -5,7 +5,10 @@
 <pagetitle title='Жалоба'>
 
 <html>
-<preamble>
+<zone>
+ <stylesheet ident='complain'>
+ <preamble>
+</zone>
 <body>
  <top ident='complains'>
  <complain_obj id='$editid' ident='$ident' link='$link'>

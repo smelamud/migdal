@@ -4,7 +4,10 @@
 <pagetitle title='Справка'>
 
 <html>
-<preamble>
+<zone>
+ <stylesheet ident='article'>
+ <preamble>
+</zone>
 <body>
  <top ident='index'>
  <table width=100%><tr valign=top>

@@ -86,6 +86,16 @@
 	font-style: italic;
 }
 
+.article .sent {
+	color: %article_sent;
+	font-size: 9pt;
+}
+
+.article .preface {
+	border-left: solid 3px %article_preface;
+	padding-left: 1ex;
+}
+
 .article P {
 	text-align: justify;
 }
