@@ -12,6 +12,7 @@ var $name;
 var $link;
 var $hidden;
 var $menu_index;
+var $current;
 
 function MenuItem($row)
 {
@@ -28,13 +29,18 @@ function getLink()
 return $this->link;
 }
 
+function isCurrent()
+{
+return $this->current;
+}
+
 }
 
 class MenuIterator
       extends SelectIterator
 {
 
-function MenuIterator()
+function MenuIterator($current)
 {
 $this->SelectIterator('MenuItem',
                       'select *
