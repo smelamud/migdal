@@ -8,16 +8,21 @@ require_once('lib/utils.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics',
                       'admin_menu','moderator','judge');
-$userSetNames=array('mp'  => 'msg_portion',
-                    'fp'  => 'forum_portion',
-                    'cp'  => 'complain_portion',
-	            'chp' => 'chat_portion',
-	            'chr' => 'chat_refresh');
-$userSetDefaults=array('mp'  => 10,
-                       'fp'  => 10,
-	               'cp'  => 20,
-	               'chp' => 20,
-	               'chr' => 10);
+$userSetNames=array('MsgPortion',
+                    'ForumPortion',
+                    'ComplainPortion',
+	            'ChatPortion',
+	            'ChatRefresh');
+$userSetDefaults=array('MsgPortion'      => 10,
+                       'ForumPortion'    => 10,
+                       'ComplainPortion' => 20,
+	               'ChatPortion'     => 20,
+	               'ChatRefresh'     => 10);
+$userSetParams=array('MsgPortion'      => 'mp',
+                     'ForumPortion'    => 'fp',
+		     'ComplainPortion' => 'cp',
+		     'ChatPortion'     => 'chp',
+		     'ChatRefresh'     => 'chr');
 
 function getProperName($name)
 {
@@ -70,40 +75,48 @@ else
 function userSettings()
 {
 global $userId,$HTTP_GET_VARS,$HTTP_COOKIE_VARS,
-       $userSetNames,$userSetDefaults;
+       $userSetNames,$userSetDefaults,$userSetParams;
        
 if($userId>0)
   {
-  $result=mysql_query('select '.join(',',$userSetNames).
-                      " from users
-	                where id=$userId")
+  $result=mysql_query("select settings
+                       from users
+	               where id=$userId")
 	       or die('Ошибка SQL при выборке установок пользователя');
-  $row=mysql_fetch_assoc($result);
+  $dbSettings=mysql_result($result,0,0);
+  $row=explode(':',$dbSettings);
   }
 else
   $row=array();
-$update=array();
-foreach($userSetNames as $key => $name)
+$cookieSettings=$HTTP_COOKIE_VARS['settings'];
+$cookie=explode(':',$cookieSettings);
+foreach($userSetNames as $i => $name)
        {
-       $par=$HTTP_GET_VARS[$key];
-       $cookie=$HTTP_COOKIE_VARS["cookie$key"];
+       $row[$name]=$row[$i];
+       $cookie[$name]=$cookie[$i];
+       }
+$update=array();
+foreach($userSetNames as $name)
+       {
+       $par=$HTTP_GET_VARS[$userSetParams[$name]];
+       $cook=$cookie[$name];
        $db=$row[$name];
        settype($par,'integer');
-       settype($cookie,'integer');
+       settype($cook,'integer');
        $glob=!empty($par) ? $par :
-            (!empty($cookie) ? $cookie :
-            (!empty($db) ? $db : $userSetDefaults[$key]));
-       if($userId>0 && $db!=$glob)
-         $update[$name]=$glob;
-       if($cookie!=$glob)
-         SetCookie("cookie$key",$glob,time()+3600*24*366,'/');
-       $GLOBALS['user'.getProperName($name)]=$glob;
+            (!empty($cook) ? $cook :
+            (!empty($db) ? $db : $userSetDefaults[$name]));
+       $update[]=$glob;
+       $GLOBALS["user$name"]=$glob;
        }
-if($userId>0 && count($update)!=0)
-  mysql_query('update users
-               set '.makeKeyValue(',',$update).
-	     " where id=$userId")
+$globs=join(':',$update);
+if($userId>0 && $globs!=$dbSettings)
+  mysql_query("update users
+               set settings='$globs'
+	       where id=$userId")
        or die('Ошибка SQL при сохранении установок пользователя');
+if($globs!=$cookieSettings)
+  SetCookie('settings',$globs,time()+3600*24*366,'/');
 }
 
 function redirect()
