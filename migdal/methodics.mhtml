@@ -27,7 +27,7 @@
     <seealso_other topic_id='$`methodics`' topic_grp='*GRP_BOOKS'
                    title='По этой теме в других разделах'>
    </inner></div></outer>
-   <postings grp='*GRP_BOOKS' topic_id='$`methodics`' limit=10 offset='$offset'
+   <postings grp='*GRP_BOOKS' topic_id='$`methodics`' limit=0 offset='$offset'
              showshadows='*true' showadvert='*false'>
   </td>
  </tr></table>

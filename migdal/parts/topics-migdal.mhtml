@@ -78,8 +78,7 @@
 <element name='topics_methodics' params='posting'>
 <topics_table title='Методический центр' span=2>
  <posting_obj id='$`postings:methodic-center`'>
- <topics_line time='$,Sent' text='О центре' span=2
-              href#='migdal.php?artid=$,Id'
+ <topics_line time='$,Sent' text='О центре' span=2 href#='methodic-center.php'
               arrow!='$posting.Id==$,Id' class='item ninept'>
  <posting_last grp='*GRP_BOOKS' topic_id='$`methodics`' recursive='*true'>
  <topics_line time='$,' text='Методические пособия' indent=1
@@ -174,7 +173,7 @@
 	     class='item eightpt'>
 <posting_last topic_id='$`methodics`' recursive='*true'>
 <topics_line time='$,' text='Методический центр'
-	     href#='migdal.php?artid=$`postings:methodic-center`'
+	     href#='methodic-center.php'
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`methodics`"
 	     indent=1 class='item eightpt'
 	     title='Южно-украинский региональный методический центр'>

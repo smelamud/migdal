@@ -11,6 +11,11 @@
  <trap text='Migdal library'>
  <reload href='migdal-library.php'>
 </if>
+<< Thu May 22 17:29:57 EEST 2003 >>
+<if what='$artid==$`postings:methodic-center`'>
+ <trap text='Methodical center'>
+ <reload href='methodic-center.php'>
+</if>
 << /Traps >>
 
 <posting_full id='$artid' grp='*GRP_REVIEW'>
