@@ -131,7 +131,6 @@ else
     {
     $perms=getPermsById('messages',$parent_id);
     $group_id=$perms->getGroupId();
-    echo "Group: '$group_id'";
     }
   else
     $group_id=0;
