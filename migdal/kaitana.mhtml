@@ -71,11 +71,10 @@
 	class=add>Добавить картинку</a>
     </div>
    </editor>
-   <ifnzero what='$posting'>
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
-                         sort='*SORT_RATING' limit=0
-			 index1!='$day<=0 ? 1 : $day'>
+			 sort='*SORT_RATING' limit=0
+	     index1!='$posting.Id!=0 ? $posting.Index1 : ($day<=0 ? 1 : $day)'>
     <td width=110>
      <for>
       <if what='$;isOdd'>
@@ -85,18 +84,20 @@
     </td>
     <td>
      <kaitana_controls posting='$posting' kaitana='$kaitana'>
-     <table align=right class=sent>
-      <tr><td>&nbsp;</td></tr>
-      <tr><td align=right><sentview date='$posting.Sent'></td></tr>
-      <tr><td align=right><senderlink message='$posting'></td></tr>
-     </table>
-     <h1 style='clear: both'>$posting.Subject</h1>
-     <p>
-     $posting.HTMLBody
-     </p>
-     <vote_frame id='$posting.Id' color='$$style_cframe_back'
-		 image='$$style_cframe_back_pic' align=center>
-     <kaitana_controls posting='$posting' kaitana='$kaitana'>
+     <ifnzero what='$posting.Id'>
+      <table align=right class=sent>
+       <tr><td>&nbsp;</td></tr>
+       <tr><td align=right><sentview date='$posting.Sent'></td></tr>
+       <tr><td align=right><senderlink message='$posting'></td></tr>
+      </table>
+      <h1 style='clear: both'>$posting.Subject</h1>
+      <p>
+      $posting.HTMLBody
+      </p>
+      <vote_frame id='$posting.Id' color='$$style_cframe_back'
+		  image='$$style_cframe_back_pic' align=center>
+      <kaitana_controls posting='$posting' kaitana='$kaitana'>
+     </ifnzero>
     </td>
     <td width=140>
      <reset_iterator>
@@ -107,7 +108,6 @@
      </for>
     </td>
    </tr></table>
-   </ifnzero>
   </td>
  </tr></table>
  <bottom>
