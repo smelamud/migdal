@@ -1,0 +1,21 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+<pagetitle title='Фото'>
+
+<html>
+<preamble_admin>
+<body>
+ <top_admin>
+ <moderator>
+  <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
+   <td width=150>
+    <topics_admin ident='photos'>
+   </td>
+   <td>
+    <postings grp='*GRP_PHOTOS' offset='$offset'>
+   </td>
+  </tr></table>
+ </moderator>
+</body>
+</html>
