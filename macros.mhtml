@@ -102,8 +102,6 @@
          defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0
 		   index1=-1 later=0 subdomain=-1 up=-1 showshadows='*true'">
-<deciter macro='received_instant_messagelist'
-         class='ReceivedInstantMessageListIterator' file='lib/instants.php'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
 <deciter macro='rows' class='RowsIterator' file='lib/rowscols.php'
          params='iterator,cols' defaults="iterator='$;' cols=5">
@@ -392,11 +390,6 @@
  <if what='$$userAdminTopics'>
 </macro>
 <endif name='/admin_topics'>
-
-<macro name='admin_menu'>
- <if what='$$userAdminMenu'>
-</macro>
-<endif name='/admin_menu'>
 
 <macro name='admin_complain_answers'>
  <if what='$$userAdminComplainAnswers'>
