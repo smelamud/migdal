@@ -229,8 +229,20 @@ my ($token,$args)=@_;
 while($token!~/^\s*$/)
      {
      my $name,$value;
-     ($name,$value,$token)=
-         $token=~/^\s*(\w+)\s*(?:=\s*((?:[^\s'"]+)|(?:'[^']*')|(?:"[^"]*")))?(.*)$/s;
+     ($name,$value,$token)=$token=~m/
+                                     ^\s*(\w+)\s*
+				     (?:
+                                      =\s*
+				      (
+				       (?: [^\s'"]+ )
+				       |
+				       (?: '[^']*' )
+				       |
+				       (?: "[^"]*" )
+				      )
+				     )?
+				     (.*)$
+				    /s;
      $value=substr $value,1,-1 if $value=~/^['"]/;
      $args->{lc $name}=$value;
      }
