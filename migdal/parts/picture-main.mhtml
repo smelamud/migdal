@@ -5,7 +5,11 @@
  <ifnzero what='$image_id'>
   <tr><td>
    <a href='$href'>
-    <img border=0 width=150 height=120 src='image-main.php?id=$image_id'></a>
+    <ifnzero what='$image_id'>
+     <img border=0 width=150 height=120 src='image-main.php?id=$image_id'></a>
+    <else>
+     <image border=0 src='pics/film.png'></a>
+    </ifnzero>
   </td></tr>
  </ifnzero>
  <tr><td>
