@@ -258,7 +258,7 @@ $this->LimitSelectIterator(
 	     left join users
 		  on messages.sender_id=users.id
 	     left join forums
-		  on messages.id=forums.up
+		  on messages.id=forums.parent_id
 	     left join messages as forummesgs
 	          on forums.message_id=forummesgs.id and
 	             (forummesgs.hidden<$hide or
@@ -279,7 +279,7 @@ $this->LimitSelectIterator(
 	     left join topics
 		  on postings.topic_id=topics.id
 	     left join forums
-		  on messages.id=forums.up
+		  on messages.id=forums.parent_id
 	     left join messages as forummesgs
 	          on forums.message_id=forummesgs.id and
 	             (forummesgs.hidden<$hide or
@@ -517,7 +517,7 @@ $result=mysql_query(
 	      left join users
 		   on messages.sender_id=users.id
 	      left join forums
-	 	   on messages.id=forums.up
+	 	   on messages.id=forums.parent_id
 	      left join messages as forummesgs
 		   on forums.message_id=forummesgs.id and
 		      (forummesgs.hidden<$hide or
@@ -556,7 +556,7 @@ $result=mysql_query(
 	      left join forums
 	           on forums.message_id=messages.id
 	      left join messages as msgs
-	           on forums.up=msgs.id
+	           on forums.parent_id=msgs.id
 	      left join postings as posts
 	           on posts.message_id=msgs.id
 	      left join topics as tops

@@ -29,7 +29,7 @@
      <hidden name='okdir' value='$--'>
      <hidden name='faildir' value='$-'>
      <hidden name='editid' value='$editid'>
-     <hidden name='up' value='$answer.UpValue'>
+     <hidden name='parent_id' value='$answer.ParentId'>
      <table>
       <starinfo>
       <error id='*EFA_NO_SEND'

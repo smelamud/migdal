@@ -87,9 +87,9 @@ $this->SelectIterator(
 	       messages.hidden as hidden,disabled,
 	       users.hidden as sender_hidden,
 	       login,gender,email,hide_email,rebe
-	from forums
+	from instants
 	     left join messages
-		  on forums.message_id=messages.id
+		  on instants.message_id=messages.id
 	     left join stotexts
 		  on stotexts.id=messages.stotext_id
 	     left join users
@@ -117,9 +117,9 @@ $this->SelectIterator(
 	       messages.hidden as hidden,disabled,
 	       users.hidden as sender_hidden,
 	       login,gender,email,hide_email,rebe
-	from forums
+	from instants
 	     left join messages
-		  on forums.message_id=messages.id
+		  on instants.message_id=messages.id
 	     left join users
 		  on messages.recipient_id=users.id
 	where (messages.hidden<$hide or recipient_id=$userId) and
@@ -145,9 +145,9 @@ $this->SelectIterator(
 	       messages.hidden as hidden,disabled,
 	       users.hidden as sender_hidden,
 	       login,gender,email,hide_email,rebe
-	from forums
+	from instants
 	     left join messages
-		  on forums.message_id=messages.id
+		  on instants.message_id=messages.id
 	     left join users
 		  on messages.recipient_id=users.id
 	where (messages.hidden<$hide or recipient_id=$userId) and

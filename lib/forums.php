@@ -8,18 +8,18 @@ class ForumAnswer
       extends Message
 {
 var $message_id;
-var $up;
+var $parent_id;
 
 function getCorrespondentVars()
 {
 $list=Message::getCorrespondentVars();
-array_push($list,'up');
+array_push($list,'parent_id');
 return $list;
 }
 
 function getWorldForumVars()
 {
-return array('message_id','up');
+return array('message_id','parent_id');
 }
 
 function getAdminForumVars()
@@ -58,14 +58,9 @@ function getMessageId()
 return $this->message_id;
 }
 
-function getUpValue()
+function getParentId()
 {
-return $this->up;
-}
-
-function setUpValue($up)
-{
-$this->up=$up;
+return $this->parent_id;
 }
 
 }
@@ -74,7 +69,7 @@ class ForumAnswerListIterator
       extends LimitSelectIterator
 {
 
-function ForumAnswerListIterator($up,$limit=10,$offset=0)
+function ForumAnswerListIterator($parent_id,$limit=10,$offset=0)
 {
 global $userId,$userModerator;
 
@@ -94,7 +89,7 @@ $this->LimitSelectIterator(
 		   on messages.sender_id=users.id
 	 where (messages.hidden<$hide or sender_id=$userId) and
 	       (messages.disabled<$hide or sender_id=$userId) and
-	       up=$up
+	       parent_id=$parent_id
 	 order by sent desc",$limit,$offset);
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
@@ -102,13 +97,13 @@ $this->LimitSelectIterator(
 
 }
 
-function getForumAnswerById($id,$up=0)
+function getForumAnswerById($id,$parent_id=0)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query("select forums.id as id,message_id,stotext_id,body,
-                            sender_id,image_set,up,hidden,disabled
+                            sender_id,image_set,parent_id,hidden,disabled
 		     from forums
 		          left join messages
 			       on forums.message_id=messages.id
@@ -119,11 +114,12 @@ $result=mysql_query("select forums.id as id,message_id,stotext_id,body,
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
 	     or die('Ошибка SQL при выборке сообщения в форуме');
-return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                                 : array('up' => $up));
+return new ForumAnswer(mysql_num_rows($result)>0
+                       ? mysql_fetch_assoc($result)
+                       : array('parent_id' => $parent_id));
 }
 
-function getForumAnswerAuthorBySent($up,$sent)
+function getForumAnswerAuthorBySent($parent_id,$sent)
 {
 global $userId,$userModerator;
 
@@ -139,7 +135,7 @@ $result=mysql_query(
 		   on messages.sender_id=users.id
 	 where (messages.hidden<$hide or sender_id=$userId) and
 	       (messages.disabled<$hide or sender_id=$userId) and
-	       forums.up=$up and
+	       forums.parent_id=$parent_id and
 	       unix_timestamp(sent)=$sent")
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */

@@ -29,7 +29,7 @@ if($forumanswerMandatoryImage && $answer->stotext->image_set==0)
 if($answer->stotext->image_set!=0
    && !imageSetExists($answer->stotext->image_set))
   return EFA_NO_IMAGE;
-if(!messageExists($answer->up))
+if(!messageExists($answer->parent_id))
   return EFA_NO_UP;
 if(!$answer->store())
   return EFA_STORE_SQL;
@@ -37,6 +37,7 @@ return EFA_OK;
 }
 
 postInteger('editid');
+postInteger('parent_id');
 postString('body');
 postString('subject');
 

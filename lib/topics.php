@@ -252,7 +252,7 @@ $this->TopicIterator(
  	 	    and (messages.hidden<$hide or messages.sender_id=$userId)
 		    and (messages.disabled<$hide or messages.sender_id=$userId)
 	    left join forums
-		 on messages.id=forums.up
+		 on messages.id=forums.parent_id
 	    left join messages as forummesgs
 		 on forums.message_id=forummesgs.id and
 		    (forummesgs.hidden<$hide or

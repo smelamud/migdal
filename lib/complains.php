@@ -208,7 +208,7 @@ $this->LimitSelectIterator(
 	     left join users as recs
 		  on complains.recipient_id=recs.id
 	     left join forums
-	          on messages.id=forums.up
+	          on messages.id=forums.parent_id
 	     left join messages as forummesgs
 	          on forums.message_id=forummesgs.id and
 	             (forummesgs.hidden<$hide or
