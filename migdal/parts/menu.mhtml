@@ -34,7 +34,7 @@
   </community>
  </td>
  <td align=right class='minor'>
-  <tune ident='$ident' target='$target'>
+  <noindex><tune ident='$ident' target='$target'></noindex>
  </td>
 </tr></table>
 </element>

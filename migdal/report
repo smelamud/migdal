@@ -45,6 +45,7 @@ my ($s)=@_;
 
 $s=~s/&gt;/>/g;
 $s=~s/&lt;/</g;
+$s=~s/&quot;/"/g;
 return $s;
 }
 
