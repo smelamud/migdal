@@ -40,6 +40,7 @@
  <controls posting='$,'>
  <p>
  <center><h1>$,Subject</h1></center>
+ <p>
  <if what='$,LargeFormat==*TF_PRE'><pre></if>
  $,HTMLLargeBody
  <if what='$,LargeFormat==*TF_PRE'></pre></if>

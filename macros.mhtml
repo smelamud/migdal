@@ -147,13 +147,13 @@
  <call name='%name' func='getImageNameBySet' arg1='%set'>
 </macro>
 
-<macro name='image_tag'>
+<macro name='image_tag' defaults="align=''">
  <require name='lib/images.php'>
- <call name='%name' func='getImageTagById' arg1='%id'>
+ <call name='%name' func='getImageTagById' arg1='%id' arg2='%align'>
 </macro>
 
-<macro name='imgtag'>
- <zone><image_tag id='$posting.ImageId'>$,</zone>
+<macro name='imgtag' defaults="align=''">
+ <zone><image_tag id='$posting.ImageId' align=%align>$,</zone>
 </macro>
 
 <macro name='menu_obj' defaults='name=menu id=0'>

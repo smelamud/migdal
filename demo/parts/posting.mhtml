@@ -39,19 +39,13 @@
 </tr>
 <tr><td colspan=2>
  <ifnzero what='$posting.ImageSet'>
-  <table width=100%><tr>
-   <td>
-    <if what='$posting.hasLargeImage'>
-     <a href='lib/image.php?id=$posting.ImageId&size=large'>
-      <imgtag id='$posting.ImageId'>
-     </a>
-    <else>
-     <imgtag id='$posting.ImageId'>
-    </if>
-   </td>
-   <td>$posting.HTMLBody</td>
-  </tr></table>
- <else>
+  <if what='$posting.hasLargeImage'>
+   <a href='lib/image.php?id=$posting.ImageId&size=large'>
+    <imgtag id='$posting.ImageId' align=left>
+   </a>
+  <else>
+   <imgtag id='$posting.ImageId' align=left>
+  </if>
   <rebe>$posting.HTMLBody</rebe>
  </ifnzero>
 </td></tr>

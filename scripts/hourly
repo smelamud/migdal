@@ -95,6 +95,20 @@ $dbh->do('delete
 $dbh->do('delete
           from tmp_texts
 	  where last_access+interval '.$Config{'tmpTextTimeout'}.' hour<now()');
+$dbh->do('update images
+          set used=1');
+my $used=$dbh->selectall_arrayref('select image_set
+                                   from messages
+				   where image_set<>0');
+foreach my $info(@{$used})
+       {
+       $dbh->do('update images
+                 set used=0
+		 where image_set='.$info->[0]);
+       }
+$dbh->do('delete
+          from images
+          where used=1');
 }
 
 sub done
