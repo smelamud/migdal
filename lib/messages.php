@@ -1,7 +1,7 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/dataobject.php');
+require_once('lib/usertag.php');
 require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
@@ -9,7 +9,7 @@ require_once('lib/images.php');
 require_once('lib/topics.php');
 
 class Message
-      extends DataObject
+      extends UserTag
 {
 var $id;
 var $body;
@@ -27,7 +27,7 @@ var $sent;
 
 function Message($row)
 {
-$this->DataObject($row);
+$this->UserTag($row);
 }
 
 function setup($vars)
@@ -176,6 +176,11 @@ function getPersonalId()
 return $this->personal_id;
 }
 
+function getSenderId()
+{
+return $this->sender_id;
+}
+
 function getSentView()
 {
 $t=strtotime($this->sent);
@@ -272,14 +277,17 @@ $topicFilter=$topic==0 ? '' : " and messages.topic_id=$topic ";
 $grpFilter=$this->getGrpCondition($grp);
 $this->SelectIterator('Message',
 		      "select messages.id as id,body,subject,grp,sent,topic_id,
-			      images.image_set as image_set,
+		              sender_id,images.image_set as image_set,
 			      images.id as image_id,
-			      topics.name as topic_name
+			      topics.name as topic_name,
+			      login,gender,email,hide_email
 		       from messages
 			     left join images
 				  on messages.image_set=images.image_set
 			     left join topics
 				  on messages.topic_id=topics.id
+			     left join users
+			          on messages.sender_id=users.id
 		       where messages.hidden<$hide and
 			     personal_id=$personal
 		       and up=0 $grpFilter $topicFilter

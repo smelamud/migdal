@@ -20,11 +20,22 @@ $requestURI=urlencode($REQUEST_URI);
 	  .$message->getTopicName().
 	 '</a>
 	 </td>';
+ else
+   echo '<td>&nbsp;</td>';
  ?>
  <td align=right><?php echo $message->getSentView() ?></td>
 </tr>
-<tr><td><b><?php echo $message->getSubject() ?></b></td></tr>
-<tr><td>
+<tr>
+ <td><b><?php echo $message->getSubject() ?></b></td>
+ <td align=right>
+  <?php
+  echo $message->getLoginLink();
+  echo "(<a href='useredit.php?editid=".$message->getSenderId().
+                             "&redir=$requestURI'>подробнее</a>)";
+  ?>
+ </td>
+</tr>
+<tr><td colspan=2>
  <?php
  if($message->getImageSet()!=0)
    {
@@ -40,6 +51,15 @@ $requestURI=urlencode($REQUEST_URI);
    echo $message->getBody();
  ?>
 </td></tr>
+<?php
+if($message->isEditable())
+  {
+  echo '<tr><td>';
+  echo '<a href="messageedit.php?editid='.$message->getId().
+                               '&grp='.$message->getGrp().'">[Изменить]</a>';
+  echo '</td></tr>';
+  }
+?>
 </table>
 <?php
 }

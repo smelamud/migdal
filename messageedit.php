@@ -134,14 +134,14 @@ if(!isset($ident))
       }
     else
       {
-      $image=getImageNameBySet($image_set);
+      $image=getImageNameBySet($message->getImageSet());
       ?>
       <tr><td colspan=2><table>
        <tr><td>Картинка</td></tr>
        <tr>
 	<td>
 	 <input type=radio name='image_set' value=<?php
-	  echo $image_set;
+	  echo $message->getImageSet();
 	 ?> checked >
 	 &nbsp;<?php echo $image->getFilename() ?>&nbsp;<i>(уже загружена)</i>
 	</td>

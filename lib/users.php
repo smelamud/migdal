@@ -1,31 +1,27 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/dataobject.php');
+require_once('lib/usertag.php');
 require_once('lib/selectiterator.php');
 require_once('lib/months.php');
 require_once('lib/utils.php');
 require_once('lib/tmptexts.php');
 
 class User
-      extends DataObject
+      extends UserTag
 {
 var $id;
-var $login;
 var $password;
 var $dup_password;
 var $name;
 var $jewish_name;
 var $surname;
-var $gender;
 var $info;
 var $birthday;
 var $migdal_student;
 var $last_online;
-var $email;
 var $icq;
 var $email_disabled;
-var $hide_email;
 var $admin_users;
 var $admin_topics;
 var $moderator;
@@ -36,8 +32,7 @@ var $has_personal;
 
 function User($row)
 {
-$gender='mine';
-$this->DataObject($row);
+$this->UserTag($row);
 }
 
 function setup($vars)
@@ -109,11 +104,6 @@ function getId()
 return $this->id;
 }
 
-function getLogin()
-{
-return $this->login;
-}
-
 function getName()
 {
 return $this->name;
@@ -133,26 +123,6 @@ function getFullName()
 {
 return $this->name.($this->jewish_name!='' ? ' ('.$this->jewish_name.')' : '').
        ' '.$this->surname;
-}
-
-function isMan()
-{
-return $this->gender=='mine';
-}
-
-function isWoman()
-{
-return $this->gender=='femine';
-}
-
-function getGender()
-{
-return $this->gender;
-}
-
-function getGenderIndex()
-{
-return $this->isMan() ? 1 : 2;
 }
 
 function getInfo()
@@ -208,23 +178,6 @@ return $this->migdal_student;
 function getMigdalStudent()
 {
 return $this->migdal_student ? 'Да' : 'Нет';
-}
-
-function getEmail()
-{
-return $this->email;
-}
-
-function getEmailLink()
-{
-return $this->email!='' && !$this->hide_email
-       ? '<a href="mailto:'.$this->email.'">'.$this->email.'</a>'
-       : '';
-}
-
-function isHideEmail()
-{
-return $this->hide_email;
 }
 
 function getICQ()
