@@ -85,7 +85,7 @@
 	       <assign name='title' value='Вся книга по главам в архиве'>
 	      </if>
 	      <a href='$.Href'>$title</a>
-	      </td>
+	     </td>
 	    </tr>
 	    <tr valign=center>
 	     <td colspan=2>&nbsp;</td>
