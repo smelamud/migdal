@@ -467,7 +467,8 @@ global $chatTimeout;
 $this->SelectIterator('User',
                       "select id,login,gender,email,hide_email
 		       from users
-		       where last_chat+interval $chatTimeout minute>now()");
+		       where last_chat+interval $chatTimeout minute>now()
+		       order by login_sort");
 }
 
 }
