@@ -74,7 +74,7 @@
      <if what='$posting.hasLargeBody'>
       <a href='article.php?redirid=$_&artid=$posting.Id'
 	      class='read'>Читать</a>
-      &sp;
+      &nbsp;
      </if>
      <admin_domain>
       <ifzero what='$posting.Subdomain'>
@@ -84,13 +84,13 @@
        <a href="actions/domainmod.php?editid=$posting.Id&domain=0&okdir=$#-&faildir=$#-"
 	>Убрать&nbsp;с&nbsp;официальной</a>
       </if>
-      &sp;
+      &nbsp;
      </admin_domain>
      <isedit what='$posting'>
       <a href="postingedit.php?editid=$posting.Id&up=general&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
       <if what='$posting.isModerable'>
-       &sp;
+       &nbsp;
        <if what='$posting.isDisabled'>
 	<a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
 	 >Разрешить&nbsp;показ</a>
@@ -98,7 +98,7 @@
 	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
 	 >Запретить&nbsp;показ</a>
        </if>
-       &sp;
+       &nbsp;
        <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
         >Осовременить</a>
       </if>
