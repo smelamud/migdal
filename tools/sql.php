@@ -20,12 +20,59 @@ function closeDb()
 mysql_close($link);
 }
 
+function executeStatement(&$stat)
+{
+$q=0;
+$qq=0;
+for($i=0;$i<strlen($stat);$i++)
+   switch($stat[$i])
+         {
+	 case "'":
+	      $q=1-$q;
+	      break;
+	 case '"':
+	      $qq=1-$qq;
+	      break;
+	 case ';':
+	      if($q==0 && $qq==0)
+	        {
+		$sql=substr($stat,0,$i);
+		$stat=substr($stat,$i+1);
+		mysql_query($sql);
+		return mysql_errno().': '.mysql_error();
+		}
+	 }
+return '';
+}
+
 function executeScript()
 {
-global $dbhost,$dbuser,$dbpasswd,$dbname,$script,$result;
+global $script,$result;
 
-exec("mysql --host='$dbhost' --user='$dbuser' --password='$dbpasswd' $dbname ".
-     "< $script",$result);
+if(!openDb())
+  {
+  $result[]=mysql_errno().': '.mysql_error();
+  return;
+  }
+$result=array();
+$file=fopen($script,'r');
+if(!$file)
+  {
+  $result[]='File not found';
+  return;
+  }
+$stat='';
+while($line=fgets($file,4096))
+     {
+     if($line[0]=='#')
+       continue;
+     $stat.=$line;
+     $rs=executeStatement($stat);
+     if($rs!='')
+       $result[]="$rs\n";
+     }
+fclose($file);
+closeDb();
 }
 
 function execute()
@@ -40,8 +87,7 @@ if(!$result)
 closeDb();
 }
 
-if(isset($script) && $script!='' && is_uploaded_file($script)
-   && filesize($script)==$script_size)
+if($script!='')
   executeScript();
 if($sql!='')
   execute();
@@ -56,8 +102,7 @@ if($dbhost=='')
 <html>
 <head><title>Migdal - SQL</title></head>
 <body>
- <form method=post enctype='multipart/form-data'
-       action='<?php echo $SCRIPT_NAME ?>#error'>
+ <form method=post action='<?php echo $SCRIPT_NAME ?>#error'>
   <table>
    <tr><td><table>
     <tr>
@@ -89,7 +134,7 @@ if($dbhost=='')
     <tr>
      <td>Script</td>
      <td>
-      <input type=file name='script' size=20 value='<?php echo $script ?>'>
+      <input type=text name='script' size=25 value='<?php echo $script ?>'>
      </td>
     </tr>
    </table></td><td><table>
@@ -105,7 +150,7 @@ if($dbhost=='')
  </form>
  <a name='error'>
  <?php
- if(mysql_errno()!=0)
+ if($sql!='' && mysql_errno()!=0)
    {
    ?>
    <font color=red><?php echo mysql_errno().': '.mysql_error() ?></font>
@@ -154,8 +199,9 @@ elseif($script!='')
    ?>
    <pre>
    <?php
+   echo "\n";
    foreach($result as $line)
-          echo $line,'<br>';
+          echo $line;
    ?>
    </pre>
    <?php
