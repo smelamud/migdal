@@ -14,6 +14,8 @@ CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-chat.mcss
 TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
 VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-votes.mcss
 
+all: style.stamp article.stamp complain.stamp chat.stamp times.stamp votes.stamp
+
 style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
@@ -67,8 +69,6 @@ votes-%.css: votes.mcss $(VOTES_PARTS) ../../cssparser
 
 votes.stamp: $(patsubst %,votes-%.css,$(FLAVOURS)) $(patsubst %,votes-%.php,$(FLAVOURS))
 	touch $@
-
-all: style.stamp article.stamp complain.stamp chat.stamp times.stamp votes.stamp
 
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ > Makefile
