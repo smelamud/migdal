@@ -27,7 +27,8 @@
 
 <posting_last topic_id='$`taglit`' recursive='*false'>
 <topics_line time='$,' href='taglit.php' title='$taglit.Description'
-	     text='$taglit.Name' arrow!="$ident=='taglit'">
+	     text='$taglit.Name' arrow!="$ident=='taglit'"
+	     class='item ninept'>
 </element>
 
 <element name='topics_major'>
