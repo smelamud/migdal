@@ -1,15 +1,22 @@
 << @(#) $Id$ >>
 
 <element name='bannerbank'>
-<noparse>
- <script language="JavaScript">var loc = '';</script>
- <script language="JavaScript1.4">try{ var loc = escape(top.location.href); }catch(e){;}</script>
- <script language="JavaScript">
- var userid = 65105288; var page = 1;
- var rndnum = Math.round(Math.random() * 999111);
- document.write('<a href="http://ad10.bannerbank.ru/bb.cgi?cmd=go&pubid=' + userid + '&pg=' + page + '&vbn=1496&num=1&w=88&h=31&nocache=' + rndnum + '&loc=' + loc + '&ref=' + escape(document.referrer) + '" target="_blank">');
- document.write('<img src="http://ad10.bannerbank.ru/bb.cgi?cmd=ad&pubid=' + userid + '&pg=' + page + '&vbn=1496&num=1&w=88&h=31&nocache=' + rndnum + '&ref=' + escape(document.referrer) + '&loc=' + loc + '" width=88 height=31 alt="Еврейская Баннерная Сеть - таки 88х31" border=0></a>');
- document.write('');
- </script>
-</noparse>
+<english>
+ <assign name='n' value=3>
+<else>
+ <assign name='n' value=1>
+</english>
+<for n='$n'>
+ <noparse>
+  <script language="JavaScript">var loc = '';</script>
+  <script language="JavaScript1.4">try{ var loc = escape(top.location.href); }catch(e){;}</script>
+  <script language="JavaScript">
+  var userid = 65105288; var page = 1;
+  var rndnum = Math.round(Math.random() * 999111);
+  document.write('<a href="http://ad10.bannerbank.ru/bb.cgi?cmd=go&pubid=' + userid + '&pg=' + page + '&vbn=1496&num=1&w=88&h=31&nocache=' + rndnum + '&loc=' + loc + '&ref=' + escape(document.referrer) + '" target="_blank">');
+  document.write('<img src="http://ad10.bannerbank.ru/bb.cgi?cmd=ad&pubid=' + userid + '&pg=' + page + '&vbn=1496&num=1&w=88&h=31&nocache=' + rndnum + '&ref=' + escape(document.referrer) + '&loc=' + loc + '" width=88 height=31 alt="Еврейская Баннерная Сеть - таки 88х31" border=0></a>');
+  document.write('');
+  </script>
+ </noparse>
+</for>
 </element>
