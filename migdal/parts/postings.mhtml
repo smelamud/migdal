@@ -1,16 +1,26 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/postings.mhtml 1.3 >>
+<< Based-on: demo/parts/postings.mhtml 1.6 >>
 
 <element name='batcher_postings' params='value,list,topic,grp,g'>
+<grpdata>
+<grpitemtitle>
 <table width=100% class='batcher'>
  <form method=get action='$~'>
   <hiddenget remove='mp'>
   <tr>
    <td align=left><table><tr valign=bottom><td>
-    <if what='$g.Valid'><logged>
-     <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
-        class='add'>Добавить $g.ItemTitle</a>
-    </logged></if>
+    <logged>
+     <if what='$g.Valid'>
+      <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
+       >Добавить $grpitemtitle</a>
+     <else>
+      <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
+       >Добавить новость</a>
+      /
+      <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
+       >Добавить статью</a>
+     </if>
+    </logged>
    </td></tr></table></td>
    <td align=right><table><tr valign=center>
     <td><input type=submit value='Показывать'></td>
@@ -51,16 +61,15 @@
 </element>
 
 <element name='Postings'>
-<grpdata>
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
                      sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
-  <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp' g='$g'>
-  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
-  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
-  <for>
-   <posting posting='$.' grp='$grp' topic='$topic'>
-  </for>
-  <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp' g='$g'>
+ <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp'>
+ <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+ <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+ <for>
+  <posting posting='$.' grp='$grp' topic='$topic'>
+ </for>
+ <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp'>
 </if>
 </element>

@@ -1,15 +1,17 @@
 << @(#) $Id$ >>
-<< Based-on: demo/postingedit.mhtml 1.20 >>
+<< Based-on: demo/postingedit.mhtml 1.23 >>
 
 <int name='editid'>
 <int name='topic_id'>
 <grp>
+<grptitle>
+<grpident>
 <html>
 <head>
- <title>Штаб Мошиаха - $g.title</title>
+ <title>Штаб Мошиаха - $grptitle</title>
 </head>
 <body bgcolor=white>
- <top ident='$g.ident'>
+ <top ident='$grpident'>
  <p>
  <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
  <setup>
@@ -30,6 +32,7 @@
         text='Ошибка базы данных при установке признака модерирования'>
  <error id='*EP_NO_PERSONAL'
         text='У этого пользователя нет персональной страницы'>
+ <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
  <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
  <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
  <tr><td><table>

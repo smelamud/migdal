@@ -1,10 +1,10 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/cs_posting.mhtml 1.1 >>
+<< Based-on: demo/parts/cs_posting.mhtml 1.2 >>
 
 <element name='complain_subject' params='link'>
 <posting_full id='$link'>
-<zone><grpdata grp='$,Grp'></zone>
-<center><h1>Жалоба на $g.ItemTitle</h1></center>
+<zone><grpdata grp='$,Grp'><grpitemtitle grp='$,Grp'></zone>
+<center><h1>Жалоба на $grpitemtitle</h1></center>
 <p>
 <posting posting='$,' complain='*false'>
 </element>

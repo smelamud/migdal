@@ -1,15 +1,17 @@
 << @(#) $Id$ >>
-<< Based-on: demo/postings.mhtml 1.6 >>
+<< Based-on: demo/postings.mhtml 1.8 >>
 
-<grp ignore='$ignoregrp'>
 <int name='topic_id'>
 <int name='offset'>
+<grp ignore='$ignoregrp'>
+<grptitle>
+<grpident>
 <html>
 <head>
- <title>Мигдаль - $g.title</title>
+ <title>Мигдаль - $grptitle</title>
 </head>
 <body bgcolor=white>
- <top ident='$g.ident'>
+ <top ident='$grpident'>
  <topic_obj id='$topic_id'>
 
  <ifnzero what='$topic_id'>
