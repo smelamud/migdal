@@ -3,15 +3,41 @@
 <grps>
 
 <element name='topics_links'>
-<iterate_topic_hierarchy topic_id='$topic_id' root='$`links`' reverse='*true'>
-<assign name='id' value='-1'>
-<for>
- <ifnzero what='$.SubCount'>
-  <topics_minor id='$id' up='$.Id' grp='*GRP_LINKS' href='links.php'
-                title='$.Name'>
+<table class='topics' style='margin: 0'>
+ <tr><th>$posting.TopicName</th></tr>
+</table>
+<div class='ninept' style='padding-left: 20px; padding-top: 5px'>
+ <a href='/links.php'>Ссылки</a>
+ /
+ <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
+ <for>
+  <a href='/links.php?topic_id=$.Id'>$.Name</a>
+  /
+ </for>
+</div>
+<postings_info grp='*GRP_LINKS' topic_id='$posting.TopicId'
+	       recursive='*true'>
+<assign name='post_count' value='$,Total'>
+<topic_count id='$posting.TopicId' recursive='*true'>
+<assign name='topic_count' value='$,'>
+<if what='$post_count!=0 || $topic_count!=0'>
+ <p>
+ <a href='/links.php?topic_id=$posting.TopicId'>
+  Еще&sp;
+ <ifnzero what='$post_count'>
+  <array vals='ссылка,ссылки,ссылок'>
+  <plural value='$post_count'>
+  $post_count&sp;$,
  </ifnzero>
- <assign name='id' value='$.Id'>
-</for>
-<topics_minor id='$id' up='$`links`' grp='*GRP_LINKS' href='links.php'
-              title='Ссылки'>
+ <if what='$post_count!=0 && $topic_count!=0'>
+  &sp;и&sp;
+ </if>
+ <ifnzero what='$topic_count'>
+  <array vals='подкатегория,подкатегории,подкатегорий'>
+  <plural value='$topic_count'>
+  $topic_count&sp;$,
+ </ifnzero>
+  &sp;по этой теме
+ </a>
+</if>
 </element>

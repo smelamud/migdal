@@ -14,17 +14,27 @@
 <preamble>
 <body>
  <top ident='discuss'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'>
-   <topics posting='$,'>
-  </td>
-  <td class='cframe'>
-   <posting posting='$posting' shorten='*true' showdiscuss='*false'
-            showcomplain='*true'>
-   <p>
-   <forums parent_id='$,MessageId' limit='$$userForumPortion'>
-  </td>
- </tr></table>
+ <table width=100% cellspacing=5 cellpadding=5>
+  <tr valign=top>
+   <if what='$,Grp!=*GRP_LINKS'>
+    <td width=150 class='eframe'>
+     <topics posting='$,'>
+    </td>
+   <else>
+    <td width=150 class='nframe'>
+     <topics_links posting='$,'>
+    </td>
+   </tr>
+   <tr valign=top>
+   </if>
+   <td class='cframe'>
+    <posting posting='$posting' shorten='*true' showdiscuss='*false'
+	     showcomplain='*true'>
+    <p>
+    <forums parent_id='$,MessageId' limit='$$userForumPortion'>
+   </td>
+  </tr>
+ </table>
  <bottom>
 </body>
 </html>
