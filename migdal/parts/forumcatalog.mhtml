@@ -74,22 +74,18 @@
    <if what='$topic<0'>
     <th>Раздел</th>
    </if>
-   <th>Тема</th><th colspan=2>Начало</th><th colspan=2>Последнее сообщение</th>
+   <th>Тема</th><th colspan=2>Начало / Последнее сообщение</th>
    <th class='answer'>Ответы</th>
   </tr>
   <for>
-   <if what='$;isOdd'>
-    <tr class='odd'>
-   <else>
-    <tr>
-   </if>
+   <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <if what='$topic<0'>
-     <td class='topic'>
+     <td class='topic' rowspan=2>
       <a href='forumcatalog.php?redir=$_&grp=$grp&topic_id=$.TopicId'
 	 class='topic' title='$.TopicDescription'>$.TopicName</a>
      </td>
     </if>
-    <td class='subject'>
+    <td class='subject' rowspan=2>
      <a href='forum.php?redir=$_&msgid=$.Id'>$.Subject</a>
     </td>
     <td>
@@ -102,6 +98,11 @@
      </if>
     </td>
     <td><sentview date='$.Sent'></td>
+    <td class='answer' rowspan=2>
+     <a href='forum.php?redir=$_&msgid=$.Id'>$.AnswerCount</a>
+    </td>
+   </tr>
+   <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <ifnzero what='$.LastAnswer'>
      <zone>
       <forum_answer_author up='$.MessageId' sent='$.LastAnswer'>
@@ -119,9 +120,6 @@
     <else>
      <td>&nbsp;</td><td>&nbsp;</td>
     </ifnzero>
-    <td class='answer'>
-     <a href='forum.php?redir=$_&msgid=$.Id'>$.AnswerCount</a>
-    </td>
    </tr>
   </for>
  </table>

@@ -111,13 +111,18 @@ forumcatalog_subject_hover=blue
 ! State
 
 .state {
+	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 8pt;
 	padding: 0;
 	width: 100%;
 }
 
-.state .image {
+.state .topimage {
+	padding: 0;
+}
+
+.state .bottomimage {
 	padding: 0;
 	background-color: %state_date_back;
 }
@@ -299,6 +304,7 @@ forumcatalog_subject_hover=blue
 ! Forum
 
 .forum {
+	border-collapse: collapse;
 	border-spacing: 0;
 	padding: 0;
 	border: solid 1px %forum_border;
@@ -453,6 +459,7 @@ forumcatalog_subject_hover=blue
 ! Catalog of Forums
 
 .forumcatalog {
+	border-collapse: collapse;
 	border-spacing: 0;
 	border: solid 1px %forumcatalog_border;
 }
@@ -561,5 +568,5 @@ forumcatalog_subject_hover=blue
 ! Chat
 
 IFRAME {
-	border-width: 0px;
+	border-width: 0;
 }

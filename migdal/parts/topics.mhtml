@@ -37,6 +37,7 @@
       <a href='$[topic_id=$.Id]' title='$.Description'>
        $.Name&nbsp;($.MessageCount)</a>
      <admin_topics>
+      <br>
       <a href='topicedit.php?editid=$.Id&redir=$_' class='edit'>Изменить</a>
      </admin_topics>
      </td>
