@@ -5,6 +5,20 @@
 # Server version	3.23.38-log
 
 #
+# Table structure for table 'choices'
+#
+
+CREATE TABLE choices (
+  id int(11) NOT NULL auto_increment,
+  message_id int(11) NOT NULL default '0',
+  choice_index tinyint(4) NOT NULL default '0',
+  name varchar(70) NOT NULL default '',
+  votes int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY message_id (message_id)
+) TYPE=MyISAM;
+
+#
 # Table structure for table 'images'
 #
 
@@ -43,16 +57,15 @@ CREATE TABLE messages (
   subject varchar(250) NOT NULL default '',
   topic_id int(11) NOT NULL default '0',
   sender_id int(11) NOT NULL default '0',
-  private_id int(11) NOT NULL default '0',
   grp tinyint(4) NOT NULL default '0',
   image_set int(11) NOT NULL default '0',
   up int(11) NOT NULL default '0',
   hide tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
+  selected tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY topic_id (topic_id),
   KEY sender_id (sender_id),
-  KEY private_id (private_id),
   KEY grp (grp),
   KEY image_set (image_set),
   KEY up (up)
@@ -92,10 +105,13 @@ CREATE TABLE tmp_texts (
 CREATE TABLE topics (
   id int(11) NOT NULL auto_increment,
   name varchar(70) NOT NULL default '',
+  description varchar(250) NOT NULL default '',
   no_news tinyint(4) NOT NULL default '0',
   no_forums tinyint(4) NOT NULL default '0',
   no_gallery tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (id)
+  private_id int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY private_id (private_id)
 ) TYPE=MyISAM;
 
 #
