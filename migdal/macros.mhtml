@@ -75,3 +75,11 @@
   <grpword name='grppic' grp='%grp'>
  </zone>
 </macro>
+
+<macro name='ofmessages'>
+ <zone>
+  <array vals='сообщения,сообщений,сообщений'>
+  <plural value='%value'>
+  $,
+ </zone>
+</macro>

@@ -55,6 +55,7 @@ forums_batcher_input_text=%vd
 topics_title=%gr
 topics_names=black
 topics_names_hover=blue
+topics_answers=%gr
 topics_new=red
 topics_controls=%gr
 topics_controls_hover=blue
@@ -456,6 +457,16 @@ forumcatalog_subject_hover=blue
 	text-decoration: underline;
 }
 
+.topics A .answers {
+	color: %topics_answers;
+	font-weight: normal;
+	font-style: italic;
+}
+
+.topics A:hover .answers {
+	color: %topics_names_hover;
+}
+
 ! Catalog of Forums
 
 .forumcatalog {
@@ -495,6 +506,10 @@ forumcatalog_subject_hover=blue
 
 .forumcatalog TR.odd {
 	background-color: %forumcatalog_odd;
+}
+
+.forumcatalog .topic {
+	text-align: center;
 }
 
 .forumcatalog .topic A {
