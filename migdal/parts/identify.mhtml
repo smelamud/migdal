@@ -149,7 +149,7 @@
    </if>
   <elif what='$/$posting.TopicId,2/==$`kes`'>
    <assign name='href' value#='migdal.php?artid=$`postings:kes`'>
-   <assign name='title' value=''>
+   <assign name='title' value='Клуб Еврейского Студента'>
    <assign name='name' value='Мигдаль :: КЕС'>
    <assign name='tel' value='topics_kes'>
    <assign name='uhref' value='jcc.php'>
