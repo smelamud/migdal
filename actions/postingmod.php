@@ -41,8 +41,7 @@ function isDisabledSet($message)
 {
 global $userId,$userModerator;
 
-return (((int)getPremoderateByTopicId($message->getTopicId())
-         & (int)$message->getGrp())!=0 && $userId>0
+return (getPremoderateByTopicId($message->getTopicId()) && $userId>0
 	|| $message->getLargeFormat()==TF_HTML)
        && !$userModerator;
 }
@@ -51,8 +50,7 @@ function isModerateSet($message)
 {
 global $userId,$userModerator;
 
-return (((int)getPremoderateByTopicId($message->getTopicId())
-         & (int)$message->getGrp())!=0
+return (getModerateByTopicId($message->getTopicId())
 	|| $message->getLargeFormat()==TF_HTML)
        && !$userModerator;
 }
@@ -61,7 +59,7 @@ function isEditSet($message)
 {
 global $userModerator;
 
-return !$userModerator;
+return getEditByTopicId($message->getTopicId()) && !$userModerator;
 }
 
 function setDisabled($message,$original)

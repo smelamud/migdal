@@ -33,16 +33,20 @@ var $perm_string;
 var $stotext;
 var $allow;
 var $premoderate;
+var $moderate;
+var $edit;
 var $ident;
 var $postings_info;
 var $sub_count;
 
 function Topic($row)
 {
-global $defaultPremoderate;
+global $defaultPremoderate,$defaultModerate,$defaultEdit;
 
 $this->allow=GRP_ALL;
 $this->premoderate=$defaultPremoderate;
+$this->moderate=$defaultModerate;
+$this->edit=$defaultEdit;
 $this->UserTag($row);
 $this->stotext=new Stotext($row,'description');
 }
@@ -60,7 +64,6 @@ if($vars['group_name']!='')
 if($this->perm_string!='')
   $this->perms=permString($this->perm_string,strPerms($this->perms));
 $this->allow=0;
-$this->premoderate=0;
 $iter=new GrpIterator();
 while($group=$iter->next())
      if(($group->getGrp() & GRP_ALL)!=0)
@@ -68,21 +71,20 @@ while($group=$iter->next())
        $name=$group->getGrpIdent();
        if($vars[$name])
 	 $this->allow|=$group->getGrp();
-       if($vars["premoderate_$name"])
-	 $this->premoderate|=$group->getGrp();
        }
 $this->stotext->setup($vars,'description');
 }
 
 function getCorrespondentVars()
 {
-return array('up','name','ident','login','group_login','perm_string');
+return array('up','name','ident','login','group_login','perm_string',
+             'premoderate','moderate','edit');
 }
 
 function getWorldVars()
 {
 return array('up','track','name','user_id','group_id','perms','allow',
-             'premoderate','ident');
+             'premoderate','moderate','edit','ident');
 }
 
 function getJencodedVars()
@@ -271,6 +273,16 @@ return $this->allow;
 function getPremoderate()
 {
 return $this->premoderate;
+}
+
+function getModerate()
+{
+return $this->moderate;
+}
+
+function getEdit()
+{
+return $this->edit;
 }
 
 function getIdent()
@@ -516,15 +528,41 @@ $hide=topicsPermFilter(PERM_READ);
 $result=mysql_query("select premoderate
                      from topics
 		     where id=$id and $hide")
-          or sqlbug('Ошибка SQL при выборке маски модерирования');
+          or sqlbug('Ошибка SQL при выборке флага премодерирования');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultPremoderate;
 }
 
+function getModerateByTopicId($id)
+{
+global $defaultModerate;
+
+$hide=topicsPermFilter(PERM_READ);
+$result=mysql_query("select moderate
+                     from topics
+		     where id=$id and $hide")
+          or sqlbug('Ошибка SQL при выборке флага модерирования');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
+                                 : $defaultModerate;
+}
+
+function getEditByTopicId($id)
+{
+global $defaultEdit;
+
+$hide=topicsPermFilter(PERM_READ);
+$result=mysql_query("select edit
+                     from topics
+		     where id=$id and $hide")
+          or sqlbug('Ошибка SQL при выборке флага редактирования');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
+                                 : $defaultEdit;
+}
+
 function getTopicById($id,$up=0,$fields=SELECT_GENERAL)
 {
-global $userId,$userLogin,$userModerator,$defaultPremoderate,
-       $rootTopicGroupName,$rootTopicPerms;
+global $userId,$userLogin,$userModerator,$defaultPremoderate,$defaultModerate,
+       $defaultEdit,$rootTopicGroupName,$rootTopicPerms;
 
 if(hasCachedValue('obj','topics',$id))
   return getCachedValue('obj','topics',$id);
@@ -547,7 +585,8 @@ $result=mysql_query(
 	       large_filename,large_format,
 	       stotexts.large_body as large_description,
 	       large_imageset,topics.allow as allow,
-	       topics.premoderate as premoderate,topics.ident as ident,
+	       topics.premoderate as premoderate,topics.moderate as moderate,
+	       topics.edit as edit,topics.ident as ident,
 	       topics.user_id as user_id,users.login as login,
 	       users.gender as gender,users.email as email,
 	       users.hide_email as hide_email,users.rebe as rebe,
@@ -581,6 +620,8 @@ else
     $topic=new Topic(array('up'          => $topic->getId(),
 			   'allow'       => $topic->getAllow(),
 			   'premoderate' => $topic->getPremoderate(),
+			   'moderate'    => $topic->getModerate(),
+			   'edit'        => $topic->getEdit(),
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,
 			   'group_id'    => $topic->getGroupId(),
@@ -590,6 +631,8 @@ else
   else
     $topic=new Topic(array('allow'       => GRP_ALL,
 			   'premoderate' => $defaultPremoderate,
+			   'moderate'    => $defaultModerate,
+			   'edit'        => $defaultEdit,
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,
 			   'group_id'    => getUserIdByLogin($rootTopicGroupName),

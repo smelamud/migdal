@@ -56,23 +56,26 @@
    <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
    <editor_line title='Описание' name='description' body='$,Description'
                 mandatory='$topicMandatoryDescription'>
-   <tr><td><table width=100%>
-    <iterate_grps>
-    <for>
-     <if what='$.isValid'>
-      <assign name='premoderateIdent' value#='premoderate_$.GrpIdent'>
-      <assign name='allow' value!='($,Allow & $.Grp)!=0'>
-      <assign name='premoderate' value!='($,Premoderate & $.Grp)!=0'>
-      <assign name='foritems' value#='Тема для $.GrpForItemsTitle'>
-      <assign name='titles' value#='$.GrpTitles премодерируются'>
-      <tr>
-       <td><checkbox name='$.GrpIdent' value='$allow' title='$foritems'></td>
-       <td><checkbox name='$premoderateIdent' value='$premoderate'
-		     title='$titles'></td>
-      </tr>
-     </if>
-    </for>
-   </table></td></tr>
+   <tr><td><table width=100%><tr valign='top'>
+    <td>
+     <iterate_grps>
+     <for>
+      <if what='$.isValid'>
+       <assign name='allow' value!='($,Allow & $.Grp)!=0'>
+       <assign name='foritems' value#='Тема для $.GrpForItemsTitle'>
+       <checkbox name='$.GrpIdent' value='$allow' title='$foritems'><br>
+      </if>
+     </for>
+    </td>
+    <td>
+     <checkbox name='premoderate' value!='$,Premoderate<>0'
+               title='Премодерируется'><br>
+     <checkbox name='moderate' value!='$,Moderate<>0'
+               title='Модерируется'><br>
+     <checkbox name='edit' value!='$,Edit<>0'
+               title='Редактируется'>
+    </td>
+   </tr></table></td></tr>
   <if what='$editid'>
    <formbuttons title='Изменить'>
   <else>
