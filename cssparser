@@ -78,12 +78,28 @@ GetOptions('css|c'      => \&setCSS,
            'version|v'	=> \&version);
 }
 
+sub getVar
+{
+my ($name,$err)=@_;
+
+if($Vars{$1} ne '')
+  {
+  return $Vars{$1};
+  }
+else
+  {
+  $$err=1;
+  return '';
+  }
+}
+
 sub subVars
 {
 my ($s)=@_;
+my $err=0;
 
-$s=~s/%(\w+)/$Vars{$1}/ge;
-return $s;
+$s=~s/%(\w+)/getVar($1,\$err)/ge;
+return $err ? '' : $s;
 }
 
 sub run
@@ -101,16 +117,21 @@ while(<>)
        }
      if(/^\s*(\w+)\s*=\s*(.*)$/)
        {
-       $Vars{$1}=subVars($2);
-       unless($css)
-             {
-	     my $q="'" unless $Vars{$1} eq 'false' || $Vars{$1} eq 'true';
-             print "\$style_$1=$q".$Vars{$1}."$q;\n";
-	     }
+       my $s=subVars($2);
+       if($s ne '')
+         {
+	 $Vars{$1}=$s;
+	 unless($css)
+	       {
+	       my $q="'" unless $Vars{$1} eq 'false' || $Vars{$1} eq 'true';
+	       print "\$style_$1=$q".$Vars{$1}."$q;\n";
+	       }
+	 }
        }
      else
        {
-       print subVars($_),"\n" if $css;
+       $s=subVars($_);
+       print "$s\n" if $css && $s ne '';
        }
      }
 print "?>\n" unless $css;
