@@ -110,6 +110,14 @@ return "$st\$".getGlobal('REQUEST_URI').$ed
        if $s=~/^\$-$/;
 return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
        if $s=~/^\$#-$/;
+return "$st\$".getGlobal('lastRedir')."->getURI()$ed"
+       if $s=~/^\$--$/;
+return "${st}urlencode(\$".getGlobal('lastRedir')."->getURI())$ed"
+       if $s=~/^\$#--$/;
+return "$st\$".getGlobal('REQUEST_URI').$ed
+       if $s=~/^\$-$/;
+return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
+       if $s=~/^\$#-$/;
 return "$st\$".getGlobal('SCRIPT_NAME').$ed
        if $s=~/^\$~$/;
 return "$st\$".getGlobal('QUERY_STRING').$ed
@@ -193,7 +201,7 @@ while($s ne '')
 				|
 				(?: \[[^\]]*\] )
 				|
-				[_\.,;\~\*\-\?]
+				(?: [_\.,;\~\*\-\?]+ )
 			       )
 			      )
 			      |

@@ -21,7 +21,7 @@
     <form method=post action='actions/complainact.php'>
      <hidden name='edittag' value=1>
      <hidden name='redirid' value='$_'>
-     <hidden name='okdir' value='$lastRedir.URI'>
+     <hidden name='okdir' value='$--'>
      <hidden name='faildir' value='$-'>
      <hidden name='actid' value='$actid'>
      <hidden name='complain_id' value='$complain_id'>

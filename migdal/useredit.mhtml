@@ -15,7 +15,7 @@
   <form method=post action='actions/usermod.php'>
    <hidden name='edittag' value=1>
    <hidden name='redirid' value='$_'>
-   <hidden name='okdir' value='$lastRedir.URI'>
+   <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='editid' value='$editid'>
    <table>
