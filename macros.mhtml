@@ -108,6 +108,8 @@
 	           personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0
 		   index1=-1 later=0 subdomain=-1 up=-1 showshadows='*true'
 		   fields='*SELECT_ALLPOSTING'">
+<deciter macro='random_seq' class='RandomSequenceIterator' file='lib/random.php'
+         params='n,min,max'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
 <deciter macro='rows' class='RowsIterator' file='lib/rowscols.php'
          params='iterator,cols' defaults="iterator='$;' cols=5">

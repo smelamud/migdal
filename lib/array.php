@@ -15,10 +15,6 @@ $this->vars=$vars;
 reset($this->vars);
 }
 
-function getCurrent()
-{
-}
-
 function next()
 {
 Iterator::next();

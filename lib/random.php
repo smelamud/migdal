@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/array.php');
+
 function random($min,$max)
 {
 static $randomized=false;
@@ -22,5 +24,23 @@ return rand();
 function array_random($array)
 {
 return $array[random(0,count($array)-1)];
+}
+
+class RandomSequenceIterator
+      extends ArrayIterator
+{
+
+function RandomSequenceIterator($n,$min,$max)
+{
+$seq=array();
+while(count($seq)<$n)
+     {
+     $k=random($min,$max);
+     if(!in_array($k,$seq))
+       $seq[]=$k;
+     }
+$this->ArrayIterator($seq);
+}
+
 }
 ?>

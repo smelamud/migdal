@@ -35,7 +35,7 @@
  <assign name='access' value!='$$userId>0'>
  <assign name='noedit' value='*false'>
 </if>
-<?php $limit=$rows*$cols; ?>
+<assign name='limit' value!='$rows * $cols'>
 <iterate_postinglist name='list' grp='*GRP_GRAPHICS' topic_id='$topic_id'
                      offset='$offset' limit='$limit' sort='$sort'
 		     subdomain='$subdomain' user='$user_id'>

@@ -88,7 +88,6 @@
 <decel name='image_linked_tag' file='parts/utils.php'
        params='id,enlarge,align'
        defaults="enlarge=true align=''">
-<decel name='ioc_logo' file='parts/ioc.php'>
 <decel name='ioc_text' file='parts/ioc.php'>
 <decel name='jewishru' file='parts/jewishru.php'>
 <decel name='kaitana_announce' file='parts/kaitana-announce.php'>
