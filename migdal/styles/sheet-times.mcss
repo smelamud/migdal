@@ -43,12 +43,10 @@
 }
 
 .mtimes .info,.mtimes .info DD {
-	font-size: 9pt;
 	font-weight: normal;
 }
 
 .mtimes .info B,.mtimes .info DT {
-	font-size: 9pt;
 	font-weight: bold;
 }
 
