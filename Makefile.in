@@ -2,8 +2,19 @@
 
 # @(#) $Id$
 
-all:
+all: crontab
 	(cd $(uiName); $(MAKE) all)
+
+crontab: Makefile conf/migdal.conf
+	(\
+	echo 'PATH=/usr/local/bin:/bin:/usr/bin';\
+	echo;\
+	echo '# m       h  dom mon dow command';\
+	echo '  30      *   *   *   *  $(scriptsDir)/hourly -c $(siteDir)/conf/migdal.conf';\
+	echo '  0-50/10 *   *   *   *  $(scriptsDir)/mailrobot -c $(siteDir)/conf/migdal.conf';\
+	echo '  30      *   *   *   *  $(scriptsDir)/hourly -c $(siteDir)/conf/migdal.conf';\
+	echo '  0-50/10 *   *   *   *  $(scriptsDir)/mailrobot -c $(siteDir)/conf/migdal.conf';\
+	) > crontab
 
 Makefile: Makefile.in conf/migdal.conf
 	./confmake $^ > Makefile
@@ -21,7 +32,7 @@ install: all
 pack: all
 	tar zchf $(uiName).tar.gz --exclude 'CVS' --exclude '*.mhtml' \
 		--exclude 'Makefile*' --exclude '_template*' \
-		--exclude '.cvsignore' --exclude '.xvpics' $(uiName)
+		--exclude '.cvsignore' --exclude '.xvpics' $(uiName) crontab
 
 clean:
 	-rm $(OBJECTS)
