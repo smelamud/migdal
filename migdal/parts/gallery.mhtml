@@ -1,9 +1,10 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.16 >>
+<< Based-on: migdal/parts/postings.mhtml 1.17 >>
 
 <element name='batcher_gallery' params='rows,cols,list,topic,grp'>
 <grpdata>
 <grpitemtitle>
+<grpitemstitle>
 <table width=100% class='batcher'><tr>
  <td align=left><table><tr valign=bottom><td>
   <logged>
@@ -17,6 +18,13 @@
     <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
        class='add'>Добавить статью</a>
    </if>
+  <else>
+   <if what='$g.Valid'>
+    Хотите добавлять $grpitemstitle?
+   <else>
+    Хотите добавлять новости и статьи?
+   </if>
+   <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
   </logged>
  </td></tr></table></td>
  <td align=right><table><tr valign=center>
