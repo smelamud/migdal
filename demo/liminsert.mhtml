@@ -1,0 +1,76 @@
+<< @(#) $Id$ >>
+
+<element name=place params='value'>
+<if what='$value==$$image.Placement'>
+ <input type='radio' name='placement' value=$value checked>
+<else>
+ <input type='radio' name='placement' value=$value>
+</if>
+</element>
+
+<int name='postid'>
+<int name='par'>
+<html>
+<head>
+ <title>Демо - Размещение картинки</title>
+</head>
+<body bgcolor=white>
+ <top ident='articles'>
+ <p>
+ <center><h1>Размещение картинки</h1></center>
+ <p>
+ <posting_obj id='$postid'>
+ <zone><message_image_obj id='$,MessageId' par='$par'></zone>
+ <form method=post action='actions/liminsert.php'>
+  <input type='hidden' name='edittag' value=1>
+  <input type='hidden' name='redir' value='$redir'>
+  <center><table cellspacing=10>
+   <tr>
+    <td>Картинка</td>
+    <td>
+     <select name='image_id'>
+      <iterate_imageset imageset='$,LargeImageSet'>
+      <option value=0>--- Без картинки ---</option>
+      <for>
+       <if what='$.Id==$image.ImageId'>
+        <option value=$.Id selected>$.Filename (${.SmallX}x$.SmallY)</option>
+       <else>
+        <option value=$.Id>$.Filename (${.SmallX}x$.SmallY)</option>
+       </if>
+      </for>
+     </select>
+    </td>
+    <td>
+     <a href='/limedit.php?postid=$postid&redir=$_'>Список &gt;&gt;&gt;</a>
+    </td>
+   </tr>
+   <tr>
+    <td>Размещение</td>
+    <td>
+     <table>
+      <tr>
+       <td><place value='*IPL_TOPLEFT'></td>
+       <td></td>
+       <td><place value='*IPL_TOPRIGHT'></td>
+      </tr>
+      <tr>
+       <td><place value='*IPL_CENTERLEFT'></td>
+       <td><place value='*IPL_CENTER'></td>
+       <td><place value='*IPL_CENTERRIGHT'></td>
+      </tr>
+      <tr>
+       <td><place value='*IPL_BOTTOMLEFT'></td>
+       <td></td>
+       <td><place value='*IPL_BOTTOMRIGHT'></td>
+      </tr>
+     </table>
+    </td>
+   </tr>
+   <tr><td colspan=3>
+    <input type=submit value='Изменить'>
+    <input type=reset value='Очистить'>
+   </td></tr>
+  </table></center>
+ </form>
+</body>
+</html>

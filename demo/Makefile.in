@@ -4,7 +4,7 @@
 
 OBJECTS = article.php chat.php chatboard.php complainanswer.php \
 	  complainedit.php complainforum.php complains.php forum.php \
-	  forumansweredit.php index.php limedit.php menuedit.php \
+	  forumansweredit.php index.php limedit.php liminsert.php menuedit.php \
 	  postingedit.php postings.php topicedit.php useredit.php userfin.php \
 	  userok.php users.php
 	  

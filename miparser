@@ -101,7 +101,7 @@ return $st.constructRemake($1).$ed
 return "${st}urlencode(".constructRemake($1).")$ed"
        if $s=~/^\$#\[([^\]]*)\]$/;
 return "$st$1$ed"
-       if $s=~/^\*(\w+)$/;
+       if $s=~/^\*{?(\w+)}?$/;
 return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
        if $s=~/^\$_$/;
 return "$st\$".getGlobal('REQUEST_URI').$ed
@@ -117,29 +117,29 @@ return "$st\$$iter$ed"
 return "$st\$$const$ed"
        if $s=~/^\$\*$/;
 return "$st\$$1$ed"
-       if $s=~/^\$(\w+)$/;
+       if $s=~/^\${?(\w+)}?$/;
 return "$st\$".getGlobal($1).$ed
-       if $s=~/^\$\$(\w+)$/;
+       if $s=~/^\$\${?(\w+)}?$/;
 return "${st}urlencode(\$$1)$ed"
-       if $s=~/^\$#(\w+)$/;
+       if $s=~/^\$#{?(\w+)}?$/;
 return "$st\$$item->".getGetName($1)."()$ed"
-       if $s=~/^\$\.(\w+)$/;
+       if $s=~/^\${?\.(\w+)}?$/;
 return "$st\$$result->".getGetName($1)."()$ed"
-       if $s=~/^\$,(\w+)$/;
+       if $s=~/^\${?,(\w+)}?$/;
 return "$st\$$iter->".getGetName($1)."()$ed"
-       if $s=~/^\$;(\w+)$/;
+       if $s=~/^\${?;(\w+)}?$/;
 return "$st\$$1->".getGetName($2)."()$ed"
-       if $s=~/^\$(\w+)[\.,;](\w+)$/;
+       if $s=~/^\${?(\w+)[\.,;](\w+)}?$/;
 return "$st\$".getGlobal($1).'->'.getGetName($2)."()$ed"
-       if $s=~/^\$\$(\w+)[\.,;](\w+)$/;
+       if $s=~/^\$\${?(\w+)[\.,;](\w+)}?$/;
 return "${st}urlencode(\$$item->".getGetName($1)."())$ed"
-       if $s=~/^\$#\.(\w+)$/;
+       if $s=~/^\$#{?\.(\w+)}?$/;
 return "${st}urlencode(\$$result->".getGetName($1)."())$ed"
-       if $s=~/^\$#,(\w+)$/;
+       if $s=~/^\$#{?,(\w+)}?$/;
 return "${st}urlencode(\$$iter->".getGetName($1)."())$ed"
-       if $s=~/^\$#;(\w+)$/;
+       if $s=~/^\$#{?;(\w+)}?$/;
 return "${st}urlencode(\$$1->".getGetName($2)."())$ed"
-       if $s=~/^\$#(\w+)[\.,;](\w+)$/;
+       if $s=~/^\$#{?(\w+)[\.,;](\w+)}?$/;
 return "'$st$s$ed'";
 }
 
@@ -151,7 +151,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$\*]*)((?:(?:(?:\$[#\$]?(?:(?:\w*[\.,;]?\w+)|(?:\[[^\]]*\])|[_\.,;~\*\-]))|(?:\*\w+))(?:@[ERJ]?\w)?)?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^\$\*]*)((?:(?:(?:\$[#\$]?(?:(?:{?\w*[\.,;]?\w+}?)|(?:\[[^\]]*\])|[_\.,;~\*\-]))|(?:\*{?\w+}?))(?:@[ERJ]?\w)?)?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      if($head eq '' && $var eq '')
@@ -639,7 +639,6 @@ my ($self)=@_;
 
 my $name=$self->getArg('name');
 $name='const'.($::LastConst++) if $name eq '';
-$::Stack->top()->setConst($name);
 ::body("<?php \$$name=array(");
 my @vals=();
 $self->pushArray(\@vals,'vals');
@@ -648,6 +647,7 @@ for(my $n=1;exists $self->getArgs()->{"val$n"};$n++)
    $self->pushArray(\@vals,"val$n");
    }
 ::body(join(',',@vals),'); ?>');
+$::Stack->top()->setConst($name);
 }
 
 sub elAssign #XXX Possibly empty value
@@ -656,8 +656,8 @@ my ($self)=@_;
 
 my $name=$self->getArg('name');
 $name='const'.($::LastConst++) if $name eq '';
-$::Stack->top()->setConst($name);
 ::body("<?php \$$name=",::subVar($self->getArg('value')),'; ?>');
+$::Stack->top()->setConst($name);
 }
 
 sub elIterate #XXX Possibly empty class
@@ -666,9 +666,9 @@ my ($self)=@_;
 
 my $name=$self->getArg('name');
 $name='iter'.($::LastIter++) if $name eq '';
-$::Stack->top()->setIterator($name);
 ::body("<?php \$$name=new ",$self->getArg('class'),
        '(',::constructParams($self->getArgs()),'); ?>');
+$::Stack->top()->setIterator($name);
 }
 
 sub elFor #XXX Possibly empty list
@@ -734,9 +734,9 @@ my ($self)=@_;
 
 my $name=$self->getArg('name');
 $name='result'.($::LastResult++) if $name eq '';
-$::Stack->top()->setResult($name);
 ::body("<?php \$$name=new ",$self->getArg('class'),
        '(',::constructParams($self->getArgs()),'); ?>');
+$::Stack->top()->setResult($name);
 }
 
 sub elCall #XXX Possibly empty func
@@ -745,9 +745,9 @@ my ($self)=@_;
 
 my $name=$self->getArg('name');
 $name='result'.($::LastResult++) if $name eq '';
-$::Stack->top()->setResult($name);
 ::body("<?php \$$name=",$self->getArg('func'),
        '(',::constructParams($self->getArgs()),'); ?>');
+$::Stack->top()->setResult($name);
 }
 
 sub elHeader

@@ -30,7 +30,7 @@
 <element name='pic' params='posting,n'>
 <isedit name='posting'>
  <p>
- <a href='liminsert.php?artid=$$artid&par=$n'>[Картинка]</a>
+ <a href='liminsert.php?postid=$$artid&par=$n&redir=$_'>[Картинка]</a>
 </isedit>
 </element>
 
