@@ -1,10 +1,8 @@
 << @(#) $Id$ >>
 
 <element name='topics'>
-<if what='$posting.Grp==*GRP_FORUMS || $posting.Grp==*GRP_NEWS ||
-          $posting.Grp==*GRP_ARTICLES || $posting.Grp==*GRP_QUOTES ||
-	  $posting.Grp==*GRP_BOOKS || $posting.Grp==*GRP_BOOK_CHAPTERS ||
-	  $posting.Grp==*GRP_REVIEWS'>
+<if what='($posting.Grp & (*GRP_FORUMS|*GRP_NEWS|*GRP_ARTICLES|*GRP_QUOTES|
+	                   *GRP_BOOKS|*GRP_BOOK_CHAPTERS|*GRP_REVIEWS))!=0'>
  <if what='$/$posting.TopicId,0/!=$`migdal` &&
            $/$posting.TopicId,1/!=$`migdal-news`'>
   <topics_major ident='index'>
@@ -24,14 +22,14 @@
   <topics_major ident='migdal'>
  </if>
 </if>
-<if what='$posting.Grp==*GRP_TIMES_COVERS || $posting.Grp==*GRP_TIMES_ARTICLES'>
+<if what='($posting.Grp & (*GRP_TIMES_COVERS|*GRP_TIMES_ARTICLES))!=0'>
  <topics_major ident='times'>
 </if>
-<if what='$posting.Grp==*GRP_TAGLIT_FORUMS || $posting.Grp==*GRP_TAGLIT_GALLERY'>
+<if what='($posting.Grp & (*GRP_TAGLIT_FORUMS|*GRP_TAGLIT_GALLERY))!=0'>
  <topics_taglit id='$posting.SenderId'>
  <topics_major ident='taglit'>
 </if>
-<if what='$posting.Grp==*GRP_KAITANA_NEWS || $posting.Grp==*GRP_KAITANA_GALLERY'>
+<if what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
  <topics_kaitana day='$posting.Index1' topic_id='$posting.TopicId'>
  <topics_kaitanot topic_id='$posting.TopicId'>
  <topics_migdal posting='$posting'>
