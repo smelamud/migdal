@@ -46,8 +46,8 @@
 	       nobullet!='$.Id==$`postings:migdal`'>
  </for>
  <posting_last topic_id='$`mazltov`' recursive='*true'>
- <topics_line time='$,' text='Мазл Тов'
-              href#='migdal.php?artid=$`postings:mazltov`'
+ <topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`'
+              text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
               arrow!="$/$posting.TopicId,1/==$`mazltov`" indent=1
 	      class='item eightpt'>
  <posting_last topic_id='$`kes`' recursive='*true'>
@@ -56,7 +56,7 @@
               arrow!="$/$posting.TopicId,1/==$`kes`" indent=1
 	      class='item eightpt'>
  <posting_last topic_id='$`methodics`' recursive='*true'>
- <topics_line time='$,' text='Методический кабинет' href#='methodics.php'
+ <topics_line time='$,' text='Методический центр' href#='methodics.php'
               arrow!="$/$posting.TopicId,1/==$`methodics`" indent=1
 	      class='item eightpt'>
  <posting_last topic_id='$`kaitana`' recursive='*true'>
