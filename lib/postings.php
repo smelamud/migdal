@@ -330,7 +330,11 @@ $From="postings
 $grpFilter=grpFilter($grp);
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
-$index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
+$index1Filter=$index1>=0
+              ? ($sort==SORT_INDEX1  ? "and postings.index1>=$index1" :
+	        ($sort==SORT_RINDEX1 ? "and postings.index1<=$index1" :
+		                       "and postings.index1=$index1"))
+	      : '';
 $sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
 $subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
 $childFilter=$up>=0 ? "and messages.up=$up" : '';
@@ -856,6 +860,22 @@ $issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
 $order=$next ? 'asc' : 'desc';
 $topicFilter=$topic_id>=0 ? "and topic_id=$topic_id" : '';
 $result=mysql_query("select postings.id
+                     from postings
+		          left join messages
+			       on postings.message_id=messages.id
+		     where $grpFilter $topicFilter $issueFilter
+		     order by index1 $order
+		     limit 1");
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function getSiblingIndex1($grp,$topic_id,$index1,$next=true)
+{
+$grpFilter=grpFilter($grp);
+$issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
+$order=$next ? 'asc' : 'desc';
+$topicFilter=$topic_id>=0 ? "and topic_id=$topic_id" : '';
+$result=mysql_query("select index1
                      from postings
 		          left join messages
 			       on postings.message_id=messages.id

@@ -270,6 +270,9 @@
          params='up,index0,next' defaults="next='*true'">
 <deccall macro='sibling_index0' func='getSiblingIndex0' file='lib/postings.php'
          params='up,index0,next' defaults="next='*true'">
+<deccall macro='sibling_index1' func='getSiblingIndex1' file='lib/postings.php'
+         params='grp,topic_id,index1,next'
+	 defaults="grp='*GRP_ALL' topic_id=-1 next='*true'">
 <deccall macro='sibling_issue' func='getSiblingIssue' file='lib/postings.php'
          params='grp,topic_id,index1,next'
 	 defaults="grp='*GRP_ALL' topic_id=-1 next='*true'">

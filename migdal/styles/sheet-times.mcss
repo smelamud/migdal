@@ -15,17 +15,6 @@
 	font-size: 12pt;
 }
 
-.mtimes .picissue A {
-	font: bold 10pt %times;
-	color: %times_issue_link;
-	text-decoration: none;
-}
-
-.mtimes .picissue A:hover {
-	color: %times_issue_link_hover;
-	text-decoration: underline;
-}
-
 .mtimes .info,.mtimes .info DD {
 	font-weight: normal;
 	text-align: left;
