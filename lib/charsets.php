@@ -70,10 +70,11 @@ $hebrewCodes=array(
                    'С' => '05EA',
                    '+' => 'FB29',
                    '-' => '05BE',
-		   "'" => '05F3',
+		   "&#039;" => '05F3',
 		   '"' => '05F4'
                   );
-		  
+
+// Использовать только для обработки вывода convertOutput()!
 function convertHebrew($s,$htmlEntities=true)
 {
 global $hebrewCodes;
