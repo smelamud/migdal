@@ -46,7 +46,8 @@
 
 <preamble>
 <body>
- <top ident='index' transref!="$topic_id<=0 ? 'http://english.migdal.ru/' : ''">
+ <top ident='index'
+      transref!='$topic_id<=0 ? "http://english.$$siteDomain/" : ""'>
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>

@@ -23,7 +23,7 @@
 <preamble>
 <body>
  <top ident='index'
-      transref!="$,Id==$`postings:migdal` ? 'http://english.migdal.ru/' : ''">
+      transref!='$,Id==$`postings:migdal` ? "http://english.$siteDomain/" : ""'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
    <topics posting='$,'>
