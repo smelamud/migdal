@@ -29,6 +29,7 @@
 <decel name='grpselect' file='parts/grpselect.php'
        params='name,value,title,mandatory'
        defaults="title='ôÉÐ' mandatory='*false'">
+<decel name='identify' file='parts/identify.php' params='&posting'>
 <decel name='image_linked_tag' file='parts/utils.php'
        params='id,enlarge,align,static,title'
        defaults="enlarge=true align='' static='*false' title=''">
@@ -46,10 +47,12 @@
 <decel name='subtitle' file='parts/subtitle.php'>
 <decel name='top' file='parts/top.php' params='ident'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
+<decel name='topics_courses' file='parts/topics-courses.php' params='id'>
 <decel name='topics_line' params='arrow,text,title,href,class,comment,nobullet'
        defaults="arrow='*false' text='' title='' href='' class='item'
                  comment='' nobullet='*false'"
        file='parts/topicsutils.php'>
+<decel name='topics_news' file='parts/topics-news.php' params='id'>
 <decel name='topics_table' params='class,title' defaults="class='' title=''"
        file='parts/topicsutils.php'>
 <decel name='topics_table_end' file='parts/topicsutils.php'>

@@ -9,11 +9,16 @@ grl=#EAEAEA	! Light
 
 ! Blue
 
+mbl=#000088	! Moderated
 dbl=#003366	! Dark
 sbl=#567297	! Desaturated
 lbl=#3f689d	! Light
 bbl=#bdd0e9	! Background
 rbl=#dde9f8	! Bright
+
+! Magenta
+
+mmg=#880088	! Moderated
 
 ! Orange
 

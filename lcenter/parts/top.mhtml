@@ -13,7 +13,7 @@
 <element name='menu' params='ident'>
  <menuitem ident='index' text='Главная' href='/'>
  <menuitem ident='courses' text='Курсы' href='/courses.php'>
- <menuitem ident='about' text='О нас' href='/about/'>
+ <menuitem ident='about' text='О нас' href='/about.php'>
  <moderator>
   <menuitem ident='admin' text='Админ' href='/topicorg.php'>
  </moderator>

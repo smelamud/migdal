@@ -9,8 +9,9 @@
 <topictitle title='Новости'>
 
 <element name='news' params='posting'>
-<dl class='posting'>
- <dt class='subject'>$posting.Subject</dt>
+<dl>
+ <dt><a href='news.php?id=$posting.Id' class='subject'>$posting.Subject</a></dt>
+ <dt class='sent'><sentview date='$posting.Sent'></dt>
  <dd class='ninept'>
   <ifnzero what='$posting.ImageSet'>
    <table align='left' class='pic'>
@@ -36,7 +37,9 @@
    <iterate_postinglist grp='*GRP_NEWS' topic_id='$`news`'
                         fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_TOPICS'>
    <for>
-    <p><news posting='$.'></p>
+    <table width='100%'><tr><td class='posting'>
+     <news posting='$.'>
+    </td></tr></table>
    </for>
   </td>
   <td width="40%">

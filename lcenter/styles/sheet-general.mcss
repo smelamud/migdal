@@ -40,6 +40,10 @@ A {
 	color: %link;
 }
 
+A:visited {
+	color: %link_visited;
+}
+
 TT {
 	font-family: %courier;
 }
@@ -64,4 +68,9 @@ TT {
 
 A.edit {
 	font-size: 8pt;
+}
+
+.sent {
+	color: %sent;
+	font-size: 9pt;
 }

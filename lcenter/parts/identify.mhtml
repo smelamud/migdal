@@ -1,0 +1,40 @@
+<< @(#) $Id$ >>
+
+<macro name='identifier'>
+ <element name='identify_%name' params='posting,&dhref,&root'
+          defaults="posting='$posting' dhref='$dhref' root='$root'">
+</macro>
+
+<macro name='/identifier'>
+ </element>
+</macro>
+
+<identifier name='all'>
+<assign name='root' value='-1'>
+<if what='$/$posting.TopicId,0/==$`about`'>
+ <assign name='dhref' value='/about.php'>
+<elif what='$/$posting.TopicId,0/==$`courses`'>
+ <if what='$/$posting.TopicId,1/==$`courses-details`'>
+  <assign name='dhref' value#='/course-details.php?id=$posting.Id'>
+ <else>
+  <assign name='dhref' value='/courses.php'>
+ </if>
+<elif what='$/$posting.TopicId,0/==$`news`'>
+ <assign name='dhref' value#='/news.php?id=$posting.Id'>
+</if>
+</identifier>
+
+<element name='identify'>
+<if what='!$posting.Identified'>
+ <identify_all>
+
+ << Ссылка на страницу с полным, детальным представлением постинга. >>
+ <setup name='posting' var='DetailsHref' value='$dhref'>
+
+ << Корень поддерева дерева тем, которое будет отображаться при редактировании
+    этого постинга. >>
+ <setup name='posting' var='RootId' value='$root'>
+
+ <setup name='posting' var='Identified' value='*true'>
+</if>
+</element>

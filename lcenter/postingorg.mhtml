@@ -41,24 +41,21 @@
 
 <element name='post' params='posting'>
 <ifnzero what='$posting.Shadow'><blockquote></ifnzero>
- <table class='posting' width=100%>
+ <table class='posting' width='100%'>
   <tr><td>
    <iterate_topic_hierarchy topic_id='$posting.TopicId'>
-   <span class='subject'>
-    <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
-       class='topic'><asp>
-     <for>
-      <if what='!$;isFirst'>&sp;::&sp;</if>
-      $.Name
-     </for>
-    <asp></a>
-   </span>
+   <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
+      class='topic'><asp>
+    <for>
+     <if what='!$;isFirst'>&sp;::&sp;</if>
+     $.Name
+    </for>
+   <asp></a>
    // $posting.GrpTitle
   </td></tr>
   <tr><td>
    <identify posting='$posting'>
-   <<b><a href='$posting.DetailsHref'>$posting.SubjectDesc</a></b>>
-   <b>$posting.SubjectDesc</b>
+   <b><a href='$posting.DetailsHref'>$posting.SubjectDesc</a></b>
    <ifne what='$posting.Ident'>
     [$posting.Ident=$posting.Id]
    <else>
@@ -122,7 +119,6 @@
   </td></tr>
  </table>
 <ifnzero what='$posting.Shadow'></blockquote></ifnzero>
-<p>
 </element>
 
 <html>
