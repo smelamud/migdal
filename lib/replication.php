@@ -6,15 +6,11 @@ require_once('conf/migdal.conf');
 require_once('lib/errorreporting.php');
 require_once('lib/no-cache.php');
 require_once('lib/database.php');
-require_once('lib/session.php');
 require_once('lib/journal.php');
-require_once('lib/redirs.php');
 
 settype($from,'integer');
 
 dbOpen();
-session();
-redirect();
 
 setHorisont($host,$from,HOR_THEY_KNOW);
 clearJournal();
