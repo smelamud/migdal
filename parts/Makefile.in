@@ -6,9 +6,10 @@
 	../miparser -M ../macros.mhtml $< > $@
 
 all: backtrace.php complain.php cs_forum.php cs_normal.php forum.php \
-     forums.php login.php menu.php message.php messages.php top.php utils.php ;
+     forums.php login.php menu.php message.php messages.php top.php \
+     utils.php ;
 
-Makefile: Makefile.in
-	cp Makefile.in Makefile
+Makefile: Makefile.in ../conf/migdal.conf
+	../confmake $^
 
 install: all ;

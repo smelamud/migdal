@@ -11,11 +11,8 @@ all: chat.php chatboard.php complainanswer.php complainedit.php \
      userok.php users.php
 	(cd parts; $(MAKE) all)
 
-Makefile: Makefile.in
-	cp Makefile.in Makefile
-
-conf/migdal.conf: configure
-	./configure
+Makefile: Makefile.in conf/migdal.conf
+	./confmake $^
 
 dbinfo:
 	mysqldump -u root -p migdal --no-data > migdal.db
