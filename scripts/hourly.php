@@ -93,8 +93,7 @@ if(!$result)
   die(mysql_error());
 while($row=mysql_fetch_assoc($result))
      {
-     $forum=new ForumAnswer();
-     $forum->setup(array('body' => $row['text']));
+     $forum=new ForumAnswer(array('body' => $row['text']));
      if(!$forum->store())
        die(mysql_error());
      opScript($row['script'],$row);
