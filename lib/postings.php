@@ -180,7 +180,8 @@ $this->LimitSelectIterator(
                messages.stotext_id as stotext_id,stotexts.body as body,
 	       messages.subject as subject,messages.author as author,
 	       messages.source as source,grp,messages.sent as sent,topic_id,
-	       messages.sender_id as sender_id,messages.hidden as hidden,
+	       messages.url as url,messages.sender_id as sender_id,
+	       messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
 	       images.has_large as has_large_image,images.title as title,
@@ -355,7 +356,7 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query('select postings.id as id,ident,message_id,stotext_id,body,
                             large_filename,large_format,large_body,
-			    large_imageset,subject,author,source,topic_id,
+			    large_imageset,subject,author,source,url,topic_id,
 			    personal_id,sender_id,grp,priority,image_set,
 			    hidden,disabled
 		     from postings
@@ -385,7 +386,8 @@ $result=mysql_query(
 		messages.stotext_id as stotext_id,stotexts.body as body,
 		stotexts.large_format as large_format,
 		stotexts.large_body as large_body,messages.subject as subject,
-		messages.author as author,messages.source as source,grp,
+		messages.author as author,messages.source as source,
+		messages.url as url,grp,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,
 		messages.hidden as hidden,messages.disabled as disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,

@@ -24,6 +24,7 @@ var $image_y;
 var $hidden;
 var $disabled;
 var $sent;
+var $url;
 var $answer_count;
 var $last_answer;
 
@@ -46,16 +47,18 @@ if(isset($vars['authorid']))
   $this->author=tmpTextRestore($vars['authorid']);
 if(isset($vars['sourceid']))
   $this->source=tmpTextRestore($vars['sourceid']);
+if(isset($vars['urlid']))
+  $this->url=tmpTextRestore($vars['urlid']);
 }
 
 function getCorrespondentVars()
 {
-return array('subject','author','source','hidden','disabled');
+return array('subject','author','source','hidden','disabled','url');
 }
 
 function getWorldVars()
 {
-return array('subject','author','source','hidden','sender_id');
+return array('subject','author','source','hidden','sender_id','url');
 }
 
 function getAdminVars()
@@ -294,6 +297,11 @@ return $this->disabled;
 function getSent()
 {
 return strtotime($this->sent);
+}
+
+function getURL()
+{
+return $this->url;
 }
 
 function getAnswerCount()

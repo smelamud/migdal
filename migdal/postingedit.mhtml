@@ -153,6 +153,13 @@
 		    mandatory='$message.mandatoryBody'>
       </if>
      </if>
+     <if what='$message.hasURL'>
+      <table><tr><td>
+       <error id='*EP_URL_ABSENT' text='Ссылка не указана' span=2>
+       <edit_line title='Ссылка' value='$message.URL' name='url'
+		  size=42 maxlength=250 mandatory='$message.mandatoryURL'>
+      </table></td></tr>
+     </if>
      <checkbox_line name='hidden' value='$message.isHidden'
                     title='Не показывать'>
      <moderator>

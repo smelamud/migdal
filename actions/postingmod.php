@@ -78,6 +78,8 @@ if($message->mandatorySource() && $message->source=='')
   return EP_SOURCE_ABSENT;
 if($message->mandatoryLargeBody() && $message->stotext->large_body=='')
   return EP_LARGE_BODY_ABSENT;
+if($message->mandatoryURL() && $message->url=='')
+  return EP_URL_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
 if($message->topic_id!=0 && !topicExists($message->topic_id))
@@ -112,6 +114,7 @@ postString('subject');
 postString('author');
 postString('source');
 postString('title');
+postString('url');
 $title=addslashes($title);
 
 dbOpen();
@@ -137,6 +140,7 @@ else
   $authorId=tmpTextSave($author);
   $sourceId=tmpTextSave($source);
   $titleId=tmpTextSave($title);
+  $urlId=tmpTextSave($url);
   header('Location: '.
           remakeMakeURI($faildir,
 			$HTTP_POST_VARS,
@@ -146,6 +150,7 @@ else
 			      'author',
 			      'source',
 			      'title',
+			      'url',
 			      'okdir',
 			      'faildir'),
 			array('bodyid'       => $bodyId,
@@ -154,6 +159,7 @@ else
 			      'authorid'     => $authorId,
 			      'sourceid'     => $sourceId,
 			      'titleid'      => $titleId,
+			      'urlid'        => $urlId,
 			      'image_set'    => $message->getImageSet(),
 			      'err'          => $err)).'#error');
   }
