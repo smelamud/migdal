@@ -23,21 +23,19 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100%><tr valign=top>
-  <td width=120>
+ <table width=100% cellpadding=5><tr valign=top>
+  <td width=120 class='eframe'>
    <posting_new grp='*GRP_NEWS' topic_id='$topic_id'>
    <topics posting='$,' showchapters='*true' withpostings='$$officialDomain'
            subdomain!='$$officialDomain ? 1 : -1'>
   </td>
-  <td width=5>&nbsp;</td>
-  <td>
+  <td class='cframe'>
    <subtitle icon='pics/all-big.gif'>
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
              offset='$offset' subdomain!='$$officialDomain ? 1 : -1'>
   </td>
   <community>
-   <td width=5>&nbsp;</td>
-   <td width=110>
+   <td width=115 class='eframe'>
     <hit_parade grp='*GRP_WRITINGS' topic_id='$topic_id'>
     <<friends>>
    </td>

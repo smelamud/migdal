@@ -2,16 +2,18 @@
 
 <macro name='tuneitem'>
  <assign name='link' value#='%file?redirid=$_'>
- <if what="$ident!='%ident'">
-  <at href='$link' target='$target'>%title</a>
- <else>
-  <at href='$link' class='selected' target='$target'>%title</a>
- </if>
+ <at href='$link' target='$target'>
+  <if what="$ident=='%ident'">
+   <image src#='pics/menu-%{ident}.gif' border=0>
+  <else>
+   <image src#='pics/menu-%{ident}-na.gif' border=0>
+  </if>
+ </at>
 </macro>
 
 <element name='tune'>
- <tuneitem file='/style.php' ident='style' title='Настроить вид'>
+ <tuneitem file='/style.php' ident='style'>
  <if what="$ident=='chat' || $ident=='chattune'">
-  <tuneitem file='/chattune.php' ident='chattune' title=', чат'>
+  <tuneitem file='/chattune.php' ident='chattune'>
  </if>
 </element>

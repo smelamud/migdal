@@ -35,4 +35,15 @@ grl=#EAEAEA	! Light
 
 ! Maroon
 
-mr=#993300
+mrd=#886655
+mrm=#996600
+mrl=#f4f1cb
+
+! Replacers
+r_b=#e9d9a6
+r_c=#e9dabd
+r_d=#c4b1a0
+r_k=#efe4d0
+r_l=#f8f0dd
+r_m=#f0e0b4
+r_n=#a28366

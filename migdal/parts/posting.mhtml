@@ -17,7 +17,6 @@
 <if what='$posting.isRebe'><span class='rebe'></if>
  <dl class='posting'>
   <dt class='subject'>
-   <biff time='$posting.Sent'>
    <if what='$showtopic'>
     <a href='index.php?topic_id=$posting.TopicId'
        class='topic' title='$posting.TopicDescription'>
@@ -25,7 +24,9 @@
     </a>
     <br>
    </if>
-   <vote_frame align=right id='$posting.Id' color='$$style_body_back'>
+   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
+               image='$$style_cframe_back_pic'>
+   <biff time='$posting.Sent'>
    $posting.Subject
    <ifne what='$posting.Author'>
     <br><span class='author'>$posting.Author</span>
@@ -71,11 +72,6 @@
   <if what='$$userId>0 || $showdiscuss || $posting.hasLargeBody'>
    <table width=90% class='bottom'><tr>
     <td>
-     <if what='$posting.hasLargeBody'>
-      <a href='article.php?redirid=$_&artid=$posting.Id'
-	      class='read'>Читать</a>
-      &nbsp;
-     </if>
      <admin_domain>
       <ifzero what='$posting.Subdomain'>
        <a href="actions/domainmod.php?editid=$posting.Id&domain=1&okdir=$#-&faildir=$#-"

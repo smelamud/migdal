@@ -1,10 +1,8 @@
 ! @(#) $Id$
 
 .posting {
-	border: 3px solid %posting_border;
 	margin-top: 1ex;
 	margin-bottom: 1ex;
-	background-color: %posting_back;
 }
 
 .posting * {
@@ -83,8 +81,4 @@
 .posting .bottom A:hover {
 	color: %posting_controls_hover;
 	text-decoration: underline;
-}
-
-.posting .bottom A.read {
-	color: %posting_read;
 }

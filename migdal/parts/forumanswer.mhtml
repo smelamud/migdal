@@ -1,23 +1,23 @@
 << @(#) $Id$ >>
 
-<element name='Forum_Answer'>
+<element name='forum_answer'>
 <if what='$answer.isRebe'><span class='rebe'></if>
  <table width=100% class='forum'>
   <tr>
-   <td class='header'><table cellpadding=0>
+   <td class='header' rowspan=2><table cellpadding=0>
     <tr><td><senderlink message='$answer'></td></tr>
     <tr><td class='sent'>
      <sentview date='$answer.Sent'>
      <biff time='$answer.Sent'>
     </td></tr>
    </table></td>
-   <td class='body' rowspan=2>
+   <td class='body'>
     $answer.HTMLBody
    </td>
   </tr>
-  <tr>
-   <td class='controls'>&nbsp;
-    <isedit what='$answer'>
+  <isedit what='$answer'>
+   <tr>
+    <td class='controls'>&nbsp;
      <a href="forumansweredit.php?editid=$answer.Id&redirid=$_"
       >Изменить</a>
      <moderator>
@@ -30,9 +30,9 @@
 	>Запретить&nbsp;показ</a>
       </if>
      </moderator>
-    </isedit>
-   </td>
-  </tr>
+    </td>
+   </tr>
+  </isedit>
  </table>
 <if what='$answer.isRebe'></span></if>
 </element>

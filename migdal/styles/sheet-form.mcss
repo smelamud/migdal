@@ -2,7 +2,12 @@
 
 .form {
 	background-color: %form_back;
+	background-image: url("../%form_back_pic");
 	padding: 5px;
+}
+
+.form * {
+	font: 12pt %times;
 }
 
 .form P {
@@ -15,13 +20,9 @@
 
 .form TH {
 	background-color: %form_title_back;
+	background-image: url("../%form_title_back_pic");
 	color: %form_title;
 	font-weight: bold;
-}
-
-.form INPUT,.form SELECT,.form TEXTAREA {
-	border: 1px solid %form_input_border;
-	color: %form_input_text;
 }
 
 .form .star {
@@ -31,12 +32,12 @@
 
 .form .starinfo TD {
 	padding-bottom: 2ex;
-	font-size: 8pt;
+	font-size: 10pt;
 	color: %form_starinfo;
 }
 
 .form .comment TD {
-	font-size: 8pt;
+	font-size: 10pt;
 	color: %form_comment;
 }
 
@@ -46,11 +47,6 @@
 
 .form .buttons {
 	border-top: 2px solid %form_buttons_ruler;
-}
-
-.form .buttons INPUT,.form .buttons-nosplit INPUT {
-	background-color: %form_buttons_back;
-	color: %form_buttons;
 }
 
 .form A {

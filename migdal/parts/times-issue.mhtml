@@ -6,9 +6,9 @@
   <assign name='al' value#='align=$align'>
  </ifne>
  <if what='$separate'>
-  <table width=150 class='mtimes mtsep' $al>
+  <table width=120 class='mtimes mtsep' $al>
  <else>
-  <table width=150 $al>
+  <table width=120 $al>
  </if>
   <if what='$separate'>
    <tr><td class='issuehead'>

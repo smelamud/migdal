@@ -1,7 +1,5 @@
 << @(#) $Id$ >>
 
 <element name='today'>
-<div class='date'>
- <time>$,@Jj&nbsp;$,@Jk&nbsp;$,@JY&nbsp;/&nbsp;$,@Rj&nbsp;$,@Rk&nbsp;$,@RY
-</div>
+<time>$,@Jj&nbsp;$,@Jk&nbsp;$,@JY&nbsp;/&nbsp;$,@Rj&nbsp;$,@Rk&nbsp;$,@RY
 </element>

@@ -3,6 +3,7 @@
 .picture {
 	border: 5px solid %picture_border;
 	background-color: %picture_back;
+	background-image: url("../%picture_back_pic");
 	border-spacing: 0;
 	padding: 0;
 	border-collapse: collapse;
@@ -11,11 +12,6 @@
 
 .picture .top {
 	background-color: %picture_top_back;
-}
-
-.picture .top .sent {
-	color: %picture_sent;
-	font-weight: bold;
 }
 
 .picture .top A.name {

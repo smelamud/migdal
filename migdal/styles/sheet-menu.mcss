@@ -1,23 +1,14 @@
 ! @(#) $Id$
 
-.menu {
+.menu .date {
 	background-color: %menu_back;
-	padding-left: 1em;
+	background-image: url("../%menu_back_pic");
+	border: solid 1px %menu_date_border;
+	color: %menu_date;
+	font: bold 12pt %times;
+	text-align: right;
 }
 
 .menu .minor A {
 	font-size: 8pt;
-}
-
-.menu A {
-	color: %menu_normal;
-	text-decoration: none;
-}
-
-.menu A.selected {
-	color: %menu_selected;
-}
-
-.menu A:hover {
-	text-decoration: underline;
 }

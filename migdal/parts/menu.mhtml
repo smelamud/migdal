@@ -1,40 +1,41 @@
 << @(#) $Id$ >>
 
-<element name='menuitem' params='ident,name,link,target,current,time'
+<element name='menuitem' params='ident,link,target,current,time'
          defaults='time=0'>
 <biff time='$time'>
-<if what='$current==$ident'>
- <at href='$link' class='selected' target='$target'>$name</at>
-<else>
- <at href='$link' target='$target'>$name</at>
-</if>
-&nbsp;
+<at href='$link' target='$target'>
+ <if what='$current==$ident'>
+  <image src#='pics/menu-${ident}.gif' border=0>
+ <else>
+  <image src#='pics/menu-${ident}-na.gif' border=0>
+ </if>
+</at>
 </element>
 
 <element name='menu'>
-<table class='menu' width=100%><tr>
- <td>
-  <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
-  <posting_last name='gallery_time' grp='*GRP_GALLERY' topic_id='general'
-                recursive='*true'>
-  <menuitem ident='index' name='Главная' link='index.php?topic_id=-1'
-            target='$target' current='$ident'>
-  <community>
-   <menuitem ident='discuss' name='Обсуждения'
-	     link='forumcatalog.php?topic_id=-1' target='$target'
-	     current='$ident' time='$forums_time'>
-  </community>
-  <menuitem ident='gallery' name='Галерея' link='gallery.php?topic_id=-1'
-            target='$target' current='$ident' time='$gallery_time'>
-  <community>
-   <menuitem ident='chat' name='Чат' link='chat.php'
-	     target='$target' current='$ident'>
-   <menuitem ident='users' name='Пользователи' link='users.php'
-	     target='$target' current='$ident'>
-  </community>
- </td>
- <td align=right class='minor'>
-  <noindex><tune ident='$ident' target='$target'></noindex>
- </td>
-</tr></table>
+<table class='menu' width=100% cellspacing=0 cellpadding=0 vspace=0>
+ <tr valign=bottom>
+  <td><asp>
+   <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
+   <posting_last name='gallery_time' grp='*GRP_GALLERY' topic_id='general'
+		 recursive='*true'>
+   <menuitem ident='index' link='index.php?topic_id=-1' target='$target'
+             current='$ident'>
+   <community>
+    <menuitem ident='discuss' link='forumcatalog.php?topic_id=-1'
+              target='$target' current='$ident' time='$forums_time'>
+   </community>
+   <menuitem ident='gallery' link='gallery.php?topic_id=-1' target='$target'
+             current='$ident' time='$gallery_time'>
+   <community>
+    <menuitem ident='chat' link='chat.php' target='$target' current='$ident'>
+    <menuitem ident='users' link='users.php' target='$target' current='$ident'>
+   </community>
+  <asp></td>
+  <td align=right><asp>
+   <asp><noindex><tune ident='$ident' target='$target'></noindex><asp>
+  <asp></td>
+ </tr>
+ <tr><td colspan=2 class='date'><today>&nbsp;</td></tr>
+</table>
 </element>

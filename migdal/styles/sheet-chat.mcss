@@ -2,6 +2,7 @@
 
 BODY.chatboard {
 	background-color: %chatboard_back;
+	background-image: url("../%chatboard_back_pic");
 }
 
 BODY.chatboard * {
@@ -27,6 +28,11 @@ BODY.chatboard * {
 	text-decoration: underline;
 }
 
+.chatusersframe {
+	background-color: %chatusers_back;
+	background-image: url("../%chatusers_back_pic");
+}
+
 .chatusers {
 	border-bottom: 1px solid %chatusers_split;
 	margin-bottom: 1ex;
@@ -34,4 +40,9 @@ BODY.chatboard * {
 
 .chatusers TD {
 	font-size: 8pt;
+}
+
+.chatbottom .line {
+	background-color: %chatbottom_input_back;
+	border: solid 1px %chatbottom_input_border;
 }

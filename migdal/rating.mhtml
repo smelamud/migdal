@@ -25,6 +25,7 @@
  <style><!--
   BODY {
 	 background-color: $color;
+	 background-image: url("$image");
   }
 
   TD.empty {

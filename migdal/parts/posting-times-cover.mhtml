@@ -15,7 +15,8 @@
    </a>
    <br>
   </if>
-  <vote_frame align=right id='$posting.Id' color='$$style_body_back'>
+  <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
+              image='$$style_cframe_back_pic'>
   &lt;&lt;Мигдаль Times&gt;&gt; No.$posting.Index1
  </dt>
  <dd><p>

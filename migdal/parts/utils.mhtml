@@ -3,15 +3,15 @@
 <element name='at' params='target,class,href' defaults="target='' class=''">
 <ifne what='$target'>
  <ifne what='$class'>
-  <a href='$href' target='$target' class='$class'>
+  <asp><a href='$href' target='$target' class='$class'><asp>
  <else>
-  <a href='$href' target='$target'>
+  <asp><a href='$href' target='$target'><asp>
  </ifne>
 <else>
  <ifne what='$class'>
-  <a href='$href' class='$class'>
+  <asp><a href='$href' class='$class'><asp>
  <else>
-  <a href='$href'>
+  <asp><a href='$href'><asp>
  </ifne>
 </ifne>
 </element>

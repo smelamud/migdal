@@ -1,13 +1,23 @@
 ! @(#) $Id$
 
+.userinfo {
+	background-color: url("../%userinfo_back");
+	background-image: url("../%userinfo_back_pic");
+	border-collapse: collapse;
+}
+
 .userinfo TH {
-	background-color: %userinfo_title_back;
+	border: solid 1px %userinfo_border;
+	color: %userinfo_header;
 	font-weight: bold;
 	width: 150px;
 	text-align: left;
+	padding-left: 0.5ex;
 }
 
 .userinfo TD {
-	background-color: %userinfo_info_back;
+	border: solid 1px %userinfo_border;
+	color: %userinfo_body;
 	text-align: left;
+	padding-left: 0.5ex;
 }

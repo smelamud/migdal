@@ -4,11 +4,11 @@
 	border-collapse: collapse;
 	border-spacing: 0;
 	padding: 0;
-	border: solid 3px %forum_border;
 }
 
 .forum .header {
 	background-color: %forum_header_back;
+	background-image: url("../%forum_header_back_pic");
 	padding-left: .5em;
 	text-align: left;
 	vertical-align: top;
@@ -17,6 +17,7 @@
 
 .forum .body {
 	background-color: %forum_body_back;
+	background-image: url("../%forum_body_back_pic");
 	padding-left: 1em;
 	padding-top: .5em;
 	text-align: left;
@@ -40,6 +41,8 @@
 
 .forum .controls {
 	background-color: %forum_header_back;
+	background-image: url("../%forum_body_back_pic");
+	border-top: solid 1px %forum_split;
 	vertical-align: bottom;
 	padding-bottom: 0.5ex;
 }

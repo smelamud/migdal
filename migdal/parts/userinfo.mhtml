@@ -19,7 +19,7 @@
 <user_obj name='user' id='$id'>
 <zone><log event=userinfo text#='user($user.Id)'></zone>
 <controls_userinfo target='$target'>
-<table class='userinfo' width=100%>
+<table class='userinfo' width=100% cellspacing=0>
  <infoline title='Ник' value='$,Login'>
  <infoline title='Имя' value='$,Name'>
  <infoline title='Еврейское имя' value='$,JewishName'>

@@ -5,21 +5,42 @@
 <table class='state'>
  <col width=*>
  <col width=0*>
- <col width=0*>
  <tr>
-  <td class='topimage'>
+  <td>
    <if what='$showimages'>
-    <a href='/index.php'>
-     <image src='$$style_banner_logo' border=0></a>
-    <a href='/index.php'>
-     <image src='$$style_banner_name' border=0></a>
+    <table>
+     <col width=0* span=2>
+     <tr valign=bottom>
+      <td>
+       <a href='/index.php'><image src='$$style_banner_logo' border=0></a>
+      </td>
+      <td align=center>
+       <a href='/index.php'>
+        <image src='$$style_banner_migdal' border=0><br>
+        <image src='$$style_banner_online' border=0></a>
+      </td>
+     </tr>
+    </table>
+   <else>
+    <table>
+     <col width=0* span=2>
+     <tr valign=bottom>
+      <td>
+       <a href='/index.php'>
+        <image src='$$style_banner_migdal' border=0>
+      </td>
+      <td>
+       <a href='/index.php'>
+        <image src='$$style_banner_online' border=0></a>
+      </td>
+     </tr>
+    </table>
    </if>
    <hotlog_count>
    <mailru_count>
    <rambler_count>
   </td>
   <td align=right>
-   <today><br>
    <community>
     <login no_new='$no_new' err='$$err' target='$target'>
    </community>

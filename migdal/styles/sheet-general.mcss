@@ -23,6 +23,7 @@
 
 BODY {
 	background-color: %body_back;
+	background-image: url("../%body_back_pic");
 }
 
 .advert {
@@ -55,7 +56,15 @@ BODY {
 }
 
 .title TD {
-	font-family: %times;
-	font-size: 16pt;
-	font-weight: bold;
+	font: bold 18pt %times;
+}
+
+.cframe {
+	background-image: url("../%cframe_back_pic");
+	border: solid 1px %cframe_border;
+}
+
+.eframe {
+	background-image: url("../%eframe_back_pic");
+	border: solid 2px %eframe_border;
 }

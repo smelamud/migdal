@@ -14,6 +14,7 @@
 .catalog TH {
 	font-size: 9pt;
 	background-color: %catalog_header;
+	background-image: url("../%catalog_header_pic");
 	color: %catalog_header_text;
 	vertical-align: middle;
 }
@@ -43,6 +44,7 @@
 
 .catalog TR {
 	background-color: %catalog_even;
+	background-image: url("../%catalog_even_pic");
 }
 
 .catalog TR.div {
@@ -55,6 +57,7 @@
 
 .catalog TR.odd {
 	background-color: %catalog_odd;
+	background-image: url("../%catalog_odd_pic");
 }
 
 .catalog TR.active {

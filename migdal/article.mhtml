@@ -13,12 +13,11 @@
 </zone>
 <body>
  <top ident='index'>
- <table width=100%><tr valign=top>
-  <td width=120>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=120 class='eframe'>
    <topics posting='$,' showchapters='*true'>
   </td>
-  <td width=5>&nbsp;</td>
-  <td class='article'>
+  <td class='article cframe'>
    <article_controls posting='$,'>
    <table align=right class='sent'>
     <tr><td>&nbsp;</td></tr>

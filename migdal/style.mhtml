@@ -43,7 +43,7 @@
      Ваша основная кодировка - KOI8, то<br>
      Вам может пригодиться следующая настройка:
     </td></tr>
-    <checkbox_line name='koi' value='$$userReadKOI'
+    <checkbox_line name='koi' value!='$$userReadKOI>0'
 		   title='Читаю только в KOI8' span=2>
    </table></td>
    <td width=10 class='split'>&nbsp;</td>

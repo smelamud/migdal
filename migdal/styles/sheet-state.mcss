@@ -3,31 +3,16 @@
 .state {
 	border-collapse: collapse;
 	border-spacing: 0;
-	font-size: 8pt;
 	padding: 0;
 	width: 100%;
 }
 
-.state .topimage {
-	padding: 0;
-}
-
-.state .date {
-	color: %state_date;
-	text-decoration: underline;
-	font-size: 9pt;
-}
-
 .state .login TD {
-	font-size: 8pt;
 	padding: 0;
-}
-
-.state .login A {
-	font-size: 8pt;
 }
 
 .state .login A.name {
+	font: bold 11pt %courier;
 	text-decoration: underline;
 }
 
@@ -35,9 +20,8 @@
 	color: %register_hover;
 }
 
-.state .login INPUT {
-	border-color: %login_border;
-	border-width: 1px;
+.state .login INPUT.line {
+	background-color: %login_input_back;
+	border: solid 1px %login_input_border;
 	color: %login_text;
-	font-size: 8pt;
 }

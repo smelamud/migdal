@@ -17,7 +17,8 @@
    </td></tr>
   </if>
   <tr><td align=right>
-   <vote_frame id='$picture.Id' color='$$style_picture_back'>
+   <vote_frame id='$picture.Id' color='$$style_picture_back'
+               image='$$style_picture_back_pic'>
   </td></tr>
   <ifnzero what='$picture.ImageSet'>
    <tr><td class='image'>

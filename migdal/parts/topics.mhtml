@@ -9,7 +9,7 @@
  </ifbiff>
 <else>
  <ifbiff time='$time'>
-  <image src='pics/ner.gif' title='новое'>
+  <image src='pics/ner-small.gif' title='новое'>
  <else>
   &nbsp;
  </ifbiff>

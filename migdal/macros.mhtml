@@ -12,9 +12,7 @@
 </macro>
 
 << Styles >>
-<decstyle ident='contrast' desc='Контрастный'>
-<decstyle ident='test' desc='Тестовый'>
-<decstyle ident='old' desc='Старый'>
+<<decstyle ident='test' desc='Тестовый'>>
 
 << Elements >>
 <decel name='article' file='parts/article.php' params='posting'>
@@ -137,7 +135,7 @@
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
 <decel name='userinfo' file='parts/userinfo.php' params='id,target'>
-<decel name='vote_frame' file='parts/vote.php' params='id,align,color'
+<decel name='vote_frame' file='parts/vote.php' params='id,align,color,image'
        defaults="align=''">
 
 <macro name='/topics_table'>
@@ -171,7 +169,7 @@
 
 << HTML shortcuts >>
 <macro name='/at'>
- </a>
+ <asp></a><asp>
 </macro>
 
 <macro name='edit_line' defaults="mandatory='*false'">
@@ -202,9 +200,13 @@
 </macro>
 
 << Biff >>
-<macro name='biff'>
+<macro name='biff' defaults="small='*false'">
  <ifbiff time%!time='%time'>
-  &nbsp;<image src='pics/ner.gif' title='новое'>&nbsp;
+  <if what='%small'>
+   &nbsp;<image src='pics/ner-small.gif' title='новое'>&nbsp;
+  <else>
+   &nbsp;<image src='pics/ner.gif' title='новое'>&nbsp;
+  </if>
  </ifbiff>
 </macro>
 

@@ -24,7 +24,7 @@
 }
 
 .batcher INPUT {
-	border-color: %batcher_input_border;
-	border-width: 1px;
+	background-color: %batcher_input_back;
+	border: solid 1px %batcher_input_border;
 	color: %batcher_input_text;
 }

@@ -20,7 +20,8 @@
  <div class=pic>
   <image_tag_put id='$cover.ImageId' size=large>
  </div>
- <vote_frame align=right id='$cover.Id' color='$$style_body_back'>
+ <vote_frame align=right id='$cover.Id' color='$$style_cframe_back'
+             image='$$style_cframe_back_pic'>
  <table width=150 class=bottom><tr>
   <editor>
    <td>
@@ -115,28 +116,26 @@
   <assign name='issue' value='$,'>
  </zone></ifzero>
  <zone><log event=times text#='issue($issue)'></zone>
- <table width=100%><tr valign=top>
-  <td width=120><zone>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=120 class='eframe'><zone>
    <posting_new grp='*GRP_TIMES_ARTICLES' topic_id='$times.Id'>
    <topics posting='$,' showchapters='*true'>
   </zone></td>
-  <td width=5>&nbsp;</td>
   <posting_full name='cover' grp='*GRP_TIMES_COVERS' topic='$times.Id'
 		index1!='$issue<0 ? 0 : $issue'>
-  <td class='mtimes'>
+  <td class='mtimes cframe'>
    <table><tr valign=bottom><td>
     <image src='pics/times.gif'>
    </td><td>
     <times_issue issue='$issue' month='$cover.Source'>
    </td></tr></table>
    <p>
-   <table width=100% cellspacing=0 cellpadding=0><tr valign=top>
+   <table width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <td width=150 class=posting>
      <cover times='$times' cover='$cover'>
      <p>
      <times_info>
     </td>
-    <td width=5>&nbsp;</td>
     <td>
      <select_issue issue='$issue'>
      <p>
@@ -163,23 +162,22 @@
       <batcher_times times='$times' issue='$issue'>
      </ifnzero>
     </td>
-    <td width=5>&nbsp;</td>
-    <td width=80 align=center>
-     <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=5 sort='*SORT_RINDEX1'>
-     <for>
-      <table>
-       <tr><td align=right><rating value='$.Vote20' showtitle='*false'></td></tr>
-       <tr><td class=pic>
-        <a href='times.php?issue=$.Index1'><image_tag_put id='$.ImageId'></a>
-       </td></tr>
-       <tr><td class=picissue align=center>
-        <a href='times.php?issue=$.Index1'>No.$.Index1</a>
-       </td></tr>
-      </table>
-      <p>
-     </for>
-    </td>
    </tr></table>
+  </td>
+  <td width=80 align=center class='mtimes'>
+   <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=5 sort='*SORT_RINDEX1'>
+   <for>
+    <table>
+     <tr><td align=right><rating value='$.Vote20' showtitle='*false'></td></tr>
+     <tr><td class=pic>
+      <a href='times.php?issue=$.Index1'><image_tag_put id='$.ImageId'></a>
+     </td></tr>
+     <tr><td class=picissue align=center>
+      <a href='times.php?issue=$.Index1'>No.$.Index1</a>
+     </td></tr>
+    </table>
+    <p>
+   </for>
   </td>
  </tr></table>
  <bottom>
