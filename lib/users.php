@@ -426,8 +426,7 @@ function ChatUsersIterator()
 global $chatTimeout;
 
 $this->SelectIterator('User',
-                      "select id,login,name,jewish_name,surname,gender,email,
-		              hide_email
+                      "select id,login,gender,email,hide_email
 		       from users
 		       where last_chat+interval $chatTimeout minute>now()");
 }
