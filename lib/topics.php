@@ -106,6 +106,14 @@ return $this->no_gallery ? 0 : 1;
 
 }
 
+function _noEqZero($vars)
+{
+$conds=array();
+foreach($vars as $var)
+       $conds[]="no_$var=0";
+return $conds;
+}
+
 class TopicListIterator
       extends SelectIterator
 {
@@ -115,7 +123,9 @@ function TopicListIterator($grp)
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$grpFilter=$grp==GRP_ANY ? '' : 'and no_'.getGrpName($grp).'=0';
+$grpFilter=$grp==GRP_ANY ? '' 
+                         : 'and ('.join(' or ',
+			                _noEqZero(getGrpNames($grp))).')';
 $this->SelectIterator('Topic',
                       "select id,name,description
 		       from topics

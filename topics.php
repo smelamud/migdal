@@ -7,16 +7,33 @@ require_once('lib/topics.php');
 require_once('lib/grps.php');
 
 require_once('top.php');
+
+$grpTitles=array(GRP_FORUMS  => 'Форумы',
+                 GRP_NEWS    => 'Новости',
+		 GRP_GALLERY => 'Галерея');
+$grpIdents=array(GRP_FORUMS  => 'forums',
+                 GRP_NEWS    => 'news',
+		 GRP_GALLERY => 'gallery');
+$title=$grpTitles[$grp];
+$ident=$grpIdents[$grp];
+$requestURI=urlencode($REQUEST_URI);
+
+if(!isset($ident))
+  {
+  header('Location: topics.php?'.makeQuery($HTTP_GET_VARS,
+                                           array(),
+					   array('grp' => GRP_FORUMS)));
+  exit;
+  }
 ?>
 <html>
 <head>
- <title>Клуб Еврейского Студента - <?php echo getGrpTitle($grp) ?></title>
+ <title>Клуб Еврейского Студента - <?php echo $title ?></title>
 </head>
 <body bgcolor=white>
   <?php
   dbOpen();
-  displayTop(getGrpName($grp));
-  $requestURI=urlencode($REQUEST_URI);
+  displayTop($ident);
   ?>
   <center><h1>Темы</h1></center>
   <?php
@@ -33,7 +50,7 @@ require_once('top.php');
     ?>'><?php echo $ignoregrp ? 'Показать активные' : 'Показать все' ?></a>
     <?php
     }
-  $list=new TopicListIterator($ignoregrp ? -1 : $grp);
+  $list=new TopicListIterator($ignoregrp ? GRP_ANY : $grp);
   while($item=$list->next())
        {
        echo '<p>';
