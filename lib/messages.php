@@ -270,7 +270,7 @@ class MessageListIterator
 
 function MessageListIterator($grp,$topic=0,$personal=0)
 {
-global $userModerator;
+global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic==0 ? '' : " and messages.topic_id=$topic ";
@@ -288,10 +288,12 @@ $this->SelectIterator('Message',
 				  on messages.topic_id=topics.id
 			     left join users
 			          on messages.sender_id=users.id
-		       where messages.hidden<$hide and
+		       where (messages.hidden<$hide or sender_id=$userId) and
 			     personal_id=$personal
 		       and up=0 $grpFilter $topicFilter
 		       order by sent desc");
+		    /* здесь нужно поменять, если будут другие ограничения на
+		       просмотр TODO */
 }
 
 function getGrpCondition($grp)
