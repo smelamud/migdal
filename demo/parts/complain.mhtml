@@ -72,9 +72,9 @@
      <iterate_complain_actionlist type='$complain.TypeId'>
      <for>
       <if what='$.isAutomatic'>
-       <option label='$.Name' value='$.Id' selected>
+       <option value='$.Id' selected>$.Name
       <else>
-       <option label='$.Name' value='$.Id'>
+       <option value='$.Id'>$.Name
       </if>
      </for>
     </select></td>

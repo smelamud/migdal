@@ -18,11 +18,7 @@
   <td><select name='typeid'>
    <iterate_complain_types>
    <for>
-    <if what='$.Id==$typeid'>
-     <option label='$.Name' value='$.Id' selected>
-    <else>
-     <option label='$.Name' value='$.Id'>
-    </if>
+    <radio title='$.Name' value='$.Id' peervalue='$typeid'>
    </for>
   </select></td>
   <td><input type=submit value='Просмотр'></td>
@@ -75,17 +71,9 @@
       <tr>
        <td><select name='script_id'>
 	<iterate_complain_scriptlist ident='$type.Ident'>
-	<ifzero what='$,ScriptId'>
- 	 <option label='-- Ничего не делать --' value=0 selected>
-	<else>
- 	 <option label='-- Ничего не делать --' value=0>
-	</if>
+	<radio title='-- Ничего не делать --' value=0 peervalue='$,ScriptId'>
 	<for>
-	 <if what='$.Id==$,ScriptId'>
-	  <option label='$.Name' value='$.Id' selected>
-	 <else>
-	  <option label='$.Name' value='$.Id'>
-	 </if>
+	 <radio title='$.Name' value='$.Id' peervalue='$,ScriptId'>
 	</for>
        </select></td>
        </td>
