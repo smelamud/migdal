@@ -110,6 +110,10 @@ return "$st\$".getGlobal('REQUEST_URI').$ed
        if $s=~/^\$-$/;
 return "$st\$".getGlobal('SCRIPT_NAME').$ed
        if $s=~/^\$~$/;
+return "$st\$".getGlobal('QUERY_STRING').$ed
+       if $s=~/^\$\?$/;
+return "${st}urlencode(\$".getGlobal('QUERY_STRING').")$ed"
+       if $s=~/^\$#\?$/;
 return "$st\$$item$ed"
        if $s=~/^\$\.$/;
 return "${st}uc(\$$item)$ed"
@@ -187,7 +191,7 @@ while($s ne '')
 				|
 				(?: \[[^\]]*\] )
 				|
-				[_\.,;\~\*\-]
+				[_\.,;\~\*\-\?]
 			       )
 			      )
 			      |

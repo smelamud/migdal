@@ -1,0 +1,34 @@
+<< @(#) $Id$ >>
+
+<html>
+<head>
+ <title>Мигдаль - Настроить чат</title>
+</head>
+<body>
+ <top ident='chat' image='pics/chat.gif'>
+ <formtable title='Настроика чата'>
+  <form method=get action='/chat.php'>
+   <hiddenget remove='chr chp'>
+   <table>
+    <tr>
+     <td>Обновлять каждые</td>
+     <td>
+      <select_portion name='chr' value='$$userChatRefresh'
+		      vals='5 7 10 12 15 17 20 25 30'>
+     </td>
+     <td>сек.</td>
+    </tr>
+    <tr>
+     <td>Показывать по</td>
+     <td>
+      <select_portion name='chp' value='$$userChatPortion'
+                      vals='10 15 20 25 30 35 40'>
+     </td>
+     <td>сообщений</td>
+    </tr>
+    <formbuttons title='Изменить' span=3>
+   </table>
+  </form>
+ </formtable>
+</body>
+</html>

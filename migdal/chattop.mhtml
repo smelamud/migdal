@@ -1,44 +1,20 @@
 << @(#) $Id$ >>
 << Based-on: demo/chat.mhtml 1.4 >>
 
-<element name='batcher_chat' params='limit,refresh'>
-<table class='batcher'><tr>
- <td>
-  <notlogged>
-   <table><tr valign=bottom><td><span class='advert'>
-    Хотите общаться в чате?
-    <a href='/register.php?redir=$_'>Зарегистрируйтесь!</a>
-   </span></td></tr></table>
-  <else>
-   &nbsp;
-  </notlogged>
- </td>
- <td>
-  <form method=get action='/chat.php' target='_top'>
-   <hiddenget remove='chr chp'>
-   <table><tr valign=center>
-    <td>Обновлять&nbsp;каждые&nbsp;</td>
-    <td>
-     <select_portion name='chr' value='$refresh'
-                     vals='5 7 10 12 15 17 20 25 30'>
-    </td>
-    <td><nobr>сек. и показывать по</nobr>&nbsp;</td>
-    <td>
-     <select_portion name='chp' value='$limit' vals='10 15 20 25 30 35 40'>
-    </td>
-    <td>сообщений&nbsp;</td>
-    <td><input type=submit value='Изменить'></td>
-   </tr></table>
-  </form>
- </td>
-</tr></table>
-</element>
-
 <html>
 <head>
 </head>
 <body>
  <top ident='chat' image='pics/chat.gif' target=_top re='/chat.php'>
- <batcher_chat limit='$$userChatPortion' refresh='$$userChatRefresh'>
+ <div class='batcher' align=right>
+  <notlogged>
+   <span class='advert'>
+    Хотите общаться в чате?
+    <a href='/register.php?redir=$_' target=_top>Зарегистрируйтесь!</a>
+   </span>
+  <else>
+   <a href='/chattune.php?redir=/chat.php&$?' target=_top>Настроить чат</a>
+  </notlogged>
+ </div>
 </body>
 </html>

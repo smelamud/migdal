@@ -6,14 +6,14 @@
  <title>Мигдаль - Чат</title>
 </head>
 <logged>
- <frameset rows='170,*,65' border=0>
+ <frameset rows='165,*,60' border=0>
 <else>
- <frameset rows='190,*' border=0>
+ <frameset rows='165,*' border=0>
 </logged>
- <frame src='chattop.php' noresize>
- <frame src='chatboard.php' noresize>
+ <frame src='chattop.php?$?' noresize>
+ <frame src='chatboard.php?$?' noresize>
  <logged>
-  <frame src='chatbottom.php' noresize>
+  <frame src='chatbottom.php?$?' noresize>
  </logged>
  <noframes>
   Ваш браузер не поддерживает фреймы. Увы...
