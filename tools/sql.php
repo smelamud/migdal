@@ -3,21 +3,46 @@
 
 error_reporting(0);
 
-function execute()
+function openDb()
 {
-global $dbhost,$dbuser,$dbpasswd,$dbname,$sql,$result;
+global $dbhost,$dbuser,$dbpasswd,$dbname,$link;
 
 $link=mysql_connect($dbhost,$dbuser,$dbpasswd);
 if(!$link)
-  return;
+  return false;
 if(!mysql_select_db($dbname))
+  return false;
+return true;
+}
+
+function closeDb()
+{
+mysql_close($link);
+}
+
+function executeScript()
+{
+global $dbhost,$dbuser,$dbpasswd,$dbname,$script,$result;
+
+exec("mysql --host='$dbhost' --user='$dbuser' --password='$dbpasswd' $dbname ".
+     "< $script",$result);
+}
+
+function execute()
+{
+global $sql,$result;
+
+if(!openDb())
   return;
 $result=mysql_query($sql);
 if(!$result)
   return;
-mysql_close($link);
+closeDb();
 }
 
+if(isset($script) && $script!='' && is_uploaded_file($script)
+   && filesize($script)==$script_size)
+  executeScript();
 if($sql!='')
   execute();
 
@@ -31,32 +56,40 @@ if($dbhost=='')
 <html>
 <head><title>Migdal - SQL</title></head>
 <body>
- <form method=post action='<?php echo $SCRIPT_NAME ?>#error'>
+ <form method=post enctype='multipart/form-data'
+       action='<?php echo $SCRIPT_NAME ?>#error'>
   <table>
    <tr><td><table>
     <tr>
      <td>Database</td>
      <td>
-      <input type=text name='dbname' size=20 value='<?php echo $dbname ?>'>
+      <input type=text name='dbname' size=25 value='<?php echo $dbname ?>'>
      </td>
     </tr>
     <tr>
      <td>User</td>
      <td>
-      <input type=text name='dbuser' size=20 value='<?php echo $dbuser ?>'>
+      <input type=text name='dbuser' size=25 value='<?php echo $dbuser ?>'>
      </td>
     </tr>
     <tr>
      <td>Password</td>
      <td>
-      <input type=password name='dbpasswd' size=20
+      <input type=password name='dbpasswd' size=25
 	     value='<?php echo $dbpasswd ?>'>
      </td>
     </tr>
     <tr>
      <td>Host</td>
      <td>
-      <input type=text name='dbhost' size=20 value='<?php echo $dbhost ?>'>
+      <input type=text name='dbhost' size=25 value='<?php echo $dbhost ?>'>
+     </td>
+    </tr>
+    <tr></tr>
+    <tr>
+     <td>Script</td>
+     <td>
+      <input type=file name='script' size=20 value='<?php echo $script ?>'>
      </td>
     </tr>
    </table></td><td><table>
@@ -78,7 +111,7 @@ if($dbhost=='')
    <font color=red><?php echo mysql_errno().': '.mysql_error() ?></font>
    <?php
    }
- else
+ elseif($sql!='')
    {
    ?>
    <p>
@@ -114,6 +147,17 @@ if($dbhost=='')
 	}
    ?>
    </table>
+   <?php
+   }
+elseif($script!='')
+   {
+   ?>
+   <pre>
+   <?php
+   foreach($result as $line)
+          echo $line,'<br>';
+   ?>
+   </pre>
    <?php
    }
  ?>
