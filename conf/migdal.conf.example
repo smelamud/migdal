@@ -225,4 +225,7 @@ $replicationDbName='migdal_a';
 
 # Время жизни (в сутках) журнальной переменной
 $journalVarTimeout=3;
+
+# Время жизни (в сутках) незакрытой транзакции
+$unclosedSeqTimeout=2;
 ?>

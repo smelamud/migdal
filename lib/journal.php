@@ -113,6 +113,15 @@ foreach($codings as $key=>$value)
 return $vars;
 }
 
+function isSeqClosed($seq)
+{
+$result=mysql_query("select id
+                     from journal
+      	             where seq=$seq and query=''")
+  or journalFailure("Cannot check, if seq $seq is closed.");
+return mysql_num_rows($result)>0;
+}
+
 define('HOR_WE_KNOW',true);
 define('HOR_THEY_KNOW',false);
 
@@ -221,14 +230,9 @@ function next()
 $line=SelectIterator::next();
 if($line==0)
   return 0;
-if($this->seq!=0 && $this->seq!=$line->getSeq())
-  {
-  $result=mysql_query('select id
-                       from journal
-		       where seq='.$line->getSeq()." and query=''");
-  if(!$result || mysql_num_rows($result)<=0)
-    return 0;
-  }
+if($this->seq!=0 && $this->seq!=$line->getSeq()
+   && !isSeqClosed($line->getSeq()))
+  return 0;
 $this->seq=$line->getSeq();
 return $line;
 }

@@ -7,6 +7,7 @@ require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/users.php');
+require_once('lib/journal.php');
 
 function deleteCond($table,$cond)
 {
@@ -51,6 +52,21 @@ mysql_query("delete
      or die(mysql_error());
 mysql_query("optimize table $table")
      or die(mysql_error());
+}
+
+function cleanupJournal()
+{
+global $unclosedSeqTimeout;
+
+$result=mysql_query("select distinct seq
+                     from journal
+		     where sent+interval $unclosedSeqTimeout day<now()")
+             or die(mysql_error());
+while($row=mysql_fetch_assoc($result))
+     if(!isSeqClosed($row['seq']))
+       mysql_query('delete from journal
+                    where seq='.$row['seq'])
+            or die(mysql_error());
 }
 
 function cleanup()
@@ -112,6 +128,8 @@ deleteTagged('stotexts');
 tag('topics');
 useLinks('topics','stotext_id','stotexts','id');
 deleteTagged('topics');
+
+cleanupJournal();
 }
 
 dbOpen();
