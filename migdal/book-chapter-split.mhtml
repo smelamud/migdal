@@ -1,10 +1,10 @@
 << @(#) $Id$ >>
 
 <ident name='chapid' table='postings'>
-<posting_full id='$chapid' grp='*GRP_BOOK_CHAPTERS'>
+<posting_obj id='$chapid' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_IMAGES'>
 <zone>
  <message_posting id='$,UpValue'>
- <posting_obj name='book' id='$,' grp='*GRP_BOOK'>
+ <posting_obj name='book' id='$,' grp='*GRP_BOOK' fields='*SELECT_GENERAL'>
 </zone>
 <pagetitle title#='$book.Subject - $,Subject'>
 

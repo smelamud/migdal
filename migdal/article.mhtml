@@ -9,7 +9,7 @@
 </if>
 << /Traps >>
 
-<posting_full id='$artid' grp='*GRP_FORUMS'>
+<posting_obj id='$artid' grp='*GRP_FORUMS' fields='*SELECT_ALLPOSTING'>
 <log event=article text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 

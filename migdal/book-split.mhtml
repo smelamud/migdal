@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <ident name='bookid' table='postings'>
-<posting_full id='$bookid' grp='*GRP_BOOKS'>
+<posting_obj id='$bookid' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
 <pagetitle title='$,Subject'>
 
 <html>

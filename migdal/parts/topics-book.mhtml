@@ -5,7 +5,7 @@
  <book_chapters book='$posting'>
 <else>
  <message_posting id='$posting.UpValue'>
- <posting_obj id='$,' grp='*GRP_BOOKS'>
+ <posting_obj id='$,' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
  <book_chapters book='$,' id='$posting.Id'>
 </if>
 </element>

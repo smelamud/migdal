@@ -85,7 +85,7 @@
                 topic_id='$`kaitana-s-5763`'>
  <posting_random grp='*GRP_KAITANA_GALLERY' topic_id='$`kaitana-s-5763`'
                  index1='$,'>
- <posting_full id='$,' grp='*GRP_KAITANA_GALLERY'>
+ <posting_obj id='$,' grp='*GRP_KAITANA_GALLERY' fields='*SELECT_IMAGES'>
  <table width=100%><tr valign=top>
   <td width=110>
    <a href='kaitana.php?topic_id=$`kaitana-s-5763`&day=$index'

@@ -8,7 +8,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <posting_obj id='$postid'>
+ <posting_obj id='$postid' fields='*SELECT_GENERAL'>
  <table width=100%><tr valign=top>
   <td class='eframe' width=200>
    <iterate_imageset imageset='$,LargeImageSet'>

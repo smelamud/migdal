@@ -2,7 +2,7 @@
 
 <element name='topics_kes'>
 <topics_table title='КЕС'>
- <posting_obj id='$`postings:kes`'>
+ <posting_obj id='$`postings:kes`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О клубе'
               href#='migdal.php?artid=$`postings:kes`'
               arrow!='$posting.Id==$`postings:kes`' class='item ninept'>
@@ -31,7 +31,7 @@
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
                       topic_id='$,Id' recursive='*false'
 		      fields='*SELECT_TOPICS'>
- <posting_obj id='$`postings:jcc`'>
+ <posting_obj id='$`postings:jcc`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='Об общинном центре' href='jcc.php'
               arrow!='$,Id==$posting.Id' class='item ninept'>
  <for>
@@ -56,7 +56,7 @@
 
 <element name='topics_mazltov'>
 <topics_table title='Мазл Тов'>
- <posting_obj id='$`postings:mazltov`'>
+ <posting_obj id='$`postings:mazltov`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О программе'
               href#='migdal.php?artid=$`postings:mazltov`'
               arrow!='$posting.Id==$`postings:mazltov`' class='item ninept'>
@@ -77,7 +77,7 @@
 
 <element name='topics_methodics'>
 <topics_table title='Методический центр'>
- <posting_obj id='$`postings:methodic-center`'>
+ <posting_obj id='$`postings:methodic-center`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О центре' href='methodic-center.php'
               arrow!='$posting.Id==$,Id' class='item ninept'>
  <posting_last grp='*GRP_BOOKS' topic_id='$`methodics`' recursive='*true'>
@@ -107,7 +107,7 @@
 
 <element name='topics_migdal_ohr'>
 <topics_table title='Мигдаль-ор'>
- <posting_obj id='$`postings:migdal-ohr`'>
+ <posting_obj id='$`postings:migdal-ohr`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О театре'
               href#='migdal.php?artid=$`postings:migdal-ohr`'
               arrow!='$posting.Id==$`postings:migdal-ohr`' class='item ninept'>
@@ -123,7 +123,7 @@
 
 <element name='topics_museum'>
 <topics_table title='Музей евреев Одессы'>
- <posting_obj id='$`postings:museum`'>
+ <posting_obj id='$`postings:museum`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О музее'
               href#='migdal.php?artid=$`postings:museum`'
               arrow!='$posting.Id==$`postings:museum`' class='item ninept'>

@@ -20,7 +20,8 @@
 </element>
 
 <element name='topics_times'>
-<posting_obj grp='*GRP_TIMES_COVERS' index1='$posting.Index1' topic_id='-1'>
+<posting_obj grp='*GRP_TIMES_COVERS' index1='$posting.Index1' topic_id='-1'
+             fields='*SELECT_GENERAL'>
 <times_articles issue='$posting.Index1' length='$,Index2' id='$posting.Id'
                 cover='$,'>
 </element>

@@ -14,7 +14,8 @@
 <int name='grp'>
 <int name='up'>
 <int name='full'>
-<posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'>
+<posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'
+             fields='*SELECT_GENERAL'>
 <identify posting='$message'>
 <pagetitle title#='Редактирование $message.GrpItemsTitle'>
 

@@ -8,7 +8,7 @@
   <td>
    <posting_random grp='*GRP_GALLERY' topic_id='$topic_id'
                    user_id='$.Id'>
-   <posting_full id='$,' grp='*GRP_GALLERY'>
+   <posting_obj id='$,' grp='*GRP_GALLERY' fields='*SELECT_IMAGES'>
    <picture_main href#='$href?user_id=$.Id' biff='$.LastMessage'
                  name='$.FullName' image_id='$,ImageId'>
   </td>

@@ -2,7 +2,8 @@
 
 <int name='postid'>
 <grps>
-<posting_full name='posting' id='$postid' grp='*GRP_FORUMS'>
+<posting_obj name='posting' id='$postid' grp='*GRP_FORUMS'
+             fields='*SELECT_ALLPOSTING'>
 <log event=posting text#='post($,Id)'>
 <pagetitle title='$,SubjectDesc'>
 

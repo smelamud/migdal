@@ -10,7 +10,7 @@
  <tr valign=center>
   <sibling up='$book.MessageId' index0='$index' next='*false'>
   <if what='$,>0'>
-   <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
+   <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_GENERAL'>
    <td align=left width=33%>
     <pointer href#='chapter-${,Index0}.html' text='$,Subject'
 	     title='Предыдущая глава' left='*true'>
@@ -27,7 +27,7 @@
   </if>
   <sibling up='$book.MessageId' index0='$index' next='*true'>
   <if what='$,>0'>
-   <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
+   <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_GENERAL'>
    <td align=right width=33%>
     <pointer href#='chapter-${,Index0}.html' text='$,Subject'
 	     title='Следующая глава' left='*false'>

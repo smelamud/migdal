@@ -32,7 +32,7 @@
      <tr valign=top>
       <td width=100>&nbsp;</td>
       <posting_random grp='*GRP_KAITANA_GALLERY' topic_id='$.Id'>
-      <posting_full id='$,' grp='*GRP_KAITANA_GALLERY'>
+      <posting_obj id='$,' grp='*GRP_KAITANA_GALLERY' fields='*SELECT_IMAGES'>
       <td width=110 class='pic'>
        <ifnzero what='$,ImageId'>
 	<a href='kaitana.php?topic_id=$.Id'><asp>

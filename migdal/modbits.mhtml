@@ -16,7 +16,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <posting_obj id='$postid'>
+ <posting_obj id='$postid' fields='*SELECT_GENERAL'>
  <formtable title#='Редактирование флагов сообщения'>
   <form method=post action='actions/moderateone.php'>
    <hidden name='okdir' value='$--'>

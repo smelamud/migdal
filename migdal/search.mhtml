@@ -57,7 +57,7 @@
       <assign name='ln' value!='$ln+1'>
       <li value='$ln'><p class='search'>
        <ifnzero what='$.PostingId'>
-	<posting_full id='$.PostingId'>
+	<posting_obj id='$.PostingId' fields='*SELECT_TOPICS'>
 	<identify posting='$,'>
 	<a href='$,DetailsHref'>$.Title</a><br>
 	<span class='eightpt'>(Раздел <topiclink posting='$,'>)</span><br>

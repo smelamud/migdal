@@ -14,12 +14,13 @@
 <grps>
 <assign name='day' value!='$day<=0 ? 1 : $day'>
 <ifnzero what='$postid'>
- <posting_full name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'>
+ <posting_obj name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'
+              fields='*SELECT_ALLPOSTING'>
  <topic_obj name='kaitana' id='$posting.TopicId'>
 <else>
  <topic_obj name='kaitana' id='$topic_id'>
- <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'
-               index1='$day'>
+ <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'
+              index1='$day' fields='*SELECT_ALLPOSTING'>
 </ifzero>
 <pagetitle title#='$kaitana.Name - $posting.Subject'>
 <topictitle title='$kaitana.Name'>
@@ -73,7 +74,7 @@
    <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$posting.TopicId'
                   index1='$posting.Index1' next='*false'>
    <if what='$,>0'>
-    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS'>
+    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS' fields='*SELECT_GENERAL'>
     <td align=left width=40%>
      <pointer href#='kaitana.php?topic_id=$,TopicId&day=$,Index1'
               text='$,Subject' title='Предыдущий выпуск' left='*true'>
@@ -85,7 +86,7 @@
    <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$posting.TopicId'
                   index1='$posting.Index1' next='*true'>
    <if what='$,>0'>
-    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS'>
+    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS' fields='*SELECT_GENERAL'>
     <td align=right width=40%>
      <pointer href#='kaitana.php?topic_id=$,TopicId&day=$,Index1'
               text='$,Subject' title='Следующий выпуск' left='*false'>

@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <ident name='bookid' table='postings'>
-<posting_full id='$bookid' grp='*GRP_BOOKS'>
+<posting_obj id='$bookid' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
 <pagetitle title='$,Subject'>
 
 <html>
@@ -32,7 +32,7 @@
   <reset_iterator>
   <assign name='static_note_base' value=1>
   <for>
-   <posting_full id='$.Id' grp='*GRP_BOOK_CHAPTERS'>
+   <posting_obj id='$.Id' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_IMAGES'>
    <a name='chap$.Id'></a>
    <h1 style='clear: both; padding-top: 20px'>$,Subject
     <ifne what='$,Author'>

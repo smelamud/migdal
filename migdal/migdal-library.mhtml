@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
-<posting_full id='$`postings:migdal-library`' grp='*GRP_REVIEW'>
+<posting_obj id='$`postings:migdal-library`' grp='*GRP_REVIEW'
+             fields='*SELECT_ALLPOSTING'>
 <log event=review text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 <topictitle title='$,Subject'>

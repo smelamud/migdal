@@ -11,22 +11,22 @@
  <trace url='index.php'>
  <assign name='name' value='Архив'>
 <elif what="$basename=='article.php'">
- <posting_obj id='$artid'>
+ <posting_obj id='$artid' fields='*SELECT_GENERAL'>
  <identify posting='$,'>
  <trace url='$,GeneralHref'>
  <assign name='name' value='$,Subject'>
 <elif what="$basename=='article-times.php'">
- <posting_obj id='$artid'>
+ <posting_obj id='$artid' fields='*SELECT_GENERAL'>
  <trace url#='times.php?issue=$,Index1'>
  <assign name='name' value='$,Subject'>
 <elif what="$basename=='book-chapter.php'">
- <posting_obj name='chap' id='$chapid'>
+ <posting_obj name='chap' id='$chapid' fields='*SELECT_GENERAL'>
  <message_posting id='$,UpValue'>
- <posting_obj name='book' id='$,'>
+ <posting_obj name='book' id='$,' fields='*SELECT_GENERAL'>
  <trace url#='book.php?bookid=$book.Id'>
  <assign name='name' value='$chap.Subject'>
 <elif what="$basename=='book.php'">
- <posting_obj id='$bookid'>
+ <posting_obj id='$bookid' fields='*SELECT_GENERAL'>
  <identify posting='$,'>
  <trace url='$,GeneralHref'>
  <assign name='name' value='$,Subject'>
@@ -37,7 +37,7 @@
 <elif what="$basename=='forumcatalog.php'">
  <assign name='name' value='Обсуждения'>
 <elif what="$basename=='forum.php'">
- <posting_obj id='$msgid'>
+ <posting_obj id='$msgid' fields='*SELECT_GENERAL'>
  <identify posting='$,'>
  <trace url#='$,DetailsHref'>
  <assign name='name' value='Обсуждение'>
@@ -88,15 +88,15 @@
  <else>
   <if what='$postid<=0'>
    <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$,Id'
-                index1='$day'>
+                index1='$day' fields='*SELECT_GENERAL'>
   <else>
-   <posting_obj name='posting' id='$postid'>
+   <posting_obj name='posting' id='$postid' fields='*SELECT_GENERAL'>
   </if>
   <trace url#='halom.php?topic_id=$posting.TopicId'>
   <assign name='name' value='$posting.Subject'>
  </if>
 <elif what="$basename=='help.php'">
- <posting_obj id='$artid'>
+ <posting_obj id='$artid' fields='*SELECT_GENERAL'>
  <trace url='index.php'>
  <assign name='name' value='$,Subject'>
 <elif what="$basename=='index.php' || $basename==''">
@@ -125,9 +125,9 @@
  <else>
   <if what='$postid<=0'>
    <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$,Id'
-                index1='$day'>
+                index1='$day' fields='*SELECT_GENERAL'>
   <else>
-   <posting_obj name='posting' id='$postid'>
+   <posting_obj name='posting' id='$postid' fields='*SELECT_GENERAL'>
   </if>
   <trace url#='kaitana.php?topic_id=$posting.TopicId'>
   <assign name='name' value='$posting.Subject'>
@@ -155,7 +155,7 @@
   <trace url='index.php'>
   <assign name='name' value='Мигдаль'>
  <else>
-  <posting_obj name='posting' id='$artid'>
+  <posting_obj name='posting' id='$artid' fields='*SELECT_GENERAL'>
   <if what='$/$posting.TopicId,1/==$`jcc` && $,TopicId!=$`jcc`'>
    <trace url='jcc.php'>
   <else>
@@ -181,7 +181,7 @@
  </if>
  <assign name='name' value='Новости'>
 <elif what="$basename=='posting.php'">
- <posting_obj id='$postid'>
+ <posting_obj id='$postid' fields='*SELECT_GENERAL'>
  <identify posting='$,'>
  <trace url='$,GeneralHref'>
  <assign name='name' value='$,SubjectDesc'>
@@ -207,7 +207,8 @@
  <assign name='name' value='$,FullName'>
 <elif what="$basename=='times.php'">
  <if what='$issue>0'>
-  <posting_obj index1='$issue' grp='*GRP_TIMES_COVERS' topic_id='-1'>
+  <posting_obj index1='$issue' grp='*GRP_TIMES_COVERS' topic_id='-1'
+               fields='*SELECT_GENERAL'>
   <assign name='nlast' value!='$issue+$,Index2'>
   <assign name='no' value!='$issue>=$nlast ? $issue : "$issue-$nlast"'>
   <assign name='name' value#='&lt;&lt;Мигдаль Times&gt;&gt; No.$no'>

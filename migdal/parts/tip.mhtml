@@ -9,7 +9,7 @@
 <element name='tip'>
 <topics_table class='eightpt' title='Знаете ли вы, что...'>
  <posting_random grp='*GRP_TIPS'>
- <posting_obj id='$,' grp='*GRP_TIPS'>
+ <posting_obj id='$,' grp='*GRP_TIPS' fields='*SELECT_GENERAL'>
  <tr><td align=left>
   <biff time='$,Sent' small='*true'>
   $,HTMLBodySmall&nbsp;<asp>

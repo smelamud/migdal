@@ -4,8 +4,8 @@
 << /Traps >>
 
 <grps>
-
-<posting_full id='$`postings:migdal,e`' grp='*GRP_REVIEW'>
+<posting_obj id='$`postings:migdal,e`' grp='*GRP_REVIEW'
+             fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
 <topictitle title='$,Subject'>
 
 <log event=review text#='post($,Id)'>

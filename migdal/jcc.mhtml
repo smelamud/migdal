@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
-<posting_full id='$`postings:jcc`' grp='*GRP_REVIEWS'>
+<posting_obj id='$`postings:jcc`' grp='*GRP_REVIEWS'
+             fields='*SELECT_ALLPOSTING'>
 <log event=review text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 <topictitle title='$,Subject'>

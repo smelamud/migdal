@@ -1,3 +1,5 @@
+  * getFullPostingById() и getPostingById() объединены в одну функцию с
+    параметром $fields.
   * Удалено поле separate из таблицы topics.
   * Добавлены флаги модерирования.
   * Добавлены поля comment0 и comment1.

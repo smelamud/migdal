@@ -165,8 +165,9 @@
  </zone></ifzero>
  <log event=times text#='issue($issue)'>
  <table width=100% cellpadding=5><tr valign=top>
-  <posting_full name='cover' grp='*GRP_TIMES_COVERS' topic='$`migdal-times`'
-		index1!='$issue<0 ? 0 : $issue'>
+  <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic_id='$`migdal-times`'
+	       index1!='$issue<0 ? 0 : $issue'
+	       fields!='*SELECT_IMAGES|*SELECT_ANSWERS'>
   <td class='mtimes cframe'>
    <table><tr valign=bottom><td>
     <image src='pics/times.gif' alt='Мигдаль Times'>

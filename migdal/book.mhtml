@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <ident name='bookid' table='postings'>
-<posting_full id='$bookid' grp='*GRP_BOOKS'>
+<posting_obj id='$bookid' grp='*GRP_BOOKS' fields='*SELECT_ALLPOSTING'>
 
 << Traps >>
 << Wed Sep 24 02:36:32 EEST 2003 >>

@@ -12,7 +12,8 @@
  <complain_full id='$compid'>
  <div class='cframe' style='padding: 5px'>
   <if what='$,TypeId==*COMPL_POSTING || $,TypeId==*COMPL_AUTO_POSTING'><zone>
-   <posting_full name='posting' id='$,Link' grp='*GRP_NONE'>
+   <posting_obj name='posting' id='$,Link' grp='*GRP_NONE'
+                fields='*SELECT_ALLPOSTING'>
    <if what='$posting.Grp!=*GRP_NONE'>
     <posting posting='$posting' showcomplain='*false'>
     <p>

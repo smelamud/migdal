@@ -596,64 +596,106 @@ $this->AlphabetIterator(
 
 }
 
-function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=0,$index1=-1,$up=-1)
+function getRootPosting($grp,$topic_id,$up)
 {
-$hide=messagesPermFilter(PERM_READ,'messages');
-$grpFilter=grpFilter($grp);
-$topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
-$filter=$id>=0 ? "postings.id=$id"
-               : ($index1>=0 ? "postings.index1=$index1 and $grpFilter
-	                        $topicFilter"
-	                     : '');
-$result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
-                            body,large_filename,large_format,large_body,
-			    large_imageset,lang,subject,author,source,comment0,
-			    comment1,url,topic_id,personal_id,sender_id,
-			    group_id,grp,priority,image_set,
-			    index0,index1,index2,subdomain,sent,
-			    perms,if((perms & 0x1100)=0,1,0) as hidden,
-			    disabled,modbits
-		     from postings
-		          left join messages
-			       on postings.message_id=messages.id
-	                  left join stotexts
-	                       on stotexts.id=messages.stotext_id
-		     where $filter and $hide")
-	  or sqlbug('Ошибка SQL при выборке постинга');
-if(mysql_num_rows($result)>0)
-  return newPosting(mysql_fetch_assoc($result));
+global $rootPostingPerms;
+
+if($up>0)
+  {
+  $msg=getPermsById('messages',$up);
+  $group_id=$msg->getGroupId();
+  $perms=$msg->getPerms();
+  }
+else if($topic_id>0)
+  {
+  $topic=getPermsById('topics',$topic_id);
+  $group_id=$topic->getGroupId();
+  $perms=$rootPostingPerms;
+  }
 else
   {
-  global $rootPostingPerms;
-
-  if($up>0)
-    {
-    $msg=getPermsById('messages',$up);
-    $group_id=$msg->getGroupId();
-    $perms=$msg->getPerms();
-    }
-  else if($topic_id>0)
-    {
-    $topic=getPermsById('topics',$topic_id);
-    $group_id=$topic->getGroupId();
-    $perms=$rootPostingPerms;
-    }
-  else
-    {
-    $group_id=0;
-    $perms=$rootPostingPerms;
-    }
-  return newGrpPosting($grp,array('id'       => 0,
-                                  'topic_id' => $topic_id,
-                                  'up'       => $up,
-				  'group_id' => $group_id,
-				  'perms'    => $perms));
+  $group_id=0;
+  $perms=$rootPostingPerms;
   }
+return newGrpPosting($grp,array('id'       => 0,
+				'topic_id' => $topic_id,
+				'up'       => $up,
+				'group_id' => $group_id,
+				'perms'    => $perms));
 }
 
-function getFullPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1)
+function getPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1,
+                        $fields=SELECT_ALLPOSTING,$up=-1)
 {
+/* Select */
+$imageFields=($fields & SELECT_IMAGES)!=0 ?
+             "images.image_set as image_set,images.id as image_id,
+	      length(images.large) as image_size,images.large_x as image_x,
+	      images.large_y as image_y,images.has_large as has_large_image,
+	      images.title as title," :
+	     "stotexts.image_set as image_set,";
+$topicFields=($fields & SELECT_TOPICS)!=0 ?
+             "topics.name as topic_name,topictexts.body as topic_description," :
+	     "";
+$answersFields=($fields & SELECT_ANSWERS)!=0 ?
+	     "count(forummesgs.id) as answer_count,
+	      max(forummesgs.sent) as last_answer," :
+	     "";
+
+$Select="postings.id as id,messages.track as track,postings.ident as ident,
+         postings.message_id as message_id,messages.up as up,
+	 messages.stotext_id as stotext_id,stotexts.body as body,
+	 stotexts.large_format as large_format,
+	 stotexts.large_filename as large_filename,
+	 stotexts.large_imageset as large_imageset,
+	 stotexts.large_body as large_body,messages.lang as lang,
+	 messages.subject as subject,messages.author as author,
+	 messages.source as source,messages.comment0 as comment0,
+	 messages.comment1 as comment1,messages.url as url,grp,priority,
+	 postings.index0 as index0,postings.index1 as index1,
+	 postings.index2 as index2,subdomain,shadow,messages.sent as sent,
+	 topic_id,personal_id,messages.sender_id as sender_id,
+	 messages.group_id as group_id,
+	 messages.perms as perms,if((messages.perms & 0x1100)=0,1,0) as hidden,
+	 messages.disabled as disabled,messages.modbits as modbits,
+	 $imageFields
+	 $topicFields
+	 users.hidden as sender_hidden,login,gender,email,hide_email,rebe,
+	 read_count,vote,vote_count,
+	 $answersFields
+	 if(messages.url_check_success=0,0,
+	    unix_timestamp()-unix_timestamp(messages.url_check_success))
+							   as url_fail_time";
+/* From */
+$imageTables=($fields & SELECT_IMAGES)!=0 ?
+	     "left join images
+		   on stotexts.image_set=images.image_set" :
+	     "";
+$topicTables=($fields & SELECT_TOPICS)!=0 ?
+	     "left join topics
+		   on postings.topic_id=topics.id
+	      left join stotexts as topictexts
+		   on topictexts.id=topics.stotext_id" :
+	     "";
 $hideForums=messagesPermFilter(PERM_READ,'forummesgs');
+$answersTables=($fields & SELECT_ANSWERS)!=0 ?
+	     "left join forums
+		   on messages.id=forums.parent_id
+	      left join messages as forummesgs
+		   on forums.message_id=forummesgs.id and $hideForums" :
+	     "";
+
+$From="postings
+       left join messages
+            on postings.message_id=messages.id
+       left join stotexts
+            on stotexts.id=messages.stotext_id
+       $imageTables
+       $topicTables
+       left join users
+            on messages.sender_id=users.id
+       $answersTables";
+/* Where */
 $hideMessages=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
@@ -661,57 +703,19 @@ $filter=$id>=0 ? "postings.id=$id"
                : ($index1>=0 ? "postings.index1=$index1 and $grpFilter
 	                        $topicFilter"
 	                     : '');
-$result=mysql_query(
-	"select postings.id as id,messages.track as track,
-	        postings.ident as ident,postings.message_id as message_id,
-		messages.up as up,
-		messages.stotext_id as stotext_id,stotexts.body as body,
-		stotexts.large_format as large_format,
-		stotexts.large_body as large_body,messages.lang as lang,
-		messages.subject as subject,messages.author as author,
-		messages.source as source,messages.comment0 as comment0,
-		messages.comment1 as comment1,messages.url as url,grp,
-		postings.index0 as index0,postings.index1 as index1,
-		postings.index2 as index2,subdomain,shadow,
-		messages.sent as sent,topic_id,messages.sender_id as sender_id,
-		messages.group_id as group_id,messages.perms as perms,
-		if((messages.perms & 0x1100)=0,1,0) as hidden,
-		messages.disabled as disabled,
-		users.hidden as sender_hidden,images.image_set as image_set,
-		images.id as image_id,length(images.large) as image_size,
-		images.large_x as image_x,images.large_y as image_y,
-		topics.name as topic_name,topictexts.body as topic_description,
-		images.has_large as has_large_image,images.title as title,
-		login,gender,email,hide_email,rebe,
-	        read_count,vote,vote_count,
-	        count(forummesgs.id) as answer_count,
-	        max(forummesgs.sent) as last_answer,
-	        if(messages.url_check_success=0,0,
-		   unix_timestamp()-unix_timestamp(messages.url_check_success))
-							   as url_fail_time
-	 from postings
-	      left join messages
-	           on postings.message_id=messages.id
-	      left join stotexts
-	           on stotexts.id=messages.stotext_id
-	      left join images
-		   on stotexts.image_set=images.image_set
-	      left join topics
-		   on postings.topic_id=topics.id
-	      left join stotexts as topictexts
-	           on topictexts.id=topics.stotext_id
-	      left join users
-		   on messages.sender_id=users.id
-	      left join forums
-	 	   on messages.id=forums.parent_id
-	      left join messages as forummesgs
-		   on forums.message_id=forummesgs.id and $hideForums
-	 where $hideMessages and $filter
-         group by messages.id")
- or sqlbug('Ошибка SQL при выборке постинга');
+
+$Where="$hideMessages and $filter";
+/* Group by */
+$GroupBy=($fields & SELECT_ANSWERS)!=0 ? 'group by messages.id' : '';
+/* Query */
+$result=mysql_query("select $Select
+                     from $From
+                     where $Where
+                     $GroupBy")
+          or sqlbug('Ошибка SQL при выборке постинга');
+/* Result */
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
-                                 : newGrpPosting($grp,
-				                 array('topic_id' => $topic_id));
+                                 : getRootPosting($grp,$topic_id,$up);
 }
 
 function incPostingReadCount($id)

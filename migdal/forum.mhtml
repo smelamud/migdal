@@ -3,7 +3,8 @@
 <int name='msgid'>
 <int name='offset'>
 <grps>
-<posting_full name='posting' id='$msgid' grp='*GRP_FORUMS'>
+<posting_obj name='posting' id='$msgid' grp='*GRP_FORUMS'
+             fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
 <log event=forum text#='post($,Id)'>
 <notenglish>
  <pagetitle title#='Обсуждение &lt;&lt;$,SubjectDesc&gt;&gt;'>
