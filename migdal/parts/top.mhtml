@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/top.mhtml 1.2 >>
 
 <element name='Top'>
 <script src='/window.js' language='JavaScript'></script>

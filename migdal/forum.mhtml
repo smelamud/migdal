@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/forum.mhtml 1.4 >>
 
 <int name='msgid'>
 <grps>

@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/topics.mhtml 1.5 >>
 
 <macro name='grayed' defaults="link='index.php'">
  <ifnzero what='$topic.Allow & *GRP_%^group'>

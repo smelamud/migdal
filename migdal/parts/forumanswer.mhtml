@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/forumanswer.mhtml 1.3 >>
 
 <element name='Forum_Answer'>
 <if what='$answer.isRebe'><span class='rebe'></if>

@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/topicedit.mhtml 1.11 >>
 
 <int name='editid'>
 <html>

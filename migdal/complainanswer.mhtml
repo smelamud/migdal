@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/complainanswer.mhtml 1.5 >>
 
 <int name='complain_id'>
 <int name='actid'>

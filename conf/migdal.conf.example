@@ -6,7 +6,7 @@
 ##
 
 # Используемый UI
-$uiName='demo';
+$uiName='migdal';
 
 # Хост, на котором лежит БД
 $dbHost='localhost';
@@ -70,13 +70,13 @@ $mediumSizeMinus=512;
 $mediumSizePlus=512;
 
 # Каталог, в котором находится сайт на Web-сервере
-$siteDir='/home/balu/prog/migdal/demo';
+$siteDir='/home/balu/prog/migdal-html/migdal';
 
 # Каталог, в котором находятся скрипты (hourly, mailrobot, etc.) на Web-сервере
-$scriptsDir='/home/balu/prog/migdal/scripts';
+$scriptsDir='/home/balu/prog/migdal-html/scripts';
 
 # Каталог, в котором находятся файлы с образцами писем на Web-сервере
-$mailingsDir='/home/balu/prog/migdal/demo/mailings';
+$mailingsDir='/home/balu/prog/migdal-html/migdal/mailings';
 
 # Использовать mogrify (из пакета ImageMagick) для обработки картинок
 $useMogrify=true;
@@ -92,7 +92,7 @@ $sendmailCommand='/usr/sbin/sendmail -t';
 
 # Маленькое изображение, используемое в случае, когда невозможно изменить
 # размеры большого (путь задается относительно библиотеки, т.е. каталога lib/)
-$defaultThumbnail='../demo/pics/click_here.jpg';
+$defaultThumbnail='../migdal/pics/click_here.jpg';
 
 # Каталог для временных файлов
 $tmpDir='/tmp';

@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/topicselect.mhtml 1.2 >>
 
 <element name='topicselect'>
 <tr>

@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/complainforum.mhtml 1.2 >>
 
 <int name='compid'>
 <grps>

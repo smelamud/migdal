@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/today.mhtml 1.3 >>
 
 <element name='today'>
 <div class='date'>

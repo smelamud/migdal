@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/complainactionedit.mhtml 1.6 >>
 
 <int name='typeid'>
 <int name='editid'>

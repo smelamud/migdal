@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/complain.mhtml 1.6 >>
 
 <element name='Complain'>
 <error id='*EC_NO_ASSIGN' span=2

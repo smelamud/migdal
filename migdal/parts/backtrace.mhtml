@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/backtrace.mhtml 1.1 >>
 
 <element name='Backtrace'>
 <if what="isset($redir) && $redir!=''">

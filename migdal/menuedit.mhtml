@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/menuedit.mhtml 1.7 >>
 
 <int name='menuid'>
 <html>

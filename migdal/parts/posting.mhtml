@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/posting.mhtml 1.8 >>
 
 <grps>
 <element name='posting_further' params='id'>

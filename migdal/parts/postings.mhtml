@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/postings.mhtml 1.6 >>
 
 <element name='batcher_postings' params='value,list,topic,grp'>
 <grpdata>

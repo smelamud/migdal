@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/complains.mhtml 1.5 >>
 
 <element name='batcher_complains' params='value,list'>
 <table width=100% class='batcher'><tr>

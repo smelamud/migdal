@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/utils.mhtml 1.4 >>
 
 <element name='at' params='target,class,href' defaults="target='' class=''">
 <ifne what='$target'>

@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/cs_posting.mhtml 1.2 >>
 
 <element name='complain_subject' params='link'>
 <posting_full id='$link'>

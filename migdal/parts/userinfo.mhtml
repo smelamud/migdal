@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/useredit.mhtml 1.10 >>
 
 <element name='infoline' params='title,value'>
 <ifne what='$value'>

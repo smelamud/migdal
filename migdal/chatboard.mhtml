@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/chatboard.mhtml 1.4 >>
 
 <html>
 <refresh period='$$userChatRefresh' url='$-'>

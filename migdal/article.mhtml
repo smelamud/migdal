@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/article.mhtml 1.10 >>
 
 <element name='controls' params='posting'>
 <div align=right>

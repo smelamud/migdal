@@ -1,5 +1,4 @@
 << @(#) $Id$ >>
-<< Based-on: demo/parts/uploader.mhtml 1.2 >>
 
 <element name='uploader'>
 <ife what='$filename'>
