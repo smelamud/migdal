@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<int name='compid'>
+<grps>
+<html>
+<head>
+ <title>Клуб Еврейского Студента - Обсуждение жалобы</title>
+</head>
+<body bgcolor=white>
+<top ident='complains'>
+<p>
+<complain_full id='$compid'>
+<complain complain='$,' discuss='*false'>
+<center><h1>Обсуждение</h1></center>
+<forums up='$,MessageId' limit='$$userForumPortion'>
+</body>
+</html>
