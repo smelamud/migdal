@@ -170,10 +170,8 @@ return preg_replace('/(^|\n)\s*ву&quot;д\s*(\n|$)/',
 
 function replaceHeading($s,$n,$c)
 {
-return preg_replace('/(^\s*|\n\s*)([^\n]*)\n\s*'.$c.'{3}'.$c.'*(\n|$)/',
+return preg_replace('/(^\s*|[\n\r]\s*)([^\n\r]*)[\n\r]\s*'.$c.'{3}'.$c.'*([\n\r]|$)/',
                     '\\1<h'.$n.'>\\2</h'.$n.'>\\3',$s);
-/*return preg_replace('/(^\s*|[\n\r]\s*)([^\n\r]*)[\n\r]\s*'.$c.'{3}'.$c.'*([\n\r]|$)/',
-                    '\\1<h'.$n.'>\\2</h'.$n.'>\\3',$s);*/
 }
 
 function replaceHeadings($s)
