@@ -17,6 +17,13 @@ $add=track($topic->id);
 return $tr!='' ? "$tr $add" : $add;
 }
 
+function storeTrack($topic)
+{
+return mysql_query("update topics
+                    set track='".$topic->track."'
+		    where id=".$topic->id);
+}
+
 function modifyTopic($topic)
 {
 global $userAdminTopics;
@@ -34,9 +41,11 @@ if($topic->up!=0 && $topic->up==$topic->id)
 $cid=idByIdent('topics',$topic->ident);
 if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
-$topic->track=getTrack($topic);
 if(!$topic->store())
   return ET_STORE_SQL;
+$topic->track=getTrack($topic);
+if(!storeTrack($topic))
+  return ET_TRACK_SQL;
 return ET_OK;
 }
 
