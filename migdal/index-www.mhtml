@@ -50,7 +50,6 @@
     <if what='$topic_id<=0'>
      <p>&nbsp;</p>
      <p><rabbi></p>
-     <p><ioc_text></p>
     </if>
    </td>
    <td class='cframe'>

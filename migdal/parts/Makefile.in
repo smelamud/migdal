@@ -9,12 +9,11 @@ OBJECTS = article.php backtrace.php bannerbank.php banners.php blog.php \
 	  formutils.php forumanswer.php forumcatalog.php forums.php \
 	  gallery.php gallery-main.php googleru.php grpselect.php \
 	  hannukah.php help-link.php history.php hit-parade.php hotlog.php \
-	  identify.php ioc.php jewishru.php kaitana-announce.php \
-	  kaitana-picture.php langselect.php link-posting.php \
-	  links-switcher.php login.php mailru.php menu.php migdal-news.php \
-	  picture.php picture-main.php pointer.php posting.php \
-	  posting-book.php posting-ear.php posting-general.php \
-	  posting-library-announce.php posting-times.php \
+	  identify.php jewishru.php kaitana-announce.php kaitana-picture.php \
+	  langselect.php link-posting.php links-switcher.php login.php \
+	  mailru.php menu.php migdal-news.php picture.php picture-main.php \
+	  pointer.php posting.php posting-book.php posting-ear.php \
+	  posting-general.php posting-library-announce.php posting-times.php \
 	  posting-times-cover.php postings.php postings-links.php \
 	  postings-migdal-news.php rabbi.php rambler.php relogin.php \
 	  seealso.php spin.php subtitle.php textears.php tip.php \
