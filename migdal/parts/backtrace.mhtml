@@ -1,10 +1,24 @@
 << @(#) $Id$ >>
 
+<macro name='trace'>
+ <backtrace_url url%!url='%url' target='$target' isbottom='*false'>
+</macro>
+
 <element name='backtrace_url' params='url,target,isbottom'
          defaults="isbottom='*true'">
 <parse_url url='$url'>
+<if what="$basename=='archive.php'">
+ <trace url='index.php'>
+ <assign name='_name' value='Архив'>
+<elif what="$basename=='index.php'">
+ <notenglish>
+  <assign name='_name' value='Главная'>
+ <else>
+  <assign name='_name' value='Home'>
+ </notenglish>
+</if>
 <if what='!$isbottom'>
- <at href='$_url' target='$target'>$_name</at>&sp;&gt;&sp;
+ <at href='$url' target='$target'>$_name</at>&sp;&gt;&sp;
 </if>
 </element>
 
