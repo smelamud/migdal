@@ -39,8 +39,7 @@ while($line=$iter->next())
 fclose($fd);
 
 $fd=fopen("$dir/postings",'w');
-$iter=new PostingListIterator(GRP_ALL,-1,false,0,0,0,SORT_SENT,GRP_NONE,0,-1,
-                              $from);
+$iter=new PostingListIterator(GRP_ALL,-1,false,0);
 while($post=$iter->next())
      fputs($fd,$post->getId()."\t".$post->getTopicId().
                "\t".$post->getMessageId()."\t".$post->getImageSet().
