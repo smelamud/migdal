@@ -155,7 +155,7 @@ return $c;
 function getQuoteLevel($s)
 {
 $n=0;
-for($i=0;$i<strlen($s)-4;$i+=5)
+for($i=0;$i<=strlen($s)-4;$i+=5)
    if(substr($s,$i,4)=='&gt;')
      $n++;
    else
