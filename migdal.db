@@ -137,10 +137,10 @@ CREATE TABLE images (
 
 CREATE TABLE mailing_types (
   id int(11) NOT NULL auto_increment,
-  ident char(70) NOT NULL default '',
-  text char(70) NOT NULL default '',
+  text varchar(70) NOT NULL default '',
+  ident varchar(15) NOT NULL default '',
   PRIMARY KEY  (id),
-  UNIQUE KEY ident (ident)
+  KEY ident (ident)
 ) TYPE=MyISAM;
 
 #
@@ -362,5 +362,5 @@ INSERT INTO complain_scripts VALUES (1,'Закрыть жалобу','=update complains set c
 # Dumping data for table 'mailing_types'
 #
 
-INSERT INTO mailing_types VALUES (1,'register','register.mail');
+INSERT INTO mailing_types VALUES (1,'register.mail','register');
 
