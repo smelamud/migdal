@@ -20,9 +20,9 @@ $requestURI=urlencode($REQUEST_URI);
 
 if(!isset($ident))
   {
-  header('Location: topics.php?'.makeQuery($HTTP_GET_VARS,
-                                           array(),
-					   array('grp' => GRP_FORUMS)));
+  header('Location: '.remakeURI($REQUEST_URI,
+                                array(),
+				array('grp' => GRP_FORUMS)));
   exit;
   }
 ?>
@@ -43,10 +43,10 @@ if(!isset($ident))
     <p>
     <a href='topicedit.php?redir=<?php echo $requestURI ?>'>Добавить</a>
     &nbsp;&nbsp;
-    <a href='topics.php?<?php
-     echo makeQuery($HTTP_GET_VARS,
+    <a href='<?php
+     echo remakeURI($REQUEST_URI,
                     array(),
-		    array('ignoregrp' => $ignoregrp ? 0 : 1))
+		    array('ignoregrp' => $ignoregrp ? 0 : 1));
     ?>'>Показать <?php echo $ignoregrp ? 'активные' : 'все' ?></a>
     <?php
     }
