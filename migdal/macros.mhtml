@@ -67,7 +67,8 @@
        defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
                  limit=10 sort='*SORT_RATING' showshadows='*true'">
 <decel name='hit_parade_month' file='parts/hit-parade.php'
-       params='grp,topic_id' defaults="grp='*GRP_ALL' topic_id='-1'">
+       params='grp,topic_id,showshadows'
+       defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='jewishru' file='parts/jewishru.php'>

@@ -17,5 +17,5 @@
 <element name='hit_parade_month'>
 <?php $later=time()-31*24*60*60; ?>
 <hit_parade grp='$grp' topic_id='$topic_id' title='Избранное<br>за месяц'
-	    later='$later'>
+	    later='$later' showshadows='$showshadows'>
 </element>

@@ -68,7 +68,8 @@
    </td>
    <td width=130 class='eframe'>
     <tip>
-    <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'>
+    <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'
+                      showshadows!='$topic_id>0'>
     <if what='$topic_id<=0'>
      <discussions limit=7>
     </if>
