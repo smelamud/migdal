@@ -35,8 +35,8 @@ if(isset($title) && $userId>0)
 ?>
 <table width=100%>
 <?php
-perror(EMH_FAILED,'Такого сообщения не существует или у Вас нет прав на его
-                   модерирование');
+perror(EMH_NO_MESSAGE,'Такого сообщения не существует');
+perror(EMH_NO_MODERATE,'Вы не модератор');
 $list=new MessageListIterator($grp,$topic);
 while($item=$list->next())
      {

@@ -24,6 +24,7 @@ var $image_set;
 var $image_id;
 var $up;
 var $hidden;
+var $disabled;
 var $sent;
 
 function Message($row)
@@ -46,7 +47,7 @@ if(isset($vars['subjectid']))
 function getCorrespondentVars()
 {
 return array('body','subject','topic_id','grp','image_set','up','hidden',
-             'personal_id');
+             'disabled','personal_id');
 }
 
 function getWorldVars()
@@ -55,11 +56,18 @@ return array('body','subject','topic_id','grp','image_set','up','hidden',
              'personal_id');
 }
 
+function getAdminVars()
+{
+return array('disabled');
+}
+
 function store()
 {
-global $userId;
+global $userId,$userModerator;
 
 $normal=$this->getWorldVarValues();
+if($userModerator)
+  $normal=array_merge($normal,$this->getAdminVarValues());
 if($this->id)
   $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->id)));
 else
@@ -160,6 +168,11 @@ $this->up=$up;
 function isHidden()
 {
 return $this->hidden;
+}
+
+function isDisabled()
+{
+return $this->disabled;
 }
 
 function getTopicId()
@@ -296,7 +309,7 @@ $topicFilter=$topic==0 ? '' : " and messages.topic_id=$topic ";
 $grpFilter=$this->getGrpCondition($grp);
 $this->SelectIterator('Message',
 		      "select messages.id as id,body,subject,grp,sent,topic_id,
-		              sender_id,messages.hidden as hidden,
+		              sender_id,messages.hidden as hidden,disabled,
 			      users.hidden as sender_hidden,
 			      images.image_set as image_set,
 			      images.id as image_id,
@@ -310,8 +323,9 @@ $this->SelectIterator('Message',
 			     left join users
 			          on messages.sender_id=users.id
 		       where (messages.hidden<$hide or sender_id=$userId) and
-			     personal_id=$personal
-		       and up=0 $grpFilter $topicFilter
+			     (messages.disabled<$hide or sender_id=$userId) and
+			     personal_id=$personal and
+			     up=0 $grpFilter $topicFilter
 		       order by sent desc");
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
@@ -345,9 +359,10 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query("select id,body,subject,topic_id,personal_id,sender_id,grp,
-                     image_set,up,hidden
+                     image_set,up,hidden,disabled
 		     from messages
-		     where id=$id and (hidden<$hide or sender_id=$userId)");
+		     where id=$id and (hidden<$hide or sender_id=$userId) and
+		     (disabled<$hide or sender_id=$userId)");
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
 return mysql_num_rows($result)>0 ? newMessage(mysql_fetch_assoc($result))
@@ -361,7 +376,8 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query("select id
 		     from messages
-		     where id=$id and (hidden<$hide or sender_id=$userId)");
+		     where id=$id and (hidden<$hide or sender_id=$userId) and
+		     (disabled<$hide or sender_id=$userId)");
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
 return mysql_num_rows($result)>0;

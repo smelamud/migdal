@@ -5,7 +5,7 @@ require_once('lib/images.php');
 
 function displayMessage($message,$grp,$topic)
 {
-global $REQUEST_URI;
+global $REQUEST_URI,$userModerator;
 
 $requestURI=urlencode($REQUEST_URI);
 ?>
@@ -59,10 +59,11 @@ if($message->isEditable())
   echo '<a href="messageedit.php?editid='.$message->getId().
                                '&grp='.$message->getGrp().
 			       "&redir=$requestURI\">[Изменить]</a>";
-  echo '<a href="actions/moderate.php?editid='.$message->getId().
-                                    '&hide='.($message->isHidden() ? 0 : 1).
-				    "&redir=$requestURI\">[".
-	 ($message->isHidden() ? 'Разрешить' : 'Запретить').' показ]</a>';
+  if($userModerator)
+    echo '<a href="actions/moderate.php?editid='.$message->getId().
+                                      '&hide='.($message->isDisabled() ? 0 : 1).
+				      "&redir=$requestURI\">[".
+	  ($message->isDisabled() ? 'Разрешить' : 'Запретить').' показ]</a>';
   echo '</td></tr>';
   }
 ?>

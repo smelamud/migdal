@@ -9,16 +9,17 @@ require_once('lib/utils.php');
 
 function modifyMessage($editid,$hide)
 {
-global $userId,$userModerator;
+global $userModerator;
 
-$securityFilter=$userModerator ? '' : "and sender_id=$userId";
+if(!$userModerator)
+  return EMH_NO_MODERATE;
 $result=mysql_query("select id
                      from messages
-		     where id=$editid $securityFilter");
+		     where id=$editid");
 if(mysql_num_rows($result)<=0)
-  return EMH_FAILED;
+  return EMH_NO_MESSAGE;
 $result=mysql_query("update messages
-                     set hidden=$hide
+                     set disabled=$hide
 		     where id=$editid");
 return EMH_OK;
 }

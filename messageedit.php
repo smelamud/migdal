@@ -170,6 +170,8 @@ settype($up,'integer');
  </td></tr>
  <?php
  echo elementCheckBox('hidden',$message->isHidden(),'Не показывать');
+ if($userModerator)
+   echo elementCheckBox('disabled',$message->isDisabled(),'Запретить показ');
  ?>
  </table>
  <input type=submit value='<?php echo $editid ? 'Изменить' : 'Добавить' ?>'>

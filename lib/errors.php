@@ -40,5 +40,6 @@ define('EM_IMAGE_LARGE',415);
 define('EM_IMAGE_SQL',416);
 
 define('EMH_OK',51);
-define('EMH_FAILED',52);
+define('EMH_NO_MODERATE',52);
+define('EMH_NO_MESSAGE',53);
 ?>
