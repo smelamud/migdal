@@ -19,6 +19,10 @@
  <trap text='KES'>
  <reload href='migdal.php?artid=1479'>
 </if>
+<if what='$topic_id==146'>
+ <trap text='Methodics'>
+ <reload href='methodics.php'>
+</if>
 <if what='$topic_id==24'>
  <trap text='Tu bi-Shvat'>
  <reload href='$[topic_id=6]'>

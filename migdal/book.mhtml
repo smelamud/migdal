@@ -13,7 +13,7 @@
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'>
+  <td width=150 class='eframe'>
    <book_chapters book='$,'>
    <topics posting='$,'>
   </td>

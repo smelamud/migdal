@@ -20,7 +20,7 @@
 </tr></table>
 </element>
 
-<element name='catalog'>
+<element name='catalog' params='offset'>
 <iterate_postinglist grp='*GRP_BOOKS' topic='$`methodics`'
                      limit='$$userMsgPortion' offset='$offset'
                      sort='*SORT_PSENT' showshadows='$$userModerator'>
