@@ -2,14 +2,6 @@
 << Based-on: demo/parts/login.mhtml 1.1 >>
 
 <errors>
-<element name='LoginError' params='err'>
-<if what='$err==EL_INVALID'>
- <tr><td colspan=5><a name='error'>
-  <font color='red'>Неверный ник или пароль</font>
- </td></tr>
-</if>
-</element>
-
 <element name='Login'>
 <notlogged>
  <form method=post action='actions/login.php'>
@@ -17,8 +9,8 @@
  <form method=post action='actions/logout.php'>
 </notlogged>
 <hidden name='redir' value="$[err]">
-<table>
-<loginerror err='$err'>
+<table class='login'>
+<error id='*EL_INVALID' text='Неверный ник или пароль' span=5>
 <notlogged>
  <tr>
   <td>Ник</td>
@@ -39,7 +31,7 @@
    <if what='$$userHidden'>
     $$userLogin
    <else>
-    <a href='/useredit.php?editid=$$userId&redir=$_'>$$userLogin</a>
+    <a href='/useredit.php?editid=$$userId&redir=$_' class='name'>$$userLogin</a>
    </if>
    </b>
   </td>

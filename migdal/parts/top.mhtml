@@ -2,10 +2,10 @@
 << Based-on: demo/parts/top.mhtml 1.2 >>
 
 <element name='Top'>
-<menu ident='$ident'><br>
-<table width=100%><tr>
+<menu ident='$ident'>
+<table class='state' width=100%><tr>
  <td align=left><login flags='$flags' err='$$err'></td>
- <td align=right><today></td>
+ <td align=right class='date'><today></td>
 </tr></table>
 <backtrace redir='$$redir'><br>
 </element>

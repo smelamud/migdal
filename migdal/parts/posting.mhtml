@@ -11,11 +11,7 @@
 
 <grps>
 <element name='Posting'>
-<if what='$posting.Grp==*GRP_ARTICLES'>
- <table width=100% class='article'>
-<else>
- <table width=100% class='posting'>
-</if>
+<table width=100% class='posting'>
 <tr>
  <if what='$topic<0'>
   <td>

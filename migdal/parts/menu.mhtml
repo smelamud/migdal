@@ -2,14 +2,17 @@
 << Based-on: demo/parts/menu.mhtml 1.3 >>
 
 <element name='Menu'>
-<iterate_menu>
-<for>
- <if what='$.Ident==$ident'>
-  <a href='$.Link'><b>[$.Name]</b></a>
- <else>
-  <a href='$.Link'>[$.Name]</a>
- </if>
-</for>
-&nbsp;
-<admin_menu><a href='menuedit.php'>Изменить</a></admin_menu>
+<table class='menu' width=100%><tr><td>
+ <iterate_menu>
+ <for>
+  <if what='$.Ident==$ident'>
+   <a href='$.Link' class='selected'>$.Name</a>
+  <else>
+   <a href='$.Link'>$.Name</a>
+  </if>
+  &nbsp;
+ </for>
+ &nbsp;
+ <admin_menu><a href='menuedit.php'>Изменить</a></admin_menu>
+</td></tr></table>
 </element>

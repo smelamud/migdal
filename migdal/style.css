@@ -1,26 +1,101 @@
 /* @(#) $Id$ */
 
-TABLE.forum {
+* {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+.error[color='red'] {
+	color: red;
+}
+
+.error[color='magenta'] {
+	color: magenta;
+}
+
+.menu {
+	background-color: #0C20A5;
+	padding-left: 1em;
+	margin-bottom: .5ex;
+}
+
+.menu A {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.menu A.selected {
+	color: yellow;
+}
+
+.menu A:hover {
+	text-decoration: underline;
+}
+
+
+.state {
+	background-color: #42E887;
+	font-size: 8pt;
+	padding: 0pt;
+}
+
+.state .date {
+	font-size: 11pt;
+	font-weight: bold;
+	color: white;
+	padding-right: 1em;
+}
+
+.state .date U {
+	font-size: inherit;
+}
+
+.state .login {
+	font-size: inherit;
+	color: blue;
+}
+
+.state .login A {
+	color: inherit;
+}
+
+.state .login A.name {
+	text-decoration: underline;
+}
+
+.state .login INPUT {
+	border-color: blue;
+	border-width: 1px;
+	color: blue;
+}
+
+.state .login INPUT[type='submit'] {
+	background-color: #42E887;
+}
+
+.state .login INPUT[type='text'],INPUT[type='password'] {
+	background-color: #B8E8B1;
+}
+
+.state .login .error {
+	color: #FF0080;
+}
+
+
+.posting {
+	border-style: solid;
+	border-color: #0C20A5;
+	border-width: 2px;
+}
+/* TABLE.forum {
 	background-color: #FFF09B;
-	/*border: 1px solid black;*/
 }
 
 TABLE.complain {
 	background-color: #FFBFB9;
-	/*border: 1px solid black;*/
-}
-
-TABLE.posting {
-	background-color: #D8E2FF;
-	/*border: 1px solid black;*/
-}
-
-TABLE.article {
-	background-color: #F9DBFF;
-	/*border: 1px solid black;*/
 }
 
 TABLE.topics {
 	background-color: #E8E8E8;
-	/*border: 1px solid black;*/
-}
+}*/
