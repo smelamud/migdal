@@ -35,11 +35,11 @@ return $result ? EP_OK : EP_TITLE_SQL;
 
 function isPremoderated($message)
 {
-global $userModerator;
+global $userId,$userModerator;
 
 return (((int)getPremoderateByTopicId($message->getTopicId())
          & (int)$message->getGrp())!=0 || $message->getLargeFormat()==TF_HTML)
-       && !$userModerator;
+       && !$userModerator && $userId>0;
 }
 
 function isLogged($message)
