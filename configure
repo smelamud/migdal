@@ -20,6 +20,7 @@ cat << EOF
 \$thumbnailHeight=50; # pixels
 \$sessionTimeout=1;   # hours
 \$tmpTextTimeout=24;  # hours
+\$siteDir='/home/balu/prog/migdal-html';
 ?>
 EOF
 }

@@ -67,7 +67,37 @@ GetOptions('config|c=s'	=> \$configPath,
 readConfig();
 $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
                   $Config{'dbHost'},$Config{'dbUser'},$Config{'dbPassword'},
-		  {'AutoCommit' => 1,'PrintError' => 0});
+		  {'AutoCommit' => 1,'PrintError' => 1,
+		   'ShowErrorStatement' => 1});
+}
+
+sub subVar
+{
+my ($s,$vals)=@_;
+
+return $st.constructRemake($1).$ed
+       if $s=~/^\$\[([^\]]*)\]$/;
+return $s;
+}
+
+sub subVars
+{
+my ($s,$vals)=@_;
+my $c='';
+
+while($s ne '')
+     {
+     my $head,$var;
+     ($head,$var,$s)=$s=~/^([^\$%]*)((?:(?:\${?(?:\w+:)?(?:\w+\.)?\w+}?)|(?:%{?\w+}?))?)(.*)$/;
+     $c.=$head;
+     $c.=subVar($var,$vals) if $var ne '';
+     if($head eq '' && $var eq '')
+       {
+       $c.=substr($s,0,1);
+       substr($s,0,1)='';
+       }
+     }
+return $c;
 }
 
 sub sendMail
@@ -75,15 +105,46 @@ sub sendMail
 my ($mail)=@_;
 
 return if $mail->{'email_disabled'};
+my $path=$mail->{'text'};
+$path=$Config{'siteDir'}."/$path" unless $path=~/^\//;
+open IN,$path;
+open OUT,'>/tmp/mailrobot';
+$cont=0;
+$preamble=1;
+while(<IN>)
+     {
+     chomp;
+     if($cont)
+       {
+       $s=~s/\\\s*$/$_/;
+       }
+     else
+       {
+       $s=$_;
+       }
+     $cont=1,next if $s=~/\\\s*$/;
+     $cont=0;
+     next if $preamble && ($s=~/^\s*$/ || $s=~/^@/);
+     if($s=~/^\s*\w*\s*=/)
+       {
 
+       }
+     else
+       {
+       $preamble=0;
+       print OUT "$s\n";
+       }
+     }
+close OUT;
+close IN;
 }
 
 sub run
 {
-$dbh->do('lock tables mailings write');
+$dbh->do('lock tables mailings write,mailing_types read,users read');
 my $mails=$dbh->selectall_hashref(
-       'select id,link,receiver_id,text,name,jewish_name,surname,gender,email,
-               email_disabled
+       'select mailings.id as id,link,receiver_id,text,name,jewish_name,surname,
+               gender,email,email_disabled
         from mailings
 	     left join mailing_types
 	          on mailings.type_id=mailing_types.id
@@ -93,7 +154,7 @@ foreach my $mail(@{$mails})
         {
 	sendMail $mail;
 	}
-$dbh->do('delete from mailings');
+#$dbh->do('delete from mailings');
 $dbh->do('unlock tables');
 }
 

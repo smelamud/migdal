@@ -67,7 +67,8 @@ GetOptions('config|c=s'	=> \$configPath,
 readConfig();
 $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
                   $Config{'dbHost'},$Config{'dbUser'},$Config{'dbPassword'},
-		  {'AutoCommit' => 1,'PrintError' => 0});
+		  {'AutoCommit' => 1,'PrintError' => 1,
+		   'ShowErrorStatement' => 1});
 }
 
 sub run
