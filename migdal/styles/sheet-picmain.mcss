@@ -1,0 +1,23 @@
+! @(#) $Id$
+
+.picmain {
+	border-spacing: 0;
+	padding: 0;
+	border-collapse: collapse;
+	width: 150;
+}
+
+.picmain TD {
+	text-align: center;
+}
+
+.picmain A {
+	color: %picmain_title;
+	text-decoration: underline;
+	font-size: 10pt;
+}
+
+.picmain A:hover {
+	color: %picmain_title_hover;
+	text-decoration: underline;
+}

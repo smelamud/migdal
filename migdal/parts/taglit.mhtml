@@ -2,7 +2,7 @@
 
 <element name='taglit'>
  <iterate_posting_users topic_id='$topic_id' cols='$$userPictureColumnPortion'>
- <table width=100%><tr valign=bottom>
+ <table width=100%><tr valign=top>
  <for>
   <td>
    <posting_random grp='*GRP_TAGLIT_GALLERY' topic_id='$topic_id' user_id='$.Id'>
@@ -11,7 +11,7 @@
                  name='$.FullName' image_id='$,ImageId'>
   </td>
   <if what='$;isEol'>
-   </tr><tr valign=bottom>
+   </tr><tr valign=top>
   </if>
  </for>
  </tr></table>

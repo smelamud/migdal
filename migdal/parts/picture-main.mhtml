@@ -1,24 +1,20 @@
 << @(#) $Id$ >>
 
 <element name='picture_main'>
-<table class='picture'>
- <tr><td class='top topic'>
-  <biff time='$biff' small='*true'>
-  <ifne what='$text'>
-   <a href='$href' class='name' title='$text'>$name</a>
-  <else>
-   <a href='$href' class='name'>$name</a>
-  </ifne>
- </td></tr>
+<table class='picmain'>
  <ifnzero what='$image_id'>
-  <tr><td class='image'>
-   <a href='$href'><image_tag_put id='$image_id'></a>
+  <tr><td>
+   <a href='$href'>
+    <img border=0 width=150 height=120 src='image-main.php?id=$image_id'></a>
   </td></tr>
  </ifnzero>
- <ifne what='$text'>
-  <tr><td class='body'>
-   $text
-  </td></tr>
- </ifne>
+ <tr><td>
+  <biff time='$biff' small='*true'>
+  <ifne what='$text'>
+   <a href='$href' title='$text'>$name</a>
+  <else>
+   <a href='$href'>$name</a>
+  </ifne>
+ </td></tr>
 </table>
 </element>
