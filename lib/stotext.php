@@ -22,12 +22,11 @@ var $has_large_image;
 
 function Stotext($row,$body='body')
 {
-$s=$row[$body];
-$row[$body]='';
-$row['body']=$s;
-$s=$row["large_$body"];
-$row["large_$body"]='';
-$row['large_body']=$s;
+$row['id']=$row['stotext_id'];
+$row['body']=$row[$body];
+unset($row[$body]);
+$row['large_body']=$row["large_$body"];
+unset($row["large_$body"]);
 $this->DataObject($row);
 }
 
