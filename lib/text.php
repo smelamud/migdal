@@ -64,9 +64,20 @@ $c=preg_replace('/[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]
 return $c;
 }
 
+function getProperQuoting($s)
+{
+$matches=array();
+$n=preg_match_all('/&gt;/',$s,$matches);
+$c='';
+for($i=0;$i<$n;$i++)
+   $c.='&gt; ';
+return $c;
+}
+
 function replaceQuoting($s)
 {
-return preg_replace('/(^|\n)((&gt;\s*)+.*)(?=\n|$)/',"\n".'<i>\\2</i>',$s);
+return preg_replace('/(^|\n)((?:&gt;\s*)+)(.*)(?=\n|$)/e',
+                    "'\n<i>'.getProperQuoting('\\2').'\\3</i>'",$s);
 }
 
 function replaceCenter($s)
