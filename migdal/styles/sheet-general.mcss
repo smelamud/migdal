@@ -23,6 +23,12 @@ BODY {
 	font-weight: bold;
 }
 
+.advert A {
+	color: %advert_link;
+	font-size: 8pt;
+	font-weight: bold;
+}
+
 .info {
 	color: %info;
 	font-size: 8pt;

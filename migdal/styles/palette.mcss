@@ -7,6 +7,7 @@ error_magenta=magenta
 :test		body_back=%grl
 :old		body_back=white
 advert=%vmd
+advert_link=blue
 info=black
 info_em=%vmd
 :default	menu_back=%nd
