@@ -19,12 +19,14 @@ function logout($sessionid)
 $row=getUserIdsBySessionId($sessionid);
 if($row)
   {
-  logEvent('logout','user('.$row['user_id'].')');
-  if($row['user_id']!=0 && $row['user_id']!=$row['real_user_id'])
+  list($userId,$realUserId)=$row;
+  logEvent('logout',"user($userId)");
+  if($userId!=0 && $userId!=$realUserId)
     {
-    updateSession($sessionid,$row['real_user_id'],$row['real_user_id']);
+    updateSession($sessionid,$realUserId,$realUserId);
     return ELO_OK;
     }
+  clearLastChat($userId);
   }
 updateSession($sessionid,0,getGuestId());
 return ELO_OK;

@@ -659,4 +659,12 @@ mysql_query("update users
 	     where id=$id")
   or sqlbug('Ошибка SQL при обновлении времени присутствия в чате');
 }
+
+function clearLastChat($id)
+{
+mysql_query("update users
+             set last_chat=0
+	     where id=$id")
+  or sqlbug('Ошибка SQL при сбросе времени присутствия в чате');
+}
 ?>

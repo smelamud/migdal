@@ -16,12 +16,13 @@ require_once('lib/users.php');
 
 function startSession()
 {
-global $login,$password,$sessionid;
+global $login,$password,$sessionid,$userId,$realUserId;
 
 $id=getUserIdByLoginPassword(addslashes($login),$password);
 if($id==0)
   return EL_INVALID;
 logEvent('login',"user($id)");
+clearLastChat($userId!=0 ? $userId : $realUserId);
 updateSession($sessionid,$id,$id);
 return EL_OK;
 }
