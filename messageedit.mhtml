@@ -1,4 +1,5 @@
 << @(#) $Id$ >>
+
 <int name='editid'>
 <int name='up'>
 <int name='topic_id'>

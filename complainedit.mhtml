@@ -1,0 +1,40 @@
+<< @(#) $Id$ >>
+
+<int name='editid'>
+<html>
+<head>
+ <title>Клуб Еврейского Студента - Жалоба</title>
+</head>
+<body bgcolor=white>
+ <top ident='complains'>
+ <complain_obj id='$editid'>
+ <setup>
+ <form method=post enctype='multipart/form-data'
+       action='actions/complainmod.php'>
+ <input type=hidden name='edittag' value=1>
+ <input type=hidden name='redir' value='$redir'>
+ <input type=hidden name='editid' value='$editid'>
+ <table>
+ <error id='*EC_NO_SEND'
+        text='Посылать жалобы могут только зарегистрированные пользователи'>
+ <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
+ <error id='*EC_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+        color='magenta'>
+ <tr><td><table>
+  <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
+  <edit_line title='Заголовок' value='$,Subject' name='subject'
+	     size=42 maxlength=250>
+ </table></td></tr>
+ <error id='*EC_BODY_ABSENT'
+        text='Напишите хотя бы пару строчек в теле жалобы'>
+ <editor_line name='body' title='Текст' body='$,Body'>
+ </table>
+ <if what='$editid'>
+  <input type=submit value='Изменить'>
+ <else>
+  <input type=submit value='Добавить'>
+ </if>
+ <input type=reset value='Очистить'>
+ </form>
+</body>
+</html>

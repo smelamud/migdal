@@ -1,0 +1,14 @@
+<< @(#) $Id$ >>
+
+<html>
+<head>
+ <title>Клуб Еврейского Студента - Жалобная книга</title>
+</head>
+<body bgcolor=white>
+ <top ident='complains'>
+ <p>
+ <logged>
+  <a href='complainedit.php?redir=$_'>Добавить жалобу</a>
+ </logged>
+</body>
+</html>

@@ -23,9 +23,11 @@ var $migdal_student;
 var $last_online;
 var $icq;
 var $email_disabled;
+var $accepts_complains;
 var $admin_users;
 var $admin_topics;
 var $moderator;
+var $judge;
 var $hidden;
 var $online;
 var $no_login;
@@ -53,8 +55,8 @@ function getCorrespondentVars()
 {
 return array('login','password','dup_password','name','jewish_name','surname',
              'gender','migdal_student','info','email','hide_email','icq',
-	     'admin_users','admin_topics','moderator','hidden','no_login',
-	     'has_personal');
+	     'accepts_complains','admin_users','admin_topics','moderator',
+	     'judge','hidden','no_login','has_personal');
 }
 
 function getWorldVars()
@@ -65,8 +67,8 @@ return array('login','name','jewish_name','surname','gender','info','birthday',
 
 function getAdminVars()
 {
-return array('admin_users','admin_topics','moderator','hidden','no_login',
-             'has_personal');
+return array('accepts_complains','admin_users','admin_topics','moderator',
+             'judge','hidden','no_login','has_personal');
 }
 
 function store()
@@ -218,6 +220,11 @@ else
   }
 }
 
+function isAcceptsComplains()
+{
+return $this->accepts_complains;
+}
+
 function isAdminUsers()
 {
 return $this->admin_users;
@@ -231,6 +238,11 @@ return $this->admin_topics;
 function isModerator()
 {
 return $this->moderator;
+}
+
+function isJudge()
+{
+return $this->judge;
 }
 
 function isHidden()
@@ -286,8 +298,9 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
                             surname,gender,info,birthday,migdal_student,
 			    last_online,email,hide_email,icq,email_disabled,
-			    admin_users,admin_topics,moderator,hidden,no_login,
-			    has_personal,sessions.user_id as online
+			    accepts_complains,admin_users,admin_topics,
+			    moderator,judge,hidden,no_login,has_personal,
+			    sessions.user_id as online
 		     from users left join sessions
 				on users.id=sessions.user_id
 				and sessions.last+interval 1 hour>now()

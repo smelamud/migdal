@@ -46,7 +46,7 @@ $message.LoginLink
 <element name='Batcher'>
 <table width=100%>
  <form method=get action='$~'>
-  <hiddenget remove='mp'>
+  <hiddenget remove='$var'>
   <tr><td align=right><table><tr valign=center>
   <td>Показывать по&nbsp;</td>
   <td><select name='$var'>

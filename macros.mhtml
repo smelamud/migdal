@@ -85,6 +85,11 @@
 </macro>
 
 << Calls >>
+<macro name='complain_obj' defaults='name=complain'>
+ <require name='lib/complain.php'>
+ <call name='%name' func='getComplainById' arg1='%id'>
+</macro>
+
 <macro name='image_name' defaults='name=image'>
  <require name='lib/images.php'>
  <call name='%name' func='getImageNameBySet' arg1='%set'>
@@ -200,6 +205,14 @@
 </macro>
 
 <macro name='/moderator'>
+ </if>
+</macro>
+
+<macro name='judge'>
+ <if what='$$userJudge'>
+</macro>
+
+<macro name='/judge'>
  </if>
 </macro>
 
