@@ -9,7 +9,7 @@
  <if what='$,Grp!=*GRP_GALLERY'>
   <posting posting='$,' grp='*GRP_FORUMS' complain='*false'>
  <else>
-  <picture posting='$,' grp='*GRP_GALLERY' complain='*false'>
+  <picture picture='$,' grp='*GRP_GALLERY' complain='*false'>
  </if>
 </td></tr>
 </element>
