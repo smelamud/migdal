@@ -1,30 +1,5 @@
 << @(#) $Id$ >>
 
 <element name='rabbi'>
-<style><!--
- .rabbi {
- 	border: solid 1px $$style_rabbi_border;
-	background-color: $$style_rabbi_back;
-	font-weight: bold;
-	color: $$style_rabbi_text;
- }
-
- .rabbi A {
-	color: $$style_rabbi_text;
-	text-decoration: underline;
- }
-
- .rabbi A:hover {
-	color: $$style_rabbi_hover;
- }
-
-//-->
-</style>
-<table class='rabbi eightpt' cellspacing=0 cellpadding=0><tr valign=center>
- <td><image src='pics/yosele.jpg'></td>
- <td style='padding: 5px'>
-  Раввин сайта<p>
-  <a href='http://yosele.rabbi.ru/'>Йосеф Херсонский</a>
- </td>
-</td></tr></table>
+<a href='http://yosele.rabbi.ru/'><image src='pics/rabbi.gif' border=0></a>
 </element>
