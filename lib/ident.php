@@ -3,7 +3,7 @@
 
 function byIdent($id)
 {
-return is_int($id) ? "id=$id" : "ident='$id'";
+return ($id!='' && ctype_digit($id[0])) ? "id=$id" : "ident='$id'";
 }
 
 function idByIdent($table,$ident)
