@@ -4,8 +4,21 @@
 <backtrace target='$target'>
 <div class='bottom'>
  <table width=100%>
-  <tr>
-   <td>
+  <tr valign=top>
+   <td rowspan=2>
+    Сайт создан и поддерживается
+    <a href='migdal.php?artid=1479&redirid=$_'>Клубом Еврейского Студента</a>
+    <br>
+    Международного Еврейского Общинного Центра
+    <a href='migdal.php?redirid=$_'>&lt;&lt;Мигдаль&gt;&gt;</a>
+    <a href="mailto:migdal@migdal.ru" title="Написать письмо">
+     <image src="pics/mail.gif" border=0></a>,
+    Одесса.
+    <p>
+    Председатель правления центра &lt;&lt;Мигдаль&gt;&gt; --- Кира Верховская
+    <a href="mailto:verkhov@tm.odessa.ua" title="Написать письмо">
+     <image src="pics/mail.gif" border=0></a>.
+    <p>
     Раввином сайта является
     <a href='http://yosele.rabbi.ru/'>р.&nbsp;Йосеф Херсонский</a>.
    </td>
@@ -15,14 +28,6 @@
    </td>
   </tr>
   <tr valign=bottom>
-   <td align=left>
-    Сайт создан и поддерживается
-    <a href='migdal.php?artid=1479&redirid=$_'>Клубом Еврейского Студента</a>
-    <br>
-    Международного Еврейского Общинного Центра
-    <a href='migdal.php?redirid=$_'>&lt;&lt;Мигдаль&gt;&gt;</a>,
-    Одесса.
-   </td>
    <td align=right>
     // Powered by
     <a href='/sources/migdal-0.2.tar.bz2'>Migdal website kernel 0.2</a><br>

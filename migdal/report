@@ -98,6 +98,7 @@ Migdal report generator (for 'migdal' interface)
   -p, --popularity=<n>      Minimal popularity to output
   -r, --report=<type>       Output some kind of report
 	domains      Domains popularity report
+	monopoly     Depth of view report
 	popularity   Popularity report
         raw          Raw user-readable log (default)
 	traps        Traps activity report
