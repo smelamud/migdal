@@ -1,0 +1,58 @@
+<< @(#) $Id$ >>
+
+<log event=event text#='topic(-1)'>
+<grps>
+<topic_obj id='$`events`'>
+<pagetitle title='$,Name'>
+<topictitle title='$,Name'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <posting_new topic_id='$topic_id' grp='*GRP_NEWS'>
+    <topics posting='$,'>
+    <ears>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <iterate_topiclist grp='*GRP_EVENT' up='$`events`' recursive='*true'
+                       level=2 sort='*SORT_RINDEX4_RINDEX0'
+		       fields='*SELECT_INFO' limit=5>
+    <center><table style='margin: 0'>
+     <tr><td class='textears-title'>Последние события:</td></tr>
+     <tr><td><ul class='ninept'>
+      <for>
+       <li>
+        <a href='event.php?topic_id=$.Id' title='$.Description'>$.Comment0</a>
+       </li>
+      </for>
+     </ul></td></tr>
+    </table></center>
+    <table width=100% cellspacing=0 cellpadding=0 class='eightpt'>
+     <tr>
+      <td rowspan=2 width=15% height=5>&nbsp;</td>
+      <td width=70% height=5>&nbsp;</td>
+      <td rowspan=2 width=15% height=5>&nbsp;</td>
+     </tr>
+     <tr><td class='textears-split' height=5>&nbsp;</td></tr>
+    </table>
+    <iterate_topiclist grp='*GRP_ALL' up='$`events`'>
+    <iterate_rows cols=3>
+    <table width=100% cellpadding=10 cellspacing=0><tr valign='top'>
+     <for>
+      <td width=180><topics_common_events id='$.Id' class_line='none'></td>
+      <if what='$;isEol'>
+       <td>&nbsp;</td></tr><tr valign='top'>
+      </if>
+     </for>
+    </tr></table>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</body>
+</html>

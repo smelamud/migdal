@@ -32,6 +32,7 @@
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`kes`'
 	      class='item ninept'>
 </topics_table>
+<topics_common_events id='$`youth-confs`'>
 </element>
 
 <element name='topics_jcc'>
