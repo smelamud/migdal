@@ -271,6 +271,17 @@ return $this->sub_count;
 
 }
 
+function topicsPermFilter($right,$prefix='')
+{
+global $userAdminTopics,$userModerator;
+
+if($userAdminTopics && $right!=PERM_POST)
+  return '';
+if($userModerator && $right==PERM_POST)
+  return '';
+return permFilter($right,'user_id',false,$prefix);
+}
+
 class TopicIterator
       extends SelectIterator
 {

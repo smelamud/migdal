@@ -443,6 +443,15 @@ return !empty($this->last_answer) ? strtotime($this->last_answer) : 0;
 
 }
 
+function messagesPermFilter($right,$prefix='')
+{
+global $userModerator;
+
+if($userModerator)
+  return '';
+return permFilter($right,'sender_id',true,$prefix);
+}
+
 function messageExists($id)
 {
 global $userId,$userModerator;

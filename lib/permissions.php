@@ -162,34 +162,30 @@ journal("update $table
 	 where id='.journalVar($table,$id));
 }
 
-function permitted($right,$admin,$user_id='user_id',$prefix='')
+function permFilter($right,$user_id='user_id',$useDisabled=false,$prefix='')
 {
 global $userId,$userGroups;
 
-if($admin)
-  return '';
 if($prefix!='')
   $prefix.='.';
+$perms=$useDisabled
+       ? "(${prefix}perms & ~${prefix}disabled)"
+       : "${prefix}perms";
 if($userId<=0)
-  return "(${prefix}perms & ".$right<<PB_GUEST.')<>0';
+  return "($perms & ".$right<<PB_GUEST.')<>0';
 $groups=array();
 foreach($userGroups as $g)
        $groups[]="${prefix}group_id=$g";
 $groups[]="${prefix}group_id=$userId";
 return "($userId=${prefix}$user_id and
-       (${prefix}perms & ".$right<<PB_USER.')<>0
+       ($perms & ".$right<<PB_USER.')<>0
        or
        ('.join(' or ',$groups).") and
-       (${prefix}perms & ".$right<<PB_GROUP.")!=0
+       ($perms & ".$right<<PB_GROUP.")!=0
        or
-       (${prefix}perms & ".$right<<PB_OTHER.")<>0
+       ($perms & ".$right<<PB_OTHER.")<>0
        or
-       (${prefix}perms & ".$right<<PB_GUEST.')<>0)';
-}
-
-function visible($admin,$user_id='user_id',$prefix='')
-{
-return permitted(PERM_READ,$admin,$user_id,$prefix);
+       ($perms & ".$right<<PB_GUEST.')<>0)';
 }
 
 function permString($s)
