@@ -73,7 +73,8 @@ if(!isset($ident))
  $message->setUpValue($up);
  $message->setup($HTTP_GET_VARS);
  ?>
- <form method=post action='actions/messagemod.php'>
+ <form method=post enctype='multipart/form-data'
+       action='actions/messagemod.php'>
  <input type=hidden name='edittag' value=1>
  <input type=hidden name='redir' value='<?php echo $redir ?>'>
  <input type=hidden name='editid' value='<?php echo $editid ?>'>
@@ -119,6 +120,9 @@ if(!isset($ident))
     {
     perror(EM_IMAGE_ABSENT,'Нужно указать картинку для отображения');
     perror(EM_NO_IMAGE,'Указанной картинки не существует');
+    perror(EM_UNKNOWN_IMAGE,'Неизвестный формат картинки');
+    perror(EM_IMAGE_LARGE,'Картинка слишком велика (больше 2M)');
+    perror(EM_IMAGE_SQL,'Ошибка базы данных при загрузке картинки','magenta');
     if($message->getImageSet()==0)
       {
       ?>

@@ -87,14 +87,24 @@ function mandatorySubject()
 return $this->hasSubject();
 }
 
-function mandatoryTopic()
+function hasTopic()
 {
 return true;
+}
+
+function mandatoryTopic()
+{
+return $this->hasTopic();
 }
 
 function hasImage()
 {
 return true;
+}
+
+function mandatoryImage()
+{
+return false;
 }
 
 function isEditable()
@@ -127,6 +137,11 @@ return $this->body;
 function getImageSet()
 {
 return $this->image_set;
+}
+
+function setImageSet($image_set)
+{
+$this->image_set=$image_set;
 }
 
 function getUpValue()

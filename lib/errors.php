@@ -35,4 +35,7 @@ define('EM_NO_UP',410);
 define('EM_NO_SEND',411);
 define('EM_IMAGE_ABSENT',412);
 define('EM_NO_IMAGE',413);
+define('EM_UNKNOWN_IMAGE',414);
+define('EM_IMAGE_LARGE',415);
+define('EM_IMAGE_SQL',416);
 ?>

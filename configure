@@ -14,6 +14,10 @@ cat << EOF
 \$dbUser='root';
 \$dbPassword='mu8dhrse';
 \$debug=1;
+\$maxImage=2097152;
+\$thumbnailType='image/jpeg';
+\$thumbnailWidth=50;
+\$thumbnailHeight=50;
 ?>
 EOF
 }
