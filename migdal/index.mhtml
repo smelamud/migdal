@@ -39,7 +39,7 @@
    <td width=5>&nbsp;</td>
    <td width=110>
     <hit_parade grp='*GRP_WRITINGS' topic_id='$topic_id'>
-    <friends>
+    <<friends>>
    </td>
   </community>
  </tr></table>
