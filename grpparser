@@ -388,7 +388,32 @@ if($maskValues)
   }
 }
 
-sub printParam
+sub printScalarParam
+{
+my ($name)=@_;
+
+print POSTINGS "var \$$name;\n";
+print POSTINGS "\n";
+print POSTINGS "function get$name()\n";
+print POSTINGS "{\n";
+print POSTINGS "return \$this->$name;\n";
+print POSTINGS "}\n";
+print POSTINGS "\n";
+print POSTINGS "function set$name(\$$name)\n";
+print POSTINGS "{\n";
+print POSTINGS "\$this->$name=\$$name;\n";
+print POSTINGS "}\n";
+print POSTINGS "\n";
+}
+
+sub printArrayParam
+{
+my ($name)=@_;
+
+printScalarParam($name);
+}
+
+sub printConstParam
 {
 my ($name,$value)=@_;
 
@@ -397,6 +422,15 @@ print POSTINGS "{\n";
 print POSTINGS "return $value;\n";
 print POSTINGS "}\n";
 print POSTINGS "\n";
+}
+
+sub printParam
+{
+my ($name,$value)=@_;
+
+printScalarParam($name),return if $value eq 'var';
+printArrayParam($name),return if $value eq 'array';
+printConstParam($name,$value);
 }
 
 sub printClass
@@ -411,6 +445,10 @@ print POSTINGS 'function '.$class->getName()."(\$row)\n";
 print POSTINGS "{\n";
 print POSTINGS "\$this->$parentClass(\$row);\n";
 print POSTINGS "\$this->$grpField=$constPrefix".$class->getFlag().";\n";
+while(my ($name,$value)=each(%{$class->getParams()}))
+   {
+   print POSTINGS "\$this->$name=array();\n" if $value eq 'array';
+   }
 print POSTINGS "}\n";
 print POSTINGS "\n";
 while(my ($name,$value)=each(%{$class->getParams()}))
