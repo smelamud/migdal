@@ -81,7 +81,7 @@ if($src!='')
     $s.=$sizes[$src];
   else
     {
-    $is=getImageSize($src);
+    $is=getImageSize("./$src");
     $s.=$is[3];
     $sizes[$src]=$is[3];
     }
