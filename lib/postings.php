@@ -331,7 +331,8 @@ $Select="postings.id as id,postings.ident as ident,
 /* From */
 $imageTables=($fields & SELECT_IMAGES)!=0 ?
 	     "left join images
-		   on stotexts.image_set=images.image_set" :
+		   on stotexts.image_set=images.image_set and
+		      images.image_set<>0" :
 	     '';
 $topicTables=($fields & SELECT_TOPICS)!=0 ?
 	     "left join topics
