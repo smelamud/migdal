@@ -10,6 +10,7 @@ require_once('lib/session.php');
 require_once('lib/logs.php');
 require_once('lib/postings.php');
 require_once('lib/redirs.php');
+require_once('lib/exec.php');
 
 function removeControlChars($s)
 {
@@ -65,7 +66,7 @@ $cmd=str_replace(array('#','%'),
                  array($tmpDir,substr($dir,strlen($tmpDir)+
 		                           ($dir[strlen($tmpDir)]=='/' ? 1 : 0))),
 		 $compressCommand);
-echo `$cmd`;
+echoCommand($cmd);
 
 unlink("$dir/users");
 unlink("$dir/topics");
