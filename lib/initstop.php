@@ -41,7 +41,8 @@ function finalize()
 {
 global $userReadKOI;
 
-dbClose();
+dbClose(); // dbClose() должен находиться здесь, чтобы профайлер не учитывал
+           // время скачивания страницы клиентом
 $Output=ob_get_contents();
 ob_end_clean();
 echo convertOutput($Output,$userReadKOI>0);
