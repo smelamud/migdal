@@ -160,10 +160,39 @@ for($i=0;$i<$n;$i++)
 return $c;
 }
 
+function getQuoteLevel($s)
+{
+$n=0;
+for($i=0;$i<strlen($s)-4;$i+=5)
+   if(substr($s,$i,4)=='&gt;')
+     $n++;
+   else
+     return $n;
+}
+
 function replaceQuoting($s)
 {
-return preg_replace('/(^|\n)((?:&gt;\s*)+)(.*)(?=\n|$)/e',
-                    "'\n<i>'.getProperQuoting('\\2').'\\3</i>'",$s);
+global $showQuoteChars;
+
+$lines=explode("\n",$s);
+$level=0;
+for($i=0;$i<count($lines);$i++)
+   {
+   $lines[$i]=preg_replace('/^((?:&gt;\s*)+)/e',"getProperQuoting('\\1')",
+                           $lines[$i]);
+   $l=getQuoteLevel($lines[$i]);
+   if(!$showQuoteChars)
+     $lines[$i]=substr($lines[$i],5*$l);
+   if($l>=$level)
+     for($j=0;$j<$l-$level;$j++)
+        $lines[$i]="<div class='quote'>".$lines[$i];
+   else
+     for($j=0;$j<$level-$l;$j++)
+        $lines[$i-1]=$lines[$i-1].'</div>';
+   $level=$l;
+   }
+return join("\n",$lines);
+//return preg_replace('/<\\/div>\s*\n\s*<div class=\'quote\'>/',"\n",$s);
 }
 
 function replaceCenter($s)

@@ -76,6 +76,7 @@ forum_body_back=%r_l
 forum_body_back_pic=pics/l-back.jpg
 forum_controls=%mrd
 forum_controls_hover=blue
+forum_quote=%mrm
 topics_title=%mrd
 topics_names=black
 topics_names_hover=blue
