@@ -8,6 +8,7 @@ require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/images.php');
 require_once('lib/topics.php');
+require_once('lib/text.php');
 
 class Message
       extends UserTag
@@ -137,6 +138,11 @@ return $this->subject;
 function getBody()
 {
 return $this->body;
+}
+
+function getHTMLBody()
+{
+return enrichedTextToHTML($this->body);
 }
 
 function getImageSet()

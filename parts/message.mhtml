@@ -33,10 +33,10 @@
    <td><a href='lib/image.php?id=$message.ImageId&size=large'>
     <imgtag id='$message.ImageId'>
    </a></td>
-   <td>$message.Body</td>
+   <td>$message.HTMLBody</td>
   </tr></table>
  <else>
-  <rebe>$message.Body</rebe>
+  <rebe>$message.HTMLBody</rebe>
  </ifnzero>
 </td></tr>
 <tr>
