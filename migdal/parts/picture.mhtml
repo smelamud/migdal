@@ -45,9 +45,7 @@
   </if>
   <ifnzero what='$picture.ImageSet'>
    <tr><td class='bottom'>
-    <if what='$picture.hasLargeImage'>
-     ${picture.ImageX}x${picture.ImageY}, ${picture.ImageSizeKB}KB
-    </if>
+    ${picture.ImageX}x${picture.ImageY}, ${picture.ImageSizeKB}KB
    </td></tr>
   </ifnzero>
  </table>
