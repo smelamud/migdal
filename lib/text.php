@@ -77,7 +77,7 @@ return $c;
 function replaceQuoting($s)
 {
 return preg_replace('/(^|\n)((?:&gt;\s*)+)(.*)(?=\n|$)/e',
-                    "'\n<i>'.getProperQuoting('\\2').'\\3</i>'",$s);
+                    "'\n<i>'.getProperQuoting('\\2').' \\3</i>'",$s);
 }
 
 function replaceCenter($s)
