@@ -111,8 +111,6 @@
 		    title='Администратор пользователей'>
      <checkbox_line name='admin_topics' value='$,isAdminTopics' span=2
 		    title='Администратор тем'>
-     <checkbox_line name='admin_menu' value='$,isAdminMenu' span=2
-		    title='Администратор меню'>
      <checkbox_line name='admin_complain_answers' span=2
 		    value='$,isAdminComplainAnswers'
 		    title='Администратор ответов на жалобы'>

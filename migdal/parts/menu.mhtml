@@ -1,31 +1,33 @@
 << @(#) $Id$ >>
 
+<element name='menuitem' params='ident,name,link,target,current,time'
+         defaults='time=0'>
+<biff time='$time'>
+<if what='$current==$ident'>
+ <at href='$link' class='selected' target='$target'>$name</at>
+<else>
+ <at href='$link' target='$target'>$name</at>
+</if>
+&nbsp;
+</element>
+
 <element name='menu'>
 <table class='menu' width=100%><tr>
  <td>
-  <iterate_menu name='menu'>
-  <for>
-   <if what="$.Ident=='discuss'">
-    <posting_last grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
-    <biff time='$,'>
-   </if>
-   <if what="$.Ident=='gallery'">
-    <posting_last grp='*GRP_GALLERY' topic_id='general' recursive='*true'>
-    <biff time='$,'>
-   </if>
-   <if what='$.Ident==$ident'>
-    <at href='$.Link' class='selected' target='$target'>$.Name</at>
-   <else>
-    <at href='$.Link' target='$target'>$.Name</at>
-   </if>
-   <notlast what='$menu'>
-    &nbsp;
-   </notlast>
-  </for>
-  <admin_menu>
-   &nbsp;
-   <at href='menuedit.php' target='$target'>Изменить</at>
-  </admin_menu>
+  <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_DISCUSS'>
+  <posting_last name='gallery_time' grp='*GRP_GALLERY' topic_id='general'
+                recursive='*true'>
+  <menuitem ident='index' name='Главная' link='index.php?topic_id=-1'
+            target='$target' current='$ident'>
+  <menuitem ident='discuss' name='Обсуждения'
+            link='forumcatalog.php?topic_id=-1' target='$target'
+	    current='$ident' time='$forums_time'>
+  <menuitem ident='gallery' name='Галерея' link='gallery.php?topic_id=-1'
+            target='$target' current='$ident' time='$gallery_time'>
+  <menuitem ident='chat' name='Чат' link='chat.php'
+            target='$target' current='$ident'>
+  <menuitem ident='users' name='Пользователи' link='users.php'
+            target='$target' current='$ident'>
  </td>
  <td align=right class='minor'>
   <tune ident='$ident' target='$target'>

@@ -71,7 +71,6 @@
          params='imageset'>
 <deciter macro='instant_messagelist' class='InstantMessageListIterator'
          file='lib/instants.php'>
-<deciter macro='menu' class='MenuIterator' file='lib/menu.php' params='ident'>
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
          params='format,body'>
 <deciter macro='picturelist' class='PictureListIterator' file='lib/postings.php'
