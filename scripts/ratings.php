@@ -20,7 +20,7 @@ for($n=1;$n<=20;$n++)
    $pl=0;
    while($fd && !feof($fd))
 	{
-	$s=fgets($fd);
+	$s=fgets($fd,65536);
 	if(preg_match('/^<TR><TD class="TDITEM">(\d+)<\/TD>/',$s,$matches))
 	  $pl=$matches[1];
 	if(preg_match('/^<TD><dl><dt><A class="AITEM" HREF="\/perl\/trackrate.pl\?url='.
@@ -50,7 +50,7 @@ $fd=popen("$wgetPath -qO - -T 30 'http://top.mail.ru/stat?id=".
            $rating->getRegId()."'",'r');
 while($fd && !feof($fd))
      {
-     $s=fgets($fd);
+     $s=fgets($fd,65536);
      if(preg_match('/^<td><a href="\/Rating\/MassMedia-News\/Today\/Hosts\/\d*.html#(\d+)">/',
                    $s,$matches))
        $topicDay=$matches[1];
@@ -86,7 +86,7 @@ while(list($s,$var)=each($pages))
      $pl=0;
      while($fd && !feof($fd))
 	  {
-	  $c=fgets($fd);
+	  $c=fgets($fd,65536);
 	  if(preg_match('/^\s*<font size="-1">&nbsp;(\d+)&nbsp;<\/font>\s*$/',
 	                $c,$matches))
 	    $pl=$matches[1];
@@ -124,7 +124,7 @@ $vw='topicWeek';
 $sites=0;
 while($fd && !feof($fd))
      {
-     $s=fgets($fd);
+     $s=fgets($fd,65536);
      if(preg_match('/^<tr bgcolor="#e0e0e0" align=right><td colspan=4 align=center><small><i>Рейтинг сайтов<\/i><\/small><\/td><\/tr>/',
                    $s,$matches))
        $sites=1;
