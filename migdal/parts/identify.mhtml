@@ -131,7 +131,7 @@
  <elif what='$/$posting.TopicId,1/==$`museum`'>
   <assign name='href' value#='migdal.php?artid=$`postings:museum`'>
   <assign name='title' value=''>
-  <assign name='name' value='Музей евреев Одессы'>
+  <assign name='name' value='Музей истории евреев Одессы'>
   <assign name='tel' value='topics_museum'>
   <assign name='uhref' value='migdal.php'>
   <assign name='utitle' value='Мигдаль'>

@@ -3,7 +3,7 @@
 <element name='migdal_news'>
 <topics_table class='ninept' title='Новости'>
 <posting_last topic_id='$`museum-news`' recursive='*true'>
-<topics_line time='$,' text='Музей евреев Одессы'
+<topics_line time='$,' text='Музей истории евреев Одессы'
 	     href#='migdal-news.php?topic_id=$`museum-news`'>
 <posting_last topic_id='$`mazltov-news`' recursive='*true'>
 <topics_line time='$,' text='Мазл Тов'
