@@ -7,15 +7,10 @@ require_once('lib/topics.php');
 require_once('lib/grps.php');
 
 require_once('parts/top.php');
+require_once('parts/grps.php');
 
-$grpTitles=array(GRP_FORUMS  => 'Форумы',
-                 GRP_NEWS    => 'Новости',
-		 GRP_GALLERY => 'Галерея');
-$grpIdents=array(GRP_FORUMS  => 'forums',
-                 GRP_NEWS    => 'news',
-		 GRP_GALLERY => 'gallery');
-$title=$grpTitles[$grp];
-$ident=$grpIdents[$grp];
+$title=getGrpTitle($grp);
+$ident=getGrpIdent($grp);
 $requestURI=urlencode($REQUEST_URI);
 
 if(!isset($ident))

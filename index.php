@@ -4,7 +4,8 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 
-require_once('parts/top.php')
+require_once('parts/top.php');
+require_once('parts/messages.php');
 ?>
 <html>
 <head>
@@ -14,6 +15,7 @@ require_once('parts/top.php')
   <?php
   dbOpen();
   displayTop('index');
+  displayMessages();
   dbClose();
   ?>
 </body>
