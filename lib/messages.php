@@ -19,6 +19,7 @@ var $personal_id;
 var $sender_id;
 var $grp;
 var $image_set;
+var $image_id;
 var $up;
 var $hidden;
 var $sent;
@@ -137,6 +138,11 @@ return $this->image_set;
 function setImageSet($image_set)
 {
 $this->image_set=$image_set;
+}
+
+function getImageId()
+{
+return $this->image_id;
 }
 
 function getUpValue()
@@ -258,8 +264,11 @@ global $userModerator;
 $hide=$userModerator ? 2 : 1;
 $grpFilter=$this->getGrpCondition($grp);
 $this->GroupSelectIterator('Message',
-                           "select id,body,subject,grp,sent
-		            from messages
+                           "select messages.id as id,body,subject,grp,sent,
+			           images.image_set as image_set,
+				   images.id as image_id
+		            from messages left join images
+			         on messages.image_set=images.image_set
 		            where hidden<$hide and personal_id=$personal
 		            and up=0 $grpFilter
 		            order by sent desc");

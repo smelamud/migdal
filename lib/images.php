@@ -90,6 +90,16 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
+function getImageTagById($id)
+{
+$size=mysql_fetch_row(
+      mysql_query("select small_x,small_y
+                   from images
+ 	           where id=$id"));
+return '<img border=0 width='.$size[0].
+                    ' height='.$size[1]." src='lib/image.php?id=$id&size=small'>";
+}
+
 function imageSetExists($image_set)
 {
 $result=mysql_query("select id
