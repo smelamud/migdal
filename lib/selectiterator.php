@@ -12,6 +12,7 @@ var $class;
 
 function SelectIterator($aClass,$query)
 {
+$this->Iterator();
 $this->result=mysql_query($query)
        or die ("Ошибка SQL в итераторе: $query: ".mysql_error());
 $this->count=mysql_num_rows($this->result);
@@ -26,6 +27,7 @@ return new $c($row);
 
 function next()
 {
+parent::next();
 $row=mysql_fetch_assoc($this->result);
 return $row ? $this->create($row) : 0;
 }

@@ -215,6 +215,22 @@
  </if>
 </macro>
 
+<macro name='isfirst'>
+ <if what='$%name.isFirst'>
+</macro>
+
+<macro name='/isfirst'>
+ </if>
+</macro>
+
+<macro name='notfirst'>
+ <if what='!$%name.isFirst'>
+</macro>
+
+<macro name='/notfirst'>
+ </if>
+</macro>
+
 << Permissions >>
 <macro name='logged'>
  <if what='$$userId>0'>
