@@ -32,13 +32,13 @@
  <if what='$message.isSenderVisible'>
   <asp><a href='userinfo.php?id=$message.SenderId&redir=$_'
           onClick="UserInfo($message.SenderId);return false"
-	  title='подробнее'><img src='$$style_details_image' border=0></a>
+	  title='подробнее'><image src='$$style_details_image' border=0></a>
  </if>
 <else>
  <if what='$message.isSenderVisible'>
   <a href='userinfo.php?id=$message.SenderId&redir=$_'
      onClick="UserInfo($message.SenderId);return false"
-     title='подробнее'><img src='$$style_details_image' border=0></a>&nbsp;<asp>
+     title='подробнее'><image src='$$style_details_image' border=0></a>&nbsp;<asp>
  </if>
  <asp><span class='name'>$message.LoginLink</span>
 </if>

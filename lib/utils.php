@@ -67,4 +67,30 @@ $a=$n%10;
 $b=((int)$n/10)%10;
 return $b==1 || $a>=5 || $a==0 ? $forms[2] : ($a==1 ? $forms[0] : $forms[1]);
 }
+
+function displayImage($src='',$alt='',$title='',$border='')
+{
+static $sizes=array();
+
+$s='<img';
+if($src!='')
+  {
+  $s.=" src='$src' ";
+  if(isset($sizes[$src]))
+    $s.=$sizes[$src];
+  else
+    {
+    $is=getImageSize($src);
+    $s.=$is[3];
+    $sizes[$src]=$is[3];
+    }
+  }
+if($alt!='')
+  $s.=" alt='$alt'";
+if($title!='')
+  $s.=" title='$title'";
+if($border!='')
+  $s.=" border=$border";
+echo "$s>";
+}
 ?>

@@ -140,6 +140,9 @@
 <deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
 <deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>
 
+<decel name='image' file='parts/utils.php' params='src,alt,title,border'
+       defaults="src='' alt='' title='' border=''">
+
 <macro name='image_tag_put' defaults="align=''">
  <zone><image_tag id='%id' align=%align>$,</zone>
 </macro>

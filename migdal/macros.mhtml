@@ -131,6 +131,6 @@
 << Biff >>
 <macro name='biff'>
  <ifbiff time='%time'>
-  &nbsp;<img src='pics/ner.gif' title='новое'>&nbsp;
+  &nbsp;<image src='pics/ner.gif' title='новое'>&nbsp;
  </ifbiff>
 </macro>

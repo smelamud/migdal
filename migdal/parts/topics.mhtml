@@ -4,10 +4,10 @@
 <macro name='grayed' defaults="link='index.php'">
  <ifnzero what='$topic.Allow & *GRP_%^group'>
   <if what='$g.Effective==*GRP_%^group'>
-   <img src='pics/%file.gif' title='%title'>
+   <image src='pics/%file.gif' title='%title'>&nbsp;
   <else>
-   <a href='%link?grp=*GRP_%^group&topic_id=$topic_id'>
-    <img border=0 src='pics/%{file}-gray.gif' title='%title'></a>
+   <a href='%link?grp=*GRP_%^group&topic_id=$topic_id'><asp>
+    <image border=0 src='pics/%{file}-gray.gif' title='%title'></a>&nbsp;
   </if>
  </ifnzero>
 </macro>
@@ -16,13 +16,13 @@
  <td>
   <if what='$topic_id==%id'>
    <ifbiff time='%time'>
-    <img src='$$style_topics_ner_arrow' width=12 height=17 title='новое'>
+    <image src='$$style_topics_ner_arrow' title='новое'>
    <else>
-    <img src='$$style_topics_arrow' width=11 height=12>
+    <image src='$$style_topics_arrow'>
    </ifbiff>
   <else>
    <ifbiff time='%time'>
-    <img src='pics/ner.gif' title='новое'>
+    <image src='pics/ner.gif' title='новое'>
    <else>
     &nbsp;
    </ifbiff>

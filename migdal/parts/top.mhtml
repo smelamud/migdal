@@ -8,9 +8,9 @@
  <td class='topimage'>
   <if what='$showimages'>
    <a href='/index.php'>
-    <img src='$$style_banner_logo' border=0></a>
+    <image src='$$style_banner_logo' border=0></a>
    <a href='/index.php'>
-    <img src='$$style_banner_name' border=0></a>
+    <image src='$$style_banner_name' border=0></a>
   </if>
   <hotlog_count>
   <mailru_count>
