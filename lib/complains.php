@@ -5,6 +5,7 @@ require_once('lib/limitselect.php');
 require_once('lib/messages.php');
 require_once('lib/complaintypes.php');
 require_once('lib/sendertag.php');
+require_once('lib/users.php');
 
 class Complain
       extends Message
@@ -189,7 +190,7 @@ $this->LimitSelectIterator(
                messages.sent as sent,closed,recipient_id,
                users.login as login,users.gender as gender,
 	       users.email as email,users.hide_email as hide_email,
-	       users.rebe as rebe,
+	       users.rebe as rebe,users.hidden as sender_hidden,
                recs.login as rec_login,recs.gender as rec_gender,
 	       recs.email as rec_email,recs.hide_email as rec_hide_email,
 	       recs.rebe as rec_rebe,recs.hidden as rec_hidden,
@@ -252,7 +253,7 @@ $result=mysql_query("select complains.id as id,stotext_id,body,subject,
 			    display,users.login as login,
 			    users.gender as gender,users.email as email,
 			    users.hide_email as hide_email,users.rebe as rebe,
-			    recipient_id,
+			    users.hidden as sender_hidden,recipient_id,
 			    recs.login as rec_login,recs.gender as rec_gender,
 			    recs.email as rec_email,
 			    recs.hide_email as rec_hide_email,
@@ -287,5 +288,16 @@ $result=mysql_query("select id
 		     where id=$id")
 	     or die('Ошибка SQL при выборке жалобы');
 return mysql_num_rows($result)>0;
+}
+
+function sendAutomaticComplain($ident,$subject,$body,$link)
+{
+$type=getComplainTypeById($ident);
+$complain=new Complain(array('type_id'   => $type->getId(),
+                             'link'      => $link,
+                             'subject'   => $subject,
+			     'body'      => $body,
+			     'sender_id' => getShamesId()));
+$complain->store() or die('Ошибка SQL при посылке автоматической жалобы');
 }
 ?>

@@ -22,9 +22,9 @@
 </macro>
 
 << GRP >>
-<macro name='grpdata' defaults='name=g ignore=0'>
+<macro name='grpdata' defaults="name=g grp='$grp' ignore=0">
  <require name='lib/grputils.php'>
- <obj name='%name' class='GrpData' arg1='$grp' arg2='%ignore'>
+ <obj name='%name' class='GrpData' arg1='%grp' arg2='%ignore'>
 </macro>
 
 <macro name='grp' defaults='name=g ignore=0'>
@@ -369,9 +369,6 @@
   <settype name='%name' type='integer' method='%method'>
  </header>
 </macro>
-
-<< Elements >>
-<decel name='senderlink' file='lib/utils.php' params='message'>
 
 << HTML shortcuts >>
 <macro name='tdspan' defaults='span=0'>

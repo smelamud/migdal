@@ -13,6 +13,7 @@ require_once('lib/grps.php');
 require_once('lib/topics.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings.php');
+require_once('lib/complains.php');
 
 function uploadLargeText(&$message)
 {
@@ -62,9 +63,20 @@ return (getPremoderateByTopicId($message->getTopicId())
 function setDisabled($message)
 {
 if(isPremoderated($message))
-  return mysql_query('update messages
-                      set disabled=1
-	              where id='.$message->getMessageId());
+  {
+  $result=mysql_query('update messages
+                       set disabled=1
+	               where id='.$message->getMessageId());
+  if($result)
+    sendAutomaticComplain('posting',
+                          'Автоматическая проверка сообщения "'.
+			   $message->getSubject().'"',
+			  'Прошу Модератора проверить соответствие данного
+			   сообщения политике сайта и открыть к нему публичный
+			   доступ.',
+			  $message->getId());
+  return $result;
+  }
 else
   return true;
 }

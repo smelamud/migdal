@@ -66,6 +66,12 @@
     >[Запретить показ]</a>
   </if>
  </if>
+<else>
+ <if what='!$posting.isModerable && $complain'>
+  <logged>
+   <a href="complainedit.php?ident=posting&link=$posting.Id&redir=$_">[Жалоба]</a>
+  </logged>
+ </if>
 </isedit>
 </td>
 <td align=right>

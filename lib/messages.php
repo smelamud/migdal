@@ -96,7 +96,7 @@ return array('body','large_format','image_set','subject','hidden','disabled');
 
 function getWorldVars()
 {
-return array('subject','stotext_id','hidden');
+return array('subject','stotext_id','hidden','sender_id');
 }
 
 function getAdminVars()
@@ -117,7 +117,8 @@ if($this->$id)
 else
   {
   $sent=date('Y-m-d H:i:s',time());
-  $normal['sender_id']=$userId;
+  if($normal['sender_id']<=0)
+    $normal['sender_id']=$userId;
   $normal['sent']=$sent;
   $result=mysql_query(makeInsert('messages',$normal));
   $this->$id=mysql_insert_id();

@@ -24,6 +24,8 @@ var $last_online;
 var $icq;
 var $email_disabled;
 var $accepts_complains;
+var $rebe;
+var $shames;
 var $admin_users;
 var $admin_topics;
 var $admin_menu;
@@ -334,6 +336,15 @@ $result=mysql_query("select id
                      from users
 		     where login='$login' and hidden<$hide")
 	     or die('Ошибка SQL при выборке данных пользователя');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function getShamesId()
+{
+$result=mysql_query('select id
+                     from users
+		     where shames=1')
+	     or die('Ошибка SQL при выборке данных шамеса');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
