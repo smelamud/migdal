@@ -55,7 +55,19 @@
 <if what='$drop_left'>
  <assign name='clear' value=' style="clear: left"'>
 <else>
- <assign name='clear' value=''>
+ <ifnzero what='$par.ImageId'>
+  <isplaced place='IPL_LEFT'>
+   <assign name='clear' value=' style="clear: left"'>
+  </isplaced>
+  <isplaced place='IPL_HCENTER'>
+   <assign name='clear' value=''>
+  </isplaced>
+  <isplaced place='IPL_RIGHT'>
+   <assign name='clear' value=' style="clear: right"'>
+  </isplaced>
+ <else>
+  <assign name='clear' value=''>
+ </ifnzero>
 </if>
 <ifnzero what='$par.ImageId'>
  <notplaced place='IPL_TOP'>
