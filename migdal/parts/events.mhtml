@@ -2,7 +2,7 @@
 
 <element name='events'>
 <topic_obj name='topic' id='$`events`'>
-<topics_table class='ninept' title='События'>
+<topics_table class='eightpt' title='События'>
  <iswrite what='$topic'>
   <tr><td colspan=2>
    <a href='topics-reorder.php?up=$,Id&level=2&redirid=$_'

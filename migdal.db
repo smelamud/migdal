@@ -1,8 +1,8 @@
--- MySQL dump 9.07
+-- MySQL dump 9.08
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	4.0.12-log
+-- Server version	4.0.13-log
 
 --
 -- Table structure for table 'chat_messages'
@@ -522,11 +522,11 @@ CREATE TABLE votes (
   KEY posting_id (posting_id,ip,user_id,sent)
 ) TYPE=MyISAM;
 
--- MySQL dump 9.07
+-- MySQL dump 9.08
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	4.0.12-log
+-- Server version	4.0.13-log
 
 --
 -- Dumping data for table 'version'
