@@ -86,7 +86,7 @@
        class='piclink'>Картинка</a>
    </td></tr>
   </isedit>
-   <tr><td>
+   <tr><td align=center>
     <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
    </td></tr>
    <ifne what='$par.Title'>
