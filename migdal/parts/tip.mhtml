@@ -1,9 +1,8 @@
 << @(#) $Id$ >>
 
 <element name='further' params='posting'>
- <asp><a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'><asp>
-  <image src='pics/further.gif' border=0 title='Читать дальше'>
- <asp></a>&nbsp;<asp>
+<p><image src='pics/further.gif'>&sp;
+<a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>Читать дальше</a>
 </element>
 
 <element name='tip'>

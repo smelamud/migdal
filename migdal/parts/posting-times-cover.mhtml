@@ -9,9 +9,8 @@
 </element>
 
 <element name='further' params='posting'>
-<asp><a href='times.php?issue=$posting.Index1'><asp>
- <image src='pics/further.gif' border=0 title='Читать журнал'>
-<asp></a>&nbsp;
+<p><image src='pics/further.gif'>&sp;
+<a href='times.php?issue=$posting.Index1'>Читать журнал</a>
 </element>
 
 <element name='posting_times_cover'>

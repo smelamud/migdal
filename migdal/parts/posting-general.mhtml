@@ -9,16 +9,14 @@
 </element>
 
 <element name='further' params='posting,title'>
- <asp><a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'><asp>
-  <image src='pics/further.gif' border=0 title='$title'>
- <asp></a>&nbsp;<asp>
+<p><image src='pics/further.gif'>&sp;
+<a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>$title</a>
 </element>
 
 <element name='further_url' params='posting,url'>
- <asp><a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url' target=_blank><asp>
-  <image src='pics/further-far.gif' border=0
-         title='Подробности на другом сайте'>
- <asp></a>&nbsp;<asp>
+<p><image src='pics/further-far.gif'>&sp;
+<a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url' target=_blank
+   >Подробности на другом сайте</a>
 </element>
 
 <element name='posting_general'>

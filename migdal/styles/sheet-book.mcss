@@ -3,14 +3,9 @@
 .ring A {
 	font-family: %verdana;
 	font-size: 9pt;
-	color: %book_ring;
 	text-decoration: underline;
 }
 
 .ring B A {
 	font-size: 10pt;
-}
-
-.ring A:hover {
-	color: %book_ring_hover;
 }

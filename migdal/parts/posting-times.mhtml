@@ -8,9 +8,8 @@
 </element>
 
 <element name='further' params='posting,title'>
- <asp><a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'><asp>
-  <image src='pics/further.gif' border=0 title='$title'>
- <asp></a>&nbsp;<asp>
+<p><image src='pics/further.gif'>&sp;
+<a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>$title</a>
 </element>
 
 <element name='posting_times'>
