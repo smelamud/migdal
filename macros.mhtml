@@ -86,7 +86,7 @@
 
 << Calls >>
 <macro name='complain_obj' defaults='name=complain'>
- <require name='lib/complain.php'>
+ <require name='lib/complains.php'>
  <call name='%name' func='getComplainById' arg1='%id'>
 </macro>
 

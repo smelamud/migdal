@@ -21,27 +21,19 @@ function getAdminVars()
 return array();
 }
 
-function getWorldVarValues()
+function collectVars($vars)
 {
 $vals=array();
-foreach($this->getWorldVars() as $var)
-       $vals[$var]=$this->$var;
-return $vals;
-}
-
-function getAdminVarValues()
-{
-$vals=array();
-foreach($this->getAdminVars() as $var)
+foreach($vars as $var)
        $vals[$var]=$this->$var;
 return $vals;
 }
 
 function getNormal($isAdmin=false)
 {
-$normal=$this->getWorldVarValues();
+$normal=$this->collectVars($this->getWorldVars());
 if($isAdmin)
-  $normal=array_merge($normal,$this->getAdminVarValues());
+  $normal=array_merge($normal,$this->collectVars($this->getAdminVars()));
 return $normal;
 }
 
