@@ -80,15 +80,16 @@ close OUT;
 sub run
 {
 $dbh->do('lock tables mailings write,mailing_types read,users read');
-my $mails=$dbh->selectall_hashref(
-		'select mailings.id as id,link,receiver_id,text,
-			name,jewish_name,surname,gender,email,
-			email_disabled
-		 from mailings
-		      left join mailing_types
-			   on mailings.type_id=mailing_types.id
-		      left join users
-			   on mailings.receiver_id=users.id');
+my $sth=$dbh->prepare('select mailings.id as id,link,receiver_id,text,
+			      name,jewish_name,surname,gender,email,
+			      email_disabled
+		       from mailings
+			    left join mailing_types
+				 on mailings.type_id=mailing_types.id
+			    left join users
+				 on mailings.receiver_id=users.id');
+$sth->execute;
+my $mails=$sth->fetchrow_hashref;
 $dbh->do('delete from mailings');
 $dbh->do('unlock tables');
 foreach my $mail(@{$mails})
