@@ -13,6 +13,8 @@ require_once('lib/modbits.php');
 
 function modifyMessageImage($posting,$image)
 {
+global $userModerator;
+
 if(!$posting->isWritable())
   return ELII_NO_EDIT;
 if($posting->getMessageId()==0)
@@ -21,7 +23,8 @@ if($image->getImageId()!=0 && !imageExists($image->getImageId()))
   return ELII_IMAGE_ABSENT;
 if(!$image->store())
   return ELII_STORE_SQL;
-setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
+if(!$userModerator)
+  setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
 return ELII_OK;
 }
 

@@ -11,7 +11,7 @@ require_once('lib/modbits.php');
 
 function deleteImage($posting)
 {
-global $editid;
+global $editid,$userModerator;
 
 if(!$posting->isWritable())
   return ELID_NO_EDIT;
@@ -23,7 +23,8 @@ if(!$result)
 journal('delete
          from images
 	 where id='.journalVar('images',$editid));
-setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
+if(!$userModerator)
+  setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
 return ELID_OK;
 }
 

@@ -51,7 +51,7 @@ return $result;
 
 function storeImage($posting)
 {
-global $editid,$loaded,$has_large,$small_x,$small_y,$title;
+global $editid,$loaded,$has_large,$small_x,$small_y,$title,$userModerator;
 
 if(!$posting->isWritable())
   return ELIM_NO_EDIT;
@@ -78,7 +78,8 @@ if(!$image)
 if($posting->getLargeImageSet()==0)
   if(!setLargeImageSet($posting,$image->getImageSet()))
     return ELIM_SET_SQL;
-setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
+if(!$userModerator)
+  setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
 return ELIM_OK;
 }
 
