@@ -63,7 +63,7 @@ function goFurther(&$out,$in,&$start,&$end,&$state,$target=0)
 {
 if($end>$start)
   {
-  $out.=preg_replace('/(^|[\s.,:;\(\)])((\S+:\/)?\/\S*[^\s.,:;\(\)])/e',
+  $out.=preg_replace('/(^|[\s.,:;\(\)])(([^\s\(\)]+:\/)?\/\S*[^\s.,:;\(\)])/e',
 		     "'\\1'.getURLTag('\\2','\\3','\\2')",
 		     substr($in,$start,$end-$start));
   $start=$end;
