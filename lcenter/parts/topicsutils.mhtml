@@ -23,6 +23,10 @@
 </if>
 </element>
 
+<element name='topics_splitter'>
+<li class='nobullet eightpt'>&nbsp;</li>
+</element>
+
 <element name='topics_table'>
 <ifne what='$class'>
  <div class='topics $class'>

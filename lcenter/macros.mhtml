@@ -56,6 +56,7 @@
                  comment='' nobullet='*false'"
        file='parts/topicsutils.php'>
 <decel name='topics_news' file='parts/topics-news.php' params='id'>
+<decel name='topics_splitter' file='parts/topicsutils.php'>
 <decel name='topics_table' params='class,title' defaults="class='' title=''"
        file='parts/topicsutils.php'>
 <decel name='topics_table_end' file='parts/topicsutils.php'>
