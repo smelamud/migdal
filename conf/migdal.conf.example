@@ -65,7 +65,7 @@ $useMogrify=true;
 $mogrifyPath='mogrify';
 
 # Команда для отправки почты
-$sendmailCommand='/usr/sbin/sendmail -t'
+$sendmailCommand='/usr/sbin/sendmail -t';
 
 # Маленькое изображение, используемое в случае, когда невозможно изменить
 # размеры большого (путь задается относительно библиотеки, т.е. каталога lib/)

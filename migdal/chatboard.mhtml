@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
 << Based-on: demo/chatboard.mhtml 1.2 >>
 
-<refresh period='$$userChatRefresh' url='$-'>
 <html>
+<refresh period='$$userChatRefresh' url='$-'>
 <head></head>
 <body bgcolor=white>
  <iterate_chat limit='$$userChatPortion'>

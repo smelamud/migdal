@@ -136,7 +136,7 @@
      * $redir
      * actions/*
      * tmptexts
-     * session()
+     * session() (использовать сессионные переменные можно только после <html>)
      * MHTML (intro, tags, subs)
      * opscripts
      * mailings
