@@ -55,9 +55,9 @@ Makefile: Makefile.in conf/migdal.conf
 
 dbinfo:
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
-		--no-data > migdal.db
+		--no-data -Q > migdal.db
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
-		version --no-create-info >> migdal.db
+		version --no-create-info -Q >> migdal.db
 	(cd $(uiName); $(MAKE) dbinfo)
 
 pack: all
