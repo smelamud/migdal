@@ -1,71 +1,115 @@
 ! @(#) $Id$
 
-! Colors
+!! Colors
+
+! Blue
 
 bl=#0C20A5
+
+! Green
+
 g=#52A945
-nd=#4C6A90
-ndl=#6F99D1
-nm=#9BC8FF
-nl=#CDE4FF
-nll=#DCECFF
+
+! Navy
+
+nd=#4C6A90	! Dark
+ndl=#6F99D1	! Dark light
+nm=#9BC8FF	! Medium
+nl=#CDE4FF	! Light
+nll=#DCECFF	! Light light
+
+! Red
+
 r=#FF5500
-vd=#5B1900
-vmd=#D5A516
-vm=#F8BF19
-vmm=#FFE69B
-vld=#FFEDC3
-vl=#FFF8E8
-md=#91089D
-ml=#BA00FF
-gr=#C3C3C3
-grl=#EAEAEA
-grd=#5C5C5C
+
+! Orange
+
+vd=#5B1900	! Dark
+vmd=#D5A516	! Medium dark
+vm=#F8BF19	! Medium
+vmm=#FFE69B	! Medium medium
+vld=#FFEDC3	! Light dark
+vl=#FFF8E8	! Light
+
+! Magenta
+
+ml=#BA00FF	! Light
+md=#91089D	! Dark
+
+! Gray
+
+grd=#5C5C5C	! Dark
+grm=#AAAAAA	! Medium
+gr=#C3C3C3	! Normal
+grl=#EAEAEA	! Light
+
+! Maroon
+
 mr=#9E4F00
+
+!! Pallete
 
 error_red=red
 error_magenta=magenta
-body_back=white
+:default	body_back=white
+:contrast	body_back=white
+:test		body_back=%grl
 advert=%vmd
-menu_back=%bl
+:default	menu_back=%bl
+:contrast	menu_back=%bl
+:test		menu_back=%nd
 menu_normal=white
 menu_selected=yellow
 bottom=%gr
-state_date_back=%bl
+:default	state_back=%bl
+:contrast	state_back=%bl
+:test		state_back=%nd
 state_date=%vm
 state_style=%vm
 state_style_active=yellow
 state_style_hover=white
 register_hover=blue
-login_border=blue
-login_text=blue
+:default	login_border=blue
+:contrast	login_border=blue
+:test		login_border=%nd
+:default	login_text=blue
+:contrast	login_text=blue
+:test		login_text=%nd
 return_normal=%g
 :default	return_image=pics/return-animated.gif
 :contrast	return_image=pics/return_back.gif
-:test		return_image=pics/return.gif
-:default return_word=false
-:contrast return_word=true
-:test return_word=false
+:test		return_image=pics/return-hand.gif
+:default	return_word=false
+:contrast	return_word=true
+:test		return_word=false
 batcher_normal=blue
 batcher_link=blue
 batcher_input_border=blue
 batcher_input_text=blue
-posting_border=%ndl
-posting_back=%nd
-:default	posting_whole_back=%nll
-:contrast	posting_whole_back=white
-:test		posting_whole_back=%nll
-posting_sent=white
+:default	posting_border=%ndl
+:contrast	posting_border=%ndl
+:test		posting_border=
+:default	posting_top_back=%nd
+:contrast	posting_top_back=%nd
+:test		posting_top_back=%ndl
+:default	posting_back=%nll
+:contrast	posting_back=white
+:test		posting_back=
+:default	posting_sent=white
+:contrast	posting_sent=white
+:test		posting_sent=%vmm
 posting_name=yellow
 posting_rebe_name=%r
-posting_subject=%md
+:default	posting_subject=%md
+:contrast	posting_subject=%md
+:test		posting_subject=%nd
 posting_split=%nd
 posting_controls=black
 posting_controls_hover=blue
 posting_read=%md
 :default	forum_border=%vm
 :contrast	forum_border=%nm
-:test		forum_border=%vm
+:test		forum_border=
 :default	forum_header_back=%vmm
 :contrast	forum_header_back=%nm
 :test		forum_header_back=%vmm
@@ -116,7 +160,7 @@ catalog_subject=black
 catalog_subject_hover=blue
 :default	details_image=pics/info-bullet.gif
 :contrast	details_image=pics/info-test.gif
-:test		details_image=pics/info-bullet.gif
+:test		details_image=pics/info-i.gif
 :default	details_noleft=true
 :contrast	details_noleft=false
 :test		details_noleft=false
@@ -174,6 +218,8 @@ complain_controls_hover=blue
 chatboard_back=%vl
 chatboard_time=%gr
 chatboard_name=%nd
+
+!! Stylesheets
 
 ! Global
 
@@ -249,7 +295,7 @@ BODY {
 }
 
 .state .style {
-	background-color: %state_date_back;
+	background-color: %state_back;
 	text-align: center;
 }
 
@@ -271,7 +317,7 @@ BODY {
 	font-size: 10pt;
 	font-weight: bold;
 	color: %state_date;
-	background-color: %state_date_back;
+	background-color: %state_back;
 	text-align: right;
 	vertical-align: middle;
 	padding-right: 1em;
@@ -360,11 +406,11 @@ BODY {
 .posting {
 	border: 3px solid %posting_border;
 	margin: 0.5ex;
-	background-color: %posting_whole_back;
+	background-color: %posting_back;
 }
 
 .posting .top {
-	background-color: %posting_back;
+	background-color: %posting_top_back;
 }
 
 .posting .top .sent {
@@ -882,6 +928,7 @@ BODY {
 
 .article H1,.article P,.article B,.article I,.article U {
 	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-size: 12pt;
 }
 
 .article H1 {
@@ -891,7 +938,6 @@ BODY {
 }
 
 .article P {
-	font-size: 12pt;
 	text-align: justify;
 }
 
