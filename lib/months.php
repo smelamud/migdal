@@ -1,15 +1,7 @@
 <?php
 # @(#) $Id$
 
-$months=array(1 => 'января','февраля','марта','апреля','мая','июня',
-                   'июля','августа','сентября','октября','ноября','декабря');
-
-function getRussianMonth($month)
-{
-global $months;
-
-return $months[$month];
-}
+require_once('lib/calendar.php');
 
 class Month
 {
@@ -45,10 +37,10 @@ $this->current=1;
 
 function next()
 {
-global $months;
+global $rusMonthRL;
 
-$month=isset($months[$this->current]) ?
-       new Month($this->current,$months[$this->current]) : 0;
+$month=isset($rusMonthRL[$this->current]) ?
+       new Month($this->current,$rusMonthRL[$this->current]) : 0;
 $this->current++;
 return $month;
 }

@@ -32,6 +32,13 @@ getJewishFromDateDetailed($month,$day,$year,$jmonth,$jday,$jyear);
 return $jday.' '.$jewMonthRL[$jmonth].' '.$jyear;
 }
 
+function getRussianMonth($month)
+{
+global $rusMonthRL;
+
+return $rusMonthRL[$month];
+}
+
 function getCalendarAge($bMonth,$bDay,$bYear,$month,$day,$year)
 {
 if(isCalendarAvailable())
