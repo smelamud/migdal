@@ -5,11 +5,11 @@
 	font-size: 10pt;
 }
 
-.ninept * {
+.ninept,.ninept * {
 	font-size: 9pt;
 }
 
-.eightpt * {
+.eightpt,.eightpt * {
 	font-size: 8pt;
 }
 

@@ -12,36 +12,18 @@
  <table width=100%><tr valign=top>
   <td>
    <iterate_imageset imageset='$,LargeImageSet'>
-   <table class='ninept topics' width=100%>
-    <col width='0*'>
-    <tbody class='names'>
-     <for>
-      <tr>
-       <td>
-	<if what='$editid==$.Id'>
-	 <img src='$$style_topics_arrow' width=11 height=12>
-	</if>
-       </td>
-       <td>
-	<a href='$[err edittag editid=$.Id]'>$.Filename</a>
-	<if what='$editid==$.Id'>
-	 &nbsp;
-	 <a href='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$#-&faildir=$#-'
-	    class='edit'>Удалить</a>
-	</if>
-       </td>
-      </tr>
-     </for>
-     <tr>
-      <td>
-       <ifzero what='$editid'>
-        <img src='$$style_topics_arrow' width=11 height=12>
-       </ifzero>
-      </td>
-      <td><a href='$[err edittag editid=0]' class='new'>Добавить</a></td>
-     </tr>
-    </tbody>
-   </table>
+   <topics_table class='ninept'>
+    <for>
+     <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
+		  text='$.Filename'>
+     <if what='$editid==$.Id'>
+      <topics_line href#='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$#-&faildir=$#-'
+		   class='edit' text='Удалить'>
+     </if>
+    </for>
+    <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
+                 class='new' text='Добавить'>
+   </topics_table>
   </td>
   <td>
    <formtable title#='Иллюстрации к статье "$,Subject"'>

@@ -97,9 +97,15 @@
 <decel name='top' file='parts/top.php'
        params='ident,no_new,target,showimages'
        defaults="no_new='*false' target='' showimages='*true'">
-<decel name='topics' file='parts/topics.php'
+<decel name='topics' file='parts/topics-general.php'
        params='withpostings,withanswers,showchapters,up,posting'
        defaults="withpostings='*false' withanswers='*false' showchapters='*false' up='general'">
+<decel name='topics_line' params='time,arrow,text,title,href,count,class,indent,span'
+       defaults="time=0 arrow='*false' text='' title='' href='' count='' class='item' indent=0 span=1"
+       file='parts/topics.php'>
+<decel name='topics_table' params='class,span,title'
+       defaults="class='' span=1 title=''" file='parts/topics.php'>
+<decel name='topics_table_end' file='parts/topics.php'>
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,up'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' up='-1'">
@@ -113,6 +119,10 @@
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
 <decel name='userinfo' file='parts/userinfo.php' params='id,target'>
+
+<macro name='/topics_table'>
+ <topics_table_end>
+</macro>
 
 <macro name='bymessages'>
  <zone>

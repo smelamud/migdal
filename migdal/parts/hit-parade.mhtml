@@ -2,31 +2,12 @@
 
 <element name='hit_parade'>
 <grps>
-<table class='eightpt topics' width=100%>
- <col width=0*>
- <tr><th colspan=2>Избранное</th></tr>
- <tbody class='names'>
-  <iterate_postinglist grp='$grp' topic='$topic_id' limit=10 sort='*SORT_READ'
-                       recursive='*true'>
-  <for>
-   <tr>
-    <td>
-     <ifbiff time='$.Sent'>
-      <image src='pics/ner.gif' title='новое'>
-     <else>
-      &nbsp;
-     </ifbiff>
-    </td>
-    <td>
-     <if what='$.Grp==*GRP_ARTICLES'>
-      <a href='article.php?redirid=$_&artid=$.Id' class='item'>
-     <else>
-      <a href='forum.php?redirid=$_&msgid=$.Id' class='item'>
-     </if>
-      $.SubjectDesc&nbsp;<span class='answers'>($.ReadCount)</span></a>
-    </td>
-   </tr>
-  </for>
- </tbody>
-</table>
+<topics_table class='eightpt' title='Избранное'>
+ <iterate_postinglist grp='$grp' topic='$topic_id' limit=10 sort='*SORT_READ'
+		      recursive='*true'>
+ <for>
+  <topics_line time='$.Sent' href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
+               text='$.SubjectDesc' count='$.ReadCount'>
+ </for>
+</topics_table>
 </element>

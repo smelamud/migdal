@@ -1,15 +1,9 @@
 << @(#) $Id$ >>
 
 <grps>
-<element name='posting_further' params='id'>
- <asp><a href='forum.php?redirid=$_&msgid=$id'><asp>
-  <image src='pics/further.gif' border=0 title='Читать дальше'>
- <asp></a>&nbsp;<asp>
-</element>
-
-<element name='posting_further_article' params='id'>
- <asp><a href='article.php?redirid=$_&artid=$id'><asp>
-  <image src='pics/further.gif' border=0 title='Читать статью'>
+<element name='posting_further' params='posting,title'>
+ <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
+  <image src='pics/further.gif' border=0 title='$title'>
  <asp></a>&nbsp;<asp>
 </element>
 
@@ -48,16 +42,16 @@
     </ifne>
    </table>
   </ifnzero>
-  <if what='$shorten'>
+  <if what='$shorten && !$posting.hasLargeBody'>
    $posting.HTMLBodyMedium&nbsp;<asp>
    <if what='!$posting.isBodyMedium'>
-    <posting_further id='$posting.Id'>
+    <posting_further posting='$posting' title='Читать дальше'>
    </if>
   <else>
    $posting.HTMLBody&nbsp;<asp>
   </if>
   <if what='$posting.hasLargeBody'>
-   <posting_further_article id='$posting.Id'>
+   <posting_further posting='$posting' title='Читать статью'>
   </if>
   <ifne what='$posting.URL'>
    <posting_further_url url='$posting.URL'>

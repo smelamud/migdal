@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='ner' params='arrow,time' defaults='time=0'>
+<element name='topics_ner' params='arrow,time' defaults='time=0'>
 <if what='$arrow'>
  <ifbiff time='$time'>
   <image src='$$style_topics_ner_arrow' title='новое'>
@@ -16,96 +16,48 @@
 </if>
 </element>
 
-<element name='arrow' params='id,ident,time,topic_id'
-                      defaults="ident='' time=0">
-<td>
- <if what='$topic_id==$id || $topic_id===$ident'>
-  <ner time='$time' arrow='*true'>
- <else>
-  <ner time='$time' arrow='*false'>
- </if>
-</td>
-</element>
-
-<element name='navi_taglit' params='posting'>
-<topic_obj name='topic' id='taglit'>
+<element name='topics_line'>
 <tr>
- <posting_last topic_id='$topic.Id' recursive='*false'>
+ <ifnzero what='$indent'>
+  <tdspan span='$indent'>&nbsp;</tdspan>
+ </ifnzero>
  <td>
-  <if what='($posting.TopicId==$topic.Id || $posting.TopicId===$topic.Ident) && $posting.SenderId==0'>
-   <ner time='$,' arrow='*true'>
+  <topics_ner time='$time' arrow='$arrow'>
+ </td>
+ <tdspan span='$span'>
+  <ifne what='$title'>
+   <a href='$href' title='$title' class='$class'><asp>
   <else>
-   <ner time='$,' arrow='*false'>
-  </if>
- </td>
- <td colspan=2>
-  <a href='taglit.php' title='$topic.Description'
-     class='item large'>$topic.Name</a>
- </td>
+   <a href='$href' class='$class'><asp>
+  </ifne>
+     <asp>$text<asp>
+     <ifne what='$count'>&nbsp;<span class='answers'>($count)</span></ifne></a>
+ </tdspan>
 </tr>
-<if what='$posting.TopicId==$topic.Id || $posting.TopicId===$topic.Ident'>
- <iterate_posting_users topic_id='$topic.Id'>
- <for>
-  <tr class='eightpt'>
-   <td>&nbsp;</td>
-   <td>
-    <if what='$posting.SenderId==$.Id'>
-     <ner time='$.LastMessage' arrow='*true'>
-    <else>
-     <ner time='$.LastMessage' arrow='*false'>
-    </if>
-   </td>
-   <td><a href='taglit-user.php?user_id=$.Id' class='item'>$.FullName</a></td>
-  </tr>
- </for>
-</if>
 </element>
 
-<element name='topics'>
-<if what='$posting.Grp==*GRP_GALLERY'>
- <assign name='grp' value='*GRP_GALLERY'>
- <assign name='file' value='gallery.php'>
+<element name='topics_table'>
+<ifne what='$class'>
+ <assign name='tableclass' value#='topics $class'>
 <else>
- <if what='$posting.Grp==*GRP_FORUMS'>
-  <assign name='grp' value='*GRP_DISCUSS'>
-  <assign name='file' value='forumcatalog.php'>
- <else>
-  <assign name='grp' value='*GRP_TAPE'>
-  <assign name='file' value='index.php'>
- </if>
-</if>
-<iterate_topiclist grp='$grp' withpostings='$withpostings'
-                   withanswers='$withanswers' up='$up'>
-<table class='ninept topics' width=100%>
- <col width=0*>
- <col width=0*>
- <admin_topics>
-  <tr><td colspan=3>
-   <a href='topicedit.php?redirid=$_' class='edit'>Добавить</a>
-   <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
-  </td></tr>
- </admin_topics>
- <tbody class='names'>
-  <tr>
-   <arrow id='-1' topic_id='$posting.TopicId'>
-   <td colspan=2><a href='$file?topic_id=-1' class='new'>Все темы</a></td>
-  </tr>
-  <if what='$showchapters'>
-   <navi_taglit posting='$posting'>
+ <assign name='tableclass' value='topics'>
+</ifne>
+<table class='$tableclass' width=100%>
+ <ifnzero what='$span'>
+  <if what='$span>1'>
+   <col width=0* span=$span>
+  <else>
+   <col width=0*>
   </if>
-  <for>
-   <tr>
-    <arrow id='$.Id' time='$.LastMessage' topic_id='$posting.TopicId'>
-    <td colspan=2>
-     <a href='$file?topic_id=$.Id' title='$.Description' class='item'>
-	$.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
-     <admin_topics>
-      <br>
-      <a href='topicedit.php?editid=$.Id&redirid=$_' class='edit'>Изменить</a>
-     </admin_topics>
-    </td>
-   </tr>
-  </for>
+ </ifnzero>
+ <ifne what='$title'>
+  <assign name='headspan' value!='$span+1'>
+  <tr><th colspan=$headspan>$title</th></tr>
+ </ifne>
+ <tbody class='names'>
+</element>
+
+<element name='topics_table_end'>
  </tbody>
 </table>
 </element>
