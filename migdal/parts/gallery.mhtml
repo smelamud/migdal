@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.20 >>
+<< Based-on: migdal/parts/postings.mhtml 1.23 >>
 
 <element name='batcher_gallery' params='rows,cols,list,topic,grp'>
 <grpdata>

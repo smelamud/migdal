@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/postings.mhtml 1.11 >>
+<< Based-on: migdal/index.mhtml 1.12 >>
 
 <int name='topic_id'>
 <int name='grp'>
