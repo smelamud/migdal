@@ -53,12 +53,67 @@ function replaceParagraphs($s)
 return preg_replace('/\n\s*\n/','<p>',$s);
 }
 
+function getURLTag($url,$protocol,$content)
+{
+return "<a href='$url'".($protocol!='' ? ' target=_blank>' : '>').
+       "$content</a>";
+}
+
+function goFurther(&$out,$in,&$start,&$end,&$state,$target=0)
+{
+$out.=preg_replace('/(^|[\s.,:;\(\)])((\S+:\/)?\/\S*[^\s.,:;\(\)])/e',
+		   "'\\1'.getURLTag('\\2','\\3','\\2')",
+		   substr($in,$start,$end-$start));
+$start=$end;
+$state=$target;
+}
+
 function replaceURLs($s)
 {
-$c=preg_replace('/(^|[\s.,:;\(\)])(?:&#039;((?:[^&]*(?:&[^#;]+;)?)+)&#039;\s)?(\S+:\/)?(\/\S*[^\s.,:;\(\)])/e',
-                "('\\3'!='' ? '\\1<a href=\"\\3\\4\" target=_blank>'".
-		          " : '\\1<a href=\"\\4\">').".
-		"('\\2'=='' ? '\\3\\4' : '\\2').'</a>'",$s);
+$c='';
+$state=0;
+$st=0;
+$ed=0;
+while($ed<strlen($s))
+     switch($state)
+           {
+	   case 0:
+	        $ed=strpos($s,'&#039;',$st);
+		$ed=$ed===false ? strlen($s) : $ed;
+		goFurther($c,$s,$st,$ed,$state,1);
+		break;
+           case 1:
+	        $ed=$st+6;
+	        if($st==0 || !is_delim($s[$st-1]))
+		  goFurther($c,$s,$st,$ed,$state);
+		else
+		  $state=2;
+		break;
+	   case 2:
+	        $ed=strpos($s,'&#039;',$ed);
+		$ed=$ed===false ? strlen($s) : $ed+6;
+		$state=3;
+		break;
+	   case 3:
+                if(!preg_match('/^\s+((\S+:\/)?\/\S*[^\s.,:;\(\)])/',
+		               substr($s,$ed),$matches))
+		  {
+		  $ed-=6;
+		  goFurther($c,$s,$st,$ed,$state);
+		  }
+		else
+		  $state=4;
+		break;
+	   case 4:
+	        $c.=getURLTag($matches[1],$matches[2],
+		              substr($s,$st+6,$ed-$st-12));
+	        $st=$ed+strlen($matches[0]);
+		$ed=$st;
+		$state=0;
+		break;
+	   }
+if($ed>$st)
+  $c.=substr($s,$st,$ed-$st);
 $c=preg_replace('/[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*/',
                 '<a href="mailto:\\0">\\0</a>',$c);
 return $c;

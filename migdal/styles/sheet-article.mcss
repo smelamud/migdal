@@ -103,7 +103,7 @@
 }
 
 .article .preface {
-	border-left: solid 3px %article_preface;
+	border-left: solid 5px %article_preface;
 	padding-left: 1ex;
 }
 
