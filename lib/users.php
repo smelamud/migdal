@@ -228,6 +228,11 @@ function isOnline()
 return isset($this->online);
 }
 
+function isTooOld()
+{
+return time()-$this->getLastOnline()>365*24*60*60;
+}
+
 function getLastOnline()
 {
 return strtotime($this->last_online);

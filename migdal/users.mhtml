@@ -32,7 +32,11 @@
     <if what='$.isOnline'>
      <td align=center>Сейчас</td>
     <else>
-     <td><sentview date='$.LastOnline'></td>
+     <if what='$.isTooOld'>
+      <td align=center>Очень давно</td>
+     <else>
+      <td><sentview date='$.LastOnline'></td>
+     </if>
     </if>
    </tr>
   </for>
