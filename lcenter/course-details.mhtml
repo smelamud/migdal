@@ -23,7 +23,7 @@
     <p><table>
      <for>
       <tr valign=center>
-       <td align=right><image src='pics/pdf.gif' border=0></td>
+       <td width=16 align=right><image src='pics/pdf.gif' border=0></td>
        <td>&nbsp;</td>
        <td>
 	<a href='$.Href'>Сборник учебных материалов по курсу</a>
