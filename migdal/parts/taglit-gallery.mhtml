@@ -21,7 +21,9 @@
 <table width=100%>
  <tr valign=top>
   <for>
-   <td><picture picture='$.' grp='*GRP_GALLERY' showtopic='*false'></td>
+   <td>
+    <picture picture='$.' grp='*GRP_GALLERY' showtopic='*false' up=$taglit_id>
+   </td>
    <if what='$;isEol'>
     </tr><tr valign=top>
    </if>

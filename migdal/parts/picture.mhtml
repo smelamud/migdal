@@ -2,7 +2,7 @@
 << Based-on: migdal/parts/posting.mhtml 1.21 >>
 
 <grps>
-<element name='Picture'>
+<element name='picture'>
 <if what='$picture.isRebe'><span class='rebe'></if>
  <table class='picture'>
   <tr class='top'><td align=right>
@@ -25,7 +25,7 @@
   <logged>
    <tr><td class='modify'>
     <isedit what='$picture'>
-     <a href="postingedit.php?editid=$picture.Id&up=general&grp=$picture.Grp&redirid=$_"
+     <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&up=$up&grp=$picture.Grp&redirid=$_"
       >Изменить</a>
     <else>
      <if what='$showcomplain'>
