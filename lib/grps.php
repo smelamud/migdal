@@ -1,5 +1,4 @@
 <?php
-define('GRP_ANY',0);
 define('GRP_FORUMS',1);
 define('GRP_NEWS',2);
 define('GRP_GALLERY',4);
@@ -51,18 +50,9 @@ return $result;
 
 function getPackedGrpFilter($grp,$prefix='')
 {
-return $grp==GRP_ANY ? ''
-                     : 'and ('.
-		       join(' or ',enclose(getGrpNumbers($grp),$prefix.'grp=')).
-		       ')';
-}
-
-function getUnpackedGrpFilter($grp,$prefix='')
-{
-return $grp==GRP_ANY ? ''
-                     : 'and ('.
-		       join(' or ',enclose(getGrpNames($grp),$prefix.'no_','=0')).
-		       ')';
+return $grp=='and ('
+             .join(' or ',enclose(getGrpNumbers($grp),$prefix.'grp=')).
+	     ')';
 }
 
 $grpClassNames=array(GRP_FORUMS   => 'Forum',

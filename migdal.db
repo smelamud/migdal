@@ -283,10 +283,8 @@ CREATE TABLE topics (
   name varchar(70) NOT NULL default '',
   description varchar(250) NOT NULL default '',
   hidden tinyint(4) NOT NULL default '0',
-  no_news tinyint(4) NOT NULL default '0',
-  no_forums tinyint(4) NOT NULL default '0',
-  no_gallery tinyint(4) NOT NULL default '0',
-  no_articles tinyint(4) NOT NULL default '0',
+  allow int(11) NOT NULL default '0',
+  premoderate int(11) NOT NULL default '0',
   ident varchar(15) NOT NULL default '',
   PRIMARY KEY  (id),
   KEY ident (ident),
@@ -318,6 +316,7 @@ CREATE TABLE users (
   email_disabled tinyint(4) NOT NULL default '0',
   accepts_complains tinyint(4) NOT NULL default '0',
   rebe tinyint(4) NOT NULL default '0',
+  shames tinyint(4) NOT NULL default '0',
   admin_users tinyint(4) NOT NULL default '0',
   admin_topics tinyint(4) NOT NULL default '0',
   admin_menu tinyint(4) NOT NULL default '0',
@@ -347,6 +346,7 @@ CREATE TABLE users (
 
 INSERT INTO complain_types VALUES (1,'normal','',0,'parts/cs_normal.php');
 INSERT INTO complain_types VALUES (2,'forum','moderator',0,'parts/cs_forum.php');
+INSERT INTO complain_types VALUES (3,'posting','moderator',0,'parts/cs_posting.php');
 
 #
 # Dumping data for table 'complain_statements'

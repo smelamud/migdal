@@ -1,25 +1,25 @@
 <?php
 require_once('lib/grps.php');
 
-$grpTitles=array(GRP_ANY      => 'Все сообщения',
-                 GRP_FORUMS   => 'Форумы',
+$grpTitles=array(GRP_FORUMS   => 'Форумы',
                  GRP_NEWS     => 'Новости',
 		 GRP_GALLERY  => 'Галерея',
-		 GRP_ARTICLES => 'Статьи');
-$grpOneTitles=array(GRP_ANY      => 'Все сообщения',
-                    GRP_FORUMS   => 'Форум',
+		 GRP_ARTICLES => 'Статьи',
+                 GRP_ALL      => 'Все сообщения');
+$grpOneTitles=array(GRP_FORUMS   => 'Форум',
                     GRP_NEWS     => 'Новости',
 	   	    GRP_GALLERY  => 'Галерея',
-		    GRP_ARTICLES => 'Статьи');
+		    GRP_ARTICLES => 'Статьи',
+                    GRP_ALL      => 'Все сообщения');
 $grpItemTitles=array(GRP_FORUMS   => 'сообщение',
                      GRP_NEWS     => 'новость',
 		     GRP_GALLERY  => 'картинку',
 		     GRP_ARTICLES => 'статью');
-$grpIdents=array(GRP_ANY      => 'messages',
-                 GRP_FORUMS   => 'forums',
+$grpIdents=array(GRP_FORUMS   => 'forums',
                  GRP_NEWS     => 'news',
 		 GRP_GALLERY  => 'gallery',
-		 GRP_ARTICLES => 'articles');
+		 GRP_ARTICLES => 'articles',
+                 GRP_ALL      => 'messages');
 
 function getGrpTitle($grp)
 {
@@ -79,7 +79,7 @@ return !$this->getValid();
 
 function getEffective()
 {
-return $this->ignore ? GRP_ANY : $this->grp;
+return $this->ignore ? GRP_ALL : $this->grp;
 }
 
 function getIgnore()
