@@ -2,21 +2,61 @@
 
 <grps>
 
+<element name='topic' params='posting'>
+<dt class='subject'>
+ <a href='taglit-user.php?user_id=$posting.SenderId'
+    class='topic' title='$posting.TopicDescription'>
+  $posting.TopicName</a>
+</dt>
+</element>
+
 <element name='further' params='posting'>
  <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
   <image src='pics/further.gif' border=0 title='Читать дальше'>
  <asp></a>&nbsp;<asp>
 </element>
 
+<element name='controls' params='posting,showdiscuss,showcomplain,len'>
+<if what='$$userId>0 || $showdiscuss'>
+ <table width=$len class='bottom'><tr>
+  <td>
+   <isedit what='$posting'>
+    <a href="postingedit.php?editid=$posting.Id&root=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
+     >Изменить</a>
+    <if what='$posting.isModerable'>
+     &nbsp;
+     <if what='$posting.isDisabled'>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+       >Разрешить&nbsp;показ</a>
+     <else>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+       >Запретить&nbsp;показ</a>
+     </if>
+     &nbsp;
+     <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
+      >Осовременить</a>
+    </if>
+   <else>
+    <if what='!$posting.isModerable && $showcomplain'>
+     <logged>
+      <a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
+       >Жалоба</a>
+     </logged>
+    </if>
+   </isedit>
+  </td>
+  <if what='$showdiscuss'>
+   <td align=right><discusslink posting='$posting'></td>
+  </if>
+ </tr></table>
+</if>
+</element>
+
 <element name='tip_posting'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <if what='$showtopic'>
   <dl class='posting'>
-   <dt class='subject'>
-    <a href='taglit-user.php?user_id=$posting.SenderId'
-       class='topic' title='$posting.TopicDescription'>
-     $posting.TopicName</a>
-   </dt>
+   <topic posting='$posting'>
    <dd>
    <assign name='len' value='90%'>
   <else>
@@ -42,39 +82,8 @@
     <senderlink message='$posting'>
    </td>
   </tr></table>
-  <if what='$$userId>0 || $showdiscuss'>
-   <table width=$len class='bottom'><tr>
-    <td>
-     <isedit what='$posting'>
-      <a href="postingedit.php?editid=$posting.Id&root=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
-       >Изменить</a>
-      <if what='$posting.isModerable'>
-       &nbsp;
-       <if what='$posting.isDisabled'>
-	<a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	 >Разрешить&nbsp;показ</a>
-       <else>
-	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	 >Запретить&nbsp;показ</a>
-       </if>
-       &nbsp;
-       <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
-        >Осовременить</a>
-      </if>
-     <else>
-      <if what='!$posting.isModerable && $showcomplain'>
-       <logged>
-	<a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
-	 >Жалоба</a>
-       </logged>
-      </if>
-     </isedit>
-    </td>
-    <if what='$showdiscuss'>
-     <td align=right><discusslink posting='$posting'></td>
-    </if>
-   </tr></table>
-  </if>
+  <controls posting='$posting' showdiscuss='$showdiscuss'
+            showcomplain='$showcomplain' len='$len'>
  <if what='$showtopic'></dl><else></div></if>
 <if what='$posting.isRebe'></span></if>
 </element>

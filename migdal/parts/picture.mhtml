@@ -2,6 +2,42 @@
 
 <grps>
 
+<element name='topic' params='picture,topiclink,showtopic'>
+<if what='$showtopic'>
+ <tr><td class='topic'>
+   <a href='$topiclink' class='topic' title='$picture.TopicDescription'>
+    $picture.TopicName
+   </a>
+ </td></tr>
+</if>
+</element>
+
+<element name='controls' params='picture,root,showcomplain'>
+<logged>
+ <tr><td class='modify'>
+  <isedit what='$picture'>
+   <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$root&grp=$picture.Grp&redirid=$_"
+    >Изменить</a>
+  <else>
+   <if what='$showcomplain'>
+    <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
+     >Жалоба</a>
+   </if>
+  </isedit>
+  <admin_domain>
+   <br>
+   <ifzero what='$picture.Subdomain'>
+    <a href="actions/domainmod.php?editid=$picture.Id&domain=1&okdir=$#-&faildir=$#-"
+     >На&nbsp;официальную</a>
+   <else>
+    <a href="actions/domainmod.php?editid=$picture.Id&domain=0&okdir=$#-&faildir=$#-"
+     >Убрать&nbsp;с&nbsp;официальной</a>
+   </if>
+  </admin_domain>
+ </td></tr>
+</logged>
+</element>
+
 <element name='picture'>
 <if what='$picture.isRebe'><span class='rebe'></if>
  <table class='picture'>
@@ -9,13 +45,7 @@
    <biff time='$picture.Sent' small='*true'>
    <senderlink message='$picture'>
   </td></tr>
-  <if what='$showtopic'>
-   <tr><td class='topic'>
-     <a href='$topiclink' class='topic' title='$picture.TopicDescription'>
-      $picture.TopicName
-     </a>
-   </td></tr>
-  </if>
+  <topic picture='$picture' topiclink='$topiclink' showtopic='$showtopic'>
   <tr><td align=right>
    <vote_frame id='$picture.Id' color='$$style_picture_back'
                image='$$style_picture_back_pic'>
@@ -25,30 +55,7 @@
     <image_linked_tag id='$picture.ImageId' enlarge='$picture.hasLargeImage'>
    </td></tr>
   </ifnzero>
-  <logged>
-   <tr><td class='modify'>
-    <isedit what='$picture'>
-     <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$root&grp=$picture.Grp&redirid=$_"
-      >Изменить</a>
-    <else>
-     <if what='$showcomplain'>
-      <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
-       >Жалоба</a>
-     </if>
-    </isedit>
-   </td></tr>
-  </logged>
-  <admin_domain>
-   <tr><td class='modify'>
-    <ifzero what='$picture.Subdomain'>
-     <a href="actions/domainmod.php?editid=$picture.Id&domain=1&okdir=$#-&faildir=$#-"
-      >На&nbsp;официальную</a>
-    <else>
-     <a href="actions/domainmod.php?editid=$picture.Id&domain=0&okdir=$#-&faildir=$#-"
-      >Убрать&nbsp;с&nbsp;официальной</a>
-    </if>
-   </td></tr>
-  </admin_domain>
+  <controls picture='$picture' root='$root' showcomplain='$showcomplain'>
   <tr><td class='body'>
    $picture.HTMLBody
   </td></tr>

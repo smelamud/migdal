@@ -1,5 +1,13 @@
 << @(#) $Id$ >>
 
+<element name='topic' params='posting,showtopic'>
+<if what='$showtopic'>
+ <a href='index.php?topic_id=$posting.TopicId' class='topic'
+    title='$posting.TopicDescription'>$posting.TopicName</a>
+ <br>
+</if>
+</element>
+
 <element name='further' params='posting,title'>
  <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
   <image src='pics/further.gif' border=0 title='$title'>
@@ -13,17 +21,57 @@
  <asp></a>&nbsp;<asp>
 </element>
 
+<element name='controls' params='posting,showdiscuss,showcomplain'>
+<if what='$$userId>0 || $showdiscuss || $posting.hasLargeBody'>
+ <table width=90% class='bottom'><tr>
+  <td>
+   <admin_domain>
+    <ifzero what='$posting.Subdomain'>
+     <a href="actions/domainmod.php?editid=$posting.Id&domain=1&okdir=$#-&faildir=$#-"
+      >На&nbsp;официальную</a>
+    <else>
+     <a href="actions/domainmod.php?editid=$posting.Id&domain=0&okdir=$#-&faildir=$#-"
+      >Убрать&nbsp;с&nbsp;официальной</a>
+    </if>
+    &nbsp;
+   </admin_domain>
+   <isedit what='$posting'>
+    <a href="postingedit.php?editid=$posting.Id&root=general&grp=$posting.Grp&redirid=$_"
+     >Изменить</a>
+    <if what='$posting.isModerable'>
+     &nbsp;
+     <if what='$posting.isDisabled'>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+       >Разрешить&nbsp;показ</a>
+     <else>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+       >Запретить&nbsp;показ</a>
+     </if>
+     &nbsp;
+     <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
+      >Осовременить</a>
+    </if>
+   <else>
+    <if what='!$posting.isModerable && $showcomplain'>
+     <logged>
+      <a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
+       >Жалоба</a>
+     </logged>
+    </if>
+   </isedit>
+  </td>
+  <if what='$showdiscuss'>
+   <td align=right><discusslink posting='$posting'></td>
+  </if>
+ </tr></table>
+</if>
+</element>
+
 <element name='posting_general'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <dl class='posting'>
   <dt class='subject'>
-   <if what='$showtopic'>
-    <a href='index.php?topic_id=$posting.TopicId'
-       class='topic' title='$posting.TopicDescription'>
-     $posting.TopicName
-    </a>
-    <br>
-   </if>
+   <topic posting='$posting' showtopic='$showtopic'>
    <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
                image='$$style_cframe_back_pic'>
    <biff time='$posting.Sent'>
@@ -69,49 +117,8 @@
     </td>
    </ifne>
   </tr></table>
-  <if what='$$userId>0 || $showdiscuss || $posting.hasLargeBody'>
-   <table width=90% class='bottom'><tr>
-    <td>
-     <admin_domain>
-      <ifzero what='$posting.Subdomain'>
-       <a href="actions/domainmod.php?editid=$posting.Id&domain=1&okdir=$#-&faildir=$#-"
-	>На&nbsp;официальную</a>
-      <else>
-       <a href="actions/domainmod.php?editid=$posting.Id&domain=0&okdir=$#-&faildir=$#-"
-	>Убрать&nbsp;с&nbsp;официальной</a>
-      </if>
-      &nbsp;
-     </admin_domain>
-     <isedit what='$posting'>
-      <a href="postingedit.php?editid=$posting.Id&root=general&grp=$posting.Grp&redirid=$_"
-       >Изменить</a>
-      <if what='$posting.isModerable'>
-       &nbsp;
-       <if what='$posting.isDisabled'>
-	<a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	 >Разрешить&nbsp;показ</a>
-       <else>
-	<a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	 >Запретить&nbsp;показ</a>
-       </if>
-       &nbsp;
-       <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
-        >Осовременить</a>
-      </if>
-     <else>
-      <if what='!$posting.isModerable && $showcomplain'>
-       <logged>
-	<a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
-	 >Жалоба</a>
-       </logged>
-      </if>
-     </isedit>
-    </td>
-    <if what='$showdiscuss'>
-     <td align=right><discusslink posting='$posting'></td>
-    </if>
-   </tr></table>
-  </if>
+  <controls posting='$posting' showdiscuss='$showdiscuss'
+            showcomplain='$showcomplain'>
  </dl>
 <if what='$posting.isRebe'></span></if>
 </element>
