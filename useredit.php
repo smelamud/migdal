@@ -95,22 +95,19 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
       ?>
       <td>Дата рождения</td>
       <td colspan=3>
-       <input type=text name='birth_day' size=2 maxlength=2 value=1>
+       <input type=text name='birth_day' size=2 maxlength=2
+              value=<?php echo $user->getDayOfBirth() ?>>
        <select name='birth_month'>
-        <option selected value=1>январь</option>
-        <option value=2>февраль</option>
-        <option value=3>март</option>
-        <option value=4>апрель</option>
-        <option value=5>май</option>
-        <option value=6>июнь</option>
-        <option value=7>июль</option>
-        <option value=8>август</option>
-        <option value=9>сентябрь</option>
-        <option value=10>октябрь</option>
-        <option value=11>ноябрь</option>
-        <option value=12>декабрь</option>
+        <?php
+        foreach(array(1 => 'январь','февраль','март','апрель','май','июнь',
+	              'июль','август','сентябрь','октябрь','ноябрь','декабрь')
+		as $key=>$value)
+	       echo "<option ".($user->isMonthOfBirth($key) ? 'selected' : '')
+	                      ." value=$key>$value</option>";
+	?>
        </select>
-       19<input type=text name='birth_year' size=2 maxlength=2 value='00'>
+       19<input type=text name='birth_year' size=2 maxlength=2
+                value='<?php echo $user->getYearOfBirth()?>'>
       </td>
       <?php
       }

@@ -31,8 +31,12 @@ function setupHTTP($vars)
 {
 if(!isset($vars['login']))
   return;
-foreach(array('login','name','jewish_name') as $var)
+foreach(array('login','name','jewish_name','surname','migdal_student','info',
+              'email','icq') as $var)
        $this->$var=quotemeta($vars[$var]);
+$this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
+                                        .'-'.$vars['birth_day'];
+$this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 }
 
 function isEditable()
@@ -89,6 +93,29 @@ function getBirthday()
 {
 $bt=explode('-',$this->birthday);
 return $bt[2].' '.getRussianMonth((int)$bt[1]).' '.$bt[0];
+}
+
+function getDayOfBirth()
+{
+$bt=explode('-',$this->birthday);
+return $bt[2];
+}
+
+function getMonthOfBirth()
+{
+$bt=explode('-',$this->birthday);
+return $bt[1];
+}
+
+function isMonthOfBirth($month)
+{
+return $this->getMonthOfBirth()==$month;
+}
+
+function getYearOfBirth()
+{
+$bt=explode('-',$this->birthday);
+return substr($bt[0],2);
 }
 
 function isMigdalStudent()
