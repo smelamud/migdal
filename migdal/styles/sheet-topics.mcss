@@ -1,7 +1,6 @@
 ! @(#) $Id$
 
 .topics {
-	margin-left: 5px;
 	margin-top: 10px;
 	border-spacing: 0;
 }
