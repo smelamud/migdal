@@ -440,4 +440,21 @@ $result=mysql_query(
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }
+
+function getLastPostingDate($grp=GRP_ALL,$topic_id=-1)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$tf=$topic_id>=0 ? "and topic_id=$topic_id" : '';
+$result=mysql_query(
+        "select max(sent)
+         from postings
+	      left join messages
+	           on postings.message_id=messages.id
+	 where (hidden<$hide or sender_id=$userId) and
+	       (disabled<$hide or sender_id=$userId) and
+               (grp & $grp)<>0 $tf");
+return mysql_num_rows($result)>0 ? strtotime(mysql_result($result,0,0)) : 0;
+}
 ?>

@@ -39,7 +39,15 @@
  <grayed group='news' file='new' title='Новости'>
  <grayed group='forums' file='opinion' title='Мнения'>
  <grayed group='articles' file='article' title='Статьи'>
- <grayed group='gallery' file='gall' link='gallery.php' title='Галерея'>
+ <zone>
+  <posting_last grp='*GRP_GALLERY'>
+  <ifbiff time='$,'>
+   <grayed group='gallery' file='gall-ner' link='gallery.php'
+	   title='Галерея (новое)'>
+  <else>
+   <grayed group='gallery' file='gall' link='gallery.php' title='Галерея'>
+  </ifbiff>
+ </zone>
 </if>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%>
