@@ -31,8 +31,7 @@
      <grpselect name='topic_grp' value='$topic_grp' mandatory='*true'>
      <tr><td colspan=2>&nbsp;</td></tr>
      <tr><td colspan=2><i>С сообщениями</i></td></tr>
-     <topicselect name='peer_id' value='$peer_id' grp='*GRP_LINKS'
-		  mandatory='*true' root='-1' recursive='*true'>
+     <topicselect name='peer_id' value='$peer_id' mandatory='*true' root='-1'>
      <grpselect name='peer_grp' value='$peer_grp' mandatory='*true'>
      <formbuttons title='Добавить' span=2>
     </table>
