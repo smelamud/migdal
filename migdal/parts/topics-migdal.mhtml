@@ -103,8 +103,25 @@
 </topics_table>
 </element>
 
+<element name='topics_museum' params='posting'>
+<topics_table title='Музей евреев Одессы' span=2>
+ <posting_obj id='$`postings:museum`'>
+ <topics_line time='$,Sent' text='О музее' span=2
+              href#='migdal.php?artid=$`postings:museum`'
+              arrow!='$posting.Id==$`postings:museum`' class='item ninept'>
+ <posting_last grp='*GRP_NEWS' topic_id='$`museum-news`' recursive='*false'>
+ <topics_line time='$,' text='Новости' indent=1
+              href#='migdal-news.php?topic_id=$`museum-news`'
+              arrow!='$posting.Grp==*GRP_NEWS &&
+	              $posting.TopicId==$`museum-news`'
+	      class='item eightpt'>
+</topics_table>
+</element>
+
 <element name='topics_migdal'>
+
 <grps>
+
 <if what='$/$posting.TopicId,1/==$`jcc`'>
  <topics_jcc posting='$posting'>
 </if>
@@ -118,20 +135,13 @@
 <if what='$/$posting.TopicId,1/==$`migdal-library`'>
  <topics_migdal_library posting='$posting'>
 </if>
+<if what='$/$posting.TopicId,1/==$`museum` ||
+          $/$posting.TopicId,2/==$`museum-news`'>
+ <topics_museum posting='$posting'>
+</if>
+
 <topic_obj name='migdal' id='$`migdal`'>
 <topics_table title='$,Name' span=2>
- <ispost what='$migdal'>
-  <tr><td colspan=3>
-   <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
-      class='edit'>Добавить</a>
-  </td></tr>
-  <tr><td colspan=3>
-   <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
-      class='edit'>Расставить</a>
-  </td></tr>
- </ispost>
- <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-                      topic_id='$,Id' recursive='*false'>
  <posting_obj id='$`postings:migdal`'>
  <topics_line time='$,Sent' text='$,Subject' href#='migdal.php'
               arrow!='$,Id==$posting.Id' indent=0 span=2 class='item ninept'>
@@ -148,12 +158,16 @@
  <topics_line time='$,' href#='migdal-library.php' text='Библиотека'
 	      arrow!="$/$posting.TopicId,1/==$`migdal-library`" indent=1
 	      class='item eightpt'>
- <for>
-  <if what='$.Id!=$`postings:migdal`'>
-   <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
-                arrow!='$.Id==$posting.Id' indent=1 span=1 class='item eightpt'>
-  </if>
- </for>
+ <posting_last topic_id='$`museum`' recursive='*true'>
+ <topics_line time='$,' href#='migdal.php?artid=$`postings:museum`'
+              text='Музей евреев Одессы'
+              arrow!="$/$posting.TopicId,1/==$`museum` ||
+                      $/$posting.TopicId,2/==$`museum-news`" indent=1
+	      class='item eightpt'>
+ <topics_line time='$,' href#='migdal.php?artid=$`postings:migdal-ohr`'
+              text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+              arrow!="$/$posting.TopicId,1/==$`migdal-ohr`" indent=1
+	      class='item eightpt'>
  <posting_last topic_id='$`mazltov`' recursive='*true'>
  <topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`'
               text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
@@ -183,6 +197,9 @@
 <posting_last topic_id='$`migdal-library`' recursive='*true'>
 <topics_line time='$,' href#='migdal-library.php' indent=1 text='Библиотека'
              class='item eightpt'>
+<posting_last topic_id='$`museum`' recursive='*true'>
+<topics_line time='$,' href#='migdal.php?artid=$`postings:museum`' indent=1
+             text='Музей евреев Одессы' class='item eightpt'>
 <for>
  <if what='$.Id!=$`postings:migdal`'>
   <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
