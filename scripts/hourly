@@ -169,6 +169,7 @@ sub run
 clearSessions();
 clearUsers();
 clearTmpTexts();
+clearRedirs();
 clearImages();
 closeComplains();
 }
