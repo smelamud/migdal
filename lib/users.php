@@ -27,6 +27,14 @@ function User($row)
 $this->DataObject($row);
 }
 
+function setupHTTP($vars)
+{
+if(!isset($vars['login']))
+  return;
+foreach(array('login','name','jewish_name') as $var)
+       $this->$var=quotemeta($vars[$var]);
+}
+
 function isEditable()
 {
 return $this->id==0;

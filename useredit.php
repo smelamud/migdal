@@ -49,12 +49,13 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
     <?php
     }
   $user=getUserById($editid);
+  $user->setupHTTP($HTTP_GET_VARS);
   if($user->isEditable())
     {
     ?>
     <center><h1>Введите информацию о себе</h1></center>
     <form method=post action='actions/usermod.php'>
-    <input type=hidden name='redir' value='<?php echo $REQUEST_URI ?>'>
+    <input type=hidden name='editid' value='<?php echo $editid ?>'>
     <?php
     }
   ?>
