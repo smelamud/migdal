@@ -180,6 +180,8 @@ CREATE TABLE mailings (
 
 CREATE TABLE messages (
   id int(11) NOT NULL auto_increment,
+  up int(11) NOT NULL default '0',
+  track varchar(255) NOT NULL default '',
   subject varchar(250) NOT NULL default '',
   author varchar(250) NOT NULL default '',
   source varchar(250) NOT NULL default '',
@@ -191,7 +193,8 @@ CREATE TABLE messages (
   url varchar(250) NOT NULL default '',
   PRIMARY KEY  (id),
   KEY sender_id (sender_id),
-  KEY stotext_id (stotext_id)
+  KEY stotext_id (stotext_id),
+  KEY up (up,track)
 ) TYPE=MyISAM;
 
 --

@@ -346,7 +346,7 @@ global $userId,$userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query(
-       "select topics.id as id,up,topics.name as name,
+       "select topics.id as id,topics.up as up,topics.name as name,
                topics.stotext_id as stotext_id,
                stotexts.body as description,image_set,
 	       large_filename,large_format,

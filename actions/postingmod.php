@@ -16,6 +16,7 @@ require_once('lib/image-upload.php');
 require_once('lib/postings.php');
 require_once('lib/complains.php');
 require_once('lib/stotext.php');
+require_once('lib/track.php');
 
 function setImageTitle($image_set,$title)
 {
@@ -104,8 +105,15 @@ if($message->stotext->image_set!=0
   return EP_NO_IMAGE;
 if($message->personal_id!=0 && !personalExists($message->personal_id))
   return EP_NO_PERSONAL;
+if($message->up!=0 && !messageExists($message->up))
+  return EP_NO_UP;
+if($message->up!=0 && $message->up==$message->message_id)
+  return EP_LOOP_UP;
+$message->track='';
 if(!$message->store())
   return EP_STORE_SQL;
+if(!updateTracks('messages',$message->message_id))
+  return EP_TRACK_SQL;
 if(!setDisabled($message))
   return EP_DISABLE_SQL;
 return EP_OK;
@@ -114,6 +122,7 @@ return EP_OK;
 postInteger('editid');
 postInteger('grp');
 postInteger('index1');
+postInteger('up');
 postString('body');
 postString('large_body');
 postString('subject');

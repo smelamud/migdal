@@ -55,6 +55,9 @@ define('EP_SOURCE_ABSENT',1318);
 define('EP_OWNED_TOPIC',1319);
 define('EP_URL_ABSENT',1320);
 define('EP_INDEX1_ABSENT',1321);
+define('EP_NO_UP',1322);
+define('EP_LOOP_UP',1323);
+define('EP_TRACK_SQL',1324);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);

@@ -13,6 +13,8 @@ class Message
       extends SenderTag
 {
 var $id;
+var $up;
+var $track;
 var $subject;
 var $author;
 var $source;
@@ -53,12 +55,13 @@ if(isset($vars['urlid']))
 
 function getCorrespondentVars()
 {
-return array('subject','author','source','hidden','disabled','url');
+return array('up','subject','author','source','hidden','disabled','url');
 }
 
 function getWorldVars()
 {
-return array('subject','author','source','hidden','sender_id','url');
+return array('up','track','subject','author','source','hidden','sender_id',
+             'url');
 }
 
 function getAdminVars()
