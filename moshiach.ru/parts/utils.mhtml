@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/utils.mhtml 1.2 >>
+<< Based-on: demo/parts/utils.mhtml 1.2 >>
 
 <element name='perror'>
 <if what='$$err==$id'>
