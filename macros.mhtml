@@ -146,6 +146,11 @@
  <zone><image_tag id='$posting.ImageId'>$,</zone>
 </macro>
 
+<macro name='menu_obj' defaults='name=menu id=0'>
+ <require name='lib/menu.php'>
+ <call name='%name' func='getMenuItemById' arg1='%id'>
+</macro>
+
 <macro name='posting_obj' defaults='name=message grp=0 topic=0'>
  <require name='lib/postings.php'>
  <call name='%name' func='getPostingById' arg1='%id' arg2='%grp' arg3='%topic'>
@@ -261,6 +266,14 @@
 </macro>
 
 <macro name='/admin_topics'>
+ </if>
+</macro>
+
+<macro name='admin_menu'>
+ <if what='$$userAdminMenu'>
+</macro>
+
+<macro name='/admin_menu'>
  </if>
 </macro>
 

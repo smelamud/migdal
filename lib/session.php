@@ -5,7 +5,7 @@ require_once('conf/migdal.conf');
 
 require_once('lib/utils.php');
 
-$userRightNames=array('login','hidden','admin_users','admin_topics',
+$userRightNames=array('login','hidden','admin_users','admin_topics','admin_menu',
                       'moderator','judge');
 $userSetNames=array('mp'  => 'msg_portion',
                     'fp'  => 'forum_portion',

@@ -82,4 +82,11 @@ define('EFA_IMAGE_ABSENT',204);
 define('EFA_NO_IMAGE',205);
 define('EFA_NO_UP',206);
 define('EFA_STORE_SQL',207);
+
+define('EMI_OK',210);
+define('EMI_NO_EDIT',211);
+define('EMI_NAME_ABSENT',212);
+define('EMI_IDENT_ABSENT',213);
+define('EMI_IDENT_UNIQUE',214);
+define('EMI_STORE_SQL',215);
 ?>

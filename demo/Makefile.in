@@ -4,8 +4,8 @@
 
 OBJECTS = chat.php chatboard.php complainanswer.php complainedit.php \
           complainforum.php complains.php forum.php forumansweredit.php index.php \
-	  postingedit.php postings.php topics.php topicedit.php useredit.php \
-	  userfin.php userok.php users.php
+	  menuedit.php postingedit.php postings.php topics.php topicedit.php \
+	  useredit.php userfin.php userok.php users.php
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@

@@ -279,6 +279,7 @@ CREATE TABLE users (
   rebe tinyint(4) NOT NULL default '0',
   admin_users tinyint(4) NOT NULL default '0',
   admin_topics tinyint(4) NOT NULL default '0',
+  admin_menu tinyint(4) NOT NULL default '0',
   moderator tinyint(4) NOT NULL default '0',
   judge tinyint(4) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',

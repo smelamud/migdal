@@ -9,4 +9,6 @@
   <a href='$.Link'>[$.Name]</a>
  </if>
 </for>
+&nbsp;
+<admin_menu><a href='menuedit.php'>Изменить</a></admin_menu>
 </element>

@@ -1,0 +1,61 @@
+<< @(#) $Id$ >>
+
+<int name='menuid'>
+<html>
+<head>
+ <title>Демо - Главное меню</title>
+</head>
+<body bgcolor=white>
+ <menu_obj id='$menuid'>
+ <setup>
+ <top ident='$,Ident'>
+ <center><h1>Главное меню</h1></center>
+ <p>
+ <table width=100%><tr valign=top>
+  <td>
+   <iterate_menu ident='$menuid'>
+   <for>
+    <if what='$.isCurrent'>
+     <a href='$[menuid=$.Id]'><b>$.Name</b></a>
+    <else>
+     <a href='$[menuid=$.Id]'>$.Name</a>
+    </if>
+    <br>
+   </for>
+   <p>
+   <ifzero what='$menuid'>
+    <a href='$[menuid=0]'><b>&lt;Добавить&gt;</b></a>
+   <else>
+    <a href='$[menuid=0]'>&lt;Добавить&gt;</a>
+   </ifzero>
+  </td>
+  <td>
+   <form method=post action='actions/menumod.php'>
+    <input type=hidden name='edittag' value=1>
+    <input type=hidden name='editid' value='$menuid'>
+    <table>
+     <error id='*EMI_NO_EDIT' text='Вы не администратор' span=2>
+     <error id='*EMI_NAME_ABSENT' text='Название не указано' span=2>
+     <error id='*EMI_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+            color='magenta' span=2>
+     <edit_line title='Название' name='name' value='$,Name' size=30 maxlength=30>
+     <error id='*EMI_IDENT_ABSENT' text='Обозначение не указано' span=2>
+     <error id='*EMI_IDENT_UNIQUE' text='Так уже обозначен другой пункт меню' span=2>
+     <edit_line title='Обозначение' name='ident' value='$,Ident' size=15
+                maxlength=15>
+     <edit_line title='Ссылка' name='link' value='$,Link' size=40 maxlength=70>
+     <tr><td></td><td>
+      <checkbox name='hidden' value='$,isHidden' title='Не показывать'>
+     </td>
+    </table>
+   <if what='$menuid'>
+    <input type=submit value='Изменить'>
+   <else>
+    <input type=submit value='Добавить'>
+   </if>
+   <input type=reset value='Очистить'>
+   </form>
+  </td>
+ </tr></table>
+</body>
+</html>

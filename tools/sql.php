@@ -95,11 +95,11 @@ if($sql!='')
   execute();
 
 if($dbname=='')
-  $dbname=$dbHost;
+  $dbname=$dbName;
 if($dbuser=='')
-  $dbuser=$dbName;
+  $dbuser=$dbUser;
 if($dbhost=='')
-  $dbhost=$dbUser;
+  $dbhost=$dbHost;
 ?>
 <html>
 <head><title>Migdal - SQL</title></head>
