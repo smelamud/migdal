@@ -21,8 +21,8 @@
    </td>
    <td>&nbsp;</td>
    <td>
-    <a href='reorder.php?topic_id=$`printings`&grp=*GRP_LIBRARY_ANNOUNCES&up=-1&redirid=$_'
-       >Расставить</a>
+    <a href='topics-reorder.php?up=$`printings`&redirid=$_'
+       >Расставить подразделы</a>
    </td>
   </ispost>
  </tr></table>
@@ -54,7 +54,8 @@
     <perms name='printings' table='topics' id='$`printings`'>
     <batcher printings='$printings'>
     <iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`printings`'
-			 recursive='*true' limit=0 sort='*SORT_INDEX0'>
+			 recursive='*true' limit=0
+			 sort='*SORT_TOPIC_INDEX0_INDEX0'>
     <assign name='topicname' value=''>
     <for>
      <if what='$topicname!=$.TopicName'>
@@ -65,6 +66,17 @@
 	<td align=left><image src='pics/times-bullet.gif'></td>
 	<td align=right>$^topicname</td>
        </tr></table>
+       <notprint>
+        <ispost what='$printings'>
+	 <table class='info'><tr valign=center>
+	   <td>&nbsp;</td>
+	   <td>
+	    <a href='reorder.php?topic_id=$.TopicId&grp=*GRP_LIBRARY_ANNOUNCES&up=-1&redirid=$_'
+	       >Расставить анонсы</a>
+	   </td>
+	 </tr></table>
+        </ispost>
+       </notprint>
       </ifne>
      </if>
      <posting posting='$.' showtopic='*false' showdiscuss='*true'>

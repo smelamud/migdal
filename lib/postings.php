@@ -354,7 +354,9 @@ $Order=getOrderBy($sort,
 	     SORT_RINDEX1    => 'postings.index1 desc',
 	     SORT_RATING     => 'if(vote_count=0,2.5,vote/vote_count) desc,'.
 	                        'vote_count desc,sent desc',
-	     SORT_URL_DOMAIN => 'url_domain,url'));
+	     SORT_URL_DOMAIN => 'url_domain,url',
+	     SORT_TOPIC_INDEX0_INDEX0
+	                     => 'topics.index0,postings.index0'));
 /* Query */
 $this->LimitSelectIterator(
        'Message',
