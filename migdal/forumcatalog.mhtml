@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/postings.mhtml 1.8 >>
+<< Based-on: migdal/postings.mhtml 1.10 >>
 
 <int name='topic_id'>
 <int name='offset'>

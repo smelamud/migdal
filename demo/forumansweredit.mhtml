@@ -1,4 +1,5 @@
 << @(#) $Id$ >>
+<< Based-on: demo/postingedit.mhtml 1.24 >>
 
 <int name='editid'>
 <int name='up'>
