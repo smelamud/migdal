@@ -6,8 +6,8 @@ OBJECTS = backtrace.php complain.php cs_forum.php cs_normal.php forum.php \
           forums.php login.php menu.php message.php messages.php top.php \
           utils.php
 	  
-%.php: %.mhtml ../../miparser ../../macros.mhtml
-	../../miparser -M ../../macros.mhtml $< > $@
+%.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
+	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@
 
 all: $(OBJECTS) ;
 

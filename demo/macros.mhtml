@@ -1,0 +1,23 @@
+<< @(#) $Id$ >>
+
+<< Elements >>
+<decel name='backtrace' file='parts/backtrace.php' params='redir'>
+<decel name='batcher' file='parts/utils.php' params='value,var'>
+<decel name='complain' file='parts/complain.php'
+       params='complain,discuss' defaults="discuss='*true'">
+<decel name='forum' file='parts/forum.php' params='forum,complain'
+       defaults="complain='*true'">
+<decel name='forums' file='parts/forums.php' params='up,limit,offset'
+       defaults='limit=10 offset=0'>
+<decel name='login' file='parts/login.php' params='flags,err'>
+<decel name='menu' file='parts/menu.php' params='ident'>
+<decel name='message' file='parts/message.php'
+       params='message,grp,topic,discuss' defaults="topic=0 discuss='*true'">
+<decel name='messages' file='parts/messages.php'
+       params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
+<decel name='navigator' file='parts/utils.php' params='list'
+       defaults="list='$;'">
+<decel name='perror' file='parts/utils.php' params='id,text,color,span'
+       defaults='color="red" span=0'>
+<decel name='top' file='parts/top.php' params='ident,flags'
+       defaults="flags=''">

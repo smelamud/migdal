@@ -1002,15 +1002,20 @@ EOF
 exit;
 }
 
+sub macros
+{
+my (undef,$macros)=@_;
+
+unshift @ARGV,$macros if -r $macros;
+}
+
 sub init
 {
 $|=1;
-my $macros='macros.mhtml';
 GetOptions('help|h|?'	=> \&help,
-           'macros|M=s'	=> \$macros,
+           'macros|M=s'	=> \&macros,
            'version|v'	=> \&version);
 $Stack=Stack->new();
-unshift @ARGV,$macros if -r $macros;
 pull;
 }
 
