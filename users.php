@@ -17,7 +17,6 @@ require_once('top.php');
   displayTop('users');
   ?>
   <p>
-  <a href="useredit.php">Зарегистрироваться</a><br>
   <table>
    <tr valign=top>
     <th>Ник</th><th>Имя</th><th>Возраст</th><th>Мигдалевец</th><th>E-mail</th>

@@ -52,12 +52,6 @@ if($user->isEditable() && $err==$code)
   ?>
   <p>
   <?php
-  if($editid)
-    {
-    ?>
-    <a href="useredit.php">Новый пользователь</a><br>
-    <?php
-    }
   $user=getUserById($editid);
   $user->setupHTTP($HTTP_GET_VARS);
   if($user->isEditable())
