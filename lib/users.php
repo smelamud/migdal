@@ -326,9 +326,9 @@ $this->SelectIterator('User',
                       "select distinct users.id as id,login,name,jewish_name,
 		              surname,gender,birthday,migdal_student,email,
 			      hide_email,icq,last_online,
-			      sessions.user_id as online,
-			      floor((unix_timestamp(now())
-			             -unix_timestamp(sessions.last))/60)
+			      max(sessions.user_id) as online,
+			      min(floor((unix_timestamp(now())
+			                -unix_timestamp(sessions.last))/60))
 			           as last_minutes,
 			      confirm_deadline is null as confirmed,
 			      floor((unix_timestamp(confirm_deadline)
@@ -339,6 +339,7 @@ $this->SelectIterator('User',
 		                 on users.id=sessions.user_id
 				    and sessions.last+interval 1 hour>now()
 		       where hidden<$hide
+		       group by users.id
 		       order by login");
 }
 
