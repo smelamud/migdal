@@ -37,7 +37,7 @@
 	 <fullname topic_id='$.PeerId'></a>
       <admin_topics>
        <asp>&nbsp;<asp>
-       <a href='actions/topiclinkdel.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=$peer_grp&peer_id=$.PeerId&okdir=$#-&faildir=$#-'
+       <a href='actions/topiclinkdel.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=$.PeerGrp&peer_id=$.PeerId&okdir=$#-&faildir=$#-'
 	  class='edit'><asp>
 	<asp>Удалить</a>
       </admin_topics>
