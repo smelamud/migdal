@@ -1,0 +1,12 @@
+<< @(#) $Id$ >>
+
+<< This is a template of user-viewable page >>
+
+<html>
+<head>
+ <title>Клуб Еврейского Студента - &lt;шаблон&gt;</title>
+</head>
+<body bgcolor=white>
+ <top ident='template'>
+</body>
+</html>

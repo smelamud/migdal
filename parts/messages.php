@@ -19,8 +19,8 @@ if(isset($title) && $userId>0)
   echo "<a href='messageedit.php?topic_id=$topic&grp=$grp&redir=$requestURI".
        "'>Добавить $title</a>";
 $list=new MessageListIterator($grp,$topic,$limit,$offset);
-echo batcher($limit,'mp');
-echo navigator($list);
+displayBatcher($limit,'mp');
+displayNavigator($list);
 ?>
 <table width=100%>
 <?php
@@ -39,6 +39,6 @@ while($item=$list->next())
 ?>
 </table>
 <?php
-echo navigator($list);
+displayNavigator($list);
 }
 ?>

@@ -61,7 +61,7 @@ return "<option label='$label' value=$value".
 }
 ?>
 
-<element name='error'>
+<element name='perror'>
 <if what='$$err==$id'>
  <tr><tdspan span=$span>
   <a name='error'>
@@ -83,7 +83,7 @@ function perror($code,$message,$color='red',$span=1) #COMPATIBILITY
 displayError($code,$message,$color,$span);
 }
 
-function navigator($list)
+function displayNavigator($list)
 {
 global $REQUEST_URI;
 
@@ -96,7 +96,7 @@ $prevURI=remakeURI($REQUEST_URI,
 $nextURI=remakeURI($REQUEST_URI,
                    array(),
 		   array('offset' => $next));
-return "<br><table width=100%><tr>
+echo "<br><table width=100%><tr>
          <td align=left width=30%>
 	  <a href=$prevURI>".
 	  ($list->getOffset()!=0 ? '<-- Предыдущие' : '').
@@ -116,7 +116,7 @@ return "<br><table width=100%><tr>
 	</tr></table><br>';
 }
 
-function batcher($current,$var)
+function displayBatcher($current,$var)
 {
 global $SCRIPT_NAME,$HTTP_GET_VARS;
 
@@ -136,7 +136,7 @@ foreach($shows as $val)
        $s.="<option label=$val value=$val ".
                                ($val==$current ? 'selected' : '').
 	   ' >';
-return "$s
+echo "$s
       </select></td>
       <td>сообщений&nbsp;</td>
       <td><input type=submit value='Изменить'></td>

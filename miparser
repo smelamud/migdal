@@ -86,6 +86,7 @@ sub subVar
 my ($s,$st,$ed)=@_;
 
 my $item=$Stack->top()->getItem();
+my $iter=$Stack->top()->getIterator();
 my $result=$Stack->top()->getResult();
 
 return $st.constructRemake($1).$ed
@@ -100,6 +101,8 @@ return "$st\$$item$ed"
        if $s=~/^\$\.$/;
 return "$st\$$result$ed"
        if $s=~/^\$,$/;
+return "$st\$$iter$ed"
+       if $s=~/^\$;$/;
 return "$st\$$1$ed"
        if $s=~/^\$(\w+)$/;
 return "$st\$".getGlobal($1).$ed
@@ -129,7 +132,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,]))|(?:\*\w+))?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;]))|(?:\*\w+))?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      }
@@ -247,8 +250,8 @@ my ($self,$args)=@_;
 my @list=();
 foreach(@{$self->{'params'}})
        {
-       push @list,::subVar(exists $args->{$_} ? $args->{$_}
-                                              : $self->{'defaults'}->{$_});
+       push @list,::subVar(exists $args->{$_} && $args->{$_} ne ''
+                           ? $args->{$_} : $self->{'defaults'}->{$_});
        }
 return join ',',@list;
 }
