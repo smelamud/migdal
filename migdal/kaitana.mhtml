@@ -133,7 +133,10 @@
        <tr><td align=right><senderlink message='$posting'></td></tr>
       </table>
       <kaitana_ring posting='$posting'>
-      <h1 style='clear: both'>$posting.Subject</h1>
+      <h1 style='clear: both'>
+       $posting.Subject
+       <div class='author'>$posting.Source</div>
+      </h1>
       <p>$posting.HTMLBody</p>
       <vote_frame id='$posting.Id' color='$$style_cframe_back'
 		  image='$$style_cframe_back_pic' align=center>
