@@ -504,9 +504,10 @@ function getLastPostingDate($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE,
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topic_id=idByIdent('topics',$topic_id);
-$tpf=$topic_id<0 ? '' : " and topics.".byIdent($topic_id);
-$taf=$topic_id<0 ? '' : " and tops.".byIdent($topic_id);
+$tpf=$topic_id<0 ? '' : " and topics.".byIdentRecursive('topics',$topic_id,
+                                                        $recursive);
+$taf=$topic_id<0 ? '' : " and tops.".byIdentRecursive('topics',$topic_id,
+                                                      $recursive);
 $uf=$user_id>0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
         "select max(messages.sent)
