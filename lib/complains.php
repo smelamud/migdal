@@ -40,17 +40,9 @@ $this->recipient_info=
 
 function getCorrespondentVars()
 {
-return array('body','subject','type_id','link');
-}
-
-function getWorldMessageVars()
-{
-return array('body','subject');
-}
-
-function getAdminMessageVars()
-{
-return array();
+$list=parent::getCorrespondentVars();
+array_push($list,'type_id','link');
+return $list;
 }
 
 function getWorldComplainVars()
@@ -61,14 +53,6 @@ return array('message_id','type_id','link','recipient_id');
 function getAdminComplainVars()
 {
 return array();
-}
-
-function getNormalMessage($isAdmin=false)
-{
-$normal=$this->collectVars($this->getWorldMessageVars());
-if($isAdmin)
-  $normal=array_merge($normal,$this->collectVars($this->getAdminMessageVars()));
-return $normal;
 }
 
 function getNormalComplain($isAdmin=false)
@@ -100,31 +84,18 @@ return mysql_result($result,rand(0,mysql_num_rows($result)-1),0);
 
 function store()
 {
-global $userId,$userJudge;
+global $userJudge;
 
+$result=parent::store('message_id');
+if(!$result)
+  return $result;
+$complain=$this->getNormalComplain($userJudge);
 if($this->id)
-  {
-  $message=$this->getNormalMessage($userJudge);
-  $result=mysql_query(makeUpdate('messages',
-                                 $message,
-				 array('id' => $this->message_id)));
-  $complain=$this->getNormalComplain($userJudge);
   $result=mysql_query(makeUpdate('complains',
                                  $complain,
 				 array('id' => $this->id)));
-  }
 else
   {
-  $message=$this->getNormalMessage($userJudge);
-  $sent=date('Y-m-d H:i:s',time());
-  $message['sender_id']=$userId;
-  $message['sent']=$sent;
-  $result=mysql_query(makeInsert('messages',$message));
-  if(!$result)
-    return $result;
-  $this->message_id=mysql_insert_id();
-  $this->sender_id=$userId;
-  $this->sent=$sent;
   $this->recipient_id=$this->getAutoAssign();
   $complain=$this->getNormalComplain($userJudge);
   $result=mysql_query(makeInsert('complains',$complain));

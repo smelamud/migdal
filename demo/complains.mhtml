@@ -35,7 +35,7 @@
  <navigator>
  <batcher_complains value='$$userComplainPortion'>
  <logged>
-  <a href='complainedit.php?redir=$_'>Добавить жалобу</a>
+  <a href='complainedit.php?ident=normal&redir=$_'>Добавить жалобу</a>
  </logged>
  <p>
  <table>
