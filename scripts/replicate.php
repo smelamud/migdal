@@ -89,9 +89,11 @@ while(!feof($fd))
      }
 unlockReplication($host);
 fclose($fd);
+if(!$replicationMaster && isJournalEmpty())
+  duplicateDatabase();
 }
 
-dbOpen();
+dbOpen(!$replicationMaster);
 endJournal();
 session();
 replicate($argv[1]);

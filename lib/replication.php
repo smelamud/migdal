@@ -17,6 +17,7 @@ session();
 redirect();
 
 setHorisont($host,$from,HOR_THEY_KNOW);
+clearJournal();
 
 noCacheHeaders();
 header("Content-Type: $replicationType");

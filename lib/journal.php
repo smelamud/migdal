@@ -314,4 +314,38 @@ function subJournalVars($host,$query)
 $host=addslashes($host);
 return preg_replace('/\$([0-9]+)/e',"getJournalVar('$host',\\1)",$query);
 }
+
+function clearJournal()
+{
+$result=mysql_query('select min(they_know)
+                     from horisonts')
+  or journalFailure('Cannot determine minimal horisont.');
+$level=mysql_result($result,0,0);
+mysql_query("delete from journal
+             where seq<=$level")
+  or journalFailure('Cannot delete journal record.');
+}
+
+function isJournalEmpty()
+{
+$result=mysql_query('select count(*) from journal')
+  or journalFailure('Cannot determine size of journal.');
+return mysql_result($result,0,0)==0;
+}
+
+function duplicateDatabase()
+{
+global $dbName;
+
+$tables=array('complain_actions','complains','cross_topics','forums','images',
+              'instants','links','messages','multisites','postings',
+	      'stotext_images','stotexts','topics','users','votes');
+foreach($tables as $table)
+       {
+       mysql_query("delete from $dbName.$table")
+         or journalFailure('Cannot drop non-autoritative table.');
+       mysql_query("insert into $dbName.$table select * from $table")
+         or journalFailure('Cannot copy autoritative table.');
+       }
+}
 ?>
