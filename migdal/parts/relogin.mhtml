@@ -40,6 +40,15 @@
     </table>
    </td>
   </tr>
+  <master>
+   <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;
+     <a href#='register.php?redirid=$_'>Зарегистрироваться</a>&nbsp;&nbsp;<asp>
+     <asp><a href#='userlost.php?redirid=$_'>Забыли пароль?</a>
+    </td>
+   </tr>
+  </master>
  </table></td></tr>
 </notlogged>
 </element>

@@ -9,7 +9,7 @@
 <html>
 <preamble>
 <body>
- <top ident='discuss' nologin='$$userId<=0'>
+ <top ident='discuss' nologin!='$$userId<=0'>
  <ifnzero what='$peerid'>
   <forum_answer_obj id='$peerid'>
   <assign name='quote' value='$,Body'>
