@@ -78,15 +78,15 @@ $posting=getPostingById($postid);
 $err=storeImage($posting);
 $titleId=tmpTextSave($title);
 if($err==ELIM_OK)
-  header('Location: '.remakeMakeQuery($okdir,
-                                      $HTTP_POST_VARS,
-                                      array('err','title','edittag'),
-				      array('titleid' => $titleId)));
+  header('Location: '.remakeMakeURI($okdir,
+				    $HTTP_POST_VARS,
+				    array('err','title','edittag'),
+				    array('titleid' => $titleId)));
 else
-  header('Location: '.remakeMakeQuery($faildir,
-                                      $HTTP_POST_VARS,
-                                      array('title'),
-				      array('err'     => $err,
-				            'titleid' => $titleId)));
+  header('Location: '.remakeMakeURI($faildir,
+				    $HTTP_POST_VARS,
+				    array('title'),
+				    array('err'     => $err,
+					  'titleid' => $titleId)));
 dbClose();
 ?>
