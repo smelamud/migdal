@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='gallery_main'>
-<grps>
+<grpdata>
 <grpitemtitle>
 <grpitemstitle>
 <iterate_topiclist grp='$grp' withpostings='*true' cols='$cols'>
