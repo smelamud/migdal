@@ -20,9 +20,9 @@
  <trace url#='times.php?issue=$,Index1'>
  <assign name='name' value='$,Subject'>
 <elif what="$basename=='book-chapter.php'">
- <posting_obj name='book' id='$chapid'>
+ <posting_obj name='chap' id='$chapid'>
  <message_posting id='$,UpValue'>
- <posting_obj name='chap' id='$,'>
+ <posting_obj name='book' id='$,'>
  <trace url#='book.php?bookid=$book.Id'>
  <assign name='name' value='$chap.Subject'>
 <elif what="$basename=='book.php'">
