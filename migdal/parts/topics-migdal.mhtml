@@ -19,7 +19,9 @@
  <topics_kes posting='$posting'>
 </if>
 <if what='$/$posting.TopicId,2/==$`kaitana`'>
- <topics_kaitana posting='$posting'>
+ <if what='$posting.TopicId!=$`kaitana`'>
+  <topics_kaitana posting='$posting'>
+ </if>
  <topics_kaitanot topic_id='$posting.TopicId'>
 </if>
 
