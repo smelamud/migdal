@@ -155,10 +155,9 @@ function isDisabled()
 return $this->disabled;
 }
 
-function getSentView()
+function getSent()
 {
-$t=strtotime($this->sent);
-return date('j/m/Y × H:i:s',$t);
+return strtotime($this->sent);
 }
 
 function getAnswerCount()

@@ -46,7 +46,7 @@
  <for name='complain'>
   <tr>
    <td align=center>$.Id</td>
-   <td>$.SentView</td>
+   <td><sentview date='$.Sent'></td>
    <td><rebe><senderlink message='$.'></rebe></td>
    <td><rebe>
     <a href='complainforum.php?compid=$.Id&redir=$_'>$.Subject</a>
@@ -57,7 +57,7 @@
     <td align=center>-</td>
    </if>
    <if what='$.isClosed'>
-    <td>$.ClosedView</td>
+    <td><sentview date='$.Closed'></td>
    <else>
     <td align=center>Нет</td>
    </if>

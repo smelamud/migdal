@@ -1,7 +1,7 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/grps.php');
+require_once('lib/limitselect.php');
 require_once('lib/messages.php');
 require_once('lib/complaintypes.php');
 require_once('lib/sendertag.php');
@@ -174,10 +174,9 @@ function isClosed()
 return $this->closed!='';
 }
 
-function getClosedView()
+function getClosed()
 {
-$t=strtotime($this->closed);
-return $this->isClosed() ? date('j/m/Y в H:i:s',$t) : 'Нет';
+return strtotime($this->closed);
 }
 
 function getDisplay()

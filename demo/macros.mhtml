@@ -7,6 +7,11 @@
  <perror id='%id' text='%text' color='%color' span='%span'>
 </macro>
 
+<< Date/Time >>
+<macro name='sentview'>
+ %date@j/%date@m/%date@Y × %date@H:%date@i:%date@s
+</macro>
+
 << Elements >>
 <decel name='backtrace' file='parts/backtrace.php' params='redir'>
 <decel name='batcher' file='parts/messages.php' params='value,var'>

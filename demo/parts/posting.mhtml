@@ -20,7 +20,7 @@
  <else>
   <td>&nbsp;</td>
  </ifzero>
- <td align=right>$posting.SentView</td>
+ <td align=right><sentview date='$posting.Sent'></td>
 </tr>
 <tr>
  <td><b><rebe>$posting.Subject</rebe></b></td>
@@ -62,7 +62,8 @@
 </td>
 <td align=right>
 <if what='$discuss'>
- <a href='forum.php?redir=$_&msgid=$posting.Id'>Обсудить ($posting.AnswerCount)</a>
+ <a href='forum.php?redir=$_&msgid=$posting.Id'
+  >Обсудить ($posting.AnswerCount)</a>
 </if>
 </td>
 </tr>

@@ -32,14 +32,6 @@ getJewishFromDateDetailed($month,$day,$year,$jmonth,$jday,$jyear);
 return $jday.' '.$jewMonthRL[$jmonth].' '.$jyear;
 }
 
-function getJewishFromUNIX($time=0)
-{
-global $jewMonthRL;
-
-getJewishFromUNIXDetailed($time,$jmonth,$jday,$jyear);
-return $jday.' '.$jewMonthRL[$jmonth].' '.$jyear;
-}
-
 function getCalendarAge($bMonth,$bDay,$bYear,$month,$day,$year)
 {
 if(isCalendarAvailable())
