@@ -1,51 +1,53 @@
 << @(#) $Id$ >>
 
 <element name='book_ring'>
-<table width=100% style='clear: both' class='ring'>
- <if what='$index>=0'>
-  <tr valign=bottom><td width=33%>&nbsp;</td><td align=center width=33%>
-   <b><a href='book.php?bookid=$book.Id'>$book.Subject</a></b>
-  </td><td width=33%>&nbsp;</td></tr>
- </if>
- <tr valign=center>
-  <sibling up='$book.MessageId' index0='$index' next='*false'>
-  <if what='$,>0'>
-   <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
-   <td align=left width=33%>
-    <table cellspacing=0 cellpadding=0><tr valign=center>
-     <td><a href='book-chapter.php?chapid=$,Id'>$,Subject</a></td>
-     <td>&nbsp;</td>
-     <td><a href='book-chapter.php?chapid=$,Id' title='Предыдущая глава'><asp>
-      <image src='pics/left.gif' border=0>
-     <asp></a></td>
-    </tr></table>
-   </td>
-  <else>
-   <td width=33%>&nbsp;</td>
-  </if>
+<notprint>
+ <table width=100% style='clear: both' class='ring'>
   <if what='$index>=0'>
-   <td align=center width=33%><a href='book.php?bookid=$book.Id'
-                                 title='К началу книги'><asp>
-    <image src='pics/up.gif' border=0>
-   <asp></a></td>
-  <else>
-   <td width=33%>&nbsp;</td>
+   <tr valign=bottom><td width=33%>&nbsp;</td><td align=center width=33%>
+    <b><a href='book.php?bookid=$book.Id'>$book.Subject</a></b>
+   </td><td width=33%>&nbsp;</td></tr>
   </if>
-  <sibling up='$book.MessageId' index0='$index' next='*true'>
-  <if what='$,>0'>
-   <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
-   <td align=right width=33%>
-    <table cellspacing=0 cellpadding=0><tr valign=center>
-     <td><a href='book-chapter.php?chapid=$,Id' title='Следующая глава'><asp>
-      <image src='pics/right.gif' border=0>
-     <asp></a></td>
-     <td>&nbsp;</td>
-     <td><a href='book-chapter.php?chapid=$,Id'>$,Subject</a></td>
-    </tr></table>
-   </td>
-  <else>
-   <td width=33%>&nbsp;</td>
-  </if>
- </tr>
-</table>
+  <tr valign=center>
+   <sibling up='$book.MessageId' index0='$index' next='*false'>
+   <if what='$,>0'>
+    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
+    <td align=left width=33%>
+     <table cellspacing=0 cellpadding=0><tr valign=center>
+      <td><a href='book-chapter.php?chapid=$,Id'>$,Subject</a></td>
+      <td>&nbsp;</td>
+      <td><a href='book-chapter.php?chapid=$,Id' title='Предыдущая глава'><asp>
+       <image src='pics/left.gif' border=0>
+      <asp></a></td>
+     </tr></table>
+    </td>
+   <else>
+    <td width=33%>&nbsp;</td>
+   </if>
+   <if what='$index>=0'>
+    <td align=center width=33%><a href='book.php?bookid=$book.Id'
+				  title='К началу книги'><asp>
+     <image src='pics/up.gif' border=0>
+    <asp></a></td>
+   <else>
+    <td width=33%>&nbsp;</td>
+   </if>
+   <sibling up='$book.MessageId' index0='$index' next='*true'>
+   <if what='$,>0'>
+    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
+    <td align=right width=33%>
+     <table cellspacing=0 cellpadding=0><tr valign=center>
+      <td><a href='book-chapter.php?chapid=$,Id' title='Следующая глава'><asp>
+       <image src='pics/right.gif' border=0>
+      <asp></a></td>
+      <td>&nbsp;</td>
+      <td><a href='book-chapter.php?chapid=$,Id'>$,Subject</a></td>
+     </tr></table>
+    </td>
+   <else>
+    <td width=33%>&nbsp;</td>
+   </if>
+  </tr>
+ </table>
+</notprint>
 </element>

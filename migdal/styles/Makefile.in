@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-FLAVOURS = default
+FLAVOURS = default print
 STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-frames.mcss sheet-info.mcss sheet-menu.mcss sheet-bottom.mcss \
 	sheet-login.mcss sheet-return.mcss sheet-batcher.mcss \

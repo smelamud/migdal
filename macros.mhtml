@@ -427,6 +427,17 @@
 </macro>
 <endif name='/admin_domain'>
 
+<< Printing >>
+<macro name='print'>
+ <if what="$$userStyle==-1">
+</macro>
+<endif name='/print'>
+
+<macro name='notprint'>
+ <if what="$$userStyle!=-1">
+</macro>
+<endif name='/notprint'>
+
 << Role >>
 <macro name='master'>
  <conf>

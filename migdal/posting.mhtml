@@ -12,17 +12,19 @@
  <top ident='$,MenuIndex'>
  <table width=100% cellspacing=5 cellpadding=5>
   <tr valign=top>
-   <if what='$,Grp!=*GRP_LINKS'>
-    <td width=150 class='eframe'>
-     <topics posting='$,'>
-    </td>
-   <else>
-    <td width=150 class='nframe'>
-     <topics_links posting='$,'>
-    </td>
-   </tr>
-   <tr valign=top>
-   </if>
+   <notprint>
+    <if what='$,Grp!=*GRP_LINKS'>
+     <td width=150 class='eframe'>
+      <topics posting='$,'>
+     </td>
+    <else>
+     <td width=150 class='nframe'>
+      <topics_links posting='$,'>
+     </td>
+    </tr>
+    <tr valign=top>
+    </if>
+   </notprint>
    <td class='cframe'>
     <posting posting='$posting' showdiscuss='*true' showcomplain='*true'>
    </td>

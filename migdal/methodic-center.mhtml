@@ -25,9 +25,11 @@
 <body>
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'>
-   <topics posting='$,'>
-  </td>
+  <notprint>
+   <td width=150 class='eframe'>
+    <topics posting='$,'>
+   </td>
+  </notprint>
   <td class='cframe'>
    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
     <td>
@@ -41,9 +43,11 @@
       </span>
      </ifnzero>
     </td>
-    <td width=130 class='nframe'>
-     <methodics>
-    </td>
+    <notprint>
+     <td width=130 class='nframe'>
+      <methodics>
+     </td>
+    </notprint>
    </tr></table>
   </td>
  </tr></table>

@@ -6,26 +6,28 @@
 <topictitle title='$,Subject'>
 
 <element name='news'>
-<iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
-                     recursive='*false' limit=10 sort='*SORT_PSENT'
-		     fields='*SELECT_TOPICS'>
-<ifnzero what='$;Count'>
- <table class='nframe' width=180 align=right
-	cellpadding=5 cellspacing=0 style='margin-left: 5px'>
-  <tr><td>
-   <topics_table title='Новые поступления'>
-    <for>
-     <topics_line time='$.Sent' href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
-		  text#='$.Author&sp;&lt;&lt;$.Source&gt;&gt;'
-		  class='item eightpt'>
-    </for>
-    <tr><td align=center colspan=2>
-     <a href='migdal-library-news.php' class='eightpt'>Все новинки</a>
-    </td></tr>
-   </topics_table>
-  </td></tr>
- </table>
-</ifnzero>
+<notprint>
+ <iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
+		      recursive='*false' limit=10 sort='*SORT_PSENT'
+		      fields='*SELECT_TOPICS'>
+ <ifnzero what='$;Count'>
+  <table class='nframe' width=180 align=right
+	 cellpadding=5 cellspacing=0 style='margin-left: 5px'>
+   <tr><td>
+    <topics_table title='Новые поступления'>
+     <for>
+      <topics_line time='$.Sent' href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
+		   text#='$.Author&sp;&lt;&lt;$.Source&gt;&gt;'
+		   class='item eightpt'>
+     </for>
+     <tr><td align=center colspan=2>
+      <a href='migdal-library-news.php' class='eightpt'>Все новинки</a>
+     </td></tr>
+    </topics_table>
+   </td></tr>
+  </table>
+ </ifnzero>
+</notprint>
 </element>
 
 <html>
@@ -34,9 +36,11 @@
 <body>
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'>
-   <topics posting='$,'>
-  </td>
+  <notprint>
+   <td width=150 class='eframe'>
+    <topics posting='$,'>
+   </td>
+  </notprint>
   <td class='cframe'>
    <ifnzero what='$,Id'>
     <subtitle>

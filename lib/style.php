@@ -17,7 +17,8 @@ global $styleList,$styleNames;
 
 if(!isset($styleList))
   {
-  $styleList=array(1 => 'default');
+  $styleList=array(-1 => 'print',
+                    1 => 'default');
   $styleNames=array(1 => 'По умолчанию');
   }
 }

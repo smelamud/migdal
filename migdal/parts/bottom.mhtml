@@ -83,21 +83,23 @@ else
 </element>
 
 <element name='bottom'>
-<backtrace target='$target'>
-<div class='bottom'>
- <table width=100%>
-  <notenglish>
-   <bottom_www>
-  <else>
-   <bottom_english>
-  </notenglish>
- </table>
- <hr>
- <center>
-  <banners>
-  <jewishru>
-  <mailru_logo>
-  <rambler_logo>
- </center>
-</div>
+<notprint>
+ <backtrace target='$target'>
+ <div class='bottom'>
+  <table width=100%>
+   <notenglish>
+    <bottom_www>
+   <else>
+    <bottom_english>
+   </notenglish>
+  </table>
+  <hr>
+  <center>
+   <banners>
+   <jewishru>
+   <mailru_logo>
+   <rambler_logo>
+  </center>
+ </div>
+</notprint>
 </element>

@@ -30,9 +30,11 @@
  <top ident='index'
       transref!='$,Id==$`postings:migdal` ? "http://english.$siteDomain/" : ""'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'>
-   <topics posting='$,'>
-  </td>
+  <notprint>
+   <td width=150 class='eframe'>
+    <topics posting='$,'>
+   </td>
+  </notprint>
   <td class='article cframe'>
    <ifnzero what='$,Id'>
     <subtitle>

@@ -1,26 +1,28 @@
 << @(#) $Id$ >>
 
 <element name='article_controls'>
-<outer>
- <div align=right>
-  <table class='controls'><tr><inner>
-   <isedit what='$posting'>
-    <td>
-     <editlink posting='$posting'>
-     &nbsp;
-    </td>
-    <td>
-     <a href="limedit.php?postid=$posting.Id&redirid=$_">
-      <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
-     &nbsp;
-    </td>
-   </isedit>
-   <if what='!$nodiscuss'>
-    <td><discusslink posting='$posting'></td>
-   </if>
-  </inner></tr></table>
- </div>
-</outer>
+<notprint>
+ <outer>
+  <div align=right>
+   <table class='controls'><tr><inner>
+    <isedit what='$posting'>
+     <td>
+      <editlink posting='$posting'>
+      &nbsp;
+     </td>
+     <td>
+      <a href="limedit.php?postid=$posting.Id&redirid=$_">
+       <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
+      &nbsp;
+     </td>
+    </isedit>
+    <if what='!$nodiscuss'>
+     <td><discusslink posting='$posting'></td>
+    </if>
+   </inner></tr></table>
+  </div>
+ </outer>
+</notprint>
 </element>
 
 <macro name='isplaced'>
@@ -85,12 +87,14 @@
   <isplaced place='IPL_RIGHT'>
    <table align=right>
   </isplaced>
-  <isedit what='$posting'>
-   <tr><td align=center>
-    <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
-       class='piclink'><notenglish>Картинка<else>Picture</notenglish></a>
-   </td></tr>
-  </isedit>
+  <notprint>
+   <isedit what='$posting'>
+    <tr><td align=center>
+     <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
+	class='piclink'><notenglish>Картинка<else>Picture</notenglish></a>
+    </td></tr>
+   </isedit>
+  </notprint>
    <tr><td align=center>
     <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
    </td></tr>
@@ -109,12 +113,14 @@
  </notplaced>
 <else>
  </p>
- <isedit what='$posting'>
-  <p$clear>
-  <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
-     class='piclink'><notenglish>Картинка<else>Picture</notenglish></a>
-  </p>
- </isedit>
+ <notprint>
+  <isedit what='$posting'>
+   <p$clear>
+   <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
+      class='piclink'><notenglish>Картинка<else>Picture</notenglish></a>
+   </p>
+  </isedit>
+ </notprint>
  <p$clear>
 </ifnzero>
 </element>

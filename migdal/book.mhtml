@@ -12,10 +12,12 @@
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'>
-   <book_chapters book='$,'>
-   <topics posting='$,'>
-  </td>
+  <notprint>
+   <td width=150 class='eframe'>
+    <book_chapters book='$,'>
+    <topics posting='$,'>
+   </td>
+  </notprint>
   <td class='article cframe'>
    <article_controls posting='$,'>
    <table width=100% cellspacing=0 cellpadding=0>
@@ -45,20 +47,22 @@
        <p class='source'>$,HTMLSource</p>
       </ifne>
       <p style='clear: left'>$,HTMLBody</p>
-      <zone>
-       <sibling up='$,MessageId' index0='-1'>
-       <if what='$,>0'>
-        <p>
-	 <table class='ring' cellspacing=0 cellpadding=0><tr valign=center>
-	  <td><a href='book-chapter.php?chapid=$,'><asp>
-	   <image src='pics/right.gif' border=0>
-	  <asp></a></td>
-	  <td>&nbsp;</td>
-	  <td><a href='book-chapter.php?chapid=$,'>Читать книгу</a></td>
-	 </tr></table>
-	</p>
-       </if>
-      </zone>
+      <notprint>
+       <zone>
+	<sibling up='$,MessageId' index0='-1'>
+	<if what='$,>0'>
+	 <p>
+	  <table class='ring' cellspacing=0 cellpadding=0><tr valign=center>
+	   <td><a href='book-chapter.php?chapid=$,'><asp>
+	    <image src='pics/right.gif' border=0>
+	   <asp></a></td>
+	   <td>&nbsp;</td>
+	   <td><a href='book-chapter.php?chapid=$,'>Читать книгу</a></td>
+	  </tr></table>
+	 </p>
+	</if>
+       </zone>
+      </notprint>
      </td>
      <td width=100>
       <vote_frame id='$,Id' color='$$style_cframe_back'

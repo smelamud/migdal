@@ -19,26 +19,6 @@
 </if>
 </element>
 
-<element name='controls' params='posting,showdiscuss,showcomplain'>
-<table width=90% class='bottom'><tr>
- <td>
-  <isedit what='$posting'>
-   <editlink posting='$posting'>
-  <else>
-   <if what='!$$userModerator && $showcomplain'>
-    <logged>
-     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
-      >Жалоба</a>
-    </logged>
-   </if>
-  </isedit>
- </td>
- <if what='$showdiscuss'>
-  <td align=right><discusslink posting='$posting'></td>
- </if>
-</tr></table>
-</element>
-
 <element name='link_posting'>
 <dl class='posting'>
  <dt>
@@ -65,7 +45,7 @@
   <sentview date='$posting.Sent'>&nbsp;
   <senderlink message='$posting'>
  </div>
- <controls posting='$posting' showdiscuss='$showdiscuss'
-	   showcomplain='$showcomplain'>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'
+	           showcomplain='$showcomplain'>
 </dl>
 </element>

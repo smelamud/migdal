@@ -19,9 +19,11 @@
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'>
-   <topics posting='$,'>
-  </td>
+  <notprint>
+   <td width=150 class='eframe'>
+    <topics posting='$,'>
+   </td>
+  </notprint>
   <td class='article cframe'>
    <article_controls posting='$,'>
    <table align=right class='sent'>

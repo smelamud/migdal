@@ -95,3 +95,12 @@
  <b>$title</b>
 </if>
 </element>
+
+<element name='image_linked_tag'>
+<if what='$enlarge && $$userStyle!=-1'>
+ <image_link id='$id'>$,<image_tag_put id='$id' align='$align'
+                                                src='thumbnail.php'></a>
+<else>
+ <image_tag_put id='$id' align='$align'>
+</if>
+</element>

@@ -14,19 +14,6 @@
 <asp></a>&nbsp;
 </element>
 
-<element name='controls' params='posting,showdiscuss'>
-<table width=90% class='bottom'><tr>
- <td>
-  <isedit what='$posting'>
-   <editlink posting='$posting'>
-  </isedit>
- </td>
- <if what='$showdiscuss'>
-  <td align=right><discusslink posting='$posting'></td>
- </if>
-</tr></table>
-</element>
-
 <element name='posting_times_cover'>
 <dl class='posting'>
  <dt class='subject'>
@@ -55,6 +42,6 @@
    <sentview date='$posting.Sent'>&nbsp;
    <senderlink message='$posting'>
  </div>
- <controls posting='$posting' showdiscuss='$showdiscuss'>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
 </dl>
 </element>

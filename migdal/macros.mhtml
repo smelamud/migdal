@@ -77,6 +77,9 @@
        defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
+<decel name='image_linked_tag' file='parts/utils.php'
+       params='id,enlarge,align'
+       defaults="enlarge=true align=''">
 <decel name='ioc_logo' file='parts/ioc.php'>
 <decel name='ioc_text' file='parts/ioc.php'>
 <decel name='jewishru' file='parts/jewishru.php'>
@@ -118,6 +121,9 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
+<decel name='posting_controls' file='parts/posting-general.php'
+       params='posting,showdiscuss,showcomplain,len'
+       defaults="showdiscuss='*false' showcomplain='*false' len='90%'">
 <decel name='posting_general' file='parts/posting-general.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
@@ -234,17 +240,6 @@
   <array vals='сообщению,сообщения,сообщений'>
   <plural value%!value='%value'>
   $,
- </zone>
-</macro>
-
-<macro name='image_linked_tag' defaults="enlarge=true align=''">
- <zone>
-  <if what='%enlarge'>
-   <image_link id%!id='%id'>$,<image_tag_put id%!id='%id' align%!align='%align'
-                                             src='thumbnail.php'></a>
-  <else>
-   <image_tag_put id%!id='%id' align%!align=%align>
-  </if>
  </zone>
 </macro>
 

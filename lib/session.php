@@ -177,6 +177,8 @@ foreach($userSetNames as $name)
        $update[]=$glob;
        $GLOBALS["user$name"]=$glob;
        }
+if($HTTP_GET_VARS['print']!=0)
+  $GLOBALS['userStyle']=-1;
 $globs=join(':',$update);
 if($userId>0 && $globs!=$dbSettings)
   updateUserSettings($userId,$globs);

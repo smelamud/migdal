@@ -13,9 +13,11 @@
 <body>
  <top ident='times'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'>
-   <times_articles issue='$,Index1' id='$,Id'>
-  </td>
+  <notprint>
+   <td width=150 class='eframe'>
+    <times_articles issue='$,Index1' id='$,Id'>
+   </td>
+  </notprint>
   <td class='article cframe'>
    <article_controls posting='$,'>
    <h1>

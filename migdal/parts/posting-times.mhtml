@@ -13,19 +13,6 @@
  <asp></a>&nbsp;<asp>
 </element>
 
-<element name='controls' params='posting,showdiscuss'>
-<table width=90% class='bottom'><tr>
- <td>
-  <isedit what='$posting'>
-   <editlink posting='$posting'>
-  </isedit>
- </td>
- <if what='$showdiscuss'>
-  <td align=right><discusslink posting='$posting'></td>
- </if>
-</tr></table>
-</element>
-
 <element name='posting_times'>
 <dl class='posting'>
  <dt class='subject'>
@@ -51,6 +38,6 @@
  </ifnzero>
  $posting.HTMLBody&nbsp;<asp>
  <further posting='$posting' title='Читать статью'>
- <controls posting='$posting' showdiscuss='$showdiscuss'>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
 </dl>
 </element>

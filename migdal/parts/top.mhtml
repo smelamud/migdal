@@ -1,5 +1,46 @@
 << @(#) $Id$ >>
 
+<element name='banner' params='target,showimages'>
+<if what='$showimages'>
+ <table>
+  <col width=0* span=2>
+  <tr valign=bottom>
+   <td>
+    <at href='/index.php' target='$target'>
+     <image src='$$style_banner_logo'
+	    alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></at>
+   </td>
+   <td align=center>
+    <at href='/index.php' target='$target'>
+     <notenglish>
+      <image src='$$style_banner_migdal' alt='Мигдаль' border=0><br>
+     <else>
+      <image src='$$style_banner_migdal_english' alt='Migdal' border=0><br>
+     </notenglish>
+     <image src='$$style_banner_online' alt='on-line' border=0></at>
+   </td>
+   <<td style='padding-left: 20px'>
+    <hannukah>
+   </td>>
+  </tr>
+ </table>
+<else>
+ <table style='padding-left: 10px; padding-top: 10px;'>
+  <col width=0* span=2>
+  <tr valign=bottom>
+   <td>
+    <at href='/index.php' target='$target'>
+     <image src='$$style_banner_migdal' border=0></at>
+   </td>
+   <td>
+    <at href='/index.php' target='$target'>
+     <image src='$$style_banner_online' border=0></at>
+   </td>
+  </tr>
+ </table>
+</if>
+</element>
+
 <element name='translation' params='href'>
 <ifne what='$href'>
  <table class='ninept'><tr valign=center>
@@ -14,49 +55,12 @@
 </ifne>
 </element>
 
-<element name='top'>
+<element name='top_web' params='ident,no_new,target,showimages,transref'>
 <script src='/window.js' language='JavaScript'></script>
 <table width=100% cellspacing=0 cellpadding=0>
  <tr valign=top>
   <td align=left rowspan=2>
-   <if what='$showimages'>
-    <table>
-     <col width=0* span=2>
-     <tr valign=bottom>
-      <td>
-       <at href='/index.php' target='$target'>
-        <image src='$$style_banner_logo'
-	       alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></at>
-      </td>
-      <td align=center>
-       <at href='/index.php' target='$target'>
-	<notenglish>
-         <image src='$$style_banner_migdal' alt='Мигдаль' border=0><br>
-	<else>
-         <image src='$$style_banner_migdal_english' alt='Migdal' border=0><br>
-	</notenglish>
-        <image src='$$style_banner_online' alt='on-line' border=0></at>
-      </td>
-      <<td style='padding-left: 20px'>
-       <hannukah>
-      </td>>
-     </tr>
-    </table>
-   <else>
-    <table style='padding-left: 10px; padding-top: 10px;'>
-     <col width=0* span=2>
-     <tr valign=bottom>
-      <td>
-       <at href='/index.php' target='$target'>
-        <image src='$$style_banner_migdal' border=0></at>
-      </td>
-      <td>
-       <at href='/index.php' target='$target'>
-        <image src='$$style_banner_online' border=0></at>
-      </td>
-     </tr>
-    </table>
-   </if>
+   <banner target='$target' showimages='$showimages'>
    <hotlog_count>
    <mailru_count>
    <rambler_count>
@@ -78,4 +82,11 @@
 </table>
 <menu ident='$ident' target='$target'>
 <backtrace target='$target'>
+</element>
+
+<element name='top'>
+<notprint>
+ <top_web ident='$ident' no_new='$no_new' target='$target'
+          showimages='$showimages' transref='$transref'>
+</notprint>
 </element>
