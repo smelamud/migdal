@@ -29,7 +29,8 @@ define('EM_SUBJECT_ABSENT',44);
 define('EM_STORE_SQL',45);
 define('EM_FORUM_ANSWER',46);
 define('EM_TOPIC_ABSENT',47);
-define('EM_NO_TOPIC',48); //XXX
-define('EM_NO_PERSONAL',49); //XXX
-define('EM_NO_UP',410); //XXX
+define('EM_NO_TOPIC',48);
+define('EM_NO_PERSONAL',49);
+define('EM_NO_UP',410);
+define('EM_NO_SEND',411);
 ?>

@@ -22,10 +22,11 @@ foreach($asses as $ass)
 return makeQuery($vars,$remove,$subs);
 }
 
-function remakeURI($uri,$remove=array(),$subs=array())
+function remakeURI($uri,$remove=array(),$subs=array(),$location='#')
 {
 list($start,$end)=explode('?',$uri);
 list($query,$end)=explode('#',$end);
+$end=$location=='#' ? $end : $location;
 return "$start?".remakeQuery($query,$remove,$subs).($end!='' ? "#$end" : '');
 }
 

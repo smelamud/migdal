@@ -35,8 +35,6 @@ if(isset($vars['bodyid']))
   $this->body=tmpTextRestore($vars['bodyid']);
 }
 
-/* TODO store() должен устанавливать sender_id и sent при insert */
-
 function getCorrespondentVars()
 {
 return array('body','subject','topic_id','grp','up','hidden','personal_id');
@@ -47,11 +45,6 @@ function getWorldVars()
 return array('body','subject','topic_id','grp','up','hidden','personal_id');
 }
 
-function getAdminVars()
-{
-return array();
-}
-
 function getWorldVarValues()
 {
 $vals=array();
@@ -60,12 +53,24 @@ foreach($this->getWorldVars() as $var)
 return $vals;
 }
 
-function getAdminVarValues()
+function store()
 {
-$vals=array();
-foreach($this->getAdminVars() as $var)
-       $vals[$var]=$this->$var;
-return $vals;
+global $userId;
+
+$normal=$this->getWorldVarValues();
+if($this->id)
+  $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->id)));
+else
+  {
+  $sent=date('Y-m-d H:i:s',time());
+  $normal['sender_id']=$userId;
+  $normal['sent']=$sent;
+  $result=mysql_query(makeInsert('messages',$normal));
+  $this->id=mysql_insert_id();
+  $this->sender_id=$userId;
+  $this->sent=$sent;
+  }
+return $result;
 }
 
 function hasSubject()
@@ -78,6 +83,11 @@ function mandatorySubject()
 return $this->hasSubject();
 }
 
+function mandatoryTopic()
+{
+return true;
+}
+
 function hasImage()
 {
 return true;
@@ -88,6 +98,11 @@ function isEditable()
 global $userId,$userModerator;
 
 return $this->sender_id==0 || $this->sender_id==$userId || $userModerator;
+}
+
+function getGrp()
+{
+return $this->grp;
 }
 
 function getId()

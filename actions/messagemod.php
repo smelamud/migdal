@@ -9,16 +9,19 @@ require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/topics.php');
+require_once('lib/messages.php');
 
 function modifyMessage($message)
 {
-global $userModerator;
+global $userId,$userModerator;
 
+if($userId<=0)
+  return EM_NO_SEND;
 if(!$message->isEditable())
   return EM_NO_EDIT;
 if($message->body=='')
   return EM_BODY_ABSENT;
-if($message->mandatorySubject() && $message->subject='')
+if($message->mandatorySubject() && $message->subject=='')
   return EM_SUBJECT_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
   return EM_TOPIC_ABSENT;
@@ -28,7 +31,7 @@ if($message->personal_id!=0 && !personalExists($message->personal_id))
   return EM_NO_PERSONAL;
 if($message->up!=0 && $message->grp!=GRP_FORUMS)
   return EM_FORUM_ANSWER;
-if($message->up!=0 && !messageExists($message->up)
+if($message->up!=0 && !messageExists($message->up))
   return EM_NO_UP;
 if(!$message->store())
   return EM_STORE_SQL;

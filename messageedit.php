@@ -74,14 +74,26 @@ if(!isset($ident))
  $message->setup($HTTP_GET_VARS);
  ?>
  <form method=post action='actions/messagemod.php'>
- <input type=hidden name='edittag' value=0>
+ <input type=hidden name='edittag' value=1>
  <input type=hidden name='redir' value='<?php echo $redir ?>'>
  <input type=hidden name='editid' value='<?php echo $editid ?>'>
+ <input type=hidden name='grp' value='<?php echo $message->getGrp() ?>'>
  <input type=hidden name='up' value='<?php echo $message->getUpValue() ?>'>
  <input type=hidden name='personal_id' value='<?php
   echo $message->getPersonalId();
  ?>'>
  <table>
+ <?php
+ perror(EM_NO_SEND,'Посылать сообщения могут только зарегистрированные
+                    пользователи');
+ perror(EM_NO_EDIT,'У вас нет права редактировать это сообщение');
+ perror(EM_STORE_SQL,'Ошибка базы данных при обновлении записи','magenta');
+ perror(EM_FORUM_ANSWER,'Отвечать можно только в форуме');
+ perror(EM_NO_UP,'Сообщение, на которое вы пытаетесь ответить, еще не написано');
+ perror(EM_NO_PERSONAL,'У этого пользователя нет персональной страницы');
+ perror(EM_TOPIC_ABSENT,'Тема должна быть выбрана');
+ perror(EM_NO_TOPIC,'Такой темы не существует');
+ ?>
  <tr><td><table>
   <tr>
    <td>Тема</td>
@@ -99,18 +111,24 @@ if(!isset($ident))
   </tr>
   <?php
   if($message->hasSubject())
+    {
+    perror(EM_SUBJECT_ABSENT,'Заголовок пуст');
     echo elementEdit('Заголовок',$message->getSubject(),'subject',42,250);
+    }
   if($message->hasImage())
     {
     ?>
     <tr>
      <td>Картинка</td>
-     <td><input type=file name='image' size=40></td>
+     <td><input type=file name='image' size=35></td>
     </tr>
     <?php
     }
   ?>
  </table></td></tr>
+ <?php
+ perror(EM_BODY_ABSENT,'Напишите хотя бы пару строчек в теле сообщения');
+ ?>
  <tr><td>Текст</td></tr>
  <tr><td>
   <textarea name='body' rows=10 cols=50 wrap='virtual'><?php

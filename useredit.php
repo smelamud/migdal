@@ -77,7 +77,7 @@ if($user->isEditable() && $err==$code)
     ?>
     <center><h1>Введите информацию о себе</h1></center>
     <form method=post action='actions/usermod.php'>
-    <input type=hidden name='edittag' value=0>
+    <input type=hidden name='edittag' value=1>
     <input type=hidden name='redir' value='<?php echo $redir ?>'>
     <input type=hidden name='editid' value='<?php echo $editid ?>'>
     <?php
