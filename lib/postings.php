@@ -380,8 +380,9 @@ $result=mysql_query(
 		stotexts.large_body as large_body,subject,grp,sent,topic_id,
 		sender_id,messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
-		images.id as image_id,topics.name as topic_name,
-		topictexts.body as topic_description,
+		images.id as image_id,length(images.large) as image_size,
+		images.large_x as image_x,images.large_y as image_y,
+		topics.name as topic_name,topictexts.body as topic_description,
 		images.has_large as has_large_image,images.title as title,
 		login,gender,email,hide_email,rebe,
 		count(forums.up) as answer_count
