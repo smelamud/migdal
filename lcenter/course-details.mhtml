@@ -20,7 +20,7 @@
    <article_controls posting='$,'>
    <iterate_packages posting_id='$,Id'>
    <ifnzero what='$;Count'>
-    <p><table>
+    <p><table width=100%>
      <for>
       <tr valign=center>
        <td align=right><image src='pics/pdf.gif' border=0></td>
