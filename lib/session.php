@@ -3,7 +3,7 @@
 
 function session($sessionId)
 {
-global $userId,$userAdminUsers,$userAdminTopics,$moderator;
+global $userId,$userAdminUsers,$userAdminTopics,$userModerator;
 
 settype($sessionId,'integer');
 if(!$sessionId)
@@ -25,7 +25,7 @@ else
                        from users
 		       where id=$userId")
                or die('Ошибка SQL при получении прав пользователя');
-  list($userAdminUsers,$userAdminTopics,$moderator)=mysql_fetch_row($rights);
+  list($userAdminUsers,$userAdminTopics,$userModerator)=mysql_fetch_row($rights);
   mysql_query("update sessions set last=null where sid=$sessionId")
        or die('Ошибка SQL при обновлении TIMESTAMP сессии');
   SetCookie('sessionid',$sessionId,time()+7200);

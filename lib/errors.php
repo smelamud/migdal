@@ -38,4 +38,7 @@ define('EM_NO_IMAGE',413);
 define('EM_UNKNOWN_IMAGE',414);
 define('EM_IMAGE_LARGE',415);
 define('EM_IMAGE_SQL',416);
+
+define('EMH_OK',51);
+define('EMH_FAILED',52);
 ?>

@@ -18,6 +18,7 @@ var $topic_id;
 var $topic_name;
 var $personal_id;
 var $sender_id;
+var $sender_hidden;
 var $grp;
 var $image_set;
 var $image_id;
@@ -181,6 +182,24 @@ function getSenderId()
 return $this->sender_id;
 }
 
+function isSenderHidden()
+{
+return $this->sender_hidden ? 1 : 0;
+}
+
+function isSenderAdminHidden()
+{
+return $this->sender_hidden>1 ? 1 : 0;
+}
+
+function isSenderVisible()
+{
+global $userAdminUsers;
+
+return !$this->isSenderHidden()
+       || ($userAdminUsers && !$this->isSenderAdminHidden());
+}
+
 function getSentView()
 {
 $t=strtotime($this->sent);
@@ -277,7 +296,9 @@ $topicFilter=$topic==0 ? '' : " and messages.topic_id=$topic ";
 $grpFilter=$this->getGrpCondition($grp);
 $this->SelectIterator('Message',
 		      "select messages.id as id,body,subject,grp,sent,topic_id,
-		              sender_id,images.image_set as image_set,
+		              sender_id,messages.hidden as hidden,
+			      users.hidden as sender_hidden,
+			      images.image_set as image_set,
 			      images.id as image_id,
 			      topics.name as topic_name,
 			      login,gender,email,hide_email

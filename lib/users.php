@@ -225,7 +225,12 @@ return $this->moderator;
 
 function isHidden()
 {
-return $this->hidden;
+return $this->hidden ? 1 : 0;
+}
+
+function isAdminHidden()
+{
+return $this->hidden>1 ? 1 : 0;
 }
 
 function isNoLogin()

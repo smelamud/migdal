@@ -30,8 +30,9 @@ $requestURI=urlencode($REQUEST_URI);
  <td align=right>
   <?php
   echo $message->getLoginLink();
-  echo "(<a href='useredit.php?editid=".$message->getSenderId().
-                             "&redir=$requestURI'>подробнее</a>)";
+  if($message->isSenderVisible())
+    echo "(<a href='useredit.php?editid=".$message->getSenderId().
+			       "&redir=$requestURI'>подробнее</a>)";
   ?>
  </td>
 </tr>
@@ -58,6 +59,10 @@ if($message->isEditable())
   echo '<a href="messageedit.php?editid='.$message->getId().
                                '&grp='.$message->getGrp().
 			       "&redir=$requestURI\">[Изменить]</a>";
+  echo '<a href="actions/moderate.php?editid='.$message->getId().
+                                    '&hide='.($message->isHidden() ? 0 : 1).
+				    "&redir=$requestURI\">[".
+	 ($message->isHidden() ? 'Разрешить' : 'Запретить').' показ]</a>';
   echo '</td></tr>';
   }
 ?>
