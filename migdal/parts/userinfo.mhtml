@@ -11,7 +11,7 @@
 <isedit name='user'>
  <div class='batcher'>
   <if what="$target!=''">
-   <a href='/useredit.php?editid=$user.Id' target='$target'>
+   <a href='/useredit.php?editid=$user.Id&redir=$_' target='$target'>
   <else>
    <a href='/useredit.php?editid=$user.Id&redir=$_'>
   </if>
