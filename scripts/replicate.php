@@ -12,6 +12,7 @@ function executeAction($action)
 {
 foreach($action as $line)
        {
+       echo $line->getQuery()."\n";
        $query=jdecode($line->getQuery());
        mysql_query($query)
          or journalFailure('Error executing replicated query in seq '.
