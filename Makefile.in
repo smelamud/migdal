@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-%.php: %.mhtml miparser
+%.php: %.mhtml miparser macros.mhtml
 	./miparser $< > $@
 
 all: users.php ;

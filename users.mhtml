@@ -1,13 +1,10 @@
 << @(#) $Id$ >>
-<?php
-require_once('parts/top.php');
-?>
-<macro name='t'><tr></macro>
 <html>
 <head>
  <title>Клуб Еврейского Студента - Пользователи</title>
 </head>
 <body bgcolor=white>
+  <require name='parts/top.php'>
   <?php displayTop('users'); ?>
   <p>
   <table>
@@ -15,10 +12,9 @@ require_once('parts/top.php');
     <th>Ник</th><th>Имя</th><th>Возраст</th><th>Мигдалевец</th><th>E-mail</th>
     <th>ICQ</th><th>Последний раз<br>был здесь</th>
    </tr>
-   <require name='lib/users.php'>
-   <iterate class='UserListIterator'>
+   <iterate_userlist>
    <for>
-    <t>
+    <tr>
      <td align=center>
       <a href="useredit.php?editid=$.id&redir=$_">$.Login</a>
      </td>

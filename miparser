@@ -443,19 +443,34 @@ my ($name)=@_;
 push @Requests,$name;
 }
 
+sub printVar
+{
+$var=shift;
+$data=join '',@_;
+if($$var=~/\n$/)
+  {
+  $data=~s/^\s+//;
+  }
+else
+  {
+  $data=~s/^\s*\n/\n/;
+  }
+$$var.=$data;
+}
+
 sub header
 {
-$Header.=join '',@_;
+printVar(\$Header,@_);
 }
 
 sub body
 {
-$Body.=join '',@_;
+printVar(\$Body,@_);
 }
 
 sub footer
 {
-$Footer.=join '',@_;
+printVar(\$Footer,@_);
 }
 
 sub display
@@ -467,6 +482,7 @@ sub init
 {
 $|=1;
 $Stack=Stack->new();
+unshift @ARGV,'macros.mhtml' if -r 'macros.mhtml';
 pull;
 }
 

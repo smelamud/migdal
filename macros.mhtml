@@ -1,0 +1,5 @@
+<< @(#) $Id$ >>
+<macro name='iterate_userlist'>
+ <require name='lib/users.php'>
+ <iterate name='%name' class='UserListIterator'>
+</macro>
