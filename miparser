@@ -99,6 +99,8 @@ return "$st$1$ed"
        if $s=~/^\*(\w+)$/;
 return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
        if $s=~/^\$_$/;
+return "$st\$".getGlobal('REQUEST_URI').$ed
+       if $s=~/^\$-$/;
 return "$st\$".getGlobal('SCRIPT_NAME').$ed
        if $s=~/^\$~$/;
 return "$st\$$item$ed"
@@ -140,7 +142,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[#\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;~\*]))|(?:\*\w+))?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[#\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;~\*\-]))|(?:\*\w+))?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      }

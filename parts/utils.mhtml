@@ -27,7 +27,12 @@ $message.LoginLink
   <if what='$list.Size<=$list.Limit'>
    Всего: $list.Size
   <else>
-   [$list.BeginValue-$list.EndValue] из $list.Size
+   <form method=post action='actions/goto.php'>
+    <input type='hidden' name='redir' value='$-'>
+    <input type='hidden' name='size' value='$list.Size'>
+    [<edit name='value' value='$list.BeginValue' size=2 maxlength=5><<
+    >>-$list.EndValue] из $list.Size
+   </form>
   </if>
  </td>
  <td align=right width=30%>
@@ -46,7 +51,7 @@ $message.LoginLink
   <td>Показывать по&nbsp;</td>
   <td><select name='$var'>
    <array val1='10 15 20 25 30 35 40' val2='$value'>
-   <iterate_sortarray values='$*'>
+   <iterate_sortarray>
    <for>
     <if what='$value==$.'>
      <option label=$. value=$. selected>

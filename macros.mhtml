@@ -64,7 +64,7 @@
  <iterate name='%name' class='MonthsIterator'>
 </macro>
 
-<macro name='iterate_sortarray'>
+<macro name='iterate_sortarray' defaults="values='$*'">
  <require name='lib/array.php'>
  <iterate name='%name' class='SortedArrayIterator' arg1='%values'>
 </macro>
@@ -97,6 +97,11 @@
 
 <macro name='imgtag'>
  <zone><image_tag id='$message.ImageId'>$,</zone>
+</macro>
+
+<macro name='jdate' defaults='time=0'>
+ <require name='lib/jdate.php'>
+ <call name='%name' func='getJewishFromUNIX' arg1='%time'>
 </macro>
 
 <macro name='message_obj' defaults='name=message grp=0 topic=0'>

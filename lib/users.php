@@ -6,6 +6,7 @@ require_once('lib/selectiterator.php');
 require_once('lib/months.php');
 require_once('lib/utils.php');
 require_once('lib/tmptexts.php');
+require_once('lib/jdate.php');
 
 class User
       extends UserTag
@@ -142,6 +143,12 @@ function getBirthday()
 {
 $bt=explode('-',$this->birthday);
 return $bt[2].' '.getRussianMonth((int)$bt[1]).' '.$bt[0];
+}
+
+function getJewishBirthday()
+{
+$bt=explode('-',$this->birthday);
+return getJewishFromDate($bt[1],$bt[2],$bt[0]);
 }
 
 function getDayOfBirth()

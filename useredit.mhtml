@@ -125,7 +125,7 @@
     </td>
    <else>
     <td><b>Дата рождения:</b></td>
-    <td>$,Birthday</td>
+    <td>$,Birthday / $,JewishBirthday</td>
    </if>
   </tr>
   <may_checkbox name='migdal_student' value='$,isMigdalStudent'
