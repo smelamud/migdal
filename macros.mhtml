@@ -108,7 +108,7 @@
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
 <deciter macro='topic_cross' class='CrossTopicIterator' file='lib/topics.php'
-         params='cross'>
+         params='cross,grp' defaults="grp='*GRP_ALL'">
 <deciter macro='topic_hierarchy' class='TopicHierarchyIterator'
          file='lib/topics.php' params='topic_id,root,reverse'
 	 defaults="root=-1 reverse='*false'">

@@ -23,7 +23,13 @@
                  grp='*GRP_DISCUSS' href='forumcatalog.php' title='Обсуждения'>
   </td>
   <td>
-   <subtitle icon='pics/opinion-big.gif'>
+   <if what='$topic_id>0'>
+    <div class='aframe' style='margin-bottom: 5px; padding: 5px'>
+     <subtitle icon='pics/opinion-big.gif'>
+     <seealso_links topic_id='$topic_id'
+		    title='См. также в разделе ссылок'>
+    </div>
+   </if>
    <forumcatalog topic='$topic_id' limit='$userForumCatalogPortion'
                  offset='$offset'>
   </td>

@@ -98,45 +98,6 @@
 </tr></table>
 </element>
 
-<element name='fullname' params='topic_id'>
-<iterate_topic_hierarchy topic_id='$topic_id' root='links'>
-<for>
- <if what='!$;isFirst'>
-  &sp;/
- </if>
- $.Name
-</for>
-</element>
-
-<element name='seealso' params='topic_id'>
-<if what='$topic_id>0'>
- <table class='topics ninept' style='margin: 0'>
-  <admin_topics>
-   <tr><td>
-    <a href='topiclinkadd.php?topic_id=$topic_id&redirid=$_'
-       class='edit'>Добавить</a>
-   </td></tr>
-  </admin_topics>
-  <iterate_topic_cross cross='$topic_id'>
-  <ifnzero what='$;Count'>
-   <tr><td><b>См. также:</b></td></tr>
-   <tr><td>
-    <for>
-     <if what='!$;isFirst'><br></if>
-     <a href='$[topic_id=$.Id offset]'><fullname topic_id=$.Id></a><asp>
-     <admin_topics>
-      <asp>&nbsp;<asp>
-      <a href='actions/topiclinkdel.php?topic_id=$topic_id&peer_id=$.Id&okdir=$#-&faildir=$#-'
-         class='edit'><asp>
-       <asp>Удалить</a>
-     </admin_topics>
-    </for>
-   </td></tr>
-  </ifnzero>
- </table>
-</if>
-</element>
-
 <html>
 <preamble>
 <body>
@@ -150,7 +111,7 @@
    </if>
    <admin>
    <navigator topic_id='$topic_id'>
-   <seealso topic_id='$topic_id'>
+   <seealso_links topic_id='$topic_id'>
   </td></tr>
   <tr valign=top>
    <td class='cframe'>

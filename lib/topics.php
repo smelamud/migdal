@@ -352,14 +352,15 @@ class CrossTopicIterator
       extends SelectIterator
 {
 
-function CrossTopicIterator($cross)
+function CrossTopicIterator($cross,$grp=GRP_ALL)
 {
+$grpFilter=$grp!=GRP_ALL ? "and (allow & $grp)<>0" : '';
 $this->SelectIterator('Topic',
                       "select id,name
 		       from topics
 		            left join cross_topics
 			         on topics.id=cross_topics.peer_id
-		       where topic_id=$cross
+		       where topic_id=$cross $grpFilter
 		       order by track");
 }
 

@@ -1,0 +1,40 @@
+<< @(#) $Id$ >>
+
+<grps>
+
+<element name='fullname' params='topic_id'>
+<iterate_topic_hierarchy topic_id='$topic_id' root='links'>
+<for>
+ <if what='!$;isFirst'>&sp;/&sp;</if>
+ $.Name
+</for>
+</element>
+
+<element name='seealso_links' params='topic_id'>
+<if what='$topic_id>0'>
+ <table class='topics ninept' style='margin: 0'>
+  <admin_topics>
+   <tr><td>
+    <a href='topiclinkadd.php?topic_id=$topic_id&redirid=$_'
+       class='edit'>Добавить</a>
+   </td></tr>
+  </admin_topics>
+  <iterate_topic_cross cross='$topic_id' grp='*GRP_LINKS'>
+  <ifnzero what='$;Count'>
+   <tr><td><b>$title:</b></td></tr>
+   <tr><td>
+    <for>
+     <if what='!$;isFirst'><br></if>
+     <a href='links.php?topic_id=$.Id'><fullname topic_id=$.Id></a><asp>
+     <admin_topics>
+      <asp>&nbsp;<asp>
+      <a href='actions/topiclinkdel.php?topic_id=$topic_id&peer_id=$.Id&okdir=$#-&faildir=$#-'
+         class='edit'><asp>
+       <asp>Удалить</a>
+     </admin_topics>
+    </for>
+   </td></tr>
+  </ifnzero>
+ </table>
+</if>
+</element>

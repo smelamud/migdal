@@ -32,6 +32,8 @@
   </td>
   <td class='cframe'>
    <subtitle>
+   <seealso_links topic_id='$topic_id'
+                  title='См. также в разделе ссылок'>
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
 	     offset='$offset' subdomain!='$$officialDomain ? 1 : -1'
 	     showshadows!='$topic_id>0 || $$userModerator'>

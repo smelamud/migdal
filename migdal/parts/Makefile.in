@@ -9,8 +9,8 @@ OBJECTS = article.php backtrace.php bottom.php complain.php formutils.php \
 	  kaitana-announce.php kaitana-picture.php langselect.php \
 	  link-posting.php login.php mailru.php menu.php picture.php \
 	  picture-main.php posting.php posting-times.php \
-	  posting-times-cover.php postings.php rambler.php spin.php \
-	  subtitle.php taglit.php taglit-gallery.php \
+	  posting-times-cover.php postings.php rambler.php seealso.php \
+	  spin.php subtitle.php taglit.php taglit-gallery.php \
 	  taglit-gallery-picture.php taglit-posting.php times-issue.php \
 	  tip.php tip-posting.php today.php top.php topics.php \
 	  topics-general.php topics-kaitana.php topics-major.php \

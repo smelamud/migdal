@@ -31,11 +31,15 @@
 		 href='gallery.php' title='Галерея'>
   </td>
   <td>
-   <subtitle icon='pics/gall-big.gif'>
-   <if what='$topic_id==-1'>
+   <if what='$topic_id<=0'>
     <gallery_main cols='$userPictureColumnPortion'
                   subdomain!='$$officialDomain ? 1 : -1'>
    <else>
+    <div class='aframe' style='margin-bottom: 5px; padding: 5px'>
+     <subtitle icon='pics/gall-big.gif'>
+     <seealso_links topic_id='$topic_id'
+		    title='См. также в разделе ссылок'>
+    </div>
     <gallery topic='$topic_id' rows='$userPictureRowPortion'
 	     cols='$userPictureColumnPortion' offset='$offset'
 	     subdomain!='$$officialDomain ? 1 : -1'>
