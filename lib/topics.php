@@ -3,7 +3,7 @@
 
 require_once('conf/migdal.conf');
 
-require_once('lib/dataobject.php');
+require_once('lib/usertag.php');
 require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
@@ -13,13 +13,14 @@ require_once('lib/array.php');
 require_once('lib/track.php');
 
 class Topic
-      extends DataObject
+      extends UserTag
 {
 var $id;
 var $up;
 var $track;
 var $name;
 var $full_name;
+var $user_id;
 var $stotext;
 var $hidden;
 var $allow;
@@ -35,7 +36,7 @@ global $defaultPremoderate;
 
 $this->allow=GRP_ALL;
 $this->premoderate=$defaultPremoderate;
-$this->DataObject($row);
+$this->UserTag($row);
 $this->stotext=new Stotext($row,'description');
 }
 
@@ -60,7 +61,7 @@ $this->stotext->setup($vars,'description');
 
 function getCorrespondentVars()
 {
-return array('up','name','hidden','ident');
+return array('up','name','hidden','ident','login');
 }
 
 function getGrpVars()
@@ -76,12 +77,13 @@ return array(GRP_NEWS       => 'news',
 
 function getWorldVars()
 {
-return array('up','track','name','hidden','allow','premoderate','ident');
+return array('up','track','name','user_id','hidden','allow','premoderate',
+             'ident');
 }
 
 function getNormal($isAdmin=false)
 {
-$normal=DataObject::getNormal($isAdmin);
+$normal=UserTag::getNormal($isAdmin);
 $normal['stotext_id']=$this->stotext->getId();
 return $normal;
 }
@@ -123,6 +125,11 @@ return str_replace(' ','&nbsp;',$this->getName());
 function getFullName()
 {
 return $this->full_name;
+}
+
+function getUserId()
+{
+return $this->user_id;
 }
 
 function getStotext()
@@ -342,13 +349,17 @@ global $userId,$userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query(
-       "select topics.id as id,up,name,topics.stotext_id as stotext_id,
+       "select topics.id as id,up,topics.name as name,
+               topics.stotext_id as stotext_id,
                stotexts.body as description,image_set,
 	       large_filename,large_format,
 	       stotexts.large_body as large_description,
 	       large_imageset,topics.hidden as hidden,allow,premoderate,
-	       topics.ident as ident,max(messages.sent) as last_message
+	       topics.ident as ident,max(messages.sent) as last_message,
+	       user_id,login,gender,email,hide_email,rebe
 	from topics
+	     left join users
+	          on topics.user_id=users.id
 	     left join stotexts
 		  on topics.stotext_id=stotexts.id
 	     left join postings
@@ -377,6 +388,18 @@ $result=mysql_query('select id,name
 	     or die('Ошибка SQL при выборке названия темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
+}
+
+function getTopicOwnerById($id)
+{
+$track=trackById('topics',$id);
+$result=mysql_query("select user_id
+                     from topics
+		     where '$track' like concat(track,'%') and user_id<>0
+		     order by length(track) desc
+		     limit 1")
+	     or die('Ошибка SQL при выборке владельца темы');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function topicExists($id)

@@ -7,7 +7,7 @@ sub readConfig
 open CONF,$configPath;
 while(<CONF>)
      {
-     next if /\?>/ || /<\?/;
+     next if /\?>/ || /<\?/ || /^\s*require/;
      s/#.*$//;
      next if /^\s*$/;
      my ($name,$value)=/^\$(\w+)=(.*);\s*$/;

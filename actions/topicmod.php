@@ -10,6 +10,7 @@ require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/track.php');
+require_once('lib/users.php');
 
 function modifyTopic($topic)
 {
@@ -19,6 +20,13 @@ if(!$userAdminTopics)
   return ET_NO_EDIT;
 if($topic->name=='')
   return ET_NAME_ABSENT;
+if($topic->login!='')
+  {
+  $uid=getUserIdByLogin($topic->login);
+  if($uid==0)
+    return ET_NO_USER;
+  $topic->user_id=$uid;
+  }
 if($topic->stotext->body=='')
   return ET_DESCRIPTION_ABSENT;
 if($topic->up!=0 && !topicExists($topic->up))
@@ -41,6 +49,7 @@ return ET_OK;
 postInteger('editid');
 postInteger('up');
 postString('name');
+postString('login');
 postString('description');
 postString('large_description');
 

@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/grps.php');
+
 ##
 ## Конфигурация ядра Migdal
 ##
@@ -115,7 +117,7 @@ $defaultThumbnail='../migdal/pics/click_here.jpg';
 $tmpDir='/tmp';
 
 # Маска премодерируемых по умолчанию постингов
-$defaultPremoderate=15;
+$defaultPremoderate=GRP_ALL;
 
 # Настройки сообщений в форуме (ForumAnswer)
 

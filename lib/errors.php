@@ -30,6 +30,7 @@ define('ET_NO_UP',126);
 define('ET_LOOP_UP',127);
 define('ET_TRACK_SQL',128);
 define('ET_MUST_ALLOW',129);
+define('ET_NO_USER',1210);
 
 define('EP_OK',130);
 define('EP_NO_EDIT',131);
@@ -50,6 +51,7 @@ define('EP_IDENT_UNIQUE',1315);
 define('EP_INVALID_GRP',1316);
 define('EP_AUTHOR_ABSENT',1317);
 define('EP_SOURCE_ABSENT',1318);
+define('EP_OWNED_TOPIC',1319);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);

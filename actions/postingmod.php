@@ -60,7 +60,7 @@ else
 
 function modifyPosting($message)
 {
-global $userId;
+global $userId,$userModerator;
 
 if($userId<=0)
   return EP_NO_SEND;
@@ -82,6 +82,9 @@ if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
 if($message->topic_id!=0 && !topicExists($message->topic_id))
   return EP_NO_TOPIC;
+if($message->topic_id!=0 && !$userModerator
+   && getTopicOwnerById($message->topic_id)!=$userId)
+  return EP_OWNED_TOPIC;
 if($message->mandatoryIdent() && $message->ident=='')
   return EP_IDENT_ABSENT;
 $cid=idByIdent('postings',$message->ident);

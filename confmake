@@ -20,7 +20,7 @@ while(<IN>)
      open CONF,$config;
      while(<CONF>)
 	  {
-	  next if /\?>/ || /<\?/;
+	  next if /\?>/ || /<\?/ || /^\s*require/;
 	  s/#.*$//;
 	  next if /^\s*$/;
 	  my ($name,$value)=/^\$(\w+)=(.*);\s*$/;

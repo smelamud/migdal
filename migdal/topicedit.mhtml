@@ -39,6 +39,9 @@
     <error id='*ET_IDENT_UNIQUE' text='Так уже обозначена другая тема' span=2>
     <edit_line title='Обозначение' name='ident' value='$,Ident'
 	       size=15 maxlength=15>
+    <error id='*ET_NO_USER' text='Такого пользователя не существует' span=2>
+    <edit_line title='Владелец' name='login' value='$,Login' size=20
+	       maxlength=30>
    </table></td></tr>
    <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
    <editor_line title='Описание' name='description' body='$,Description'

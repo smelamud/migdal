@@ -25,3 +25,5 @@ ALTER TABLE `sessions` DROP INDEX `last_2`;
 ALTER TABLE `sessions` ADD `real_user_id` INT NOT NULL AFTER `user_id`;
 DROP TABLE `menu`;
 ALTER TABLE `users` DROP `admin_menu`;
+ALTER TABLE `topics` ADD `user_id` INT NOT NULL AFTER `name`;
+ALTER TABLE `topics` ADD INDEX (`user_id`);
