@@ -269,6 +269,8 @@
        defaults="mandatory='*false'">
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
+<decel name='upper_level' file='parts/topics.php' params='title,name,href'
+       defaults="title='' name=''">
 <decel name='userinfo' file='parts/userinfo.php' params='id,target'>
 <decel name='vote_frame' file='parts/vote.php' params='id,align,color,image'
        defaults="align=''">

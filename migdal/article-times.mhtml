@@ -18,7 +18,7 @@
  <table width=100% cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <times_articles issue='$,Index1' length='$cover.Index2' id='$,Id'>
+    <topics posting='$,'>
    </td>
   </notprint>
   <td class='article cframe'>

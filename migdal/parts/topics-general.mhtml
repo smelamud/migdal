@@ -7,6 +7,7 @@
 			    *GRP_LIBRARY_ANNOUNCES))!=0'>
   <if what='$/$posting.TopicId,0/==$`migdal` ||
 	    $/$posting.TopicId,1/==$`migdal-news`'>
+   <upper_level title='На главную страницу' href='index.php'>
    <topics_migdal posting='$posting'>
    <topics_major ident='migdal' posting='$posting'>
   <elif what='$/$posting.TopicId,0/==$`help`'>
@@ -29,7 +30,10 @@
    <topics_gallery posting='$posting'>
   </if>
  <elif what='($posting.Grp & (*GRP_TIMES_COVERS|*GRP_TIMES_ARTICLES))!=0'>
-  <times_articles issue='$posting.Index1' id='$posting.Id'>
+  <posting_obj name='cover' grp='*GRP_TIMES_COVERS' index1='$posting.Index1'
+	       topic_id='-1'>
+  <times_articles issue='$posting.Index1' length='$cover.Index2'
+                  id='$posting.Id'>
  <elif what='($posting.Grp & *GRP_BLOG_FORUMS)!=0'>
   <if what='$/$posting.TopicId,0/==$`taglit`'>
    <topics_taglit id='$posting.SenderId'>
@@ -48,6 +52,8 @@
 <elif what="$ident=='help-subs' || $ident=='help-types' || $ident=='help-tips'">
  <topics_help ident='$ident'>
  <topics_major ident='help'>
+<else>
+ <topics_major ident='$ident'>
 </ifnzero>
 </element>
 
