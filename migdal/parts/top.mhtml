@@ -18,6 +18,9 @@
         <image src='$$style_banner_migdal' alt='Мигдаль' border=0><br>
         <image src='$$style_banner_online' alt='on-line' border=0></a>
       </td>
+      <td style='padding-left: 20px'>
+       <hannukah>
+      </td>
      </tr>
     </table>
    <else>

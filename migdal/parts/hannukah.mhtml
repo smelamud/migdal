@@ -1,0 +1,15 @@
+<< @(#) $Id$ >>
+
+<element name='hannukah'>
+<table><tr valign=bottom>
+ <td><image src='pics/h8-0.gif'></td>
+ <td><image src='pics/h7-0.gif'></td>
+ <td><image src='pics/h6-0.gif'></td>
+ <td><image src='pics/h5-0.gif'></td>
+ <td><image src='pics/h0.gif'></td>
+ <td><image src='pics/h4-0.gif'></td>
+ <td><image src='pics/h3-0.gif'></td>
+ <td><image src='pics/h2-0.gif'></td>
+ <td><image src='pics/h1-1.gif'></td>
+</tr></table>
+</element>
