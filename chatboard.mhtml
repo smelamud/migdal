@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<refresh period=10 url='$-'>
 <html>
 <head></head>
 <body bgcolor=white>

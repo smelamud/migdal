@@ -536,6 +536,15 @@ else
   }
 }
 
+sub elRefresh #XXX Possibly empty period,url
+{
+my ($self)=@_;
+
+my $period=::subVar($self->getArg('period'));
+my $url=::subVar($self->getArg('url'));
+::header("<?php header('Refresh: '.$period.'; URL='.$url); ?>\n");
+}
+
 sub elHtml
 {
 my ($self)=@_;
