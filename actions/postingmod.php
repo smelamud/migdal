@@ -14,33 +14,7 @@ require_once('lib/topics.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings.php');
 require_once('lib/complains.php');
-
-function uploadLargeText(&$stotext)
-{
-global $large_file,$large_file_size,$large_file_type,$large_file_name,
-       $large_loaded,
-       $maxLargeText,$tmpDir;
-
-if(isset($large_loaded) && $large_loaded==1)
-  return EP_OK;
-if(!isset($large_file) || $large_file=='' || !is_uploaded_file($large_file)
-   || filesize($large_file)!=$large_file_size)
-  return EP_OK;
-if($large_file_size>$maxLargeText)
-  return EP_LARGE_BODY_LARGE;
-
-$large_file_tmpname=tempnam($tmpDir,'mig-');
-if(!move_uploaded_file($large_file,$large_file_tmpname))
-  return EP_OK;
-$fd=fopen($large_file_tmpname,'r');
-$stotext->large_filename=$large_file_name;
-$stotext->large_body=textToStotext($stotext->large_format,
-                                   fread($fd,$maxLargeText));
-fclose($fd);
-unlink($large_file_tmpname);
-
-return EP_OK;
-}
+require_once('lib/stotext.php');
 
 function setImageTitle($image_set,$title)
 {
