@@ -4,7 +4,7 @@
 
 <element name='topic' params='picture,showtopic'>
 <if what='$showtopic'>
- <tr><td class='topic'>
+ <tr><td class='eightpt' align=center>
   <topiclink posting='$picture'>
  </td></tr>
 </if>
@@ -12,7 +12,8 @@
 
 <element name='controls' params='picture,showcomplain'>
 <logged>
- <tr><td class='modify'>
+ <tr><td class='control' align=center
+         style='padding-top: 0; padding-bottom: 1ex'>
   <iswrite what='$picture'>
    <editlink posting='$picture'>
   <else>
@@ -28,7 +29,7 @@
 <element name='picture'>
 <if what='$picture.isRebe'><span class='rebe'></if>
  <table class='picture'>
-  <tr class='top'><td align=right>
+  <tr class='border'><td align=right>
    <biff time='$picture.Sent' small='*true'>
    <senderlink message='$picture'>
   </td></tr>
@@ -47,10 +48,12 @@
    $picture.HTMLBody
   </td></tr>
   <if what='$showdiscuss'>
-   <tr><td class='discuss'><discusslink posting='$picture'></td></tr>
+   <tr><td class='control' align=right>
+    <discusslink posting='$picture'>
+   </td></tr>
   </if>
   <ifnzero what='$picture.ImageSet'>
-   <tr><td class='bottom'>
+   <tr><td class='border' align=center>
     ${picture.ImageX}x${picture.ImageY}, ${picture.ImageSizeKB}KB
    </td></tr>
   </ifnzero>

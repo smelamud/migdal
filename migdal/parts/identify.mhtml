@@ -35,7 +35,6 @@
  <topic_obj id='$posting.TopicId'>
  <assign name='href' value#='event.php?topic_id=$,Id'>
  <assign name='ghref' value#='gallery.php?topic_id=$,Id'>
- <assign name='mhref' value='$href'>
  <assign name='title' value='$,Description'>
  <assign name='name' value#='События :: $,Name'>
  <assign name='root' value='$,Id'>
@@ -165,6 +164,8 @@
  <assign name='mhref' value='migdal.php'>
  <if what='$posting.TopicId==$`migdal`'>
   <assign name='gnews' value='*true'>
+ <elif what='$/$posting.TopicId,1/==$`events`'>
+  <assign name='mhref' value#='event.php?topic_id=$posting.TopicId'>
  <elif what='$/$posting.TopicId,1/==$`jcc`'>
   <assign name='mhref' value='jcc.php'>
   <if what='$/$posting.TopicId,2/==$`kaitana`'>

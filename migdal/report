@@ -102,6 +102,7 @@ Migdal report generator (for 'migdal' interface)
 	monopoly     Depth of view report
 	popularity   Popularity report
         raw          Raw user-readable log (default)
+	search       Search phrases report
 	traps        Traps activity report
 	visits       Output number of individual visits
   -t, --to=<date>           Final date for statistics

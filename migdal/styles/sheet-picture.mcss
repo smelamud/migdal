@@ -1,7 +1,7 @@
 ! @(#) $Id$
 
 .picture {
-	border: 5px solid %picture_border;
+	border: 5px solid %picture_border_back;
 	background-color: %picture_back;
 	background-image: url("../%picture_back_pic");
 	border-spacing: 0;
@@ -10,21 +10,15 @@
 	width: 150;
 }
 
-.picture .top {
-	background-color: %picture_top_back;
+.picture .border {
+	background-color: %picture_border_back;
+	color: %picture_border;
+	font-weight: bold;
 }
 
-.picture .top .name {
+.picture .border .name {
 	color: %picture_name;
 	font-weight: normal;
-}
-
-.picture .topic {
-	text-align: center;
-}
-
-.picture .topic A {
-	font-size: 8pt;
 }
 
 .picture .image {
@@ -38,41 +32,13 @@
 	vertical-align: middle;
 }
 
-.picture .discuss {
-	text-align: right;
-}
-
-.picture .discuss A {
-	color: %picture_discuss;
+.picture .control A {
+	color: %picture_control;
 	font-size: 8pt;
 	text-decoration: none;
 }
 
-.picture .discuss A:hover {
-	color: %picture_discuss_hover;
+.picture .control A:hover {
+	color: %picture_control_hover;
 	text-decoration: underline;
-}
-
-.picture .modify {
-	padding-bottom: 1ex;
-	padding-top: 0;
-	text-align: center;
-}
-
-.picture .modify A {
-	color: %picture_modify;
-	font-size: 8pt;
-	text-decoration: none;
-}
-
-.picture .modify A:hover {
-	color: %picture_modify_hover;
-	text-decoration: underline;
-}
-
-.picture .bottom {
-	background-color: %picture_bottom_back;
-	color: %picture_bottom;
-	font-weight: bold;
-	text-align: center;
 }

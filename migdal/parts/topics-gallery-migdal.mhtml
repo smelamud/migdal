@@ -23,28 +23,30 @@
 </element>
 
 <element name='topics_gallery_migdal'>
-<posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*true'>
-<topics_line time='$,' text='Клуб Еврейского Студента'
-	     href#='gallery.php?topic_id=$`kes`'
+<posting_info grp='*GRP_GRAPHICS' topic_id='$`kes`' recursive='*true'>
+<topics_line time='$,MaxSent' text='Клуб Еврейского Студента'
+	     count='$,Total' href#='gallery.php?topic_id=$`kes`'
 	     arrow!="$/$posting.TopicId,2/==$`kes`" indent=1
 	     class='item eightpt'>
-<posting_last grp='*GRP_GALLERY' topic_id='$`kaitana`' recursive='*true'>
-<topics_line time='$,' text='Дневные детские лагеря'
-	     href#='gallery.php?topic_id=$`kaitana`'
+<posting_info grp='*GRP_GRAPHICS' topic_id='$`kaitana`' recursive='*true'>
+<topics_line time='$,MaxSent' text='Дневные детские лагеря'
+	     count='$,Total' href#='gallery.php?topic_id=$`kaitana`'
 	     arrow!="$/$posting.TopicId,2/==$`kaitana`" indent=1
 	     class='item eightpt'>
-<posting_last grp='*GRP_GALLERY' topic_id='$`halom`' recursive='*true'>
-<topics_line time='$,' text='Семейные лагеря'
-	     href#='gallery.php?topic_id=$`halom`'
+<posting_info grp='*GRP_GRAPHICS' topic_id='$`halom`' recursive='*true'>
+<topics_line time='$,MaxSent' text='Семейные лагеря'
+	     count='$,Total' href#='gallery.php?topic_id=$`halom`'
 	     arrow!="$/$posting.TopicId,2/==$`halom`" indent=1
 	     class='item eightpt'>
-<posting_last grp='*GRP_GALLERY' topic_id='$`migdal-ohr`' recursive='*true'>
-<topics_line time='$,' href#='gallery.php?topic_id=$`migdal-ohr`'
+<posting_info grp='*GRP_GRAPHICS' topic_id='$`migdal-ohr`' recursive='*true'>
+<topics_line time='$,MaxSent' count='$,Total'
+             href#='gallery.php?topic_id=$`migdal-ohr`'
 	     text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-ohr`"
 	     indent=1 class='item eightpt'>
-<posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*true'>
-<topics_line time='$,' href#='gallery.php?topic_id=$`mazltov`'
+<posting_info grp='*GRP_GRAPHICS' topic_id='$`mazltov`' recursive='*true'>
+<topics_line time='$,MaxSent' count='$,Total'
+             href#='gallery.php?topic_id=$`mazltov`'
 	     text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
 	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`mazltov`" indent=1
 	     class='item eightpt'>

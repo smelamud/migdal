@@ -20,8 +20,10 @@
   <posting_new name='post' grp='$.PeerGrp' topic_id='$.PeerId'
 	       topic_name='$.PeerName'>
   <identify posting='$post'>
-  <topic_obj id='$.PeerId' fields='*SELECT_INFO'>
-  <topics_line class='item ninept' time='$,LastMessage'
+  <posting_info name='info' grp='*GRP_GRAPHICS' topic_id='$.PeerId'
+                recursive='*true'>
+  <topic_obj id='$.PeerId' fields='*SELECT_GENERAL'>
+  <topics_line class='item ninept' time='$info.MaxSent' count='$info.Total'
 	       href#='$post.GalleryHref' title='$,Description' text='$,Name'
 	       arrow!='$posting!=0 && $,Id==$posting.TopicId' span=2>
  </for>
