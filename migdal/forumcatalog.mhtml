@@ -27,6 +27,8 @@
      <subtitle icon='pics/opinion-big.gif'>
      <seealso_links topic_id='$topic_id' topic_grp='*GRP_FORUMS'
 		    title='См. также в разделе ссылок'>
+     <seealso_other topic_id='$topic_id' topic_grp='*GRP_FORUMS'
+		    title='По этой теме в других разделах'>
     </div>
    </if>
    <forumcatalog topic_id='$topic_id' limit='$userForumCatalogPortion'

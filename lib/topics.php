@@ -460,33 +460,6 @@ $this->ArrayIterator($topics);
 
 }
 
-class CrossTopicIterator
-      extends SelectIterator
-{
-
-function CrossTopicIterator($cross,$peer_grp=GRP_ALL,$topic_grp=GRP_ALL)
-{
-$grpFilter='';
-$grpFilter.=$topic_grp!=GRP_ALL ? " and (topic_grp & $topic_grp)<>0" : '';
-$grpFilter.=$peer_grp!=GRP_ALL ? " and (peer_grp & $peer_grp)<>0" : '';
-$this->SelectIterator('Posting',
-                      "select id as topic_id,name as topic_name,(peer_grp & $peer_grp) as grp
-		       from topics
-		            left join cross_topics
-			         on topics.id=cross_topics.peer_id
-		       where topic_id=$cross $grpFilter
-		       order by track");
-}
-
-function create($row)
-{
-$posting=newPosting($row);
-$posting->setGrp($row['grp']);
-return $posting;
-}
-
-}
-
 function getAllowByTopicId($id)
 {
 $hide=topicsPermFilter(PERM_READ);

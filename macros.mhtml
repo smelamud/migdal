@@ -117,8 +117,8 @@
          file='lib/topics.php' params='grp,up,recursive,delimiter'
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
-<deciter macro='topic_cross' class='CrossTopicIterator' file='lib/topics.php'
-         params='cross,peer_grp,topic_grp'
+<deciter macro='topic_cross' class='CrossTopicIterator'
+         file='lib/cross-topics.php' params='topic_id,peer_grp,topic_grp'
 	 defaults="peer_grp='*GRP_ALL' topic_grp='*GRP_ALL'">
 <deciter macro='topic_hierarchy' class='TopicHierarchyIterator'
          file='lib/topics.php' params='topic_id,root,reverse'
