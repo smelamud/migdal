@@ -6,12 +6,20 @@
 <int name='topic_id'>
 <int name='grp'>
 <int name='up'>
+<int name='isbook'>
 
 <element name='order_selector' params='sels,current'>
 <select name='art[]'>
  <reset_iterator list='$sels'>
  <for list='sels'>
-  <radio title='$.Subject' value='$.Id' peervalue='$current'>
+  <assign name='title'
+          value!='!$$isbook ? $.Subject
+                            : $.Author."&lt;&lt;".$.Source."&gt;&gt;"'>
+  <assign name='stitle' value!='shorten(${title},64,16,16)'>
+  <if what='strlen($stitle)<strlen($title)'>
+   <assign name='stitle' value#='$stitle...'>
+  </if>
+  <radio title='$stitle' value='$.Id' peervalue='$current'>
  </for>
 </select>
 </element>

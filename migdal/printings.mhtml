@@ -71,7 +71,7 @@
 	 <table class='info'><tr valign=center>
 	   <td>&nbsp;</td>
 	   <td>
-	    <a href='reorder.php?topic_id=$.TopicId&grp=*GRP_LIBRARY_ANNOUNCES&up=-1&redirid=$_'
+	    <a href='reorder.php?topic_id=$.TopicId&grp=*GRP_LIBRARY_ANNOUNCES&up=-1&isbook=1&redirid=$_'
 	       >Расставить анонсы</a>
 	   </td>
 	 </tr></table>
