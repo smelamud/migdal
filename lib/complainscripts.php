@@ -8,18 +8,22 @@ define('CSCR_NONE',0);
 define('CSCR_CLOSE',1);
 define('CSCR_CLOSE_ENABLE',2);
 define('CSCR_OPEN',4);
-define('CSCR_ALL',7);
+define('CSCR_OPEN_DISABLE',8);
+define('CSCR_ALL',15);
 define('CSCR_MASK_NORMAL',CSCR_CLOSE|CSCR_OPEN);
 define('CSCR_MASK_FORUM',CSCR_CLOSE|CSCR_OPEN);
-define('CSCR_MASK_POSTING',CSCR_CLOSE|CSCR_CLOSE_ENABLE|CSCR_OPEN);
+define('CSCR_MASK_POSTING',CSCR_CLOSE|CSCR_CLOSE_ENABLE|CSCR_OPEN
+                           |CSCR_OPEN_DISABLE);
 
 $cscrProcNames=array(CSCR_CLOSE        => 'cscrClose',
 		     CSCR_CLOSE_ENABLE => 'cscrCloseEnable',
-		     CSCR_OPEN         => 'cscrOpen');
+		     CSCR_OPEN         => 'cscrOpen',
+		     CSCR_OPEN_DISABLE => 'cscrOpenDisable');
 
 $cscrTitles=array(CSCR_CLOSE        => 'Закрыть жалобу',
 		  CSCR_CLOSE_ENABLE => 'Закрыть жалобу и открыть доступ',
-		  CSCR_OPEN         => 'Возобновить жалобу');
+		  CSCR_OPEN         => 'Возобновить жалобу',
+		  CSCR_OPEN_DISABLE => 'Возобновить жалобу и закрыть доступ');
 
 function cscrClose($complain)
 {
@@ -41,6 +45,13 @@ function cscrOpen($complain)
 {
 $id=$complain->getId();
 reopenComplain($id);
+}
+
+function cscrOpenDisable($complain)
+{
+cscrOpen($complain);
+$message_id=getMessageIdByPostingId($complain->getLink());
+setDisabledByMessageId($message_id,1);
 }
 
 class ComplainScript
