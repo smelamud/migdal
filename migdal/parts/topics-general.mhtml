@@ -4,10 +4,15 @@
 <if what='$posting.Grp==*GRP_FORUMS || $posting.Grp==*GRP_NEWS ||
           $posting.Grp==*GRP_ARTICLES || $posting.Grp==*GRP_QUOTES ||
 	  $posting.Grp==*GRP_BOOKS || $posting.Grp==*GRP_BOOK_CHAPTERS'>
- <topics_major ident='index'>
- <topics_minor id='$posting.TopicId' withpostings='$$officialDomain'
-               subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'
-               href='index.php' title='Раздельчики'>
+ <if what='$/$posting.TopicId,0/!=$`migdal`'>
+  <topics_major ident='index'>
+  <topics_minor id='$posting.TopicId' withpostings='$$officialDomain'
+		subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'
+		href='index.php' title='Раздельчики'>
+ <else>
+  <topics_migdal posting='$posting'>
+  <topics_major ident='migdal'>
+ </if>
 </if>
 <if what='$posting.Grp==*GRP_GALLERY'>
  <if what='$/$posting.TopicId,0/!=$`migdal`'>

@@ -13,7 +13,7 @@
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
    <zone>
-    <posting_new topic_id='$`methodics`'>
+    <posting_new grp='*GRP_BOOKS' topic_id='$`methodics`'>
     <topics posting='$,'>
    </zone>
   </td>
