@@ -2,52 +2,50 @@
 << Based-on: demo/complains.mhtml 1.5 >>
 
 <element name='batcher_complains' params='value,list'>
-<table width=100% class='batcher'>
- <form method=get action='$~'>
-  <hiddenget remove='cp'>
-  <tr>
-   <td align=left><table><tr valign=bottom><td>
-    <logged>
-     <a href='complainedit.php?ident=normal&redir=$_'
-        class='add'>Добавить жалобу</a>
-    </logged>
-   </td></tr></table></td>
-   <td align=right><table><tr valign=center>
-    <td><input type=submit value='Показывать'></td>
-    <td>по</td>
-    <td>
-     <select_portion name='cp' value='$value' vals='20 25 30 35 40 45 50'>
+<table width=100% class='batcher'><tr>
+ <td align=left><table><tr valign=bottom><td>
+  <logged>
+   <a href='complainedit.php?ident=normal&redir=$_'
+      class='add'>Добавить жалобу</a>
+  </logged>
+ </td></tr></table></td>
+ <td align=right><table><tr valign=center>
+  <form method=get action='$~'>
+   <hiddenget remove='cp'>
+   <td><input type=submit value='Показывать'></td>
+   <td>по</td>
+   <td>
+    <select_portion name='cp' value='$value' vals='20 25 30 35 40 45 50'>
+   </td>
+   <td>из&nbsp;$list.Size&nbsp;<asp><ofmessages value='$list.Size'></td>
+  </form>
+  <if what='$list.Size>$list.Limit'>
+   <form method=post action='actions/goto.php'>
+    <hidden name='redir' value='$-'>
+    <hidden name='size' value='$list.Size'>
+    <td align=right width=32>
+     <ifnzero what='$list.Offset'>
+      <a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
+       <img src='pics/left.gif' border=0></a>
+     </ifzero>
     </td>
-    <td>из&nbsp;$list.Size&nbsp;<asp><ofmessages value='$list.Size'></td>
-    <if what='$list.Size>$list.Limit'>
-     <form method=post action='actions/goto.php'>
-      <hidden name='redir' value='$-'>
-      <hidden name='size' value='$list.Size'>
-      <td align=right width=32>
-       <ifnzero what='$list.Offset'>
-	<a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
-	 <img src='pics/left.gif' border=0></a>
-       </ifzero>
-      </td>
-      <td align=right>
-       <edit name='offset' value='$list.BeginValue' size=2 maxlength=5>
-      </td>
-      <td align=center>-</td>
-      <td align=right>
-       $list.EndValue
-      </td>
-      <td align=left width=32>
-       <if what='$list.EndValue<$list.Size'>
-	<a href="$[offset='$list.NextOffset']" title='Следующие'>
-	 <img src='pics/right.gif' border=0></a>
-       </if>
-      </td>
-     </form>
-    </if>
-   </tr></table></td>
-  </tr>
- </form>
-</table>
+    <td align=right>
+     <edit name='offset' value='$list.BeginValue' size=2 maxlength=5>
+    </td>
+    <td align=center>-</td>
+    <td align=right>
+     $list.EndValue
+    </td>
+    <td align=left width=32>
+     <if what='$list.EndValue<$list.Size'>
+      <a href="$[offset='$list.NextOffset']" title='Следующие'>
+       <img src='pics/right.gif' border=0></a>
+     </if>
+    </td>
+   </form>
+  </if>
+ </tr></table></td>
+</tr></table>
 </element>
 
 <int name='offset'>

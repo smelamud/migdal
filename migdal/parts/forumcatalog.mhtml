@@ -1,63 +1,61 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.14 >>
+<< Based-on: migdal/parts/postings.mhtml 1.16 >>
 
 <element name='batcher_forumcatalog' params='value,list,topic,grp'>
 <grpdata>
 <grpitemtitle>
-<table width=100% class='batcher'>
- <form method=get action='$~'>
-  <hiddenget remove='fcp'>
-  <tr>
-   <td align=left><table><tr valign=bottom><td>
-    <logged>
-     <if what='$g.Valid'>
-      <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
-         class='add'>Добавить $grpitemtitle</a>
-     <else>
-      <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
-         class='add'>Добавить новость</a>
-      </td><td width=10></td><td>
-      <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
-         class='add'>Добавить статью</a>
-     </if>
-    </logged>
-   </td></tr></table></td>
-   <td align=right><table><tr valign=center>
-    <td><input type=submit value='Показывать'></td>
-    <td>по</td>
-    <td>
-     <select_portion name='fcp' value='$value' vals='10 15 20 25 30 35 40'>
+<table width=100% class='batcher'><tr>
+ <td align=left><table><tr valign=bottom><td>
+  <logged>
+   <if what='$g.Valid'>
+    <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
+       class='add'>Добавить $grpitemtitle</a>
+   <else>
+    <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
+       class='add'>Добавить новость</a>
+    </td><td width=10></td><td>
+    <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
+       class='add'>Добавить статью</a>
+   </if>
+  </logged>
+ </td></tr></table></td>
+ <td align=right><table><tr valign=center>
+  <form method=get action='$~'>
+   <hiddenget remove='mp'>
+   <td><input type=submit value='Показывать'></td>
+   <td>по</td>
+   <td>
+    <select_portion name='mp' value='$value' vals='10 15 20 25 30 35 40'>
+   </td>
+   <td>из&nbsp;$list.Size&nbsp;<asp><ofmessages value='$list.Size'></td>
+  </form>
+  <if what='$list.Size>$list.Limit'>
+   <form method=post action='actions/goto.php'>
+    <hidden name='redir' value='$-'>
+    <hidden name='size' value='$list.Size'>
+    <td align=right width=32>
+     <ifnzero what='$list.Offset'>
+      <a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
+       <img src='pics/left.gif' border=0></a>
+     </ifzero>
     </td>
-    <td>из&nbsp;$list.Size&nbsp;<asp><ofmessages value='$list.Size'></td>
-    <if what='$list.Size>$list.Limit'>
-     <form method=post action='actions/goto.php'>
-      <hidden name='redir' value='$-'>
-      <hidden name='size' value='$list.Size'>
-      <td align=right width=32>
-       <ifnzero what='$list.Offset'>
-	<a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
-	 <img src='pics/left.gif' border=0></a>
-       </ifzero>
-      </td>
-      <td align=right>
-       <edit name='offset' value='$list.BeginValue' size=2 maxlength=5>
-      </td>
-      <td align=center>-</td>
-      <td align=right>
-       $list.EndValue
-      </td>
-      <td align=left width=32>
-       <if what='$list.EndValue<$list.Size'>
-	<a href="$[offset='$list.NextOffset']" title='Следующие'>
-	 <img src='pics/right.gif' border=0></a>
-       </if>
-      </td>
-     </form>
-    </if>
-   </tr></table></td>
-  </tr>
- </form>
-</table>
+    <td align=right>
+     <edit name='value' value='$list.BeginValue' size=2 maxlength=5>
+    </td>
+    <td align=center>-</td>
+    <td align=right>
+     $list.EndValue
+    </td>
+    <td align=left width=32>
+     <if what='$list.EndValue<$list.Size'>
+      <a href="$[offset='$list.NextOffset']" title='Следующие'>
+       <img src='pics/right.gif' border=0></a>
+     </if>
+    </td>
+   </form>
+  </if>
+ </tr></table></td>
+</tr></table>
 </element>
 
 <element name='ForumCatalog'>
