@@ -22,6 +22,8 @@ if(!isCalendarAvailable())
 
 include('lib/jewish-calendar-utils.php');
 
+require_once('conf/migdal.conf');
+
 require_once('lib/calendar-tables.php');
 
 function getJewishFromDate($month,$day,$year)
@@ -162,8 +164,16 @@ switch($f)
       }
 }
 
-function formatAnyDate($f,$time=0)
+function formatAnyDate($f,$time=0,$fix=true)
 {
+global $fixTime;
+
+if($fix)
+  {
+  if($time==0)
+    $time=time();
+  $time+=$fixTime*3600;
+  }
 if(strlen($f)!=2)
   return formatEnglishDate($f,$time);
 else
