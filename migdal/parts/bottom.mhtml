@@ -5,7 +5,10 @@
 <div class='bottom'>
  <table width=100%>
   <tr>
-   <td>&nbsp;</td>
+   <td align=left>
+    Раввином сайта является <a href='http://yosele.rabbi.ru/'>Йосеф
+    Херсонский</a>.
+   </td>
    <td align=right>
     <image src='pics/book.gif'>&nbsp;
     <a class='big' href='complains.php'>Замечания/предложения по работе сайта</a>
@@ -13,9 +16,12 @@
   </tr>
   <tr valign=bottom>
    <td align=left>
-    Сайт создан и поддерживается <b>Клубом Еврейского Студента</b><br>
-    Международного Еврейского Общинного Центра &lt;&lt;<b>Мигдаль</b>&gt;&gt;,
-    Одесса
+    Сайт создан и поддерживается
+    <a href='migdal.php?artid=1479&redirid=$_'>Клубом Еврейского Студента</a>
+    <br>
+    Международного Еврейского Общинного Центра
+    <a href='migdal.php?redirid=$_'>&lt;&lt;Мигдаль&gt;&gt;</a>,
+    Одесса.
    </td>
    <td align=right>
     // Powered by
