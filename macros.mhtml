@@ -98,13 +98,17 @@
 <deciter macro='sortarray' class='SortedArrayIterator' file='lib/array.php'
          params='values' defaults="values='$*'">
 <deciter macro='sortedtopicnames' class='SortedTopicNamesIterator'
-         file='lib/topics.php' params='grp,up' defaults="up='-1'">
+         file='lib/topics.php' params='grp,up,recursive'
+	 defaults="up='-1' recursive='*false'">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
+<deciter macro='topic_hierarchy' class='TopicHierarchyIterator'
+         file='lib/topics.php' params='topic_id,root,reverse'
+	 defaults="root='-1' reverse='*false'">
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
          params='grp,up,withpostings,withanswers,cols,subdomain'
          defaults="up=0 withpostings='*false' withanswers='*false' cols=5 subdomain=-1">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
-         params='grp,up' defaults="up='-1'">
+         params='grp,up,recursive' defaults="up='-1' recursive='*false'">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'>
 
 <macro name='reset_iterator' defaults="list='$;'">

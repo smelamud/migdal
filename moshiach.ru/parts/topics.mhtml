@@ -18,7 +18,7 @@
  <ifnzero what='$indent'>
   <tdspan span='$indent'>&nbsp;</tdspan>
  </ifnzero>
- <td>
+ <td width=10>
   <topics_ner arrow='$arrow'>
  </td>
  <tdspan span='$span'>
@@ -40,13 +40,6 @@
  <assign name='tableclass' value='topics'>
 </ifne>
 <table class='$tableclass' width=100%>
- <ifnzero what='$span'>
-  <if what='$span>1'>
-   <col width=0* span=$span>
-  <else>
-   <col width=0*>
-  </if>
- </ifnzero>
  <ifne what='$title'>
   <assign name='headspan' value!='$span+1'>
   <tr><th colspan=$headspan>$title</th></tr>

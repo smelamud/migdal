@@ -202,12 +202,14 @@ class TopicIterator
       extends SelectIterator
 {
 
-function getWhere($grp,$up=0,$prefix='',$withAnswers=false)
+function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false)
 {
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$uf=$up>=0 ? 'and '.byIdent($up,'topics.up','uptopics.ident') : '';
+$uf=$up>=0 ? 'and '.byIdentRecursive('topics',$up,$recursive,
+                                     'topics.up','uptopics.ident',
+				     'topics.track') : '';
 $gf="and (${prefix}allow & $grp)!=0";
 $af=$withAnswers ? "and forummesgs.id is not null" : '';
 return " where $prefix"."hidden<$hide $uf $gf $af ";
@@ -280,12 +282,12 @@ class TopicNamesIterator
 var $names;
 var $up;
 
-function TopicNamesIterator($grp,$up=-1)
+function TopicNamesIterator($grp,$up=-1,$recursive=false)
 {
 $this->up=idByIdent('topics',$up);
 $this->TopicIterator('select id,track,name
 		      from topics'.
-		      $this->getWhere($grp,$this->up).
+		      $this->getWhere($grp,$this->up,'',false,$recursive).
 		     'order by track');
 }
 
@@ -314,14 +316,35 @@ class SortedTopicNamesIterator
       extends ArrayIterator
 {
 
-function SortedTopicNamesIterator($grp,$up=-1)
+function SortedTopicNamesIterator($grp,$up=-1,$recursive=false)
 {
-$iterator=new TopicNamesIterator($grp,$up);
+$iterator=new TopicNamesIterator($grp,$up,$recursive);
 $topics=array();
 while($item=$iterator->next())
      $topics[$item->getFullName()]=$item;
 setlocale('LC_COLLATE','ru_RU.KOI8-R');
 uksort($topics,'strcoll');
+$this->ArrayIterator($topics);
+}
+
+}
+
+class TopicHierarchyIterator
+      extends ArrayIterator
+{
+
+function TopicHierarchyIterator($topic_id,$root=-1,$reverse=false)
+{
+$root=idByIdent('topics',$root);
+$topics=array();
+for($id=idByIdent('topics',$topic_id);$id!=0 && $id!=$root;)
+   {
+   $topic=getTopicById($id,0);
+   $topics[]=$topic;
+   $id=$topic->getUpValue();
+   }
+if(!$reverse)
+  $topics=array_reverse($topics);
 $this->ArrayIterator($topics);
 }
 

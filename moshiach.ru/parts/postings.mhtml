@@ -10,10 +10,17 @@
 </tr></table>
 </element>
 
+<element name='topic_full' params='topic_id'>
+<iterate_topic_hierarchy name='list' topic_id='$topic_id' root=general>
+<for>
+ <notfirst what='$list'><asp>/<asp></notfirst>$.Name<asp>
+</for>
+</element>
+
 <element name='posting' params='posting'>
 <dl class='posting'>
  <dt class='subject'>
-  <span class='topic'>$posting.TopicName</span>
+  <span class='topic'><topic_full topic_id='$posting.TopicId'></span>
   <br>
   $posting.Subject
   <ifne what='$posting.Author'>
