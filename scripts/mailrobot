@@ -73,16 +73,20 @@ $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
 
 sub subVar
 {
-my ($s,$vals)=@_;
+my ($s,$vals,$mail)=@_;
 
-return $st.constructRemake($1).$ed
-       if $s=~/^\$\[([^\]]*)\]$/;
+return $mail->{lc $1}
+       if $s=~/^%{?(\w+)}?$/;
+return $vals->{''}->[0]->{$1}
+       if $s=~/^\${?(?:\w+\.)?(\w+)}?$/;
+return $vals->{lc $1}->[0]->{$2}
+       if $s=~/^\${?(\w+):(?:\w+\.)?(\w+)}?$/;
 return $s;
 }
 
 sub subVars
 {
-my ($s,$vals)=@_;
+my ($s,$vals,$mail)=@_;
 my $c='';
 
 while($s ne '')
@@ -90,7 +94,7 @@ while($s ne '')
      my $head,$var;
      ($head,$var,$s)=$s=~/^([^\$%]*)((?:(?:\${?(?:\w+:)?(?:\w+\.)?\w+}?)|(?:%{?\w+}?))?)(.*)$/;
      $c.=$head;
-     $c.=subVar($var,$vals) if $var ne '';
+     $c.=subVar($var,$vals,$mail) if $var ne '';
      if($head eq '' && $var eq '')
        {
        $c.=substr($s,0,1);
@@ -107,6 +111,7 @@ my ($mail)=@_;
 return if $mail->{'email_disabled'};
 my $path=$mail->{'text'};
 $path=$Config{'siteDir'}."/$path" unless $path=~/^\//;
+my $vals={};
 open IN,$path;
 open OUT,'>/tmp/mailrobot';
 $cont=0;
@@ -125,9 +130,11 @@ while(<IN>)
      $cont=1,next if $s=~/\\\s*$/;
      $cont=0;
      next if $preamble && ($s=~/^\s*$/ || $s=~/^@/);
+     $s=subVars($s,$vals,$mail);
      if($s=~/^\s*\w*\s*=/)
        {
-
+       my ($name,$sql)=$s=~/^\s*(\w*)\s*=(.*)$/;
+       $vals->{lc $name}=$dbh->selectall_hashref($sql);
        }
      else
        {
@@ -152,6 +159,11 @@ my $mails=$dbh->selectall_hashref(
 	          on mailings.receiver_id=users.id');
 foreach my $mail(@{$mails})
         {
+	$mail->{'gender_end'}=$mail->{'gender'} eq 'mine' ? 'ый' : 'ая';
+	$mail->{'full_name'}=$mail->{'jewish_name'} ne ''
+	                     ? $mail->{'jewish_name'}.' ('.$mail->{'name'}.
+			       ') '.$mail->{'surname'}
+			     : $mail->{'name'}.' '.$mail->{'surname'};
 	sendMail $mail;
 	}
 #$dbh->do('delete from mailings');
