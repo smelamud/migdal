@@ -4,18 +4,21 @@
 require_once('conf/migdal.conf');
 
 require_once('lib/usertag.php');
-require_once('lib/selectiterator.php');
+require_once('lib/limitselect.php');
 require_once('lib/calendar.php');
 require_once('lib/utils.php');
 require_once('lib/tmptexts.php');
 require_once('lib/calendar.php');
 require_once('lib/random.php');
 require_once('lib/text.php');
+require_once('lib/alphabet.php');
+require_once('lib/sort.php');
 
 class User
       extends UserTag
 {
 var $id;
+var $login;
 var $password;
 var $dup_password;
 var $name;
@@ -93,6 +96,9 @@ $normal=$this->getNormal($userAdminUsers);
 if(!$this->id || $this->dup_password!='')
   $normal=array_merge($normal,array('password' => md5($this->password)));
 $normal['login_sort']=convertSort($normal['login']);
+$normal['name_sort']=convertSort($normal['name']);
+$normal['jewish_name_sort']=convertSort($normal['jewish_name']);
+$normal['surname_sort']=convertSort($normal['surname']);
 $result=mysql_query($this->id 
                     ? makeUpdate('users',$normal,array('id' => $this->id))
                     : makeInsert('users',$normal));
@@ -149,6 +155,22 @@ if($this->jewish_name!='')
   return "$this->jewish_name ($this->name) $this->surname";
 else
   return "$this->name $this->surname";
+}
+
+function getFullNameCivil()
+{
+if($this->jewish_name!='')
+  return "$this->name ($this->jewish_name) $this->surname";
+else
+  return "$this->name $this->surname";
+}
+
+function getFullNameSurname()
+{
+if($this->jewish_name!='')
+  return "$this->surname $this->jewish_name ($this->name)";
+else
+  return "$this->surname $this->name";
 }
 
 function getInfo()
@@ -342,33 +364,68 @@ return !empty($this->last_message) ? strtotime($this->last_message) : 0;
 }
 
 class UserListIterator
-      extends SelectIterator
+      extends LimitSelectIterator
 {
 
-function UserListIterator()
+function UserListIterator($limit=10,$offset=0,$sort=SORT_LOGIN)
 {
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$this->SelectIterator('User',
-                      "select distinct users.id as id,login,name,jewish_name,
-		              surname,gender,birthday,migdal_student,email,
-			      hide_email,icq,last_online,
-			      max(sessions.user_id) as online,
-			      min(floor((unix_timestamp(now())
-			                -unix_timestamp(sessions.last))/60))
-			           as last_minutes,
-			      confirm_deadline is null as confirmed,
-			      floor((unix_timestamp(confirm_deadline)
-			             -unix_timestamp(now()))/86400)
-			           as confirm_days
-		       from users
-		            left join sessions
-		                 on users.id=sessions.user_id
-				    and sessions.last+interval 1 hour>now()
-		       where hidden<$hide
-		       group by users.id
-		       order by login_sort");
+$order=getOrderBy($sort,
+                  array(SORT_LOGIN       => 'login_sort',
+		        SORT_NAME        => 'name_sort',
+			SORT_JEWISH_NAME => 'jewish_name_sort',
+			SORT_SURNAME     => 'surname_sort'));
+$this->LimitSelectIterator(
+       'User',
+       "select distinct users.id as id,login,name,jewish_name,
+	       surname,gender,birthday,migdal_student,email,
+	       hide_email,icq,last_online,
+	       max(sessions.user_id) as online,
+	       min(floor((unix_timestamp(now())
+			 -unix_timestamp(sessions.last))/60))
+		    as last_minutes,
+	       confirm_deadline is null as confirmed,
+	       floor((unix_timestamp(confirm_deadline)
+		      -unix_timestamp(now()))/86400)
+		    as confirm_days
+	from users
+	     left join sessions
+		  on users.id=sessions.user_id
+		     and sessions.last+interval 1 hour>now()
+	where hidden<$hide
+	group by users.id
+	$order",$limit,$offset,
+       "select count(*)
+	from users
+	where hidden<$hide");
+}
+
+}
+
+class UserAlphabetIterator
+      extends AlphabetIterator
+{
+
+function UserAlphabetIterator($sort=SORT_LOGIN)
+{
+$hide=$userAdminUsers ? 2 : 1;
+$order=getOrderBy($sort,
+                  array(SORT_LOGIN       => 'login_sort',
+		        SORT_NAME        => 'name_sort',
+			SORT_JEWISH_NAME => 'jewish_name_sort',
+			SORT_SURNAME     => 'surname_sort'));
+$fields=array(SORT_LOGIN       => 'login',
+	      SORT_NAME        => 'name',
+	      SORT_JEWISH_NAME => 'jewish_name',
+	      SORT_SURNAME     => 'surname');
+$field=@$fields[$sort]!='' ? $fields[$sort] : 'login';
+$this->AlphabetIterator("select left($field,1) as letter,count(*) as count
+                         from users
+			 where hidden<$hide
+			 group by users.id
+			 $order");
 }
 
 }

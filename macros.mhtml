@@ -108,7 +108,11 @@
          defaults="up=0 withpostings='*false' withanswers='*false' subdomain=-1">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up,recursive' defaults="up='-1' recursive='*false'">
-<deciter macro='userlist' class='UserListIterator' file='lib/users.php'>
+<deciter macro='userlist' class='UserListIterator' file='lib/users.php'
+         params='limit,offset,sort'
+	 defaults="limit=10 offset=0 sort='*SORT_LOGIN'">
+<deciter macro='user_alphabet' class='UserAlphabetIterator'
+         file='lib/users.php' params='sort' defaults="sort='*SORT_LOGIN'">
 
 <macro name='reset_iterator' defaults="list='$;'">
  <call object%!list='%list' func='reset'>

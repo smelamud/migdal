@@ -1,49 +1,100 @@
 << @(#) $Id$ >>
 
 <force_community>
-
-<element name='batcher'>
-<admin_users>
- <div class='batcher'>
-  <a href='register.php?redirid=$_' class='add'>Добавить пользователя</a>
- </div>
-</admin_users>
-</element>
+<sorts>
+<int name='offset'>
+<int name='sort'>
+<ifzero what='$sort'>
+ <assign name='sort' value='*SORT_LOGIN'>
+</ifzero>
 
 <pagetitle title='Пользователи'>
 
-<html>
-<preamble>
-<body>
- <top ident='users'>
- <zone>
+<element name='batcher' params='list'>
+<table width=100% class='batcher'><tr valign=bottom>
+ <admin_users>
+  <td align=left>
+   <a href='register.php?redirid=$_' class='add'>Добавить пользователя</a>
+  </td>
+ </admin_users>
+ <td align=center><spin list='$list'></td>
+</tr></table>
+</element>
+
+<element name='navi_sort' params='value,title'>
+<if what='$$sort!=$value'>
+ <a href='$[sort=$value]'>$title</a>
+<else>
+ <b>$title</b>
+</if>
+</element>
+
+<element name='navigator'>
+<table width=100% class='eframe'>
+ <tr><td align=right class='eightpt'>
+  <b>Сортировать</b>
+  <navi_sort title='по нику' value='*SORT_LOGIN'>|
+  <navi_sort title='по имени' value='*SORT_NAME'>|
+  <navi_sort title='по еврейскому имени' value='*SORT_JEWISH_NAME'>|
+  <navi_sort title='по фамилии' value='*SORT_SURNAME'>
+ </td></tr>
+ <tr><td align=left style='padding: 10px'>
+  <iterate_user_alphabet sort='$$sort'>
+  <for>
+   <if what='$.Offset!=$$offset'>
+    <a href='$[offset=$.Offset]'>$.Letter</a>&sp;
+   <else>
+    <b>$.Letter</b>&sp;
+   </if>
+   <if what="$.Letter=='Z'"><br></if>
+  </for>
+ </td></tr>
+ <tr><td align=left class='ninept'>
   <users_summary name='summary'>
   <array vals='зарегистрирован,зарегистрировано,зарегистрировано'>
   <plural name='i_reg' value='$summary.Total'>
   <array vals='пользователь,пользователя,пользователей'>
   <plural name='i_users' value='$summary.Total'>
-  <span class='info'>
-   Всего $i_reg <b>$summary.Total</b> $i_users
-   <ifnzero what='$summary.Waiting'>
-    &nbsp;(<b>$summary.Waiting</b> в процессе регистрации)
-   </ifnzero>
-  </span>
- </zone>
+  Всего $i_reg <em>$summary.Total</em> $i_users
+  <ifnzero what='$summary.Waiting'>
+   &nbsp;(<em>$summary.Waiting</em> в процессе регистрации)
+  </ifnzero>
+ </td></tr>
+</table>
+</element>
+
+<element name='fullname' params='user'>
+<if what='$$sort==SORT_NAME'>
+ $user.FullNameCivil
+<else>
+ <if what='$$sort==SORT_SURNAME'>
+  $user.FullNameSurname
+ <else>
+  $user.FullName
+ </if>
+</if>
+</element>
+
+<html>
+<preamble>
+<body>
+ <top ident='users'>
+ <navigator>
  <p>
- <batcher>
+ <iterate_userlist limit='$$userUserPortion' offset='$offset' sort='$sort'>
+ <batcher list='$;'>
  <table width=100% class='catalog'>
   <tr valign=top>
    <th>Ник</th><th>Имя</th><th>Возраст</th>
    <th><img src='pics/tower.gif' title='Мигдалевец'></th>
    <th>Адрес</th><th>Последний раз<br>был здесь</th>
   </tr>
-  <iterate_userlist>
   <for>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <td class='subject ninept'>
      <a href="userinfo.php?id=$.id&redirid=$_">$.Login</a>
     </td>
-    <td class='eightpt'>$.FullName</td>
+    <td class='eightpt'><fullname user='$.'></td>
     <if what='$.isConfirmed'>
      <td align=center class='eightpt'>$.Age</td>
      <td align=center>
@@ -81,7 +132,7 @@
    </tr>
   </for>
  </table>
- <batcher>
+ <batcher list='$;'>
  <bottom>
 </body>
 </html>

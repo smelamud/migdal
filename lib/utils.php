@@ -45,8 +45,8 @@ return "update $table set ".makeKeyValue(',',$what).
 
 function uc($s)
 {
-return strtr(strtoupper($s),'ÁÂ×ÇÄÅÖÚÉÊËÌÍÎÏĞÒÓÔÕÆÈÃŞÛİßÙØÜÀÑ',
-                            'áâ÷çäåöúéêëìíîïğòóôõæèãşûıÿùøüàñ');
+setlocale('LC_CTYPE','ru_RU.KOI8-R');
+return strtoupper($s);
 }
 
 function getPlural($n,$forms)

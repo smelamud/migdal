@@ -35,11 +35,11 @@
     <error id='*EUM_PASSWORD_DIFF' span=2
 	   text='Опечатка при вводе пароля - введите еще раз'>
     <tr>
-     <td>Пароль <star></td>
+     <td>Пароль</td>
      <td><input type=password name='password' size=20></td>
     </tr>
     <tr>
-     <td>Пароль (еще раз) <star></td>
+     <td>Пароль (еще раз)</td>
      <td><input type=password name='dup_password' size=20></td>
     </tr>
     <error id='*EUM_NAME_ABSENT' text='Имя не введено' span=2>

@@ -23,7 +23,8 @@ $userSetNames=array('MsgPortion',
 		    'BiffTime',
 		    'ReadKOI',
 		    'IndexPage',
-		    'ChatUsersRefresh');
+		    'ChatUsersRefresh',
+		    'UserPortion');
 $userSetDefaults=array('MsgPortion'           => 10,
                        'ForumPortion'         => 10,
                        'ComplainPortion'      => 20,
@@ -36,7 +37,8 @@ $userSetDefaults=array('MsgPortion'           => 10,
 		       'BiffTime'             => 24,
 		       'ReadKOI'              => 0,
 		       'IndexPage'            => 1,
-		       'ChatUsersRefresh'     => 60);
+		       'ChatUsersRefresh'     => 60,
+		       'UserPortion'          => 30);
 $userSetParams=array('MsgPortion'           => 'mp',
                      'ForumPortion'         => 'fp',
 		     'ComplainPortion'      => 'cp',
@@ -49,7 +51,8 @@ $userSetParams=array('MsgPortion'           => 'mp',
 		     'BiffTime'             => 'bt',
 		     'ReadKOI'              => 'rk',
 		     'IndexPage'            => 'ip',
-		     'ChatUsersRefresh'     => 'chur');
+		     'ChatUsersRefresh'     => 'chur',
+		     'UserPortion'          => 'up');
 
 function getProperName($name)
 {

@@ -78,6 +78,17 @@
        <bymessages value='$$userForumCatalogPortion'> на странице "Обсуждения"
       </td>
      </tr>
+     <tr>
+      <td>
+       <select_portion name='up' value='$$userUserPortion'
+		       vals='20 25 30 40 50 60 100'>
+      </td>
+      <td colspan=3>
+       <array vals='пользователю пользователя пользователей'>
+       <plural name='uname' value='$$userUserPortion'>
+       $uname&sp;в списке пользователей
+      </td>
+     </tr>
     </community>
     <tr>
      <td>
@@ -87,7 +98,7 @@
      <td>
       <array vals='строку строки строк'>
       <plural name='rname' value='$$userPictureRowPortion'>
-      $rname&nbsp;по
+      $rname&sp;по
      </td>
      <td>
       <select_portion name='pcp' value='$$userPictureColumnPortion'
@@ -96,7 +107,7 @@
      <td>
       <array vals='картинке картинки картинок'>
       <plural name='cname' value='$$userPictureColumnPortion'>
-      $cname&nbsp;в галерее
+      $cname&sp;в галерее
      </td>
     </tr>
    </table></td>

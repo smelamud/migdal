@@ -17,6 +17,7 @@ header('Location: '.remakeURI($okdir,array(),array('st'  => $style,
 						   'fcp' => $fcp,
 						   'prp' => $prp,
 						   'pcp' => $pcp,
+						   'up'  => $up
 						   )));
 dbClose();
 ?>

@@ -6,10 +6,12 @@
 	font-weight: bold;
 }
 
-.info B {
-	color: %info_b;
-}
-
 .info A {
 	color: %info_link;
+}
+
+EM {
+	color: %em;
+	font-weight: bold;
+	font-style: normal;
 }
