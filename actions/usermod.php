@@ -55,8 +55,8 @@ if($editid==0)
     {
     if(!$user->preconfirm())
       return EUM_PRECONFIRM_SQL;
-    sendMail('register',$user->getId(),$user->getId());
-    sendMailAdmin('registering','admin_users',$user->getId());
+    sendMail(MAIL_REGISTER,$user->getId(),$user->getId());
+    sendMailAdmin(MAIL_REGISTERING,'admin_users',$user->getId());
     }
 return EUM_OK;
 }

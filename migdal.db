@@ -161,19 +161,6 @@ CREATE TABLE logs (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'mailing_types'
---
-
-CREATE TABLE mailing_types (
-  id int(11) NOT NULL auto_increment,
-  text varchar(70) NOT NULL default '',
-  ident varchar(15) NOT NULL default '',
-  force_send tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (id),
-  KEY ident (ident)
-) TYPE=MyISAM;
-
---
 -- Table structure for table 'mailings'
 --
 
@@ -458,14 +445,6 @@ INSERT INTO complain_types VALUES (3,'posting','На новость/статью','moderator',3
 
 INSERT INTO complain_scripts VALUES (1,'Закрыть жалобу','=update complains set closed=now() where id=%complain_id','');
 INSERT INTO complain_scripts VALUES (3,'Закрыть жалобу и разрешить показ','=update complains set closed=now() where id=%complain_id\r\n=select message_id from postings where id=%link\r\n=update messages set disabled=0 where id=$message_id','posting');
-
---
--- Dumping data for table 'mailing_types'
---
-
-
-INSERT INTO mailing_types VALUES (1,'register.php','register',1);
-INSERT INTO mailing_types VALUES (2,'registering.php','registering',0);
 
 --
 -- Dumping data for table 'version'

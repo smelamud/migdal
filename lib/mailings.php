@@ -4,18 +4,17 @@
 require_once('lib/ident.php');
 require_once('lib/array.php');
 require_once('lib/dataobject.php');
+require_once('grp/mailtypes.php');
 
-function sendMail($type,$userId,$link=0)
+function sendMail($type_id,$userId,$link=0)
 {
-$type_id=idByIdent('mailing_types',$type);
 mysql_query("insert into mailings(type_id,receiver_id,link)
              values($type_id,$userId,$link)")
      or die('Ошибка SQL при регистрации почтового сообщения');
 }
 
-function sendMailAdmin($type,$admin,$link=0)
+function sendMailAdmin($type_id,$admin,$link=0)
 {
-$type_id=idByIdent('mailing_types',$type);
 mysql_query("insert into mailings(type_id,receiver_id,link)
              select $type_id,id,$link
 	     from users
@@ -27,12 +26,11 @@ class Mailing
       extends DataObject
 {
 var $id;
-var $link;
+var $type_id;
 var $receiver_id;
 var $text;
 var $email;
 var $email_disabled;
-var $force_send;
 
 function Mailing($row)
 {
@@ -44,19 +42,14 @@ function getId()
 return $this->id;
 }
 
-function getLink()
-{
-return $this->link;
-}
-
 function getReceiverId()
 {
 return $this->receiver_id;
 }
 
-function getText()
+function getLink()
 {
-return $this->text;
+return $this->link;
 }
 
 function getEmail()
@@ -69,12 +62,9 @@ function isEmailDisabled()
 return $this->email_disabled;
 }
 
-function isForceSend()
-{
-return $this->force_send;
 }
 
-}
+require_once('grp/mailings.php');
 
 class MailingsExtractIterator
       extends ArrayIterator
@@ -82,17 +72,20 @@ class MailingsExtractIterator
 
 function MailingsExtractIterator()
 {
-mysql_query('lock tables mailings write,mailing_types read,users read');
-$result=mysql_query('select mailings.id as id,link,receiver_id,text,
-			    email,email_disabled,force_send
+global $mailingClassNames;
+
+mysql_query('lock tables mailings write,users read');
+$result=mysql_query('select mailings.id as id,type_id,receiver_id,link,
+			    email,email_disabled
 		     from mailings
-			  left join mailing_types
-			       on mailings.type_id=mailing_types.id
 			  left join users
 			       on mailings.receiver_id=users.id');
 $mails=array();
 while($row=mysql_fetch_assoc($result))
-     $mails[]=new Mailing($row);
+     {
+     $name=$mailingClassNames[$row['type_id']];
+     $mails[]=new $name($row);
+     }
 mysql_query('delete from mailings');
 mysql_query('unlock tables');
 $this->ArrayIterator($mails);

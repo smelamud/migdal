@@ -13,7 +13,7 @@ global $mailingsDir;
 
 if($mail->isEmailDisabled() && !$mail->isForceSend())
   return;
-$path=$mail->getText();
+$path=$mail->getMailScript();
 if(substr($path,0,1)!='/')
   $path="$mailingsDir/$path";
 $link=$mail->getLink();
