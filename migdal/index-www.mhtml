@@ -38,9 +38,6 @@
 << /Traps >>
 
 <log event=index text#='topic($topic_id) offset=$offset'>
-<ifzero what='$offset'>
- <log event=enter text#='domain=$$userDomain'>
-</ifzero>
 <grps>
 <unititle topic_id='$topic_id'>
 

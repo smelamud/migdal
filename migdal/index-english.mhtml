@@ -9,7 +9,6 @@
 <topictitle title='$,Subject'>
 
 <log event=review text#='post($,Id)'>
-<log event=enter text#='domain=$$userDomain'>
 
 <stylesheet ident='article'>
 <preamble>
