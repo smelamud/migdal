@@ -122,8 +122,10 @@ return $this->surname;
 
 function getFullName()
 {
-return $this->name.($this->jewish_name!='' ? ' ('.$this->jewish_name.')' : '').
-       ' '.$this->surname;
+if($this->jewish_name!='')
+  return "$this->jewish_name ($this->name) $this->surname";
+else
+  return "$this->name $this->surname";
 }
 
 function getInfo()

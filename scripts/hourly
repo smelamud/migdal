@@ -1,0 +1,103 @@
+#!/usr/bin/perl
+
+# @(#) $Id$
+
+use DBI;
+use Getopt::Long;
+Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
+
+$VERSION='0.0.1';
+
+$configPath='conf/migdal.conf';
+%Config=();
+
+sub readConfig
+{
+open CONF,$configPath;
+while(<CONF>)
+     {
+     next if /\?>/ || /<\?/;
+     s/#.*$//;
+     next if /^\s*$/;
+     my ($name,$value)=/^\$(\w+)=(.*);\s*$/;
+     $value=~s/^\'//;
+     $value=~s/\'$//;
+     $value=~s/\\\'/\'/;
+     $Config{$name}=$value;
+     }
+close CONF;
+}
+
+sub help
+{
+print <<EOF;
+Usage: $0 [<options>]
+
+Migdal batch operations script
+
+  -c, --config=<path>       Set configuration file path
+                            (default is `conf/migdal.conf')
+  -h, --help                Print this help and exit
+  -v, --version             Print version information and exit
+
+Report bugs to <balu\@yes.ru>
+EOF
+exit;
+}
+
+sub version
+{
+print <<EOF;
+hourly (migdal $VERSION)
+Copyright (C) 2001 by Dmitry E. Melamud.
+
+This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License (see COPYING).
+
+EOF
+exit;
+}
+
+sub init
+{
+GetOptions('config|c=s'	=> \$configPath,
+           'help|h|?'	=> \&help,
+           'version|v'	=> \&version);
+readConfig();
+$dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
+                  $Config{'dbHost'},$Config{'dbUser'},$Config{'dbPassword'},
+		  {'AutoCommit' => 1,'PrintError' => 0});
+}
+
+sub run
+{
+my $lasts=$dbh->selectall_arrayref(
+          'select users.id,from_unixtime(unix_timestamp(max(last)))
+           from sessions
+	        left join users
+	             on sessions.user_id=users.id
+	   where last+interval '.$Config{'sessionTimeout'}.' hour<now()
+	   group by users.id');
+foreach my $info(@{$lasts})
+       {
+       $dbh->do('update users
+                 set last_online=\''.$info->[1].'\'
+		 where id='.$info->[0]);
+       }
+$dbh->do('delete
+          from sessions
+	  where last+interval '.$Config{'sessionTimeout'}.' hour<now()');
+$dbh->do('delete
+          from tmp_texts
+	  where last_access+interval '.$Config{'tmpTextTimeout'}.' hour<now()');
+}
+
+sub done
+{
+$dbh->disconnect();
+}
+
+init();
+run();
+done();

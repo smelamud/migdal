@@ -57,7 +57,8 @@ CREATE TABLE complain_types (
   assign varchar(16) NOT NULL default '',
   deadline smallint(6) NOT NULL default '0',
   display varchar(70) NOT NULL default '',
-  PRIMARY KEY  (id)
+  PRIMARY KEY  (id),
+  UNIQUE KEY ident (ident)
 ) TYPE=MyISAM;
 
 #
@@ -98,6 +99,32 @@ CREATE TABLE images (
 ) TYPE=MyISAM;
 
 #
+# Table structure for table 'mailing_types'
+#
+
+CREATE TABLE mailing_types (
+  id int(11) NOT NULL auto_increment,
+  ident char(70) NOT NULL default '',
+  text char(70) NOT NULL default '',
+  PRIMARY KEY  (id),
+  UNIQUE KEY ident (ident)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'mailings'
+#
+
+CREATE TABLE mailings (
+  id int(11) NOT NULL auto_increment,
+  type_id int(11) NOT NULL default '0',
+  link int(11) NOT NULL default '0',
+  receiver_id int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY type_id (type_id),
+  KEY receiver_id (receiver_id)
+) TYPE=MyISAM;
+
+#
 # Table structure for table 'menu'
 #
 
@@ -109,6 +136,7 @@ CREATE TABLE menu (
   hidden tinyint(4) NOT NULL default '0',
   menu_index tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
+  UNIQUE KEY ident (ident),
   KEY menu_index (menu_index)
 ) TYPE=MyISAM;
 
@@ -255,4 +283,9 @@ INSERT INTO complain_types VALUES (2,'forum','moderator',0,'parts/cs_forum.php')
 #
 
 INSERT INTO complain_statements VALUES (1,1,'update complains set closed=now() where id=%complain_id',0);
+
+#
+# Dumping data for table 'mailing_types'
+#
+
 

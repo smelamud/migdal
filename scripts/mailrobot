@@ -33,7 +33,7 @@ sub help
 print <<EOF;
 Usage: $0 [<options>]
 
-Migdal batch operations script
+Migdal mailing robot
 
   -c, --config=<path>       Set configuration file path
                             (default is `conf/migdal.conf')
@@ -48,7 +48,7 @@ exit;
 sub version
 {
 print <<EOF;
-hourly (migdal $VERSION)
+mailrobot (migdal $VERSION)
 Copyright (C) 2001 by Dmitry E. Melamud.
 
 This program is free software; you can redistribute it
@@ -72,10 +72,13 @@ $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
 
 sub run
 {
-$dbh->do('delete from sessions where last+interval '.$Config{'sessionTimeout'}.
-         ' hour<now()');
-$dbh->do('delete from tmp_texts where last_access+interval '.
-          $Config{'tmpTextTimeout'}.' hour<now()');
+$sth=$dbh->prepare('select id,link,receiver_id,text,name,jewish_name,surname,
+                           gender,email,email_disabled
+                    from mailings
+		         left join mailing_types
+			      on mailings.type_id=mailing_types.id
+			 left join users
+			      on mailings.receiver_id=users.id');
 }
 
 sub done
