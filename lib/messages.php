@@ -373,7 +373,7 @@ return newMessage($row);
 
 }
 
-function getMessageById($id,$grp=0)
+function getMessageById($id,$grp=0,$topic=0)
 {
 global $userId,$userModerator;
 
@@ -387,7 +387,8 @@ $result=mysql_query("select id,body,subject,topic_id,personal_id,sender_id,grp,
 		       просмотр TODO */
 	     or die('Ошибка SQL при выборке сообщения');
 return mysql_num_rows($result)>0 ? newMessage(mysql_fetch_assoc($result))
-                                 : newGrpMessage($grp);
+                                 : newGrpMessage($grp,
+				                 array('topic_id' => $topic));
 }
 
 function getFullMessageById($id,$grp=0)

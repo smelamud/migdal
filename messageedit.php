@@ -20,6 +20,7 @@ $requestURI=urlencode($REQUEST_URI);
 reloadParameter(!isset($ident),'grp',GRP_FORUMS);
 settype($editid,'integer');
 settype($up,'integer');
+settype($topic_id,'integer');
 
 dbOpen();
 session();
@@ -32,7 +33,7 @@ session();
  <?php displayTop($ident); ?>
  <p>
  <?php
- $message=getMessageById($editid,$grp);
+ $message=getMessageById($editid,$grp,$topic_id);
  $message->setUpValue($up);
  $message->setup($HTTP_GET_VARS);
  ?>

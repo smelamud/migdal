@@ -16,13 +16,8 @@ $requestURI=urlencode($REQUEST_URI);
 $title=getGrpItemTitle($grp);
 
 if(isset($title) && $userId>0)
-  {
-  ?>
-  <a href='messageedit.php?grp=<?php echo $grp ?>&redir=<?php
-   echo $requestURI
-  ?>'>Добавить <?php echo $title ?></a>
-  <?php
-  }
+  echo "<a href='messageedit.php?topic_id=$topic&grp=$grp&redir=$requestURI".
+       "'>Добавить $title</a>";
 $list=new MessageListIterator($grp,$topic,$limit,$offset);
 echo navigator($list);
 echo batcher($limit);
