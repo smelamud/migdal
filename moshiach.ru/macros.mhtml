@@ -24,7 +24,7 @@
 <decel name='search' file='parts/search.php'>
 <decel name='spreading' file='parts/spreading.php'>
 <decel name='subscribe' file='parts/subscribe.php'>
-<decel name='subtopics' file='parts/subtopics.php'>
+<decel name='subtopics' file='parts/subtopics.php' params='id'>
 <decel name='talking' file='parts/talking.php'>
 <decel name='top' file='parts/top.php' params='ident'>
 <decel name='topicofday' file='parts/topicofday.php'>

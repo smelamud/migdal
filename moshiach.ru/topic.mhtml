@@ -20,7 +20,7 @@
   <top ident='study'>
   <table border=0 width=100% cellPadding=0 cellSpacing=0><tr valign=top>
    <td width=20% bgcolor=F6F7FA>
-    <subtopics>
+    <subtopics id='$upper.Id'>
     <search>
     <subscribe>
     <editors>
@@ -33,10 +33,10 @@
      </td></tr>   
      <tr><td>
       <logged>
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&redir=$_'
+       <a href='postingedit.php?topic_id=$,Id&grp=*GRP_ARTICLES&redir=$_'
           class='admin'>Добавить статью</a><br>
       </logged>
-      <iterate_postinglist grp='*GRP_ARTICLES' topic='$topic_id' limit=0
+      <iterate_postinglist grp='*GRP_ARTICLES' topic='$,Id' limit=0
                            sort='*SORT_PNAME'>
       <for><a href='none.html?artid=$.Id'>$.Subject</a><br></for>
      </td></tr> 

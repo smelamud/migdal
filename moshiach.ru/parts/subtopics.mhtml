@@ -1,23 +1,26 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/topics.mhtml 1.5 >>
+<< Based-on: demo/postings.mhtml 1.6 >>
+<< Based-on: demo/parts/postings.mhtml 1.3 >>
 
 <element name='subtopics'>
 <table border=0 cellPadding=2 cellSpacing=3 width=100%>
  <tr BGCOLOR=C76B4B><td align=center><b>ВСЕ ПОДРАЗДЕЛЫ</b></td></tr>
  <tr><td>
-  <a class=under href=2.htm>Словарь по иудаизму</a><br>
-  <a class=under href=2.htm>Словарь по хасидизму</a><br>
-  <a class=under href=2.htm>Словарь по каббале</a><br>
-  <a class=under href=2.htm>Имена</a><br>
-  <a class=under href=2.htm>Список литературы</a><br>
-  <!--<a class=under href=2.htm> Глоссарий</a><br>-->
+  <iterate_postinglist grp='*GRP_ARTICLES' topic='study' limit=0
+                       sort='*SORT_NAME'>
+  <for><a class=under href='none.html?artid=$.Id'>$.Subject</a><br></for>
+  <logged>
+   <a href='postingedit.php?topic_id=$id&grp=*GRP_ARTICLES&redir=$_'
+      class='admin'>Добавить статью</a><br>
+  </logged>
   <iterate_topiclist grp='*GRP_ARTICLES' up='study'>
   <for>
    <a class=under href='topic.php?topic_id=$.Id'
     >$.Name<img border=0 src='pics/a1.gif' width=30 height=11></a><br>
   </for>
   <admin_topics>
-   <a class='admin' href='topicedit.php?up=study&redir=$_'
+   <a class='admin' href='topicedit.php?up=$id&redir=$_'
       >Добавить подраздел</a>
   </admin_topics>
  </td></tr>

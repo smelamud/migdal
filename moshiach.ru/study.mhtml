@@ -10,10 +10,11 @@
 
 <body bgcolor=#F6F7FA topmargin=3 leftmargin=3 marginwidth=3 marginheight=3>
  <span class='pretty'>
+  <topic_obj id='study'>
   <top ident='study'>
   <table border=0 width=100% cellPadding=0 cellSpacing=0><tr valign=top>
    <td width=20% bgcolor=F6F7FA>
-    <subtopics>
+    <subtopics id='$,Id'>
     <search>
     <subscribe>
     <editors>

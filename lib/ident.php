@@ -11,7 +11,7 @@ return (is_int($id) || $id!='' && c_digit($id)) ? "$byId=$id"
 
 function idByIdent($table,$ident)
 {
-if(is_int($ident) || $id!='' && c_digit($id))
+if(is_int($ident) || $ident!='' && c_digit($ident))
   return $ident;
 $result=mysql_query("select id
                      from $table

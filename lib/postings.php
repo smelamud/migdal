@@ -200,7 +200,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic<0 ? '' 
-                      : ' and '.byIdent($topic,'topic_id','topics.ident').' ';
+                      : ' and topic_id='.idByIdent('topics',$topic).' ';
 $order=getOrderBy($sort,array(SORT_SENT => 'sent desc',
                               SORT_NAME => 'subject'));
 $this->LimitSelectIterator(
@@ -311,9 +311,9 @@ $result=mysql_query('select postings.id as id,ident,message_id,stotext_id,body,
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
 	     or die('Ошибка SQL при выборке постинга');
-return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
-                                 : newGrpPosting($grp,
-				                 array('topic_id' => $topic));
+return mysql_num_rows($result)>0
+       ? newPosting(mysql_fetch_assoc($result))
+       : newGrpPosting($grp,array('topic_id' => idByIdent('topics',$topic)));
 }
 
 function getFullPostingById($id,$grp=GRP_ALL)
