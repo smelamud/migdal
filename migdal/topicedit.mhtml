@@ -31,7 +31,10 @@
 	  text='Ошибка базы данных при обновлении маршрута темы'>
    <tr><td><table>
     <error id='*ET_NO_UP' text='Такой темы не существует' span=2>
-    <error id='*ET_LOOP_UP' text='Тема не может быть подтемой самой себя' span=2>
+    <error id='*ET_LOOP_UP' span=2
+           text='Тема не может быть подтемой самой себя'>
+    <error id='*ET_NO_APPEND' span=2
+           text='Вы не можете добавлять подтемы для этой темы'>
     <topicselect title='Надтема' name='up' grp='*GRP_ALL' value='$,UpValue'
                  root=-1>
     <error id='*ET_NAME_ABSENT' text='Название не было введено' span=2>

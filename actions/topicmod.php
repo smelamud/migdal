@@ -40,10 +40,16 @@ if($topicMandatoryDescription && $topic->stotext->body=='')
   return ET_DESCRIPTION_ABSENT;
 if($topic->up<0)
   $topic->up=0;
-if($topic->up!=0 && !topicExists($topic->up))
-  return ET_NO_UP;
-if($topic->up!=0 && $topic->up==$topic->id)
-  return ET_LOOP_UP;
+if($topic->up!=0)
+  {
+  if(!topicExists($topic->up))
+    return ET_NO_UP;
+  if($topic->up==$topic->id)
+    return ET_LOOP_UP;
+  $upPerms=getPermsById('topics',$topic->up);
+  if(!$upPerms->isAppendable())
+    return ET_NO_APPEND;
+  }
 $cid=idByIdent('topics',$topic->ident);
 if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
