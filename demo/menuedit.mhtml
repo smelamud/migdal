@@ -15,8 +15,13 @@
   <error id='*EMIX_NO_EDIT' text='Вы не администратор'>
   <error id='*EMIX_NO_FIRST' text='Первого пункта меню не существует'>
   <error id='*EMIX_NO_SECOND' text='Второго пункта меню не существует'>
-  <error id='*EMIX_SQL_FIRST' text='Ошибка при обновлении записи для первого пункта'>
-  <error id='*EMIX_SQL_SECOND' text='Ошибка при обновлении записи для второго пункта'>
+  <error id='*EMIX_SQL_FIRST' text='Ошибка при обновлении записи для первого пункта'
+         color=magenta>
+  <error id='*EMIX_SQL_SECOND' text='Ошибка при обновлении записи для второго пункта'
+         color=magenta>
+  <error id='*EMID_NO_EDIT' text='Вы не администратор'>
+  <error id='*EMID_NO_ITEM' text='Такого пункта меню не существует'>
+  <error id='*EMID_SQL' text='Ошибка при удалении записи' color=magenta>
  </table>
  <table width=100%><tr valign=top>
   <td>
@@ -35,7 +40,7 @@
      </if>
      <a href='/menuedit.php?menuid=$.Id'><b>$.Name</b></a>
      &nbsp;
-     <a href='/menudel.php?id=$.Id'>[Удалить]</a>
+     <a href='/actions/menudel.php?id=$.Id&redir=$_'>[Удалить]</a>
      <assign name='next' value='$.Id'>
     <else>
      <a href='/menuedit.php?menuid=$.Id'>$.Name</a>

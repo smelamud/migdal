@@ -96,4 +96,9 @@ define('EMIX_NO_FIRST',222);
 define('EMIX_NO_SECOND',223);
 define('EMIX_SQL_FIRST',224);
 define('EMIX_SQL_SECOND',225);
+
+define('EMID_OK',230);
+define('EMID_NO_EDIT',231);
+define('EMID_NO_ITEM',232);
+define('EMID_SQL',233);
 ?>
