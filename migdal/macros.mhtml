@@ -76,6 +76,8 @@
        defaults='span=0'>
 <decel name='stotext_help_navi' file='parts/stotext-help-navi.php'
        params='ident,link,title,article' defaults="article='*false'">
+<decel name='subtitle' file='parts/subtitle.php' params='icon'
+       defaults="icon=''">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
        params='ident,flags,target,showimages'
@@ -87,8 +89,8 @@
        params='name,value,grp,mandatory' defaults="mandatory='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
-<decel name='unititle' file='parts/unititle.php' params='topic_id,grp'
-       defaults="topic_id='-1' grp='*GRP_TAPE'">
+<decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'
+       defaults="chapter='' topic_id='-1'">
 <decel name='uploader' file='parts/uploader.php'
        params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,mandatory'
        defaults="mandatory='*false'">
@@ -106,8 +108,6 @@
              vals='Сообщение,Мнение,Новость,Картинка,Статья'>
 <decgrpmesgs name='grpicon'
              vals='pics/all.gif,pics/opinion.gif,pics/new.gif,pics/gall.gif,pics/article.gif'>
-<decgrpmesgs name='grpbigicon'
-             vals='pics/all-big.gif,pics/opinion-big.gif,pics/new-big.gif,pics/gall-big.gif,pics/article-big.gif'>
 
 <macro name='bymessages'>
  <zone>
@@ -140,15 +140,6 @@
 
 <macro name='titletag'>
  <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
-</macro>
-
-<macro name='subtitle'>
- <ifne what='$pageTitle'>
-  <table class='title'><tr valign=center>
-   <td><image src='%icon'></td>
-   <td>&nbsp;$pageTitle</td>
-  </tr></table>
- </ifne>
 </macro>
 
 << Biff >>

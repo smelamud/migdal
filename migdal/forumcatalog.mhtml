@@ -4,7 +4,7 @@
 <int name='topic_id'>
 <int name='offset'>
 <grps>
-<pagetitle title='Обсуждения'>
+<unititle chapter='Обсуждения' topic_id='$topic_id'>
 
 <html>
 <head>
@@ -20,8 +20,11 @@
            withanswers='*true' file='forumcatalog.php'>
   </td>
   <td width=10>&nbsp;</td>
-  <td><forumcatalog topic='$topic_id' limit='$userForumCatalogPortion'
-                    offset='$offset'></td>
+  <td>
+   <subtitle icon='pics/opinion-big.gif'>
+   <forumcatalog topic='$topic_id' limit='$userForumCatalogPortion'
+                 offset='$offset'>
+  </td>
  </tr></table>
  <bottom>
 </body>

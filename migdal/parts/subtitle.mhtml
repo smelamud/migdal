@@ -1,0 +1,12 @@
+<< @(#) $Id$ >>
+
+<element name='subtitle'>
+<ifne what='$$topicTitle'>
+ <table class='title'><tr valign=center>
+  <ifne what='$icon'>
+   <td><image src='$icon'></td>
+  </ifne>
+  <td>&nbsp;$$topicTitle</td>
+ </tr></table>
+</ifne>
+</element>

@@ -2,10 +2,9 @@
 << Based-on: migdal/index.mhtml 1.12 >>
 
 <int name='topic_id'>
-<int name='grp'>
 <int name='offset'>
-<grpbigicon>
-<unititle topic_id='$topic_id' grp='$grp'>
+<grps>
+<unititle chapter='Галерея' topic_id='$topic_id'>
 
 <html>
 <head>
@@ -13,19 +12,18 @@
 </head>
 <body>
  <top ident='gallery'>
- <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
   <td width=120>
-   <topics grp='$grp' topic_id='$topic_id' file='gallery.php'>
+   <topics grp='*GRP_GALLERY' topic_id='$topic_id' file='gallery.php'>
   </td>
   <td width=10>&nbsp;</td>
   <td>
-   <subtitle icon='$grpbigicon'>
+   <subtitle icon='pics/gall-big.gif'>
    <if what='$topic_id==-1'>
     <gallery_main grp='$grp' cols='$userPictureColumnPortion'>
    <else>
-    <gallery grp='$grp' topic='$topic_id' rows='$userPictureRowPortion'
+    <gallery grp='*GRP_GALLERY' topic='$topic_id' rows='$userPictureRowPortion'
 	     cols='$userPictureColumnPortion' offset='$offset'>
    </if>
   </td>

@@ -1,20 +1,20 @@
 << @(#) $Id$ >>
 
 <element name='unititle'>
-<grps>
-<grptitle>
 <if what='$topic_id==-1'>
- <if what='$grp==*GRP_TAPE'>
+ <assign_global name='topicTitle' value=''>
+ <ife what='$chapter'>
   <pagetitle>
  <else>
-  <pagetitle title='$grptitle'>
+  <pagetitle title='$chapter'>
  </if>
 <else>
  <topic_obj id='$topic_id'>
- <if what='$grp==*GRP_TAPE'>
+ <assign_global name='topicTitle' value='$,Name'>
+ <ife what='$chapter'>
   <concat name='title' value='$,Name'>
  <else>
-  <concat name='title' value='$grptitle --- $,Name'>
+  <concat name='title' value='$chapter - $,Name'>
  </if>
  <pagetitle title='$title'>
 </if>
