@@ -23,10 +23,18 @@
                      sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
  <center><h2>$title</h2></center>
- <if what='$g.Valid'><logged>
-  <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
-   >Добавить $grpitemtitle</a>
- </logged></if>
+ <logged>
+  <if what='$g.Valid'>
+   <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
+    >Добавить $grpitemtitle</a>
+  <else>
+   <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
+    >Добавить новость</a>
+   /
+   <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
+    >Добавить статью</a>
+  </if>
+ </logged>
  <batcher_postings value='$limit'>
  <navigator>
  <table width=100%>
