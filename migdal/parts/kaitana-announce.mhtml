@@ -61,7 +61,8 @@
   <tr><td><ul class='ninept'>
    <for>
     <li>
-     <b>$.Subject.</b> <a href='$.URL'>$.Source</a>
+     <b>$.Subject.</b>
+     <a href='kaitana.php?topic_id=$`kaitana-s-5764`&day=$.Index1'>$.Source</a>
      <biff time='$.Sent' small='*true'>
     </li>
    </for>
