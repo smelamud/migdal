@@ -8,7 +8,7 @@
  <stylesheet ident='chat'>
  <preamble>
 </zone>
-<body class='chatboard'>
+<body class='ninept chatboard'>
  <update_last_chat>
  <iterate_chat limit='$$userChatPortion'>
  <time>

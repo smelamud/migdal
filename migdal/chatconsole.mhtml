@@ -9,7 +9,7 @@
 </zone>
 <frameset rows='*,45' border=0>
  <frame src='chatboard.php?$?' noresize>
- <frame src='chatbottom.php?$?' noresize>
+ <frame src='chatbottom.php?$?' noresize scrolling=no>
  <noframes>
   Ваш браузер не поддерживает фреймы. Увы...
  </noframes>

@@ -12,9 +12,9 @@
 <logged>
  <frameset rows='125,*' border=0>
 <else>
- <frameset rows='140,*' border=0>
+ <frameset rows='130,*' border=0>
 </logged>
- <frame src='chattop.php?globalid=$_&$?' noresize>
+ <frame src='chattop.php?globalid=$_&$?' noresize scrolling=no>
  <frameset cols='*,120' border=0>
   <logged>
    <frame name='board' src='chatconsole.php?globalid=$_&$?' noresize>

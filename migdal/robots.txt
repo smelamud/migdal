@@ -10,6 +10,7 @@ Disallow: /chatusers.php
 Disallow: /complainactionedit.php
 Disallow: /complainanswer.php
 Disallow: /complainedit.php
+Disallow: /forum.php
 Disallow: /forumansweredit.php
 Disallow: /limedit.php
 Disallow: /liminsert.php
