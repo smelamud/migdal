@@ -13,6 +13,6 @@ LINKS='actions conf lib tools'
 
 for s in $INTERFACES; do
     for l in $LINKS; do
-        ln -sf ../$l $s/$l
+        ln -sfn ../$l $s/$l
     done
 done
