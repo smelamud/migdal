@@ -236,6 +236,22 @@
  </if>
 </macro>
 
+<macro name='islast'>
+ <if what='$%name.isLast'>
+</macro>
+
+<macro name='/islast'>
+ </if>
+</macro>
+
+<macro name='notlast'>
+ <if what='!$%name.isLast'>
+</macro>
+
+<macro name='/notlast'>
+ </if>
+</macro>
+
 << Permissions >>
 <macro name='logged'>
  <if what='$$userId>0'>

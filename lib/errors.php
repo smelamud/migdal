@@ -89,4 +89,11 @@ define('EMI_NAME_ABSENT',212);
 define('EMI_IDENT_ABSENT',213);
 define('EMI_IDENT_UNIQUE',214);
 define('EMI_STORE_SQL',215);
+
+define('EMIX_OK',220);
+define('EMIX_NO_EDIT',221);
+define('EMIX_NO_FIRST',222);
+define('EMIX_NO_SECOND',223);
+define('EMIX_SQL_FIRST',224);
+define('EMIX_SQL_SECOND',225);
 ?>

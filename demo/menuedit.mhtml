@@ -11,16 +11,37 @@
  <top ident='$,Ident'>
  <center><h1>Главное меню</h1></center>
  <p>
+ <table>
+  <error id='*EMIX_NO_EDIT' text='Вы не администратор'>
+  <error id='*EMIX_NO_FIRST' text='Первого пункта меню не существует'>
+  <error id='*EMIX_NO_SECOND' text='Второго пункта меню не существует'>
+  <error id='*EMIX_SQL_FIRST' text='Ошибка при обновлении записи для первого пункта'>
+  <error id='*EMIX_SQL_SECOND' text='Ошибка при обновлении записи для второго пункта'>
+ </table>
  <table width=100%><tr valign=top>
   <td>
    <iterate_menu ident='$menuid'>
    <for>
+    <ifnzero what='$next'>
+     <a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&redir=$_'>
+      <img src='pics/menudown.png' alt='Переместить ниже'></a><br>
+     <assign name='next' value='0'>
+    </ifnzero>
     <if what='$.isCurrent'>
-     <a href='$[menuid=$.Id]'><b>$.Name</b></a>
+     <if what='!$;isFirst'>
+      <a href='actions/menuxchg.php?firstid=$prev&secondid=$.Id&redir=$_'>
+       <img src='pics/menuup.png' alt='Переместить выше' border=0></a>
+      <br>
+     </if>
+     <a href='/menuedit.php?menuid=$.Id'><b>$.Name</b></a>
+     &nbsp;
+     <a href='/menudel.php?id=$.Id'>[Удалить]</a>
+     <assign name='next' value='$.Id'>
     <else>
-     <a href='$[menuid=$.Id]'>$.Name</a>
+     <a href='/menuedit.php?menuid=$.Id'>$.Name</a>
     </if>
     <br>
+    <assign name='prev' value='$.Id'>
    </for>
    <p>
    <ifzero what='$menuid'>

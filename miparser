@@ -126,16 +126,20 @@ return "$st\$$item->".getGetName($1)."()$ed"
        if $s=~/^\$\.(\w+)$/;
 return "$st\$$result->".getGetName($1)."()$ed"
        if $s=~/^\$,(\w+)$/;
+return "$st\$$iter->".getGetName($1)."()$ed"
+       if $s=~/^\$;(\w+)$/;
 return "$st\$$1->".getGetName($2)."()$ed"
-       if $s=~/^\$(\w+)[\.,](\w+)$/;
+       if $s=~/^\$(\w+)[\.,;](\w+)$/;
 return "$st\$".getGlobal($1).'->'.getGetName($2)."()$ed"
-       if $s=~/^\$\$(\w+)[\.,](\w+)$/;
+       if $s=~/^\$\$(\w+)[\.,;](\w+)$/;
 return "${st}urlencode(\$$item->".getGetName($1)."())$ed"
        if $s=~/^\$#\.(\w+)$/;
 return "${st}urlencode(\$$result->".getGetName($1)."())$ed"
        if $s=~/^\$#,(\w+)$/;
+return "${st}urlencode(\$$iter->".getGetName($1)."())$ed"
+       if $s=~/^\$#;(\w+)$/;
 return "${st}urlencode(\$$1->".getGetName($2)."())$ed"
-       if $s=~/^\$#(\w+)[\.,](\w+)$/;
+       if $s=~/^\$#(\w+)[\.,;](\w+)$/;
 return "'$st$s$ed'";
 }
 
@@ -147,7 +151,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$\*]*)((?:(?:(?:\$[#\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;~\*\-]))|(?:\*\w+))(?:@[ERJ]?\w)?)?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^\$\*]*)((?:(?:(?:\$[#\$]?(?:(?:\w*[\.,;]?\w+)|(?:\[[^\]]*\])|[_\.,;~\*\-]))|(?:\*\w+))(?:@[ERJ]?\w)?)?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      if($head eq '' && $var eq '')
@@ -312,7 +316,10 @@ my $data={'iterator' => '',
 	  'const'    => ''};
 if(defined($frame))
   {
-  $data->{$name}=$value while(my($name,$value)=each(%{$frame}));
+  while(my($name,$value)=each(%{$frame}))
+       {
+       $data->{$name}=$value;
+       }
   }
 return bless $data,$class;
 }
@@ -562,11 +569,15 @@ my ($self)=@_;
 ::request('lib/no-cache.php');
 ::header(<<EOT);
 <?php
+noCacheHeaders();
 dbOpen();
 session();
 ?>
 EOT
-::body('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">',"\n");
+::body(<<EOT);
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<?php noCacheMeta() ?>
+EOT
 ::body($self->getToken());
 }
 

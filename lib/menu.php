@@ -129,6 +129,13 @@ else
   }
 }
 
+function getMenuIndexById($id)
+{
+$result=mysql_query("select menu_index from menu where id=$id")
+             or die('Ошибка SQL при выборке индекса пункта меню');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
+}
+
 function menuIdentExists($ident)
 {
 $result=mysql_query("select id
