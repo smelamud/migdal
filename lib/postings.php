@@ -368,6 +368,42 @@ return ($this->getPosition() % $this->cols)==$this->cols-1;
 
 }
 
+class PostingUsersIterator
+      extends SelectIterator
+{
+
+function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$topicFilter=$topic_id<0
+             ? '' 
+             : (!$recursive ? ' and '.
+	                      byIdent($topic_id,'topic_id','topics.ident').' '
+	                    : ($topic_id>0 ? " and topics.track like '%".
+		 	                  track(idByIdent('topics',$topic_id)).
+					  "%' "
+				        : ''));
+$this->SelectIterator(
+       'User',
+       "select distinct users.id as id,login,gender,email,hide_email,rebe,
+                        name,jewish_name,surname
+        from users
+	     left join messages
+	          on messages.sender_id=users.id
+	     left join postings
+	          on postings.message_id=messages.id
+	where (messages.hidden<$hide or messages.sender_id=$userId) and
+	      (messages.disabled<$hide or messages.sender_id=$userId) and
+              (grp & $grp)<>0 $topicFilter
+	order by surname,jewish_name,name"
+      /* здесь нужно поменять, если будут другие ограничения на
+	 просмотр TODO */
+}
+
+}
+
 class PostingParagraphIterator
       extends ParagraphIterator
 {

@@ -82,6 +82,9 @@
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user'
          defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0">
+<deciter macro='posting_users' class='PostingUsersIterator'
+         file='lib/postings.php' params='grp,topic_id,recursive'
+	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deciter macro='received_instant_messagelist'
          class='ReceivedInstantMessageListIterator' file='lib/instants.php'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
