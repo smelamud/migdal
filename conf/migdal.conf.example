@@ -66,6 +66,9 @@ $defaultThumbnail='../demo/images/click_here.jpg';
 # Каталог для временных файлов
 $tmpDir='/tmp';
 
+# Маска премодерируемых по умолчанию постингов
+$defaultPremoderate=15;
+
 # --- Message ---
 
 $messageHasSubject=true;

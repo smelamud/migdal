@@ -21,23 +21,33 @@ var $no_news;
 var $no_forums;
 var $no_gallery;
 var $no_articles;
+var $premoderate;
 var $ident;
 var $message_count;
 var $sub_count;
 
 function Topic($row)
 {
+global $defaultPremoderate;
+
+$this->premoderate=$defaultPremoderate;
 $this->DataObject($row);
 }
 
 function setup($vars)
 {
+global $grpNames;
+
 if(!isset($vars['edittag']))
   return;
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 foreach($this->getInverseVars() as $var => $inv_var)
        $this->$var=$vars[$inv_var] ? 0 : 1;
+$this->premoderate=0;
+foreach($grpNames as $code => $name)
+       if($vars["premoderate_$name"])
+         $this->premoderate|=$code;
 if(isset($vars['descriptionid']))
   $this->description=tmpTextRestore($vars['descriptionid']);
 }
@@ -58,7 +68,7 @@ return array('no_news' => 'news',
 function getWorldVars()
 {
 return array('up','track','name','description','hidden','no_news','no_forums',
-             'no_gallery','no_articles','ident');
+             'no_gallery','no_articles','premoderate','ident');
 }
 
 function store()
@@ -120,6 +130,31 @@ return $this->no_gallery ? 0 : 1;
 function isArticles()
 {
 return $this->no_articles ? 0 : 1;
+}
+
+function getPremoderate()
+{
+return $this->premoderate;
+}
+
+function isNewsPremoderated()
+{
+return ($this->getPremoderate() & GRP_NEWS)!=0;
+}
+
+function isForumsPremoderated()
+{
+return ($this->getPremoderate() & GRP_FORUMS)!=0;
+}
+
+function isGalleryPremoderated()
+{
+return ($this->getPremoderate() & GRP_GALLERY)!=0;
+}
+
+function isArticlesPremoderated()
+{
+return ($this->getPremoderate() & GRP_ARTICLES)!=0;
 }
 
 function getIdent()
@@ -227,12 +262,24 @@ global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id,up,name,description,hidden,no_news,no_forums,
-                            no_gallery,no_articles,ident
+                            no_gallery,no_articles,premoderate,ident
 		     from topics
 		     where ".byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');
-return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                           : array('up' => $up));
+if(mysql_num_rows($result)>0)
+  return new Topic(mysql_fetch_assoc($result));
+else
+  if($up!=0)
+    {
+    $result=mysql_query("select premoderate
+                         from topics
+			 where id=$up and hidden<$hide")
+	         or die('Ошибка SQL при выборке вышестоящей темы');
+    return new Topic(array('up'          => $up,
+                           'premoderate' => mysql_result($result,0,0)));
+    }
+  else
+    return new Topic(array('up' => $up));
 }
 
 function getTopicNameById($id)
