@@ -182,6 +182,10 @@ sub initDomains
 {
 }
 
+sub initMonopoly
+{
+}
+
 sub initPopularity
 {
 }
@@ -307,6 +311,17 @@ $counters{$domain}=new Counter() unless defined $counters{$domain};
 $counters{$domain}->inc($$log[2],$$log[1]);
 }
 
+sub runMonopoly
+{
+my ($log)=@_;
+
+return if $$log[0] eq 'trap' || $$log[0] eq 'enter' || $$log[0] eq 'login'
+          || $$log[0] eq 'logout';
+my $s=$$log[0].': '.$$log[3];
+$counters{$s}=new Counter() unless defined $counters{$s};
+$counters{$s}->inc($$log[2],$$log[1]);
+}
+
 sub runPopularity
 {
 my ($log)=@_;
@@ -363,6 +378,25 @@ for my $domain(@domains)
     {
     printf "%5i  %s\n",$counters{$domain}->getValue(),$domain;
     }
+}
+
+sub doneMonopoly
+{
+my $sum=0;
+for my $counter(values(%counters))
+    {
+    $sum+=$counter->getValue() if $counter->getValue()>=$popularity;
+    }
+my $sq=0;
+for my $counter(values(%counters))
+    {
+    if($counter->getValue()>=$popularity)
+      {
+      $c=$counter->getValue()*100/$sum;
+      $sq+=$c*$c;
+      }
+    }
+printf "%5.2f\n",$sq;
 }
 
 sub donePopularity
