@@ -33,6 +33,7 @@
 <element name='image_linked_tag'>
 <if what='$enlarge && ($$userStyle!=-1 || $static)'>
  <image_link id='$id' static='$static'>$,<image_tag_put id='$id' align='$align'
+                                                        src='thumbnail.php'
 							static='$static'
 							title='$title'></a>
 <else>
