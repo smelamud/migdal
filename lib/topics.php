@@ -345,15 +345,6 @@ return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
 }
 
-function getTopicTrackById($id)
-{
-$result=mysql_query("select track
-                     from topics
-		     where id=$id")
-	     or die('Ошибка SQL при выборке маршрута темы');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
-}
-
 function topicExists($id)
 {
 global $userAdminTopics;

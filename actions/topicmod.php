@@ -8,15 +8,13 @@ require_once('lib/topics.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
+require_once('lib/track.php');
 
-function setTrack($topic)
+function getTrack($topic)
 {
-$tr=getTopicTrackById($topic->up);
-$add=sprintf('%010u',$topic->id);
-$track=$tr!='' ? "$tr $add" : $add;
-return mysql_query("update topics
-                    set track='".$track."'
-	            where id=".$topic->id);
+$tr=trackById('topics',$topic->up);
+$add=track($topic->id);
+return $tr!='' ? "$tr $add" : $add;
 }
 
 function modifyTopic($topic)
@@ -36,10 +34,9 @@ if($topic->up!=0 && $topic->up==$topic->id)
 $cid=idByIdent('topics',$topic->ident);
 if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
+$topic->track=getTrack($topic);
 if(!$topic->store())
   return ET_STORE_SQL;
-if(!setTrack($topic))
-  return ET_TRACK_SQL;
 return ET_OK;
 }
 
