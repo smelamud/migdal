@@ -42,10 +42,18 @@
        <iterate_imageset imageset='$,LargeImageSet'>
        <option value=0>--- Без картинки ---</option>
        <for>
-	<if what='$.Id==$image.ImageId'>
-	 <option value=$.Id selected>$.Filename (${.SmallX}x$.SmallY)</option>
+	<ife what='$.Title'>
+	 <assign name='name' value='$.Filename'>
 	<else>
-	 <option value=$.Id>$.Filename (${.SmallX}x$.SmallY)</option>
+	 <assign name='name' value='$.CleanTitlePea'>
+	 <if what='!$.isTitlePea'>
+	  <assign name='name' value#='$name...'>
+	 </if>
+	</if>
+	<if what='$.Id==$image.ImageId'>
+	 <option value=$.Id selected>$name (${.SmallX}x$.SmallY)</option>
+	<else>
+	 <option value=$.Id>$name (${.SmallX}x$.SmallY)</option>
 	</if>
        </for>
       </select>

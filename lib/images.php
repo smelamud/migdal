@@ -171,6 +171,33 @@ function getHTMLTitle()
 return stotextToHTML(TF_MAIL,$this->title);
 }
 
+function isTitlePea()
+{
+global $peaSize,$peaSizeMinus,$peaSizePlus;
+
+return strlen($this->getTitle())<=$peaSize+$peaSizePlus;
+}
+
+function getTitlePea()
+{
+global $peaSize,$peaSizeMinus,$peaSizePlus;
+
+return shorten($this->getTitle(),$peaSize,$peaSizeMinus,$peaSizePlus);
+}
+
+function getHTMLTitlePea()
+{
+return stotextToHTML(TF_MAIL,$this->getTitlePea());
+}
+
+function getCleanTitlePea()
+{
+global $peaSize,$peaSizeMinus,$peaSizePlus;
+
+return shorten(clearStotext(TF_MAIL,$this->getTitle()),
+               $peaSize,$peaSizeMinus,$peaSizePlus);
+}
+
 function setTitle($title)
 {
 $this->title=$title;

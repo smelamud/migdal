@@ -14,8 +14,16 @@
    <iterate_imageset imageset='$,LargeImageSet'>
    <topics_table class='ninept' title='Иллюстрации'>
     <for>
+     <ife what='$.Title'>
+      <assign name='name' value='$.Filename'>
+     <else>
+      <assign name='name' value='$.CleanTitlePea'>
+      <if what='!$.isTitlePea'>
+       <assign name='name' value#='$name...'>
+      </if>
+     </if>
      <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
-		  text='$.Filename'>
+		  text='$name'>
      <tr valign=top>
       <td>&nbsp;</td>
       <td class='comment'>
