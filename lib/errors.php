@@ -212,4 +212,15 @@ define('ESP_OK',390);
 define('ESP_NO_SHADOW',391);
 define('ESP_POSTING_ABSENT',392);
 define('ESP_COPY_SQL',393);
+
+define('ETD_OK',400);
+define('ETD_TOPICS_SQL',401);
+define('ETD_POSTINGS_SQL',402);
+define('ETD_DEST_ABSENT',403);
+define('ETD_DELETE_SQL',404);
+define('ETD_NEW_UP_SQL',405);
+define('ETD_NEW_TOPIC_SQL',406);
+define('ETD_UPDATE_SQL',407);
+define('ETD_NO_DELETE',408);
+define('ETD_TOPIC_ABSENT',409);
 ?>

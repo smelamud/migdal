@@ -458,9 +458,11 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function getSubtopicsCountById($id,$recursive=false)
 {
+$id=idByIdent('topics',$id);
 $result=mysql_query('select count(*)
                      from topics
-		     where '.byIdentRecursive('topics',$id,$recursive))
+		     where '.(!$recursive ? "up=$id"
+		                          : "track like '%".track($id)."%'"))
 	  or sqlbug('Ошибка SQL при получении количества подтем');
 return mysql_num_rows($result)>0
        ? mysql_result($result,0,0)-($recursive ? 1 : 0) : 0;

@@ -12,6 +12,9 @@
 
 <html>
 <preamble>
+<if what='$tops==0 && $posts==0'>
+ <reload href#='actions/topicdel.php?id=$topic_id&okdir=$#--&faildir=$#-'>
+</if>
 <body>
  <top ident='index'>
  <formtable title='Удалить тему'>
@@ -37,7 +40,22 @@
      <asp>.
     </td></tr>
     <tr><td colspan=2>&nbsp;</td></tr>
-    <error id='*ET_NO_EDIT' text='У вас нет права менять список тем' span=2>
+    <error id='*ETD_TOPICS_SQL' color=magenta span=2
+           text='Ошибка базы данных при получении списка подтем'>
+    <error id='*ETD_POSTINGS_SQL' color=magenta span=2
+           text='Ошибка базы данных при получении списка сообщений'>
+    <error id='*ETD_DEST_ABSENT' span=2
+           text='Тема для перемещения не указана'>
+    <error id='*ETD_DELETE_SQL' color=magenta span=2
+           text='Ошибка базы данных при удалении темы'>
+    <error id='*ETD_NEW_UP_SQL' color=magenta span=2
+           text='Ошибка базы данных при перемещении подтем'>
+    <error id='*ETD_NEW_TOPIC_SQL' color=magenta span=2
+           text='Ошибка базы данных при перемещении сообщений'>
+    <error id='*ETD_UPDATE_SQL' color=magenta span=2
+           text='Ошибка базы данных при обновлении маршрутов подтем'>
+    <error id='*ETD_NO_DELETE' color=magenta span=2 text='Вы не администратор'>
+    <error id='*ETD_TOPIC_ABSENT' span=2 text='Тема не указана'>
     <topicselect title='Отправить в' name='destid' grp='*GRP_ALL'
 		 value='$destid' root=-1 mandatory='*true'>
     <formbuttons title='Удалить' span=2>
