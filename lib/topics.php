@@ -55,6 +55,10 @@ if(!isset($vars['edittag']))
   return;
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+if($vars['user_name']!='')
+  $this->login=$vars['user_name'];
+if($vars['group_name']!='')
+  $this->group_login=$vars['group_name'];
 if($this->perm_string!='')
   $this->perms=permString($this->perm_string);
 $this->allow=0;
@@ -153,14 +157,29 @@ function getUserId()
 return $this->user_id;
 }
 
+function setUserId($id)
+{
+$this->user_id=$id;
+}
+
 function getGroupId()
 {
 return $this->group_id;
 }
 
+function setGroupId($id)
+{
+$this->group_id=$id;
+}
+
 function getGroupLogin()
 {
 return $this->group_login;
+}
+
+function getGroupName()
+{
+return $this->getGroupLogin();
 }
 
 function getPerms()

@@ -29,6 +29,11 @@ function getLogin()
 return $this->login;
 }
 
+function getUserName()
+{
+return $this->getLogin();
+}
+
 function getLoginLink()
 {
 $link=$this->getReplyLink();

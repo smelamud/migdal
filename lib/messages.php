@@ -26,6 +26,7 @@ var $image_size;
 var $image_x;
 var $image_y;
 var $group_id;
+var $group_login;
 var $perms;
 var $hidden;
 var $disabled;
@@ -48,6 +49,10 @@ if(!isset($vars['edittag']))
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 $this->stotext->setup($vars);
+if($vars['user_name']!='')
+  $this->login=$vars['user_name'];
+if($vars['group_name']!='')
+  $this->group_login=$vars['group_name'];
 if(isset($vars['subjectid']))
   $this->subject=tmpTextRestore($vars['subjectid']);
 if(isset($vars['authorid']))
@@ -60,7 +65,8 @@ if(isset($vars['urlid']))
 
 function getCorrespondentVars()
 {
-return array('up','lang','subject','author','source','hidden','disabled','url');
+return array('up','login','group_login','lang','subject','author','source',
+             'hidden','disabled','url');
 }
 
 function getWorldVars()
@@ -353,6 +359,21 @@ return stotextToHTML(TF_MAIL,$this->title,$this->getMessageId());
 function getGroupId()
 {
 return $this->group_id;
+}
+
+function setGroupId($id)
+{
+$this->group_id=$id;
+}
+
+function getGroupLogin()
+{
+return $this->group_login;
+}
+
+function getGroupName()
+{
+return $this->getGroupLogin();
 }
 
 function getPerms()

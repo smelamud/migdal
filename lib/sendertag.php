@@ -19,6 +19,16 @@ function getSenderId()
 return $this->sender_id;
 }
 
+function getUserId()
+{
+return $this->getSenderId();
+}
+
+function setUserId($id)
+{
+$this->sender_id=$id;
+}
+
 function isSenderHidden()
 {
 return $this->sender_hidden ? 1 : 0;

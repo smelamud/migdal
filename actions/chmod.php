@@ -18,13 +18,13 @@ if($perms->getUserName()=='')
   return ECHM_USER_EMPTY;
 //if($perms->getGroupName()=='')
 //  return ECHM_GROUP_EMPTY;
-$perms->user_id=getUserIdByLogin(addslashes($perms->getUserName()));
+$perms->setUserId(getUserIdByLogin(addslashes($perms->getUserName())));
 if($perms->getUserId()<=0)
   return ECHM_NO_USER;
-//$perms->group_id=getUserIdByLogin(addslashes($perms->getGroupName()));
+//$perms->setGroupId(getUserIdByLogin(addslashes($perms->getGroupName())));
 //if($perms->getGroupId()<=0)
 //  return ECHM_NO_GROUP;
-setPermsById('messages',$msgid,$perms);
+setPermsById($perms);
 return ECHM_OK;
 }
 
