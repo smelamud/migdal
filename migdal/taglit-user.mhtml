@@ -35,36 +35,9 @@
       Добавить мнение</a>
     </div>
    </logged>
-   <logged>
-    <div class='batcher'>
-     <a href='postingedit.php?topic_id=$taglit.Id&up=$taglit.Id&grp=*GRP_GALLERY&redirid=$_'
-        class='add'>
-      Добавить фотографию</a>
-    </div>
-   </logged>
-   <iterate_picturelist grp='*GRP_GALLERY' topic='$taglit.Id'
-                        rows='$userPictureRowPortion'
-			cols='$userPictureColumnPortion'
-			offset='$offset' sort='*SORT_PSENT' user='$,Id'>
-   <table width=100%>
-    <tr valign=top>
-     <for>
-      <td><picture picture='$.' grp='*GRP_GALLERY' topic='$taglit.Id'></td>
-      <if what='$;isEol'>
-       </tr><tr valign=top>
-      </if>
-     </for>
-    </tr>
-   </table>
-   <logged>
-    <ifnzero what='$;Count'>
-     <div class='batcher'>
-      <a href='postingedit.php?topic_id=$taglit.Id&up=$taglit.Id&grp=*GRP_GALLERY&redirid=$_'
-	 class='add'>
-       Добавить фотографию</a>
-     </div>
-    </ifnzero>
-   </logged>
+   <taglit_gallery taglit_id='$taglit.Id' user_id='$,Id'
+                   rows='$userPictureRowPortion'
+ 		   cols='$userPictureColumnPortion' offset='$offset'>
   </td>
  </tr></table>
  <bottom>

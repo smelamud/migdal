@@ -81,6 +81,8 @@
 <decel name='subtitle' file='parts/subtitle.php' params='icon'
        defaults="icon=''">
 <decel name='taglit' file='parts/taglit.php' params='topic_id'>
+<decel name='taglit_gallery' file='parts/taglit-gallery.php'
+       params='taglit_id,user_id,rows,cols,offset'>
 <decel name='taglit_picture' file='parts/taglit-picture.php'
        params='picture,user'>
 <decel name='today' file='parts/today.php'>

@@ -17,9 +17,9 @@ return $c<=0;
 function convertInput($s)
 {
 $c=str_replace(array("\xAB","\xBB","\x96","\x97","\x84",
-                     "\x93","\xAE","\x99","\xB9"),
+                     "\x93","\xAE","\x99","\xB9","\x85"),
                array('<<','>>','---','---','``',
-	             "''",'(r)','(tm)','No.'),$s);
+	             "''",'(r)','(tm)','No.','...'),$s);
 return convert_cyr_string($c,'w','k');
 }
 

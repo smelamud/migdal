@@ -1,3 +1,34 @@
 << @(#) $Id$ >>
 
+<element name='batcher_taglit_gallery' params='taglit_id,list'>
+<table width=100% class='batcher'><tr valign=bottom>
+<logged>
+ <td align=left>
+  <a href='postingedit.php?topic_id=$taglit_id&up=$taglit_id&grp=*GRP_GALLERY&redirid=$_'
+     class='add'>
+   Добавить фотографию</a>
+ </td>
+</logged>
+ <td><spin list='$list'></td>
+</tr></table>
+</element>
 
+<element name='taglit_gallery'>
+<iterate_picturelist grp='*GRP_GALLERY' topic='$taglit_id' rows='$rows'
+                     cols='$cols' offset='$offset' sort='*SORT_PSENT'
+		     user='$user_id'>
+<batcher_taglit_gallery taglit_id='$taglit_id' list='$;'>
+<table width=100%>
+ <tr valign=top>
+  <for>
+   <td><picture picture='$.' grp='*GRP_GALLERY' topic='$taglit_id'></td>
+   <if what='$;isEol'>
+    </tr><tr valign=top>
+   </if>
+  </for>
+ </tr>
+</table>
+<ifnzero what='$;Count'>
+ <batcher_taglit_gallery taglit_id='$taglit_id' list='$;'>
+</ifnzero>
+</element>
