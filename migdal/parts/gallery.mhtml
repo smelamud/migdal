@@ -20,7 +20,7 @@
 
 <element name='gallery'>
 <iterate_picturelist grp='*GRP_GALLERY' topic='$topic' rows='$rows'
-                     cols='$cols' offset='$offset' sort='*SORT_PSENT'>
+                     cols='$cols' offset='$offset' sort='*SORT_RATING'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher_gallery list='$;' topic='$topic' grp='*GRP_GALLERY'>
  <table width=100%>

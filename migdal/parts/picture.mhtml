@@ -16,6 +16,9 @@
      </a>
    </td></tr>
   </if>
+  <tr><td align=right>
+   <vote_frame id='$picture.Id' color='$$style_picture_back'>
+  </td></tr>
   <ifnzero what='$picture.ImageSet'>
    <tr><td class='image'>
     <image_linked_tag id='$picture.ImageId' enlarge='$picture.hasLargeImage'>

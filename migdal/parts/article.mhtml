@@ -143,6 +143,7 @@
 </for>
 </p>
 <if what='$posting.LargeFormat==*TF_PRE'></pre></if>
+<vote_frame id='$posting.Id' color='$$style_body_back'>
 <footnotes source='$;'>
 </element>
 
