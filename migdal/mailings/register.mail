@@ -19,7 +19,7 @@ Reply-to: $admin:email
 Для завершения регистрации Вам нужно ввести следующий URL в строке адреса
 Вашего браузера:
 
-http://migdal.localhost/actions/userconfirm.php?code=$confirm_code
+http://66.96.244.212/actions/userconfirm.php?code=$confirm_code
 
 В большинстве современных почтовых программ для этого достаточно щелкнуть по
 этой ссылке и дождаться загрузки страницы.
