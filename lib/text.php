@@ -83,7 +83,7 @@ if($protocol=='')
 else
   if($id!=0)
     $url="actions/link.php?msgid=$id&okdir=".urlencode($url);
-return "<a href='$url'".($protocol!='' ? ' target=_blank>' : '>').
+return "<a href='$url'".($protocol!='' ? " target='_blank'>" : '>').
        "$content</a>";
 }
 
@@ -192,7 +192,6 @@ for($i=0;$i<count($lines);$i++)
    $level=$l;
    }
 return join("\n",$lines);
-//return preg_replace('/<\\/div>\s*\n\s*<div class=\'quote\'>/',"\n",$s);
 }
 
 function replaceCenter($s)
@@ -204,7 +203,7 @@ return preg_replace('/(^|\n)[^\S\n]{10}[^\S\n]*([^\n]+)(\n|$)/',
 function replaceBSD($s)
 {
 return preg_replace('/(^|\n)\s*ву&quot;д\s*(\n|$)/',
-                    '\\1<div align=right><img src="pics/bsd.gif"></div>\\2',$s);
+                    '\\1<div align=right><img src="pics/bsd.gif" /></div>\\2',$s);
 }
 
 function replaceHeading($s,$n,$c)
