@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/utils.php');
 
 $userSetDBNames=array('mp' => 'msg_portion',
@@ -85,7 +87,7 @@ else
       $userHidden--;
     mysql_query("update sessions set last=null where sid=$sessionid")
 	 or die('Ошибка SQL при обновлении TIMESTAMP сессии');
-    SetCookie('sessionid',$sessionid,time()+7200);
+    SetCookie('sessionid',$sessionid,time()+($sessionTimeout+1)*3600);
     }
   }
 userSettings();
