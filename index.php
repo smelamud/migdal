@@ -7,24 +7,14 @@ require_once('lib/menu.php');
 ?>
 <html>
 <head>
- <title>Migdal</title>
+ <title>Клуб Еврейского Студента</title>
 </head>
-<body>
- <center><h1>
+<body bgcolor=white>
   <?php
   dbOpen();
-  include('conf/migdal.conf');
-  echo $hello;
-  ?>
- </h1></center>
- <p>
-  <?php
   $menu=new MenuIterator();
   while($item=$menu->next())
-       {
-       echo $item->name;
-       echo '<br>';
-       }
+       echo '<a href="'.$item->link.'">['.$item->name.']</a>';
   dbClose();
   ?>
 </body>
