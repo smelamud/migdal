@@ -1159,7 +1159,7 @@ foreach(@{$::Elements{$name}->{'params'}})
        $def=$::Elements{$name}->{'defaults'}->{$_}
             if exists($::Elements{$name}->{'defaults'}->{$_});
        push @params,"\$$_".
-                    ($def!='' && substr($def,0,1)!='$'
+                    ($def ne '' && substr($def,0,1) ne '$'
                      ? '='.::subVar($def)
 		     : '');
        }

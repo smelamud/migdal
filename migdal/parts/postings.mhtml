@@ -51,13 +51,15 @@
                      offset='$offset' sort='$sort' subdomain='$subdomain'
 		     user='$user_id' showshadows='$showshadows'>
 <if what='$$userId>0 || $showadvert || $;Count!=0'>
- <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'>
+ <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'
+          public='$public'>
  <for>
   <posting posting='$.' showtopic!='$topic_id<0' shorten='*true'
            showdiscuss='*true' showcomplain='*true'>
  </for>
  <ifnzero what='$;Count'>
-  <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'>
+  <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'
+           public='$public'>
  </ifnzero>
 <else>
  &nbsp;
