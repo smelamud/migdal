@@ -14,9 +14,9 @@
 </if>
 </element>
 
-<element name='further_url' params='posting,url'>
-<a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url'
-   target=_blank>$url</a>
+<element name='further_url' params='posting'>
+<a href='actions/link.php?msgid=$posting.MessageId&okdir=$#posting.Url'
+   target=_blank>$posting.URLEllip</a>
 <if what='$posting.URLFailDays>=3'>
  <array vals='день,дня,дней'>
  <plural value='$posting.URLFailDays'>
@@ -74,7 +74,7 @@
 	       image='$$style_cframe_back_pic'>
    $posting.Subject<biff time='$posting.Sent'>
   </span><br>
-  <further_url posting='$posting' url='$posting.URL'>
+  <further_url posting='$posting'>
  </dt>
  <dd><p>
   <ifnzero what='$posting.ImageSet'>
