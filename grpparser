@@ -365,11 +365,12 @@ sub printConstant
 {
 my ($class)=@_;
 
-print GRPS "define('$constPrefix".$class->getFlag()."',".
-           $class->getFlagValue().");\n";
+my $flag=$maskValues ? sprintf('0x%x',$class->getFlagValue())
+                     : $class->getFlagValue();
+print GRPS "define('$constPrefix".$class->getFlag()."',$flag);\n";
 if($maskValues)
   {
-  my $notValue=$FlagValue-$class->getFlagValue()-1;
+  my $notValue=sprintf('0x%x',$FlagValue-$class->getFlagValue()-1);
   print(GRPS "define('${constPrefix}NOT_".$class->getFlag()."',$notValue);\n");
   }
 }
@@ -428,9 +429,10 @@ for(@Classes)
    }
 while(my ($name,$value)=each(%Groups))
      {
+     $value=$maskValues ? sprintf('0x%x',$value) : $value;
      print GRPS "define('$constPrefix$name',$value);\n";
      }
-my $all=$FlagValue-1;
+my $all=$maskValues ? sprintf('0x%x',$FlagValue-1) : $FlagValue-1;
 my $name=$maskValues ? 'ALL' : 'MAX';
 print GRPS "define('$constPrefix$name',$all);\n";
 print GRPS "\n";
