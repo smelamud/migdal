@@ -195,6 +195,7 @@ $forumanswerMandatoryTitle=false;	# Не реализовано
 
 $allowGuests=true;
 $allowGuestChat=true;
+$allowGuestForum=true;
 
 # Пользователи
 

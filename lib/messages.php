@@ -87,7 +87,7 @@ return $normal;
 
 function store($id='id',$admin='userModerator')
 {
-global $userId;
+global $userId,$realUserId;
 
 $result=$this->stotext->store($GLOBALS[$admin]);
 if(!$result)
@@ -103,15 +103,16 @@ if($this->$id)
 else
   {
   $sent=date('Y-m-d H:i:s',time());
+  $senderId=$userId>0 ? $userId : $realUserId;
   if($normal['sender_id']<=0)
-    $normal['sender_id']=$userId;
+    $normal['sender_id']=$senderId;
   $normal['sent']=$sent;
   $result=mysql_query(makeInsert('messages',$normal));
   $this->$id=mysql_insert_id();
   journal(makeInsert('messages',
                      jencodeVars($normal,$this->getJencodedVars())),
 	  'messages',$this->$id);
-  $this->sender_id=$userId;
+  $this->sender_id=$senderId;
   $this->sent=$sent;
   }
 journal("track messages ".journalVar('messages',$this->$id));

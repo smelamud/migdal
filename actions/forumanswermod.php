@@ -16,9 +16,10 @@ require_once('lib/image-upload.php');
 
 function modifyForumAnswer($answer)
 {
-global $userId,$forumanswerMandatoryBody,$forumanswerMandatoryImage;
+global $userId,$realUserId,$forumanswerMandatoryBody,$forumanswerMandatoryImage,
+       $allowGuestForum;
 
-if($userId<=0)
+if($userId<=0 && ($realUserId<=0 || !$allowGuestForum))
   return EFA_NO_SEND;
 if(!$answer->isEditable())
   return EFA_NO_EDIT;

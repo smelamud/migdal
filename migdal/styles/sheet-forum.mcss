@@ -34,7 +34,7 @@
 }
 
 .forum .controls {
-	background-color: %forum_header_back;
+	background-color: %forum_body_back;
 	background-image: url("../%forum_body_back_pic");
 	border-top: solid 1px %forum_split;
 	vertical-align: bottom;

@@ -31,7 +31,7 @@
     onClick="UserInfo($message.SenderId);return false"
     title='подробнее' class='name'>$message.Login</a><asp>
 <else>
- $message.Login<asp>
+ <span class='name'>$message.Login</span><asp>
 </if>
 <ifne what='$message.ReplyLink'>
  <asp>&nbsp;$message.ReplyLink<image src='$$style_mail_image' border=0></a>

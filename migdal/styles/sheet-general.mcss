@@ -37,14 +37,9 @@ BODY {
 	border-bottom: solid 3px %title;
 }
 
-A.name {
+A.name,SPAN.name {
 	color: %name;
 	font: bold 9pt %verdana;
-	text-decoration: none;
-}
-
-A.name:hover {
-	text-decoration: underline;
 }
 
 .pic IMG {

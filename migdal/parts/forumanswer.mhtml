@@ -1,43 +1,41 @@
 << @(#) $Id$ >>
 
 <element name='forum_answer'>
-<if what='$answer.isRebe'><span class='rebe'></if>
- <table width=100% class='forum'>
+<table width=100% class='forum'>
+ <tr>
+  <td class='header' rowspan=2 width=150><table cellpadding=0>
+   <tr><td><senderlink message='$answer'></td></tr>
+   <tr><td class='sent'>
+    <sentview date='$answer.Sent'><br>
+    <biff time='$answer.Sent'>
+   </td></tr>
+  </table></td>
+  <td class='body ninept'>
+   $answer.HTMLBody
+  </td>
+ </tr>
+ <logged>
   <tr>
-   <td class='header' rowspan=2 width=150><table cellpadding=0>
-    <tr><td><senderlink message='$answer'></td></tr>
-    <tr><td class='sent'>
-     <sentview date='$answer.Sent'><br>
-     <biff time='$answer.Sent'>
-    </td></tr>
-   </table></td>
-   <td class='body ninept'>
-    $answer.HTMLBody
+   <td class='controls'>&nbsp;
+    <a href="forumansweredit.php?parent_id=$answer.ParentId&peerid=$answer.Id&redirid=$_"
+       title='Ответить с цитированием'>Ответить</a>
+    <isedit what='$answer'>
+     &nbsp;
+     <a href="forumansweredit.php?editid=$answer.Id&redirid=$_"
+      >Изменить</a>
+     <moderator>
+      &nbsp;
+      <if what='$answer.isDisabled'>
+       <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&okdir=$#-&faildir=$#-"
+	>Разрешить&nbsp;показ</a>
+      <else>
+       <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&okdir=$#-&faildir=$#-"
+	>Запретить&nbsp;показ</a>
+      </if>
+     </moderator>
+    </isedit>
    </td>
   </tr>
-  <logged>
-   <tr>
-    <td class='controls'>&nbsp;
-     <a href="forumansweredit.php?parent_id=$answer.ParentId&peerid=$answer.Id&redirid=$_"
-        title='Ответить с цитированием'>Ответить</a>
-     <isedit what='$answer'>
-      &nbsp;
-      <a href="forumansweredit.php?editid=$answer.Id&redirid=$_"
-       >Изменить</a>
-      <moderator>
-       &nbsp;
-       <if what='$answer.isDisabled'>
-	<a href="actions/moderate.php?editid=$answer.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	 >Разрешить&nbsp;показ</a>
-       <else>
-	<a href="actions/moderate.php?editid=$answer.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	 >Запретить&nbsp;показ</a>
-       </if>
-      </moderator>
-     </isedit>
-    </td>
-   </tr>
-  </logged>
- </table>
-<if what='$answer.isRebe'></span></if>
+ </logged>
+</table>
 </element>

@@ -3,18 +3,13 @@
 <element name='batcher' params='list,parent_id'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
-  <logged>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <a href='forumansweredit.php?parent_id=$parent_id&redirid=$_'
-	>Добавить сообщение</a>
-    </td>
-   </tr></table>
-  <else>
-   <em>Хотите участвовать в обсуждении?</em>
-   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-  </logged>
+  <table><tr valign=center>
+   <td><image src='pics/sheet.gif'></td>
+   <td>
+    <a href='forumansweredit.php?parent_id=$parent_id&redirid=$_'
+       >Добавить сообщение</a>
+   </td>
+  </tr></table>
  </td>
  <td>
   <spin list='$list'>
