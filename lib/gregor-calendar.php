@@ -3,7 +3,7 @@
 # @(#) $Id$
 
 // Copyright 1993-1995, Scott E. Lee, all rights reserved.
-// Converted to PHP4 2000, Dmitry E. Melamud
+// Converted to PHP4 2000, Dmitry E. Melamud.
 // Permission granted to use, copy, modify, distribute and sell so long as
 // the above copyright and this permission statement are retained in all
 // copies.  THERE IS NO WARRANTY - USE AT YOUR OWN RISK.
@@ -11,14 +11,14 @@
 //
 // These are the externally visible components of this file:
 //
-// function SDNToGregorian($sdn,&$pYear,&$pMonth,&$pDay);
+// function SDNToGregorian($sdn,&$pMonth,&$pDay,&$pYear);
 //
 // Convert a SDN to a Gregorian calendar date.  If the input SDN is less
 // than 1, the three output values will all be set to zero, otherwise
 // $pYear will be >= -4714 and != 0; $pMonth will be in the range 1 to 12
 // inclusive; $pDay will be in the range 1 to 31 inclusive.
 //
-// function GregorianToSDN($inputYear,$inputMonth,$inputDay);
+// function GregorianToSDN($inputMonth,$inputDay,$inputYear);
 //
 // Convert a Gregorian calendar date to a SDN.  Zero is returned when the
 // input date is detected as invalid or out of the supported range.  The
@@ -111,7 +111,7 @@ define('GREGOR_DAYS_PER_5_MONTHS',153);
 define('GREGOR_DAYS_PER_4_YEARS',1461);
 define('GREGOR_DAYS_PER_400_YEARS',146097);
 
-function SDNToGregorian($sdn,&$pYear,&$pMonth,&$pDay)
+function SDNToGregorian($sdn,&$pMonth,&$pDay,&$pYear)
 {
 if($sdn<=0)
   {
@@ -157,7 +157,7 @@ $pMonth=$month;
 $pDay=$day;
 }
 
-function GregorianToSDN($inputYear,$inputMonth,$inputDay)
+function GregorianToSDN($inputMonth,$inputDay,$inputYear)
 {
 // check for invalid dates
 if($inputYear==0 || $inputYear<-4714 ||
