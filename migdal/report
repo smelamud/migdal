@@ -4,10 +4,40 @@
 
 use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
+use POSIX qw(mktime);
 
 $VERSION='0.2';
 
 $directory='.';
+$fromDate=0;
+$toDate=0;
+
+@topics=();
+@postings=();
+@messages=();
+@imagesets=();
+@users=();
+
+sub parseDate
+{
+my ($s)=@_;
+
+my ($day,$month,$year,$hour,$min,$sec)=
+  $s=~/^\s*(\d+)[-.\/](\d+)[-.\/](\d+)(?:\s+(\d+)[:.](\d+)(?:[:.](\d+))?)?\s*$/;
+return POSIX::mktime($sec,$min,$hour,$day,$month-1,$year-1900);
+}
+
+sub fromDate
+{
+shift;
+$fromDate=parseDate(shift);
+}
+
+sub toDate
+{
+shift;
+$toDate=parseDate(shift);
+}
 
 sub help
 {
@@ -18,7 +48,9 @@ Migdal report generator (for 'migdal' interface)
 
   -d, --directory=<path>    Directory, where logs are located (default is
                             current directory)
+  -f, --from=<date>         Starting date for statistics
   -h, --help                Print this help and exit
+  -t, --to=<date>           Final date for statistics
   -v, --version             Print version information and exit
 
 Report bugs to <balu\@yes.ru>
@@ -40,18 +72,91 @@ EOF
 exit;
 }
 
+sub initTopics
+{
+open IN,"$directory/topics";
+while(<IN>)
+     {
+     chomp;
+     my @line=split /\t/;
+     $topics[$line[0]]=$line[1];
+     }
+close IN;
+}
+
+sub initPostings
+{
+open IN,"$directory/postings";
+while(<IN>)
+     {
+     chomp;
+     my @line=split /\t/;
+     my $info=$line[4].', '.$topics[$line[1]];
+     $postings[$line[0]]=$info;
+     $messages[$line[2]]=$info;
+     $imagesets[$line[3]]=$info if $line[3] ne '';
+     }
+close IN;
+}
+
+sub initUsers
+{
+open IN,"$directory/users";
+while(<IN>)
+     {
+     chomp;
+     my @line=split /\t/;
+     $users[$line[0]]=$line[1];
+     }
+close IN;
+}
+
 sub init
 {
+initTopics();
+initPostings();
+initUsers();
 }
+
+@Months=('Jan','Feb','Mar','Apr','May','Jun',
+         'Jul','Aug','Sep','Oct','Nov','Dec');
 
 sub getTimeStr
 {
 my ($time)=@_;
 
-print $time;
-print scalar(localtime $time);
 my ($sec,$min,$hour,$day,$month)=localtime($time);
-return printf("%2i/%02i %02i:%02i:%02i",($day,$month,$hour,$min,$sec));
+return sprintf("%3s %2i %02i:%02i:%02i",$Months[$month],$day,$hour,$min,$sec);
+}
+
+sub getAddress
+{
+my ($ip)=@_;
+
+for($i=3;$i>=0;$i--)
+   {
+   $ip[$i]=$ip%256;
+   $ip/=256;
+   }
+return join '.',@ip;
+}
+
+sub comment
+{
+my ($s)=@_;
+
+my @specs=$s=~/\w+\(-?\d+\)/g;
+foreach(@specs)
+       {
+       my ($name,$value)=/^(\w+)\((-?\d+)\)$/;
+       $s.=' /* '.$topics[$value].' */' if $name eq 'topic' && $value>0;
+       $s.=' /* Все темы */' if $name eq 'topic' && $value<=0;
+       $s.=' /* '.$users[$value].' */' if $name eq 'user';
+       $s.=' /* '.$postings[$value].' */' if $name eq 'post';
+       $s.=' /* '.$messages[$value].' */' if $name eq 'msg';
+       $s.=' /* '.$imagesets[$value].' */' if $name eq 'imageset';
+       }
+return $s;
 }
 
 sub run
@@ -61,7 +166,9 @@ while(<IN>)
      {
      chomp;
      my @log=split /\t/;
-     print getTimeStr($log[1]).' '.$log[0].': '.$log[3]."\n";
+     next if $log[1]<$fromDate || $toDate!=0 && $log[1]>=$toDate;
+     print getTimeStr($log[1]).' '.getAddress($log[2])."\t".$log[0].': '.
+           comment($log[3])."\n";
      }
 close IN;
 }
@@ -71,7 +178,9 @@ sub done
 }
 
 GetOptions('directory|d=s' => \$directory,
+           'from|f=s'      => \&fromDate,
            'help|h|?'	   => \&help,
+           'to|t=s'        => \&toDate,
 	   'version|v'	   => \&version);
 
 init();

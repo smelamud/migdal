@@ -7,7 +7,7 @@
 </element>
 
 <element name='posting_further_url' params='posting,url'>
- <asp><a href='actions/link.php?postid=$posting.Id&okdir=$#url' target=_blank><asp>
+ <asp><a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url' target=_blank><asp>
   <image src='pics/further-far.gif' border=0
          title='Подробности на другом сайте'>
  <asp></a>&nbsp;<asp>
