@@ -79,7 +79,7 @@ while($ed<strlen($s))
            {
 	   case 0:
 	        $ed=strpos($s,'&#039;',$st);
-		$ed=substr($s,$ed,6)=='&#039;' ? strlen($s) : $ed;
+		$ed=substr($s,$ed,6)!='&#039;' ? strlen($s) : $ed;
 		goFurther($c,$s,$st,$ed,$state,1);
 		break;
            case 1:
