@@ -15,8 +15,9 @@ OBJECTS = article.php backtrace.php book-chapters.php book-ring.php \
 	  taglit-gallery-picture.php taglit-posting.php tip.php \
 	  tip-posting.php today.php top.php topics.php topics-general.php \
 	  topics-kaitana.php topics-links.php topics-major.php \
-	  topics-minor.php topics-taglit.php topicselect.php tune.php \
-	  unititle.php uploader.php userinfo.php utils.php vote.php
+	  topics-migdal.php topics-minor.php topics-taglit.php \
+	  topicselect.php tune.php unititle.php uploader.php userinfo.php \
+	  utils.php vote.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

@@ -1,0 +1,24 @@
+<< @(#) $Id$ >>
+
+<element name='topics_migdal'>
+<grps>
+<topic_obj id='$`migdal`'>
+<topics_table title='$,Name' class='ninept'>
+ <if what='$,UserId==$$userId || $$userModerator'>
+  <tr><td colspan=2>
+   <a href='postingedit.php?redirid=$_&topic_id=$,Id&root=$,Id&grp=*GRP_REVIEWS'
+      class='edit'>Добавить</a>
+  </td></tr>
+  <tr><td colspan=2>
+   <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
+      class='edit'>Расставить</a>
+  </td></tr>
+ </if>
+ <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
+                      topic_id='$,Id'>
+ <for>
+  <topics_line time='$.Sent' text='$.Subject'
+               href#='migdal.php?artid=$.Id' arrow!='$.Id==$id'>
+ </for>
+</topics_table>
+</element>

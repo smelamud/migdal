@@ -1,25 +1,19 @@
 << @(#) $Id$ >>
 
-<element name='navi_kaitana' params='ident'>
-<topic_obj name='kaitana' id='$`kaitana`'>
-
-<posting_last topic_id='$`kaitana`' recursive='*false'>
-<topics_line time='$,' href='kaitana.php' title='$kaitana.Description'
-	     text='$kaitana.Name' arrow!="$ident=='kaitana'">
-</element>
-
 <element name='navi_main' params='ident'>
 <topics_line href='index.php' title='На главную страницу'
 	     text='Главная' arrow!="$ident=='index'">
 
 </element>
 
-<element name='navi_taglit' params='ident'>
-<topic_obj name='taglit' id='$`taglit`'>
+<element name='navi_migdal' params='ident'>
+<topic_obj name='migdal' id='$`migdal`'>
 
-<posting_last topic_id='$`taglit`' recursive='*false'>
-<topics_line time='$,' href='taglit.php' title='$taglit.Description'
-	     text='$taglit.Name' arrow!="$ident=='taglit'">
+<if what='$migdal.UserId==$$userId || $$userModerator'>
+ <posting_last topic_id='$`migdal`' recursive='*true'>
+ <topics_line time='$,' href='migdal.php' title='$migdal.Description'
+	      text='$migdal.Name' arrow!="$ident=='migdal'">
+</if>
 </element>
 
 <element name='navi_times' params='ident'>
@@ -30,6 +24,22 @@
 	     text='$times.Name' arrow!="$ident=='times'">
 </element>
 
+<element name='navi_taglit' params='ident'>
+<topic_obj name='taglit' id='$`taglit`'>
+
+<posting_last topic_id='$`taglit`' recursive='*false'>
+<topics_line time='$,' href='taglit.php' title='$taglit.Description'
+	     text='$taglit.Name' arrow!="$ident=='taglit'">
+</element>
+
+<element name='navi_kaitana' params='ident'>
+<topic_obj name='kaitana' id='$`kaitana`'>
+
+<posting_last topic_id='$`kaitana`' recursive='*false'>
+<topics_line time='$,' href='kaitana.php' title='$kaitana.Description'
+	     text='$kaitana.Name' arrow!="$ident=='kaitana'">
+</element>
+
 <element name='topics_major'>
 <topics_table title='Разделы'>
  <admin_topics>
@@ -38,6 +48,7 @@
   </td></tr>
  </admin_topics>
  <navi_main ident='$ident'>
+ <navi_migdal ident='$ident'>
  <navi_times ident='$ident'>
  <community>
   <navi_taglit ident='$ident'>
