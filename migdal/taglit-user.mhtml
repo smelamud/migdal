@@ -22,8 +22,7 @@
     <subtitle icon='pics/taglit.gif'>
     <div class='ninept'>
      <a href='userinfo.php?id=$user.Id&redirid=$_'
-	onClick="UserInfo($user.Id);return false"
-	class='add'>О пользователе $user.Login</a>
+	onClick="UserInfo($user.Id);return false">О пользователе $user.Login</a>
      <ifne what='$user.ReplyLink'>
       $user.ReplyLink<image src='$$style_mail_image' border=0></a>
      </ife>

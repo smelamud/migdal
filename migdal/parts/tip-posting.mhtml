@@ -10,32 +10,30 @@
 </element>
 
 <element name='further' params='posting'>
- <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
-  <image src='pics/further.gif' border=0 title='Читать дальше'>
- <asp></a>&nbsp;<asp>
+<asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
+ <image src='pics/further.gif' border=0 title='Читать дальше'>
+<asp></a>&nbsp;<asp>
 </element>
 
 <element name='controls' params='posting,showdiscuss,showcomplain,len'>
-<if what='$$userId>0 || $showdiscuss'>
- <table width=$len class='bottom'><tr>
-  <td>
-   <isedit what='$posting'>
-    <a href="postingedit.php?editid=$posting.Id&root=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
-     >Изменить</a>
-   <else>
-    <if what='!$$userModerator && $showcomplain'>
-     <logged>
-      <a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
-       >Жалоба</a>
-     </logged>
-    </if>
-   </isedit>
-  </td>
-  <if what='$showdiscuss'>
-   <td align=right><discusslink posting='$posting'></td>
-  </if>
- </tr></table>
-</if>
+<table width=$len class='bottom'><tr>
+ <td>
+  <isedit what='$posting'>
+   <a href="postingedit.php?editid=$posting.Id&root=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
+    >Изменить</a>
+  <else>
+   <if what='!$$userModerator && $showcomplain'>
+    <logged>
+     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
+      >Жалоба</a>
+    </logged>
+   </if>
+  </isedit>
+ </td>
+ <if what='$showdiscuss'>
+  <td align=right><discusslink posting='$posting'></td>
+ </if>
+</tr></table>
 </element>
 
 <element name='tip_posting'>
