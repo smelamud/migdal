@@ -2,6 +2,9 @@
 
 # @(#) $Id$
 
+%.php: %.mhtml
+	./miparser $< > $@
+
 conf/migdal.conf: configure
 	./configure
 
