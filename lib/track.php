@@ -10,13 +10,23 @@ $track=sprintf('%010u',$id);
 return $prev!='' ? "$prev $track" : $track;
 }
 
+$tracks=array();
+
 function trackById($table,$id)
 {
+global $tracks;
+
+if(isset($tracks[$table]) && isset($tracks[$table][$id]))
+  return $tracks[$table][$id];
 $result=mysql_query("select track
                      from $table
 		     where id=$id")
 	  or sqlbug("Ошибка SQL при выборке маршрута из $table");
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
+$track=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+if(!isset($tracks[$table]))
+  $tracks[$table]=array();
+$tracks[$table][$id]=$track;
+return $track;
 }
 
 function updateTrackById($table,$id,$track)

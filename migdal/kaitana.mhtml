@@ -52,7 +52,10 @@
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
    <topics_kaitana day!='$day<=0 ? 1 : $day'>
-   <topics_migdal topic_id='$`kaitana`'>
+   <zone>
+    <posting_new topic_id='$`kaitana`'>
+    <topics_migdal posting='$,'>
+   </zone>
    <topics_major ident='migdal'>
   </zone></td>
   <td class='cframe'>

@@ -201,9 +201,10 @@ $name=getGrpClassName($grp);
 return new $name($row);
 }
 
-function newDetailedPosting($grp,$topic_id=-1,$sender_id=0)
+function newDetailedPosting($grp,$topic_id=-1,$sender_id=0,$id=0)
 {
-return newPosting(array('grp'       => $grp,
+return newPosting(array('id'        => $id,
+                        'grp'       => $grp,
                         'topic_id'  => $topic_id,
 			'sender_id' => $sender_id));
 }

@@ -22,7 +22,10 @@
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
-   <topics_migdal id='$artid'>
+   <zone>
+    <posting_new id='$artid'>
+    <topics_migdal posting='$,'>
+   </zone>
    <topics_major ident='migdal'>
   </td>
   <td class='article cframe'>
