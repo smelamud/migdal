@@ -2,84 +2,76 @@
 
 .posting {
 	border: 3px solid %posting_border;
-	margin: 0.5ex;
+	margin-top: 1.5ex;
+	margin-bottom: 1.5ex;
 	background-color: %posting_back;
 }
 
-.posting .top {
-	background-color: %posting_top_back;
+.posting .pic IMG {
+	border: 1px solid %posting_image_border;
 }
 
-.posting .top * {
-	font-size: 9pt;
+.posting .pic TD {
+	text-align: center;
+	font-style: italic;
+	font-size: 8pt;
 }
 
-.posting .top .sent {
-	color: %posting_sent;
-	font-weight: bold;
-}
-
-.posting .top A.name {
-	color: %posting_name;
-	text-decoration: none;
-}
-
-.posting .top A:hover {
+.posting A.topic {
+	color: %posting_topic;
+	font-size: 10pt;
 	text-decoration: underline;
-}
-
-.posting .subject {
-	font-family: %times;
-	font-weight: bold;
-	font-size: 14pt;
-  	padding-right: 2ex;
-	padding-bottom: 1.5ex;
-	color: %posting_subject;
-}
-
-.posting .subject A {
-	font-family: %times;
-	font-weight: bold;
-	font-size: 14pt;
-	color: %posting_subject;
-	text-decoration: none;
-}
-
-.posting .subject A:hover {
-	text-decoration: underline;
-}
-
-.posting .author {
-	font-family: %times;
-	font-size: 11pt;
-	font-style: italic;
-}
-
-.posting .source {
-	font-size: 9pt;
-	font-style: italic;
-	text-align: right;
-}
-
-.posting .topic {
-	font-family: %times;
-	font-style: italic;
-	font-size: 12pt;
-	text-decoration: none;
 }
 
 .posting A.topic:hover {
+	color: %posting_topic_hover;
+}
+
+.posting DT {
+	font: bold 14pt %times;
+	color: %posting_subject;
+}
+
+.posting DT A {
+	font: bold 14pt %times;
+	color: %posting_subject;
+	text-decoration: none;
+}
+
+.posting DT A:hover {
 	text-decoration: underline;
 }
 
-.posting .imagetitle {
-	text-align: center;
+.posting DT .author {
+	font: italic 11pt %times;
+	color: %posting_author;
+}
+
+.posting .sent {
+	color: %posting_sent;
+	font-size: 9pt;
+}
+
+.posting A.name {
+	color: %posting_name;
+	font-weight: bold;
+	font-size: 9pt;
+	text-decoration: none;
+}
+
+.posting A.name:hover {
+	text-decoration: underline;
+}
+
+.posting .source {
 	font-style: italic;
+	font-size: 9pt;
+	text-align: right;
 }
 
 .posting .bottom {
 	border-top: 1px solid %posting_split;
-	margin-top: 1.5ex;
+	margin-top: .5ex;
 }
 
 .posting .bottom A {

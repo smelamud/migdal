@@ -1,18 +1,10 @@
 ! @(#) $Id$
 
-! Blue
-
-bl=#0C20A5
-
-! Green
-
-g=#52A945
-
 ! Navy
 
-nd=#4C6A90	! Dark
-ndl=#6F99D1	! Dark light
-nm=#9BC8FF	! Medium
+nd=#336699	! Dark
+ndl=#6699CC	! Dark light
+nm=#99CCFF	! Medium
 nl=#CDE4FF	! Light
 nll=#DCECFF	! Light light
 
@@ -31,8 +23,8 @@ vl=#FFF8E8	! Light
 
 ! Magenta
 
-ml=#BA00FF	! Light
-md=#91089D	! Dark
+ml=#AA00FF	! Light
+md=#990099	! Dark
 
 ! Gray
 

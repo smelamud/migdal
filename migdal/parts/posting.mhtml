@@ -15,70 +15,62 @@
 
 <element name='posting'>
 <if what='$posting.isRebe'><span class='rebe'></if>
- <table width=100% class='posting'>
-  <tr class='top'><td><table width=100%><tr>
-   <td align=left class='sent'>
-    <sentview date='$posting.Sent'>
-    <biff time='$posting.Sent'>
-   </td>
-   <td align=right><senderlink message='$posting'></td>
-  </tr></table></td></tr>
-  <tr><td><table width=100%><tr>
-   <td width=75% align=left>
-    <span class='subject'>
-    <if what='$posting.hasLargeBody'>
-     <a href='article.php?redirid=$_&artid=$posting.Id'
-        title='Читать'>$posting.Subject</a>
-    <else>
-     $posting.Subject
-    </if>
-    </span>
-    <ifne what='$posting.Author'>
-     <br><span class='author'>$posting.Author</span>
-    </ifne>
-   </td>
-   <td width=25% align=right>
-    <grpitemtitlei grp='$posting.Grp'>
-    <grpicon grp='$posting.Grp'>
-    <image src='$grpicon' title='$grpitemtitlei'>&nbsp;
-    <if what='$topic<0'>
-     <a href='index.php?grp=$grp&topic_id=$posting.TopicId'
-	class='topic' title='$posting.TopicDescription'>
-      $posting.TopicName
-     </a>
-    </if>
-   </td>
-  </tr></table></td></tr>
-  <tr><td>
-   <ifnzero what='$posting.ImageSet'>
-    <table align=left>
-     <tr><td>
-      <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
-     </td></tr>
-     <ifne what='$posting.Title'>
-      <tr><td class='imagetitle'>$posting.HTMLTitle</td></tr>
-     </ifne>
-    </table>
-   </ifnzero>
-   <if what='$shorten'>
-    $posting.HTMLBodyMedium&nbsp;<asp>
-    <if what='!$posting.isBodyMedium'>
-     <posting_further id='$posting.Id'>
-    </if>
-   <else>
-    $posting.HTMLBody&nbsp;<asp>
+ <dl class='posting'>
+  <dt>
+   <biff time='$posting.Sent'>
+   <if what='$topic<0'>
+    <a href='index.php?grp=$grp&topic_id=$posting.TopicId'
+       class='topic' title='$posting.TopicDescription'>
+     $posting.TopicName
+    </a>
+    <br>
    </if>
    <if what='$posting.hasLargeBody'>
-    <posting_further_article id='$posting.Id'>
+    <a href='article.php?redirid=$_&artid=$posting.Id'
+       title='Читать'>$posting.Subject</a>
+   <else>
+    $posting.Subject
    </if>
-  </td></tr>
-  <ifne what='$posting.Source'>
-   <tr><td class='source'>
-    $posting.HTMLSource
-   </td></tr>
-  </ifne>
+   <ifne what='$posting.Author'>
+    <br><span class='author'>$posting.Author</span>
+   </ifne>
+  </dt>
+  <dd><p>
+  <ifnzero what='$posting.ImageSet'>
+   <table align=left class='pic'>
+    <tr><td>
+     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+    </td></tr>
+    <ifne what='$posting.Title'>
+     <tr><td>$posting.HTMLTitle</td></tr>
+    </ifne>
+   </table>
+  </ifnzero>
+  <if what='$shorten'>
+   $posting.HTMLBodyMedium&nbsp;<asp>
+   <if what='!$posting.isBodyMedium'>
+    <posting_further id='$posting.Id'>
+   </if>
+  <else>
+   $posting.HTMLBody&nbsp;<asp>
+  </if>
+  <if what='$posting.hasLargeBody'>
+   <posting_further_article id='$posting.Id'>
+  </if>
+  </p>
+  <table width=100% style="clear: left"><tr>
+   <td align=left class='sent'>
+    <sentview date='$posting.Sent'>&nbsp;
+    <senderlink message='$posting'>
+   </td>
+   <ifne what='$posting.Source'>
+    <td class='source'>
+     $posting.HTMLSource
+    </td>
+   </ifne>
+  </tr></table>
   <if what='$$userId>0 || $discuss || $posting.hasLargeBody'>
-   <tr><td><table width=100% class='bottom'><tr>
+   <table width=100% class='bottom'><tr>
     <td>
      <if what='$posting.hasLargeBody'>
       <a href='article.php?redirid=$_&artid=$posting.Id'
@@ -110,8 +102,8 @@
     <if what='$discuss'>
      <td align=right><discusslink posting='$posting'></td>
     </if>
-   </tr></table></td></tr>
+   </tr></table>
   </if>
- </table>
+ </dl>
 <if what='$posting.isRebe'></span></if>
 </element>

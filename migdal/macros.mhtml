@@ -8,7 +8,7 @@
 
 << Date/Time >>
 <macro name='sentview'>
- %date@j/%date@m/%date@Y&nbsp;%date@H:%date@i
+ %date@j.%date@m.%date@Y&nbsp;%date@H:%date@i
 </macro>
 
 << Styles >>
