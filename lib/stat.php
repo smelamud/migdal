@@ -35,7 +35,7 @@ $fd=fopen("$dir/postings",'w');
 $iter=new PostingListIterator(GRP_ALL,-1,false,0,0,0,SORT_SENT,GRP_NONE,0,-1,$from);
 while($post=$iter->next())
      fputs($fd,$post->getId()."\t".$post->getTopicId()."\t".$post->getMessageId()."\t".
-               $post->getSubjectDesc()."\n");
+               $post->getImageSet()."\t".$post->getSubjectDesc()."\n");
 fclose($fd);
 
 $fd=fopen("$dir/topics",'w');
