@@ -1,11 +1,21 @@
 << @(#) $Id$ >>
 
 <element name='topics_courses'>
-<iterate_postinglist grp='*GRP_REVIEWS' topic_id='$`courses-details`' limit=0
-                     sort='*SORT_NAME' fields='*SELECT_TOPICS'>
 <topics_table>
- <topics_line arrow!='$id==0' text='О курсах' href='/courses.php'>
+ <iterate_postinglist grp='*GRP_REVIEWS' topic_id='$`courses`' limit=0
+		      sort='*SORT_NAME' fields='*SELECT_TOPICS'>
+ <for>
+  <if what='$.Id==$`postings:courses`'>
+   <topics_line arrow!='$id==0 || $id==$.Id' text='О курсах'
+                href='/courses.php'>
+  <else>
+   <topics_line arrow!='$id==$.Id' text='$.Subject'
+                href#='/courses.php?id=$.Id'>
+  </if>
+ </for>
  <topics_splitter>
+ <iterate_postinglist grp='*GRP_REVIEWS' topic_id='$`courses-details`' limit=0
+		      sort='*SORT_NAME' fields='*SELECT_TOPICS'>
  <for>
   <topics_line arrow!='$id==$.Id' text='$.Subject'
                href#='/course-details.php?id=$.Id'>

@@ -1,6 +1,11 @@
 << @(#) $Id$ >>
 
-<posting_obj id='$`postings:courses`' grp='*GRP_REVIEWS'
+<ident name='id'>
+<ifzero what='$id'>
+ <assign name='id' value='$`postings:courses`'>
+</ifzero>
+
+<posting_obj id='$id' grp='*GRP_REVIEWS'
              fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_TOPICS'>
 <pagetitle title='$,Subject'>
 <topictitle title='$,Subject'>
@@ -11,7 +16,7 @@
  <top ident='courses'>
  <table width="100%" cellspacing="3" cellpadding="5"><tr valign="top">
   <td width='150' class='eframe'>
-   <topics_courses id=0>
+   <topics_courses id='$id'>
   </td>
   <td class='article'>
    <subtitle>
