@@ -73,7 +73,7 @@ class LogIterator
 function LogIterator($from=0)
 {
 $this->SelectIterator('LogLine',
-                      "select id,event,sent,ip,body
+                      "select id,event,unix_timestamp(sent) as sent,ip,body
 		       from logs
 		       where unix_timestamp(sent)>$from");
 }

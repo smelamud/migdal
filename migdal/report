@@ -1,0 +1,79 @@
+#!/usr/bin/perl
+
+# @(#) $Id$
+
+use Getopt::Long;
+Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
+
+$VERSION='0.2';
+
+$directory='.';
+
+sub help
+{
+print <<EOF;
+Usage: $0 [<options>]
+
+Migdal report generator (for 'migdal' interface)
+
+  -d, --directory=<path>    Directory, where logs are located (default is
+                            current directory)
+  -h, --help                Print this help and exit
+  -v, --version             Print version information and exit
+
+Report bugs to <balu\@yes.ru>
+EOF
+exit;
+}
+
+sub version
+{
+print <<EOF;
+report (migdal $VERSION)
+Copyright (C) 2002 by Dmitry E. Melamud.
+
+This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License (see COPYING).
+
+EOF
+exit;
+}
+
+sub init
+{
+}
+
+sub getTimeStr
+{
+my ($time)=@_;
+
+print $time;
+print scalar(localtime $time);
+my ($sec,$min,$hour,$day,$month)=localtime($time);
+return printf("%2i/%02i %02i:%02i:%02i",($day,$month,$hour,$min,$sec));
+}
+
+sub run
+{
+open IN,"$directory/log";
+while(<IN>)
+     {
+     chomp;
+     my @log=split /\t/;
+     print getTimeStr($log[1]).' '.$log[0].': '.$log[3]."\n";
+     }
+close IN;
+}
+
+sub done
+{
+}
+
+GetOptions('directory|d=s' => \$directory,
+           'help|h|?'	   => \&help,
+	   'version|v'	   => \&version);
+
+init();
+run();
+done();
