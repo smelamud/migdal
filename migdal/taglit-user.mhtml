@@ -34,7 +34,7 @@
     <ifzero what='$offset'>
      <p>
      <postings grp='*GRP_BLOG_FORUMS' topic_id='$`taglit`' limit=0
-               user_id='$user.Id' showadvert='*false'>
+               user_id='$user.Id'>
     </ifzero>
    </div>
    <p>

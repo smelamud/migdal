@@ -1,12 +1,30 @@
 << @(#) $Id$ >>
 
+<element name='topics_gallery_blog' params='title,topic_id,posting'>
+<topics_table class='eightpt' title='$title'>
+ <iterate_posting_users topic_id='$topic_id'>
+ <for>
+  <topics_line time='$.LastMessage' text='$.FullName'
+	       href#='gallery.php?topic_id=$topic_id&user_id=$.Id'
+	       arrow!='$.Id==$posting.UserId'>
+ </for>
+</topics_table>
+</element>
+
 <element name='topics_gallery'>
-<if what='$/$posting.TopicId,0/!=$`migdal`'>
+<if what='$/$posting.TopicId,0/==$`migdal`'>
+ <topics_gallery_migdal posting='$posting'>
+ <topics_gallery_major posting='$posting'>
+<elif what='$/$posting.TopicId,0/==$`taglit`'>
+ <topics_gallery_blog posting='$posting' title='Таглит' topic_id='$`taglit`'>
+ <topics_gallery_major posting='$posting'>
+<elif what='$/$posting.TopicId,0/==$`veterans`'>
+ <topics_gallery_blog posting='$posting' title='Уголок ветерана'
+                      topic_id='$`veterans`'>
+ <topics_gallery_major posting='$posting'>
+<else>
  <topics_gallery_major posting='$posting'>
  <topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
 	       href='gallery.php' title='Раздельчики'>
-<else>
- <topics_gallery_migdal posting='$posting'>
- <topics_gallery_major posting='$posting'>
 </if>
 </element>

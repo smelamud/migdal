@@ -32,10 +32,59 @@
  <ident_id table='topics' ident='$topic_id'>
  <log event=gallery text#='topic($,) offset=$offset'>
 </zone>
-<unititle chapter='Галерея' topic_id='$topic_id'>
-<if what='$topic_id<=0'>
- <topictitle title='Галерея'>
+<if what='$user_id<=0'>
+ <unititle chapter='Галерея' topic_id='$topic_id'>
+ <if what='$topic_id<=0'>
+  <topictitle title='Галерея'>
+ </if>
+<else>
+ <topic_obj name='topic' id='$topic_id'>
+ <user_obj id='$user_id'>
+ <pagetitle title#='Галерея - $topic.Name - $,FullName'>
+ <topictitle title#='$topic.Name --- $,FullName'>
 </if>
+
+<element name='notonly' params='topic_id,user_id'>
+<if what='$topic_id==$`taglit`'>
+ <if what='$user_id>0'>
+  <assign name='href' value#='taglit-user.php?user_id=$user_id'>
+ <else>
+  <assign name='href' value='taglit.php'>
+ </if>
+</if>
+<if what='$topic_id==$`veterans`'>
+ <if what='$user_id>0'>
+  <assign name='href' value#='veterans-user.php?user_id=$user_id'>
+ <else>
+  <assign name='href' value='veterans.php'>
+ </if>
+</if>
+<if what='$/$topic_id,0/==$`migdal`'>
+ <if what='$/$topic_id,1/==$`jcc`'>
+  <if what='$/$topic_id,2/==$`kes`'>
+   <assign name='href' value#='migdal.php?artid=$`postings:kes`'>
+  <elif what='$/$topic_id,2/==$`kaitana`'>
+   <if what='$topic_id!=$`kaitana`'>
+    <assign name='href' value#='kaitana.php?topic_id=$topic_id'>
+   <else>
+    <assign name='href' value='kaitana-main.php'>
+   </if>
+  <else>
+   <assign name='href' value='jcc.php'>
+  </if>
+ <elif what='$/$topic_id,1/==$`mazltov`'>
+  <assign name='href' value#='migdal.php?artid=$`postings:mazltov`'>
+ <else>
+  <assign name='href' value='migdal.php'>
+ </if>
+</if>
+<ifne what='$href'>
+ <div class='ninept'>
+  Этот раздел содержит не только картинки.
+  <a href='$href'>Увидеть раздел полностью.</a>
+ </div>
+</ifne>
+</element>
 
 <html>
 <preamble>
@@ -44,7 +93,7 @@
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
    <zone>
-    <posting_new grp='*GRP_GALLERY' topic_id='$topic_id'>
+    <posting_new grp='*GRP_GALLERY' topic_id='$topic_id' sender_id='$user_id'>
     <if what='$general'>
      <topics posting='$,'>
     <else>
@@ -59,6 +108,8 @@
     <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
      <td><common>
       <subtitle icon='pics/gall-big.gif'>
+      <notonly topic_id='$topic_id' user_id='$user_id'>
+      <p>
       <outer><div class='nframe' style='padding: 5'><inner>
        <seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'
 		      title='См. также в разделе ссылок'>
@@ -77,6 +128,8 @@
    <td>
     <div class='nframe' style='margin-bottom: 5px; padding: 5px'>
      <subtitle icon='pics/gall-big.gif'>
+     <notonly topic_id='$topic_id' user_id='$user_id'>
+     <p>
      <seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'
 		    title='См. также в разделе ссылок'>
      <seealso_other topic_id='$topic_id' topic_grp='*GRP_GALLERY'
