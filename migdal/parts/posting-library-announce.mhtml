@@ -16,7 +16,11 @@
     <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
 		image='$$style_cframe_back_pic'>
     <biff time='$posting.Sent'>
-    <em>$posting.Subject</em>
+    <span class='subject'>
+     $posting.Author&sp;&lt;&lt;$posting.Source&gt;&gt;
+    </span>
+    <br>
+    <i>$posting.Subject</i>
     <p>$posting.HTMLBody&nbsp;</p>
    </td>
   </tr>
