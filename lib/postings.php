@@ -646,9 +646,16 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function getMaxIndexOfPosting($index,$grp)
 {
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
 $result=mysql_query("select max(index$index)
                      from postings
-		     where (grp & $grp)<>0")
+			  left join messages
+			       on postings.message_id=messages.id
+		     where (hidden<$hide or sender_id=$userId) and
+			   (disabled<$hide or sender_id=$userId) and
+		           (grp & $grp)<>0")
 	     or die('Ошибка SQL при получении максимального индекса постинга');
 return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
 }
