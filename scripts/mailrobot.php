@@ -23,8 +23,7 @@ $heads=explode("\n",$mailparts[1]);
 $newheads=array();
 foreach($heads as $head)
        {
-       preg_match('/^(\w+): (.*)$/',$head,$parts);
-       if($parts[1]=='Subject')
+       if(preg_match('/^(\w+): (.*)$/',$head,$parts) && $parts[1]=='Subject')
          $subject=$parts[2];
        else
          if($head!='')
