@@ -47,6 +47,9 @@
  </ifne>
  <table width=90% class='bottom'><tr>
   <td>
+   <if what='$posting.hasLargeBody'>
+    <a href='article-admin.php?artid=$posting.Id&redirid=$_'>Статья</a>&nbsp;
+   </if>
    <a href="postingedit.php?editid=$posting.Id&root=general&grp=$posting.Grp&redirid=$_"
     >Изменить</a>
   </td>

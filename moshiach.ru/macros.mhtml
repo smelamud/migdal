@@ -9,6 +9,10 @@
 
 << Elements >>
 
+<decel name='article' file='parts/article.php' params='posting'>
+<decel name='article_controls' file='parts/article.php' params='posting,root'
+       defaults="root=general">
+<decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='backtrace' file='parts/backtrace.php'>
 <decel name='formbuttons' file='parts/formutils.php' params='title,span'
        defaults="title='Изменить',span=0">

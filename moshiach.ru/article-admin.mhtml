@@ -1,0 +1,25 @@
+<< @(#) $Id$ >>
+
+<string name='artid'>
+<posting_full id='$artid' grp='*GRP_ARTICLES'>
+<pagetitle title='$,Subject'>
+
+<html>
+<preamble_admin>
+<body>
+ <top_admin>
+ <div class='article'>
+  <article_controls posting='$,'>
+  <h1>
+   <span class='topic'>$,TopicName</span>
+   <br>
+   $,Subject
+   <ifne what='$,Author'>
+    <div class='author'>$,HTMLAuthor</div>
+   </ifne>
+  </h1>
+  <article_full posting='$,'>
+  <article_controls posting='$,'>
+ </div>
+</body>
+</html>
