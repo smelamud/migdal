@@ -24,10 +24,10 @@
      <moderator>
       &nbsp;
       <if what='$answer.isDisabled'>
-       <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&redir=$_"
+       <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&okdir=$_&faildir=$_"
 	>Разрешить&nbsp;показ</a>
       <else>
-       <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&redir=$_"
+       <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&okdir=$_&faildir=$_"
 	>Запретить&nbsp;показ</a>
       </if>
      </moderator>

@@ -31,8 +31,8 @@ $err=menuDelete($id);
 mysql_query('unlock tables')
      or die('Ошибка при разблокировании таблиц');
 if($err==EMID_OK)
-  header('Location: '.remakeURI($redir,array('err'),array('menuid' => 0)));
+  header('Location: '.remakeURI($okdir,array('err'),array('menuid' => 0)));
 else
-  header('Location: '.remakeURI($redir,array(),array('err' => $err)));
+  header('Location: '.remakeURI($faildir,array(),array('err' => $err)));
 dbClose();
 ?>

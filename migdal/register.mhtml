@@ -13,7 +13,9 @@
   <form method=post action='actions/usermod.php'>
    <hidden name='edittag' value=1>
    <hidden name='redir' value='$redir'>
-   <hidden name='caller' value='$-'>
+   <concat value='/userok.php?redir=$redir'>
+   <hidden name='okdir' value='$*'>
+   <hidden name='faildir' value='$-'>
    <hidden name='editid' value=0>
    <table>
     <starinfo span=2>

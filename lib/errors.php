@@ -1,21 +1,20 @@
 <?php
 # @(#) $Id$
 
-define('EUM_INSERT_OK',100);
-define('EUM_UPDATE_OK',101);
-define('EUM_STORE_SQL',102);
-define('EUM_PASSWORD_LEN',103);
-define('EUM_PASSWORD_DIFF',104);
-define('EUM_LOGIN_ABSENT',105);
-define('EUM_LOGIN_EXISTS',106);
-define('EUM_GENDER',107);
-define('EUM_BIRTHDAY',108);
-define('EUM_NO_EDIT',109);
-define('EUM_PRECONFIRM_SQL',1010);
-define('EUM_NAME_ABSENT',1011);
-define('EUM_SURNAME_ABSENT',1012);
-define('EUM_EMAIL_ABSENT',1013);
-define('EUM_NOT_EMAIL',1014);
+define('EUM_OK',100);
+define('EUM_STORE_SQL',101);
+define('EUM_PASSWORD_LEN',102);
+define('EUM_PASSWORD_DIFF',103);
+define('EUM_LOGIN_ABSENT',104);
+define('EUM_LOGIN_EXISTS',105);
+define('EUM_GENDER',106);
+define('EUM_BIRTHDAY',107);
+define('EUM_NO_EDIT',108);
+define('EUM_PRECONFIRM_SQL',109);
+define('EUM_NAME_ABSENT',1010);
+define('EUM_SURNAME_ABSENT',1011);
+define('EUM_EMAIL_ABSENT',1012);
+define('EUM_NOT_EMAIL',1013);
 
 define('EL_INVALID',110);
 define('EL_OK',111);

@@ -28,6 +28,7 @@ return EMI_OK;
 }
 
 postInteger('editid');
+postString('name');
 
 dbOpen();
 session($sessionid);
@@ -35,11 +36,12 @@ $item=getMenuItemById($editid);
 $item->setup($HTTP_POST_VARS);
 $err=modifyMenu($item);
 if($err==EMI_OK)
-  header("Location: /menuedit.php?menuid=$editid");
+  header('Location: '.remakeURI($okdir,array(),array('menuid' => $editid)));
 else
-  header('Location: /menuedit.php?'.makeQuery($HTTP_POST_VARS,
-                                              array('editid'),
-				              array('menuid' => $editid,
-                                                    'err'    => $err)));
+  header('Location: '.remakeMakeURI($faildir,
+                                    $HTTP_POST_VARS,
+                                    array('editid'),
+				    array('menuid' => $editid,
+                                          'err'    => $err)));
 dbClose();
 ?>

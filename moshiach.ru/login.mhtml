@@ -12,7 +12,8 @@
   <else>
    <form method=post action='actions/logout.php'>
   </notlogged>
-  <hidden name='redir' value="$[err]">
+  <hidden name='okdir' value="$[err]">
+  <hidden name='faildir' value="$[err]">
   <error id='*EL_INVALID' text='Неверный ник или пароль' span=2>
   <notlogged>
    <tr>

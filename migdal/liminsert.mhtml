@@ -23,6 +23,8 @@
   <form method=post action='actions/liminsert.php'>
    <hidden name='edittag' value=1>
    <hidden name='redir' value='$redir'>
+   <hidden name='okdir' value='$redir'>
+   <hidden name='faildir' value='$-'>
    <hidden name='postid' value='$postid'>
    <hidden name='par' value='$par'>
    <table>

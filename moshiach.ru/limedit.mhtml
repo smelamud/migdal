@@ -20,7 +20,7 @@
     <if what='$editid==$.Id'>
      <a href='$[err edittag editid=$.Id]'><b>$.Filename</b></a>
      &nbsp;
-     <a href='/actions/limdel.php?postid=$postid&editid=$.Id&redir=$_'
+     <a href='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$_&faildir=$_'
         >[Удалить]</a>
     <else>
      <a href='$[err edittag editid=$.Id]'>$.Filename</a>
@@ -40,6 +40,8 @@
    <form method=post enctype='multipart/form-data' action='actions/limmod.php'>
     <hidden name='edittag' value=1>
     <hidden name='redir' value='$redir'>
+    <hidden name='okdir' value='$-'>
+    <hidden name='faildir' value='$-'>
     <hidden name='postid' value='$postid'>
     <hidden name='editid' value='$editid'>
     <table>

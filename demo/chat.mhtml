@@ -32,7 +32,8 @@
  </iframe>
  <logged>
   <form method=post action='actions/chatpost.php'>
-  <hidden name='redir' value='$-'>
+  <hidden name='okdir' value='$-'>
+  <hidden name='faildir' value='$-'>
   <table>
    <error id='*ECHP_NO_ADD' span=3
 	  text='Добавлять сообщения может только зарегистрированный пользователь'>

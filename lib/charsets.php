@@ -20,14 +20,14 @@ $c=str_replace(array("\xAB","\xBB","\x96","\x97","\x84",
                      "\x93","\xAE","\x99","\xB9"),
                array('<<','>>','---','---','``',
 	             "''",'(r)','(tm)','No.'),$s);
-return isKOI($c) ? $c : convert_cyr_string($c,'w','k');
+return convert_cyr_string($c,'w','k');
 }
 
 function convertOutput($s)
 {
 global $userReadKOI;
 
-return $userReadKOI
+return convert_cyr_string($userReadKOI
        ? str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;"),
                      array('"','"','--','"','"'),$s)
        : str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;",
@@ -35,6 +35,6 @@ return $userReadKOI
 			   '(TM)','No.'),
                      array('&laquo;','&raquo;','&#151;','&#132;','&#147;',
 		           '&#169;','&#169;','&#174;','&#174;','&#153;',
-			   '&#153;','&#8470;'),$s);
+			   '&#153;','&#8470;'),$s),'k','w');
 }
 ?>

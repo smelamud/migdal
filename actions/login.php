@@ -29,9 +29,11 @@ return EL_OK;
 
 dbOpen();
 $err=startSession();
-header('Location: '.remakeURI($redir,
-                              array(),
-		  	      $err!=EL_OK ? array('err' => $err) : array())
-	           .($err!=EL_OK ? '#error' : ''));
+if($err==EL_OK)
+  header('Location: '.$okdir);
+else
+  header('Location: '.remakeURI($faildir,
+                                array(),
+		  	        array('err' => $err)).'#error');
 dbClose();
 ?>

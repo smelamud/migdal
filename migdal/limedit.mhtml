@@ -28,7 +28,7 @@
 	<a href='$[err edittag editid=$.Id]'>$.Filename</a>
 	<if what='$editid==$.Id'>
 	 &nbsp;
-	 <a href='/actions/limdel.php?postid=$postid&editid=$.Id&redir=$_'
+	 <a href='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$_&faildir=$_'
 	    class='edit'>Удалить</a>
 	</if>
        </td>
@@ -54,6 +54,8 @@
 	  action='actions/limmod.php'>
      <hidden name='edittag' value=1>
      <hidden name='redir' value='$redir'>
+     <hidden name='okdir' value='$-'>
+     <hidden name='faildir' value='$-'>
      <hidden name='postid' value='$postid'>
      <hidden name='editid' value='$editid'>
      <table>

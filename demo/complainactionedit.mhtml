@@ -32,7 +32,7 @@
      <if what='$editid==$.Id'>
       <a href='$[err edittag editid=$.Id]'><b>$.Name</b></a>
       &nbsp;
-      <a href='/actions/cadel.php?editid=$.Id&redir=$_'
+      <a href='/actions/cadel.php?editid=$.Id&okdir=$_&faildir=$_'
 	 >[Удалить]</a>
      <else>
       <a href='$[err edittag editid=$.Id]'>$.Name</a>
@@ -52,6 +52,8 @@
     <form method=post action='actions/camod.php'>
      <hidden name='edittag' value=2>
      <hidden name='redir' value='$redir'>
+     <hidden name='okdir' value='$-'>
+     <hidden name='faildir' value='$-'>
      <hidden name='type_id' value='$typeid'>
      <hidden name='editid' value='$editid'>
      <table>

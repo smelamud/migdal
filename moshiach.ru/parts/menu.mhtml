@@ -17,6 +17,6 @@
  &nbsp;
  <admin_menu><a class='admin' href='menuedit.php'>Изменить</a></admin_menu>
  &nbsp;
- <logged><a class='admin' href='actions/logout.php?redir=$_'>Выйти</a></logged>
+ <logged><a class='admin' href='actions/logout.php?okdir=$_'>Выйти</a></logged>
 </td></tr>
 </element>

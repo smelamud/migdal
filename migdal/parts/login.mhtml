@@ -17,9 +17,11 @@
  </if>
 </notlogged>
 <if what="$re==''">
- <hidden name='redir' value="$[err]">
+ <hidden name='okdir' value="$[err]">
+ <hidden name='faildir' value="$[err]">
 <else>
- <hidden name='redir' value="$re">
+ <hidden name='okdir' value="$re">
+ <hidden name='faildir' value="$re">
 </if>
 <table class='login'>
 <error id='*EL_INVALID' text='Неверный ник или пароль' span=5>

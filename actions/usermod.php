@@ -53,30 +53,32 @@ if($editid==0)
   sendMail('register',$user->getId(),$user->getId());
   sendMailAdmin('registering','admin_users',$user->getId());
   }
-return $editid ? EUM_UPDATE_OK : EUM_INSERT_OK;
+return EUM_OK;
 }
 
 postInteger('editid');
+postString('login');
+postString('password');
+postString('dup_password');
+postString('info');
+postString('name');
+postString('surname');
 
 dbOpen();
 session($sessionid);
 $user=getUserById($editid);
 $user->setup($HTTP_POST_VARS);
 $err=modifyUser($user);
-if($err==EUM_INSERT_OK)
-  header('Location: /userok.php?'.
-          makeQuery(array('login' => $login,'redir' => $redir)));
+if($err==EUM_OK)
+  header('Location: '.remakeURI($okdir,array(),array('login' => $login)));
 else
-  if($err==EUM_UPDATE_OK)
-    header("Location: $redir");
-  else
-    {
-    $infoId=tmpTextSave($info);
-    header('Location: '.
-	    remakeMakeURI($caller,
-	                  $HTTP_POST_VARS,
-		          array('password','dup_password','info'),
-		          array('infoid' => $infoId,'err' => $err)).'#error');
-    }
+  {
+  $infoId=tmpTextSave($info);
+  header('Location: '.
+	  remakeMakeURI($faildir,
+			$HTTP_POST_VARS,
+			array('password','dup_password','info'),
+			array('infoid' => $infoId,'err' => $err)).'#error');
+  }
 dbClose();
 ?>

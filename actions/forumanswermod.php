@@ -50,19 +50,20 @@ if($img)
 if($err==EIU_OK)
   $err=modifyForumAnswer($answer);
 if($err==EFA_OK)
-  header("Location: $redir");
+  header("Location: $okdir");
 else
   {
   $bodyId=tmpTextSave($body);
   $subjectId=tmpTextSave($subject);
-  header('Location: /forumansweredit.php?'.
-          makeQuery($HTTP_POST_VARS,
-	            array('body',
-		          'subject'),
-		    array('bodyid'       => $bodyId,
-		          'subjectid'    => $subjectId,
-		          'image_set'    => $answer->getImageSet(),
-		          'err'          => $err)).'#error');
+  header('Location: '.
+          remakeMakeQuery($faildir,
+			  $HTTP_POST_VARS,
+			  array('body',
+				'subject'),
+			  array('bodyid'       => $bodyId,
+				'subjectid'    => $subjectId,
+				'image_set'    => $answer->getImageSet(),
+				'err'          => $err)).'#error');
   }
 dbClose();
 ?>

@@ -50,7 +50,13 @@
   <form method=post action='actions/usermod.php'>
   <hidden name='edittag' value=1>
   <hidden name='redir' value='$redir'>
-  <hidden name='caller' value='$-'>
+  <ifzero what='$editid'>
+   <concat value='/userok.php?redir=$redir'>
+   <hidden name='okdir' value='$*'>
+  <else>
+   <hidden name='okdir' value='$redir'>
+  </ifzero>
+  <hidden name='faildir' value='$-'>
   <hidden name='editid' value='$editid'>
  </isedit>
  <table>

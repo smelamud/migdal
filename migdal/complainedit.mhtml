@@ -29,6 +29,8 @@
 	  action='actions/complainmod.php'>
      <hidden name='edittag' value=1>
      <hidden name='redir' value='$redir'>
+     <hidden name='okdir' value='$redir'>
+     <hidden name='faildir' value='$-'>
      <hidden name='editid' value='$editid'>
      <hidden name='type_id' value='$,TypeId'>
      <hidden name='link' value='$,Link'>

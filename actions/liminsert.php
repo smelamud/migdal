@@ -33,10 +33,11 @@ $image=getStotextImageByParagraph($posting->getStotextId(),$par);
 $image->setup($HTTP_POST_VARS);
 $err=modifyMessageImage($posting,$image);
 if($err==ELII_OK)
-  header('Location: '.remakeURI($redir,array('err')));
+  header('Location: '.remakeURI($okdir,array('err')));
 else
-  header('Location: /liminsert.php?'.makeQuery($HTTP_POST_VARS,
-                                               array(),
-					       array('err' => $err)));
+  header('Location: '.remakeMakeURI($faildir,
+                                    $HTTP_POST_VARS,
+                                    array(),
+				    array('err' => $err)));
 dbClose();
 ?>

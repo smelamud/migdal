@@ -7,7 +7,8 @@
 <body> 
  <form method=post action='actions/chatpost.php' style='margin: 0; padding: 0'
        target=board name='post'>
- <hidden name='redir' value='/chatboard.php?$?'>
+ <hidden name='okdir' value='/chatboard.php?$?'>
+ <hidden name='faildir' value='/chatboard.php?$?'>
  <table class='form' style='align: center; margin: 0; padding: 0'>
   <error id='*ECHP_NO_ADD' span=3
 	 text='Добавлять сообщения может только зарегистрированный пользователь'>

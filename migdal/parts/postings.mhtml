@@ -42,7 +42,7 @@
   </form>
   <if what='$list.Size>$list.Limit'>
    <form method=post action='actions/goto.php'>
-    <hidden name='redir' value='$-'>
+    <hidden name='okdir' value='$-'>
     <hidden name='size' value='$list.Size'>
     <td align=right width=32>
      <ifnzero what='$list.Offset'>

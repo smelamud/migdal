@@ -29,12 +29,13 @@ return EC_OK;
 }
 
 postInteger('id');
+postString('login');
 
 dbOpen();
 session($sessionid);
 $err=assignComplain($id,$login);
-header('Location: '.($err==EC_OK ? remakeURI($redir,array('err'))
-                                 : remakeURI($redir,
+header('Location: '.($err==EC_OK ? remakeURI($okdir,array('err'))
+                                 : remakeURI($faildir,
 				             array(),
 					     array('err' => $err))));
 dbClose();

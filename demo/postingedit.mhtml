@@ -15,9 +15,11 @@
  <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
  <setup>
  <form method=post enctype='multipart/form-data'
-       action='actions/postingmod.php' accept-charset='Windows-1251'>
+       action='actions/postingmod.php'>
  <hidden name='edittag' value=1>
  <hidden name='redir' value='$redir'>
+ <hidden name='okdir' value='$redir'>
+ <hidden name='faildir' value='$-'>
  <hidden name='editid' value='$editid'>
  <hidden name='grp' value='$message.Grp'>
  <hidden name='personal_id' value='$message.PersonalId'>

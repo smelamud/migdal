@@ -32,14 +32,14 @@
      <for>
       <ifnzero what='$next'>
        <tr><td></td><td>
-	<a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&redir=$_'>
+	<a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&okdir=$_&faildir=$_'>
 	 <img src='pics/menudown.png' alt='Переместить ниже' border=0></a>
 	<assign name='next' value='0'>
        </td></tr>
       </ifnzero>
       <if what='$.Id==$menuid && !$;isFirst'>
        <tr><td></td><td>
-	<a href='actions/menuxchg.php?firstid=$prev&secondid=$.Id&redir=$_'>
+	<a href='actions/menuxchg.php?firstid=$prev&secondid=$.Id&okdir=$_&faildir=$_'>
 	 <img src='pics/menuup.png' alt='Переместить выше' border=0></a>
        </td></tr>
       </if>
@@ -53,7 +53,7 @@
 	<a href='$[err edittag menuid=$.Id]'>$.Name</a>
 	<if what='$.Id==$menuid'>
 	 &nbsp;
-	 <a href='/actions/menudel.php?id=$.Id&redir=$_'
+	 <a href='/actions/menudel.php?id=$.Id&okdir=$_&faildir=$_'
 	    class='edit'>Удалить</a>
 	 <assign name='next' value='$.Id'>
 	</if>
@@ -80,6 +80,8 @@
    </if>
    <form method=post action='actions/menumod.php'>
     <hidden name='edittag' value=1>
+    <hidden name='okdir' value='$-'>
+    <hidden name='faildir' value='$-'>
     <hidden name='editid' value='$menuid'>
     <table>
      <starinfo span=2>

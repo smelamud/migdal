@@ -123,7 +123,7 @@ if($err==EIU_OK || $err==EP_OK)
 if($err==EUL_OK)
   $err=modifyPosting($message);
 if($err==EP_OK)
-  header("Location: $redir");
+  header("Location: $okdir");
 else
   {
   $bodyId=tmpTextSave($body);
@@ -132,22 +132,23 @@ else
   $authorId=tmpTextSave($author);
   $sourceId=tmpTextSave($source);
   $titleId=tmpTextSave($title);
-  header('Location: /postingedit.php?'.
-          makeQuery($HTTP_POST_VARS,
-	            array('body',
-		          'large_body',
-		          'subject',
-			  'author',
-			  'source',
-			  'title'),
-		    array('bodyid'       => $bodyId,
-		          'large_bodyid' => $largeBodyId,
-		          'subjectid'    => $subjectId,
-		          'authorid'     => $authorId,
-		          'sourceid'     => $sourceId,
-		          'titleid'      => $titleId,
-		          'image_set'    => $message->getImageSet(),
-		          'err'          => $err)).'#error');
+  header('Location: '.
+          remakeMakeURI($faildir,
+			$HTTP_POST_VARS,
+			array('body',
+			      'large_body',
+			      'subject',
+			      'author',
+			      'source',
+			      'title'),
+			array('bodyid'       => $bodyId,
+			      'large_bodyid' => $largeBodyId,
+			      'subjectid'    => $subjectId,
+			      'authorid'     => $authorId,
+			      'sourceid'     => $sourceId,
+			      'titleid'      => $titleId,
+			      'image_set'    => $message->getImageSet(),
+			      'err'          => $err)).'#error');
   }
 dbClose();
 ?>

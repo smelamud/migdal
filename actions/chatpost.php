@@ -30,15 +30,18 @@ if(!$result)
 return ECHP_OK;
 }
 
+postString('message');
+postString('personal');
+
 dbOpen();
 session($sessionid);
 $err=postMessage($personal,$message);
 if($err==ECHP_OK)
-  header('Location: '.remakeURI($redir,
+  header('Location: '.remakeURI($okdir,
                                 array('err','message'),
 				array('personal' => $personal)));
 else
-  header('Location: '.remakeURI($redir,
+  header('Location: '.remakeURI($faildir,
                                 array(),
 				array('err'      => $err,
 				      'personal' => $personal,

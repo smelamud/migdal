@@ -31,6 +31,8 @@ return EC_OK;
 
 postInteger('editid');
 postInteger('type_id');
+postString('body');
+postString('subject');
 
 dbOpen();
 session($sessionid);
@@ -38,18 +40,19 @@ $complain=getComplainById($editid);
 $complain->setup($HTTP_POST_VARS);
 $err=modifyComplain($complain);
 if($err==EC_OK)
-  header("Location: $redir");
+  header("Location: $okdir");
 else
   {
   $bodyId=tmpTextSave($body);
   $subjectId=tmpTextSave($subject);
-  header('Location: /complainedit.php?'.
-          makeQuery($HTTP_POST_VARS,
-	            array('body',
-		          'subject'),
-		    array('bodyid'       => $bodyId,
-		          'subjectid'    => $subjectId,
-		          'err'          => $err)).'#error');
+  header('Location: '.
+          remakeMakeURI($faildir,
+			$HTTP_POST_VARS,
+			array('body',
+			      'subject'),
+			array('bodyid'       => $bodyId,
+			      'subjectid'    => $subjectId,
+			      'err'          => $err)).'#error');
   }
 dbClose();
 ?>

@@ -23,9 +23,11 @@
   <td>
    <formtable title='$head'>
     <form method=post enctype='multipart/form-data'
-	  action='actions/forumanswermod.php' accept-charset='Windows-1251'>
+	  action='actions/forumanswermod.php'>
      <hidden name='edittag' value=1>
      <hidden name='redir' value='$redir'>
+     <hidden name='okdir' value='$redir'>
+     <hidden name='faildir' value='$-'>
      <hidden name='editid' value='$editid'>
      <hidden name='up' value='$answer.UpValue'>
      <table>

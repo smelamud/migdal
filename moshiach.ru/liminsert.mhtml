@@ -13,7 +13,7 @@
 <int name='par'>
 <html>
 <head>
- <title>Демо - Размещение картинки</title>
+ <title>Штаб Мошиаха - Размещение картинки</title>
 </head>
 <body bgcolor=white>
  <top ident='articles'>
@@ -25,6 +25,8 @@
  <form method=post action='actions/liminsert.php'>
   <hidden name='edittag' value=1>
   <hidden name='redir' value='$redir'>
+  <hidden name='okdir' value='$redir'>
+  <hidden name='faildir' value='$-'>
   <hidden name='postid' value='$postid'>
   <hidden name='par' value='$par'>
   <center>

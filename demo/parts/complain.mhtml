@@ -36,7 +36,8 @@
     <judge>
      <table><tr>
       <form method=post action='actions/complainassign.php'>
-      <hidden name='redir' value='$-'>
+      <hidden name='okdir' value='$-'>
+      <hidden name='faildir' value='$-'>
       <hidden name='id' value='$complain.Id'>
       <td><b>Рассматривает</b></td>
       <td><edit name='login' value='$complain.RecipientLogin' size=10

@@ -37,6 +37,7 @@ return EECA_OK;
 
 postInteger('actid');
 postInteger('complain_id');
+postString('text');
 
 dbOpen();
 session($sessionid);
@@ -44,15 +45,16 @@ $action=getComplainActionById($actid);
 $action->setup($HTTP_POST_VARS);
 $err=executeAction($action,$complain_id);
 if($err==EECA_OK)
-  header('Location: '.remakeURI($redir,array('err')));
+  header('Location: '.remakeURI($okdir,array('err')));
 else
   {
   $textId=tmpTextSave($text);
-  header('Location: /complainanswer.php?'.
-         makeQuery($HTTP_POST_VARS,
-		   array('text'),
-		   array('err'    => $err,
-		         'textid' => $textId)));
+  header('Location: '.
+         remakeMakeURI($faildir,
+		       $HTTP_POST_VARS,
+		       array('text'),
+		       array('err'    => $err,
+			     'textid' => $textId)));
   }
 dbClose();
 ?>

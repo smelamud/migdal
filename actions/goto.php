@@ -9,5 +9,5 @@ if($offset<0)
   $offset=0;
 if($offset>=$size)
   $offset=$size-1;
-header('Location: '.remakeURI($redir,array(),array('offset' => $offset)));
+header('Location: '.remakeURI($okdir,array(),array('offset' => $offset)));
 ?>

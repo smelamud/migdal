@@ -28,7 +28,7 @@ $message.LoginLink
    Всего: $list.Size
   <else>
    <form method=post action='actions/goto.php'>
-    <hidden name='redir' value='$-'>
+    <hidden name='okdir' value='$-'>
     <hidden name='size' value='$list.Size'>
     [<edit name='value' value='$list.BeginValue' size=2 maxlength=5><<
     >>-$list.EndValue] из $list.Size

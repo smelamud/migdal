@@ -8,7 +8,7 @@
  <top ident='style' image='pics/style.gif'>
  <formtable title='Настройка вида'>
  <form method=post action='actions/style.php'>
-  <hidden name='redir' value='$redir'>
+  <hidden name='okdir' value='$okdir'>
   <table>
    <tr>
     <td>Стиль</td>

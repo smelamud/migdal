@@ -10,6 +10,6 @@ require_once('lib/post.php');
 
 dbOpen();
 session($sessionid);
-header("Location: $redir");
+header("Location: $okdir");
 dbClose();
 ?>

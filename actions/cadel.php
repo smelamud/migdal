@@ -33,8 +33,8 @@ dbOpen();
 session($sessionid);
 $err=removeComplainAction($editid);
 if($err==ECAD_OK)
-  header('Location: '.remakeURI($redir,array('err'),array('editid' => 0)));
+  header('Location: '.remakeURI($okdir,array('err'),array('editid' => 0)));
 else
-  header('Location: '.remakeURI($redir,array(),array('err' => $err)));
+  header('Location: '.remakeURI($faildir,array(),array('err' => $err)));
 dbClose();
 ?>

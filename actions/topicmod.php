@@ -52,6 +52,9 @@ return ET_OK;
 
 postInteger('editid');
 postInteger('up');
+postString('name');
+postString('description');
+postString('large_description');
 
 dbOpen();
 session($sessionid);
@@ -61,18 +64,19 @@ $err=uploadLargeText($topic->stotext);
 if($err==EUL_OK)
   $err=modifyTopic($topic);
 if($err==ET_OK)
-  header("Location: $redir");
+  header("Location: $okdir");
 else
   {
   $descriptionId=tmpTextSave($description);
   $largeDescriptionId=tmpTextSave($large_description);
-  header('Location: /topicedit.php?'.
-          makeQuery($HTTP_POST_VARS,
-	            array('description',
-		          'large_description'),
-		    array('descriptionid'       => $descriptionId,
-		          'large_descriptionid' => $largeDescriptionId,
-		          'err'                 => $err)).'#error');
+  header('Location: '.
+          remakeMakeURI($faildir,
+			$HTTP_POST_VARS,
+			array('description',
+			      'large_description'),
+			array('descriptionid'       => $descriptionId,
+			      'large_descriptionid' => $largeDescriptionId,
+			      'err'                 => $err)).'#error');
   }
 dbClose();
 ?>

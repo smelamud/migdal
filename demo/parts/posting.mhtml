@@ -59,10 +59,10 @@
   >[Изменить]</a>
  <if what='$posting.isModerable'>
   <if what='$posting.isDisabled'>
-   <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&redir=$_"
+   <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$_&faildir=$_"
     >[Разрешить показ]</a>
   <else>
-   <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&redir=$_"
+   <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$_&faildir=$_"
     >[Запретить показ]</a>
   </if>
  </if>
