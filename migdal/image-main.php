@@ -34,7 +34,7 @@ $palette=savePalette($film);
 list($fx,$fy,$hx,$hy)=array(imageSX($film),imageSY($film),
                             imageSX($handle),imageSY($handle));
 imageCopy($film,$handle,($fx-$hx)/2,($fy-$hy)/2,0,0,$hx,$hy);
-restorePalette($film,$palette);
+//restorePalette($film,$palette);
 header("Content-Type: $thumbnailType");
 imageJPEG($film);
 dbClose();
