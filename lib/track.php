@@ -73,8 +73,14 @@ if($journalize)
 return true;
 }
 
-function subtree($id,$recursive=false,$byId='id',$byTrack='track')
+function subtree($table,$id,$recursive=false,$byId='id',$byTrack='track')
 {
-return !$recursive ? "$byId=$id" : "$byTrack like '%".track($id)."%'";
+if(!$recursive)
+  return "$byId=$id";
+else
+  {
+  $track=trackById($table,$id);
+  return  "$byTrack like '$track%'";
+  }
 }
 ?>

@@ -486,7 +486,7 @@ global $userModerator,$userId;
 
 if($userModerator)
   return '1';
-$filter=permFilter($right,'sender_id',$prefix);
+$filter=permFilter('messages',$right,'sender_id',$prefix);
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 return "$filter and (${prefix}disabled=0 or ${prefix}sender_id=$userId)";

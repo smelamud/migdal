@@ -43,13 +43,14 @@ if(is_array($topic_id))
   $op='';
   foreach($topic_id as $id => $recursive)
          {
-         $topicFilter.=" $op topics.".subtree($id,$recursive);
+         $topicFilter.=" $op topics.".subtree('topics',$id,$recursive);
 	 $op='or';
 	 }
   $topicFilter=" and ($topicFilter)";
   }
 else
-  $topicFilter=$topic_id<0 ? '' : " and topics.".subtree($topic_id,$recursive);
+  $topicFilter=$topic_id<0 ? '' : " and topics.".subtree('topics',$topic_id,
+                                                         $recursive);
 return $topicFilter;
 }
 
@@ -61,6 +62,7 @@ global $userId,$userModerator;
 if($grp==GRP_NONE)
   return new PostingsInfo();
 $hide=$userModerator ? 2 : 1;
+$grpFilter=grpFilter($grp,'grp','postings');
 $topicFilter=getInfoTopicFilter($topic_id,$recursive);
 $userFilter=$user_id>0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
@@ -73,7 +75,7 @@ $result=mysql_query(
 	 where postings.id is not null and
 	       (messages.hidden<$hide or messages.sender_id=$userId) and
 	       (messages.disabled<$hide or messages.sender_id=$userId) and
-               (postings.grp & $grp)<>0 $topicFilter $userFilter")
+               $grpFilter $topicFilter $userFilter")
  or sqlbug('Ошибка SQL при получении информации о постингах');
 $row=mysql_fetch_assoc($result);
 $row['max_sent']=$row['max_sent']!='' ? strtotime($row['max_sent']) : 0;
@@ -88,6 +90,7 @@ global $userId,$userModerator;
 if($grp==GRP_NONE)
   return new PostingsInfo();
 $hide=$userModerator ? 2 : 1;
+$grpFilter=grpFilter($grp,'grp','postings');
 $topicFilter=getInfoTopicFilter($topic_id,$recursive);
 $userFilter=$user_id>0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
@@ -106,7 +109,7 @@ $result=mysql_query(
 	       (messages.disabled<$hide or messages.sender_id=$userId) and
 	       (msgs.hidden<$hide or msgs.sender_id=$userId) and
 	       (msgs.disabled<$hide or msgs.sender_id=$userId) and
-               (postings.grp & $grp)<>0 $topicFilter $userFilter")
+               $grpFilter $topicFilter $userFilter")
  or sqlbug('Ошибка SQL при получении информации об ответах на постинги');
 $row=mysql_fetch_assoc($result);
 $row['max_sent']=$row['max_sent']!='' ? strtotime($row['max_sent']) : 0;

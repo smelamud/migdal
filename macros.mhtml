@@ -89,6 +89,9 @@
 <deciter macro='journallist' class='JournalListIterator' file='lib/journal.php'
          params='limit,offset' defaults='limit=20 offset=0'>
 <deciter macro='langs' class='LangIterator' file='lib/langs.php'>
+<deciter macro='mnogosearch' class='MnogosearchIterator'
+         file='lib/mnogosearch.php' params='query,limit,offset'
+	 defaults="limit=20 offset=0">
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
          params='format,body'>
 <deciter macro='posting_alphabet' class='PostingAlphabetIterator'
@@ -197,6 +200,7 @@
 	 defaults='name=answer parent_id=0'>
 <deccall macro='forum_answer_full' func='getFullForumAnswerById'
          file='lib/forums.php' params='id' defaults='name=answer'>
+<deccall macro='grp_sample' func='grpSample' file='lib/grps.php' params='grp'>
 <deccall macro='horisont_obj' func='getHorisontByHost' file='lib/horisonts.php'
          params='host'>
 <deccall macro='id_ident' func='identById' file='lib/ident.php'

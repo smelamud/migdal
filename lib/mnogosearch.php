@@ -1,0 +1,167 @@
+<?php
+# @(#) $Id$
+
+require_once('lib/iterator.php');
+
+class SearchItem
+{
+var $postid;
+var $topic_id;
+var $body;
+
+function SearchItem($postid,$topic_id,$body)
+{
+$this->postid=$postid;
+$this->topic_id=$topic_id;
+settype($this->postid,'integer');
+settype($this->topic_id,'integer');
+$this->body=$body;
+}
+
+function getPostingId()
+{
+return $this->postid;
+}
+
+function getTopicId()
+{
+return $this->topic_id;
+}
+
+function getBody()
+{
+return $this->body;
+}
+
+}
+
+class MnogosearchIterator
+      extends Iterator
+{
+var $fd;
+var $status;
+var $size;
+var $limit;
+var $offset;
+var $count;
+
+function MnogosearchIterator($query,$limit=20,$offset=0)
+{
+global $siteDomain;
+
+$this->limit=$limit;
+$this->offset=$offset;
+$this->fd=fopen("http://$siteDomain/cgi-bin/search.cgi?q=".
+	        urlencode(convert_cyr_string($query,'k','w')).
+		'&wf=14442&np='.$this->getPage().'&ps='.$this->getLimit(),'r');
+$this->status=$this->nextLine();
+if($this->status=='OK')
+  {
+  $s=$this->nextLine();
+  $this->size=$this->nextLine();
+  $first=$this->nextLine();
+  $last=$this->nextLine();
+  $this->count=$last-$first+1;
+  }
+else
+  {
+  $this->size=0;
+  $this->count=0;
+  }
+do
+  {
+  $s=$this->nextLine();
+  }
+while($s!='ITEM' && $s!='EOF');
+}
+
+function getSize()
+{
+return $this->size;
+}
+
+function getLimit()
+{
+return $this->limit;
+}
+
+function getOffset()
+{
+return $this->offset;
+}
+
+function getCount()
+{
+return $this->count;
+}
+
+function getPrevOffset()
+{
+$n=$this->offset-$this->limit;
+return $n<0 ? 0 : $n;
+}
+
+function getNextOffset()
+{
+return $this->offset+$this->limit;
+}
+
+function getBeginValue()
+{
+return $this->offset+1;
+}
+
+function getEndValue()
+{
+return $this->offset+$this->getCount();
+}
+
+function getPage()
+{
+return (int)($this->offset/$this->limit)+1;
+}
+
+function getPageCount()
+{
+return $this->size==0 ? 0 : (int)(($this->size-1)/$this->limit)+1;
+}
+
+function getStatus()
+{
+return $this->status;
+}
+
+function nextLine()
+{
+if($this->fd && !feof($this->fd))
+  return trim(convert_cyr_string(fgets($this->fd,65535),'w','k'));
+else
+  {
+  if($this->fd)
+    {
+    fclose($this->fd);
+    $this->fd=0;
+    }
+  return 'EOF';
+  }
+}
+
+function next()
+{
+$url=$this->nextLine();
+if($url=='EOF')
+  return 0;
+$parts=parse_url($url);
+$vars=parseQuery($parts['query']);
+$s=$this->nextLine();
+$body=$this->nextLine();
+do
+  {
+  $s=$this->nextLine();
+  }
+while($s!='ITEM' && $s!='EOF');
+return new SearchItem($vars['postid'],$vars['topic_id'],$body);
+}
+
+}
+?>

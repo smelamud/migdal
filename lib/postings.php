@@ -322,6 +322,7 @@ $From="postings
 	    on messages.sender_id=users.id
        $answersTables";
 /* Where */
+$grpFilter=grpFilter($grp);
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
 $index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
@@ -332,17 +333,19 @@ $shadowFilter=!$showShadows ? 'and shadow=0' : '';
 
 $Where="(messages.hidden<$hide or messages.sender_id=$userId) and
 	(messages.disabled<$hide or messages.sender_id=$userId) and
-	personal_id=$personal and (grp & $grp)<>0 @topic@
+	personal_id=$personal and $grpFilter @topic@
 	$userFilter $index1Filter $sentFilter $subdomainFilter
 	$childFilter $shadowFilter";
 /* Having */
-$answerFilter=$withAnswers!=GRP_NONE
-              ? $withAnswers==GRP_ALL
-	        ? 'having count(forummesgs.id)<>0'
-		: "having (grp & $withAnswers)=0 or count(forummesgs.id)<>0"
-	      : '';
+if($withAnswers!=GRP_NONE)
+  {
+  $answerFilter=grpFilter($withAnswers);
+  $havingFilter="having not $answerFilter or count(forummesgs.id)<>0";
+  }
+else
+  $havingFilter='';
 
-$Having=$answerFilter;
+$Having=$havingFilter;
 /* Order */
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'sent desc',
@@ -382,7 +385,7 @@ $this->LimitSelectIterator(
 		      forummesgs.sender_id=$userId)
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
-	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
+	      personal_id=$personal and $grpFilter $countAnswerFilter
 	      @topic@ $userFilter $index1Filter $sentFilter
 	      $subdomainFilter $childFilter $shadowFilter");
 }
@@ -395,14 +398,14 @@ if(!is_array($topic_id))
     return;
   if($this->topicFilter!='')
     $this->topicFilter.=' or ';
-  $this->topicFilter.='topics.'.subtree($topic_id,$recursive);
+  $this->topicFilter.='topics.'.subtree('topics',$topic_id,$recursive);
   }
 else
   foreach($topic_id as $id => $rec)
 	 {
 	 if($this->topicFilter!='')
 	   $this->topicFilter.=' or ';
-	 $this->topicFilter.='topics.'.subtree($id,$rec);
+	 $this->topicFilter.='topics.'.subtree('topics',$id,$rec);
 	 }
 }
 
@@ -453,8 +456,9 @@ function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$grpFilter=grpFilter($grp);
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
-             : ' and topics.'.subtree($topic_id,$recursive);
+             : ' and topics.'.subtree('topics',$topic_id,$recursive);
 $this->SelectIterator(
        'User',
        "select distinct users.id as id,login,gender,email,hide_email,rebe,
@@ -469,7 +473,7 @@ $this->SelectIterator(
 	          on postings.topic_id=topics.id
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
-              (grp & $grp)<>0 $topicFilter
+              $grpFilter $topicFilter
 	group by users.id
 	order by surname,jewish_name,name");
 }
@@ -527,6 +531,9 @@ function ArticleCoversIterator($articleGrp,$coverGrp)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$joinGrpFilter=grpFilter($coverGrp,'grp','covers');
+$articleGrpFilter=grpFilter($articleGrp,'grp','postings');
+$coverGrpFilter=grpFilter($coverGrp,'grp','postings');
 $this->SelectIterator(
        'Posting',
        "select distinct postings.index1 as index1, 
@@ -534,13 +541,12 @@ $this->SelectIterator(
         from postings
              left join postings as covers
 	          on postings.index1=covers.index1 and
-		     (covers.grp & $coverGrp)<>0
+		     $joinGrpFilter
 	     left join messages
 	          on postings.message_id=messages.id
 	     left join messages as cover_messages
 	          on covers.message_id=cover_messages.id
-	where ((postings.grp & $articleGrp)<>0 or
-	       (postings.grp & $coverGrp)<>0) and
+	where ($articleGrpFilter or $coverGrpFilter) and
 	      (messages.hidden<$hide or messages.sender_id=$userId) and
               (messages.disabled<$hide or messages.sender_id=$userId) and
 	      (covers.id is null or
@@ -575,8 +581,9 @@ $field=@$fields[$sort]!='' ? $fields[$sort] : 'url';
 $order=getOrderBy($sort,
        array(SORT_NAME       => 'subject',
 	     SORT_URL_DOMAIN => 'url_domain,url'));
-$topicFilter=$topic_id>=0 ? 'and topics.'.subtree($topic_id,$recursive) : '';
-$grpFilter=$grp!=GRP_ALL ? "and (grp & $grp)<>0" : '';
+$topicFilter=$topic_id>=0
+             ? 'and topics.'.subtree('topics',$topic_id,$recursive) : '';
+$grpFilter='and '.grpFilter($grp);
 $shadowFilter=!$showShadows ? 'and shadow=0' : '';
 $this->AlphabetIterator(
         "select left($field,1) as letter,count(*) as count
@@ -599,9 +606,10 @@ function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=0,$index1=-1,$up=-1)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
 $filter=$id>=0 ? "postings.id=$id"
-               : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0
+               : ($index1>=0 ? "postings.index1=$index1 and $grpFilter
 	                        $topicFilter"
 	                     : '');
 $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
@@ -629,9 +637,10 @@ function getFullPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
 $filter=$id>=0 ? "postings.id=$id"
-               : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0
+               : ($index1>=0 ? "postings.index1=$index1 and $grpFilter
 	                        $topicFilter"
 	                     : '');
 $result=mysql_query(
@@ -703,6 +712,7 @@ function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? " and topic_id=$topic_id " : '';
 $userFilter=$user_id<=0 ? '' : " and messages.sender_id=$user_id ";
 $index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
@@ -713,7 +723,7 @@ $result=mysql_query(
 	           on postings.message_id=messages.id
 	 where (hidden<$hide or sender_id=$userId) and
 	       (disabled<$hide or sender_id=$userId) and
-               priority<=0 and (grp & $grp)<>0 $topicFilter $userFilter
+               priority<=0 and $grpFilter $topicFilter $userFilter
 	       $index1Filter
 	 group by priority
 	 order by priority")
@@ -746,7 +756,7 @@ $result=mysql_query(
 	           on postings.message_id=messages.id
 	 where (hidden<$hide or sender_id=$userId) and
 	       (disabled<$hide or sender_id=$userId) and
-               priority<=0 and (grp & $grp)<>0 $topicFilter $userFilter
+               priority<=0 and $grpFilter $topicFilter $userFilter
 	       $index1Filter
 	 order by priority,sent desc
 	 limit $realpos,1")
@@ -768,8 +778,9 @@ function getMaxIndexOfPosting($index,$grp,$topic_id=-1,$recursive=false)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
-             : ' and topics.'.subtree($topic_id,$recursive);
+$grpFilter=grpFilter($grp);
+$topicFilter=($topic_id<0 || $recursive && $topic_id==0)
+             ? '' : ' and topics.'.subtree('topics',$topic_id,$recursive);
 $result=mysql_query("select max(postings.index$index)
                      from postings
 			  left join messages
@@ -778,7 +789,7 @@ $result=mysql_query("select max(postings.index$index)
 			       on postings.topic_id=topics.id
 		     where (messages.hidden<$hide or sender_id=$userId) and
 			   (messages.disabled<$hide or sender_id=$userId) and
-		           (grp & $grp)<>0 $topicFilter")
+		           $grpFilter $topicFilter")
 	  or sqlbug('Ошибка SQL при получении максимального индекса постинга');
 return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
 }
@@ -818,6 +829,7 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function getSiblingIssue($grp,$topic_id,$index1,$next=true)
 {
+$grpFilter=grpFilter($grp);
 $issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
 $order=$next ? 'asc' : 'desc';
 $topicFilter=$topic_id>=0 ? "and topic_id=$topic_id" : '';
@@ -825,7 +837,7 @@ $result=mysql_query("select postings.id
                      from postings
 		          left join messages
 			       on postings.message_id=messages.id
-		     where (grp & $grp)<>0 $topicFilter $issueFilter
+		     where $grpFilter $topicFilter $issueFilter
 		     order by index1 $order
 		     limit 1");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
@@ -851,8 +863,9 @@ function getPostingDomainCount($topic_id=-1,$recursive=false,$grp=GRP_ALL)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topicFilter=$topic_id>=0 ? 'and topics.'.subtree($topic_id,$recursive) : '';
-$grpFilter=$grp!=GRP_ALL ? "and (grp & $grp)<>0" : '';
+$topicFilter=$topic_id>=0
+             ? 'and topics.'.subtree('topics',$topic_id,$recursive) : '';
+$grpFilter='and '.grpFilter($grp);
 $result=mysql_query(
         "select count(distinct url_domain)
          from messages

@@ -126,7 +126,35 @@ if($journalSeq!=0)
 		      ' '.journalVar('users',$group_id)." $perms");
 }
 
-function permFilter($right,$user_id='user_id',$prefix='')
+$permVarietyCache=array();
+
+function permMask($table,$perms,$right)
+{
+global $permVarietyCache;
+
+if(!is_array($permVarietyCache[$table]))
+  {
+  $permVarietyCache[$table]=array();
+  $result=mysql_query("select distinct perms
+                       from $table")
+            or sqlbug('Ошибка SQL при выборке разнообразия прав');
+  while($row=mysql_fetch_array($result))
+       $permVarietyCache[$table][]=$row[0];
+  }
+$cases=array();
+$all=true;
+foreach($permVarietyCache[$table] as $perm)
+       if(($perm & $right)!=0)
+         $cases[]="$perms=$perm";
+       else
+         $all=false;
+if($all)
+  return 1;
+else
+  return '('.join(' or ',$cases).')';
+}
+
+function permFilter($table,$right,$user_id='user_id',$prefix='')
 {
 global $userId,$userGroups;
 
@@ -134,20 +162,20 @@ if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 $perms="${prefix}perms";
 if($userId<=0)
-  return "($perms & ".($right<<PB_GUEST).')<>0';
+  return permMask($table,$perms,$right<<PB_GUEST);
 $groups=array();
 foreach($userGroups as $g)
        $groups[]="${prefix}group_id=$g";
 $groups[]="${prefix}group_id=$userId";
 return "($userId=${prefix}$user_id and
-	($perms & ".($right<<PB_USER).')<>0
+	".permMask($table,$perms,$right<<PB_USER).'
 	or
 	('.join(' or ',$groups).") and
-	($perms & ".($right<<PB_GROUP).")<>0
+	".permMask($table,$perms,$right<<PB_GROUP)."
 	or
-	($perms & ".($right<<PB_OTHER).")<>0
+	".permMask($table,$perms,$right<<PB_OTHER)."
 	or
-	($perms & ".($right<<PB_GUEST).')<>0)';
+	".permMask($table,$perms,$right<<PB_GUEST).')';
 }
 
 function permString($s,$default='----------------')

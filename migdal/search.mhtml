@@ -1,0 +1,90 @@
+<< @(#) $Id$ >>
+
+<string name='q'>
+<int name='offset'>
+
+<pagetitle title='Поиск'>
+<topictitle title='Поиск'>
+
+<element name='batcher' params='&list'>
+<table width=100% class='batcher'><tr>
+ <td class='ninept' width=40%>
+  <array vals='страница,страницы,страниц'>
+  <plural value='$list.Size'>
+  <b>Найдено <em>$list.Size</em> $,</b>
+ </td>
+ <td width=20%><spin list='$list'></td>
+ <td width=40%>&nbsp;</td>
+</tr></table>
+</element>
+
+<html>
+<preamble>
+<body>
+ <style><!--
+ .search .topic {
+ 	color: $style_search_topic;
+ }
+
+ .search .topic:hover {
+ 	color: blue;
+ }
+ // -->
+ </style>
+ <top ident='index'>
+ <div style='padding: 3'>
+  <div class='cframe' style='padding: 5'>
+   <subtitle>
+   <div class='nframe' style='padding: 5'>
+    <form method=post action='actions/search.php'>
+     <hidden name='okdir' value='$-'>
+     <hidden name='faildir' value='$-'>
+     <table><tr>
+      <td><b>Я ищу:</b></td>
+      <td><edit name='q' value='$q' size=85 maxlength=255></td>
+      <td><input type=submit value='Найти'></td>
+     </tr></table>
+    </form>
+   </div>
+   <iterate_mnogosearch query='$q' offset='$offset'>
+   <ifnzero what='$;Size'>
+    <batcher list='$;'>
+    <ol>
+     <assign name='ln' value='$offset'>
+     <for>
+      <assign name='ln' value!='$ln+1'>
+      <li value='$ln'><p class='search'>
+       <ifnzero what='$.PostingId'>
+	<posting_full id='$.PostingId'>
+	<identify posting='$,'>
+	<a href='$,DetailsHref'>$,SubjectDesc</a><br>
+	<span class='eightpt'>(Раздел <topiclink posting='$,'>)</span><br>
+	$.Body
+       </ifnzero>
+       <ifnzero what='$.TopicId'>
+	<topic_obj id='$.TopicId'>
+	<grp_sample grp='$,Allow'>
+	<posting_new topic_id='$.TopicId' grp='$,'>
+	<b>Раздел</b>
+	<a href='$,GeneralHref'>
+	 <iterate_topic_hierarchy name='hier' topic_id='$.TopicId'>
+	 <for>
+	  <notfirst what='$hier'>&sp;::&sp;</notfirst>$.Name
+	 </for>
+	</a><br>
+	$.Body
+       </ifnzero>
+      </p></li>
+     </for>
+    </ol>
+    <batcher list='$;'>
+   <else>
+    <if what="$;Status=='OK'">
+     <b>Ничего не найдено</b>
+    </if>
+   </ifnzero>
+  </div>
+ </div>
+ <bottom>
+</body>
+</html>

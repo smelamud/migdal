@@ -36,4 +36,29 @@ for($i=0;$i<3;$i++)
    $pl[$i]=$words[$w+$i];
 return getPlural($n,$pl);
 }
+
+function grpFilter($grp,$field='grp',$prefix='')
+{
+if($grp==GRP_NONE)
+  return 0;
+if($grp==GRP_ALL)
+  return 1;
+if($prefix!='' && substr($prefix,-1)!='.')
+  $prefix.='.';
+$conds=array();
+for($i=1;$i<=GRP_ALL;$i*=2)
+   if(($i & $grp)!=0)
+     $conds[]="${prefix}$field=$i";
+return '('.join(' or ',$conds).')';
+}
+
+function grpSample($grp)
+{
+if($grp==GRP_NONE)
+  return 0;
+for($i=1;$i<=GRP_ALL;$i*=2)
+   if(($i & $grp)!=0)
+     return $i;
+return 0;
+}
 ?>

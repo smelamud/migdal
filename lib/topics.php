@@ -310,7 +310,7 @@ if($userAdminTopics && $right!=PERM_POST)
   return '1';
 if($userModerator && $right==PERM_POST)
   return '1';
-return permFilter($right,'user_id',false,$prefix);
+return permFilter('topics',$right,'user_id',$prefix);
 }
 
 class TopicIterator
@@ -321,7 +321,7 @@ function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
                   $withSeparate=true,$level=1)
 {
 $hide=topicsPermFilter(PERM_READ,$prefix);
-$userFilter=$up>=0 ? 'and topics.'.subtree($up,$recursive,'up') : '';
+$userFilter=$up>=0 ? 'and topics.'.subtree('topics',$up,$recursive,'up') : '';
 $grpFilter="and (${prefix}allow & $grp)<>0";
 $answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
 $sepFilter=!$withSeparate ? "and ${prefix}separate=0" : '';
@@ -349,6 +349,7 @@ function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$grpFilter=grpFilter($grp,'grp','postings');
 $postFilter=$withPostings ? 'having message_count<>0' : '';
 $subdomainFilter=$subdomain>=0 ? "and postings.subdomain=$subdomain" : '';
 $order=getOrderBy($sort,
@@ -373,8 +374,7 @@ $this->TopicIterator(
             left join stotexts
 	         on stotexts.id=topics.stotext_id
 	    left join postings
-	         on topics.id=postings.topic_id and (postings.grp & $grp)<>0
-		    $subdomainFilter
+	         on topics.id=postings.topic_id and $grpFilter $subdomainFilter
             left join messages
 	         on postings.message_id=messages.id
  	 	    and (messages.hidden<$hide or messages.sender_id=$userId)
@@ -580,24 +580,12 @@ return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
 }
 
-function getTopicOwnerById($id)
-{
-$track=trackById('topics',$id);
-$result=mysql_query("select user_id
-                     from topics
-		     where '$track' like concat(track,'%') and user_id<>0
-		     order by length(track) desc
-		     limit 1")
-	  or sqlbug('Ошибка SQL при выборке владельца темы');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-}
-
 function getSubtopicsCountById($id,$recursive=false)
 {
 $id=idByIdent('topics',$id);
 $result=mysql_query('select count(*)
                      from topics
-		     where '.subtree($id,$recursive,'up'))
+		     where '.subtree('topics',$id,$recursive,'up'))
 	  or sqlbug('Ошибка SQL при получении количества подтем');
 return mysql_num_rows($result)>0
        ? mysql_result($result,0,0)-($recursive ? 1 : 0) : 0;

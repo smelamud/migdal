@@ -74,8 +74,8 @@ class CrossTopicIterator
 function CrossTopicIterator($topic_id,$peer_grp=GRP_ALL,$topic_grp=GRP_ALL)
 {
 $grpFilter='';
-$grpFilter.=$topic_grp!=GRP_ALL ? " and (topic_grp & $topic_grp)<>0" : '';
-$grpFilter.=$peer_grp!=GRP_ALL ? " and (peer_grp & $peer_grp)<>0" : '';
+$grpFilter.=" and ".grpFilter($topic_grp,'topic_grp');
+$grpFilter.=" and ".grpFilter($peer_grp,'peer_grp');
 $this->SelectIterator('CrossTopic',
                       "select topic_id,topic_grp,peer_id,name as peer_name,
 		              peer_grp
