@@ -14,7 +14,7 @@
 
 .state .date {
 	color: %state_date;
-	border-bottom: solid 1px %state_date;
+	text-decoration: underline;
 	font-size: 9pt;
 }
 
