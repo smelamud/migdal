@@ -15,12 +15,19 @@
       <a href='postingedit.php?topic_id=$topic_id&grp=$grp&noguests=$noguests&redirid=$_'
 	 >Добавить $,GrpItemTitle</a>
      <else>
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$noguests&redirid=$_'
-	 >Добавить новость</a>,
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$noguests&redirid=$_'
-	 >статью</a>,
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&noguests=$noguests&redirid=$_'
-	 >книгу</a>
+      <notenglish>
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$noguests&redirid=$_'
+	  >Добавить новость</a>,
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$noguests&redirid=$_'
+	  >статью</a>,
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&noguests=$noguests&redirid=$_'
+	  >книгу</a>
+      <else>
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$noguests&redirid=$_'
+	  >Add news</a>,
+       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$noguests&redirid=$_'
+	  >article</a>
+      </notenglish>
      </if>
     </td>
    </tr></table>

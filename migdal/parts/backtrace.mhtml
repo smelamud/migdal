@@ -37,6 +37,9 @@
 <elif what="$basename=='events.php'">
  <trace url='migdal.php'>
  <assign name='name' value='События'>
+<elif what="$basename=='events-english.php'">
+ <trace url='index.php'>
+ <assign name='name' value='Events'>
 <elif what="$basename=='forumcatalog.php'">
  <assign name='name' value='Форум'>
 <elif what="$basename=='forum.php'">

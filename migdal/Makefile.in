@@ -7,20 +7,20 @@ OBJECTS = archive.php article.php article-times.php book.php book-chapter.php \
 	  chat.php chatboard.php chatbottom.php chatconsole.php chattop.php \
 	  chatusers.php chmod.php complainactionedit.php complainanswer.php \
 	  complainedit.php complainforum.php complains.php ears.php event.php \
-	  events.php forum.php forumansweredit.php forumcatalog.php \
-	  gallery.php groupadd.php grouporg.php halom.php halom-main.php \
-	  help.php horisontedit.php index.php index-english.php index-www.php \
-	  jcc.php journal.php kaitana.php kaitana-main.php limedit.php \
-	  liminsert.php links.php methodic-center.php methodics.php migdal.php \
-	  migdal-library.php migdal-library-news.php migdal-news.php \
-	  modbits.php moderator.php posting.php postingedit.php postingorg.php \
-	  printings.php rating.php register.php reorder.php search.php \
-	  stotext-help-subs.php stotext-help-types.php style.php taglit.php \
-	  taglit-user.php times.php tips.php topicdel.php topicedit.php \
-	  topiclinkadd.php topiclinks.php topicorg.php topics-reorder.php \
-	  urls.php useredit.php userfin.php userinfo.php userinfo-panel.php \
-	  userlost.php userok.php userrepair.php users.php veterans.php \
-	  veterans-user.php
+	  events.php events-english.php forum.php forumansweredit.php \
+	  forumcatalog.php gallery.php groupadd.php grouporg.php halom.php \
+	  halom-main.php help.php horisontedit.php index.php index-english.php \
+	  index-www.php jcc.php journal.php kaitana.php kaitana-main.php \
+	  limedit.php liminsert.php links.php methodic-center.php \
+	  methodics.php migdal.php migdal-library.php migdal-library-news.php \
+	  migdal-news.php modbits.php moderator.php posting.php \
+	  postingedit.php postingorg.php printings.php rating.php register.php \
+	  reorder.php search.php stotext-help-subs.php stotext-help-types.php \
+	  style.php taglit.php taglit-user.php times.php tips.php topicdel.php \
+	  topicedit.php topiclinkadd.php topiclinks.php topicorg.php \
+	  topics-reorder.php urls.php useredit.php userfin.php userinfo.php \
+	  userinfo-panel.php userlost.php userok.php userrepair.php users.php \
+	  veterans.php veterans-user.php
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@

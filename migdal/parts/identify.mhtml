@@ -338,6 +338,12 @@
  <assign name='ghref' value=''>
  <assign name='title' value=''>
  <assign name='name' value='Migdal'>
+<elif what='$/$posting.TopicId,0/==$`events,e`'>
+ <assign name='href' value='events-english.php'>
+ <assign name='ghref' value=''>
+ <assign name='title' value=''>
+ <assign name='name' value='Events'>
+ <assign name='root' value='$`events,e`'>
 <elif what='$/$posting.TopicId,0/==$`migdal`'>
  <identify_migdal>
 <elif what='$/$posting.TopicId,0/==$`migdal-times`'>

@@ -11,13 +11,15 @@
 
 <element name='vote_frame'>
 <notprint>
- <ifne what='$align'>
-  <assign name='al' value#='align=$align'>
- <else>
-  <assign name='al' value=''>
- </ifne>
- <iframe frameborder=0 $al width=140 height=35
-	 src='rating.php?color=$#color&image=$#image&postid=$id'
-	 scrolling=no></iframe>
+ <notenglish>
+  <ifne what='$align'>
+   <assign name='al' value#='align=$align'>
+  <else>
+   <assign name='al' value=''>
+  </ifne>
+  <iframe frameborder=0 $al width=140 height=35
+	  src='rating.php?color=$#color&image=$#image&postid=$id'
+	  scrolling=no></iframe>
+ </notenglish>
 </notprint>
 </element>

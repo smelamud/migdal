@@ -2,13 +2,13 @@
 
 <element name='topics_migdal_english'>
 <topic_obj name='migdal' id='$`migdal,e`'>
-<topics_table title='Migdal'>
+<topics_table title='Migdal' span=3>
  <ispost what='$migdal'>
-  <tr><td colspan=2>
+  <tr><td colspan=3>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Add</a>
   </td></tr>
-  <tr><td colspan=2>
+  <tr><td colspan=3>
    <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Reorder</a>
   </td></tr>
@@ -17,13 +17,24 @@
                       topic_id='$,Id' recursive='*false'
 		      fields='*SELECT_TOPICS'>
  <posting_obj id='$`postings:migdal,e`' fields='*SELECT_GENERAL'>
- <topics_line time='$,Sent' text='Home' href#='index.php'
-              arrow!='$,Id==$posting.Id' class='item'>
+ <topics_line time='$,Sent' text='Home' href='index.php'
+              arrow!='$,Id==$posting.Id' class='item' span=2>
  <for>
   <if what='$.Id!=$`postings:migdal,e`'>
    <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
-                arrow!='$.Id==$posting.Id' class='item ninept'>
+                arrow!='$.Id==$posting.Id' class='item ninept' span=2>
   </if>
+ </for>
+ <posting_last topic_id='$`events,e`' recursive='*false'>
+ <topics_line time='$,' text='Events' href='events-english.php'
+              arrow!='$posting.Id<=0 && $posting.TopicId==$`events,e`'
+	      class='item' span=2>
+ <iterate_postinglist grp='*GRP_TAPE' limit=0 sort='*SORT_SENT'
+                      topic_id='$`events,e`' recursive='*false'
+		      fields='*SELECT_TOPICS'>
+ <for>
+  <topics_line time='$.Sent' text='$.Subject' href#='article.php?artid=$.Id'
+	       arrow!='$.Id==$posting.Id' class='item ninept' indent=1>
  </for>
 </topics_table>
 </element>

@@ -9,7 +9,7 @@
 <html>
 <preamble>
 <body>
- <top ident='index'>
+ <top ident='index' transref#='http://english.$$siteDomain/events-english.php'>
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
