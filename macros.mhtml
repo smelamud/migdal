@@ -147,6 +147,8 @@
 <deccall macro='posting_last' func='getLastPostingDate' file='lib/postings.php'
          params='grp,topic_id,answers,user_id,recursive'
 	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0 recursive=*false'>
+<deccall macro='posting_new' func='newDetailedPosting' file='lib/postings.php'
+         params='grp,topic_id,sender_id' defaults="topic_id=-1 sender_id=0">
 <deccall macro='posting_random' func='getRandomPostingId'
          file='lib/postings.php' params='grp,topic_id,user_id'
 	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0'>

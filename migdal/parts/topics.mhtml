@@ -1,59 +1,102 @@
 << @(#) $Id$ >>
 
-<macro name='arrow' defaults="ident=''">
+<element name='ner' params='arrow,time' defaults='time=0'>
+<if what='$arrow'>
+ <ifbiff time='$time'>
+  <image src='$$style_topics_ner_arrow' title='новое'>
+ <else>
+  <image src='$$style_topics_arrow'>
+ </ifbiff>
+<else>
+ <ifbiff time='$time'>
+  <image src='pics/ner.gif' title='новое'>
+ <else>
+  &nbsp;
+ </ifbiff>
+</if>
+</element>
+
+<element name='arrow' params='id,ident,time,topic_id'
+                      defaults="ident='' time=0">
+<td>
+ <if what='$topic_id==$id || $topic_id===$ident'>
+  <ner time='$time' arrow='*true'>
+ <else>
+  <ner time='$time' arrow='*false'>
+ </if>
+</td>
+</element>
+
+<element name='navi_taglit' params='posting'>
+<topic_obj name='topic' id='taglit'>
+<tr>
+ <posting_last topic_id='$topic.Id' recursive='*false'>
  <td>
-  <assign name='idn' value='%ident'>
-  <if what='$topic_id==%id || $topic_id===$idn'>
-   <ifbiff time='%time'>
-    <image src='$$style_topics_ner_arrow' title='новое'>
-   <else>
-    <image src='$$style_topics_arrow'>
-   </ifbiff>
+  <if what='($posting.TopicId==$topic.Id || $posting.TopicId===$topic.Ident) && $posting.SenderId==0'>
+   <ner time='$,' arrow='*true'>
   <else>
-   <ifbiff time='%time'>
-    <image src='pics/ner.gif' title='новое'>
-   <else>
-    &nbsp;
-   </ifbiff>
+   <ner time='$,' arrow='*false'>
   </if>
  </td>
-</macro>
-
-<element name='chapter' params='id,link,topic_id'
-         defaults="topic_id='$topic_id'">
- <tr>
-  <topic_obj name='topic' id='$id'>
-  <posting_last topic_id='$topic.Id' recursive='*false'>
-  <arrow id='$topic.Id' ident='$topic.Ident' time='$,'>
-  <td>
-   <a href='$link' title='$topic.Description' class='item large'>$topic.Name</a>
-  </td>
- </tr>
+ <td colspan=2>
+  <a href='taglit.php' title='$topic.Description'
+     class='item large'>$topic.Name</a>
+ </td>
+</tr>
+<if what='$posting.TopicId==$topic.Id || $posting.TopicId===$topic.Ident'>
+ <iterate_posting_users topic_id='$topic.Id'>
+ <for>
+  <tr class='eightpt'>
+   <td>&nbsp;</td>
+   <td>
+    <if what='$posting.SenderId==$.Id'>
+     <ner time='$.LastMessage' arrow='*true'>
+    <else>
+     <ner time='$.LastMessage' arrow='*false'>
+    </if>
+   </td>
+   <td><a href='taglit-user.php?user_id=$.Id' class='item'>$.FullName</a></td>
+  </tr>
+ </for>
+</if>
 </element>
 
 <element name='topics'>
+<if what='$posting.Grp==*GRP_GALLERY'>
+ <assign name='grp' value='*GRP_GALLERY'>
+ <assign name='file' value='gallery.php'>
+<else>
+ <if what='$posting.Grp==*GRP_FORUMS'>
+  <assign name='grp' value='*GRP_DISCUSS'>
+  <assign name='file' value='forumcatalog.php'>
+ <else>
+  <assign name='grp' value='*GRP_TAPE'>
+  <assign name='file' value='index.php'>
+ </if>
+</if>
 <iterate_topiclist grp='$grp' withpostings='$withpostings'
                    withanswers='$withanswers' up='$up'>
 <table class='ninept topics' width=100%>
  <col width=0*>
+ <col width=0*>
  <admin_topics>
-  <tr><td colspan=2>
+  <tr><td colspan=3>
    <a href='topicedit.php?redirid=$_' class='edit'>Добавить</a>
    <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
   </td></tr>
  </admin_topics>
  <tbody class='names'>
   <tr>
-   <arrow id='-1'>
-   <td><a href='$file?topic_id=-1' class='new'>Все темы</a></td>
+   <arrow id='-1' topic_id='$posting.TopicId'>
+   <td colspan=2><a href='$file?topic_id=-1' class='new'>Все темы</a></td>
   </tr>
   <if what='$showchapters'>
-   <chapter id='taglit' link='taglit.php'>
+   <navi_taglit posting='$posting'>
   </if>
   <for>
    <tr>
-    <arrow id='$.Id' time='$.LastMessage'>
-    <td>
+    <arrow id='$.Id' time='$.LastMessage' topic_id='$posting.TopicId'>
+    <td colspan=2>
      <a href='$file?topic_id=$.Id' title='$.Description' class='item'>
 	$.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
      <admin_topics>

@@ -95,8 +95,8 @@
        params='ident,flags,target,showimages'
        defaults="flags='' target='' showimages='*true'">
 <decel name='topics' file='parts/topics.php'
-       params='grp,topic_id,withpostings,withanswers,file,showchapters,up'
-       defaults="grp='*GRP_TAPE' topic_id=0 withpostings='*false' withanswers='*false' file='index.php' showchapters='*false' up='general'">
+       params='withpostings,withanswers,showchapters,up,posting'
+       defaults="withpostings='*false' withanswers='*false' showchapters='*false' up='general'">
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,up'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' up='-1'">

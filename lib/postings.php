@@ -240,6 +240,13 @@ $name=getGrpClassName($grp);
 return new $name($row);
 }
 
+function newDetailedPosting($grp,$topic_id=-1,$sender_id=0)
+{
+return newPosting(array('grp'       => $grp,
+                        'topic_id'  => $topic_id,
+			'sender_id' => $sender_id));
+}
+
 class PostingListIterator
       extends LimitSelectIterator
 {
@@ -253,7 +260,7 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic<0 || $recursive && $topic==0) ? ''
              : ' and '.byIdent($topic,'topic_id','topics.ident',$recursive,
-                               'topics.track');
+                               'topics','topics.track');
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
@@ -375,7 +382,8 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
-             : ' and topics.'.byIdent($topic_id,'id','ident',$recursive);
+             : ' and topics.'.byIdent($topic_id,'id','ident',$recursive,
+	                              'topics');
 $this->SelectIterator(
        'User',
        "select distinct users.id as id,login,gender,email,hide_email,rebe,

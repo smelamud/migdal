@@ -10,10 +10,10 @@
 <preamble>
 <body>
  <top ident='gallery'>
-
  <table width=100%><tr valign=top>
   <td width=120>
-   <topics grp='*GRP_GALLERY' topic_id='$topic_id' file='gallery.php'>
+   <posting_new grp='*GRP_GALLERY' topic_id='$topic_id'>
+   <topics posting='$,'>
   </td>
   <td width=5>&nbsp;</td>
   <td>
