@@ -14,6 +14,8 @@ global $mailingsDir;
 if($mail->isEmailDisabled() && !$mail->isForceSend())
   return;
 $path=$mail->getMailScript();
+if($path=='')
+  return;
 if(substr($path,0,1)!='/')
   $path="$mailingsDir/$path";
 $link=$mail->getLink();
