@@ -1,0 +1,32 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+
+<grps>
+<log event=review text#='topic($`migdal-library`)'>
+<pagetitle title='Новые поступления в библиотеку'>
+<topictitle title='Новые поступления в библиотеку'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <posting_new grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'>
+    <topics posting='$,'>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <seealso_links topic_id='$`migdal-library`'
+		   title='См. также в разделе ссылок'>
+    <postings grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
+              limit='$userMsgPortion' offset='$offset' showshadows='*true'
+	      showadvert='*false' public='*false'>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</body>
+</html>
