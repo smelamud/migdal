@@ -3,6 +3,7 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/bug.php');
+require_once('lib/track.php');
 
 class PostingsInfo
       extends DataObject
@@ -40,10 +41,8 @@ function getPostingsInfo($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE,
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$tpf=$topic_id<0 ? '' : " and topics.".byIdentRecursive('topics',$topic_id,
-                                                        $recursive);
-$taf=$topic_id<0 ? '' : " and tops.".byIdentRecursive('topics',$topic_id,
-                                                      $recursive);
+$tpf=$topic_id<0 ? '' : " and topics.".subtree($topic_id,$recursive);
+$taf=$topic_id<0 ? '' : " and tops.".subtree($topic_id,$recursive);
 $uf=$user_id>0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
         "select count(*) as total,max(messages.sent) as max_sent

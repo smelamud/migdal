@@ -330,7 +330,7 @@ if($topic_id<0 || $recursive && $topic_id==0)
   return;
 if($this->topicFilter!='')
   $this->topicFilter.=' or ';
-$this->topicFilter.='topics.'.byIdentRecursive('topics',$topic_id,$recursive);
+$this->topicFilter.='topics.'.subtree($topic_id,$recursive);
 }
 
 function select()
@@ -358,7 +358,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
-             : ' and topics.'.byIdentRecursive('topics',$topic_id,$recursive);
+             : ' and topics.'.subtree($topic_id,$recursive);
 $this->SelectIterator(
        'User',
        "select distinct users.id as id,login,gender,email,hide_email,rebe,
@@ -469,7 +469,7 @@ function getPostingById($id=-1,$grp=GRP_ALL,$topic=0,$index1=-1,$up=-1)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$filter=$id>=0 ? 'postings.'.byIdent($id)
+$filter=$id>=0 ? "postings.id=$id"
                : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0"
 	                     : '');
 $result=mysql_query("select postings.id as id,ident,message_id,stotext_id,body,
@@ -499,7 +499,7 @@ function getFullPostingById($id=-1,$grp=GRP_ALL,$index1=-1)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$filter=$id>=0 ? 'postings.'.byIdent($id)
+$filter=$id>=0 ? "postings.id=$id"
                : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0"
 	                     : '');
 $result=mysql_query(
@@ -559,9 +559,9 @@ return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
 
 function incPostingReadCount($id)
 {
-mysql_query('update postings
+mysql_query("update postings
              set read_count=read_count+1,last_read=now()
-	     where '.byIdent($id))
+	     where id=$id")
   or sqlbug('Ошибка SQL при обновлении счетчика прочтений постинга');
 }
 
@@ -636,7 +636,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
-             : ' and topics.'.byIdentRecursive('topics',$topic_id,$recursive);
+             : ' and topics.'.subtree($topic_id,$recursive);
 $result=mysql_query("select max(postings.index$index)
                      from postings
 			  left join messages

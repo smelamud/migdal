@@ -10,18 +10,6 @@ function isId($ident)
 return is_int($ident) || $ident<0 || $ident!='' && c_digit($ident);
 }
 
-function byIdent($id,$byId='id',$byIdent='ident')
-{
-return isId($id) ? "$byId=$id" : "$byIdent='$id'";
-}
-
-function byIdentRecursive($table,$id,$recursive,$byId='id',
-                          $byIdent='ident',$byTrack='track')
-{
-return !$recursive ? isId($id) ? "$byId=$id" : "$byIdent='$id'"
-                   : $byTrack." like '%".track(idByIdent($table,$id))."%'";
-}
-
 $idents=array();
 
 function idByIdent($table,$ident)

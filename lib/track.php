@@ -14,7 +14,7 @@ function trackById($table,$id)
 {
 $result=mysql_query("select track
                      from $table
-		     where ".byIdent($id))
+		     where id=$id")
 	  or sqlbug("Ошибка SQL при выборке маршрута из $table");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
 }
@@ -43,5 +43,10 @@ while($row=mysql_fetch_assoc($result))
      updateTrackById($table,$row['id'],$tracks[$row['id']]);
      }
 return true;
+}
+
+function subtree($id,$recursive=false,$byId='id',$byTrack='track')
+{
+return !$recursive ? "$byId=$id" : "$byTrack like '%".track($id)."%'";
 }
 ?>

@@ -215,9 +215,7 @@ function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$userFilter=$up>=0 ? 'and '.byIdentRecursive('topics',$up,$recursive,
-                                             'topics.up','uptopics.ident',
-				             'topics.track') : '';
+$userFilter=$up>=0 ? 'and topics.'.subtree($up,$recursive,'up') : '';
 $grpFilter="and (${prefix}allow & $grp)!=0";
 $answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
 $sepFilter=!$withSeparate ? "and ${prefix}separate=0" : '';
@@ -379,9 +377,9 @@ function getAllowByTopicId($id)
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query('select allow
+$result=mysql_query("select allow
                      from topics
-		     where '.byIdent($id)." and hidden<$hide")
+		     where id=$id and hidden<$hide")
           or sqlbug('Ошибка SQL при выборке маски допустимых постингов');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : GRP_ALL;
@@ -392,9 +390,9 @@ function getPremoderateByTopicId($id)
 global $userAdminTopics,$defaultPremoderate;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query('select premoderate
+$result=mysql_query("select premoderate
                      from topics
-		     where '.byIdent($id)." and hidden<$hide")
+		     where id=$id and hidden<$hide")
           or sqlbug('Ошибка SQL при выборке маски модерирования');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultPremoderate;
@@ -430,7 +428,7 @@ $result=mysql_query(
 		  on postings.message_id=messages.id
 		     and (messages.hidden<$hide or messages.sender_id=$userId)
 		     and (messages.disabled<$hide or messages.sender_id=$userId)
-	where topics.".byIdent($id)." and topics.hidden<$hide
+	where topics.id=$id and topics.hidden<$hide
 	group by topics.id")
  or sqlbug('Ошибка SQL при выборке темы'.mysql_error());
 return new Topic(mysql_num_rows($result)>0
@@ -445,9 +443,9 @@ function getTopicNameById($id)
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query('select id,name
+$result=mysql_query("select id,name
 		     from topics
-		     where '.byIdent($id)." and topics.hidden<$hide")
+		     where id=$id and topics.hidden<$hide")
 	  or sqlbug('Ошибка SQL при выборке названия темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
@@ -470,8 +468,7 @@ function getSubtopicsCountById($id,$recursive=false)
 $id=idByIdent('topics',$id);
 $result=mysql_query('select count(*)
                      from topics
-		     where '.(!$recursive ? "up=$id"
-		                          : "track like '%".track($id)."%'"))
+		     where '.subtree($id,$recursive,'up'))
 	  or sqlbug('Ошибка SQL при получении количества подтем');
 return mysql_num_rows($result)>0
        ? mysql_result($result,0,0)-($recursive ? 1 : 0) : 0;
