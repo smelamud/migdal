@@ -29,7 +29,7 @@ if($message=='')
 $senderId=$userId<=0 ? $realUserId : $userId;
 $result=mysql_query("insert into chat_messages(sender_id,private_id,text)
                      values($senderId,$privateId,'".
-		     addslashes(htmlspecialchars($message))."')");
+		     addslashes(htmlspecialchars($message,ENT_QUOTES))."')");
 if(!$result)
   return ECHP_SQL_INSERT;
 return ECHP_OK;

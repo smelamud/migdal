@@ -71,7 +71,7 @@ function postChatAdminMessage($message)
 {
 return mysql_query("insert into chat_messages(sender_id,text)
                     values(".getShamesId().",'".
-		    addslashes(htmlspecialchars($message))."')");
+		    addslashes(htmlspecialchars($message,ENT_QUOTES))."')");
 }
 
 function postChatLoginMessage($id)

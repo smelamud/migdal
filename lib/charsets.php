@@ -85,16 +85,16 @@ return "$c&lrm;";
 function convertOutput($s,$koiChars=false,$koiCharset=false)
 {
 $s=$koiChars
-       ? str_replace(array('&lt;&lt;','&gt;&gt;','---','``','&#039;&#039;',
-                           '&sp;'),
-                     array('"','"','--','"','"',
-		           ' '),$s)
-       : str_replace(array('&lt;&lt;','&gt;&gt;','---','``','&#039;&#039;',
-                           '(c)','(C)','(r)','(R)','(tm)',
-			   '(TM)','No.','&sp;'),
-                     array('&laquo;','&raquo;','&mdash;','&ldquo;','&rdquo;',
-		           '&copy;','&copy;','&reg;','&reg;','&trade;',
-			   '&trade;','&#8470;',' '),$s);
+       ? str_replace(array('&lt;&lt;','&gt;&gt;','&LT;&LT;','&GT;&GT;','---',
+                           '``','&#039;&#039;','&sp;'),
+                     array('"','"','"','"','--',
+		           '"','"',' '),$s)
+       : str_replace(array('&lt;&lt;','&gt;&gt;','&LT;&LT;','&GT;&GT;','---',
+                           '``','&#039;&#039;','(c)','(C)','(r)',
+			   '(R)','(tm)','(TM)','No.','&sp;'),
+                     array('&laquo;','&raquo;','&laquo;','&raquo;','&mdash;',
+		           '&ldquo;','&rdquo;','&copy;','&copy;','&reg;',
+			   '&reg;','&trade;','&trade;','&#8470;',' '),$s);
 $s=preg_replace('/\$(-?)(\S+)\$/e',
                 "'\\1'=='-' ? convertHebrew(strrev('\\2'))
 		            : convertHebrew('\\2')",$s);
@@ -104,11 +104,11 @@ return $koiCharset ? $s : convert_cyr_string($s,'k','w');
 function convertSort($s)
 {
 $c=convert_cyr_string(
-   str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;",
-		     '(c)','(C)','(r)','(R)','(tm)',
+   str_replace(array('&lt;&lt;','&gt;&gt;','&LT;&LT;','&GT;&GT;','---','``',
+                     "&#039;&#039;",'(c)','(C)','(r)','(R)','(tm)',
 		     '(TM)','No.'),
-	       array("\xAB","\xBB","\x96","\x93","\x94",
-		     "\x94","\x94","\xAE","\xAE","\x99",
+	       array("\xAB","\xBB","\xAB","\xBB","\x96","\x93",
+	             "\x94","\xA9","\xA9","\xAE","\xAE","\x99",
 		     "\x99","\xB9"),$s),'k','w');
 $cc='';
 for($i=0;$i<strlen($c);$i++)
