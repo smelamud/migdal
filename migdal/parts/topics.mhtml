@@ -33,36 +33,36 @@
 
 <element name='topics'>
 <iterate_topiclist grp='$grp' withpostings='$withpostings'
-                   withanswers='$withanswers' up='general'>
-<if what='$$userAdminTopics || $;Count!=0'>
- <table class='ninept topics' width=100%>
-  <col width=0*>
-  <admin_topics>
-   <tr><td colspan=2>
-    <a href='topicedit.php?redirid=$_' class='edit'>Добавить</a>
-    <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
-   </td></tr>
-  </admin_topics>
-  <tbody class='names'>
-   <tr>
-    <arrow id='-1'>
-    <td><a href='$file?topic_id=-1' class='new'>Все темы</a></td>
-   </tr>
+                   withanswers='$withanswers' up='$up'>
+<table class='ninept topics' width=100%>
+ <col width=0*>
+ <admin_topics>
+  <tr><td colspan=2>
+   <a href='topicedit.php?redirid=$_' class='edit'>Добавить</a>
+   <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
+  </td></tr>
+ </admin_topics>
+ <tbody class='names'>
+  <tr>
+   <arrow id='-1'>
+   <td><a href='$file?topic_id=-1' class='new'>Все темы</a></td>
+  </tr>
+  <if what='$showchapters'>
    <chapter id='taglit' link='taglit.php'>
-   <for>
-    <tr>
-     <arrow id='$.Id' time='$.LastMessage'>
-     <td>
-      <a href='$file?topic_id=$.Id' title='$.Description' class='item'>
-	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
-      <admin_topics>
-       <br>
-       <a href='topicedit.php?editid=$.Id&redirid=$_' class='edit'>Изменить</a>
-      </admin_topics>
-     </td>
-    </tr>
-   </for>
-  </tbody>
- </table>
-</if>
+  </if>
+  <for>
+   <tr>
+    <arrow id='$.Id' time='$.LastMessage'>
+    <td>
+     <a href='$file?topic_id=$.Id' title='$.Description' class='item'>
+	$.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
+     <admin_topics>
+      <br>
+      <a href='topicedit.php?editid=$.Id&redirid=$_' class='edit'>Изменить</a>
+     </admin_topics>
+    </td>
+   </tr>
+  </for>
+ </tbody>
+</table>
 </element>

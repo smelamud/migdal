@@ -535,7 +535,7 @@ function getLastPostingDate($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE,
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topic_id=idByIdent('topics',$topic_id);
+$topic_id=$topic_id<0 ? $topic_id : idByIdent('topics',$topic_id);
 $tpf=$topic_id>=0 ?
       !$recursive ? " and postings.topic_id=$topic_id "
                   : " and topics.track like '%".track($topic_id)."%' " : '';

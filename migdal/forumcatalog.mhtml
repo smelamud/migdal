@@ -15,7 +15,7 @@
  <table width=100%><tr valign=top>
   <td width=120>
    <topics grp='*GRP_DISCUSS' topic_id='$topic_id' withpostings='*true'
-           withanswers='*true' file='forumcatalog.php'>
+           withanswers='*true' file='forumcatalog.php' up=-1>
   </td>
   <td width=5>&nbsp;</td>
   <td>
