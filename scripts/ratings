@@ -16,7 +16,6 @@ GetOptions('config|c=s'	 => \$configPath,
 push @INC,@libpath;
 
 require 'config.pl';
-require 'opscript.pl';
 
 sub help
 {

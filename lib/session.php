@@ -57,7 +57,7 @@ foreach($parts as $part)
 return $proper;
 }
 
-function userRights()
+function userRights($aUserId=0)
 {
 global $sessionid,$userId,$userRightNames,$sessionTimeout,$siteDomain;
 
@@ -66,35 +66,40 @@ settype($sessionid,'integer');
 foreach($userRightNames as $name)
        $GLOBALS['user'.getProperName($name)]='';
 
-if(!$sessionid)
+if(!$sessionid && $aUserId<=0)
   $userId=-1;
 else
-  {
-  $result=mysql_query("select user_id from sessions where sid=$sessionid")
-	       or die('Ошибка SQL при выборке сессии');
-  if(mysql_num_rows($result)<=0)
+  if($aUserId<=0)
     {
-    SetCookie('sessionid',0,0,'/',$siteDomain);
-    $userId=-1;
+    $result=mysql_query("select user_id from sessions where sid=$sessionid")
+		 or die('Ошибка SQL при выборке сессии');
+    if(mysql_num_rows($result)<=0)
+      {
+      SetCookie('sessionid',0,0,'/',$siteDomain);
+      $userId=-1;
+      }
+    else
+      $userId=mysql_result($result,0,0);
     }
   else
-    {
-    $userId=mysql_result($result,0,0);
-    $rights=mysql_query('select '.join(',',$userRightNames).
-		       " from users
-			 where id=$userId")
-	  or die('Ошибка SQL при получении прав пользователя');
-    $info=mysql_fetch_assoc($rights);
-    foreach($info as $name => $value)
-           $GLOBALS['user'.getProperName($name)]=$value;
-    if($GLOBALS['userAdminUsers'] && $GLOBALS['userHidden']>0)
-      $GLOBALS['userHidden']--;
-    mysql_query("update sessions set last=null where sid=$sessionid")
-	 or die('Ошибка SQL при обновлении TIMESTAMP сессии');
-    mysql_query("update users set last_online=now() where id=$userId")
-	 or die('Ошибка SQL при обновлении времени захода пользователя');
-    SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/',$siteDomain);
-    }
+    $userId=$aUserId;
+
+if($userId>0)
+  {
+  $rights=mysql_query('select '.join(',',$userRightNames).
+		     " from users
+		       where id=$userId")
+	or die('Ошибка SQL при получении прав пользователя');
+  $info=mysql_fetch_assoc($rights);
+  foreach($info as $name => $value)
+	 $GLOBALS['user'.getProperName($name)]=$value;
+  if($GLOBALS['userAdminUsers'] && $GLOBALS['userHidden']>0)
+    $GLOBALS['userHidden']--;
+  mysql_query("update sessions set last=null where sid=$sessionid")
+       or die('Ошибка SQL при обновлении TIMESTAMP сессии');
+  mysql_query("update users set last_online=now() where id=$userId")
+       or die('Ошибка SQL при обновлении времени захода пользователя');
+  SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/',$siteDomain);
   }
 }
 
@@ -174,9 +179,9 @@ if($userDomain!=$currentDomain)
   }
 }
 
-function session()
+function session($aUserId=0)
 {
-userRights();
+userRights($aUserId);
 userSettings();
 subDomain();
 }
