@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/postings.mhtml 1.11 >>
+<< Based-on: migdal/parts/postings.mhtml 1.13 >>
 
 <element name='batcher_forumcatalog' params='value,list,topic,grp'>
 <grpdata>
