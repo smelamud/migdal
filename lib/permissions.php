@@ -73,6 +73,17 @@ $result=mysql_query("select $table.id as id,$user,group_id,users.login as login,
 return mysql_num_rows($result)>0 ? new $class(mysql_fetch_assoc($result)) : 0;
 }
 
+function getRootPerms($table)
+{
+global $permModels;
+
+list($class,$user)=$permModels[$table];
+return new $class(
+        array($user      => getUserIdByLogin($GLOBALS["root${class}UserName"]),
+              'group_id' => getUserIdByLogin($GLOBALS["root${class}GroupName"]),
+	      'perms'    => $GLOBALS["root${class}Perms"]));
+}
+
 function setPermsById($perms)
 {
 global $permModels,$permClassTables;

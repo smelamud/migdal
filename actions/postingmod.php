@@ -80,10 +80,8 @@ return true;
 
 function modifyPosting($message)
 {
-global $userId,$userModerator;
+global $userModerator;
 
-if($userId<=0)
-  return EP_NO_SEND;
 if(!$message->isEditable())
   return EP_NO_EDIT;
 if(!getGrpValid($message->grp))
@@ -109,6 +107,12 @@ if($message->topic_id!=0)
   $perms=getPermsById('topics',addslashes($message->topic_id));
   if(!$perms)
     return EP_NO_TOPIC;
+  if(!$perms->isPostable())
+    return EP_TOPIC_ACCESS;
+  }
+else
+  {
+  $perms=getRootPerms('topics');
   if(!$perms->isPostable())
     return EP_TOPIC_ACCESS;
   }
