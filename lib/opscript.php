@@ -36,7 +36,7 @@ function opScript($script,$params)
 {
 $vars=array();
 $cont=0;
-$preamble=0;
+$preamble=1;
 $out='';
 foreach(explode("\n",$script) as $line)
        {
