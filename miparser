@@ -543,12 +543,14 @@ my ($self)=@_;
 ::request('lib/errorreporting.php');
 ::request('lib/database.php');
 ::request('lib/session.php');
+::request('lib/no-cache.php');
 ::header(<<EOT);
 <?php
 dbOpen();
 session();
 ?>
 EOT
+::body('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">',"\n");
 ::body($self->getToken());
 }
 
