@@ -71,7 +71,7 @@ foreach($action as $line)
 		   $line->getSeq().' id='.$line->getId().": $query");
        if($line->getResultTable()!='')
          {
-	 $lastId=sql_insert_id();
+	 $lastId=mysql_insert_id();
 	 if(!$replicationMaster)
 	   {
 	   if($line->getResultId()!=$lastId
