@@ -248,7 +248,8 @@ CREATE TABLE messages (
   KEY track (track),
   KEY url_check (url_check),
   KEY url_check_success (url_check_success),
-  KEY last_updated (last_updated)
+  KEY last_updated (last_updated),
+  KEY perms (perms)
 ) TYPE=MyISAM;
 
 --
@@ -502,7 +503,8 @@ CREATE TABLE topics (
   KEY index2 (index2),
   KEY index3 (index3),
   KEY index4 (index4),
-  KEY ident (ident)
+  KEY ident (ident),
+  KEY perms (perms)
 ) TYPE=MyISAM;
 
 --
