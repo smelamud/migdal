@@ -35,7 +35,7 @@
      </td>
      <td>
       <a href='$[topic_id=$.Id]' title='$.Description'>
-	 $.Name <span class='answers'>($.MessageCount)</span></a>
+	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
       <admin_topics>
        <br>
        <a href='topicedit.php?editid=$.Id&redir=$_' class='edit'>Изменить</a>
