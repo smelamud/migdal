@@ -18,6 +18,7 @@ require_once('lib/complains.php');
 require_once('lib/stotext.php');
 require_once('lib/track.php');
 require_once('lib/forums.php');
+require_once('lib/redirs.php');
 
 function setImageTitle($image_set,$title)
 {
@@ -156,6 +157,7 @@ postIdent('topic_id','topics');
 
 dbOpen();
 session();
+redirect();
 $message=getPostingById($editid,$grp);
 $message->setup($HTTP_POST_VARS);
 $image=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
