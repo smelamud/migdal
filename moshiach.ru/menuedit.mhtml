@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/menuedit.mhtml 1.4 >>
+<< Based-on: demo/menuedit.mhtml 1.5 >>
 
 <int name='menuid'>
 <html>
@@ -26,14 +26,14 @@
  </table>
  <table width=100%><tr valign=top>
   <td>
-   <iterate_menu ident='$menuid'>
+   <iterate_menu>
    <for>
     <ifnzero what='$next'>
      <a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&redir=$_'>
       <img src='pics/menudown.png' alt='Переместить ниже'></a><br>
      <assign name='next' value='0'>
     </ifnzero>
-    <if what='$.isCurrent'>
+    <if what='$.Id==$menuid'>
      <if what='!$;isFirst'>
       <a href='actions/menuxchg.php?firstid=$prev&secondid=$.Id&redir=$_'>
        <img src='pics/menuup.png' alt='Переместить выше' border=0></a>
