@@ -9,7 +9,7 @@
    <biff time='$picture.Sent'>
    <senderlink message='$picture'>
   </td></tr>
-  <if what='$topic<0'>
+  <if what='$showtopic'>
    <tr><td class='topic'>
      <a href='gallery.php?redirid=$_&grp=$grp&topic_id=$picture.TopicId'
 	class='topic' title='$picture.TopicDescription'>
@@ -28,7 +28,7 @@
      <a href="postingedit.php?editid=$picture.Id&up=general&grp=$picture.Grp&redirid=$_"
       >Изменить</a>
     <else>
-     <if what='$complain'>
+     <if what='$showcomplain'>
       <a href="complainedit.php?ident=posting&link=$picture.Id&redirid=$_"
        >Жалоба</a>
      </if>
@@ -38,7 +38,7 @@
   <tr><td class='body'>
    $picture.HTMLBody
   </td></tr>
-  <if what='$discuss'>
+  <if what='$showdiscuss'>
    <tr><td class='discuss'><discusslink posting='$picture'></td></tr>
   </if>
   <ifnzero what='$picture.ImageSet'>

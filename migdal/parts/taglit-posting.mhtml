@@ -35,7 +35,7 @@
    $posting.HTMLBody&nbsp;<asp>
   </if>
   </p>
-  <if what='$$userId>0 || $discuss'>
+  <if what='$$userId>0 || $showdiscuss'>
    <table width=100% class='bottom'><tr>
     <td>
      <isedit what='$posting'>
@@ -52,7 +52,7 @@
        </if>
       </if>
      <else>
-      <if what='!$posting.isModerable && $complain'>
+      <if what='!$posting.isModerable && $showcomplain'>
        <logged>
 	<a href="complainedit.php?ident=posting&link=$posting.Id&redirid=$_"
 	 >Жалоба</a>
@@ -60,7 +60,7 @@
       </if>
      </isedit>
     </td>
-    <if what='$discuss'>
+    <if what='$showdiscuss'>
      <td align=right><discusslink posting='$posting'></td>
     </if>
    </tr></table>

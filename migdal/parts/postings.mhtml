@@ -41,7 +41,12 @@
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
  </table>
  <for>
-  <posting posting='$.' grp='$grp' topic='$topic' shorten='*true'>
+  <if what='$topic<0'>
+   <assing name='showtopic' value='*true'>
+  <else>
+   <assing name='showtopic' value='*false'>
+  </if>
+  <posting posting='$.' grp='$grp' showtopic='$showtopic' shorten='*true'>
  </for>
  <ifnzero what='$;Count'>
   <batcher_postings list='$;' topic='$topic' grp='$grp'>

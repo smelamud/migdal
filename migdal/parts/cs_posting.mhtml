@@ -7,10 +7,10 @@
 <tr><th colspan=2>Жалоба на $grpitemtitle</th></tr>
 <tr class='quote'><td colspan=2>
  <if what='$,Grp!=*GRP_GALLERY'>
-  <posting posting='$,' grp='*GRP_FORUMS' complain='*false'>
+  <posting posting='$,' grp='*GRP_FORUMS' showcomplain='*false'>
  <else>
   <center>
-   <picture picture='$,' grp='*GRP_GALLERY' complain='*false'>
+   <picture picture='$,' grp='*GRP_GALLERY' showcomplain='*false'>
   </center>
  </if>
 </td></tr>

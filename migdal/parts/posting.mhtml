@@ -18,7 +18,7 @@
  <dl class='posting'>
   <dt class='subject'>
    <biff time='$posting.Sent'>
-   <if what='$topic<0'>
+   <if what='$showtopic'>
     <a href='index.php?topic_id=$posting.TopicId'
        class='topic' title='$posting.TopicDescription'>
      $posting.TopicName
@@ -69,7 +69,7 @@
     </td>
    </ifne>
   </tr></table>
-  <if what='$$userId>0 || $discuss || $posting.hasLargeBody'>
+  <if what='$$userId>0 || $showdiscuss || $posting.hasLargeBody'>
    <table width=100% class='bottom'><tr>
     <td>
      <if what='$posting.hasLargeBody'>
@@ -91,7 +91,7 @@
        </if>
       </if>
      <else>
-      <if what='!$posting.isModerable && $complain'>
+      <if what='!$posting.isModerable && $showcomplain'>
        <logged>
 	<a href="complainedit.php?ident=posting&link=$posting.Id&redirid=$_"
 	 >Жалоба</a>
@@ -99,7 +99,7 @@
       </if>
      </isedit>
     </td>
-    <if what='$discuss'>
+    <if what='$showdiscuss'>
      <td align=right><discusslink posting='$posting'></td>
     </if>
    </tr></table>

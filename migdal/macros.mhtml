@@ -58,13 +58,13 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,grp,topic,discuss,complain'
-       defaults="topic=-1 discuss='*true' complain='*true'">
+       params='picture,grp,showtopic,showdiscuss,showcomplain'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'">
 <decel name='picture_main' file='parts/picture-main.php'
        params='picture,grp,topic'>
 <decel name='posting' file='parts/posting.php'
-       params='posting,grp,topic,discuss,complain,shorten'
-       defaults="topic=-1 discuss='*true' complain='*true' shorten='*false'">
+       params='posting,grp,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
 <decel name='postings' file='parts/postings.php'
        params='grp,topic,limit,offset'
        defaults="topic=-1 limit=10 offset=0">
@@ -86,8 +86,8 @@
 <decel name='taglit_picture' file='parts/taglit-picture.php'
        params='picture,user'>
 <decel name='taglit_posting' file='parts/taglit-posting.php'
-       params='posting,discuss,complain,shorten'
-       defaults="discuss='*true' complain='*true' shorten='*false'">
+       params='posting,showdiscuss,showcomplain,shorten'
+       defaults="showdiscuss='*true' showcomplain='*true' shorten='*false'">
 <decel name='taglit_postings' file='parts/taglit-postings.php'
        params='taglit_id,user_id'>
 <decel name='today' file='parts/today.php'>
