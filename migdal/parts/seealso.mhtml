@@ -50,21 +50,19 @@
 <notprint>
  <if what='$topic_id>0'>
   <outer><table class='topics ninept' style='margin: 0'>
+   <iterate_topic_cross topic_id='$topic_id' topic_grp='$topic_grp'
+			peer_grp='*GRP_NOT_LINKS'>
+   <tr><td><b>$title:</b></td></tr>
    <inner>
-    <iterate_topic_cross topic_id='$topic_id' topic_grp='$topic_grp'
-			 peer_grp='*GRP_NOT_LINKS'>
-    <if what='$;Count!=0 || $$userAdminTopics'>
-     <tr><td><b>$title:</b></td></tr>
-    </if>
     <admin_topics>
      <tr><td>
       <a href='topiclinkadd.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=*GRP_NOT_LINKS&redirid=$_'
 	 class='edit'>Добавить</a>
      </td></tr>
     </admin_topics>
-    <ifnzero what='$;Count'>
-     <tr><td>
-      <for>
+    <outer><tr><td><inner>
+     <for>
+      <if what='$.PeerId!=$`major` && $.PeerId!=$`major-gallery`'>
        <if what='!$;isFirst'><br></if>
        <topiclink posting='$.PeerPosting'>
        <admin_topics>
@@ -73,9 +71,9 @@
 	   class='edit'><asp>
 	 <asp>Удалить</a>
        </admin_topics>
-      </for>
-     </td></tr>
-    </ifnzero>
+      </if>
+     </for>
+    </inner></td></tr></outer>
    </inner>
   </table></outer>
  </if>
