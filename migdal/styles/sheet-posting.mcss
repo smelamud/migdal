@@ -64,6 +64,12 @@
 	font-style: italic;
 }
 
+.posting .source {
+	font-size: 9pt;
+	font-style: italic;
+	text-align: right;
+}
+
 .posting .topic {
 	font-family: %times;
 	font-style: italic;

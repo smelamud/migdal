@@ -72,6 +72,11 @@
     <posting_further_article id='$posting.Id'>
    </if>
   </td></tr>
+  <ifne what='$posting.Source'>
+   <tr><td class='source'>
+    $posting.Source
+   </td></tr>
+  </ifne>
   <if what='$$userId>0 || $discuss || $posting.hasLargeBody'>
    <tr><td><table width=100% class='bottom'><tr>
     <td>
