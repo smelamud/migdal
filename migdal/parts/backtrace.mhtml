@@ -53,10 +53,6 @@
     <if what='$/$topic_id,0/!=$`migdal` || $topic_id==$`migdal` ||
               $/$topic_id,1/==$`events`'>
      <trace url='gallery.php'>
-    <elif what='$/$topic_id,2/==$`kaitana` && $topic_id!=$`kaitana`'>
-     <trace url#='gallery.php?topic_id=$`kaitana`'>
-    <elif what='$/$topic_id,2/==$`halom` && $topic_id!=$`halom`'>
-     <trace url#='gallery.php?topic_id=$`halom`'>
     <else>
      <trace url#='gallery.php?topic_id=$`migdal`'>
     </if>
@@ -79,13 +75,10 @@
    <assign name='name' value#='$,FullName'>
   </if>
  </if>
-<elif what="$basename=='halom-main.php'">
- <trace url='jcc.php'>
- <assign name='name' value='Семейные лагеря'>
 <elif what="$basename=='halom.php'">
  <topic_obj id='$topic_id'>
  <if what='$day<=0 && $postid<=0'>
-  <trace url='halom-main.php'>
+  <trace url='events.php'>
   <assign name='name' value='$,Name'>
  <else>
   <if what='$postid<=0'>

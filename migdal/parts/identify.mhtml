@@ -42,6 +42,29 @@
   <assign name='tel' value='topics_kaitana'>
   <assign name='uhref' value='events.php'>
   <assign name='utitle' value='События'>
+ <elif what='$/$posting.TopicId,2/==$`halom`'>
+  <topic_obj id='$posting.TopicId'>
+  <ifnzero what='$,Allow & GRP_KAITANA_NEWS'>
+   <topic_obj id='$`halom`'>
+   <assign name='href' value#='halom.php?topic_id=$posting.TopicId'>
+   <assign name='ghref' value#='gallery.php?topic_id=$posting.TopicId'>
+   <assign name='title' value='$,Description'>
+   <assign name='name' value#='События :: $,Name'>
+   <assign name='root' value='$posting.TopicId'>
+   <assign name='tel' value='topics_halom'>
+   <assign name='uhref' value='events.php'>
+   <assign name='utitle' value='События'>
+  <else>
+   <topic_obj id='$posting.TopicId'>
+   <assign name='href' value#='event.php?topic_id=$,Id'>
+   <assign name='ghref' value#='gallery.php?topic_id=$,Id'>
+   <assign name='title' value='$,Description'>
+   <assign name='name' value#='События :: $,Name'>
+   <assign name='root' value='$,Id'>
+   <assign name='tel' value='topics_events'>
+   <assign name='uhref' value='migdal.php'>
+   <assign name='utitle' value='Мигдаль'>
+  </ifnzero>
  <else>
   <topic_obj id='$posting.TopicId'>
   <assign name='href' value#='event.php?topic_id=$,Id'>
@@ -149,21 +172,6 @@
    <assign name='tel' value='topics_dances'>
    <assign name='uhref' value='jcc.php'>
    <assign name='utitle' value='Общинный центр (JCC)'>
-  <elif what='$/$posting.TopicId,2/==$`halom`'>
-   <topic_obj id='$`halom`'>
-   <assign name='href' value#='halom.php?topic_id=$posting.TopicId'>
-   <assign name='ghref' value#='gallery.php?topic_id=$posting.TopicId'>
-   <assign name='title' value='$,Description'>
-   <assign name='name' value#='$name :: $,Name'>
-   <assign name='root' value='$posting.TopicId'>
-   <assign name='tel' value='topics_halom'>
-   <if what='$posting.TopicId!=$`halom`'>
-    <assign name='uhref' value='halom-main.php'>
-    <assign name='utitle' value='Семейные лагеря'>
-   <else>
-    <assign name='uhref' value='jcc.php'>
-    <assign name='utitle' value='Общинный центр (JCC)'>
-   </if>
   <elif what='$/$posting.TopicId,2/==$`kes`'>
    <assign name='href' value#='migdal.php?artid=$`postings:kes`'>
    <assign name='title' value='Клуб Еврейского Студента'>
@@ -186,16 +194,15 @@
   <assign name='mhref' value#='event.php?topic_id=$posting.TopicId'>
   <if what='$/$posting.TopicId,2/==$`kaitana`'>
    <assign name='mhref' value#='kaitana.php?topic_id=$posting.TopicId'>
+  <elif what='$/$posting.TopicId,2/==$`halom`'>
+   <topic_obj id='$posting.TopicId'>
+   <ifnzero what='$,Allow & GRP_KAITANA_NEWS'>
+    <assign name='mhref' value#='halom.php?topic_id=$posting.TopicId'>
+   </ifnzero>
   </if>
  <elif what='$/$posting.TopicId,1/==$`jcc`'>
   <assign name='mhref' value='jcc.php'>
-  <if what='$/$posting.TopicId,2/==$`halom`'>
-   <assign name='mhref' value#='halom.php?topic_id=$posting.TopicId'>
-   <assign name='gtel' value='topics_gallery_halom'>
-   <assign name='guhref' value#='gallery.php?topic_id=$`migdal`'>
-   <assign name='gutitle' value='Мигдаль'>
-   <assign name='gnews' value!='$posting.TopicId==$`halom`'>
-  <elif what='$/$posting.TopicId,2/==$`kes`'>
+  <if what='$/$posting.TopicId,2/==$`kes`'>
    <assign name='mhref' value#='migdal.php?artid=$`postings:kes`'>
    <assign name='tel' value='topics_kes'>
    <assign name='uhref' value='jcc.php'>

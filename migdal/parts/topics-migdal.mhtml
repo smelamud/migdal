@@ -68,15 +68,13 @@
                 arrow!='$.Id==$posting.Id' class='item eightpt'>
   </if>
  </for>
- <posting_last topic_id='$`halom`' recursive='*true'>
- <topics_line time='$,' text='Семейные лагеря' href='halom-main.php'
-              arrow!="$/$posting.TopicId,2/==$`halom`" class='item eightpt'>
  <posting_last topic_id='$`kes`' recursive='*true'>
  <topics_line time='$,' text='Клуб Еврейского Студента'
               href#='migdal.php?artid=$`postings:kes`'
               arrow!="$/$posting.TopicId,2/==$`kes`" class='item eightpt'>
 </topics_table>
 <topics_common_events id='$`kaitana`'>
+<topics_common_events id='$`halom`'>
 </element>
 
 <element name='topics_beitenu'>

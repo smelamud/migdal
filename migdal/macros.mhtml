@@ -228,8 +228,6 @@
        params='&posting'>
 <decel name='topics_gallery_events' file='parts/topics-events.php'
        params='posting'>
-<decel name='topics_gallery_halom' file='parts/topics-gallery-migdal.php'
-       params='posting'>
 <decel name='topics_gallery_home' file='parts/topics-gallery-general.php'
        params='posting'>
 <decel name='topics_gallery_major' file='parts/topics-gallery-major.php'
