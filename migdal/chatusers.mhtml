@@ -6,13 +6,15 @@
  <if what='$user.isVisible'>
   <asp><a href='userinfo.php?id=$user.Id&redir=$_'
           onClick="UserInfo($user.Id);return false"
-	  title='подробнее'><img src='$$style_details_image' border=0></a>
+	  title='подробнее'
+	  target=_blank><img src='$$style_details_image' border=0></a>
  </if>
 <else>
  <if what='$user.isVisible'>
   <a href='userinfo.php?id=$user.Id&redir=$_'
      onClick="UserInfo($user.Id);return false"
-     title='подробнее'><img src='$$style_details_image' border=0></a>&nbsp;<asp>
+     title='подробнее'
+     target=_blank><img src='$$style_details_image' border=0></a>&nbsp;<asp>
  </if>
  <asp><span class='name'>$user.LoginLink</span>
 </if>
@@ -20,7 +22,9 @@
 
 <html>
 <refresh period='$$userChatRefresh' url='$-'>
-<head></head>
+<head>
+ <script src='/window.js' language='JavaScript'></script>
+</head>
 <body>
  <update_last_chat>
  <iterate_chat_users>
