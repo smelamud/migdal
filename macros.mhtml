@@ -143,7 +143,7 @@
 </macro>
 
 <macro name='imgtag'>
- <zone><image_tag id='$message.ImageId'>$,</zone>
+ <zone><image_tag id='$posting.ImageId'>$,</zone>
 </macro>
 
 <macro name='jdate' defaults='time=0'>

@@ -30,7 +30,7 @@ return $list;
 
 function getWorldPostingVars()
 {
-return array('topic_id','grp','personal_id');
+return array('message_id','topic_id','grp','personal_id');
 }
 
 function getAdminPostingVars()
@@ -97,6 +97,8 @@ return $this->topic_name;
 function getPersonalId()
 {
 return $this->personal_id;
+}
+
 }
 
 class Forum
@@ -170,7 +172,7 @@ $topicFilter=$topic==0 ? '' : " and topic_id=$topic ";
 $grpFilter=getPackedGrpFilter($grp);
 $this->LimitSelectIterator(
        'Message',
-       "select postings.id as id,message_id,body,
+       "select postings.id as id,postings.message_id as message_id,body,
 	       subject,grp,sent,topic_id,sender_id,
 	       messages.hidden as hidden,messages.disabled as disabled,
 	       users.hidden as sender_hidden,
@@ -264,7 +266,5 @@ $result=mysql_query(
  or die('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
-}
-
 }
 ?>

@@ -10,10 +10,10 @@
 <body bgcolor=white>
  <top ident='$g.ident'>
  <p>
- <message_obj id='$editid' grp='$grp' topic='$topic_id'>
+ <posting_obj id='$editid' grp='$grp' topic='$topic_id'>
  <setup>
  <form method=post enctype='multipart/form-data'
-       action='actions/messagemod.php'>
+       action='actions/postingmod.php'>
  <input type=hidden name='edittag' value=1>
  <input type=hidden name='redir' value='$redir'>
  <input type=hidden name='editid' value='$editid'>

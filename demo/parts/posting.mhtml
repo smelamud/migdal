@@ -1,0 +1,70 @@
+<< @(#) $Id$ >>
+
+<macro name='rebe'>
+ <if what='$posting.isRebe'><font color=red></if>
+</macro>
+
+<macro name='/rebe'>
+ <if what='$posting.isRebe'></font></if>
+</macro>
+
+<element name='Posting'>
+<table width=100% class='posting'>
+<tr>
+ <ifzero what='$topic'>
+  <td>
+   <a href='postings.php?redir=$_&grp=$grp&topic_id=$posting.TopicId'>
+    $posting.TopicName
+   </a>
+  </td>
+ <else>
+  <td>&nbsp;</td>
+ </ifzero>
+ <td align=right>$posting.SentView</td>
+</tr>
+<tr>
+ <td><b><rebe>$posting.Subject</rebe></b></td>
+ <td align=right><rebe><senderlink message='$posting'></rebe></td>
+</tr>
+<tr><td colspan=2>
+ <ifnzero what='$posting.ImageSet'>
+  <table width=100%><tr>
+   <td>
+    <if what='$posting.hasLargeImage'>
+     <a href='lib/image.php?id=$posting.ImageId&size=large'>
+      <imgtag id='$posting.ImageId'>
+     </a>
+    <else>
+     <imgtag id='$posting.ImageId'>
+    </if>
+   </td>
+   <td>$posting.HTMLBody</td>
+  </tr></table>
+ <else>
+  <rebe>$posting.HTMLBody</rebe>
+ </ifnzero>
+</td></tr>
+<tr>
+<td>
+<isedit name='posting'>
+ <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
+  >[Изменить]</a>
+ <if what='$posting.isModerable'>
+  <if what='$posting.isDisabled'>
+   <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&redir=$_"
+    >[Разрешить показ]</a>
+  <else>
+   <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&redir=$_"
+    >[Запретить показ]</a>
+  </if>
+ </if>
+</isedit>
+</td>
+<td align=right>
+<if what='$discuss'>
+ <a href='forum.php?redir=$_&msgid=$posting.Id'>Обсудить ($posting.AnswerCount)</a>
+</if>
+</td>
+</tr>
+</table>
+</element>

@@ -14,7 +14,7 @@
   </h1></center>
   <table width=100%>
    <tr><td>
-    <messages grp='$grp' topic='$topic_id' limit='$userMsgPortion'
+    <postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
               offset='$offset'>
    </td></tr>
   </table>

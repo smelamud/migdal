@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher_messages' params='value'>
+<element name='batcher_postings' params='value'>
 <table width=100%>
  <form method=get action='$~'>
   <hiddenget remove='mp'>
@@ -16,20 +16,20 @@
 </table><br>
 </element>
 
-<element name='Messages'>
+<element name='Postings'>
 <grpdata>
 <if what='$g.ValidItem'><logged>
- <a href='messageedit.php?topic_id=$topic&grp=$grp&redir=$_'
+ <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
   >Добавить $g.ItemTitle</a>
 </logged></if>
-<iterate_messagelist grp='$grp' topic='$topic' limit='$limit' offset='$offset'>
-<batcher_messages value='$limit'>
+<iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'>
+<batcher_postings value='$limit'>
 <navigator>
 <table width=100%>
 <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
 <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
 <for>
- <tr><td><message message='$.' grp='$grp' topic='$topic'></td></tr>
+ <tr><td><posting posting='$.' grp='$grp' topic='$topic'></td></tr>
 </for>
 </table>
 <navigator>

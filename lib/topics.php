@@ -128,26 +128,27 @@ class TopicListIterator
       extends TopicIterator
 {
 
-function getJoin($grp)
-{
-global $userModerator;
-
-$hide=$userModerator ? 2 : 1;
-$gf=getPackedGrpFilter($grp,'messages.');
-return " and messages.hidden<$hide $gf ";
-}
-
 function TopicListIterator($grp)
 {
-$this->TopicIterator('select topics.id as id,topics.name as name,
-			     description,
-			     count(messages.topic_id) as message_count
-		      from topics left join messages
-			on topics.id=messages.topic_id'.
-		      $this->getJoin($grp).
-		      $this->getWhere($grp,'topics.').
-		     'group by topics.id
-		      order by topics.name');
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$gf=getPackedGrpFilter($grp,'postings.');
+$this->TopicIterator(
+      "select topics.id as id,topics.name as name,description,
+	      count(messages.id) as message_count
+       from topics
+	    left join postings
+	         on topics.id=postings.topic_id $gf
+            left join messages
+	         on postings.message_id=messages.id
+ 	 	    and (messages.hidden<$hide or sender_id=$userId)
+		    and (messages.disabled<$hide or sender_id=$userId)".
+       $this->getWhere($grp,'topics.').
+      'group by topics.id
+       order by topics.name');
+      /* здесь нужно поменять, если будут другие ограничения на
+	 просмотр TODO */
 }
 
 }

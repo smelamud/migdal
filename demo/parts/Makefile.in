@@ -3,7 +3,7 @@
 # @(#) $Id$
 
 OBJECTS = backtrace.php complain.php cs_forum.php cs_normal.php forumanswer.php \
-          forums.php login.php menu.php message.php messages.php top.php \
+          forums.php login.php menu.php posting.php postings.php top.php \
           utils.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml

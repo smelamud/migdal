@@ -11,9 +11,10 @@ require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/topics.php');
-require_once('lib/messages.php');
+require_once('lib/images.php');
+require_once('lib/postings.php');
 
-function modifyMessage($message)
+function modifyPosting($message)
 {
 global $userId;
 
@@ -46,20 +47,20 @@ settype($HTTP_POST_VARS['grp'],'integer');
 
 dbOpen();
 session($sessionid);
-$message=getMessageById($editid,$grp);
+$message=getPostingById($editid,$grp);
 $message->setup($HTTP_POST_VARS);
 $img=uploadImage('image',true,$err);
 if($img)
   $message->setImageSet($img->getImageSet());
 if($err==EIU_OK)
-  $err=modifyMessage($message);
+  $err=modifyPosting($message);
 if($err==EM_OK)
   header("Location: $redir");
 else
   {
   $bodyId=tmpTextSave($body);
   $subjectId=tmpTextSave($subject);
-  header('Location: /messageedit.php?'.
+  header('Location: /postingedit.php?'.
           makeQuery($HTTP_POST_VARS,
 	            array('body',
 		          'subject'),

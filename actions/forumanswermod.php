@@ -11,6 +11,7 @@ require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/forums.php');
 require_once('lib/messages.php');
+require_once('lib/images.php');
 
 function modifyForumAnswer($answer)
 {

@@ -17,7 +17,7 @@
   <iterate_topiclist grp='$g.Effective'>
   <for>
    <p>
-   <b><a href='messages.php?grp=$grp&redir=$_&topic_id=$.Id'>
+   <b><a href='postings.php?grp=$grp&redir=$_&topic_id=$.Id'>
 	  $.Name ($.MessageCount)</a></b>&nbsp;
    <admin_topics>
     <a href='topicedit.php?editid=$.Id&redir=$_'>[Изменить]</a>
