@@ -53,13 +53,13 @@ $this->topic_id=idByIdent('topics',$vars['topic_id']);
 function getCorrespondentVars()
 {
 $list=Message::getCorrespondentVars();
-array_push($list,'ident','grp','personal_id','priority','index1');
+array_push($list,'ident','grp','personal_id','priority','index1','index2');
 return $list;
 }
 
 function getWorldPostingVars()
 {
-return array('message_id','topic_id','grp','personal_id','index1');
+return array('message_id','topic_id','grp','personal_id','index1','index2');
 }
 
 function getAdminPostingVars()
@@ -197,6 +197,11 @@ function getIndex1()
 return $this->index1;
 }
 
+function getIndex2()
+{
+return $this->index2;
+}
+
 function getSubdomain()
 {
 return $this->subdomain;
@@ -280,7 +285,7 @@ $Select="postings.id as id,postings.ident as ident,
 	 messages.url_domain as url_domain,messages.sender_id as sender_id,
 	 messages.hidden as hidden,messages.disabled as disabled,
 	 users.hidden as sender_hidden,postings.index0 as index0,
-	 postings.index1 as index1,subdomain,shadow,
+	 postings.index1 as index1,postings.index2 as index2,subdomain,shadow,
 	 $imageFields
 	 $topicFields
 	 login,gender,email,hide_email,rebe,
@@ -538,7 +543,7 @@ $articleGrpFilter=grpFilter($articleGrp,'grp','postings');
 $coverGrpFilter=grpFilter($coverGrp,'grp','postings');
 $this->SelectIterator(
        'Posting',
-       "select distinct postings.index1 as index1, 
+       "select distinct postings.index1 as index1,covers.index2 as index2,
                cover_messages.source as source
         from postings
              left join postings as covers
@@ -618,8 +623,8 @@ $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
                             body,large_filename,large_format,large_body,
 			    large_imageset,lang,subject,author,source,url,
 			    topic_id,personal_id,sender_id,grp,priority,
-			    image_set,index0,index1,subdomain,sent,hidden,
-			    disabled
+			    image_set,index0,index1,index2,subdomain,sent,
+			    hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
@@ -655,8 +660,8 @@ $result=mysql_query(
 		stotexts.large_body as large_body,messages.lang as lang,
 		messages.subject as subject,messages.author as author,
 		messages.source as source,messages.url as url,grp,
-		postings.index0 as index0,
-		postings.index1 as index1,subdomain,shadow,
+		postings.index0 as index0,postings.index1 as index1,
+		postings.index2 as index2,subdomain,shadow,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,
 		messages.hidden as hidden,messages.disabled as disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,

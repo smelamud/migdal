@@ -13,6 +13,11 @@
 <a href='times.php?issue=$posting.Index1'>Читать журнал</a>
 </element>
 
+<element name='times_no'>
+<assign name='nlast' value!='$index1+$index2'>
+<asp>$index1<if what='$index2>0'>-$nlast</if>
+</element>
+
 <element name='posting_times_cover'>
 <dl class='posting'>
  <dt class='subject'>
@@ -21,7 +26,8 @@
   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
               image='$$style_cframe_back_pic'>
   <a href='times.php?issue=$posting.Index1'>
-   &lt;&lt;Мигдаль Times&gt;&gt; No.$posting.Index1</a>
+   &lt;&lt;Мигдаль Times&gt;&gt; No.<asp>
+   <times_no index1='$posting.Index1' index2='$posting.Index2'></a>
  </dt>
  <dd><p>
  <ifnzero what='$posting.ImageSet'>
@@ -38,8 +44,8 @@
  <further posting='$posting'>
  </p>
  <div class='sent' style="clear: left">
-   <sentview date='$posting.Sent'>&nbsp;
-   <senderlink message='$posting'>
+  <sentview date='$posting.Sent'>&nbsp;
+  <senderlink message='$posting'>
  </div>
  <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
 </dl>

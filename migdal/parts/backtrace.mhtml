@@ -190,7 +190,10 @@
  <assign name='name' value='$,FullName'>
 <elif what="$basename=='times.php'">
  <if what='$issue>0'>
-  <assign name='name' value#='&lt;&lt;Мигдаль Times&gt;&gt; No.$issue'>
+  <posting_obj index1='$issue' grp='*GRP_TIMES_COVERS' topic_id='-1'>
+  <assign name='nlast' value!='$issue+$,Index2'>
+  <assign name='no' value!='$issue>=$nlast ? $issue : "$issue-$nlast"'>
+  <assign name='name' value#='&lt;&lt;Мигдаль Times&gt;&gt; No.$no'>
  <else>
   <assign name='name' value#='&lt;&lt;Мигдаль Times&gt;&gt;'>
  </if>

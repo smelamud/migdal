@@ -70,7 +70,14 @@ index1 (INT)
    getSiblingIssue() выбирает идентификатор соседнего выпуска журнала.
 
 index2 (INT)
-  Резерв.
+  Используется для обозначения "спаренных" выпусков журналов или газет.
+   actions/postingmod.php умеет модифицировать это поле.
+   Есть Posting::getIndex2().
+   Класс Posting воспринимает это поле как общедоступное, устанавливаемое в
+    соответствии с запросом пользователя.
+   PostingListIterator возвращает это поле.
+   getPostingById() и getFullPostingById() возвращают это поле.
+   ArticleCoversIterator возвращает это поле.
 
 index3 (INT)
   Резерв.
@@ -92,6 +99,7 @@ source (VARCHAR(250))
    getPostingById() и getFullPostingById() возвращают это поле.
 
 Based-on: migdal.db 1.71
+Based-on: lib/messages.php 1.98
 Based-on: lib/postings.php 1.127
 Based-on: lib/topics.php 1.90
 

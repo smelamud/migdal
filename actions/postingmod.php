@@ -161,6 +161,7 @@ return EP_OK;
 postInteger('editid');
 postInteger('grp');
 postInteger('index1');
+postInteger('index2');
 postInteger('up');
 postString('body');
 postString('large_body');

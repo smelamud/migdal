@@ -23,8 +23,7 @@
  <center class=pic>
   <image_tag_put id='$cover.ImageId' size=large>
  </center>
- <vote_frame align=right id='$cover.Id' color='$$style_cframe_back'
-             image='$$style_nframe_back_pic'>
+ <vote_frame align=right id='$cover.Id' color='$$style_nframe_back'>
  <center class='posting'><table width=150 class='bottom'><tr>
   <editor>
    <td><editlink posting='$cover'></td>
@@ -34,11 +33,11 @@
 </ifnzero>
 </element>
 
-<element name='times_issue' params='issue,month'>
+<element name='times_issue' params='issue,month,length'>
 <if what='$issue>0'>
  <table width=120>
   <tr><td class='issue'>
-   No.$issue
+   No.<times_no index1='$issue' index2='$length'>
   </td></tr>
   <tr><td class='month'>
    $month
@@ -74,8 +73,10 @@
    <iterate_article_covers articlegrp='*GRP_TIMES_ARTICLES'
  			   covergrp='*GRP_TIMES_COVERS'>
    <for>
-    <assign value!='$.Index1!=0 ? $.Index1 : -1'>
-    <radio title#='No.$.Index1&nbsp;$.Source' value='$*' peervalue='$issue'>
+    <assign name='nfirst' value!='$.Index1!=0 ? $.Index1 : -1'>
+    <assign name='nlast' value!='$nfirst+$.Index2'>
+    <assign name='no' value!='$nfirst>=$nlast ? $nfirst : "$nfirst-$nlast"'>
+    <radio title#='No.$no&nbsp;$.Source' value='$nfirst' peervalue='$issue'>
    </for>
   </select></td>
  </tr>
@@ -147,7 +148,7 @@
    <table><tr valign=bottom><td>
     <image src='pics/times.gif' alt='Мигдаль Times'>
    </td><td>
-    <times_issue issue='$issue' month='$cover.Source'>
+    <times_issue issue='$issue' month='$cover.Source' length='$cover.Index2'>
    </td></tr></table>
    <p>
    <table width=100% cellspacing=5 cellpadding=0><tr valign=top>
@@ -195,7 +196,8 @@
       <a href='times.php?issue=$.Index1'><image_tag_put id='$.ImageId'></a>
      </td></tr>
      <tr><td class=picissue align=center>
-      <a href='times.php?issue=$.Index1'>No.$.Index1</a>
+      <a href='times.php?issue=$.Index1'>
+       No.<times_no index1='$.Index1' index2='$.Index2'></a>
      </td></tr>
     </table>
     <p>
