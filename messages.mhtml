@@ -8,9 +8,9 @@
 </head>
 <body bgcolor=white>
   <top ident='$ident'>
-  <topic_name name='topic' id='$topic_id'>
+  <topic_name id='$topic_id'>
   <center><h1>
-   $g.title по теме &quot;$topic.Name&quot;
+   $g.title по теме &quot;$,Name&quot;
   </h1></center>
   <table width=100%>
    <tr><td>

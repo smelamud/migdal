@@ -22,6 +22,7 @@ $BodyToHeader=0;
 
 $LastIter='';
 $LastItem='';
+$LastResult='';
 
 $Stack='';
 
@@ -59,17 +60,21 @@ sub subVar
 my ($s,$st,$ed)=@_;
 
 my $item=$Stack->top()->getItem();
+my $result=$Stack->top()->getResult();
 
 return $st.constructRemake($1).$ed if $s=~/^\$\[([^\]]*)\]$/;
+return "${st}urlencode(".constructRemake($1).")$ed" if $s=~/^\$%\[([^\]]*)\]$/;
 return "$st$1$ed" if $s=~/^\*(\w+)$/;
 return "${st}urlencode(\$REQUEST_URI)$ed" if $s=~/^\$_$/;
 return "$st\$$1$ed" if $s=~/^\$(\w+)$/;
 return "$st\$$1$ed" if $s=~/^\$\$(\w+)$/;
 return "${st}urlencode(\$$1)$ed" if $s=~/^\$%(\w+)$/;
 return "$st\$$item->get$1()$ed" if $s=~/^\$\.(\w+)$/;
-return "$st\$$1->get$2()$ed" if $s=~/^\$(\w+)\.(\w+)$/;
+return "$st\$$result->get$1()$ed" if $s=~/^\$,(\w+)$/;
+return "$st\$$1->get$2()$ed" if $s=~/^\$(\w+)[\.,](\w+)$/;
 return "${st}urlencode(\$$item->get$1())$ed" if $s=~/^\$%\.(\w+)$/;
-return "${st}urlencode(\$$1->get$2())$ed" if $s=~/^\$%(\w+)\.(\w+)$/;
+return "${st}urlencode(\$$result->get$1())$ed" if $s=~/^\$%,(\w+)$/;
+return "${st}urlencode(\$$1->get$2())$ed" if $s=~/^\$%(\w+)[\.,](\w+)$/;
 return "'$st$s$ed'";
 }
 
@@ -81,7 +86,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*\.?\w+)|(?:\[[^\]]*\])|_))|(?:\*\w+))?)(.*)$/;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|_))|(?:\*\w+))?)(.*)$/;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      }
@@ -214,7 +219,8 @@ sub new
 my ($class,$frame)=@_;
 
 my $data={'iterator' => '',
-          'item'     => ''};
+          'item'     => '',
+	  'result'   => ''};
 if(defined($frame))
   {
   $data->{$name}=$value while(my($name,$value)=each(%{$frame}));
@@ -248,6 +254,20 @@ sub setItem
 my ($self,$value)=@_;
 
 return $self->{'item'}=$value;
+}
+
+sub getResult
+{
+my ($self)=@_;
+
+return $self->{'result'};
+}
+
+sub setResult
+{
+my ($self,$value)=@_;
+
+return $self->{'result'}=$value;
 }
 
 #### Stack ####
@@ -520,19 +540,25 @@ my ($self)=@_;
 ::body('<?php } ?>');
 }
 
-sub elObj #XXX Possibly empty name,class
+sub elObj #XXX Possibly empty class
 {
 my ($self)=@_;
 
-::body('<?php $',$self->getArg('name'),'=new ',$self->getArg('class'),
+my $name=$self->getArg('name');
+$name='result'.($::LastResult++) if $name eq '';
+$::Stack->top()->setResult($name);
+::body("<?php \$$name=new ",$self->getArg('class'),
        '(',::constructParams($self->getArgs()),') ?>');
 }
 
-sub elCall #XXX Possibly empty name,func
+sub elCall #XXX Possibly empty func
 {
 my ($self)=@_;
 
-::body('<?php $',$self->getArg('name'),'=',$self->getArg('func'),
+my $name=$self->getArg('name');
+$name='result'.($::LastResult++) if $name eq '';
+$::Stack->top()->setResult($name);
+::body("<?php \$$name=",$self->getArg('func'),
        '(',::constructParams($self->getArgs()),') ?>');
 }
 
