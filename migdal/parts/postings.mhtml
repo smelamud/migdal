@@ -12,13 +12,13 @@
     <logged>
      <if what='$g.Valid'>
       <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
-       >Добавить $grpitemtitle</a>
+         class='add'>Добавить $grpitemtitle</a>
      <else>
       <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
-       >Добавить новость</a>
+         class='add'>Добавить новость</a>
       </td><td width=20></td><td>
       <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
-       >Добавить статью</a>
+         class='add'>Добавить статью</a>
      </if>
     </logged>
    </td></tr></table></td>
