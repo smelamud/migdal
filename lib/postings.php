@@ -126,6 +126,11 @@ function getGrp()
 return $this->grp;
 }
 
+function setGrp($grp)
+{
+$this->grp=$grp;
+}
+
 function getPriority()
 {
 return $this->priority;
@@ -217,12 +222,14 @@ $name=getGrpClassName($grp);
 return new $name($row);
 }
 
-function newDetailedPosting($grp,$topic_id=-1,$sender_id=0,$id=0)
+function newDetailedPosting($grp,$topic_id=-1,$sender_id=0,$id=0,
+                            $topic_name='')
 {
-return newPosting(array('id'        => $id,
-                        'grp'       => $grp,
-                        'topic_id'  => $topic_id,
-			'sender_id' => $sender_id));
+return newPosting(array('id'         => $id,
+                        'grp'        => $grp,
+                        'topic_id'   => $topic_id,
+                        'topic_name' => $topic_name,
+			'sender_id'  => $sender_id));
 }
 
 class PostingListIterator

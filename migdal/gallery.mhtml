@@ -53,7 +53,7 @@
    <else>
     <div class='nframe' style='margin-bottom: 5px; padding: 5px'>
      <subtitle icon='pics/gall-big.gif'>
-     <seealso_links topic_id='$topic_id'
+     <seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'
 		    title='См. также в разделе ссылок'>
      <notlogged>
       <div class='info'>

@@ -113,7 +113,8 @@
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
 <deciter macro='topic_cross' class='CrossTopicIterator' file='lib/topics.php'
-         params='cross,grp' defaults="grp='*GRP_ALL'">
+         params='cross,peer_grp,topic_grp'
+	 defaults="peer_grp='*GRP_ALL' topic_grp='*GRP_ALL'">
 <deciter macro='topic_hierarchy' class='TopicHierarchyIterator'
          file='lib/topics.php' params='topic_id,root,reverse'
 	 defaults="root=-1 reverse='*false'">
@@ -222,8 +223,8 @@
 	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
 	           recursive=*false'>
 <deccall macro='posting_new' func='newDetailedPosting' file='lib/postings.php'
-         params='grp,topic_id,sender_id,id'
-	 defaults="topic_id=-1 sender_id=0 id=0">
+         params='grp,topic_id,sender_id,id,topic_name'
+	 defaults="topic_id=-1 sender_id=0 id=0 topic_name=''">
 <deccall macro='posting_random' func='getRandomPostingId'
          file='lib/postings.php' params='grp,topic_id,user_id,index1'
 	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1'>

@@ -1,7 +1,9 @@
 << @(#) $Id$ >>
 
 <int name='topic_id'>
+<int name='topic_grp'>
 <int name='peer_id'>
+<int name='peer_grp'>
 <grps>
 <topic_name id='$topic_id'>
 <pagetitle title#='Добавление перекрестной ссылки к теме "$,Name"'>
@@ -25,8 +27,13 @@
 	    text='Ошибка базы данных при проверке наличия ссылки'>
      <error id='*ETLA_SQL_INSERT' color='magenta' span=2
 	    text='Ошибка базы данных при добавлении записи'>
+     <tr><td colspan=2><i>Связать</i></td></tr>
+     <grpselect name='topic_grp' value='$topic_grp' mandatory='*true'>
+     <tr><td colspan=2>&nbsp;</td></tr>
+     <tr><td colspan=2><i>С сообщениями</i></td></tr>
      <topicselect name='peer_id' value='$peer_id' grp='*GRP_LINKS'
 		  mandatory='*true' root='$`links`' recursive='*true'>
+     <grpselect name='peer_grp' value='$peer_grp' mandatory='*true'>
      <formbuttons title='Добавить' span=2>
     </table>
    </form>

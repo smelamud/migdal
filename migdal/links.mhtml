@@ -112,7 +112,8 @@
    </if>
    <admin>
    <navigator topic_id='$topic_id'>
-   <seealso_links topic_id='$topic_id'>
+   <seealso_links topic_id='$topic_id' topic_grp='*GRP_LINKS'>
+   <<seealso_other topic_id='$topic_id' topic_grp='*GRP_LINKS'>>
   </td></tr>
   <tr><td class='cframe'><outer>
    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
