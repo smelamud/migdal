@@ -125,7 +125,7 @@
 		index1!='$issue<0 ? 0 : $issue'>
   <td class='mtimes cframe'>
    <table><tr valign=bottom><td>
-    <image src='pics/times.gif'>
+    <image src='pics/times.gif' alt='Мигдаль Times'>
    </td><td>
     <times_issue issue='$issue' month='$cover.Source'>
    </td></tr></table>

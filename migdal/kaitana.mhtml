@@ -18,31 +18,33 @@
 </macro>
 <endif name='/editor'>
 
-<element name='kaitana_controls' params='posting,kaitana'>
-<div align=right>
- <table class='controls'>
-  <tr>
-   <editor>
+<element name='kaitana_controls' params='posting,kaitana,align'
+                                 defaults="align=''">
+<ifne what='$align'>
+ <assign name='al' value#='align=$align'>
+</ifne>
+<table class=controls $al>
+ <tr>
+  <editor>
+   <td>
+    <a href="postingedit.php?editid=$posting.Id&up=$kaitana.Id&grp=$posting.Grp&redirid=$_"
+       >Изменить</a>
+   </td>
+   <if what='$posting.isModerable'>
     <td>
-     <a href="postingedit.php?editid=$posting.Id&up=$kaitana.Id&grp=$posting.Grp&redirid=$_"
-	>Изменить</a>
+     <if what='$posting.isDisabled'>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+       >Разрешить показ</a>
+     <else>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+       >Запретить показ</a>
+     </if>
     </td>
-    <if what='$posting.isModerable'>
-     <td>
-      <if what='$posting.isDisabled'>
-       <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	>Разрешить показ</a>
-      <else>
-       <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	>Запретить показ</a>
-      </if>
-     </td>
-    </if>
-   </editor>
-   <td><discusslink posting='$posting'></td>
-  </tr>
- </table>
-</div>
+   </if>
+  </editor>
+  <td><discusslink posting='$posting'></td>
+ </tr>
+</table>
 </element>
 
 <html>
@@ -59,23 +61,36 @@
    <topics posting='$,' showchapters='*true'>
   </zone></td>
   <td class='cframe'>
-   <div style='font: bold 22pt $$style_times; padding-bottom: 2ex;'>
-    Летняя площадка - 5762
-   </div>
-   <editor>
-    <div class=batcher>
-     <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
-	class=add>Добавить новость</a>
-     &nbsp;
-     <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
-	class=add>Добавить картинку</a>
-    </div>
-   </editor>
+   <table class=article width=100%
+          cellspacing=5 cellpadding=0><tr valign=bottom>
+    <td rowspan=2 width=210><image src='pics/kaitana.gif'></td>
+    <td colspan=2 style='font: bold 24pt $$style_times; color: teal;'>
+     Летняя площадка - 5762
+    </td>
+   </tr>
+   <tr>
+    <td align=right>
+     <kaitana_controls posting='$posting' kaitana='$kaitana'>
+    </td>
+    <td width=120>
+     <editor>
+      <div class=batcher>
+       <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
+	  class=add>Добавить новость</a>
+       <br>
+       <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+	  class=add>Добавить картинку</a>
+      </div>
+     <else>
+      &nbsp;
+     </editor>
+    </td>
+   </tr></table>
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
 			 sort='*SORT_RATING' limit=0
-	     index1!='$posting.Id!=0 ? $posting.Index1 : ($day<=0 ? 1 : $day)'>
-    <td width=110>
+ 	     index1!='$posting.Id!=0 ? $posting.Index1 : ($day<=0 ? 1 : $day)'>
+    <td width=140>
      <for>
       <if what='$;isOdd'>
        <kaitana_picture picture='$.'>
@@ -83,20 +98,16 @@
      </for>
     </td>
     <td>
-     <kaitana_controls posting='$posting' kaitana='$kaitana'>
      <ifnzero what='$posting.Id'>
-      <table align=right class=sent>
-       <tr><td>&nbsp;</td></tr>
+      <table class=sent align=right>
        <tr><td align=right><sentview date='$posting.Sent'></td></tr>
        <tr><td align=right><senderlink message='$posting'></td></tr>
       </table>
       <h1 style='clear: both'>$posting.Subject</h1>
-      <p>
-      $posting.HTMLBody
-      </p>
+      <p>$posting.HTMLBody</p>
       <vote_frame id='$posting.Id' color='$$style_cframe_back'
 		  image='$$style_cframe_back_pic' align=center>
-      <kaitana_controls posting='$posting' kaitana='$kaitana'>
+      <kaitana_controls posting='$posting' kaitana='$kaitana' align=right>
      </ifnzero>
     </td>
     <td width=140>
