@@ -101,7 +101,7 @@
               arrow!='$,Id==$posting.Id' indent=0 span=2 class='item ninept'>
  <posting_last topic_id='$`jcc`' recursive='*true'>
  <topics_line time='$,' href#='jcc.php' text='Общинный центр (JCC)'
-              title='Живопись, музыка, танцы, группы по возрастам'
+              title='Живопись, музыка, танцы, программы для всех возрастов'
 	      arrow!="$/$posting.TopicId,1/==$`jcc`" indent=1
 	      class='item eightpt'>
  <for>
@@ -130,7 +130,7 @@
 		     topic_id='$`migdal`' recursive='*false'>
 <posting_last topic_id='$`jcc`' recursive='*true'>
 <topics_line time='$,' href#='jcc.php' indent=1 text='Общинный центр (JCC)'
-             title='Живопись, музыка, танцы, группы по возрастам'
+             title='Живопись, музыка, танцы, программы для всех возрастов'
              class='item eightpt'>
 <for>
  <if what='$.Id!=$`postings:migdal`'>
