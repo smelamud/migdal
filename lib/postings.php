@@ -171,7 +171,7 @@ class PostingListIterator
 
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
-			     $withAnswers=GRP_NONE,$user=0,$index1=-1)
+			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0)
 {
 global $userId,$userModerator;
 
@@ -194,6 +194,7 @@ $answerFilter=$withAnswers!=GRP_NONE
 	      : '';
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
 $index1Filter=$index1>=0 ? "and index1=$index1" : '';
+$sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
@@ -240,7 +241,7 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
-	      $userFilter $index1Filter
+	      $userFilter $index1Filter $sentFilter
 	group by messages.id
 	$answerFilter
 	$order",$limit,$offset,

@@ -81,8 +81,8 @@
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting'>
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user,index1'
-         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1">
+         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user,index1,later'
+         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1 later=0">
 <deciter macro='posting_users' class='PostingUsersIterator'
          file='lib/postings.php' params='grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">

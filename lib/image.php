@@ -3,6 +3,7 @@
 
 require_once('conf/migdal.conf');
 
+require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 
 dbOpen();

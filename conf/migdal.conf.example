@@ -109,6 +109,19 @@ $wgetPath='wget';
 # Команда для отправки почты
 $sendmailCommand='/usr/sbin/sendmail -t';
 
+# Команда для упаковки каталога (имя каталога подставляется вместо '%') на
+# STDOUT
+
+$compressCommand='tar zcf - %';
+
+# Тип (MIME-type) упакованного каталога
+
+$compressType='application/x-tar';
+
+# Encoding упакованного каталога
+
+$compressEncoding='x-gzip';
+
 # Маленькое изображение, используемое в случае, когда невозможно изменить
 # размеры большого (путь задается относительно библиотеки, т.е. каталога lib/)
 $defaultThumbnail='../migdal/pics/click_here.jpg';
