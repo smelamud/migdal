@@ -1102,7 +1102,14 @@ $::Stack->pop();
 my $name=$::ElementName;
 $::ElementName='';
 my $func=$::Elements{$name}->{'name'};
-my @params=map "\$$_",@{$::Elements{$name}->{'params'}};
+my @params=();
+foreach(@{$::Elements{$name}->{'params'}})
+       {
+       push @params,"\$$_".
+                    (exists($::Elements{$name}->{'defaults'}->{$_})
+                     ? '='.::subVar($::Elements{$name}->{'defaults'}->{$_})
+		     : '');
+       }
 my $globals='';
 $globals="global ".join(',',map {"\$$_"} @::ElementGlobals).";\n"
          if scalar(@::ElementGlobals)>0;
