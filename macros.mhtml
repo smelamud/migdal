@@ -159,6 +159,8 @@
 
 <deccall macro='chat_users_count' func='getChatUsersCount'
          file='lib/chat-users.php'>
+<decexec macro='common' func='beginCommon' file='lib/inner.php'>
+<decexec macro='/common' func='endCommon' file='lib/inner.php'>
 <deccall macro='complain_action_obj' func='getComplainActionById'
          file='lib/complainactions.php' params='id' defaults='name=act'>
 <deccall macro='complain_full' func='getFullComplainById'
@@ -192,11 +194,15 @@
 	 defaults="align='' size=small src='lib/image.php'">
 <deccall macro='image_link' func='getImageEnlargeLinkById' file='lib/images.php'
          params='id'>
+<decexec macro='inner' func='beginInner' file='lib/inner.php'>
+<decexec macro='/inner' func='endInner' file='lib/inner.php'>
 <deccall macro='last_chat' func='getLastChat' file='lib/chat-users.php'
          params='id'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
 <deccall macro='message_posting' func='getPostingIdByMessageId'
          file='lib/postings.php' params='id'>
+<decexec macro='outer' func='beginOuter' file='lib/inner.php'>
+<decexec macro='/outer' func='endOuter' file='lib/inner.php'>
 <deccall macro='perms' func='getPermsById' file='lib/permissions.php'
          params='table,id'>
 <deccall macro='plural' func='getPlural' file='lib/utils.php'
