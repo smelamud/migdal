@@ -356,7 +356,7 @@ var $fields;
 var $grp;
 
 function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
-                           $subdomain=-1 /* obsolete */,$withSeparate=true,
+                           $subdomain=-1 /* deprecated */,$withSeparate=true,
 			   $sort=SORT_NAME,$recursive=false,$level=1,
 			   $fields=SELECT_GENERAL)
 {
