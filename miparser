@@ -839,11 +839,14 @@ my ($self)=@_;
 ::request('lib/database.php');
 ::request('lib/session.php');
 ::request('lib/mail.php');
+::request('lib/post.php');
 ::header(<<EOT);
 <?php
-parse_str(\$argv[1]);
+commandLineArgs();
+
+parse_str(\$args[0]);
 dbOpen();
-session(\$argv[2]);
+session(\$args[1]);
 ob_start();
 ?>
 EOT

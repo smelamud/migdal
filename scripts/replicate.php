@@ -12,6 +12,7 @@ require_once('lib/track.php');
 require_once('lib/permissions.php');
 require_once('lib/postings-info.php');
 require_once('lib/answers.php');
+require_once('lib/post.php');
 
 function executeTrackQuery($query)
 {
@@ -128,10 +129,12 @@ if(!$replicationMaster && isJournalEmpty())
   duplicateDatabase();
 }
 
+commandLineArgs();
+
 dbOpen(!$replicationMaster);
 endJournal();
 session();
-replicate($argv[1]);
+replicate($args[0]);
 beginJournal();
 dbClose();
 

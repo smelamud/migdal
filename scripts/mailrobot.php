@@ -23,7 +23,7 @@ $link=$mail->getLink();
 $userId=$mail->getReceiverId();
 $linkParam=urlencode("link=$link");
 preg_match("/^(.+?\n)\n(.*)$/s",
-           file_get_contents("http://$siteDomain/lib/run-script?name=$path&argv[]=$linkParam&argv[]=$userId"),
+           file_get_contents("http://$siteDomain/lib/run-script?name=$path&args[]=$linkParam&args[]=$userId"),
 	   $mailparts);
 $heads=explode("\n",$mailparts[1]);
 $newheads=array();
