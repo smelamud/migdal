@@ -161,8 +161,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic<0 || $recursive && $topic==0) ? ''
-             : ' and '.byIdent($topic,'topic_id','topics.ident',$recursive,
-                               'topics','topics.track');
+             : ' and topics.'.byIdentRecursive('topics',$topic,$recursive);
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
@@ -284,8 +283,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
-             : ' and topics.'.byIdent($topic_id,'id','ident',$recursive,
-	                              'topics');
+             : ' and topics.'.byIdentRecursive('topics',$topic_id,$recursive);
 $this->SelectIterator(
        'User',
        "select distinct users.id as id,login,gender,email,hide_email,rebe,
