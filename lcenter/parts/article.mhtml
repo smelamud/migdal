@@ -169,7 +169,9 @@
   </ifne>
  </table>
 </ifnzero>
-$posting.HTMLBody
+<p>
+ $posting.HTMLBody
+</p>
 <article posting='$posting'>
 <ifne what='$posting.Source'>
  <div class='source' align=right>$posting.HTMLSource</div>
