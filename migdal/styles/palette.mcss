@@ -31,6 +31,7 @@ banner_migdal=pics/migdal.jpg
 banner_online=pics/online.jpg
 state_date=%nd
 register_hover=blue
+login_name=blue
 login_text=%mrm
 login_input_back=%mrl
 login_input_border=%mrd

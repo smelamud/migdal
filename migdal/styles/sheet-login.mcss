@@ -1,4 +1,5 @@
 .login A.name {
+	color: %login_name;
 	font: bold 11pt %courier;
 	text-decoration: underline;
 }
