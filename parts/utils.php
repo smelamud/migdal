@@ -104,4 +104,25 @@ return "<br><table width=100%><tr>
 	</tr></table><br>';
 }
 
+function batcher($current)
+{
+$s='<table width=100%><tr><td align=right><table><form>
+    <tr valign=center>
+     <td>Показывать по&nbsp;</td>
+     <td><select>';
+$shows=array(10,15,20,25,30,35,40);
+$shows[]=$current;
+sort($shows);
+$shows=array_unique($shows);
+foreach($shows as $val)
+       $s.="<option label=$val value=$val ".
+                               ($val==$current ? 'selected' : '').
+	   ' >';
+return "  $s
+         </select></td>
+         <td>сообщений&nbsp;</td>
+         <td><input type=submit value='Изменить'></td>
+         </tr>
+        </form></table></td></tr></table>";
+}
 ?>

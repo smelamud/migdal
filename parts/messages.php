@@ -25,25 +25,8 @@ if(isset($title) && $userId>0)
   }
 $list=new MessageListIterator($grp,$topic,$limit,$offset);
 echo navigator($list);
+echo batcher($limit);
 ?>
-<table width=100%><tr><td align=right><table><form>
-<tr valign=center>
-<td>Показывать по&nbsp;</td>
-<td><select>
-<?php
-$shows=array(10,15,20,25,30,35,40);
-$shows[]=$limit;
-sort($shows);
-$shows=array_unique($shows);
-foreach($shows as $val)
-       echo "<option label=$val value=$val ".
-             ($val==$limit ? 'selected' : '').
-	    ' >';
-?>
-</select></td>
-<td>сообщений&nbsp;</td>
-<td><input type=submit value='Изменить'></td>
-</form></table></td></tr></table>
 <table width=100%>
 <?php
 perror(EMH_NO_MESSAGE,'Такого сообщения не существует');
