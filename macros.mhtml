@@ -314,6 +314,11 @@
 </macro>
 <endif name='/judge'>
 
+<macro name='admin_domain'>
+ <if what='$$userAdminDomain'>
+</macro>
+<endif name='/admin_domain'>
+
 << Typecasts >>
 <macro name='int'>
  <header>

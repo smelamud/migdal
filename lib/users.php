@@ -34,6 +34,7 @@ var $admin_users;
 var $admin_topics;
 var $moderator;
 var $judge;
+var $admin_domain;
 var $hidden;
 var $online;
 var $no_login;
@@ -65,8 +66,8 @@ function getCorrespondentVars()
 return array('login','password','dup_password','name','jewish_name','surname',
              'gender','migdal_student','info','email','hide_email','icq',
 	     'accepts_complains','admin_users','admin_topics',
-	     'admin_complain_answers','moderator','judge','hidden','no_login',
-	     'has_personal');
+	     'admin_complain_answers','moderator','judge','admin_domain','hidden',
+	     'no_login','has_personal');
 }
 
 function getWorldVars()
@@ -78,8 +79,8 @@ return array('login','name','jewish_name','surname','gender','info','birthday',
 function getAdminVars()
 {
 return array('accepts_complains','admin_users','admin_topics',
-             'admin_complain_answers','moderator','judge','hidden','no_login',
-	     'has_personal');
+             'admin_complain_answers','moderator','judge','admin_domain','hidden',
+	     'no_login','has_personal');
 }
 
 function store()
@@ -279,6 +280,11 @@ function isJudge()
 return $this->judge;
 }
 
+function isAdminDomain()
+{
+return $this->admin_domain;
+}
+
 function isHidden()
 {
 return $this->hidden ? 1 : 0;
@@ -364,8 +370,8 @@ $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
                             surname,gender,info,birthday,migdal_student,
 			    last_online,email,hide_email,icq,email_disabled,
 			    accepts_complains,admin_users,admin_topics,
-			    admin_complain_answers,moderator,judge,hidden,
-			    no_login,has_personal,
+			    admin_complain_answers,moderator,judge,admin_domain,
+			    hidden,no_login,has_personal,
 			    max(sessions.user_id) as online,
 			    min(floor((unix_timestamp(now())
 				      -unix_timestamp(sessions.last))/60))

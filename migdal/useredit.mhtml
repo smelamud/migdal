@@ -119,6 +119,8 @@
 		    title='Модератор'>
      <checkbox_line name='judge' value='$,isJudge' span=2
 		    title='Арбитр'>
+     <checkbox_line name='admin_domain' value='$,isAdminDomain' span=2
+		    title='Администратор субдоменов'>
      <checkbox_line name='hidden' value='$,isHidden' span=2
 		    title='Не показывать в списке пользователей'>
      <checkbox_line name='no_login' value='$,isNoLogin' span=2
