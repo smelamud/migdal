@@ -27,7 +27,6 @@ var $rec_hidden;
 function Complain($row)
 {
 $this->id=0;
-$this->grp=GRP_COMPLAIN;
 $this->Message($row);
 $this->recipient_info=
        new SenderTag(array('sender_id'     => $this->recipient_id,
@@ -46,7 +45,7 @@ return array('body','subject','type_id','link');
 
 function getWorldMessageVars()
 {
-return array('body','subject','grp');
+return array('body','subject');
 }
 
 function getAdminMessageVars()
