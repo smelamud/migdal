@@ -22,17 +22,17 @@ define('ET_DESCRIPTION_ABSENT',122);
 define('ET_NO_EDIT',123);
 define('ET_STORE_SQL',124);
 
-define('EM_OK',130);
-define('EM_NO_EDIT',131);
-define('EM_BODY_ABSENT',132);
-define('EM_SUBJECT_ABSENT',133);
-define('EM_STORE_SQL',134);
-define('EM_TOPIC_ABSENT',135);
-define('EM_NO_TOPIC',136);
-define('EM_NO_PERSONAL',137);
-define('EM_NO_SEND',138);
-define('EM_IMAGE_ABSENT',139);
-define('EM_NO_IMAGE',1310);
+define('EP_OK',130);
+define('EP_NO_EDIT',131);
+define('EP_BODY_ABSENT',132);
+define('EP_SUBJECT_ABSENT',133);
+define('EP_STORE_SQL',134);
+define('EP_TOPIC_ABSENT',135);
+define('EP_NO_TOPIC',136);
+define('EP_NO_PERSONAL',137);
+define('EP_NO_SEND',138);
+define('EP_IMAGE_ABSENT',139);
+define('EP_NO_IMAGE',1310);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);

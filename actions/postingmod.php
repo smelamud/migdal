@@ -19,26 +19,26 @@ function modifyPosting($message)
 global $userId;
 
 if($userId<=0)
-  return EM_NO_SEND;
+  return EP_NO_SEND;
 if(!$message->isEditable())
-  return EM_NO_EDIT;
+  return EP_NO_EDIT;
 if($message->body=='')
-  return EM_BODY_ABSENT;
+  return EP_BODY_ABSENT;
 if($message->mandatorySubject() && $message->subject=='')
-  return EM_SUBJECT_ABSENT;
+  return EP_SUBJECT_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
-  return EM_TOPIC_ABSENT;
+  return EP_TOPIC_ABSENT;
 if($message->topic_id!=0 && !topicExists($message->topic_id))
-  return EM_NO_TOPIC;
+  return EP_NO_TOPIC;
 if($message->mandatoryImage() && $message->image_set==0)
-  return EM_IMAGE_ABSENT;
+  return EP_IMAGE_ABSENT;
 if($message->image_set!=0 && !imageSetExists($message->image_set))
-  return EM_NO_IMAGE;
+  return EP_NO_IMAGE;
 if($message->personal_id!=0 && !personalExists($message->personal_id))
-  return EM_NO_PERSONAL;
+  return EP_NO_PERSONAL;
 if(!$message->store())
-  return EM_STORE_SQL;
-return EM_OK;
+  return EP_STORE_SQL;
+return EP_OK;
 }
 
 settype($editid,'integer');
@@ -54,7 +54,7 @@ if($img)
   $message->setImageSet($img->getImageSet());
 if($err==EIU_OK)
   $err=modifyPosting($message);
-if($err==EM_OK)
+if($err==EP_OK)
   header("Location: $redir");
 else
   {

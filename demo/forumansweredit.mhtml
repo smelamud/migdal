@@ -23,7 +23,7 @@
  <error id='*EFA_NO_EDIT' text='У вас нет права редактировать это сообщение'>
  <error id='*EFA_STORE_SQL' text='Ошибка базы данных при обновлении записи'
         color='magenta'>
- <error id='*EM_NO_UP'
+ <error id='*EFA_NO_UP'
         text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
  <tr><td><table>
   <if what='$answer.hasSubject'>
