@@ -1,13 +1,6 @@
 << @(#) $Id$ >>
-<errors>
-<element name='LoginError' params='err'>
-<if what='$err==EL_INVALID'>
- <tr><td colspan=5><a name='error'>
-  <font color='red'>Неверный ник или пароль</font>
- </td></tr>
-</if>
-</element>
 
+<errors>
 <element name='Login'>
 <notlogged>
  <form method=post action='actions/login.php'>
@@ -16,7 +9,7 @@
 </notlogged>
 <hidden name='redir' value="$[err]">
 <table>
-<loginerror err='$err'>
+<error id='*EL_INVALID' text='Неверный ник или пароль' span=5>
 <notlogged>
  <tr>
   <td>Ник</td>
