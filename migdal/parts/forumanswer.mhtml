@@ -12,7 +12,7 @@
 <element name='Forum_Answer'>
 <table width=100% class='forum'>
 <tr>
- <td width=25% class='header'><table cellpadding=0>
+ <td width=25% align=left valign=center class='header'><table cellpadding=0>
   <tr><td><rebe><senderlink message='$answer'></rebe></td></tr>
   <tr><td class='sent'><sentview date='$answer.Sent'></td></tr>
  </table></td>
@@ -21,7 +21,7 @@
  </td>
 </tr>
 <tr>
- <td class='controls'>
+ <td class='controls'>&nbsp;
   <isedit name='answer'>
    <a href="forumansweredit.php?editid=$answer.Id&redir=$_"
     >Изменить</a>

@@ -329,7 +329,6 @@ forums_batcher_input_text=%vd
 
 .forum .controls {
 	background-color: %forum_header_back;
-	padding-left: .5em;
 }
 
 .forum .controls A {
