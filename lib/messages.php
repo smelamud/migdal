@@ -55,7 +55,7 @@ if(isset($vars['urlid']))
 
 function getCorrespondentVars()
 {
-return array('subject','author','source','hidden','disabled','url');
+return array('up','subject','author','source','hidden','disabled','url');
 }
 
 function getWorldVars()
