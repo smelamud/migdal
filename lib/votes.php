@@ -3,6 +3,18 @@
 
 require_once('lib/ip.php');
 
+function getRatingSQL($vote,$vote_count)
+{
+return "if($vote_count=0,2.5,".
+       "$vote_count/($vote_count+1)*($vote/$vote_count-2.5)+2.5)";
+}
+
+function getRating($vote,$vote_count)
+{
+return $vote_count==0 ? 2.5
+                      : $vote_count/($vote_count+1)*($vote/$vote_count-2.5)+2.5;
+}
+
 function getVote($id)
 {
 global $userId,$REMOTE_ADDR;

@@ -19,6 +19,7 @@ require_once('lib/select.php');
 require_once('lib/alphabet.php');
 require_once('lib/forums.php');
 require_once('lib/counters.php');
+require_once('lib/votes.php');
 
 class Posting
       extends Message
@@ -168,7 +169,7 @@ return $this->personal_id;
 
 function getVote()
 {
-return $this->vote_count==0 ? 2.5 : $this->vote/$this->vote_count;
+return getRating($this->vote,$this->vote_count);
 }
 
 function getVoteCount()
@@ -429,7 +430,7 @@ $Order=getOrderBy($sort,
 	     SORT_INDEX0     => 'postings.index0',
 	     SORT_INDEX1     => 'postings.index1',
 	     SORT_RINDEX1    => 'postings.index1 desc',
-	     SORT_RATING     => 'if(vote_count=0,2.5,vote/vote_count) desc,'.
+	     SORT_RATING     => getRatingSQL('vote','vote_count').' desc,'.
 	                        'vote_count desc,sent desc',
 	     SORT_URL_DOMAIN => 'url_domain,url',
 	     SORT_TOPIC_INDEX0_INDEX0
