@@ -10,6 +10,15 @@ $track=sprintf('%010u',$id);
 return $prev!='' ? "$prev $track" : $track;
 }
 
+function upById($table,$id)
+{
+$result=mysql_query("select up
+                     from $table
+		     where id=$id")
+	  or sqlbug("Ошибка SQL при выборке родителя из $table");
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
 $tracks=array();
 
 function trackById($table,$id)
@@ -44,7 +53,7 @@ return mysql_query("update $table
 		    where id=$id");
 }
 
-function updateTracks($table,$id)
+function updateTracks($table,$id,$journalize=true)
 {
 $result=mysql_query("select id,up
                      from $table
@@ -60,7 +69,8 @@ while($row=mysql_fetch_assoc($result))
      $tracks[$row['id']]=track($row['id'],$tracks[$row['up']]);
      updateTrackById($table,$row['id'],$tracks[$row['id']]);
      }
-journal("tracks $table ".journalVar($table,$id));
+if($journalize)
+  journal("tracks $table ".journalVar($table,$id));
 return true;
 }
 

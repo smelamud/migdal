@@ -243,7 +243,8 @@ $row=array('id' => $list[0],
 	   'result_table' => ($list[2]=='%' ? '' : $list[2]),
 	   'result_id' => $list[3],
 	   'result_var' => $list[4],
-	   'query' => ($list[5]=='%' ? '' : $list[5]));
+	   'query' => ($list[5]=='' ? 'error'
+	                            : ($list[5]=='%' ? '' : $list[5])));
 return new JournalLine($row);
 }
 ?>

@@ -7,9 +7,15 @@ require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/journal.php');
+require_once('lib/track.php');
 
 function executeTrackQuery($query)
 {
+list($command,$table,$id)=explode(' ',$query);
+$up=upById($table,$id);
+updateTrackById($table,$id,track($id,$up==0 ? '' : trackById($table,$up)));
+if($command=='tracks')
+  updateTracks($table,$id,false);
 }
 
 function executeAction($action)
