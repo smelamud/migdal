@@ -19,6 +19,7 @@ cat << EOF
 \$thumbnailWidth=50;  # pixels
 \$thumbnailHeight=50; # pixels
 \$sessionTimeout=1;   # hours
+\$tmpTextTimeout=24;  # hours
 ?>
 EOF
 }

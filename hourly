@@ -74,6 +74,8 @@ sub run
 {
 $dbh->do('delete from sessions where last+interval '.$Config{'sessionTimeout'}.
          ' hour<now()');
+$dbh->do('delete from tmp_texts where last_access+interval '.
+          $Config{'tmpTextTimeout'}.' hour<now()');
 }
 
 sub done
