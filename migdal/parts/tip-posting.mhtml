@@ -24,16 +24,6 @@
    <assign name='len' value='100%'>
   </if>
   <p>
-  <ifnzero what='$posting.ImageSet'>
-   <table align=left class='pic'>
-    <tr><td>
-     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
-    </td></tr>
-    <ifne what='$posting.Title'>
-     <tr><td>$posting.HTMLTitle</td></tr>
-    </ifne>
-   </table>
-  </ifnzero>
   <biff time='$posting.Sent'>
   <if what='$shorten'>
    $posting.HTMLBodyMedium&nbsp;<asp>

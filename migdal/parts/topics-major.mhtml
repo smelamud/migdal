@@ -9,7 +9,7 @@
 </element>
 
 <element name='navi_main' params='ident'>
-<topics_line href='index.php?topic_id=-1' title='На главную страницу'
+<topics_line href='index.php' title='На главную страницу'
 	     text='Главная' arrow!="$ident=='index'">
 
 </element>

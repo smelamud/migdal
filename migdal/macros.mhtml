@@ -180,6 +180,17 @@
  <if what='%posting.TapeCenter'></center></if>
 </macro>
 
+<macro name='image_linked_tag' defaults="enlarge=true align=''">
+ <zone>
+  <if what='%enlarge'>
+   <image_link id%!id='%id'>$,<image_tag_put id%!id='%id' align%!align='%align'
+                                             src='thumbnail.php'></a>
+  <else>
+   <image_tag_put id%!id='%id' align%!align=%align>
+  </if>
+ </zone>
+</macro>
+
 << HTML shortcuts >>
 <macro name='/at'>
  <asp></a><asp>

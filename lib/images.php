@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
@@ -244,5 +246,27 @@ $result=mysql_query("select id
 		     where id=$id")
 	     or die('Ошибка SQL при проверке наличия изображения');
 return mysql_num_rows($result)>0;
+}
+
+function imageLoad($mime,$content)
+{
+global $tmpDir,$maxImage;
+
+if((ImageTypes() & getImageTypeCode($mime))==0)
+  return false;
+$tmpFile=tempnam($tmpDir,'mig-load-');
+$fd=fopen($tmpFile,'w');
+fwrite($fd,$content,$maxImage);
+fclose($fd);
+$ext=getImageTypeName($mime);
+if($ext=='')
+  {
+  unlink($tmpFile);
+  return false;
+  }
+$imageFrom="ImageCreateFrom$ext";
+$handle=$imageFrom($tmpFile);
+unlink($tmpFile);
+return $handle;
 }
 ?>

@@ -88,7 +88,7 @@
  <posting_full id='$,' grp='*GRP_KAITANA_GALLERY'>
  <table width=100%><tr valign=top>
   <td width=110>
-   <a href#='kaitana.php?day=$index'
+   <a href='kaitana.php?day=$index'
       ><image_tag_put id='$,ImageId' align=left></a>
   </td>
   <td>

@@ -59,8 +59,17 @@
  <topics_table_end>
 </macro>
 
-<< HTML shortcuts >>
+<macro name='image_linked_tag' defaults="enlarge=true align=''">
+ <zone>
+  <if what='%enlarge'>
+   <image_link id%!id='%id'>$,<image_tag_put id%!id='%id' align%!align=%align></a>
+  <else>
+   <image_tag_put id%!id='%id' align%!align=%align>
+  </if>
+ </zone>
+</macro>
 
+<< HTML shortcuts >>
 <macro name='edit_line' defaults="mandatory='*false'">
  <tr>
   <td>%title <if what='%mandatory'><star></if></td>
