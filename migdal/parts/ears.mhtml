@@ -10,7 +10,8 @@
   <tr><td align=left>
    <posting_full id='$.' grp='*GRP_EARS'>
    <a href='actions/ear.php?postid=$,Id&okdir=$#,URL'>
-    <image_linked_tag id='$,ImageId' enlarge='$,hasLargeImage'></a>
+    <image_linked_tag id='$,ImageId' enlarge='$,hasLargeImage'
+                      title='$,Body'></a>
   </td></tr> 
  </for>
 </table></p>

@@ -13,6 +13,7 @@
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
    <topics posting='$,'>
+   <ears>
   </td>
   <td class='cframe'>
    <ifnzero what='$,Id'>

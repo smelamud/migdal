@@ -39,6 +39,7 @@
     <td width=150 class='eframe'>
      <posting_new grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`printings`'>
      <topics posting='$,'>
+     <ears>
     </td>
    </notprint>
    <td class='cframe'>

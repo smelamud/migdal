@@ -224,8 +224,9 @@
 <deccall macro='image_name' func='getImageNameBySet' file='lib/images.php'
          params='set' defaults='name=image'>
 <deccall macro='image_tag' func='getImageTagById' file='lib/images.php'
-         params='id,align,size,src,static'
-	 defaults="align='' size=small src='lib/image.php' static='*false'">
+         params='id,align,size,src,static,title'
+	 defaults="align='' size=small src='lib/image.php' static='*false'
+	           title=''">
 <deccall macro='image_link' func='getImageEnlargeLinkById' file='lib/images.php'
          params='id,static' defaults="static='*false'">
 <decexec macro='inner' func='beginInner' file='lib/inner.php'>
@@ -312,9 +313,10 @@
        defaults="src='' alt='' title='' border=''">
 
 <macro name='image_tag_put' defaults="align='' size=small src='lib/image.php'
-                                      static='*false'">
+                                      static='*false' title=''">
  <zone><image_tag id%!id='%id' align%!align='%align' size%!size=%size
-                  src%!src='%src' static%!static='%static'>$,</zone>
+                  src%!src='%src' static%!static='%static'
+		  title%!title='%title'>$,</zone>
 </macro>
 
 <macro name='parse_url'>

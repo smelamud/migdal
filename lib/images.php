@@ -276,7 +276,7 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 }
 
 function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php',
-                         $static=false)
+                         $static=false,$title='')
 {
 global $uiName,$thumbnailType;
 
@@ -288,9 +288,10 @@ $al=$align!='' ? "align=$align" : '';
 $ext=getImageExtension($size[2] ? $thumbnailType : $size[3]);
 $href=!$static ? "$src/$uiName-$id.$ext?id=$id&size=$aSize"
                : "pics/$uiName-$id".($aSize=='small' ? '-small' : '').".$ext";
+$alt=$title!='' ? "alt='$title' title='$title'" : '';
 return '<img border=0 width='.$size[0].
                     ' height='.$size[1].
-		    " $al src='$href'>";
+		    " $al $alt src='$href'>";
 }
 
 function getImageEnlargeLinkById($id,$static=false)

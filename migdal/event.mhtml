@@ -22,6 +22,7 @@
   <td width=150 class='eframe'><zone>
    <posting_new grp='*GRP_NEWS' topic_id='$,Id'>
    <topics posting='$,'>
+   <ears>
   </zone></td>
   <td>
    <div class='cframe' style='padding: 5'>

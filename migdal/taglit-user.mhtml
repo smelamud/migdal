@@ -23,6 +23,7 @@
    <posting_new topic_id='$`taglit`' grp='*GRP_BLOG_FORUMS'
                 sender_id='$user.Id'>
    <topics posting='$,'>
+   <ears>
   </zone></td>
   <td>
    <div class='cframe' style='padding: 5'>

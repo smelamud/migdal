@@ -58,6 +58,11 @@
 </if>
 </element>
 
+<macro name='main_gallery'>
+ <if what='$user_id<=0 && ($topic_id<=0 || $,GalleryNews)'>
+</macro>
+<endif name='/main_gallery'>
+
 <html>
 <preamble>
 <body>
@@ -67,11 +72,16 @@
   <td width=150 class='eframe'>
    <if what='$general'>
     <topics posting='$,'>
+    <ears>
    <else>
     <topics_gallery posting='$,'>
+    <main_gallery>
+    <else>
+     <ears>
+    </main_gallery>
    </if>
   </td>
-  <if what='$user_id<=0 && ($topic_id<=0 || $,GalleryNews)'>
+  <main_gallery>
    <td class='cframe'><outer>
     <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
      <td><common>
@@ -109,7 +119,7 @@
 	     cols='$userPictureColumnPortion' offset='$offset' sort='$sort'
 	     user_id='$user_id'>
    </td>
-  </if>
+  </main_gallery>
  </tr></table>
  <bottom>
 </body>

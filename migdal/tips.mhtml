@@ -13,6 +13,7 @@
   <td width=150 class='eframe'>
    <posting_new grp='*GRP_TIPS' topic_id='$`tips`'>
    <topics posting='$,'>
+   <ears>
   </td>
   <td class='cframe'>
    <subtitle>

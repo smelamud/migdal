@@ -20,6 +20,7 @@
    <if what='$,Grp!=*GRP_LINKS'>
     <td width=150 class='eframe'>
      <topics posting='$,'>
+     <ears>
     </td>
    <else>
     <td class='nframe'>
