@@ -54,9 +54,9 @@
        defaults='span=0'>
 <decel name='help_navi' file='parts/help-navi.php' params='ident'>
 <decel name='hit_parade' file='parts/hit-parade.php'
-       params='grp,topic_id,title,later,limit'
+       params='grp,topic_id,title,later,limit,sort,showshadows'
        defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
-                 limit=10">
+                 limit=10 sort='*SORT_RATING' showshadows='*true'">
 <decel name='hit_parade_month' file='parts/hit-parade.php'
        params='grp,topic_id' defaults="grp='*GRP_ALL' topic_id='-1'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
@@ -105,9 +105,10 @@
                  shorten='*false' times=0">
 <decel name='postings' file='parts/postings.php'
        params='grp,topic,limit,offset,subdomain,root,user_id,showadvert,
-               showshadows'
+               showshadows,sort'
        defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='general'
-                 user_id=0 showadvert='*true' showshadows='*true'">
+                 user_id=0 showadvert='*true' showshadows='*true'
+		 sort='*SORT_PSENT'">
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'

@@ -10,10 +10,12 @@
 <if what='$topic_id<=0'>
  <pagetitle title='Ссылки'>
  <topictitle title='Каталог еврейских ресурсов'>
+ <log event=links text#='topic(-1) offset=$offset'>
 <else>
  <topic_name id='$topic_id'>
  <assign name='topic_name' value='$,Name'>
  <pagetitle title#='Ссылки - $topic_name'>
+ <log event=links text#='topic($,Id) offset=$offset'>
 </if>
 
 <element name='intro'>
@@ -154,10 +156,14 @@
    <td class='cframe'>
     <postings grp='*GRP_LINKS' topic='$topic_id' root='links'
               limit='$userMsgPortion' offset='$offset'
-	      showshadows!='$topic_id>0 || $$userModerator'>
+	      showshadows!='$topic_id>0 || $$userModerator'
+              sort!='$topic_id>0 ? *SORT_RATING : *SORT_PSENT'>
    </td>
    <td width=150 class='eframe'>
-    <hit_parade grp='*GRP_LINKS' topic_id='$topic_id'>
+    <hit_parade grp='*GRP_LINKS' topic_id='$topic_id'
+                sort!='$topic_id<=0 ? *SORT_RATING : *SORT_PSENT'
+		title!='$topic_id<=0 ? "Избранное" : "Новые поступления"'
+		showshadows!='$topic_id>0' limit!='$topic_id<=0 ? 20 : 10'>
    </td>
   </tr>
  </table>
