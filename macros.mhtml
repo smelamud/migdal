@@ -84,6 +84,8 @@
          params='imageset'>
 <deciter macro='instant_messagelist' class='InstantMessageListIterator'
          file='lib/instants.php'>
+<deciter macro='journallist' class='JournalListIterator' file='lib/journal.php'
+         params='limit,offset' defaults='limit=20 offset=0'>
 <deciter macro='langs' class='LangIterator' file='lib/langs.php'>
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
          params='format,body'>

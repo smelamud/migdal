@@ -6,6 +6,8 @@ require_once('conf/migdal.conf');
 require_once('lib/bug.php');
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
+require_once('lib/limitselect.php');
+require_once('lib/text.php');
 
 function journalFailure($s)
 {
@@ -164,6 +166,7 @@ var $result_table;
 var $result_id;
 var $result_var;
 var $query;
+var $sent;
 
 function JournalLine($row)
 {
@@ -210,6 +213,18 @@ function getQueryTransfer()
 return $this->getQuery()!='' ? jtencode($this->getQuery()) : '%';
 }
 
+function getQueryShort()
+{
+global $queryEllipSize;
+
+return ellipsize($this->query,$queryEllipSize);
+}
+
+function getSent()
+{
+return $this->sent;
+}
+
 }
 
 class JournalIterator
@@ -237,6 +252,23 @@ if($this->seq!=0 && $this->seq!=$line->getSeq()
   return 0;
 $this->seq=$line->getSeq();
 return $line;
+}
+
+}
+
+class JournalListIterator
+      extends LimitSelectIterator
+{
+
+function JournalListIterator($limit=20,$offset=0)
+{
+$this->LimitSelectIterator('JournalLine',
+                           'select id,seq,result_table,result_id,result_var,
+			           query,unix_timestamp(sent) as sent
+			    from journal
+			    order by seq,id',$limit,$offset,
+			   'select count(*)
+			    from journal');
 }
 
 }
