@@ -9,7 +9,7 @@
  <tr><td>
   <iterate_postinglist grp='*GRP_ARTICLES' topic='study' limit=0
                        sort='*SORT_NAME'>
-  <for><a class=under href='none.html?artid=$.Id'>$.Subject</a><br></for>
+  <for><a class=under href='article.php?artid=$.Id'>$.Subject</a><br></for>
   <logged>
    <a href='postingedit.php?topic_id=$id&grp=*GRP_ARTICLES&redir=$_'
       class='admin'>Добавить статью</a><br>

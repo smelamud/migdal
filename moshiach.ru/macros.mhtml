@@ -9,6 +9,7 @@
 << Elements >>
 <decel name='actual_interview' file='parts/actual-interview.php'>
 <decel name='advert' file='parts/advert.php'>
+<decel name='articles_topic' file='parts/articles-topic.php' params='id,title'>
 <decel name='banner' file='parts/banner.php'>
 <decel name='bldot' file='parts/bldot.php'>
 <decel name='bottom' file='parts/bottom.php'>
@@ -31,3 +32,7 @@
 <decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>
 <decel name='updates' file='parts/updates.php'>
 <decel name='updates_chapter' file='parts/updates-chapter.php' params='id'>
+<decel name='uploader' file='parts/uploader.php'
+       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename'>
+<decel name='upload_format' file='parts/uploader.php'
+       params='name,format' defaults="name='large_format'">

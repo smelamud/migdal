@@ -2,6 +2,7 @@
 << Based-on: demo/postings.mhtml 1.6 >>
 << Based-on: demo/parts/postings.mhtml 1.3 >>
 
+<string name='topic_id'
 <grps>
 
 <html>
@@ -38,7 +39,7 @@
       </logged>
       <iterate_postinglist grp='*GRP_ARTICLES' topic='$,Id' limit=0
                            sort='*SORT_PNAME'>
-      <for><a href='none.html?artid=$.Id'>$.Subject</a><br></for>
+      <for><a href='article.php?artid=$.Id'>$.Subject</a><br></for>
      </td></tr> 
     </table>
     <qanda>

@@ -1,0 +1,90 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/limedit.mhtml 1.6 >>
+
+<int name='postid'>
+<int name='editid'>
+<html>
+<head>
+ <title>Демо - Список иллюстраций</title>
+</head>
+<body bgcolor=white>
+ <top ident='articles'>
+ <p>
+ <posting_obj id='$postid'>
+ <center><h1>Иллюстрации к статье "$,Subject"</h1></center>
+ <p>
+ <table width=100%><tr valign=top>
+  <td>
+   <iterate_imageset imageset='$,LargeImageSet'>
+   <for>
+    <if what='$editid==$.Id'>
+     <a href='$[err edittag editid=$.Id]'><b>$.Filename</b></a>
+     &nbsp;
+     <a href='/actions/limdel.php?postid=$postid&editid=$.Id&redir=$_'
+        >[Удалить]</a>
+    <else>
+     <a href='$[err edittag editid=$.Id]'>$.Filename</a>
+    </if>
+    <br>
+   </for>
+   <p>
+   <ifzero what='$editid'>
+    <a href='$[err edittag editid=0]'><b>&lt;Добавить&gt;</b></a>
+   <else>
+    <a href='$[err edittag editid=0]'>&lt;Добавить&gt;</a>
+   </ifzero>
+  </td>
+  <td>
+   <image_obj id='$editid'>
+   <setup>
+   <form method=post enctype='multipart/form-data' action='actions/limmod.php'>
+    <input type=hidden name='edittag' value=1>
+    <input type=hidden name='redir' value='$redir'>
+    <input type=hidden name='postid' value='$postid'>
+    <input type=hidden name='editid' value='$editid'>
+    <table>
+     <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'
+            span=2>
+     <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'
+            span=2>
+     <error id='*ELIM_DELETE_SQL' color=magenta span=2
+            text='Ошибка при удалении старого изображения'>
+     <error id='*ELID_DELETE_SQL' color=magenta span=2
+            text='Ошибка при удалении изображения'>
+     <error id='*ELIM_IMAGE_ABSENT' text='Такого изображения не существует'
+            span=2>
+     <error id='*ELIM_SET_SQL' text='Ошибка при установке набора изображений'
+            color=magenta span=2>
+     <error id='*ELIM_SETID_SQL' color=magenta span=2
+            text='Ошибка при установке идентификатора изображения'>
+     <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+     <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+            span=2>
+     <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
+	    color='magenta' span=2>
+     <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+	    text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+     <uploader name='image' loadedname='loaded' loadedvalue='1'
+               title='Изображение' loaded='(уже загружено)' notloaded='Другое'
+               filename='$,Filename'>
+     <checkbox_line name='has_large' value='$,hasLarge'
+                    title='Вставлять в уменьшенном виде'>
+     <td>Размер</td>
+     <td>
+      <input type=text name='small_x' value='$,SmallX' size=4 maxlength=4>
+      x
+      <input type=text name='small_y' value='$,SmallY' size=4 maxlength=4>
+     </td>
+     <editor_line name='title' body='$,Title' title='Подпись' rows=5 span=2>
+    </table>
+    <if what='$editid'>
+     <input type=submit value='Изменить'>
+    <else>
+     <input type=submit value='Добавить'>
+    </if>
+    <input type=reset value='Очистить'>
+   </form>
+  </td>
+ </tr></table>
+</body>
+</html>

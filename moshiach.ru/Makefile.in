@@ -4,8 +4,9 @@
 
 # Based-on: demo/Makefile.in 1.12
 
-OBJECTS = index.php login.php menuedit.php postingedit.php study.php \
-	topic.php topicedit.php useredit.php
+OBJECTS = article.php index.php limedit.php liminsert.php login.php \
+	menuedit.php postingedit.php study.php topic.php topicedit.php \
+	useredit.php
 
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@

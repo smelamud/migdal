@@ -8,7 +8,7 @@
   <iterate_postinglist grp='*GRP_ARTICLES' topic='$id' recursive='*true'
                        limit=9 sort='*SORT_SENT'>
   <for>
-   <a class=under href='none.html?artid=$.Id'>$.Sent@d.$.Sent@m "$.Subject"</a>
+   <a class=under href='article.php?artid=$.Id'>$.Sent@d.$.Sent@m "$.Subject"</a>
    <br>
   </for>
  </td></tr>
