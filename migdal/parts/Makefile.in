@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-OBJECTS = article.php backtrace.php blog.php blog-gallery.php \
+OBJECTS = article.php backtrace.php banners.php blog.php blog-gallery.php \
 	  blog-posting.php book-chapters.php book-ring.php bottom.php \
 	  complain.php discussions.php formutils.php forumanswer.php \
 	  forumcatalog.php forums.php gallery.php gallery-main.php \

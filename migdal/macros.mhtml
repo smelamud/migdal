@@ -23,6 +23,7 @@
        defaults="target='' class='' title=''">
 <decel name='backtrace' file='parts/backtrace.php' params='target'
        defaults="target=''">
+<decel name='banners' file='parts/banners.php'>
 <decel name='blog' file='parts/blog.php' params='topic_id,href'>
 <decel name='blog_gallery' file='parts/blog-gallery.php'
        params='user_id,rows,cols,offset,sort,topic_id'

@@ -1,0 +1,21 @@
+<< @(#) $Id$ >>
+
+<element name='lookstein_logo'>
+<a href='http://www.lookstein.org/russian/' target=_blank>
+ <image src='pics/lookstein.gif' border=0></a>
+</element>
+
+<element name='jerant_logo'>
+<a href='http://www.antho.net/' target=_blank>
+ <image src='pics/jerant.jpg' border=0></a>
+</element>
+
+<element name='banners'>
+<www>
+ <ioc_logo>
+ <lookstein_logo>
+ <jerant_logo>
+ &nbsp;
+ &nbsp;
+</www>
+</element>

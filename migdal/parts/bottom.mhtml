@@ -5,71 +5,78 @@
 <a href='/sources/migdal-0.2.tar.bz2'>Migdal website kernel 0.2</a><br>
 </element>
 
+<element name='email' params='addr'>
+<assign name='title'
+        value!='!$englishDomain ? "Написать письмо" : "Send e-mail"'>
+<a href="mailto:$addr" title="$title">
+   <image src="pics/mail.gif" border=0></a>
+</element>
+
+<element name='bottom_www'>
+<tr valign=top>
+ <td rowspan=2>
+  Сайт создан и поддерживается
+  <a href='migdal.php?artid=1479&redirid=$_'>Клубом Еврейского Студента</a>
+  <br>
+  Международного Еврейского Общинного Центра
+  <a href='migdal.php?redirid=$_'>&lt;&lt;Мигдаль&gt;&gt;</a>
+  <email addr='migdal@migdal.ru'>, Одесса.
+  <p>
+  Председатель правления центра &lt;&lt;Мигдаль&gt;&gt; --- Кира Верховская
+  <email addr='verkhov@tm.odessa.ua'>.
+  <p>
+  Раввином сайта является
+  <a href='http://yosele.rabbi.ru/'>р.&nbsp;Йосеф Херсонский</a>.
+ </td>
+ <td align=right>
+  <image src='pics/book.gif'>&nbsp;
+  <a class='big' href='complains.php'>
+   Замечания/предложения<br>по работе сайта</a>
+ </td>
+</tr>
+<tr valign=bottom>
+ <td align=right>
+  <kernel>
+  Вебмастер живет по адресу
+  <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+ </td>
+</tr>
+</element>
+
+<element name='bottom_english'>
+<tr valign=bottom>
+ <td>
+  Сайт создан и поддерживается
+  <a href='migdal.php?artid=1479&redirid=$_'>Клубом Еврейского Студента</a>
+  <br>
+  Международного Еврейского Общинного Центра
+  <a href='migdal.php?redirid=$_'>&lt;&lt;Мигдаль&gt;&gt;</a>
+  <email addr='migdal@migdal.ru'>, Одесса.
+  <p>
+  Председатель правления центра &lt;&lt;Мигдаль&gt;&gt; --- Кира Верховская
+  <email addr='verkhov@tm.odessa.ua'>.
+ </td>
+ <td align=right>
+  <kernel>
+  Webmaster lives here:
+  <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+ </td>
+</tr>
+</element>
+
 <element name='bottom'>
 <backtrace target='$target'>
 <div class='bottom'>
  <table width=100%>
   <notenglish>
-   <tr valign=top>
-    <td rowspan=2>
-     Сайт создан и поддерживается
-     <a href='migdal.php?artid=1479&redirid=$_'>Клубом Еврейского Студента</a>
-     <br>
-     Международного Еврейского Общинного Центра
-     <a href='migdal.php?redirid=$_'>&lt;&lt;Мигдаль&gt;&gt;</a>
-     <a href="mailto:migdal@migdal.ru" title="Написать письмо">
-      <image src="pics/mail.gif" border=0></a>,
-     Одесса.
-     <p>
-     Председатель правления центра &lt;&lt;Мигдаль&gt;&gt; --- Кира Верховская
-     <a href="mailto:verkhov@tm.odessa.ua" title="Написать письмо">
-      <image src="pics/mail.gif" border=0></a>.
-     <p>
-     Раввином сайта является
-     <a href='http://yosele.rabbi.ru/'>р.&nbsp;Йосеф Херсонский</a>.
-    </td>
-    <td align=right>
-     <image src='pics/book.gif'>&nbsp;
-     <a class='big' href='complains.php'>Замечания/предложения по работе сайта</a>
-    </td>
-   </tr>
-   <tr valign=bottom>
-    <td align=right>
-     <kernel>
-     Вебмастер живет по адресу
-     <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
-    </td>
-   </tr>
+   <bottom_www>
   <else>
-   <tr valign=bottom>
-    <td>
-     Сайт создан и поддерживается
-     <a href='migdal.php?artid=1479&redirid=$_'>Клубом Еврейского Студента</a>
-     <br>
-     Международного Еврейского Общинного Центра
-     <a href='migdal.php?redirid=$_'>&lt;&lt;Мигдаль&gt;&gt;</a>
-     <a href="mailto:migdal@migdal.ru" title="Написать письмо">
-      <image src="pics/mail.gif" border=0></a>,
-     Одесса.
-     <p>
-     Председатель правления центра &lt;&lt;Мигдаль&gt;&gt; --- Кира Верховская
-     <a href="mailto:verkhov@tm.odessa.ua" title="Написать письмо">
-      <image src="pics/mail.gif" border=0></a>.
-    </td>
-    <td align=right>
-     <kernel>
-     Webmaster lives here:
-     <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
-    </td>
-   </tr>
+   <bottom_english>
   </notenglish>
  </table>
  <hr>
  <center>
-  <www>
-   <ioc_logo>
-   &nbsp;
-  </www>
+  <banners>
   <jewishru>
   <mailru_logo>
   <rambler_logo>
