@@ -53,7 +53,13 @@
   <tdspan span='$indent'>&nbsp;</tdspan>
  </if>
  <assign name='headspan' value!='$span+1'>
- <tdspan span='$headspan'><span class='$class'>$title</span></tdspan>
+ <if what='$headspan<=1'>
+  <asp><td class='$class'><asp>
+ <else>
+  <asp><td class='$class' colspan='$headspan'><asp>
+ </if>
+  $title
+ <asp></td>
 </tr>
 </element>
 
