@@ -33,7 +33,7 @@ while($row=mysql_fetch_assoc($result))
      $output=array();
      exec("$wgetPath -q --spider ".$row['url'],$output,$rc);
      mysql_query('update messages
-                  set url_check=now()'.($rc=0 ? ',url_check_success=now()' : '').
+                  set url_check=now()'.($rc==0 ? ',url_check_success=now()' : '').
 		' where id='.$row['id'])
 	  or die('Ошибка SQL при сохранении результатов проверки URL');
      }
