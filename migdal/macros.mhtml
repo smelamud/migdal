@@ -92,7 +92,10 @@
              vals='сообщение,мнение,новость,картинку,статью'>
 <decgrpmesgs name='grpitemstitle'
              vals='сообщения,мнения,новости,картинки,статьи'>
+<decgrpmesgs name='grpitemtitlei'
+             vals='Сообщение,Мнение,Новость,Картинка,Статья'>
 <decgrpmesgs name='grpident' vals='messages,forums,news,gallery,articles'>
+<decgrpmesgs name='grpicon' vals='pics/all.gif,pics/opinion.gif,pics/new.gif,pics/all.gif,pics/article.gif'>
 <decgrpmesgs name='grppic'
              vals='pics/forums.gif,pics/forums.gif,pics/news.gif,pics/gallery.gif,pics/articles.gif'>
 

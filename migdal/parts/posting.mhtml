@@ -16,16 +16,19 @@
    <td width=75% align=left class='subject'>
     <if what='$posting.hasLargeBody'>
      <a href='article.php?redir=$_&artid=$posting.Id'
-        title='Статья'>$posting.Subject
+        title='Читать'>$posting.Subject
       <ifne what='$posting.Author'>
        &nbsp;(Автор:&nbsp;$posting.Author)
       </ifne>
-      &nbsp;<img border=0 src='pics/article.gif'></a>
+     <asp></a>
     <else>
      $posting.Subject
     </if>
    </td>
    <td width=25% align=right>
+    <grpitemtitlei grp='$posting.Grp'>
+    <grpicon grp='$posting.Grp'>
+    <img border=0 src='$grpicon' title='$grpitemtitlei'>&nbsp;
     <if what='$topic<0'>
      <a href='postings.php?redir=$_&grp=$grp&topic_id=$posting.TopicId'
 	class='topic' title='$posting.TopicDescription'>
