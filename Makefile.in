@@ -20,7 +20,7 @@ php: Makefile conf/migdal.conf
 	(\
 	echo '#!/bin/sh';\
 	echo;\
-	echo '$(phpCommand) -q -d include_path=.:.. -d max_execution_time=3600 $$*';\
+	echo '$(phpCommand) -q -d include_path=.:..:$(siteDir) -d max_execution_time=3600 $$*';\
 	) > php
 	chmod +x php
 	
