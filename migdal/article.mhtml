@@ -89,9 +89,7 @@
     <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
    </td></tr>
    <if what="$par.Title!=''">
-    <tr><td align=center>
-     <i>$par.HTMLTitle</i>
-    </td></tr>
+    <tr><td class='imagetitle'>$par.HTMLTitle</td></tr>
    </if>
   </table>
  <isplaced place='IPL_VCENTER'>
@@ -130,7 +128,7 @@
   <controls posting='$,'>
   <center><h1>$,Subject</h1></center>
   <if what="$,Author!=''">
-   <div class='author' align=center>$,Author</div>
+   <div class='author' align=center>$,HTMLAuthor</div>
   </if>
   <if what='$,LargeFormat==*TF_PRE'><pre></if>
   <iterate_posting_paragraphs posting='$,'>
@@ -142,7 +140,7 @@
   </p>
   <if what='$,LargeFormat==*TF_PRE'></pre></if>
   <if what="$,Source!=''">
-   <div class='source' align=right>$,Source</div>
+   <div class='source' align=right>$,HTMLSource</div>
   </if>
   <controls posting='$,'>
  </div>

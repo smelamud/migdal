@@ -196,9 +196,19 @@ function getAuthor()
 return $this->author;
 }
 
+function getHTMLAuthor()
+{
+return stotextToHTML(TF_MAIL,$this->getAuthor());
+}
+
 function getSource()
 {
 return $this->source;
+}
+
+function getHTMLSource()
+{
+return stotextToHTML(TF_MAIL,$this->getSource());
 }
 
 function getStotext()

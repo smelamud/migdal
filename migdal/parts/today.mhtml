@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/today.mhtml 1.3 >>
 
-<element name='Today'>
+<element name='today'>
 <time>$,@Jj&nbsp;$,@Jk&nbsp;$,@JY&nbsp;/&nbsp;$,@Rj&nbsp;$,@Rk&nbsp;$,@RY
 </element>

@@ -1,0 +1,29 @@
+<< @(#) $Id$ >>
+
+<macro name='help_navi_link' defaults="class=''">
+ <tr>
+  <td>
+   <if what="$ident=='%ident'">
+    <img src='$$style_topics_arrow' width=11 height=12>
+   </if>
+  </td>
+  <td><a href='%link' %class>%title</a></td>
+ </tr>
+</macro>
+
+<element name='stotext_help_navi'>
+<table class='topics' width=100%>
+ <col width='0*'>
+ <tbody class='names'>
+  <help_navi_link ident='add' link='$link' class='class=new' title='$title'>
+  <concat value='/stotext-help-subs.php?link=$#link&title=$#title&article=$#article&redir=$$#redir'>
+  <help_navi_link ident='subs' link='$*'
+                  title='Список обозначений, используемых в тексте'>
+  <if what='$article'>
+   <concat value='/stotext-help-types.php?link=$#link&title=$#title&article=$#article&redir=$$#redir'>
+   <help_navi_link ident='types' link='$*'
+                   title='Какой формат статьи выбрать?'>
+  </if>
+ </tbody>
+</table>
+</element>

@@ -38,9 +38,7 @@
       <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
      </td></tr>
      <if what="$posting.Title!=''">
-      <tr><td>
-       <center><i>$posting.HTMLTitle</i></center>
-      </td></tr>
+      <tr><td class='imagetitle'>$posting.HTMLTitle</td></tr>
      </if>
     </table>
    </ifnzero>

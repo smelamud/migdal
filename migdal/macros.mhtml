@@ -68,6 +68,8 @@
 <decel name='star' file='parts/formutils.php'>
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
+<decel name='stotext_help_navi' file='parts/stotext-help-navi.php'
+       params='ident,link,title,article' defaults="article='*false'">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php' params='ident,flags,image,target,re'
        defaults="flags='' target='' re=''">

@@ -21,7 +21,6 @@ $Footer='';
 
 $BodyToHeader=0;
 $Retarget='';
-$NoParse=0;
 
 $ElementName='';
 $ElementBody='';
@@ -1197,14 +1196,7 @@ sub run
 while($Line ne '')
      {
      pullToken;
-     unless($NoParse)
-           {
-           $Token->process();
-	   }
-     else
-           {
-	   body($Token->getToken());
-	   }
+     $Token->process();
      }
 }
 

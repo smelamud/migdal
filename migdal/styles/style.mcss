@@ -150,6 +150,8 @@ topics_arrow=pics/arrow.gif
 catalog_border=black
 catalog_header=%nd
 catalog_header_text=white
+catalog_div=%vmd
+catalog_div_text=white
 catalog_active_even=%vmm
 catalog_active_odd=%vl
 :default	catalog_even=%nm
@@ -484,6 +486,11 @@ BODY {
 	text-decoration: underline;
 }
 
+.posting .imagetitle {
+	text-align: center;
+	font-style: italic;
+}
+
 .posting .bottom {
 	border-top: 1px solid %posting_split;
 	margin-top: 1.5ex;
@@ -655,6 +662,11 @@ BODY {
 	border: solid 1px %catalog_border;
 }
 
+.catalog TT,.catalog PRE {
+	font-family: "Courier New", Courier, sans-serif;
+	font-size: 10pt;
+}
+
 .catalog TH {
 	font-size: 9pt;
 	background-color: %catalog_header;
@@ -662,7 +674,7 @@ BODY {
 	vertical-align: middle;
 }
 
-.catalog TD {
+.catalog TD, .catalog TD * {
 	font-size: 8pt;
 }
 
@@ -687,6 +699,14 @@ BODY {
 
 .catalog TR {
 	background-color: %catalog_even;
+}
+
+.catalog TR.div {
+	background-color: %catalog_div;
+	color: %catalog_div_text;
+	font-size: 9pt;
+	font-weight: bold;
+	text-align: center;
 }
 
 .catalog TR.odd {
@@ -954,6 +974,11 @@ BODY {
 }
 
 .article .author {
+	font-style: italic;
+}
+
+.article .imagetitle {
+	text-align: center;
 	font-style: italic;
 }
 

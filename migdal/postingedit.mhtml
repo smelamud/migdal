@@ -18,148 +18,156 @@
  <setup>
  <if what='$editid'>
   <concat value='Изменить $grpitemtitle'>
-  <formtable title='$*'>
  <else>
   <concat value='Добавить $grpitemtitle'>
-  <formtable title='$*'>
  </if>
- <form method=post enctype='multipart/form-data'
-       action='actions/postingmod.php'>
-  <hidden name='edittag' value=1>
-  <hidden name='redir' value='$redir'>
-  <hidden name='editid' value='$editid'>
-  <hidden name='personal_id' value='$message.PersonalId'>
-  <table>
-  <starinfo>
-  <error id='*EP_NO_SEND'
-	 text='Посылать сообщения могут только зарегистрированные пользователи'>
-  <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
-  <error id='*EP_STORE_SQL' text='Ошибка базы данных при обновлении записи'
-	 color='magenta'>
-  <error id='*EP_DISABLE_SQL' color='magenta'
-	 text='Ошибка базы данных при установке признака модерирования'>
-  <error id='*EP_NO_PERSONAL'
-	 text='У этого пользователя нет персональной страницы'>
-  <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
-  <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
-  <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
-  <tr><td><table>
-   <moderator>
-    <grpselect name='grp' value='$message.Grp'>
-   <else>
-    <hidden name='grp' value='$message.Grp'>
-   </moderator>
-   <moderator>
-    <edit_line title='Приоритет' name='priority' value='$message.Priority'
-	       size=4 maxlength=3>
-   </moderator>
-   <if what='$message.hasTopic'>
-    <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
-                 mandatory='$message.mandatorySubject'>
-   </if>
-   <moderator>
-    <if what='$message.hasIdent'>
-     <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
-     <error id='*EP_IDENT_UNIQUE' span=2
-	    text='Так уже обозначено другое сообщение'>
-     <edit_line title='Обозначение' name='ident' value='$,Ident'
-		size=15 maxlength=15 mandatory='$message.mandatoryIdent'>
-    </if>
-   </moderator>
-   <if what='$message.hasSubject'>
-    <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
-    <edit_line title='Заголовок' value='$message.Subject' name='subject'
-	       size=42 maxlength=250 mandatory='$message.mandatorySubject'>
-   </if>
-   <if what='$message.hasAuthor'>
-    <error id='*EP_AUTHOR_ABSENT' text='Автор не указан' span=2>
-    <edit_line title='Автор' value='$message.Author' name='author'
-	       size=42 maxlength=250 mandatory='$message.mandatoryAuthor'>
-   </if>
-   <if what='$message.hasSource'>
-    <error id='*EP_SOURCE_ABSENT' text='Источник не указан' span=2>
-    <edit_line title='Источник' value='$message.Source' name='source'
-	       size=42 maxlength=250 mandatory='$message.mandatorySource'>
-   </if>
-   <if what='$message.hasImage'>
-    <error id='*EP_IMAGE_ABSENT' text='Нужно указать картинку для отображения'
-	   span=2>
-    <error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
-    <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
-    <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
-	   span=2>
-    <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
-	   color='magenta' span=2>
-    <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
-	   text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
-    <ifnzero what='$message.ImageSet'>
-     <image_name set='$message.ImageSet'>
-     <assign name='file' value='$image.Filename'>
-    <else>
-     <assign name='file' value=''>
-    </ifnzero>
-    <if what='$message.hasLargeBody'>
-     <assign name='ititle' value='Картинка для аннотации'>
-    <else>
-     <assign name='ititle' value='Картинка'>
-    </if>
-    <uploader name='image' loadedname='image_set' loadedvalue='$message.ImageSet'
-	      title='$ititle' loaded='(уже загружена)' notloaded='Другая'
-	      filename='$file' mandatory='$message.mandatoryImage'>
-    <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи' color=magenta
-	   span=2>
-    <if what='$message.hasTitle'>
-     <ifnzero what='$message.ImageSet'>
-      <assign name='ttext' value='$image.Title'>
+ <table width=100%><tr valign=top>
+  <td width=200>
+   <stotext_help_navi ident='add' link='$-' title='$*' article='*true'>
+  </td>
+  <td>
+   <formtable title='$*'>
+    <form method=post enctype='multipart/form-data'
+	  action='actions/postingmod.php'>
+     <hidden name='edittag' value=1>
+     <hidden name='redir' value='$redir'>
+     <hidden name='editid' value='$editid'>
+     <hidden name='personal_id' value='$message.PersonalId'>
+     <table>
+     <starinfo>
+     <error id='*EP_NO_SEND'
+	    text='Посылать сообщения могут только зарегистрированные пользователи'>
+     <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+     <error id='*EP_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+	    color='magenta'>
+     <error id='*EP_DISABLE_SQL' color='magenta'
+	    text='Ошибка базы данных при установке признака модерирования'>
+     <error id='*EP_NO_PERSONAL'
+	    text='У этого пользователя нет персональной страницы'>
+     <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
+     <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
+     <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
+     <tr><td><table>
+      <moderator>
+       <grpselect name='grp' value='$message.Grp'>
+      <else>
+       <hidden name='grp' value='$message.Grp'>
+      </moderator>
+      <moderator>
+       <edit_line title='Приоритет' name='priority' value='$message.Priority'
+		  size=4 maxlength=3>
+      </moderator>
+      <if what='$message.hasTopic'>
+       <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
+		    mandatory='$message.mandatorySubject'>
+      </if>
+      <moderator>
+       <if what='$message.hasIdent'>
+	<error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
+	<error id='*EP_IDENT_UNIQUE' span=2
+	       text='Так уже обозначено другое сообщение'>
+	<edit_line title='Обозначение' name='ident' value='$,Ident'
+		   size=15 maxlength=15 mandatory='$message.mandatoryIdent'>
+       </if>
+      </moderator>
+      <if what='$message.hasSubject'>
+       <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
+       <edit_line title='Заголовок' value='$message.Subject' name='subject'
+		  size=42 maxlength=250 mandatory='$message.mandatorySubject'>
+      </if>
+      <if what='$message.hasAuthor'>
+       <error id='*EP_AUTHOR_ABSENT' text='Автор не указан' span=2>
+       <edit_line title='Автор' value='$message.Author' name='author'
+		  size=42 maxlength=250 mandatory='$message.mandatoryAuthor'>
+      </if>
+      <if what='$message.hasSource'>
+       <error id='*EP_SOURCE_ABSENT' text='Источник не указан' span=2>
+       <edit_line title='Источник' value='$message.Source' name='source'
+		  size=42 maxlength=250 mandatory='$message.mandatorySource'>
+      </if>
+      <if what='$message.hasImage'>
+       <error id='*EP_IMAGE_ABSENT' span=2
+              text='Нужно указать картинку для отображения'>
+       <error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
+       <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+       <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+	      span=2>
+       <error id='*EIU_IMAGE_SQL' color='magenta' span=2
+              text='Ошибка базы данных при загрузке картинки'>
+       <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+	      text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+       <ifnzero what='$message.ImageSet'>
+	<image_name set='$message.ImageSet'>
+	<assign name='file' value='$image.Filename'>
+       <else>
+	<assign name='file' value=''>
+       </ifnzero>
+       <if what='$message.hasLargeBody'>
+	<assign name='ititle' value='Картинка для аннотации'>
+       <else>
+	<assign name='ititle' value='Картинка'>
+       </if>
+       <uploader name='image' loadedname='image_set'
+                 loadedvalue='$message.ImageSet' title='$ititle'
+		 loaded='(уже загружена)' notloaded='Другая' filename='$file'
+		 mandatory='$message.mandatoryImage'>
+       <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи'
+              color=magenta span=2>
+       <if what='$message.hasTitle'>
+	<ifnzero what='$message.ImageSet'>
+	 <assign name='ttext' value='$image.Title'>
+	<else>
+	 <assign name='ttext' value=''>
+	</ifnzero>
+	<editor_line name='title' body='$ttext' title='Подпись под картинкой'
+		     rows=5 span=2 mandatory='$message.mandatoryTitle'>
+       </if>
+      </if>
+     <if what='$message.hasLargeBody'>
+      <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
+      <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
+      <if what="$message.LargeFilename!=''">
+       <tr><td>
+	<a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>
+	   Загрузить текст</a>
+       </td></tr>
+      </if>
+      <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
+		title='Текст' loaded='(уже загружен)' notloaded='Другой'
+		filename='$message.LargeFilename'
+		mandatory='$message.mandatoryLargeBody'>
+      <upload_format format='$message.LargeFormat'>
+      </table></td></tr>
+      <if what='$message.hasBody'>
+       <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
+       <editor_line name='body' title='Аннотация' body='$message.Body'
+		    mandatory='$message.mandatoryBody'>
+      </if>
      <else>
-      <assign name='ttext' value=''>
-     </ifnzero>
-     <editor_line name='title' body='$ttext' title='Подпись под картинкой'
-		  rows=5 span=2 mandatory='$message.mandatoryTitle'>
-    </if>
-   </if>
-  <if what='$message.hasLargeBody'>
-   <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
-   <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
-   <if what="$message.LargeFilename!=''">
-    <tr><td>
-     <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>
-        Загрузить текст</a>
-    </td></tr>
-   </if>
-   <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
-	     title='Текст' loaded='(уже загружен)' notloaded='Другой'
-	     filename='$message.LargeFilename'
-	     mandatory='$message.mandatoryLargeBody'>
-   <upload_format format='$message.LargeFormat'>
-   </table></td></tr>
-   <if what='$message.hasBody'>
-    <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
-    <editor_line name='body' title='Аннотация' body='$message.Body'
-                 mandatory='$message.mandatoryBody'>
-   </if>
-  <else>
-   </table></td></tr>
-   <if what='$message.hasBody'>
-    <error id='*EP_BODY_ABSENT'
-	   text='Напишите хотя бы пару строчек в теле сообщения'>
-    <editor_line name='body' title='Текст' body='$message.Body'
-                 mandatory='$message.mandatoryBody'>
-   </if>
-  </if>
-  <checkbox_line name='hidden' value='$message.isHidden' title='Не показывать'>
-  <moderator>
-   <checkbox_line name='disabled' value='$message.isDisabled'
-		  title='Запретить показ'>
-  </moderator>
-  <if what='$editid'>
-   <formbuttons title='Изменить'>
-  <else>
-   <formbuttons title='Добавить'>
-  </if>
-  </table>
- </form>
- </formtable>
+      </table></td></tr>
+      <if what='$message.hasBody'>
+       <error id='*EP_BODY_ABSENT'
+	      text='Напишите хотя бы пару строчек в теле сообщения'>
+       <editor_line name='body' title='Текст' body='$message.Body'
+		    mandatory='$message.mandatoryBody'>
+      </if>
+     </if>
+     <checkbox_line name='hidden' value='$message.isHidden'
+                    title='Не показывать'>
+     <moderator>
+      <checkbox_line name='disabled' value='$message.isDisabled'
+		     title='Запретить показ'>
+     </moderator>
+     <if what='$editid'>
+      <formbuttons title='Изменить'>
+     <else>
+      <formbuttons title='Добавить'>
+     </if>
+     </table>
+    </form>
+   </formtable>
+  </td>
+ </tr></table>
  <bottom>
 </body>
 </html>

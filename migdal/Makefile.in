@@ -7,8 +7,9 @@ OBJECTS = article.php chat.php chatboard.php chatbottom.php chattop.php \
 	  complainedit.php complainforum.php complains.php forum.php \
 	  forumansweredit.php forumcatalog.php gallery.php index.php \
 	  limedit.php liminsert.php menuedit.php postingedit.php postings.php \
-	  register.php style.php topicedit.php useredit.php userfin.php \
-	  userinfo.php userinfo-panel.php userok.php users.php
+	  register.php stotext-help-subs.php stotext-help-types.php style.php \
+	  topicedit.php useredit.php userfin.php userinfo.php \
+	  userinfo-panel.php userok.php users.php
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
