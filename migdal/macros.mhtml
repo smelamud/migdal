@@ -123,3 +123,10 @@
   <textarea name='%name' rows=%rows cols=50 wrap='virtual'>%body</textarea>
  </tdspan></tr>
 </macro>
+
+<< Biff >>
+<macro name='biff'>
+ <ifbiff time='%time'>
+  &nbsp;<img src='pics/ner.gif' title='новое'>&nbsp;
+ </ifbiff>
+</macro>

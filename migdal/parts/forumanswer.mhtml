@@ -7,7 +7,10 @@
   <tr>
    <td class='header'><table cellpadding=0>
     <tr><td><senderlink message='$answer'></td></tr>
-    <tr><td class='sent'><sentview date='$answer.Sent'></td></tr>
+    <tr><td class='sent'>
+     <sentview date='$answer.Sent'>
+     <biff time='$answer.Sent'>
+    </td></tr>
    </table></td>
    <td class='body' rowspan=2>
     $answer.HTMLBody

@@ -56,12 +56,16 @@
   <else>
    Сейчас
   </if>
+  <biff time='$user.LastOnline'>
  </td>
 <else>
  <if what='$user.isTooOld'>
   <td align=center>Очень давно</td>
  <else>
-  <td><sentview date='$user.LastOnline'></td>
+  <td>
+   <sentview date='$user.LastOnline'>
+   <biff time='$user.LastOnline'>
+  </td>
  </if>
 </if>
 </element>

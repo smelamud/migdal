@@ -6,7 +6,10 @@
 <if what='$posting.isRebe'><span class='rebe'></if>
  <table width=100% class='posting'>
   <tr class='top'><td><table width=100%><tr>
-   <td align=left class='sent'><sentview date='$posting.Sent'></td>
+   <td align=left class='sent'>
+    <sentview date='$posting.Sent'>
+    <biff time='$posting.Sent'>
+   </td>
    <td align=right><senderlink message='$posting'></td>
   </tr></table></td></tr>
   <tr><td><table width=100%><tr>
@@ -76,6 +79,7 @@
     </td>
     <td align=right>
      <if what='$discuss'>
+      <biff time='$posting.LastAnswer'>
       <a href='forum.php?redir=$_&msgid=$posting.Id'
        >Обсудить ($posting.AnswerCount)</a>
      </if>

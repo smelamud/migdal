@@ -83,6 +83,7 @@
     </td>
     <td><sentview date='$.Sent'></td>
     <td class='answer' rowspan=2>
+     <biff time='$.LastAnswer'>
      <a href='forum.php?redir=$_&msgid=$.Id'>$.AnswerCount</a>
     </td>
    </tr>
@@ -100,7 +101,9 @@
        </if>
       </td>
      </zone>
-     <td><sentview date='$.LastAnswer'></td>
+     <td>
+      <sentview date='$.LastAnswer'>
+     </td>
     <else>
      <td>&nbsp;</td><td>&nbsp;</td>
     </ifnzero>

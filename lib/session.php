@@ -18,7 +18,8 @@ $userSetNames=array('MsgPortion',
 		    'ForumCatalogPortion',
 		    'Style',
 		    'PictureRowPortion',
-		    'PictureColumnPortion');
+		    'PictureColumnPortion',
+		    'BiffTime');
 $userSetDefaults=array('MsgPortion'           => 10,
                        'ForumPortion'         => 10,
                        'ComplainPortion'      => 20,
@@ -27,7 +28,8 @@ $userSetDefaults=array('MsgPortion'           => 10,
 		       'ForumCatalogPortion'  => 20,
 		       'Style'                => 1,
 		       'PictureRowPortion'    => 4,
-		       'PictureColumnPortion' => 5);
+		       'PictureColumnPortion' => 5,
+		       'BiffTime'             => 24);
 $userSetParams=array('MsgPortion'           => 'mp',
                      'ForumPortion'         => 'fp',
 		     'ComplainPortion'      => 'cp',
@@ -36,7 +38,8 @@ $userSetParams=array('MsgPortion'           => 'mp',
 		     'ForumCatalogPortion'  => 'fcp',
 		     'Style'                => 'st',
 		     'PictureRowPortion'    => 'prp',
-		     'PictureColumnPortion' => 'pcp');
+		     'PictureColumnPortion' => 'pcp',
+		     'BiffTime'             => 'bt');
 
 function getProperName($name)
 {

@@ -232,6 +232,12 @@
 </macro>
 <endif name='/notlast'>
 
+<macro name='ifbiff'>
+ <require name='lib/biff.php'>
+ <if what='biff(%time)'>
+</macro>
+<endif name='/ifbiff'>
+
 << Permissions >>
 <macro name='logged'>
  <if what='$$userId>0'>
