@@ -8,16 +8,22 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/journal.php');
 
+function executeTrackQuery($query)
+{
+}
+
 function executeAction($action)
 {
 foreach($action as $line)
        {
-       echo $line->getQuery()."\n";
        $query=jdecode($line->getQuery());
-       mysql_query($query)
-         or journalFailure('Error executing replicated query in seq '.
-	                   $line->getSeq().' id='.$line->getId().
-			   ": $query");
+       if(substr($query,0,5)=='track')
+         executeTrackQuery($query);
+       else
+	 mysql_query($query)
+	   or journalFailure('Error executing replicated query in seq '.
+			     $line->getSeq().' id='.$line->getId().
+			     ": $query");
        }
 }
 
