@@ -2,7 +2,7 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <a href='index.php?topic_id=$posting.TopicId' class='topic'
+ <a href='links.php?topic_id=$posting.TopicId' class='topic'
     title='$posting.TopicDescription'>$posting.TopicName</a>
  <br>
 </if>
