@@ -289,6 +289,7 @@ $c='[Галерея]' if $type eq 'gallery';
 $c='[Картинка]' if $type eq 'imageview';
 $c='[Главная]' if $type eq 'index';
 $c='[Площадка]' if $type eq 'kaitana';
+$c='[Халом]' if $type eq 'halom';
 $c='[Ссылка]' if $type eq 'link';
 $c='[Сообщение]' if $type eq 'posting';
 $c='[Таглит]' if $type eq 'taglit';
