@@ -133,7 +133,7 @@ return $this->author;
 
 function getHTMLAuthor()
 {
-return stotextToHTML(TF_MAIL,$this->getAuthor(),$this->getId());
+return stotextToHTML(TF_MAIL,$this->getAuthor(),$this->getMessageId());
 }
 
 function getSource()
@@ -143,7 +143,7 @@ return $this->source;
 
 function getHTMLSource()
 {
-return stotextToHTML(TF_MAIL,$this->getSource(),$this->getId());
+return stotextToHTML(TF_MAIL,$this->getSource(),$this->getMessageId());
 }
 
 function getStotext()
@@ -163,7 +163,7 @@ return $this->stotext->getBody();
 
 function getHTMLBody()
 {
-return stotextToHTML(TF_MAIL,$this->getBody(),$this->getId());
+return stotextToHTML(TF_MAIL,$this->getBody(),$this->getMessageId());
 }
 
 function isBodyTiny()
@@ -182,7 +182,7 @@ return shorten($this->getBody(),$tinySize,$tinySizeMinus,$tinySizePlus);
 
 function getHTMLBodyTiny()
 {
-return stotextToHTML(TF_MAIL,$this->getBodyTiny(),$this->getId());
+return stotextToHTML(TF_MAIL,$this->getBodyTiny(),$this->getMessageId());
 }
 
 function isBodyMedium()
@@ -201,7 +201,7 @@ return shorten($this->getBody(),$mediumSize,$mediumSizeMinus,$mediumSizePlus);
 
 function getHTMLBodyMedium()
 {
-return stotextToHTML(TF_MAIL,$this->getBodyMedium(),$this->getId());
+return stotextToHTML(TF_MAIL,$this->getBodyMedium(),$this->getMessageId());
 }
 
 function getLargeFilename()
@@ -226,7 +226,7 @@ return $this->stotext->getLargeBody();
 
 function getHTMLLargeBody()
 {
-return stotextToHTML($this->getLargeFormat(),$this->getLargeBody(),$this->getId());
+return stotextToHTML($this->getLargeFormat(),$this->getLargeBody(),$this->getMessageId());
 }
 
 function getLargeImageSet()
@@ -281,7 +281,7 @@ return $this->image_y;
 
 function getHTMLTitle()
 {
-return stotextToHTML(TF_MAIL,$this->title,$this->getId());
+return stotextToHTML(TF_MAIL,$this->title,$this->getMessageId());
 }
 
 function isHidden()
