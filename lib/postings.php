@@ -394,15 +394,18 @@ $result=mysql_query(
 	        postings.message_id as message_id,
 		messages.stotext_id as stotext_id,stotexts.body as body,
 		stotexts.large_format as large_format,
-		stotexts.large_body as large_body,subject,author,source,grp,
-		sent,topic_id,sender_id,messages.hidden as hidden,disabled,
+		stotexts.large_body as large_body,messages.subject as subject,
+		messages.author as author,messages.source as source,grp,
+		messages.sent as sent,topic_id,messages.sender_id as sender_id,
+		messages.hidden as hidden,messages.disabled as disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,length(images.large) as image_size,
 		images.large_x as image_x,images.large_y as image_y,
 		topics.name as topic_name,topictexts.body as topic_description,
 		images.has_large as has_large_image,images.title as title,
 		login,gender,email,hide_email,rebe,
-		count(forums.up) as answer_count
+	        count(forummesgs.id) as answer_count,
+	        max(forummesgs.sent) as last_answer
 	 from postings
 	      left join messages
 	           on postings.message_id=messages.id
@@ -418,13 +421,19 @@ $result=mysql_query(
 		   on messages.sender_id=users.id
 	      left join forums
 	 	   on messages.id=forums.up
-	 where (messages.hidden<$hide or sender_id=$userId) and
-	       (messages.disabled<$hide or sender_id=$userId) and
+	      left join messages as forummesgs
+		   on forums.message_id=forummesgs.id and
+		      (forummesgs.hidden<$hide or
+		       forummesgs.sender_id=$userId) and
+		      (forummesgs.disabled<$hide or
+		       forummesgs.sender_id=$userId)
+	 where (messages.hidden<$hide or messages.sender_id=$userId) and
+	       (messages.disabled<$hide or messages.sender_id=$userId) and
 	       postings.".byIdent($id).
        ' group by messages.id')
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке постинга');
+ or die('Ошибка SQL при выборке постинга: '.mysql_error());
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }

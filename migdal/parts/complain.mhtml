@@ -10,7 +10,10 @@
 <error id='*EC_SQL_ASSIGN' text='Ошибка SQL при обновлении записи'
        color=magenta span=2>
 <tr class='head'>
- <td><sentview date='$complain.Sent'></td>
+ <td>
+  <sentview date='$complain.Sent'>
+  <biff time='$complain.Sent'>
+ </td>
  <td align=right><senderlink message='$complain'></td>
 </tr>
 <tr class='head'>

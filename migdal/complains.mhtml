@@ -90,6 +90,7 @@
    </td>
    <td class='subject'>
     <a href='complainforum.php?compid=$.Id&redir=$_'>$.Subject</a>
+    <biff time='$.Sent'>
    </td>
    <if what='$.isAssigned'>
     <td><senderlink message='$.RecipientInfo' align='left'></td>
@@ -102,6 +103,7 @@
     <td align=center>Нет</td>
    </if>
    <td class='answer'>
+    <biff time='$.LastAnswer'>
     <a href='complainforum.php?compid=$.Id&redir=$_'>$.AnswerCount</a>
    </td>
   </tr>

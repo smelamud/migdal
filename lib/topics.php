@@ -222,7 +222,7 @@ return $this->message_count;
 
 function getLastMessage()
 {
-return $this->last_message;
+return !empty($this->last_message) ? strtotime($this->last_message) : 0;
 }
 
 function getSubCount()

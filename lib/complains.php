@@ -184,17 +184,22 @@ class ComplainListIterator
 
 function ComplainListIterator($limit=20,$offset=0)
 {
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
 $this->LimitSelectIterator(
        'Complain',
-       'select complains.id as id,messages.subject as subject,
-               messages.sent as sent,sender_id,closed,recipient_id,
+       "select complains.id as id,messages.subject as subject,
+               messages.sent as sent,messages.sender_id as sender_id,
+	       closed,recipient_id,
                users.login as login,users.gender as gender,
 	       users.email as email,users.hide_email as hide_email,
 	       users.rebe as rebe,users.hidden as sender_hidden,
                recs.login as rec_login,recs.gender as rec_gender,
 	       recs.email as rec_email,recs.hide_email as rec_hide_email,
 	       recs.rebe as rec_rebe,recs.hidden as rec_hidden,
-	       count(forums.up) as answer_count
+	       count(forummesgs.id) as answer_count,
+	       max(forummesgs.sent) as last_answer
         from complains
 	     left join messages
 		  on messages.id=complains.message_id
@@ -204,8 +209,14 @@ $this->LimitSelectIterator(
 		  on complains.recipient_id=recs.id
 	     left join forums
 	          on messages.id=forums.up
+	     left join messages as forummesgs
+	          on forums.message_id=forummesgs.id and
+	             (forummesgs.hidden<$hide or
+		      forummesgs.sender_id=$userId) and
+	             (forummesgs.disabled<$hide or
+		      forummesgs.sender_id=$userId)
 	group by messages.id
-        order by closed is null desc,sent desc',$limit,$offset,
+        order by closed is null desc,sent desc",$limit,$offset,
        'select count(*)
         from complains');
 }
