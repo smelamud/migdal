@@ -245,7 +245,7 @@ class PostingListIterator
 
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
-			     $withAnswers=GRP_NONE)
+			     $withAnswers=GRP_NONE,$user=0)
 {
 global $userId,$userModerator;
 
@@ -258,6 +258,7 @@ $topicFilter=$topic<0
 		 	                  track(idByIdent('topics',$topic)).
 					  "%' "
 				        : ''));
+$userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
              SORT_NAME     => 'subject',
@@ -313,6 +314,7 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
+	      $userFilter
 	group by messages.id
 	$answerFilter
 	$order",$limit,$offset,
@@ -333,7 +335,7 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
-	      $topicFilter");
+	      $topicFilter $userFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }
@@ -488,13 +490,15 @@ return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }
 
-function getLastPostingDate($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE)
+function getLastPostingDate($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE,
+                            $user_id=0)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$tpf=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
-$taf=$topic_id>=0 ? "and posts.topic_id=$topic_id" : '';
+$tpf=$topic_id>=0 ? " and postings.topic_id=$topic_id " : '';
+$taf=$topic_id>=0 ? " and posts.topic_id=$topic_id " : '';
+$uf=$user_id>=0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
         "select max(messages.sent)
          from messages
@@ -513,7 +517,7 @@ $result=mysql_query(
 	        (msgs.hidden<$hide or msgs.sender_id=$userId) and
 	        (msgs.disabled<$hide or msgs.sender_id=$userId)) and
                (postings.id is null or (postings.grp & $grp)<>0 $tpf) and
-               (forums.id is null or (posts.grp & $answers)<>0 $taf)")
+               (forums.id is null or (posts.grp & $answers)<>0 $taf) $uf")
  or die('Ошибка SQL при определении даты последнего постинга/ответа');
 return mysql_num_rows($result)>0 ? strtotime(mysql_result($result,0,0)) : 0;
 }
@@ -526,12 +530,13 @@ mysql_query("update postings
      or die('Ошибка SQL при обновлении счетчика прочтений постинга');
 }
 
-function getRandomPostingId($grp=GRP_ALL,$topic_id=-1)
+function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$tf=$topic_id>=0 ? "and topic_id=$topic_id" : '';
+$topicFilter=$topic_id>=0 ? " and topic_id=$topic_id " : '';
+$userFilter=$user_id<=0 ? '' : " and messages.sender_id=$user_id ";
 $result=mysql_query(
         "select priority,count(*)
          from postings
@@ -539,7 +544,7 @@ $result=mysql_query(
 	           on postings.message_id=messages.id
 	 where (hidden<$hide or sender_id=$userId) and
 	       (disabled<$hide or sender_id=$userId) and
-               priority<=0 and (grp & $grp)<>0 $tf
+               priority<=0 and (grp & $grp)<>0 $topicFilter $userFilter
 	 group by priority
 	 order by priority")
  or die('Ошибка SQL при определении количества постингов по приоритетам');

@@ -80,8 +80,8 @@
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting'>
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,limit,offset,personal,sort,withanswers'
-         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE'">
+         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user'
+         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0">
 <deciter macro='received_instant_messagelist'
          class='ReceivedInstantMessageListIterator' file='lib/instants.php'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
@@ -142,11 +142,11 @@
 <deccall macro='posting_full' func='getFullPostingById' file='lib/postings.php'
          params='id,grp' defaults='name=message grp=*GRP_ALL'>
 <deccall macro='posting_last' func='getLastPostingDate' file='lib/postings.php'
-         params='grp,topic_id,answers'
-	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE'>
+         params='grp,topic_id,answers,user_id'
+	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0'>
 <deccall macro='posting_random' func='getRandomPostingId'
-         file='lib/postings.php' params='grp,topic_id'
-	 defaults='grp=*GRP_ALL topic_id=-1'>
+         file='lib/postings.php' params='grp,topic_id,user_id'
+	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0'>
 <deccall macro='read_posting' func='incPostingReadCount'
          file='lib/postings.php' params='id'>
 <deccall macro='stotext_image_obj' func='getStotextImageByParagraph'
