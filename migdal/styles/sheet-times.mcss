@@ -27,6 +27,21 @@
 	text-align: center;
 }
 
+.mtimes .posting .subject {
+	font-size: 12pt;
+}
+
+.mtimes .posting .subject A {
+	font: bold 12pt %times;
+	color: %posting_subject;
+	text-decoration: none;
+}
+
+.mtimes .posting .subject A:hover {
+	color: %posting_subject_hover;
+	text-decoration: underline;
+}
+
 .mtimes .pic IMG {
 	border: 1px solid %times_image_border;
 }

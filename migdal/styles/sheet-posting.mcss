@@ -41,17 +41,6 @@
 	color: %posting_subject;
 }
 
-.posting .subject A {
-	font: bold 12pt %times;
-	color: %posting_subject;
-	text-decoration: none;
-}
-
-.posting .subject A:hover {
-	color: %posting_subject_hover;
-	text-decoration: underline;
-}
-
 .posting .subject .author {
 	font: italic 11pt %times;
 	color: %posting_author;
