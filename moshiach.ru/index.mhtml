@@ -12,16 +12,16 @@
  <top>
  <table border=0 width=100% cellPadding=0 cellSpacing=0><tr valign=top>
   <td width=20% bgcolor=F6F7FA>
-   <talking><br> 
-   <igrot><br>   
-   <search> 
+   <talking>
+   <igrot>
+   <search>
    <subscribe>
    <editors>
   </td>
   <td bgcolor=ffffff width=1% align=center>
    <img src=m/bldot.gif width=1 border=0 height=100%>
   </td>
-  <td bgcolor=ffffff width=56%> <!-- 2 52739c -->
+  <td bgcolor=ffffff width=56%>
    <topicofday>
    <actual_interview>
    <first_face>
