@@ -36,12 +36,12 @@ return $list;
 
 function getWorldPostingVars()
 {
-return array('ident','message_id','topic_id','grp','personal_id');
+return array('message_id','topic_id','grp','personal_id');
 }
 
 function getAdminPostingVars()
 {
-return array('priority');
+return array('ident','priority');
 }
 
 function getNormalPosting($isAdmin=false)
