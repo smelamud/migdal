@@ -52,7 +52,7 @@
      </td>
      <td>
       <a href='/limedit.php?postid=$postid&editid=$image.ImageId&redirid=$_'
-	 >Список &gt;&gt;&gt;</a>
+	 >Список &gt;&#x3e;&gt;</a>
      </td>
     </tr>
     <tr>

@@ -8,6 +8,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/complains.php');
 require_once('lib/users.php');
+require_once('lib/forums.php');
 
 function deleteCond($table,$cond)
 {

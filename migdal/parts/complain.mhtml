@@ -48,7 +48,7 @@
  <admin_complain_answers>
   <td>
    <a href='complainactionedit.php?typeid=$complain.TypeId&redirid=$_'
-      >Редактировать&nbsp;список&nbsp;&gt;&gt;&gt;</a>
+      >Редактировать&nbsp;список&nbsp;&gt;&#x3e;&gt;</a>
   </td>
  </admin_complain_answers>
 </tr></table></td>
