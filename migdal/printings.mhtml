@@ -8,20 +8,25 @@
 <topictitle title='Издательский центр'>
 
 <element name='batcher' params='printings'>
-<ispost what='$printings'>
+<notprint>
  <table class='info'><tr valign=center>
-  <td><image src='pics/sheet.gif'></td>
-  <td>
-   <a href='postingedit.php?topic_id=$`printings`&grp=*GRP_LIBRARY_ANNOUNCES&redirid=$_'
-      >Добавить анонс</a>
-  </td>
-  <td>&nbsp;</td>
-  <td>
-   <a href='reorder.php?topic_id=$`printings`&grp=*GRP_LIBRARY_ANNOUNCES&up=-1&redirid=$_'
-      >Расставить</a>
-  </td>
+  <td><image src='pics/print.gif'></td>
+  <td><a href='$[print=1]' target='_blank'>Для печати</a></td>
+  <ispost what='$printings'>
+   <td>&nbsp;</td>
+   <td><image src='pics/sheet.gif'></td>
+   <td>
+    <a href='postingedit.php?topic_id=$`printings`&grp=*GRP_LIBRARY_ANNOUNCES&redirid=$_'
+       >Добавить анонс</a>
+   </td>
+   <td>&nbsp;</td>
+   <td>
+    <a href='reorder.php?topic_id=$`printings`&grp=*GRP_LIBRARY_ANNOUNCES&up=-1&redirid=$_'
+       >Расставить</a>
+   </td>
+  </ispost>
  </tr></table>
-</ispost>
+</notprint>
 </element>
 
 <html>
@@ -30,10 +35,12 @@
  <top ident='index'>
  <table width=100% cellpadding=5>
   <tr valign=top>
-   <td width=150 class='eframe'>
-    <posting_new grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`printings`'>
-    <topics posting='$,'>
-   </td>
+   <notprint>
+    <td width=150 class='eframe'>
+     <posting_new grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`printings`'>
+     <topics posting='$,'>
+    </td>
+   </notprint>
    <td class='cframe'>
     <subtitle>
     <outer><div class='nframe' style='padding: 5'><inner>
