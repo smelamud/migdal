@@ -7,15 +7,15 @@
  <if what='$/$posting.TopicId,1/==$`inet-news`'>
   <topic_obj id='$`inet-news`'>
   <a href='links.php' class='topic' title='$,Description'>$,Name</a>
+ <else><if what='$/$posting.TopicId,1/==$`migdal-news`'>
+  <topic_obj id='$`migdal-news`'>
+  <a href='migdal-news.php' class='topic' title='$,Description'>$,Name</a>
+ <else><if what='$/$posting.TopicId,0/==$`migdal`'>
+  <a href='migdal.php' class='topic'>Мигдаль</a>
  <else>
-  <if what='$/$posting.TopicId,1/==$`migdal-news`'>
-   <topic_obj id='$`migdal-news`'>
-   <a href='migdal-news.php' class='topic' title='$,Description'>$,Name</a>
-  <else>
-   <a href='index.php?topic_id=$posting.TopicId' class='topic'
-      title='$posting.TopicDescription'>$posting.TopicName</a>
-  </if>
- </if>
+  <a href='index.php?topic_id=$posting.TopicId' class='topic'
+     title='$posting.TopicDescription'>$posting.TopicName</a>
+ </if></if></if>
  <br>
 </if>
 </element>
