@@ -115,7 +115,7 @@ picture_bottom=white
 	font-size: 10pt;
 }
 
-.error[color='red'] {
+.error {
 	color: %error_red;
 }
 
