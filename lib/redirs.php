@@ -4,6 +4,9 @@
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/track.php');
+require_once('lib/uri.php');
+require_once('lib/utils.php');
+require_once('lib/logs.php');
 
 class Redir
       extends DataObject
@@ -62,6 +65,11 @@ global $redir,$lastRedir,$redirid,$globalid,$pageTitle,$REQUEST_URI;
 settype($redirid,'integer');
 settype($globalid,'integer');
 
+if($redirid!=0 && !redirExists($redirid))
+  {
+  logEvent('trap','outdated or incorrect redirid');
+  reload(remakeURI($REQUEST_URI,array('redirid')));
+  }
 if($globalid==0)
   {
   mysql_query("insert into redirs(up,name,uri)
@@ -121,5 +129,14 @@ $result=mysql_query("select id,up,track,name,uri
 	     or die('Ошибка SQL при выборке редиректа');
 return new Redir(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
+}
+
+function redirExists($id)
+{
+$result=mysql_query("select id
+		     from redirs
+		     where id=$id")
+	     or die('Ошибка SQL при проверке наличия редиректа');
+return mysql_num_rows($result)>0;
 }
 ?>

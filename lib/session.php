@@ -176,10 +176,7 @@ else
     else
       $userDomain=$subdomains[1];
 if($userDomain!=$currentDomain)
-  {
-  header("Location: http://$userDomain.$siteDomain$REQUEST_URI");
-  exit;
-  }
+  reload("http://$userDomain.$siteDomain$REQUEST_URI");
 }
 
 function session($aUserId=0)
