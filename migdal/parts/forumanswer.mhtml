@@ -3,11 +3,13 @@
 <element name='forum_answer'>
 <table width=100% class='forum' cellspacing=1 cellpadding=0>
  <tr>
-  <td class='header' rowspan=2 width=150><table cellpadding=0>
-   <tr><td><senderlink message='$answer'></td></tr>
+  <td class='header' rowspan=2 width=155><table cellpadding=0>
+   <tr>
+    <td><senderlink message='$answer'></td>
+    <td rowspan=2><biff time='$answer.Sent'></td>
+   </tr>
    <tr><td class='sent'>
-    <sentview date='$answer.Sent'><br>
-    <biff time='$answer.Sent'>
+    <sentview date='$answer.Sent'>
    </td></tr>
   </table></td>
   <td class='body ninept'>
