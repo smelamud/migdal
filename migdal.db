@@ -132,6 +132,21 @@ CREATE TABLE images (
 ) TYPE=MyISAM;
 
 #
+# Table structure for table 'instants'
+#
+
+CREATE TABLE instants (
+  id int(11) NOT NULL auto_increment,
+  message_id int(11) NOT NULL default '0',
+  shown tinyint(4) NOT NULL default '0',
+  confirmed tinyint(4) NOT NULL default '0',
+  recipient_id int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY message_id (message_id),
+  KEY recipient_id (recipient_id)
+) TYPE=MyISAM;
+
+#
 # Table structure for table 'mailing_types'
 #
 

@@ -81,6 +81,11 @@
  <iterate name='%name' class='ComplainTypeListIterator'>
 </macro>
 
+<macro name='iterate_confirm_instant_messagelist'>
+ <require name='lib/instants.php'>
+ <iterate name='%name' class='ConfirmInstantMessageListIterator'>
+</macro>
+
 <macro name='iterate_forum_answerlist'>
  <require name='lib/forums.php'>
  <iterate name='%name' class='ForumAnswerListIterator'
@@ -109,6 +114,11 @@
 <macro name='iterate_imageset'>
  <require name='lib/images.php'>
  <iterate name='%name' class='ImageSetIterator' arg1='%imageset'>
+</macro>
+
+<macro name='iterate_instant_messagelist'>
+ <require name='lib/instants.php'>
+ <iterate name='%name' class='InstantMessageListIterator'>
 </macro>
 
 <macro name='iterate_menu'>
@@ -145,6 +155,11 @@
  <iterate name='%name' class='PostingListIterator'
           arg1='%grp' arg2='%topic' arg3='%recursive' arg4='%limit'
 	  arg5='%offset' arg6='%personal' arg7='%sort'>
+</macro>
+
+<macro name='iterate_received_instant_messagelist'>
+ <require name='lib/instants.php'>
+ <iterate name='%name' class='ReceivedInstantMessageListIterator'>
 </macro>
 
 <macro name='iterate_sortarray' defaults="values='$*'">
