@@ -3,7 +3,8 @@
 << Errors >>
 <macro name='error'>
  <errors>
- <perror id='%id' text='%text' color='%color' span='%span'>
+ <perror id%!id='%id' text%!text='%text' color%!color='%color'
+         span%!span='%span'>
 </macro>
 
 << Date/Time >>
