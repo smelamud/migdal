@@ -42,6 +42,11 @@ A.name,SPAN.name {
 	font: bold 9pt %verdana;
 }
 
+.sent {
+	color: %sent;
+	font-size: 9pt;
+}
+
 .pic IMG {
 	border: 1px solid %image_border;
 }

@@ -22,11 +22,6 @@
 	vertical-align: top;
 }
 
-.forum .sent {
-	color: %posting_sent;
-	font-size: 9pt;
-}
-
 .forum .controls {
 	background-color: %forum_body_back;
 	background-image: url("../%forum_body_back_pic");

@@ -2,39 +2,28 @@
 
 <int name='topic_id'>
 <int name='offset'>
-<ifzero what='$topic_id'>
- <assign name='topic_id' value='-1'>
-</ifzero>
-<zone>
- <ident_id table='topics' ident='$topic_id'>
- <log event=forumcatalog text#='topic($,) offset=$offset'>
-</zone>
+
+<< Traps >>
+<< Tue Jun 17 18:56:06 EEST 2003 >>
+<ifnzero what='$topic_id'>
+ <trap text='topic_id!=0 in forumcatalog.php'>
+ <reload href='forumcatalog.php'>
+</ifnzero>
+<< /Traps >>
+
+<log event=forumcatalog text#='offset=$offset'>
+
 <grps>
-<unititle chapter='Обсуждения' topic_id='$topic_id'>
+<pagetitle title='Обсуждения'>
 
 <html>
 <preamble>
 <body>
  <top ident='discuss'>
- <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'>
-   <topics_minor id='$topic_id' withpostings='*true' withanswers='*true' up=-1
-                 grp='*GRP_DISCUSS' href='forumcatalog.php' title='Обсуждения'>
-  </td>
-  <td>
-   <if what='$topic_id>0'>
-    <div class='nframe' style='margin-bottom: 5px; padding: 5px'>
-     <subtitle icon='pics/opinion-big.gif'>
-     <seealso_links topic_id='$topic_id' topic_grp='*GRP_FORUMS'
-		    title='См. также в разделе ссылок'>
-     <seealso_other topic_id='$topic_id' topic_grp='*GRP_FORUMS'
-		    title='По этой теме в других разделах'>
-    </div>
-   </if>
-   <forumcatalog topic_id='$topic_id' limit='$userForumCatalogPortion'
-                 offset='$offset'>
-  </td>
- </tr></table>
+ <div style='padding: 5'>
+  <forumcatalog topic_id='-1' limit='$userForumCatalogPortion'
+		offset='$offset'>
+ </div>
  <bottom>
 </body>
 </html>

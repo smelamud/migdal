@@ -57,16 +57,6 @@
 	border-top: solid 3px %catalog_split;
 }
 
-.catalog .topic A {
-	color: %catalog_topic;
-	text-decoration: none;
-	font-style: italic;
-}
-
-.catalog .topic A:hover {
-	text-decoration: underline;
-}
-
 .catalog .subject A {
 	color: %catalog_subject;
 	text-decoration: underline;
@@ -74,10 +64,6 @@
 
 .catalog .subject A:hover {
 	color: %catalog_subject_hover;
-}
-
-.catalog .name {
-	font-weight: normal;
 }
 
 .catalog .email A {

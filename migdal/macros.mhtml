@@ -51,9 +51,8 @@
 <decel name='/formtable' file='parts/formutils.php'>
 <decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'
        defaults="complain='*true'">
-<decel name='forumcatalog' file='parts/forumcatalog.php'
-       params='topic_id,limit,offset'
-       defaults="topic_id=-1 limit=10 offset=0">
+<decel name='forumcatalog' file='parts/forumcatalog.php' params='offset'
+       defaults="offset=0">
 <decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'

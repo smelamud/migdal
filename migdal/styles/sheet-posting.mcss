@@ -44,11 +44,6 @@
 	color: %posting_em;
 }
 
-.posting .sent {
-	color: %posting_sent;
-	font-size: 9pt;
-}
-
 .posting .source {
 	font-style: italic;
 	font-size: 9pt;

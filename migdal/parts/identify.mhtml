@@ -195,6 +195,13 @@
   <assign name='title' value='$posting.TopicDescription'>
   <assign name='name' value='$posting.TopicName'>
  </if>
+<elif what='$/$posting.TopicId,0/==$`forums`'>
+ <assign name='href' value='forumcatalog.php'>
+ <assign name='ghref' value=''>
+ <assign name='mhref' value=''>
+ <assign name='name' value='Форум'>
+ <assign name='title' value=''>
+ <assign name='root' value='$`forums`'>
 <elif what='$/$posting.TopicId,0/==$`taglit`'>
  <identify_taglit>
 <elif what='$/$posting.TopicId,0/==$`veterans`'>

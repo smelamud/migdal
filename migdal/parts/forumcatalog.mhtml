@@ -1,78 +1,65 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='&list,topic_id'>
+<element name='batcher' params='&list'>
 <table width=100%><tr valign=bottom>
- <topic_allow id='$topic_id'>
- <if what='($, & *GRP_FORUMS)!=0'>
-  <td align=left class='info'>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <logged>
-      <assign name='script' value='postingedit.php'>
-     <else>
-      <assign name='script' value='login.php'>
-     </logged>
-     <a href='$script?topic_id=$topic_id&grp=*GRP_FORUMS&redirid=$_'
-	>Добавить мнение</a>
-    </td>
-   </tr></table>
-  </td>
- </if>
+ <td align=left class='info'>
+  <table><tr valign=center>
+   <td><image src='pics/sheet.gif'></td>
+   <td>
+    <a href='postingedit.php?topic_id=$`forums`&grp=*GRP_FORUMS&redirid=$_'
+       >Добавить тему</a>
+   </td>
+  </tr></table>
+ </td>
  <td><spin list='$list'></td>
 </tr></table>
 </element>
 
 <element name='forumcatalog'>
 <grps>
-<iterate_postinglist grp='*GRP_DISCUSS' topic_id='$topic_id' limit='$limit'
-                     offset='$offset' sort='*SORT_ACTIVITY'
-		     withanswers='*GRP_NOT_FORUMS'
-		     showshadows!='$topic>0 || $$userModerator'
+<iterate_postinglist grp='*GRP_DISCUSS' limit=20 offset='$offset'
+                     sort='*SORT_ACTIVITY' withanswers='*GRP_NOT_FORUMS'
+		     showshadows='*true'
 		     fields!='*SELECT_TOPICS|*SELECT_ANSWERS'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher list='$;' topic_id='$topic_id'>
+ <batcher list='$;'>
  <table width=100% class='catalog'>
   <tr>
-   <if what='$topic_id<0'>
-    <th>Раздел</th>
-   </if>
-   <th>Тема</th><th colspan=2>Начало / Последнее сообщение</th><th>Ответы</th>
+   <th>Тема</th><th colspan=2>Последнее сообщение</th><th>Ответы</th>
   </tr>
   <for>
-   <if what='$;isOdd'><tr class='odd'><else><tr></if>
-    <if what='$topic_id<0'>
-     <td class='topic ninept' rowspan=2 align=center>
-      <a href='forumcatalog.php?redirid=$_&topic_id=$.TopicId'
-	 title='$.TopicDescription'>$.TopicName</a>
-     </td>
-    </if>
-    <td class='subject ninept' rowspan=2>
+   <if what='$;isOdd'>
+    <tr class='odd' height=40>
+   <else>
+    <tr height=40>
+   </if>
+    <td>
      <biff time='$.Sent'>
-     <a href='forum.php?redirid=$_&msgid=$.Id'>$.SubjectDesc</a>
+     <a href='forum.php?msgid=$.Id&redirid=$_' class='ninept'>$.SubjectDesc</a>
+     <if what='$.TopicId!=$`forums`'>
+      <br>
+      <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
+     </if>
     </td>
-    <td class='eightpt'><senderlink message='$.'></td>
-    <td class='eightpt'><sentview date='$.Sent'></td>
-    <td class='ninept' rowspan=2 align=center>
+    <ifzero what='$.LastAnswer'>
+     <td><senderlink message='$.'></td>
+     <td class='sent ninept'><sentview date='$.Sent'></td>
+    <else>
+     <zone>
+      <forum_answer_author parent_id='$.MessageId' sent='$.LastAnswer'>
+      <td><senderlink message='$,'></td>
+     </zone>
+     <td class='sent ninept'><sentview date='$.LastAnswer'></td>
+    </ifzero>
+    <td class='ninept' align=center>
      <biff time='$.LastAnswer' small='*true'>
      $.AnswerCount
     </td>
    </tr>
-   <if what='$;isOdd'><tr class='odd'><else><tr></if>
-    <ifnzero what='$.LastAnswer'>
-     <zone>
-      <forum_answer_author parent_id='$.MessageId' sent='$.LastAnswer'>
-      <td class='eightpt'><senderlink message='$,'></td>
-     </zone>
-     <td class='eightpt'><sentview date='$.LastAnswer'></td>
-    <else>
-     <td>&nbsp;</td><td>&nbsp;</td>
-    </ifnzero>
-   </tr>
   </for>
  </table>
  <ifnzero what='$;Count'>
-  <batcher list='$;' topic_id='$topic_id'>
+  <batcher list='$;'>
  </ifnzero>
 <else>
  &nbsp;
