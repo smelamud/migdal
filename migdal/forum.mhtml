@@ -10,15 +10,25 @@
 <body>
  <top ident='forums' image='pics/forums.gif'>
  <posting_full id='$msgid' grp='*GRP_FORUMS'>
- <center>
-  <if what='$,Grp!=*GRP_GALLERY'>
-   <posting posting='$,' grp='*GRP_FORUMS' discuss='*false'>
-  <else>
-   <picture picture='$,' grp='*GRP_GALLERY' discuss='*false'>
-  </if>
- </center>
- <p>
- <forums up='$,MessageId' limit='$$userForumPortion'>
+ <table width=100%><tr valign=top>
+  <zone>
+   <require name='lib/grps.php'>
+   <grpdata name='g' grp='$,Grp'>
+  </zone>
+  <td width=120><topics g='$g' topic_id='$,TopicId' navi='*true'></td>
+  <td width=20>&nbsp;</td>
+  <td>
+   <center>
+    <if what='$,Grp!=*GRP_GALLERY'>
+     <posting posting='$,' grp='*GRP_FORUMS' discuss='*false'>
+    <else>
+     <picture picture='$,' grp='*GRP_GALLERY' discuss='*false'>
+    </if>
+   </center>
+   <p>
+   <forums up='$,MessageId' limit='$$userForumPortion'>
+  </td>
+ </tr></table>
  <bottom>
 </body>
 </html>

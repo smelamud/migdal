@@ -123,26 +123,34 @@
 </head>
 <body>
  <top ident='articles' image='pics/articles.gif'>
- <div class='article'>
-  <controls posting='$,'>
-  <center><h1>$,Subject</h1></center>
-  <ifne what='$,Author'>
-   <div class='author' align=center>$,HTMLAuthor</div>
-  </ifne>
-  <if what='$,LargeFormat==*TF_PRE'><pre></if>
-  <iterate_posting_paragraphs posting='$,'>
-  <p>
-  <for>
-   <pic posting='$,' par='$.'>
-   $.HTMLBody
-  </for>
-  </p>
-  <if what='$,LargeFormat==*TF_PRE'></pre></if>
-  <ifne what='$,Source'>
-   <div class='source' align=right>$,HTMLSource</div>
-  </ifne>
-  <controls posting='$,'>
- </div>
+ <table width=100%><tr valign=top>
+  <zone>
+   <require name='lib/grps.php'>
+   <grpdata name='g' grp='$,Grp'>
+  </zone>
+  <td width=120><topics g='$g' topic_id='$,TopicId' navi='*true'></td>
+  <td width=20>&nbsp;</td>
+  <td class='article'>
+   <controls posting='$,'>
+   <h1>$,Subject</h1>
+   <ifne what='$,Author'>
+    <div class='author'>$,HTMLAuthor</div>
+   </ifne>
+   <if what='$,LargeFormat==*TF_PRE'><pre></if>
+   <iterate_posting_paragraphs posting='$,'>
+   <p>
+   <for>
+    <pic posting='$,' par='$.'>
+    $.HTMLBody
+   </for>
+   </p>
+   <if what='$,LargeFormat==*TF_PRE'></pre></if>
+   <ifne what='$,Source'>
+    <div class='source' align=right>$,HTMLSource</div>
+   </ifne>
+   <controls posting='$,'>
+  </td>
+ </tr></table>
  <bottom>
 </body>
 </html>

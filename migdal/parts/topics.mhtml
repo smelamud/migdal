@@ -51,21 +51,16 @@
     <a href='topicedit.php?redir=$_'>Добавить</a>
    </td></tr>
   </admin_topics>
-  <if what='$g.Grp==*GRP_GALLERY'>
-   <assign name='fname' value='gallery.php'>
-  <else>
-   <assign name='fname' value='index.php'>
-  </if>
   <tbody class='names'>
    <tr>
     <arrow id='-1'>
-    <td><a href='$fname?grp=$g.Grp&topic_id=-1' class='new'>NEW!</a></td>
+    <td><a href='$file?grp=$g.Grp&topic_id=-1' class='new'>NEW!</a></td>
    </tr>
    <for>
     <tr>
      <arrow id='$.Id' time='$.LastMessage'>
      <td>
-      <a href='$fname?grp=$g.Grp&topic_id=$.Id' title='$.Description'>
+      <a href='$file?grp=$g.Grp&topic_id=$.Id' title='$.Description'>
 	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
       <admin_topics>
        <br>

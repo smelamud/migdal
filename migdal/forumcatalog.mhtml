@@ -13,8 +13,10 @@
 
  <table width=100%><tr valign=top>
   <grp grp='*GRP_DISCUSS'>
-  <td width=20%><topics g='$g' topic_id='$topic_id' withpostings='*true'
-                        withanswers='*true'></td>
+  <td width=120>
+   <topics g='$g' topic_id='$topic_id' withpostings='*true' withanswers='*true'
+           file='forumcatalog.php'>
+  </td>
   <td width=20>&nbsp;</td>
   <td><forumcatalog topic='$topic_id' limit='$userForumCatalogPortion'
                     offset='$offset'></td>
