@@ -17,9 +17,10 @@ if(!$result)
 if(mysql_num_rows($result)==0)
   return EL_INVALID;
 $id=mysql_result($result,0,0);
-mysql_query("insert into sessions(user_id) values($id)")
+srand(time());
+$sid=rand();
+mysql_query("insert into sessions(user_id,sid) values($id,$sid)")
      or die('Ошибка SQL при создании сессии');
-$sid=mysql_insert_id();
 SetCookie('sessionid',$sid,time()+7200);
 return EL_OK;
 }
