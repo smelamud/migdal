@@ -10,7 +10,7 @@ nll=#DCECFF	! Light light
 
 ! Red
 
-r=#FF5500
+r=#FF3300
 
 ! Orange
 
@@ -28,11 +28,11 @@ md=#990099	! Dark
 
 ! Gray
 
-grd=#5C5C5C	! Dark
-grm=#AAAAAA	! Medium
-gr=#C3C3C3	! Normal
+grd=#333333	! Dark
+grm=#666666	! Medium
+gr=#999999	! Normal
 grl=#EAEAEA	! Light
 
 ! Maroon
 
-mr=#9E4F00
+mr=#993300
