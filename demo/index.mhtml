@@ -6,11 +6,11 @@
  <title>Демо</title>
 </head>
 <body bgcolor=white>
-  <top ident='index'>
-  <table width=100%>
-   <tr><td>
-    <messages grp='*GRP_EVENTS' limit='$userMsgPortion' offset='$offset'>
-   </td></tr>
-  </table>
+ <top ident='index'>
+ <table width=100%>
+  <tr><td>
+   <messages grp='*GRP_EVENTS' limit='$userMsgPortion' offset='$offset'>
+  </td></tr>
+ </table>
 </body>
 </html>
