@@ -230,6 +230,7 @@ CREATE TABLE messages (
   group_id int(11) NOT NULL default '0',
   perms int(11) NOT NULL default '0',
   disabled tinyint(4) NOT NULL default '0',
+  modbits int(11) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
   url_domain varchar(70) NOT NULL default '',
   url varchar(250) NOT NULL default '',
@@ -251,7 +252,8 @@ CREATE TABLE messages (
   KEY url_check (url_check),
   KEY url_check_success (url_check_success),
   KEY last_updated (last_updated),
-  KEY perms (perms)
+  KEY perms (perms),
+  KEY modbits (modbits)
 ) TYPE=MyISAM;
 
 --

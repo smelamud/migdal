@@ -87,7 +87,7 @@ return $self->{'current'};
 }
 
 %Tokens=('ident'  => '[A-Za-z_]\w*',
-         'number' => '-?\d+',
+         'number' => '-?(?:0x[\dA-Fa-f]+|\d+)',
          'symbol' => '[:;={}]',
 	 'string' => '"(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\'');
 

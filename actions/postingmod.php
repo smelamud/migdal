@@ -20,6 +20,7 @@ require_once('lib/stotext.php');
 require_once('lib/track.php');
 require_once('lib/forums.php');
 require_once('lib/redirs.php');
+require_once('lib/modbits.php');
 
 function setImageTitle($image_set,$title)
 {
@@ -53,20 +54,18 @@ return !$userModerator;
 
 function setDisabled($message)
 {
+$modbits=$message->getModmask();
+if($message->getLargeFormat()==TF_HTML)
+  $modbits|=MOD_HTML;
+else
+  $modbits&=~MOD_HTML;
+setModbitsByMessageId($message->getMessageId(),$modbits);
+
 $complain=getComplainInfoByLink(COMPL_AUTO_POSTING,$message->getId());
 if($complain->getId()==0)
   {
   if(isPremoderated($message))
-    {
-    $result=mysql_query('update messages
-			 set disabled=1
-			 where id='.$message->getMessageId());
-    if(!$result)
-      return false;
-    journal('update messages
-	     set disabled=1
-	     where id='.journalVar('messages',$message->getMessageId()));
-    }
+    setDisabledByMessageId($message->getMessageId(),1);
   if(isLogged($message))
     sendAutomaticComplain(COMPL_AUTO_POSTING,
 			  'Автоматическая проверка сообщения "'.

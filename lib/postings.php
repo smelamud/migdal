@@ -247,7 +247,7 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
 			     $subdomain=-1,$up=-1,$showShadows=true,
-			     $fields=SELECT_ALLPOSTING)
+			     $fields=SELECT_ALLPOSTING,$modbits=MOD_NONE)
 {
 $this->topicFilter='';
 $this->addTopicFilter($topic_id,$recursive);
@@ -337,10 +337,11 @@ $sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
 $subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
 $childFilter=$up>=0 ? "and messages.up=$up" : '';
 $shadowFilter=!$showShadows ? 'and shadow=0' : '';
+$modbitsFilter=$modbits>0 ? "and (modbits & $modbits)!=0" : '';
 
 $Where="$hideMessages and personal_id=$personal and $grpFilter @topic@
 	$userFilter $index1Filter $sentFilter $subdomainFilter $childFilter
-	$shadowFilter";
+	$shadowFilter $modbitsFilter";
 /* Group by */
 $GroupBy=($fields & SELECT_ANSWERS)!=0 ? 'group by postings.id' : '';
 /* Having */
