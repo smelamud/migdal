@@ -6,6 +6,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/errors.php');
 require_once('lib/users.php');
+require_once('lib/post.php');
 
 function postMessage($personal,$message)
 {
