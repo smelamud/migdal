@@ -8,7 +8,7 @@
  <top ident='chat' image='pics/chat.gif'>
  <formtable title='Настроика чата'>
   <form method=get action='/chat.php'>
-   <hiddenget remove='chr chp'>
+   <hiddenget remove='chr chp redir redirid'>
    <table>
     <tr>
      <td>Обновлять каждые</td>

@@ -33,8 +33,12 @@
  </tr>
  <if what="$flags!='no_new'">
   <tr><td colspan=5 align=right>
-   <concat value='/register.php?redir=$_'>
-   <at href='$*' target='$target'>Зарегистрироваться</at>
+   <if what="$re==''">
+    <concat name='link' value='/register.php?redir=$_'>
+   <else>
+    <concat name='link' value='/register.php?redir=$re?$?'>
+   </if>
+   <at href='$link' target='$target'>Зарегистрироваться</at>
   </td></tr>
  </if>
 <else>

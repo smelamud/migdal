@@ -16,10 +16,12 @@
    <notlogged>
     <span class='advert'>
      Хотите общаться в чате?
-     <a href='/register.php?redir=$_' target=_top>Зарегистрируйтесь!</a>
+     <a href='/register.php?redir=/chat.php&$?' target=_top>
+      Зарегистрируйтесь!</a>
     </span>
    <else>
-    <a href='/chattune.php?redir=/chat.php&$?' target=_top>Настроить чат</a>
+    <a href='/chattune.php?redir=/chat.php&$?' target=_top>
+     Настроить чат</a>
    </notlogged>
   </td>
  </tr></table>
