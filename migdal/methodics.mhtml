@@ -1,0 +1,29 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+
+<log event=review text#='topic($`methodics`)'>
+<pagetitle title='Методический кабинет'>
+<topictitle title='Методический кабинет'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5><tr valign=top>
+  <td width=150 class='eframe'>
+   <zone>
+    <posting_new topic_id='$`methodics`'>
+    <topics posting='$,'>
+   </zone>
+  </td>
+  <td class='cframe'>
+   <subtitle>
+   <postings grp='*GRP_BOOKS' topic='$`methodics`' limit='$userMsgPortion'
+	     offset='$offset' subdomain!='$$officialDomain ? 1 : -1'
+	     showshadows='$$userModerator'>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>
