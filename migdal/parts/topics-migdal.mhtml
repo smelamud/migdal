@@ -91,7 +91,8 @@
 	     class='item eightpt'>
 <posting_last topic_id='$`methodics`' recursive='*true'>
 <topics_line time='$,' text='Методический центр' href#='methodics.php'
-             indent=1 class='item eightpt'>
+             indent=1 class='item eightpt'
+	     title='Южно-Украинский региональный методический центр'>
 <posting_last topic_id='$`kaitana`' recursive='*true'>
 <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
 	     indent=1 class='item eightpt'>
