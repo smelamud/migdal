@@ -15,6 +15,11 @@ TABLE.posting {
 	/*border: 1px solid black;*/
 }
 
+TABLE.article {
+	background-color: #F9DBFF;
+	/*border: 1px solid black;*/
+}
+
 TABLE.topics {
 	background-color: #E8E8E8;
 	/*border: 1px solid black;*/

@@ -8,8 +8,13 @@
  <if what='$posting.isRebe'></font></if>
 </macro>
 
+<grps>
 <element name='Posting'>
-<table width=100% class='posting'>
+<if what='$posting.Grp==*GRP_ARTICLES'>
+ <table width=100% class='article'>
+<else>
+ <table width=100% class='posting'>
+</if>
 <tr>
  <if what='$topic<0'>
   <td>
