@@ -37,7 +37,8 @@
 
 <element name='postings'>
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
-                     sort='*SORT_PSENT' subdomain='$subdomain'>
+                     sort='*SORT_PSENT' subdomain='$subdomain'
+		     user='$user_id'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher list='$;' topic='$topic' grp='$grp' root='$root'>
  <table>
