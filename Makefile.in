@@ -18,6 +18,11 @@ dbinfo:
 install: all
 	(cd $(uiName); $(MAKE) install)
 
+pack: all
+	tar zchf $(uiName).tar.gz --exclude 'CVS' --exclude '*.mhtml' \
+		--exclude 'Makefile.*' --exclude '_template*' \
+		--exclude '.cvsignore' $(uiName)
+
 clean:
 	-rm $(OBJECTS)
 	(cd $(uiName); $(MAKE) clean)
