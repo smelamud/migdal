@@ -174,22 +174,6 @@ CREATE TABLE mailings (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'menu'
---
-
-CREATE TABLE menu (
-  id int(11) NOT NULL auto_increment,
-  name varchar(30) NOT NULL default '',
-  ident varchar(15) NOT NULL default '',
-  link varchar(70) NOT NULL default '',
-  hidden tinyint(4) NOT NULL default '0',
-  menu_index tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (id),
-  UNIQUE KEY ident (ident),
-  KEY menu_index (menu_index)
-) TYPE=MyISAM;
-
---
 -- Table structure for table 'messages'
 --
 
@@ -396,7 +380,6 @@ CREATE TABLE users (
   shames tinyint(4) NOT NULL default '0',
   admin_users tinyint(4) NOT NULL default '0',
   admin_topics tinyint(4) NOT NULL default '0',
-  admin_menu tinyint(4) NOT NULL default '0',
   admin_complain_answers tinyint(4) NOT NULL default '0',
   moderator tinyint(4) NOT NULL default '0',
   judge tinyint(4) NOT NULL default '0',
