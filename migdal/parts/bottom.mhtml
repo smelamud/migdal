@@ -5,7 +5,10 @@
 <div class='bottom'>
  <table width=100%>
   <tr>
-   <td>&nbsp;</td>
+   <td>
+    Раввином сайта является
+    <a href='http://yosele.rabbi.ru/'>р.&nbsp;Йосеф Херсонский</a>.
+   </td>
    <td align=right>
     <image src='pics/book.gif'>&nbsp;
     <a class='big' href='complains.php'>Замечания/предложения по работе сайта</a>
