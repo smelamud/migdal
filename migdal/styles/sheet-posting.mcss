@@ -7,7 +7,7 @@
 	background-color: %posting_back;
 }
 
-.posting P,.posting P * {
+.posting DD,.posting DD * {
 	text-align: justify;
 	font-size: 9pt;
 }
