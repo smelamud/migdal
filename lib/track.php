@@ -40,6 +40,8 @@ return $track;
 
 function ancestorById($table,$id,$level=-1)
 {
+if($table=='' || $id<=0)
+  return 0;
 if($level<0)
   return trackById($table,$id);
 $levels=explode(' ',trackById($table,$id));

@@ -47,27 +47,25 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100% cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'>
-   <topics_major ident='index'>
-   <topics_minor id='$topic_id' withpostings='$$officialDomain'
-                 subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'
-		 href='index.php' title='Раздельчики'>
-  </td>
-  <td class='cframe'>
-   <subtitle>
-   <seealso_links topic_id='$topic_id'
-                  title='См. также в разделе ссылок'>
-   <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
-	     offset='$offset' subdomain!='$$officialDomain ? 1 : -1'
-	     showshadows!='$topic_id>0 || $$userModerator'>
-  </td>
-  <community>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics_major ident='index'>
+    <topics_minor id='$topic_id' withpostings='$$officialDomain'
+		  subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'
+		  href='index.php' title='Раздельчики'>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <seealso_links topic_id='$topic_id'
+		   title='См. также в разделе ссылок'>
+    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
+	      offset='$offset' subdomain!='$$officialDomain ? 1 : -1'
+	      showshadows!='$topic_id>0 || $$userModerator'>
+   </td>
    <td width=130 class='eframe'>
     <if what='$topic_id<=0'>
-     <div class='ninept'>
-      <a href='migdal.php'>Что такое &lt;&lt;Мигдаль&gt;&gt;?</a>
-     </div>
+     <topics_migdal_main>
     </if>
     <tip>
     <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'>
@@ -76,8 +74,8 @@
     </if>
     <<friends>>
    </td>
-  </community>
- </tr></table>
+  </tr>
+ </table>
  <bottom>
 </body>
 </html>

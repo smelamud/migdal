@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='topics_ner' params='time,arrow' defaults='time=0'>
+<element name='topics_ner' params='time,arrow,nobullet' defaults='time=0'>
 <if what='$arrow'>
  <ifbiff time='$time'>
   <image src='$$style_topics_ner_arrow'>
@@ -11,23 +11,29 @@
  <ifbiff time='$time'>
   <image src='pics/ner-small.gif' title='новое'>
  <else>
-  &nbsp;
+  <if what='$nobullet'>
+   &nbsp;
+  <else>
+   <image src='pics/bullet.gif'>
+  </if>
  </ifbiff>
 </if>
 </element>
 
 <element name='topics_line'>
 <if what='$arrow'>
- <tr class=arrow>
+ <tr class=arrow valign=top>
 <else>
- <tr>
+ <tr valign=top>
 </if>
- <ifnzero what='$indent'>
+ <if what='$indent>0'>
   <tdspan span='$indent'>&nbsp;</tdspan>
- </ifnzero>
- <td>
-  <topics_ner time='$time' arrow='$arrow'>
- </td>
+ </if>
+ <if what='$indent>=0'>
+  <td>
+   <topics_ner time='$time' arrow='$arrow' nobullet='$nobullet'>
+  </td>
+ </if>
  <tdspan span='$span'>
   <ifne what='$title'>
    <a href='$href' title='$title' class='$class'><asp>
@@ -47,7 +53,11 @@
 <else>
  <assign name='tableclass' value='topics'>
 </ifne>
-<table class='$tableclass' width=100%>
+<if what='$nomargin'>
+ <table class='$tableclass' width=100% style='margin-top: 0'>
+<else>
+ <table class='$tableclass' width=100%>
+</if>
  <ifnzero what='$span'>
   <if what='$span>1'>
    <for n='$span'>
