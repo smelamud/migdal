@@ -141,7 +141,7 @@ my ($class,$name)=@_;
 
 $::FlagValue=$::maskValues ? $::FlagValue*2 : $::FlagValue+1;
 return bless {'name'      => $name,
-              'flag'      => uc $name,
+	      'flag'      => uc $name,
 	      'flagValue' => $::maskValues ? $::FlagValue/2 : $::FlagValue-1,
 	      'params'    => {}},$class;
 }
@@ -191,6 +191,7 @@ $self->{'params'}->{$name}=$value;
 package main;
 
 @Classes=();
+$defaultClass=new Class('default');
 $FlagValue=1;
 %Groups=();
 
@@ -320,8 +321,20 @@ else
 
 sub defineClass
 {
-my $class=new Class($Input->getToken()->getValue());
-push @Classes,$class;
+my $class;
+if($Input->getToken()->getValue() ne 'default')
+  {
+  $class=new Class($Input->getToken()->getValue());
+  while(my($name,$value)=each(%{$defaultClass->getParams()}))
+       {
+       $class->addParam($name,$value);
+       }
+  push @Classes,$class;
+  }
+else
+  {
+  $class=$defaultClass;
+  }
 $Input->next();
 $Input->next(),return if $Input->getToken()->getValue() eq ';';
 if($Input->getToken()->getValue() eq '{')
