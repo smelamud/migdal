@@ -14,8 +14,21 @@
 }
 
 .topics TD {
-	padding-top: 4;
-	padding-bottom: 0;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.topics .arrow {
+	border: solid 1px %topics_arrow_border;
+	background-image: url("../%topics_arrow_back_pic");
+}
+
+.topics .arrow TD:first-child {
+	border-left: solid 1px %topics_arrow_border;
+}
+
+.topics .arrow TD:last-child {
+	border-right: solid 1px %topics_arrow_border;
 }
 
 .topics A {

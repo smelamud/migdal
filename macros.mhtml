@@ -339,10 +339,26 @@
 
 << HTML shortcuts >>
 <macro name='tdspan' defaults='span=0'>
- <if what='(%span)==0 || (%span)==1'><td><else><td colspan=%span></ifzero>
+ <if what='(%span)==0 || (%span)==1'>
+  <asp><td class='%class'><asp>
+ <else>
+  <asp><td class='%class' colspan=%span><asp>
+ </if>
 </macro>
 
 <macro name='/tdspan'>
+ </td>
+</macro>
+
+<macro name='tdcspan' defaults='span=0'>
+ <if what='(%span)==0 || (%span)==1'>
+  <asp><td class='%class'><asp>
+ <else>
+  <asp><td class='%class' colspan=%span><asp>
+ </if>
+</macro>
+
+<macro name='/tdcspan'>
  </td>
 </macro>
 

@@ -17,12 +17,16 @@
 </element>
 
 <element name='topics_line'>
-<tr>
+<if what='$arrow'>
+ <tr class=arrow>
+<else>
+ <tr>
+</if>
  <ifnzero what='$indent'>
   <tdspan span='$indent'>&nbsp;</tdspan>
  </ifnzero>
  <td>
-  <topics_ner time='$time' arrow='$arrow'>
+  <topics_ner time='$time'>
  </td>
  <tdspan span='$span'>
   <ifne what='$title'>
