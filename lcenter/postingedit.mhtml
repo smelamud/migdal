@@ -1,0 +1,278 @@
+<< @(#) $Id$ >>
+
+<<
+1. Если поле something отсутствует из-за того, что $,hasSomething()
+   возвращает false, оно должно присутствовать в виде hidden, поскольку оно
+   может присутствовать в других тенях этого же сообщения. В противном
+   случае actions/postingmod.php затрет это поле.
+2. Все поля должны включаться, если $full!=0, независимо от значения
+   $,hasSomething().
+>>
+
+<int name='editid'>
+<int name='topic_id'>
+<int name='grp'>
+<int name='up'>
+<int name='full'>
+<posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'
+             fields='*SELECT_GENERAL'>
+<pagetitle title#='Редактирование $message.GrpItemsTitle'>
+
+<macro name='full'>
+ <if what='$$full'>
+</macro>
+<endif name='/full'>
+
+<full>
+ <assign name='root' value='-1'>
+<else>
+ <if what='$topic_id<=0'>
+  <assign name='root' value='$`general`'>
+ <else>
+  <assign name='root' value='$message.RootId'>
+ </if>
+</full>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <setup>
+ <if what='$editid'>
+  <assign name='head' value#='Изменить $message.GrpItemTitle'>
+ <else>
+  <assign name='head' value#='Добавить $message.GrpItemTitle'>
+ </if>
+ <formtable title='$head'>
+  <form method='post' enctype='multipart/form-data'
+	action='actions/postingmod.php'>
+   <hidden name='edittag' value=1>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <hidden name='editid' value='$editid'>
+   <hidden name='personal_id' value='$message.PersonalId'>
+   <hidden name='up' value='$message.UpValue'>
+   <table>
+   <starinfo>
+   <error id='*EP_NO_SEND'
+	  text='Посылать сообщения могут только зарегистрированные пользователи'>
+   <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+   <error id='*EP_STORE_SQL' text='Ошибка базы данных при обновлении записи'
+	  color='magenta'>
+   <error id='*EP_TRACK_SQL' color='magenta'
+	  text='Ошибка базы данных при обновлении маршрута сообщения'>
+   <error id='*EP_NO_PERSONAL'
+	  text='У этого пользователя нет персональной страницы'>
+   <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
+   <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
+   <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
+   <error id='*EP_TOPIC_ACCESS'
+	  text='Вы не имеете права добавлять сообщения по этой теме'>
+   <error id='*EP_NO_UP' text='Вышестоящего сообщения не существует'>
+   <error id='*EP_LOOP_UP' text='Сообщение не может быть подчиненным себе'>
+   <error id='*EP_UP_APPEND'
+	  text='Вы не имеете права присоединять сообщения к этому сообщению'>
+   <moderator>
+    <tr><td><table><tr valign='center'>
+     <full>
+      <td><image src='pics/down.gif' border=0></td>
+      <td><a href='$[full=0]'>Свернуть</a></td>
+     <else>
+      <td><image src='pics/right.gif' border=0></td>
+      <td><a href='$[full=1]'>Развернуть</a></td>
+     </full>
+    </tr></table></td></tr>
+   </moderator>
+   <tr><td><table>
+    <full>
+     <grpselect name='grp' value='$message.Grp'>
+    <else>
+     <hidden name='grp' value='$message.Grp'>
+    </full>
+    <full>
+     <edit_line title='Приоритет' name='priority' value='$message.Priority'
+		size=4 maxlength=3>
+    <else>
+     <hidden name='priority' value='$message.Priority'>
+    </full>
+    <if what='$message.hasTopic || $full'>
+     <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
+		  mandatory='$message.mandatoryTopic' root='$root'
+		  recursive='*true'>
+    <else>
+     <hidden name='topic_id' value='$message.TopicId'>
+    </if>
+    <if what='$message.hasComment0 || $full'>
+     <edit_line title='$message.Comment0Title' value='$message.Comment0'
+		name='comment0' size=52 maxlength=250 mandatory='*false'>
+    <else>
+     <hidden name='comment0' value='$message.Comment0'>
+    </if>
+    <full>
+     <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
+     <error id='*EP_IDENT_UNIQUE' span=2
+	    text='Так уже обозначено другое сообщение'>
+     <edit_line title='Обозначение' name='ident' value='$,Ident'
+		size=15 maxlength=15 mandatory='$message.mandatoryIdent'>
+    <else>
+     <hidden name='ident' value='$,Ident'>
+    </full>
+    <if what='$message.hasIndex1 || $full'>
+     <error id='*EP_INDEX1_ABSENT' text='Номер не указан' span=2>
+     <edit_line title='Номер' value='$message.Index1' name='index1'
+		size=3 maxlength=5 mandatory='$message.mandatoryIndex1'>
+     <full>
+      <edit_line title='Длина' value='$message.Index2' name='index2'
+		 size=3 maxlength=5 mandatory='*false'>
+     </full>
+    <else>
+     <hidden name='index1' value='$message.Index1'>
+     <hidden name='index2' value='$message.Index2'>
+    </if>
+    <if what='$message.hasLang || $full'>
+     <error id='*EP_LANG_ABSENT' text='Язык не указан' span=2>
+     <langselect value='$message.Lang' name='lang'
+		 mandatory='$message.mandatoryLang'>
+    <else>
+     <hidden name='lang' value='$message.Lang'>
+    </if>
+    <if what='$message.hasSubject || $full'>
+     <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
+     <edit_line title='Заголовок' value='$message.Subject' name='subject'
+		size=52 maxlength=250 mandatory='$message.mandatorySubject'>
+    <else>
+     <hidden name='subject' value='$message.Subject'>
+    </if>
+    <if what='$message.hasAuthor || $full'>
+     <error id='*EP_AUTHOR_ABSENT' text='Автор не указан' span=2>
+     <edit_line title='Автор' value='$message.Author' name='author'
+		size=52 maxlength=250 mandatory='$message.mandatoryAuthor'>
+    <else>
+     <hidden name='author' value='$message.Author'>
+    </if>
+    <if what='$message.hasSource || $full'>
+     <error id='*EP_SOURCE_ABSENT' text#='$message.SourceTitle не указан'
+	    span=2>
+     <edit_line title='$message.SourceTitle' value='$message.Source'
+		name='source' size=52 maxlength=250
+		mandatory='$message.mandatorySource'>
+    <else>
+     <hidden name='source' value='$message.Source'>
+    </if>
+    <if what='$message.hasImage || $full'>
+     <error id='*EP_IMAGE_ABSENT' span=2
+	    text='Нужно указать картинку для отображения'>
+     <error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
+     <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+     <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+	    span=2>
+     <error id='*EIU_IMAGE_SQL' color='magenta' span=2
+	    text='Ошибка базы данных при загрузке картинки'>
+     <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+	    text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+     <ifnzero what='$message.ImageSet'>
+      <image_name set='$message.ImageSet'>
+      <assign name='file' value='$image.Filename'>
+     <else>
+      <assign name='file' value=''>
+     </ifnzero>
+     <if what='$message.hasLargeBody'>
+      <assign name='ititle' value='Картинка<br>для аннотации'>
+     <else>
+      <assign name='ititle' value='Картинка'>
+     </if>
+     <uploader name='image' loadedname='image_set'
+	       loadedvalue='$message.ImageSet' title='$ititle'
+	       loaded='(уже загружена)' notloaded='Другая' filename='$file'
+	       mandatory='$message.mandatoryImage'>
+     <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи'
+	    color=magenta span=2>
+     <if what='$message.hasTitle || $full'>
+      <ifnzero what='$message.ImageSet'>
+       <assign name='ttext' value='$image.Title'>
+      <else>
+       <assign name='ttext' value=''>
+      </ifnzero>
+      <editor_line name='title' body='$ttext' title='Подпись под картинкой'
+		   rows=4 span=2 mandatory='$message.mandatoryTitle'>
+     <else>
+      <ifnzero what='$message.ImageSet'>
+       <hidden name='title' value='$image.Title'>
+      </ifnzero>
+     </if>
+    <else>
+     <ifnzero what='$message.ImageSet'>
+      <hidden name='image_set' value='$message.ImageSet'>
+      <image_name set='$message.ImageSet'>
+      <hidden name='title' value='$,Title'>
+     </ifnzero>
+    </if>
+   <if what='$message.hasLargeBody || $full'>
+    <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
+    <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
+    <ifne what='$message.LargeFilename'>
+     <tr><td colspan='2'>
+      <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId&win=1'>
+	 Текст в кодировке win</a>
+      &nbsp;
+      <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>
+	 Текст в кодировке koi</a>
+     </td></tr>
+    </ifne>
+    <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
+	      title='Текст' loaded='(уже загружен)' notloaded='Другой'
+	      filename='$message.LargeFilename'
+	      mandatory='$message.mandatoryLargeBody'>
+    <upload_format format='$message.LargeFormat'>
+    </table></td></tr>
+    <if what='$message.hasBody || $full'>
+     <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
+     <editor_line name='body' title='Аннотация' body='$message.Body'
+		  rows=11 cols=60 mandatory='$message.mandatoryBody'>
+    <else>
+     <hidden name='body' value='$message.Body'>
+    </if>
+   <else>
+    </table></td></tr>
+    <ifne what='$message.LargeFilename'>
+     <hidden name='large_loaded' value=1>
+    </ifne>
+    <if what='$message.hasBody || $full'>
+     <error id='*EP_BODY_ABSENT'
+	    text='Напишите хотя бы пару строчек в теле сообщения'>
+     <editor_line name='body' title='Текст' body='$message.Body'
+		  rows=11 cols=60 mandatory='$message.mandatoryBody'>
+    <else>
+     <hidden name='body' value='$message.Body'>
+    </if>
+   </if>
+   <if what='$message.hasURL || $full'>
+    <table><tr><td>
+     <error id='*EP_URL_ABSENT' text='Ссылка не указана' span=2>
+     <edit_line title='Ссылка' value='$message.URL' name='url'
+		size=52 maxlength=250 mandatory='$message.mandatoryURL'>
+    </table></td></tr>
+   <else>
+    <hidden name='url' value='$message.URL'>
+   </if>
+   <logged>
+    <checkbox_line name='hidden' value='$message.isHidden'
+		   title='Не показывать'>
+   </logged>
+   <full>
+    <checkbox_line name='disabled' value='$message.isDisabled'
+		   title='Запретить показ'>
+   <else>
+    <hidden name='disabled' value='$message.isDisabled'>
+   </full>
+   <if what='$editid'>
+    <formbuttons title='Изменить'>
+   <else>
+    <formbuttons title='Добавить'>
+   </if>
+   </table>
+  </form>
+ </formtable>
+ <bottom>
+</body>
+</html>

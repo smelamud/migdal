@@ -1,0 +1,12 @@
+! @(#) $Id$
+
+.info,.info * {
+	font-size: 8pt;
+	font-weight: bold;
+}
+
+EM,.info EM {
+	color: %em;
+	font-weight: bold;
+	font-style: normal;
+}

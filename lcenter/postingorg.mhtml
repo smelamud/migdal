@@ -4,7 +4,7 @@
 <int_array name='topic_id'>
 <int name='offset'>
 <int name='grp'>
-<assign name='grp' value!='$grp>0 ? $grp : ($grp==0 ? *GRP_TAPE : 0)'>
+<assign name='grp' value!='$grp>0 ? $grp : ($grp==0 ? *GRP_NEWS : 0)'>
 <int name='index1'>
 <int name='use_index1'>
 
@@ -15,7 +15,6 @@
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <table><tr valign=center>
-   <td><image src='pics/sheet.gif'></td>
    <td>
     <a href='postingedit.php?grp=*GRP_NEWS&full=1&redirid=$_'
        >Добавить сообщение</a>
@@ -123,25 +122,23 @@
 <html>
 <preamble>
 <body>
- <top ident='index'>
+ <top ident='admin'>
  <iterate_postinglist name='postings' limit=20 offset='$offset'
                       showshadows='*true' grp='$grp'
 		      index1!='$use_index1 ? $index1 : -1'>
- <table width="100%" cellpadding="5">
-  <tr valign=top>
-   <td width=150 class='eframe'>
+ <table width="100%" cellspacing="3" cellpadding="5">
+  <tr valign="top">
+   <td width='150' class='eframe'>
     <topics_admin ident='admin-messages'>
    </td>
    <td style='padding: 0'>
+    <subtitle>
     <table class='ninept nframe' style='padding: 5px'>
-     <form method=post action='actions/postingorg-goto.php'>
+     <form method='post' action='actions/postingorg-goto.php'>
       <hidden name='okdir' value='$-'>
       <hidden name='faildir' value='$-'>
       <hidden name='redirid' value='$redirid'>
-      <tr><td colspan=2>
-       <subtitle>
-      </td></tr>
-      <tr><td align=left colspan=2><table><zone>
+      <tr><td align='left' colspan='2'><table><zone>
        <assign name='title' value='Тема'>
        <iterate_array values='$topic_id'>
        <assign name='n' value=0>
@@ -167,12 +164,12 @@
 	</td>
        </tr>
       </zone></table></td></tr>
-      <tr><td align=left colspan=2>
+      <tr><td align='left' colspan='2'>
        Тип сообщения
       </td></tr>
-      <tr valign=top>
-       <td align=left>
-	<select name='grp[]' size=6 multiple><zone>
+      <tr valign='top'>
+       <td align='left'>
+	<select name='grp[]' size='6' multiple><zone>
 	 <iterate_grps>
 	 <for>
 	  <if what='$.isValid'>
@@ -181,27 +178,27 @@
 	 </for>
 	</zone></select>
        </td>
-       <td align=left><table><tr>
+       <td align='left'><table><tr>
         <td><checkbox_button name='use_index1' value='$use_index1'></td>
 	<td>Номер </td>
 	<td><edit name='index1' value='$index1' size=8 maxlength=8></td>
        </tr></table></td>
       </tr>
-      <tr><td align=left colspan=2>
-       <table cellspacing=10><tr>
+      <tr><td align='left' colspan='2'>
+       <table cellspacing='10'><tr>
 	<td><input type=submit value='Просмотр'></td>
 	<td><input type=reset value='Очистить'></td>
        </tr></table>
       </td></tr>
      </form>
      <assign name='size' value='$;Size'>
-     <tr><td class='info' colspan=2>
+     <tr><td class='info' colspan='2'>
       <array vals='сообщение,сообщения,сообщений'>
       <plural value='$size'>
       Выбрано&nbsp;<em>$size</em>&nbsp;$,
      </td></tr>
     </table>
-    <table class='ninept cframe' width=100%><tr><td>
+    <table class='ninept' width='100%'><tr><td>
      <error_lines>
      <batcher list='$;'>
      <ifnzero what='$;Count'>

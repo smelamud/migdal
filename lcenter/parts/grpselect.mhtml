@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<element name='grpselect'>
+<tr>
+ <td>$title&sp;<if what='$mandatory'><star></if></td>
+ <td>
+  <select name='$name'>
+   <iterate_grps>
+   <for>
+    <if what='$.isValid'>
+     <radio title='$.GrpTitle' value='$.Grp' peervalue='$value'>
+    </if>
+   </for>
+  </select>
+ </td>
+</tr>
+</element>

@@ -13,6 +13,7 @@
     <topics_admin ident='admin-groups'>
    </td>
    <td>
+    <subtitle>
     <table>
      <admin_users>
       <tr><td colspan="2">

@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='formtable'>
-<center><table class='form'>
+<p><center><table class='form'>
  <ifne what='$title'>
   <tr><th>$title</th></tr>
  </ifne>
@@ -9,7 +9,7 @@
 </element>
 
 <element name='/formtable'>
-</td></tr></table></center>
+</td></tr></table></center></p>
 </element>
 
 <element name='star'>

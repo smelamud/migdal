@@ -7,13 +7,14 @@
 }
 
 .topics UL {
-	padding-left: 2ex;
+	padding-left: 2.5ex;
 	padding-top: 1ex;
 	margin: 0;
 }
 
 .topics LI {
 	color: %topics_item;
+	list-style-image: url("/pics/bullet.gif");
 }
 
 .topics LI A {

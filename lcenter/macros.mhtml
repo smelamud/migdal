@@ -21,12 +21,21 @@
        defaults="title='Изменить',span=0">
 <decel name='formtable' file='parts/formutils.php' params='title'>
 <decel name='/formtable' file='parts/formutils.php'>
+<decel name='grpselect' file='parts/grpselect.php'
+       params='name,value,title,mandatory'
+       defaults="title='Тип' mandatory='*false'">
+<decel name='langselect' file='parts/langselect.php'
+       params='name,value,mandatory,title'
+       defaults="mandatory='*false' title='Язык'">
 <decel name='navi_sort' file='parts/utils.php' params='value,title'>
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
+<decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'
+       defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
 <decel name='star' file='parts/formutils.php'>
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
+<decel name='subtitle' file='parts/subtitle.php'>
 <decel name='top' file='parts/top.php' params='ident'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
 <decel name='topics_line' params='arrow,text,title,href,class'
@@ -35,6 +44,16 @@
 <decel name='topics_table' params='class,title' defaults="class='' title=''"
        file='parts/topicsutils.php'>
 <decel name='topics_table_end' file='parts/topicsutils.php'>
+<decel name='topicselect' file='parts/topicselect.php'
+       params='name,value,grp,mandatory,title,root,recursive'
+       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
+                 recursive='*false'">
+<decel name='uploader' file='parts/uploader.php'
+       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,
+               mandatory'
+       defaults="mandatory='*false'">
+<decel name='upload_format' file='parts/uploader.php'
+       params='name,format' defaults="name='large_format'">
 
 <macro name='/topics_table'>
  <topics_table_end>

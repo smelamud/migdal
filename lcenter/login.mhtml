@@ -49,7 +49,7 @@
   </notlogged>
  </formtable>
  <admin_users>
-  <p><formtable title="Смена пользователя">
+  <formtable title="Смена пользователя">
    <form method="post" action="actions/userswitch.php">
     <hidden name='okdir' value="$$[err]">
     <hidden name='faildir' value="$$[err]">
@@ -59,7 +59,7 @@
      <formbuttons title='Сменить' span=2>
     </table>
    </form>
-  </formtable></p>
+  </formtable>
  </admin_users>
  <bottom>
 </body>

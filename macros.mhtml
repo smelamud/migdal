@@ -538,7 +538,7 @@ parse_str($fragments['query']);
  <if what='(%span)==0 || (%span)==1'>
   <asp><td><asp>
  <else>
-  <asp><td colspan=%span><asp>
+  <asp><td colspan='%span'><asp>
  </if>
 </macro>
 
@@ -550,7 +550,7 @@ parse_str($fragments['query']);
  <if what='(%span)==0 || (%span)==1'>
   <asp><td class='%class'><asp>
  <else>
-  <asp><td class='%class' colspan=%span><asp>
+  <asp><td class='%class' colspan='%span'><asp>
  </if>
 </macro>
 
@@ -563,7 +563,7 @@ parse_str($fragments['query']);
 </macro>
 
 <macro name='edit' defaults='size=40 maxlength=250'>
- <input type=text name='%name' value='%value' size=%size maxlength=%maxlength>
+ <input type='text' name='%name' value='%value' size='%size' maxlength='%maxlength'>
 </macro>
 
 <macro name='edit_line'>
@@ -578,15 +578,15 @@ parse_str($fragments['query']);
 <macro name='editor_line' defaults='span=0 rows=10 cols=50'>
  <tr><tdspan span=%span>%title</tdspan></tr>
  <tr><tdspan span=%span>
-  <textarea name='%name' rows=%rows cols=%cols wrap='virtual'>%body</textarea>
+  <textarea name='%name' rows='%rows' cols='%cols' wrap='virtual'>%body</textarea>
  </tdspan></tr>
 </macro>
 
 <macro name='checkbox_button' defaults='value=0'>
  <ifzero what='%value'>
-  <input type=checkbox name='%name' value=1>
+  <input type='checkbox' name='%name' value='1'>
  <else>
-  <input type=checkbox name='%name' value=1 checked>
+  <input type='checkbox' name='%name' value='1' checked>
  </ifzero>
 </macro>
 

@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<element name='langselect'>
+<iterate_langs>
+<tr>
+ <td>$title <if what='$mandatory'><star></if></td>
+ <td>
+  <select name='$name'>
+   <assign name='none' value=''>
+   <radio title='-- Неизвестен --' value='$none' peervalue='$value'>
+   <for>
+    <radio title='$.Name' value='$.Code' peervalue='$value'>
+   </for>
+  </select>
+ </td>
+</tr>
+</element>

@@ -48,6 +48,7 @@
     <topics_admin ident='admin-topics'>
    </td>
    <td>
+    <subtitle>
     <div style='padding: 0px'>
      <branch up=0 append='$userAdminTopics' write='$userAdminTopics'>
     </div>

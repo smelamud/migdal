@@ -1,0 +1,41 @@
+<< @(#) $Id$ >>
+
+<element name='uploader'>
+<ife what='$filename'>
+ <tr>
+  <td>$title&nbsp;<if what='$mandatory'><star></if></td>
+  <td><input type=file name='$name' size=35></td>
+ </tr>
+<else>
+ <tr><td colspan=2><table>
+  <tr><td>$title&nbsp;<if what='$mandatory'><star></if></td></tr>
+  <tr>
+   <td>
+    <input type=radio name='$loadedname' value='$loadedvalue' checked>
+    &nbsp;$filename&nbsp;<i>$loaded</i>
+   </td>
+  </tr>
+  <tr><td>
+   <input type=radio name='$loadedname' value=0>&nbsp;$notloaded&nbsp;
+   <input type=file name='$name' size=35>
+  </td></tr>
+ </table></td></tr>
+</ife>
+</element>
+
+<element name='upload_format'>
+<tr>
+ <td>Формат</td>
+ <td><select name='$name'>
+  <array vals='Простой,TeX-подобный,HTML-подобный,Преформатированный,Письмо'>
+  <iterate_array>
+  <for>
+   <if what='$;Position==$format'>
+    <option selected value=$;Position>$.</option>
+   <else>
+    <option value=$;Position>$.</option>
+   </if>
+  </for>
+ </select></td>
+</tr>
+</element>

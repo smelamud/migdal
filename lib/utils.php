@@ -91,7 +91,7 @@ if($alt!='')
 if($title!='')
   $s.=" title='$title'";
 if($border!='')
-  $s.=" border=$border";
+  $s.=" border='$border'";
 echo "$s>";
 }
 ?>

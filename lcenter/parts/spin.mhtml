@@ -1,0 +1,32 @@
+<< @(#) $Id$ >>
+
+<element name='spin'>
+<if what='$list.Size>$list.Limit && $list.Limit!=0'>
+ <form method=post action='actions/goto.php'>
+  <hidden name='okdir' value='$-'>
+  <hidden name='pagesize' value='$list.Limit'>
+  <hidden name='size' value='$list.Size'>
+  <table cellspacing=0 cellpadding=0 class='spin eightpt'><tr valign=center>
+   <td align=right width=32>
+    <ifnzero what='$list.Offset'>
+     <a href="$[offset='$list.PrevOffset']" title='Предыдущая страница'>
+      <image src='$picprev' border=0></a>
+    </ifzero>
+   </td>
+   <td align=right>
+    <edit name='value' value='$list.Page' size=2 maxlength=5>
+   </td>
+   <td align=center>&nbsp;из&nbsp;</td>
+   <td align=right>
+    $list.PageCount
+   </td>
+   <td align=left width=32>
+    <if what='$list.EndValue<$list.Size'>
+     <a href="$[offset='$list.NextOffset']" title='Следующая страница'>
+      <image src='$picnext' border=0></a>
+    </if>
+   </td>
+  </tr></table>
+ </form>
+</if>
+</element>
