@@ -26,7 +26,7 @@
 	 background-image: url("$image");
   }
 
-  TD.empty {
+  TD.empty,SPAN.empty {
 	  background-color: $color;
 	  color: $color;
   }
@@ -37,7 +37,11 @@
   <posting_vote id='$postid'>
   <table class='eightpt' width=130>
    <tr><td colspan=6 align=right>
-    $,VoteString&nbsp;<image src#='pics/bar-${,Vote20}.gif'>
+    <ifnzero what='$,VoteCount'>
+     $,VoteString&nbsp;<image src#='pics/bar-${,Vote20}.gif'>
+    <else>
+     <span class='empty'>2.50&nbsp;</span><image src='pics/bar-null.gif'>
+    </ifnzero>
    </td></tr>
    <tr>
     <vote id='$postid'>

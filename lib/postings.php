@@ -140,6 +140,11 @@ function getVote()
 return $this->vote_count==0 ? 2.5 : $this->vote/$this->vote_count;
 }
 
+function getVoteCount()
+{
+return $this->vote_count;
+}
+
 function getVoteString()
 {
 return sprintf("%1.2f",$this->getVote());
