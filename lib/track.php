@@ -7,7 +7,15 @@ require_once('lib/cache.php');
 
 function track($id,$prev='')
 {
-$track=sprintf('%010u',$id);
+if(!is_array($id))
+  $track=sprintf('%010u',$id);
+else
+  {
+  $track='';
+  foreach($id as $i)
+         $track.=' '.sprintf('%010u',$i);
+  $track=substr($track,1)
+  }
 return $prev!='' ? "$prev $track" : $track;
 }
 
