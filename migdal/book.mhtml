@@ -46,7 +46,7 @@
       <ifne what='$,Source'>
        <p class='source'>$,HTMLSource</p>
       </ifne>
-      <p>$,HTMLBody</p>
+      <p style='clear: left'>$,HTMLBody</p>
       <zone>
        <sibling up='$,MessageId' index0='-1'>
        <if what='$,>0'>
