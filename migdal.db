@@ -2,7 +2,7 @@
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.38-log
+# Server version	3.23.39-log
 
 #
 # Table structure for table 'choices'
@@ -19,14 +19,76 @@ CREATE TABLE choices (
 ) TYPE=MyISAM;
 
 #
+# Table structure for table 'complain_actions'
+#
+
+CREATE TABLE complain_actions (
+  id int(11) NOT NULL auto_increment,
+  type_id int(11) NOT NULL default '0',
+  name varchar(70) NOT NULL default '',
+  text text NOT NULL,
+  automatic tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY type_id (type_id)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'complain_statements'
+#
+
+CREATE TABLE complain_statements (
+  id int(11) NOT NULL auto_increment,
+  action_id int(11) NOT NULL default '0',
+  sql text NOT NULL,
+  sql_index tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY action_id (action_id),
+  KEY sql_index (sql_index)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'complain_types'
+#
+
+CREATE TABLE complain_types (
+  id int(11) NOT NULL auto_increment,
+  ident varchar(15) NOT NULL default '',
+  assign varchar(16) NOT NULL default '',
+  deadline smallint(6) NOT NULL default '0',
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'complains'
+#
+
+CREATE TABLE complains (
+  id int(11) NOT NULL auto_increment,
+  recipient_id int(11) NOT NULL default '0',
+  message_id int(11) NOT NULL default '0',
+  type_id int(11) NOT NULL default '0',
+  closed datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (id),
+  KEY id (id),
+  KEY recipient_id (recipient_id),
+  KEY message_id (message_id),
+  KEY type_id (type_id)
+) TYPE=MyISAM;
+
+#
 # Table structure for table 'images'
 #
 
 CREATE TABLE images (
   id int(11) NOT NULL auto_increment,
   image_set int(11) NOT NULL default '0',
+  filename varchar(70) NOT NULL default '',
   small mediumblob NOT NULL,
+  small_x smallint(6) NOT NULL default '0',
+  small_y smallint(6) NOT NULL default '0',
   large mediumblob NOT NULL,
+  large_x smallint(6) NOT NULL default '0',
+  large_y smallint(6) NOT NULL default '0',
   format varchar(30) NOT NULL default '',
   PRIMARY KEY  (id),
   KEY image_set (image_set)
@@ -56,12 +118,13 @@ CREATE TABLE messages (
   body mediumtext NOT NULL,
   subject varchar(250) NOT NULL default '',
   topic_id int(11) NOT NULL default '0',
-  private_id int(11) NOT NULL default '0',
+  personal_id int(11) NOT NULL default '0',
   sender_id int(11) NOT NULL default '0',
   grp tinyint(4) NOT NULL default '0',
   image_set int(11) NOT NULL default '0',
   up int(11) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
+  disabled tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
   selected tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
@@ -70,7 +133,7 @@ CREATE TABLE messages (
   KEY grp (grp),
   KEY image_set (image_set),
   KEY up (up),
-  KEY private_id (private_id)
+  KEY private_id (personal_id)
 ) TYPE=MyISAM;
 
 #
@@ -135,12 +198,44 @@ CREATE TABLE users (
   hide_email tinyint(4) NOT NULL default '0',
   icq varchar(15) NOT NULL default '',
   email_disabled tinyint(4) NOT NULL default '0',
+  accepts_complains tinyint(4) NOT NULL default '0',
+  rebe tinyint(4) NOT NULL default '0',
   admin_users tinyint(4) NOT NULL default '0',
   admin_topics tinyint(4) NOT NULL default '0',
+  moderator tinyint(4) NOT NULL default '0',
+  judge tinyint(4) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
   no_login tinyint(4) NOT NULL default '0',
+  has_personal tinyint(4) NOT NULL default '0',
+  msg_portion tinyint(4) NOT NULL default '10',
+  forum_portion tinyint(4) NOT NULL default '10',
+  complain_portion tinyint(4) NOT NULL default '20',
   PRIMARY KEY  (id),
   KEY login (login),
   KEY password (password)
 ) TYPE=MyISAM;
+
+# MySQL dump 8.14
+#
+# Host: localhost    Database: migdal
+#--------------------------------------------------------
+# Server version	3.23.39-log
+
+#
+# Dumping data for table 'menu'
+#
+
+INSERT INTO menu VALUES (1,'Главная','index','index.php',0,0);
+INSERT INTO menu VALUES (2,'Пользователи','users','users.php',0,4);
+INSERT INTO menu VALUES (3,'Форумы','forums','topics.php?grp=1',0,2);
+INSERT INTO menu VALUES (4,'Галерея','gallery','topics.php?grp=4',0,3);
+INSERT INTO menu VALUES (5,'Новости','news','topics.php?grp=2',0,1);
+INSERT INTO menu VALUES (6,'Жалобная книга','complains','complains.php',0,5);
+
+#
+# Dumping data for table 'complain_types'
+#
+
+INSERT INTO complain_types VALUES (1,'normal','',0);
+INSERT INTO complain_types VALUES (2,'forum','moderator',0);
 

@@ -16,5 +16,9 @@ Makefile: Makefile.in
 conf/migdal.conf: configure
 	./configure
 
+dbinfo:
+	mysqldump -u root -p migdal --no-data > migdal.db
+	mysqldump -u root -p migdal menu complain_types --no-create-info >> migdal.db
+
 install: all
 	(cd parts; $(MAKE) install)
