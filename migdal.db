@@ -352,13 +352,14 @@ CREATE TABLE users (
 
 INSERT INTO complain_types VALUES (1,'normal','Обычная','',0,'parts/cs_normal.php');
 INSERT INTO complain_types VALUES (2,'forum','На сообщение в форуме','moderator',0,'parts/cs_forum.php');
-INSERT INTO complain_types VALUES (3,'posting','На новость/статью','moderator',0,'parts/cs_posting.php');
+INSERT INTO complain_types VALUES (3,'posting','На новость/статью','moderator',3,'parts/cs_posting.php');
 
 #
 # Dumping data for table 'complain_scripts'
 #
 
-INSERT INTO complain_scripts VALUES (1,'Закрыть жалобу','=update complains set closed=now() where id=%complain_id','');
+INSERT INTO complain_scripts VALUES (3,'Закрыть жалобу и разрешить показ','=update complains set closed=now() where id=%complain_id\r\n=select message_id from postings where id=%link\r\n=update messages set disabled=0 where id=$message_id','posting');
+INSERT INTO complain_scripts VALUES (4,'Закрыть жалобу','=update complains set closed=now() where id=%complain_id','');
 
 #
 # Dumping data for table 'mailing_types'

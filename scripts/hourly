@@ -16,6 +16,7 @@ GetOptions('config|c=s'	 => \$configPath,
 push @INC,@libpath;
 
 require 'config.pl';
+require 'opscript.pl';
 
 sub help
 {
@@ -59,20 +60,7 @@ $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
 		   'ShowErrorStatement' => 1});
 }
 
-sub useImagesFrom
-{
-my ($select)=@_;
-
-my $used=$dbh->selectall_arrayref($select);
-foreach my $info(@{$used})
-       {
-       $dbh->do('update images
-                 set used=0
-		 where image_set='.$info->[0]);
-       }
-}
-
-sub run
+sub clearSessions
 {
 my $lasts=$dbh->selectall_arrayref(
           'select users.id,from_unixtime(unix_timestamp(max(last)))
@@ -88,14 +76,39 @@ foreach my $info(@{$lasts})
 		 where id='.$info->[0]);
        }
 $dbh->do('delete
-          from users
-	  where confirm_deadline is not null and confirm_deadline<now()');
-$dbh->do('delete
           from sessions
 	  where last+interval '.$Config{'sessionTimeout'}.' hour<now()');
+}
+
+sub clearUsers
+{
+$dbh->do('delete
+          from users
+	  where confirm_deadline is not null and confirm_deadline<now()');
+}
+
+sub clearTmpTexts
+{
 $dbh->do('delete
           from tmp_texts
 	  where last_access+interval '.$Config{'tmpTextTimeout'}.' hour<now()');
+}
+
+sub useImagesFrom
+{
+my ($select)=@_;
+
+my $used=$dbh->selectall_arrayref($select);
+foreach my $info(@{$used})
+       {
+       $dbh->do('update images
+                 set used=0
+		 where image_set='.$info->[0]);
+       }
+}
+
+sub clearImages
+{
 $dbh->do('update images
           set used=1');
 useImagesFrom('select image_set
@@ -107,6 +120,50 @@ useImagesFrom('select large_imageset
 $dbh->do('delete
           from images
           where used=1');
+}
+
+sub closeComplains
+{
+$sth=$dbh->prepare(
+     'select complains.id as complain_id,message_id,link,text,script,
+             users.id as shames_id
+      from complains
+           left join messages
+	        on complains.message_id=messages.id
+	   left join users
+	        on messages.sender_id=users.id
+	   left join complain_types
+	        on complain_types.id=complains.type_id
+	   left join complain_actions
+	        on complains.type_id=complain_actions.type_id
+	   left join complain_scripts
+	        on complain_scripts.type_ident=complain_types.ident
+      where closed is null and users.shames<>0
+            and complain_types.deadline<>0
+	    and messages.sent+interval complain_types.deadline hour<now()
+	    and complain_actions.automatic<>0');
+$sth->execute;
+while(my $complain=$sth->fetchrow_hashref)
+     {
+     my $id;
+     $dbh->do("insert into stotexts(body) values('".$complain->{'text'}."')");
+     $id=$dbh->{'mysql_insertid'};
+     $dbh->do("insert into messages(stotext_id,sender_id,sent) values($id,".
+               $complain->{'shames_id'}.',now())');
+     $id=$dbh->{'mysql_insertid'};
+     $dbh->do("insert into forums(message_id,up) values($id,".
+               $complain->{'message_id'}.')');
+     opScript($dbh,$complain->{'script'},$complain);
+     }
+}
+
+sub run
+{
+clearSessions();
+clearUsers();
+clearTmpTexts();
+clearImages();
+closeComplains();
 }
 
 sub done

@@ -82,7 +82,10 @@ foreach(@script)
 	 my ($name,$sql)=$s=~/^\s*(\w*)\s*=(.*)$/;
 	 my $sth=$dbh->prepare($sql);
 	 $sth->execute;
+	 my $warn=$SIG{__WARN__};
+	 $SIG{__WARN__}=sub{};
 	 $vars->{lc $name}=$sth->fetchall_arrayref({});
+	 $SIG{__WARN__}=$warn;
 	 }
        else
 	 {
