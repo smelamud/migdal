@@ -99,6 +99,8 @@ $postingHasLargeBody=false;
 $postingMandatoryLargeBody=false;
 $postingHasImage=true;
 $postingMandatoryImage=false;
+$postingHasIdent=false;
+$postingMandatoryIdent=false;
 $postingHasTopic=true;
 $postingMandatoryTopic=true;
 
@@ -110,6 +112,8 @@ $forumHasLargeBody=false;
 $forumMandatoryLargeBody=false;
 $forumHasImage=false;
 $forumMandatoryImage=false;
+$forumHasIdent=false;
+$forumMandatoryIdent=false;
 $forumHasTopic=true;
 $forumMandatoryTopic=true;
 
@@ -121,6 +125,8 @@ $newsHasLargeBody=false;
 $newsMandatoryLargeBody=false;
 $newsHasImage=true;
 $newsMandatoryImage=false;
+$newsHasIdent=false;
+$newsMandatoryIdent=false;
 $newsHasTopic=true;
 $newsMandatoryTopic=true;
 
@@ -132,6 +138,8 @@ $galleryHasLargeBody=false;
 $galleryMandatoryLargeBody=false;
 $galleryHasImage=true;
 $galleryMandatoryImage=true;
+$galleryHasIdent=false;
+$galleryMandatoryIdent=false;
 $galleryHasTopic=true;
 $galleryMandatoryTopic=true;
 
@@ -143,6 +151,8 @@ $articleHasLargeBody=true;
 $articleMandatoryLargeBody=false;
 $articleHasImage=true;
 $articleMandatoryImage=false;
+$articleHasIdent=true;
+$articleMandatoryIdent=false;
 $articleHasTopic=true;
 $articleMandatoryTopic=true;
 ?>

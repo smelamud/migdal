@@ -21,7 +21,7 @@
    <admin_topics>
     <a href='topicedit.php?editid=$.Id&redir=$_'>[Изменить]</a>
    </admin_topics>
-   <br>$.Description
+   <br>$.HTMLDescription
   </for>
  </td><tr></table>
 </if>

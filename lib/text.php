@@ -53,7 +53,9 @@ return preg_replace('/\n\s*\n/','<p>',$s);
 
 function replaceURLs($s)
 {
-$c=preg_replace('/\S+:\/\/\S+/','<a href="\\0" target=_blank>\\0</a>',$s);
+$c=preg_replace('/(?:&#039;([^&]*)&#039;)?\s(\S+:\/\/\S+)/e',
+                "'<a href=\"\\2\" target=_blank>'.('\\1'=='' ? '\\2' : '\\1').'</a>'",
+		$s);
 $c=preg_replace('/[A-Za-z-]+(\.[A-Za-z-]+)*@[A-Za-z-]+(\.[A-Za-z-]+)*/',
                 '<a href="mailto:\\0">\\0</a>',$c);
 return $c;

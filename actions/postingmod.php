@@ -73,6 +73,8 @@ if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
 if($message->topic_id!=0 && !topicExists($message->topic_id))
   return EP_NO_TOPIC;
+if($message->mandatoryIdent() && $message->ident=='')
+  return EP_IDENT_ABSENT;
 $cid=idByIdent('postings',$message->ident);
 if($message->ident!='' && $cid!=0 && $message->id!=$cid)
   return EP_IDENT_UNIQUE;

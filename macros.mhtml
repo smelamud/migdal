@@ -388,6 +388,12 @@
  </header>
 </macro>
 
+<macro name='string'>
+ <header><zone>
+  <call name='%name' func='addslashes' arg1='$%name'>
+ </zone></header>
+</macro>
+
 << HTML shortcuts >>
 <macro name='tdspan' defaults='span=0'>
  <ifzero what='%span'><td><else><td colspan=%span></ifzero>

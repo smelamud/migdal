@@ -108,7 +108,7 @@
 </ifnzero>
 </element>
 
-<int name='artid'>
+<string name='artid'>
 <grps>
 <text_formats>
 <posting_full id='$artid' grp='*GRP_FORUMS'>

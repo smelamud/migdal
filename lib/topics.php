@@ -117,6 +117,11 @@ function getDescription()
 return $this->stotext->getBody();
 }
 
+function getHTMLDescription()
+{
+return stotextToHTML(TF_PLAIN,$this->getDescription());
+}
+
 function getLargeFilename()
 {
 return $this->stotext->getLargeFilename();

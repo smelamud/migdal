@@ -79,6 +79,16 @@ function mandatoryTopic()
 return $this->hasTopic() && $this->getLocalConf('MandatoryTopic');
 }
 
+function hasIdent()
+{
+return $this->getLocalConf('HasIdent');
+}
+
+function mandatoryIdent()
+{
+return $this->hasIdent() && $this->getLocalConf('MandatoryIdent');
+}
+
 function getIdent()
 {
 return $this->ident;
@@ -244,12 +254,14 @@ $this->loadImages($posting);
 function loadImages($posting)
 {
 $this->images=array();
-$result=mysql_query('select stotext_id,par,image_id,placement,
+$sid=$posting->getStotextId();
+settype($sid,'integer');
+$result=mysql_query("select stotext_id,par,image_id,placement,
                             has_large as has_large_image,title
 		     from stotext_images
 		          left join images
 			       on images.id=stotext_images.image_id
-		     where stotext_id='.$posting->getStotextId());
+		     where stotext_id=$sid");
 if(!$result)
   die('Ошибка SQL при выборке иллюстраций к постингу');
 while($row=mysql_fetch_assoc($result))
@@ -300,8 +312,9 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select postings.id as id,ident,postings.message_id as message_id,
-	        messages.stotext_id as stotext_id,body,large_format,large_body,
+	"select postings.id as id,postings.ident as ident,
+	        postings.message_id as message_id,
+		messages.stotext_id as stotext_id,body,large_format,large_body,
 		subject,grp,sent,topic_id,sender_id,messages.hidden as hidden,
 		disabled,users.hidden as sender_hidden,
 		images.image_set as image_set,images.id as image_id,
