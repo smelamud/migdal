@@ -156,6 +156,8 @@
 	 defaults='name=answer parent_id=0'>
 <deccall macro='forum_answer_full' func='getFullForumAnswerById'
          file='lib/forums.php' params='id' defaults='name=answer'>
+<deccall macro='id_ident' func='identById' file='lib/ident.php'
+         params='table,id'>
 <deccall macro='ident_id' func='idByIdent' file='lib/ident.php'
          params='table,ident'>
 <deccall macro='image_obj' func='getImageById' file='lib/images.php' params='id'

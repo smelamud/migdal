@@ -31,4 +31,15 @@ $result=mysql_query("select id
 	     or die("Ошибка SQL при проверке наличия идентификатора в $table");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
+
+function identById($table,$id)
+{
+if(!isId($id))
+  return $id;
+$result=mysql_query("select ident
+                     from $table
+		     where id=$id")
+	     or die("Ошибка SQL при проверке наличия обозначения в $table");
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
 ?>
