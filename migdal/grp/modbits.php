@@ -1,10 +1,11 @@
 <?php
 # @(#) $Id$
 
-define('MOD_ALL',0x0007);
+define('MOD_ALL',0x000f);
 
-$modbitLetters=array('M','H','E');
+$modbitLetters=array('M','H','E','S');
 $modbitNames=array('Модерировать',
 		   'HTML',
-		   'Редактировать');
+		   'Редактировать',
+		   'Особо проверить');
 ?>
