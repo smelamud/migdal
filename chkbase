@@ -42,13 +42,14 @@ sub checkRev
 my ($name,$peer,$rev)=@_;
 
 my $nrev=$Revisions{$cvspath.$peer};
-if(revLess($rev,$nrev))
+if($nrev eq '' || revLess($rev,$nrev))
   {
   if(!$Noticed{$name})
     {
     print "$name is outdated:\n";
     $Noticed{$name}=1;
     }
+  $nrev='absent' if $nrev eq '';
   print "  $peer is $nrev now ($rev used)\n";
   }
 }
@@ -61,7 +62,7 @@ for(keys %Revisions)
    open IN,$name;
    while(<IN>)
         {
-	checkRev($name,$1,$2) if /^[<>\s]*Based-on:\s+(\S+)\s+(\S+)/;
+	checkRev($name,$1,$2) if /^[<>#\s]*Based-on:\s+(\S+)\s+(\S+)/;
 	}
    close IN;
    }
