@@ -56,12 +56,15 @@ if($err==EUM_INSERT_OK)
   header('Location: /userok.php?'.
           makeQuery(array('login' => $login,'redir' => $redir)));
 else
-  {
-  $infoId=tmpTextSave($info);
-  header('Location: /useredit.php?'.
-          makeQuery($HTTP_POST_VARS,
-	            array('password','dup_password','info'),
-		    array('infoid' => $infoId,'err' => $err)).'#error');
-  }
+  if($err==EUM_UPDATE_OK)
+    header("Location: $redir");
+  else
+    {
+    $infoId=tmpTextSave($info);
+    header('Location: /useredit.php?'.
+	    makeQuery($HTTP_POST_VARS,
+		      array('password','dup_password','info'),
+		      array('infoid' => $infoId,'err' => $err)).'#error');
+    }
 dbClose();
 ?>

@@ -53,8 +53,6 @@
   <hidden name='editid' value='$editid'>
  </isedit>
  <table>
-  <error id='*EUM_UPDATE_OK' text='Новая информация принята и записана'
-         color='green' span=2>
   <error id='*EUM_NO_EDIT' span=2
          text='У вас нет права менять информацию для этого пользователя'>
   <error id='*EUM_STORE_SQL' text='Ошибка SQL при обновлении записи'
