@@ -71,7 +71,7 @@
  <td><table class='topics' style='margin: 0'><tbody class='names'>
   <iterate_sortedtopicnames grp='*GRP_LINKS'
                             up!='$topic_id<=0 ? $`links` : $topic_id'>
-  <iterate_fixed_rows rows=5 mincols=3>
+  <iterate_fixed_rows rows=6 mincols=3>
   <for>
    <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
    <tr><td>
