@@ -51,3 +51,5 @@ CREATE TABLE votes (
   vote int(11) NOT NULL default '0',
   KEY posting_id (posting_id,ip,user_id,sent)
 );
+ALTER TABLE `postings` ADD `subdomain` TINYINT NOT NULL;
+ALTER TABLE `postings` ADD INDEX (`subdomain`);

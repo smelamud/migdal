@@ -123,7 +123,7 @@ return $this->subject;
 
 function getSubjectDesc()
 {
-return $this->getSubject()!='' ? $this->getSubject() : $this->getBodyTiny();
+return $this->getSubject()!='' ? $this->getSubject() : clearStotext($this->getBodyTiny());
 }
 
 function getAuthor()
