@@ -121,7 +121,7 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
-<decel name='posting_controls' file='parts/posting-general.php'
+<decel name='posting_controls' file='parts/posting.php'
        params='posting,showdiscuss,showcomplain,len'
        defaults="showdiscuss='*false' showcomplain='*false' len='90%'">
 <decel name='posting_general' file='parts/posting-general.php'
@@ -149,6 +149,7 @@
 <decel name='postings_links' file='parts/postings-links.php'
        params='topic_id,limit,offset'
        defaults="topic_id=-1 limit=10 offset=0">
+<decel name='printlink' file='parts/posting.php' params='posting'>
 <decel name='rabbi' file='parts/rabbi.php'>
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>

@@ -21,28 +21,6 @@
  <asp></a>&nbsp;<asp>
 </element>
 
-<element name='posting_controls'>
-<notprint>
- <table width=$len class='bottom'><tr>
-  <td>
-   <isedit what='$posting'>
-    <editlink posting='$posting'>
-   <else>
-    <if what='!$$userModerator && $showcomplain'>
-     <logged>
-      <a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
-	 >Жалоба</a>
-     </logged>
-    </if>
-   </isedit>
-  </td>
-  <if what='$showdiscuss'>
-   <td align=right><discusslink posting='$posting'></td>
-  </if>
- </tr></table>
-</notprint>
-</element>
-
 <element name='posting_general'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <dl class='posting'>

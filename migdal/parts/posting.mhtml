@@ -100,6 +100,44 @@
 </tr></table>
 </element>
 
+<element name='printlink'>
+<table cellspacing=0 cellpadding=0><tr>
+ <td><image src='pics/print.gif'>&nbsp;</td>
+ <td>
+ <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id&print=1'
+    target=_blank>Для печати</a>
+ </td>
+</tr></table>
+</element>
+
+<element name='posting_controls'>
+<notprint>
+ <table width=$len class='bottom'><tr>
+  <td>
+   <outer><table cellspacing=0 cellpadding=0><tr>
+    <td><common><printlink posting='$posting'></common></td>
+    <td>&nbsp;&nbsp;</td>
+    <td><inner>
+     <isedit what='$posting'>
+      <editlink posting='$posting'>
+     <else>
+      <if what='!$$userModerator && $showcomplain'>
+       <logged>
+	<a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
+	   >Жалоба</a>
+       </logged>
+      </if>
+     </isedit>
+    </inner></td>
+   </tr></table></outer>
+  </td>
+  <if what='$showdiscuss'>
+   <td align=right><discusslink posting='$posting'></td>
+  </if>
+ </tr></table>
+</notprint>
+</element>
+
 <element name='posting'>
 <require name='parts/posting-general.php'>
 <require name='parts/picture.php'>

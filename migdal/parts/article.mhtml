@@ -7,10 +7,16 @@
    <table class='controls'><tr><inner>
     <isedit what='$posting'>
      <td>
+      <printlink posting='$posting'>
+     </td>
+     <td>
+      &nbsp;&nbsp;
+     </td>
+     <td style='padding-bottom: 3px'>
       <editlink posting='$posting'>
       &nbsp;
      </td>
-     <td>
+     <td style='padding-bottom: 3px'>
       <a href="limedit.php?postid=$posting.Id&redirid=$_">
        <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
       &nbsp;
