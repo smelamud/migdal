@@ -2,16 +2,23 @@
 # @(#) $Id$
 
 require_once('lib/ctypes.php');
+require_once('lib/track.php');
 
-function byIdent($id,$byId='id',$byIdent='ident')
+function isId($ident)
 {
-return (is_int($id) || $id!='' && c_digit($id)) ? "$byId=$id" 
-                                                : "$byIdent='$id'";
+return is_int($ident) || $ident<0 || $ident!='' && c_digit($ident);
+}
+
+function byIdent($id,$byId='id',$byIdent='ident',$recursive=false,
+                 $byTrack='track')
+{
+return !$recursive ? isId($id) ? "$byId=$id" : "$byIdent='$id'"
+                   : $byTrack." like '%".track(idByIdent($id))."%'";
 }
 
 function idByIdent($table,$ident)
 {
-if(is_int($ident) || $ident!='' && c_digit($ident))
+if(isId($ident))
   return $ident;
 $result=mysql_query("select id
                      from $table
@@ -19,5 +26,4 @@ $result=mysql_query("select id
 	     or die("Ошибка SQL при проверке наличия идентификатора в $table");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
-
 ?>

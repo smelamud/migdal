@@ -251,14 +251,9 @@ function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topicFilter=$topic<0
-             ? '' 
-             : (!$recursive ? ' and '.
-	                      byIdent($topic,'topic_id','topics.ident').' '
-	                    : ($topic>0 ? " and topics.track like '%".
-		 	                  track(idByIdent('topics',$topic)).
-					  "%' "
-				        : ''));
+$topicFilter=($topic<0 || $recursive && $topic==0) ? ''
+             : ' and '.byIdent($topic,'topic_id','topics.ident',$recursive,
+                               'topics.track');
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
@@ -379,23 +374,20 @@ function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topicFilter=$topic_id<0
-             ? '' 
-             : (!$recursive ? ' and '.
-	                      byIdent($topic_id,'topic_id','topics.ident').' '
-	                    : ($topic_id>0 ? " and topics.track like '%".
-		 	                  track(idByIdent('topics',$topic_id)).
-					  "%' "
-				        : ''));
+$topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
+             : ' and topics.'.byIdent($topic_id,'id','ident',$recursive);
 $this->SelectIterator(
        'User',
        "select distinct users.id as id,login,gender,email,hide_email,rebe,
-                        name,jewish_name,surname,max(sent) as last_message
+                        users.name as name,jewish_name,surname,
+			max(sent) as last_message
         from users
 	     left join messages
 	          on messages.sender_id=users.id
 	     left join postings
 	          on postings.message_id=messages.id
+	     left join topics
+	          on postings.topic_id=topics.id
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
               (grp & $grp)<>0 $topicFilter
@@ -535,13 +527,9 @@ function getLastPostingDate($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE,
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$topic_id=$topic_id<0 ? $topic_id : idByIdent('topics',$topic_id);
-$tpf=$topic_id>=0 ?
-      !$recursive ? " and postings.topic_id=$topic_id "
-                  : " and topics.track like '%".track($topic_id)."%' " : '';
-$taf=$topic_id>=0 ?
-      !$recursive ? " and posts.topic_id=$topic_id "
-                  : " and tops.track like '%".track($topic_id)."%' " : '';
+$topic_id=idByIdent('topics',$topic_id);
+$tpf=$topic_id<0 ? '' : " and topics.".byIdent($topic_id);
+$taf=$topic_id<0 ? '' : " and tops.".byIdent($topic_id);
 $uf=$user_id>0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
         "select max(messages.sent)

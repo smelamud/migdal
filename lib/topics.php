@@ -348,7 +348,7 @@ var $up;
 
 function TopicNamesIterator($grp,$up=-1)
 {
-$this->up=$up<0 ? $up : idByIdent('topics',$up);
+$this->up=idByIdent('topics',$up);
 $this->TopicIterator('select id,track,name
 		      from topics'.
 		      $this->getWhere($grp,$this->up).
