@@ -2,6 +2,9 @@
 
 # @(#) $Id$
 
+conf/migdal.conf: configure
+	./configure
+
 all: ;
 
 install: all ;

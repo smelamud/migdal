@@ -4,11 +4,18 @@
 
 make_config()
 {
-echo '<?php'
-echo '# Migdal website configuration file'
-echo
-echo "\$hello='Hello, Migdal\\'s world!';"
-echo '?>'
+cat << EOF
+<?php
+# Migdal website configuration file
+
+\$hello='Hello, Migdal\'s world!';
+\$dbHost='localhost';
+\$dbName='migdal';
+\$dbUser='root';
+\$dbPassword='mu8dhrse';
+\$debug=1;
+?>
+EOF
 }
 
 make_config > conf/migdal.conf

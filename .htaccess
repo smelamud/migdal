@@ -1,1 +1,1 @@
-php_value include_path ".:..:conf:../conf:lib:../lib"
+php_value include_path ".:.."
