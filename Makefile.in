@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-all: crontab
+all: crontab dbcreate.sql
 	(cd $(uiName); $(MAKE) all)
 
 crontab: Makefile conf/migdal.conf
@@ -14,6 +14,9 @@ crontab: Makefile conf/migdal.conf
 	echo '  0-50/10 *   *   *   *  $(scriptsDir)/mailrobot -c $(siteDir)/conf/migdal.conf -L $(scriptsDir)';\
 	) > crontab
 
+dbcreate.sql:
+	cat migdal.db $(uiName)/migdal.db > dbcreate.sql
+
 Makefile: Makefile.in conf/migdal.conf
 	./confmake $^ > Makefile
 
@@ -23,13 +26,14 @@ dbinfo:
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
 		complain_types complain_scripts mailing_types \
 		--no-create-info >> migdal.db
+	(cd $(uiName); $(MAKE) dbinfo)
 
 pack: all
 	tar zchf $(uiName).tar.gz --exclude 'CVS' --exclude '*.mhtml' \
 		--exclude 'Makefile*' --exclude '_template*' \
 		--exclude '.cvsignore' --exclude '.xvpics' $(uiName) scripts \
-		crontab
+		crontab dbcreate.sql
 
 clean:
-	-rm $(OBJECTS)
+	-rm $(OBJECTS) crontab dbcreate.sql
 	(cd $(uiName); $(MAKE) clean)
