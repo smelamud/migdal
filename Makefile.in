@@ -48,8 +48,8 @@ dbinfo:
 pack: all
 	tar zchf $(uiName).tar.gz --exclude 'CVS' --exclude '*.mhtml' \
 		--exclude 'Makefile*' --exclude '_template*' \
-		--exclude '.cvsignore' --exclude '.xvpics' $(uiName) scripts \
-		crontab dbcreate.sql
+		--exclude '.cvsignore' --exclude '.xvpics' \
+		--exclude 'migdal.db' $(uiName) scripts crontab dbcreate.sql
 
 clean:
 	-rm $(OBJECTS) crontab dbcreate.sql

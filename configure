@@ -7,3 +7,12 @@ DIRS='. demo demo/parts moshiach.ru moshiach.ru/parts migdal migdal/parts'
 for s in $DIRS; do
     ./confmake $s/Makefile.in conf/migdal.conf > $s/Makefile
 done
+
+INTERFACES='demo moshiach.ru migdal'
+LINKS='actions conf lib tools'
+
+for s in $INTERFACES; do
+    for l in $LINKS; do
+        ln -sf ../$l $s/$l
+    done
+done
