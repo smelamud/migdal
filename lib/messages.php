@@ -208,7 +208,7 @@ return $this->stotext->getImageSet();
 
 function setImageSet($image_set)
 {
-$this->setImageSet($image_set);
+$this->stotext->setImageSet($image_set);
 }
 
 function getImageId()

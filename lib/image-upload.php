@@ -260,7 +260,7 @@ else
 unlink($image_tmpname);
 
 if(!$img)
-  return $img;
+  return false;
 $img->setImageSet($image_set);
 $img->setTitle($title);
 if(!$img->store())

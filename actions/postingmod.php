@@ -103,9 +103,9 @@ dbOpen();
 session($sessionid);
 $message=getPostingById($editid,$grp);
 $message->setup($HTTP_POST_VARS);
-$img=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
-if($img)
-  $message->setImageSet($img->getImageSet());
+$image=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
+if($image)
+  $message->setImageSet($image->getImageSet());
 if($err==EIU_OK && $message->getImageSet()!=0)
   $err=setImageTitle($message->getImageSet(),$title);
 if($err==EIU_OK || $err==EP_OK)
