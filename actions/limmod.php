@@ -50,13 +50,15 @@ if($loaded)
     return ELIM_IMAGE_ABSENT;
   $image=uploadMemoryImage($image->getContent(),$image->getFilename(),
                            $image->getFormat(),$has_large,$small_x,$small_y,
-			   $err,$title,$posting->getLargeImageSet());
+			   $err,htmlspecialchars($title,ENT_QUOTES),
+			   $posting->getLargeImageSet());
   if(!setImageId($image->getId(),$editid))
     return ELIM_SETID_SQL;
   }
 else
   $image=uploadImage('image',$has_large,$small_x,$small_y,$err,
-                     $title,$posting->getLargeImageSet());
+                     htmlspecialchars($title,ENT_QUOTES),
+		     $posting->getLargeImageSet());
 if(!$image)
   return $err;
 if($posting->getLargeImageSet()==0)
