@@ -116,7 +116,7 @@
 	  </for>
 	 </zone>
 	 <td align=center><b>
-	  <a href='actions/postingdel.php?id=$.Id&okdir=$#-&faildir=$#-'></a>
+	  <a href='actions/postingdel.php?id=$.Id&okdir=$#-&faildir=$#-'>X</a>
 	 </b></td>
 	</tr>
        </for>
