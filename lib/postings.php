@@ -509,13 +509,15 @@ return mysql_num_rows($result)>0
                                   'up'       => $up));
 }
 
-function getFullPostingById($id=-1,$grp=GRP_ALL,$index1=-1)
+function getFullPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
 $filter=$id>=0 ? "postings.id=$id"
-               : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0"
+               : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0
+	                        $topicFilter"
 	                     : '');
 $result=mysql_query(
 	"select postings.id as id,messages.track as track,
@@ -571,7 +573,8 @@ $result=mysql_query(
 	 просмотр TODO */
  or sqlbug('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
-                                 : newGrpPosting($grp);
+                                 : newGrpPosting($grp,
+				                 array('topic_id' => $topic_id));
 }
 
 function incPostingReadCount($id)

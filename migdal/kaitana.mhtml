@@ -2,17 +2,19 @@
 
 <int name='day'>
 <int name='postid'>
+<int name='topic_id'>
 <grps>
-<topic_obj name='kaitana' id='$`kaitana`'>
 <ifnzero what='$postid'>
  <posting_full name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'>
+ <topic_obj name='kaitana' id='$posting.TopicId'>
 <else>
- <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic='$`kaitana`'
+ <topic_obj name='kaitana' id!='$topic_id<=0 ? $`kaitana-s-5762` : $topic_id'>
+ <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'
                index1!='$day<=0 ? 1 : $day'>
 </ifzero>
-<pagetitle title='Летняя площадка - 5762'>
-<topictitle title='Летняя площадка - 5762'>
-<log event=kaitana text#='post($posting.Id)'>
+<pagetitle title='$kaitana.Name'>
+<topictitle title='$kaitana.Name'>
+<log event=kaitana text#='topic($kaitana.Id) post($posting.Id)'>
 
 <macro name='editor'>
  <if what='$kaitana.UserId==$$userId || $$userModerator'>
@@ -24,7 +26,7 @@
  <tr>
   <editor>
    <td>
-    <a href="postingedit.php?editid=$posting.Id&root=$`kaitana`&grp=$posting.Grp&redirid=$_"
+    <a href="postingedit.php?editid=$posting.Id&root=$kaitana.Id&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
    </td>
    <moderator>
@@ -51,26 +53,24 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
-   <topics_kaitana day!='$day<=0 ? 1 : $day'>
-   <zone>
-    <posting_new topic_id='$`kaitana`'>
-    <topics_migdal posting='$,'>
-   </zone>
+   <topics_kaitana day!='$day<=0 ? 1 : $day' topic_id='$kaitana.Id'>
+   <topics_kaitanot topic_id='$kaitana.Id'>
+   <topics_migdal posting='$posting'>
    <topics_major ident='migdal'>
   </zone></td>
   <td class='cframe'>
    <subtitle>
    <editor>
     <div class=batcher>
-     <a href='postingedit.php?root=$`kaitana`&topic_id=$`kaitana`&grp=*GRP_KAITANA_NEWS&redirid=$_'
+     <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
 	class=add>Добавить новость</a>
      &nbsp;
-     <a href='postingedit.php?root=$`kaitana`&topic_id=$`kaitana`&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+     <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
 	class=add>Добавить картинку</a>
     </div>
    </editor>
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
-    <iterate_postinglist topic_id='$`kaitana`' grp='*GRP_KAITANA_GALLERY'
+    <iterate_postinglist topic='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
 			 sort='*SORT_RATING' limit=0
  	     index1!='$posting.Id!=0 ? $posting.Index1 : ($day<=0 ? 1 : $day)'>
     <td width=140>

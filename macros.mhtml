@@ -203,8 +203,8 @@
          params='id,grp,topic,index1,up'
 	 defaults='id=-1 name=message grp=*GRP_ALL topic=0 index1=-1 up=-1'>
 <deccall macro='posting_full' func='getFullPostingById' file='lib/postings.php'
-         params='id,grp,index1'
-	 defaults='id=-1 name=message grp=*GRP_ALL index1=-1'>
+         params='id,grp,index1,topic_id'
+	 defaults='id=-1 name=message grp=*GRP_ALL index1=-1 topic_id=-1'>
 <deccall macro='posting_index' func='getMaxIndexOfPosting'
          file='lib/postings.php' params='index,grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">

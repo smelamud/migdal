@@ -60,8 +60,8 @@
               arrow!="$/$posting.TopicId,1/==$`methodics`" indent=1
 	      class='item eightpt'>
  <posting_last topic_id='$`kaitana`' recursive='*true'>
- <topics_line time='$,' text='Площадка' href='kaitana.php'
-              arrow!="$posting.TopicId==$`kaitana`" indent=1
+ <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
+              arrow!="$/$posting.TopicId,1/==$`kaitana`" indent=1
 	      class='item eightpt'>
 </topics_table>
 </element>

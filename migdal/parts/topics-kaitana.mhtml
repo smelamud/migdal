@@ -1,11 +1,13 @@
 << @(#) $Id$ >>
 
 <element name='topics_kaitana'>
-<topics_table class='eightpt' title='Площадка'>
- <iterate_postinglist topic_id='$`kaitana`' grp='*GRP_KAITANA_NEWS'
+<topic_obj id='$topic_id'>
+<topics_table class='eightpt' title='$,Name'>
+ <iterate_postinglist topic='$topic_id' grp='*GRP_KAITANA_NEWS'
                       sort='*SORT_INDEX1' limit=0>
  <for>
-  <topics_line time='$.Sent' text='$.Subject' href#='kaitana.php?day=$.Index1'
+  <topics_line time='$.Sent' text='$.Subject'
+               href#='kaitana.php?topic_id=$topic_id&day=$.Index1'
                arrow!='$day==$.Index1'>
  </for>
 </topics_table>

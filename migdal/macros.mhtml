@@ -162,7 +162,10 @@
        params='ident,no_new,target,showimages'
        defaults="no_new='*false' target='' showimages='*true'">
 <decel name='topics' file='parts/topics-general.php' params='posting'>
-<decel name='topics_kaitana' params='day' file='parts/topics-kaitana.php'>
+<decel name='topics_kaitana' file='parts/topics-kaitana.php'
+       params='day,topic_id'>
+<decel name='topics_kaitanot' file='parts/topics-kaitanot.php'
+       params='topic_id' defaults='topic_id=-1'>
 <decel name='topics_line'
        params='time,arrow,text,title,href,count,class,indent,span,rating,
                nobullet'

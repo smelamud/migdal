@@ -1,0 +1,13 @@
+<< @(#) $Id$ >>
+
+<element name='topics_kaitanot'>
+<topic_obj id='$`kaitana`'>
+<iterate_topiclist grp='*GRP_KAITANA_GALLERY' up=$`kaitana`>
+<topics_table class='eightpt' title='$,Name'>
+ <for>
+  <posting_last topic_id='$.Id' recursive='*false'>
+  <topics_line time='$,' text='$.Name' href#='kaitana.php?topic_id=$.Id'
+               arrow!='$topic_id==$.Id'>
+ </for>
+</topics_table>
+</element>
