@@ -37,8 +37,6 @@ $this->allow=GRP_ALL;
 $this->premoderate=$defaultPremoderate;
 $this->DataObject($row);
 $this->stotext=new Stotext($row,'description');
-if($this->track=='')
-  $this->track=track($this->id);
 }
 
 function setup($vars)

@@ -3,7 +3,6 @@
 <int name='editid'>
 <int name='topic_id'>
 <string name='up'>
-<grptitle>
 <grpitemtitle>
 <grpitemstitle>
 <concat value='Редактирование $grpitemstitle'>

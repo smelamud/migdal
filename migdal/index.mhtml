@@ -17,7 +17,7 @@
   <td>
    <subtitle icon='pics/all-big.gif'>
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
-             offset='$offset' title='$grptitle'>
+             offset='$offset'>
   </td>
   <td width=5>&nbsp;</td>
   <td width=100><hit_parade grp='*GRP_TAPE' topic_id='$topic_id'></td>

@@ -66,8 +66,8 @@
        params='posting,grp,topic,discuss,complain,shorten'
        defaults="topic=-1 discuss='*true' complain='*true' shorten='*false'">
 <decel name='postings' file='parts/postings.php'
-       params='grp,topic,limit,offset,title'
-       defaults="topic=-1 limit=10 offset=0 title=''">
+       params='grp,topic,limit,offset'
+       defaults="topic=-1 limit=10 offset=0">
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='senderlink' file='parts/utils.php' params='message'>
@@ -102,13 +102,13 @@
 <decel name='userinfo' file='parts/userinfo.php' params='id,target'>
 
 << GRP >>
-<decgrpmesgs name='grptitle' vals='Сообщения,Мнения,Новости,Галерея,Статьи'>
+<decgrpmesgs name='grptitle' vals='Сообщения,Мнения,Новости,Галерея,Статьи,Цитаты,Фразы,Внутр.мнения'>
 <decgrpmesgs name='grpitemtitle'
-             vals='сообщение,мнение,новость,картинку,статью'>
+             vals='сообщение,мнение,новость,картинку,статью,цитату,фразу,внутр.мнение'>
 <decgrpmesgs name='grpitemstitle'
-             vals='сообщения,мнения,новости,картинки,статьи'>
+             vals='сообщения,мнения,новости,картинки,статьи,цитаты,фразы,внутр.мнения'>
 <decgrpmesgs name='grpitemtitlei'
-             vals='Сообщение,Мнение,Новость,Картинка,Статья'>
+             vals='Сообщение,Мнение,Новость,Картинка,Статья,Цитата,Фраза,Внутр.мнение'>
 
 <macro name='bymessages'>
  <zone>
