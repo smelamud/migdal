@@ -10,7 +10,7 @@
  <preamble>
 </zone>
 <body>
- <top ident='complains'>
+ <top ident='index'>
  <complain_obj id='$editid' ident='$ident' link='$link'>
  <setup>
  <table width=100% class='complain'>

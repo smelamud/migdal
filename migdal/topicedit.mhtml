@@ -8,7 +8,7 @@
 <html>
 <preamble>
 <body>
- <top ident='topics'>
+ <top ident='index'>
  <topic_obj id='$editid' up='$up'>
  <setup>
  <if what='$editid'>

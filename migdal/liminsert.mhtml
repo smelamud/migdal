@@ -15,7 +15,7 @@
 <html>
 <preamble>
 <body>
- <top ident='articles'>
+ <top ident='index'>
  <posting_obj id='$postid'>
  <zone><stotext_image_obj id='$,StotextId' par='$par'><setup></zone>
  <formtable title='Размещение картинки'>

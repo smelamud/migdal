@@ -139,7 +139,7 @@
  <preamble>
 </zone>
 <body>
- <top ident='articles'>
+ <top ident='index'>
  <table width=100%><tr valign=top>
   <td width=120>
    <topics posting='$,' showchapters='*true'>

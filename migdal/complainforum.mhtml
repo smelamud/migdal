@@ -10,7 +10,7 @@
  <preamble>
 </zone>
 <body>
- <top ident='complains'>
+ <top ident='index'>
  <table width=100% class='complain'>
   <complain_full id='$compid'>
   <ifne what='$,Display'>

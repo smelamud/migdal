@@ -7,7 +7,7 @@
 <html>
 <preamble>
 <body>
- <top ident='complains'>
+ <top ident='index'>
  <complain_type_obj id='$typeid'>
  <form method=get action='$~'><table class='form'><tr>
   <hidden name='redirid' value='$_'>

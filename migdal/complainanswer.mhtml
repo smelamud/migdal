@@ -7,7 +7,7 @@
 <html>
 <preamble>
 <body>
- <top ident='complains'>
+ <top ident='index'>
  <complain_action_obj id='$actid'>
  <setup>
  <table width=100%><tr valign=top>

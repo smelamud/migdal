@@ -8,7 +8,7 @@
 <html>
 <preamble>
 <body>
- <top ident='forums'>
+ <top ident='discuss'>
  <forum_answer_obj id='$editid' up='$up'>
  <setup>
  <if what='$editid'>

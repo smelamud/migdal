@@ -9,7 +9,7 @@
 <html>
 <preamble>
 <body>
- <top ident='forums'>
+ <top ident='index'>
  <table width=100%><tr valign=top>
   <td width=120>
    <topics posting='$,' showchapters='*true'>
