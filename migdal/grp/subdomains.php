@@ -1,5 +1,5 @@
 <?php
 # @(#) $Id$
 
-$subdomains=array(1 => 'community','info');
+$subdomains=array(1 => 'www');
 ?>
