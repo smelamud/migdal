@@ -6,9 +6,11 @@
 <menu ident='$ident' target='$target'>
 <table class='state'><tr>
  <td class='topimage'>
-  <a href='/index.php'><img src='$$style_banner_name' border=0></a>
-  <img src='$$style_banner_logo'>
-  <img src='$image'>
+  <if what='$showimages'>
+   <a href='/index.php'><img src='$$style_banner_name' border=0></a>
+   <img src='$$style_banner_logo'>
+   <img src='$image'>
+  </if>
   <hotlog_count>
   <mailru_count>
   <rambler_count>

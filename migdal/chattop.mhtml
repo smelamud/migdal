@@ -6,7 +6,8 @@
 </head>
 <body>
  <update_last_chat>
- <top ident='chat' image='pics/chat.gif' target=_top re='/chat.php'>
+ <top ident='chat' image='pics/chat.gif' target=_top re='/chat.php'
+      showimages='*false'>
  <table class='batcher' width=100%><tr>
   <td align=left>
    &nbsp;
