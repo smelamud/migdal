@@ -2,16 +2,19 @@
 
 <element name='batcher' params='&list,parent_id'>
 <table width=100%><tr valign=bottom>
- <td align=left class='info'>
-  <table><tr valign=center>
-   <td><image src='pics/sheet.gif'></td>
-   <td>
-    <a href='forumansweredit.php?parent_id=$parent_id&redirid=$_'
-       >Добавить комментарий</a>
-   </td>
-  </tr></table>
- </td>
- <td>
+ <perms table='messages' id='$parent_id'>
+ <if what='$,isPostable'>
+  <td align=left class='info'>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <a href='forumansweredit.php?parent_id=$parent_id&redirid=$_'
+	>Добавить комментарий</a>
+    </td>
+   </tr></table>
+  </td>
+ </if>
+ <td align=center>
   <spin list='$list'>
  </td>
 </tr></table>
