@@ -51,7 +51,7 @@
    </ifnzero>
    $posting.HTMLBody&nbsp;<asp>
   </td></tr>
-  <if what='$$userId>0 || $discuss || $posting.hasLargeBody'>
+  <if what='$$userId>0 || ($discuss && $posting.AnswerCount>0) || $posting.hasLargeBody'>
    <tr><td><table width=100% class='bottom'><tr>
     <td>
      <if what='$posting.hasLargeBody'>

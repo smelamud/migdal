@@ -7,9 +7,11 @@
 <table class='state'><tr>
  <td class='topimage'>
   <if what='$showimages'>
-   <a href='/index.php'><img src='$$style_banner_name' border=0></a>
-   <img src='$$style_banner_logo'>
-   <img src='$image'>
+   <a href='/index.php'>
+    <img src='$$style_banner_logo' border=0></a>
+   <a href='/index.php'>
+    <img src='$$style_banner_name' border=0></a>
+   <<img src='$image'>>
   </if>
   <hotlog_count>
   <mailru_count>
