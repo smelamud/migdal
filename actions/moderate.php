@@ -32,7 +32,7 @@ dbOpen();
 session($sessionid);
 $err=modifyMessage($editid,$hide ? 1 : 0);
 if($err==EMH_OK)
-  header("Location: $redir");
+  header('Location: '.remakeURI($redir,array(),array('reload' => rand(0,999))));
 else
   header('Location: '.remakeURI($redir,array(),array('err' => $err)).'#error');
 dbClose();

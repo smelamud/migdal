@@ -32,17 +32,25 @@ if(!isset($vars['edittag']))
   return;
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+
+if($vars['large_body']!='')
+  $this->large_body=htmlspecialchars($vars['large_body'],ENT_QUOTES);
+if(isset($vars['large_bodyid']))
+  {
+  $lb=tmpTextRestore($vars['large_bodyid']);
+  if($lb!='')
+    $this->large_body=$lb;
+  }
+
 if(isset($vars['bodyid']))
   $this->body=tmpTextRestore($vars['bodyid']);
-if(isset($vars['large_bodyid']))
-  $this->large_body=tmpTextRestore($vars['large_bodyid']);
 if(isset($vars['subjectid']))
   $this->subject=tmpTextRestore($vars['subjectid']);
 }
 
 function getCorrespondentVars()
 {
-return array('body','large_body','subject','image_set','hidden','disabled');
+return array('body','subject','image_set','hidden','disabled');
 }
 
 function getWorldVars()
