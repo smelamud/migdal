@@ -54,12 +54,17 @@
     <topics_minor id='$topic_id' withpostings='*false' grp='*GRP_TAPE'
                   href='index.php' title='Раздельчики'>
    </td>
-   <td class='cframe'>
-    <subtitle>
-    <seealso_links topic_id='$topic_id'
-		   title='См. также в разделе ссылок'>
-    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
-	      offset='$offset' showshadows!='$topic_id>0 || $$userModerator'>
+   <td style='padding: 0'>
+    <table width=100% cellspacing=0 cellpadding=0>
+     <tr><td><kaitana_announce></td></tr>
+     <tr><td class='cframe' style='padding: 5'>
+      <subtitle>
+      <seealso_links topic_id='$topic_id'
+		     title='См. также в разделе ссылок'>
+      <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
+		offset='$offset' showshadows!='$topic_id>0 || $$userModerator'>
+     </td></tr>
+    </table>
    </td>
    <td width=130 class='eframe'>
     <tip>
