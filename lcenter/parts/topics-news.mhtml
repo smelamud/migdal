@@ -1,0 +1,11 @@
+<< @(#) $Id$ >>
+
+<element name='topics_news'>
+<iterate_postinglist grp='*GRP_NEWS' topic_id='$`news`' limit=20
+                     sort='*SORT_SENT' fields='*SELECT_TOPICS'>
+<topics_table>
+ <for>
+  <topics_line arrow!='$id==$.Id' text='$.Subject' href#='/news.php?id=$.Id'>
+ </for>
+</topics_table>
+</element>

@@ -1,0 +1,15 @@
+! @(#) $Id$
+
+.eframe {
+	border-right: solid 1px %eframe_border;
+}
+
+.oframe {
+	border-left: solid 1px %oframe_border;
+}
+
+.nframe {
+	background-color: %nframe_back;
+	border: solid 1px %nframe_border;
+	margin-bottom: 0.5ex;
+}
