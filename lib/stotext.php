@@ -1,0 +1,128 @@
+<?php
+# @(#) $Id$
+
+class Stotext
+      extends DataObject
+{
+var $id;
+var $body;
+var $image_set;
+var $large_filename;
+var $large_format;
+var $large_body;
+var $large_imageset;
+var $image_id;
+var $has_large_image;
+
+function Stotext($row)
+{
+$this->DataObject($row);
+}
+
+function setup($vars,$body='body')
+{
+if(!isset($vars['edittag']))
+  return;
+foreach($this->getCorrespondentVars() as $var)
+       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+
+$this->body=htmlspecialchars($vars[$body],ENT_QUOTES);
+
+if(!c_digit($this->large_format) || $this->large_format>TF_MAX)
+  $this->large_format=TF_PLAIN;
+
+if($vars["large_$body"]!='')
+  $this->large_body=textToStotext($this->large_format,$vars["large_$body"]);
+if(isset($vars["large_${body}id"]))
+  {
+  $lb=tmpTextRestore($vars["large_${body}id"]);
+  if($lb!='')
+    $this->large_body=$lb;
+  }
+
+if(isset($vars["${body}id"]))
+  $this->body=tmpTextRestore($vars["${body}id"]);
+}
+
+function getCorrespondentVars()
+{
+return array('large_format','image_set');
+}
+
+function getWorldVars()
+{
+return array('body','large_filename','large_format','large_body','image_set');
+}
+
+function getAdminVars()
+{
+return array();
+}
+
+function store($admin)
+{
+$normal=$this->getNormal($admin);
+if($this->id)
+  $result=mysql_query(makeUpdate('stotexts',
+                                 $normal,
+				 array('id' => $this->id)));
+else
+  {
+  $result=mysql_query(makeInsert('stotexts',$normal));
+  $this->id=mysql_insert_id();
+  }
+return $result;
+}
+
+function getId()
+{
+return $this->id;
+}
+
+function getBody()
+{
+return $this->body;
+}
+
+function getLargeFilename()
+{
+return $this->large_filename;
+}
+
+function getLargeFormat()
+{
+return $this->large_format;
+}
+
+function getLargeBody()
+{
+return $this->large_body;
+}
+
+function getLargeImageSet()
+{
+return $this->large_imageset;
+}
+
+function getImageSet()
+{
+return $this->image_set;
+}
+
+function setImageSet($image_set)
+{
+$this->image_set=$image_set;
+}
+
+function getImageId()
+{
+return $this->image_id;
+}
+
+function hasLargeImage()
+{
+return $this->has_large_image;
+}
+
+}
+?>

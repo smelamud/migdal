@@ -5,21 +5,14 @@ require_once('lib/sendertag.php');
 require_once('lib/tmptexts.php');
 require_once('lib/text.php');
 require_once('lib/ctypes.php');
+require_once('lib/stotext.php');
 
 class Message
       extends SenderTag
 {
 var $id;
 var $subject;
-var $stotext_id;
-var $body;
-var $image_set;
-var $large_filename;
-var $large_format;
-var $large_body;
-var $large_imageset;
-var $image_id;
-var $has_large_image;
+var $stotext;
 var $title;
 var $hidden;
 var $disabled;
@@ -29,6 +22,7 @@ var $answer_count;
 function Message($row)
 {
 $this->SenderTag($row);
+$this->stotext=new Stotext($row);
 }
 
 function setup($vars)
@@ -37,66 +31,19 @@ if(!isset($vars['edittag']))
   return;
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
-
-if(!c_digit($this->large_format) || $this->large_format>TF_MAX)
-  $this->large_format=TF_PLAIN;
-
-if($vars['large_body']!='')
-  $this->large_body=textToStotext($this->large_format,$vars['large_body']);
-if(isset($vars['large_bodyid']))
-  {
-  $lb=tmpTextRestore($vars['large_bodyid']);
-  if($lb!='')
-    $this->large_body=$lb;
-  }
-
-if(isset($vars['bodyid']))
-  $this->body=tmpTextRestore($vars['bodyid']);
+$this->stotext->setup($vars);
 if(isset($vars['subjectid']))
   $this->subject=tmpTextRestore($vars['subjectid']);
 }
 
-function getWorldStotextVars()
-{
-return array('body','large_filename','large_format','large_body','image_set');
-}
-
-function getAdminStotextVars()
-{
-return array();
-}
-
-function getNormalStotext($isAdmin=false)
-{
-$normal=$this->collectVars($this->getWorldStotextVars());
-if($isAdmin)
-  $normal=array_merge($normal,$this->collectVars($this->getAdminStotextVars()));
-return $normal;
-}
-
-function storeStotext($id='id',$admin='userModerator')
-{
-$normal=$this->getNormalStotext($GLOBALS[$admin]);
-if($this->$id)
-  $result=mysql_query(makeUpdate('stotexts',
-                                 $normal,
-				 array('id' => $this->stotext_id)));
-else
-  {
-  $result=mysql_query(makeInsert('stotexts',$normal));
-  $this->stotext_id=mysql_insert_id();
-  }
-return $result;
-}
-
 function getCorrespondentVars()
 {
-return array('body','large_format','image_set','subject','hidden','disabled');
+return array('subject','hidden','disabled');
 }
 
 function getWorldVars()
 {
-return array('subject','stotext_id','hidden','sender_id');
+return array('subject','hidden','sender_id');
 }
 
 function getAdminVars()
@@ -104,11 +51,18 @@ function getAdminVars()
 return array('disabled');
 }
 
+function getNormal($isAdmin=false)
+{
+$normal=SenderTag::getNormal($isAdmin);
+$normal['stotext_id']=$this->stotext->getId();
+return $normal;
+}
+
 function store($id='id',$admin='userModerator')
 {
 global $userId;
 
-$result=$this->storeStotext($id,$admin);
+$result=$this->stotext->store($GLOBALS[$admin]);
 if(!$result)
   return $result;
 $normal=$this->getNormal($GLOBALS[$admin]);
@@ -187,69 +141,74 @@ function getSubject()
 return $this->subject;
 }
 
+function getStotext()
+{
+return $this->stotext;
+}
+
 function getStotextId()
 {
-return $this->stotext_id;
+return $this->stotext->getId();
 }
 
 function getBody()
 {
-return $this->body;
+return $this->stotext->getBody();
 }
 
 function getHTMLBody()
 {
-return stotextToHTML(TF_PLAIN,$this->body);
+return stotextToHTML(TF_PLAIN,$this->getBody());
 }
 
 function getLargeFilename()
 {
-return $this->large_filename;
+return $this->stotext->getLargeFilename();
 }
 
 function isLargeTextAvailable()
 {
-return $this->large_filename!='';
+return $this->getLargeFilename()!='';
 }
 
 function getLargeFormat()
 {
-return $this->large_format;
+return $this->stotext->getLargeFormat();
 }
 
 function getLargeBody()
 {
-return $this->large_body;
+return $this->stotext->getLargeBody();
 }
 
 function getHTMLLargeBody()
 {
-return stotextToHTML($this->large_format,$this->large_body);
+return stotextToHTML($this->getLargeFormat(),$this->getLargeBody());
 }
 
 function getLargeImageSet()
 {
-return $this->large_imageset;
+return $this->stotext->getLargeImageset();
 }
 
 function getImageSet()
 {
-return $this->image_set;
+return $this->stotext->getImageSet();
 }
 
 function setImageSet($image_set)
 {
-$this->image_set=$image_set;
+$this->setImageSet($image_set);
 }
 
 function getImageId()
 {
-return $this->image_id;
+return $this->stotext->getImageId();
 }
 
 function hasLargeImage()
 {
-return $this->has_large_image;
+return $this->stotext->hasLargeImage();
 }
 
 function getTitle()

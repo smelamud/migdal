@@ -17,7 +17,7 @@ if($userId<=0)
   return EC_NO_SEND;
 if(!$complain->isEditable())
   return EC_NO_EDIT;
-if($complain->body=='')
+if($complain->stotext->body=='')
   return EC_BODY_ABSENT;
 if($complain->subject=='')
   return EC_SUBJECT_ABSENT;

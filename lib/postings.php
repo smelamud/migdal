@@ -177,13 +177,12 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic<0 ? '' 
                       : ' and '.byIdent($topic,'topic_id','topics.ident').' ';
-$grpFilter=getPackedGrpFilter($grp);
 $this->LimitSelectIterator(
        'Message',
-       "select postings.id as id,postings.message_id as message_id,stotext_id,
-               body,subject,grp,sent,topic_id,sender_id,
-	       messages.hidden as hidden,messages.disabled as disabled,
-	       users.hidden as sender_hidden,
+       "select postings.id as id,postings.message_id as message_id,
+               messages.stotext_id as stotext_id,body,subject,grp,sent,
+	       topic_id,sender_id,messages.hidden as hidden,
+	       messages.disabled as disabled,users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
 	       images.has_large as has_large_image,images.title as title,
 	       topics.name as topic_name,
@@ -204,7 +203,7 @@ $this->LimitSelectIterator(
 		  on messages.id=forums.up
 	where (messages.hidden<$hide or sender_id=$userId) and
 	      (messages.disabled<$hide or sender_id=$userId) and
-	      personal_id=$personal $grpFilter $topicFilter
+	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
 	group by messages.id
 	order by sent desc",$limit,$offset,
        "select count(*)
@@ -213,7 +212,7 @@ $this->LimitSelectIterator(
 	          on postings.message_id=messages.id
 	where (messages.hidden<$hide or sender_id=$userId) and
 	      (messages.disabled<$hide or sender_id=$userId) and
-	      personal_id=$personal $grpFilter $topicFilter");
+	      personal_id=$personal and (grp & $grp)<>0 $topicFilter");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }
@@ -295,13 +294,13 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select postings.id as id,postings.message_id as message_id,stotext_id,
-	        body,large_format,large_body,subject,grp,sent,topic_id,
-		sender_id,messages.hidden as hidden,disabled,
-		users.hidden as sender_hidden,images.image_set as image_set,
-		images.id as image_id,topics.name as topic_name,
-		images.has_large as has_large_image,images.title as title,
-		login,gender,email,hide_email,rebe,
+	"select postings.id as id,postings.message_id as message_id,
+	        messages.stotext_id as stotext_id,body,large_format,large_body,
+		subject,grp,sent,topic_id,sender_id,messages.hidden as hidden,
+		disabled,users.hidden as sender_hidden,
+		images.image_set as image_set,images.id as image_id,
+		topics.name as topic_name,images.has_large as has_large_image,
+		images.title as title,login,gender,email,hide_email,rebe,
 	        count(forums.up) as answer_count
 	 from postings
 	      left join messages
@@ -322,7 +321,7 @@ $result=mysql_query(
 	 group by messages.id")
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке постинга'.mysql_error());
+ or die('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }

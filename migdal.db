@@ -57,6 +57,7 @@ CREATE TABLE complain_scripts (
   id int(11) NOT NULL auto_increment,
   name varchar(70) NOT NULL default '',
   script text NOT NULL,
+  type_ident varchar(15) NOT NULL default '',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
@@ -280,7 +281,7 @@ CREATE TABLE topics (
   up int(11) NOT NULL default '0',
   track varchar(255) NOT NULL default '',
   name varchar(70) NOT NULL default '',
-  description varchar(250) NOT NULL default '',
+  stotext_id int(11) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
   allow int(11) NOT NULL default '0',
   premoderate int(11) NOT NULL default '0',
@@ -288,7 +289,8 @@ CREATE TABLE topics (
   PRIMARY KEY  (id),
   KEY ident (ident),
   KEY up (up),
-  KEY track (track)
+  KEY track (track),
+  KEY stotext_id (stotext_id)
 ) TYPE=MyISAM;
 
 #
@@ -352,7 +354,7 @@ INSERT INTO complain_types VALUES (3,'posting','На новость/статью','moderator',0
 # Dumping data for table 'complain_scripts'
 #
 
-INSERT INTO complain_scripts VALUES (1,'Закрыть жалобу','=update complains set closed=now() where id=%complain_id');
+INSERT INTO complain_scripts VALUES (1,'Закрыть жалобу','=update complains set closed=now() where id=%complain_id','');
 
 #
 # Dumping data for table 'mailing_types'

@@ -17,7 +17,13 @@ var $up;
 var $track;
 var $name;
 var $full_name;
+var $stotext_id;
 var $description;
+var $image_set;
+var $large_filename;
+var $large_format;
+var $large_description;
+var $large_imageset;
 var $hidden;
 var $allow;
 var $premoderate;
@@ -204,13 +210,15 @@ function TopicListIterator($grp,$up=0)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$gf=getPackedGrpFilter($grp,'postings.');
 $this->TopicIterator(
       "select topics.id as id,topics.up as up,topics.name as name,
-              topics.description as description,count(messages.id) as message_count
+              topics.stotext_id as stotext_id,stotexts.body as description,
+	      count(messages.id) as message_count
        from topics
+            left join stotexts
+	         on stotexts.id=topics.stotext_id
 	    left join postings
-	         on topics.id=postings.topic_id $gf
+	         on topics.id=postings.topic_id and (postings.grp & $grp)<>0
 	    left join topics as uptopics
 	         on uptopics.id=topics.up
             left join messages
@@ -274,9 +282,12 @@ function getTopicById($id,$up)
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query("select id,up,name,description,hidden,allow,premoderate,
-                            ident
+$result=mysql_query("select topics.id as id,up,name,stotext_id,
+                            stotexts.body as description,hidden,allow,
+			    premoderate,ident
 		     from topics
+		          left join stotexts
+			       on topics.stotext_id=stotexts.id
 		     where ".byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0

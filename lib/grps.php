@@ -18,43 +18,6 @@ global $grpNames;
 return $grpNames[$grp];
 }
 
-function getGrpNames($grp)
-{
-global $grpNames;
-
-$names=array();
-foreach($grpNames as $key => $value)
-       if($grp & $key)
-         $names[]=$value;
-return $names;
-}
-
-function getGrpNumbers($grp)
-{
-global $grpNames;
-
-$ns=array();
-foreach(array_keys($grpNames) as $key)
-       if($grp & $key)
-         $ns[]=$key;
-return $ns;
-}
-
-function enclose($vals,$prefix='',$postfix='')
-{
-$result=array();
-foreach($vals as $val)
-       $result[]=$prefix.$val.$postfix;
-return $result;
-}
-
-function getPackedGrpFilter($grp,$prefix='')
-{
-return 'and ('
-       .join(' or ',enclose(getGrpNumbers($grp),$prefix.'grp=')).
-       ')';
-}
-
 $grpClassNames=array(GRP_FORUMS   => 'Forum',
                      GRP_NEWS     => 'News',
                      GRP_GALLERY  => 'Gallery',

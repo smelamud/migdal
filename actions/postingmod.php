@@ -89,19 +89,20 @@ if($userId<=0)
   return EP_NO_SEND;
 if(!$message->isEditable())
   return EP_NO_EDIT;
-if($message->body=='')
+if($message->stotext->body=='')
   return EP_BODY_ABSENT;
 if($message->mandatorySubject() && $message->subject=='')
   return EP_SUBJECT_ABSENT;
-if($message->mandatoryLargeBody() && $message->large_body=='')
+if($message->mandatoryLargeBody() && $message->stotext->large_body=='')
   return EP_LARGE_BODY_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
 if($message->topic_id!=0 && !topicExists($message->topic_id))
   return EP_NO_TOPIC;
-if($message->mandatoryImage() && $message->image_set==0)
+if($message->mandatoryImage() && $message->stotext->image_set==0)
   return EP_IMAGE_ABSENT;
-if($message->image_set!=0 && !imageSetExists($message->image_set))
+if($message->stotext->image_set!=0
+   && !imageSetExists($message->stotext->image_set))
   return EP_NO_IMAGE;
 if($message->personal_id!=0 && !personalExists($message->personal_id))
   return EP_NO_PERSONAL;

@@ -21,11 +21,12 @@ if($userId<=0)
   return EFA_NO_SEND;
 if(!$answer->isEditable())
   return EFA_NO_EDIT;
-if($answer->body=='')
+if($answer->stotext->body=='')
   return EFA_BODY_ABSENT;
-if($answer->mandatoryImage() && $answer->image_set==0)
+if($answer->mandatoryImage() && $answer->stotext->image_set==0)
   return EFA_IMAGE_ABSENT;
-if($answer->image_set!=0 && !imageSetExists($answer->image_set))
+if($answer->stotext->image_set!=0
+   && !imageSetExists($answer->stotext->image_set))
   return EFA_NO_IMAGE;
 if(!messageExists($answer->up))
   return EFA_NO_UP;
