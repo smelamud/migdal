@@ -41,3 +41,4 @@ CREATE TABLE `logs` (
 INDEX (`id`, `event`, `sent`)
 );
 ALTER TABLE `logs` ADD `ip` INT UNSIGNED NOT NULL AFTER `sent`;
+DROP TABLE statistics;

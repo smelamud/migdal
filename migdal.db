@@ -299,14 +299,6 @@ CREATE TABLE sessions (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'statistics'
---
-
-CREATE TABLE statistics (
-  logins int(11) NOT NULL default '0'
-) TYPE=MyISAM;
-
---
 -- Table structure for table 'stotext_images'
 --
 
