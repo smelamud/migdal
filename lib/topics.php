@@ -381,8 +381,6 @@ $this->TopicIterator(
       "group by topics.id
        $postFilter
        order by topics.name_sort");
-      /* здесь нужно поменять, если будут другие ограничения на
-	 просмотр TODO */
 }
 
 }

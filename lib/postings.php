@@ -337,8 +337,6 @@ $this->LimitSelectIterator(
 	      personal_id=$personal and (grp & $grp)<>0 $countAnswerFilter
 	      @topic@ $userFilter $index1Filter $sentFilter
 	      $subdomainFilter $childFilter $shadowFilter");
-      /* здесь нужно поменять, если будут другие ограничения на
-	 просмотр TODO */
 }
 
 function addTopicFilter($topic_id,$recursive=false)
@@ -350,12 +348,23 @@ if($this->topicFilter!='')
 $this->topicFilter.='topics.'.subtree($topic_id,$recursive);
 }
 
+function getTopicFilterCondition()
+{
+return $this->topicFilter!='' ? " and ({$this->topicFilter})" : '';
+}
+
 function select()
 {
-$filter=$this->topicFilter!='' ? " and ({$this->topicFilter})" : '';
-$this->setQuery(str_replace('@topic@',$filter,$this->getQuery()));
-$this->setCountQuery(str_replace('@topic@',$filter,$this->getCountQuery()));
+$this->setQuery(str_replace('@topic@',$this->getTopicFilterCondition(),
+                                      $this->getQuery()));
 LimitSelectIterator::select();
+}
+
+function countSelect()
+{
+$this->setCountQuery(str_replace('@topic@',$this->getTopicFilterCondition(),
+                                           $this->getCountQuery()));
+LimitSelectIterator::countSelect();
 }
 
 function create($row)
@@ -405,8 +414,6 @@ $this->SelectIterator(
               (grp & $grp)<>0 $topicFilter
 	group by users.id
 	order by surname,jewish_name,name");
-      /* здесь нужно поменять, если будут другие ограничения на
-	 просмотр TODO */
 }
 
 }
@@ -514,8 +521,6 @@ $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
 		     where $filter
 		           and (hidden<$hide or sender_id=$userId)
 			   and (disabled<$hide or sender_id=$userId)")
-		    /* здесь нужно поменять, если будут другие ограничения на
-		       просмотр TODO */
 	  or sqlbug('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0
        ? newPosting(mysql_fetch_assoc($result))
@@ -583,8 +588,6 @@ $result=mysql_query(
 	       (messages.disabled<$hide or messages.sender_id=$userId) and
 	       $filter
          group by messages.id")
-      /* здесь нужно поменять, если будут другие ограничения на
-	 просмотр TODO */
  or sqlbug('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp,
@@ -728,8 +731,6 @@ $result=mysql_query("select postings.id
 			       on postings.message_id=messages.id
 		     where postings.id=$id and (hidden<$hide or sender_id=$userId)
 		                           and (disabled<$hide or sender_id=$userId)")
-		    /* здесь нужно поменять, если будут другие ограничения на
-		       просмотр TODO */
 	  or sqlbug('Ошибка SQL при проверке наличия постинга');
 return mysql_num_rows($result)>0;
 }

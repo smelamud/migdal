@@ -27,15 +27,14 @@ $this->SelectIterator($aClass,$limit==0 ? $query
                                         : "$query limit $offset,$limit" );
 }
 
-function select()
+function countSelect()
 {
 if($this->size<0)
   {
   $result=mysql_query($this->count_query)
-	 or sqlbug("Ошибка SQL в лимитированном итераторе {$this->count_query}");
+	or sqlbug("Ошибка SQL в лимитированном итераторе {$this->count_query}");
   $this->size=mysql_result($result,0,0);
   }
-SelectIterator::select();
 }
 
 function getCountQuery()
@@ -50,7 +49,7 @@ $this->count_query=$cquery;
 
 function getSize()
 {
-$this->select();
+$this->countSelect();
 return $this->size;
 }
 
@@ -92,7 +91,7 @@ return (int)($this->offset/$this->limit)+1;
 
 function getPageCount()
 {
-$this->select();
+$this->countSelect();
 return $this->size==0 ? 0 : (int)(($this->size-1)/$this->limit)+1;
 }
 

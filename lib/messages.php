@@ -493,8 +493,6 @@ $result=mysql_query("select id
 		     from messages
 		     where id=$id and (hidden<$hide or sender_id=$userId) and
 		     (disabled<$hide or sender_id=$userId)")
-		    /* здесь нужно поменять, если будут другие ограничения на
-		       просмотр TODO */
           or sqlbug('Ошибка SQL при проверке наличия сообщения');
 return mysql_num_rows($result)>0;
 }

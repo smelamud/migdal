@@ -106,8 +106,6 @@ $this->LimitSelectIterator(
 	       (messages.disabled<$hide or sender_id=$userId) and
 	       parent_id=$parent_id
 	 order by sent desc",$limit,$offset);
-      /* здесь нужно поменять, если будут другие ограничения на
-	 просмотр TODO */
 }
 
 }
@@ -126,8 +124,6 @@ $result=mysql_query("select forums.id as id,message_id,stotext_id,body,
 	                       on stotexts.id=messages.stotext_id
 		     where forums.id=$id and (hidden<$hide or sender_id=$userId)
 		           and (disabled<$hide or sender_id=$userId)")
-		    /* здесь нужно поменять, если будут другие ограничения на
-		       просмотр TODO */
 	  or sqlbug('Ошибка SQL при выборке сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0
                        ? mysql_fetch_assoc($result)
@@ -155,8 +151,6 @@ $result=mysql_query(
 	       (messages.disabled<$hide or sender_id=$userId) and
 	       forums.parent_id=$parent_id and
 	       unix_timestamp(sent)=$sent")
-      /* здесь нужно поменять, если будут другие ограничения на
-	 просмотр TODO */
  or sqlbug('Ошибка SQL при выборке автора сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                  : array());
@@ -187,8 +181,6 @@ $result=mysql_query(
 	 where (messages.hidden<$hide or sender_id=$userId) and
 	       (messages.disabled<$hide or sender_id=$userId) and
 	       forums.id=$id")
-      /* здесь нужно поменять, если будут другие ограничения на
-	 просмотр TODO */
  or sqlbug('Ошибка SQL при выборке сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                  : array());
