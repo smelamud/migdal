@@ -2,7 +2,7 @@
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.40-log
+# Server version	3.23.41-log
 
 #
 # Table structure for table 'chat_messages'
@@ -92,6 +92,19 @@ CREATE TABLE complains (
   KEY recipient_id (recipient_id),
   KEY message_id (message_id),
   KEY type_id (type_id)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'forums'
+#
+
+CREATE TABLE forums (
+  id int(11) NOT NULL auto_increment,
+  message_id int(11) NOT NULL default '0',
+  up int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY message_id (message_id),
+  KEY up (up)
 ) TYPE=MyISAM;
 
 #
@@ -280,7 +293,7 @@ CREATE TABLE users (
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.40-log
+# Server version	3.23.41-log
 
 #
 # Dumping data for table 'menu'
