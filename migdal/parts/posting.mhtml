@@ -1,5 +1,13 @@
 << @(#) $Id$ >>
 
+<element name='topiclink_gallery' params='posting,class'>
+<assign name='name' value!='$/$posting.TopicId,0/==$`migdal`
+			    ? "Мигдаль :: ".$posting.TopicName
+			    : $posting.TopicName'>
+<at href#='gallery.php?topic_id=$posting.TopicId' class='$class'
+    title='$posting.TopicDescription'>$name</at>
+</element>
+
 <element name='topiclink_links' params='posting,class'>
 <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
 <at href#='links.php?topic_id=$posting.TopicId' class='$class'
@@ -23,8 +31,7 @@
 
 <element name='topiclink'>
 <if what='($posting.Grp & *GRP_GALLERY)!=0'>
- <at href#='gallery.php?topic_id=$posting.TopicId' class='$class'
-     title='$posting.TopicDescription'>$posting.TopicName</at>
+ <topiclink_gallery posting='$posting' class='$class'>
 <else><if what='($posting.Grp & *GRP_LINKS)!=0'>
  <topiclink_links posting='$posting' class='$class'>
 <else><if what='($posting.Grp & *GRP_TIPS)!=0'>
