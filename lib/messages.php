@@ -131,6 +131,16 @@ function mandatoryImage()
 return $this->hasImage() && $this->getLocalConf('MandatoryImage');
 }
 
+function hasTitle()
+{
+return $this->getLocalConf('HasTitle');
+}
+
+function mandatoryTitle()
+{
+return $this->hasTitle() && $this->getLocalConf('MandatoryTitle');
+}
+
 function isEditable()
 {
 global $userId,$userModerator;

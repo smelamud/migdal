@@ -87,6 +87,8 @@ $messageHasLargeBody=false;
 $messageMandatoryLargeBody=false;
 $messageHasImage=true;
 $messageMandatoryImage=false;
+$messageHasTitle=true;
+$messageMandatoryTitle=false;
 
 # --- ForumAnswer ---
 
@@ -98,6 +100,8 @@ $forumanswerHasLargeBody=false;
 $forumanswerMandatoryLargeBody=false;
 $forumanswerHasImage=false;
 $forumanswerMandatoryImage=false;
+$forumanswerHasTitle=false;
+$forumanswerMandatoryTitle=false;
 
 # --- Posting ---
 
@@ -109,6 +113,8 @@ $postingHasLargeBody=false;
 $postingMandatoryLargeBody=false;
 $postingHasImage=true;
 $postingMandatoryImage=false;
+$postingHasTitle=true;
+$postingMandatoryTitle=false;
 $postingHasIdent=false;
 $postingMandatoryIdent=false;
 $postingHasTopic=true;
@@ -124,6 +130,8 @@ $forumHasLargeBody=false;
 $forumMandatoryLargeBody=false;
 $forumHasImage=false;
 $forumMandatoryImage=false;
+$forumHasTitle=false;
+$forumMandatoryTitle=false;
 $forumHasIdent=false;
 $forumMandatoryIdent=false;
 $forumHasTopic=true;
@@ -139,6 +147,8 @@ $newsHasLargeBody=false;
 $newsMandatoryLargeBody=false;
 $newsHasImage=true;
 $newsMandatoryImage=false;
+$newsHasTitle=true;
+$newsMandatoryTitle=false;
 $newsHasIdent=false;
 $newsMandatoryIdent=false;
 $newsHasTopic=true;
@@ -154,6 +164,8 @@ $galleryHasLargeBody=false;
 $galleryMandatoryLargeBody=false;
 $galleryHasImage=true;
 $galleryMandatoryImage=true;
+$galleryHasTitle=true;
+$galleryMandatoryTitle=false;
 $galleryHasIdent=false;
 $galleryMandatoryIdent=false;
 $galleryHasTopic=true;
@@ -169,6 +181,8 @@ $articleHasLargeBody=true;
 $articleMandatoryLargeBody=false;
 $articleHasImage=true;
 $articleMandatoryImage=false;
+$articleHasTitle=true;
+$articleMandatoryTitle=false;
 $articleHasIdent=true;
 $articleMandatoryIdent=false;
 $articleHasTopic=true;
