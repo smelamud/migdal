@@ -4,7 +4,7 @@
 <grpdata>
 <grpitemtitle>
 <grpitemstitle>
-<iterate_topiclist grp='$grp' withpostings='*true' cols='$cols'>
+<iterate_topiclist up='general' grp='$grp' withpostings='*true' cols='$cols'>
 <div class='batcher'>
  <logged>
   <if what='$g.Valid'>

@@ -2,7 +2,7 @@
 
 <element name='batcher_complains' params='value,list'>
 <table width=100% class='batcher'><tr>
- <td align=left><table><tr valign=bottom><td>
+ <td align=left>
   <logged>
    <a href='complainedit.php?ident=normal&redirid=$_'
       class='add'>Добавить жалобу</a>
@@ -12,7 +12,7 @@
     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </span>
   </logged>
- </td></tr></table></td>
+ </td>
  <td align=right><table><tr valign=center>
   <form method=get action='$~'>
    <hiddenget remove='cp'>

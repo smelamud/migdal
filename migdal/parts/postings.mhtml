@@ -5,7 +5,7 @@
 <grpitemtitle>
 <grpitemstitle>
 <table width=100% class='batcher'><tr valign=bottom>
- <td align=left><table><tr valign=bottom><td>
+ <td align=left>
   <logged>
    <if what='$g.Valid'>
     <a href='postingedit.php?topic_id=$topic&up=general&grp=$grp&redirid=$_'
@@ -26,7 +26,7 @@
     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </span>
   </logged>
- </td></tr></table></td>
+ </td>
  <td><spin list='$list'></td>
 </tr></table>
 </element>

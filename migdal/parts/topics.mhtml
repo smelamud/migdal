@@ -1,8 +1,9 @@
 << @(#) $Id$ >>
 
-<macro name='arrow'>
+<macro name='arrow' defaults="ident=''">
  <td>
-  <if what='$topic_id==%id'>
+  <assign name='idn' value='%ident'>
+  <if what='$topic_id==%id || $topic_id===$idn'>
    <ifbiff time='%time'>
     <image src='$$style_topics_ner_arrow' title='новое'>
    <else>
@@ -22,7 +23,7 @@
          defaults="topic_id='$topic_id'">
  <tr>
   <topic_obj id='$id'>
-  <arrow id='$id' time='$,LastMessage'>
+  <arrow id='$,Id' ident='$,Ident' time='$,LastMessage'>
   <td><a href='$link' title='$,Description' class='item large'>$,Name</a></td>
  </tr>
 </element>

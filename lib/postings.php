@@ -222,7 +222,7 @@ class InternalForum
 function InternalForum($row)
 {
 $this->Posting($row);
-$this->grp=GRP_INT_FORUM;
+$this->grp=GRP_INT_FORUMS;
 }
 
 }

@@ -3,7 +3,7 @@
 
 <element name='batcher_forumcatalog' params='value,list,topic'>
 <table width=100% class='batcher'><tr valign=bottom>
- <td align=left><table><tr valign=bottom><td>
+ <td align=left>
   <logged>
    <a href='postingedit.php?topic_id=$topic&up=general&grp=*GRP_FORUMS&redirid=$_'
       class='add'>Добавить мнение</a>
@@ -13,7 +13,7 @@
     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </span>
   </logged>
- </td></tr></table></td>
+ </td>
  <td><spin list='$list'></td>
 </tr></table>
 </element>
