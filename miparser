@@ -116,10 +116,10 @@ if($s=~/^\$`([^`]*)`$/)
   $ident=subTypedValue('','%',$ident);
   return "${st}idByIdent($table,$ident)$ed";
   }
-if($s=~/^\$\[([^\]]*)\]$/)
+if($s=~/^\$\/([^\/]*)\/$/)
   {
   request('lib/track.php');
-  my ($table,$id,$level)=$1=~/^\s*(?:(\w+):)?([\w\$]+)(?:,([\w\$]+))?$/;
+  my ($table,$id,$level)=$1=~/^\s*(?:(\w+):)?([\w.\$]+)(?:,([\w.\$]+))?$/;
   $table='topics' if $table eq '';
   $table=subTypedValue('','%',$table);
   $id=subTypedValue('','%',$id);
@@ -235,7 +235,7 @@ while($s ne '')
 				|
 				(?: `[^`]*` )
 				|
-				(?: \[[^\]]*\] )
+				(?: \/[^\/]*\/ )
 				|
 				(?: [_\.,;\~\*\-\?]+ )
 			       )

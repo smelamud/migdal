@@ -10,9 +10,14 @@
                href='index.php' title='Раздельчики'>
 </if>
 <if what='$posting.Grp==*GRP_GALLERY'>
- <topics_minor id='$posting.TopicId' subdomain!='$$officialDomain ? 1 : -1'
-	       withpostings='$$officialDomain' grp='*GRP_GALLERY'
-	       href='gallery.php' title='Галерея'>
+ <if what='$/$posting.TopicId,0/!=$`migdal`'>
+  <topics_minor id='$posting.TopicId' subdomain!='$$officialDomain ? 1 : -1'
+		withpostings='$$officialDomain' grp='*GRP_GALLERY'
+		href='gallery.php' title='Галерея'>
+ <else>
+  <topics_migdal posting='$posting'>
+  <topics_major ident='migdal'>
+ </if>
 </if>
 <if what='$posting.Grp==*GRP_TIMES_COVERS || $posting.Grp==*GRP_TIMES_ARTICLES'>
  <topics_major ident='times'>

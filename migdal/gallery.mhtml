@@ -30,10 +30,11 @@
 <body>
  <top ident='gallery'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'>
-   <topics_minor id='$topic_id' subdomain!='$$officialDomain ? 1 : -1'
-                 withpostings='$$officialDomain' grp='*GRP_GALLERY'
-		 href='gallery.php' title='Галерея'>
+  <td width=150 class='eframe'>
+   <zone>
+    <posting_new grp='*GRP_GALLERY' topic_id='$topic_id'>
+    <topics posting='$,'>
+   </zone>
   </td>
   <td>
    <if what='$topic_id<=0'>
