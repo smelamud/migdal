@@ -54,6 +54,7 @@
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='jewishru' file='parts/jewishru.php'>
+<decel name='kaitana_announce' file='parts/kaitana-announce.php'>
 <decel name='kaitana_picture' file='parts/kaitana-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten,kaitana_id'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' kaitana_id=0">

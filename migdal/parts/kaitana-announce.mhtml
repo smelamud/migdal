@@ -1,0 +1,42 @@
+<< @(#) $Id$ >>
+
+<macro name='day'>
+ <td>
+  <if what='(%n)<2 && (%n)!=6 && (%n)!=13'>
+   <a href='kaitana.php?day=%n'><asp>
+  </if>
+  <image border=0 src='pics/k%{n}.gif'>
+  <if what='(%n)<2'>
+   <asp></a>
+  </if>
+ </td>
+</macro>
+
+<element name='kaitana_announce'>
+<div class='aframe ninept' style='padding: 5'>
+ С 17 по 30 июня в &lt;&lt;Мигдале&gt;&gt; проводится традиционная <b>летняя
+ детская площадка</b>. Мероприятие это стоит того, чтобы в нем поучаствовать
+ или хотя бы увидеть своими глазами, но если вам не посчастливилось туда
+ попасть --- не отчаивайтесь --- вы сможете узнавать обо всем, что происходит
+ на площадке из <i>ежедневных</i> репортажей сайта
+ &lt;&lt;Мигдаль-online&gt;&gt;.
+ <p>
+ <table><tr valign=center>
+  <td>Дни:&nbsp;</td>
+  <day n=1>
+  <day n=2>
+  <day n=3>
+  <day n=4>
+  <day n=5>
+  <day n=6>
+  <day n=7>
+  <day n=8>
+  <day n=9>
+  <day n=10>
+  <day n=11>
+  <day n=12>
+  <day n=13>
+  <day n=14>
+ </tr></table>
+</div>
+</element>
