@@ -45,9 +45,9 @@ foreach($action as $line)
 	   }
 	 else
 	   {
-	   setJournalVar($host,$line->getResultVar(),mysql_insert_id());
-	   journal(jencode($query),$line->getResultTable(),
-		   mysql_insert_id());
+	   $lastId=mysql_insert_id();
+	   setJournalVar($host,$line->getResultVar(),$lastId);
+	   journal(jencode($query),$line->getResultTable(),$lastId);
 	   }
        else
 	 if($replicationMaster)
@@ -64,6 +64,7 @@ global $siteDomain,$maxImage;
 if(isReplicationLocked($host))
   return;
 $from=getHorisont($host,HOR_WE_KNOW);
+setHorisont($host,$from,HOR_WE_KNOW); // Create horisont record if absent
 $fd=fopen("http://$host/lib/replication.php?host=".urlencode($siteDomain)
                                          ."&from=$from",'r');
 if(!$fd)
