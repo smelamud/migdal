@@ -2,20 +2,23 @@
 
 <element name='batcher' params='&list,topic_id'>
 <table width=100%><tr valign=bottom>
- <td align=left class='info'>
-  <table><tr valign=center>
-   <td><image src='pics/sheet.gif'></td>
-   <td>
-    <logged>
-     <assign name='script' value='postingedit.php'>
-    <else>
-     <assign name='script' value='login.php'>
-    </logged>
-    <a href='$script?topic_id=$topic_id&grp=*GRP_FORUMS&redirid=$_'
-       >Добавить мнение</a>
-   </td>
-  </tr></table>
- </td>
+ <topic_allow id='$topic_id'>
+ <if what='($, & *GRP_FORUMS)!=0'>
+  <td align=left class='info'>
+   <table><tr valign=center>
+    <td><image src='pics/sheet.gif'></td>
+    <td>
+     <logged>
+      <assign name='script' value='postingedit.php'>
+     <else>
+      <assign name='script' value='login.php'>
+     </logged>
+     <a href='$script?topic_id=$topic_id&grp=*GRP_FORUMS&redirid=$_'
+	>Добавить мнение</a>
+    </td>
+   </tr></table>
+  </td>
+ </if>
  <td><spin list='$list'></td>
 </tr></table>
 </element>
