@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/topicedit.mhtml 1.10 >>
+<< Based-on: demo/topicedit.mhtml 1.11 >>
 
 <int name='editid'>
 <html>
@@ -19,6 +19,8 @@
   <error id='*ET_NO_EDIT' text='У вас нет права менять список тем'>
   <error id='*ET_STORE_SQL' text='Ошибка базы данных при обновлении записи'
 	 color='magenta'>
+  <error id='*ET_TRACK_SQL' color='magenta'
+         text='Ошибка базы данных при обновлении маршрута темы'>
   <tr><td><table>
    <error id='*ET_NO_UP' text='Такой темы не существует' span=2>
    <error id='*ET_LOOP_UP' text='Тема не может быть подтемой самой себя' span=2>
