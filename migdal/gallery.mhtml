@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 << Based-on: migdal/index.mhtml 1.12 >>
 
-<int name='topic_id'>
+<string name='topic_id'>
 <int name='offset'>
 <if what='$topic_id==8'>
  <log event=trap text='Taglit gallery'>

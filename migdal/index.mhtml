@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<int name='topic_id'>
+<string name='topic_id'>
 <int name='offset'>
 <ifzero what='$topic_id'>
  <reload href='$[topic_id=-1]'>
