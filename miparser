@@ -72,9 +72,36 @@ sub new
 {
 my ($class)=@_;
 
-::more() while($::Line !~ /<(([^>'"]*)|('[^']*')|("[^"]*"))*>/ && !$::Eof);
-my ($token)=$::Line =~ /(<(([^>'"]*)|('[^']*')|("[^"]*"))*>)/;
-return Token::new($class,length($token));
+::more() while($::Line !~ /^<(([^>'"]*)|('[^']*')|("[^"]*"))*>/ && !$::Eof);
+my ($token)=$::Line =~ /^(<(([^>'"]*)|('[^']*')|("[^"]*"))*>)/;
+my $self=Token::new($class,length($token));
+$token=substr $token,1,-1;
+($self->{'name'},$token)=$token=~/^\s*(\/?\w+)(.*)$/;
+$self->{'name'}=lc $self->{'name'};
+$self->{'args'}={};
+while($token!~/^\s*$/)
+     {
+     my $name,$value;
+     ($name,undef,$value,undef,undef,undef,$token)=
+         $token=~/^\s*(\w+)\s*(=\s*((\S*)|('[^']*')|("[^"]*")))?(.*)$/;
+     $value=substr $value,1,-1 if $value=~/^['"]/;
+     $self->{'args'}{lc $name}=$value;
+     }
+return $self;
+}
+
+sub getName
+{
+my ($self)=@_;
+
+return $self->{'name'};
+}
+
+sub getArgs
+{
+my ($self)=@_;
+
+return $self->{'args'};
 }
 
 package Comment;
