@@ -1,5 +1,20 @@
 << @(#) $Id$ >>
 
+<element name='navi_kaitana' params='posting'>
+<topic_obj name='kaitana' id='kaitana'>
+
+<posting_last topic_id='$kaitana.Id' recursive='*false'>
+<topics_line time='$,' href='kaitana.php' title='$kaitana.Description'
+	     text='$kaitana.Name' class='item large'>
+
+</element>
+
+<element name='navi_main' params='posting'>
+<topics_line href='index.php?topic_id=-1' title='На главную страницу'
+	     text='Главная' class='item large'>
+
+</element>
+
 <element name='navi_taglit' params='posting'>
 <topic_obj name='taglit' id='taglit'>
 
@@ -26,10 +41,12 @@
   </td></tr>
  </admin_topics>
  <if what='$showchapters'>
+  <navi_main posting='$posting'>
   <navi_times posting='$posting'>
   <community>
    <navi_taglit posting='$posting'>
   </community>
+  <navi_kaitana posting='$posting'>
  </if>
  <iterate_topiclist grp='$posting.PageGroup' withpostings='$withpostings'
 		    withanswers='$withanswers' up='$up' subdomain='$subdomain'>

@@ -1,0 +1,28 @@
+<< @(#) $Id$ >>
+
+<element name='kaitana_picture'>
+<ifzero what='$kaitana_id'>
+ <topic_obj name='kaitana' id='kaitana'>
+ <assign name='kaitana_id' value='$kaitana.Id'>
+</ifzero>
+<table>
+ <tr><td>
+  <vote_frame id='$picture.Id' color='$$style_cframe_back'
+	      image='$$style_cframe_back_pic'>
+ </td></tr>
+ <ifnzero what='$picture.ImageSet'>
+  <tr><td align=center>
+   <image_linked_tag id='$picture.ImageId' enlarge='$picture.hasLargeImage'>
+  </td></tr>
+ </ifnzero>
+ <isedit what='$picture'>
+  <tr><td class=batcher align=center>
+   <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&up=$kaitana.Id&grp=$picture.Grp&redirid=$_"
+    >Изменить</a>
+  </td></tr>
+ </isedit>
+ <tr><td class='imagetitle'>
+  $picture.HTMLBody
+ </td></tr>
+</table>
+</element>

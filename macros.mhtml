@@ -162,7 +162,8 @@
          params='id,grp,index1'
 	 defaults='id=-1 name=message grp=*GRP_ALL index1=-1'>
 <deccall macro='posting_index' func='getMaxIndexOfPosting'
-         file='lib/postings.php' params='index,grp' defaults="grp='*GRP_ALL'">
+         file='lib/postings.php' params='index,grp,topics_id,recursive'
+	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deccall macro='posting_last' func='getLastPostingDate' file='lib/postings.php'
          params='grp,topic_id,answers,user_id,recursive'
 	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0 recursive=*false'>

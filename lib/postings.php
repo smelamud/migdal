@@ -644,18 +644,22 @@ $result=mysql_query("select message_id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-function getMaxIndexOfPosting($index,$grp)
+function getMaxIndexOfPosting($index,$grp,$topic_id=-1,$recursive=false)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
+             : ' and topics.'.byIdentRecursive('topics',$topic_id,$recursive);
 $result=mysql_query("select max(index$index)
                      from postings
 			  left join messages
 			       on postings.message_id=messages.id
+			  left join topics
+			       on postings.topic_id=topics.id
 		     where (hidden<$hide or sender_id=$userId) and
 			   (disabled<$hide or sender_id=$userId) and
-		           (grp & $grp)<>0")
+		           (grp & $grp)<>0 $topicFilter")
 	     or die('Ошибка SQL при получении максимального индекса постинга');
 return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
 }

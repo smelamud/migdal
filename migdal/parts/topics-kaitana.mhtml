@@ -1,0 +1,11 @@
+<< @(#) $Id$ >>
+
+<element name='topics_kaitana'>
+<topics_table class='eightpt' title='Площадка'>
+ <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_NEWS'
+                      sort='*SORT_INDEX1'>
+ <for>
+  <topics_line time='$.Sent' text='$.Subject' href#='kaitana.php?day=$.Index1'>
+ </for>
+</topics_table>
+</element>

@@ -35,6 +35,9 @@ return $row ? $this->create($row) : 0;
 function reset()
 {
 mysql_data_seek($this->result,0);
+$this->first=2;
+$this->odd=0;
+$this->position=-1;
 }
 
 function isLast()

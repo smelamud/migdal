@@ -1,0 +1,111 @@
+<< @(#) $Id$ >>
+
+<int name='day'>
+<int name='postid'>
+<grps>
+<topic_obj name='kaitana' id='kaitana'>
+<ifnzero what='$postid'>
+ <posting_full name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'>
+<else>
+ <posting_full name='posting' grp='*GRP_KAITANA_NEWS' topic='$kaitana.Id'
+               index1!='$day<=0 ? 1 : $day'>
+</ifzero>
+<pagetitle title='Летняя площадка - 5762'>
+<topictitle title='Летняя площадка - 5762'>
+<zone><log event=kaitana text#='post($posting.Id)'></zone>
+
+<macro name='editor'>
+ <if what='$kaitana.UserId==$$userId || $$userModerator'>
+</macro>
+<endif name='/editor'>
+
+<element name='kaitana_controls' params='posting,kaitana'>
+<div align=right>
+ <table class='controls'>
+  <tr>
+   <isedit what='$posting'>
+    <td>
+     <a href="postingedit.php?editid=$posting.Id&up=$kaitana.Id&grp=$posting.Grp&redirid=$_"
+	>Изменить</a>
+    </td>
+    <if what='$posting.isModerable'>
+     <td>
+      <if what='$posting.isDisabled'>
+       <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+	>Разрешить показ</a>
+      <else>
+       <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+	>Запретить показ</a>
+      </if>
+     </td>
+    </if>
+   </isedit>
+   <td><discusslink posting='$posting'></td>
+  </tr>
+ </table>
+</div>
+</element>
+
+<html>
+<zone>
+ <stylesheet ident='article'>
+ <preamble>
+</zone>
+<body>
+ <top ident='index'>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=140 class='eframe'><zone>
+   <topics_kaitana kaitana='$kaitana'>
+   <posting_new grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'>
+   <topics posting='$,' showchapters='*true'>
+  </zone></td>
+  <td class='cframe'>
+   <subtitle>
+   <div class=batcher>
+    <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
+       class=add>Добавить новость</a>
+    &nbsp;
+    <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+       class=add>Добавить картинку</a>
+   </div>
+   <ifnzero what='$posting'>
+   <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
+    <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
+                         sort='*SORT_RATING'>
+    <td width=110>
+     <for>
+      <if what='$;isOdd'>
+       <kaitana_picture picture='$.'>
+      </if>
+     </for>
+    </td>
+    <td>
+     <kaitana_controls posting='$posting' kaitana='$kaitana'>
+     <table align=right class=sent>
+      <tr><td>&nbsp;</td></tr>
+      <tr><td align=right><sentview date='$posting.Sent'></td></tr>
+      <tr><td align=right><senderlink message='$posting'></td></tr>
+     </table>
+     <h1 style='clear: both'>$posting.Subject</h1>
+     <p>
+     $posting.HTMLBody
+     </p>
+     <vote_frame id='$posting.Id' color='$$style_cframe_back'
+		 image='$$style_cframe_back_pic'>
+     <kaitana_controls posting='$posting' kaitana='$kaitana'>
+    </td>
+    <td width=140>
+     <reset_iterator>
+     <for>
+      <if what='!$;isOdd'>
+       <kaitana_picture picture='$.'>
+      </if>
+     </for>
+    </td>
+   </tr></table>
+   </ifnzero>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>
