@@ -417,6 +417,43 @@ $result=mysql_query("select id
 return mysql_num_rows($result)>0;
 }
 
+class UsersSummary
+{
+var $total;
+var $waiting;
+
+function UsersSummary($total,$waiting)
+{
+$this->total=$total;
+$this->waiting=$waiting;
+}
+
+function getTotal()
+{
+return $this->total;
+}
+
+function getWaiting()
+{
+return $this->waiting;
+}
+
+}
+
+function getUsersSummary()
+{
+global $userAdminUsers;
+
+$hide=$userAdminUsers ? 2 : 1;
+$result=mysql_query("select count(*),count(confirm_deadline)
+                     from users
+		     where hidden<$hide");
+return mysql_num_rows($result)>0 ?
+       new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
+                        mysql_result($result,0,1)) :
+       new UsersSummary(0,0);
+}
+
 class ChatUsersIterator
       extends SelectIterator
 {

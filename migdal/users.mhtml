@@ -7,6 +7,20 @@
 </head>
 <body>
  <top ident='users' image='pics/users.gif'>
+ <zone>
+  <users_summary name='summary'>
+  <array vals='зарегистрирован,зарегистрировано,зарегистрировано'>
+  <plural name='i_reg' value='$summary.Total'>
+  <array vals='пользователь,пользователя,пользователей'>
+  <plural name='i_users' value='$summary.Total'>
+  <span class='info'>
+   Всего $i_reg <em>$summary.Total</em> $i_users
+   <ifnzero what='$summary.Waiting'>
+    &nbsp;(<em>$summary.Waiting</em> в процессе регистрации)
+   </ifnzero>
+  </span>
+ </zone>
+ <p>
  <table width=100% class='catalog'>
   <tr valign=top>
    <th class='subject'>Ник</th><th>Имя</th><th>Возраст</th>
