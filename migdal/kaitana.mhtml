@@ -22,7 +22,7 @@
 <div align=right>
  <table class='controls'>
   <tr>
-   <isedit what='$posting'>
+   <editor>
     <td>
      <a href="postingedit.php?editid=$posting.Id&up=$kaitana.Id&grp=$posting.Grp&redirid=$_"
 	>Изменить</a>
@@ -38,7 +38,7 @@
       </if>
      </td>
     </if>
-   </isedit>
+   </editor>
    <td><discusslink posting='$posting'></td>
   </tr>
  </table>
