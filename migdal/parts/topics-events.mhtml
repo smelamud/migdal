@@ -15,7 +15,7 @@
    <iswrite what='$topic'>
     <tr><td colspan=2>
      <a href='topics-reorder.php?up=$,Id&level=2&index4=$year&redirid=$_'
-	>Расставить</a>
+	class='eightpt'>Расставить</a>
     </td></tr>
    </iswrite>
   </if>
@@ -40,7 +40,7 @@
    <iswrite what='$topic'>
     <tr><td colspan=2>
      <a href='topics-reorder.php?up=$,Id&level=2&index4=$year&redirid=$_'
-	>Расставить</a>
+	class='eightpt'>Расставить</a>
     </td></tr>
    </iswrite>
   </if>
