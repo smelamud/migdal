@@ -323,9 +323,9 @@ function duplicateDatabase()
 {
 global $dbName;
 
-$tables=array('complain_actions','complains','cross_topics','forums','groups',
-              'images','instants','messages','multisites','postings',
-	      'stotext_images','stotexts','topics','users','votes');
+$tables=array('complain_actions','complains','counters','cross_topics',
+              'forums','groups','images','instants','messages','multisites',
+	      'postings','stotext_images','stotexts','topics','users','votes');
 foreach($tables as $table)
        {
        mysql_query("delete from $dbName.$table")
