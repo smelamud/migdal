@@ -3,6 +3,8 @@
 
 error_reporting(0);
 
+require_once('conf/migdal.conf');
+
 function openDb()
 {
 global $dbhost,$dbuser,$dbpasswd,$dbname,$link;
@@ -93,11 +95,11 @@ if($sql!='')
   execute();
 
 if($dbname=='')
-  $dbname='migdal';
+  $dbname=$dbHost;
 if($dbuser=='')
-  $dbuser='root';
+  $dbuser=$dbName;
 if($dbhost=='')
-  $dbhost='localhost';
+  $dbhost=$dbUser;
 ?>
 <html>
 <head><title>Migdal - SQL</title></head>
