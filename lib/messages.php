@@ -193,6 +193,11 @@ function getSubject()
 return $this->subject;
 }
 
+function getSubjectDesc()
+{
+return $this->getSubject()!='' ? $this->getSubject() : $this->getBodyTiny();
+}
+
 function getAuthor()
 {
 return $this->author;
@@ -231,6 +236,25 @@ return $this->stotext->getBody();
 function getHTMLBody()
 {
 return stotextToHTML(TF_MAIL,$this->getBody());
+}
+
+function isBodyTiny()
+{
+global $tinySize,$tinySizeMinus,$tinySizePlus;
+
+return strlen($this->getBody())<=$tinySize+$tinySizePlus;
+}
+
+function getBodyTiny()
+{
+global $tinySize,$tinySizeMinus,$tinySizePlus;
+
+return shorten($this->getBody(),$tinySize,$tinySizeMinus,$tinySizePlus);
+}
+
+function getHTMLBodyTiny()
+{
+return stotextToHTML(TF_MAIL,$this->getBodyTiny());
 }
 
 function isBodyMedium()

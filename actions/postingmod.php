@@ -43,13 +43,15 @@ if(isPremoderated($message))
                        set disabled=1
 	               where id='.$message->getMessageId());
   if($result)
+    {
     sendAutomaticComplain('posting',
                           'Автоматическая проверка сообщения "'.
-			   $message->getSubject().'"',
+			   $message->getSubjectDesc().'"',
 			  'Прошу Модератора проверить соответствие данного
 			   сообщения политике сайта и открыть к нему публичный
 			   доступ.',
 			  $message->getId());
+    }
   return $result;
   }
 else
