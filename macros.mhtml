@@ -107,6 +107,10 @@
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting,note_base'
 	 defaults="note_base=1">
+<deciter macro='posting_random' class='RandomPostingsIterator'
+         file='lib/postings-random.php'
+	 params='limit,grp,topic_id,user_id,index1'
+	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1'>
 <deciter macro='posting_users' class='PostingUsersIterator'
          file='lib/postings.php' params='grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
@@ -258,7 +262,7 @@
          params='id,grp,topic_id,index1,up'
 	 defaults='id=-1 name=message grp=*GRP_ALL topic_id=0 index1=-1 up=-1'>
 <deccall macro='posting_random' func='getRandomPostingId'
-         file='lib/postings.php' params='grp,topic_id,user_id,index1'
+         file='lib/postings-random.php' params='grp,topic_id,user_id,index1'
 	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1'>
 <deccall macro='posting_vote' func='getVoteInfoByPostingId'
          file='lib/postings.php' params='id,grp' defaults="grp='*GRP_ALL'">

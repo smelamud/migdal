@@ -722,57 +722,6 @@ mysql_query("update postings
   or sqlbug('Ошибка SQL при обновлении счетчика прочтений постинга');
 }
 
-function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)
-{
-$hide=messagesPermFilter(PERM_READ);
-$grpFilter=grpFilter($grp);
-$topicFilter=$topic_id>=0 ? " and topic_id=$topic_id " : '';
-$userFilter=$user_id<=0 ? '' : " and messages.sender_id=$user_id ";
-$index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
-$result=mysql_query(
-        "select priority,count(*)
-         from postings
-	      left join messages
-	           on postings.message_id=messages.id
-	 where $hide and priority<=0 and $grpFilter $topicFilter $userFilter
-	       $index1Filter
-	 group by priority
-	 order by priority")
- or sqlbug('Ошибка SQL при определении количества постингов по приоритетам');
-$counts=array();
-$total=0;
-while($row=mysql_fetch_row($result))
-     {
-     $row[2]=(1-$row[0])*$row[1];
-     $counts[]=$row;
-     $total+=$row[2];
-     }
-$pos=random(0,$total-1);
-$realpos=0;
-foreach($counts as $c)
-       if($pos>=$c[2])
-         {
-	 $pos-=$c[2];
-	 $realpos+=$c[1];
-	 }
-       else
-         {
-	 $realpos+=(int)($pos/(1-$c[0]));
-	 break;
-	 }
-$result=mysql_query(
-        "select postings.id
-         from postings
-	      left join messages
-	           on postings.message_id=messages.id
-	 where $hide and priority<=0 and $grpFilter $topicFilter $userFilter
-	       $index1Filter
-	 order by priority,sent desc
-	 limit $realpos,1")
- or sqlbug('Ошибка SQL при получении постинга по позиции');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-}
-
 function getMessageIdByPostingId($id)
 {
 $result=mysql_query("select message_id
