@@ -1,9 +1,10 @@
 << @(#) $Id$ >>
+<< Based-on: menuedit.mhtml 1.4 >>
 
 <int name='menuid'>
 <html>
 <head>
- <title>Демо - Главное меню</title>
+ <title>Штаб Мошиаха - Главное меню</title>
 </head>
 <body bgcolor=white>
  <menu_obj id='$menuid'>

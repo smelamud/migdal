@@ -1,4 +1,5 @@
 << @(#) $Id$ >>
+<< Based-on: useredit.mhtml 1.4 >>
 
 <element name='may_edit'
          params='title,showvalue,value,name,size,maxlength,status'

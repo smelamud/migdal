@@ -40,7 +40,7 @@ dbOpen();
 session($sessionid);
 $answer=getForumAnswerById($editid);
 $answer->setup($HTTP_POST_VARS);
-$img=uploadImage('image',true,$err);
+$img=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
 if($img)
   $answer->setImageSet($img->getImageSet());
 if($err==EIU_OK)

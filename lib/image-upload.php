@@ -43,10 +43,9 @@ return $imageTypeCodes[$mime_type];
 }
 
 function uploadImageUsingMogrify($image,$image_name,$image_size,$image_type,
-                                 $thumbnail,&$err)
+                                 $thumbnailX,$thumbnailY,&$err)
 {
-global $mogrifyPath,$maxImage,$thumbnailType,$thumbnailWidth,$thumbnailHeight,
-       $tmpDir;
+global $mogrifyPath,$maxImage,$thumbnailType,$tmpDir;
 
 $largeExt=getImageExtension($image_type);
 $smallExt=getImageExtension($thumbnailType);
@@ -71,7 +70,7 @@ $fd=fopen($largeFile,'r');
 $large=fread($fd,$maxImage);
 fclose($fd);
 
-$geometry=$thumbnailWidth.'x'.$thumbnailHeight;
+$geometry=$thumbnailX.'x'.$thumbnailY;
 exec("$mogrifyPath -format $smallExt -geometry '$geometry>' $largeFile");
 
 $small_size=getImageSize($smallFile);
@@ -82,49 +81,73 @@ fclose($fd);
 unlink($largeFile);
 unlink($smallFile);
 
-return new Image(array('filename' => $image_name,
-		       'small'    => $small,
-		       'small_x'  => $small_size[0],
-		       'small_y'  => $small_size[1],
-		       'large'    => $large,
-		       'large_x'  => $large_size[0],
-		       'large_y'  => $large_size[1],
-		       'format'   => $image_type));
+if($small_size[0]==$large_size[0] && $small_size[1]==$large_size[1])
+  {
+  $has_large=false;
+  $large='';
+  $large_size=array(0,0);
+  }
+else
+  $has_large=true;
+  
+return new Image(array('filename'  => $image_name,
+		       'small'     => $small,
+		       'small_x'   => $small_size[0],
+		       'small_y'   => $small_size[1],
+		       'has_large' => $has_large,
+		       'large'     => $large,
+		       'large_x'   => $large_size[0],
+		       'large_y'   => $large_size[1],
+		       'format'    => $image_type));
 }
 
 function uploadImageByDefault($image,$image_name,$image_size,$image_type,
-                              $thumbnail,&$err)
+                              $hasThumbnail,$thumbnailX,$thumbnailY,&$err)
 {
 global $maxImage,$defaultThumbnail;
 
-$large_size=getImageSize($image);
-$fd=fopen($image,'r');
-$large=fread($fd,$maxImage);
-fclose($fd);
+if($hasThumbnail)
+  {
+  $large_size=getImageSize($image);
+  $fd=fopen($image,'r');
+  $large=fread($fd,$maxImage);
+  fclose($fd);
 
-$small_size=getImageSize($defaultThumbnail);
-$fd=fopen($defaultThumbnail,'r');
-$small=fread($fd,$maxImage);
-fclose($fd);
+  $small_size=getImageSize($defaultThumbnail);
+  $fd=fopen($defaultThumbnail,'r');
+  $small=fread($fd,$maxImage);
+  fclose($fd);
+  }
+else
+  {
+  $small_size=getImageSize($image);
+  $fd=fopen($image,'r');
+  $small=fread($fd,$maxImage);
+  fclose($fd);
 
-return new Image(array('filename' => $image_name,
-		       'small'    => $small,
-		       'small_x'  => $small_size[0],
-		       'small_y'  => $small_size[1],
-		       'large'    => $large,
-		       'large_x'  => $large_size[0],
-		       'large_y'  => $large_size[1],
-		       'format'   => $image_type));
+  $large_size=array(0,0);
+  $large='';
+  }
+
+return new Image(array('filename'  => $image_name,
+		       'small'     => $small,
+		       'small_x'   => $small_size[0],
+		       'small_y'   => $small_size[1],
+		       'has_large' => $hasThumbnail,
+		       'large'     => $large,
+		       'large_x'   => $large_size[0],
+		       'large_y'   => $large_size[1],
+		       'format'    => $image_type));
 }
 
 function uploadImageUsingGD($image,$image_name,$image_size,$image_type,
-                            $thumbnail,&$err)
+                            $thumbnailX,$thumbnailY,&$err)
 {
-global $maxImage,$thumbnailType,$thumbnailWidth,$thumbnailHeight,$tmpDir;
+global $maxImage,$thumbnailType,$tmpDir;
 
 if((ImageTypes() & getImageTypeCode($image_type))==0)
   return uploadImageByDefault($image,$image_name,$image_size,$image_type,
-                              $thumbnail,$err);
+                              true,$thumbnailX,$thumbnailY,$err);
   
 $lFname=getImageTypeName($image_type);
 if($lFname=='')
@@ -137,14 +160,14 @@ $lHandle=$imageFrom($image);
 
 $large_size_x=ImageSX($lHandle);
 $large_size_y=ImageSY($lHandle);
-if($large_size_x>$thumbnailWidth || $large_size_y>$thumbnailHeight)
+if($large_size_x>$thumbnailX || $large_size_y>$thumbnailY)
   {
   $lAspect=$large_size_x/$large_size_y;
-  $small_size_x=$thumbnailWidth;
+  $small_size_x=$thumbnailX;
   $small_size_y=(int)($small_size_x/$lAspect);
-  if($small_size_y>$thumbnailHeight)
+  if($small_size_y>$thumbnailY)
     {
-    $small_size_y=$thumbnailHeight;
+    $small_size_y=$thumbnailY;
     $small_size_x=(int)($small_size_y*$lAspect);
     }
   }
@@ -178,17 +201,27 @@ fclose($fd);
 
 unlink($smallFile);
 
-return new Image(array('filename' => $image_name,
-		       'small'    => $small,
-		       'small_x'  => $small_size_x,
-		       'small_y'  => $small_size_y,
-		       'large'    => $large,
-		       'large_x'  => $large_size_x,
-		       'large_y'  => $large_size_y,
-		       'format'   => $image_type));
+if($small_size_x==$large_size_x && $small_size_y==$large_size_y)
+  {
+  $has_large=false;
+  $large='';
+  $large_size_x=$large_size_y=0;
+  }
+else
+  $has_large=true;
+  
+return new Image(array('filename'  => $image_name,
+		       'small'     => $small,
+		       'small_x'   => $small_size_x,
+		       'small_y'   => $small_size_y,
+		       'has_large' => $has_large,
+		       'large'     => $large,
+		       'large_x'   => $large_size_x,
+		       'large_y'   => $large_size_y,
+		       'format'    => $image_type));
 }
 
-function uploadImage($name,$thumbnail,&$err)
+function uploadImage($name,$hasThumbnail,$thumbnailX,$thumbnailY,&$err)
 {
 global $HTTP_POST_FILES,$maxImage,$useMogrify,$tmpDir;
 
@@ -215,12 +248,16 @@ if(!move_uploaded_file($image,$image_tmpname))
   $err=EIU_OK;
   return false;
   }
-if($useMogrify)
-  $img=uploadImageUsingMogrify($image_tmpname,$image_name,$image_size,
-                               $image_type,$thumbnail,$err);
+if(!$hasThumbnail)
+  $img=uploadImageByDefault($image_tmpname,$image_name,$image_size,$image_type,
+                            $hasThumbnail,$thumbnailX,$thumbnailY,$err);
 else
-  $img=uploadImageUsingGD($image_tmpname,$image_name,$image_size,$image_type,
-                          $thumbnail,$err);
+  if($useMogrify)
+    $img=uploadImageUsingMogrify($image_tmpname,$image_name,$image_size,
+				 $image_type,$thumbnailX,$thumbnailY,$err);
+  else
+    $img=uploadImageUsingGD($image_tmpname,$image_name,$image_size,$image_type,
+			    $thumbnailX,$thumbnailY,$err);
 unlink($image_tmpname);
 
 if(!$img)

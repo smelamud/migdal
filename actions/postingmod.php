@@ -78,7 +78,7 @@ dbOpen();
 session($sessionid);
 $message=getPostingById($editid,$grp);
 $message->setup($HTTP_POST_VARS);
-$img=uploadImage('image',true,$err);
+$img=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
 if($img)
   $message->setImageSet($img->getImageSet());
 if($err==EIU_OK)
