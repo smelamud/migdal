@@ -3,6 +3,7 @@
 
 require_once('conf/migdal.conf');
 
+require_once('lib/uri.php');
 require_once('lib/utils.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics','admin_menu',
@@ -105,9 +106,26 @@ if($userId>0 && count($update)!=0)
        or die('Ошибка SQL при сохранении установок пользователя');
 }
 
+function redirect()
+{
+global $REQUEST_URI,$HTTP_GET_VARS,$redir,$redirid;
+
+if(isset($HTTP_GET_VARS['redir']) && $HTTP_GET_VARS['redir']!='')
+  {
+  $redirid=tmpTextSave($HTTP_GET_VARS['redir']);
+  header('Location: '.remakeURI($REQUEST_URI,
+                                array('redir'),
+				array('redirid' => $redirid)));
+  exit(0);
+  }
+if($redirid!=0)
+  $redir=tmpTextRestore($redirid);
+}
+
 function session()
 {
 userRights();
 userSettings();
+redirect();
 }
 ?>
