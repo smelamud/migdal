@@ -250,6 +250,7 @@ my ($s)=@_;
 my ($type)=$s=~/^(\w+):/;
 my $c='';
 $c='[Статья]' if $type eq 'article';
+$c='[Чат]' if $type eq 'chat';
 $c='[Обсуждение]' if $type eq 'forum';
 $c='[Обсуждения]' if $type eq 'forumcatalog';
 $c='[Галерея]' if $type eq 'gallery';
