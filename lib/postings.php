@@ -645,4 +645,21 @@ $result=mysql_query("select id,vote,vote_count
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }
+
+function postingExists($id)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$result=mysql_query("select id
+		     from postings
+		          left join messages
+			       on postings.message_id=messages.id
+		     where postings.id=$id and (hidden<$hide or sender_id=$userId)
+		                           and (disabled<$hide or sender_id=$userId)")
+		    /* здесь нужно поменять, если будут другие ограничения на
+		       просмотр TODO */
+	     or die('Ошибка SQL при выборке постинга');
+return mysql_num_rows($result)>0;
+}
 ?>

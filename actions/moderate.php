@@ -8,6 +8,7 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/utils.php');
 require_once('lib/random.php');
+require_once('lib/messages.php');
 
 function modifyMessage($editid,$hide)
 {
@@ -15,11 +16,7 @@ global $userModerator;
 
 if(!$userModerator)
   return EMH_NO_MODERATE;
-$result=mysql_query("select id
-                     from messages
-		     where id=$editid")
-	     or die('Ошибка SQL при выборке сообщения');
-if(mysql_num_rows($result)<=0)
+if(!messageExists($editid))
   return EMH_NO_MESSAGE;
 $result=mysql_query("update messages
                      set disabled=$hide

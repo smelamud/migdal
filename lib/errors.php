@@ -168,6 +168,7 @@ define('ELO_SQL_DROP',313);
 define('EMR_OK',320);
 define('EMR_NO_RENEW',321);
 define('EMR_SQL',322);
+define('EMR_NO_MESSAGE',323);
 
 define('EO_OK',330);
 define('EO_NO_REORDER',331);

@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/random.php');
+require_once('lib/messages.php');
 
 function renewMessage($id)
 {
@@ -14,6 +15,8 @@ global $userModerator;
 
 if(!$userModerator)
   return EMR_NO_RENEW;
+if(!messageExists($id))
+  return EMR_NO_MESSAGE;
 $result=mysql_query("update messages
                      set sent=now()
 		     where id=$id");
