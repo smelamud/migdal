@@ -15,7 +15,7 @@ var $name;
 var $uri;
 var $last_access;
 
-function Redir($row)
+function Redir($row=array())
 {
 $this->DataObject($row);
 }
@@ -57,7 +57,7 @@ mysql_query("update redirs
 
 function redirect()
 {
-global $redir,$redirid,$globalid,$pageTitle,$REQUEST_URI;
+global $redir,$lastRedir,$redirid,$globalid,$pageTitle,$REQUEST_URI;
 
 settype($redirid,'integer');
 settype($globalid,'integer');
@@ -80,18 +80,18 @@ if($globalid==0)
   }
 else
   {
-  $result=mysql_query("select id,up,track,name,uri
-                       from redirs
-		       where id=$globalid")
-	       or die('Ошибка SQL при выборке редиректа');
-  if(mysql_num_rows($result)<=0)
+  $redir=getRedirById($globalid);
+  if($redir->getId()==0)
     {
     $globalid=0;
     redirect();
     return;
     }
-  $redir=new Redir(mysql_fetch_assoc($result));
   }
+if($redir->getUp()!=0)
+  $lastRedir=getRedirById($redir->getUp());
+else
+  $lastRedir=new Redir();
 updateRedirectTimestamps($redir->getTrack());
 }
 
@@ -111,5 +111,15 @@ $this->SelectIterator('Redir',
 		       order by length(track)");
 }
 
+}
+
+function getRedirById($id)
+{
+$result=mysql_query("select id,up,track,name,uri
+		     from redirs
+		     where id=$id")
+	     or die('Ошибка SQL при выборке редиректа');
+return new Redir(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                           : array());
 }
 ?>

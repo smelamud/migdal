@@ -13,8 +13,8 @@
  <formtable title='Введите информацию о себе'>
   <form method=post action='actions/usermod.php'>
    <hidden name='edittag' value=1>
-   <hidden name='redir' value='$redir'>
-   <concat value='/userok.php?redir=$redir'>
+   <hidden name='redirid' value='$_'>
+   <concat value='/userok.php?redirid=$_'>
    <hidden name='okdir' value='$*'>
    <hidden name='faildir' value='$-'>
    <hidden name='editid' value=0>

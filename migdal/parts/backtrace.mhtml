@@ -1,12 +1,13 @@
 << @(#) $Id$ >>
 
 <element name='Backtrace'>
-<iterate_redirs>
+<iterate_redirs name='redirs'>
 <div class='return'>
  <if what='$;Count>1'>
   <for>
-   <notlast what='$;'>
-    <a href='$.URI'><ife what='$.Name'>Главная<else>$.Name</ife></a> &gt;
+   <notlast what='$redirs'>
+    <at href='$.URI' target='$target'>
+     <ife what='$.Name'>Главная<else>$.Name</ife></a> &gt;
    <else>
     $.Name
    </notlast>

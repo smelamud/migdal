@@ -25,5 +25,5 @@
  </tr>
 </table>
 <menu ident='$ident' target='$target'>
-<backtrace redir='$$redir' target='$target'>
+<backtrace target='$target'>
 </element>

@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='bottom'>
-<backtrace redir='$$redir' target='$target'>
+<backtrace target='$target'>
 <div class='bottom'>
  <table width=100%><tr valign=bottom>
   <td align=left>

@@ -19,7 +19,7 @@
 << Elements >>
 <decel name='at' file='parts/utils.php' params='target,class,href'
        defaults="target='' class=''">
-<decel name='backtrace' file='parts/backtrace.php' params='redir,target'
+<decel name='backtrace' file='parts/backtrace.php' params='target'
        defaults="target=''">
 <decel name='batcher' file='parts/messages.php' params='value,var'>
 <decel name='bottom' file='parts/bottom.php'>

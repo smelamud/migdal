@@ -53,7 +53,7 @@
     <form method=post enctype='multipart/form-data'
 	  action='actions/limmod.php'>
      <hidden name='edittag' value=1>
-     <hidden name='redir' value='$redir'>
+     <hidden name='redirid' value='$_'>
      <hidden name='okdir' value='$-'>
      <hidden name='faildir' value='$-'>
      <hidden name='postid' value='$postid'>

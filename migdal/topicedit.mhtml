@@ -18,8 +18,8 @@
  </if>
  <form method=post enctype='multipart/form-data' action='actions/topicmod.php'>
   <hidden name='edittag' value=1>
-  <hidden name='redir' value='$redir'>
-  <hidden name='okdir' value='$redir'>
+  <hidden name='redirid' value='$_'>
+  <hidden name='okdir' value='$lastRedir.URI'>
   <hidden name='faildir' value='$-'>
   <hidden name='editid' value='$editid'>
   <table>

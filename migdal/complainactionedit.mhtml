@@ -12,7 +12,7 @@
  <top ident='complains'>
  <complain_type_obj id='$typeid'>
  <form method=get action='$~'><table class='form'><tr>
-  <hidden name='redir' value='$redir'>
+  <hidden name='redirid' value='$_'>
   <th>&nbsp;</th>
   <td>Ù…–</td>
   <td><select name='typeid'>
@@ -68,7 +68,7 @@
    </if>
    <form method=post action='actions/camod.php'>
     <hidden name='edittag' value=2>
-    <hidden name='redir' value='$redir'>
+    <hidden name='redirid' value='$_'>
     <hidden name='okdir' value='$-'>
     <hidden name='faildir' value='$-'>
     <hidden name='type_id' value='$typeid'>

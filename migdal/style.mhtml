@@ -10,7 +10,7 @@
  <top ident='style'>
  <formtable title='Настройка вида'>
  <form method=post action='actions/style.php'>
-  <hidden name='okdir' value='$redir'>
+  <hidden name='okdir' value='$lastRedir.URI'>
   <table>
    <tr>
     <td>Стиль</td>
