@@ -36,6 +36,12 @@
      <ifnzero what='$,Id'>
       <subtitle>
       <news>
+      <outer><div class='nframe' style='padding: 5'><inner>
+       <seealso_links topic_id='$`methodics`' topic_grp='*GRP_REVIEWS'
+		      title='См. также в разделе ссылок'>
+       <seealso_other topic_id='$`methodics`' topic_grp='*GRP_REVIEWS'
+		      title='По этой теме в других разделах'>
+      </inner></div></outer>
       <span class='article'>
        <article_controls posting='$,'>
        <article posting='$,' withvote='*false'>
