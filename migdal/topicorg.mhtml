@@ -47,12 +47,19 @@
  //-->
  </style>
  <top ident='index'>
- <div class='cframe' style='padding: 5px'>
-  <subtitle>
-  <div class='ninept topics' style='padding: 0px'>
-   <branch up=0 append='$userAdminTopics' write='$userAdminTopics'>
-  </div>
- </div>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics_admin ident='admin-topics'>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <div class='ninept topics' style='padding: 0px'>
+     <branch up=0 append='$userAdminTopics' write='$userAdminTopics'>
+    </div>
+   </td>
+  </tr>
+ </table>
  <bottom>
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 <int name='offset'>
 <pagetitle title='Журнал репликаций'>
+<topictitle title='Журнал репликаций'>
 
 <element name='batcher' params='&list'>
 <table width=100%><tr valign=bottom>
@@ -17,50 +18,60 @@
 <preamble>
 <body>
  <top ident='index'>
- <admin_users>
-  <iterate_horisonts>
-  <table class='catalog'>
-   <tr>
-    <th>Хост</th><th>Мы о них</th><th>Они о нас</th>
-   </tr>
-   <for>
-    <if what='$;isOdd'><tr class='odd'><else><tr></if>
-     <td class='ninept' align=left>
-      <a href='horisontedit.php?host=$#.Host&redirid=$_'>$.Host</a>
-     </td>
-     <td class='ninept' align=right>$.WeKnow</td>
-     <td class='ninept' align=right>$.TheyKnow</td>
-    </tr>
-   </for>
-  </table>
-  <iterate_journallist offset='$offset'>
-  <batcher list='$;'>
-  <table width=100% class='catalog'>
-   <tr>
-    <th>Id</th>
-    <th>Серия</th>
-    <th>-&gt; Таблица</th>
-    <th>-&gt; Id</th>
-    <th>-&gt; No.</th>
-    <th>Запрос</th>
-    <th>Дата</th>
-   </tr>
-   <for>
-    <if what='$;isOdd'><tr class='odd'><else><tr></if>
-     <td class='ninept' align=right>$.Id</td>
-     <td class='ninept' align=right>$.Seq</td>
-     <td class='ninept' align=left>$.ResultTable</td>
-     <td class='ninept' align=right>$.ResultId</td>
-     <td class='ninept' align=right>$.ResultVar</td>
-     <td class='eightpt' align=left>$.QueryShort</td>
-     <td class='eightpt' align=left><sentprecview date='$.Sent'></td>
-    </tr>
-   </for>
-  </table>
-  <ifnzero what='$;Count'>
-   <batcher list='$;'>
-  </ifnzero>
- </admin_users>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics_admin ident='admin-journal'>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <admin_users>
+     <iterate_horisonts>
+     <table class='catalog'>
+      <tr>
+       <th>Хост</th><th>Мы о них</th><th>Они о нас</th>
+      </tr>
+      <for>
+       <if what='$;isOdd'><tr class='odd'><else><tr></if>
+	<td class='ninept' align=left>
+	 <a href='horisontedit.php?host=$#.Host&redirid=$_'>$.Host</a>
+	</td>
+	<td class='ninept' align=right>$.WeKnow</td>
+	<td class='ninept' align=right>$.TheyKnow</td>
+       </tr>
+      </for>
+     </table>
+     <iterate_journallist offset='$offset'>
+     <batcher list='$;'>
+     <table width=100% class='catalog'>
+      <tr>
+       <th>Id</th>
+       <th>Серия</th>
+       <th>-&gt; Таблица</th>
+       <th>-&gt; Id</th>
+       <th>-&gt; No.</th>
+       <th>Запрос</th>
+       <th>Дата</th>
+      </tr>
+      <for>
+       <if what='$;isOdd'><tr class='odd'><else><tr></if>
+	<td class='ninept' align=right>$.Id</td>
+	<td class='ninept' align=right>$.Seq</td>
+	<td class='ninept' align=left>$.ResultTable</td>
+	<td class='ninept' align=right>$.ResultId</td>
+	<td class='ninept' align=right>$.ResultVar</td>
+	<td class='eightpt' align=left>$.QueryShort</td>
+	<td class='eightpt' align=left><sentprecview date='$.Sent'></td>
+       </tr>
+      </for>
+     </table>
+     <ifnzero what='$;Count'>
+      <batcher list='$;'>
+     </ifnzero>
+    </admin_users>
+   </td>
+  </tr>
+ </table>
  <bottom>
 </body>
 </html>

@@ -119,53 +119,59 @@
  <iterate_postinglist topic_id='$topic_id' limit=20 offset='$offset'
 		      showshadows='*true' grp='$grp' recursive='$recursive'>
  <assign name='size' value='$;Size'>
- <table class='ninept nframe' style='padding: 5px'>
-  <form method=post action='actions/postingorg-goto.php'>
-   <hidden name='okdir' value='$-'>
-   <hidden name='faildir' value='$-'>
-   <hidden name='redirid' value='$redirid'>
-   <tr><td colspan=2>
-    <subtitle>
-   </td></tr>
-   <tr><td colspan=2>
-    <a href='topicorg.php?redirid=$_'>Организатор тем</a>
-   </td></tr>
-   <tr><td colspan=2><table>
-    <topicselect name='topic_id' value='$topic_id'>
-   </table></td></tr>
-   <tr valign=top>
-    <td align=center><table>
-     <checkbox_line title='С подтемами' name='recursive' value='$recursive'>
-     <formbuttons title='Просмотр'>
-    </table></td>
-    <td align=right>
-     <select name='grp[]' size=6 multiple><zone>
-      <iterate_grps>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics_admin ident='admin-messages'>
+   </td>
+   <td style='padding: 0'>
+    <table class='ninept nframe' style='padding: 5px'>
+     <form method=post action='actions/postingorg-goto.php'>
+      <hidden name='okdir' value='$-'>
+      <hidden name='faildir' value='$-'>
+      <hidden name='redirid' value='$redirid'>
+      <tr><td colspan=2>
+       <subtitle>
+      </td></tr>
+      <tr><td colspan=2><table>
+       <topicselect name='topic_id' value='$topic_id'>
+      </table></td></tr>
+      <tr valign=top>
+       <td align=center><table>
+	<checkbox_line title='С подтемами' name='recursive' value='$recursive'>
+	<formbuttons title='Просмотр'>
+       </table></td>
+       <td align=right>
+	<select name='grp[]' size=6 multiple><zone>
+	 <iterate_grps>
+	 <for>
+	  <if what='$.isValid'>
+	   <radio title='$.GrpTitle' value='$.Grp' peervalue!='$grp & $.Grp'>
+	  </if>
+	 </for>
+	</zone></select>
+       </td>
+      </tr>
+     </form>
+     <tr><td colspan=2 class='info'>
+      <array vals='сообщение,сообщения,сообщений'>
+      <plural value='$size'>
+      Выбрано&nbsp;<em>$size</em>&nbsp;$,
+     </td></tr>
+    </table>
+    <table class='ninept cframe' width=100%><tr><td>
+     <error_lines>
+     <batcher list='$;'>
+     <ifnzero what='$;Count'>
       <for>
-       <if what='$.isValid'>
-	<radio title='$.GrpTitle' value='$.Grp' peervalue!='$grp & $.Grp'>
-       </if>
+       <post posting='$.'>
       </for>
-     </zone></select>
-    </td>
-   </tr>
-  </form>
-  <tr><td colspan=2 class='info'>
-   <array vals='сообщение,сообщения,сообщений'>
-   <plural value='$size'>
-   Выбрано&nbsp;<em>$size</em>&nbsp;$,
-  </td></tr>
+      <batcher list='$;'>
+     </ifnzero>
+    </td></tr></table>
+   </td>
+  </tr>
  </table>
- <table class='ninept cframe' width=100%><tr><td>
-  <error_lines>
-  <batcher list='$;'>
-  <ifnzero what='$;Count'>
-   <for>
-    <post posting='$.'>
-   </for>
-   <batcher list='$;'>
-  </ifnzero>
- </td></tr></table>
  <bottom>
 </body>
 </html>
