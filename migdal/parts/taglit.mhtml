@@ -1,8 +1,9 @@
 << @(#) $Id$ >>
 
 <element name='taglit'>
- <iterate_posting_users topic_id='$topic_id' cols='$$userPictureColumnPortion'>
- <table width=100%><tr valign=top>
+ <iterate_posting_users topic_id='$topic_id'>
+ <iterate_rows cols='$$userPictureColumnPortion'>
+ <table cellspacing=10 cellpadding=0><tr valign=top>
  <for>
   <td>
    <posting_random grp='*GRP_TAGLIT_GALLERY' topic_id='$topic_id' user_id='$.Id'>

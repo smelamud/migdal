@@ -20,7 +20,7 @@
 		     user='$user_id'>
 <iterate_rows cols='$cols'>
 <batcher taglit_id='$taglit_id' list='$list'>
-<table width=100%>
+<table cellspacing=10 cellpadding=0>
  <tr valign=top>
   <for>
    <td>

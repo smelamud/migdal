@@ -320,14 +320,11 @@ return newPosting($row);
 class PostingUsersIterator
       extends SelectIterator
 {
-var $cols;
 
-function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false,
-                              $cols=5)
+function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false)
 {
 global $userId,$userModerator;
 
-$this->cols=$cols;
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
              : ' and topics.'.byIdentRecursive('topics',$topic_id,$recursive);
@@ -350,11 +347,6 @@ $this->SelectIterator(
 	order by surname,jewish_name,name");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
-}
-
-function isEol()
-{
-return ($this->getPosition() % $this->cols)==$this->cols-1;
 }
 
 }

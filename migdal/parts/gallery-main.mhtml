@@ -1,9 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='gallery_main'>
-<iterate_topiclist up='general' grp='*GRP_GALLERY' withpostings='*true'
-                   subdomain='$subdomain'>
-<iterate_rows cols='$cols'>
+<element name='batcher'>
 <div class='batcher'>
  <logged>
   <a href='postingedit.php?topic_id=-1&root=general&grp=*GRP_GALLERY&redirid=$_'
@@ -15,9 +12,16 @@
   </span>
  </logged>
 </div>
-<table width=100%>
- <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
- <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+</element>
+
+<element name='gallery_main'>
+<iterate_topiclist up='general' grp='*GRP_GALLERY' withpostings='*true'
+                   subdomain='$subdomain'>
+<iterate_rows cols='$cols'>
+<batcher>
+<table cellspacing=10 cellpadding=0>
+ <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует' span='$cols'>
+ <error id='*EMH_NO_MODERATE' text='Вы не модератор' span='$cols'>
  <tr valign=top>
   <for>
    <td>
