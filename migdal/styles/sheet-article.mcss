@@ -38,6 +38,7 @@
 }
 
 .article H1 {
+	color: %article_title;
 	font-size: 18pt;
 	font-weight: bold;
 	margin: 20px;

@@ -179,6 +179,7 @@ article_split=blue
 article_controls=blue
 article_controls_hover=blue
 article_picture=blue
+article_title=%nd
 article_source=
 complain_back=%vl
 complain_border=%vmm
