@@ -52,6 +52,15 @@
    [$posting.Id]
   </ifne>
  </td></tr>
+ <ifnzero what='$posting.VoteCount'>
+  <tr><td>
+   $posting.VoteString&nbsp;<image src#='pics/bar-${posting.Vote20}.gif'>
+   &nbsp;
+   <array vals='голос,голоса,голосов'>
+   <plural value='$posting.VoteCount'>
+   ($posting.VoteCount&sp;$,)
+  </td></tr>
+ </ifnzero>
  <tr><td class='sent'>
   <sentview date='$posting.Sent'>&nbsp;
   <senderlink message='$posting'>
