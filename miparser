@@ -21,6 +21,7 @@ $Footer='';
 
 $BodyToHeader=0;
 $Retarget='';
+$NoParse=0;
 
 $ElementName='';
 $ElementBody='';
@@ -229,6 +230,7 @@ my $i=1;
 foreach(map{s/^\$//;$_} split(/[\s,]+/,$s))
        {
        $ss.="arg$i='\%$_' ";
+       $i++;
        }
 return $ss;
 }
@@ -970,6 +972,23 @@ my ($self)=@_;
 $::Retarget=$self->getArg('target');
 }
 
+sub elNoparse
+{
+my ($self)=@_;
+
+my $level=1;
+while($level!=0 && $::Line ne '')
+     {
+     ::pullToken();
+     if(ref($::Token) eq 'Tag')
+       {
+       $level++ if $::Token->getName() eq 'noparse';
+       $level-- if $::Token->getName() eq '/noparse';
+       }
+     ::body($::Token->getToken()) if $level!=0;
+     }
+}
+
 #### Comment ####
 
 package Comment;
@@ -1175,7 +1194,14 @@ sub run
 while($Line ne '')
      {
      pullToken;
-     $Token->process();
+     unless($NoParse)
+           {
+           $Token->process();
+	   }
+     else
+           {
+	   body($Token->getToken());
+	   }
      }
 }
 

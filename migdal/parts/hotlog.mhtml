@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='hotlog_count'>
+<noparse>
  <!-- HotLog -->
   <script language="javascript">
    hotlog_js="1.0";
@@ -37,6 +38,7 @@
         width=1 height=1>
   </noscript>
  <!-- /HotLog -->
+</noparse>
 </element>
 
 <element name='hotlog_logo'>

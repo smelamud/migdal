@@ -16,7 +16,7 @@
 
 << Iterators >>
 <macro name='deciter' defaults="name='%name'">
- <macro name='iterate_%macro' defaults='%defaults'>
+ <macro name='iterate_%macro' defaults="%defaults">
   <require name='%file'>
   <iterate name='%name' class='%class' %@params>
  </macro>
@@ -84,7 +84,7 @@
 
 << Calls >>
 <macro name='deccall' defaults="name='%name'">
- <macro name='%macro' defaults='%defaults'>
+ <macro name='%macro' defaults="%defaults">
   <require name='%file'>
   <call name='%name' func='%func' %@params>
  </macro>
