@@ -29,6 +29,7 @@
 </identifier>
 
 <identifier name='migdal'>
+<< Articles >>
 <assign name='root' value='$`migdal`'>
 <if what='$/$posting.TopicId,1/==$`events`'>
  <topic_obj id='$posting.TopicId'>
@@ -41,11 +42,10 @@
  <assign name='tel' value='topics_events'>
  <assign name='uhref' value='migdal-news.php'>
  <assign name='utitle' value='Новости &lt;&lt;Мигдаля&gt;&gt;'>
-<elif what='($posting.Grp & *GRP_GALLERY)==0'>
-<< Articles >>
+<else>
  <assign name='href' value='migdal.php'>
  <assign name='ghref' value#='gallery.php?topic_id=$`migdal`'>
- <assign name='title' value=''>
+ <assign name='title' value='$posting.TopicDescription'>
  <assign name='name' value='Мигдаль'>
  <if what='$/$posting.TopicId,1/==$`migdal-library`'>
   <topic_obj id='$`migdal-library`'>
@@ -144,12 +144,12 @@
    <assign name='utitle' value='Общинный центр (JCC)'>
   </if>
  </if>
-<else>
+</if>
+
 << Gallery >>
+<if what='($posting.Grp & *GRP_GRAPHICS)!=0'>
  <assign name='href' value#='gallery.php?topic_id=$posting.TopicId'>
  <assign name='ghref' value='$href'>
- <assign name='title' value='$posting.TopicDescription'>
- <assign name='name' value#='Мигдаль :: $posting.TopicName'>
  <assign name='mhref' value='migdal.php'>
  <if what='$posting.TopicId==$`migdal`'>
   <assign name='gnews' value='*true'>
@@ -160,13 +160,13 @@
    <assign name='gtel' value='topics_gallery_kaitana'>
    <assign name='guhref' value#='gallery.php?topic_id=$`migdal`'>
    <assign name='gutitle' value='Мигдаль'>
-   <assign name='gnews' value='*true'>
+   <assign name='gnews' value!='$posting.TopicId==$`kaitana`'>
   <elif what='$/$posting.TopicId,2/==$`halom`'>
    <assign name='mhref' value#='halom.php?topic_id=$posting.TopicId'>
    <assign name='gtel' value='topics_gallery_halom'>
    <assign name='guhref' value#='gallery.php?topic_id=$`migdal`'>
    <assign name='gutitle' value='Мигдаль'>
-   <assign name='gnews' value='*true'>
+   <assign name='gnews' value!='$posting.TopicId==$`halom`'>
   <elif what='$/$posting.TopicId,2/==$`kes`'>
    <assign name='mhref' value#='migdal.php?artid=$`postings:kes`'>
    <assign name='tel' value='topics_kes'>

@@ -48,8 +48,13 @@
   <topic_obj name='topic' id='$topic_id'>
   <if what='$user_id<=0'>
    <if what='!$general'>
-    <if what='$/$topic_id,0/!=$`migdal` || $topic_id==$`migdal`'>
+    <if what='$/$topic_id,0/!=$`migdal` || $topic_id==$`migdal` ||
+              $/$topic_id,1/==$`events`'>
      <trace url='gallery.php'>
+    <elif what='$/$topic_id,2/==$`kaitana` && $topic_id!=$`kaitana`'>
+     <trace url#='gallery.php?topic_id=$`kaitana`'>
+    <elif what='$/$topic_id,2/==$`halom` && $topic_id!=$`halom`'>
+     <trace url#='gallery.php?topic_id=$`halom`'>
     <else>
      <trace url#='gallery.php?topic_id=$`migdal`'>
     </if>
