@@ -18,6 +18,15 @@
  </td>
 </macro>
 
+<element name='chapter' params='id,link,topic_id'
+         defaults="topic_id='$topic_id'">
+ <tr>
+  <topic_obj id='$id'>
+  <arrow id='$id' time='$,LastMessage'>
+  <td><a href='$link' title='$,Description' class='item large'>$,Name</a></td>
+ </tr>
+</element>
+
 <element name='topics'>
 <iterate_topiclist grp='$grp' withpostings='$withpostings'
                    withanswers='$withanswers' up='general'>
@@ -35,6 +44,7 @@
     <arrow id='-1'>
     <td><a href='$file?topic_id=-1' class='new'>Все темы</a></td>
    </tr>
+   <chapter id='taglit' link='taglit.php'>
    <for>
     <tr>
      <arrow id='$.Id' time='$.LastMessage'>

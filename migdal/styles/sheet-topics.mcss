@@ -40,6 +40,10 @@
 	vertical-align: middle;
 }
 
+.topics .names A.large {
+	font-weight: bold;
+}
+
 .topics .names A.item {
 	color: %topics_names;
 }

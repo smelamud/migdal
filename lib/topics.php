@@ -408,19 +408,28 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
 
 function getTopicById($id,$up)
 {
-global $userAdminTopics;
+global $userId,$userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query('select topics.id as id,up,name,stotext_id,
-                            stotexts.body as description,image_set,
-			    large_filename,large_format,
-			    stotexts.large_body as large_description,
-			    large_imageset,hidden,allow,premoderate,ident
-		     from topics
-		          left join stotexts
-			       on topics.stotext_id=stotexts.id
-		     where topics.'.byIdent($id)." and hidden<$hide")
-	     or die('Ошибка SQL при выборке темы');
+$result=mysql_query(
+       "select topics.id as id,up,name,topics.stotext_id as stotext_id,
+               stotexts.body as description,image_set,
+	       large_filename,large_format,
+	       stotexts.large_body as large_description,
+	       large_imageset,topics.hidden as hidden,allow,premoderate,
+	       topics.ident as ident,max(messages.sent) as last_message
+	from topics
+	     left join stotexts
+		  on topics.stotext_id=stotexts.id
+	     left join postings
+	          on postings.topic_id=topics.id
+	     left join messages
+		  on postings.message_id=messages.id
+		     and (messages.hidden<$hide or messages.sender_id=$userId)
+		     and (messages.disabled<$hide or messages.sender_id=$userId)
+	where topics.".byIdent($id)." and topics.hidden<$hide
+	group by topics.id")
+ or die('Ошибка SQL при выборке темы'.mysql_error());
 return new Topic(mysql_num_rows($result)>0
                  ? mysql_fetch_assoc($result)
                  : array('up'          => idByIdent('topics',$up),

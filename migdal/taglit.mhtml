@@ -1,0 +1,26 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+<grps>
+<pagetitle title='Таглит'>
+<topictitle title='Таглит --- Birthright'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+
+ <table width=100%><tr valign=top>
+  <td width=120><topics grp='*GRP_TAPE' topic_id='taglit'></td>
+  <td width=5>&nbsp;</td>
+  <td>
+   <subtitle icon='pics/all-big.gif'>
+   <<postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
+             offset='$offset'>>
+  </td>
+  <td width=5>&nbsp;</td>
+  <td width=100><<hit_parade grp='*GRP_TAPE' topic_id='$topic_id'>>&nbsp;</td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

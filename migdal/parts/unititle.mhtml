@@ -2,7 +2,7 @@
 
 <element name='unititle'>
 <if what='$topic_id==-1'>
- <assign_global name='topicTitle' value=''>
+ <topictitle title=''>
  <ife what='$chapter'>
   <pagetitle>
  <else>
@@ -10,7 +10,7 @@
  </if>
 <else>
  <topic_obj id='$topic_id'>
- <assign_global name='topicTitle' value='$,Name'>
+ <topictitle title='$,Name'>
  <ife what='$chapter'>
   <concat name='title' value='$,Name'>
  <else>
