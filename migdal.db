@@ -5,6 +5,21 @@
 # Server version	3.23.39-log
 
 #
+# Table structure for table 'chat_messages'
+#
+
+CREATE TABLE chat_messages (
+  id int(11) NOT NULL auto_increment,
+  sender_id int(11) NOT NULL default '0',
+  private_id int(11) NOT NULL default '0',
+  sent timestamp(14) NOT NULL,
+  text varchar(250) NOT NULL default '',
+  PRIMARY KEY  (id),
+  KEY sender_id (sender_id),
+  KEY sent (sent)
+) TYPE=MyISAM;
+
+#
 # Table structure for table 'choices'
 #
 
@@ -233,6 +248,8 @@ CREATE TABLE users (
   birthday date NOT NULL default '0000-00-00',
   migdal_student tinyint(4) NOT NULL default '0',
   last_online datetime NOT NULL default '0000-00-00 00:00:00',
+  confirm_deadline datetime default NULL,
+  confirm_code varchar(20) NOT NULL default '',
   email varchar(70) NOT NULL default '',
   hide_email tinyint(4) NOT NULL default '0',
   icq varchar(15) NOT NULL default '',
@@ -251,7 +268,10 @@ CREATE TABLE users (
   complain_portion tinyint(4) NOT NULL default '20',
   PRIMARY KEY  (id),
   KEY login (login),
-  KEY password (password)
+  KEY password (password),
+  KEY confirm_deadline (confirm_deadline),
+  KEY confirm_code (confirm_code),
+  KEY confirm_deadline_2 (confirm_deadline)
 ) TYPE=MyISAM;
 
 # MySQL dump 8.14
@@ -265,11 +285,12 @@ CREATE TABLE users (
 #
 
 INSERT INTO menu VALUES (1,'Главная','index','index.php',0,0);
-INSERT INTO menu VALUES (2,'Пользователи','users','users.php',0,4);
+INSERT INTO menu VALUES (2,'Пользователи','users','users.php',0,5);
 INSERT INTO menu VALUES (3,'Форумы','forums','topics.php?grp=1',0,2);
 INSERT INTO menu VALUES (4,'Галерея','gallery','topics.php?grp=4',0,3);
 INSERT INTO menu VALUES (5,'Новости','news','topics.php?grp=2',0,1);
-INSERT INTO menu VALUES (6,'Жалобная книга','complains','complains.php',0,5);
+INSERT INTO menu VALUES (6,'Жалобная книга','complains','complains.php',0,6);
+INSERT INTO menu VALUES (7,'Чат','chat','chat.php',0,4);
 
 #
 # Dumping data for table 'complain_types'
@@ -288,4 +309,5 @@ INSERT INTO complain_statements VALUES (1,1,'update complains set closed=now() w
 # Dumping data for table 'mailing_types'
 #
 
+INSERT INTO mailing_types VALUES (1,'register','mailings/register.mail');
 
