@@ -64,7 +64,6 @@ define('EECA_NO_COMPLAIN',162);
 define('EECA_NO_EXEC',163);
 define('EECA_SQL_FORUM',164);
 define('EECA_SQL_STATEMENTS',165);
-define('EECA_SQL_EXEC',166);
 
 define('EUC_OK',170);
 define('EUC_SQL_SELECT',171);

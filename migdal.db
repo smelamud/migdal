@@ -40,26 +40,24 @@ CREATE TABLE choices (
 CREATE TABLE complain_actions (
   id int(11) NOT NULL auto_increment,
   type_id int(11) NOT NULL default '0',
-  opcode smallint(6) NOT NULL default '0',
   name varchar(70) NOT NULL default '',
   text text NOT NULL,
   automatic tinyint(4) NOT NULL default '0',
+  script_id int(11) NOT NULL default '0',
   PRIMARY KEY  (id),
-  KEY type_id (type_id)
+  KEY type_id (type_id),
+  KEY script_id (script_id)
 ) TYPE=MyISAM;
 
 #
-# Table structure for table 'complain_statements'
+# Table structure for table 'complain_scripts'
 #
 
-CREATE TABLE complain_statements (
+CREATE TABLE complain_scripts (
   id int(11) NOT NULL auto_increment,
-  opcode smallint(6) NOT NULL default '0',
-  sql text NOT NULL,
-  sql_index tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (id),
-  KEY action_id (opcode),
-  KEY sql_index (sql_index)
+  name varchar(70) NOT NULL default '',
+  script text NOT NULL,
+  PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
 #
@@ -349,10 +347,10 @@ INSERT INTO complain_types VALUES (2,'forum','moderator',0,'parts/cs_forum.php')
 INSERT INTO complain_types VALUES (3,'posting','moderator',0,'parts/cs_posting.php');
 
 #
-# Dumping data for table 'complain_statements'
+# Dumping data for table 'complain_scripts'
 #
 
-INSERT INTO complain_statements VALUES (1,1,'update complains set closed=now() where id=%complain_id',0);
+INSERT INTO complain_scripts VALUES (1,'Закрыть жалобу','=update complains set closed=now() where id=%complain_id');
 
 #
 # Dumping data for table 'mailing_types'

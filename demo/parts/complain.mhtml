@@ -14,7 +14,14 @@
  <table width=100%>
   <tr>
    <td><sentview date='$complain.Sent'></td>
-   <td align=right><b>Закрыто: </b><sentview date='$complain.Closed'></td>
+   <td align=right>
+    <b>Закрыто: </b>
+    <if what='$complain.isClosed'>
+     <sentview date='$complain.Closed'>
+    <else>
+     Нет
+    </if>
+   </td>
   </tr>
   <error id='*EC_NO_ASSIGN' span=2
          text='Вы не имеете права направлять жалобы на рассмотрение'>

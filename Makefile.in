@@ -12,7 +12,7 @@ dbinfo:
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
 		--no-data > migdal.db
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
-		complain_types complain_statements mailing_types \
+		complain_types complain_scripts mailing_types \
 		--no-create-info >> migdal.db
 
 install: all

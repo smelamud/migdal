@@ -9,10 +9,10 @@ class ComplainAction
 {
 var $id;
 var $type_id;
-var $opcode;
 var $name;
 var $text;
 var $automatic;
+var $script_id;
 
 function ComplainAction($row)
 {
@@ -27,7 +27,7 @@ if(!isset($vars['edittag']))
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 if(isset($vars['textid']))
-  $this->body=tmpTextRestore($vars['textid']);
+  $this->text=tmpTextRestore($vars['textid']);
 }
 
 function getCorrespondentVars()
@@ -45,11 +45,6 @@ function getTypeId()
 return $this->type_id;
 }
 
-function getOpcode()
-{
-return $this->opcode;
-}
-
 function getName()
 {
 return $this->name;
@@ -63,6 +58,11 @@ return $this->text;
 function isAutomatic()
 {
 return $this->automatic;
+}
+
+function getScriptId()
+{
+return $this->script_id;
 }
 
 }
@@ -83,7 +83,7 @@ $this->SelectIterator('ComplainAction',
 
 function getComplainActionById($id)
 {
-$result=mysql_query("select id,text,opcode
+$result=mysql_query("select id,text,script_id
                      from complain_actions
 		     where id=$id");
 return new ComplainAction(mysql_num_rows($result)>0

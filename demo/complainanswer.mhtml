@@ -24,8 +24,6 @@
         color=magenta>
  <error id='*EECA_SQL_STATEMENTS' text='Ошибка SQL при выборке операторов'
         color=magenta>
- <error id='*EECA_SQL_EXEC' text='Ошибка SQL при выполнении операторов'
-        color=magenta>
  <editor_line name='text' title='Текст' body='$,Text'>
  </table>
  <input type=submit value='Ответить'>

@@ -9,6 +9,8 @@ require_once('lib/complains.php');
 require_once('lib/complainactions.php');
 require_once('lib/forums.php');
 require_once('lib/utils.php');
+require_once('lib/opscript.php');
+require_once('lib/tmptexts.php');
 
 function executeAction($action,$complain_id)
 {
@@ -25,22 +27,16 @@ $forum=new ForumAnswer(array('body' => $action->getText(),
 		             'up'   => $complain->getMessageId()));
 if(!$forum->store())
   return EECA_SQL_FORUM;
-if($action->getOpcode()!=0)
+if($action->getScriptId()!=0)
   {
-  $result=mysql_query('select sql
-		       from complain_statements
-		       where opcode='.$action->getOpcode().
-		     ' order by sql_index');
+  $result=mysql_query('select script
+		       from complain_scripts
+		       where id='.$action->getScriptId());
   if(!$result)
     return EECA_SQL_STATEMENTS;
-  while($stat=mysql_fetch_row($result))
-       {
-       $result=mysql_query(subParams($stat[0],
-			   array('complain_id' => $complain_id,
-				 'link'        => $complain->getLink())));
-       if(!$result)
-	 return EECA_SQL_EXEC;
-       }
+  opScript(mysql_result($result,0,0),
+	   array('complain_id' => $complain_id,
+		 'link'        => $complain->getLink()));
   }
 return EECA_OK;
 }
@@ -53,9 +49,16 @@ session($sessionid);
 $action=getComplainActionById($actid);
 $action->setup($HTTP_POST_VARS);
 $err=executeAction($action,$complain_id);
-header('Location: '.($err==EECA_OK ? remakeURI($redir,array('err'))
-                                   : remakeURI($redir,
-				               array(),
-				  	       array('err' => $err))));
+if($err==EECA_OK)
+  header('Location: '.remakeURI($redir,array('err')));
+else
+  {
+  $textId=tmpTextSave($text);
+  header('Location: /complainanswer.php?'.
+         makeQuery($HTTP_POST_VARS,
+		   array('text'),
+		   array('err'    => $err,
+		         'textid' => $textId)));
+  }
 dbClose();
 ?>
