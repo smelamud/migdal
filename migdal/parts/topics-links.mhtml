@@ -3,7 +3,7 @@
 <grps>
 
 <element name='topics_links'>
-<iterate_topic_hierarchy topic_id='$topic_id' root='links' reverse='*true'>
+<iterate_topic_hierarchy topic_id='$topic_id' root='$`links`' reverse='*true'>
 <assign name='id' value='-1'>
 <for>
  <ifnzero what='$.SubCount'>
@@ -12,6 +12,6 @@
  </ifnzero>
  <assign name='id' value='$.Id'>
 </for>
-<topics_minor id='$id' up='links' grp='*GRP_LINKS' href='links.php'
+<topics_minor id='$id' up='$`links`' grp='*GRP_LINKS' href='links.php'
               title='Ссылки'>
 </element>

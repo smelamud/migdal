@@ -3,7 +3,7 @@
 <grps>
 
 <element name='fullname' params='topic_id'>
-<iterate_topic_hierarchy topic_id='$topic_id' root='links'>
+<iterate_topic_hierarchy topic_id='$topic_id' root='$`links`'>
 <for>
  <if what='!$;isFirst'>&sp;/&sp;</if>
  $.Name

@@ -26,7 +26,7 @@
      <error id='*ETLA_SQL_INSERT' color='magenta' span=2
 	    text='Ошибка базы данных при добавлении записи'>
      <topicselect name='peer_id' value='$peer_id' grp='*GRP_LINKS'
-		  mandatory='*true' root='links' recursive='*true'>
+		  mandatory='*true' root='$`links`' recursive='*true'>
      <formbuttons title='Добавить' span=2>
     </table>
    </form>

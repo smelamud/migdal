@@ -2,7 +2,7 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <iterate_topic_hierarchy topic_id='$posting.TopicId' root='links'>
+ <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
  <a href='links.php?topic_id=$posting.TopicId' class='topic'
     title='$posting.TopicDescription'><asp>
   <for>
@@ -31,7 +31,7 @@
  <table width=90% class='bottom'><tr>
   <td>
    <isedit what='$posting'>
-    <a href="postingedit.php?editid=$posting.Id&root=links&grp=$posting.Grp&redirid=$_"
+    <a href="postingedit.php?editid=$posting.Id&root=$`links`&grp=$posting.Grp&redirid=$_"
      >Изменить</a>
     <moderator>
      &nbsp;

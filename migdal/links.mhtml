@@ -20,13 +20,13 @@
 
 <element name='intro'>
 <subtitle>
-<postings_info grp='*GRP_LINKS' topic_id='links' recursive='*true'>
+<postings_info grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'>
 <zone>
  <array vals='ссылку,ссылки,ссылок'>
  <plural name='links' value='$,Total'>
 </zone>
 <zone>
- <topic_count name='subs' id='links' recursive='*true'>
+ <topic_count name='subs' id='$`links`' recursive='*true'>
  <array vals='категории,категориям,категориям'>
  <plural name='cats' value='$subs'>
 </zone>
@@ -43,8 +43,8 @@
   <tr><th>$$topic_name</th></tr>
  </table>
  <div class='ninept' style='padding-left: 20px; padding-top: 5px'>
-   <a href#='$[topic_id=-1 offset]'>Ссылки</a>
-   <iterate_topic_hierarchy topic_id='$topic_id' root='links'>
+   <a href='$[topic_id=-1 offset]'>Ссылки</a>
+   <iterate_topic_hierarchy topic_id='$topic_id' root='$`links`'>
    <for>
     /
     <if what='$.Id!=$topic_id'>
@@ -69,7 +69,7 @@
 <table cellspacing=5><tr valign=top>
  <td><table class='topics' style='margin: 0'><tbody class='names'>
   <iterate_sortedtopicnames grp='*GRP_LINKS'
-                            up!='$topic_id<=0 ? "links" : $topic_id'>
+                            up!='$topic_id<=0 ? $`links` : $topic_id'>
   <iterate_fixed_rows rows=5 mincols=3>
   <for>
    <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
