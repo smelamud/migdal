@@ -209,7 +209,8 @@ $result=mysql_query("select format
                      from images
  	             where id=$id");
 $ext=getImageExtension(mysql_result($result,0,0));
-return "<a href='lib/image.php/$uiName-$id.$ext?id=$id&size=large' target=_blank>";
+return "<a href='lib/image.php/$uiName-$id.$ext?id=$id&size=large' target=_blank".
+       " title='Увеличить'>";
 }
 
 function imageSetExists($image_set)
