@@ -110,6 +110,8 @@
       <vote_frame id='$posting.Id' color='$$style_cframe_back'
 		  image='$$style_cframe_back_pic' align=center>
       <kaitana_controls posting='$posting' kaitana='$kaitana' align=right>
+     <else>
+      &nbsp;
      </ifnzero>
     </td>
     <td width=140>
