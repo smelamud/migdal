@@ -47,6 +47,11 @@
   <tr><td class='body ninept'>
    $picture.HTMLBody
   </td></tr>
+  <ifne what='$picture.HTMLSource'>
+   <tr><td class='source eightpt' align=right>
+    $picture.HTMLSource
+   </td></tr>
+  </ifne>
   <if what='$showdiscuss'>
    <tr><td class='control' align=right>
     <discusslink posting='$picture'>
