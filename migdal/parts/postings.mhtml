@@ -43,7 +43,8 @@
   <error id='*EMR_SQL' text='Ошибка базы данных при обновлении записи'>
  </table>
  <for>
-  <posting posting='$.' showtopic!='$topic<0' shorten='*true'>
+  <assign name='post' value='$.'>
+  <posting posting='$post' showtopic!='$topic<0' shorten='*true'>
  </for>
  <ifnzero what='$;Count'>
   <batcher_postings list='$;' topic='$topic' grp='$grp'>

@@ -1,13 +1,16 @@
 << @(#) $Id$ >>
 << Based-on: migdal/parts/posting.mhtml 1.35 >>
 
-<element name='posting_further' params='posting,title'>
+<element name='times_posting_further' params='posting,title'>
  <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
   <image src='pics/further-small.gif' border=0 title='$title'>
  <asp></a>&nbsp;<asp>
 </element>
 
 <element name='posting_times'>
+<ifzero what='$times'>
+ <topic_obj name='times' id='migdal-times'>
+</ifzero>
 <dl class='times'>
  <dt class='subject'>
   <biff time='$posting.Sent'>
@@ -29,7 +32,7 @@
   </table>
  </ifnzero>
  $posting.HTMLBody&nbsp;<asp>
- <posting_further posting='$posting' title='Читать статью'>
+ <times_posting_further posting='$posting' title='Читать статью'>
  <table width=90% class='bottom'><tr>
   <td>
    <isedit what='$posting'>

@@ -19,7 +19,7 @@
                      sort='*SORT_PSENT' user='$user_id'>
 <batcher_taglit_postings list='$;' taglit_id='$taglit_id'>
 <for>
- <taglit_posting posting='$.' shorten='*true'>
+ <taglit_posting posting='$.' showtopic='*false' shorten='*true'>
 </for>
 <ifnzero what='$;Count'>
  <batcher_taglit_postings list='$;' taglit_id='$taglit_id'>

@@ -3,9 +3,12 @@
 <int name='msgid'>
 <grps>
 <read_posting id='$msgid'>
-<posting_full id='$msgid' grp='*GRP_FORUMS'>
+<posting_full name='posting' id='$msgid' grp='*GRP_FORUMS'>
 <pagetitle title='$,SubjectDesc'>
 
+<zone>
+ <ifne what='$,TapeStylesheet'><stylesheet ident='$,TapeStylesheet'></ifne>
+</zone>
 <html>
 <preamble>
 <body>
@@ -16,13 +19,7 @@
   </td>
   <td width=5>&nbsp;</td>
   <td>
-    <if what='$,Grp!=*GRP_GALLERY'>
-     <posting posting='$,' showdiscuss='*false'>
-    <else>
-     <center>
-      <picture picture='$,' showdiscuss='*false'>
-     </center>
-    </if>
+   <posting posting='$posting' showdiscuss='*false'>
    <p>
    <forums up='$,MessageId' limit='$$userForumPortion'>
   </td>

@@ -45,6 +45,38 @@
 </tr></table></form>
 </element>
 
+<element name='times_info'>
+<div class='info'>
+ <dl>
+  <dt>Главный редактор</dt>
+  <dd>Болеслав Капулкин</dd>
+
+  <dt>Редколлегия</dt>
+  <dd>Елена Каракина</dd>
+  <dd>Анна Мисюк</dd>
+  <dd>Инна Найдис</dd>
+  <dd>Леонид Штекель</dd>
+
+  <dt>Адрес редакции:</dt>
+  <dd>г. Одесса, ул. М. Арнаутская, 46-а, к.1. Тел.: 22-65-90.</dd>
+
+  <dt>E-mail:</dt>
+  <dd><a href='mailto:m_times@migdal.ru'>m_times@migdal.ru</a></dd>
+ </dl>
+ <p>
+ <b>ДА НЕ ОСКУДЕЕТ РУКА ДАЮЩЕГО</b><br>
+ Редакция благодарит Американский распределительный комитет
+ &lt;&lt;Джойнт&gt;&gt;, чья любезная помощь сделала возможным выход этого
+ номера.
+ <p>
+ <b>ДА НЕ ОСКУДЕЕТ ГЛАЗ ЧИТАЮЩЕГО</b><br>
+ Редакция благодарит всех читателей, взявших на себя труд прочесть этот номер.
+ <p>
+ <b>ОСОБАЯ БЛАГОДАРНОСТЬ</b><br>
+ Вс-вышнему, благословен Он, для которого нет ничего невозможного.
+</div>
+</element>
+
 <html>
 <zone>
  <stylesheet ident='times'>
@@ -72,25 +104,30 @@
     <times_issue issue='$issue' month='$cover.Source'>
    </td></tr></table>
    <p>
-   <table width=100% cellspacing=0 cellpadding=0><tr valign=top>
+   <table width=100% cellspacing=0 cellpadding=0 class=posting><tr valign=top>
     <td width=150>
      <editor>
-      <center class=batcher>
+      <div class=batcher>
        <a href='postingedit.php?up=$times.Id&topic_id=$times.Id&grp=*GRP_TIMES_COVERS&redirid=$_'
 	  class=add>Добавить обложку</a>
-      </center>
+      </div>
      </editor>
      <ifnzero what='$cover.Id'>
       <div class=pic>
        <image_tag_put id='$cover.ImageId' size=large>
       </div>
-      <editor>
-       <center class=batcher>
-	<a href='postingedit.php?editid=$cover.Id&up=$times.Id&topic_id=$times.Id&grp=$cover.Grp&redirid=$_'
-	   class=add>Изменить</a>
-       </center>
-      </editor>
+      <table width=150 class=bottom><tr>
+       <editor>
+	<td>
+	 <a href="postingedit.php?editid=$cover.Id&up=$times.Id&topic_id=$times.Id&grp=$cover.Grp&redirid=$_"
+	  >Изменить</a>
+	</td>
+       </editor>
+       <td align=right><discusslink posting='$cover'></td>
+      </tr></table>
      </ifnzero>
+     <p>
+     <times_info>
     </td>
     <td width=5>&nbsp;</td>
     <td>

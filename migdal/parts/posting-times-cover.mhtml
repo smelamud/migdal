@@ -1,0 +1,67 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/posting.mhtml 1.36 >>
+
+<element name='posting_times_cover'>
+<ifzero what='$times'>
+ <topic_obj name='times' id='migdal-times'>
+</ifzero>
+<dl class='posting'>
+ <dt class='subject'>
+  <biff time='$posting.Sent'>
+  <if what='$showtopic'>
+   <a href='times.php?issue=$posting.Index1'
+      class='topic' title='$posting.TopicDescription'>
+    $posting.TopicName
+   </a>
+   <br>
+  </if>
+  &lt;&lt;Мигдаль Times&gt;&gt; No.$posting.Index1
+ </dt>
+ <dd><p>
+ <ifnzero what='$posting.ImageSet'>
+  <table align=left class='pic'>
+   <tr><td>
+    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+   </td></tr>
+   <ifne what='$posting.Title'>
+    <tr><td>$posting.HTMLTitle</td></tr>
+   </ifne>
+  </table>
+ </ifnzero>
+ $posting.HTMLBody&nbsp;<asp>
+ <asp><a href='times.php?issue=$posting.Index1'><asp>
+  <image src='pics/further.gif' border=0 title='Читать журнал'>
+ <asp></a>&nbsp;
+ </p>
+ <div class='sent' style="clear: left">
+   <sentview date='$posting.Sent'>&nbsp;
+   <senderlink message='$posting'>
+ </div>
+ <table width=90% class='bottom'><tr>
+  <td>
+   <a href='times.php?issue=$posting.Index1' class='read'>Читать</a>
+   &nbsp;
+   <isedit what='$posting'>
+    <a href="postingedit.php?editid=$posting.Id&up=$times.Id&topic_id=$times.Id&grp=$posting.Grp&redirid=$_"
+     >Изменить</a>
+    <if what='$posting.isModerable'>
+     &nbsp;
+     <if what='$posting.isDisabled'>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+       >Разрешить показ</a>
+     <else>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+       >Запретить показ</a>
+     </if>
+     &nbsp;
+     <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
+      >Осовременить</a>
+    </if>
+   </isedit>
+  </td>
+  <if what='$showdiscuss'>
+   <td align=right><discusslink posting='$posting'></td>
+  </if>
+ </tr></table>
+</dl>
+</element>

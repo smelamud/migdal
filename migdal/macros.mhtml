@@ -62,15 +62,19 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,up'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' up=general">
+       params='picture,showtopic,showdiscuss,showcomplain,shorten,up'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' up=general">
 <decel name='picture_main' file='parts/picture-main.php'
        params='picture,grp,topic'>
-<decel name='posting' file='parts/posting.php'
+<decel name='posting_general' file='parts/posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
 <decel name='posting_times' file='parts/posting-times.php'
-       params='posting,times,showdiscuss' defaults="showdiscuss='*true'">
+       params='posting,showtopic,showdiscuss,showcomplain,shorten,times'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' times=0">
+<decel name='posting_times_cover' file='parts/posting-times-cover.php'
+       params='posting,showtopic,showdiscuss,showcomplain,shorten,times'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' times=0">
 <decel name='postings' file='parts/postings.php'
        params='grp,topic,limit,offset'
        defaults="topic=-1 limit=10 offset=0">
@@ -92,8 +96,8 @@
 <decel name='taglit_picture' file='parts/taglit-picture.php'
        params='picture,user'>
 <decel name='taglit_posting' file='parts/taglit-posting.php'
-       params='posting,showdiscuss,showcomplain,shorten'
-       defaults="showdiscuss='*true' showcomplain='*true' shorten='*false'">
+       params='posting,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
 <decel name='taglit_postings' file='parts/taglit-postings.php'
        params='taglit_id,user_id'>
 <decel name='times_issue' file='parts/times-issue.php'
@@ -135,6 +139,22 @@
   <array vals='сообщению,сообщения,сообщений'>
   <plural value%!value='%value'>
   $,
+ </zone>
+</macro>
+
+<macro name='posting'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
+ <zone>
+  <require name='parts/posting.php'>
+  <require name='parts/picture.php'>
+  <require name='parts/taglit-posting.php'>
+  <require name='parts/posting-times.php'>
+  <require name='parts/posting-times-cover.php'>
+  <if what='%posting.TapeCenter'><center></if>
+  <call element='%posting.TapeElement' arg1%!posting='%posting'
+	arg2%!showtopic='%showtopic' arg3%!showdiscuss='%showdiscuss'
+	arg4%!showcomplain='%showcomplain' arg5%!shorten='%shorten'>
+  <if what='%posting.TapeCenter'></center></if>
  </zone>
 </macro>
 

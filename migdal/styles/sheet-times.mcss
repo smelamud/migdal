@@ -41,3 +41,17 @@
 	color: %times_issue_link_hover;
 	text-decoration: underline;
 }
+
+.mtimes .info,.mtimes .info DD {
+	font-size: 9pt;
+	font-weight: normal;
+}
+
+.mtimes .info B,.mtimes .info DT {
+	font-size: 9pt;
+	font-weight: bold;
+}
+
+.mtimes .info P {
+	text-align: left;
+}

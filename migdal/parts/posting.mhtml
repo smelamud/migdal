@@ -13,7 +13,7 @@
  <asp></a>&nbsp;<asp>
 </element>
 
-<element name='posting'>
+<element name='posting_general'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <dl class='posting'>
   <dt class='subject'>

@@ -11,6 +11,13 @@
 <element name='taglit_posting'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <dl class='posting'>
+  <if what='$showtopic'>
+   <dt class='subject'>
+    <a href='taglit-user.php?user_id=$posting.SenderId'
+       class='topic' title='$posting.TopicDescription'>
+     $posting.TopicName</a>
+   </dt>
+  </if>
   <dt class='sent'>
    <biff time='$posting.Sent'>
    <sentview date='$posting.Sent'>

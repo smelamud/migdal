@@ -2,15 +2,9 @@
 
 <element name='complain_subject' params='link'>
 <grps>
-<posting_full id='$link'>
+<posting_full name='post' id='$link'>
 <tr><th colspan=2>Жалоба на $,GrpItemTitle</th></tr>
 <tr class='quote'><td colspan=2>
- <if what='$,Grp!=*GRP_GALLERY'>
-  <posting posting='$,' showcomplain='*false'>
- <else>
-  <center>
-   <picture picture='$,' showcomplain='*false'>
-  </center>
- </if>
+ <posting posting='$post' showcomplain='*false'>
 </td></tr>
 </element>
