@@ -37,8 +37,7 @@
  <top ident='help'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=200 class='eframe'>
-   <stotext_help_navi ident='subs' link='$link' title='$title'
-                      article='$article'>
+   <stotext_help_navi ident='subs'>
   </td>
   <td class='cframe'>
    <div class='article'>
