@@ -16,12 +16,12 @@ if(!$editid)
   $editid=0;
 if(!$user->isEditable())
   return EUM_NO_EDIT;
+if($user->login=='')
+  return EUM_LOGIN_ABSENT;
 if((!$editid || $user->password!='') && strlen($user->password)<5)
   return EUM_PASSWORD_LEN;
 if($user->password!=$user->dup_password)
   return EUM_PASSWORD_DIFF;
-if($user->login=='')
-  return EUM_LOGIN_ABSENT;
 $result=mysql_query('select id from users where login="'.
 		    AddSlashes($user->login)."\" and id<>$editid");
 if(mysql_num_rows($result)>0)
@@ -46,7 +46,8 @@ if($err==EUM_INSERT_OK)
           makeQuery(array('login' => $login,'redir' => $redir)));
 else
   header('Location: /useredit.php?'.
-          makeQuery($HTTP_POST_VARS,array('password','dup_password')).
-          "&err=$err#error");
+          makeQuery($HTTP_POST_VARS,
+	            array('password','dup_password'),
+		    array('err' => $err)).'#error');
 dbClose();
 ?>

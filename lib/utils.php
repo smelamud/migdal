@@ -4,13 +4,9 @@
 function makeQuery($vars,$remove=array(),$subs=array())
 {
 $s='';
-foreach($vars as $key=>$value)
-       if(!in_array($key,$remove))
-         {
-	 $value=(isset($subs[$key]) ? $subs[$key] : $vars[$key]);
-	 if($value!='')
-           $s.=($s!='' ? '&' : '')."$key=".urlencode($value);
-	 }
+foreach(array_merge($vars,$subs) as $key => $value)
+       if(!in_array($key,$remove) && $value!='')
+         $s.=($s!='' ? '&' : '')."$key=".urlencode($value);
 return $s;
 }
 
