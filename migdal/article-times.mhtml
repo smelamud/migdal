@@ -19,14 +19,13 @@
   </td>
   <td class='article cframe'>
    <article_controls posting='$,' root='$`migdal-times`'>
-   <ifnzero what='$,Id'>
-    <zone>
-     <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic='$`migdal-times`'
-		  index1='$,Index1'>
-     <times_issue issue='$,Index1' month='$,Source' separate='*true' align=right>
-    </zone>
-   </ifnzero>
    <h1>
+    <table align=right class='timesnfo aframe'><tr valign=center>
+     <td><a href='/times.php?issue=$,Index1'>
+      <image src='pics/times-small.gif' border=0></a>
+     </td>
+     <td><a href='/times.php?issue=$,Index1'>No.$,Index1</a></td>
+    </tr></table>
     <a href='index.php?topic_id=$,TopicId' class='topic'
        title='$,TopicDescription'>$,TopicName</a>
     <br>

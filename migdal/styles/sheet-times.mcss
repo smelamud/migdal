@@ -1,18 +1,17 @@
 ! @(#) $Id$
 
-.mtsep {
-	margin: 1em;
-	padding: 1em;
-	background-color: %times_back;
+.timesnfo {
+	padding: .5em;
 }
 
-.mtimes .issuehead {
-	text-align: center;
+.timesnfo A {
+	font: bold 24pt %times;
+	color: %timesnfo;
+	text-decoration: none;
 }
 
-.mtimes .issuehead A {
-	color: %times_issuehead;
-	font-size: 9pt;
+.timesnfo A:hover {
+	color: %timesnfo_hover;
 	text-decoration: underline;
 }
 
