@@ -12,8 +12,8 @@
 INSERT INTO menu VALUES (1,'Главная','index','index.php?topic_id=-1',0,0);
 INSERT INTO menu VALUES (2,'Пользователи','users','users.php',0,9);
 INSERT INTO menu VALUES (3,'Обсуждения','discuss','forumcatalog.php?topic_id=-1',0,6);
-INSERT INTO menu VALUES (7,'Чат','chat','chat.php',0,8);
 INSERT INTO menu VALUES (11,'Галерея','gallery','gallery.php?topic_id=-1',0,7);
+INSERT INTO menu VALUES (7,'Чат','chat','chat.php',0,8);
 
 --
 -- Dumping data for table 'ratings'

@@ -1,12 +1,12 @@
-# MySQL dump 8.16
-#
-# Host: localhost    Database: migdal
-#--------------------------------------------------------
-# Server version	3.23.47-log
+-- MySQL dump 8.21
+--
+-- Host: localhost    Database: migdal
+---------------------------------------------------------
+-- Server version	3.23.49-log
 
-#
-# Table structure for table 'chat_messages'
-#
+--
+-- Table structure for table 'chat_messages'
+--
 
 CREATE TABLE chat_messages (
   id int(11) NOT NULL auto_increment,
@@ -19,9 +19,9 @@ CREATE TABLE chat_messages (
   KEY sent (sent)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'choices'
-#
+--
+-- Table structure for table 'choices'
+--
 
 CREATE TABLE choices (
   id int(11) NOT NULL auto_increment,
@@ -33,9 +33,9 @@ CREATE TABLE choices (
   KEY message_id (message_id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'complain_actions'
-#
+--
+-- Table structure for table 'complain_actions'
+--
 
 CREATE TABLE complain_actions (
   id int(11) NOT NULL auto_increment,
@@ -49,9 +49,9 @@ CREATE TABLE complain_actions (
   KEY script_id (script_id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'complain_scripts'
-#
+--
+-- Table structure for table 'complain_scripts'
+--
 
 CREATE TABLE complain_scripts (
   id int(11) NOT NULL auto_increment,
@@ -61,9 +61,9 @@ CREATE TABLE complain_scripts (
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'complain_types'
-#
+--
+-- Table structure for table 'complain_types'
+--
 
 CREATE TABLE complain_types (
   id int(11) NOT NULL auto_increment,
@@ -76,9 +76,9 @@ CREATE TABLE complain_types (
   UNIQUE KEY ident (ident)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'complains'
-#
+--
+-- Table structure for table 'complains'
+--
 
 CREATE TABLE complains (
   id int(11) NOT NULL auto_increment,
@@ -95,9 +95,9 @@ CREATE TABLE complains (
   KEY link (link)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'forums'
-#
+--
+-- Table structure for table 'forums'
+--
 
 CREATE TABLE forums (
   id int(11) NOT NULL auto_increment,
@@ -108,9 +108,9 @@ CREATE TABLE forums (
   KEY up (up)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'images'
-#
+--
+-- Table structure for table 'images'
+--
 
 CREATE TABLE images (
   id int(11) NOT NULL auto_increment,
@@ -131,9 +131,9 @@ CREATE TABLE images (
   KEY used (used)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'instants'
-#
+--
+-- Table structure for table 'instants'
+--
 
 CREATE TABLE instants (
   id int(11) NOT NULL auto_increment,
@@ -146,9 +146,9 @@ CREATE TABLE instants (
   KEY recipient_id (recipient_id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'mailing_types'
-#
+--
+-- Table structure for table 'mailing_types'
+--
 
 CREATE TABLE mailing_types (
   id int(11) NOT NULL auto_increment,
@@ -159,9 +159,9 @@ CREATE TABLE mailing_types (
   KEY ident (ident)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'mailings'
-#
+--
+-- Table structure for table 'mailings'
+--
 
 CREATE TABLE mailings (
   id int(11) NOT NULL auto_increment,
@@ -173,9 +173,9 @@ CREATE TABLE mailings (
   KEY receiver_id (receiver_id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'menu'
-#
+--
+-- Table structure for table 'menu'
+--
 
 CREATE TABLE menu (
   id int(11) NOT NULL auto_increment,
@@ -189,9 +189,9 @@ CREATE TABLE menu (
   KEY menu_index (menu_index)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'messages'
-#
+--
+-- Table structure for table 'messages'
+--
 
 CREATE TABLE messages (
   id int(11) NOT NULL auto_increment,
@@ -208,9 +208,9 @@ CREATE TABLE messages (
   KEY stotext_id (stotext_id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'postings'
-#
+--
+-- Table structure for table 'postings'
+--
 
 CREATE TABLE postings (
   id int(11) NOT NULL auto_increment,
@@ -237,9 +237,9 @@ CREATE TABLE postings (
   KEY read_count (read_count,index0,index1,index2,index3,index4)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'rating_positions'
-#
+--
+-- Table structure for table 'rating_positions'
+--
 
 CREATE TABLE rating_positions (
   id int(11) NOT NULL auto_increment,
@@ -254,9 +254,9 @@ CREATE TABLE rating_positions (
   KEY scan_date (scan_date)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'ratings'
-#
+--
+-- Table structure for table 'ratings'
+--
 
 CREATE TABLE ratings (
   id int(11) NOT NULL auto_increment,
@@ -268,9 +268,9 @@ CREATE TABLE ratings (
   KEY ident (ident)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'redirs'
-#
+--
+-- Table structure for table 'redirs'
+--
 
 CREATE TABLE redirs (
   id int(11) NOT NULL auto_increment,
@@ -283,33 +283,33 @@ CREATE TABLE redirs (
   KEY id (id,up,track,last_access)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'sessions'
-#
+--
+-- Table structure for table 'sessions'
+--
 
 CREATE TABLE sessions (
   id int(11) NOT NULL auto_increment,
   user_id int(11) NOT NULL default '0',
+  real_user_id int(11) NOT NULL default '0',
   last timestamp(14) NOT NULL,
   sid int(11) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY user_id (user_id),
   KEY sid (sid),
-  KEY last (last),
-  KEY last_2 (last)
+  KEY last (last)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'statistics'
-#
+--
+-- Table structure for table 'statistics'
+--
 
 CREATE TABLE statistics (
   logins int(11) NOT NULL default '0'
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'stotext_images'
-#
+--
+-- Table structure for table 'stotext_images'
+--
 
 CREATE TABLE stotext_images (
   stotext_id int(11) NOT NULL default '0',
@@ -320,9 +320,9 @@ CREATE TABLE stotext_images (
   KEY image_id (image_id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'stotexts'
-#
+--
+-- Table structure for table 'stotexts'
+--
 
 CREATE TABLE stotexts (
   id int(11) NOT NULL auto_increment,
@@ -337,9 +337,9 @@ CREATE TABLE stotexts (
   KEY large_imageset (large_imageset)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'tmp_texts'
-#
+--
+-- Table structure for table 'tmp_texts'
+--
 
 CREATE TABLE tmp_texts (
   id int(11) NOT NULL auto_increment,
@@ -348,9 +348,9 @@ CREATE TABLE tmp_texts (
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'topics'
-#
+--
+-- Table structure for table 'topics'
+--
 
 CREATE TABLE topics (
   id int(11) NOT NULL auto_increment,
@@ -369,9 +369,9 @@ CREATE TABLE topics (
   KEY stotext_id (stotext_id)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'users'
-#
+--
+-- Table structure for table 'users'
+--
 
 CREATE TABLE users (
   id int(11) NOT NULL auto_increment,
@@ -414,45 +414,49 @@ CREATE TABLE users (
   KEY last_chat (last_chat)
 ) TYPE=MyISAM;
 
-#
-# Table structure for table 'version'
-#
+--
+-- Table structure for table 'version'
+--
 
 CREATE TABLE version (
   db_version int(11) NOT NULL default '0'
 ) TYPE=MyISAM;
 
-# MySQL dump 8.16
-#
-# Host: localhost    Database: migdal
-#--------------------------------------------------------
-# Server version	3.23.47-log
+-- MySQL dump 8.21
+--
+-- Host: localhost    Database: migdal
+---------------------------------------------------------
+-- Server version	3.23.49-log
 
-#
-# Dumping data for table 'complain_types'
-#
+--
+-- Dumping data for table 'complain_types'
+--
+
 
 INSERT INTO complain_types VALUES (1,'normal','Обычная','',0,'parts/cs_normal.php');
 INSERT INTO complain_types VALUES (2,'forum','На сообщение в форуме','moderator',0,'parts/cs_forum.php');
 INSERT INTO complain_types VALUES (3,'posting','На новость/статью','moderator',3,'parts/cs_posting.php');
 
-#
-# Dumping data for table 'complain_scripts'
-#
+--
+-- Dumping data for table 'complain_scripts'
+--
 
+
+INSERT INTO complain_scripts VALUES (1,'Закрыть жалобу','=update complains set closed=now() where id=%complain_id','');
 INSERT INTO complain_scripts VALUES (3,'Закрыть жалобу и разрешить показ','=update complains set closed=now() where id=%complain_id\r\n=select message_id from postings where id=%link\r\n=update messages set disabled=0 where id=$message_id','posting');
-INSERT INTO complain_scripts VALUES (4,'Закрыть жалобу','=update complains set closed=now() where id=%complain_id','');
 
-#
-# Dumping data for table 'mailing_types'
-#
+--
+-- Dumping data for table 'mailing_types'
+--
+
 
 INSERT INTO mailing_types VALUES (1,'register.mail','register',1);
 INSERT INTO mailing_types VALUES (2,'registering.mail','registering',0);
 
-#
-# Dumping data for table 'version'
-#
+--
+-- Dumping data for table 'version'
+--
+
 
 INSERT INTO version VALUES (1);
 
