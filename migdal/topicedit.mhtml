@@ -2,6 +2,7 @@
 
 <pagetitle title='Редактирование темы'>
 
+<conf>
 <int name='editid'>
 <int name='up'>
 
@@ -45,7 +46,7 @@
    </table></td></tr>
    <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
    <editor_line title='Описание' name='description' body='$,Description'
-                mandatory='*true'>
+                mandatory='$topicMandatoryDescription'>
    <checkbox_line name='hidden' value='$,isHidden'
 		  title='Не показывать в списке'>
    <error id='*ET_MUST_ALLOW'

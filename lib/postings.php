@@ -20,6 +20,7 @@ class Posting
 var $ident;
 var $message_id;
 var $topic_id;
+var $topic_ident;
 var $topic_name;
 var $topic_description;
 var $personal_id;
@@ -104,6 +105,11 @@ return $this->priority;
 function getTopicId()
 {
 return $this->topic_id;
+}
+
+function getTopicIdent()
+{
+return $this->topic_ident;
 }
 
 function getTopicName()
@@ -204,6 +210,7 @@ $this->LimitSelectIterator(
  	       if(images.has_large,images.large_x,images.small_x) as image_x,
  	       if(images.has_large,images.large_y,images.small_y) as image_y,
 	       topics.name as topic_name,topictexts.body as topic_description,
+	       topics.ident as topic_ident,
 	       login,gender,email,hide_email,rebe,
 	       read_count,
 	       count(forummesgs.id) as answer_count,

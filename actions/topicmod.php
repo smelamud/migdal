@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
@@ -14,7 +16,7 @@ require_once('lib/users.php');
 
 function modifyTopic($topic)
 {
-global $userAdminTopics;
+global $userAdminTopics,$topicMandatoryDescription;
 
 if(!$userAdminTopics)
   return ET_NO_EDIT;
@@ -27,7 +29,7 @@ if($topic->login!='')
     return ET_NO_USER;
   $topic->user_id=$uid;
   }
-if($topic->stotext->body=='')
+if($topicMandatoryDescription && $topic->stotext->body=='')
   return ET_DESCRIPTION_ABSENT;
 if($topic->up!=0 && !topicExists($topic->up))
   return ET_NO_UP;

@@ -119,6 +119,10 @@ $tmpDir='/tmp';
 # Маска премодерируемых по умолчанию постингов
 $defaultPremoderate=GRP_ALL;
 
+# Настройки тем
+
+$topicMandatoryDescription=true;
+
 # Настройки сообщений в форуме (ForumAnswer)
 
 $forumanswerMandatorySubject=false;	# Не реализовано

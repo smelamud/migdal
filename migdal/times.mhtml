@@ -10,6 +10,29 @@
 </macro>
 <endif name='/editor'>
 
+<element name='cover' params='times,cover'>
+<editor>
+ <div class=batcher>
+  <a href='postingedit.php?up=$times.Id&topic_id=$times.Id&grp=*GRP_TIMES_COVERS&redirid=$_'
+     class=add>Добавить обложку</a>
+ </div>
+</editor>
+<ifnzero what='$cover.Id'>
+ <div class=pic>
+  <image_tag_put id='$cover.ImageId' size=large>
+ </div>
+ <table width=150 class=bottom><tr>
+  <editor>
+   <td>
+    <a href="postingedit.php?editid=$cover.Id&up=$times.Id&topic_id=$times.Id&grp=$cover.Grp&redirid=$_"
+     >Изменить</a>
+   </td>
+  </editor>
+  <td align=right><discusslink posting='$cover'></td>
+ </tr></table>
+</ifnzero>
+</element>
+
 <element name='batcher_times' params='times,issue'>
 <editor>
  <div class='batcher'>
@@ -106,26 +129,7 @@
    <p>
    <table width=100% cellspacing=0 cellpadding=0><tr valign=top>
     <td width=150 class=posting>
-     <editor>
-      <div class=batcher>
-       <a href='postingedit.php?up=$times.Id&topic_id=$times.Id&grp=*GRP_TIMES_COVERS&redirid=$_'
-	  class=add>Добавить обложку</a>
-      </div>
-     </editor>
-     <ifnzero what='$cover.Id'>
-      <div class=pic>
-       <image_tag_put id='$cover.ImageId' size=large>
-      </div>
-      <table width=150 class=bottom><tr>
-       <editor>
-	<td>
-	 <a href="postingedit.php?editid=$cover.Id&up=$times.Id&topic_id=$times.Id&grp=$cover.Grp&redirid=$_"
-	  >Изменить</a>
-	</td>
-       </editor>
-       <td align=right><discusslink posting='$cover'></td>
-      </tr></table>
-     </ifnzero>
+     <cover times='$times' cover='$cover'>
      <p>
      <times_info>
     </td>
@@ -137,7 +141,18 @@
      <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='migdal-times'
 			  recursive='*true' limit=0 sort='*SORT_INDEX0'
 			  index1!='$issue<0 ? 0 : $issue'>
+     <assign name='topicname' value=''>
      <for>
+      <if what='$topicname!=$.TopicName'>
+       <assign name='topicname'
+               value!="$.TopicIdent!='migdal-times' ? $.TopicName : ''">
+       <ifne what='$topicname'>
+        <table width=100% class=topic><tr>
+	 <td align=left><image src='pics/times-bullet.gif'></td>
+	 <td align=right>$^topicname</td>
+	</tr></table>
+       </ifne>
+      </if>
       <posting_times posting='$.' times='$times'>
      </for>
      <ifnzero what='$;Count'>

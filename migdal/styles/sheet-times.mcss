@@ -27,6 +27,11 @@
 	text-align: center;
 }
 
+.mtimes .topic {
+	border-bottom: solid 3px %times_topic_split;
+	font-weight: bold;
+}
+
 .mtimes .posting .subject {
 	font-size: 12pt;
 }
