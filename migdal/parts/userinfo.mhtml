@@ -1,0 +1,70 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/useredit.mhtml 1.10 >>
+
+<element name='infoline' params='title,value'>
+<if what="$value!=''">
+ <tr><th>$title</th><td>$value</td></tr>
+</if>
+</element>
+
+<element name='controls_userinfo' params='user,target' defaults="user='$,'">
+<isedit name='user'>
+ <div class='batcher'>
+  <if what="$target!=''">
+   <a href='/useredit.php?editid=$user.Id' target='$target'>
+  <else>
+   <a href='/useredit.php?editid=$user.Id&redir=$_'>
+  </if>
+  Изменить</a>
+ </div>
+</isedit>
+</element>
+
+<element name='userinfo'>
+<user_obj name='user' id='$id'>
+<controls_userinfo target='$target'>
+<table class='userinfo' width=100%>
+ <infoline title='Ник' value='$,Login'>
+ <infoline title='Имя' value='$,Name'>
+ <infoline title='Еврейское имя' value='$,JewishName'>
+ <infoline title='Фамилия' value='$,Surname'>
+ <if what='$,isMan'>
+  <infoline title='Пол' value='Мужской'>
+ <else>
+  <infoline title='Пол' value='Женский'>
+ </if>
+ <concat value='$,Birthday / $,JewishBirthday'>
+ <infoline title='Дата рождения' value='$*'>
+ <if what='$,isMigdalStudent'>
+  <infoline title='Мигдалевец' value='Да'>
+ <else>
+  <infoline title='Мигдалевец' value='Нет'>
+ </if>
+ <infoline title='Коротко о себе' value='$,Info'>
+ <if what='!$,isHideEmail'>
+  <tr>
+   <th>E-mail</th>
+   <td>
+    $,EmailLink
+    <if what='$,isEmailDisabled==2'>
+     <span class='error'>
+      Посылка почты на этот адрес временно приостановлена, поскольку адрес не
+      работает
+     </span>
+    </if>
+   </td>
+  </tr>
+ </if>
+ <if what="$,ICQ!=''">
+  <tr>
+   <th>ICQ</th>
+   <td>$,ICQStatusImage&nbsp;$,ICQ</td>
+  </tr>
+ </if>
+ <tr>
+  <th>Последний раз<br>заходил сюда</th>
+  <lastonline_cell user='$,'>
+ </tr>
+</table>
+<controls_userinfo target='$target'>
+</element>

@@ -763,7 +763,10 @@ my ($self)=@_;
 
 my $name=$self->getArg('name');
 $name='const'.($::LastConst++) if $name eq '';
-::body("<?php \$$name='",::subVars($self->getArg('value'),"'.",".'"),"'; ?>");
+my $value="'".::subVars($self->getArg('value'),"'.",".'")."'";
+$value=~s/^''\.//;
+$value=~s/\.''$//;
+::body("<?php \$$name=$value; ?>");
 $::Stack->top()->setConst($name);
 }
 
@@ -1213,7 +1216,7 @@ foreach(@Requests)
        $s.="require_once('$_');\n";
        }
 $s.="?>\n";
-$s=$s.$Header.$Body.$Footer;
+$s.=$Header.$Body.$Footer;
 $s=~s/\s\?>\s*\n\s*<\?php\s/\n/sg;
 $s=~s/\s\?>\s*<\?php\s//sg;
 print $s;

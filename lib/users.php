@@ -356,11 +356,20 @@ $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
 			    accepts_complains,admin_users,admin_topics,
 			    admin_menu,admin_complain_answers,moderator,judge,
 			    hidden,no_login,has_personal,
-			    sessions.user_id as online
-		     from users left join sessions
-				on users.id=sessions.user_id
-				and sessions.last+interval 1 hour>now()
-		     where users.id=$id and hidden<$hide")
+			    max(sessions.user_id) as online,
+			    min(floor((unix_timestamp(now())
+				      -unix_timestamp(sessions.last))/60))
+				 as last_minutes,
+			    confirm_deadline is null as confirmed,
+			    floor((unix_timestamp(confirm_deadline)
+				   -unix_timestamp(now()))/86400)
+				 as confirm_days
+		     from users
+		          left join sessions
+			       on users.id=sessions.user_id
+			          and sessions.last+interval 1 hour>now()
+		     where users.id=$id and hidden<$hide
+		     group by users.id")
 	     or die('Ошибка SQL при выборке данных пользователя');
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());

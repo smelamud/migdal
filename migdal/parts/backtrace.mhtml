@@ -3,7 +3,7 @@
 
 <element name='Backtrace'>
 <if what="isset($redir) && $redir!=''">
- <tr class='return'><td colspan=2>
+ <div class='return'>
   <if what='$$style_return_word'>
    <table><tr align=center>
     <td>
@@ -16,6 +16,6 @@
    <at href='$redir' target='$target'>
     <img src='$$style_return_image' border=0></at>
   </if>
- </td></tr>
+ </div>
 </if>
 </element>

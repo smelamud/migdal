@@ -18,7 +18,7 @@
   <for>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <td class='subject'>
-     <a href="useredit.php?editid=$.id&redir=$_">$.Login</a>
+     <a href="userinfo.php?id=$.id&redir=$_">$.Login</a>
     </td>
     <td>$.FullName</td>
     <if what='$.isConfirmed'>
@@ -37,25 +37,7 @@
       </if>
       $.ICQStatusImage&nbsp;$.ICQ
      </td>
-     <if what='$.isOnline'>
-      <td align=center>
-       <ifnzero what='$.LastMinutes'>
-	<zone>
-	 <array vals='минуту,минуты,минут'>
-	 <plural value='$.LastMinutes'>
-	 $.lastMinutes&nbsp;$, назад
-	</zone>
-       <else>
-	Сейчас
-       </if>
-      </td>
-     <else>
-      <if what='$.isTooOld'>
-       <td align=center>Очень давно</td>
-      <else>
-       <td><sentview date='$.LastOnline'></td>
-      </if>
-     </if>
+     <lastonline_cell user='$.'>
     <else>
      <td colspan=4>
       <zone>

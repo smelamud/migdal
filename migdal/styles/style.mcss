@@ -224,6 +224,8 @@ complain_controls_hover=blue
 chatboard_back=%vl
 chatboard_time=%gr
 chatboard_name=%nd
+userinfo_info_back=%nll
+userinfo_title_back=%nl
 
 !! Stylesheets
 
@@ -1069,4 +1071,18 @@ BODY.chatboard {
 .chatboard .name{
 	color: %chatboard_name;
 	font-weight: bold;
+}
+
+! User info
+
+.userinfo TH {
+	background-color: %userinfo_title_back;
+	font-weight: bold;
+	width: 150px;
+	text-align: left;
+}
+
+.userinfo TD {
+	background-color: %userinfo_info_back;
+	text-align: left;
 }

@@ -4,6 +4,7 @@
 <element name='Top'>
 <hotlog_count>
 <mailru_count>
+<script src='/window.js' language='JavaScript'></script>
 <menu ident='$ident' target='$target'>
 <table class='state'><tr>
  <td class='topimage'>
@@ -29,5 +30,4 @@
 </tr></table>
 <p>
 <backtrace redir='$$redir' target='$target'>
-</table>
 </element>

@@ -12,8 +12,8 @@
 </macro>
 
 << Styles >>
-<decstyle ident='contrast' name='Контрастный'>
-<decstyle ident='test' name='Тестовый'>
+<decstyle ident='contrast' desc='Контрастный'>
+<decstyle ident='test' desc='Тестовый'>
 
 << Elements >>
 <decel name='at' file='parts/utils.php' params='target,class,href'
@@ -43,6 +43,7 @@
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='jewishru' file='parts/jewishru.php'>
+<decel name='lastonline_cell' file='parts/utils.php' params='user'>
 <decel name='login' file='parts/login.php' params='flags,err,target,re'
        defaults="target='' re=''">
 <decel name='mailru_count' file='parts/mailru.php'>
@@ -78,6 +79,7 @@
        defaults="mandatory='*false'">
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
+<decel name='userinfo' file='parts/userinfo.php' params='id,target'>
 
 << GRP >>
 <decgrpmesgs name='grptitle' vals='Сообщения,Мнения,Новости,Галерея,Статьи'>

@@ -30,14 +30,38 @@
 <if what="$align=='right' || $$style_details_noleft">
  <span class='name'>$message.LoginLink</span>&nbsp;<asp>
  <if what='$message.isSenderVisible'>
-  <asp><a href='useredit.php?editid=$message.SenderId&redir=$_'
+  <asp><a href='userinfo.php?id=$message.SenderId&redir=$_'
+          onClick="UserInfo($message.SenderId);return false"
 	  title='подробнее'><img src='$$style_details_image' border=0></a>
  </if>
 <else>
  <if what='$message.isSenderVisible'>
-  <a href='useredit.php?editid=$message.SenderId&redir=$_'
+  <a href='userinfo.php?id=$message.SenderId&redir=$_'
+     onClick="UserInfo($message.SenderId);return false"
      title='подробнее'><img src='$$style_details_image' border=0></a>&nbsp;<asp>
  </if>
  <asp><span class='name'>$message.LoginLink</span>
+</if>
+</element>
+
+<element name='lastonline_cell'>
+<if what='$user.isOnline'>
+ <td align=center>
+  <ifnzero what='$user.LastMinutes'>
+   <zone>
+    <array vals='минуту,минуты,минут'>
+    <plural value='$user.LastMinutes'>
+    $user.lastMinutes&nbsp;$, назад
+   </zone>
+  <else>
+   Сейчас
+  </if>
+ </td>
+<else>
+ <if what='$user.isTooOld'>
+  <td align=center>Очень давно</td>
+ <else>
+  <td><sentview date='$user.LastOnline'></td>
+ </if>
 </if>
 </element>

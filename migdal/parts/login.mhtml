@@ -43,7 +43,7 @@
    <if what='$$userHidden'>
     $$userLogin
    <else>
-    <concat value='/useredit.php?editid=$$userId&redir=$_'>
+    <concat value='/userinfo.php?id=$$userId&redir=$_'>
     <at href='$*' class='name' target='$target'>$$userLogin</at>
    </if>
    </b>
