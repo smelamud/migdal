@@ -10,8 +10,10 @@
 <table width=100% class='batcher'><tr>
  <td class='ninept' width=40%>
   <array vals='страница,страницы,страниц'>
-  <plural value='$list.Size'>
-  <b>Найдено <em>$list.Size</em> $,</b>
+  <plural name='pages' value='$list.Size'>
+  <array vals='Найдена,Найдено,Найдено'>
+  <plural name='found' value='$list.Size'>
+  <b>$found <em>$list.Size</em> $pages</b>
  </td>
  <td width=20%><spin list='$list'></td>
  <td width=40%>&nbsp;</td>
