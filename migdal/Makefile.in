@@ -15,6 +15,7 @@ OBJECTS = article.php chat.php chatboard.php chatbottom.php chatconsole.php \
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
 
 all: $(OBJECTS)
+	(cd grp; $(MAKE) all)
 	(cd parts; $(MAKE) all)
 	(cd styles; $(MAKE) all)
 
@@ -27,5 +28,6 @@ dbinfo:
 
 clean:
 	-rm $(OBJECTS)
+	(cd grp; $(MAKE) clean)
 	(cd parts; $(MAKE) clean)
 	(cd styles; $(MAKE) clean)

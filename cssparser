@@ -5,7 +5,7 @@
 use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 
-$VERSION='0.0.1';
+$VERSION='0.2';
 
 $Style='default';
 $css=1;
@@ -89,7 +89,7 @@ Migdal website kernel MCSS macro language preprocessor
   -p, --php                 Create PHP include
   -v, --version             Print version information and exit
 
-Report bugs to <balu\@yes.ru>
+Report bugs to <balu\@migdal.ru>
 EOF
 exit;
 }
@@ -98,7 +98,7 @@ sub version
 {
 print <<EOF;
 cssparser (migdal $VERSION)
-Copyright (C) 2001 by Dmitry E. Melamud.
+Copyright (C) 2001-02 by Dmitry E. Melamud.
 
 This program is free software; you can redistribute it
 and/or modify it under the terms of the GNU General Public

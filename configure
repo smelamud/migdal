@@ -2,13 +2,13 @@
 
 # @(#) $Id$
 
-DIRS='. demo demo/parts moshiach.ru moshiach.ru/parts migdal migdal/parts migdal/styles'
+DIRS='. moshiach.ru moshiach.ru/parts migdal migdal/grp migdal/parts migdal/styles'
 
 for s in $DIRS; do
     ./confmake $s/Makefile.in conf/migdal.conf > $s/Makefile
 done
 
-INTERFACES='demo moshiach.ru migdal'
+INTERFACES='moshiach.ru migdal'
 LINKS='actions conf lib tools'
 
 for s in $INTERFACES; do

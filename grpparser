@@ -1,0 +1,349 @@
+#!/usr/bin/perl
+
+# @(#) $Id$
+
+use Getopt::Long;
+Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
+
+$VERSION='0.2';
+
+package Token;
+
+sub new
+{
+my ($class,$name,$value)=@_;
+
+return bless {'name' => $name,'value' => $value},$class;
+}
+
+sub getName
+{
+my ($self)=@_;
+
+return $self->{'name'};
+}
+
+sub getValue
+{
+my ($self)=@_;
+
+return $self->{'value'};
+}
+
+package Input;
+
+sub new
+{
+my ($class)=@_;
+
+my $self=bless {'line' => 0,'token' => undef,'current' => ''},$class;
+$self->next();
+return $self;
+}
+
+sub roll
+{
+my ($self)=@_;
+
+while($self->{'current'}=~/^\s*$/)
+     {
+     $self->{'current'}=<>;
+     $self->{'line'}++;
+     $self->{'current'}='',last if !defined($self->{'current'});
+     chomp $self->{'current'};
+     }
+return $self->{'current'};
+}
+
+%Tokens=('ident'  => '[A-Za-z_]\w*',
+         'number' => '-?\d+',
+         'symbol' => '[:;={}]',
+	 'string' => '"(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\'');
+
+sub next
+{
+my ($self)=@_;
+my $current=$self->roll();
+my $token;
+if($current eq '')
+  {
+  $token=new Token('eof','');
+  }
+else
+  {
+  keys(%Tokens);
+  while(my ($name,$pattern)=each(%Tokens))
+       {
+       if($current=~/^\s*($pattern)(.*)$/)
+         {
+         $token=new Token($name,$1);
+         $current=$2;
+         last;
+	 }
+       }
+  ::error("unknown token here: '$current'") unless defined($token);
+  }
+$self->{'current'}=$current;
+$self->{'token'}=$token;
+return $token;
+}
+
+sub getLine
+{
+my ($self)=@_;
+
+return $self->{'line'};
+}
+
+sub getToken
+{
+my ($self)=@_;
+
+return $self->{'token'};
+}
+
+package Class;
+
+sub new
+{
+my ($class,$name)=@_;
+
+$::FlagValue*=2;
+return bless {'name'      => $name,
+              'flag'      => uc $name,
+	      'flagValue' => $::FlagValue/2},$class;
+}
+
+sub getName
+{
+my ($self)=@_;
+
+return $self->{'name'};
+}
+
+sub getFlag
+{
+my ($self)=@_;
+
+return $self->{'flag'};
+}
+
+sub setFlag
+{
+my ($self,$value)=@_;
+
+$self->{'flag'}=$value;
+}
+
+sub getFlagValue
+{
+my ($self)=@_;
+
+return $self->{'flagValue'};
+}
+
+package main;
+
+@Classes=();
+$FlagValue=1;
+%Groups=();
+
+sub display
+{
+print STDERR @_;
+}
+
+sub error
+{
+my ($msg)=@_;
+
+display 'grpparser: '.$Input->getLine().": $msg\n";
+exit(1);
+}
+
+sub help
+{
+print <<EOF;
+Usage: $0 [<options>] [<file>]
+
+Migdal website kernel GRP definition language preprocessor
+
+  -h, --help                Print this help and exit
+  -v, --version             Print version information and exit
+
+Report bugs to <balu\@migdal.ru>
+EOF
+exit;
+}
+
+sub version
+{
+print <<EOF;
+grpparser (migdal $VERSION)
+Copyright (C) 2002 by Dmitry E. Melamud.
+
+This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License (see LICENSE).
+
+EOF
+exit;
+}
+
+sub init
+{
+$|=1;
+GetOptions('help|h|?'	=> \&help,
+           'version|v'	=> \&version);
+$Input=new Input;
+}
+
+sub defineFlag
+{
+my ($class)=@_;
+
+error('identifier expected') if $Input->getToken()->getName() ne 'ident';
+$class->setFlag($Input->getToken()->getValue());
+$Input->next();
+error("';' expected") if $Input->getToken()->getValue() ne ';';
+$Input->next();
+}
+
+sub defineGroups
+{
+my ($class)=@_;
+
+while($Input->getToken()->getName() eq 'ident')
+     {
+     $Groups{$Input->getToken()->getValue()}|=$class->getFlagValue();
+     $Input->next();
+     }
+error("';' expected") if $Input->getToken()->getValue() ne ';';
+$Input->next();
+}
+
+sub defineParams
+{
+my ($class)=@_;
+
+error("'}' or identifier expected") if $Input->getToken()->getName() ne 'ident';
+my $ident=$Input->getToken()->getValue();
+$Input->next();
+if($Input->getToken()->getValue() eq ':')
+  {
+  $Input->next();
+  defineFlag($class),return if $ident eq 'flag';
+  defineGroups($class),return if $ident eq 'groups';
+  error("unknown attribute '$ident'");
+  }
+elsif($Input->getToken()->getValue() eq '=')
+  {
+  }
+else
+  {
+  error("':' or '=' expected");
+  }
+}
+
+sub defineClass
+{
+my $class=new Class($Input->getToken()->getValue());
+push @Classes,$class;
+$Input->next();
+$Input->next(),return if $Input->getToken()->getValue() eq ';';
+if($Input->getToken()->getValue() eq '{')
+  {
+  $Input->next();
+  defineParams($class) while($Input->getToken()->getValue() ne '}');
+  $Input->next();
+  }
+else
+  {
+  error("';' expected");
+  }
+}
+
+sub run
+{
+while($Input->getToken()->getName() ne 'eof')
+     {
+     if($Input->getToken()->getName() eq 'ident')
+       {
+       defineClass();
+       }
+     else
+       {
+       error('class name expected');
+       }
+     }
+}
+
+sub printConstant
+{
+my ($class)=@_;
+
+print GRPS "define('GRP_".$class->getFlag()."',".$class->getFlagValue().");\n";
+my $notValue=$FlagValue-$class->getFlagValue()-1;
+print(GRPS "define('GRP_NOT_".$class->getFlag()."',$notValue);\n");
+}
+
+sub printClass
+{
+my ($class)=@_;
+
+print POSTINGS 'class '.$class->getName()."\n";
+print POSTINGS "      extends Posting\n";
+print POSTINGS "{\n";
+print POSTINGS "\n";
+print POSTINGS 'function '.$class->getName()."(\$row)\n";
+print POSTINGS "{\n";
+print POSTINGS "\$this->Posting(\$row);\n";
+print POSTINGS "\$this->grp=GRP_".$class->getFlag().";\n";
+print POSTINGS "}\n";
+print POSTINGS "\n";
+print POSTINGS "}\n";
+print POSTINGS "\n";
+}
+
+sub printClassName
+{
+my ($class)=@_;
+
+print GRPS ' GRP_'.$class->getFlag()." => '".$class->getName()."',\n";
+}
+
+sub done
+{
+open GRPS,'>grps.php';
+open POSTINGS,'>postings.php';
+print GRPS "<?php\n";
+print GRPS "define('GRP_NONE',0);\n";
+print POSTINGS "<?php\n";
+for(@Classes)
+   {
+   printConstant($_);
+   printClass($_);
+   }
+while(my ($name,$value)=each(%Groups))
+     {
+     print GRPS "define('GRP_$name',$value);\n";
+     }
+my $all=$FlagValue-1;
+print GRPS "define('GRP_ALL',$all);\n";
+print GRPS "\n";
+print GRPS "\$grpClassNames=array(\n";
+for(@Classes)
+   {
+   printClassName($_);
+   }
+print GRPS " GRP_ALL => 'Posting'\n";
+print GRPS ");\n";
+print GRPS "?>\n";
+print POSTINGS "?>\n";
+close GRPS;
+close POSTINGS;
+}
+
+init;
+run;
+done;
