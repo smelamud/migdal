@@ -2,6 +2,9 @@
 
 <ident name='artid' table='postings'>
 <posting_obj id='$artid' grp='*GRP_TIMES_ARTICLES' fields='*SELECT_ALLPOSTING'>
+<ifzero what='$,Id'>
+ <fail>
+</ifzero>
 <zone>
  <posting_obj name='cover' grp='*GRP_TIMES_COVERS' index1='$,Index1'
               topic_id='-1' fields='*SELECT_GENERAL'>

@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<element name='top_404'>
+<table>
+ <tr valign=bottom>
+  <td align=left width=61>
+   <a href='/index.php'>
+    <image src='$$style_banner_logo'
+	   alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></a>
+  </td>
+  <td width=10>&nbsp;</td>
+  <td align=left>
+   <subtitle>
+  </td>
+ </tr>
+</table>
+</element>

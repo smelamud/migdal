@@ -10,6 +10,9 @@
 </ifzero>
 <grps>
 <user_obj name='user' id='$user_id'>
+<ifzero what='$,Id'>
+ <fail>
+</ifzero>
 <pagetitle title#='Таглит - $user.FullName'>
 <topictitle title#='Таглит - $user.FullName'>
 <log event=taglit text#='user($user.Id) offset=$offset'>

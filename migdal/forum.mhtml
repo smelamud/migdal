@@ -5,6 +5,9 @@
 <grps>
 <posting_obj name='posting' id='$msgid' grp='*GRP_FORUMS'
              fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
+<ifzero what='$,Id'>
+ <fail>
+</ifzero>
 <log event=forum text#='post($,Id)'>
 <notenglish>
  <pagetitle title#='Форум - $,SubjectDesc'>

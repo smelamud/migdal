@@ -5,6 +5,7 @@ error_red=red
 :print		body_back=white
 :default	body_back_pic=pics/b-back.gif
 :print		body_back_pic=
+body_404_back=%r_l
 info=black
 info_link=blue
 em=%mrm

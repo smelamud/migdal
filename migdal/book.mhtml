@@ -2,6 +2,9 @@
 
 <ident name='bookid' table='postings'>
 <posting_obj id='$bookid' grp='*GRP_BOOKS' fields='*SELECT_ALLPOSTING'>
+<ifzero what='$,Id'>
+ <fail>
+</ifzero>
 
 << Traps >>
 << Wed Sep 24 02:36:32 EEST 2003 >>

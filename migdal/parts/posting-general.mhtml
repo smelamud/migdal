@@ -53,14 +53,14 @@
    $posting.HTMLBodyMedium&nbsp;<asp>
    <if what='!$posting.isBodyMedium'>
     <further posting='$posting'
-             title!="$$userDomain!='english'? 'Читать дальше' : 'Read more'">
+             title!="!$$englishDomain ? 'Читать дальше' : 'Read more'">
    </if>
   <else>
    $posting.HTMLBody&nbsp;<asp>
   </if>
   <if what='$posting.hasLargeBody'>
    <further posting='$posting'
-            title!="$$userDomain!='english'? 'Читать статью' : 'Read article'">
+            title!="!$$englishDomain ? 'Читать статью' : 'Read article'">
   </if>
   <ifne what='$posting.URL'>
    <further_url posting='$posting' url='$posting.URL'>
@@ -78,7 +78,7 @@
    </ifne>
   </tr></table>
   <posting_controls posting='$posting' showdiscuss='$showdiscuss'
-                    showcomplain!="$showcomplain && $$userDomain!='english'">
+                    showcomplain!="$showcomplain && !$$englishDomain">
  </dl>
 <if what='$posting.isRebe'></span></if>
 </element>

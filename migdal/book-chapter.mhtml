@@ -2,6 +2,9 @@
 
 <ident name='chapid' table='postings'>
 <posting_obj id='$chapid' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_ALLPOSTING'>
+<ifzero what='$,Id'>
+ <fail>
+</ifzero>
 <zone>
  <message_posting id='$,UpValue'>
  <posting_obj name='book' id='$,' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>

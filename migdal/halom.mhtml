@@ -12,11 +12,23 @@
 <ifnzero what='$postid'>
  <posting_obj name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'
               fields='*SELECT_ALLPOSTING'>
+ <ifzero what='$,Id'>
+  <fail>
+ </ifzero>
  <topic_obj name='halom' id='$posting.TopicId'>
+ <ifzero what='$,Id'>
+  <fail>
+ </ifzero>
 <else>
  <topic_obj name='halom' id='$topic_id'>
+ <ifzero what='$,Id'>
+  <fail>
+ </ifzero>
  <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$halom.Id'
               index1='$day' fields='*SELECT_ALLPOSTING'>
+ <ifzero what='$,Id'>
+  <fail>
+ </ifzero>
 </ifzero>
 <pagetitle title#='$halom.Name - $posting.Subject'>
 <topictitle title='$halom.Name'>

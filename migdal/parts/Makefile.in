@@ -17,9 +17,9 @@ OBJECTS = article.php backtrace.php bannerbank.php banners.php blog.php \
 	  posting-times-cover.php postings.php postings-links.php \
 	  postings-migdal-news.php rabbi.php rambler.php relogin.php \
 	  seealso.php spin.php subtitle.php textears.php tip.php \
-	  tip-posting.php today.php top.php topics.php topics-admin.php \
-	  topics-blog.php topics-book.php topics-events.php topics-help.php \
-	  topics-gallery-general.php topics-gallery-major.php \
+	  tip-posting.php today.php top.php top-404.php topics.php \
+	  topics-admin.php topics-blog.php topics-book.php topics-events.php \
+	  topics-help.php topics-gallery-general.php topics-gallery-major.php \
 	  topics-gallery-migdal.php topics-general.php topics-home.php \
 	  topics-kaitana.php topics-links.php topics-major.php \
 	  topics-migdal.php topics-migdal-english.php topics-minor.php \

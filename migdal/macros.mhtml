@@ -208,6 +208,7 @@
        params='ident,no_new,target,showimages,transref,nologin'
        defaults="no_new='*false' target='' showimages='*true' transref=''
                  nologin='*false'">
+<decel name='top_404' file='parts/top-404.php'>
 <decel name='topiclink' file='parts/posting.php' params='&posting,class'
        defaults="class='topic'">
 <decel name='topiclink_gallery' file='parts/posting.php' params='&posting,class'
@@ -336,6 +337,14 @@
  <tr><tdspan span=%span>
   <textarea name='%name' rows=%rows cols=%cols wrap='virtual'>%body</textarea>
  </tdspan></tr>
+</macro>
+
+<macro name='fail'>
+ <?php
+ finalize();
+ include('404.php');
+ exit;
+ ?>
 </macro>
 
 <macro name='meta_noindex' defaults="value='*true'">

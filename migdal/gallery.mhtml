@@ -51,7 +51,13 @@
  </if>
 <else>
  <topic_obj name='topic' id='$topic_id'>
+ <ifzero what='$,Id'>
+  <fail>
+ </ifzero>
  <user_obj id='$user_id'>
+ <ifzero what='$,Id'>
+  <fail>
+ </ifzero>
  <pagetitle title#='Галерея - $topic.Name - $,FullName'>
  <topictitle title#='$topic.Name --- $,FullName'>
 </if>

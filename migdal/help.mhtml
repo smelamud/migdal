@@ -10,6 +10,9 @@
 << /Traps >>
 
 <posting_obj id='$artid' grp='*GRP_REVIEWS' fields='*SELECT_ALLPOSTING'>
+<ifzero what='$,Id'>
+ <fail>
+</ifzero>
 <log event=review text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 <topictitle title='$,Subject'>

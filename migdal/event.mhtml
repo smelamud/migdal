@@ -11,6 +11,9 @@
 <grps>
 
 <topic_obj id='$topic_id'>
+<ifzero what='$,Id'>
+ <fail>
+</ifzero>
 <if what='$/$topic_id,2/==$`kaitana`'>
  <reload href#='kaitana.php?topic_id=$topic_id'>
 </if>
