@@ -22,7 +22,7 @@
  </div>
  <vote_frame align=right id='$cover.Id' color='$$style_cframe_back'
              image='$$style_cframe_back_pic'>
- <table width=150 class=bottom><tr>
+ <div class='posting'><table width=150 class='bottom'><tr>
   <editor>
    <td>
     <a href="postingedit.php?editid=$cover.Id&root=$`migdal-times`&topic_id=$`migdal-times`&grp=$cover.Grp&redirid=$_"
@@ -32,8 +32,21 @@
   <community>
    <td align=right><discusslink posting='$cover'></td>
   </community>
- </tr></table>
+ </tr></table></div>
 </ifnzero>
+</element>
+
+<element name='times_issue' params='issue,month'>
+<if what='$issue>0'>
+ <table width=120>
+  <tr><td class='issue'>
+   No.$issue
+  </td></tr>
+  <tr><td class='month'>
+   $month
+  </td></tr>
+ </table>
+</if>
 </element>
 
 <element name='batcher' params='times,issue'>
@@ -138,7 +151,7 @@
    </td></tr></table>
    <p>
    <table width=100% cellspacing=5 cellpadding=0><tr valign=top>
-    <td width=150 class=posting>
+    <td width=150>
      <cover times='$times' cover='$cover'>
      <p>
      <times_info issue='$issue'>

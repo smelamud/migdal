@@ -139,9 +139,6 @@
                  shorten='*false'">
 <decel name='taglit_postings' file='parts/taglit-postings.php'
        params='user_id'>
-<decel name='times_issue' file='parts/times-issue.php'
-       params='issue,month,separate,align'
-       defaults="separate='*false' align=''">
 <decel name='tip' file='parts/tip.php'>
 <decel name='tip_posting' file='parts/tip-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'

@@ -4,18 +4,20 @@
 
 FLAVOURS = default
 STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
-	sheet-info.mcss sheet-menu.mcss sheet-bottom.mcss sheet-login.mcss \
-	sheet-return.mcss sheet-batcher.mcss sheet-posting.mcss \
-	sheet-forum.mcss sheet-topics.mcss sheet-catalog.mcss \
-	sheet-picmain.mcss sheet-picture.mcss sheet-form.mcss \
-	sheet-userinfo.mcss
+	sheet-frames.mcss sheet-info.mcss sheet-menu.mcss sheet-bottom.mcss \
+	sheet-login.mcss sheet-return.mcss sheet-batcher.mcss \
+	sheet-posting.mcss sheet-forum.mcss sheet-topics.mcss \
+	sheet-catalog.mcss sheet-picmain.mcss sheet-picture.mcss \
+	sheet-form.mcss sheet-userinfo.mcss
 ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-article.mcss
 COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
 CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-chat.mcss
 TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
+TIMESNFO_PARTS = colors.mcss fonts.mcss palette.mcss sheet-timesnfo.mcss
 VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-votes.mcss
 
-all: style.stamp article.stamp complain.stamp chat.stamp times.stamp votes.stamp
+all: style.stamp article.stamp complain.stamp chat.stamp times.stamp \
+	timesnfo.stamp votes.stamp
 
 style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
@@ -60,6 +62,15 @@ times-%.css: times.mcss $(TIMES_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
 times.stamp: $(patsubst %,times-%.css,$(FLAVOURS)) $(patsubst %,times-%.php,$(FLAVOURS))
+	touch $@
+
+timesnfo-%.php: timesnfo.mcss $(TIMESNFO_PARTS) ../../cssparser
+	../../cssparser -p -s $* $< > $@
+
+timesnfo-%.css: timesnfo.mcss $(TIMESNFO_PARTS) ../../cssparser
+	../../cssparser -s $* $< > $@
+
+timesnfo.stamp: $(patsubst %,timesnfo-%.css,$(FLAVOURS)) $(patsubst %,timesnfo-%.php,$(FLAVOURS))
 	touch $@
 
 votes-%.php: votes.mcss $(VOTES_PARTS) ../../cssparser

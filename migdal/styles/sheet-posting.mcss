@@ -13,16 +13,6 @@
 	text-align: justify;
 }
 
-.posting .pic IMG {
-	border: 1px solid %posting_image_border;
-}
-
-.posting .pic TD {
-	text-align: center;
-	font-style: italic;
-	font-size: 8pt;
-}
-
 .posting .subject A.topic {
 	color: %posting_topic;
 	font: bold 10pt %times;

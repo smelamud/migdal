@@ -1,0 +1,16 @@
+! @(#) $Id$
+
+.timesnfo {
+	padding: .5em;
+}
+
+.timesnfo A {
+	font: bold 24pt %times;
+	color: %timesnfo;
+	text-decoration: none;
+}
+
+.timesnfo A:hover {
+	color: %timesnfo_hover;
+	text-decoration: underline;
+}
