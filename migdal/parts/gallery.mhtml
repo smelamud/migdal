@@ -1,0 +1,93 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/parts/postings.mhtml 1.16 >>
+
+<element name='batcher_gallery' params='rows,cols,list,topic,grp'>
+<grpdata>
+<grpitemtitle>
+<table width=100% class='batcher'><tr>
+ <td align=left><table><tr valign=bottom><td>
+  <logged>
+   <if what='$g.Valid'>
+    <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
+       class='add'>Добавить $grpitemtitle</a>
+   <else>
+    <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
+       class='add'>Добавить новость</a>
+    </td><td width=10></td><td>
+    <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
+       class='add'>Добавить статью</a>
+   </if>
+  </logged>
+ </td></tr></table></td>
+ <td align=right><table><tr valign=center>
+  <form method=get action='$~'>
+   <hiddenget remove='prp pcp'>
+   <array vals='строку строки строк'>
+   <plural name='rname' value='$rows'>
+   <array vals='картинке картинки картинок'>
+   <plural name='cname' value='$cols'>
+   <td><input type=submit value='Показывать'></td>
+   <td>
+    <select_portion name='prp' value='$rows' vals='1 2 3 4 5 6 7 8 9 10'>
+   </td>
+   <td>$rname&nbsp;по</td>
+   <td>
+    <select_portion name='pcp' value='$cols' vals='1 2 3 4 5 6 7 8 9 10'>
+   </td>
+   <td>$cname&nbsp;из&nbsp;$list.Size</td>
+  </form>
+  <if what='$list.Size>$list.Limit'>
+   <form method=post action='actions/goto.php'>
+    <hidden name='redir' value='$-'>
+    <hidden name='size' value='$list.Size'>
+    <td align=right width=32>
+     <ifnzero what='$list.Offset'>
+      <a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
+       <img src='pics/left.gif' border=0></a>
+     </ifzero>
+    </td>
+    <td align=right>
+     <edit name='value' value='$list.BeginValue' size=2 maxlength=5>
+    </td>
+    <td align=center>-</td>
+    <td align=right>
+     $list.EndValue
+    </td>
+    <td align=left width=32>
+     <if what='$list.EndValue<$list.Size'>
+      <a href="$[offset='$list.NextOffset']" title='Следующие'>
+       <img src='pics/right.gif' border=0></a>
+     </if>
+    </td>
+   </form>
+  </if>
+ </tr></table></td>
+</tr></table>
+</element>
+
+<element name='Gallery'>
+<iterate_picturelist grp='$grp' topic='$topic' rows='$rows' cols='$cols'
+                     offset='$offset' sort='*SORT_PSENT'>
+<if what='$$userId>0 || $;Count!=0'>
+ <batcher_gallery rows='$rows' cols='$cols' list='$;' topic='$topic'
+                  grp='$grp'>
+ <table width=100%>
+  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+  <tr valign=top>
+   <for>
+    <td><picture picture='$.' grp='$grp' topic='$topic'></td>
+    <if what='$;isEol'>
+     </tr><tr valign=top>
+    </if>
+   </for>
+  </tr>
+ </table>
+ <ifnzero what='$;Count'>
+  <batcher_gallery rows='$rows' cols='$cols' list='$;' topic='$topic'
+                   grp='$grp'>
+ </ifnzero>
+<else>
+ &nbsp;
+</if>
+</element>

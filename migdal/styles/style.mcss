@@ -90,6 +90,23 @@ catalog_subject_hover=blue
 :default details_image=pics/info.gif
 :contrast details_image=pics/info.gif
 :test details_image=pics/info-test.gif
+picture_border=%nd
+:default picture_back=%nll
+:contrast picture_back=white
+:test picture_back=%nll
+picture_top_back=%nd
+:default picture_whole_back=%nll
+:contrast picture_whole_back=white
+:test picture_whole_back=%nll
+picture_sent=white
+picture_name=yellow
+picture_rebe_name=%r
+picture_discuss=black
+picture_discuss_hover=blue
+picture_modify=black
+picture_modify_hover=blue
+picture_bottom_back=%nd
+picture_bottom=white
 
 ! Global
 
@@ -576,6 +593,117 @@ BODY {
 
 .catalog .email A:hover {
 	text-decoration: underline;
+}
+
+! Picture
+
+.picture {
+	border: 5px solid %picture_border;
+	background-color: %picture_back;
+	border-spacing: 0;
+	padding: 0;
+	border-collapse: collapse;
+	width: 150;
+}
+
+.picture .top {
+	background-color: %picture_top_back;
+}
+
+.picture .top .sent {
+	color: %picture_sent;
+	font-weight: bold;
+}
+
+.picture .top .name {
+	color: %picture_name;
+}
+
+.rebe .picture .top .name {
+	color: %picture_rebe_name;
+	font-weight: bold;
+}
+
+.picture .top .name A {
+	color: %picture_name;
+	text-decoration: none;
+}
+
+.rebe .picture .top .name A {
+	color: %picture_rebe_name;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.rebe .picture .top A:hover {
+	text-decoration: underline;
+}
+
+.picture .top A:hover {
+	text-decoration: underline;
+}
+
+.picture .topic {
+	text-align: center;
+}
+
+.picture .topic A {
+	font-style: italic;
+	text-decoration: none;
+}
+
+.picture .topic A:hover {
+	text-decoration: underline;
+}
+
+.picture .image {
+	height: 100;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.picture .body {
+	padding: 0.25em;
+	vertical-align: middle;
+}
+
+.picture .discuss {
+	text-align: right;
+}
+
+.picture .discuss A {
+	color: %picture_discuss;
+	font-size: 8pt;
+	text-decoration: none;
+}
+
+.picture .discuss A:hover {
+	color: %picture_discuss_hover;
+	text-decoration: underline;
+}
+
+.picture .modify {
+	padding-bottom: 1ex;
+	padding-top: 0;
+	text-align: center;
+}
+
+.picture .modify A {
+	color: %picture_modify;
+	font-size: 8pt;
+	text-decoration: none;
+}
+
+.picture .modify A:hover {
+	color: %picture_modify_hover;
+	text-decoration: underline;
+}
+
+.picture .bottom {
+	background-color: %picture_bottom_back;
+	color: %picture_bottom;
+	font-weight: bold;
+	text-align: center;
 }
 
 ! Chat

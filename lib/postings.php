@@ -227,7 +227,9 @@ $this->LimitSelectIterator(
 	       messages.disabled as disabled,users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
 	       images.has_large as has_large_image,images.title as title,
-	       topics.name as topic_name,topictexts.body as topic_description,
+	       length(images.large) as image_size,images.large_x as image_x,
+	       images.large_y as image_y,topics.name as topic_name,
+	       topictexts.body as topic_description,
 	       login,gender,email,hide_email,rebe,
 	       count(forummesgs.id) as answer_count,
 	       max(forummesgs.sent) as last_answer,
@@ -274,6 +276,27 @@ $this->LimitSelectIterator(
 function create($row)
 {
 return newPosting($row);
+}
+
+}
+
+class PictureListIterator
+      extends PostingListIterator
+{
+
+var $cols;
+
+function PictureListIterator($grp,$topic=-1,$recursive=false,$rows=4,$cols=5,
+                             $offset=0,$personal=0,$sort=SORT_SENT)
+{
+$this->cols=$cols;
+$this->PostingListIterator($grp,$topic,$recursive,$rows*$cols,$offset,
+                           $personal,$sort);
+}
+
+function isEol()
+{
+return ($this->getPosition() % $this->cols)==$this->cols-1;
 }
 
 }

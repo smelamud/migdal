@@ -27,10 +27,16 @@
        defaults="topic=-1 limit=10 offset=0 title=''">
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
+<decel name='gallery' file='parts/gallery.php'
+       params='grp,topic,rows,cols,offset,title'
+       defaults="topic=-1 rows=4 cols=5 offset=0 title=''">
 <decel name='login' file='parts/login.php' params='flags,err'>
 <decel name='menu' file='parts/menu.php' params='ident'>
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
+<decel name='picture' file='parts/picture.php'
+       params='picture,grp,topic,discuss,complain'
+       defaults="topic=-1 discuss='*true' complain='*true'">
 <decel name='posting' file='parts/posting.php'
        params='posting,grp,topic,discuss,complain'
        defaults="topic=-1 discuss='*true' complain='*true'">

@@ -14,6 +14,9 @@ var $id;
 var $subject;
 var $stotext;
 var $title;
+var $image_size;
+var $image_x;
+var $image_y;
 var $hidden;
 var $disabled;
 var $sent;
@@ -225,6 +228,26 @@ return $this->stotext->hasLargeImage();
 function getTitle()
 {
 return $this->title;
+}
+
+function getImageSize()
+{
+return $this->image_size;
+}
+
+function getImageSizeKB()
+{
+return (int)($this->image_size/1024);
+}
+
+function getImageX()
+{
+return $this->image_x;
+}
+
+function getImageY()
+{
+return $this->image_y;
 }
 
 function getHTMLTitle()

@@ -1,0 +1,25 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/postings.mhtml 1.8 >>
+
+<int name='topic_id'>
+<int name='offset'>
+<grp ignore='$ignoregrp'>
+<grptitle>
+<grpident>
+<grppic>
+<html>
+<head>
+ <title>Мигдаль - $grptitle</title>
+</head>
+<body>
+ <top ident='$grpident' image='$grppic'>
+ <topic_obj id='$topic_id'>
+
+ <table width=100% cellspacing=0 cellpadding=0><tr valign=top>
+  <td width=25%><topics g='$g' topic_id='$topic_id' title='Разделы'></td>
+  <td><gallery grp='$grp' topic='$topic_id' rows='$userPictureRowPortion'
+               cols='$userPictureColumnPortion' offset='$offset'
+	       title='$grptitle'></td>
+ </tr></table>
+</body>
+</html>

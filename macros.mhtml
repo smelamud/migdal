@@ -121,6 +121,14 @@
  <iterate name='%name' class='ParagraphIterator' arg1='%format' arg2='%body'>
 </macro>
 
+<macro name='iterate_picturelist'
+       defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT'">
+ <require name='lib/postings.php'>
+ <iterate name='%name' class='PictureListIterator'
+          arg1='%grp' arg2='%topic' arg3='%recursive' arg4='%rows' arg5='%cols'
+	  arg6='%offset' arg7='%personal' arg8='%sort'>
+</macro>
+
 <macro name='iterate_posting_paragraphs'>
  <require name='lib/postings.php'>
  <iterate name='%name' class='PostingParagraphIterator' arg1='%posting'>

@@ -16,21 +16,27 @@ $userSetNames=array('MsgPortion',
 	            'ChatPortion',
 	            'ChatRefresh',
 		    'ForumCatalogPortion',
-		    'Style');
-$userSetDefaults=array('MsgPortion'          => 10,
-                       'ForumPortion'        => 10,
-                       'ComplainPortion'     => 20,
-	               'ChatPortion'         => 20,
-	               'ChatRefresh'         => 10,
-		       'ForumCatalogPortion' => 20,
-		       'Style'               => 1);
-$userSetParams=array('MsgPortion'          => 'mp',
-                     'ForumPortion'        => 'fp',
-		     'ComplainPortion'     => 'cp',
-		     'ChatPortion'         => 'chp',
-		     'ChatRefresh'         => 'chr',
-		     'ForumCatalogPortion' => 'fcp',
-		     'Style'               => 'st');
+		    'Style',
+		    'PictureRowPortion',
+		    'PictureColumnPortion');
+$userSetDefaults=array('MsgPortion'           => 10,
+                       'ForumPortion'         => 10,
+                       'ComplainPortion'      => 20,
+	               'ChatPortion'          => 20,
+	               'ChatRefresh'          => 10,
+		       'ForumCatalogPortion'  => 20,
+		       'Style'                => 1,
+		       'PictureRowPortion'    => 4,
+		       'PictureColumnPortion' => 5);
+$userSetParams=array('MsgPortion'           => 'mp',
+                     'ForumPortion'         => 'fp',
+		     'ComplainPortion'      => 'cp',
+		     'ChatPortion'          => 'chp',
+		     'ChatRefresh'          => 'chr',
+		     'ForumCatalogPortion'  => 'fcp',
+		     'Style'                => 'st',
+		     'PictureRowPortion'    => 'prp',
+		     'PictureColumnPortion' => 'pcp');
 
 function getProperName($name)
 {

@@ -1,0 +1,53 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/parts/posting.mhtml 1.5 >>
+
+<grps>
+<element name='Picture'>
+<if what='$picture.isRebe'><span class='rebe'></if>
+ <table class='picture'>
+  <tr class='top'>
+   <td align=right><senderlink message='$picture'></td>
+  </tr>
+  <if what='$topic<0'>
+   <tr><td class='topic'>
+     <a href='postings.php?redir=$_&grp=$grp&topic_id=$picture.TopicId'
+	class='topic' title='$picture.TopicDescription'>
+      $picture.TopicName
+     </a>
+   </td></tr>
+  </if>
+  <ifnzero what='$picture.ImageSet'>
+   <tr><td class='image'>
+    <image_linked_tag id='$picture.ImageId' enlarge='$picture.hasLargeImage'>
+   </td></tr>
+  </ifnzero>
+  <logged>
+   <tr><td class='modify'>
+    <isedit name='picture'>
+     <a href="postingedit.php?editid=$picture.Id&grp=$picture.Grp&redir=$_"
+      >Изменить</a>
+    <else>
+     <if what='$complain'>
+      <a href="complainedit.php?ident=posting&link=$picture.Id&redir=$_"
+       >Жалоба</a>
+     </if>
+    </isedit>
+   </td></tr>
+  </logged>
+  <tr><td class='body'>
+   $picture.HTMLBody
+  </td></tr>
+  <if what='$discuss'>
+   <tr><td class='discuss'>
+    <a href='forum.php?redir=$_&msgid=$picture.Id'
+     >Обсудить ($picture.AnswerCount)</a>
+   </td></tr>
+  </if>
+  <ifnzero what='$picture.ImageSet'>
+   <tr><td class='bottom'>
+    ${picture.ImageX}x${picture.ImageY}, ${picture.ImageSizeKB}KB
+   </td></tr>
+  </ifnzero>
+ </table>
+<if what='$picture.isRebe'></span></if>
+</element>
