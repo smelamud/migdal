@@ -51,6 +51,12 @@ setlocale('LC_CTYPE','ru_RU.KOI8-R');
 return strtoupper($s);
 }
 
+function unhtmlentities($s)
+{
+return strtr($s,
+             array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES)));
+}
+
 function getPlural($n,$forms)
 {
 $a=$n%10;

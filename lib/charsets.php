@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/utils.php');
+
 function isKOI($s)
 {
 $c=0;
@@ -72,10 +74,12 @@ $hebrewCodes=array(
 		   '"' => '05F4'
                   );
 		  
-function convertHebrew($s)
+function convertHebrew($s,$htmlEntities=true)
 {
 global $hebrewCodes;
 
+if($htmlEntities)
+  $s=unhtmlentities($s);
 $c='';
 for($i=0;$i<strlen($s);$i++)
    $c.='&#x'.$hebrewCodes[$s[$i]].';';
