@@ -50,4 +50,8 @@ define('EC_STORE_SQL',64);
 define('EC_SUBJECT_ABSENT',65);
 define('EC_BODY_ABSENT',66);
 define('EC_NO_TYPE',67);
+define('EC_LOGIN_ASSIGN',68);
+define('EC_NO_ASSIGN',69);
+define('EC_NO_COMPLAIN',610);
+define('EC_SQL_ASSIGN',611);
 ?>

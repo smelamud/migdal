@@ -24,11 +24,12 @@
  <p>
  <table>
   <tr valign=top>
-   <th>Прислано</th><th>Автор</th><th>Заголовок</th><th>Закрыто</th>
-   <th>Ответы</th>
+   <th>No.</th><th>Прислано</th><th>Автор</th><th>Заголовок</th>
+   <th>Закрыто</th><th>Ответы</th>
   </tr>
  <for name='complain'>
   <tr>
+   <td align=center>$.Id</td>
    <td>$.SentView</td>
    <td><rebe><senderlink message='$.'></rebe></td>
    <td><rebe>

@@ -9,9 +9,34 @@
 </macro>
 
 <element name='Complain'>
-<table width=100%>
+<table width=100% class='complain'>
 <tr><td>
  <table width=100%>
+  <error id='*EC_NO_ASSIGN' span=2
+         text='Вы не имеете права направлять жалобы на рассмотрение'>
+  <error id='*EC_NO_COMPLAIN' text='Такой жалобы не существует' span=2>
+  <error id='*EC_LOGIN_ASSIGN' text='Такой пользователь не зарегистрирован'
+         span=2>
+  <error id='*EC_SQL_ASSIGN' text='Ошибка SQL при обновлении записи'
+         color=magenta span=2>
+  <tr>
+   <td>
+    <judge>
+     <form method=post action='actions/complainassign.php'>
+     <input type=hidden name='redir' value='$-'>
+     <input type=hidden name='id' value='$complain.Id'>
+      <table>
+       <tr>
+	<td><edit name='login' size=15 maxlength=30></td>
+	<td><input type=submit value='Поручить'></td>
+       </tr>
+      </table>
+     </form>
+    <else>
+     &nbsp;
+    </judge>
+   </td>
+  </tr>
   <tr>
    <td>$complain.SentView</td>
    <td align=right><b>Закрыто: </b>$complain.ClosedView</td>

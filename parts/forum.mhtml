@@ -10,7 +10,7 @@
 
 <element name='Forum'>
 <grps>
-<table width=100%>
+<table width=100% class='forum'>
 <tr>
  <td width=25%>
  <rebe><senderlink message='$forum'></rebe><br>

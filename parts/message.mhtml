@@ -9,7 +9,7 @@
 </macro>
 
 <element name='Message'>
-<table width=100%>
+<table width=100% class='message'>
 <tr><td>&nbsp;</td></tr>
 <tr>
  <ifzero what='$topic'>

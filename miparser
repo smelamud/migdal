@@ -564,6 +564,13 @@ EOT
 ::body($self->getToken());
 }
 
+sub elHead
+{
+my ($self)=@_;
+
+::body("<head>\n<link rel='stylesheet' href='/style.css'>\n");
+}
+
 sub elRequire
 {
 my ($self)=@_;
