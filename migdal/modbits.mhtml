@@ -5,7 +5,7 @@
 
 <element name='check' params='name,value,title,letter'>
 <tr>
- <td align=center><b>$letter</b></td>
+ <td align=center class='nframe'><b>$letter</b></td>
  <td align=left>
   <checkbox name='$name' value='$value' title='$title'>
  </td>

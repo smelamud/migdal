@@ -55,8 +55,12 @@ else
  <td align=right>
   <kernel>
   <snapshot>
-  Вебмастер живет по адресу
-  <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+  <moderator>
+   <a href='moderator.php'>Страница модератора</a>
+  <else>
+   Вебмастер живет по адресу
+   <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+  </moderator>
  </td>
 </tr>
 </element>

@@ -26,16 +26,6 @@
 </span>
 </element>
 
-<element name='admin'>
-<moderator>
- <table class='topics'><tr><td>
-   <a href='topicorg.php' class='edit'>Организовать</a>
-   &nbsp;
-   <a href='postingorg.php' class='edit'>Сообщения</a>
- </td></tr></table>
-</moderator>
-</element>
-
 <element name='navigator'>
 <div style='padding-left: 10px; padding-bottom: 10px'>
  <iterate_posting_alphabet topic_id='$`links`' recursive='*true'
@@ -73,7 +63,6 @@
  <table width=100% cellpadding=5>
   <tr valign=top><td class='nframe'>
    <intro>
-   <admin>
    <navigator>
   </td></tr>
   <tr><td class='cframe'>
