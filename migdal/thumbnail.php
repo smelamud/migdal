@@ -25,7 +25,7 @@ for($x=0;$x<$gx;$x++)
       $b=$colors['blue'];
       if($r==255 && $g==0 && $b==0)
         continue;
-      $color=imageColorAllocate($handle,$r,$g,$b);
+      $color=imageColorClosest($handle,$r,$g,$b);
       imageSetPixel($handle,$hx-$gx+$x,$hy-$gy+$y,$color);
       }
 header("Content-Type: $thumbnailType");
