@@ -3,7 +3,7 @@
 <element name='batcher'>
 <div class='batcher'>
  <logged>
-  <a href='postingedit.php?topic_id=-1&root=general&grp=*GRP_GALLERY&redirid=$_'
+  <a href='postingedit.php?topic_id=-1&root=$`general`&grp=*GRP_GALLERY&redirid=$_'
      class='add'>Добавить картинку</a>
  <else>
   <em>Хотите добавлять картинки?</em>
@@ -15,7 +15,7 @@
 </element>
 
 <element name='gallery_main'>
-<iterate_topiclist up='general' grp='*GRP_GALLERY' withpostings='*true'
+<iterate_topiclist up='$`general`' grp='*GRP_GALLERY' withpostings='*true'
                    subdomain='$subdomain'>
 <iterate_rows cols='$cols'>
 <batcher>
