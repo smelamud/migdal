@@ -2,7 +2,7 @@
 
 <element name='day' params='n'>
 <time>
-<assign name='current_kaitana' value!='$,@z-15'>
+<assign name='current_kaitana' value!='$,@z-165'>
 <assign name='link' value='*false'>
 <if what='$n==6 || $n==13'>
  <td class=sh>
@@ -80,7 +80,7 @@
 
 <element name='kaitana_announce'>
 <kaitana_style>
-<div class='aframe ninept' style='padding: 5'>
+<div class='aframe ninept' style='padding: 3'>
  <posting_index name='index' index=1 grp='*GRP_KAITANA_GALLERY'
                 topic_id='$`kaitana-s-5763`'>
  <posting_random grp='*GRP_KAITANA_GALLERY' topic_id='$`kaitana-s-5763`'

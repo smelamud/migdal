@@ -63,7 +63,11 @@
    </td>
    <td class='cframe'>
     <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
-     <td>
+     <td style='padding-top: 0'>
+      <if what='$topic_id<=0'>
+       <kaitana_announce>
+       <p>
+      </if>
       <subtitle>
       <outer><div class='nframe' style='padding: 5'><inner>
        <seealso_links topic_id='$topic_id' topic_grp='*GRP_TAPE'
