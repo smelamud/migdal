@@ -63,6 +63,8 @@
      <full>
       <edit_line title='Приоритет' name='priority' value='$message.Priority'
 		 size=4 maxlength=3>
+     <else>
+      <hidden name='priority' value='$message.Priority'>
      </full>
      <if what='$message.hasTopic'>
       <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
@@ -71,17 +73,15 @@
      <else>
       <hidden name='topic_id' value='$message.TopicId'>
      </if>
-     <full>
-      <if what='$message.hasIdent'>
-       <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
-       <error id='*EP_IDENT_UNIQUE' span=2
-	      text='Так уже обозначено другое сообщение'>
-       <edit_line title='Обозначение' name='ident' value='$,Ident'
-		  size=15 maxlength=15 mandatory='$message.mandatoryIdent'>
-      <else>
-       <hidden name='ident' value='$,Ident'>
-      </if>
-     </full>
+     <if what='$full && $message.hasIdent'>
+      <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
+      <error id='*EP_IDENT_UNIQUE' span=2
+	     text='Так уже обозначено другое сообщение'>
+      <edit_line title='Обозначение' name='ident' value='$,Ident'
+		 size=15 maxlength=15 mandatory='$message.mandatoryIdent'>
+     <else>
+      <hidden name='ident' value='$,Ident'>
+     </if>
      <if what='$message.hasIndex1'>
       <error id='*EP_INDEX1_ABSENT' text='Номер не указан' span=2>
       <edit_line title='Номер' value='$message.Index1' name='index1'
@@ -223,6 +223,8 @@
     <full>
      <checkbox_line name='disabled' value='$message.isDisabled'
 		    title='Запретить показ'>
+    <else>
+     <hidden name='disabled' value='$message.isDisabled'>
     </full>
     <if what='$editid'>
      <formbuttons title='Изменить'>
