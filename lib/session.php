@@ -11,13 +11,13 @@ $userRightNames=array('login','hidden','admin_users','admin_topics',
 $userSetNames=array('mp'  => 'msg_portion',
                     'fp'  => 'forum_portion',
                     'cp'  => 'complain_portion',
-	     'chp' => 'chat_portion',
-	     'chr' => 'chat_refresh');
+	            'chp' => 'chat_portion',
+	            'chr' => 'chat_refresh');
 $userSetDefaults=array('mp'  => 10,
                        'fp'  => 10,
-	        'cp'  => 20,
-	        'chp' => 20,
-	        'chr' => 10);
+	               'cp'  => 20,
+	               'chp' => 20,
+	               'chr' => 10);
 
 function getProperName($name)
 {
@@ -76,8 +76,8 @@ if($userId>0)
   {
   $result=mysql_query('select '.join(',',$userSetNames).
                       " from users
-	         where id=$userId")
-	or die('Ошибка SQL при выборке установок пользователя');
+	                where id=$userId")
+	       or die('Ошибка SQL при выборке установок пользователя');
   $row=mysql_fetch_assoc($result);
   }
 else
@@ -115,7 +115,7 @@ if(isset($HTTP_GET_VARS['redir']) && $HTTP_GET_VARS['redir']!='')
   $redirid=tmpTextSave($HTTP_GET_VARS['redir']);
   header('Location: '.remakeURI($REQUEST_URI,
                                 array('redir'),
-		  array('redirid' => $redirid)));
+		                array('redirid' => $redirid)));
   exit(0);
   }
 if($redirid!=0)
