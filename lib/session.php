@@ -87,6 +87,7 @@ else
     list($userId,$realUserId)=getUserIdsBySessionId($sessionid);
     if($userId<=0 && $realUserId<=0)
       {
+      $userId=0;
       $realUserId=getGuestId();
       updateSession($sessionid,0,$realUserId);
       }
