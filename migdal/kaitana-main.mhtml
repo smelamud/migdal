@@ -20,6 +20,12 @@
   </zone></td>
   <td class='cframe'>
    <subtitle>
+   <p align=justify class='ninept'>
+    В этом разделе вы можете посмотреть фотографии и прочесть ежедневные
+    репортажи с дневных детских лагерей (&lt;&lt;кайтанот&gt;&gt; или просто
+    &lt;&lt;площадок&gt;&gt;), которые два раза в год проводит центр
+    <a href='migdal.php'>&lt;&lt;Мигдаль&gt;&gt;</a>.
+   </p>
    <iterate_topiclist grp='*GRP_KAITANA_GALLERY' up=$`kaitana`>
    <table class='posting'>
     <for>
