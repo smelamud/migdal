@@ -4,9 +4,7 @@
 <pagetitle title='Информация о пользователе'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='users'>
  <userinfo id='$id'>

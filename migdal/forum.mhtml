@@ -7,9 +7,7 @@
 <pagetitle title='$,SubjectDesc'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='forums'>
  <table width=100%><tr valign=top>

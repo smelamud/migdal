@@ -5,9 +5,7 @@
 <pagetitle title='Ответ на жалобу'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='complains'>
  <complain_action_obj id='$actid'>

@@ -5,9 +5,7 @@
 <pagetitle title='&lt;шаблон&gt;'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='template'>
  <bottom>

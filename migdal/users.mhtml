@@ -3,9 +3,7 @@
 <pagetitle title='Пользователи'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='users'>
  <zone>

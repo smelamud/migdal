@@ -13,9 +13,7 @@
 <pagetitle title='Размещение картинки'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='articles'>
  <posting_obj id='$postid'>

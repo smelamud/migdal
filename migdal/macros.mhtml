@@ -138,8 +138,11 @@
  </tdspan></tr>
 </macro>
 
-<macro name='titletag'>
- <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
+<macro name='preamble'>
+ <stylesheet ident='style'>
+ <head>
+  <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
+ </head>
 </macro>
 
 << Biff >>

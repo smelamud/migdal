@@ -5,9 +5,7 @@
 <pagetitle title='Сообщение в форуме'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='forums'>
  <forum_answer_obj id='$editid' up='$up'>

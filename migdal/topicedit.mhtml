@@ -4,9 +4,7 @@
 
 <int name='editid'>
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='topics'>
  <topic_obj id='$editid' up=0>

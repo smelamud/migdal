@@ -134,9 +134,7 @@
 <pagetitle title='$,Subject'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='articles'>
  <table width=100%><tr valign=top>

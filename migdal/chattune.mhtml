@@ -3,9 +3,7 @@
 <pagetitle title='Настроить чат'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='chattune'>
  <formtable title='Настроика чата'>

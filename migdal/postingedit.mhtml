@@ -9,9 +9,7 @@
 <pagetitle title='$*'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='index'>
  <posting_obj id='$editid' grp='$grp' topic='$topic_id'>

@@ -3,22 +3,21 @@
 <pagetitle title='Чат'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <logged>
- <frameset rows='120,*,45' border=0>
+ <frameset rows='125,*' border=0>
 <else>
- <frameset rows='145,*' border=0>
+ <frameset rows='140,*' border=0>
 </logged>
  <frame src='chattop.php?globalid=$_&$?' noresize>
  <frameset cols='*,120' border=0>
-  <frame name='board' src='chatboard.php?globalid=$_&$?' noresize>
+  <logged>
+   <frame name='board' src='chatconsole.php?globalid=$_&$?' noresize>
+  <else>
+   <frame name='board' src='chatboard.php?globalid=$_&$?' noresize>
+  </logged>
   <frame src='chatusers.php?globalid=$_&$?' noresize>
  </frameset>
- <logged>
-  <frame src='chatbottom.php?globalid=$_&$?' noresize>
- </logged>
  <noframes>
   Ваш браузер не поддерживает фреймы. Увы...
  </noframes>

@@ -4,9 +4,7 @@
 <pagetitle title='Изменение информации о пользователе'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='users'>
  <user_obj name='user' id='$editid'>

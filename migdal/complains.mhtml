@@ -40,9 +40,7 @@
 <pagetitle title='Жалобная книга'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='complains'>
  <iterate_complainlist limit='$$userComplainPortion' offset='$offset'>

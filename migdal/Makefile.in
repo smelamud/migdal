@@ -2,11 +2,11 @@
 
 # @(#) $Id$
 
-OBJECTS = article.php chat.php chatboard.php chatbottom.php chattop.php \
-	  chattune.php chatusers.php complainactionedit.php complainanswer.php \
-	  complainedit.php complainforum.php complains.php forum.php \
-	  forumansweredit.php forumcatalog.php gallery.php index.php \
-	  limedit.php liminsert.php menuedit.php postingedit.php \
+OBJECTS = article.php chat.php chatboard.php chatbottom.php chatconsole.php \
+ 	  chattop.php chattune.php chatusers.php complainactionedit.php \
+	  complainanswer.php complainedit.php complainforum.php complains.php \
+	  forum.php forumansweredit.php forumcatalog.php gallery.php \
+	  index.php limedit.php liminsert.php menuedit.php postingedit.php \
 	  register.php stotext-help-subs.php stotext-help-types.php style.php \
 	  topicedit.php useredit.php userfin.php userinfo.php \
 	  userinfo-panel.php userok.php users.php

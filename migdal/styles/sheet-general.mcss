@@ -5,6 +5,14 @@
 	font-size: 10pt;
 }
 
+.ninept * {
+	font-size: 9pt;
+}
+
+.eightpt * {
+	font-size: 8pt;
+}
+
 .error {
 	color: %error_red;
 }

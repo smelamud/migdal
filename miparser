@@ -698,8 +698,9 @@ my ($self)=@_;
 ::body(<<EOT);
 <?php redirect(); ?>
 <head>
-<link rel='stylesheet' href='/styles/style-<?php echo getStyle(\$userStyle) ?>.css'>
-<?php include('styles/style-'.getStyle(\$userStyle).'.php') ?>
+<?php foreach(\$stylesheetList as \$sheet) { ?>
+<link rel='stylesheet' href='/styles/<?php echo "\$sheet-".getStyle(\$userStyle) ?>.css'>
+<?php include("styles/\$sheet-".getStyle(\$userStyle).'.php'); } ?>
 EOT
 }
 

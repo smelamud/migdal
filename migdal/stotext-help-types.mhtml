@@ -4,9 +4,7 @@
 <pagetitle title='Справка'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='index'>
  <table width=100%><tr valign=top>

@@ -3,9 +3,7 @@
 <pagetitle title='Регистрация пользователя'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='users' flags='no_new'>
  <user_obj name='user' id=0>

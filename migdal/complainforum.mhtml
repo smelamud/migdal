@@ -5,9 +5,7 @@
 <pagetitle title='Обсуждение жалобы'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='complains'>
  <table width=100% class='complain'>

@@ -5,9 +5,7 @@
 <pagetitle title='Ответы на жалобы'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='complains'>
  <complain_type_obj id='$typeid'>

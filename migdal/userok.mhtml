@@ -3,9 +3,7 @@
 <pagetitle title='Подтверждение регистрации'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='users'>
  <formtable title='Подтверждение регистрации'>

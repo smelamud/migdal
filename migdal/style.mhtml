@@ -3,9 +3,7 @@
 <pagetitle title='Настройка вида'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='style'>
  <formtable title='Настройка вида'>

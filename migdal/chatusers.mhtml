@@ -11,10 +11,9 @@
 
 <html>
 <refresh period='$$userChatRefresh' url='$-'>
-<head>
- <script src='/window.js' language='JavaScript'></script>
-</head>
+<preamble>
 <body>
+ <script src='/window.js' language='JavaScript'></script>
  <update_last_chat>
  <iterate_chat_users>
  <table class='chatusers'><tr><td>

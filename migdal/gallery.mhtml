@@ -7,9 +7,7 @@
 <unititle chapter='Галерея' topic_id='$topic_id'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <top ident='gallery'>
 

@@ -3,6 +3,14 @@
 
 require_once('lib/array.php');
 
+function createStylesheetList()
+{
+global $stylesheetList;
+
+if(!isset($stylesheetList))
+  $stylesheetList=array();
+}
+
 function createStyleList()
 {
 global $styleList,$styleNames;
@@ -12,6 +20,15 @@ if(!isset($styleList))
   $styleList=array(1 => 'default');
   $styleNames=array(1 => 'По умолчанию');
   }
+}
+
+function declareStylesheet($ident)
+{
+global $stylesheetList;
+
+createStylesheetList();
+if(!in_array(strtolower($ident),$stylesheetList))
+  $stylesheetList[]=strtolower($ident);
 }
 
 function declareStyle($ident,$name)

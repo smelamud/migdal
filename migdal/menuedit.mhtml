@@ -4,9 +4,7 @@
 <pagetitle title='Редактирование главного меню'>
 
 <html>
-<head>
- <titletag>
-</head>
+<preamble>
 <body>
  <menu_obj id='$menuid'>
  <setup>

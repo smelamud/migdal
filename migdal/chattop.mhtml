@@ -1,8 +1,7 @@
 << @(#) $Id$ >>
 
 <html>
-<head>
-</head>
+<preamble>
 <body>
  <update_last_chat>
  <top ident='chat' target=_top showimages='*false'>
