@@ -48,7 +48,7 @@ if($user->isEditable() && $err==$code)
 <body bgcolor=white>
   <?php
   dbOpen();
-  displayTop('users');
+  displayTop('users',$editid ? '' : 'no_new');
   ?>
   <p>
   <?php
