@@ -52,4 +52,9 @@ function subParams($text,$params)
 {
 return preg_replace('/%(\w+)/e','$params[$1]',$text);
 }
+
+function byIdent($id)
+{
+return is_int($id) ? "id=$id" : "ident='$id'";
+}
 ?>

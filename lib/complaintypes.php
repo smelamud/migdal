@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/dataobject.php');
+require_once('lib/utils.php');
 
 class ComplainType
       extends DataObject
@@ -38,21 +39,11 @@ return $this->display;
 
 }
 
-function getComplainTypeByIdent($ident)
-{
-$result=mysql_query("select id,display
-                     from complain_types
-		     where ident='$ident'")
-	     or die('Ошибка SQL при выборке типа жалобы');
-return new ComplainType(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                                  : array());
-}
-
 function getComplainTypeById($id)
 {
-$result=mysql_query("select id,assign
+$result=mysql_query('select id,assign
                      from complain_types
-		     where id='$id'")
+		     where '.byIdent($id))
 	     or die('Ошибка SQL при выборке типа жалобы');
 return new ComplainType(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                   : array());

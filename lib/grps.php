@@ -4,10 +4,12 @@ define('GRP_FORUMS',1);
 define('GRP_NEWS',2);
 define('GRP_GALLERY',4);
 define('GRP_EVENTS',7);
+define('GRP_ARTICLES',8);
 
 $grpNames=array(GRP_FORUMS   => 'forums',
                 GRP_NEWS     => 'news',
-                GRP_GALLERY  => 'gallery');
+                GRP_GALLERY  => 'gallery',
+		GRP_ARTICLES => 'articles');
 
 function getGrpName($grp)
 {
@@ -64,7 +66,8 @@ return $grp==GRP_ANY ? ''
 
 $grpClassNames=array(GRP_FORUMS   => 'Forum',
                      GRP_NEWS     => 'News',
-                     GRP_GALLERY  => 'Gallery');
+                     GRP_GALLERY  => 'Gallery',
+		     GRP_ARTICLES => 'Article');
 
 function getGrpClassName($grp)
 {

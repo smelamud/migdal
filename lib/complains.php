@@ -226,7 +226,7 @@ if(mysql_num_rows($result)>0)
   return new Complain(mysql_fetch_assoc($result));
 else
   {
-  $type=getComplainTypeByIdent($ident);
+  $type=getComplainTypeById($ident);
   return new Complain(array('type_id' => $type->getId(),
                             'display' => $type->getDisplay(),
 			    'link'    => $link));
@@ -270,7 +270,7 @@ if(mysql_num_rows($result)>0)
   return new Complain(mysql_fetch_assoc($result));
 else
   {
-  $type=getComplainTypeByIdent($ident);
+  $type=getComplainTypeById($ident);
   return new Complain(array('type_id' => $type->getId(),
                             'display' => $type->getDisplay()));
   }

@@ -147,6 +147,18 @@ return true;
 
 }
 
+class Article
+      extends Posting
+{
+
+function Article($row)
+{
+$this->grp=GRP_ARTICLES;
+$this->Posting($row);
+}
+
+}
+
 function newPosting($row)
 {
 $name=getGrpClassName($row['grp']);

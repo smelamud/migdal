@@ -28,6 +28,7 @@
  <checkbox_line name='news' value='$,isNews' title='Тема для новостей'>
  <checkbox_line name='forums' value='$,isForums' title='Тема для форума'>
  <checkbox_line name='gallery' value='$,isGallery' title='Тема для галереи'>
+ <checkbox_line name='gallery' value='$,isArticles' title='Тема для статей'>
  </table>
  <if what='$editid'>
   <input type=submit value='Изменить'>

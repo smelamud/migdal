@@ -16,6 +16,7 @@ var $hidden;
 var $no_news;
 var $no_forums;
 var $no_gallery;
+var $no_articles;
 var $message_count;
 
 function Topic($row)
@@ -42,13 +43,16 @@ return array('name','description','hidden');
 
 function getInverseVars()
 {
-return array('no_news' => 'news','no_forums' => 'forums',
-             'no_gallery' => 'gallery');
+return array('no_news' => 'news',
+             'no_forums' => 'forums',
+             'no_gallery' => 'gallery',
+             'no_articles' => 'articles');
 }
 
 function getWorldVars()
 {
-return array('name','description','hidden','no_news','no_forums','no_gallery');
+return array('name','description','hidden','no_news','no_forums','no_gallery',
+             'no_articles');
 }
 
 function store()
@@ -95,6 +99,11 @@ return $this->no_forums ? 0 : 1;
 function isGallery()
 {
 return $this->no_gallery ? 0 : 1;
+}
+
+function isArticles()
+{
+return $this->no_articles ? 0 : 1;
 }
 
 function getMessageCount()
@@ -173,7 +182,7 @@ global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id,name,description,hidden,no_news,no_forums,
-                            no_gallery
+                            no_gallery,no_articles
 		     from topics
 		     where id=$id and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');

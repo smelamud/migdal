@@ -1,21 +1,25 @@
 <?php
 require_once('lib/grps.php');
 
-$grpTitles=array(GRP_ANY     => 'Все сообщения',
-                 GRP_FORUMS  => 'Форумы',
-                 GRP_NEWS    => 'Новости',
-		 GRP_GALLERY => 'Галерея');
-$grpOneTitles=array(GRP_ANY     => 'Все сообщения',
-                    GRP_FORUMS  => 'Форум',
-                    GRP_NEWS    => 'Новости',
-	   	    GRP_GALLERY => 'Галерея');
-$grpItemTitles=array(GRP_FORUMS  => 'сообщение',
-                     GRP_NEWS    => 'новость',
-		     GRP_GALLERY => 'картинку');
-$grpIdents=array(GRP_ANY     => 'messages',
-                 GRP_FORUMS  => 'forums',
-                 GRP_NEWS    => 'news',
-		 GRP_GALLERY => 'gallery');
+$grpTitles=array(GRP_ANY      => 'Все сообщения',
+                 GRP_FORUMS   => 'Форумы',
+                 GRP_NEWS     => 'Новости',
+		 GRP_GALLERY  => 'Галерея',
+		 GRP_ARTICLES => 'Статьи');
+$grpOneTitles=array(GRP_ANY      => 'Все сообщения',
+                    GRP_FORUMS   => 'Форум',
+                    GRP_NEWS     => 'Новости',
+	   	    GRP_GALLERY  => 'Галерея',
+		    GRP_ARTICLES => 'Статьи');
+$grpItemTitles=array(GRP_FORUMS   => 'сообщение',
+                     GRP_NEWS     => 'новость',
+		     GRP_GALLERY  => 'картинку',
+		     GRP_ARTICLES => 'статью');
+$grpIdents=array(GRP_ANY      => 'messages',
+                 GRP_FORUMS   => 'forums',
+                 GRP_NEWS     => 'news',
+		 GRP_GALLERY  => 'gallery',
+		 GRP_ARTICLES => 'articles');
 
 function getGrpTitle($grp)
 {
