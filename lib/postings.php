@@ -249,9 +249,6 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
 			     $subdomain=-1,$up=-1,$showShadows=true,
 			     $fields=SELECT_ALLPOSTING)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
 $this->topicFilter='';
 $this->addTopicFilter($topic_id,$recursive);
 if($withAnswers)
@@ -283,9 +280,11 @@ $Select="postings.id as id,postings.ident as ident,
 	 messages.author as author,messages.source as source,grp,
 	 messages.sent as sent,topic_id,messages.url as url,
 	 messages.url_domain as url_domain,messages.sender_id as sender_id,
-	 messages.hidden as hidden,messages.disabled as disabled,
-	 users.hidden as sender_hidden,postings.index0 as index0,
-	 postings.index1 as index1,postings.index2 as index2,subdomain,shadow,
+	 messages.group_id as group_id,messages.perms as perms,
+	 if((messages.perms & 0x1100)=0,1,0) as hidden,
+	 messages.disabled as disabled,users.hidden as sender_hidden,
+	 postings.index0 as index0,postings.index1 as index1,
+	 postings.index2 as index2,subdomain,shadow,
 	 $imageFields
 	 $topicFields
 	 login,gender,email,hide_email,rebe,
@@ -305,15 +304,12 @@ $topicTables=($fields & SELECT_TOPICS)!=0 ?
 	      left join stotexts as topictexts
 		   on topictexts.id=topics.stotext_id" :
 	     '';
+$hideAnswers=messagesPermFilter(PERM_READ,'forummesgs');
 $answersTables=($fields & SELECT_ANSWERS)!=0 ?
 	     "left join forums
 		   on messages.id=forums.parent_id
 	      left join messages as forummesgs
-		   on forums.message_id=forummesgs.id and
-		      (forummesgs.hidden<$hide or
-		       forummesgs.sender_id=$userId) and
-		      (forummesgs.disabled<$hide or
-		       forummesgs.sender_id=$userId)" :
+		   on forums.message_id=forummesgs.id and $hideAnswers" :
 	     '';
 
 $From="postings
@@ -327,6 +323,7 @@ $From="postings
 	    on messages.sender_id=users.id
        $answersTables";
 /* Where */
+$hideMessages=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
@@ -340,9 +337,7 @@ $subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
 $childFilter=$up>=0 ? "and messages.up=$up" : '';
 $shadowFilter=!$showShadows ? 'and shadow=0' : '';
 
-$Where="(messages.hidden<$hide or messages.sender_id=$userId) and
-	(messages.disabled<$hide or messages.sender_id=$userId) and
-	personal_id=$personal and $grpFilter @topic@
+$Where="$hideMessages and personal_id=$personal and $grpFilter @topic@
 	$userFilter $index1Filter $sentFilter $subdomainFilter $childFilter
 	$shadowFilter";
 /* Group by */
@@ -389,15 +384,9 @@ $this->LimitSelectIterator(
 	     left join forums
 		  on messages.id=forums.parent_id
 	     left join messages as forummesgs
-	          on forums.message_id=forummesgs.id and
-	             (forummesgs.hidden<$hide or
-		      forummesgs.sender_id=$userId) and
-	             (forummesgs.disabled<$hide or
-		      forummesgs.sender_id=$userId)
-	where (messages.hidden<$hide or messages.sender_id=$userId) and
-	      (messages.disabled<$hide or messages.sender_id=$userId) and
-	      personal_id=$personal and $grpFilter $countAnswerFilter
-	      @topic@ $userFilter $index1Filter $sentFilter
+	          on forums.message_id=forummesgs.id and $hideAnswers
+	where $hideMessages and personal_id=$personal and $grpFilter
+	      $countAnswerFilter @topic@ $userFilter $index1Filter $sentFilter
 	      $subdomainFilter $childFilter $shadowFilter");
 }
 
@@ -464,9 +453,7 @@ class PostingUsersIterator
 
 function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
              : ' and topics.'.subtree('topics',$topic_id,$recursive);
@@ -482,9 +469,7 @@ $this->SelectIterator(
 	          on postings.message_id=messages.id
 	     left join topics
 	          on postings.topic_id=topics.id
-	where (messages.hidden<$hide or messages.sender_id=$userId) and
-	      (messages.disabled<$hide or messages.sender_id=$userId) and
-              $grpFilter $topicFilter
+	where $hide and $grpFilter $topicFilter
 	group by users.id
 	order by surname,jewish_name,name");
 }
@@ -539,9 +524,8 @@ class ArticleCoversIterator
 
 function ArticleCoversIterator($articleGrp,$coverGrp)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hideMessages=messagesPermFilter(PERM_READ,'messages');
+$hideCovers=messagesPermFilter(PERM_READ,'cover_messages');
 $joinGrpFilter=grpFilter($coverGrp,'grp','covers');
 $articleGrpFilter=grpFilter($articleGrp,'grp','postings');
 $coverGrpFilter=grpFilter($coverGrp,'grp','postings');
@@ -558,13 +542,7 @@ $this->SelectIterator(
 	     left join messages as cover_messages
 	          on covers.message_id=cover_messages.id
 	where ($articleGrpFilter or $coverGrpFilter) and
-	      (messages.hidden<$hide or messages.sender_id=$userId) and
-              (messages.disabled<$hide or messages.sender_id=$userId) and
-	      (covers.id is null or
-	       (cover_messages.hidden<$hide or
-	        cover_messages.sender_id=$userId) and
-               (cover_messages.disabled<$hide or
-	        cover_messages.sender_id=$userId))
+	      $hideMessages and (covers.id is null or $hideCovers)
 	order by postings.index1 desc");
 }
 
@@ -583,9 +561,7 @@ function PostingAlphabetIterator($sort=SORT_URL_DOMAIN,$topic_id=-1,
                                  $recursive=false,$grp=GRP_ALL,
 				 $showShadows=false)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'messages');
 $fields=array(SORT_NAME       => 'subject',
 	      SORT_URL_DOMAIN => 'url_domain');
 $field=@$fields[$sort]!='' ? $fields[$sort] : 'url';
@@ -603,9 +579,7 @@ $this->AlphabetIterator(
 	      on postings.message_id=messages.id
 	 left join topics
 	      on topics.id=postings.topic_id
-         where (messages.hidden<$hide or messages.sender_id=$userId) and
-	       (messages.disabled<$hide or messages.sender_id=$userId)
-	       $topicFilter $grpFilter $shadowFilter
+         where $hide $topicFilter $grpFilter $shadowFilter
 	 group by messages.id
 	 $order",true);
 }
@@ -614,9 +588,7 @@ $this->AlphabetIterator(
 
 function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=0,$index1=-1,$up=-1)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
 $filter=$id>=0 ? "postings.id=$id"
@@ -626,29 +598,51 @@ $filter=$id>=0 ? "postings.id=$id"
 $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
                             body,large_filename,large_format,large_body,
 			    large_imageset,lang,subject,author,source,url,
-			    topic_id,personal_id,sender_id,grp,priority,
-			    image_set,index0,index1,index2,subdomain,sent,
-			    hidden,disabled
+			    topic_id,personal_id,sender_id,group_id,grp,
+			    priority,image_set,index0,index1,index2,subdomain,
+			    sent,perms,if((perms & 0x1100)=0,1,0) as hidden,
+			    disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
 	                  left join stotexts
 	                       on stotexts.id=messages.stotext_id
-		     where $filter
-		           and (hidden<$hide or sender_id=$userId)
-			   and (disabled<$hide or sender_id=$userId)")
+		     where $filter and $hide")
 	  or sqlbug('Ошибка SQL при выборке постинга');
-return mysql_num_rows($result)>0
-       ? newPosting(mysql_fetch_assoc($result))
-       : newGrpPosting($grp,array('topic_id' => $topic_id,
-                                  'up'       => $up));
+if(mysql_num_rows($result)>0)
+  return newPosting(mysql_fetch_assoc($result));
+else
+  {
+  global $rootPostingPerms;
+
+  if($up>0)
+    {
+    $msg=getPermsById('messages',$up);
+    $group_id=$msg->getGroupId();
+    $perms=$msg->getPerms();
+    }
+  else if($topic_id>0)
+    {
+    $topic=getPermsById('topics',$topic_id);
+    $group_id=$topic->getGroupId();
+    $perms=$rootPostingPerms;
+    }
+  else
+    {
+    $group_id=0;
+    $perms=$rootPostingPerms;
+    }
+  return newGrpPosting($grp,array('topic_id' => $topic_id,
+                                  'up'       => $up,
+				  'group_id' => $group_id,
+				  'perms'    => $perms));
+  }
 }
 
 function getFullPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hideForums=messagesPermFilter(PERM_READ,'forummesgs');
+$hideMessages=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
 $filter=$id>=0 ? "postings.id=$id"
@@ -667,7 +661,9 @@ $result=mysql_query(
 		postings.index0 as index0,postings.index1 as index1,
 		postings.index2 as index2,subdomain,shadow,
 		messages.sent as sent,topic_id,messages.sender_id as sender_id,
-		messages.hidden as hidden,messages.disabled as disabled,
+		messages.group_id as group_id,messages.perms as perms,
+		if((messages.perms & 0x1100)=0,1,0) as hidden,
+		messages.disabled as disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,length(images.large) as image_size,
 		images.large_x as image_x,images.large_y as image_y,
@@ -696,14 +692,8 @@ $result=mysql_query(
 	      left join forums
 	 	   on messages.id=forums.parent_id
 	      left join messages as forummesgs
-		   on forums.message_id=forummesgs.id and
-		      (forummesgs.hidden<$hide or
-		       forummesgs.sender_id=$userId) and
-		      (forummesgs.disabled<$hide or
-		       forummesgs.sender_id=$userId)
-	 where (messages.hidden<$hide or messages.sender_id=$userId) and
-	       (messages.disabled<$hide or messages.sender_id=$userId) and
-	       $filter
+		   on forums.message_id=forummesgs.id and $hideForums
+	 where $hideMessages and $filter
          group by messages.id")
  or sqlbug('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
@@ -721,9 +711,7 @@ mysql_query("update postings
 
 function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ);
 $grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? " and topic_id=$topic_id " : '';
 $userFilter=$user_id<=0 ? '' : " and messages.sender_id=$user_id ";
@@ -733,9 +721,7 @@ $result=mysql_query(
          from postings
 	      left join messages
 	           on postings.message_id=messages.id
-	 where (hidden<$hide or sender_id=$userId) and
-	       (disabled<$hide or sender_id=$userId) and
-               priority<=0 and $grpFilter $topicFilter $userFilter
+	 where $hide and priority<=0 and $grpFilter $topicFilter $userFilter
 	       $index1Filter
 	 group by priority
 	 order by priority")
@@ -766,9 +752,7 @@ $result=mysql_query(
          from postings
 	      left join messages
 	           on postings.message_id=messages.id
-	 where (hidden<$hide or sender_id=$userId) and
-	       (disabled<$hide or sender_id=$userId) and
-               priority<=0 and $grpFilter $topicFilter $userFilter
+	 where $hide and priority<=0 and $grpFilter $topicFilter $userFilter
 	       $index1Filter
 	 order by priority,sent desc
 	 limit $realpos,1")
@@ -787,9 +771,7 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function getMaxIndexOfPosting($index,$grp,$topic_id=-1,$recursive=false)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0)
              ? '' : ' and topics.'.subtree('topics',$topic_id,$recursive);
@@ -799,9 +781,7 @@ $result=mysql_query("select max(postings.index$index)
 			       on postings.message_id=messages.id
 			  left join topics
 			       on postings.topic_id=topics.id
-		     where (messages.hidden<$hide or sender_id=$userId) and
-			   (messages.disabled<$hide or sender_id=$userId) and
-		           $grpFilter $topicFilter")
+		     where $hide and $grpFilter $topicFilter")
 	  or sqlbug('Ошибка SQL при получении максимального индекса постинга');
 return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
 }
@@ -887,24 +867,19 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function postingExists($id)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ);
 $result=mysql_query("select postings.id
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
-		     where postings.id=$id and (hidden<$hide or sender_id=$userId)
-		                           and (disabled<$hide or sender_id=$userId)")
+		     where postings.id=$id and $hide")
 	  or sqlbug('Ошибка SQL при проверке наличия постинга');
 return mysql_num_rows($result)>0;
 }
 
 function getPostingDomainCount($topic_id=-1,$recursive=false,$grp=GRP_ALL)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'messages');
 $topicFilter=$topic_id>=0
              ? 'and topics.'.subtree('topics',$topic_id,$recursive) : '';
 $grpFilter='and '.grpFilter($grp);
@@ -915,9 +890,7 @@ $result=mysql_query(
 	      on postings.message_id=messages.id
 	 left join topics
 	      on topics.id=postings.topic_id
-         where (messages.hidden<$hide or messages.sender_id=$userId) and
-	       (messages.disabled<$hide or messages.sender_id=$userId) and
-	       shadow=0 $topicFilter $grpFilter")
+         where $hide and shadow=0 $topicFilter $grpFilter")
           or sqlbug('Ошибка SQL при получении количества доменов');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }

@@ -12,7 +12,7 @@ function deleteImage($posting)
 {
 global $editid;
 
-if(!$posting->isEditable())
+if(!$posting->isWritable())
   return ELID_NO_EDIT;
 $result=mysql_query("delete
                      from images

@@ -502,7 +502,7 @@ parse_str($fragments['query']);
 <macro name='int_array'>
  <header>
   <require name='lib/post.php'>
-  <exec func='postIntegerArray' arg1='$%name'>
+  <exec func='postIntegerArray' arg1='%name'>
  </header>
 </macro>
 

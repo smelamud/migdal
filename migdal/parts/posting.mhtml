@@ -53,7 +53,7 @@
     <td><common><printlink posting='$posting'></common></td>
     <td>&nbsp;&nbsp;&nbsp;</td>
     <td><inner>
-     <isedit what='$posting'>
+     <iswrite what='$posting'>
       <editlink posting='$posting'>
      <else>
       <if what='!$$userModerator && $showcomplain'>
@@ -62,7 +62,7 @@
 	   >Жалоба</a>
        </logged>
       </if>
-     </isedit>
+     </iswrite>
     </inner></td>
    </tr></table></outer>
   </td>

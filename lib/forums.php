@@ -3,6 +3,7 @@
 
 require_once('lib/limitselect.php');
 require_once('lib/messages.php');
+require_once('lib/permissions.php');
 require_once('lib/utils.php');
 require_once('lib/bug.php');
 
@@ -86,13 +87,12 @@ class ForumAnswerListIterator
 
 function ForumAnswerListIterator($parent_id,$limit=10,$offset=0)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'messages');
 $this->LimitSelectIterator(
        'ForumAnswer',
 	"select forums.id as id,message_id,stotext_id,body,sent,sender_id,
-	        parent_id,messages.hidden as hidden,disabled,
+	        group_id,parent_id,perms,
+		if((messages.perms & 0x1100)=0,1,0) as hidden,disabled,
 		users.hidden as sender_hidden,
 		login,gender,email,hide_email,rebe
 	 from forums
@@ -102,9 +102,7 @@ $this->LimitSelectIterator(
 	           on stotexts.id=messages.stotext_id
 	      left join users
 		   on messages.sender_id=users.id
-	 where (messages.hidden<$hide or sender_id=$userId) and
-	       (messages.disabled<$hide or sender_id=$userId) and
-	       parent_id=$parent_id
+	 where $hide and parent_id=$parent_id
 	 order by sent desc",$limit,$offset);
 }
 
@@ -112,32 +110,43 @@ $this->LimitSelectIterator(
 
 function getForumAnswerById($id,$parent_id=0,$quote='',$quoteWidth=75)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ);
 $result=mysql_query("select forums.id as id,message_id,stotext_id,body,
-                            sender_id,image_set,parent_id,hidden,disabled
+                            sender_id,group_id,image_set,parent_id,perms,
+			    if((perms & 0x1100)=0,1,0) as hidden,disabled
 		     from forums
 		          left join messages
 			       on forums.message_id=messages.id
 	                  left join stotexts
 	                       on stotexts.id=messages.stotext_id
-		     where forums.id=$id and (hidden<$hide or sender_id=$userId)
-		           and (disabled<$hide or sender_id=$userId)")
+		     where forums.id=$id and $hide")
 	  or sqlbug('Ошибка SQL при выборке сообщения в форуме');
-return new ForumAnswer(mysql_num_rows($result)>0
-                       ? mysql_fetch_assoc($result)
-                       : array('parent_id' => $parent_id,
+if(mysql_num_rows($result)>0)
+  return new ForumAnswer(mysql_fetch_assoc($result));
+else
+  {
+  global $rootForumPerms;
+
+  if($parent_id>0)
+    {
+    $perms=getPermsById('messages',$parent_id);
+    $group_id=$perms->getGroupId();
+    echo "Group: '$group_id'";
+    }
+  else
+    $group_id=0;
+  return new ForumAnswer(array('parent_id' => $parent_id,
 		               'body'      => $quote!=''
 			                       ? getQuote($quote,$quoteWidth)
-			                       : ''));
+			                       : '',
+			       'group_id'  => $group_id,
+			       'perms'     => $rootForumPerms));
+  }
 }
 
 function getForumAnswerAuthorBySent($parent_id,$sent)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'messages');
 $result=mysql_query(
 	"select forums.id as id,message_id,sender_id,
 	        users.hidden as sender_hidden,
@@ -147,9 +156,7 @@ $result=mysql_query(
 		   on forums.message_id=messages.id
 	      left join users
 		   on messages.sender_id=users.id
-	 where (messages.hidden<$hide or sender_id=$userId) and
-	       (messages.disabled<$hide or sender_id=$userId) and
-	       forums.parent_id=$parent_id and
+	 where $hide and forums.parent_id=$parent_id and
 	       unix_timestamp(sent)=$sent")
  or sqlbug('Ошибка SQL при выборке автора сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
@@ -158,14 +165,12 @@ return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 
 function getFullForumAnswerById($id)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'messages');
 $result=mysql_query(
 	"select forums.id as id,message_id,stotext_id,body,sent,sender_id,
-	        messages.hidden as hidden,disabled,
-		users.hidden as sender_hidden,images.image_set as image_set,
-		images.id as image_id,
+	        group_id,perms,if((messages.perms & 0x1100)=0,1,0) as hidden,
+		disabled,users.hidden as sender_hidden,
+		images.image_set as image_set,images.id as image_id,
 		images.small_x<images.large_x or
 		images.small_y<images.large_y as has_large_image,
 		login,gender,email,hide_email,rebe
@@ -178,9 +183,7 @@ $result=mysql_query(
 		   on stotexts.image_set=images.image_set
 	      left join users
 		   on messages.sender_id=users.id
-	 where (messages.hidden<$hide or sender_id=$userId) and
-	       (messages.disabled<$hide or sender_id=$userId) and
-	       forums.id=$id")
+	 where $hide and forums.id=$id")
  or sqlbug('Ошибка SQL при выборке сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                  : array());
@@ -188,9 +191,20 @@ return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 
 function postForumAnswer($message_id,$body,$sender_id=0)
 {
+global $rootForumPerms;
+
+if($parent_id>0)
+  {
+  $perms=getPermsById('messages',$message_id);
+  $group_id=$perms->getGroupId();
+  }
+else
+  $group_id=0;
 $forum=new ForumAnswer(array('body'      => $body,
                              'parent_id' => $message_id,
-    			     'sender_id' => $sender_id));
+    			     'sender_id' => $sender_id,
+			     'group_id'  => $group_id,
+			     'perms'     => $rootForumPerms));
 return $forum->store();
 }
 ?>

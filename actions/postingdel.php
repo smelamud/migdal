@@ -11,13 +11,12 @@ require_once('lib/bug.php');
 
 function deletePosting($id)
 {
-global $userModerator;
-
-if(!$userModerator)
-  return EPD_NO_DELETE;
 if(!postingExists($id))
   return EPD_POSTING_ABSENT;
 $msgid=getMessageIdByPostingId($id);
+$perms=getPermsById('messages',$msgid);
+if(!$perms->isWritable())
+  return EPD_NO_DELETE;
 $result=mysql_query("select id
                      from postings
 		     where message_id=$msgid and id<>$id

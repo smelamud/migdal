@@ -123,7 +123,7 @@ function isEditable()
 {
 global $userId;
 
-return !$this->isClosed() && ($this->sender_id==0 || $this->sender_id==$userId);
+return !$this->isClosed() && $this->isWritable();
 }
 
 function isModerable()
@@ -206,9 +206,7 @@ class ComplainListIterator
 
 function ComplainListIterator($limit=20,$offset=0)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ,'forummesgs');
 $this->LimitSelectIterator(
        'Complain',
        "select complains.id as id,messages.subject as subject,
@@ -232,11 +230,7 @@ $this->LimitSelectIterator(
 	     left join forums
 	          on messages.id=forums.parent_id
 	     left join messages as forummesgs
-	          on forums.message_id=forummesgs.id and
-	             (forummesgs.hidden<$hide or
-		      forummesgs.sender_id=$userId) and
-	             (forummesgs.disabled<$hide or
-		      forummesgs.sender_id=$userId)
+	          on forums.message_id=forummesgs.id and $hide
 	group by messages.id
         order by closed is null desc,sent desc",$limit,$offset,
        'select count(*)
@@ -255,6 +249,8 @@ return new $name($row);
 
 function getComplainById($id,$type_id=COMPL_NORMAL,$link=0)
 {
+global $rootComplainPerms;
+
 $result=mysql_query("select complains.id as id,stotext_id,body,subject,
                             message_id,type_id,link,closed,no_auto
 		     from complains
@@ -270,7 +266,8 @@ if(mysql_num_rows($result)>0)
   return newComplain($row['type_id'],$row);
   }
 else
-  return newComplain($type_id,array('link' => $link));
+  return newComplain($type_id,array('link'  => $link,
+                                    'perms' => $rootComplainPerms));
 }
 
 function getComplainInfoById($id)
@@ -336,12 +333,15 @@ return mysql_num_rows($result)>0;
 
 function sendAutomaticComplain($type_id,$subject,$body,$link,$no_auto=false)
 {
+global $rootComplainPerms;
+
 $complain=newComplain($type_id,
                       array('type_id'   => $type_id,
                             'link'      => $link,
                             'subject'   => $subject,
 			    'body'      => $body,
 			    'sender_id' => getShamesId(),
+			    'perms'     => $rootComplainPerms,
 			    'no_auto'   => (int)$no_auto));
 $complain->store() or sqlbug('Ошибка SQL при посылке автоматической жалобы');
 }

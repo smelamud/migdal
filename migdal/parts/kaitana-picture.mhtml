@@ -11,11 +11,11 @@
    <image_linked_tag id='$picture.ImageId' enlarge='$picture.hasLargeImage'>
   </td></tr>
  </ifnzero>
- <isedit what='$picture'>
+ <iswrite what='$picture'>
   <tr><td class='eightpt' align=center>
    <editlink posting='$picture'>
   </td></tr>
- </isedit>
+ </iswrite>
  <tr><td class='imagetitle'>
   $picture.HTMLBody
  </td></tr>

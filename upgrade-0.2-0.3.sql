@@ -205,3 +205,7 @@ ALTER TABLE `postings_info` ADD INDEX ( `topic_id` );
 ALTER TABLE `postings_info` ADD `reader_id` INT NOT NULL FIRST ;
 ALTER TABLE `postings_info` DROP PRIMARY KEY;
 ALTER TABLE postings_info ADD PRIMARY KEY ( reader_id, grp, topic_id, answers, user_id, recursive );
+update messages
+set group_id=sender_id,perms=IF(hidden=0,0x999B,0x889B)
+where group_id=0;
+ALTER TABLE `messages` DROP `hidden`;

@@ -56,6 +56,13 @@ if($vars['user_name']!='')
   $this->login=$vars['user_name'];
 if($vars['group_name']!='')
   $this->group_login=$vars['group_name'];
+if($this->perm_string!='')
+  $this->perms=permString($this->perm_string,strPerms($this->perms));
+else
+  if($this->hidden)
+    $this->perms&=~0x1100;
+  else
+    $this->perms|=0x1100;
 if(isset($vars['subjectid']))
   $this->subject=tmpTextRestore($vars['subjectid']);
 if(isset($vars['authorid']))
@@ -68,14 +75,14 @@ if(isset($vars['urlid']))
 
 function getCorrespondentVars()
 {
-return array('up','login','group_login','lang','subject','author','source',
-             'hidden','disabled','url');
+return array('up','login','group_login','perm_string','hidden','lang',
+             'subject','author','source','disabled','url');
 }
 
 function getWorldVars()
 {
-return array('up','track','lang','subject','author','source','hidden',
-             'sender_id','url','url_domain');
+return array('up','track','lang','subject','author','source','sender_id',
+             'group_id','perms','url','url_domain');
 }
 
 function getAdminVars()
@@ -86,8 +93,8 @@ return array('disabled');
 function getJencodedVars()
 {
 return array('up' => 'messages','subject' => '','author' => '','source' => '',
-             'stotext_id' => 'stotexts','sender_id' => 'users','url' => '',
-	     'url_domain' => '');
+             'stotext_id' => 'stotexts','sender_id' => 'users',
+	     'group_id' => 'users','url' => '','url_domain' => '');
 }
 
 function getNormal($isAdmin=false)
@@ -120,24 +127,20 @@ else
   $senderId=$userId>0 ? $userId : $realUserId;
   if($normal['sender_id']<=0)
     $normal['sender_id']=$senderId;
+  if($normal['group_id']<=0)
+    $normal['group_id']=$normal['sender_id'];
   $normal['sent']=$sent;
   $result=mysql_query(makeInsert('messages',$normal));
   $this->$id=mysql_insert_id();
   journal(makeInsert('messages',
                      jencodeVars($normal,$this->getJencodedVars())),
 	  'messages',$this->$id);
-  $this->sender_id=$senderId;
+  $this->sender_id=$normal['sender_id'];
+  $this->group_id=$normal['group_id'];
   $this->sent=$sent;
   }
 journal("track messages ".journalVar('messages',$this->$id));
 return $result;
-}
-
-function isEditable()
-{
-global $userId,$userModerator;
-
-return $this->sender_id==0 || $this->sender_id==$userId || $userModerator;
 }
 
 function getId()
@@ -495,13 +498,10 @@ return "$filter and (${prefix}disabled=0 or ${prefix}sender_id=$userId)";
 
 function messageExists($id)
 {
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
+$hide=messagesPermFilter(PERM_READ);
 $result=mysql_query("select id
 		     from messages
-		     where id=$id and (hidden<$hide or sender_id=$userId) and
-		     (disabled<$hide or sender_id=$userId)")
+		     where id=$id and $hide")
           or sqlbug('Ошибка SQL при проверке наличия сообщения');
 return mysql_num_rows($result)>0;
 }

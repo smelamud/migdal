@@ -42,25 +42,23 @@
       <checkbox title='Рекурсивно' name='r_user_name' value=$r_user_name>
      </td>
     </tr>
-    <ifnzero what='$topic_id'>
-     <error id='*ECHM_GROUP_EMPTY' text='Укажите имя группы' span=2>
-     <error id='*ECHM_NO_GROUP' text='Такой группы не существует' span=2>
-     <edit_line title='Группа' name='group_name' value='$,GroupName' size=20
-                maxlength=30>
-     <tr>
-      <td>&nbsp;</td>
-      <td>
-       <checkbox title='Рекурсивно' name='r_group_name' value=$r_group_name>
-      </td>
-     </tr>
-     <error id='*ECHM_BAD_PERMS' text='Права заданы некорректно' span=2>
-     <edit_line title='Права' name='perm_string' value='$,PermHTML' size=17
-                maxlength=17>
-     <tr>
-      <td>&nbsp;</td>
-      <td><checkbox title='Рекурсивно' name='r_perm' value=$r_perm></td>
-     </tr>
-    </ifnzero>
+    <error id='*ECHM_GROUP_EMPTY' text='Укажите имя группы' span=2>
+    <error id='*ECHM_NO_GROUP' text='Такой группы не существует' span=2>
+    <edit_line title='Группа' name='group_name' value='$,GroupName' size=20
+	       maxlength=30>
+    <tr>
+     <td>&nbsp;</td>
+     <td>
+      <checkbox title='Рекурсивно' name='r_group_name' value=$r_group_name>
+     </td>
+    </tr>
+    <error id='*ECHM_BAD_PERMS' text='Права заданы некорректно' span=2>
+    <edit_line title='Права' name='perm_string' value='$,PermHTML' size=17
+	       maxlength=17>
+    <tr>
+     <td>&nbsp;</td>
+     <td><checkbox title='Рекурсивно' name='r_perm' value=$r_perm></td>
+    </tr>
    </table>
    <formbuttons title='Изменить'>
   </form>

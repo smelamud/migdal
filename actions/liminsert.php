@@ -12,7 +12,7 @@ require_once('lib/errors.php');
 
 function modifyMessageImage($posting,$image)
 {
-if(!$posting->isEditable())
+if(!$posting->isWritable())
   return ELII_NO_EDIT;
 if($posting->getMessageId()==0)
   return ELII_MESSAGE_ABSENT;

@@ -13,14 +13,14 @@
 <element name='controls' params='picture,showcomplain'>
 <logged>
  <tr><td class='modify'>
-  <isedit what='$picture'>
+  <iswrite what='$picture'>
    <editlink posting='$picture'>
   <else>
    <if what='$showcomplain'>
     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
        >Жалоба</a>
    </if>
-  </isedit>
+  </iswrite>
  </td></tr>
 </logged>
 </element>

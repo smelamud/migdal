@@ -97,8 +97,8 @@ $hide=$userModerator ? 2 : 1;
 $this->SelectIterator(
        'InstantMessage',
        "select instants.id as id,message_id,stotext_id,body,sent,sender_id,
-	       messages.hidden as hidden,disabled,
-	       users.hidden as sender_hidden,
+	       group_id,perms,if((messages.perms & 0x1100)=0,1,0) as hidden,
+	       disabled,users.hidden as sender_hidden,
 	       login,gender,email,hide_email,rebe
 	from instants
 	     left join messages

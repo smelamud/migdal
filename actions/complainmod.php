@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
@@ -10,14 +12,23 @@ require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/complains.php');
 
-function modifyComplain($complain)
+function modifyComplain($complain,$original)
 {
-global $userId;
+global $userId,$rootComplainUserName,$rootComplainGroupName,$rootComplainPerms;
 
-if($userId<=0)
-  return EC_NO_SEND;
-if(!$complain->isEditable())
-  return EC_NO_EDIT;
+if($original->getId()==0)
+  {
+  $root=new Complain(
+	 array('sender_id' => getUserIdByLogin($rootComplainUserName),
+	       'group_id'  => getUserIdByLogin($rootComplainGroupName),
+	       'perms'     => $rootComplainPerms)
+	);
+  if(!$root->isAppendable())
+    return EC_NO_SEND;
+  }
+else
+  if(!$original->isEditable())
+    return EC_NO_EDIT;
 if($complain->stotext->body=='')
   return EC_BODY_ABSENT;
 if($complain->subject=='')
@@ -37,8 +48,9 @@ postString('subject');
 dbOpen();
 session();
 $complain=getComplainById($editid,$type_id);
+$original=$complain;
 $complain->setup($HTTP_POST_VARS);
-$err=modifyComplain($complain);
+$err=modifyComplain($complain,$original);
 if($err==EC_OK)
   header("Location: $okdir");
 else

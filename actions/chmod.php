@@ -13,7 +13,7 @@ function doChmod($id,$perms)
 {
 global $userModerator,$table,$r_user_name,$r_group_name,$r_perm,$perm_string;
 
-if(get_class($perms)=='Message' && !$userModerator || !$perms->isWritable())
+if(!$perms->isWritable())
   return ECHM_NO_CHMOD;
 if($perms->getUserName()!='')
   {
@@ -21,22 +21,20 @@ if($perms->getUserName()!='')
   if($perms->getUserId()<=0)
     return ECHM_NO_USER;
   }
-if($table!='messages')
-  if($perms->getGroupName()!='')
-    {
-    $perms->setGroupId(getUserIdByLogin(addslashes($perms->getGroupName())));
-    if($perms->getGroupId()<=0)
-      return ECHM_NO_GROUP;
-    }
+if($perms->getGroupName()!='')
+  {
+  $perms->setGroupId(getUserIdByLogin(addslashes($perms->getGroupName())));
+  if($perms->getGroupId()<=0)
+    return ECHM_NO_GROUP;
+  }
 if($perms->perms<0)
   return ECHM_BAD_PERMS;
 setPermsById($perms);
-if($table!='messages')
-  if($r_user_name || $r_group_name || $r_perm)
-    setPermsRecursive($table,$id,
-                      $r_user_name ? $perms->getUserId() : 0,
-                      $r_group_name ? $perms->getGroupId() : 0,
-		      $r_perm ? $perm_string : '????????????????');
+if($r_user_name || $r_group_name || $r_perm)
+  setPermsRecursive($table,$id,
+		    $r_user_name ? $perms->getUserId() : 0,
+		    $r_group_name ? $perms->getGroupId() : 0,
+		    $r_perm ? $perm_string : '????????????????');
 return ECHM_OK;
 }
 

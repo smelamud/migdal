@@ -12,18 +12,23 @@ require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/forums.php');
 require_once('lib/messages.php');
+require_once('lib/permissions.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings-info.php');
 
-function modifyForumAnswer($answer)
+function modifyForumAnswer($answer,$original)
 {
-global $userId,$realUserId,$forumanswerMandatoryBody,$forumanswerMandatoryImage,
-       $allowGuestForum;
+global $userId,$realUserId,$forumanswerMandatoryBody,$forumanswerMandatoryImage;
 
-if($userId<=0 && ($realUserId<=0 || !$allowGuestForum))
+if($userId<=0 && $realUserId<=0)
   return EFA_NO_SEND;
-if(!$answer->isEditable())
+if($original->getId()!=0 && !$original->isWritable())
   return EFA_NO_EDIT;
+if(!messageExists($answer->getParentId()))
+  return EFA_NO_UP;
+$upper=getPermsById('messages',$answer->getParentId());
+if(!$upper->isPostable())
+  return EFA_NO_SEND;
 if($forumanswerMandatoryBody && $answer->stotext->body=='')
   return EFA_BODY_ABSENT;
 if($forumanswerMandatoryImage && $answer->stotext->image_set==0)
@@ -31,8 +36,6 @@ if($forumanswerMandatoryImage && $answer->stotext->image_set==0)
 if($answer->stotext->image_set!=0
    && !imageSetExists($answer->stotext->image_set))
   return EFA_NO_IMAGE;
-if(!messageExists($answer->parent_id))
-  return EFA_NO_UP;
 if(!$answer->store())
   return EFA_STORE_SQL;
 return EFA_OK;
@@ -45,13 +48,14 @@ postString('subject');
 
 dbOpen();
 session();
-$answer=getForumAnswerById($editid);
+$answer=getForumAnswerById($editid,$parent_id);
+$original=$answer;
 $answer->setup($HTTP_POST_VARS);
 $img=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
 if($img)
   $answer->setImageSet($img->getImageSet());
 if($err==EIU_OK)
-  $err=modifyForumAnswer($answer);
+  $err=modifyForumAnswer($answer,$original);
 if($err==EFA_OK)
   {
   header("Location: $okdir");

@@ -11,7 +11,7 @@
     <td>
      &nbsp;&nbsp;
     </td>
-    <isedit what='$posting'>
+    <iswrite what='$posting'>
      <td style='padding-bottom: 3px'>
       <editlink posting='$posting'>
       &nbsp;
@@ -21,7 +21,7 @@
        <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
       &nbsp;
      </td>
-    </isedit>
+    </iswrite>
     <if what='!$nodiscuss'>
      <td><discusslink posting='$posting'></td>
     </if>
@@ -95,12 +95,12 @@
    <table align=right>
   </isplaced>
   <notprint>
-   <isedit what='$posting'>
+   <iswrite what='$posting'>
     <tr><td align=center>
      <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
 	class='ninept'><notenglish>Картинка<else>Picture</notenglish></a>
     </td></tr>
-   </isedit>
+   </iswrite>
   </notprint>
    <tr><td align=center>
     <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'
@@ -122,12 +122,12 @@
 <else>
  </p>
  <notprint>
-  <isedit what='$posting'>
+  <iswrite what='$posting'>
    <p$clear>
    <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
       class='ninept'><notenglish>Картинка<else>Picture</notenglish></a>
    </p>
-  </isedit>
+  </iswrite>
  </notprint>
  <p$clear>
 </ifnzero>

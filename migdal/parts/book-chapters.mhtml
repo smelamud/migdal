@@ -3,7 +3,7 @@
 <element name='book_chapters'>
 <grps>
 <topics_table title='Оглавление'>
- <isedit what='$book'>
+ <isappend what='$book'>
   <tr><td colspan=2>
    <a href='postingedit.php?redirid=$_&topic_id=$book.TopicId&grp=*GRP_BOOK_CHAPTERS&up=$book.MessageId'
       class='edit'>Добавить</a>
@@ -12,7 +12,7 @@
    <a href='reorder.php?redirid=$_&issue=-1&topic_id=-1&grp=*GRP_BOOK_CHAPTERS&up=$book.MessageId'
       class='edit'>Расставить</a>
   </td></tr>
- </isedit>
+ </isappend>
  <topics_line time='$book.Sent' text='О книге' href#='book.php?bookid=$book.Id'
               arrow!='$id<=0' class='item ninept'>
  <iterate_postinglist grp='*GRP_BOOK_CHAPTERS' limit=0 sort='*SORT_INDEX0'

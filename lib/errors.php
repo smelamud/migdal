@@ -61,6 +61,7 @@ define('EP_NO_UP',1321);
 define('EP_LOOP_UP',1322);
 define('EP_TRACK_SQL',1323);
 define('EP_LANG_ABSENT',1324);
+define('EP_UP_APPEND',1325);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);

@@ -52,7 +52,7 @@ function storeImage($posting)
 {
 global $editid,$loaded,$has_large,$small_x,$small_y,$title;
 
-if(!$posting->isEditable())
+if(!$posting->isWritable())
   return ELIM_NO_EDIT;
 if($loaded)
   {

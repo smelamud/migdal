@@ -90,7 +90,8 @@ return array('up','track','name','user_id','group_id','perms','allow',
 function getJencodedVars()
 {
 return array('up' => 'topics','name' => '','name_sort' => '',
-             'user_id' => 'users','stotext_id' => 'stotexts');
+             'user_id' => 'users','group_id' => 'users',
+	     'stotext_id' => 'stotexts');
 }
 
 function getNormal($isAdmin=false)
@@ -360,8 +361,6 @@ function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
 			   $sort=SORT_NAME,$recursive=false,$level=1,
 			   $fields=SELECT_GENERAL)
 {
-global $userId,$userModerator;
-
 $this->fields=$fields;
 $this->grp=$grp;
 /* Select */
@@ -372,26 +371,20 @@ $Select="topics.id as id,topics.ident as ident,topics.up as up,
 	 topics.perms as perms,stotexts.body as description";
 /* From */
 $grpFilter=grpFilter($grp,'grp','postings');
-$hide=$userModerator ? 2 : 1;
+$hidePostings=messagesPermFilter(PERM_READ,'messages');
+$hideAnswers=messagesPermFilter(PERM_READ,'forummesgs');
 
 $postTables=$withPostings ?
             "left join postings
 		  on topics.id=postings.topic_id and $grpFilter
 	     left join messages
-		  on postings.message_id=messages.id
-		     and (messages.hidden<$hide or messages.sender_id=$userId)
-		     and (messages.disabled<$hide or
-		          messages.sender_id=$userId)" :
+		  on postings.message_id=messages.id and $hidePostings" :
 	    '';
 $forumsTables=$withAnswers ?
 	      "left join forums
 		    on messages.id=forums.parent_id
 	       left join messages as forummesgs
-		    on forums.message_id=forummesgs.id and
-		       (forummesgs.hidden<$hide or
-			forummesgs.sender_id=$userId) and
-		       (forummesgs.disabled<$hide or
-			forummesgs.sender_id=$userId)" :
+		    on forums.message_id=forummesgs.id and $hideAnswers" :
 	      '';
 
 $From="topics

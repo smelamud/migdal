@@ -90,11 +90,9 @@ else
 return true;
 }
 
-function modifyPosting($message)
+function modifyPosting($message,$original)
 {
-global $userModerator;
-
-if(!$message->isEditable())
+if($original->getId()!=0 && !$original->isWritable())
   return EP_NO_EDIT;
 if(!getGrpValid($message->grp))
   return EP_INVALID_GRP;
@@ -144,10 +142,16 @@ if($message->personal_id!=0 && !personalExists($message->personal_id))
   return EP_NO_PERSONAL;
 if($message->up<0)
   $message->up=0;
-if($message->up!=0 && !messageExists($message->up))
-  return EP_NO_UP;
-if($message->up!=0 && $message->up==$message->message_id)
-  return EP_LOOP_UP;
+if($message->up!=0)
+  {
+  if(!messageExists($message->up))
+    return EP_NO_UP;
+  if($message->up==$message->message_id)
+    return EP_LOOP_UP;
+  $perms=getPermsById('messages',$message->up);
+  if(!$perms->isAppendable())
+    return EP_UP_APPEND;
+  }
 $message->track='';
 if(!$message->store())
   return EP_STORE_SQL;
@@ -175,7 +179,8 @@ postIdent('topic_id','topics');
 dbOpen();
 session();
 redirect();
-$message=getPostingById($editid,$grp);
+$message=getPostingById($editid,$grp,$topic_id,$index1,$up);
+$original=$message;
 $message->setup($HTTP_POST_VARS);
 $image=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
 if($image)
@@ -186,7 +191,7 @@ if($err==EIU_OK && $message->getImageSet()!=0)
 if($err==EIU_OK || $err==EP_OK)
   $err=uploadLargeText($message->stotext);
 if($err==EUL_OK)
-  $err=modifyPosting($message);
+  $err=modifyPosting($message,$original);
 if($err==EP_OK)
   {
   header("Location: $okdir");

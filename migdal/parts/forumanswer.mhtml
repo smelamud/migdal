@@ -26,7 +26,7 @@
   <td class='controls' height=22>&nbsp;
    <a href="forumansweredit.php?parent_id=$answer.ParentId&peerid=$answer.Id&redirid=$_"
       title='Ответить с цитированием'>Ответить</a>
-   <isedit what='$answer'>
+   <iswrite what='$answer'>
     &nbsp;
     <a href="forumansweredit.php?editid=$answer.Id&redirid=$_"
      >Изменить</a>
@@ -40,7 +40,7 @@
        >Запретить&nbsp;показ</a>
      </if>
     </moderator>
-   </isedit>
+   </iswrite>
   </td>
  </tr>
 </table>

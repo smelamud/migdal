@@ -19,7 +19,7 @@ foreach($art as $id)
        $posting=getPostingById($id);
        if($posting->getId()<=0)
          return EO_NO_ARTICLE;
-       if(!$posting->isEditable())
+       if(!$posting->isWritable())
          return EO_NO_REORDER;
        $result=mysql_query("update postings
                             set index0=$index

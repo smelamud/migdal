@@ -227,7 +227,6 @@ CREATE TABLE messages (
   sender_id int(11) NOT NULL default '0',
   group_id int(11) NOT NULL default '0',
   perms int(11) NOT NULL default '0',
-  hidden tinyint(4) NOT NULL default '0',
   disabled tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
   url_domain varchar(70) NOT NULL default '',
@@ -249,7 +248,6 @@ CREATE TABLE messages (
   KEY track (track),
   KEY url_check (url_check),
   KEY url_check_success (url_check_success),
-  KEY hidden (hidden),
   KEY last_updated (last_updated)
 ) TYPE=MyISAM;
 
@@ -332,6 +330,7 @@ CREATE TABLE postings (
 --
 
 CREATE TABLE postings_info (
+  reader_id int(11) NOT NULL default '0',
   grp int(11) NOT NULL default '0',
   topic_id int(11) NOT NULL default '0',
   answers int(11) NOT NULL default '0',
@@ -339,7 +338,7 @@ CREATE TABLE postings_info (
   recursive smallint(6) NOT NULL default '0',
   total int(11) NOT NULL default '0',
   max_sent int(11) NOT NULL default '0',
-  PRIMARY KEY  (grp,topic_id,answers,user_id,recursive),
+  PRIMARY KEY  (reader_id,grp,topic_id,answers,user_id,recursive),
   KEY grp (grp),
   KEY answers (answers),
   KEY topic_id (topic_id)
