@@ -17,7 +17,7 @@ $requestURI=urlencode($REQUEST_URI);
 reloadParameter(!isset($ident),'grp',GRP_FORUMS);
 
 dbOpen();
-session($sessionid);
+session();
 ?>
 <html>
 <head>

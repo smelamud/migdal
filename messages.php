@@ -22,7 +22,7 @@ settype($limit,'integer');
 $limit=$limit==0 ? 10 : $limit;
 
 dbOpen();
-session($sessionid);
+session();
 ?>
 <html>
 <head>

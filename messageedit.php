@@ -21,7 +21,7 @@ settype($editid,'integer');
 settype($up,'integer');
 
 dbOpen();
-session($sessionid);
+session();
 ?>
 <html>
 <head>

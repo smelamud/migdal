@@ -25,7 +25,7 @@ if($user->isEditable())
 settype($editid,'integer');
 
 dbOpen();
-session($sessionid);
+session();
 ?>
 <html>
 <head>

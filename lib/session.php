@@ -1,17 +1,18 @@
 <?php
 # @(#) $Id$
 
-function session($sessionId)
+function session()
 {
-global $userId,$userAdminUsers,$userAdminTopics,$userModerator;
+global $sessionid,
+       $userId,$userAdminUsers,$userAdminTopics,$userModerator;
 
-settype($sessionId,'integer');
-if(!$sessionId)
+settype($sessionid,'integer');
+if(!$sessionid)
   {
   $userId=-1;
   return;
   }
-$result=mysql_query("select user_id from sessions where sid=$sessionId")
+$result=mysql_query("select user_id from sessions where sid=$sessionid")
              or die('Ошибка SQL при выборке сессии');
 if(mysql_num_rows($result)<=0)
   {
@@ -26,9 +27,9 @@ else
 		       where id=$userId")
                or die('Ошибка SQL при получении прав пользователя');
   list($userAdminUsers,$userAdminTopics,$userModerator)=mysql_fetch_row($rights);
-  mysql_query("update sessions set last=null where sid=$sessionId")
+  mysql_query("update sessions set last=null where sid=$sessionid")
        or die('Ошибка SQL при обновлении TIMESTAMP сессии');
-  SetCookie('sessionid',$sessionId,time()+7200);
+  SetCookie('sessionid',$sessionid,time()+7200);
   }
 }
 ?>

@@ -9,7 +9,7 @@ require_once('lib/database.php');
 require_once('parts/top.php');
 
 dbOpen();
-session($sessionid);
+session();
 ?>
 <html>
 <head>

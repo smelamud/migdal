@@ -9,7 +9,7 @@ require_once('parts/backtrace.php');
 
 function displayTop($current,$flags='')
 {
-global $sessionid,$redir,$err;
+global $redir,$err;
 
 displayMenu($current);?><br><?php
 displayLogin($flags,$err);?><br><?php

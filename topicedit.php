@@ -12,7 +12,7 @@ require_once('parts/utils.php');
 settype($editid,'integer');
 
 dbOpen();
-session($sessionid);
+session();
 ?>
 <html>
 <head>

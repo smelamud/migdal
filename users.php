@@ -8,7 +8,7 @@ require_once('lib/users.php');
 require_once('parts/top.php');
 
 dbOpen();
-session($sessionid);
+session();
 ?>
 <html>
 <head>
