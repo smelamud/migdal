@@ -61,6 +61,8 @@
 <decel name='postings' file='parts/postings.php'
        params='grp,topic,limit,offset,title'
        defaults="topic=-1 limit=10 offset=0 title=''">
+<decel name='rambler_count' file='parts/rambler.php'>
+<decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='senderlink' file='parts/utils.php' params='message,align'
        defaults="align='right'">
 <decel name='star' file='parts/formutils.php'>

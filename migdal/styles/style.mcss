@@ -277,15 +277,16 @@ BODY {
 
 ! Bottom
 
-.bottom {
-	margin-top: 2ex;
-	border-top: 2px solid %bottom;
-	width: 100%;
-}
-
 .bottom * {
 	color: %bottom;
 	font-size: 8pt;
+}
+
+.bottom HR {
+	margin: 0;
+	border-width: 0;
+	border-top: 2px solid %bottom;
+	width: 100%;
 }
 
 ! State

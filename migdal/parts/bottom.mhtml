@@ -2,17 +2,23 @@
 
 <element name='bottom'>
 <backtrace redir='$$redir' target='$target'>
-<table class='bottom'>
- <tr>
-  <td><jewishru></td>
-  <td><hotlog_logo></td>
-  <td><mailru_logo></td>
-  <td>
-   Сайт создан и поддерживается <b>Клубом Еврейского Студента</b>
-   ЕОЦ&nbsp;"<b>Мигдаль</b>". Программирование - Шмуль-Лейб Меламуд. Дизайн и
-   оформление - Шмуль-Лейб Меламуд, Арье-Мойше Аеров, Александр Ласкорунский.
+<div class='bottom'>
+ <table width=100%><tr valign=bottom>
+  <td align=left>
+   Сайт создан и поддерживается <b>Клубом Еврейского Студента</b><br>
+   Еврейского Общинного Центра "<b>Мигдаль</b>", Одесса
   </td>
-  <td><googleru></td>
- </tr>
-</table>
+  <td align=right>
+   // Powered by Migdal website kernel 0.1
+  </td>
+ </tr></table>
+ <hr>
+ <center>
+  <jewishru>
+  <hotlog_logo>
+  <mailru_logo>
+  <rambler_logo>
+  <googleru>
+ </center>
+</div>
 </element>

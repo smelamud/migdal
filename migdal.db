@@ -2,7 +2,7 @@
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.42-log
+# Server version	3.23.46-log
 
 #
 # Table structure for table 'chat_messages'
@@ -227,6 +227,37 @@ CREATE TABLE postings (
 ) TYPE=MyISAM;
 
 #
+# Table structure for table 'rating_positions'
+#
+
+CREATE TABLE rating_positions (
+  id int(11) NOT NULL auto_increment,
+  rating_id int(11) NOT NULL default '0',
+  scan_date date NOT NULL default '0000-00-00',
+  topic_day int(11) NOT NULL default '0',
+  topic_week int(11) NOT NULL default '0',
+  global_day int(11) NOT NULL default '0',
+  global_week int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY rating_id (rating_id),
+  KEY scan_date (scan_date)
+) TYPE=MyISAM;
+
+#
+# Table structure for table 'ratings'
+#
+
+CREATE TABLE ratings (
+  id int(11) NOT NULL auto_increment,
+  ident varchar(15) NOT NULL default '',
+  logo varchar(250) NOT NULL default '',
+  regid int(11) NOT NULL default '0',
+  url varchar(70) NOT NULL default '',
+  PRIMARY KEY  (id),
+  KEY ident (ident)
+) TYPE=MyISAM;
+
+#
 # Table structure for table 'sessions'
 #
 
@@ -359,7 +390,7 @@ CREATE TABLE users (
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.42-log
+# Server version	3.23.46-log
 
 #
 # Dumping data for table 'complain_types'

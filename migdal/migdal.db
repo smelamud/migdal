@@ -2,7 +2,7 @@
 #
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
-# Server version	3.23.42-log
+# Server version	3.23.46-log
 
 #
 # Dumping data for table 'menu'
@@ -17,4 +17,13 @@ INSERT INTO menu VALUES (6,'Жалобная книга','complains','complains.php',0,9);
 INSERT INTO menu VALUES (7,'Чат','chat','chat.php',0,7);
 INSERT INTO menu VALUES (9,'Статьи','articles','/postings.php?grp=8&amp;topic_id=-1',0,5);
 INSERT INTO menu VALUES (10,'Мнения','forums','postings.php?grp=1&amp;topic_id=-1',0,2);
+
+#
+# Dumping data for table 'ratings'
+#
+
+INSERT INTO ratings VALUES (1,'jewishru','<a href=\"http://www.jewish.ru/topjews\" target=_blank><img border=0 src=\"http://www.jewish.ru/perl/gdcount.pl?id=475&counter=0\" alt=\"Jewish TOP 20\" width=88 height=31></a>',475,'http://www.migdal.ru');
+INSERT INTO ratings VALUES (2,'mailru','<a target=_blank href=\"http://top.mail.ru/jump?from=284568\"><img src=\"http://top.list.ru/counter?id=284568;t=57;l=1\" border=0 height=31 width=88 alt=\"Rating@Mail.ru\"></a>',284568,'');
+INSERT INTO ratings VALUES (3,'googleru','<a href=\"http://www.topcto.ru/cgi-bin/top.cgi?uid=919&com=img_link&url=http://www.topcto.ru/&dl=&n=Netscape&swh=800x600&ver=500&rnd=0.4\" target=_blank><img src=\"http://www.topcto.ru/cgi-bin/top.cgi?uid=919&com=image&dl=&n=Netscape&swh=\"></a>',919,'');
+INSERT INTO ratings VALUES (4,'rambler','<a href=\"http://top100.rambler.ru/top100/\"><img src=\"http://top100-images.rambler.ru/top100/banner-88x31-rambler-darkblue2.gif\" alt=\"Rambler\'s Top100\" width=88 height=31 border=0></a>',297350,'');
 
