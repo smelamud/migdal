@@ -34,7 +34,7 @@
  <iterate_topiclist grp='$posting.PageGroup' withpostings='$withpostings'
 		    withanswers='$withanswers' up='$up'>
  <for>
-  <topics_line arrow!='$posting.TopicId==$.Id'
+  <topics_line arrow!='$posting.TopicId==$.Id' time='$.LastMessage'
 	       href#='$posting.PageFile?topic_id=$.Id' title='$.Description'
 	       text='$.Name' count='$.MessageCount' span=2>
   <admin_topics>
