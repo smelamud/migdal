@@ -2,9 +2,9 @@
 
 <element name='day' params='n'>
 <time>
-<assign name='current_kaitana' value!='$,@z'>
+<assign name='current_kaitana' value!='$,@z-15'>
 <assign name='link' value='*false'>
-<if what='$n==3 || $n==10'>
+<if what='$n==6 || $n==13'>
  <td class=sh>
 <else>
  <if what='$n<$$current_kaitana'>
@@ -19,7 +19,7 @@
  </if>
 </if>
  <if what='$link'>
-  <a href='kaitana.php?topic_id=$`kaitana-w-5763`&day=$n'><asp>
+  <a href='kaitana.php?topic_id=$`kaitana-s-5763`&day=$n'><asp>
  </if>
  <if what='$n>=1 && $n<=9'>&nbsp;</if>$n
  <if what='$link'>
@@ -82,17 +82,17 @@
 <kaitana_style>
 <div class='aframe ninept' style='padding: 5'>
  <posting_index name='index' index=1 grp='*GRP_KAITANA_GALLERY'
-                topic_id='$`kaitana-w-5763`'>
- <posting_random grp='*GRP_KAITANA_GALLERY' topic_id='$`kaitana-w-5763`'
+                topic_id='$`kaitana-s-5763`'>
+ <posting_random grp='*GRP_KAITANA_GALLERY' topic_id='$`kaitana-s-5763`'
                  index1='$,'>
  <posting_full id='$,' grp='*GRP_KAITANA_GALLERY'>
  <table width=100%><tr valign=top>
   <td width=110>
-   <a href='kaitana.php?topic_id=$`kaitana-w-5763`&day=$index'
+   <a href='kaitana.php?topic_id=$`kaitana-s-5763`&day=$index'
       ><image_tag_put id='$,ImageId' align=left></a>
   </td>
   <td>
-   Со 2 по 12 января в &lt;&lt;Мигдале&gt;&gt; проходит традиционная <b>зимняя
+   Со 16 по 29 июня в &lt;&lt;Мигдале&gt;&gt; проходит традиционная <b>летняя
    детская площадка</b>. Мероприятие это стоит того, чтобы в нем поучаствовать
    или хотя бы увидеть своими глазами, но если вам не посчастливилось туда
    попасть --- не отчаивайтесь --- вы сможете узнать обо всем, что происходит
@@ -101,11 +101,11 @@
   </td>
  </tr></table>
  <p>
- <iterate_postinglist topic_id='$`kaitana-w-5763`' grp='*GRP_KAITANA_NEWS'
+ <iterate_postinglist topic_id='$`kaitana-s-5763`' grp='*GRP_KAITANA_NEWS'
                       sort='*SORT_RINDEX1' limit=3 fields='*SELECT_TOPICS'>
  <for>
   <b>$.Subject:</b>
-  <a href='kaitana.php?topic_id=$`kaitana-w-5763`&day=$.Index1'>$.Source</a>
+  <a href='kaitana.php?topic_id=$`kaitana-s-5763`&day=$.Index1'>$.Source</a>
   <biff time='$.Sent' small='*true'>
   <br>
  </for>
@@ -123,6 +123,9 @@
   <day n=9>
   <day n=10>
   <day n=11>
+  <day n=12>
+  <day n=13>
+  <day n=14>
  </tr></table>
 </div>
 </element>
