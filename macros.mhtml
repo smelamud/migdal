@@ -200,22 +200,22 @@
 </macro>
 
 <macro name='ifzero'>
- <if what='%what==0'>
+ <if what='(%what)==0'>
 </macro>
 <endif name='/ifzero'>
 
 <macro name='ifnzero'>
- <if what='%what!=0'>
+ <if what='(%what)!=0'>
 </macro>
 <endif name='/ifnzero'>
 
 <macro name='ife'>
- <if what="%what==''">
+ <if what="(%what)==''">
 </macro>
 <endif name='/ife'>
 
 <macro name='ifne'>
- <if what="%what!=''">
+ <if what="(%what)!=''">
 </macro>
 <endif name='/ifne'>
 
