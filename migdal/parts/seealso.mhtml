@@ -18,31 +18,33 @@
 
 <element name='seealso_links' params='topic_id'>
 <if what='$topic_id>0'>
- <table class='topics ninept' style='margin: 0'>
-  <iterate_topic_cross cross='$topic_id' grp='*GRP_LINKS'>
-  <ifnzero what='$;Count'>
-   <tr><td><b>$title:</b></td></tr>
-  </ifnzero>
-  <admin_topics>
-   <tr><td>
-    <a href='topiclinkadd.php?topic_id=$topic_id&redirid=$_'
-       class='edit'>Добавить</a>
-   </td></tr>
-  </admin_topics>
-  <ifnzero what='$;Count'>
-   <tr><td>
-    <for>
-     <if what='!$;isFirst'><br></if>
-     <seealso_link topic_id='$.Id'>
-     <admin_topics>
-      <asp>&nbsp;<asp>
-      <a href='actions/topiclinkdel.php?topic_id=$topic_id&peer_id=$.Id&okdir=$#-&faildir=$#-'
-         class='edit'><asp>
-       <asp>Удалить</a>
-     </admin_topics>
-    </for>
-   </td></tr>
-  </ifnzero>
- </table>
+ <outer><table class='topics ninept' style='margin: 0'>
+  <inner>
+   <iterate_topic_cross cross='$topic_id' grp='*GRP_LINKS'>
+   <ifnzero what='$;Count'>
+    <tr><td><b>$title:</b></td></tr>
+   </ifnzero>
+   <admin_topics>
+    <tr><td>
+     <a href='topiclinkadd.php?topic_id=$topic_id&redirid=$_'
+	class='edit'>Добавить</a>
+    </td></tr>
+   </admin_topics>
+   <ifnzero what='$;Count'>
+    <tr><td>
+     <for>
+      <if what='!$;isFirst'><br></if>
+      <seealso_link topic_id='$.Id'>
+      <admin_topics>
+       <asp>&nbsp;<asp>
+       <a href='actions/topiclinkdel.php?topic_id=$topic_id&peer_id=$.Id&okdir=$#-&faildir=$#-'
+	  class='edit'><asp>
+	<asp>Удалить</a>
+      </admin_topics>
+     </for>
+    </td></tr>
+   </ifnzero>
+  </inner>
+ </table></outer>
 </if>
 </element>

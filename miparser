@@ -781,14 +781,13 @@ my ($self)=@_;
 ::request('lib/session.php');
 ::request('lib/no-cache.php');
 ::request('lib/charsets.php');
-::request('lib/inner.php');
 ::header(<<EOT);
 <?php
 function finalize()
 {
 global \$userReadKOI;
 
-\$Output=removeOuters(ob_get_contents());
+\$Output=ob_get_contents();
 ob_end_clean();
 echo convertOutput(\$Output,\$userReadKOI>0);
 dbClose();

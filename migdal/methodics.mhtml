@@ -21,7 +21,11 @@
   </td>
   <td class='cframe'>
    <subtitle>
-   <seealso_links topic_id='$`methodics`' title='См. также в разделе ссылок'>
+   <outer><div class='nframe' style='padding: 5'>
+    <inner>
+     <seealso_links topic_id='$`methodics`' title='См. также в разделе ссылок'>
+    </inner>
+   </div></outer>
    <postings grp='*GRP_BOOKS' topic_id='$`methodics`'
 	     limit='$userMsgPortion' offset='$offset' showshadows='*true'
 	     showadvert='*false'>

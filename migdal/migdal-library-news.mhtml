@@ -19,8 +19,12 @@
    </td>
    <td class='cframe'>
     <subtitle>
-    <seealso_links topic_id='$`migdal-library`'
-		   title='См. также в разделе ссылок'>
+    <outer><div class='nframe' style='padding: 5'>
+     <inner>
+      <seealso_links topic_id='$`migdal-library`'
+		     title='См. также в разделе ссылок'>
+     </inner>
+    </div></outer>
     <postings grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
               limit='$userMsgPortion' offset='$offset' showshadows='*true'
 	      showadvert='*false'>
