@@ -49,6 +49,7 @@
        params='topic_id,title,limit'
        defaults="topic_id='-1' title='Обсуждения' limit=5">
 <decel name='discusslink' file='parts/posting.php' params='posting'>
+<decel name='ears' file='parts/ears.php'>
 <decel name='editlink' file='parts/posting.php' params='posting'>
 <decel name='events' file='parts/events.php'>
 <decel name='formbuttons' file='parts/formutils.php' params='title,span'
@@ -140,6 +141,10 @@
 <decel name='posting_controls' file='parts/posting.php'
        params='posting,showdiscuss,showcomplain,len'
        defaults="showdiscuss='*false' showcomplain='*false' len='90%'">
+<decel name='posting_ear' file='parts/posting-ear.php'
+       params='posting,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
 <decel name='posting_general' file='parts/posting-general.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'

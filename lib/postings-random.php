@@ -22,20 +22,21 @@ $result=mysql_query(
 	 order by priority")
  or sqlbug('Ошибка SQL при определении количества постингов по приоритетам');
 
-$ptotal=mysql_num_rows($result);
-if($limit>$ptotal)
-  $limit=$ptotal;
-if($limit==0)
-  return array();
-
 $counts=array();
 $total=0;
+$ptotal=0;
 while($row=mysql_fetch_row($result))
      {
      $row[2]=(1-$row[0])*$row[1];
      $counts[]=$row;
      $total+=$row[2];
+     $ptotal+=$row[1];
      }
+
+if($limit>$ptotal)
+  $limit=$ptotal;
+if($limit==0)
+  return array();
 
 $positions=array();
 while(count($positions)<$limit)

@@ -78,6 +78,7 @@
 <require name='parts/picture.php'>
 <require name='parts/blog-posting.php'>
 <require name='parts/posting-book.php'>
+<require name='parts/posting-ear.php'>
 <require name='parts/posting-library-announce.php'>
 <require name='parts/posting-times.php'>
 <require name='parts/posting-times-cover.php'>

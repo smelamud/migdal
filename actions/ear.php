@@ -7,11 +7,11 @@ require_once('lib/session.php');
 require_once('lib/logs.php');
 require_once('lib/post.php');
 
-postInteger('msgid');
+postInteger('postid');
 
 dbOpen();
 session();
-logEvent('link',"msg($msgid) $okdir");
+logEvent('ear',"post($postid)");
 header("Location: $okdir");
 dbClose();
 ?>

@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<element name='ears'>
+<iterate_posting_random limit=3 grp='*GRP_EARS' topic_id='$`ears`'>
+<p><table cellpadding=0 cellspacing=0 width=100%>
+ <for>
+  <if what='!$;isFirst'>
+   <tr><td class='eightpt'>&nbsp;</td></tr>
+  </if>
+  <tr><td align=left>
+   <posting_full id='$.' grp='*GRP_EARS'>
+   <a href='actions/ear.php?postid=$,Id&okdir=$#,URL'>
+    <image_linked_tag id='$,ImageId' enlarge='$,hasLargeImage'></a>
+  </td></tr> 
+ </for>
+</table></p>
+</element>

@@ -37,33 +37,8 @@
 			 limit=20 offset='$offset'
 			 fields!='*SELECT_IMAGES|*SELECT_TOPICS'>
     <batcher list='$list'>
-    <for name='post'>
-     <table class='posting'>
-      <tr>
-       <td width=150 rowspan=2>
-        <a href='$.URL'>
-	 <image_linked_tag id='$.ImageId' enlarge='$.hasLargeImage'></a>
-       </td>
-       <td width=250>
-        $.HTMLBody
-	<p>
-	<a href='$.URL'>$.URL</a>
-       </td>
-      </tr>
-      <iswrite what='$post'>
-       <tr height=20><td class='bottom'>
-	<if what='$.isHidden'>
-	 <b>[X]</b>
-	 &nbsp;
-	</if>
-	<a href="postingedit.php?editid=$.Id&topic_id=$`ears`&grp=*GRP_EARS&redirid=$_"
-	   >Изменить</a>
-	&nbsp;
-	<a href="actions/postingdel.php?id=$.Id&okdir=$#-&faildir=$#-"
-	   >Удалить</a>
-       </td></tr>
-      </iswrite>
-     </table>
+    <for>
+     <posting_ear posting='$.'>
     </for>
     <ifnzero what='$list.Count'>
      <batcher list='$list'>
