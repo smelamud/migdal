@@ -51,7 +51,7 @@
   <td><table><tr>
    <if what='$$userId==$complain.RecipientId'>
     <form method=get action='complainanswer.php'>
-     <hidden name='redir' value='$-'>
+     <hidden name='redirid' value='$_'>
      <hidden name='complain_id' value='$complain.Id'>
      <td><select name='actid'>
       <iterate_complain_actionlist type='$complain.TypeId'>
