@@ -3,3 +3,8 @@
 .index DT {
 	font-weight: bold;
 }
+
+.index DD.url {
+	color: %index_url;
+	font-size: 8pt;
+}

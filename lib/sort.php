@@ -13,6 +13,7 @@ define('SORT_RATING',8);
 define('SORT_JEWISH_NAME',9);
 define('SORT_SURNAME',10);
 define('SORT_LOGIN',11);
+define('SORT_URL_DOMAIN',12);
 define('SORT_ORDER',255);
 define('SORT_PRIORITY',256);
 

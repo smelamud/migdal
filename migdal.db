@@ -250,7 +250,8 @@ CREATE TABLE messages (
   KEY sent (sent),
   KEY used (used),
   KEY group_id (group_id),
-  KEY disabled (disabled)
+  KEY disabled (disabled),
+  KEY url (url)
 ) TYPE=MyISAM;
 
 --

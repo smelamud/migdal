@@ -113,3 +113,4 @@ ALTER TABLE `cross_topics` ADD `topic_grp` INT NOT NULL AFTER `topic_id`;
 ALTER TABLE `cross_topics` ADD INDEX (`topic_grp`);
 ALTER TABLE `cross_topics` ADD `peer_grp` INT NOT NULL;
 ALTER TABLE `cross_topics` ADD INDEX (`peer_grp`);
+ALTER TABLE `messages` ADD INDEX (`url`);

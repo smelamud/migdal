@@ -94,6 +94,7 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
+<decel name='links_switcher' file='parts/links-switcher.php' params='ident'>
 <decel name='login' file='parts/login.php' params='no_new,target'
        defaults="no_new='*false' target=''">
 <decel name='mailru_count' file='parts/mailru.php'>

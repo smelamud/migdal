@@ -31,7 +31,7 @@ class AlphabetIterator
       extends ArrayIterator
 {
 
-function AlphabetIterator($query)
+function AlphabetIterator($query,$no_russian=false)
 {
 $result=mysql_query($query);
 if(!$result)
@@ -42,7 +42,10 @@ while($row=mysql_fetch_assoc($result))
        $counts[uc($row['letter'])]+=$row['count'];
 setlocale('LC_COLLATE','ru_RU.KOI8-R');
 uksort($counts,'strcoll');
-$alphabets='ABCDEFGHIJKLMNOPQRSTUVWXYZáâ÷çäå³öúéêëìíîïğòóôõæèãşûıÿùøüàñ';
+if($no_russian)
+  $alphabets='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+else
+  $alphabets='ABCDEFGHIJKLMNOPQRSTUVWXYZáâ÷çäå³öúéêëìíîïğòóôõæèãşûıÿùøüàñ';
 $alpha=array();
 $len=strlen($alphabets);
 $i=0;

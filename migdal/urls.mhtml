@@ -1,0 +1,103 @@
+<< @(#) $Id$ >>
+
+<grps>
+<int name='offset'>
+<pagetitle title='Ссылки - Алфавитный указатель'>
+<topictitle title='Алфавитный указатель еврейских ссылок'>
+<log event=urls text#='offset=$offset'>
+
+<element name='intro'>
+<subtitle>
+<links_switcher ident='index'>
+<p>
+<postings_info grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'>
+<zone>
+ <array vals='ссылку,ссылки,ссылок'>
+ <plural name='links' value='$,Total'>
+</zone>
+<zone>
+ <posting_domains name='doms' id='$`links`' recursive='*true'>
+ <array vals='сайте,сайтах,сайтах'>
+ <plural name='sites' value='$doms'>
+</zone>
+<span class='ninept'>
+ Каталог содержит <em>$,Total</em> $links на различные ресурсы, имеющие
+ отношение к евреям и еврейству. Ресурсы размещены на <em>$doms</em> $sites.
+</span>
+</element>
+
+<element name='admin'>
+<moderator>
+ <table class='topics'><tr><td>
+   <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
+   &nbsp;
+   <a href='postingorg.php?redirid=$_' class='edit'>Сообщения</a>
+ </td></tr></table>
+</moderator>
+</element>
+
+<element name='navigator'>
+<div style='padding-left: 10px; padding-bottom: 10px'>
+ <iterate_posting_alphabet topic_id='$`links`' recursive='*true'
+                           grp='*GRP_LINKS'>
+ <for>
+  <if what='$.Offset!=$$offset'>
+   <a href='$[offset=$.Offset]'>$.Letter</a>&sp;
+  <else>
+   <b>$.Letter</b>&sp;
+  </if>
+ </for>
+</div>
+</element>
+
+<element name='batcher' params='&list'>
+<table width=70%><tr valign=bottom>
+ <td align=left class='info'>
+  <table><tr valign=center>
+   <td><image src='pics/sheet.gif'></td>
+   <td>
+    <a href='postingedit.php?topic_id=$`links`&grp=*GRP_LINKS&redirid=$_'
+       >Добавить ссылку</a><asp>
+   </td>
+  </tr></table>
+ </td>
+ <td align=center><spin list='$list'></td>
+</tr></table>
+</element>
+
+<html>
+<stylesheet ident='index'>
+<preamble>
+<body>
+ <top ident='links'>
+ <table width=100% cellpadding=5>
+  <tr valign=top><td class='nframe'>
+   <intro>
+   <admin>
+   <navigator>
+  </td></tr>
+  <tr><td class='cframe'>
+   <iterate_postinglist grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'
+                        limit=30 offset='$offset' sort='*SORT_URL_DOMAIN'
+			fields='*SELECT_TOPICS' showshadows='*false'>
+   <batcher list='$;'>
+   <assign name='domain' value=''>
+   <dl class='ninept index'>
+    <for>
+     <if what='$domain!=$.URLDomain'>
+      <ifne what='$domain'><dt>&nbsp;</ifne>
+      <dt>$.URLDomain
+      <assign name='domain' value='$.URLDomain'>
+     </if>
+     <dd><a href='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'>$.SubjectDesc</a>
+     <dd class='url'>$.URL
+    </for>
+   </dl>
+   <ifnzero what='$;Count'>
+    <batcher list='$;'>
+   </ifnzero>
+  </td></tr>
+ </table>
+ <bottom>
+</body>
+</html>

@@ -91,6 +91,11 @@
 <deciter macro='langs' class='LangIterator' file='lib/langs.php'>
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
          params='format,body'>
+<deciter macro='posting_alphabet' class='PostingAlphabetIterator'
+         file='lib/postings.php'
+	 params='sort,topic_id,recursive,grp,showshadows'
+	 defaults="sort='*SORT_URL_DOMAIN' topic_id=-1 recursive='*false'
+	           grp='*GRP_ALL' showshadows='*false'">
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting'>
 <deciter macro='posting_users' class='PostingUsersIterator'
@@ -208,9 +213,9 @@
          params='table,id'>
 <deccall macro='plural' func='getPlural' file='lib/utils.php'
          params='value,words' defaults="words='$*'">
-<deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
-         params='id,grp,topic_id,index1,up'
-	 defaults='id=-1 name=message grp=*GRP_ALL topic_id=0 index1=-1 up=-1'>
+<deccall macro='posting_domains' func='getPostingDomainCount'
+         file='lib/postings.php' params='topic_id,recursive,grp'
+	 defaults="topic_id=-1 recursive='*false' grp='*GRP_ALL'">
 <deccall macro='posting_full' func='getFullPostingById' file='lib/postings.php'
          params='id,grp,index1,topic_id'
 	 defaults='id=-1 name=message grp=*GRP_ALL index1=-1 topic_id=-1'>
@@ -225,6 +230,9 @@
 <deccall macro='posting_new' func='newDetailedPosting' file='lib/postings.php'
          params='grp,topic_id,sender_id,id,topic_name'
 	 defaults="topic_id=-1 sender_id=0 id=0 topic_name=''">
+<deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
+         params='id,grp,topic_id,index1,up'
+	 defaults='id=-1 name=message grp=*GRP_ALL topic_id=0 index1=-1 up=-1'>
 <deccall macro='posting_random' func='getRandomPostingId'
          file='lib/postings.php' params='grp,topic_id,user_id,index1'
 	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1'>

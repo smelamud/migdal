@@ -33,6 +33,7 @@ var $hidden;
 var $disabled;
 var $sent;
 var $url;
+var $url_domain;
 var $answer_count;
 var $last_answer;
 var $url_fail_time;
@@ -455,6 +456,11 @@ function getURLEllip()
 global $urlEllipSize;
 
 return ellipsize($this->url,$urlEllipSize);
+}
+
+function getURLDomain()
+{
+return $this->url_domain;
 }
 
 function getURLFailTime()

@@ -16,6 +16,7 @@ require_once('lib/users.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
 require_once('lib/select.php');
+require_once('lib/alphabet.php');
 
 class Posting
       extends Message
@@ -276,9 +277,10 @@ $Select="postings.id as id,postings.ident as ident,
 	 messages.lang as lang,messages.subject as subject,
 	 messages.author as author,messages.source as source,grp,
 	 messages.sent as sent,topic_id,messages.url as url,
-	 messages.sender_id as sender_id,messages.hidden as hidden,
-	 messages.disabled as disabled,users.hidden as sender_hidden,
-	 postings.index1 as index1,subdomain,shadow,
+	 messages.url_domain as url_domain,messages.sender_id as sender_id,
+	 messages.hidden as hidden,messages.disabled as disabled,
+	 users.hidden as sender_hidden,postings.index1 as index1,
+	 subdomain,shadow,
 	 $imageFields
 	 $topicFields
 	 login,gender,email,hide_email,rebe,
@@ -343,15 +345,16 @@ $answerFilter=$withAnswers!=GRP_NONE
 $Having=$answerFilter;
 /* Order */
 $Order=getOrderBy($sort,
-       array(SORT_SENT     => 'sent desc',
-             SORT_NAME     => 'subject',
-             SORT_ACTIVITY => 'age desc',
-	     SORT_READ     => 'read_count desc,sent desc',
-	     SORT_INDEX0   => 'postings.index0',
-	     SORT_INDEX1   => 'postings.index1',
-	     SORT_RINDEX1  => 'postings.index1 desc',
-	     SORT_RATING   => 'if(vote_count=0,2.5,vote/vote_count) desc,'.
-	                      'vote_count desc,sent desc'));
+       array(SORT_SENT       => 'sent desc',
+             SORT_NAME       => 'subject',
+             SORT_ACTIVITY   => 'age desc',
+	     SORT_READ       => 'read_count desc,sent desc',
+	     SORT_INDEX0     => 'postings.index0',
+	     SORT_INDEX1     => 'postings.index1',
+	     SORT_RINDEX1    => 'postings.index1 desc',
+	     SORT_RATING     => 'if(vote_count=0,2.5,vote/vote_count) desc,'.
+	                        'vote_count desc,sent desc',
+	     SORT_URL_DOMAIN => 'url_domain,url'));
 /* Query */
 $this->LimitSelectIterator(
        'Message',
@@ -539,6 +542,42 @@ $this->SelectIterator(
 function create($row)
 {
 return newGrpPosting(GRP_TIMES_COVER,$row);
+}
+
+}
+
+class PostingAlphabetIterator
+      extends AlphabetIterator
+{
+
+function PostingAlphabetIterator($sort=SORT_URL_DOMAIN,$topic_id=-1,
+                                 $recursive=false,$grp=GRP_ALL,
+				 $showShadows=false)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$fields=array(SORT_NAME       => 'subject',
+	      SORT_URL_DOMAIN => 'url_domain');
+$field=@$fields[$sort]!='' ? $fields[$sort] : 'url';
+$order=getOrderBy($sort,
+       array(SORT_NAME       => 'subject',
+	     SORT_URL_DOMAIN => 'url_domain,url'));
+$topicFilter=$topic_id>=0 ? 'and topics.'.subtree($topic_id,$recursive) : '';
+$grpFilter=$grp!=GRP_ALL ? "and (grp & $grp)<>0" : '';
+$shadowFilter=!$showShadows ? 'and shadow=0' : '';
+$this->AlphabetIterator(
+        "select left($field,1) as letter,count(*) as count
+         from messages
+	 left join postings
+	      on postings.message_id=messages.id
+	 left join topics
+	      on topics.id=postings.topic_id
+         where (messages.hidden<$hide or messages.sender_id=$userId) and
+	       (messages.disabled<$hide or messages.sender_id=$userId)
+	       $topicFilter $grpFilter $shadowFilter
+	 group by messages.id
+	 $order",true);
 }
 
 }
@@ -776,5 +815,26 @@ $result=mysql_query("select postings.id
 		                           and (disabled<$hide or sender_id=$userId)")
 	  or sqlbug('Ошибка SQL при проверке наличия постинга');
 return mysql_num_rows($result)>0;
+}
+
+function getPostingDomainCount($topic_id=-1,$recursive=false,$grp=GRP_ALL)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$topicFilter=$topic_id>=0 ? 'and topics.'.subtree($topic_id,$recursive) : '';
+$grpFilter=$grp!=GRP_ALL ? "and (grp & $grp)<>0" : '';
+$result=mysql_query(
+        "select count(distinct url_domain)
+         from messages
+	 left join postings
+	      on postings.message_id=messages.id
+	 left join topics
+	      on topics.id=postings.topic_id
+         where (messages.hidden<$hide or messages.sender_id=$userId) and
+	       (messages.disabled<$hide or messages.sender_id=$userId) and
+	       shadow=0 $topicFilter $grpFilter")
+          or sqlbug('Ошибка SQL при получении количества доменов');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

@@ -19,6 +19,8 @@
 
 <element name='intro'>
 <subtitle>
+<links_switcher ident='catalog'>
+<p>
 <postings_info grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'>
 <zone>
  <array vals='ссылку,ссылки,ссылок'>

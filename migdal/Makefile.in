@@ -15,9 +15,9 @@ OBJECTS = archive.php article.php article-times.php book.php book-chapter.php \
 	  postingorg.php rating.php register.php reorder.php \
 	  stotext-help-subs.php stotext-help-types.php style.php taglit.php \
 	  taglit-user.php times.php tips.php topicdel.php topicedit.php \
-	  topiclinkadd.php topicorg.php useredit.php userfin.php userinfo.php \
-	  userinfo-panel.php userlost.php userok.php userrepair.php users.php \
-	  veterans.php veterans-user.php
+	  topiclinkadd.php topicorg.php urls.php useredit.php userfin.php \
+	  userinfo.php userinfo-panel.php userlost.php userok.php \
+	  userrepair.php users.php veterans.php veterans-user.php
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
