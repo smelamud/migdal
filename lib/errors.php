@@ -14,4 +14,10 @@ define('EUM_NO_EDIT',10);
 
 define('EL_INVALID',11);
 define('EL_OK',12);
+
+define('ET_OK',13);
+define('ET_NAME_ABSENT',14);
+define('ET_DESCRIPTION_ABSENT',15);
+define('ET_NO_EDIT',16);
+define('ET_STORE_SQL',17);
 ?>

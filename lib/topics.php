@@ -3,6 +3,7 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
+require_once('lib/tmptexts.php');
 
 class Topic
       extends DataObject
@@ -22,12 +23,12 @@ $this->DataObject($row);
 
 function setup($vars)
 {
-if(!isset($vars['hidden']))
-  return;
 foreach($this->getCorrespondentVars() as $var)
-       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+       if(isset($vars[$var]))
+         $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 foreach($this->getInverseVars() as $var => $inv_var)
-       $this->$var=$vars[$inv_var] ? 0 : 1;
+       if(isset($vars[$inv_var]))
+         $this->$var=$vars[$inv_var] ? 0 : 1;
 if(isset($vars['descriptionid']))
   $this->description=tmpTextRestore($vars['descriptionid']);
 }
@@ -41,6 +42,35 @@ function getInverseVars()
 {
 return array('no_news' => 'news','no_forums' => 'forums',
              'no_gallery' => 'gallery');
+}
+
+function getAdminVars()
+{
+return array('name','description','hidden','no_news','no_forums','no_gallery');
+}
+
+function getAdminVarValues()
+{
+$vals=array();
+foreach($this->getAdminVars() as $var)
+       $vals[$var]=$this->$var;
+return $vals;
+}
+
+function store()
+{
+$normal=$this->getAdminVarValues();
+$result=mysql_query($this->id 
+                    ? makeUpdate('topics',$normal,array('id' => $this->id))
+                    : makeInsert('topics',$normal));
+if(!$this->id)
+  $this->id=mysql_insert_id();
+return $result;
+}
+
+function getId()
+{
+return $this->id;
 }
 
 function getName()

@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/topics.php');
+require_once('lib/errors.php');
 
 require_once('top.php');
 
@@ -24,6 +25,15 @@ return "<tr><td>
 	</td></tr>";
 }
 
+function perror($code,$message,$color='red')
+{
+global $err;
+
+if($err==$code)
+  echo "<tr><td><a name='error'>
+         <font color='$color'>$message</font>
+	</td></tr>";
+}
 ?>
 <html>
 <head>
@@ -45,14 +55,20 @@ return "<tr><td>
  <input type=hidden name='redir' value='<?php echo $redir ?>'>
  <input type=hidden name='editid' value='<?php echo $editid ?>'>
  <table>
+ <?php
+ perror(ET_NO_EDIT,'У вас нет права менять список тем');
+ perror(ET_STORE_SQL,'Ошибка базы данных при обновлении записи','magenta');
+ perror(ET_NAME_ABSENT,'Название не было введено');
+ ?>
  <tr></td><table>
   <?php echo elementEdit('Название',$topic->getName(),'name',30,70); ?>
  </table></td></tr>
+ <?php perror(ET_DESCRIPTION_ABSENT,'Описание не было задано'); ?>
  <tr><td>Описание</td></tr>
  <tr><td>
-  <textarea name='description' rows=10 cols=50 wrap='virtual'>
-   <?php echo $topic->getDescription() ?>
-  </textarea>
+  <textarea name='description' rows=10 cols=50 wrap='virtual'><?php
+   echo $topic->getDescription()
+  ?></textarea>
  </td></tr>
  <?php
  echo elementCheckBox('hidden',$topic->isHidden(),'Не показывать в списке');
