@@ -1,0 +1,24 @@
+# Makefile for Demo website
+
+# @(#) $Id$
+
+OBJECTS = chat.php chatboard.php complainanswer.php complainedit.php \
+          complainforum.php complains.php forum.php index.php messageedit.php \
+          messages.php topics.php topicedit.php useredit.php userfin.php \
+          userok.php users.php
+	  
+%.php: %.mhtml ../miparser ../macros.mhtml
+	../miparser -M ../macros.mhtml $< > $@
+
+all: $(OBJECTS)
+	(cd parts; $(MAKE) all)
+
+Makefile: Makefile.in ../conf/migdal.conf
+	../confmake $^ > Makefile
+
+install: all
+	(cd parts; $(MAKE) install)
+
+clean:
+	-rm $(OBJECTS)
+	(cd parts; $(MAKE) clean)

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# @(#) $Id$
+
+DIRS='. demo demo/parts'
+
+for s in $DIRS; do
+    ./confmake $s/Makefile.in conf/migdal.conf > $s/Makefile
+done

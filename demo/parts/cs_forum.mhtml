@@ -1,0 +1,8 @@
+<< @(#) $Id$ >>
+
+<element name='complain_subject' params='link'>
+<center><h1>Жалоба на сообщение в форуме</h1></center>
+<p>
+<message_full id='$link' grp='*GRP_FORUMS'>
+<forum forum='$,' complain='*false'>
+</element>

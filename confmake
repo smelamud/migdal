@@ -5,14 +5,13 @@
 $input='Makefile.in' if $input eq '';
 $config='conf/migdal.conf' if $config eq '';
 
-open OUT,'>Makefile';
-print OUT "# Created automatically from Makefile.in\n";
+print "# Created automatically from Makefile.in\n";
 open IN,$input;
 while(<IN>)
      {
      unless(/^#\s@\(#\)\s\$Id[^\$]*\$/)
            {
-           print OUT;
+           print;
 	   next;
 	   }
      open CONF,$config;
@@ -22,9 +21,8 @@ while(<IN>)
 	  s/#.*$//;
 	  next if /^\s*$/;
 	  my ($name,$value)=/^\$(\w+)=(.*);\s*$/;
-	  print OUT "$name=$value\n";
+	  print "$name=$value\n";
 	  }
      close CONF;
      }
 close IN;
-close OUT;

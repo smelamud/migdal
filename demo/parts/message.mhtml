@@ -1,0 +1,70 @@
+<< @(#) $Id$ >>
+
+<macro name='rebe'>
+ <if what='$message.isRebe'><font color=red></if>
+</macro>
+
+<macro name='/rebe'>
+ <if what='$message.isRebe'></font></if>
+</macro>
+
+<element name='Message'>
+<table width=100% class='message'>
+<tr>
+ <ifzero what='$topic'>
+  <td>
+   <a href='messages.php?redir=$_&grp=$grp&topic_id=$message.TopicId'>
+    $message.TopicName
+   </a>
+  </td>
+ <else>
+  <td>&nbsp;</td>
+ </ifzero>
+ <td align=right>$message.SentView</td>
+</tr>
+<tr>
+ <td><b><rebe>$message.Subject</rebe></b></td>
+ <td align=right><rebe><senderlink message='$message'></rebe></td>
+</tr>
+<tr><td colspan=2>
+ <ifnzero what='$message.ImageSet'>
+  <table width=100%><tr>
+   <td>
+    <if what='$message.hasLargeImage'>
+     <a href='lib/image.php?id=$message.ImageId&size=large'>
+      <imgtag id='$message.ImageId'>
+     </a>
+    <else>
+     <imgtag id='$message.ImageId'>
+    </if>
+   </td>
+   <td>$message.HTMLBody</td>
+  </tr></table>
+ <else>
+  <rebe>$message.HTMLBody</rebe>
+ </ifnzero>
+</td></tr>
+<tr>
+<td>
+<isedit name='message'>
+ <a href="messageedit.php?editid=$message.Id&grp=$message.Grp&redir=$_"
+  >[Изменить]</a>
+ <if what='$message.isModerable'>
+  <if what='$message.isDisabled'>
+   <a href="actions/moderate.php?editid=$message.Id&hide=0&redir=$_"
+    >[Разрешить показ]</a>
+  <else>
+   <a href="actions/moderate.php?editid=$message.Id&hide=1&redir=$_"
+    >[Запретить показ]</a>
+  </if>
+ </if>
+</isedit>
+</td>
+<td align=right>
+<if what='$discuss'>
+ <a href='forum.php?redir=$_&msgid=$message.Id'>Обсудить ($message.AnswerCount)</a>
+</if>
+</td>
+</tr>
+</table>
+</element>

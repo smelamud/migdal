@@ -1,0 +1,20 @@
+<< @(#) $Id$ >>
+
+<element name='Messages'>
+<grpdata>
+<if what='$g.ValidItem'><logged>
+ <a href='messageedit.php?topic_id=$topic&grp=$grp&redir=$_'
+  >Добавить $g.ItemTitle</a>
+</logged></if>
+<iterate_messagelist grp='$grp' topic='$topic' limit='$limit' offset='$offset'>
+<batcher value='$limit' var='mp'>
+<navigator>
+<table width=100%>
+<error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+<error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+<for>
+ <tr><td><message message='$.' grp='$grp' topic='$topic'></td></tr>
+</for>
+</table>
+<navigator>
+</element>
