@@ -38,8 +38,9 @@ function isPremoderated($message)
 global $userId,$userModerator;
 
 return (((int)getPremoderateByTopicId($message->getTopicId())
-         & (int)$message->getGrp())!=0 || $message->getLargeFormat()==TF_HTML)
-       && !$userModerator && $userId>0;
+         & (int)$message->getGrp())!=0 && $userId>0
+	|| $message->getLargeFormat()==TF_HTML)
+       && !$userModerator;
 }
 
 function isLogged($message)
