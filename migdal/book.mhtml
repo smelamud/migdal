@@ -52,13 +52,19 @@
 	<sibling up='$,MessageId' index0='-1'>
 	<if what='$,>0'>
 	 <p>
-	  <table class='ring' cellspacing=0 cellpadding=0><tr valign=center>
-	   <td><a href='book-chapter.php?chapid=$,'><asp>
-	    <image src='pics/right.gif' border=0>
-	   <asp></a></td>
-	   <td>&nbsp;</td>
-	   <td><a href='book-chapter.php?chapid=$,'>Читать книгу</a></td>
-	  </tr></table>
+	  <table class='ring' cellpadding=0>
+	   <tr valign=center>
+	    <td align=right><image src='pics/further.gif' border=0></td>
+	    <td>&nbsp;</td>
+	    <td><a href='book-chapter.php?chapid=$,'>Читать книгу</a></td>
+	   </tr>
+	   <tr valign=center>
+	    <td align=right><image src='pics/print.gif' border=0></td>
+	    <td>&nbsp;</td>
+	    <td><a href='book-print.php?bookid=$bookid&print=1'>Вся книга
+	     для печати</a></td>
+	   </tr>
+	  </table>
 	 </p>
 	</if>
        </zone>
@@ -70,6 +76,7 @@
      </td>
     </tr>
    </table>
+   <p>
    <article_controls posting='$,'>
   </td>
  </tr></table>

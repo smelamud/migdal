@@ -114,3 +114,74 @@ ALTER TABLE `cross_topics` ADD INDEX (`topic_grp`);
 ALTER TABLE `cross_topics` ADD `peer_grp` INT NOT NULL;
 ALTER TABLE `cross_topics` ADD INDEX (`peer_grp`);
 ALTER TABLE `messages` ADD INDEX (`url`);
+ALTER TABLE `cross_topics` DROP INDEX `topic_id`;
+ALTER TABLE `cross_topics` ADD INDEX ( `topic_id` );
+ALTER TABLE `cross_topics` ADD INDEX ( `peer_id` );
+ALTER TABLE `groups` DROP INDEX `user_id`;
+ALTER TABLE `groups` ADD INDEX ( `user_id` );
+ALTER TABLE `groups` ADD INDEX ( `group_id` );
+ALTER TABLE `journal` DROP INDEX `seq`;
+ALTER TABLE `journal` ADD INDEX ( `seq` );
+ALTER TABLE `journal` ADD INDEX ( `result_table` );
+ALTER TABLE `journal` ADD INDEX ( `result_id` );
+ALTER TABLE `journal` ADD INDEX ( `result_var` );
+ALTER TABLE `journal` ADD INDEX ( `sent` );
+ALTER TABLE `journal_vars` DROP INDEX `var`;
+ALTER TABLE `journal_vars` ADD INDEX ( `var` );
+ALTER TABLE `journal_vars` ADD INDEX ( `host` );
+ALTER TABLE `journal_vars` ADD INDEX ( `last_read` );
+ALTER TABLE `links` DROP INDEX `message_id`;
+ALTER TABLE `links` ADD INDEX ( `url_check` );
+ALTER TABLE `links` ADD INDEX ( `url_check_success` );
+ALTER TABLE `logs` DROP INDEX `id`;
+ALTER TABLE `logs` ADD INDEX ( `event` );
+ALTER TABLE `logs` ADD INDEX ( `sent` );
+ALTER TABLE `messages` DROP INDEX `up`;
+ALTER TABLE `messages` ADD INDEX ( `up` );
+ALTER TABLE `messages` ADD INDEX ( `track` );
+ALTER TABLE `messages` DROP INDEX `url_check`;
+ALTER TABLE `messages` ADD INDEX ( `url_check` );
+ALTER TABLE `messages` ADD INDEX ( `url_check_success` );
+ALTER TABLE `postings` DROP INDEX `read_count`;
+ALTER TABLE `postings` ADD INDEX ( `read_count` );
+ALTER TABLE `postings` ADD INDEX ( `index0` );
+ALTER TABLE `postings` ADD INDEX ( `index1` );
+ALTER TABLE `postings` ADD INDEX ( `index2` );
+ALTER TABLE `postings` ADD INDEX ( `index3` );
+ALTER TABLE `postings` ADD INDEX ( `index4` );
+ALTER TABLE `redirs` DROP INDEX `id`;
+ALTER TABLE `redirs` ADD INDEX ( `up` );
+ALTER TABLE `redirs` ADD INDEX ( `track` );
+ALTER TABLE `redirs` ADD INDEX ( `last_access` );
+ALTER TABLE `stotext_images` ADD INDEX ( `par` );
+ALTER TABLE `tmp_texts` ADD INDEX ( `last_access` );
+ALTER TABLE `topics` DROP INDEX `index0`;
+ALTER TABLE `topics` ADD INDEX ( `index0` );
+ALTER TABLE `topics` ADD INDEX ( `index1` );
+ALTER TABLE `topics` ADD INDEX ( `index2` );
+ALTER TABLE `topics` ADD INDEX ( `index3` );
+ALTER TABLE `topics` ADD INDEX ( `index4` );
+ALTER TABLE `votes` DROP INDEX `posting_id`;
+ALTER TABLE `votes` ADD INDEX ( `posting_id` );
+ALTER TABLE `votes` ADD INDEX ( `ip` );
+ALTER TABLE `votes` ADD INDEX ( `user_id` );
+ALTER TABLE `votes` ADD INDEX ( `sent` );
+ALTER TABLE `messages` ADD INDEX ( `hidden` );
+DROP TABLE `links`;
+ALTER TABLE `messages` ADD `last_updated` TIMESTAMP NOT NULL;
+ALTER TABLE `messages` ADD INDEX (`last_updated`);
+CREATE TABLE `packages` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`posting_id` INT NOT NULL ,
+`type` INT NOT NULL ,
+`mime_type` VARCHAR( 50 ) NOT NULL ,
+`title` VARCHAR( 250 ) NOT NULL ,
+`body` LONGBLOB NOT NULL ,
+`size` INT NOT NULL ,
+`url` VARCHAR( 250 ) NOT NULL ,
+`created` DATETIME NOT NULL ,
+PRIMARY KEY ( `id` )
+);
+ALTER TABLE `packages` ADD INDEX ( `posting_id` );
+ALTER TABLE `packages` ADD INDEX ( `type` );
+ALTER TABLE `packages` ADD INDEX ( `created` );

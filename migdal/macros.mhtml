@@ -121,7 +121,8 @@
                  shorten='*false'">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,text,image_id' defaults="text=''">
-<decel name='pointer' file='parts/pointer.php' params='href,text,title,left'>
+<decel name='pointer' file='parts/pointer.php' params='href,text,title,left'
+       defaults="title=''">
 <decel name='posting' file='parts/posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
