@@ -34,6 +34,7 @@ posting_subject=%m
 posting_split=%nd
 posting_controls=black
 posting_controls_hover=blue
+forum_border=%vm
 forum_header_back=%vm
 forum_body_back=%vl
 forum_sent=white
@@ -265,13 +266,14 @@ forums_batcher_input_text=%vd
 
 .forum {
 	border-spacing: 0;
+	border: solid 1px %forum_border;
 }
 
 .forum .header {
 	background-color: %forum_header_back;
 	padding-left: .5em;
 	text-align: left;
-	vertical-align: middle;
+	vertical-align: top;
 	width: 25%;
 }
 

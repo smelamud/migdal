@@ -72,6 +72,8 @@
  <for>
   <posting posting='$.' grp='$grp' topic='$topic'>
  </for>
- <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp'>
+ <ifnzero what='$;Count'>
+  <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp'>
+ </ifnzero>
 </if>
 </element>
