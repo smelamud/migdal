@@ -18,3 +18,10 @@
 	border: solid 1px %aframe_border;
 	margin-bottom: 0.5ex;
 }
+
+.nframe {
+	background-color: %nframe_back;
+	background-image: url("../%nframe_back_pic");
+	border: solid 1px %nframe_border;
+	margin-bottom: 0.5ex;
+}

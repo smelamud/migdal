@@ -62,20 +62,24 @@
     </if>
    </td>
    <td class='cframe'>
-    <subtitle>
-    <seealso_links topic_id='$topic_id'
-		   title='См. также в разделе ссылок'>
-    <postings grp='*GRP_TAPE' topic_id='$topic_id' limit='$userMsgPortion'
-	      offset='$offset' showshadows!='$topic_id>0'>
-   </td>
-   <td width=130 class='eframe'>
-    <tip>
-    <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'
-                      showshadows!='$topic_id>0'>
-    <if what='$topic_id<=0'>
-     <discussions limit=7>
-    </if>
-    <<friends>>
+    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
+     <td>
+      <subtitle>
+      <seealso_links topic_id='$topic_id'
+		     title='См. также в разделе ссылок'>
+      <postings grp='*GRP_TAPE' topic_id='$topic_id' limit='$userMsgPortion'
+		offset='$offset' showshadows!='$topic_id>0'>
+     </td>
+     <td width=130 class='nframe'>
+      <tip>
+      <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'
+			showshadows!='$topic_id>0'>
+      <if what='$topic_id<=0'>
+       <discussions limit=7>
+      </if>
+      <<friends>>
+     </td>
+    </tr></table>
    </td>
   </tr>
  </table>

@@ -23,7 +23,7 @@
   </td>
   <td>
    <if what='$topic_id>0'>
-    <div class='aframe' style='margin-bottom: 5px; padding: 5px'>
+    <div class='nframe' style='margin-bottom: 5px; padding: 5px'>
      <subtitle icon='pics/opinion-big.gif'>
      <seealso_links topic_id='$topic_id'
 		    title='См. также в разделе ссылок'>

@@ -9,7 +9,7 @@
 <iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
                      recursive='*false' limit=10 sort='*SORT_PSENT'>
 <ifnzero what='$;Count'>
- <table class='eframe' width=180 align=right
+ <table class='nframe' width=180 align=right
 	cellpadding=5 cellspacing=0 style='margin-left: 5px'>
   <tr><td>
    <topics_table title='Новые поступления'>

@@ -26,7 +26,7 @@
 </element>
 
 <element name='navigator'>
-<table width=100% class='eframe'>
+<table width=100% class='nframe'>
  <tr><td align=right class='eightpt'>
   <b>Сортировать</b>
   <navi_sort title='по нику' value='*SORT_LOGIN'>|

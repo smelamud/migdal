@@ -107,7 +107,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <table class='ninept aframe' style='padding: 5px'>
+ <table class='ninept nframe' style='padding: 5px'>
   <form method=post action='actions/postingorg-goto.php'>
    <hidden name='okdir' value='$-'>
    <hidden name='faildir' value='$-'>
