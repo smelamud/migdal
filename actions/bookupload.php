@@ -12,15 +12,27 @@ postInteger('type');
 postInteger('mime_type');
 postInteger('fname');
 
-dbOpen();
-session(getShamesId());
+function dropBook($message_id,$type)
+{
+mysql_query("delete from packages
+             where message_id=$message_id and type=$type")
+  or sqlbug('Ошибка SQL при удалении старого пакета');
+}
+
+function uploadBook($message_id,$type,$mime_type,$fname)
+{
 $package=new Package(array('message_id' => $message_id,
 			   'type'       => $type,
-			   'mime_type'  => $bookCompressType,
+			   'mime_type'  => $mime_type,
 			   'size'       => filesize("$bookCompressDir/$fname"),
 			   'url'        => "$bookCompressURL/$fname"));
-}
 if(!$package->store())
-  echo "PDF book ($message_id) registration error: ".mysql_error()."\n";
+  sqlbug('Ошибка SQL при добавлении пакета');
+}
+
+dbOpen();
+session(getShamesId());
+dropBook($message_id,$type);
+uploadBook($message_id,$type,$mime_type,$fname);
 dbClose();
 ?>
