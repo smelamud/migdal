@@ -41,11 +41,16 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
   displayTop('users');
   ?>
   <p>
-  <a href="useredit.php">Зарегистрироваться</a><br>
+  <a href="useredit.php">Новый пользователь</a><br>
   <?php
   $user=getUserById($editid);
   if($user->isEditable())
-    echo '<form>';
+    {
+    ?>
+    <center><h1>Введите информацию о себе</h1></center>
+    <form>
+    <?php
+    }
   ?>
   <table>
    <tr>
