@@ -528,6 +528,14 @@ my ($self)=@_;
        '(',::constructParams($self->getArgs()),') ?>');
 }
 
+sub elCall #XXX Possibly empty name,func
+{
+my ($self)=@_;
+
+::body('<?php $',$self->getArg('name'),'=',$self->getArg('func'),
+       '(',::constructParams($self->getArgs()),') ?>');
+}
+
 sub elHeader
 {
 my ($self)=@_;
