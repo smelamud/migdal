@@ -19,29 +19,45 @@ function displayLogin($flags,$err)
 {
 global $userId,$REQUEST_URI;
 
-echo "<form method=post action='actions/".
-                     ($userId<0 ? 'login.php' : 'logout.php')."'>
-      <input type=hidden name='redir' value='".makeRedirURL()."'>
-      <table>";
+?>
+<form method=post action='actions/<?php
+ echo $userId<0 ? 'login.php' : 'logout.php';
+?>'>
+<input type=hidden name='redir' value='<?php echo makeRedirURL() ?>'>
+<table>
+<?php
 displayLoginError($err);
 if($userId<0)
   {
-  echo '<tr>
-         <td>Ник</td>
-	 <td><input type=text name=\'login\' size=6 maxlength=30></td>
-	 <td>Пароль</td>
-	 <td><input type=password name=\'password\' size=6></td>
-	 <td><input type=submit value=\'Войти\'></td>
-	</tr>';
+  ?>
+  <tr>
+   <td>Ник</td>
+   <td><input type=text name='login' size=6 maxlength=30></td>
+   <td>Пароль</td>
+   <td><input type=password name='password' size=6></td>
+   <td><input type=submit value='Войти'></td>
+  </tr>
+  <?php
   if($flags!='no_new')
-    echo '<tr><td colspan=5>
-           <a href=\'/useredit.php?redir='.urlencode($REQUEST_URI)
-	                                  .'\'>Зарегистрироваться</a>
-	  </td></tr>';
+    {
+    ?>
+    <tr><td colspan=5>
+     <a href='/useredit.php?redir='<?php
+      echo urlencode($REQUEST_URI);
+     ?>'>Зарегистрироваться</a>
+    </td></tr>
+    <?php
+    }
   }
 else
-  echo '<tr><td colspan=5><input type=submit value=\'Выйти\'></td></tr>';
-echo '</table>
-      </form>';
+  {
+  ?>
+  <tr><td colspan=5><input type=submit value='Выйти'></td></tr>
+  <?php
+  }
+?>
+</table>
+</form>
+<?php
 }
 ?>

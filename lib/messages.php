@@ -6,6 +6,7 @@ require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/images.php');
+require_once('lib/topics.php');
 
 class Message
       extends DataObject
@@ -163,6 +164,12 @@ function getPersonalId()
 return $this->personal_id;
 }
 
+function getSentView()
+{
+$t=strtotime($this->sent);
+return date('j/m/Y × H:i:s',$t);
+}
+
 }
 
 class Forum
@@ -234,10 +241,35 @@ $name=getGrpClassName($row['grp']);
 return new $name($row);
 }
 
-function newGrpMessage($grp)
+function newGrpMessage($grp,$row=array())
 {
 $name=getGrpClassName($grp);
 return new $name($row);
+}
+
+class MessageListIterator
+      extends GroupSelectIterator
+{
+
+function MessageListIterator($grp,$personal=0)
+{
+global $userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$grpFilter=$this->getGrpCondition($grp);
+$this->GroupSelectIterator('Message',
+                           "select id,body,subject,grp,sent
+		            from messages
+		            where hidden<$hide and personal_id=$personal
+		            and up=0 $grpFilter
+		            order by sent desc");
+}
+
+function create($row)
+{
+return newMessage($row);
+}
+
 }
 
 function getMessageById($id,$grp=0)

@@ -3,6 +3,7 @@
 
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
+require_once('lib/grps.php');
 
 require_once('parts/top.php');
 require_once('parts/messages.php');
@@ -15,7 +16,11 @@ require_once('parts/messages.php');
   <?php
   dbOpen();
   displayTop('index');
-  displayMessages();
+  ?>
+  <table width=100%>
+   <tr><td><?php displayMessages(GRP_ANY) ?></td></tr>
+  </table>
+  <?php
   dbClose();
   ?>
 </body>

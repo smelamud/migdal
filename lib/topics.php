@@ -106,24 +106,15 @@ return $this->no_gallery ? 0 : 1;
 
 }
 
-class BaseTopicListIterator
+class GroupSelectIterator
       extends SelectIterator
 {
 
-function BaseTopicListIterator($sql)
+function getGrpCondition($grp)
 {
-$this->SelectIterator('Topic',$sql);
-}
-
-function getWhere($grp)
-{
-global $userAdminTopics;
-
-$hide=$userAdminTopics ? 2 : 1;
-$grpFilter=$grp==GRP_ANY ? '' 
-                         : 'and ('.join(' or ',
-			                $this->noEqZero(getGrpNames($grp))).')';
-return " where hidden<$hide $grpFilter ";
+return $grp==GRP_ANY ? ''
+                     : 'and ('.join(' or ',
+		               $this->noEqZero(getGrpNames($grp))).')';
 }
 
 function noEqZero($vars)
@@ -132,6 +123,26 @@ $conds=array();
 foreach($vars as $var)
        $conds[]="no_$var=0";
 return $conds;
+}
+
+}
+
+class BaseTopicListIterator
+      extends GroupSelectIterator
+{
+
+function BaseTopicListIterator($sql)
+{
+$this->GroupSelectIterator('Topic',$sql);
+}
+
+function getWhere($grp)
+{
+global $userAdminTopics;
+
+$hide=$userAdminTopics ? 2 : 1;
+$grpFilter=$this->getGrpCondition($grp);
+return " where hidden<$hide $grpFilter ";
 }
 
 }
