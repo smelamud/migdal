@@ -55,7 +55,6 @@
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
                      sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
- <table class='postings' width=100%><tr><td>
   <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp' g='$g'>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -63,7 +62,5 @@
    <posting posting='$.' grp='$grp' topic='$topic'>
   </for>
   <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp' g='$g'>
-  </table>
- </td></tr></table>
 </if>
 </element>

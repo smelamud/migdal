@@ -6,7 +6,6 @@
 }
 
 
-
 .error[color='red'] {
 	color: red;
 }
@@ -23,7 +22,6 @@
 
 .menu A {
 	color: white;
-	font-weight: bold;
 	text-decoration: none;
 }
 
@@ -37,25 +35,20 @@
 
 
 .state {
-	background-color: #42E8DA;
+	/*background-color: #42E8DA;*/
 	font-size: 8pt;
 	padding: 0pt;
 }
 
 .state .date {
-	font-size: 11pt;
-	font-style: italic;
-	color: blue;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #F1BE06;
 	padding-right: 1em;
-}
-
-.state .date U {
-	font-size: inherit;
 }
 
 .state .login TD {
 	font-size: 8pt;
-	color: blue;
 }
 
 .state .login A {
@@ -67,6 +60,10 @@
 	text-decoration: underline;
 }
 
+.state .login A:hover {
+	color: blue;
+}
+
 .state .login INPUT {
 	border-color: blue;
 	border-width: 1px;
@@ -74,78 +71,46 @@
 	font-size: 8pt;
 }
 
-.state .login INPUT[type='submit'] {
-	background-color: #42E8DA;
-}
-
-.state .login INPUT[type='text'],.state .login INPUT[type='password'] {
-	background-color: #B1E8E3;
-}
-
-.state .login .error {
-	color: #FF0080;
+.batcher {
 	font-size: 8pt;
 }
 
-
-.postings {
-	border-style: solid;
-	border-color: #42E8DA;
-	border-width: 2px;
-}
-
-.postings .batcher {
-	background-color: #42E8DA;
-	font-size: 8pt;
-}
-
-.postings .batcher A.add {
+.batcher A.add {
 	color: white;
 	font-size: 8pt;
 	text-decoration: none;
 	margin-left: 1em;
 }
 
-.postings .batcher A.add:hover {
+.batcher A.add:hover {
 	text-decoration: underline;
 }
 
-.postings .batcher TD {
+.batcher TD {
 	font-size: 8pt;
 }
 
-.postings .batcher INPUT {
+.batcher INPUT {
 	border-color: blue;
 	border-width: 1px;
 	color: blue;
 	font-size: 8pt;
 }
 
-.postings .batcher SELECT {
-	background-color: #B1E8E3;
+.batcher SELECT {
 	border-color: blue;
-	border-width: 1px;
 	color: blue;
+	border-width: 1px;
 	font-size: 8pt;
-}
-
-.postings .batcher INPUT[type='submit'] {
-	background-color: #42E8DA;
-}
-
-.postings .batcher INPUT[type='text'] {
-	background-color: #B1E8E3;
 }
 
 .posting {
-	border-style: solid;
-	border-color: #0C20A5;
-	border-width: 2px;
+	border: 1px solid #52739C;
 	margin: 0.5ex;
 }
 
 .posting .top {
-	background-color: #0C20A5;
+	background-color: #52739C;
 }
 
 .posting .top .sent {
@@ -214,7 +179,7 @@
 }
 
 .posting .bottom {
-	border-top: 1px solid #0C20A5;
+	border-top: 1px solid #52739C;
 	margin-top: 1.5ex;
 }
 
