@@ -114,6 +114,7 @@ else
   $this->sender_id=$userId;
   $this->sent=$sent;
   }
+journal("track messages ".journalVar('messages',$this->$id));
 return $result;
 }
 

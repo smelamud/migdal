@@ -111,6 +111,7 @@ else
                      jencodeVars($normal,$this->getJencodedVars())),
 	  'topics',$this->id);
   }
+journal("track topics ".journalVar('topics',$this->id));
 return $result;
 }
 

@@ -60,6 +60,7 @@ while($row=mysql_fetch_assoc($result))
      $tracks[$row['id']]=track($row['id'],$tracks[$row['up']]);
      updateTrackById($table,$row['id'],$tracks[$row['id']]);
      }
+journal("tracks $table ".journalVar($table,$id));
 return true;
 }
 
