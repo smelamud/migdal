@@ -14,7 +14,7 @@
  <table cellspacing=0 cellpadding=0>
   <for>
    <if what='$day!=$.Sent@d'>
-    <tr><td colspan=2 class='split'>$.Sent@d.$.Sent@m.$.Sent@Y</td></tr>
+    <tr><td colspan=3 class='split'>$.Sent@d.$.Sent@m.$.Sent@Y</td></tr>
     <assign name='day' value='$.Sent@d'>
    </if>
    <tr>
