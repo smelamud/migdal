@@ -50,7 +50,9 @@
 <table class='$tableclass' width=100%>
  <ifnzero what='$span'>
   <if what='$span>1'>
-   <col width=0* span=$span>
+   <for n='$span'>
+    <col width=0*>
+   </for>
   <else>
    <col width=0*>
   </if>

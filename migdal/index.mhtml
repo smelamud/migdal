@@ -40,7 +40,7 @@
 <body>
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=120 class='eframe'>
+  <td width=150 class='eframe'>
    <topics_major ident='index'>
    <topics_minor id='$topic_id' withpostings='$$officialDomain'
                  subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'

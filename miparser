@@ -953,9 +953,17 @@ my ($self)=@_;
 
 my $list=$self->getConstArg('list');
 $list=$::Stack->top()->getIterator() if $list eq '';
+my $n=$self->getVarArg('n');
 my $name=$self->getConstArg('name');
 $name='item'.($::LastItem++) if $name eq '';
-::body("<?php while(\$$name=\$$list->next()) { ?>");
+if($n eq '' || $n eq "''")
+  {
+  ::body("<?php while(\$$name=\$$list->next()) { ?>");
+  }
+else
+  {
+  ::body("<?php for(\$$name=0;\$$name<$n;\$$name++) { ?>");
+  }
 $::Stack->push();
 $::Stack->top()->setItem($name);
 }

@@ -274,6 +274,7 @@ $c='[Голосование]' if $type eq 'vote';
 $c='[Ссылки]' if $type eq 'links';
 $c='[Книга]' if $type eq 'book';
 $c='[Глава книги]' if $type eq 'chapter';
+$c='[Обзор]' if $type eq 'review';
 return $c.specify($s);
 }
 
