@@ -3,6 +3,7 @@
 
 require_once('grp/counters.php');
 require_once('lib/ip.php');
+require_once('lib/sql.php');
 
 function storeCounterIP($id,$mode)
 {
@@ -12,9 +13,9 @@ $period=$counterModes[$mode]['period'];
 if($period<=0)
   return;
 $ip=IPToInteger($REMOTE_ADDR);
-mysql_query("insert into counters_ip(counter_id,ip,expires)
-             values($id,$ip,now()+interval $period hour)")
-  or sqlbug('Ошибка SQL при сохранении IP для счетчика');
+sql("insert into counters_ip(counter_id,ip,expires)
+     values($id,$ip,now()+interval $period hour)",
+    'storeCounterIP');
 }
 
 function hasCounterIP($id,$mode)
@@ -25,28 +26,28 @@ $period=$counterModes[$mode]['period'];
 if($period<=0)
   return false;
 $ip=IPToInteger($REMOTE_ADDR);
-$result=mysql_query("select counter_id
-                     from counters_ip
-		     where counter_id=$id and ip=$ip")
-          or sqlbug('Ошибка SQL при проверке IP для счетчика');
+$result=sql("select counter_id
+	     from counters_ip
+	     where counter_id=$id and ip=$ip",
+	    'hasCounterIP');
 return mysql_num_rows($result)>0;
 }
 
 function incCounter($message_id,$mode)
 {
-$result=mysql_query("select id
-                     from counters
-		     where message_id=$message_id and mode=$mode and serial=0")
-          or sqlbug('Ошибка SQL при получении текущего счетчика');
+$result=sql("select id
+	     from counters
+	     where message_id=$message_id and mode=$mode and serial=0",
+	    'incCounter','select');
 if(mysql_num_rows($result)<=0)
   return;
 $id=mysql_result($result,0,0);
 if(hasCounterIP($id,$mode))
   return;
-mysql_query("update counters
-             set value=value+1
-	     where id=$id")
-  or sqlbug('Ошибка SQL при увеличении счетчика');
+sql("update counters
+     set value=value+1
+     where id=$id",
+    'incCounter','increment');
 journal('update counters
          set value=value+1
 	 where id='.journalVar('counters',$id));
@@ -57,10 +58,10 @@ function rotateCounter($message_id,$mode)
 {
 global $counterModes;
 
-mysql_query("update counters
-             set serial=serial+1
-	     where message_id=$message_id and mode=$mode")
-  or sqlbug('Ошибка SQL при ротации счетчиков');
+sql("update counters
+     set serial=serial+1
+     where message_id=$message_id and mode=$mode",
+    'rotateCounter','rotate');
 journal('update counters
          set serial=serial+1
          where message_id='.journalVar('messages',$message_id).
@@ -69,10 +70,10 @@ journal('update counters
 $max_serial=$counterModes[$mode]['max_serial'];
 if($max_serial>=0)
   {
-  mysql_query("delete from counters
-	       where message_id=$message_id and mode=$mode
-		     and serial>$max_serial")
-    or sqlbug('Ошибка SQL при удалении лишних счетчиков');
+  sql("delete from counters
+       where message_id=$message_id and mode=$mode
+	     and serial>$max_serial",
+      'rotateCounter','delete');
   journal('delete from counters
 	   where message_id='.journalVar('messages',$message_id).
 	       " and mode=$mode and serial>$max_serial");
@@ -85,9 +86,9 @@ if($ttl!=0)
 else
   $finished="2100-01-01 00:00:00";
   // Leave solution of this problem to next generations of programmers ;)
-mysql_query("insert into counters(message_id,mode,started,finished)
-             values($message_id,$mode,'$started','$finished')")
-  or sqlbug('Ошибка SQL при создании нового счетчика');
+sql("insert into counters(message_id,mode,started,finished)
+     values($message_id,$mode,'$started','$finished')",
+    'rotateCounter','create');
 journal('insert into counters(message_id,mode,started,finished)
          values('.journalVar('messages',$message_id).",$mode,
 	         '$started','$finished')");
@@ -104,11 +105,11 @@ foreach($counterModes as $mode => $info)
 
 function getCounterValue($message_id,$mode,$serial=0)
 {
-$result=mysql_query("select value
-                     from counters
-		     where message_id=$message_id and mode=$mode
-		           and serial=$serial")
-          or sqlbug('Ошибка SQL при получении значения счетчика');
+$result=sql("select value
+	     from counters
+	     where message_id=$message_id and mode=$mode
+		   and serial=$serial",
+	    'getCounterValue');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

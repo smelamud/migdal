@@ -56,22 +56,12 @@
 	     span=2>
       <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'
 	     span=2>
-      <error id='*ELIM_DELETE_SQL' color=magenta span=2
-	     text='Ошибка при удалении старого изображения'>
-      <error id='*ELID_DELETE_SQL' color=magenta span=2
-	     text='Ошибка при удалении изображения'>
       <error id='*ELIM_IMAGE_ABSENT' text='Такого изображения не существует'
 	     span=2>
-      <error id='*ELIM_SET_SQL' text='Ошибка при установке набора изображений'
-	     color=magenta span=2>
-      <error id='*ELIM_SETID_SQL' color=magenta span=2
-	     text='Ошибка при установке идентификатора изображения'>
       <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
       <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
 	     span=2>
-      <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
-	     color='magenta' span=2>
-      <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+      <error id='*EIU_UNKNOWN_THUMBNAIL' span=2
 	     text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
       <uploader name='image' loadedname='loaded' loadedvalue='1'
 		title='Изображение' loaded='(уже загружено)' notloaded='Другое'

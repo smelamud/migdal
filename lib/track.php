@@ -4,6 +4,7 @@
 require_once('lib/ident.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
+require_once('lib/sql.php');
 
 function track($id,$prev='')
 {
@@ -14,17 +15,17 @@ else
   $track='';
   foreach($id as $i)
          $track.=' '.sprintf('%010u',$i);
-  $track=substr($track,1)
+  $track=substr($track,1);
   }
 return $prev!='' ? "$prev $track" : $track;
 }
 
 function upById($table,$id)
 {
-$result=mysql_query("select up
-                     from $table
-		     where id=$id")
-	  or sqlbug("Ошибка SQL при выборке родителя из $table");
+$result=sql("select up
+	     from $table
+	     where id=$id",
+	    'upById','',"table='$table'");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -34,10 +35,10 @@ if($id<=0)
   return 0;
 if(hasCachedValue('track',$table,$id))
   return getCachedValue('track',$table,$id);
-$result=mysql_query("select track
-                     from $table
-		     where id=$id")
-	  or sqlbug("Ошибка SQL при выборке маршрута из $table");
+$result=sql("select track
+	     from $table
+	     where id=$id",
+	    'trackById','',"table='$table'");
 $track=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 setCachedValue('track',$table,$id,$track);
 return $track;
@@ -55,19 +56,19 @@ return (int)($levels[$level]);
 
 function updateTrackById($table,$id,$track)
 {
-return mysql_query("update $table
-                    set track='$track'
-		    where id=$id");
+return sql("update $table
+	    set track='$track'
+	    where id=$id",
+	   'updateTrackById','','',false);
 }
 
 function updateTracks($table,$id,$journalize=true)
 {
-$result=mysql_query("select id,up
-                     from $table
-		     where track like '%".track($id)."%' or track=''
-		     order by track");
-if(!$result)
-  return false;
+$result=sql("select id,up
+	     from $table
+	     where track like '%".track($id)."%' or track=''
+	     order by track",
+	    'updateTracks');
 $tracks=array();
 while($row=mysql_fetch_assoc($result))
      {

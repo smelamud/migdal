@@ -23,10 +23,6 @@
      <error id='*ETLA_NO_ADD' span=2
 	    text='Добавлять перекрестные ссылки может только администратор'>
      <error id='*ETLA_TOPIC_ABSENT' text='Такой ссылки не существует' span=2>
-     <error id='*ETLA_SQL_CHECK' color='magenta' span=2
-	    text='Ошибка базы данных при проверке наличия ссылки'>
-     <error id='*ETLA_SQL_INSERT' color='magenta' span=2
-	    text='Ошибка базы данных при добавлении записи'>
      <tr><td colspan=2><i>Связать</i></td></tr>
      <grpselect name='topic_grp' value='$topic_grp' mandatory='*true'>
      <tr><td colspan=2>&nbsp;</td></tr>

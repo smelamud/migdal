@@ -4,6 +4,7 @@
 require_once('lib/dataobject.php');
 require_once('lib/topics.php');
 require_once('lib/messages.php');
+require_once('lib/sql.php');
 
 define('PB_USER',0);
 define('PB_GROUP',4);
@@ -61,15 +62,15 @@ function getPermsById($table,$id)
 global $permModels;
 
 list($class,$user)=$permModels[$table];
-$result=mysql_query("select $table.id as id,$user,group_id,users.login as login,
-                            gusers.login as group_login,perms
-		     from $table
-		          left join users
-			       on $table.$user=users.id
-		          left join users as gusers
-			       on $table.group_id=gusers.id
-		     where $table.id=$id")
-          or sqlbug('Ошибка SQL при выборке прав');
+$result=sql("select $table.id as id,$user,group_id,users.login as login,
+		    gusers.login as group_login,perms
+	     from $table
+		  left join users
+		       on $table.$user=users.id
+		  left join users as gusers
+		       on $table.group_id=gusers.id
+	     where $table.id=$id",
+	    'getPermsById');
 return mysql_num_rows($result)>0 ? new $class(mysql_fetch_assoc($result)) : 0;
 }
 
@@ -90,12 +91,12 @@ global $permModels,$permClassTables;
 
 $table=$permClassTables[strtolower(get_class($perms))];
 list($class,$user)=$permModels[$table];
-mysql_query("update $table
-             set $user=".$perms->getUserId().',
-                 group_id='.$perms->getGroupId().',
-                 perms='.$perms->getPerms().'
-	     where id='.$perms->getId())
-  or sqlbug('Ошибка SQL при установке прав');
+sql("update $table
+     set $user=".$perms->getUserId().',
+	 group_id='.$perms->getGroupId().',
+	 perms='.$perms->getPerms().'
+     where id='.$perms->getId(),
+    'setPermsById');
 journal("update $table
          set $user=".journalVar('users',$perms->getUserId()).',
 	     group_id='.journalVar('users',$perms->getGroupId()).',
@@ -116,10 +117,10 @@ if($group_id!=0)
 permStringMask($perms,&$andMask,&$orMask);
 $set[]="perms=(perms & $andMask) | $orMask";
 $set=join(',',$set);
-mysql_query("update $table
-             set $set
-	     where ".subtree($table,$id,true))
-  or sqlbug('Ошибка SQL при рекурсивной установке прав');
+sql("update $table
+     set $set
+     where ".subtree($table,$id,true),
+    'setPermsRecursive');
 if($journalSeq!=0)
   journal("perms $table ".journalVar($table,$id).
 		      ' '.journalVar('users',$user_id).
@@ -135,9 +136,9 @@ global $permVarietyCache;
 if(!is_array($permVarietyCache[$table]))
   {
   $permVarietyCache[$table]=array();
-  $result=mysql_query("select distinct perms
-                       from $table")
-            or sqlbug('Ошибка SQL при выборке разнообразия прав');
+  $result=sql("select distinct perms
+	       from $table",
+	      'permMask');
   while($row=mysql_fetch_array($result))
        $permVarietyCache[$table][]=$row[0];
   }

@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/dataobject.php');
+require_once('lib/sql.php');
 
 define('IPL_LEFT',1);
 define('IPL_HCENTER',2);
@@ -69,17 +70,19 @@ return array('stotext_id' => 'stotexts','image_id' => 'images');
 
 function store()
 {
-$result=mysql_query('delete from stotext_images
-                     where stotext_id='.$this->stotext_id.
-		   ' and par='.$this->par);
-if($result)
-  journal('delete from stotext_images
-           where stotext_id='.journalVar('stotexts',$this->stotext_id).
-	 ' and par='.$this->par);
-if(!$result || $this->image_id==0)
+$result=sql('delete from stotext_images
+	     where stotext_id='.$this->stotext_id.
+	   ' and par='.$this->par,
+	    get_method($this,'store'),'delete');
+journal('delete from stotext_images
+	 where stotext_id='.journalVar('stotexts',$this->stotext_id).
+       ' and par='.$this->par);
+if($this->image_id==0)
   return $result;
 $normal=$this->getNormal();
-$result=mysql_query(makeInsert('stotext_images',$normal));
+$result=sql(makeInsert('stotext_images',
+                       $normal),
+	    get_method($this,'store'),'insert');
 if($result)
   journal(makeInsert('stotext_images',
                      jencodeVars($normal,$this->getJencodedVars())));
@@ -130,9 +133,10 @@ return $this->format;
 
 function getStotextImageByParagraph($textid,$par)
 {
-$result=mysql_query("select stotext_id,par,image_id,placement
-                     from stotext_images
-                     where stotext_id=$textid and par=$par");
+$result=sql("select stotext_id,par,image_id,placement
+	     from stotext_images
+	     where stotext_id=$textid and par=$par",
+	    'getStotextImageByParagraph');
 return new StotextImage(mysql_num_rows($result)>0
                         ? mysql_fetch_assoc($result)
                         : array('stotext_id' => $textid,
@@ -141,9 +145,10 @@ return new StotextImage(mysql_num_rows($result)>0
 
 function getStotextImageByImageId($image_id)
 {
-$result=mysql_query("select stotext_id,par,image_id,placement
-                     from stotext_images
-                     where image_id=$image_id");
+$result=sql("select stotext_id,par,image_id,placement
+	     from stotext_images
+	     where image_id=$image_id",
+	    'getStotextImageByImageId');
 return new StotextImage(mysql_num_rows($result)>0
                         ? mysql_fetch_assoc($result)
                         : array('image_id' => $image_id));

@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/postings.php');
+require_once('lib/sql.php');
 
 function reorderArts($art)
 {
@@ -21,11 +22,10 @@ foreach($art as $id)
          return EO_NO_ARTICLE;
        if(!$posting->isWritable())
          return EO_NO_REORDER;
-       $result=mysql_query("update postings
-                            set index0=$index
-			    where id=$id");
-       if(!$result)
-         return EO_SQL;
+       sql("update postings
+	    set index0=$index
+	    where id=$id",
+	   'reorderArts');
        journal("update postings
                 set index0=$index
 		where id=".journalVar('postings',$id));

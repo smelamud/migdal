@@ -12,6 +12,7 @@ require_once('lib/users.php');
 require_once('lib/tmptexts.php');
 require_once('lib/mailings.php');
 require_once('lib/exec.php');
+require_once('lib/sql.php');
 
 function repairPassword($id)
 {
@@ -20,11 +21,10 @@ global $passwdCommand;
 if($id<=0)
   return EPL_NO_LOGIN;
 $password=trim(getCommand($passwdCommand));
-$result=mysql_query("update users
-                     set password=md5('$password')
-		     where id=$id");
-if(!$result)
-  return EPL_STORE_SQL;
+sql("update users
+     set password=md5('$password')
+     where id=$id",
+    'repairPassword');
 journal("update users
          set password=md5('".jencode($password)."')
 	 where id=".journalVar('users',$id));

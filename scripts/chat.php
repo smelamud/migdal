@@ -9,15 +9,17 @@ require_once('lib/session.php');
 require_once('lib/users.php');
 require_once('lib/chat-users.php');
 require_once('lib/chat.php');
+require_once('lib/sql.php');
 
 function cleanup()
 {
 global $chatTimeout;
 
-$result=mysql_query("select id
-                     from users
-		     where last_chat+interval $chatTimeout minute<now()
-		           and in_chat<>0");
+$result=sql("select id
+	     from users
+	     where last_chat+interval $chatTimeout minute<now()
+		   and in_chat<>0",
+	    'cleanup');
 while($row=mysql_fetch_assoc($result)) 
      {
      postChatLogoutMessage($row['id']);

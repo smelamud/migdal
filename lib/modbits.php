@@ -3,6 +3,7 @@
 
 require_once('lib/bug.php');
 require_once('lib/journal.php');
+require_once('lib/sql.php');
 require_once('grp/modbits.php');
 
 define('MOD_NONE',0x0000);
@@ -72,19 +73,19 @@ return $result;
 
 function getModbitsByMessageId($id)
 {
-$result=mysql_query("select modbits
-                     from messages
-		     where id=$id")
-          or sqlbug('Ошибка SQL при выборке флагов модерирования');
+$result=sql("select modbits
+	     from messages
+	     where id=$id",
+	    'getModbitsByMessageId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function setModbitsByMessageId($id,$bits)
 {
-mysql_query("update messages
-             set modbits=modbits | $bits
-	     where id=$id")
-  or sqlbug('Ошибка SQL при установке флагов модерирования');
+sql("update messages
+     set modbits=modbits | $bits
+     where id=$id",
+    'setModbitsByMessageId');
 journal("update messages
          set modbits=modbits | $bits
 	 where id=".journalVar('messages',$id));
@@ -92,10 +93,10 @@ journal("update messages
 
 function resetModbitsByMessageId($id,$bits)
 {
-mysql_query("update messages
-             set modbits=modbits & ~$bits
-	     where id=$id")
-  or sqlbug('Ошибка SQL при сбросе флагов модерирования');
+sql("update messages
+     set modbits=modbits & ~$bits
+     where id=$id",
+    'resetModbitsByMessageId');
 journal("update messages
          set modbits=modbits & ~$bits
 	 where id=".journalVar('messages',$id));
@@ -103,10 +104,10 @@ journal("update messages
 
 function assignModbitsByMessageId($id,$bits)
 {
-mysql_query("update messages
-             set modbits=$bits
-	     where id=$id")
-  or sqlbug('Ошибка SQL при замене флагов модерирования');
+sql("update messages
+     set modbits=$bits
+     where id=$id",
+    'assignModbitsByMessageId');
 journal("update messages
          set modbits=$bits
 	 where id=".journalVar('messages',$id));

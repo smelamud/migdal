@@ -8,6 +8,7 @@ require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/images.php');
 require_once('lib/modbits.php');
+require_once('lib/sql.php');
 
 function deleteImage($posting)
 {
@@ -15,11 +16,10 @@ global $editid,$userModerator;
 
 if(!$posting->isWritable())
   return ELID_NO_EDIT;
-$result=mysql_query("delete
-                     from images
-	             where id=$editid");
-if(!$result)
-  return ELID_DELETE_SQL;
+sql("delete
+     from images
+     where id=$editid",
+    'deleteImage');
 journal('delete
          from images
 	 where id='.journalVar('images',$editid));

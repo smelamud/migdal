@@ -9,67 +9,62 @@ require_once('lib/session.php');
 require_once('lib/users.php');
 require_once('lib/journal.php');
 require_once('lib/answers.php');
+require_once('lib/sql.php');
 
 function deleteCond($table,$cond)
 {
-mysql_query("delete
-             from $table
-	     where $cond")
-     or die(mysql_error());
-mysql_query("optimize table $table")
-     or die(mysql_error());
+sql("delete
+     from $table
+     where $cond",
+    'deleteCond','delete');
+sql("optimize table $table",
+    'deleteCond','optimize');
 }
 
 function tag($table)
 {
-mysql_query("update $table
-             set used=1")
-     or die(mysql_error());
+sql("update $table
+     set used=1",
+    'tag');
 }
 
 function useLinks($sourceTable,$sourceField,$destTable,$destField)
 {
-$result=mysql_query("select $destField
-                     from $destTable
-		     where $destField<>0");
-if(!$result)
-  die(mysql_error());
-mysql_query("update $sourceTable
-	     set used=0
-	     where $sourceField=0")
-     or die(mysql_error());
+$result=sql("select $destField
+	     from $destTable
+	     where $destField<>0",
+	    'useLinks','select');
+sql("update $sourceTable
+     set used=0
+     where $sourceField=0",
+    'useLinks','clear_marks');
 while($row=mysql_fetch_array($result))
-     mysql_query("update $sourceTable
-                  set used=0
-		  where $sourceField=".$row[0])
-          or die(mysql_error());
+     sql("update $sourceTable
+	  set used=0
+	  where $sourceField=".$row[0],
+	 'useLinks','mark');
 }
 
 function deleteTagged($table)
 {
-mysql_query("delete
-             from $table
-	     where used=1")
-     or die(mysql_error());
-mysql_query("optimize table $table")
-     or die(mysql_error());
+deleteCond($table,'used=1');
 }
 
 function cleanupJournal()
 {
 global $unclosedSeqTimeout;
 
-$result=mysql_query("select distinct seq
-                     from journal
-		     where sent+interval $unclosedSeqTimeout day<now()")
-             or die(mysql_error());
+$result=sql("select distinct seq
+	     from journal
+	     where sent+interval $unclosedSeqTimeout day<now()",
+	    'cleanupJournal','select_old');
 while($row=mysql_fetch_assoc($result))
      if(!isSeqClosed($row['seq']))
-       mysql_query('delete from journal
-                    where seq='.$row['seq'])
-            or die(mysql_error());
-mysql_query('optimize table journal')
-     or die(mysql_error());
+       sql('delete from journal
+	    where seq='.$row['seq'],
+	   'cleanupJournal','delete');
+sql('optimize table journal',
+    'cleanupJournal','optimize');
 }
 
 function cleanup()

@@ -20,6 +20,7 @@ require_once('lib/alphabet.php');
 require_once('lib/forums.php');
 require_once('lib/counters.php');
 require_once('lib/votes.php');
+require_once('lib/sql.php');
 
 class Posting
       extends Message
@@ -96,15 +97,20 @@ if(!$result)
 $normal=$this->getNormalPosting($userModerator);
 if($this->id)
   {
-  $result=mysql_query(makeUpdate('postings',$normal,array('id' => $this->id)));
+  $result=sql(makeUpdate('postings',
+                         $normal,
+			 array('id' => $this->id)),
+	      get_method($this,'store'),'update');
   journal(makeUpdate('postings',
                      jencodeVars($normal,$this->getJencodedPostingVars()),
 		     array('id' => journalVar('postings',$this->id))));
   }
 else
   {
-  $result=mysql_query(makeInsert('postings',$normal));
-  $this->id=mysql_insert_id();
+  $result=sql(makeInsert('postings',
+                         $normal),
+	      get_method($this,'store'),'insert');
+  $this->id=sql_insert_id();
   journal(makeInsert('postings',
                      jencodeVars($normal,$this->getJencodedPostingVars())),
 	  'postings',$this->id);
@@ -566,14 +572,13 @@ function loadImages($posting)
 $this->images=array();
 $sid=$posting->getStotextId();
 settype($sid,'integer');
-$result=mysql_query("select stotext_id,par,image_id,placement,
-                            has_large as has_large_image,title,format
-		     from stotext_images
-		          left join images
-			       on images.id=stotext_images.image_id
-		     where stotext_id=$sid");
-if(!$result)
-  sqlbug('Ошибка SQL при выборке иллюстраций к постингу');
+$result=sql("select stotext_id,par,image_id,placement,
+		    has_large as has_large_image,title,format
+	     from stotext_images
+		  left join images
+		       on images.id=stotext_images.image_id
+	     where stotext_id=$sid",
+	    get_method($this,'loadImages'));
 while($row=mysql_fetch_assoc($result))
      {
      $image=new StotextImage($row);
@@ -762,10 +767,10 @@ $filter=$id>=0 ? "postings.id=$id"
 
 $Where="$hideMessages and $filter";
 /* Query */
-$result=mysql_query("select $Select
-                     from $From
-                     where $Where")
-          or sqlbug('Ошибка SQL при выборке постинга');
+$result=sql("select $Select
+	     from $From
+	     where $Where",
+	    'getPostingById');
 /* Result */
 if(mysql_num_rows($result)>0)
   {
@@ -786,10 +791,10 @@ else
 
 function getMessageIdByPostingId($id)
 {
-$result=mysql_query("select message_id
-                     from postings
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при получении идентификатора сообщения в постинге');
+$result=sql("select message_id
+	     from postings
+	     where id=$id",
+	    'getMessageIdByPostingId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -799,33 +804,33 @@ $hide=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0)
              ? '' : ' and topics.'.subtree('topics',$topic_id,$recursive);
-$result=mysql_query("select max(postings.index$index)
-                     from postings
-			  left join messages
-			       on postings.message_id=messages.id
-			  left join topics
-			       on postings.topic_id=topics.id
-		     where $hide and $grpFilter $topicFilter")
-	  or sqlbug('Ошибка SQL при получении максимального индекса постинга');
+$result=sql("select max(postings.index$index)
+	     from postings
+		  left join messages
+		       on postings.message_id=messages.id
+		  left join topics
+		       on postings.topic_id=topics.id
+	     where $hide and $grpFilter $topicFilter",
+	    'getMaxIndexOfPosting');
 return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
 }
 
 function getVoteInfoByPostingId($id,$grp=GRP_ALL)
 {
-$result=mysql_query("select id,vote,vote_count
-                     from postings
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при получении рейтинга постинга');
+$result=sql("select id,vote,vote_count
+	     from postings
+	     where id=$id",
+	    'getVoteInfoByPostingId');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }
 
 function getPostingIdByMessageId($id)
 {
-$result=mysql_query("select id
-                     from postings
-		     where message_id=$id")
-	  or sqlbug('Ошибка SQL при получении постинга по сообщению');
+$result=sql("select id
+	     from postings
+	     where message_id=$id",
+	    'getPostingIdByMessageId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -833,13 +838,14 @@ function getSibling($up,$index0,$next=true)
 {
 $filter=$next ? "index0>$index0" : "index0<$index0";
 $order=$next ? 'asc' : 'desc';
-$result=mysql_query("select postings.id
-                     from postings
-		          left join messages
-			       on postings.message_id=messages.id
-		     where up=$up and $filter
-		     order by index0 $order
-		     limit 1");
+$result=sql("select postings.id
+	     from postings
+		  left join messages
+		       on postings.message_id=messages.id
+	     where up=$up and $filter
+	     order by index0 $order
+	     limit 1",
+	    'getSibling');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -847,13 +853,14 @@ function getSiblingIndex0($up,$index0,$next=true)
 {
 $filter=$next ? "index0>$index0" : "index0<$index0";
 $order=$next ? 'asc' : 'desc';
-$result=mysql_query("select index0
-                     from postings
-		          left join messages
-			       on postings.message_id=messages.id
-		     where up=$up and $filter
-		     order by index0 $order
-		     limit 1");
+$result=sql("select index0
+	     from postings
+		  left join messages
+		       on postings.message_id=messages.id
+	     where up=$up and $filter
+	     order by index0 $order
+	     limit 1",
+	    'getSiblingIndex0');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
 }
 
@@ -863,13 +870,14 @@ $grpFilter=grpFilter($grp);
 $issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
 $order=$next ? 'asc' : 'desc';
 $topicFilter=$topic_id>=0 ? "and topic_id=$topic_id" : '';
-$result=mysql_query("select postings.id
-                     from postings
-		          left join messages
-			       on postings.message_id=messages.id
-		     where $grpFilter $topicFilter $issueFilter
-		     order by index1 $order
-		     limit 1");
+$result=sql("select postings.id
+	     from postings
+		  left join messages
+		       on postings.message_id=messages.id
+	     where $grpFilter $topicFilter $issueFilter
+	     order by index1 $order
+	     limit 1",
+	    'getSiblingIssue');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -879,25 +887,26 @@ $grpFilter=grpFilter($grp);
 $issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
 $order=$next ? 'asc' : 'desc';
 $topicFilter=$topic_id>=0 ? "and topic_id=$topic_id" : '';
-$result=mysql_query("select index1
-                     from postings
-		          left join messages
-			       on postings.message_id=messages.id
-		     where $grpFilter $topicFilter $issueFilter
-		     order by index1 $order
-		     limit 1");
+$result=sql("select index1
+	     from postings
+		  left join messages
+		       on postings.message_id=messages.id
+	     where $grpFilter $topicFilter $issueFilter
+	     order by index1 $order
+	     limit 1",
+	    'getSiblingIndex1');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function postingExists($id)
 {
 $hide=messagesPermFilter(PERM_READ);
-$result=mysql_query("select postings.id
-		     from postings
-		          left join messages
-			       on postings.message_id=messages.id
-		     where postings.id=$id and $hide")
-	  or sqlbug('Ошибка SQL при проверке наличия постинга');
+$result=sql("select postings.id
+	     from postings
+		  left join messages
+		       on postings.message_id=messages.id
+	     where postings.id=$id and $hide",
+	    'postingExists');
 return mysql_num_rows($result)>0;
 }
 
@@ -907,15 +916,14 @@ $hide=messagesPermFilter(PERM_READ,'messages');
 $topicFilter=$topic_id>=0
              ? 'and topics.'.subtree('topics',$topic_id,$recursive) : '';
 $grpFilter='and '.grpFilter($grp);
-$result=mysql_query(
-        "select count(distinct url_domain)
-         from messages
-	 left join postings
-	      on postings.message_id=messages.id
-	 left join topics
-	      on topics.id=postings.topic_id
-         where $hide and shadow=0 $topicFilter $grpFilter")
-          or sqlbug('Ошибка SQL при получении количества доменов');
+$result=sql("select count(distinct url_domain)
+	     from messages
+	     left join postings
+		  on postings.message_id=messages.id
+	     left join topics
+		  on topics.id=postings.topic_id
+	     where $hide and shadow=0 $topicFilter $grpFilter",
+	    'getPostingDomainCount');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

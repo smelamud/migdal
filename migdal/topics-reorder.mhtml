@@ -33,8 +33,6 @@
     <error id='*ETO_NO_TOPIC' text='Темы не существует' span=2>
     <error id='*ETO_NO_REORDER' text='Вы не имеете права менять порядок тем'
            span=2>
-    <error id='*ETO_SQL' text='Ошибка базы данных при обновлении записи'
-           span=2 color=magenta>
     <for>
      <tr>
       <td>$;NextPosition.</td>

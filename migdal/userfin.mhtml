@@ -46,11 +46,6 @@
    проверьте наличие в списке пользователей строки с Вашим ником).
    <p class='controls'>
    <a href='/index.php'>На главную страницу</a>
-  <else>
-   <error id='*EUC_SQL_SELECT' text='Ошибка SQL при выборке кода регистрации'
-	  color='magenta'>
-   <error id='*EUC_SQL_CONFIRM' text='Ошибка SQL при подтверждении регистрации'
-	  color='magenta'>
   </if>
  </ifzero>
  </formtable>

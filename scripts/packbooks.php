@@ -12,6 +12,7 @@ require_once('lib/images.php');
 require_once('lib/image-types.php');
 require_once('lib/packages.php');
 require_once('lib/exec.php');
+require_once('lib/sql.php');
 
 $copied=array();
 
@@ -128,8 +129,7 @@ else
 			     'size'       => filesize("$bookCompressDir/$pname"),
 			     'url'        => "$bookCompressURL/$pname"));
   }
-if(!$package->store())
-  echo "Book $id: ".mysql_error()."\n";
+$package->store();
 
 unlinkCopied();
 rmdir("$dir/pics");
@@ -139,30 +139,30 @@ rmdir($dir);
 
 function dropBook($message_id)
 {
-mysql_query("delete from packages
-             where message_id=$message_id and
-	           (type=".PT_BOOK_ONEFILE.' or type='.PT_BOOK_SPLIT.')')
-  or sqlbug('Ошибка SQL при удалении старых архивов книг');
+sql("delete from packages
+     where message_id=$message_id and
+	   (type=".PT_BOOK_ONEFILE.' or type='.PT_BOOK_SPLIT.')',
+    'dropBook');
 }
 
 function arePackagesReady($message_id)
 {
-$result=mysql_query("select min(created)
-		     from packages
-		     where message_id=$message_id and
-			   (`type`=".PT_BOOK_ONEFILE.' or
-			    `type`='.PT_BOOK_SPLIT.')')
-	  or sqlbug('Ошибка SQL при получении даты создания архивов книг');
+$result=sql("select min(created)
+	     from packages
+	     where message_id=$message_id and
+		   (`type`=".PT_BOOK_ONEFILE.' or
+		    `type`='.PT_BOOK_SPLIT.')',
+	    'arePackagesReady','min_created');
 if(mysql_num_rows($result)<=0)
   return false;
 $packs=mysql_result($result,0,0);
 if($packs=='')
   return false;
 $packs=strtotime($packs);
-$result=mysql_query('select from_unixtime(max(unix_timestamp(last_updated)))
-                     from messages
-		     where '.subtree('messages',$message_id,true))
-	  or sqlbug('Ошибка SQL при получении даты обновления глав книги');
+$result=sql('select from_unixtime(max(unix_timestamp(last_updated)))
+	     from messages
+	     where '.subtree('messages',$message_id,true),
+	    'arePackagesReady','max_last_updated');
 if(mysql_num_rows($result)<=0)
   return true;
 $msgs=mysql_result($result,0,0);

@@ -7,11 +7,13 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/complainactions.php');
 require_once('lib/errors.php');
+require_once('lib/sql.php');
 
 function deleteComplainAction($id)
 {
-$result=mysql_query("delete from complain_actions
-                     where id=$id");
+$result=sql("delete from complain_actions
+	     where id=$id",
+	    'deleteComplainAction');
 journal('delete from complain_actions
          where id='.journalVar('complain_actions',$id));
 return $result;
@@ -25,8 +27,7 @@ if(!$userAdminComplainAnswers)
   return ECAD_NO_EDIT;
 if(!complainActionExists($editid))
   return ECAD_NO_ACTION;
-if(!deleteComplainAction($editid))
-  return ECAD_DELETE_SQL;
+deleteComplainAction($editid);
 return ECAD_OK;
 }
 

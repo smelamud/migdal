@@ -22,6 +22,7 @@ return c_cntrl($c) || c_space($c);
 
 function flipReplace($foo,$bar,$_bar,$s,$delim=true)
 {
+beginProfiling(POBJ_FUNCTION,'flipReplace');
 $c='';
 $tag=0;
 $intag=0;
@@ -61,6 +62,7 @@ for($n=0;$n<strlen($s);$n++)
    }
 if($tag)
   $c.=$_bar;
+endProfiling();
 return $c;
 }
 
@@ -85,6 +87,7 @@ return "<a href='$url'".($protocol!='' ? " target='_blank'>" : '>').
 
 function goFurther(&$out,$in,&$start,&$end,&$state,$id=0,$target=0)
 {
+beginProfiling(POBJ_FUNCTION,'goFurther');
 if($end>$start)
   {
   $out.=preg_replace('/(^|[\s.,:;\(\)])(([^\s\(\)]+:\/)?\/[^\s&;]\S*[^\s.,:;\(\)&\\\\])/e',
@@ -93,10 +96,12 @@ if($end>$start)
   $start=$end;
   }
 $state=$target;
+endProfiling();
 }
 
 function replaceURLs($s,$id=0)
 {
+beginProfiling(POBJ_FUNCTION,'replaceURLs');
 $c='';
 $state=0;
 $st=0;
@@ -143,6 +148,7 @@ if($ed>$st)
   $c.=substr($s,$st,$ed-$st);
 $c=preg_replace('/[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*/',
                 '<a href="mailto:\\0">\\0</a>',$c);
+endProfiling();
 return $c;
 }
 
@@ -171,6 +177,7 @@ function replaceQuoting($s)
 {
 global $showQuoteChars;
 
+beginProfiling(POBJ_FUNCTION,'replaceQuoting');
 $lines=explode("\n",$s);
 $level=0;
 for($i=0;$i<count($lines);$i++)
@@ -188,6 +195,7 @@ for($i=0;$i<count($lines);$i++)
         $lines[$i-1]=$lines[$i-1].'</div>';
    $level=$l;
    }
+endProfiling();
 return join("\n",$lines);
 }
 
@@ -227,6 +235,7 @@ return $format==TF_HTML ? $s : htmlspecialchars($s,ENT_QUOTES);
 
 function stotextToHTML($format,$s,$id=0)
 {
+beginProfiling(POBJ_FUNCTION,'stotextToHTML');
 $c=$s;
 switch($format)
       {
@@ -271,6 +280,7 @@ switch($format)
  	   $c=flipReplace('^','<sup>','</sup>',$c,false);
 	   break;
       }
+endProfiling();
 return cropHTML($c);
 }
 

@@ -8,6 +8,7 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/users.php');
 require_once('lib/complains.php');
+require_once('lib/sql.php');
 
 function setAutoComplain($id,$no_auto)
 {
@@ -18,11 +19,10 @@ if($complain->getId()==0)
   return EC_NO_COMPLAIN;
 if($complain->getRecipientId()!=$userId)
   return EC_NO_AUTO;
-$result=mysql_query("update complains
-                     set no_auto=$no_auto
-		     where id=$id");
-if(!$result)
-  return EC_SQL_AUTO;
+$result=sql("update complains
+	     set no_auto=$no_auto
+	     where id=$id",
+	    'setAutoComplain');
 journal("update complains
          set no_auto=$no_auto
 	 where id=".journalVar('complains',$id));

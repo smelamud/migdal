@@ -24,9 +24,8 @@ if($complain->getId()==0)
   return EECA_NO_COMPLAIN;
 if($complain->getRecipientId()!=$userId)
   return EECA_NO_EXEC;
-if($action->getText()!=''
-   && !postForumAnswer($complain->getMessageId(),$action->getText()))
-  return EECA_SQL_FORUM;
+if($action->getText()!='')
+  postForumAnswer($complain->getMessageId(),$action->getText());
 $script=getComplainScriptById($action->getScriptId());
 $script->exec($complain);
 return EECA_OK;

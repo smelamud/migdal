@@ -4,6 +4,7 @@
 require_once('lib/journal.php');
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
+require_once('lib/sql.php');
 
 define('HOR_WE_KNOW',true);
 define('HOR_THEY_KNOW',false);
@@ -12,10 +13,10 @@ function getHorisont($host,$weKnow)
 {
 global $dbName;
 
-$result=mysql_query('select '.($weKnow ? 'we_know' : 'they_know')."
-                     from $dbName.horisonts
-		     where host='$host'")
-  or journalFailure('Cannot get horisont.');
+$result=sql('select '.($weKnow ? 'we_know' : 'they_know')."
+	     from $dbName.horisonts
+	     where host='$host'",
+	    'getHorisont');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -24,40 +25,40 @@ function setHorisont($host,$horisont,$weKnow)
 global $dbName;
 
 $host=addslashes($host);
-$result=mysql_query("select host
-                     from $dbName.horisonts
-		     where host='$host'")
-  or journalFailure('Cannot select horisont.');
+$result=sql("select host
+	     from $dbName.horisonts
+	     where host='$host'",
+	    'setHorisont','get');
 if(mysql_num_rows($result)<=0)
-  mysql_query("insert into $dbName.horisonts(host,".($weKnow ? 'we_know'
+  sql("insert into $dbName.horisonts(host,".($weKnow ? 'we_know'
                                                      : 'they_know').")
-			           values('$host',$horisont)")
-    or journalFailure('Cannot insert horisont.');
+		   values('$host',$horisont)",
+      'setHorisont','create');
 else
-  mysql_query("update $dbName.horisonts
-               set ".($weKnow ? 'we_know' : 'they_know')."=$horisont
-	       where host='$host'")
-    or journalFailure('Cannot update horisont.');
+  sql("update $dbName.horisonts
+       set ".($weKnow ? 'we_know' : 'they_know')."=$horisont
+       where host='$host'",
+      'setHorisont','update');
 }
 
 function lockReplication($host)
 {
 global $dbName;
 
-mysql_query("update $dbName.horisonts
-             set `lock`=now()
-	     where host='".addslashes($host)."'")
-  or journalFailure('Cannot lock replication process.');
+sql("update $dbName.horisonts
+     set `lock`=now()
+     where host='".addslashes($host)."'",
+    'lockReplication');
 }
 
 function unlockReplication($host)
 {
 global $dbName;
 
-mysql_query("update $dbName.horisonts
-             set `lock`=null
-	     where host='".addslashes($host)."'")
-  or journalFailure('Cannot unlock replication process.');
+sql("update $dbName.horisonts
+     set `lock`=null
+     where host='".addslashes($host)."'",
+    'unlockReplication');
 }
 
 function updateReplicationLock($host)
@@ -69,12 +70,12 @@ function isReplicationLocked($host)
 {
 global $replicationLockTimeout,$dbName;
 
-$result=mysql_query("select host
-                     from $dbName.horisonts
-	             where host='".addslashes($host)."' and
-		           `lock` is not null and
-	                   `lock`+interval $replicationLockTimeout minute>now()")
-  or journalFailure('Cannot get replication lock.');
+$result=sql("select host
+	     from $dbName.horisonts
+	     where host='".addslashes($host)."' and
+		   `lock` is not null and
+		   `lock`+interval $replicationLockTimeout minute>now()",
+	    'isReplicationLocked');
 return mysql_num_rows($result)>0;
 }
 
@@ -141,10 +142,10 @@ function getHorisontByHost($host)
 {
 global $dbName;
 
-$result=mysql_query("select host,we_know,they_know
-	             from $dbName.horisonts
-		     where host='".addslashes($host)."'")
-          or sqlbug('Ошибка SQL при выборке горизонта');
+$result=sql("select host,we_know,they_know
+	     from $dbName.horisonts
+	     where host='".addslashes($host)."'",
+	    'getHorisontByHost');
 return new Horisont(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                               : array());
 }

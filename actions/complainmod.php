@@ -35,8 +35,7 @@ if($complain->subject=='')
   return EC_SUBJECT_ABSENT;
 if($complain->type_id<=COMPL_NONE || $complain->type_id>COMPL_MAX)
   return EC_NO_TYPE;
-if(!$complain->store())
-  return EC_STORE_SQL;
+$complain->store();
 return EC_OK;
 }
 

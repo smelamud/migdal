@@ -9,6 +9,7 @@ require_once('lib/uri.php');
 require_once('lib/utils.php');
 require_once('lib/sessions.php');
 require_once('lib/users.php');
+require_once('lib/sql.php');
 require_once('grp/subdomains.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics',
@@ -118,10 +119,10 @@ else
 $userGroups=array();
 if($userId>0)
   {
-  $result=mysql_query("select group_id
-                       from groups
-		       where user_id=$userId")
-            or sqlbug('Ошибка SQL при получении групп пользователя');
+  $result=sql("select group_id
+	       from groups
+	       where user_id=$userId",
+	      'userRights','get_groups');
   while(list($group_id)=mysql_fetch_array($result))
        $userGroups[]=$group_id;
   }
@@ -131,10 +132,10 @@ else
 
 if($userId>0)
   {
-  $rights=mysql_query('select '.join(',',$userRightNames).
-		     " from users
-		       where id=$userId")
-            or sqlbug('Ошибка SQL при получении прав пользователя');
+  $rights=sql('select '.join(',',$userRightNames).
+	     " from users
+	       where id=$userId",
+	      'userRights','get_rights');
   $info=mysql_fetch_assoc($rights);
   foreach($info as $name => $value)
 	 $GLOBALS['user'.getProperName($name)]=$value;

@@ -7,6 +7,7 @@ require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/ip.php');
 require_once('lib/bug.php');
+require_once('lib/sql.php');
 
 function logEvent($event,$body)
 {
@@ -17,9 +18,9 @@ if($disableLogging)
 $event=addslashes($event);
 $ip=IPToInteger($REMOTE_ADDR);
 $body=addslashes($body);
-mysql_query("insert into logs(event,ip,body)
-	     values('$event',$ip,'$body')")
-  or sqlbug("Ошибка SQL при добавлении в лог");
+sql("insert into logs(event,ip,body)
+     values('$event',$ip,'$body')",
+    'logEvent','','',false);
 }
 
 class LogLine

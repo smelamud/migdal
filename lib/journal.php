@@ -8,11 +8,7 @@ require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/limitselect.php');
 require_once('lib/text.php');
-
-function journalFailure($s)
-{
-bug("journal: $s");
-}
+require_once('lib/sql.php');
 
 $journalSeq=0;
 
@@ -32,8 +28,8 @@ global $journalSeq;
 if($journalSeq==0)
   bug('No sequence.');
 if($journalSeq>0)
-  mysql_query("insert into journal(seq) values($journalSeq)")
-    or journalFailure('Closing sequence failed.');
+  sql("insert into journal(seq) values($journalSeq)",
+      'endJournal');
 $journalSeq=0;
 }
 
@@ -46,18 +42,18 @@ if(!$replicationJournal)
 if($journalSeq==0)
   bug('No sequence.');
 $query=addslashes($query);
-mysql_query("insert into journal(seq,result_table,result_id,query)
-             values($journalSeq,'$table',$id,'$query')")
-  or journalFailure("Query journaling failed: $query");
+sql("insert into journal(seq,result_table,result_id,query)
+     values($journalSeq,'$table',$id,'$query')",
+    'journal','log');
 if($table!='' || $journalSeq<0)
   {
-  $id=mysql_insert_id();
-  mysql_query('update journal
-               set '.($table!='' ? "result_var=$id" : '')
-	            .($table!='' && $journalSeq<0 ? ',' : '')
-                    .($journalSeq<0 ? "seq=$id" : '').
-	     " where id=$id")
-    or journalFailure('Set sequence/variable failed.');
+  $id=sql_insert_id();
+  sql('update journal
+       set '.($table!='' ? "result_var=$id" : '')
+	    .($table!='' && $journalSeq<0 ? ',' : '')
+	    .($journalSeq<0 ? "seq=$id" : '').
+     " where id=$id",
+      'journal','seq_var');
   if($journalSeq<0)
     $journalSeq=$id;
   }
@@ -71,11 +67,10 @@ if($replicationMaster)
   return $id;
 if($id==0)
   return 0;
-$result=mysql_query("select result_var
-                     from journal
-		     where result_table='$table' and result_id=$id");
-if(!$result)
-  journalFailure('Variable query failed.');
+$result=sql("select result_var
+	     from journal
+	     where result_table='$table' and result_id=$id",
+	    'journalVar');
 return mysql_num_rows($result)>0 ? '$'.mysql_result($result,0,0) : $id;
 }
 
@@ -119,10 +114,10 @@ return $vars;
 
 function isSeqClosed($seq)
 {
-$result=mysql_query("select id
-                     from journal
-      	             where seq=$seq and query=''")
-  or journalFailure("Cannot check, if seq $seq is closed.");
+$result=sql("select id
+	     from journal
+	     where seq=$seq and query=''",
+	    'isSeqClosed');
 return mysql_num_rows($result)>0;
 }
 
@@ -267,33 +262,33 @@ return new JournalLine($row);
 
 function getJournalVar($host,$var)
 {
-mysql_query("update journal_vars
-	     set last_read=null
-	     where host='$host' and var=$var")
-  or journalFailure('Cannot update timestamp of journaled variable.');
-$result=mysql_query("select value
-                     from journal_vars
-		     where host='".addslashes($host)."' and var=$var")
-  or journalFailure('Cannot get journaled variable.');
+sql("update journal_vars
+     set last_read=null
+     where host='$host' and var=$var",
+    'getJournalVar','timestamp');
+$result=sql("select value
+	     from journal_vars
+	     where host='".addslashes($host)."' and var=$var",
+	    'getJournalVar','get');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function setJournalVar($host,$var,$value)
 {
 $host=addslashes($host);
-$result=mysql_query("select value
-                     from journal_vars
-		     where host='$host' and var=$var")
-  or journalFailure('Cannot check journaled variable.');
+$result=sql("select value
+	     from journal_vars
+	     where host='$host' and var=$var",
+	    'setJournalVar','check');
 if(mysql_num_rows($result)>0)
-  mysql_query("update journal_vars
-               set value=$value
-	       where host='$host' and var=$var")
-    or journalFailure('Cannot update journaled variable.');
+  sql("update journal_vars
+       set value=$value
+       where host='$host' and var=$var",
+      'setJournalVar','update');
 else
-  mysql_query("insert into journal_vars(var,host,value)
-               values($var,'$host',$value)")
-    or journalFailure('Cannot insert journaled variable.');
+  sql("insert into journal_vars(var,host,value)
+       values($var,'$host',$value)",
+      'setJournalVar','create');
 }
 
 function subJournalVars($host,$query)
@@ -304,28 +299,28 @@ return preg_replace('/\$([0-9]+)/e',"getJournalVar('$host',\\1)",$query);
 
 function clearJournal()
 {
-mysql_query('insert into journal(seq) values(0)')
-  or journalFailure('Cannot insert increment barrier.');
-$id=mysql_insert_id();
-mysql_query("update journal set seq=$id where id=$id")
-  or journalFailure('Cannot update increment barrier.');
-$result=mysql_query('select min(they_know)
-                     from horisonts')
-  or journalFailure('Cannot determine minimal horisont.');
+sql('insert into journal(seq) values(0)',
+    'clearJournal','create_barrier');
+$id=sql_insert_id();
+sql("update journal set seq=$id where id=$id",
+    'clearJournal','seq_barrier');
+$result=sql('select min(they_know)
+	     from horisonts',
+	    'clearJournal','get_min_horisont');
 $level=mysql_result($result,0,0);
-mysql_query("delete from journal
-             where seq<=$level")
-  or journalFailure('Cannot delete journal record.');
+sql("delete from journal
+     where seq<=$level",
+    'clearJournal','delete_extra');
 }
 
 function isJournalEmpty()
 {
 global $dbName;
 
-$result=mysql_query("select count(*)
-                     from $dbName.journal
-		     where query<>''")
-  or journalFailure('Cannot determine size of journal.');
+$result=sql("select count(*)
+	     from $dbName.journal
+	     where query<>''",
+	    'isJournalEmpty');
 return mysql_result($result,0,0)==0;
 }
 
@@ -338,10 +333,10 @@ $tables=array('complain_actions','complains','counters','cross_topics',
 	      'postings','stotext_images','stotexts','topics','users','votes');
 foreach($tables as $table)
        {
-       mysql_query("delete from $dbName.$table")
-         or journalFailure('Cannot drop non-autoritative table.');
-       mysql_query("insert into $dbName.$table select * from $table")
-         or journalFailure('Cannot copy autoritative table.');
+       sql("delete from $dbName.$table",
+           'duplicateDatabase','drop',"table='$table'");
+       sql("insert into $dbName.$table select * from $table",
+           'duplicateDatabase','copy',"table='$table'");
        }
 }
 ?>

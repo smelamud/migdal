@@ -23,18 +23,20 @@ require_once('lib/redirs.php');
 require_once('lib/modbits.php');
 require_once('lib/counters.php');
 require_once('lib/logging.php');
+require_once('lib/sql.php');
 
 function setImageTitle($image_set,$title)
 {
 if(!$image_set)
   return EP_OK;
-$result=mysql_query("update images
-                     set title='$title'
-		     where image_set=$image_set");
+sql("update images
+     set title='$title'
+     where image_set=$image_set",
+    'setImageTitle');
 journal("update images
          set title='".jencode($title)."'
 	 where image_set=".journalVar('images',$image_set));
-return $result ? EP_OK : EP_TITLE_SQL;
+return EP_OK;
 }
 
 function isDisabledSet($message)
@@ -142,10 +144,8 @@ if($message->up!=0)
     return EP_UP_APPEND;
   }
 $message->track='';
-if(!$message->store())
-  return EP_STORE_SQL;
-if(!updateTracks('messages',$message->message_id))
-  return EP_TRACK_SQL;
+$message->store();
+updateTracks('messages',$message->message_id);
 setDisabled($message,$original);
 if($original->getId()==0)
   createCounters($message->message_id,$message->grp);

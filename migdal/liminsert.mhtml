@@ -31,8 +31,6 @@
 	   text='Вы не имеете права редактировать это сообщение'>
     <error id='*ELII_MESSAGE_ABSENT' text='Такого сообщения не существует'>
     <error id='*ELII_IMAGE_ABSENT' text='Такой картинки не существует'>
-    <error id='*ELII_STORE_SQL' text='Ошибка при обновлении записи'
-	   color=magenta>
    </table>
    <table cellspacing=10>
     <tr>

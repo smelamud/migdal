@@ -23,8 +23,6 @@
      <error id='*EECA_NO_ACTION' text='Такого стандартного ответа не существует'>
      <error id='*EECA_NO_COMPLAIN' text='Такой жалобы не существует'>
      <error id='*EECA_NO_EXEC' text='Вам не поручено рассмотрение этой жалобы'>
-     <error id='*EECA_SQL_FORUM' color=magenta
-	    text='Ошибка SQL при добавлении сообщения в форум'>
      <editor_line name='text' title='Текст' body='$,Text'>
      <help_link href='stotext-help-subs.php'
 		title='Список обозначений, используемых в тексте'>

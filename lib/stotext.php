@@ -3,6 +3,7 @@
 
 require_once('lib/text.php');
 require_once('lib/charsets.php');
+require_once('lib/sql.php');
 
 define('SB_POSTING_BODY',1);
 define('SB_TOPIC_DESC',2);
@@ -82,17 +83,20 @@ function store($admin)
 $normal=$this->getNormal($admin);
 if($this->id)
   {
-  $result=mysql_query(makeUpdate('stotexts',
-                                 $normal,
-				 array('id' => $this->id)));
+  $result=sql(makeUpdate('stotexts',
+			 $normal,
+			 array('id' => $this->id)),
+	      get_method($this,'store'),'update');
   journal(makeUpdate('stotexts',
                      jencodeVars($normal,$this->getJencodedVars()),
 		     array('id' => journalVar('stotexts',$this->id))));
   }
 else
   {
-  $result=mysql_query(makeInsert('stotexts',$normal));
-  $this->id=mysql_insert_id();
+  $result=sql(makeInsert('stotexts',
+                         $normal),
+	      get_method($this,'store'),'insert');
+  $this->id=sql_insert_id();
   journal(makeInsert('stotexts',
                      jencodeVars($normal,$this->getJencodedVars())),
 	  'stotexts',$this->id);

@@ -9,6 +9,7 @@ require_once('lib/errors.php');
 require_once('lib/postings-info.php');
 require_once('lib/track.php');
 require_once('lib/topics.php');
+require_once('lib/sql.php');
 
 function deleteTopic($id,$destid)
 {
@@ -17,19 +18,17 @@ if(!$perms)
   return ETD_TOPIC_ABSENT;
 if(!$perms->isWritable())
   return ETD_NO_DELETE;
-$result=mysql_query("select id
-                     from topics
-		     where up=$id");
-if(!$result)
-  return ETD_TOPICS_SQL;
+$result=sql("select id
+	     from topics
+	     where up=$id",
+	    'deleteTopic','get_descedants');
 $tops=array();
 while($row=mysql_fetch_row($result))
      $tops[]=$row[0];
-$result=mysql_query("select count(*)
-                     from postings
-		     where topic_id=$id");
-if(!$result)
-  return ETD_POSTINGS_SQL;
+$result=sql("select count(*)
+	     from postings
+	     where topic_id=$id",
+	    'deleteTopic','count_postings');
 if(mysql_result($result,0,0)!=0)
   {
   if($destid<=0 || $destid==$id || !($perms=getPermsById('topics',$destid)))
@@ -37,38 +36,33 @@ if(mysql_result($result,0,0)!=0)
   if(!$perms->isPostable())
     return ETD_DEST_ACCESS;
   }
-$result=mysql_query("delete from topics
-                     where id=$id");
-if(!$result)
-  return ETD_DELETE_SQL;
+sql("delete from topics
+     where id=$id",
+    'deleteTopic','delete_topic');
 journal('delete from topics
          where id='.journalVar('topics',$id));
-$result=mysql_query("delete from cross_topics
-                     where topic_id=$id or peer_id=$id");
-if(!$result)
-  return ETD_CROSS_SQL;
+sql("delete from cross_topics
+     where topic_id=$id or peer_id=$id",
+    'deleteTopic','delete_cross_topics');
 journal('delete from cross_topics
          where topic_id='.journalVar('topics',$id).' or
 	       peer_id='.journalVar('topics',$id));
-$result=mysql_query("update topics
-		     set up=$destid
-		     where up=$id");
-if(!$result)
-  return ETD_NEW_UP_SQL;
+sql("update topics
+     set up=$destid
+     where up=$id",
+    'deleteTopic','move_children');
 journal('update topics
          set up='.journalVar('topics',$destid).'
 	 where up='.journalVar('topics',$id));
-$result=mysql_query("update postings
-		     set topic_id=$destid
-		     where topic_id=$id");
-if(!$result)
-  return ETD_NEW_TOPIC_SQL;
+sql("update postings
+     set topic_id=$destid
+     where topic_id=$id",
+    'deleteTopic','move_postings');
 journal('update postings
          set topic_id='.journalVar('topics',$destid).'
 	 where topic_id='.journalVar('topics',$id));
 foreach($tops as $tid)
-       if(!updateTracks('topics',$tid))
-         return ETD_UPDATE_SQL;
+       updateTracks('topics',$tid);
 return ETD_OK;
 }
 

@@ -21,8 +21,7 @@ if($posting->getMessageId()==0)
   return ELII_MESSAGE_ABSENT;
 if($image->getImageId()!=0 && !imageExists($image->getImageId()))
   return ELII_IMAGE_ABSENT;
-if(!$image->store())
-  return ELII_STORE_SQL;
+$image->store();
 if(!$userModerator)
   setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
 return ELII_OK;

@@ -6,6 +6,7 @@ require_once('lib/bug.php');
 require_once('lib/utils.php');
 require_once('lib/selectiterator.php');
 require_once('lib/mime.php');
+require_once('lib/sql.php');
 
 define('PT_UNDEFINED',0);
 define('PT_BOOK_ONEFILE',1);
@@ -54,14 +55,17 @@ function store()
 {
 $normal=$this->getNormal(false);
 if($this->id)
-  $result=mysql_query(makeUpdate('packages',
-                                 $normal,
-				 array('id' => $this->id)));
+  $result=sql(makeUpdate('packages',
+			 $normal,
+			 array('id' => $this->id)),
+	      get_method($this,'store'),'update');
 else
   {
   $normal['created']=date('Y-m-d H:i:s',time());
-  $result=mysql_query(makeInsert('packages',$normal));
-  $this->id=mysql_insert_id();
+  $result=sql(makeInsert('packages',
+                         $normal),
+	      get_method($this,'store'),'insert');
+  $this->id=sql_insert_id();
   $this->created=$normal['created'];
   }
 return $result;
@@ -150,10 +154,10 @@ $this->SelectIterator('Package',
 
 function getPackageContentById($id)
 {
-$result=mysql_query("select id,message_id,mime_type,body,url
-                     from packages
-		     where id=$id")
-          or sqlbug('Ошибка SQL при выборке содержимого пакета');
+$result=sql("select id,message_id,mime_type,body,url
+	     from packages
+	     where id=$id",
+	    'getPackageContentById');
 return new Package(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                              : array());
 }

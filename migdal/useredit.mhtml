@@ -20,10 +20,6 @@
     <error id='*EUM_DISABLED' span=2 text='Регистрация пользователей запрещена'>
     <error id='*EUM_NO_EDIT' span=2
 	   text='У вас нет права менять информацию для этого пользователя'>
-    <error id='*EUM_STORE_SQL' text='Ошибка SQL при обновлении записи'
-	   color='magenta' span=2>
-    <error id='*EUM_PRECONFIRM_SQL' color='magenta' span=2
-	   text='Ошибка SQL при подготовке кода подтверждения'>
     <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен' span=2>
     <error id='*EUM_LOGIN_EXISTS' span=2
 	   text='Пользователь с таким ником уже существует'>

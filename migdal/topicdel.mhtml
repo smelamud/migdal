@@ -40,27 +40,13 @@
      <asp>.
     </td></tr>
     <tr><td colspan=2>&nbsp;</td></tr>
-    <error id='*ETD_TOPICS_SQL' color=magenta span=2
-           text='Ошибка базы данных при получении списка подтем'>
-    <error id='*ETD_POSTINGS_SQL' color=magenta span=2
-           text='Ошибка базы данных при получении списка сообщений'>
     <error id='*ETD_DEST_ABSENT' span=2
            text='Тема для перемещения не указана'>
     <error id='*ETD_DEST_ACCESS' span=2
            text='В эту тему нельзя добавлять сообщения'>
-    <error id='*ETD_DELETE_SQL' color=magenta span=2
-           text='Ошибка базы данных при удалении темы'>
-    <error id='*ETD_NEW_UP_SQL' color=magenta span=2
-           text='Ошибка базы данных при перемещении подтем'>
-    <error id='*ETD_NEW_TOPIC_SQL' color=magenta span=2
-           text='Ошибка базы данных при перемещении сообщений'>
-    <error id='*ETD_UPDATE_SQL' color=magenta span=2
-           text='Ошибка базы данных при обновлении маршрутов подтем'>
-    <error id='*ETD_NO_DELETE' color=magenta span=2
+    <error id='*ETD_NO_DELETE' span=2
            text='Вы не имеете права удалять эту тему'>
     <error id='*ETD_TOPIC_ABSENT' span=2 text='Тема не указана'>
-    <error id='*ETD_CROSS_SQL' color=magenta span=2
-           text='Ошибка базы данных при удалении перекрестных ссылок'>
     <topicselect title='Отправить в' name='destid' grp='*GRP_ALL'
 		 value='$destid' root=-1 mandatory='*true'>
     <formbuttons title='Удалить' span=2>

@@ -27,8 +27,6 @@
 	    text='Посылать жалобы могут только зарегистрированные пользователи'>
      <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
      <error id='*EC_NO_TYPE' text='Такого типа жалобы не существует'>
-     <error id='*EC_STORE_SQL' text='Ошибка базы данных при обновлении записи'
-	    color='magenta'>
      <tr><td><table>
       <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
       <edit_line title='Заголовок' value='$,Subject' name='subject'

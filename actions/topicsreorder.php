@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/topics.php');
+require_once('lib/sql.php');
 
 function reorderTopics($topic)
 {
@@ -21,11 +22,10 @@ foreach($topic as $id)
          return ETO_NO_TOPIC;
        if(!$tp->isWritable())
          return ETO_NO_REORDER;
-       $result=mysql_query("update topics
-                            set index0=$index
-			    where id=$id");
-       if(!$result)
-         return ETO_SQL;
+       sql("update topics
+	    set index0=$index
+	    where id=$id",
+	   'reorderTopics');
        journal("update topics
                 set index0=$index
 		where id=".journalVar('topics',$id));

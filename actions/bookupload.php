@@ -9,15 +9,16 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/packages.php');
+require_once('lib/sql.php');
 
 postInteger('message_id');
 postInteger('type');
 
 function dropBook($message_id,$type)
 {
-mysql_query("delete from packages
-             where message_id=$message_id and type=$type")
-  or sqlbug('Ошибка SQL при удалении старого пакета');
+sql("delete from packages
+     where message_id=$message_id and type=$type",
+    'dropBook');
 }
 
 function uploadBook($message_id,$type,$mime_type,$fname)
@@ -29,8 +30,7 @@ $package=new Package(array('message_id' => $message_id,
 			   'mime_type'  => $mime_type,
 			   'size'       => filesize("$bookCompressDir/$fname"),
 			   'url'        => "$bookCompressURL/$fname"));
-if(!$package->store())
-  sqlbug('Ошибка SQL при добавлении пакета');
+$package->store();
 }
 
 dbOpen();

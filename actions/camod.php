@@ -30,8 +30,7 @@ if($action->script_id!=0)
   if(($action->script_id & $type->getScriptMask())==0)
     return ECAM_ILLEGAL_SCRIPT;
   }
-if(!$action->store())
-  return ECAM_STORE_SQL;
+$action->store();
 return ECAM_OK;
 }
 

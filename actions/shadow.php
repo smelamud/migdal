@@ -9,6 +9,7 @@ require_once('lib/errors.php');
 require_once('lib/postings.php');
 require_once('lib/postings-info.php');
 require_once('lib/utils.php');
+require_once('lib/sql.php');
 
 function shadowPosting($postid)
 {
@@ -16,10 +17,11 @@ global $userModerator;
 
 if(!$userModerator)
   return ESP_NO_SHADOW;
-$result=mysql_query("select *
-                     from postings
-		     where id=$postid");
-if(!$result || mysql_num_rows($result)==0)
+$result=sql("select *
+	     from postings
+	     where id=$postid",
+	    'shadowPosting','get');
+if(mysql_num_rows($result)==0)
   return ESP_POSTING_ABSENT;
 $values=mysql_fetch_assoc($result);
 unset($values['id']);
@@ -28,14 +30,14 @@ unset($values['last_read']);
 unset($values['vote']);
 unset($values['vote_count']);
 $values['shadow']=1;
-$result=mysql_query(makeInsert('postings',$values));
-if(!$result)
-  return ESP_COPY_SQL;
+sql(makeInsert('postings',
+               $values),
+    'shadowPosting','insert');
 journal(makeInsert('postings',
                    jencodeVars($values,array('message_id' => 'messages',
 		                             'topic_id' => 'topics',
                                              'personal_id' => 'users'))),
-        'postings',mysql_insert_id());
+        'postings',sql_insert_id());
 return ESP_OK;
 }
 

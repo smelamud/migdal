@@ -5,6 +5,7 @@ require_once('lib/dataobject.php');
 require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/selectiterator.php');
+require_once('lib/sql.php');
 
 class ComplainAction
       extends DataObject
@@ -61,18 +62,20 @@ function store()
 $normal=$this->getNormal();
 if(!$this->id)
   {
-  $result=mysql_query(makeInsert('complain_actions',
-				 $normal));
-  $this->id=mysql_insert_id();
+  $result=sql(makeInsert('complain_actions',
+			 $normal),
+	      get_method($this,'store'),'insert');
+  $this->id=sql_insert_id();
   journal(makeInsert('complain_actions',
 		     jencodeVars($normal,$this->getJencodedVars())),
 		     'complain_actions',$this->id);
   }
 else
   {
-  $result=mysql_query(makeUpdate('complain_actions',
-				 $normal,
-				 array('id' => $this->id)));
+  $result=sql(makeUpdate('complain_actions',
+			 $normal,
+			 array('id' => $this->id)),
+	      get_method($this,'store'),'update');
   journal(makeUpdate('complain_actions',
 		     jencodeVars($normal,$this->getJencodedVars()),
 		     array('id' => journalVar('complain_actions',$this->id))));
@@ -128,10 +131,10 @@ $this->SelectIterator('ComplainAction',
 
 function getComplainActionById($id)
 {
-$result=mysql_query("select id,name,text,automatic,script_id
-                     from complain_actions
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при выборке ответа на жалобу');
+$result=sql("select id,name,text,automatic,script_id
+	     from complain_actions
+	     where id=$id",
+	    'getComplainActionById');
 return new ComplainAction(mysql_num_rows($result)>0
                           ? mysql_fetch_assoc($result)
 			  : array());
@@ -139,10 +142,10 @@ return new ComplainAction(mysql_num_rows($result)>0
 
 function complainActionExists($id)
 {
-$result=mysql_query("select id
-                     from complain_actions
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при проверке наличия ответа на жалобу');
+$result=sql("select id
+	     from complain_actions
+	     where id=$id",
+	    'complainActionExists');
 return mysql_num_rows($result)>0;
 }
 ?>

@@ -14,6 +14,7 @@ require_once('lib/random.php');
 require_once('lib/text.php');
 require_once('lib/alphabet.php');
 require_once('lib/sort.php');
+require_once('lib/sql.php');
 
 class User
       extends UserTag
@@ -110,15 +111,20 @@ $normal['jewish_name_sort']=convertSort($normal['jewish_name']);
 $normal['surname_sort']=convertSort($normal['surname']);
 if($this->id)
   {
-  $result=mysql_query(makeUpdate('users',$normal,array('id' => $this->id)));
+  $result=sql(makeUpdate('users',
+                         $normal,
+			 array('id' => $this->id)),
+	      get_method($this,'store'),'update');
   journal(makeUpdate('users',
                      jencodeVars($normal,$this->getJencodedVars()),
 		     array('id' => journalVar('users',$this->id))));
   }
 else
   {
-  $result=mysql_query(makeInsert('users',$normal));
-  $this->id=mysql_insert_id();
+  $result=sql(makeInsert('users',
+                         $normal),
+	      get_method($this,'store'),'insert');
+  $this->id=sql_insert_id();
   journal(makeInsert('users',
                      jencodeVars($normal,$this->getJencodedVars())),
 	  'users',$this->id);
@@ -135,10 +141,11 @@ for($i=0;$i<20;$i++)
    {
    $s.=chr(random(ord('A'),ord('Z')));
    }
-$result=mysql_query("update users
-                     set no_login=1,confirm_code='$s',
-		         confirm_deadline=now()+interval $regConfirmTimeout day
- 	             where id=$this->id");
+$result=sql("update users
+	     set no_login=1,confirm_code='$s',
+		 confirm_deadline=now()+interval $regConfirmTimeout day
+	     where id=$this->id",
+	    get_method($this,'preconfirm'));
 journal("update users
          set no_login=1,confirm_code='$s',
 	     confirm_deadline=now()+interval $regConfirmTimeout day
@@ -461,28 +468,28 @@ function getUserById($id)
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$result=mysql_query("select distinct users.id as id,login,name,jewish_name,
-                            surname,gender,info,birthday,migdal_student,
-			    last_online,email,hide_email,icq,email_disabled,
-			    accepts_complains,admin_users,admin_topics,
-			    admin_complain_answers,moderator,judge,admin_domain,
-			    hidden,no_login,has_personal,
-			    max(sessions.user_id) as online,
-			    min(floor((unix_timestamp(now())
-				      -unix_timestamp(sessions.last))/60))
-				 as last_minutes,
-			    confirm_code,
-			    confirm_deadline is null as confirmed,
-			    floor((unix_timestamp(confirm_deadline)
-				   -unix_timestamp(now()))/86400)
-				 as confirm_days
-		     from users
-		          left join sessions
-			       on users.id=sessions.user_id
-			          and sessions.last+interval 1 hour>now()
-		     where users.id=$id and hidden<$hide
-		     group by users.id")
-	  or sqlbug('Ошибка SQL при выборке данных пользователя');
+$result=sql("select distinct users.id as id,login,name,jewish_name,
+		    surname,gender,info,birthday,migdal_student,
+		    last_online,email,hide_email,icq,email_disabled,
+		    accepts_complains,admin_users,admin_topics,
+		    admin_complain_answers,moderator,judge,admin_domain,
+		    hidden,no_login,has_personal,
+		    max(sessions.user_id) as online,
+		    min(floor((unix_timestamp(now())
+			      -unix_timestamp(sessions.last))/60))
+			 as last_minutes,
+		    confirm_code,
+		    confirm_deadline is null as confirmed,
+		    floor((unix_timestamp(confirm_deadline)
+			   -unix_timestamp(now()))/86400)
+			 as confirm_days
+	     from users
+		  left join sessions
+		       on users.id=sessions.user_id
+			  and sessions.last+interval 1 hour>now()
+	     where users.id=$id and hidden<$hide
+	     group by users.id",
+	    'getUserById');
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());
 }
@@ -492,10 +499,10 @@ function getUserLoginById($id)
 // Hidden users' logins must be returned, because system users must be
 // identified
 
-$result=mysql_query("select login
-                     from users
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при выборке данных пользователя');
+$result=sql("select login
+	     from users
+	     where id=$id",
+	    'getUserLoginById');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -505,38 +512,38 @@ function getUserGenderById($id)
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$result=mysql_query("select gender
-                     from users
-		     where id=$id and hidden<$hide")
-	  or sqlbug('Ошибка SQL при выборке пола пользователя');
+$result=sql("select gender
+	     from users
+	     where id=$id and hidden<$hide",
+	    'getUserGenderById');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 'mine';
 }
 
 function getUserIdByLogin($login)
 {
-$result=mysql_query("select id
-                     from users
-		     where login='$login'")
-	  or sqlbug('Ошибка SQL при выборке данных пользователя');
+$result=sql("select id
+	     from users
+	     where login='$login'",
+	    'getUserIdByLogin');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function getUserIdByLoginPassword($login,$password)
 {
-$result=mysql_query("select id
-                     from users
-		     where login='$login' and password='".md5($password)."'
-		           and no_login=0")
-	  or sqlbug('Ошибка SQL при выборке данных пользователя');
+$result=sql("select id
+	     from users
+	     where login='$login' and password='".md5($password)."'
+		   and no_login=0",
+	    'getUserIdByLoginPassword');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function getShamesId()
 {
-$result=mysql_query('select id
-                     from users
-		     where shames=1')
-	  or sqlbug('Ошибка SQL при выборке данных шамеса');
+$result=sql('select id
+	     from users
+	     where shames=1',
+	    'getShamesId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -546,21 +553,21 @@ global $allowGuests,$sessionTimeout,$guestLogin;
 
 if(!$allowGuests)
   return 0;
-$result=mysql_query("select id
-                     from users
-		     where guest<>0 and
-		           last_online+interval $sessionTimeout hour<now()
-		     order by login_sort
-		     limit 1")
-	  or sqlbug('Ошибка SQL при поиске свободного гостя');
+$result=sql("select id
+	     from users
+	     where guest<>0 and
+		   last_online+interval $sessionTimeout hour<now()
+	     order by login_sort
+	     limit 1",
+	    'getGuestId','locate_free');
 if(mysql_num_rows($result)>0)
   return mysql_result($result,0,0);
-$result=mysql_query("select login
-                     from users
-		     where guest<>0
-		     order by login_sort desc
-		     limit 1")
-	  or sqlbug('Ошибка SQL при поиске последнего гостя');
+$result=sql("select login
+	     from users
+	     where guest<>0
+	     order by login_sort desc
+	     limit 1",
+	    'getGuestId','find_last');
 if(mysql_num_rows($result)>0)
   {
   $login=mysql_result($result,0,0);
@@ -583,11 +590,10 @@ if(mysql_num_rows($result)>0)
 else
   $login="$guestLogin-0";
 $login_sort=convertSort($login);
-mysql_query("insert into users(login,login_sort,email_disabled,guest,hidden,
-                               no_login)
-             values('$login','$login_sort',1,1,2,1)")
-  or sqlbug('Ошибка SQL при создании гостя');
-$id=mysql_insert_id();
+sql("insert into users(login,login_sort,email_disabled,guest,hidden,no_login)
+     values('$login','$login_sort',1,1,2,1)",
+    'getGuestId','create');
+$id=sql_insert_id();
 journal("insert into users(login,login_sort,email_disabled,guest,hidden,
                            no_login)
          values('".jencode($login)."','".jencode($login_sort)."',1,1,2,1)",
@@ -597,25 +603,27 @@ return $id;
 
 function updateLastOnline($userId)
 {
-mysql_query("update users set last_online=now() where id=$userId")
-  or sqlbug('Ошибка SQL при обновлении времени захода пользователя');
+sql("update users
+     set last_online=now()
+     where id=$userId",
+    'updateLastOnline');
 }
 
 function getSettingsByUserId($userId)
 {
-$result=mysql_query("select settings
-		     from users
-		     where id=$userId")
-	  or sqlbug('Ошибка SQL при выборке установок пользователя');
+$result=sql("select settings
+	     from users
+	     where id=$userId",
+	    'getSettingsByUserId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
 }
 
 function updateUserSettings($userId,$settings)
 {
-mysql_query("update users
-	     set settings='$settings'
-	     where id=$userId")
-  or sqlbug('Ошибка SQL при сохранении установок пользователя');
+sql("update users
+     set settings='$settings'
+     where id=$userId",
+    'updateUserSettings');
 journal("update users
 	 set settings='".jencode($settings)."'
 	 where id=".journalVar('users',$userId));
@@ -626,10 +634,10 @@ function personalExists($id)
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$result=mysql_query("select id
-		     from users
-		     where id=$id and hidden<$hide and has_personal<>0")
-	  or sqlbug('Ошибка SQL при выборке данных пользователя');
+$result=sql("select id
+	     from users
+	     where id=$id and hidden<$hide and has_personal<>0",
+	    'personalExists');
 return mysql_num_rows($result)>0;
 }
 
@@ -638,10 +646,10 @@ function userExists($id)
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$result=mysql_query("select id
-		     from users
-		     where id=$id and hidden<$hide")
-	  or sqlbug('Ошибка SQL при проверке наличия пользователя');
+$result=sql("select id
+	     from users
+	     where id=$id and hidden<$hide",
+	    'userExists');
 return mysql_num_rows($result)>0;
 }
 
@@ -673,10 +681,10 @@ function getUsersSummary()
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$result=mysql_query("select count(*),count(confirm_deadline)
-                     from users
-		     where hidden<$hide")
-  	  or sqlbug('Ошибка SQL при получении общей информации о пользователях');
+$result=sql("select count(*),count(confirm_deadline)
+	     from users
+	     where hidden<$hide",
+	    'getUsersSummary');
 return mysql_num_rows($result)>0 ?
        new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
                         mysql_result($result,0,1)) :

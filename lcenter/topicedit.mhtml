@@ -25,10 +25,6 @@
   <table>
    <starinfo>
    <error id='*ET_NO_EDIT' text='Вы не можете редактировать эту тему'>
-   <error id='*ET_STORE_SQL' text='Ошибка базы данных при обновлении записи'
-	  color='magenta'>
-   <error id='*ET_TRACK_SQL' color='magenta'
-	  text='Ошибка базы данных при обновлении маршрута темы'>
    <tr><td><table>
     <error id='*ET_NO_UP' text='Такой темы не существует' span=2>
     <error id='*ET_LOOP_UP' span=2

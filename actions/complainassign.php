@@ -8,6 +8,7 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/users.php');
 require_once('lib/complains.php');
+require_once('lib/sql.php');
 
 function assignComplain($id,$login)
 {
@@ -20,11 +21,10 @@ if(!complainExists($id))
 $peerId=getUserIdByLogin(addslashes($login));
 if($peerId==0 && $login!='')
   return EC_LOGIN_ASSIGN;
-$result=mysql_query("update complains
-                     set recipient_id=$peerId
-		     where id=$id");
-if(!$result)
-  return EC_SQL_ASSIGN;
+$result=sql("update complains
+	     set recipient_id=$peerId
+	     where id=$id",
+	    'assignComplain');
 journal('update complains
          set recipient_id='.journalVar('users',$peerId).'
 	 where id='.journalVar('complains',$id));

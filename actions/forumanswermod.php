@@ -40,8 +40,7 @@ if($forumanswerMandatoryImage && $answer->stotext->image_set==0)
 if($answer->stotext->image_set!=0
    && !imageSetExists($answer->stotext->image_set))
   return EFA_NO_IMAGE;
-if(!$answer->store())
-  return EFA_STORE_SQL;
+$answer->store();
 return EFA_OK;
 }
 

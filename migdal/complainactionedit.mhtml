@@ -57,10 +57,6 @@
      <error id='*ECAD_NO_EDIT' text='Вы не администратор'>
      <error id='*ECAD_NO_ACTION' text='Такого ответа на жалобу не существует'>
      <error id='*ECAM_NO_TYPE' text='Такого типа жалобы не существует'>
-     <error id='*ECAM_STORE_SQL' color=magenta
-	    text='Ошибка базы данных при обновлении записи'>
-     <error id='*ECAD_DELETE_SQL' color=magenta
-	    text='Ошибка базы данных при удалении записи'>
     </table>
     <table>
      <error id='*ECAM_NO_SCRIPT' text='Такого скрипта не существует' span=2>

@@ -31,6 +31,9 @@ $debug=false;
 # Выключить логи
 $disableLogging=false;
 
+# Выключить профайлинг
+$disableProfiling=true;
+
 # Максимальный размер картинки, прикрепляемой к сообщениям (в байтах)
 $maxImage=2097152;
 

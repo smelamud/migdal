@@ -55,7 +55,7 @@ if($this->id)
 else
   {
   $result=mysql_query(makeInsert('instants',$normal));
-  $this->id=mysql_insert_id();
+  $this->id=sql_insert_id();
   journal(makeInsert('instants',
                      jencodeVars($normal,$this->getJencodedInstantVars())),
           'instants',$this->id);

@@ -3,6 +3,7 @@
 
 require_once('lib/selectiterator.php');
 require_once('lib/bug.php');
+require_once('lib/sql.php');
 
 class LimitSelectIterator
       extends SelectIterator
@@ -31,8 +32,8 @@ function countSelect()
 {
 if($this->size<0)
   {
-  $result=mysql_query($this->count_query)
-	or sqlbug("Ошибка SQL в лимитированном итераторе {$this->count_query}");
+  $result=sql($this->count_query,
+              get_method($this,'countSelect'));
   $this->size=mysql_result($result,0,0);
   }
 }

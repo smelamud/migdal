@@ -16,6 +16,7 @@ require_once('lib/charsets.php');
 require_once('lib/grpiterator.php');
 require_once('lib/cache.php');
 require_once('lib/permissions.php');
+require_once('lib/sql.php');
 
 class Topic
       extends UserTag
@@ -113,15 +114,20 @@ if(!$result)
 $normal=$this->getNormal();
 if($this->id)
   {
-  $result=mysql_query(makeUpdate('topics',$normal,array('id' => $this->id)));
+  $result=sql(makeUpdate('topics',
+                         $normal,
+			 array('id' => $this->id)),
+	      get_method($this,'store'),'update');
   journal(makeUpdate('topics',
                      jencodeVars($normal,$this->getJencodedVars()),
 		     array('id' => journalVar('topics',$this->id))));
   }
 else
   {
-  $result=mysql_query(makeInsert('topics',$normal));
-  $this->id=mysql_insert_id();
+  $result=sql(makeInsert('topics',
+                         $normal),
+	      get_method($this,'store'),'insert');
+  $this->id=sql_insert_id();
   journal(makeInsert('topics',
                      jencodeVars($normal,$this->getJencodedVars())),
 	  'topics',$this->id);
@@ -545,10 +551,10 @@ $this->ArrayIterator($topics);
 function getAllowByTopicId($id)
 {
 $hide=topicsPermFilter(PERM_READ);
-$result=mysql_query("select allow
-                     from topics
-		     where id=$id and $hide")
-          or sqlbug('Ошибка SQL при выборке маски допустимых постингов');
+$result=sql("select allow
+	     from topics
+	     where id=$id and $hide",
+	    'getAllowByTopicId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : GRP_ALL;
 }
@@ -558,10 +564,10 @@ function getPremoderateByTopicId($id)
 global $defaultPremoderate;
 
 $hide=topicsPermFilter(PERM_READ);
-$result=mysql_query("select premoderate
-                     from topics
-		     where id=$id and $hide")
-          or sqlbug('Ошибка SQL при выборке флага премодерирования');
+$result=sql("select premoderate
+	     from topics
+	     where id=$id and $hide",
+	    'getPremoderateByTopicId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultPremoderate;
 }
@@ -571,10 +577,10 @@ function getModerateByTopicId($id)
 global $defaultModerate;
 
 $hide=topicsPermFilter(PERM_READ);
-$result=mysql_query("select moderate
-                     from topics
-		     where id=$id and $hide")
-          or sqlbug('Ошибка SQL при выборке флага модерирования');
+$result=sql("select moderate
+	     from topics
+	     where id=$id and $hide",
+	    'getModerateByTopicId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultModerate;
 }
@@ -584,10 +590,10 @@ function getEditByTopicId($id)
 global $defaultEdit;
 
 $hide=topicsPermFilter(PERM_READ);
-$result=mysql_query("select edit
-                     from topics
-		     where id=$id and $hide")
-          or sqlbug('Ошибка SQL при выборке флага редактирования');
+$result=sql("select edit
+	     from topics
+	     where id=$id and $hide",
+	    'getEditByTopicId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultEdit;
 }
@@ -611,7 +617,7 @@ $subsTables=($fields & SELECT_TOPICS)!=0 ?
 $GroupBy=($fields & SELECT_TOPICS)!=0 ?
          'group by topics.id' :
 	 '' ;
-$result=mysql_query(
+$result=sql(
        "select topics.id as id,topics.up as up,topics.name as name,
                topics.comment0 as comment0,topics.comment1 as comment1,
                topics.stotext_id as stotext_id,
@@ -635,8 +641,8 @@ $result=mysql_query(
 		  on topics.stotext_id=stotexts.id
 	     $subsTables
 	where topics.id=$id and $hide
-	$GroupBy")
- or sqlbug('Ошибка SQL при выборке темы'.mysql_error());
+	$GroupBy",
+       'getTopicById');
 if(mysql_num_rows($result)>0)
   {
   $row=mysql_fetch_assoc($result);
@@ -678,10 +684,10 @@ return $topic;
 function getTopicNameById($id)
 {
 $hide=topicsPermFilter(PERM_READ,'topics');
-$result=mysql_query("select id,name
-		     from topics
-		     where id=$id and $hide")
-	  or sqlbug('Ошибка SQL при выборке названия темы');
+$result=sql("select id,name
+	     from topics
+	     where id=$id and $hide",
+	    'getTopicNameById');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
 }
@@ -689,10 +695,10 @@ return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 function getSubtopicsCountById($id,$recursive=false)
 {
 $id=idByIdent('topics',$id);
-$result=mysql_query('select count(*)
-                     from topics
-		     where '.subtree('topics',$id,$recursive,'up'))
-	  or sqlbug('Ошибка SQL при получении количества подтем');
+$result=sql('select count(*)
+	     from topics
+	     where '.subtree('topics',$id,$recursive,'up'),
+	    'getSubtopicsCountById');
 return mysql_num_rows($result)>0
        ? mysql_result($result,0,0)-($recursive ? 1 : 0) : 0;
 }
@@ -700,10 +706,10 @@ return mysql_num_rows($result)>0
 function topicExists($id)
 {
 $hide=topicsPermFilter(PERM_READ);
-$result=mysql_query("select id
-		     from topics
-		     where id=$id and $hide")
-	  or sqlbug('Ошибка SQL при проверке наличия темы');
+$result=sql("select id
+	     from topics
+	     where id=$id and $hide",
+	    'topicExists');
 return mysql_num_rows($result)>0;
 }
 ?>

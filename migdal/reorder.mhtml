@@ -44,8 +44,6 @@
     <error id='*EO_NO_ARTICLE' text='Статьи не существует' span=2>
     <error id='*EO_NO_REORDER' text='Вы не имеете права менять порядок статей'
            span=2>
-    <error id='*EO_SQL' text='Ошибка базы данных при обновлении записи'
-           span=2 color=magenta>
     <for>
      <tr>
       <td>$;NextPosition.</td>

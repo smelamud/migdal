@@ -7,13 +7,14 @@ require_once('lib/database.php');
 require_once('lib/bug.php');
 require_once('lib/text.php');
 require_once('lib/utils.php');
+require_once('lib/sql.php');
 
 dbOpen();
 $id=addslashes($id);
-$result=mysql_query("select large_body,large_format
-                     from stotexts
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при выборке текста');
+$result=sql("select large_body,large_format
+	     from stotexts
+	     where id=$id",
+	    'lib/plain.php');
 header('Content-Type: text/plain');
 if(mysql_result($result,0,1)==TF_HTML)
   $s=mysql_result($result,0,0);

@@ -24,8 +24,8 @@ function select()
 {
 if($this->result!=0)
   return;
-$this->result=mysql_query($this->query)
-                or sqlbug("Ошибка SQL в итераторе {$this->query}");
+$this->result=sql($this->query,
+                  get_method($this,'select'));
 $this->count=mysql_num_rows($this->result);
 }
 

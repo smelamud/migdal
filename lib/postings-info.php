@@ -4,6 +4,7 @@
 require_once('lib/dataobject.php');
 require_once('lib/bug.php');
 require_once('lib/track.php');
+require_once('lib/sql.php');
 
 class PostingsInfo
       extends DataObject
@@ -63,16 +64,15 @@ $hide=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp,'grp','postings');
 $topicFilter=getInfoTopicFilter($topic_id,$recursive);
 $userFilter=$user_id>0 ? " and messages.sender_id=$user_id " : '';
-$result=mysql_query(
-        "select count(*) as total,max(messages.sent) as max_sent
-         from messages
-	      left join postings
-	           on postings.message_id=messages.id
-	      left join topics
-	           on topics.id=postings.topic_id
-	 where postings.id is not null and $hide and
-               $grpFilter $topicFilter $userFilter")
- or sqlbug('Ошибка SQL при получении информации о постингах');
+$result=sql("select count(*) as total,max(messages.sent) as max_sent
+	     from messages
+		  left join postings
+		       on postings.message_id=messages.id
+		  left join topics
+		       on topics.id=postings.topic_id
+	     where postings.id is not null and $hide and
+		   $grpFilter $topicFilter $userFilter",
+	    'getPostingsMessagesInfo');
 $row=mysql_fetch_assoc($result);
 $row['max_sent']=$row['max_sent']!='' ? strtotime($row['max_sent']) : 0;
 return new PostingsInfo($row);
@@ -88,20 +88,19 @@ $hideMsgs=messagesPermFilter(PERM_READ,'msgs');
 $grpFilter=grpFilter($grp,'grp','postings');
 $topicFilter=getInfoTopicFilter($topic_id,$recursive);
 $userFilter=$user_id>0 ? " and messages.sender_id=$user_id " : '';
-$result=mysql_query(
-        "select count(*) as total,max(messages.sent) as max_sent
-         from messages
-	      left join forums
-	           on forums.message_id=messages.id
-	      left join messages as msgs
-	           on forums.parent_id=msgs.id
-	      left join postings
-	           on postings.message_id=msgs.id
-	      left join topics
-	           on topics.id=postings.topic_id
-	 where forums.id is not null and $hideMessages and $hideMsgs and
-               $grpFilter $topicFilter $userFilter")
- or sqlbug('Ошибка SQL при получении информации об ответах на постинги');
+$result=sql("select count(*) as total,max(messages.sent) as max_sent
+	     from messages
+		  left join forums
+		       on forums.message_id=messages.id
+		  left join messages as msgs
+		       on forums.parent_id=msgs.id
+		  left join postings
+		       on postings.message_id=msgs.id
+		  left join topics
+		       on topics.id=postings.topic_id
+	     where forums.id is not null and $hideMessages and $hideMsgs and
+		   $grpFilter $topicFilter $userFilter",
+	    'getPostingsAnswersInfo');
 $row=mysql_fetch_assoc($result);
 $row['max_sent']=$row['max_sent']!='' ? strtotime($row['max_sent']) : 0;
 return new PostingsInfo($row);
@@ -132,12 +131,12 @@ function loadPostingsInfoCache($grp,$topic_id,$answers,$user_id,$recursive)
 global $userId;
 
 $recursive=$recursive ? 1 : 0;
-$result=mysql_query("select total,max_sent
-                     from postings_info
-		     where reader_id=$userId and grp=$grp
-		           and topic_id=$topic_id and answers=$answers
-		           and user_id=$user_id and recursive=$recursive")
-	  or sqlbug('Ошибка SQL при выборке из кэша информации о постингах');
+$result=sql("select total,max_sent
+	     from postings_info
+	     where reader_id=$userId and grp=$grp
+		   and topic_id=$topic_id and answers=$answers
+		   and user_id=$user_id and recursive=$recursive",
+	    'loadPostingsInfoCache');
 return mysql_num_rows($result)>0 ? new PostingsInfo(mysql_fetch_assoc($result))
                                  : 0;
 }
@@ -150,10 +149,11 @@ global $userId;
 $recursive=$recursive ? 1 : 0;
 $total=$info->getTotal();
 $max_sent=$info->getMaxSent();
-mysql_query("insert into postings_info(reader_id,grp,topic_id,answers,user_id,
-                                       recursive,total,max_sent)
-	     values($userId,$grp,$topic_id,$answers,$user_id,
-	            $recursive,$total,$max_sent)");
+sql("insert into postings_info(reader_id,grp,topic_id,answers,user_id,
+			       recursive,total,max_sent)
+     values($userId,$grp,$topic_id,$answers,$user_id,
+	    $recursive,$total,$max_sent)",
+    '');
 // На ошибку не проверяем, чтобы избежать race condition
 }
 
@@ -169,8 +169,8 @@ if($flag==DPIC_NONE)
 $cond=$flag==DPIC_POSTINGS ? 'grp<>0'
       : ($flag==DPIC_FORUMS ? 'answers<>0'
       : '1' );
-mysql_query("delete from postings_info
-             where $cond")
-  or sqlbug('Ошибка SQL при удалении из кэша информации о постингах');
+sql("delete from postings_info
+     where $cond",
+    'dropPostingsInfoCache');
 }
 ?>

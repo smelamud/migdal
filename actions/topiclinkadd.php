@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/topics.php');
+require_once('lib/sql.php');
 
 function addTopicLink($topic_id,$topic_grp,$peer_id,$peer_grp)
 {
@@ -16,18 +17,18 @@ if(!$userAdminTopics)
   return ETLA_NO_ADD;
 if(!topicExists($topic_id) || !topicExists($peer_id))
   return ETLA_TOPIC_ABSENT;
-$result=mysql_query("select count(*)
-                     from cross_topics
-		     where topic_id=$topic_id and topic_grp=$topic_grp and
-		           peer_id=$peer_id and peer_grp=$peer_grp");
-if(!$result)
-  return ETLA_SQL_CHECK;
+$result=sql("select count(*)
+	     from cross_topics
+	     where topic_id=$topic_id and topic_grp=$topic_grp and
+		   peer_id=$peer_id and peer_grp=$peer_grp",
+	    'addTopicLink','check_existence');
 if(mysql_result($result,0,0)!=0)
   return ETLA_OK;
-$result=mysql_query("insert into cross_topics(topic_id,topic_grp,
-                                              peer_id,peer_grp)
-                     values($topic_id,$topic_grp,$peer_id,$peer_grp),
-		           ($peer_id,$peer_grp,$topic_id,$topic_grp)");
+sql("insert into cross_topics(topic_id,topic_grp,
+			      peer_id,peer_grp)
+     values($topic_id,$topic_grp,$peer_id,$peer_grp),
+	   ($peer_id,$peer_grp,$topic_id,$topic_grp)",
+    'addTopicLink','create');
 journal('insert into cross_topics(topic_id,topic_grp,peer_id,peer_grp)
          values('.journalVar('topics',$topic_id).',
                 '.journalVar('topics',$topic_grp).',
@@ -37,7 +38,7 @@ journal('insert into cross_topics(topic_id,topic_grp,peer_id,peer_grp)
 	        '.journalVar('topics',$peer_grp).',
 	        '.journalVar('topics',$topic_id).',
 	        '.journalVar('topics',$topic_grp).')');
-return !$result ? ETLA_SQL_INSERT : ETLA_OK;
+return ETLA_OK;
 }
 
 postInteger('topic_id');

@@ -13,6 +13,7 @@ require_once('lib/messages.php');
 require_once('lib/postings-info.php');
 require_once('lib/forums.php');
 require_once('lib/answers.php');
+require_once('lib/sql.php');
 
 function renewMessage($id)
 {
@@ -22,11 +23,10 @@ if(!$userModerator)
   return EMR_NO_RENEW;
 if(!messageExists($id))
   return EMR_NO_MESSAGE;
-$result=mysql_query("update messages
-                     set sent=now()
-		     where id=$id");
-if(!$result)
-  return EMR_SQL;
+sql("update messages
+     set sent=now()
+     where id=$id",
+    'renewMessage');
 journal('update messages
          set sent=now()
 	 where id='.journalVar('messages',$id));

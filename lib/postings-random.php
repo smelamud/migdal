@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/array.php');
+require_once('lib/sql.php');
 
 function getRandomPostingIds($limit,$grp=GRP_ALL,$topic_id=-1,$user_id=0,
                              $index1=-1)
@@ -11,16 +12,15 @@ $grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? " and topic_id=$topic_id " : '';
 $userFilter=$user_id<=0 ? '' : " and messages.sender_id=$user_id ";
 $index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
-$result=mysql_query(
-        "select priority,count(*)
-         from postings
-	      left join messages
-	           on postings.message_id=messages.id
-	 where $hide and priority<=0 and $grpFilter $topicFilter $userFilter
-	       $index1Filter
-	 group by priority
-	 order by priority")
- or sqlbug('Ошибка SQL при определении количества постингов по приоритетам');
+$result=sql("select priority,count(*)
+	     from postings
+		  left join messages
+		       on postings.message_id=messages.id
+	     where $hide and priority<=0 and $grpFilter $topicFilter
+	           $userFilter $index1Filter
+	     group by priority
+	     order by priority",
+	    'getRandomPostingIds','calculate');
 
 $counts=array();
 $total=0;
@@ -61,16 +61,15 @@ while(count($positions)<$limit)
 $ids=array();
 foreach($positions as $pos)
        {
-       $result=mysql_query(
-	       "select postings.id
-		from postings
-		     left join messages
-			  on postings.message_id=messages.id
-		where $hide and priority<=0 and $grpFilter $topicFilter
-		      $userFilter $index1Filter
-		order by priority,sent desc
-		limit $pos,1")
-	or sqlbug('Ошибка SQL при получении идентификатора постинга по позиции');
+       $result=sql("select postings.id
+		    from postings
+			 left join messages
+			      on postings.message_id=messages.id
+		    where $hide and priority<=0 and $grpFilter $topicFilter
+			  $userFilter $index1Filter
+		    order by priority,sent desc
+		    limit $pos,1",
+		   'getRandomPostingIds','get_id');
        $ids[]=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
        }
 

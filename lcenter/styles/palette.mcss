@@ -1,7 +1,6 @@
 ! @(#) $Id$
 
 error_red=red
-error_magenta=magenta
 body_back=white
 image_border=black
 link=%mbl

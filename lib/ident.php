@@ -5,6 +5,7 @@ require_once('lib/ctypes.php');
 require_once('lib/track.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
+require_once('lib/sql.php');
 
 function isId($ident)
 {
@@ -20,10 +21,10 @@ if($ident=='')
 if(hasCachedValue('ident',$table,$ident))
   return getCachedValue('ident',$table,$ident);
 dbOpen();
-$result=mysql_query("select id
-                     from $table
-		     where ident='$ident'")
-	  or sqlbug("Ошибка SQL при проверке наличия идентификатора в $table");
+$result=sql("select id
+	     from $table
+	     where ident='$ident'",
+	    'idByIdent');
 $id=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 setCachedValue('ident',$table,$ident,$id);
 return $id;
@@ -34,10 +35,10 @@ function identById($table,$id)
 if(!isId($id))
   return $id;
 dbOpen();
-$result=mysql_query("select ident
-                     from $table
-		     where id=$id")
-	  or sqlbug("Ошибка SQL при проверке наличия обозначения в $table");
+$result=sql("select ident
+	     from $table
+	     where id=$id",
+	    'identById');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

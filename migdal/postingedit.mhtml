@@ -60,10 +60,6 @@
     <error id='*EP_NO_SEND'
 	   text='Посылать сообщения могут только зарегистрированные пользователи'>
     <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
-    <error id='*EP_STORE_SQL' text='Ошибка базы данных при обновлении записи'
-	   color='magenta'>
-    <error id='*EP_TRACK_SQL' color='magenta'
-	   text='Ошибка базы данных при обновлении маршрута сообщения'>
     <error id='*EP_NO_PERSONAL'
 	   text='У этого пользователя нет персональной страницы'>
     <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
@@ -172,9 +168,7 @@
       <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
       <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
 	     span=2>
-      <error id='*EIU_IMAGE_SQL' color='magenta' span=2
-	     text='Ошибка базы данных при загрузке картинки'>
-      <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+      <error id='*EIU_UNKNOWN_THUMBNAIL' span=2
 	     text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
       <ifnzero what='$message.ImageSet'>
        <image_name set='$message.ImageSet'>
@@ -191,8 +185,6 @@
 		loadedvalue='$message.ImageSet' title='$ititle'
 		loaded='(уже загружена)' notloaded='Другая' filename='$file'
 		mandatory='$message.mandatoryImage'>
-      <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи'
-	     color=magenta span=2>
       <if what='$message.hasTitle || $full'>
        <ifnzero what='$message.ImageSet'>
 	<assign name='ttext' value='$image.Title'>

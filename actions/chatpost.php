@@ -10,6 +10,7 @@ require_once('lib/errors.php');
 require_once('lib/users.php');
 require_once('lib/post.php');
 require_once('lib/text.php');
+require_once('lib/sql.php');
 
 function postMessage($personal,$message)
 {
@@ -27,11 +28,10 @@ if($personal!='')
 if($message=='')
   return ECHP_OK;
 $senderId=$userId<=0 ? $realUserId : $userId;
-$result=mysql_query("insert into chat_messages(sender_id,private_id,text)
-                     values($senderId,$privateId,'".
-		     addslashes(htmlspecialchars($message,ENT_QUOTES))."')");
-if(!$result)
-  return ECHP_SQL_INSERT;
+$result=sql("insert into chat_messages(sender_id,private_id,text)
+	     values($senderId,$privateId,'".
+	     addslashes(htmlspecialchars($message,ENT_QUOTES))."')",
+	    'postMessage');
 return ECHP_OK;
 }
 

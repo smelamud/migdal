@@ -11,6 +11,7 @@ require_once('lib/errors.php');
 require_once('lib/postings.php');
 require_once('lib/postings-info.php');
 require_once('lib/images.php');
+require_once('lib/sql.php');
 
 $stotextImages=array();
 
@@ -21,11 +22,10 @@ global $stotextImages;
 if($image_set==0)
   return 0;
 $new_set=0;
-$result=mysql_query("select *
-                     from images
-		     where image_set=$image_set");
-if(!$result)
-  sqlbug('Ошибка SQL при выборе содержимого imageset');
+$result=sql("select *
+	     from images
+	     where image_set=$image_set",
+	    'copyImageSet');
 if(mysql_num_rows($result)==0)
   return 0;
 while($row=mysql_fetch_assoc($result))
@@ -35,15 +35,13 @@ while($row=mysql_fetch_assoc($result))
      if($new_set==0)
        {
        $image->setImageSet(0);
-       if(!$image->store())
-         sqlbug('Ошибка SQL при вставке копии картинки');
+       $image->store();
        $new_set=$image->getImageSet();
        }
      else
        {
        $image->setImageSet($new_set);
-       if(!$image->store())
-         sqlbug('Ошибка SQL при вставке копии картинки');
+       $image->store();
        }
      $stimage=getStotextImageByImageId($row['id']);
      if($stimage->getStotextId()!=0)
@@ -62,8 +60,7 @@ global $stotextImages;
 foreach($stotextImages as $stimage)
        {
        $stimage->stotext_id=$stotext_id;
-       if(!$stimage->store())
-	 sqlbug('Ошибка SQL при вставке копии картинки в тексте');
+       $stimage->store();
        }
 }
 
@@ -82,8 +79,7 @@ $posting->message_id=0;
 $posting->setStotextId(0);
 $posting->setImageSet(copyImageSet($posting->getImageSet()));
 $posting->setLargeImageSet(copyImageSet($posting->getLargeImageSet()));
-if(!$posting->store())
-  return EPC_STORE_SQL;
+$posting->store();
 storeStotextImages($posting->getStotextId());
 return EPC_OK;
 }

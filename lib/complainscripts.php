@@ -4,6 +4,7 @@
 require_once('lib/messages.php');
 require_once('lib/postings.php');
 require_once('lib/bug.php');
+require_once('lib/sql.php');
 
 define('CSCR_NONE',0);
 define('CSCR_CLOSE',1);
@@ -29,10 +30,10 @@ $cscrTitles=array(CSCR_CLOSE        => 'Закрыть жалобу',
 function cscrClose($complain)
 {
 $id=$complain->getId();
-mysql_query("update complains
-             set closed=now()
-	     where id=$id")
-  or sqlbug('Ошибка SQL при закрытии жалобы');
+sql("update complains
+     set closed=now()
+     where id=$id",
+    'cscrClose');
 journal('update complains
          set closed=now()
 	 where id='.journalVar('complains',$id));

@@ -334,7 +334,7 @@ CREATE TABLE `packages` (
 
 CREATE TABLE `postings` (
   `id` int(11) NOT NULL auto_increment,
-  `ident` varchar(15) NOT NULL default '',
+  `ident` varchar(75) NOT NULL default '',
   `message_id` int(11) NOT NULL default '0',
   `shadow` tinyint(4) NOT NULL default '0',
   `topic_id` int(11) NOT NULL default '0',
@@ -388,6 +388,28 @@ CREATE TABLE `postings_info` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `profiling`
+--
+
+CREATE TABLE `profiling` (
+  `id` int(11) NOT NULL auto_increment,
+  `up` int(11) NOT NULL default '0',
+  `track` varchar(255) NOT NULL default '',
+  `sent` timestamp(14) NOT NULL,
+  `object` smallint(6) NOT NULL default '0',
+  `name` varchar(250) NOT NULL default '',
+  `begin_time` int(11) NOT NULL default '0',
+  `end_time` int(11) NOT NULL default '0',
+  `comment` varchar(250) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `up` (`up`),
+  KEY `track` (`track`),
+  KEY `object` (`object`),
+  KEY `name` (`name`),
+  KEY `sent` (`sent`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `rating_positions`
 --
 
@@ -410,7 +432,7 @@ CREATE TABLE `rating_positions` (
 
 CREATE TABLE `ratings` (
   `id` int(11) NOT NULL auto_increment,
-  `ident` varchar(15) NOT NULL default '',
+  `ident` varchar(75) NOT NULL default '',
   `logo` varchar(250) NOT NULL default '',
   `regid` int(11) NOT NULL default '0',
   `url` varchar(70) NOT NULL default '',
@@ -518,7 +540,7 @@ CREATE TABLE `topics` (
   `premoderate` smallint(6) NOT NULL default '0',
   `moderate` smallint(6) NOT NULL default '0',
   `edit` smallint(6) NOT NULL default '0',
-  `ident` varchar(15) NOT NULL default '',
+  `ident` varchar(75) NOT NULL default '',
   `index0` int(11) NOT NULL default '0',
   `index1` int(11) NOT NULL default '0',
   `index2` int(11) NOT NULL default '0',

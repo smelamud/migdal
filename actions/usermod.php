@@ -13,6 +13,7 @@ require_once('lib/errors.php');
 require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/mailings.php');
+require_once('lib/sql.php');
 
 function modifyUser($user)
 {
@@ -30,9 +31,10 @@ if((!$editid || $user->password!='') && strlen($user->password)<5)
   return EUM_PASSWORD_LEN;
 if($user->password!=$user->dup_password)
   return EUM_PASSWORD_DIFF;
-$result=mysql_query('select id from users where login="'.
-		    addslashes($user->login)."\" and id<>$editid")
- 	  or sqlbug('Ошибка SQL при выборке пользователя');
+$result=sql('select id
+             from users
+	     where login="'.addslashes($user->login)."\" and id<>$editid",
+	    'modifyUser');
 if(mysql_num_rows($result)>0)
   return EUM_LOGIN_EXISTS;
 if($user->name=='')
@@ -49,13 +51,11 @@ if($user->email=='')
 if(!preg_match('/^[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*$/',
                $user->email))
   return EUM_NOT_EMAIL;
-if(!$user->store())
-  return EUM_STORE_SQL;
+$user->store();
 if($editid==0)
   if(!$userAdminUsers)
     {
-    if(!$user->preconfirm())
-      return EUM_PRECONFIRM_SQL;
+    $user->preconfirm();
     sendMail(MAIL_REGISTER,$user->getId(),$user->getId());
     sendMailAdmin(MAIL_REGISTERING,'admin_users',$user->getId());
     }

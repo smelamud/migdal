@@ -13,6 +13,7 @@ require_once('lib/langs.php');
 require_once('lib/url-domain.php');
 require_once('lib/postings-info.php');
 require_once('lib/permissions.php');
+require_once('lib/sql.php');
 
 class Message
       extends SenderTag
@@ -125,7 +126,10 @@ if(isset($normal['url']))
   $normal['url_domain']=getURLDomain($normal['url']);
 if($this->$id)
   {
-  $result=mysql_query(makeUpdate('messages',$normal,array('id' => $this->$id)));
+  $result=sql(makeUpdate('messages',
+                         $normal,
+			 array('id' => $this->$id)),
+	      get_method($this,'store'),'update');
   journal(makeUpdate('messages',
                      jencodeVars($normal,$this->getJencodedVars()),
 		     array('id' => journalVar('messages',$this->$id))));
@@ -141,8 +145,10 @@ else
   if($this->sent=='')
     $this->sent=$sent;
   $normal['sent']=$this->sent;
-  $result=mysql_query(makeInsert('messages',$normal));
-  $this->$id=mysql_insert_id();
+  $result=sql(makeInsert('messages',
+                         $normal),
+	      get_method($this,'store'),'insert');
+  $this->$id=sql_insert_id();
   journal(makeInsert('messages',
                      jencodeVars($normal,$this->getJencodedVars())),
 	  'messages',$this->$id);
@@ -545,10 +551,10 @@ return "$filter and (${prefix}disabled=0 or ${prefix}sender_id=$userId)";
 function messageExists($id)
 {
 $hide=messagesPermFilter(PERM_READ);
-$result=mysql_query("select id
-		     from messages
-		     where id=$id and $hide")
-          or sqlbug('Ошибка SQL при проверке наличия сообщения');
+$result=sql("select id
+	     from messages
+	     where id=$id and $hide",
+	    'messageExists');
 return mysql_num_rows($result)>0;
 }
 
@@ -558,10 +564,10 @@ if($hidden)
   $op='& ~0x1100';
 else
   $op='| 0x1100';
-mysql_query("update messages
-             set perms=perms $op
-	     where id=$id")
-  or sqlbug('Ошибка SQL при скрытии сообщения');
+sql("update messages
+     set perms=perms $op
+     where id=$id",
+    'setHiddenByMessageId');
 journal("update messages
          set perms=perms $op
 	 where id=".journalVar('messages',$id));
@@ -573,10 +579,10 @@ if(($parent_id=getParentIdByMessageId($id))>0)
 function setDisabledByMessageId($id,$disabled)
 {
 $disabled=(int)$disabled;
-mysql_query("update messages
-             set disabled=$disabled
-	     where id=$id")
-  or sqlbug('Ошибка SQL при модерировании сообщения');
+sql("update messages
+     set disabled=$disabled
+     where id=$id",
+    'setDisabledByMessageId');
 journal("update messages
          set disabled=$disabled
 	 where id=".journalVar('messages',$id));

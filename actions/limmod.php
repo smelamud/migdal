@@ -9,12 +9,14 @@ require_once('lib/postings.php');
 require_once('lib/image-upload.php');
 require_once('lib/errors.php');
 require_once('lib/modbits.php');
+require_once('lib/sql.php');
 
 function deleteImage($id)
 {
-$result=mysql_query("delete
-                     from images
-	             where id=$id");
+$result=sql("delete
+	     from images
+	     where id=$id",
+	    'deleteImage');
 journal('delete
          from images
 	 where id='.journalVar('images',$id));
@@ -23,15 +25,15 @@ return $result;
 
 function setLargeImageSet($posting,$image_set)
 {
-$result=mysql_query("select stotext_id
-                     from messages
-		     where id=".$posting->getMessageId());
-if(!$result)
-  return $result;
+$result=sql("select stotext_id
+	     from messages
+	     where id=".$posting->getMessageId(),
+	    'setLargeImageSet','get_stotext');
 $id=mysql_result($result,0,0);
-$result=mysql_query("update stotexts
-                     set large_imageset=$image_set
-		     where id=$id");
+$result=sql("update stotexts
+	     set large_imageset=$image_set
+	     where id=$id",
+	    'setLargeImageSet','set_imageset');
 journal('update stotexts
          set large_imageset='.journalVar('images',$image_set).'
 	 where id='.journalVar('stotexts',$id));
@@ -40,9 +42,10 @@ return $result;
 
 function setImageId($oldId,$newId)
 {
-$result=mysql_query("update images
-                     set id=$newId
-		     where id=$oldId");
+$result=sql("update images
+	     set id=$newId
+	     where id=$oldId",
+	    'setImageId');
 journal('update images
          set id='.journalVar('images',$newId).'
 	 where id='.journalVar('images',$oldId));
@@ -58,16 +61,14 @@ if(!$posting->isWritable())
 if($loaded)
   {
   $image=getImageContentById($editid);
-  if(!deleteImage($editid))
-    return ELIM_DELETE_SQL;
+  deleteImage($editid);
   if($image->isEmpty())
     return ELIM_IMAGE_ABSENT;
   $image=uploadMemoryImage($image->getLarge(),$image->getFilename(),
                            $image->getFormat(),$has_large,$small_x,$small_y,
 			   $err,htmlspecialchars($title,ENT_QUOTES),
 			   $posting->getLargeImageSet());
-  if(!setImageId($image->getId(),$editid))
-    return ELIM_SETID_SQL;
+  setImageId($image->getId(),$editid);
   }
 else
   $image=uploadImage('image',$has_large,$small_x,$small_y,$err,
@@ -76,8 +77,7 @@ else
 if(!$image)
   return $err;
 if($posting->getLargeImageSet()==0)
-  if(!setLargeImageSet($posting,$image->getImageSet()))
-    return ELIM_SET_SQL;
+  setLargeImageSet($posting,$image->getImageSet());
 if(!$userModerator)
   setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
 return ELIM_OK;

@@ -77,12 +77,8 @@
   <error id='*EC_NO_COMPLAIN' text='Такой жалобы не существует' span=3>
   <error id='*EC_LOGIN_ASSIGN' text='Такой пользователь не зарегистрирован'
 	 span=3>
-  <error id='*EC_SQL_ASSIGN' text='Ошибка SQL при обновлении записи'
-	 color=magenta span=3>
   <error id='*EC_NO_AUTO' span=3
 	 text='Вы не имеете права управлять автоматическим рассмотрением жалобы'>
-  <error id='*EC_SQL_AUTO' text='Ошибка SQL при обновлении записи'
-	 color=magenta span=3>
   <tr>
    <td width=200 class='eightpt'>Автор: <senderlink message='$complain'></td>
    <td rowspan=2 class='subject'>

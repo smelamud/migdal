@@ -13,6 +13,7 @@ require_once('lib/permissions.php');
 require_once('lib/postings-info.php');
 require_once('lib/answers.php');
 require_once('lib/post.php');
+require_once('lib/sql.php');
 
 function executeTrackQuery($query)
 {
@@ -37,9 +38,10 @@ answerUpdate($id);
 
 function setId($table,$id,$newId)
 {
-return mysql_query("update $table
-                    set id=$newId
-		    where id=$id");
+return sql("update $table
+	    set id=$newId
+	    where id=$id",
+	   'setId');
 }
 
 // NOTE: Functions used here should not create journal records. Check
@@ -65,19 +67,17 @@ foreach($action as $line)
          executeAnswersQuery($query);
        else
 	 mysql_query($query)
-	   or journalFailure('Error executing replicated query in seq '.
-			     $line->getSeq().' id='.$line->getId().
-			     ": $query");
+	   or bug('journal: Error executing replicated query in seq '.
+		   $line->getSeq().' id='.$line->getId().": $query");
        if($line->getResultTable()!='')
          {
-	 $lastId=mysql_insert_id();
+	 $lastId=sql_insert_id();
 	 if(!$replicationMaster)
 	   {
 	   if($line->getResultId()!=$lastId
 	      && !setId($line->getResultTable(),$lastId,$line->getResultId()))
-	     journalFailure("Identifier shift detected in '".
-	                     $line->getResultTable().
-			     "': got $lastId instead of ".$line->getResultId());
+	     bug("Identifier shift detected in '".$line->getResultTable().
+		 "': got $lastId instead of ".$line->getResultId());
 	   }
 	 else
 	   {

@@ -18,8 +18,6 @@
   </td></tr>
   <tr><td>&nbsp;</td></tr>
   <error id='*EPL_NO_LOGIN' text='Пользователя с таким ником не существует'>
-  <error id='*EPL_STORE_SQL' text='Ошибка базы данных при обновлении записи'
-	 color=magenta>
   <tr><td><form method=post action='actions/userlost.php'>
    <hidden name='okdir' value='/userrepair.php?redirid=$$redirid'>
    <hidden name='faildir' value='$-'>

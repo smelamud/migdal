@@ -5,6 +5,7 @@ require_once('lib/sendertag.php');
 require_once('lib/text.php');
 require_once('lib/selectiterator.php');
 require_once('lib/users.php');
+require_once('lib/sql.php');
 
 class ChatMessage
       extends SenderTag
@@ -69,9 +70,10 @@ $this->SelectIterator('ChatMessage',
 
 function postChatAdminMessage($message)
 {
-return mysql_query("insert into chat_messages(sender_id,text)
-                    values(".getShamesId().",'".
-		    addslashes(htmlspecialchars($message,ENT_QUOTES))."')");
+return sql("insert into chat_messages(sender_id,text)
+	    values(".getShamesId().",'".
+	    addslashes(htmlspecialchars($message,ENT_QUOTES))."')",
+	   'postChatAdminMessage');
 }
 
 function postChatLoginMessage($id)

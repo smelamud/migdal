@@ -3,59 +3,60 @@
 
 require_once('lib/random.php');
 require_once('lib/bug.php');
+require_once('lib/sql.php');
 
 function getUserIdBySessionId($sessionId)
 {
-$result=mysql_query("select user_id from sessions where sid=$sessionId")
-	  or sqlbug('Ошибка SQL при выборке сессии');
+$result=sql("select user_id from sessions where sid=$sessionId",
+            'getUserIdBySessionId');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
 }
 
 function getUserIdsBySessionId($sessionId)
 {
-$result=mysql_query("select user_id,real_user_id
-                     from sessions
-		     where sid=$sessionId")
-	  or sqlbug('Ошибка SQL при выборке сессии');
+$result=sql("select user_id,real_user_id
+	     from sessions
+	     where sid=$sessionId",
+	    'getUserIdsBySessionId');
 return mysql_num_rows($result)>0 ? mysql_fetch_array($result) : 0;
 }
 
 function updateSessionTimestamp($sessionId)
 {
-mysql_query("update sessions set last=null where sid=$sessionId")
-  or sqlbug('Ошибка SQL при обновлении TIMESTAMP сессии');
+sql("update sessions set last=null where sid=$sessionId",
+    'updateSessionTimestamp');
 }
 
 function createSession($userId,$realUserId=0)
 {
 $sid=rnd();
-mysql_query("insert into sessions(user_id,real_user_id,sid)
-             values($userId,$realUserId,$sid)")
-  or sqlbug('Ошибка SQL при создании сессии');
+sql("insert into sessions(user_id,real_user_id,sid)
+     values($userId,$realUserId,$sid)",
+    'createSession');
 return $sid;
 }
 
 function updateSession($sessionId,$userId,$realUserId)
 {
-mysql_query("update sessions
-	     set user_id=$userId,real_user_id=$realUserId
-	     where sid=$sessionId")
-  or sqlbug('Ошибка SQL при обновлении сессии');
+sql("update sessions
+     set user_id=$userId,real_user_id=$realUserId
+     where sid=$sessionId",
+    'updateSession');
 }
 
 function updateSessionUserId($sessionId,$userId)
 {
-mysql_query("update sessions
-	     set user_id=$userId
-	     where sid=$sessionId")
-  or sqlbug('Ошибка SQL при обновлении сессии');
+sql("update sessions
+     set user_id=$userId
+     where sid=$sessionId",
+    'updateSessionUserId');
 }
 
 function deleteSession($sessionId)
 {
-mysql_query("delete from sessions
-	     where sid=$sessionId")
-  or sqlbug('Ошибка SQL при удалении сессии');
+sql("delete from sessions
+     where sid=$sessionId",
+    'deleteSession');
 }
 
 function setSessionCookie($sessionId)

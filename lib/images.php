@@ -9,6 +9,7 @@ require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/text.php');
 require_once('lib/image-types.php');
+require_once('lib/sql.php');
 
 class Image
       extends DataObject
@@ -69,15 +70,20 @@ global $userId;
 $normal=$this->getNormal();
 if($this->id)
   {
-  $result=mysql_query(makeUpdate('images',$normal,array('id' => $this->id)));
+  $result=sql(makeUpdate('images',
+                         $normal,
+			 array('id' => $this->id)),
+	      get_method($this,'store'),'update');
   journal(makeUpdate('images',
                      jencodeVars($normal,$this->getJencodedVars()),
 		     array('id' => journalVar('images',$this->id))));
   }
 else
   {
-  $result=mysql_query(makeInsert('images',$normal));
-  $this->id=mysql_insert_id();
+  $result=sql(makeInsert('images',
+                         $normal),
+	      get_method($this,'store'),'insert');
+  $this->id=sql_insert_id();
   journal(makeInsert('images',
                      jencodeVars($normal,$this->getJencodedVars())),
 	  'images',$this->id);
@@ -239,11 +245,10 @@ $this->SelectIterator('Image',
 
 function getImageById($id)
 {
-$result=mysql_query("select id,image_set,filename,small_x,small_y,has_large,
-                            title
-                     from images
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при выборке изображения');
+$result=sql("select id,image_set,filename,small_x,small_y,has_large,title
+	     from images
+	     where id=$id",
+	    'getImageById');
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -251,20 +256,20 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 function getImageContentById($id,$size='large')
 {
 $fields=$size=='small' ? ',small' : ",if(has_large,'',small) as small,large";
-$result=mysql_query("select id,filename,has_large,format,image_set$fields
-                     from images
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при выборке изображения');
+$result=sql("select id,filename,has_large,format,image_set$fields
+	     from images
+	     where id=$id",
+	    'getImageContentById');
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
 function getImageNameBySet($image_set)
 {
-$result=mysql_query("select id,image_set,filename,title
-                     from images
-		     where image_set=$image_set")
-	  or sqlbug('Ошибка SQL при выборке набора изображений');
+$result=sql("select id,image_set,filename,title
+	     from images
+	     where image_set=$image_set",
+	    'getImageNameBySet');
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -275,9 +280,10 @@ function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php',
 global $uiName,$thumbnailType;
 
 $size=mysql_fetch_row(
-      mysql_query("select ${aSize}_x,${aSize}_y,has_large,format
-                   from images
- 	           where id=$id"));
+      sql("select ${aSize}_x,${aSize}_y,has_large,format
+	   from images
+	   where id=$id",
+	  'getImageTagById'));
 $al=$align!='' ? "align=$align" : '';
 $ext=getImageExtension($size[2] ? $thumbnailType : $size[3]);
 $href=!$static ? "$src/$uiName-$id.$ext?id=$id&size=$aSize"
@@ -292,9 +298,10 @@ function getImageEnlargeLinkById($id,$static=false)
 {
 global $uiName;
 
-$result=mysql_query("select format
-                     from images
- 	             where id=$id");
+$result=sql("select format
+	     from images
+	     where id=$id",
+	    'getImageEnlargeLinkById');
 $ext=getImageExtension(mysql_result($result,0,0));
 $href=!$static ? "lib/image.php/$uiName-$id.$ext?id=$id&size=large"
                : "pics/$uiName-$id.$ext";
@@ -303,19 +310,19 @@ return "<a href='$href' target=_blank title='Увеличить'>";
 
 function imageSetExists($image_set)
 {
-$result=mysql_query("select id
-		     from images
-		     where image_set=$image_set")
-	  or sqlbug('Ошибка SQL при проверке наличия набора изображений');
+$result=sql("select id
+	     from images
+	     where image_set=$image_set",
+	    'imageSetExists');
 return mysql_num_rows($result)>0;
 }
 
 function imageExists($id)
 {
-$result=mysql_query("select id
-		     from images
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при проверке наличия изображения');
+$result=sql("select id
+	     from images
+	     where id=$id",
+	    'imageExists');
 return mysql_num_rows($result)>0;
 }
 
@@ -343,10 +350,10 @@ return $handle;
 
 function setSelfImageSet($id)
 {
-$result=mysql_query("update images
-		     set image_set=$id
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при установке набора для изображения');
+$result=sql("update images
+	     set image_set=$id
+	     where id=$id",
+	    'setSelfImageSet');
 journal('update images
 	 set image_set='.journalVar('images',$id).
        ' where id='.journalVar('images',$id));

@@ -8,6 +8,7 @@ require_once('lib/track.php');
 require_once('lib/uri.php');
 require_once('lib/utils.php');
 require_once('lib/logs.php');
+require_once('lib/sql.php');
 
 class Redir
       extends DataObject
@@ -53,10 +54,10 @@ return $this->uri;
 
 function updateRedirectTimestamps($track)
 {
-mysql_query("update redirs
-             set last_access=null
-	     where '$track' like concat(track,'%')")
-  or sqlbug('Ошибка SQL при обновлении timestamp редиректов');
+sql("update redirs
+     set last_access=null
+     where '$track' like concat(track,'%')",
+    'updateRedirectTimestamps');
 }
 
 function redirect()
@@ -71,14 +72,13 @@ if($redirid!=0 && !redirExists($redirid))
   reload(remakeURI($REQUEST_URI,array('redirid')));
 if($globalid==0)
   {
-  mysql_query("insert into redirs(up,name,uri)
-	       values($redirid,'".addslashes($pageTitle)."','".
-		      addslashes($REQUEST_URI)."')")
-    or sqlbug('Ошибка SQL при сохранении текущего редиректа');
-  $id=mysql_insert_id();
+  sql("insert into redirs(up,name,uri)
+       values($redirid,'".addslashes($pageTitle)."','".
+	      addslashes($REQUEST_URI)."')",
+      'redirect');
+  $id=sql_insert_id();
   $track=track($id,trackById('redirs',$redirid));
-  updateTrackById('redirs',$id,$track)
-	or sqlbug('Ошибка SQL при сохранении маршрута редиректа');
+  updateTrackById('redirs',$id,$track);
   $redir=new Redir(array('id'    => $id,
 			 'up'    => $redirid,
 			 'track' => $track,
@@ -123,20 +123,20 @@ $this->SelectIterator('Redir',
 
 function getRedirById($id)
 {
-$result=mysql_query("select id,up,track,name,uri
-		     from redirs
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при выборке редиректа');
+$result=sql("select id,up,track,name,uri
+	     from redirs
+	     where id=$id",
+	    'getRedirById');
 return new Redir(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
 function redirExists($id)
 {
-$result=mysql_query("select id
-		     from redirs
-		     where id=$id")
-	  or sqlbug('Ошибка SQL при проверке наличия редиректа');
+$result=sql("select id
+	     from redirs
+	     where id=$id",
+	    'redirExists');
 return mysql_num_rows($result)>0;
 }
 ?>

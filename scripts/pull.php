@@ -8,16 +8,17 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/postings.php');
 require_once('lib/post.php');
+require_once('lib/sql.php');
 
 function pull($postid)
 {
 global $rootPostingPerms;
 
 $msgid=getMessageIdByPostingId($postid);
-mysql_query("update messages
-             set sent=now(),perms=$rootPostingPerms
-	     where id=$msgid")
-     or die('Ошибка SQL при выкладке постинга');
+sql("update messages
+     set sent=now(),perms=$rootPostingPerms
+     where id=$msgid",
+    'pull');
 journal("update messages
          set sent=now(),perms=$rootPostingPerms
 	 where id=".journalVar('messages',$msgid));

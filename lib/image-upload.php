@@ -239,11 +239,7 @@ if(!$img)
   return $img;
 $img->setImageSet($image_set);
 $img->setTitle($title);
-if(!$img->store())
-  {
-  $err=EIU_IMAGE_SQL;
-  return false;
-  }
+$img->store();
 $err=EIU_OK;
 return $img;
 }
@@ -275,11 +271,7 @@ if(!$img)
   return false;
 $img->setImageSet($image_set);
 $img->setTitle($title);
-if(!$img->store())
-  {
-  $err=EIU_IMAGE_SQL;
-  return false;
-  }
+$img->store();
 $err=EIU_OK;
 return $img;
 }

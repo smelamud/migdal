@@ -60,10 +60,8 @@ $cid=idByIdent('topics',$topic->ident);
 if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
 $topic->track='';
-if(!$topic->store())
-  return ET_STORE_SQL;
-if(!updateTracks('topics',$topic->id))
-  return ET_TRACK_SQL;
+$topic->store();
+updateTracks('topics',$topic->id);
 return ET_OK;
 }
 

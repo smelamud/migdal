@@ -17,10 +17,6 @@
 	color: %error_red;
 }
 
-.error[color='magenta'] {
-	color: %error_magenta;
-}
-
 BODY {
 	background-color: %body_back;
 	background-image: url("../%body_back_pic");
