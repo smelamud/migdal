@@ -90,3 +90,6 @@ ALTER TABLE `horisonts` DROP `horisont`;
 ALTER TABLE `horisonts` ADD `we_know` INT NOT NULL ,
 ADD `they_know` INT NOT NULL ;
 ALTER TABLE `horisonts` ADD `calling` TINYINT NOT NULL ;
+ALTER TABLE `journal_vars` ADD `last_read` TIMESTAMP NOT NULL ;
+ALTER TABLE `horisonts` DROP `calling` ;
+ALTER TABLE `horisonts` ADD `lock` DATETIME;

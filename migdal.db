@@ -90,7 +90,7 @@ CREATE TABLE horisonts (
   host varchar(30) NOT NULL default '',
   we_know int(11) NOT NULL default '0',
   they_know int(11) NOT NULL default '0',
-  calling tinyint(4) NOT NULL default '0',
+  lock datetime default NULL,
   PRIMARY KEY  (host)
 ) TYPE=MyISAM;
 
@@ -156,6 +156,7 @@ CREATE TABLE journal_vars (
   var int(11) NOT NULL default '0',
   host varchar(30) NOT NULL default '',
   value int(11) NOT NULL default '0',
+  last_read timestamp(14) NOT NULL,
   KEY var (var,host)
 ) TYPE=MyISAM;
 
