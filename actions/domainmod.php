@@ -6,6 +6,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
+require_once('lib/bug.php');
 require_once('lib/utils.php');
 require_once('lib/random.php');
 require_once('lib/postings.php');
@@ -21,7 +22,7 @@ if(!postingExists($editid))
 $result=mysql_query("update postings
                      set subdomain=$domain
 		     where id=$editid")
-	     or die('Ошибка SQL при изменении субдомена сообщения');
+          or sqlbug('Ошибка SQL при изменении субдомена сообщения');
 return EDM_OK;
 }
 

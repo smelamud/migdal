@@ -6,6 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/ip.php');
+require_once('lib/bug.php');
 
 function logEvent($event,$body)
 {
@@ -18,7 +19,7 @@ $ip=IPToInteger($REMOTE_ADDR);
 $body=addslashes($body);
 mysql_query("insert into logs(event,ip,body)
              values('$event',$ip,'$body')")
-     or die("Ошибка SQL при добавлении в лог");
+  or sqlbug("Ошибка SQL при добавлении в лог");
 }
 
 class LogLine

@@ -4,6 +4,7 @@
 require_once('conf/migdal.conf');
 
 require_once('lib/sendertag.php');
+require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/text.php');
 require_once('lib/ctypes.php');
@@ -362,7 +363,7 @@ $result=mysql_query("select id
 		     (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при проверке наличия сообщения');
+          or sqlbug('Ошибка SQL при проверке наличия сообщения');
 return mysql_num_rows($result)>0;
 }
 
@@ -372,6 +373,6 @@ $disabled=(int)$disabled;
 mysql_query("update messages
              set disabled=$disabled
 	     where id=$id")
-     or die('Ошибка SQL при модерировании сообщения');
+  or sqlbug('Ошибка SQL при модерировании сообщения');
 }
 ?>

@@ -5,6 +5,7 @@ require_once('conf/migdal.conf');
 
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
+require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/text.php');
 require_once('lib/image-types.php');
@@ -69,7 +70,7 @@ else
     $result=mysql_query('update images
 			 set image_set='.$this->id.
 		       ' where id='.$this->id)
-		 or die('Ошибка SQL при установке набора для изображения');
+	      or sqlbug('Ошибка SQL при установке набора для изображения');
     }
   }
 return $result;
@@ -177,7 +178,7 @@ $result=mysql_query("select id,image_set,filename,small_x,small_y,has_large,
                             title
                      from images
 		     where id=$id")
-	     or die('Ошибка SQL при выборке изображения');
+	  or sqlbug('Ошибка SQL при выборке изображения');
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -188,7 +189,7 @@ $fields=$size=='small' ? ',small' : ",if(has_large,'',small) as small,large";
 $result=mysql_query("select id,filename,has_large,format,image_set$fields
                      from images
 		     where id=$id")
-	     or die('Ошибка SQL при выборке изображения');
+	  or sqlbug('Ошибка SQL при выборке изображения');
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -198,7 +199,7 @@ function getImageNameBySet($image_set)
 $result=mysql_query("select id,image_set,filename,title
                      from images
 		     where image_set=$image_set")
-	     or die('Ошибка SQL при выборке набора изображений');
+	  or sqlbug('Ошибка SQL при выборке набора изображений');
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -235,7 +236,7 @@ function imageSetExists($image_set)
 $result=mysql_query("select id
 		     from images
 		     where image_set=$image_set")
-	     or die('Ошибка SQL при проверке наличия набора изображений');
+	  or sqlbug('Ошибка SQL при проверке наличия набора изображений');
 return mysql_num_rows($result)>0;
 }
 
@@ -244,7 +245,7 @@ function imageExists($id)
 $result=mysql_query("select id
 		     from images
 		     where id=$id")
-	     or die('Ошибка SQL при проверке наличия изображения');
+	  or sqlbug('Ошибка SQL при проверке наличия изображения');
 return mysql_num_rows($result)>0;
 }
 

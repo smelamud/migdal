@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/iterator.php');
+require_once('lib/bug.php');
 
 class SelectIterator
       extends Iterator
@@ -14,7 +15,7 @@ function SelectIterator($aClass,$query)
 {
 $this->Iterator();
 $this->result=mysql_query($query)
-       or die ("Ошибка SQL в итераторе: $query: ".mysql_error());
+                or sqlbug("Ошибка SQL в итераторе $query");
 $this->count=mysql_num_rows($this->result);
 $this->class=$aClass;
 }

@@ -4,6 +4,7 @@
 require_once('lib/limitselect.php');
 require_once('lib/messages.php');
 require_once('lib/utils.php');
+require_once('lib/bug.php');
 
 class ForumAnswer
       extends Message
@@ -114,7 +115,7 @@ $result=mysql_query("select forums.id as id,message_id,stotext_id,body,
 		           and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при выборке сообщения в форуме');
+	  or sqlbug('Ошибка SQL при выборке сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0
                        ? mysql_fetch_assoc($result)
                        : array('parent_id' => $parent_id,
@@ -143,7 +144,7 @@ $result=mysql_query(
 	       unix_timestamp(sent)=$sent")
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке автора сообщения в форуме');
+ or sqlbug('Ошибка SQL при выборке автора сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                  : array());
 }
@@ -175,7 +176,7 @@ $result=mysql_query(
 	       forums.id=$id")
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке сообщения в форуме');
+ or sqlbug('Ошибка SQL при выборке сообщения в форуме');
 return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                  : array());
 }

@@ -13,6 +13,7 @@ require_once('lib/sort.php');
 require_once('lib/track.php');
 require_once('lib/random.php');
 require_once('lib/users.php');
+require_once('lib/bug.php');
 
 class Posting
       extends Message
@@ -376,7 +377,7 @@ $result=mysql_query("select stotext_id,par,image_id,placement,
 			       on images.id=stotext_images.image_id
 		     where stotext_id=$sid");
 if(!$result)
-  die('Ошибка SQL при выборке иллюстраций к постингу');
+  sqlbug('Ошибка SQL при выборке иллюстраций к постингу');
 while($row=mysql_fetch_assoc($result))
      {
      $image=new StotextImage($row);
@@ -457,7 +458,7 @@ $result=mysql_query("select postings.id as id,ident,message_id,stotext_id,body,
 			   and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при выборке постинга'.mysql_error());
+	  or sqlbug('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0
        ? newPosting(mysql_fetch_assoc($result))
        : newGrpPosting($grp,array('topic_id' => idByIdent('topics',$topic),
@@ -518,7 +519,7 @@ $result=mysql_query(
          group by messages.id")
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке постинга');
+ or sqlbug('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }
@@ -557,7 +558,7 @@ $result=mysql_query(
 	        (msgs.disabled<$hide or msgs.sender_id=$userId)) and
                (postings.id is null or (postings.grp & $grp)<>0 $tpf) and
                (forums.id is null or (posts.grp & $answers)<>0 $taf) $uf")
- or die('Ошибка SQL при определении даты последнего постинга/ответа');
+ or sqlbug('Ошибка SQL при определении даты последнего постинга/ответа');
 $time=mysql_result($result,0,0);
 return $time!='' ? strtotime($time) : 0;
 }
@@ -567,7 +568,7 @@ function incPostingReadCount($id)
 mysql_query('update postings
              set read_count=read_count+1,last_read=now()
 	     where '.byIdent($id))
-     or die('Ошибка SQL при обновлении счетчика прочтений постинга');
+  or sqlbug('Ошибка SQL при обновлении счетчика прочтений постинга');
 }
 
 function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)
@@ -589,7 +590,7 @@ $result=mysql_query(
 	       $index1Filter
 	 group by priority
 	 order by priority")
- or die('Ошибка SQL при определении количества постингов по приоритетам');
+ or sqlbug('Ошибка SQL при определении количества постингов по приоритетам');
 $counts=array();
 $total=0;
 while($row=mysql_fetch_row($result))
@@ -622,7 +623,7 @@ $result=mysql_query(
 	       $index1Filter
 	 order by priority,sent desc
 	 limit $realpos,1")
- or die('Ошибка SQL при получении постинга по позиции');
+ or sqlbug('Ошибка SQL при получении постинга по позиции');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -631,7 +632,7 @@ function getMessageIdByPostingId($id)
 $result=mysql_query("select message_id
                      from postings
 		     where id=$id")
-	     or die('Ошибка SQL при получении идентификатора сообщения в постинге');
+	  or sqlbug('Ошибка SQL при получении идентификатора сообщения в постинге');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -651,7 +652,7 @@ $result=mysql_query("select max(postings.index$index)
 		     where (messages.hidden<$hide or sender_id=$userId) and
 			   (messages.disabled<$hide or sender_id=$userId) and
 		           (grp & $grp)<>0 $topicFilter")
-	     or die('Ошибка SQL при получении максимального индекса постинга');
+	  or sqlbug('Ошибка SQL при получении максимального индекса постинга');
 return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
 }
 
@@ -660,7 +661,7 @@ function getVoteInfoByPostingId($id,$grp=GRP_ALL)
 $result=mysql_query("select id,vote,vote_count
                      from postings
 		     where id=$id")
-	     or die('Ошибка SQL при получении рейтинга постинга'.mysql_error());
+	  or sqlbug('Ошибка SQL при получении рейтинга постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }
@@ -678,7 +679,7 @@ $result=mysql_query("select postings.id
 		                           and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при проверке наличия постинга');
+	  or sqlbug('Ошибка SQL при проверке наличия постинга');
 return mysql_num_rows($result)>0;
 }
 ?>

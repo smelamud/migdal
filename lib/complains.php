@@ -7,6 +7,7 @@ require_once('lib/sendertag.php');
 require_once('lib/users.php');
 require_once('lib/random.php');
 require_once('grp/compltypes.php');
+require_once('lib/bug.php');
 
 class Complain
       extends Message
@@ -77,7 +78,7 @@ if($assign=='')
 $result=mysql_query("select id
                      from users
 		     where $assign<>0 and accepts_complains<>0")
-             or die('Ошибка SQL при выборке пользователя для автопривязки');
+          or sqlbug('Ошибка SQL при выборке пользователя для автопривязки');
 if(mysql_num_rows($result)<=0)
   return 0;
 return mysql_result($result,random(0,mysql_num_rows($result)-1),0);
@@ -248,7 +249,7 @@ $result=mysql_query("select complains.id as id,stotext_id,body,subject,
 			  left join stotexts
 			       on stotexts.id=messages.stotext_id
 		     where complains.id=$id")
-	     or die('Ошибка SQL при выборке полной жалобы');
+	  or sqlbug('Ошибка SQL при выборке полной жалобы');
 if(mysql_num_rows($result)>0)
   {
   $row=mysql_fetch_assoc($result);
@@ -263,7 +264,7 @@ function getComplainInfoById($id)
 $result=mysql_query("select id,message_id,recipient_id,link
 		     from complains
 		     where id=$id")
-	     or die('Ошибка SQL при выборке информации о жалобе');
+	  or sqlbug('Ошибка SQL при выборке информации о жалобе');
 return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					      : array());
 }
@@ -273,7 +274,7 @@ function getComplainInfoByLink($type_id,$link)
 $result=mysql_query("select id,type_id,message_id,recipient_id,link,closed
 		     from complains
 		     where type_id=$type_id and link=$link")
-	     or die('Ошибка SQL при выборке информации о жалобе');
+	  or sqlbug('Ошибка SQL при выборке информации о жалобе');
 return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					      : array());
 }
@@ -300,7 +301,7 @@ $result=mysql_query("select complains.id as id,stotext_id,body,subject,
 			  left join users as recs
 			       on complains.recipient_id=recs.id
 		     where complains.id=$id")
-	     or die('Ошибка SQL при выборке жалобы');
+	  or sqlbug('Ошибка SQL при выборке жалобы');
 if(mysql_num_rows($result)>0)
   {
   $row=mysql_fetch_assoc($result);
@@ -315,7 +316,7 @@ function complainExists($id)
 $result=mysql_query("select id
                      from complains
 		     where id=$id")
-	     or die('Ошибка SQL при проверке наличия жалобы');
+	  or sqlbug('Ошибка SQL при проверке наличия жалобы');
 return mysql_num_rows($result)>0;
 }
 
@@ -327,7 +328,7 @@ $complain=new Complain(array('type_id'   => $type_id,
 			     'body'      => $body,
 			     'sender_id' => getShamesId(),
 			     'no_auto'   => (int)$no_auto));
-$complain->store() or die('Ошибка SQL при посылке автоматической жалобы');
+$complain->store() or sqlbug('Ошибка SQL при посылке автоматической жалобы');
 }
 
 function reopenComplain($id,$no_auto=false)
@@ -336,6 +337,6 @@ $no_auto=(int)$no_auto;
 mysql_query("update complains
              set closed=null,no_auto=$no_auto
 	     where id=$id")
-     or die('Ошибка SQL при возобновлении жалобы');
+  or sqlbug('Ошибка SQL при возобновлении жалобы');
 }
 ?>

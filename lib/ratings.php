@@ -3,6 +3,7 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
+require_once('lib/bug.php');
 
 class Rating
       extends DataObject
@@ -58,7 +59,7 @@ mysql_query("insert into rating_positions(rating_id,scan_date,topic_day,
                                           topic_week,global_day,global_week)
 	     values($id,CURRENT_DATE(),$topicDay,$topicWeek,
 	                               $globalDay,$globalWeek)")
-     or die('Ошибка SQL при добавлении позиции в рейтинге');
+  or sqlbug('Ошибка SQL при добавлении позиции в рейтинге');
 }
 
 ?>

@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/array.php');
+require_once('lib/bug.php');
 
 class LetterOffset
 {
@@ -34,7 +35,7 @@ function AlphabetIterator($query)
 {
 $result=mysql_query($query);
 if(!$result)
-  die('Ошибка SQL в алфавитном итераторе: '.mysql_error());
+  sqlbug('Ошибка SQL в алфавитном итераторе');
 $counts=array();
 while($row=mysql_fetch_assoc($result))
      if($row['count']!=0)

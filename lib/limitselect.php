@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/selectiterator.php');
+require_once('lib/bug.php');
 
 class LimitSelectIterator
       extends SelectIterator
@@ -18,7 +19,7 @@ if($cquery=='')
   $cquery=$parts[1].' count(*) '.$parts[3];
   }
 $result=mysql_query($cquery)
-	     or die("Ошибка SQL в лимитированном итераторе $cquery".mysql_error());
+	  or sqlbug("Ошибка SQL в лимитированном итераторе $cquery");
 $this->size=mysql_result($result,0,0);
 $this->limit=$limit;
 $this->offset=$offset;

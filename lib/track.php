@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/ident.php');
+require_once('lib/bug.php');
 
 function track($id,$prev='')
 {
@@ -14,7 +15,7 @@ function trackById($table,$id)
 $result=mysql_query("select track
                      from $table
 		     where ".byIdent($id))
-	     or die("Ошибка SQL при выборке маршрута из $table");
+	  or sqlbug("Ошибка SQL при выборке маршрута из $table");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
 }
 

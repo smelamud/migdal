@@ -3,6 +3,7 @@
 
 require_once('lib/ctypes.php');
 require_once('lib/track.php');
+require_once('lib/bug.php');
 
 function isId($ident)
 {
@@ -28,7 +29,7 @@ if(isId($ident))
 $result=mysql_query("select id
                      from $table
 		     where ident='$ident'")
-	     or die("Ошибка SQL при проверке наличия идентификатора в $table");
+	  or sqlbug("Ошибка SQL при проверке наличия идентификатора в $table");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -39,7 +40,7 @@ if(!isId($id))
 $result=mysql_query("select ident
                      from $table
 		     where id=$id")
-	     or die("Ошибка SQL при проверке наличия обозначения в $table");
+	  or sqlbug("Ошибка SQL при проверке наличия обозначения в $table");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

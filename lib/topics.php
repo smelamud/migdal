@@ -5,6 +5,7 @@ require_once('conf/migdal.conf');
 
 require_once('lib/usertag.php');
 require_once('lib/selectiterator.php');
+require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/ident.php');
@@ -352,7 +353,7 @@ $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query('select premoderate
                      from topics
 		     where '.byIdent($id)." and hidden<$hide")
-	     or die('Ошибка SQL при выборке маски модерирования');
+          or sqlbug('Ошибка SQL при выборке маски модерирования');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultPremoderate;
 }
@@ -388,7 +389,7 @@ $result=mysql_query(
 		     and (messages.disabled<$hide or messages.sender_id=$userId)
 	where topics.".byIdent($id)." and topics.hidden<$hide
 	group by topics.id")
- or die('Ошибка SQL при выборке темы'.mysql_error());
+ or sqlbug('Ошибка SQL при выборке темы'.mysql_error());
 return new Topic(mysql_num_rows($result)>0
                  ? mysql_fetch_assoc($result)
                  : array('up'          => idByIdent('topics',$up),
@@ -403,7 +404,7 @@ $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query('select id,name
 		     from topics
 		     where '.byIdent($id)." and topics.hidden<$hide")
-	     or die('Ошибка SQL при выборке названия темы');
+	  or sqlbug('Ошибка SQL при выборке названия темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
 }
@@ -416,7 +417,7 @@ $result=mysql_query("select user_id
 		     where '$track' like concat(track,'%') and user_id<>0
 		     order by length(track) desc
 		     limit 1")
-	     or die('Ошибка SQL при выборке владельца темы');
+	  or sqlbug('Ошибка SQL при выборке владельца темы');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -428,7 +429,7 @@ $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id
 		     from topics
 		     where id=$id and hidden<$hide")
-	     or die('Ошибка SQL при проверке наличия темы');
+	  or sqlbug('Ошибка SQL при проверке наличия темы');
 return mysql_num_rows($result)>0;
 }
 ?>

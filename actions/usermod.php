@@ -10,6 +10,7 @@ require_once('lib/post.php');
 require_once('lib/users.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
+require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/mailings.php');
 
@@ -31,7 +32,7 @@ if($user->password!=$user->dup_password)
   return EUM_PASSWORD_DIFF;
 $result=mysql_query('select id from users where login="'.
 		    addslashes($user->login)."\" and id<>$editid")
- 	     or die('Ошибка SQL при выборке пользователя');
+ 	  or sqlbug('Ошибка SQL при выборке пользователя');
 if(mysql_num_rows($result)>0)
   return EUM_LOGIN_EXISTS;
 if($user->name=='')

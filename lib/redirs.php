@@ -3,6 +3,7 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
+require_once('lib/bug.php');
 require_once('lib/track.php');
 require_once('lib/uri.php');
 require_once('lib/utils.php');
@@ -55,7 +56,7 @@ function updateRedirectTimestamps($track)
 mysql_query("update redirs
              set last_access=null
 	     where '$track' like concat(track,'%')")
-     or die('Ошибка SQL при обновлении timestamp редиректов');
+  or sqlbug('Ошибка SQL при обновлении timestamp редиректов');
 }
 
 function redirect()
@@ -67,20 +68,17 @@ settype($redirid,'integer');
 settype($globalid,'integer');
 
 if($redirid!=0 && !redirExists($redirid))
-  {
-  logEvent('trap','outdated or incorrect redirid');
   reload(remakeURI($REQUEST_URI,array('redirid')));
-  }
 if($globalid==0)
   {
   mysql_query("insert into redirs(up,name,uri)
 	       values($redirid,'".addslashes($pageTitle)."','".
 		      addslashes($REQUEST_URI)."')")
-       or die('Ошибка SQL при сохранении текущего редиректа');
+    or sqlbug('Ошибка SQL при сохранении текущего редиректа');
   $id=mysql_insert_id();
   $track=track($id,trackById('redirs',$redirid));
   updateTrackById('redirs',$id,$track)
-	   or die('Ошибка SQL при сохранении маршрута редиректа');
+	or sqlbug('Ошибка SQL при сохранении маршрута редиректа');
   $redir=new Redir(array('id'    => $id,
 			 'up'    => $redirid,
 			 'track' => $track,
@@ -127,7 +125,7 @@ function getRedirById($id)
 $result=mysql_query("select id,up,track,name,uri
 		     from redirs
 		     where id=$id")
-	     or die('Ошибка SQL при выборке редиректа');
+	  or sqlbug('Ошибка SQL при выборке редиректа');
 return new Redir(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -137,7 +135,7 @@ function redirExists($id)
 $result=mysql_query("select id
 		     from redirs
 		     where id=$id")
-	     or die('Ошибка SQL при проверке наличия редиректа');
+	  or sqlbug('Ошибка SQL при проверке наличия редиректа');
 return mysql_num_rows($result)>0;
 }
 ?>

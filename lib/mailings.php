@@ -4,13 +4,14 @@
 require_once('lib/ident.php');
 require_once('lib/array.php');
 require_once('lib/dataobject.php');
+require_once('lib/bug.php');
 require_once('grp/mailtypes.php');
 
 function sendMail($type_id,$userId,$link=0)
 {
 mysql_query("insert into mailings(type_id,receiver_id,link)
              values($type_id,$userId,$link)")
-     or die('Ошибка SQL при регистрации почтового сообщения');
+  or sqlbug('Ошибка SQL при регистрации почтового сообщения');
 }
 
 function sendMailAdmin($type_id,$admin,$link=0)
@@ -19,7 +20,7 @@ mysql_query("insert into mailings(type_id,receiver_id,link)
              select $type_id,id,$link
 	     from users
 	     where $admin<>0")
-     or die('Ошибка SQL при администраторской рассылке');
+  or sqlbug('Ошибка SQL при администраторской рассылке');
 }
 
 class Mailing

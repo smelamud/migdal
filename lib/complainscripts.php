@@ -3,6 +3,7 @@
 
 require_once('lib/messages.php');
 require_once('lib/postings.php');
+require_once('lib/bug.php');
 
 define('CSCR_NONE',0);
 define('CSCR_CLOSE',1);
@@ -31,7 +32,7 @@ $id=$complain->getId();
 mysql_query("update complains
              set closed=now()
 	     where id=$id")
-     or die('Ошибка SQL при закрытии жалобы');
+  or sqlbug('Ошибка SQL при закрытии жалобы');
 }
 
 function cscrCloseEnable($complain)

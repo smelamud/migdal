@@ -7,6 +7,7 @@ require_once('lib/usertag.php');
 require_once('lib/limitselect.php');
 require_once('lib/calendar.php');
 require_once('lib/utils.php');
+require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/calendar.php');
 require_once('lib/random.php');
@@ -458,7 +459,7 @@ $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
 			          and sessions.last+interval 1 hour>now()
 		     where users.id=$id and hidden<$hide
 		     group by users.id")
-	     or die('Ошибка SQL при выборке данных пользователя');
+	  or sqlbug('Ошибка SQL при выборке данных пользователя');
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());
 }
@@ -471,7 +472,7 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select id
                      from users
 		     where login='$login' and hidden<$hide")
-	     or die('Ошибка SQL при выборке данных пользователя');
+	  or sqlbug('Ошибка SQL при выборке данных пользователя');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -480,7 +481,7 @@ function getShamesId()
 $result=mysql_query('select id
                      from users
 		     where shames=1')
-	     or die('Ошибка SQL при выборке данных шамеса');
+	  or sqlbug('Ошибка SQL при выборке данных шамеса');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -492,7 +493,7 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select id
 		     from users
 		     where id=$id and hidden<$hide and has_personal<>0")
-	     or die('Ошибка SQL при выборке данных пользователя');
+	  or sqlbug('Ошибка SQL при выборке данных пользователя');
 return mysql_num_rows($result)>0;
 }
 
@@ -527,7 +528,7 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select count(*),count(confirm_deadline)
                      from users
 		     where hidden<$hide")
-  	     or die('Ошибка SQL при получении общей информации о пользователях');
+  	  or sqlbug('Ошибка SQL при получении общей информации о пользователях');
 return mysql_num_rows($result)>0 ?
        new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
                         mysql_result($result,0,1)) :
@@ -558,7 +559,7 @@ global $chatTimeout;
 $result=mysql_query("select count(*)
 		     from users
 		     where last_chat+interval $chatTimeout minute>now()")
-             or die('Ошибка SQL при получении количества пользователей в чате');
+          or sqlbug('Ошибка SQL при получении количества пользователей в чате');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -569,6 +570,6 @@ global $userId;
 mysql_query("update users
              set last_chat=now()
 	     where id=$userId")
-     or die('Ошибка SQL при обновлении времени присутствия в чате');
+  or sqlbug('Ошибка SQL при обновлении времени присутствия в чате');
 }
 ?>
