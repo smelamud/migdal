@@ -21,7 +21,6 @@
  <formtable title='Размещение картинки'>
   <form method=post action='actions/liminsert.php'>
    <hidden name='edittag' value=1>
-   <hidden name='redirid' value='$_'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='postid' value='$postid'>

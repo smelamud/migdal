@@ -334,6 +334,14 @@ for(my $n=1;exists $args->{"arg$n"};$n++)
 return join ',',@params;
 }
 
+sub getElementFuncName
+{
+my ($s)=@_;
+
+$s=~tr{/}{_};
+return "display$s";
+}
+
 #### Macro ####
 
 package Macro;
@@ -687,9 +695,8 @@ elsif(defined($::Macros{$tagName}))
 elsif(defined($::Elements{$tagName}))
   {
   ::request($::Elements{$tagName}->getFile());
-  my $func=$self->getName();
-  $func=~s/\//_/g;
-  ::body("<?php display$func(",
+  my $func=::getElementFuncName($self->getName());
+  ::body("<?php $func(",
          $::Elements{$tagName}->getParams($self->getArgs(),
 	                                  $self->getTypes()),'); ?>');
   }
@@ -976,8 +983,12 @@ my ($self)=@_;
 
 my $name=$self->getConstArg('name');
 $name='result'.($::LastResult++) if $name eq '';
-::body("<?php \$$name=",$self->getConstArg('func'),
-       '(',::constructParams($self->getArgs(),$self->getTypes()),'); ?>');
+my $el=$self->getConstArg('element');
+my $func=$el ne '' ? $el : $self->getConstArg('func');
+my $obj=$self->getVarArg('object');
+$obj=$obj!~/^'[^']*'$/ ? "$obj->" : '';
+::body("<?php \$$name=$obj$func(",
+       ::constructParams($self->getArgs(),$self->getTypes()),'); ?>');
 $::Stack->top()->setResult($name);
 }
 

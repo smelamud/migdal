@@ -11,6 +11,16 @@ settype($GLOBALS[$name],'integer');
 settype($HTTP_POST_VARS[$name],'integer');
 }
 
+function postIntegerArray($name)
+{
+global $HTTP_POST_VARS;
+
+foreach($GLOBALS[$name] as $var)
+       settype($var,'integer');
+foreach($HTTP_POST_VARS[$name] as $var);
+       settype($var,'integer');
+}
+
 function postString($name)
 {
 global $HTTP_POST_VARS;

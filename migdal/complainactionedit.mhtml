@@ -47,7 +47,6 @@
    </if>
    <form method=post action='actions/camod.php'>
     <hidden name='edittag' value=2>
-    <hidden name='redirid' value='$_'>
     <hidden name='okdir' value='$-'>
     <hidden name='faildir' value='$-'>
     <hidden name='type_id' value='$typeid'>

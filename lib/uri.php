@@ -6,7 +6,11 @@ function makeQuery($vars,$remove=array(),$subs=array())
 $s='';
 foreach(count($subs)!=0 ? array_merge($vars,$subs) : $vars as $key => $value)
        if(!in_array($key,$remove) && "$value"!='')
-         $s.=($s!='' ? '&' : '')."$key=".urlencode($value);
+         if(!is_array($value))
+           $s.=($s!='' ? '&' : '')."$key=".urlencode($value);
+         else
+	   foreach($value as $elm)
+                  $s.=($s!='' ? '&' : '')."${key}[]=".urlencode($elm);
 return $s;
 }
 
@@ -17,7 +21,15 @@ $vars=array();
 foreach($asses as $ass) 
        { 
        list($key,$value)=explode('=',$ass); 
-       $vars[$key]=urldecode($value);
+       if(substr($key,-2)!='[]')
+         $vars[$key]=urldecode($value);
+       else
+         {
+	 $key=substr($key,0,strlen($key)-2);
+	 if(!is_array($vars[$key]))
+	   $vars[$key]=array();
+	 $vars[$key][]=urldecode($value);
+	 }
        }
 return $vars;
 }
@@ -37,7 +49,8 @@ return "$start?".remakeQuery($query,$remove,$subs).($end!='' ? "#$end" : '');
 
 function remakeMakeQuery($query,$vars,$remove=array(),$subs=array())
 {
-$all=array_merge($vars,parseQuery($query));
+$all=parseQuery($query);
+$all=array_merge($all,$vars);
 return makeQuery($all,$remove,$subs);
 }
 

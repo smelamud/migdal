@@ -10,11 +10,15 @@
 </macro>
 <endif name='/editor'>
 
-<element name='batcher_times' params='times'>
+<element name='batcher_times' params='times,issue'>
 <editor>
  <div class='batcher'>
   <a href='postingedit.php?up=$times.Id&grp=*GRP_TIMES_ARTICLE&redirid=$_'
      class=add>Добавить статью</a>
+  <if what='$issue>0'>
+   &nbsp;<a href='times-reorder.php?issue=$issue&redirid=$_'
+            class=add>Расставить</a>
+  </if>
  </div>
 </editor>
 </element>
@@ -92,7 +96,7 @@
     <td>
      <select_issue issue='$issue'>
      <p>
-     <batcher_times times='$times'>
+     <batcher_times times='$times' issue='$issue'>
      <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='migdal-times'
 			  recursive='*true' limit=0 sort='*SORT_INDEX0'
 			  index1!='$issue<0 ? 0 : $issue'>
@@ -100,7 +104,7 @@
       <posting_times posting='$.' times='$times'>
      </for>
      <ifnzero what='$;Count'>
-      <batcher_times times='$times'>
+      <batcher_times times='$times' issue='$issue'>
      </ifnzero>
     </td>
     <td width=5>&nbsp;</td>

@@ -11,7 +11,6 @@
  <formtable title='Введите информацию о себе'>
   <form method=post action='actions/usermod.php'>
    <hidden name='edittag' value=1>
-   <hidden name='redirid' value='$_'>
    <admin_users>
     <hidden name='okdir' value='$--'>
    <else>

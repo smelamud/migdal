@@ -32,6 +32,11 @@ $row=mysql_fetch_assoc($this->result);
 return $row ? $this->create($row) : 0;
 }
 
+function reset()
+{
+mysql_data_seek($this->result,0);
+}
+
 function isLast()
 {
 return $this->getPosition()>=$this->count-1;

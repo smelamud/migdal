@@ -384,7 +384,8 @@ $this->SelectIterator(
 	          on postings.message_id=messages.id
 	     left join messages as cover_messages
 	          on covers.message_id=cover_messages.id
-	where (postings.grp & $articleGrp)<>0 and
+	where ((postings.grp & $articleGrp)<>0 or
+	       (postings.grp & $coverGrp)<>0) and
 	      (messages.hidden<$hide or messages.sender_id=$userId) and
               (messages.disabled<$hide or messages.sender_id=$userId) and
 	      (covers.id is null or

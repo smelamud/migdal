@@ -1,0 +1,52 @@
+<< @(#) $Id$ >>
+
+<pagetitle title='Расстановка статей'>
+
+<int name='issue'>
+
+<element name='order_selector' params='sels,current'>
+<select name='art[]'>
+ <reset_iterator list='$sels'>
+ <for list='sels'>
+  <radio title='$.Subject' value='$.Id' peervalue='$current'>
+ </for>
+</select>
+</element>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <formtable title='Расстановка статей'>
+  <form method=post action='actions/reorder.php'>
+   <hidden name='edittag' value=1>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <hidden name='issue' value='$issue'>
+   <iterate_postinglist name='sels' grp='*GRP_TIMES_ARTICLES' 
+                        topic='migdal-times' recursive='*true' limit=0
+			sort='*SORT_INDEX0' index1!='$issue'>
+   <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='migdal-times'
+			recursive='*true' limit=0 sort='*SORT_INDEX0'
+			index1!='$issue'>
+   <table>
+    <error id='*EO_DUPS' text='Некоторые статьи указаны дважды' span=2>
+    <error id='*EO_NO_ARTICLE' text='Статьи не существует' span=2>
+    <error id='*EO_NO_REORDER' text='Вы не имеете права менять порядок статей'
+           span=2>
+    <error id='*EO_SQL' text='Ошибка базы данных при обновлении записи'
+           span=2 color=magenta>
+    <for>
+     <tr>
+      <td>$;NextPosition.</td>
+      <td><order_selector sels='$sels'
+                          current!='$edittag ? $art[$;Position] : $.Id'></td>
+     </tr>
+    </for>
+   </table>
+   <formbuttons title='Изменить'>
+  </form>
+ </formtable>
+ <bottom>
+</body>
+</html>

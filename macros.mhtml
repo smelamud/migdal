@@ -101,6 +101,10 @@
          params='grp,up' defaults="up='-1'">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'>
 
+<macro name='reset_iterator' defaults="list='$;'">
+ <call object%!list='%list' func='reset'>
+</macro>
+
 << Calls >>
 <macro name='deccall' defaults="name='%name'">
  <macro name='%macro' defaults="%defaults">
