@@ -16,10 +16,11 @@ return $c<=0;
 
 function convertInput($s)
 {
-return convert_cyr_string(str_replace(array("\xAB","\xBB","\x97","\x84","\x93",
-                                            "\xAE","\x99","\xB9"),
-                                      array('<<','>>','---','``',"''",
-				            '(r)','(tm)','No.'),$s),'w','k');
+return convert_cyr_string(str_replace(array("\xAB","\xBB","\x96","\x97","\x84",
+                                            "\x93","\xAE","\x99","\xB9"),
+                                      array('<<','>>','---','---','``',
+				            "''",'(r)','(tm)','No.'),$s),
+			  'w','k');
 }
 
 function convertOutput($s)
