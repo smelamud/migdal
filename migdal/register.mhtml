@@ -12,12 +12,17 @@
   <form method=post action='actions/usermod.php'>
    <hidden name='edittag' value=1>
    <hidden name='redirid' value='$_'>
-   <concat value='/userok.php?redirid=$_'>
-   <hidden name='okdir' value='$*'>
+   <admin_users>
+    <hidden name='okdir' value='$--'>
+   <else>
+    <concat value='/userok.php?redirid=$_'>
+    <hidden name='okdir' value='$*'>
+   </admin_users>
    <hidden name='faildir' value='$-'>
    <hidden name='editid' value=0>
    <table>
     <starinfo span=2>
+    <error id='*EUM_DISABLED' span=2 text='Регистрация пользователей запрещена'>
     <error id='*EUM_NO_EDIT' span=2
 	   text='У вас нет права менять информацию для этого пользователя'>
     <error id='*EUM_STORE_SQL' text='Ошибка SQL при обновлении записи'

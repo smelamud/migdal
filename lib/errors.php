@@ -15,6 +15,7 @@ define('EUM_NAME_ABSENT',1010);
 define('EUM_SURNAME_ABSENT',1011);
 define('EUM_EMAIL_ABSENT',1012);
 define('EUM_NOT_EMAIL',1013);
+define('EUM_DISABLED',1014);
 
 define('EL_INVALID',110);
 define('EL_OK',111);

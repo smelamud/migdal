@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
@@ -13,10 +15,12 @@ require_once('lib/mailings.php');
 
 function modifyUser($user)
 {
-global $editid;
+global $editid,$disableRegister,$userAdminUsers;
 
 if(!$editid)
   $editid=0;
+if($editid==0 && $disableRegister && !$userAdminUsers)
+  return EUM_DISABLED;
 if(!$user->isEditable())
   return EUM_NO_EDIT;
 if($user->login=='')
@@ -47,12 +51,13 @@ if(!preg_match('/^[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]
 if(!$user->store())
   return EUM_STORE_SQL;
 if($editid==0)
-  {
-  if(!$user->preconfirm())
-    return EUM_PRECONFIRM_SQL;
-  sendMail('register',$user->getId(),$user->getId());
-  sendMailAdmin('registering','admin_users',$user->getId());
-  }
+  if(!$userAdminUsers)
+    {
+    if(!$user->preconfirm())
+      return EUM_PRECONFIRM_SQL;
+    sendMail('register',$user->getId(),$user->getId());
+    sendMailAdmin('registering','admin_users',$user->getId());
+    }
 return EUM_OK;
 }
 

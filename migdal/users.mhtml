@@ -1,5 +1,13 @@
 << @(#) $Id$ >>
 
+<element name='batcher_users'>
+<admin_users>
+ <div class='batcher'>
+  <a href='register.php?redirid=$_' class='add'>Добавить пользователя</a>
+ </div>
+</admin_users>
+</element>
+
 <pagetitle title='Пользователи'>
 
 <html>
@@ -20,6 +28,7 @@
   </span>
  </zone>
  <p>
+ <batcher_users>
  <table width=100% class='catalog'>
   <tr valign=top>
    <th class='subject'>Ник</th><th>Имя</th><th>Возраст</th>
@@ -68,6 +77,7 @@
    </tr>
   </for>
  </table>
+ <batcher_users>
  <bottom>
 </body>
 </html>

@@ -29,7 +29,7 @@
    </tr>
    <if what='!$no_new'>
     <tr><td colspan=5 align=right>
-     <concat name='link' value='/register.php?redirid=$_'>
+     <concat name='link' value='register.php?redirid=$_'>
      <at href='$link' target='$target'>Зарегистрироваться</at>
     </td></tr>
    </if>
