@@ -25,6 +25,8 @@
    </community>
   </td>
  </tr>
+ <error id='*EL_NO_COOKIES' span=2
+	text='Не работают cookies. Включите поддержку cookies в настройках вашего браузера.'>
 </table>
 <menu ident='$ident' target='$target'>
 <backtrace target='$target'>

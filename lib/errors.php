@@ -19,6 +19,7 @@ define('EUM_DISABLED',1014);
 
 define('EL_INVALID',110);
 define('EL_OK',111);
+define('EL_NO_COOKIES',112);
 
 define('ET_OK',120);
 define('ET_NAME_ABSENT',121);

@@ -13,7 +13,7 @@ require_once('lib/logs.php');
 
 function startSession()
 {
-global $login,$password,$siteDomain;
+global $login,$password,$siteDomain,$sid;
 
 $result=mysql_query('select id from users where login="'
                      .addslashes($login).'" and password="'
@@ -37,7 +37,10 @@ postString('password');
 dbOpen();
 $err=startSession();
 if($err==EL_OK)
-  header("Location: $okdir");
+  header('Location: /actions/checkcookies.php?'.
+          makeQuery(array('svalue'  => $sid,
+	                  'okdir'   => $okdir,
+			  'faildir' => $faildir)));
 else
   header('Location: '.remakeURI($faildir,
                                 array(),
