@@ -3,10 +3,8 @@
 <force_community>
 
 <html>
-<zone>
- <stylesheet ident='chat'>
- <preamble>
-</zone>
+<stylesheet ident='chat'>
+<preamble>
 <frameset rows='*,45' border=0>
  <frame src='chatboard.php?$?' noresize>
  <frame src='chatbottom.php?$?' noresize scrolling=no>

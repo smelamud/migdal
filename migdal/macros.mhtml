@@ -197,14 +197,12 @@
 </macro>
 
 <macro name='preamble'>
- <zone>
-  <assign_global name='communityDomain' value!="$$userDomain=='community'">
-  <assign_global name='officialDomain' value!="$$userDomain=='info'">
-  <stylesheet ident='style'>
-  <head>
-   <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
-  </head>
- </zone>
+ <assign_global name='communityDomain' value!="$$userDomain=='community'">
+ <assign_global name='officialDomain' value!="$$userDomain=='info'">
+ <stylesheet ident='style'>
+ <head>
+  <title>Мигдаль<ifne what='$pageTitle'> - $pageTitle</ifne></title>
+ </head>
 </macro>
 
 << Biff >>

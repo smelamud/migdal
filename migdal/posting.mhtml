@@ -7,9 +7,7 @@
 <zone><log event=posting text#='post($,Id)'></zone>
 <pagetitle title='$,SubjectDesc'>
 
-<zone>
- <ifne what='$,TapeStylesheet'><stylesheet ident='$,TapeStylesheet'></ifne>
-</zone>
+<ifne what='$,TapeStylesheet'><stylesheet ident='$,TapeStylesheet'></ifne>
 <html>
 <preamble>
 <body>

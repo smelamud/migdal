@@ -3,10 +3,8 @@
 <force_community>
 
 <html>
-<zone>
- <stylesheet ident='chat'>
- <preamble>
-</zone>
+<stylesheet ident='chat'>
+<preamble>
 <body class='chatbottom'>
  <form method=post action='actions/chatpost.php' style='margin: 0; padding: 0'
        target=board name='post'>

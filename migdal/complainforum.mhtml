@@ -6,10 +6,8 @@
 <pagetitle title='Обсуждение жалобы'>
 
 <html>
-<zone>
- <stylesheet ident='complain'>
- <preamble>
-</zone>
+<stylesheet ident='complain'>
+<preamble>
 <body>
  <top ident='index'>
  <table width=100% class='complain'>

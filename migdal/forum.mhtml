@@ -8,9 +8,7 @@
 <zone><log event=forum text#='post($,Id)'></zone>
 <pagetitle title#='Обсуждение &lt;&lt;$,SubjectDesc&gt;&gt;'>
 
-<zone>
- <ifne what='$,TapeStylesheet'><stylesheet ident='$,TapeStylesheet'></ifne>
-</zone>
+<ifne what='$,TapeStylesheet'><stylesheet ident='$,TapeStylesheet'></ifne>
 <html>
 <preamble>
 <body>

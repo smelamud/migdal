@@ -5,10 +5,8 @@
 <log event=chat>
 
 <html>
-<zone>
- <stylesheet ident='chat'>
- <preamble>
-</zone>
+<stylesheet ident='chat'>
+<preamble>
 <logged>
  <frameset rows='125,*' border=0>
 <else>

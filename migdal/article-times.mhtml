@@ -8,11 +8,9 @@
 <pagetitle title='$,Subject'>
 
 <html>
-<zone>
- <stylesheet ident='article'>
- <stylesheet ident='times'>
- <preamble>
-</zone>
+<stylesheet ident='article'>
+<stylesheet ident='times'>
+<preamble>
 <body>
  <top ident='index'>
  <zone><topic_obj name='times' id='migdal-times'></zone>

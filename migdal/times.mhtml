@@ -104,10 +104,8 @@
 </element>
 
 <html>
-<zone>
- <stylesheet ident='times'>
- <preamble>
-</zone>
+<stylesheet ident='times'>
+<preamble>
 <body>
  <top ident='index'>
  <topic_obj name='times' id='migdal-times'>

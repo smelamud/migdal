@@ -7,10 +7,8 @@
 <pagetitle title='$,Subject'>
 
 <html>
-<zone>
- <stylesheet ident='article'>
- <preamble>
-</zone>
+<stylesheet ident='article'>
+<preamble>
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>

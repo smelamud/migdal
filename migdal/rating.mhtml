@@ -17,10 +17,8 @@
 </element>
 
 <html>
-<zone>
- <stylesheet ident='votes'>
- <preamble>
-</zone>
+<stylesheet ident='votes'>
+<preamble>
 <body>
  <style><!--
   BODY {
