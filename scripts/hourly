@@ -7,26 +7,14 @@ use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 
 $VERSION='0.0.1';
+@libpath=();
+GetOptions('config|c=s'	 => \$configPath,
+           'help|h|?'	 => \&help,
+	   'libpath|L=s' => \@libpath,
+           'version|v'	 => \&version);
+push @INC,@libpath;
 
-$configPath='conf/migdal.conf';
-%Config=();
-
-sub readConfig
-{
-open CONF,$configPath;
-while(<CONF>)
-     {
-     next if /\?>/ || /<\?/;
-     s/#.*$//;
-     next if /^\s*$/;
-     my ($name,$value)=/^\$(\w+)=(.*);\s*$/;
-     $value=~s/^\'//;
-     $value=~s/\'$//;
-     $value=~s/\\\'/\'/;
-     $Config{$name}=$value;
-     }
-close CONF;
-}
+require 'config.pl';
 
 sub help
 {
@@ -37,6 +25,8 @@ Migdal batch operations script
 
   -c, --config=<path>       Set configuration file path
                             (default is `conf/migdal.conf')
+  -L, --libpath=<path>      Look for libraries in <path>
+                            (you can use this option many times)
   -h, --help                Print this help and exit
   -v, --version             Print version information and exit
 
@@ -61,9 +51,6 @@ exit;
 
 sub init
 {
-GetOptions('config|c=s'	=> \$configPath,
-           'help|h|?'	=> \&help,
-           'version|v'	=> \&version);
 readConfig();
 $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
                   $Config{'dbHost'},$Config{'dbUser'},$Config{'dbPassword'},

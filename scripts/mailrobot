@@ -7,26 +7,15 @@ use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 
 $VERSION='0.0.1';
+@libpath=();
+GetOptions('config|c=s'	 => \$configPath,
+           'help|h|?'	 => \&help,
+	   'libpath|L=s' => \@libpath,
+           'version|v'	 => \&version);
+push @INC,@libpath;
 
-$configPath='conf/migdal.conf';
-%Config=();
-
-sub readConfig
-{
-open CONF,$configPath;
-while(<CONF>)
-     {
-     next if /\?>/ || /<\?/;
-     s/#.*$//;
-     next if /^\s*$/;
-     my ($name,$value)=/^\$(\w+)=(.*);\s*$/;
-     $value=~s/^\'//;
-     $value=~s/\'$//;
-     $value=~s/\\\'/\'/;
-     $Config{$name}=$value;
-     }
-close CONF;
-}
+require 'config.pl';
+require 'opscript.pl';
 
 sub help
 {
@@ -37,6 +26,8 @@ Migdal mailing robot
 
   -c, --config=<path>       Set configuration file path
                             (default is `conf/migdal.conf')
+  -L, --libpath=<path>      Look for libraries in <path>
+                            (you can use this option many times)
   -h, --help                Print this help and exit
   -v, --version             Print version information and exit
 
@@ -61,47 +52,11 @@ exit;
 
 sub init
 {
-GetOptions('config|c=s'	=> \$configPath,
-           'help|h|?'	=> \&help,
-           'version|v'	=> \&version);
 readConfig();
 $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
                   $Config{'dbHost'},$Config{'dbUser'},$Config{'dbPassword'},
 		  {'AutoCommit' => 1,'PrintError' => 1,
 		   'ShowErrorStatement' => 1});
-}
-
-sub subVar
-{
-my ($s,$vals,$mail)=@_;
-
-return $mail->{lc $1}
-       if $s=~/^%{?(\w+)}?$/;
-return $vals->{''}->[0]->{$1}
-       if $s=~/^\${?(?:\w+\.)?(\w+)}?$/;
-return $vals->{lc $1}->[0]->{$2}
-       if $s=~/^\${?(\w+):(?:\w+\.)?(\w+)}?$/;
-return $s;
-}
-
-sub subVars
-{
-my ($s,$vals,$mail)=@_;
-my $c='';
-
-while($s ne '')
-     {
-     my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$%]*)((?:(?:\${?(?:\w+:)?(?:\w+\.)?\w+}?)|(?:%{?\w+}?))?)(.*)$/;
-     $c.=$head;
-     $c.=subVar($var,$vals,$mail) if $var ne '';
-     if($head eq '' && $var eq '')
-       {
-       $c.=substr($s,0,1);
-       substr($s,0,1)='';
-       }
-     }
-return $c;
 }
 
 sub sendMail
@@ -111,53 +66,28 @@ my ($mail)=@_;
 return if $mail->{'email_disabled'};
 my $path=$mail->{'text'};
 $path=$Config{'siteDir'}."/$path" unless $path=~/^\//;
-my $vals={};
 open IN,$path;
+my @script=<IN>;
+close IN;
+
 open OUT,'|sendmail -t';
 print OUT 'To: ',$mail->{'email'},"\n";
-$cont=0;
-$preamble=1;
-while(<IN>)
-     {
-     chomp;
-     if($cont)
-       {
-       $s=~s/\\\s*$/$_/;
-       }
-     else
-       {
-       $s=$_;
-       }
-     $cont=1,next if $s=~/\\\s*$/;
-     $cont=0;
-     next if $preamble && ($s=~/^\s*$/ || $s=~/^@/);
-     $s=subVars($s,$vals,$mail);
-     if($s=~/^\s*\w*\s*=/)
-       {
-       my ($name,$sql)=$s=~/^\s*(\w*)\s*=(.*)$/;
-       $vals->{lc $name}=$dbh->selectall_hashref($sql);
-       }
-     else
-       {
-       $preamble=0;
-       print OUT "$s\n";
-       }
-     }
+print OUT opScript($dbh,\@script,$mail);
 close OUT;
-close IN;
 }
 
 sub run
 {
 $dbh->do('lock tables mailings write,mailing_types read,users read');
 my $mails=$dbh->selectall_hashref(
-       'select mailings.id as id,link,receiver_id,text,name,jewish_name,surname,
-               gender,email,email_disabled
-        from mailings
-	     left join mailing_types
-	          on mailings.type_id=mailing_types.id
-	     left join users
-	          on mailings.receiver_id=users.id');
+		'select mailings.id as id,link,receiver_id,text,
+			name,jewish_name,surname,gender,email,
+			email_disabled
+		 from mailings
+		      left join mailing_types
+			   on mailings.type_id=mailing_types.id
+		      left join users
+			   on mailings.receiver_id=users.id');
 $dbh->do('delete from mailings');
 $dbh->do('unlock tables');
 foreach my $mail(@{$mails})
