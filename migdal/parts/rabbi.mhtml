@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
 <element name='rabbi'>
-<a href='http://yosele.rabbi.ru/'><image src='pics/rabbi.gif' border=0></a>
+<a href='http://yosele.rabbi.ru/'>
+ <image src='pics/rabbi.gif' alt='Раввин сайта - Йосеф Херсонский' border=0></a>
 </element>

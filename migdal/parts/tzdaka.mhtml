@@ -2,5 +2,5 @@
 
 <element name='tzdaka'>
  <p align=center><a href='/migdal.php?artid=$`postings:tzdaka`'>
-  <image src='pics/tzdaka.gif' border=0></a></p>
+  <image src='pics/tzdaka.gif' alt='Копилка для цдаки' border=0></a></p>
 </element>
