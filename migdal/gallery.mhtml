@@ -15,10 +15,10 @@
  <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
-  <td width=20%>
+  <td width=120>
    <topics g='$g' topic_id='$topic_id' navi='*true' file='gallery.php'>
   </td>
-  <td width=20>&nbsp;</td>
+  <td width=10>&nbsp;</td>
   <td>
    <if what='$topic_id==-1'>
     <gallery_main grp='$grp' cols='$userPictureColumnPortion'>

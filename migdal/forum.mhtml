@@ -17,7 +17,7 @@
    <grpdata name='g' grp='$,Grp'>
   </zone>
   <td width=120><topics g='$g' topic_id='$,TopicId' navi='*true'></td>
-  <td width=20>&nbsp;</td>
+  <td width=10>&nbsp;</td>
   <td>
    <center>
     <if what='$,Grp!=*GRP_GALLERY'>

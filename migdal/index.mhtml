@@ -18,7 +18,7 @@
 
  <table width=100%><tr valign=top>
   <td width=120><topics g='$g' topic_id='$topic_id' navi='*true'></td>
-  <td width=20>&nbsp;</td>
+  <td width=10>&nbsp;</td>
   <td><postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
                 offset='$offset' title='$grptitle'></td>
  </tr></table>
