@@ -27,15 +27,17 @@ for($n=0;$n<strlen($s);$n++)
    if($s[$n]=='>')
      $intag--;
    if(!$intag && !$tag && $s[$n]==$foo
-      && ($n==0 || (!$delim || is_delim($s[$n-1])) && $s[$n-1]!='&'))
+      && ($n==0 || (!$delim || is_delim($s[$n-1])) && $s[$n-1]!='&')
                                          # &#entity; combinations are
 					 # not replaced
+      && $n!=strlen($s) && (!$delim || !is_delim($s[$n+1])))
      {
      $c.=$bar;
      $tag=1;
      }
    elseif(!$intag && $tag && $s[$n]==$foo
-          && ($n==strlen($s) || (!$delim || is_delim($s[$n+1]))))
+          && ($n==strlen($s) || (!$delim || is_delim($s[$n+1])))
+          && $n!=0 && (!$delim || !is_delim($s[$n-1])))
      {
      $c.=$_bar;
      $tag=0;
