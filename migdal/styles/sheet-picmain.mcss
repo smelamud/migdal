@@ -14,10 +14,8 @@
 .picmain A {
 	color: %picmain_title;
 	text-decoration: underline;
-	font-size: 10pt;
 }
 
 .picmain A:hover {
 	color: %picmain_title_hover;
-	text-decoration: underline;
 }
