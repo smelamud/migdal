@@ -20,6 +20,7 @@
 </element>
 
 <element name='top'>
+<backtrace>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="top">
  <tr valign="center">
   <td rowspan="3" class='banner' width="90" align="center">

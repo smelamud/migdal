@@ -21,6 +21,7 @@
        defaults="withvote='*true' static='*false' note_base_var=''">
 <decel name='article_controls' file='parts/article.php' params='posting'>
 <decel name='article_full' file='parts/article.php' params='posting'>
+<decel name='backtrace' file='parts/backtrace.php'>
 <decel name='banners' file='parts/banners.php'>
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='counters' file='parts/counters.php'>
