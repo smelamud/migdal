@@ -3,6 +3,10 @@
 
 <int name='topic_id'>
 <int name='offset'>
+<if what='$topic_id==8'>
+ <log event=trap text='Taglit gallery'>
+ <reload href='taglit.php'>
+</if>
 <grps>
 <unititle chapter='Галерея' topic_id='$topic_id'>
 

@@ -2,7 +2,13 @@
 
 <int name='topic_id'>
 <int name='offset'>
-<reload why!='!$topic_id' var='topic_id' value='-1'>
+<ifzero what='$topic_id'>
+ <reload href='$[topic_id=-1]'>
+</ifzero>
+<ifnzero what='$grp'>
+ <log event=trap text='grp!=0 in index.php'>
+ <reload href='$[grp]'>
+</ifnzero>
 <grps>
 <unititle topic_id='$topic_id'>
 

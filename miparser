@@ -19,6 +19,7 @@ $Header='';
 $Body='';
 $Footer='';
 
+$AfterRedirect=0;
 $BodyToHeader=0;
 $Retarget='';
 
@@ -41,12 +42,22 @@ $Stack='';
 sub constructRemake
 {
 my ($s)=@_;
+my $redir='';
 
 @del=();
 @subs=();
 %params=();
 request('lib/uri.php');
-getGlobal('redir');
+if($AfterRedirect && !$BodyToHeader)
+  {
+  getGlobal('redir');
+  $redir='$redir->getURI()';
+  }
+else
+  {
+  getGlobal('REQUEST_URI');
+  $redir='$REQUEST_URI';
+  }
 splitParams($s,\%params);
 while(my($name,$value)=each(%params))
      {
@@ -59,8 +70,7 @@ while(my($name,$value)=each(%params))
        push @subs,"'$name' => ".subTypedValue('','%',$value);
        }
      }
-return 'remakeURI($redir->getURI(),array('.join(',',@del).'),array('
-                                          .join(',',@subs).'))';
+return "remakeURI($redir,array(".join(',',@del).'),array('.join(',',@subs).'))';
 }
 
 sub getGetName
@@ -806,6 +816,7 @@ my ($self)=@_;
 <link rel='stylesheet' href='/styles/<?php echo "\$sheet-".getStyle(\$userStyle) ?>.css'>
 <?php include("styles/\$sheet-".getStyle(\$userStyle).'.php'); } ?>
 EOT
+$AfterRedirect=1;
 }
 
 sub elBreak

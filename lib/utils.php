@@ -3,17 +3,10 @@
 
 require_once('lib/uri.php');
 
-function reloadParameter($cond,$key,$value)
+function reload($href)
 {
-global $REQUEST_URI;
-
-if($cond)
-  {
-  header('Location: '.remakeURI($REQUEST_URI,
-                                array(),
-				array($key => $value)));
-  exit;
-  }
+header("Location: $href");
+exit;
 }
 
 function makeValue($value)

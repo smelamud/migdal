@@ -164,6 +164,7 @@
 	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0'>
 <deccall macro='read_posting' func='incPostingReadCount'
          file='lib/postings.php' params='id'>
+<deccall macro='reload' func='reload' file='lib/utils.php' params='href'>
 <deccall macro='stotext_image_obj' func='getStotextImageByParagraph'
          file='lib/stotext-images.php' params='id,par' defaults='name=image'>
 <deccall macro='stylesheet' func='declareStylesheet' file='lib/style.php'
@@ -191,14 +192,6 @@
   <else>
    <image_tag_put id%!id='%id' align%!align=%align>
   </if>
- </zone>
-</macro>
-
-<macro name='reload'>
- <require name='lib/utils.php'>
- <zone>
-  <call func='reloadParameter' arg1%!why='%why' arg2%!var='%var'
-                               arg3%!value='%value'>
  </zone>
 </macro>
 
