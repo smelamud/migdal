@@ -10,7 +10,8 @@
  <reload href='$[grp]'>
 </ifnzero>
 <zone>
- <log event=index text#='topic($topic_id) offset=$offset'>
+ <ident_id table='topics' ident='$topic_id'>
+ <log event=index text#='topic($,) offset=$offset'>
  <ifzero what='$offset'>
   <log event=enter text#='domain=$$userDomain'>
  </ifzero>

@@ -8,7 +8,10 @@
  <reload href='taglit.php'>
 </if>
 <grps>
-<zone><log event=gallery text#='topic($topic_id) offset=$offset'></zone>
+<zone>
+ <ident_id table='topics' ident='$topic_id'>
+ <log event=gallery text#='topic($,) offset=$offset'>
+</zone>
 <unititle chapter='Галерея' topic_id='$topic_id'>
 
 <html>
