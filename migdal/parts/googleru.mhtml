@@ -1,0 +1,22 @@
+<< @(#) $Id$ >>
+
+<element name='googleru'>
+ <!--TOPCTO begin-->
+  <script>
+   var d, s, n, uid, zzz, ver, rnd, rn, y;
+   d=document;
+   s=screen;
+   n=navigator;
+   uid=919;
+   ver=Math.round(parseFloat(n.appVersion)*100);
+   rnd=rn=Math.random();
+   zzz="&dl="+escape(d.referrer)+"&n="+n.appName+"&swh="+s.width+'x'+s.height+
+       "&ver="+ver+"&rnd="+rnd;
+   y="<a target=_blank href='http://www.topcto.ru/cgi-bin/top.cgi?uid="+uid+
+     "&com=img_link&url=http://www.topcto.ru/"+zzz+"'>";
+   y+="<img  width=88 height=31 border=0 alt='TopCTO' src='http://www.topcto.ru/cgi-bin/top.cgi?uid="+
+       uid+"&com=image"+zzz+"'></a>";
+   d.write(y);
+  </script>
+ <!--TOPCTO end-->
+</element>

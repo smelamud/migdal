@@ -2,7 +2,6 @@
 << Based-on: demo/parts/top.mhtml 1.2 >>
 
 <element name='Top'>
-<rambler_count>
 <hotlog_count>
 <mailru_count>
 <menu ident='$ident' target='$target'>
