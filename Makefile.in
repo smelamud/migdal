@@ -15,6 +15,7 @@ crontab: Makefile conf/migdal.conf
 	echo '  0-50/10 *   *   *   *  $(homeDir)/php $(scriptsDir)/mailrobot.php';\
 	echo '  30      23  *   *   *  $(homeDir)/php $(scriptsDir)/daily.php';\
 	echo '  10      22  *   *   *  $(homeDir)/php $(scriptsDir)/ratings.php';\
+	echo '  20      *   *   *   *  $(homeDir)/php $(scriptsDir)/urlcheck.php';\
 	echo;\
 	) > crontab
 

@@ -34,9 +34,6 @@
    <subtitle>
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
 	     offset='$offset' subdomain!='$$officialDomain ? 1 : -1'>
-   <if what='$topic_id==-1 && $offset==0'>
-    </div>
-   </if>
   </td>
   <community>
    <td width=130 class='eframe'>

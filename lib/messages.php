@@ -30,6 +30,7 @@ var $sent;
 var $url;
 var $answer_count;
 var $last_answer;
+var $url_fail_time;
 
 function Message($row)
 {
@@ -338,6 +339,16 @@ return strtotime($this->sent);
 function getURL()
 {
 return $this->url;
+}
+
+function getURLFailTime()
+{
+return $this->url_fail_time;
+}
+
+function getURLFailDays()
+{
+return floor($this->getURLFailTime()/(24*60*60));
 }
 
 function getAnswerCount()

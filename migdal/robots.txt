@@ -24,5 +24,6 @@ Disallow: /topicedit.php
 Disallow: /topicorg.php
 Disallow: /useredit.php
 Disallow: /userfin.php
+Disallow: /userlost.php
 Disallow: /userok.php
-Disallow: /users.php
+Disallow: /userrepair.php

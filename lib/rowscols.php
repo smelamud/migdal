@@ -29,4 +29,17 @@ return $this->iterator->next();
 
 }
 
+class FixedRowsIterator
+      extends RowsIterator
+{
+
+function FixedRowsIterator($iterator,$rows,$minCols)
+{
+$cols=ceil($iterator->getCount()/$rows);
+$cols=$cols<$minCols ? $minCols : $cols;
+$this->RowsIterator($iterator,$cols);
+}
+
+}
+
 ?>

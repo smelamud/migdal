@@ -2,19 +2,76 @@
 
 <force_community>
 <grps>
+<string name='topic_id'>
 <int name='offset'>
+<ifzero what='$topic_id'>
+ <assign name='topic_id' value='-1'>
+</ifzero>
 <pagetitle title='Ссылки'>
+
+<element name='current' params='topic_id'>
+<if what='$topic_id>0'>
+ <topic_name id='$topic_id'>
+ <table class='topics' style='margin: 0'>
+  <tr><th>$,Name</th></tr>
+ </table>
+ <div class='ninept' style='padding-left: 20px; padding-top: 5px'>
+   <a href#='$[topic_id=-1 offset]'>Ссылки</a>
+   <iterate_topic_hierarchy topic_id='$topic_id' root='links'>
+   <for>
+    /
+    <if what='$.Id!=$topic_id'>
+     <a href#='$[topic_id=$.Id offset]'>$.Name</a>
+    <else>
+     <b>$.Name</b>
+    </if>
+   </for>
+ </div>
+</if>
+</element>
+
+<element name='admin'>
+<moderator>
+ <table class='topics'><tr><td>
+  <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
+ </td></tr></table>
+</moderator>
+</element>
+
+<element name='navigator' params='topic_id'>
+<table cellspacing=5><tr valign=top>
+ <td><table class='topics' style='margin: 0'><tbody class='names'>
+  <iterate_topiclist grp='*GRP_LINKS' up!='$topic_id<=0 ? "links" : $topic_id'>
+  <iterate_fixed_rows rows=5 mincols=3>
+  <for>
+   <tr><td><a href='$[topic_id=$.Id offset]' class='item'>
+    $.Name&nbsp;<span class='answers'>($.MessageCount)</span><asp>
+   <asp></a></td></tr>
+   <if what='$;isEol'>
+    </tbody></table></td>
+    <td>&nbsp;</td>
+    <td><table class='topics' style='margin: 0'><tbody class='names'>
+   </if>
+  </for>
+ </tbody></table></td>
+</tr></table>
+</element>
 
 <html>
 <preamble>
 <body>
  <top ident='links'>
- <table width=100% cellpadding=5><tr valign=top>
-  <td class='cframe'>
-   <postings grp='*GRP_LINKS' topic='-1' root='links' limit='$userMsgPortion'
-             offset='$offset'>
-  </td>
- </tr></table>
+ <table width=100% cellpadding=5>
+  <tr valign=top><td class='eframe'>
+   <current topic_id='$topic_id'>
+   <admin>
+   <navigator topic_id='$topic_id'>
+  </td></tr>
+  <tr valign=top><td class='cframe'>
+   <postings grp='*GRP_LINKS' topic='$topic_id' root='links'
+             limit='$userMsgPortion' offset='$offset'>
+  </td></tr>
+ </table>
  <bottom>
 </body>
 </html>

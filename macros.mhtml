@@ -69,6 +69,9 @@
          file='lib/complaintypes.php'>
 <deciter macro='confirm_instant_messagelist'
          class='ConfirmInstantMessageListIterator' file='lib/instants.php'>
+<deciter macro='fixed_rows' class='FixedRowsIterator' file='lib/rowscols.php'
+         params='iterator,rows,mincols'
+	 defaults="iterator='$;' rows=5 mincols=3">
 <deciter macro='forum_answerlist' class='ForumAnswerListIterator'
          file='lib/forums.php' params='parent_id,limit,offset'
 	 defaults='limit=20 offset=0'>

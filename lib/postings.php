@@ -259,7 +259,9 @@ $this->LimitSelectIterator(
 	       read_count,vote,vote_count,
 	       count(forummesgs.id) as answer_count,
 	       max(forummesgs.sent) as last_answer,
-	       ifnull(max(forummesgs.sent),messages.sent) as age
+	       ifnull(max(forummesgs.sent),messages.sent) as age,
+	       unix_timestamp()-unix_timestamp(messages.url_check_success)
+	                                                  as url_fail_time
 	from postings
 	     left join messages
 	          on postings.message_id=messages.id
@@ -491,7 +493,9 @@ $result=mysql_query(
 		login,gender,email,hide_email,rebe,
 	        read_count,vote,vote_count,
 	        count(forummesgs.id) as answer_count,
-	        max(forummesgs.sent) as last_answer
+	        max(forummesgs.sent) as last_answer,
+		unix_timestamp()-unix_timestamp(messages.url_check_success)
+							   as url_fail_time
 	 from postings
 	      left join messages
 	           on postings.message_id=messages.id

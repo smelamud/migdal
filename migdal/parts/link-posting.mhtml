@@ -9,8 +9,15 @@
 </element>
 
 <element name='further_url' params='posting,url'>
-<asp><a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url'
-	target=_blank>$url</a><asp>
+<a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url'
+   target=_blank>$url</a>
+<if what='$posting.URLFailDays>=3'>
+ <array vals='день,дня,дней'>
+ <plural value='$posting.URLFailDays'>
+ <span class='error'>
+  (Ссылка не работает $posting.URLFailDays&sp;$,)
+ </span>
+</if>
 </element>
 
 <element name='controls' params='posting,showdiscuss,showcomplain'>
