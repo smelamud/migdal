@@ -8,7 +8,7 @@
  <title>Мигдаль</title>
 </head>
 <body bgcolor=white>
- <top ident='index'>
+ <top ident='index' image='pics/index.gif'>
  <table width=100%>
   <tr><td>
    <postings grp='*GRP_ALL' limit='$userMsgPortion' offset='$offset'>

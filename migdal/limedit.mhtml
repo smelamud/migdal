@@ -8,7 +8,7 @@
  <title>Мигдаль - Список иллюстраций</title>
 </head>
 <body bgcolor=white>
- <top ident='articles'>
+ <top ident='articles' image='pics/articles.gif'>
  <p>
  <posting_obj id='$postid'>
  <center><h1>Иллюстрации к статье "$,Subject"</h1></center>

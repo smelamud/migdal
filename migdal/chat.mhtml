@@ -26,7 +26,7 @@
  <title>Мигдаль - Чат</title>
 </head>
 <body bgcolor=white>
- <top ident='chat'>
+ <top ident='chat' image='pics/chat.gif'>
  <batcher_chat limit='$$userChatPortion' refresh='$$userChatRefresh'>
  <iframe width=100% height=70% src='chatboard.php'>
   Ваш браузер не поддерживает фреймы. Увы...

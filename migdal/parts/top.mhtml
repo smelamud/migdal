@@ -3,9 +3,14 @@
 
 <element name='Top'>
 <menu ident='$ident'>
-<table class='state' width=100%>
+<table class='state'>
+ <col width='0*'>
  <tr>
-  <td align=left><login flags='$flags' err='$$err'></td>
+  <td class='image'><img src='$image'></td>
+  <td align=right><login flags='$flags' err='$$err'></td>
+ </tr>
+ <tr>
+  <td class='image'><img src='pics/state.gif'></td>
   <td align=right valign=top class='date'><today></td>
  </tr>
  <backtrace redir='$$redir'>

@@ -5,18 +5,23 @@
 bl=#0C20A5
 g=#52A945
 nd=#52739C
+nm=#9BC8FF
+nl=#CDE4FF
 r=#FF5500
 vd=#5B1900
 vm=#F8BF19
 vl=#FFF8E8
-m=#91089D
+md=#91089D
+ml=#BA00FF
 gr=#C3C3C3
+grd=#5C5C5C
 
 error_red=red
 error_magenta=magenta
 menu_back=%bl
 menu_normal=white
 menu_selected=yellow
+state_date_back=%bl
 state_date=%vm
 register_hover=blue
 login_border=blue
@@ -31,7 +36,7 @@ posting_sent=white
 posting_name=yellow
 posting_rebe_name=%r
 posting_details=white
-posting_subject=%m
+posting_subject=%md
 posting_split=%nd
 posting_controls=black
 posting_controls_hover=blue
@@ -39,7 +44,7 @@ forum_border=%vm
 forum_header_back=%vm
 forum_body_back=%vl
 forum_sent=white
-forum_name=yellow
+forum_name=%ml
 forum_rebe_name=%r
 forum_details=white
 forum_controls=%vd
@@ -53,6 +58,19 @@ topics_names_hover=blue
 topics_new=red
 topics_controls=%gr
 topics_controls_hover=blue
+forumcatalog_border=%grd
+forumcatalog_header=white
+forumcatalog_header_text=%grd
+forumcatalog_even=%nm
+forumcatalog_odd=%nl
+forumcatalog_name=%ml
+forumcatalog_rebe_name=%r
+forumcatalog_details=white
+forumcatalog_answer=black
+forumcatalog_answer_hover=blue
+forumcatalog_topic=blue
+forumcatalog_subject=black
+forumcatalog_subject_hover=blue
 
 ! Global
 
@@ -93,14 +111,23 @@ topics_controls_hover=blue
 ! State
 
 .state {
+	border-spacing: 0;
 	font-size: 8pt;
-	padding: 0pt;
+	padding: 0;
+	width: 100%;
+}
+
+.state .image {
+	padding: 0;
+	background-color: %state_date_back;
 }
 
 .state .date {
 	font-size: 10pt;
 	font-weight: bold;
 	color: %state_date;
+	background-color: %state_date_back;
+	vertical-align: middle;
 	padding-right: 1em;
 }
 
@@ -273,6 +300,7 @@ topics_controls_hover=blue
 
 .forum {
 	border-spacing: 0;
+	padding: 0;
 	border: solid 1px %forum_border;
 }
 
@@ -374,6 +402,10 @@ topics_controls_hover=blue
 
 ! Topics
 
+.topics {
+	margin: 10px;
+}
+
 .topics TH {
 	border-bottom: solid 2px %topics_title;
 	font-size: 11pt;
@@ -415,6 +447,114 @@ topics_controls_hover=blue
 
 .topics .controls A:hover,.topics .names A.edit:hover {
 	color: %topics_controls_hover;
+	text-decoration: underline;
+}
+
+! Catalog of Forums
+
+.forumcatalog {
+	border-spacing: 0;
+	border: solid 1px %forumcatalog_border;
+}
+
+.forumcatalog TH {
+	font-size: 9pt;
+	background-color: %forumcatalog_header;
+	color: %forumcatalog_header_text;
+}
+
+.forumcatalog TD {
+	font-size: 8pt;
+}
+
+.forumcatalog TD,.forumcatalog TH {
+	border-right: solid 1px %forumcatalog_border;
+	padding: 3px;
+}
+
+.forumcatalog TD.answer,.forumcatalog TH.answer {
+	border-right-width: 0;
+	font-size: 8pt;
+	text-align: center;
+}
+
+.forumcatalog TD A {
+	font-size: 9pt;
+}
+
+.forumcatalog TR {
+	background-color: %forumcatalog_even;
+}
+
+.forumcatalog TR.odd {
+	background-color: %forumcatalog_odd;
+}
+
+.forumcatalog .topic A {
+	color: %forumcatalog_topic;
+	text-decoration: none;
+	font-style: italic;
+}
+
+.forumcatalog .subject A {
+	color: %forumcatalog_subject;
+	text-decoration: underline;
+}
+
+.forumcatalog .subject A:hover {
+	color: %forumcatalog_subject_hover;
+}
+
+.forumcatalog .name {
+	color: %forumcatalog_name;
+}
+
+.forumcatalog .rebe .name {
+	color: %forumcatalog_rebe_name;
+	font-weight: bold;
+}
+
+.forumcatalog .name A {
+	color: %forumcatalog_name;
+	text-decoration: none;
+}
+
+.forumcatalog .rebe .name A {
+	color: %forumcatalog_rebe_name;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.forumcatalog A:hover {
+	text-decoration: underline;
+}
+
+.forumcatalog .rebe A:hover {
+	text-decoration: underline;
+}
+
+.forumcatalog .details {
+	color: %forumcatalog_details;
+	font-weight: bold;
+}
+
+.forumcatalog .details A {
+	color: %forumcatalog_details;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.forumcatalog .details A:hover {
+	text-decoration: underline;
+}
+
+.forumcatalog .answer A {
+	color: %forumcatalog_answer;
+	text-decoration: none;
+}
+
+.forumcatalog .answer A:hover {
+	color: %forumcatalog_answer_hover;
 	text-decoration: underline;
 }
 

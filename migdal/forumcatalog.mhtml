@@ -1,24 +1,23 @@
 << @(#) $Id$ >>
-<< Based-on: demo/postings.mhtml 1.8 >>
+<< Based-on: migdal/postings.mhtml 1.7 >>
 
 <int name='topic_id'>
 <int name='offset'>
 <grp ignore='$ignoregrp'>
 <grptitle>
 <grpident>
-<grppic>
 <html>
 <head>
  <title>Мигдаль - $grptitle</title>
 </head>
 <body bgcolor=white>
- <top ident='$grpident' image='$grppic'>
+ <top ident='$grpident' image='pics/forums.gif'>
  <topic_obj id='$topic_id'>
 
  <table width=100% cellspacing=0 cellpadding=0><tr valign=top>
   <td width=25%><topics g='$g' topic_id='$topic_id' title='Разделы'></td>
-  <td><postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
-                offset='$offset' title='$grptitle'></td>
+  <td><forumcatalog grp='$grp' topic='$topic_id' title='$grptitle'
+                    limit='$userForumCatalogPortion' offset='$offset'></td>
  </tr></table>
 </body>
 </html>

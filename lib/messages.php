@@ -18,6 +18,7 @@ var $hidden;
 var $disabled;
 var $sent;
 var $answer_count;
+var $last_answer;
 
 function Message($row)
 {
@@ -249,6 +250,11 @@ return strtotime($this->sent);
 function getAnswerCount()
 {
 return $this->answer_count;
+}
+
+function getLastAnswer()
+{
+return !empty($this->last_answer) ? strtotime($this->last_answer) : 0;
 }
 
 }

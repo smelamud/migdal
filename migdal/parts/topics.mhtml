@@ -24,8 +24,7 @@
       <img src='pics/arrow.gif' width=11 height=12>
      </if>
     </td>
-    <td><a href='postings.php?grp=$g.Effective&topic_id=-1&redir=$_'
-	   class='new'>NEW!</a></td>
+    <td><a href='$[topic_id=-1]' class='new'>NEW!</a></td>
    </tr>
    <for>
     <tr>
@@ -35,8 +34,7 @@
       </if>
      </td>
      <td>
-      <a href='postings.php?grp=$g.Effective&redir=$_&topic_id=$.Id'
-	 title='$.Description'>
+      <a href='$[topic_id=$.Id]' title='$.Description'>
        $.Name&nbsp;($.MessageCount)</a>
      <admin_topics>
       <a href='topicedit.php?editid=$.Id&redir=$_' class='edit'>Изменить</a>

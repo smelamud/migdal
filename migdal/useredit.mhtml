@@ -39,9 +39,9 @@
 </head>
 <body bgcolor=white>
  <if what='$editid'>
-  <top ident='users'>
+  <top ident='users' image='pics/users.gif'>
  <else>
-  <top ident='users' flags='no_new'>
+  <top ident='users' flags='no_new' image='pics/users.gif'>
  </if>
  <p>
  <user_obj name='user' id='$editid'>

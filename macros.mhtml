@@ -181,6 +181,11 @@
  <call name='%name' func='getForumAnswerById' arg1='%id' arg2='%up'>
 </macro>
 
+<macro name='forum_answer_author' defaults='name=answer up=0'>
+ <require name='lib/forums.php'>
+ <call name='%name' func='getForumAnswerAuthorBySent' arg1='%up' arg2='%sent'>
+</macro>
+
 <macro name='forum_answer_full' defaults='name=answer'>
  <require name='lib/forums.php'>
  <call name='%name' func='getFullForumAnswerById' arg1='%id'>

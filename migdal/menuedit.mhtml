@@ -9,7 +9,7 @@
 <body bgcolor=white>
  <menu_obj id='$menuid'>
  <setup>
- <top ident='$,Ident'>
+ <top ident='$,Ident' image='pics/index.gif'>
  <center><h1>Главное меню</h1></center>
  <p>
  <table>

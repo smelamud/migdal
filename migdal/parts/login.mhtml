@@ -20,7 +20,7 @@
   <td><input type=submit value='Войти'></td>
  </tr>
  <if what="$flags!='no_new'">
-  <tr><td colspan=5>
+  <tr><td colspan=5 align=right>
    <a href='/useredit.php?redir=$_'>Зарегистрироваться</a>
   </td></tr>
  </if>

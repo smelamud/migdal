@@ -16,7 +16,7 @@
  <title>Мигдаль - Размещение картинки</title>
 </head>
 <body bgcolor=white>
- <top ident='articles'>
+ <top ident='articles' image='pics/articles.gif'>
  <p>
  <center><h1>Размещение картинки</h1></center>
  <p>

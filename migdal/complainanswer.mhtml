@@ -8,7 +8,7 @@
  <title>Мигдаль - Ответ на жалобу</title>
 </head>
 <body bgcolor=white>
- <top ident='complains'>
+ <top ident='complains' image='pics/complain.gif'>
  <p>
  <complain_action_obj id='$actid'>
  <setup>

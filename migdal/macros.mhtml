@@ -18,6 +18,9 @@
        params='complain,discuss' defaults="discuss='*true'">
 <decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'
        defaults="complain='*true'">
+<decel name='forumcatalog' file='parts/forumcatalog.php'
+       params='grp,topic,limit,offset,title'
+       defaults="topic=-1 limit=10 offset=0 title=''">
 <decel name='forums' file='parts/forums.php' params='up,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='login' file='parts/login.php' params='flags,err'>
@@ -34,7 +37,7 @@
        defaults="topic=-1 limit=10 offset=0 title=''">
 <decel name='senderlink' file='parts/utils.php' params='message'>
 <decel name='today' file='parts/today.php'>
-<decel name='top' file='parts/top.php' params='ident,flags'
+<decel name='top' file='parts/top.php' params='ident,flags,image'
        defaults="flags=''">
 <decel name='topics' file='parts/topics.php' params='g,topic_id,title'
        defaults="title='' topic_id=0">
@@ -54,7 +57,7 @@
 
 <macro name='grpitemtitle' defaults="grp='$grp'">
  <zone>
-  <array vals='сообщение,сообщение,новость,картинку,статью'>
+  <array vals='сообщение,обсуждение,новость,картинку,статью'>
   <grpword name='grpitemtitle' grp='%grp'>
  </zone>
 </macro>
@@ -63,5 +66,12 @@
  <zone>
   <array vals='messages,forums,news,gallery,articles'>
   <grpword name='grpident' grp='%grp'>
+ </zone>
+</macro>
+
+<macro name='grppic' defaults="grp='$grp'">
+ <zone>
+  <array vals='pics/forums.gif,pics/forums.gif,pics/news.gif,pics/gallery.gif,pics/articles.gif'>
+  <grpword name='grppic' grp='%grp'>
  </zone>
 </macro>

@@ -220,13 +220,15 @@ $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
                messages.stotext_id as stotext_id,stotexts.body as body,
-	       subject,grp,sent,topic_id,sender_id,messages.hidden as hidden,
+	       messages.subject as subject,grp,messages.sent as sent,topic_id,
+	       messages.sender_id as sender_id,messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
 	       images.has_large as has_large_image,images.title as title,
 	       topics.name as topic_name,topictexts.body as topic_description,
 	       login,gender,email,hide_email,rebe,
-	       count(forums.up) as answer_count
+	       count(forums.up) as answer_count,
+	       max(forummesgs.sent) as last_answer
 	from postings
 	     left join messages
 	          on postings.message_id=messages.id
@@ -242,8 +244,10 @@ $this->LimitSelectIterator(
 		  on messages.sender_id=users.id
 	     left join forums
 		  on messages.id=forums.up
-	where (messages.hidden<$hide or sender_id=$userId) and
-	      (messages.disabled<$hide or sender_id=$userId) and
+	     left join messages as forummesgs
+	          on forums.message_id=forummesgs.id
+	where (messages.hidden<$hide or messages.sender_id=$userId) and
+	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
 	group by messages.id
 	$order",$limit,$offset,
@@ -372,7 +376,7 @@ $result=mysql_query(
        ' group by messages.id')
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке постинга'.mysql_error());
+ or die('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }

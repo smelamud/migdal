@@ -6,7 +6,7 @@
  <title>Мигдаль - Пользователь зарегистрирован</title>
 </head>
 <body bgcolor=white>
- <top ident='users'>
+ <top ident='users' image='pics/users.gif'>
  <center><font color=green>
   <h1>Пользователь "$login" успешно зарегистрирован.<br>
       В течение 10-15 минут на указанный Вами адрес будет выслано

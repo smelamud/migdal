@@ -123,6 +123,31 @@ return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                  : array('up' => $up));
 }
 
+function getForumAnswerAuthorBySent($up,$sent)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$result=mysql_query(
+	"select forums.id as id,message_id,sender_id,
+	        users.hidden as sender_hidden,
+		login,gender,email,hide_email,rebe
+	 from forums
+	      left join messages
+		   on forums.message_id=messages.id
+	      left join users
+		   on messages.sender_id=users.id
+	 where (messages.hidden<$hide or sender_id=$userId) and
+	       (messages.disabled<$hide or sender_id=$userId) and
+	       forums.up=$up and
+	       unix_timestamp(sent)=$sent")
+      /* здесь нужно поменять, если будут другие ограничения на
+	 просмотр TODO */
+ or die('Ошибка SQL при выборке автора сообщения в форуме');
+return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                                 : array());
+}
+
 function getFullForumAnswerById($id)
 {
 global $userId,$userModerator;

@@ -11,11 +11,11 @@
 </element>
 
 <element name='SenderLink'>
-<span class='name'>$message.LoginLink</span>
+<span class='name'>$message.LoginLink</span>&nbsp;<asp>
 <if what='$message.isSenderVisible'>
- <span class='details'>
-  (<a href='useredit.php?editid=$message.SenderId&redir=$_' title='подробнее'
-    >...</a>)
+ <asp><span class='details'>(<a
+            href='useredit.php?editid=$message.SenderId&redir=$_'
+            title='подробнее'>...</a>)
  </span>
 </if>
 </element>

@@ -62,6 +62,8 @@
    <tr><td><forum_answer answer='$.'></td></tr>
   </for>
  </table>
- <batcher_forums value='$limit' list='$;' up='$up'>
+ <ifnzero what='$;Count'>
+  <batcher_forums value='$limit' list='$;' up='$up'>
+ </ifnzero>
 </span>
 </element>
