@@ -1,36 +1,67 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/forums.mhtml 1.4 >>
+<< Based-on: migdal/parts/postings.mhtml 1.10 >>
 
-<element name='batcher_forums' params='value'>
-<table width=100%>
+<element name='batcher_forums' params='value,list,up'>
+<table width=100% class='batcher'>
  <form method=get action='$~'>
   <hiddenget remove='fp'>
-  <tr><td align=right><table><tr valign=center>
-   <td>Показывать по&nbsp;</td>
-   <td>
-    <select_portion name='fp' value='$value' vals='10 15 20 25 30 35 40'>
+  <tr>
+   <td align=left>
+    <logged>
+     <a href='forumansweredit.php?up=$up&redir=$_'
+        class='add'>Добавить сообщение</a>
+    </logged>
    </td>
-   <td>сообщений&nbsp;</td>
-   <td><input type=submit value='Изменить'></td>
-  </tr></table></td></tr>
+   <td align=right><table><tr valign=center>
+    <td><input type=submit value='Показывать'></td>
+    <td>по</td>
+    <td>
+     <select_portion name='fp' value='$value' vals='10 15 20 25 30 35 40'>
+    </td>
+    <td>из $list.Size сообщений</td>
+    <if what='$list.Size>$list.Limit'>
+     <form method=post action='actions/goto.php'>
+      <hidden name='redir' value='$-'>
+      <hidden name='size' value='$list.Size'>
+      <td align=right width=32>
+       <ifnzero what='$list.Offset'>
+	<a href="$[offset='$list.PrevOffset']" title='Предыдущие'>
+	 <img src='pics/left.gif' border=0></a>
+       </ifzero>
+      </td>
+      <td align=right>
+       <edit name='value' value='$list.BeginValue' size=2 maxlength=5>
+      </td>
+      <td align=center>-</td>
+      <td align=right>
+       $list.EndValue
+      </td>
+      <td align=left width=32>
+       <if what='$list.EndValue<$list.Size'>
+	<a href="$[offset='$list.NextOffset']" title='Следующие'>
+	 <img src='pics/right.gif' border=0></a>
+       </if>
+      </td>
+     </form>
+    </if>
+   </tr></table></td>
+  </tr>
  </form>
-</table><br>
+</table>
 </element>
 
 <element name='forums'>
-<logged>
- <a href='forumansweredit.php?up=$up&redir=$_'
-  >Добавить сообщение</a>
-</logged>
 <iterate_forum_answerlist up='$up' limit='$limit' offset='$offset'>
-<batcher_forums value='$limit'>
-<navigator list='$;'>
-<table width=100%>
- <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
- <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
- <for>
-  <tr><td><forum_answer answer='$.'></td></tr>
- </for>
-</table>
-<navigator list='$;'>
+<div class='forums'>
+ <batcher_forums value='$limit' list='$;' up='$up'>
+ <table width=100%>
+  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+  <for>
+   <tr><td><forum_answer answer='$.'></td></tr>
+  </for>
+ </table>
+ <batcher_forums value='$limit' list='$;' up='$up'>
+</span>
 </element>

@@ -7,6 +7,10 @@ o=#F1BE06
 g=#52A945
 nd=#52739C
 r=#FF5500
+vd=#5B1900
+vm=#F8BF19
+vl=#FFF8E8
+m=#91089D
 
 error_red=red
 error_magenta=magenta
@@ -27,10 +31,21 @@ posting_sent=white
 posting_name=yellow
 posting_rebe_name=%r
 posting_details=white
-posting_subject=%o
+posting_subject=%m
 posting_split=%nd
 posting_controls=black
 posting_controls_hover=blue
+forum_header_back=%vm
+forum_body_back=%vl
+forum_sent=white
+forum_name=yellow
+forum_rebe_name=%r
+forum_details=white
+forum_controls=%vd
+forum_controls_hover=blue
+forums_batcher_normal=%vd
+forums_batcher_input_border=%vd
+forums_batcher_input_text=%vd
 
 ! Global
 
@@ -245,6 +260,103 @@ posting_controls_hover=blue
 .posting .bottom A:hover {
 	color: %posting_controls_hover;
 	text-decoration: underline;
+}
+
+! Forum
+
+.forum {
+	border-spacing: 0;
+}
+
+.forum .header {
+	background-color: %forum_header_back;
+	padding-left: .5em;
+}
+
+.forum .body {
+	background-color: %forum_body_back;
+	padding-left: 1em;
+	padding-top: .5em;
+}
+
+.forum .sent {
+	color: %forum_sent;
+	font-weight: bold;
+}
+
+.forum .name {
+	color: %forum_name;
+}
+
+.rebe .forum .name {
+	color: %forum_rebe_name;
+	font-weight: bold;
+}
+
+.forum .name A {
+	color: %forum_name;
+	text-decoration: none;
+}
+
+.rebe .forum .name A {
+	color: %forum_rebe_name;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.rebe .forum A:hover {
+	text-decoration: underline;
+}
+
+.forum A:hover {
+	text-decoration: underline;
+}
+
+.forum .details {
+	color: %forum_details;
+	font-weight: bold;
+}
+
+.forum .details A {
+	color: %forum_details;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.forum .details A:hover {
+	text-decoration: underline;
+}
+
+.forum .controls {
+	background-color: %forum_header_back;
+	padding-left: .5em;
+}
+
+.forum .controls A {
+	font-size: 8pt;
+	color: %forum_controls;
+	text-decoration: none;
+}
+
+.forum .controls A:hover {
+	color: %forum_controls_hover;
+	text-decoration: underline;
+}
+
+! Forums batcher
+
+.forums .batcher A.add {
+	color: %forums_batcher_normal;
+}
+
+.forums .batcher INPUT {
+	border-color: %forums_batcher_input_border;
+	color: %forums_batcher_input_text;
+}
+
+.forums .batcher SELECT {
+	border-color: %forums_batcher_input_border;
+	color: %forums_batcher_input_text;
 }
 
 ! Chat

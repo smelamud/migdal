@@ -12,32 +12,39 @@
 <element name='Forum_Answer'>
 <table width=100% class='forum'>
 <tr>
- <td width=25%>
- <rebe><senderlink message='$answer'></rebe><br>
- <sentview date='$answer.Sent'><br>
- <isedit name='answer'>
-  <a href="forumansweredit.php?editid=$answer.Id&redir=$_"
-   >[Изменить]</a>
-  <moderator>
-   <if what='$answer.isDisabled'>
-    <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&redir=$_"
-     >[Разрешить показ]</a>
-   <else>
-    <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&redir=$_"
-     >[Запретить показ]</a>
-   </if>
-  </moderator>
- <else>
-  <if what='$complain'>
-   <logged>
-    <a href="complainedit.php?ident=forum&link=$answer.Id&redir=$_">[Жалоба]</a>
-   </logged>
-  </if>
- </isedit>
- </td>
- <td width=75% align=left valign=top>
+ <td width=25% class='header'><table cellpadding=0>
+  <tr><td><rebe><senderlink message='$answer'></rebe></td></tr>
+  <tr><td class='sent'><sentview date='$answer.Sent'></td></tr>
+ </table></td>
+ <td width=75% align=left valign=top class='body'>
   <rebe>$answer.HTMLBody</rebe>
  </td>
+</tr>
+<tr>
+ <td class='controls'>
+  <isedit name='answer'>
+   <a href="forumansweredit.php?editid=$answer.Id&redir=$_"
+    >Изменить</a>
+   <moderator>
+    &nbsp;
+    <if what='$answer.isDisabled'>
+     <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&redir=$_"
+      >Разрешить&nbsp;показ</a>
+    <else>
+     <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&redir=$_"
+      >Запретить&nbsp;показ</a>
+    </if>
+   </moderator>
+  <else>
+   <if what='$complain'>
+    <logged>
+     <a href="complainedit.php?ident=forum&link=$answer.Id&redir=$_"
+      >Жалоба</a>
+    </logged>
+   </if>
+  </isedit>
+ </td>
+ <td class='body'>&nbsp;</td>
 </tr>
 </table>
 </element>

@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/postings.mhtml 1.6 >>
 
-<element name='batcher_postings' params='value,list,topic,grp,g'>
+<element name='batcher_postings' params='value,list,topic,grp'>
 <grpdata>
 <grpitemtitle>
 <table width=100% class='batcher'>
@@ -65,8 +65,10 @@
                      sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
  <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp'>
- <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
- <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+ <table>
+  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+ </table>
  <for>
   <posting posting='$.' grp='$grp' topic='$topic'>
  </for>
