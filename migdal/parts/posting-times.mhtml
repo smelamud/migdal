@@ -1,0 +1,45 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/parts/posting.mhtml 1.35 >>
+
+<element name='posting_further' params='posting,title'>
+ <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
+  <image src='pics/further-small.gif' border=0 title='$title'>
+ <asp></a>&nbsp;<asp>
+</element>
+
+<element name='posting_times'>
+<dl class='times'>
+ <dt class='subject'>
+  <biff time='$posting.Sent'>
+  <a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'>
+     $posting.Subject</a>
+  <ifne what='$posting.Author'>
+   <br><span class='author'>$posting.Author</span>
+  </ifne>
+ </dt>
+ <dd>
+ <ifnzero what='$posting.ImageSet'>
+  <table align=left class='pic'>
+   <tr><td>
+    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+   </td></tr>
+   <ifne what='$posting.Title'>
+    <tr><td>$posting.HTMLTitle</td></tr>
+   </ifne>
+  </table>
+ </ifnzero>
+ $posting.HTMLBody&nbsp;<asp>
+ <posting_further posting='$posting' title='Читать статью'>
+ <table width=90% class='bottom'><tr>
+  <td>
+   <isedit what='$posting'>
+    <a href="postingedit.php?editid=$posting.Id&up=$times.Id&grp=$posting.Grp&redirid=$_"
+     >Изменить</a>
+   </isedit>
+  </td>
+  <if what='$showdiscuss'>
+   <td align=right><discusslink posting='$posting'></td>
+  </if>
+ </tr></table>
+</dl>
+</element>

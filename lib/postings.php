@@ -36,13 +36,13 @@ $this->grp=GRP_NONE;
 function getCorrespondentVars()
 {
 $list=Message::getCorrespondentVars();
-array_push($list,'ident','topic_id','grp','personal_id','priority');
+array_push($list,'ident','topic_id','grp','personal_id','priority','index1');
 return $list;
 }
 
 function getWorldPostingVars()
 {
-return array('message_id','topic_id','grp','personal_id');
+return array('message_id','topic_id','grp','personal_id','index1');
 }
 
 function getAdminPostingVars()
@@ -126,6 +126,16 @@ function getReadCount()
 return $this->read_count;
 }
 
+function getIndex0()
+{
+return $this->index0;
+}
+
+function getIndex1()
+{
+return $this->index1;
+}
+
 }
 
 require_once('grp/postings.php');
@@ -155,7 +165,7 @@ class PostingListIterator
 
 function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
-			     $withAnswers=GRP_NONE,$user=0)
+			     $withAnswers=GRP_NONE,$user=0,$index1=-1)
 {
 global $userId,$userModerator;
 
@@ -167,13 +177,17 @@ $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
              SORT_NAME     => 'subject',
              SORT_ACTIVITY => 'age desc',
-	     SORT_READ     => 'read_count desc,sent desc'));
+	     SORT_READ     => 'read_count desc,sent desc',
+	     SORT_INDEX0   => 'index0',
+	     SORT_INDEX1   => 'index1',
+	     SORT_RINDEX1  => 'index1 desc'));
 $answerFilter=$withAnswers!=GRP_NONE
               ? $withAnswers==GRP_ALL
 	        ? 'having count(forummesgs.id)<>0'
 		: "having (grp & $withAnswers)=0 or count(forummesgs.id)<>0"
 	      : '';
 $countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
+$index1Filter=$index1>=0 ? "and index1=$index1" : '';
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
@@ -183,7 +197,7 @@ $this->LimitSelectIterator(
 	       messages.url as url,messages.sender_id as sender_id,
 	       messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
-	       images.image_set as image_set,images.id as image_id,
+	       index1,images.image_set as image_set,images.id as image_id,
 	       images.has_large as has_large_image,images.title as title,
 	       if(images.has_large,length(images.large),
 	                           length(images.small)) as image_size,
@@ -219,7 +233,7 @@ $this->LimitSelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
-	      $userFilter
+	      $userFilter $index1Filter
 	group by messages.id
 	$answerFilter
 	$order",$limit,$offset,
@@ -349,37 +363,82 @@ return $paragraph;
 
 }
 
-function getPostingById($id,$grp=GRP_ALL,$topic=0)
+class ArticleCoversIterator
+      extends SelectIterator
+{
+
+function ArticleCoversIterator($articleGrp,$coverGrp)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$result=mysql_query('select postings.id as id,ident,message_id,stotext_id,body,
+$this->SelectIterator(
+       'Posting',
+       "select distinct postings.index1 as index1, 
+               cover_messages.source as source
+        from postings
+             left join postings as covers
+	          on postings.index1=covers.index1 and
+		     (covers.grp & $coverGrp)<>0
+	     left join messages
+	          on postings.message_id=messages.id
+	     left join messages as cover_messages
+	          on covers.message_id=cover_messages.id
+	where (postings.grp & $articleGrp)<>0 and
+	      (messages.hidden<$hide or messages.sender_id=$userId) and
+              (messages.disabled<$hide or messages.sender_id=$userId) and
+	      (covers.id is null or
+	       (cover_messages.hidden<$hide or
+	        cover_messages.sender_id=$userId) and
+               (cover_messages.disabled<$hide or
+	        cover_messages.sender_id=$userId))
+	order by index1 desc");
+}
+
+function create($row)
+{
+return newGrpPosting(GRP_TIMES_COVER,$row);
+}
+
+}
+
+function getPostingById($id=-1,$grp=GRP_ALL,$topic=0,$index1=-1)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$filter=$id>=0 ? 'postings.'.byIdent($id)
+               : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0"
+	                     : '');
+$result=mysql_query("select postings.id as id,ident,message_id,stotext_id,body,
                             large_filename,large_format,large_body,
 			    large_imageset,subject,author,source,url,topic_id,
 			    personal_id,sender_id,grp,priority,image_set,
-			    hidden,disabled
+			    index1,hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
 	                  left join stotexts
 	                       on stotexts.id=messages.stotext_id
-		     where postings.'.byIdent($id).
-		         " and (hidden<$hide or sender_id=$userId)
+		     where $filter
+		           and (hidden<$hide or sender_id=$userId)
 			   and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при выборке постинга');
+	     or die('Ошибка SQL при выборке постинга'.mysql_error());
 return mysql_num_rows($result)>0
        ? newPosting(mysql_fetch_assoc($result))
        : newGrpPosting($grp,array('topic_id' => idByIdent('topics',$topic)));
 }
 
-function getFullPostingById($id,$grp=GRP_ALL)
+function getFullPostingById($id=-1,$grp=GRP_ALL,$index1=-1)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
+$filter=$id>=0 ? 'postings.'.byIdent($id)
+               : ($index1>=0 ? "postings.index1=$index1 and (grp & $grp)<>0"
+	                     : '');
 $result=mysql_query(
 	"select postings.id as id,postings.ident as ident,
 	        postings.message_id as message_id,
@@ -422,11 +481,11 @@ $result=mysql_query(
 		       forummesgs.sender_id=$userId)
 	 where (messages.hidden<$hide or messages.sender_id=$userId) and
 	       (messages.disabled<$hide or messages.sender_id=$userId) and
-	       postings.".byIdent($id).
-       ' group by messages.id')
+	       $filter
+         group by messages.id")
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке постинга: '.mysql_error());
+ or die('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }
@@ -536,6 +595,15 @@ $result=mysql_query("select message_id
                      from postings
 		     where id=$id")
 	     or die('Ошибка SQL при получении идентификатора сообщения в постинге');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function getMaxIndexOfPosting($index,$grp)
+{
+$result=mysql_query("select max(index$index)
+                     from postings
+		     where (grp & $grp)<>0")
+	     or die('Ошибка SQL при получении максимального индекса постинга');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

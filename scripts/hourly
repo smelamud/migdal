@@ -62,19 +62,6 @@ $dbh=DBI->connect('DBI:mysql:database='.$Config{'dbName'}.';host='.
 
 sub clearSessions
 {
-my $lasts=$dbh->selectall_arrayref(
-          'select users.id,from_unixtime(unix_timestamp(max(last)))
-           from sessions
-	        left join users
-	             on sessions.user_id=users.id
-	   where last+interval '.$Config{'sessionTimeout'}.' hour<now()
-	   group by users.id');
-foreach my $info(@{$lasts})
-       {
-       $dbh->do('update users
-                 set last_online=\''.$info->[1].'\'
-		 where id='.$info->[0]);
-       }
 $dbh->do('delete
           from sessions
 	  where last+interval '.$Config{'sessionTimeout'}.' hour<now()');

@@ -47,6 +47,8 @@
 
 <deciter macro='array' class='ArrayIterator' file='lib/array.php'
          params='values' defaults="values='$*'">
+<deciter macro='article_covers' class='ArticleCoversIterator'
+         file='lib/postings.php' params='articlegrp,covergrp'>
 <deciter macro='chat' class='ChatMessageListIterator' file='lib/chat.php'
          params='limit' defaults='limit=20'>
 <deciter macro='chat_users' class='ChatUsersIterator' file='lib/users.php'>
@@ -79,8 +81,8 @@
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting'>
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user'
-         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0">
+         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user,index1'
+         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1">
 <deciter macro='posting_users' class='PostingUsersIterator'
          file='lib/postings.php' params='grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
@@ -132,7 +134,7 @@
 <deccall macro='image_name' func='getImageNameBySet' file='lib/images.php'
          params='set' defaults='name=image'>
 <deccall macro='image_tag' func='getImageTagById' file='lib/images.php'
-         params='id,align' defaults="align=''">
+         params='id,align,size' defaults="align='' size=small">
 <deccall macro='image_link' func='getImageEnlargeLinkById' file='lib/images.php'
          params='id'>
 <deccall macro='menu_obj' func='getMenuItemById' file='lib/menu.php'
@@ -140,9 +142,13 @@
 <deccall macro='plural' func='getPlural' file='lib/utils.php'
          params='value,words' defaults="words='$*'">
 <deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
-         params='id,grp,topic' defaults='name=message grp=*GRP_ALL topic=0'>
+         params='id,grp,topic,index1'
+	 defaults='id=-1 name=message grp=*GRP_ALL topic=0 index1=-1'>
 <deccall macro='posting_full' func='getFullPostingById' file='lib/postings.php'
-         params='id,grp' defaults='name=message grp=*GRP_ALL'>
+         params='id,grp,index1'
+	 defaults='id=-1 name=message grp=*GRP_ALL index1=-1'>
+<deccall macro='posting_index' func='getMaxIndexOfPosting'
+         file='lib/postings.php' params='index,grp' defaults="grp='*GRP_ALL'">
 <deccall macro='posting_last' func='getLastPostingDate' file='lib/postings.php'
          params='grp,topic_id,answers,user_id,recursive'
 	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0 recursive=*false'>
@@ -169,8 +175,8 @@
 <decel name='image' file='parts/utils.php' params='src,alt,title,border'
        defaults="src='' alt='' title='' border=''">
 
-<macro name='image_tag_put' defaults="align=''">
- <zone><image_tag id%!id='%id' align%!align=%align>$,</zone>
+<macro name='image_tag_put' defaults="align='' size=small">
+ <zone><image_tag id%!id='%id' align%!align='%align' size%!size=%size>$,</zone>
 </macro>
 
 <macro name='image_linked_tag' defaults="enlarge=true align=''">

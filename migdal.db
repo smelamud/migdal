@@ -203,7 +203,7 @@ CREATE TABLE postings (
   message_id int(11) NOT NULL default '0',
   topic_id int(11) NOT NULL default '0',
   personal_id int(11) NOT NULL default '0',
-  grp tinyint(4) NOT NULL default '0',
+  grp int(11) NOT NULL default '0',
   priority tinyint(4) NOT NULL default '0',
   read_count int(11) NOT NULL default '0',
   last_read datetime NOT NULL default '0000-00-00 00:00:00',

@@ -1,0 +1,19 @@
+<< @(#) $Id$ >>
+
+<element name='times_issue'>
+<if what='$issue>0'>
+ <table class='mtimes'>
+  <if what='$showlink'>
+   <tr><td>
+    <a href='times.php?issue=$issue'>&lt;&lt;Мигдаль Times&gt;&gt;</a>
+   </td></tr>
+  </if>
+  <tr><td class='issue'>
+   No.$issue
+  </td></tr>
+  <tr><td class='month'>
+   $month
+  </td></tr>
+ </table>
+</if>
+</element>

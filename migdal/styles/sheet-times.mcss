@@ -1,0 +1,25 @@
+! @(#) $Id$
+
+.mtimes .issue {
+	font: bold 24pt %times;
+}
+
+.mtimes .month {
+	font-family: %courier;
+	font-size: 9pt;
+}
+
+.mtimes .pic IMG {
+	border: 1px solid %times_image_border;
+}
+
+.mtimes .picissue A {
+	font: bold 10pt %times;
+	color: %times_issue_link;
+	text-decoration: none;
+}
+
+.mtimes .picissue A:hover {
+	color: %times_issue_link_hover;
+	text-decoration: underline;
+}

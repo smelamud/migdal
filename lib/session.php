@@ -86,6 +86,8 @@ else
       $GLOBALS['userHidden']--;
     mysql_query("update sessions set last=null where sid=$sessionid")
 	 or die('Ошибка SQL при обновлении TIMESTAMP сессии');
+    mysql_query("update users set last_online=now() where id=$userId")
+	 or die('Ошибка SQL при обновлении времени захода пользователя');
     SetCookie('sessionid',$sessionid,time()+($sessionTimeout+24)*3600,'/');
     }
   }

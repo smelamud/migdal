@@ -59,7 +59,7 @@
       </moderator>
       <if what='$message.hasTopic'>
        <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
-		    mandatory='$message.mandatorySubject' up='$up'>
+		    mandatory='$message.mandatoryTopic' up='$up'>
       </if>
       <moderator>
        <if what='$message.hasIdent'>
@@ -70,6 +70,11 @@
 		   size=15 maxlength=15 mandatory='$message.mandatoryIdent'>
        </if>
       </moderator>
+      <if what='$message.hasIndex1'>
+       <error id='*EP_INDEX1_ABSENT' text='Номер не указан' span=2>
+       <edit_line title='Номер' value='$message.Index1' name='index1'
+		  size=3 maxlength=5 mandatory='$message.mandatoryIndex1'>
+      </if>
       <if what='$message.hasSubject'>
        <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
        <edit_line title='Заголовок' value='$message.Subject' name='subject'

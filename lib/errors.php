@@ -53,6 +53,7 @@ define('EP_AUTHOR_ABSENT',1317);
 define('EP_SOURCE_ABSENT',1318);
 define('EP_OWNED_TOPIC',1319);
 define('EP_URL_ABSENT',1320);
+define('EP_INDEX1_ABSENT',1321);
 
 define('EMH_OK',140);
 define('EMH_NO_MODERATE',141);

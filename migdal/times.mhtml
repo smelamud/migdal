@@ -1,0 +1,126 @@
+<< @(#) $Id$ >>
+
+<int name='issue'>
+<grps>
+
+<pagetitle title='Мигдаль Times'>
+
+<macro name='editor'>
+ <if what='$times.UserId==$$userId || $$userModerator'>
+</macro>
+<endif name='/editor'>
+
+<element name='batcher_times' params='times'>
+<editor>
+ <div class='batcher'>
+  <a href='postingedit.php?up=$times.Id&grp=*GRP_TIMES_ARTICLE&redirid=$_'
+     class=add>Добавить статью</a>
+ </div>
+</editor>
+</element>
+
+<element name='select_issue' params='issue'>
+<form method=get action='$~'><table class='eightpt form'>
+ <tr>
+  <th rowspan=2>&nbsp;</th>
+  <td>Номер</td>
+  <td><select name='issue'>
+   <iterate_article_covers articlegrp='*GRP_TIMES_ARTICLES'
+ 			   covergrp='*GRP_TIMES_COVERS'>
+   <for>
+    <assign value!='$.Index1!=0 ? $.Index1 : -1'>
+    <radio title#='No.$.Index1&nbsp;$.Source' value='$*' peervalue='$issue'>
+   </for>
+  </select></td>
+ </tr>
+ <tr>
+  <td class='buttons-nosplit' colspan=2 align=right>
+   <input type=submit value='Выбрать'>
+  </td>
+ </tr>
+</tr></table></form>
+</element>
+
+<html>
+<zone>
+ <stylesheet ident='times'>
+ <preamble>
+</zone>
+<body>
+ <top ident='index'>
+ <topic_obj name='times' id='migdal-times'>
+ <ifzero what='$issue'><zone>
+  <posting_index index=1 grp='*GRP_TIMES_ARTICLES'>
+  <assign name='issue' value='$,'>
+ </zone></ifzero>
+ <table width=100%><tr valign=top>
+  <td width=120><zone>
+   <posting_new grp='*GRP_TIMES_ARTICLES' topic_id='$times.Id'>
+   <topics posting='$,' showchapters='*true'>
+  </zone></td>
+  <td width=5>&nbsp;</td>
+  <posting_full name='cover' grp='*GRP_TIMES_COVERS' topic='$times.Id'
+		index1!='$issue<0 ? 0 : $issue'>
+  <td class='mtimes'>
+   <table><tr valign=bottom><td>
+    <image src='pics/times.gif'>
+   </td><td>
+    <times_issue issue='$issue' month='$cover.Source'>
+   </td></tr></table>
+   <p>
+   <table width=100% cellspacing=0 cellpadding=0><tr valign=top>
+    <td width=150>
+     <editor>
+      <center class=batcher>
+       <a href='postingedit.php?up=$times.Id&topic_id=$times.Id&grp=*GRP_TIMES_COVERS&redirid=$_'
+	  class=add>Добавить обложку</a>
+      </center>
+     </editor>
+     <ifnzero what='$cover.Id'>
+      <div class=pic>
+       <image_tag_put id='$cover.ImageId' size=large>
+      </div>
+      <editor>
+       <center class=batcher>
+	<a href='postingedit.php?editid=$cover.Id&up=$times.Id&topic_id=$times.Id&grp=$cover.Grp&redirid=$_'
+	   class=add>Изменить</a>
+       </center>
+      </editor>
+     </ifnzero>
+    </td>
+    <td width=5>&nbsp;</td>
+    <td>
+     <select_issue issue='$issue'>
+     <p>
+     <batcher_times times='$times'>
+     <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='migdal-times'
+			  recursive='*true' limit=0 sort='*SORT_INDEX0'
+			  index1!='$issue<0 ? 0 : $issue'>
+     <for>
+      <posting_times posting='$.' times='$times'>
+     </for>
+     <ifnzero what='$;Count'>
+      <batcher_times times='$times'>
+     </ifnzero>
+    </td>
+    <td width=5>&nbsp;</td>
+    <td width=80 align=center>
+     <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=5 sort='*SORT_RINDEX1'>
+     <for>
+      <table>
+       <tr><td class=pic>
+        <a href='times.php?issue=$.Index1'><image_tag_put id='$.ImageId'></a>
+       </td></tr>
+       <tr><td class=picissue align=center>
+        <a href='times.php?issue=$.Index1'>No.$.Index1</a>
+       </td></tr>
+      </table>
+      <p>
+     </for>
+    </td>
+   </tr></table>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

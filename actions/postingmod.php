@@ -82,11 +82,11 @@ if($message->mandatoryURL() && $message->url=='')
   return EP_URL_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
-if($message->topic_id!=0 && !topicExists($message->topic_id))
+if($message->topic_id!=0 && !topicExists(addslashes($message->topic_id)))
   return EP_NO_TOPIC;
 if($message->topic_id!=0 && !$userModerator)
   {
-  $ownerId=getTopicOwnerById($message->topic_id);
+  $ownerId=getTopicOwnerById(addslashes($message->topic_id));
   if($ownerId!=0 && $ownerId!=$userId)
     return EP_OWNED_TOPIC;
   }
@@ -95,6 +95,8 @@ if($message->mandatoryIdent() && $message->ident=='')
 $cid=idByIdent('postings',$message->ident);
 if($message->ident!='' && $cid!=0 && $message->id!=$cid)
   return EP_IDENT_UNIQUE;
+if($message->mandatoryIndex1() && $message->index1==0)
+  return EP_INDEX1_ABSENT;
 if($message->mandatoryImage() && $message->stotext->image_set==0)
   return EP_IMAGE_ABSENT;
 if($message->stotext->image_set!=0
@@ -111,6 +113,7 @@ return EP_OK;
 
 postInteger('editid');
 postInteger('grp');
+postInteger('index1');
 postString('body');
 postString('large_body');
 postString('subject');
@@ -118,7 +121,6 @@ postString('author');
 postString('source');
 postString('title');
 postString('url');
-$title=addslashes($title);
 
 dbOpen();
 session($sessionid);
@@ -128,7 +130,8 @@ $image=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
 if($image)
   $message->setImageSet($image->getImageSet());
 if($err==EIU_OK && $message->getImageSet()!=0)
-  $err=setImageTitle($message->getImageSet(),$title);
+  $err=setImageTitle($message->getImageSet(),
+                     addslashes(htmlspecialchars($title,ENT_QUOTES)));
 if($err==EIU_OK || $err==EP_OK)
   $err=uploadLargeText($message->stotext);
 if($err==EUL_OK)

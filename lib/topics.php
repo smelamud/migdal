@@ -12,6 +12,7 @@ require_once('lib/stotext.php');
 require_once('lib/array.php');
 require_once('lib/track.php');
 require_once('lib/charsets.php');
+require_once('lib/grpiterator.php');
 
 class Topic
       extends UserTag
@@ -49,13 +50,15 @@ foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 $this->allow=0;
 $this->premoderate=0;
-$grpNames=$this->getGrpVars();
-foreach($grpNames as $code => $name)
+$iter=new GrpIterator();
+while($group=$iter->next())
+     if(($group->getGrp() & GRP_ALL)!=0)
        {
+       $name=$group->getGrpIdent();
        if($vars[$name])
-         $this->allow|=$code;
+	 $this->allow|=$group->getGrp();
        if($vars["premoderate_$name"])
-         $this->premoderate|=$code;
+	 $this->premoderate|=$group->getGrp();
        }
 $this->stotext->setup($vars,'description');
 }
@@ -63,17 +66,6 @@ $this->stotext->setup($vars,'description');
 function getCorrespondentVars()
 {
 return array('up','name','hidden','ident','login');
-}
-
-function getGrpVars()
-{
-return array(GRP_NEWS       => 'news',
-             GRP_FORUMS     => 'forums',
-	     GRP_GALLERY    => 'gallery',
-	     GRP_ARTICLES   => 'articles',
-	     GRP_QUOTES     => 'quotes',
-	     GRP_PHRASES    => 'phrases',
-	     GRP_INT_FORUMS => 'int_forums');
 }
 
 function getWorldVars()

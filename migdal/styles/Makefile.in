@@ -11,6 +11,8 @@ STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-article.mcss
 COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
 CHAT_PARTS = colors.mcss fonts.mcss palette.mcss sheet-chat.mcss
+TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss \
+	sheet-times-posting.mcss
 
 style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
@@ -48,7 +50,16 @@ chat-%.css: chat.mcss $(CHAT_PARTS) ../../cssparser
 chat.stamp: $(patsubst %,chat-%.css,$(FLAVOURS)) $(patsubst %,chat-%.php,$(FLAVOURS))
 	touch $@
 
-all: style.stamp article.stamp complain.stamp chat.stamp
+times-%.php: times.mcss $(TIMES_PARTS) ../../cssparser
+	../../cssparser -p -s $* $< > $@
+
+times-%.css: times.mcss $(TIMES_PARTS) ../../cssparser
+	../../cssparser -s $* $< > $@
+
+times.stamp: $(patsubst %,times-%.css,$(FLAVOURS)) $(patsubst %,times-%.php,$(FLAVOURS))
+	touch $@
+
+all: style.stamp article.stamp complain.stamp chat.stamp times.stamp
 
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ > Makefile

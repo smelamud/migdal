@@ -10,7 +10,6 @@
  <top ident='index'>
  <complain_type_obj id='$typeid'>
  <form method=get action='$~'><table class='form'><tr>
-  <hidden name='redirid' value='$_'>
   <th>&nbsp;</th>
   <td>Тип</td>
   <td><select name='typeid'>

@@ -186,19 +186,19 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
-function getImageTagById($id,$align='')
+function getImageTagById($id,$align='',$aSize='small')
 {
 global $uiName,$thumbnailType;
 
 $size=mysql_fetch_row(
-      mysql_query("select small_x,small_y,has_large,format
+      mysql_query("select ${aSize}_x,${aSize}_y,has_large,format
                    from images
  	           where id=$id"));
 $al=$align!='' ? "align=$align" : '';
 $ext=getImageExtension($size[2] ? $thumbnailType : $size[3]);
 return '<img border=0 width='.$size[0].
                     ' height='.$size[1].
-		    " $al src='lib/image.php/$uiName-$id.$ext?id=$id&size=small'>";
+		    " $al src='lib/image.php/$uiName-$id.$ext?id=$id&size=$aSize'>";
 }
 
 function getImageEnlargeLinkById($id)

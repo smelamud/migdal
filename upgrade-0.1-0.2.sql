@@ -32,3 +32,4 @@ ALTER TABLE `topics` ADD INDEX (`name_sort`);
 ALTER TABLE `users` ADD `login_sort` VARCHAR(60) NOT NULL AFTER `login`;
 ALTER TABLE `users` ADD INDEX (`login_sort`);
 ALTER TABLE `messages` ADD `url` VARCHAR(250) NOT NULL;
+ALTER TABLE `postings` CHANGE `grp` `grp` INT DEFAULT '0' NOT NULL;

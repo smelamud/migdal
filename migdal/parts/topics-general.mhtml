@@ -18,6 +18,15 @@
 </if>
 </element>
 
+<element name='navi_times' params='posting'>
+<topic_obj name='times' id='migdal-times'>
+
+<posting_last topic_id='$times.Id' recursive='*true'>
+<topics_line arrow!="($posting.TopicId==$times.Id || $posting.TopicId==='migdal-times')"
+             time='$,' href='times.php' title='$times.Description'
+	     text='$times.Name' class='item large' span=2>
+</element>
+
 <element name='topics'>
 <topics_table class='ninept'>
  <admin_topics>
@@ -26,9 +35,11 @@
    <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
   </td></tr>
  </admin_topics>
- <topics_line arrow!='$posting.TopicId==-1' href#='$file?topic_id=-1'
+ <topics_line arrow!='$posting.TopicId==-1'
+              href#='$posting.PageFile?topic_id=-1'
 	      text='Все темы' class='new' span=2>
  <if what='$showchapters'>
+  <navi_times posting='$posting'>
   <navi_taglit posting='$posting'>
  </if>
  <iterate_topiclist grp='$posting.PageGroup' withpostings='$withpostings'

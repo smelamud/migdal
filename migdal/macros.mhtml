@@ -18,7 +18,8 @@
 
 << Elements >>
 <decel name='article' file='parts/article.php' params='posting'>
-<decel name='article_controls' file='parts/article.php' params='posting'>
+<decel name='article_controls' file='parts/article.php' params='posting,up'
+       defaults="up=general">
 <decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='at' file='parts/utils.php' params='target,class,href'
        defaults="target='' class=''">
@@ -66,8 +67,10 @@
 <decel name='picture_main' file='parts/picture-main.php'
        params='picture,grp,topic'>
 <decel name='posting' file='parts/posting.php'
-       params='posting,grp,showtopic,showdiscuss,showcomplain,shorten'
+       params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
+<decel name='posting_times' file='parts/posting-times.php'
+       params='posting,times,showdiscuss' defaults="showdiscuss='*true'">
 <decel name='postings' file='parts/postings.php'
        params='grp,topic,limit,offset'
        defaults="topic=-1 limit=10 offset=0">
@@ -93,6 +96,8 @@
        defaults="showdiscuss='*true' showcomplain='*true' shorten='*false'">
 <decel name='taglit_postings' file='parts/taglit-postings.php'
        params='taglit_id,user_id'>
+<decel name='times_issue' file='parts/times-issue.php'
+       params='issue,month,showlink' defaults="showlink='*false'">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
        params='ident,no_new,target,showimages'
