@@ -39,7 +39,10 @@ if(!$fd)
 $action=array();
 while(!feof($fd))
      {
-     $line=parseJournalTransfer(fgets($fd,$maxImage));
+     $s=fgets($fd,$maxImage);
+     if($s=='')
+       continue;
+     $line=parseJournalTransfer($s);
      if($line->getQuery()!='')
        $action[]=$line;
      else
