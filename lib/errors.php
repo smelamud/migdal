@@ -21,6 +21,7 @@ define('ET_NAME_ABSENT',121);
 define('ET_DESCRIPTION_ABSENT',122);
 define('ET_NO_EDIT',123);
 define('ET_STORE_SQL',124);
+define('ET_IDENT_UNIQUE',125);
 
 define('EP_OK',130);
 define('EP_NO_EDIT',131);

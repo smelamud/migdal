@@ -136,15 +136,6 @@ $result=mysql_query("select menu_index from menu where id=$id")
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
 }
 
-function menuIdentExists($ident)
-{
-$result=mysql_query("select id
-                     from menu
-		     where ident='$ident'")
-	     or die('Ошибка SQL при выборке идентификатора пункта меню');
-return mysql_num_rows($result)>0;
-}
-
 function menuItemExists($id)
 {
 $result=mysql_query("select id

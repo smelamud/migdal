@@ -6,6 +6,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/errors.php');
 require_once('lib/menu.php');
+require_once('lib/ident.php');
 
 function modifyMenu($item)
 {
@@ -17,7 +18,7 @@ if($item->name=='')
   return EMI_NAME_ABSENT;
 if($item->ident=='')
   return EMI_IDENT_ABSENT;
-if($item->id==0 && menuIdentExists($item->ident))
+if($item->id!=idByIdent('menu',$item->ident))
   return EMI_IDENT_UNIQUE;
 if(!$item->store())
   return EMI_STORE_SQL;

@@ -2,7 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/dataobject.php');
-require_once('lib/utils.php');
+require_once('lib/ident.php');
 
 class ComplainType
       extends DataObject

@@ -5,6 +5,7 @@ require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
+require_once('lib/ident.php');
 
 class Topic
       extends DataObject
@@ -17,6 +18,7 @@ var $no_news;
 var $no_forums;
 var $no_gallery;
 var $no_articles;
+var $ident;
 var $message_count;
 
 function Topic($row)
@@ -38,7 +40,7 @@ if(isset($vars['descriptionid']))
 
 function getCorrespondentVars()
 {
-return array('name','description','hidden');
+return array('name','description','hidden','ident');
 }
 
 function getInverseVars()
@@ -52,7 +54,7 @@ return array('no_news' => 'news',
 function getWorldVars()
 {
 return array('name','description','hidden','no_news','no_forums','no_gallery',
-             'no_articles');
+             'no_articles','ident');
 }
 
 function store()
@@ -104,6 +106,11 @@ return $this->no_gallery ? 0 : 1;
 function isArticles()
 {
 return $this->no_articles ? 0 : 1;
+}
+
+function getIdent()
+{
+return $this->ident;
 }
 
 function getMessageCount()
@@ -182,9 +189,9 @@ global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id,name,description,hidden,no_news,no_forums,
-                            no_gallery,no_articles
+                            no_gallery,no_articles,ident
 		     from topics
-		     where id=$id and hidden<$hide")
+		     where ".byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
@@ -197,7 +204,7 @@ global $userAdminTopics;
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id,name
 		     from topics
-		     where id=$id and hidden<$hide")
+		     where ".byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
