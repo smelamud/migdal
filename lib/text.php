@@ -293,6 +293,8 @@ return substr($s,0,$len);
 
 function ellipsize($s,$len)
 {
+if(strlen($s)<=$len)
+  return $s;
 $c=substr($s,0,($len-3)/2);
 return "$c...".substr($s,strlen($s)-$len-3-strlen($c));
 }
