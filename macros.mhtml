@@ -559,6 +559,18 @@ parse_str($fragments['query']);
  </td>
 </macro>
 
+<macro name='tdaspan' defaults='span=0'>
+ <if what='(%span)==0 || (%span)==1'>
+  <asp><td align='%align'><asp>
+ <else>
+  <asp><td align='%align' colspan='%span'><asp>
+ </if>
+</macro>
+
+<macro name='/tdaspan'>
+ </td>
+</macro>
+
 <macro name='hidden'>
  <input type=hidden name='%name' value="%value">
 </macro>

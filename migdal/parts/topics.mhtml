@@ -30,7 +30,7 @@
   <tdspan span='$indent'>&nbsp;</tdspan>
  </if>
  <if what='$indent>=0'>
-  <td width=$$style_topics_arrow_width>
+  <td width='$$style_topics_arrow_width'>
    <topics_ner time='$time' arrow='$arrow' nobullet='$nobullet'>
   </td>
  </if>
@@ -53,13 +53,7 @@
   <tdspan span='$indent'>&nbsp;</tdspan>
  </if>
  <assign name='headspan' value!='$span+1'>
- <if what='$headspan<=1'>
-  <asp><td class='$class'><asp>
- <else>
-  <asp><td class='$class' colspan='$headspan'><asp>
- </if>
-  $title
- <asp></td>
+ <tdcspan class='$class' span='$headspan'>$title</tdcspan>
 </tr>
 </element>
 

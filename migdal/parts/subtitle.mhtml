@@ -2,16 +2,9 @@
 
 <element name='subtitle'>
 <ifne what='$$topicTitle'>
- <table class=title width=100% cellspacing=0>
-  <col width=10>
-  <ifne what='$icon'>
-   <col width=0*>
-  </ifne>
+ <table class='title' width=100% cellspacing=0>
   <tr valign=center>
-   <th>&nbsp;</th>
-   <ifne what='$icon'>
-    <td><image src='$icon'></td>
-   </ifne>
+   <th width=10>&nbsp;</th>
    <td align=left>&nbsp;$$topicTitle</td>
    <th width=50>&nbsp;</th>
   </tr>

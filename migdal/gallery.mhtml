@@ -95,7 +95,7 @@
    <td class='cframe'><outer>
     <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
      <td><common>
-      <subtitle icon='pics/gall-big.gif'>
+      <subtitle>
       <outer><div class='nframe' style='margin-bottom: 5px; padding: 5px'>
        <inner><notonly posting='$,'></inner>
       </div></outer>
@@ -117,7 +117,7 @@
   <else>
    <td>
     <div class='nframe' style='margin-bottom: 5px; padding: 5px'>
-     <subtitle icon='pics/gall-big.gif'>
+     <subtitle>
      <notonly posting='$,'>
      <p>
      <seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'

@@ -11,7 +11,7 @@
 <grps>
 <user_obj name='user' id='$user_id'>
 <pagetitle title#='Таглит - $user.FullName'>
-<topictitle title='$user.FullName'>
+<topictitle title#='Таглит - $user.FullName'>
 <log event=taglit text#='user($user.Id) offset=$offset'>
 
 <html>
@@ -27,7 +27,7 @@
   </zone></td>
   <td>
    <div class='cframe' style='padding: 5'>
-    <subtitle icon='pics/taglit.gif'>
+    <subtitle>
     <div class='ninept'>
      <a href='userinfo.php?id=$user.Id'
 	onClick="UserInfo($user.Id);return false">О пользователе $user.Login</a>

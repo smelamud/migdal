@@ -195,8 +195,7 @@
 <decel name='star' file='parts/formutils.php'>
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
-<decel name='subtitle' file='parts/subtitle.php' params='icon'
-       defaults="icon=''">
+<decel name='subtitle' file='parts/subtitle.php'>
 <decel name='textears' file='parts/textears.php'>
 <decel name='times_no' file='parts/posting-times-cover.php'
        params='index1,index2'>
