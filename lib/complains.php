@@ -336,12 +336,13 @@ return mysql_num_rows($result)>0;
 
 function sendAutomaticComplain($type_id,$subject,$body,$link,$no_auto=false)
 {
-$complain=new Complain(array('type_id'   => $type_id,
-                             'link'      => $link,
-                             'subject'   => $subject,
-			     'body'      => $body,
-			     'sender_id' => getShamesId(),
-			     'no_auto'   => (int)$no_auto));
+$complain=newComplain($type_id,
+                      array('type_id'   => $type_id,
+                            'link'      => $link,
+                            'subject'   => $subject,
+			    'body'      => $body,
+			    'sender_id' => getShamesId(),
+			    'no_auto'   => (int)$no_auto));
 $complain->store() or sqlbug('Ошибка SQL при посылке автоматической жалобы');
 }
 
