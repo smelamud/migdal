@@ -105,7 +105,7 @@ journal("update $table
 
 function setPermsRecursive($table,$id,$user_id,$group_id,$perms)
 {
-global $permModels;
+global $permModels,$journalSeq;
 
 list($class,$user)=$permModels[$table];
 $set=array();
@@ -120,9 +120,10 @@ mysql_query("update $table
              set $set
 	     where ".subtree($id,true))
   or sqlbug('Ошибка SQL при рекурсивной установке прав');
-journal("perms $table ".journalVar($table,$id).
-                    ' '.journalVar('users',$user_id).
-                    ' '.journalVar('users',$group_id)." $perms");
+if($journalSeq!=0)
+  journal("perms $table ".journalVar($table,$id).
+		      ' '.journalVar('users',$user_id).
+		      ' '.journalVar('users',$group_id)." $perms");
 }
 
 function permFilter($right,$user_id='user_id',$useDisabled=false,$prefix='')
