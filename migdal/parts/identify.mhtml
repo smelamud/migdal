@@ -47,7 +47,6 @@
  <assign name='ghref' value#='gallery.php?topic_id=$`migdal`'>
  <assign name='title' value=''>
  <assign name='name' value='Мигдаль'>
- <identify_migdal_details>
  <if what='$/$posting.TopicId,1/==$`migdal-library`'>
   <topic_obj id='$`migdal-library`'>
   <assign name='href' value='migdal-library.php'>
