@@ -35,6 +35,9 @@
        <input class=line type=password name='password' size=30 maxlength=30>
       </td>
      </tr>
+     <tr><td>&nbsp;</td><td>
+      <a href='userlost.php?redirid=$_'>Забыли пароль?</a>
+     </td></tr>
      <formbuttons title='Войти' span=2>
     </table>
    </form>
