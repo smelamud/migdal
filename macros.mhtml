@@ -141,6 +141,7 @@
          params='id,align,size' defaults="align='' size=small">
 <deccall macro='image_link' func='getImageEnlargeLinkById' file='lib/images.php'
          params='id'>
+<deccall macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
 <deccall macro='menu_obj' func='getMenuItemById' file='lib/menu.php'
          params='id' defaults='name=menu id=0'>
 <deccall macro='plural' func='getPlural' file='lib/utils.php'

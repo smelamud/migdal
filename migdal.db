@@ -154,6 +154,7 @@ CREATE TABLE logs (
   id int(11) NOT NULL auto_increment,
   event varchar(30) NOT NULL default '',
   sent timestamp(14) NOT NULL,
+  ip int(10) unsigned NOT NULL default '0',
   body varchar(250) NOT NULL default '',
   PRIMARY KEY  (id),
   KEY id (id,event,sent)

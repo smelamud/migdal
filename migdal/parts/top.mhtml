@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='Top'>
+<element name='top'>
 <script src='/window.js' language='JavaScript'></script>
 <table class='state'>
  <col width=*>

@@ -40,3 +40,4 @@ CREATE TABLE `logs` (
 `body` VARCHAR(250) NOT NULL,
 INDEX (`id`, `event`, `sent`)
 );
+ALTER TABLE `logs` ADD `ip` INT UNSIGNED NOT NULL AFTER `sent`;
