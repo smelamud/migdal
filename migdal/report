@@ -5,6 +5,7 @@
 use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 use POSIX qw(mktime);
+use locale;
 
 $VERSION='0.3';
 
@@ -195,6 +196,10 @@ sub initRaw
 {
 }
 
+sub initSearch
+{
+}
+
 sub initTraps
 {
 }
@@ -227,6 +232,15 @@ for($i=3;$i>=0;$i--)
 return join '.',@ip;
 }
 
+sub urldecode
+{
+my ($s)=@_;
+
+$s=~s/%([0-9A-F]{2})/chr(hex($1))/ge;
+$s=~tr/+/ /;
+return $s;
+}
+
 sub specify
 {
 my ($event,$s)=@_;
@@ -246,10 +260,8 @@ foreach(@specs)
        }
 if($event eq 'search')
   {
-  my ($ss)=$s=~/=([^=]*)$/;
-  $ss=~s/%([0-9A-F]{2})/chr(hex($1))/ge;
-  $ss=~tr/+/ /;
-  $c.=" $ss";
+  $s=~/query=(.*)$/;
+  $c.=' '.urldecode($1);
   }
 return $c;
 }
@@ -351,6 +363,17 @@ print getTimeStr($$log[1]).' '.getAddress($$log[2])."\t".$$log[0].': '.
       comment($$log[0],$$log[3])."\n";
 }
 
+sub runSearch
+{
+my ($log)=@_;
+
+return if $$log[0] ne 'search';
+$$log[3]=~/query=(.*)$/;
+my $s=lc(urldecode($1));
+$counters{$s}=new Counter() unless defined $counters{$s};
+$counters{$s}->inc($$log[2],$$log[1]);
+}
+
 sub runTraps
 {
 my ($log)=@_;
@@ -432,6 +455,16 @@ for my $page(@pages)
 
 sub doneRaw
 {
+}
+
+sub doneSearch
+{
+@searches=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+               keys %counters;
+for my $search(@searches)
+    {
+    printf "%5i  %s\n",$counters{$search}->getValue(),$search;
+    }
 }
 
 sub doneTraps
