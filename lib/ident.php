@@ -30,8 +30,11 @@ global $idents;
 
 if(isId($ident))
   return $ident;
+if($ident=='')
+  return 0;
 if(isset($idents[$table]) && isset($idents[$table][$ident]))
   return $idents[$table][$ident];
+dbOpen();
 $result=mysql_query("select id
                      from $table
 		     where ident='$ident'")
@@ -47,6 +50,7 @@ function identById($table,$id)
 {
 if(!isId($id))
   return $id;
+dbOpen();
 $result=mysql_query("select ident
                      from $table
 		     where id=$id")
