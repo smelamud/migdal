@@ -11,7 +11,7 @@
      <biff time='$answer.Sent'>
     </td></tr>
    </table></td>
-   <td class='body'>
+   <td class='body ninept'>
     $answer.HTMLBody
    </td>
   </tr>
