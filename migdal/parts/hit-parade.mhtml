@@ -1,0 +1,31 @@
+<< @(#) $Id$ >>
+
+<element name='hit_parade'>
+<grps>
+<table class='eightpt topics' width=100%>
+ <col width=0*>
+ <tr><th colspan=2>Избранное</th></tr>
+ <tbody class='names'>
+  <iterate_postinglist grp='$grp' topic='$topic_id' limit=10 sort='*SORT_READ'>
+  <for>
+   <tr>
+    <td>
+     <ifbiff time='$.Sent'>
+      <image src='pics/ner.gif' title='новое'>
+     <else>
+      &nbsp;
+     </ifbiff>
+    </td>
+    <td>
+     <if what='$.Grp==*GRP_ARTICLES'>
+      <a href='article.php?redirid=$_&artid=$.Id'>
+     <else>
+      <a href='forum.php?redirid=$_&msgid=$.Id'>
+     </if>
+      $.SubjectDesc&nbsp;<span class='answers'>($.ReadCount)</span></a>
+    </td>
+   </tr>
+  </for>
+ </tbody>
+</table>
+</element>
