@@ -20,17 +20,15 @@
 <element name='forums'>
 <iterate_forum_answerlist parent_id='$parent_id' limit='$limit'
                           offset='$offset'>
-<div class='forums'>
+<batcher list='$;' parent_id='$parent_id'>
+<table width=100% cellspacing=0 cellpadding=0 class='forums'><tr><td>
+ <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+ <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+ <for>
+  <forum_answer answer='$.'>
+ </for>
+</tr></td></table>
+<ifnzero what='$;Count'>
  <batcher list='$;' parent_id='$parent_id'>
- <table width=100%>
-  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
-  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
-  <for>
-   <tr><td><forum_answer answer='$.'></td></tr>
-  </for>
- </table>
- <ifnzero what='$;Count'>
-  <batcher list='$;' parent_id='$parent_id'>
- </ifnzero>
-</div>
+</ifnzero>
 </element>
