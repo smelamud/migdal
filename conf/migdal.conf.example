@@ -208,4 +208,7 @@ $regularPassword='test';
 
 # Гость
 $guestLogin='Гость';
+
+# Роль хоста в репликации
+$replicationMaster=true;
 ?>

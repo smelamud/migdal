@@ -369,6 +369,19 @@
 </macro>
 <endif name='/admin_domain'>
 
+<< Role >>
+<macro name='master'>
+ <conf>
+ <if what='$$replicationMaster'>
+</macro>
+<endif name='/master'>
+
+<macro name='slave'>
+ <conf>
+ <if what='!$$replicationMaster'>
+</macro>
+<endif name='/slave'>
+
 << Typecasts >>
 <macro name='int'>
  <header>

@@ -65,3 +65,24 @@ ALTER TABLE `topics` ADD INDEX (`separate`);
 alter table users add guest tinyint after shames;
 ALTER TABLE `users` ADD `in_chat` TINYINT NOT NULL;
 ALTER TABLE `users` ADD INDEX ( `in_chat` );
+CREATE TABLE `journal` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`seq` INT NOT NULL ,
+`result_table` VARCHAR( 30 ) NOT NULL ,
+`result_id` INT NOT NULL ,
+`result_var` INT NOT NULL ,
+`query` MEDIUMBLOB NOT NULL ,
+`sent` TIMESTAMP NOT NULL ,
+INDEX ( `seq` , `result_table` , `result_id` , `result_var` , `sent` )
+);
+CREATE TABLE `journal_vars` (
+`var` INT NOT NULL ,
+`host` VARCHAR( 30 ) NOT NULL ,
+`value` INT NOT NULL ,
+INDEX ( `var` , `host` )
+);
+CREATE TABLE `horisonts` (
+`host` VARCHAR( 30 ) NOT NULL ,
+`horisont` INT NOT NULL ,
+PRIMARY KEY ( `host` )
+);

@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.52-log
+-- Server version	3.23.53-log
 
 --
 -- Table structure for table 'chat_messages'
@@ -83,6 +83,16 @@ CREATE TABLE forums (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'horisonts'
+--
+
+CREATE TABLE horisonts (
+  host varchar(30) NOT NULL default '',
+  horisont int(11) NOT NULL default '0',
+  PRIMARY KEY  (host)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'images'
 --
 
@@ -118,6 +128,33 @@ CREATE TABLE instants (
   PRIMARY KEY  (id),
   KEY message_id (message_id),
   KEY recipient_id (recipient_id)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'journal'
+--
+
+CREATE TABLE journal (
+  id int(11) NOT NULL auto_increment,
+  seq int(11) NOT NULL default '0',
+  result_table varchar(30) NOT NULL default '',
+  result_id int(11) NOT NULL default '0',
+  result_var int(11) NOT NULL default '0',
+  query mediumblob NOT NULL,
+  sent timestamp(14) NOT NULL,
+  PRIMARY KEY  (id),
+  KEY seq (seq,result_table,result_id,result_var,sent)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'journal_vars'
+--
+
+CREATE TABLE journal_vars (
+  var int(11) NOT NULL default '0',
+  host varchar(30) NOT NULL default '',
+  value int(11) NOT NULL default '0',
+  KEY var (var,host)
 ) TYPE=MyISAM;
 
 --
@@ -465,7 +502,7 @@ CREATE TABLE votes (
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.52-log
+-- Server version	3.23.53-log
 
 --
 -- Dumping data for table 'version'
