@@ -6,7 +6,8 @@
  <col width=0*>
  <tr><th colspan=2>Избранное</th></tr>
  <tbody class='names'>
-  <iterate_postinglist grp='$grp' topic='$topic_id' limit=10 sort='*SORT_READ'>
+  <iterate_postinglist grp='$grp' topic='$topic_id' limit=10 sort='*SORT_READ'
+                       recursive='*true'>
   <for>
    <tr>
     <td>
