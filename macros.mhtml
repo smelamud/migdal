@@ -335,8 +335,8 @@
 
 <macro name='radio' defaults='peervalue="-1"'>
  <if what='%value==%peervalue'>
-  <option label='%title' value='%value' selected>
+  <option value='%value' selected>%title
  <else>
-  <option label='%title' value='%value'>
+  <option value='%value'>%title
  </if>
 </macro>
