@@ -22,7 +22,7 @@
         val3='Jerusalem&sp;Anthologia'
 	val4='Jerusalem&sp;chronikles'
 	val5='Журнал&sp;"Спектр"'
-	val6='Одесский центр Linux'>
+	val6='Одесский&sp;центр&sp;Linux'>
  <<assign name='url' value!='$urls[4]'>
  <assign name='pic' value!='$pics[4]'>
  <assign name='alt' value!='$alts[4]'>
