@@ -128,9 +128,6 @@ $useCopyResampled=true;
 # Путь к wget
 $wgetPath='wget';
 
-# Команда для отправки почты
-$sendmailCommand='/usr/sbin/sendmail -t';
-
 # Команда для упаковки каталога (имя каталога подставляется вместо '%') на
 # STDOUT
 
