@@ -223,4 +223,8 @@ define('ETD_CROSS_SQL',4010);
 
 define('EH_OK',410);
 define('EH_NO_MODIFY',411);
+
+define('EPD_OK',420);
+define('EPD_NO_DELETE',421);
+define('EPD_POSTING_ABSENT',422);
 ?>

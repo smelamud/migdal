@@ -10,6 +10,20 @@
 </tr></table>
 </element>
 
+<element name='error_lines'>
+<if what='$$err!=0'>
+ <table>
+  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+  <error id='*EMR_NO_RENEW' text='Вы не модератор'>
+  <error id='*EMR_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMR_SQL' text='Ошибка базы данных при обновлении записи'>
+  <error id='*EPD_NO_DELETE' text='Вы не модератор'>
+  <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'>
+ </table>
+</if>
+</element>
+
 <element name='post' params='posting'>
 <table class='posting' width=100%>
  <tr><td>
@@ -47,6 +61,9 @@
   &nbsp;
   <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
    >Осовременить</a>
+  &nbsp;
+  <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
+   >Удалить</a>
  </td></tr>
 </table>
 <p>
@@ -59,30 +76,29 @@
 <preamble>
 <body>
  <top ident='index'>
- <moderator>
-  <table class='ninept aframe' style='padding: 5px'>
-   <form action='postingorg.php'>
-    <hidden name='redirid' value='$redirid'>
-    <topicselect name='topic_id' value='$topic_id'>
-    <tr><td>&nbsp;</td><td>
-     <checkbox title='С подтемами' name='recursive' value='$recursive'>
-    </td></tr>
-    <formbuttons title='Просмотр' span=2>
-   </form>
-  </table>
-  <div class='ninept cframe' style='padding: 5px'>
-   <iterate_postinglist topic='$topic_id' limit=20 offset='$offset'
-			showshadows='*true' grp='*GRP_ALL'
-			recursive='$recursive'>
+ <table class='ninept aframe' style='padding: 5px'>
+  <form action='postingorg.php'>
+   <hidden name='redirid' value='$redirid'>
+   <topicselect name='topic_id' value='$topic_id'>
+   <tr><td>&nbsp;</td><td>
+    <checkbox title='С подтемами' name='recursive' value='$recursive'>
+   </td></tr>
+   <formbuttons title='Просмотр' span=2>
+  </form>
+ </table>
+ <div class='ninept cframe' style='padding: 5px'>
+  <error_lines>
+  <iterate_postinglist topic='$topic_id' limit=20 offset='$offset'
+		       showshadows='*true' grp='*GRP_ALL'
+		       recursive='$recursive'>
+  <batcher list='$;'>
+  <ifnzero what='$;Count'>
+   <for>
+    <post posting='$.'>
+   </for>
    <batcher list='$;'>
-   <ifnzero what='$;Count'>
-    <for>
-     <post posting='$.'>
-    </for>
-    <batcher list='$;'>
-   </ifnzero>
-  </div>
- </moderator>
+  </ifnzero>
+ </div>
  <bottom>
 </body>
 </html>
