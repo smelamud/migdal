@@ -132,6 +132,18 @@
   <trace url#='kaitana.php?topic_id=$posting.TopicId'>
   <assign name='name' value='$posting.Subject'>
  </if>
+<elif what="$basename=='links.php'">
+ <if what='$topic_id<=0'>
+  <assign name='name' value='Ссылки'>
+ <else>
+  <topic_obj id='$topic_id'>
+  <if what='$,UpValue!=$`links`'>
+   <trace url#='links.php?topic_id=$,UpValue'>
+  <else>
+   <trace url#='links.php'>
+  </ifnzero>
+  <assign name='name' value='$,Name'>
+ </if>
 <elif what="$basename=='methodic-center.php'">
  <trace url='migdal.php'>
  <assign name='name' value='Методический центр'>
