@@ -45,4 +45,12 @@ if(isset($GLOBALS[$name]))
 if(isset($HTTP_POST_VARS[$name]))
   $HTTP_POST_VARS[$name]=convertInput($HTTP_POST_VARS[$name]);
 }
+
+function commandLineArgs()
+{
+global $args,$argv;
+
+if(!isset($args))
+  $args=array_slice($argv,1);
+}
 ?>

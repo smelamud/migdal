@@ -18,6 +18,7 @@ if($path=='')
   return;
 if(substr($path,0,1)!='/')
   $path="$mailingsDir/$path";
+$path=urlencode($path);
 $link=$mail->getLink();
 $userId=$mail->getReceiverId();
 $linkParam=urlencode("link=$link");

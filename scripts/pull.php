@@ -7,6 +7,7 @@ require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/postings.php');
+require_once('lib/post.php');
 
 function pull($postid)
 {
@@ -22,8 +23,10 @@ journal("update messages
 	 where id=".journalVar('messages',$msgid));
 }
 
+commandLineArgs();
+
 dbOpen();
 session();
-pull($argv[1]);
+pull($args[0]);
 dbClose();
 ?>
