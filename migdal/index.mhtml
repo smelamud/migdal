@@ -15,6 +15,14 @@
  <trap text='Migdal'>
  <reload href='migdal.php'>
 </if>
+<if what='!$$userModerator && $topic_id==13'>
+ <trap text='KES'>
+ <reload href='migdal.php?artid=1479'>
+</if>
+<if what='!$$userModerator && $topic_id==30'>
+ <trap text='Mazl Tov'>
+ <reload href='migdal.php?artid=1475'>
+</if>
 <if what='$topic_id==24'>
  <trap text='Tu bi-Shvat'>
  <reload href='$[topic_id=6]'>
