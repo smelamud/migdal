@@ -37,16 +37,17 @@ function isPremoderated($message)
 {
 global $userModerator;
 
-return ((int)getPremoderateByTopicId($message->getTopicId())
-        & (int)$message->getGrp())!=0 && !$userModerator;
+return (((int)getPremoderateByTopicId($message->getTopicId())
+        & (int)$message->getGrp())!=0 || $message->getLargeFormat()==TF_HTML)
+       && !$userModerator;
 }
 
 function setDisabled($message)
 {
-if(isPremoderated($message))
+$complain=getComplainInfoByLink(COMPL_AUTO_POSTING,$message->getId());
+if($complain->getId()==0)
   {
-  $complain=getComplainInfoByLink(COMPL_AUTO_POSTING,$message->getId());
-  if($complain->getId()==0)
+  if(isPremoderated($message))
     {
     $result=mysql_query('update messages
 			 set disabled=1
@@ -56,24 +57,24 @@ if(isPremoderated($message))
     journal('update messages
 	     set disabled=1
 	     where id='.journalVar('messages',$message->getMessageId()));
-    sendAutomaticComplain(COMPL_AUTO_POSTING,
-			  'Автоматическая проверка сообщения "'.
-			   $message->getSubjectDesc().'"',
-			  $message->getLargeFormat()!=TF_HTML
-			   ? ''
-			   : '~Внимание!~ Этот текст в формате HTML.',
-			  $message->getId(),
-			  $message->getLargeFormat()==TF_HTML);
     }
-  else
-    {
-    if($complain->isClosed())
-      reopenComplain($complain->getId(),true);
-    if(!postForumAnswer($complain->getMessageId(),
-                        'Сообщение было изменено.',
-			getShamesId()))
-      return false;
-    }
+  sendAutomaticComplain(COMPL_AUTO_POSTING,
+			'Автоматическая проверка сообщения "'.
+			 $message->getSubjectDesc().'"',
+			$message->getLargeFormat()!=TF_HTML
+			 ? ''
+			 : '~Внимание!~ Этот текст в формате HTML.',
+			$message->getId(),
+			$message->getLargeFormat()==TF_HTML);
+  }
+else
+  {
+  if($complain->isClosed())
+    reopenComplain($complain->getId(),true);
+  if(!postForumAnswer($complain->getMessageId(),
+		      'Сообщение было изменено.',
+		      getShamesId()))
+    return false;
   }
 return true;
 }
