@@ -1,0 +1,60 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/parts/topics.mhtml 1.43 >>
+
+<element name='topics_ner' params='arrow'>
+<if what='$arrow'>
+ <image src='$$style_topics_arrow'>
+<else>
+  &nbsp;
+</if>
+</element>
+
+<element name='topics_line'>
+<if what='$arrow'>
+ <tr class=arrow>
+<else>
+ <tr>
+</if>
+ <ifnzero what='$indent'>
+  <tdspan span='$indent'>&nbsp;</tdspan>
+ </ifnzero>
+ <td>
+  <topics_ner arrow='$arrow'>
+ </td>
+ <tdspan span='$span'>
+  <ifne what='$title'>
+   <a href='$href' title='$title' class='$class'><asp>
+  <else>
+   <a href='$href' class='$class'><asp>
+  </ifne>
+  <asp>$text<asp>
+  <ifne what='$count'>&nbsp;<span class='answers'>($count)</span></ifne></a>
+ </tdspan>
+</tr>
+</element>
+
+<element name='topics_table'>
+<ifne what='$class'>
+ <assign name='tableclass' value#='topics $class'>
+<else>
+ <assign name='tableclass' value='topics'>
+</ifne>
+<table class='$tableclass' width=100%>
+ <ifnzero what='$span'>
+  <if what='$span>1'>
+   <col width=0* span=$span>
+  <else>
+   <col width=0*>
+  </if>
+ </ifnzero>
+ <ifne what='$title'>
+  <assign name='headspan' value!='$span+1'>
+  <tr><th colspan=$headspan>$title</th></tr>
+ </ifne>
+ <tbody class='names'>
+</element>
+
+<element name='topics_table_end'>
+ </tbody>
+</table>
+</element>

@@ -4,5 +4,15 @@
 <preamble_admin>
 <body>
  <top_admin>
+ <moderator>
+  <table width=100%><tr valign=top>
+   <td width=150>
+    <topics_admin ident='news'>
+   </td>
+   <td>
+    &nbsp;
+   </td>
+  </tr></table>
+ </moderator>
 </body>
 </html>

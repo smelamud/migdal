@@ -3,3 +3,10 @@
 error_red=red
 error_magenta=magenta
 body_back=white
+topics_title=maroon
+topics_names=black
+topics_names_hover=blue
+topics_answers=green
+topics_controls=blue
+topics_controls_hover=blue
+topics_arrow=pics/arrow.gif

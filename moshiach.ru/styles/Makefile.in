@@ -4,7 +4,8 @@
 
 FLAVOURS = default
 STYLE_PARTS =
-ADMIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss
+ADMIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
+	sheet-topics.mcss
 
 all: style.stamp admin.stamp
 
