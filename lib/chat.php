@@ -41,14 +41,14 @@ function getText()
 return $this->text;
 }
 
-function getTextDisplay()
+function getTextXML()
 {
 return $this->text_display;
 }
 
 function getTextHTML()
 {
-return mtextToHTML($this->getTextDisplay(),MTEXT_LINE);
+return mtextToHTML($this->getTextXML(),MTEXT_LINE);
 }
 
 }
