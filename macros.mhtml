@@ -559,7 +559,7 @@ parse_str($fragments['query']);
 </macro>
 
 <macro name='hidden'>
- <input type=hidden name='%name' value='%value'>
+ <input type=hidden name='%name' value="%value">
 </macro>
 
 <macro name='edit' defaults='size=40 maxlength=250'>
