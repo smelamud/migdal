@@ -1,0 +1,40 @@
+<< @(#) $Id$ >>
+
+<element name='book_ring_static'>
+<table width=100% style='clear: both' class='ring'>
+ <if what='$index>=0'>
+  <tr valign=bottom><td width=33%>&nbsp;</td><td align=center width=33%>
+   <b><a href='index.html'>$book.Subject</a></b>
+  </td><td width=33%>&nbsp;</td></tr>
+ </if>
+ <tr valign=center>
+  <sibling up='$book.MessageId' index0='$index' next='*false'>
+  <if what='$,>0'>
+   <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
+   <td align=left width=33%>
+    <pointer href#='chapter-${,Index0}.html' text='$,Subject'
+	     title='Предыдущая глава' left='*true'>
+   </td>
+  <else>
+   <td width=33%>&nbsp;</td>
+  </if>
+  <if what='$index>=0'>
+   <td align=center width=33%><a href='index.html' title='К началу книги'><asp>
+    <image src='pics/up.gif' border=0>
+   <asp></a></td>
+  <else>
+   <td width=33%>&nbsp;</td>
+  </if>
+  <sibling up='$book.MessageId' index0='$index' next='*true'>
+  <if what='$,>0'>
+   <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
+   <td align=right width=33%>
+    <pointer href#='chapter-${,Index0}.html' text='$,Subject'
+	     title='Следующая глава' left='*false'>
+   </td>
+  <else>
+   <td width=33%>&nbsp;</td>
+  </if>
+ </tr>
+</table>
+</element>

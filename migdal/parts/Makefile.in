@@ -3,14 +3,15 @@
 # @(#) $Id$
 
 OBJECTS = article.php backtrace.php banners.php blog.php blog-gallery.php \
-	  blog-posting.php book-chapters.php book-ring.php bottom.php \
-	  complain.php discussions.php events.php formutils.php \
-	  forumanswer.php forumcatalog.php forums.php gallery.php \
-	  gallery-main.php googleru.php grpselect.php hannukah.php \
-	  help-link.php hit-parade.php hotlog.php identify.php ioc.php \
-	  jewishru.php kaitana-announce.php kaitana-picture.php langselect.php \
-	  link-posting.php links-switcher.php login.php mailru.php menu.php \
-	  migdal-news.php picture.php picture-main.php pointer.php posting.php \
+	  blog-posting.php book-chapters.php book-chapters-static.php \
+	  book-ring.php book-ring-static.php bottom.php complain.php \
+	  discussions.php events.php formutils.php forumanswer.php \
+	  forumcatalog.php forums.php gallery.php gallery-main.php \
+	  googleru.php grpselect.php hannukah.php help-link.php hit-parade.php \
+	  hotlog.php identify.php ioc.php jewishru.php kaitana-announce.php \
+	  kaitana-picture.php langselect.php link-posting.php \
+	  links-switcher.php login.php mailru.php menu.php migdal-news.php \
+	  picture.php picture-main.php pointer.php posting.php \
 	  posting-book.php posting-general.php posting-library-announce.php \
 	  posting-times.php posting-times-cover.php postings.php \
 	  postings-links.php postings-migdal-news.php rabbi.php rambler.php \

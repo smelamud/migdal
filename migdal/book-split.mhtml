@@ -1,0 +1,44 @@
+<< @(#) $Id$ >>
+
+<ident name='bookid' table='postings'>
+<posting_full id='$bookid' grp='*GRP_BOOKS'>
+<pagetitle title='$,Subject'>
+
+<html>
+<meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>
+<assign_global name='userStyle' value='-1'>
+<preamble_tiny stylesheet='style/static-article.css'>
+<body>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=150 class='contents'>
+   <book_chapters_static book='$,'>
+  </td>
+  <td class='article'>
+   <table width=50% cellspacing=0 cellpadding=0><tr><td>
+    <ifne what='$,Author'>
+     <p class='author'>$,HTMLAuthor</p>
+    </ifne>
+    <p><h1 style='margin-left: 0'>$,Subject</h1></p>
+    <ifne what='$,Source'>
+     <p class='source'>$,HTMLSource</p>
+    </ifne>
+    <p>$,HTMLBody</p>
+    <zone>
+     <sibling_index0 name='index' up='$,MessageId' index0='-1'>
+     <if what='$,>=0'>
+      <p>
+       <table class='ring' cellpadding=0>
+	<tr valign=center>
+	 <td align=right><image src='pics/further.gif' border=0></td>
+	 <td>&nbsp;</td>
+	 <td><a href='chapter-${index}.html'>юЙФБФШ ЛОЙЗХ</a></td>
+	</tr>
+       </table>
+      </p>
+     </if>
+    </zone>
+   </td></tr></table>
+  </td>
+ </tr></table>
+</body>
+</html>

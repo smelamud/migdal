@@ -36,7 +36,11 @@
                  shorten='*false'">
 <decel name='book_chapters' file='parts/book-chapters.php' params='book,id'
        defaults="id='-1'">
+<decel name='book_chapters_static' file='parts/book-chapters-static.php'
+       params='book,id' defaults="id='-1'">
 <decel name='book_ring' file='parts/book-ring.php' params='book,index'>
+<decel name='book_ring_static' file='parts/book-ring-static.php'
+       params='book,index'>
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">

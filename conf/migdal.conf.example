@@ -148,6 +148,13 @@ $scriptsDir='/home/balu/prog/migdal-html/scripts';
 # Каталог, в котором находятся файлы с образцами писем на Web-сервере
 $mailingsDir='/home/balu/prog/migdal-html/migdal/mailings';
 
+# Каталог, в котором находятся упакованные книги на Web-сервере. Если эта
+# переменная не установлена, упакованные книги будут храниться в БД.
+$bookCompressDir='/home/balu/prog/migdal-html/migdal/books';
+
+# URL, по которому можно найти каталог с упакованными книгами
+$bookCompressURL='/books';
+
 # Команда для запуска PHP4 в режиме командной строки
 $phpCommand='/usr/bin/php4';
 

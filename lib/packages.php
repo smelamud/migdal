@@ -5,10 +5,21 @@ require_once('lib/dataobject.php');
 require_once('lib/bug.php');
 require_once('lib/utils.php');
 require_once('lib/selectiterator.php');
+require_once('lib/mime.php');
 
 define('PT_UNDEFINED',0);
 define('PT_BOOK_ONEFILE',1);
 define('PT_BOOK_SPLIT',2);
+
+$packageNamePrefixes=array(PT_BOOK_ONEFILE => 'book-',
+                           PT_BOOK_SPLIT   => 'book-split-');
+
+function getPackageFileName($type,$posting_id,$mime_type)
+{
+global $packageNamePrefixes;
+
+return $packageNamePrefixes[$type].$posting_id.'.'.getMimeExtension($mime_type);
+}
 
 class Package
       extends DataObject
@@ -100,6 +111,17 @@ function getURL()
 return $this->url;
 }
 
+function getHref()
+{
+if($this->getURL()!='')
+  return $this->getURL();
+else
+  return '/lib/package.php/'.getPackageFileName($this->getType(),
+                                                $this->getPostingId(),
+						$this->getMimeType()).
+	 '?id='.$this->getId();
+}
+
 function getCreated()
 {
 return strtotime($this->created);
@@ -114,7 +136,7 @@ class PackagesIterator
 function PackagesIterator($posting_id)
 {
 $this->SelectIterator('Package',
-                      "select id,posting_id,type,title,size
+                      "select id,posting_id,type,mime_type,title,size,url
 		       from packages
 		       where posting_id=$posting_id
 		       order by type,created");

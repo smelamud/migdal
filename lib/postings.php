@@ -279,8 +279,8 @@ $Select="postings.id as id,postings.ident as ident,
 	 messages.sent as sent,topic_id,messages.url as url,
 	 messages.url_domain as url_domain,messages.sender_id as sender_id,
 	 messages.hidden as hidden,messages.disabled as disabled,
-	 users.hidden as sender_hidden,postings.index1 as index1,
-	 subdomain,shadow,
+	 users.hidden as sender_hidden,postings.index0 as index0,
+	 postings.index1 as index1,subdomain,shadow,
 	 $imageFields
 	 $topicFields
 	 login,gender,email,hide_email,rebe,
@@ -616,7 +616,8 @@ $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
                             body,large_filename,large_format,large_body,
 			    large_imageset,lang,subject,author,source,url,
 			    topic_id,personal_id,sender_id,grp,priority,
-			    image_set,index1,subdomain,sent,hidden,disabled
+			    image_set,index0,index1,subdomain,sent,hidden,
+			    disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
@@ -825,6 +826,20 @@ $result=mysql_query("select postings.id
 		     order by index0 $order
 		     limit 1");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function getSiblingIndex0($up,$index0,$next=true)
+{
+$filter=$next ? "index0>$index0" : "index0<$index0";
+$order=$next ? 'asc' : 'desc';
+$result=mysql_query("select index0
+                     from postings
+		          left join messages
+			       on postings.message_id=messages.id
+		     where up=$up and $filter
+		     order by index0 $order
+		     limit 1");
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
 }
 
 function getSiblingIssue($grp,$topic_id,$index1,$next=true)

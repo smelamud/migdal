@@ -1,0 +1,32 @@
+<< @(#) $Id$ >>
+
+<ident name='chapid' table='postings'>
+<posting_full id='$chapid' grp='*GRP_BOOK_CHAPTERS'>
+<zone>
+ <message_posting id='$,UpValue'>
+ <posting_obj name='book' id='$,' grp='*GRP_BOOK'>
+</zone>
+<pagetitle title#='$book.Subject - $,Subject'>
+
+<html>
+<meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>
+<assign_global name='userStyle' value='-1'>
+<preamble_tiny stylesheet='style/static-article.css'>
+<body>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=150 class='contents'>
+   <book_chapters_static book='$book' id='$,Id'>
+  </td>
+  <td class='article'>
+   <book_ring_static book='$book' index='$,Index0'>
+   <h1>$,Subject
+    <ifne what='$,Author'>
+     <div class='author'>$,HTMLAuthor</div>
+    </ifne>
+   </h1>
+   <article posting='$,' withvote='*false' static='*true'>
+   <book_ring_static book='$book' index='$,Index0'>
+  </td>
+ </tr></table>
+</body>
+</html>

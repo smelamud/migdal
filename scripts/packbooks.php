@@ -60,9 +60,10 @@ if($id!=0)
   }
 }
 
-function packBook($id)
+function packBook($id,$type)
 {
-global $tmpDir,$siteDomain,$bookCompressCommand,$bookCompressType;
+global $tmpDir,$siteDomain,$bookCompressCommand,$bookCompressType,
+       $bookCompressDir,$bookCompressURL;
 
 $dir="$tmpDir/book-$id";
 unlink($dir);
@@ -70,15 +71,33 @@ mkdir($dir,0777);
 mkdir("$dir/style",0777);
 mkdir("$dir/pics",0777);
 
-copyFile("http://$siteDomain/book-static?bookid=$id","$dir/index.html");
-copyFile("http://$siteDomain/styles/static-article.css",
-         "$dir/style/static-article.css");
-copyFile("http://$siteDomain/pics/up.gif","$dir/pics/up.gif");
-
 $msgid=getMessageIdByPostingId($id);
 $list=new PostingListIterator(GRP_BOOK_CHAPTERS,'-1',false,'0','0','0',
                               SORT_INDEX0,GRP_NONE,'0','-1','0','-1',$msgid,
 			      true,SELECT_GENERAL);
+
+if($type==PT_BOOK_ONEFILE)
+  copyFile("http://$siteDomain/book-static.php?bookid=$id","$dir/index.html");
+else
+  {
+  copyFile("http://$siteDomain/book-split.php?bookid=$id","$dir/index.html");
+  while($item=$list->next())
+       copyFile("http://$siteDomain/book-chapter-split.php?chapid=".
+                                                           $item->getId(),
+                "$dir/chapter-".$item->getIndex0().'.html');
+  }
+
+copyFile("http://$siteDomain/styles/static-article.css",
+         "$dir/style/static-article.css");
+copyFile("http://$siteDomain/pics/up.gif","$dir/pics/up.gif");
+if($type==PT_BOOK_SPLIT)
+  {
+  copyFile("http://$siteDomain/pics/left.gif","$dir/pics/left.gif");
+  copyFile("http://$siteDomain/pics/right.gif","$dir/pics/right.gif");
+  copyFile("http://$siteDomain/pics/further.gif","$dir/pics/further.gif");
+  }
+
+$list->reset();
 while($item=$list->next())
      {
      $chap=getFullPostingById($item->getId(),GRP_BOOK_CHAPTERS);
@@ -90,12 +109,25 @@ while($item=$list->next())
 $cmd=str_replace(array('#','%'),
                  array($tmpDir,"book-$id"),
 		 $bookCompressCommand);
-$body=`$cmd`;
-$package=new Package(array('posting_id' => $id,
-                           'type'       => PT_BOOK_ONEFILE,
-                           'mime_type'  => $bookCompressType,
-			   'body'       => $body,
-			   'size'       => strlen($body)));
+if($bookCompressDir=='')
+  {
+  $body=`$cmd`;
+  $package=new Package(array('posting_id' => $id,
+			     'type'       => $type,
+			     'mime_type'  => $bookCompressType,
+			     'body'       => $body,
+			     'size'       => strlen($body)));
+  }
+else
+  {
+  $pname=getPackageFileName($type,$id,$bookCompressType);
+  system("$cmd > $bookCompressDir/$pname");
+  $package=new Package(array('posting_id' => $id,
+			     'type'       => $type,
+			     'mime_type'  => $bookCompressType,
+			     'size'       => filesize("$bookCompressDir/$pname"),
+			     'url'        => "$bookCompressURL/$pname"));
+  }
 if(!$package->store())
   echo "Book $id: ".mysql_error()."\n";
 
@@ -149,7 +181,8 @@ while($item=$iter->next())
      if(!arePackagesReady($item->getId()))
        {
        dropBook($item->getId());
-       packBook($item->getId());
+       packBook($item->getId(),PT_BOOK_ONEFILE);
+       packBook($item->getId(),PT_BOOK_SPLIT);
        }
 }
 

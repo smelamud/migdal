@@ -31,8 +31,7 @@
    <assign name='title' value='Вся книга по главам в архиве'>
   </if>
   <topics_line text='$title' class='item ninept' nobullet='*true'
-               href#='/lib/package.php/migdal-book-${book.Id}.zip?id=$.Id'
-	       count#='${.SizeKB}KB' indent='-1' span=2>
+               href='$.Href' count#='${.SizeKB}KB' indent='-1' span=2>
  </for>
 </topics_table>
 </element>

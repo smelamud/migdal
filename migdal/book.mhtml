@@ -67,7 +67,7 @@
 	   <iterate_packages posting_id='$bookid'>
 	   <for>
 	    <tr valign=center>
-	     <td align=right>???</td>
+	     <td align=right><image src='pics/package.gif' border=0></td>
 	     <td>&nbsp;</td>
 	     <td>
 	      <if what='$.Type==*PT_BOOK_ONEFILE'>
@@ -75,8 +75,7 @@
 	      <else>
 	       <assign name='title' value='Вся книга по главам в архиве'>
 	      </if>
-	      <a href='/lib/package.php/migdal-book-${bookid}.zip?id=$.Id'
-	         >$title</a>
+	      <a href='$.Href'>$title</a>
 	      </td>
 	    </tr>
 	    <tr valign=center>

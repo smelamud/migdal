@@ -2,18 +2,11 @@
 # @(#) $Id$
 
 require_once('lib/images.php');
-
-$imageExtensions=array('image/pjpeg' => 'jpg',
-                       'image/jpeg'  => 'jpg',
-		       'image/gif'   => 'gif',
-		       'image/x-png' => 'png',
-		       'image/png'   => 'png');
+require_once('lib/mime.php');
 
 function getImageExtension($mime_type)
 {
-global $imageExtensions;
-
-return $imageExtensions[$mime_type];
+return getMimeExtension($mime_type);
 }
 
 $imageTypeNames=array('image/pjpeg' => 'JPEG',
