@@ -71,13 +71,21 @@
 </tr></table></form>
 </element>
 
-<element name='times_info'>
+<element name='times_info' params='issue'>
 <div class='ninept'>
  <dl class='info'>
-  <dt>Главный редактор</dt>
-  <dd>Болеслав Капулкин</dd>
+  <if what='$issue<26'>
+   <dt>Главный редактор</dt>
+   <dd>Болеслав Капулкин</dd>
+  <else>
+   <dt>Директор издания</dt>
+   <dd>Кира Верховская</dd>
+  </if>
 
   <dt>Редколлегия</dt>
+  <if what='$issue>=26'>
+   <dd>Полина Блиндер</dd>
+  </if>
   <dd>Елена Каракина</dd>
   <dd>Анна Мисюк</dd>
   <dd>Инна Найдис</dd>
@@ -131,7 +139,7 @@
     <td width=150 class=posting>
      <cover times='$times' cover='$cover'>
      <p>
-     <times_info>
+     <times_info issue='$issue'>
     </td>
     <td>
      <select_issue issue='$issue'>
