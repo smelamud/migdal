@@ -39,7 +39,7 @@ function getTopicPosting()
 $row=array('topic_id'   => $this->topic_id,
            'topic_name' => $this->topic_name,
 	   'grp'        => $this->topic_grp);
-return new Posting($row);
+return newPosting($row);
 }
 
 function getPeerId()
@@ -62,7 +62,7 @@ function getPeerPosting()
 $row=array('topic_id'   => $this->peer_id,
            'topic_name' => $this->peer_name,
 	   'grp'        => $this->peer_grp);
-return new Posting($row);
+return newPosting($row);
 }
 
 }

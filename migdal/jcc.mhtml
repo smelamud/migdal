@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<posting_full id='$`postings:jcc`' grp='*GRP_REVIEW'>
+<posting_full id='$`postings:jcc`' grp='*GRP_REVIEWS'>
 <log event=review text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 <topictitle title='$,Subject'>
@@ -18,9 +18,9 @@
    <ifnzero what='$,Id'>
     <subtitle>
     <outer><div class='nframe' style='padding: 5'><inner>
-     <seealso_links topic_id='$`jcc`' topic_grp='*GRP_REVIEW'
+     <seealso_links topic_id='$`jcc`' topic_grp='*GRP_REVIEWS'
 		    title='См. также в разделе ссылок'>
-     <seealso_other topic_id='$`jcc`' topic_grp='*GRP_REVIEW'
+     <seealso_other topic_id='$`jcc`' topic_grp='*GRP_REVIEWS'
 		    title='По этой теме в других разделах'>
     </inner></div></outer>
     <article_controls posting='$,'>

@@ -18,7 +18,7 @@
 </if>
 << /Traps >>
 
-<posting_full id='$artid' grp='*GRP_REVIEW'>
+<posting_full id='$artid' grp='*GRP_REVIEWS'>
 <log event=review text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 <topictitle title='$,Subject'>
