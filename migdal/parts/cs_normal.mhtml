@@ -2,5 +2,5 @@
 << Based-on: demo/parts/cs_normal.mhtml 1.1 >>
 
 <element name='complain_subject' params='link'>
-<center><h1>Общая жалоба</h1></center>
+<tr><th colspan=2>Общая жалоба</th></tr>
 </element>

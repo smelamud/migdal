@@ -2,8 +2,9 @@
 << Based-on: demo/parts/cs_forum.mhtml 1.3 >>
 
 <element name='complain_subject' params='link'>
-<center><h1>Жалоба на сообщение в форуме</h1></center>
-<p>
+<tr><th colspan=2>Жалоба на сообщение в форуме</th></tr>
 <forum_answer_full id='$link'>
-<forum_answer answer='$,' complain='*false'>
+<tr class='quote'><td colspan=2 style='padding: 1em'>
+ <forum_answer answer='$,' complain='*false'>
+</td></tr>
 </element>

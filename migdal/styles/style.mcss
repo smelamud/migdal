@@ -5,6 +5,7 @@
 bl=#0C20A5
 g=#52A945
 nd=#4C6A90
+ndl=#6F99D1
 nm=#9BC8FF
 nl=#CDE4FF
 nll=#DCECFF
@@ -12,6 +13,7 @@ r=#FF5500
 vd=#5B1900
 vm=#F8BF19
 vmm=#FFE69B
+vld=#FFEDC3
 vl=#FFF8E8
 md=#91089D
 ml=#BA00FF
@@ -35,9 +37,9 @@ register_hover=blue
 login_border=blue
 login_text=blue
 return_normal=%g
-:default return_image=pics/return-animated.gif
-:contrast return_image=pics/return_back.gif
-:test return_image=pics/return.gif
+:default	return_image=pics/return-animated.gif
+:contrast	return_image=pics/return_back.gif
+:test		return_image=pics/return.gif
 :default return_word=false
 :contrast return_word=true
 :test return_word=false
@@ -45,11 +47,11 @@ batcher_normal=blue
 batcher_link=blue
 batcher_input_border=blue
 batcher_input_text=blue
-posting_border=%nd
+posting_border=%ndl
 posting_back=%nd
-:default posting_whole_back=%nll
-:contrast posting_whole_back=white
-:test posting_whole_back=%nll
+:default	posting_whole_back=%nll
+:contrast	posting_whole_back=white
+:test		posting_whole_back=%nll
 posting_sent=white
 posting_name=yellow
 posting_rebe_name=%r
@@ -58,31 +60,31 @@ posting_split=%nd
 posting_controls=black
 posting_controls_hover=blue
 posting_read=%md
-:default forum_border=%vm
-:contrast forum_border=%nm
-:test forum_border=%vm
-:default forum_header_back=%vm
-:contrast forum_header_back=%nm
-:test forum_header_back=%vm
-:default forum_body_back=%vl
-:contrast forum_body_back=%nl
-:test forum_body_back=%vl
-forum_sent=white
+:default	forum_border=%vm
+:contrast	forum_border=%nm
+:test		forum_border=%vm
+:default	forum_header_back=%vmm
+:contrast	forum_header_back=%nm
+:test		forum_header_back=%vmm
+:default	forum_body_back=%vl
+:contrast	forum_body_back=%nl
+:test		forum_body_back=%vl
+forum_sent=%nd
 forum_name=%ml
 forum_rebe_name=%r
-:default forum_controls=%vd
-:contrast forum_controls=%nd
-:test forum_controls=%vd
+:default	forum_controls=%vd
+:contrast	forum_controls=%nd
+:test		forum_controls=%vd
 forum_controls_hover=blue
-:default forums_batcher_normal=%vd
-:contrast forums_batcher_normal=%nd
-:test forums_batcher_normal=%vd
-:default forums_batcher_input_border=%vd
-:contrast forums_batcher_input_border=%nd
-:test forums_batcher_input_border=%vd
-:default forums_batcher_input_text=%vd
-:contrast forums_batcher_input_text=%nd
-:test forums_batcher_input_text=%vd
+:default	forums_batcher_normal=%vd
+:contrast	forums_batcher_normal=%nd
+:test		forums_batcher_normal=%vd
+:default	forums_batcher_input_border=%vd
+:contrast	forums_batcher_input_border=%nd
+:test		forums_batcher_input_border=%vd
+:default	forums_batcher_input_text=%vd
+:contrast	forums_batcher_input_text=%nd
+:test		forums_batcher_input_text=%vd
 topics_title=%nm
 topics_names=black
 topics_names_hover=blue
@@ -96,12 +98,12 @@ catalog_header=%nd
 catalog_header_text=white
 catalog_active_even=%vmm
 catalog_active_odd=%vl
-:default catalog_even=%nm
-:contrast catalog_even=%grl
-:test catalog_even=%nm
-:default catalog_odd=%nl
-:contrast catalog_odd=white
-:test catalog_odd=%nl
+:default	catalog_even=%nm
+:contrast	catalog_even=%grl
+:test		catalog_even=%nm
+:default	catalog_odd=%nl
+:contrast	catalog_odd=white
+:test		catalog_odd=%nl
 catalog_name=%mr
 catalog_rebe_name=%r
 catalog_answer=black
@@ -109,20 +111,20 @@ catalog_answer_hover=blue
 catalog_topic=blue
 catalog_subject=black
 catalog_subject_hover=blue
-:default details_image=pics/info-bullet.gif
-:contrast details_image=pics/info-test.gif
-:test details_image=pics/info-bullet.gif
-:default details_noleft=true
-:contrast details_noleft=false
-:test details_noleft=false
+:default	details_image=pics/info-bullet.gif
+:contrast	details_image=pics/info-test.gif
+:test		details_image=pics/info-bullet.gif
+:default	details_noleft=true
+:contrast	details_noleft=false
+:test		details_noleft=false
 picture_border=%nd
-:default picture_back=%nll
-:contrast picture_back=white
-:test picture_back=%nll
+:default	picture_back=%nll
+:contrast	picture_back=white
+:test		picture_back=%nll
 picture_top_back=%nd
-:default picture_whole_back=%nll
-:contrast picture_whole_back=white
-:test picture_whole_back=%nll
+:default	picture_whole_back=%nll
+:contrast	picture_whole_back=white
+:test		picture_whole_back=%nll
 picture_sent=white
 picture_name=yellow
 picture_rebe_name=%r
@@ -147,6 +149,25 @@ article_split=blue
 article_controls=blue
 article_controls_hover=blue
 article_picture=blue
+complain_back=%vl
+complain_border=%vmm
+complain_title_back=%vmm
+complain_title=%nd
+complain_head_back=%vmm
+complain_head=%nd
+complain_sent=%nd
+complain_name=%ml
+complain_quote_back=%vld
+complain_subject=%md
+complain_tail_back=%vmm
+complain_tail=%nd
+complain_input_back=%vl
+complain_input_border=%vd
+complain_input_text=%vd
+:default	complain_controls=%vd
+:contrast	complain_controls=%nd
+:test		complain_controls=%vd
+complain_controls_hover=blue
 
 ! Global
 
@@ -323,7 +344,7 @@ BODY {
 ! Posting
 
 .posting {
-	border: 1px solid %posting_border;
+	border: 3px solid %posting_border;
 	margin: 0.5ex;
 	background-color: %posting_whole_back;
 }
@@ -366,16 +387,18 @@ BODY {
 }
 
 .posting .subject {
+	font-family: "Times New Roman", Helvetica, sans-serif;
 	font-weight: bold;
-	font-size: 12pt;
+	font-size: 14pt;
   	padding-right: 2ex;
 	padding-bottom: 1.5ex;
 	color: %posting_subject;
 }
 
 .posting .subject A {
+	font-family: "Times New Roman", Helvetica, sans-serif;
 	font-weight: bold;
-	font-size: 12pt;
+	font-size: 14pt;
 	color: %posting_subject;
 	text-decoration: none;
 }
@@ -385,7 +408,9 @@ BODY {
 }
 
 .posting .topic {
+	font-family: "Times New Roman", Helvetica, sans-serif;
 	font-style: italic;
+	font-size: 12pt;
 	text-decoration: none;
 }
 
@@ -419,7 +444,7 @@ BODY {
 	border-collapse: collapse;
 	border-spacing: 0;
 	padding: 0;
-	border: solid 1px %forum_border;
+	border: solid 3px %forum_border;
 }
 
 .forum .header {
@@ -890,6 +915,109 @@ BODY {
 
 .article P {
 	text-align: justify;
+}
+
+! Complain
+
+.complain {
+	background-color: %complain_back;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid %complain_border;
+}
+
+.complain TH {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	background-color: %complain_title_back;
+	color: %complain_title;
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+.complain > TBODY > TR > TD {
+	padding-left: .5em;
+	padding-right: .5em;
+}
+
+.complain .head {
+	background-color: %complain_head_back;
+}
+
+.complain .head TD {
+	color: %complain_head;
+	font-weight: bold;
+}
+
+.complain .head .sent {
+	color: %complain_sent;
+}
+
+.complain .head .name {
+	color: %complain_name;
+	font-weight: normal;
+}
+
+.complain .head .name A,.complain .tail A {
+	color: %complain_name;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+.complain .head A:hover,.complain .tail A:hover {
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+.complain .quote {
+	background-color: %complain_quote_back;
+}
+
+.complain .subject {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14pt;
+  	padding-right: 2ex;
+	padding-bottom: 1.5ex;
+	color: %complain_subject;
+}
+
+.complain .tail {
+	background-color: %complain_tail_back;
+	color: %complain_tail;
+	font-weight: bold;
+}
+
+.complain INPUT {
+	background-color: %complain_input_back;
+	border-color: %complain_input_border;
+	border-width: 1px;
+	color: %complain_input_text;
+	font-weight: normal;
+}
+
+.complain SELECT {
+	background-color: %complain_input_back;
+	border-color: %complain_input_border;
+	border-width: 1px;
+	color: %complain_input_text;
+	font-weight: normal;
+}
+
+.complain .controls {
+	background-color: %complain_tail_back;
+	vertical-align: bottom;
+	padding-bottom: 0.5ex;
+}
+
+.complain .controls A {
+	font-size: 8pt;
+	color: %complain_controls;
+	text-decoration: none;
+}
+
+.complain .controls A:hover {
+	color: %complain_controls_hover;
+	text-decoration: underline;
 }
 
 ! Chat
