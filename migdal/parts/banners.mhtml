@@ -17,7 +17,7 @@
         val2=''
         val3=''
 	val4='Jerusalem chronikles'>
- <iterate_random_seq n=2 min=1 max=4>
+ <iterate_random_seq n=3 min=1 max=4>
  <for>
   <assign name='url' value!='$urls[$. - 1]'>
   <assign name='pic' value!='$pics[$. - 1]'>
