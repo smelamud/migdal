@@ -72,6 +72,24 @@
    <assign name='name' value#='$,FullName'>
   </if>
  </if>
+<elif what="$basename=='halom-main.php'">
+ <trace url='jcc.php'>
+ <assign name='name' value='Семейные лагеря'>
+<elif what="$basename=='halom.php'">
+ <topic_obj id='$topic_id'>
+ <if what='$day<=0 && $postid<=0'>
+  <trace url='halom-main.php'>
+  <assign name='name' value='$,Name'>
+ <else>
+  <if what='$postid<=0'>
+   <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$,Id'
+                index1='$day'>
+  <else>
+   <posting_obj name='posting' id='$postid'>
+  </if>
+  <trace url#='halom.php?topic_id=$posting.TopicId'>
+  <assign name='name' value='$posting.Subject'>
+ </if>
 <elif what="$basename=='help.php'">
  <posting_obj id='$artid'>
  <trace url='index.php'>

@@ -28,7 +28,7 @@
                       sort='*SORT_INDEX1' limit=0 fields='*SELECT_TOPICS'>
  <for>
   <topics_line time='$.Sent' text='$.Subject'
-               href#='kaitana.php?topic_id=$,Id&day=$.Index1'
+               href#='$href?topic_id=$,Id&day=$.Index1'
                arrow!='$posting.Index1==$.Index1'>
  </for>
 </topics_table>

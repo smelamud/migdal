@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
 
-<element name='topics_gallery_kaitanot' params='posting'>
-<topic_obj id='$`kaitana`'>
-<iterate_topiclist grp='*GRP_KAITANA_GALLERY' up=$`kaitana`>
+<element name='topics_gallery_kaitanot' params='posting,topic_id'>
+<topic_obj id='$topic_id'>
+<iterate_topiclist grp='*GRP_KAITANA_GALLERY' up='$topic_id'>
 <topics_table class='eightpt' title='$,Name'>
  <for>
   <posting_last topic_id='$.Id' recursive='*false'>
@@ -14,7 +14,9 @@
 
 <element name='topics_gallery_migdal'>
 <if what='$/$posting.TopicId,2/==$`kaitana`'>
- <topics_gallery_kaitanot posting='$posting'>
+ <topics_gallery_kaitanot posting='$posting' topic_id='$`kaitana`'>
+<elif what='$/$posting.TopicId,2/==$`halom`'>
+ <topics_gallery_kaitanot posting='$posting' topic_id='$`halom`'>
 </if>
 </element>
 
@@ -28,6 +30,11 @@
 <topics_line time='$,' text='Дневные детские лагеря'
 	     href#='gallery.php?topic_id=$`kaitana`'
 	     arrow!="$/$posting.TopicId,2/==$`kaitana`" indent=1
+	     class='item eightpt'>
+<posting_last grp='*GRP_GALLERY' topic_id='$`halom`' recursive='*true'>
+<topics_line time='$,' text='Семейные лагеря'
+	     href#='gallery.php?topic_id=$`halom`'
+	     arrow!="$/$posting.TopicId,2/==$`halom`" indent=1
 	     class='item eightpt'>
 <posting_last grp='*GRP_GALLERY' topic_id='$`migdal-ohr`' recursive='*true'>
 <topics_line time='$,' href#='gallery.php?topic_id=$`migdal-ohr`'

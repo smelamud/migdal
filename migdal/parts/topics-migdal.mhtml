@@ -17,12 +17,17 @@
 <element name='topics_jcc' params='posting'>
 <if what='$/$posting.TopicId,2/==$`kes`'>
  <topics_kes posting='$posting'>
-</if>
-<if what='$/$posting.TopicId,2/==$`kaitana`'>
+<elif what='$/$posting.TopicId,2/==$`kaitana`'>
  <if what='$posting.TopicId!=$`kaitana`'>
-  <topics_kaitana posting='$posting'>
+  <topics_kaitana posting='$posting' href='kaitana.php'>
  </if>
- <topics_kaitanot topic_id='$posting.TopicId'>
+ <topics_kaitanot topic_id='$posting.TopicId' root='$`kaitana`'
+                  href='kaitana.php'>
+<elif what='$/$posting.TopicId,2/==$`halom`'>
+ <if what='$posting.TopicId!=$`halom`'>
+  <topics_kaitana posting='$posting' href='halom.php'>
+ </if>
+ <topics_kaitanot topic_id='$posting.TopicId' root='$`halom`' href='halom.php'>
 </if>
 
 <topic_obj name='jcc' id='$`jcc`'>
@@ -52,6 +57,10 @@
  <posting_last topic_id='$`kaitana`' recursive='*true'>
  <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
               arrow!="$/$posting.TopicId,2/==$`kaitana`" indent=1
+	      class='item eightpt'>
+ <posting_last topic_id='$`halom`' recursive='*true'>
+ <topics_line time='$,' text='Семейные лагеря' href='halom-main.php'
+              arrow!="$/$posting.TopicId,2/==$`halom`" indent=1
 	      class='item eightpt'>
  <posting_last topic_id='$`kes`' recursive='*true'>
  <topics_line time='$,' text='Клуб Еврейского Студента'

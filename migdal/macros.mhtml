@@ -218,9 +218,11 @@
        params='posting'>
 <decel name='topics_help' file='parts/topics-help.php' params='posting,ident'
        defaults="posting=0 ident=''">
-<decel name='topics_kaitana' file='parts/topics-kaitana.php' params='posting'>
+<decel name='topics_kaitana' file='parts/topics-kaitana.php'
+       params='posting,href' defaults="href='kaitana.php'">
 <decel name='topics_kaitanot' file='parts/topics-kaitanot.php'
-       params='topic_id' defaults='topic_id=-1'>
+       params='topic_id,root,href'
+       defaults="topic_id=-1 root='$`kaitana`' href='kaitana.php'">
 <decel name='topics_line'
        params='time,arrow,text,title,href,count,class,indent,span,rating,
                nobullet'
