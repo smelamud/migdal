@@ -42,11 +42,30 @@
  <require name='lib/images.php'>
  <call name='%name' func='getImageNameBySet' arg1='%set'>
 </macro>
+<macro name='image_tag'>
+ <require name='lib/images.php'>
+ <call name='%name' func='getImageTagById' arg1='%id'>
+</macro>
+<macro name='imgtag'>
+ <zone><image_tag id='$message.ImageId'>$,</zone>
+</macro>
 << Conditionals >>
 <macro name='ifzero'>
  <if what='%what==0'>
 </macro>
 <macro name='/ifzero'>
+ </if>
+</macro>
+<macro name='ifnzero'>
+ <if what='%what!=0'>
+</macro>
+<macro name='/ifnzero'>
+ </if>
+</macro>
+<macro name='isedit'>
+ <if what='$%name.isEditable'>
+</macro>
+<macro name='/isedit'>
  </if>
 </macro>
 << Permissions >>
@@ -75,16 +94,18 @@
  </header>
 </macro>
 << Elements >>
+<decel name='backtrace' file='parts/backtrace.php' params='redir'>
+<decel name='error' file='parts/utils.php' params='id,text,color,span'
+       defaults='color="red" span=0'>
+<decel name='login' file='parts/login.php' params='flags,err'>
+<decel name='menu' file='parts/menu.php' params='ident'>
+<decel name='messages' file='parts/messages.php'
+       params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
+<decel name='message' file='parts/message.php'
+       params='message,grp,topic,discuss' defaults="discuss='*true'">
 <decel name='reload' file='lib/utils.php' params='why,var,value'>
 <decel name='top' file='parts/top.php' params='ident,flags'
        defaults="flags=''">
-<decel name='messages' file='parts/messages.php'
-       params='grp,topic,limit,offset' defaults='topic=0 limit=10 offset=0'>
-<decel name='backtrace' file='parts/backtrace.php' params='redir'>
-<decel name='login' file='parts/login.php' params='flags,err'>
-<decel name='error' file='parts/utils.php' params='id,text,color,span'
-       defaults='color="red" span=0'>
-<decel name='menu' file='parts/menu.php' params='ident'>
 << HTML shortcuts >>
 <macro name='tdspan' defaults='span=0'>
  <ifzero what='%span'><td><else><td colspan=%span></ifzero>

@@ -96,6 +96,10 @@ return "$st$1$ed"
        if $s=~/^\*(\w+)$/;
 return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
        if $s=~/^\$_$/;
+return "$st\$$item$ed"
+       if $s=~/^\$\.$/;
+return "$st\$$result$ed"
+       if $s=~/^\$,$/;
 return "$st\$$1$ed"
        if $s=~/^\$(\w+)$/;
 return "$st\$".getGlobal($1).$ed
@@ -125,7 +129,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|_))|(?:\*\w+))?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[%\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,]))|(?:\*\w+))?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      }
@@ -645,18 +649,7 @@ my ($self)=@_;
 $::Stack->pop();
 my $name=$::ElementName;
 $::ElementName='';
-my @params=();
-foreach(@{$::Elements{$name}->{'params'}})
-       {
-       if(exists $::Elements{$name}->{'defaults'}->{$_})
-         {
-	 push @params,"\$$_='".$::Elements{$name}->{'defaults'}->{$_}."'";
-	 }
-       else
-         {
-	 push @params,"\$$_";
-	 }
-       }
+my @params=map "\$$_",@{$::Elements{$name}->{'params'}};
 my $globals='';
 $globals="global ".join(',',map {"\$$_"} @::ElementGlobals).";\n"
          if scalar(@::ElementGlobals)>0;
@@ -690,6 +683,20 @@ else
   ::body("<?php \$$name->set".$self->getArg('var').
          '('.::subVar($self->getArg('value')).'); ?>');
   }
+}
+
+sub elZone
+{
+my ($self)=@_;
+
+$::Stack->push();
+}
+
+sub el_zone
+{
+my ($self)=@_;
+
+$::Stack->pop();
 }
 
 #### Comment ####
