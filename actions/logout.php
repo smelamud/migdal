@@ -12,6 +12,7 @@ require_once('lib/errors.php');
 require_once('lib/logs.php');
 require_once('lib/sessions.php');
 require_once('lib/session.php');
+require_once('lib/users.php');
 
 function logout($sessionid)
 {
@@ -25,7 +26,7 @@ if($row)
     return ELO_OK;
     }
   }
-sessionGuest();
+updateSession($sessionid,0,getGuestId());
 return ELO_OK;
 }
 

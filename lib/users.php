@@ -543,7 +543,7 @@ else
 $login_sort=convertSort($login);
 mysql_query("insert into users(login,login_sort,email_disabled,guest,hidden,
                                no_login)
-             values('$login','$login_sort',1,1,1,1)")
+             values('$login','$login_sort',1,1,2,1)")
   or sqlbug('Ошибка SQL при создании гостя');
 return mysql_insert_id();
 }
@@ -630,7 +630,7 @@ function ChatUsersIterator()
 global $chatTimeout;
 
 $this->SelectIterator('User',
-                      "select id,login,gender,email,hide_email
+                      "select id,login,gender,email,hide_email,hidden
 		       from users
 		       where last_chat+interval $chatTimeout minute>now()
 		       order by login_sort");
@@ -651,11 +651,12 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function updateLastChat()
 {
-global $userId;
+global $userId,$realUserId,$allowGuestChat;
 
+$id=$userId!=0 || !$allowGuestChat ? $userId : $realUserId;
 mysql_query("update users
              set last_chat=now()
-	     where id=$userId")
+	     where id=$id")
   or sqlbug('Ошибка SQL при обновлении времени присутствия в чате');
 }
 ?>
