@@ -22,7 +22,7 @@
     <edit_line title='Пользователь' mandatory='*true' name='user_name'
                value='$user_name' size=20 maxlength=30>
    </table>
-   <formbuttons title='Изменить'>
+   <formbuttons title='Добавить'>
   </form>
  </formtable>
  <bottom>

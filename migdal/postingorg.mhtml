@@ -44,8 +44,8 @@
   // $posting.GrpTitle
  </td></tr>
  <tr><td>
-  <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id&redirid=$_'>
-   $posting.SubjectDesc</a>
+  <b><a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id&redirid=$_'>
+   $posting.SubjectDesc</a></b>
   <ifne what='$posting.Ident'>
    [$posting.Ident=$posting.Id]
   <else>
@@ -59,6 +59,14 @@
    <array vals='голос,голоса,голосов'>
    <plural value='$posting.VoteCount'>
    ($posting.VoteCount&sp;$,)
+  </td></tr>
+ </ifnzero>
+ <ifnzero what='$posting.ImageSet'>
+  <tr><td>
+   <image_link id='$posting.ImageId'>
+   $,Картинка</a>
+   &nbsp;
+   ${posting.ImageX}x${posting.ImageY}, ${posting.ImageSizeKB}KB
   </td></tr>
  </ifnzero>
  <tr><td class='sent'>
