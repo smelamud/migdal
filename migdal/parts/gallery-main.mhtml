@@ -1,22 +1,27 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='&list'>
+<element name='batcher' params='&list,topic_id,noedit'>
 <table width=100%>
  <tr valign=bottom>
-  <td align=left class='info'>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <logged>
-      <assign name='script' value='postingedit.php'>
-     <else>
-      <assign name='script' value='login.php'>
-     </logged>
-     <a href='$script?topic_id=$`general`&grp=*GRP_GALLERY&redirid=$_'
-	>Добавить картинку</a>
-    </td>
-   </tr></table>
-  </td>
+  <if what='!$noedit'>
+   <td align=left class='info'>
+    <table><tr valign=center>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <logged>
+       <assign name='script' value='postingedit.php'>
+      <else>
+       <assign name='script' value='login.php'>
+      </logged>
+      <if what='$topic_id<=0'>
+       <assign name='topic_id' value='$`general`'>
+      </if>
+      <a href='$script?topic_id=$topic_id&grp=*GRP_GALLERY&redirid=$_'
+	 >Добавить картинку</a>
+     </td>
+    </tr></table>
+   </td>
+  </if>
   <td align=center><spin list='$list'></td>
  </tr>
 </table>
@@ -61,9 +66,15 @@
 </element>
 
 <element name='gallery_main'>
+<if what='$topic_id>0'>
+ <topic_allow id='$topic_id'>
+ <assign name='noedit' value!='($, & *GRP_GALLERY)==0'>
+<else>
+ <assign name='noedit' value='*false'>
+</if>
 <iterate_postinglist grp='*GRP_GRAPHICS' topic_id='$topic_id' limit=40
                      offset='$offset' recursive='*true'>
-<batcher list='$;'>
+<batcher list='$;' topic_id='$topic_id' noedit='$noedit'>
 <assign name='count' value=0>
 <assign name='topic_id' value=0>
 <assign name='user_id' value=0>
@@ -91,6 +102,6 @@
  <announce posting='$,' count='$count'>
 </ifnzero>
 <ifnzero what='$;Count'>
- <batcher list='$;'>
+ <batcher list='$;' topic_id='$topic_id' noedit='$noedit'>
 </ifnzero>
 </element>

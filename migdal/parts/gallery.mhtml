@@ -1,18 +1,20 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='&list,topic_id,access'>
+<element name='batcher' params='&list,topic_id,access,noedit'>
 <table width=100%>
  <tr valign=bottom>
   <assign name='script' value!="$access ? 'postingedit.php' : 'login.php'">
-  <td align=left class='info'>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <a href='$script?topic_id=$topic_id&grp=*GRP_GALLERY&redirid=$_'
-	>Добавить картинку</a>
-    </td>
-   </tr></table>
-  </td>
+  <if what='!$noedit'>
+   <td align=left class='info'>
+    <table><tr valign=center>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <a href='$script?topic_id=$topic_id&grp=*GRP_GALLERY&redirid=$_'
+	 >Добавить картинку</a>
+     </td>
+    </tr></table>
+   </td>
+  </if>
   <td align=center><spin list='$list'></td>
   <td align=right class='eightpt'>
    <b>Сортировать</b>
@@ -27,16 +29,18 @@
 <if what='$topic_id>0'>
  <perms table='topics' id='$topic_id'>
  <assign name='access' value='$,isPostable'>
+ <topic_allow id='$topic_id'>
+ <assign name='noedit' value!='($, & *GRP_GALLERY)==0'>
 <else>
  <assign name='access' value!='$$userId>0'>
+ <assign name='noedit' value='*false'>
 </if>
 <?php $limit=$rows*$cols; ?>
 <iterate_postinglist name='list' grp='*GRP_GRAPHICS' topic_id='$topic_id'
                      offset='$offset' limit='$limit' sort='$sort'
 		     subdomain='$subdomain' user='$user_id'>
 <iterate_rows cols='$cols'>
-<batcher list='$list' topic_id='$topic_id' grp='*GRP_GALLERY'
-         access='$access'>
+<batcher list='$list' topic_id='$topic_id' access='$access' noedit='$noedit'>
 <if what='$access || $list.Count!=0'>
  <table cellspacing=10 cellpadding=0>
   <tr valign=top>
@@ -52,8 +56,7 @@
   </tr>
  </table>
  <ifnzero what='$list.Count'>
-  <batcher list='$list' topic_id='$topic_id' grp='*GRP_GALLERY'
-           access='$access'>
+  <batcher list='$list' topic_id='$topic_id' access='$access' noedit='$noedit'>
  </ifnzero>
 </if>
 </element>
