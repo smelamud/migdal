@@ -31,10 +31,6 @@
  <trap text='Veterans'>
  <reload href='veterans.php'>
 </if>
-<ifnzero what='$grp'>
- <trap text='grp!=0 in index.php'>
- <reload href='$[grp]'>
-</ifnzero>
 << /Traps >>
 
 <log event=index text#='topic($topic_id) offset=$offset'>
