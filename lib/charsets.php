@@ -33,8 +33,8 @@ return convert_cyr_string($userReadKOI>0
        : str_replace(array('&lt;&lt;','&gt;&gt;','---','``',"&#039;&#039;",
                            '(c)','(C)','(r)','(R)','(tm)',
 			   '(TM)','No.'),
-                     array('&laquo;','&raquo;','&#151;','&#132;','&#147;',
-		           '&#169;','&#169;','&#174;','&#174;','&#153;',
-			   '&#153;','&#8470;'),$s),'k','w');
+                     array('&laquo;','&raquo;','&mdash;','&bdquo;','&rdquo;',
+		           '&copy;','&copy;','&reg;','&reg;','&trade;',
+			   '&trade;','&#8470;'),$s),'k','w');
 }
 ?>
