@@ -38,17 +38,21 @@ foreach($action as $line)
 			     $line->getSeq().' id='.$line->getId().
 			     ": $query");
        if($line->getResultTable()!='')
+         {
+	 $lastId=mysql_insert_id();
 	 if(!$replicationMaster)
 	   {
-	   if($line->getResultId()!=mysql_insert_id())
-	     journalFailure('Identifier shift detected.');
+	   if($line->getResultId()!=$lastId)
+	     journalFailure("Identifier shift detected in '".
+	                     $line->getResultTable().
+			     "': got $lastId instead of ".$line->getResultId());
 	   }
 	 else
 	   {
-	   $lastId=mysql_insert_id();
 	   setJournalVar($host,$line->getResultVar(),$lastId);
 	   journal(jencode($query),$line->getResultTable(),$lastId);
 	   }
+	 }
        else
 	 if($replicationMaster)
 	   journal(jencode($query));
