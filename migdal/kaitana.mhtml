@@ -50,6 +50,7 @@
     <td>
      <a href="postingedit.php?editid=$posting.Id&root=$kaitana.Id&grp=$posting.Grp&redirid=$_"
 	>Изменить</a>
+     &nbsp;
     </td>
    </editor>
    <td><discusslink posting='$posting'></td>

@@ -8,9 +8,11 @@
     <td>
      <a href="postingedit.php?editid=$posting.Id&root=$root&grp=$posting.Grp&redirid=$_"
 	>Изменить</a>
+     &nbsp;
     </td>
     <td>
      <a href="limedit.php?postid=$posting.Id&redirid=$_">Список иллюстраций</a>
+     &nbsp;
     </td>
    </isedit>
    <td><discusslink posting='$posting'></td>

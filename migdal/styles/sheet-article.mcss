@@ -10,10 +10,6 @@
 	border-spacing: 0;
 }
 
-.article .controls TD {
-	padding-right: 10px;
-}
-
 .article .controls A {
 	font: 8pt %verdana;
 	color: %article_controls;
