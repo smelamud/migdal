@@ -1,0 +1,14 @@
+.login A.name {
+	font: bold 11pt %courier;
+	text-decoration: underline;
+}
+
+.login A:hover {
+	color: %register_hover;
+}
+
+.login INPUT.line {
+	background-color: %login_input_back;
+	border: solid 1px %login_input_border;
+	color: %login_text;
+}
