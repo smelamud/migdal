@@ -406,7 +406,7 @@ $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id
 		     from topics
 		     where id=$id and hidden<$hide")
-	     or die('Ошибка SQL при выборке темы');
+	     or die('Ошибка SQL при проверке наличия темы');
 return mysql_num_rows($result)>0;
 }
 ?>

@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
 
 <element name='taglit'>
- <iterate_posting_users topic_id='$topic_id'>
- <table width=100%><tr valign=top>
+ <iterate_posting_users topic_id='$topic_id' cols='$$userPictureColumnPortion'>
+ <table width=100%><tr valign=bottom>
  <for>
   <td>
    <posting_random grp='*GRP_TAGLIT_GALLERY' topic_id='$topic_id' user_id='$.Id'>
@@ -10,6 +10,9 @@
    <picture_main href#='taglit-user.php?user_id=$.Id' biff='$.LastMessage'
                  name='$.FullName' image_id='$,ImageId'>
   </td>
+  <if what='$;isEol'>
+   </tr><tr valign=bottom>
+  </if>
  </for>
  </tr></table>
 </element>

@@ -304,7 +304,6 @@ return newPosting($row);
 class PictureListIterator
       extends PostingListIterator
 {
-
 var $cols;
 
 function PictureListIterator($grp,$topic=-1,$recursive=false,$rows=4,$cols=5,
@@ -327,11 +326,14 @@ return ($this->getPosition() % $this->cols)==$this->cols-1;
 class PostingUsersIterator
       extends SelectIterator
 {
+var $cols;
 
-function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false)
+function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false,
+                              $cols=5)
 {
 global $userId,$userModerator;
 
+$this->cols=$cols;
 $hide=$userModerator ? 2 : 1;
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
              : ' and topics.'.byIdentRecursive('topics',$topic_id,$recursive);
@@ -354,6 +356,11 @@ $this->SelectIterator(
 	order by surname,jewish_name,name");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
+}
+
+function isEol()
+{
+return ($this->getPosition() % $this->cols)==$this->cols-1;
 }
 
 }
@@ -669,7 +676,7 @@ $result=mysql_query("select postings.id
 		                           and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при выборке постинга');
+	     or die('Ошибка SQL при проверке наличия постинга');
 return mysql_num_rows($result)>0;
 }
 ?>

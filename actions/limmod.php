@@ -48,7 +48,7 @@ if($loaded)
     return ELIM_DELETE_SQL;
   if($image->isEmpty())
     return ELIM_IMAGE_ABSENT;
-  $image=uploadMemoryImage($image->getContent(),$image->getFilename(),
+  $image=uploadMemoryImage($image->getLarge(),$image->getFilename(),
                            $image->getFormat(),$has_large,$small_x,$small_y,
 			   $err,htmlspecialchars($title,ENT_QUOTES),
 			   $posting->getLargeImageSet());

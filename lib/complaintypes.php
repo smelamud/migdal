@@ -80,7 +80,7 @@ function complainTypeExists($id)
 $result=mysql_query("select id
                      from complain_types
 		     where id=$id")
-	     or die('Ошибка SQL при выборке типа жалобы');
+	     or die('Ошибка SQL при проверке наличия типа жалобы');
 return mysql_num_rows($result)>0;
 }
 ?>

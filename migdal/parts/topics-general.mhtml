@@ -4,40 +4,27 @@
 <topic_obj name='taglit' id='taglit'>
 
 <posting_last topic_id='$taglit.Id' recursive='*false'>
-<topics_line arrow!="($posting.TopicId==$taglit.Id || $posting.TopicId==='taglit') && $posting.SenderId==0"
-             time='$,' href='taglit.php' title='$taglit.Description'
-	     text='$taglit.Name' class='item large' span=2>
+<topics_line time='$,' href='taglit.php' title='$taglit.Description'
+	     text='$taglit.Name' class='item large'>
 
-<if what='$posting.TopicId==$taglit.Id || $posting.TopicId===$taglit.Ident'>
- <iterate_posting_users topic_id='$taglit.Id'>
- <for>
-  <topics_line indent=1 time='$.LastMessage' arrow!='$posting.SenderId==$.Id'
-               href#='taglit-user.php?user_id=$.Id' class='item eightpt'
-	       text='$.FullName'>
- </for>
-</if>
 </element>
 
 <element name='navi_times' params='posting'>
 <topic_obj name='times' id='migdal-times'>
 
 <posting_last topic_id='$times.Id' recursive='*true'>
-<topics_line arrow!="($posting.TopicId==$times.Id || $posting.TopicId==='migdal-times')"
-             time='$,' href='times.php' title='$times.Description'
-	     text='$times.Name' class='item large' span=2>
+<topics_line time='$,' href='times.php' title='$times.Description'
+	     text='$times.Name' class='item large'>
 </element>
 
 <element name='topics'>
-<topics_table class='ninept'>
+<topics_table class='ninept' title='Разделы'>
  <admin_topics>
-  <tr><td colspan=3>
+  <tr><td colspan=2>
    <a href='topicedit.php?redirid=$_' class='edit'>Добавить</a>
    <a href='topicorg.php?redirid=$_' class='edit'>Организовать</a>
   </td></tr>
  </admin_topics>
- <topics_line arrow!='$posting.TopicId==-1'
-              href#='$posting.PageFile?topic_id=-1'
-	      text='Все темы' class='new' span=2>
  <if what='$showchapters'>
   <navi_times posting='$posting'>
   <community>
@@ -47,12 +34,11 @@
  <iterate_topiclist grp='$posting.PageGroup' withpostings='$withpostings'
 		    withanswers='$withanswers' up='$up' subdomain='$subdomain'>
  <for>
-  <topics_line arrow!='$posting.TopicId==$.Id' time='$.LastMessage'
-	       href#='$posting.PageFile?topic_id=$.Id' title='$.Description'
-	       text='$.Name' count='$.MessageCount' span=2>
+  <topics_line time='$.LastMessage' href#='$posting.PageFile?topic_id=$.Id'
+               title='$.Description' text='$.Name' count='$.MessageCount'>
   <admin_topics>
    <topics_line href#='topicedit.php?editid=$.Id&redirid=$_' class='edit'
-		text='Изменить' span=2>
+		text='Изменить'>
   </admin_topics>
  </for>
 </topics_table>

@@ -93,6 +93,11 @@ function getFilename()
 return $this->filename;
 }
 
+function getSmall()
+{
+return $this->small;
+}
+
 function getSmallX()
 {
 return $this->small_x;
@@ -103,19 +108,29 @@ function getSmallY()
 return $this->small_y;
 }
 
-function getContent()
-{
-return $this->has_large ? $this->large : $this->small;
-}
-
 function isEmpty()
 {
-return ($this->has_large ? $this->large : $this->small)=='';
+return $this->getLarge()=='';
 }
 
 function hasLarge()
 {
 return $this->has_large;
+}
+
+function getLarge()
+{
+return $this->has_large ? $this->large : $this->small;
+}
+
+function getLargeX()
+{
+return $this->large_x;
+}
+
+function getLargeY()
+{
+return $this->large_y;
 }
 
 function getFormat()
@@ -165,10 +180,10 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
-function getImageContentById($id)
+function getImageContentById($id,$size='large')
 {
-$result=mysql_query("select id,filename,if(has_large,'',small) as small,
-                            has_large,large,format
+$fields=$size=='small' ? ',small' : ",if(has_large,'',small) as small,large";
+$result=mysql_query("select id,filename,has_large,format,image_set$fields
                      from images
 		     where id=$id")
 	     or die('Ошибка SQL при выборке изображения');
@@ -186,7 +201,7 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
-function getImageTagById($id,$align='',$aSize='small')
+function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php')
 {
 global $uiName,$thumbnailType;
 
@@ -198,7 +213,7 @@ $al=$align!='' ? "align=$align" : '';
 $ext=getImageExtension($size[2] ? $thumbnailType : $size[3]);
 return '<img border=0 width='.$size[0].
                     ' height='.$size[1].
-		    " $al src='lib/image.php/$uiName-$id.$ext?id=$id&size=$aSize'>";
+		    " $al src='$src/$uiName-$id.$ext?id=$id&size=$aSize'>";
 }
 
 function getImageEnlargeLinkById($id)
@@ -218,7 +233,7 @@ function imageSetExists($image_set)
 $result=mysql_query("select id
 		     from images
 		     where image_set=$image_set")
-	     or die('Ошибка SQL при выборке набора изображений');
+	     or die('Ошибка SQL при проверке наличия набора изображений');
 return mysql_num_rows($result)>0;
 }
 
@@ -227,7 +242,7 @@ function imageExists($id)
 $result=mysql_query("select id
 		     from images
 		     where id=$id")
-	     or die('Ошибка SQL при выборке изображения');
+	     or die('Ошибка SQL при проверке наличия изображения');
 return mysql_num_rows($result)>0;
 }
 ?>

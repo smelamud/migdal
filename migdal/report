@@ -98,6 +98,7 @@ Migdal report generator (for 'migdal' interface)
 	domains      Domains popularity report
 	popularity   Popularity report
         raw          Raw user-readable log (default)
+	traps        Traps activity report
 	visits       Output number of individual visits
   -t, --to=<date>           Final date for statistics
   -v, --version             Print version information and exit
@@ -183,6 +184,10 @@ sub initPopularity
 }
 
 sub initRaw
+{
+}
+
+sub initTraps
 {
 }
 
@@ -313,6 +318,15 @@ print getTimeStr($$log[1]).' '.getAddress($$log[2])."\t".$$log[0].': '.
       comment($$log[3])."\n";
 }
 
+sub runTraps
+{
+my ($log)=@_;
+
+return if $$log[0] ne 'trap';
+$counters{$$log[3]}=new Counter() unless defined $counters{$$log[3]};
+$counters{$$log[3]}->inc($$log[2],$$log[1]);
+}
+
 sub runVisits
 {
 my ($log)=@_;
@@ -354,6 +368,16 @@ for my $page(@pages)
 
 sub doneRaw
 {
+}
+
+sub doneTraps
+{
+@traps=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+            keys %counters;
+for my $trap(@traps)
+    {
+    printf "%5i  %s\n",$counters{$trap}->getValue(),$trap;
+    }
 }
 
 sub doneVisits

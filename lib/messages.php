@@ -335,7 +335,7 @@ $result=mysql_query("select id
 		     (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
-	     or die('Ошибка SQL при выборке сообщения');
+	     or die('Ошибка SQL при проверке наличия сообщения');
 return mysql_num_rows($result)>0;
 }
 ?>

@@ -122,6 +122,7 @@
 <decel name='topics_table' params='class,span,title'
        defaults="class='' span=1 title=''" file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
+<decel name='topics_taglit' params='taglit' file='parts/topics-taglit.php'>
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,up'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' up='-1'">

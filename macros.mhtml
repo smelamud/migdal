@@ -86,12 +86,12 @@
          defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1 later=0 subdomain=-1">
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting'>
+<deciter macro='posting_users' class='PostingUsersIterator'
+         file='lib/postings.php' params='grp,topic_id,recursive,cols'
+	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false' cols=5">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic,recursive,limit,offset,personal,sort,withanswers,user,index1,later,subdomain'
          defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0 index1=-1 later=0 subdomain=-1">
-<deciter macro='posting_users' class='PostingUsersIterator'
-         file='lib/postings.php' params='grp,topic_id,recursive'
-	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deciter macro='received_instant_messagelist'
          class='ReceivedInstantMessageListIterator' file='lib/instants.php'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
@@ -146,7 +146,8 @@
 <deccall macro='image_name' func='getImageNameBySet' file='lib/images.php'
          params='set' defaults='name=image'>
 <deccall macro='image_tag' func='getImageTagById' file='lib/images.php'
-         params='id,align,size' defaults="align='' size=small">
+         params='id,align,size,src'
+	 defaults="align='' size=small src='lib/image.php'">
 <deccall macro='image_link' func='getImageEnlargeLinkById' file='lib/images.php'
          params='id'>
 <deccall macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
@@ -192,8 +193,9 @@
 <decel name='image' file='parts/utils.php' params='src,alt,title,border'
        defaults="src='' alt='' title='' border=''">
 
-<macro name='image_tag_put' defaults="align='' size=small">
- <zone><image_tag id%!id='%id' align%!align='%align' size%!size=%size>$,</zone>
+<macro name='image_tag_put' defaults="align='' size=small src='lib/image.php'">
+ <zone><image_tag id%!id='%id' align%!align='%align' size%!size=%size
+                  src%!src='%src'>$,</zone>
 </macro>
 
 <macro name='image_linked_tag' defaults="enlarge=true align=''">

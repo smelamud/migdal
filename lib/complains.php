@@ -297,7 +297,7 @@ function complainExists($id)
 $result=mysql_query("select id
                      from complains
 		     where id=$id")
-	     or die('Ошибка SQL при выборке жалобы');
+	     or die('Ошибка SQL при проверке наличия жалобы');
 return mysql_num_rows($result)>0;
 }
 
