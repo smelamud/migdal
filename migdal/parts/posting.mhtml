@@ -22,7 +22,11 @@
 </element>
 
 <element name='topiclink_times' params='posting,&href,&ghref,&name,&title'>
-<assign name='href' value#='times.php?issue=$posting.Index1'>
+<ifzero what='$posting.Index1'>
+ <assign name='href' value#='times.php?issue=$posting.Index1'>
+<else>
+ <assign name='href' value#='times.php'>
+</ifnzero>
 <assign name='ghref' value=''>
 <assign name='name' value=''>
 <assign name='title' value='$posting.TopicDescription'>
