@@ -64,6 +64,7 @@
 
 .mtimes .info,.mtimes .info DD {
 	font-weight: normal;
+	text-align: left;
 }
 
 .mtimes .info B,.mtimes .info DT {
