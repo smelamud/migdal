@@ -111,7 +111,8 @@ my ($class,$name)=@_;
 $::FlagValue*=2;
 return bless {'name'      => $name,
               'flag'      => uc $name,
-	      'flagValue' => $::FlagValue/2},$class;
+	      'flagValue' => $::FlagValue/2,
+	      'params'    => {}},$class;
 }
 
 sub getName
@@ -140,6 +141,20 @@ sub getFlagValue
 my ($self)=@_;
 
 return $self->{'flagValue'};
+}
+
+sub getParams
+{
+my ($self)=@_;
+
+return $self->{'params'};
+}
+
+sub addParam
+{
+my ($self,$name,$value)=@_;
+
+$self->{'params'}->{$name}=$value;
 }
 
 package main;
@@ -222,7 +237,7 @@ error("';' expected") if $Input->getToken()->getValue() ne ';';
 $Input->next();
 }
 
-sub defineParams
+sub defineAttrs
 {
 my ($class)=@_;
 
@@ -238,6 +253,14 @@ if($Input->getToken()->getValue() eq ':')
   }
 elsif($Input->getToken()->getValue() eq '=')
   {
+  $Input->next();
+  my $name=$Input->getToken()->getName();
+  error('value expected') unless $name eq 'ident' or $name eq 'number' or
+                                 $name eq 'string';
+  $class->addParam($ident,$Input->getToken()->getValue());
+  $Input->next();
+  error("';' expected") if $Input->getToken()->getValue() ne ';';
+  $Input->next();
   }
 else
   {
@@ -254,7 +277,7 @@ $Input->next(),return if $Input->getToken()->getValue() eq ';';
 if($Input->getToken()->getValue() eq '{')
   {
   $Input->next();
-  defineParams($class) while($Input->getToken()->getValue() ne '}');
+  defineAttrs($class) while($Input->getToken()->getValue() ne '}');
   $Input->next();
   }
 else
@@ -287,6 +310,17 @@ my $notValue=$FlagValue-$class->getFlagValue()-1;
 print(GRPS "define('GRP_NOT_".$class->getFlag()."',$notValue);\n");
 }
 
+sub printParam
+{
+my ($name,$value)=@_;
+
+print POSTINGS "function $name()\n";
+print POSTINGS "{\n";
+print POSTINGS "return $value;\n";
+print POSTINGS "}\n";
+print POSTINGS "\n";
+}
+
 sub printClass
 {
 my ($class)=@_;
@@ -301,6 +335,10 @@ print POSTINGS "\$this->Posting(\$row);\n";
 print POSTINGS "\$this->grp=GRP_".$class->getFlag().";\n";
 print POSTINGS "}\n";
 print POSTINGS "\n";
+while(my ($name,$value)=each(%{$class->getParams()}))
+   {
+   printParam($name,$value);
+   }
 print POSTINGS "}\n";
 print POSTINGS "\n";
 }
