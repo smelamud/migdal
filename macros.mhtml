@@ -40,6 +40,7 @@
          params='values' defaults="values='$*'">
 <deciter macro='chat' class='ChatMessageListIterator' file='lib/chat.php'
          params='limit' defaults='limit=20'>
+<deciter macro='chat_users' class='ChatUsersIterator' file='lib/users.php'>
 <deciter macro='complainlist' class='ComplainListIterator'
          file='lib/complains.php' params='limit,offset'
 	 defaults='limit=20 offset=0'>
@@ -93,6 +94,8 @@
 <deccall macro='decstyle' func='declareStyle' file='lib/style.php'
          params='ident,desc'>
 
+<deccall macro='chat_users_count' func='getChatUsersCount'
+         file='lib/users.php'>
 <deccall macro='complain_action_obj' func='getComplainActionById'
          file='lib/complainactions.php' params='id' defaults='name=act'>
 <deccall macro='complain_obj' func='getComplainById' file='lib/complains.php'
@@ -131,6 +134,7 @@
          params='id,up' defaults='id="$topic_id" up=0'>
 <deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
          params='id' defaults='name=topic id="$topic_id"'>
+<deccall macro='update_last_chat' func='updateLastChat' file='lib/users.php'>
 <deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
 
 <macro name='image_tag_put' defaults="align=''">

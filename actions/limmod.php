@@ -69,7 +69,6 @@ settype($editid,'integer');
 settype($has_large,'integer');
 settype($small_x,'integer');
 settype($small_y,'integer');
-$title=addslashes($title);
 
 dbOpen();
 session($sessionid);

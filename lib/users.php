@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/usertag.php');
 require_once('lib/selectiterator.php');
 require_once('lib/calendar.php');
@@ -291,6 +293,13 @@ function isAdminHidden()
 return $this->hidden>1 ? 1 : 0;
 }
 
+function isVisible()
+{
+global $userAdminUsers;
+
+return !$this->isHidden() || ($userAdminUsers && !$this->isAdminHidden());
+}
+
 function isNoLogin()
 {
 return $this->no_login;
@@ -406,5 +415,43 @@ $result=mysql_query("select id
 		     where id=$id and hidden<$hide and has_personal<>0")
 	     or die('Ошибка SQL при выборке данных пользователя');
 return mysql_num_rows($result)>0;
+}
+
+class ChatUsersIterator
+      extends SelectIterator
+{
+
+function ChatUsersIterator()
+{
+global $chatTimeout;
+
+$this->SelectIterator('User',
+                      "select id,login,name,jewish_name,surname,gender,email,
+		              hide_email
+		       from users
+		       where last_chat+interval $chatTimeout minute>now()");
+}
+
+}
+
+function getChatUsersCount()
+{
+global $chatTimeout;
+
+$result=mysql_query("select count(*)
+		     from users
+		     where last_chat+interval $chatTimeout minute>now()")
+             or die('Ошибка SQL при получении количества пользователей в чате');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function updateLastChat()
+{
+global $userId;
+
+mysql_query("update users
+             set last_chat=now()
+	     where id=$userId")
+     or die('Ошибка SQL при обновлении времени присутствия в чате');
 }
 ?>

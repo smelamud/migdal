@@ -3,16 +3,27 @@
 
 <element name='Menu'>
 <table class='menu' width=100%><tr><td>
- <iterate_menu>
+ <iterate_menu name='menu'>
  <for>
-  <if what='$.Ident==$ident'>
-   <at href='$.Link' class='selected' target='$target'>$.Name</at>
-  <else>
-   <at href='$.Link' target='$target'>$.Name</at>
+  <assign name='name' value='$.Name'>
+  <if what="$.Ident=='chat'">
+   <zone>
+    <chat_users_count>
+    <concat name='name' value='$name ($,)'>
+   </zone>
   </if>
-  &nbsp;
+  <if what='$.Ident==$ident'>
+   <at href='$.Link' class='selected' target='$target'>$name</at>
+  <else>
+   <at href='$.Link' target='$target'>$name</at>
+  </if>
+  <notlast name='menu'>
+   &nbsp;
+  </notlast>
  </for>
- &nbsp;
- <admin_menu><at href='menuedit.php' target='$target'>Изменить</at></admin_menu>
+ <admin_menu>
+  &nbsp;
+  <at href='menuedit.php' target='$target'>Изменить</at>
+ </admin_menu>
 </td></tr></table>
 </element>

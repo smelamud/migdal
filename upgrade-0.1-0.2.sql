@@ -7,3 +7,5 @@ ALTER TABLE `mailing_types` ADD `force_send` TINYINT NOT NULL;
 UPDATE mailing_types SET force_send=1 WHERE ident='register';
 ALTER TABLE `messages` ADD `author` VARCHAR(250) NOT NULL AFTER `subject`,
 ADD `source` VARCHAR(250) NOT NULL AFTER `author`; 
+ALTER TABLE `users` ADD `last_chat` DATETIME NOT NULL;
+ALTER TABLE `users` ADD INDEX (`last_chat`);
