@@ -30,7 +30,7 @@
  </isedit>
  </td>
  <td width=75% align=left valign=top>
-  <rebe>$forum.Body</rebe>
+  <rebe>$forum.HTMLBody</rebe>
  </td>
 </tr>
 </table>
