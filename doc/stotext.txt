@@ -121,8 +121,8 @@ htmlspecialchars() для нейтрализации тегов HTML в целях безопасности.
 HTML-страницу. Ядро будет форсировать такую проверку и выдавать
 предупреждения, где только возможно. [NIF]
 
-Based-on: lib/text.php 1.21
-Based-on: lib/messages.php 1.55 (формат сообщений)
+Based-on: lib/text.php 1.22
+Based-on: lib/messages.php 1.57 (формат сообщений)
 Based-on: lib/chat.php 1.5 (формат чата)
 Based-on: lib/topics.php 1.33 (формат описаний)
 
