@@ -314,7 +314,7 @@ $this->SelectIterator('Message',
 			      images.image_set as image_set,
 			      images.id as image_id,
 			      topics.name as topic_name,
-			      login,gender,email,hide_email
+			      login,gender,email,hide_email,rebe
 		       from messages
 			     left join images
 				  on messages.image_set=images.image_set

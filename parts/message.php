@@ -25,14 +25,28 @@ $requestURI=urlencode($REQUEST_URI);
  ?>
  <td align=right><?php echo $message->getSentView() ?></td>
 </tr>
+<?php
+if($message->isRebe())
+  {
+  $startFont='<font color=red>';
+  $endFont='</font>';
+  }
+else
+  {
+  $startFont='';
+  $endFont='';
+  }
+?>
 <tr>
- <td><b><?php echo $message->getSubject() ?></b></td>
+ <td><b><?php echo $startFont.$message->getSubject().$endFont ?></b></td>
  <td align=right>
   <?php
+  echo $startFont;
   echo $message->getLoginLink();
   if($message->isSenderVisible())
     echo "(<a href='useredit.php?editid=".$message->getSenderId().
 			       "&redir=$requestURI'>подробнее</a>)";
+  echo $endFont;
   ?>
  </td>
 </tr>
@@ -49,7 +63,7 @@ $requestURI=urlencode($REQUEST_URI);
 	 </tr></table>';
    }
  else
-   echo $message->getBody();
+   echo $startFont.$message->getBody().$endFont;
  ?>
 </td></tr>
 <?php
