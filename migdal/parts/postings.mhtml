@@ -13,10 +13,11 @@
        class='add'>Добавить $grpitemtitle</a>
    <else>
     <a href='postingedit.php?topic_id=$topic&grp=*GRP_NEWS&redir=$_'
-       class='add'>Добавить новость</a>
-    </td><td width=10></td><td>
+       class='add'>Добавить новость</a>,
+    <a href='postingedit.php?topic_id=$topic&grp=*GRP_FORUMS&redir=$_'
+       class='add'>мнение</a>,
     <a href='postingedit.php?topic_id=$topic&grp=*GRP_ARTICLES&redir=$_'
-       class='add'>Добавить статью</a>
+       class='add'>статью</a>
    </if>
   <else>
    <span class='advert'>

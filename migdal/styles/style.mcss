@@ -172,6 +172,8 @@ complain_input_text=%vd
 :test		complain_controls=%vd
 complain_controls_hover=blue
 chatboard_back=%vl
+chatboard_time=%gr
+chatboard_name=%nd
 
 ! Global
 
@@ -337,7 +339,7 @@ BODY {
 	text-decoration: underline;
 }
 
-.batcher TD {
+.batcher TD,.batcher TD * {
 	font-size: 8pt;
 }
 
@@ -345,14 +347,12 @@ BODY {
 	border-color: %batcher_input_border;
 	border-width: 1px;
 	color: %batcher_input_text;
-	font-size: 8pt;
 }
 
 .batcher SELECT {
 	border-color: %batcher_input_border;
 	color: %batcher_input_text;
 	border-width: 1px;
-	font-size: 8pt;
 }
 
 ! Posting
@@ -1002,8 +1002,19 @@ BODY {
 
 BODY.chatboard {
 	background-color: %chatboard_back;
+	font-size: 9pt;
 }
 
-FRAME.chatboard {
-	border: 3px solid %vm;
+.chatboard TR {
+	vertical-align: middle;
+}
+
+.chatboard .time {
+	color: %chatboard_time;
+	font-size: 7pt;
+}
+
+.chatboard .name{
+	color: %chatboard_name;
+	font-weight: bold;
 }

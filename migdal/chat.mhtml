@@ -8,7 +8,7 @@
 <logged>
  <frameset rows='170,*,65' border=0>
 <else>
- <frameset rows='170,*' border=0>
+ <frameset rows='190,*' border=0>
 </logged>
  <frame src='chattop.php' noresize>
  <frame src='chatboard.php' noresize>

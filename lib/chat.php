@@ -33,11 +33,6 @@ function getSent()
 return $this->sent;
 }
 
-function getSentTimeView()
-{
-return date('H:i:s',$this->sent);
-}
-
 function getText()
 {
 return $this->text;

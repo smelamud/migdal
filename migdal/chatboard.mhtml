@@ -6,9 +6,13 @@
 <head></head>
 <body class='chatboard'>
  <iterate_chat limit='$$userChatPortion'>
- <table>
+ <table cellspacing=0 cellpadding=0>
   <for>
-   <tr><td>[$.SentTimeView]</td><td><b>$.Login</b></td><td>$.HTMLText</td></tr>
+   <tr>
+    <td class='time'>[$.Sent@H:$.Sent@i:$.Sent@s]</td>
+    <td>&nbsp;</td>
+    <td><span class='name'>$.Login:</span> $.HTMLText</td>
+   </tr>
   </for>
  </table>
 </body>
