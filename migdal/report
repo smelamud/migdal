@@ -289,7 +289,7 @@ $c='[Глава книги]' if $type eq 'chapter';
 $c='[Обзор]' if $type eq 'review';
 $c='[Уголок ветерана]' if $type eq 'veterans';
 $c='[Событие]' if $type eq 'event';
-return $c.specify($s);
+return $c.specify($type,$s);
 }
 
 sub getRunSub
