@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 # @(#) $Id$
-# Based-on: miparser 1.76 (разбор MHTML)
+# Based-on: miparser 1.77 (разбор MHTML)
 
 $className='';
 $tagName='';
