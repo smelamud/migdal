@@ -12,6 +12,10 @@
  <trap text='Arab-Israel gallery'>
  <reload href='index.php?topic_id=4'>
 </if>
+<if what='$topic_id==143'>
+ <trap text='Museum gallery'>
+ <reload href='migdal.php?artid=1582'>
+</if>
 <ifnzero what='$grp'>
  <trap text='grp!=0 in gallery.php'>
  <reload href='$[grp]'>
