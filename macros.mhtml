@@ -122,12 +122,12 @@
  <call name='%name' func='getComplainTypeIdByIdent' arg1='%ident'>
 </macro>
 
-<macro name='forum_answer_obj' defaults='name=forumanswer up=0'>
+<macro name='forum_answer_obj' defaults='name=answer up=0'>
  <require name='lib/forums.php'>
  <call name='%name' func='getForumAnswerById' arg1='%id' arg2='%up'>
 </macro>
 
-<macro name='forum_answer_full'>
+<macro name='forum_answer_full' defaults='name=answer'>
  <require name='lib/forums.php'>
  <call name='%name' func='getFullForumAnswerById' arg1='%id'>
 </macro>
@@ -156,7 +156,7 @@
  <call name='%name' func='getMessageById' arg1='%id' arg2='%grp' arg3='%topic'>
 </macro>
 
-<macro name='message_full' defaults='grp=0'>
+<macro name='message_full' defaults='name=message grp=0'>
  <require name='lib/messages.php'>
  <call name='%name' func='getFullMessageById' arg1='%id' arg2='%grp'>
 </macro>

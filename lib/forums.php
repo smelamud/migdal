@@ -53,6 +53,16 @@ else
 return $result;
 }
 
+function hasSubject()
+{
+return false;
+}
+
+function hasImage()
+{
+return false;
+}
+
 function getMessageId()
 {
 return $this->message_id;
@@ -81,7 +91,7 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $this->LimitSelectIterator(
        'ForumAnswer',
-	"select messages.id as id,message_id,body,sent,sender_id,
+	"select forums.id as id,message_id,body,sent,sender_id,
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,
 		login,gender,email,hide_email,rebe
@@ -109,8 +119,8 @@ $result=mysql_query("select forums.id as id,body,personal_id,sender_id,image_set
                             hidden,disabled
 		     from forums
 		          left join messages
-			       on forums.messages_id=messages.id
-		     where id=$id and (hidden<$hide or sender_id=$userId)
+			       on forums.message_id=messages.id
+		     where forums.id=$id and (hidden<$hide or sender_id=$userId)
 		           and (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
@@ -125,7 +135,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
-	"select messages.id as id,message_id,body,sent,sender_id,
+	"select forums.id as id,message_id,body,sent,sender_id,
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,
@@ -134,7 +144,7 @@ $result=mysql_query(
 		login,gender,email,hide_email,rebe
 	 from forums
 	      left join messages
-		   on forums.messages_id=messages.id
+		   on forums.message_id=messages.id
 	      left join images
 		   on messages.image_set=images.image_set
 	      left join users

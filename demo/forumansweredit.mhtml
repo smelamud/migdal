@@ -12,7 +12,7 @@
  <forum_answer_obj id='$editid' up='$up'>
  <setup>
  <form method=post enctype='multipart/form-data'
-       action='actions/messagemod.php'>
+       action='actions/forumanswermod.php'>
  <input type=hidden name='edittag' value=1>
  <input type=hidden name='redir' value='$redir'>
  <input type=hidden name='editid' value='$editid'>

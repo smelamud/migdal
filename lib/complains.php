@@ -224,7 +224,7 @@ $this->LimitSelectIterator(
                recs.login as rec_login,recs.gender as rec_gender,
 	       recs.email as rec_email,recs.hide_email as rec_hide_email,
 	       recs.rebe as rec_rebe,recs.hidden as rec_hidden,
-	       count(answers.up) as answer_count
+	       count(forums.up) as answer_count
         from complains
 	     left join messages
 		  on messages.id=complains.message_id
@@ -232,8 +232,8 @@ $this->LimitSelectIterator(
 		  on messages.sender_id=users.id
 	     left join users as recs
 		  on complains.recipient_id=recs.id
-	     left join messages as answers
-	          on messages.id=answers.up
+	     left join forums
+	          on messages.id=forums.up
 	group by messages.id
         order by closed is null desc,sent desc',$limit,$offset,
        'select count(*)

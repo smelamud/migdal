@@ -12,7 +12,8 @@ var $class;
 
 function SelectIterator($aClass,$query)
 {
-$this->result=mysql_query($query) or die ("Ошибка SQL в итераторе: $query");
+$this->result=mysql_query($query)
+       or die ("Ошибка SQL в итераторе: $query: ".mysql_error());
 $this->count=mysql_num_rows($this->result);
 $this->class=$aClass;
 }

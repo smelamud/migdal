@@ -7,7 +7,7 @@ require_once('lib/session.php');
 require_once('lib/errors.php');
 require_once('lib/complains.php');
 require_once('lib/complainactions.php');
-require_once('lib/messages.php');
+require_once('lib/forums.php');
 require_once('lib/utils.php');
 
 function executeAction($action,$complain_id)

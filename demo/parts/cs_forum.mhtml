@@ -4,5 +4,5 @@
 <center><h1>Жалоба на сообщение в форуме</h1></center>
 <p>
 <forum_answer_full id='$link'>
-<forum_answer forum='$,' complain='*false'>
+<forum_answer answer='$,' complain='*false'>
 </element>
