@@ -11,6 +11,7 @@ define('GRP_QUOTES',16);
 define('GRP_PHRASES',32);
 define('GRP_INT_FORUMS',64);
 define('GRP_TAPE',10);
+define('GRP_WRITINGS',123);
 define('GRP_DISCUSS',127);
 define('GRP_NOT_FORUMS',126);
 define('GRP_ALL',127);

@@ -22,7 +22,7 @@
              offset='$offset'>
   </td>
   <td width=5>&nbsp;</td>
-  <td width=100><hit_parade grp='*GRP_TAPE' topic_id='$topic_id'></td>
+  <td width=100><hit_parade grp='*GRP_WRITINGS' topic_id='$topic_id'></td>
  </tr></table>
  <bottom>
 </body>

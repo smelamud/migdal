@@ -29,8 +29,10 @@
      $user.ReplyLink<image src='$$style_mail_image' border=0></a>
     </ife>
    </div>
-   <p>
-   <taglit_postings taglit_id='$taglit.Id' user_id='$user.Id'>
+   <ifzero what='$offset'>
+    <p>
+    <taglit_postings taglit_id='$taglit.Id' user_id='$user.Id'>
+   </ifzero>
    <p>
    <taglit_gallery taglit_id='$taglit.Id' user_id='$user.Id'
                    rows='$userPictureRowPortion'
