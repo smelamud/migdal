@@ -161,9 +161,9 @@
      <div class='author'>$,HTMLAuthor</div>
     </ifne>
    </h1>
-   <p class='preface'>
+   <blockquote class='preface'>
     $,HTMLBody
-   </p>
+   </blockquote>
    <if what='$,LargeFormat==*TF_PRE'><pre></if>
    <iterate_posting_paragraphs posting='$,'>
    <p>
