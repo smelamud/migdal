@@ -22,6 +22,7 @@ var $grp;
 function Posting($row)
 {
 $this->Message($row);
+$this->grp=GRP_ALL;
 }
 
 function getCorrespondentVars()
@@ -110,8 +111,8 @@ class Forum
 
 function Forum($row)
 {
-$this->grp=GRP_FORUMS;
 $this->Posting($row);
+$this->grp=GRP_FORUMS;
 }
 
 }
@@ -122,8 +123,8 @@ class News
 
 function News($row)
 {
-$this->grp=GRP_NEWS;
 $this->Posting($row);
+$this->grp=GRP_NEWS;
 }
 
 }
@@ -134,8 +135,8 @@ class Gallery
 
 function Gallery($row)
 {
-$this->grp=GRP_GALLERY;
 $this->Posting($row);
+$this->grp=GRP_GALLERY;
 }
 
 }
@@ -146,9 +147,9 @@ class Article
 
 function Article($row)
 {
-$this->grp=GRP_ARTICLES;
 $this->large_format=TF_TEX;
 $this->Posting($row);
+$this->grp=GRP_ARTICLES;
 }
 
 }
@@ -263,7 +264,7 @@ return $paragraph;
 
 }
 
-function getPostingById($id,$grp=0,$topic=0)
+function getPostingById($id,$grp=GRP_ALL,$topic=0)
 {
 global $userId,$userModerator;
 
@@ -288,7 +289,7 @@ return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
 				                 array('topic_id' => $topic));
 }
 
-function getFullPostingById($id,$grp=0)
+function getFullPostingById($id,$grp=GRP_ALL)
 {
 global $userId,$userModerator;
 

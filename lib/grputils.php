@@ -14,7 +14,8 @@ $grpOneTitles=array(GRP_FORUMS   => 'Форум',
 $grpItemTitles=array(GRP_FORUMS   => 'сообщение',
                      GRP_NEWS     => 'новость',
 		     GRP_GALLERY  => 'картинку',
-		     GRP_ARTICLES => 'статью');
+		     GRP_ARTICLES => 'статью',
+		     GRP_ALL      => 'сообщение');
 $grpIdents=array(GRP_FORUMS   => 'forums',
                  GRP_NEWS     => 'news',
 		 GRP_GALLERY  => 'gallery',

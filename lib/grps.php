@@ -50,15 +50,16 @@ return $result;
 
 function getPackedGrpFilter($grp,$prefix='')
 {
-return $grp=='and ('
-             .join(' or ',enclose(getGrpNumbers($grp),$prefix.'grp=')).
-	     ')';
+return 'and ('
+       .join(' or ',enclose(getGrpNumbers($grp),$prefix.'grp=')).
+       ')';
 }
 
 $grpClassNames=array(GRP_FORUMS   => 'Forum',
                      GRP_NEWS     => 'News',
                      GRP_GALLERY  => 'Gallery',
-		     GRP_ARTICLES => 'Article');
+		     GRP_ARTICLES => 'Article',
+		     GRP_ALL      => 'Posting');
 
 function getGrpClassName($grp)
 {

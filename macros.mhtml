@@ -215,12 +215,12 @@
  <call name='%name' func='getStotextImageByParagraph' arg1='%id' arg2='%par'>
 </macro>
 
-<macro name='posting_obj' defaults='name=message grp=0 topic=0'>
+<macro name='posting_obj' defaults='name=message grp=*GRP_ALL topic=0'>
  <require name='lib/postings.php'>
  <call name='%name' func='getPostingById' arg1='%id' arg2='%grp' arg3='%topic'>
 </macro>
 
-<macro name='posting_full' defaults='name=message grp=0'>
+<macro name='posting_full' defaults='name=message grp=*GRP_ALL'>
  <require name='lib/postings.php'>
  <call name='%name' func='getFullPostingById' arg1='%id' arg2='%grp'>
 </macro>
