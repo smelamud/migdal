@@ -91,7 +91,8 @@ CREATE TABLE complains (
   KEY id (id),
   KEY recipient_id (recipient_id),
   KEY message_id (message_id),
-  KEY type_id (type_id)
+  KEY type_id (type_id),
+  KEY link (link)
 ) TYPE=MyISAM;
 
 #
@@ -303,18 +304,6 @@ CREATE TABLE users (
 # Host: localhost    Database: migdal
 #--------------------------------------------------------
 # Server version	3.23.41-log
-
-#
-# Dumping data for table 'menu'
-#
-
-INSERT INTO menu VALUES (1,'Главная','index','index.php',0,0);
-INSERT INTO menu VALUES (2,'Пользователи','users','users.php',0,5);
-INSERT INTO menu VALUES (3,'Форумы','forums','topics.php?grp=1',0,2);
-INSERT INTO menu VALUES (4,'Галерея','gallery','topics.php?grp=4',0,3);
-INSERT INTO menu VALUES (5,'Новости','news','topics.php?grp=2',0,1);
-INSERT INTO menu VALUES (6,'Жалобная книга','complains','complains.php',0,6);
-INSERT INTO menu VALUES (7,'Чат','chat','chat.php',0,4);
 
 #
 # Dumping data for table 'complain_types'
