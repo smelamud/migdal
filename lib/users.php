@@ -23,6 +23,7 @@ var $last_online;
 var $email;
 var $icq;
 var $email_disabled;
+var $admin_users;
 
 function User($row)
 {
@@ -34,7 +35,7 @@ function setupHTTP($vars)
 if(!isset($vars['login']))
   return;
 foreach(array('login','password','dup_password','name','jewish_name','surname',
-              'migdal_student','info','email','icq') as $var)
+              'migdal_student','info','email','icq','admin_users') as $var)
        $this->$var=htmlspecialchars($vars[$var]);
 $this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
                                         .'-'.$vars['birth_day'];
@@ -43,16 +44,15 @@ $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 
 function isEditable()
 {
-return $this->id==0;
-}
+global $userId,$userAdminUsers;
 
-function isAdmined()
-{
-return false;
+return $this->id==0 || $this->id==$userId || $userAdminUsers;
 }
 
 function store()
 {
+global $userAdminUsers;
+
 $normal=array('login'          => $this->login,
               'password'       => md5($this->password),
 	      'name'           => $this->name,
@@ -64,6 +64,9 @@ $normal=array('login'          => $this->login,
 	      'email'          => $this->email,
 	      'icq'            => $this->icq,
 	      'email_disabled' => $this->email_disabled);
+if($userAdminUsers)
+  $normal=array_merge($normal,
+        array('admin_users'    => $this->admin_users));
 $result=mysql_query($this->id 
                     ? makeUpdate('users',$normal,array('id' => $this->id))
                     : makeInsert('users',$normal));
@@ -190,6 +193,11 @@ function getLastOnline()
 {
 $t=strtotime($this->last_online);
 return date('j/m/Y × H:i:s',$t);
+}
+
+function isAdminUsers()
+{
+return $this->admin_users;
 }
 
 }

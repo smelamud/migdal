@@ -28,7 +28,8 @@ require_once('top.php');
         {
 	echo '<tr>';
 	echo '<td align=center><a href="useredit.php?editid='.$item->getId().
-	     '">'.$item->getLogin().'</a></td>';
+	     '&redir='.urlencode($REQUEST_URI).'">'.$item->getLogin().
+	     '</a></td>';
 	echo '<td align=center>'.$item->getFullName().'</td>';
 	echo '<td align=center>'.$item->getAge().'</td>';
 	echo '<td align=center>'.$item->getMigdalStudent().'</td>';

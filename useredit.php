@@ -221,6 +221,14 @@ if($user->isEditable() && $err==$code)
      <?php
      }
    ?>
+   <tr>
+    <td colspan=2>
+    <?php
+     echo condCheckBox($userAdminUsers,'admin_users',
+		       $user->isAdminUsers(),'Администратор пользователей');
+    ?>
+    </td>
+   </tr>
   </table>
   <?php
   if($user->isEditable())
