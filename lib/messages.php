@@ -341,39 +341,6 @@ return newMessage($row);
 
 }
 
-class ForumListIterator
-      extends LimitSelectIterator
-{
-
-function ForumListIterator($up,$limit=10,$offset=0)
-{
-global $userId,$userModerator;
-
-$hide=$userModerator ? 2 : 1;
-$this->LimitSelectIterator(
-       'Message',
-	"select messages.id as id,body,subject,sent,sender_id,
-	        messages.hidden as hidden,disabled,
-		users.hidden as sender_hidden,
-		login,gender,email,hide_email,rebe
-	 from messages
-	       left join users
-		    on messages.sender_id=users.id
-	 where (messages.hidden<$hide or sender_id=$userId) and
-	       (messages.disabled<$hide or sender_id=$userId) and
-	       up=$up
-	 order by sent desc",$limit,$offset);
-      /* здесь нужно поменять, если будут другие ограничения на
-	 просмотр TODO */
-}
-
-function create($row)
-{
-return newMessage($row);
-}
-
-}
-
 function getMessageById($id,$grp=0,$topic=0,$up=0)
 {
 global $userId,$userModerator;

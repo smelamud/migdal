@@ -1,6 +1,9 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/limitselect.php');
+require_once('lib/messages.php');
+
 class ForumAnswer
       extends Message
 {
@@ -65,5 +68,84 @@ function setUpValue($up)
 $this->up=$up;
 }
 
+}
+
+class ForumAnswerListIterator
+      extends LimitSelectIterator
+{
+
+function ForumAnswerListIterator($up,$limit=10,$offset=0)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$this->LimitSelectIterator(
+       'ForumAnswer',
+	"select messages.id as id,body,sent,sender_id,
+	        messages.hidden as hidden,disabled,
+		users.hidden as sender_hidden,
+		login,gender,email,hide_email,rebe
+	 from forums
+	      left join messages
+		   on forums.message_id=messages.id
+	      left join users
+		   on messages.sender_id=users.id
+	 where (messages.hidden<$hide or sender_id=$userId) and
+	       (messages.disabled<$hide or sender_id=$userId) and
+	       up=$up
+	 order by sent desc",$limit,$offset);
+      /* здесь нужно поменять, если будут другие ограничения на
+	 просмотр TODO */
+}
+
+}
+
+function getForumAnswerById($id,$up=0)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$result=mysql_query("select forums.id as id,body,personal_id,sender_id,image_set,up,
+                            hidden,disabled
+		     from forums
+		          left join messages
+			       on forums.messages_id=messages.id
+		     where id=$id and (hidden<$hide or sender_id=$userId)
+		           and (disabled<$hide or sender_id=$userId)")
+		    /* здесь нужно поменять, если будут другие ограничения на
+		       просмотр TODO */
+	     or die('Ошибка SQL при выборке сообщения в форуме');
+return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                                 : array('up' => $up));
+}
+
+function getFullForumAnswerById($id)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$result=mysql_query(
+	"select messages.id as id,body,sent,sender_id,
+	        messages.hidden as hidden,disabled,
+		users.hidden as sender_hidden,images.image_set as image_set,
+		images.id as image_id,
+		images.small_x<images.large_x or
+		images.small_y<images.large_y as has_large_image,
+		login,gender,email,hide_email,rebe
+	 from forums
+	      left join messages
+		   on forums.messages_id=messages.id
+	      left join images
+		   on messages.image_set=images.image_set
+	      left join users
+		   on messages.sender_id=users.id
+	 where (messages.hidden<$hide or sender_id=$userId) and
+	       (messages.disabled<$hide or sender_id=$userId) and
+	       forums.id=$id")
+      /* здесь нужно поменять, если будут другие ограничения на
+	 просмотр TODO */
+ or die('Ошибка SQL при выборке сообщения в форуме');
+return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                                 : array());
 }
 ?>

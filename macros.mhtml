@@ -44,9 +44,9 @@
  <iterate name='%name' class='ComplainActionListIterator' arg1='%type'>
 </macro>
 
-<macro name='iterate_forumlist'>
- <require name='lib/messages.php'>
- <iterate name='%name' class='ForumListIterator'
+<macro name='iterate_forum_answerlist'>
+ <require name='lib/forums.php'>
+ <iterate name='%name' class='ForumAnswerListIterator'
           arg1='%up' arg2='%limit' arg3='%offset'>
 </macro>
 
@@ -120,6 +120,16 @@
 <macro name='complain_type_id'>
  <require name='lib/complains.php'>
  <call name='%name' func='getComplainTypeIdByIdent' arg1='%ident'>
+</macro>
+
+<macro name='forum_answer_obj' defaults='name=forumanswer up=0'>
+ <require name='lib/forums.php'>
+ <call name='%name' func='getForumAnswerById' arg1='%id' arg2='%up'>
+</macro>
+
+<macro name='forum_answer_full'>
+ <require name='lib/forums.php'>
+ <call name='%name' func='getFullForumAnswerById' arg1='%id'>
 </macro>
 
 <macro name='image_name' defaults='name=image'>
