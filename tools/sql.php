@@ -13,6 +13,9 @@ if(!$link)
 if(!mysql_select_db($dbname))
   return;
 $result=mysql_query($sql);
+if(!$result)
+  return;
+mysql_close($link);
 }
 
 if($sql!='')
