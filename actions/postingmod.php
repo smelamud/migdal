@@ -101,20 +101,21 @@ if($message->mandatoryURL() && $message->url=='')
   return EP_URL_ABSENT;
 if($message->mandatoryTopic() && $message->topic_id==0)
   return EP_TOPIC_ABSENT;
-if($message->topic_id!=0)
-  {
-  $perms=getPermsById('topics',addslashes($message->topic_id));
-  if(!$perms)
-    return EP_NO_TOPIC;
-  if(!$perms->isPostable())
-    return EP_TOPIC_ACCESS;
-  }
-else
-  {
-  $perms=getRootPerms('topics');
-  if(!$perms->isPostable())
-    return EP_TOPIC_ACCESS;
-  }
+if($original->getId()==0 || $original->topic_id!=$message->topic_id)
+  if($message->topic_id!=0)
+    {
+    $perms=getPermsById('topics',addslashes($message->topic_id));
+    if(!$perms)
+      return EP_NO_TOPIC;
+    if(!$perms->isPostable())
+      return EP_TOPIC_ACCESS;
+    }
+  else
+    {
+    $perms=getRootPerms('topics');
+    if(!$perms->isPostable())
+      return EP_TOPIC_ACCESS;
+    }
 if($message->mandatoryIdent() && $message->ident=='')
   return EP_IDENT_ABSENT;
 $cid=idByIdent('postings',$message->ident);
