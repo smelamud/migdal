@@ -651,7 +651,7 @@ function postingExists($id)
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$result=mysql_query("select id
+$result=mysql_query("select postings.id
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
