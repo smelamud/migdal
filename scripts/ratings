@@ -72,7 +72,7 @@ for my $n (1..20)
     while(<IN>)
          {
 	 $pl=$1 if /^<TR><TD class="TDITEM">(\d+)<\/TD>/;
-         $pos=$pl,$pl=0 if /^<TD><dl><dt><A class="AITEM" HREF="$url/ && $pl!=0;
+         $pos=$pl,$pl=0 if /^<TD><dl><dt><A class="AITEM" HREF="\/perl\/trackrate.pl\?url=$url/ && $pl!=0;
 	 }
     close IN;
     last if $pos!=0;
