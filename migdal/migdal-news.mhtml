@@ -29,11 +29,9 @@
    </td>
    <td class='cframe'>
     <subtitle>
-    <outer><div class='nframe' style='padding: 5'>
-     <inner>
-      <seealso_links topic_id='$topic_id' title='См. также в разделе ссылок'>
-     </inner>
-    </div></outer>
+    <outer><div class='nframe' style='padding: 5'><inner>
+     <seealso_links topic_id='$topic_id' title='См. также в разделе ссылок'>
+    </inner></div></outer>
     <postings grp='*GRP_TAPE' topic_id='$topic_id' limit='$userMsgPortion'
 	      offset='$offset' recursive!='$topic_id==$`migdal-news`'>
    </td>

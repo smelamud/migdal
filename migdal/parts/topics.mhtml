@@ -30,7 +30,7 @@
   <tdspan span='$indent'>&nbsp;</tdspan>
  </if>
  <if what='$indent>=0'>
-  <td>
+  <td width=$$style_topics_arrow_width>
    <topics_ner time='$time' arrow='$arrow' nobullet='$nobullet'>
   </td>
  </if>
@@ -58,15 +58,6 @@
 <else>
  <table class='$tableclass' width=100%>
 </if>
- <ifnzero what='$span'>
-  <if what='$span>1'>
-   <for n='$span'>
-    <col width=0*>
-   </for>
-  <else>
-   <col width=0*>
-  </if>
- </ifnzero>
  <ifne what='$title'>
   <assign name='headspan' value!='$span+1'>
   <tr><th colspan=$headspan>$title</th></tr>

@@ -1,8 +1,8 @@
--- MySQL dump 8.22
+-- MySQL dump 9.07
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.54-log
+-- Server version	4.0.12-log
 
 --
 -- Table structure for table 'chat_messages'
@@ -63,8 +63,12 @@ CREATE TABLE complains (
 
 CREATE TABLE cross_topics (
   topic_id int(11) NOT NULL default '0',
+  topic_grp int(11) NOT NULL default '0',
   peer_id int(11) NOT NULL default '0',
-  KEY topic_id (topic_id,peer_id)
+  peer_grp int(11) NOT NULL default '0',
+  KEY topic_id (topic_id,peer_id),
+  KEY topic_grp (topic_grp),
+  KEY peer_grp (peer_grp)
 ) TYPE=MyISAM;
 
 --
@@ -245,7 +249,8 @@ CREATE TABLE messages (
   KEY url_check (url_check,url_check_success),
   KEY sent (sent),
   KEY used (used),
-  KEY group_id (group_id)
+  KEY group_id (group_id),
+  KEY disabled (disabled)
 ) TYPE=MyISAM;
 
 --
@@ -416,7 +421,6 @@ CREATE TABLE topics (
   group_id int(11) NOT NULL default '0',
   perms int(11) NOT NULL default '0',
   stotext_id int(11) NOT NULL default '0',
-  hidden tinyint(4) NOT NULL default '0',
   allow int(11) NOT NULL default '0',
   premoderate int(11) NOT NULL default '0',
   ident varchar(15) NOT NULL default '',
@@ -517,16 +521,15 @@ CREATE TABLE votes (
   KEY posting_id (posting_id,ip,user_id,sent)
 ) TYPE=MyISAM;
 
--- MySQL dump 8.22
+-- MySQL dump 9.07
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.54-log
+-- Server version	4.0.12-log
 
 --
 -- Dumping data for table 'version'
 --
-
 
 INSERT INTO version VALUES (2);
 

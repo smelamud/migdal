@@ -109,3 +109,7 @@ UPDATE topics SET user_id = 3 WHERE user_id = 0;
 UPDATE topics SET group_id = user_id;
 ALTER TABLE `topics` DROP `hidden`;
 ALTER TABLE `messages` ADD INDEX (`disabled`);
+ALTER TABLE `cross_topics` ADD `topic_grp` INT NOT NULL AFTER `topic_id`;
+ALTER TABLE `cross_topics` ADD INDEX (`topic_grp`);
+ALTER TABLE `cross_topics` ADD `peer_grp` INT NOT NULL;
+ALTER TABLE `cross_topics` ADD INDEX (`peer_grp`);
