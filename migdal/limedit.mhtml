@@ -15,7 +15,6 @@
    <iterate_imageset imageset='$,LargeImageSet'>
    <table class='topics' width=100%>
     <col width='0*'>
-    <tr><th colspan=2>Картинки</th></tr>
     <tbody class='names'>
      <for>
       <tr>

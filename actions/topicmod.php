@@ -42,6 +42,8 @@ if($topic->up!=0 && $topic->up==$topic->id)
 $cid=idByIdent('topics',$topic->ident);
 if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
+if($topic->allow==0)
+  return ET_MUST_ALLOW;
 if(!$topic->store())
   return ET_STORE_SQL;
 $topic->track=getTrack($topic);

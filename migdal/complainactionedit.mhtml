@@ -27,7 +27,6 @@
   <td>
    <table class='topics' width=100%>
     <col width='0*'>
-    <tr><th colspan=2>Ответы</th></tr>
     <tbody class='names'>
      <iterate_complain_actionlist type='$typeid'>
      <for>

@@ -75,8 +75,8 @@
        params='ident,flags,image,target,re,showimages'
        defaults="flags='' target='' re='' showimages='*true'">
 <decel name='topics' file='parts/topics.php'
-       params='g,topic_id,title,withpostings,withanswers'
-       defaults="title='' topic_id=0 withpostings='*false' withanswers='*false'">
+       params='g,topic_id,withpostings,withanswers'
+       defaults="topic_id=0 withpostings='*false' withanswers='*false'">
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory' defaults="mandatory='*false'">
 <decel name='uploader' file='parts/uploader.php'

@@ -10,6 +10,24 @@
  </if>
 </macro>
 
+<macro name='arrow'>
+ <td>
+  <if what='$topic_id==%id'>
+   <ifbiff time='%time'>
+    <img src='$$style_topics_ner_arrow' width=12 height=17 title='новое'>
+   <else>
+    <img src='$$style_topics_arrow' width=11 height=12>
+   </ifbiff>
+  <else>
+   <ifbiff time='%time'>
+    <img src='pics/ner.gif' title='новое'>
+   <else>
+    &nbsp;
+   </ifbiff>
+  </if>
+ </td>
+</macro>
+
 <element name='topics'>
 <iterate_topiclist grp='$g.Effective' withpostings='$withpostings'
                    withanswers='$withanswers'>
@@ -21,38 +39,23 @@
 </if>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%>
-  <col width='0*'>
-  <ifne what='$title'>
-   <tr><th colspan=2>$title</th></tr>
-  </ifne>
+  <col width=15>
   <admin_topics>
    <tr class='controls'><td colspan=2>
     <a href='topicedit.php?redir=$_'>Добавить</a>
-    &nbsp;
-    <a href="$[ignoregrp='$g.InvIgnore']">Показать
-     <if what='$g.Ignore'>активные<else>все</if></a>
    </td></tr>
   </admin_topics>
   <tbody class='names'>
    <tr>
-    <td>
-     <if what='$topic_id==-1'>
-      <img src='$$style_topics_arrow' width=11 height=12>
-     </if>
-    </td>
+    <arrow id='-1'>
     <td><a href='$[topic_id=-1 offset]' class='new'>NEW!</a></td>
    </tr>
    <for>
     <tr>
-     <td>
-      <if what='$topic_id==$.Id'>
-       <img src='$$style_topics_arrow' width=11 height=12>
-      </if>
-     </td>
+     <arrow id='$.Id' time='$.LastMessage'>
      <td>
       <a href='$[topic_id=$.Id offset]' title='$.Description'>
 	 $.Name&nbsp;<span class='answers'>($.MessageCount)</span></a>
-      <biff time='$.LastMessage'>
       <admin_topics>
        <br>
        <a href='topicedit.php?editid=$.Id&redir=$_' class='edit'>Изменить</a>

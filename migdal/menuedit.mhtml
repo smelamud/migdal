@@ -27,7 +27,6 @@
    <iterate_menu>
    <table class='topics' width=100%>
     <col width='0*'>
-    <tr><th colspan=2>Меню</th></tr>
     <tbody class='names'>
      <for>
       <ifnzero what='$next'>

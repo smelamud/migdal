@@ -5,7 +5,7 @@
 <int name='offset'>
 <reloadnot why='$topic_id' var='topic_id' value='-1'>
 <reloadnot why='$grp' var='grp' value='*GRP_TAPE'>
-<grp ignore='$ignoregrp'>
+<grp>
 <grptitle>
 <grppic>
 <html>

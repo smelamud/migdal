@@ -43,6 +43,8 @@
   </table></td></tr>
   <checkbox_line name='hidden' value='$,isHidden'
                  title='Не показывать в списке'>
+  <error id='*ET_MUST_ALLOW'
+         text='Тема должна быть для какого-то вида сообщений'>
   <tr><td><table width=100%>
    <tr>
     <td><checkbox name='news' value='$,isNews' title='Тема для новостей'></td>

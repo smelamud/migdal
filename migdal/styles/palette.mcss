@@ -98,6 +98,7 @@ topics_new=red
 topics_controls=%gr
 topics_controls_hover=blue
 topics_arrow=pics/arrow.gif
+topics_ner_arrow=pics/arrow-ner.gif
 catalog_border=black
 catalog_header=%nd
 catalog_header_text=white

@@ -6,13 +6,6 @@
 	border-spacing: 0;
 }
 
-.topics TH {
-	border-bottom: solid 2px %topics_title;
-	font-size: 11pt;
-	color: %topics_title;
-	text-align: center;
-}
-
 .topics TD {
 	padding-top: 0;
 	padding-bottom: 0;
