@@ -220,9 +220,12 @@
      <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
      <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
      <ifne what='$message.LargeFilename'>
-      <tr><td>
+      <tr><td colspan=2>
+       <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId&win=1'>
+	  Текст в кодировке win</a>
+       &nbsp;
        <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>
-	  Загрузить текст</a>
+	  Текст в кодировке koi</a>
       </td></tr>
      </ifne>
      <uploader name='large_file' loadedname='large_loaded' loadedvalue=1

@@ -4,7 +4,11 @@
 <grps>
 <posting_full name='posting' id='$msgid' grp='*GRP_FORUMS'>
 <log event=forum text#='post($,Id)'>
-<pagetitle title#='Обсуждение &lt;&lt;$,SubjectDesc&gt;&gt;'>
+<notenglish>
+ <pagetitle title#='Обсуждение &lt;&lt;$,SubjectDesc&gt;&gt;'>
+<else>
+ <pagetitle title#='Comments: $,SubjectDesc'>
+</notenglish>
 
 <html>
 <preamble>

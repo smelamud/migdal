@@ -16,8 +16,12 @@ $result=mysql_query("select large_body,large_format
 	  or sqlbug('Ошибка SQL при выборке текста');
 header('Content-Type: text/plain');
 if(mysql_result($result,0,1)==TF_HTML)
-  echo mysql_result($result,0,0);
+  $s=mysql_result($result,0,0);
 else
-  echo unhtmlentities(mysql_result($result,0,0));
+  $s=unhtmlentities(mysql_result($result,0,0));
+if($win)
+  echo convert_cyr_string($s,'k','w');
+else
+  echo $s;
 dbClose();
 ?>

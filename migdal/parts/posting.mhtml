@@ -56,6 +56,8 @@
  <else>
   <at href='migdal.php' class='$class'>Мигдаль</at>
  </if></if>
+<else><if what='$/$posting.TopicId,0/==$`migdal,e`'>
+ <at href='index.php' class='$class'>Migdal</at>
 <else>
  <if what='$/$posting.TopicId,1/==$`inet-news`'>
   <topic_obj id='$`inet-news`'>
@@ -72,7 +74,7 @@
   <at href#='index.php?topic_id=$posting.TopicId' class='$class'
       title='$posting.TopicDescription'>$posting.TopicName</at>
  </if></if>
-</if></if></if></if></if></if></if>
+</if></if></if></if></if></if></if></if>
 </element>
 
 <element name='editlink'>

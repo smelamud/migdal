@@ -86,7 +86,7 @@
   <isedit what='$posting'>
    <tr><td align=center>
     <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
-       class='piclink'>Картинка</a>
+       class='piclink'><notenglish>Картинка<else>Picture</notenglish></a>
    </td></tr>
   </isedit>
    <tr><td align=center>
@@ -110,7 +110,7 @@
  <isedit what='$posting'>
   <p$clear>
   <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
-     class='piclink'>Картинка</a>
+     class='piclink'><notenglish>Картинка<else>Picture</notenglish></a>
   </p>
  </isedit>
  <p$clear>
