@@ -30,7 +30,7 @@ $list=$vars['edittag']==2 ? $this->getEditCorrespondentVars()
 foreach($list as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 if(isset($vars['nameid']))
-  $this->text=tmpTextRestore($vars['nameid']);
+  $this->name=tmpTextRestore($vars['nameid']);
 if(isset($vars['textid']))
   $this->text=tmpTextRestore($vars['textid']);
 }
