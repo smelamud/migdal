@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/complainactions.php');
 require_once('lib/errors.php');
 
@@ -26,7 +27,7 @@ if(!deleteComplainAction($editid))
 return ECAD_OK;
 }
 
-settype($editid,'integer');
+postInteger('editid');
 
 dbOpen();
 session($sessionid);

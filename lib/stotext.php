@@ -155,8 +155,9 @@ if(!move_uploaded_file($large_file,$large_file_tmpname))
   return EUL_OK;
 $fd=fopen($large_file_tmpname,'r');
 $stotext->large_filename=$large_file_name;
+$text=fread($fd,$maxLargeText);
 $stotext->large_body=textToStotext($stotext->large_format,
-                                   toKOI(fread($fd,$maxLargeText)));
+                                   isKOI($text) ? $text : convertInput($text));
 fclose($fd);
 unlink($large_file_tmpname);
 

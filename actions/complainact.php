@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/complains.php');
 require_once('lib/complainactions.php');
@@ -34,8 +35,8 @@ opScript(getScriptBodyById($action->getScriptId()),
 return EECA_OK;
 }
 
-settype($actid,'integer');
-settype($complain_id,'integer');
+postInteger('actid');
+postInteger('complain_id');
 
 dbOpen();
 session($sessionid);

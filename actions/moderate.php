@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/utils.php');
 
@@ -26,7 +27,7 @@ $result=mysql_query("update messages
 return EMH_OK;
 }
 
-settype($editid,'integer');
+postInteger('editid');
 
 dbOpen();
 session($sessionid);

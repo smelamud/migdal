@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/users.php');
 require_once('lib/complains.php');
@@ -27,7 +28,7 @@ if(!$result)
 return EC_OK;
 }
 
-settype($id,'integer');
+postInteger('id');
 
 dbOpen();
 session($sessionid);

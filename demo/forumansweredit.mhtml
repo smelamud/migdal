@@ -13,7 +13,7 @@
  <forum_answer_obj id='$editid' up='$up'>
  <setup>
  <form method=post enctype='multipart/form-data'
-       action='actions/forumanswermod.php'>
+       action='actions/forumanswermod.php' accept-charset='Windows-1251'>
  <hidden name='edittag' value=1>
  <hidden name='redir' value='$redir'>
  <hidden name='editid' value='$editid'>

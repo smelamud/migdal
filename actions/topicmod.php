@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/topics.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
@@ -49,8 +50,8 @@ if(!storeTrack($topic))
 return ET_OK;
 }
 
-settype($editid,'integer');
-settype($up,'integer');
+postInteger('editid');
+postInteger('up');
 
 dbOpen();
 session($sessionid);

@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/images.php');
 
@@ -21,8 +22,8 @@ if(!$result)
 return ELID_OK;
 }
 
-settype($postid,'integer');
-settype($editid,'integer');
+postInteger('postid');
+postInteger('editid');
 
 dbOpen();
 session($sessionid);

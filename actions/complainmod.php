@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/uri.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
@@ -28,9 +29,8 @@ if(!$complain->store())
 return EC_OK;
 }
 
-settype($editid,'integer');
-settype($type_id,'integer');
-settype($HTTP_POST_VARS['type_id'],'integer');
+postInteger('editid');
+postInteger('type_id');
 
 dbOpen();
 session($sessionid);

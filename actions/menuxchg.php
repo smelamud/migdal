@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/menu.php');
 
@@ -31,8 +32,8 @@ if(!setMenuIndex($secondid,$firstIndex))
 return EMIX_OK;
 }
 
-settype($firstid,'integer');
-settype($secondid,'integer');
+postInteger('firstid');
+postInteger('secondid');
 
 dbOpen();
 session($sessionid);

@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/images.php');
 require_once('lib/stotext-images.php');
@@ -22,8 +23,8 @@ if(!$image->store())
 return ELII_OK;
 }
 
-settype($postid,'integer');
-settype($par,'integer');
+postInteger('postid');
+postInteger('par');
 
 dbOpen();
 session($sessionid);

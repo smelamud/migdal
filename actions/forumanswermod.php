@@ -6,6 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
@@ -35,7 +36,9 @@ if(!$answer->store())
 return EFA_OK;
 }
 
-settype($editid,'integer');
+postInteger('editid');
+postString('body');
+postString('subject');
 
 dbOpen();
 session($sessionid);

@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/users.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
@@ -55,7 +56,7 @@ if($editid==0)
 return $editid ? EUM_UPDATE_OK : EUM_INSERT_OK;
 }
 
-settype($editid,'integer');
+postInteger('editid');
 
 dbOpen();
 session($sessionid);

@@ -4,6 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/image-upload.php');
 require_once('lib/errors.php');
@@ -64,11 +65,11 @@ if($posting->getLargeImageSet()==0)
 return ELIM_OK;
 }
 
-settype($postid,'integer');
-settype($editid,'integer');
-settype($has_large,'integer');
-settype($small_x,'integer');
-settype($small_y,'integer');
+postInteger('postid');
+postInteger('editid');
+postInteger('has_large');
+postInteger('small_x');
+postInteger('small_y');
 
 dbOpen();
 session($sessionid);

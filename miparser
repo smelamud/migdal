@@ -648,11 +648,13 @@ my ($self)=@_;
 ::request('lib/database.php');
 ::request('lib/session.php');
 ::request('lib/no-cache.php');
+::request('lib/charsets.php');
 ::header(<<EOT);
 <?php
 noCacheHeaders();
 dbOpen();
 session();
+ob_start();
 ?>
 EOT
 ::body(<<EOT);
@@ -668,6 +670,9 @@ my ($self)=@_;
 
 ::footer(<<EOT);
 <?php
+\$Output=ob_get_contents();
+ob_end_clean();
+echo convertOutput(\$Output);
 dbClose();
 ?>
 EOT

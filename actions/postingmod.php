@@ -6,6 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
+require_once('lib/post.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
@@ -98,9 +99,14 @@ if(!setDisabled($message))
 return EP_OK;
 }
 
-settype($editid,'integer');
-settype($grp,'integer');
-settype($HTTP_POST_VARS['grp'],'integer');
+postInteger('editid');
+postInteger('grp');
+postString('body');
+postString('large_body');
+postString('subject');
+postString('author');
+postString('source');
+postString('title');
 $title=addslashes($title);
 
 dbOpen();
