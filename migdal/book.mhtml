@@ -2,6 +2,15 @@
 
 <ident name='bookid' table='postings'>
 <posting_full id='$bookid' grp='*GRP_BOOKS'>
+
+<< Traps >>
+<< Wed Sep 24 02:36:32 EEST 2003 >>
+<if what='$,Grp==*GRP_BOOK_CHAPTERS'>
+ <trap text='Book chapter replaced book'>
+ <reload href#='book-chapter.php?chapid=$bookid'>
+</if>
+<< /Traps >>
+
 <log event=book text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 
