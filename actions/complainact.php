@@ -25,20 +25,23 @@ $forum=new Forum(array('body' => $action->getText(),
 		       'up'   => $complain->getMessageId()));
 if(!$forum->store())
   return EECA_SQL_FORUM;
-$result=mysql_query('select sql
-                     from complain_statements
-		     where opcode='.$action->getOpcode().
-		   ' order by sql_index');
-if(!$result)
-  return EECA_SQL_STATEMENTS;
-while($stat=mysql_fetch_row($result))
-     {
-     $result=mysql_query(subParams($stat[0],
-                         array('complain_id' => $complain_id,
-			       'link'        => $complain->getLink())));
-     if(!$result)
-       return EECA_SQL_EXEC;
-     }
+if($action->getOpcode()!=0)
+  {
+  $result=mysql_query('select sql
+		       from complain_statements
+		       where opcode='.$action->getOpcode().
+		     ' order by sql_index');
+  if(!$result)
+    return EECA_SQL_STATEMENTS;
+  while($stat=mysql_fetch_row($result))
+       {
+       $result=mysql_query(subParams($stat[0],
+			   array('complain_id' => $complain_id,
+				 'link'        => $complain->getLink())));
+       if(!$result)
+	 return EECA_SQL_EXEC;
+       }
+  }
 return EECA_OK;
 }
 

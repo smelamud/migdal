@@ -22,6 +22,7 @@ var $personal_id;
 var $grp;
 var $image_set;
 var $image_id;
+var $has_large_image;
 var $up;
 var $hidden;
 var $disabled;
@@ -164,6 +165,11 @@ $this->image_set=$image_set;
 function getImageId()
 {
 return $this->image_id;
+}
+
+function hasLargeImage()
+{
+return $this->has_large_image;
 }
 
 function getUpValue()
@@ -318,6 +324,8 @@ $this->LimitSelectIterator(
 	       messages.sender_id as sender_id,messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
+	       images.small_x<images.large_x or
+	       images.small_y<images.large_y as has_large_image,
 	       topics.name as topic_name,users.login as login,
 	       users.gender as gender,users.email as email,
 	       users.hide_email as hide_email,users.rebe as rebe,
@@ -416,6 +424,8 @@ $result=mysql_query(
 	        messages.hidden as hidden,disabled,
 		users.hidden as sender_hidden,images.image_set as image_set,
 		images.id as image_id,topics.name as topic_name,
+		images.small_x<images.large_x or
+		images.small_y<images.large_y as has_large_image,
 		login,gender,email,hide_email,rebe
 	 from messages
 	       left join images

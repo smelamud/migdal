@@ -10,7 +10,6 @@
 
 <element name='Message'>
 <table width=100% class='message'>
-<tr><td>&nbsp;</td></tr>
 <tr>
  <ifzero what='$topic'>
   <td>
@@ -30,9 +29,15 @@
 <tr><td colspan=2>
  <ifnzero what='$message.ImageSet'>
   <table width=100%><tr>
-   <td><a href='lib/image.php?id=$message.ImageId&size=large'>
-    <imgtag id='$message.ImageId'>
-   </a></td>
+   <td>
+    <if what='$message.hasLargeImage'>
+     <a href='lib/image.php?id=$message.ImageId&size=large'>
+      <imgtag id='$message.ImageId'>
+     </a>
+    <else>
+     <imgtag id='$message.ImageId'>
+    </if>
+   </td>
    <td>$message.HTMLBody</td>
   </tr></table>
  <else>
