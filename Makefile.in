@@ -1,0 +1,7 @@
+# Makefile for Migdal website
+
+# @(#) $Id$
+
+all: ;
+
+install: all ;
