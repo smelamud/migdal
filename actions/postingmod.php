@@ -21,6 +21,7 @@ require_once('lib/track.php');
 require_once('lib/forums.php');
 require_once('lib/redirs.php');
 require_once('lib/modbits.php');
+require_once('lib/counters.php');
 
 function setImageTitle($image_set,$title)
 {
@@ -146,6 +147,8 @@ if(!$message->store())
 if(!updateTracks('messages',$message->message_id))
   return EP_TRACK_SQL;
 setDisabled($message,$original);
+if($original->getId()==0)
+  createCounters($message->message_id,$message->grp);
 return EP_OK;
 }
 

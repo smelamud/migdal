@@ -24,7 +24,6 @@ if(!$result || mysql_num_rows($result)==0)
 $values=mysql_fetch_assoc($result);
 unset($values['id']);
 unset($values['ident']);
-unset($values['read_count']);
 unset($values['last_read']);
 unset($values['vote']);
 unset($values['vote_count']);

@@ -204,6 +204,8 @@
 <deccall macro='complain_obj' func='getComplainById' file='lib/complains.php'
          params='id,type_id,link'
 	 defaults="name=complain type_id='*COMPL_NORMAL' link=0">
+<deccall macro='counter_value' func='getCounterValue' file='lib/counters.php'
+         params='message_id,mode,serial' defaults='serial=0'>
 <deccall macro='forum_answer_obj' func='getForumAnswerById'
          file='lib/forums.php' params='id,parent_id,quote,quote_width'
 	 defaults="name=answer parent_id=0 quote='' quote_width=75">

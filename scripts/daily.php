@@ -92,6 +92,10 @@ tag('complains');
 useLinks('complains','message_id','messages','id');
 deleteTagged('complains');
 
+tag('counters');
+useLinks('counters','message_id','messages','id');
+deleteTagged('counters');
+
 tag('forums');
 useLinks('forums','message_id','messages','id');
 deleteTagged('forums');

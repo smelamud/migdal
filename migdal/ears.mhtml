@@ -35,7 +35,8 @@
     <subtitle>
     <iterate_postinglist name='list' grp='*GRP_EARS' topic_id='$`ears`'
 			 limit=20 offset='$offset'
-			 fields!='*SELECT_IMAGES|*SELECT_TOPICS'>
+			 fields!='*SELECT_IMAGES|*SELECT_TOPICS'
+			 sort='*SORT_CTR'>
     <batcher list='$list'>
     <for>
      <posting_ear posting='$.'>

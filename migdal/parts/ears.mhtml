@@ -7,8 +7,8 @@
   <tr><td align=left style='padding-bottom: 5'>
    <posting_obj id='$.' grp='*GRP_EARS' fields='*SELECT_IMAGES'>
    <a href='actions/ear.php?postid=$,Id&okdir=$#,URL'>
-    <image_linked_tag id='$,ImageId' enlarge='$,hasLargeImage'
-                      title='$,Body'></a>
+    <img src='lib/earview.php?message_id=$,MessageId&image_id=$,ImageId'
+         alt='$,Body' title='$,Body' border=0></a>
   </td></tr> 
  </for>
 </table></p>

@@ -10,6 +10,8 @@
    $posting.HTMLBody
    <p>
    <a href='$posting.URL'>$posting.URL</a>
+   <p>
+   $posting.CounterValue1/$posting.CounterValue0
   </td>
  </tr>
  <iswrite what='$posting'>

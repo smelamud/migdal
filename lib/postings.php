@@ -18,6 +18,7 @@ require_once('lib/cache.php');
 require_once('lib/select.php');
 require_once('lib/alphabet.php');
 require_once('lib/forums.php');
+require_once('lib/counters.php');
 
 class Posting
       extends Message
@@ -31,11 +32,13 @@ var $topic_description;
 var $personal_id;
 var $grp;
 var $priority;
-var $read_count;
 var $vote;
 var $vote_count;
 var $subdomain;
 var $shadow;
+var $counter_value0;
+var $counter_value1;
+var $ctr;
 
 function Posting($row)
 {
@@ -163,11 +166,6 @@ function getPersonalId()
 return $this->personal_id;
 }
 
-function getReadCount()
-{
-return $this->read_count;
-}
-
 function getVote()
 {
 return $this->vote_count==0 ? 2.5 : $this->vote/$this->vote_count;
@@ -211,6 +209,21 @@ return $this->subdomain;
 function getShadow()
 {
 return $this->shadow;
+}
+
+function getCounterValue0()
+{
+return $this->counter_value0;
+}
+
+function getCounterValue1()
+{
+return $this->counter_value1;
+}
+
+function getCTR()
+{
+return $this->ctr;
 }
 
 }
@@ -285,6 +298,12 @@ $answersFields=$sortByAnswers && $userId>0 ?
 	      messages.last_answer as last_answer,
 	      ifnull(last_answer,messages.sent) as age," :
 	     "");
+$countersFields=$sort==SORT_CTR ?
+	     "counter0.value as counter_value0,
+	      counter1.value as counter_value1,
+	      if(counter0.value is null or counter0.value=0,
+	         0,counter1.value/counter0.value) as ctr," :
+	     "";
 
 $Select="postings.id as id,postings.ident as ident,
          messages.track as track,postings.message_id as message_id,
@@ -303,8 +322,9 @@ $Select="postings.id as id,postings.ident as ident,
 	 $imageFields
 	 $topicFields
 	 login,gender,email,hide_email,rebe,
-	 read_count,vote,vote_count,
+	 vote,vote_count,
 	 $answersFields
+	 $countersFields
 	 if(messages.url_check_success=0,0,
 	    unix_timestamp()-unix_timestamp(messages.url_check_success))
 	                                            as url_fail_time";
@@ -326,6 +346,14 @@ $answersTables=($fields & SELECT_ANSWERS)!=0 && $sortByAnswers && $userId>0 ?
 	      left join messages as forummesgs
 		   on forums.message_id=forummesgs.id and $hideAnswers" :
 	     '';
+$countersTables=$sort==SORT_CTR ?
+             "left join counters as counter0
+	           on messages.id=counter0.message_id and counter0.serial=0
+		      and counter0.mode=".CMODE_EAR_HITS."
+              left join counters as counter1
+	           on messages.id=counter1.message_id and counter1.serial=0
+		      and counter1.mode=".CMODE_EAR_CLICKS :
+	     '';
 
 $From="postings
        left join messages
@@ -336,7 +364,8 @@ $From="postings
        $topicTables
        left join users
 	    on messages.sender_id=users.id
-       $answersTables";
+       $answersTables
+       $countersTables";
 /* Where */
 $hideMessages=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
@@ -395,7 +424,7 @@ $Order=getOrderBy($sort,
        array(SORT_SENT       => 'sent desc',
              SORT_NAME       => 'subject',
              SORT_ACTIVITY   => 'age desc',
-	     SORT_READ       => 'read_count desc,sent desc',
+	     SORT_CTR        => 'ctr desc',
 	     SORT_INDEX0     => 'postings.index0',
 	     SORT_INDEX1     => 'postings.index1',
 	     SORT_RINDEX1    => 'postings.index1 desc',
@@ -694,7 +723,7 @@ $Select="postings.id as id,messages.track as track,postings.ident as ident,
 	 $imageFields
 	 $topicFields
 	 users.hidden as sender_hidden,login,gender,email,hide_email,rebe,
-	 read_count,vote,vote_count,
+	 vote,vote_count,
 	 $answersFields
 	 if(messages.url_check_success=0,0,
 	    unix_timestamp()-unix_timestamp(messages.url_check_success))
@@ -751,14 +780,6 @@ if(mysql_num_rows($result)>0)
   }
 else
   return getRootPosting($grp,$topic_id,$up);
-}
-
-function incPostingReadCount($id)
-{
-mysql_query("update postings
-             set read_count=read_count+1,last_read=now()
-	     where id=$id")
-  or sqlbug('Ошибка SQL при обновлении счетчика прочтений постинга');
 }
 
 function getMessageIdByPostingId($id)

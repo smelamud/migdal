@@ -28,6 +28,7 @@ function cleanup()
 global $sessionTimeout,$tmpTextTimeout,$redirTimeout,$anonVoteTimeout,
        $userVoteTimeout;
 
+deleteCond('counters_ip','expires<now()');
 deleteCond('sessions',"last+interval $sessionTimeout hour<now()");
 deleteCond('users','confirm_deadline is not null and confirm_deadline<now()');
 deleteCond('tmp_texts',"last_access+interval $tmpTextTimeout hour<now()");

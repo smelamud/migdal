@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	4.0.13-log
+-- Server version	4.0.14-log
 
 --
 -- Table structure for table 'chat_messages'
@@ -55,6 +55,26 @@ CREATE TABLE complains (
   KEY type_id (type_id),
   KEY link (link),
   KEY used (used)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'counters'
+--
+
+CREATE TABLE counters (
+  id int(11) NOT NULL auto_increment,
+  message_id int(11) NOT NULL default '0',
+  mode int(11) NOT NULL default '0',
+  serial int(11) NOT NULL default '0',
+  value int(11) NOT NULL default '0',
+  started datetime NOT NULL default '0000-00-00 00:00:00',
+  finished datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (id),
+  KEY message_id (message_id),
+  KEY mode (mode),
+  KEY serial (serial),
+  KEY started (started),
+  KEY finished (finished)
 ) TYPE=MyISAM;
 
 --
@@ -236,6 +256,9 @@ CREATE TABLE messages (
   url varchar(250) NOT NULL default '',
   url_check datetime NOT NULL default '0000-00-00 00:00:00',
   url_check_success datetime NOT NULL default '0000-00-00 00:00:00',
+  answers int(11) NOT NULL default '0',
+  hidden_answers int(11) NOT NULL default '0',
+  last_answer datetime NOT NULL default '0000-00-00 00:00:00',
   used tinyint(4) NOT NULL default '0',
   last_updated timestamp(14) NOT NULL,
   PRIMARY KEY  (id),
@@ -253,7 +276,9 @@ CREATE TABLE messages (
   KEY url_check_success (url_check_success),
   KEY last_updated (last_updated),
   KEY perms (perms),
-  KEY modbits (modbits)
+  KEY modbits (modbits),
+  KEY last_answer (last_answer),
+  KEY answers (answers)
 ) TYPE=MyISAM;
 
 --
@@ -301,7 +326,6 @@ CREATE TABLE postings (
   personal_id int(11) NOT NULL default '0',
   grp int(11) NOT NULL default '0',
   priority tinyint(4) NOT NULL default '0',
-  read_count int(11) NOT NULL default '0',
   last_read datetime NOT NULL default '0000-00-00 00:00:00',
   vote int(11) NOT NULL default '0',
   vote_count int(10) unsigned NOT NULL default '0',
@@ -322,7 +346,6 @@ CREATE TABLE postings (
   KEY subdomain (subdomain),
   KEY shadow (shadow),
   KEY used (used),
-  KEY read_count (read_count),
   KEY index0 (index0),
   KEY index1 (index1),
   KEY index2 (index2),
@@ -584,7 +607,7 @@ CREATE TABLE votes (
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	4.0.13-log
+-- Server version	4.0.14-log
 
 --
 -- Dumping data for table 'version'
