@@ -2,7 +2,7 @@
 
 <posting_obj id='$`postings:about`' grp='*GRP_REVIEWS'
              fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_TOPICS'>
-<pagetitle title='$,Subject'>
+<pagetitle title#='О нас - $,Subject'>
 <topictitle title='$,Subject'>
 
 <html>
@@ -11,7 +11,7 @@
  <top ident='about'>
  <table width="100%" cellspacing="3" cellpadding="5"><tr valign="top">
   <td width='150' class='eframe'>
-   &nbsp;
+   <topics_about ident='about'>
   </td>
   <td class='article'>
    <subtitle>

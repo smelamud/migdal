@@ -1,0 +1,43 @@
+<< @(#) $Id$ >>
+
+<pagetitle title='О нас - Наши кнопки'>
+<topictitle title='Наши кнопки'>
+
+<html>
+<preamble>
+<body>
+ <top ident='about'>
+ <table width="100%" cellspacing="3" cellpadding="5"><tr valign="top">
+  <td width='150' class='eframe'>
+   <topics_about ident='banners'>
+  </td>
+  <td class='article'>
+   <subtitle>
+   Мы будем очень рады, если вы разместите одну из наших кнопок у себя а сайте.
+   Просто выберите понравившуюся и скопируйте соответствующий HTML-код.
+   Обязательно <a href='mailto:webmaster@lcenter.net'>напишите нам</a> об этом
+   и пришлите вашу кнопку, чтобы мы поместили ее на нашем сайте. Мы
+   устанавливаем кнопки сразу на всех страницах сайта группами по 3 штуки.
+   <p><table cellspacing='5'>
+    <for n=18>
+     <assign name='b' value!='$. + 1'>
+     <tr valign='center'>
+      <td>
+       <a href='http://www.lcenter.net/' alt='Одесский центр Linux'
+          title='Одесский центр Linux'>
+	<image src#='/pics/banners/${b}.png' border='0'></a>
+      </td>
+      <td>
+       <textarea cols='60' rows='5' style='font: 10pt $$style_courier'>
+        <a href='http://www.lcenter.net/' alt='Одесский центр Linux' title='Одесский центр Linux'>
+	<img width='81' height='31' src='http://www.lcenter.net/pics/banners/${b}.png' border='0'></a>
+       </textarea>
+      </td>
+     </tr>
+    </for>
+   </table></p>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

@@ -50,6 +50,7 @@
        defaults='span=0'>
 <decel name='subtitle' file='parts/subtitle.php'>
 <decel name='top' file='parts/top.php' params='ident'>
+<decel name='topics_about' file='parts/topics-about.php' params='ident'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
 <decel name='topics_courses' file='parts/topics-courses.php' params='id'>
 <decel name='topics_line' params='arrow,text,title,href,class,comment,nobullet'

@@ -1,0 +1,10 @@
+<< @(#) $Id$ >>
+
+<element name='topics_about'>
+<topics_table>
+ <topics_line arrow!='$ident=="about"' text='Адреса и телефоны'
+              href='/about.php'>
+ <topics_line arrow!='$ident=="banners"' text='Наши кнопки'
+              href='/banners.php'>
+</topics_table>
+</element>
