@@ -8,6 +8,8 @@ require_once('lib/post.php');
 postIntegerArray('topic_id');
 postInteger('redirid');
 postIntegerArray('grp');
+postInteger('index1');
+postInteger('use_index1');
 
 $grpf=0;
 foreach($grp as $value)
