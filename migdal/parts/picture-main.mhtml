@@ -2,16 +2,14 @@
 
 <element name='picture_main'>
 <table class='picmain'>
- <ifnzero what='$image_id'>
-  <tr><td>
-   <a href='$href'>
-    <ifnzero what='$image_id'>
-     <img border=0 width=150 height=120 src='image-main.php?id=$image_id'></a>
-    <else>
-     <image border=0 src='pics/film.png'></a>
-    </ifnzero>
-  </td></tr>
- </ifnzero>
+ <tr><td>
+  <a href='$href'>
+   <if what='$image_id>0'>
+    <img border=0 width=150 height=120 src='image-main.php?id=$image_id'></a>
+   <else>
+    <image border=0 src='pics/film.png'></a>
+   </ifnzero>
+ </td></tr>
  <tr><td>
   <biff time='$biff' small='*true'>
   <ifne what='$text'>
