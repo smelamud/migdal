@@ -160,8 +160,9 @@ function getFullNameShort()
 global $fullNameShortSize;
 
 $s=$this->getFullName();
-if(strlen($s)>$fullNameShortSize)
-  return '...'.substr($s,0,$fullNameShortSize-3);
+return strlen($s)>$fullNameShortSize
+       ? '...'.substr($s,-($fullNameShortSize-3))
+       : $s;
 }
 
 function getComment0()
