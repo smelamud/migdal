@@ -1,0 +1,94 @@
+#!/usr/bin/perl
+
+# @(#) $Id$
+
+use Getopt::Long;
+Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
+
+$VERSION='0.0.1';
+
+%Vars=();
+
+sub display
+{
+print STDERR @_;
+}
+
+sub help
+{
+print <<EOF;
+Usage: $0 [<options>] [<file>]
+
+Migdal website kernel MCSS macro language preprocessor
+
+  -h, --help                Print this help and exit
+  -M, --macros=<filename>   Set macro file path
+  -v, --version             Print version information and exit
+
+Report bugs to <balu\@yes.ru>
+EOF
+exit;
+}
+
+sub version
+{
+print <<EOF;
+cssparser (migdal $VERSION)
+Copyright (C) 2001 by Dmitry E. Melamud.
+
+This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License (see LICENSE).
+
+EOF
+exit;
+}
+
+sub macros
+{
+my (undef,$macros)=@_;
+
+unshift @ARGV,$macros if -r $macros;
+}
+
+sub init
+{
+$|=1;
+GetOptions('help|h|?'	=> \&help,
+           'macros|M=s'	=> \&macros,
+           'version|v'	=> \&version);
+}
+
+sub subVars
+{
+my ($s)=@_;
+
+$s=~s/%(\w+)/$Vars{$1}/ge;
+return $s;
+}
+
+sub run
+{
+while(<>)
+     {
+     chomp;
+     s/!.*$//;
+     next if /^\s*$/;
+     if(/^\s*(\w+)\s*=\s*(.*)$/)
+       {
+       $Vars{$1}=subVars($2);
+       }
+     else
+       {
+       print subVars($_),"\n";
+       }
+     }
+}
+
+sub done
+{
+}
+
+init;
+run;
+done;

@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-OBJECTS = article.php chat.php chatboard.php complainactionedit.php \
+OBJECTS = style.css article.php chat.php chatboard.php complainactionedit.php \
 	  complainanswer.php complainedit.php complainforum.php complains.php \
 	  forum.php forumansweredit.php index.php limedit.php liminsert.php \
 	  menuedit.php postingedit.php postings.php topicedit.php \
@@ -10,6 +10,9 @@ OBJECTS = article.php chat.php chatboard.php complainactionedit.php \
 	  
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
+
+%.css: %.mcss ../cssparser
+	../cssparser $< > $@
 
 all: $(OBJECTS)
 	(cd parts; $(MAKE) all)

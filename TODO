@@ -137,9 +137,10 @@
      * actions/*
      * tmptexts
      * session() (использовать сессионные переменные можно только после <html>)
-     * MHTML (intro, tags, subs)
+     * MHTML (intro, tags, subs, entities)
      * opscripts
      * mailings
+     * MCSS
 102. Возвращаться из usermod.php по $redir, как во всех нормальных actions/*.
 103. Сделать функции для правильного отображения падежей, связанных с
      числительным (из 31 сообщения, из 32 сообщений).

@@ -1,6 +1,38 @@
-/* @(#) $Id$ */
+! @(#) $Id$
 
-/* Global */
+! Colors
+
+bl=#0C20A5
+o=#F1BE06
+g=#52A945
+nd=#52739C
+r=#FF5500
+
+error_red=red
+error_magenta=magenta
+menu_back=%bl
+menu_normal=white
+menu_selected=yellow
+state_date=%o
+register_hover=blue
+login_border=blue
+login_text=blue
+return_normal=%g
+batcher_normal=blue
+batcher_input_border=blue
+batcher_input_text=blue
+posting_border=%nd
+posting_back=%nd
+posting_sent=white
+posting_name=yellow
+posting_rebe_name=%r
+posting_details=white
+posting_subject=%o
+posting_split=%nd
+posting_controls=black
+posting_controls_hover=blue
+
+! Global
 
 * {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -8,35 +40,35 @@
 }
 
 .error[color='red'] {
-	color: red;
+	color: %error_red;
 }
 
 .error[color='magenta'] {
-	color: magenta;
+	color: %error_magenta;
 }
 
-/* Menu */
+! Menu
 
 .menu {
-	background-color: #0C20A5;
+	background-color: %menu_back;
 	padding-left: 1em;
 	margin-bottom: .5ex;
 }
 
 .menu A {
-	color: white;
+	color: %menu_normal;
 	text-decoration: none;
 }
 
 .menu A.selected {
-	color: yellow;
+	color: %menu_selected;
 }
 
 .menu A:hover {
 	text-decoration: underline;
 }
 
-/* State */
+! State
 
 .state {
 	font-size: 8pt;
@@ -46,7 +78,7 @@
 .state .date {
 	font-size: 10pt;
 	font-weight: bold;
-	color: #F1BE06;
+	color: %state_date;
 	padding-right: 1em;
 }
 
@@ -56,7 +88,6 @@
 
 .state .login A {
 	font-size: 8pt;
-	color: inherit;
 }
 
 .state .login A.name {
@@ -64,24 +95,24 @@
 }
 
 .state .login A:hover {
-	color: blue;
+	color: %register_hover;
 }
 
 .state .login INPUT {
-	border-color: blue;
+	border-color: %login_border;
 	border-width: 1px;
-	color: blue;
+	color: %login_text;
 	font-size: 8pt;
 }
 
-/* Return */
+! Return
 
 .return IMG {
 	border-width: 0px;
 }
 
 .return A {
-	color: #52A945;
+	color: %return_normal;
 	text-decoration: none;
 }
 
@@ -89,14 +120,14 @@
 	text-decoration: underline;
 }
 
-/* Batcher */
+! Batcher
 
 .batcher {
 	font-size: 8pt;
 }
 
 .batcher A.add {
-	color: blue;
+	color: %batcher_normal;
 	font-size: 8pt;
 	text-decoration: none;
 	margin-left: 1em;
@@ -111,51 +142,51 @@
 }
 
 .batcher INPUT {
-	border-color: blue;
+	border-color: %batcher_input_border;
 	border-width: 1px;
-	color: blue;
+	color: %batcher_input_text;
 	font-size: 8pt;
 }
 
 .batcher SELECT {
-	border-color: blue;
-	color: blue;
+	border-color: %batcher_input_border;
+	color: %batcher_input_text;
 	border-width: 1px;
 	font-size: 8pt;
 }
 
-/* Posting */
+! Posting
 
 .posting {
-	border: 1px solid #52739C;
+	border: 1px solid %posting_border;
 	margin: 0.5ex;
 }
 
 .posting .top {
-	background-color: #52739C;
+	background-color: %posting_back;
 }
 
 .posting .top .sent {
-	color: white;
+	color: %posting_sent;
 	font-weight: bold;
 }
 
 .posting .top .name {
-	color: yellow;
+	color: %posting_name;
 }
 
 .rebe .posting .top .name {
-	color: #FF5500;
+	color: %posting_rebe_name;
 	font-weight: bold;
 }
 
 .posting .top .name A {
-	color: yellow;
+	color: %posting_name;
 	text-decoration: none;
 }
 
 .rebe .posting .top .name A {
-	color: #FF5500;
+	color: %posting_rebe_name;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -169,12 +200,12 @@
 }
 
 .posting .top .details {
-	color: white;
+	color: %posting_details;
 	font-weight: bold;
 }
 
 .posting .top .details A {
-	color: white;
+	color: %posting_details;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -188,7 +219,7 @@
 	font-size: 12pt;
   	padding-right: 2ex;
 	padding-bottom: 1.5ex;
-	color: #F1BE06;
+	color: %posting_subject;
 }
 
 .posting .topic {
@@ -201,22 +232,22 @@
 }
 
 .posting .bottom {
-	border-top: 1px solid #52739C;
+	border-top: 1px solid %posting_split;
 	margin-top: 1.5ex;
 }
 
 .posting .bottom A {
 	font-size: 8pt;
-	color: black;
+	color: %posting_controls;
 	text-decoration: none;
 }
 
 .posting .bottom A:hover {
-	color: blue;
+	color: %posting_controls_hover;
 	text-decoration: underline;
 }
 
-/* Chat */
+! Chat
 
 IFRAME {
 	border-width: 0px;
