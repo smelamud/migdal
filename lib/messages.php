@@ -3,6 +3,7 @@
 
 require_once('lib/usertag.php');
 require_once('lib/selectiterator.php');
+require_once('lib/limitselect.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
 require_once('lib/images.php');
@@ -295,38 +296,36 @@ return new $name($row);
 }
 
 class MessageListIterator
-      extends SelectIterator
+      extends LimitSelectIterator
 {
 
-function MessageListIterator($grp,$topic=0,$personal=0)
+function MessageListIterator($grp,$topic=0,$limit=10,$offset=0,$personal=0)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic==0 ? '' : " and messages.topic_id=$topic ";
 $grpFilter=$this->getGrpCondition($grp);
-$this->SelectIterator('Message',
-		      "select messages.id as id,body,subject,grp,sent,topic_id,
-		              sender_id,messages.hidden as hidden,disabled,
-			      users.hidden as sender_hidden,
-			      images.image_set as image_set,
-			      images.id as image_id,
-			      topics.name as topic_name,
-			      login,gender,email,hide_email,rebe
-		       from messages
-			     left join images
-				  on messages.image_set=images.image_set
-			     left join topics
-				  on messages.topic_id=topics.id
-			     left join users
-			          on messages.sender_id=users.id
-		       where (messages.hidden<$hide or sender_id=$userId) and
-			     (messages.disabled<$hide or sender_id=$userId) and
-			     personal_id=$personal and
-			     up=0 $grpFilter $topicFilter
-		       order by sent desc");
-		    /* здесь нужно поменять, если будут другие ограничения на
-		       просмотр TODO */
+$this->LimitSelectIterator(
+       'Message',
+	"select messages.id as id,body,subject,grp,sent,topic_id,sender_id,
+	        messages.hidden as hidden,disabled,
+		users.hidden as sender_hidden,images.image_set as image_set,
+		images.id as image_id,topics.name as topic_name,
+		login,gender,email,hide_email,rebe
+	 from messages
+	       left join images
+		    on messages.image_set=images.image_set
+	       left join topics
+		    on messages.topic_id=topics.id
+	       left join users
+		    on messages.sender_id=users.id
+	 where (messages.hidden<$hide or sender_id=$userId) and
+	       (messages.disabled<$hide or sender_id=$userId) and
+	       personal_id=$personal and up=0 $grpFilter $topicFilter
+	 order by sent desc",$limit,$offset);
+      /* здесь нужно поменять, если будут другие ограничения на
+	 просмотр TODO */
 }
 
 function getGrpCondition($grp)

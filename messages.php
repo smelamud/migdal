@@ -23,6 +23,9 @@ if(!isset($ident))
   }
 
 settype($topic_id,'integer');
+settype($offset,'integer');
+settype($limit,'integer');
+$limit=$limit==0 ? 10 : $limit;
 ?>
 <html>
 <head>
@@ -38,7 +41,7 @@ settype($topic_id,'integer');
    echo $topic->getName();
   ?>&quot;</h1></center>
   <table width=100%>
-   <tr><td><?php displayMessages($grp,$topic_id); ?></td></tr>
+   <tr><td><?php displayMessages($grp,$topic_id,$limit,$offset); ?></td></tr>
   </table>
   <?php
   dbClose();

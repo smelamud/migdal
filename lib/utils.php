@@ -12,14 +12,7 @@ return $s;
 
 function remakeQuery($query,$remove=array(),$subs=array())
 {
-$asses=explode('&',$query);
-$vars=array();
-foreach($asses as $ass)
-       {
-       list($key,$value)=explode('=',$ass);
-       $vars[$key]=urldecode($value);
-       }
-return makeQuery($vars,$remove,$subs);
+return makeQuery(parse_str($query),$remove,$subs);
 }
 
 function remakeURI($uri,$remove=array(),$subs=array(),$location='#')

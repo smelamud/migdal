@@ -7,6 +7,10 @@ require_once('lib/grps.php');
 
 require_once('parts/top.php');
 require_once('parts/messages.php');
+
+settype($offset,'integer');
+settype($limit,'integer');
+$limit=$limit==0 ? 10 : $limit;
 ?>
 <html>
 <head>
@@ -18,7 +22,7 @@ require_once('parts/messages.php');
   displayTop('index');
   ?>
   <table width=100%>
-   <tr><td><?php displayMessages(GRP_ANY) ?></td></tr>
+   <tr><td><?php displayMessages(GRP_ANY,0,$limit,$offset) ?></td></tr>
   </table>
   <?php
   dbClose();
