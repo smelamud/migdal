@@ -3,6 +3,7 @@
 <element name='gallery_main'>
 <grpdata>
 <grpitemtitle>
+<grpitemstitle>
 <iterate_topiclist grp='$g.Effective' withpostings='*true' cols='$cols'>
 <div class='batcher'>
  <logged>
@@ -36,7 +37,7 @@
    <td>
     <posting_random grp='$grp' topic_id='$.Id'>
     <posting_full id='$,' grp='$grp'>
-    <picture_main picture='$,' grp='$grp' topic='-1'>
+    <picture_main picture='$,' grp='$grp' topic='$.'>
    </td>
    <if what='$;isEol'>
     </tr><tr valign=top>

@@ -5,11 +5,12 @@
 <if what='$picture.isRebe'><span class='rebe'></if>
  <table class='picture'>
   <tr><td class='top topic'>
-    <span class='name'>
-     <a href='gallery.php?grp=$grp&topic_id=$picture.TopicId'
-	class='topic' title='$picture.TopicDescription'>
-      $picture.TopicName</a>
-    </span>
+   <biff time='$topic.LastMessage'>
+   <span class='name'>
+    <a href='gallery.php?grp=$grp&topic_id=$picture.TopicId'
+       class='topic' title='$picture.TopicDescription'>
+     $picture.TopicName</a>
+   </span>
   </td></tr>
   <ifnzero what='$picture.ImageSet'>
    <tr><td class='image'>

@@ -5,9 +5,10 @@
 <element name='Picture'>
 <if what='$picture.isRebe'><span class='rebe'></if>
  <table class='picture'>
-  <tr class='top'>
-   <td align=right><senderlink message='$picture'></td>
-  </tr>
+  <tr class='top'><td align=right>
+   <biff time='$picture.Sent'>
+   <senderlink message='$picture'>
+  </td></tr>
   <if what='$topic<0'>
    <tr><td class='topic'>
      <a href='gallery.php?redir=$_&grp=$grp&topic_id=$picture.TopicId'

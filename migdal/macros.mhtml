@@ -59,7 +59,7 @@
        params='picture,grp,topic,discuss,complain'
        defaults="topic=-1 discuss='*true' complain='*true'">
 <decel name='picture_main' file='parts/picture-main.php'
-       params='picture,grp'>
+       params='picture,grp,topic'>
 <decel name='posting' file='parts/posting.php'
        params='posting,grp,topic,discuss,complain'
        defaults="topic=-1 discuss='*true' complain='*true'">
