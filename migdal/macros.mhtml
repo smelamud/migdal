@@ -247,7 +247,7 @@
 </macro>
 
 <macro name='preamble'>
- <assign_global name='communityDomain' value!="$$userDomain=='community'">
+ <assign_global name='communityDomain' value!="$$userDomain=='www'">
  <assign_global name='officialDomain' value!="$$userDomain=='info'">
  <stylesheet ident='style'>
  <head>
@@ -272,7 +272,7 @@
 </macro>
 
 <macro name='force_community'>
- <force_domain domain='community'>
+ <force_domain domain='www'>
 </macro>
 
 <macro name='official'>
@@ -281,7 +281,7 @@
 <endif name='/official'>
 
 <macro name='community'>
- <if what="$$userDomain=='community'">
+ <if what="$$userDomain=='www'">
 </macro>
 <endif name='/community'>
 
