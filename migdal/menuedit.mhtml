@@ -24,7 +24,7 @@
  <table width=100%><tr valign=top>
   <td>
    <iterate_menu>
-   <table class='topics' width=100%>
+   <table class='ninept topics' width=100%>
     <col width='0*'>
     <tbody class='names'>
      <for>

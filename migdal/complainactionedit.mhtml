@@ -24,7 +24,7 @@
  <p>
  <table width=100%><tr valign=top>
   <td>
-   <table class='topics' width=100%>
+   <table class='ninept topics' width=100%>
     <col width='0*'>
     <tbody class='names'>
      <iterate_complain_actionlist type='$typeid'>

@@ -12,7 +12,7 @@
 </macro>
 
 <element name='stotext_help_navi'>
-<table class='topics' width=100%>
+<table class='ninept topics' width=100%>
  <col width='0*'>
  <tbody class='names'>
   <help_navi_link ident='add' link='$link' class='class=new' title='$title'>

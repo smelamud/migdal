@@ -43,6 +43,8 @@
        params='grp,cols' defaults="cols=5">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
+<decel name='hit_parade' file='parts/hit-parade.php' params='grp,topic_id'
+       defaults="grp='*GRP_ALL' topic_id='-1'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='jewishru' file='parts/jewishru.php'>

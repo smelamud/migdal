@@ -6,8 +6,16 @@
 	border-spacing: 0;
 }
 
+.topics TH {
+	color: %topics_title;
+	border-bottom: solid 1px %topics_title;
+	text-align: left;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
 .topics TD {
-	padding-top: 0;
+	padding-top: 4;
 	padding-bottom: 0;
 }
 
@@ -17,7 +25,6 @@
 
 .topics .names A {
 	color: %topics_names;
-	font-size: 9pt;
 	text-decoration: none;
 }
 
@@ -48,7 +55,6 @@
 }
 
 .topics A .answers {
-	font-size: 9pt;
 	color: %topics_answers;
 }
 

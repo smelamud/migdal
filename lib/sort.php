@@ -5,6 +5,7 @@ define('SORT_NONE',0);
 define('SORT_SENT',1);
 define('SORT_NAME',2);
 define('SORT_ACTIVITY',3);
+define('SORT_READ',4);
 define('SORT_ORDER',255);
 define('SORT_PRIORITY',256);
 

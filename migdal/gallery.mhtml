@@ -15,7 +15,7 @@
   <td width=120>
    <topics grp='*GRP_GALLERY' topic_id='$topic_id' file='gallery.php'>
   </td>
-  <td width=10>&nbsp;</td>
+  <td width=5>&nbsp;</td>
   <td>
    <subtitle icon='pics/gall-big.gif'>
    <if what='$topic_id==-1'>

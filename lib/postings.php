@@ -135,6 +135,11 @@ function getPersonalId()
 return $this->personal_id;
 }
 
+function getReadCount()
+{
+return $this->read_count;
+}
+
 }
 
 class Forum
@@ -220,7 +225,8 @@ $topicFilter=$topic<0
 $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
              SORT_NAME     => 'subject',
-             SORT_ACTIVITY => 'age desc'));
+             SORT_ACTIVITY => 'age desc',
+	     SORT_READ     => 'read_count desc,sent desc'));
 $answerFilter=$withAnswers!=GRP_NONE
               ? $withAnswers==GRP_ALL
 	        ? 'having count(forummesgs.id)<>0'

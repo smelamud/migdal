@@ -23,7 +23,7 @@
 <iterate_topiclist grp='$grp' withpostings='$withpostings'
                    withanswers='$withanswers'>
 <if what='$$userAdminTopics || $;Count!=0'>
- <table class='topics' width=100%>
+ <table class='ninept topics' width=100%>
   <col width=0*>
   <admin_topics>
    <tr class='controls'><td colspan=2>

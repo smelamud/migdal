@@ -139,7 +139,7 @@
  <top ident='articles'>
  <table width=100%><tr valign=top>
   <td width=120><topics grp='$,Grp' topic_id='$,TopicId'></td>
-  <td width=10>&nbsp;</td>
+  <td width=5>&nbsp;</td>
   <td class='article'>
    <controls posting='$,'>
    <h1>$,Subject</h1>

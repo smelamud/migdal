@@ -17,7 +17,7 @@
    <topics grp='*GRP_DISCUSS' topic_id='$topic_id' withpostings='*true'
            withanswers='*true' file='forumcatalog.php'>
   </td>
-  <td width=10>&nbsp;</td>
+  <td width=5>&nbsp;</td>
   <td>
    <subtitle icon='pics/opinion-big.gif'>
    <forumcatalog topic='$topic_id' limit='$userForumCatalogPortion'

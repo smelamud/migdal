@@ -13,12 +13,14 @@
 
  <table width=100%><tr valign=top>
   <td width=120><topics grp='*GRP_TAPE' topic_id='$topic_id'></td>
-  <td width=10>&nbsp;</td>
+  <td width=5>&nbsp;</td>
   <td>
    <subtitle icon='pics/all-big.gif'>
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
              offset='$offset' title='$grptitle'>
   </td>
+  <td width=5>&nbsp;</td>
+  <td width=100><hit_parade grp='*GRP_TAPE' topic_id='$topic_id'></td>
  </tr></table>
  <bottom>
 </body>
