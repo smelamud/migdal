@@ -8,6 +8,7 @@ require_once('lib/session.php');
 dbOpen();
 session($sessionid);
 header('Location: '.remakeURI($redir,array(),array('st' => $style,
-                                                   'bt' => $biff)));
+                                                   'bt' => $biff,
+						   'rk' => $koi)));
 dbClose();
 ?>

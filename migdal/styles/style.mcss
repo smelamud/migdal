@@ -197,6 +197,7 @@ form_input_border=%nm
 form_input_text=black
 form_star=red
 form_starinfo=%grd
+form_comment=%grd
 form_buttons_ruler=%nd
 form_buttons_back=%nm
 form_buttons=white
@@ -925,6 +926,11 @@ BODY {
 	padding-bottom: 2ex;
 	font-size: 8pt;
 	color: %form_starinfo;
+}
+
+.form .comment TD {
+	font-size: 8pt;
+	color: %form_comment;
 }
 
 .form .buttons {

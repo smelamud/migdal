@@ -10,7 +10,6 @@
  <form method=post action='actions/style.php'>
   <hidden name='redir' value='$redir'>
   <table>
-   <tr><td colspan=2>&nbsp;</td></tr>
    <tr>
     <td>Стиль</td>
     <td>
@@ -37,6 +36,14 @@
      </select>
     </td>
    </tr>
+   <tr><td colspan=2>&nbsp;</td></tr>
+   <tr class='comment'><td colspan=2>
+    Если Вы работаете в ОС Unix или Linux и<br>
+    Ваша основная кодировка - KOI8, то<br>
+    Вам может пригодиться следующая настройка:
+   </td></tr>
+   <checkbox_line name='koi' value='$$userReadKOI'
+                  title='Читаю только в KOI8' span=2>
    <formbuttons title='Применить' span=2>
   </table>
  </form>
