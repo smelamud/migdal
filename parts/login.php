@@ -1,27 +1,11 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/menu.php');
-require_once('lib/session.php');
 require_once('lib/errors.php');
 require_once('lib/login.php');
 
-function displayMenu($current)
+function displayLoginError($err)
 {
-$menu=new MenuIterator($current);
-while($item=$menu->next())
-     {
-     $s='['.$item->getName().']';
-     echo '<a href="'.$item->getLink().'">'.
-            ($item->isCurrent() ? "<b>$s</b>" : $s).
-	  '</a>';
-     }
-}
-
-function displayError()
-{
-global $err;
-
 if($err!=EL_INVALID)
   return;
 ?>
@@ -31,7 +15,7 @@ if($err!=EL_INVALID)
 <?php
 }
 
-function displayLogin($flags)
+function displayLogin($flags,$err)
 {
 global $userId,$REQUEST_URI;
 
@@ -39,7 +23,7 @@ echo "<form method=post action='actions/".
                      ($userId<0 ? 'login.php' : 'logout.php')."'>
       <input type=hidden name='redir' value='".makeRedirURL()."'>
       <table>";
-displayError();
+displayLoginError($err);
 if($userId<0)
   {
   echo '<tr>
@@ -59,14 +43,5 @@ else
   echo '<tr><td colspan=5><input type=submit value=\'Выйти\'></td></tr>';
 echo '</table>
       </form>';
-}
-
-function displayTop($current,$flags='')
-{
-global $sessionid;
-
-displayMenu($current);
-session($sessionid);
-displayLogin($flags);
 }
 ?>

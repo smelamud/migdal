@@ -10,6 +10,25 @@ foreach(array_merge($vars,$subs) as $key => $value)
 return $s;
 }
 
+function remakeQuery($query,$remove=array(),$subs=array())
+{
+$asses=explode('&',$query);
+$vars=array();
+foreach($asses as $ass)
+       {
+       list($key,$value)=explode('=',$ass);
+       $vars[$key]=urldecode($value);
+       }
+return makeQuery($vars,$remove,$subs);
+}
+
+function remakeURI($uri,$remove=array(),$subs=array())
+{
+list($start,$end)=explode('?',$uri);
+list($query,$end)=explode('#',$end);
+return "$start?".remakeQuery($query,$remove,$subs).($end!='' ? "#$end" : '');
+}
+
 function makeValue($value)
 {
 $c=is_int($value) ? '' : '"';

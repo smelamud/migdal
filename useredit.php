@@ -6,7 +6,7 @@ require_once('lib/database.php');
 require_once('lib/users.php');
 require_once('lib/errors.php');
 
-require_once('top.php');
+require_once('parts/top.php');
 
 function condEdit($title,$edit,$value,$name,$size,$length)
 {

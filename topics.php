@@ -6,7 +6,7 @@ require_once('lib/database.php');
 require_once('lib/topics.php');
 require_once('lib/grps.php');
 
-require_once('top.php');
+require_once('parts/top.php');
 
 $grpTitles=array(GRP_FORUMS  => 'Форумы',
                  GRP_NEWS    => 'Новости',
