@@ -41,6 +41,9 @@ return mysql_query("update $table
 		    where id=$id");
 }
 
+// NOTE: Functions used here should not create journal records. Check
+// ($journalSeq!=0) condition before calling journal().
+
 function executeAction($host,$action)
 {
 global $replicationMaster;

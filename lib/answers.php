@@ -31,7 +31,8 @@ $result=mysql_query("select count(*) as answers
 list($answers)=mysql_fetch_array($result);
 answerSetAll($message_id,$answers);
 
-journal('answers '.journalVar('messages',$message_id));
+if($journalSeq!=0)
+  journal('answers '.journalVar('messages',$message_id));
 }
 
 function answerSet($message_id,$answers)
