@@ -7,7 +7,7 @@
 
 <element name='snapshot'>
 <?php
-$fd=fopen('http://www.migdal.ru/sources/current','r');
+$fd=fopen('sources/current','r');
 if($fd)
   {
   $date=trim(fgets($fd));

@@ -1,0 +1,9 @@
+! @(#) $Id$
+
+.bottom {
+	border-top: solid %bottom_hr 1px;
+}
+
+.bottom TD {
+	color: %bottom;
+}

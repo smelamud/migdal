@@ -38,7 +38,3 @@ BODY {
 A {
 	color: %link;
 }
-
-.bottom {
-	border-top: solid %bottom_hr 1px;
-}

@@ -6,3 +6,4 @@ include 'palette.mcss'
 
 include 'sheet-general.mcss'
 include 'sheet-menu.mcss'
+include 'sheet-bottom.mcss'
