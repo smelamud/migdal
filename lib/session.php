@@ -8,6 +8,7 @@ require_once('lib/tmptexts.php');
 require_once('lib/uri.php');
 require_once('lib/utils.php');
 require_once('lib/sessions.php');
+require_once('lib/users.php');
 require_once('grp/subdomains.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics',
