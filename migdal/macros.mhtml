@@ -160,19 +160,17 @@
 
 <macro name='posting'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
- <zone>
-  <require name='parts/posting.php'>
-  <require name='parts/gallery-picture.php'>
-  <require name='parts/taglit-posting.php'>
-  <require name='parts/posting-times.php'>
-  <require name='parts/posting-times-cover.php'>
-  <require name='parts/taglit-gallery-picture.php'>
-  <if what='%posting.TapeCenter'><center></if>
-  <call element='%posting.TapeElement' arg1%!posting='%posting'
-	arg2%!showtopic='%showtopic' arg3%!showdiscuss='%showdiscuss'
-	arg4%!showcomplain='%showcomplain' arg5%!shorten='%shorten'>
-  <if what='%posting.TapeCenter'></center></if>
- </zone>
+ <require name='parts/posting.php'>
+ <require name='parts/gallery-picture.php'>
+ <require name='parts/taglit-posting.php'>
+ <require name='parts/posting-times.php'>
+ <require name='parts/posting-times-cover.php'>
+ <require name='parts/taglit-gallery-picture.php'>
+ <if what='%posting.TapeCenter'><center></if>
+ <exec element='%posting.TapeElement' arg1%!posting='%posting'
+       arg2%!showtopic='%showtopic' arg3%!showdiscuss='%showdiscuss'
+       arg4%!showcomplain='%showcomplain' arg5%!shorten='%shorten'>
+ <if what='%posting.TapeCenter'></center></if>
 </macro>
 
 << HTML shortcuts >>

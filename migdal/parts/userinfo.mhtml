@@ -17,7 +17,7 @@
 
 <element name='userinfo'>
 <user_obj name='user' id='$id'>
-<zone><log event=userinfo text#='user($user.Id)'></zone>
+<log event=userinfo text#='user($user.Id)'>
 <controls_userinfo target='$target'>
 <table class='userinfo' width=100% cellspacing=0>
  <infoline title='Ник' value='$,Login'>

@@ -1013,6 +1013,33 @@ $obj=$obj!~/^'[^']*'$/ ? "$obj->" : '';
 $::Stack->top()->setResult($name);
 }
 
+sub elExec #XXX Possibly empty func
+{
+my ($self)=@_;
+
+my $el=$self->getVarArg('element');
+if($el ne '' && $el ne "''")
+  {
+  if($el=~/^'([^']*)'$/)
+    {
+    $func=::getElementFuncName($1);
+    }
+  else
+    {
+    ::body("<?php \$cel='display'.strtr(".$el.",'/','_'); ?>");
+    $func='$cel';
+    }
+  }
+else
+  {
+  $func=$self->getConstArg('func');
+  }
+my $obj=$self->getVarArg('object');
+$obj=$obj!~/^'[^']*'$/ ? "$obj->" : '';
+::body("<?php $obj$func(",
+       ::constructParams($self->getArgs(),$self->getTypes()),'); ?>');
+}
+
 sub elHeader
 {
 my ($self)=@_;

@@ -113,7 +113,7 @@
   <posting_index index=1 grp='*GRP_TIMES_ARTICLES'>
   <assign name='issue' value='$,'>
  </zone></ifzero>
- <zone><log event=times text#='issue($issue)'></zone>
+ <log event=times text#='issue($issue)'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=120 class='eframe'>
    <topics_major ident='times'>

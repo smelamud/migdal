@@ -12,7 +12,7 @@
 </ifzero>
 <pagetitle title='Летняя площадка - 5762'>
 <topictitle title='Летняя площадка - 5762'>
-<zone><log event=kaitana text#='post($posting.Id)'></zone>
+<log event=kaitana text#='post($posting.Id)'>
 
 <macro name='editor'>
  <if what='$kaitana.UserId==$$userId || $$userModerator'>
@@ -45,10 +45,8 @@
 </element>
 
 <html>
-<zone>
- <stylesheet ident='article'>
- <preamble>
-</zone>
+<stylesheet ident='article'>
+<preamble>
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
