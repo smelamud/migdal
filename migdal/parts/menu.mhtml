@@ -37,8 +37,8 @@
               current='$ident'>
     <menuitem ident='users' alt='Пользователи' link='users.php'
               target='$target' current='$ident'>
-    <menuitem ident='help' alt='Справка' link='stotext-help-subs.php'
-              target='$target' current='$ident'>
+    <menuitem ident='help' alt='Справка' link='tips.php' target='$target'
+              current='$ident'>
    </community>
   <asp></td>
   <td align=right><asp>

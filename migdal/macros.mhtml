@@ -51,6 +51,7 @@
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='help_link' file='parts/help-link.php' params='href,title,span'
        defaults='span=0'>
+<decel name='help_navi' file='parts/help-navi.php' params='ident'>
 <decel name='hit_parade' file='parts/hit-parade.php' params='grp,topic_id'
        defaults="grp='*GRP_ALL' topic_id='-1'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
@@ -85,8 +86,8 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten,times'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' times=0">
 <decel name='postings' file='parts/postings.php'
-       params='grp,topic,limit,offset,subdomain'
-       defaults="topic=-1 limit=10 offset=0 subdomain=-1">
+       params='grp,topic,limit,offset,subdomain,root'
+       defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='general'">
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
@@ -97,8 +98,6 @@
 <decel name='star' file='parts/formutils.php'>
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
-<decel name='stotext_help_navi' file='parts/stotext-help-navi.php'
-       params='ident'>
 <decel name='subtitle' file='parts/subtitle.php' params='icon'
        defaults="icon=''">
 <decel name='taglit' file='parts/taglit.php' params='topic_id'>
@@ -115,6 +114,9 @@
 <decel name='times_issue' file='parts/times-issue.php'
        params='issue,month,separate,align'
        defaults="separate='*false' align=''">
+<decel name='tip_posting' file='parts/tip-posting.php'
+       params='posting,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
        params='ident,no_new,target,showimages'
@@ -169,6 +171,7 @@
  <require name='parts/posting-times.php'>
  <require name='parts/posting-times-cover.php'>
  <require name='parts/taglit-gallery-picture.php'>
+ <require name='parts/tip-posting.php'>
  <if what='%posting.TapeCenter'><center></if>
  <exec element='%posting.TapeElement' arg1%!posting='%posting'
        arg2%!showtopic='%showtopic' arg3%!showdiscuss='%showdiscuss'

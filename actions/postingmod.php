@@ -144,6 +144,7 @@ postString('author');
 postString('source');
 postString('title');
 postString('url');
+postString('topic_id');
 
 dbOpen();
 session();

@@ -41,9 +41,9 @@
      <else>
       нажать на ссылку
       <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_FORUMS&redirid=$_'>
-       "Добавить мнение"</a> или
+       &lt;&lt;Добавить мнение&gt;&gt;</a> или
       <a href='postingedit.php?topic_id=$,Id&root=$,Id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'>
-       "Добавить фотографию"</a>.
+       &lt;&lt;Добавить фотографию&gt;&gt;</a>.
      </notlogged>
      Для каждого пользователя автоматически создается отдельный раздел.
     </p>

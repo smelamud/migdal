@@ -2,19 +2,19 @@
 
 <grps>
 
-<element name='batcher' params='list,topic,grp'>
+<element name='batcher' params='list,topic,grp,root'>
 <community>
  <posting_new grp='$grp'>
  <table width=100% class='batcher'><tr valign=bottom>
   <td align=left>
    <logged>
     <if what='$,isValid'>
-     <a href='postingedit.php?topic_id=$topic&root=general&grp=$grp&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic&root=$root&grp=$grp&redirid=$_'
 	class='add'>Добавить $,GrpItemTitle</a>
     <else>
-     <a href='postingedit.php?topic_id=$topic&root=general&grp=*GRP_NEWS&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_NEWS&redirid=$_'
 	class='add'>Добавить новость</a>,
-     <a href='postingedit.php?topic_id=$topic&root=general&grp=*GRP_ARTICLES&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_ARTICLES&redirid=$_'
 	class='add'>статью</a>
     </if>
    <else>
@@ -39,7 +39,7 @@
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
                      sort='*SORT_PSENT' subdomain='$subdomain'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher list='$;' topic='$topic' grp='$grp'>
+ <batcher list='$;' topic='$topic' grp='$grp' root='$root'>
  <table>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -53,7 +53,7 @@
            showdiscuss='$$communityDomain' showcomplain='$$communityDomain'>
  </for>
  <ifnzero what='$;Count'>
-  <batcher list='$;' topic='$topic' grp='$grp'>
+  <batcher list='$;' topic='$topic' grp='$grp' root='$root'>
  </ifnzero>
 <else>
  &nbsp;

@@ -25,4 +25,7 @@
  <topics_kaitana kaitana='$kaitana' day='$posting.Index1'>
  <topics_major ident='kaitana'>
 </if>
+<if what='$posting.Grp==*GRP_TIPS'>
+ <help_navi ident='tips'>
+</if>
 </element>

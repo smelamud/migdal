@@ -10,7 +10,7 @@
    <ifne what='$icon'>
     <td><image src='$icon'></td>
    </ifne>
-   <td>&nbsp;$$topicTitle</td>
+   <td align=left>&nbsp;$$topicTitle</td>
    <th width=50>&nbsp;</th>
   </tr>
  </table>

@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 << Based-on: doc/stotext.txt 1.16 >>
 
+<force_community>
 <pagetitle title='Справка'>
 
 <html>
@@ -9,8 +10,8 @@
 <body>
  <top ident='help'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=200 class='eframe'>
-   <stotext_help_navi ident='types'>
+  <td width=180 class='eframe'>
+   <help_navi ident='types'>
   </td>
   <td class='cframe'>
    <div class='article'>

@@ -37,10 +37,18 @@ $this->Message($row);
 $this->grp=GRP_NONE;
 }
 
+function setup($vars)
+{
+if(!isset($vars['edittag']))
+  return;
+Message::setup($vars);
+$this->topic_id=idByIdent('topics',$vars['topic_id']);
+}
+
 function getCorrespondentVars()
 {
 $list=Message::getCorrespondentVars();
-array_push($list,'ident','topic_id','grp','personal_id','priority','index1');
+array_push($list,'ident','grp','personal_id','priority','index1');
 return $list;
 }
 
