@@ -86,7 +86,7 @@
    <sentview date='$posting.Sent'>&nbsp;
    <senderlink message='$posting'>
   </td></tr>
-  <tr><td class='bottom'>
+  <tr><td class='eightpt'>
    <if what='$posting.isHidden'>
     <b>[X]</b>
     &nbsp;
@@ -94,6 +94,11 @@
    <a href="/postingedit.php?editid=$posting.Id&grp=*GRP_ALL&full=1&redirid=$_"
       >Изменить</a>
    &nbsp;
+   <if what='$posting.hasLargeBody'>
+    <a href="/limedit.php?postid=$posting.Id&redirid=$_"
+       >Список картинок</a>
+    &nbsp;
+   </if>
    <if what='$posting.isDisabled'>
     <a href="/actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
        >Разрешить&nbsp;показ</a>

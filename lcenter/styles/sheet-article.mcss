@@ -1,0 +1,62 @@
+! @(#) $Id$
+
+.article H1 {
+	color: %article_title;
+	font-size: 16pt;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.article H2 {
+	font-size: 14pt;
+	font-weight: bold;
+	margin: 15px;
+}
+
+.article H3 {
+	font-size: 12pt;
+	font-weight: bold;
+	margin: 10px;
+}
+
+.article H4 {
+	font-size: 10pt;
+	font-weight: bold;
+	text-decoration: underline;
+	margin: 5px;
+}
+
+.article .author {
+	color: %article_author;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.article .imagetitle {
+	text-align: center;
+	font-style: italic;
+	font-size: 8pt;
+}
+
+.article .sent * {
+	color: %article_sent;
+	font-size: 9pt;
+}
+
+.article P {
+	text-align: justify;
+}
+
+.article .notes {
+	border-style: none;
+	color: %article_notes_split;
+	background-color: %article_notes_split;
+	height: 1px;
+	width: 200px;
+}
+
+.article .source {
+	color: %article_source;
+	font-style: italic;
+	padding-bottom: 2ex;
+}

@@ -1,0 +1,99 @@
+<< @(#) $Id$ >>
+
+<int name='postid'>
+<int name='editid'>
+<pagetitle title='Список иллюстраций'>
+
+<html>
+<preamble>
+<body>
+ <top ident='admin'>
+ <posting_obj id='$postid' fields='*SELECT_GENERAL'>
+ <table width='100%'><tr valign='top'>
+  <td class='eframe' width='200'>
+   <iterate_imageset imageset='$,LargeImageSet'>
+   <topics_table class='ninept'>
+    <for>
+     <ife what='$.Title'>
+      <assign name='name' value='$.Filename'>
+     <else>
+      <assign name='name' value='$.CleanTitlePea'>
+      <if what='!$.isTitlePea'>
+       <assign name='name' value#='$name...'>
+      </if>
+     </if>
+     <if what='$.hasLarge'>
+      <assign name='comment' value#='(${.SmallX}x${.SmallY})'>
+     </if>
+     <assign name='comment'
+             value#='$comment ${.ImageX}x${.ImageY}, ${.ImageSizeKB}KB'>
+     <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
+		  text='$name' comment='$comment'>
+     <if what='$editid==$.Id'>
+      <topics_line href#='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$#-&faildir=$#-'
+		   class='eightpt' text='Удалить' nobullet='*true'>
+     </if>
+    </for>
+    <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
+                 class='new' text='-- Добавить --'>
+   </topics_table>
+  </td>
+  <td>
+   <formtable title#='Иллюстрации к статье "$,Subject"'>
+    <image_obj id='$editid'>
+    <setup>
+    <form method='post' enctype='multipart/form-data'
+	  action='/actions/limmod.php'>
+     <hidden name='edittag' value=1>
+     <hidden name='okdir' value='$-'>
+     <hidden name='faildir' value='$-'>
+     <hidden name='postid' value='$postid'>
+     <hidden name='editid' value='$editid'>
+     <table>
+      <starinfo span=2>
+      <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'
+	     span=2>
+      <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'
+	     span=2>
+      <error id='*ELIM_DELETE_SQL' color=magenta span=2
+	     text='Ошибка при удалении старого изображения'>
+      <error id='*ELID_DELETE_SQL' color=magenta span=2
+	     text='Ошибка при удалении изображения'>
+      <error id='*ELIM_IMAGE_ABSENT' text='Такого изображения не существует'
+	     span=2>
+      <error id='*ELIM_SET_SQL' text='Ошибка при установке набора изображений'
+	     color=magenta span=2>
+      <error id='*ELIM_SETID_SQL' color=magenta span=2
+	     text='Ошибка при установке идентификатора изображения'>
+      <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
+      <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
+	     span=2>
+      <error id='*EIU_IMAGE_SQL' text='Ошибка базы данных при загрузке картинки'
+	     color='magenta' span=2>
+      <error id='*EIU_UNKNOWN_THUMBNAIL' color='magenta' span=2
+	     text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+      <uploader name='image' loadedname='loaded' loadedvalue='1'
+		title='Изображение' loaded='(уже загружено)' notloaded='Другое'
+		filename='$,Filename' mandatory='*true'>
+      <checkbox_line name='has_large' value='$,hasLarge'
+		     title='Вставлять в уменьшенном виде' span=2>
+      <td>Размер</td>
+      <td>
+       <input type='text' name='small_x' value='$,SmallX' size='4' maxlength='4'>
+       x
+       <input type='text' name='small_y' value='$,SmallY' size='4' maxlength='4'>
+      </td>
+      <editor_line name='title' body='$,Title' title='Подпись' rows=5 span=2>
+      <if what='$editid'>
+       <formbuttons title='Изменить' span=2>
+      <else>
+       <formbuttons title='Добавить' span=2>
+      </if>
+     </table>
+    </form>
+   </formtable>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

@@ -31,10 +31,7 @@
 <body>
  <top ident='index'>
  <table width="100%" cellspacing="3" cellpadding="5"><tr valign="top">
-  <td width="25%">
-   &nbsp;
-  </td>
-  <td width="50%">
+  <td width="60%">
    <subtitle>
    <iterate_postinglist grp='*GRP_NEWS' topic_id='$`news`'
                         fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_TOPICS'>
@@ -42,7 +39,7 @@
     <p><news posting='$.'></p>
    </for>
   </td>
-  <td width="25%">
+  <td width="40%">
    &nbsp;
   </td>
  </tr></table>

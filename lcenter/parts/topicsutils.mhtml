@@ -2,15 +2,23 @@
 
 <element name='topics_line'>
 <if what='$arrow'>
- <li class='arrow'>$text</li>
+ <li class='arrow'>
+  $text
+  <ifne what='$comment'>
+   <br /><span class='comment'>$comment</span>
+  </ifne>
+ </li>
 <else>
- <li>
+ <if what='!$nobullet'><li><else><li class='nobullet'></if>
   <ifne what='$title'>
    <a href='$href' title='$title' class='$class'><asp>
   <else>
    <a href='$href' class='$class'><asp>
   </ifne>
   <asp>$text</a>
+  <ifne what='$comment'>
+   <br /><span class='comment'>$comment</span>
+  </ifne>
  </li>
 </if>
 </element>

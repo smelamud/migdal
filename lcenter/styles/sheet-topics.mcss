@@ -26,3 +26,14 @@
 	font-weight: bold;
 	list-style-image: url("/pics/select.gif");
 }
+
+.topics LI .comment {
+	color: %topics_comment;
+	font-size: 8pt;
+	font-weight: normal;
+}
+
+.topics LI.nobullet {
+	list-style-image: none;
+	list-style-type: none;
+}

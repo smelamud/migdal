@@ -16,6 +16,11 @@
 <<decstyle ident='test' desc='Тестовый'>>
 
 << Elements >>
+<decel name='article' file='parts/article.php'
+       params='posting,withvote,static,note_base_var'
+       defaults="withvote='*true' static='*false' note_base_var=''">
+<decel name='article_controls' file='parts/article.php' params='posting'>
+<decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='bottom' file='parts/bottom.php'>
 <decel name='formbuttons' file='parts/formutils.php' params='title,span'
        defaults="title='Изменить',span=0">
@@ -41,8 +46,9 @@
 <decel name='subtitle' file='parts/subtitle.php'>
 <decel name='top' file='parts/top.php' params='ident'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
-<decel name='topics_line' params='arrow,text,title,href,class'
-       defaults="arrow='*false' text='' title='' href='' class='item'"
+<decel name='topics_line' params='arrow,text,title,href,class,comment,nobullet'
+       defaults="arrow='*false' text='' title='' href='' class='item'
+                 comment='' nobullet='*false'"
        file='parts/topicsutils.php'>
 <decel name='topics_table' params='class,title' defaults="class='' title=''"
        file='parts/topicsutils.php'>

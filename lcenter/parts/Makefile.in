@@ -2,9 +2,9 @@
 
 # @(#) $Id$
 
-OBJECTS = bottom.php formutils.php grpselect.php langselect.php spin.php \
-	subtitle.php top.php topics-admin.php topicselect.php topicsutils.php \
-	uploader.php utils.php
+OBJECTS = article.php bottom.php formutils.php grpselect.php langselect.php \
+	spin.php subtitle.php top.php topics-admin.php topicselect.php \
+	topicsutils.php uploader.php utils.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

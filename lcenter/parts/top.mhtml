@@ -12,6 +12,7 @@
 
 <element name='menu' params='ident'>
  <menuitem ident='index' text='Главная' href='/'>
+ <menuitem ident='courses' text='Курсы' href='/courses.php'>
  <menuitem ident='about' text='О нас' href='/about/'>
  <moderator>
   <menuitem ident='admin' text='Админ' href='/topicorg.php'>
@@ -21,7 +22,9 @@
 <element name='top'>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="top">
  <tr valign="center">
-  <td rowspan="3" class='banner'>&nbsp;</td>
+  <td rowspan="3" class='banner' width="90" align="center">
+   <a href='/' title='На главную'><image src='/pics/logo.png' border=0></a>
+  </td>
   <td width="15" class='banner'>&nbsp;</td>
   <td class='lcenter banner'>Одесский центр Linux</td>
  </tr>

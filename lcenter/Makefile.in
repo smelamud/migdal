@@ -2,10 +2,10 @@
 
 # @(#) $Id$
 
-OBJECTS = chmod.php groupadd.php grouporg.php horisontedit.php index.php \
-	index-www.php journal.php login.php modbits.php postingedit.php \
-	postingorg.php topicdel.php topicedit.php topicorg.php \
-	topics-reorder.php
+OBJECTS = chmod.php courses.php groupadd.php grouporg.php horisontedit.php \
+	index.php index-www.php journal.php limedit.php liminsert.php \
+	login.php modbits.php postingedit.php postingorg.php topicdel.php \
+	topicedit.php topicorg.php topics-reorder.php
 
 %.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
