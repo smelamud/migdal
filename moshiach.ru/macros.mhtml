@@ -19,6 +19,8 @@
 <decel name='menu' file='parts/menu.php' params='ident'>
 <decel name='news' file='parts/news.php'>
 <decel name='qanda' file='parts/qanda.php'>
+<decel name='perror' file='parts/utils.php' params='id,text,color,span'
+       defaults='color="red" span=0'>
 <decel name='search' file='parts/search.php'>
 <decel name='spreading' file='parts/spreading.php'>
 <decel name='subscribe' file='parts/subscribe.php'>
@@ -26,5 +28,6 @@
 <decel name='talking' file='parts/talking.php'>
 <decel name='top' file='parts/top.php' params='ident'>
 <decel name='topicofday' file='parts/topicofday.php'>
+<decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>
 <decel name='updates' file='parts/updates.php'>
 <decel name='updates_chapter' file='parts/updates-chapter.php'>

@@ -1,4 +1,5 @@
 << @(#) $Id$ >>
+<< Based-on: demo/parts/topics.mhtml 1.5 >>
 
 <element name='subtopics'>
 <table border=0 cellPadding=2 cellSpacing=3 width=100%>
@@ -10,14 +11,14 @@
   <a class=under href=2.htm>Имена</a><br>
   <a class=under href=2.htm>Список литературы</a><br>
   <!--<a class=under href=2.htm> Глоссарий</a><br>-->
-  <a class=under href=encic.htm>Энциклопедия<img border=0 src=m/a1.gif
-     width=30 height=11></a><br>
-  <a class=under href=2.htm>Первоисточники<img border=0 src=m/a1.gif
-     width=30 height=11></a><br>
-  <a class=under href=2.htm>Уроки<img border=0 src=m/a1.gif
-     width=30 height=11></a><br>
-  <a class=under href=2.htm>Библиотека<img border=0 src=m/a1.gif
-     width=30 height=11></a><br>
+  <iterate_topiclist grp='*GRP_ARTICLES' up='study'>
+  <for>
+   <a class=under href='none.html?topic_id=$.Id'
+    >$.Name<img border=0 src=m/a1.gif width=30 height=11></a><br>
+  </for>
+  <admin_topics>
+   <a class='admin' href='topicedit.php?up=study&redir=$_'>Добавить</a>
+  </admin_topics>
  </td></tr>
 </table>
 </element>

@@ -35,6 +35,18 @@ span.pretty a:hover {
 	text-decoration: underline;
 }
 
+span.pretty a.admin {
+	font-size: 13px;
+	font-family: tahoma,Arial;
+	text-decoration: none;
+	color: #008000;
+	font-weight: normal;
+}
+
+span.pretty a.admin:hover {
+	text-decoration: underline;
+}
+
 span.pretty small {
 	font-size: 11px;
 	font-family: tahoma,arial;

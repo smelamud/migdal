@@ -5,7 +5,8 @@
 OBJECTS = actual-interview.php advert.php banner.php bldot.php bottom.php \
 	editors.php first-face.php igrot.php links.php menu.php news.php \
 	qanda.php search.php spreading.php subscribe.php subtopics.php \
-	talking.php top.php topicofday.php updates.php updates-chapter.php
+	talking.php top.php topicofday.php topicselect.php updates.php \
+	updates-chapter.php utils.php
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@
 

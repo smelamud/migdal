@@ -303,9 +303,9 @@ function getPremoderateByTopicId($id)
 global $userAdminTopics,$defaultPremoderate;
 
 $hide=$userAdminTopics ? 2 : 1;
-$result=mysql_query("select premoderate
+$result=mysql_query('select premoderate
                      from topics
-		     where id=$id and hidden<$hide")
+		     where '.byIdent($id)." and hidden<$hide")
 	     or die('Ошибка SQL при выборке маски модерирования');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $defaultPremoderate;
@@ -328,7 +328,7 @@ $result=mysql_query('select topics.id as id,up,name,stotext_id,
 	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0
                  ? mysql_fetch_assoc($result)
-                 : array('up'          => $up,
+                 : array('up'          => idByIdent('topics',$up),
                          'premoderate' => getPremoderateByTopicId($up)));
 }
 

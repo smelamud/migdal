@@ -6,7 +6,7 @@
  <b class=red>
   <iterate_menu name='menu'>
   <for>
-   <notfirst name='menu'> :: </notfirst>
+   <notfirst name='menu'>&nbsp;::&nbsp;</notfirst>
    <if what='$ident==$.Ident'>
     $.Name
    <else>
@@ -15,6 +15,6 @@
   </for>
  </b>
  &nbsp;
- <admin_menu><a href='menuedit.php'>&lt;Изменить&gt;</a></admin_menu>
+ <admin_menu><a class='admin' href='menuedit.php'>Изменить</a></admin_menu>
 </td></tr>
 </element>
