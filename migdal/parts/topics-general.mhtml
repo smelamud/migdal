@@ -1,7 +1,9 @@
 << @(#) $Id$ >>
 
 <element name='topics'>
-<if what='$posting.Grp==*GRP_FORUMS || $posting.Grp==*GRP_NEWS || $posting.Grp==*GRP_ARTICLES || $posting.Grp==*GRP_QUOTES'>
+<if what='$posting.Grp==*GRP_FORUMS || $posting.Grp==*GRP_NEWS ||
+          $posting.Grp==*GRP_ARTICLES || $posting.Grp==*GRP_QUOTES ||
+	  $posting.Grp==*GRP_BOOKS'>
  <topics_major ident='index'>
  <topics_minor id='$posting.TopicId' withpostings='$$officialDomain'
                subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'

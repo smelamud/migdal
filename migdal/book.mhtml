@@ -1,0 +1,61 @@
+<< @(#) $Id$ >>
+
+<ident name='bookid' table='postings'>
+<read_posting id='$bookid'>
+<posting_full id='$bookid' grp='*GRP_BOOKS'>
+<log event=book text#='post($,Id)'>
+<pagetitle title='$,Subject'>
+
+<html>
+<stylesheet ident='article'>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=120 class='eframe'>
+   <topics posting='$,'>
+  </td>
+  <td class='article cframe'>
+   <article_controls posting='$,'>
+   <table width=100% cellspacing=0 cellpadding=0>
+    <tr>
+     <td colspan=3 align=right>
+      <table class='sent'>
+       <tr><td>&nbsp;</td></tr>
+       <tr><td align=right><sentview date='$,Sent'></td></tr>
+       <tr><td align=right><senderlink message='$,'></td></tr>
+      </table>
+     </td>
+    </tr>
+    <tr valign=top>
+     <td width=100>&nbsp;</td>
+     <td>
+      <ifnzero what='$,ImageId'>
+       <table class=pic align=left style='padding-right: 5px'><tr><td>
+	<image_tag_put id='$,ImageId' size=large>
+       </td></tr></table>
+      </ifnzero>
+      <a href='index.php?topic_id=$,TopicId' class='topic'
+	 title='$,TopicDescription'>$,TopicName</a>
+      <ifne what='$,Author'>
+       <p class='author'>$,HTMLAuthor</p>
+      </ifne>
+      <p><h1 style='margin: 0'>$,Subject</h1></p>
+      <ifne what='$,Source'>
+       <p class='source'>$,HTMLSource</p>
+      </ifne>
+      <p>$,HTMLBody</p>
+     </td>
+     <td width=100>
+      <vote_frame id='$,Id' color='$$style_cframe_back'
+		  image='$$style_cframe_back_pic'>
+     </td>
+    </tr>
+   </table>
+   <p>&nbsp;</p>
+   <article_controls posting='$,'>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>
