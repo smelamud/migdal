@@ -22,8 +22,6 @@
  <error id='*EECA_NO_EXEC' text='Вам не поручено рассмотрение этой жалобы'>
  <error id='*EECA_SQL_FORUM' text='Ошибка SQL при добавлении сообщения в форум'
         color=magenta>
- <error id='*EECA_SQL_STATEMENTS' text='Ошибка SQL при выборке операторов'
-        color=magenta>
  <editor_line name='text' title='Текст' body='$,Text'>
  </table>
  <input type=submit value='Ответить'>

@@ -8,7 +8,8 @@ require_once('lib/uri.php');
 require_once('lib/utils.php');
 
 $userRightNames=array('login','hidden','admin_users','admin_topics',
-                      'admin_menu','moderator','judge');
+                      'admin_menu','admin_complain_answers','moderator',
+		      'judge');
 $userSetNames=array('MsgPortion',
                     'ForumPortion',
                     'ComplainPortion',

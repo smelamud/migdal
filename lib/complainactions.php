@@ -83,7 +83,7 @@ $this->SelectIterator('ComplainAction',
 
 function getComplainActionById($id)
 {
-$result=mysql_query("select id,text,script_id
+$result=mysql_query("select id,name,text,automatic,script_id
                      from complain_actions
 		     where id=$id");
 return new ComplainAction(mysql_num_rows($result)>0

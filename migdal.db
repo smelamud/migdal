@@ -67,6 +67,7 @@ CREATE TABLE complain_scripts (
 CREATE TABLE complain_types (
   id int(11) NOT NULL auto_increment,
   ident varchar(15) NOT NULL default '',
+  name varchar(70) NOT NULL default '',
   assign varchar(16) NOT NULL default '',
   deadline smallint(6) NOT NULL default '0',
   display varchar(70) NOT NULL default '',
@@ -318,6 +319,7 @@ CREATE TABLE users (
   admin_users tinyint(4) NOT NULL default '0',
   admin_topics tinyint(4) NOT NULL default '0',
   admin_menu tinyint(4) NOT NULL default '0',
+  admin_complain_answers tinyint(4) NOT NULL default '0',
   moderator tinyint(4) NOT NULL default '0',
   judge tinyint(4) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
@@ -342,9 +344,9 @@ CREATE TABLE users (
 # Dumping data for table 'complain_types'
 #
 
-INSERT INTO complain_types VALUES (1,'normal','',0,'parts/cs_normal.php');
-INSERT INTO complain_types VALUES (2,'forum','moderator',0,'parts/cs_forum.php');
-INSERT INTO complain_types VALUES (3,'posting','moderator',0,'parts/cs_posting.php');
+INSERT INTO complain_types VALUES (1,'normal','Обычная','',0,'parts/cs_normal.php');
+INSERT INTO complain_types VALUES (2,'forum','На сообщение в форуме','moderator',0,'parts/cs_forum.php');
+INSERT INTO complain_types VALUES (3,'posting','На новость/статью','moderator',0,'parts/cs_posting.php');
 
 #
 # Dumping data for table 'complain_scripts'

@@ -7,6 +7,7 @@ require_once('lib/session.php');
 require_once('lib/errors.php');
 require_once('lib/complains.php');
 require_once('lib/complainactions.php');
+require_once('lib/complainscripts.php');
 require_once('lib/forums.php');
 require_once('lib/utils.php');
 require_once('lib/opscript.php');
@@ -27,17 +28,9 @@ $forum=new ForumAnswer(array('body' => $action->getText(),
 		             'up'   => $complain->getMessageId()));
 if(!$forum->store())
   return EECA_SQL_FORUM;
-if($action->getScriptId()!=0)
-  {
-  $result=mysql_query('select script
-		       from complain_scripts
-		       where id='.$action->getScriptId());
-  if(!$result)
-    return EECA_SQL_STATEMENTS;
-  opScript(mysql_result($result,0,0),
-	   array('complain_id' => $complain_id,
-		 'link'        => $complain->getLink()));
-  }
+opScript(getScriptBodyById($action->getScriptId()),
+	 array('complain_id' => $complain_id,
+	       'link'        => $complain->getLink()));
 return EECA_OK;
 }
 

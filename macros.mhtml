@@ -57,6 +57,16 @@
  <iterate name='%name' class='ComplainActionListIterator' arg1='%type'>
 </macro>
 
+<macro name='iterate_complain_scriptlist'>
+ <require name='lib/complainscripts.php'>
+ <iterate name='%name' class='ComplainScriptListIterator' arg1='%ident'>
+</macro>
+
+<macro name='iterate_complain_types'>
+ <require name='lib/complaintypes.php'>
+ <iterate name='%name' class='ComplainTypeListIterator'>
+</macro>
+
 <macro name='iterate_forum_answerlist'>
  <require name='lib/forums.php'>
  <iterate name='%name' class='ForumAnswerListIterator'
@@ -146,9 +156,9 @@
  <call name='%name' func='getFullComplainById' arg1='%id' arg2='%ident'>
 </macro>
 
-<macro name='complain_type_id'>
- <require name='lib/complains.php'>
- <call name='%name' func='getComplainTypeIdByIdent' arg1='%ident'>
+<macro name='complain_type_obj' defaults='name=type'>
+ <require name='lib/complaintypes.php'>
+ <call name='%name' func='getComplainTypeById' arg1='%id'>
 </macro>
 
 <macro name='forum_answer_obj' defaults='name=answer up=0'>
@@ -344,6 +354,14 @@
 </macro>
 
 <macro name='/admin_menu'>
+ </if>
+</macro>
+
+<macro name='admin_complain_answers'>
+ <if what='$$userAdminComplainAnswers'>
+</macro>
+
+<macro name='/admin_complain_answers'>
  </if>
 </macro>
 
