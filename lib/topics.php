@@ -102,6 +102,11 @@ function getName()
 return $this->name;
 }
 
+function getNbName()
+{
+return str_replace(' ','&nbsp;',$this->getName());
+}
+
 function getFullName()
 {
 return $this->full_name;

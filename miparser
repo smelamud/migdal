@@ -605,6 +605,11 @@ else
   }
 }
 
+sub elAsp
+{
+::body('<?php ?>');
+}
+
 sub elRefresh #XXX Possibly empty period,url
 {
 my ($self)=@_;

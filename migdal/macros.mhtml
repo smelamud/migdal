@@ -36,8 +36,8 @@
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php' params='ident,flags'
        defaults="flags=''">
-<decel name='topics' file='parts/topics.php' params='g,up,title'
-       defaults="up=0 title=''">
+<decel name='topics' file='parts/topics.php' params='g,topic_id,title'
+       defaults="title='' topic_id=0">
 <decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>
 <decel name='uploader' file='parts/uploader.php'
        params='name,loadedname,loadedvalue,title,loaded,notloaded,filename'>

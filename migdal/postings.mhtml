@@ -14,13 +14,13 @@
  <top ident='$grpident'>
  <topic_obj id='$topic_id'>
 
- <ifnzero what='$topic_id'>
-  <center><h1><u>$,Name</u></h1></center>
- </ifnzero>
-
- <table width=100%><tr valign=top>
-  <td><topics g='$g' up='$topic_id' title='Темы'></td>
-  <td><postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
-	        offset='$offset' title='$grptitle'></td>
+ <table width=100%>
+  <col width='0*'>
+  <tr valign=top>
+   <td><topics g='$g' topic_id='$topic_id' title='Темы'></td>
+   <td><postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
+		 offset='$offset' title='$grptitle'></td>
+  </tr>
+ </table>
 </body>
 </html>

@@ -2,28 +2,50 @@
 << Based-on: demo/parts/topics.mhtml 1.5 >>
 
 <element name='topics'>
-<iterate_topiclist grp='$g.Effective' up='$up'>
+<iterate_topiclist grp='$g.Effective'>
 <if what='$$userAdminTopics || $;Count!=0'>
- <table class='topics' width=100%><tr><td>
+ <table class='topics'>
+  <colgroup span=2 width='0*'>
   <if what="$title!=''">
-   <center><h2>$title</h2></center>
+   <tr><th colspan=2>$title</th></tr>
   </if>
   <admin_topics>
-   <p>
-   <a href='topicedit.php?up=$up&redir=$_'>Добавить</a>
-   &nbsp;&nbsp;
-   <a href="$[ignoregrp='$g.InvIgnore']">Показать
-    <if what='$g.Ignore'>активные<else>все</if></a>
+   <tr class='controls'><td colspan=2>
+    <a href='topicedit.php?redir=$_'>Добавить</a>
+    &nbsp;
+    <a href="$[ignoregrp='$g.InvIgnore']">Показать
+     <if what='$g.Ignore'>активные<else>все</if></a>
+   </td></tr>
   </admin_topics>
-  <for>
-   <p>
-   <b><a href='postings.php?grp=$g.Effective&redir=$_&topic_id=$.Id'>
-	  $.Name ($.MessageCount)</a></b>&nbsp;
-   <admin_topics>
-    <a href='topicedit.php?editid=$.Id&redir=$_'>[Изменить]</a>
-   </admin_topics>
-   <br>$.HTMLDescription
-  </for>
- </td><tr></table>
+  <tbody class='names'>
+   <tr>
+    <td>
+     <if what='$topic_id==-1'>
+      <img src='pics/arrow.gif' width=11 height=12>
+     </if>
+    </td>
+    <td><a href='postings.php?grp=$g.Effective&topic_id=-1&redir=$_'
+	   class='new'>NEW!</a></td>
+   </tr>
+   <for>
+    <tr>
+     <td>
+      <if what='$topic_id==$.Id'>
+       <img src='pics/arrow.gif' width=11 height=12>
+      </if>
+     </td>
+     <td>
+      <a href='postings.php?grp=$g.Effective&redir=$_&topic_id=$.Id'
+	 title='$.Description'>
+       $.NbName&nbsp;($.MessageCount)</a><asp>
+     <admin_topics>
+      <asp>&nbsp;<a href='topicedit.php?editid=$.Id&redir=$_'
+		    class='edit'>Изменить</a>
+     </admin_topics>
+     </td>
+    </tr>
+   </for>
+  </tbody>
+ </table>
 </if>
 </element>
