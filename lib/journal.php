@@ -276,8 +276,8 @@ global $replicationLockTimeout;
 $result=mysql_query("select host
                      from horisonts
 	             where host='".addslashes($host)."' and
-		           lock is not null and
-	                   lock-interval $replicationLockTimeout minute<now()")
+		           `lock` is not null and
+	                   `lock`+interval $replicationLockTimeout minute<now()")
   or journalFailure('Cannot get replication lock.');
 return mysql_num_rows($result)>0;
 }
