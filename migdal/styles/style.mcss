@@ -29,7 +29,7 @@ menu_selected=yellow
 bottom=%gr
 state_date_back=%bl
 state_date=%vm
-state_style=blue
+state_style=white
 register_hover=blue
 login_border=blue
 login_text=blue
@@ -55,17 +55,32 @@ posting_subject=%md
 posting_split=%nd
 posting_controls=black
 posting_controls_hover=blue
-forum_border=%vm
-forum_header_back=%vm
-forum_body_back=%vl
+posting_read=%md
+:default forum_border=%vm
+:contrast forum_border=%nm
+:test forum_border=%vm
+:default forum_header_back=%vm
+:contrast forum_header_back=%nm
+:test forum_header_back=%vm
+:default forum_body_back=%vl
+:contrast forum_body_back=%nl
+:test forum_body_back=%vl
 forum_sent=white
 forum_name=%ml
 forum_rebe_name=%r
-forum_controls=%vd
+:default forum_controls=%vd
+:contrast forum_controls=%nd
+:test forum_controls=%vd
 forum_controls_hover=blue
-forums_batcher_normal=%vd
-forums_batcher_input_border=%vd
-forums_batcher_input_text=%vd
+:default forums_batcher_normal=%vd
+:contrast forums_batcher_normal=%nd
+:test forums_batcher_normal=%vd
+:default forums_batcher_input_border=%vd
+:contrast forums_batcher_input_border=%nd
+:test forums_batcher_input_border=%vd
+:default forums_batcher_input_text=%vd
+:contrast forums_batcher_input_text=%nd
+:test forums_batcher_input_text=%vd
 topics_title=%nm
 topics_names=black
 topics_names_hover=blue
@@ -91,9 +106,12 @@ catalog_answer_hover=blue
 catalog_topic=blue
 catalog_subject=black
 catalog_subject_hover=blue
-:default details_image=pics/info.gif
+:default details_image=pics/info-bullet.gif
 :contrast details_image=pics/info-test.gif
-:test details_image=pics/info-test.gif
+:test details_image=pics/info.gif
+:default details_noleft=true
+:contrast details_noleft=false
+:test details_noleft=false
 picture_border=%nd
 :default picture_back=%nll
 :contrast picture_back=white
@@ -121,6 +139,10 @@ form_starinfo=%grd
 form_buttons_ruler=%nd
 form_buttons_back=%nm
 form_buttons=white
+article_split=black
+article_controls=black
+article_controls_hover=blue
+article_picture=blue
 
 ! Global
 
@@ -194,6 +216,16 @@ BODY {
 	background-color: %state_date_back;
 }
 
+.state .style {
+	background-color: %state_date_back;
+}
+
+.state .style A {
+	font-size: 10pt;
+	color: %state_style;
+	text-decoration: underline;
+}
+
 .state .date {
 	font-size: 10pt;
 	font-weight: bold;
@@ -210,11 +242,6 @@ BODY {
 
 .state .login A {
 	font-size: 8pt;
-}
-
-.state .login A.style {
-	font-size: 9pt;
-	color: %state_style;
 }
 
 .state .login A.name {
@@ -335,6 +362,17 @@ BODY {
 	color: %posting_subject;
 }
 
+.posting .subject A {
+	font-weight: bold;
+	font-size: 12pt;
+	color: %posting_subject;
+	text-decoration: none;
+}
+
+.posting .subject A:hover {
+	text-decoration: underline;
+}
+
 .posting .topic {
 	font-style: italic;
 	text-decoration: none;
@@ -358,6 +396,10 @@ BODY {
 .posting .bottom A:hover {
 	color: %posting_controls_hover;
 	text-decoration: underline;
+}
+
+.posting .bottom A.read {
+	color: %posting_read;
 }
 
 ! Forum
@@ -456,7 +498,6 @@ BODY {
 
 .topics {
 	margin-left: 5px;
-	margin-right: 15px;
 	margin-top: 10px;
 }
 
@@ -777,6 +818,50 @@ BODY {
 .form .buttons INPUT {
 	background-color: %form_buttons_back;
 	color: %form_buttons;
+}
+
+! Article
+
+.article .controls {
+	border-bottom: 1px solid %article_split;
+	border-spacing: 0;
+}
+
+.article .controls TD {
+	padding-right: 10px;
+}
+
+.article .controls A {
+	font-size: 8pt;
+	color: %article_controls;
+	text-decoration: none;
+}
+
+.article .controls A:hover {
+	color: %article_controls_hover;
+	text-decoration: underline;
+}
+
+.article A.piclink {
+	color: %article_picture;
+	font-size: 10pt;
+	font-style: italic;
+	text-decoration: none;
+}
+
+.article A.piclink:hover {
+	text-decoration: underline;
+}
+
+.article H1 {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-size: 18pt;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.article P {
+	text-align: justify;
 }
 
 ! Chat

@@ -35,6 +35,7 @@
 <decel name='gallery' file='parts/gallery.php'
        params='grp,topic,rows,cols,offset,title'
        defaults="topic=-1 rows=4 cols=5 offset=0 title=''">
+<decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='login' file='parts/login.php' params='flags,err'>
 <decel name='menu' file='parts/menu.php' params='ident'>
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'

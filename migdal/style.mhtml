@@ -7,9 +7,11 @@
 <body>
  <top ident='index' image='pics/index.gif'>
  <p>
+ <formtable title='Настройка вида'>
  <form method=post action='actions/style.php'>
   <hidden name='redir' value='$redir'>
   <table>
+   <tr><td colspan=2>&nbsp;</td></tr>
    <tr>
     <td>Стиль</td>
     <td>
@@ -21,10 +23,10 @@
      </select>
     </td>
    </tr>
+   <formbuttons title='Применить' span=2>
   </table>
-  <input type=submit value='Применить'>
-  <input type=reset value='Очистить'>
  </form>
+ </formtable>
  <bottom>
 </body>
 </html>

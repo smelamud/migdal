@@ -15,7 +15,8 @@
  <topic_obj id='$topic_id'>
 
  <table width=100%><tr valign=top>
-  <td width=25%><topics g='$g' topic_id='$topic_id' title='Разделы'></td>
+  <td width=20%><topics g='$g' topic_id='$topic_id' title='Разделы'></td>
+  <td width=20>&nbsp;</td>
   <td><forumcatalog grp='$grp' topic='$topic_id' title='$grptitle'
                     limit='$userForumCatalogPortion' offset='$offset'></td>
  </tr></table>

@@ -87,6 +87,11 @@
           arg1='%up' arg2='%limit' arg3='%offset'>
 </macro>
 
+<macro name='iterate_grps'>
+ <require name='lib/grputils.php'>
+ <iterate name='%name' class='GrpIterator'>
+</macro>
+
 <macro name='iterate_http' defaults="method=get remove=''">
  <require name='lib/uri.php'>
  <iterate name='%name' class='HTTPVarsIterator'

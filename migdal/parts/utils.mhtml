@@ -11,7 +11,7 @@
 </element>
 
 <element name='SenderLink'>
-<if what="$align=='right'">
+<if what="$align=='right' || $$style_details_noleft">
  <span class='name'>$message.LoginLink</span>&nbsp;<asp>
  <if what='$message.isSenderVisible'>
   <asp><a href='useredit.php?editid=$message.SenderId&redir=$_'

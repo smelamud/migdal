@@ -2,30 +2,36 @@
 << Based-on: demo/article.mhtml 1.10 >>
 
 <element name='controls' params='posting'>
-<table width=100%>
- <tr>
-  <td>
+<div align=right>
+ <table class='controls'>
+  <tr>
    <isedit name='posting'>
-    <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
-     >[Изменить]</a>
-    <a href="limedit.php?postid=$posting.Id&redir=$_">[Список иллюстраций]</a>
+    <td>
+     <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
+	>Изменить</a>
+    </td>
+    <td>
+     <a href="limedit.php?postid=$posting.Id&redir=$_">Список иллюстраций</a>
+    </td>
     <if what='$posting.isModerable'>
-     <if what='$posting.isDisabled'>
-      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&redir=$_"
-       >[Разрешить показ]</a>
-     <else>
-      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&redir=$_"
-       >[Запретить показ]</a>
-     </if>
+     <td>
+      <if what='$posting.isDisabled'>
+       <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&redir=$_"
+	>Разрешить показ</a>
+      <else>
+       <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&redir=$_"
+	>Запретить показ</a>
+      </if>
+     </td>
     </if>
    </isedit>
-  </td>
-  <td align=right>
-   <a href='forum.php?redir=$_&msgid=$posting.Id'
-    >Обсудить ($posting.AnswerCount)</a>
-  </td>
- </tr>
-</table>
+   <td>
+    <a href='forum.php?redir=$_&msgid=$posting.Id'
+     >Обсудить ($posting.AnswerCount)</a>
+   </td>
+  </tr>
+ </table>
+</div>
 </element>
 
 <macro name='isplaced'>
@@ -76,7 +82,7 @@
   <isedit name='posting'>
    <tr><td align=center>
     <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
-       >[Картинка]</a>
+       class='piclink'>Картинка</a>
    </td></tr>
   </isedit>
    <tr><td>
@@ -102,7 +108,7 @@
  <isedit name='posting'>
   <p>
   <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
-     >[Картинка]</a>
+     class='piclink'>Картинка</a>
   </p>
  </isedit>
  <p>
@@ -120,20 +126,20 @@
 <body>
  <top ident='articles' image='pics/articles.gif'>
  <p>
- <controls posting='$,'>
- <p>
- <center><h1>$,Subject</h1></center>
- <if what='$,LargeFormat==*TF_PRE'><pre></if>
- <iterate_posting_paragraphs posting='$,'>
- <p>
- <for>
-  <pic posting='$,' par='$.'>
-  $.HTMLBody
- </for>
- </p>
- <if what='$,LargeFormat==*TF_PRE'></pre></if>
- <p>
- <controls posting='$,'>
+ <div class='article'>
+  <controls posting='$,'>
+  <center><h1>$,Subject</h1></center>
+  <if what='$,LargeFormat==*TF_PRE'><pre></if>
+  <iterate_posting_paragraphs posting='$,'>
+  <p>
+  <for>
+   <pic posting='$,' par='$.'>
+   $.HTMLBody
+  </for>
+  </p>
+  <if what='$,LargeFormat==*TF_PRE'></pre></if>
+  <controls posting='$,'>
+ </div>
  <bottom>
 </body>
 </html>

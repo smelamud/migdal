@@ -28,7 +28,6 @@
   <hidden name='edittag' value=1>
   <hidden name='redir' value='$redir'>
   <hidden name='editid' value='$editid'>
-  <hidden name='grp' value='$message.Grp'>
   <hidden name='personal_id' value='$message.PersonalId'>
   <table>
   <starinfo>
@@ -45,6 +44,11 @@
   <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
   <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
   <tr><td><table>
+   <moderator>
+    <grpselect name='grp' value='$message.Grp'>
+   <else>
+    <hidden name='grp' value='$message.Grp'>
+   </moderator>
    <moderator>
     <edit_line title='Приоритет' name='priority' value='$message.Priority'
 	       size=4 maxlength=3>
@@ -107,6 +111,11 @@
   <if what='$message.hasLargeBody'>
    <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
    <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
+   <if what="$message.LargeFilename!=''">
+    <tr><td>
+     <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>Загрузить текст</a>
+    </td></tr>
+   </if>
    <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
 	     title='Текст' loaded='(уже загружен)' notloaded='Другой'
 	     filename='$message.LargeFilename'

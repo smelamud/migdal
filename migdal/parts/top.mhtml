@@ -6,10 +6,11 @@
 <table class='state'>
  <tr>
   <td class='topimage'><img src='$image'></td>
-  <td align=right><login flags='$flags' err='$$err'></td>
+  <td colspan=2 align=right><login flags='$flags' err='$$err'></td>
  </tr>
  <tr>
   <td class='bottomimage'><img src='pics/state.gif'></td>
+  <td class='style'><a href='/style.php?redir=$_'>Настроить вид</a></td>
   <td align=right valign=top class='date'><today></td>
  </tr>
  <tr><td>&nbsp;</td></tr>
