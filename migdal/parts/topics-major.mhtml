@@ -26,18 +26,18 @@
   <a href='topiclinks.php?topic_id=$`major`&topic_grp=*GRP_NEWS&peer_grp=*GRP_NEWS'>
      Изменить</a>
  </td></tr>
- <iterate_topic_cross topic_id='$`major`' topic_grp='*GRP_NEWS'
-		      peer_grp='*GRP_ALL'>
- <for>
-  <posting_new name='post' grp='$.PeerGrp' topic_id='$.PeerId'
-               topic_name='$.PeerName'>
-  <identify posting='$post'>
-  <topic_obj id='$.PeerId' fields='*SELECT_INFO'>
-  <topics_line class='item ninept' time='$,LastMessage'
-               href#='$post.GeneralHref' title='$,Description' text='$,Name'
-	       arrow!='$posting!=0 && $,Id==$posting.TopicId' span='$span'>
- </for>
 </admin_topics>
+<iterate_topic_cross topic_id='$`major`' topic_grp='*GRP_NEWS'
+		     peer_grp='*GRP_ALL'>
+<for>
+ <posting_new name='post' grp='$.PeerGrp' topic_id='$.PeerId'
+	      topic_name='$.PeerName'>
+ <identify posting='$post'>
+ <topic_obj id='$.PeerId' fields='*SELECT_INFO'>
+ <topics_line class='item ninept' time='$,LastMessage'
+	      href#='$post.GeneralHref' title='$,Description' text='$,Name'
+	      arrow!='$posting!=0 && $,Id==$posting.TopicId' span='$span'>
+</for>
 </element>
 
 <element name='topics_major'>
