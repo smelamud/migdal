@@ -37,8 +37,10 @@ $journalSeq=0;
 
 function journal($query,$table='',$id=0)
 {
-global $journalSeq;
+global $replicationJournal,$journalSeq;
 
+if(!$replicationJournal)
+  return;
 if($journalSeq==0)
   bug('No sequence.');
 $query=addslashes($query);

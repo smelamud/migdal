@@ -214,6 +214,11 @@ $guestLogin='Гость';
 # Роль хоста в репликации
 $replicationMaster=true;
 
+# Включить журнал репликаций. Он необходим, если данные с этого хоста должны
+# реплицироваться на другой.
+
+$replicationJournal=false;
+
 # Тип (MIME-type) репликационной информации
 $replicationType='application/x-migdal-replication';
 
