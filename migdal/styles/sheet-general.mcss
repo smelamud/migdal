@@ -25,31 +25,6 @@ BODY {
 	background-image: url("../%body_back_pic");
 }
 
-.advert {
-	color: %advert;
-	font-size: 8pt;
-	font-weight: bold;
-}
-
-.advert A {
-	color: %advert_link;
-	font-size: 8pt;
-	font-weight: bold;
-}
-
-.info {
-	color: %info;
-	font-size: 8pt;
-	font-weight: bold;
-}
-
-.info EM {
-	color: %info_em;
-	font-size: 8pt;
-	font-weight: bold;
-	font-style: normal;
-}
-
 .title {
 	margin-bottom: 2ex;
 }

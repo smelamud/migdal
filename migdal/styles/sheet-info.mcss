@@ -1,0 +1,15 @@
+! @(#) $Id$
+
+.info,.info * {
+	color: %info;
+	font-size: 8pt;
+	font-weight: bold;
+}
+
+.info B {
+	color: %info_b;
+}
+
+.info A {
+	color: %info_link;
+}

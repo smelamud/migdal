@@ -18,12 +18,14 @@
 	class='add'>статью</a>
     </if>
    <else>
-    <span class='advert'>
-     <if what='$,isValid'>
-      Хотите добавлять $,GrpItemsTitle?
-     <else>
-      Хотите добавлять новости и статьи?
-     </if>
+    <span class='info'>
+     <b>
+      <if what='$,isValid'>
+       Хотите добавлять $,GrpItemsTitle?
+      <else>
+       Хотите добавлять новости и статьи?
+      </if>
+     </b>
      <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
     </span>
    </logged>

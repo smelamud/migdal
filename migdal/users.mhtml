@@ -23,9 +23,9 @@
   <array vals='пользователь,пользователя,пользователей'>
   <plural name='i_users' value='$summary.Total'>
   <span class='info'>
-   Всего $i_reg <em>$summary.Total</em> $i_users
+   Всего $i_reg <b>$summary.Total</b> $i_users
    <ifnzero what='$summary.Waiting'>
-    &nbsp;(<em>$summary.Waiting</em> в процессе регистрации)
+    &nbsp;(<b>$summary.Waiting</b> в процессе регистрации)
    </ifnzero>
   </span>
  </zone>

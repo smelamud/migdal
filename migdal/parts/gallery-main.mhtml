@@ -8,8 +8,8 @@
   <a href='postingedit.php?topic_id=-1&up=general&grp=*GRP_GALLERY&redirid=$_'
      class='add'>Добавить картинку</a>
  <else>
-  <span class='advert'>
-   Хотите добавлять картинки?
+  <span class='info'>
+   <b>Хотите добавлять картинки?</b>
    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
   </span>
  </logged>
