@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 << Based-on: migdal/parts/postings.mhtml 1.23 >>
 
-<element name='batcher_gallery' params='rows,cols,list,topic,grp'>
+<element name='batcher_gallery' params='list,topic,grp'>
 <grpdata>
 <grpitemtitle>
 <grpitemstitle>
@@ -32,12 +32,11 @@
 </tr></table>
 </element>
 
-<element name='Gallery'>
+<element name='gallery'>
 <iterate_picturelist grp='$grp' topic='$topic' rows='$rows' cols='$cols'
                      offset='$offset' sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher_gallery rows='$rows' cols='$cols' list='$;' topic='$topic'
-                  grp='$grp'>
+ <batcher_gallery list='$;' topic='$topic' grp='$grp'>
  <table width=100%>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -51,8 +50,7 @@
   </tr>
  </table>
  <ifnzero what='$;Count'>
-  <batcher_gallery rows='$rows' cols='$cols' list='$;' topic='$topic'
-                   grp='$grp'>
+  <batcher_gallery list='$;' topic='$topic' grp='$grp'>
  </ifnzero>
 <else>
  &nbsp;

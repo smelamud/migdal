@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/parts/posting.mhtml 1.21 >>
+<< Based-on: migdal/parts/picture.mhtml 1.13 >>
 
 <element name='picture_main'>
 <if what='$picture.isRebe'><span class='rebe'></if>

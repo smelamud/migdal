@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<int name='offset'>
 <grps>
 <pagetitle title='Таглит'>
 <topictitle title='Таглит --- Birthright'>
@@ -44,6 +43,17 @@
     </notlogged>
     Для каждого пользователя автоматически создается отдельный раздел.
    </div>
+   <logged>
+    <div class='batcher'>
+     <a href='postingedit.php?topic_id=$,Id&up=$,Id&grp=*GRP_INT_FORUMS&redirid=$_'
+        class='add'>
+      Добавить мнение</a>&nbsp;
+     <a href='postingedit.php?topic_id=$,Id&up=$,Id&grp=*GRP_GALLERY&redirid=$_'
+        class='add'>
+      Добавить фотографию</a>
+    </div>
+   </logged>
+   <taglit topic_id='$,Id'>
   </td>
  </tr></table>
  <bottom>

@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='batcher_postings' params='value,list,topic,grp'>
+<element name='batcher_postings' params='list,topic,grp'>
 <grpdata>
 <grpitemtitle>
 <grpitemstitle>
@@ -35,7 +35,7 @@
 <iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
                      sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp'>
+ <batcher_postings list='$;' topic='$topic' grp='$grp'>
  <table>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -44,7 +44,7 @@
   <posting posting='$.' grp='$grp' topic='$topic' shorten='*true'>
  </for>
  <ifnzero what='$;Count'>
-  <batcher_postings value='$limit' list='$;' topic='$topic' grp='$grp'>
+  <batcher_postings list='$;' topic='$topic' grp='$grp'>
  </ifnzero>
 <else>
  &nbsp;

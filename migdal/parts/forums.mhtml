@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 << Based-on: migdal/parts/postings.mhtml 1.23 >>
 
-<element name='batcher_forums' params='value,list,up'>
+<element name='batcher_forums' params='list,up'>
 <table width=100% class='batcher'>
  <form method=get action='$~'>
   <hiddenget remove='fp'>
@@ -28,7 +28,7 @@
 <element name='forums'>
 <iterate_forum_answerlist up='$up' limit='$limit' offset='$offset'>
 <div class='forums'>
- <batcher_forums value='$limit' list='$;' up='$up'>
+ <batcher_forums list='$;' up='$up'>
  <table width=100%>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -37,7 +37,7 @@
   </for>
  </table>
  <ifnzero what='$;Count'>
-  <batcher_forums value='$limit' list='$;' up='$up'>
+  <batcher_forums list='$;' up='$up'>
  </ifnzero>
 </span>
 </element>

@@ -41,6 +41,7 @@ var $no_login;
 var $has_personal;
 var $confirmed;
 var $confirm_days;
+var $last_message;
 
 function User($row)
 {
@@ -318,6 +319,11 @@ return $this->confirmed;
 function getConfirmDays()
 {
 return $this->confirm_days;
+}
+
+function getLastMessage()
+{
+return !empty($this->last_message) ? strtotime($this->last_message) : 0;
 }
 
 }

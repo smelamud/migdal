@@ -22,9 +22,12 @@
 <element name='chapter' params='id,link,topic_id'
          defaults="topic_id='$topic_id'">
  <tr>
-  <topic_obj id='$id'>
-  <arrow id='$,Id' ident='$,Ident' time='$,LastMessage'>
-  <td><a href='$link' title='$,Description' class='item large'>$,Name</a></td>
+  <topic_obj name='topic' id='$id'>
+  <posting_last topic_id='$topic.Id' recursive='*false'>
+  <arrow id='$topic.Id' ident='$topic.Ident' time='$,'>
+  <td>
+   <a href='$link' title='$topic.Description' class='item large'>$topic.Name</a>
+  </td>
  </tr>
 </element>
 

@@ -12,6 +12,7 @@ require_once('lib/paragraphs.php');
 require_once('lib/sort.php');
 require_once('lib/track.php');
 require_once('lib/random.php');
+require_once('lib/users.php');
 
 class Posting
       extends Message
@@ -354,11 +355,12 @@ class PictureListIterator
 var $cols;
 
 function PictureListIterator($grp,$topic=-1,$recursive=false,$rows=4,$cols=5,
-                             $offset=0,$personal=0,$sort=SORT_SENT)
+                             $offset=0,$personal=0,$sort=SORT_SENT,
+			     $withAnswers=GRP_NONE,$user=0)
 {
 $this->cols=$cols;
 $this->PostingListIterator($grp,$topic,$recursive,$rows*$cols,$offset,
-                           $personal,$sort);
+                           $personal,$sort,$withAnswers,$user);
 }
 
 function isEol()
@@ -388,7 +390,7 @@ $topicFilter=$topic_id<0
 $this->SelectIterator(
        'User',
        "select distinct users.id as id,login,gender,email,hide_email,rebe,
-                        name,jewish_name,surname
+                        name,jewish_name,surname,max(sent) as last_message
         from users
 	     left join messages
 	          on messages.sender_id=users.id
@@ -397,7 +399,8 @@ $this->SelectIterator(
 	where (messages.hidden<$hide or messages.sender_id=$userId) and
 	      (messages.disabled<$hide or messages.sender_id=$userId) and
               (grp & $grp)<>0 $topicFilter
-	order by surname,jewish_name,name"
+	group by users.id
+	order by surname,jewish_name,name");
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
 }
@@ -527,25 +530,34 @@ return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
 }
 
 function getLastPostingDate($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE,
-                            $user_id=0)
+                            $user_id=0,$recursive=false)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$tpf=$topic_id>=0 ? " and postings.topic_id=$topic_id " : '';
-$taf=$topic_id>=0 ? " and posts.topic_id=$topic_id " : '';
-$uf=$user_id>=0 ? " and messages.sender_id=$user_id " : '';
+$topic_id=idByIdent('topics',$topic_id);
+$tpf=$topic_id>=0 ?
+      !$recursive ? " and postings.topic_id=$topic_id "
+                  : " and topics.track like '%".track($topic_id)."%' " : '';
+$taf=$topic_id>=0 ?
+      !$recursive ? " and posts.topic_id=$topic_id "
+                  : " and tops.track like '%".track($topic_id)."%' " : '';
+$uf=$user_id>0 ? " and messages.sender_id=$user_id " : '';
 $result=mysql_query(
         "select max(messages.sent)
          from messages
 	      left join postings
 	           on postings.message_id=messages.id
+	      left join topics
+	           on topics.id=postings.topic_id
 	      left join forums
 	           on forums.message_id=messages.id
 	      left join messages as msgs
 	           on forums.up=msgs.id
 	      left join postings as posts
 	           on posts.message_id=msgs.id
+	      left join topics as tops
+	           on tops.id=posts.topic_id
 	 where (postings.id is not null or forums.id is not null) and
 	       (messages.hidden<$hide or messages.sender_id=$userId) and
 	       (messages.disabled<$hide or messages.sender_id=$userId) and
@@ -555,7 +567,8 @@ $result=mysql_query(
                (postings.id is null or (postings.grp & $grp)<>0 $tpf) and
                (forums.id is null or (posts.grp & $answers)<>0 $taf) $uf")
  or die('Ошибка SQL при определении даты последнего постинга/ответа');
-return mysql_num_rows($result)>0 ? strtotime(mysql_result($result,0,0)) : 0;
+$time=mysql_result($result,0,0);
+return $time!='' ? strtotime($time) : 0;
 }
 
 function incPostingReadCount($id)
@@ -612,7 +625,7 @@ $result=mysql_query(
 	           on postings.message_id=messages.id
 	 where (hidden<$hide or sender_id=$userId) and
 	       (disabled<$hide or sender_id=$userId) and
-               priority<=0 and (grp & $grp)<>0 $tf
+               priority<=0 and (grp & $grp)<>0 $topicFilter $userFilter
 	 order by priority,sent desc
 	 limit $realpos,1")
  or die('Ошибка SQL при получении постинга по позиции');

@@ -75,8 +75,8 @@
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
          params='format,body'>
 <deciter macro='picturelist' class='PictureListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,rows,cols,offset,personal,sort'
-         defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT'">
+         params='grp,topic,recursive,rows,cols,offset,personal,sort,withanswers,user'
+         defaults="grp='$grp' topic=-1 recursive='*false' rows=4 cols=5 offset=0 personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0">
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting'>
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
@@ -145,8 +145,8 @@
 <deccall macro='posting_full' func='getFullPostingById' file='lib/postings.php'
          params='id,grp' defaults='name=message grp=*GRP_ALL'>
 <deccall macro='posting_last' func='getLastPostingDate' file='lib/postings.php'
-         params='grp,topic_id,answers,user_id'
-	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0'>
+         params='grp,topic_id,answers,user_id,recursive'
+	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0 recursive=*false'>
 <deccall macro='posting_random' func='getRandomPostingId'
          file='lib/postings.php' params='grp,topic_id,user_id'
 	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0'>

@@ -1,0 +1,14 @@
+<< @(#) $Id$ >>
+
+<element name='taglit'>
+ <iterate_posting_users topic_id='$topic_id'>
+ <table width=100%><tr valign=top>
+ <for>
+  <td>
+   <posting_random topic_id='$topic_id' user_id='$.Id'>
+   <posting_full id='$,' grp='*GRP_GALLERY'>
+   <taglit_picture picture='$,' user='$.'>
+  </td>
+ </for>
+ </tr></table>
+</element>

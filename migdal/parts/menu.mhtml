@@ -10,7 +10,7 @@
     <biff time='$,'>
    </if>
    <if what="$.Ident=='gallery'">
-    <posting_last grp='*GRP_GALLERY'>
+    <posting_last grp='*GRP_GALLERY' topic_id='general' recursive='*true'>
     <biff time='$,'>
    </if>
    <if what='$.Ident==$ident'>

@@ -80,6 +80,9 @@
        params='ident,link,title,article' defaults="article='*false'">
 <decel name='subtitle' file='parts/subtitle.php' params='icon'
        defaults="icon=''">
+<decel name='taglit' file='parts/taglit.php' params='topic_id'>
+<decel name='taglit_picture' file='parts/taglit-picture.php'
+       params='picture,user'>
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
        params='ident,flags,target,showimages'

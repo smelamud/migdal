@@ -1,0 +1,72 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+<int name='user_id'>
+<grps>
+<topic_obj name='taglit' id='taglit'>
+<user_obj id='user_id'>
+<concat name='title' value='Таглит - $,FullName'>
+<pagetitle title='$title'>
+<topictitle title='$,FullName'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+
+ <table width=100%><tr valign=top>
+  <td width=120><topics grp='*GRP_TAPE' topic_id='$taglit.Id'></td>
+  <td width=5>&nbsp;</td>
+  <td>
+   <subtitle icon='pics/taglit.gif'>
+   <div class='batcher'>
+    <a href='userinfo.php?id=$,Id&redirid=$_'
+       onClick="UserInfo($,Id);return false"
+       class='add'>О пользователе $,Login</a>
+    <ifne what='$,ReplyLink'>
+     $,ReplyLink<image src='$$style_mail_image' border=0></a>
+    </ife>
+   </div>
+   <p>
+   <logged>
+    <div class='batcher'>
+     <a href='postingedit.php?topic_id=$taglit.Id&up=$taglit.Id&grp=*GRP_INT_FORUMS&redirid=$_'
+        class='add'>
+      Добавить мнение</a>
+    </div>
+   </logged>
+   <logged>
+    <div class='batcher'>
+     <a href='postingedit.php?topic_id=$taglit.Id&up=$taglit.Id&grp=*GRP_GALLERY&redirid=$_'
+        class='add'>
+      Добавить фотографию</a>
+    </div>
+   </logged>
+   <iterate_picturelist grp='*GRP_GALLERY' topic='$taglit.Id'
+                        rows='$userPictureRowPortion'
+			cols='$userPictureColumnPortion'
+			offset='$offset' sort='*SORT_PSENT' user='$,Id'>
+   <table width=100%>
+    <tr valign=top>
+     <for>
+      <td><picture picture='$.' grp='*GRP_GALLERY' topic='$taglit.Id'></td>
+      <if what='$;isEol'>
+       </tr><tr valign=top>
+      </if>
+     </for>
+    </tr>
+   </table>
+   <logged>
+    <ifnzero what='$;Count'>
+     <div class='batcher'>
+      <a href='postingedit.php?topic_id=$taglit.Id&up=$taglit.Id&grp=*GRP_GALLERY&redirid=$_'
+	 class='add'>
+       Добавить фотографию</a>
+     </div>
+    </ifnzero>
+   </logged>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>
