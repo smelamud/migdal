@@ -311,6 +311,7 @@ else
 
 function subJournalVars($host,$query)
 {
+$host=addslashes($host);
 return preg_replace('/\$([0-9]+)/e',"getJournalVar('$host',\\1)",$s);
 }
 ?>

@@ -22,6 +22,8 @@ function executeAction($host,$action)
 {
 global $replicationMaster;
 
+if($replicationMaster)
+  beginJournal();
 foreach($action as $line)
        {
        $query=$line->getQuery();
@@ -31,21 +33,28 @@ foreach($action as $line)
        if(substr($query,0,5)=='track')
          executeTrackQuery($query);
        else
-         {
 	 mysql_query($query)
 	   or journalFailure('Error executing replicated query in seq '.
 			     $line->getSeq().' id='.$line->getId().
 			     ": $query");
-         if($line->getResultTable()!='')
-	   if($replicationMaster)
-	     {
-	     if($line->getResultId()!=mysql_insert_id())
-	       journalFailure('Identifier shift detected.');
-	     }
-	   else
-	     setJournalVar($host,$line->getResultVar(),mysql_insert_id());
-	 }
+       if($line->getResultTable()!='')
+	 if(!$replicationMaster)
+	   {
+	   if($line->getResultId()!=mysql_insert_id())
+	     journalFailure('Identifier shift detected.');
+	   }
+	 else
+	   {
+	   setJournalVar($host,$line->getResultVar(),mysql_insert_id());
+	   journal(jencode($query),$line->getResultTable(),
+		   mysql_insert_id());
+	   }
+       else
+	 if($replicationMaster)
+	   journal(jencode($query));
        }
+if($replicationMaster)
+  endJournal();
 }
 
 function replicate($host)
@@ -82,7 +91,9 @@ fclose($fd);
 }
 
 dbOpen();
+endJournal();
 session();
 replicate($argv[1]);
+beginJournal();
 dbClose();
 ?>
