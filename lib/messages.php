@@ -513,7 +513,8 @@ return $this->answer_count;
 
 function getLastAnswer()
 {
-return !empty($this->last_answer) ? strtotime($this->last_answer) : 0;
+return !empty($this->last_answer) && $this->last_answer!=0
+       ? strtotime($this->last_answer) : 0;
 }
 
 }

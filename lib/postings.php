@@ -296,7 +296,7 @@ $answersFields=$sortByAnswers && $userId>0 ?
 	     "messages.answers as answer_count,
 	      messages.hidden_answers as hidden_answers,
 	      messages.last_answer as last_answer,
-	      ifnull(last_answer,messages.sent) as age," :
+	      if(last_answer,last_answer,messages.sent) as age," :
 	     "");
 $countersFields=$sort==SORT_CTR ?
 	     "counter0.value as counter_value0,
