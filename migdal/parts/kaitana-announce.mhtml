@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<assign_global name='current_kaitana' value=6>
+<assign_global name='current_kaitana' value=7>
 
 <macro name='day'>
  <assign name='link' value='*false'>
