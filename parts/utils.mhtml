@@ -104,33 +104,27 @@ displayPError($code,$message,$color,$span);
  </td>
 </tr></table><br>
 </element>
-<?
-function displayBatcher($current,$var)
-{
-global $SCRIPT_NAME,$HTTP_GET_VARS;
 
-$s="<table width=100%>
-     <form method=get action='$SCRIPT_NAME'>";
-foreach($HTTP_GET_VARS as $key => $value)
-       if($key!='mp')
-         $s.="<input type=hidden name='$key' value='$value'>";
-$s.=" <tr><td align=right><table><tr valign=center>
-      <td>Показывать по&nbsp;</td>
-      <td><select name='$var'>";
-$shows=array(10,15,20,25,30,35,40);
-$shows[]=$current;
-sort($shows);
-$shows=array_unique($shows);
-foreach($shows as $val)
-       $s.="<option label=$val value=$val ".
-                               ($val==$current ? 'selected' : '').
-	   ' >';
-echo "$s
-      </select></td>
-      <td>сообщений&nbsp;</td>
-      <td><input type=submit value='Изменить'></td>
-      </tr></table></td></tr>
-     </form>
-    </table><br>";
-}
-?>
+<element name='Batcher'>
+<table width=100%>
+ <form method=get action='$~'>
+  <hiddenget remove='mp'>
+  <tr><td align=right><table><tr valign=center>
+  <td>Показывать по&nbsp;</td>
+  <td><select name='$var'>
+   <array val1='10 15 20 25 30 35 40' val2='$value'>
+   <iterate_sortarray values='$*'>
+   <for>
+    <if what='$value==$.'>
+     <option label=$. value=$. selected>
+    <else>
+     <option label=$. value=$.>
+    </if>
+   </for>
+  </select></td>
+  <td>сообщений&nbsp;</td>
+  <td><input type=submit value='Изменить'></td>
+  </tr></table></td></tr>
+ </form>
+</table><br>
+</element>

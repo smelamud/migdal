@@ -28,6 +28,7 @@ $ElementBody='';
 $LastIter='';
 $LastItem='';
 $LastResult='';
+$LastConst='';
 
 $Stack='';
 
@@ -43,7 +44,7 @@ my ($s)=@_;
 @del=();
 @subs=();
 %params=();
-request('lib/utils.php');
+request('lib/uri.php');
 getGlobal('REQUEST_URI');
 splitParams($s,\%params);
 while(my($name,$value)=each(%params))
@@ -88,6 +89,7 @@ my ($s,$st,$ed)=@_;
 my $item=$Stack->top()->getItem();
 my $iter=$Stack->top()->getIterator();
 my $result=$Stack->top()->getResult();
+my $const=$Stack->top()->getConst();
 
 return $st.constructRemake($1).$ed
        if $s=~/^\$\[([^\]]*)\]$/;
@@ -97,12 +99,16 @@ return "$st$1$ed"
        if $s=~/^\*(\w+)$/;
 return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
        if $s=~/^\$_$/;
+return "$st\$".getGlobal('SCRIPT_NAME').$ed
+       if $s=~/^\$~$/;
 return "$st\$$item$ed"
        if $s=~/^\$\.$/;
 return "$st\$$result$ed"
        if $s=~/^\$,$/;
 return "$st\$$iter$ed"
        if $s=~/^\$;$/;
+return "$st\$$const$ed"
+       if $s=~/^\$\*$/;
 return "$st\$$1$ed"
        if $s=~/^\$(\w+)$/;
 return "$st\$".getGlobal($1).$ed
@@ -134,7 +140,7 @@ my $c='';
 while($s ne '')
      {
      my $head,$var;
-     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[#\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;]))|(?:\*\w+))?)(.*)$/s;
+     ($head,$var,$s)=$s=~/^([^\$]*)((?:(?:\$[#\$]?(?:(?:\w*[\.,]?\w+)|(?:\[[^\]]*\])|[_\.,;~\*]))|(?:\*\w+))?)(.*)$/s;
      $c.=$head;
      $c.=subVar($var,$st,$ed) if $var ne '';
      }
@@ -148,12 +154,34 @@ my ($s)=@_;
 return subVars($s,'<?php echo ','; ?>');
 }
 
-sub subMacroParams
+sub subMacroParam
 {
 my ($s,$params)=@_;
 
-$s=~s/%(\w+)/$params->{$1}/ge;
+return $params->{$1}
+       if $s=~/^%(\w+)$/;
+return uc($params->{$1})
+       if $s=~/^%\^(\w+)$/;
+return $params->{$1}
+       if $s=~/^%{(\w+)}$/;
+return uc($params->{$1})
+       if $s=~/^%\^{(\w+)}$/;
 return $s;
+}
+
+sub subMacroParams
+{
+my ($s,$params)=@_;
+my $c='';
+
+while($s ne '')
+     {
+     my $head,$var;
+     ($head,$var,$s)=$s=~/^([^%]*)((?:%[\^]?{?\w+}?)?)(.*)$/s;
+     $c.=$head;
+     $c.=subMacroParam($var,$params) if $var ne '';
+     }
+return $c;
 }
 
 sub splitParams
@@ -268,7 +296,8 @@ my ($class,$frame)=@_;
 
 my $data={'iterator' => '',
           'item'     => '',
-	  'result'   => ''};
+	  'result'   => '',
+	  'const'    => ''};
 if(defined($frame))
   {
   $data->{$name}=$value while(my($name,$value)=each(%{$frame}));
@@ -316,6 +345,20 @@ sub setResult
 my ($self,$value)=@_;
 
 return $self->{'result'}=$value;
+}
+
+sub getConst
+{
+my ($self)=@_;
+
+return $self->{'const'};
+}
+
+sub setConst
+{
+my ($self,$value)=@_;
+
+return $self->{'const'}=$value;
 }
 
 #### Stack ####
@@ -519,6 +562,26 @@ sub elRequire
 my ($self)=@_;
 
 ::request($self->getArg('name'));
+}
+
+sub elArray
+{
+my ($self)=@_;
+
+my $name=$self->getArg('name');
+$name='const'.($::LastConst++) if $name eq '';
+$::Stack->top()->setConst($name);
+::body("<?php \$$name=array(");
+my @vals=();
+push(@vals,split(/[\s,]+/,::subVar($self->getArg('vals'))))
+    if exists $self->getArgs()->{'vals'};
+for(my $n=1;exists $self->getArgs()->{"val$n"};$n++)
+   {
+   my $value=::subVar($self->getArg("val$n"));
+   $value=~s/^'([^']*)'$/\1/;
+   push(@vals,split(/[\s,]+/,$value));
+   }
+::body(join(',',@vals),'); ?>');
 }
 
 sub elIterate #XXX Possibly empty class

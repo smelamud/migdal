@@ -35,6 +35,19 @@
           arg1='%up' arg2='%limit' arg3='%offset'>
 </macro>
 
+<macro name='iterate_http' defaults="method=get remove=''">
+ <require name='lib/uri.php'>
+ <iterate name='%name' class='HTTPVarsIterator'
+          arg1='$$HTTP_%^{method}_VARS' arg2='%remove'>
+</macro>
+
+<macro name='hiddenget'>
+ <zone>
+  <iterate_http remove='%remove'>
+  <for><input type=hidden name='$.Name' value='$.Value'></for>
+ </zone>
+</macro>
+
 <macro name='iterate_menu'>
  <require name='lib/menu.php'>
  <iterate name='%name' class='MenuIterator' arg1='%ident'>
@@ -49,6 +62,11 @@
 <macro name='iterate_months'>
  <require name='lib/months.php'>
  <iterate name='%name' class='MonthsIterator'>
+</macro>
+
+<macro name='iterate_sortarray'>
+ <require name='lib/array.php'>
+ <iterate name='%name' class='SortedArrayIterator' arg1='%values'>
 </macro>
 
 <macro name='iterate_topiclist'>
@@ -67,6 +85,20 @@
 </macro>
 
 << Calls >>
+<macro name='image_name' defaults='name=image'>
+ <require name='lib/images.php'>
+ <call name='%name' func='getImageNameBySet' arg1='%set'>
+</macro>
+
+<macro name='image_tag'>
+ <require name='lib/images.php'>
+ <call name='%name' func='getImageTagById' arg1='%id'>
+</macro>
+
+<macro name='imgtag'>
+ <zone><image_tag id='$message.ImageId'>$,</zone>
+</macro>
+
 <macro name='message_obj' defaults='name=message grp=0 topic=0'>
  <require name='lib/messages.php'>
  <call name='%name' func='getMessageById' arg1='%id' arg2='%grp' arg3='%topic'>
@@ -90,20 +122,6 @@
 <macro name='user_obj'>
  <require name='lib/users.php'>
  <call name='%name' func='getUserById' arg1='%id'>
-</macro>
-
-<macro name='image_name' defaults='name=image'>
- <require name='lib/images.php'>
- <call name='%name' func='getImageNameBySet' arg1='%set'>
-</macro>
-
-<macro name='image_tag'>
- <require name='lib/images.php'>
- <call name='%name' func='getImageTagById' arg1='%id'>
-</macro>
-
-<macro name='imgtag'>
- <zone><image_tag id='$message.ImageId'>$,</zone>
 </macro>
 
 << Conditionals >>
