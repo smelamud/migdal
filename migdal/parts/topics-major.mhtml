@@ -11,24 +11,6 @@
 	     span='$span' class='item'>
 </element>
 
-<element name='navi_taglit' params='ident,span' defaults='span=1'>
-<topic_obj name='taglit' id='$`taglit`'>
-
-<posting_last topic_id='$`taglit`' recursive='*false'>
-<topics_line time='$,' href='taglit.php' title='$taglit.Description'
-	     text='$taglit.Name' arrow!="$ident=='taglit'"
-	     class='item ninept' span='$span'>
-</element>
-
-<element name='navi_veterans' params='ident,span' defaults='span=1'>
-<topic_obj name='veterans' id='$`veterans`'>
-
-<posting_last topic_id='$`veterans`' recursive='*false'>
-<topics_line time='$,' href='veterans.php' title='$veterans.Description'
-	     text='$veterans.Name' arrow!="$ident=='veterans'"
-	     class='item ninept' span='$span'>
-</element>
-
 <element name='navi_help' params='ident,span' defaults='span=1'>
 <topic_obj name='tips' id='$`tips`'>
 
@@ -38,13 +20,33 @@
 	     class='item ninept' span='$span'>
 </element>
 
+<element name='general' params='posting,span' defaults='span=1'>
+<admin_topics>
+ <tr><td colspan=3 class='eightpt'>
+  <a href='topiclinks.php?topic_id=$`major`&topic_grp=*GRP_NEWS&peer_grp=*GRP_ALL'>
+     Изменить</a>
+ </td></tr>
+ <iterate_topic_cross topic_id='$`major`' topic_grp='*GRP_NEWS'
+		      peer_grp='*GRP_ALL'>
+ <for>
+  <posting_new name='post' grp='$.PeerGrp' topic_id='$.PeerId'
+               topic_name='$.PeerName'>
+  <identify posting='$post'>
+  <topic_obj id='$.PeerId' fields='*SELECT_INFO'>
+  <topics_line class='item ninept' time='$,LastMessage'
+               href#='$post.GeneralHref' title='$,Description' text='$,Name'
+	       arrow!='$posting!=0 && $,Id==$posting.TopicId' span='$span'>
+ </for>
+</admin_topics>
+</element>
+
 <element name='topics_major'>
 <topics_table title='Разделы' span=2>
  <navi_main ident='$ident' span=2>
  <navi_migdal posting='$posting' span=2>
  <topics_migdal_main posting='$posting'>
- <navi_taglit ident='$ident' span=2>
- <navi_veterans ident='$ident' span=2>
+ <general posting='$posting' span=2>
+ <topics_splitter>
  <navi_help ident='$ident' span=2>
  <topics_line href='archive.php' text='Архив' arrow!="$ident=='archive'"
               class='item eightpt' span=2>

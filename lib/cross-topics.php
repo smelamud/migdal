@@ -83,7 +83,7 @@ $this->SelectIterator('CrossTopic',
 		            left join topics
 			         on topics.id=cross_topics.peer_id
 		       where topic_id=$topic_id $grpFilter
-		       order by track");
+		       order by topics.name_sort");
 }
 
 }

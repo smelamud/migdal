@@ -20,8 +20,9 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=150 class='eframe'><zone>
-   <topics_veterans id='$user.Id'>
-   <topics_major ident='veterans'>
+   <posting_new topic_id='$`veterans`' grp='*GRP_BLOG_FORUMS'
+                sender_id='$user.Id'>
+   <topics posting='$,'>
   </zone></td>
   <td>
    <div class='cframe' style='padding: 5'>

@@ -1,0 +1,51 @@
+<< @(#) $Id$ >>
+
+<int name='topic_id'>
+<int name='topic_grp'>
+<int name='peer_grp'>
+<pagetitle title='Редактирование связей'>
+<topictitle title='Редактирование связей'>
+
+<element name='fullname' params='topic_id'>
+<iterate_topic_hierarchy topic_id='$topic_id'>
+<for>
+ <if what='!$;isFirst'>&sp;::&sp;</if>
+ $.Name
+</for>
+</element>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <div class='nframe' style='margin: 10px; padding: 5px'>
+  <subtitle>
+  <table class='topics ninept' width=100%>
+   <iterate_topic_cross topic_id='$topic_id' topic_grp='$topic_grp'
+			peer_grp='$peer_grp'>
+   <admin_topics>
+    <tr><td>
+     <a href='topiclinkadd.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=$peer_grp&redirid=$_'
+	class='edit'>Добавить</a>
+    </td></tr>
+   </admin_topics>
+   <ifnzero what='$;Count'>
+    <tr><td>
+     <for>
+      <if what='!$;isFirst'><br></if>
+      <a href='topicedit.php?topic_id=$.PeerId'> 
+	 <fullname topic_id='$.PeerId'></a>
+      <admin_topics>
+       <asp>&nbsp;<asp>
+       <a href='actions/topiclinkdel.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=$peer_grp&peer_id=$.PeerId&okdir=$#-&faildir=$#-'
+	  class='edit'><asp>
+	<asp>Удалить</a>
+      </admin_topics>
+     </for>
+    </td></tr>
+   </ifnzero>
+  </table>
+ </div>
+ <bottom>
+</body>
+</html>

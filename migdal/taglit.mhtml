@@ -11,8 +11,8 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=150 class='eframe'><zone>
-   <topics_taglit>
-   <topics_major ident='taglit'>
+   <posting_new topic_id='$`taglit`' grp='*GRP_BLOG_FORUMS'>
+   <topics posting='$,'>
   </zone></td>
   <td>
    <div class='ninept cframe' style='padding: 5'>
