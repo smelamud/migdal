@@ -13,7 +13,7 @@ var $id;
 var $body;
 var $subject;
 var $topic_id;
-var $private_id;
+var $personal_id;
 var $sender_id;
 var $grp;
 var $up;
@@ -35,14 +35,16 @@ if(isset($vars['bodyid']))
   $this->body=tmpTextRestore($vars['bodyid']);
 }
 
+/* TODO store() должен устанавливать sender_id и sent при insert */
+
 function getCorrespondentVars()
 {
-return array('body','subject','topic_id','grp','up','hidden');
+return array('body','subject','topic_id','grp','up','hidden','personal_id');
 }
 
 function getWorldVars()
 {
-return array('body','subject','topic_id','grp','up','hidden');
+return array('body','subject','topic_id','grp','up','hidden','personal_id');
 }
 
 function getAdminVars()
@@ -66,6 +68,28 @@ foreach($this->getAdminVars() as $var)
 return $vals;
 }
 
+function hasSubject()
+{
+return true;
+}
+
+function mandatorySubject()
+{
+return $this->hasSubject();
+}
+
+function hasImage()
+{
+return true;
+}
+
+function isEditable()
+{
+global $userId,$userModerator;
+
+return $this->sender_id==0 || $this->sender_id==$userId || $userModerator;
+}
+
 function getId()
 {
 return $this->id;
@@ -81,9 +105,29 @@ function getBody()
 return $this->body;
 }
 
+function getUpValue()
+{
+return $this->up;
+}
+
+function setUpValue($up)
+{
+$this->up=$up;
+}
+
 function isHidden()
 {
 return $this->hidden;
+}
+
+function getTopicId()
+{
+return $this->topic_id;
+}
+
+function getPersonalId()
+{
+return $this->personal_id;
 }
 
 }
@@ -96,6 +140,16 @@ function Forum($row)
 {
 $this->grp=GRP_FORUMS;
 $this->Message($row);
+}
+
+function hasSubject()
+{
+return $this->up==0;
+}
+
+function hasImage()
+{
+return false;
 }
 
 }
@@ -134,6 +188,11 @@ $this->grp=GRP_POLL;
 $this->Message($row);
 }
 
+function hasImage()
+{
+return false;
+}
+
 }
 
 function newMessage($row)
@@ -150,14 +209,29 @@ return new $name($row);
 
 function getMessageById($id,$grp=0)
 {
-global $userModerator;
+global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
-$result=mysql_query("select id,body,subject,topic_id,private_id,sender_id,grp,
+$result=mysql_query("select id,body,subject,topic_id,personal_id,sender_id,grp,
                      up,hidden
 		     from messages
-		     where id=$id and hidden<$hide");
+		     where id=$id and (hidden<$hide or sender_id=$userId)");
+		    /* здесь нужно поменять, если будут другие ограничения на
+		       просмотр TODO */
 return mysql_num_rows($result)>0 ? newMessage(mysql_fetch_assoc($result))
                                  : newGrpMessage($grp);
+}
+
+function messageExists($id)
+{
+global $userId,$userModerator;
+
+$hide=$userModerator ? 2 : 1;
+$result=mysql_query("select id
+		     from messages
+		     where id=$id and (hidden<$hide or sender_id=$userId)");
+		    /* здесь нужно поменять, если будут другие ограничения на
+		       просмотр TODO */
+return mysql_num_rows($result)>0;
 }
 ?>

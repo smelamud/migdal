@@ -32,7 +32,7 @@ return "$start?".remakeQuery($query,$remove,$subs).($end!='' ? "#$end" : '');
 function makeValue($value)
 {
 $c=is_int($value) ? '' : '"';
-return $c.AddSlashes($value).$c;
+return $c.addslashes($value).$c;
 }
 
 function makeKeyValue($join,$list)

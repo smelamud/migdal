@@ -3,7 +3,7 @@
 
 function tmpTextSave($text)
 {
-mysql_query('insert into tmp_texts(value) values(\''.AddSlashes($text).'\')')
+mysql_query('insert into tmp_texts(value) values(\''.addslashes($text).'\')')
            or die ('Ошибка SQL при временном сохранении текста');
 return mysql_insert_id();
 }

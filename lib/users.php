@@ -32,6 +32,7 @@ var $moderator;
 var $hidden;
 var $online;
 var $no_login;
+var $has_personal;
 
 function User($row)
 {
@@ -56,7 +57,8 @@ function getCorrespondentVars()
 {
 return array('login','password','dup_password','name','jewish_name','surname',
              'gender','migdal_student','info','email','hide_email','icq',
-	     'admin_users','admin_topics','moderator','hidden','no_login');
+	     'admin_users','admin_topics','moderator','hidden','no_login',
+	     'has_personal');
 }
 
 function getWorldVars()
@@ -67,7 +69,8 @@ return array('login','name','jewish_name','surname','gender','info','birthday',
 
 function getAdminVars()
 {
-return array('admin_users','admin_topics','moderator','hidden','no_login');
+return array('admin_users','admin_topics','moderator','hidden','no_login',
+             'has_personal');
 }
 
 function getWorldVarValues()
@@ -293,6 +296,11 @@ function isNoLogin()
 return $this->no_login;
 }
 
+function isHasPersonal()
+{
+return $this->has_personal;
+}
+
 }
 
 class UserListIterator
@@ -327,12 +335,23 @@ $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
                             surname,gender,info,birthday,migdal_student,
 			    last_online,email,hide_email,icq,email_disabled,
 			    admin_users,admin_topics,moderator,hidden,no_login,
-			    sessions.user_id as online
+			    has_personal,sessions.user_id as online
 		     from users left join sessions
 				on users.id=sessions.user_id
 				and sessions.last+interval 1 hour>now()
 		     where users.id=$id and hidden<$hide");
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());
+}
+
+function personalExists($id)
+{
+global $userAdminUsers;
+
+$hide=$userAdminUsers ? 2 : 1;
+$result=mysql_query("select id
+		     from users
+		     where id=$id and hidden<$hide and has_personal<>0");
+return mysql_num_rows($result)>0;
 }
 ?>

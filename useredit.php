@@ -40,6 +40,13 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
 	        ($value ? 'checked' : '')."> $title";
 }
 
+function condCheckBoxLine($edit,$name,$value,$title,$textOn='',$textOff='')
+{
+return '<tr><td colspan=2>'
+       .condCheckBox($edit,$name,$value,$title,$textOn,$textOff).
+       '</td></tr>';
+}
+
 function perror($code,$message,$color='red')
 {
 global $user,$err;
@@ -182,16 +189,10 @@ if($user->isEditable() && $err==$code)
       }
     ?>
    </tr>
-   <tr>
-    <td colspan=2>
-    <?php
-     echo condCheckBox($user->isEditable(),'migdal_student',
-                       $user->isMigdalStudent(),'Занимаюсь в "Мигдале"',
-		       'Занимается в "Мигдале"');
-    ?>
-    </td>
-   </tr>
    <?php
+    echo condCheckBoxLine($user->isEditable(),'migdal_student',
+		          $user->isMigdalStudent(),'Занимаюсь в "Мигдале"',
+		          'Занимается в "Мигдале"');
    if($user->isEditable())
      {
      ?>
@@ -221,26 +222,12 @@ if($user->isEditable() && $err==$code)
    <?php
     if($user->isEditable())
       {
-      ?>
-      <tr>
-       <td colspan=2>
-       <?php
-	echo condCheckBox($user->isEditable(),'hide_email',
-	                  $user->isHideEmail(),
-			  'Не показывать E-mail на сайте');
-       ?>
-       </td>
-      </tr>
-      <tr>
-       <td colspan=2>
-       <?php
-	echo condCheckBox($user->isEditable(),'email_enabled',
-	                  $user->isEmailDisabled()==0,
-			  'Разрешаю посылать почту на мой адрес');
-       ?>
-       </td>
-      </tr>
-      <?php
+      echo condCheckBoxLine($user->isEditable(),'hide_email',
+			    $user->isHideEmail(),
+			    'Не показывать E-mail на сайте');
+      echo condCheckBoxLine($user->isEditable(),'email_enabled',
+			    $user->isEmailDisabled()==0,
+			    'Разрешаю посылать почту на мой адрес');
       }
     if($user->isEmailDisabled()==2)
       {
@@ -268,39 +255,18 @@ if($user->isEditable() && $err==$code)
      </tr>
      <?php
      }
+   echo condCheckBoxLine($userAdminUsers,'has_personal',
+		         $user->isHasPersonal(),'Имеет персональную страницу');
+   echo condCheckBoxLine($userAdminUsers,'admin_users',
+			 $user->isAdminUsers(),'Администратор пользователей');
+   echo condCheckBoxLine($userAdminUsers,'admin_topics',
+			 $user->isAdminTopics(),'Администратор тем');
+   echo condCheckBoxLine($userAdminUsers,'hidden',
+			 $user->isHidden(),
+			 'Не показывать в списке пользователей');
+   echo condCheckBoxLine($userAdminUsers,'no_login',
+		         $user->isNoLogin(),'Запретить вход');
    ?>
-   <tr>
-    <td colspan=2>
-    <?php
-     echo condCheckBox($userAdminUsers,'admin_users',
-		       $user->isAdminUsers(),'Администратор пользователей');
-    ?>
-    </td>
-   </tr>
-   <tr>
-    <td colspan=2>
-    <?php
-     echo condCheckBox($userAdminUsers,'admin_topics',
-		       $user->isAdminTopics(),'Администратор тем');
-    ?>
-    </td>
-   </tr>
-   <tr>
-    <td colspan=2>
-    <?php
-     echo condCheckBox($userAdminUsers,'hidden',
-		       $user->isHidden(),'Не показывать в списке пользователей');
-    ?>
-    </td>
-   </tr>
-   <tr>
-    <td colspan=2>
-    <?php
-     echo condCheckBox($userAdminUsers,'no_login',
-		       $user->isNoLogin(),'Запретить вход');
-    ?>
-    </td>
-   </tr>
   </table>
   <?php
   if($user->isEditable())

@@ -70,13 +70,17 @@ if(!isset($ident))
  <p>
  <?php
  $message=getMessageById($editid,$grp);
+ $message->setUpValue($up);
  $message->setup($HTTP_GET_VARS);
  ?>
  <form method=post action='actions/messagemod.php'>
  <input type=hidden name='edittag' value=0>
  <input type=hidden name='redir' value='<?php echo $redir ?>'>
  <input type=hidden name='editid' value='<?php echo $editid ?>'>
- <input type=hidden name='up' value='<?php echo $up ?>'>
+ <input type=hidden name='up' value='<?php echo $message->getUpValue() ?>'>
+ <input type=hidden name='personal_id' value='<?php
+  echo $message->getPersonalId();
+ ?>'>
  <table>
  <tr><td><table>
   <tr>
@@ -84,16 +88,27 @@ if(!isset($ident))
    <td>
     <select name='topic_id'>
      <?php
-     echo elementOption('-- Не выбрана --',0,$topic_id);
+     echo elementOption('-- Не выбрана --',0,$message->getTopicId());
      $list=new TopicNamesIterator($grp);
      while($item=$list->next())
-	  echo elementOption($item->getName(),$item->getId(),$topic_id);
+	  echo elementOption($item->getName(),$item->getId(),
+	                     $message->getTopicId());
      ?>
     </select>
    </td>
   </tr>
   <?php
-  echo elementEdit('Заголовок',$message->getSubject(),'subject',30,250);
+  if($message->hasSubject())
+    echo elementEdit('Заголовок',$message->getSubject(),'subject',42,250);
+  if($message->hasImage())
+    {
+    ?>
+    <tr>
+     <td>Картинка</td>
+     <td><input type=file name='image' size=40></td>
+    </tr>
+    <?php
+    }
   ?>
  </table></td></tr>
  <tr><td>Текст</td></tr>

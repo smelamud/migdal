@@ -176,4 +176,15 @@ $result=mysql_query("select id,name,description,hidden,no_news,no_forums,
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
+
+function topicExists($id)
+{
+global $userAdminTopics;
+
+$hide=$userAdminTopics ? 2 : 1;
+$result=mysql_query("select id
+		     from topics
+		     where id=$id and hidden<$hide");
+return mysql_num_rows($result)>0;
+}
 ?>
