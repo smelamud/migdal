@@ -18,12 +18,8 @@
 </macro>
 <endif name='/editor'>
 
-<element name='kaitana_controls' params='posting,kaitana,align'
-                                 defaults="align=''">
-<ifne what='$align'>
- <assign name='al' value#='align=$align'>
-</ifne>
-<table class=controls $al>
+<element name='kaitana_controls' params='posting,kaitana'>
+<div align=right><table class=controls>
  <tr>
   <editor>
    <td>
@@ -44,7 +40,7 @@
   </editor>
   <td><discusslink posting='$posting'></td>
  </tr>
-</table>
+</table></div>
 </element>
 
 <html>
@@ -61,33 +57,18 @@
    <topics posting='$,' showchapters='*true'>
   </zone></td>
   <td class='cframe'>
-   <table class=article width=100%
-          cellspacing=5 cellpadding=0><tr valign=bottom>
-    <editor>
-     <td rowspan=2 width=210><image src='pics/kaitana.gif'></td>
-    </editor>
-    <td colspan=2 style='font: bold 24pt $$style_times; color: teal;'>
-     Летняя площадка - 5762
-    </td>
-   </tr>
-   <tr>
-    <td align=right>
-     <kaitana_controls posting='$posting' kaitana='$kaitana'>
-    </td>
-    <td width=140>
-     <editor>
-      <div class=batcher>
-       <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
-	  class=add>Добавить новость</a>
-       <br>
-       <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
-	  class=add>Добавить картинку</a>
-      </div>
-     <else>
-      &nbsp;
-     </editor>
-    </td>
-   </tr></table>
+   <div style='font: bold 24pt $$style_times; color: teal; padding-bottom: 1.5ex;'>
+    Летняя площадка - 5762
+   </div>
+   <editor>
+    <div class=batcher>
+     <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
+	class=add>Добавить новость</a>
+     &nbsp;
+     <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+	class=add>Добавить картинку</a>
+    </div>
+   </editor>
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
 			 sort='*SORT_RATING' limit=0
@@ -100,8 +81,10 @@
      </for>
     </td>
     <td>
+     <kaitana_controls posting='$posting' kaitana='$kaitana'>
      <ifnzero what='$posting.Id'>
       <table class=sent align=right>
+       <tr><td>&nbsp;</td></tr>
        <tr><td align=right><sentview date='$posting.Sent'></td></tr>
        <tr><td align=right><senderlink message='$posting'></td></tr>
       </table>
@@ -109,9 +92,7 @@
       <p>$posting.HTMLBody</p>
       <vote_frame id='$posting.Id' color='$$style_cframe_back'
 		  image='$$style_cframe_back_pic' align=center>
-      <kaitana_controls posting='$posting' kaitana='$kaitana' align=right>
-     <else>
-      &nbsp;
+      <kaitana_controls posting='$posting' kaitana='$kaitana'>
      </ifnzero>
     </td>
     <td width=140>
