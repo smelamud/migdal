@@ -778,43 +778,12 @@ sub elHtml
 {
 my ($self)=@_;
 
-::request('lib/errorreporting.php');
-::request('lib/database.php');
-::request('lib/session.php');
-::request('lib/no-cache.php');
-::request('lib/charsets.php');
+::request('lib/initstop.php');
 ::header(<<EOT);
-<?php
-function finalize()
-{
-global \$userReadKOI;
-
-\$Output=ob_get_contents();
-ob_end_clean();
-echo convertOutput(\$Output,\$userReadKOI>0);
-dbClose();
-}
-
-function error_handler(\$errno,\$errstr,\$errfile,\$errline)
-{
-if((\$errno & error_reporting())==0)
-  return;
-logEvent('bug',"\$errstr file(\$errfile) line(\$errline)");
-echo("<b>Fatal error</b>: \$errstr in <b>\$errfile</b> on line <b>\$errline</b>");
-finalize();
-die();
-}
-
-noCacheHeaders();
-dbOpen();
-session();
-set_error_handler('error_handler');
-ob_start();
-?>
+<?php initialize(); ?>
 EOT
 ::body(<<EOT);
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<?php noCacheMeta() ?>
+<?php initializeMeta(); ?>
 EOT
 ::body($self->getToken());
 }
@@ -824,9 +793,7 @@ sub el_html
 my ($self)=@_;
 
 ::footer(<<EOT);
-<?php
-finalize();
-?>
+<?php finalize(); ?>
 EOT
 ::body($self->getToken());
 }
@@ -835,20 +802,9 @@ sub elMail
 {
 my ($self)=@_;
 
-::request('lib/errorreporting.php');
-::request('lib/database.php');
-::request('lib/session.php');
-::request('lib/mail.php');
-::request('lib/post.php');
+::request('lib/initstop-mail.php');
 ::header(<<EOT);
-<?php
-commandLineArgs();
-
-parse_str(\$args[0]);
-dbOpen();
-session(\$args[1]);
-ob_start();
-?>
+<?php initializeMail(); ?>
 EOT
 }
 
@@ -857,12 +813,7 @@ sub el_mail
 my ($self)=@_;
 
 ::footer(<<EOT);
-<?php
-\$Output=ob_get_contents();
-ob_end_clean();
-echo convertMailOutput(\$Output);
-dbClose();
-?>
+<?php finalizeMail(); ?>
 EOT
 }
 
@@ -870,14 +821,13 @@ sub elHead
 {
 my ($self)=@_;
 
-::request('lib/style.php');
-::request('lib/redirs.php');
 ::body(<<EOT);
-<?php redirect(); ?>
 <head>
-<?php foreach(\$stylesheetList as \$sheet) { ?>
-<link rel='stylesheet' href='/styles/<?php echo "\$sheet-".getStyle(\$userStyle) ?>.css'>
-<?php include("styles/\$sheet-".getStyle(\$userStyle).'.php'); } ?>
+<?php
+initializeHead();
+foreach(\$stylesheetList as \$sheet)
+       include("styles/\$sheet-".getStyle(\$userStyle).'.php');
+?>
 EOT
 $AfterRedirect=1;
 }
