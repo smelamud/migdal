@@ -27,6 +27,10 @@ if($message->mandatoryTopic() && $message->topic_id==0)
   return EM_TOPIC_ABSENT;
 if($message->topic_id!=0 && !topicExists($message->topic_id))
   return EM_NO_TOPIC;
+if($message->mandatoryImage() && $message->image_set==0)
+  return EM_IMAGE_ABSENT;
+if($message->image_set!=0 && !imageSetExists($message->image_set))
+  return EM_NO_IMAGE;
 if($message->personal_id!=0 && !personalExists($message->personal_id))
   return EM_NO_PERSONAL;
 if($message->up!=0 && $message->grp!=GRP_FORUMS)

@@ -33,4 +33,6 @@ define('EM_NO_TOPIC',48);
 define('EM_NO_PERSONAL',49);
 define('EM_NO_UP',410);
 define('EM_NO_SEND',411);
+define('EM_IMAGE_ABSENT',412);
+define('EM_NO_IMAGE',413);
 ?>

@@ -5,6 +5,7 @@ require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 require_once('lib/tmptexts.php');
 require_once('lib/grps.php');
+require_once('lib/images.php');
 
 class Message
       extends DataObject
@@ -16,6 +17,7 @@ var $topic_id;
 var $personal_id;
 var $sender_id;
 var $grp;
+var $image_set;
 var $up;
 var $hidden;
 var $sent;
@@ -37,12 +39,14 @@ if(isset($vars['bodyid']))
 
 function getCorrespondentVars()
 {
-return array('body','subject','topic_id','grp','up','hidden','personal_id');
+return array('body','subject','topic_id','grp','image_set','up','hidden',
+             'personal_id');
 }
 
 function getWorldVars()
 {
-return array('body','subject','topic_id','grp','up','hidden','personal_id');
+return array('body','subject','topic_id','grp','image_set','up','hidden',
+             'personal_id');
 }
 
 function getWorldVarValues()
@@ -118,6 +122,11 @@ return $this->subject;
 function getBody()
 {
 return $this->body;
+}
+
+function getImageSet()
+{
+return $this->image_set;
 }
 
 function getUpValue()
@@ -228,7 +237,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $result=mysql_query("select id,body,subject,topic_id,personal_id,sender_id,grp,
-                     up,hidden
+                     image_set,up,hidden
 		     from messages
 		     where id=$id and (hidden<$hide or sender_id=$userId)");
 		    /* здесь нужно поменять, если будут другие ограничения на

@@ -117,12 +117,38 @@ if(!isset($ident))
     }
   if($message->hasImage())
     {
-    ?>
-    <tr>
-     <td>Картинка</td>
-     <td><input type=file name='image' size=35></td>
-    </tr>
-    <?php
+    perror(EM_IMAGE_ABSENT,'Нужно указать картинку для отображения');
+    perror(EM_NO_IMAGE,'Указанной картинки не существует');
+    if($message->getImageSet()==0)
+      {
+      ?>
+      <tr>
+       <td>Картинка</td>
+       <td><input type=file name='image' size=35></td>
+      </tr>
+      <?php
+      }
+    else
+      {
+      $image=getImageNameBySet($image_set);
+      ?>
+      <tr><td colspan=2><table>
+       <tr><td>Картинка</td></tr>
+       <tr>
+	<td>
+	 <input type=radio name='image_set' value=<?php
+	  echo $image_set;
+	 ?> checked >
+	 &nbsp;<?php echo $image->getFilename() ?>&nbsp;<i>(уже загружена)</i>
+	</td>
+       </tr>
+       <tr><td>
+	<input type=radio name='image_set' value=0>&nbsp;Другая&nbsp;
+	<input type=file name='image' size=35>
+       </td></tr>
+      </table></td></tr>
+      <?php
+      }
     }
   ?>
  </table></td></tr>
