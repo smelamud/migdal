@@ -365,6 +365,19 @@ $this->SelectIterator('Topic',
 
 }
 
+function getAllowByTopicId($id)
+{
+global $userAdminTopics;
+
+$hide=$userAdminTopics ? 2 : 1;
+$result=mysql_query('select allow
+                     from topics
+		     where '.byIdent($id)." and hidden<$hide")
+          or sqlbug('Ошибка SQL при выборке маски допустимых постингов');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
+                                 : GRP_ALL;
+}
+
 function getPremoderateByTopicId($id)
 {
 global $userAdminTopics,$defaultPremoderate;
@@ -413,6 +426,7 @@ $result=mysql_query(
 return new Topic(mysql_num_rows($result)>0
                  ? mysql_fetch_assoc($result)
                  : array('up'          => idByIdent('topics',$up),
+		         'allow'       => getAllowByTopicId($up),
                          'premoderate' => getPremoderateByTopicId($up)));
 }
 

@@ -22,7 +22,8 @@ if(!$result)
 if(mysql_result($result,0,0)==0)
   return ETLD_OK;
 $result=mysql_query("delete from cross_topics
-                     where topic_id=$topic_id and peer_id=$peer_id");
+                     where topic_id=$topic_id and peer_id=$peer_id or
+		           topic_id=$peer_id and peer_id=$topic_id");
 return !$result ? ETLD_SQL_DELETE : ETLD_OK;
 }
 

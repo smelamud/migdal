@@ -21,6 +21,7 @@ Disallow: /style.php
 Disallow: /times-reorder.php
 Disallow: /tools/
 Disallow: /topicedit.php
+Disallow: /topiclinkadd.php
 Disallow: /topicorg.php
 Disallow: /useredit.php
 Disallow: /userfin.php

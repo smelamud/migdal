@@ -24,7 +24,8 @@ if(!$result)
 if(mysql_result($result,0,0)!=0)
   return ETLA_OK;
 $result=mysql_query("insert into cross_topics(topic_id,peer_id)
-                     values($topic_id,$peer_id)");
+                     values($topic_id,$peer_id),
+		           ($peer_id,$topic_id)");
 return !$result ? ETLA_SQL_INSERT : ETLA_OK;
 }
 
