@@ -211,7 +211,7 @@
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
 <decel name='topics_events' file='parts/topics-events.php' params='posting'>
 <decel name='topics_gallery' file='parts/topics-gallery-general.php'
-       params='posting'>
+       params='&posting'>
 <decel name='topics_gallery_events' file='parts/topics-events.php'
        params='posting'>
 <decel name='topics_gallery_halom' file='parts/topics-gallery-migdal.php'
@@ -228,13 +228,14 @@
        params='posting'>
 <decel name='topics_gallery_veterans' file='parts/topics-gallery-general.php'
        params='posting'>
+<decel name='topics_halom' file='parts/topics-kaitana.php' params='posting'>
 <decel name='topics_help' file='parts/topics-help.php' params='posting,ident'
        defaults="posting=0 ident=''">
-<decel name='topics_kaitana' file='parts/topics-kaitana.php'
-       params='posting,href' defaults="href='kaitana.php'">
-<decel name='topics_kaitanot' file='parts/topics-kaitanot.php'
-       params='topic_id,root,href'
-       defaults="topic_id=-1 root='$`kaitana`' href='kaitana.php'">
+<decel name='topics_home' file='parts/topics-home.php' params='posting'
+       defaults="posting=0">
+<decel name='topics_jcc' file='parts/topics-migdal.php' params='posting'>
+<decel name='topics_kaitana' file='parts/topics-kaitana.php' params='posting'>
+<decel name='topics_kes' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_line'
        params='time,arrow,text,title,href,count,class,indent,span,rating,
                nobullet'
@@ -244,7 +245,6 @@
 <decel name='topics_links' params='posting' file='parts/topics-links.php'>
 <decel name='topics_major' file='parts/topics-major.php' params='ident,posting'
        defaults="posting=0">
-<decel name='topics_migdal' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_migdal_english' file='parts/topics-migdal-english.php'
        params='posting'>
 <decel name='topics_migdal_main' file='parts/topics-migdal.php'
@@ -263,6 +263,8 @@
        file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
 <decel name='topics_taglit' params='id' file='parts/topics-taglit.php'>
+<decel name='topics_tips' file='parts/topics-help.php' params='posting'
+       defaults="posting=0">
 <decel name='topics_veterans' params='id' file='parts/topics-veterans.php'>
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,root,recursive'

@@ -1,20 +1,26 @@
 << @(#) $Id$ >>
 
+<require name='parts/topics-home.php'>
+<require name='parts/topics-migdal.php'>
+<require name='parts/topics-kaitana.php'>
+
 <element name='topics_www' params='posting,ident'>
 <ifnzero what='$posting'>
- <if what='($posting.Grp & (*GRP_FORUMS|*GRP_NEWS|*GRP_ARTICLES|*GRP_QUOTES|
+ <identify posting='$posting'>
+ <ifne what='$posting.UplevelHref'>
+  <ifne what='$posting.UplevelTitle'>
+   <upper_level name='$posting.UplevelTitle' href='$posting.UplevelHref'>
+  <else>
+   <upper_level title='На главную страницу' href='$posting.UplevelHref'>
+  </ifne>
+ </ifne>
+ <exec element='$posting.TopicElement' arg1='$posting'>
+ <<if what='($posting.Grp & (*GRP_FORUMS|*GRP_NEWS|*GRP_ARTICLES|*GRP_QUOTES|
 			    *GRP_BOOKS|*GRP_BOOK_CHAPTERS|*GRP_REVIEWS|
 			    *GRP_LIBRARY_ANNOUNCES))!=0'>
-  <if what='$/$posting.TopicId,0/==$`migdal` ||
-	    $/$posting.TopicId,1/==$`migdal-news`'>
-   <<upper_level title='На главную страницу' href='index.php'>>
-   <topics_migdal posting='$posting'>
-   <topics_major ident='migdal' posting='$posting'>
   <elif what='$/$posting.TopicId,0/==$`help`'>
    <topics_help posting='$posting'>
    <topics_major ident='help'>
-  <else>
-   <topics_major ident='index' posting='$posting'>
   </if>
  <elif what='$posting.Grp==*GRP_GALLERY'>
   <if what='$/$posting.TopicId,0/==$`taglit`'>
@@ -45,13 +51,10 @@
  <elif what='($posting.Grp & (*GRP_KAITANA_NEWS|*GRP_KAITANA_GALLERY))!=0'>
   <topics_migdal posting='$posting'>
   <topics_major ident='migdal' posting='$posting'>
- <elif what='$posting.Grp==*GRP_TIPS'>
-  <topics_help ident='help-tips'>
-  <topics_major ident='help'>
- </if>
-<elif what="$ident=='help-subs' || $ident=='help-types' || $ident=='help-tips'">
+ </if>>
+<elif what="$ident=='help-subs' || $ident=='help-types'">
+ <upper_level href='index.php' title='На главную страницу'>
  <topics_help ident='$ident'>
- <topics_major ident='help'>
 <else>
  <topics_major ident='$ident'>
 </ifnzero>

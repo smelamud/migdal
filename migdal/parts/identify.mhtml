@@ -3,11 +3,12 @@
 <macro name='identifier'>
  <element name='identify_%name' params='posting,&href,&ghref,&mhref,&dhref,
                                         &name,&title,&root,&gtel,&guhref,
-					&gutitle'
+					&gutitle,&gnews,&tel,&uhref,&utitle'
           defaults="posting='$posting' href='$href' ghref='$ghref'
 	            mhref='$mhref' dhref='$dhref' name='$name' title='$title'
 		    root='$root' gtel='$gtel' guhref='$guhref'
-		    gutitle='$gutitle'">
+		    gutitle='$gutitle' gnews='$gnews' tel='$tel' uhref='$uhref'
+		    utitle='$utitle'">
 </macro>
 
 <macro name='/identifier'>
@@ -84,6 +85,9 @@
   <assign name='ghref' value#='gallery.php?topic_id=$`jcc`'>
   <assign name='title' value='$,Description'>
   <assign name='name' value#='Мигдаль :: $,Name'>
+  <assign name='tel' value='topics_jcc'>
+  <assign name='uhref' value='migdal.php'>
+  <assign name='utitle' value='Мигдаль'>
   <if what='$/$posting.TopicId,2/==$`kaitana`'>
    <topic_obj id='$`kaitana`'>
    <assign name='href' value#='kaitana.php?topic_id=$posting.TopicId'>
@@ -91,6 +95,14 @@
    <assign name='title' value='$,Description'>
    <assign name='name' value#='$name :: $,Name'>
    <assign name='root' value='$posting.TopicId'>
+   <assign name='tel' value='topics_kaitana'>
+   <if what='$posting.TopicId!=$`kaitana`'>
+    <assign name='uhref' value='kaitana-main.php'>
+    <assign name='utitle' value='Дневные детские лагеря'>
+   <else>
+    <assign name='uhref' value='jcc.php'>
+    <assign name='utitle' value='Общинный центр (JCC)'>
+   </if>
   <elif what='$/$posting.TopicId,2/==$`halom`'>
    <topic_obj id='$`halom`'>
    <assign name='href' value#='halom.php?topic_id=$posting.TopicId'>
@@ -98,6 +110,18 @@
    <assign name='title' value='$,Description'>
    <assign name='name' value#='$name :: $,Name'>
    <assign name='root' value='$posting.TopicId'>
+   <assign name='tel' value='topics_halom'>
+   <if what='$posting.TopicId!=$`halom`'>
+    <assign name='uhref' value='halom-main.php'>
+    <assign name='utitle' value='Семейные лагеря'>
+   <else>
+    <assign name='uhref' value='jcc.php'>
+    <assign name='utitle' value='Общинный центр (JCC)'>
+   </if>
+  <elif what='$/$posting.TopicId,2/==$`kes`'>
+   <assign name='tel' value='topics_kes'>
+   <assign name='uhref' value='jcc.php'>
+   <assign name='utitle' value='Общинный центр (JCC)'>
   </if>
  </if>
 <else>
@@ -107,20 +131,27 @@
  <assign name='title' value='$posting.TopicDescription'>
  <assign name='name' value#='Мигдаль :: $posting.TopicName'>
  <assign name='mhref' value='migdal.php'>
- <if what='$/$posting.TopicId,1/==$`jcc`'>
+ <if what='$posting.TopicId==$`migdal`'>
+  <assign name='gnews' value='*true'>
+ <elif what='$/$posting.TopicId,1/==$`jcc`'>
   <assign name='mhref' value='jcc.php'>
   <if what='$/$posting.TopicId,2/==$`kaitana`'>
    <assign name='mhref' value#='kaitana.php?topic_id=$posting.TopicId'>
    <assign name='gtel' value='topics_gallery_kaitana'>
    <assign name='guhref' value#='gallery.php?topic_id=$`migdal`'>
    <assign name='gutitle' value='Мигдаль'>
+   <assign name='gnews' value='*true'>
   <elif what='$/$posting.TopicId,2/==$`halom`'>
    <assign name='mhref' value#='halom.php?topic_id=$posting.TopicId'>
    <assign name='gtel' value='topics_gallery_halom'>
    <assign name='guhref' value#='gallery.php?topic_id=$`migdal`'>
    <assign name='gutitle' value='Мигдаль'>
+   <assign name='gnews' value='*true'>
   <elif what='$/$posting.TopicId,2/==$`kes`'>
    <assign name='mhref' value#='migdal.php?artid=$`postings:kes`'>
+   <assign name='tel' value='topics_kes'>
+   <assign name='uhref' value='jcc.php'>
+   <assign name='utitle' value='Общинный центр (JCC)'>
   </if>
  <elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
   <assign name='mhref' value#='migdal.php?artid=$`postings:migdal-ohr`'>
@@ -163,6 +194,7 @@
 <else>
  <assign name='href' value#='taglit.php'>
  <assign name='ghref' value='$href'>
+ <assign name='gnews' value='*true'>
 </ifnzero>
 <assign name='mhref' value='$href'>
 <assign name='title' value='$posting.TopicDescription'>
@@ -196,6 +228,7 @@
 <else>
  <assign name='href' value#='veterans.php'>
  <assign name='ghref' value='$href'>
+ <assign name='gnews' value='*true'>
 </ifnzero>
 <assign name='mhref' value='$href'>
 <assign name='title' value='$posting.TopicDescription'>
@@ -208,9 +241,13 @@
 <identifier name='all'>
 <assign name='dhref'
         value#='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
+<assign name='tel' value='topics_home'>
+<assign name='uhref' value=''>
+<assign name='utitle' value=''>
 <assign name='gtel' value='topics_gallery_home'>
 <assign name='guhref' value=''>
 <assign name='gutitle' value=''>
+<assign name='gnews' value='*false'>
 
 <if what='$/$posting.TopicId,0/==$`migdal,e`'>
  <assign name='href' value='index.php'>
@@ -272,6 +309,8 @@
  <assign name='title' value='$posting.TopicDescription'>
  <assign name='name' value='$posting.TopicName'>
  <assign name='root' value='$`tips`'>
+ <assign name='tel' value='topics_tips'>
+ <assign name='uhref' value='index.php'>
 <elif what='($posting.Grp & *GRP_BOOK_CHAPTERS)!=0'>
  <assign name='root' value='$posting.TopicId'>
 </if>
@@ -311,6 +350,20 @@
     этого постинга. >>
  <setup name='posting' var='RootId' value='$root'>
 
+ << Следующие переменные используются при отображении постинга в обычном
+    виде. >>
+
+ << Имя элемента, который используется для отображения списка соседних тем
+    для этого постинга. >>
+ <setup name='posting' var='TopicElement' value='$tel'>
+
+ << Ссылка на вышестоящую тему. Если пуста - вышестоящая тема отсутствует. >>
+ <setup name='posting' var='UplevelHref' value='$uhref'>
+
+ << Название вышестоящей темы. Если пусто, а UplevelHref непуста, вышестоящей
+    является главная страница. >>
+ <setup name='posting' var='UplevelTitle' value='$utitle'>
+
  << Следующие переменные используются при отображении постинга в галерее. >>
 
  << Имя элемента, который используется для отображения списка соседних тем
@@ -323,7 +376,11 @@
  << Название вышестоящей темы. Если пусто, а GalleryUplevelHref непуста,
     вышестоящей является главная страница галереи. >>
  <setup name='posting' var='GalleryUplevelTitle' value='$gutitle'>
- 
+
+ << Если этот флаг установлен, по данной теме будет отображаться новостная
+    лента, суммирующая все галереи нижестоящих тем >>
+ <setup name='posting' var='GalleryNews' value='$gnews'>
+
  <setup name='posting' var='Identified' value='*true'>
 </if>
 </element>

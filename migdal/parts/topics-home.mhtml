@@ -1,0 +1,9 @@
+<< @(#) $Id$ >>
+
+<element name='topics_home'>
+ <if what='$posting.TopicId>0'>
+  <topics_major posting='$posting'>
+ <else>
+  <topics_major ident='index'>
+ </if>
+</element>

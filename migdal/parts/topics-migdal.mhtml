@@ -1,43 +1,28 @@
 << @(#) $Id$ >>
 
 <element name='topics_kes' params='posting'>
-<topics_table title='КЕС' span=2>
+<topics_table title='КЕС'>
  <posting_obj id='$`postings:kes`'>
- <topics_line time='$,Sent' text='О клубе' span=2
+ <topics_line time='$,Sent' text='О клубе'
               href#='migdal.php?artid=$`postings:kes`'
               arrow!='$posting.Id==$`postings:kes`' class='item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*false'>
- <topics_line time='$,' text='Галерея' indent=1
+ <topics_line time='$,' text='Галерея'
               href#='gallery.php?topic_id=$`kes`&general=1'
               arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`kes`'
 	      class='item eightpt'>
 </topics_table>
 </element>
 
-<element name='topics_jcc' params='posting'>
-<if what='$/$posting.TopicId,2/==$`kes`'>
- <topics_kes posting='$posting'>
-<elif what='$/$posting.TopicId,2/==$`kaitana`'>
- <if what='$posting.TopicId!=$`kaitana`'>
-  <topics_kaitana posting='$posting' href='kaitana.php'>
- </if>
- <topics_kaitanot topic_id='$posting.TopicId' root='$`kaitana`'
-                  href='kaitana.php'>
-<elif what='$/$posting.TopicId,2/==$`halom`'>
- <if what='$posting.TopicId!=$`halom`'>
-  <topics_kaitana posting='$posting' href='halom.php'>
- </if>
- <topics_kaitanot topic_id='$posting.TopicId' root='$`halom`' href='halom.php'>
-</if>
-
+<element name='topics_jcc'>
 <topic_obj name='jcc' id='$`jcc`'>
-<topics_table title='$,Name' span=2>
+<topics_table title='$,Name'>
  <ispost what='$jcc'>
-  <tr><td colspan=3>
+  <tr><td colspan=2>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Добавить</a>
   </td></tr>
-  <tr><td colspan=3>
+  <tr><td colspan=2>
    <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Расставить</a>
   </td></tr>
@@ -46,27 +31,24 @@
                       topic_id='$,Id' recursive='*false'
 		      fields='*SELECT_TOPICS'>
  <posting_obj id='$`postings:jcc`'>
- <topics_line time='$,Sent' text='$,Subject' href#='migdal.php'
-              arrow!='$,Id==$posting.Id' indent=0 span=2 class='item ninept'>
+ <topics_line time='$,Sent' text='Об общинном центре' href='jcc.php'
+              arrow!='$,Id==$posting.Id' class='item ninept'>
  <for>
   <if what='$.Id!=$`postings:jcc`'>
    <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
-                arrow!='$.Id==$posting.Id' indent=1 span=1 class='item eightpt'>
+                arrow!='$.Id==$posting.Id' class='item eightpt'>
   </if>
  </for>
  <posting_last topic_id='$`kaitana`' recursive='*true'>
  <topics_line time='$,' text='Дневные детские лагеря' href='kaitana-main.php'
-              arrow!="$/$posting.TopicId,2/==$`kaitana`" indent=1
-	      class='item eightpt'>
+              arrow!="$/$posting.TopicId,2/==$`kaitana`" class='item eightpt'>
  <posting_last topic_id='$`halom`' recursive='*true'>
  <topics_line time='$,' text='Семейные лагеря' href='halom-main.php'
-              arrow!="$/$posting.TopicId,2/==$`halom`" indent=1
-	      class='item eightpt'>
+              arrow!="$/$posting.TopicId,2/==$`halom`" class='item eightpt'>
  <posting_last topic_id='$`kes`' recursive='*true'>
  <topics_line time='$,' text='Клуб Еврейского Студента'
               href#='migdal.php?artid=$`postings:kes`'
-              arrow!="$/$posting.TopicId,2/==$`kes`" indent=1
-	      class='item eightpt'>
+              arrow!="$/$posting.TopicId,2/==$`kes`" class='item eightpt'>
 </topics_table>
 </element>
 
@@ -149,11 +131,9 @@
 </topics_table>
 </element>
 
-<element name='topics_migdal'>
+<<element name='topics_migdal'>
 <if what='$/$posting.TopicId,1/==$`events`'>
  <topics_events posting='$posting'>
-<elif what='$/$posting.TopicId,1/==$`jcc`'>
- <topics_jcc posting='$posting'>
 <elif what='$/$posting.TopicId,1/==$`migdal-ohr`'>
  <topics_migdal_ohr posting='$posting'>
 <elif what='$/$posting.TopicId,1/==$`mazltov` ||
@@ -167,7 +147,7 @@
             $/$posting.TopicId,2/==$`museum-news`'>
  <topics_museum posting='$posting'>
 </if>
-</element>
+</element>>
 
 <element name='topics_migdal_main'>
 <hash>

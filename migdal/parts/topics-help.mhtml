@@ -3,8 +3,8 @@
 <element name='topics_help'>
 <perms name='help' table='topics' id='$`help`'>
 <topics_table class='ninept' title='Справка'>
- <topics_line arrow!="$ident=='help-tips'" class='item'
-              text='Знаете ли вы, что...' href#='/tips.php'>
+ <topics_line arrow!='$posting!=0 && $posting.TopicId==$`tips`'
+	      class='item' text='Знаете ли вы, что...' href='/tips.php'>
  <ispost what='$help'>
   <tr><td colspan=3>
    <a href='postingedit.php?redirid=$_&topic_id=$help.Id&grp=*GRP_REVIEWS'
@@ -29,4 +29,8 @@
 	      text='Какой формат статьи выбрать?'
 	      href#='stotext-help-types.php'>
 </topics_table>
+</element>
+
+<element name='topics_tips'>
+ <topics_help posting='$posting'>
 </element>

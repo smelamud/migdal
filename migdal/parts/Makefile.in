@@ -19,7 +19,7 @@ OBJECTS = article.php backtrace.php banners.php blog.php blog-gallery.php \
 	  tip-posting.php today.php top.php topics.php topics-admin.php \
 	  topics-events.php topics-help.php topics-gallery-general.php \
 	  topics-gallery-major.php topics-gallery-migdal.php \
-	  topics-general.php topics-kaitana.php topics-kaitanot.php \
+	  topics-general.php topics-home.php topics-kaitana.php \
 	  topics-links.php topics-major.php topics-migdal.php \
 	  topics-migdal-english.php topics-minor.php topics-taglit.php \
 	  topics-veterans.php topicselect.php unititle.php uploader.php \
