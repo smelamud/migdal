@@ -111,7 +111,7 @@ while($token!~/^\s*$/)
      {
      my $name,$value;
      ($name,$value,$token)=
-         $token=~/^\s*(\w+)\s*(?:=\s*((?:[^\s'"]+)|(?:'[^']*')|(?:"[^"]*")))?(.*)$/;
+         $token=~/^\s*(\w+)\s*(?:=\s*((?:[^\s'"]+)|(?:'[^']*')|(?:"[^"]*")))?(.*)$/s;
      $value=substr $value,1,-1 if $value=~/^['"]/;
      $args->{lc $name}=$value;
      }
@@ -358,11 +358,11 @@ sub new
 {
 my ($class)=@_;
 
-::more() while($::Line !~ /^<(([^>'"]*)|('[^']*')|("[^"]*"))*>/ && !$::Eof);
-my ($token)=$::Line =~ /^(<(([^>'"]*)|('[^']*')|("[^"]*"))*>)/;
+::more() while($::Line !~ /^<(([^>'"]*)|('[^']*')|("[^"]*"))*>/s && !$::Eof);
+my ($token)=$::Line =~ /^(<(([^>'"]*)|('[^']*')|("[^"]*"))*>)/s;
 my $self=Token::new($class,length($token));
 $token=substr $token,1,-1;
-($self->{'name'},$token)=$token=~/^\s*(\/?\w+)(.*)$/;
+($self->{'name'},$token)=$token=~/^\s*(\/?\w+)(.*)$/s;
 $self->{'name'}=lc $self->{'name'};
 $self->{'args'}={};
 ::splitParams($token,$self->{'args'});
@@ -549,6 +549,14 @@ my ($self)=@_;
 $::Elements{$self->getArg('name')}=Element->new($self->getArg('file'),
                                                 $self->getArg('params'),
                                                 $self->getArg('defaults'));
+}
+
+sub elSettype #XXX Possibly empty name,type or unknown type
+{
+my ($self)=@_;
+
+::body('<?php settype($',$self->getArg('name'),',\'',
+                         $self->getArg('type'),'\') ?>');
 }
 
 #### Comment ####
