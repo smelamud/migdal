@@ -40,6 +40,10 @@
 	color: %form_comment;
 }
 
+.form .split {
+	border-right: 2px solid %form_buttons_ruler;
+}
+
 .form .buttons {
 	border-top: 2px solid %form_buttons_ruler;
 }

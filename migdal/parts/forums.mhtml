@@ -17,15 +17,9 @@
      </span>
     </logged>
    </td>
-   <td align=right><table><tr valign=center>
-    <td><input type=submit value='Показывать'></td>
-    <td>по</td>
-    <td>
-     <select_portion name='fp' value='$value' vals='10 15 20 25 30 35 40'>
-    </td>
-    <td><bymessages value='$value'></td>
+   <td>
     <spin list='$list' picprev='pics/vleft.gif' picnext='pics/vright.gif'>
-   </tr></table></td>
+   </td>
   </tr>
  </form>
 </table>

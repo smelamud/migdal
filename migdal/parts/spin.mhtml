@@ -6,25 +6,27 @@
   <hidden name='okdir' value='$-'>
   <hidden name='pagesize' value='$list.Limit'>
   <hidden name='size' value='$list.Size'>
-  <td align=right width=32>
-   <ifnzero what='$list.Offset'>
-    <a href="$[offset='$list.PrevOffset']" title='Предыдущая страница'>
-     <image src='$picprev' border=0></a>
-   </ifzero>
-  </td>
-  <td align=right>
-   <edit name='value' value='$list.Page' size=2 maxlength=5>
-  </td>
-  <td align=center>из</td>
-  <td align=right>
-   $list.PageCount
-  </td>
-  <td align=left width=32>
-   <if what='$list.EndValue<$list.Size'>
-    <a href="$[offset='$list.NextOffset']" title='Следующая страница'>
-     <image src='$picnext' border=0></a>
-   </if>
-  </td>
+  <table><tr valign=center>
+   <td align=right width=32>
+    <ifnzero what='$list.Offset'>
+     <a href="$[offset='$list.PrevOffset']" title='Предыдущая страница'>
+      <image src='$picprev' border=0></a>
+    </ifzero>
+   </td>
+   <td align=right>
+    <edit name='value' value='$list.Page' size=2 maxlength=5>
+   </td>
+   <td align=center>из</td>
+   <td align=right>
+    $list.PageCount
+   </td>
+   <td align=left width=32>
+    <if what='$list.EndValue<$list.Size'>
+     <a href="$[offset='$list.NextOffset']" title='Следующая страница'>
+      <image src='$picnext' border=0></a>
+    </if>
+   </td>
+  </tr></table>
  </form>
 </if>
 </element>

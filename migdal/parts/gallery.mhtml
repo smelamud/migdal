@@ -28,25 +28,7 @@
    </span>
   </logged>
  </td></tr></table></td>
- <td align=right><table><tr valign=center>
-  <form method=get action='$~'>
-   <hiddenget remove='prp pcp'>
-   <array vals='строку строки строк'>
-   <plural name='rname' value='$rows'>
-   <array vals='картинке картинки картинок'>
-   <plural name='cname' value='$cols'>
-   <td><input type=submit value='Показывать'></td>
-   <td>
-    <select_portion name='prp' value='$rows' vals='1 2 3 4 5 6 7 8 9 10'>
-   </td>
-   <td>$rname&nbsp;по</td>
-   <td>
-    <select_portion name='pcp' value='$cols' vals='1 2 3 4 5 6 7 8 9 10'>
-   </td>
-   <td>$cname</td>
-  </form>
-  <spin list='$list'>
- </tr></table></td>
+ <td><spin list='$list'></td>
 </tr></table>
 </element>
 
