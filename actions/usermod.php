@@ -38,7 +38,8 @@ $user=getUserById($editid);
 $user->setupHTTP($HTTP_POST_VARS);
 $err=modifyUser($user);
 if($err==EUM_INSERT_OK)
-  header('Location: /userok.php');
+  header('Location: /userok.php?login='.urlencode($login)
+                             .'&redir='.urlencode($redir));
 else
   header('Location: /useredit.php?'.
           makeQuery($HTTP_POST_VARS,array('password','dup_password')).

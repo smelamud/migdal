@@ -51,6 +51,8 @@ if($user->isEditable() && $err==$code)
   displayTop('users',$editid ? '' : 'no_new');
   ?>
   <p>
+  <a href='<?php echo $redir ?>'>&lt;&lt; Вернуться</a>
+  <p>
   <?php
   $user=getUserById($editid);
   $user->setupHTTP($HTTP_GET_VARS);
@@ -59,6 +61,7 @@ if($user->isEditable() && $err==$code)
     ?>
     <center><h1>Введите информацию о себе</h1></center>
     <form method=post action='actions/usermod.php'>
+    <input type=hidden name='redir' value='<?php echo $redir ?>'>
     <input type=hidden name='editid' value='<?php echo $editid ?>'>
     <?php
     }

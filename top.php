@@ -17,7 +17,7 @@ while($item=$menu->next())
 
 function displayLogin($flags)
 {
-global $userId;
+global $userId,$REQUEST_URI;
 
 echo '<form><table>';
 if($userId<0)
@@ -30,9 +30,10 @@ if($userId<0)
 	 <td><input type=submit value=\'Войти\'></td>
 	</tr>';
   if($flags!='no_new')
-    echo '<tr>
-  	   <td colspan=5><a href=\'/useredit.php\'>Зарегистрироваться</a></td>
-	  </tr>';
+    echo '<tr><td colspan=5>
+           <a href=\'/useredit.php?redir='.urlencode($REQUEST_URI)
+	                                  .'\'>Зарегистрироваться</a>
+	  </td></tr>';
   }
 else
   echo '<tr><td colspan=5><input type=submit value=\'Выйти\'></td></tr>';
