@@ -39,6 +39,8 @@
        params='grp,topic,rows,cols,offset,title'
        defaults="topic=-1 rows=4 cols=5 offset=0 title=''">
 <decel name='grpselect' file='parts/grpselect.php' params='name,value'>
+<decel name='hotlog' file='parts/hotlog.php'>
+<decel name='jewishru' file='parts/jewishru.php'>
 <decel name='login' file='parts/login.php' params='flags,err,target,re'
        defaults="target='' re=''">
 <decel name='menu' file='parts/menu.php' params='ident,target'
@@ -54,6 +56,8 @@
 <decel name='postings' file='parts/postings.php'
        params='grp,topic,limit,offset,title'
        defaults="topic=-1 limit=10 offset=0 title=''">
+<decel name='rambler_count' file='parts/rambler.php'>
+<decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='senderlink' file='parts/utils.php' params='message,align'
        defaults="align='right'">
 <decel name='star' file='parts/formutils.php'>

@@ -2,11 +2,8 @@
 << Based-on: demo/parts/top.mhtml 1.2 >>
 
 <element name='Top'>
-<!-- begin of Top100 -->
- <a href="http://top100.rambler.ru/top100/">
-  <img src="http://counter.rambler.ru/top100.cnt?297350" alt="Rambler's Top100"
-       width=1 height=1 border=0></a>
-<!-- end of Top100 code -->
+<rambler_count>
+<hotlog>
 <menu ident='$ident' target='$target'>
 <table class='state'><tr>
  <td class='topimage'>

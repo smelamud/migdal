@@ -3,23 +3,13 @@
 <element name='bottom'>
 <table class='bottom'>
  <tr>
-  <td>
-   <a href="http://www.jewish.ru/topjews" target=_blank>
-    <img border=0 src="http://www.jewish.ru/perl/gdcount.pl?id=475&counter=0"
-         alt="Jewish TOP 20" width=88 height=31></a>
-  </td>
+  <td><jewishru></td>
   <td>
    Сайт создан и поддерживается <b>Клубом Еврейского Студента</b>
    ЕОЦ&nbsp;"<b>Мигдаль</b>". Программирование - Шмуль-Лейб Меламуд. Дизайн и
    оформление - Шмуль-Лейб Меламуд, Арье-Мойше Аеров, Александр Ласкорунский.
   </td>
-  <td>
-   <!-- begin of Top100 logo -->
-    <a href="http://top100.rambler.ru/top100/">
-     <img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-darkblue2.gif" alt="Rambler's Top100"
-          width=88 height=31 border=0></a>
-   <!-- end of Top100 logo -->
-  </td>
+  <td><rambler_logo></td>
  </tr>
 </table>
 </element>
