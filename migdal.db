@@ -201,12 +201,14 @@ CREATE TABLE postings (
   topic_id int(11) NOT NULL default '0',
   personal_id int(11) NOT NULL default '0',
   grp tinyint(4) NOT NULL default '0',
+  priority tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY message_id (message_id),
   KEY topic_id (topic_id),
   KEY personal_id (personal_id),
   KEY grp (grp),
-  KEY ident (ident)
+  KEY ident (ident),
+  KEY priority (priority)
 ) TYPE=MyISAM;
 
 #

@@ -32,6 +32,10 @@
  <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
  <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
  <tr><td><table>
+  <moderator>
+   <edit_line title='Приоритет' name='priority' value='$message.Priority'
+              size=4 maxlength=3>
+  </moderator>
   <if what='$message.hasTopic'>
    <topicselect name='topic_id' value='$message.TopicId' grp='$grp'>
   </if>

@@ -19,6 +19,7 @@ var $topic_id;
 var $topic_name;
 var $personal_id;
 var $grp;
+var $priority;
 
 function Posting($row)
 {
@@ -29,7 +30,7 @@ $this->grp=GRP_ALL;
 function getCorrespondentVars()
 {
 $list=Message::getCorrespondentVars();
-array_push($list,'ident','topic_id','grp','personal_id');
+array_push($list,'ident','topic_id','grp','personal_id','priority');
 return $list;
 }
 
@@ -40,7 +41,7 @@ return array('ident','message_id','topic_id','grp','personal_id');
 
 function getAdminPostingVars()
 {
-return array();
+return array('priority');
 }
 
 function getNormalPosting($isAdmin=false)
@@ -102,6 +103,11 @@ return $this->message_id;
 function getGrp()
 {
 return $this->grp;
+}
+
+function getPriority()
+{
+return $this->priority;
 }
 
 function getTopicId()
@@ -289,7 +295,7 @@ $hide=$userModerator ? 2 : 1;
 $result=mysql_query('select postings.id as id,ident,message_id,stotext_id,body,
                             large_filename,large_format,large_body,
 			    large_imageset,subject,topic_id,personal_id,
-			    sender_id,grp,image_set,hidden,disabled
+			    sender_id,grp,priority,image_set,hidden,disabled
 		     from postings
 		          left join messages
 			       on postings.message_id=messages.id
