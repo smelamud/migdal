@@ -9,11 +9,9 @@
 <element name='navi_migdal' params='ident'>
 <topic_obj name='migdal' id='$`migdal`'>
 
-<if what='$migdal.UserId==$$userId || $$userModerator'>
- <posting_last topic_id='$`migdal`' recursive='*true'>
- <topics_line time='$,' href='migdal.php' title='$migdal.Description'
-	      text='$migdal.Name' arrow!="$ident=='migdal'">
-</if>
+<posting_last topic_id='$`migdal`' recursive='*true'>
+<topics_line time='$,' href='migdal.php' title='$migdal.Description'
+	     text='$migdal.Name' arrow!="$ident=='migdal'">
 </element>
 
 <element name='navi_times' params='ident'>
