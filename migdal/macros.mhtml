@@ -43,3 +43,25 @@
        params='name,loadedname,loadedvalue,title,loaded,notloaded,filename'>
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_format'">
+
+<< GRP >>
+<macro name='grptitle' defaults="grp='$grp'">
+ <zone>
+  <array vals='Сообщения,Форумы,Новости,Галерея,Статьи'>
+  <grpword name='grptitle' grp='%grp'>
+ </zone>
+</macro>
+
+<macro name='grpitemtitle' defaults="grp='$grp'">
+ <zone>
+  <array vals='сообщение,сообщение,новость,картинку,статью'>
+  <grpword name='grpitemtitle' grp='%grp'>
+ </zone>
+</macro>
+
+<macro name='grpident' defaults="grp='$grp'">
+ <zone>
+  <array vals='messages,forums,news,gallery,articles'>
+  <grpword name='grpident' grp='%grp'>
+ </zone>
+</macro>
