@@ -13,7 +13,5 @@ all: $(OBJECTS) ;
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ > Makefile
 
-install: all ;
-
 clean:
 	-rm $(OBJECTS)
