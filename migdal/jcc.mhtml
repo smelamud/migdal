@@ -17,6 +17,12 @@
   <td class='article cframe'>
    <ifnzero what='$,Id'>
     <subtitle>
+    <outer><div class='nframe' style='padding: 5'><inner>
+     <seealso_links topic_id='$`jcc`' topic_grp='*GRP_REVIEW'
+		    title='См. также в разделе ссылок'>
+     <seealso_other topic_id='$`jcc`' topic_grp='*GRP_REVIEW'
+		    title='По этой теме в других разделах'>
+    </inner></div></outer>
     <article_controls posting='$,'>
     <article posting='$,' withvote='*false'>
     <article_controls posting='$,'>
