@@ -175,7 +175,8 @@ $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id,name,description,hidden,no_news,no_forums,
                             no_gallery
 		     from topics
-		     where id=$id and hidden<$hide");
+		     where id=$id and hidden<$hide")
+	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -187,7 +188,8 @@ global $userAdminTopics;
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id,name
 		     from topics
-		     where id=$id and hidden<$hide");
+		     where id=$id and hidden<$hide")
+	     or die('Ошибка SQL при выборке темы');
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -199,7 +201,8 @@ global $userAdminTopics;
 $hide=$userAdminTopics ? 2 : 1;
 $result=mysql_query("select id
 		     from topics
-		     where id=$id and hidden<$hide");
+		     where id=$id and hidden<$hide")
+	     or die('Ошибка SQL при выборке темы');
 return mysql_num_rows($result)>0;
 }
 ?>

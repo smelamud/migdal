@@ -14,7 +14,8 @@ if($size!='small' && $size!='large')
 $id=addslashes($id);
 $result=mysql_query("select $size,format
                      from images
-		     where id=$id");
+		     where id=$id")
+	     or die('Ошибка SQL при выборке изображения');
 header('Content-Type: '.($size=='small' ? $thumbnailType 
                                         : mysql_result($result,0,1)));
 echo mysql_result($result,0,0);

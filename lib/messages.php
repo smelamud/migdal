@@ -359,9 +359,10 @@ $result=mysql_query("select id,body,subject,topic_id,personal_id,sender_id,grp,
                      image_set,up,hidden,disabled
 		     from messages
 		     where id=$id and (hidden<$hide or sender_id=$userId) and
-		     (disabled<$hide or sender_id=$userId)");
+		     (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
+	     or die('Ошибка SQL при выборке сообщения');
 return mysql_num_rows($result)>0 ? newMessage(mysql_fetch_assoc($result))
                                  : newGrpMessage($grp);
 }
@@ -374,9 +375,10 @@ $hide=$userModerator ? 2 : 1;
 $result=mysql_query("select id
 		     from messages
 		     where id=$id and (hidden<$hide or sender_id=$userId) and
-		     (disabled<$hide or sender_id=$userId)");
+		     (disabled<$hide or sender_id=$userId)")
 		    /* здесь нужно поменять, если будут другие ограничения на
 		       просмотр TODO */
+	     or die('Ошибка SQL при выборке сообщения');
 return mysql_num_rows($result)>0;
 }
 ?>

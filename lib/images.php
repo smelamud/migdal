@@ -42,7 +42,8 @@ else
   $this->image_set=$this->id;
   $result=mysql_query('update images
                        set image_set='.$this->id.
-		     ' where id='.$this->id);
+		     ' where id='.$this->id)
+               or die('Ошибка SQL при установке набора для изображения');
   }
 return $result;
 }
@@ -85,7 +86,8 @@ function getImageNameBySet($image_set)
 {
 $result=mysql_query("select id,image_set,filename
                      from images
-		     where image_set=$image_set");
+		     where image_set=$image_set")
+	     or die('Ошибка SQL при выборке набора изображений');
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -104,7 +106,8 @@ function imageSetExists($image_set)
 {
 $result=mysql_query("select id
 		     from images
-		     where image_set=$image_set");
+		     where image_set=$image_set")
+	     or die('Ошибка SQL при выборке набора изображений');
 return mysql_num_rows($result)>0;
 }
 ?>

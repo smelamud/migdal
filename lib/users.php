@@ -279,7 +279,8 @@ $result=mysql_query("select distinct users.id as id,login,name,jewish_name,
 		     from users left join sessions
 				on users.id=sessions.user_id
 				and sessions.last+interval 1 hour>now()
-		     where users.id=$id and hidden<$hide");
+		     where users.id=$id and hidden<$hide")
+	     or die('Ошибка SQL при выборке данных пользователя');
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());
 }
@@ -291,7 +292,8 @@ global $userAdminUsers;
 $hide=$userAdminUsers ? 2 : 1;
 $result=mysql_query("select id
 		     from users
-		     where id=$id and hidden<$hide and has_personal<>0");
+		     where id=$id and hidden<$hide and has_personal<>0")
+	     or die('Ошибка SQL при выборке данных пользователя');
 return mysql_num_rows($result)>0;
 }
 ?>

@@ -24,7 +24,8 @@ if((!$editid || $user->password!='') && strlen($user->password)<5)
 if($user->password!=$user->dup_password)
   return EUM_PASSWORD_DIFF;
 $result=mysql_query('select id from users where login="'.
-		    addslashes($user->login)."\" and id<>$editid");
+		    addslashes($user->login)."\" and id<>$editid")
+ 	     or die('Ошибка SQL при выборке пользователя');
 if(mysql_num_rows($result)>0)
   return EUM_LOGIN_EXISTS;
 if($user->getGender()!='mine' && $user->getGender()!='femine')
