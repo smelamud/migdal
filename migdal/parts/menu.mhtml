@@ -31,6 +31,10 @@
    </community>
    <menuitem ident='gallery' alt='Галерея' link='gallery.php' target='$target'
              current='$ident' time='$gallery_time'>
+   <moderator>
+    <menuitem ident='links' alt='Ссылки' link='links.php' target='$target'
+	      current='$ident'>
+   </moderator>
    <community>
     <menuitem ident='chat' alt='Чат' link='chat.php' target='$target'
               current='$ident'>

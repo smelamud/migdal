@@ -1,0 +1,20 @@
+<< @(#) $Id$ >>
+
+<force_community>
+<grps>
+<int name='offset'>
+<pagetitle title='Ссылки'>
+
+<html>
+<preamble>
+<body>
+ <top ident='links'>
+ <table width=100% cellpadding=5><tr valign=top>
+  <td class='cframe'>
+   <postings grp='*GRP_LINKS' topic='-1' root='links' limit='$userMsgPortion'
+             offset='$offset'>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

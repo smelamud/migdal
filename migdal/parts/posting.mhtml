@@ -22,7 +22,7 @@
 </element>
 
 <element name='controls' params='posting,showdiscuss,showcomplain'>
-<if what='$$userId>0 || $showdiscuss || $posting.hasLargeBody'>
+<if what='$$userId>0 || $showdiscuss'>
  <table width=90% class='bottom'><tr>
   <td>
    <admin_domain>

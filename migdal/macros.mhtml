@@ -63,6 +63,9 @@
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' kaitana_id=0">
 <decel name='lastonline_cell' file='parts/utils.php' params='user,class'
        defaults="class=''">
+<decel name='link_posting' file='parts/link-posting.php'
+       params='posting,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false'">
 <decel name='login' file='parts/login.php' params='no_new,target'
        defaults="no_new='*false' target=''">
 <decel name='mailru_count' file='parts/mailru.php'>
@@ -173,6 +176,7 @@
  <require name='parts/posting-times-cover.php'>
  <require name='parts/taglit-gallery-picture.php'>
  <require name='parts/tip-posting.php'>
+ <require name='parts/link-posting.php'>
  <if what='%posting.TapeCenter'><center></if>
  <exec element='%posting.TapeElement' arg1%!posting='%posting'
        arg2%!showtopic='%showtopic' arg3%!showdiscuss='%showdiscuss'
