@@ -689,6 +689,38 @@ EOT
 ::body($self->getToken());
 }
 
+sub elMail
+{
+my ($self)=@_;
+
+::request('lib/errorreporting.php');
+::request('lib/database.php');
+::request('lib/session.php');
+::request('lib/charsets.php');
+::header(<<EOT);
+<?php
+parse_str(\$argv[1]);
+dbOpen();
+session();
+ob_start();
+?>
+EOT
+}
+
+sub el_mail
+{
+my ($self)=@_;
+
+::footer(<<EOT);
+<?php
+\$Output=ob_get_contents();
+ob_end_clean();
+echo convertOutput(\$Output);
+dbClose();
+?>
+EOT
+}
+
 sub elHead
 {
 my ($self)=@_;
@@ -702,6 +734,13 @@ my ($self)=@_;
 <link rel='stylesheet' href='/styles/<?php echo "\$sheet-".getStyle(\$userStyle) ?>.css'>
 <?php include("styles/\$sheet-".getStyle(\$userStyle).'.php'); } ?>
 EOT
+}
+
+sub elBreak
+{
+my ($self)=@_;
+
+::body('<?php echo "\n"; ?>');
 }
 
 sub elA

@@ -18,6 +18,7 @@ all: $(OBJECTS)
 	(cd grp; $(MAKE) all)
 	(cd parts; $(MAKE) all)
 	(cd styles; $(MAKE) all)
+	(cd mailings; $(MAKE) all)
 
 Makefile: Makefile.in ../conf/migdal.conf
 	../confmake $^ > Makefile
@@ -31,3 +32,4 @@ clean:
 	(cd grp; $(MAKE) clean)
 	(cd parts; $(MAKE) clean)
 	(cd styles; $(MAKE) clean)
+	(cd mailings; $(MAKE) clean)
