@@ -97,6 +97,10 @@ $useMogrify=true;
 # Путь к mogrify
 $mogrifyPath='mogrify';
 
+# Использовать функцию ImageCopyResampled (из GD>=2.0.1) для обработки
+# картинок
+$useCopyResampled=true;
+
 # Путь к wget
 $wgetPath='wget';
 

@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/images.php');
 require_once('lib/image-types.php');
 
@@ -105,7 +107,7 @@ return new Image(array('filename'  => $image_name,
 function uploadImageUsingGD($image,$image_name,$image_size,$image_type,
                             $thumbnailX,$thumbnailY,&$err)
 {
-global $maxImage,$thumbnailType,$tmpDir;
+global $useCopyResampled,$maxImage,$thumbnailType,$tmpDir;
 
 if((ImageTypes() & getImageTypeCode($image_type))==0)
   return uploadImageByDefault($image,$image_name,$image_size,$image_type,
@@ -140,8 +142,12 @@ else
   }
   
 $sHandle=ImageCreate($small_size_x,$small_size_y);
-ImageCopyResized($sHandle,$lHandle,0,0,0,0,$small_size_x,$small_size_y,
-                 $large_size_x,$large_size_y);
+if($useCopyResampled)
+  ImageCopyResampled($sHandle,$lHandle,0,0,0,0,$small_size_x,$small_size_y,
+		     $large_size_x,$large_size_y);
+else
+  ImageCopyResized($sHandle,$lHandle,0,0,0,0,$small_size_x,$small_size_y,
+		   $large_size_x,$large_size_y);
 
 $sFname=getImageTypeName($thumbnailType);
 if((ImageTypes() & getImageTypeCode($thumbnailType))==0 || $sFname=='')
