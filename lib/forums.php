@@ -208,12 +208,12 @@ $forum=new ForumAnswer(array('body'      => $body,
 return $forum->store();
 }
 
-function getForumAnswerInfoByMessageId($message_id)
+function getForumAnswersInfoByMessageId($message_id)
 {
 global $userId;
 
 if($userId<=0)
-  return answerGet($message_id)
+  return answerGet($message_id);
 else
   {
   $hide=messagesPermFilter(PERM_READ,'messages');
@@ -225,5 +225,28 @@ else
             or sqlbug("Ошибка SQL при получении числа ответов");
   return mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
   }
+}
+
+function getForumAnswerIdByMessageId($message_id)
+{
+$result=mysql_query("select id
+                     from forums
+		     where message_id=$message_id")
+          or sqlbug("Ошибка SQL при получении идентификатора ответа");
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function isForumAnswer($message_id)
+{
+return getForumAnswerIdByMessageId($message_id)>0;
+}
+
+function getParentIdByMessageId($message_id)
+{
+$result=mysql_query("select parent_id
+                     from forums
+		     where message_id=$message_id")
+          or sqlbug("Ошибка SQL при получении идентификатора ответа");
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

@@ -17,6 +17,7 @@ require_once('lib/messages.php');
 require_once('lib/permissions.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings-info.php');
+require_once('lib/answers.php');
 
 function modifyForumAnswer($answer,$original)
 {
@@ -60,8 +61,9 @@ if($err==EIU_OK)
   $err=modifyForumAnswer($answer,$original);
 if($err==EFA_OK)
   {
-  header("Location: $okdir");
   dropPostingsInfoCache(DPIC_FORUMS);
+  answerUpdate($answer->getParentId());
+  header("Location: $okdir");
   }
 else
   {

@@ -554,6 +554,8 @@ journal("update messages
          set perms=perms $op
 	 where id=".journalVar('messages',$id));
 dropPostingsInfoCache(DPIC_POSTINGS);
+if(($parent_id=getParentIdByMessageId($id))>0)
+  answerUpdate($parent_id);
 }
 
 function setDisabledByMessageId($id,$disabled)
@@ -567,5 +569,7 @@ journal("update messages
          set disabled=$disabled
 	 where id=".journalVar('messages',$id));
 dropPostingsInfoCache(DPIC_POSTINGS);
+if(($parent_id=getParentIdByMessageId($id))>0)
+  answerUpdate($parent_id);
 }
 ?>

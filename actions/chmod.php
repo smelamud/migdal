@@ -8,6 +8,8 @@ require_once('lib/post.php');
 require_once('lib/permissions.php');
 require_once('lib/errors.php');
 require_once('lib/postings-info.php');
+require_once('lib/forums.php');
+require_once('lib/answers.php');
 
 function doChmod($id,$perms)
 {
@@ -35,6 +37,9 @@ if($r_user_name || $r_group_name || $r_perm)
 		    $r_user_name ? $perms->getUserId() : 0,
 		    $r_group_name ? $perms->getGroupId() : 0,
 		    $r_perm ? $perm_string : '????????????????');
+if(get_class($perms)=='Message' && isForumAnswer($perms->getId()))
+  answerUpdate($perms->getId()); //FIXME не обрабатывается рекурсивная
+                                 //установка прав
 return ECHM_OK;
 }
 

@@ -11,6 +11,7 @@ require_once('lib/horisonts.php');
 require_once('lib/track.php');
 require_once('lib/permissions.php');
 require_once('lib/postings-info.php');
+require_once('lib/answers.php');
 
 function executeTrackQuery($query)
 {
@@ -25,6 +26,12 @@ function executePermsQuery($query)
 {
 list($command,$table,$id,$user_id,$group_id,$perms)=explode(' ',$query);
 setPermsRecursive($table,$id,$user_id,$group_id,$perms);
+}
+
+function executeAnswersQuery($query)
+{
+list($command,$id)=explode(' ',$query);
+answerUpdate($id);
 }
 
 function setId($table,$id,$newId)
@@ -50,6 +57,8 @@ foreach($action as $line)
          executeTrackQuery($query);
        elseif(substr($query,0,5)=='perms')
          executePermsQuery($query);
+       elseif(substr($query,0,7)=='answers')
+         executeAnswersQuery($query);
        else
 	 mysql_query($query)
 	   or journalFailure('Error executing replicated query in seq '.

@@ -17,6 +17,7 @@ require_once('lib/bug.php');
 require_once('lib/cache.php');
 require_once('lib/select.php');
 require_once('lib/alphabet.php');
+require_once('lib/forums.php');
 
 class Posting
       extends Message
@@ -242,6 +243,7 @@ class PostingListIterator
       extends LimitSelectIterator
 {
 var $topicFilter;
+var $answersRequired;
 
 function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
@@ -250,10 +252,15 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
 			     $fields=SELECT_ALLPOSTING,$modbits=MOD_NONE,
 			     $hidden=-1,$disabled=-1)
 {
+global $userId;
+
 $this->topicFilter='';
 $this->addTopicFilter($topic_id,$recursive);
 if($withAnswers)
   $fields|=SELECT_ANSWERS;
+$sortByAnswers=$sort==SORT_ACTIVITY;
+$this->answersRequired=($fields & SELECT_ANSWERS)!=0 && !$sortByAnswers &&
+                        $userId>0;
 /* Select */
 $imageFields=($fields & SELECT_IMAGES)!=0 ?
              "images.image_set as image_set,images.id as image_id,
@@ -268,11 +275,16 @@ $topicFields=($fields & SELECT_TOPICS)!=0 ?
 	      topictexts.body as topic_description,
 	      topics.ident as topic_ident,topics.track as topic_track," :
 	     "postings.topic_id as topic_id,";
-$answersFields=($fields & SELECT_ANSWERS)!=0 ?
+$answersFields=$sortByAnswers && $userId>0 ?
 	     "count(forummesgs.id) as answer_count,
 	      max(forummesgs.sent) as last_answer,
 	      ifnull(max(forummesgs.sent),messages.sent) as age," :
-	     '';
+            (($fields & SELECT_ANSWERS)!=0 ?
+	     "messages.answers as answer_count,
+	      messages.hidden_answers as hidden_answers,
+	      messages.last_answer as last_answer,
+	      ifnull(last_answer,messages.sent) as age," :
+	     "");
 
 $Select="postings.id as id,postings.ident as ident,
          messages.track as track,postings.message_id as message_id,
@@ -308,7 +320,7 @@ $topicTables=($fields & SELECT_TOPICS)!=0 ?
 		   on topictexts.id=topics.stotext_id" :
 	     '';
 $hideAnswers=messagesPermFilter(PERM_READ,'forummesgs');
-$answersTables=($fields & SELECT_ANSWERS)!=0 ?
+$answersTables=($fields & SELECT_ANSWERS)!=0 && $sortByAnswers && $userId>0 ?
 	     "left join forums
 		   on messages.id=forums.parent_id
 	      left join messages as forummesgs
@@ -329,7 +341,23 @@ $From="postings
 $hideMessages=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
-$countAnswerFilter=$withAnswers ? ' and forummesgs.id is not null' : '';
+if($withAnswers!=GRP_NONE)
+  if($sortByAnswers && $userId>0)
+    {
+    $countAnswerFilter=' and forummesgs.id is not null';
+    $selectAnswerFilter='';
+    }
+  else
+    {
+    $answerFilter=grpFilter($withAnswers);
+    $countAnswerFilter=" and (not $answerFilter or messages.answers<>0)";
+    $selectAnswerFilter=$countAnswerFilter;
+    }
+else
+  {
+  $countAnswerFilter='';
+  $selectAnswerFilter='';
+  }
 $index1Filter=$index1>=0
               ? ($sort==SORT_INDEX1  ? "and postings.index1>=$index1" :
 	        ($sort==SORT_RINDEX1 ? "and postings.index1<=$index1" :
@@ -346,12 +374,14 @@ $disabledFilter=$disabled>0 ? "and messages.disabled<>0" :
                ($disabled=0 ? "and messages.disabled=0" : '');
 
 $Where="$hideMessages and personal_id=$personal and $grpFilter @topic@
-	$userFilter $index1Filter $sentFilter $subdomainFilter $childFilter
-	$shadowFilter $modbitsFilter $hiddenFilter $disabledFilter";
+	$userFilter $selectAnswerFilter $index1Filter $sentFilter
+	$subdomainFilter $childFilter $shadowFilter $modbitsFilter
+	$hiddenFilter $disabledFilter";
 /* Group by */
-$GroupBy=($fields & SELECT_ANSWERS)!=0 ? 'group by postings.id' : '';
+$GroupBy=($fields & SELECT_ANSWERS)!=0 && $sortByAnswers && $userId>0
+         ? 'group by postings.id' : '';
 /* Having */
-if($withAnswers!=GRP_NONE)
+if($withAnswers!=GRP_NONE && $sortByAnswers && $userId>0)
   {
   $answerFilter=grpFilter($withAnswers);
   $havingFilter="having not $answerFilter or count(forummesgs.id)<>0";
@@ -390,10 +420,7 @@ $this->LimitSelectIterator(
 	          on postings.message_id=messages.id
 	     left join topics
 		  on postings.topic_id=topics.id
-	     left join forums
-		  on messages.id=forums.parent_id
-	     left join messages as forummesgs
-	          on forums.message_id=forummesgs.id and $hideAnswers
+	     $answersTables
 	where $hideMessages and personal_id=$personal and $grpFilter
 	      $countAnswerFilter @topic@ $userFilter $index1Filter $sentFilter
 	      $subdomainFilter $childFilter $shadowFilter $modbitsFilter
@@ -451,6 +478,11 @@ if($row['id']>0)
   if($row['ident']!='')
     setCachedValue('ident','postings',$row['ident'],$row['id']);
   setCachedValue('track','postings',$row['id'],$row['track']);
+  }
+if($this->answersRequired && $row['hidden_answers']>0)
+  {
+  $info=getForumAnswersInfoByMessageId($row['message_id']);
+  $row=array_merge($row,$info);
   }
 return newPosting($row);
 }
@@ -638,8 +670,9 @@ $topicFields=($fields & SELECT_TOPICS)!=0 ?
              "topics.name as topic_name,topictexts.body as topic_description," :
 	     "";
 $answersFields=($fields & SELECT_ANSWERS)!=0 ?
-	     "count(forummesgs.id) as answer_count,
-	      max(forummesgs.sent) as last_answer," :
+	     "messages.answers as answer_count,
+	      messages.hidden_answers as hidden_answers,
+	      messages.last_answer as last_answer," :
 	     "";
 
 $Select="postings.id as id,messages.track as track,postings.ident as ident,
@@ -677,13 +710,6 @@ $topicTables=($fields & SELECT_TOPICS)!=0 ?
 	      left join stotexts as topictexts
 		   on topictexts.id=topics.stotext_id" :
 	     "";
-$hideForums=messagesPermFilter(PERM_READ,'forummesgs');
-$answersTables=($fields & SELECT_ANSWERS)!=0 ?
-	     "left join forums
-		   on messages.id=forums.parent_id
-	      left join messages as forummesgs
-		   on forums.message_id=forummesgs.id and $hideForums" :
-	     "";
 
 $From="postings
        left join messages
@@ -693,8 +719,7 @@ $From="postings
        $imageTables
        $topicTables
        left join users
-            on messages.sender_id=users.id
-       $answersTables";
+            on messages.sender_id=users.id";
 /* Where */
 $hideMessages=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
@@ -705,17 +730,27 @@ $filter=$id>=0 ? "postings.id=$id"
 	                     : '');
 
 $Where="$hideMessages and $filter";
-/* Group by */
-$GroupBy=($fields & SELECT_ANSWERS)!=0 ? 'group by messages.id' : '';
 /* Query */
 $result=mysql_query("select $Select
                      from $From
-                     where $Where
-                     $GroupBy")
+                     where $Where")
           or sqlbug('Ошибка SQL при выборке постинга');
 /* Result */
-return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
-                                 : getRootPosting($grp,$topic_id,$up);
+if(mysql_num_rows($result)>0)
+  {
+  $row=mysql_fetch_assoc($result);
+
+  global $userId;
+
+  if(($fields & SELECT_ANSWERS)!=0 && $row['hidden_answers']>0 && $userId>0)
+    {
+    $info=getForumAnswersInfoByMessageId($row['message_id']);
+    $row=array_merge($row,$info);
+    }
+  return newPosting($row);
+  }
+else
+  return getRootPosting($grp,$topic_id,$up);
 }
 
 function incPostingReadCount($id)

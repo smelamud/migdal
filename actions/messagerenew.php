@@ -11,6 +11,8 @@ require_once('lib/random.php');
 require_once('lib/postings.php');
 require_once('lib/messages.php');
 require_once('lib/postings-info.php');
+require_once('lib/forums.php');
+require_once('lib/answers.php');
 
 function renewMessage($id)
 {
@@ -28,6 +30,8 @@ if(!$result)
 journal('update messages
          set sent=now()
 	 where id='.journalVar('messages',$id));
+if(isForumAnswer($id))
+  answerUpdate($id);
 return EMR_OK;
 }
 

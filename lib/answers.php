@@ -6,58 +6,32 @@ require_once('lib/bug.php');
 function answerLastSet($message_id,$last)
 {
 mysql_query("update messages
-             set last_answer=$last
+             set last_answer='$last'
 	     where id=$message_id")
   or sqlbug('Ошибка SQL при установке даты последнего ответа');
 }
 
-function answerLastRecalculate($message_id)
+function answerUpdate($message_id)
 {
-$result=mysql_query("select max(sent)
+$result=mysql_query("select count(*) as answers,max(sent) as last_answer
                      from forums
 		          left join messages
 			       on forums.message_id=messages.id
 		     where parent_id=$message_id and (perms & 0x1111)=0x1111
 		           and disabled=0")
-          or sqlbug('Ошибка SQL при выяснении даты последнего ответа');
-$last=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+          or sqlbug('Ошибка SQL при подсчете числа открытых ответов');
+list($answers,$last)=mysql_fetch_array($result);
+answerSet($message_id,$answers);
 answerLastSet($message_id,$last);
-}
 
-function answerAdded($message_id)
-{
-mysql_query("update messages
-             set answers=answers+1
-	     where id=$message_id")
-  or sqlbug('Ошибка SQL при добавлении ответа');
-answerLastRecalculate($message_id);
-}
+$result=mysql_query("select count(*) as answers
+                     from forums
+		     where parent_id=$message_id")
+          or sqlbug('Ошибка SQL при подсчете числа всех ответов');
+list($answers)=mysql_fetch_array($result);
+answerSetAll($message_id,$answers);
 
-function answerRemoved($message_id)
-{
-mysql_query("update messages
-             set answers=answers-1
-	     where id=$message_id")
-  or sqlbug('Ошибка SQL при удалении ответа');
-answerLastRecalculate($message_id);
-}
-
-function answerHidden($message_id)
-{
-mysql_query("update messages
-             set answers=answers-1,hidden_answers=hidden_answers+1
-	     where id=$message_id")
-  or sqlbug('Ошибка SQL при скрытии ответа');
-answerLastRecalculate($message_id);
-}
-
-function answerShown($message_id)
-{
-mysql_query("update messages
-             set answers=answers+1,hidden_answers=hidden_answers-1
-	     where id=$message_id")
-  or sqlbug('Ошибка SQL при открытии ответа');
-answerLastRecalculate($message_id);
+journal('answers '.journalVar('messages',$message_id));
 }
 
 function answerSet($message_id,$answers)
