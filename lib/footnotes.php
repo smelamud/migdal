@@ -78,7 +78,8 @@ do
   $matches=array();
   if(!preg_match($pattern,$s,$matches))
     break;
-  $note=new Footnote($no++,$matches[2],$format,$matches[3],$message_id);
+  $body=strtr($matches[3],"\r\n",'  ');
+  $note=new Footnote($no++,$matches[2],$format,$body,$message_id);
   $notes[]=$note;
   if($note->isNumbered())
     $s=preg_replace($pattern,"<a name='_ref".$note->getNo().
