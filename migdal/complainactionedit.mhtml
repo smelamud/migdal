@@ -1,0 +1,118 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/complainactionedit.mhtml 1.4 >>
+
+<int name='typeid'>
+<int name='editid'>
+<html>
+<head>
+ <title>Мигдаль - Ответы на жалобы</title>
+</head>
+<body bgcolor=white>
+ <top ident='complains'>
+ <p>
+ <center><h1>Ответы на жалобы</h1></center>
+ <p>
+ <complain_type_obj id='$typeid'>
+ <form method=get action='$~'><table><tr>
+  <input type=hidden name='redir' value='$redir'>
+  <td>Тип</td>
+  <td><select name='typeid'>
+   <iterate_complain_types>
+   <for>
+    <if what='$.Id==$typeid'>
+     <option label='$.Name' value='$.Id' selected>
+    <else>
+     <option label='$.Name' value='$.Id'>
+    </if>
+   </for>
+  </select></td>
+  <td><input type=submit value='Просмотр'></td>
+ </tr></table></form>
+ <p>
+ <table width=100%>
+  <tr valign=top>
+   <td>
+    <iterate_complain_actionlist type='$typeid'>
+    <for>
+     <if what='$editid==$.Id'>
+      <a href='$[err edittag editid=$.Id]'><b>$.Name</b></a>
+      &nbsp;
+      <a href='/actions/cadel.php?editid=$.Id&redir=$_'
+	 >[Удалить]</a>
+     <else>
+      <a href='$[err edittag editid=$.Id]'>$.Name</a>
+     </if>
+     <br>
+    </for>
+    <p>
+    <ifzero what='$editid'>
+     <a href='$[err edittag editid=0]'><b>&lt;Добавить&gt;</b></a>
+    <else>
+     <a href='$[err edittag editid=0]'>&lt;Добавить&gt;</a>
+    </ifzero>
+   </td>
+   <td>
+    <complain_action_obj id='$editid'>
+    <setup>
+    <form method=post action='actions/camod.php'>
+     <input type=hidden name='edittag' value=2>
+     <input type=hidden name='redir' value='$redir'>
+     <input type=hidden name='type_id' value='$typeid'>
+     <input type=hidden name='editid' value='$editid'>
+     <table>
+      <error id='*ECAM_NO_EDIT' text='Вы не администратор'>
+      <error id='*ECAD_NO_EDIT' text='Вы не администратор'>
+      <error id='*ECAD_NO_ACTION' text='Такого ответа на жалобу не существует'>
+      <error id='*ECAM_NO_TYPE' text='Такого типа жалобы не существует'>
+      <error id='*ECAM_STORE_SQL' color=magenta
+             text='Ошибка базы данных при обновлении записи'>
+      <error id='*ECAD_DELETE_SQL' color=magenta
+             text='Ошибка базы данных при удалении записи'>
+     </table>
+     <table>
+      <error id='*ECAM_NO_SCRIPT' text='Такого скрипта не существует' span=2>
+      <error id='*ECAM_ILLEGAL_SCRIPT' span=2
+             text='Этот скрипт нельзя прикреплять к такому типу жалобы'>
+      <tr>
+       <td><select name='script_id'>
+	<iterate_complain_scriptlist ident='$type.Ident'>
+	<ifzero what='$,ScriptId'>
+ 	 <option label='-- Ничего не делать --' value=0 selected>
+	<else>
+ 	 <option label='-- Ничего не делать --' value=0>
+	</if>
+	<for>
+	 <if what='$.Id==$,ScriptId'>
+	  <option label='$.Name' value='$.Id' selected>
+	 <else>
+	  <option label='$.Name' value='$.Id'>
+	 </if>
+	</for>
+       </select></td>
+       </td>
+       <td>
+        <checkbox name='automatic' value='$,isAutomatic'
+	          title='Выполнять автоматически'>
+       </td>
+      </tr>
+     </table>
+     <table>
+      <error id='*ECAM_NAME_ABSENT' text='Укажите заголовок ответа' span=2>
+      <edit_line name='name' value='$,Name' title='Заголовок' size=40
+                 maxlength=70>
+      <error id='*ECAM_TEXT_ABSENT' span=2
+             text='Напишите хотя бы пару строчек в теле ответа'>
+      <editor_line name='text' body='$,Text' title='Текст' span=2>
+     </table>
+     <if what='$editid'>
+      <input type=submit value='Изменить'>
+     <else>
+      <input type=submit value='Добавить'>
+     </if>
+     <input type=reset value='Очистить'>
+    </form>
+   </td>
+  </tr>
+ </table>
+</body>
+</html>

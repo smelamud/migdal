@@ -1,0 +1,71 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/complains.mhtml 1.5 >>
+
+<macro name='rebe'>
+ <if what='$complain.isRebe'><font color=red></if>
+</macro>
+
+<macro name='/rebe'>
+ <if what='$complain.isRebe'></font></if>
+</macro>
+
+<element name='batcher_complains' params='value'>
+<table width=100%>
+ <form method=get action='$~'>
+  <hiddenget remove='cp'>
+  <tr><td align=right><table><tr valign=center>
+   <td>Показывать по&nbsp;</td>
+   <td>
+    <select_portion name='cp' value='$value' vals='20 25 30 35 40 45 50'>
+   </td>
+   <td>сообщений&nbsp;</td>
+   <td><input type=submit value='Изменить'></td>
+  </tr></table></td></tr>
+ </form>
+</table><br>
+</element>
+
+<int name='offset'>
+<html>
+<head>
+ <title>Мигдаль - Жалобная книга</title>
+</head>
+<body bgcolor=white>
+ <top ident='complains'>
+ <iterate_complainlist limit='$$userComplainPortion' offset='$offset'>
+ <navigator>
+ <batcher_complains value='$$userComplainPortion'>
+ <logged>
+  <a href='complainedit.php?ident=normal&redir=$_'>Добавить жалобу</a>
+ </logged>
+ <p>
+ <table>
+  <tr valign=top>
+   <th>No.</th><th>Прислано</th><th>Автор</th><th>Заголовок</th>
+   <th>Рассматривает</th><th>Закрыто</th><th>Ответы</th>
+  </tr>
+ <for name='complain'>
+  <tr>
+   <td align=center>$.Id</td>
+   <td><sentview date='$.Sent'></td>
+   <td><rebe><senderlink message='$.'></rebe></td>
+   <td><rebe>
+    <a href='complainforum.php?compid=$.Id&redir=$_'>$.Subject</a>
+   </rebe></td>
+   <if what='$.isAssigned'>
+    <td><senderlink message='$.RecipientInfo'></td>
+   <else>
+    <td align=center>-</td>
+   </if>
+   <if what='$.isClosed'>
+    <td><sentview date='$.Closed'></td>
+   <else>
+    <td align=center>Нет</td>
+   </if>
+   <td align=center>$.AnswerCount</td>
+  </tr>
+ </for>
+ </table>
+ <navigator>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/parts/backtrace.mhtml 1.1 >>
+
+<element name='Backtrace'>
+<if what="isset($redir) && $redir!=''">
+ <a href='$redir'>&lt;&lt; Вернуться</a>
+</if>
+</element>

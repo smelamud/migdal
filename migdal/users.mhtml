@@ -1,0 +1,32 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/users.mhtml 1.2 >>
+
+<html>
+<head>
+ <title>Мигдаль - Пользователи</title>
+</head>
+<body bgcolor=white>
+  <top ident='users'>
+  <p>
+  <table>
+   <tr valign=top>
+    <th>Ник</th><th>Имя</th><th>Возраст</th><th>Мигдалевец</th><th>E-mail</th>
+    <th>ICQ</th><th>Последний раз<br>был здесь</th>
+   </tr>
+   <iterate_userlist>
+   <for>
+    <tr>
+     <td align=center>
+      <a href="useredit.php?editid=$.id&redir=$_">$.Login</a>
+     </td>
+     <td align=center>$.FullName</td>
+     <td align=center>$.Age</td>
+     <td align=center>$.MigdalStudent</td>
+     <td align=center>$.EmailLink</td>
+     <td align=center>$.ICQStatusImage&nbsp;$.ICQ</td>
+     <td align=center>$.LastOnline</td>
+    </tr>
+   </for>
+  </table>
+</body>
+</html>

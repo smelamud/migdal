@@ -1,0 +1,41 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/parts/postings.mhtml 1.3 >>
+
+<element name='batcher_postings' params='value'>
+<table width=100%>
+ <form method=get action='$~'>
+  <hiddenget remove='mp'>
+  <tr><td align=right><table><tr valign=center>
+   <td>Показывать по&nbsp;</td>
+   <td>
+    <select_portion name='mp' value='$value' vals='10 15 20 25 30 35 40'>
+   </td>
+   <td>сообщений&nbsp;</td>
+   <td><input type=submit value='Изменить'></td>
+  </tr></table></td></tr>
+ </form>
+</table><br>
+</element>
+
+<element name='Postings'>
+<grpdata>
+<iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
+                     sort='*SORT_PSENT'>
+<if what='$$userId>0 || $;Count!=0'>
+ <center><h2>$title</h2></center>
+ <if what='$g.ValidItem'><logged>
+  <a href='postingedit.php?topic_id=$topic&grp=$grp&redir=$_'
+   >Добавить $g.ItemTitle</a>
+ </logged></if>
+ <batcher_postings value='$limit'>
+ <navigator>
+ <table width=100%>
+ <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+ <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+ <for>
+  <tr><td><posting posting='$.' grp='$grp' topic='$topic'></td></tr>
+ </for>
+ </table>
+ <navigator>
+</if>
+</element>

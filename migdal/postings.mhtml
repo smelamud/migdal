@@ -1,0 +1,29 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/postings.mhtml 1.6 >>
+
+<grp ignore='$ignoregrp'>
+<int name='topic_id'>
+<int name='offset'>
+<html>
+<head>
+ <title>Мигдаль - $g.title</title>
+</head>
+<body bgcolor=white>
+ <top ident='$g.ident'>
+ <topic_obj id='$topic_id'>
+
+ <ifnzero what='$topic_id'>
+  <center><h1><u>$,Name</u></h1></center>
+  <p>
+  <if what='$,LargeFormat==*TF_PRE'><pre></if>
+  $,HTMLLargeDescription
+  <if what='$,LargeFormat==*TF_PRE'></pre></if>
+  <p>
+ </ifnzero>
+
+ <topics g='$g' up='$topic_id' title='Темы'>
+ 
+ <postings grp='$grp' topic='$topic_id' limit='$userMsgPortion'
+	   offset='$offset' title='$g,title'>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/index.mhtml 1.5 >>
+
+<int name='offset'>
+<grps>
+<html>
+<head>
+ <title>Мигдаль</title>
+</head>
+<body bgcolor=white>
+ <top ident='index'>
+ <table width=100%>
+  <tr><td>
+   <postings grp='*GRP_ALL' limit='$userMsgPortion' offset='$offset'>
+  </td></tr>
+ </table>
+</body>
+</html>

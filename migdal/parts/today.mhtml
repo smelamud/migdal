@@ -1,0 +1,6 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/parts/today.mhtml 1.3 >>
+
+<element name='Today'>
+Сегодня <time><u>$,@Jj&nbsp;$,@Jk&nbsp;$,@JY</u>
+</element>

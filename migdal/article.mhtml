@@ -1,0 +1,138 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/article.mhtml 1.10 >>
+
+<element name='controls' params='posting'>
+<table width=100%>
+ <tr>
+  <td>
+   <isedit name='posting'>
+    <a href="postingedit.php?editid=$posting.Id&grp=$posting.Grp&redir=$_"
+     >[Изменить]</a>
+    <a href="limedit.php?postid=$posting.Id&redir=$_">[Список иллюстраций]</a>
+    <if what='$posting.isModerable'>
+     <if what='$posting.isDisabled'>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&redir=$_"
+       >[Разрешить показ]</a>
+     <else>
+      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&redir=$_"
+       >[Запретить показ]</a>
+     </if>
+    </if>
+   </isedit>
+  </td>
+  <td align=right>
+   <a href='forum.php?redir=$_&msgid=$posting.Id'
+    >Обсудить ($posting.AnswerCount)</a>
+  </td>
+ </tr>
+</table>
+</element>
+
+<macro name='isplaced'>
+<if what='$par->isPlaced(%place)'>
+</macro>
+
+<macro name='/isplaced'>
+</if>
+</macro>
+
+<macro name='notplaced'>
+<if what='!$par->isPlaced(%place)'>
+</macro>
+
+<macro name='/notplaced'>
+</if>
+</macro>
+
+<element name='pic' params='posting,par'>
+<image_placements>
+<ifnzero what='$par.ImageId'>
+ <notplaced place='IPL_TOP'>
+  </p>
+ </notplaced>
+ <isplaced place='IPL_BOTTOM'>
+  <p>
+ </isplaced>
+ <isplaced place='IPL_VCENTER'>
+  <isplaced place='IPL_LEFT'>
+   <table width=100%><tr><td align=left>
+  </isplaced>
+  <isplaced place='IPL_HCENTER'>
+   <table width=100%><tr><td align=center>
+  </isplaced>
+  <isplaced place='IPL_RIGHT'>
+   <table width=100%><tr><td align=right>
+  </isplaced>
+ </isplaced>
+  <isplaced place='IPL_LEFT'>
+   <table align=left>
+  </isplaced>
+  <isplaced place='IPL_HCENTER'>
+   <table>
+  </isplaced>
+  <isplaced place='IPL_RIGHT'>
+   <table align=right>
+  </isplaced>
+  <isedit name='posting'>
+   <tr><td align=center>
+    <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
+       >[Картинка]</a>
+   </td></tr>
+  </isedit>
+   <tr><td>
+    <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
+   </td></tr>
+   <if what="$par.Title!=''">
+    <tr><td align=center>
+     <i>$par.HTMLTitle</i>
+    </td></tr>
+   </if>
+  </table>
+ <isplaced place='IPL_VCENTER'>
+  </td></tr></table>
+ </isplaced>
+ <isplaced place='IPL_TOP'>
+  </p>
+ </isplaced>
+ <notplaced place='IPL_BOTTOM'>
+  <p>
+ </notplaced>
+<else>
+ </p>
+ <isedit name='posting'>
+  <p>
+  <a href='liminsert.php?postid=$$artid&par=$par.Number&redir=$_'
+     >[Картинка]</a>
+  </p>
+ </isedit>
+ <p>
+</ifnzero>
+</element>
+
+<string name='artid'>
+<grps>
+<text_formats>
+<posting_full id='$artid' grp='*GRP_FORUMS'>
+<html>
+<head>
+ <title>Мигдаль - Статьи - $,Subject</title>
+</head>
+<body bgcolor=white>
+ <top ident='articles'>
+ <p>
+ <controls posting='$,'>
+ <p>
+ <center><h1>$,Subject</h1></center>
+ <if what='$,LargeFormat==*TF_PRE'><pre></if>
+ <iterate_posting_paragraphs posting='$,'>
+ <p>
+ <for>
+  <pic posting='$,' par='$.'>
+  $.HTMLBody
+ </for>
+ </p>
+ <if what='$,LargeFormat==*TF_PRE'></pre></if>
+ <p>
+ <controls posting='$,'>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/forum.mhtml 1.4 >>
+
+<int name='msgid'>
+<grps>
+<html>
+<head>
+ <title>Мигдаль - Обсуждение</title>
+</head>
+<body bgcolor=white>
+<top ident='forums'>
+<p>
+<posting_full id='$msgid' grp='*GRP_FORUMS'>
+<posting posting='$,' grp='*GRP_FORUMS' discuss='*false'>
+<center><h1>Обсуждение</h1></center>
+<forums up='$,MessageId' limit='$$userForumPortion'>
+</body>
+</html>

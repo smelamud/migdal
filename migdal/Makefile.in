@@ -2,8 +2,6 @@
 
 # @(#) $Id$
 
-# Based-on: demo/Makefile.in 1.12
-
 OBJECTS = article.php chat.php chatboard.php complainactionedit.php \
 	  complainanswer.php complainedit.php complainforum.php complains.php \
 	  forum.php forumansweredit.php index.php limedit.php liminsert.php \

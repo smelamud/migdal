@@ -1,0 +1,45 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/parts/utils.mhtml 1.2 >>
+
+<element name='perror'>
+<if what='$$err==$id'>
+ <tr><tdspan span=$span>
+  <a name='error'>
+  <font color='$color'>$text</font>
+ </tdspan></tr>
+</if>
+</element>
+
+<element name='SenderLink'>
+$message.LoginLink
+<if what='$message.isSenderVisible'>
+ (<a href='useredit.php?editid=$message.SenderId&redir=$_'>подробнее</a>)
+</if>
+</element>
+
+<element name='Navigator'>
+<br><table width=100%><tr>
+ <td align=left width=30%>
+  <ifnzero what='$list.Offset'>
+   <a href="$[offset='$list.PrevOffset']">&lt;-- Предыдущие</a>
+  </ifzero>
+ </td>
+ <td align=center width=40%>
+  <if what='$list.Size<=$list.Limit'>
+   Всего: $list.Size
+  <else>
+   <form method=post action='actions/goto.php'>
+    <input type='hidden' name='redir' value='$-'>
+    <input type='hidden' name='size' value='$list.Size'>
+    [<edit name='value' value='$list.BeginValue' size=2 maxlength=5><<
+    >>-$list.EndValue] из $list.Size
+   </form>
+  </if>
+ </td>
+ <td align=right width=30%>
+  <if what='$list.EndValue<$list.Size'>
+   <a href="$[offset='$list.NextOffset']">Следующие --&gt;</a>
+  </if>
+ </td>
+</tr></table><br>
+</element>

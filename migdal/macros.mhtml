@@ -1,0 +1,45 @@
+<< @(#) $Id$ >>
+
+<< Errors >>
+<macro name='error'>
+ <require name='lib/errors.php'>
+ <perror id='%id' text='%text' color='%color' span='%span'>
+</macro>
+
+<< Date/Time >>
+<macro name='sentview'>
+ %date@j/%date@m/%date@Y × %date@H:%date@i:%date@s
+</macro>
+
+<< Elements >>
+<decel name='backtrace' file='parts/backtrace.php' params='redir'>
+<decel name='batcher' file='parts/messages.php' params='value,var'>
+<decel name='complain' file='parts/complain.php'
+       params='complain,discuss' defaults="discuss='*true'">
+<decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'
+       defaults="complain='*true'">
+<decel name='forums' file='parts/forums.php' params='up,limit,offset'
+       defaults='limit=10 offset=0'>
+<decel name='login' file='parts/login.php' params='flags,err'>
+<decel name='menu' file='parts/menu.php' params='ident'>
+<decel name='navigator' file='parts/utils.php' params='list'
+       defaults="list='$;'">
+<decel name='perror' file='parts/utils.php' params='id,text,color,span'
+       defaults='color="red" span=0'>
+<decel name='posting' file='parts/posting.php'
+       params='posting,grp,topic,discuss,complain'
+       defaults="topic=-1 discuss='*true' complain='*true'">
+<decel name='postings' file='parts/postings.php'
+       params='grp,topic,limit,offset,title'
+       defaults="topic=-1 limit=10 offset=0 title=''">
+<decel name='senderlink' file='parts/utils.php' params='message'>
+<decel name='today' file='parts/today.php'>
+<decel name='top' file='parts/top.php' params='ident,flags'
+       defaults="flags=''">
+<decel name='topics' file='parts/topics.php' params='g,up,title'
+       defaults="up=0 title=''">
+<decel name='topicselect' file='parts/topicselect.php' params='name,value,grp'>
+<decel name='uploader' file='parts/uploader.php'
+       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename'>
+<decel name='upload_format' file='parts/uploader.php'
+       params='name,format' defaults="name='large_format'">

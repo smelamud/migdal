@@ -1,0 +1,90 @@
+<< @(#) $Id$ >>
+<< Based-on: demo/liminsert.mhtml 1.4 >>
+
+<element name=place params='value'>
+<if what='$value==$$image.Placement'>
+ <input type='radio' name='placement' value=$value checked>
+<else>
+ <input type='radio' name='placement' value=$value>
+</if>
+</element>
+
+<int name='postid'>
+<int name='par'>
+<html>
+<head>
+ <title>Мигдаль - Размещение картинки</title>
+</head>
+<body bgcolor=white>
+ <top ident='articles'>
+ <p>
+ <center><h1>Размещение картинки</h1></center>
+ <p>
+ <posting_obj id='$postid'>
+ <zone><stotext_image_obj id='$,StotextId' par='$par'><setup></zone>
+ <form method=post action='actions/liminsert.php'>
+  <input type='hidden' name='edittag' value=1>
+  <input type='hidden' name='redir' value='$redir'>
+  <input type='hidden' name='postid' value='$postid'>
+  <input type='hidden' name='par' value='$par'>
+  <center>
+   <error id='*ELII_NO_EDIT'
+          text='Вы не имеете права редактировать это сообщение'>
+   <error id='*ELII_MESSAGE_ABSENT' text='Такого сообщения не существует'>
+   <error id='*ELII_IMAGE_ABSENT' text='Такой картинки не существует'>
+   <error id='*ELII_STORE_SQL' text='Ошибка при обновлении записи'
+          color=magenta>
+   <table cellspacing=10>
+    <tr>
+     <td>Картинка</td>
+     <td>
+      <select name='image_id'>
+       <iterate_imageset imageset='$,LargeImageSet'>
+       <option value=0>--- Без картинки ---</option>
+       <for>
+	<if what='$.Id==$image.ImageId'>
+	 <option value=$.Id selected>$.Filename (${.SmallX}x$.SmallY)</option>
+	<else>
+	 <option value=$.Id>$.Filename (${.SmallX}x$.SmallY)</option>
+	</if>
+       </for>
+      </select>
+     </td>
+     <td>
+      <a href='/limedit.php?postid=$postid&editid=$image.ImageId&redir=$_'
+         >Список &gt;&gt;&gt;</a>
+     </td>
+    </tr>
+    <tr>
+     <td>Размещение</td>
+     <td>
+      <table>
+       << Disabled due to incorrect behavior of rendering engine TODO
+	<tr>
+	 <td align=center><place value='*IPL_TOPLEFT'></td>
+	 <td align=center></td>
+	 <td align=center><place value='*IPL_TOPRIGHT'></td>
+	</tr>
+       >>
+       <tr>
+	<td align=center><place value='*IPL_CENTERLEFT'></td>
+	<td align=center><place value='*IPL_CENTER'></td>
+	<td align=center><place value='*IPL_CENTERRIGHT'></td>
+       </tr>
+       <tr>
+	<td align=center><place value='*IPL_BOTTOMLEFT'></td>
+	<td align=center><i>Абзац</i></td>
+	<td align=center><place value='*IPL_BOTTOMRIGHT'></td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+    <tr><td colspan=3>
+     <input type=submit value='Изменить'>
+     <input type=reset value='Очистить'>
+    </td></tr>
+   </table>
+  </center>
+ </form>
+</body>
+</html>
