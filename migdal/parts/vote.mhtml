@@ -2,7 +2,11 @@
 
 <element name='rating'>
 <if what='$showtitle'><span class='rating'>Рейтинг: </span></if>
-<image border=0 src#='pics/bar-small-${value}.gif' title='Рейтинг'>
+<if what='$value>=0'>
+ <image border=0 src#='pics/bar-small-${value}.gif' title='Рейтинг'>
+<else>
+ <image border=0 src='pics/bar-small-null.gif' title='Рейтинг'>
+</if>
 </element>
 
 <element name='vote_frame'>

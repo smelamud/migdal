@@ -8,7 +8,7 @@
  <topics_table class='eightpt' title='$title'>
   <for>
    <topics_line time='$.Sent' href#='$.DetailsFile?redirid=$_&$.DetailsId=$.Id'
-		text#='$.SubjectDesc' rating='$.Vote20'>
+		text#='$.SubjectDesc' rating!='$.VoteCount!=0 ? $.Vote20 : -1'>
   </for>
  </topics_table>
 </ifnzero>
