@@ -130,7 +130,7 @@
    </if>
   </tr>
   <may_checkbox name='migdal_student' value='$,isMigdalStudent'
-                title='Занимаюсь в "Мигдале"' texton='Занимается в "Мигдале"'>
+                title='Мигдалевец' texton='Мигдалевец'>
   <isedit name='user'>
    <editor_line title='Коротко о себе' name='info' body='$,Info' span=2>
   <else>

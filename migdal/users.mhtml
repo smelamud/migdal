@@ -11,7 +11,7 @@
  <table width=100% class='catalog'>
   <tr valign=top>
    <th class='subject'>Ник</th><th>Имя</th><th>Возраст</th>
-   <th><img src='pics/tower.gif'></th>
+   <th><img src='pics/tower.gif' title='Мигдалевец'></th>
    <th>Адрес</th><th>Последний раз<br>был здесь</th>
   </tr>
   <iterate_userlist>
@@ -23,7 +23,13 @@
     <td>$.FullName</td>
     <if what='$.isConfirmed'>
      <td align='center'>$.Age</td>
-     <td align='center'>$.MigdalStudent</td>
+     <td align='center'>
+      <if what='$.isMigdalStudent'>
+       <img src='pics/check.gif'>
+      <else>
+       &nbsp;
+      </if>
+     </td>
      <td>
       <if what="$.EmailLink!=''">
        <span class='email'>$.EmailLink</span>&nbsp;/&nbsp;
