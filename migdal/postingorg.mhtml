@@ -31,7 +31,7 @@
 <element name='post' params='posting'>
 <table class='posting' width=100%>
  <tr><td>
-  <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
+  <iterate_topic_hierarchy topic_id='$posting.TopicId'>
   <span class='subject'>
    <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
       class='topic'><asp>

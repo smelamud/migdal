@@ -357,7 +357,6 @@ class TopicHierarchyIterator
 
 function TopicHierarchyIterator($topic_id,$root=-1,$reverse=false)
 {
-$root=idByIdent('topics',$root);
 $topics=array();
 for($id=idByIdent('topics',$topic_id);$id>0 && $id!=$root;)
    {
