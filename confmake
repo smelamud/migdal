@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+# @(#) $Id$
+
 ($input,$config)=@ARGV;
 
 $input='Makefile.in' if $input eq '';
