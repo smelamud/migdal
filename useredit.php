@@ -7,54 +7,19 @@ require_once('lib/users.php');
 require_once('lib/errors.php');
 
 require_once('parts/top.php');
-
-function condEdit($title,$edit,$value,$name,$size,$length)
-{
-return !$edit ?
-       $value!='' ? "<td><b>$title:</b></td><td>$value</td>" : '' :
-       "<td>$title </td><td><input type=text name='$name' value='$value'
-                            size=$size maxlength=$length></td>";
-}
-
-function condEditStatus($title,$edit,$status,$value,$name,$size,$length)
-{
-return !$edit ?
-       $value!='' ? "<td><b>$title:</b></td><td>$status&nbsp;$value</td>" 
-                  : '' :
-       "<td>$title </td><td>$status&nbsp;<input type=text name='$name'
-                     value='$value' size=$size maxlength=$length></td>";
-}
-
-function condEditValue($title,$edit,$value,$valueEdit,$name,$size,$length)
-{
-return !$edit ?
-       $value!='' ? "<td><b>$title:</b></td><td>$value</td>" : '' :
-       "<td>$title </td><td><input type=text name='$name' value='$valueEdit'
-                            size=$size maxlength=$length></td>";
-}
-
-function condCheckBox($edit,$name,$value,$title,$textOn='',$textOff='')
-{
-return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
-              : "<input type=checkbox name=$name value=1 ".
-	        ($value ? 'checked' : '')."> $title";
-}
+require_once('parts/utils.php');
 
 function condCheckBoxLine($edit,$name,$value,$title,$textOn='',$textOff='')
 {
-return '<tr><td colspan=2>'
-       .condCheckBox($edit,$name,$value,$title,$textOn,$textOff).
-       '</td></tr>';
+return condCheckBox($edit,$name,$value,$title,$textOn,$textOff,2);
 }
 
-function perror($code,$message,$color='red')
+function perrorLine($code,$message,$color='red')
 {
-global $user,$err;
+global $user;
 
-if($user->isEditable() && $err==$code)
-  echo "<tr><td colspan=4><a name='error'>
-         <font color='$color'>$message</font>
-	</td></tr>";
+if($user->isEditable())
+  perror($code,$message,$color,2);
 }
 
 settype($editid,'integer');
@@ -85,23 +50,20 @@ settype($editid,'integer');
   ?>
   <table>
    <?php
-   perror(EUM_UPDATE_OK,'Новая информация принята и записана','green');
-   perror(EUM_NO_EDIT,'У вас нет права менять информацию для этого пользователя');
-   perror(EUM_STORE_SQL,'Ошибка базы данных при обновлении записи','magenta');
-   perror(EUM_ONLINE_SQL,'Ошибка базы данных при записи last_update','magenta');
-   ?>
-   <tr>
-    <?php
-    perror(EUM_LOGIN_ABSENT,'Ник не был введен');
-    perror(EUM_LOGIN_EXISTS,'Пользователь с таким ником уже существует');
-    echo condEdit('Ник',$user->isEditable(),$user->getLogin(),'login',20,30);
-    ?>
-   </tr>
-   <?php
+   perrorLine(EUM_UPDATE_OK,'Новая информация принята и записана','green');
+   perrorLine(EUM_NO_EDIT,'У вас нет права менять информацию для этого
+                           пользователя');
+   perrorLine(EUM_STORE_SQL,'Ошибка базы данных при обновлении записи',
+                            'magenta');
+   perrorLine(EUM_ONLINE_SQL,'Ошибка базы данных при записи last_update',
+                             'magenta');
+   perrorLine(EUM_LOGIN_ABSENT,'Ник не был введен');
+   perrorLine(EUM_LOGIN_EXISTS,'Пользователь с таким ником уже существует');
+   echo condEdit('Ник',$user->isEditable(),$user->getLogin(),'login',20,30);
+   perrorLine(EUM_PASSWORD_LEN,'Пароль должен быть не менее 5 символов');
+   perrorLine(EUM_PASSWORD_DIFF,'Опечатка при вводе пароля - введите еще раз');
    if($user->isEditable())
      {
-     perror(EUM_PASSWORD_LEN,'Пароль должен быть не менее 5 символов');
-     perror(EUM_PASSWORD_DIFF,'Опечатка при вводе пароля - введите еще раз');
      ?>
      <tr>
       <td>Пароль </td><td><input type=password name='password' size=20></td>
@@ -112,22 +74,12 @@ settype($editid,'integer');
      </tr>
      <?php
      }
-     ?>
-   <tr>
-    <?php
-    echo condEdit('Имя',$user->isEditable(),$user->getName(),'name',30,30);
-    echo condEdit('Еврейское имя',$user->isEditable(),$user->getJewishName(),
-                  'jewish_name',30,30);
-    ?>
-   </tr>
-   <tr>
-    <?php
-    echo condEdit('Фамилия',$user->isEditable(),$user->getSurname(),'surname',
-                  30,30);
-    ?>
-   </tr>
-   <?php
-   perror(EUM_GENDER,'Неизвестный пол');
+   echo condEdit('Имя',$user->isEditable(),$user->getName(),'name',30,30);
+   echo condEdit('Еврейское имя',$user->isEditable(),$user->getJewishName(),
+                 'jewish_name',30,30);
+   echo condEdit('Фамилия',$user->isEditable(),$user->getSurname(),'surname',
+                 30,30);
+   perrorLine(EUM_GENDER,'Неизвестный пол');
    ?>
    <tr>
    <?php
@@ -155,7 +107,7 @@ settype($editid,'integer');
    ?>
    </tr>
    <?php
-   perror(EUM_BIRTHDAY,'Совершенно идиотская дата рождения');
+   perrorLine(EUM_BIRTHDAY,'Совершенно идиотская дата рождения');
    ?>
    <tr>
     <?php
@@ -163,7 +115,7 @@ settype($editid,'integer');
       {
       ?>
       <td>Дата рождения</td>
-      <td colspan=3>
+      <td>
        <input type=text name='birth_day' size=2 maxlength=2
               value=<?php echo $user->getDayOfBirth() ?>>
        <select name='birth_month'>
@@ -190,14 +142,14 @@ settype($editid,'integer');
     ?>
    </tr>
    <?php
-    echo condCheckBoxLine($user->isEditable(),'migdal_student',
-		          $user->isMigdalStudent(),'Занимаюсь в "Мигдале"',
-		          'Занимается в "Мигдале"');
+   echo condCheckBoxLine($user->isEditable(),'migdal_student',
+	                 $user->isMigdalStudent(),'Занимаюсь в "Мигдале"',
+		         'Занимается в "Мигдале"');
    if($user->isEditable())
      {
      ?>
-     <tr><td colspan=4>Коротко о себе</td></tr>
-     <tr><td colspan=4>
+     <tr><td colspan=2>Коротко о себе</td></tr>
+     <tr><td colspan=2>
       <textarea name='info' rows=10 cols=50 wrap='virtual'><?php
        echo $user->getInfo()
       ?></textarea>
@@ -212,40 +164,28 @@ settype($editid,'integer');
        <tr><td colspan=2><?php echo $user->getInfo() ?></td></tr>
        <?php
        }
-   ?>
-   <tr>
-    <?php
-    echo condEditValue('E-mail',$user->isEditable(),$user->getEmailLink(),
-                       $user->getEmail(),'email',30,70);
-    ?>
-   </tr>
-   <?php
-    if($user->isEditable())
-      {
-      echo condCheckBoxLine($user->isEditable(),'hide_email',
-			    $user->isHideEmail(),
-			    'Не показывать E-mail на сайте');
-      echo condCheckBoxLine($user->isEditable(),'email_enabled',
-			    $user->isEmailDisabled()==0,
-			    'Разрешаю посылать почту на мой адрес');
-      }
-    if($user->isEmailDisabled()==2)
-      {
-      ?>
-      <tr><td colspan=4><font color=red>
-       Посылка почты на этот адрес временно приостановлена, поскольку адрес не
-       работает
-      </font></td></tr>
-      <?php
-      }
-   ?>
-   <tr>
-    <?php
-    echo condEditStatus('ICQ',$user->isEditable(),$user->getICQStatusImage(),
-                        $user->getICQ(),'icq',15,15);
-    ?>
-   </tr>
-   <?php
+   echo condEditValue('E-mail',$user->isEditable(),$user->getEmailLink(),
+                      $user->getEmail(),'email',30,70);
+   if($user->isEditable())
+     {
+     echo condCheckBoxLine($user->isEditable(),'hide_email',
+			   $user->isHideEmail(),
+			   'Не показывать E-mail на сайте');
+     echo condCheckBoxLine($user->isEditable(),'email_enabled',
+			   $user->isEmailDisabled()==0,
+			   'Разрешаю посылать почту на мой адрес');
+     }
+   if($user->isEmailDisabled()==2)
+     {
+     ?>
+     <tr><td colspan=2><font color=red>
+      Посылка почты на этот адрес временно приостановлена, поскольку адрес не
+      работает
+     </font></td></tr>
+     <?php
+     }
+   echo condEditStatus('ICQ',$user->isEditable(),$user->getICQStatusImage(),
+                       $user->getICQ(),'icq',15,15);
    if(!$user->isEditable())
      {
      ?>

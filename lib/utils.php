@@ -4,7 +4,7 @@
 function makeQuery($vars,$remove=array(),$subs=array())
 {
 $s='';
-foreach(array_merge($vars,$subs) as $key => $value)
+foreach(count($subs)!=0 ? array_merge($vars,$subs) : $vars as $key => $value)
        if(!in_array($key,$remove) && "$value"!='')
          $s.=($s!='' ? '&' : '')."$key=".urlencode($value);
 return $s;
@@ -12,7 +12,14 @@ return $s;
 
 function remakeQuery($query,$remove=array(),$subs=array())
 {
-return makeQuery(parse_str($query),$remove,$subs);
+$asses=explode('&',$query);
+$vars=array();
+foreach($asses as $ass) 
+       { 
+       list($key,$value)=explode('=',$ass); 
+       $vars[$key]=urldecode($value);
+       }
+return makeQuery($vars,$remove,$subs);
 }
 
 function remakeURI($uri,$remove=array(),$subs=array(),$location='#')

@@ -7,33 +7,7 @@ require_once('lib/topics.php');
 require_once('lib/errors.php');
 
 require_once('parts/top.php');
-
-function elementEdit($title,$value,$name,$size,$length)
-{
-return "<tr>
-         <td>$title </td>
-         <td><input type=text name='$name' value='$value' size=$size
-	            maxlength=$length></td>
-	</tr>";
-}
-
-function elementCheckBox($name,$value,$title)
-{
-return "<tr><td>
-         <input type=checkbox name=$name value=1 ".($value ? 'checked' : '')
-                                                 ."> $title
-	</td></tr>";
-}
-
-function perror($code,$message,$color='red')
-{
-global $err;
-
-if($err==$code)
-  echo "<tr><td><a name='error'>
-         <font color='$color'>$message</font>
-	</td></tr>";
-}
+require_once('parts/utils.php');
 
 settype($editid,'integer');
 ?>

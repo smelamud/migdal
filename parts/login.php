@@ -2,7 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/errors.php');
-require_once('lib/login.php');
+require_once('lib/utils.php');
 
 function displayLoginError($err)
 {
@@ -23,7 +23,9 @@ global $userId,$REQUEST_URI;
 <form method=post action='actions/<?php
  echo $userId<0 ? 'login.php' : 'logout.php';
 ?>'>
-<input type=hidden name='redir' value='<?php echo makeRedirURL() ?>'>
+<input type=hidden name='redir' value='<?php
+ echo remakeURI($REQUEST_URI,array('err'));
+?>'>
 <table>
 <?php
 displayLoginError($err);

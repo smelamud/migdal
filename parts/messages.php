@@ -6,48 +6,7 @@ require_once('lib/errors.php');
 
 require_once('parts/grps.php');
 require_once('parts/message.php');
-
-function perror($code,$message,$color='red')
-{
-global $err;
-
-if($err==$code)
-  echo "<tr><td><a name='error'>
-         <font color='$color'>$message</font>
-	</td></tr>";
-}
-
-function getMsgNavLine($list)
-{
-global $REQUEST_URI;
-
-$prev=$list->getOffset()-$list->getLimit();
-$prev=$prev<0 ? 0 : $prev;
-$next=$list->getOffset()+$list->getLimit();
-$prevURI=remakeURI($REQUEST_URI,
-                   array(),
-		   array('offset' => $prev));
-$nextURI=remakeURI($REQUEST_URI,
-                   array(),
-		   array('offset' => $next));
-return "<br><table width=100%><tr>
-         <td align=left width=30%>
-	  <a href=$prevURI>".
-	  ($list->getOffset()!=0 ? '<-- Предыдущие' : '').
-	 '</a>
-	 </td>
-	 <td align=center width=40%>
-	  ['.($list->getOffset()+1).'-'.($list->getOffset()+$list->getCount()).']
-	  из '.$list->getSize()."
-	 </td>
-         <td align=right width=30%>
-	  <a href=$nextURI>".
-	  ($list->getOffset()+$list->getCount()<$list->getSize()
-	   ? 'Следующие -->' : '').
-	 '</a>
-	 </td>
-	</tr></table><br>';
-}
+require_once('parts/utils.php');
 
 function displayMessages($grp,$topic=0,$limit=10,$offset=0)
 {
@@ -65,7 +24,7 @@ if(isset($title) && $userId>0)
   <?php
   }
 $list=new MessageListIterator($grp,$topic,$limit,$offset);
-echo getMsgNavLine($list);
+echo navigator($list);
 ?>
 <table width=100%><tr><td align=right><table><form>
 <tr valign=center>
@@ -102,6 +61,6 @@ while($item=$list->next())
 ?>
 </table>
 <?php
-echo getMsgNavLine($list);
+echo navigator($list);
 }
 ?>

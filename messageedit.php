@@ -10,40 +10,7 @@ require_once('lib/utils.php');
 
 require_once('parts/top.php');
 require_once('parts/grps.php');
-
-function elementEdit($title,$value,$name,$size,$length)
-{
-return "<tr>
-         <td>$title </td>
-         <td><input type=text name='$name' value='$value' size=$size
-	            maxlength=$length></td>
-	</tr>";
-}
-
-function elementCheckBox($name,$value,$title)
-{
-return "<tr><td>
-         <input type=checkbox name=$name value=1 ".($value ? 'checked' : '')
-                                                 ."> $title
-	</td></tr>";
-}
-
-function elementOption($label,$value,$peervalue)
-{
-return "<option label='$label' value=$value".
-       ($value==$peervalue ? ' selected ' : '').
-       '>';
-}
-
-function perror($code,$message,$color='red')
-{
-global $err;
-
-if($err==$code)
-  echo "<tr><td><a name='error'>
-         <font color='$color'>$message</font>
-	</td></tr>";
-}
+require_once('parts/utils.php');
 
 $title=getGrpOneTitle($grp);
 $ident=getGrpIdent($grp);
