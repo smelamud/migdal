@@ -3,9 +3,11 @@
 
 <element name='Top'>
 <menu ident='$ident'>
-<table class='state' width=100%><tr>
- <td align=left><login flags='$flags' err='$$err'></td>
- <td align=right valign=top class='date'><today></td>
-</tr></table>
-<backtrace redir='$$redir'><br>
+<table class='state' width=100%>
+ <tr>
+  <td align=left><login flags='$flags' err='$$err'></td>
+  <td align=right valign=top class='date'><today></td>
+ </tr>
+ <backtrace redir='$$redir'>
+</table>
 </element>
