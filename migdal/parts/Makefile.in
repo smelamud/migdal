@@ -4,24 +4,24 @@
 
 OBJECTS = article.php backtrace.php banners.php blog.php blog-gallery.php \
 	  blog-posting.php book-chapters.php book-ring.php bottom.php \
-	  complain.php discussions.php formutils.php forumanswer.php \
-	  forumcatalog.php forums.php gallery.php gallery-main.php \
-	  googleru.php grpselect.php hannukah.php help-link.php hit-parade.php \
-	  hotlog.php identify.php ioc.php jewishru.php kaitana-announce.php \
-	  kaitana-picture.php langselect.php link-posting.php \
-	  links-switcher.php login.php mailru.php menu.php picture.php \
-	  picture-main.php posting.php posting-book.php posting-general.php \
-	  posting-library-announce.php posting-times.php \
-	  posting-times-cover.php postings.php postings-links.php rabbi.php \
-	  rambler.php seealso.php spin.php subtitle.php times-articles.php \
-	  tip.php tip-posting.php today.php top.php topics.php \
-	  topics-admin.php topics-help.php topics-gallery-general.php \
-	  topics-gallery-major.php topics-gallery-migdal.php \
-	  topics-general.php topics-kaitana.php topics-kaitanot.php \
-	  topics-links.php topics-major.php topics-migdal.php \
-	  topics-migdal-english.php topics-minor.php topics-taglit.php \
-	  topics-veterans.php topicselect.php tune.php unititle.php \
-	  uploader.php userinfo.php utils.php vote.php
+	  complain.php discussions.php events.php formutils.php \
+	  forumanswer.php forumcatalog.php forums.php gallery.php \
+	  gallery-main.php googleru.php grpselect.php hannukah.php \
+	  help-link.php hit-parade.php hotlog.php identify.php ioc.php \
+	  jewishru.php kaitana-announce.php kaitana-picture.php langselect.php \
+	  link-posting.php links-switcher.php login.php mailru.php menu.php \
+	  migdal-news.php picture.php picture-main.php posting.php \
+	  posting-book.php posting-general.php posting-library-announce.php \
+	  posting-times.php posting-times-cover.php postings.php \
+	  postings-links.php rabbi.php rambler.php seealso.php spin.php \
+	  subtitle.php times-articles.php tip.php tip-posting.php today.php \
+	  top.php topics.php topics-admin.php topics-events.php \
+	  topics-help.php topics-gallery-general.php topics-gallery-major.php \
+	  topics-gallery-migdal.php topics-general.php topics-kaitana.php \
+	  topics-kaitanot.php topics-links.php topics-major.php \
+	  topics-migdal.php topics-migdal-english.php topics-minor.php \
+	  topics-taglit.php topics-veterans.php topicselect.php tune.php \
+	  unititle.php uploader.php userinfo.php utils.php vote.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

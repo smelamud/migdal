@@ -1,0 +1,44 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+<int name='topic_id'>
+<int name='sort'>
+<ifzero what='$sort'>
+ <assign name='sort' value='*SORT_PSENT'>
+</ifzero>
+<grps>
+<topic_obj id='$topic_id'>
+<pagetitle title#='$,Name'>
+<topictitle title='$,Name'>
+<log event=event text#='topic($,Id) offset=$offset'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=150 class='eframe'><zone>
+   <posting_new grp='*GRP_NEWS' topic_id='$,Id'>
+   <topics posting='$,'>
+  </zone></td>
+  <td>
+   <div class='cframe' style='padding: 5'>
+    <subtitle>
+    <outer><div class='nframe' style='padding: 5'><inner>
+     <seealso_links topic_id='$,Id' topic_grp='*GRP_EVENT'
+		    title='См. также в разделе ссылок'>
+     <seealso_other topic_id='$,Id' topic_grp='*GRP_EVENT'
+		    title='По этой теме в других разделах'>
+    </inner></div></outer>
+    <ifzero what='$offset'>
+     <postings grp='*GRP_EVENT' topic_id='$,Id' limit=0>
+    </ifzero>
+   </div>
+   <p>
+   <gallery topic_id='$,Id' rows='$userPictureRowPortion'
+            cols='$userPictureColumnPortion' offset='$offset' sort='$sort'>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

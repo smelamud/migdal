@@ -120,30 +120,33 @@
 </element>
 
 <element name='topics_migdal'>
-<if what='$/$posting.TopicId,1/==$`jcc`'>
+<if what='$/$posting.TopicId,1/==$`events`'>
+ <topics_events posting='$posting'>
+<elif what='$/$posting.TopicId,1/==$`jcc`'>
  <topics_jcc posting='$posting'>
-</if>
-<if what='$/$posting.TopicId,1/==$`mazltov` ||
-          $/$posting.TopicId,2/==$`mazltov-news`'>
+<elif what='$/$posting.TopicId,1/==$`mazltov` ||
+            $/$posting.TopicId,2/==$`mazltov-news`'>
  <topics_mazltov posting='$posting'>
-</if>
-<if what='$/$posting.TopicId,1/==$`methodics`'>
+<elif what='$/$posting.TopicId,1/==$`methodics`'>
  <topics_methodics posting='$posting'>
-</if>
-<if what='$/$posting.TopicId,1/==$`migdal-library`'>
+<elif what='$/$posting.TopicId,1/==$`migdal-library`'>
  <topics_migdal_library posting='$posting'>
-</if>
-<if what='$/$posting.TopicId,1/==$`museum` ||
-          $/$posting.TopicId,2/==$`museum-news`'>
+<elif what='$/$posting.TopicId,1/==$`museum` ||
+            $/$posting.TopicId,2/==$`museum-news`'>
  <topics_museum posting='$posting'>
 </if>
 </element>
 
 <element name='topics_migdal_main'>
-<posting_last topic_id='$`migdal-news`' recursive='*true'>
+<hash>
+ <hash_topic topic_id='$`events`' recursive='*true'>
+ <hash_topic topic_id='$`migdal-news`' recursive='*true'>
+</hash>
+<posting_last topic_id='$*'>
 <topics_line time='$,' href#='migdal-news.php' text='Новости'
-	     arrow!="$posting!=0 && $posting.TopicId==$`migdal-news`" indent=1
-	     class='item eightpt'>
+	     arrow!="$posting!=0 && ($posting.TopicId==$`migdal-news` ||
+	                             $/$posting.TopicId,1/==$`events`)"
+	     indent=1 class='item eightpt'>
 <posting_last topic_id='$`jcc`' recursive='*true'>
 <topics_line time='$,' href#='jcc.php' text='Общинный центр (JCC)'
 	     title='Живопись, музыка, танцы, программы для всех возрастов'

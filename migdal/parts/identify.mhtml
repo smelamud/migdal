@@ -93,7 +93,15 @@
  <assign name='name' value='Migdal'>
 <elif what='$/$posting.TopicId,0/==$`migdal`'>
  <assign name='root' value='$`migdal`'>
- <if what='($posting.Grp & *GRP_GALLERY)==0'>
+ <if what='$/$posting.TopicId,1/==$`events`'>
+  <topic_obj id='$posting.TopicId'>
+  <assign name='href' value#='event.php?topic_id=$,Id'>
+  <assign name='ghref' value#='gallery.php?topic_id=$,Id'>
+  <assign name='mhref' value='$href'>
+  <assign name='title' value='$,Description'>
+  <assign name='name' value#='События :: $,Name'>
+  <assign name='root' value='$,Id'>
+ <elif what='($posting.Grp & *GRP_GALLERY)==0'>
   <assign name='href' value='migdal.php'>
   <assign name='ghref' value#='gallery.php?topic_id=$`migdal`'>
   <assign name='title' value=''>

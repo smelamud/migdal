@@ -318,14 +318,17 @@ class TopicIterator
 {
 
 function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
-                  $withSeparate=true)
+                  $withSeparate=true,$level=1)
 {
 $hide=topicsPermFilter(PERM_READ,$prefix);
 $userFilter=$up>=0 ? 'and topics.'.subtree($up,$recursive,'up') : '';
 $grpFilter="and (${prefix}allow & $grp)<>0";
 $answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
 $sepFilter=!$withSeparate ? "and ${prefix}separate=0" : '';
-return " where $hide $userFilter $grpFilter $answerFilter $sepFilter ";
+$levelFilter=$level<=1 || $up<0 ? '' : "and topics.id<>$up and topics.up<>$up";
+// TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
+return " where $hide $userFilter $grpFilter $answerFilter $sepFilter".
+       " $levelFilter ";
 }
 
 function TopicIterator($query)
@@ -340,7 +343,8 @@ class TopicListIterator
 {
 
 function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
-                           $subdomain=-1,$withSeparate=true,$sort=SORT_NAME)
+                           $subdomain=-1,$withSeparate=true,$sort=SORT_NAME,
+			   $recursive=false,$level=1)
 {
 global $userId,$userModerator;
 
@@ -383,7 +387,8 @@ $this->TopicIterator(
 		     forummesgs.sender_id=$userId) and
 		    (forummesgs.disabled<$hide or
 		     forummesgs.sender_id=$userId)".
-       $this->getWhere($grp,$up,'topics.',$withAnswers,false,$withSeparate).
+       $this->getWhere($grp,$up,'topics.',$withAnswers,$recursive,$withSeparate,
+                       $level).
       "group by topics.id
        $postFilter
        $order");

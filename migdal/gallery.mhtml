@@ -68,8 +68,9 @@
    </if>
   </td>
   <if what='$user_id<=0 && ($topic_id<=0 || $topic_id==$`kaitana` ||
-            $topic_id==$`migdal` || $topic_id==$`jcc` ||
-	    $topic_id==$`taglit` || $topic_id==$`veterans`)'>
+            $topic_id==$`migdal` || $topic_id==$`events` ||
+	    $topic_id==$`jcc` || $topic_id==$`taglit` ||
+	    $topic_id==$`veterans`)'>
    <td class='cframe'><outer>
     <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
      <td><common>

@@ -44,6 +44,7 @@
        defaults="topic_id='-1' title='Обсуждения' limit=5">
 <decel name='discusslink' file='parts/posting.php' params='posting'>
 <decel name='editlink' file='parts/posting.php' params='posting'>
+<decel name='events' file='parts/events.php'>
 <decel name='formbuttons' file='parts/formutils.php' params='title,span'
        defaults="title='Изменить',span=0">
 <decel name='formtable' file='parts/formutils.php' params='title'>
@@ -112,6 +113,7 @@
 <decel name='mailru_logo' file='parts/mailru.php'>
 <decel name='menu' file='parts/menu.php' params='ident,target'
        defaults="target=''">
+<decel name='migdal_news' file='parts/migdal-news.php'>
 <decel name='navi_sort' file='parts/utils.php' params='value,title'>
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
@@ -196,7 +198,10 @@
 <decel name='topics' file='parts/topics-general.php' params='posting,ident'
        defaults="posting=0 ident=''">
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
+<decel name='topics_events' file='parts/topics-events.php' params='posting'>
 <decel name='topics_gallery' file='parts/topics-gallery-general.php'
+       params='posting'>
+<decel name='topics_gallery_events' file='parts/topics-events.php'
        params='posting'>
 <decel name='topics_gallery_major' file='parts/topics-gallery-major.php'
        params='posting'>

@@ -3,6 +3,7 @@
 <pagetitle title='Расстановка тем'>
 
 <int name='up'>
+<int name='level'>
 
 <element name='order_selector' params='sels,current'>
 <select name='topic[]'>
@@ -22,8 +23,10 @@
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
-   <iterate_topiclist name='sels' grp='*GRP_ALL' up='$up' sort='*SORT_INDEX0'>
-   <iterate_topiclist grp='*GRP_ALL' up='$up' sort='*SORT_INDEX0'>
+   <iterate_topiclist name='sels' grp='*GRP_ALL' up='$up' sort='*SORT_INDEX0'
+                      recursive!='$level>=2' level='$level'>
+   <iterate_topiclist grp='*GRP_ALL' up='$up' sort='*SORT_INDEX0'
+                      recursive!='$level>=2' level='$level'>
    <table>
     <error id='*ETO_DUPS' text='Некоторые темы указаны дважды' span=2>
     <error id='*ETO_NO_TOPIC' text='Темы не существует' span=2>
