@@ -3,11 +3,11 @@
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
  <if what='$posting.ParentTop==$`inet-news`'>
-  <a href='index.php?topic_id=$posting.TopicId' class='topic'
-     title='$posting.TopicDescription'>$posting.TopicName</a>
- <else>
   <topic_obj id='$`inet-news`'>
   <a href='links.php' class='topic' title='$,Description'>$,Name</a>
+ <else>
+  <a href='index.php?topic_id=$posting.TopicId' class='topic'
+     title='$posting.TopicDescription'>$posting.TopicName</a>
  </if>
  <br>
 </if>
