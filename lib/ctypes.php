@@ -1,4 +1,6 @@
 <?php
+# @(#) $Id$
+
 function c_space($s)
 {
 for($i=0;$i<strlen($s);$i++)

@@ -79,12 +79,7 @@
    </td></tr>
   </isedit>
    <tr><td>
-    <image_tag id='$par.ImageId'>
-    <if what='$par.hasLargeImage'>
-     <a href='lib/image.php?id=$par.ImageId&size=large'>$,</a>
-    <else>
-     $,
-    </if>
+    <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'>
    </td></tr>
    <if what="$par.Title!=''">
     <tr><td align=center>

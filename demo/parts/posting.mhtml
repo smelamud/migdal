@@ -41,13 +41,7 @@
  <ifnzero what='$posting.ImageSet'>
   <table align=left>
    <tr><td>
-    <if what='$posting.hasLargeImage'>
-     <a href='lib/image.php?id=$posting.ImageId&size=large'>
-      <imgtag id='$posting.ImageId'>
-     </a>
-    <else>
-     <imgtag id='$posting.ImageId'>
-    </if>
+    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
    </td></tr>
    <if what="$posting.Title!=''">
     <tr><td>
