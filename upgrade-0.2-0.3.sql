@@ -12,3 +12,9 @@ ALTER TABLE `users` ADD `jewish_name_sort` VARCHAR(60) NOT NULL AFTER `jewish_na
 ALTER TABLE `users` ADD INDEX (`jewish_name_sort`);
 ALTER TABLE `users` ADD `surname_sort` VARCHAR(60) NOT NULL AFTER `surname`;
 ALTER TABLE `users` ADD INDEX (`surname_sort`);
+ALTER TABLE `messages` ADD `url_domain` VARCHAR(70) NOT NULL AFTER `sent`;
+ALTER TABLE `messages` ADD INDEX (`url_domain`);
+ALTER TABLE `messages` ADD `topic_link` INT NOT NULL AFTER `sent`;
+ALTER TABLE `messages` ADD `url_check` DATETIME NOT NULL, ADD `url_check_success` DATETIME NOT NULL;
+ALTER TABLE `messages` ADD INDEX (`url_check`, `url_check_success`); 
+ALTER TABLE `messages` ADD `lang` CHAR(5) NOT NULL AFTER `track`;

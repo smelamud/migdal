@@ -54,7 +54,7 @@ while($topic=$iter->next())
 fclose($fd);
 
 $fd=fopen("$dir/users",'w');
-$iter=new UserListIterator();
+$iter=new UserListIterator(0);
 while($user=$iter->next())
      fputs($fd,$user->getId()."\t".$user->getLogin()."\n");
 fclose($fd);
