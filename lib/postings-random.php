@@ -21,6 +21,13 @@ $result=mysql_query(
 	 group by priority
 	 order by priority")
  or sqlbug('Ошибка SQL при определении количества постингов по приоритетам');
+
+$ptotal=mysql_num_rows($result);
+if($limit>$ptotal)
+  $limit=$ptotal;
+if($limit==0)
+  return array();
+
 $counts=array();
 $total=0;
 while($row=mysql_fetch_row($result))
@@ -31,7 +38,7 @@ while($row=mysql_fetch_row($result))
      }
 
 $positions=array();
-while(count($results)<$limit)
+while(count($positions)<$limit)
      {
      $pos=random(0,$total-1);
      $realpos=0;
@@ -46,7 +53,7 @@ while(count($results)<$limit)
 	      $realpos+=(int)($pos/(1-$c[0]));
 	      break;
 	      }
-     if(!in_array($realpos,$results))
+     if(!in_array($realpos,$positions))
        $positions[]=$realpos;
      }
 
@@ -61,7 +68,7 @@ foreach($positions as $pos)
 		where $hide and priority<=0 and $grpFilter $topicFilter
 		      $userFilter $index1Filter
 		order by priority,sent desc
-		limit $realpos,1")
+		limit $pos,1")
 	or sqlbug('Ошибка SQL при получении идентификатора постинга по позиции');
        $ids[]=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
        }
