@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.53-log
+-- Server version	3.23.54-log
 
 --
 -- Table structure for table 'chat_messages'
@@ -80,6 +80,16 @@ CREATE TABLE forums (
   KEY message_id (message_id),
   KEY up (parent_id),
   KEY used (used)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'groups'
+--
+
+CREATE TABLE groups (
+  user_id int(11) NOT NULL default '0',
+  group_id int(11) NOT NULL default '0',
+  KEY user_id (user_id,group_id)
 ) TYPE=MyISAM;
 
 --
@@ -217,6 +227,8 @@ CREATE TABLE messages (
   source varchar(250) NOT NULL default '',
   stotext_id int(11) NOT NULL default '0',
   sender_id int(11) NOT NULL default '0',
+  group_id int(11) NOT NULL default '0',
+  perms int(11) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
   disabled tinyint(4) NOT NULL default '0',
   sent datetime NOT NULL default '0000-00-00 00:00:00',
@@ -232,7 +244,8 @@ CREATE TABLE messages (
   KEY url_domain (url_domain),
   KEY url_check (url_check,url_check_success),
   KEY sent (sent),
-  KEY used (used)
+  KEY used (used),
+  KEY group_id (group_id)
 ) TYPE=MyISAM;
 
 --
@@ -400,6 +413,8 @@ CREATE TABLE topics (
   name varchar(70) NOT NULL default '',
   name_sort varchar(140) NOT NULL default '',
   user_id int(11) NOT NULL default '0',
+  group_id int(11) NOT NULL default '0',
+  perms int(11) NOT NULL default '0',
   stotext_id int(11) NOT NULL default '0',
   hidden tinyint(4) NOT NULL default '0',
   allow int(11) NOT NULL default '0',
@@ -421,7 +436,8 @@ CREATE TABLE topics (
   KEY name_sort (name_sort),
   KEY index0 (index0,index1,index2,index3,index4),
   KEY used (used),
-  KEY separate (separate)
+  KEY separate (separate),
+  KEY group_id (group_id)
 ) TYPE=MyISAM;
 
 --
@@ -505,7 +521,7 @@ CREATE TABLE votes (
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.53-log
+-- Server version	3.23.54-log
 
 --
 -- Dumping data for table 'version'

@@ -2,7 +2,6 @@
 
 <int name='msgid'>
 <grps>
-<read_posting id='$msgid'>
 <posting_full name='posting' id='$msgid' grp='*GRP_FORUMS'>
 <log event=forum text#='post($,Id)'>
 <pagetitle title#='Обсуждение &lt;&lt;$,SubjectDesc&gt;&gt;'>

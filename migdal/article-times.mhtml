@@ -2,7 +2,6 @@
 << Based-on: migdal/article.mhtml 1.30 >>
 
 <ident name='artid' table='postings'>
-<read_posting id='$artid'>
 <posting_full id='$artid' grp='*GRP_TIMES_ARTICLES'>
 <log event=article text#='post($,Id)'>
 <pagetitle title='$,Subject'>

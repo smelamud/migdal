@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: migdal
 ---------------------------------------------------------
--- Server version	3.23.53-log
+-- Server version	3.23.54-log
 
 --
 -- Dumping data for table 'ratings'

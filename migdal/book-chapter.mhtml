@@ -1,7 +1,6 @@
 << @(#) $Id$ >>
 
 <ident name='chapid' table='postings'>
-<read_posting id='$chapid'>
 <posting_full id='$chapid' grp='*GRP_BOOK_CHAPTERS'>
 <zone>
  <message_posting id='$,UpValue'>

@@ -1,7 +1,6 @@
 << @(#) $Id$ >>
 
 <ident name='bookid' table='postings'>
-<read_posting id='$bookid'>
 <posting_full id='$bookid' grp='*GRP_BOOKS'>
 <log event=book text#='post($,Id)'>
 <pagetitle title='$,Subject'>

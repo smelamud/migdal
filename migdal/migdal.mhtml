@@ -9,7 +9,6 @@
 << Traps >>
 << /Traps >>
 
-<read_posting id='$artid'>
 <posting_full id='$artid' grp='*GRP_REVIEW'>
 <log event=review text#='post($,Id)'>
 <pagetitle title='$,Subject'>
