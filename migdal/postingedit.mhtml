@@ -85,9 +85,11 @@
 		  size=42 maxlength=250 mandatory='$message.mandatoryAuthor'>
       </if>
       <if what='$message.hasSource'>
-       <error id='*EP_SOURCE_ABSENT' text='Источник не указан' span=2>
-       <edit_line title='Источник' value='$message.Source' name='source'
-		  size=42 maxlength=250 mandatory='$message.mandatorySource'>
+       <error id='*EP_SOURCE_ABSENT' text#='$message.SourceTitle не указан'
+              span=2>
+       <edit_line title='$message.SourceTitle' value='$message.Source'
+                  name='source' size=42 maxlength=250
+		  mandatory='$message.mandatorySource'>
       </if>
       <if what='$message.hasImage'>
        <error id='*EP_IMAGE_ABSENT' span=2
