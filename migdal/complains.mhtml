@@ -9,8 +9,8 @@
    <a href='complainedit.php?type_id=*COMPL_NORMAL&redirid=$_'
       class='add'>Добавить жалобу</a>
   <else>
+   <em>Хотите посылать жалобы?</em>
    <span class='info'>
-    <b>Хотите посылать жалобы?</b>
     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </span>
   </logged>

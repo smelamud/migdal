@@ -7,8 +7,8 @@
    <a href='postingedit.php?topic_id=$topic&root=general&grp=*GRP_FORUMS&redirid=$_'
       class='add'>Добавить мнение</a>
   <else>
+   <em>Хотите добавлять мнения?</em>
    <span class='info'>
-    <b>Хотите добавлять мнения?</b>
     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
    </span>
   </logged>

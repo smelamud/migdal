@@ -19,14 +19,14 @@
     </if>
    <else>
     <if what='$showadvert'>
+     <em>
+      <if what='$,isValid'>
+       Хотите добавлять $,GrpItemsTitle?
+      <else>
+       Хотите добавлять новости и статьи?
+      </if>
+     </em>
      <span class='info'>
-      <b>
-       <if what='$,isValid'>
-	Хотите добавлять $,GrpItemsTitle?
-       <else>
-	Хотите добавлять новости и статьи?
-       </if>
-      </b>
       <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
      </span>
     </if>
