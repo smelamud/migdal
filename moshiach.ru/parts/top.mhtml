@@ -9,7 +9,7 @@
   <menu ident='$ident'>
   <if what="isset($$redir) && $$redir!=''">
    <tr><td>
-    <a href='$$redir' class='admin'><img src='pics/redir.gif'>&nbsp;Вернуться</a>
+    <a href='$$redir' class='admin'><img src='pics/redir.gif' border=0>&nbsp;Вернуться</a>
    </td></tr>
   </if>
  </table></td></table>
