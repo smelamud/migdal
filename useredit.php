@@ -77,8 +77,39 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
     ?>
    </tr>
    <tr>
-    <td><b>Дата рождения:</b></td>
-    <td><?php echo $user->getBirthday() ?></td>
+    <?php
+    if($user->isEditable())
+      {
+      ?>
+      <td>Дата рождения</td>
+      <td colspan=3>
+       <input type=text name='birth_day' size=2 maxlength=2 value=1>
+       <select name='birth_month'>
+        <option selected value=1>январь</option>
+        <option value=2>февраль</option>
+        <option value=3>март</option>
+        <option value=4>апрель</option>
+        <option value=5>май</option>
+        <option value=6>июнь</option>
+        <option value=7>июль</option>
+        <option value=8>август</option>
+        <option value=9>сентябрь</option>
+        <option value=10>октябрь</option>
+        <option value=11>ноябрь</option>
+        <option value=12>декабрь</option>
+       </select>
+       19<input type=text name='birth_year' size=2 maxlength=2 value='00'>
+      </td>
+      <?php
+      }
+    else
+      {
+      ?>
+      <td><b>Дата рождения:</b></td>
+      <td><?php echo $user->getBirthday() ?></td>
+      <?php
+      }
+    ?>
    </tr>
    <tr>
     <td colspan=2>
@@ -160,7 +191,13 @@ return !$edit ? '<i>'.($value ? $textOn : $textOff).'</i>'
   </table>
   <?php
   if($user->isEditable())
-    echo '</form>';
+    {
+    ?>
+    <input type=submit value='Отправить'>
+    <input type=reset value='Очистить'>
+    </form>
+    <?php
+    }
   dbClose();
   ?>
 </body>
