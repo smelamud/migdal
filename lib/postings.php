@@ -164,11 +164,6 @@ function hasLargeBody()
 return true;
 }
 
-function hasImage()
-{
-return false;
-}
-
 }
 
 function newPosting($row)

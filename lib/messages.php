@@ -38,7 +38,7 @@ if(!ctype_digit($this->large_format) || $this->large_format>TF_MAX)
   $this->large_format=TF_PLAIN;
 
 if($vars['large_body']!='')
-  $this->large_body=htmlspecialchars($vars['large_body'],ENT_QUOTES);
+  $this->large_body=textToStotext($this->large_format,$vars['large_body']);
 if(isset($vars['large_bodyid']))
   {
   $lb=tmpTextRestore($vars['large_bodyid']);
