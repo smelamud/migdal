@@ -5,7 +5,7 @@
 <int name='topic_id'>
 
 << Traps >>
-<if what='$topic_id<=0'>
+<if what='$postid==0 && $topic_id<=0'>
  <trap text='Kaitana'>
  <reload href='$[topic_id=$`kaitana-s-5762`]'>
 </if>
