@@ -12,7 +12,7 @@
     <topics_admin ident='news'>
    </td>
    <td>
-    <postings grp='*GRP_NEWS' offset='$offset'>
+    <postings grp='*GRP_NEWS' offset='$offset' root='general'>
    </td>
   </tr></table>
  </moderator>

@@ -3,5 +3,6 @@
 <element name='topics_admin'>
 <topics_table title='Администратор'>
  <topics_line text='Новости' href='admin.php' arrow!="$ident=='news'">
+ <topics_line text='Темы' href='topicorg.php' arrow!="$ident=='topics'">
 </topics_table>
 </element>

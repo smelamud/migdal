@@ -1,0 +1,45 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/topicorg.mhtml 1.2 >>
+
+<pagetitle title='Темы'>
+
+<element name='branch' params='up'>
+ <iterate_topiclist grp='*GRP_ALL' up='$up'>
+ <admin_topics>
+  <a href='topicedit.php?redirid=$_&up=$up' class='edit'>Добавить</a>
+ </admin_topics>
+ <ifnzero what='$;Count'>
+  <ul class='names'>
+   <for>
+    <ifne what='$.Ident'>
+     <assign name='name' value#='$.Name [$.Ident]'>
+    <else>
+     <assign name='name' value='$.Name'>
+    </ifne>
+    <admin_topics>
+     <li><a href='topicedit.php?editid=$.Id&redirid=$_'
+	    title='$.Description' class='item'>$name</a>
+    <else>
+     <li>$name
+    </admin_topics>
+    <branch up='$.Id'>
+   </for>
+  </ul>
+ </ifnzero>
+</element>
+
+<html>
+<preamble_admin>
+<body>
+ <top_admin>
+ <table width=100%><tr valign=top>
+  <td width=150>
+   <topics_admin ident='topics'>
+  </td>
+  <td class='ninept topics'>
+   <branch up=0>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

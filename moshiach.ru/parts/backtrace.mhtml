@@ -1,0 +1,18 @@
+<< @(#) $Id$ >>
+<< Based-on: migdal/parts/backtrace.mhtml 1.11 >>
+
+<element name='backtrace'>
+<iterate_redirs name='redirs'>
+<div class='return'>
+ <if what='$;Count>1'>
+  <for>
+   <notlast what='$redirs'>
+    <a href='$.URI'>
+     <ife what='$.Name'>Новости<else>$.Name</ife></a> &gt;
+   <else>
+    $.Name
+   </notlast>
+  </for>
+ </if>
+</div>
+</element>

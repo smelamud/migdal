@@ -17,7 +17,7 @@ $this->grp=1;
 function next()
 {
 Iterator::next();
-$result=$this->grp<GRP_ALL ? newGrpPosting($this->grp) : 0;
+$result=$this->grp<=GRP_ALL ? newGrpPosting($this->grp) : 0;
 $this->grp*=2;
 return $result;
 }

@@ -9,17 +9,23 @@
 
 << Elements >>
 
+<decel name='backtrace' file='parts/backtrace.php'>
+<decel name='formbuttons' file='parts/formutils.php' params='title,span'
+       defaults="title='Изменить',span=0">
 <decel name='formtable' file='parts/formutils.php' params='title'>
 <decel name='/formtable' file='parts/formutils.php'>
+<decel name='grpselect' file='parts/grpselect.php' params='name,value'>
 <decel name='login' file='parts/login.php'>
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
-<decel name='postings' file='parts/postings.php' params='grp,offset'
-       defaults="offset=0">
+<decel name='postings' file='parts/postings.php'
+       params='grp,offset,topic_id,root'
+       defaults="offset=0 topic_id=-1 root=-1">
 <decel name='spin' file='parts/spin.php' params='list,picprev,picnext'
        defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
 <decel name='star' file='parts/formutils.php'>
 <decel name='starinfo' file='parts/formutils.php' params='span'
+       defaults='span=0'>
 <decel name='top_admin' file='parts/top-admin.php'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
 <decel name='topics_line' params='arrow,text,title,href,count,class,indent,span'
@@ -28,6 +34,9 @@
 <decel name='topics_table' params='class,span,title'
        defaults="class='' span=1 title=''" file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
+<decel name='topicselect' file='parts/topicselect.php'
+       params='name,value,grp,mandatory,title,root'
+       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'">
 
 <macro name='/topics_table'>
  <topics_table_end>

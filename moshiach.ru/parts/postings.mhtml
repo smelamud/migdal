@@ -1,9 +1,11 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='list,grp'>
+<element name='batcher' params='list,grp,topic_id,root'
+         defaults="list='$;' grp='$grp' topic_id='$topic_id' root='$root'">
 <table width=100% class='batcher'><tr valign=bottom>
- <td><a href='postingedit.php?topic_id=-1&root=-1&grp=$grp&redirid=$_'
-        >Добавить</a></td>
+ <posting_new grp='$grp'>
+ <td><a href='postingedit.php?topic_id=$topic_id&root=$root&grp=$grp&redirid=$_'
+        >Добавить $,TheItemTitle</a></td>
  <td><spin list='$list'></td>
 </tr></table>
 </element>
@@ -13,11 +15,11 @@
 
 <element name='postings'>
 <iterate_postinglist grp='$grp' offset='$offset'>
-<batcher list='$;'>
+<batcher>
 <for>
  <posting posting='$.'>
 </for>
 <ifnzero what='$;Count'>
- <batcher list='$;'>
+ <batcher>
 </ifnzero>
 </element>
