@@ -10,15 +10,24 @@
  <top ident='index'>
  <posting_obj id='$postid'>
  <table width=100%><tr valign=top>
-  <td class='eframe' width=150>
+  <td class='eframe' width=200>
    <iterate_imageset imageset='$,LargeImageSet'>
    <topics_table class='ninept' title='Иллюстрации'>
     <for>
      <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
 		  text='$.Filename'>
+     <tr valign=top>
+      <td>&nbsp;</td>
+      <td class='comment'>
+       <if what='$.hasLarge'>
+        (${.SmallX}x${.SmallY})
+       </if>
+       ${.ImageX}x${.ImageY}, ${.ImageSizeKB}KB
+      </td>
+     </tr>
      <if what='$editid==$.Id'>
       <topics_line href#='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$#-&faildir=$#-'
-		   class='edit' text='Удалить'>
+		   class='edit' text='Удалить' nobullet='*true'>
      </if>
     </for>
     <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'

@@ -25,6 +25,9 @@ var $large_x;
 var $large_y;
 var $format;
 var $title;
+var $image_size;
+var $image_x;
+var $image_y;
 
 function Image($row)
 {
@@ -173,6 +176,26 @@ function setTitle($title)
 $this->title=$title;
 }
 
+function getImageSize()
+{
+return $this->image_size;
+}
+
+function getImageSizeKB()
+{
+return (int)($this->image_size/1024);
+}
+
+function getImageX()
+{
+return $this->image_x;
+}
+
+function getImageY()
+{
+return $this->image_y;
+}
+
 }
 
 class ImageSetIterator
@@ -182,7 +205,11 @@ class ImageSetIterator
 function ImageSetIterator($image_set)
 {
 $this->SelectIterator('Image',
-                      "select id,filename,small_x,small_y
+                      "select id,filename,small_x,small_y,
+	               has_large,title,
+		       if(has_large,length(large),length(small)) as image_size,
+		       if(has_large,large_x,small_x) as image_x,
+		       if(has_large,large_y,small_y) as image_y
 		       from images
 		       where image_set=$image_set");
 }

@@ -72,3 +72,7 @@
 .topics .rating {
 	font-size: 7pt;
 }
+
+.topics .comment {
+	color: %topics_comment;
+}
