@@ -35,6 +35,8 @@ foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
 if(isset($vars['bodyid']))
   $this->body=tmpTextRestore($vars['bodyid']);
+if(isset($vars['subjectid']))
+  $this->subject=tmpTextRestore($vars['subjectid']);
 }
 
 function getCorrespondentVars()

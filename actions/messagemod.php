@@ -106,10 +106,13 @@ if($err==EM_OK)
 else
   {
   $bodyId=tmpTextSave($body);
+  $subjectId=tmpTextSave($subject);
   header('Location: /messageedit.php?'.
           makeQuery($HTTP_POST_VARS,
-	            array('body'),
+	            array('body',
+		          'subject'),
 		    array('bodyid'    => $bodyId,
+		          'subjectid' => $subjectId,
 		          'image_set' => $message->getImageSet(),
 		          'err'       => $err)).'#error');
   }
