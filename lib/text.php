@@ -32,9 +32,10 @@ for($n=0;$n<strlen($s);$n++)
    if($s[$n]=='>')
      $intag--;
    if(!$intag && !$tag && $s[$n]==$foo
-      && ($n==0 || (!$delim || is_delim($s[$n-1])) && $s[$n-1]!='&')
+      && ($n==0 || (!$delim || is_delim($s[$n-1])) && $s[$n-1]!='&'
                                          # &#entity; combinations are
 					 # not replaced
+                                                   && $s[$n-1]!=$foo)
       && $n!=strlen($s) && (!$delim || !is_delim($s[$n+1]) || $s[$n+1]=='&'
                             || $s[$n+1]=='=' || $s[$n+1]=='~' || $s[$n+1]=='-'
 			    || $s[$n+1]=='<' || $s[$n+1]=='(')
