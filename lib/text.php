@@ -36,9 +36,9 @@ for($n=0;$n<strlen($s);$n++)
                                          # &#entity; combinations are
 					 # not replaced
       && $n!=strlen($s) && (!$delim || !is_delim($s[$n+1]) || $s[$n+1]=='&'
-                            || $s[$n+1]=='=' || $s[$n+1]=='~'))
+                            || $s[$n+1]=='=' || $s[$n+1]=='~' || $s[$n+1]=='-'))
                                          # word may start by entity or font
-					 # style markup
+					 # style markup or by dash
      {
      $c.=$bar;
      $tag=1;

@@ -19,7 +19,7 @@
 <table class='login ninept' cellspacing=0 cellpadding=0>
  <notlogged>
   <tform action='actions/login.php'>
-   <error id='*EL_INVALID' text='Неверный ник или пароль' span=5>
+   <error id='*EL_INVALID' text='Неверный ник или пароль' span=11>
    <tr>
     <td>Ник</td>
     <td><image src='pics/leftinput.gif'></td>
