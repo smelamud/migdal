@@ -1,5 +1,5 @@
 << @(#) $Id$ >>
-<< Based-on: demo/forumansweredit.mhtml 1.6 >>
+<< Based-on: demo/forumansweredit.mhtml 1.7 >>
 
 <int name='editid'>
 <int name='up'>
