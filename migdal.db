@@ -147,6 +147,19 @@ CREATE TABLE instants (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'logs'
+--
+
+CREATE TABLE logs (
+  id int(11) NOT NULL auto_increment,
+  event varchar(30) NOT NULL default '',
+  sent timestamp(14) NOT NULL,
+  body varchar(250) NOT NULL default '',
+  PRIMARY KEY  (id),
+  KEY id (id,event,sent)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'mailing_types'
 --
 

@@ -33,3 +33,10 @@ ALTER TABLE `users` ADD `login_sort` VARCHAR(60) NOT NULL AFTER `login`;
 ALTER TABLE `users` ADD INDEX (`login_sort`);
 ALTER TABLE `messages` ADD `url` VARCHAR(250) NOT NULL;
 ALTER TABLE `postings` CHANGE `grp` `grp` INT DEFAULT '0' NOT NULL;
+CREATE TABLE `logs` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`event` VARCHAR(30) NOT NULL,
+`sent` TIMESTAMP NOT NULL,
+`body` VARCHAR(250) NOT NULL,
+INDEX (`id`, `event`, `sent`)
+);
