@@ -25,22 +25,6 @@
    <isedit what='$posting'>
     <a href="postingedit.php?editid=$posting.Id&root=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
      >Изменить</a>
-    <moderator>
-     &nbsp;
-     <if what='$posting.isDisabled'>
-      <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-       >Разрешить&nbsp;показ</a>
-     <else>
-      <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-       >Запретить&nbsp;показ</a>
-     </if>
-     &nbsp;
-     <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
-      >Осовременить</a>
-     &nbsp;
-     <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
-	>Тень<ifnzero what='$posting.Shadow'> (*)</ifnzero></a>
-    </moderator>
    <else>
     <if what='!$$userModerator && $showcomplain'>
      <logged>

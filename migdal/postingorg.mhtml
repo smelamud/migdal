@@ -11,25 +11,29 @@
 </element>
 
 <element name='post' params='posting'>
-<div class='posting'>
- <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
- <span class='subject'>
-  <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
-     class='topic'><asp>
-   <for>
-    <if what='!$;isFirst'>&sp;::&sp;</if>
-    $.Name
-   </for>
-  <asp></a>
- </span>
- // $posting.GrpTitle <br>
- <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
-  $posting.SubjectDesc</a><br>
- <div class='sent' style='padding-top: 5px'>
+<table class='posting' width=100%>
+ <tr><td>
+  <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
+  <span class='subject'>
+   <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
+      class='topic'><asp>
+    <for>
+     <if what='!$;isFirst'>&sp;::&sp;</if>
+     $.Name
+    </for>
+   <asp></a>
+  </span>
+  // $posting.GrpTitle
+ </td></tr>
+ <tr><td>
+  <a href='$posting.DetailsFile?$posting.DetailsId=$posting.Id'>
+   $posting.SubjectDesc</a>
+ </td></tr>
+ <tr><td class='sent'>
   <sentview date='$posting.Sent'>&nbsp;
   <senderlink message='$posting'>
- </div>
- <table width=100% class='bottom'><tr><td>
+ </td></tr>
+ <tr><td class='bottom'>
   <if what='$posting.isDisabled'>
    <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
     >Разрешить&nbsp;показ</a>
@@ -43,8 +47,8 @@
   &nbsp;
   <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
    >Осовременить</a>
- </td></tr></table>
-</div>
+ </td></tr>
+</table>
 <p>
 </element>
 

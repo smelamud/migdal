@@ -12,21 +12,6 @@
     <td>
      <a href="limedit.php?postid=$posting.Id&redirid=$_">Список иллюстраций</a>
     </td>
-    <moderator>
-     <td>
-      <if what='$posting.isDisabled'>
-       <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
-	>Разрешить показ</a>
-      <else>
-       <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
-	>Запретить показ</a>
-      </if>
-     </td>
-     <td>
-      <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
-	 >Тень<ifnzero what='$posting.Shadow'> (*)</ifnzero></a>
-     </td>
-    </moderator>
    </isedit>
    <td><discusslink posting='$posting'></td>
   </tr>
