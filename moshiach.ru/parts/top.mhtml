@@ -17,6 +17,12 @@
   </td>
  </tr>
  <tr><td colspan=3 align=center><b class=red>
+     <iterate_menu name='menu' ident='$ident'>
+  <for>
+   <notfirst name='menu'> :: </notfirst><a href=$.Link>$.Name</a>
+  </for>
+  &nbsp;
+  <admin_menu><a href='menuedit.php'>יÚֵֽ־ֹװ״</a></admin_menu>
   <a href=study.htm>ץ‏וגמשך דומפע</a> ::
   <a href=yesterday.htm>ק‏ועב</a> ::
   <a href=now.htm>ףוך‏בף</a> ::
