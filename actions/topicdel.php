@@ -12,12 +12,11 @@ require_once('lib/topics.php');
 
 function deleteTopic($id,$destid)
 {
-global $userAdminTopics;
-
-if(!$userAdminTopics)
-  return ETD_NO_DELETE;
-if(!topicExists($id))
+$perms=getPermsById('topics',$id);
+if(!$perms)
   return ETD_TOPIC_ABSENT;
+if(!$perms->isWritable())
+  return ETD_NO_DELETE;
 $result=mysql_query("select id
                      from topics
 		     where up=$id");
@@ -31,9 +30,13 @@ $result=mysql_query("select count(*)
 		     where topic_id=$id");
 if(!$result)
   return ETD_POSTINGS_SQL;
-if(mysql_result($result,0,0)!=0
-   && ($destid<=0 || $destid==$id || !topicExists($destid)))
-  return ETD_DEST_ABSENT;
+if(mysql_result($result,0,0)!=0)
+  {
+  if($destid<=0 || $destid==$id || !($perms=getPermsById('topics',$destid)))
+    return ETD_DEST_ABSENT;
+  if(!$perms->isPostable())
+    return ETD_DEST_ACCESS;
+  }
 $result=mysql_query("delete from topics
                      where id=$id");
 if(!$result)

@@ -14,11 +14,11 @@ require_once('lib/tmptexts.php');
 require_once('lib/track.php');
 require_once('lib/users.php');
 
-function modifyTopic($topic)
+function modifyTopic($topic,$original)
 {
 global $userLogin,$topicMandatoryDescription;
 
-if(!$topic->isWritable())
+if(!$original->isWritable())
   return ET_NO_EDIT;
 if($topic->name=='')
   return ET_NAME_ABSENT;
@@ -75,10 +75,11 @@ postString('large_description');
 dbOpen();
 session();
 $topic=getTopicById($editid,$up);
+$original=$topic;
 $topic->setup($HTTP_POST_VARS);
 $err=uploadLargeText($topic->stotext);
 if($err==EUL_OK)
-  $err=modifyTopic($topic);
+  $err=modifyTopic($topic,$original);
 if($err==ET_OK)
   header("Location: $okdir");
 else

@@ -46,6 +46,8 @@
            text='Ошибка базы данных при получении списка сообщений'>
     <error id='*ETD_DEST_ABSENT' span=2
            text='Тема для перемещения не указана'>
+    <error id='*ETD_DEST_ACCESS' span=2
+           text='В эту тему нельзя добавлять сообщения'>
     <error id='*ETD_DELETE_SQL' color=magenta span=2
            text='Ошибка базы данных при удалении темы'>
     <error id='*ETD_NEW_UP_SQL' color=magenta span=2
@@ -54,7 +56,8 @@
            text='Ошибка базы данных при перемещении сообщений'>
     <error id='*ETD_UPDATE_SQL' color=magenta span=2
            text='Ошибка базы данных при обновлении маршрутов подтем'>
-    <error id='*ETD_NO_DELETE' color=magenta span=2 text='Вы не администратор'>
+    <error id='*ETD_NO_DELETE' color=magenta span=2
+           text='Вы не имеете права удалять эту тему'>
     <error id='*ETD_TOPIC_ABSENT' span=2 text='Тема не указана'>
     <error id='*ETD_CROSS_SQL' color=magenta span=2
            text='Ошибка базы данных при удалении перекрестных ссылок'>
