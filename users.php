@@ -34,7 +34,8 @@ require_once('top.php');
 	echo '<td align=center>'.$item->getAge().'</td>';
 	echo '<td align=center>'.$item->getMigdalStudent().'</td>';
 	echo '<td align=center>'.$item->getEmailLink().'</td>';
-	echo '<td align=center>'.$item->getICQ().'</td>';
+	echo '<td align=center>'.$item->getICQStatusImage().'&nbsp;'
+	                        .$item->getICQ().'</td>';
 	echo '<td align=center>'.$item->getLastOnline().'</td>';
 	echo '</tr>';
 	}

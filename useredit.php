@@ -16,6 +16,15 @@ return !$edit ?
                             size=$size maxlength=$length></td>";
 }
 
+function condEditStatus($title,$edit,$status,$value,$name,$size,$length)
+{
+return !$edit ?
+       $value!='' ? "<td><b>$title:</b></td><td>$status&nbsp;$value</td>" 
+                  : '' :
+       "<td>$title </td><td>$status&nbsp;<input type=text name='$name'
+                     value='$value' size=$size maxlength=$length></td>";
+}
+
 function condEditValue($title,$edit,$value,$valueEdit,$name,$size,$length)
 {
 return !$edit ?
@@ -207,7 +216,8 @@ if($user->isEditable() && $err==$code)
    ?>
    <tr>
     <?php
-    echo condEdit('ICQ',$user->isEditable(),$user->getICQ(),'icq',15,15);
+    echo condEditStatus('ICQ',$user->isEditable(),$user->getICQStatusImage(),
+                        $user->getICQ(),'icq',15,15);
     ?>
    </tr>
    <?php

@@ -186,6 +186,13 @@ function getICQ()
 return $this->icq;
 }
 
+function getICQStatusImage()
+{
+return $this->icq ? '<img src="http://wwp.icq.com/scripts/online.dll?icq='.
+                                                 $this->icq.'&img=5">'
+		  : '';
+}
+
 function isEmailDisabled()
 {
 return $this->email_disabled;
