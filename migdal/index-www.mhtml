@@ -53,9 +53,8 @@
     <ears>
     <if what='$topic_id<=0'>
      <p>&nbsp;</p>
-     <rabbi>
-     <p>
-     <ioc_text>
+     <p><rabbi></p>
+     <p><ioc_text></p>
     </if>
    </td>
    <td class='cframe'>
