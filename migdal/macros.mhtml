@@ -181,12 +181,13 @@
                  class='item' indent=0 span=1 rating='' nobullet='*false'"
        file='parts/topics.php'>
 <decel name='topics_links' params='posting' file='parts/topics-links.php'>
-<decel name='topics_major' file='parts/topics-major.php' params='ident,unroll'
-       defaults="unroll='*false'">
+<decel name='topics_major' file='parts/topics-major.php' params='ident,posting'
+       defaults="posting=0">
 <decel name='topics_migdal' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_migdal_english' file='parts/topics-migdal-english.php'
        params='posting'>
-<decel name='topics_migdal_main' file='parts/topics-migdal.php'>
+<decel name='topics_migdal_main' file='parts/topics-migdal.php'
+       params='posting'>
 <decel name='topics_minor' file='parts/topics-minor.php'
        params='id,withpostings,withanswers,up,subdomain,grp,href,title'
        defaults="withpostings='*false' withanswers='*false' up='$`general`'

@@ -73,10 +73,7 @@
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
-   <topics_kaitana day='$day' topic_id='$kaitana.Id'>
-   <topics_kaitanot topic_id='$kaitana.Id'>
-   <topics_migdal posting='$posting'>
-   <topics_major ident='migdal'>
+   <topics posting='$posting'>
   </zone></td>
   <td class='cframe'>
    <subtitle>

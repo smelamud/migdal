@@ -51,7 +51,7 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
-    <topics_major ident='index' unroll='*true'>
+    <topics_major ident='index'>
     <topics_minor id='$topic_id' withpostings='*false' grp='*GRP_TAPE'
                   href='index.php' title='Раздельчики'>
     <if what='$topic_id<=0'>

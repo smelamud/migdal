@@ -12,8 +12,7 @@
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
-   <topics_migdal posting='$,'>
-   <topics_major ident='migdal'>
+   <topics posting='$,'>
   </td>
   <td class='article cframe'>
    <ifnzero what='$,Id'>

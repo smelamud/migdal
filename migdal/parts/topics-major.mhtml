@@ -5,12 +5,10 @@
 	     text='Главная' arrow!="$ident=='index'" span='$span'>
 </element>
 
-<element name='navi_migdal' params='ident,span' defaults='span=1'>
-<topic_obj name='migdal' id='$`migdal`'>
-
-<posting_last topic_id='$`migdal`' recursive='*true'>
-<topics_line time='$,' href='migdal.php' title='$migdal.Description'
-	     text='$migdal.Name' arrow!="$ident=='migdal'" span='$span'>
+<element name='navi_migdal' params='posting,span' defaults='span=1'>
+<topics_line href='migdal.php' text='Мигдаль'
+             arrow!="$posting!=0 && $posting.Id==$`postings:migdal`"
+	     span='$span' class='item'>
 </element>
 
 <element name='navi_taglit' params='ident,span' defaults='span=1'>
@@ -61,8 +59,8 @@
   </tdspan></tr>
  </admin_users>
  <navi_main ident='$ident' span=2>
- <navi_migdal ident='$ident' span=2>
- <topics_migdal_main>
+ <navi_migdal posting='$posting' span=2>
+ <topics_migdal_main posting='$posting'>
  <navi_taglit ident='$ident' span=2>
  <navi_veterans ident='$ident' span=2>
  <navi_help ident='$ident' span=2>

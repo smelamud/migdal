@@ -138,75 +138,44 @@
           $/$posting.TopicId,2/==$`museum-news`'>
  <topics_museum posting='$posting'>
 </if>
-
-<topic_obj name='migdal' id='$`migdal`'>
-<topics_table title='$,Name' span=2>
- <posting_obj id='$`postings:migdal`'>
- <topics_line time='$,Sent' text='$,Subject' href#='migdal.php'
-              arrow!='$,Id==$posting.Id' indent=0 span=2 class='item ninept'>
- <posting_last topic_id='$`migdal-news`' recursive='*true'>
- <topics_line time='$,' href#='migdal-news.php' text='Новости'
-              arrow!="$posting.TopicId==$`migdal-news`" indent=1
-	      class='item eightpt'>
- <posting_last topic_id='$`jcc`' recursive='*true'>
- <topics_line time='$,' href#='jcc.php' text='Общинный центр (JCC)'
-              title='Живопись, музыка, танцы, программы для всех возрастов'
-	      arrow!="$/$posting.TopicId,1/==$`jcc`" indent=1
-	      class='item eightpt'>
- <posting_last topic_id='$`migdal-library`' recursive='*true'>
- <topics_line time='$,' href#='migdal-library.php' text='Библиотека'
-	      arrow!="$/$posting.TopicId,1/==$`migdal-library`" indent=1
-	      class='item eightpt'>
- <posting_last topic_id='$`museum`' recursive='*true'>
- <topics_line time='$,' href#='migdal.php?artid=$`postings:museum`'
-              text='Музей евреев Одессы'
-              arrow!="$/$posting.TopicId,1/==$`museum` ||
-                      $/$posting.TopicId,2/==$`museum-news`" indent=1
-	      class='item eightpt'>
- <topics_line time='$,' href#='migdal.php?artid=$`postings:migdal-ohr`'
-              text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
-              arrow!="$/$posting.TopicId,1/==$`migdal-ohr`" indent=1
-	      class='item eightpt'>
- <posting_last topic_id='$`mazltov`' recursive='*true'>
- <topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`'
-              text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
-              arrow!="$/$posting.TopicId,1/==$`mazltov` ||
-                      $/$posting.TopicId,2/==$`mazltov-news`" indent=1
-	      class='item eightpt'>
- <posting_last topic_id='$`methodics`' recursive='*true'>
- <topics_line time='$,' text='Методический центр'
-              href#='migdal.php?artid=$`postings:methodic-center`'
-              arrow!="$/$posting.TopicId,1/==$`methodics`" indent=1
-	      class='item eightpt'
-	      title='Южно-украинский региональный методический центр'>
-</topics_table>
 </element>
 
 <element name='topics_migdal_main'>
 <posting_last topic_id='$`migdal-news`' recursive='*true'>
-<topics_line time='$,' href#='migdal-news.php' indent=1 text='Новости'
+<topics_line time='$,' href#='migdal-news.php' text='Новости'
+	     arrow!="$posting!=0 && $posting.TopicId==$`migdal-news`" indent=1
 	     class='item eightpt'>
 <posting_last topic_id='$`jcc`' recursive='*true'>
-<topics_line time='$,' href#='jcc.php' indent=1 text='Общинный центр (JCC)'
-             title='Живопись, музыка, танцы, программы для всех возрастов'
-             class='item eightpt'>
-<posting_last topic_id='$`migdal-library`' recursive='*true'>
-<topics_line time='$,' href#='migdal-library.php' indent=1 text='Библиотека'
-             class='item eightpt'>
-<posting_last topic_id='$`museum`' recursive='*true'>
-<topics_line time='$,' href#='migdal.php?artid=$`postings:museum`' indent=1
-             text='Музей евреев Одессы' class='item eightpt'>
-<posting_last topic_id='$`migdal-ohr`' recursive='*true'>
-<topics_line time='$,' href#='migdal.php?artid=$`postings:migdal-ohr`' indent=1
-             text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+<topics_line time='$,' href#='jcc.php' text='Общинный центр (JCC)'
+	     title='Живопись, музыка, танцы, программы для всех возрастов'
+	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`jcc`" indent=1
 	     class='item eightpt'>
+<posting_last topic_id='$`migdal-library`' recursive='*true'>
+<topics_line time='$,' href#='migdal-library.php' text='Библиотека'
+	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-library`"
+	     indent=1 class='item eightpt'>
+<posting_last topic_id='$`museum`' recursive='*true'>
+<topics_line time='$,' href#='migdal.php?artid=$`postings:museum`'
+	     text='Музей евреев Одессы'
+	     arrow!="$posting!=0 &&
+	             ($/$posting.TopicId,1/==$`museum` ||
+		      $/$posting.TopicId,2/==$`museum-news`)" indent=1
+	     class='item eightpt'>
+<topics_line time='$,' href#='migdal.php?artid=$`postings:migdal-ohr`'
+	     text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-ohr`"
+	     indent=1 class='item eightpt'>
 <posting_last topic_id='$`mazltov`' recursive='*true'>
-<topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`' indent=1
-             text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
+<topics_line time='$,' href#='migdal.php?artid=$`postings:mazltov`'
+	     text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
+	     arrow!="$posting!=0 &&
+	             ($/$posting.TopicId,1/==$`mazltov` ||
+		      $/$posting.TopicId,2/==$`mazltov-news`)" indent=1
 	     class='item eightpt'>
 <posting_last topic_id='$`methodics`' recursive='*true'>
 <topics_line time='$,' text='Методический центр'
-             href#='migdal.php?artid=$`postings:methodic-center`'
-             indent=1 class='item eightpt'
+	     href#='migdal.php?artid=$`postings:methodic-center`'
+	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`methodics`"
+	     indent=1 class='item eightpt'
 	     title='Южно-украинский региональный методический центр'>
 </element>
