@@ -19,6 +19,7 @@ var $ident;
 var $message_id;
 var $topic_id;
 var $topic_name;
+var $topic_description;
 var $personal_id;
 var $grp;
 var $priority;
@@ -122,6 +123,11 @@ function getTopicName()
 return $this->topic_name;
 }
 
+function getTopicDescription()
+{
+return $this->topic_description;
+}
+
 function getPersonalId()
 {
 return $this->personal_id;
@@ -213,12 +219,12 @@ $order=getOrderBy($sort,array(SORT_SENT => 'sent desc',
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
-               messages.stotext_id as stotext_id,body,subject,grp,sent,
-	       topic_id,sender_id,messages.hidden as hidden,
+               messages.stotext_id as stotext_id,stotexts.body as body,
+	       subject,grp,sent,topic_id,sender_id,messages.hidden as hidden,
 	       messages.disabled as disabled,users.hidden as sender_hidden,
 	       images.image_set as image_set,images.id as image_id,
 	       images.has_large as has_large_image,images.title as title,
-	       topics.name as topic_name,
+	       topics.name as topic_name,topictexts.body as topic_description,
 	       login,gender,email,hide_email,rebe,
 	       count(forums.up) as answer_count
 	from postings
@@ -230,6 +236,8 @@ $this->LimitSelectIterator(
 		  on stotexts.image_set=images.image_set
 	     left join topics
 		  on postings.topic_id=topics.id
+	     left join stotexts as topictexts
+	          on topictexts.id=topics.stotext_id
 	     left join users
 		  on messages.sender_id=users.id
 	     left join forums
@@ -333,13 +341,16 @@ $hide=$userModerator ? 2 : 1;
 $result=mysql_query(
 	"select postings.id as id,postings.ident as ident,
 	        postings.message_id as message_id,
-		messages.stotext_id as stotext_id,body,large_format,large_body,
-		subject,grp,sent,topic_id,sender_id,messages.hidden as hidden,
-		disabled,users.hidden as sender_hidden,
-		images.image_set as image_set,images.id as image_id,
-		topics.name as topic_name,images.has_large as has_large_image,
-		images.title as title,login,gender,email,hide_email,rebe,
-	        count(forums.up) as answer_count
+		messages.stotext_id as stotext_id,stotexts.body as body,
+		stotexts.large_format as large_format,
+		stotexts.large_body as large_body,subject,grp,sent,topic_id,
+		sender_id,messages.hidden as hidden,disabled,
+		users.hidden as sender_hidden,images.image_set as image_set,
+		images.id as image_id,topics.name as topic_name,
+		topictexts.body as topic_description,
+		images.has_large as has_large_image,images.title as title,
+		login,gender,email,hide_email,rebe,
+		count(forums.up) as answer_count
 	 from postings
 	      left join messages
 	           on postings.message_id=messages.id
@@ -349,6 +360,8 @@ $result=mysql_query(
 		   on stotexts.image_set=images.image_set
 	      left join topics
 		   on postings.topic_id=topics.id
+	      left join stotexts as topictexts
+	           on topictexts.id=topics.stotext_id
 	      left join users
 		   on messages.sender_id=users.id
 	      left join forums
@@ -359,7 +372,7 @@ $result=mysql_query(
        ' group by messages.id')
       /* здесь нужно поменять, если будут другие ограничения на
 	 просмотр TODO */
- or die('Ошибка SQL при выборке постинга');
+ or die('Ошибка SQL при выборке постинга'.mysql_error());
 return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
                                  : newGrpPosting($grp);
 }

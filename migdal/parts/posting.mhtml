@@ -20,7 +20,7 @@
    <td width=25% align=right>
     <if what='$topic<0'>
      <a href='postings.php?redir=$_&grp=$grp&topic_id=$posting.TopicId'
-	class='topic'>
+	class='topic' title='$posting.TopicDescription'>
       $posting.TopicName
      </a>
     </if>
