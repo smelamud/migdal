@@ -25,7 +25,7 @@
 </ifne>
 <table class=controls $al>
  <tr>
-  <editor>
+  <isedit what='$posting'>
    <td>
     <a href="postingedit.php?editid=$posting.Id&up=$kaitana.Id&grp=$posting.Grp&redirid=$_"
        >Изменить</a>
@@ -41,7 +41,7 @@
      </if>
     </td>
    </if>
-  </editor>
+  </isedit>
   <td><discusslink posting='$posting'></td>
  </tr>
 </table>
