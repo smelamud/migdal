@@ -28,7 +28,7 @@
    <td width=25% align=right>
     <grpitemtitlei grp='$posting.Grp'>
     <grpicon grp='$posting.Grp'>
-    <img border=0 src='$grpicon' title='$grpitemtitlei'>&nbsp;
+    <img src='$grpicon' title='$grpitemtitlei'>&nbsp;
     <if what='$topic<0'>
      <a href='postings.php?redir=$_&grp=$grp&topic_id=$posting.TopicId'
 	class='topic' title='$posting.TopicDescription'>

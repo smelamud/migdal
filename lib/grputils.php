@@ -13,6 +13,11 @@ $this->grp=$grp;
 $this->ignore=$ignore;
 }
 
+function getZero()
+{
+return $this->grp==0;
+}
+
 function getValid()
 {
 return getGrpValid($this->grp);

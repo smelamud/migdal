@@ -3,6 +3,7 @@
 .topics {
 	margin-left: 5px;
 	margin-top: 10px;
+	border-spacing: 0;
 }
 
 .topics TH {
@@ -12,6 +13,11 @@
 	text-align: center;
 }
 
+.topics TD {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
 .topics .names {
 	vertical-align: middle;
 }
@@ -19,7 +25,6 @@
 .topics .names A {
 	color: %topics_names;
 	font-size: 9pt;
-	font-weight: bold;
 	text-decoration: none;
 }
 
@@ -31,6 +36,7 @@
 .topics .names A.new {
 	color: %topics_new;
 	font-style: italic;
+	font-weight: bold;
 }
 
 .topics .names A.new:hover {
@@ -40,7 +46,6 @@
 .topics .controls A,.topics .names A.edit {
 	color: %topics_controls;
 	font-size: 8pt;
-	font-weight: normal;
 	text-decoration: none;
 }
 
@@ -50,9 +55,8 @@
 }
 
 .topics A .answers {
+	font-size: 9pt;
 	color: %topics_answers;
-	font-weight: normal;
-	font-style: italic;
 }
 
 .topics A:hover .answers {

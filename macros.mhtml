@@ -158,6 +158,13 @@
  </zone>
 </macro>
 
+<macro name='reloadnot'>
+ <require name='lib/utils.php'>
+ <zone>
+  <call func='reloadNotParameter' arg1='%why' arg2='%var' arg3='%value'>
+ </zone>
+</macro>
+
 << GRP >>
 <macro name='grpdata' defaults="name=g grp='$grp' ignore=0">
  <require name='lib/grputils.php'>

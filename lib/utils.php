@@ -5,6 +5,8 @@ require_once('lib/uri.php');
 
 function reloadParameter($cond,$key,$value)
 {
+global $REQUEST_URI;
+
 if($cond)
   {
   header('Location: '.remakeURI($REQUEST_URI,
@@ -12,6 +14,11 @@ if($cond)
 				array($key => $value)));
   exit;
   }
+}
+
+function reloadNotParameter($cond,$key,$value)
+{
+reloadParameter($cond==0,$key,$value);
 }
 
 function makeValue($value)

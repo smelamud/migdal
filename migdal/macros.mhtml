@@ -97,7 +97,7 @@
 <decgrpmesgs name='grpident' vals='messages,forums,news,gallery,articles'>
 <decgrpmesgs name='grpicon' vals='pics/all.gif,pics/opinion.gif,pics/new.gif,pics/all.gif,pics/article.gif'>
 <decgrpmesgs name='grppic'
-             vals='pics/forums.gif,pics/forums.gif,pics/news.gif,pics/gallery.gif,pics/articles.gif'>
+             vals='pics/index.gif,pics/forums.gif,pics/news.gif,pics/gallery.gif,pics/articles.gif'>
 
 <macro name='ofmessages'>
  <zone>

@@ -1,9 +1,24 @@
 << @(#) $Id$ >>
 << Based-on: demo/parts/topics.mhtml 1.5 >>
 
+<macro name='grayed'>
+ <if what='$g.Effective==*GRP_%^group'>
+  <img src='pics/%file.gif' title='%title'>
+ <else>
+  <a href='$[grp=*GRP_%^group]'>
+   <img border=0 src='pics/%{file}-gray.gif' title='%title'></a>
+ </if>
+</macro>
+
 <element name='topics'>
 <iterate_topiclist grp='$g.Effective' withpostings='$withpostings'
                    withanswers='$withanswers'>
+<ife what='$title'>
+ <grayed group='tape' file='all' title='Все'>
+ <grayed group='news' file='new' title='Новости'>
+ <grayed group='forums' file='opinion' title='Мнения'>
+ <grayed group='articles' file='article' title='Статьи'>
+</if>
 <if what='$$userAdminTopics || $;Count!=0'>
  <table class='topics' width=100%>
   <col width='0*'>
