@@ -31,6 +31,7 @@ Disallow: /topicdel.php
 Disallow: /topicedit.php
 Disallow: /topiclinkadd.php
 Disallow: /topicorg.php
+Disallow: /urls.php
 Disallow: /useredit.php
 Disallow: /userfin.php
 Disallow: /userlost.php
