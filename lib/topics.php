@@ -234,8 +234,9 @@ $hide=$userModerator ? 2 : 1;
 $postFilter=$withPostings ? 'having message_count<>0' : '';
 $subdomainFilter=$subdomain>=0 ? "and postings.subdomain=$subdomain" : '';
 $this->TopicIterator(
-      "select topics.id as id,topics.up as up,topics.name as name,
-              topics.stotext_id as stotext_id,stotexts.body as description,
+      "select topics.id as id,topics.ident as ident,topics.up as up,
+              topics.name as name,topics.stotext_id as stotext_id,
+	      stotexts.body as description,
 	      count(distinct messages.id) as message_count,
 	      max(messages.sent) as last_message
        from topics
