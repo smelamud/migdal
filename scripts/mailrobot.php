@@ -22,13 +22,11 @@ preg_match("/^(.+?\n)\n(.*)$/s",`../php $path link=$link $userId`,$mailparts);
 $heads=explode("\n",$mailparts[1]);
 $newheads=array();
 foreach($heads as $head)
-       {
        if(preg_match('/^(\w+): (.*)$/',$head,$parts) && $parts[1]=='Subject')
          $subject=$parts[2];
        else
          if($head!='')
            $newheads[]=$head;
-       }
 mail($mail->getEmail(),$subject,$mailparts[2],implode("\n",$newheads));
 }
 
