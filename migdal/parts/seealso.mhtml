@@ -10,6 +10,12 @@
 </for>
 </element>
 
+<element name='seealso_link' params='topic_id'>
+<asp><a href='links.php?topic_id=$topic_id'><asp>
+ <fullname topic_id=$topic_id>
+<asp></a><asp>
+</element>
+
 <element name='seealso_links' params='topic_id'>
 <if what='$topic_id>0'>
  <table class='topics ninept' style='margin: 0'>
@@ -25,7 +31,7 @@
    <tr><td>
     <for>
      <if what='!$;isFirst'><br></if>
-     <a href='links.php?topic_id=$.Id'><fullname topic_id=$.Id></a><asp>
+     <seealso_link topic_id='$.Id'>
      <admin_topics>
       <asp>&nbsp;<asp>
       <a href='actions/topiclinkdel.php?topic_id=$topic_id&peer_id=$.Id&okdir=$#-&faildir=$#-'

@@ -56,6 +56,8 @@
            text='Ошибка базы данных при обновлении маршрутов подтем'>
     <error id='*ETD_NO_DELETE' color=magenta span=2 text='Вы не администратор'>
     <error id='*ETD_TOPIC_ABSENT' span=2 text='Тема не указана'>
+    <error id='*ETD_CROSS_SQL' color=magenta span=2
+           text='Ошибка базы данных при удалении перекрестных ссылок'>
     <topicselect title='Отправить в' name='destid' grp='*GRP_ALL'
 		 value='$destid' root=-1 mandatory='*true'>
     <formbuttons title='Удалить' span=2>

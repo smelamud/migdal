@@ -223,4 +223,5 @@ define('ETD_NEW_TOPIC_SQL',406);
 define('ETD_UPDATE_SQL',407);
 define('ETD_NO_DELETE',408);
 define('ETD_TOPIC_ABSENT',409);
+define('ETD_CROSS_SQL',410);
 ?>

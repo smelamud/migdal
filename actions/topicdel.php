@@ -31,12 +31,17 @@ $result=mysql_query("select count(*)
 		     where topic_id=$id");
 if(!$result)
   return ETD_POSTINGS_SQL;
-if(mysql_result($result,0,0)!=0 && ($destid<=0 || !topicExists($destid)))
+if(mysql_result($result,0,0)!=0
+   && ($destid<=0 || $destid==$id || !topicExists($destid)))
   return ETD_DEST_ABSENT;
 $result=mysql_query("delete from topics
                      where id=$id");
 if(!$result)
   return ETD_DELETE_SQL;
+$result=mysql_query("delete from cross_topics
+                     where topic_id=$id or peer_id=$id");
+if(!$result)
+  return ETD_CROSS_SQL;
 $result=mysql_query("update topics
 		     set up=$destid
 		     where up=$id");
