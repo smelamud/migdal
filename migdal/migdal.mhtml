@@ -30,9 +30,9 @@
   <td class='article cframe'>
    <ifnzero what='$,Id'>
     <subtitle>
-    <article_controls posting='$,'>
+    <article_controls posting='$,' nodiscuss!='!$englishDomain'>
     <article posting='$,' withvote='*false'>
-    <article_controls posting='$,'>
+    <article_controls posting='$,' nodiscuss!='!$englishDomain'>
    </ifnzero>
   </td>
  </tr></table>
