@@ -54,15 +54,16 @@ if(isset($vars["${body}id"]))
   $this->body=tmpTextRestore($vars["${body}id"]);
 }
 
+# Включение large_imageset в WorldVars и CorrespondentVars по непонятным
+# причинам приводит к потере при редактировании связи с large_imageset
 function getCorrespondentVars()
 {
-return array('large_format','image_set','large_imageset');
+return array('large_format','image_set');
 }
 
 function getWorldVars()
 {
-return array('body','large_filename','large_format','large_body','image_set',
-             'large_imageset');
+return array('body','large_filename','large_format','large_body','image_set');
 }
 
 function getAdminVars()
