@@ -22,7 +22,7 @@
      <topics posting='$,'>
     </td>
    <else>
-    <td width=150 class='nframe'>
+    <td class='nframe'>
      <topics_links posting='$,'>
     </td>
    </tr>
