@@ -89,6 +89,7 @@ topics_answers=%nm
 topics_new=red
 topics_controls=%gr
 topics_controls_hover=blue
+topics_arrow=pics/arrow.gif
 catalog_border=black
 catalog_header=%nd
 catalog_header_text=white
@@ -140,6 +141,7 @@ form_starinfo=%grd
 form_buttons_ruler=%nd
 form_buttons_back=%nm
 form_buttons=white
+form_link=blue
 article_split=blue
 article_controls=blue
 article_controls_hover=blue
@@ -823,6 +825,11 @@ BODY {
 .form .buttons INPUT {
 	background-color: %form_buttons_back;
 	color: %form_buttons;
+}
+
+.form A {
+	color: %form_link;
+	text-decoration: underline;
 }
 
 ! Article

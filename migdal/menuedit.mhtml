@@ -25,34 +25,52 @@
  <table width=100%><tr valign=top>
   <td>
    <iterate_menu>
-   <for>
-    <ifnzero what='$next'>
-     <a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&redir=$_'>
-      <img src='pics/menudown.png' alt='Переместить ниже' border=0></a><br>
-     <assign name='next' value='0'>
-    </ifnzero>
-    <if what='$.Id==$menuid'>
-     <if what='!$;isFirst'>
-      <a href='actions/menuxchg.php?firstid=$prev&secondid=$.Id&redir=$_'>
-       <img src='pics/menuup.png' alt='Переместить выше' border=0></a>
-      <br>
-     </if>
-     <a href='$[err edittag menuid=$.Id]'><b>$.Name</b></a>
-     &nbsp;
-     <a href='/actions/menudel.php?id=$.Id&redir=$_'>[Удалить]</a>
-     <assign name='next' value='$.Id'>
-    <else>
-     <a href='$[err edittag menuid=$.Id]'>$.Name</a>
-    </if>
-    <br>
-    <assign name='prev' value='$.Id'>
-   </for>
-   <p>
-   <ifzero what='$menuid'>
-    <a href='$[err edittag menuid=0]'><b>&lt;Добавить&gt;</b></a>
-   <else>
-    <a href='$[err edittag menuid=0]'>&lt;Добавить&gt;</a>
-   </ifzero>
+   <table class='topics' width=100%>
+    <col width='0*'>
+    <tr><th colspan=2>Меню</th></tr>
+    <tbody class='names'>
+     <for>
+      <ifnzero what='$next'>
+       <tr><td></td><td>
+	<a href='actions/menuxchg.php?firstid=$.Id&secondid=$next&redir=$_'>
+	 <img src='pics/menudown.png' alt='Переместить ниже' border=0></a>
+	<assign name='next' value='0'>
+       </td></tr>
+      </ifnzero>
+      <if what='$.Id==$menuid && !$;isFirst'>
+       <tr><td></td><td>
+	<a href='actions/menuxchg.php?firstid=$prev&secondid=$.Id&redir=$_'>
+	 <img src='pics/menuup.png' alt='Переместить выше' border=0></a>
+       </td></tr>
+      </if>
+      <tr>
+       <td>
+	<if what='$.Id==$menuid'>
+         <img src='$$style_topics_arrow' width=11 height=12>
+	</if>
+       </td>
+       <td>
+	<a href='$[err edittag menuid=$.Id]'>$.Name</a>
+	<if what='$.Id==$menuid'>
+	 &nbsp;
+	 <a href='/actions/menudel.php?id=$.Id&redir=$_'
+	    class='edit'>Удалить</a>
+	 <assign name='next' value='$.Id'>
+	</if>
+       </td>
+      </tr>
+      <assign name='prev' value='$.Id'>
+     </for>
+     <tr>
+      <td>
+       <ifzero what='$menuid'>
+        <img src='$$style_topics_arrow' width=11 height=12>
+       </ifzero>
+      </td>
+      <td><a href='$[err edittag menuid=0]' class='new'>Добавить</a></td>
+     </tr>
+    </tbody>
+   </table>
   </td>
   <td>
    <if what='$menuid'>

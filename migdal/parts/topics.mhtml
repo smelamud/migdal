@@ -21,7 +21,7 @@
    <tr>
     <td>
      <if what='$topic_id==-1'>
-      <img src='pics/arrow.gif' width=11 height=12>
+      <img src='$$style_topics_arrow' width=11 height=12>
      </if>
     </td>
     <td><a href='$[topic_id=-1]' class='new'>NEW!</a></td>
@@ -30,7 +30,7 @@
     <tr>
      <td>
       <if what='$topic_id==$.Id'>
-       <img src='pics/arrow.gif' width=11 height=12>
+       <img src='$$style_topics_arrow' width=11 height=12>
       </if>
      </td>
      <td>
