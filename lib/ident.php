@@ -1,9 +1,10 @@
 <?php
 # @(#) $Id$
 
-function byIdent($id)
+function byIdent($id,$byId='id',$byIdent='ident')
 {
-return ($id!='' && ctype_digit($id[0])) ? "id=$id" : "ident='$id'";
+return (is_int($id) || $id!='' && ctype_digit($id,0,1)) ? "$byId=$id" 
+                                                        : "$byIdent='$id'";
 }
 
 function idByIdent($table,$ident)

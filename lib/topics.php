@@ -148,7 +148,7 @@ function getWhere($grp,$up=0,$prefix='')
 global $userAdminTopics;
 
 $hide=$userAdminTopics ? 2 : 1;
-$uf=$up>=0 ? "and $prefix"."up=$up" : '';
+$uf=$up>=0 ? 'and '.byIdent($up,'topics.up','uptopics.ident') : '';
 $gf=getUnpackedGrpFilter($grp,$prefix);
 return " where $prefix"."hidden<$hide $uf $gf ";
 }
@@ -171,11 +171,13 @@ global $userId,$userModerator;
 $hide=$userModerator ? 2 : 1;
 $gf=getPackedGrpFilter($grp,'postings.');
 $this->TopicIterator(
-      "select topics.id as id,topics.up as up,topics.name as name,description,
-	      count(messages.id) as message_count
+      "select topics.id as id,topics.up as up,topics.name as name,
+              topics.description as description,count(messages.id) as message_count
        from topics
 	    left join postings
 	         on topics.id=postings.topic_id $gf
+	    left join topics as uptopics
+	         on uptopics.id=topics.up
             left join messages
 	         on postings.message_id=messages.id
  	 	    and (messages.hidden<$hide or sender_id=$userId)
