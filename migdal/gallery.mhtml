@@ -79,7 +79,9 @@
     <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
      <td><common>
       <subtitle icon='pics/gall-big.gif'>
-      <notonly posting='$,'>
+      <outer><div class='nframe' style='margin-bottom: 5px; padding: 5px'>
+       <inner><notonly posting='$,'></inner>
+      </div></outer>
       <p>
       <outer><div class='nframe' style='padding: 5'><inner>
        <seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'

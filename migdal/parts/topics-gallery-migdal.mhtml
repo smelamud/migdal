@@ -3,24 +3,26 @@
 <element name='topics_gallery_kaitanot' params='posting,topic_id'>
 <topic_obj id='$topic_id'>
 <iterate_topiclist grp='*GRP_KAITANA_GALLERY' up='$topic_id'>
-<topics_table class='eightpt' title='$,Name'>
+<topics_table title='$,Name'>
+ <topics_line text='Новые поступления' href#='gallery.php?topic_id=$topic_id'
+              arrow!='$posting.TopicId==$topic_id' class='ninept item'>
  <for>
   <posting_last topic_id='$.Id' recursive='*false'>
   <topics_line time='$,' text='$.Name' href#='gallery.php?topic_id=$.Id'
-               arrow!='$posting.TopicId==$.Id'>
+               arrow!='$posting.TopicId==$.Id' class='eightpt item'>
  </for>
 </topics_table>
 </element>
 
-<element name='topics_gallery_migdal'>
-<if what='$/$posting.TopicId,2/==$`kaitana`'>
- <topics_gallery_kaitanot posting='$posting' topic_id='$`kaitana`'>
-<elif what='$/$posting.TopicId,2/==$`halom`'>
- <topics_gallery_kaitanot posting='$posting' topic_id='$`halom`'>
-</if>
+<element name='topics_gallery_halom'>
+<topics_gallery_kaitanot posting='$posting' topic_id='$`halom`'>
 </element>
 
-<element name='topics_gallery_migdal_main'>
+<element name='topics_gallery_kaitana'>
+<topics_gallery_kaitanot posting='$posting' topic_id='$`kaitana`'>
+</element>
+
+<element name='topics_gallery_migdal'>
 <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*true'>
 <topics_line time='$,' text='Клуб Еврейского Студента'
 	     href#='gallery.php?topic_id=$`kes`'

@@ -1,28 +1,44 @@
 << @(#) $Id$ >>
 
 <element name='topics_gallery_blog' params='title,topic_id,posting'>
-<topics_table class='eightpt' title='$title'>
+<topics_table title='$title'>
  <iterate_posting_users topic_id='$topic_id'>
+ <topics_line text='Новые поступления' href#='gallery.php?topic_id=$topic_id'
+              arrow!='$posting.UserId<=0' class='ninept item'>
  <for>
   <topics_line time='$.LastMessage' text='$.FullName'
 	       href#='gallery.php?topic_id=$topic_id&user_id=$.Id'
-	       arrow!='$.Id==$posting.UserId'>
+	       arrow!='$.Id==$posting.UserId' class='eightpt item'>
  </for>
 </topics_table>
 </element>
 
-<element name='topics_gallery'>
-<if what='$/$posting.TopicId,0/==$`migdal`'>
- <topics_gallery_migdal posting='$posting'>
-<elif what='$/$posting.TopicId,0/==$`taglit`'>
- <topics_gallery_blog posting='$posting' title='Таглит' topic_id='$`taglit`'>
-<elif what='$/$posting.TopicId,0/==$`veterans`'>
- <topics_gallery_blog posting='$posting' title='Уголок ветерана'
-                      topic_id='$`veterans`'>
-</if>
-
+<element name='topics_gallery_home'>
 <topics_gallery_major posting='$posting'>
 <topics_gallery_events posting='$posting'>
 <topics_minor id='$posting.TopicId' withpostings='*false' grp='*GRP_GALLERY'
 	      href='gallery.php' title='Раздельчики'>
+</element>
+
+<element name='topics_gallery_taglit'>
+<topics_gallery_blog posting='$posting' title='Таглит' topic_id='$`taglit`'>
+</element>
+
+<element name='topics_gallery_veterans'>
+<topics_gallery_blog posting='$posting' title='Уголок ветерана'
+                     topic_id='$`veterans`'>
+</element>
+
+<element name='topics_gallery'>
+<identify posting='$posting'>
+<ifne what='$posting.GalleryUplevelHref'>
+ <ifne what='$posting.GalleryUplevelTitle'>
+  <upper_level name='$posting.GalleryUplevelTitle'
+               href='$posting.GalleryUplevelHref'>
+ <else>
+  <upper_level title='На главную страницу галереи'
+               href='$posting.GalleryUplevelHref'>
+ </ifne>
+</ifne>
+<exec element='$posting.GalleryTopicElement' arg1='$posting'>
 </element>

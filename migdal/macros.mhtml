@@ -214,11 +214,19 @@
        params='posting'>
 <decel name='topics_gallery_events' file='parts/topics-events.php'
        params='posting'>
+<decel name='topics_gallery_halom' file='parts/topics-gallery-migdal.php'
+       params='posting'>
+<decel name='topics_gallery_home' file='parts/topics-gallery-general.php'
+       params='posting'>
+<decel name='topics_gallery_kaitana' file='parts/topics-gallery-migdal.php'
+       params='posting'>
 <decel name='topics_gallery_major' file='parts/topics-gallery-major.php'
        params='posting'>
 <decel name='topics_gallery_migdal' file='parts/topics-gallery-migdal.php'
        params='posting'>
-<decel name='topics_gallery_migdal_main' file='parts/topics-gallery-migdal.php'
+<decel name='topics_gallery_taglit' file='parts/topics-gallery-general.php'
+       params='posting'>
+<decel name='topics_gallery_veterans' file='parts/topics-gallery-general.php'
        params='posting'>
 <decel name='topics_help' file='parts/topics-help.php' params='posting,ident'
        defaults="posting=0 ident=''">
