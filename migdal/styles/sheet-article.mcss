@@ -1,5 +1,9 @@
 ! @(#) $Id$
 
+.article * {
+	font: 12pt %times;
+}
+
 .article .controls {
 	border-bottom: 1px solid %article_split;
 	border-spacing: 0;
@@ -10,7 +14,7 @@
 }
 
 .article .controls A {
-	font-size: 8pt;
+	font: 8pt %verdana;
 	color: %article_controls;
 	text-decoration: none;
 }
@@ -33,18 +37,13 @@
 
 .article A.topic {
 	color: %article_topic;
-	font: bold 10pt %times;
+	font-size: 10pt;
+	font-weight: bold;
 	text-decoration: underline;
 }
 
 .article A.topic:hover {
 	color: %article_topic_hover;
-}
-
-.article H1,.article H2,.article H3,.article H4,.article P,.article B,
-.article I,.article U,.article .author {
-	font-family: %times;
-	font-size: 12pt;
 }
 
 .article H1 {
@@ -63,7 +62,6 @@
 .article H3 {
 	font-size: 14pt;
 	font-weight: bold;
-	font-style: italic;
 	margin: 10px;
 }
 
@@ -82,19 +80,17 @@
 
 .article .imagetitle {
 	text-align: center;
-	font-size: 8pt;
-	font-style: italic;
+	font: italic 8pt %verdana;
 }
 
-.article .sent {
+.article .sent * {
 	color: %article_sent;
-	font-size: 9pt;
+	font: 9pt %verdana;
 }
 
 .article A.name {
 	color: %article_name;
-	font-weight: bold;
-	font-size: 9pt;
+	font: bold 9pt %verdana;
 	text-decoration: none;
 }
 
@@ -112,8 +108,7 @@
 }
 
 .article BLOCKQUOTE P {
-	font-family: %verdana;
-	font-size: 10pt;
+	font: 10pt %verdana;
 }
 
 .article .notes {

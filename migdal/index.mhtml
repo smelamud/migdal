@@ -30,15 +30,8 @@
                  subdomain!='$$officialDomain ? 1 : -1' grp='*GRP_TAPE'
 		 href='index.php' title='Раздельчики'>
   </td>
-   <time>
-   <if what='$topic_id==-1 && $offset==0 && $,@j<14'>
-    <td style='padding: 0'>
-    <kaitana_announce>
-    <div class='cframe' style='padding: 5'>
-   <else>
-    <td class='cframe'>
-   </if>
-   <subtitle icon='pics/all-big.gif'>
+  <td class='cframe'>
+   <subtitle>
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
 	     offset='$offset' subdomain!='$$officialDomain ? 1 : -1'>
    <if what='$topic_id==-1 && $offset==0'>

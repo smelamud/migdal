@@ -11,6 +11,7 @@
                index1!='$day<=0 ? 1 : $day'>
 </ifzero>
 <pagetitle title='Летняя площадка - 5762'>
+<topictitle title='Летняя площадка - 5762'>
 <zone><log event=kaitana text#='post($posting.Id)'></zone>
 
 <macro name='editor'>
@@ -56,9 +57,7 @@
    <topics_major ident='kaitana'>
   </zone></td>
   <td class='cframe'>
-   <div style='font: bold 24pt $$style_times; color: teal; padding-bottom: 1.5ex;'>
-    Летняя площадка - 5762
-   </div>
+   <subtitle>
    <editor>
     <div class=batcher>
      <a href='postingedit.php?up=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'

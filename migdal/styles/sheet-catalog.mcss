@@ -7,8 +7,7 @@
 }
 
 .catalog TT,.catalog PRE {
-	font-family: %courier;
-	font-size: 10pt;
+	font: 10pt %courier;
 }
 
 .catalog TH {

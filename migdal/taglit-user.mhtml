@@ -20,21 +20,21 @@
    <topics_major ident='taglit'>
   </zone></td>
   <td>
-   <subtitle icon='pics/taglit.gif'>
-   <div class='batcher'>
-    <a href='userinfo.php?id=$user.Id&redirid=$_'
-       onClick="UserInfo($user.Id);return false"
-       class='add'>О пользователе $user.Login</a>
-    <ifne what='$user.ReplyLink'>
-     $user.ReplyLink<image src='$$style_mail_image' border=0></a>
-    </ife>
-   </div>
-   <ifzero what='$offset'>
-    <p>
-    <div class='cframe' style='padding: 5'>
-     <taglit_postings taglit_id='$taglit.Id' user_id='$user.Id'>
+   <div class='cframe' style='padding: 5'>
+    <subtitle icon='pics/taglit.gif'>
+    <div class='batcher'>
+     <a href='userinfo.php?id=$user.Id&redirid=$_'
+	onClick="UserInfo($user.Id);return false"
+	class='add'>О пользователе $user.Login</a>
+     <ifne what='$user.ReplyLink'>
+      $user.ReplyLink<image src='$$style_mail_image' border=0></a>
+     </ife>
     </div>
-   </ifzero>
+    <ifzero what='$offset'>
+     <p>
+     <taglit_postings taglit_id='$taglit.Id' user_id='$user.Id'>
+    </ifzero>
+   </div>
    <p>
    <taglit_gallery taglit_id='$taglit.Id' user_id='$user.Id'
                    rows='$userPictureRowPortion'

@@ -8,6 +8,7 @@ advert=%mrm
 advert_link=blue
 info=black
 info_em=%mrm
+title=%mrd
 cframe_back=%r_l
 cframe_back_pic=pics/l-back.jpg
 cframe_border=%mrd
