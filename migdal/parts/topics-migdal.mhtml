@@ -51,7 +51,7 @@
   </td></tr>
  </if>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-                      topic='$,Id' recursive='*false'>
+                      topic_id='$,Id' recursive='*false'>
  <posting_last topic_id='$`migdal-news`' recursive='*true'>
  <topics_line time='$,' href#='migdal-news.php'
               text='Новости &lt;&lt;Мигдаля&gt;&gt;'
@@ -91,7 +91,7 @@
 <element name='topics_migdal_main'>
 <grps>
 <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-		     topic='$`migdal`' recursive='*false'>
+		     topic_id='$`migdal`' recursive='*false'>
 <for>
  <if what='$.Id!=$`postings:migdal`'>
   <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'

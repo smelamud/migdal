@@ -13,14 +13,19 @@
    </tr></table>
   </td>
  </logged>
- <td><spin list='$list'></td>
+ <td align=center><spin list='$list'></td>
+ <td align=right class='eightpt'>
+  <b>Сортировать</b>
+  <navi_sort title='по дате' value='*SORT_PSENT'>|
+  <navi_sort title='по рейтингу' value='*SORT_RATING'>
+ </td>
 </tr></table>
 </element>
 
 <element name='taglit_gallery'>
 <?php $limit=$rows*$cols; ?>
-<iterate_postinglist name='list' grp='*GRP_TAGLIT_GALLERY' topic='$`taglit`'
-                     offset='$offset' limit='$limit' sort='*SORT_RATING'
+<iterate_postinglist name='list' grp='*GRP_TAGLIT_GALLERY' topic_id='$`taglit`'
+                     offset='$offset' limit='$limit' sort='$sort'
 		     user='$user_id'>
 <iterate_rows cols='$cols'>
 <batcher list='$list'>

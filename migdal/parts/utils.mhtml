@@ -38,24 +38,6 @@
 </ife>
 </element>
 
-<element name='discusslink'>
-<table cellspacing=0 cellpadding=0><tr>
- <td>
-  <a href='forum.php?redirid=$_&msgid=$posting.Id'>
-   <asp>Обсудить<asp>
-   <ifnzero what='$posting.AnswerCount'>
-    <asp>&nbsp;($posting.AnswerCount)<asp>
-   </ifnzero>
-  <asp></a>
- </td>
- <ifbiff time='$posting.LastAnswer'>
-  <td>&nbsp;<image src='pics/discussion-new.gif'></td>
- <else>
-  <td>&nbsp;<image src='pics/discussion.gif'></td>
- </ifbiff>
-</tr></table>
-</element>
-
 <element name='lastonline_cell'>
 <ifne what='$class'>
  <assign name='cl' value#=" class=$class">
@@ -87,5 +69,13 @@
    <biff time='$user.LastOnline'>
   </td>
  </if>
+</if>
+</element>
+
+<element name='navi_sort'>
+<if what='$$sort!=$value'>
+ <a href='$[sort=$value offset]'>$title</a>
+<else>
+ <b>$title</b>
 </if>
 </element>

@@ -1,116 +1,36 @@
 << @(#) $Id$ >>
 
-<complains>
-
-<element name='topic' params='posting,showtopic'>
-<if what='$showtopic'>
- <if what='$/$posting.TopicId,1/==$`inet-news`'>
-  <topic_obj id='$`inet-news`'>
-  <a href='links.php' class='topic' title='$,Description'>$,Name</a>
- <else><if what='$/$posting.TopicId,1/==$`migdal-news`'>
-  <topic_obj id='$`migdal-news`'>
-  <a href='migdal-news.php' class='topic' title='$,Description'>$,Name</a>
- <else><if what='$/$posting.TopicId,0/==$`migdal`'>
-  <a href='migdal.php' class='topic'>Мигдаль</a>
- <else>
-  <a href='index.php?topic_id=$posting.TopicId' class='topic'
-     title='$posting.TopicDescription'>$posting.TopicName</a>
- </if></if></if>
- <br>
-</if>
-</element>
-
-<element name='further' params='posting,title'>
- <asp><a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'><asp>
-  <image src='pics/further.gif' border=0 title='$title'>
- <asp></a>&nbsp;<asp>
-</element>
-
-<element name='further_url' params='posting,url'>
- <asp><a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url' target=_blank><asp>
-  <image src='pics/further-far.gif' border=0
-         title='Подробности на другом сайте'>
- <asp></a>&nbsp;<asp>
-</element>
-
-<element name='controls' params='posting,showdiscuss,showcomplain'>
-<table width=90% class='bottom'><tr>
+<element name='discusslink'>
+<table cellspacing=0 cellpadding=0><tr>
  <td>
-  <isedit what='$posting'>
-   <a href="postingedit.php?editid=$posting.Id&root=$`general`&grp=$posting.Grp&redirid=$_"
-      >Изменить</a>
-  <else>
-   <if what='!$$userModerator && $showcomplain'>
-    <logged>
-     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
-        >Жалоба</a>
-    </logged>
-   </if>
-  </isedit>
+  <a href='forum.php?redirid=$_&msgid=$posting.Id'>
+   <asp>Обсудить<asp>
+   <ifnzero what='$posting.AnswerCount'>
+    <asp>&nbsp;($posting.AnswerCount)<asp>
+   </ifnzero>
+  <asp></a>
  </td>
- <if what='$showdiscuss'>
-  <td align=right><discusslink posting='$posting'></td>
- </if>
+ <ifbiff time='$posting.LastAnswer'>
+  <td>&nbsp;<image src='pics/discussion-new.gif'></td>
+ <else>
+  <td>&nbsp;<image src='pics/discussion.gif'></td>
+ </ifbiff>
 </tr></table>
 </element>
 
-<element name='posting_general'>
-<if what='$posting.isRebe'><span class='rebe'></if>
- <dl class='posting'>
-  <dt class='subject'>
-   <topic posting='$posting' showtopic='$showtopic'>
-   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
-               image='$$style_cframe_back_pic'>
-   <biff time='$posting.Sent'>
-   <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
-    <a href='$posting.DetailsFile?redirid=$_&$posting.DetailsId=$posting.Id'>
-     $posting.Subject</a>
-   <else>
-    $posting.Subject
-   </if>
-   <ifne what='$posting.Author'>
-    <br><span class='author'>$posting.Author</span>
-   </ifne>
-  </dt>
-  <dd><p>
-  <ifnzero what='$posting.ImageSet'>
-   <table align=left class='pic'>
-    <tr><td>
-     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
-    </td></tr>
-    <ifne what='$posting.Title'>
-     <tr><td>$posting.HTMLTitle</td></tr>
-    </ifne>
-   </table>
-  </ifnzero>
-  <if what='$shorten && !$posting.hasLargeBody'>
-   $posting.HTMLBodyMedium&nbsp;<asp>
-   <if what='!$posting.isBodyMedium'>
-    <further posting='$posting' title='Читать дальше'>
-   </if>
-  <else>
-   $posting.HTMLBody&nbsp;<asp>
-  </if>
-  <if what='$posting.hasLargeBody'>
-   <further posting='$posting' title='Читать статью'>
-  </if>
-  <ifne what='$posting.URL'>
-   <further_url posting='$posting' url='$posting.URL'>
-  </ifne>
-  </p>
-  <table width=90% style="clear: left"><tr>
-   <td align=left class='sent'>
-    <sentview date='$posting.Sent'>&nbsp;
-    <senderlink message='$posting'>
-   </td>
-   <ifne what='$posting.Source'>
-    <td class='source'>
-     $posting.HTMLSource
-    </td>
-   </ifne>
-  </tr></table>
-  <controls posting='$posting' showdiscuss='$showdiscuss'
-            showcomplain='$showcomplain'>
- </dl>
-<if what='$posting.isRebe'></span></if>
+<element name='posting'>
+<require name='parts/posting-general.php'>
+<require name='parts/gallery-picture.php'>
+<require name='parts/taglit-posting.php'>
+<require name='parts/posting-book.php'>
+<require name='parts/posting-times.php'>
+<require name='parts/posting-times-cover.php'>
+<require name='parts/taglit-gallery-picture.php'>
+<require name='parts/kaitana-picture.php'>
+<require name='parts/tip-posting.php'>
+<require name='parts/link-posting.php'>
+<if what='$posting.TapeCenter'><center></if>
+ <exec element='$posting.TapeElement' arg1='$posting' arg2='$showtopic'
+       arg3='$showdiscuss' arg4='$showcomplain' arg5='$shorten'>
+<if what='$posting.TapeCenter'></center></if>
 </element>

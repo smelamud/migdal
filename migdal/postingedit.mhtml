@@ -15,7 +15,7 @@
 <int name='up'>
 <ident name='root' table='topics'>
 <int name='full'>
-<posting_obj id='$editid' grp='$grp' topic='$topic_id' up='$up'>
+<posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'>
 <pagetitle title#='Редактирование $message.GrpItemsTitle'>
 
 <macro name='full'>

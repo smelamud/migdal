@@ -25,14 +25,6 @@
 </tr></table>
 </element>
 
-<element name='navi_sort' params='value,title'>
-<if what='$$sort!=$value'>
- <a href='$[sort=$value offset]'>$title</a>
-<else>
- <b>$title</b>
-</if>
-</element>
-
 <element name='navigator'>
 <table width=100% class='eframe'>
  <tr><td align=right class='eightpt'>

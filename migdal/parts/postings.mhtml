@@ -41,9 +41,9 @@
 </element>
 
 <element name='postings'>
-<iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
-                     sort='$sort' subdomain='$subdomain' user='$user_id'
-		     showshadows='$showshadows'>
+<iterate_postinglist grp='$grp' topic_id='$topic' limit='$limit'
+                     offset='$offset' sort='$sort' subdomain='$subdomain'
+		     user='$user_id' showshadows='$showshadows'>
 <if what='$$userId>0 || $showadvert || $;Count!=0'>
  <batcher list='$;' topic='$topic' grp='$grp' root='$root'
           showadvert='$showadvert'>

@@ -127,7 +127,7 @@
  </table>
  <table class='ninept cframe' width=100%><tr><td>
   <error_lines>
-  <iterate_postinglist topic='$topic_id' limit=20 offset='$offset'
+  <iterate_postinglist topic_id='$topic_id' limit=20 offset='$offset'
 		       showshadows='*true' grp='$grp' recursive='$recursive'>
   <batcher list='$;'>
   <ifnzero what='$;Count'>

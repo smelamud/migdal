@@ -22,7 +22,7 @@
 
 <element name='forumcatalog'>
 <grps>
-<iterate_postinglist grp='*GRP_DISCUSS' topic='$topic' limit='$limit'
+<iterate_postinglist grp='*GRP_DISCUSS' topic_id='$topic' limit='$limit'
                      offset='$offset' sort='*SORT_ACTIVITY'
 		     withanswers='*GRP_NOT_FORUMS'
 		     showshadows!='$topic>0 || $$userModerator'>

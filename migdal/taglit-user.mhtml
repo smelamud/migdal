@@ -2,6 +2,10 @@
 
 <int name='offset'>
 <int name='user_id'>
+<int name='sort'>
+<ifzero what='$sort'>
+ <assign name='sort' value='*SORT_PSENT'>
+</ifzero>
 <grps>
 <user_obj name='user' id='$user_id'>
 <pagetitle title#='Таглит - $user.FullName'>
@@ -35,7 +39,8 @@
    </div>
    <p>
    <taglit_gallery user_id='$user.Id' rows='$userPictureRowPortion'
- 		   cols='$userPictureColumnPortion' offset='$offset'>
+ 		   cols='$userPictureColumnPortion' offset='$offset'
+		   sort='$sort'>
   </td>
  </tr></table>
  <bottom>

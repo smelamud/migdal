@@ -167,7 +167,7 @@
      <select_issue issue='$issue'>
      <p>
      <batcher times='$times' issue='$issue'>
-     <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic='$`migdal-times`'
+     <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`migdal-times`'
 			  recursive='*true' limit=0 sort='*SORT_INDEX0'
 			  index1!='$issue<0 ? 0 : $issue'>
      <assign name='topicname' value=''>

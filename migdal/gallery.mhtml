@@ -1,10 +1,13 @@
 << @(#) $Id$ >>
 
 <ident name='topic_id' table='topics'>
-<int name='offset'>
-
 <ifzero what='$topic_id'>
  <assign name='topic_id' value='-1'>
+</ifzero>
+<int name='offset'>
+<int name='sort'>
+<ifzero what='$sort'>
+ <assign name='sort' value='*SORT_PSENT'>
 </ifzero>
 
 << Traps >>
@@ -48,9 +51,15 @@
      <subtitle icon='pics/gall-big.gif'>
      <seealso_links topic_id='$topic_id'
 		    title='См. также в разделе ссылок'>
+     <notlogged>
+      <div class='info'>
+       <em>Хотите добавлять картинки?</em>
+       <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+      </div>
+     </notlogged>
     </div>
     <gallery topic='$topic_id' rows='$userPictureRowPortion'
-	     cols='$userPictureColumnPortion' offset='$offset'>
+	     cols='$userPictureColumnPortion' offset='$offset' sort='$sort'>
    </if>
   </td>
  </tr></table>

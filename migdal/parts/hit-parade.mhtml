@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='hit_parade'>
-<iterate_postinglist grp='$grp' topic='$topic_id' limit='$limit'
+<iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
 		     sort='$sort' recursive='*true' later='$later'
 		     showshadows='$showshadows'>
 <ifnzero what='$;Count'>

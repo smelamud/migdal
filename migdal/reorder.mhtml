@@ -25,11 +25,11 @@
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
-   <iterate_postinglist name='sels' grp='$grp' topic='$topic_id'
+   <iterate_postinglist name='sels' grp='$grp' topic_id='$topic_id'
                         recursive='*true' limit=0 sort='*SORT_INDEX0'
 			index1!='$issue' up='$up'>
-   <iterate_postinglist grp='$grp' topic='$topic_id' recursive='*true' limit=0
-                        sort='*SORT_INDEX0' index1!='$issue' up='$up'>
+   <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='*true'
+                        limit=0 sort='*SORT_INDEX0' index1!='$issue' up='$up'>
    <table>
     <error id='*EO_DUPS' text='Некоторые статьи указаны дважды' span=2>
     <error id='*EO_NO_ARTICLE' text='Статьи не существует' span=2>

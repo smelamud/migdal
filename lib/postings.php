@@ -228,7 +228,7 @@ class PostingListIterator
 {
 var $topicFilter;
 
-function PostingListIterator($grp,$topic=-1,$recursive=false,$limit=10,
+function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
 			     $subdomain=-1,$up=-1,$showShadows=true)
@@ -237,7 +237,7 @@ global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $this->topicFilter='';
-$this->addTopicFilter($topic,$recursive);
+$this->addTopicFilter($topic_id,$recursive);
 $userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
 $order=getOrderBy($sort,
        array(SORT_SENT     => 'sent desc',
@@ -479,7 +479,7 @@ return newGrpPosting(GRP_TIMES_COVER,$row);
 
 }
 
-function getPostingById($id=-1,$grp=GRP_ALL,$topic=0,$index1=-1,$up=-1)
+function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=0,$index1=-1,$up=-1)
 {
 global $userId,$userModerator;
 
@@ -505,7 +505,7 @@ $result=mysql_query("select postings.id as id,ident,message_id,up,stotext_id,
 	  or sqlbug('Ошибка SQL при выборке постинга');
 return mysql_num_rows($result)>0
        ? newPosting(mysql_fetch_assoc($result))
-       : newGrpPosting($grp,array('topic_id' => idByIdent('topics',$topic),
+       : newGrpPosting($grp,array('topic_id' => $topic_id,
                                   'up'       => $up));
 }
 

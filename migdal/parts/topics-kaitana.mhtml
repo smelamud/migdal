@@ -3,7 +3,7 @@
 <element name='topics_kaitana'>
 <topic_obj id='$topic_id'>
 <topics_table class='eightpt' title='$,Name'>
- <iterate_postinglist topic='$topic_id' grp='*GRP_KAITANA_NEWS'
+ <iterate_postinglist topic_id='$topic_id' grp='*GRP_KAITANA_NEWS'
                       sort='*SORT_INDEX1' limit=0>
  <for>
   <topics_line time='$.Sent' text='$.Subject'

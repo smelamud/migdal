@@ -96,9 +96,9 @@
          file='lib/postings.php' params='grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
-         params='grp,topic,recursive,limit,offset,personal,sort,withanswers,
+         params='grp,topic_id,recursive,limit,offset,personal,sort,withanswers,
 	         user,index1,later,subdomain,up,showshadows'
-         defaults="grp='$grp' topic=-1 recursive='*false' limit=10 offset=0
+         defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           personal=0 sort='*SORT_SENT' withanswers='*GRP_NONE' user=0
 		   index1=-1 later=0 subdomain=-1 up=-1 showshadows='*true'">
 <deciter macro='received_instant_messagelist'
@@ -200,8 +200,8 @@
 <deccall macro='plural' func='getPlural' file='lib/utils.php'
          params='value,words' defaults="words='$*'">
 <deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
-         params='id,grp,topic,index1,up'
-	 defaults='id=-1 name=message grp=*GRP_ALL topic=0 index1=-1 up=-1'>
+         params='id,grp,topic_id,index1,up'
+	 defaults='id=-1 name=message grp=*GRP_ALL topic_id=0 index1=-1 up=-1'>
 <deccall macro='posting_full' func='getFullPostingById' file='lib/postings.php'
          params='id,grp,index1,topic_id'
 	 defaults='id=-1 name=message grp=*GRP_ALL index1=-1 topic_id=-1'>

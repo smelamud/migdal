@@ -1,30 +1,34 @@
 << @(#) $Id$ >>
 
 <element name='batcher' params='list,topic'>
-<table width=100% class='batcher'><tr valign=bottom>
- <td align=left class='info'>
+<table width=100%>
+ <tr valign=bottom>
   <logged>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <assign name='root' value!='$/$topic,0/==$`migdal` ? $`migdal` : $`general`'>
-     <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_GALLERY&redirid=$_'
-	>Добавить картинку</a>
-    </td>
-   </tr></table>
-  <else>
-   <em>Хотите добавлять картинки?</em>
-   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+   <td align=left class='info'>
+    <table><tr valign=center>
+     <td><image src='pics/sheet.gif'></td>
+     <td>
+      <assign name='root' value!='$/$topic,0/==$`migdal` ? $`migdal` : $`general`'>
+      <a href='postingedit.php?topic_id=$topic&root=$root&grp=*GRP_GALLERY&redirid=$_'
+	 >Добавить картинку</a>
+     </td>
+    </tr></table>
+   </td>
   </logged>
- </td>
- <td><spin list='$list'></td>
-</tr></table>
+  <td align=center><spin list='$list'></td>
+  <td align=right class='eightpt'>
+   <b>Сортировать</b>
+   <navi_sort title='по дате' value='*SORT_PSENT'>|
+   <navi_sort title='по рейтингу' value='*SORT_RATING'>
+  </td>
+ </tr>
+</table>
 </element>
 
 <element name='gallery'>
 <?php $limit=$rows*$cols; ?>
-<iterate_postinglist name='list' grp='*GRP_GALLERY' topic='$topic'
-                     offset='$offset' limit='$limit' sort='*SORT_RATING'
+<iterate_postinglist name='list' grp='*GRP_GALLERY' topic_id='$topic'
+                     offset='$offset' limit='$limit' sort='$sort'
 		     subdomain='$subdomain'>
 <iterate_rows cols='$cols'>
 <batcher list='$list' topic='$topic' grp='*GRP_GALLERY'>

@@ -83,7 +83,7 @@
    <subtitle>
    <batcher kaitana='$kaitana'>
    <table class=article width=100% cellspacing=5 cellpadding=0><tr valign=top>
-    <iterate_postinglist topic='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
+    <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
 			 sort='*SORT_RATING' limit=0
  	                 index1!='$posting.Id!=0 ? $posting.Index1 : $day'>
     <td width=140>

@@ -33,7 +33,7 @@
 <decel name='discussions' file='parts/discussions.php'
        params='topic_id,title,limit'
        defaults="topic_id='-1' title='Обсуждения' limit=5">
-<decel name='discusslink' file='parts/utils.php' params='posting'>
+<decel name='discusslink' file='parts/posting.php' params='posting'>
 <decel name='formbuttons' file='parts/formutils.php' params='title,span'
        defaults="title='Изменить',span=0">
 <decel name='formtable' file='parts/formutils.php' params='title'>
@@ -47,8 +47,9 @@
        defaults='limit=10 offset=0'>
 <decel name='friends' file='parts/friends.php'>
 <decel name='gallery' file='parts/gallery.php'
-       params='topic,rows,cols,offset,subdomain'
-       defaults="topic=-1 rows=4 cols=5 offset=0 subdomain=-1">
+       params='topic,rows,cols,offset,subdomain,sort'
+       defaults="topic=-1 rows=4 cols=5 offset=0 subdomain=-1
+                 sort='*SORT_PSENT'">
 <decel name='gallery_main' file='parts/gallery-main.php'
        params='cols,subdomain' defaults="cols=5 subdomain=-1">
 <decel name='gallery_picture' file='parts/gallery-picture.php'
@@ -90,6 +91,7 @@
 <decel name='mailru_logo' file='parts/mailru.php'>
 <decel name='menu' file='parts/menu.php' params='ident,target'
        defaults="target=''">
+<decel name='navi_sort' file='parts/utils.php' params='value,title'>
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
@@ -99,11 +101,15 @@
                  shorten='*false' root=$`general`">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,text,image_id' defaults="text=''">
+<decel name='posting' file='parts/posting.php'
+       params='posting,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
 <decel name='posting_book' file='parts/posting-book.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
-<decel name='posting_general' file='parts/posting.php'
+<decel name='posting_general' file='parts/posting-general.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
@@ -141,7 +147,7 @@
        defaults="icon=''">
 <decel name='taglit' file='parts/taglit.php'>
 <decel name='taglit_gallery' file='parts/taglit-gallery.php'
-       params='user_id,rows,cols,offset'>
+       params='user_id,rows,cols,offset,sort' defaults="sort='*SORT_PSENT'">
 <decel name='taglit_gallery_picture' file='parts/taglit-gallery-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
@@ -215,26 +221,6 @@
   <plural value%!value='%value'>
   $,
  </zone>
-</macro>
-
-<macro name='posting'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
- <require name='parts/posting.php'>
- <require name='parts/gallery-picture.php'>
- <require name='parts/taglit-posting.php'>
- <require name='parts/posting-book.php'>
- <require name='parts/posting-times.php'>
- <require name='parts/posting-times-cover.php'>
- <require name='parts/taglit-gallery-picture.php'>
- <require name='parts/kaitana-picture.php'>
- <require name='parts/tip-posting.php'>
- <require name='parts/link-posting.php'>
- <if what='%posting.TapeCenter'><center></if>
- <exec element='%posting.TapeElement' arg1%!posting='%posting'
-       arg2%!showtopic='%showtopic' arg3%!showdiscuss='%showdiscuss'
-       arg4%!showcomplain='%showcomplain' arg5%!shorten='%shorten'>
- <if what='%posting.TapeCenter'></center></if>
 </macro>
 
 <macro name='image_linked_tag' defaults="enlarge=true align=''">

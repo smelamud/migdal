@@ -26,7 +26,7 @@
 </element>
 
 <element name='catalog' params='offset'>
-<iterate_postinglist grp='*GRP_BOOKS' topic='$`methodics`'
+<iterate_postinglist grp='*GRP_BOOKS' topic_id='$`methodics`'
                      limit='$$userMsgPortion' offset='$offset'
                      sort='*SORT_PSENT' showshadows='*true'>
 <if what='$$userId>0 || $;Count!=0'>

@@ -60,7 +60,7 @@
     <seealso_links topic_id='$topic_id'
 		   title='См. также в разделе ссылок'>
     <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
-	      offset='$offset' showshadows!='$topic_id>0 || $$userModerator'>
+	      offset='$offset' showshadows!='$topic_id>0'>
    </td>
    <td width=130 class='eframe'>
     <tip>

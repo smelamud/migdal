@@ -11,8 +11,10 @@
    </td>
   </tr></table>
  <else>
-  <em>Хотите добавлять картинки?</em>
-  <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+  <span class='info'>
+   <em>Хотите добавлять картинки?</em>
+   <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+  </span>
  </logged>
 </div>
 </element>
