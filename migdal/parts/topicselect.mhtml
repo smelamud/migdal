@@ -7,7 +7,8 @@
   <td>$title <if what='$mandatory'><star></if></td>
   <td>
    <select name='$name'>
-    <radio title='-- Без темы --' value='$up' peervalue='$value'>
+    <assign name='none' value!='$up<0 ? 0 : $up'>
+    <radio title='-- Без темы --' value='$none' peervalue='$value'>
     <for>
      <radio title='$.FullName' value='$.Id' peervalue='$value'>
     </for>
