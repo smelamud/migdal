@@ -4,7 +4,7 @@
 
 all: crontab php dbcreate.sql
 	(cd $(uiName); $(MAKE) all)
-	ln -sf $(uiName)/grp grp
+	ln -snf $(uiName)/grp grp
 
 crontab: Makefile conf/migdal.conf
 	(\
