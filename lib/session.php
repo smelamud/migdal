@@ -44,7 +44,7 @@ foreach($userSetGlobalNames as $key => $name)
        if($userId>0 && $db!=$glob)
          $update[$userSetDBNames[$key]]=$glob;
        if($cookie!=$glob)
-         SetCookie("cookie$key",$glob,time()+3600*24*366);
+         SetCookie("cookie$key",$glob,time()+3600*24*366,'/');
        $GLOBALS["user$name"]=$glob;
        }
 if($userId>0 && count($update)!=0)
@@ -70,7 +70,7 @@ else
 	       or die('Ошибка SQL при выборке сессии');
   if(mysql_num_rows($result)<=0)
     {
-    SetCookie('sessionid',0);
+    SetCookie('sessionid',0,0,'/');
     $userId=-1;
     }
   else
@@ -87,7 +87,7 @@ else
       $userHidden--;
     mysql_query("update sessions set last=null where sid=$sessionid")
 	 or die('Ошибка SQL при обновлении TIMESTAMP сессии');
-    SetCookie('sessionid',$sessionid,time()+($sessionTimeout+1)*3600);
+    SetCookie('sessionid',$sessionid,time()+($sessionTimeout+1)*3600,'/');
     }
   }
 userSettings();

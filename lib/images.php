@@ -32,7 +32,7 @@ function store()
 {
 global $userId;
 
-$normal=$this->getWorldVarValues();
+$normal=$this->getNormal();
 if($this->id)
   $result=mysql_query(makeUpdate('images',$normal,array('id' => $this->id)));
 else

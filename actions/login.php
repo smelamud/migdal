@@ -23,7 +23,7 @@ $sid=rand();
 mysql_query("insert into sessions(user_id,sid) values($id,$sid)")
      or die('Ошибка SQL при создании сессии');
 incLogins();
-SetCookie('sessionid',$sid,time()+7200);
+SetCookie('sessionid',$sid,time()+7200,'/');
 return EL_OK;
 }
 

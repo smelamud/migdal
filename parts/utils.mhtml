@@ -54,9 +54,9 @@ $message.LoginLink
    <iterate_sortarray>
    <for>
     <if what='$value==$.'>
-     <option label=$. value=$. selected>
+     <option value=$. selected>$.
     <else>
-     <option label=$. value=$.>
+     <option value=$.>$.
     </if>
    </for>
   </select></td>
