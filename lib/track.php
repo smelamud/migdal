@@ -25,9 +25,10 @@ return mysql_query("update $table
 
 function updateTracks($table,$id)
 {
-$result=mysql_query("select id,up,track
+$result=mysql_query("select id,up
                      from $table
-		     where track like '%".track($id)."%'");
+		     where track like '%".track($id)."%' or track=''
+		     order by track");
 if(!$result)
   return false;
 $tracks=array();
