@@ -5,7 +5,7 @@
 <html>
 <stylesheet ident='chat'>
 <preamble>
-<frameset rows='*,45' border=0>
+<frameset rows='*,35' border=0>
  <frame src='chatboard.php?$?' noresize>
  <frame src='chatbottom.php?$?' noresize scrolling=no>
  <noframes>

@@ -27,7 +27,7 @@
    В чате сейчас $count&nbsp;$,
   </zone>
  </td></tr></table>
- <table cellspacing=0 cellpadding=0>
+ <table cellspacing=0 cellpadding=5>
   <for>
    <tr>
     <td><userlink user='$.'></td>
