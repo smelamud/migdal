@@ -7,16 +7,18 @@ require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 
 require_once('parts/top.php');
+
+dbOpen();
+session($sessionid);
 ?>
 <html>
 <head>
  <title>Клуб Еврейского Студента - &lt;шаблон&gt;</title>
 </head>
 <body bgcolor=white>
- <?php
- dbOpen();
- displayTop('template');
- dbClose();
- ?>
+ <?php displayTop('template'); ?>
 </body>
 </html>
+<?php
+dbClose();
+?>

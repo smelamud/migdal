@@ -8,8 +8,8 @@ function dbOpen()
 global $dbLink,$dbHost,$dbName,$dbUser,$dbPassword;
 
 $dbLink=mysql_connect($dbHost,$dbUser,$dbPassword) or
-        die('Cannot connect to database host');
-mysql_select_db($dbName) or die("Cannot select database $dbName");
+        die('Не могу связаться с сервером баз данных');
+mysql_select_db($dbName) or die("Не могу открыть базу данных $dbName");
 }
 
 function dbClose()

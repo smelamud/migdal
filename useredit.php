@@ -23,16 +23,16 @@ if($user->isEditable())
 }
 
 settype($editid,'integer');
+
+dbOpen();
+session($sessionid);
 ?>
 <html>
 <head>
  <title>Клуб Еврейского Студента - Информация о пользователе</title>
 </head>
 <body bgcolor=white>
-  <?php
-  dbOpen();
-  displayTop('users',$editid ? '' : 'no_new');
-  ?>
+  <?php displayTop('users',$editid ? '' : 'no_new'); ?>
   <p>
   <?php
   $user=getUserById($editid);
@@ -218,7 +218,9 @@ settype($editid,'integer');
     </form>
     <?php
     }
-  dbClose();
   ?>
 </body>
 </html>
+<?php
+dbClose();
+?>

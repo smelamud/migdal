@@ -12,7 +12,6 @@ function displayTop($current,$flags='')
 global $sessionid,$redir,$err;
 
 displayMenu($current);?><br><?php
-session($sessionid);
 displayLogin($flags,$err);?><br><?php
 displayBacktrace($redir);?><br><?php
 }

@@ -15,16 +15,16 @@ $ident=getGrpIdent($grp);
 $requestURI=urlencode($REQUEST_URI);
 
 reloadParameter(!isset($ident),'grp',GRP_FORUMS);
+
+dbOpen();
+session($sessionid);
 ?>
 <html>
 <head>
  <title>Клуб Еврейского Студента - <?php echo $title ?></title>
 </head>
 <body bgcolor=white>
-  <?php
-  dbOpen();
-  displayTop($ident);
-  ?>
+  <?php displayTop($ident); ?>
   <center><h1>Темы</h1></center>
   <?php
   if($userAdminTopics)
@@ -54,7 +54,9 @@ reloadParameter(!isset($ident),'grp',GRP_FORUMS);
 	       '[Изменить]</a>';
        echo '<br>'.$item->getDescription();
        }
-  dbClose();
   ?>
 </body>
 </html>
+<?php
+dbClose();
+?>

@@ -20,6 +20,9 @@ settype($topic_id,'integer');
 settype($offset,'integer');
 settype($limit,'integer');
 $limit=$limit==0 ? 10 : $limit;
+
+dbOpen();
+session($sessionid);
 ?>
 <html>
 <head>
@@ -27,7 +30,6 @@ $limit=$limit==0 ? 10 : $limit;
 </head>
 <body bgcolor=white>
   <?php
-  dbOpen();
   displayTop($ident);
   $topic=getTopicNameById($topic_id);
   ?>
@@ -37,8 +39,8 @@ $limit=$limit==0 ? 10 : $limit;
   <table width=100%>
    <tr><td><?php displayMessages($grp,$topic_id,$limit,$offset); ?></td></tr>
   </table>
-  <?php
-  dbClose();
-  ?>
 </body>
 </html>
+<?php
+dbClose();
+?>

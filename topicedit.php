@@ -10,16 +10,16 @@ require_once('parts/top.php');
 require_once('parts/utils.php');
 
 settype($editid,'integer');
+
+dbOpen();
+session($sessionid);
 ?>
 <html>
 <head>
  <title>Клуб Еврейского Студента - Тема</title>
 </head>
 <body bgcolor=white>
- <?php
- dbOpen();
- displayTop('topics');
- ?>
+ <?php displayTop('topics'); ?>
  <p>
  <?php
  $topic=getTopicById($editid);
@@ -55,8 +55,8 @@ settype($editid,'integer');
  <input type=submit value='<?php echo $editid ? 'Изменить' : 'Добавить' ?>'>
  <input type=reset value='Очистить'>
  </form>
- <?php
- dbClose();
- ?>
 </body>
 </html>
+<?php
+dbClose();
+?>

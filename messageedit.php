@@ -19,16 +19,16 @@ $requestURI=urlencode($REQUEST_URI);
 reloadParameter(!isset($ident),'grp',GRP_FORUMS);
 settype($editid,'integer');
 settype($up,'integer');
+
+dbOpen();
+session($sessionid);
 ?>
 <html>
 <head>
  <title>Клуб Еврейского Студента - <?php echo $title ?></title>
 </head>
 <body bgcolor=white>
- <?php
- dbOpen();
- displayTop($ident);
- ?>
+ <?php displayTop($ident); ?>
  <p>
  <?php
  $message=getMessageById($editid,$grp);
@@ -136,8 +136,8 @@ settype($up,'integer');
  <input type=submit value='<?php echo $editid ? 'Изменить' : 'Добавить' ?>'>
  <input type=reset value='Очистить'>
  </form>
- <?php
- dbClose();
- ?>
 </body>
 </html>
+<?php
+dbClose();
+?>

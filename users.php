@@ -6,16 +6,16 @@ require_once('lib/database.php');
 require_once('lib/users.php');
 
 require_once('parts/top.php');
+
+dbOpen();
+session($sessionid);
 ?>
 <html>
 <head>
  <title>Клуб Еврейского Студента - Пользователи</title>
 </head>
 <body bgcolor=white>
-  <?php
-  dbOpen();
-  displayTop('users');
-  ?>
+  <?php displayTop('users'); ?>
   <p>
   <table>
    <tr valign=top>
@@ -41,8 +41,8 @@ require_once('parts/top.php');
 	}
    ?>
   </table>
-  <?php
-  dbClose();
-  ?>
 </body>
 </html>
+<?php
+dbClose();
+?>
