@@ -102,7 +102,7 @@
  </tr></table>
  <p>
  <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_NEWS'
-                      sort='*SORT_RINDEX1' limit=3>
+                      sort='*SORT_RINDEX1' limit=5>
  <for>
   <b>$.Subject:</b>
   <a href='kaitana.php?day=$.Index1'>$.Source</a>
