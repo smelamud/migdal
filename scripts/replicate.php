@@ -31,7 +31,8 @@ foreach($action as $line)
 	   or journalFailure('Error executing replicated query in seq '.
 			     $line->getSeq().' id='.$line->getId().
 			     ": $query");
-         if($line->getTable()!='' && $line->getResultId()!=mysql_insert_id())
+         if($line->getResultTable()!='' &&
+	    $line->getResultId()!=mysql_insert_id())
 	   journalFailure('Identifier shift detected.');
 	 }
        }
