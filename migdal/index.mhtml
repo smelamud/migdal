@@ -23,7 +23,7 @@
  <table width=100%><tr valign=top>
   <td width=120>
    <posting_new grp='*GRP_NEWS' topic_id='$topic_id'>
-   <topics posting='$,' showchapters='*true'>
+   <topics posting='$,' showchapters='*true' withpostings!="$$userDomain=='info'">
   </td>
   <td width=5>&nbsp;</td>
   <td>
@@ -31,8 +31,10 @@
    <postings grp='*GRP_TAPE' topic='$topic_id' limit='$userMsgPortion'
              offset='$offset'>
   </td>
-  <td width=5>&nbsp;</td>
-  <td width=100><hit_parade grp='*GRP_WRITINGS' topic_id='$topic_id'></td>
+  <community>
+   <td width=5>&nbsp;</td>
+   <td width=100><hit_parade grp='*GRP_WRITINGS' topic_id='$topic_id'></td>
+  </community>
  </tr></table>
  <bottom>
 </body>
