@@ -9,6 +9,8 @@
 
 << Elements >>
 
+<decel name='formtable' file='parts/formutils.php' params='title'>
+<decel name='/formtable' file='parts/formutils.php'>
 <decel name='login' file='parts/login.php'>
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
@@ -16,6 +18,8 @@
        defaults="offset=0">
 <decel name='spin' file='parts/spin.php' params='list,picprev,picnext'
        defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
+<decel name='star' file='parts/formutils.php'>
+<decel name='starinfo' file='parts/formutils.php' params='span'
 <decel name='top_admin' file='parts/top-admin.php'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
 <decel name='topics_line' params='arrow,text,title,href,count,class,indent,span'
@@ -30,6 +34,22 @@
 </macro>
 
 << HTML shortcuts >>
+
+<macro name='edit_line' defaults="mandatory='*false'">
+ <tr>
+  <td>%title <if what='%mandatory'><star></if></td>
+  <tdspan span=%span>
+   <edit name='%name' value='%value' size=%size maxlength=%maxlength>
+  </td>
+ </tr>
+</macro>
+
+<macro name='editor_line' defaults="span=0 rows=10 mandatory='*false'">
+ <tr><tdspan span=%span>%title <if what='%mandatory'><star></if></tdspan></tr>
+ <tr><tdspan span=%span>
+  <textarea name='%name' rows=%rows cols=50 wrap='virtual'>%body</textarea>
+ </tdspan></tr>
+</macro>
 
 <macro name='preamble_admin'>
  <stylesheet ident='admin'>
