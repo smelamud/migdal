@@ -13,8 +13,7 @@
  </ifnzero>
  <isedit what='$picture'>
   <tr><td class='eightpt' align=center>
-   <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$`kaitana`&grp=$picture.Grp&redirid=$_"
-    >Изменить</a>
+   <editlink posting='$picture'>
   </td></tr>
  </isedit>
  <tr><td class='imagetitle'>

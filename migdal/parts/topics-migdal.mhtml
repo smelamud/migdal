@@ -42,7 +42,7 @@
 <topics_table title='$,Name' span=2>
  <if what='$,UserId==$$userId || $$userModerator'>
   <tr><td colspan=3>
-   <a href='postingedit.php?redirid=$_&topic_id=$,Id&root=$,Id&grp=*GRP_REVIEWS'
+   <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
       class='edit'>Добавить</a>
   </td></tr>
   <tr><td colspan=3>

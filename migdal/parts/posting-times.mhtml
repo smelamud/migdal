@@ -18,8 +18,7 @@
 <table width=90% class='bottom'><tr>
  <td>
   <isedit what='$posting'>
-   <a href="postingedit.php?editid=$posting.Id&root=$`migdal-times`&grp=$posting.Grp&redirid=$_"
-    >Изменить</a>
+   <editlink posting='$posting'>
   </isedit>
  </td>
  <if what='$showdiscuss'>

@@ -66,7 +66,7 @@
   <senderlink message='$posting'>
  </td></tr>
  <tr><td class='bottom'>
-  <a href="postingedit.php?editid=$posting.Id&grp=*GRP_ALL&root=-1&full=1&redirid=$_"
+  <a href="postingedit.php?editid=$posting.Id&grp=*GRP_ALL&full=1&redirid=$_"
      >Изменить</a>
   &nbsp;
   <if what='$posting.isDisabled'>

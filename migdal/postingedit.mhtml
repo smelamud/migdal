@@ -13,7 +13,6 @@
 <int name='topic_id'>
 <int name='grp'>
 <int name='up'>
-<ident name='root' table='topics'>
 <int name='full'>
 <posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'>
 <pagetitle title#='Редактирование $message.GrpItemsTitle'>
@@ -22,6 +21,32 @@
  <if what='$$full'>
 </macro>
 <endif name='/full'>
+
+<full>
+ <assign name='root' value='-1'>
+<else>
+ <if what='$message.Grp==*GRP_BOOK_CHAPTERS'>
+  <assign name='root' value='$message.TopicId'>
+ <else><if what='$/$message.TopicId,0/==$`migdal`'>
+  <if what='$/$message.TopicId,1/==$`kaitana`'>
+   <assign name='root' value='$message.TopicId'>
+  <else><if what='$/$message.TopicId,1/==$`methodics`'>
+   <assign name='root' value='$`methodics`'>
+  <else>
+   <assign name='root' value='$`migdal`'>
+  </if></if>
+ <else><if what='$/$message.TopicId,0/==$`taglit`'>
+  <assign name='root' value='$`taglit`'>
+ <else><if what='$/$message.TopicId,0/==$`migdal-times`'>
+  <assign name='root' value='$`migdal-times`'>
+ <else><if what='$/$message.TopicId,0/==$`veterans`'>
+  <assign name='root' value='$`veterans`'>
+ <else><if what='$/$message.TopicId,0/==$`links`'>
+  <assign name='root' value='$`links`'>
+ <else>
+  <assign name='root' value='$`general`'>
+ </if></if></if></if></if></if>
+</full>
 
 <html>
 <preamble>

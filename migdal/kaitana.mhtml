@@ -35,13 +35,13 @@
  <table class='info'><tr valign=center>
   <td><image src='pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
+   <a href='postingedit.php?topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
       >Добавить новость</a>
   </td>
   <td>&nbsp;</td>
   <td><image src='pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?root=$kaitana.Id&topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+   <a href='postingedit.php?topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
       >Добавить картинку</a>
   </td>
  </tr></table>
@@ -54,8 +54,7 @@
   <tr>
    <editor>
     <td>
-     <a href="postingedit.php?editid=$posting.Id&root=$kaitana.Id&grp=$posting.Grp&redirid=$_"
-	>Изменить</a>
+     <editlink posting='$posting'>
      &nbsp;
     </td>
    </editor>

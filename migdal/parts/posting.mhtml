@@ -1,5 +1,10 @@
 << @(#) $Id$ >>
 
+<element name='editlink'>
+<a href="postingedit.php?editid=$posting.Id&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
+   >Изменить</a>
+</element>
+
 <element name='discusslink'>
 <table cellspacing=0 cellpadding=0><tr>
  <td>

@@ -4,23 +4,24 @@
 <grps>
 
 <element name='batcher' params='list,topic_id'>
+<assign name='topic_id' value!='$topic_id<0 ? $`links` : $topic_id'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <logged>
    <table><tr valign=center>
     <td><image src='pics/sheet.gif'></td>
     <td>
-     <a href='postingedit.php?topic_id=$topic_id&root=$`links`&grp=*GRP_LINKS&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_LINKS&redirid=$_'
 	>Добавить ссылку</a><asp>
-     <if what='$topic_id<=0'>
-      <asp>, <a href='postingedit.php?topic_id=$`inet-news`&root=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
+     <if what='$topic_id==$`links`'>
+      <asp>, <a href='postingedit.php?topic_id=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
 		>новость</a>
      </if>
     </td>
    </tr></table>
   <else>
    <em>
-    Хотите добавлять ссылки<if what='$topic_id<=0'> и новости</if>?
+    Хотите добавлять ссылки<if what='$topic_id==$`links`'> и новости</if>?
    </em>
    <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
   </logged>

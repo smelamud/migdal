@@ -6,7 +6,7 @@
   <table class='info'><tr valign=center>
    <td><image src='pics/sheet.gif'></td>
    <td>
-    <a href='postingedit.php?topic_id=-1&root=$`general`&grp=*GRP_GALLERY&redirid=$_'
+    <a href='postingedit.php?topic_id=$`general`&grp=*GRP_GALLERY&redirid=$_'
        >Добавить картинку</a>
    </td>
   </tr></table>

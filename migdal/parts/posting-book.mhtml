@@ -23,8 +23,7 @@
 <table width=90% class='bottom'><tr>
  <td>
   <isedit what='$posting'>
-   <a href="postingedit.php?editid=$posting.Id&root=$`general`&grp=$posting.Grp&redirid=$_"
-    >Изменить</a>
+   <editlink posting='$posting'>
   <else>
    <if what='!$$userModerator && $showcomplain'>
     <logged>

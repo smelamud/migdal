@@ -5,7 +5,7 @@
 <topics_table title='Оглавление'>
  <isedit what='$book'>
   <tr><td colspan=2>
-   <a href='postingedit.php?redirid=$_&topic_id=$book.TopicId&root=$book.TopicId&grp=*GRP_BOOK_CHAPTERS&up=$book.MessageId'
+   <a href='postingedit.php?redirid=$_&topic_id=$book.TopicId&grp=*GRP_BOOK_CHAPTERS&up=$book.MessageId'
       class='edit'>Добавить</a>
   </td></tr>
   <tr><td colspan=2>

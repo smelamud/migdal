@@ -7,7 +7,7 @@
    <table><tr valign=center>
     <td><image src='pics/sheet.gif'></td>
     <td>
-     <a href='postingedit.php?topic_id=$topic_id&root=$topic_id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
+     <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_TAGLIT_GALLERY&redirid=$_'
 	>Добавить фотографию</a>
     </td>
    </tr></table>

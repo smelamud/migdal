@@ -1,6 +1,9 @@
 << @(#) $Id$ >>
 
 <element name='topicselect'>
+<if what='$root<0'>
+ <assign name='recursive' value='*false'>
+</if>
 <iterate_sortedtopicnames grp='$grp' up='$root' recursive='$recursive'>
 <ifnzero what='$;Count-$recursive'>
  <tr>

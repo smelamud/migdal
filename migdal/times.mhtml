@@ -14,7 +14,7 @@
  <table class='info'><tr valign=center>
   <td><image src='pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?root=$`migdal-times`&topic_id=$`migdal-times`&grp=*GRP_TIMES_COVERS&redirid=$_'
+   <a href='postingedit.php?topic_id=$`migdal-times`&grp=*GRP_TIMES_COVERS&redirid=$_'
       >Добавить обложку</a>
   </td>
  </tr></table>
@@ -27,10 +27,7 @@
              image='$$style_cframe_back_pic'>
  <div class='posting'><table width=150 class='bottom'><tr>
   <editor>
-   <td>
-    <a href="postingedit.php?editid=$cover.Id&root=$`migdal-times`&topic_id=$`migdal-times`&grp=$cover.Grp&redirid=$_"
-     >Изменить</a>
-   </td>
+   <td><editlink posting='$cover'></td>
   </editor>
   <td align=right><discusslink posting='$cover'></td>
  </tr></table></div>
@@ -55,7 +52,7 @@
  <table class='info'><tr valign=center>
   <td><image src='pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?root=$`migdal-times`&grp=*GRP_TIMES_ARTICLES&redirid=$_'
+   <a href='postingedit.php?topic_id=$`migdal-times`&grp=*GRP_TIMES_ARTICLES&redirid=$_'
       >Добавить статью</a>
   </td>
   <if what='$issue>0'>

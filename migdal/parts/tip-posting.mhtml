@@ -19,8 +19,7 @@
 <table width=$len class='bottom'><tr>
  <td>
   <isedit what='$posting'>
-   <a href="postingedit.php?editid=$posting.Id&root=$posting.TopicId&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
-    >Изменить</a>
+   <editlink posting='$posting'>
   <else>
    <if what='!$$userModerator && $showcomplain'>
     <logged>

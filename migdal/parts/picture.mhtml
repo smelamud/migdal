@@ -12,12 +12,11 @@
 </if>
 </element>
 
-<element name='controls' params='picture,root,showcomplain'>
+<element name='controls' params='picture,showcomplain'>
 <logged>
  <tr><td class='modify'>
   <isedit what='$picture'>
-   <a href="postingedit.php?editid=$picture.Id&topic_id=$picture.TopicId&root=$root&grp=$picture.Grp&redirid=$_"
-      >Изменить</a>
+   <editlink posting='$picture'>
   <else>
    <if what='$showcomplain'>
     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
@@ -45,7 +44,7 @@
     <image_linked_tag id='$picture.ImageId' enlarge='$picture.hasLargeImage'>
    </td></tr>
   </ifnzero>
-  <controls picture='$picture' root='$root' showcomplain='$showcomplain'>
+  <controls picture='$picture' showcomplain='$showcomplain'>
   <tr><td class='body'>
    $picture.HTMLBody
   </td></tr>
