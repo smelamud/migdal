@@ -2,7 +2,7 @@
 
 <grps>
 
-<element name='batcher' params='list,topic,grp,root'>
+<element name='batcher' params='list,topic,grp,root,showadvert'>
 <community>
  <posting_new grp='$grp'>
  <table width=100% class='batcher'><tr valign=bottom>
@@ -18,16 +18,18 @@
 	class='add'>статью</a>
     </if>
    <else>
-    <span class='info'>
-     <b>
-      <if what='$,isValid'>
-       Хотите добавлять $,GrpItemsTitle?
-      <else>
-       Хотите добавлять новости и статьи?
-      </if>
-     </b>
-     <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
-    </span>
+    <if what='$showadvert'>
+     <span class='info'>
+      <b>
+       <if what='$,isValid'>
+	Хотите добавлять $,GrpItemsTitle?
+       <else>
+	Хотите добавлять новости и статьи?
+       </if>
+      </b>
+      <a href='/register.php?redirid=$_'>Зарегистрируйтесь!</a>
+     </span>
+    </if>
    </logged>
   </td>
   <td><spin list='$list'></td>
@@ -40,7 +42,8 @@
                      sort='*SORT_PSENT' subdomain='$subdomain'
 		     user='$user_id'>
 <if what='$$userId>0 || $;Count!=0'>
- <batcher list='$;' topic='$topic' grp='$grp' root='$root'>
+ <batcher list='$;' topic='$topic' grp='$grp' root='$root'
+          showadvert='$showadvert'>
  <table>
   <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
@@ -54,7 +57,8 @@
            showdiscuss='$$communityDomain' showcomplain='$$communityDomain'>
  </for>
  <ifnzero what='$;Count'>
-  <batcher list='$;' topic='$topic' grp='$grp' root='$root'>
+  <batcher list='$;' topic='$topic' grp='$grp' root='$root'
+           showadvert='$showadvert'>
  </ifnzero>
 <else>
  &nbsp;

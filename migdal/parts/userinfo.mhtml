@@ -37,7 +37,7 @@
  <else>
   <infoline title='Мигдалевец' value='Нет'>
  </if>
- <infoline title='Коротко о себе' value='$,Info'>
+ <infoline title='Коротко о себе' value='$,HTMLInfo'>
  <if what='!$,isHideEmail'>
   <tr>
    <th>E-mail</th>

@@ -86,8 +86,8 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten,times'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true' shorten='*false' times=0">
 <decel name='postings' file='parts/postings.php'
-       params='grp,topic,limit,offset,subdomain,root,user_id'
-       defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='general' user_id=0">
+       params='grp,topic,limit,offset,subdomain,root,user_id,showadvert'
+       defaults="topic=-1 limit=10 offset=0 subdomain=-1 root='general' user_id=0 showadvert='*true'">
 <decel name='rambler_count' file='parts/rambler.php'>
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'

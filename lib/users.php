@@ -10,6 +10,7 @@ require_once('lib/utils.php');
 require_once('lib/tmptexts.php');
 require_once('lib/calendar.php');
 require_once('lib/random.php');
+require_once('lib/text.php');
 
 class User
       extends UserTag
@@ -153,6 +154,11 @@ else
 function getInfo()
 {
 return $this->info;
+}
+
+function getHTMLInfo()
+{
+return stotextToHTML(TF_MAIL,$this->getInfo());
 }
 
 function getAge()
