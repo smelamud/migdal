@@ -71,7 +71,7 @@ return preg_replace('/(&gt;.*)(\n|$)/','<i>\\1</i>'."\n",$s);
 
 function replaceCenter($s)
 {
-return preg_replace('/(^|\n)\s{10}\s*(\S+)\s*(\n|$)/',
+return preg_replace('/(^|\n)[^\S\n]{10}[^\S\n]*(\S+)\s*(\n|$)/',
                     '\\1<center>\\2</center>\\3',$s);
 }
 
