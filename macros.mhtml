@@ -17,6 +17,10 @@
  <require name='lib/stotext-images.php'>
 </macro>
 
+<macro name='sorts'>
+ <require name='lib/sort.php'>
+</macro>
+
 <macro name='text_formats'>
  <require name='lib/text.php'>
 </macro>
@@ -113,10 +117,11 @@
 </macro>
 
 <macro name='iterate_postinglist'
-       defaults="grp='$grp' topic=-1 limit=10 offset=0 personal=0">
+       defaults="grp='$grp' topic=-1 limit=10 offset=0 personal=0 sort='*SORT_SENT'">
  <require name='lib/postings.php'>
  <iterate name='%name' class='PostingListIterator'
-          arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset' arg5='%personal'>
+          arg1='%grp' arg2='%topic' arg3='%limit' arg4='%offset'
+	  arg5='%personal' arg6='%sort'>
 </macro>
 
 <macro name='iterate_sortarray' defaults="values='$*'">

@@ -18,7 +18,8 @@
 
 <element name='Postings'>
 <grpdata>
-<iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'>
+<iterate_postinglist grp='$grp' topic='$topic' limit='$limit' offset='$offset'
+                     sort='*SORT_PSENT'>
 <if what='$$userId>0 || $;Count!=0'>
  <center><h2>$title</h2></center>
  <if what='$g.ValidItem'><logged>

@@ -9,6 +9,7 @@ require_once('lib/grps.php');
 require_once('lib/topics.php');
 require_once('lib/text.php');
 require_once('lib/paragraphs.php');
+require_once('lib/sort.php');
 
 class Posting
       extends Message
@@ -192,13 +193,16 @@ class PostingListIterator
       extends LimitSelectIterator
 {
 
-function PostingListIterator($grp,$topic=-1,$limit=10,$offset=0,$personal=0)
+function PostingListIterator($grp,$topic=-1,$limit=10,$offset=0,$personal=0,
+                             $sort=SORT_SENT)
 {
 global $userId,$userModerator;
 
 $hide=$userModerator ? 2 : 1;
 $topicFilter=$topic<0 ? '' 
                       : ' and '.byIdent($topic,'topic_id','topics.ident').' ';
+$order=getOrderBy($sort,array(SORT_SENT => 'sent desc',
+                              SORT_NAME => 'subject'));
 $this->LimitSelectIterator(
        'Message',
        "select postings.id as id,postings.message_id as message_id,
@@ -227,7 +231,7 @@ $this->LimitSelectIterator(
 	      (messages.disabled<$hide or sender_id=$userId) and
 	      personal_id=$personal and (grp & $grp)<>0 $topicFilter
 	group by messages.id
-	order by sent desc",$limit,$offset,
+	$order",$limit,$offset,
        "select count(*)
 	from postings
 	     left join messages
