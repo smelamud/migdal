@@ -7,7 +7,7 @@
 			    *GRP_LIBRARY_ANNOUNCES))!=0'>
   <if what='$/$posting.TopicId,0/==$`migdal` ||
 	    $/$posting.TopicId,1/==$`migdal-news`'>
-   <upper_level title='На главную страницу' href='index.php'>
+   <<upper_level title='На главную страницу' href='index.php'>>
    <topics_migdal posting='$posting'>
    <topics_major ident='migdal' posting='$posting'>
   <elif what='$/$posting.TopicId,0/==$`help`'>
