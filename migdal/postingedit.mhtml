@@ -1,5 +1,14 @@
 << @(#) $Id$ >>
 
+<<
+1. Если поле something отсутствует из-за того, что $,hasSomething()
+   возвращает false, оно должно присутствовать в виде hidden, поскольку оно
+   может присутствовать в других тенях этого же сообщения. В противном
+   случае actions/postingmod.php затрет это поле.
+2. Все поля должны включаться, если $full!=0, независимо от значения
+   $,hasSomething().
+>>
+
 <int name='editid'>
 <int name='topic_id'>
 <int name='grp'>
@@ -77,14 +86,14 @@
      <else>
       <hidden name='priority' value='$message.Priority'>
      </full>
-     <if what='$message.hasTopic'>
+     <if what='$message.hasTopic || $full'>
       <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
 		   mandatory='$message.mandatoryTopic' root='$root'
 		   recursive='*true'>
      <else>
       <hidden name='topic_id' value='$message.TopicId'>
      </if>
-     <if what='$full && $message.hasIdent'>
+     <full>
       <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
       <error id='*EP_IDENT_UNIQUE' span=2
 	     text='Так уже обозначено другое сообщение'>
@@ -92,36 +101,36 @@
 		 size=15 maxlength=15 mandatory='$message.mandatoryIdent'>
      <else>
       <hidden name='ident' value='$,Ident'>
-     </if>
-     <if what='$message.hasIndex1'>
+     </full>
+     <if what='$message.hasIndex1 || $full'>
       <error id='*EP_INDEX1_ABSENT' text='Номер не указан' span=2>
       <edit_line title='Номер' value='$message.Index1' name='index1'
 		 size=3 maxlength=5 mandatory='$message.mandatoryIndex1'>
      <else>
       <hidden name='index1' value='$message.Index1'>
      </if>
-     <if what='$message.hasLang'>
+     <if what='$message.hasLang || $full'>
       <error id='*EP_LANG_ABSENT' text='Язык не указан' span=2>
       <langselect value='$message.Lang' name='lang'
                   mandatory='$message.mandatoryLang'>
      <else>
       <hidden name='lang' value='$message.Lang'>
      </if>
-     <if what='$message.hasSubject'>
+     <if what='$message.hasSubject || $full'>
       <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
       <edit_line title='Заголовок' value='$message.Subject' name='subject'
 		 size=52 maxlength=250 mandatory='$message.mandatorySubject'>
      <else>
       <hidden name='subject' value='$message.Subject'>
      </if>
-     <if what='$message.hasAuthor'>
+     <if what='$message.hasAuthor || $full'>
       <error id='*EP_AUTHOR_ABSENT' text='Автор не указан' span=2>
       <edit_line title='Автор' value='$message.Author' name='author'
 		 size=52 maxlength=250 mandatory='$message.mandatoryAuthor'>
      <else>
       <hidden name='author' value='$message.Author'>
      </if>
-     <if what='$message.hasSource'>
+     <if what='$message.hasSource || $full'>
       <error id='*EP_SOURCE_ABSENT' text#='$message.SourceTitle не указан'
 	     span=2>
       <edit_line title='$message.SourceTitle' value='$message.Source'
@@ -130,7 +139,7 @@
      <else>
       <hidden name='source' value='$message.Source'>
      </if>
-     <if what='$message.hasImage'>
+     <if what='$message.hasImage || $full'>
       <error id='*EP_IMAGE_ABSENT' span=2
 	     text='Нужно указать картинку для отображения'>
       <error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
@@ -158,7 +167,7 @@
 		mandatory='$message.mandatoryImage'>
       <error id='*EP_TITLE_SQL' text='Ошибка при установке подписи'
 	     color=magenta span=2>
-      <if what='$message.hasTitle'>
+      <if what='$message.hasTitle || $full'>
        <ifnzero what='$message.ImageSet'>
 	<assign name='ttext' value='$image.Title'>
        <else>
@@ -178,7 +187,7 @@
        <hidden name='title' value='$,Title'>
       </ifnzero>
      </if>
-    <if what='$message.hasLargeBody'>
+    <if what='$message.hasLargeBody || $full'>
      <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
      <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
      <ifne what='$message.LargeFilename'>
@@ -195,7 +204,7 @@
      <help_link href='stotext-help-types.php'
 		title='Какой формат статьи выбрать?' span=2>
      </table></td></tr>
-     <if what='$message.hasBody'>
+     <if what='$message.hasBody || $full'>
       <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
       <editor_line name='body' title='Аннотация' body='$message.Body'
 		   rows=11 cols=60 mandatory='$message.mandatoryBody'>
@@ -209,7 +218,7 @@
      <ifne what='$message.LargeFilename'>
       <hidden name='large_loaded' value=1>
      </ifne>
-     <if what='$message.hasBody'>
+     <if what='$message.hasBody || $full'>
       <error id='*EP_BODY_ABSENT'
 	     text='Напишите хотя бы пару строчек в теле сообщения'>
       <editor_line name='body' title='Текст' body='$message.Body'
@@ -220,7 +229,7 @@
       <hidden name='body' value='$message.Body'>
      </if>
     </if>
-    <if what='$message.hasURL'>
+    <if what='$message.hasURL || $full'>
      <table><tr><td>
       <error id='*EP_URL_ABSENT' text='Ссылка не указана' span=2>
       <edit_line title='Ссылка' value='$message.URL' name='url'
