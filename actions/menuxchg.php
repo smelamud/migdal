@@ -44,7 +44,9 @@ mysql_query('unlock tables')
 if($err==EMIX_OK)
   {
   srand(time());
-  header('Location: '.remakeURI($redir,array('err'),array('reload' => rand(0,999))));
+  header('Location: '.remakeURI($redir,
+                                array('err'),
+				array('reload' => rand(0,999))));
   }
 else
   header('Location: '.remakeURI($redir,array(),array('err' => $err)));

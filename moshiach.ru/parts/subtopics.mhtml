@@ -17,7 +17,8 @@
     >$.Name<img border=0 src=m/a1.gif width=30 height=11></a><br>
   </for>
   <admin_topics>
-   <a class='admin' href='topicedit.php?up=study&redir=$_'>Добавить</a>
+   <a class='admin' href='topicedit.php?up=study&redir=$_'
+      >Добавить подраздел</a>
   </admin_topics>
  </td></tr>
 </table>
