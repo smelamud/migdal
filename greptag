@@ -234,7 +234,7 @@ package main;
 use Getopt::Long;
 Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 
-$VERSION='0.2';
+$VERSION='0.3';
 
 sub more
 {
