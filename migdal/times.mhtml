@@ -104,8 +104,8 @@
     <times_issue issue='$issue' month='$cover.Source'>
    </td></tr></table>
    <p>
-   <table width=100% cellspacing=0 cellpadding=0 class=posting><tr valign=top>
-    <td width=150>
+   <table width=100% cellspacing=0 cellpadding=0><tr valign=top>
+    <td width=150 class=posting>
      <editor>
       <div class=batcher>
        <a href='postingedit.php?up=$times.Id&topic_id=$times.Id&grp=*GRP_TIMES_COVERS&redirid=$_'
