@@ -47,7 +47,7 @@ if(!isset($ident))
      echo makeQuery($HTTP_GET_VARS,
                     array(),
 		    array('ignoregrp' => $ignoregrp ? 0 : 1))
-    ?>'><?php echo $ignoregrp ? 'Показать активные' : 'Показать все' ?></a>
+    ?>'>Показать <?php echo $ignoregrp ? 'активные' : 'все' ?></a>
     <?php
     }
   $list=new TopicListIterator($ignoregrp ? GRP_ANY : $grp);
