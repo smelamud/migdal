@@ -14,13 +14,9 @@
 	background-color: %picture_top_back;
 }
 
-.picture .top A.name {
+.picture .top .name {
 	color: %picture_name;
 	font-weight: normal;
-}
-
-.picture .top A:hover {
-	text-decoration: underline;
 }
 
 .picture .topic {

@@ -19,8 +19,8 @@
        defaults="withvote='*true'">
 <decel name='article_controls' file='parts/article.php' params='posting'>
 <decel name='article_full' file='parts/article.php' params='posting'>
-<decel name='at' file='parts/utils.php' params='target,class,href'
-       defaults="target='' class=''">
+<decel name='at' file='parts/utils.php' params='target,class,href,title'
+       defaults="target='' class='' title=''">
 <decel name='backtrace' file='parts/backtrace.php' params='target'
        defaults="target=''">
 <decel name='blog' file='parts/blog.php' params='topic_id,href'>
@@ -108,7 +108,7 @@
 <decel name='perror' file='parts/utils.php' params='id,text,color,span'
        defaults='color="red" span=0'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten,topiclink'
+       params='picture,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
 <decel name='picture_main' file='parts/picture-main.php'
@@ -166,6 +166,8 @@
 <decel name='top' file='parts/top.php'
        params='ident,no_new,target,showimages'
        defaults="no_new='*false' target='' showimages='*true'">
+<decel name='topiclink' file='parts/posting.php' params='posting,class'
+       defaults="class='topic'">
 <decel name='topics' file='parts/topics-general.php' params='posting'>
 <decel name='topics_kaitana' file='parts/topics-kaitana.php'
        params='day,topic_id'>

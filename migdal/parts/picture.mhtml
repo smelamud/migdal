@@ -2,12 +2,10 @@
 
 <grps>
 
-<element name='topic' params='picture,topiclink,showtopic'>
+<element name='topic' params='picture,showtopic'>
 <if what='$showtopic'>
  <tr><td class='topic'>
-   <a href='$topiclink' class='topic' title='$picture.TopicDescription'>
-    $picture.TopicName
-   </a>
+  <topiclink posting='$picture'>
  </td></tr>
 </if>
 </element>
@@ -34,7 +32,7 @@
    <biff time='$picture.Sent' small='*true'>
    <senderlink message='$picture'>
   </td></tr>
-  <topic picture='$picture' topiclink='$topiclink' showtopic='$showtopic'>
+  <topic picture='$picture' showtopic='$showtopic'>
   <tr><td align=right>
    <vote_frame id='$picture.Id' color='$$style_picture_back'
                image='$$style_picture_back_pic'>

@@ -1,5 +1,52 @@
 << @(#) $Id$ >>
 
+<element name='topiclink_links' params='posting,class'>
+<iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
+<at href#='links.php?topic_id=$posting.TopicId' class='$class'
+    title='$posting.TopicDescription'><asp>
+ <for>
+  <if what='!$;isFirst'>&sp;/&sp;</if>
+  $.Name
+ </for>
+<asp></at>
+</element>
+
+<element name='topiclink'>
+<if what='($posting.Grp & *GRP_GALLERY)!=0'>
+ <at href#='gallery.php?topic_id=$posting.TopicId' class='$class'
+     title='$posting.TopicDescription'>$posting.TopicName</at>
+<else><if what='($posting.Grp & (*GRP_BLOG_GALLERY|*GRP_BLOG_FORUMS))!=0'>
+ <at href#='taglit-user.php?user_id=$posting.SenderId' class='$class'
+     title='$posting.TopicDescription'>$posting.TopicName</at>
+<else><if what='($posting.Grp & *GRP_LINKS)!=0'>
+ <topiclink_links posting='$posting' class='$class'>
+<else><if what='($posting.Grp & (*GRP_TIMES_ARTICLES|*GRP_TIMES_COVERS))!=0'>
+ <at href#='times.php?issue=$posting.Index1' class='$class'
+     title='$posting.TopicDescription'>$posting.TopicName</at>
+<else><if what='($posting.Grp & *GRP_TIPS)!=0'>
+ <at href='tips.php' class='$class' title='$posting.TopicDescription'
+     >$posting.TopicName</at>
+<else><if what='$/$posting.TopicId,0/==$`migdal`'>
+ <if what='$/$posting.TopicId,1/==$`methodics`'>
+  <topic_obj id='$`methodics`'>
+  <at href='methodics.php' class='$class' title='$,Description'>$,Name</at>
+ <else>
+  <at href='migdal.php' class='$class'>Мигдаль</at>
+ </if>
+<else>
+ <if what='$/$posting.TopicId,1/==$`inet-news`'>
+  <topic_obj id='$`inet-news`'>
+  <at href='links.php' class='$class' title='$,Description'>$,Name</at>
+ <else><if what='$/$posting.TopicId,1/==$`migdal-news`'>
+  <topic_obj id='$`migdal-news`'>
+  <at href='migdal-news.php' class='$class' title='$,Description'>$,Name</at>
+ <else>
+  <at href#='index.php?topic_id=$posting.TopicId' class='$class'
+      title='$posting.TopicDescription'>$posting.TopicName</at>
+ </if></if>
+</if></if></if></if></if></if>
+</element>
+
 <element name='editlink'>
 <a href="postingedit.php?editid=$posting.Id&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
    >Изменить</a>

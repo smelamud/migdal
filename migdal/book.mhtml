@@ -37,8 +37,7 @@
 	<image_tag_put id='$,ImageId' size=large>
        </td></tr></table>
       </ifnzero>
-      <a href='index.php?topic_id=$,TopicId' class='topic'
-	 title='$,TopicDescription'>$,TopicName</a>
+      <topiclink posting='$,'>
       <ifne what='$,Author'>
        <p class='author'>$,HTMLAuthor</p>
       </ifne>

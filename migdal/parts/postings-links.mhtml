@@ -42,8 +42,7 @@
 </if>
 <batcher list='$;' topic_id='$topic_id'>
 <for>
- <assign name='post' value='$.'>
- <posting posting='$post' showtopic!='$topic_id<0 && $.Grp==*GRP_LINKS'
+ <posting posting='$.' showtopic!='$topic_id<0 && $.Grp==*GRP_LINKS'
           shorten='*true' showdiscuss='*true' showcomplain='*true'>
 </for>
 <ifnzero what='$;Count'>

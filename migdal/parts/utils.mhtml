@@ -1,17 +1,33 @@
 << @(#) $Id$ >>
 
-<element name='at' params='target,class,href' defaults="target='' class=''">
-<ifne what='$target'>
- <ifne what='$class'>
-  <asp><a href='$href' target='$target' class='$class'><asp>
+<element name='at'>
+<ifne what='$title'>
+ <ifne what='$target'>
+  <ifne what='$class'>
+   <asp><a href='$href' target='$target' class='$class' title='$title'><asp>
+  <else>
+   <asp><a href='$href' target='$target' title='$title'><asp>
+  </ifne>
  <else>
-  <asp><a href='$href' target='$target'><asp>
+  <ifne what='$class'>
+   <asp><a href='$href' class='$class' title='$title'><asp>
+  <else>
+   <asp><a href='$href' title='$title'><asp>
+  </ifne>
  </ifne>
 <else>
- <ifne what='$class'>
-  <asp><a href='$href' class='$class'><asp>
+ <ifne what='$target'>
+  <ifne what='$class'>
+   <asp><a href='$href' target='$target' class='$class'><asp>
+  <else>
+   <asp><a href='$href' target='$target'><asp>
+  </ifne>
  <else>
-  <asp><a href='$href'><asp>
+  <ifne what='$class'>
+   <asp><a href='$href' class='$class'><asp>
+  <else>
+   <asp><a href='$href'><asp>
+  </ifne>
  </ifne>
 </ifne>
 </element>

@@ -74,7 +74,10 @@ global $redir;
 if(strchr($whole,"'") || strchr($whole,'<') || strchr($whole,'>'))
   return $whole;
 if($protocol=='')
-  $url=remakeURI($url,array(),array('redirid' => $redir->getId()));
+  {
+  if($redir)
+    $url=remakeURI($url,array(),array('redirid' => $redir->getId()));
+  }
 else
   if($id!=0)
     $url="actions/link.php?msgid=$id&okdir=".urlencode($url);

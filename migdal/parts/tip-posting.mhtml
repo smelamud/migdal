@@ -4,8 +4,7 @@
 
 <element name='topic' params='posting'>
 <dt class='subject'>
- <a href='tips.php' class='topic' title='$posting.TopicDescription'>
-  $posting.TopicName</a>
+ <topiclink posting='$posting'>
 </dt>
 </element>
 
