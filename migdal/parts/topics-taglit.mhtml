@@ -1,0 +1,11 @@
+<< @(#) $Id$ >>
+
+<element name='topics_taglit'>
+<topics_table class='eightpt' title='Таглит'>
+ <iterate_posting_users topic_id='$taglit.Id'>
+ <for>
+  <topics_line time='$.LastMessage' text='$.FullName'
+	       href#='taglit-user.php?user_id=$.Id'>
+ </for>
+</topics_table>
+</element>
