@@ -1,11 +1,11 @@
--- MySQL dump 9.08
+-- MySQL dump 9.10
 --
 -- Host: localhost    Database: migdal
----------------------------------------------------------
--- Server version	4.0.14-log
+-- ------------------------------------------------------
+-- Server version	4.0.18-log
 
 --
--- Table structure for table 'chat_messages'
+-- Table structure for table `chat_messages`
 --
 
 CREATE TABLE chat_messages (
@@ -20,7 +20,7 @@ CREATE TABLE chat_messages (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'complain_actions'
+-- Table structure for table `complain_actions`
 --
 
 CREATE TABLE complain_actions (
@@ -36,7 +36,7 @@ CREATE TABLE complain_actions (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'complains'
+-- Table structure for table `complains`
 --
 
 CREATE TABLE complains (
@@ -58,7 +58,7 @@ CREATE TABLE complains (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'counters'
+-- Table structure for table `counters`
 --
 
 CREATE TABLE counters (
@@ -69,16 +69,31 @@ CREATE TABLE counters (
   value int(11) NOT NULL default '0',
   started datetime NOT NULL default '0000-00-00 00:00:00',
   finished datetime NOT NULL default '0000-00-00 00:00:00',
+  used tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY message_id (message_id),
   KEY mode (mode),
   KEY serial (serial),
   KEY started (started),
-  KEY finished (finished)
+  KEY finished (finished),
+  KEY message_id_2 (message_id,mode,serial),
+  KEY used (used)
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'cross_topics'
+-- Table structure for table `counters_ip`
+--
+
+CREATE TABLE counters_ip (
+  counter_id int(11) NOT NULL default '0',
+  ip int(10) unsigned NOT NULL default '0',
+  expires datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (counter_id,ip),
+  KEY expires (expires)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table `cross_topics`
 --
 
 CREATE TABLE cross_topics (
@@ -93,7 +108,7 @@ CREATE TABLE cross_topics (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'forums'
+-- Table structure for table `forums`
 --
 
 CREATE TABLE forums (
@@ -108,7 +123,7 @@ CREATE TABLE forums (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'groups'
+-- Table structure for table `groups`
 --
 
 CREATE TABLE groups (
@@ -119,7 +134,7 @@ CREATE TABLE groups (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'horisonts'
+-- Table structure for table `horisonts`
 --
 
 CREATE TABLE horisonts (
@@ -131,7 +146,7 @@ CREATE TABLE horisonts (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'images'
+-- Table structure for table `images`
 --
 
 CREATE TABLE images (
@@ -154,7 +169,7 @@ CREATE TABLE images (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'instants'
+-- Table structure for table `instants`
 --
 
 CREATE TABLE instants (
@@ -169,7 +184,7 @@ CREATE TABLE instants (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'journal'
+-- Table structure for table `journal`
 --
 
 CREATE TABLE journal (
@@ -189,7 +204,7 @@ CREATE TABLE journal (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'journal_vars'
+-- Table structure for table `journal_vars`
 --
 
 CREATE TABLE journal_vars (
@@ -203,7 +218,7 @@ CREATE TABLE journal_vars (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'logs'
+-- Table structure for table `logs`
 --
 
 CREATE TABLE logs (
@@ -218,7 +233,7 @@ CREATE TABLE logs (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'mailings'
+-- Table structure for table `mailings`
 --
 
 CREATE TABLE mailings (
@@ -232,7 +247,7 @@ CREATE TABLE mailings (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'messages'
+-- Table structure for table `messages`
 --
 
 CREATE TABLE messages (
@@ -282,7 +297,7 @@ CREATE TABLE messages (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'multisites'
+-- Table structure for table `multisites`
 --
 
 CREATE TABLE multisites (
@@ -292,7 +307,7 @@ CREATE TABLE multisites (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'packages'
+-- Table structure for table `packages`
 --
 
 CREATE TABLE packages (
@@ -314,7 +329,7 @@ CREATE TABLE packages (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'postings'
+-- Table structure for table `postings`
 --
 
 CREATE TABLE postings (
@@ -354,7 +369,7 @@ CREATE TABLE postings (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'postings_info'
+-- Table structure for table `postings_info`
 --
 
 CREATE TABLE postings_info (
@@ -373,7 +388,7 @@ CREATE TABLE postings_info (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'rating_positions'
+-- Table structure for table `rating_positions`
 --
 
 CREATE TABLE rating_positions (
@@ -390,7 +405,7 @@ CREATE TABLE rating_positions (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'ratings'
+-- Table structure for table `ratings`
 --
 
 CREATE TABLE ratings (
@@ -404,7 +419,7 @@ CREATE TABLE ratings (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'redirs'
+-- Table structure for table `redirs`
 --
 
 CREATE TABLE redirs (
@@ -421,7 +436,7 @@ CREATE TABLE redirs (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'sessions'
+-- Table structure for table `sessions`
 --
 
 CREATE TABLE sessions (
@@ -437,7 +452,7 @@ CREATE TABLE sessions (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'stotext_images'
+-- Table structure for table `stotext_images`
 --
 
 CREATE TABLE stotext_images (
@@ -453,7 +468,7 @@ CREATE TABLE stotext_images (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'stotexts'
+-- Table structure for table `stotexts`
 --
 
 CREATE TABLE stotexts (
@@ -472,7 +487,7 @@ CREATE TABLE stotexts (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'tmp_texts'
+-- Table structure for table `tmp_texts`
 --
 
 CREATE TABLE tmp_texts (
@@ -484,7 +499,7 @@ CREATE TABLE tmp_texts (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'topics'
+-- Table structure for table `topics`
 --
 
 CREATE TABLE topics (
@@ -524,7 +539,7 @@ CREATE TABLE topics (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'users'
+-- Table structure for table `users`
 --
 
 CREATE TABLE users (
@@ -580,7 +595,7 @@ CREATE TABLE users (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'version'
+-- Table structure for table `version`
 --
 
 CREATE TABLE version (
@@ -588,7 +603,7 @@ CREATE TABLE version (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'votes'
+-- Table structure for table `votes`
 --
 
 CREATE TABLE votes (
@@ -603,14 +618,14 @@ CREATE TABLE votes (
   KEY sent (sent)
 ) TYPE=MyISAM;
 
--- MySQL dump 9.08
+-- MySQL dump 9.10
 --
 -- Host: localhost    Database: migdal
----------------------------------------------------------
--- Server version	4.0.14-log
+-- ------------------------------------------------------
+-- Server version	4.0.18-log
 
 --
--- Dumping data for table 'version'
+-- Dumping data for table `version`
 --
 
 INSERT INTO version VALUES (2);

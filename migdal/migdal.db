@@ -1,11 +1,11 @@
--- MySQL dump 9.08
+-- MySQL dump 9.10
 --
 -- Host: localhost    Database: migdal
----------------------------------------------------------
--- Server version	4.0.14-log
+-- ------------------------------------------------------
+-- Server version	4.0.18-log
 
 --
--- Dumping data for table 'ratings'
+-- Dumping data for table `ratings`
 --
 
 
