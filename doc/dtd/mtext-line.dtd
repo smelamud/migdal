@@ -1,0 +1,21 @@
+<!-- @(#) $Id$ -->
+
+<!ENTITY % font "b|i|u|tt|sup">
+<!ENTITY % line "%font;|a|email">
+
+<!ELEMENT mtext-line (#PCDATA|%line;)*>
+
+<!ELEMENT a (#PCDATA|%font;)*>
+<!ATTLIST a
+          href CDATA #REQUIRED
+	  local (false|true) "false">
+
+<!ELEMENT email EMPTY>
+<!ATTLIST email
+          addr CDATA #REQUIRED>
+
+<!ELEMENT b (#PCDATA|%line;)*>
+<!ELEMENT i (#PCDATA|%line;)*>
+<!ELEMENT u (#PCDATA|%line;)*>
+<!ELEMENT tt (#PCDATA|%line;)*>
+<!ELEMENT sup (#PCDATA|%line;)*>

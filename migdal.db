@@ -108,6 +108,84 @@ CREATE TABLE `cross_topics` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `entries`
+--
+
+CREATE TABLE `entries` (
+  `id` int(11) NOT NULL auto_increment,
+  `ident` varchar(75) default NULL,
+  `entry` tinyint(4) NOT NULL default '0',
+  `up` int(11) NOT NULL default '0',
+  `track` varchar(255) NOT NULL default '',
+  `parent_id` int(11) NOT NULL default '0',
+  `orig_id` int(11) NOT NULL default '0',
+  `current_id` int(11) NOT NULL default '0',
+  `grp` int(11) NOT NULL default '0',
+  `link` int(11) NOT NULL default '0',
+  `person_id` int(11) NOT NULL default '0',
+  `user_id` int(11) NOT NULL default '0',
+  `group_id` int(11) NOT NULL default '0',
+  `perms` int(11) NOT NULL default '0',
+  `disabled` tinyint(4) NOT NULL default '0',
+  `subject` varchar(255) NOT NULL default '',
+  `subject_sort` varchar(255) NOT NULL default '',
+  `lang` varchar(7) NOT NULL default '',
+  `author` varchar(255) NOT NULL default '',
+  `author_display` varchar(255) NOT NULL default '',
+  `source` varchar(255) NOT NULL default '',
+  `source_display` varchar(255) NOT NULL default '',
+  `title` varchar(255) NOT NULL default '',
+  `title_display` varchar(255) NOT NULL default '',
+  `comment0` varchar(255) NOT NULL default '',
+  `comment0_display` varchar(255) NOT NULL default '',
+  `comment1` varchar(255) NOT NULL default '',
+  `comment1_display` varchar(255) NOT NULL default '',
+  `url` varchar(255) NOT NULL default '',
+  `url_domain` varchar(70) NOT NULL default '',
+  `url_check` datetime NOT NULL default '0000-00-00 00:00:00',
+  `url_check_success` datetime NOT NULL default '0000-00-00 00:00:00',
+  `body` text NOT NULL,
+  `body_display` text NOT NULL,
+  `body_format` int(11) NOT NULL default '0',
+  `large_body` mediumtext NOT NULL,
+  `large_body_display` mediumtext NOT NULL,
+  `large_body_format` int(11) NOT NULL default '0',
+  `large_body_filename` varchar(70) NOT NULL default '',
+  `priority` tinyint(4) NOT NULL default '0',
+  `index0` int(11) NOT NULL default '0',
+  `index1` int(11) NOT NULL default '0',
+  `index2` int(11) NOT NULL default '0',
+  `set0` int(11) NOT NULL default '0',
+  `set0_index` int(11) NOT NULL default '0',
+  `set1` int(11) NOT NULL default '0',
+  `set1_index` int(11) NOT NULL default '0',
+  `vote` int(11) NOT NULL default '0',
+  `vote_count` int(10) unsigned NOT NULL default '0',
+  `rating` double NOT NULL default '0',
+  `tmpid` int(11) default NULL,
+  `created` datetime NOT NULL default '0000-00-00 00:00:00',
+  `modified` datetime NOT NULL default '0000-00-00 00:00:00',
+  `accessed` datetime NOT NULL default '0000-00-00 00:00:00',
+  `modbits` int(11) NOT NULL default '0',
+  `answers` int(11) NOT NULL default '0',
+  `last_answer` datetime NOT NULL default '0000-00-00 00:00:00',
+  `last_answer_id` int(11) NOT NULL default '0',
+  `small_image` mediumblob NOT NULL,
+  `small_image_x` smallint(6) NOT NULL default '0',
+  `small_image_y` smallint(6) NOT NULL default '0',
+  `has_large_image` tinyint(4) NOT NULL default '0',
+  `large_image` mediumblob NOT NULL,
+  `large_image_x` smallint(6) NOT NULL default '0',
+  `large_image_y` smallint(6) NOT NULL default '0',
+  `image_format` varchar(30) NOT NULL default '',
+  `image_filename` varchar(70) NOT NULL default '',
+  `used` tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `ident` (`ident`),
+  UNIQUE KEY `tmpid` (`tmpid`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `forums`
 --
 
@@ -166,21 +244,6 @@ CREATE TABLE `images` (
   PRIMARY KEY  (`id`),
   KEY `image_set` (`image_set`),
   KEY `used` (`used`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `instants`
---
-
-CREATE TABLE `instants` (
-  `id` int(11) NOT NULL auto_increment,
-  `message_id` int(11) NOT NULL default '0',
-  `shown` tinyint(4) NOT NULL default '0',
-  `confirmed` tinyint(4) NOT NULL default '0',
-  `recipient_id` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `message_id` (`message_id`),
-  KEY `recipient_id` (`recipient_id`)
 ) TYPE=MyISAM;
 
 --
@@ -307,6 +370,18 @@ CREATE TABLE `multisites` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `old_ids`
+--
+
+CREATE TABLE `old_ids` (
+  `table_name` char(32) NOT NULL default '',
+  `old_id` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`table_name`,`old_id`),
+  UNIQUE KEY `entry_id` (`entry_id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `packages`
 --
 
@@ -351,7 +426,6 @@ CREATE TABLE `postings` (
   `index4` int(11) NOT NULL default '0',
   `subdomain` tinyint(4) NOT NULL default '0',
   `used` tinyint(4) NOT NULL default '0',
-  `test` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `message_id` (`message_id`),
   KEY `topic_id` (`topic_id`),

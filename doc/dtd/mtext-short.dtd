@@ -1,0 +1,44 @@
+<!-- @(#) $Id$ -->
+
+<!ENTITY % font "b|i|u|tt|sup">
+<!ENTITY % line "%font;|a|email|br">
+
+<!ELEMENT mtext-short (p|quote|center|h2|h3|h4)*>
+
+<!ELEMENT p (#PCDATA|%line;|ul|ol|dl)*>
+
+<!ELEMENT quote (p|quote|center|h2|h3|h4|br)*>
+
+<!ELEMENT center (#PCDATA|%line;|h2|h3|h4)*>
+
+<!ELEMENT h2 (#PCDATA|br)*>
+<!ELEMENT h3 (#PCDATA|br)*>
+<!ELEMENT h4 (#PCDATA|br)*>
+
+<!ELEMENT a (#PCDATA|%font;|br)*>
+<!ATTLIST a
+          href CDATA #REQUIRED
+	  local (false|true) "false">
+
+<!ELEMENT email EMPTY>
+<!ATTLIST email
+          addr CDATA #REQUIRED>
+
+<!ELEMENT b (#PCDATA|%line;)*>
+<!ELEMENT i (#PCDATA|%line;)*>
+<!ELEMENT u (#PCDATA|%line;)*>
+<!ELEMENT tt (#PCDATA|%line;)*>
+<!ELEMENT sup (#PCDATA|%line;)*>
+
+<!ELEMENT br EMPTY>
+
+<!ELEMENT ul (li)*>
+<!ELEMENT ol (li)*>
+<!ELEMENT dl (li)*>
+<!ATTLIST dl
+          font (b|i|tt) "b">
+
+<!ELEMENT li (#PCDATA|%line;|p)*>
+<!ATTLIST li
+	  title CDATA #IMPLIED>
+
