@@ -61,10 +61,13 @@ return "<a href='$url'".($protocol!='' ? ' target=_blank>' : '>').
 
 function goFurther(&$out,$in,&$start,&$end,&$state,$target=0)
 {
-$out.=preg_replace('/(^|[\s.,:;\(\)])((\S+:\/)?\/\S*[^\s.,:;\(\)])/e',
-		   "'\\1'.getURLTag('\\2','\\3','\\2')",
-		   substr($in,$start,$end-$start));
-$start=$end;
+if($end>$start)
+  {
+  $out.=preg_replace('/(^|[\s.,:;\(\)])((\S+:\/)?\/\S*[^\s.,:;\(\)])/e',
+		     "'\\1'.getURLTag('\\2','\\3','\\2')",
+		     substr($in,$start,$end-$start));
+  $start=$end;
+  }
 $state=$target;
 }
 
@@ -79,12 +82,12 @@ while($ed<strlen($s))
            {
 	   case 0:
 	        $ed=strpos($s,'&#039;',$st);
-		$ed=substr($s,$ed,6)!='&#039;' ? strlen($s) : $ed;
+                $ed=$ed===false ? strlen($s) : $ed;
 		goFurther($c,$s,$st,$ed,$state,1);
 		break;
            case 1:
 	        $ed=$st+6;
-	        if($st==0 || !is_delim($s[$st-1]))
+	        if($st!=0 && !is_delim($s[$st-1]))
 		  goFurther($c,$s,$st,$ed,$state);
 		else
 		  $state=2;
