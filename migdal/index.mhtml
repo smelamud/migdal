@@ -11,7 +11,7 @@
  <trap text='Jewish Internet'>
  <reload href='links.php'>
 </if>
-<if what='$topic_id==12'>
+<if what='!$$userModerator && $topic_id==12'>
  <trap text='Migdal'>
  <reload href='migdal.php'>
 </if>
