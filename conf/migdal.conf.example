@@ -219,7 +219,7 @@ $defaultThumbnail='../migdal/pics/click_here.jpg';
 
 # Каталог для картинок
 
-$imageDir='/home/balu/web/migdal-html/dev/migdal/images'
+$imageDir='/home/balu/web/migdal-html/dev/migdal/images';
 
 # Каталог для временных файлов
 $tmpDir='/tmp';
