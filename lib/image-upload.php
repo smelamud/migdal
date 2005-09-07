@@ -10,7 +10,7 @@ require_once('lib/exec.php');
 function uploadImageUsingMogrify($image,$image_name,$image_size,$image_type,
                                  $thumbnailX,$thumbnailY,&$err)
 {
-global $mogrifyPath,$maxImage,$thumbnailType,$tmpDir;
+global $mogrifyPath,$maxImageSize,$thumbnailType,$tmpDir;
 
 $largeExt=getImageExtension($image_type);
 $smallExt=getImageExtension($thumbnailType);
@@ -32,7 +32,7 @@ if(!rename($image,$largeFile))
   }
 $large_size=getImageSize($largeFile);
 $fd=fopen($largeFile,'r');
-$large=fread($fd,$maxImage);
+$large=fread($fd,$maxImageSize);
 fclose($fd);
 
 $geometry=$thumbnailX.'x'.$thumbnailY;
@@ -40,7 +40,7 @@ getCommand("$mogrifyPath -format $smallExt -geometry '$geometry>' $largeFile");
 
 $small_size=getImageSize($smallFile);
 $fd=fopen($smallFile,'r');
-$small=fread($fd,$maxImage);
+$small=fread($fd,$maxImageSize);
 fclose($fd);
 
 unlink($largeFile);
@@ -69,25 +69,25 @@ return new Image(array('filename'  => $image_name,
 function uploadImageByDefault($image,$image_name,$image_size,$image_type,
                               $hasThumbnail,$thumbnailX,$thumbnailY,&$err)
 {
-global $maxImage,$defaultThumbnail;
+global $maxImageSize,$defaultThumbnail;
 
 if($hasThumbnail)
   {
   $large_size=getImageSize($image);
   $fd=fopen($image,'r');
-  $large=fread($fd,$maxImage);
+  $large=fread($fd,$maxImageSize);
   fclose($fd);
 
   $small_size=getImageSize($defaultThumbnail);
   $fd=fopen($defaultThumbnail,'r');
-  $small=fread($fd,$maxImage);
+  $small=fread($fd,$maxImageSize);
   fclose($fd);
   }
 else
   {
   $small_size=getImageSize($image);
   $fd=fopen($image,'r');
-  $small=fread($fd,$maxImage);
+  $small=fread($fd,$maxImageSize);
   fclose($fd);
 
   $large_size=array(0,0);
@@ -108,7 +108,7 @@ return new Image(array('filename'  => $image_name,
 function uploadImageUsingGD($image,$image_name,$image_size,$image_type,
                             $thumbnailX,$thumbnailY,&$err)
 {
-global $useCopyResampled,$maxImage,$thumbnailType,$tmpDir;
+global $useCopyResampled,$maxImageSize,$thumbnailType,$tmpDir;
 
 if((ImageTypes() & getImageTypeCode($image_type))==0)
   return uploadImageByDefault($image,$image_name,$image_size,$image_type,
@@ -166,11 +166,11 @@ $smallFile=tempnam($tmpDir,'mig-');
 $imageTo($sHandle,$smallFile);
 
 $fd=fopen($image,'r');
-$large=fread($fd,$maxImage);
+$large=fread($fd,$maxImageSize);
 fclose($fd);
 
 $fd=fopen($smallFile,'r');
-$small=fread($fd,$maxImage);
+$small=fread($fd,$maxImageSize);
 fclose($fd);
 
 unlink($smallFile);
@@ -198,7 +198,7 @@ return new Image(array('filename'  => $image_name,
 function uploadImage($name,$hasThumbnail,$thumbnailX,$thumbnailY,&$err,
                      $title='',$image_set=0)
 {
-global $HTTP_POST_FILES,$maxImage,$useMogrify,$tmpDir;
+global $HTTP_POST_FILES,$maxImageSize,$useMogrify,$tmpDir;
 
 $image=$HTTP_POST_FILES[$name]['tmp_name'];
 $image_name=$HTTP_POST_FILES[$name]['name'];
@@ -211,7 +211,7 @@ if(!isset($image) || $image=='' || !is_uploaded_file($image)
   $err=EIU_OK;
   return false;
   }
-if($image_size>$maxImage)
+if($image_size>$maxImageSize)
   {
   $err=EIU_IMAGE_LARGE;
   return false;
@@ -276,4 +276,71 @@ $err=EIU_OK;
 return $img;
 }
 
+define('IFR_OK',0);
+define('IFR_SMALL',1);
+define('IFR_UNKNOWN_FORMAT',2);
+define('IFR_UNSUPPORTED_FORMAT',3);
+define('IFR_UNSUPPORTED_THUMBNAIL',4);
+
+function imageFileResize($fnameFrom,$format,$fnameTo,$thumbnailX,$thumbnailY)
+{
+global $useCopyResampled,$thumbnailType,$glassImagePath;
+
+if((ImageTypes() & getImageTypeCode($format))==0)
+  return IFR_UNSUPPORTED_FORMAT;
+  
+$lFname=getImageTypeName($format);
+if($lFname=='')
+  return IFR_UNKNOWN_FORMAT;
+$imageFrom="ImageCreateFrom$lFname";
+$lHandle=$imageFrom($fnameFrom);
+
+$large_size_x=ImageSX($lHandle);
+$large_size_y=ImageSY($lHandle);
+if($large_size_x>$thumbnailX || $large_size_y>$thumbnailY)
+  {
+  $lAspect=$large_size_x/$large_size_y;
+  $small_size_x=$thumbnailX;
+  $small_size_y=(int)($small_size_x/$lAspect);
+  if($small_size_y>$thumbnailY)
+    {
+    $small_size_y=$thumbnailY;
+    $small_size_x=(int)($small_size_y*$lAspect);
+    }
+  }
+else
+  {
+  $small_size_x=$large_size_x;
+  $small_size_y=$large_size_y;
+  }
+  
+if($useCopyResampled)
+  {
+  $sHandle=ImageCreateTrueColor($small_size_x,$small_size_y);
+  ImageCopyResampled($sHandle,$lHandle,0,0,0,0,$small_size_x,$small_size_y,
+		     $large_size_x,$large_size_y);
+  }
+else
+  {
+  $sHandle=ImageCreate($small_size_x,$small_size_y);
+  ImageCopyResized($sHandle,$lHandle,0,0,0,0,$small_size_x,$small_size_y,
+		   $large_size_x,$large_size_y);
+  }
+
+if($small_size_x==$large_size_x && $small_size_y==$large_size_y)
+  return IFR_SMALL;
+
+$glass=imageCreateFromPNG($glassImagePath);
+list($gx,$gy,$hx,$hy)=array(imageSX($glass),imageSY($glass),
+                            imageSX($sHandle),imageSY($sHandle));
+imageCopy($sHandle,$glass,$hx-$gx,$hy-$gy,0,0,$gx,$gy);
+
+$sFname=getImageTypeName($thumbnailType);
+if((ImageTypes() & getImageTypeCode($thumbnailType))==0 || $sFname=='')
+  return IFR_UNSUPPORTED_THUMBNAIL;
+$imageTo="Image$sFname";
+$imageTo($sHandle,$fnameTo);
+
+return IFR_OK;
+}
 ?>

@@ -275,6 +275,35 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
+function getImageFilename($id,$ext,$fileId=0,$size='large')
+{
+if($size!='' && $size!='large')
+  $sizeC="-$size";
+else
+  $sizeC='';
+if($fileId!=0)
+  $fileC="-$fileId";
+else
+  $fileC='';
+return "migdal$sizeC-$id$fileC.$ext";
+}
+
+function getImagePath($id,$ext,$fileId=0,$size='large')
+{
+global $imageDir;
+
+$fname=getImageFilename($id,$ext,$fileId,$size);
+return "$imageDir/$fname";
+}
+
+function getImageURL($id,$ext,$fileId=0,$size='large')
+{
+global $siteDomain,$imageURL;
+
+$fname=getImageFilename($id,$ext,$fileId,$size);
+return "http://$siteDomain/$imageURL/$fname";
+}
+
 function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php',
                          $static=false,$title='')
 {
@@ -329,13 +358,13 @@ return mysql_num_rows($result)>0;
 
 function imageLoad($mime,$content)
 {
-global $tmpDir,$maxImage;
+global $tmpDir,$maxImageSize;
 
 if((ImageTypes() & getImageTypeCode($mime))==0)
   return false;
 $tmpFile=tempnam($tmpDir,'mig-load-');
 $fd=fopen($tmpFile,'w');
-fwrite($fd,$content,$maxImage);
+fwrite($fd,$content,$maxImageSize);
 fclose($fd);
 $ext=getImageTypeName($mime);
 if($ext=='')
@@ -359,5 +388,14 @@ journal('update images
 	 set image_set='.journalVar('images',$id).
        ' where id='.journalVar('images',$id));
 return $result;
+}
+
+function setMaxImage($max_id)
+{
+sql("update image_files
+     set max_id=$max_id",
+    __FUNCTION__);
+journal('update image_files
+         set max_id='.journalVar('images',$max_id));
 }
 ?>

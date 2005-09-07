@@ -59,9 +59,6 @@ orig_id
     entry,orig_id,person_id,user_id,group_id,perms,disabled,subject_sort,lang,
     priority,index1,index2,set0,set0_index,set1,set1_index,vote,vote_count,
     rating,sent,accessed,answers,last_answer,last_answer_id
-  все атрибуты оригинала, за исключением
-  идентификатора, подтипа, положения в иерархии, modbits, created, modified и
-  index0.
   Все атрибуты, по которым может производиться фильтрация/сортировка, должны
   дублироваться во всех тенях для упрощения запросов. Используется только
   постингами.
@@ -222,6 +219,7 @@ small_image_y
 large_image
 large_image_x
 large_image_y
+large_image_size
 large_image_format
 large_image_filename
   Характеристики прикрепленной картинки и ее уменьшенной копии. Формат

@@ -3,84 +3,62 @@
 
 require_once('lib/bug.php');
 require_once('lib/sql.php');
+require_once('lib/entries.php');
 
-function answerLastSet($message_id,$last)
+function answerGet($id)
 {
-sql("update messages
-     set last_answer='$last'
-     where id=$message_id",
-    'answerLastSet');
+$result=sql("select answers,last_answer,last_answer_id
+	     from entries
+	     where id=$id",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
 }
 
-function answerUpdate($message_id)
+function answerSet($id,$answers,$last,$last_id)
+{
+if($id<=0)
+  return;
+sql("update entries
+     set answers=$answers,last_answer='$last',last_answer_id=$last_id
+     where id=$id or orig_id=$id",
+    __FUNCTION__);
+// id=$id or orig_id=$id требуется для жалоб, у которых не проставлено orig_id
+}
+
+function answerFindLastId($id)
+{
+$result=sql("select id
+	     from entries
+	     where entry=".ENT_FORUM." and parent_id=$id
+	     order by sent desc
+	     limit 1",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function answerUpdate($id)
 {
 $result=sql("select count(*) as answers,max(sent) as last_answer
-	     from forums
-		  left join messages
-		       on forums.message_id=messages.id
-	     where parent_id=$message_id and (perms & 0x1111)=0x1111
-		   and disabled=0",
-	    'answerUpdate','open_answers');
+	     from entries
+	     where entry=".ENT_FORUM." and parent_id=$id
+	           and (perms & 0x1111)=0x1111 and disabled=0",
+	    __FUNCTION__);
 list($answers,$last)=mysql_fetch_array($result);
-answerSet($message_id,$answers);
-answerLastSet($message_id,$last);
-
-$result=sql("select count(*) as answers
-	     from forums
-	     where parent_id=$message_id",
-	    'answerUpdate','all_answers');
-list($answers)=mysql_fetch_array($result);
-answerSetAll($message_id,$answers);
+answerSet($id,$answers,$last,answerFindLastId($id));
 
 if($journalSeq!=0)
-  journal('answers '.journalVar('messages',$message_id));
-}
-
-function answerSet($message_id,$answers)
-{
-sql("update messages
-     set answers=$answers
-     where id=$message_id",
-    'answerSet');
-}
-
-function answerSetAll($message_id,$answers)
-{
-sql("update messages
-     set hidden_answers=$answers-answers
-     where id=$message_id",
-    'answerSetAll');
-}
-
-function answerGet($message_id)
-{
-$result=sql("select answers,last_answer
-	     from messages
-	     where id=$message_id",
-	    'answerGet');
-return mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
+  journal('answers '.journalVar('entries',$id));
 }
 
 function answersRecalculate()
 {
 $result=sql("select parent_id,count(*) as answers,
 		    max(sent) as last_answer
-	     from forums
-		  left join messages
-		       on forums.message_id=messages.id
-	     where (perms & 0x1111)=0x1111 and disabled=0
+	     from entries
+	     where entry=".ENT_FORUM." and (perms & 0x1111)=0x1111
+	           and disabled=0
 	     group by parent_id",
-	    'answersRecalculate','open_answers');
+	    __FUNCTION__);
 while(list($id,$answers,$last)=mysql_fetch_array($result))
-     {
-     answerSet($id,$answers);
-     answerLastSet($id,$last);
-     }
-
-$result=sql("select parent_id,count(*) as answers
-	     from forums
-	     group by parent_id",
-	    'answersRecalculate','all_answers');
-while(list($id,$answers)=mysql_fetch_array($result))
-     answerSetAll($id,$answers);
+     answerSet($id,$answers,$last,answerFindLastId($id));
 }
