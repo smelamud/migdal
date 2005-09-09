@@ -18,6 +18,7 @@ require_once('lib/images.php');
 require_once('lib/image-types.php');
 require_once('lib/image-upload.php');
 require_once('lib/answers.php');
+require_once('lib/users.php');
 require_once('grp/compltypes.php');
 
 $complainIds=array(0 => 0);
@@ -25,6 +26,7 @@ $topicIds=array(0 => 0);
 $postingIds=array(0 => 0);
 $messageIds=array(0 => 0);
 $stotextIds=array(0 => 0);
+$imageIds=array(0 => 0);
 $forumIds=array(0 => 0);
 $maxImage=0;
 
@@ -251,17 +253,17 @@ while($row=mysql_fetch_assoc($result))
 			  'url_check' => $row['url_check'],
 			  'url_check_success' => $row['url_check_success'],
 			  'body' => $body,
-/*			  'body_xml' => $body!=''
+			  'body_xml' => $body!=''
 					? wikiToXML($body,TF_MAIL,MTEXT_SHORT)
-					: '',*/
+					: '',
 			  'body_format' => TF_MAIL,
 			  'has_large_body' => $large_body!='' ? 1 : 0,
-/*			  'large_body' => $large_body,
+			  'large_body' => $large_body,
 			  'large_body_xml' => $large_body!=''
 					      ? wikiToXML($large_body,
 					                  $row['large_format'],
 							  MTEXT_LONG)
-					      : '',*/
+					      : '',
 			  'large_body_format' => $row['large_format'],
 			  'large_body_filename' => $row['large_filename'],
 			  'priority' => $row['priority'],
@@ -388,12 +390,12 @@ if($row['has_large'])
   fclose($fd);*/
   $result=imageFileResize("$imageDir/$largeName",$format,$fname,
                       $row['small_x'],$row['small_y']);
-  if($result==IFS_OK)
+  if($result==IFR_OK)
     list($row['small_x'],$row['small_y'])=getImageSize($fname);
   else
     echo "Resize error: $result\n";
   }
-else
+if(!$row['has_large'] || $result==IFR_SMALL)
   {
   $small=$large;
   $large=0;
@@ -419,7 +421,7 @@ return array($small,$row['small_x'],$row['small_y'],$large,$large_size);
 
 function convertPostingImages()
 {
-global $stotextIds,$maxImage;
+global $stotextIds,$imageIds,$maxImage;
 
 $usedEntries=array();
 $result=sql("select stotexts.id as id,stotexts.image_set as image_set,
@@ -451,9 +453,9 @@ while($row=mysql_fetch_assoc($result))
      $title=unhtmlentities($row['title']);
      if($title!='')
        $update=array('title' => $title,
-/*  		     'title_xml' => $title!=''
+  		     'title_xml' => $title!=''
 				    ? wikiToXML($title,TF_MAIL,MTEXT_SHORT)
-				    : ''*/
+				    : ''
 		    );
      else
        $update=array();
@@ -475,6 +477,7 @@ while($row=mysql_fetch_assoc($result))
 		    array('id' => $id)),
 	 __FUNCTION__,'update');
      $usedEntries[$id]=true;
+     $imageIds[$row['image_id']]=$id;
      putOldId($id,'images',$row['image_id']);
      }
 echo "\n";
@@ -482,7 +485,7 @@ echo "\n";
 
 function convertArticleImages()
 {
-global $stotextIds,$maxImage;
+global $stotextIds,$imageIds,$maxImage;
 
 $result=sql("select stotexts.id as stotext_id,
                     stotexts.large_imageset as image_set,images.id as image_id,
@@ -508,9 +511,9 @@ while($row=mysql_fetch_assoc($result))
                     array('entry' => ENT_IMAGE,
 		          'up' => $parent_id,
 		          'title' => $title,
-/*         		  'title_xml' => $title!=''
+         		  'title_xml' => $title!=''
 					 ? wikiToXML($title,TF_MAIL,MTEXT_SHORT)
-					 : '',*/
+					 : '',
 			  'created' => $now,
 			  'modified' => $now,
 			  'accessed' => $now
@@ -536,6 +539,7 @@ while($row=mysql_fetch_assoc($result))
 		    array('id' => $id)),
 	 __FUNCTION__,'update');
 
+     $imageIds[$row['image_id']]=$id;
      putOldId($id,'images',$row['image_id']);
      updateTracks('entries',$id,false);
      }
@@ -568,9 +572,9 @@ while($row=mysql_fetch_assoc($result))
 			  'perms' => $row['perms'],
 			  'disabled' => $row['disabled'],
 			  'body' => $body,
-/*			  'body_xml' => $body!=''
+			  'body_xml' => $body!=''
 					? wikiToXML($body,TF_MAIL,MTEXT_SHORT)
-					: '',*/
+					: '',
 			  'body_format' => TF_MAIL,
 			  'sent' => $row['sent'],
 			  'created' => $row['sent'],
@@ -611,10 +615,66 @@ while($row=mysql_fetch_assoc($result))
 echo "\n";
 }
 
+function convertLinkedTable($table_name,$old_col,$new_col,&$xlat)
+{
+$result=sql("select distinct $old_col as old_id
+             from $table_name",
+	    __FUNCTION__,'select');
+while($row=mysql_fetch_assoc($result))
+     {
+     $old_id=$row['old_id'];
+     echo "$old_id ";
+     if(!isset($xlat[$old_id]))
+       {
+       echo "Unknown $old_col($old_id)\n";
+       continue;
+       }
+     $id=$xlat[$old_id];
+     sql("update $table_name
+          set $new_col=$id
+	  where $old_col=$old_id",
+	 __FUNCTION__,'update');
+     }
+echo "\n";
+}
+
+function convertUserRights()
+{
+$fields=array('migdal_student' => USR_MIGDAL_STUDENT,
+              'accepts_complains' => USR_ACCEPTS_COMPLAINS,
+	      'rebe' => USR_REBE,
+	      'admin_users' => USR_ADMIN_USERS,
+              'admin_topics' => USR_ADMIN_TOPICS,
+	      'admin_complain_answers' => USR_ADMIN_COMPLAIN_ANSWERS,
+	      'moderator' => USR_MODERATOR,
+	      'judge' => USR_JUDGE,
+	      'admin_domain' => USR_ADMIN_DOMAIN);
+
+$result=sql("select id,migdal_student,accepts_complains,rebe,admin_users,
+                    admin_topics,admin_complain_answers,moderator,judge,
+		    admin_domain
+	     from users",
+	    __FUNCTION__,'select');
+
+while($row=mysql_fetch_assoc($result))
+     {
+     echo $row['id'],' ';
+     $rights=0;
+     foreach($fields as $field => $flag)
+            if($row[$field])
+	      $rights|=$flag;
+     sql("update users
+          set rights=$rights
+	  where id={$row['id']}",
+	 __FUNCTION__,'update');
+     }
+echo "\n";
+}
+
 dbOpen();
 endJournal();
-/*echo "1. Chat messages...\n";
-convertChatMessages();*/
+echo "1. Chat messages...\n";
+convertChatMessages();
 echo "2. Truncate...\n";
 truncateEntries();
 echo "3. Complains...\n";
@@ -636,6 +696,18 @@ echo "10. Complain links...\n";
 convertComplainLinks();
 echo "11. Answer info...\n";
 answersRecalculate();
+echo "12. Counters...\n";
+convertLinkedTable('counters','message_id','entry_id',$messageIds);
+echo "13. Packages...\n";
+convertLinkedTable('packages','message_id','entry_id',$messageIds);
+echo "14. Inner image stotexts...\n";
+convertLinkedTable('inner_images','stotext_id','entry_id',$stotextIds);
+echo "15. Inner image images...\n";
+convertLinkedTable('inner_images','image_id','image_entry_id',$imageIds);
+echo "16. Votes...\n";
+convertLinkedTable('votes','posting_id','entry_id',$postingIds);
+echo "17. User rights...\n";
+convertUserRights();
 beginJournal();
 dbClose();
 ?>

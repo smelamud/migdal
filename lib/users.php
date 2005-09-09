@@ -16,6 +16,16 @@ require_once('lib/alphabet.php');
 require_once('lib/sort.php');
 require_once('lib/sql.php');
 
+define('USR_MIGDAL_STUDENT',0x0001);
+define('USR_ACCEPTS_COMPLAINS',0x0002);
+define('USR_REBE',0x0004);
+define('USR_ADMIN_USERS',0x0008);
+define('USR_ADMIN_TOPICS',0x0010);
+define('USR_ADMIN_COMPLAIN_ANSWERS',0x0020);
+define('USR_MODERATOR',0x0040);
+define('USR_JUDGE',0x0080);
+define('USR_ADMIN_DOMAIN',0x0100);
+
 class User
       extends UserTag
 {
