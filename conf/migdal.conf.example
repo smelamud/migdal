@@ -38,7 +38,7 @@ $disableLogging=false;
 $profilingLevel=0;
 
 # Максимальный размер картинки, прикрепляемой к сообщениям (в байтах)
-$maxImage=2097152;
+$maxImageSize=2097152;
 
 # Максимальный размер статьи (в байтах)
 $maxLargeText=2097152;
@@ -105,9 +105,6 @@ $userVoteWeight=2;
 
 # Вес голоса модератора
 $moderatorVoteWeight=3;
-
-# Количество просмотров "пейджерного" сообщения
-$instantViews=3;
 
 # Корректировка (в часах) отображаемого времени относительно хранимого
 $fixTime=0;
@@ -189,37 +186,37 @@ $wgetPath='wget';
 
 # Команда для упаковки каталога (имя каталога подставляется вместо '%', имя
 # каталога, в котором он находится - вместо '#') на STDOUT
-
 $compressCommand='tar zcf - %';
 
 # Тип (MIME-type) упакованного каталога
-
 $compressType='application/x-tar';
 
 # Encoding упакованного каталога
-
 $compressEncoding='x-gzip';
 
 # Команда для упаковки каталога с книгой (имя каталога подставляется вместо
 # '%', имя каталога, в котором он находится - вместо '#') на STDOUT
-
 $bookCompressCommand='(cd #; zip -r -q - %)';
 
 # Тип (MIME-type) упакованного каталога с книгой
-
 $bookCompressType='application/zip';
 
 # Использовать ли getexec.pl для обхода ограничений на запуск команд из PHP
-
 $cgiExec=false;
 
 # Маленькое изображение, используемое в случае, когда невозможно изменить
 # размеры большого (путь задается относительно библиотеки, т.е. каталога lib/)
 $defaultThumbnail='../migdal/pics/click_here.jpg';
 
-# Каталог для картинок
+# Изображение, накладываемое на уменьшенную картинку, чтобы подсказать
+# пользователю, что на картинку можно нажать
+$glassImagePath='/home/balu/web/migdal-html/migdal/pics/glass.png';
 
-$imageDir='/home/balu/web/migdal-html/dev/migdal/images';
+# Каталог для картинок
+$imageDir='/home/balu/web/migdal-html/migdal/images';
+
+# Базовый URL для картинок
+$imageURL='/images';
 
 # Каталог для временных файлов
 $tmpDir='/tmp';
