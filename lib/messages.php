@@ -543,11 +543,11 @@ global $userModerator,$userId;
 
 if($userModerator)
   return '1';
-$filter=permFilter('messages',$right,'sender_id',$prefix);
+$filter=permFilter($right,$prefix);
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 return "$filter and (${prefix}disabled=0".
-       ($userId>0 ? " or ${prefix}sender_id=$userId)" : ')');
+       ($userId>0 ? " or ${prefix}user_id=$userId)" : ')');
 }
 
 function messageExists($id)

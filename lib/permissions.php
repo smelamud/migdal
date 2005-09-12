@@ -1,9 +1,7 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/dataobject.php');
-require_once('lib/topics.php');
-require_once('lib/messages.php');
+require_once('lib/entries.php');
 require_once('lib/sql.php');
 
 define('PB_USER',0);
@@ -52,99 +50,83 @@ return $userId==$user_id &&
        ($perms & $right<<PB_GUEST)!=0;
 }
 
-$permModels=array('topics'   => array('Topic','user_id'),
-                  'messages' => array('Message','sender_id'));
-$permClassTables=array('topic'   => 'topics',
-                       'message' => 'messages');
-		       
-function getPermsById($table,$id)
+function getPermsById($id)
 {
-global $permModels;
-
-list($class,$user)=$permModels[$table];
-$result=sql("select $table.id as id,$user,group_id,users.login as login,
+$result=sql("select entries.id as id,user_id,group_id,users.login as login,
 		    gusers.login as group_login,perms
-	     from $table
+	     from entries
 		  left join users
-		       on $table.$user=users.id
+		       on entries.user_id=users.id
 		  left join users as gusers
-		       on $table.group_id=gusers.id
-	     where $table.id=$id",
-	    'getPermsById');
-return mysql_num_rows($result)>0 ? new $class(mysql_fetch_assoc($result)) : 0;
+		       on entries.group_id=gusers.id
+	     where entries.id=$id",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? new Entry(mysql_fetch_assoc($result)) : 0;
 }
 
-function getRootPerms($table)
+function getRootPerms($class)
 {
-global $permModels;
-
-list($class,$user)=$permModels[$table];
-return new $class(
-        array($user      => getUserIdByLogin($GLOBALS["root${class}UserName"]),
+return new Entry(
+        array('user_id'  => getUserIdByLogin($GLOBALS["root${class}UserName"]),
               'group_id' => getUserIdByLogin($GLOBALS["root${class}GroupName"]),
 	      'perms'    => $GLOBALS["root${class}Perms"]));
 }
 
 function setPermsById($perms)
 {
-global $permModels,$permClassTables;
-
-$table=$permClassTables[strtolower(get_class($perms))];
-list($class,$user)=$permModels[$table];
-sql("update $table
-     set $user=".$perms->getUserId().',
+sql('update entries
+     set user_id='.$perms->getUserId().',
 	 group_id='.$perms->getGroupId().',
 	 perms='.$perms->getPerms().'
      where id='.$perms->getId(),
-    'setPermsById');
-journal("update $table
-         set $user=".journalVar('users',$perms->getUserId()).',
+    __FUNCTION__);
+journal("update entries
+         set user_id=".journalVar('users',$perms->getUserId()).',
 	     group_id='.journalVar('users',$perms->getGroupId()).',
 	     perms='.$perms->getPerms().'
-	 where id='.journalVar($table,$perms->getId()));
+	 where id='.journalVar('entries',$perms->getId()));
 }
 
-function setPermsRecursive($table,$id,$user_id,$group_id,$perms)
+function setPermsRecursive($id,$user_id,$group_id,$perms)
 {
-global $permModels,$journalSeq;
+global $journalSeq;
 
-list($class,$user)=$permModels[$table];
 $set=array();
 if($user_id!=0)
-  $set[]="$user=$user_id";
+  $set[]="user_id=$user_id";
 if($group_id!=0)
   $set[]="group_id=$group_id";
 permStringMask($perms,&$andMask,&$orMask);
 $set[]="perms=(perms & $andMask) | $orMask";
 $set=join(',',$set);
-sql("update $table
+sql("update entries
      set $set
-     where ".subtree($table,$id,true),
-    'setPermsRecursive');
+     where ".subtree('entries',$id,true),
+    __FUNCTION__);
 if($journalSeq!=0)
-  journal("perms $table ".journalVar($table,$id).
-		      ' '.journalVar('users',$user_id).
-		      ' '.journalVar('users',$group_id)." $perms");
+  journal("perms entries ".journalVar('entries',$id).
+		       ' '.journalVar('users',$user_id).
+		       ' '.journalVar('users',$group_id)." $perms");
 }
 
-$permVarietyCache=array();
+$permVarietyCache=null;
 
-function permMask($table,$perms,$right)
+function permMask($perms,$right)
 {
 global $permVarietyCache;
 
-if(!is_array($permVarietyCache[$table]))
+if(is_null($permVarietyCache))
   {
-  $permVarietyCache[$table]=array();
+  $permVarietyCache=array();
   $result=sql("select distinct perms
-	       from $table",
-	      'permMask');
+	       from entries",
+	      __FUNCTION__);
   while($row=mysql_fetch_array($result))
-       $permVarietyCache[$table][]=$row[0];
+       $permVarietyCache[]=$row[0];
   }
 $cases=array();
 $all=true;
-foreach($permVarietyCache[$table] as $perm)
+foreach($permVarietyCache as $perm)
        if(($perm & $right)!=0)
          $cases[]="$perms=$perm";
        else
@@ -155,7 +137,7 @@ else
   return '('.join(' or ',$cases).')';
 }
 
-function permFilter($table,$right,$user_id='user_id',$prefix='')
+function permFilter($right,$prefix='')
 {
 global $userId,$userGroups;
 
@@ -163,20 +145,20 @@ if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 $perms="${prefix}perms";
 if($userId<=0)
-  return permMask($table,$perms,$right<<PB_GUEST);
+  return permMask($perms,$right<<PB_GUEST);
 $groups=array();
 foreach($userGroups as $g)
        $groups[]="${prefix}group_id=$g";
 $groups[]="${prefix}group_id=$userId";
-return "($userId=${prefix}$user_id and
-	".permMask($table,$perms,$right<<PB_USER).'
+return "($userId=${prefix}user_id and
+	".permMask($perms,$right<<PB_USER).'
 	or
 	('.join(' or ',$groups).") and
-	".permMask($table,$perms,$right<<PB_GROUP)."
+	".permMask($perms,$right<<PB_GROUP)."
 	or
-	".permMask($table,$perms,$right<<PB_OTHER)."
+	".permMask($perms,$right<<PB_OTHER)."
 	or
-	".permMask($table,$perms,$right<<PB_GUEST).')';
+	".permMask($perms,$right<<PB_GUEST).')';
 }
 
 function permString($s,$default='----------------')

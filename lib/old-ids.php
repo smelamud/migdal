@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/sql.php');
+require_once('lib/ident.php');
 
 function getOldId($entry_id,$table_name)
 {
@@ -14,20 +15,24 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function getNewId($table_name,$old_id)
 {
+$idFilter=isId($old_id) ? "and old_id=$old_id" : "and old_ident='$old_id'";
 $result=sql("select entry_id
              from old_ids
-	     where table_name='$table_name' and old_id=$old_id",
+	     where table_name='$table_name' $idFilter",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-function putOldId($entry_id,$table_name,$old_id)
+function putOldId($entry_id,$table_name,$old_id,$old_ident='')
 {
 $new_id=getNewId($table_name,$old_id);
 if($new_id==0)
-  sql("insert into old_ids(table_name,old_id,entry_id)
-       values('$table_name',$old_id,$entry_id)",
+  {
+  $oi=$old_ident=='' ? 'NULL' : "'$old_ident'";
+  sql("insert into old_ids(table_name,old_id,old_ident,entry_id)
+       values('$table_name',$old_id,$oi,$entry_id)",
       __FUNCTION__);
+  }
 else
   echo "Duplicate id for $table_name($old_id): $new_id and $entry_id\n";
 }

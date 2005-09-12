@@ -17,7 +17,7 @@
 
 <element name='forumcatalog'>
 <grps>
-<iterate_postinglist grp='*GRP_DISCUSS' limit=20 offset='$offset'
+<<iterate_postinglist grp='*GRP_DISCUSS' limit=20 offset='$offset'
                      sort='*SORT_ACTIVITY' withanswers='*GRP_NOT_FORUMS'
 		     showshadows='*false'
 		     fields!='*SELECT_TOPICS|*SELECT_ANSWERS'>
@@ -74,5 +74,5 @@
  </ifnzero>
 <else>
  &nbsp;
-</if>
+</if>>
 </element>

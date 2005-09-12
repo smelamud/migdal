@@ -28,7 +28,7 @@ MHTML-скрипта.
 таблицах одинаково - ident. Для работы с обозначениями можно использовать
 следующие функции (lib/ident.php):
 
-function idByIdent($table,$ident);
+function idByIdent($ident,$table='entries');
 
 Эта функция выбирает из указанной таблицы идентификатор, соответствующий
 обозначению $ident. Если $ident - число, то эта функция возвращает $ident.
@@ -36,7 +36,7 @@ function idByIdent($table,$ident);
 Результаты, возвращаемые этой функцией, кэшируются в памяти, чтобы уменьшить
 число обращений к БД.
 
-function identById($table,$id);
+function identById($id,$table='entries');
 
 Эта функция выбирает из указанной таблицы обозначение, соответствующее
 идентификатору $id. Если $id - не число, то эта функция возвращает $id.
@@ -48,6 +48,6 @@ function identById($table,$id);
 этого удобно использовать подстановку $`` [NWD].
 
 Based-on: migdal.db 1.81 (ограничения на длину обозначения)
-Based-on: lib/ident.php 1.16
+Based-on: lib/ident.php 1.18
 
 @(#) $Id$

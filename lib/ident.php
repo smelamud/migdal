@@ -12,7 +12,7 @@ function isId($ident)
 return is_int($ident) || $ident<0 || $ident!='' && c_digit($ident);
 }
 
-function idByIdent($table,$ident)
+function idByIdent($ident,$table='entries')
 {
 if(isId($ident))
   return $ident;
@@ -24,13 +24,13 @@ dbOpen();
 $result=sql("select id
 	     from $table
 	     where ident='$ident'",
-	    'idByIdent');
+	    __FUNCTION__);
 $id=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 setCachedValue('ident',$table,$ident,$id);
 return $id;
 }
 
-function identById($table,$id)
+function identById($id,$table='entries')
 {
 if(!isId($id))
   return $id;
@@ -38,7 +38,7 @@ dbOpen();
 $result=sql("select ident
 	     from $table
 	     where id=$id",
-	    'identById');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

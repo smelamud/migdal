@@ -92,7 +92,7 @@
 	text='Не работают cookies. Включите поддержку cookies в настройках вашего браузера.'>
 </table>
 <menu ident='$ident' target='$target'>
-<backtrace target='$target'>
+<<backtrace target='$target'>>
 </element>
 
 <element name='top'>

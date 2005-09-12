@@ -219,9 +219,9 @@
 <deccall macro='horisont_obj' func='getHorisontByHost' file='lib/horisonts.php'
          params='host'>
 <deccall macro='id_ident' func='identById' file='lib/ident.php'
-         params='table,id'>
+         params='id,table'>
 <deccall macro='ident_id' func='idByIdent' file='lib/ident.php'
-         params='table,ident'>
+         params='ident,table'>
 <deccall macro='image_obj' func='getImageById' file='lib/images.php' params='id'
          defaults='name=image id=0'>
 <deccall macro='image_name' func='getImageNameBySet' file='lib/images.php'

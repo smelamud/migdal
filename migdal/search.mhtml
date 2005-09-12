@@ -54,7 +54,7 @@
     <ol>
      <assign name='ln' value='$offset'>
      <for>
-      <assign name='ln' value!='$ln+1'>
+      <<assign name='ln' value!='$ln+1'>
       <li value='$ln'><p class='search'>
        <ifnzero what='$.PostingId'>
 	<posting_obj id='$.PostingId' fields='*SELECT_TOPICS'>
@@ -76,7 +76,7 @@
 	</a><br>
 	$.Body
        </ifnzero>
-      </p></li>
+      </p></li>>
      </for>
     </ol>
     <batcher list='$;'>

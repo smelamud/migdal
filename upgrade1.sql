@@ -1,12 +1,17 @@
 CREATE TABLE `old_ids` (
 `table_name` CHAR( 32 ) NOT NULL ,
 `old_id` INT NOT NULL ,
+`old_ident` VARCHAR( 75 ) ,
 `entry_id` INT NOT NULL ,
 PRIMARY KEY ( `table_name` , `old_id` )
 );
 ALTER TABLE `old_ids` ADD UNIQUE (
 `table_name` ,
 `entry_id`
+);
+ALTER TABLE `old_ids` ADD UNIQUE (
+`table_name` ,
+`old_ident`
 );
 CREATE TABLE `entries` (
 `id` INT NOT NULL AUTO_INCREMENT ,

@@ -113,10 +113,10 @@ if($s=~/^\$`([^`]*)`$/)
   {
   request('lib/ident.php');
   my ($table,$ident)=$1=~/^\s*(?:(\w+):)?([^`]+)$/;
-  $table='topics' if $table eq '';
+  $table='entries' if $table eq '';
   $table=subTypedValue('','%',$table);
   $ident=subTypedValue('','%',$ident);
-  return "${st}idByIdent($table,$ident)$ed";
+  return "${st}idByIdent($ident,$table)$ed";
   }
 if($s=~/^\$\/([^\/]*)\/$/)
   {

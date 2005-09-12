@@ -33,7 +33,7 @@ else
 <tr valign=top>
  <td rowspan=2>
   Сайт создан и поддерживается
-  <a href='migdal.php?artid=$`postings:kes`'>Клубом Еврейского Студента</a>
+  <a href='migdal.php?artid=$`post.kes`'>Клубом Еврейского Студента</a>
   <br>
   Международного Еврейского Общинного Центра
   <a href='migdal.php'>&lt;&lt;Мигдаль&gt;&gt;</a>
@@ -88,7 +88,7 @@ else
 
 <element name='bottom'>
 <notprint>
- <backtrace target='$target'>
+ <<backtrace target='$target'>>
  <div class='bottom'>
   <table width=100%>
    <notenglish>

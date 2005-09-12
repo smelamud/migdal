@@ -25,7 +25,7 @@ function upById($table,$id)
 $result=sql("select up
 	     from $table
 	     where id=$id",
-	    'upById','',"table='$table'");
+	    __FUNCTION__,'',"table='$table'");
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -38,7 +38,7 @@ if(hasCachedValue('track',$table,$id))
 $result=sql("select track
 	     from $table
 	     where id=$id",
-	    'trackById','',"table='$table'");
+	    __FUNCTION__,'',"table='$table'");
 $track=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 setCachedValue('track',$table,$id,$track);
 return $track;
@@ -59,7 +59,7 @@ function updateTrackById($table,$id,$track)
 return sql("update $table
 	    set track='$track'
 	    where id=$id",
-	   'updateTrackById','','',false);
+	   __FUNCTION__,'','',false);
 }
 
 function updateTracks($table,$id,$journalize=true)
@@ -68,7 +68,7 @@ $result=sql("select id,up
 	     from $table
 	     where track like '%".track($id)."%' or track=''
 	     order by track",
-	    'updateTracks');
+	    __FUNCTION__);
 $tracks=array();
 while($row=mysql_fetch_assoc($result))
      {
@@ -82,7 +82,7 @@ if($journalize)
 return true;
 }
 
-function subtree($table,$id,$recursive=false,$byId='id',$byTrack='track')
+function subtree($table,$id,$recursive=false,$byId='parent_id',$byTrack='track')
 {
 if(!$recursive)
   return "$byId=$id";

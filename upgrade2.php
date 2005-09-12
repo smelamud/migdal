@@ -173,7 +173,7 @@ while($row=mysql_fetch_assoc($result))
      $id=sql_insert_id();
      $topicIds[$row['id']]=$id;
      $stotextIds[$row['stotext_id']]=$id;
-     putOldId($id,'topics',$row['id']);
+     putOldId($id,'topics',$row['id'],$row['ident']);
      putOldId($id,'stotexts',$row['stotext_id']);
      updateTracks('entries',$id,false);
      }
@@ -285,7 +285,7 @@ while($row=mysql_fetch_assoc($result))
      $postingIds[$row['id']]=$id;
      $messageIds[$row['message_id']]=$id;
      $stotextIds[$row['stotext_id']]=$id;
-     putOldId($id,'postings',$row['id']);
+     putOldId($id,'postings',$row['id'],$row['ident']);
      putOldId($id,'messages',$row['message_id']);
      putOldId($id,'stotexts',$row['stotext_id']);
      updateTracks('entries',$id,false);
@@ -348,7 +348,7 @@ while($row=mysql_fetch_assoc($result))
 
      $id=sql_insert_id();
      $postingIds[$row['id']]=$id;
-     putOldId($id,'postings',$row['id']);
+     putOldId($id,'postings',$row['id'],$row['ident']);
      updateTracks('entries',$id,false);
      }
 echo "\n";
