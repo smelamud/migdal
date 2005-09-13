@@ -122,7 +122,7 @@ if($s=~/^\$\/([^\/]*)\/$/)
   {
   request('lib/track.php');
   my ($table,$id,$level)=$1=~/^\s*(?:(\w+):)?([\w.\$]+)(?:,([\w.\$]+))?$/;
-  $table='topics' if $table eq '';
+  $table='entries' if $table eq '';
   $table=subTypedValue('','%',$table);
   $id=subTypedValue('','%',$id);
   $level=subTypedValue('','%',$level);
@@ -148,10 +148,6 @@ return "$st\$".getGlobal('lastRedir')."->getURI()$ed"
        if $s=~/^\$--$/;
 return "${st}urlencode(\$".getGlobal('lastRedir')."->getURI())$ed"
        if $s=~/^\$#--$/;
-return "$st\$".getGlobal('REQUEST_URI').$ed
-       if $s=~/^\$-$/;
-return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
-       if $s=~/^\$#-$/;
 return "$st\$".getGlobal('SCRIPT_NAME').$ed
        if $s=~/^\$~$/;
 return "$st\$".getGlobal('QUERY_STRING').$ed
