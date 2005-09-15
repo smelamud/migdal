@@ -23,7 +23,7 @@ if(hasCachedValue('ident',$table,$ident))
 dbOpen();
 $result=sql("select id
 	     from $table
-	     where ident='$ident'",
+	     where ident='".addslashes($ident)."'",
 	    __FUNCTION__);
 $id=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 setCachedValue('ident',$table,$ident,$id);

@@ -160,3 +160,4 @@ VALUES (
 UPDATE version SET db_version =10;
 ALTER TABLE `inner_images` ADD `image_entry_id` INT NOT NULL AFTER `image_id` ;
 ALTER TABLE `inner_images` ADD INDEX ( `image_entry_id` ) ;
+ALTER TABLE `users` ADD `info_xml` TEXT NOT NULL AFTER `info` ;

@@ -38,19 +38,13 @@ var $jewish_name;
 var $surname;
 var $info;
 var $birthday;
-var $migdal_student;
+var $rights;
 var $last_online;
 var $last_minutes;
 var $icq;
 var $email_disabled;
 var $accepts_complains;
-var $rebe;
 var $shames;
-var $admin_users;
-var $admin_topics;
-var $moderator;
-var $judge;
-var $admin_domain;
 var $hidden;
 var $online;
 var $no_login;
@@ -62,29 +56,35 @@ var $last_message;
 
 function User($row)
 {
-$this->UserTag($row);
+parent::parent($row);
 }
 
 function setup($vars)
 {
 if(!isset($vars['edittag']))
   return;
-foreach($this->getCorrespondentVars() as $var)
-       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+$this->login=$vars['login'];
+$this->password=$vars['password'];
+$this->dup_password=$vars['dup_password'];
+$this->name=$vars['name'];
+$this->jewish_name=$vars['jewish_name'];
+$this->surname=$vars['surname'];
+$this->gender=$vars['gender'];
+$this->rights=$vars['rights'];
 if(isset($vars['infoid']))
   $this->info=tmpTextRestore($vars['infoid']);
+else
+  $this->info=$vars['info'];
+$this->email=$vars['email'];
+$this->hide_email=$vars['hide_email'];
+$this->icq=$vars['icq'];
+$this->accepts_complains=$vars['accepts_complains'];
+$this->hidden=$vars['hidden'];
+$this->no_login=$vars['no_login'];
+$this->has_personal=$vars['has_personal'];
 $this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
 					.'-'.$vars['birth_day'];
 $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
-}
-
-function getCorrespondentVars()
-{
-return array('login','password','dup_password','name','jewish_name','surname',
-             'gender','migdal_student','info','email','hide_email','icq',
-	     'accepts_complains','admin_users','admin_topics',
-	     'admin_complain_answers','moderator','judge','admin_domain','hidden',
-	     'no_login','has_personal');
 }
 
 function getWorldVars()
@@ -271,11 +271,6 @@ return $c ? $c : '00';
 function isMigdalStudent()
 {
 return $this->migdal_student;
-}
-
-function getMigdalStudent()
-{
-return $this->migdal_student ? 'Да' : 'Нет';
 }
 
 function getICQ()

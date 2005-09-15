@@ -208,6 +208,17 @@ return "${st}urlencode(\$$1->".getGetName($2)."())$ed"
        if $s=~/^\$#{?(\w+)[\.,;](\w+)}?$/;
 return "${st}urlencode(\$".getGlobal($1).'->'.getGetName($2)."())$ed"
        if $s=~/^\$\$#{?(\w+)[\.,;](\w+)}?$/;
+return "${st}htmlspecialchars(\$$item->".getGetName($1)."(),ENT_QUOTES)$ed"
+       if $s=~/^\$={?\.(\w+)}?$/;
+return "${st}htmlspecialchars(\$$result->".getGetName($1)."(),ENT_QUOTES)$ed"
+       if $s=~/^\$={?,(\w+)}?$/;
+return "${st}htmlspecialchars(\$$iter->".getGetName($1)."(),ENT_QUOTES)$ed"
+       if $s=~/^\$={?;(\w+)}?$/;
+return "${st}htmlspecialchars(\$$1->".getGetName($2)."(),ENT_QUOTES)$ed"
+       if $s=~/^\$={?(\w+)[\.,;](\w+)}?$/;
+return "${st}htmlspecialchars(\$".getGlobal($1).'->'.getGetName($2).
+                                                    "(),ENT_QUOTES)$ed"
+       if $s=~/^\$\$={?(\w+)[\.,;](\w+)}?$/;
 return "'$st$s$ed'";
 }
 
@@ -225,7 +236,7 @@ while($s ne '')
 			    (?:
 			     (?:
 			      (?:
-			       \$\$?[\#\^]?
+			       \$\$?[\#\^=]?
 			       (?:
 				(?: {? \w* [\.,;]? \w+ }? )
 				|

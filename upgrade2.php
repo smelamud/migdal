@@ -638,7 +638,7 @@ while($row=mysql_fetch_assoc($result))
 echo "\n";
 }
 
-function convertUserRights()
+function convertUsers()
 {
 $fields=array('migdal_student' => USR_MIGDAL_STUDENT,
               'accepts_complains' => USR_ACCEPTS_COMPLAINS,
@@ -652,20 +652,24 @@ $fields=array('migdal_student' => USR_MIGDAL_STUDENT,
 
 $result=sql("select id,migdal_student,accepts_complains,rebe,admin_users,
                     admin_topics,admin_complain_answers,moderator,judge,
-		    admin_domain
+		    admin_domain,info
 	     from users",
 	    __FUNCTION__,'select');
 
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
+     $info=unhtmlentities($row['info']);
      $rights=0;
      foreach($fields as $field => $flag)
             if($row[$field])
 	      $rights|=$flag;
-     sql("update users
-          set rights=$rights
-	  where id={$row['id']}",
+     sql(makeUpdate('users',
+                    array('rights' => $rights,
+		          'info' => $info,
+			  'info_xml' => wikiToXML($info,TF_PLAIN,MTEXT_SHORT)
+			 ),
+		    array('id' => $row['id'])),
 	 __FUNCTION__,'update');
      }
 echo "\n";
@@ -706,8 +710,8 @@ echo "15. Inner image images...\n";
 convertLinkedTable('inner_images','image_id','image_entry_id',$imageIds);
 echo "16. Votes...\n";
 convertLinkedTable('votes','posting_id','entry_id',$postingIds);
-echo "17. User rights...\n";
-convertUserRights();
+echo "17. Users...\n";
+convertUsers();
 beginJournal();
 dbClose();
 ?>

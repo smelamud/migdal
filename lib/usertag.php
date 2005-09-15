@@ -10,12 +10,11 @@ var $login;
 var $gender;
 var $email;
 var $hide_email;
-var $rebe;
 
 function UserTag($row)
 {
 $gender='mine';
-$this->DataObject($row);
+parent::parent($row);
 }
 
 function getReplyLink()
@@ -74,11 +73,6 @@ return $link!='' ? $link.$this->email.'</a>' : '';
 function isHideEmail()
 {
 return $this->hide_email;
-}
-
-function isRebe()
-{
-return $this->rebe;
 }
 
 }
