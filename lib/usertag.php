@@ -14,7 +14,7 @@ var $hide_email;
 function UserTag($row)
 {
 $gender='mine';
-parent::parent($row);
+parent::DataObject($row);
 }
 
 function getReplyLink()

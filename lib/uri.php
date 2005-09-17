@@ -3,14 +3,16 @@
 
 function makeQuery($vars,$remove=array(),$subs=array())
 {
+// urlencode() здесь не требуется, иначе возникнет конфликт, когда передают
+// уже закодированные параметры
 $s='';
 foreach(count($subs)!=0 ? array_merge($vars,$subs) : $vars as $key => $value)
        if(!in_array($key,$remove) && "$value"!='')
          if(!is_array($value))
-           $s.=($s!='' ? '&' : '')."$key=".urlencode($value);
+           $s.=($s!='' ? '&' : '')."$key=$value";
          else
 	   foreach($value as $elm)
-                  $s.=($s!='' ? '&' : '')."${key}[]=".urlencode($elm);
+                  $s.=($s!='' ? '&' : '')."${key}[]=$elm";
 return $s;
 }
 

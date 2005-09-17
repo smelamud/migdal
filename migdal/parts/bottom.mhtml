@@ -88,7 +88,7 @@ else
 
 <element name='bottom'>
 <notprint>
- <<backtrace target='$target'>>
+ <backtrace target='$target'>
  <div class='bottom'>
   <table width=100%>
    <notenglish>

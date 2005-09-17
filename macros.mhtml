@@ -151,10 +151,10 @@
          params='grp,up,recursive,delimiter'
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'
-         params='limit,offset,sort'
-	 defaults="limit=10 offset=0 sort='*SORT_LOGIN'">
+         params='prefix,sort' defaults="sort='*SORT_LOGIN'">
 <deciter macro='user_alphabet' class='UserAlphabetIterator'
-         file='lib/users.php' params='sort' defaults="sort='*SORT_LOGIN'">
+         file='lib/users.php' params='limit,sort'
+	 defaults="limit=0 sort='*SORT_LOGIN'">
 
 <macro name='reset_iterator' defaults="list='$;'">
  <call object%!list='%list' func='reset'>

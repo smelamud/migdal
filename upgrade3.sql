@@ -31,3 +31,4 @@ DROP `moderator` ,
 DROP `judge` ,
 DROP `admin_domain` ;
 ALTER TABLE `votes` DROP `posting_id` ;
+ALTER TABLE `users` CHANGE `guest` `guest` TINYINT( 4 ) NOT NULL DEFAULT '0';

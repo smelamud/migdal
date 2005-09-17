@@ -21,9 +21,10 @@ if($ident=='')
 if(hasCachedValue('ident',$table,$ident))
   return getCachedValue('ident',$table,$ident);
 dbOpen();
+$identS=addslashes($ident);
 $result=sql("select id
 	     from $table
-	     where ident='".addslashes($ident)."'",
+	     where ident='$identS'",
 	    __FUNCTION__);
 $id=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 setCachedValue('ident',$table,$ident,$id);

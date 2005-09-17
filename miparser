@@ -178,6 +178,10 @@ return "${st}urlencode(\$$1)$ed"
        if $s=~/^\$#{?(\w+)}?$/;
 return "${st}urlencode(\$".getGlobal($1).")$ed"
        if $s=~/^\$\$#{?(\w+)}?$/;
+return "${st}htmlspecialchars(\$$1,ENT_QUOTES)$ed"
+       if $s=~/^\$={?(\w+)}?$/;
+return "${st}htmlspecialchars(\$".getGlobal($1).",ENT_QUOTES)$ed"
+       if $s=~/^\$\$={?(\w+)}?$/;
 return "$st\$$item->".getGetName($1)."()$ed"
        if $s=~/^\${?\.(\w+)}?$/;
 return "$st\$$result->".getGetName($1)."()$ed"

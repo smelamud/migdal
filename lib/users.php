@@ -15,6 +15,7 @@ require_once('lib/text.php');
 require_once('lib/alphabet.php');
 require_once('lib/sort.php');
 require_once('lib/sql.php');
+require_once('lib/charsets.php');
 
 define('USR_MIGDAL_STUDENT',0x0001);
 define('USR_ACCEPTS_COMPLAINS',0x0002);
@@ -25,6 +26,10 @@ define('USR_ADMIN_COMPLAIN_ANSWERS',0x0020);
 define('USR_MODERATOR',0x0040);
 define('USR_JUDGE',0x0080);
 define('USR_ADMIN_DOMAIN',0x0100);
+
+define('USR_ADMIN',USR_ACCEPTS_COMPLAINS|USR_REBE|USR_ADMIN_USERS
+                   |USR_ADMIN_TOPICS|USR_ADMIN_COMPLAIN_ANSWERS|USR_MODERATOR
+		   |USR_JUDGE|USR_ADMIN_DOMAIN);
 
 class User
       extends UserTag
@@ -56,7 +61,7 @@ var $last_message;
 
 function User($row)
 {
-parent::parent($row);
+parent::UserTag($row);
 }
 
 function setup($vars)
@@ -85,82 +90,6 @@ $this->has_personal=$vars['has_personal'];
 $this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
 					.'-'.$vars['birth_day'];
 $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
-}
-
-function getWorldVars()
-{
-return array('login','name','jewish_name','surname','gender','info','birthday',
-             'migdal_student','email','hide_email','icq','email_disabled');
-}
-
-function getAdminVars()
-{
-return array('accepts_complains','admin_users','admin_topics',
-             'admin_complain_answers','moderator','judge','admin_domain','hidden',
-	     'no_login','has_personal');
-}
-
-function getJencodedVars()
-{
-return array('login' => '','login_sort' => '','password' => '','name' => '',
-             'name_sort' => '','jewish_name' => '','jewish_name_sort' => '',
-	     'surname' => '','surname_sort' => '','info' => '','email' => '',
-	     'icq' => '','settings' => '');
-}
-
-function store()
-{
-global $userAdminUsers;
-
-$normal=$this->getNormal($userAdminUsers);
-if(!$this->id || $this->dup_password!='')
-  $normal=array_merge($normal,array('password' => md5($this->password)));
-$normal['login_sort']=convertSort($normal['login']);
-$normal['name_sort']=convertSort($normal['name']);
-$normal['jewish_name_sort']=convertSort($normal['jewish_name']);
-$normal['surname_sort']=convertSort($normal['surname']);
-if($this->id)
-  {
-  $result=sql(makeUpdate('users',
-                         $normal,
-			 array('id' => $this->id)),
-	      get_method($this,'store'),'update');
-  journal(makeUpdate('users',
-                     jencodeVars($normal,$this->getJencodedVars()),
-		     array('id' => journalVar('users',$this->id))));
-  }
-else
-  {
-  $result=sql(makeInsert('users',
-                         $normal),
-	      get_method($this,'store'),'insert');
-  $this->id=sql_insert_id();
-  journal(makeInsert('users',
-                     jencodeVars($normal,$this->getJencodedVars())),
-	  'users',$this->id);
-  }
-return $result;
-}
-
-function preconfirm()
-{
-global $regConfirmTimeout;
-
-$s='';
-for($i=0;$i<20;$i++)
-   {
-   $s.=chr(random(ord('A'),ord('Z')));
-   }
-$result=sql("update users
-	     set no_login=1,confirm_code='$s',
-		 confirm_deadline=now()+interval $regConfirmTimeout day
-	     where id=$this->id",
-	    get_method($this,'preconfirm'));
-journal("update users
-         set no_login=1,confirm_code='$s',
-	     confirm_deadline=now()+interval $regConfirmTimeout day
- 	 where id=".journalVar('users',$this->id));
-return $result;
 }
 
 function isEditable()
@@ -268,9 +197,19 @@ $c=substr($bt[0],2);
 return $c ? $c : '00';
 }
 
+function getRights()
+{
+return $this->rights;
+}
+
+function hasRight($right)
+{
+return ($this->rights & $right)!=0;
+}
+
 function isMigdalStudent()
 {
-return $this->migdal_student;
+return $this->hasRight(USR_MIGDAL_STUDENT);
 }
 
 function getICQ()
@@ -317,37 +256,37 @@ return $this->last_minutes;
 
 function isAcceptsComplains()
 {
-return $this->accepts_complains;
+$this->hasRight(USR_ACCEPTS_COMPLAINS);
 }
 
 function isAdminUsers()
 {
-return $this->admin_users;
+$this->hasRight(USR_ADMIN_USERS);
 }
 
 function isAdminTopics()
 {
-return $this->admin_topics;
+$this->hasRight(USR_ADMIN_TOPICS);
 }
 
 function isAdminComplainAnswers()
 {
-return $this->admin_complain_answers;
+$this->hasRight(USR_ADMIN_COMPLAIN_ANSWERS);
 }
 
 function isModerator()
 {
-return $this->moderator;
+$this->hasRight(USR_MODERATOR);
 }
 
 function isJudge()
 {
-return $this->judge;
+$this->hasRight(USR_JUDGE);
 }
 
 function isAdminDomain()
 {
-return $this->admin_domain;
+$this->hasRight(USR_ADMIN_DOMAIN);
 }
 
 function isHidden()
@@ -400,43 +339,52 @@ return !empty($this->last_message) ? strtotime($this->last_message) : 0;
 }
 
 class UserListIterator
-      extends LimitSelectIterator
+      extends SelectIterator
 {
 
-function UserListIterator($limit=10,$offset=0,$sort=SORT_LOGIN)
+function UserListIterator($prefix,$sort=SORT_LOGIN)
 {
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
+$sortFields=array(SORT_LOGIN       => 'login_sort',
+		  SORT_NAME        => 'name_sort',
+		  SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
+			                  jewish_name_sort,name_sort)',
+		  SORT_SURNAME     => 'surname_sort');
+if($prefix!='')
+  {
+  $sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login_sort';
+  $fieldFilter="and $sortField like '".convertSort($prefix)."%'";
+  }
+else
+  $fieldFilter='';
 $order=getOrderBy($sort,
                   array(SORT_LOGIN       => 'login_sort',
-		        SORT_NAME        => 'name_sort',
-			SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
-			                        jewish_name_sort,name_sort)',
-			SORT_SURNAME     => 'surname_sort'));
-$this->LimitSelectIterator(
-       'User',
-       "select distinct users.id as id,login,name,jewish_name,
-	       surname,gender,birthday,migdal_student,email,
-	       hide_email,icq,last_online,
-	       max(sessions.user_id) as online,
-	       min(floor((unix_timestamp(now())
-			 -unix_timestamp(sessions.last))/60))
-		    as last_minutes,
-	       confirm_deadline is null as confirmed,
-	       floor((unix_timestamp(confirm_deadline)
-		      -unix_timestamp(now()))/86400)
-		    as confirm_days
-	from users
-	     left join sessions
-		  on users.id=sessions.user_id
-		     and sessions.last+interval 1 hour>now()
-	where hidden<$hide
-	group by users.id
-	$order",$limit,$offset,
-       "select count(*)
-	from users
-	where hidden<$hide");
+		        SORT_NAME        => 'name_sort,surname_sort',
+		        SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
+			                        jewish_name_sort,name_sort),
+					     surname_sort',
+		        SORT_SURNAME     => 'surname_sort,name_sort'));
+parent::SelectIterator(
+	'User',
+	"select distinct users.id as id,login,name,jewish_name,surname,gender,
+		birthday,rights,email,hide_email,icq,last_online,
+		max(sessions.user_id) as online,
+		min(floor((unix_timestamp(now())
+			  -unix_timestamp(sessions.last))/60))
+		     as last_minutes,
+		confirm_deadline is null as confirmed,
+		floor((unix_timestamp(confirm_deadline)
+		       -unix_timestamp(now()))/86400)
+		     as confirm_days
+	 from users
+	      left join sessions
+		   on users.id=sessions.user_id
+		      and sessions.last+interval 1 hour>now()
+	 where hidden<$hide $fieldFilter
+	 group by users.id
+	 $order");
 }
 
 }
@@ -445,25 +393,28 @@ class UserAlphabetIterator
       extends AlphabetIterator
 {
 
-function UserAlphabetIterator($sort=SORT_LOGIN)
+function UserAlphabetIterator($limit=0,$sort=SORT_LOGIN)
 {
+global $userAdminUsers;
+
 $hide=$userAdminUsers ? 2 : 1;
 $fields=array(SORT_LOGIN       => 'login',
 	      SORT_NAME        => 'name',
 	      SORT_JEWISH_NAME => 'if(jewish_name<>"",jewish_name,name)',
 	      SORT_SURNAME     => 'surname');
 $field=@$fields[$sort]!='' ? $fields[$sort] : 'login';
-$order=getOrderBy($sort,
-                  array(SORT_LOGIN       => 'login_sort',
-		        SORT_NAME        => 'name_sort',
-			SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
-			                        jewish_name_sort,name_sort)',
-			SORT_SURNAME     => 'surname_sort'));
-$this->AlphabetIterator("select left($field,1) as letter,count(*) as count
-                         from users
-			 where hidden<$hide
-			 group by users.id
-			 $order");
+$sortFields=array(SORT_LOGIN       => 'login_sort',
+		  SORT_NAME        => 'name_sort',
+		  SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
+			                  jewish_name_sort,name_sort)',
+		  SORT_SURNAME     => 'surname_sort');
+$sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login_sort';
+$order=getOrderBy($sort,$sortFields);
+parent::AlphabetIterator("select left($field,@len@) as letter,1 as count
+                          from users
+			  where hidden<$hide and guest=0
+			        and $sortField like '@prefix@%'
+			  $order",$limit,true);
 }
 
 }
@@ -473,12 +424,9 @@ function getUserById($id)
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$result=sql("select distinct users.id as id,login,name,jewish_name,
-		    surname,gender,info,birthday,migdal_student,
-		    last_online,email,hide_email,icq,email_disabled,
-		    accepts_complains,admin_users,admin_topics,
-		    admin_complain_answers,moderator,judge,admin_domain,
-		    hidden,no_login,has_personal,
+$result=sql("select distinct users.id as id,login,name,jewish_name,surname,
+                    gender,info,birthday,rights,last_online,email,hide_email,
+		    icq,email_disabled,hidden,no_login,has_personal,
 		    max(sessions.user_id) as online,
 		    min(floor((unix_timestamp(now())
 			      -unix_timestamp(sessions.last))/60))
@@ -494,9 +442,87 @@ $result=sql("select distinct users.id as id,login,name,jewish_name,
 			  and sessions.last+interval 1 hour>now()
 	     where users.id=$id and hidden<$hide
 	     group by users.id",
-	    'getUserById');
+	    __FUNCTION__);
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());
+}
+
+function storeUser($user)
+{
+global $userAdminUsers;
+
+$jencoded=array('login' => '','login_sort' => '','password' => '','name' => '',
+                'name_sort' => '','jewish_name' => '','jewish_name_sort' => '',
+ 	        'surname' => '','surname_sort' => '','info' => '',
+		'email' => '','icq' => '','settings' => '');
+// Здесь допускается установка админских прав не админом! Проверка должна
+// производиться раньше.
+$vars=array('login' => $user->login,
+	    'login_sort' => convertSort($user->login),
+            'name' => $user->name,
+            'name_sort' => convertSort($user->name),
+	    'jewish_name' => $user->jewish_name,
+            'jewish_name_sort' => convertSort($user->jewish_name),
+	    'surname' => $user->surname,
+            'surname_sort' => convertSort($user->surname),
+	    'gender' => $user->gender,
+	    'info' => $user->info,
+	    'birthday' => $user->birthday,
+            'rights' => $user->rights,
+	    'email' => $user->email,
+	    'hide_email' => $user->hide_email,
+	    'email_disabled' => $user->email_disabled,
+	    'icq' => $user->icq);
+if($userAdminUsers)
+  $vars=array_merge($vars,
+		    array('hidden' => $user->hidden,
+			  'no_login' => $user->no_login,
+			  'has_personal' => $user->has_personal));
+if(!$this->id || $this->dup_password!='')
+  $vars=array_merge($vars,
+                    array('password' => md5($this->password)));
+if($this->id)
+  {
+  $result=sql(makeUpdate('users',
+                         $vars,
+			 array('id' => $this->id)),
+	      __FUNCTION__,'update');
+  journal(makeUpdate('users',
+                     jencodeVars($vars,$jencoded),
+		     array('id' => journalVar('users',$this->id))));
+  }
+else
+  {
+  $result=sql(makeInsert('users',
+                         $vars),
+	      __FUNCTION__,'insert');
+  $this->id=sql_insert_id();
+  journal(makeInsert('users',
+                     jencodeVars($vars,$jencoded)),
+	  'users',$this->id);
+  }
+return $result;
+}
+
+function preconfirmUser($userId)
+{
+global $regConfirmTimeout;
+
+$s='';
+for($i=0;$i<20;$i++)
+   {
+   $s.=chr(random(ord('A'),ord('Z')));
+   }
+$result=sql("update users
+	     set no_login=1,confirm_code='$s',
+		 confirm_deadline=now()+interval $regConfirmTimeout day
+	     where id=$userId",
+	    __FUNCTION__);
+journal("update users
+         set no_login=1,confirm_code='$s',
+	     confirm_deadline=now()+interval $regConfirmTimeout day
+ 	 where id=".journalVar('users',$userId));
+return $result;
 }
 
 function getUserLoginById($id)
@@ -507,7 +533,7 @@ function getUserLoginById($id)
 $result=sql("select login
 	     from users
 	     where id=$id",
-	    'getUserLoginById');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -520,26 +546,29 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select gender
 	     from users
 	     where id=$id and hidden<$hide",
-	    'getUserGenderById');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 'mine';
 }
 
 function getUserIdByLogin($login)
 {
+$loginS=addslashes($login);
 $result=sql("select id
 	     from users
-	     where login='$login'",
-	    'getUserIdByLogin');
+	     where login='$loginS'",
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function getUserIdByLoginPassword($login,$password)
 {
+$loginS=addslashes($login);
+$passwordMD5=md5($password);
 $result=sql("select id
 	     from users
-	     where login='$login' and password='".md5($password)."'
+	     where login='$login' and password='$passwordMD5'
 		   and no_login=0",
-	    'getUserIdByLoginPassword');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -548,7 +577,7 @@ function getShamesId()
 $result=sql('select id
 	     from users
 	     where shames=1',
-	    'getShamesId');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -564,7 +593,7 @@ $result=sql("select id
 		   last_online+interval $sessionTimeout hour<now()
 	     order by login_sort
 	     limit 1",
-	    'getGuestId','locate_free');
+	    __FUNCTION__,'locate_free');
 if(mysql_num_rows($result)>0)
   return mysql_result($result,0,0);
 $result=sql("select login
@@ -572,7 +601,7 @@ $result=sql("select login
 	     where guest<>0
 	     order by login_sort desc
 	     limit 1",
-	    'getGuestId','find_last');
+	    __FUNCTION__,'find_last');
 if(mysql_num_rows($result)>0)
   {
   $login=mysql_result($result,0,0);
@@ -611,7 +640,7 @@ function updateLastOnline($userId)
 sql("update users
      set last_online=now()
      where id=$userId",
-    'updateLastOnline');
+    __FUNCTION__);
 }
 
 function getSettingsByUserId($userId)
@@ -619,7 +648,7 @@ function getSettingsByUserId($userId)
 $result=sql("select settings
 	     from users
 	     where id=$userId",
-	    'getSettingsByUserId');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
 }
 
@@ -628,7 +657,7 @@ function updateUserSettings($userId,$settings)
 sql("update users
      set settings='$settings'
      where id=$userId",
-    'updateUserSettings');
+    __FUNCTION__);
 journal("update users
 	 set settings='".jencode($settings)."'
 	 where id=".journalVar('users',$userId));
@@ -642,7 +671,7 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id
 	     from users
 	     where id=$id and hidden<$hide and has_personal<>0",
-	    'personalExists');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
@@ -689,7 +718,7 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select count(*),count(confirm_deadline)
 	     from users
 	     where hidden<$hide",
-	    'getUsersSummary');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ?
        new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
                         mysql_result($result,0,1)) :

@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<macro name='trace'>
+<<macro name='trace'>
  <backtrace_url url%!url='%url' target='$target' isbottom='*false'>
 </macro>
 
@@ -232,10 +232,10 @@
 <if what='!$isbottom'>
  <nobr><at href='$url' target='$target'>$name</at>&sp;&gt;</nobr>
 </if>
-</element>
+</element>>
 
 <element name='backtrace'>
-<iterate_redirs name='redirs'>
+<<iterate_redirs name='redirs'>
 <outer>
  <div class='return ninept'>
   <for>
@@ -252,5 +252,5 @@
    </islast>
   </for>
  </div>
-</outer>
+</outer>>
 </element>

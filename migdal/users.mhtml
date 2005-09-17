@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <sorts>
-<int name='offset'>
+<string name='prefix'>
 <int name='sort'>
 <ifzero what='$sort'>
  <assign name='sort' value='*SORT_LOGIN'>
@@ -10,22 +10,6 @@
 </ifzero>
 
 <pagetitle title='Пользователи'>
-
-<element name='batcher' params='&list'>
-<table width=100%><tr valign=bottom>
- <admin_users>
-  <td align=left class='info'>
-   <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
-    <td>
-     <a href='register.php?redirid=$_'>Добавить пользователя</a>
-    </td>
-   </tr></table>
-  </td>
- </admin_users>
- <td align=center><spin list='$list'></td>
-</tr></table>
-</element>
 
 <element name='navigator'>
 <table width=100% class='nframe'>
@@ -37,14 +21,17 @@
   <navi_sort title='по фамилии' value='*SORT_SURNAME'>
  </td></tr>
  <tr><td align=left style='padding: 10px'>
-  <iterate_user_alphabet sort='$$sort'>
+  <iterate_user_alphabet limit=40 sort='$$sort'>
   <for>
-   <if what='$.Offset!=$$offset'>
-    <a href='$[offset=$.Offset]'>$.Letter</a>&sp;
-   <else>
-    <b>$.Letter</b>&sp;
+   <if what="$;isFirst && $$prefix==''">
+    <assign_global name='prefix' value='$.'>
    </if>
-   <if what="$.Letter=='Z'"><br></if>
+   <if what='$.!=$$prefix'>
+    <assign name='pref' value='$.'>
+    <a href='$[prefix=$#pref]'>$=pref</a>&sp;
+   <else>
+    <b>$.</b>&sp;
+   </if>
   </for>
  </td></tr>
  <tr><td align=left class='ninept'>
@@ -63,12 +50,12 @@
 
 <element name='fullname' params='user'>
 <if what='$$sort==SORT_NAME'>
- $user.FullNameCivil
+ $=user.FullNameCivil
 <else>
  <if what='$$sort==SORT_SURNAME'>
-  $user.FullNameSurname
+  $=user.FullNameSurname
  <else>
-  $user.FullName
+  $=user.FullName
  </if>
 </if>
 </element>
@@ -80,8 +67,7 @@
  <p>
  <navigator>
  <p>
- <iterate_userlist limit=30 offset='$offset' sort='$sort'>
- <batcher list='$;'>
+ <iterate_userlist prefix='$prefix' sort='$sort'>
  <table width=100% class='catalog'>
   <tr valign=top>
    <th>Ник</th><th>Имя</th><th>Возраст</th>
@@ -91,7 +77,7 @@
   <for>
    <if what='$;isOdd'><tr class='odd'><else><tr></if>
     <td class='subject ninept'>
-     <a href='userinfo.php?id=$.id'>$.Login</a>
+     <a href='userinfo.php?id=$.id'>$=.Login</a>
     </td>
     <td class='eightpt'><fullname user='$.'></td>
     <if what='$.isConfirmed'>
@@ -131,7 +117,6 @@
    </tr>
   </for>
  </table>
- <batcher list='$;'>
  <bottom>
 </body>
 </html>
