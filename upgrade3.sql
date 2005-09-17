@@ -1,4 +1,3 @@
-DROP TABLE `instants`;
 INSERT INTO cross_entries( source_id, source_grp, peer_id, peer_grp )
 SELECT sources.entry_id, topic_grp, peers.entry_id, peer_grp
 FROM `cross_topics`
