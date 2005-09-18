@@ -10,21 +10,28 @@
 </ifzero>
 
 <pagetitle title='Пользователи'>
+<topictitle title='Пользователи'>
 
 <element name='navigator'>
 <table width=100% class='nframe'>
  <tr><td align=right class='eightpt'>
+  <subtitle>
   <b>Сортировать</b>
   <navi_sort title='по нику' value='*SORT_LOGIN'>|
   <navi_sort title='по имени' value='*SORT_NAME'>|
   <navi_sort title='по еврейскому имени' value='*SORT_JEWISH_NAME'>|
   <navi_sort title='по фамилии' value='*SORT_SURNAME'>
  </td></tr>
- <tr><td align=left style='padding: 10px'>
-  <iterate_user_alphabet limit=40 sort='$$sort'>
+ <tr><td align='center' style='padding: 10px'>
+  <iterate_user_alphabet limit=100 sort='$$sort'>
+  <assign name='rus' value='*false'>
   <for>
    <if what="$;isFirst && $$prefix==''">
     <assign_global name='prefix' value='$.'>
+   </if>
+   <if what='!$rus && ord($.{0})>127'>
+    <br>
+    <assign name='rus' value='*true'>
    </if>
    <if what='$.!=$$prefix'>
     <assign name='pref' value='$.'>
