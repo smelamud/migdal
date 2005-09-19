@@ -192,16 +192,15 @@ if($globs!=$cookieSettings)
 
 function subDomain()
 {
-global $forceDomain,$SERVER_NAME,$siteDomain,$userDomain,$REQUEST_URI,
-       $subdomains,$userIndexPage;
+global $forceDomain,$siteDomain,$userDomain,$subdomains,$userIndexPage;
 
-if($SERVER_NAME=='')
+if($_SERVER['SERVER_NAME']=='')
   return;
-if(strlen($SERVER_NAME)>strlen($siteDomain))
-  $currentDomain=substr(strtolower($SERVER_NAME),0,
-                        strlen($SERVER_NAME)-strlen($siteDomain)-1);
+if(strlen($_SERVER['SERVER_NAME'])>strlen($siteDomain))
+  $currentDomain=substr(strtolower($_SERVER['SERVER_NAME']),0,
+                        strlen($_SERVER['SERVER_NAME'])-strlen($siteDomain)-1);
 else
-  $currentDomain=strtolower($SERVER_NAME);
+  $currentDomain=strtolower($_SERVER['SERVER_NAME']);
 if($forceDomain!='')
   $userDomain=$forceDomain;
 else
@@ -213,7 +212,7 @@ else
     else
       $userDomain=$subdomains[1];
 if($userDomain!=$currentDomain)
-  reload("http://$userDomain.$siteDomain$REQUEST_URI");
+  reload("http://$userDomain.$siteDomain{$_SERVER['REQUEST_URI']}");
 }
 
 function session($aUserId=0)

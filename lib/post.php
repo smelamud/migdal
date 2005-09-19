@@ -4,53 +4,69 @@
 require_once('lib/charsets.php');
 require_once('lib/ident.php');
 
+$Args=array();
+
 function postInteger($name)
 {
-global $HTTP_POST_VARS;
+global $Args;
 
-settype($GLOBALS[$name],'integer');
-settype($HTTP_POST_VARS[$name],'integer');
+$value=isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0;
+settype($value,'integer');
+$Args[$name]=$value;
+$GLOBALS[$name]=$value;
 }
 
 function postIntegerArray($name)
 {
-global $HTTP_POST_VARS;
+global $Args;
 
-if(!is_array($GLOBALS[$name]))
-  $GLOBALS[$name]=array($GLOBALS[$name]);
+$Args[$name]=array();
+$GLOBALS[$name]=array();
+if(!isset($_REQUEST[$name]))
+  return;
+if(!is_array($_REQUEST[$name]))
+  {
+  $value=$_REQUEST[$name];
+  settype($value,'integer');
+  $Args[$name][]=$value;
+  $GLOBALS[$name][]=$value;
+  }
 else
-  foreach($GLOBALS[$name] as $var)
-	 settype($var,'integer');
-if(!is_array($HTTP_POST_VARS[$name]))
-  $HTTP_POST_VARS[$name]=array($HTTP_POST_VARS[$name]);
-else
-  foreach($HTTP_POST_VARS[$name] as $var);
-	 settype($var,'integer');
+  {
+  foreach($_REQUEST[$name] as $var)
+         {
+	 $value=$var;
+	 settype($value,'integer');
+	 $Args[$name][]=$value;
+	 $GLOBALS[$name][]=$value;
+	 }
+  }
 }
 
-function postIdent($name,$table)
+function postIdent($name,$table='entries')
 {
-global $HTTP_POST_VARS;
+global $Args;
 
-$GLOBALS[$name]=idByIdent($table,addslashes($GLOBALS[$name]));
-$HTTP_POST_VARS[$name]=idByIdent($table,addslashes($HTTP_POST_VARS[$name]));
+$value=isset($_REQUEST[$name]) ? idByIdent(addslashes($value),$table) : 0;
+$Args[$name]=$value;
+$GLOBALS[$name]=$value;
 }
 
-function postString($name)
+function postString($name,$convert=true)
 {
-global $HTTP_POST_VARS;
+global $Args;
 
-if(isset($GLOBALS[$name]))
-  $GLOBALS[$name]=convertInput($GLOBALS[$name]);
-if(isset($HTTP_POST_VARS[$name]))
-  $HTTP_POST_VARS[$name]=convertInput($HTTP_POST_VARS[$name]);
+$value=isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
+if($convert)
+  $value=convertInput($value);
+$Args[$name]=$value;
+$GLOBALS[$name]=$value;
 }
 
 function commandLineArgs()
 {
-global $args,$argv;
+global $Args;
 
-if(!isset($args))
-  $args=array_slice($argv,1);
+$Args=array_slice($_SERVER['argv'],1);
 }
 ?>

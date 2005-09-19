@@ -57,8 +57,7 @@ if($after || $AfterRedirect && !$BodyToHeader)
   }
 else
   {
-  getGlobal('REQUEST_URI');
-  $redir='$REQUEST_URI';
+  $redir="\$_SERVER['REQUEST_URI']";
   }
 splitParams($s,\%params);
 while(my($name,$value)=each(%params))
@@ -140,19 +139,19 @@ return "$st$1$ed"
        if $s=~/^\*{?(\w+)}?$/;
 return "$st\$".getGlobal('redir')."->getId()$ed"
        if $s=~/^\$_$/;
-return "$st\$".getGlobal('REQUEST_URI').$ed
+return "$st\$_SERVER['REQUEST_URI']$ed"
        if $s=~/^\$-$/;
-return "${st}urlencode(\$".getGlobal('REQUEST_URI').")$ed"
+return "${st}urlencode(\$_SERVER['REQUEST_URI'])$ed"
        if $s=~/^\$#-$/;
 return "$st\$".getGlobal('lastRedir')."->getURI()$ed"
        if $s=~/^\$--$/;
 return "${st}urlencode(\$".getGlobal('lastRedir')."->getURI())$ed"
        if $s=~/^\$#--$/;
-return "$st\$".getGlobal('SCRIPT_NAME').$ed
+return "$st\$_SERVER['SCRIPT_NAME']$ed"
        if $s=~/^\$~$/;
-return "$st\$".getGlobal('QUERY_STRING').$ed
+return "$st\$_SERVER['QUERY_STRING']$ed"
        if $s=~/^\$\?$/;
-return "${st}urlencode(\$".getGlobal('QUERY_STRING').")$ed"
+return "${st}urlencode(\$_SERVER['QUERY_STRING'])$ed"
        if $s=~/^\$#\?$/;
 return "$st\$$item$ed"
        if $s=~/^\$\.$/;

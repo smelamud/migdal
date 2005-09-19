@@ -11,12 +11,12 @@ require_once('lib/sql.php');
 
 function logEvent($event,$body)
 {
-global $disableLogging,$REMOTE_ADDR;
+global $disableLogging;
 
 if($disableLogging)
   return;
 $event=addslashes($event);
-$ip=IPToInteger($REMOTE_ADDR);
+$ip=IPToInteger($_SERVER['REMOTE_ADDR']);
 $body=addslashes($body);
 sql("insert into logs(event,ip,body)
      values('$event',$ip,'$body')",

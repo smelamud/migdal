@@ -7,12 +7,12 @@ require_once('lib/sql.php');
 
 function storeCounterIP($id,$mode)
 {
-global $counterModes,$REMOTE_ADDR;
+global $counterModes;
 
 $period=$counterModes[$mode]['period'];
 if($period<=0)
   return;
-$ip=IPToInteger($REMOTE_ADDR);
+$ip=IPToInteger($_SERVER['REMOTE_ADDR']);
 sql("insert into counters_ip(counter_id,ip,expires)
      values($id,$ip,now()+interval $period hour)",
     'storeCounterIP');
@@ -20,12 +20,12 @@ sql("insert into counters_ip(counter_id,ip,expires)
 
 function hasCounterIP($id,$mode)
 {
-global $counterModes,$REMOTE_ADDR;
+global $counterModes;
 
 $period=$counterModes[$mode]['period'];
 if($period<=0)
   return false;
-$ip=IPToInteger($REMOTE_ADDR);
+$ip=IPToInteger($_SERVER['REMOTE_ADDR']);
 $result=sql("select counter_id
 	     from counters_ip
 	     where counter_id=$id and ip=$ip",

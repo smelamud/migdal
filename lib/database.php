@@ -9,18 +9,17 @@ require_once('lib/profiling.php');
 
 function dbOpen($replication=false)
 {
-global $dbLink,$dbHost,$dbName,$replicationDbName,$dbUser,$dbPassword,
-       $SCRIPT_NAME;
+global $dbLink,$dbHost,$dbName,$replicationDbName,$dbUser,$dbPassword;
 
 if($dbLink>0)
   return;
 $dbLink=mysql_connect($dbHost,$dbUser,$dbPassword)
-            or sqlbug('dbOpen().mysql_connect');
+            or sqlbug(__FUNCTION__.'().mysql_connect');
 mysql_select_db(!$replication ? $dbName : $replicationDbName)
-      or sqlbug('dbOpen().mysql_select_db');
+      or sqlbug(__FUNCTION__.'().mysql_select_db');
 beginJournal();
 if(!$replication)
-  beginProfiling(POBJ_PAGE,$SCRIPT_NAME);
+  beginProfiling(POBJ_PAGE,$_SERVER['SCRIPT_NAME']);
 }
 
 function dbClose()

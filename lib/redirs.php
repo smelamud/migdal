@@ -62,19 +62,18 @@ sql("update redirs
 
 function redirect()
 {
-global $redir,$lastRedir,$redirid,$globalid,$pageTitle,$REQUEST_URI,
-       $HTTP_REFERER;
+global $redir,$lastRedir,$redirid,$globalid,$pageTitle;
 
 settype($redirid,'integer');
 settype($globalid,'integer');
 
 if($redirid!=0 && !redirExists($redirid))
-  reload(remakeURI($REQUEST_URI,array('redirid')));
+  reload(remakeURI($_SERVER['REQUEST_URI'],array('redirid')));
 if($globalid==0)
   {
   sql("insert into redirs(up,name,uri)
        values($redirid,'".addslashes($pageTitle)."','".
-	      addslashes($REQUEST_URI)."')",
+	      addslashes($_SERVER['REQUEST_URI'])."')",
       'redirect');
   $id=sql_insert_id();
   $track=track($id,trackById('redirs',$redirid));
@@ -83,7 +82,7 @@ if($globalid==0)
 			 'up'    => $redirid,
 			 'track' => $track,
 			 'name'  => $pageTitle,
-			 'uri'   => $REQUEST_URI));
+			 'uri'   => $_SERVER['REQUEST_URI']));
   }
 else
   {

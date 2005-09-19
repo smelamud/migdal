@@ -530,7 +530,8 @@ parse_str($fragments['query']);
 << Typecasts >>
 <macro name='int'>
  <header>
-  <settype name='%name' type='integer' method='%method'>
+  <require name='lib/post.php'>
+  <exec func='postInteger' arg1='%name'>
  </header>
 </macro>
 
@@ -541,16 +542,18 @@ parse_str($fragments['query']);
  </header>
 </macro>
 
-<macro name='string'>
- <header><zone>
-  <call name='%name' func='addslashes' arg1='$%name'>
- </zone></header>
+<macro name='ident' defaults="table='entries'">
+ <header>
+  <require name='lib/post.php'>
+  <exec func='postIdent' arg1='%name' arg2='%table'>
+ </header>
 </macro>
 
-<macro name='ident'>
- <header><zone>
-  <call name='%name' func='idByIdent' arg1='%table' arg2='$%name'>
- </zone></header>
+<macro name='string' defaults="convert='*false'">
+ <header>
+  <require name='lib/post.php'>
+  <exec func='postString' arg1='%name' arg2='%convert'>
+ </header>
 </macro>
 
 << HTML shortcuts >>

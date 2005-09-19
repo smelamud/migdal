@@ -3,28 +3,26 @@
 
 function makeQuery($vars,$remove=array(),$subs=array())
 {
-// urlencode() здесь не требуется, иначе возникнет конфликт, когда передают
-// уже закодированные параметры
+// Кодирование происходит внутри - передавайте раскодированные параметры
 $s='';
 foreach(count($subs)!=0 ? array_merge($vars,$subs) : $vars as $key => $value)
        if(!in_array($key,$remove) && "$value"!='')
          if(!is_array($value))
-           $s.=($s!='' ? '&' : '')."$key=$value";
+           $s.=($s!='' ? '&' : '')."$key=".urlencode($value);
          else
 	   foreach($value as $elm)
-                  $s.=($s!='' ? '&' : '')."${key}[]=$elm";
+                  $s.=($s!='' ? '&' : '')."${key}[]=".urlencode($elm);
 return $s;
 }
 
-function parseQuery($query,$decode=true)
+function parseQuery($query)
 {
 $asses=explode('&',$query);
 $vars=array();
 foreach($asses as $ass) 
        { 
        list($key,$value)=explode('=',$ass); 
-       if($decode)
-         $value=urldecode($value);
+       $value=urldecode($value);
        if(substr($key,-2)!='[]')
          $vars[$key]=$value;
        else
@@ -40,7 +38,7 @@ return $vars;
 
 function remakeQuery($query,$remove=array(),$subs=array())
 {
-return makeQuery(parseQuery($query,false),$remove,$subs);
+return makeQuery(parseQuery($query),$remove,$subs);
 }
 
 function remakeURI($uri,$remove=array(),$subs=array(),$location='#')
@@ -53,7 +51,7 @@ return "$start?".remakeQuery($query,$remove,$subs).($end!='' ? "#$end" : '');
 
 function remakeMakeQuery($query,$vars,$remove=array(),$subs=array())
 {
-$all=parseQuery($query,false);
+$all=parseQuery($query);
 $all=array_merge($all,$vars);
 return makeQuery($all,$remove,$subs);
 }

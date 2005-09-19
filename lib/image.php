@@ -12,7 +12,7 @@ require_once('lib/utils.php');
 
 dbOpen();
 if($size!='small' && $size!='large')
-  reload(remakeURI($REQUEST_URI,array(),array('size' => 'small')));
+  reload(remakeURI($_SERVER['REQUEST_URI'],array(),array('size' => 'small')));
 $id=addslashes($id);
 $image=getImageContentById($id,$size);
 if($size=='large')
