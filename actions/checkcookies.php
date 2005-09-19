@@ -7,6 +7,8 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 
+postString('okdir');
+postString('faildir');
 postInteger('svalue');
 
 dbOpen();

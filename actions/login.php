@@ -12,6 +12,8 @@ require_once('lib/post.php');
 require_once('lib/session.php');
 require_once('lib/logging.php');
 
+postString('okdir');
+postString('faildir');
 postString('login');
 postString('password');
 

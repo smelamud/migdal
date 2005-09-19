@@ -21,7 +21,7 @@ return "$c...".substr($s,strlen($s)-($len-3-strlen($c)));
 
 function uc($s)
 {
-setlocale('LC_CTYPE','ru_RU.KOI8-R');
+setlocale(LC_CTYPE,'ru_RU.KOI8-R');
 return strtoupper($s);
 }
 

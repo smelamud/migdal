@@ -12,6 +12,9 @@ require_once('lib/errors.php');
 require_once('lib/session.php');
 require_once('lib/logging.php');
 
+postString('okdir');
+postString('faildir');
+
 dbOpen();
 session();
 $err=logout($sessionid);

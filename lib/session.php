@@ -12,9 +12,12 @@ require_once('lib/users.php');
 require_once('lib/sql.php');
 require_once('grp/subdomains.php');
 
-$userRightNames=array('login','hidden','admin_users','admin_topics',
-                      'admin_complain_answers','moderator','judge',
-		      'admin_domain');
+$userRights=array('AdminUsers'           => USR_ADMIN_USERS,
+                  'AdminTopics'          => USR_ADMIN_TOPICS,
+                  'AdminComplainAnswers' => USR_ADMIN_COMPLAIN_ANSWERS,
+		  'Moderator'            => USR_MODERATOR,
+		  'Judge'                => USR_JUDGE,
+		  'AdminDomain'          => USR_ADMIN_DOMAIN);
 $userSetNames=array('MsgPortion', // obsolete
                     'ForumPortion',
                     'ComplainPortion', // obsolete
@@ -58,15 +61,6 @@ $userSetParams=array('MsgPortion'           => 'mp', // obsolete
 		     'ChatUsersRefresh'     => 'chur',
 		     'UserPortion'          => 'up'); // obsolete
 
-function getProperName($name)
-{
-$parts=explode('_',$name);
-$proper='';
-foreach($parts as $part)
-       $proper.=ucfirst($part);
-return $proper;
-}
-
 function sessionGuest()
 {
 global $userId,$realUserId,$sessionid;
@@ -76,15 +70,24 @@ $sessionid=createSession(0,0);
 setSessionCookie($sessionid);
 }
 
+function clearUserRights()
+{
+global $userRights;
+
+$GLOBALS['userLogin']='';
+$GLOBALS['userHidden']='';
+foreach($userRights as $name => $code)
+       $GLOBALS["user$name"]='';
+}
+
 function userRights($aUserId=0)
 {
-global $sessionid,$userId,$realUserId,$userGroups,$userRightNames;
+global $sessionid,$userId,$realUserId,$userGroups,$userRights;
 
-settype($sessionid,'integer');
-settype($globalsid,'integer');
+$sessionid=$_COOKIE['sessionid'];
+$globalsid=$_REQUEST['globalsid'];
 
-foreach($userRightNames as $name)
-       $GLOBALS['user'.getProperName($name)]='';
+clearUserRights();
 
 if($globalsid!=0)
   $sessionid=$globalsid;
@@ -122,7 +125,7 @@ if($userId>0)
   $result=sql("select group_id
 	       from groups
 	       where user_id=$userId",
-	      'userRights','get_groups');
+	      __FUNCTION__,'get_groups');
   while(list($group_id)=mysql_fetch_array($result))
        $userGroups[]=$group_id;
   }
@@ -132,13 +135,15 @@ else
 
 if($userId>0)
   {
-  $rights=sql('select '.join(',',$userRightNames).
-	     " from users
+  $rights=sql("select login,hidden,rights
+	       from users
 	       where id=$userId",
-	      'userRights','get_rights');
+	      __FUNCTION__,'get_rights');
   $info=mysql_fetch_assoc($rights);
-  foreach($info as $name => $value)
-	 $GLOBALS['user'.getProperName($name)]=$value;
+  $GLOBALS['userLogin']=$info['login'];
+  $GLOBALS['userHidden']=$info['hidden'];
+  foreach($userRights as $name => $code)
+	 $GLOBALS["user$name"]=($info['rights'] & $code)!=0;
   if($GLOBALS['userAdminUsers'] && $GLOBALS['userHidden']>0)
     $GLOBALS['userHidden']--;
   updateLastOnline($userId);
@@ -150,8 +155,7 @@ if($realUserId>0)
 
 function userSettings()
 {
-global $userId,$HTTP_GET_VARS,$HTTP_COOKIE_VARS,
-       $userSetNames,$userSetDefaults,$userSetParams,$siteDomain;
+global $userId,$userSetNames,$userSetDefaults,$userSetParams,$siteDomain;
        
 if($userId>0)
   {
@@ -160,7 +164,7 @@ if($userId>0)
   }
 else
   $row=array();
-$cookieSettings=$HTTP_COOKIE_VARS['settings'];
+$cookieSettings=$_COOKIE['settings'];
 $cookie=explode(':',$cookieSettings);
 foreach($userSetNames as $i => $name)
        {
@@ -170,7 +174,7 @@ foreach($userSetNames as $i => $name)
 $update=array();
 foreach($userSetNames as $name)
        {
-       $par=$HTTP_GET_VARS[$userSetParams[$name]];
+       $par=$_GET[$userSetParams[$name]];
        $cook=$cookie[$name];
        $db=$row[$name];
        settype($par,'integer');
@@ -181,7 +185,7 @@ foreach($userSetNames as $name)
        $update[]=$glob;
        $GLOBALS["user$name"]=$glob;
        }
-if($HTTP_GET_VARS['print']!=0)
+if($_GET['print']!=0)
   $GLOBALS['userStyle']=-1;
 $globs=join(':',$update);
 if($userId>0 && $globs!=$dbSettings)

@@ -11,7 +11,7 @@ function login($login,$password,$remember=true)
 {
 global $sessionid,$userId,$realUserId;
 
-$id=getUserIdByLoginPassword(addslashes($login),$password);
+$id=getUserIdByLoginPassword($login,$password);
 if($id==0)
   return EL_INVALID;
 if($remember)

@@ -24,8 +24,9 @@ updateSessionUserId($sessionid,$id);
 return EUS_OK;
 }
 
+postString('okdir');
+postString('faildir');
 postString('login');
-settype($sessionid,'integer');
 
 dbOpen();
 session();
