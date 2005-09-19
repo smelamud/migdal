@@ -56,9 +56,14 @@ function postString($name,$convert=true)
 {
 global $Args;
 
-$value=isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
-if($convert)
-  $value=convertInput($value);
+if(isset($_REQUEST["$name_i"]))
+  $value=tmpTextRestore($_REQUEST["$name_i"]);
+else
+  {
+  $value=isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
+  if($convert)
+    $value=convertInput($value);
+  }
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
 }

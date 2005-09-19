@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
 
-<element name='infoline' params='title,value'>
+<element name='infoline' params='title,value,escape' defaults="escape='*true'">
 <ifne what='$value'>
- <tr><th>$title</th><td>$value</td></tr>
+ <tr><th>$=title</th><td><if what='$escape'>$=value<else>$value</if></td></tr>
 </ifne>
 </element>
 
@@ -39,7 +39,7 @@
   <else>
    <infoline title='Мигдалевец' value='Нет'>
   </if>
-  <infoline title='Коротко о себе' value='$,HTMLInfo'>
+  <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
   <if what='!$,isHideEmail'>
    <tr>
     <th>E-mail</th>
@@ -57,7 +57,7 @@
   <ifne what='$,ICQ'>
    <tr>
     <th>ICQ</th>
-    <td>$,ICQStatusImage&nbsp;$,ICQ</td>
+    <td>$,ICQStatusImage&nbsp;$=,ICQ</td>
    </tr>
   </ifne>
   <tr>

@@ -12,10 +12,12 @@ require_once('lib/tmptexts.php');
 require_once('lib/calendar.php');
 require_once('lib/random.php');
 require_once('lib/text.php');
+require_once('lib/text-wiki.php');
 require_once('lib/alphabet.php');
 require_once('lib/sort.php');
 require_once('lib/sql.php');
 require_once('lib/charsets.php');
+require_once('lib/mtext-html.php');
 
 define('USR_MIGDAL_STUDENT',0x0001);
 define('USR_ACCEPTS_COMPLAINS',0x0002);
@@ -42,6 +44,7 @@ var $name;
 var $jewish_name;
 var $surname;
 var $info;
+var $info_xml;
 var $birthday;
 var $rights;
 var $last_online;
@@ -76,10 +79,8 @@ $this->jewish_name=$vars['jewish_name'];
 $this->surname=$vars['surname'];
 $this->gender=$vars['gender'];
 $this->rights=$vars['rights'];
-if(isset($vars['infoid']))
-  $this->info=tmpTextRestore($vars['infoid']);
-else
-  $this->info=$vars['info'];
+$this->info=$vars['info'];
+$this->info_xml=wikiToXML($this->info,TF_MAIL,MTEXT_SHORT);
 $this->email=$vars['email'];
 $this->hide_email=$vars['hide_email'];
 $this->icq=$vars['icq'];
@@ -148,9 +149,14 @@ function getInfo()
 return $this->info;
 }
 
-function getHTMLInfo()
+function getInfoXML()
 {
-return stotextToHTML(TF_MAIL,$this->getInfo());
+return $this->info_xml;
+}
+
+function getInfoHTML()
+{
+return mtextToHTML($this->getInfoXML(),MTEXT_SHORT);
 }
 
 function getAge()
@@ -219,9 +225,10 @@ return $this->icq;
 
 function getICQStatusImage()
 {
-return $this->icq ? '<img src="http://web.icq.com/whitepages/online?icq='.
-                                                      $this->icq.'&img=5">'
-		  : '';
+$icqH=htmlspecialchars($this->icq,ENT_QUOTES);
+return $icqH
+       ? "<img src=\"http://web.icq.com/whitepages/online?icq=$icqH&img=5\">"
+       : '';
 }
 
 function isEmailDisabled()
@@ -425,8 +432,8 @@ global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select distinct users.id as id,login,name,jewish_name,surname,
-                    gender,info,birthday,rights,last_online,email,hide_email,
-		    icq,email_disabled,hidden,no_login,has_personal,
+                    gender,info,info_xml,birthday,rights,last_online,email,
+		    hide_email,icq,email_disabled,hidden,no_login,has_personal,
 		    max(sessions.user_id) as online,
 		    min(floor((unix_timestamp(now())
 			      -unix_timestamp(sessions.last))/60))
@@ -454,7 +461,7 @@ global $userAdminUsers;
 $jencoded=array('login' => '','login_sort' => '','password' => '','name' => '',
                 'name_sort' => '','jewish_name' => '','jewish_name_sort' => '',
  	        'surname' => '','surname_sort' => '','info' => '',
-		'email' => '','icq' => '','settings' => '');
+		'info_xml' => '','email' => '','icq' => '','settings' => '');
 // Здесь допускается установка админских прав не админом! Проверка должна
 // производиться раньше.
 $vars=array('login' => $user->login,
@@ -467,6 +474,7 @@ $vars=array('login' => $user->login,
             'surname_sort' => convertSort($user->surname),
 	    'gender' => $user->gender,
 	    'info' => $user->info,
+	    'info_xml' => $user->info_xml,
 	    'birthday' => $user->birthday,
             'rights' => $user->rights,
 	    'email' => $user->email,
