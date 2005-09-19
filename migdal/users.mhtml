@@ -34,8 +34,7 @@
     <assign name='rus' value='*true'>
    </if>
    <if what='$.!=$$prefix'>
-    <assign name='pref' value='$.'>
-    <a href='$[prefix=$#pref]'>$=pref</a>&sp;
+    <a href='$[prefix=$#.]'>$=.</a>&sp;
    <else>
     <b>$.</b>&sp;
    </if>

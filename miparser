@@ -158,6 +158,10 @@ return "$st\$$item$ed"
        if $s=~/^\$\.$/;
 return "${st}uc(\$$item)$ed"
        if $s=~/^\$\^\.$/;
+return "${st}urlencode(\$$item)$ed"
+       if $s=~/^\$#\.$/;
+return "${st}htmlspecialchars(\$$item,ENT_QUOTES)$ed"
+       if $s=~/^\$=\.$/;
 return "$st\$$result$ed"
        if $s=~/^\$,$/;
 return "${st}uc(\$$result)$ed"
