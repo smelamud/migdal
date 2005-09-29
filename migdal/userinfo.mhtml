@@ -2,12 +2,14 @@
 
 <int name='id'>
 <pagetitle title='Информация о пользователе'>
+<topictitle title='Информация о пользователе'>
 
 <html>
 <preamble>
 <body>
  <top ident='users'>
- <div style='padding: 5px'>
+ <div style='padding: 5px; margin: 10px' class='cframe'>
+  <subtitle>
   <userinfo id='$id'>
  </div>
  <bottom>
