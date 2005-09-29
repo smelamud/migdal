@@ -1,19 +1,34 @@
 << @(#) $Id$ >>
 
-<element name='formtable'>
-<center><table class='form'>
+<element name='form_table'>
+<center><table class='form' width='80%' cellspacing='0' cellpadding='1'>
  <ifne what='$title'>
-  <tr><th>$title</th></tr>
+  <tr><td class='form-title'>$title</td></tr>
  </ifne>
-<tr><td>
+<tr><td><table class='form-layer' width='100%' cellspacing='1' cellpadding='5'>
 </element>
 
-<element name='/formtable'>
-</td></tr></table></center>
+<element name='/form_table'>
+</table></td></tr></table></center>
 </element>
 
 <element name='star'>
-<span class='star'>*</span>
+<if what='$mandatory'>
+ <asp><span class='star'>* </span><asp>
+<else>
+ <asp><span class='star' style='visibility: hidden'>* </span><asp>
+</if>
+</element>
+
+<element name='form_line'>
+<tr valign='top'>
+ <th class='form-cell' width='20%'><star mandatory='$mandatory'>$title</th>
+ <td class='form-cell ninept' width='80%'>
+</element>
+
+<element name='/form_line'>
+ </td>
+</tr>
 </element>
 
 <element name='starinfo'>
@@ -22,18 +37,9 @@
 </tdspan></tr>
 </element>
 
-<element name='formbuttons'>
-<tr><tdspan span='$span'>&nbsp;</tdspan></tr>
-<tr>
- <ifzero what='$span'>
-  <td class='buttons'>
- <else>
-  <td colspan=$span class='buttons'>
- </ifzero>
- <table width=100% cellspacing=10><tr>
-  <td align=right><input type=submit value='$title'></td>
-  <td align=left><input type=reset value='Очистить'></td>
- </tr></table>
- </td>
-</tr>
+<element name='form_buttons'>
+<tr><td colspan='2' class='form-cell' style='text-align: center'>
+ <input type=submit value='$title'>&nbsp;&nbsp;
+ <input type=reset value='Очистить'>
+</td></tr>
 </element>

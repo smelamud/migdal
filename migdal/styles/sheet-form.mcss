@@ -2,11 +2,23 @@
 
 .form {
 	background-color: %form_back;
-	padding: 5px;
+	margin-top: 10px;
 }
 
-.form * {
-	font-size: 9pt;
+.form-layer {
+	background-color: transparent;
+}
+
+.form-title {
+	color: %form_title;
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: center;
+}
+
+.form-cell {
+	background-color: %form_cell;
+	text-align: left;
 }
 
 .form P {
@@ -15,13 +27,6 @@
 
 .form P.controls {
 	text-align: center;
-}
-
-.form TH {
-	background-color: %form_title_back;
-	color: %form_title;
-	font-size: 10pt;
-	font-weight: bold;
 }
 
 .form .star {
@@ -42,14 +47,6 @@
 
 .form .split {
 	border-right: 2px solid %form_buttons_ruler;
-}
-
-.form .buttons {
-	border-top: 2px solid %form_buttons_ruler;
-}
-
-.form .buttons INPUT {
-	font-size: 10pt;
 }
 
 .form A {

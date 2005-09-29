@@ -9,14 +9,21 @@
  <top ident='users'>
  <user_obj name='user' id='$editid'>
  <setup>
- <formtable title='Информация о пользователе'>
+ <form_table title='Информация о пользователе'>
   <form method=post action='actions/usermod.php'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='editid' value='$editid'>
-   <table>
-    <starinfo span=2>
+   <form_line title='Test' mandatory='*true'>
+    <input type=password name='password' size=20><br>
+    <span class='eightpt'>Это просто комментарий</span>
+   </form_line>
+   <form_line title='Test 2'>
+    <input type=password name='password' size=20>
+   </form_line>
+   </tr>
+    <<starinfo span=2>
     <error id='*EUM_DISABLED' span=2 text='Регистрация пользователей запрещена'>
     <error id='*EUM_NO_EDIT' span=2
 	   text='У вас нет права менять информацию для этого пользователя'>
@@ -130,11 +137,10 @@
 		    title='Не показывать в списке пользователей'>
      <checkbox_line name='no_login' value='$,isNoLogin' span=2
 		    title='Запретить вход'>
-    </admin_users>
-    <formbuttons title='Обновить' span=2>
-   </table>
+    </admin_users>>
+   <form_buttons title='Обновить'>
   </form>
- </formtable>
+ </form_table>
  <bottom>
 </body>
 </html>

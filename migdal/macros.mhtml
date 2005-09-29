@@ -57,12 +57,15 @@
 <decel name='editlink' file='parts/posting.php' params='posting'>
 <decel name='events' file='parts/events.php'>
 <decel name='failpage' file='parts/failpage.php'>
-<decel name='formbuttons' file='parts/formutils.php' params='title,span'
-       defaults="title='Изменить',span=0">
-<decel name='formtable' file='parts/formutils.php' params='title'>
-<decel name='/formtable' file='parts/formutils.php'>
-<decel name='forum_answer' file='parts/forumanswer.php' params='answer,complain'
-       defaults="complain='*true'">
+<decel name='form_buttons' file='parts/formutils.php' params='title'
+       defaults="title='Изменить'">
+<decel name='form_line' file='parts/formutils.php' params='title,mandatory'
+       defaults="mandatory='*false'">
+<decel name='/form_line' file='parts/formutils.php'>
+<decel name='form_table' file='parts/formutils.php' params='title'>
+<decel name='/form_table' file='parts/formutils.php'>
+<decel name='forum_answer' file='parts/forumanswer.php'
+       params='answer,complain' defaults="complain='*true'">
 <decel name='forumcatalog' file='parts/forumcatalog.php' params='offset'
        defaults="offset=0">
 <decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
@@ -195,7 +198,8 @@
 <decel name='senderlink' file='parts/utils.php' params='message'>
 <decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'
        defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
-<decel name='star' file='parts/formutils.php'>
+<decel name='star' file='parts/formutils.php' params='mandatory'
+       defaults="mandatory='*false'">
 <decel name='starinfo' file='parts/formutils.php' params='span'
        defaults='span=0'>
 <decel name='subtitle' file='parts/subtitle.php'>

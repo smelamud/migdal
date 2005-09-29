@@ -9,9 +9,9 @@ grl=#EAEAEA	! Light
 
 ! Maroon
 
-mrd=#886655
-mrm=#996600
-mrl=#f4f1cb
+mrd=#886655	! Dark
+mrm=#996600	! Medium
+mrl=#f4f1cb	! Light
 
 ! Replacers
 
