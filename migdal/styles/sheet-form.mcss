@@ -21,10 +21,21 @@
 	text-align: left;
 }
 
+.form-section {
+	background-color: %form_section;
+	text-align: left;
+}
+
+.form-comment {
+	font-size: 8pt;
+	font-weight: normal;
+	padding-left: 1em;
+}
+/*
 .form P {
 	text-align: justify;
 }
-
+*/
 .form P.controls {
 	text-align: center;
 }

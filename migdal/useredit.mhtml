@@ -15,95 +15,86 @@
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='editid' value='$editid'>
-   <form_line title='Test' mandatory='*true'>
-    <input type=password name='password' size=20><br>
-    <span class='eightpt'>Это просто комментарий</span>
-   </form_line>
-   <form_line title='Test 2'>
+   <starinfo>
+   <form_section title='Информация для входа на сайт'>
+   <<error id='*EUM_DISABLED' span=2 text='Регистрация пользователей запрещена'>
+   <error id='*EUM_NO_EDIT' span=2
+	  text='У вас нет права менять информацию для этого пользователя'>
+   <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен' span=2>
+   <error id='*EUM_LOGIN_EXISTS' span=2
+	  text='Пользователь с таким ником уже существует'>>
+   <edit_line title='Ник'
+              comment='Ваш псевдоним, под которым вы будете видны на сайте'
+              value='$,Login' name='login' size=20 maxlength=30
+	      mandatory='*true'>
+   <<error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'
+	  span=2>
+   <error id='*EUM_PASSWORD_DIFF' span=2
+	  text='Опечатка при вводе пароля - введите еще раз'>>
+   <form_line title='Пароль' comment='Не менее 5 символов'>
     <input type=password name='password' size=20>
    </form_line>
-   </tr>
-    <<starinfo span=2>
-    <error id='*EUM_DISABLED' span=2 text='Регистрация пользователей запрещена'>
-    <error id='*EUM_NO_EDIT' span=2
-	   text='У вас нет права менять информацию для этого пользователя'>
-    <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен' span=2>
-    <error id='*EUM_LOGIN_EXISTS' span=2
-	   text='Пользователь с таким ником уже существует'>
-    <edit_line title='Ник' value='$,Login' name='login' size=20 maxlength=30
-               mandatory='*true'>
-    <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'
-	   span=2>
-    <error id='*EUM_PASSWORD_DIFF' span=2
-	   text='Опечатка при вводе пароля - введите еще раз'>
-    <tr>
-     <td>Пароль</td>
-     <td><input type=password name='password' size=20></td>
-    </tr>
-    <tr>
-     <td>Пароль (еще раз)</td>
-     <td><input type=password name='dup_password' size=20></td>
-    </tr>
-    <error id='*EUM_NAME_ABSENT' text='Имя не введено' span=2>
-    <edit_line title='Имя' value='$,Name' name='name' size=30 maxlength=30
-               mandatory='*true'>
-    <edit_line title='Еврейское имя' value='$,JewishName' name='jewish_name'
-	       size=30 maxlength=30>
-    <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена' span=2>
-    <edit_line title='Фамилия' value='$,Surname' name='surname' size=30
-	       maxlength=30 mandatory='*true'>
-    <error id='*EUM_GENDER' text='Неизвестный пол' span=2>
-    <tr>
-     <td>Пол</td>
-     <td>
-      <if what='$,isMan'>
-       <label>
-        <input type='radio' name='gender' value='mine' checked>Мужской
-       </label>
-       &nbsp;
-       <label>
-        <input type='radio' name='gender' value='femine'>Женский
-       </label>
-      <else>
-       <label>
-        <input type='radio' name='gender' value='mine'>Мужской
-       </label>
-       &nbsp;
-       <label>
-        <input type='radio' name='gender' value='femine' checked>Женский
-       </label>
-      </if>
-     </td>
-    </tr>
-    <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения' span=2>
-    <tr>
-     <td>Дата рождения</td>
-     <td>
-      <edit name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
-      <select name='birth_month'>
-       <array vals='глюкабря,января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря'>
-       <iterate_array>
-       <for>
-	<if what='!$;isFirst'>
-	 <call func='$user->isMonthOfBirth' arg1='$;Position'>
-	 <radio value='$;Position' peervalue='$,' title='$.'>
-	</if>
-       </for>
-      </select>
-      19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
-     </td>
-    </tr>
-    <checkbox_line name='migdal_student' value='$,isMigdalStudent'
-		   title='Мигдалевец' span=2>
-    <editor_line title='Коротко о себе' name='info' body='$,Info' span=2>
-    <help_link href='stotext-help-subs.php'
+   <form_line title='Пароль (еще раз)'
+	      comment='Повторите ввод пароля, чтобы убедиться, что вы не ошиблись при наборе'>
+    <input type=password name='dup_password' size=20>
+   </form_line>
+   <form_section title='Личная информация'>
+   <<error id='*EUM_NAME_ABSENT' text='Имя не введено' span=2>>
+   <edit_line title='Имя' value='$,Name' name='name' size=30 maxlength=30
+	      mandatory='*true'>
+   <edit_line title='Еврейское имя' value='$,JewishName' name='jewish_name'
+	      size=30 maxlength=30>
+   <<error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена' span=2>>
+   <edit_line title='Фамилия' value='$,Surname' name='surname' size=30
+	      maxlength=30 mandatory='*true'>
+   <<error id='*EUM_GENDER' text='Неизвестный пол' span=2>>
+    <form_line title='Пол'>
+     <if what='$,isMan'>
+      <label>
+       <input type='radio' name='gender' value='mine' checked>Мужской
+      </label>
+      &nbsp;
+      <label>
+       <input type='radio' name='gender' value='femine'>Женский
+      </label>
+     <else>
+      <label>
+       <input type='radio' name='gender' value='mine'>Мужской
+      </label>
+      &nbsp;
+      <label>
+       <input type='radio' name='gender' value='femine' checked>Женский
+      </label>
+     </if>
+    </form_line>
+    <<error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения' span=2>>
+    <form_line title='Дата рождения'>
+     <edit name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
+     <select name='birth_month'>
+      <array vals='глюкабря,января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря'>
+      <iterate_array>
+      <for>
+       <if what='!$;isFirst'>
+	<call func='$user->isMonthOfBirth' arg1='$;Position'>
+	<radio value='$;Position' peervalue='$,' title='$.'>
+       </if>
+      </for>
+     </select>
+     19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
+    </form_line>
+    <<checkbox_line name='migdal_student' value='$,isMigdalStudent'
+		   title='Мигдалевец' span=2>>
+    <editor_line title='Коротко о себе' name='info' body='$,Info'>
+    <<help_link href='stotext-help-subs.php'
     	       title='Список обозначений, используемых в тексте' span=2>
     <if what='$,isEditable'>
      <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен' span=2>
-     <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>
-     <edit_line title='E-mail' value='$,Email' name='email' size=30
-		maxlength=70 mandatory='*true'>
-     <checkbox_line name='hide_email' value='$,isHideEmail'
+     <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>>
+     <edit_line title='E-mail'
+                comment='Укажите ваш настоящий адрес, потому что на этот адрес будет выслано письмо для подтверждения вашей регистрации. Этот адрес также может понадобиться для связи с вами в экстренных случаях (например, восстановление забытого пароля)'
+		value='$,Email' name='email' size=30 maxlength=70
+		mandatory='*true'>
+     <<checkbox_line name='hide_email' value='$,isHideEmail'
 		    title='Не показывать E-mail на сайте' span=2>
      <checkbox_line name='email_enabled' value='$,isEmailEnabled'
 		    title='Разрешаю посылать почту на мой адрес' span=2>
@@ -113,9 +104,11 @@
        работает
       </span></td></tr>
      </if>
-    </if>
-    <edit_line title='ICQ' value='$,ICQ' name='icq' size=15 maxlength=15>
-    <admin_users>
+    </if>>
+    <edit_line title='ICQ'
+               comment='Если вы не знаете, что это такое, не заполняйте это поле'
+	       value='$,ICQ' name='icq' size=15 maxlength=15>
+    <<admin_users>
      <checkbox_line name='has_personal' value='$,isHasPersonal' span=2
 		    title='Имеет персональную страницу'>
      <checkbox_line name='accepts_complains' value='$,isAcceptsComplains' span=2

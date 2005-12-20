@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='form_table'>
-<center><table class='form' width='80%' cellspacing='0' cellpadding='1'>
+<center><table class='form' width='95%' cellspacing='0' cellpadding='1'>
  <ifne what='$title'>
   <tr><td class='form-title'>$title</td></tr>
  </ifne>
@@ -22,8 +22,13 @@
 
 <element name='form_line'>
 <tr valign='top'>
- <th class='form-cell' width='20%'><star mandatory='$mandatory'>$title</th>
- <td class='form-cell ninept' width='80%'>
+ <th class='form-cell' width='25%'><asp>
+  <star mandatory='$mandatory'>$title
+  <ifne what='$comment'>
+   <p class='form-comment'>$comment</p>
+  </ifne>
+ </th>
+ <td class='form-cell ninept' width='75%'>
 </element>
 
 <element name='/form_line'>
@@ -31,14 +36,37 @@
 </tr>
 </element>
 
+<element name='form_section'>
+<tr valign='top'>
+ <th class='form-section' colspan=2>&nbsp;&nbsp;$title</th>
+</tr>
+</element>
+
+<element name='edit'>
+<input type='text' name='$name' value='$value' size='$size'
+       maxlength='$maxlength'>
+</element>
+
+<element name='edit_line'>
+<form_line title='$title' mandatory='$mandatory' comment='$comment'>
+ <edit name='$name' value='$value' size='$size' maxlength='$maxlength'>
+</form_line>
+</element>
+
+<element name='editor_line'>
+<form_line title='$title' mandatory='$mandatory' comment='$comment'>
+ <textarea name='$name' rows='$rows' wrap='virtual' style='width: 100%'>$body</textarea>
+</form_line>
+</element>
+
 <element name='starinfo'>
-<tr class='starinfo'><tdspan span='$span'>
- Поля, отмеченные <star>, обязательны для заполнения
-</tdspan></tr>
+<tr valign='top'><td class='form-cell eightpt' colspan=2>
+ Поля, отмеченные <star mandatory='*true'>, заполнять обязательно
+</td></tr>
 </element>
 
 <element name='form_buttons'>
-<tr><td colspan='2' class='form-cell' style='text-align: center'>
+<tr><td colspan='2' class='form-section' style='text-align: center'>
  <input type=submit value='$title'>&nbsp;&nbsp;
  <input type=reset value='Очистить'>
 </td></tr>
