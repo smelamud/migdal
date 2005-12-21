@@ -1,7 +1,7 @@
 ! @(#) $Id$
 
 .form {
-	background-color: %form_back;
+	background-color: %form_title_back;
 	margin-top: 10px;
 }
 
@@ -31,36 +31,8 @@
 	font-weight: normal;
 	padding-left: 1em;
 }
-/*
-.form P {
-	text-align: justify;
-}
-*/
-.form P.controls {
-	text-align: center;
-}
 
-.form .star {
+.form-star {
 	font-size: 9pt;
 	color: %form_star;
-}
-
-.form .starinfo TD {
-	padding-bottom: 2ex;
-	font-size: 8pt;
-	color: %form_starinfo;
-}
-
-.form .comment TD {
-	font-size: 9pt;
-	color: %form_comment;
-}
-
-.form .split {
-	border-right: 2px solid %form_buttons_ruler;
-}
-
-.form A {
-	color: %form_link;
-	text-decoration: underline;
 }

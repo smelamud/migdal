@@ -57,10 +57,10 @@
      <admin_users><td colspan=3><else><td></admin_users>
       <b>
       <if what='$$userHidden'>
-       $$userLogin
+       $$=userLogin
       <else>
        <at href#='/userinfo.php?id=$$userId' class='name'
-	   target='$target'>$$userLogin</at>
+	   target='$target'>$$=userLogin</at>
       </if>
       </b>
      </td>

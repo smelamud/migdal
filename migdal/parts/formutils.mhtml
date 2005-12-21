@@ -14,9 +14,9 @@
 
 <element name='star'>
 <if what='$mandatory'>
- <asp><span class='star'>* </span><asp>
+ <asp><span class='form-star'>* </span><asp>
 <else>
- <asp><span class='star' style='visibility: hidden'>* </span><asp>
+ <asp><span class='form-star' style='visibility: hidden'>* </span><asp>
 </if>
 </element>
 
@@ -56,6 +56,12 @@
 <element name='form_edit'>
 <form_line title='$title' mandatory='$mandatory' comment='$comment'>
  <edit name='$name' value='$value' size='$size' maxlength='$maxlength'>
+</form_line>
+</element>
+
+<element name='form_password'>
+<form_line title='$title' mandatory='$mandatory' comment='$comment'>
+ <input type='password' name='$name' size='$size' maxlength='$maxlength'>
 </form_line>
 </element>
 

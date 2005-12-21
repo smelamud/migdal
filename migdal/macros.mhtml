@@ -74,6 +74,9 @@
        params='title,mandatory,comment'
        defaults="mandatory='*false' comment=''">
 <decel name='/form_line' file='parts/formutils.php'>
+<decel name='form_password' file='parts/formutils.php'
+       params='title,mandatory,comment,name,size,maxlength'
+       defaults="mandatory='*false' comment='' size=40 maxlength=250">
 <decel name='form_section' file='parts/formutils.php' params='title'>
 <decel name='form_table' file='parts/formutils.php' params='title'>
 <decel name='/form_table' file='parts/formutils.php'>
