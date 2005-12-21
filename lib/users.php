@@ -37,7 +37,6 @@ class User
       extends UserTag
 {
 var $id;
-var $login;
 var $password;
 var $dup_password;
 var $name;
