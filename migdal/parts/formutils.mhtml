@@ -20,6 +20,12 @@
 </if>
 </element>
 
+<element name='starinfo'>
+<tr valign='top'><td class='form-cell eightpt' colspan=2>
+ Поля, отмеченные <star mandatory='*true'>, заполнять обязательно
+</td></tr>
+</element>
+
 <element name='form_line'>
 <tr valign='top'>
  <th class='form-cell' width='25%'><asp>
@@ -47,22 +53,35 @@
        maxlength='$maxlength'>
 </element>
 
-<element name='edit_line'>
+<element name='form_edit'>
 <form_line title='$title' mandatory='$mandatory' comment='$comment'>
  <edit name='$name' value='$value' size='$size' maxlength='$maxlength'>
 </form_line>
 </element>
 
-<element name='editor_line'>
+<element name='form_editor'>
 <form_line title='$title' mandatory='$mandatory' comment='$comment'>
  <textarea name='$name' rows='$rows' wrap='virtual' style='width: 100%'>$body</textarea>
 </form_line>
 </element>
 
-<element name='starinfo'>
-<tr valign='top'><td class='form-cell eightpt' colspan=2>
- Поля, отмеченные <star mandatory='*true'>, заполнять обязательно
-</td></tr>
+<element name='form_checkbox'>
+<form_line title='$title' mandatory='$mandatory' comment='$comment'>
+ <if what="$style=='select'">
+  <select name='$name'>
+   <radio value='1' peervalue='$value' title='Да'>
+   <radio value='0' peervalue='$value' title='Нет'>
+  </select>
+ <elif what="$style=='radio'">
+   <radio_button name='$name' value='1' peervalue='$value' title='Да'>
+   &nbsp;
+   <radio_button name='$name' value='0' peervalue='$value' title='Нет'>
+ <elif what="$style=='box'">
+  <checkbox_button name='$name' value='$value'>
+ <else>
+  <checkbox_button name='$name' value='$value'>
+ </if>
+</form_line>
 </element>
 
 <element name='form_buttons'>

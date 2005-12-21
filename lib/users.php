@@ -262,37 +262,37 @@ return $this->last_minutes;
 
 function isAcceptsComplains()
 {
-$this->hasRight(USR_ACCEPTS_COMPLAINS);
+return $this->hasRight(USR_ACCEPTS_COMPLAINS);
 }
 
 function isAdminUsers()
 {
-$this->hasRight(USR_ADMIN_USERS);
+return $this->hasRight(USR_ADMIN_USERS);
 }
 
 function isAdminTopics()
 {
-$this->hasRight(USR_ADMIN_TOPICS);
+return $this->hasRight(USR_ADMIN_TOPICS);
 }
 
 function isAdminComplainAnswers()
 {
-$this->hasRight(USR_ADMIN_COMPLAIN_ANSWERS);
+return $this->hasRight(USR_ADMIN_COMPLAIN_ANSWERS);
 }
 
 function isModerator()
 {
-$this->hasRight(USR_MODERATOR);
+return $this->hasRight(USR_MODERATOR);
 }
 
 function isJudge()
 {
-$this->hasRight(USR_JUDGE);
+return $this->hasRight(USR_JUDGE);
 }
 
 function isAdminDomain()
 {
-$this->hasRight(USR_ADMIN_DOMAIN);
+return $this->hasRight(USR_ADMIN_DOMAIN);
 }
 
 function isHidden()

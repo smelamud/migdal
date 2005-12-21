@@ -23,7 +23,7 @@
    <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен' span=2>
    <error id='*EUM_LOGIN_EXISTS' span=2
 	  text='Пользователь с таким ником уже существует'>>
-   <edit_line title='Ник'
+   <form_edit title='Ник'
               comment='Ваш псевдоним, под которым вы будете видны на сайте'
               value='$,Login' name='login' size=20 maxlength=30
 	      mandatory='*true'>
@@ -40,32 +40,20 @@
    </form_line>
    <form_section title='Личная информация'>
    <<error id='*EUM_NAME_ABSENT' text='Имя не введено' span=2>>
-   <edit_line title='Имя' value='$,Name' name='name' size=30 maxlength=30
+   <form_edit title='Имя' value='$,Name' name='name' size=30 maxlength=30
 	      mandatory='*true'>
-   <edit_line title='Еврейское имя' value='$,JewishName' name='jewish_name'
+   <form_edit title='Еврейское имя' value='$,JewishName' name='jewish_name'
 	      size=30 maxlength=30>
    <<error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена' span=2>>
-   <edit_line title='Фамилия' value='$,Surname' name='surname' size=30
+   <form_edit title='Фамилия' value='$,Surname' name='surname' size=30
 	      maxlength=30 mandatory='*true'>
    <<error id='*EUM_GENDER' text='Неизвестный пол' span=2>>
     <form_line title='Пол'>
-     <if what='$,isMan'>
-      <label>
-       <input type='radio' name='gender' value='mine' checked>Мужской
-      </label>
-      &nbsp;
-      <label>
-       <input type='radio' name='gender' value='femine'>Женский
-      </label>
-     <else>
-      <label>
-       <input type='radio' name='gender' value='mine'>Мужской
-      </label>
-      &nbsp;
-      <label>
-       <input type='radio' name='gender' value='femine' checked>Женский
-      </label>
-     </if>
+     <radio_button name='gender' value='mine' peervalue='$,Gender'
+                   title='Мужской'>
+     &nbsp;
+     <radio_button name='gender' value='femine' peervalue='$,Gender'
+                   title='Женский'>
     </form_line>
     <<error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения' span=2>>
     <form_line title='Дата рождения'>
@@ -82,55 +70,56 @@
      </select>
      19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
     </form_line>
-    <<checkbox_line name='migdal_student' value='$,isMigdalStudent'
-		   title='Мигдалевец' span=2>>
-    <editor_line title='Коротко о себе' name='info' body='$,Info'>
+    <form_checkbox name='migdal_student' value='$,isMigdalStudent'
+		   title='Мигдалевец' span=2>
+    <form_editor title='Коротко о себе' name='info' body='$,Info'>
     <<help_link href='stotext-help-subs.php'
     	       title='Список обозначений, используемых в тексте' span=2>
     <if what='$,isEditable'>
      <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен' span=2>
      <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>>
-     <edit_line title='E-mail'
+     <form_edit title='E-mail'
                 comment='Укажите ваш настоящий адрес, потому что на этот адрес будет выслано письмо для подтверждения вашей регистрации. Этот адрес также может понадобиться для связи с вами в экстренных случаях (например, восстановление забытого пароля)'
 		value='$,Email' name='email' size=30 maxlength=70
 		mandatory='*true'>
-     <<checkbox_line name='hide_email' value='$,isHideEmail'
-		    title='Не показывать E-mail на сайте' span=2>
-     <checkbox_line name='email_enabled' value='$,isEmailEnabled'
+     <form_checkbox name='hide_email' value='$,isHideEmail'
+		    title='Скрыть E-mail на сайте' span=2>
+     <form_checkbox name='email_enabled' value='$,isEmailEnabled'
 		    title='Разрешаю посылать почту на мой адрес' span=2>
-     <if what='$,isEmailDisabled==2'>
+     <<if what='$,isEmailDisabled==2'>
       <tr><td colspan=2><span class='error'>
        Посылка почты на этот адрес временно приостановлена, поскольку адрес не
        работает
       </span></td></tr>
      </if>
     </if>>
-    <edit_line title='ICQ'
+    <form_edit title='ICQ'
                comment='Если вы не знаете, что это такое, не заполняйте это поле'
 	       value='$,ICQ' name='icq' size=15 maxlength=15>
-    <<admin_users>
-     <checkbox_line name='has_personal' value='$,isHasPersonal' span=2
+    <form_section title#='Привилегии $,Rights'>
+    <admin_users>
+     <form_checkbox name='has_personal' value='$,isHasPersonal' span=2
 		    title='Имеет персональную страницу'>
-     <checkbox_line name='accepts_complains' value='$,isAcceptsComplains' span=2
+     <form_checkbox name='accepts_complains' value='$,isAcceptsComplains' span=2
 		    title='Принимает жалобы'>
-     <checkbox_line name='admin_users' value='$,isAdminUsers' span=2
+     <form_checkbox name='admin_users' value='$,isAdminUsers' span=2
 		    title='Администратор пользователей'>
-     <checkbox_line name='admin_topics' value='$,isAdminTopics' span=2
+     <form_checkbox name='admin_topics' value='$,isAdminTopics' span=2
 		    title='Администратор тем'>
-     <checkbox_line name='admin_complain_answers' span=2
+     <form_checkbox name='admin_complain_answers' span=2
 		    value='$,isAdminComplainAnswers'
 		    title='Администратор ответов на жалобы'>
-     <checkbox_line name='moderator' value='$,isModerator' span=2
+     <form_checkbox name='moderator' value='$,isModerator' span=2
 		    title='Модератор'>
-     <checkbox_line name='judge' value='$,isJudge' span=2
+     <form_checkbox name='judge' value='$,isJudge' span=2
 		    title='Арбитр'>
-     <checkbox_line name='admin_domain' value='$,isAdminDomain' span=2
+     <form_checkbox name='admin_domain' value='$,isAdminDomain' span=2
 		    title='Администратор субдоменов'>
-     <checkbox_line name='hidden' value='$,isHidden' span=2
-		    title='Не показывать в списке пользователей'>
-     <checkbox_line name='no_login' value='$,isNoLogin' span=2
+     <form_checkbox name='hidden' value='$,isHidden' span=2
+		    title='Скрыть в списке пользователей'>
+     <form_checkbox name='no_login' value='$,isNoLogin' span=2
 		    title='Запретить вход'>
-    </admin_users>>
+    </admin_users>
    <form_buttons title='Обновить'>
   </form>
  </form_table>

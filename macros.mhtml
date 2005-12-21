@@ -609,10 +609,14 @@ parse_str($fragments['query']);
  <checkbox_button name='%name' value='%value'> %title
 </macro>
 
-<macro name='checkbox_line'>
- <tr><tdspan span=%span>
-  <checkbox name='%name' value='%value' title='%title'>
- </tdspan></tr>
+<macro name='radio_button' defaults='peervalue="-1"'>
+ <label>
+  <if what='(%value)==(%peervalue)'>
+   <input type='radio' name='%name' value='%value' checked>%title
+  <else>
+   <input type='radio' name='%name' value='%value'>%title
+  </if>
+ </label>
 </macro>
 
 <macro name='radio' defaults='peervalue="-1"'>

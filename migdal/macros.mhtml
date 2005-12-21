@@ -56,17 +56,20 @@
 <decel name='ears' file='parts/ears.php'>
 <decel name='edit' file='parts/formutils.php' params='name,value,size,maxlength'
        defaults='size=40 maxlength=250'>
-<decel name='edit_line' file='parts/formutils.php'
-       params='title,mandatory,comment,name,value,size,maxlength'
-       defaults="mandatory='*false' comment='' size=40 maxlength=250">
 <decel name='editlink' file='parts/posting.php' params='posting'>
-<decel name='editor_line' file='parts/formutils.php'
-       params='title,mandatory,comment,name,body,rows'
-       defaults="mandatory='*false' comment='' rows=10">
 <decel name='events' file='parts/events.php'>
 <decel name='failpage' file='parts/failpage.php'>
 <decel name='form_buttons' file='parts/formutils.php' params='title'
        defaults="title='Изменить'">
+<decel name='form_checkbox' file='parts/formutils.php'
+       params='title,mandatory,comment,name,value,style'
+       defaults="mandatory='*false' comment='' style='select'">
+<decel name='form_edit' file='parts/formutils.php'
+       params='title,mandatory,comment,name,value,size,maxlength'
+       defaults="mandatory='*false' comment='' size=40 maxlength=250">
+<decel name='form_editor' file='parts/formutils.php'
+       params='title,mandatory,comment,name,body,rows'
+       defaults="mandatory='*false' comment='' rows=10">
 <decel name='form_line' file='parts/formutils.php'
        params='title,mandatory,comment'
        defaults="mandatory='*false' comment=''">
