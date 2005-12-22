@@ -1,8 +1,8 @@
 Что необходимо менять при пересмотре кода
 =========================================
 
-1. idByIdent и identById не требуется таблица (entries по дефолту) и поменялся
-порядок параметров.
+1. idByIdent() и identById() не требуется таблица (entries по дефолту) и
+поменялся порядок параметров.
 2. В начале страниц и в начале action'ов требуется объявление всех параметров
 (проверяется с register_globals = off). В том числе и okdir, faildir.
 3. Есть radio_button для <input type='radio'>.
@@ -12,9 +12,8 @@
 конвертируют из внутреннего представления в уже подготовленный для HTML формат.
 5. getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены.
 6. PHP3 умер. Используем parent::, superglobals.
-7. Есть imageFileResize() для изменения размеров картинки прямо в файле.
-Картинки больше не хранятся в базе. Есть методы для получения путей к
-картинкам.
+7. Размероы картинки меняются прямо в файле. Картинки больше не хранятся в
+базе. Есть методы для получения путей к картинкам.
 8. Функции сами обрабатывают свои параметры через addslashes(), используя
 промежуточные переменные $*S (вообще почаще пользуемся промежуточными
 переменными вместо конкатенации). Внешняя обработка не требуется. 
@@ -35,5 +34,381 @@ action'е.
 18. $`postings:kes` -> $`post.kes`.
 19. Избавляемся от селекторов-вложений в CSS и переходим на имена классов типа
 .form-cell.
+
+Прогресс пересмотра файлов
+--------------------------
+
++ - готов
+* - частично готов
+- - не готов
+
+Все остальные файлы, не упомянутые здесь, появились позже или удалены.
+
+- actions/bookupload.php
+- actions/cadel.php
+- actions/camod.php
+- actions/chatpost.php
++ actions/checkcookies.php
+- actions/chmod.php
+- actions/complainact.php
+- actions/complainassign.php
+- actions/complainauto.php
+- actions/complainmod.php
+- actions/domainmod.php
+- actions/ear.php
+- actions/forumanswermod.php
+- actions/goto.php
+- actions/groupadd.php
+- actions/groupdel.php
+- actions/hide.php
+- actions/horisontmod.php
+- actions/limdel.php
+- actions/liminsert.php
+- actions/limmod.php
+- actions/link.php
+* actions/login.php (поменять код ошибки)
+* actions/logout.php (поменять код ошибки)
+- actions/messagerenew.php
+- actions/moderatemass.php
+- actions/moderateone.php
+- actions/moderate.php
+- actions/postingcopy.php
+- actions/postingdel.php
+- actions/postingmod.php
+- actions/postingorg-goto.php
+- actions/reorder.php
+- actions/search.php
+- actions/shadow.php
+- actions/style.php
++ actions/_template.php
+- actions/topicdel.php
+- actions/topiclinkadd.php
+- actions/topiclinkdel.php
+- actions/topicmod.php
+- actions/topicsreorder.php
+- actions/userconfirm.php
+- actions/userlost.php
+- actions/usermod.php
+* actions/userswitch.php (поменять код ошибки)
+- actions/vote.php
+
+- lib/alphabet.php
+- lib/answers.php
+- lib/array.php
+- lib/biff.php
+- lib/bug.php
+- lib/cache.php
+- lib/calendar.php
+- lib/calendar-tables.php
+- lib/callbacks.php
+- lib/charsets.php
+- lib/chat.php
+- lib/chat-users.php
+- lib/complainactions.php
+- lib/complainscripts.php
+- lib/complains.php
+- lib/complaintypes.php
+- lib/counters.php
+- lib/cross-topics.php
+- lib/ctypes.php
+- lib/database.php
+- lib/dataobject.php
+- lib/earview.php
+- lib/entries.php
+- lib/errorreporting.php
+- lib/errors.php
+- lib/exec.php
+- lib/forums.php
+- lib/gregor-calendar.php
+- lib/groups.php
+- lib/grpiterator.php
+- lib/grps.php
+- lib/horisonts.php
+- lib/ident.php
+- lib/image.php
+- lib/images.php
+- lib/image-types.php
+- lib/image-upload.php
+- lib/indexer.php
+- lib/initstop-mail.php
+- lib/initstop.php
+- lib/inner.php
+- lib/ip.php
+- lib/iterator.php
+- lib/jewish-calendar.php
+- lib/jewish-calendar-utils.php
+- lib/journal.php
+- lib/langs.php
+- lib/limitselect.php
+- lib/logging.php
+- lib/logs.php
+- lib/mailings.php
+- lib/mail.php
+- lib/messages.php
+- lib/mime.php
+- lib/mnogosearch.php
+- lib/modbits.php
+- lib/mtext-html.php
+- lib/mtext-shorten.php
+- lib/no-cache.php
+- lib/old-ids.php
+- lib/package.php
+- lib/packages.php
+- lib/paragraphs.php
+- lib/permissions.php
+- lib/plain.php
+- lib/postings-info.php
+- lib/postings.php
+- lib/postings-random.php
+- lib/post.php
+- lib/profiling.php
+- lib/random.php
+- lib/redirs.php
+- lib/replication.php
+- lib/rowscols.php
+- lib/run-script.php
+- lib/selectiterator.php
+- lib/select.php
+- lib/sendertag.php
+- lib/session.php
+- lib/sessions.php
+- lib/sort.php
+- lib/sql.php
+- lib/stat.php
+- lib/stotext-images.php
+- lib/stotext.php
+- lib/style.php
+- lib/text.php
+- lib/text-wiki.php
+- lib/tmptexts.php
+- lib/topics.php
+- lib/track.php
+- lib/unix-calendar.php
+- lib/uri.php
+- lib/url-domain.php
+- lib/users.php
+- lib/usertag.php
+- lib/utils.php
+- lib/votes.php
+- lib/xml.php
+
+- scripts/chat.php
+- scripts/daily.php
+- scripts/hourly.php
+- scripts/mailrobot.php
+- scripts/packbooks.php
+- scripts/pull.php
+- scripts/replicate.php
+- scripts/urlcheck.php
+
+- migdal/grp/complains.conf
+- migdal/grp/complains.php
+- migdal/grp/complains.stamp
+- migdal/grp/compltypes.php
+- migdal/grp/counters.php
+- migdal/grp/groups.conf
+- migdal/grp/groups.stamp
+- migdal/grp/grps.php
+- migdal/grp/mailings.conf
+- migdal/grp/mailings.php
+- migdal/grp/mailings.stamp
+- migdal/grp/mailtypes.php
+- migdal/grp/Makefile
+- migdal/grp/Makefile.in
+- migdal/grp/php.ini
+- migdal/grp/postings.php
+- migdal/grp/subdomains.php
+
+- migdal/mailings/confirmed.mhtml
+- migdal/mailings/registering.mhtml
+- migdal/mailings/register.mhtml
+- migdal/mailings/repairing-password.mhtml
+- migdal/mailings/repair-password.mhtml
+
+- migdal/404.mhtml
+- migdal/500.mhtml
+- migdal/archive.mhtml
+- migdal/article.mhtml
+- migdal/article-times.mhtml
+- migdal/book-chapter.mhtml
+- migdal/book-chapter-split.mhtml
+- migdal/book.mhtml
+- migdal/book-print.mhtml
+- migdal/book-split.mhtml
+- migdal/book-static.mhtml
+- migdal/callbacks.mhtml
+- migdal/chatboard.mhtml
+- migdal/chatbottom.mhtml
+- migdal/chatconsole.mhtml
+- migdal/chat.mhtml
+- migdal/chattop.mhtml
+- migdal/chatusers.mhtml
+- migdal/chmod.mhtml
+- migdal/complainactionedit.mhtml
+- migdal/complainanswer.mhtml
+- migdal/complainedit.mhtml
+- migdal/complainforum.mhtml
+- migdal/complains.mhtml
+- migdal/ears.mhtml
+- migdal/event.mhtml
+- migdal/events-english.mhtml
+- migdal/events.mhtml
+- migdal/forumansweredit.mhtml
+- migdal/forumcatalog.mhtml
+- migdal/forum.mhtml
+- migdal/gallery.mhtml
+- migdal/groupadd.mhtml
+- migdal/grouporg.mhtml
+- migdal/halom-main.mhtml
+- migdal/halom.mhtml
+- migdal/help.mhtml
+- migdal/horisontedit.mhtml
+- migdal/index-english.mhtml
+- migdal/index.mhtml
+- migdal/index-www.mhtml
+- migdal/jcc.mhtml
+- migdal/journal.mhtml
+- migdal/kaitana-main.mhtml
+- migdal/kaitana.mhtml
+- migdal/limedit.mhtml
+- migdal/liminsert.mhtml
+- migdal/links.mhtml
+- migdal/macros.mhtml
+- migdal/methodic-center.mhtml
+- migdal/methodics.mhtml
+- migdal/migdal-library.mhtml
+- migdal/migdal-library-news.mhtml
+- migdal/migdal.mhtml
+- migdal/migdal-news.mhtml
+- migdal/modbits.mhtml
+- migdal/moderator.mhtml
+- migdal/postingedit.mhtml
+- migdal/posting.mhtml
+- migdal/postingorg.mhtml
+- migdal/printings.mhtml
+- migdal/rating.mhtml
+- migdal/register.mhtml
+- migdal/reorder.mhtml
+- migdal/search.mhtml
+- migdal/stotext-help-subs.mhtml
+- migdal/stotext-help-types.mhtml
+- migdal/style.mhtml
+- migdal/taglit.mhtml
+- migdal/taglit-user.mhtml
+- migdal/_template.mhtml
+- migdal/times.mhtml
+- migdal/tips.mhtml
+- migdal/topicdel.mhtml
+- migdal/topicedit.mhtml
+- migdal/topiclinkadd.mhtml
+- migdal/topiclinks.mhtml
+- migdal/topicorg.mhtml
+- migdal/topics-reorder.mhtml
+- migdal/urls.mhtml
+- migdal/useredit.mhtml
+- migdal/userfin.mhtml
+- migdal/userinfo.mhtml
+- migdal/userinfo-panel.mhtml
+- migdal/userlost.mhtml
+- migdal/userok.mhtml
+- migdal/userrepair.mhtml
+- migdal/users.mhtml
+- migdal/veterans.mhtml
+- migdal/veterans-user.mhtml
+
+- migdal/parts/article.mhtml
+- migdal/parts/backtrace.mhtml
+- migdal/parts/bannerbank.mhtml
+- migdal/parts/banners.mhtml
+- migdal/parts/blog-gallery.mhtml
+- migdal/parts/blog.mhtml
+- migdal/parts/blog-posting.mhtml
+- migdal/parts/book-chapters.mhtml
+- migdal/parts/book-chapters-static.mhtml
+- migdal/parts/book-ring.mhtml
+- migdal/parts/book-ring-static.mhtml
+- migdal/parts/bottom.mhtml
+- migdal/parts/complain.mhtml
+- migdal/parts/discussions.mhtml
+- migdal/parts/ears.mhtml
+- migdal/parts/events.mhtml
+- migdal/parts/failpage.mhtml
+- migdal/parts/formutils.mhtml
+- migdal/parts/forumanswer.mhtml
+- migdal/parts/forumcatalog.mhtml
+- migdal/parts/forums.mhtml
+- migdal/parts/gallery-main.mhtml
+- migdal/parts/gallery.mhtml
+- migdal/parts/googleru.mhtml
+- migdal/parts/grpselect.mhtml
+- migdal/parts/hannukah.mhtml
+- migdal/parts/help-link.mhtml
+- migdal/parts/history.mhtml
+- migdal/parts/hit-parade.mhtml
+- migdal/parts/hotlog.mhtml
+- migdal/parts/identify.mhtml
+- migdal/parts/inner-image.mhtml
+- migdal/parts/jewishru.mhtml
+- migdal/parts/kaitana-announce.mhtml
+- migdal/parts/kaitana-picture.mhtml
+- migdal/parts/langselect.mhtml
+- migdal/parts/link-posting.mhtml
+- migdal/parts/links-switcher.mhtml
+- migdal/parts/login.mhtml
+- migdal/parts/mailru.mhtml
+- migdal/parts/menu.mhtml
+- migdal/parts/migdal-news.mhtml
+- migdal/parts/picture-main.mhtml
+- migdal/parts/picture.mhtml
+- migdal/parts/pointer.mhtml
+- migdal/parts/posting-book.mhtml
+- migdal/parts/posting-ear.mhtml
+- migdal/parts/posting-general.mhtml
+- migdal/parts/posting-library-announce.mhtml
+- migdal/parts/posting.mhtml
+- migdal/parts/postings-links.mhtml
+- migdal/parts/postings.mhtml
+- migdal/parts/postings-migdal-news.mhtml
+- migdal/parts/posting-times-cover.mhtml
+- migdal/parts/posting-times.mhtml
+- migdal/parts/rabbi.mhtml
+- migdal/parts/rambler.mhtml
+- migdal/parts/relogin.mhtml
+- migdal/parts/seealso.mhtml
+- migdal/parts/spin.mhtml
+- migdal/parts/subtitle.mhtml
+- migdal/parts/textears.mhtml
+- migdal/parts/tip.mhtml
+- migdal/parts/tip-posting.mhtml
+- migdal/parts/today.mhtml
+- migdal/parts/top-404.mhtml
+- migdal/parts/topics-admin.mhtml
+- migdal/parts/topics-blog.mhtml
+- migdal/parts/topics-book.mhtml
+- migdal/parts/topicselect.mhtml
+- migdal/parts/topics-events.mhtml
+- migdal/parts/topics-gallery-general.mhtml
+- migdal/parts/topics-gallery-major.mhtml
+- migdal/parts/topics-gallery-migdal.mhtml
+- migdal/parts/topics-general.mhtml
+- migdal/parts/topics-help.mhtml
+- migdal/parts/topics-home.mhtml
+- migdal/parts/topics-kaitana.mhtml
+- migdal/parts/topics-links.mhtml
+- migdal/parts/topics-major.mhtml
+- migdal/parts/topics.mhtml
+- migdal/parts/topics-migdal-english.mhtml
+- migdal/parts/topics-migdal.mhtml
+- migdal/parts/topics-minor.mhtml
+- migdal/parts/topics-times.mhtml
+- migdal/parts/top.mhtml
+- migdal/parts/tzdaka.mhtml
+- migdal/parts/unititle.mhtml
+- migdal/parts/uploader.mhtml
+- migdal/parts/userinfo.mhtml
+- migdal/parts/utils.mhtml
+- migdal/parts/vote.mhtml
+
+* migdal/report
 
 @(#) $Id$
