@@ -102,7 +102,6 @@ action'Å.
 - lib/cache.php
 - lib/calendar.php
 - lib/calendar-tables.php
-- lib/callbacks.php
 - lib/charsets.php
 - lib/chat.php
 - lib/chat-users.php
@@ -116,7 +115,6 @@ action'Å.
 - lib/database.php
 - lib/dataobject.php
 - lib/earview.php
-- lib/entries.php
 - lib/errorreporting.php
 - lib/errors.php
 - lib/exec.php
@@ -150,10 +148,7 @@ action'Å.
 - lib/mime.php
 - lib/mnogosearch.php
 - lib/modbits.php
-- lib/mtext-html.php
-- lib/mtext-shorten.php
 - lib/no-cache.php
-- lib/old-ids.php
 - lib/package.php
 - lib/packages.php
 - lib/paragraphs.php
@@ -181,7 +176,6 @@ action'Å.
 - lib/stotext.php
 - lib/style.php
 - lib/text.php
-- lib/text-wiki.php
 - lib/tmptexts.php
 - lib/topics.php
 - lib/track.php
@@ -192,7 +186,6 @@ action'Å.
 - lib/usertag.php
 - lib/utils.php
 - lib/votes.php
-- lib/xml.php
 
 - scripts/chat.php
 - scripts/daily.php
@@ -238,7 +231,6 @@ action'Å.
 - migdal/book-print.mhtml
 - migdal/book-split.mhtml
 - migdal/book-static.mhtml
-- migdal/callbacks.mhtml
 - migdal/chatboard.mhtml
 - migdal/chatbottom.mhtml
 - migdal/chatconsole.mhtml
@@ -349,7 +341,6 @@ action'Å.
 - migdal/parts/hit-parade.mhtml
 - migdal/parts/hotlog.mhtml
 - migdal/parts/identify.mhtml
-- migdal/parts/inner-image.mhtml
 - migdal/parts/jewishru.mhtml
 - migdal/parts/kaitana-announce.mhtml
 - migdal/parts/kaitana-picture.mhtml
