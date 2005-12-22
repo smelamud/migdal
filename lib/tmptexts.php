@@ -6,8 +6,9 @@ require_once('lib/sql.php');
 
 function tmpTextSave($text)
 {
-sql('insert into tmp_texts(value)
-     values(\''.addslashes($text).'\')',
+$textS=addslashes($text);
+sql("insert into tmp_texts(value)
+     values('$textS')",
     __FUNCTION__);
 return sql_insert_id();
 }

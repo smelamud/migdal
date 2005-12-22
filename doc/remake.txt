@@ -36,6 +36,7 @@ action'е.
 .form-cell.
 20. Избавляемся от иерархий классов в постингах и т.п.
 21. Делаем один универсальный код отсутствия ошибки.
+22. Функции, работающие с базой, убираем из actions/ и кладем в lib/.
 
 Прогресс пересмотра файлов
 --------------------------
@@ -94,16 +95,16 @@ action'е.
 * actions/userswitch.php (поменять код ошибки)
 - actions/vote.php
 
-- lib/alphabet.php
-- lib/answers.php
++ lib/alphabet.php
++ lib/answers.php
 - lib/array.php
 - lib/biff.php
 - lib/bug.php
 - lib/cache.php
 - lib/calendar.php
 - lib/calendar-tables.php
-- lib/charsets.php
-- lib/chat.php
+* lib/charsets.php (обработка иврита должна быть не при выводе)
+* lib/chat.php (функции не обработаны)
 - lib/chat-users.php
 - lib/complainactions.php
 - lib/complainscripts.php
@@ -112,8 +113,8 @@ action'е.
 - lib/counters.php
 - lib/cross-topics.php
 - lib/ctypes.php
-- lib/database.php
-- lib/dataobject.php
++ lib/database.php
++ lib/dataobject.php
 - lib/earview.php
 - lib/errorreporting.php
 - lib/errors.php
@@ -124,11 +125,11 @@ action'е.
 - lib/grpiterator.php
 - lib/grps.php
 - lib/horisonts.php
-- lib/ident.php
++ lib/ident.php
 - lib/image.php
-- lib/images.php
+* lib/images.php (новые функции получения путей к картинкам)
 - lib/image-types.php
-- lib/image-upload.php
+* lib/image-upload.php (только imageFileResize())
 - lib/indexer.php
 - lib/initstop-mail.php
 - lib/initstop.php
@@ -140,24 +141,24 @@ action'е.
 - lib/journal.php
 - lib/langs.php
 - lib/limitselect.php
-- lib/logging.php
+* lib/logging.php (поменять код ошибки)
 - lib/logs.php
 - lib/mailings.php
 - lib/mail.php
 - lib/messages.php
 - lib/mime.php
 - lib/mnogosearch.php
-- lib/modbits.php
+* lib/modbits.php (только новые наборы флагов)
 - lib/no-cache.php
 - lib/package.php
 - lib/packages.php
 - lib/paragraphs.php
-- lib/permissions.php
++ lib/permissions.php
 - lib/plain.php
-- lib/postings-info.php
+* lib/postings-info.php (кроме кэша)
 - lib/postings.php
 - lib/postings-random.php
-- lib/post.php
++ lib/post.php
 - lib/profiling.php
 - lib/random.php
 - lib/redirs.php
@@ -167,24 +168,24 @@ action'е.
 - lib/selectiterator.php
 - lib/select.php
 - lib/sendertag.php
-- lib/session.php
-- lib/sessions.php
++ lib/session.php
++ lib/sessions.php
 - lib/sort.php
 - lib/sql.php
 - lib/stat.php
 - lib/stotext-images.php
 - lib/stotext.php
 - lib/style.php
-- lib/text.php
-- lib/tmptexts.php
++ lib/text.php
++ lib/tmptexts.php
 - lib/topics.php
-- lib/track.php
++ lib/track.php
 - lib/unix-calendar.php
-- lib/uri.php
++ lib/uri.php (HTTPVarsIterator нужен?)
 - lib/url-domain.php
-- lib/users.php
-- lib/usertag.php
-- lib/utils.php
++ lib/users.php
+* lib/usertag.php (вынести ссылку на e-mail в callback или mhtml)
++ lib/utils.php
 - lib/votes.php
 
 - scripts/chat.php
@@ -231,7 +232,7 @@ action'е.
 - migdal/book-print.mhtml
 - migdal/book-split.mhtml
 - migdal/book-static.mhtml
-- migdal/chatboard.mhtml
+* migdal/chatboard.mhtml
 - migdal/chatbottom.mhtml
 - migdal/chatconsole.mhtml
 - migdal/chat.mhtml
@@ -283,7 +284,7 @@ action'е.
 - migdal/rating.mhtml
 - migdal/register.mhtml
 - migdal/reorder.mhtml
-- migdal/search.mhtml
+* migdal/search.mhtml
 - migdal/stotext-help-subs.mhtml
 - migdal/stotext-help-types.mhtml
 - migdal/style.mhtml
@@ -299,21 +300,21 @@ action'е.
 - migdal/topicorg.mhtml
 - migdal/topics-reorder.mhtml
 - migdal/urls.mhtml
-- migdal/useredit.mhtml
+* migdal/useredit.mhtml
 - migdal/userfin.mhtml
-- migdal/userinfo.mhtml
+* migdal/userinfo.mhtml
 - migdal/userinfo-panel.mhtml
 - migdal/userlost.mhtml
 - migdal/userok.mhtml
 - migdal/userrepair.mhtml
-- migdal/users.mhtml
++ migdal/users.mhtml
 - migdal/veterans.mhtml
 - migdal/veterans-user.mhtml
 
 - migdal/parts/article.mhtml
 - migdal/parts/backtrace.mhtml
 - migdal/parts/bannerbank.mhtml
-- migdal/parts/banners.mhtml
++ migdal/parts/banners.mhtml
 - migdal/parts/blog-gallery.mhtml
 - migdal/parts/blog.mhtml
 - migdal/parts/blog-posting.mhtml
@@ -321,13 +322,13 @@ action'е.
 - migdal/parts/book-chapters-static.mhtml
 - migdal/parts/book-ring.mhtml
 - migdal/parts/book-ring-static.mhtml
-- migdal/parts/bottom.mhtml
++ migdal/parts/bottom.mhtml
 - migdal/parts/complain.mhtml
 - migdal/parts/discussions.mhtml
 - migdal/parts/ears.mhtml
 - migdal/parts/events.mhtml
 - migdal/parts/failpage.mhtml
-- migdal/parts/formutils.mhtml
++ migdal/parts/formutils.mhtml
 - migdal/parts/forumanswer.mhtml
 - migdal/parts/forumcatalog.mhtml
 - migdal/parts/forums.mhtml
@@ -347,7 +348,7 @@ action'е.
 - migdal/parts/langselect.mhtml
 - migdal/parts/link-posting.mhtml
 - migdal/parts/links-switcher.mhtml
-- migdal/parts/login.mhtml
++ migdal/parts/login.mhtml
 - migdal/parts/mailru.mhtml
 - migdal/parts/menu.mhtml
 - migdal/parts/migdal-news.mhtml
@@ -394,11 +395,11 @@ action'е.
 - migdal/parts/topics-migdal.mhtml
 - migdal/parts/topics-minor.mhtml
 - migdal/parts/topics-times.mhtml
-- migdal/parts/top.mhtml
++ migdal/parts/top.mhtml
 - migdal/parts/tzdaka.mhtml
 - migdal/parts/unititle.mhtml
 - migdal/parts/uploader.mhtml
-- migdal/parts/userinfo.mhtml
+* migdal/parts/userinfo.mhtml
 - migdal/parts/utils.mhtml
 - migdal/parts/vote.mhtml
 

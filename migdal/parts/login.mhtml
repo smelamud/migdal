@@ -2,9 +2,9 @@
 
 <macro name='tform'>
  <ifne what='$target'>
-  <form method=post action='%action' target='$target'>
+  <form method='post' action='%action' target='$target'>
  <else>
-  <form method=post action='%action'>
+  <form method='post' action='%action'>
  </ifne>
  <hidden name='okdir' value="$$[err]">
  <hidden name='faildir' value="$$[err]">
@@ -65,17 +65,17 @@
       </b>
      </td>
      <td>&nbsp;</td>
-     <td><input type=image src='pics/exit.gif'></td>
+     <td><input type='image' src='pics/exit.gif'></td>
     </tr>
    </tform>
    <admin_users>
     <tform action='actions/userswitch.php'>
      <tr>
       <td><image src='pics/leftinput.gif'></td>
-      <td><input class=line type=text name='login' size=10 maxlength=30></td>
+      <td><input class='line' type='text' name='login' size=10 maxlength=30></td>
       <td><image src='pics/rightinput.gif'></td>
       <td>&nbsp;</td>
-      <td><input type=image src='pics/su.gif'></td>
+      <td><input type='image' src='pics/su.gif'></td>
      </tr>
     </tform>
    </admin_users>

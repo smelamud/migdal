@@ -5,6 +5,7 @@ require_once('lib/bug.php');
 require_once('lib/journal.php');
 require_once('lib/sql.php');
 
+// For regular postings
 define('MOD_NONE',0x0000);
 define('MOD_MODERATE',0x0001);
 define('MOD_HTML',0x0002);
@@ -22,10 +23,12 @@ $modbitNames=array('Модерировать',
 		   'Многостраничное',
 		   'Архив');
 
+// For complains
 define('MODC_NONE',0x0000);
 define('MODC_CLOSED',0x0001);
 define('MODC_NO_AUTO',0x0002);
 
+// For topics
 define('MODT_NONE',0x0000);
 define('MODT_PREMODERATE',0x0001);
 define('MODT_MODERATE',0x0002);
