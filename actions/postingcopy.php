@@ -81,7 +81,7 @@ $posting->setImageSet(copyImageSet($posting->getImageSet()));
 $posting->setLargeImageSet(copyImageSet($posting->getLargeImageSet()));
 $posting->store();
 storeStotextImages($posting->getStotextId());
-return EPC_OK;
+return EG_OK;
 }
 
 postInteger('postid');
@@ -89,7 +89,7 @@ postInteger('postid');
 dbOpen();
 session();
 $err=copyPosting($postid);
-if($err==ESP_OK)
+if($err==EG_OK)
   {
   header('Location: '.remakeURI($okdir,
                                 array('err'),

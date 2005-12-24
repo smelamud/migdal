@@ -41,7 +41,7 @@ sql("delete from postings
     'deletePosting','delete');
 journal('delete from postings
          where id='.journalVar('postings',$id));
-return EPD_OK;
+return EG_OK;
 }
 
 postInteger('id');
@@ -49,7 +49,7 @@ postInteger('id');
 dbOpen();
 session();
 $err=deletePosting($id);
-if($err==EPD_OK)
+if($err==EG_OK)
   {
   header('Location: '.remakeURI($okdir,array('err')));
   dropPostingsInfoCache(DPIC_POSTINGS);

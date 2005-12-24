@@ -31,7 +31,7 @@ if($action->script_id!=0)
     return ECAM_ILLEGAL_SCRIPT;
   }
 $action->store();
-return ECAM_OK;
+return EG_OK;
 }
 
 postInteger('editid');
@@ -45,7 +45,7 @@ $action->setup($HTTP_POST_VARS);
 $err=modifyComplainAction($action);
 $nameId=tmpTextSave($name);
 $textId=tmpTextSave($text);
-header('Location: '.($err==ECAM_OK
+header('Location: '.($err==EG_OK
        ? remakeMakeURI($okdir,
 		       $HTTP_POST_VARS,
 		       array('err','edittag','name','text','type_id','okdir',

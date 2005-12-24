@@ -31,7 +31,7 @@ foreach($topic as $id)
 		where id=".journalVar('topics',$id));
        $index++;
        }
-return ETO_OK;
+return EG_OK;
 }
 
 postIntegerArray('topic');
@@ -39,7 +39,7 @@ postIntegerArray('topic');
 dbOpen();
 session();
 $err=reorderTopics($topic);
-if($err==ETO_OK)
+if($err==EG_OK)
   header("Location: $okdir");
 else
   header('Location: '.remakeMakeURI($faildir,

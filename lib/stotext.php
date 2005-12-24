@@ -174,16 +174,16 @@ global $large_file,$large_file_size,$large_file_type,$large_file_name,
        $maxLargeText,$tmpDir;
 
 if(isset($large_loaded) && $large_loaded==1)
-  return EUL_OK;
+  return EG_OK;
 if(!isset($large_file) || $large_file=='' || !is_uploaded_file($large_file)
    || filesize($large_file)!=$large_file_size)
-  return EUL_OK;
+  return EG_OK;
 if($large_file_size>$maxLargeText)
   return EUL_LARGE;
 
 $large_file_tmpname=tempnam($tmpDir,'mig-');
 if(!move_uploaded_file($large_file,$large_file_tmpname))
-  return EUL_OK;
+  return EG_OK;
 $fd=fopen($large_file_tmpname,'r');
 $stotext->large_filename=$large_file_name;
 $text=fread($fd,$maxLargeText);
@@ -193,6 +193,6 @@ $stotext->large_body=textToStotext($stotext->large_format,
 fclose($fd);
 unlink($large_file_tmpname);
 
-return EUL_OK;
+return EG_OK;
 }
 ?>

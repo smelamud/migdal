@@ -59,7 +59,7 @@ if($editid==0)
     sendMail(MAIL_REGISTER,$user->getId(),$user->getId());
     sendMailAdmin(MAIL_REGISTERING,'admin_users',$user->getId());
     }
-return EUM_OK;
+return EG_OK;
 }
 
 postInteger('editid');
@@ -76,7 +76,7 @@ session();
 $user=getUserById($editid);
 $user->setup($HTTP_POST_VARS);
 $err=modifyUser($user);
-if($err==EUM_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array(),array('login' => $login)));
 else
   {

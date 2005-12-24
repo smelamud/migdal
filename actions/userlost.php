@@ -31,7 +31,7 @@ journal("update users
 $passwordId=tmpTextSave($password);
 sendMail(MAIL_REPAIR_PASSWORD,$id,$passwordId);
 sendMailAdmin(MAIL_REPAIRING_PASSWORD,'admin_users',$id);
-return EPL_OK;
+return EG_OK;
 }
 
 postString('login');
@@ -40,7 +40,7 @@ dbOpen();
 session();
 $id=getUserIdByLogin($login);
 $err=repairPassword($id);
-if($err==EPL_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err'),
 				array('userid' => $id)));

@@ -26,13 +26,13 @@ if($personal!='')
     return ECHP_NO_PERSON;
   }
 if($message=='')
-  return ECHP_OK;
+  return EG_OK;
 $senderId=$userId<=0 ? $realUserId : $userId;
 $result=sql("insert into chat_messages(sender_id,private_id,text)
 	     values($senderId,$privateId,'".
 	     addslashes(htmlspecialchars($message,ENT_QUOTES))."')",
 	    'postMessage');
-return ECHP_OK;
+return EG_OK;
 }
 
 postString('message');
@@ -48,8 +48,8 @@ do
   if($message!='')
     sleep(1);
   }
-while($err==ECHP_OK & $message!='');
-if($err==ECHP_OK)
+while($err==EG_OK & $message!='');
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err','message'),
 				array('personal' => $personal)));

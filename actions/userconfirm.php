@@ -38,7 +38,7 @@ journal("update users
 	     last_online=now()
 	 where login='".jencode($userLogin)."'");
 sendMailAdmin(MAIL_CONFIRMED,'admin_users',$id);
-return EUC_OK;
+return EG_OK;
 }
 
 postInteger('id');
@@ -46,7 +46,7 @@ postInteger('id');
 dbOpen();
 session();
 $err=confirmUser($id,$code,$userLogin);
-if($err!=EUC_OK)
+if($err!=EG_OK)
   header("Location: /userfin.php?err=$err");
 else
   header('Location: /userfin.php?login='.urlencode($userLogin));

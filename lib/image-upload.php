@@ -27,7 +27,7 @@ $smallFile="$anyFile.$smallExt";
 
 if(!rename($image,$largeFile))
   {
-  $err=EIU_OK;
+  $err=EG_OK;
   return false;
   }
 $large_size=getImageSize($largeFile);
@@ -208,7 +208,7 @@ $image_type=$HTTP_POST_FILES[$name]['type'];
 if(!isset($image) || $image=='' || !is_uploaded_file($image)
    || filesize($image)!=$image_size)
   {
-  $err=EIU_OK;
+  $err=EG_OK;
   return false;
   }
 if($image_size>$maxImageSize)
@@ -220,7 +220,7 @@ if($image_size>$maxImageSize)
 $image_tmpname=tempnam($tmpDir,'mig-');
 if(!move_uploaded_file($image,$image_tmpname))
   {
-  $err=EIU_OK;
+  $err=EG_OK;
   return false;
   }
 if(!$hasThumbnail)
@@ -240,7 +240,7 @@ if(!$img)
 $img->setImageSet($image_set);
 $img->setTitle($title);
 $img->store();
-$err=EIU_OK;
+$err=EG_OK;
 return $img;
 }
 
@@ -272,7 +272,7 @@ if(!$img)
 $img->setImageSet($image_set);
 $img->setTitle($title);
 $img->store();
-$err=EIU_OK;
+$err=EG_OK;
 return $img;
 }
 

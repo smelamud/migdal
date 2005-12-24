@@ -31,7 +31,7 @@ foreach($art as $id)
 		where id=".journalVar('postings',$id));
        $index++;
        }
-return EO_OK;
+return EG_OK;
 }
 
 postIntegerArray('art');
@@ -39,7 +39,7 @@ postIntegerArray('art');
 dbOpen();
 session();
 $err=reorderArts($art);
-if($err==EO_OK)
+if($err==EG_OK)
   header("Location: $okdir");
 else
   header('Location: '.remakeMakeURI($faildir,

@@ -28,7 +28,7 @@ if(!$userAdminComplainAnswers)
 if(!complainActionExists($editid))
   return ECAD_NO_ACTION;
 deleteComplainAction($editid);
-return ECAD_OK;
+return EG_OK;
 }
 
 postInteger('editid');
@@ -36,7 +36,7 @@ postInteger('editid');
 dbOpen();
 session();
 $err=removeComplainAction($editid);
-if($err==ECAD_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array('err'),array('editid' => 0)));
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)));

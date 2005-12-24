@@ -20,7 +20,7 @@ if(!userExists($user_id))
 if(!userExists($group_id))
   return EGD_NO_GROUP;
 delUserGroup($user_id,$group_id);
-return EGD_OK;
+return EG_OK;
 }
 
 postInteger('user_id');
@@ -29,7 +29,7 @@ postInteger('group_id');
 dbOpen();
 session();
 $err=groupDel($user_id,$group_id);
-if($err==EGD_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err')));
 else

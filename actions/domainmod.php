@@ -27,7 +27,7 @@ $result=sql("update postings
 journal("update postings
          set subdomain=$domain
 	 where id=".journalVar('postings',$editid))
-return EDM_OK;
+return EG_OK;
 }
 
 postInteger('editid');
@@ -36,7 +36,7 @@ postInteger('domain');
 dbOpen();
 session();
 $err=modifyPosting($editid,$domain);
-if($err==EDM_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array(),array('reload' => random(0,999))));
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)).'#error');

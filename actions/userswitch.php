@@ -21,7 +21,7 @@ if($id<=0)
   return EUS_NO_USER;
 logEvent('su',"user($id)");
 updateSessionUserId($sessionid,$id);
-return EUS_OK;
+return EG_OK;
 }
 
 postString('okdir');
@@ -31,7 +31,7 @@ postString('login');
 dbOpen();
 session();
 $err=switchUser($sessionid,$login);
-if($err==EUS_OK)
+if($err==EG_OK)
   header("Location: $okdir");
 else
   header('Location: '.remakeURI($faildir,

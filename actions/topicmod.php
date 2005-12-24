@@ -62,7 +62,7 @@ if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
 $topic->track='';
 $topic->store();
 updateTracks('topics',$topic->id);
-return ET_OK;
+return EG_OK;
 }
 
 postInteger('editid');
@@ -82,9 +82,9 @@ $topic=getTopicById($editid,$up);
 $original=$topic;
 $topic->setup($HTTP_POST_VARS);
 $err=uploadLargeText($topic->stotext);
-if($err==EUL_OK)
+if($err==EG_OK)
   $err=modifyTopic($topic,$original);
-if($err==ET_OK)
+if($err==EG_OK)
   {
   header("Location: $okdir");
   dropPostingsInfoCache(DPIC_POSTINGS);

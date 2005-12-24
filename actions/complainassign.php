@@ -28,7 +28,7 @@ $result=sql("update complains
 journal('update complains
          set recipient_id='.journalVar('users',$peerId).'
 	 where id='.journalVar('complains',$id));
-return EC_OK;
+return EG_OK;
 }
 
 postInteger('id');
@@ -37,7 +37,7 @@ postString('login');
 dbOpen();
 session();
 $err=assignComplain($id,$login);
-header('Location: '.($err==EC_OK ? remakeURI($okdir,array('err'))
+header('Location: '.($err==EG_OK ? remakeURI($okdir,array('err'))
                                  : remakeURI($faildir,
 				             array(),
 					     array('err' => $err))));

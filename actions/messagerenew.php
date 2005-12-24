@@ -32,7 +32,7 @@ journal('update messages
 	 where id='.journalVar('messages',$id));
 if(isForumAnswer($id))
   answerUpdate($id);
-return EMR_OK;
+return EG_OK;
 }
 
 postInteger('id');
@@ -40,7 +40,7 @@ postInteger('id');
 dbOpen();
 session();
 $err=renewMessage($id);
-if($err==EMR_OK)
+if($err==EG_OK)
   {
   header('Location: '.remakeURI($okdir,
                                 array(),

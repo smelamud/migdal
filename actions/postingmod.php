@@ -28,7 +28,7 @@ require_once('lib/sql.php');
 function setImageTitle($image_set,$title)
 {
 if(!$image_set)
-  return EP_OK;
+  return EG_OK;
 sql("update images
      set title='$title'
      where image_set=$image_set",
@@ -36,7 +36,7 @@ sql("update images
 journal("update images
          set title='".jencode($title)."'
 	 where image_set=".journalVar('images',$image_set));
-return EP_OK;
+return EG_OK;
 }
 
 function isDisabledSet($message)
@@ -150,7 +150,7 @@ updateTracks('messages',$message->message_id);
 setDisabled($message,$original);
 if($original->getId()==0)
   createCounters($message->message_id,$message->grp);
-return EP_OK;
+return EG_OK;
 }
 
 postInteger('relogin');
@@ -184,19 +184,19 @@ $image=uploadImage('image',$message->createThumbnail(),
                    $thumbnailWidth,$thumbnailHeight,$err);
 if($image)
   $message->setImageSet($image->getImageSet());
-if($err==EIU_OK && $message->getImageSet()!=0)
+if($err==EG_OK && $message->getImageSet()!=0)
   $err=setImageTitle($message->getImageSet(),
                      addslashes(htmlspecialchars($title,ENT_QUOTES)));
-if($err==EIU_OK || $err==EP_OK)
+if($err==EG_OK)
   $err=uploadLargeText($message->stotext);
-if($err==EUL_OK)
+if($err==EG_OK)
   if($original->getId()==0 && $relogin)
     $err=login($login,$password,$remember);
   else
-    $err=EL_OK;
-if($err==EL_OK)
+    $err=EG_OK;
+if($err==EG_OK)
   $err=modifyPosting($message,$original);
-if($err==EP_OK)
+if($err==EG_OK)
   {
   header("Location: $okdir");
   dropPostingsInfoCache(DPIC_POSTINGS);

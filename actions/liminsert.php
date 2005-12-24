@@ -24,7 +24,7 @@ if($image->getImageId()!=0 && !imageExists($image->getImageId()))
 $image->store();
 if(!$userModerator)
   setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
-return ELII_OK;
+return EG_OK;
 }
 
 postInteger('postid');
@@ -36,7 +36,7 @@ $posting=getPostingById($postid);
 $image=getStotextImageByParagraph($posting->getStotextId(),$par);
 $image->setup($HTTP_POST_VARS);
 $err=modifyMessageImage($posting,$image);
-if($err==ELII_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array('err')));
 else
   header('Location: '.remakeMakeURI($faildir,

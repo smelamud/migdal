@@ -40,7 +40,7 @@ if($r_user_name || $r_group_name || $r_perm)
 if(get_class($perms)=='Message' && isForumAnswer($perms->getId()))
   answerUpdate($perms->getId()); //FIXME не обрабатывается рекурсивная
                                  //установка прав
-return ECHM_OK;
+return EG_OK;
 }
 
 postInteger('msgid');
@@ -67,7 +67,7 @@ else
 $perms=getPermsById($table,$id);
 $perms->setup($HTTP_POST_VARS);
 $err=doChmod($id,$perms);
-if($err==ECHM_OK)
+if($err==EG_OK)
   {
   header('Location: '.remakeURI($okdir,
                                 array('err')));

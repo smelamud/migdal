@@ -21,7 +21,7 @@ if(!$userModerator)
 if(!messageExists($editid))
   return EMH_NO_MESSAGE;
 setDisabledByMessageId($editid,$hide);
-return EMH_OK;
+return EG_OK;
 }
 
 postInteger('editid');
@@ -29,7 +29,7 @@ postInteger('editid');
 dbOpen();
 session();
 $err=modifyMessage($editid,$hide ? 1 : 0);
-if($err==EMH_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array(),array('reload' => random(0,999))));
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)).'#error');

@@ -36,7 +36,7 @@ if($complain->subject=='')
 if($complain->type_id<=COMPL_NONE || $complain->type_id>COMPL_MAX)
   return EC_NO_TYPE;
 $complain->store();
-return EC_OK;
+return EG_OK;
 }
 
 postInteger('editid');
@@ -50,7 +50,7 @@ $complain=getComplainById($editid,$type_id);
 $original=$complain;
 $complain->setup($HTTP_POST_VARS);
 $err=modifyComplain($complain,$original);
-if($err==EC_OK)
+if($err==EG_OK)
   header("Location: $okdir");
 else
   {

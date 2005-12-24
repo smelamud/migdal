@@ -80,7 +80,7 @@ if($posting->getLargeImageSet()==0)
   setLargeImageSet($posting,$image->getImageSet());
 if(!$userModerator)
   setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
-return ELIM_OK;
+return EG_OK;
 }
 
 postInteger('postid');
@@ -95,7 +95,7 @@ session();
 $posting=getPostingById($postid);
 $err=storeImage($posting);
 $titleId=tmpTextSave($title);
-if($err==ELIM_OK)
+if($err==EG_OK)
   header('Location: '.remakeMakeURI($okdir,
 				    $HTTP_POST_VARS,
 				    array('err',

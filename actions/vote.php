@@ -30,7 +30,7 @@ sql("update postings
 journal("update postings
          set vote=vote+$weight*$vote,vote_count=vote_count+$weight
 	 where id=".journalVar('postings',$id));
-return EV_OK;
+return EG_OK;
 }
 
 postInteger('postid');
@@ -39,7 +39,7 @@ postInteger('vote');
 dbOpen();
 session();
 $err=vote($postid,$vote);
-if($err==EV_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err'),
 				array('reload' => random(0,999))));

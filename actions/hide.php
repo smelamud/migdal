@@ -20,7 +20,7 @@ if(!$perms->isWritable())
 if(!messageExists($editid))
   return EMS_NO_MESSAGE;
 setHiddenByMessageId($editid,$hide);
-return EMS_OK;
+return EG_OK;
 }
 
 postInteger('editid');
@@ -28,7 +28,7 @@ postInteger('editid');
 dbOpen();
 session();
 $err=modifyMessage($editid,$hide ? 1 : 0);
-if($err==EMS_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array(),array('reload' => random(0,999))));
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)).'#error');

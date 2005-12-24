@@ -23,7 +23,7 @@ $result=sql("select count(*)
 		   peer_id=$peer_id and peer_grp=$peer_grp",
 	    'addTopicLink','check_existence');
 if(mysql_result($result,0,0)!=0)
-  return ETLA_OK;
+  return EG_OK;
 sql("insert into cross_topics(topic_id,topic_grp,
 			      peer_id,peer_grp)
      values($topic_id,$topic_grp,$peer_id,$peer_grp),
@@ -38,7 +38,7 @@ journal('insert into cross_topics(topic_id,topic_grp,peer_id,peer_grp)
 	        '.journalVar('topics',$peer_grp).',
 	        '.journalVar('topics',$topic_id).',
 	        '.journalVar('topics',$topic_grp).')');
-return ETLA_OK;
+return EG_OK;
 }
 
 postInteger('topic_id');
@@ -49,7 +49,7 @@ postInteger('peer_grp');
 dbOpen();
 session();
 $err=addTopicLink($topic_id,$topic_grp,$peer_id,$peer_grp);
-if($err==ETLA_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array('err')));
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)).'#error');

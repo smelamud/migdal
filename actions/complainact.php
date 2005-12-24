@@ -28,7 +28,7 @@ if($action->getText()!='')
   postForumAnswer($complain->getMessageId(),$action->getText());
 $script=getComplainScriptById($action->getScriptId());
 $script->exec($complain);
-return EECA_OK;
+return EG_OK;
 }
 
 postInteger('actid');
@@ -40,7 +40,7 @@ session();
 $action=getComplainActionById($actid);
 $action->setup($HTTP_POST_VARS);
 $err=executeAction($action,$complain_id);
-if($err==EECA_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array('err')));
 else
   {

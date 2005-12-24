@@ -63,7 +63,7 @@ journal('update postings
 	 where topic_id='.journalVar('topics',$id));
 foreach($tops as $tid)
        updateTracks('topics',$tid);
-return ETD_OK;
+return EG_OK;
 }
 
 postInteger('id');
@@ -72,7 +72,7 @@ postInteger('destid');
 dbOpen();
 session();
 $err=deleteTopic($id,$destid);
-if($err==ETD_OK)
+if($err==EG_OK)
   {
   header('Location: '.remakeURI($okdir,
                                 array('err','destid'),

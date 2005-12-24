@@ -25,7 +25,7 @@ journal('delete
 	 where id='.journalVar('images',$editid));
 if(!$userModerator)
   setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
-return ELID_OK;
+return EG_OK;
 }
 
 postInteger('postid');
@@ -35,7 +35,7 @@ dbOpen();
 session();
 $posting=getPostingById($postid);
 $err=deleteImage($posting);
-if($err==ELID_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array('err'),array('editid' => 0)));
 else
   header('Location: '.remakeURI($faildir,array(),array('err' => $err)).'#error');

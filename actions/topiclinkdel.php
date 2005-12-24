@@ -21,7 +21,7 @@ $result=sql("select count(*)
 		   peer_id=$peer_id and peer_grp=$peer_grp",
 	    'delTopicLink','check_existence');
 if(mysql_result($result,0,0)==0)
-  return ETLD_OK;
+  return EG_OK;
 sql("delete from cross_topics
      where topic_id=$topic_id and topic_grp=$topic_grp and
 	   peer_id=$peer_id and peer_grp=$peer_grp or
@@ -37,7 +37,7 @@ journal('delete from cross_topics
 	       topic_grp='.journalVar('topics',$peer_grp).' and
 	       peer_id='.journalVar('topics',$topic_id).' and
 	       peer_grp='.journalVar('topics',$topic_grp));
-return ETLD_OK;
+return EG_OK;
 }
 
 postInteger('topic_id');
@@ -48,7 +48,7 @@ postInteger('peer_grp');
 dbOpen();
 session();
 $err=delTopicLink($topic_id,$topic_grp,$peer_id,$peer_grp);
-if($err==ETLD_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err'),
 				array('reload' => random(0,999))));

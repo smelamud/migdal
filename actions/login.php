@@ -20,7 +20,7 @@ postString('password');
 dbOpen();
 session();
 $err=login($login,$password);
-if($err==EL_OK)
+if($err==EG_OK)
   header('Location: /actions/checkcookies.php?'.
           makeQuery(array('svalue'  => $sessionid,
 	                  'okdir'   => $okdir,

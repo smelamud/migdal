@@ -28,7 +28,7 @@ for($bit=1;$bit<=MOD_ALL;$bit*=2)
    if($HTTP_POST_VARS["bit$editid-$bit"])
      $bits|=$bit;
 assignModbitsByMessageId($editid,$bits);
-return EMM_OK;
+return EG_OK;
 }
 
 postIntegerArray('id');
@@ -38,7 +38,7 @@ session();
 foreach($id as $editid)
        {
        $err=modifyMessage($editid);
-       if($err!=EMM_OK)
+       if($err!=EG_OK)
          {
          header('Location: '.remakeURI($faildir,
 	                               array(),

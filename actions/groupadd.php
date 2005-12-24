@@ -25,7 +25,7 @@ $groupId=getUserIdByLogin(addslashes($group_name));
 if($groupId<=0)
   return EGA_NO_GROUP;
 addUserGroup($userId,$groupId);
-return EGA_OK;
+return EG_OK;
 }
 
 postString('user_name');
@@ -34,7 +34,7 @@ postString('group_name');
 dbOpen();
 session();
 $err=groupAdd($user_name,$group_name);
-if($err==EGA_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err')));
 else

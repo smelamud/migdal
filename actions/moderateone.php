@@ -28,7 +28,7 @@ for($bit=1;$bit<=MOD_ALL;$bit*=2)
    if($HTTP_POST_VARS["bit$bit"])
      $bits|=$bit;
 assignModbitsByMessageId($id,$bits);
-return EMO_OK;
+return EG_OK;
 }
 
 postInteger('id');
@@ -36,7 +36,7 @@ postInteger('id');
 dbOpen();
 session();
 $err=modifyMessage($id);
-if($err==EMO_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
 				array('err')));
 else

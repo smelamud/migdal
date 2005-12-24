@@ -38,7 +38,7 @@ journal(makeInsert('postings',
 		                             'topic_id' => 'topics',
                                              'personal_id' => 'users'))),
         'postings',sql_insert_id());
-return ESP_OK;
+return EG_OK;
 }
 
 postInteger('postid');
@@ -46,7 +46,7 @@ postInteger('postid');
 dbOpen();
 session();
 $err=shadowPosting($postid);
-if($err==ESP_OK)
+if($err==EG_OK)
   {
   header('Location: '.remakeURI($okdir,
                                 array('err'),

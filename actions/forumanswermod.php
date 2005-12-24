@@ -41,7 +41,7 @@ if($answer->stotext->image_set!=0
    && !imageSetExists($answer->stotext->image_set))
   return EFA_NO_IMAGE;
 $answer->store();
-return EFA_OK;
+return EG_OK;
 }
 
 postInteger('relogin');
@@ -62,14 +62,14 @@ $answer->setup($HTTP_POST_VARS);
 $img=uploadImage('image',true,$thumbnailWidth,$thumbnailHeight,$err);
 if($img)
   $answer->setImageSet($img->getImageSet());
-if($err==EIU_OK)
+if($err==EG_OK)
   if($original->getId()==0 && $relogin)
     $err=login($login,$password,$remember);
   else
-    $err=EL_OK;
-if($err==EL_OK)
+    $err=EG_OK;
+if($err==EG_OK)
   $err=modifyForumAnswer($answer,$original);
-if($err==EFA_OK)
+if($err==EG_OK)
   {
   dropPostingsInfoCache(DPIC_FORUMS);
   answerUpdate($answer->getParentId());

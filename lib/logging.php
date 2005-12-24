@@ -28,7 +28,7 @@ if($remember)
   updateSession($sessionid,$id,$id);
   }
 session($id);
-return EL_OK;
+return EG_OK;
 }
 
 function logout()
@@ -45,7 +45,7 @@ if($row)
     {
     updateSession($sessionid,$realUserId,$realUserId);
     session();
-    return ELO_OK;
+    return EG_OK;
     }
   if(isChatLogged($userId))
     {
@@ -57,6 +57,6 @@ if($row)
   }
 updateSession($sessionid,0,$guestId);
 session();
-return ELO_OK;
+return EG_OK;
 }
 ?>

@@ -16,7 +16,7 @@ if(!$userAdminUsers)
   return EH_NO_MODIFY;
 setHorisont($host,$we_know,HOR_WE_KNOW);
 setHorisont($host,$they_know,HOR_THEY_KNOW);
-return EH_OK;
+return EG_OK;
 }
 
 postString('host');
@@ -26,7 +26,7 @@ postInteger('they_know');
 dbOpen();
 session();
 $err=updateHorisont($host,$we_know,$they_know);
-if($err==EH_OK)
+if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err')));
 else
