@@ -74,28 +74,36 @@
  <navigator>
  <p>
  <iterate_userlist prefix='$prefix' sort='$sort'>
- <table width=100% class='catalog'>
+ <catalog_table>
   <tr valign=top>
-   <th>Ник</th><th>Имя</th><th>Возраст</th>
-   <th><img src='pics/tower.gif' title='Мигдалевец'></th>
-   <th>Адрес</th><th>Последний раз<br>был здесь</th>
+   <th class='catalog-cell'>Ник</th>
+   <th class='catalog-cell'>Имя</th>
+   <th class='catalog-cell'>Возраст</th>
+   <th class='catalog-cell'><img src='pics/tower.gif' title='Мигдалевец'></th>
+   <th class='catalog-cell'>Адрес</th>
+   <th class='catalog-cell'>Последний раз<br>был здесь</th>
   </tr>
   <for>
-   <if what='$;isOdd'><tr class='odd'><else><tr></if>
-    <td class='subject ninept'>
+   <if what='$;isOdd'>
+    <assign name='class' value='catalog-cell-odd'>
+   <else>
+    <assign name='class' value='catalog-cell'>
+   </if>
+   <tr>
+    <td class='$class ninept'>
      <a href='userinfo.php?id=$.id'>$=.Login</a>
     </td>
-    <td class='eightpt'><fullname user='$.'></td>
+    <td class='$class eightpt'><fullname user='$.'></td>
     <if what='$.isConfirmed'>
-     <td align=center class='eightpt'>$.Age</td>
-     <td align=center>
+     <td align=center class='$class eightpt'>$.Age</td>
+     <td align=center class='$class'>
       <if what='$.isMigdalStudent'>
        <img src='pics/check.gif'>
       <else>
        &nbsp;
       </if>
      </td>
-     <td>
+     <td class='$class'>
       <ifne what='$.EmailLink'>
        <span class='email ninept'>$.EmailLink</span>
        <ifne what='$.ICQ'><br></ifne>
@@ -104,9 +112,9 @@
        <span class='eightpt'>$.ICQStatusImage&nbsp;$.ICQ</span>
       </ifne>
      </td>
-     <lastonline_cell user='$.' class='eightpt'>
+     <lastonline_cell user='$.' class#='$class eightpt'>
     <else>
-     <td colspan=4 class='eightpt'>
+     <td colspan=4 class='$class eightpt'>
       <zone>
        <array vals='остался,осталось,осталось'>
        <plural name='lasts' value='$.ConfirmDays'>
@@ -114,7 +122,7 @@
        <plural name='days' value='$.ConfirmDays'>
        Идет регистрация ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
        <admin_users>
-        <a href='/actions/userconfirm.php?id=$.Id'>
+	<a href='/actions/userconfirm.php?id=$.Id'>
 	 Подтвердить</a>
        </admin_users>
       </zone>
@@ -122,7 +130,7 @@
     </if>
    </tr>
   </for>
- </table>
+ </catalog_table>
  <bottom>
 </body>
 </html>

@@ -2,7 +2,10 @@
 
 <element name='infoline' params='title,value,escape' defaults="escape='*true'">
 <ifne what='$value'>
- <tr><th>$=title</th><td><if what='$escape'>$=value<else>$value</if></td></tr>
+ <tr>
+  <th width='10%' align='left'>$=title</th>
+  <td width='90%'><if what='$escape'>$=value<else>$value</if></td>
+ </tr>
 </ifne>
 </element>
 
@@ -20,51 +23,38 @@
 <user_obj name='user' id='$id'>
 <log event=userinfo text#='user($user.Id)'>
 <controls target='$target'>
-<table class='userinfos' width=100% cellspacing=0 cellpadding=0><tr><td>
- <table class='userinfo' width=100% cellspacing=1>
-  <infoline title='Ник' value='$,Login'>
-  <infoline title='Имя' value='$,Name'>
-  <infoline title='Еврейское имя' value='$,JewishName'>
-  <infoline title='Фамилия' value='$,Surname'>
-  <if what='$,isMan'>
-   <infoline title='Пол' value='Мужской'>
+<table width=100% cellspacing=5 cellpadding=0>
+ <infoline title='Ник' value='$,Login'>
+ <infoline title='Имя' value='$,FullName'>
+ <if what='$,isMan'>
+  <infoline title='Пол' value='Мужской'>
+ <else>
+  <infoline title='Пол' value='Женский'>
+ </if>
+ <if what="$,Age!='-'">
+  <infoline title='Дата рождения' value#='$,Birthday / $,JewishBirthday'>
+ </if>
+ <if what='$,isMigdalStudent'>
+  <infoline title='Мигдалевец' value='Да'>
+ <else>
+  <infoline title='Мигдалевец' value='Нет'>
+ </if>
+ <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
+ <if what='!$,isHideEmail'>
+  <if what='$,isEmailDisabled==2'>
+   <assign name='working' value=' <i>(адрес не работает)</i>'>
   <else>
-   <infoline title='Пол' value='Женский'>
+   <assign name='working' value=''>
   </if>
-  <if what="$,Age!='-'">
-   <infoline title='Дата рождения' value#='$,Birthday / $,JewishBirthday'>
-  </if>
-  <if what='$,isMigdalStudent'>
-   <infoline title='Мигдалевец' value='Да'>
-  <else>
-   <infoline title='Мигдалевец' value='Нет'>
-  </if>
-  <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
-  <if what='!$,isHideEmail'>
-   <tr>
-    <th>E-mail</th>
-    <td>
-     $,EmailLink
-     <if what='$,isEmailDisabled==2'>
-      <span class='error'>
-       Посылка почты на этот адрес временно приостановлена, поскольку адрес не
-       работает
-      </span>
-     </if>
-    </td>
-   </tr>
-  </if>
-  <ifne what='$,ICQ'>
-   <tr>
-    <th>ICQ</th>
-    <td>$,ICQStatusImage&nbsp;$=,ICQ</td>
-   </tr>
-  </ifne>
-  <tr>
-   <th>Последний раз<br>заходил сюда</th>
-   <lastonline_cell user='$,'>
-  </tr>
- </table>
-</td></tr></table>
+  <infoline title='E-mail' value#='$,EmailLink&nbsp;$working' escape='*false'>
+ </if>
+ <ifne what='$,ICQ'>
+  <infoline title='ICQ' value#='$,ICQStatusImage&nbsp;$=,ICQ' escape='*false'>
+ </ifne>
+ <tr>
+  <th>Последний раз<br>заходил сюда</th>
+  <lastonline_cell user='$,'>
+ </tr>
+</table>
 <controls target='$target'>
 </element>

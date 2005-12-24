@@ -1,6 +1,5 @@
 << @(#) $Id$ >>
 
-<int name='err'>
 <int name='editid'>
 <pagetitle title='Изменение информации о пользователе'>
 

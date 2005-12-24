@@ -58,7 +58,7 @@
 
 <element name='lastonline_cell'>
 <ifne what='$class'>
- <assign name='cl' value#=" class=$class">
+ <assign name='cl' value#=' class="$class"'>
 <else>
  <assign name='cl' value=''>
 </ifne>

@@ -8,12 +8,14 @@ require_once('lib/no-cache.php');
 require_once('lib/charsets.php');
 require_once('lib/style.php');
 require_once('lib/redirs.php');
+require_once('lib/post.php');
 
 function initialize()
 {
 noCacheHeaders();
 dbOpen();
 session();
+postInteger('err');
 set_error_handler('error_handler');
 ob_start();
 }
