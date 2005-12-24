@@ -144,8 +144,7 @@
        defaults="target=''">
 <decel name='migdal_news' file='parts/migdal-news.php'>
 <decel name='navi_sort' file='parts/utils.php' params='value,title'>
-<decel name='perror' file='parts/utils.php' params='id,text,color,span'
-       defaults='color="red" span=0'>
+<decel name='perror' file='parts/utils.php' params='id,text'>
 <decel name='picture' file='parts/picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'

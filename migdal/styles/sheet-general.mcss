@@ -14,7 +14,11 @@
 }
 
 .error {
-	color: %error_red;
+	background-color: %error_back;
+	color: %error;
+	font-weight: bold;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 BODY {

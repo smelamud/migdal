@@ -1,6 +1,7 @@
 ! @(#) $Id$
 
-error_red=red
+error_back=red
+error=white
 :default	body_back=%r_b
 :print		body_back=white
 :default	body_back_pic=pics/b-back.gif

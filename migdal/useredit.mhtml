@@ -1,5 +1,6 @@
 << @(#) $Id$ >>
 
+<int name='err'>
 <int name='editid'>
 <pagetitle title='Изменение информации о пользователе'>
 
@@ -17,20 +18,19 @@
    <hidden name='editid' value='$editid'>
    <starinfo>
    <form_section title='Информация для входа на сайт'>
-   <<error id='*EUM_DISABLED' span=2 text='Регистрация пользователей запрещена'>
-   <error id='*EUM_NO_EDIT' span=2
+   <error id='*EUM_DISABLED' text='Регистрация пользователей запрещена'>
+   <error id='*EUM_NO_EDIT'
 	  text='У вас нет права менять информацию для этого пользователя'>
-   <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен' span=2>
-   <error id='*EUM_LOGIN_EXISTS' span=2
-	  text='Пользователь с таким ником уже существует'>>
+   <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен'>
+   <error id='*EUM_LOGIN_EXISTS'
+	  text='Пользователь с таким ником уже существует'>
    <form_edit title='Ник'
               comment='Ваш псевдоним, под которым вы будете видны на сайте'
               value='$=,Login' name='login' size=20 maxlength=30
 	      mandatory='*true'>
-   <<error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'
-	  span=2>
-   <error id='*EUM_PASSWORD_DIFF' span=2
-	  text='Опечатка при вводе пароля - введите еще раз'>>
+   <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
+   <error id='*EUM_PASSWORD_DIFF'
+	  text='Опечатка при вводе пароля - введите еще раз'>
    <form_password title='Пароль' comment='Не менее 5 символов' name='password'
                   size=20 maxlength=40>
    <form_password title='Пароль (еще раз)'
@@ -38,15 +38,15 @@
 		  name='dup_password' size=20 maxlength=40>
    </form_line>
    <form_section title='Личная информация'>
-   <<error id='*EUM_NAME_ABSENT' text='Имя не введено' span=2>>
+   <error id='*EUM_NAME_ABSENT' text='Имя не введено'>
    <form_edit title='Имя' value='$=,Name' name='name' size=30 maxlength=30
 	      mandatory='*true'>
    <form_edit title='Еврейское имя' value='$=,JewishName' name='jewish_name'
 	      size=30 maxlength=30>
-   <<error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена' span=2>>
+   <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена'>
    <form_edit title='Фамилия' value='$=,Surname' name='surname' size=30
 	      maxlength=30 mandatory='*true'>
-   <<error id='*EUM_GENDER' text='Неизвестный пол' span=2>>
+   <error id='*EUM_GENDER' text='Неизвестный пол'>
    <form_line title='Пол'>
     <radio_button name='gender' value='mine' peervalue='$,Gender'
 		  title='Мужской'>
@@ -54,7 +54,7 @@
     <radio_button name='gender' value='femine' peervalue='$,Gender'
 		  title='Женский'>
    </form_line>
-   <<error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения' span=2>>
+   <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
    <form_line title='Дата рождения'>
     <edit name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
     <select name='birth_month'>

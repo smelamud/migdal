@@ -34,10 +34,10 @@
 
 <element name='perror'>
 <if what='$$err==$id'>
- <tr><tdspan span=$span>
+ <tr><td colspan=2 class='error'>
   <a name='error'></a>
-  <span class='error' color='$color'>$text</span>
- </tdspan></tr>
+  $text
+ </td></tr>
 </if>
 </element>
 
