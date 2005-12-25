@@ -72,10 +72,10 @@
 		  title='Мигдалевец' span=2>
    <form_editor title='Коротко о себе' name='info' body='$=,Info'>
    <<help_link href='stotext-help-subs.php'
-	      title='Список обозначений, используемых в тексте' span=2>
+	      title='Список обозначений, используемых в тексте' span=2>>
    <if what='$,isEditable'>
     <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен' span=2>
-    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>>
+    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>
     <form_edit title='E-mail'
 	       comment='Укажите ваш настоящий адрес, потому что на этот адрес будет выслано письмо для подтверждения вашей регистрации. Этот адрес также может понадобиться для связи с вами в экстренных случаях (например, восстановление забытого пароля)'
 	       value='$=,Email' name='email' size=30 maxlength=70
@@ -84,13 +84,13 @@
 		   title='Скрыть E-mail на сайте' span=2>
     <form_checkbox name='email_enabled' value='$,isEmailEnabled'
 		   title='Разрешаю посылать почту на мой адрес' span=2>
-    <<if what='$,isEmailDisabled==2'>
-     <tr><td colspan=2><span class='error'>
+    <if what='$,isEmailDisabled==2'>
+     <tr><td colspan=2 class='error'>
       Посылка почты на этот адрес временно приостановлена, поскольку адрес не
       работает
-     </span></td></tr>
+     </td></tr>
     </if>
-   </if>>
+   </if>
    <form_edit title='ICQ'
 	      comment='Если вы не знаете, что это такое, не заполняйте это поле'
 	      value='$=,ICQ' name='icq' size=15 maxlength=15>
