@@ -112,7 +112,9 @@
        <span class='eightpt'>$.ICQStatusImage&nbsp;$.ICQ</span>
       </ifne>
      </td>
-     <lastonline_cell user='$.' class#='$class eightpt'>
+     <td class='$class eightpt'>
+      <lastonline user='$.'>
+     </td>
     <else>
      <td colspan=4 class='$class eightpt'>
       <zone>

@@ -2,7 +2,7 @@
 
 <element name='infoline' params='title,value,escape' defaults="escape='*true'">
 <ifne what='$value'>
- <tr>
+ <tr valign='top'>
   <th width='10%' align='left'>$=title</th>
   <td width='90%'><if what='$escape'>$=value<else>$value</if></td>
  </tr>
@@ -39,7 +39,9 @@
  <else>
   <infoline title='Мигдалевец' value='Нет'>
  </if>
- <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
+ <ifne what='$,Info'>
+  <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
+ </ifne>
  <if what='!$,isHideEmail'>
   <if what='$,isEmailDisabled==2'>
    <assign name='working' value=' <i>(адрес не работает)</i>'>
@@ -51,9 +53,9 @@
  <ifne what='$,ICQ'>
   <infoline title='ICQ' value#='$,ICQStatusImage&nbsp;$=,ICQ' escape='*false'>
  </ifne>
- <tr>
-  <th>Последний раз<br>заходил сюда</th>
-  <lastonline_cell user='$,'>
+ <tr valign='top'>
+  <th width='10%' align='left'>Последний раз<br>заходил сюда</th>
+  <td width='90%'><lastonline user='$,'></td>
  </tr>
 </table>
 <controls target='$target'>

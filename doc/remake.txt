@@ -12,7 +12,7 @@
 конвертируют из внутреннего представления в уже подготовленный для HTML формат.
 5. getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены.
 6. PHP3 умер. Используем parent::, superglobals.
-7. Размероы картинки меняются прямо в файле. Картинки больше не хранятся в
+7. Размеры картинки меняются прямо в файле. Картинки больше не хранятся в
 базе. Есть методы для получения путей к картинкам.
 8. Функции сами обрабатывают свои параметры через addslashes(), используя
 промежуточные переменные $*S (вообще почаще пользуемся промежуточными
@@ -308,8 +308,8 @@ action'е.
 - migdal/urls.mhtml
 + migdal/useredit.mhtml
 - migdal/userfin.mhtml
-* migdal/userinfo.mhtml
-- migdal/userinfo-panel.mhtml
++ migdal/userinfo.mhtml
++ migdal/userinfo-panel.mhtml
 - migdal/userlost.mhtml
 - migdal/userok.mhtml
 - migdal/userrepair.mhtml
@@ -405,7 +405,7 @@ action'е.
 - migdal/parts/tzdaka.mhtml
 - migdal/parts/unititle.mhtml
 - migdal/parts/uploader.mhtml
-* migdal/parts/userinfo.mhtml
++ migdal/parts/userinfo.mhtml
 - migdal/parts/utils.mhtml
 - migdal/parts/vote.mhtml
 

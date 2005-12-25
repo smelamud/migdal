@@ -131,8 +131,7 @@
 <decel name='langselect' file='parts/langselect.php'
        params='name,value,mandatory,title'
        defaults="mandatory='*false' title='ñÚÙË'">
-<decel name='lastonline_cell' file='parts/utils.php' params='user,class'
-       defaults="class=''">
+<decel name='lastonline' file='parts/utils.php' params='user'>
 <decel name='link_posting' file='parts/link-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'

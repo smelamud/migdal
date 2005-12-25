@@ -56,36 +56,27 @@
 </notenglish>
 </element>
 
-<element name='lastonline_cell'>
-<ifne what='$class'>
- <assign name='cl' value#=' class="$class"'>
-<else>
- <assign name='cl' value=''>
-</ifne>
+<element name='lastonline'>
 <if what='$user.isOnline'>
- <td align=center$cl>
-  <ifnzero what='$user.LastMinutes'>
-   <zone>
-    <array vals='минуту,минуты,минут'>
-    <plural value='$user.LastMinutes'>
-    $user.lastMinutes&nbsp;$, назад
-   </zone>
-  <else>
-   Сейчас
-  </if>
+ <ifnzero what='$user.LastMinutes'>
   <zone>
-   <time>
-   <biff time='$,'>
+   <array vals='минуту,минуты,минут'>
+   <plural value='$user.LastMinutes'>
+   $user.lastMinutes&nbsp;$, назад
   </zone>
- </td>
+ <else>
+  Сейчас
+ </if>
+ <zone>
+  <time>
+  <biff time='$,'>
+ </zone>
 <else>
  <if what='$user.isTooOld'>
-  <td align=center$cl>Очень давно</td>
+  Очень давно
  <else>
-  <td$cl>
-   <sentview date='$user.LastOnline'>
-   <biff time='$user.LastOnline'>
-  </td>
+  <sentview date='$user.LastOnline'>
+  <biff time='$user.LastOnline'>
  </if>
 </if>
 </element>
