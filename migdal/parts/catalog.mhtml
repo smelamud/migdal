@@ -1,0 +1,11 @@
+<< @(#) $Id$ >>
+
+<element name='catalog_table'>
+<table width='100%' class='catalog' cellspacing='0' cellpadding='0'><tr><td>
+ <table width='100%' class='catalog-layer' cellspacing='1' cellpadding='3'>
+</element>
+
+<element name='/catalog_table'>
+ </table>
+</td></tr></table>
+</element>
