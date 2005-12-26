@@ -26,8 +26,11 @@
 	text-align: left;
 }
 
-.form-comment {
+.form-comment,.form-comment I,.form-comment B {
 	font-size: 8pt;
+}
+
+.form-comment {
 	font-weight: normal;
 	padding-left: 1em;
 }

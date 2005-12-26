@@ -41,14 +41,12 @@
      <td><input type=image src='pics/enter.gif'></td>
     </tr>
     <master>
-     <if what='!$no_new'>
-      <tr><td colspan=11 align=right>
-       <at href#='register.php?redirid=$_'
-	   target='$target'>Зарегистрироваться<asp></at>&nbsp;&nbsp;<asp>
-       <at href#='userlost.php?redirid=$_'
-	   target='$target'>Забыли пароль?</at>
-      </td></tr>
-     </if>
+     <tr><td colspan=11 align=right>
+      <at href#='register.php?redirid=$_'
+	  target='$target'>Зарегистрироваться<asp></at>&nbsp;&nbsp;<asp>
+      <at href#='userlost.php?redirid=$_'
+	  target='$target'>Забыли пароль?</at>
+     </td></tr>
     </master>
    </tform>
   <else>

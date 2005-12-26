@@ -38,7 +38,7 @@
 <html>
 <preamble>
 <body>
- <top ident='index' nologin!='$$userId<=0 && !$editid'>
+ <top ident='index'>
  <setup>
  <if what='$editid'>
   <assign name='head' value#='Изменить $message.GrpItemTitle'>

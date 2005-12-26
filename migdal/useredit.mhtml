@@ -24,24 +24,29 @@
    <error id='*EUM_LOGIN_EXISTS'
 	  text='Пользователь с таким ником уже существует'>
    <form_edit title='Ник'
-              comment='Ваш псевдоним, под которым вы будете видны на сайте'
+              comment='Ваш псевдоним, под которым вы будете видны на сайте. Вы
+	               можете сменить его в любой момент'
               value='$=,Login' name='login' size=20 maxlength=30
 	      mandatory='*true'>
    <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
    <error id='*EUM_PASSWORD_DIFF'
 	  text='Опечатка при вводе пароля - введите еще раз'>
-   <form_password title='Пароль' comment='Не менее 5 символов' name='password'
-                  size=20 maxlength=40>
-   <form_password title='Пароль (еще раз)'
-	          comment='Повторите ввод пароля, чтобы убедиться, что вы не ошиблись при наборе'
+   <form_password title='Новый пароль'
+                  comment='Не менее 5 символов.<br>Заполните это поле, только
+		           если вы хотите сменить пароль'
+		  name='password' size=20 maxlength=40>
+   <form_password title='Новый пароль (еще раз)'
+	          comment='Повторите ввод пароля, чтобы убедиться, что вы не
+		           ошиблись при наборе'
 		  name='dup_password' size=20 maxlength=40>
-   </form_line>
    <form_section title='Личная информация'>
    <error id='*EUM_NAME_ABSENT' text='Имя не введено'>
    <form_edit title='Имя' value='$=,Name' name='name' size=30 maxlength=30
 	      mandatory='*true'>
-   <form_edit title='Еврейское имя' value='$=,JewishName' name='jewish_name'
-	      size=30 maxlength=30>
+   <form_edit title='Еврейское имя'
+              comment='Заполните это поле, если у вас есть еврейское имя,
+	               отличное от того, которое вы указали в графе <i>Имя</i>'
+              value='$=,JewishName' name='jewish_name' size=30 maxlength=30>
    <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена'>
    <form_edit title='Фамилия' value='$=,Surname' name='surname' size=30
 	      maxlength=30 mandatory='*true'>
@@ -68,22 +73,38 @@
     </select>
     19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
    </form_line>
-   <form_checkbox name='migdal_student' value='$,isMigdalStudent'
-		  title='Мигдалевец' span=2>
-   <form_editor title='Коротко о себе' name='info' body='$=,Info'>
+   <form_checkbox title='Мигдалевец'
+                  comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
+		           его раньше? Или, может быть, вы чувствуете себя
+			   мигдалевцем в душе?'
+                  name='migdal_student' value='$,isMigdalStudent'>
+   <form_editor title='Коротко о себе'
+                comment='Напишите несколько слов о себе: биография, работа,
+		         друзья, интересы...'
+		name='info' body='$=,Info'>
    <<help_link href='stotext-help-subs.php'
-	      title='Список обозначений, используемых в тексте' span=2>>
+	      title='Список обозначений, используемых в тексте'>>
    <if what='$,isEditable'>
-    <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен' span=2>
-    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно' span=2>
+    <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен'>
+    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно'>
     <form_edit title='E-mail'
-	       comment='Укажите ваш настоящий адрес, потому что на этот адрес будет выслано письмо для подтверждения вашей регистрации. Этот адрес также может понадобиться для связи с вами в экстренных случаях (например, восстановление забытого пароля)'
+	       comment='Этот адрес может понадобиться для связи с вами в
+	                экстренных случаях (например, для восстановления
+			забытого пароля)'
 	       value='$=,Email' name='email' size=30 maxlength=70
 	       mandatory='*true'>
-    <form_checkbox name='hide_email' value='$,isHideEmail'
-		   title='Скрыть E-mail на сайте' span=2>
-    <form_checkbox name='email_enabled' value='$,isEmailEnabled'
-		   title='Разрешаю посылать почту на мой адрес' span=2>
+   <form_checkbox title='Скрыть E-mail на сайте'
+                  comment='Ответ <i>Да</i> означает, что никто из посетителей
+		           сайта (кроме администратора) не увидит ващ адрес
+			   E-mail'
+                  name='hide_email' value='$,isHideEmail'>
+   <form_checkbox title='Разрешаю посылать почту на мой адрес'
+                  comment='Ответ <i>Нет</i> означает, что вы не будете получать
+		           письма, которые администрация сайта отправляет всем
+			   зарегистрированным пользователям. Мы крайне редко
+			   отправляем такие письма --- за 4 года мы не делали
+			   этого ни разу'
+                  name='email_enabled' value='$,isEmailEnabled'>
     <if what='$,isEmailDisabled==2'>
      <tr><td colspan=2 class='error'>
       Посылка почты на этот адрес временно приостановлена, поскольку адрес не
@@ -95,28 +116,25 @@
 	      comment='Если вы не знаете, что это такое, не заполняйте это поле'
 	      value='$=,ICQ' name='icq' size=15 maxlength=15>
    <admin_users>
-    <form_section title='Привилегии'>
-    <form_checkbox name='has_personal' value='$,isHasPersonal' span=2
+    <form_checkbox name='has_personal' value='$,isHasPersonal'
 		   title='Имеет персональную страницу'>
-    <form_checkbox name='accepts_complains' value='$,isAcceptsComplains' span=2
+    <form_section title='Привилегии'>
+    <form_checkbox name='accepts_complains' value='$,isAcceptsComplains'
 		   title='Принимает жалобы'>
-    <form_checkbox name='admin_users' value='$,isAdminUsers' span=2
+    <form_checkbox name='admin_users' value='$,isAdminUsers'
 		   title='Администратор пользователей'>
-    <form_checkbox name='admin_topics' value='$,isAdminTopics' span=2
+    <form_checkbox name='admin_topics' value='$,isAdminTopics'
 		   title='Администратор тем'>
-    <form_checkbox name='admin_complain_answers' span=2
+    <form_checkbox name='admin_complain_answers'
 		   value='$,isAdminComplainAnswers'
 		   title='Администратор ответов на жалобы'>
-    <form_checkbox name='moderator' value='$,isModerator' span=2
-		   title='Модератор'>
-    <form_checkbox name='judge' value='$,isJudge' span=2
-		   title='Арбитр'>
-    <form_checkbox name='admin_domain' value='$,isAdminDomain' span=2
+    <form_checkbox name='moderator' value='$,isModerator' title='Модератор'>
+    <form_checkbox name='judge' value='$,isJudge' title='Арбитр'>
+    <form_checkbox name='admin_domain' value='$,isAdminDomain'
 		   title='Администратор субдоменов'>
-    <form_checkbox name='hidden' value='$,isHidden' span=2
+    <form_checkbox name='hidden' value='$,isHidden'
 		   title='Скрыть в списке пользователей'>
-    <form_checkbox name='no_login' value='$,isNoLogin' span=2
-		   title='Запретить вход'>
+    <form_checkbox name='no_login' value='$,isNoLogin' title='Запретить вход'>
    </admin_users>
    <form_buttons title='Обновить'>
   </form>

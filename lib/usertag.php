@@ -13,7 +13,7 @@ var $hide_email;
 
 function UserTag($row)
 {
-$gender='mine';
+$this->gender='mine';
 parent::DataObject($row);
 }
 

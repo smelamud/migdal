@@ -276,7 +276,7 @@ action'Å.
 - migdal/postingorg.mhtml
 - migdal/printings.mhtml
 - migdal/rating.mhtml
-- migdal/register.mhtml
++ migdal/register.mhtml
 - migdal/reorder.mhtml
 * migdal/search.mhtml
 - migdal/stotext-help-subs.mhtml

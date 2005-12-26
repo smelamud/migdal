@@ -137,8 +137,7 @@
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
 <decel name='links_switcher' file='parts/links-switcher.php' params='ident'>
-<decel name='login' file='parts/login.php' params='no_new,target'
-       defaults="no_new='*false' target=''">
+<decel name='login' file='parts/login.php' params='target' defaults="target=''">
 <decel name='mailru_count' file='parts/mailru.php'>
 <decel name='mailru_logo' file='parts/mailru.php'>
 <decel name='menu' file='parts/menu.php' params='ident,target'
@@ -228,9 +227,8 @@
                  shorten='*false'">
 <decel name='today' file='parts/today.php'>
 <decel name='top' file='parts/top.php'
-       params='ident,no_new,target,showimages,transref,nologin'
-       defaults="no_new='*false' target='' showimages='*true' transref=''
-                 nologin='*false'">
+       params='ident,target,showimages,transref'
+       defaults="target='' showimages='*true' transref=''">
 <decel name='top_404' file='parts/top-404.php'>
 <decel name='topiclink' file='parts/posting.php' params='&posting,class'
        defaults="class='topic'">
