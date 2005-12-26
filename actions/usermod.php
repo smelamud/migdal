@@ -51,7 +51,7 @@ if($user->email=='')
 if(!preg_match('/^[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*$/',
                $user->email))
   return EUM_NOT_EMAIL;
-$user->store();
+storeUser($user);
 if($editid==0)
   if(!$userAdminUsers)
     {
@@ -62,20 +62,35 @@ if($editid==0)
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
 postInteger('editid');
 postString('login');
 postString('password');
 postString('dup_password');
-postString('info');
 postString('name');
 postString('jewish_name');
 postString('surname');
+postString('gender');
+postIntegerArray('rights');
+postString('info');
+postString('email');
+postInteger('hide_email');
+postString('icq');
+postInteger('hidden');
+postInteger('no_login');
+postInteger('has_personal');
+postInteger('birth_year');
+postInteger('birth_month');
+postInteger('birth_day');
+postInteger('email_enabled');
 
 dbOpen();
 session();
 $user=getUserById($editid);
-$user->setup($HTTP_POST_VARS);
-$err=modifyUser($user);
+$original=$user;
+$user->setup($Args);
+$err=modifyUser($user,$original);
 if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array(),array('login' => $login)));
 else
@@ -83,10 +98,10 @@ else
   $infoId=tmpTextSave($info);
   header('Location: '.
 	  remakeMakeURI($faildir,
-			$HTTP_POST_VARS,
+			$Args,
 			array('password','dup_password','info','okdir',
 			      'faildir'),
-			array('infoid' => $infoId,'err' => $err)).'#error');
+			array('info_i' => $infoId,'err' => $err)).'#error');
   }
 dbClose();
 ?>

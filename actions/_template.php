@@ -9,6 +9,9 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/sql.php');
 
+postString('okdir');
+postString('faildir');
+
 dbOpen();
 session();
 header("Location: $okdir");

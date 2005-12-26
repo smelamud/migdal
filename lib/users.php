@@ -83,7 +83,6 @@ $this->info_xml=wikiToXML($this->info,TF_MAIL,MTEXT_SHORT);
 $this->email=$vars['email'];
 $this->hide_email=$vars['hide_email'];
 $this->icq=$vars['icq'];
-$this->accepts_complains=$vars['accepts_complains'];
 $this->hidden=$vars['hidden'];
 $this->no_login=$vars['no_login'];
 $this->has_personal=$vars['has_personal'];
@@ -690,7 +689,7 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id
 	     from users
 	     where id=$id and hidden<$hide",
-	    'userExists');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
