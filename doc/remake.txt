@@ -103,12 +103,12 @@ action'е.
 
 + lib/alphabet.php
 + lib/answers.php
-- lib/array.php
-- lib/biff.php
-- lib/bug.php
-- lib/cache.php
-- lib/calendar.php
-- lib/calendar-tables.php
++ lib/array.php
++ lib/biff.php
++ lib/bug.php
++ lib/cache.php
++ lib/calendar.php
++ lib/calendar-tables.php
 * lib/charsets.php (обработка иврита должна быть не при выводе)
 * lib/chat.php (функции не обработаны)
 - lib/chat-users.php
@@ -118,15 +118,15 @@ action'е.
 - lib/complaintypes.php
 - lib/counters.php
 - lib/cross-topics.php
-- lib/ctypes.php
++ lib/ctypes.php
 + lib/database.php
 + lib/dataobject.php
 - lib/earview.php
-- lib/errorreporting.php
-- lib/errors.php
-- lib/exec.php
++ lib/errorreporting.php
++ lib/errors.php
++ lib/exec.php
 - lib/forums.php
-- lib/gregor-calendar.php
++ lib/gregor-calendar.php
 - lib/groups.php
 - lib/grpiterator.php
 - lib/grps.php
@@ -138,12 +138,12 @@ action'е.
 * lib/image-upload.php (только imageFileResize())
 - lib/indexer.php
 - lib/initstop-mail.php
-- lib/initstop.php
++ lib/initstop.php
 - lib/inner.php
 - lib/ip.php
-- lib/iterator.php
-- lib/jewish-calendar.php
-- lib/jewish-calendar-utils.php
++ lib/iterator.php
++ lib/jewish-calendar.php
++ lib/jewish-calendar-utils.php
 - lib/journal.php
 - lib/langs.php
 - lib/limitselect.php
@@ -155,7 +155,7 @@ action'е.
 - lib/mime.php
 - lib/mnogosearch.php
 * lib/modbits.php (только новые наборы флагов)
-- lib/no-cache.php
++ lib/no-cache.php
 - lib/package.php
 - lib/packages.php
 - lib/paragraphs.php
@@ -166,11 +166,11 @@ action'е.
 - lib/postings-random.php
 + lib/post.php
 - lib/profiling.php
-- lib/random.php
++ lib/random.php
 - lib/redirs.php
 - lib/replication.php
-- lib/rowscols.php
-- lib/run-script.php
++ lib/rowscols.php
++ lib/run-script.php
 - lib/selectiterator.php
 - lib/select.php
 - lib/sendertag.php
@@ -186,7 +186,7 @@ action'е.
 + lib/tmptexts.php
 - lib/topics.php
 + lib/track.php
-- lib/unix-calendar.php
++ lib/unix-calendar.php
 + lib/uri.php (HTTPVarsIterator нужен?)
 - lib/url-domain.php
 + lib/users.php
@@ -204,21 +204,9 @@ action'е.
 - scripts/urlcheck.php
 
 - migdal/grp/complains.conf
-- migdal/grp/complains.php
-- migdal/grp/complains.stamp
-- migdal/grp/compltypes.php
 - migdal/grp/counters.php
 - migdal/grp/groups.conf
-- migdal/grp/groups.stamp
-- migdal/grp/grps.php
 - migdal/grp/mailings.conf
-- migdal/grp/mailings.php
-- migdal/grp/mailings.stamp
-- migdal/grp/mailtypes.php
-- migdal/grp/Makefile
-- migdal/grp/Makefile.in
-- migdal/grp/php.ini
-- migdal/grp/postings.php
 - migdal/grp/subdomains.php
 
 - migdal/mailings/confirmed.mhtml

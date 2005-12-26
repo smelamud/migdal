@@ -11,7 +11,7 @@ var $cols;
 
 function RowsIterator($iterator,$cols)
 {
-$this->Iterator();
+parent::Iterator();
 $this->iterator=$iterator;
 $this->cols=$cols;
 }
@@ -23,7 +23,7 @@ return ($this->iterator->getPosition() % $this->cols)==$this->cols-1;
 
 function next()
 {
-Iterator::next();
+parent::next();
 return $this->iterator->next();
 }
 
@@ -37,9 +37,8 @@ function FixedRowsIterator($iterator,$rows,$minCols)
 {
 $cols=ceil($iterator->getCount()/$rows);
 $cols=$cols<$minCols ? $minCols : $cols;
-$this->RowsIterator($iterator,$cols);
+parent::RowsIterator($iterator,$cols);
 }
 
 }
-
 ?>

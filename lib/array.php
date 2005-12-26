@@ -10,14 +10,14 @@ var $vars;
 
 function ArrayIterator($vars)
 {
-$this->Iterator();
+parent::Iterator();
 $this->vars=$vars;
 reset($this->vars);
 }
 
 function next()
 {
-Iterator::next();
+parent::next();
 $val=current($this->vars);
 next($this->vars);
 return $val;
@@ -38,7 +38,7 @@ function SortedArrayIterator($vars)
 {
 sort($vars);
 $vars=array_unique($vars);
-$this->ArrayIterator($vars);
+parent::ArrayIterator($vars);
 }
 
 }

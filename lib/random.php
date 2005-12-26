@@ -39,7 +39,7 @@ while(count($seq)<$n && count($seq)<$max-$min+1)
      if(!in_array($k,$seq))
        $seq[]=$k;
      }
-$this->ArrayIterator($seq);
+parent::ArrayIterator($seq);
 }
 
 }
