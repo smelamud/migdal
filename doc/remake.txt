@@ -98,7 +98,7 @@ action'Å.
 - actions/topicsreorder.php
 - actions/userconfirm.php
 - actions/userlost.php
-- actions/usermod.php
++ actions/usermod.php
 + actions/userswitch.php
 - actions/vote.php
 

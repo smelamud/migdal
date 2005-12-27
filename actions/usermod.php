@@ -31,11 +31,7 @@ if((!$editid || $user->password!='') && strlen($user->password)<5)
   return EUM_PASSWORD_LEN;
 if($user->password!=$user->dup_password)
   return EUM_PASSWORD_DIFF;
-$result=sql('select id
-             from users
-	     where login="'.addslashes($user->login)."\" and id<>$editid",
-	    'modifyUser');
-if(mysql_num_rows($result)>0)
+if(userLoginExists($user->login,$editid))
   return EUM_LOGIN_EXISTS;
 if($user->name=='')
   return EUM_NAME_ABSENT;
@@ -51,6 +47,8 @@ if($user->email=='')
 if(!preg_match('/^[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*$/',
                $user->email))
   return EUM_NOT_EMAIL;
+if(!$userAdminUsers)
+  $user->rights=$user->rights & USR_USER | $original->rights & ~USR_USER;
 storeUser($user);
 if($editid==0)
   if(!$userAdminUsers)
@@ -65,6 +63,7 @@ return EG_OK;
 postString('okdir');
 postString('faildir');
 postInteger('editid');
+postInteger('edittag');
 postString('login');
 postString('password');
 postString('dup_password');

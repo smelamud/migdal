@@ -1,6 +1,26 @@
 << @(#) $Id$ >>
 
 <int name='editid'>
+<int name='edittag'>
+<string name='login'>
+<string name='password'>
+<string name='dup_password'>
+<string name='name'>
+<string name='jewish_name'>
+<string name='surname'>
+<string name='gender'>
+<int_array name='rights'>
+<string name='info'>
+<string name='email'>
+<int name='hide_email'>
+<string name='icq'>
+<int name='hidden'>
+<int name='no_login'>
+<int name='has_personal'>
+<int name='birth_year'>
+<int name='birth_month'>
+<int name='birth_day'>
+<int name='email_enabled'>
 <pagetitle title='Изменение информации о пользователе'>
 
 <html>
@@ -77,7 +97,8 @@
                   comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
 		           его раньше? Или, может быть, вы чувствуете себя
 			   мигдалевцем в душе?'
-                  name='migdal_student' value='$,isMigdalStudent'>
+                  name='rights[]' value='$,isMigdalStudent'
+		  iftrue='*USR_MIGDAL_STUDENT'>
    <form_editor title='Коротко о себе'
                 comment='Напишите несколько слов о себе: биография, работа,
 		         друзья, интересы...'
@@ -119,19 +140,22 @@
     <form_checkbox name='has_personal' value='$,isHasPersonal'
 		   title='Имеет персональную страницу'>
     <form_section title='Привилегии'>
-    <form_checkbox name='accepts_complains' value='$,isAcceptsComplains'
-		   title='Принимает жалобы'>
-    <form_checkbox name='admin_users' value='$,isAdminUsers'
+    <form_checkbox name='rights[]' value='$,isAcceptsComplains'
+                   iftrue='*USR_ACCEPTS_COMPLAINS' title='Принимает жалобы'>
+    <form_checkbox name='rights[]' value='$,isAdminUsers'
+                   iftrue='*USR_ADMIN_USERS'
 		   title='Администратор пользователей'>
-    <form_checkbox name='admin_topics' value='$,isAdminTopics'
-		   title='Администратор тем'>
-    <form_checkbox name='admin_complain_answers'
-		   value='$,isAdminComplainAnswers'
+    <form_checkbox name='rights[]' value='$,isAdminTopics'
+                   iftrue='*USR_ADMIN_TOPICS' title='Администратор тем'>
+    <form_checkbox name='rights[]' value='$,isAdminComplainAnswers'
+		   iftrue='*USR_ADMIN_COMPLAIN_ANSWERS'
 		   title='Администратор ответов на жалобы'>
-    <form_checkbox name='moderator' value='$,isModerator' title='Модератор'>
-    <form_checkbox name='judge' value='$,isJudge' title='Арбитр'>
+    <form_checkbox name='rights[]' value='$,isModerator'
+                   iftrue='*USR_MODERATOR' title='Модератор'>
+    <form_checkbox name='rights[]' value='$,isJudge'
+                   iftrue='*USR_JUDGE' title='Арбитр'>
     <form_checkbox name='admin_domain' value='$,isAdminDomain'
-		   title='Администратор субдоменов'>
+		   iftrue='*USR_ADMIN_DOMAIN' title='Администратор субдоменов'>
     <form_checkbox name='hidden' value='$,isHidden'
 		   title='Скрыть в списке пользователей'>
     <form_checkbox name='no_login' value='$,isNoLogin' title='Запретить вход'>

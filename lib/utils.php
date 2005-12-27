@@ -75,4 +75,14 @@ if($border!='')
   $s.=" border='$border'";
 echo "$s>";
 }
+
+function disjunct($values)
+{
+if(!is_array($values))
+  return $values;
+$sum=0;
+foreach($values as $value)
+       $sum|=$value;
+return $sum;
+}
 ?>

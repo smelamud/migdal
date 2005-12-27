@@ -3,8 +3,8 @@
 <element name='infoline' params='title,value,escape' defaults="escape='*true'">
 <ifne what='$value'>
  <tr valign='top'>
-  <th width='10%' align='left'>$=title</th>
-  <td width='90%'><if what='$escape'>$=value<else>$value</if></td>
+  <th style='white-space: nowrap' align='left'>$=title:</th>
+  <td width='100%'><if what='$escape'>$=value<else>$value</if></td>
  </tr>
 </ifne>
 </element>
@@ -54,8 +54,10 @@
   <infoline title='ICQ' value#='$,ICQStatusImage&nbsp;$=,ICQ' escape='*false'>
  </ifne>
  <tr valign='top'>
-  <th width='10%' align='left'>Последний раз<br>заходил сюда</th>
-  <td width='90%'><lastonline user='$,'></td>
+  <th style='white-space: nowrap' align='left'>
+   Последний раз<br>заходил сюда:
+  </th>
+  <td width='100%'><lastonline user='$,'></td>
  </tr>
 </table>
 <controls target='$target'>

@@ -29,6 +29,7 @@ define('USR_MODERATOR',0x0040);
 define('USR_JUDGE',0x0080);
 define('USR_ADMIN_DOMAIN',0x0100);
 
+define('USR_USER',USR_MIGDAL_STUDENT);
 define('USR_ADMIN',USR_ACCEPTS_COMPLAINS|USR_REBE|USR_ADMIN_USERS
                    |USR_ADMIN_TOPICS|USR_ADMIN_COMPLAIN_ANSWERS|USR_MODERATOR
 		   |USR_JUDGE|USR_ADMIN_DOMAIN);
@@ -77,7 +78,7 @@ $this->name=$vars['name'];
 $this->jewish_name=$vars['jewish_name'];
 $this->surname=$vars['surname'];
 $this->gender=$vars['gender'];
-$this->rights=$vars['rights'];
+$this->rights=disjunct($vars['rights']);
 $this->info=$vars['info'];
 $this->info_xml=wikiToXML($this->info,TF_MAIL,MTEXT_SHORT);
 $this->email=$vars['email'];
@@ -86,8 +87,8 @@ $this->icq=$vars['icq'];
 $this->hidden=$vars['hidden'];
 $this->no_login=$vars['no_login'];
 $this->has_personal=$vars['has_personal'];
-$this->birthday='19'.$vars['birth_year'].'-'.$vars['birth_month']
-					.'-'.$vars['birth_day'];
+$this->birthday=sprintf('19%02u-%02u-%02u',$vars['birth_year'],
+                        $vars['birth_month'],$vars['birth_day']);
 $this->email_disabled=$vars['email_enabled'] ? 0 : 1;
 }
 
@@ -689,6 +690,17 @@ $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id
 	     from users
 	     where id=$id and hidden<$hide",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0;
+}
+
+function userLoginExists($login,$excludeId=0)
+{
+$loginS=addslashes($login);
+$filter=$excludeId!=0 ? "and id<>$excludeId" : '';
+$result=sql("select id
+             from users
+	     where login='$loginS' $filter",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }

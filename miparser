@@ -1189,22 +1189,6 @@ $globals="global ".join(',',map {"\$$_"} @::ElementGlobals).";\n"
        $globals,"?>\n",$::ElementBody,"<?php\n}\n?>\n");
 }
 
-sub elSettype #XXX Possibly empty name,type or unknown type
-{
-my ($self)=@_;
-
-my $name=$self->getConstArg('name');
-my $type=$self->getConstArg('type');
-my $method=$self->getConstArg('method');
-$method=$method eq '' ? 'GET' : uc $method;
-::body(<<EOT);
-<?php
-settype(\$$name,'$type');
-settype(\$HTTP_${method}_VARS['$name'],'$type');
-?>
-EOT
-}
-
 sub elSetup
 {
 my ($self)=@_;
@@ -1213,10 +1197,7 @@ my $name=$self->getConstArg('name');
 $name=$::Stack->top()->getResult() if $name eq '';
 if($self->getConstArg('var') eq '')
   {
-  my $method=$self->getConstArg('method');
-  $method='get' if $method eq '';
-  $method=uc $method;
-  ::body("<?php \$$name->setup(\$",::getGlobal("HTTP_${method}_VARS"),"); ?>");
+  ::body("<?php \$$name->setup(\$",::getGlobal("Args"),"); ?>");
   }
 else
   {

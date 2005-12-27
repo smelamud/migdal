@@ -9,6 +9,7 @@ require_once('lib/uri.php');
 require_once('lib/utils.php');
 require_once('lib/logs.php');
 require_once('lib/sql.php');
+require_once('lib/post.php');
 
 class Redir
       extends DataObject
@@ -22,7 +23,7 @@ var $last_access;
 
 function Redir($row=array())
 {
-$this->DataObject($row);
+parent::DataObject($row);
 }
 
 function getId()
@@ -57,24 +58,25 @@ function updateRedirectTimestamps($track)
 sql("update redirs
      set last_access=null
      where '$track' like concat(track,'%')",
-    'updateRedirectTimestamps');
+    __FUNCTION__);
 }
 
 function redirect()
 {
 global $redir,$lastRedir,$redirid,$globalid,$pageTitle;
 
-settype($redirid,'integer');
-settype($globalid,'integer');
+postInteger('redirid');
+postInteger('globalid');
 
 if($redirid!=0 && !redirExists($redirid))
   reload(remakeURI($_SERVER['REQUEST_URI'],array('redirid')));
 if($globalid==0)
   {
+  $pageTitleS=addslashes($pageTitle);
+  $requestURIS=addslashes($_SERVER['REQUEST_URI']);
   sql("insert into redirs(up,name,uri)
-       values($redirid,'".addslashes($pageTitle)."','".
-	      addslashes($_SERVER['REQUEST_URI'])."')",
-      'redirect');
+       values($redirid,'$pageTitleS','$requestURIS')",
+      __FUNCTION__);
   $id=sql_insert_id();
   $track=track($id,trackById('redirs',$redirid));
   updateTrackById('redirs',$id,$track);
@@ -110,12 +112,12 @@ function RedirIterator()
 global $redir;
 
 $track=$redir->getTrack();
-$this->SelectIterator('Redir',
-                      "select id,name,uri
-		       from redirs
-		       where '$track' like concat(track,'%')
-		             and track<>''
-		       order by length(track)");
+parent::SelectIterator('Redir',
+		       "select id,name,uri
+			from redirs
+			where '$track' like concat(track,'%')
+			      and track<>''
+			order by length(track)");
 }
 
 }
@@ -125,7 +127,7 @@ function getRedirById($id)
 $result=sql("select id,up,track,name,uri
 	     from redirs
 	     where id=$id",
-	    'getRedirById');
+	    __FUNCTION__);
 return new Redir(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
@@ -135,7 +137,7 @@ function redirExists($id)
 $result=sql("select id
 	     from redirs
 	     where id=$id",
-	    'redirExists');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 ?>

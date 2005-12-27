@@ -597,16 +597,16 @@ parse_str($fragments['query']);
  <input type=hidden name='%name' value="%value">
 </macro>
 
-<macro name='checkbox_button' defaults='value=0'>
+<macro name='checkbox_button' defaults='value=0 iftrue=1'>
  <ifzero what='%value'>
-  <input type='checkbox' name='%name' value='1'>
+  <input type='checkbox' name='%name' value='%iftrue'>
  <else>
-  <input type='checkbox' name='%name' value='1' checked>
+  <input type='checkbox' name='%name' value='%iftrue' checked>
  </ifzero>
 </macro>
 
-<macro name='checkbox' defaults='value=0'>
- <checkbox_button name='%name' value='%value'> %title
+<macro name='checkbox' defaults='value=0 iftrue=1'>
+ <checkbox_button name='%name' value='%value' iftrue='%iftrue'> %title
 </macro>
 
 <macro name='radio_button' defaults='peervalue="-1"'>

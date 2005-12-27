@@ -64,8 +64,8 @@
 <decel name='form_buttons' file='parts/formutils.php' params='title'
        defaults="title='Изменить'">
 <decel name='form_checkbox' file='parts/formutils.php'
-       params='title,mandatory,comment,name,value,style'
-       defaults="mandatory='*false' comment='' style='select'">
+       params='title,mandatory,comment,name,value,style,iftrue'
+       defaults="mandatory='*false' comment='' style='select' iftrue=1">
 <decel name='form_edit' file='parts/formutils.php'
        params='title,mandatory,comment,name,value,size,maxlength'
        defaults="mandatory='*false' comment='' size=40 maxlength=250">
