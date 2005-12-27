@@ -179,7 +179,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/session.php
 + lib/sessions.php
 - lib/sort.php
-- lib/sql.php
++ lib/sql.php
 - lib/stat.php
 - lib/stotext-images.php
 - lib/stotext.php
