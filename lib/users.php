@@ -452,7 +452,7 @@ return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array());
 }
 
-function storeUser($user)
+function storeUser(&$user)
 {
 global $userAdminUsers;
 
@@ -484,28 +484,28 @@ if($userAdminUsers)
 		    array('hidden' => $user->hidden,
 			  'no_login' => $user->no_login,
 			  'has_personal' => $user->has_personal));
-if(!$this->id || $this->dup_password!='')
+if(!$user->id || $user->dup_password!='')
   $vars=array_merge($vars,
-                    array('password' => md5($this->password)));
-if($this->id)
+                    array('password' => md5($user->password)));
+if($user->id)
   {
   $result=sql(makeUpdate('users',
                          $vars,
-			 array('id' => $this->id)),
+			 array('id' => $user->id)),
 	      __FUNCTION__,'update');
   journal(makeUpdate('users',
                      jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('users',$this->id))));
+		     array('id' => journalVar('users',$user->id))));
   }
 else
   {
   $result=sql(makeInsert('users',
                          $vars),
 	      __FUNCTION__,'insert');
-  $this->id=sql_insert_id();
+  $user->id=sql_insert_id();
   journal(makeInsert('users',
                      jencodeVars($vars,$jencoded)),
-	  'users',$this->id);
+	  'users',$user->id);
   }
 return $result;
 }
