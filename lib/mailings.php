@@ -10,28 +10,28 @@ require_once('lib/bug.php');
 require_once('lib/sql.php');
 require_once('grp/mailtypes.php');
 
-function sendMail($type_id,$userId,$link=0)
+function sendMail($typeId,$userId,$link=0)
 {
 global $replicationMaster;
 
 if(!$replicationMaster)
   return;
 sql("insert into mailings(type_id,receiver_id,link)
-     values($type_id,$userId,$link)",
-    'sendMail');
+     values($typeId,$userId,$link)",
+    __FUNCTION__);
 }
 
-function sendMailAdmin($type_id,$admin,$link=0)
+function sendMailAdmin($typeId,$admin,$link=0)
 {
 global $replicationMaster;
 
 if(!$replicationMaster)
   return;
 sql("insert into mailings(type_id,receiver_id,link)
-     select $type_id,id,$link
+     select $typeId,id,$link
      from users
-     where $admin<>0",
-    'sendMailAdmin');
+     where (rights & $admin)<>0",
+    __FUNCTION__);
 }
 
 class Mailing
@@ -46,7 +46,7 @@ var $email_disabled;
 
 function Mailing($row)
 {
-$this->DataObject($row);
+parent::DataObject($row);
 }
 
 function getId()
@@ -86,14 +86,15 @@ function MailingsExtractIterator()
 {
 global $mailingClassNames;
 
+$METHOD=get_method($this,'MailingsExtractIterator');
 sql('lock tables mailings write,users read,profiling write',
-    get_method($this,'MailingsExtractIterator'),'lock');
+    $METHOD,'lock');
 $result=sql('select mailings.id as id,type_id,receiver_id,link,
 		    email,email_disabled
 	     from mailings
 		  left join users
 		       on mailings.receiver_id=users.id',
-             get_method($this,'MailingsExtractIterator'),'select');
+             $METHOD,'select');
 $mails=array();
 while($row=mysql_fetch_assoc($result))
      {
@@ -101,10 +102,10 @@ while($row=mysql_fetch_assoc($result))
      $mails[]=new $name($row);
      }
 sql('delete from mailings',
-    get_method($this,'MailingsExtractIterator'),'delete');
+    $METHOD,'delete');
 sql('unlock tables',
-    get_method($this,'MailingsExtractIterator'),'unlock');
-$this->ArrayIterator($mails);
+    $METHOD,'unlock');
+parent::ArrayIterator($mails);
 }
 
 }

@@ -69,7 +69,7 @@ parent::UserTag($row);
 
 function setup($vars)
 {
-if(!isset($vars['edittag']))
+if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 $this->login=$vars['login'];
 $this->password=$vars['password'];

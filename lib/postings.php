@@ -50,7 +50,7 @@ $this->grp=GRP_NONE;
 
 function setup($vars)
 {
-if(!isset($vars['edittag']))
+if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 Message::setup($vars);
 $this->topic_id=idByIdent('topics',$vars['topic_id']);

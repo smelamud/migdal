@@ -51,7 +51,7 @@ $this->stotext=new Stotext($row);
 
 function setup($vars)
 {
-if(!isset($vars['edittag']))
+if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 foreach($this->getCorrespondentVars() as $var)
        $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);

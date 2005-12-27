@@ -108,7 +108,7 @@ return $this->they_know;
 
 function setup($vars)
 {
-if(!isset($vars['edittag']))
+if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 $this->we_know=$vars['we_know'];
 $this->they_know=$vars['they_know'];

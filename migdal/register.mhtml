@@ -1,5 +1,21 @@
 << @(#) $Id$ >>
 
+<int name='edittag'>
+<string name='login'>
+<string name='password'>
+<string name='dup_password'>
+<string name='name'>
+<string name='jewish_name'>
+<string name='surname'>
+<string name='gender'>
+<int_array name='rights'>
+<string name='email'>
+<int name='hide_email'>
+<string name='icq'>
+<int name='birth_year'>
+<int name='birth_month'>
+<int name='birth_day'>
+<int name='email_enabled'>
 <pagetitle title='Регистрация пользователя'>
 
 <html>

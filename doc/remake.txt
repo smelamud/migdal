@@ -27,23 +27,24 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 другие методы, работающие с базой. Аргумент в storeObject() должен
 передаваться по ссылке (!), чтобы записывать туда id новосозданного объекта.
 13. HTMLSmth() переименовывается в SmthHTML().
-14. rights хранит и админовские, и не админовские привилегии, поэтому
-storeUser() допускает его установку обычным юзером, что должно пресекаться в
-action'е.
-15. is_int() иногда нужно заменить на is_numeric().
-16. Пользуемся form_-тегами. formtable -> form_table.
-17. Перестраиваем таблицы вместо border на комбинацию двух таблиц.
-18. $`postings:kes` -> $`post.kes`.
-19. Избавляемся от селекторов-вложений в CSS и переходим на имена классов типа
+14. is_int() иногда нужно заменить на is_numeric().
+15. Пользуемся form_-тегами. formtable -> form_table.
+16. Перестраиваем таблицы вместо border на комбинацию двух таблиц.
+17. $`postings:kes` -> $`post.kes`.
+18. Избавляемся от селекторов-вложений в CSS и переходим на имена классов типа
 .form-cell.
-20. Избавляемся от иерархий классов в постингах и т.п.
-21. Функции, работающие с базой, убираем из actions/ и кладем в lib/.
-22. limit=0 по дефолту в итераторах по entries.
-23. Ставить <label> везде, где только можно.
-24. Не проводить операции с тенями на entries, не являющихся постингами. Не
+19. Избавляемся от иерархий классов в постингах и т.п.
+20. Функции, работающие с базой, убираем из actions/ и кладем в lib/.
+21. limit=0 по дефолту в итераторах по entries.
+22. Ставить <label> везде, где только можно.
+23. Не проводить операции с тенями на entries, не являющихся постингами. Не
 предусматривать это ни в итераторах, ни в store().
-25. Преобразование кодировок и форматов убрать из setup() и проводить либо
+24. Преобразование кодировок и форматов убрать из setup() и проводить либо
 непосредственно при проверке параметров, либо при сохранении.
+25. Объявлять переменную $METHOD там, где используется get_method() для
+получения имени метода для sql().
+26. Обработать parser'ы, чтобы генерируемый ими код также удовлетворял этим
+требованиям.
 
 Прогресс пересмотра файлов
 --------------------------
@@ -147,10 +148,10 @@ action'е.
 + lib/jewish-calendar-utils.php
 - lib/journal.php
 - lib/langs.php
-- lib/limitselect.php
++ lib/limitselect.php
 + lib/logging.php
 - lib/logs.php
-- lib/mailings.php
++ lib/mailings.php
 - lib/mail.php
 - lib/messages.php
 - lib/mime.php
@@ -168,7 +169,7 @@ action'е.
 + lib/post.php
 - lib/profiling.php
 + lib/random.php
-- lib/redirs.php
++ lib/redirs.php
 - lib/replication.php
 + lib/rowscols.php
 + lib/run-script.php
@@ -300,7 +301,7 @@ action'е.
 + migdal/userinfo.mhtml
 + migdal/userinfo-panel.mhtml
 - migdal/userlost.mhtml
-- migdal/userok.mhtml
++ migdal/userok.mhtml
 - migdal/userrepair.mhtml
 + migdal/users.mhtml
 - migdal/veterans.mhtml

@@ -24,8 +24,8 @@ $this->count_query=$cquery;
 $this->size=-1;
 $this->limit=$limit;
 $this->offset=$offset;
-$this->SelectIterator($aClass,$limit==0 ? $query
-                                        : "$query limit $offset,$limit" );
+parent::SelectIterator($aClass,$limit==0 ? $query
+                                         : "$query limit $offset,$limit" );
 }
 
 function countSelect()

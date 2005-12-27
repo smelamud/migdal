@@ -25,7 +25,7 @@ $this->DataObject($row);
 
 function setup($vars)
 {
-if(!isset($vars['edittag']))
+if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 $list=$vars['edittag']==2 ? $this->getEditCorrespondentVars()
                           : $this->getCorrespondentVars();

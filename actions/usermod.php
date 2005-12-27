@@ -53,9 +53,9 @@ storeUser($user);
 if($editid==0)
   if(!$userAdminUsers)
     {
-    $user->preconfirm();
+    preconfirmUser($user->getId());
     sendMail(MAIL_REGISTER,$user->getId(),$user->getId());
-    sendMailAdmin(MAIL_REGISTERING,'admin_users',$user->getId());
+    sendMailAdmin(MAIL_REGISTERING,USR_ADMIN_USERS,$user->getId());
     }
 return EG_OK;
 }
