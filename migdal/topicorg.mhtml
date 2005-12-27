@@ -4,7 +4,7 @@
 <topictitle title='Темы'>
 
 <element name='branch' params='up,append,write'>
- <iterate_topiclist grp='*GRP_ALL' up='$up'>
+ <<iterate_topiclist grp='*GRP_ALL' up='$up'>
  <if what='$up!=0 && ($append || $write)'>
   <br>
  </if>
@@ -35,7 +35,7 @@
     <branch up='$.Id' append='$.isAppendable' write='$.isWritable'>
    </for>
   </ul>
- </ifnzero>
+ </ifnzero>>
 </element>
 
 <html>
