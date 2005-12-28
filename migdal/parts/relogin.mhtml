@@ -44,7 +44,7 @@
    <tr>
     <td>&nbsp;</td>
     <td>&nbsp;
-     <a href#='register.php?redirid=$_'>Зарегистрироваться</a>&nbsp;&nbsp;<asp>
+     <a href#='register/?redirid=$_'>Зарегистрироваться</a>&nbsp;&nbsp;<asp>
      <asp><a href#='userlost.php?redirid=$_'>Забыли пароль?</a>
     </td>
    </tr>

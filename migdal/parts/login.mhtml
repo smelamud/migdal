@@ -42,7 +42,7 @@
     </tr>
     <master>
      <tr><td colspan=11 align=right>
-      <at href#='register.php?redirid=$_'
+      <at href#='register/?redirid=$_'
 	  target='$target'>Зарегистрироваться<asp></at>&nbsp;&nbsp;<asp>
       <at href#='userlost.php?redirid=$_'
 	  target='$target'>Забыли пароль?</at>

@@ -41,7 +41,7 @@
      <menuitem ident='chat' alt='Чат' link='chat.php' target='$target'
 	       current='$ident'>
     </master>
-    <menuitem ident='users' alt='Пользователи' link='users.php'
+    <menuitem ident='users' alt='Пользователи' link='users/'
 	      target='$target' current='$ident'>
    <asp></td>
    <td align=right><asp>
