@@ -1,0 +1,106 @@
+#!/usr/bin/perl
+
+# @(#) $Id$
+
+use Getopt::Long;
+Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
+
+$VERSION='0.3';
+
+$outputFileName='-';
+
+sub help
+{
+print <<EOF;
+Usage: $0 [<options>] [<file>]
+
+Migdal website kernel structure definition language preprocessor
+
+  -h, --help                   Print this help and exit
+  -o, --output=<name>          Output file
+  -v, --version                Print version information and exit
+
+Report bugs to <balu\@migdal.ru>
+EOF
+exit;
+}
+
+sub version
+{
+print <<EOF;
+structparser (migdal $VERSION)
+Copyright (C) 2005 by Dmitry E. Melamud.
+
+This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License (see LICENSE).
+
+EOF
+exit;
+}
+
+sub readStructure
+{
+@Structure=();
+$item={};
+while(<>)
+     {
+     s/#.*$//;
+     unless(/^\s*(\w+)\s*=\s*(.*)$/)
+           {
+	   push @Structure,$item if exists($$item{'path'});
+	   $item={};
+	   }
+     $$item{$1}=$2;
+     }
+push @Structure,$item if exists($$item{'path'});
+}
+
+sub init
+{
+$|=1;
+GetOptions('help|h|?'	      => \&help,
+	   'output|o=s'       => \$outputFileName,
+           'version|v'	      => \&version);
+open OUT,">$outputFileName";
+readStructure;
+}
+
+sub run
+{
+print OUT <<EOF;
+<?php
+function getLocationInfo(\$path)
+{
+if(substr(\$path,-5)=='.html')
+  \$path=substr(\$path,0,-5);
+if(\$path[strlen(\$path)-1]!='/')
+  \$path.='/';
+\$info=new LocationInfo();
+EOF
+for my $item(@Structure)
+   {
+   my ($path,$script)=($$item{'path'},$$item{'script'});
+   $path.='/' if substr($path,$#path) ne '/';
+   print OUT <<EOF;
+if(\$path=='$path')
+  {
+  \$info->setScript('$script');
+  return \$info;
+  }
+EOF
+   }
+print OUT <<EOF;
+return \$info;
+}
+?>
+EOF
+}
+
+sub done
+{
+}
+
+init;
+run;
+done;

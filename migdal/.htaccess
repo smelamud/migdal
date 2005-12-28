@@ -5,3 +5,9 @@ php_value include_path ".:..:/etc/mnogosearch-php:/usr/share/mnogosearch-php"
 php_flag magic_quotes_gpc off
 php_flag magic_quotes_runtime off
 php_flag register_globals off
+
+DirectoryIndex /dispatcher.php
+RewriteEngine on
+RewriteBase /
+RewriteRule ^([^.]+)$ /dispatcher.php
+RewriteRule ^([^.]+).html$ /dispatcher.php

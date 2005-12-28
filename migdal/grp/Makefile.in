@@ -2,7 +2,7 @@
 
 # @(#) $Id$
 
-all: groups.stamp mailings.stamp complains.stamp
+all: groups.stamp mailings.stamp complains.stamp structure.stamp
 
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ > Makefile
@@ -23,4 +23,8 @@ mailings.stamp: mailings.conf ../../grpparser
 complains.stamp: complains.conf ../../grpparser
 	../../grpparser -C compltypes.php -L complains.php -p COMPL_ \
 		-i Complain -f type_id -a complain $<
+	touch $@
+
+structure.stamp: structure.conf ../../structparser
+	../../structparser -o structure.php $<
 	touch $@

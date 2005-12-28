@@ -19,7 +19,7 @@ mysql_select_db(!$replication ? $dbName : $replicationDbName)
       or sqlbug(__FUNCTION__.'().mysql_select_db');
 beginJournal();
 if(!$replication)
-  beginProfiling(POBJ_PAGE,$_SERVER['SCRIPT_NAME']);
+  beginProfiling(POBJ_PAGE,$ScriptName);
 }
 
 function dbClose()

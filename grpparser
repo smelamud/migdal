@@ -443,7 +443,7 @@ print POSTINGS "{\n";
 print POSTINGS "\n";
 print POSTINGS 'function '.$class->getName()."(\$row)\n";
 print POSTINGS "{\n";
-print POSTINGS "\$this->$parentClass(\$row);\n";
+print POSTINGS "parent::$parentClass(\$row);\n";
 print POSTINGS "\$this->$grpField=$constPrefix".$class->getFlag().";\n";
 while(my ($name,$value)=each(%{$class->getParams()}))
    {

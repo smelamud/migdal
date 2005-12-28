@@ -362,12 +362,14 @@
 </macro>
 
 <macro name='preamble_tiny'>
+ <conf>
  <assign_global name='wwwDomain' value!="$$userDomain=='www'">
  <assign_global name='englishDomain' value!="$$userDomain=='english'">
  <print>
   <meta_noindex>
  </print>
  <head>
+  <base href="http://$$userDomain.$$siteDomain/">
   <notprint>
    <link rel='alternate' media='print' href='$[print=1]'>
   </notprint>
