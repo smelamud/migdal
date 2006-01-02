@@ -8,6 +8,7 @@ Getopt::Long::Configure('no_auto_abbrev','no_ignore_case','bundling');
 $VERSION='0.3';
 
 $outputFileName='-';
+@Structure=();
 
 sub help
 {
@@ -39,21 +40,69 @@ EOF
 exit;
 }
 
+sub processPathPattern
+{
+my ($item)=@_;
+
+$$item{'_path_regex'}='^'.$$item{'path'}.'$';
+$$item{'_path_regex'}=~s/\//\\\//g;
+$$item{'_subs'}=();
+while($$item{'_path_regex'}=~/{([^)]*)}/)
+     {
+     my $xp=$1;
+     my ($name,$type)=$xp=~/^\s*([\w.]+)\s*=\s*(.*)$/;
+     my $regex='';
+     $regex='[^\/]+' if $type eq 'user';
+     $$item{'_path_regex'}=~s/{([^)]*)}/"($regex)"/e;
+     push @{$$item{'_subs'}},$name;
+     }
+}
+
+sub processArgs
+{
+my ($item)=@_;
+
+for my $var(keys %$item)
+   {
+   next unless $var=~/^arg\./;
+   $$item{"_$var"}=$$item{$var};
+   }
+$n=1;
+for my $sub(@{$$item{'_subs'}})
+   {
+   for my $var(keys %$item)
+      {
+      next unless $var=~/^_arg\./;
+      $$item{$var}=~s/\$$sub/"{\$m[$n]}"/ge;
+      }
+   $n++;
+   }
+}
+
+sub addItem
+{
+my ($item)=@_;
+
+return unless exists($$item{'path'});
+processPathPattern($item) if $$item{'path'}=~/{/;
+processArgs($item) if $$item{'path'}=~/{/;
+push @Structure,$item;
+}
+
 sub readStructure
 {
-@Structure=();
-$item={};
+my $item={};
 while(<>)
      {
      s/#.*$//;
-     unless(/^\s*(\w+)\s*=\s*(.*)$/)
+     unless(/^\s*([\w.]+)\s*=\s*(.*)$/)
            {
-	   push @Structure,$item if exists($$item{'path'});
+	   addItem($item);
 	   $item={};
 	   }
      $$item{$1}=$2;
      }
-push @Structure,$item if exists($$item{'path'});
+addItem($item);
 }
 
 sub init
@@ -80,12 +129,51 @@ if(\$path[strlen(\$path)-1]!='/')
 EOF
 for my $item(@Structure)
    {
-   my ($path,$script)=($$item{'path'},$$item{'script'});
-   $path.='/' if substr($path,$#path) ne '/';
-   print OUT <<EOF;
+   if(!exists($$item{'_path_regex'}))
+     {
+     my $path=$$item{'path'};
+     $path.='/' if substr($path,$#path) ne '/';
+     print OUT <<EOF;
 if(\$path=='$path')
   {
+EOF
+     }
+   else
+     {
+     my $regex=$$item{'_path_regex'};
+     print OUT <<EOF;
+if(preg_match('/$regex/',\$path,\$m))
+  {
+EOF
+     }
+   my $script=$$item{'script'};
+   print OUT <<EOF;
   \$info->setScript('$script');
+EOF
+   $f=0;
+   for my $key(keys %$item)
+       {
+       next unless $key=~/^_arg\.(\w*)$/;
+       if(!$f)
+         {
+	 print OUT <<EOF;
+  \$args=array(
+EOF
+	 $f=1;
+	 }
+       $value=$$item{$key};
+       print OUT <<EOF
+  '$1' => "$value",
+EOF
+       }
+   if($f)
+     {
+     print OUT <<EOF
+  );
+  \$info->setArgs(\$args);
+EOF
+     }
+   print OUT <<EOF;
   return \$info;
   }
 EOF

@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<int name='id'>
+<<int name='id'>>
 <pagetitle title='Информация о пользователе'>
 <topictitle title='Информация о пользователе'>
 

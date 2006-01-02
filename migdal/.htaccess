@@ -10,6 +10,6 @@ DirectoryIndex /dispatcher.php
 RewriteEngine on
 RewriteBase /
 RewriteRule ^([^.]+)$ /dispatcher.php
-RewriteRule ^([^.]+).html$ /dispatcher.php
+RewriteRule ^([^.]+)\.html$ /dispatcher.php
 RewriteCond %{REQUEST_URI} !dispatcher.php
-RewriteRule ^([^.]+).php$ /dispatcher.php
+RewriteRule ^([^.]+)\.php.*$ /dispatcher.php

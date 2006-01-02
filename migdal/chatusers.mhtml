@@ -2,7 +2,7 @@
 
 <element name='userlink' params='user'>
 <if what='!$user.isHidden'>
- <a href='userinfo.php?id=$user.Id&redirid=$_'
+ <a href='users/$user.Id/?redirid=$_'
     onClick="UserInfo($user.Id);return false"
     title='подробнее' class='name'>$user.Login</a><asp>
 <else>

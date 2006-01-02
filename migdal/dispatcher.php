@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/structure.php');
+require_once('lib/post.php');
 
 $href=$_SERVER['REQUEST_URI'];
 $parts=parse_url($href);
@@ -27,8 +28,13 @@ elseif(substr($RequestPath,-1)!='/' && substr($RequestPath,5)!='.html')
 else
   {
   //TODO it's possible to get backtrace here
-  $info=getLocationInfo($href);
+  $info=getLocationInfo($RequestPath);
   $ScriptName=$info->getScript();
+  foreach($info->getArgs() as $key => $value)
+         {
+	 $Args[$key]=$value;
+	 $GLOBALS[$key]=$value;
+	 }
   unset($info);
   }
 unset($parts);
