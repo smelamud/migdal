@@ -91,7 +91,7 @@
    </if>
    <tr>
     <td class='$class ninept'>
-     <a href='users/$.id/'>$=.Login</a>
+     <a href='users/$#.Ident/'>$=.Login</a>
     </td>
     <td class='$class eightpt'><fullname user='$.'></td>
     <if what='$.isConfirmed'>

@@ -45,4 +45,15 @@ for($i=0;$i<strlen($s);$i++)
    }
 return true;
 }
+
+function c_ascii($s)
+{
+for($i=0;$i<strlen($s);$i++)
+   {
+   $v=ord($s[$i]);
+   if($v<32 || $v>=127)
+     return false;
+   }
+return true;
+}
 ?>

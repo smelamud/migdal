@@ -3,6 +3,7 @@
 
 require_once('lib/structure.php');
 require_once('lib/post.php');
+require_once('lib/database.php');
 
 $href=$_SERVER['REQUEST_URI'];
 $parts=parse_url($href);
@@ -28,13 +29,20 @@ elseif(substr($RequestPath,-1)!='/' && substr($RequestPath,5)!='.html')
 else
   {
   //TODO it's possible to get backtrace here
+  dbOpen();
   $info=getLocationInfo($RequestPath);
   $ScriptName=$info->getScript();
   foreach($info->getArgs() as $key => $value)
          {
-	 $Args[$key]=$value;
-	 $GLOBALS[$key]=$value;
+	 list($name,$type)=split(':',$key);
+	 if($type=='')
+	   $type='string';
+	 $func='post'.ucfirst($type).'Value';
+	 $func($name,$value);
 	 }
+  unset($func);
+  unset($name);
+  unset($type);
   unset($info);
   }
 unset($parts);

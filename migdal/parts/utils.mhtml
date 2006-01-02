@@ -44,6 +44,7 @@
 <element name='senderlink'>
 <notenglish>
  <if what='$message.isSenderVisible'>
+  << FIXME SenderIdent нужно >>
   <a href='users/$message.SenderId/?redirid=$_'
      onClick="UserInfo($message.SenderId);return false"
      title='подробнее' class='name'>$message.Login</a><asp>

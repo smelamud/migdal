@@ -11,6 +11,7 @@ require_once('lib/sessions.php');
 require_once('lib/users.php');
 require_once('lib/sql.php');
 require_once('grp/subdomains.php');
+require_once('lib/ctypes.php');
 
 $userRights=array('AdminUsers'           => USR_ADMIN_USERS,
                   'AdminTopics'          => USR_ADMIN_TOPICS,
@@ -151,6 +152,11 @@ if($userId>0)
 
 if($realUserId>0)
   updateLastOnline($realUserId);
+
+if($GLOBALS['userLogin']!='' && c_ascii($GLOBALS['userLogin']))
+  $GLOBALS['userIdent']=$GLOBALS['userLogin'];
+else
+  $GLOBALS['userIdent']=$userId;
 }
 
 function userSettings()

@@ -3,17 +3,22 @@
 
 require_once('lib/charsets.php');
 require_once('lib/ident.php');
+require_once('lib/users.php');
 
 $Args=array();
 
-function postInteger($name)
+function postIntegerValue($name,$value)
 {
 global $Args;
 
-$value=isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0;
 settype($value,'integer');
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
+}
+
+function postInteger($name)
+{
+postIntegerValue($name,isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0);
 }
 
 function postIntegerArray($name)
@@ -43,19 +48,30 @@ else
   }
 }
 
-function postIdent($name,$table='entries')
+function postIdentValue($name,$value,$table='entries')
 {
 global $Args;
 
-$value=isset($_REQUEST[$name]) ? idByIdent(addslashes($value),$table) : 0;
+$value=idByIdent($value,$table);
+$Args[$name]=$value;
+$GLOBALS[$name]=$value;
+}
+
+function postIdent($name,$table='entries')
+{
+postIdentValue($name,isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0,$table);
+}
+
+function postStringValue($name,$value)
+{
+global $Args;
+
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
 }
 
 function postString($name,$convert=true)
 {
-global $Args;
-
 if(isset($_REQUEST["$name_i"]))
   $value=tmpTextRestore($_REQUEST["$name_i"]);
 else
@@ -64,6 +80,14 @@ else
   if($convert)
     $value=convertInput($value);
   }
+postStringValue($name,$value);
+}
+
+function postUserValue($name,$value)
+{
+global $Args;
+
+$value=isId($value) ? $value : getUserIdByLogin($value);
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
 }

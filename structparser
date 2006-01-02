@@ -49,12 +49,8 @@ $$item{'_path_regex'}=~s/\//\\\//g;
 $$item{'_subs'}=();
 while($$item{'_path_regex'}=~/{([^)]*)}/)
      {
-     my $xp=$1;
-     my ($name,$type)=$xp=~/^\s*([\w.]+)\s*=\s*(.*)$/;
-     my $regex='';
-     $regex='[^\/]+' if $type eq 'user';
-     $$item{'_path_regex'}=~s/{([^)]*)}/"($regex)"/e;
-     push @{$$item{'_subs'}},$name;
+     push @{$$item{'_subs'}},$1;
+     $$item{'_path_regex'}=~s/{([^)]*)}/([^\\\/]+)/;
      }
 }
 
@@ -95,7 +91,7 @@ my $item={};
 while(<>)
      {
      s/#.*$//;
-     unless(/^\s*([\w.]+)\s*=\s*(.*)$/)
+     unless(/^\s*([\w.:]+)\s*=\s*(.*)$/)
            {
 	   addItem($item);
 	   $item={};
@@ -153,7 +149,7 @@ EOF
    $f=0;
    for my $key(keys %$item)
        {
-       next unless $key=~/^_arg\.(\w*)$/;
+       next unless $key=~/^_arg\.([\w:]*)$/;
        if(!$f)
          {
 	 print OUT <<EOF;

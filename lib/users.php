@@ -18,6 +18,7 @@ require_once('lib/sort.php');
 require_once('lib/sql.php');
 require_once('lib/charsets.php');
 require_once('lib/mtext-html.php');
+require_once('lib/ctypes.php');
 
 define('USR_MIGDAL_STUDENT',0x0001);
 define('USR_ACCEPTS_COMPLAINS',0x0002);
@@ -102,6 +103,11 @@ return $this->id==0 || $this->id==$userId || $userAdminUsers;
 function getId()
 {
 return $this->id;
+}
+
+function getIdent()
+{
+return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getId();
 }
 
 function getName()
