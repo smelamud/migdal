@@ -30,7 +30,7 @@
    <admin_users>
     <hidden name='okdir' value='$--'>
    <else>
-    <assign value#='/userok.php?redirid=$redirid'>
+    <assign value#='/register/confirm/?redirid=$redirid'>
     <hidden name='okdir' value='$*'>
    </admin_users>
    <hidden name='faildir' value='$-'>

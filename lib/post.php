@@ -11,6 +11,8 @@ function postIntegerValue($name,$value)
 {
 global $Args;
 
+if(isset($Args[$name]))
+  return;
 settype($value,'integer');
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
@@ -25,6 +27,8 @@ function postIntegerArray($name)
 {
 global $Args;
 
+if(isset($Args[$name]))
+  return;
 $Args[$name]=array();
 $GLOBALS[$name]=array();
 if(!isset($_REQUEST[$name]))
@@ -52,6 +56,8 @@ function postIdentValue($name,$value,$table='entries')
 {
 global $Args;
 
+if(isset($Args[$name]))
+  return;
 $value=idByIdent($value,$table);
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
@@ -66,6 +72,8 @@ function postStringValue($name,$value)
 {
 global $Args;
 
+if(isset($Args[$name]))
+  return;
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
 }
@@ -87,9 +95,16 @@ function postUserValue($name,$value)
 {
 global $Args;
 
+if(isset($Args[$name]))
+  return;
 $value=isId($value) ? $value : getUserIdByLogin($value);
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
+}
+
+function postUser($name)
+{
+postUserValue($name,isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0);
 }
 
 function commandLineArgs()

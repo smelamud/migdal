@@ -63,7 +63,7 @@ for my $var(keys %$item)
    next unless $var=~/^arg\./;
    $$item{"_$var"}=$$item{$var};
    }
-$n=1;
+my $n=1;
 for my $sub(@{$$item{'_subs'}})
    {
    for my $var(keys %$item)
@@ -80,8 +80,11 @@ sub addItem
 my ($item)=@_;
 
 return unless exists($$item{'path'});
-processPathPattern($item) if $$item{'path'}=~/{/;
-processArgs($item) if $$item{'path'}=~/{/;
+$path=$$item{'path'};
+$path.='/' if substr($path,$#path) ne '/';
+$$item{'path'}=$path;
+processPathPattern($item) if $path=~/{/;
+processArgs($item) if $path=~/{/;
 push @Structure,$item;
 }
 
@@ -96,7 +99,10 @@ while(<>)
 	   addItem($item);
 	   $item={};
 	   }
-     $$item{$1}=$2;
+     else
+           {
+           $$item{$1}=$2;
+	   }
      }
 addItem($item);
 }
@@ -128,7 +134,6 @@ for my $item(@Structure)
    if(!exists($$item{'_path_regex'}))
      {
      my $path=$$item{'path'};
-     $path.='/' if substr($path,$#path) ne '/';
      print OUT <<EOF;
 if(\$path=='$path')
   {
@@ -146,7 +151,7 @@ EOF
    print OUT <<EOF;
   \$info->setScript('$script');
 EOF
-   $f=0;
+   my $f=0;
    for my $key(keys %$item)
        {
        next unless $key=~/^_arg\.([\w:]*)$/;
@@ -157,7 +162,7 @@ EOF
 EOF
 	 $f=1;
 	 }
-       $value=$$item{$key};
+       my $value=$$item{$key};
        print OUT <<EOF
   '$1' => "$value",
 EOF

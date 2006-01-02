@@ -13,7 +13,7 @@
 <isedit what='$user'>
  <p class='ninept'>
   &nbsp;
-  <at href#='/useredit.php?editid=$user.Id&redirid=$_'
+  <at href#='/users/$#user.Ident/edit/'
       target='$target'>Изменить информацию о пользователе</at>
  </p>
 </isedit>

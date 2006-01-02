@@ -32,7 +32,7 @@
  <form_table title='Информация о пользователе'>
   <form method=post action='actions/usermod.php'>
    <hidden name='edittag' value=1>
-   <hidden name='okdir' value='$--'>
+   <hidden name='okdir' value='/users/'>
    <hidden name='faildir' value='$-'>
    <hidden name='editid' value='$editid'>
    <starinfo>

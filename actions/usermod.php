@@ -91,7 +91,16 @@ $original=$user;
 $user->setup($Args);
 $err=modifyUser($user,$original);
 if($err==EG_OK)
-  header('Location: '.remakeURI($okdir,array(),array('login' => $login)));
+  {
+  $parts=parse_url($okdir);
+  $okdir=$parts['path'];
+  if(substr($okdir,-1)!='/')
+    $okdir.='/';
+  $okdir.=$user->getIdent().'/';
+  if($parts['query']!='')
+    $okdir.='?'.$parts['query'];
+  header("Location: $okdir");
+  }
 else
   {
   $infoId=tmpTextSave($info);
