@@ -11,3 +11,5 @@ RewriteEngine on
 RewriteBase /
 RewriteRule ^([^.]+)$ /dispatcher.php
 RewriteRule ^([^.]+).html$ /dispatcher.php
+RewriteCond %{REQUEST_URI} !dispatcher.php
+RewriteRule ^([^.]+).php$ /dispatcher.php
