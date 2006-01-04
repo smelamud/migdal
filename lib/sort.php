@@ -17,7 +17,8 @@ define('SORT_URL_DOMAIN',12);
 define('SORT_RINDEX0',13);
 define('SORT_TOPIC_INDEX0_INDEX0',14);
 define('SORT_RSENT',15);
-define('SORT_RINDEX4_RINDEX0',16);
+define('SORT_RINDEX2_RINDEX0',16);
+define('SORT_SUBJECT',17);
 define('SORT_ORDER',255);
 define('SORT_PRIORITY',256);
 

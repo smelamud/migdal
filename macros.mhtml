@@ -141,12 +141,9 @@
          file='lib/topics.php' params='topic_id,root,reverse'
 	 defaults="root=-1 reverse='*false'">
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
-         params='grp,up,withpostings,withanswers,subdomain,withsep,sort,
-	         recursive,level,fields,index4,limit,offset'
-         defaults="up=0 withpostings='*false' withanswers='*false'
-	           subdomain=-1 withsep='*true' sort='*SORT_NAME'
-		   recursive='*false' level=1 fields='*SELECT_GENERAL'
-		   index4=-1 limit=0 offset=0">
+         params='grp,up,sort,recursive,level,fields,index2,limit,offset'
+         defaults="up=0 sort='*SORT_SUBJECT' recursive='*false' level=1
+		   fields='*SELECT_GENERAL' index2=-1 limit=0 offset=0">
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up,recursive,delimiter'
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">

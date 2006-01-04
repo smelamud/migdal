@@ -2,9 +2,7 @@
 
 <element name='topics_minor'>
 <topics_table class='ninept' title='$title'>
- <iterate_topiclist grp='$grp' withpostings='$withpostings'
-		    withanswers='$withanswers' up='$up' subdomain='$subdomain'
-		    withsep='*false' fields='*SELECT_INFO'>
+ <iterate_topiclist grp='$grp' up='$up' fields='*SELECT_INFO'>
  <for>
   <topics_line time='$.LastMessage' href#='$href?topic_id=$.Id'
                title='$.Description' text='$.Name' count='$.MessageCount'

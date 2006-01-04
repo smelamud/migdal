@@ -4,7 +4,7 @@
 <topic_obj name='topic' id='$`events`'>
 <topics_table class='eightpt' title='События'>
  <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
-                    sort='*SORT_RINDEX4_RINDEX0' fields='*SELECT_INFO'>
+                    sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_INFO'>
  <assign name='year' value='0'>
  <for>
   <if what='$.Index4!=$year && $.Index4!=0'>

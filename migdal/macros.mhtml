@@ -286,9 +286,8 @@
 <decel name='topics_migdal_ohr' file='parts/topics-migdal.php'
        params='posting'>
 <decel name='topics_minor' file='parts/topics-minor.php'
-       params='id,withpostings,withanswers,up,subdomain,grp,href,title'
-       defaults="withpostings='*false' withanswers='*false' up='$`general`'
-                 subdomain=-1 grp='*GRP_ALL' href='index.php'">
+       params='id,up,grp,href,title'
+       defaults="up='$`general`' grp='*GRP_ALL' href='index.php'">
 <decel name='topics_museum' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_section' file='parts/topics.php'
        params='class,indent,span,title'

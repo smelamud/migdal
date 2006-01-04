@@ -14,7 +14,7 @@ var $class;
 
 function SelectIterator($aClass,$query)
 {
-$this->Iterator();
+parent::Iterator();
 $this->query=$query;
 $this->result=0;
 $this->class=$aClass;
@@ -24,8 +24,9 @@ function select()
 {
 if($this->result!=0)
   return;
+$METHOD=get_method($this,'select');
 $this->result=sql($this->query,
-                  get_method($this,'select'));
+                  $METHOD);
 $this->count=mysql_num_rows($this->result);
 }
 
@@ -37,7 +38,7 @@ return new $c($row);
 
 function next()
 {
-Iterator::next();
+parent::next();
 $this->select();
 $row=mysql_fetch_assoc($this->result);
 return $row ? $this->create($row) : 0;
@@ -83,12 +84,13 @@ return $this->result;
 }
 
 class ReverseSelectIterator
+      extends SelectIterator
 {
 var $index;
 
 function ReverseSelectIterator($class,$query,$reverse=true)
 {
-$this->SelectIterator($class,$query);
+parent::SelectIterator($class,$query);
 if($reverse)
   $this->index=$this->getCount()-1;
 }
@@ -101,10 +103,10 @@ if($reverse)
   else
     {
     mysql_data_seek($this->getResult(),$this->index--);
-    return SelectIterator::next();
+    return parent::next();
     }
 else
-  return SelectIterator::next();
+  return parent::next();
 }
 
 }

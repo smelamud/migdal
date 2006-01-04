@@ -25,9 +25,9 @@
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <iterate_topiclist name='sels' grp='*GRP_ALL' up='$up' sort='*SORT_INDEX0'
-                      recursive!='$level>=2' level='$level' index4='$index4'>
+                      recursive!='$level>=2' level='$level' index2='$index4'>
    <iterate_topiclist grp='*GRP_ALL' up='$up' sort='*SORT_INDEX0'
-                      recursive!='$level>=2' level='$level' index4='$index4'>
+                      recursive!='$level>=2' level='$level' index2='$index4'>
    <table>
     <error id='*ETO_DUPS' text='Некоторые темы указаны дважды' span=2>
     <error id='*ETO_NO_TOPIC' text='Темы не существует' span=2>

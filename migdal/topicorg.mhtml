@@ -4,7 +4,7 @@
 <topictitle title='Темы'>
 
 <element name='branch' params='up,append,write'>
- <<iterate_topiclist grp='*GRP_ALL' up='$up'>
+ <iterate_topiclist grp='*GRP_ALL' up='$up'>
  <if what='$up!=0 && ($append || $write)'>
   <br>
  </if>
@@ -20,22 +20,22 @@
   <ul class='names'>
    <for name='item'>
     <ifne what='$.Ident'>
-     <assign name='info' value#='[$.Ident=$.Id]'>
+     <assign name='info' value#='[$=.Ident=$.Id]'>
     <else>
      <assign name='info' value#='[$.Id]'>
     </ifne>
     <iswrite what='$item'>
      <li><a href='topicedit.php?editid=$.Id&redirid=$_'
-	    title='$.Description'>$.Name</a>&sp;$info&sp;
+	    title='$.BodyHTML'>$=.Subject</a>&sp;$info&sp;
     <else>
      <li>$.Name&sp;$info&sp;
     </iswrite>
     <br>
-    <tt>$.PermHTML&nbsp;$.Login:$.GroupLogin</tt>
+    <tt>$.PermHTML&nbsp;$=.Login:$=.GroupLogin</tt>
     <branch up='$.Id' append='$.isAppendable' write='$.isWritable'>
    </for>
   </ul>
- </ifnzero>>
+ </ifnzero>
 </element>
 
 <html>

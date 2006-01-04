@@ -122,7 +122,7 @@ global $topicIds,$stotextIds;
 
 $result=sql("select topics.id as id,up,name,comment0,comment1,user_id,group_id,
 	     perms,stotext_id,body,allow,premoderate,moderate,edit,ident,
-	     index0,index1,index2
+	     index0,index1,index4
              from topics
 		  left join stotexts
 		       on topics.stotext_id=stotexts.id
@@ -157,7 +157,7 @@ while($row=mysql_fetch_assoc($result))
 			  'body_format' => TF_PLAIN,
 			  'index0' => $row['index0'],
 			  'index1' => $row['index1'],
-			  'index2' => $row['index2'],
+			  'index2' => $row['index4'],
 			  'sent' => $now,
 			  'created' => $now,
 			  'modified' => $now,

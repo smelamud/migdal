@@ -20,7 +20,7 @@
    <td class='cframe'>
     <subtitle>
     <iterate_topiclist grp='*GRP_EVENT' up='$`events`' recursive='*true'
-                       level=2 sort='*SORT_RINDEX4_RINDEX0'
+                       level=2 sort='*SORT_RINDEX2_RINDEX0'
 		       fields='*SELECT_INFO' limit=5>
     <table width=100% style='margin: 0'><tr valign='center'>
      <td width=200 align='center' class='pic'>

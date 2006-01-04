@@ -3,157 +3,81 @@
 
 require_once('conf/migdal.conf');
 
-require_once('lib/usertag.php');
-require_once('lib/selectiterator.php');
+require_once('lib/array.php');
 require_once('lib/bug.php');
-require_once('lib/tmptexts.php');
+require_once('lib/cache.php');
+require_once('lib/charsets.php');
+require_once('lib/entries.php');
+require_once('lib/grpentry.php');
+require_once('lib/grpiterator.php');
 require_once('lib/grps.php');
 require_once('lib/ident.php');
-require_once('lib/stotext.php');
-require_once('lib/array.php');
-require_once('lib/track.php');
-require_once('lib/charsets.php');
-require_once('lib/grpiterator.php');
-require_once('lib/cache.php');
 require_once('lib/permissions.php');
+require_once('lib/postings-info.php');
+require_once('lib/selectiterator.php');
 require_once('lib/sql.php');
+require_once('lib/tmptexts.php');
+require_once('lib/track.php');
+require_once('lib/modbits.php');
 
 class Topic
-      extends UserTag
+      extends GrpEntry
 {
-var $id;
-var $up;
-var $track;
-var $name;
 var $full_name;
-var $comment0;
-var $comment1;
-var $user_id;
-var $group_id;
-var $group_login;
-var $perms;
 var $perm_string;
-var $stotext;
-var $allow;
-var $premoderate;
-var $moderate;
-var $edit;
-var $ident;
-var $index4;
 var $postings_info;
 var $sub_count;
 
 function Topic($row)
 {
-global $defaultPremoderate,$defaultModerate,$defaultEdit;
+global $rootTopicModbits;
 
-$this->allow=GRP_ALL;
-$this->premoderate=$defaultPremoderate;
-$this->moderate=$defaultModerate;
-$this->edit=$defaultEdit;
-$this->UserTag($row);
-$this->stotext=new Stotext($row,'description');
+$this->entry=ENT_TOPIC;
+$this->grp=GRP_ALL;
+$this->modbits=$rootTopicModbits;
+parent::GrpEntry($row);
 }
 
 function setup($vars)
 {
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-foreach($this->getCorrespondentVars() as $var)
-       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
+$this->body_format=TF_PLAIN;
+$this->body=$vars['body'];
+$this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
+$this->up=$vars['up'];
+$this->subject=$vars['subject'];
+$this->subject_sort=convertSort($this->subject);
+$this->comment0=$vars['comment0'];
+$this->comment0_xml=wikiToXML($this->comment0,$this->body_format,MTEXT_LINE);
+$this->comment1=$vars['comment1'];
+$this->comment1_xml=wikiToXML($this->comment1,$this->body_format,MTEXT_LINE);
+$this->ident=$vars['ident']!='' ? $vars['ident'] : null;
+$this->login=$vars['login'];
 if($vars['user_name']!='')
   $this->login=$vars['user_name'];
+$this->group_login=$vars['group_login'];
 if($vars['group_name']!='')
   $this->group_login=$vars['group_name'];
+$this->perm_string=$vars['perm_string'];
 if($this->perm_string!='')
   $this->perms=permString($this->perm_string,strPerms($this->perms));
-$this->allow=0;
+$this->modbits=$vars['modbits'];
+$this->index2=$vars['index2'];
+$this->grp=0;
 $iter=new GrpIterator();
 while($group=$iter->next())
      if(($group->getGrp() & GRP_ALL)!=0)
        {
        $name=$group->getGrpIdent();
        if($vars[$name])
-	 $this->allow|=$group->getGrp();
+	 $this->grp|=$group->getGrp();
        }
-$this->stotext->setup($vars,'description');
 }
 
-function getCorrespondentVars()
+function getNbSubject()
 {
-return array('up','name','comment0','comment1','ident','login','group_login',
-             'perm_string','premoderate','moderate','edit','index4');
-}
-
-function getWorldVars()
-{
-return array('up','track','name','comment0','comment1','user_id','group_id',
-             'perms','allow','premoderate','moderate','edit','ident','index4');
-}
-
-function getJencodedVars()
-{
-return array('up' => 'topics','name' => '','name_sort' => '',
-             'user_id' => 'users','group_id' => 'users',
-	     'stotext_id' => 'stotexts');
-}
-
-function getNormal($isAdmin=false)
-{
-$normal=UserTag::getNormal($isAdmin);
-$normal['stotext_id']=$this->stotext->getId();
-$normal['name_sort']=convertSort($normal['name']);
-return $normal;
-}
-
-function store()
-{
-$result=$this->stotext->store();
-if(!$result)
-  return $result;
-$normal=$this->getNormal();
-if($this->id)
-  {
-  $result=sql(makeUpdate('topics',
-                         $normal,
-			 array('id' => $this->id)),
-	      get_method($this,'store'),'update');
-  journal(makeUpdate('topics',
-                     jencodeVars($normal,$this->getJencodedVars()),
-		     array('id' => journalVar('topics',$this->id))));
-  }
-else
-  {
-  $result=sql(makeInsert('topics',
-                         $normal),
-	      get_method($this,'store'),'insert');
-  $this->id=sql_insert_id();
-  journal(makeInsert('topics',
-                     jencodeVars($normal,$this->getJencodedVars())),
-	  'topics',$this->id);
-  }
-journal("track topics ".journalVar('topics',$this->id));
-return $result;
-}
-
-function getId()
-{
-return $this->id;
-}
-
-function getUpValue()
-{
-return $this->up;
-}
-
-function getName()
-{
-return $this->name;
-}
-
-function getNbName()
-{
-return str_replace(' ','&nbsp;',$this->getName());
+return str_replace(' ','&nbsp;',$this->getSubject());
 }
 
 function getFullName()
@@ -169,51 +93,6 @@ $s=$this->getFullName();
 return strlen($s)>$fullNameShortSize
        ? '...'.substr($s,-($fullNameShortSize-3))
        : $s;
-}
-
-function getComment0()
-{
-return $this->comment0;
-}
-
-function getComment1()
-{
-return $this->comment1;
-}
-
-function getUserId()
-{
-return $this->user_id;
-}
-
-function setUserId($id)
-{
-$this->user_id=$id;
-}
-
-function getGroupId()
-{
-return $this->group_id;
-}
-
-function setGroupId($id)
-{
-$this->group_id=$id;
-}
-
-function getGroupLogin()
-{
-return $this->group_login;
-}
-
-function getGroupName()
-{
-return $this->getGroupLogin();
-}
-
-function getPerms()
-{
-return $this->perms;
 }
 
 function getPermString()
@@ -239,91 +118,6 @@ return $userAdminTopics && $right!=PERM_POST
        perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
 }
 
-function isReadable()
-{
-return $this->isPermitted(PERM_READ);
-}
-
-function isWritable()
-{
-return $this->isPermitted(PERM_WRITE);
-}
-
-function isAppendable()
-{
-return $this->isPermitted(PERM_APPEND);
-}
-
-function isPostable()
-{
-return $this->isPermitted(PERM_POST);
-}
-
-function getStotext()
-{
-return $this->stotext;
-}
-
-function getDescription()
-{
-return $this->stotext->getBody();
-}
-
-function getHTMLDescription()
-{
-return stotextToHTML(TF_PLAIN,$this->getDescription());
-}
-
-function getLargeFilename()
-{
-return $this->stotext->getLargeFilename();
-}
-
-function getLargeFormat()
-{
-return $this->stotext->getLargeFormat();
-}
-
-function getLargeDescription()
-{
-return $this->stotext->getLargeBody();
-}
-
-function getHTMLLargeDescription()
-{
-return stotextToHTML($this->getLargeFormat(),$this->getLargeDescription());
-}
-
-function getAllow()
-{
-return $this->allow;
-}
-
-function getPremoderate()
-{
-return $this->premoderate;
-}
-
-function getModerate()
-{
-return $this->moderate;
-}
-
-function getEdit()
-{
-return $this->edit;
-}
-
-function getIdent()
-{
-return $this->ident;
-}
-
-function getIndex4()
-{
-return $this->index4;
-}
-
 function getPostingsInfo()
 {
 return $this->postings_info;
@@ -334,16 +128,16 @@ function setPostingsInfo($postings_info)
 $this->postings_info=$postings_info;
 }
 
-function getMessageCount()
+function getAnswers()
 {
 $info=$this->getPostingsInfo();
-return $info ? $info->getTotal() : 0;
+return $info ? $info->getTotal() : parent::getAnswers();
 }
 
-function getLastMessage()
+function getLastAnswer()
 {
 $info=$this->getPostingsInfo();
-return $info ? $info->getMaxSent() : 0;
+return $info ? $info->getMaxSent() : parent::getLastAnswer();
 }
 
 function getSubCount()
@@ -361,25 +155,23 @@ if($userAdminTopics && $right!=PERM_POST)
   return '1';
 if($userModerator && $right==PERM_POST)
   return '1';
-return permFilter('topics',$right,'user_id',$prefix);
+return permFilter($right,$prefix);
 }
 
 class TopicIterator
       extends LimitSelectIterator
 {
 
-function getWhere($grp,$up=0,$prefix='',$withAnswers=false,$recursive=false,
-                  $level=1,$index4=-1)
+function getWhere($grp,$up=0,$prefix='',$recursive=false,$level=1,$index2=-1)
 {
-$hide=topicsPermFilter(PERM_READ,$prefix);
-$userFilter=$up>=0 ? 'and topics.'.subtree('topics',$up,$recursive,'up') : '';
-$grpFilter=$grp!=GRP_ALL ? "and (${prefix}allow & $grp)<>0" : '';
-$answerFilter=$withAnswers ? 'and forummesgs.id is not null' : '';
-$levelFilter=$level<=1 || $up<0 ? '' : "and topics.id<>$up and topics.up<>$up";
-$index4Filter=$index4<0 ? '' : "and index4=$index4";
+$hide='and '.topicsPermFilter(PERM_READ,$prefix);
+$userFilter=$up>=0 ? 'and '.subtree('entries',$up,$recursive,'up') : '';
+$grpFilter=$grp!=GRP_ALL ? "and (${prefix}grp & $grp)<>0" : '';
 // TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
-return " where $hide $userFilter $grpFilter $answerFilter $levelFilter 
-               $index4Filter ";
+$levelFilter=$level<=1 || $up<0 ? '' : "and entries.id<>$up and up<>$up";
+$index2Filter=$index2<0 ? '' : "and index2=$index2";
+return " where entry=".ENT_TOPIC." $hide $userFilter $grpFilter $levelFilter
+         $index2Filter ";
 }
 
 function TopicIterator($query,$limit=0,$offset=0)
@@ -395,77 +187,49 @@ class TopicListIterator
 var $fields;
 var $grp;
 
-function TopicListIterator($grp,$up=0,$withPostings=false,$withAnswers=false,
-                           $subdomain=-1 /* deprecated */,
-			   $withSeparate=true /* deprecated */,
-			   $sort=SORT_NAME,$recursive=false,$level=1,
-			   $fields=SELECT_GENERAL,$index4=-1,$limit=0,$offset=0)
+function TopicListIterator($grp,$up=0,$sort=SORT_SUBJECT,$recursive=false,
+                           $level=1,$fields=SELECT_GENERAL,$index2=-1,
+			   $limit=0,$offset=0)
 {
 $this->fields=$fields;
 $this->grp=$grp;
 /* Select */
-$Select="topics.id as id,topics.ident as ident,topics.up as up,
-         topics.name as name,topics.comment0 as comment0,
-	 topics.comment1 as comment1,topics.stotext_id as stotext_id,
-	 topics.user_id as user_id,topics.group_id as group_id,
-	 users.login as login,gusers.login as group_login,
-	 topics.perms as perms,stotexts.body as description,
-	 topics.allow as allow,topics.index4 as index4";
+$Select="entries.id as id,entries.ident as ident,entries.up as up,
+         entries.subject as subject,entries.comment0 as comment0,
+         entries.comment0_xml as comment0_xml,entries.comment1 as comment1,
+	 entries.comment1_xml as comment1_xml,entries.body as body,
+	 entries.body_xml as body_xml,entries.user_id as user_id,
+	 entries.group_id as group_id,users.login as login,
+	 gusers.login as group_login,entries.perms as perms,entries.grp as grp,
+	 entries.index2 as index2,entries.answers as answers,
+	 entries.last_answer as last_answer";
 /* From */
-$grpFilter=grpFilter($grp,'grp','postings');
-$hidePostings=messagesPermFilter(PERM_READ,'messages');
-$hideAnswers=messagesPermFilter(PERM_READ,'forummesgs');
-
-$postTables=$withPostings ?
-            "left join postings
-		  on topics.id=postings.topic_id and $grpFilter
-	     left join messages
-		  on postings.message_id=messages.id and $hidePostings" :
-	    '';
-$forumsTables=$withAnswers ?
-	      "left join forums
-		    on messages.id=forums.parent_id
-	       left join messages as forummesgs
-		    on forums.message_id=forummesgs.id and $hideAnswers" :
-	      '';
-
-$From="topics
+$From="entries
        left join users
-	    on topics.user_id=users.id
+	    on entries.user_id=users.id
        left join users as gusers
-	    on topics.group_id=gusers.id
-       left join stotexts
-	    on stotexts.id=topics.stotext_id
-       $postTables
-       $forumsTables";
+	    on entries.group_id=gusers.id";
 /* Where */
-$Where=$this->getWhere($grp,$up,'topics.',$withAnswers,$recursive,$level,
-                       $index4);
-/* Group by */
-$GroupBy=$withAnswers || $withPostings ? 'group by topics.id' : '';
-/* Having */
-$Having=$withPostings ? 'having message_count<>0' : '';
+$Where=$this->getWhere($grp,$up,'entries.',$recursive,$level,$index2);
 /* Order */
 $Order=getOrderBy($sort,
-       array(SORT_NAME            => 'topics.name_sort',
-	     SORT_INDEX0          => 'topics.index0',
-	     SORT_RINDEX0         => 'topics.index0 desc',
-	     SORT_INDEX1          => 'topics.index1',
-	     SORT_RINDEX1         => 'topics.index1 desc',
-	     SORT_RINDEX4_RINDEX0 => 'topics.index4 desc,topics.index0 desc'));
+       array(SORT_SUBJECT         => 'subject_sort',
+	     SORT_INDEX0          => 'index0',
+	     SORT_RINDEX0         => 'index0 desc',
+	     SORT_INDEX1          => 'index1',
+	     SORT_RINDEX1         => 'index1 desc',
+	     SORT_RINDEX2_RINDEX0 => 'index2 desc,index0 desc'));
 /* Query */
 $this->TopicIterator(
       "select $Select
        from $From
        $Where
-       $GroupBy
-       $Having
        $Order",$limit,$offset);
 }
 
 function create($row)
 {
-$topic=TopicIterator::create($row);
+$topic=parent::create($row);
 if(($this->fields & SELECT_INFO)!=0)
   $topic->setPostingsInfo(getPostingsInfo($this->grp,$row['id']));
 return $topic;
@@ -546,6 +310,52 @@ if(!$reverse)
 $this->ArrayIterator($topics);
 }
 
+}
+
+function storeTopic(&$topic)
+{
+$jencoded=array('ident' => '','up' => 'entries','subject' => '',
+                'subject_sort' => '','comment0' => '','comment0_xml' => '',
+		'comment1' => '','comment1_xml' => '','user_id' => 'users',
+		'group_id' => 'users','body' => '','body_xml' => '');
+$vars=array('ident' => $topic->ident,
+            'up' => $topic->up,
+	    'track' => $topic->track,
+	    'subject' => $topic->subject,
+	    'subject_sort' => $topic->subject_sort,
+	    'comment0' => $topic->comment0,
+	    'comment0_xml' => $topic->comment0_xml,
+	    'comment1' => $topic->comment0,
+	    'comment1_xml' => $topic->comment0_xml,
+	    'user_id' => $topic->user_id,
+	    'group_id' => $topic->group_id,
+	    'perms' => $topic->perms,
+	    'grp' => $topic->grp,
+	    'modbits' => $topic->modbits,
+	    'index2' => $topic->index2,
+	    'body' => $topic->body,
+	    'body_xml' => $topic->body_xml);
+if($this->id)
+  {
+  $result=sql(makeUpdate('entries',
+                         $vars,
+			 array('id' => $topic->id)),
+	      __FUNCTION__,'update');
+  journal(makeUpdate('entries',
+                     jencodeVars($vars,$jencoded),
+		     array('id' => journalVar('entries',$topic->id))));
+  }
+else
+  {
+  $result=sql(makeInsert('entries',
+                         $vars),
+	      __FUNCTION__,'insert');
+  $topic->id=sql_insert_id();
+  journal(makeInsert('entries',
+                     jencodeVars($vars,$jencoded)),
+	  'entries',$topic->id);
+  }
+return $result;
 }
 
 function getAllowByTopicId($id)

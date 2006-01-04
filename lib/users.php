@@ -39,11 +39,15 @@ class User
       extends UserTag
 {
 var $id;
+var $login_sort;
 var $password;
 var $dup_password;
 var $name;
+var $name_sort;
 var $jewish_name;
+var $jewish_name_sort;
 var $surname;
+var $surname_sort;
 var $info;
 var $info_xml;
 var $birthday;
@@ -73,11 +77,15 @@ function setup($vars)
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 $this->login=$vars['login'];
+$this->login_sort=convertSort($this->login);
 $this->password=$vars['password'];
 $this->dup_password=$vars['dup_password'];
 $this->name=$vars['name'];
+$this->name_sort=convertSort($this->name);
 $this->jewish_name=$vars['jewish_name'];
+$this->jewish_name_sort=convertSort($this->jewish_name);
 $this->surname=$vars['surname'];
+$this->surname_sort=convertSort($this->surname);
 $this->gender=$vars['gender'];
 $this->rights=disjunct($vars['rights']);
 $this->info=$vars['info'];
@@ -248,7 +256,7 @@ return $this->email_disabled==0;
 
 function isOnline()
 {
-return isset($this->online);
+return $this->online!=0;
 }
 
 function isTooOld()
@@ -380,20 +388,15 @@ $order=getOrderBy($sort,
 		        SORT_SURNAME     => 'surname_sort,name_sort'));
 parent::SelectIterator(
 	'User',
-	"select distinct users.id as id,login,name,jewish_name,surname,gender,
-		birthday,rights,email,hide_email,icq,last_online,
-		max(sessions.user_id) as online,
-		min(floor((unix_timestamp(now())
-			  -unix_timestamp(sessions.last))/60))
-		     as last_minutes,
+	"select id,login,name,jewish_name,surname,gender,birthday,rights,email,
+	        hide_email,icq,last_online,
+		if(last_online+interval 1 hour>now(),1,0) as online,
+		floor((unix_timestamp(now())
+		       -unix_timestamp(last_online))/60) as last_minutes,
 		confirm_deadline is null as confirmed,
 		floor((unix_timestamp(confirm_deadline)
-		       -unix_timestamp(now()))/86400)
-		     as confirm_days
+		       -unix_timestamp(now()))/86400) as confirm_days
 	 from users
-	      left join sessions
-		   on users.id=sessions.user_id
-		      and sessions.last+interval 1 hour>now()
 	 where hidden<$hide $fieldFilter
 	 group by users.id
 	 $order");
@@ -436,22 +439,17 @@ function getUserById($id)
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$result=sql("select distinct users.id as id,login,name,jewish_name,surname,
-                    gender,info,info_xml,birthday,rights,last_online,email,
-		    hide_email,icq,email_disabled,hidden,no_login,has_personal,
-		    max(sessions.user_id) as online,
-		    min(floor((unix_timestamp(now())
-			      -unix_timestamp(sessions.last))/60))
-			 as last_minutes,
+$result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
+                    birthday,rights,last_online,email,hide_email,icq,
+		    email_disabled,hidden,no_login,has_personal,
+		    if(last_online+interval 1 hour>now(),1,0) as online,
+		    floor((unix_timestamp(now())
+			   -unix_timestamp(last_online))/60) as last_minutes,
 		    confirm_code,
 		    confirm_deadline is null as confirmed,
 		    floor((unix_timestamp(confirm_deadline)
-			   -unix_timestamp(now()))/86400)
-			 as confirm_days
+			   -unix_timestamp(now()))/86400) as confirm_days
 	     from users
-		  left join sessions
-		       on users.id=sessions.user_id
-			  and sessions.last+interval 1 hour>now()
 	     where users.id=$id and hidden<$hide
 	     group by users.id",
 	    __FUNCTION__);
@@ -470,13 +468,13 @@ $jencoded=array('login' => '','login_sort' => '','password' => '','name' => '',
 // Здесь допускается установка админских прав не админом! Проверка должна
 // производиться раньше.
 $vars=array('login' => $user->login,
-	    'login_sort' => convertSort($user->login),
+	    'login_sort' => $user->login_sort,
             'name' => $user->name,
-            'name_sort' => convertSort($user->name),
+            'name_sort' => $user->name_sort,
 	    'jewish_name' => $user->jewish_name,
-            'jewish_name_sort' => convertSort($user->jewish_name),
+            'jewish_name_sort' => $user->jewish_name_sort,
 	    'surname' => $user->surname,
-            'surname_sort' => convertSort($user->surname),
+            'surname_sort' => $user->surname_sort,
 	    'gender' => $user->gender,
 	    'info' => $user->info,
 	    'info_xml' => $user->info_xml,

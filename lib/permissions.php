@@ -34,6 +34,7 @@ define('PERM_EP',0x8000);
 define('PERM_NONE',0x0000);
 define('PERM_ALL',0xFFFF);
 
+// Проверка, разрешают ли указанные permission'ы указанное действие
 function perm($user_id,$group_id,$perms,$right)
 {
 global $userId,$userGroups;
@@ -50,6 +51,7 @@ return $userId==$user_id &&
        ($perms & $right<<PB_GUEST)!=0;
 }
 
+// Извлечение permission'ов от указанного entry (в виде объекта Entry)
 function getPermsById($id)
 {
 $result=sql("select entries.id as id,user_id,group_id,users.login as login,
@@ -64,6 +66,8 @@ $result=sql("select entries.id as id,user_id,group_id,users.login as login,
 return mysql_num_rows($result)>0 ? new Entry(mysql_fetch_assoc($result)) : 0;
 }
 
+// Извлечение permission'ов для "корневого" entry указанного класса
+// (в виде объекта Entry)
 function getRootPerms($class)
 {
 return new Entry(
@@ -72,6 +76,7 @@ return new Entry(
 	      'perms'    => $GLOBALS["root${class}Perms"]));
 }
 
+// Сохранение указанных permission'ов
 function setPermsById($perms)
 {
 sql('update entries
@@ -87,6 +92,9 @@ journal("update entries
 	 where id='.journalVar('entries',$perms->getId()));
 }
 
+// Сохранение указанных permission'ов рекурсивно от указанного entry. Можно
+// не указывать владельца/группу, а в строке прав указывать вопросительные
+// знаки.
 function setPermsRecursive($id,$user_id,$group_id,$perms)
 {
 global $journalSeq;
@@ -137,6 +145,7 @@ else
   return '('.join(' or ',$cases).')';
 }
 
+// Получение SQL-выражения для проверки наличия указанного права
 function permFilter($right,$prefix='')
 {
 global $userId,$userGroups;
@@ -161,6 +170,8 @@ return "($userId=${prefix}user_id and
 	".permMask($perms,$right<<PB_GUEST).')';
 }
 
+// Преобразование строки прав в маску. Вопросительные знаки заменяются
+// значениями из $default.
 function permString($s,$default='----------------')
 {
 $tmpl="rwaprwaprwaprwap";
@@ -181,6 +192,7 @@ for($i=0;$i<strlen($tmpl);$i++,$right*=2)
 return $perm;
 }
 
+// Раскладывает строку прав на две маски - AND и OR
 function permStringMask($s,&$andMask,&$orMask)
 {
 $tmpl="rwaprwaprwaprwap";
@@ -201,6 +213,7 @@ for($i=0;$i<strlen($tmpl);$i++,$right*=2)
 	 return -1;
 }
 
+// Преобразует паску в строку прав
 function strPerms($perm,$escape=false)
 {
 $tmpl="rwaprwaprwaprwap";

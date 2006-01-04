@@ -6,7 +6,7 @@
               text='Модератор' href#='moderator.php'>
  <topics_splitter>
  <topics_line arrow!="$ident=='admin-topics'" class='item'
-              text='Темы' href#='topicorg.php'>
+              text='Темы' href#='admin/topics/'>
  <topics_line arrow!="$ident=='admin-messages'" class='item'
               text='Сообщения' href#='postingorg.php'>
  <topics_line arrow!="$ident=='admin-groups'" class='item'

@@ -131,7 +131,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/forums.php
 + lib/gregor-calendar.php
 - lib/groups.php
-- lib/grpiterator.php
++ lib/grpiterator.php
 - lib/grps.php
 - lib/horisonts.php
 + lib/ident.php
@@ -174,12 +174,12 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/replication.php
 + lib/rowscols.php
 + lib/run-script.php
-- lib/selectiterator.php
++ lib/selectiterator.php
 - lib/select.php
 - lib/sendertag.php
 + lib/session.php
 + lib/sessions.php
-- lib/sort.php
++ lib/sort.php
 + lib/sql.php
 - lib/stat.php
 - lib/stotext-images.php
@@ -187,7 +187,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/style.php
 + lib/text.php
 + lib/tmptexts.php
-- lib/topics.php
+* lib/topics.php
 + lib/track.php
 + lib/unix-calendar.php
 + lib/uri.php (HTTPVarsIterator нужен?)
@@ -294,7 +294,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/topicedit.mhtml
 - migdal/topiclinkadd.mhtml
 - migdal/topiclinks.mhtml
-- migdal/topicorg.mhtml
++ migdal/topicorg.mhtml
 - migdal/topics-reorder.mhtml
 - migdal/urls.mhtml
 * migdal/useredit.mhtml (кроме ссылок на help)
