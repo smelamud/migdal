@@ -295,7 +295,7 @@
 <deccall macro='time' func='time'>
 <deccall macro='tmptext' func='tmpTextRestore' file='lib/tmptexts.php'
          params='id'>
-<deccall macro='topic_allow' func='getAllowByTopicId' file='lib/topics.php'
+<deccall macro='topic_grp' func='getAllowByTopicId' file='lib/topics.php'
          params='id'>
 <deccall macro='topic_count' func='getSubtopicsCountById' file='lib/topics.php'
          params='id,recursive' defaults="name=topic recursive='*false'">

@@ -61,7 +61,7 @@
 
 <element name='gallery_main'>
 <if what='$topic_id>0'>
- <topic_allow id='$topic_id'>
+ <topic_grp id='$topic_id'>
  <assign name='noedit' value!='($, & *GRP_GALLERY)==0'>
 <else>
  <assign name='noedit' value='*false'>

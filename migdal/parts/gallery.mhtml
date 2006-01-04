@@ -28,7 +28,7 @@
 <if what='$topic_id>0'>
  <perms table='topics' id='$topic_id'>
  <assign name='access' value='$,isPostable'>
- <topic_allow id='$topic_id'>
+ <topic_grp id='$topic_id'>
  <assign name='noedit' value!='($, & *GRP_GALLERY)==0'>
 <else>
  <assign name='access' value!='$$userId>0'>

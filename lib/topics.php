@@ -145,6 +145,11 @@ function getSubCount()
 return $this->sub_count;
 }
 
+function setSubCount($sub_count)
+{
+$this->sub_count=$sub_count;
+}
+
 }
 
 function topicsPermFilter($right,$prefix='')
@@ -248,10 +253,10 @@ function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ')
 {
 $this->up=$up;
 $this->delimiter=$delimiter;
-$this->TopicIterator('select id,track,name
-		      from topics'.
-		      $this->getWhere($grp,$this->up,'',false,$recursive).
-		    ' order by track');
+parent::TopicIterator('select id,track,name
+		       from topics'
+		      .$this->getWhere($grp,$this->up,'',$recursive)
+		    .' order by track');
 }
 
 function create($row)
@@ -270,7 +275,7 @@ while($n)
      $n=strtok(' ');
      }
 $row['full_name']=join($this->delimiter,$nm);
-return TopicIterator::create($row);
+return parent::create($row);
 }
 
 }
@@ -287,7 +292,7 @@ $topics=array();
 while($item=$iterator->next())
      $topics[convertSort($item->getFullName())]=$item;
 ksort($topics);
-$this->ArrayIterator($topics);
+parent::ArrayIterator($topics);
 }
 
 }
@@ -299,7 +304,7 @@ class TopicHierarchyIterator
 function TopicHierarchyIterator($topic_id,$root=-1,$reverse=false)
 {
 $topics=array();
-for($id=idByIdent('topics',$topic_id);$id>0 && $id!=$root;)
+for($id=idByIdent($topic_id);$id>0 && $id!=$root;)
    {
    $topic=getTopicById($id);
    $topics[]=$topic;
@@ -307,7 +312,7 @@ for($id=idByIdent('topics',$topic_id);$id>0 && $id!=$root;)
    }
 if(!$reverse)
   $topics=array_reverse($topics);
-$this->ArrayIterator($topics);
+parent::ArrayIterator($topics);
 }
 
 }
@@ -358,120 +363,92 @@ else
 return $result;
 }
 
-function getAllowByTopicId($id)
+function getGrpByTopicId($id)
 {
 $hide=topicsPermFilter(PERM_READ);
-$result=sql("select allow
-	     from topics
+$result=sql("select grp
+	     from entries
 	     where id=$id and $hide",
-	    'getAllowByTopicId');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : GRP_ALL;
 }
 
-function getPremoderateByTopicId($id)
+function getModbitsByTopicId($id)
 {
-global $defaultPremoderate;
+global $rootTopicModbits;
 
 $hide=topicsPermFilter(PERM_READ);
-$result=sql("select premoderate
-	     from topics
+$result=sql("select modbits
+	     from entries
 	     where id=$id and $hide",
-	    'getPremoderateByTopicId');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
-                                 : $defaultPremoderate;
+                                 : $rootTopicModbits;
+}
+
+function getPremoderateByTopicId($id)
+{
+return (getModbitsByTopicId($id) & MODT_PREMODERATE)!=0;
 }
 
 function getModerateByTopicId($id)
 {
-global $defaultModerate;
-
-$hide=topicsPermFilter(PERM_READ);
-$result=sql("select moderate
-	     from topics
-	     where id=$id and $hide",
-	    'getModerateByTopicId');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
-                                 : $defaultModerate;
+return (getModbitsByTopicId($id) & MODT_MODERATE)!=0;
 }
 
 function getEditByTopicId($id)
 {
-global $defaultEdit;
-
-$hide=topicsPermFilter(PERM_READ);
-$result=sql("select edit
-	     from topics
-	     where id=$id and $hide",
-	    'getEditByTopicId');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
-                                 : $defaultEdit;
+return (getModbitsByTopicId($id) & MODT_EDIT)!=0;
 }
 
 function getTopicById($id,$up=0,$fields=SELECT_GENERAL)
 {
-global $userId,$userLogin,$userModerator,$defaultPremoderate,$defaultModerate,
-       $defaultEdit,$rootTopicGroupName,$rootTopicPerms;
+global $userId,$userLogin,$userModerator,$rootTopicModbits,$rootTopicGroupName,
+       $rootTopicPerms;
 
-if(hasCachedValue('obj','topics',$id))
-  return getCachedValue('obj','topics',$id);
+if(hasCachedValue('obj','entries',$id))
+  return getCachedValue('obj','entries',$id);
 $mhide=$userModerator ? 2 : 1;
-$hide=topicsPermFilter(PERM_READ,'topics');
-$subsFields=($fields & SELECT_TOPICS)!=0 ?
-            ',count(distinct subtopics.id) as sub_count' :
-	    '';
-$subsTables=($fields & SELECT_TOPICS)!=0 ?
-	    'left join topics as subtopics
-	          on subtopics.up=topics.id' :
-            '';
-$GroupBy=($fields & SELECT_TOPICS)!=0 ?
-         'group by topics.id' :
-	 '' ;
+$hide=topicsPermFilter(PERM_READ,'entries');
 $result=sql(
-       "select topics.id as id,topics.up as up,topics.name as name,
-               topics.comment0 as comment0,topics.comment1 as comment1,
-               topics.stotext_id as stotext_id,
-               stotexts.body as description,image_set,
-	       large_filename,large_format,
-	       stotexts.large_body as large_description,
-	       large_imageset,topics.allow as allow,
-	       topics.premoderate as premoderate,topics.moderate as moderate,
-	       topics.edit as edit,topics.ident as ident,
+       "select topics.id as id,topics.up as up,topics.subject as subject,
+               topics.subject_xml as subject_xml,topics.comment0 as comment0,
+	       topics.comment0_xml as comment0_xml,topics.comment1 as comment1,
+               topics.comment1_xml as comment1_xml,topics.body as body,
+	       topics.body_xml as body_xml,topics.grp as grp,
+	       topics.modbits as modbits,topics.ident as ident,
 	       topics.user_id as user_id,users.login as login,
 	       users.gender as gender,users.email as email,
-	       users.hide_email as hide_email,users.rebe as rebe,
-	       topics.group_id as group_id,gusers.login as group_login,
-	       topics.perms as perms,topics.index4 as index4 $subsFields
+	       users.hide_email as hide_email,topics.group_id as group_id,
+	       gusers.login as group_login,topics.perms as perms,
+	       topics.index2 as index2
 	from topics
 	     left join users
 	          on topics.user_id=users.id
 	     left join users as gusers
 	          on topics.group_id=gusers.id
-	     left join stotexts
-		  on topics.stotext_id=stotexts.id
-	     $subsTables
-	where topics.id=$id and $hide
-	$GroupBy",
-       'getTopicById');
+	where topics.id=$id and $hide"
+       __FUNCTION__);
 if(mysql_num_rows($result)>0)
   {
   $row=mysql_fetch_assoc($result);
-  if($row['ident']!='')
-    setCachedValue('ident','topics',$row['ident'],$row['id']);
+  if(!is_null($row['ident']))
+    setCachedValue('ident','entries',$row['ident'],$row['id']);
   $topic=new Topic($row); 
+  if(($fields & SELECT_TOPICS)!=0)
+    $topic->setSubCount(getSubtopicsCountById($id));
   if(($fields & SELECT_INFO)!=0)
     $topic->setPostingsInfo(getPostingsInfo(GRP_ALL,$id));
-  setCachedValue('obj','topics',$id,$topic);
+  setCachedValue('obj','entries',$id,$topic);
   }
 else
   if($up>0)
     {
     $topic=getTopicById($up);
     $topic=new Topic(array('up'          => $topic->getId(),
-			   'allow'       => $topic->getAllow(),
-			   'premoderate' => $topic->getPremoderate(),
-			   'moderate'    => $topic->getModerate(),
-			   'edit'        => $topic->getEdit(),
+			   'grp'         => $topic->getGrp(),
+			   'modbits'     => $topic->getModbits(),
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,
 			   'group_id'    => $topic->getGroupId(),
@@ -479,10 +456,8 @@ else
 			   'perms'       => $topic->getPerms()));
     }
   else
-    $topic=new Topic(array('allow'       => GRP_ALL,
-			   'premoderate' => $defaultPremoderate,
-			   'moderate'    => $defaultModerate,
-			   'edit'        => $defaultEdit,
+    $topic=new Topic(array('grp'         => GRP_ALL,
+			   'modbits'     => $rootTopicModbits,
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,
 			   'group_id'    => getUserIdByLogin($rootTopicGroupName),
@@ -493,22 +468,22 @@ return $topic;
 
 function getTopicNameById($id)
 {
-$hide=topicsPermFilter(PERM_READ,'topics');
-$result=sql("select id,name
-	     from topics
+$hide=topicsPermFilter(PERM_READ);
+$result=sql("select id,subject
+	     from entries
 	     where id=$id and $hide",
-	    'getTopicNameById');
+	    __FUNCTION__);
 return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
 }
 
 function getSubtopicsCountById($id,$recursive=false)
 {
-$id=idByIdent('topics',$id);
+$id=idByIdent($id);
 $result=sql('select count(*)
-	     from topics
-	     where '.subtree('topics',$id,$recursive,'up'),
-	    'getSubtopicsCountById');
+	     from entries
+	     where entry='.ENT_TOPIC.' '.subtree('entries',$id,$recursive,'up'),
+	    __FUNCTION__);
 return mysql_num_rows($result)>0
        ? mysql_result($result,0,0)-($recursive ? 1 : 0) : 0;
 }
@@ -517,9 +492,9 @@ function topicExists($id)
 {
 $hide=topicsPermFilter(PERM_READ);
 $result=sql("select id
-	     from topics
+	     from entries
 	     where id=$id and $hide",
-	    'topicExists');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 ?>

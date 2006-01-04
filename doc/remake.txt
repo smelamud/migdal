@@ -187,11 +187,11 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/style.php
 + lib/text.php
 + lib/tmptexts.php
-* lib/topics.php
++ lib/topics.php
 + lib/track.php
 + lib/unix-calendar.php
 + lib/uri.php (HTTPVarsIterator нужен?)
-- lib/url-domain.php
++ lib/url-domain.php
 + lib/users.php
 * lib/usertag.php (вынести ссылку на e-mail в callback или mhtml)
 + lib/utils.php
