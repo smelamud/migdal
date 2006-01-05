@@ -242,7 +242,7 @@
    <islast what='$locs'>
     <nobr><b>$.Title</b></nobr>
    <else>
-    <nobr><at href='$.Path' target='$target'>$.Title</at>&sp;&gt;</nobr>
+    <nobr><at href='$.URI' target='$target'>$.Title</at>&sp;&gt;</nobr>
    </islast>
   </for>
  </div>

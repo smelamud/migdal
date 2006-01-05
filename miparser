@@ -19,7 +19,6 @@ $Header='';
 $Body='';
 $Footer='';
 
-$AfterRedirect=0;
 $BodyToHeader=0;
 $Retarget='';
 
@@ -43,22 +42,15 @@ $MappingStart=1;
 
 sub constructRemake
 {
-my ($s,$after)=@_;
+my ($s)=@_;
 my $redir='';
 
 @del=();
 @subs=();
 %params=();
 request('lib/uri.php');
-if($after || $AfterRedirect && !$BodyToHeader)
-  {
-  getGlobal('redir');
-  $redir='$redir->getURI()';
-  }
-else
-  {
-  $redir="\$_SERVER['REQUEST_URI']";
-  }
+getGlobal('LocationInfo');
+$redir='$LocationInfo->getURI()';
 splitParams($s,\%params);
 while(my($name,$value)=each(%params))
      {
@@ -129,23 +121,21 @@ if($s=~/^\$\/([^\/]*)\/$/)
   return "${st}ancestorById($table,$id,$level)$ed";
   }
 request('lib/utils.php') if $s=~/^\$\$?\^/;
-return $st.constructRemake($1,0).$ed
+return $st.constructRemake($1).$ed
        if $s=~/^\$\[([^\]]*)\]$/;
-return $st.constructRemake($1,1).$ed
-       if $s=~/^\$\$\[([^\]]*)\]$/;
-return "${st}urlencode(".constructRemake($1,0).")$ed"
+return "${st}urlencode(".constructRemake($1).")$ed"
        if $s=~/^\$#\[([^\]]*)\]$/;
 return "$st$1$ed"
        if $s=~/^\*{?(\w+)}?$/;
-return "$st\$".getGlobal('redir')."->getId()$ed"
+return "$st\$".getGlobal('LocationInfo')."->getRedirId()$ed"
        if $s=~/^\$_$/;
 return "$st\$_SERVER['REQUEST_URI']$ed"
        if $s=~/^\$-$/;
 return "${st}urlencode(\$_SERVER['REQUEST_URI'])$ed"
        if $s=~/^\$#-$/;
-return "$st\$".getGlobal('lastRedir')."->getURI()$ed"
+return "$st\$".getGlobal('LocationInfo')."->getParentURI()$ed"
        if $s=~/^\$--$/;
-return "${st}urlencode(\$".getGlobal('lastRedir')."->getURI())$ed"
+return "${st}urlencode(\$".getGlobal('LocationInfo')."->getParentURI())$ed"
        if $s=~/^\$#--$/;
 return "$st\$_SERVER['SCRIPT_NAME']$ed"
        if $s=~/^\$~$/;
@@ -845,7 +835,6 @@ foreach(\$stylesheetList as \$sheet)
        include("styles/\$sheet-".getStyle(\$userStyle).'.php');
 ?>
 EOT
-$AfterRedirect=1;
 }
 
 sub elA

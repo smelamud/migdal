@@ -176,7 +176,6 @@ postIdent('topic_id','topics');
 
 dbOpen();
 session();
-redirect();
 $message=getPostingById($editid,$grp,$index1,$topic_id,SELECT_TOPICS,$up);
 $original=$message;
 $message->setup($HTTP_POST_VARS);

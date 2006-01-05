@@ -4,6 +4,7 @@
 require_once('lib/structure.php');
 require_once('lib/post.php');
 require_once('lib/database.php');
+require_once('lib/redirs.php');
 
 function &dispatch404($requestPath)
 {
@@ -41,8 +42,15 @@ return $info;
 
 function &dispatchLocation($requestPath)
 {
-dbOpen();
-return getLocationInfo($requestPath);
+global $redirid;
+
+if($redirid!=0 && !redirExists($redirid))
+  {
+  $info=new LocationInfo();
+  $info->setPath(remakeURI($_SERVER['REQUEST_URI'],array('redirid')));
+  return $info;
+  }
+return getLocationInfo($requestPath,$redirid);
 }
 
 function &dispatch()
@@ -72,13 +80,18 @@ foreach($args as $key => $value)
        }
 }
 
+postInteger('redirid');
+
+dbOpen();
 $LocationInfo=&dispatch();
 $ScriptName=$LocationInfo->getScript();
 if($ScriptName!='')
   {
   exposeArgs($LocationInfo->getArgs());
+  redirect();
   include($ScriptName);
   }
 else
   header('Location: '.$LocationInfo->getPath());
+dbClose();
 ?>

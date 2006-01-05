@@ -21,7 +21,6 @@ settype($from,'integer');
 
 dbOpen();
 session();
-redirect();
 
 $dir=tempnam($tmpDir,'mig-stat-');
 unlink($dir);

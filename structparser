@@ -121,7 +121,7 @@ sub run
 {
 print OUT <<EOF;
 <?php
-function &getLocationInfo(\$path)
+function &getLocationInfo(\$path,\$redirid=0)
 {
 \$info=new LocationInfo();
 \$info->setPath(\$path);
@@ -179,7 +179,7 @@ EOF
      {
      my $parent=$$item{'parent.path'};
      print OUT <<EOF
-  \$info->setParent(getLocationInfo("$parent"));
+  \$info->setParent(getParentLocationInfo("$parent",\$redirid));
 EOF
      }
    print OUT <<EOF;

@@ -25,7 +25,7 @@
    <a href="$[sort='*SORT_RSENT']">
     <image src='pics/down-level.gif' border=0></a>
   <else>
-   <a href="$$[sort='*SORT_SENT']">
+   <a href="$[sort='*SORT_SENT']">
     <image src='pics/up-level.gif' border=0></a>
   </if>
  </td>

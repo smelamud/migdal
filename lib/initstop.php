@@ -30,7 +30,6 @@ function initializeHead()
 {
 global $stylesheetList,$userStyle;
 
-redirect();
 foreach($stylesheetList as $sheet)
        {
        echo "<link rel='stylesheet' href='/styles/$sheet-".

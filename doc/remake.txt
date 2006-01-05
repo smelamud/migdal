@@ -309,7 +309,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/veterans-user.mhtml
 
 - migdal/parts/article.mhtml
-- migdal/parts/backtrace.mhtml
+* migdal/parts/backtrace.mhtml (удалить лишний код)
 - migdal/parts/bannerbank.mhtml
 + migdal/parts/banners.mhtml
 - migdal/parts/blog-gallery.mhtml

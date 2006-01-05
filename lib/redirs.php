@@ -2,12 +2,10 @@
 # @(#) $Id$
 
 require_once('lib/dataobject.php');
-require_once('lib/selectiterator.php');
 require_once('lib/bug.php');
 require_once('lib/track.php');
 require_once('lib/uri.php');
 require_once('lib/utils.php');
-require_once('lib/logs.php');
 require_once('lib/sql.php');
 require_once('lib/post.php');
 
@@ -17,7 +15,6 @@ class Redir
 var $id;
 var $up;
 var $track;
-var $name;
 var $uri;
 var $last_access;
 
@@ -41,11 +38,6 @@ function getTrack()
 return $this->track;
 }
 
-function getName()
-{
-return $this->name;
-}
-
 function getURI()
 {
 return $this->uri;
@@ -63,19 +55,15 @@ sql("update redirs
 
 function redirect()
 {
-global $redir,$lastRedir,$redirid,$globalid,$pageTitle;
+global $LocationInfo,$redirid,$globalid,$Args;
 
-postInteger('redirid');
 postInteger('globalid');
 
-if($redirid!=0 && !redirExists($redirid))
-  reload(remakeURI($_SERVER['REQUEST_URI'],array('redirid')));
 if($globalid==0)
   {
-  $pageTitleS=addslashes($pageTitle);
   $requestURIS=addslashes($_SERVER['REQUEST_URI']);
-  sql("insert into redirs(up,name,uri)
-       values($redirid,'$pageTitleS','$requestURIS')",
+  sql("insert into redirs(up,uri)
+       values($redirid,'$requestURIS')",
       __FUNCTION__);
   $id=sql_insert_id();
   $track=track($id,trackById('redirs',$redirid));
@@ -83,7 +71,6 @@ if($globalid==0)
   $redir=new Redir(array('id'    => $id,
 			 'up'    => $redirid,
 			 'track' => $track,
-			 'name'  => $pageTitle,
 			 'uri'   => $_SERVER['REQUEST_URI']));
   }
 else
@@ -91,40 +78,19 @@ else
   $redir=getRedirById($globalid);
   if($redir->getId()==0)
     {
-    $globalid=0;
+    unset($Args['globalid']);
+    postIntegerValue('globalid',0);
     redirect();
     return;
     }
   }
-if($redir->getUp()!=0)
-  $lastRedir=getRedirById($redir->getUp());
-else
-  $lastRedir=new Redir();
 updateRedirectTimestamps($redir->getTrack());
-}
-
-class RedirIterator
-      extends SelectIterator
-{
-
-function RedirIterator()
-{
-global $redir;
-
-$track=$redir->getTrack();
-parent::SelectIterator('Redir',
-		       "select id,name,uri
-			from redirs
-			where '$track' like concat(track,'%')
-			      and track<>''
-			order by length(track)");
-}
-
+$LocationInfo->setRedir($redir);
 }
 
 function getRedirById($id)
 {
-$result=sql("select id,up,track,name,uri
+$result=sql("select id,up,track,uri
 	     from redirs
 	     where id=$id",
 	    __FUNCTION__);

@@ -45,8 +45,9 @@ function remakeURI($uri,$remove=array(),$subs=array(),$location='#')
 {
 list($start,$end)=explode('?',$uri);
 list($query,$end)=explode('#',$end);
+$query=remakeQuery($query,$remove,$subs);
 $end=$location=='#' ? $end : $location;
-return "$start?".remakeQuery($query,$remove,$subs).($end!='' ? "#$end" : '');
+return $start.($query!='' ? "?$query" : '').($end!='' ? "#$end" : '');
 }
 
 function remakeMakeQuery($query,$vars,$remove=array(),$subs=array())
@@ -60,9 +61,9 @@ function remakeMakeURI($uri,$vars,$remove=array(),$subs=array(),$location='#')
 {
 list($start,$end)=explode('?',$uri);
 list($query,$end)=explode('#',$end);
+$query=remakeMakeQuery($query,$vars,$remove,$subs);
 $end=$location=='#' ? $end : $location;
-return "$start?".remakeMakeQuery($query,$vars,$remove,$subs)
-                .($end!='' ? "#$end" : '');
+return $start.($query!='' ? "?$query" : '').($end!='' ? "#$end" : '');
 }
 
 class HTTPVar
