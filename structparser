@@ -69,7 +69,7 @@ for my $sub(@{$$item{'_subs'}})
    for my $var(keys %$item)
       {
       next unless $var=~/^_arg\./;
-      $$item{$var}=~s/\$$sub/"{\$m[$n]}"/ge;
+      $$item{$var}=~s/\${$sub}/"{\$m[$n]}"/ge;
       }
    $n++;
    }
