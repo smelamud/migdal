@@ -412,23 +412,24 @@ if(hasCachedValue('obj','entries',$id))
 $mhide=$userModerator ? 2 : 1;
 $hide=topicsPermFilter(PERM_READ,'entries');
 $result=sql(
-       "select topics.id as id,topics.up as up,topics.subject as subject,
-               topics.subject_xml as subject_xml,topics.comment0 as comment0,
-	       topics.comment0_xml as comment0_xml,topics.comment1 as comment1,
-               topics.comment1_xml as comment1_xml,topics.body as body,
-	       topics.body_xml as body_xml,topics.grp as grp,
-	       topics.modbits as modbits,topics.ident as ident,
-	       topics.user_id as user_id,users.login as login,
+       "select entries.id as id,entries.up as up,entries.subject as subject,
+               entries.comment0 as comment0,
+	       entries.comment0_xml as comment0_xml,
+	       entries.comment1 as comment1,
+               entries.comment1_xml as comment1_xml,entries.body as body,
+	       entries.body_xml as body_xml,entries.grp as grp,
+	       entries.modbits as modbits,entries.ident as ident,
+	       entries.user_id as user_id,users.login as login,
 	       users.gender as gender,users.email as email,
-	       users.hide_email as hide_email,topics.group_id as group_id,
-	       gusers.login as group_login,topics.perms as perms,
-	       topics.index2 as index2
-	from topics
+	       users.hide_email as hide_email,entries.group_id as group_id,
+	       gusers.login as group_login,entries.perms as perms,
+	       entries.index2 as index2
+	from entries
 	     left join users
-	          on topics.user_id=users.id
+	          on entries.user_id=users.id
 	     left join users as gusers
-	          on topics.group_id=gusers.id
-	where topics.id=$id and $hide"
+	          on entries.group_id=gusers.id
+	where entries.id=$id and $hide",
        __FUNCTION__);
 if(mysql_num_rows($result)>0)
   {

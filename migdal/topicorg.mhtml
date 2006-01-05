@@ -1,12 +1,37 @@
 << @(#) $Id$ >>
 
-<pagetitle title='Темы'>
-<topictitle title='Темы'>
+<ident name='up'>
 
-<element name='branch' params='up,append,write'>
+<ifzero what='$up'>
+ <pagetitle title='Темы'>
+ <topictitle title='Темы'>
+<else>
+ <topic_name name='name' id='$up'>
+ <pagetitle title#='Темы :: $=name.Subject'>
+ <topictitle title#='Темы :: $=name.Subject'>
+</ifzero>
+
+<element name='hd' params='item'>
+ <ifne what='$item.Ident'>
+  <assign name='info' value#='[$=item.Ident=$item.Id]'>
+ <else>
+  <assign name='info' value#='[$item.Id]'>
+ </ifne>
+ <iswrite what='$item'>
+  <a href='topicedit.php?editid=$item.Id&redirid=$_'
+     title='$item.BodyHTML'>$=item.Subject</a>&sp;$info&sp;
+ <else>
+  $=item.Subject&sp;$info&sp;
+ </iswrite>
+</element>
+
+<element name='branch' params='up,append,write,root' defaults="root='*false'">
  <iterate_topiclist grp='*GRP_ALL' up='$up'>
  <if what='$up!=0 && ($append || $write)'>
   <br>
+ </if>
+ <if what='!$root && $;Count!=0'>
+  <a href='admin/topics/$up/' class='edit'>Ветка</a>
  </if>
  <if what='$append'>
   <a href='topicedit.php?redirid=$_&up=$up' class='edit'>Добавить</a>
@@ -18,18 +43,8 @@
  </if>
  <ifnzero what='$;Count'>
   <ul class='names'>
-   <for name='item'>
-    <ifne what='$.Ident'>
-     <assign name='info' value#='[$=.Ident=$.Id]'>
-    <else>
-     <assign name='info' value#='[$.Id]'>
-    </ifne>
-    <iswrite what='$item'>
-     <li><a href='topicedit.php?editid=$.Id&redirid=$_'
-	    title='$.BodyHTML'>$=.Subject</a>&sp;$info&sp;
-    <else>
-     <li>$.Name&sp;$info&sp;
-    </iswrite>
+   <for>
+    <li><hd item='$.'>
     <br>
     <tt>$.PermHTML&nbsp;$=.Login:$=.GroupLogin</tt>
     <branch up='$.Id' append='$.isAppendable' write='$.isWritable'>
@@ -56,7 +71,14 @@
    <td class='cframe'>
     <subtitle>
     <div class='ninept topics' style='padding: 0px'>
-     <branch up=0 append='$userAdminTopics' write='$userAdminTopics'>
+     <ifnzero what='$up'>
+      <topic_obj id='$up'>
+      <a href='admin/topics/$,UpValue/' class='edit'>На уровень вверх</a>
+      <br><br>
+      <hd item='$,'>
+     </ifnzero>
+     <branch up='$up' append='$userAdminTopics' write='$userAdminTopics'
+             root='*true'>
     </div>
    </td>
   </tr>
