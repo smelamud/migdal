@@ -27,7 +27,7 @@
 
 <element name='branch' params='up,append,write,root' defaults="root='*false'">
  <iterate_topiclist grp='*GRP_ALL' up='$up'>
- <if what='$up!=0 && ($append || $write)'>
+ <if what='$up!=0 && ($;Count!=0 || $append || $write)'>
   <br>
  </if>
  <if what='!$root && $;Count!=0'>

@@ -30,7 +30,7 @@
  <user_obj name='user' id='$editid'>
  <setup>
  <form_table title='Информация о пользователе'>
-  <form method=post action='actions/usermod.php'>
+  <form method=post action='actions/user/modify'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='/users/'>
    <hidden name='faildir' value='$-'>

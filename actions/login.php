@@ -21,7 +21,7 @@ dbOpen();
 session();
 $err=login($login,$password);
 if($err==EG_OK)
-  header('Location: /actions/checkcookies.php?'.
+  header('Location: /actions/checkcookies?'.
           makeQuery(array('svalue'  => $sessionid,
 	                  'okdir'   => $okdir,
 			  'faildir' => $faildir)));

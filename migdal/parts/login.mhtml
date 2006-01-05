@@ -26,7 +26,7 @@
  </ifne>
  <table class='login ninept' cellspacing=0 cellpadding=0>
   <notlogged>
-   <tform action='actions/login.php'>
+   <tform action='actions/login'>
     <tr>
      <td>Ник</td>
      <td><image src='pics/leftinput.gif'></td>
@@ -50,7 +50,7 @@
     </master>
    </tform>
   <else>
-   <tform action='actions/logout.php'>
+   <tform action='actions/logout'>
     <tr>
      <admin_users><td colspan=3><else><td></admin_users>
       <b>
@@ -67,7 +67,7 @@
     </tr>
    </tform>
    <admin_users>
-    <tform action='actions/userswitch.php'>
+    <tform action='actions/su'>
      <tr>
       <td><image src='pics/leftinput.gif'></td>
       <td><input class='line' type='text' name='login' size=10 maxlength=30></td>
