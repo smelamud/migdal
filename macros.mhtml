@@ -90,6 +90,7 @@
 <deciter macro='journallist' class='JournalListIterator' file='lib/journal.php'
          params='limit,offset' defaults='limit=20 offset=0'>
 <deciter macro='langs' class='LangIterator' file='lib/langs.php'>
+<deciter macro='locations' class='LocationIterator' file='lib/structure.php'>
 <deciter macro='mnogosearch' class='MnogosearchIterator'
          file='lib/mnogosearch.php' params='query,limit,offset'
 	 defaults="limit=20 offset=0">

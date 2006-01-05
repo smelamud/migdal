@@ -68,7 +68,7 @@ for my $sub(@{$$item{'_subs'}})
    {
    for my $var(keys %$item)
       {
-      next unless $var=~/^_arg\./;
+      next unless $var=~/^_arg\./ || $var eq 'parent.path';
       $$item{$var}=~s/\${$sub}/"{\$m[$n]}"/ge;
       }
    $n++;
@@ -121,13 +121,14 @@ sub run
 {
 print OUT <<EOF;
 <?php
-function getLocationInfo(\$path)
+function &getLocationInfo(\$path)
 {
+\$info=new LocationInfo();
+\$info->setPath(\$path);
 if(substr(\$path,-5)=='.html')
   \$path=substr(\$path,0,-5);
 if(\$path[strlen(\$path)-1]!='/')
   \$path.='/';
-\$info=new LocationInfo();
 EOF
 for my $item(@Structure)
    {
@@ -172,6 +173,13 @@ EOF
      print OUT <<EOF
   );
   \$info->setArgs(\$args);
+EOF
+     }
+   if(exists($$item{'parent.path'}))
+     {
+     my $parent=$$item{'parent.path'};
+     print OUT <<EOF
+  \$info->setParent(getLocationInfo("$parent"));
 EOF
      }
    print OUT <<EOF;

@@ -253,15 +253,15 @@ function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ')
 {
 $this->up=$up;
 $this->delimiter=$delimiter;
-parent::TopicIterator('select id,track,name
-		       from topics'
+parent::TopicIterator('select id,track,subject
+		       from entries'
 		      .$this->getWhere($grp,$this->up,'',$recursive)
 		    .' order by track');
 }
 
 function create($row)
 {
-$this->names[(int)$row['id']]=$row['name'];
+$this->names[(int)$row['id']]=$row['subject'];
 $n=strtok($row['track'],' ');
 $nm=array();
 $up=$this->up;

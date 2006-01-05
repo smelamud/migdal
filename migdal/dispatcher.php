@@ -5,36 +5,64 @@ require_once('lib/structure.php');
 require_once('lib/post.php');
 require_once('lib/database.php');
 
-function dispatchScript()
+function &dispatch404($requestPath)
 {
-global $ScriptName,$RequestPath;
-
-$ScriptName=substr($RequestPath,1);
-if(!file_exists($ScriptName))
-  $ScriptName='404.php';
+$info=new LocationInfo();
+$info->setPath($requestPath);
+$info->setScript('404.php');
+return $info;
 }
 
-function dispatchAddSlash($parts)
+function &dispatchScript($requestPath)
 {
-global $RequestPath;
+$info=new LocationInfo();
+$scriptName=substr($requestPath,1);
+if(!file_exists($scriptName))
+  return dispatch404($requestPath);
+else
+  {
+  $info->setPath($requestPath);
+  $info->setScript($scriptName);
+  return $info;
+  }
+}
 
-$href="$RequestPath/";
+function &dispatchAddSlash($requestPath,$parts)
+{
+$href="$requestPath/";
 if(isset($parts['query']) && $parts['query']!='')
   $href.='?'.$parts['query'];
 if(isset($parts['fragment']) && $parts['fragment']!='')
   $href.='#'.$parts['fragment'];
-header("Location: $href");
+$info=new LocationInfo();
+$info->setPath($href);
+return $info;
 }
 
-function dispatchLocation()
+function &dispatchLocation($requestPath)
 {
-global $ScriptName,$RequestPath;
-
-//TODO it's possible to get backtrace here
 dbOpen();
-$info=getLocationInfo($RequestPath);
-$ScriptName=$info->getScript();
-foreach($info->getArgs() as $key => $value)
+return getLocationInfo($requestPath);
+}
+
+function &dispatch()
+{
+$parts=parse_url($_SERVER['REQUEST_URI']);
+$requestPath=$parts['path'];
+if($requestPath=='/dispatcher.php')
+  return dispatch404($requestPath);
+elseif(substr($requestPath,-4)=='.php')
+  return dispatchScript($requestPath);
+elseif(substr($requestPath,0,9)!='/actions/' && substr($requestPath,-1)!='/'
+       && substr($requestPath,5)!='.html')
+  return dispatchAddSlash($requestPath,$parts);
+else
+  return dispatchLocation($requestPath);
+}
+
+function exposeArgs($args)
+{
+foreach($args as $key => $value)
        {
        list($name,$type)=split(':',$key);
        if($type=='')
@@ -44,21 +72,13 @@ foreach($info->getArgs() as $key => $value)
        }
 }
 
-$href=$_SERVER['REQUEST_URI'];
-$parts=parse_url($href);
-$RequestPath=$parts['path'];
-$ScriptName='';
-if($RequestPath=='/dispatcher.php')
-  $ScriptName='404.php';
-elseif(substr($RequestPath,-4)=='.php')
-  dispatchScript();
-elseif(substr($RequestPath,0,9)!='/actions/' && substr($RequestPath,-1)!='/'
-       && substr($RequestPath,5)!='.html')
-  dispatchAddSlash($parts);
-else
-  dispatchLocation();
-unset($parts);
-unset($href);
+$LocationInfo=&dispatch();
+$ScriptName=$LocationInfo->getScript();
 if($ScriptName!='')
+  {
+  exposeArgs($LocationInfo->getArgs());
   include($ScriptName);
+  }
+else
+  header('Location: '.$LocationInfo->getPath());
 ?>

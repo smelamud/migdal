@@ -235,22 +235,16 @@
 </element>>
 
 <element name='backtrace'>
-<<iterate_redirs name='redirs'>
-<outer>
+<iterate_locations name='locs'>
+<if what='$;Count>1'>
  <div class='return ninept'>
   <for>
-   <assign name='name' value='$.Name'>
-   <isfirst what='$redirs'>
-    <inner>
-    <backtrace_url url='$.URI' target='$target'>
-   </isfirst>
-   <islast what='$redirs'>
-    </inner>
-    <nobr><b>$name</b></nobr>
+   <islast what='$locs'>
+    <nobr><b>$.Title</b></nobr>
    <else>
-    <nobr><at href='$.URI' target='$target'>$name</at>&sp;&gt;</nobr>
+    <nobr><at href='$.Path' target='$target'>$.Title</at>&sp;&gt;</nobr>
    </islast>
   </for>
  </div>
-</outer>>
+</if>
 </element>
