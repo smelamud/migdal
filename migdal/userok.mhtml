@@ -2,7 +2,6 @@
 
 <user name='id'>
 <user_obj name='user' id='$id'>
-<pagetitle title='Подтверждение регистрации'>
 
 <html>
 <preamble>

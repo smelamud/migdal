@@ -26,7 +26,7 @@ var $path;
 var $script;
 var $args=array();
 var $redir=null;
-var $title='Title';
+var $title='Untitled';
 var $parent=null;
 var $child=null;
 

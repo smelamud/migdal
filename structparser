@@ -182,6 +182,13 @@ EOF
   \$info->setParent(getParentLocationInfo("$parent",\$redirid));
 EOF
      }
+   if(exists($$item{'title'}))
+     {
+     my $title=$$item{'title'};
+     print OUT <<EOF
+  \$info->setTitle("$title");
+EOF
+     }
    print OUT <<EOF;
   return \$info;
   }

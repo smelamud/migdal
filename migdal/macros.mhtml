@@ -216,7 +216,8 @@
 <decel name='star' file='parts/formutils.php' params='mandatory'
        defaults="mandatory='*false'">
 <decel name='starinfo' file='parts/formutils.php'>
-<decel name='subtitle' file='parts/subtitle.php'>
+<decel name='subtitle' file='parts/subtitle.php' params='title'
+       defaults="title='$$LocationInfo.Title'">
 <decel name='textears' file='parts/textears.php'>
 <decel name='times_no' file='parts/posting-times-cover.php'
        params='index1,index2'>
@@ -380,7 +381,7 @@
    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
   </if>
   <title><notenglish>Мигдаль<else>Migdal</notenglish>
-  <ifne what='$pageTitle'>&sp;- $pageTitle</ifne></title>
+  <ifne what='$LocationInfo.Title'>&sp;- $LocationInfo.Title</ifne></title>
  </head>
 </macro>
 

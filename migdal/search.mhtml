@@ -3,9 +3,6 @@
 <string name='q'>
 <int name='offset'>
 
-<pagetitle title='Поиск'>
-<topictitle title='Поиск'>
-
 <element name='batcher' params='&list'>
 <table width=100% class='batcher'><tr>
  <td class='ninept' width=40%>

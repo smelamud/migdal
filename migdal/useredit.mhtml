@@ -21,7 +21,6 @@
 <int name='birth_month'>
 <int name='birth_day'>
 <int name='email_enabled'>
-<pagetitle title='Изменение информации о пользователе'>
 
 <html>
 <preamble>
@@ -160,7 +159,7 @@
 		   title='Скрыть в списке пользователей'>
     <form_checkbox name='no_login' value='$,isNoLogin' title='Запретить вход'>
    </admin_users>
-   <form_buttons title='Обновить'>
+   <form_buttons title='Изменить'>
   </form>
  </form_table>
  <bottom>

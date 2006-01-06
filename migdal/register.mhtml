@@ -16,7 +16,6 @@
 <int name='birth_month'>
 <int name='birth_day'>
 <int name='email_enabled'>
-<pagetitle title='Регистрация пользователя'>
 
 <html>
 <preamble>

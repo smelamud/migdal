@@ -17,14 +17,6 @@
 <decconst name='text_formats' file='lib/text.php'>
 
 << Titles >>
-<macro name='pagetitle' defaults="title=''">
- <assign_global name='pageTitle' value%!title='%title'>
-</macro>
-
-<macro name='topictitle' defaults="title=''">
- <assign_global name='topicTitle' value%!title='%title'>
-</macro>
-
 <macro name='force_domain' defaults="domain=''">
  <header>
   <assign_global name='forceDomain' value%!domain='%domain'>
