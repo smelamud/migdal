@@ -381,7 +381,7 @@
    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
   </if>
   <title><notenglish>Мигдаль<else>Migdal</notenglish>
-  <ifne what='$LocationInfo.Title'>&sp;- $LocationInfo.Title</ifne></title>
+  <ifne what='$LocationInfo.Title'>&sp;- $=LocationInfo.Title</ifne></title>
  </head>
 </macro>
 

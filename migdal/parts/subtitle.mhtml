@@ -5,7 +5,7 @@
  <table class='title' width=100% cellspacing=0>
   <tr valign=center>
    <th width=10>&nbsp;</th>
-   <td align=left>&nbsp;$title</td>
+   <td align=left>&nbsp;$=title</td>
    <th width=50>&nbsp;</th>
   </tr>
  </table>
