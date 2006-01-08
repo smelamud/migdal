@@ -253,7 +253,7 @@ function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ')
 {
 $this->up=$up;
 $this->delimiter=$delimiter;
-parent::TopicIterator('select id,track,subject
+parent::TopicIterator('select id,up,track,subject
 		       from entries'
 		      .$this->getWhere($grp,$this->up,'',$recursive)
 		    .' order by track');
@@ -261,21 +261,18 @@ parent::TopicIterator('select id,track,subject
 
 function create($row)
 {
-$this->names[(int)$row['id']]=$row['subject'];
-$n=strtok($row['track'],' ');
-$nm=array();
-$up=$this->up;
-while($n)
-     {
-     if($up<=0)
-       $nm[]=$this->names[(int)$n];
-     else
-       if((int)$n==$up)
-	 $up=-1;
-     $n=strtok(' ');
-     }
-$row['full_name']=join($this->delimiter,$nm);
-return parent::create($row);
+if($row['id']!=$this->up)
+  {
+  if($row['up']!=0 && $row['up']!=$this->up)
+    $row['full_name']=getTopicFullNameById($row['up'],$this->up,
+                                           $this->delimiter)
+                      .$this->delimiter.$row['subject'];
+  else
+    $row['full_name']=$row['subject'];
+  }
+$topic=parent::create($row);
+setCachedValue('name','entries',$row['id'],$topic);
+return $topic;
 }
 
 }
@@ -489,8 +486,8 @@ function getTopicFullNameById($id,$root=0,$delimiter=' :: ')
 if($id==$root)
   return '';
 $topic=getTopicNameById($id);
-if($topic->getUpValue()!=$root)
-  return getTopicFullNameById($topic->getUpValue()).$delimiter
+if($topic->getUpValue()!=0 && $topic->getUpValue()!=$root)
+  return getTopicFullNameById($topic->getUpValue(),$root,$delimiter).$delimiter
 	 .$topic->getSubject();
 else
   return $topic->getSubject();

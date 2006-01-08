@@ -9,6 +9,7 @@ require_once('lib/charsets.php');
 require_once('lib/style.php');
 require_once('lib/redirs.php');
 require_once('lib/post.php');
+require_once('lib/logs.php');
 
 function initialize()
 {
