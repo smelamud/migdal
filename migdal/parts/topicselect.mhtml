@@ -6,21 +6,23 @@
 </if>
 <iterate_sortedtopicnames grp='$grp' up='$root' recursive='$recursive'>
 <if what='$;Count-$recursive>0'>
- <tr>
-  <td>$title <if what='$mandatory'><star></if></td>
-  <td>
-   <select name='$name'>
-    <assign name='none' value!='$root<0 ? 0 : $root'>
-    <radio title='-- Без темы --' value='$none' peervalue='$value'>
-    <for>
-     <ifne what='$.FullName'>
-      <radio title='$.FullNameShort' value='$.Id' peervalue='$value'>
-     </ifne>
-    </for>
-   </select>
-  </td>
- </tr>
+ <select name='$name'>
+  <assign name='none' value!='$root<0 ? 0 : $root'>
+  <radio title='-- Без темы --' value='$none' peervalue='$value'>
+  <for>
+   <ifne what='$.FullName'>
+    <radio title='$.FullNameShort' value='$.Id' peervalue='$value'>
+   </ifne>
+  </for>
+ </select>
 <else>
  <hidden name='$name' value='$root'>
 </if>
+</element>
+
+<element name='form_topicselect'>
+<form_line title='$title' mandatory='$mandatory' comment='$comment'>
+ <topicselect name='$name' value='$value' grp='$grp' root='$root'
+              recursive='$recursive'>
+</form_line>
 </element>

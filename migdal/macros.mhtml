@@ -82,6 +82,10 @@
 <decel name='form_section' file='parts/formutils.php' params='title'>
 <decel name='form_table' file='parts/formutils.php' params='title'>
 <decel name='/form_table' file='parts/formutils.php'>
+<decel name='form_topicselect' file='parts/topicselect.php'
+       params='name,value,grp,mandatory,title,root,recursive,comment'
+       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
+                 recursive='*false' comment=''">
 <decel name='forum_answer' file='parts/forumanswer.php'
        params='answer,complain' defaults="complain='*true'">
 <decel name='forumcatalog' file='parts/forumcatalog.php' params='offset'
@@ -307,9 +311,8 @@
 <decel name='topics_tips' file='parts/topics-help.php' params='posting'>
 <decel name='topics_veterans' params='posting' file='parts/topics-blog.php'>
 <decel name='topicselect' file='parts/topicselect.php'
-       params='name,value,grp,mandatory,title,root,recursive'
-       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
-                 recursive='*false'">
+       params='name,value,grp,root,recursive'
+       defaults="grp='*GRP_ALL' root='-1' recursive='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
 <decel name='tzdaka' file='parts/tzdaka.php'>
