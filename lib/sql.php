@@ -35,4 +35,19 @@ global $lastInsertId;
 
 return $lastInsertId;
 }
+
+function sqlDate($timestamp)
+{
+return date('Y-m-d H:i:s',$timestamp);
+}
+
+function sqlTime($timestamp)
+{
+return sqlDate($timestamp);
+}
+
+function sqlNow()
+{
+return sqlDate(time());
+}
 ?>

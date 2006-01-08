@@ -339,7 +339,8 @@ $vars=array('ident' => $topic->ident,
 	    'modbits' => $topic->modbits,
 	    'index2' => $topic->index2,
 	    'body' => $topic->body,
-	    'body_xml' => $topic->body_xml);
+	    'body_xml' => $topic->body_xml,
+	    'modified' => sqlNow());
 if($this->id)
   {
   $result=sql(makeUpdate('entries',
@@ -352,6 +353,7 @@ if($this->id)
   }
 else
   {
+  $vars['created']=sqlNow();
   $result=sql(makeInsert('entries',
                          $vars),
 	      __FUNCTION__,'insert');
