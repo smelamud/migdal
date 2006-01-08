@@ -1,28 +1,23 @@
 << @(#) $Id$ >>
 
-<element name='topicselect'>
+<element name='form_topicselect'>
 <if what='$root<0'>
  <assign name='recursive' value='*false'>
 </if>
 <iterate_sortedtopicnames grp='$grp' up='$root' recursive='$recursive'>
 <if what='$;Count-$recursive>0'>
- <select name='$name'>
-  <assign name='none' value!='$root<0 ? 0 : $root'>
-  <radio title='-- Без темы --' value='$none' peervalue='$value'>
-  <for>
-   <ifne what='$.FullName'>
-    <radio title='$.FullNameShort' value='$.Id' peervalue='$value'>
-   </ifne>
-  </for>
- </select>
+ <form_line title='$title' mandatory='$mandatory' comment='$comment'>
+  <select name='$name'>
+   <assign name='none' value!='$root<0 ? 0 : $root'>
+   <radio title='-- Выберите тему --' value='$none' peervalue='$value'>
+   <for>
+    <ifne what='$.FullName'>
+     <radio title='$.FullNameShort' value='$.Id' peervalue='$value'>
+    </ifne>
+   </for>
+  </select>
+ </form_line>
 <else>
  <hidden name='$name' value='$root'>
 </if>
-</element>
-
-<element name='form_topicselect'>
-<form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <topicselect name='$name' value='$value' grp='$grp' root='$root'
-              recursive='$recursive'>
-</form_line>
 </element>

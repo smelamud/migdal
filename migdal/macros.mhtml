@@ -310,9 +310,6 @@
 <decel name='topics_times' params='posting' file='parts/topics-times.php'>
 <decel name='topics_tips' file='parts/topics-help.php' params='posting'>
 <decel name='topics_veterans' params='posting' file='parts/topics-blog.php'>
-<decel name='topicselect' file='parts/topicselect.php'
-       params='name,value,grp,root,recursive'
-       defaults="grp='*GRP_ALL' root='-1' recursive='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
 <decel name='tzdaka' file='parts/tzdaka.php'>
