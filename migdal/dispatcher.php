@@ -84,6 +84,8 @@ function evaluateTitle(&$info)
 {
 global $Args;
 
+if($info->getParent()!=null)
+  evaluateTitle($info->getParent());
 $expr=$info->getTitleExpr();
 if($expr!='')
   $info->setTitle(eval($expr));

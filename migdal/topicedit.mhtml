@@ -1,7 +1,5 @@
 << @(#) $Id$ >>
 
-<pagetitle title='Редактирование темы'>
-
 <conf>
 <int name='editid'>
 <int name='up'>
@@ -13,78 +11,74 @@
  <topic_obj id='$editid' up='$up'>
  <setup>
  <if what='$editid'>
-  <formtable title='Изменить тему'>
+  <form_table title='Изменить тему'>
  <else>
-  <formtable title='Добавить тему'>
+  <form_table title='Добавить тему'>
  </if>
  <form method=post enctype='multipart/form-data' action='actions/topicmod.php'>
   <hidden name='edittag' value=1>
   <hidden name='okdir' value='$--'>
   <hidden name='faildir' value='$-'>
   <hidden name='editid' value='$editid'>
-  <table>
-   <starinfo>
-   <error id='*ET_NO_EDIT' text='Вы не можете редактировать эту тему'>
-   <tr><td><table>
-    <error id='*ET_NO_UP' text='Такой темы не существует' span=2>
-    <error id='*ET_LOOP_UP' span=2
-           text='Тема не может быть подтемой самой себя'>
-    <error id='*ET_NO_APPEND' span=2
-           text='Вы не можете добавлять подтемы для этой темы'>
-    <topicselect title='Надтема' name='up' grp='*GRP_ALL' value='$,UpValue'
-                 root=-1>
-    <error id='*ET_NAME_ABSENT' text='Название не было введено' span=2>
-    <edit_line title='Название' value='$,Name' name='name' size=35 maxlength=70
-               mandatory='*true'>
-    <edit_line title='Комментарий 0' value='$,Comment0' name='comment0' size=35
-               maxlength=70>
-    <edit_line title='Комментарий 1' value='$,Comment1' name='comment1' size=35
-               maxlength=70>
-    <edit_line title='Год' value='$,Index4' name='index4' size=6 maxlength=6>
-    <error id='*ET_IDENT_UNIQUE' text='Так уже обозначена другая тема' span=2>
-    <edit_line title='Обозначение' name='ident' value='$,Ident'
-	       size=15 maxlength=15>
-    <error id='*ET_NO_USER' text='Такого пользователя не существует' span=2>
-    <edit_line title='Владелец' name='login' value='$,Login' size=20
-	       maxlength=30>
-    <error id='*ET_NO_GROUP' text='Такой группы не существует' span=2>
-    <edit_line title='Группа' name='group_login' value='$,GroupLogin' size=20
-	       maxlength=30>
-    <error id='*ET_BAD_PERMS' text='Права заданы некорректно' span=2>
-    <edit_line title='Права' name='perm_string' value='$,PermHTML' size=17
-               maxlength=17>
-   </table></td></tr>
-   <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
-   <editor_line title='Описание' name='description' body='$,Description'
-                mandatory='$topicMandatoryDescription'>
-   <tr><td><table width=100%><tr valign='top'>
-    <td>
-     <iterate_grps>
-     <for>
-      <if what='$.isValid'>
-       <assign name='allow' value!='($,Allow & $.Grp)!=0'>
-       <assign name='foritems' value#='Тема для $.GrpForItemsTitle'>
-       <checkbox name='$.GrpIdent' value='$allow' title='$foritems'><br>
-      </if>
-     </for>
-    </td>
-    <td>
-     <checkbox name='premoderate' value!='$,Premoderate<>0'
-               title='Премодерируется'><br>
-     <checkbox name='moderate' value!='$,Moderate<>0'
-               title='Модерируется'><br>
-     <checkbox name='edit' value!='$,Edit<>0'
-               title='Редактируется'>
-    </td>
-   </tr></table></td></tr>
+  <starinfo>
+  <form_section title='Описание темы'>
+  <error id='*ET_NO_EDIT' text='Вы не можете редактировать эту тему'>
+  <error id='*ET_NO_UP' text='Такой темы не существует'>
+  <error id='*ET_LOOP_UP' text='Тема не может быть подтемой самой себя'>
+  <error id='*ET_NO_APPEND' text='Вы не можете добавлять подтемы для этой темы'>
+  <<topicselect title='Надтема' name='up' grp='*GRP_ALL' value='$,UpValue'
+	       root=-1>>
+  <error id='*ET_IDENT_UNIQUE' text='Так уже обозначена другая тема'>
+  <form_edit title='Обозначение' name='ident' value='$=,Ident' size=15
+	     maxlength=15>
+  <error id='*ET_NAME_ABSENT' text='Название не было введено'>
+  <form_edit title='Название' value='$=,Subject' name='name' size=35
+	     maxlength=70 mandatory='*true'>
+  <form_edit title='Комментарий 0' value='$=,Comment0' name='comment0' size=35
+	     maxlength=70>
+  <form_edit title='Комментарий 1' value='$=,Comment1' name='comment1' size=35
+	     maxlength=70>
+  <form_edit title='Год' value='$,Index2' name='index2' size=6 maxlength=6>
+  <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
+  <form_editor title='Описание' name='body' body='$=,Body'
+	       mandatory='$topicMandatoryDescription'>
+  <form_section title='Права доступа'>
+  <error id='*ET_NO_USER' text='Такого пользователя не существует'>
+  <form_edit title='Владелец' name='login' value='$=,Login' size=20
+	     maxlength=30>
+  <error id='*ET_NO_GROUP' text='Такой группы не существует'>
+  <form_edit title='Группа' name='group_login' value='$=,GroupLogin' size=20
+	     maxlength=30>
+  <error id='*ET_BAD_PERMS' text='Права заданы некорректно'>
+  <form_edit title='Права' name='perm_string' value='$,PermHTML' size=17
+	     maxlength=17>
+  <<tr><td><table width=100%><tr valign='top'>
+   <td>
+    <iterate_grps>
+    <for>
+     <if what='$.isValid'>
+      <assign name='allow' value!='($,Allow & $.Grp)!=0'>
+      <assign name='foritems' value#='Тема для $.GrpForItemsTitle'>
+      <checkbox name='$.GrpIdent' value='$allow' title='$foritems'><br>
+     </if>
+    </for>
+   </td>
+   <td>
+    <checkbox name='premoderate' value!='$,Premoderate<>0'
+	      title='Премодерируется'><br>
+    <checkbox name='moderate' value!='$,Moderate<>0'
+	      title='Модерируется'><br>
+    <checkbox name='edit' value!='$,Edit<>0'
+	      title='Редактируется'>
+   </td>
+  </tr></table></td></tr>>
   <if what='$editid'>
-   <formbuttons title='Изменить'>
+   <form_buttons title='Изменить'>
   <else>
-   <formbuttons title='Добавить'>
+   <form_buttons title='Добавить'>
   </if>
-  </table>
  </form>
- </formtable>
+ </form_table>
  <bottom>
 </body>
 </html>

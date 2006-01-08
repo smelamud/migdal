@@ -21,7 +21,7 @@
   <assign name='full_name' value='$item.Subject'>
  </ife>
  <iswrite what='$item'>
-  <a href='topicedit.php?editid=$item.Id&redirid=$_'
+  <a href='admin/topics/$item.Id/modify/?redirid=$_'
      title='$item.BodyHTML'>$=full_name</a>&sp;$info&sp;
  <else>
   $=full_name&sp;$info&sp;
