@@ -75,6 +75,51 @@ for my $sub(@{$$item{'_subs'}})
    }
 }
 
+sub subTitleVar
+{
+my ($expr)=@_;
+
+return "{\$Args['$1']}" if $expr=~/^arg\.(\w+)$/;
+return "\".\$info->parent->getTitle().\"" if $expr eq 'parent.title';
+return "{\$$expr}";
+}
+
+sub subTitleFunc
+{
+my ($expr)=@_;
+
+my ($name,$arg)=$expr=~/^(\w+)\(([^)]*)\)$/;
+$name=ucfirst $name;
+$arg=subTitleVar($arg);
+return "\".title$name(\"$arg\").\"";
+}
+
+sub subTitleExpr
+{
+my ($expr)=@_;
+
+if($expr=~/\(/)
+  {
+  return subTitleFunc($expr);
+  }
+else
+  {
+  return subTitleVar($expr);
+  }
+}
+
+sub processTitle
+{
+my ($item)=@_;
+
+my $title=$$item{'title'};
+$title=~s/\${([^}]*)}/subTitleExpr($1)/ge;
+#$title=~s/'/\\\\'/g;
+$title=~s/"/\\"/g;
+$title=~s/\$/\\\$/g;
+$$item{'_title'}="return \\\"$title\\\";";
+}
+
 sub addItem
 {
 my ($item)=@_;
@@ -85,6 +130,7 @@ $path.='/' if substr($path,$#path) ne '/';
 $$item{'path'}=$path;
 processPathPattern($item) if $path=~/{/;
 processArgs($item) if $path=~/{/;
+processTitle($item) if exists($$item{'title'}) && $$item{'title'}=~/{/;
 push @Structure,$item;
 }
 
@@ -182,7 +228,14 @@ EOF
   \$info->setParent(getParentLocationInfo("$parent",\$redirid));
 EOF
      }
-   if(exists($$item{'title'}))
+   if(exists($$item{'_title'}))
+     {
+     my $title=$$item{'_title'};
+     print OUT <<EOF
+  \$info->setTitleExpr("$title");
+EOF
+     }
+   elsif(exists($$item{'title'}))
      {
      my $title=$$item{'title'};
      print OUT <<EOF

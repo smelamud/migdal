@@ -80,6 +80,15 @@ foreach($args as $key => $value)
        }
 }
 
+function evaluateTitle(&$info)
+{
+global $Args;
+
+$expr=$info->getTitleExpr();
+if($expr!='')
+  $info->setTitle(eval($expr));
+}
+
 postInteger('redirid');
 
 dbOpen();
@@ -88,6 +97,7 @@ $ScriptName=$LocationInfo->getScript();
 if($ScriptName!='')
   {
   exposeArgs($LocationInfo->getArgs());
+  evaluateTitle($LocationInfo);
   redirect();
   include($ScriptName);
   }

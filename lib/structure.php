@@ -4,6 +4,7 @@
 require_once('lib/iterator.php');
 require_once('lib/redirs.php');
 
+require_once('grp/titles.php');
 require_once('grp/structure.php');
 
 function &getParentLocationInfo($path,$redirid)
@@ -27,6 +28,7 @@ var $script;
 var $args=array();
 var $redir=null;
 var $title='Untitled';
+var $titleExpr;
 var $parent=null;
 var $child=null;
 
@@ -101,6 +103,16 @@ return $this->title;
 function setTitle($title)
 {
 $this->title=$title;
+}
+
+function getTitleExpr()
+{
+return $this->titleExpr;
+}
+
+function setTitleExpr($titleExpr)
+{
+$this->titleExpr=$titleExpr;
 }
 
 function &getParent()

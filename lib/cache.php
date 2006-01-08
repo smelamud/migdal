@@ -9,6 +9,8 @@ global $Cache;
 
 if(hasCachedValue($part,$table,$name))
   return $Cache[$part][$table][$name];
+else
+  return null;
 }
 
 function hasCachedValue($part,$table,$name)

@@ -294,6 +294,9 @@
          params='id,recursive' defaults="name=topic recursive='*false'">
 <deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
          params='id' defaults='name=topic id="$topic_id"'>
+<deccall macro='topic_full_name' func='getTopicFullNameById'
+         file='lib/topics.php' params='id,root,delimiter'
+	 defaults="name=topic root=0 delimiter=' :: '">
 <deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
          params='id,up,fields'
 	 defaults="name=topic id='$topic_id' up=0 fields='*SELECT_GENERAL'">

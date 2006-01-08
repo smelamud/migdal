@@ -11,17 +11,20 @@
  <topictitle title#='Темы :: $=name.Subject'>
 </ifzero>
 
-<element name='hd' params='item'>
+<element name='hd' params='item,full_name' defaults="full_name=''">
  <ifne what='$item.Ident'>
   <assign name='info' value#='[$=item.Ident=$item.Id]'>
  <else>
   <assign name='info' value#='[$item.Id]'>
  </ifne>
+ <ife what='$full_name'>
+  <assign name='full_name' value='$item.Subject'>
+ </ife>
  <iswrite what='$item'>
   <a href='topicedit.php?editid=$item.Id&redirid=$_'
-     title='$item.BodyHTML'>$=item.Subject</a>&sp;$info&sp;
+     title='$item.BodyHTML'>$=full_name</a>&sp;$info&sp;
  <else>
-  $=item.Subject&sp;$info&sp;
+  $=full_name&sp;$info&sp;
  </iswrite>
 </element>
 
@@ -72,10 +75,11 @@
     <subtitle>
     <div class='ninept topics' style='padding: 0px'>
      <ifnzero what='$up'>
+      <topic_full_name name='full_name' id='$up'>
       <topic_obj id='$up'>
       <a href='admin/topics/$,UpValue/' class='edit'>На уровень вверх</a>
       <br><br>
-      <hd item='$,'>
+      <hd item='$,' full_name='$full_name'>
      </ifnzero>
      <branch up='$up' append='$userAdminTopics' write='$userAdminTopics'
              root='*true'>

@@ -469,13 +469,29 @@ return $topic;
 
 function getTopicNameById($id)
 {
+if(hasCachedValue('name','entries',$id))
+  return getCachedValue('name','entries',$id);
 $hide=topicsPermFilter(PERM_READ);
-$result=sql("select id,subject
+$result=sql("select id,up,subject
 	     from entries
 	     where id=$id and $hide",
 	    __FUNCTION__);
-return new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+$topic=new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					   : array());
+setCachedValue('name','entries',$id,$topic);
+return $topic;
+}
+
+function getTopicFullNameById($id,$root=0,$delimiter=' :: ')
+{
+if($id==$root)
+  return '';
+$topic=getTopicNameById($id);
+if($topic->getUpValue()!=$root)
+  return getTopicFullNameById($topic->getUpValue()).$delimiter
+	 .$topic->getSubject();
+else
+  return $topic->getSubject();
 }
 
 function getSubtopicsCountById($id,$recursive=false)
