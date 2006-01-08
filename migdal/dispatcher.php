@@ -70,25 +70,8 @@ else
 
 function exposeArgs($args)
 {
-foreach($args as $key => $value)
-       {
-       list($name,$type)=split(':',$key);
-       if($type=='')
-	 $type='string';
-       $func='post'.ucfirst($type).'Value';
-       $func($name,$value);
-       }
-}
-
-function evaluateTitle(&$info)
-{
-global $Args;
-
-if($info->getParent()!=null)
-  evaluateTitle($info->getParent());
-$expr=$info->getTitleExpr();
-if($expr!='')
-  $info->setTitle(eval($expr));
+foreach($args as $name => $value)
+       postValue($name,$value);
 }
 
 postInteger('redirid');
@@ -99,7 +82,6 @@ $ScriptName=$LocationInfo->getScript();
 if($ScriptName!='')
   {
   exposeArgs($LocationInfo->getArgs());
-  evaluateTitle($LocationInfo);
   redirect();
   include($ScriptName);
   }

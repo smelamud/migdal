@@ -7,75 +7,61 @@ require_once('lib/users.php');
 
 $Args=array();
 
-function postIntegerValue($name,$value)
+function postValue($name,$value)
 {
 global $Args;
 
 if(isset($Args[$name]))
   return;
-settype($value,'integer');
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
+}
+
+function postProcessInteger($value)
+{
+return (int)$value;
 }
 
 function postInteger($name)
 {
-postIntegerValue($name,isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0);
+postValue($name,
+          postProcessInteger(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0));
+}
+
+function postProcessIntegerArray($value)
+{
+$result=array();
+if(!is_array($value))
+  $result[]=(int)$value;
+else
+  foreach($value as $var)
+	 $result[]=(int)$var;
+return $result;
 }
 
 function postIntegerArray($name)
 {
-global $Args;
-
-if(isset($Args[$name]))
-  return;
-$Args[$name]=array();
-$GLOBALS[$name]=array();
-if(!isset($_REQUEST[$name]))
-  return;
-if(!is_array($_REQUEST[$name]))
-  {
-  $value=$_REQUEST[$name];
-  settype($value,'integer');
-  $Args[$name][]=$value;
-  $GLOBALS[$name][]=$value;
-  }
-else
-  {
-  foreach($_REQUEST[$name] as $var)
-         {
-	 $value=$var;
-	 settype($value,'integer');
-	 $Args[$name][]=$value;
-	 $GLOBALS[$name][]=$value;
-	 }
-  }
+postValue($name,
+          postProcessIntegerArray(isset($_REQUEST[$name])
+	                          ? $_REQUEST[$name]
+				  : array()));
 }
 
-function postIdentValue($name,$value,$table='entries')
+function postProcessIdent($value,$table='entries')
 {
-global $Args;
-
-if(isset($Args[$name]))
-  return;
-$value=idByIdent($value,$table);
-$Args[$name]=$value;
-$GLOBALS[$name]=$value;
+return idByIdent($value,$table);
 }
 
 function postIdent($name,$table='entries')
 {
-postIdentValue($name,isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0,$table);
+postValue($name,
+          postProcessIdent(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0,
+	                   $table));
 }
 
-function postStringValue($name,$value)
+function postProcessString($value)
 {
-global $Args;
-
-if(isset($Args[$name]))
-  return;
-$Args[$name]=$value;
-$GLOBALS[$name]=$value;
+return $value;
 }
 
 function postString($name,$convert=true)
@@ -88,23 +74,18 @@ else
   if($convert)
     $value=convertInput($value);
   }
-postStringValue($name,$value);
+postValue($name,postProcessString($value));
 }
 
-function postUserValue($name,$value)
+function postProcessUser($value)
 {
-global $Args;
-
-if(isset($Args[$name]))
-  return;
-$value=isId($value) ? $value : getUserIdByLogin($value);
-$Args[$name]=$value;
-$GLOBALS[$name]=$value;
+return isId($value) ? $value : getUserIdByLogin($value);
 }
 
 function postUser($name)
 {
-postUserValue($name,isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0);
+postValue($name,
+          postProcessUser(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0));
 }
 
 function commandLineArgs()
