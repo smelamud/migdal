@@ -1,29 +1,40 @@
--- MySQL dump 9.11
+-- MySQL dump 10.9
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	4.0.22_Debian-6-log
+-- Server version	4.1.15-Debian_1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `chat_messages`
 --
 
+DROP TABLE IF EXISTS `chat_messages`;
 CREATE TABLE `chat_messages` (
   `id` int(11) NOT NULL auto_increment,
   `sender_id` int(11) NOT NULL default '0',
   `private_id` int(11) NOT NULL default '0',
-  `sent` timestamp(14) NOT NULL,
+  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `text` varchar(255) NOT NULL default '',
-  `text_display` varchar(255) NOT NULL default '',
+  `text_xml` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `sender_id` (`sender_id`),
   KEY `sent` (`sent`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `complain_actions`
 --
 
+DROP TABLE IF EXISTS `complain_actions`;
 CREATE TABLE `complain_actions` (
   `id` int(11) NOT NULL auto_increment,
   `type_id` int(11) NOT NULL default '0',
@@ -34,37 +45,15 @@ CREATE TABLE `complain_actions` (
   PRIMARY KEY  (`id`),
   KEY `type_id` (`type_id`),
   KEY `script_id` (`script_id`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `complains`
---
-
-CREATE TABLE `complains` (
-  `id` int(11) NOT NULL auto_increment,
-  `recipient_id` int(11) NOT NULL default '0',
-  `message_id` int(11) NOT NULL default '0',
-  `type_id` int(11) NOT NULL default '0',
-  `link` int(11) NOT NULL default '0',
-  `closed` datetime default NULL,
-  `no_auto` tinyint(4) NOT NULL default '0',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `id` (`id`),
-  KEY `recipient_id` (`recipient_id`),
-  KEY `message_id` (`message_id`),
-  KEY `type_id` (`type_id`),
-  KEY `link` (`link`),
-  KEY `used` (`used`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `counters`
 --
 
+DROP TABLE IF EXISTS `counters`;
 CREATE TABLE `counters` (
   `id` int(11) NOT NULL auto_increment,
-  `message_id` int(11) NOT NULL default '0',
   `entry_id` int(11) NOT NULL default '0',
   `mode` int(11) NOT NULL default '0',
   `serial` int(11) NOT NULL default '0',
@@ -73,32 +62,33 @@ CREATE TABLE `counters` (
   `finished` datetime NOT NULL default '0000-00-00 00:00:00',
   `used` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`),
-  KEY `message_id` (`message_id`),
   KEY `mode` (`mode`),
   KEY `serial` (`serial`),
   KEY `started` (`started`),
   KEY `finished` (`finished`),
-  KEY `message_id_2` (`message_id`,`mode`,`serial`),
+  KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `counters_ip`
 --
 
+DROP TABLE IF EXISTS `counters_ip`;
 CREATE TABLE `counters_ip` (
   `counter_id` int(11) NOT NULL default '0',
   `ip` int(10) unsigned NOT NULL default '0',
   `expires` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`counter_id`,`ip`),
   KEY `expires` (`expires`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `cross_entries`
 --
 
+DROP TABLE IF EXISTS `cross_entries`;
 CREATE TABLE `cross_entries` (
   `source_id` int(11) NOT NULL default '0',
   `source_grp` int(11) NOT NULL default '0',
@@ -108,27 +98,13 @@ CREATE TABLE `cross_entries` (
   KEY `peer_grp` (`peer_grp`),
   KEY `source_idgrp` (`source_id`,`source_grp`,`peer_grp`),
   KEY `peer_idgrp` (`peer_id`,`peer_grp`,`source_grp`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `cross_topics`
---
-
-CREATE TABLE `cross_topics` (
-  `topic_id` int(11) NOT NULL default '0',
-  `topic_grp` int(11) NOT NULL default '0',
-  `peer_id` int(11) NOT NULL default '0',
-  `peer_grp` int(11) NOT NULL default '0',
-  KEY `topic_grp` (`topic_grp`),
-  KEY `peer_grp` (`peer_grp`),
-  KEY `topic_id` (`topic_id`),
-  KEY `peer_id` (`peer_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `entries`
 --
 
+DROP TABLE IF EXISTS `entries`;
 CREATE TABLE `entries` (
   `id` int(11) NOT NULL auto_increment,
   `ident` varchar(75) default NULL,
@@ -149,25 +125,25 @@ CREATE TABLE `entries` (
   `subject_sort` varchar(255) NOT NULL default '',
   `lang` varchar(7) NOT NULL default '',
   `author` varchar(255) NOT NULL default '',
-  `author_display` varchar(255) NOT NULL default '',
+  `author_xml` varchar(255) NOT NULL default '',
   `source` varchar(255) NOT NULL default '',
-  `source_display` varchar(255) NOT NULL default '',
+  `source_xml` varchar(255) NOT NULL default '',
   `title` varchar(255) NOT NULL default '',
-  `title_display` varchar(255) NOT NULL default '',
+  `title_xml` varchar(255) NOT NULL default '',
   `comment0` varchar(255) NOT NULL default '',
-  `comment0_display` varchar(255) NOT NULL default '',
+  `comment0_xml` varchar(255) NOT NULL default '',
   `comment1` varchar(255) NOT NULL default '',
-  `comment1_display` varchar(255) NOT NULL default '',
+  `comment1_xml` varchar(255) NOT NULL default '',
   `url` varchar(255) NOT NULL default '',
   `url_domain` varchar(70) NOT NULL default '',
   `url_check` datetime NOT NULL default '0000-00-00 00:00:00',
   `url_check_success` datetime NOT NULL default '0000-00-00 00:00:00',
   `body` text NOT NULL,
-  `body_display` text NOT NULL,
+  `body_xml` text NOT NULL,
   `body_format` int(11) NOT NULL default '0',
   `has_large_body` tinyint(4) NOT NULL default '0',
   `large_body` mediumtext NOT NULL,
-  `large_body_display` mediumtext NOT NULL,
+  `large_body_xml` mediumtext NOT NULL,
   `large_body_format` int(11) NOT NULL default '0',
   `large_body_filename` varchar(70) NOT NULL default '',
   `priority` tinyint(4) NOT NULL default '0',
@@ -190,12 +166,13 @@ CREATE TABLE `entries` (
   `answers` int(11) NOT NULL default '0',
   `last_answer` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_answer_id` int(11) NOT NULL default '0',
-  `small_image` int(4) NOT NULL default '0',
+  `small_image` int(11) NOT NULL default '0',
   `small_image_x` smallint(6) NOT NULL default '0',
   `small_image_y` smallint(6) NOT NULL default '0',
-  `large_image` int(4) NOT NULL default '0',
+  `large_image` int(11) NOT NULL default '0',
   `large_image_x` smallint(6) NOT NULL default '0',
   `large_image_y` smallint(6) NOT NULL default '0',
+  `large_image_size` int(11) NOT NULL default '0',
   `large_image_format` varchar(30) NOT NULL default '',
   `large_image_filename` varchar(70) NOT NULL default '',
   `used` tinyint(4) NOT NULL default '0',
@@ -227,83 +204,48 @@ CREATE TABLE `entries` (
   KEY `last_answer` (`last_answer`),
   KEY `used` (`used`),
   KEY `sent` (`sent`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `forums`
---
-
-CREATE TABLE `forums` (
-  `id` int(11) NOT NULL auto_increment,
-  `message_id` int(11) NOT NULL default '0',
-  `parent_id` int(11) NOT NULL default '0',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `message_id` (`message_id`),
-  KEY `up` (`parent_id`),
-  KEY `used` (`used`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `groups`
 --
 
+DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
   `user_id` int(11) NOT NULL default '0',
   `group_id` int(11) NOT NULL default '0',
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `horisonts`
 --
 
+DROP TABLE IF EXISTS `horisonts`;
 CREATE TABLE `horisonts` (
   `host` varchar(30) NOT NULL default '',
   `we_know` int(11) NOT NULL default '0',
   `they_know` int(11) NOT NULL default '0',
   `lock` datetime default NULL,
   PRIMARY KEY  (`host`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `image_files`
 --
 
+DROP TABLE IF EXISTS `image_files`;
 CREATE TABLE `image_files` (
   `max_id` int(11) NOT NULL default '0'
-) TYPE=MyISAM;
-
---
--- Table structure for table `images`
---
-
-CREATE TABLE `images` (
-  `id` int(11) NOT NULL auto_increment,
-  `image_set` int(11) NOT NULL default '0',
-  `filename` varchar(70) NOT NULL default '',
-  `small` mediumblob NOT NULL,
-  `small_x` smallint(6) NOT NULL default '0',
-  `small_y` smallint(6) NOT NULL default '0',
-  `has_large` tinyint(4) NOT NULL default '0',
-  `large` mediumblob NOT NULL,
-  `large_x` smallint(6) NOT NULL default '0',
-  `large_y` smallint(6) NOT NULL default '0',
-  `format` varchar(30) NOT NULL default '',
-  `title` varchar(250) NOT NULL default '',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `image_set` (`image_set`),
-  KEY `used` (`used`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `inner_images`
 --
 
+DROP TABLE IF EXISTS `inner_images`;
 CREATE TABLE `inner_images` (
-  `stotext_id` int(11) NOT NULL default '0',
   `entry_id` int(11) NOT NULL default '0',
   `par` int(11) NOT NULL default '0',
   `x` tinyint(4) NOT NULL default '0',
@@ -311,17 +253,17 @@ CREATE TABLE `inner_images` (
   `image_id` int(11) NOT NULL default '0',
   `placement` tinyint(4) NOT NULL default '0',
   `used` tinyint(4) NOT NULL default '0',
-  KEY `stotext_id` (`stotext_id`),
-  KEY `image_id` (`image_id`),
   KEY `used` (`used`),
   KEY `par` (`par`),
-  KEY `entry_id` (`entry_id`)
-) TYPE=MyISAM;
+  KEY `entry_id` (`entry_id`),
+  KEY `image_entry_id` (`image_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `journal`
 --
 
+DROP TABLE IF EXISTS `journal`;
 CREATE TABLE `journal` (
   `id` int(11) NOT NULL auto_increment,
   `seq` int(11) NOT NULL default '0',
@@ -329,48 +271,51 @@ CREATE TABLE `journal` (
   `result_id` int(11) NOT NULL default '0',
   `result_var` int(11) NOT NULL default '0',
   `query` mediumblob NOT NULL,
-  `sent` timestamp(14) NOT NULL,
+  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `seq` (`seq`),
   KEY `result_table` (`result_table`),
   KEY `result_id` (`result_id`),
   KEY `result_var` (`result_var`),
   KEY `sent` (`sent`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `journal_vars`
 --
 
+DROP TABLE IF EXISTS `journal_vars`;
 CREATE TABLE `journal_vars` (
   `var` int(11) NOT NULL default '0',
   `host` varchar(30) NOT NULL default '',
   `value` int(11) NOT NULL default '0',
-  `last_read` timestamp(14) NOT NULL,
+  `last_read` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   KEY `var` (`var`),
   KEY `host` (`host`),
   KEY `last_read` (`last_read`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `logs`
 --
 
+DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
   `id` int(11) NOT NULL auto_increment,
   `event` varchar(30) NOT NULL default '',
-  `sent` timestamp(14) NOT NULL,
+  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `ip` int(10) unsigned NOT NULL default '0',
   `body` varchar(250) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `mailings`
 --
 
+DROP TABLE IF EXISTS `mailings`;
 CREATE TABLE `mailings` (
   `id` int(11) NOT NULL auto_increment,
   `type_id` int(11) NOT NULL default '0',
@@ -379,87 +324,30 @@ CREATE TABLE `mailings` (
   PRIMARY KEY  (`id`),
   KEY `type_id` (`type_id`),
   KEY `receiver_id` (`receiver_id`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `messages`
---
-
-CREATE TABLE `messages` (
-  `id` int(11) NOT NULL auto_increment,
-  `up` int(11) NOT NULL default '0',
-  `track` varchar(255) NOT NULL default '',
-  `lang` varchar(5) NOT NULL default '',
-  `subject` varchar(250) NOT NULL default '',
-  `author` varchar(250) NOT NULL default '',
-  `source` varchar(250) NOT NULL default '',
-  `comment0` varchar(250) NOT NULL default '',
-  `comment1` varchar(250) NOT NULL default '',
-  `stotext_id` int(11) NOT NULL default '0',
-  `sender_id` int(11) NOT NULL default '0',
-  `group_id` int(11) NOT NULL default '0',
-  `perms` int(11) NOT NULL default '0',
-  `disabled` tinyint(4) NOT NULL default '0',
-  `modbits` int(11) NOT NULL default '0',
-  `sent` datetime NOT NULL default '0000-00-00 00:00:00',
-  `url_domain` varchar(70) NOT NULL default '',
-  `url` varchar(250) NOT NULL default '',
-  `url_check` datetime NOT NULL default '0000-00-00 00:00:00',
-  `url_check_success` datetime NOT NULL default '0000-00-00 00:00:00',
-  `answers` int(11) NOT NULL default '0',
-  `hidden_answers` int(11) NOT NULL default '0',
-  `last_answer` datetime NOT NULL default '0000-00-00 00:00:00',
-  `used` tinyint(4) NOT NULL default '0',
-  `last_updated` timestamp(14) NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `sender_id` (`sender_id`),
-  KEY `stotext_id` (`stotext_id`),
-  KEY `url_domain` (`url_domain`),
-  KEY `sent` (`sent`),
-  KEY `used` (`used`),
-  KEY `group_id` (`group_id`),
-  KEY `disabled` (`disabled`),
-  KEY `url` (`url`),
-  KEY `up` (`up`),
-  KEY `track` (`track`),
-  KEY `url_check` (`url_check`),
-  KEY `url_check_success` (`url_check_success`),
-  KEY `last_updated` (`last_updated`),
-  KEY `perms` (`perms`),
-  KEY `modbits` (`modbits`),
-  KEY `last_answer` (`last_answer`),
-  KEY `answers` (`answers`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `multisites`
---
-
-CREATE TABLE `multisites` (
-  `domain` varchar(70) NOT NULL default '',
-  `replacer` varchar(70) NOT NULL default '',
-  KEY `domain` (`domain`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `old_ids`
 --
 
+DROP TABLE IF EXISTS `old_ids`;
 CREATE TABLE `old_ids` (
-  `table_name` char(32) NOT NULL default '',
+  `table_name` varchar(32) NOT NULL default '',
   `old_id` int(11) NOT NULL default '0',
+  `old_ident` varchar(75) default NULL,
   `entry_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`table_name`,`old_id`),
-  UNIQUE KEY `table_name` (`table_name`,`entry_id`)
-) TYPE=MyISAM;
+  UNIQUE KEY `table_name` (`table_name`,`entry_id`),
+  UNIQUE KEY `table_name_2` (`table_name`,`old_ident`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `packages`
 --
 
+DROP TABLE IF EXISTS `packages`;
 CREATE TABLE `packages` (
   `id` int(11) NOT NULL auto_increment,
-  `message_id` int(11) NOT NULL default '0',
   `entry_id` int(11) NOT NULL default '0',
   `type` int(11) NOT NULL default '0',
   `mime_type` varchar(50) NOT NULL default '',
@@ -470,81 +358,22 @@ CREATE TABLE `packages` (
   `created` datetime NOT NULL default '0000-00-00 00:00:00',
   `used` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`),
-  KEY `posting_id` (`message_id`),
   KEY `type` (`type`),
   KEY `created` (`created`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `postings`
---
-
-CREATE TABLE `postings` (
-  `id` int(11) NOT NULL auto_increment,
-  `ident` varchar(75) NOT NULL default '',
-  `message_id` int(11) NOT NULL default '0',
-  `shadow` tinyint(4) NOT NULL default '0',
-  `topic_id` int(11) NOT NULL default '0',
-  `personal_id` int(11) NOT NULL default '0',
-  `grp` int(11) NOT NULL default '0',
-  `priority` tinyint(4) NOT NULL default '0',
-  `last_read` datetime NOT NULL default '0000-00-00 00:00:00',
-  `vote` int(11) NOT NULL default '0',
-  `vote_count` int(10) unsigned NOT NULL default '0',
-  `index0` int(11) NOT NULL default '0',
-  `index1` int(11) NOT NULL default '0',
-  `index2` int(11) NOT NULL default '0',
-  `index3` int(11) NOT NULL default '0',
-  `index4` int(11) NOT NULL default '0',
-  `subdomain` tinyint(4) NOT NULL default '0',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `message_id` (`message_id`),
-  KEY `topic_id` (`topic_id`),
-  KEY `personal_id` (`personal_id`),
-  KEY `grp` (`grp`),
-  KEY `ident` (`ident`),
-  KEY `priority` (`priority`),
-  KEY `subdomain` (`subdomain`),
-  KEY `shadow` (`shadow`),
-  KEY `used` (`used`),
-  KEY `index0` (`index0`),
-  KEY `index1` (`index1`),
-  KEY `index2` (`index2`),
-  KEY `index3` (`index3`),
-  KEY `index4` (`index4`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `postings_info`
---
-
-CREATE TABLE `postings_info` (
-  `reader_id` int(11) NOT NULL default '0',
-  `grp` int(11) NOT NULL default '0',
-  `topic_id` int(11) NOT NULL default '0',
-  `answers` int(11) NOT NULL default '0',
-  `user_id` int(11) NOT NULL default '0',
-  `recursive` smallint(6) NOT NULL default '0',
-  `total` int(11) NOT NULL default '0',
-  `max_sent` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`reader_id`,`grp`,`topic_id`,`answers`,`user_id`,`recursive`),
-  KEY `grp` (`grp`),
-  KEY `answers` (`answers`),
-  KEY `topic_id` (`topic_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `profiling`
 --
 
+DROP TABLE IF EXISTS `profiling`;
 CREATE TABLE `profiling` (
   `id` int(11) NOT NULL auto_increment,
   `up` int(11) NOT NULL default '0',
   `track` varchar(255) NOT NULL default '',
-  `sent` timestamp(14) NOT NULL,
+  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `object` smallint(6) NOT NULL default '0',
   `name` varchar(250) NOT NULL default '',
   `begin_time` int(11) NOT NULL default '0',
@@ -556,120 +385,60 @@ CREATE TABLE `profiling` (
   KEY `object` (`object`),
   KEY `name` (`name`),
   KEY `sent` (`sent`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `redirs`
 --
 
+DROP TABLE IF EXISTS `redirs`;
 CREATE TABLE `redirs` (
   `id` int(11) NOT NULL auto_increment,
   `up` int(11) NOT NULL default '0',
   `track` varchar(255) NOT NULL default '',
-  `name` varchar(255) NOT NULL default '',
   `uri` text NOT NULL,
-  `last_access` timestamp(14) NOT NULL,
+  `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `up` (`up`),
   KEY `track` (`track`),
   KEY `last_access` (`last_access`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `sessions`
 --
 
+DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL default '0',
   `real_user_id` int(11) NOT NULL default '0',
-  `last` timestamp(14) NOT NULL,
+  `last` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `sid` char(32) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `sid` (`sid`),
   KEY `user_id` (`user_id`),
   KEY `last` (`last`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `stotexts`
---
-
-CREATE TABLE `stotexts` (
-  `id` int(11) NOT NULL auto_increment,
-  `body` text NOT NULL,
-  `image_set` int(11) NOT NULL default '0',
-  `large_filename` varchar(70) NOT NULL default '',
-  `large_format` tinyint(4) NOT NULL default '0',
-  `large_body` mediumtext NOT NULL,
-  `large_imageset` int(11) NOT NULL default '0',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `image_set` (`image_set`),
-  KEY `large_imageset` (`large_imageset`),
-  KEY `used` (`used`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `tmp_texts`
 --
 
+DROP TABLE IF EXISTS `tmp_texts`;
 CREATE TABLE `tmp_texts` (
   `id` int(11) NOT NULL auto_increment,
   `value` mediumtext NOT NULL,
-  `last_access` timestamp(14) NOT NULL,
+  `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `last_access` (`last_access`)
-) TYPE=MyISAM;
-
---
--- Table structure for table `topics`
---
-
-CREATE TABLE `topics` (
-  `id` int(11) NOT NULL auto_increment,
-  `up` int(11) NOT NULL default '0',
-  `track` varchar(255) NOT NULL default '',
-  `name` varchar(70) NOT NULL default '',
-  `name_sort` varchar(140) NOT NULL default '',
-  `comment0` varchar(250) NOT NULL default '',
-  `comment1` varchar(250) NOT NULL default '',
-  `user_id` int(11) NOT NULL default '0',
-  `group_id` int(11) NOT NULL default '0',
-  `perms` int(11) NOT NULL default '0',
-  `stotext_id` int(11) NOT NULL default '0',
-  `allow` int(11) NOT NULL default '0',
-  `premoderate` smallint(6) NOT NULL default '0',
-  `moderate` smallint(6) NOT NULL default '0',
-  `edit` smallint(6) NOT NULL default '0',
-  `ident` varchar(75) NOT NULL default '',
-  `index0` int(11) NOT NULL default '0',
-  `index1` int(11) NOT NULL default '0',
-  `index2` int(11) NOT NULL default '0',
-  `index3` int(11) NOT NULL default '0',
-  `index4` int(11) NOT NULL default '0',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `ident` (`ident`),
-  KEY `up` (`up`),
-  KEY `track` (`track`),
-  KEY `stotext_id` (`stotext_id`),
-  KEY `user_id` (`user_id`),
-  KEY `name_sort` (`name_sort`),
-  KEY `used` (`used`),
-  KEY `group_id` (`group_id`),
-  KEY `index0` (`index0`),
-  KEY `index1` (`index1`),
-  KEY `index2` (`index2`),
-  KEY `index3` (`index3`),
-  KEY `index4` (`index4`),
-  KEY `perms` (`perms`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL auto_increment,
   `login` varchar(30) NOT NULL default '',
@@ -683,8 +452,8 @@ CREATE TABLE `users` (
   `surname_sort` varchar(60) NOT NULL default '',
   `gender` enum('mine','femine') NOT NULL default 'mine',
   `info` text NOT NULL,
+  `info_xml` text NOT NULL,
   `birthday` date NOT NULL default '0000-00-00',
-  `migdal_student` tinyint(4) NOT NULL default '0',
   `last_online` datetime NOT NULL default '0000-00-00 00:00:00',
   `confirm_deadline` datetime default NULL,
   `confirm_code` varchar(20) NOT NULL default '',
@@ -692,16 +461,8 @@ CREATE TABLE `users` (
   `hide_email` tinyint(4) NOT NULL default '0',
   `icq` varchar(15) NOT NULL default '',
   `email_disabled` tinyint(4) NOT NULL default '0',
-  `accepts_complains` tinyint(4) NOT NULL default '0',
-  `rebe` tinyint(4) NOT NULL default '0',
   `shames` tinyint(4) NOT NULL default '0',
-  `guest` tinyint(4) default NULL,
-  `admin_users` tinyint(4) NOT NULL default '0',
-  `admin_topics` tinyint(4) NOT NULL default '0',
-  `admin_complain_answers` tinyint(4) NOT NULL default '0',
-  `moderator` tinyint(4) NOT NULL default '0',
-  `judge` tinyint(4) NOT NULL default '0',
-  `admin_domain` tinyint(4) NOT NULL default '0',
+  `guest` tinyint(4) NOT NULL default '0',
   `rights` int(11) NOT NULL default '0',
   `hidden` tinyint(4) NOT NULL default '0',
   `no_login` tinyint(4) NOT NULL default '0',
@@ -722,43 +483,73 @@ CREATE TABLE `users` (
   KEY `in_chat` (`in_chat`),
   KEY `shames` (`shames`),
   KEY `guest` (`guest`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `version`
 --
 
+DROP TABLE IF EXISTS `version`;
 CREATE TABLE `version` (
   `db_version` int(11) NOT NULL default '0'
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Table structure for table `votes`
 --
 
+DROP TABLE IF EXISTS `votes`;
 CREATE TABLE `votes` (
-  `posting_id` int(11) NOT NULL default '0',
   `entry_id` int(11) NOT NULL default '0',
   `ip` int(10) unsigned NOT NULL default '0',
   `user_id` int(11) NOT NULL default '0',
-  `sent` timestamp(14) NOT NULL,
+  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `vote` int(11) NOT NULL default '0',
-  KEY `posting_id` (`posting_id`),
   KEY `ip` (`ip`),
   KEY `user_id` (`user_id`),
   KEY `sent` (`sent`),
   KEY `entry_id` (`entry_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- MySQL dump 9.11
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- MySQL dump 10.9
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	4.0.22_Debian-6-log
+-- Server version	4.1.15-Debian_1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Dumping data for table `version`
 --
 
+
+/*!40000 ALTER TABLE `version` DISABLE KEYS */;
+LOCK TABLES `version` WRITE;
 INSERT INTO `version` VALUES (10);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `version` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
