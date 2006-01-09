@@ -2,15 +2,6 @@
 
 <ident name='up'>
 
-<ifzero what='$up'>
- <pagetitle title='Темы'>
- <topictitle title='Темы'>
-<else>
- <topic_name name='name' id='$up'>
- <pagetitle title#='Темы :: $=name.Subject'>
- <topictitle title#='Темы :: $=name.Subject'>
-</ifzero>
-
 <element name='hd' params='item,full_name' defaults="full_name=''">
  <ifne what='$item.Ident'>
   <assign name='info' value#='[$=item.Ident=$item.Id]'>
