@@ -207,6 +207,18 @@ CREATE TABLE `entries` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
+-- Table structure for table `entry_grps`
+--
+
+DROP TABLE IF EXISTS `entry_grps`;
+CREATE TABLE `entry_grps` (
+  `entry_id` int(11) NOT NULL default '0',
+  `grp` int(11) NOT NULL default '0',
+  KEY `entry_id` (`entry_id`),
+  KEY `grp` (`grp`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
 -- Table structure for table `groups`
 --
 

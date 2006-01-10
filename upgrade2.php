@@ -116,6 +116,16 @@ while($row=mysql_fetch_assoc($result))
 echo "\n";
 }
 
+function convertGrp($entry_id,$grp)
+{
+for($current=1;$current<0x20000;$current<<=1)
+   if(($current & $grp)!=0)
+     sql(makeInsert('entry_grps',
+                    array('entry_id' => $entry_id,
+		          'grp' => $current)),
+	 __FUNCTION__);
+}
+
 function convertTopics()
 {
 global $topicIds,$stotextIds;
@@ -140,7 +150,6 @@ while($row=mysql_fetch_assoc($result))
                     array('entry' => ENT_TOPIC,
 		          'ident' => $row['ident']!='' ? $row['ident'] : NULL,
                           'up' => $topicIds[$row['up']],
-			  'grp' => $row['allow'],
 			  'user_id' => $row['user_id'],
 			  'group_id' => $row['group_id'],
 			  'perms' => $row['perms'],
@@ -176,6 +185,7 @@ while($row=mysql_fetch_assoc($result))
      putOldId($id,'topics',$row['id'],$row['ident']);
      putOldId($id,'stotexts',$row['stotext_id']);
      updateTracks('entries',$id,false);
+     convertGrp($id,$row['allow']);
      }
 echo "\n";
 }
@@ -385,9 +395,6 @@ if($row['has_large'])
   $smallName=getImageFilename($id,getImageExtension($thumbnailType),
 			      $small,'small');
   $fname="$imageDir/$smallName";
-  /*$fd=fopen($fname,'w');
-  fwrite($fd,$row['small']);
-  fclose($fd);*/
   $result=imageFileResize("$imageDir/$largeName",$format,$fname,
                       $row['small_x'],$row['small_y']);
   if($result==IFR_OK)
@@ -563,10 +570,16 @@ while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
      $body=unhtmlentities($row['body']);
+     $parent_id=$messageIds[$row['parent_id']];
+     if($parent_id=='')
+       {
+       echo "Unknown message({$row['parent_id']})\n";
+       continue;
+       }
      sql(makeInsert('entries',
                     array('entry' => ENT_FORUM,
-                          'up' => $messageIds[$row['parent_id']],
-			  'parent_id' => $messageIds[$row['parent_id']],
+                          'up' => $parent_id,
+			  'parent_id' => $parent_id,
 			  'user_id' => $row['sender_id'],
 			  'group_id' => $row['group_id'],
 			  'perms' => $row['perms'],

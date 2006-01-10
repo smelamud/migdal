@@ -162,3 +162,9 @@ ALTER TABLE `inner_images` ADD `image_entry_id` INT NOT NULL AFTER `image_id` ;
 ALTER TABLE `inner_images` ADD INDEX ( `image_entry_id` ) ;
 ALTER TABLE `users` ADD `info_xml` TEXT NOT NULL AFTER `info` ;
 ALTER TABLE `redirs` DROP `name` ;
+CREATE TABLE `entry_grps` (
+`entry_id` INT NOT NULL ,
+`grp` INT NOT NULL ,
+INDEX ( `entry_id` )
+) ;
+ALTER TABLE `entry_grps` ADD INDEX ( `grp` ) ;
