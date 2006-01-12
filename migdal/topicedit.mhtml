@@ -32,11 +32,11 @@
   <form_edit title='Обозначение' name='ident' value='$=,Ident' size=15
 	     maxlength=15>
   <error id='*ET_NAME_ABSENT' text='Название не было введено'>
-  <form_edit title='Название' value='$=,Subject' name='name' size=35
+  <form_edit title='Название' value='$=,Subject' name='name' size=50
 	     maxlength=70 mandatory='*true'>
-  <form_edit title='Комментарий 0' value='$=,Comment0' name='comment0' size=35
+  <form_edit title='Комментарий 0' value='$=,Comment0' name='comment0' size=50
 	     maxlength=70>
-  <form_edit title='Комментарий 1' value='$=,Comment1' name='comment1' size=35
+  <form_edit title='Комментарий 1' value='$=,Comment1' name='comment1' size=50
 	     maxlength=70>
   <form_edit title='Год' value='$,Index2' name='index2' size=6 maxlength=6>
   <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
