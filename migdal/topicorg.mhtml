@@ -12,7 +12,7 @@
   <assign name='full_name' value='$item.Subject'>
  </ife>
  <iswrite what='$item'>
-  <a href='admin/topics/$item.Id/modify/?redirid=$_'
+  <a href='admin/topics/$item.Id/edit/?redirid=$_'
      title='$item.BodyHTML'>$=full_name</a>&sp;$info&sp;
  <else>
   $=full_name&sp;$info&sp;
@@ -28,7 +28,7 @@
   <a href='admin/topics/$up/' class='edit'>Ветка</a>
  </if>
  <if what='$append'>
-  <a href='topicedit.php?redirid=$_&up=$up' class='edit'>Добавить</a>
+  <a href='admin/topics/$up/add/?redirid=$_' class='edit'>Добавить</a>
  </if>
  <if what='$up!=0 && $write'>
   <a href='topicdel.php?redirid=$_&topic_id=$up' class='edit'>Удалить</a>

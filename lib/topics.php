@@ -342,7 +342,6 @@ $vars=array('entry' => $topic->entry,
 	    'user_id' => $topic->user_id,
 	    'group_id' => $topic->group_id,
 	    'perms' => $topic->perms,
-	    'grp' => $topic->grp,
 	    'modbits' => $topic->modbits,
 	    'index2' => $topic->index2,
 	    'body' => $topic->body,
@@ -403,7 +402,7 @@ return (getModbitsByTopicId($id) & MODT_EDIT)!=0;
 function getTopicById($id,$up=0,$fields=SELECT_GENERAL)
 {
 global $userId,$userLogin,$userModerator,$rootTopicModbits,$rootTopicGroupName,
-       $rootTopicPerms;
+       $rootTopicPerms,$grpGroups;
 
 if(hasCachedValue('obj','entries',$id))
   return getCachedValue('obj','entries',$id);
@@ -446,9 +445,9 @@ if(mysql_num_rows($result)>0)
 else
   if($up>0)
     {
-    $topic=getTopicById($up);
+    $topic=getTopicById($up,0,SELECT_GENERAL|SELECT_GRPS);
     $topic=new Topic(array('up'          => $topic->getId(),
-			   'grp'         => $topic->getGrp(),
+			   'grps'        => $topic->getGrps(),
 			   'modbits'     => $topic->getModbits(),
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,
@@ -457,7 +456,7 @@ else
 			   'perms'       => $topic->getPerms()));
     }
   else
-    $topic=new Topic(array('grp'         => GRP_ALL,
+    $topic=new Topic(array('grps'        => $grpGroups[GRP_ALL],
 			   'modbits'     => $rootTopicModbits,
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,

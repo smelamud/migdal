@@ -60,10 +60,10 @@ if(!$upPerms->isAppendable())
 $cid=idByIdent($topic->ident);
 if(!is_null($topic->ident) && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
-if($original->up!=$topic->up)
+if($topic->id==0 || $original->up!=$topic->up)
   $topic->track='';
 storeTopic($topic);
-if($original->up!=$topic->up)
+if($topic->track=='')
   updateTracks('entries',$topic->id);
 setGrpsByEntryId($topic->id,$topic->grps);
 return EG_OK;
