@@ -9,9 +9,9 @@ class GrpIterator
 
 function GrpIterator()
 {
-global $GRP_ALL;
+global $grpGroups;
 
-parent::ArrayIterator($GRP_ALL);
+parent::ArrayIterator($grpGroups[GRP_ALL]);
 }
 
 function create($value)

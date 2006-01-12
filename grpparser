@@ -477,19 +477,31 @@ for(@Classes)
    {
    printConstant($_);
    }
-while(my ($name,$value)=each(%Groups))
-     {
-     if($maskValues)
+if($maskValues)
+  {
+  while(my ($name,$value)=each(%Groups))
        {
        $value=sprintf('0x%x',$value);
        print GRPS "define('$constPrefix$name',$value);\n";
        }
-     else
+  }
+else
+  {
+  for my $name(keys %Groups)
+      {
+      print GRPS "define('$constPrefix$name','$constPrefix$name');\n";
+      }
+  print GRPS "\$${arrayPrefix}Groups=array(\n";
+  while(my ($name,$value)=each(%Groups))
        {
        $value='array('.join(',',@$value).')';
-       print GRPS "\$$constPrefix$name=$value;\n";
+       print GRPS "    '$constPrefix$name' => $value,\n";
        }
-     }
+  my $all='array('.join(',',map {$_->getFlagValue()} @Classes ).')';
+  print GRPS "    '${constPrefix}ALL' => $all\n";
+  print GRPS ");\n";
+  print GRPS "\n";
+  }
 if($maskValues)
   {
   my $all=sprintf('0x%x',$FlagValue-1);
@@ -498,9 +510,8 @@ if($maskValues)
 else
   {
   my $max=$FlagValue-1;
-  my $all='array('.join(',',map {$_->getFlagValue()} @Classes ).')';
   print GRPS "define('${constPrefix}MAX',$max);\n";
-  print GRPS "\$${constPrefix}ALL=$all;\n";
+  print GRPS "define('${constPrefix}ALL','${constPrefix}ALL');\n";
   }
 print GRPS "\n";
 while(my ($name,$value)=each(%{$defaultClass->getParams()}))

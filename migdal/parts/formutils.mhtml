@@ -79,9 +79,9 @@
    <radio value='0' peervalue='$value' title='Нет'>
   </select>
  <elif what="$style=='radio'">
-   <radio_button name='$name' value='$iftrue' peervalue='$value' title='Да'>
-   &nbsp;
-   <radio_button name='$name' value='0' peervalue='$value' title='Нет'>
+  <radio_button name='$name' value='$iftrue' peervalue='$value' title='Да'>
+  &nbsp;
+  <radio_button name='$name' value='0' peervalue='$value' title='Нет'>
  <elif what="$style=='box'">
   <checkbox_button name='$name' value='$value' iftrue='$iftrue'>
  <else>
@@ -95,4 +95,54 @@
  <input type=submit value='$title'>&nbsp;&nbsp;
  <input type=reset value='Очистить'>
 </td></tr>
+</element>
+
+<element name='form_select'>
+<form_line title='$title' mandatory='$mandatory' comment='$comment'>
+ <if what="$style=='list'">
+  <if what='$multiple'>
+   <select name='$name' size='$rows' multiple>
+  <else>
+   <select name='$name' size='$rows'>
+  </if>
+ <elif what="$style=='box'">
+  <table border='0' cellspacing='0' cellpadding='3'>
+ </if>
+ <assign_global name='FormSelectName' value='$name'>
+ <assign_global name='FormSelectStyle' value='$style'>
+ <assign_global name='FormSelectMultiple' value='$multiple'>
+</element>
+
+<element name='/form_select'>
+ <if what="$$FormSelectStyle=='list'">
+  </select>
+ <elif what="$$FormSelectStyle=='box'">
+  </table>
+ </if>
+</form_line>
+</element>
+
+<element name='form_option'>
+<if what="$$FormSelectStyle=='list'">
+ <if what='$selected'>
+  <option value='$value' selected>$title
+ <else>
+  <option value='$value'>$title
+ </if>
+<elif what="$$FormSelectStyle=='box'">
+ <assign name='type' value!='$$FormSelectMultiple ? "checkbox" : "radio"'>
+ <tr>
+  <if what='$selected'>
+   <td>
+    <input id='$name$value' type='$type' name='$$FormSelectName' value='$value'
+           checked>
+   </td>
+  <else>
+   <td>
+    <input id='$name$value' type='$type' name='$$FormSelectName' value='$value'>
+   </td>
+  </if>
+  <td><label for='$name$value'>$title</label></td>
+ </tr>
+</if>
 </element>

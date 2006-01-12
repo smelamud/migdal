@@ -49,6 +49,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 28. <subtitle> теперь принимает непосредственный параметр, по умолчанию -
     заголовок страницы.
 29. sqlDate() и sqlNow() при вставке времени в запрос.
+30. Групповые GRP_ теперь не маски, а строки и массивы, им соотвествующие,
+берутся из $grpGroups (не забыть global!).
 
 Прогресс пересмотра файлов
 --------------------------
@@ -135,7 +137,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/gregor-calendar.php
 - lib/groups.php
 + lib/grpiterator.php
-- lib/grps.php
+* lib/grps.php
 - lib/horisonts.php
 + lib/ident.php
 - lib/image.php
@@ -211,9 +213,9 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 
 - migdal/grp/complains.conf
 - migdal/grp/counters.php
-- migdal/grp/groups.conf
+* migdal/grp/groups.conf
 - migdal/grp/mailings.conf
-- migdal/grp/subdomains.php
++ migdal/grp/subdomains.php
 
 - migdal/mailings/confirmed.mhtml
 - migdal/mailings/registering.mhtml
