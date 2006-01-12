@@ -18,6 +18,7 @@ var $entry;
 var $up;
 var $track;
 var $grp;
+var $grps;
 var $user_id;
 var $group_id;
 var $group_login;
@@ -72,6 +73,16 @@ return $this->track;
 function getGrp()
 {
 return $this->grp;
+}
+
+function getGrps()
+{
+return $this->grps;
+}
+
+function setGrps($grps)
+{
+$this->grps=$grps;
 }
 
 function getUserId()
@@ -224,5 +235,17 @@ function getLastAnswerId()
 return $this->last_answer_id;
 }
 
+}
+
+function getGrpsByEntryId($id)
+{
+$result=sql("select grp
+	     from entry_grps
+	     where entry_id=$id",
+	    __FUNCTION__);
+$grps=array();
+while(list($grp)=mysql_fetch_row($result))
+     $grps[]=$grp;
+return $grps;
 }
 ?>

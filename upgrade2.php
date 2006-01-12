@@ -56,6 +56,8 @@ sql('truncate table old_ids',
     __FUNCTION__,'old_ids');
 sql('truncate table entries',
     __FUNCTION__,'entries');
+sql('truncate table entry_grps',
+    __FUNCTION__,'entry_grps');
 sql('update image_files
      set max_id=0',
     __FUNCTION__,'image_files');

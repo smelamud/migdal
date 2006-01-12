@@ -14,6 +14,7 @@ require_once('lib/grps.php');
 require_once('lib/ident.php');
 require_once('lib/permissions.php');
 require_once('lib/postings-info.php');
+require_once('lib/select.php');
 require_once('lib/selectiterator.php');
 require_once('lib/sql.php');
 require_once('lib/tmptexts.php');
@@ -63,15 +64,10 @@ if($this->perm_string!='')
   $this->perms=permString($this->perm_string,strPerms($this->perms));
 $this->modbits=$vars['modbits'];
 $this->index2=$vars['index2'];
-$this->grp=0;
-$iter=new GrpIterator();
-while($group=$iter->next())
-     if(($group->getGrp() & GRP_ALL)!=0)
-       {
-       $name=$group->getGrpIdent();
-       if($vars[$name])
-	 $this->grp|=$group->getGrp();
-       }
+$this->grps=array();
+foreach($vars['grps'] as $grp)
+       if(isGrpValid($grp))
+	 $this->grps[]=$grp;
 }
 
 function getNbSubject()
@@ -170,7 +166,7 @@ function getWhere($grp,$up=0,$prefix='',$recursive=false,$level=1,$index2=-1)
 {
 $hide='and '.topicsPermFilter(PERM_READ,$prefix);
 $userFilter=$up>=0 ? 'and '.subtree('entries',$up,$recursive,'up') : '';
-$grpFilter=/*$grp!=GRP_ALL ? "and (${prefix}grp & $grp)<>0" : */'';
+$grpFilter=$grp!=GRP_ALL ? 'and '.grpFilter($grp,'grp','entry_grps') : '';
 // TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
 $levelFilter=$level<=1 || $up<0 ? '' : "and entries.id<>$up and up<>$up";
 $index2Filter=$index2<0 ? '' : "and index2=$index2";
@@ -198,7 +194,8 @@ function TopicListIterator($grp,$up=0,$sort=SORT_SUBJECT,$recursive=false,
 $this->fields=$fields;
 $this->grp=$grp;
 /* Select */
-$Select="entries.id as id,entries.ident as ident,entries.up as up,
+$distinct=$grp!=GRP_ALL ? 'distinct' : '';
+$Select="$distinct entries.id as id,entries.ident as ident,entries.up as up,
          entries.subject as subject,entries.comment0 as comment0,
          entries.comment0_xml as comment0_xml,entries.comment1 as comment1,
 	 entries.comment1_xml as comment1_xml,entries.body as body,
@@ -208,11 +205,15 @@ $Select="entries.id as id,entries.ident as ident,entries.up as up,
 	 entries.index2 as index2,entries.answers as answers,
 	 entries.last_answer as last_answer";
 /* From */
+$grpTable=$grp!=GRP_ALL ? 'left join entry_grps
+                                on entry_grps.entry_id=entries.id'
+			: '';
 $From="entries
        left join users
 	    on entries.user_id=users.id
        left join users as gusers
-	    on entries.group_id=gusers.id";
+	    on entries.group_id=gusers.id
+       $grpTable";
 /* Where */
 $Where=$this->getWhere($grp,$up,'entries.',$recursive,$level,$index2);
 /* Order */
@@ -234,6 +235,8 @@ $this->TopicIterator(
 function create($row)
 {
 $topic=parent::create($row);
+if(($this->fields & SELECT_GRPS)!=0)
+  $topic->setGrps(getGrpsByEntryId($row['id']));
 if(($this->fields & SELECT_INFO)!=0)
   $topic->setPostingsInfo(getPostingsInfo($this->grp,$row['id']));
 return $topic;
@@ -252,8 +255,14 @@ function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ')
 {
 $this->up=$up;
 $this->delimiter=$delimiter;
-parent::TopicIterator('select id,up,track,subject
-		       from entries'
+
+$distinct=$grp!=GRP_ALL ? 'distinct' : '';
+$grpTable=$grp!=GRP_ALL ? 'left join entry_grps
+                                on entry_grps.entry_id=entries.id'
+			: '';
+parent::TopicIterator("select $distinct id,up,track,subject
+		       from entries
+		            $grpTable"
 		      .$this->getWhere($grp,$this->up,'',$recursive)
 		    .' order by track');
 }
@@ -361,17 +370,6 @@ else
 return $result;
 }
 
-function getGrpByTopicId($id)
-{
-$hide=topicsPermFilter(PERM_READ);
-$result=sql("select grp
-	     from entries
-	     where id=$id and $hide",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
-                                 : GRP_ALL;
-}
-
 function getModbitsByTopicId($id)
 {
 global $rootTopicModbits;
@@ -437,6 +435,8 @@ if(mysql_num_rows($result)>0)
   $topic=new Topic($row); 
   if(($fields & SELECT_TOPICS)!=0)
     $topic->setSubCount(getSubtopicsCountById($id));
+  if(($fields & SELECT_GRPS)!=0)
+    $topic->setGrps(getGrpsByEntryId($id));
   if(($fields & SELECT_INFO)!=0)
     $topic->setPostingsInfo(getPostingsInfo(GRP_ALL,$id));
   setCachedValue('obj','entries',$id,$topic);

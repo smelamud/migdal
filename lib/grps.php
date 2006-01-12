@@ -8,13 +8,11 @@ function getGrpOrder($grp)
 return round(log($grp)/M_LN2);
 }
 
-// remake
 function getGrpValid($grp)
 {
-global $grpClassNames;
+global $grpGroups;
 
-return round(exp(getGrpOrder($grp)*M_LN2))==$grp
-       && isset($grpClassNames[$grp]);
+return in_array($grp,$grpGroups[GRP_ALL]);
 }
 
 // remake

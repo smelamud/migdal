@@ -8,7 +8,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <topic_obj id='$editid' up='$up'>
+ <topic_obj id='$editid' up='$up' fields!="*SELECT_GENERAL|*SELECT_GRPS">
  <setup>
  <if what='$editid'>
   <form_table title='Изменить тему'>
@@ -45,47 +45,29 @@
   <form_section title='Права доступа'>
   <error id='*ET_NO_USER' text='Такого пользователя не существует'>
   <form_edit title='Владелец' name='login' value='$=,Login' size=20
-	     maxlength=30>
+	     maxlength=30 mandatory='*true'>
   <error id='*ET_NO_GROUP' text='Такой группы не существует'>
   <form_edit title='Группа' name='group_login' value='$=,GroupLogin' size=20
-	     maxlength=30>
+	     maxlength=30 mandatory='*true'>
   <error id='*ET_BAD_PERMS' text='Права заданы некорректно'>
   <form_edit title='Права' name='perm_string' value='$,PermHTML' size=17
-	     maxlength=17>
+	     maxlength=17 mandatory='*true'>
   <form_select title='Допустимые сообщения' name='grps' rows='8'
                multiple='*true'>
    <iterate_grps>
    <for>
-    <form_option value='$.Grp' title='$.GrpTitle'>
+    <form_option value='$.Grp' title='$.GrpTitle'
+                 selected!='in_array($.Grp,$,Grps)'>
    </for>
   </form_select>
   <form_select title='Модерирование' name='modbits' style='box'
                multiple='*true'>
    <iterate_topic_modbits>
    <for>
-    <form_option value='$.Bit' title='$.Name'>
+    <form_option value='$.Bit' title='$.Name'
+                 selected!='($,Modbits & $.Bit)!=0'>
    </for>
   </form_select>
-  <<tr><td><table width=100%><tr valign='top'>
-   <td>
-    <iterate_grps>
-    <for>
-     <if what='$.isValid'>
-      <assign name='allow' value!='($,Allow & $.Grp)!=0'>
-      <assign name='foritems' value#='Тема для $.GrpForItemsTitle'>
-      <checkbox name='$.GrpIdent' value='$allow' title='$foritems'><br>
-     </if>
-    </for>
-   </td>
-   <td>
-    <checkbox name='premoderate' value!='$,Premoderate<>0'
-	      title='Премодерируется'><br>
-    <checkbox name='moderate' value!='$,Moderate<>0'
-	      title='Модерируется'><br>
-    <checkbox name='edit' value!='$,Edit<>0'
-	      title='Редактируется'>
-   </td>
-  </tr></table></td></tr>>
   <if what='$editid'>
    <form_buttons title='Изменить'>
   <else>
