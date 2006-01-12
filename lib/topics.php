@@ -33,7 +33,6 @@ function Topic($row)
 global $rootTopicModbits;
 
 $this->entry=ENT_TOPIC;
-$this->grp=GRP_ALL;
 $this->modbits=$rootTopicModbits;
 parent::GrpEntry($row);
 }
@@ -171,7 +170,7 @@ function getWhere($grp,$up=0,$prefix='',$recursive=false,$level=1,$index2=-1)
 {
 $hide='and '.topicsPermFilter(PERM_READ,$prefix);
 $userFilter=$up>=0 ? 'and '.subtree('entries',$up,$recursive,'up') : '';
-$grpFilter=$grp!=GRP_ALL ? "and (${prefix}grp & $grp)<>0" : '';
+$grpFilter=/*$grp!=GRP_ALL ? "and (${prefix}grp & $grp)<>0" : */'';
 // TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
 $levelFilter=$level<=1 || $up<0 ? '' : "and entries.id<>$up and up<>$up";
 $index2Filter=$index2<0 ? '' : "and index2=$index2";

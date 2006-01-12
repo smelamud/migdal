@@ -52,6 +52,14 @@
   <error id='*ET_BAD_PERMS' text='Права заданы некорректно'>
   <form_edit title='Права' name='perm_string' value='$,PermHTML' size=17
 	     maxlength=17>
+  <form_line title='Допустимые сообщения'>
+   <iterate_grps>
+   <select name='grps' multiple>
+    <for>
+     <radio value='$.Grp' peervalue='0' title='$.GrpTitle'>
+    </for>
+   </select>
+  </form_line>
   <<tr><td><table width=100%><tr valign='top'>
    <td>
     <iterate_grps>

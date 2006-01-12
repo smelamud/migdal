@@ -15,12 +15,17 @@ $this->vars=$vars;
 reset($this->vars);
 }
 
+function create($value)
+{
+return $value;
+}
+
 function next()
 {
 parent::next();
 $val=current($this->vars);
 next($this->vars);
-return $val;
+return $val ? $this->create($val) : $val;
 }
 
 function getCount()

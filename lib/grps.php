@@ -39,16 +39,19 @@ return getPlural($n,$pl);
 
 function grpFilter($grp,$field='grp',$prefix='')
 {
+global $GRP_ALL;
+
 if($grp==GRP_NONE)
   return 0;
-if($grp==GRP_ALL)
+if(count($grp)==count($GRP_ALL))
   return 1;
+if(!is_array($grp))
+  $grp=array($grp);
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 $conds=array();
-for($i=1;$i<=GRP_ALL;$i*=2)
-   if(($i & $grp)!=0)
-     $conds[]="${prefix}$field=$i";
+foreach($grp as $i)
+       $conds[]="${prefix}$field=$i";
 return '('.join(' or ',$conds).')';
 }
 

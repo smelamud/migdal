@@ -10,7 +10,6 @@ $VERSION='0.3';
 $constFileName='';
 $classFileName='';
 $constPrefix='';
-$parentClass='';
 $maskValues=0;
 $grpField='';
 $arrayPrefix='';
@@ -139,10 +138,11 @@ sub new
 {
 my ($class,$name)=@_;
 
+my $value=$::FlagValue;
 $::FlagValue=$::maskValues ? $::FlagValue*2 : $::FlagValue+1;
 return bless {'name'      => $name,
 	      'flag'      => uc $name,
-	      'flagValue' => $::maskValues ? $::FlagValue/2 : $::FlagValue-1,
+	      'flagValue' => $value,
 	      'params'    => {}},$class;
 }
 
@@ -172,6 +172,13 @@ sub getFlagValue
 my ($self)=@_;
 
 return $self->{'flagValue'};
+}
+
+sub setFlagValue
+{
+my ($self,$value)=@_;
+
+$self->{'flagValue'}=$value;
 }
 
 sub getParams
@@ -215,11 +222,10 @@ Usage: $0 [<options>] [<file>]
 
 Migdal website kernel GRP definition language preprocessor
 
-  -a, --array-prefix=<prefix>  Prefix of array of class names
+  -a, --array-prefix=<prefix>  Prefix of arrays of property values
   -C, --const-file=<name>      File to output constants
   -f, --field=<name>           Field to store type value in
   -h, --help                   Print this help and exit
-  -i, --inherit=<name>         Parent class to inherit from
   -L, --class-file=<name>      File to output classes
   -m, --mask                   Assign values for bitmask (powers of 2)
   -p, --const-prefix=<prefix>  Constant prefix
@@ -251,7 +257,6 @@ GetOptions('array-prefix|a=s' => \$arrayPrefix,
            'const-file|C=s'   => \$constFileName,
 	   'field|f=s'        => \$grpField,
            'help|h|?'	      => \&help,
-	   'inherit|i=s'      => \$parentClass,
 	   'class-file|L=s'   => \$classFileName,
 	   'mask|m'           => \$maskValues,
 	   'const-prefix|p=s' => \$constPrefix,
@@ -276,7 +281,16 @@ my ($class)=@_;
 
 while($Input->getToken()->getName() eq 'ident')
      {
-     $Groups{$Input->getToken()->getValue()}|=$class->getFlagValue();
+     my $name=$Input->getToken()->getValue();
+     if($maskValues)
+       {
+       $Groups{$name}|=$class->getFlagValue();
+       }
+     else
+       {
+       $Groups{$name}=[] unless exists $Groups{$name};
+       push @{$Groups{$name}},$class->getFlagValue();
+       }
      $Input->next();
      }
 error("';' expected") if $Input->getToken()->getValue() ne ';';
@@ -296,7 +310,6 @@ if($Input->getToken()->getValue() eq ':')
   defineFlag($class),return if $ident eq 'flag';
   if($ident eq 'groups')
     {
-    error('groups are allowed for bitmasks only') unless $maskValues;
     defineGroups($class);
     return;
     }
@@ -337,6 +350,15 @@ else
   }
 $Input->next();
 $Input->next(),return if $Input->getToken()->getValue() eq ';';
+if($Input->getToken()->getValue() eq '=')
+  {
+  $Input->next();
+  error('flag value expected') if $Input->getToken()->getName() ne 'number';
+  my $value=$Input->getToken()->getValue();
+  $class->setFlagValue($value);
+  $FlagValue=$maskValues ? $value*2 : $value+1;
+  $Input->next();
+  }
 if($Input->getToken()->getValue() eq '{')
   {
   $Input->next();
@@ -415,11 +437,23 @@ printScalarParam($name);
 
 sub printConstParam
 {
-my ($name,$value)=@_;
+my ($name)=@_;
 
+my $Name=ucfirst $name;
+print GRPS "\$$arrayPrefix$Name=array(\n";
+for(@Classes)
+   {
+   my $flag=$constPrefix.$_->getFlag();
+   my $value=${$_->getParams()}{$name};
+   print GRPS "    $flag => $value,\n";
+   }
+print GRPS ");\n";
+print GRPS "\n";
 print POSTINGS "function $name()\n";
 print POSTINGS "{\n";
-print POSTINGS "return $value;\n";
+print POSTINGS "global \$$arrayPrefix${Name};\n";
+print POSTINGS "\n";
+print POSTINGS "return \$$arrayPrefix${Name}[\$this->$grpField];\n";
 print POSTINGS "}\n";
 print POSTINGS "\n";
 }
@@ -433,69 +467,47 @@ printArrayParam($name),return if $value eq 'array';
 printConstParam($name,$value);
 }
 
-sub printClass
-{
-my ($class)=@_;
-
-print POSTINGS 'class '.$class->getName()."\n";
-print POSTINGS "      extends $parentClass\n";
-print POSTINGS "{\n";
-print POSTINGS "\n";
-print POSTINGS 'function '.$class->getName()."(\$row)\n";
-print POSTINGS "{\n";
-print POSTINGS "parent::$parentClass(\$row);\n";
-print POSTINGS "\$this->$grpField=$constPrefix".$class->getFlag().";\n";
-while(my ($name,$value)=each(%{$class->getParams()}))
-   {
-   print POSTINGS "\$this->$name=array();\n" if $value eq 'array';
-   }
-print POSTINGS "}\n";
-print POSTINGS "\n";
-while(my ($name,$value)=each(%{$class->getParams()}))
-   {
-   printParam($name,$value);
-   }
-print POSTINGS "}\n";
-print POSTINGS "\n";
-}
-
-sub printClassName
-{
-my ($class)=@_;
-
-print GRPS " $constPrefix".$class->getFlag()." => '".$class->getName()."',\n";
-}
-
 sub done
 {
 open GRPS,">$constFileName";
 open POSTINGS,">$classFileName";
 print GRPS "<?php\n";
 print GRPS "define('${constPrefix}NONE',0);\n";
-print POSTINGS "<?php\n";
 for(@Classes)
    {
    printConstant($_);
-   printClass($_);
    }
 while(my ($name,$value)=each(%Groups))
      {
-     $value=$maskValues ? sprintf('0x%x',$value) : $value;
-     print GRPS "define('$constPrefix$name',$value);\n";
+     if($maskValues)
+       {
+       $value=sprintf('0x%x',$value);
+       print GRPS "define('$constPrefix$name',$value);\n";
+       }
+     else
+       {
+       $value='array('.join(',',@$value).')';
+       print GRPS "\$$constPrefix$name=$value;\n";
+       }
      }
-my $all=$maskValues ? sprintf('0x%x',$FlagValue-1) : $FlagValue-1;
-my $name=$maskValues ? 'ALL' : 'MAX';
-print GRPS "define('$constPrefix$name',$all);\n";
+if($maskValues)
+  {
+  my $all=sprintf('0x%x',$FlagValue-1);
+  print GRPS "define('${constPrefix}ALL',$all);\n";
+  }
+else
+  {
+  my $max=$FlagValue-1;
+  my $all='array('.join(',',map {$_->getFlagValue()} @Classes ).')';
+  print GRPS "define('${constPrefix}MAX',$max);\n";
+  print GRPS "\$${constPrefix}ALL=$all;\n";
+  }
 print GRPS "\n";
-print GRPS "\$${arrayPrefix}ClassNames=array(\n";
-for(@Classes)
-   {
-   printClassName($_);
-   }
-print GRPS " ${constPrefix}NONE => '$parentClass'\n";
-print GRPS ");\n";
+while(my ($name,$value)=each(%{$defaultClass->getParams()}))
+     {
+     printParam($name,$value);
+     }
 print GRPS "?>\n";
-print POSTINGS "?>\n";
 close GRPS;
 close POSTINGS;
 }

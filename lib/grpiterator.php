@@ -1,25 +1,22 @@
 <?php
 require_once('lib/grps.php');
-require_once('lib/iterator.php');
+require_once('lib/array.php');
 require_once('lib/grpentry.php');
 
 class GrpIterator
-      extends Iterator
+      extends ArrayIterator
 {
-var $grp;
 
 function GrpIterator()
 {
-parent::Iterator();
-$this->grp=1;
+global $GRP_ALL;
+
+parent::ArrayIterator($GRP_ALL);
 }
 
-function next()
+function create($value)
 {
-parent::next();
-$result=$this->grp<=GRP_ALL ? new GrpEntry(array('grp' => $this->grp)) : 0;
-$this->grp*=2;
-return $result;
+return new GrpEntry(array('grp' => $value));
 }
 
 }

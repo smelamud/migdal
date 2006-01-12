@@ -11,18 +11,20 @@ clean:
 	-rm *.php
 
 groups.stamp: groups.conf ../../grpparser
-	../../grpparser -C grps.php -L postings.php -p GRP_ -i Posting -m \
-		-f grp -a grp $<
+	../../grpparser -C grps.php -L grpentry-body.php -p GRP_ -f grp \
+		-a grp $<
+	cat grpentry-header.php grpentry-body.php grpentry-footer.php \
+		> grpentry.php
 	touch $@
 
 mailings.stamp: mailings.conf ../../grpparser
-	../../grpparser -C mailtypes.php -L mailings.php -p MAIL_ -i Mailing \
-		-f type_id -a mailing $<
+	../../grpparser -C mailtypes.php -L mailings.php -p MAIL_ -f type_id \
+		-a mailing $<
 	touch $@
 
 complains.stamp: complains.conf ../../grpparser
 	../../grpparser -C compltypes.php -L complains.php -p COMPL_ \
-		-i Complain -f type_id -a complain $<
+		-f type_id -a complain $<
 	touch $@
 
 structure.stamp: structure.conf ../../structparser
