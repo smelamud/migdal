@@ -15,7 +15,7 @@
  <else>
   <form_table title='Добавить тему'>
  </if>
- <form method=post enctype='multipart/form-data' action='actions/topicmod.php'>
+ <form method=post enctype='multipart/form-data' action='actions/topic/modify/'>
   <hidden name='edittag' value=1>
   <hidden name='okdir' value='$--'>
   <hidden name='faildir' value='$-'>
@@ -32,7 +32,7 @@
   <form_edit title='Обозначение' name='ident' value='$=,Ident' size=15
 	     maxlength=15>
   <error id='*ET_NAME_ABSENT' text='Название не было введено'>
-  <form_edit title='Название' value='$=,Subject' name='name' size=50
+  <form_edit title='Название' value='$=,Subject' name='subject' size=50
 	     maxlength=70 mandatory='*true'>
   <form_edit title='Комментарий 0' value='$=,Comment0' name='comment0' size=50
 	     maxlength=70>
@@ -45,14 +45,14 @@
   <form_section title='Права доступа'>
   <error id='*ET_NO_USER' text='Такого пользователя не существует'>
   <form_edit title='Владелец' name='login' value='$=,Login' size=20
-	     maxlength=30 mandatory='*true'>
+	     maxlength=30>
   <error id='*ET_NO_GROUP' text='Такой группы не существует'>
   <form_edit title='Группа' name='group_login' value='$=,GroupLogin' size=20
-	     maxlength=30 mandatory='*true'>
+	     maxlength=30>
   <error id='*ET_BAD_PERMS' text='Права заданы некорректно'>
   <form_edit title='Права' name='perm_string' value='$,PermHTML' size=17
-	     maxlength=17 mandatory='*true'>
-  <form_select title='Допустимые сообщения' name='grps' rows='8'
+	     maxlength=17>
+  <form_select title='Допустимые сообщения' name='grps[]' rows='8'
                multiple='*true'>
    <iterate_grps>
    <for>
@@ -60,7 +60,7 @@
                  selected!='in_array($.Grp,$,Grps)'>
    </for>
   </form_select>
-  <form_select title='Модерирование' name='modbits' style='box'
+  <form_select title='Модерирование' name='modbits[]' style='box'
                multiple='*true'>
    <iterate_topic_modbits>
    <for>

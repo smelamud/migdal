@@ -16,7 +16,7 @@ function idByIdent($ident,$table='entries')
 {
 if(isId($ident))
   return $ident;
-if($ident=='')
+if(is_null($ident) || $ident=='')
   return 0;
 if(hasCachedValue('ident',$table,$ident))
   return getCachedValue('ident',$table,$ident);

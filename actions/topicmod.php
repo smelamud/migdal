@@ -8,6 +8,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/topics.php');
+require_once('lib/entries.php');
 require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
@@ -22,7 +23,7 @@ global $userLogin,$topicMandatoryDescription,$rootTopicUserName,
 
 if($original->getId()!=0 && !$original->isWritable())
   return ET_NO_EDIT;
-if($topic->name=='')
+if($topic->subject=='')
   return ET_NAME_ABSENT;
 if($topic->login=='')
   $topic->login=$userLogin;
@@ -38,7 +39,7 @@ if($gid==0)
 $topic->group_id=$gid;
 if($topic->perms<0)
   return ET_BAD_PERMS;
-if($topicMandatoryDescription && $topic->stotext->body=='')
+if($topicMandatoryDescription && $topic->body=='')
   return ET_DESCRIPTION_ABSENT;
 if($topic->up<0)
   $topic->up=0;
@@ -48,42 +49,51 @@ if($topic->up!=0)
     return ET_NO_UP;
   if($topic->up==$topic->id)
     return ET_LOOP_UP;
-  $upPerms=getPermsById('topics',$topic->up);
+  $upPerms=getPermsById($topic->up);
   }
 else
-  $upPerms=new Topic(array('user_id'  => getUserIdByLogin($rootTopicUserName),
+  $upPerms=new Entry(array('user_id'  => getUserIdByLogin($rootTopicUserName),
                            'group_id' => getUserIdByLogin($rootTopicGroupName),
                            'perms'    => $rootTopicPerms));
 if(!$upPerms->isAppendable())
   return ET_NO_APPEND;
-$cid=idByIdent('topics',$topic->ident);
-if($topic->ident!='' && $cid!=0 && $topic->id!=$cid)
+$cid=idByIdent($topic->ident);
+if(!is_null($topic->ident) && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
-$topic->track='';
-$topic->store();
-updateTracks('topics',$topic->id);
+if($original->up!=$topic->up)
+  $topic->track='';
+storeTopic($topic);
+if($original->up!=$topic->up)
+  updateTracks('entries',$topic->id);
+setGrpsByEntryId($topic->id,$topic->grps);
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
 postInteger('editid');
+postInteger('edittag');
+postString('body');
 postInteger('up');
-postString('name');
+postString('subject');
 postString('comment0');
 postString('comment1');
+postString('ident');
 postString('login');
+postString('user_name');
 postString('group_login');
+postString('group_name');
 postString('perm_string');
-postString('description');
-postString('large_description');
+postIntegerArray('modbits');
+postInteger('index2');
+postIntegerArray('grps');
 
 dbOpen();
 session();
 $topic=getTopicById($editid,$up);
 $original=$topic;
-$topic->setup($HTTP_POST_VARS);
-$err=uploadLargeText($topic->stotext);
-if($err==EG_OK)
-  $err=modifyTopic($topic,$original);
+$topic->setup($Args);
+$err=modifyTopic($topic,$original);
 if($err==EG_OK)
   {
   header("Location: $okdir");
@@ -91,18 +101,15 @@ if($err==EG_OK)
   }
 else
   {
-  $descriptionId=tmpTextSave($description);
-  $largeDescriptionId=tmpTextSave($large_description);
+  $bodyId=tmpTextSave($body);
   header('Location: '.
           remakeMakeURI($faildir,
-			$HTTP_POST_VARS,
-			array('description',
-			      'large_description',
+			$Args,
+			array('body',
 			      'okdir',
 			      'faildir'),
-			array('descriptionid'       => $descriptionId,
-			      'large_descriptionid' => $largeDescriptionId,
-			      'err'                 => $err)).'#error');
+			array('body_i' => $bodyId,
+			      'err'    => $err)).'#error');
   }
 dbClose();
 ?>

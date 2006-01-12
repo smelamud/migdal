@@ -4,7 +4,7 @@
 1. idByIdent() и identById() не требуется таблица (entries по дефолту) и
 поменялся порядок параметров.
 2. В начале страниц и в начале action'ов требуется объявление всех параметров
-(проверяется с register_globals = off). В том числе и okdir, faildir.
+(проверяется с register_globals = off). В том числе okdir, faildir и edittag.
 3. Есть radio_button для <input type='radio'>.
 4. Внутренний формат уже не HTML, а такой же, как исходник. Требуется
 подстановка $=var для вставки в HTML простых строк, в которых могут быть
@@ -49,8 +49,10 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 28. <subtitle> теперь принимает непосредственный параметр, по умолчанию -
     заголовок страницы.
 29. sqlDate() и sqlNow() при вставке времени в запрос.
-30. Групповые GRP_ теперь не маски, а строки и массивы, им соотвествующие,
+30. Групповые GRP_ теперь не маски, а строки. Массивы, им соотвествующие,
 берутся из $grpGroups (не забыть global!).
+31. Убедиться, что все модифицирующие запросы реплицируются, включая операции
+с картинками.
 
 Прогресс пересмотра файлов
 --------------------------
@@ -101,7 +103,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/topicdel.php
 - actions/topiclinkadd.php
 - actions/topiclinkdel.php
-- actions/topicmod.php
++ actions/topicmod.php
 - actions/topicsreorder.php
 - actions/userconfirm.php
 - actions/userlost.php
@@ -180,8 +182,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/rowscols.php
 + lib/run-script.php
 + lib/selectiterator.php
-- lib/select.php
-- lib/sendertag.php
+* lib/select.php (некоторые константы, возможно, окажутся ненужными)
+- lib/sendertag.php (удалить?)
 + lib/session.php
 + lib/sessions.php
 + lib/sort.php
@@ -296,7 +298,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/times.mhtml
 - migdal/tips.mhtml
 - migdal/topicdel.mhtml
-- migdal/topicedit.mhtml
++ migdal/topicedit.mhtml
 - migdal/topiclinkadd.mhtml
 - migdal/topiclinks.mhtml
 + migdal/topicorg.mhtml

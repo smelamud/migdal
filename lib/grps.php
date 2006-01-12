@@ -8,7 +8,7 @@ function getGrpOrder($grp)
 return round(log($grp)/M_LN2);
 }
 
-function getGrpValid($grp)
+function isGrpValid($grp)
 {
 global $grpGroups;
 

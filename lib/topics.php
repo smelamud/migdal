@@ -20,6 +20,7 @@ require_once('lib/sql.php');
 require_once('lib/tmptexts.php');
 require_once('lib/track.php');
 require_once('lib/modbits.php');
+require_once('lib/utils.php');
 
 class Topic
       extends GrpEntry
@@ -62,7 +63,7 @@ if($vars['group_name']!='')
 $this->perm_string=$vars['perm_string'];
 if($this->perm_string!='')
   $this->perms=permString($this->perm_string,strPerms($this->perms));
-$this->modbits=$vars['modbits'];
+$this->modbits=disjunct($vars['modbits']);
 $this->index2=$vars['index2'];
 $this->grps=array();
 foreach($vars['grps'] as $grp)
@@ -328,7 +329,8 @@ $jencoded=array('ident' => '','up' => 'entries','subject' => '',
                 'subject_sort' => '','comment0' => '','comment0_xml' => '',
 		'comment1' => '','comment1_xml' => '','user_id' => 'users',
 		'group_id' => 'users','body' => '','body_xml' => '');
-$vars=array('ident' => $topic->ident,
+$vars=array('entry' => $topic->entry,
+            'ident' => $topic->ident,
             'up' => $topic->up,
 	    'track' => $topic->track,
 	    'subject' => $topic->subject,
@@ -346,7 +348,7 @@ $vars=array('ident' => $topic->ident,
 	    'body' => $topic->body,
 	    'body_xml' => $topic->body_xml,
 	    'modified' => sqlNow());
-if($this->id)
+if($topic->id)
   {
   $result=sql(makeUpdate('entries',
                          $vars,

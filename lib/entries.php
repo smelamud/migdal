@@ -248,4 +248,29 @@ while(list($grp)=mysql_fetch_row($result))
      $grps[]=$grp;
 return $grps;
 }
+
+function setGrpsByEntryId($id,$grps)
+{
+sql('lock tables entry_grps write',
+    __FUNCTION__,'lock');
+sql("delete
+     from entry_grps
+     where entry_id=$id",
+    __FUNCTION__,'delete');
+journal("delete
+         from entry_grps
+         where entry_id=".journalVar('entries',$id));
+foreach($grps as $grp)
+       {
+       sql("insert into entry_grps(entry_id,grp)
+            values($id,$grp)",
+	   __FUNCTION__,'insert');
+       $eid=sql_insert_id();
+       journal('insert into entry_grps(entry_id,grp)
+                values('.journalVar('entries',$id).",$grp)",
+	       'entry_grps',$eid);
+       }
+sql('unlock tables',
+    __FUNCTION__,'unlock');
+}
 ?>
