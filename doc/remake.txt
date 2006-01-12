@@ -162,7 +162,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/messages.php
 - lib/mime.php
 - lib/mnogosearch.php
-* lib/modbits.php (только новые наборы флагов)
++ lib/modbits.php (только новые наборы флагов)
 + lib/no-cache.php
 - lib/package.php
 - lib/packages.php

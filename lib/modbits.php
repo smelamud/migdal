@@ -27,12 +27,21 @@ $modbitNames=array('Модерировать',
 define('MODC_NONE',0x0000);
 define('MODC_CLOSED',0x0001);
 define('MODC_NO_AUTO',0x0002);
+define('MODC_ALL',0x0003);
+
+$modbitCNames=array('Закрыта',
+                    'Автоматически не закрывается');
 
 // For topics
 define('MODT_NONE',0x0000);
 define('MODT_PREMODERATE',0x0001);
 define('MODT_MODERATE',0x0002);
 define('MODT_EDIT',0x0004);
+define('MODT_ALL',0x0007);
+
+$modbitTNames=array('Премодерировать',
+                    'Модерировать',
+		    'Редактировать');
 
 class Modbit
 {
@@ -68,23 +77,28 @@ class ModbitIterator
       extends Iterator
 {
 var $bit,$lbbit;
+var $max;
+var $letters,$names;
 
-function ModbitIterator()
+function ModbitIterator($max,$letters,$names)
 {
-$this->Iterator();
+parent::Iterator();
 $this->bit=1;
 $this->lbbit=0;
+$this->max=$max;
+$this->letters=$letters;
+$this->names=$names;
 }
 
 function next()
 {
 global $modbitLetters,$modbitNames;
 
-Iterator::next();
-$result=$this->bit<=MOD_ALL
+parent::next();
+$result=$this->bit<=$this->max
         ? new Modbit($this->bit,
-	             $modbitLetters[$this->lbbit],
-	             $modbitNames[$this->lbbit])
+	             $this->letters!=null ? $this->letters[$this->lbbit] : '',
+	             $this->names[$this->lbbit])
 	: 0;
 $this->bit*=2;
 $this->lbbit++;
@@ -93,45 +107,84 @@ return $result;
 
 }
 
-function getModbitsByMessageId($id)
+class PostingModbitIterator
+      extends ModbitIterator
+{
+
+function PostingModbitIterator()
+{
+global $modbitLetters,$modbitNames;
+
+parent::ModbitIterator(MOD_ALL,$modbitLetters,$modbitNames);
+}
+
+}
+
+class ComplainModbitIterator
+      extends ModbitIterator
+{
+
+function ComplainModbitIterator()
+{
+global $modbitCNames;
+
+parent::ModbitIterator(MODC_ALL,null,$modbitCNames);
+}
+
+}
+
+class TopicModbitIterator
+      extends ModbitIterator
+{
+
+function TopicModbitIterator()
+{
+global $modbitTNames;
+
+parent::ModbitIterator(MODT_ALL,null,$modbitTNames);
+}
+
+}
+
+function getModbitsByEntryId($id)
 {
 $result=sql("select modbits
-	     from messages
+	     from entries
 	     where id=$id",
-	    'getModbitsByMessageId');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-function setModbitsByMessageId($id,$bits)
+function setModbitsByEntryId($id,$bits)
 {
-sql("update messages
+sql("update entries
      set modbits=modbits | $bits
      where id=$id",
-    'setModbitsByMessageId');
-journal("update messages
+    __FUNCTION__);
+journal("update entries
          set modbits=modbits | $bits
-	 where id=".journalVar('messages',$id));
+	 where id=".journalVar('entries',$id));
 }
 
-function resetModbitsByMessageId($id,$bits)
+function resetModbitsByEntryId($id,$bits)
 {
-sql("update messages
+sql("update entries
      set modbits=modbits & ~$bits
      where id=$id",
-    'resetModbitsByMessageId');
-journal("update messages
+    __FUNCTION__);
+journal("update entries
          set modbits=modbits & ~$bits
-	 where id=".journalVar('messages',$id));
+	 where id=".journalVar('entries',$id));
 }
 
-function assignModbitsByMessageId($id,$bits)
+function assignModbitsByEntryId($id,$bits)
 {
-sql("update messages
+sql("update entries
      set modbits=$bits
      where id=$id",
-    'assignModbitsByMessageId');
-journal("update messages
+    __FUNCTION__);
+journal("update entries
          set modbits=$bits
-	 where id=".journalVar('messages',$id));
+	 where id=".journalVar('entries',$id));
 }
 ?>

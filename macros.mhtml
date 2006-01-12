@@ -58,6 +58,8 @@
 	 defaults='limit=20 offset=0'>
 <deciter macro='complain_actionlist' class='ComplainActionListIterator'
          file='lib/complainactions.php' params='type'>
+<deciter macro='complain_modbits' class='ComplainModbitIterator'
+         file='lib/modbits.php'>
 <deciter macro='complain_scriptlist' class='ComplainScriptListIterator'
          file='lib/complainscripts.php' params='mask'>
 <deciter macro='complain_types' class='ComplainTypeListIterator'
@@ -86,7 +88,6 @@
 <deciter macro='mnogosearch' class='MnogosearchIterator'
          file='lib/mnogosearch.php' params='query,limit,offset'
 	 defaults="limit=20 offset=0">
-<deciter macro='modbits' class='ModbitIterator' file='lib/modbits.php'>
 <deciter macro='packages' class='PackagesIterator' file='lib/packages.php'
          params='posting_id'>
 <deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
@@ -97,6 +98,8 @@
 	 params='sort,topic_id,recursive,grp,showshadows'
 	 defaults="sort='*SORT_URL_DOMAIN' topic_id=-1 recursive='*false'
 	           grp='*GRP_ALL' showshadows='*false'">
+<deciter macro='posting_modbits' class='PostingModbitIterator'
+         file='lib/modbits.php'>
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'
          file='lib/postings.php' params='posting,note_base'
 	 defaults="note_base=1">
@@ -137,6 +140,8 @@
          params='grp,up,sort,recursive,level,fields,index2,limit,offset'
          defaults="up=0 sort='*SORT_SUBJECT' recursive='*false' level=1
 		   fields='*SELECT_GENERAL' index2=-1 limit=0 offset=0">
+<deciter macro='topic_modbits' class='TopicModbitIterator'
+         file='lib/modbits.php'>
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up,recursive,delimiter'
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">

@@ -59,6 +59,13 @@
     <form_option value='$.Grp' title='$.GrpTitle'>
    </for>
   </form_select>
+  <form_select title='Модерирование' name='modbits' style='box'
+               multiple='*true'>
+   <iterate_topic_modbits>
+   <for>
+    <form_option value='$.Bit' title='$.Name'>
+   </for>
+  </form_select>
   <<tr><td><table width=100%><tr valign='top'>
    <td>
     <iterate_grps>
