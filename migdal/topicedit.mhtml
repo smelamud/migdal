@@ -3,6 +3,20 @@
 <conf>
 <int name='editid'>
 <int name='up'>
+<int name='edittag'>
+<string name='body'>
+<string name='subject'>
+<string name='comment0'>
+<string name='comment1'>
+<string name='ident'>
+<string name='login'>
+<string name='user_name'>
+<string name='group_login'>
+<string name='group_name'>
+<string name='perm_string'>
+<int_array name='modbits'>
+<int name='index2'>
+<int_array name='grps'>
 
 <html>
 <preamble>
