@@ -1,3 +1,10 @@
 Makefile
 *.stamp
-*.php
+grps.php
+grpentry-body.php
+grpentry.php
+mailtypes.php
+mailings.php
+compltypes.php
+complains.php
+structure.php

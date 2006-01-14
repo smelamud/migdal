@@ -8,7 +8,11 @@ Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ > Makefile
 
 clean:
-	-rm *.php
+	-rm *.stamp
+	-rm grps.php grpentry-body.php grpentry.php
+	-rm mailtypes.php mailings.php
+	-rm compltypes.php complains.php
+	-rm structure.php
 
 groups.stamp: groups.conf ../../grpparser
 	../../grpparser -C grps.php -L grpentry-body.php -p GRP_ -f grp \
