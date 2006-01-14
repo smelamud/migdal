@@ -13,7 +13,7 @@
 <isedit what='$user'>
  <p class='ninept'>
   &nbsp;
-  <at href#='/users/$#user.Ident/edit/'
+  <at href#='/users/$#user.Folder/edit/'
       target='$target'>Изменить информацию о пользователе</at>
  </p>
 </isedit>

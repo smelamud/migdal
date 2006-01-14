@@ -154,9 +154,9 @@ if($realUserId>0)
   updateLastOnline($realUserId);
 
 if($GLOBALS['userLogin']!='' && c_ascii($GLOBALS['userLogin']))
-  $GLOBALS['userIdent']=$GLOBALS['userLogin'];
+  $GLOBALS['userFolder']=$GLOBALS['userLogin'];
 else
-  $GLOBALS['userIdent']=$userId;
+  $GLOBALS['userFolder']=$userId;
 }
 
 function userSettings()

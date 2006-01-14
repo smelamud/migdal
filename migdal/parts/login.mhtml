@@ -57,7 +57,7 @@
       <if what='$$userHidden'>
        $$=userLogin
       <else>
-       <at href#='users/$$#userIdent/' class='name'
+       <at href#='users/$$#userFolder/' class='name'
 	   target='$target'>$$=userLogin</at>
       </if>
       </b>

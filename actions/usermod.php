@@ -96,7 +96,7 @@ if($err==EG_OK)
   $okdir=$parts['path'];
   if(substr($okdir,-1)!='/')
     $okdir.='/';
-  $okdir.=$user->getIdent().'/';
+  $okdir.=$user->getFolder().'/';
   if($parts['query']!='')
     $okdir.='?'.$parts['query'];
   header("Location: $okdir");

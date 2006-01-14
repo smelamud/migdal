@@ -113,7 +113,7 @@ function getId()
 return $this->id;
 }
 
-function getIdent()
+function getFolder()
 {
 return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getId();
 }
