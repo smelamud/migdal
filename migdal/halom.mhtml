@@ -11,7 +11,7 @@
 <assign name='day' value!='$day<=0 ? 1 : $day'>
 <ifnzero what='$postid'>
  <posting_obj name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'
-              fields='*SELECT_ALLPOSTING'>
+              fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
  <ifzero what='$,Id'>
   <fail>
  </ifzero>
@@ -25,7 +25,8 @@
   <fail>
  </ifzero>
  <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$halom.Id'
-              index1='$day' fields='*SELECT_ALLPOSTING'>
+              index1='$day'
+              fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
  <ifzero what='$,Id'>
   <fail>
  </ifzero>

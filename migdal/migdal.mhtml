@@ -19,7 +19,8 @@
 </if>
 << /Traps >>
 
-<posting_obj id='$artid' grp='*GRP_REVIEWS' fields='*SELECT_ALLPOSTING'>
+<posting_obj id='$artid' grp='*GRP_REVIEWS'
+             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
 <ifzero what='$,Id'>
  <fail>
 </ifzero>

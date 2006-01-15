@@ -3,7 +3,7 @@
 <int name='postid'>
 <grps>
 <posting_obj name='posting' id='$postid' grp='*GRP_FORUMS'
-             fields='*SELECT_ALLPOSTING'>
+             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
 <ifzero what='$,Id'>
  <fail>
 </ifzero>

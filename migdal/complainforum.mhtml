@@ -13,7 +13,7 @@
  <div class='cframe' style='padding: 5px'>
   <if what='$,TypeId==*COMPL_POSTING || $,TypeId==*COMPL_AUTO_POSTING'><zone>
    <posting_obj name='posting' id='$,Link' grp='*GRP_NONE'
-                fields='*SELECT_ALLPOSTING'>
+                fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
    <if what='$posting.Grp!=*GRP_NONE'>
     <posting posting='$posting' showcomplain='*false'>
     <p>

@@ -1,7 +1,8 @@
 << @(#) $Id$ >>
 
 <ident name='chapid' table='postings'>
-<posting_obj id='$chapid' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_ALLPOSTING'>
+<posting_obj id='$chapid' grp='*GRP_BOOK_CHAPTERS'
+             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
 <ifzero what='$,Id'>
  <fail>
 </ifzero>

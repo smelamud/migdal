@@ -269,7 +269,7 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$personal=0,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
 			     $subdomain=-1,$up=-1,$showShadows=true,
-			     $fields=SELECT_ALLPOSTING,$modbits=MOD_NONE,
+			     $fields=SELECT_GENERAL,$modbits=MOD_NONE,
 			     $hidden=-1,$disabled=-1)
 {
 global $userId;
@@ -693,7 +693,7 @@ return newGrpPosting($grp,array('id'       => 0,
 }
 
 function getPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1,
-                        $fields=SELECT_ALLPOSTING,$up=-1)
+                        $fields=SELECT_GENERAL,$up=-1)
 {
 /* Select */
 $imageFields=($fields & SELECT_IMAGES)!=0 ?
