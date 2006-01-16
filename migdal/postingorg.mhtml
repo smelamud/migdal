@@ -38,6 +38,19 @@
 </if>
 </element>
 
+<element name='topic_choice' params='title,id,n,recursive'>
+<tr>
+ <td>$title</td>
+ <td><topicselect name='topic_id[]' value='$id'></td>
+</tr>
+<tr>
+ <td>&nbsp;</td>
+ <td>
+  <checkbox title='С подтемами' name#='recursive($n)' value='$recursive'>
+ </td>
+</tr>
+</element>
+
 <element name='post' params='posting'>
 <ifnzero what='$posting.Shadow'><blockquote></ifnzero>
  <table class='posting' width=100%>
@@ -149,29 +162,11 @@
 	<assign name='id' value!='abs($.)'>
 	<assign name='rec' value!='$.<=0'>
 	<<filter_topic list='$postings' topic_id='$id' recursive='$rec'>>
-	<tr>
-	 <td>Тема</td>
-	 <td><topicselect name='topic_id[]' value='$id' title='$title'></td>
-	</tr>
-	<tr>
-	 <td>&nbsp;</td>
-	 <td>
-	  <checkbox title='С подтемами' name#='recursive($n)' value='$rec'>
-	 </td>
-	</tr>
+	<topic_choice title='$title' id='$id' n='$n' recursive='$rec'>
         <assign name='title' value='<i>Или</i>'>
         <assign name='n' value!='$n+1'>
        </for>
-       <tr>
-	<td>Тема</td>
-	<td><topicselect name='topic_id[]' value=0 title='$title'></td>
-       </tr>
-       <tr>
-	<td>&nbsp;</td>
-	<td>
-	 <checkbox title='С подтемами' name#='recursive($n)' value='*true'>
-	</td>
-       </tr>
+       <topic_choice title='$title' id='0' n='$n' recursive='*true'>
       </zone></table></td></tr>
       <tr><td align=left colspan=2>
        Тип сообщения

@@ -150,12 +150,12 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/initstop-mail.php
 + lib/initstop.php
 - lib/inner.php
-- lib/ip.php
++ lib/ip.php
 + lib/iterator.php
 + lib/jewish-calendar.php
 + lib/jewish-calendar-utils.php
 - lib/journal.php
-- lib/langs.php
++ lib/langs.php
 + lib/limitselect.php
 + lib/logging.php
 - lib/logs.php

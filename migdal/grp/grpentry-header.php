@@ -8,6 +8,8 @@ class GrpEntry
 
 function GrpEntry($row)
 {
+$this->grp=GRP_NONE;
+$this->grps=array();
 parent::Entry($row);
 }
 

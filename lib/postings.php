@@ -1,29 +1,30 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/messages.php');
-require_once('lib/stotext-images.php');
-require_once('lib/selectiterator.php');
-require_once('lib/limitselect.php');
-require_once('lib/grps.php');
-require_once('lib/topics.php');
-require_once('lib/text.php');
-require_once('lib/paragraphs.php');
-require_once('lib/sort.php');
-require_once('lib/track.php');
-require_once('lib/random.php');
-require_once('lib/users.php');
+require_once('lib/alphabet.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
+//require_once('lib/counters.php');
+//require_once('lib/forums.php');
+require_once('lib/grps.php');
+require_once('lib/limitselect.php');
+require_once('lib/entries.php');
+require_once('lib/grpentry.php');
+//require_once('lib/paragraphs.php');
+require_once('lib/random.php');
+require_once('lib/selectiterator.php');
 require_once('lib/select.php');
-require_once('lib/alphabet.php');
-require_once('lib/forums.php');
-require_once('lib/counters.php');
-require_once('lib/votes.php');
+require_once('lib/sort.php');
 require_once('lib/sql.php');
+//require_once('lib/stotext-images.php');
+require_once('lib/text.php');
+require_once('lib/topics.php');
+require_once('lib/track.php');
+require_once('lib/users.php');
+//require_once('lib/votes.php');
 
 class Posting
-      extends Message
+      extends GrpEntry
 {
 var $ident;
 var $message_id;
@@ -44,8 +45,8 @@ var $co_ctr;
 
 function Posting($row)
 {
-$this->Message($row);
-$this->grp=GRP_NONE;
+$this->entry=ENT_POSTING;
+parent::GrpEntry($row);
 }
 
 function setup($vars)
@@ -234,8 +235,6 @@ return 1/$this->co_ctr;
 }
 
 }
-
-require_once('grp/postings.php');
 
 function newPosting($row)
 {
