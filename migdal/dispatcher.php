@@ -75,6 +75,7 @@ foreach($args as $name => $value)
 }
 
 postInteger('redirid');
+unset($Args['redirid']);
 
 dbOpen();
 $LocationInfo=&dispatch();

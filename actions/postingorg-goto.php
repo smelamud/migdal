@@ -5,28 +5,26 @@ require_once('lib/errorreporting.php');
 require_once('lib/uri.php');
 require_once('lib/post.php');
 
+postString('okdir');
+postString('faildir');
 postIntegerArray('topic_id');
+postInteger('offset');
 postIntegerArray('grp');
 postInteger('index1');
 postInteger('use_index1');
 
-$grpf=0;
-foreach($grp as $value)
-       $grpf|=$value;
-if($grpf==0)
-  $grpf=-1;
 $remove=array('okdir','faildir','offset');
 $n=0;
 foreach($topic_id as $id)
        {
-       $topics[]=$HTTP_POST_VARS["recursive($n)"]!=0 ? -abs($id) : abs($id);
-       $remove[]="recursive($n)";
+       $rname="recursive($n)";
+       postInteger($rname);
+       $topics[]=$Args[$rname]!=0 ? -abs($id) : abs($id);
+       $remove[]=$rname;
        $n++;
-       next($recursive);
        }
 header('Location: '.remakeMakeURI($okdir,
-                                  $HTTP_POST_VARS,
+                                  $Args,
                                   $remove,
-			          array('grp'      => $grpf,
-				        'topic_id' => $topics)));
+			          array('topic_id' => $topics)));
 ?>

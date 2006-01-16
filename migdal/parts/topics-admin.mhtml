@@ -8,7 +8,7 @@
  <topics_line arrow!="$ident=='admin-topics'" class='item'
               text='Темы' href#='admin/topics/'>
  <topics_line arrow!="$ident=='admin-messages'" class='item'
-              text='Сообщения' href#='postingorg.php'>
+              text='Сообщения' href#='admin/postings/'>
  <topics_line arrow!="$ident=='admin-groups'" class='item'
               text='Группы' href#='grouporg.php'>
  <topics_line arrow!="$ident=='admin-journal'" class='item'

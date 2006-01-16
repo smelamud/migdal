@@ -94,7 +94,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/postingcopy.php
 - actions/postingdel.php
 - actions/postingmod.php
-- actions/postingorg-goto.php
++ actions/postingorg-goto.php
 - actions/reorder.php
 - actions/search.php
 - actions/shadow.php
@@ -283,7 +283,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/moderator.mhtml
 - migdal/postingedit.mhtml
 - migdal/posting.mhtml
-- migdal/postingorg.mhtml
+* migdal/postingorg.mhtml
 - migdal/printings.mhtml
 - migdal/rating.mhtml
 + migdal/register.mhtml

@@ -58,6 +58,7 @@ function redirect()
 global $LocationInfo,$redirid,$globalid,$Args;
 
 postInteger('globalid');
+unset($Args['globalid']);
 
 if($globalid==0)
   {
@@ -78,7 +79,6 @@ else
   $redir=getRedirById($globalid);
   if($redir->getId()==0)
     {
-    unset($Args['globalid']);
     postIntegerValue('globalid',0);
     redirect();
     return;
