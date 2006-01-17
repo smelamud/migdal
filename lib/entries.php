@@ -617,7 +617,7 @@ journal("update entries
          set perms=perms $op
 	 where id=".journalVar('entries',$id));
 dropPostingsInfoCache(DPIC_POSTINGS);
-if(($parent_id=getParentIdByEntryId($id))>0)
+if(($parent_id=getParentIdByEntryId($id))>0) // FIXME Сейчас у всех есть parent
   answerUpdate($parent_id);
 }
 
@@ -632,7 +632,7 @@ journal("update entries
          set disabled=$disabled
 	 where id=".journalVar('entries',$id));
 dropPostingsInfoCache(DPIC_POSTINGS);
-if(($parent_id=getParentIdByEntryId($id))>0)
+if(($parent_id=getParentIdByEntryId($id))>0) // FIXME Сейчас у всех есть parent
   answerUpdate($parent_id);
 }
 ?>
