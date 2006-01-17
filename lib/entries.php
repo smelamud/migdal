@@ -1,4 +1,6 @@
 <?php
+# @(#) $Id$
+
 require_once('lib/usertag.php');
 require_once('lib/mtext-shorten.php');
 
