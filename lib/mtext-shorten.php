@@ -189,6 +189,14 @@ foreach($patterns as $pat)
 return $len;
 }
 
+function cleanLength($s)
+{
+$xml=new MTextToLineXML();
+$xml->parse($s);
+$xml->free();
+return strlen($xml->getLine());
+}
+
 function shorten($s,$len,$mdlen,$pdlen)
 {
 $xml=new MTextToLineXML();

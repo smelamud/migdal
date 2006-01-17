@@ -26,7 +26,6 @@ class Topic
       extends GrpEntry
 {
 var $full_name;
-var $perm_string;
 var $postings_info;
 var $sub_count;
 
@@ -89,18 +88,6 @@ $s=$this->getFullName();
 return strlen($s)>$fullNameShortSize
        ? '...'.substr($s,-($fullNameShortSize-3))
        : $s;
-}
-
-function getPermString()
-{
-return $this->perm_string!='' ? $this->perm_string
-                              : strPerms($this->getPerms());
-}
-
-function getPermHTML()
-{
-return $this->perm_string!='' ? str_replace('-','-&nil;',$this->perm_string)
-                              : strPerms($this->getPerms(),true);
 }
 
 function isPermitted($right)

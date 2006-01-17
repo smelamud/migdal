@@ -11,7 +11,7 @@
     <td><image src='pics/sheet.gif'></td>
     <td>
      <assign name='noguests' value!='$access ? 0 : 1'>
-     <if what='$,isValid'>
+     <if what='$,isValid'> <<isValid deprecated>>
       <a href='postingedit.php?topic_id=$topic_id&grp=$grp&noguests=$noguests&redirid=$_'
 	 >Добавить $,GrpItemTitle</a>
      <else>

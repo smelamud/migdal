@@ -26,15 +26,10 @@ require_once('lib/users.php');
 class Posting
       extends GrpEntry
 {
-var $ident;
-var $message_id;
 var $topic_id;
 var $topic_ident;
 var $topic_name;
 var $topic_description;
-var $personal_id;
-var $grp;
-var $priority;
 var $vote;
 var $vote_count;
 var $subdomain;
@@ -119,34 +114,15 @@ else
 return $result;
 }
 
-function isValid()
+// from Message FIXME
+function isPermitted($right)
 {
-return $this->grp!=GRP_NONE;
-}
+global $userModerator,$userId;
 
-function getIdent()
-{
-return $this->ident;
-}
-
-function getMessageId()
-{
-return $this->message_id;
-}
-
-function getGrp()
-{
-return $this->grp;
-}
-
-function setGrp($grp)
-{
-$this->grp=$grp;
-}
-
-function getPriority()
-{
-return $this->priority;
+return $userModerator
+       ||
+       (!$this->isDisabled() || $this->getUserId()==$userId) &&
+       perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
 }
 
 function getTopicId()
@@ -169,11 +145,6 @@ function getTopicDescription()
 return $this->topic_description;
 }
 
-function getPersonalId()
-{
-return $this->personal_id;
-}
-
 function getVote()
 {
 return getRating($this->vote,$this->vote_count);
@@ -192,21 +163,6 @@ return sprintf("%1.2f",$this->getVote());
 function getVote20()
 {
 return (int)round($this->getVote()*4);
-}
-
-function getIndex0()
-{
-return $this->index0;
-}
-
-function getIndex1()
-{
-return $this->index1;
-}
-
-function getIndex2()
-{
-return $this->index2;
 }
 
 function getSubdomain()
@@ -236,6 +192,30 @@ return 1/$this->co_ctr;
 
 }
 
+// from Message FIXME
+function messagesPermFilter($right,$prefix='')
+{
+global $userModerator,$userId;
+
+if($userModerator)
+  return '1';
+$filter=permFilter($right,$prefix);
+if($prefix!='' && substr($prefix,-1)!='.')
+  $prefix.='.';
+return "$filter and (${prefix}disabled=0".
+       ($userId>0 ? " or ${prefix}user_id=$userId)" : ')');
+}
+
+// from Message FIXME
+function messageExists($id)
+{
+$hide=messagesPermFilter(PERM_READ);
+$result=sql("select id
+	     from messages
+	     where id=$id and $hide",
+	    'messageExists');
+return mysql_num_rows($result)>0;
+}
 function newPosting($row)
 {
 $name=getGrpClassName($row['grp']);

@@ -7,7 +7,7 @@
   <select name='$name'>
    <iterate_grps>
    <for>
-    <if what='$.isValid'>
+    <if what='$.isValid'> <<isValid deprecated>>
      <radio title='$.GrpTitle' value='$.Grp' peervalue='$value'>
     </if>
    </for>
