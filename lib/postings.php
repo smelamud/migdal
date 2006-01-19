@@ -21,19 +21,17 @@ require_once('lib/text.php');
 require_once('lib/topics.php');
 require_once('lib/track.php');
 require_once('lib/users.php');
-//require_once('lib/votes.php');
+require_once('lib/votes.php');
+require_once('lib/uri.php');
 
 class Posting
       extends GrpEntry
 {
-var $topic_id;
 var $topic_ident;
-var $topic_name;
-var $topic_description;
-var $vote;
-var $vote_count;
-var $subdomain;
-var $shadow;
+var $topic_subject;
+var $topic_body;
+var $topic_body_xml;
+var $topic_body_format;
 var $counter_value0;
 var $counter_value1;
 var $co_ctr;
@@ -48,70 +46,57 @@ function setup($vars)
 {
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-Message::setup($vars);
-$this->topic_id=idByIdent('topics',$vars['topic_id']);
-}
-
-function getCorrespondentVars()
-{
-$list=Message::getCorrespondentVars();
-array_push($list,'ident','grp','personal_id','priority','index1','index2');
-return $list;
-}
-
-function getWorldPostingVars()
-{
-return array('message_id','topic_id','grp','personal_id','index1','index2');
-}
-
-function getAdminPostingVars()
-{
-return array('ident','priority');
-}
-
-function getJencodedPostingVars()
-{
-return array('message_id' => 'messages','topic_id' => 'topics',
-             'personal_id' => 'users');
-}
-
-function getNormalPosting($isAdmin=false)
-{
-$normal=$this->collectVars($this->getWorldPostingVars());
-if($isAdmin)
-  $normal=array_merge($normal,$this->collectVars($this->getAdminPostingVars()));
-return $normal;
-}
-
-function store()
-{
-global $userModerator;
-
-$result=Message::store('message_id');
-if(!$result)
-  return $result;
-$normal=$this->getNormalPosting($userModerator);
-if($this->id)
+// from Stotext FIXME
+$this->body_format=TF_PLAIN;
+$this->body=$vars['body'];
+$this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
+$this->large_body_format=$vars['large_body_format'];
+if(!c_digit($this->large_body_format) || $this->large_body_format>TF_MAX)
+  $this->large_body_format=TF_PLAIN;
+$this->has_large_body=0;
+if($vars["large_body"]!='')
   {
-  $result=sql(makeUpdate('postings',
-                         $normal,
-			 array('id' => $this->id)),
-	      get_method($this,'store'),'update');
-  journal(makeUpdate('postings',
-                     jencodeVars($normal,$this->getJencodedPostingVars()),
-		     array('id' => journalVar('postings',$this->id))));
+  $this->has_large_body=1;
+  $this->large_body=$vars["large_body"];
+  $this->large_body_xml=wikiToXML($this->large_body,$this->large_body_format,
+                                  MTEXT_LONG);
   }
+// from Message FIXME
+$this->up=$vars['up'];
+$this->subject=$vars['subject'];
+$this->subject_sort=convertSort($this->subject);
+$this->comment0=$vars['comment0'];
+$this->comment0_xml=wikiToXML($this->comment0,$this->body_format,MTEXT_LINE);
+$this->comment1=$vars['comment1'];
+$this->comment1_xml=wikiToXML($this->comment1,$this->body_format,MTEXT_LINE);
+$this->author=$vars['author'];
+$this->author_xml=wikiToXML($this->author,$this->body_format,MTEXT_LINE);
+$this->source=$vars['source'];
+$this->source_xml=wikiToXML($this->source,$this->body_format,MTEXT_LINE);
+$this->login=$vars['login'];
+if($vars['user_name']!='')
+  $this->login=$vars['user_name'];
+$this->group_login=$vars['group_login'];
+if($vars['group_name']!='')
+  $this->group_login=$vars['group_name'];
+$this->perm_string=$vars['perm_string'];
+if($this->perm_string!='')
+  $this->perms=permString($this->perm_string,strPerms($this->perms));
 else
-  {
-  $result=sql(makeInsert('postings',
-                         $normal),
-	      get_method($this,'store'),'insert');
-  $this->id=sql_insert_id();
-  journal(makeInsert('postings',
-                     jencodeVars($normal,$this->getJencodedPostingVars())),
-	  'postings',$this->id);
-  }
-return $result;
+  if($vars['hidden'])
+    $this->perms&=~0x1100;
+  else
+    $this->perms|=0x1100;
+$this->lang=$vars['lang'];
+$this->disabled=$vars['disabled'];
+$this->url=$vars['url'];
+$this->url_domain=getURLDomain($this->url);
+// from Posting FIXME
+$this->ident=$vars['ident']!='' ? $vars['ident'] : null;
+$this->index1=$vars['index1'];
+$this->index2=$vars['index2'];
+array_push($list,'grp','personal_id','priority');
+$this->parent_id=$vars['parent_id']);
 }
 
 // from Message FIXME
@@ -125,9 +110,14 @@ return $userModerator
        perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
 }
 
+function isShadow()
+{
+return $this->getId()!=$this->getOrigId();
+}
+
 function getTopicId()
 {
-return $this->topic_id;
+return $this->getParentId();
 }
 
 function getTopicIdent()
@@ -135,44 +125,35 @@ function getTopicIdent()
 return $this->topic_ident;
 }
 
+function getTopicSubject()
+{
+return $this->topic_subject;
+}
+
 function getTopicName()
 {
-return $this->topic_name;
+return $this->getTopicSubject();
 }
 
-function getTopicDescription()
+function getTopicBody()
 {
-return $this->topic_description;
+return $this->topic_body;
 }
 
-function getVote()
+function getTopicBodyXML()
 {
-return getRating($this->vote,$this->vote_count);
+return $this->topic_body_xml;
 }
 
-function getVoteCount()
+function getTopicBodyHTML()
 {
-return $this->vote_count;
+return mtextToHTML($this->getTopicBodyXML(),$this->getTopicBodyFormat(),
+                   $this->getTopicId());
 }
 
-function getVoteString()
+function getTopicBodyFormat()
 {
-return sprintf("%1.2f",$this->getVote());
-}
-
-function getVote20()
-{
-return (int)round($this->getVote()*4);
-}
-
-function getSubdomain()
-{
-return $this->subdomain;
-}
-
-function getShadow()
-{
-return $this->shadow;
+return $this->topic_body_format;
 }
 
 function getCounterValue0()
@@ -193,7 +174,7 @@ return 1/$this->co_ctr;
 }
 
 // from Message FIXME
-function messagesPermFilter($right,$prefix='')
+function postingsPermFilter($right,$prefix='')
 {
 global $userModerator,$userId;
 
@@ -207,35 +188,14 @@ return "$filter and (${prefix}disabled=0".
 }
 
 // from Message FIXME
-function messageExists($id)
+function postingExists($id)
 {
-$hide=messagesPermFilter(PERM_READ);
+$hide=postingsPermFilter(PERM_READ);
 $result=sql("select id
-	     from messages
+	     from entries
 	     where id=$id and $hide",
-	    'messageExists');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
-}
-function newPosting($row)
-{
-$name=getGrpClassName($row['grp']);
-return new $name($row);
-}
-
-function newGrpPosting($grp,$row=array())
-{
-$name=getGrpClassName($grp);
-return new $name($row);
-}
-
-function newDetailedPosting($grp,$topic_id=-1,$sender_id=0,$id=0,
-                            $topic_name='')
-{
-return newPosting(array('id'         => $id,
-                        'grp'        => $grp,
-                        'topic_id'   => $topic_id,
-                        'topic_name' => $topic_name,
-			'sender_id'  => $sender_id));
 }
 
 class PostingListIterator
@@ -300,7 +260,7 @@ $Select="postings.id as id,postings.ident as ident,
 	 messages.sent as sent,topic_id,messages.url as url,
 	 messages.url_domain as url_domain,messages.sender_id as sender_id,
 	 messages.group_id as group_id,messages.perms as perms,
-	 if((messages.perms & 0x1100)=0,1,0) as hidden,
+	 if((messages.perms & 0x0011)=0,1,0) as hidden,
 	 messages.disabled as disabled,messages.modbits as modbits,
 	 users.hidden as sender_hidden,
 	 postings.index0 as index0,postings.index1 as index1,
@@ -643,6 +603,53 @@ $this->AlphabetIterator(
 
 }
 
+function storePosting(&$posting)
+{
+function getWorldPostingVars()
+{
+return array('message_id','topic_id','grp','personal_id','index1','index2');
+}
+
+function getAdminPostingVars()
+{
+return array('ident','priority');
+}
+
+function getJencodedPostingVars()
+{
+return array('message_id' => 'messages','topic_id' => 'topics',
+             'personal_id' => 'users');
+}
+
+global $userModerator;
+
+$result=Message::store('message_id');
+if(!$result)
+  return $result;
+$normal=$this->getNormalPosting($userModerator);
+if($this->id)
+  {
+  $result=sql(makeUpdate('postings',
+                         $normal,
+			 array('id' => $this->id)),
+	      get_method($this,'store'),'update');
+  journal(makeUpdate('postings',
+                     jencodeVars($normal,$this->getJencodedPostingVars()),
+		     array('id' => journalVar('postings',$this->id))));
+  }
+else
+  {
+  $result=sql(makeInsert('postings',
+                         $normal),
+	      get_method($this,'store'),'insert');
+  $this->id=sql_insert_id();
+  journal(makeInsert('postings',
+                     jencodeVars($normal,$this->getJencodedPostingVars())),
+	  'postings',$this->id);
+  }
+return $result;
+}
+
 function getRootPosting($grp,$topic_id,$up)
 {
 global $rootPostingPerms;
@@ -704,7 +711,7 @@ $Select="postings.id as id,messages.track as track,postings.ident as ident,
 	 postings.index2 as index2,subdomain,shadow,messages.sent as sent,
 	 topic_id,personal_id,messages.sender_id as sender_id,
 	 messages.group_id as group_id,
-	 messages.perms as perms,if((messages.perms & 0x1100)=0,1,0) as hidden,
+	 messages.perms as perms,if((messages.perms & 0x0011)=0,1,0) as hidden,
 	 messages.disabled as disabled,messages.modbits as modbits,
 	 $imageFields
 	 $topicFields
@@ -778,13 +785,13 @@ $result=sql("select message_id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-function getMaxIndexOfPosting($index,$grp,$topic_id=-1,$recursive=false)
+function getMaxIndexOfPosting($indexN,$grp,$topic_id=-1,$recursive=false)
 {
 $hide=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $topicFilter=($topic_id<0 || $recursive && $topic_id==0)
              ? '' : ' and topics.'.subtree('topics',$topic_id,$recursive);
-$result=sql("select max(postings.index$index)
+$result=sql("select max(postings.index$indexN)
 	     from postings
 		  left join messages
 		       on postings.message_id=messages.id
@@ -876,18 +883,6 @@ $result=sql("select index1
 	     limit 1",
 	    'getSiblingIndex1');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-}
-
-function postingExists($id)
-{
-$hide=messagesPermFilter(PERM_READ);
-$result=sql("select postings.id
-	     from postings
-		  left join messages
-		       on postings.message_id=messages.id
-	     where postings.id=$id and $hide",
-	    'postingExists');
-return mysql_num_rows($result)>0;
 }
 
 function getPostingDomainCount($topic_id=-1,$recursive=false,$grp=GRP_ALL)

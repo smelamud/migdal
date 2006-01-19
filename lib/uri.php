@@ -66,6 +66,15 @@ $end=$location=='#' ? $end : $location;
 return $start.($query!='' ? "?$query" : '').($end!='' ? "#$end" : '');
 }
 
+function getURLDomain($url)
+{
+$parts=parse_url($url);
+$host=strtolower($parts['host']);
+if(substr($host,0,4)=='www.')
+  $host=substr($host,4);
+return $host;
+}
+
 class HTTPVar
 {
 var $name;

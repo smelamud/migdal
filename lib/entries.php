@@ -20,6 +20,8 @@ var $ident;
 var $entry;
 var $up;
 var $track;
+var $parent_id;
+var $orig_id;
 var $grp;
 var $grps;
 var $person_id;
@@ -28,7 +30,6 @@ var $group_id;
 var $group_login;
 var $perms;
 var $perm_string;
-var $hidden;
 var $disabled;
 var $subject;
 var $subject_sort;
@@ -57,6 +58,9 @@ var $priority;
 var $index0;
 var $index1;
 var $index2;
+var $vote;
+var $vote_count;
+var $rating;
 var $sent;
 var $created;
 var $modified;
@@ -103,6 +107,16 @@ return $this->up;
 function getTrack()
 {
 return $this->track;
+}
+
+function getParent()
+{
+return $this->parent_id;
+}
+
+function getOrigId()
+{
+return $this->orig_id;
 }
 
 function getGrp()
@@ -204,7 +218,7 @@ return $this->isPermitted(PERM_POST);
 
 function isHidden()
 {
-return $this->hidden;
+return ($this->perms & 0x0011)==0;
 }
 
 function isDisabled()
@@ -473,6 +487,31 @@ return $this->index1;
 function getIndex2()
 {
 return $this->index2;
+}
+
+function getVote()
+{
+return $this->vote;
+}
+
+function getVoteCount()
+{
+return $this->vote_count;
+}
+
+function getRating()
+{
+return $this->rating;
+}
+
+function getRatingString()
+{
+return sprintf("%1.2f",$this->getRating());
+}
+
+function getRating20()
+{
+return (int)round($this->getRating()*4);
 }
 
 function getSent()

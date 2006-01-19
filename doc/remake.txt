@@ -162,7 +162,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/logs.php
 + lib/mailings.php
 - lib/mail.php
-- lib/messages.php
+* lib/messages.php (удалить)
 - lib/mime.php
 - lib/mnogosearch.php
 + lib/modbits.php (только новые наборы флагов)
@@ -173,7 +173,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/permissions.php
 - lib/plain.php
 * lib/postings-info.php (кроме кэша)
-- lib/postings.php
+* lib/postings.php
 - lib/postings-random.php
 + lib/post.php
 - lib/profiling.php
@@ -199,11 +199,10 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/track.php
 + lib/unix-calendar.php
 + lib/uri.php (HTTPVarsIterator нужен?)
-+ lib/url-domain.php
 + lib/users.php
 * lib/usertag.php (вынести ссылку на e-mail в callback или mhtml)
 + lib/utils.php
-- lib/votes.php
++ lib/votes.php
 
 - scripts/chat.php
 - scripts/daily.php

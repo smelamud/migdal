@@ -10,7 +10,6 @@ require_once('lib/text.php');
 require_once('lib/ctypes.php');
 require_once('lib/stotext.php');
 require_once('lib/langs.php');
-require_once('lib/url-domain.php');
 require_once('lib/postings-info.php');
 require_once('lib/permissions.php');
 require_once('lib/sql.php');

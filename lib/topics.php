@@ -346,6 +346,7 @@ if($topic->id)
   }
 else
   {
+  $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
   $result=sql(makeInsert('entries',
                          $vars),
