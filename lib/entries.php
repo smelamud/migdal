@@ -69,6 +69,7 @@ var $modbits;
 var $answers;
 var $last_answer;
 var $last_answer_id;
+var $last_answer_user_id;
 var $small_image;
 var $small_image_x;
 var $small_image_y;
@@ -218,7 +219,7 @@ return $this->isPermitted(PERM_POST);
 
 function isHidden()
 {
-return ($this->perms & 0x0011)==0;
+return ($this->perms & 0x1100)==0;
 }
 
 function isDisabled()
@@ -553,6 +554,11 @@ return !empty($this->last_answer) && $this->last_answer!=0
 function getLastAnswerId()
 {
 return $this->last_answer_id;
+}
+
+function getLastAnswerUserId()
+{
+return $this->last_answer_user_id;
 }
 
 function getSmallImage()

@@ -2,6 +2,17 @@
 require_once('lib/utils.php');
 require_once('grp/grps.php');
 
+function grpArray($grp)
+{
+global $grpGroups;
+
+if(is_array($grp))
+  return $grp;
+if(is_numeric($grp))
+  return array($grp);
+return $grpGroups[$grp];
+}
+
 // remake
 function getGrpOrder($grp)
 {
@@ -10,9 +21,7 @@ return round(log($grp)/M_LN2);
 
 function isGrpValid($grp)
 {
-global $grpGroups;
-
-return in_array($grp,$grpGroups[GRP_ALL]);
+return in_array($grp,grpArray(GRP_ALL));
 }
 
 // remake
@@ -33,13 +42,11 @@ return getPlural($n,$pl);
 
 function grpFilter($grp,$field='grp',$prefix='')
 {
-global $grpGroups;
-
 if($grp==GRP_NONE)
   return 0;
-if(grp==GRP_ALL)
+if($grp==GRP_ALL)
   return 1;
-$grp=is_int($grp) ? array($grp) : $grpGroups[$grp];
+$grp=grpArray($grp);
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 $conds=array();

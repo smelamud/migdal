@@ -73,6 +73,7 @@ CREATE TABLE `entries` (
 `answers` INT NOT NULL ,
 `last_answer` DATETIME NOT NULL ,
 `last_answer_id` INT NOT NULL ,
+`last_answer_user_id` INT NOT NULL ,
 `small_image` INT NOT NULL ,
 `small_image_x` SMALLINT NOT NULL ,
 `small_image_y` SMALLINT NOT NULL ,

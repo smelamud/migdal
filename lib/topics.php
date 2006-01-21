@@ -390,7 +390,7 @@ return (getModbitsByTopicId($id) & MODT_EDIT)!=0;
 function getTopicById($id,$up=0,$fields=SELECT_GENERAL)
 {
 global $userId,$userLogin,$userModerator,$rootTopicModbits,$rootTopicGroupName,
-       $rootTopicPerms,$grpGroups;
+       $rootTopicPerms;
 
 if(hasCachedValue('obj','entries',$id))
   return getCachedValue('obj','entries',$id);
@@ -444,7 +444,7 @@ else
 			   'perms'       => $topic->getPerms()));
     }
   else
-    $topic=new Topic(array('grps'        => $grpGroups[GRP_ALL],
+    $topic=new Topic(array('grps'        => grpArray(GRP_ALL),
 			   'modbits'     => $rootTopicModbits,
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,

@@ -210,6 +210,7 @@
 	 defaults='name=answer parent_id=0'>
 <deccall macro='forum_answer_full' func='getFullForumAnswerById'
          file='lib/forums.php' params='id' defaults='name=answer'>
+<deccall macro='grp_array' func='grpArray' file='lib/grps.php' params='grp'>
 <deccall macro='grp_sample' func='grpSample' file='lib/grps.php' params='grp'>
 <deccall macro='horisont_obj' func='getHorisontByHost' file='lib/horisonts.php'
          params='host'>
