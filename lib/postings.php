@@ -198,6 +198,78 @@ $result=sql("select id
 return mysql_num_rows($result)>0;
 }
 
+function postingListFields($fields=SELECT_GENERAL)
+{
+$Fields='entries.id as id,entries.ident as ident,entries.up as up,
+         entries.track as track,entries.parent_id as parent_id,
+	 entries.orig_id as orig_id,entries.grp as grp,
+	 entries.user_id as user_id,entries.group_id as group_id,
+	 entries.perms as perms,entries.disabled as disabled,
+	 entries.subject as subject,entries.lang as lang,
+	 entries.author as author,entries.author_xml as author_xml,
+	 entries.source as source,entries.source_xml as source_xml,
+	 entries.title as title,entries.title_xml as title_xml,
+	 entries.comment0 as comment0,entries.comment0_xml as comment0_xml,
+	 entries.comment1 as comment1,entries.comment1_xml as comment1_xml,
+         entries.url as url,entries.url_domain as url_domain,
+	 entries.url_check_success as url_check_success,entries.body as body,
+	 entries.body_xml as body_xml,entries.has_large_body as has_large_body,
+	 entries.large_body_format as large_body_format,
+	 entries.large_body_filename as large_body_filename,
+	 entries.priority as priority,entries.index0 as index0,
+	 entries.index1 as index1,entries.index2 as index2,
+	 entries.vote as vote,entries.vote_count as vote_count,
+	 entries.rating as rating,entries.sent as sent,
+	 entries.modified as modified,entries.modbits as modbits,
+	 entries.answers as answers,entries.last_answer as last_answer,
+	 entries.last_answer_id as last_answer_id,
+	 entries.last_answer_user_id as last_answer_user_id,
+	 if(entries.answers!=0,entries.last_answer,entries.modified) as age,
+	 entries.small_image as small_image,
+	 entries.small_image_x as small_image_x,
+	 entries.small_image_y as small_image_y,
+	 entries.large_image as large_image,
+	 entries.large_image_x as large_image_x,
+	 entries.large_image_y as large_image_y,
+	 entries.large_image_size as large_image_size,
+	 entries.large_image_format as large_image_format,
+	 entries.large_image_filename as large_image_filename,
+	 users.login as login,users.gender as gender,users.email as email,
+	 users.hide_email as hide_email,users.hidden as user_hidden'
+if(($fields & SELECT_LARGE_BODY)!=0)
+  $Fields.=',entries.large_body as large_body,
+            entries.large_body_xml as large_body_xml'
+if(($fields & SELECT_TOPICS)!=0)
+  $Fields.=',topics.subject as topic_subject,topics.body as topic_body,
+            topics.body_xml as topic_body_xml,
+	    topics.body_format as topic_body_format,
+	    topics.ident as topic_ident';
+if(($fields & SELECT_CTR)!=0)
+  $Fields.=',counter0.value as counter_value0,
+	    counter1.value as counter_value1,
+	    if(counter1.value is null or counter1.value=0,
+	       1000000,counter0.value/counter1.value) as co_ctr';
+return $Fields;
+}
+
+function postingListTables($fields=SELECT_GENERAL)
+{
+$Tables='entries
+         left join users
+	      on entries.user_id=users.id';
+if(($fields & SELECT_TOPICS)!=0)
+  $Tables.='left join entries as topics
+		 on entries.parent_id=topics.id'
+if(($fields & SELECT_CTR)!=0)
+  $Tables.='left join counters as counter0
+	         on entries.id=counter0.entry_id and counter0.serial=1
+		    and counter0.mode='.CMODE_EAR_HITS.'
+            left join counters as counter1
+	         on entries.id=counter1.entry_id and counter1.serial=1
+		    and counter1.mode='.CMODE_EAR_CLICKS;
+return $Tables;
+}
+
 class PostingListIterator
       extends LimitSelectIterator
 {
@@ -218,101 +290,12 @@ $this->addTopicFilter($topic_id,$recursive);
 if($withAnswers)
   $fields|=SELECT_ANSWERS;
 $sortByAnswers=$sort==SORT_ACTIVITY;
-$this->answersRequired=($fields & SELECT_ANSWERS)!=0 && !$sortByAnswers &&
-                        $userId>0;
+/*$this->answersRequired=($fields & SELECT_ANSWERS)!=0 && !$sortByAnswers &&
+                        $userId>0;*/
 /* Select */
-$imageFields=($fields & SELECT_IMAGES)!=0 ?
-             "images.image_set as image_set,images.id as image_id,
-	      images.has_large as has_large_image,images.title as title,
-	      if(images.has_large,length(images.large),
-				  length(images.small)) as image_size,
-	      if(images.has_large,images.large_x,images.small_x) as image_x,
-	      if(images.has_large,images.large_y,images.small_y) as image_y," :
-	     "stotexts.image_set as image_set,";
-$topicFields=($fields & SELECT_TOPICS)!=0 ?
-	     "topics.id as topic_id,topics.name as topic_name,
-	      topictexts.body as topic_description,
-	      topics.ident as topic_ident,topics.track as topic_track," :
-	     "postings.topic_id as topic_id,";
-$answersFields=$sortByAnswers && $userId>0 ?
-	     "count(forummesgs.id) as answer_count,
-	      max(forummesgs.sent) as last_answer,
-	      ifnull(max(forummesgs.sent),messages.sent) as age," :
-            (($fields & SELECT_ANSWERS)!=0 ?
-	     "messages.answers as answer_count,
-	      messages.hidden_answers as hidden_answers,
-	      messages.last_answer as last_answer,
-	      if(last_answer,last_answer,messages.sent) as age," :
-	     "");
-$countersFields=$sort==SORT_CTR ?
-	     "counter0.value as counter_value0,
-	      counter1.value as counter_value1,
-	      if(counter1.value is null or counter1.value=0,
-	         1000000,counter0.value/counter1.value) as co_ctr," :
-	     "";
-
-$Select="postings.id as id,postings.ident as ident,
-         messages.track as track,postings.message_id as message_id,
-         messages.stotext_id as stotext_id,stotexts.body as body,
-	 messages.lang as lang,messages.subject as subject,
-	 messages.author as author,messages.source as source,
-	 messages.comment0 as comment0,messages.comment1 as comment1,grp,
-	 messages.sent as sent,topic_id,messages.url as url,
-	 messages.url_domain as url_domain,messages.sender_id as sender_id,
-	 messages.group_id as group_id,messages.perms as perms,
-	 if((messages.perms & 0x1100)=0,1,0) as hidden,
-	 messages.disabled as disabled,messages.modbits as modbits,
-	 users.hidden as sender_hidden,
-	 postings.index0 as index0,postings.index1 as index1,
-	 postings.index2 as index2,subdomain,shadow,priority,
-	 $imageFields
-	 $topicFields
-	 login,gender,email,hide_email,rebe,
-	 vote,vote_count,
-	 $answersFields
-	 $countersFields
-	 if(messages.url_check_success=0,0,
-	    unix_timestamp()-unix_timestamp(messages.url_check_success))
-	                                            as url_fail_time";
+$Select=postingListFields($fields);
 /* From */
-$imageTables=($fields & SELECT_IMAGES)!=0 ?
-	     "left join images
-		   on stotexts.image_set=images.image_set and
-		      images.image_set<>0" :
-	     '';
-$topicTables=($fields & SELECT_TOPICS)!=0 ?
-	     "left join topics
-		   on postings.topic_id=topics.id
-	      left join stotexts as topictexts
-		   on topictexts.id=topics.stotext_id" :
-	     '';
-$hideAnswers=messagesPermFilter(PERM_READ,'forummesgs');
-$answersTables=($fields & SELECT_ANSWERS)!=0 && $sortByAnswers && $userId>0 ?
-	     "left join forums
-		   on messages.id=forums.parent_id
-	      left join messages as forummesgs
-		   on forums.message_id=forummesgs.id and $hideAnswers" :
-	     '';
-$countersTables=$sort==SORT_CTR ?
-             "left join counters as counter0
-	           on messages.id=counter0.message_id and counter0.serial=1
-		      and counter0.mode=".CMODE_EAR_HITS."
-              left join counters as counter1
-	           on messages.id=counter1.message_id and counter1.serial=1
-		      and counter1.mode=".CMODE_EAR_CLICKS :
-	     '';
-
-$From="postings
-       left join messages
-	    on postings.message_id=messages.id
-       left join stotexts
-	    on stotexts.id=messages.stotext_id
-       $imageTables
-       $topicTables
-       left join users
-	    on messages.sender_id=users.id
-       $answersTables
-       $countersTables";
+$From=postingListTables($fields);
 /* Where */
 $hideMessages=messagesPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
@@ -368,19 +351,19 @@ else
 $Having=$havingFilter;
 /* Order */
 $Order=getOrderBy($sort,
-       array(SORT_SENT       => 'sent desc',
-             SORT_NAME       => 'subject',
+       array(SORT_SENT       => 'entries.sent desc',
+             SORT_NAME       => 'entries.subject_sort',
              SORT_ACTIVITY   => 'age desc',
 	     SORT_CTR        => 'hidden asc,co_ctr asc,counter_value0 asc',
-	     SORT_INDEX0     => 'postings.index0',
-	     SORT_INDEX1     => 'postings.index1',
-	     SORT_RINDEX1    => 'postings.index1 desc',
-	     SORT_RATING     => getRatingSQL('vote','vote_count').' desc,'.
-	                        'vote_count desc,sent desc',
-	     SORT_URL_DOMAIN => 'url_domain,url',
+	     SORT_INDEX0     => 'entries.index0',
+	     SORT_INDEX1     => 'entries.index1',
+	     SORT_RINDEX1    => 'entries.index1 desc',
+	     SORT_RATING     => 'entries.rating desc,entries.vote_count desc,
+	                         entries.sent desc',
+	     SORT_URL_DOMAIN => 'entries.url_domain,entries.url',
 	     SORT_TOPIC_INDEX0_INDEX0
-	                     => 'topics.index0,postings.index0',
-             SORT_RSENT      => 'sent asc'));
+	                     => 'topics.index0,entries.index0',
+             SORT_RSENT      => 'entries.sent asc'));
 /* Query */
 $this->LimitSelectIterator(
        'Message',
@@ -455,11 +438,11 @@ if($row['id']>0)
     setCachedValue('ident','postings',$row['ident'],$row['id']);
   setCachedValue('track','postings',$row['id'],$row['track']);
   }
-if($this->answersRequired && $row['hidden_answers']>0)
+/*if($this->answersRequired && $row['hidden_answers']>0)
   {
   $info=getForumAnswersInfoByMessageId($row['message_id']);
   $row=array_merge($row,$info);
-  }
+  }*/
 return newPosting($row);
 }
 

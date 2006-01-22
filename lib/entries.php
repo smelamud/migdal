@@ -351,9 +351,14 @@ function getURLCheckSuccess()
 return $this->url_check_success;
 }
 
-function getURLCheckSuccessDays()
+function getURLCheckFail()
 {
-return floor($this->getURLCheckSuccess()/(24*60*60));
+return $this->url_check_success==0 ? 0 : time()-$this->url_check_success;
+}
+
+function getURLCheckFailDays()
+{
+return floor($this->getURLCheckFail()/(24*60*60));
 }
 
 function getBody()
@@ -579,6 +584,11 @@ return $this->small_image_y;
 function getLargeImage()
 {
 return $this->large_image;
+}
+
+function hasLargeImage()
+{
+return $this->large_image!=0;
 }
 
 function getLargeImageX()

@@ -10,6 +10,7 @@ var $login;
 var $gender;
 var $email;
 var $hide_email;
+var $user_hidden;
 
 function UserTag($row)
 {
@@ -73,6 +74,11 @@ return $link!='' ? $link.$this->email.'</a>' : '';
 function isHideEmail()
 {
 return $this->hide_email;
+}
+
+function isUserHidden()
+{
+return $this->user_hidden;
 }
 
 }
