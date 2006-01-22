@@ -144,7 +144,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * lib/grps.php
 - lib/horisonts.php
 + lib/ident.php
-- lib/image.php
 * lib/images.php (новые функции получения путей к картинкам)
 + lib/image-types.php
 * lib/image-upload.php (только imageFileResize())
