@@ -8,6 +8,8 @@ global $grpGroups;
 
 if(is_array($grp))
   return $grp;
+if($grp==GRP_NONE)
+  return array();
 if(is_numeric($grp))
   return array($grp);
 return $grpGroups[$grp];
