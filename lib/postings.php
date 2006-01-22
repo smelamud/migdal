@@ -96,7 +96,7 @@ $this->ident=$vars['ident']!='' ? $vars['ident'] : null;
 $this->index1=$vars['index1'];
 $this->index2=$vars['index2'];
 array_push($list,'grp','personal_id','priority');
-$this->parent_id=$vars['parent_id']);
+$this->parent_id=$vars['parent_id'];
 }
 
 // from Message FIXME
@@ -235,10 +235,10 @@ $Fields='entries.id as id,entries.ident as ident,entries.up as up,
 	 entries.large_image_format as large_image_format,
 	 entries.large_image_filename as large_image_filename,
 	 users.login as login,users.gender as gender,users.email as email,
-	 users.hide_email as hide_email,users.hidden as user_hidden'
+	 users.hide_email as hide_email,users.hidden as user_hidden';
 if(($fields & SELECT_LARGE_BODY)!=0)
   $Fields.=',entries.large_body as large_body,
-            entries.large_body_xml as large_body_xml'
+            entries.large_body_xml as large_body_xml';
 if(($fields & SELECT_TOPICS)!=0)
   $Fields.=',topics.subject as topic_subject,topics.body as topic_body,
             topics.body_xml as topic_body_xml,
@@ -259,7 +259,7 @@ $Tables='entries
 	      on entries.user_id=users.id';
 if(($fields & SELECT_TOPICS)!=0)
   $Tables.='left join entries as topics
-		 on entries.parent_id=topics.id'
+		 on entries.parent_id=topics.id';
 if(($fields & SELECT_CTR)!=0)
   $Tables.='left join counters as counter0
 	         on entries.id=counter0.entry_id and counter0.serial=1
@@ -270,85 +270,97 @@ if(($fields & SELECT_CTR)!=0)
 return $Tables;
 }
 
+function postingListGrpFilter($grp,$withAnswers=GRP_NONE)
+{
+$grp=grpArray($grp);
+$withAnswers=grpArray($withAnswers);
+$conds=array();
+foreach($withAnswers as $g)
+       $conds[]="entries.grp=$g and entries.answers<>0";
+foreach($grp as $g)
+       if(!in_array($g,$withAnswers))
+         $conds[]="entries.grp=$g";
+return count($conds)>0 ? '('.join(' or ',$conds).')' : '1';
+}
+
+function postingListTopicFilter($topic_id=-1,$recursive=false)
+{
+if($topic_id<0 || $topic_id==0 && $recursive)
+  return '1';
+if(!is_array($topic_id))
+  $topic_id=array($topic_id);
+if(!is_array($recursive))
+  $recursive=array($recursive);
+$conds=array();
+for($i=0;$i<count($topic_id);$i++)
+   $conds[]='entries.'.subtree('entries',$topic_id[$i],$recursive[$i]);
+return count($conds)>0 ? '('.join(' or ',$conds).')' : '1';
+}
+
+function postingListFilter($grp,$topic_id=-1,$recursive=false,$person_id=-1,
+                           $sort=SORT_SENT,$withAnswers=GRP_NONE,$user=0,
+			   $index1=-1,$later=0,$up=-1,$fields=SELECT_GENERAL,
+			   $modbits=MOD_NONE,$hidden=-1,$disabled=-1)
+{
+$Filter='entries.entry='.ENT_POSTING;
+$Filter.=' and '.postingsPermFilter(PERM_READ,'entries');
+$Filter.=' and '.postingListGrpFilter($grp,$withAnswers);
+$Filter.=' and '.postingListTopicFilter($topic_id,$recursive);
+if($person_id>=0)
+  $Filter.=" and entries.person_id=$person_id";
+if($user>0)
+  $Filter.=" and entries.user_id=$user";
+if($index1>=0)
+  switch($sort)
+        {
+        case SORT_INDEX1:
+	     $Filter.=" and entries.index1>=$index1";
+	     break;
+	case SORT_RINDEX1:
+	     $Filter.=" and entries.index1<=$index1";
+	     break;
+	default;
+             $Filter.=" and entries.index1=$index1";
+        }
+if($later>0)
+  $Filter.=" and unix_timestamp(entries.sent)>$later";
+if($up>0)
+  $Filter.=" and entries.up=$up";
+if($modbits>0)
+  $Filter.=" and (entries.modbits & $modbits)<>0";
+if($hidden>=0)
+  if($hidden)
+    $Filter.=" and (entries.perms & 0x1100)=0";
+  else
+    $Filter.=" and (entries.perms & 0x1100)<>0";
+if($disabled>=0)
+  if($disabled)
+    $Filter.=" and entries.disabled<>0";
+  else
+    $Filter.=" and entries.disabled=0";
+return $Filter;
+}
+
 class PostingListIterator
       extends LimitSelectIterator
 {
-var $topicFilter;
-var $answersRequired;
 
 function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
-                             $offset=0,$personal=0,$sort=SORT_SENT,
+                             $offset=0,$person_id=-1,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
-			     $subdomain=-1,$up=-1,$showShadows=true,
-			     $fields=SELECT_GENERAL,$modbits=MOD_NONE,
-			     $hidden=-1,$disabled=-1)
+			     $up=-1,$showShadows=true,$fields=SELECT_GENERAL,
+			     $modbits=MOD_NONE,$hidden=-1,$disabled=-1)
 {
-global $userId;
-
-$this->topicFilter='';
-$this->addTopicFilter($topic_id,$recursive);
-if($withAnswers)
-  $fields|=SELECT_ANSWERS;
-$sortByAnswers=$sort==SORT_ACTIVITY;
-/*$this->answersRequired=($fields & SELECT_ANSWERS)!=0 && !$sortByAnswers &&
-                        $userId>0;*/
+if($sort==SORT_CTR)
+  $fields|=SELECT_CTR;
 /* Select */
 $Select=postingListFields($fields);
 /* From */
 $From=postingListTables($fields);
 /* Where */
-$hideMessages=messagesPermFilter(PERM_READ,'messages');
-$grpFilter=grpFilter($grp);
-$userFilter=$user<=0 ? '' : " and messages.sender_id=$user ";
-if($withAnswers!=GRP_NONE)
-  if($sortByAnswers && $userId>0)
-    {
-    $countAnswerFilter=' and forummesgs.id is not null';
-    $selectAnswerFilter='';
-    }
-  else
-    {
-    $answerFilter=grpFilter($withAnswers);
-    $countAnswerFilter=" and (not $answerFilter or messages.answers<>0)";
-    $selectAnswerFilter=$countAnswerFilter;
-    }
-else
-  {
-  $countAnswerFilter='';
-  $selectAnswerFilter='';
-  }
-$index1Filter=$index1>=0
-              ? ($sort==SORT_INDEX1  ? "and postings.index1>=$index1" :
-	        ($sort==SORT_RINDEX1 ? "and postings.index1<=$index1" :
-		                       "and postings.index1=$index1"))
-	      : '';
-$sentFilter=$later>0 ? "and unix_timestamp(messages.sent)>$later" : '';
-$subdomainFilter=$subdomain>=0 ? "and subdomain=$subdomain" : '';
-$childFilter=$up>=0 ? "and messages.up=$up" : '';
-$shadowFilter=!$showShadows ? 'and shadow=0' : '';
-$modbitsFilter=$modbits>0 ? "and (messages.modbits & $modbits)!=0" : '';
-$hiddenFilter=$hidden>0 ? "and (messages.perms & 0x1100)=0" :
-             ($hidden=0 ? "and (messages.perms & 0x1100)<>0" : '');
-$disabledFilter=$disabled>0 ? "and messages.disabled<>0" :
-               ($disabled=0 ? "and messages.disabled=0" : '');
-
-$Where="$hideMessages and personal_id=$personal and $grpFilter @topic@
-	$userFilter $selectAnswerFilter $index1Filter $sentFilter
-	$subdomainFilter $childFilter $shadowFilter $modbitsFilter
-	$hiddenFilter $disabledFilter";
-/* Group by */
-$GroupBy=($fields & SELECT_ANSWERS)!=0 && $sortByAnswers && $userId>0
-         ? 'group by postings.id' : '';
-/* Having */
-if($withAnswers!=GRP_NONE && $sortByAnswers && $userId>0)
-  {
-  $answerFilter=grpFilter($withAnswers);
-  $havingFilter="having not $answerFilter or count(forummesgs.id)<>0";
-  }
-else
-  $havingFilter='';
-
-$Having=$havingFilter;
+$Where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
+                         $withAnswers,$user,$index1,$later,$up,$fields,
+			 $modbits,$hidden,$disabled);
 /* Order */
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'entries.sent desc',
@@ -365,85 +377,29 @@ $Order=getOrderBy($sort,
 	                     => 'topics.index0,entries.index0',
              SORT_RSENT      => 'entries.sent asc'));
 /* Query */
-$this->LimitSelectIterator(
-       'Message',
-       "select $Select
-	from $From
-	where $Where
-	$GroupBy
-	$Having
-	$Order",$limit,$offset,
-       "select count(distinct postings.id)
-	from postings
-	     left join messages
-	          on postings.message_id=messages.id
-	     left join topics
-		  on postings.topic_id=topics.id
-	     $answersTables
-	where $hideMessages and personal_id=$personal and $grpFilter
-	      $countAnswerFilter @topic@ $userFilter $index1Filter $sentFilter
-	      $subdomainFilter $childFilter $shadowFilter $modbitsFilter
-	      $hiddenFilter $disabledFilter");
-}
-
-function addTopicFilter($topic_id,$recursive=false)
-{
-if(!is_array($topic_id))
-  {
-  if($topic_id<0 || $recursive && $topic_id==0)
-    return;
-  if($this->topicFilter!='')
-    $this->topicFilter.=' or ';
-  $this->topicFilter.='topics.'.subtree('topics',$topic_id,$recursive);
-  }
-else
-  foreach($topic_id as $id => $rec)
-	 {
-	 if($this->topicFilter!='')
-	   $this->topicFilter.=' or ';
-	 $this->topicFilter.='topics.'.subtree('topics',$id,$rec);
-	 }
-}
-
-function getTopicFilterCondition()
-{
-return $this->topicFilter!='' ? " and ({$this->topicFilter})" : '';
-}
-
-function select()
-{
-$this->setQuery(str_replace('@topic@',$this->getTopicFilterCondition(),
-                                      $this->getQuery()));
-LimitSelectIterator::select();
-}
-
-function countSelect()
-{
-$this->setCountQuery(str_replace('@topic@',$this->getTopicFilterCondition(),
-                                           $this->getCountQuery()));
-LimitSelectIterator::countSelect();
+$this->LimitSelectIterator('Posting',
+			   "select $Select
+			    from $From
+			    where $Where
+			    $Order",
+			   $limit,$offset);
 }
 
 function create($row)
 {
-if($row['topic_id']>0)
+if($row['parent_id']>0)
   {
   if($row['topic_ident']!='')
-    setCachedValue('ident','topics',$row['topic_ident'],$row['topic_id']);
-  setCachedValue('track','topics',$row['topic_id'],$row['topic_track']);
+    setCachedValue('ident','entries',$row['topic_ident'],$row['parent_id']);
+  setCachedValue('track','entries',$row['parent_id'],$row['topic_track']);
   }
 if($row['id']>0)
   {
   if($row['ident']!='')
-    setCachedValue('ident','postings',$row['ident'],$row['id']);
-  setCachedValue('track','postings',$row['id'],$row['track']);
+    setCachedValue('ident','entries',$row['ident'],$row['id']);
+  setCachedValue('track','entries',$row['id'],$row['track']);
   }
-/*if($this->answersRequired && $row['hidden_answers']>0)
-  {
-  $info=getForumAnswersInfoByMessageId($row['message_id']);
-  $row=array_merge($row,$info);
-  }*/
-return newPosting($row);
+return parent::create($row);
 }
 
 }
@@ -477,7 +433,7 @@ $this->SelectIterator(
 
 }
 
-class PostingParagraphIterator
+/*class PostingParagraphIterator
       extends ParagraphIterator
 {
 var $images;
@@ -516,7 +472,7 @@ if($paragraph)
 return $paragraph;
 }
 
-}
+}*/
 
 class ArticleCoversIterator
       extends SelectIterator
@@ -586,7 +542,7 @@ $this->AlphabetIterator(
 
 }
 
-function storePosting(&$posting)
+/*function storePosting(&$posting)
 {
 function getWorldPostingVars()
 {
@@ -631,7 +587,7 @@ else
 	  'postings',$this->id);
   }
 return $result;
-}
+}*/
 
 function getRootPosting($grp,$topic_id,$up)
 {

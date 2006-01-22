@@ -14,17 +14,16 @@ postInteger('index1');
 postInteger('use_index1');
 
 $remove=array('okdir','faildir','offset');
-$n=0;
-foreach($topic_id as $id)
-       {
-       $rname="recursive($n)";
-       postInteger($rname);
-       $topics[]=$Args[$rname]!=0 ? -abs($id) : abs($id);
-       $remove[]=$rname;
-       $n++;
-       }
+$recursive=array();
+for($n=0;$n<count($topic_id);$n++)
+   {
+   $rname="recursive($n)";
+   postInteger($rname);
+   $recursive[]=$Args[$rname]!=0 ? 1 : 0;
+   $remove[]=$rname;
+   }
 header('Location: '.remakeMakeURI($okdir,
                                   $Args,
                                   $remove,
-			          array('topic_id' => $topics)));
+			          array('recursive' => $recursive)));
 ?>

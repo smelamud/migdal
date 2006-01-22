@@ -146,7 +146,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/ident.php
 - lib/image.php
 * lib/images.php (новые функции получения путей к картинкам)
-- lib/image-types.php
++ lib/image-types.php
 * lib/image-upload.php (только imageFileResize())
 - lib/indexer.php
 - lib/initstop-mail.php
@@ -164,7 +164,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/mailings.php
 - lib/mail.php
 * lib/messages.php (удалить)
-- lib/mime.php
++ lib/mime.php
 - lib/mnogosearch.php
 + lib/modbits.php (только новые наборы флагов)
 + lib/no-cache.php
@@ -185,7 +185,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/run-script.php
 + lib/selectiterator.php
 + lib/select.php
-- lib/sendertag.php (удалить?)
 + lib/session.php
 + lib/sessions.php
 + lib/sort.php
@@ -201,7 +200,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/unix-calendar.php
 + lib/uri.php (HTTPVarsIterator нужен?)
 + lib/users.php
-* lib/usertag.php (вынести ссылку на e-mail в callback или mhtml)
++ lib/usertag.php
 + lib/utils.php
 + lib/votes.php
 
@@ -405,7 +404,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/unititle.mhtml
 - migdal/parts/uploader.mhtml
 + migdal/parts/userinfo.mhtml
-- migdal/parts/utils.mhtml
+* migdal/parts/utils.mhtml
 - migdal/parts/vote.mhtml
 
 * migdal/report

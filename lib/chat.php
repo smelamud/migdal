@@ -1,14 +1,14 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/sendertag.php');
+require_once('lib/usertag.php');
 require_once('lib/mtext-html.php');
 require_once('lib/selectiterator.php');
 require_once('lib/users.php');
 require_once('lib/sql.php');
 
 class ChatMessage
-      extends SenderTag
+      extends SenderTag // FIXME No such class
 {
 var $id;
 var $private_id;

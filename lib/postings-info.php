@@ -5,7 +5,6 @@ require_once('lib/dataobject.php');
 require_once('lib/bug.php');
 require_once('lib/track.php');
 require_once('lib/sql.php');
-require_once('lib/messages.php');
 require_once('lib/entries.php');
 
 class PostingsInfo
@@ -62,7 +61,7 @@ function getPostingsMessagesInfo($grp=GRP_ALL,$topic_id=-1,$user_id=0,
 {
 if($grp==GRP_NONE)
   return new PostingsInfo();
-$hide='and '.messagesPermFilter(PERM_READ);
+$hide='and '.postingsPermFilter(PERM_READ);
 $grpFilter='and '.grpFilter($grp,'grp');
 $topicFilter=getInfoTopicFilter($topic_id,$recursive);
 $userFilter=$user_id>0 ? " and user_id=$user_id " : '';
@@ -81,7 +80,7 @@ function getPostingsAnswersInfo($grp=GRP_NONE,$topic_id=-1,$user_id=0,
 {
 if($grp==GRP_NONE)
   return new PostingsInfo();
-$hide='and '.messagesPermFilter(PERM_READ);
+$hide='and '.postingsPermFilter(PERM_READ);
 $grpFilter='and '.grpFilter($grp,'grp');
 $topicFilter=getInfoTopicFilter($topic_id,$recursive);
 $userFilter=$user_id>0 ? " and user_id=$user_id " : '';

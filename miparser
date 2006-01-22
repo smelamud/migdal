@@ -1359,7 +1359,7 @@ else
   }
 $$var.=$data;
 $$var=~s/\s\?>\s*\n\s*<\?php\s/\n/sg;
-$$var=~s/\s\?>\s*<\?php\s//sg;
+$$var=~s/\s\?>\s*<\?php\s/ /sg;
 }
 
 sub header

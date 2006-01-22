@@ -3,7 +3,7 @@
 
 require_once('conf/migdal.conf');
 
-require_once('lib/sendertag.php');
+require_once('lib/usertag.php');
 require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/text.php');
@@ -15,7 +15,7 @@ require_once('lib/permissions.php');
 require_once('lib/sql.php');
 
 class Message
-      extends SenderTag
+      extends SenderTag // FIXME no such class
 {
 var $id;
 var $up;

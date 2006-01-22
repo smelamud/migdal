@@ -2,10 +2,11 @@
 
 <grps>
 <int_array name='topic_id'>
+<int_array name='recursive'>
 <int name='offset'>
 <int_array name='grp'>
 <if what='!$grp'>
- <assign name='grp' value!='$grpGroups[*GRP_TAPE]'>
+ <grp_array name='grp' grp='*GRP_TAPE'>
 </if>
 <int name='index1'>
 <int name='use_index1'>
@@ -52,24 +53,24 @@
 </element>
 
 <element name='post' params='posting'>
-<ifnzero what='$posting.Shadow'><blockquote></ifnzero>
+<ifnzero what='$posting.isShadow'><blockquote></ifnzero>
  <table class='posting' width=100%>
   <tr><td>
    <iterate_topic_hierarchy topic_id='$posting.TopicId'>
    <span class='subject'>
-    <a href='$[topic_id=$posting.TopicId]' title='$posting.TopicDescription'
+    <a href='$[topic_id=$posting.TopicId]' title='$=posting.TopicBody'
        class='topic'><asp>
      <for>
       <if what='!$;isFirst'>&sp;::&sp;</if>
-      $.Name
+      $=.Subject
      </for>
     <asp></a>
    </span>
-   // $posting.GrpTitle
+   // $=posting.GrpTitle
   </td></tr>
   <tr><td>
-   <identify posting='$posting'>
-   <b><a href='$posting.DetailsHref'>$posting.SubjectDesc</a></b>
+   <<identify posting='$posting'>>
+   <b><<a href='$posting.DetailsHref'>>$=posting.SubjectDesc<</a>></b>
    <ifne what='$posting.Ident'>
     [$posting.Ident=$posting.Id]
    <else>
@@ -78,23 +79,23 @@
   </td></tr>
   <ifnzero what='$posting.VoteCount'>
    <tr><td>
-    $posting.VoteString&nbsp;<image src#='pics/bar-${posting.Vote20}.gif'>
+    $posting.RatingString&nbsp;<image src#='pics/bar-${posting.Rating20}.gif'>
     &nbsp;
     <array vals='голос,голоса,голосов'>
     <plural value='$posting.VoteCount'>
     ($posting.VoteCount&sp;$,)
    </td></tr>
   </ifnzero>
-  <ifnzero what='$posting.ImageSet'>
+  <if what='$posting.hasSmallImage'>
    <tr><td>
-    <image_link id='$posting.ImageId'>
-    $,Картинка</a>
+    <a href='$posting.ImageURL'>Картинка</a>
     &nbsp;
-    ${posting.ImageX}x${posting.ImageY}, ${posting.ImageSizeKB}KB
+    ${posting.ImageX}x${posting.ImageY}, ${posting.LargeImageSizeKB}KB
    </td></tr>
-  </ifnzero>
+  </if>
   <tr><td class='sent'>
-   <sentview date='$posting.Sent'>&nbsp;
+   <sentview date='$posting.Sent'>&nbsp;<asp>
+   <asp>(<asp><sentview date='$posting.Modified'>)
    <senderlink message='$posting'>
   </td></tr>
   <tr><td class='bottom'>
@@ -106,10 +107,10 @@
       >Изменить</a>
    &nbsp;
    <if what='$posting.isDisabled'>
-    <a href="actions/moderate.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"
+    <a href="actions/moderate.php?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"
        >Разрешить&nbsp;показ</a>
    <else>
-    <a href="actions/moderate.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"
+    <a href="actions/moderate.php?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"
        >Запретить&nbsp;показ</a>
    </if>
    &nbsp;
@@ -119,18 +120,18 @@
    <a href='actions/postingcopy.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
       >Скопировать</a>
    &nbsp;
-   <a href="actions/messagerenew.php?id=$posting.MessageId&okdir=$#-&faildir=$#-"
+   <a href="actions/messagerenew.php?id=$posting.Id&okdir=$#-&faildir=$#-"
       >Осовременить</a>
    &nbsp;
    <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
       >Удалить</a>
    &nbsp;
-   <a href="chmod.php?msgid=$posting.MessageId&redirid=$_">Права</a>
+   <a href="chmod.php?msgid=$posting.Id&redirid=$_">Права</a>
    &nbsp;
    <a href="modbits.php?postid=$posting.Id&redirid=$_">Флаги</a>
   </td></tr>
  </table>
-<ifnzero what='$posting.Shadow'></blockquote></ifnzero>
+<ifnzero what='$posting.isShadow'></blockquote></ifnzero>
 <p>
 </element>
 
@@ -138,9 +139,9 @@
 <preamble>
 <body>
  <top ident='index'>
- <<iterate_postinglist name='postings' limit=20 offset='$offset'
-                      showshadows='*true' grp='$grp'
-		      index1!='$use_index1 ? $index1 : -1'>>
+ <iterate_postinglist limit=20 offset='$offset' topic_id='$topic_id'
+                      recursive='$recursive' showshadows='*true' grp='$grp'
+		      index1!='$use_index1 ? $index1 : -1'>
  <table width="100%" cellpadding="5">
   <tr valign=top>
    <td width=150 class='eframe'>
@@ -161,7 +162,6 @@
        <for>
 	<assign name='id' value!='abs($.)'>
 	<assign name='rec' value!='$.<=0'>
-	<<filter_topic list='$postings' topic_id='$id' recursive='$rec'>>
 	<topic_choice title='$title' id='$id' n='$n' recursive='$rec'>
         <assign name='title' value='<i>Или</i>'>
         <assign name='n' value!='$n+1'>
@@ -198,7 +198,7 @@
        </tr></table>
       </td></tr>
      </form>
-     <<assign name='size' value='$;Size'>>
+     <assign name='size' value='$;Size'>
      <tr><td class='info' colspan=2>
       <array vals='сообщение,сообщения,сообщений'>
       <plural value='$size'>
@@ -206,14 +206,14 @@
      </td></tr>
     </table>
     <table class='ninept cframe' width=100%><tr><td>
-     <<error_lines>
+     <<error_lines>>
      <batcher list='$;'>
      <ifnzero what='$;Count'>
       <for>
        <post posting='$.'>
       </for>
       <batcher list='$;'>
-     </ifnzero>>
+     </ifnzero>
     </td></tr></table>
    </td>
   </tr>

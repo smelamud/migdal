@@ -8,9 +8,7 @@
 <else>
  $user.Login<asp>
 </if>
-<ifne what='$user.ReplyLink'>
- <asp>&nbsp;$user.ReplyLink<image src='$$style_mail_image' border=0></a>
-</ife>
+<maillink message='$user'>
 </element>
 
 <html>

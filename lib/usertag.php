@@ -18,12 +18,6 @@ $this->gender='mine';
 parent::DataObject($row);
 }
 
-function getReplyLink()
-{
-return $this->email!='' && !$this->hide_email
-       ? '<a href="mailto:'.$this->email.'" title="Написать письмо">' : '';
-}
-
 function getLogin()
 {
 return $this->login;
@@ -32,12 +26,6 @@ return $this->login;
 function getUserName()
 {
 return $this->getLogin();
-}
-
-function getLoginLink()
-{
-$link=$this->getReplyLink();
-return $link!='' ? $link.$this->login.'</a>' : $this->login;
 }
 
 function isMan()
@@ -65,20 +53,32 @@ function getEmail()
 return $this->email;
 }
 
-function getEmailLink()
-{
-$link=$this->getReplyLink();
-return $link!='' ? $link.$this->email.'</a>' : '';
-}
-
 function isHideEmail()
 {
 return $this->hide_email;
 }
 
+function isEmailVisible()
+{
+return $this->email!='' && !$this->hide_email;
+}
+
 function isUserHidden()
 {
-return $this->user_hidden;
+return $this->user_hidden ? 1 : 0;
+}
+
+function isUserAdminHidden()
+{
+return $this->user_hidden>1 ? 1 : 0;
+}
+
+function isUserVisible()
+{
+global $userAdminUsers;
+
+return !$this->isUserHidden()
+       || ($userAdminUsers && !$this->isUserAdminHidden());
 }
 
 }

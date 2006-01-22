@@ -101,10 +101,10 @@
       </if>
      </td>
      <td class='$class'>
-      <ifne what='$.EmailLink'>
-       <span class='email ninept'>$.EmailLink</span>
+      <if what='$.isEmailVisible'>
+       <span class='email ninept'><mailtolink message='$.'></span>
        <ifne what='$.ICQ'><br></ifne>
-      </ifne>
+      </if>
       <ifne what='$.ICQ'>
        <span class='eightpt'>$.ICQStatusImage&nbsp;$.ICQ</span>
       </ifne>

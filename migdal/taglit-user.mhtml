@@ -32,11 +32,9 @@
    <div class='cframe' style='padding: 5'>
     <subtitle>
     <div class='ninept'>
-     <a href='users/$#user.Ident/'
+     <a href='users/$#user.Folder/'
 	onClick="UserInfo($user.Id);return false">О пользователе $user.Login</a>
-     <ifne what='$user.ReplyLink'>
-      $user.ReplyLink<image src='$$style_mail_image' border=0></a>
-     </ife>
+     <maillink message='$user'>
     </div>
     <ifzero what='$offset'>
      <p>

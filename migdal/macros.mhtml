@@ -9,7 +9,7 @@
 
 << Date/Time >>
 <macro name='sentview'>
- %date@j.%date@m.%date@Y&nbsp;%date@H:%date@i
+ <asp>%date@j.%date@m.%date@Y&nbsp;%date@H:%date@i<asp>
 </macro>
 
 << Styles >>
@@ -149,8 +149,11 @@
                  shorten='*false'">
 <decel name='links_switcher' file='parts/links-switcher.php' params='ident'>
 <decel name='login' file='parts/login.php' params='target' defaults="target=''">
+<decel name='maillink' file='parts/utils.php' params='message'>
+<decel name='mailloginlink' file='parts/utils.php' params='message'>
 <decel name='mailru_count' file='parts/mailru.php'>
 <decel name='mailru_logo' file='parts/mailru.php'>
+<decel name='mailtolink' file='parts/utils.php' params='message'>
 <decel name='menu' file='parts/menu.php' params='ident,target'
        defaults="target=''">
 <decel name='migdal_news' file='parts/migdal-news.php'>
@@ -333,7 +336,8 @@
        params='name,format' defaults="name='large_format'">
 <decel name='upper_level' file='parts/topics.php' params='title,name,href'
        defaults="title='' name=''">
-<decel name='userinfo' file='parts/userinfo.php' params='id,target'>
+<decel name='userinfo' file='parts/userinfo.php' params='id,target,class'
+       defaults="class=''">
 <decel name='vote_frame' file='parts/vote.php' params='id,align,color,image'
        defaults="align=''">
 

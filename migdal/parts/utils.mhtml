@@ -41,19 +41,41 @@
 </if>
 </element>
 
+<element name='maillink'>
+<if what='$message.isEmailVisible'>
+ <asp>&nbsp;<asp>
+ <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
+  <image src='$$style_mail_image' border=0>
+ <asp></a>
+</if>
+</element>
+
+<element name='mailloginlink'>
+<if what='$message.isEmailVisible'>
+ <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
+  $=message.Login
+ <asp></a>
+</if>
+</element>
+
+<element name='mailtolink'>
+<if what='$message.isEmailVisible'>
+ <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
+  $=message.Email
+ <asp></a>
+</if>
+</element>
+
 <element name='senderlink'>
 <notenglish>
- <if what='$message.isSenderVisible'>
-  << FIXME SenderIdent нужно >>
-  <a href='users/$message.SenderId/?redirid=$_'
-     onClick="UserInfo($message.SenderId);return false"
-     title='подробнее' class='name'>$message.Login</a><asp>
+ <if what='$message.isUserVisible'>
+  <a href='users/$#message.UserFolder/?redirid=$_'
+     onClick="UserInfo($message.UserId);return false"
+     title='подробнее' class='name'>$=message.Login</a><asp>
  <else>
-  <span class='name'>$message.Login</span><asp>
+  <span class='name'>$=message.Login</span><asp>
  </if>
- <ifne what='$message.ReplyLink'>
-  <asp>&nbsp;$message.ReplyLink<image src='$$style_mail_image' border=0></a>
- </ife>
+ <maillink message='$message'>
 </notenglish>
 </element>
 

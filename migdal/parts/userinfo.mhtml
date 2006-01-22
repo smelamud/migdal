@@ -23,7 +23,11 @@
 <user_obj name='user' id='$id'>
 <log event=userinfo text#='user($user.Id)'>
 <controls target='$target'>
-<table width=100% cellspacing=5 cellpadding=0>
+<ifne what='$class'>
+ <table width=100% cellspacing=5 cellpadding=0 class='$class'>
+<else>
+ <table width=100% cellspacing=5 cellpadding=0>
+</ifne>
  <infoline title='Ник' value='$,Login'>
  <infoline title='Имя' value='$,FullName'>
  <if what='$,isMan'>
@@ -42,13 +46,18 @@
  <ifne what='$,Info'>
   <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
  </ifne>
- <if what='!$,isHideEmail'>
-  <if what='$,isEmailDisabled==2'>
-   <assign name='working' value=' <i>(адрес не работает)</i>'>
-  <else>
-   <assign name='working' value=''>
-  </if>
-  <infoline title='E-mail' value#='$,EmailLink&nbsp;$working' escape='*false'>
+ <if what='$,isEmailVisible'>
+  <tr valign='top'>
+   <th style='white-space: nowrap' align='left'>
+    E-mail
+   </th>
+   <td width='100%'>
+    <mailtolink message='$,'>&nbsp;
+    <if what='$,isEmailDisabled==2'>
+     <i>(адрес не работает)</i>
+    </if>
+   </td>
+  </tr>
  </if>
  <ifne what='$,ICQ'>
   <infoline title='ICQ' value#='$,ICQStatusImage&nbsp;$=,ICQ' escape='*false'>

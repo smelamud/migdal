@@ -1,8 +1,11 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/usertag.php');
 require_once('lib/mtext-shorten.php');
+require_once('lib/image-types.php');
 
 define('ENT_NULL',0);
 define('ENT_POSTING',1);
@@ -110,7 +113,7 @@ function getTrack()
 return $this->track;
 }
 
-function getParent()
+function getParentId()
 {
 return $this->parent_id;
 }
@@ -153,6 +156,11 @@ return $this->user_id;
 function setUserId($id)
 {
 $this->user_id=$id;
+}
+
+function getUserFolder()
+{
+return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getUserId();
 }
 
 function getGroupId()
@@ -234,7 +242,11 @@ return $this->subject;
 
 function getSubjectDesc()
 {
-return $this->getSubject()!='' ? $this->getSubject() : $this->getCleanBodyTiny();
+return $this->getSubject()!=''
+       ? $this->getSubject()
+       : ($this->getTitle()!=''
+          ? $this->getTitle()
+	  : $this->getBodyTiny());
 }
 
 function getLang()
@@ -571,6 +583,11 @@ function getSmallImage()
 return $this->small_image;
 }
 
+function hasSmallImage()
+{
+return $this->small_image!=0;
+}
+
 function getSmallImageX()
 {
 return $this->small_image_x;
@@ -579,6 +596,14 @@ return $this->small_image_x;
 function getSmallImageY()
 {
 return $this->small_image_y;
+}
+
+function getSmallImageURL()
+{
+global $thumbnailType;
+
+return getImageURL($this->getId(),getImageExtension($thumbnailType),
+                   $this->getSmallImage(),'small');
 }
 
 function getLargeImage()
@@ -599,6 +624,31 @@ return $this->large_image_x;
 function getLargeImageY()
 {
 return $this->large_image_y;
+}
+
+function getLargeImageURL()
+{
+return getImageURL($this->getId(),
+                   getImageExtension($this->getLargeImageFormat()),
+                   $this->getLargeImage(),'large');
+}
+
+function getImageX()
+{
+return $this->hasLargeImage() ? $this->getLargeImageX()
+                              : $this->getSmallImageX();
+}
+
+function getImageY()
+{
+return $this->hasLargeImage() ? $this->getLargeImageY()
+                              : $this->getSmallImageY();
+}
+
+function getImageURL()
+{
+return $this->hasLargeImage() ? $this->getLargeImageURL()
+                              : $this->getSmallImageURL();
 }
 
 function getLargeImageSize()

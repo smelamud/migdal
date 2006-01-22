@@ -6,6 +6,6 @@
 <html>
 <preamble>
 <body>
- <userinfo id='$id' target='_blank'>
+ <userinfo id='$id' target='_blank' class='cframe'>
 </body>
 </html>
