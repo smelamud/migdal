@@ -258,15 +258,15 @@ $Tables='entries
          left join users
 	      on entries.user_id=users.id';
 if(($fields & SELECT_TOPICS)!=0)
-  $Tables.='left join entries as topics
-		 on entries.parent_id=topics.id';
+  $Tables.=' left join entries as topics
+		  on entries.parent_id=topics.id';
 if(($fields & SELECT_CTR)!=0)
-  $Tables.='left join counters as counter0
-	         on entries.id=counter0.entry_id and counter0.serial=1
-		    and counter0.mode='.CMODE_EAR_HITS.'
-            left join counters as counter1
-	         on entries.id=counter1.entry_id and counter1.serial=1
-		    and counter1.mode='.CMODE_EAR_CLICKS;
+  $Tables.=' left join counters as counter0
+	          on entries.id=counter0.entry_id and counter0.serial=1
+		     and counter0.mode='.CMODE_EAR_HITS.'
+             left join counters as counter1
+	          on entries.id=counter1.entry_id and counter1.serial=1
+	 	     and counter1.mode='.CMODE_EAR_CLICKS;
 return $Tables;
 }
 
