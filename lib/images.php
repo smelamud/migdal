@@ -301,7 +301,9 @@ function getImageURL($id,$ext,$fileId=0,$size='large')
 global $siteDomain,$imageURL;
 
 $fname=getImageFilename($id,$ext,$fileId,$size);
-return "http://$siteDomain/$imageURL/$fname";
+if($imageURL[0]!='/')
+  $imageURL="/$imageURL";
+return "http://$siteDomain$imageURL/$fname";
 }
 
 function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php',
