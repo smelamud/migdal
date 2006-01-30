@@ -252,6 +252,34 @@ if(($fields & SELECT_CTR)!=0)
 return $Fields;
 }
 
+function origFields($fields=SELECT_GENERAL)
+{
+$Fields='entries.subject as subject,
+	 entries.author as author,entries.author_xml as author_xml,
+	 entries.source as source,entries.source_xml as source_xml,
+	 entries.title as title,entries.title_xml as title_xml,
+	 entries.comment0 as comment0,entries.comment0_xml as comment0_xml,
+	 entries.comment1 as comment1,entries.comment1_xml as comment1_xml,
+         entries.url as url,entries.url_domain as url_domain,
+	 entries.url_check_success as url_check_success,entries.body as body,
+	 entries.body_xml as body_xml,entries.has_large_body as has_large_body,
+	 entries.large_body_format as large_body_format,
+	 entries.large_body_filename as large_body_filename,
+	 entries.small_image as small_image,
+	 entries.small_image_x as small_image_x,
+	 entries.small_image_y as small_image_y,
+	 entries.large_image as large_image,
+	 entries.large_image_x as large_image_x,
+	 entries.large_image_y as large_image_y,
+	 entries.large_image_size as large_image_size,
+	 entries.large_image_format as large_image_format,
+	 entries.large_image_filename as large_image_filename';
+if(($fields & SELECT_LARGE_BODY)!=0)
+  $Fields.=',entries.large_body as large_body,
+            entries.large_body_xml as large_body_xml';
+return $Fields;
+}
+
 function postingListTables($fields=SELECT_GENERAL)
 {
 $Tables='entries
@@ -262,11 +290,17 @@ if(($fields & SELECT_TOPICS)!=0)
 		  on entries.parent_id=topics.id';
 if(($fields & SELECT_CTR)!=0)
   $Tables.=' left join counters as counter0
-	          on entries.id=counter0.entry_id and counter0.serial=1
+	          on entries.orig_id=counter0.entry_id and counter0.serial=1
 		     and counter0.mode='.CMODE_EAR_HITS.'
              left join counters as counter1
-	          on entries.id=counter1.entry_id and counter1.serial=1
+	          on entries.orig_id=counter1.entry_id and counter1.serial=1
 	 	     and counter1.mode='.CMODE_EAR_CLICKS;
+return $Tables;
+}
+
+function origTables($fields=SELECT_GENERAL)
+{
+$Tables='entries';
 return $Tables;
 }
 
@@ -344,6 +378,7 @@ return $Filter;
 class PostingListIterator
       extends LimitSelectIterator
 {
+var $where;
 
 function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$person_id=-1,$sort=SORT_SENT,
@@ -358,9 +393,9 @@ $Select=postingListFields($fields);
 /* From */
 $From=postingListTables($fields);
 /* Where */
-$Where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
-                         $withAnswers,$user,$index1,$later,$up,$fields,
-			 $modbits,$hidden,$disabled);
+$this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
+                               $withAnswers,$user,$index1,$later,$up,$fields,
+			       $modbits,$hidden,$disabled);
 /* Order */
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'entries.sent desc',
@@ -380,7 +415,7 @@ $Order=getOrderBy($sort,
 $this->LimitSelectIterator('Posting',
 			   "select $Select
 			    from $From
-			    where $Where
+			    where {$this->where}
 			    $Order",
 			   $limit,$offset);
 }
@@ -398,6 +433,17 @@ if($row['id']>0)
   if($row['ident']!='')
     setCachedValue('ident','entries',$row['ident'],$row['id']);
   setCachedValue('track','entries',$row['id'],$row['track']);
+  }
+if($row['id']!=$row['orig_id'])
+  {
+  $Select=origFields($fields);
+  $From=origTables($fields);
+  $Where=$this->where." and id={$row['orig_id']}";
+  $result=sql("select $Select
+               from $From
+	       where $Where");
+  $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
+  $row=array_merge($row,$orig);
   }
 return parent::create($row);
 }
