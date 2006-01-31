@@ -8,7 +8,7 @@ require_once('lib/users.php');
 require_once('lib/sql.php');
 
 class ChatMessage
-      extends SenderTag // FIXME No such class
+      extends UserTag // FIXME was SenderTag, problems possible
 {
 var $id;
 var $private_id;

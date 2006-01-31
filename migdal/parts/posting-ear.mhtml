@@ -3,12 +3,14 @@
  <tr valign=top>
   <td width=150>
    <a href='$posting.URL'>
-    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'></a>
+    <img src='$posting.ImageURL' width='$posting.ImageX'
+         height='$posting.ImageY' border=0></a>
+    <<image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'></a>>
     <p class='sent'>$posting.Sent@j.$posting.Sent@m.$posting.Sent@Y</p>
   </td>
   <td width=5>&nbsp;</td>
   <td width=250>
-   $posting.HTMLBody
+   $posting.BodyHTML
    <p>
    <a href='$posting.URL'>$posting.URL</a>
    <p>
@@ -31,10 +33,10 @@
     <td width=5>&nbsp;</td>
     <td width=20 align=left>
      <if what='!$posting.isHidden'>
-      [<a href="actions/hide.php?editid=$posting.MessageId&hide=1&okdir=$#-&faildir=$#-"><asp>
+      [<a href="actions/hide.php?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
           <asp><b>&nbsp;</b></a>]
      <else>
-      [<a href="actions/hide.php?editid=$posting.MessageId&hide=0&okdir=$#-&faildir=$#-"><asp>
+      [<a href="actions/hide.php?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
           <asp><b>X</b></a>]
      </if>
     </td>
