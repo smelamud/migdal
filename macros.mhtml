@@ -112,7 +112,7 @@
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic_id,recursive,limit,offset,person_id,sort,withanswers,
-	         user,index1,later,subdomain,up,showshadows,fields,modbits,
+	         user,index1,later,up,showshadows,fields,modbits,
 		 hidden,disabled'
          defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           person_id=-1 sort='*SORT_SENT' withanswers='*GRP_NONE'

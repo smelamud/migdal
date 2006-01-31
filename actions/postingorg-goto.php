@@ -12,6 +12,7 @@ postInteger('offset');
 postIntegerArray('grp');
 postInteger('index1');
 postInteger('use_index1');
+postInteger('shadows');
 
 $remove=array('okdir','faildir','offset');
 $recursive=array();

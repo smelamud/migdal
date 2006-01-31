@@ -327,7 +327,8 @@ if(!is_array($recursive))
   $recursive=array($recursive);
 $conds=array();
 for($i=0;$i<count($topic_id);$i++)
-   $conds[]='entries.'.subtree('entries',$topic_id[$i],$recursive[$i]);
+   if($topic_id[$i]>0 || $topic_id[$i]==0 && !$recursive[$i])
+     $conds[]='entries.'.subtree('entries',$topic_id[$i],$recursive[$i]);
 return count($conds)>0 ? '('.join(' or ',$conds).')' : '1';
 }
 
@@ -378,6 +379,7 @@ return $Filter;
 class PostingListIterator
       extends LimitSelectIterator
 {
+var $fields;
 var $where;
 
 function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
@@ -388,15 +390,14 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
 {
 if($sort==SORT_CTR)
   $fields|=SELECT_CTR;
-/* Select */
-$Select=postingListFields($fields);
-/* From */
-$From=postingListTables($fields);
-/* Where */
+$this->fields=$fields;
+
+$Select=$showShadows ? postingListFields($this->fields)
+		     : 'distinct entries.orig_id';
+$From=postingListTables($this->fields);
 $this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
                                $withAnswers,$user,$index1,$later,$up,$fields,
 			       $modbits,$hidden,$disabled);
-/* Order */
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'entries.sent desc',
              SORT_NAME       => 'entries.subject_sort',
@@ -411,7 +412,6 @@ $Order=getOrderBy($sort,
 	     SORT_TOPIC_INDEX0_INDEX0
 	                     => 'topics.index0,entries.index0',
              SORT_RSENT      => 'entries.sent asc'));
-/* Query */
 $this->LimitSelectIterator('Posting',
 			   "select $Select
 			    from $From
@@ -422,6 +422,31 @@ $this->LimitSelectIterator('Posting',
 
 function create($row)
 {
+if($row['id']<=0 && $row['orig_id']>0)
+  {
+  $Select=postingListFields($this->fields);
+  $From=postingListTables($this->fields);
+  $Where="{$this->where} and entries.orig_id={$row['orig_id']}";
+  $result=sql("select $Select
+               from $From
+	       where $Where
+	       order by entries.id",
+	      __FUNCTION__,'shadow');
+  $shadow=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
+  $row=array_merge($row,$shadow);
+  }
+if($row['id']!=$row['orig_id'])
+  {
+  $Select=origFields($this->fields);
+  $From=origTables($this->fields);
+  $Where="entries.id={$row['orig_id']}";
+  $result=sql("select $Select
+               from $From
+	       where $Where",
+	      __FUNCTION__,'original');
+  $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
+  $row=array_merge($row,$orig);
+  }
 if($row['parent_id']>0)
   {
   if($row['topic_ident']!='')
@@ -433,17 +458,6 @@ if($row['id']>0)
   if($row['ident']!='')
     setCachedValue('ident','entries',$row['ident'],$row['id']);
   setCachedValue('track','entries',$row['id'],$row['track']);
-  }
-if($row['id']!=$row['orig_id'])
-  {
-  $Select=origFields($fields);
-  $From=origTables($fields);
-  $Where=$this->where." and id={$row['orig_id']}";
-  $result=sql("select $Select
-               from $From
-	       where $Where");
-  $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
-  $row=array_merge($row,$orig);
   }
 return parent::create($row);
 }
