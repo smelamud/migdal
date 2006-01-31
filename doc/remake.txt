@@ -128,7 +128,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/complainscripts.php
 - lib/complains.php
 - lib/complaintypes.php
-- lib/counters.php
++ lib/counters.php
 - lib/cross-topics.php
 + lib/ctypes.php
 + lib/database.php
@@ -247,7 +247,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/complainedit.mhtml
 - migdal/complainforum.mhtml
 - migdal/complains.mhtml
-- migdal/ears.mhtml
+* migdal/ears.mhtml
 - migdal/event.mhtml
 - migdal/events-english.mhtml
 - migdal/events.mhtml
@@ -379,7 +379,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/tip-posting.mhtml
 - migdal/parts/today.mhtml
 - migdal/parts/top-404.mhtml
-- migdal/parts/topics-admin.mhtml
+* migdal/parts/topics-admin.mhtml
 - migdal/parts/topics-blog.mhtml
 - migdal/parts/topics-book.mhtml
 + migdal/parts/topicselect.mhtml

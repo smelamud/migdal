@@ -15,7 +15,7 @@ if($period<=0)
 $ip=IPToInteger($_SERVER['REMOTE_ADDR']);
 sql("insert into counters_ip(counter_id,ip,expires)
      values($id,$ip,now()+interval $period hour)",
-    'storeCounterIP');
+    __FUNCTION__);
 }
 
 function hasCounterIP($id,$mode)
@@ -29,16 +29,16 @@ $ip=IPToInteger($_SERVER['REMOTE_ADDR']);
 $result=sql("select counter_id
 	     from counters_ip
 	     where counter_id=$id and ip=$ip",
-	    'hasCounterIP');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
-function incCounter($message_id,$mode)
+function incCounter($entry_id,$mode)
 {
 $result=sql("select id
 	     from counters
-	     where message_id=$message_id and mode=$mode and serial=0",
-	    'incCounter','select');
+	     where entry_id=$entry_id and mode=$mode and serial=0",
+	    __FUNCTION__,'select');
 if(mysql_num_rows($result)<=0)
   return;
 $id=mysql_result($result,0,0);
@@ -47,35 +47,34 @@ if(hasCounterIP($id,$mode))
 sql("update counters
      set value=value+1
      where id=$id",
-    'incCounter','increment');
+    __FUNCTION__,'increment');
 journal('update counters
          set value=value+1
 	 where id='.journalVar('counters',$id));
 storeCounterIP($id,$mode);
 }
 
-function rotateCounter($message_id,$mode)
+function rotateCounter($entry_id,$mode)
 {
 global $counterModes;
 
 sql("update counters
      set serial=serial+1
-     where message_id=$message_id and mode=$mode",
-    'rotateCounter','rotate');
+     where entry_id=$entry_id and mode=$mode",
+    __FUNCTION__,'rotate');
 journal('update counters
          set serial=serial+1
-         where message_id='.journalVar('messages',$message_id).
+         where entry_id='.journalVar('entries',$entry_id).
 	     " and mode=$mode");
 
 $max_serial=$counterModes[$mode]['max_serial'];
 if($max_serial>=0)
   {
   sql("delete from counters
-       where message_id=$message_id and mode=$mode
-	     and serial>$max_serial",
-      'rotateCounter','delete');
+       where entry_id=$entry_id and mode=$mode and serial>$max_serial",
+      __FUNCTION__,'delete');
   journal('delete from counters
-	   where message_id='.journalVar('messages',$message_id).
+	   where entry_id='.journalVar('entries',$entry_id).
 	       " and mode=$mode and serial>$max_serial");
   }
 
@@ -86,30 +85,29 @@ if($ttl!=0)
 else
   $finished="2100-01-01 00:00:00";
   // Leave solution of this problem to next generations of programmers ;)
-sql("insert into counters(message_id,mode,started,finished)
-     values($message_id,$mode,'$started','$finished')",
-    'rotateCounter','create');
-journal('insert into counters(message_id,mode,started,finished)
-         values('.journalVar('messages',$message_id).",$mode,
+sql("insert into counters(entry_id,mode,started,finished)
+     values($entry_id,$mode,'$started','$finished')",
+    __FUNCTION__,'create');
+journal('insert into counters(entry_id,mode,started,finished)
+         values('.journalVar('entries',$entry_id).",$mode,
 	         '$started','$finished')");
 }
 
-function createCounters($message_id,$grp)
+function createCounters($entry_id,$grp)
 {
 global $counterModes;
 
 foreach($counterModes as $mode => $info)
        if(($info['grp'] & $grp)!=0)
-         rotateCounter($message_id,$mode);
+         rotateCounter($entry_id,$mode);
 }
 
-function getCounterValue($message_id,$mode,$serial=0)
+function getCounterValue($entry_id,$mode,$serial=0)
 {
 $result=sql("select value
 	     from counters
-	     where message_id=$message_id and mode=$mode
-		   and serial=$serial",
-	    'getCounterValue');
+	     where entry_id=$entry_id and mode=$mode and serial=$serial",
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

@@ -15,6 +15,6 @@
               text='Журнал' href#='journal.php'>
  <topics_splitter>
  <topics_line arrow!="$ident=='ears'" class='item'
-              text='Ушки' href#='ears.php'>
+              text='Ушки' href#='admin/ears/'>
 </topics_table>
 </element>

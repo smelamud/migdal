@@ -4,7 +4,7 @@
 require_once('lib/alphabet.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
-//require_once('lib/counters.php');
+require_once('lib/counters.php');
 //require_once('lib/forums.php');
 require_once('lib/grps.php');
 require_once('lib/limitselect.php');
@@ -417,7 +417,10 @@ $this->LimitSelectIterator('Posting',
 			    from $From
 			    where {$this->where}
 			    $Order",
-			   $limit,$offset);
+			   $limit,$offset,
+			   "select count(*)
+			    from $From
+			    where {$this->where}");
 }
 
 function create($row)

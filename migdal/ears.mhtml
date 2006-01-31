@@ -43,8 +43,7 @@
    <td class='cframe'>
     <subtitle>
     <iterate_postinglist name='list' grp='*GRP_EARS' topic_id='$`ears`'
-			 limit=20 offset='$offset'
-			 fields!='*SELECT_IMAGES|*SELECT_TOPICS'
+			 limit=20 offset='$offset' fields='*SELECT_CTR'
 			 sort='*SORT_CTR'>
     <error_lines>
     <batcher list='$list'>
