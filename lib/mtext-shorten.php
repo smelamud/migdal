@@ -189,8 +189,22 @@ foreach($patterns as $pat)
 return $len;
 }
 
+function hasMarkup($s)
+{
+for($i=0;$i<strlen($s);$i++)
+   {
+   if(strpos("<>&=~_^[]{}'",$s[$i])!==false)
+     return true;
+   if($s[$i]=='/' && ($i==0 || $s[$i-1]==' ' || $s[$i-1]==':'))
+     return true;
+   }
+return false;
+}
+
 function cleanLength($s)
 {
+if(!hasMarkup($s))
+  return strlen($s);
 $xml=new MTextToLineXML();
 $xml->parse($s);
 $xml->free();
@@ -199,30 +213,52 @@ return strlen($xml->getLine());
 
 function shorten($s,$len,$mdlen,$pdlen)
 {
-$xml=new MTextToLineXML();
-$xml->parse($s);
-$xml->free();
-$line=$xml->getLine();
+$hasMarkup=hasMarkup($s);
+if($hasMarkup)
+  {
+  $xml=new MTextToLineXML();
+  $xml->parse($s);
+  $xml->free();
+  $line=$xml->getLine();
+  }
+else
+  $line=$s;
 $n=getShortenLength($line,$len,$mdlen,$pdlen);
 if($n>=strlen($line))
   return $s;
-$xml1=new MTextShortenXML($n);
-$xml1->parse($s);
-$xml1->free();
-return $xml1->getShort();
+if($hasMarkup)
+  {
+  $xml1=new MTextShortenXML($n);
+  $xml1->parse($s);
+  $xml1->free();
+  return $xml1->getShort();
+  }
+else
+  return substr($s,0,$n);
 }
 
 function shortenNote($s,$len,$mdlen,$pdlen)
 {
-$xml=new MTextToLineXML();
-$xml->parse($s);
-$xml->free();
-$line=$xml->getLine();
+$hasMarkup=hasMarkup($s);
+if($hasMarkup)
+  {
+  $xml=new MTextToLineXML();
+  $xml->parse($s);
+  $xml->free();
+  $line=$xml->getLine();
+  }
+else
+  $line=$s;
 $n=getShortenLength($line,$len,$mdlen,$pdlen);
 $c=$n>=strlen($line) ? '' : '...';
-$xml1=new MTextShortenXML($n,true);
-$xml1->parse($s);
-$xml1->free();
-return $xml1->getShort().$c;
+if($hasMarkup)
+  {
+  $xml1=new MTextShortenXML($n,true);
+  $xml1->parse($s);
+  $xml1->free();
+  return $xml1->getShort().$c;
+  }
+else
+  return substr($s,0,$n).$c;
 }
 ?>

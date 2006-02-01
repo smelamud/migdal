@@ -13,7 +13,7 @@
  </ife>
  <iswrite what='$item'>
   <a href='admin/topics/$item.Id/edit/?redirid=$_'
-     title='$item.BodyHTML'>$=full_name</a>&sp;$info&sp;
+     title='$=item.BodyNormal'>$=full_name</a>&sp;$info&sp;
  <else>
   $=full_name&sp;$info&sp;
  </iswrite>

@@ -6,6 +6,7 @@ require_once('lib/bug.php');
 require_once('lib/track.php');
 require_once('lib/sql.php');
 require_once('lib/entries.php');
+require_once('lib/postings.php');
 
 class PostingsInfo
       extends DataObject

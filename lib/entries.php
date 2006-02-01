@@ -388,6 +388,11 @@ function getBodyHTML()
 return mtextToHTML($this->getBodyXML(),MTEXT_SHORT,$this->getId());
 }
 
+function getBodyNormal()
+{
+return shortenNote($this->getBodyXML(),65535,0,0);
+}
+
 function isBodyTiny()
 {
 global $tinySize,$tinySizeMinus,$tinySizePlus;

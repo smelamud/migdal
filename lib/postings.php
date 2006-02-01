@@ -10,6 +10,7 @@ require_once('lib/grps.php');
 require_once('lib/limitselect.php');
 require_once('lib/entries.php');
 require_once('lib/grpentry.php');
+require_once('lib/mtext-shorten.php');
 //require_once('lib/paragraphs.php');
 require_once('lib/random.php');
 require_once('lib/selectiterator.php');
@@ -149,6 +150,11 @@ function getTopicBodyHTML()
 {
 return mtextToHTML($this->getTopicBodyXML(),$this->getTopicBodyFormat(),
                    $this->getTopicId());
+}
+
+function getTopicBodyNormal()
+{
+return shortenNote($this->topic_body_xml,65535,0,0);
 }
 
 function getTopicBodyFormat()
