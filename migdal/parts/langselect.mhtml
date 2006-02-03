@@ -2,16 +2,22 @@
 
 <element name='langselect'>
 <iterate_langs>
-<tr>
- <td>$title <if what='$mandatory'><star></if></td>
- <td>
-  <select name='$name'>
-   <assign name='none' value=''>
-   <radio title='-- Неизвестен --' value='$none' peervalue='$value'>
-   <for>
-    <radio title='$.Name' value='$.Code' peervalue='$value'>
-   </for>
-  </select>
- </td>
-</tr>
+<select name='$name'>
+ <assign name='none' value=''>
+ <radio title='-- Неизвестен --' value='$none' peervalue='$value'>
+ <for>
+  <radio title='$.Name' value='$.Code' peervalue='$value'>
+ </for>
+</select>
+</element>
+
+<element name='form_langselect'>
+<iterate_langs>
+<form_select title='$title' name='$name' comment='$comment'
+             mandatory='$mandatory'>
+ <form_option title='-- Неизвестен --' value='' selected!="$value=''">
+ <for>
+  <form_option title='$.Name' value='$.Code' selected!='$value==$.Code'>
+ </for>
+</form_select>
 </element>

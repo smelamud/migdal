@@ -1,5 +1,6 @@
 <?php
 require_once('lib/utils.php');
+require_once('lib/array.php');
 require_once('grp/grps.php');
 
 function grpArray($grp)
@@ -66,5 +67,64 @@ for($i=1;$i<=GRP_ALL;$i*=2)
    if(($i & $grp)!=0)
      return $i;
 return 0;
+}
+
+class GrpEditor
+{
+var $ident;
+var $title;
+var $comment;
+var $mandatory;
+
+function GrpEditor($props)
+{
+foreach($props as $key => $value)
+       $this->$key=$value;
+}
+
+function getIdent()
+{
+return $this->ident;
+}
+
+function getTitle()
+{
+return $this->title;
+}
+
+function getComment()
+{
+return $this->comment;
+}
+
+function isMandatory()
+{
+return $this->mandatory;
+}
+
+}
+
+function grpEditor($grp=GRP_NONE)
+{
+global $grpGetGrpEditor;
+
+return isset($grpGetGrpEditor[$grp]) ? $grpGetGrpEditor[$grp]
+                                     : $grpGetGrpEditor[GRP_NONE];
+}
+
+class GrpEditorIterator
+      extends ArrayIterator
+{
+
+function GrpEditorIterator($grp=GRP_NONE)
+{
+parent::ArrayIterator(grpEditor($grp));
+}
+
+function create($key,$value)
+{
+return new GrpEditor($value);
+}
+
 }
 ?>

@@ -26,7 +26,8 @@
 <else>
  <assign name='grp' value='$value'>
 </if>
-<form_select title='$title' name='$name' rows='$rows' multiple='$multiple'>
+<form_select title='$title' name='$name' rows='$rows' multiple='$multiple'
+             comment='$comment' mandatory='$mandatory'>
  <iterate_grps>
  <for>
   <form_option value='$.Grp' title='$.GrpTitle'

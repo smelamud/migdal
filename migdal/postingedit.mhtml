@@ -36,6 +36,123 @@
  </if>
 </full>
 
+<element name='editor_line' params='posting,editor,visible'>
+<assign name='ident' value='$editor.Ident'>
+<if what="$ident=='' || $ident[0]=='_'">
+ <if what='$visible'>
+  <form_section title='$=editor.Title'>
+ </if>
+<elif what="$ident=='priority'">
+ <if what='$visible'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment' name='priority'
+             value='$posting.Priority' size=4 maxlength=3
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='priority' value='$editor.Priority'>
+ </if>
+<elif what="$ident=='topic'">
+ <if what='$visible'>
+  <form_topicselect title='$=editor.Title' comment='$=editor.Comment'
+                    name='topic_id' value='$posting.TopicId' grp='$$grp'
+	            mandatory='$editor.isMandatory' root='$$root'
+	            recursive='*true'>
+ <else>
+  <hidden name='topic_id' value='$posting.TopicId'>
+ </if>
+<elif what="$ident=='ident'">
+ <if what='$visible'>
+  <error id='*EP_IDENT_ABSENT' text='Обозначение не указано'>
+  <error id='*EP_IDENT_UNIQUE' text='Так уже обозначено другое сообщение'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment' name='ident'
+             value='$posting.Ident' size=15 maxlength=15
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='ident' value='$posting.Ident'>
+ </if>
+<elif what="$ident=='subject'">
+ <if what='$visible'>
+  <error id='*EP_SUBJECT_ABSENT' text#='$=editor.Title не указан'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment'
+             value='$=posting.Subject' name='subject' size=70 maxlength=250
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='subject' value='$=posting.Subject'>
+ </if>
+<elif what="$ident=='author'">
+ <if what='$visible'>
+  <error id='*EP_AUTHOR_ABSENT' text#='$=editor.Title не указан'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment'
+             value='$=posting.Author' name='author' size=52 maxlength=250
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='author' value='$=posting.Author'>
+ </if>
+<elif what="$ident=='source'">
+ <if what='$visible'>
+  <error id='*EP_SOURCE_ABSENT' text#='$=editor.Title не указан'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment'
+             value='$=posting.Source' name='source' size=52 maxlength=250
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='source' value='$=posting.Source'>
+ </if>
+<elif what="$ident=='comment0'">
+ <if what='$visible'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment'
+             value='$=posting.Comment0' name='comment0' size=52 maxlength=250
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='comment0' value='$=posting.Comment0'>
+ </if>
+<elif what="$ident=='body'">
+ <if what='$visible'>
+  <error id='*EP_BODY_ABSENT' text='Текст пуст'>
+  <form_editor title='$=editor.Title' comment='$=editor.Comment'
+               name='body' body='$=posting.Body' rows=11
+	       mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='body' value='$=posting.Body'>
+ </if>
+<elif what="$ident=='index1'">
+ <if what='$visible'>
+  <error id='*EP_INDEX1_ABSENT' text#='$=editor.Title не указан'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment'
+             value='$posting.Index1' name='index1' size=3 maxlength=5
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='index1' value='$posting.Index1'>
+ </if>
+<elif what="$ident=='index2'">
+ <if what='$visible'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment'
+             value='$posting.Index2' name='index2' size=3 maxlength=5
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='index2' value='$posting.Index2'>
+ </if>
+<elif what="$ident=='lang'">
+ <if what='$visible'>
+  <error id='*EP_LANG_ABSENT' text#='$=editor.Title не указан'>
+  <form_langselect title='$=editor.Title' comment='$=editor.Comment'
+                   value='$posting.Lang' name='lang'
+	           mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='lang' value='$posting.Lang'>
+ </if>
+<elif what="$ident=='url'">
+ <if what='$visible'>
+  <error id='*EP_URL_ABSENT' text#='$=editor.Title не указана'>
+  <form_edit title='$=editor.Title' comment='$=editor.Comment'
+             value='$=posting.URL' name='url' size=52 maxlength=250
+	     mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='url' value='$=posting.URL'>
+ </if>
+<else>
+ <form_section title='$ident'>
+</if>
+</element>
+
 <html>
 <preamble>
 <body>
@@ -82,84 +199,18 @@
      </full>
     </tr></table></td></tr>
    </moderator>
-   <tr><td><table>
+   <tr><td><table>>
     <full>
-     <grpselect name='grp' value='$message.Grp'>
+     <form_grpselect title='Группа' mandatory='*true' name='grp'
+                     value='$posting.Grp'>
     <else>
-     <hidden name='grp' value='$message.Grp'>
+     <hidden name='grp' value='$posting.Grp'>
     </full>
-    <full>
-     <edit_line title='Приоритет' name='priority' value='$message.Priority'
-		size=4 maxlength=3>
-    <else>
-     <hidden name='priority' value='$message.Priority'>
-    </full>
-    <if what='$message.hasTopic || $full'>
-     <topicselect name='topic_id' value='$message.TopicId' grp='$grp'
-		  mandatory='$message.mandatoryTopic' root='$root'
-		  recursive='*true'>
-    <else>
-     <hidden name='topic_id' value='$message.TopicId'>
-    </if>
-    <if what='$message.hasComment0 || $full'>
-     <edit_line title='$message.Comment0Title' value='$message.Comment0'
-		name='comment0' size=52 maxlength=250 mandatory='*false'>
-    <else>
-     <hidden name='comment0' value='$message.Comment0'>
-    </if>
-    <full>
-     <error id='*EP_IDENT_ABSENT' text='Обозначение не указано' span=2>
-     <error id='*EP_IDENT_UNIQUE' span=2
-	    text='Так уже обозначено другое сообщение'>
-     <edit_line title='Обозначение' name='ident' value='$,Ident'
-		size=15 maxlength=15 mandatory='$message.mandatoryIdent'>
-    <else>
-     <hidden name='ident' value='$,Ident'>
-    </full>
-    <if what='$message.hasIndex1 || $full'>
-     <error id='*EP_INDEX1_ABSENT' text='Номер не указан' span=2>
-     <edit_line title='Номер' value='$message.Index1' name='index1'
-		size=3 maxlength=5 mandatory='$message.mandatoryIndex1'>
-     <full>
-      <edit_line title='Длина' value='$message.Index2' name='index2'
-		 size=3 maxlength=5 mandatory='*false'>
-     </full>
-    <else>
-     <hidden name='index1' value='$message.Index1'>
-     <hidden name='index2' value='$message.Index2'>
-    </if>
-    <if what='$message.hasLang || $full'>
-     <error id='*EP_LANG_ABSENT' text='Язык не указан' span=2>
-     <langselect value='$message.Lang' name='lang'
-		 mandatory='$message.mandatoryLang'>
-    <else>
-     <hidden name='lang' value='$message.Lang'>
-    </if>>
-    <if what='/*$message.hasSubject ||*/ $full'>
-     <error id='*EP_SUBJECT_ABSENT' text='Заголовок пуст'>
-     <form_edit title='Заголовок' value='$=posting.Subject' name='subject'
-		size=70 maxlength=250>
-		<<mandatory='$message.mandatorySubject'>>
-    <else>
-     <hidden name='subject' value='$=posting.Subject'>
-    </if>
-    <<if what='$message.hasAuthor || $full'>
-     <error id='*EP_AUTHOR_ABSENT' text='Автор не указан' span=2>
-     <edit_line title='Автор' value='$message.Author' name='author'
-		size=52 maxlength=250 mandatory='$message.mandatoryAuthor'>
-    <else>
-     <hidden name='author' value='$message.Author'>
-    </if>
-    <if what='$message.hasSource || $full'>
-     <error id='*EP_SOURCE_ABSENT' text#='$message.SourceTitle не указан'
-	    span=2>
-     <edit_line title='$message.SourceTitle' value='$message.Source'
-		name='source' size=52 maxlength=250
-		mandatory='$message.mandatorySource'>
-    <else>
-     <hidden name='source' value='$message.Source'>
-    </if>
-    <if what='$message.hasImage || $full'>
+    <iterate_grp_editor grp!='!$full ? $posting.Grp : *GRP_NONE'>
+    <for>
+     <editor_line posting='$posting' editor='$.' visible='*true'>
+    </for>
+    <<if what='$message.hasImage || $full'>
      <error id='*EP_IMAGE_ABSENT' span=2
 	    text='Нужно указать картинку для отображения'>
      <error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
@@ -223,50 +274,40 @@
     <help_link href='stotext-help-types.php'
 	       title='Какой формат статьи выбрать?' span=2>
     </table></td></tr>
-    <if what='$message.hasBody || $full'>
-     <error id='*EP_BODY_ABSENT' text='Требуется аннотация'>
-     <editor_line name='body' title='Аннотация' body='$message.Body'
-		  rows=11 cols=60 mandatory='$message.mandatoryBody'>
-     <td><help_link href='stotext-help-subs.php'
-		    title='Список обозначений, используемых в тексте'></td>
-    <else>
-     <hidden name='body' value='$message.Body'>
-    </if>
    <else>
     </table></td></tr>
     <ifne what='$message.LargeFilename'>
      <hidden name='large_loaded' value=1>
     </ifne>
-    <if what='$message.hasBody || $full'>
-     <error id='*EP_BODY_ABSENT'
-	    text='Напишите хотя бы пару строчек в теле сообщения'>
-     <editor_line name='body' title='Текст' body='$message.Body'
-		  rows=11 cols=60 mandatory='$message.mandatoryBody'>
-     <help_link href='stotext-help-subs.php'
-		title='Список обозначений, используемых в тексте'>
-    <else>
-     <hidden name='body' value='$message.Body'>
-    </if>
-   </if>
-   <if what='$message.hasURL || $full'>
-    <table><tr><td>
-     <error id='*EP_URL_ABSENT' text='Ссылка не указана' span=2>
-     <edit_line title='Ссылка' value='$message.URL' name='url'
-		size=52 maxlength=250 mandatory='$message.mandatoryURL'>
-    </table></td></tr>
+   </if>>
+   <moderator>
+    <assign name='who' value='автору'>
    <else>
-    <hidden name='url' value='$message.URL'>
-   </if>
+    <assign name='who' value='мне'>
+   </moderator>
    <logged>
-    <checkbox_line name='hidden' value='$message.isHidden'
-		   title='Не показывать'>
+    <form_select title='Видимость' name='hidden' style='box'>
+     <form_option title='Сообщение видно всем пользователям' value='0'
+                  selected!='!$posting.isHidden'>
+     <form_option title#='Сообщение видно только $who и модераторам' value='1'
+                  selected='$posting.isHidden'>
+    </form_select>
+   <else>
+    <hidden name='hidden' value='0'>
    </logged>
    <full>
-    <checkbox_line name='disabled' value='$message.isDisabled'
-		   title='Запретить показ'>
+    <form_select title='Запретить показ'
+                 comment='Модераторский запрет на показ сообщения. Пользователь
+		          не может снять этот запрет'
+		 name='disabled' style='box'>
+     <form_option title='Нет запрета на показ всем пользователям' value='0'
+                  selected!='!$posting.isDisabled'>
+     <form_option title#='Разрешено показывать только $who и модераторам'
+                  value='1' selected='$posting.isDisabled'>
+    </form_select>
    <else>
-    <hidden name='disabled' value='$message.isDisabled'>
-   </full>>
+    <hidden name='disabled' value='$posting.isDisabled'>
+   </full>
    <if what='$editid'>
     <form_buttons title='Изменить'>
    <else>

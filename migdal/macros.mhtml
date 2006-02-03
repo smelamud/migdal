@@ -76,6 +76,9 @@
        params='name,value,rows,multiple,title,mandatory,comment'
        defaults="rows=8 multiple='*false' title='çÒÕÐÐÁ' mandatory='*false'
                  comment=''">
+<decel name='form_langselect' file='parts/langselect.php'
+       params='name,value,mandatory,title,comment'
+       defaults="mandatory='*false' title='ñÚÙË' comment=''">
 <decel name='form_line' file='parts/formutils.php'
        params='title,mandatory,comment'
        defaults="mandatory='*false' comment=''">
@@ -142,9 +145,7 @@
        params='picture,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
-<decel name='langselect' file='parts/langselect.php'
-       params='name,value,mandatory,title'
-       defaults="mandatory='*false' title='ñÚÙË'">
+<decel name='langselect' file='parts/langselect.php' params='name,value'>
 <decel name='lastonline' file='parts/utils.php' params='user'>
 <decel name='link_posting' file='parts/link-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'

@@ -103,7 +103,7 @@
   <if what='$multiple'>
    <select name='$name' size='$rows' multiple>
   <else>
-   <select name='$name' size='$rows'>
+   <select name='$name'>
   </if>
  <elif what="$style=='box'">
   <table border='0' cellspacing='0' cellpadding='3'>

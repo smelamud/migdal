@@ -76,6 +76,8 @@
 	 defaults='limit=20 offset=0'>
 <deciter macro='footnotes' class='FootnoteIterator' file='lib/paragraphs.php'
          params='source' defaults="source='$;'">
+<deciter macro='grp_editor' class='GrpEditorIterator' file='lib/grps.php'
+         params='grp' defaults="grp='*GRP_NONE'">
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>
 <deciter macro='groups' class='GroupsIterator' file='lib/groups.php'>
 <deciter macro='horisonts' class='HorisontsIterator' file='lib/horisonts.php'>

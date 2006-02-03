@@ -347,7 +347,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/jewishru.mhtml
 - migdal/parts/kaitana-announce.mhtml
 - migdal/parts/kaitana-picture.mhtml
-- migdal/parts/langselect.mhtml
++ migdal/parts/langselect.mhtml
 - migdal/parts/link-posting.mhtml
 - migdal/parts/links-switcher.mhtml
 + migdal/parts/login.mhtml
