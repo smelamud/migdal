@@ -271,7 +271,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/limedit.mhtml
 - migdal/liminsert.mhtml
 - migdal/links.mhtml
-- migdal/macros.mhtml
 - migdal/methodic-center.mhtml
 - migdal/methodics.mhtml
 - migdal/migdal-library.mhtml
@@ -280,7 +279,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/migdal-news.mhtml
 - migdal/modbits.mhtml
 - migdal/moderator.mhtml
-- migdal/postingedit.mhtml
+* migdal/postingedit.mhtml
 - migdal/posting.mhtml
 * migdal/postingorg.mhtml
 - migdal/printings.mhtml
@@ -338,7 +337,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/gallery-main.mhtml
 - migdal/parts/gallery.mhtml
 - migdal/parts/googleru.mhtml
-- migdal/parts/grpselect.mhtml
++ migdal/parts/grpselect.mhtml
 - migdal/parts/hannukah.mhtml
 - migdal/parts/help-link.mhtml
 - migdal/parts/history.mhtml

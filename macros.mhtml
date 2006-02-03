@@ -49,6 +49,8 @@
          params='values' defaults="values='$*'">
 <deciter macro='article_covers' class='ArticleCoversIterator'
          file='lib/postings.php' params='articlegrp,covergrp'>
+<deciter macro='assoc_array' class='AssocArrayIterator' file='lib/array.php'
+         params='values,class' defaults="values='$*' class='Association'">
 <deciter macro='chat' class='ChatMessageListIterator' file='lib/chat.php'
          params='limit' defaults='limit=20'>
 <deciter macro='chat_users' class='ChatUsersIterator'

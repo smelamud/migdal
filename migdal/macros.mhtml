@@ -72,6 +72,10 @@
 <decel name='form_editor' file='parts/formutils.php'
        params='title,mandatory,comment,name,body,rows'
        defaults="mandatory='*false' comment='' rows=10">
+<decel name='form_grpselect' file='parts/grpselect.php'
+       params='name,value,rows,multiple,title,mandatory,comment'
+       defaults="rows=8 multiple='*false' title='çÒÕÐÐÁ' mandatory='*false'
+                 comment=''">
 <decel name='form_line' file='parts/formutils.php'
        params='title,mandatory,comment'
        defaults="mandatory='*false' comment=''">
@@ -107,8 +111,7 @@
        params='offset,topic_id' defaults="offset=0 topic_id=-1">
 <decel name='googleru' file='parts/googleru.php'>
 <decel name='grpselect' file='parts/grpselect.php'
-       params='name,value,title,mandatory'
-       defaults="title='ôÉÐ' mandatory='*false'">
+       params='name,value,rows,multiple' defaults="rows=8 multiple='*false'">
 <decel name='hannukah' file='parts/hannukah.php'>
 <decel name='help_link' file='parts/help-link.php' params='href,title,span'
        defaults='span=0'>

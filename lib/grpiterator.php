@@ -12,7 +12,7 @@ function GrpIterator()
 parent::ArrayIterator(grpArray(GRP_ALL));
 }
 
-function create($value)
+function create($key,$value)
 {
 return new GrpEntry(array('grp' => $value));
 }

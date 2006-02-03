@@ -1,17 +1,36 @@
 << @(#) $Id$ >>
 
 <element name='grpselect'>
-<tr>
- <td>$title&sp;<if what='$mandatory'><star></if></td>
- <td>
-  <select name='$name'>
-   <iterate_grps>
-   <for>
-    <if what='$.isValid'> <<isValid deprecated>>
-     <radio title='$.GrpTitle' value='$.Grp' peervalue='$value'>
-    </if>
-   </for>
-  </select>
- </td>
-</tr>
+<if what='$multiple'>
+ <grp_array name='grp' grp='$value'>
+ <select name='$name' size='$rows' multiple>
+<else>
+ <assign name='grp' value='$value'>
+ <select name='$name'>
+</if>
+ <iterate_grps>
+ <for>
+  <if what='$multiple && in_array($.Grp,$grp) || $.Grp==$grp'>
+   <option value='$.Grp' selected>
+  <else>
+   <option value='$.Grp'>
+  </if>
+  $.GrpTitle
+ </for>
+</select>
+</element>
+
+<element name='form_grpselect'>
+<if what='$multiple'>
+ <grp_array name='grp' grp='$value'>
+<else>
+ <assign name='grp' value='$value'>
+</if>
+<form_select title='$title' name='$name' rows='$rows' multiple='$multiple'>
+ <iterate_grps>
+ <for>
+  <form_option value='$.Grp' title='$.GrpTitle'
+	       selected!='$multiple && in_array($.Grp,$grp) || $.Grp==$grp'>
+ </for>
+</form_select>
 </element>

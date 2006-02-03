@@ -752,7 +752,7 @@ $From="postings
        left join users
             on messages.sender_id=users.id";
 /* Where */
-$hideMessages=messagesPermFilter(PERM_READ,'messages');
+$hideMessages=postingsPermFilter(PERM_READ,'messages');
 $grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
 $filter=$id>=0 ? "postings.id=$id"

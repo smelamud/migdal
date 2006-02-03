@@ -297,6 +297,64 @@ error("';' expected") if $Input->getToken()->getValue() ne ';';
 $Input->next();
 }
 
+sub copyItem
+{
+my($ident,$items)=@_;
+
+$item={};
+for my $i(@$items)
+   {
+   next unless $$i{'ident'} eq "'$ident'";
+   while(my ($key,$value)=each(%$i))
+        {
+	$$item{$key}=$value;
+	}
+   last;
+   }
+return $item;
+}
+
+sub getArrayValue
+{
+my ($default)=@_;
+
+$Input->next();
+my $items=[];
+while($Input->getToken()->getValue() ne '}')
+     {
+     error('identifier expected') if $Input->getToken()->getName() ne 'ident';
+     my $ident=$Input->getToken()->getValue();
+     my $item=copyItem($ident,$default);
+     $$item{'ident'}="'$ident'";
+     $Input->next();
+     if($Input->getToken()->getValue() eq '{')
+       {
+       $Input->next();
+       while($Input->getToken()->getValue() ne '}')
+            {
+	    error("'}' or identifier expected")
+	                           if $Input->getToken()->getName() ne 'ident';
+	    my $ident=$Input->getToken()->getValue();
+	    $Input->next();
+	    error("'=' expected") if $Input->getToken()->getValue() ne '=';
+	    $Input->next();
+	    my $name=$Input->getToken()->getName();
+	    error('value expected') unless $name eq 'ident' or $name eq 'number' or
+					   $name eq 'string';
+	    my $value=$Input->getToken()->getValue();
+	    $Input->next();
+	    error("';' expected") if $Input->getToken()->getValue() ne ';';
+	    $Input->next();
+	    $$item{$ident}=$value;
+	    }
+       $Input->next();
+       }
+     push @$items,$item;
+     }
+$Input->next();
+return $items;
+}
+
 sub defineAttrs
 {
 my ($class)=@_;
@@ -318,13 +376,22 @@ if($Input->getToken()->getValue() eq ':')
 elsif($Input->getToken()->getValue() eq '=')
   {
   $Input->next();
-  my $name=$Input->getToken()->getName();
-  error('value expected') unless $name eq 'ident' or $name eq 'number' or
-                                 $name eq 'string';
-  $class->addParam($ident,$Input->getToken()->getValue());
-  $Input->next();
-  error("';' expected") if $Input->getToken()->getValue() ne ';';
-  $Input->next();
+  my $value;
+  if($Input->getToken()->getValue() eq '{')
+    {
+    $value=getArrayValue($class->getParams()->{$ident});
+    }
+  else
+    {
+    my $name=$Input->getToken()->getName();
+    error('value expected') unless $name eq 'ident' or $name eq 'number' or
+				   $name eq 'string';
+    $value=$Input->getToken()->getValue();
+    $Input->next();
+    error("';' expected") if $Input->getToken()->getValue() ne ';';
+    $Input->next();
+    }
+  $class->addParam($ident,$value);
   }
 else
   {
@@ -445,8 +512,40 @@ for(@Classes)
    {
    my $flag=$constPrefix.$_->getFlag();
    my $value=${$_->getParams()}{$name};
+   if(ref($value) eq 'ARRAY')
+     {
+     $out="array(\n";
+     for my $item(@$value)
+         {
+         $out.="        array(\n";
+	 while(my ($key,$val)=each(%$item))
+	      {
+	      $out.="            '$key' => $val,\n";
+	      }
+         $out.="        ),\n";
+	 }
+     $out.="    )";
+     $value=$out;
+     }
    print GRPS "    $flag => $value,\n";
    }
+my $value=${$defaultClass->getParams()}{$name};
+if(ref($value) eq 'ARRAY')
+  {
+  $out="array(\n";
+  for my $item(@$value)
+      {
+      $out.="        array(\n";
+      while(my ($key,$val)=each(%$item))
+	   {
+	   $out.="            '$key' => $val,\n";
+	   }
+      $out.="        ),\n";
+      }
+  $out.="    )";
+  $value=$out;
+  }
+print GRPS "    ${constPrefix}NONE => $value,\n";
 print GRPS ");\n";
 print GRPS "\n";
 print POSTINGS "function $name()\n";

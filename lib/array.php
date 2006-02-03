@@ -15,7 +15,7 @@ $this->vars=$vars;
 reset($this->vars);
 }
 
-function create($value)
+function create($key,$value)
 {
 return $value;
 }
@@ -23,9 +23,10 @@ return $value;
 function next()
 {
 parent::next();
+$key=key($this->vars);
 $val=current($this->vars);
 next($this->vars);
-return $val ? $this->create($val) : $val;
+return $val ? $this->create($key,$val) : $val;
 }
 
 function getCount()
@@ -44,6 +45,47 @@ function SortedArrayIterator($vars)
 sort($vars);
 $vars=array_unique($vars);
 parent::ArrayIterator($vars);
+}
+
+}
+
+class Association
+{
+var $name;
+var $value;
+
+function Association($name,$value)
+{
+$this->name=$name;
+$this->value=$value;
+}
+
+function getName()
+{
+return $this->name;
+}
+
+function getValue()
+{
+return $this->value;
+}
+
+}
+
+class AssocArrayIterator
+      extends ArrayIterator
+{
+var $class;
+
+function AssocArrayIterator($vars,$class='Association')
+{
+parent::ArrayIterator($vars);
+$this->class=$class;
+}
+
+function create($key,$value)
+{
+return new $class($key,$value);
 }
 
 }

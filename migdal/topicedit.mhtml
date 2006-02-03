@@ -66,14 +66,8 @@
   <error id='*ET_BAD_PERMS' text='Права заданы некорректно'>
   <form_edit title='Права' name='perm_string' value='$,PermHTML' size=17
 	     maxlength=17>
-  <form_select title='Допустимые сообщения' name='grps[]' rows='8'
-               multiple='*true'>
-   <iterate_grps>
-   <for>
-    <form_option value='$.Grp' title='$.GrpTitle'
-                 selected!='in_array($.Grp,$,Grps)'>
-   </for>
-  </form_select>
+  <form_grpselect title='Допустимые сообщения' name='grps[]' value='$,Grps'
+                  rows='8' multiple='*true'>
   <form_select title='Модерирование' name='modbits[]' style='box'
                multiple='*true'>
    <iterate_topic_modbits>
