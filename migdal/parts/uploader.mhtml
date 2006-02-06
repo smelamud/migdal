@@ -2,8 +2,10 @@
 
 <element name='uploader'>
 <ifne what='$loaded'>
- $loaded<br>
- <checkbox name='$delname' title='Удалить'>
+ <p>
+  <i>$loaded</i><br>
+  <checkbox name='$delname' title='Удалить'>
+ </p>
 </ifne>
 <input type=file name='$name' size=35>
 </element>

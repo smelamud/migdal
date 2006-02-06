@@ -15,26 +15,23 @@
 <int name='up'>
 <int name='full'>
 <int name='noguests'>
-<<posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'
-             fields='*SELECT_GENERAL'>
-<identify posting='$message'>>
-<require name='lib/postings.php'>
-<?php $posting=new Posting(array('grp' => GRP_FORUMS)); ?>
+<posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 
 <macro name='full'>
  <if what='$$full'>
 </macro>
 <endif name='/full'>
 
-<full>
+<<full>>
  <assign name='root' value='-1'>
-<else>
+<<else>
  <if what='$topic_id<=0'>
   <assign name='root' value='$`general`'>
  <else>
   <assign name='root' value='$message.RootId'>
  </if>
-</full>
+</full>>
 
 <element name='editor_line' params='posting,editor,visible'>
 <assign name='ident' value='$editor.Ident'>
@@ -224,7 +221,7 @@
  <top ident='index'>
  <<setup>>
  <if what='$editid'>
-  <assign name='head' value#='Изменить $posting.GrpWhat'>
+  <assign name='head' value#='Изменить $,GrpWhat'>
  <else>
   <assign name='head' value#='Добавить $posting.GrpWhat'>
  </if>
@@ -235,8 +232,8 @@
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='editid' value='$editid'>
-   <hidden name='person_id' value='$posting.PersonId'>
-   <hidden name='up' value='$posting.UpValue'>
+   <hidden name='person_id' value='$,PersonId'>
+   <hidden name='up' value='$,UpValue'>
    <starinfo>
    <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
    <error id='*EP_NO_PERSONAL'
@@ -252,28 +249,26 @@
 	  text='Вы не имеете права присоединять сообщения к этому сообщению'>
    <<if what='!$editid'>
     <relogin title='$message.GrpItemTitle' noguests='$noguests'>
-   </if>
+   </if>>
    <moderator>
-    <tr><td><table><tr valign=center>
+    <tr valign='top'><td class='form-cell' colspan=2><table><tr>
      <full>
-      <td><image src='pics/down.gif' border=0></td>
-      <td><a href='$[full=0]'>Свернуть</a></td>
+      <td><image src='pics/down.gif'></td>
+      <td><a href='$[full=0]'>Скрыть все неиспользуемые поля</a></td>
      <else>
-      <td><image src='pics/right.gif' border=0></td>
-      <td><a href='$[full=1]'>Развернуть</a></td>
+      <td><image src='pics/right.gif'></td>
+      <td><a href='$[full=1]'>Показать все поля</a></td>
      </full>
     </tr></table></td></tr>
    </moderator>
-   <tr><td><table>>
    <full>
-    <form_grpselect title='Группа' mandatory='*true' name='grp'
-		    value='$posting.Grp'>
+    <form_grpselect title='Группа' mandatory='*true' name='grp' value='$,Grp'>
    <else>
-    <hidden name='grp' value='$posting.Grp'>
+    <hidden name='grp' value='$,Grp'>
    </full>
-   <iterate_grp_editor grp!='!$full ? $posting.Grp : *GRP_NONE'>
+   <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE'>
    <for>
-    <editor_line posting='$posting' editor='$.' visible='*true'>
+    <editor_line posting='$,' editor='$.' visible='*true'>
    </for>
    <<tr><td colspan=2>
     <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId&win=1'>
@@ -290,9 +285,9 @@
    <logged>
     <form_select title='Видимость' name='hidden' style='box'>
      <form_option title='Сообщение видно всем пользователям' value='0'
-                  selected!='!$posting.isHidden'>
+                  selected!='!$,isHidden'>
      <form_option title#='Сообщение видно только $who и модераторам' value='1'
-                  selected='$posting.isHidden'>
+                  selected='$,isHidden'>
     </form_select>
    <else>
     <hidden name='hidden' value='0'>
@@ -303,12 +298,12 @@
 		          не может снять этот запрет'
 		 name='disabled' style='box'>
      <form_option title='Нет запрета на показ всем пользователям' value='0'
-                  selected!='!$posting.isDisabled'>
+                  selected!='!$,isDisabled'>
      <form_option title#='Разрешено показывать только $who и модераторам'
-                  value='1' selected='$posting.isDisabled'>
+                  value='1' selected='$,isDisabled'>
     </form_select>
    <else>
-    <hidden name='disabled' value='$posting.isDisabled'>
+    <hidden name='disabled' value='$,isDisabled'>
    </full>
    <if what='$editid'>
     <form_buttons title='Изменить'>

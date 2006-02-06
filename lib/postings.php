@@ -209,9 +209,10 @@ function postingListFields($fields=SELECT_GENERAL)
 $Fields='entries.id as id,entries.ident as ident,entries.up as up,
          entries.track as track,entries.parent_id as parent_id,
 	 entries.orig_id as orig_id,entries.grp as grp,
-	 entries.user_id as user_id,entries.group_id as group_id,
-	 entries.perms as perms,entries.disabled as disabled,
-	 entries.subject as subject,entries.lang as lang,
+	 entries.person_id as person_id,entries.user_id as user_id,
+	 entries.group_id as group_id,entries.perms as perms,
+	 entries.disabled as disabled,entries.subject as subject,
+	 entries.lang as lang,
 	 entries.author as author,entries.author_xml as author_xml,
 	 entries.source as source,entries.source_xml as source_xml,
 	 entries.title as title,entries.title_xml as title_xml,
@@ -664,13 +665,13 @@ global $rootPostingPerms;
 
 if($up>0)
   {
-  $msg=getPermsById('messages',$up);
+  $msg=getPermsById($up);
   $group_id=$msg->getGroupId();
   $perms=$msg->getPerms();
   }
 else if($topic_id>0)
   {
-  $topic=getPermsById('topics',$topic_id);
+  $topic=getPermsById($topic_id);
   $group_id=$topic->getGroupId();
   $perms=$rootPostingPerms;
   }
@@ -679,118 +680,53 @@ else
   $group_id=0;
   $perms=$rootPostingPerms;
   }
-return newGrpPosting($grp,array('id'       => 0,
-				'topic_id' => $topic_id,
-				'up'       => $up,
-				'group_id' => $group_id,
-				'perms'    => $perms));
+return new Posting(array('id'        => 0,
+                         'grp'       => $grp,
+			 'parent_id' => $topic_id,
+			 'up'        => $up>0 ? $up : $topic_id,
+			 'group_id'  => $group_id,
+			 'perms'     => $perms));
 }
 
 function getPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1,
                         $fields=SELECT_GENERAL,$up=-1)
 {
-/* Select */
-$imageFields=($fields & SELECT_IMAGES)!=0 ?
-             "images.image_set as image_set,images.id as image_id,
-	      length(images.large) as image_size,images.large_x as image_x,
-	      images.large_y as image_y,images.has_large as has_large_image,
-	      images.title as title," :
-	     "stotexts.image_set as image_set,";
-$topicFields=($fields & SELECT_TOPICS)!=0 ?
-             "topics.name as topic_name,topictexts.body as topic_description," :
-	     "";
-$answersFields=($fields & SELECT_ANSWERS)!=0 ?
-	     "messages.answers as answer_count,
-	      messages.hidden_answers as hidden_answers,
-	      messages.last_answer as last_answer," :
-	     "";
-
-$Select="postings.id as id,messages.track as track,postings.ident as ident,
-         postings.message_id as message_id,messages.up as up,
-	 messages.stotext_id as stotext_id,stotexts.body as body,
-	 stotexts.large_format as large_format,
-	 stotexts.large_filename as large_filename,
-	 stotexts.large_imageset as large_imageset,
-	 stotexts.large_body as large_body,messages.lang as lang,
-	 messages.subject as subject,messages.author as author,
-	 messages.source as source,messages.comment0 as comment0,
-	 messages.comment1 as comment1,messages.url as url,grp,priority,
-	 postings.index0 as index0,postings.index1 as index1,
-	 postings.index2 as index2,subdomain,shadow,messages.sent as sent,
-	 topic_id,personal_id,messages.sender_id as sender_id,
-	 messages.group_id as group_id,
-	 messages.perms as perms,if((messages.perms & 0x1100)=0,1,0) as hidden,
-	 messages.disabled as disabled,messages.modbits as modbits,
-	 $imageFields
-	 $topicFields
-	 users.hidden as sender_hidden,login,gender,email,hide_email,rebe,
-	 vote,vote_count,
-	 $answersFields
-	 if(messages.url_check_success=0,0,
-	    unix_timestamp()-unix_timestamp(messages.url_check_success))
-							   as url_fail_time";
-/* From */
-$imageTables=($fields & SELECT_IMAGES)!=0 ?
-	     "left join images
-		   on stotexts.image_set=images.image_set
-		      and images.image_set<>0" :
-	     "";
-$topicTables=($fields & SELECT_TOPICS)!=0 ?
-	     "left join topics
-		   on postings.topic_id=topics.id
-	      left join stotexts as topictexts
-		   on topictexts.id=topics.stotext_id" :
-	     "";
-
-$From="postings
-       left join messages
-            on postings.message_id=messages.id
-       left join stotexts
-            on stotexts.id=messages.stotext_id
-       $imageTables
-       $topicTables
-       left join users
-            on messages.sender_id=users.id";
-/* Where */
-$hideMessages=postingsPermFilter(PERM_READ,'messages');
-$grpFilter=grpFilter($grp);
-$topicFilter=$topic_id>=0 ? "and postings.topic_id=$topic_id" : '';
-$filter=$id>=0 ? "postings.id=$id"
-               : ($index1>=0 ? "postings.index1=$index1 and $grpFilter
-	                        $topicFilter"
-	                     : '');
-
-$Where="$hideMessages and $filter";
-/* Query */
+$Select=postingListFields($fields);
+$From=postingListTables($fields);
+if($id>0)
+  $Where="entries.id=$id";
+else
+  {
+  $Where='entries.entry='.ENT_POSTING;
+  $Where.=' and '.postingsPermFilter(PERM_READ,'entries');
+  $Where.=' and '.postingListGrpFilter($grp);
+  $Where.=' and '.postingListTopicFilter($topic_id);
+  if($index1>=0)
+    $Where.=" and entries.index1=$index1";
+  }
 $result=sql("select $Select
 	     from $From
 	     where $Where",
-	    'getPostingById');
-/* Result */
+	    __FUNCTION__,'shadow');
 if(mysql_num_rows($result)>0)
   {
   $row=mysql_fetch_assoc($result);
-
-  global $userId;
-
-  if(($fields & SELECT_ANSWERS)!=0 && $row['hidden_answers']>0 && $userId>0)
+  if($row['id']!=$row['orig_id'])
     {
-    $info=getForumAnswersInfoByMessageId($row['message_id']);
-    $row=array_merge($row,$info);
+    $Select=origFields($fields);
+    $From=origTables($fields);
+    $Where="entries.id={$row['orig_id']}";
+    $result=sql("select $Select
+		 from $From
+		 where $Where",
+		__FUNCTION__,'original');
+    $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
+    $row=array_merge($row,$orig);
     }
-  return newPosting($row);
+  return new Posting($row);
   }
 else
   return getRootPosting($grp,$topic_id,$up);
-}
-
-function getMessageIdByPostingId($id)
-{
-$result=sql("select message_id
-	     from postings
-	     where id=$id",
-	    'getMessageIdByPostingId');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function getMaxIndexOfPosting($indexN,$grp,$topic_id=-1,$recursive=false)

@@ -104,7 +104,7 @@
     <b>[X]</b>
     &nbsp;
    </if>
-   <a href="admin/postings/$posting.Id/edit/?redirid=$_">Изменить</a>
+   <a href="admin/postings/$posting.Id/edit/?full=1&redirid=$_">Изменить</a>
    &nbsp;
    <if what='$posting.isDisabled'>
     <a href="actions/moderate.php?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"

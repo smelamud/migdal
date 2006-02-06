@@ -262,7 +262,7 @@
 	 defaults="topic_id=-1 sender_id=0 id=0 topic_name=''">
 <deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
          params='id,grp,index1,topic_id,fields,up'
-	 defaults="id=-1 name=message grp=*GRP_ALL index1=-1 topic_id=-1
+	 defaults="id=-1 name=posting grp=*GRP_ALL index1=-1 topic_id=-1
 	           fields='*SELECT_GENERAL' up=-1">
 <deccall macro='posting_random' func='getRandomPostingId'
          file='lib/postings-random.php' params='grp,topic_id,user_id,index1'
