@@ -100,6 +100,12 @@
        params='name,value,grp,mandatory,title,root,recursive,comment'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
                  recursive='*false' comment=''">
+<decel name='form_upload_format' file='parts/uploader.php'
+       params='name,format,title,comment,mandatory'
+       defaults="name='large_body_format' comment='',mandatory='*false'">
+<decel name='form_uploader' file='parts/uploader.php'
+       params='name,loaded,delname,title,comment,mandatory'
+       defaults="comment='',mandatory='*false'">
 <decel name='forum_answer' file='parts/forumanswer.php'
        params='answer,complain' defaults="complain='*true'">
 <decel name='forumcatalog' file='parts/forumcatalog.php' params='offset'
@@ -332,12 +338,9 @@
 <decel name='tzdaka' file='parts/tzdaka.php'>
 <decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'
        defaults="chapter='' topic_id='-1'">
-<decel name='uploader' file='parts/uploader.php'
-       params='name,loadedname,loadedvalue,title,loaded,notloaded,filename,
-               mandatory'
-       defaults="mandatory='*false'">
+<decel name='uploader' file='parts/uploader.php' params='name,loaded,delname'>
 <decel name='upload_format' file='parts/uploader.php'
-       params='name,format' defaults="name='large_format'">
+       params='name,format' defaults="name='large_body_format'">
 <decel name='upper_level' file='parts/topics.php' params='title,name,href'
        defaults="title='' name=''">
 <decel name='userinfo' file='parts/userinfo.php' params='id,target,class'

@@ -85,7 +85,7 @@ $this->class=$class;
 
 function create($key,$value)
 {
-return new $class($key,$value);
+return new $this->class($key,$value);
 }
 
 }

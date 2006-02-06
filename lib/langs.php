@@ -34,32 +34,14 @@ return $this->name;
 }
 
 class LangIterator
-      extends Iterator
+      extends AssocArrayIterator
 {
 
 function LangIterator()
 {
 global $langCodes;
 
-$this->Iterator();
-reset($langCodes);
-}
-
-function next()
-{
-global $langCodes;
-
-Iterator::next();
-$lang=key($langCodes);
-next($langCodes);
-return $lang ? new LangInfo($lang,$langCodes[$lang]) : 0;
-}
-
-function getCount()
-{
-global $langCodes;
-
-return count($langCodes);
+parent::AssocArrayIterator($langCodes,'LangInfo');
 }
 
 }

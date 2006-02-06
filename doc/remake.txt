@@ -400,7 +400,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/top.mhtml
 - migdal/parts/tzdaka.mhtml
 - migdal/parts/unititle.mhtml
-- migdal/parts/uploader.mhtml
++ migdal/parts/uploader.mhtml
 + migdal/parts/userinfo.mhtml
 * migdal/parts/utils.mhtml
 - migdal/parts/vote.mhtml

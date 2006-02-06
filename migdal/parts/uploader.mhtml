@@ -1,45 +1,38 @@
 << @(#) $Id$ >>
 
 <element name='uploader'>
-<ife what='$filename'>
- <tr>
-  <td>$title&nbsp;<if what='$mandatory'><star></if></td>
-  <td><input type=file name='$name' size=35></td>
- </tr>
-<else>
- <tr><td colspan=2><table>
-  <tr><td>$title&nbsp;<if what='$mandatory'><star></if></td></tr>
-  <tr>
-   <td>
-    <label>
-     <input type=radio name='$loadedname' value='$loadedvalue' checked>
-     &nbsp;$filename&nbsp;<i>$loaded</i>
-    </label>
-   </td>
-  </tr>
-  <tr><td>
-   <label>
-    <input type=radio name='$loadedname' value=0>&nbsp;$notloaded&nbsp;
-   </label>
-   <input type=file name='$name' size=35>
-  </td></tr>
- </table></td></tr>
-</ife>
+<ifne what='$loaded'>
+ $loaded<br>
+ <checkbox name='$delname' title='Удалить'>
+</ifne>
+<input type=file name='$name' size=35>
+</element>
+
+<element name='form_uploader'>
+<form_line title='$title' comment='$comment' mandatory='$mandatory'>
+ <uploader name='$name' loaded='$loaded' delname='$delname'>
+</form_line>
 </element>
 
 <element name='upload_format'>
-<tr>
- <td>Формат</td>
- <td><select name='$name'>
-  <array vals='Простой,TeX-подобный,HTML-подобный,Преформатированный,Письмо'>
-  <iterate_array>
-  <for>
-   <if what='$;Position==$format'>
-    <option selected value=$;Position>$.</option>
-   <else>
-    <option value=$;Position>$.</option>
-   </if>
-  </for>
- </select></td>
-</tr>
+<select name='$name'>
+ <iterate_text_formats>
+ <for>
+  <if what='$.Name==$format'>
+   <option value='$.Name' selected>$.Value</option>
+  <else>
+   <option value='$.Name'>$.Value</option>
+  </if>
+ </for>
+</select>
+</element>
+
+<element name='form_upload_format'>
+<form_select name='$name' title='$title' comment='$comment'
+             mandatory='$mandatory'>
+ <iterate_text_formats>
+ <for>
+  <form_option title='$.Value' value='$.Name' selected!='$.Value==$format'>
+ </for>
+</form_select>
 </element>

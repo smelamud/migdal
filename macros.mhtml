@@ -134,6 +134,7 @@
          file='lib/topics.php' params='grp,up,recursive,delimiter'
 	 defaults="up=-1 recursive='*false' delimiter=' :: '">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
+<deciter macro='text_formats' class='TextFormatsIterator' file='lib/text.php'>
 <deciter macro='topic_cross' class='CrossTopicIterator'
          file='lib/cross-topics.php' params='topic_id,peer_grp,topic_grp'
 	 defaults="peer_grp='*GRP_ALL' topic_grp='*GRP_ALL'">
@@ -611,7 +612,9 @@ parse_str($fragments['query']);
 </macro>
 
 <macro name='checkbox' defaults='value=0 iftrue=1'>
- <checkbox_button name='%name' value='%value' iftrue='%iftrue'> %title
+ <label>
+  <checkbox_button name='%name' value='%value' iftrue='%iftrue'> %title
+ </label>
 </macro>
 
 <macro name='radio_button' defaults='peervalue="-1"'>

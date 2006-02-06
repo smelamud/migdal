@@ -492,6 +492,16 @@ function getLargeBodyFilename()
 return $this->large_body_filename;
 }
 
+function getLargeBodySize()
+{
+return strlen($this->large_body);
+}
+
+function getLargeBodySizeKB()
+{
+return (int)($this->getLargeBodySize()/1024);
+}
+
 function getPriority()
 {
 return $this->priority;
@@ -636,6 +646,12 @@ function getLargeImageURL()
 return getImageURL($this->getId(),
                    getImageExtension($this->getLargeImageFormat()),
                    $this->getLargeImage(),'large');
+}
+
+function getImage()
+{
+return $this->hasLargeImage() ? $this->getLargeImage()
+                              : $this->getSmallImage();
 }
 
 function getImageX()

@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/array.php');
+
 define('TF_PLAIN',0);
 define('TF_TEX',1);
 define('TF_XML',2);
@@ -42,5 +44,21 @@ return $b==1 || $a>=5 || $a==0 ? $forms[2] : ($a==1 ? $forms[0] : $forms[1]);
 function getQuote($s,$width)
 {
 return preg_replace('/^/m','> ',wordwrap($s,$width));
+}
+
+$TextFormats=array(TF_PLAIN => 'Простой текст (без переносов строк)',
+                   TF_TEX => 'Простой текст (с переносами строк)');
+
+class TextFormatsIterator
+      extends AssocArrayIterator
+{
+
+function TextFormatsIterator()
+{
+global $TextFormats;
+
+parent::AssocArrayIterator($TextFormats);
+}
+
 }
 ?>

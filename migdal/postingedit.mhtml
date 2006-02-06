@@ -108,7 +108,7 @@
  <if what='$visible'>
   <error id='*EP_BODY_ABSENT' text='Текст пуст'>
   <form_editor title='$=editor.Title' comment='$=editor.Comment'
-               name='body' body='$=posting.Body' rows=11
+               name='body' body='$=posting.Body' rows=9
 	       mandatory='$editor.isMandatory'>
  <else>
   <hidden name='body' value='$=posting.Body'>
@@ -147,6 +147,71 @@
 	     mandatory='$editor.isMandatory'>
  <else>
   <hidden name='url' value='$=posting.URL'>
+ </if>
+<elif what="$ident=='image'">
+ <if what='$visible'>
+  <error id='*EP_IMAGE_ABSENT' text='Нужно указать картинку для отображения'>
+  <error id='*EP_NO_IMAGE' text='Указанной картинки не существует'>
+  <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки'>
+  <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
+  <error id='*EIU_UNKNOWN_THUMBNAIL'
+	 text='Формат маленькой картинки, указанный при конфигурации сервера,
+	       не поддерживается'>
+  <if what='$posting.hasSmallImage'>
+   <hidden name='image' value='$posting.Image'>
+   <assign name='loaded' value#='Загружен файл $=posting.LargeImageFilename
+                                 (${posting.LargeImageSizeKB}K)'>
+  <else>
+   <assign name='loaded' value=''>
+  </if>
+  <form_uploader title='$=editor.Title' comment='$=editor.Comment'
+                 name='image_file' loaded='$loaded' delname='del_image'
+	         mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='image' value='$posting.Image'>
+ </if>
+<elif what="$ident=='title'">
+ <if what='$visible'>
+  <form_editor title='$=editor.Title' comment='$=editor.Comment'
+               name='title' body='$=posting.Title' rows=3
+	       mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='title' value='$=posting.Title'>
+ </if>
+<elif what="$ident=='large_body'">
+ <if what='$visible'>
+  <error id='*EP_LARGE_BODY_ABSENT' text#='$=editor.Title пуст'>
+  <form_editor title='$=editor.Title' comment='$=editor.Comment'
+               name='large_body' body='$=posting.LargeBody' rows=11
+	       mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='large_body' value='$=posting.LargeBody'>
+ </if>
+<elif what="$ident=='large_body_upload'">
+ <if what='$visible'>
+  <error id='*EUL_LARGE' text#='$=editor.Title слишком велик (больше 2M)'>
+  <if what='$posting.hasLargeBody'>
+   <ifne what='$posting.LargeBodyFilename'>
+    <assign name='loaded' value#='Загружен файл $=posting.LargeBodyFilename
+				  (${posting.LargeBodySizeKB}K)'>
+   <else>
+    <assign name='loaded' value#='Загружен текст (${posting.LargeBodySizeKB}K)'>
+   </ifne>
+  <else>
+   <assign name='loaded' value=''>
+  </if>
+  <form_uploader title='$=editor.Title' comment='$=editor.Comment'
+                 name='large_body_file' loaded='$loaded'
+		 delname='del_large_body' mandatory='$editor.isMandatory'>
+ </if>
+<elif what="$ident=='large_body_format'">
+ <if what='$visible'>
+  <form_upload_format title='$=editor.Title' comment='$=editor.Comment'
+		      name='large_body_format'
+		      format='$posting.LargeBodyFormat'
+		      mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='large_body_format' value='$=posting.LargeBodyFormat'>
  </if>
 <else>
  <form_section title='$ident'>
@@ -200,86 +265,23 @@
     </tr></table></td></tr>
    </moderator>
    <tr><td><table>>
-    <full>
-     <form_grpselect title='Группа' mandatory='*true' name='grp'
-                     value='$posting.Grp'>
-    <else>
-     <hidden name='grp' value='$posting.Grp'>
-    </full>
-    <iterate_grp_editor grp!='!$full ? $posting.Grp : *GRP_NONE'>
-    <for>
-     <editor_line posting='$posting' editor='$.' visible='*true'>
-    </for>
-    <<if what='$message.hasImage || $full'>
-     <error id='*EP_IMAGE_ABSENT' span=2
-	    text='Нужно указать картинку для отображения'>
-     <error id='*EP_NO_IMAGE' text='Указанной картинки не существует' span=2>
-     <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки' span=2>
-     <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'
-	    span=2>
-     <error id='*EIU_UNKNOWN_THUMBNAIL' span=2
-	    text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
-     <ifnzero what='$message.ImageSet'>
-      <image_name set='$message.ImageSet'>
-      <assign name='file' value='$image.Filename'>
-     <else>
-      <assign name='file' value=''>
-     </ifnzero>
-     <if what='$message.hasLargeBody'>
-      <assign name='ititle' value='Картинка<br>для аннотации'>
-     <else>
-      <assign name='ititle' value='Картинка'>
-     </if>
-     <uploader name='image' loadedname='image_set'
-	       loadedvalue='$message.ImageSet' title='$ititle'
-	       loaded='(уже загружена)' notloaded='Другая' filename='$file'
-	       mandatory='$message.mandatoryImage'>
-     <if what='$message.hasTitle || $full'>
-      <ifnzero what='$message.ImageSet'>
-       <assign name='ttext' value='$image.Title'>
-      <else>
-       <assign name='ttext' value=''>
-      </ifnzero>
-      <editor_line name='title' body='$ttext' title='Подпись под картинкой'
-		   rows=4 span=2 mandatory='$message.mandatoryTitle'>
-     <else>
-      <ifnzero what='$message.ImageSet'>
-       <hidden name='title' value='$image.Title'>
-      </ifnzero>
-     </if>
-    <else>
-     <ifnzero what='$message.ImageSet'>
-      <hidden name='image_set' value='$message.ImageSet'>
-      <image_name set='$message.ImageSet'>
-      <hidden name='title' value='$,Title'>
-     </ifnzero>
-    </if>
-   <if what='$message.hasLargeBody || $full'>
-    <error id='*EP_LARGE_BODY_ABSENT' text='А где сама статья?'>
-    <error id='*EUL_LARGE' text='Статья слишком велика (больше 2M)'>
-    <ifne what='$message.LargeFilename'>
-     <tr><td colspan=2>
-      <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId&win=1'>
-	 Текст в кодировке win</a>
-      &nbsp;
-      <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>
-	 Текст в кодировке koi</a>
-     </td></tr>
-    </ifne>
-    <uploader name='large_file' loadedname='large_loaded' loadedvalue=1
-	      title='Текст' loaded='(уже загружен)' notloaded='Другой'
-	      filename='$message.LargeFilename'
-	      mandatory='$message.mandatoryLargeBody'>
-    <upload_format format='$message.LargeFormat'>
-    <help_link href='stotext-help-types.php'
-	       title='Какой формат статьи выбрать?' span=2>
-    </table></td></tr>
+   <full>
+    <form_grpselect title='Группа' mandatory='*true' name='grp'
+		    value='$posting.Grp'>
    <else>
-    </table></td></tr>
-    <ifne what='$message.LargeFilename'>
-     <hidden name='large_loaded' value=1>
-    </ifne>
-   </if>>
+    <hidden name='grp' value='$posting.Grp'>
+   </full>
+   <iterate_grp_editor grp!='!$full ? $posting.Grp : *GRP_NONE'>
+   <for>
+    <editor_line posting='$posting' editor='$.' visible='*true'>
+   </for>
+   <<tr><td colspan=2>
+    <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId&win=1'>
+       Текст в кодировке win</a>
+    &nbsp;
+    <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId'>
+       Текст в кодировке koi</a>
+   </td></tr>>
    <moderator>
     <assign name='who' value='автору'>
    <else>
