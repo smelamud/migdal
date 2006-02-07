@@ -131,8 +131,11 @@
 <deciter macro='sortarray' class='SortedArrayIterator' file='lib/array.php'
          params='values' defaults="values='$*'">
 <deciter macro='sortedtopicnames' class='SortedTopicNamesIterator'
-         file='lib/topics.php' params='grp,up,recursive,delimiter'
-	 defaults="up=-1 recursive='*false' delimiter=' :: '">
+         file='lib/topics.php'
+	 params='grp,up,recursive,delimiter,name_root,only_writable,
+	         only_postable'
+	 defaults="up=-1 recursive='*false' delimiter=' :: ' name_root=-1
+	           only_writable='*false' only_postable='*false'">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
 <deciter macro='text_formats' class='TextFormatsIterator' file='lib/text.php'>
 <deciter macro='topic_cross' class='CrossTopicIterator'
@@ -148,8 +151,10 @@
 <deciter macro='topic_modbits' class='TopicModbitIterator'
          file='lib/modbits.php'>
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
-         params='grp,up,recursive,delimiter'
-	 defaults="up=-1 recursive='*false' delimiter=' :: '">
+         params='grp,up,recursive,delimiter,name_root,only_writable,
+	         only_postable'
+	 defaults="up=-1 recursive='*false' delimiter=' :: ' name_root=-1
+	           only_writable='*false' only_postable='*false'">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'
          params='prefix,sort' defaults="sort='*SORT_LOGIN'">
 <deciter macro='user_alphabet' class='UserAlphabetIterator'

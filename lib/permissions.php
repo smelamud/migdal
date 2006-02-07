@@ -140,9 +140,12 @@ foreach($permVarietyCache as $perm)
        else
          $all=false;
 if($all)
-  return 1;
+  return '1';
 else
-  return '('.join(' or ',$cases).')';
+  if(count($cases)==0)
+    return '0';
+  else
+    return '('.join(' or ',$cases).')';
 }
 
 // Получение SQL-выражения для проверки наличия указанного права

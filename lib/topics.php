@@ -239,28 +239,35 @@ var $names;
 var $up;
 var $delimiter;
 
-function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ')
+function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ',
+                            $nameRoot=-1,$onlyWritable=false,
+			    $onlyPostable=false)
 {
-$this->up=$up;
+$this->nameRoot=$nameRoot;
 $this->delimiter=$delimiter;
 
 $distinct=$grp!=GRP_ALL ? 'distinct' : '';
 $grpTable=$grp!=GRP_ALL ? 'left join entry_grps
                                 on entry_grps.entry_id=entries.id'
 			: '';
+$Where=$this->getWhere($grp,$up,'',$recursive);
+if($onlyWritable)
+  $Where.=' and '.topicsPermFilter(PERM_WRITE);
+if($onlyPostable)
+  $Where.=' and '.topicsPermFilter(PERM_POST);
 parent::TopicIterator("select $distinct id,up,track,subject
 		       from entries
-		            $grpTable"
-		      .$this->getWhere($grp,$this->up,'',$recursive)
-		    .' order by track');
+		            $grpTable
+		       $Where
+                       order by track");
 }
 
 function create($row)
 {
-if($row['id']!=$this->up)
+if($row['id']!=$this->nameRoot)
   {
-  if($row['up']!=0 && $row['up']!=$this->up)
-    $row['full_name']=getTopicFullNameById($row['up'],$this->up,
+  if($row['up']!=0 && $row['up']!=$this->nameRoot)
+    $row['full_name']=getTopicFullNameById($row['up'],$this->nameRoot,
                                            $this->delimiter)
                       .$this->delimiter.$row['subject'];
   else
@@ -278,9 +285,11 @@ class SortedTopicNamesIterator
 {
 
 function SortedTopicNamesIterator($grp,$up=-1,$recursive=false,
-                                  $delimiter=' :: ')
+                                  $delimiter=' :: ',$nameRoot=-1,
+				  $onlyWritable=false,$onlyPostable=false)
 {
-$iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter);
+$iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter,$nameRoot,
+                                 $onlyWritable,$onlyPostable);
 $topics=array();
 while($item=$iterator->next())
      $topics[convertSort($item->getFullName())]=$item;

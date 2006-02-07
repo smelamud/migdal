@@ -53,7 +53,7 @@
   <form_topicselect title='$=editor.Title' comment='$=editor.Comment'
                     name='topic_id' value='$posting.TopicId' grp='$$grp'
 	            mandatory='$editor.isMandatory' root='$$root'
-	            recursive='*true'>
+	            only_postable='*true'>
  <else>
   <hidden name='topic_id' value='$posting.TopicId'>
  </if>

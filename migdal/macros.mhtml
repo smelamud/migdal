@@ -97,9 +97,10 @@
 <decel name='form_table' file='parts/formutils.php' params='title'>
 <decel name='/form_table' file='parts/formutils.php'>
 <decel name='form_topicselect' file='parts/topicselect.php'
-       params='name,value,grp,mandatory,title,root,recursive,comment'
+       params='name,value,grp,mandatory,title,root,comment,only_writable,
+	       only_postable'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
-                 recursive='*false' comment=''">
+                 comment='' only_writable='*false' only_postable='*false'">
 <decel name='form_upload_format' file='parts/uploader.php'
        params='name,format,title,comment,mandatory'
        defaults="name='large_body_format' comment='',mandatory='*false'">
@@ -331,8 +332,9 @@
 <decel name='topics_tips' file='parts/topics-help.php' params='posting'>
 <decel name='topics_veterans' params='posting' file='parts/topics-blog.php'>
 <decel name='topicselect' file='parts/topicselect.php'
-       params='name,value,grp,root,recursive'
-       defaults="grp='*GRP_ALL' root='-1' recursive='*false'">
+       params='name,value,grp,root,only_writable,only_postable,mandatory'
+       defaults="grp='*GRP_ALL' root='-1' only_writable='*false'
+                 only_postable='*false' mandatory='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
 <decel name='tzdaka' file='parts/tzdaka.php'>

@@ -1,43 +1,60 @@
 << @(#) $Id$ >>
 
 <element name='topicselect'>
-<if what='$root<0'>
- <assign name='recursive' value='*false'>
-</if>
-<iterate_sortedtopicnames grp='$grp' up='$root' recursive='$recursive'>
-<if what='$;Count-$recursive>0'>
+<iterate_sortedtopicnames grp='$grp' up='-1' recursive='*true'
+                          name_root='$root' only_writable='$only_writable'
+			  only_postable='$only_postable'>
+<if what='$;Count<=0'>
+ <hidden name='$name' value='$value'>
+<elif what='$;Count==1 && $mandatory'>
+ <for>
+  <hidden name='$name' value='$.Id'>
+ </for>
+<else>
  <select name='$name'>
-  <assign name='none' value!='$root<0 ? 0 : $root'>
-  <radio title='-- Выберите тему --' value='$none' peervalue='$value'>
+  <if what='!$mandatory || $value<=0'>
+   <if what='$mandatory'>
+    <assign name='title' value='-- Выберите тему --'>
+   <else>
+    <assign name='title' value='-- Без темы --'>
+   </if>
+   <radio title='$title' value='0' peervalue='$value'>
+  </if>
   <for>
    <ifne what='$.FullName'>
     <radio title='$.FullNameShort' value='$.Id' peervalue='$value'>
    </ifne>
   </for>
  </select>
-<else>
- <hidden name='$name' value='$root'>
 </if>
 </element>
 
 <element name='form_topicselect'>
-<if what='$root<0'>
- <assign name='recursive' value='*false'>
-</if>
-<iterate_sortedtopicnames grp='$grp' up='$root' recursive='$recursive'>
-<if what='$;Count-$recursive>0'>
- <form_line title='$title' mandatory='$mandatory' comment='$comment'>
-  <select name='$name'>
-   <assign name='none' value!='$root<0 ? 0 : $root'>
-   <radio title='-- Выберите тему --' value='$none' peervalue='$value'>
-   <for>
-    <ifne what='$.FullName'>
-     <radio title='$.FullNameShort' value='$.Id' peervalue='$value'>
-    </ifne>
-   </for>
-  </select>
- </form_line>
+<iterate_sortedtopicnames grp='$grp' up='-1' recursive='*true'
+                          name_root='$root' only_writable='$only_writable'
+			  only_postable='$only_postable'>
+<if what='$;Count<=0'>
+ <hidden name='$name' value='$value'>
+<elif what='$;Count==1 && $mandatory'>
+ <for>
+  <hidden name='$name' value='$.Id'>
+ </for>
 <else>
- <hidden name='$name' value='$root'>
+ <form_select name='$name' title='$title' comment='$comment'
+              mandatory='$mandatory'>
+  <if what='!$mandatory || $value<=0'>
+   <if what='$mandatory'>
+    <assign name='title' value='-- Выберите тему --'>
+   <else>
+    <assign name='title' value='-- Без темы --'>
+   </if>
+   <form_option title='$title' value='0' selected!='$value==0'>
+  </if>
+  <for>
+   <ifne what='$.FullName'>
+    <form_option title='$.FullNameShort' value='$.Id' selected!='$.Id==$value'>
+   </ifne>
+  </for>
+ </form_select>
 </if>
 </element>
