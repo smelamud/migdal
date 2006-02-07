@@ -10,12 +10,12 @@
 
 <grps>
 <int name='editid'>
-<int name='topic_id'>
+<int name='parent_id'>
 <int name='grp'>
 <int name='up'>
 <int name='full'>
 <int name='noguests'>
-<posting_obj id='$editid' grp='$grp' topic_id='$topic_id' up='$up'
+<posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
              fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 
 <macro name='full'>
@@ -26,7 +26,7 @@
 <<full>>
  <assign name='root' value='-1'>
 <<else>
- <if what='$topic_id<=0'>
+ <if what='$parent_id<=0'>
   <assign name='root' value='$`general`'>
  <else>
   <assign name='root' value='$message.RootId'>
@@ -51,11 +51,11 @@
 <elif what="$ident=='topic'">
  <if what='$visible'>
   <form_topicselect title='$=editor.Title' comment='$=editor.Comment'
-                    name='topic_id' value='$posting.TopicId' grp='$$grp'
+                    name='parent_id' value='$posting.ParentId' grp='$$grp'
 	            mandatory='$editor.isMandatory' root='$$root'
 	            only_postable='*true'>
  <else>
-  <hidden name='topic_id' value='$posting.TopicId'>
+  <hidden name='parent_id' value='$posting.TopicId'>
  </if>
 <elif what="$ident=='ident'">
  <if what='$visible'>
@@ -238,7 +238,7 @@
    <hidden name='up' value='$,UpValue'>
    <starinfo>
    <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
-   <error id='*EP_NO_PERSONAL'
+   <error id='*EP_NO_PERSON'
 	  text='У этого пользователя нет персональной страницы'>
    <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
    <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>

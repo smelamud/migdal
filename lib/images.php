@@ -11,6 +11,7 @@ require_once('lib/text.php');
 require_once('lib/image-types.php');
 require_once('lib/sql.php');
 
+# remake
 class Image
       extends DataObject
 {
@@ -226,6 +227,7 @@ return $this->image_y;
 
 }
 
+# remake
 class ImageSetIterator
       extends SelectIterator
 {
@@ -244,6 +246,7 @@ $this->SelectIterator('Image',
 
 }
 
+# remake
 function getImageById($id)
 {
 $result=sql("select id,image_set,filename,small_x,small_y,has_large,title
@@ -254,6 +257,7 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
+# remake
 function getImageContentById($id,$size='large')
 {
 $fields=$size=='small' ? ',small' : ",if(has_large,'',small) as small,large";
@@ -265,6 +269,7 @@ return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }
 
+# remake
 function getImageNameBySet($image_set)
 {
 $result=sql("select id,image_set,filename,title
@@ -306,6 +311,7 @@ if($imageURL[0]!='/')
 return "http://$siteDomain$imageURL/$fname";
 }
 
+# remake
 function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php',
                          $static=false,$title='')
 {
@@ -326,6 +332,7 @@ return '<img border=0 width='.$size[0].
 		    " $al $alt src='$href'>";
 }
 
+# remake
 function getImageEnlargeLinkById($id,$static=false)
 {
 global $uiName;
@@ -340,6 +347,7 @@ $href=!$static ? "lib/image.php/$uiName-$id.$ext?id=$id&size=large"
 return "<a href='$href' target=_blank title='Увеличить'>";
 }
 
+# remake
 function imageSetExists($image_set)
 {
 $result=sql("select id
@@ -349,15 +357,12 @@ $result=sql("select id
 return mysql_num_rows($result)>0;
 }
 
-function imageExists($id)
+function imageExists($id,$format,$fileId=0,$size='large')
 {
-$result=sql("select id
-	     from images
-	     where id=$id",
-	    'imageExists');
-return mysql_num_rows($result)>0;
+return file_exists(getImagePath($id,getMimeExtension($format),$fileId,$size));
 }
 
+# remake
 function imageLoad($mime,$content)
 {
 global $tmpDir,$maxImageSize;
@@ -380,6 +385,7 @@ unlink($tmpFile);
 return $handle;
 }
 
+# remake
 function setSelfImageSet($id)
 {
 $result=sql("update images

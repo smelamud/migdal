@@ -15,98 +15,88 @@ require_once('lib/topics.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings.php');
 require_once('lib/postings-info.php');
-require_once('lib/complains.php');
-require_once('lib/stotext.php');
+//require_once('lib/complains.php'); # FIXME
+//require_once('lib/stotext.php');
 require_once('lib/track.php');
-require_once('lib/forums.php');
+//require_once('lib/forums.php');
 require_once('lib/redirs.php');
 require_once('lib/modbits.php');
 require_once('lib/counters.php');
 require_once('lib/logging.php');
 require_once('lib/sql.php');
 
-function setImageTitle($image_set,$title)
-{
-if(!$image_set)
-  return EG_OK;
-sql("update images
-     set title='$title'
-     where image_set=$image_set",
-    'setImageTitle');
-journal("update images
-         set title='".jencode($title)."'
-	 where image_set=".journalVar('images',$image_set));
-return EG_OK;
-}
-
-function isDisabledSet($message)
+function isDisabledSet($posting)
 {
 global $userId,$userModerator;
 
-return (getPremoderateByTopicId($message->getTopicId()) && $userId>0
-	|| $message->getLargeFormat()==TF_HTML)
+return (getPremoderateByTopicId($posting->getTopicId()) && $userId>0
+	|| $posting->getLargeFormat()==TF_HTML)
        && !$userModerator;
 }
 
-function isModerateSet($message)
+function isModerateSet($posting)
 {
 global $userId,$userModerator;
 
-return (getModerateByTopicId($message->getTopicId())
-	|| $message->getLargeFormat()==TF_HTML)
+return (getModerateByTopicId($posting->getTopicId())
+	|| $posting->getLargeFormat()==TF_HTML)
        && !$userModerator;
 }
 
-function isEditSet($message)
+function isEditSet($posting)
 {
 global $userModerator;
 
-return getEditByTopicId($message->getTopicId()) && !$userModerator;
+return getEditByTopicId($posting->getTopicId()) && !$userModerator;
 }
 
-function setDisabled($message,$original)
+function setDisabled($posting,$original)
 {
 if($original->getId()==0)
-  if(isDisabledSet($message))
-    setDisabledByMessageId($message->getMessageId(),1);
-$modbits=($original->getId()==0 ? $message->getCreateModmask()
-                                : $message->getModifyModmask()) & MOD_USER;
+  if(isDisabledSet($posting))
+    setDisabledByMessageId($posting->getMessageId(),1);
+$modbits=($original->getId()==0 ? $posting->getCreateModmask()
+                                : $posting->getModifyModmask()) & MOD_USER;
 				// FIXME MOD_USER is deprecated
-if(isModerateSet($message))
+if(isModerateSet($posting))
   $modbits|=MOD_MODERATE;
-if($message->getLargeFormat()==TF_HTML)
+if($posting->getLargeFormat()==TF_HTML)
   $modbits|=MOD_HTML;
-if(isEditSet($message))
+if(isEditSet($posting))
   $modbits|=MOD_EDIT;
-setModbitsByMessageId($message->getMessageId(),$modbits);
+setModbitsByMessageId($posting->getMessageId(),$modbits);
 }
 
-function modifyPosting($message,$original)
+function modifyPosting($posting,$original)
 {
+global $thumbnailType;
+
 if($original->getId()!=0 && !$original->isWritable())
   return EP_NO_EDIT;
-if(!getGrpValid($message->grp))
+if(!isGrpValid($posting->grp))
   return EP_INVALID_GRP;
-if($message->mandatoryBody() && $message->stotext->body=='')
+if($posting->isMandatory('body') && $posting->body=='')
   return EP_BODY_ABSENT;
-if($message->mandatoryLang() && $message->lang=='')
+if($posting->isMandatory('lang') && $posting->lang=='')
   return EP_LANG_ABSENT;
-if($message->mandatorySubject() && $message->subject=='')
+if($posting->isMandatory('subject') && $posting->subject=='')
   return EP_SUBJECT_ABSENT;
-if($message->mandatoryAuthor() && $message->author=='')
+if($posting->isMandatory('author') && $posting->author=='')
   return EP_AUTHOR_ABSENT;
-if($message->mandatorySource() && $message->source=='')
+if($posting->isMandatory('source') && $posting->source=='')
   return EP_SOURCE_ABSENT;
-if($message->mandatoryLargeBody() && $message->stotext->large_body=='')
+if(($posting->isMandatory('large_body')
+    || $posting->isMandatory('large_body_upload'))
+   && $posting->large_body=='')
   return EP_LARGE_BODY_ABSENT;
-if($message->mandatoryURL() && $message->url=='')
+if($posting->isMandatory('url') && $posting->url=='')
   return EP_URL_ABSENT;
-if($message->mandatoryTopic() && $message->topic_id==0)
+if($posting->isMandatory('topic') && $posting->parent_id==0)
   return EP_TOPIC_ABSENT;
-if($original->getId()==0 || $original->topic_id!=$message->topic_id)
-  if($message->topic_id!=0)
+if($original->getId()==0 || $original->parent_id!=$posting->parent_id)
+  if($posting->parent_id!=0)
     {
-    $perms=getPermsById('topics',addslashes($message->topic_id));
+    $perms=getPermsById($posting->parent_id));
     if(!$perms)
       return EP_NO_TOPIC;
     if(!$perms->isPostable())
@@ -114,57 +104,65 @@ if($original->getId()==0 || $original->topic_id!=$message->topic_id)
     }
   else
     {
-    $perms=getRootPerms('topics');
+    $perms=getRootPerms('Topic');
     if(!$perms->isPostable())
       return EP_TOPIC_ACCESS;
     }
-if($message->mandatoryIdent() && $message->ident=='')
+if($posting->isMandatory('ident') && $posting->ident=='')
   return EP_IDENT_ABSENT;
-$cid=idByIdent('postings',$message->ident);
-if($message->ident!='' && $cid!=0 && $message->id!=$cid)
+$cid=idByIdent($posting->ident);
+if($posting->ident!='' && $cid!=0 && $posting->id!=$cid)
   return EP_IDENT_UNIQUE;
-if($message->mandatoryIndex1() && $message->index1==0)
+if($posting->isMandatory('index1') && $posting->index1==0)
   return EP_INDEX1_ABSENT;
-if($message->mandatoryImage() && $message->stotext->image_set==0)
+if($posting->isMandatory('image') && !$posting->hasSmallImage())
   return EP_IMAGE_ABSENT;
-if($message->stotext->image_set!=0
-   && !imageSetExists($message->stotext->image_set))
+if($posting->hasSmallImage() && !imageExists($posting->id,$thumbnailType,
+                                             $posting->small_image,'small'))
   return EP_NO_IMAGE;
-if($message->personal_id!=0 && !personalExists($message->personal_id))
-  return EP_NO_PERSONAL;
-if($message->up<0)
-  $message->up=0;
-if($message->up!=0)
+if($posting->person_id!=0 && !personalExists($posting->person_id))
+  return EP_NO_PERSON;
+if($posting->up<0)
+  $posting->up=0;
+# converted up to here
+if($posting->up!=0)
   {
-  if(!messageExists($message->up))
+  if(!messageExists($posting->up))
     return EP_NO_UP;
-  if($message->up==$message->message_id)
+  if($posting->up==$posting->message_id)
     return EP_LOOP_UP;
-  $perms=getPermsById('messages',$message->up);
+  $perms=getPermsById('messages',$posting->up);
   if(!$perms->isAppendable())
     return EP_UP_APPEND;
   }
-$message->track='';
-$message->store();
-updateTracks('messages',$message->message_id);
-setDisabled($message,$original);
+$posting->track='';
+storePosting($posting);
+updateTracks('entries',$posting->id);
+setDisabled($posting,$original);
 if($original->getId()==0)
-  createCounters($message->message_id,$message->grp);
+  createCounters($posting->id,$posting->grp);
 return EG_OK;
 }
+
+postString('okdir');
+postString('faildir');
 
 postInteger('relogin');
 postString('login');
 postString('password');
 postInteger('remember');
+postInteger('noguests');
 
-postInteger('editid');
+postIdent('editid');
+postInteger('edittag');
 postInteger('grp');
 postInteger('index1');
 postInteger('index2');
 postInteger('up');
 postString('body');
 postString('large_body');
+postInteger('del_large_body');
+postInteger('large_body_format');
 postString('subject');
 postString('author');
 postString('source');
@@ -172,29 +170,37 @@ postString('comment0');
 postString('comment1');
 postString('title');
 postString('url');
-postIdent('topic_id','topics');
+postIdent('parent_id');
+postInteger('full');
+postInteger('priority');
+postString('ident');
+postString('lang');
+postInteger('image');
+postInteger('del_image');
+postInteger('person_id');
+postInteger('hidden');
+postInteger('disabled');
 
 dbOpen();
 session();
-$message=getPostingById($editid,$grp,$index1,$topic_id,SELECT_TOPICS,$up);
-$original=$message;
-$message->setup($HTTP_POST_VARS);
-$image=uploadImage('image',$message->createThumbnail(),
+$posting=getPostingById($editid,$grp,$index1,$parent_id,
+                        SELECT_GENERAL|SELECT_LARGE_BODY,$up);
+$original=$posting;
+$posting->setup($Args);
+/*
+$image=uploadImage('image',$posting->createThumbnail(),
                    $thumbnailWidth,$thumbnailHeight,$err);
 if($image)
-  $message->setImageSet($image->getImageSet());
-if($err==EG_OK && $message->getImageSet()!=0)
-  $err=setImageTitle($message->getImageSet(),
-                     addslashes(htmlspecialchars($title,ENT_QUOTES)));
+  $posting->setImageSet($image->getImageSet());
 if($err==EG_OK)
-  $err=uploadLargeText($message->stotext);
+  $err=uploadLargeText($posting->stotext);
 if($err==EG_OK)
   if($original->getId()==0 && $relogin)
     $err=login($login,$password,$remember);
-  else
+  else*/
     $err=EG_OK;
 if($err==EG_OK)
-  $err=modifyPosting($message,$original);
+  $err=modifyPosting($posting,$original);
 if($err==EG_OK)
   {
   header("Location: $okdir");
@@ -213,7 +219,7 @@ else
   $urlId=tmpTextSave($url);
   header('Location: '.
           remakeMakeURI($faildir,
-			$HTTP_POST_VARS,
+			$Args,
 			array('body',
 			      'large_body',
 			      'subject',
@@ -225,16 +231,15 @@ else
 			      'url',
 			      'okdir',
 			      'faildir'),
-			array('bodyid'       => $bodyId,
-			      'large_bodyid' => $largeBodyId,
-			      'subjectid'    => $subjectId,
-			      'authorid'     => $authorId,
-			      'sourceid'     => $sourceId,
-			      'comment0id'   => $comment0Id,
-			      'comment1id'   => $comment1Id,
-			      'titleid'      => $titleId,
-			      'urlid'        => $urlId,
-			      'image_set'    => $message->getImageSet(),
+			array('body_i'       => $bodyId,
+			      'large_body_i' => $largeBodyId,
+			      'subject_i'    => $subjectId,
+			      'author_i'     => $authorId,
+			      'source_i'     => $sourceId,
+			      'comment0_i'   => $comment0Id,
+			      'comment1_i'   => $comment1Id,
+			      'title_i'      => $titleId,
+			      'url_i'        => $urlId,
 			      'err'          => $err)).'#error');
   }
 dbClose();

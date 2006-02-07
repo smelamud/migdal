@@ -5,7 +5,7 @@ require_once('lib/alphabet.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
 require_once('lib/counters.php');
-//require_once('lib/forums.php');
+//require_once('lib/forums.php'); # FIXME
 require_once('lib/grps.php');
 require_once('lib/limitselect.php');
 require_once('lib/entries.php');
@@ -175,6 +175,15 @@ return $this->counter_value1;
 function getCTR()
 {
 return 1/$this->co_ctr;
+}
+
+function isMandatory($field)
+{
+$editor=$this->getGrpEditor();
+for($editor as $item)
+   if($item['ident']==$field)
+     return $item['mandatory'];
+return false;
 }
 
 }

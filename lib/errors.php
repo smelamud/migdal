@@ -35,7 +35,7 @@ define('EP_BODY_ABSENT',131);
 define('EP_SUBJECT_ABSENT',132);
 define('EP_TOPIC_ABSENT',133);
 define('EP_NO_TOPIC',134);
-define('EP_NO_PERSONAL',135);
+define('EP_NO_PERSON',135);
 define('EP_IMAGE_ABSENT',136);
 define('EP_NO_IMAGE',137);
 define('EP_LARGE_BODY_ABSENT',138);

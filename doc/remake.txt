@@ -95,7 +95,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/moderate.php
 - actions/postingcopy.php
 - actions/postingdel.php
-- actions/postingmod.php
+* actions/postingmod.php
 + actions/postingorg-goto.php
 - actions/reorder.php
 - actions/search.php
