@@ -1,0 +1,5 @@
+<< @(#) $Id$ >>
+
+<element name='xml_text'>
+ <a href='xml/$id/$name/'><image src='pics/xml.gif' border='0'></a>
+</element>

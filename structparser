@@ -47,10 +47,10 @@ my ($item)=@_;
 $$item{'_path_regex'}='^'.$$item{'path'}.'$';
 $$item{'_path_regex'}=~s/\//\\\//g;
 $$item{'_subs'}=();
-while($$item{'_path_regex'}=~/{([^)]*)}/)
+while($$item{'_path_regex'}=~/{([^}]*)}/)
      {
      push @{$$item{'_subs'}},$1;
-     $$item{'_path_regex'}=~s/{([^)]*)}/([^\\\/]+)/;
+     $$item{'_path_regex'}=~s/{([^}]*)}/([^\\\/]+)/;
      }
 }
 

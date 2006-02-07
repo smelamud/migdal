@@ -35,6 +35,7 @@
 
 <element name='editor_line' params='posting,editor,visible'>
 <assign name='ident' value='$editor.Ident'>
+<assign name='xmlid' value!='$$full ? $posting.Id : 0'>
 <if what="$ident=='' || $ident[0]=='_'">
  <if what='$visible'>
   <form_section title='$=editor.Title'>
@@ -45,7 +46,7 @@
              value='$posting.Priority' size=4 maxlength=3
 	     mandatory='$editor.isMandatory'>
  <else>
-  <hidden name='priority' value='$editor.Priority'>
+  <hidden name='priority' value='$posting.Priority'>
  </if>
 <elif what="$ident=='topic'">
  <if what='$visible'>
@@ -80,7 +81,7 @@
   <error id='*EP_AUTHOR_ABSENT' text#='$=editor.Title не указан'>
   <form_edit title='$=editor.Title' comment='$=editor.Comment'
              value='$=posting.Author' name='author' size=52 maxlength=250
-	     mandatory='$editor.isMandatory'>
+	     mandatory='$editor.isMandatory' xmlid='$xmlid'>
  <else>
   <hidden name='author' value='$=posting.Author'>
  </if>
@@ -89,7 +90,7 @@
   <error id='*EP_SOURCE_ABSENT' text#='$=editor.Title не указан'>
   <form_edit title='$=editor.Title' comment='$=editor.Comment'
              value='$=posting.Source' name='source' size=52 maxlength=250
-	     mandatory='$editor.isMandatory'>
+	     mandatory='$editor.isMandatory' xmlid='$xmlid'>
  <else>
   <hidden name='source' value='$=posting.Source'>
  </if>
@@ -97,7 +98,7 @@
  <if what='$visible'>
   <form_edit title='$=editor.Title' comment='$=editor.Comment'
              value='$=posting.Comment0' name='comment0' size=52 maxlength=250
-	     mandatory='$editor.isMandatory'>
+	     mandatory='$editor.isMandatory' xmlid='$xmlid'>
  <else>
   <hidden name='comment0' value='$=posting.Comment0'>
  </if>
@@ -106,7 +107,7 @@
   <error id='*EP_BODY_ABSENT' text='Текст пуст'>
   <form_editor title='$=editor.Title' comment='$=editor.Comment'
                name='body' body='$=posting.Body' rows=9
-	       mandatory='$editor.isMandatory'>
+	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
  <else>
   <hidden name='body' value='$=posting.Body'>
  </if>
@@ -171,7 +172,7 @@
  <if what='$visible'>
   <form_editor title='$=editor.Title' comment='$=editor.Comment'
                name='title' body='$=posting.Title' rows=3
-	       mandatory='$editor.isMandatory'>
+	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
  <else>
   <hidden name='title' value='$=posting.Title'>
  </if>
@@ -180,7 +181,7 @@
   <error id='*EP_LARGE_BODY_ABSENT' text#='$=editor.Title пуст'>
   <form_editor title='$=editor.Title' comment='$=editor.Comment'
                name='large_body' body='$=posting.LargeBody' rows=11
-	       mandatory='$editor.isMandatory'>
+	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
  <else>
   <hidden name='large_body' value='$=posting.LargeBody'>
  </if>
@@ -199,7 +200,8 @@
   </if>
   <form_uploader title='$=editor.Title' comment='$=editor.Comment'
                  name='large_body_file' loaded='$loaded'
-		 delname='del_large_body' mandatory='$editor.isMandatory'>
+		 delname='del_large_body' mandatory='$editor.isMandatory'
+		 plainid='$posting.Id'>
  </if>
 <elif what="$ident=='large_body_format'">
  <if what='$visible'>
@@ -269,6 +271,10 @@
    <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE'>
    <for>
     <editor_line posting='$,' editor='$.' visible='*true'>
+   </for>
+   <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE' inverse='*true'>
+   <for>
+    <editor_line posting='$,' editor='$.' visible='*false'>
    </for>
    <<tr><td colspan=2>
     <a href='/lib/plain.php/migdal-$message.StotextId.txt?id=$message.StotextId&win=1'>

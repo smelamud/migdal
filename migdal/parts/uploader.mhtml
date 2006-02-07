@@ -3,7 +3,18 @@
 <element name='uploader'>
 <ifne what='$loaded'>
  <p>
-  <i>$loaded</i><br>
+  <i>$loaded</i>
+  <ifnzero what='$plainid'>
+   <array vals='koi,win,utf8'>
+   <iterate_array>
+   &nbsp;&nbsp;<b>(</b>&nbsp;
+   <for>
+    <a href='plaintext/$plainid/$./'><asp>
+     <if what="$.!='utf8'">$.<else>unicode (utf8)</if></a>&nbsp;
+   </for>
+   <b>)</b>
+  </ifnzero>
+  <br>
   <checkbox name='$delname' title='Удалить'>
  </p>
 </ifne>
@@ -12,7 +23,7 @@
 
 <element name='form_uploader'>
 <form_line title='$title' comment='$comment' mandatory='$mandatory'>
- <uploader name='$name' loaded='$loaded' delname='$delname'>
+ <uploader name='$name' loaded='$loaded' delname='$delname' plainid='$plainid'>
 </form_line>
 </element>
 

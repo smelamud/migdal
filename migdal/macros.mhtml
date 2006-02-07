@@ -67,11 +67,11 @@
        params='title,mandatory,comment,name,value,style,iftrue'
        defaults="mandatory='*false' comment='' style='select' iftrue=1">
 <decel name='form_edit' file='parts/formutils.php'
-       params='title,mandatory,comment,name,value,size,maxlength'
-       defaults="mandatory='*false' comment='' size=40 maxlength=250">
+       params='title,mandatory,comment,name,value,size,maxlength,xmlid'
+       defaults="mandatory='*false' comment='' size=40 maxlength=250 xmlid=0">
 <decel name='form_editor' file='parts/formutils.php'
-       params='title,mandatory,comment,name,body,rows'
-       defaults="mandatory='*false' comment='' rows=10">
+       params='title,mandatory,comment,name,body,rows,xmlid'
+       defaults="mandatory='*false' comment='' rows=10 xmlid=0">
 <decel name='form_grpselect' file='parts/grpselect.php'
        params='name,value,rows,multiple,title,mandatory,comment'
        defaults="rows=8 multiple='*false' title='çÒÕÐÐÁ' mandatory='*false'
@@ -104,8 +104,8 @@
        params='name,format,title,comment,mandatory'
        defaults="name='large_body_format' comment='',mandatory='*false'">
 <decel name='form_uploader' file='parts/uploader.php'
-       params='name,loaded,delname,title,comment,mandatory'
-       defaults="comment='',mandatory='*false'">
+       params='name,loaded,delname,plainid,title,comment,mandatory'
+       defaults="plainid=0,comment='',mandatory='*false'">
 <decel name='forum_answer' file='parts/forumanswer.php'
        params='answer,complain' defaults="complain='*true'">
 <decel name='forumcatalog' file='parts/forumcatalog.php' params='offset'
@@ -338,7 +338,8 @@
 <decel name='tzdaka' file='parts/tzdaka.php'>
 <decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'
        defaults="chapter='' topic_id='-1'">
-<decel name='uploader' file='parts/uploader.php' params='name,loaded,delname'>
+<decel name='uploader' file='parts/uploader.php'
+       params='name,loaded,delname,plainid' defaults="plainid=0">
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_body_format'">
 <decel name='upper_level' file='parts/topics.php' params='title,name,href'
@@ -347,6 +348,7 @@
        defaults="class=''">
 <decel name='vote_frame' file='parts/vote.php' params='id,align,color,image'
        defaults="align=''">
+<decel name='xml_text' file='parts/xml-text.php' params='id,name'>
 
 <macro name='/topics_table'>
  <topics_table_end>

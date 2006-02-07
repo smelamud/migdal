@@ -24,6 +24,7 @@
  <top ident='index'>
  <topic_obj id='$editid' up='$up' fields!="*SELECT_GENERAL|*SELECT_GRPS">
  <setup>
+ <assign name='xmlid' value!='$$userModerator ? $editid : 0'>
  <if what='$editid'>
   <form_table title='Изменить тему'>
  <else>
@@ -49,13 +50,13 @@
   <form_edit title='Название' value='$=,Subject' name='subject' size=50
 	     maxlength=70 mandatory='*true'>
   <form_edit title='Комментарий 0' value='$=,Comment0' name='comment0' size=50
-	     maxlength=70>
+	     maxlength=70 xmlid='$xmlid'>
   <form_edit title='Комментарий 1' value='$=,Comment1' name='comment1' size=50
-	     maxlength=70>
+	     maxlength=70 xmlid='$xmlid'>
   <form_edit title='Год' value='$,Index2' name='index2' size=6 maxlength=6>
   <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
   <form_editor title='Описание' name='body' body='$=,Body'
-	       mandatory='$topicMandatoryDescription'>
+	       mandatory='$topicMandatoryDescription' xmlid='$xmlid'>
   <form_section title='Права доступа'>
   <error id='*ET_NO_USER' text='Такого пользователя не существует'>
   <form_edit title='Владелец' name='login' value='$=,Login' size=20

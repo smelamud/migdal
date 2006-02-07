@@ -104,21 +104,36 @@ return $this->mandatory;
 
 }
 
-function grpEditor($grp=GRP_NONE)
+function grpEditor($grp=GRP_NONE,$inverse=false)
 {
 global $grpGetGrpEditor;
 
-return isset($grpGetGrpEditor[$grp]) ? $grpGetGrpEditor[$grp]
-                                     : $grpGetGrpEditor[GRP_NONE];
+if(!$inverse)
+  return isset($grpGetGrpEditor[$grp]) ? $grpGetGrpEditor[$grp]
+				       : $grpGetGrpEditor[GRP_NONE];
+else
+  {
+  if($grp==GRP_NONE || !isset($grpGetGrpEditor[$grp]))
+    return array();
+  $remove=array();
+  foreach($grpGetGrpEditor[$grp] as $item)
+	 if($item['ident']!='')
+	   $remove[$item['ident']]=true;
+  $editor=array();
+  foreach($grpGetGrpEditor[GRP_NONE] as $item)
+	 if($item['ident']!='' && !isset($remove[$item['ident']]))
+	   $editor[]=$item;
+  return $editor;
+  }
 }
 
 class GrpEditorIterator
       extends ArrayIterator
 {
 
-function GrpEditorIterator($grp=GRP_NONE)
+function GrpEditorIterator($grp=GRP_NONE,$inverse=false)
 {
-parent::ArrayIterator(grpEditor($grp));
+parent::ArrayIterator(grpEditor($grp,$inverse));
 }
 
 function create($key,$value)

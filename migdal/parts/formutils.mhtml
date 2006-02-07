@@ -56,6 +56,9 @@
 <element name='form_edit'>
 <form_line title='$title' mandatory='$mandatory' comment='$comment'>
  <edit name='$name' value='$value' size='$size' maxlength='$maxlength'>
+ <ifnzero what='$xmlid'>
+  <br><xml_text id='$xmlid' name='$name'>
+ </ifnzero>
 </form_line>
 </element>
 
@@ -67,7 +70,11 @@
 
 <element name='form_editor'>
 <form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <textarea name='$name' rows='$rows' wrap='virtual' style='width: 100%'>$body</textarea>
+ <textarea name='$name' rows='$rows' wrap='virtual'
+           style='width: 100%'>$body</textarea>
+ <ifnzero what='$xmlid'>
+  <br><xml_text id='$xmlid' name='$name'>
+ </ifnzero>
 </form_line>
 </element>
 

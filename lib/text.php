@@ -27,6 +27,21 @@ setlocale(LC_CTYPE,'ru_RU.KOI8-R');
 return strtoupper($s);
 }
 
+function camelCase($s)
+{
+$up=true;
+$c='';
+for($i=0;$i<strlen($s);$i++)
+   if($s[$i]=='_')
+     $up=true;
+   else
+     {
+     $c.=$up ? uc($s[$i]) : $s[$i];
+     $up=false;
+     }
+return $c;
+}
+
 function unhtmlentities($s)
 {
 $table=array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES));

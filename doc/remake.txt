@@ -171,7 +171,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/packages.php
 - lib/paragraphs.php
 + lib/permissions.php
-- lib/plain.php
 * lib/postings-info.php (кроме кэша)
 * lib/postings.php
 - lib/postings-random.php
