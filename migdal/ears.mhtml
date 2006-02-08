@@ -12,8 +12,7 @@
    <table><tr valign=center>
     <td><image src='pics/sheet.gif'></td>
     <td>
-     <a href='postingedit.php?topic_id=$`ears`&grp=*GRP_EARS&redirid=$_'
-	>Добавить ушко</a>
+     <a href='/admin/ears/add/?grp=*GRP_EARS&redirid=$_'>Добавить ушко</a>
     </td>
    </tr></table>
   </td>

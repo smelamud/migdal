@@ -11,8 +11,6 @@ function postValue($name,$value)
 {
 global $Args;
 
-if(isset($Args[$name]))
-  return;
 $Args[$name]=$value;
 $GLOBALS[$name]=$value;
 }
@@ -24,6 +22,10 @@ return (int)$value;
 
 function postInteger($name)
 {
+global $Args;
+
+if(!isset($_REQUEST[$name]) && isset($Args[$name]))
+  return;
 postValue($name,
           postProcessInteger(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0));
 }
@@ -41,6 +43,10 @@ return $result;
 
 function postIntegerArray($name)
 {
+global $Args;
+
+if(!isset($_REQUEST[$name]) && isset($Args[$name]))
+  return;
 postValue($name,
           postProcessIntegerArray(isset($_REQUEST[$name])
 	                          ? $_REQUEST[$name]
@@ -54,6 +60,10 @@ return idByIdent($value,$table);
 
 function postIdent($name,$table='entries')
 {
+global $Args;
+
+if(!isset($_REQUEST[$name]) && isset($Args[$name]))
+  return;
 postValue($name,
           postProcessIdent(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0,
 	                   $table));
@@ -66,6 +76,11 @@ return $value;
 
 function postString($name,$convert=true)
 {
+global $Args;
+
+if(!isset($_REQUEST[$name]) && !isset($_REQUEST["$name_i"])
+   && isset($Args[$name]))
+  return;
 if(isset($_REQUEST["$name_i"]))
   $value=tmpTextRestore($_REQUEST["$name_i"]);
 else
@@ -84,6 +99,10 @@ return isId($value) ? $value : getUserIdByLogin($value);
 
 function postUser($name)
 {
+global $Args;
+
+if(!isset($_REQUEST[$name]) && isset($Args[$name]))
+  return;
 postValue($name,
           postProcessUser(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0));
 }

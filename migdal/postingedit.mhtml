@@ -233,6 +233,7 @@
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
+   <hidden name='full' value='$full'>
    <hidden name='editid' value='$editid'>
    <hidden name='person_id' value='$,PersonId'>
    <hidden name='up' value='$,UpValue'>
@@ -242,11 +243,14 @@
 	  text='У этого пользователя нет персональной страницы'>
    <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
    <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
-   <error id='*EP_NO_TOPIC' text='Такой темы не существует'>
    <error id='*EP_TOPIC_ACCESS'
 	  text='Вы не имеете права добавлять сообщения по этой теме'>
-   <error id='*EP_NO_UP' text='Вышестоящего сообщения не существует'>
-   <error id='*EP_LOOP_UP' text='Сообщение не может быть подчиненным себе'>
+   <error id='*EVH_NO_PARENT' text='Такой темы не существует'>
+   <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
+   <error id='*EVH_LOOP' text='Сообщение не может быть подчиненным себе'>
+   <error id='*EVH_NOT_UP_UNDER_PARENT'
+          text='Тема вышестоящего сообщения должна совпадать с этой темой'>
+   <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
    <error id='*EP_UP_APPEND'
 	  text='Вы не имеете права присоединять сообщения к этому сообщению'>
    <<if what='!$editid'>

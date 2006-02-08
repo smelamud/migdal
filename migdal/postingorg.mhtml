@@ -18,7 +18,7 @@
   <table><tr valign=center>
    <td><image src='pics/sheet.gif'></td>
    <td>
-    <a href='postingedit.php?grp=*GRP_NEWS&full=1&redirid=$_'
+    <a href='admin/postings/add/?grp=*GRP_NEWS&full=1&redirid=$_'
        >Добавить сообщение</a>
    </td>
   </tr></table>

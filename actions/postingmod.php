@@ -93,21 +93,25 @@ if($posting->isMandatory('url') && $posting->url=='')
   return EP_URL_ABSENT;
 if($posting->isMandatory('topic') && $posting->parent_id==0)
   return EP_TOPIC_ABSENT;
+$correct=validateHierarchy($posting->parent_id,$posting->up,ENT_POSTING,
+                           $posting->id);
+if($correct!=EG_OK)
+  return $correct;
 if($original->getId()==0 || $original->parent_id!=$posting->parent_id)
+  {
   if($posting->parent_id!=0)
-    {
-    $perms=getPermsById($posting->parent_id));
-    if(!$perms)
-      return EP_NO_TOPIC;
-    if(!$perms->isPostable())
-      return EP_TOPIC_ACCESS;
-    }
+    $perms=getPermsById($posting->parent_id);
   else
-    {
     $perms=getRootPerms('Topic');
-    if(!$perms->isPostable())
-      return EP_TOPIC_ACCESS;
-    }
+  if(!$perms->isPostable())
+    return EP_TOPIC_ACCESS;
+  }
+if($posting->up!=0 && $posting->up!=$posting->parent_id)
+  {
+  $perms=getPermsById($posting->up);
+  if(!$perms->isAppendable())
+    return EP_UP_APPEND;
+  }
 if($posting->isMandatory('ident') && $posting->ident=='')
   return EP_IDENT_ABSENT;
 $cid=idByIdent($posting->ident);
@@ -120,33 +124,25 @@ if($posting->isMandatory('image') && !$posting->hasSmallImage())
 if($posting->hasSmallImage() && !imageExists($posting->id,$thumbnailType,
                                              $posting->small_image,'small'))
   return EP_NO_IMAGE;
+if($posting->hasLargeImage() && !imageExists($posting->id,
+                                             $posting->large_image_format,
+                                             $posting->large_image,'large'))
+  return EP_NO_IMAGE;
 if($posting->person_id!=0 && !personalExists($posting->person_id))
   return EP_NO_PERSON;
-if($posting->up<0)
-  $posting->up=0;
-# converted up to here
-if($posting->up!=0)
-  {
-  if(!messageExists($posting->up))
-    return EP_NO_UP;
-  if($posting->up==$posting->message_id)
-    return EP_LOOP_UP;
-  $perms=getPermsById('messages',$posting->up);
-  if(!$perms->isAppendable())
-    return EP_UP_APPEND;
-  }
 $posting->track='';
-storePosting($posting);
+/*storePosting($posting);
 updateTracks('entries',$posting->id);
 setDisabled($posting,$original);
 if($original->getId()==0)
-  createCounters($posting->id,$posting->grp);
+  createCounters($posting->id,$posting->grp);*/
 return EG_OK;
 }
 
 postString('okdir');
 postString('faildir');
 
+postInteger('full');
 postInteger('relogin');
 postString('login');
 postString('password');
@@ -171,7 +167,6 @@ postString('comment1');
 postString('title');
 postString('url');
 postIdent('parent_id');
-postInteger('full');
 postInteger('priority');
 postString('ident');
 postString('lang');

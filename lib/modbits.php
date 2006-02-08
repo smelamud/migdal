@@ -8,16 +8,16 @@ require_once('lib/sql.php');
 // For regular postings
 define('MOD_NONE',0x0000);
 define('MOD_MODERATE',0x0001);
-define('MOD_HTML',0x0002);
+define('MOD_HTML',0x0002); # deprecated
 define('MOD_EDIT',0x0004);
 define('MOD_ATTENTION',0x0008);
 define('MOD_MULTIPART',0x0010);
 define('MOD_ARCHIVE',0x0020);
 define('MOD_ALL',0x003f);
 
-$modbitLetters=array('M','H','E','S','L','A');
+$modbitLetters=array('M','H' /* deprecated */,'E','S','L','A');
 $modbitNames=array('Модерировать',
-		   'HTML',
+		   'HTML', # deprecated
 		   'Редактировать',
 		   'Особо проверить',
 		   'Многостраничное',

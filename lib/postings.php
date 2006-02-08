@@ -58,7 +58,7 @@ $this->has_large_body=0;
 if($vars["large_body"]!='')
   {
   $this->has_large_body=1;
-  $this->large_body=$vars["large_body"];
+  $this->large_body=$vars['large_body'];
   $this->large_body_xml=wikiToXML($this->large_body,$this->large_body_format,
                                   MTEXT_LONG);
   }
@@ -74,6 +74,8 @@ $this->author=$vars['author'];
 $this->author_xml=wikiToXML($this->author,$this->body_format,MTEXT_LINE);
 $this->source=$vars['source'];
 $this->source_xml=wikiToXML($this->source,$this->body_format,MTEXT_LINE);
+$this->title=$vars['title'];
+$this->title_xml=wikiToXML($this->title,$this->body_format,MTEXT_LINE);
 $this->login=$vars['login'];
 if($vars['user_name']!='')
   $this->login=$vars['user_name'];
@@ -96,8 +98,15 @@ $this->url_domain=getURLDomain($this->url);
 $this->ident=$vars['ident']!='' ? $vars['ident'] : null;
 $this->index1=$vars['index1'];
 $this->index2=$vars['index2'];
-array_push($list,'grp','personal_id','priority');
 $this->parent_id=$vars['parent_id'];
+$this->grp=$vars['grp'];
+$this->person_id=$vars['person_id'];
+$this->priority=$vars['priority'];
+if($this->up<=0)
+  $this->up=$this->parent_id;
+else
+  if(getTypeByEntryId($this->up)==ENT_POSTING)
+    $this->parent_id=getParentIdByEntryId($this->up);
 }
 
 // from Message FIXME
@@ -180,9 +189,9 @@ return 1/$this->co_ctr;
 function isMandatory($field)
 {
 $editor=$this->getGrpEditor();
-for($editor as $item)
-   if($item['ident']==$field)
-     return $item['mandatory'];
+foreach($editor as $item)
+       if($item['ident']==$field)
+	 return $item['mandatory'];
 return false;
 }
 

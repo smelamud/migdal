@@ -38,8 +38,9 @@
   <starinfo>
   <form_section title='Описание темы'>
   <error id='*ET_NO_EDIT' text='Вы не можете редактировать эту тему'>
-  <error id='*ET_NO_UP' text='Такой темы не существует'>
-  <error id='*ET_LOOP_UP' text='Тема не может быть подтемой самой себя'>
+  <error id='*EVH_NO_UP' text='Вышестоящей темы не существует'>
+  <error id='*EVH_LOOP' text='Тема не может быть подтемой самой себя'>
+  <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
   <error id='*ET_NO_APPEND' text='Вы не можете добавлять подтемы для этой темы'>
   <form_topicselect title='Надтема' name='up' value='$,UpValue'
                     only_writable='*true'>

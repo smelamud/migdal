@@ -43,14 +43,11 @@ if($topicMandatoryDescription && $topic->body=='')
   return ET_DESCRIPTION_ABSENT;
 if($topic->up<0)
   $topic->up=0;
+$correct=validateHierarchy(0,$topic->up,ENT_TOPIC,$topic->id);
+if($correct!=EG_OK)
+  return $correct;
 if($topic->up!=0)
-  {
-  if(!topicExists($topic->up))
-    return ET_NO_UP;
-  if($topic->up==$topic->id)
-    return ET_LOOP_UP;
   $upPerms=getPermsById($topic->up);
-  }
 else
   $upPerms=new Entry(array('user_id'  => getUserIdByLogin($rootTopicUserName),
                            'group_id' => getUserIdByLogin($rootTopicGroupName),

@@ -6,6 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/usertag.php');
 require_once('lib/mtext-shorten.php');
 require_once('lib/image-types.php');
+require_once('lib/track.php');
 
 define('ENT_NULL',0);
 define('ENT_POSTING',1);
@@ -762,5 +763,72 @@ journal("update entries
 dropPostingsInfoCache(DPIC_POSTINGS);
 if(($parent_id=getParentIdByEntryId($id))>0) // FIXME Сейчас у всех есть parent
   answerUpdate($parent_id);
+}
+
+function getTypeByEntryId($id)
+{
+$result=sql("select entry
+	     from entries
+	     where id=$id",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : ENT_NULL;
+}
+
+function getParentIdByEntryId($id)
+{
+$result=sql("select parent_id
+	     from entries
+	     where id=$id",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : ENT_NULL;
+}
+
+function validateHierarchy($parentId,$up,$entry,$id)
+{
+if($parentId<0)
+  return EVH_NO_PARENT;
+if($up<0)
+  return EVH_NO_UP;
+if($parentId!=0 && $up==0)
+  return EVH_NOT_UP_UNDER_PARENT;
+$parentTrack=$parentId>0 ? trackById('entries',$parentId) : '';
+if($parentTrack===0)
+  return EVH_NO_PARENT;
+$upTrack=$up>0 ? trackById('entries',$up) : '';
+if($upTrack===0)
+  return EVH_NO_UP;
+if(substr($upTrack,0,strlen($parentTrack))!=$parentTrack)
+  return EVH_NOT_UP_UNDER_PARENT;
+if(strpos($upTrack,track($id))!==false)
+  return EVH_LOOP;
+$parentEntry=getTypeByEntryId($parentId);
+$upEntry=getTypeByEntryId($up);
+$correct=false;
+switch($entry)
+      {
+      case ENT_POSTING:
+           $correct=$parentEntry==ENT_TOPIC
+	            && ($upEntry==ENT_POSTING || $parentId==$up);
+           break;
+      case ENT_FORUM:
+           $correct=($parentEntry==ENT_POSTING || $parentEntry==ENT_COMPLAIN)
+	            && ($upEntry==ENT_FORUM || $parentId==$up);
+           break;
+      case ENT_TOPIC:
+           $correct=$parentId==0 && ($upEntry==ENT_TOPIC || $up==0);
+           break;
+      case ENT_IMAGE:
+           $correct=$parentId==0 && ($upEntry==ENT_POSTING
+	                             || $upEntry==ENT_FORUM
+				     || $upEntry==ENT_TOPIC
+				     || $up==0);
+           break;
+      case ENT_COMPLAIN:
+           $correct=$parentId==0 && $up==0;
+           break;
+      }
+if(!$correct)
+  return EVH_INCORRECT;
+return EG_OK;
 }
 ?>

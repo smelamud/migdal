@@ -246,7 +246,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/complainedit.mhtml
 - migdal/complainforum.mhtml
 - migdal/complains.mhtml
-* migdal/ears.mhtml
++ migdal/ears.mhtml
 - migdal/event.mhtml
 - migdal/events-english.mhtml
 - migdal/events.mhtml
