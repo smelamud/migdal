@@ -78,11 +78,11 @@ function postString($name,$convert=true)
 {
 global $Args;
 
-if(!isset($_REQUEST[$name]) && !isset($_REQUEST["$name_i"])
+if(!isset($_REQUEST[$name]) && !isset($_REQUEST["${name}_i"])
    && isset($Args[$name]))
   return;
-if(isset($_REQUEST["$name_i"]))
-  $value=tmpTextRestore($_REQUEST["$name_i"]);
+if(isset($_REQUEST["${name}_i"]))
+  $value=tmpTextRestore($_REQUEST["${name}_i"]);
 else
   {
   $value=isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';

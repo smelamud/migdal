@@ -50,7 +50,10 @@ if($redirid!=0 && !redirExists($redirid))
   $info->setPath(remakeURI($_SERVER['REQUEST_URI'],array('redirid')));
   return $info;
   }
-return getLocationInfo($requestPath,$redirid);
+$info=getLocationInfo($requestPath,$redirid);
+if($info->getPath()==$requestPath)
+  $info=dispatch404($requestPath);
+return $info;
 }
 
 function &dispatch()

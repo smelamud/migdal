@@ -7,6 +7,7 @@ require_once('lib/usertag.php');
 require_once('lib/mtext-shorten.php');
 require_once('lib/image-types.php');
 require_once('lib/track.php');
+require_once('lib/answers.php');
 
 define('ENT_NULL',0);
 define('ENT_POSTING',1);
@@ -19,70 +20,70 @@ define('ENT_VERSION',6);
 class Entry
       extends UserTag
 {
-var $id;
-var $ident;
-var $entry;
-var $up;
-var $track;
-var $parent_id;
-var $orig_id;
-var $grp;
-var $grps;
-var $person_id;
-var $user_id;
-var $group_id;
-var $group_login;
-var $perms;
-var $perm_string;
-var $disabled;
-var $subject;
-var $subject_sort;
-var $lang;
-var $author;
-var $author_xml;
-var $source;
-var $source_xml;
-var $comment0;
-var $comment0_xml;
-var $comment1;
-var $comment1_xml;
-var $url;
-var $url_domain;
-var $url_check;
-var $url_check_success;
-var $body;
-var $body_xml;
-var $body_format;
-var $has_large_body;
-var $large_body;
-var $large_body_xml;
-var $large_body_format;
-var $large_body_filename;
-var $priority;
-var $index0;
-var $index1;
-var $index2;
-var $vote;
-var $vote_count;
-var $rating;
-var $sent;
-var $created;
-var $modified;
-var $accessed;
-var $modbits;
-var $answers;
-var $last_answer;
-var $last_answer_id;
-var $last_answer_user_id;
-var $small_image;
-var $small_image_x;
-var $small_image_y;
-var $large_image;
-var $large_image_x;
-var $large_image_y;
-var $large_image_size;
-var $large_image_format;
-var $large_image_filename;
+var $id=0;
+var $ident=null;
+var $entry=ENT_NULL;
+var $up=0;
+var $track='';
+var $parent_id=0;
+var $orig_id=0;
+var $grp=0;
+var $grps=array();
+var $person_id=0;
+var $user_id=0;
+var $group_id=0;
+var $group_login='';
+var $perms=PERM_NONE;
+var $perm_string='';
+var $disabled=0;
+var $subject='';
+var $subject_sort='';
+var $lang='';
+var $author='';
+var $author_xml='';
+var $source='';
+var $source_xml='';
+var $comment0='';
+var $comment0_xml='';
+var $comment1='';
+var $comment1_xml='';
+var $url='';
+var $url_domain='';
+var $url_check=0;
+var $url_check_success=0;
+var $body='';
+var $body_xml='';
+var $body_format=TF_MAIL;
+var $has_large_body=0;
+var $large_body='';
+var $large_body_xml='';
+var $large_body_format=TF_PLAIN;
+var $large_body_filename='';
+var $priority=0;
+var $index0=0;
+var $index1=0;
+var $index2=0;
+var $vote=0;
+var $vote_count=0;
+var $rating=0;
+var $sent=0;
+var $created=0;
+var $modified=0;
+var $accessed=0;
+var $modbits=MOD_NONE;
+var $answers=0;
+var $last_answer=0;
+var $last_answer_id=0;
+var $last_answer_user_id=0;
+var $small_image=0;
+var $small_image_x=0;
+var $small_image_y=0;
+var $large_image=0;
+var $large_image_x=0;
+var $large_image_y=0;
+var $large_image_size=0;
+var $large_image_format='';
+var $large_image_filename='';
 
 function Entry($row)
 {
@@ -746,7 +747,7 @@ journal("update entries
          set perms=perms $op
 	 where id=".journalVar('entries',$id));
 dropPostingsInfoCache(DPIC_POSTINGS);
-if(($parent_id=getParentIdByEntryId($id))>0) // FIXME Сейчас у всех есть parent
+if(getTypeByEntryId($id)==ENT_FORUM)
   answerUpdate($parent_id);
 }
 
@@ -761,7 +762,7 @@ journal("update entries
          set disabled=$disabled
 	 where id=".journalVar('entries',$id));
 dropPostingsInfoCache(DPIC_POSTINGS);
-if(($parent_id=getParentIdByEntryId($id))>0) // FIXME Сейчас у всех есть parent
+if(getTypeByEntryId($id)==ENT_FORUM)
   answerUpdate($parent_id);
 }
 

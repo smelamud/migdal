@@ -34,10 +34,10 @@
     <td width=20 align=left>
      <if what='!$posting.isHidden'>
       [<a href="actions/hide.php?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
-          <asp><b>&nbsp;</b></a>]
+          <asp>Выключить</a>]
      <else>
       [<a href="actions/hide.php?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
-          <asp><b>X</b></a>]
+          <asp><b>Включить</b></a>]
      </if>
     </td>
    </tr></table>

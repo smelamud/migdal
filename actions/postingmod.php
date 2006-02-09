@@ -15,55 +15,46 @@ require_once('lib/topics.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings.php');
 require_once('lib/postings-info.php');
-//require_once('lib/stotext.php'); # FIXME
+require_once('lib/text-upload.php');
 require_once('lib/track.php');
-//require_once('lib/forums.php');
 require_once('lib/redirs.php');
 require_once('lib/modbits.php');
 require_once('lib/counters.php');
 require_once('lib/logging.php');
 require_once('lib/sql.php');
 
-function isDisabledSet($posting)
+function isModbitRequired($modbits,$bit,$posting,$original)
 {
 global $userId,$userModerator;
 
-return (getPremoderateByTopicId($posting->getTopicId()) && $userId>0
-	|| $posting->getLargeFormat()==TF_HTML)
-       && !$userModerator;
+$required=($modbits & $bit)!=0;
+switch($bit)
+      {
+      case MODT_PREMODERATE:
+	   $required=$original->getId()==0 && $required && $userId>0
+	             && !$userModerator;
+           break;
+      case MODT_MODERATE:
+	   $required=$required && !$userModerator;
+           break;
+      case MODT_EDIT:
+	   $required=$required && !$userModerator;
+           break;
+      }
+return $required;
 }
 
-function isModerateSet($posting)
+function setPremoderates($posting,$original)
 {
-global $userId,$userModerator;
-
-return (getModerateByTopicId($posting->getTopicId())
-	|| $posting->getLargeFormat()==TF_HTML)
-       && !$userModerator;
-}
-
-function isEditSet($posting)
-{
-global $userModerator;
-
-return getEditByTopicId($posting->getTopicId()) && !$userModerator;
-}
-
-function setDisabled($posting,$original)
-{
-if($original->getId()==0)
-  if(isDisabledSet($posting))
-    setDisabledByMessageId($posting->getMessageId(),1);
-$modbits=($original->getId()==0 ? $posting->getCreateModmask()
-                                : $posting->getModifyModmask()) & MOD_USER;
-				// FIXME MOD_USER is deprecated
-if(isModerateSet($posting))
+$tmod=getModbitsByTopicId($posting->getParentId());
+if(isModbitRequired($tmod,MODT_PREMODERATE,$posting,$original))
+  setDisabledByEntryId($posting->getId(),1);
+$modbits=MOD_NONE;
+if(isModbitRequired($tmod,MODT_MODERATE,$posting,$original))
   $modbits|=MOD_MODERATE;
-if($posting->getLargeFormat()==TF_HTML)
-  $modbits|=MOD_HTML;
-if(isEditSet($posting))
+if(isModbitRequired($tmod,MODT_EDIT,$posting,$original))
   $modbits|=MOD_EDIT;
-setModbitsByMessageId($posting->getMessageId(),$modbits);
+setModbitsByEntryId($posting->getId(),$modbits);
 }
 
 function modifyPosting($posting,$original)
@@ -132,7 +123,7 @@ if($posting->person_id!=0 && !personalExists($posting->person_id))
 $posting->track='';
 storePosting($posting);
 updateTracks('entries',$posting->id);
-/*setDisabled($posting,$original);*/
+setPremoderates($posting,$original);
 if($original->getId()==0)
   createCounters($posting->id,$posting->grp);
 return EG_OK;
@@ -181,18 +172,23 @@ $posting=getPostingById($editid,$grp,$index1,$parent_id,
                         SELECT_GENERAL|SELECT_LARGE_BODY,$up);
 $original=$posting;
 $posting->setup($Args);
-/*
-$image=uploadImage('image',$posting->createThumbnail(),
-                   $thumbnailWidth,$thumbnailHeight,$err);
-if($image)
-  $posting->setImageSet($image->getImageSet());
-if($err==EG_OK)
-  $err=uploadLargeText($posting->stotext);
-if($err==EG_OK)
-  if($original->getId()==0 && $relogin)
-    $err=login($login,$password,$remember);
-  else*/
-    $err=EG_OK;
+
+$err=EG_OK;
+if($original->getId()==0 || $original->isWritable())
+  {
+  /*
+  $image=uploadImage('image',$posting->createThumbnail(),
+		     $thumbnailWidth,$thumbnailHeight,$err);
+  if($image)
+    $posting->setImageSet($image->getImageSet());*/
+  if($err==EG_OK)
+    $err=uploadLargeBody($posting,$del_large_body);
+  /*if($err==EG_OK)
+    if($original->getId()==0 && $relogin)
+      $err=login($login,$password,$remember);
+    else
+      $err=EG_OK;*/
+  }
 if($err==EG_OK)
   $err=modifyPosting($posting,$original);
 if($err==EG_OK)
@@ -203,7 +199,8 @@ if($err==EG_OK)
 else
   {
   $bodyId=tmpTextSave($body);
-  $largeBodyId=tmpTextSave($large_body);
+  $largeBodyId=tmpTextSave($posting->large_body);
+  $largeBodyFilenameId=tmpTextSave($posting->large_body_filename);
   $subjectId=tmpTextSave($subject);
   $authorId=tmpTextSave($author);
   $sourceId=tmpTextSave($source);
@@ -227,6 +224,7 @@ else
 			      'faildir'),
 			array('body_i'       => $bodyId,
 			      'large_body_i' => $largeBodyId,
+			      'large_body_filename_i' => $largeBodyFilenameId,
 			      'subject_i'    => $subjectId,
 			      'author_i'     => $authorId,
 			      'source_i'     => $sourceId,

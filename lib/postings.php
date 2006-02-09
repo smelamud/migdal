@@ -56,13 +56,17 @@ $this->large_body_format=$vars['large_body_format'];
 if(!c_digit($this->large_body_format) || $this->large_body_format>TF_MAX)
   $this->large_body_format=TF_PLAIN;
 $this->has_large_body=0;
-if($vars["large_body"]!='')
+$this->large_body='';
+$this->large_body_xml='';
+if($vars['large_body']!='')
   {
   $this->has_large_body=1;
   $this->large_body=$vars['large_body'];
   $this->large_body_xml=wikiToXML($this->large_body,$this->large_body_format,
                                   MTEXT_LONG);
   }
+if($vars['large_body_filename']!='')
+  $this->large_body_filename=$vars['large_body_filename'];
 // from Message FIXME
 $this->up=$vars['up'];
 $this->subject=$vars['subject'];
@@ -274,7 +278,8 @@ if(($fields & SELECT_CTR)!=0)
   $Fields.=',counter0.value as counter_value0,
 	    counter1.value as counter_value1,
 	    if(counter1.value is null or counter1.value=0,
-	       1000000,counter0.value/counter1.value) as co_ctr';
+	       1000000,counter0.value/counter1.value) as co_ctr,
+	    if((entries.perms & 0x1100)=0,1,0) as hidden';
 return $Fields;
 }
 
@@ -802,7 +807,7 @@ function getPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1,
 {
 $Select=postingListFields($fields);
 $From=postingListTables($fields);
-if($id>0)
+if($id>=0)
   $Where="entries.id=$id";
 else
   {

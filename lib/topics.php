@@ -381,21 +381,6 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $rootTopicModbits;
 }
 
-function getPremoderateByTopicId($id)
-{
-return (getModbitsByTopicId($id) & MODT_PREMODERATE)!=0;
-}
-
-function getModerateByTopicId($id)
-{
-return (getModbitsByTopicId($id) & MODT_MODERATE)!=0;
-}
-
-function getEditByTopicId($id)
-{
-return (getModbitsByTopicId($id) & MODT_EDIT)!=0;
-}
-
 function getTopicById($id,$up=0,$fields=SELECT_GENERAL)
 {
 global $userId,$userLogin,$userModerator,$rootTopicModbits,$rootTopicGroupName,
