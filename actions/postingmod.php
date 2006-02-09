@@ -15,8 +15,7 @@ require_once('lib/topics.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings.php');
 require_once('lib/postings-info.php');
-//require_once('lib/complains.php'); # FIXME
-//require_once('lib/stotext.php');
+//require_once('lib/stotext.php'); # FIXME
 require_once('lib/track.php');
 //require_once('lib/forums.php');
 require_once('lib/redirs.php');
@@ -131,11 +130,11 @@ if($posting->hasLargeImage() && !imageExists($posting->id,
 if($posting->person_id!=0 && !personalExists($posting->person_id))
   return EP_NO_PERSON;
 $posting->track='';
-/*storePosting($posting);
+storePosting($posting);
 updateTracks('entries',$posting->id);
-setDisabled($posting,$original);
+/*setDisabled($posting,$original);*/
 if($original->getId()==0)
-  createCounters($posting->id,$posting->grp);*/
+  createCounters($posting->id,$posting->grp);
 return EG_OK;
 }
 

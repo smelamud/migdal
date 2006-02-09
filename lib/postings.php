@@ -40,6 +40,7 @@ var $co_ctr;
 function Posting($row)
 {
 $this->entry=ENT_POSTING;
+$this->body_format=TF_MAIL;
 parent::GrpEntry($row);
 }
 
@@ -630,52 +631,142 @@ $this->AlphabetIterator(
 
 }
 
-/*function storePosting(&$posting)
-{
-function getWorldPostingVars()
-{
-return array('message_id','topic_id','grp','personal_id','index1','index2');
-}
+define('SPF_ORIGINAL',1);
+define('SPF_DUPLICATE',2);
+define('SPF_SHADOW',4);
+define('SPF_ALL',SPF_ORIGINAL|SPF_DUPLICATE|SPF_SHADOW);
 
-function getAdminPostingVars()
+function storePostingFields(&$posting,$fields)
 {
-return array('ident','priority');
-}
-
-function getJencodedPostingVars()
-{
-return array('message_id' => 'messages','topic_id' => 'topics',
-             'personal_id' => 'users');
-}
-
 global $userModerator;
 
-$result=Message::store('message_id');
-if(!$result)
-  return $result;
-$normal=$this->getNormalPosting($userModerator);
-if($this->id)
+$vars=array('entry' => $posting->entry,
+            'modified' => sqlNow());
+if(($fields & SPF_ORIGINAL)!=0)
+  $vars=array_merge($vars,
+                    array('subject' => $posting->subject,
+		          'author' => $posting->author,
+		          'author_xml' => $posting->author_xml,
+		          'source' => $posting->source,
+		          'source_xml' => $posting->source_xml,
+		          'title' => $posting->title,
+		          'title_xml' => $posting->title_xml,
+		          'comment0' => $posting->comment0,
+		          'comment0_xml' => $posting->comment0_xml,
+		          'comment1' => $posting->comment1,
+		          'comment1_xml' => $posting->comment1_xml,
+			  'url' => $posting->url,
+			  'url_domain' => $posting->url_domain,
+			  'body' => $posting->body,
+			  'body_xml' => $posting->body_xml,
+			  'body_format' => $posting->body_format,
+			  'has_large_body' => $posting->has_large_body,
+			  'large_body' => $posting->large_body,
+			  'large_body_xml' => $posting->large_body_xml,
+			  'large_body_format' => $posting->large_body_format,
+			  'large_body_filename' => $posting->large_body_filename,
+			  'small_image' => $posting->small_image,
+			  'small_image_x' => $posting->small_image_x,
+			  'small_image_y' => $posting->small_image_y,
+			  'large_image' => $posting->large_image,
+			  'large_image_x' => $posting->large_image_x,
+			  'large_image_y' => $posting->large_image_y,
+			  'large_image_size' => $posting->large_image_size,
+			  'large_image_format' => $posting->large_image_format,
+			  'large_image_filename' => $posting->large_image_filename));
+if(($fields & SPF_DUPLICATE)!=0)
   {
-  $result=sql(makeUpdate('postings',
-                         $normal,
-			 array('id' => $this->id)),
-	      get_method($this,'store'),'update');
-  journal(makeUpdate('postings',
-                     jencodeVars($normal,$this->getJencodedPostingVars()),
-		     array('id' => journalVar('postings',$this->id))));
+  $vars=array_merge($vars,
+                    array('person_id' => $posting->person_id,
+		          'user_id' => $posting->user_id,
+			  'group_id' => $posting->group_id,
+			  'perms' => $posting->perms,
+			  'subject_sort' => $posting->subject_sort,
+			  'lang' => $posting->lang,
+			  'index1' => $posting->index1,
+			  'index2' => $posting->index2));
+  if($userModerator)
+    $vars=array_merge($vars,
+		      array('disabled' => $posting->disabled,
+		            'priority' => $posting->priority));
+  }
+if(($fields & SPF_SHADOW)!=0)
+  {
+  $vars=array_merge($vars,
+                    array('up' => $posting->up,
+		          'track' => $posting->track,
+			  'parent_id' => $posting->parent_id,
+			  'grp' => $posting->grp));
+  if($userModerator)
+    $vars=array_merge($vars,
+		      array('ident' => $posting->ident));
+  }
+return $vars;
+}
+
+function storePosting(&$posting)
+{
+$jencoded=array('subject' => '','author' => '','author_xml' => '',
+                'source' => '','source_xml' => '','title' => '',
+		'title_xml' => '','comment0' => '','comment0_xml' => '',
+		'comment1' => '','comment1_xml' => '','url' => '',
+		'url_domain' => '','body' => '','body_xml' => '',
+		'large_body' => '','large_body_xml' => '',
+		'large_body_filename' => '','small_image' => 'images',
+		'large_image' => 'images','large_image_filename' => '',
+		'person_id' => 'users','user_id' => 'users',
+		'group_id' => 'users','subject_sort' => '','up' => 'entries',
+		'parent_id' => 'entries');
+if($posting->id)
+  {
+  $vars=storePostingFields($posting,SPF_SHADOW);
+  $result=sql(makeUpdate('entries',
+                         $vars,
+			 array('id' => $posting->id)),
+	      __FUNCTION__,'update_shadow');
+  journal(makeUpdate('entries',
+                     jencodeVars($vars,$jencoded),
+		     array('id' => journalVar('entries',$posting->id))));
+  $vars=storePostingFields($posting,SPF_DUPLICATE);
+  $result=sql(makeUpdate('entries',
+                         $vars,
+			 array('orig_id' => $posting->orig_id)),
+	      __FUNCTION__,'update_duplicate');
+  journal(makeUpdate('entries',
+                     jencodeVars($vars,$jencoded),
+		     array('orig_id' => journalVar('entries',$posting->orig_id))));
+  $vars=storePostingFields($posting,SPF_ORIGINAL);
+  $result=sql(makeUpdate('entries',
+                         $vars,
+			 array('id' => $posting->orig_id)),
+	      __FUNCTION__,'update_original');
+  journal(makeUpdate('entries',
+                     jencodeVars($vars,$jencoded),
+		     array('id' => journalVar('entries',$posting->orig_id))));
   }
 else
   {
-  $result=sql(makeInsert('postings',
-                         $normal),
-	      get_method($this,'store'),'insert');
-  $this->id=sql_insert_id();
-  journal(makeInsert('postings',
-                     jencodeVars($normal,$this->getJencodedPostingVars())),
-	  'postings',$this->id);
+  $vars=storePostingFields($posting,SPF_ALL);
+  $vars['sent']=sqlNow();
+  $vars['created']=sqlNow();
+  $result=sql(makeInsert('entries',
+                         $vars),
+	      __FUNCTION__,'insert');
+  $posting->id=sql_insert_id();
+  journal(makeInsert('entries',
+                     jencodeVars($vars,$jencoded)),
+	  'entries',$posting->id);
+
+  sql("update entries
+       set orig_id=id
+       where id={$posting->id}",
+      __FUNCTION__,'orig_id');
+  journal('update entries
+	   set orig_id=id
+	   where id='.journalVar('entries',$posting->id));
   }
 return $result;
-}*/
+}
 
 function getRootPosting($grp,$topic_id,$up)
 {
