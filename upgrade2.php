@@ -372,16 +372,8 @@ global $maxImage,$imageDir,$thumbnailType;
 
 $maxImage++;
 $large=$maxImage;
-if($row['has_large'])
-  {
-  $size='large';
-  $format=$row['format'];
-  }
-else
-  {
-  $size='small';
-  $format=$thumbnailType;
-  }
+$size=$row['has_large'] ? 'large' : 'small';
+$format=$row['format'];
 $content=$row[$size];
 $large_size=strlen($content);
 $largeName=getImageFilename($id,getImageExtension($format),$large,$size);
@@ -398,7 +390,7 @@ if($row['has_large'])
 			      $small,'small');
   $fname="$imageDir/$smallName";
   $result=imageFileResize("$imageDir/$largeName",$format,$fname,
-                      $row['small_x'],$row['small_y']);
+                          $row['small_x'],$row['small_y']);
   if($result==IFR_OK)
     list($row['small_x'],$row['small_y'])=getImageSize($fname);
   else
@@ -408,10 +400,8 @@ if(!$row['has_large'] || $result==IFR_SMALL)
   {
   $small=$large;
   $large=0;
-  $large_size=0;
   $smallName=$largeName;
-  $largeName=getImageFilename($id,getImageExtension($thumbnailType),
-			      $small,'large');
+  $largeName=getImageFilename($id,getImageExtension($format),$small,'large');
   @unlink("$imageDir/$largeName");
   symlink($smallName,"$imageDir/$largeName");
   }
@@ -476,10 +466,8 @@ while($row=mysql_fetch_assoc($result))
 			       'large_image_x' => $row['large_x'],
 			       'large_image_y' => $row['large_y'],
 			       'large_image_size' => $large_size,
-			       'large_image_format' => $large!=0
-			                               ? $row['format'] : '',
-			       'large_image_filename' => $large!=0
-			                                 ? $row['filename'] : ''
+			       'large_image_format' => $row['format'],
+			       'large_image_filename' => $row['filename']
 			       ));
      sql(makeUpdate('entries',
                     $update,
@@ -540,10 +528,8 @@ while($row=mysql_fetch_assoc($result))
 			  'large_image_x' => $row['large_x'],
 			  'large_image_y' => $row['large_y'],
 			  'large_image_size' => $large_size,
-			  'large_image_format' => $large!=0
-						  ? $row['format'] : '',
-			  'large_image_filename' => $large!=0
-						    ? $row['filename'] : ''
+			  'large_image_format' => $row['format'],
+			  'large_image_filename' => $row['filename']
 			 ),
 		    array('id' => $id)),
 	 __FUNCTION__,'update');

@@ -51,7 +51,7 @@ if($redirid!=0 && !redirExists($redirid))
   return $info;
   }
 $info=getLocationInfo($requestPath,$redirid);
-if($info->getPath()==$requestPath)
+if($info->getScript()=='' && $info->getPath()==$requestPath)
   $info=dispatch404($requestPath);
 return $info;
 }
