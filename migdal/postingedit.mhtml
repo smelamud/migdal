@@ -276,9 +276,6 @@
    <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
    <error id='*EP_UP_APPEND'
 	  text='Вы не имеете права присоединять сообщения к этому сообщению'>
-   <<if what='!$editid'>
-    <relogin title='$message.GrpItemTitle' noguests='$noguests'>
-   </if>>
    <moderator>
     <tr valign='top'><td class='form-cell' colspan=2><table><tr>
      <full>
@@ -290,6 +287,9 @@
      </full>
     </tr></table></td></tr>
    </moderator>
+   <if what='!$editid'>
+    <form_relogin noguests='$noguests'>
+   </if>
    <full>
     <form_grpselect title='Группа' mandatory='*true' name='grp' value='$,Grp'>
    <else>

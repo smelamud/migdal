@@ -113,7 +113,7 @@
    <select name='$name'>
   </if>
  <elif what="$style=='box'">
-  <table border='0' cellspacing='0' cellpadding='3'>
+  <table border='0' cellspacing='0' cellpadding='3' width='100%'>
  </if>
  <assign_global name='FormSelectName' value='$name'>
  <assign_global name='FormSelectStyle' value='$style'>

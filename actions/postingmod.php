@@ -183,12 +183,10 @@ if($original->getId()==0 || $original->isWritable())
     $posting->setImageSet($image->getImageSet());*/
   if($err==EG_OK)
     $err=uploadLargeBody($posting,$del_large_body);
-  /*if($err==EG_OK)
-    if($original->getId()==0 && $relogin)
-      $err=login($login,$password,$remember);
-    else
-      $err=EG_OK;*/
   }
+if($err==EG_OK)
+  if($original->getId()==0 && $relogin)
+    $err=login($login,$password,$remember);
 if($err==EG_OK)
   $err=modifyPosting($posting,$original);
 if($err==EG_OK)

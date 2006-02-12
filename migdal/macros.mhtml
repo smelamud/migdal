@@ -88,6 +88,8 @@
 <decel name='form_password' file='parts/formutils.php'
        params='title,mandatory,comment,name,size,maxlength'
        defaults="mandatory='*false' comment='' size=40 maxlength=250">
+<decel name='form_relogin' file='parts/relogin.php' params='noguests'
+       defaults="noguests='*false'">
 <decel name='form_section' file='parts/formutils.php' params='title'>
 <decel name='form_select' file='parts/formutils.php'
        params='title,name,mandatory,comment,multiple,style,rows'
@@ -226,8 +228,6 @@
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
        defaults="showtitle='*true'">
-<decel name='relogin' file='parts/relogin.php' params='title,noguests'
-       defaults="title='комментарий' noguests='*false'">
 <decel name='seealso_links' file='parts/seealso.php'
        params='topic_id,title,topic_grp'
        defaults="title='См. также' topic_grp='*GRP_ALL'">

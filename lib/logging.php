@@ -7,6 +7,10 @@ require_once('lib/sessions.php');
 require_once('lib/users.php');
 require_once('lib/chat-users.php');
 
+define('RELOGIN_GUEST',1);
+define('RELOGIN_SAME',2);
+define('RELOGIN_LOGIN',3);
+
 function login($login,$password,$remember=true)
 {
 global $sessionid,$userId,$realUserId;

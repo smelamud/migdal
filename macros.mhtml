@@ -13,6 +13,7 @@
 <decconst name='grps' file='lib/grps.php'>
 <decconst name='image_placements' file='lib/stotext-images.php'>
 <decconst name='modbits' file='lib/modbits.php'>
+<decconst name='relogin' file='lib/logging.php'>
 <decconst name='sorts' file='lib/sort.php'>
 <decconst name='text_formats' file='lib/text.php'>
 

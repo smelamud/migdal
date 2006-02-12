@@ -1,54 +1,59 @@
 << @(#) $Id$ >>
 
-<element name='relogin'>
-<notlogged>
- <tr><td colspan=2><table>
-  <tr><td colspan=2>Добавить $title как:</td></tr>
-  <if what='!$noguests'>
-   <tr>
-    <assign name='check' value!="!$$relogin ? 'checked' : ''">
-    <td><input type='radio' id='relogin-0' name='relogin' value=0 $check></td>
-    <td>
-     <label for='relogin-0'>$$userLogin <i>(анонимный пользователь)</i></label>
+<relogin>
+
+<element name='form_relogin'>
+<error id='*EL_INVALID' text='Неверный ник или пароль'>
+<form_line title='Подписать сообщение как'>
+ <logged>
+  <assign name='relogin' value='*RELOGIN_SAME'>
+ <else>
+  <assign name='relogin' value!='$noguests ? *RELOGIN_LOGIN : *RELOGIN_GUEST'>
+ </logged>
+ <table border='0' cellspacing='0' cellpadding='3'>
+  <tr valign='middle'>
+   <if what='!$noguests'>
+    <td width='1'>
+     <radio_button name='relogin' value='*RELOGIN_GUEST' peervalue='$relogin'>
     </td>
-   </tr>
-  </if>
-  <error id='*EL_INVALID' text='Неверный ник или пароль' span=2>
-  <if what='!$noguests'>
-   <tr>
-    <assign name='check' value!="$$relogin ? 'checked' : ''">
-    <td><input type='radio' id='relogin-1' name='relogin' value=1 $check></td>
-    <td><label for='relogin-1'>Зарегистрированный пользователь:</label></td>
-   </tr>
-  <else>
-   <hidden name='relogin' value=1>
-  </if>
-  <tr>
-   <td>&nbsp;</td>
-   <td>
-    <table>
-     <tr>
-      <td>Ник</td>
-      <td>
-       <input type=text name='login' size=15 maxlength=30 value='$$login'>
-      </td>
-      <td>Пароль</td>
-      <td><input type=password name='password' size=15></td>
-      <td>Войти?</td>
-      <td><checkbox_button name='remember' value='$$remember'></td>
-     </tr>
-    </table>
-   </td>
+    <td colspan=6>анонимный пользователь (Гость)</td>
+   <else>
+    <td width='1' align='center'>
+     (&nbsp;)
+    </td>
+    <td colspan=6><i>анонимно писать нельзя</i></td>
+   </if>
   </tr>
-  <master>
-   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;
-     <a href#='register/?redirid=$_'>Зарегистрироваться</a>&nbsp;&nbsp;<asp>
-     <asp><a href#='userlost.php?redirid=$_'>Забыли пароль?</a>
+  <logged>
+   <tr valign='middle'>
+    <td width='1'>
+     <radio_button name='relogin' value='*RELOGIN_SAME' peervalue='$relogin'>
+    </td>
+    <td colspan=6>Зарегистрированный пользователь
+     <b><a href='users/$$#userFolder/'>$$=userLogin</a></b>
     </td>
    </tr>
-  </master>
- </table></td></tr>
-</notlogged>
+  </logged>
+  <tr valign='middle'>
+   <td width='1'>
+    <radio_button name='relogin' value='*RELOGIN_LOGIN' peervalue='$relogin'>
+   </td>
+   <td>Ник</td>
+   <td><input type=text name='login' size=15 maxlength=30></td>
+   <td>Пароль</td>
+   <td><input type=password name='password' size=15></td>
+   <td>Войти?</td>
+   <td><checkbox_button name='remember' value='$$remember'></td>
+   <master>
+    <tr valign='top'>
+     <td width='1'>&nbsp;</td>
+     <td colspan=6>
+      <a href='register/?redirid=$_'>Зарегистрироваться</a>&nbsp;&nbsp;<asp>
+      <asp><a href='userlost.php?redirid=$_'>Забыли пароль?</a>
+     </td>
+    </tr>
+   </master>
+  </tr>
+ </table>
+</form_line>
 </element>
