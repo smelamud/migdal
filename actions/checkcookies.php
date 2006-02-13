@@ -9,7 +9,7 @@ require_once('lib/errors.php');
 
 postString('okdir');
 postString('faildir');
-postInteger('svalue');
+postString('svalue');
 
 dbOpen();
 if($_COOKIE['sessionid']==$svalue)

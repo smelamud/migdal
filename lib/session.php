@@ -93,36 +93,36 @@ clearUserRights();
 if($globalsid!=0)
   $sessionid=$globalsid;
 
-if(!$sessionid && $aUserId<0 || $aUserId==0)
-  {
+if(!$sessionid && $aUserId<0)
   sessionGuest();
-  if($aUserId==0)
-    $realUserId=getGuestId();
+elseif($aUserId==0)
+  {
+  $userId=0;
+  $realUserId=getGuestId();
   }
-else
-  if($aUserId<0)
+elseif($aUserId<0)
+  {
+  $row=getUserIdsBySessionId($sessionid);
+  if(!$row)
+    sessionGuest();
+  else
     {
-    $row=getUserIdsBySessionId($sessionid);
-    if(!$row)
-      sessionGuest();
+    list($userId,$realUserId)=$row;
+    if($userId<=0 && $realUserId<=0)
+      {
+      $userId=0;
+      $realUserId=getGuestId();
+      updateSession($sessionid,0,$realUserId);
+      }
     else
       {
-      list($userId,$realUserId)=$row;
-      if($userId<=0 && $realUserId<=0)
-	{
-	$userId=0;
-	$realUserId=getGuestId();
-	updateSession($sessionid,0,$realUserId);
-	}
-      else
-	{
-	updateSessionTimestamp($sessionid);
-	setSessionCookie($sessionid);
-	}
+      updateSessionTimestamp($sessionid);
+      setSessionCookie($sessionid);
       }
     }
-  else
-    $userId=$realUserId=$aUserId;
+  }
+else
+  $userId=$realUserId=$aUserId;
 
 $userGroups=array();
 if($userId>0)
