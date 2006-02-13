@@ -32,18 +32,18 @@ php: Makefile conf/migdal.conf
 dbcreate.sql: Makefile conf/migdal.conf
 	cat migdal.db $(uiName)/migdal.db > dbcreate.sql
 	(\
-	if [ $(rebeLogin) ]; then\
+	if [ $(rebeLogin) ]; then \
 	echo "insert into users(login,login_sort,password,birthday,\
 	email_disabled,rebe,admin_users,admin_topics,admin_complain_answers,\
 	moderator,judge,admin_domain,hidden) values($(rebeLogin),$(rebeLogin),\
 	MD5($(rebePassword)),'1900-01-01',1,1,1,1,1,1,1,1,2);";\
 	fi;\
-	if [ $(shamesLogin) ]; then\
+	if [ $(shamesLogin) ]; then \
 	echo "insert into users(login,login_sort,birthday,hide_email,\
 	email_disabled,shames,hidden,no_login) values($(shamesLogin),\
 	$(shamesLogin),'1900-01-01',1,1,1,2,1);";\
 	fi;\
-	if [ $(regularLogin) ]; then\
+	if [ $(regularLogin) ]; then \
 	echo "insert into users(login,login_sort,password,birthday) \
 	values($(regularLogin),$(regularLogin),MD5($(regularPassword)),'1900-01-01');";\
 	fi\
