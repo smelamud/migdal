@@ -625,11 +625,19 @@ parse_str($fragments['query']);
 
 <macro name='radio_button' defaults='peervalue="-1"'>
  <label>
-  <if what='(%value)==(%peervalue)'>
-   <input type='radio' name='%name' value='%value' checked>%title
+  <ife what="'%id'">
+   <if what='(%value)==(%peervalue)'>
+    <input type='radio' name='%name' value='%value' checked>%title
+   <else>
+    <input type='radio' name='%name' value='%value'>%title
+   </if>
   <else>
-   <input type='radio' name='%name' value='%value'>%title
-  </if>
+   <if what='(%value)==(%peervalue)'>
+    <input type='radio' id='%id' name='%name' value='%value' checked>%title
+   <else>
+    <input type='radio' id='%id' name='%name' value='%value'>%title
+   </if>
+  </ife>
  </label>
 </macro>
 

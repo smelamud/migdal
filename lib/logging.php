@@ -35,32 +35,50 @@ session($id);
 return EG_OK;
 }
 
-function logout()
+function logout($remember=true)
 {
 global $sessionid;
 
-$row=getUserIdsBySessionId($sessionid);
-$guestId=getGuestId();
-if($row)
+if($remember)
   {
-  list($userId,$realUserId)=$row;
-  logEvent('logout',"user($userId)");
-  if($userId!=0 && $userId!=$realUserId)
+  $row=getUserIdsBySessionId($sessionid);
+  $guestId=getGuestId();
+  if($row)
     {
-    updateSession($sessionid,$realUserId,$realUserId);
-    session();
-    return EG_OK;
+    list($userId,$realUserId)=$row;
+    logEvent('logout',"user($userId)");
+    if($userId!=0 && $userId!=$realUserId)
+      {
+      updateSession($sessionid,$realUserId,$realUserId);
+      session();
+      return EG_OK;
+      }
+    if(isChatLogged($userId))
+      {
+      clearLastChat($userId);
+      chatLogout($userId);
+      postChatSwitchMessage($guestId,$userId);
+      chatLogin($guestId);
+      }
     }
-  if(isChatLogged($userId))
-    {
-    clearLastChat($userId);
-    chatLogout($userId);
-    postChatSwitchMessage($guestId,$userId);
-    chatLogin($guestId);
-    }
+  updateSession($sessionid,0,$guestId);
+  session();
   }
-updateSession($sessionid,0,$guestId);
-session();
+else
+  session(0);
 return EG_OK;
+}
+
+function relogin($relogin,$login,$password,$remember)
+{
+if(!$relogin)
+  return EG_OK;
+switch($relogin)
+      {
+      case RELOGIN_LOGIN:
+           return login($login,$password,$remember);
+      case RELOGIN_GUEST:
+           return logout($remember);
+      }
 }
 ?>

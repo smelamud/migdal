@@ -81,7 +81,7 @@ foreach($userRights as $name => $code)
        $GLOBALS["user$name"]='';
 }
 
-function userRights($aUserId=0)
+function userRights($aUserId=-1)
 {
 global $sessionid,$userId,$realUserId,$userGroups,$userRights;
 
@@ -93,10 +93,10 @@ clearUserRights();
 if($globalsid!=0)
   $sessionid=$globalsid;
 
-if(!$sessionid && $aUserId<=0)
+if(!$sessionid && $aUserId<0 || $aUserId==0)
   sessionGuest();
 else
-  if($aUserId<=0)
+  if($aUserId<0)
     {
     $row=getUserIdsBySessionId($sessionid);
     if(!$row)
@@ -225,7 +225,7 @@ if($userDomain!=$currentDomain)
   reload("http://$userDomain.$siteDomain{$_SERVER['REQUEST_URI']}");
 }
 
-function session($aUserId=0)
+function session($aUserId=-1)
 {
 userRights($aUserId);
 userSettings();

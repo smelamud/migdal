@@ -185,8 +185,8 @@ if($original->getId()==0 || $original->isWritable())
     $err=uploadLargeBody($posting,$del_large_body);
   }
 if($err==EG_OK)
-  if($original->getId()==0 && $relogin)
-    $err=login($login,$password,$remember);
+  if($original->getId()==0)
+    $err=relogin($relogin,$login,$password,$remember);
 if($err==EG_OK)
   $err=modifyPosting($posting,$original);
 if($err==EG_OK)
@@ -209,7 +209,8 @@ else
   header('Location: '.
           remakeMakeURI($faildir,
 			$Args,
-			array('body',
+			array('password',
+			      'body',
 			      'large_body',
 			      'subject',
 			      'author',
