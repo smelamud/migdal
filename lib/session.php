@@ -94,7 +94,11 @@ if($globalsid!=0)
   $sessionid=$globalsid;
 
 if(!$sessionid && $aUserId<0 || $aUserId==0)
+  {
   sessionGuest();
+  if($aUserId==0)
+    $realUserId=getGuestId();
+  }
 else
   if($aUserId<0)
     {

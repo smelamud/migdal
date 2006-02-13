@@ -321,7 +321,7 @@
    <full>
     <form_select title='Запретить показ'
                  comment='Модераторский запрет на показ сообщения. Пользователь
-		          не может снять этот запрет'
+		          не может снять этот запрет.'
 		 name='disabled' style='box'>
      <form_option title='Нет запрета на показ всем пользователям' value='0'
                   selected!='!$,isDisabled'>

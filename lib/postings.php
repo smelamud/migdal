@@ -775,7 +775,7 @@ return $result;
 
 function getRootPosting($grp,$topic_id,$up)
 {
-global $rootPostingPerms;
+global $userId,$realUserId,$rootPostingPerms;
 
 if($up>0)
   {
@@ -798,6 +798,7 @@ return new Posting(array('id'        => 0,
                          'grp'       => $grp,
 			 'parent_id' => $topic_id,
 			 'up'        => $up>0 ? $up : $topic_id,
+			 'user_id'   => $userId>0 ? $userId : $realUserId,
 			 'group_id'  => $group_id,
 			 'perms'     => $perms));
 }

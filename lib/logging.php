@@ -78,7 +78,7 @@ switch($relogin)
       case RELOGIN_LOGIN:
            return login($login,$password,$remember);
       case RELOGIN_GUEST:
-           return logout($remember);
+           return logout(false);
       }
 }
 ?>

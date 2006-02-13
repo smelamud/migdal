@@ -139,16 +139,14 @@
 <elif what="$$FormSelectStyle=='box'">
  <assign name='type' value!='$$FormSelectMultiple ? "checkbox" : "radio"'>
  <tr>
-  <if what='$selected'>
-   <td>
+  <td width='1'>
+   <if what='$selected'>
     <input id='$name$value' type='$type' name='$$FormSelectName' value='$value'
            checked>
-   </td>
-  <else>
-   <td>
+   <else>
     <input id='$name$value' type='$type' name='$$FormSelectName' value='$value'>
-   </td>
-  </if>
+   </if>
+  </td>
   <td><label for='$name$value'>$title</label></td>
  </tr>
 </if>

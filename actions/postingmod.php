@@ -168,25 +168,28 @@ postInteger('disabled');
 
 dbOpen();
 session();
+$err=EG_OK;
+if($editid<=0)
+  $err=relogin($relogin,$login,$password,$remember);
 $posting=getPostingById($editid,$grp,$index1,$parent_id,
                         SELECT_GENERAL|SELECT_LARGE_BODY,$up);
 $original=$posting;
 $posting->setup($Args);
 
-$err=EG_OK;
 if($original->getId()==0 || $original->isWritable())
   {
   /*
   $image=uploadImage('image',$posting->createThumbnail(),
 		     $thumbnailWidth,$thumbnailHeight,$err);
   if($image)
-    $posting->setImageSet($image->getImageSet());*/
+    $posting->setImageSet($image->getImageSet());
   if($err==EG_OK)
-    $err=uploadLargeBody($posting,$del_large_body);
+    $err=$erru;
+  */
+  $erru=uploadLargeBody($posting,$del_large_body);
+  if($err==EG_OK)
+    $err=$erru;
   }
-if($err==EG_OK)
-  if($original->getId()==0)
-    $err=relogin($relogin,$login,$password,$remember);
 if($err==EG_OK)
   $err=modifyPosting($posting,$original);
 if($err==EG_OK)
