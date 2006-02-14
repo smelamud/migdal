@@ -406,4 +406,21 @@ sql("update image_files
 journal('update image_files
          set max_id='.journalVar('images',$max_id));
 }
+
+function getNextImageId()
+{
+sql('lock tables image_files write',
+    __FUNCTION__,'lock');
+$result=sql('select max_id
+             from image_files',
+	    __FUNCTION__,'select');
+$id=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+sql('update image_files
+     set max_id=max_id+1',
+    __FUNCTION__,'update');
+sql('unlock tables',
+    __FUNCTION__,'unlock');
+// FIXME journal() !
+return $id;
+}
 ?>

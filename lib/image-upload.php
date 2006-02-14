@@ -195,7 +195,7 @@ return new Image(array('filename'  => $image_name,
 		       'format'    => $image_type));
 }
 
-function uploadImage($name,$hasThumbnail,$thumbnailX,$thumbnailY,&$err,
+/*function uploadImage($name,$hasThumbnail,$thumbnailX,$thumbnailY,&$err,
                      $title='',$image_set=0)
 {
 global $HTTP_POST_FILES,$maxImageSize,$useMogrify,$tmpDir;
@@ -242,7 +242,7 @@ $img->setTitle($title);
 $img->store();
 $err=EG_OK;
 return $img;
-}
+}*/
 
 function uploadMemoryImage($content,$image_name,$image_type,$hasThumbnail,
                            $thumbnailX,$thumbnailY,&$err,$title='',
@@ -274,6 +274,71 @@ $img->setTitle($title);
 $img->store();
 $err=EG_OK;
 return $img;
+}
+
+function uploadImage($name,&$posting,$thumbnailX,$thumbnailY,$del)
+{
+global $maxImageSize,$thumbnailType,$imageDir;
+
+if($del)
+  {
+  $posting->small_image=0;
+  $posting->large_image=0;
+  // FIXME update links & files
+  }
+if(!isset($_FILES[$name]))
+  return EG_OK;
+$file=$_FILES[$name];
+if($file['tmp_name']=='' || !is_uploaded_file($file['tmp_name'])
+   || filesize($file['tmp_name'])!=$file['size'])
+  return EG_OK;
+if($file['size']>$maxImageSize)
+  return EIU_IMAGE_LARGE;
+
+$largeId=getNextImageId();
+$largeFilename=getImageFilename($posting->getId(),
+                                getImageExtension($file['type']),$largeId,
+				'large');
+$largeName="$imageDir/$largeFilename";
+if(!move_uploaded_file($file['tmp_name'],$largeName))
+  return EG_OK;
+$posting->large_image_size=$file['size'];
+$posting->large_image_format=$file['type'];
+$posting->large_image_filename=$file['name'];
+$hasThumbnail=false;
+if($posting->createThumbnail())
+  {
+  $smallId=getNextImageId();
+  $smallName=getImagePath($posting->getId(),getImageExtension($thumbnailType),
+                          $smallId,'small');
+  $err=imageFileResize($largeName,$posting->large_image_format,$smallName,
+                       $thumbnailX,$thumbnailY);
+  if($err==IFR_UNKNOWN_FORMAT || $err==IFR_UNSUPPORTED_FORMAT)
+    return EIU_UNKNOWN_IMAGE;
+  if($err==IFR_UNSUPPORTED_THUMBNAIL)
+    return EIU_UNKNOWN_THUMBNAIL;
+  $hasThumbnail=$err==IFR_OK;
+  }
+if($hasThumbnail)
+  {
+  $posting->small_image=$smallId;
+  $posting->large_image=$largeId;
+  list($posting->small_image_x,$posting->small_image_y)=getImageSize($smallName);
+  list($posting->large_image_x,$posting->large_image_y)=getImageSize($largeName);
+  }
+else
+  {
+  $posting->small_image=$largeId;
+  $posting->large_image=0;
+  $smallFilename=getImageFilename($posting->getId(),
+                                  getImageExtension($file['type']),$largeId,
+			          'small');
+  $smallName="$imageDir/$smallFilename";
+  rename($largeName,$smallName);
+  list($posting->small_image_x,$posting->small_image_y)=getImageSize($smallName);
+  symlink($smallFilename,$largeName);
+  }
+return EG_OK;
 }
 
 define('IFR_OK',0);

@@ -178,14 +178,10 @@ $posting->setup($Args);
 
 if($original->getId()==0 || $original->isWritable())
   {
-  /*
-  $image=uploadImage('image',$posting->createThumbnail(),
-		     $thumbnailWidth,$thumbnailHeight,$err);
-  if($image)
-    $posting->setImageSet($image->getImageSet());
+  $erru=uploadImage('image_file',$posting,$thumbnailWidth,$thumbnailHeight,
+                    $del_image);
   if($err==EG_OK)
     $err=$erru;
-  */
   $erru=uploadLargeBody($posting,$del_large_body);
   if($err==EG_OK)
     $err=$erru;
