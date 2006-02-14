@@ -2,7 +2,7 @@
 
 <element name='topicselect'>
 <iterate_sortedtopicnames grp='$grp' up='-1' recursive='*true'
-                          name_root='$root' only_writable='$only_writable'
+                          name_root='$root' only_appendable='$only_appendable'
 			  only_postable='$only_postable'>
 <if what='$;Count<=0'>
  <hidden name='$name' value='$value'>
@@ -31,7 +31,7 @@
 
 <element name='form_topicselect'>
 <iterate_sortedtopicnames grp='$grp' up='-1' recursive='*true'
-                          name_root='$root' only_writable='$only_writable'
+                          name_root='$root' only_appendable='$only_appendable'
 			  only_postable='$only_postable'>
 <if what='$;Count<=0'>
  <hidden name='$name' value='$value'>

@@ -240,7 +240,7 @@ var $up;
 var $delimiter;
 
 function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ',
-                            $nameRoot=-1,$onlyWritable=false,
+                            $nameRoot=-1,$onlyAppendable=false,
 			    $onlyPostable=false)
 {
 $this->nameRoot=$nameRoot;
@@ -251,10 +251,10 @@ $grpTable=$grp!=GRP_ALL ? 'left join entry_grps
                                 on entry_grps.entry_id=entries.id'
 			: '';
 $Where=$this->getWhere($grp,$up,'',$recursive);
-if($onlyWritable)
-  $Where.=' and '.topicsPermFilter(PERM_WRITE);
+if($onlyAppendable)
+  $Where.=' and '.permMask('perms',PERM_UA|PERM_GA|PERM_OA|PERM_EA);
 if($onlyPostable)
-  $Where.=' and '.topicsPermFilter(PERM_POST);
+  $Where.=' and '.permMask('perms',PERM_UP|PERM_GP|PERM_OP|PERM_EP);
 parent::TopicIterator("select $distinct id,up,track,subject
 		       from entries
 		            $grpTable

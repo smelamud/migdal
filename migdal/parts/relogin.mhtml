@@ -5,11 +5,13 @@
 <element name='form_relogin'>
 <error id='*EL_INVALID' text='Неверный ник или пароль'>
 <form_line title='Подписать сообщение как'>
- <logged>
-  <assign name='relogin' value='*RELOGIN_SAME'>
- <else>
-  <assign name='relogin' value!='$noguests ? *RELOGIN_LOGIN : *RELOGIN_GUEST'>
- </logged>
+ <ifzero what='$relogin'>
+  <logged>
+   <assign name='relogin' value='*RELOGIN_SAME'>
+  <else>
+   <assign name='relogin' value!='$noguests ? *RELOGIN_LOGIN : *RELOGIN_GUEST'>
+  </logged>
+ </ifzero>
  <table border='0' cellspacing='0' cellpadding='3'>
   <tr valign='middle'>
    <if what='!$noguests'>
@@ -46,7 +48,7 @@
    </td>
    <td>Ник</td>
    <td>
-    <input type=text name='login' size=15 maxlength=30
+    <input type=text name='login' value='$login' size=15 maxlength=30
            onkeypress='document.getElementById("relogin-login").checked=true'>
    </td>
    <td>Пароль</td>
@@ -55,7 +57,7 @@
            onkeypress='document.getElementById("relogin-login").checked=true'>
    </td>
    <td>Войти?</td>
-   <td><checkbox_button name='remember' value='$$remember'></td>
+   <td><checkbox_button name='remember' value='$remember'></td>
    <master>
     <tr valign='top'>
      <td width='1'>&nbsp;</td>

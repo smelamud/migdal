@@ -16,6 +16,10 @@
 <int name='full'>
 <int name='noguests'>
 
+<int name='relogin'>
+<string name='login'>
+<int name='remember'>
+
 <int name='edittag'>
 <int name='index1'>
 <int name='index2'>
@@ -288,7 +292,8 @@
     </tr></table></td></tr>
    </moderator>
    <if what='!$editid'>
-    <form_relogin noguests='$noguests'>
+    <form_relogin noguests='$noguests' relogin='$relogin' login='$login'
+                  remember='$remember'>
    </if>
    <full>
     <form_grpselect title='çÒÕÐÐÁ' mandatory='*true' name='grp' value='$,Grp'>

@@ -88,8 +88,9 @@
 <decel name='form_password' file='parts/formutils.php'
        params='title,mandatory,comment,name,size,maxlength'
        defaults="mandatory='*false' comment='' size=40 maxlength=250">
-<decel name='form_relogin' file='parts/relogin.php' params='noguests'
-       defaults="noguests='*false'">
+<decel name='form_relogin' file='parts/relogin.php'
+       params='noguests,relogin,login,remember'
+       defaults="noguests='*false' relogin=0 login='' remember='*false'">
 <decel name='form_section' file='parts/formutils.php' params='title'>
 <decel name='form_select' file='parts/formutils.php'
        params='title,name,mandatory,comment,multiple,style,rows'
@@ -99,10 +100,10 @@
 <decel name='form_table' file='parts/formutils.php' params='title'>
 <decel name='/form_table' file='parts/formutils.php'>
 <decel name='form_topicselect' file='parts/topicselect.php'
-       params='name,value,grp,mandatory,title,root,comment,only_writable,
+       params='name,value,grp,mandatory,title,root,comment,only_appendable,
 	       only_postable'
        defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
-                 comment='' only_writable='*false' only_postable='*false'">
+                 comment='' only_appendable='*false' only_postable='*false'">
 <decel name='form_upload_format' file='parts/uploader.php'
        params='name,format,title,comment,mandatory'
        defaults="name='large_body_format' comment='',mandatory='*false'">
@@ -332,8 +333,8 @@
 <decel name='topics_tips' file='parts/topics-help.php' params='posting'>
 <decel name='topics_veterans' params='posting' file='parts/topics-blog.php'>
 <decel name='topicselect' file='parts/topicselect.php'
-       params='name,value,grp,root,only_writable,only_postable,mandatory'
-       defaults="grp='*GRP_ALL' root='-1' only_writable='*false'
+       params='name,value,grp,root,only_appendable,only_postable,mandatory'
+       defaults="grp='*GRP_ALL' root='-1' only_appendable='*false'
                  only_postable='*false' mandatory='*false'">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">

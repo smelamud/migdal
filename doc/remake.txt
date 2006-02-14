@@ -368,7 +368,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/posting-times.mhtml
 - migdal/parts/rabbi.mhtml
 - migdal/parts/rambler.mhtml
-- migdal/parts/relogin.mhtml
++ migdal/parts/relogin.mhtml
 - migdal/parts/seealso.mhtml
 - migdal/parts/spin.mhtml
 + migdal/parts/subtitle.mhtml
