@@ -95,7 +95,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/moderate.php
 - actions/postingcopy.php
 - actions/postingdel.php
-* actions/postingmod.php
++ actions/postingmod.php
 + actions/postingorg-goto.php
 - actions/reorder.php
 - actions/search.php
@@ -146,7 +146,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/ident.php
 * lib/images.php (новые функции получения путей к картинкам)
 + lib/image-types.php
-* lib/image-upload.php (только imageFileResize())
++ lib/image-upload.php
 - lib/indexer.php
 - lib/initstop-mail.php
 + lib/initstop.php

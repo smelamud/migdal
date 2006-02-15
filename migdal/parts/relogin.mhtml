@@ -48,7 +48,7 @@
    </td>
    <td>Ник</td>
    <td>
-    <input type=text name='login' value='$login' size=15 maxlength=30
+    <input type=text name='login' value='$=login' size=15 maxlength=30
            onkeypress='document.getElementById("relogin-login").checked=true'>
    </td>
    <td>Пароль</td>

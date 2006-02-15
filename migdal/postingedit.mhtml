@@ -38,6 +38,15 @@
 <int name='priority'>
 <string name='ident'>
 <string name='lang'>
+<int name='small_image'>
+<int name='small_image_x'>
+<int name='small_image_y'>
+<int name='large_image'>
+<int name='large_image_x'>
+<int name='large_image_y'>
+<int name='large_image_size'>
+<string name='large_image_format'>
+<string name='large_image_filename'>
 <int name='person_id'>
 <int name='hidden'>
 <int name='disabled'>
@@ -50,15 +59,14 @@
 </macro>
 <endif name='/full'>
 
-<<full>>
+<full>
  <assign name='root' value='-1'>
-<<else>
- <if what='$parent_id<=0'>
-  <assign name='root' value='$`general`'>
- <else>
-  <assign name='root' value='$message.RootId'>
+<else>
+ <assign name='root' value='$posting.RootId'>
+ <if what='$root!=-1'>
+  <assign name='root' value='$`$root`'>
  </if>
-</full>>
+</full>
 
 <element name='editor_line' params='posting,editor,visible'>
 <assign name='ident' value='$editor.Ident'>
@@ -183,9 +191,18 @@
 	 text='Формат маленькой картинки, указанный при конфигурации сервера,
 	       не поддерживается'>
   <if what='$posting.hasSmallImage'>
-   <hidden name='image' value='$posting.Image'>
+   <hidden name='small_image' value='$posting.SmallImage'>
+   <hidden name='small_image_x' value='$posting.SmallImageX'>
+   <hidden name='small_image_y' value='$posting.SmallImageY'>
+   <hidden name='large_image' value='$posting.LargeImage'>
+   <hidden name='large_image_x' value='$posting.LargeImageX'>
+   <hidden name='large_image_y' value='$posting.LargeImageY'>
+   <hidden name='large_image_size' value='$posting.LargeImageSize'>
+   <hidden name='large_image_format' value='$posting.LargeImageFormat'>
+   <hidden name='large_image_filename' value='$posting.LargeImageFilename'>
    <assign name='loaded' value#='Загружен файл $=posting.LargeImageFilename
-                                 (${posting.LargeImageSizeKB}K)'>
+                                 (${posting.ImageX}x$posting.ImageY,
+				  ${posting.LargeImageSizeKB}K)'>
   <else>
    <assign name='loaded' value=''>
   </if>
@@ -193,7 +210,15 @@
                  name='image_file' loaded='$loaded' delname='del_image'
 	         mandatory='$editor.isMandatory'>
  <else>
-  <hidden name='image' value='$posting.Image'>
+  <hidden name='small_image' value='$posting.SmallImage'>
+  <hidden name='small_image_x' value='$posting.SmallImageX'>
+  <hidden name='small_image_y' value='$posting.SmallImageY'>
+  <hidden name='large_image' value='$posting.LargeImage'>
+  <hidden name='large_image_x' value='$posting.LargeImageX'>
+  <hidden name='large_image_y' value='$posting.LargeImageY'>
+  <hidden name='large_image_size' value='$posting.LargeImageSize'>
+  <hidden name='large_image_format' value='$posting.LargeImageFormat'>
+  <hidden name='large_image_filename' value='$posting.LargeImageFilename'>
  </if>
 <elif what="$ident=='title'">
  <if what='$visible'>
