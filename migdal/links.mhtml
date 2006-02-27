@@ -7,18 +7,16 @@
  <assign name='topic_id' value='-1'>
 </ifzero>
 <if what='$topic_id<=0'>
- <pagetitle title='Ссылки'>
- <topictitle title='Каталог еврейских ресурсов'>
  <log event=links text#='topic(-1) offset=$offset'>
 <else>
  <topic_name id='$topic_id'>
  <assign name='topic_name' value='$,Name'>
- <pagetitle title#='Ссылки - $topic_name'>
+ <<pagetitle title#='Ссылки - $topic_name'>>
  <log event=links text#='topic($,Id) offset=$offset'>
 </if>
 
 <element name='intro'>
-<subtitle>
+<subtitle title='Каталог еврейских ресурсов'>
 <links_switcher ident='catalog'>
 <p>
 <postings_info grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'>
@@ -42,7 +40,7 @@
 <form method=get action='$~' style='margin: 0'><table class='eightpt'>
  <tr>
   <td>
-   <iterate_sortedtopicnames grp='*GRP_LINKS' up='$`links`' recursive='*true'>
+   <iterate_sortedtopicnames grp='*GRP_LINKS' name_root='$`links`'>
    <select name='topic_id'>
     <radio title='-- Быстрый переход --' value='-1'>
     <for>
@@ -87,14 +85,14 @@
 <element name='navigator' params='topic_id'>
 <table cellspacing=5><tr valign=top>
  <td><table class='topics' style='margin: 0'><tbody class='names'>
-  <iterate_sortedtopicnames grp='*GRP_LINKS'
-                            up!='$topic_id<=0 ? $`links` : $topic_id'>
+  <assign name='up' value!='$topic_id<=0 ? $`links` : $topic_id'>
+  <iterate_sortedtopicnames grp='*GRP_LINKS' up='$up' name_root='$up'>
   <iterate_fixed_rows rows=4 mincols=3>
   <for>
    <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
    <tr><td>
     <a href='$[topic_id=$.Id offset]' class='item'>
-     $.Name&nbsp;<span class='answers'>($,Total)</span><asp>
+     $=.Subject&nbsp;<span class='answers'>($,Total)</span><asp>
     <asp></a><asp>
     <biff time='$,MaxSent' small='*true'>
     <topic_count id='$.Id' recursive='*true'>
@@ -126,14 +124,14 @@
    <if what='$topic<=0'>
     <intro>
    <else>
-    <current topic_id='$topic_id'>
+    <<current topic_id='$topic_id'>>
    </if>
    <navigator topic_id='$topic_id'>
    <if what='$topic<=0'>
     <fastjump>
    </if>
-   <seealso_links topic_id='$topic_id' topic_grp='*GRP_LINKS'>
-   <seealso_other topic_id='$topic_id' topic_grp='*GRP_LINKS'>
+   <<seealso_links topic_id='$topic_id' topic_grp='*GRP_LINKS'>
+   <seealso_other topic_id='$topic_id' topic_grp='*GRP_LINKS'>>
   </td></tr>
   <tr><td class='cframe'><outer>
    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
@@ -142,10 +140,10 @@
 		     offset='$offset'>
     </common></td>
     <td width=150 class='nframe'><inner>
-     <if what='$topic_id<=0'>
+     <<if what='$topic_id<=0'>
       <hit_parade grp='*GRP_LINKS' topic_id='$topic_id' sort='*SORT_RATING'
                   title='Избранное' showshadows='*false' limit=20>
-     </if>
+     </if>>
     </inner></td>
    </tr></table>
   </outer></td></tr>

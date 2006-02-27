@@ -7,7 +7,7 @@
  <tr><th>$posting.TopicName</th></tr>
 </table>
 <div class='ninept' style='padding-left: 20px; padding-top: 5px'>
- <a href='/links.php'>Ссылки</a>
+ <a href='links/'>Ссылки</a>
  /
  <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
  <for>

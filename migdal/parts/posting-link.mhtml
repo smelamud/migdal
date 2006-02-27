@@ -1,45 +1,45 @@
 << @(#) $Id$ >>
 
-<element name='topic' params='posting,showtopic'>
+<<element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
  <topiclink posting='$posting'>
  <br>
 </if>
-</element>
+</element>>
 
 <element name='further_url' params='posting'>
-<a href='actions/link.php?msgid=$posting.MessageId&okdir=$#posting.Url'
+<a href='actions/link.php?id=$posting.Id&okdir=$#posting.Url'
    target=_blank>$posting.URLEllip</a>
-<if what='$posting.URLFailDays>=3'>
+<if what='$posting.URLCheckFailDays>=3'>
  <array vals='день,дня,дней'>
  <plural value='$posting.URLFailDays'>
  <span class='error'>
-  (Ссылка не работает $posting.URLFailDays&sp;$,)
+  (Ссылка не работает $posting.URLCheckFailDays&sp;$,)
  </span>
 </if>
 </element>
 
-<element name='link_posting'>
+<element name='posting_link'>
 <dl class='posting'>
  <dt>
   <span class='subject'>
-   <topic posting='$posting' showtopic='$showtopic'>
+   <<topic posting='$posting' showtopic='$showtopic'>>
    <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
 	       image='$$style_cframe_back_pic'>
-   $posting.Subject<biff time='$posting.Sent'>
+   $=posting.Subject<biff time='$posting.Sent'>
   </span><br>
   <further_url posting='$posting'>
  </dt>
  <dd><p>
-  <ifnzero what='$posting.ImageSet'>
+  <if what='$posting.hasSmallImage'>
    <table align=left class='pic'><tr><td>
-    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+    <posting_image posting='$posting'>
    </td></tr></table>
   </ifnzero>
   <if what="$posting.Lang!='' && $posting.Lang!='ru'">
    <i>(Язык: $posting.LangName)</i>
   </if>
-  $posting.HTMLBody
+  $posting.BodyHTML
  </p>
  <div width=90% style="clear: left; text-align: left" class='sent'>
   <sentview date='$posting.Sent'>&nbsp;

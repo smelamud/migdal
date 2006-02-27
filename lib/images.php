@@ -312,42 +312,6 @@ return "http://$siteDomain$imageURL/$fname";
 }
 
 # remake
-function getImageTagById($id,$align='',$aSize='small',$src='lib/image.php',
-                         $static=false,$title='')
-{
-global $uiName,$thumbnailType;
-
-$size=mysql_fetch_row(
-      sql("select ${aSize}_x,${aSize}_y,has_large,format
-	   from images
-	   where id=$id",
-	  'getImageTagById'));
-$al=$align!='' ? "align=$align" : '';
-$ext=getImageExtension($size[2] ? $thumbnailType : $size[3]);
-$href=!$static ? "$src/$uiName-$id.$ext?id=$id&size=$aSize"
-               : "pics/$uiName-$id".($aSize=='small' ? '-small' : '').".$ext";
-$alt=$title!='' ? "alt='$title' title='$title'" : '';
-return '<img border=0 width='.$size[0].
-                    ' height='.$size[1].
-		    " $al $alt src='$href'>";
-}
-
-# remake
-function getImageEnlargeLinkById($id,$static=false)
-{
-global $uiName;
-
-$result=sql("select format
-	     from images
-	     where id=$id",
-	    'getImageEnlargeLinkById');
-$ext=getImageExtension(mysql_result($result,0,0));
-$href=!$static ? "lib/image.php/$uiName-$id.$ext?id=$id&size=large"
-               : "pics/$uiName-$id.$ext";
-return "<a href='$href' target=_blank title='Увеличить'>";
-}
-
-# remake
 function imageSetExists($image_set)
 {
 $result=sql("select id

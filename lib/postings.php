@@ -507,6 +507,7 @@ return parent::create($row);
 
 }
 
+// remake
 class PostingUsersIterator
       extends SelectIterator
 {
@@ -536,6 +537,7 @@ $this->SelectIterator(
 
 }
 
+// remake
 /*class PostingParagraphIterator
       extends ParagraphIterator
 {
@@ -577,6 +579,7 @@ return $paragraph;
 
 }*/
 
+// remake
 class ArticleCoversIterator
       extends SelectIterator
 {
@@ -612,6 +615,7 @@ return newGrpPosting(GRP_TIMES_COVER,$row);
 
 }
 
+// remake
 class PostingAlphabetIterator
       extends AlphabetIterator
 {
@@ -853,6 +857,7 @@ else
   return getRootPosting($grp,$topic_id,$up);
 }
 
+// remake
 function getMaxIndexOfPosting($indexN,$grp,$topic_id=-1,$recursive=false)
 {
 $hide=messagesPermFilter(PERM_READ,'messages');
@@ -872,14 +877,15 @@ return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
 
 function getVoteInfoByPostingId($id,$grp=GRP_ALL)
 {
-$result=sql("select id,vote,vote_count
-	     from postings
+$result=sql("select id,vote,vote_count,rating
+	     from entries
 	     where id=$id",
-	    'getVoteInfoByPostingId');
-return mysql_num_rows($result)>0 ? newPosting(mysql_fetch_assoc($result))
-                                 : newGrpPosting($grp);
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? new Posting(mysql_fetch_assoc($result))
+                                 : new Posting(array('grp' => $grp));
 }
 
+// remake
 function getPostingIdByMessageId($id)
 {
 $result=sql("select id
@@ -889,6 +895,7 @@ $result=sql("select id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+// remake
 function getSibling($up,$index0,$next=true)
 {
 $filter=$next ? "index0>$index0" : "index0<$index0";
@@ -904,6 +911,7 @@ $result=sql("select postings.id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+// remake
 function getSiblingIndex0($up,$index0,$next=true)
 {
 $filter=$next ? "index0>$index0" : "index0<$index0";
@@ -919,6 +927,7 @@ $result=sql("select index0
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
 }
 
+// remake
 function getSiblingIssue($grp,$topic_id,$index1,$next=true)
 {
 $grpFilter=grpFilter($grp);
@@ -936,6 +945,7 @@ $result=sql("select postings.id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+// remake
 function getSiblingIndex1($grp,$topic_id,$index1,$next=true)
 {
 $grpFilter=grpFilter($grp);
@@ -953,6 +963,7 @@ $result=sql("select index1
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+// remake
 function getPostingDomainCount($topic_id=-1,$recursive=false,$grp=GRP_ALL)
 {
 $hide=messagesPermFilter(PERM_READ,'messages');

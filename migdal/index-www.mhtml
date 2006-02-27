@@ -9,7 +9,7 @@
 << Traps >>
 <if what='$topic_id==5'>
  <trap text='Jewish Internet'>
- <reload href='links.php'>
+ <reload href='links/'>
 </if>
 <if what='$topic_id==12'>
  <trap text='Migdal'>

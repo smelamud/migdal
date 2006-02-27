@@ -278,11 +278,11 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/migdal-news.mhtml
 - migdal/modbits.mhtml
 - migdal/moderator.mhtml
-* migdal/postingedit.mhtml
++ migdal/postingedit.mhtml
 - migdal/posting.mhtml
 * migdal/postingorg.mhtml
 - migdal/printings.mhtml
-- migdal/rating.mhtml
++ migdal/rating.mhtml
 + migdal/register.mhtml
 - migdal/reorder.mhtml
 * migdal/search.mhtml
@@ -347,8 +347,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/kaitana-announce.mhtml
 - migdal/parts/kaitana-picture.mhtml
 + migdal/parts/langselect.mhtml
-- migdal/parts/link-posting.mhtml
-- migdal/parts/links-switcher.mhtml
++ migdal/parts/links-switcher.mhtml
 + migdal/parts/login.mhtml
 - migdal/parts/mailru.mhtml
 - migdal/parts/menu.mhtml
@@ -360,8 +359,9 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/posting-ear.mhtml (можно голый <img> заменить на спецтаг)
 - migdal/parts/posting-general.mhtml
 - migdal/parts/posting-library-announce.mhtml
-- migdal/parts/posting.mhtml
-- migdal/parts/postings-links.mhtml
+* migdal/parts/posting-link.mhtml
+* migdal/parts/posting.mhtml
++ migdal/parts/postings-links.mhtml
 - migdal/parts/postings.mhtml
 - migdal/parts/postings-migdal-news.mhtml
 - migdal/parts/posting-times-cover.mhtml
@@ -401,8 +401,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/unititle.mhtml
 + migdal/parts/uploader.mhtml
 + migdal/parts/userinfo.mhtml
-* migdal/parts/utils.mhtml
-- migdal/parts/vote.mhtml
++ migdal/parts/utils.mhtml
++ migdal/parts/vote.mhtml
 
 * migdal/report
 

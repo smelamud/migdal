@@ -480,7 +480,8 @@ function getSubtopicsCountById($id,$recursive=false)
 $id=idByIdent($id);
 $result=sql('select count(*)
 	     from entries
-	     where entry='.ENT_TOPIC.' '.subtree('entries',$id,$recursive,'up'),
+	     where entry='.ENT_TOPIC.' and '
+	                  .subtree('entries',$id,$recursive,'up'),
 	    __FUNCTION__);
 return mysql_num_rows($result)>0
        ? mysql_result($result,0,0)-($recursive ? 1 : 0) : 0;

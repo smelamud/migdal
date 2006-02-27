@@ -10,11 +10,7 @@
    <td><image src='pics/sheet.gif'></td>
    <td>
     <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_LINKS&redirid=$_'
-       >Добавить ссылку</a><asp>
-    <if what='$topic_id==$`links` && $$userId>0'>
-     <asp>, <a href='postingedit.php?topic_id=$`inet-news`&grp=*GRP_NEWS&redirid=$_'
-	       >новость</a>
-    </if>
+       >Добавить ссылку</a>
    </td>
   </tr></table>
  </td>
@@ -23,19 +19,15 @@
 </element>
 
 <element name='postings_links'>
-<iterate_postinglist grp!='*GRP_LINKS|*GRP_NEWS' limit='$limit' offset='$offset'
+<iterate_postinglist grp='*GRP_LINKS'
+                     topic_id!='$topic_id>0 ? $topic_id : $`links`'
+                     recursive!='$topic_id<=0' limit='$limit' offset='$offset'
 		     sort!='$topic_id>0 ? *SORT_RATING : *SORT_PSENT'
 	             showshadows!='$topic_id>0'>
-<if what='$topic_id<0'>
- <filter_topic topic_id='$`links`' recursive='*true'>
- <filter_topic topic_id='$`inet-news`'>
-<else>
- <filter_topic topic_id='$topic_id'>
-</if>
 <batcher list='$;' topic_id='$topic_id'>
 <for>
- <posting posting='$.' showtopic!='$topic_id<0 && $.Grp==*GRP_LINKS'
-          shorten='*true' showdiscuss='*true' showcomplain='*true'>
+ <posting_link posting='$.' showtopic!='$topic_id<0' shorten='*true'
+               showdiscuss='*true' showcomplain='*true'>
 </for>
 <ifnzero what='$;Count'>
  <batcher list='$;' topic_id='$topic_id'>

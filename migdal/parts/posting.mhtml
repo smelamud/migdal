@@ -1,16 +1,18 @@
 << @(#) $Id$ >>
 
-<element name='topiclink'>
+<<remake>>
+<<element name='topiclink'>
 <identify posting='$posting'>
 <at href='$posting.GeneralHref' class='$class'
     title='$posting.FullTopicDescription'>$posting.FullTopicName</at>
-</element>
+</element>>
 
-<element name='topiclink_gallery'>
+<<remake>>
+<<element name='topiclink_gallery'>
 <identify posting='$posting'>
 <at href='$posting.GalleryHref' class='$class'
     title='$posting.FullTopicDescription'>$posting.FullTopicName</at>
-</element>
+</element>>
 
 <element name='editlink'>
 <a href="postingedit.php?editid=$posting.Id&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
@@ -23,8 +25,8 @@
  <td>
   <a href='forum.php?msgid=$posting.Id'>
    <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
-   <ifnzero what='$posting.AnswerCount'>
-    <asp>&nbsp;($posting.AnswerCount)<asp>
+   <ifnzero what='$posting.Answers'>
+    <asp>&nbsp;($posting.Answers)<asp>
    </ifnzero>
   <asp></a>
  </td>
@@ -37,15 +39,35 @@
 </notenglish>
 </element>
 
+<<remake>>
 <element name='printlink'>
-<identify posting='$posting'>
+<<identify posting='$posting'>
 <table cellspacing=0 cellpadding=0><tr>
  <td><image src='pics/print.gif'>&nbsp;</td>
  <td>
  <a href='$posting.DetailsHref&print=1' target='_blank'><asp>
   <notenglish>Для печати<else>Print version</notenglish></a>
  </td>
-</tr></table>
+</tr></table>>
+</element>
+
+<element name='posting_image'>
+<assign name='al' value=''>
+<assign name='alt' value=''>
+<ifne what='$align'>
+ <assign name='al' value#='align="$align"'>
+</ifne>
+<ifne what='$title'>
+ <assign name='alt' value#='alt="$title" title="$title"'>
+</ifne>
+<if what='$posting.hasLargeImage'>
+ <a href='$posting.LargeImageURL' title='Нажмите, чтобы увеличить'
+    ><img border=0 width='$posting.SmallImageX' height='$posting.SmallImageY'
+	$al $alt src='$posting.SmallImageURL'></a>
+<else>
+ <img border=0 width='$posting.ImageX' height='$posting.ImageY' $al $alt
+      src='$posting.ImageURL'>
+</if>
 </element>
 
 <element name='posting_controls'>
@@ -76,7 +98,8 @@
 </notprint>
 </element>
 
-<element name='posting'>
+<<remake>>
+<<element name='posting'>
 <require name='parts/posting-general.php'>
 <require name='parts/picture.php'>
 <require name='parts/blog-posting.php'>
@@ -92,4 +115,4 @@
  <exec element='$posting.TapeElement' arg1='$posting' arg2='$showtopic'
        arg3='$showdiscuss' arg4='$showcomplain' arg5='$shorten'>
 <if what='$posting.TapeCenter'></center></if>
-</element>
+</element>>

@@ -18,7 +18,7 @@
    <assign name='al' value=''>
   </ifne>
   <iframe frameborder=0 $al width=140 height=35
-	  src='rating.php?color=$#color&image=$#image&postid=$id'
+	  src='rating/$id/?color=$#color&image=$#image'
 	  scrolling=no></iframe>
  </notenglish>
 </notprint>
