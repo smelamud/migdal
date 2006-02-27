@@ -19,6 +19,7 @@ require_once('lib/image-types.php');
 require_once('lib/image-upload.php');
 require_once('lib/answers.php');
 require_once('lib/users.php');
+require_once('lib/catalog.php');
 require_once('grp/compltypes.php');
 
 $complainIds=array(0 => 0);
@@ -676,9 +677,15 @@ while($row=mysql_fetch_assoc($result))
 echo "\n";
 }
 
+function convertIdents()
+{
+updateCatalogs(0);
+echo "\n";
+}
+
 dbOpen();
 endJournal();
-echo "1. Chat messages...\n";
+/*echo "1. Chat messages...\n";
 convertChatMessages();
 echo "2. Truncate...\n";
 truncateEntries();
@@ -712,7 +719,9 @@ convertLinkedTable('inner_images','image_id','image_entry_id',$imageIds);
 echo "16. Votes...\n";
 convertLinkedTable('votes','posting_id','entry_id',$postingIds);
 echo "17. Users...\n";
-convertUsers();
+convertUsers();*/
+echo "18. Idents...\n";
+convertIdents();
 beginJournal();
 dbClose();
 ?>

@@ -19,6 +19,7 @@ CREATE TABLE `entries` (
 `entry` TINYINT NOT NULL ,
 `up` INT NOT NULL ,
 `track` VARCHAR( 255 ) NOT NULL ,
+`catalog` VARCHAR( 255 ) NOT NULL ,
 `parent_id` INT NOT NULL ,
 `orig_id` INT NOT NULL ,
 `current_id` INT NOT NULL ,
