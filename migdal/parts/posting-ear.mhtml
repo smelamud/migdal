@@ -2,10 +2,8 @@
 <table class='posting'>
  <tr valign=top>
   <td width=150>
-   <a href='$posting.URL'>
-    <img src='$posting.ImageURL' width='$posting.ImageX'
-         height='$posting.ImageY' border=0></a>
-    <<image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'></a>>
+   <a href='$posting.URL'><asp>
+    <posting_image posting='$posting'></a>
     <p class='sent'>$posting.Sent@j.$posting.Sent@m.$posting.Sent@Y</p>
   </td>
   <td width=5>&nbsp;</td>

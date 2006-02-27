@@ -255,7 +255,7 @@ if($onlyAppendable)
   $Where.=' and '.permMask('perms',PERM_UA|PERM_GA|PERM_OA|PERM_EA);
 if($onlyPostable)
   $Where.=' and '.permMask('perms',PERM_UP|PERM_GP|PERM_OP|PERM_EP);
-parent::TopicIterator("select $distinct id,up,track,subject
+parent::TopicIterator("select $distinct id,up,track,catalog,subject
 		       from entries
 		            $grpTable
 		       $Where
@@ -329,6 +329,7 @@ $vars=array('entry' => $topic->entry,
             'ident' => $topic->ident,
             'up' => $topic->up,
 	    'track' => $topic->track,
+	    'catalog' => $topic->catalog,
 	    'subject' => $topic->subject,
 	    'subject_sort' => $topic->subject_sort,
 	    'comment0' => $topic->comment0,

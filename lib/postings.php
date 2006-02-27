@@ -239,12 +239,12 @@ return mysql_num_rows($result)>0;
 function postingListFields($fields=SELECT_GENERAL)
 {
 $Fields='entries.id as id,entries.ident as ident,entries.up as up,
-         entries.track as track,entries.parent_id as parent_id,
-	 entries.orig_id as orig_id,entries.grp as grp,
-	 entries.person_id as person_id,entries.user_id as user_id,
-	 entries.group_id as group_id,entries.perms as perms,
-	 entries.disabled as disabled,entries.subject as subject,
-	 entries.lang as lang,
+         entries.track as track,entries.catalog as catalog,
+	 entries.parent_id as parent_id,entries.orig_id as orig_id,
+	 entries.grp as grp,entries.person_id as person_id,
+	 entries.user_id as user_id,entries.group_id as group_id,
+	 entries.perms as perms,entries.disabled as disabled,
+	 entries.subject as subject,entries.lang as lang,
 	 entries.author as author,entries.author_xml as author_xml,
 	 entries.source as source,entries.source_xml as source_xml,
 	 entries.title as title,entries.title_xml as title_xml,
@@ -713,6 +713,7 @@ if(($fields & SPF_SHADOW)!=0)
   $vars=array_merge($vars,
                     array('up' => $posting->up,
 		          'track' => $posting->track,
+		          'catalog' => $posting->catalog,
 			  'parent_id' => $posting->parent_id,
 			  'grp' => $posting->grp));
   if($userModerator)

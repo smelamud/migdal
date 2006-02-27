@@ -91,7 +91,7 @@
   <for>
    <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
    <tr><td>
-    <a href='$[topic_id=$.Id offset]' class='item'>
+    <a href='links/$.Catalog' class='item'>
      $=.Subject&nbsp;<span class='answers'>($,Total)</span><asp>
     <asp></a><asp>
     <biff time='$,MaxSent' small='*true'>

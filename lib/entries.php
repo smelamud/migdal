@@ -26,6 +26,7 @@ var $ident=null;
 var $entry=ENT_NULL;
 var $up=0;
 var $track='';
+var $catalog='';
 var $parent_id=0;
 var $orig_id=0;
 var $grp=0;
@@ -114,6 +115,11 @@ return $this->up;
 function getTrack()
 {
 return $this->track;
+}
+
+function getCatalog()
+{
+return $this->catalog;
 }
 
 function getParentId()
