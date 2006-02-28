@@ -11,28 +11,52 @@
 <else>
  <<topic_name id='$topic_id'>
  <assign name='topic_name' value='$,Name'>
- <pagetitle title#='Ссылки - $topic_name'>
- <log event=links text#='topic($,Id) offset=$offset'>>
+ <pagetitle title#='Ссылки - $topic_name'>>
+ <log event=links text#='topic($topic_id) offset=$offset'>
 </if>
 
-<element name='intro'>
-<subtitle title='Каталог еврейских ресурсов'>
+<element name='intro' params='topic_id'>
+<if what='$topic_id<=0'>
+ <subtitle title='Каталог еврейских ресурсов'>
+<else>
+ <topic_obj id='$topic_id'>
+ <ife what='$,Body'>
+  <subtitle title#='Еврейские ресурсы: $,Subject'>
+ <else>
+  <subtitle title#='Еврейские ресурсы: $,Body'>
+ </ife>
+</if>
 <links_switcher ident='catalog'>
 <p>
-<postings_info grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'>
+<postings_info grp='*GRP_LINKS' topic_id!='$topic_id<=0 ? $`links` : $topic_id'
+               recursive='*true'>
 <zone>
- <array vals='ссылку,ссылки,ссылок'>
- <plural name='links' value='$,Total'>
+ <if what='$topic_id<=0'>
+  <array name='words' vals='ссылку,ссылки,ссылок'>
+ <else>
+  <array name='words' vals='ссылка,ссылки,ссылок'>
+ </if>
+ <plural name='links' value='$,Total' words='$words'>
 </zone>
 <zone>
- <topic_count name='subs' id='$`links`' recursive='*true'>
- <array vals='категории,категориям,категориям'>
- <plural name='cats' value='$subs'>
+ <topic_count name='subs' id!='$topic_id<=0 ? $`links` : $topic_id'
+              recursive='*true'>
+ <if what='$topic_id<=0'>
+  <array name='words' vals='категории,категориям,категориям'>
+ <else>
+  <array name='words' vals='подкатегория,подкатегории,подкатегорий'>
+ </if>
+ <plural name='cats' value='$subs' words='$words'>
 </zone>
 <span class='ninept'>
- Каталог содержит <em>$,Total</em> $links на различные ресурсы, имеющие
- отношение к евреям и еврейству. Ссылки тщательно отсортированы по
- <em>$subs</em> $cats.
+ <if what='$topic_id<=0'>
+  Каталог содержит <em>$,Total</em> $links на различные ресурсы, имеющие
+  отношение к евреям и еврейству. Ссылки тщательно отсортированы по
+  <em>$subs</em> $cats.
+ <else>
+  В этой категории <em>$,Total</em> $links<asp>
+  <ifnzero what='$subs'>&sp;и <em>$subs</em> $cats</ifnzero>.
+ </if>
 </span>
 </element>
 
@@ -46,33 +70,6 @@
   <td><input type=submit value='Перейти'></td>
  </tr>
 </table></form>
-</element>
-
-<element name='current' params='topic_id'>
-<if what='$topic_id>0'>
- <table width=100% cellspacing=0 cellpadding=0><tr valign=top>
-  <td>
-   <table class='topics' style='margin: 0'>
-    <tr><th>$$topic_name</th></tr>
-   </table>
-  </td>
-  <td align=right>
-   <fastjump>
-  </td>
- </tr></table>
- <div class='ninept' style='padding-left: 20px; padding-top: 5px'>
-   <a href='$[topic_id=-1 offset]'>Ссылки</a>
-   <iterate_topic_hierarchy topic_id='$topic_id' root='$`links`'>
-   <for>
-    /
-    <if what='$.Id!=$topic_id'>
-     <a href='$[topic_id=$.Id offset]'>$.Name</a>
-    <else>
-     <b>$.Name</b>
-    </if>
-   </for>
- </div>
-</if>
 </element>
 
 <element name='navigator' params='topic_id'>
@@ -114,15 +111,9 @@
  <top ident='links'>
  <table width=100% cellpadding=5>
   <tr valign=top><td class='nframe'>
-   <if what='$topic<=0'>
-    <intro>
-   <else>
-    <<current topic_id='$topic_id'>>
-   </if>
+   <intro topic_id='$topic_id'>
    <navigator topic_id='$topic_id'>
-   <if what='$topic<=0'>
-    <fastjump>
-   </if>
+   <fastjump>
    <<seealso_links topic_id='$topic_id' topic_grp='*GRP_LINKS'>
    <seealso_other topic_id='$topic_id' topic_grp='*GRP_LINKS'>>
   </td></tr>
@@ -133,10 +124,10 @@
 		     offset='$offset'>
     </common></td>
     <td width=150 class='nframe'><inner>
-     <<if what='$topic_id<=0'>
+     <if what='$topic_id<=0'>
       <hit_parade grp='*GRP_LINKS' topic_id='$topic_id' sort='*SORT_RATING'
                   title='Избранное' showshadows='*false' limit=20>
-     </if>>
+     </if>
     </inner></td>
    </tr></table>
   </outer></td></tr>

@@ -3,19 +3,21 @@
 <element name='hit_parade'>
 <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
 		     sort='$sort' recursive='*true' later='$later'
-		     showshadows='$showshadows' fields='*SELECT_TOPICS'>
+		     showshadows='$showshadows'>
 <ifnzero what='$;Count'>
  <topics_table class='eightpt' title='$title'>
   <for>
-   <identify posting='$.'>
-   <topics_line time='$.Sent' href#='$.DetailsHref' text#='$.SubjectDesc'
-                rating!='$.VoteCount!=0 ? $.Vote20 : -1'>
+   <<identify posting='$.'>>
+   <<topics_line time='$.Sent' href#='$.DetailsHref' text#='$.SubjectDesc'
+                rating!='$.VoteCount!=0 ? $.Vote20 : -1'>>
+   <topics_line time='$.Sent' text='$.SubjectDesc'
+                rating!='$.VoteCount!=0 ? $.Rating20 : -1'>
   </for>
  </topics_table>
 </ifnzero>
 </element>
 
-<element name='hit_parade_gallery'>
+<<element name='hit_parade_gallery'>
 <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
 		     sort='$sort' recursive='*true' later='$later'
 		     showshadows='$showshadows'
@@ -36,7 +38,7 @@
   </for>
  </topics_table>
 </ifnzero>
-</element>
+</element>>
 
 <element name='hit_parade_month'>
 <?php $later=time()-31*24*60*60; ?>
@@ -44,9 +46,9 @@
 	    later='$later' showshadows='$showshadows'>
 </element>
 
-<element name='hit_parade_gallery_month'>
+<<element name='hit_parade_gallery_month'>
 <?php $later=time()-31*24*60*60; ?>
 <hit_parade_gallery grp='$grp' topic_id='$topic_id'
                     title='Избранное<br>за месяц' later='$later'
 		    showshadows='$showshadows'>
-</element>
+</element>>
