@@ -85,4 +85,30 @@ foreach($values as $value)
        $sum|=$value;
 return $sum;
 }
+
+define('SLASH_ANY',0);
+define('SLASH_YES',1);
+define('SLASH_NO',-1);
+
+function normalizePath($path,$singleSlash=false,$firstSlash=SLASH_ANY,
+                       $lastSlash=SLASH_ANY)
+{
+if($path=='')
+  return $firstSlash==SLASH_YES || $lastSlash==SLASH_YES ? '/' : '';
+if($singleSlash)
+  $path=preg_replace('/\/+/','/',$path);
+if($firstSlash==SLASH_YES)
+  if($path{0}!='/')
+    $path="/$path";
+if($firstSlash==SLASH_NO)
+  if($path{0}=='/')
+    $path=substr($path,1);
+if($lastSlash==SLASH_YES)
+  if($path{strlen($path)-1}!='/')
+    $path.='/';
+if($lastSlash==SLASH_NO)
+  if($path{strlen($path)-1}=='/')
+    $path=substr($path,0,-1);
+return $path;
+}
 ?>

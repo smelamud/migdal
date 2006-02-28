@@ -173,14 +173,15 @@ sub run
 {
 print OUT <<EOF;
 <?php
+require_once('lib/utils.php');
+
 function &getLocationInfo(\$path,\$redirid=0)
 {
 \$info=new LocationInfo();
 \$info->setPath(\$path);
 if(substr(\$path,-5)=='.html')
   \$path=substr(\$path,0,-5);
-if(\$path[strlen(\$path)-1]!='/')
-  \$path.='/';
+\$path=normalizePath(\$path,true,SLASH_YES,SLASH_YES);
 EOF
 for my $item(@Structure)
    {
