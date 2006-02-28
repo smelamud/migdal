@@ -17,8 +17,9 @@
   <else>
    <assign name='al' value=''>
   </ifne>
+  << По непонятной причине, относительная ссылка здесь не работает >>
   <iframe frameborder=0 $al width=140 height=35
-	  src='rating/$id/?color=$#color&image=$#image'
+	  src='/rating/$id/?color=$#color&image=$#image'
 	  scrolling=no></iframe>
  </notenglish>
 </notprint>

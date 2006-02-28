@@ -13,6 +13,7 @@ require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/track.php');
+require_once('lib/catalog.php');
 require_once('lib/users.php');
 require_once('lib/postings-info.php');
 
@@ -59,9 +60,14 @@ if(!is_null($topic->ident) && $cid!=0 && $topic->id!=$cid)
   return ET_IDENT_UNIQUE;
 if($topic->id==0 || $original->up!=$topic->up)
   $topic->track='';
+if($topic->id==0 || $original->up!=$topic->up
+   || $original->ident!=$topic->ident)
+  $topic->catalog='';
 storeTopic($topic);
 if($topic->track=='')
   updateTracks('entries',$topic->id);
+if($topic->catalog=='')
+  updateCatalogs($topic->id);
 setGrpsByEntryId($topic->id,$topic->grps);
 return EG_OK;
 }

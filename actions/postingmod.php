@@ -17,6 +17,7 @@ require_once('lib/postings.php');
 require_once('lib/postings-info.php');
 require_once('lib/text-upload.php');
 require_once('lib/track.php');
+require_once('lib/catalog.php');
 require_once('lib/redirs.php');
 require_once('lib/modbits.php');
 require_once('lib/counters.php');
@@ -126,6 +127,7 @@ $posting->track='';
 storePosting($posting);
 commitImages($posting,$original);
 updateTracks('entries',$posting->id);
+updateCatalogs($posting->id);
 setPremoderates($posting,$original);
 if($original->getId()==0)
   createCounters($posting->id,$posting->grp);

@@ -45,8 +45,8 @@
   <form_topicselect title='Надтема' name='up' value='$,UpValue'
                     only_appendable='*true'>
   <error id='*ET_IDENT_UNIQUE' text='Так уже обозначена другая тема'>
-  <form_edit title='Обозначение' name='ident' value='$=,Ident' size=15
-	     maxlength=15>
+  <form_edit title='Обозначение' name='ident' value='$=,Ident' size=20
+	     maxlength=75>
   <error id='*ET_NAME_ABSENT' text='Название не было введено'>
   <form_edit title='Название' value='$=,Subject' name='subject' size=50
 	     maxlength=70 mandatory='*true'>
