@@ -9,10 +9,10 @@
 <if what='$topic_id<=0'>
  <log event=links text#='topic(-1) offset=$offset'>
 <else>
- <topic_name id='$topic_id'>
+ <<topic_name id='$topic_id'>
  <assign name='topic_name' value='$,Name'>
- <<pagetitle title#='Ссылки - $topic_name'>>
- <log event=links text#='topic($,Id) offset=$offset'>
+ <pagetitle title#='Ссылки - $topic_name'>
+ <log event=links text#='topic($,Id) offset=$offset'>>
 </if>
 
 <element name='intro'>
@@ -40,15 +40,8 @@
 <form method=get action='$~' style='margin: 0'><table class='eightpt'>
  <tr>
   <td>
-   <iterate_sortedtopicnames grp='*GRP_LINKS' name_root='$`links`'>
-   <select name='topic_id'>
-    <radio title='-- Быстрый переход --' value='-1'>
-    <for>
-     <ifne what='$.FullName'>
-      <radio title='$.FullName' value='$.Id'>
-     </ifne>
-    </for>
-   </select>
+   <topicselect name='topic_id' grp='*GRP_LINKS' root='$`links`'
+                null_title='Быстрый переход'>
   </td>
   <td><input type=submit value='Перейти'></td>
  </tr>
@@ -91,7 +84,7 @@
   <for>
    <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
    <tr><td>
-    <a href='links/$.Catalog' class='item'>
+    <a href='$.Catalog' class='item'>
      $=.Subject&nbsp;<span class='answers'>($,Total)</span><asp>
     <asp></a><asp>
     <biff time='$,MaxSent' small='*true'>

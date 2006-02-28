@@ -49,12 +49,25 @@ $$item{'_path_regex'}=~s/\//\\\//g;
 $$item{'_subs'}=();
 while($$item{'_path_regex'}=~/{([^}]*)}/)
      {
-     push @{$$item{'_subs'}},$1;
-     $$item{'_path_regex'}=~s/{([^}]*)}/([^\\\/]+)/;
+     my $name=$1;
+     my $type='';
+     if($name=~/^(\w+):(\w+)$/)
+       {
+       ($name,$type)=($1,$2);
+       SWITCH: {
+               $$item{'_path_regex'}=~s/{([^}]*)}/(.+)/,last if $type eq 'path';
+               $$item{'_path_regex'}=~s/{([^}]*)}/([^\\\/]+)/;
+	       }
+       }
+     else
+       {
+       $$item{'_path_regex'}=~s/{([^}]*)}/([^\\\/]+)/;
+       }
+     push @{$$item{'_subs'}},$name;
      }
 }
 
-sub processArgs
+sub saveArgs
 {
 my ($item)=@_;
 
@@ -63,6 +76,28 @@ for my $var(keys %$item)
    next unless $var=~/^arg\.(\w+)/;
    $$item{"_arg.$1"}=$$item{$var};
    }
+}
+
+sub processIdOrCatalog
+{
+my ($item)=@_;
+
+for my $var(keys %$item)
+   {
+   next unless $var=~/^arg\.(\w+)/;
+   my $name="_arg.$1";
+   next unless $$item{$name}=~/^(.*)\|(.*)$/;
+   $$item{$name}="\".idOrCatalog(\"$1\",\"$2\").\"";
+   }
+}
+
+sub processArgs
+{
+my ($item)=@_;
+
+saveArgs($item);
+processIdOrCatalog($item);
+
 my $n=1;
 for my $sub(@{$$item{'_subs'}})
    {
@@ -173,8 +208,6 @@ sub run
 {
 print OUT <<EOF;
 <?php
-require_once('lib/utils.php');
-
 function &getLocationInfo(\$path,\$redirid=0)
 {
 \$info=new LocationInfo();

@@ -3,9 +3,25 @@
 
 require_once('lib/iterator.php');
 require_once('lib/redirs.php');
+require_once('lib/utils.php');
+require_once('lib/ident.php');
 
 require_once('grp/titles.php');
 require_once('grp/structure.php');
+
+function idOrCatalog($id,$catalog)
+{
+$id=normalizePath($id,true,SLASH_NO,SLASH_NO);
+$pos=strrpos($id,'/');
+if($pos!==false)
+  $id=substr($id,$pos+1);
+if(isId($id))
+  return (int)$id;
+$catalog=strtr($catalog,'.','/');
+$catalog=normalizePath($catalog,true,SLASH_NO,SLASH_NO);
+$catalog=strtr($catalog,'/','.');
+return idByIdent($catalog);
+}
 
 function &getParentLocationInfo($path,$redirid)
 {

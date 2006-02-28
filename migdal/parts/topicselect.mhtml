@@ -13,11 +13,15 @@
 <else>
  <select name='$name'>
   <if what='!$mandatory || $value<=0'>
-   <if what='$mandatory'>
-    <assign name='title' value='-- Выберите тему --'>
+   <ife what='$null_title'>
+    <if what='$mandatory'>
+     <assign name='title' value='-- Выберите тему --'>
+    <else>
+     <assign name='title' value='-- Без темы --'>
+    </if>
    <else>
-    <assign name='title' value='-- Без темы --'>
-   </if>
+    <assign name='title' value#='-- $null_title --'>
+   </ife>
    <radio title='$title' value='0' peervalue='$value'>
   </if>
   <for>

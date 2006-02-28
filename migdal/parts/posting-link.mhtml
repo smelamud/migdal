@@ -1,18 +1,18 @@
 << @(#) $Id$ >>
 
-<<element name='topic' params='posting,showtopic'>
+<element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topiclink posting='$posting'>
+ <<topiclink posting='$posting'>>
  <br>
 </if>
-</element>>
+</element>
 
 <element name='further_url' params='posting'>
 <a href='actions/link.php?id=$posting.Id&okdir=$#posting.Url'
    target=_blank>$posting.URLEllip</a>
 <if what='$posting.URLCheckFailDays>=3'>
  <array vals='день,дня,дней'>
- <plural value='$posting.URLFailDays'>
+ <plural value='$posting.URLCheckFailDays'>
  <span class='error'>
   (Ссылка не работает $posting.URLCheckFailDays&sp;$,)
  </span>
@@ -23,7 +23,7 @@
 <dl class='posting'>
  <dt>
   <span class='subject'>
-   <<topic posting='$posting' showtopic='$showtopic'>>
+   <topic posting='$posting' showtopic='$showtopic'>
    <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
 	       image='$$style_cframe_back_pic'>
    $=posting.Subject<biff time='$posting.Sent'>
