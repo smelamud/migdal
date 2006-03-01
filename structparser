@@ -212,6 +212,16 @@ open OUT,">$outputFileName";
 readStructure;
 }
 
+sub trimQuotes
+{
+my ($s)=@_;
+
+$s=~s/""\.//g;
+$s=~s/\.""//g;
+$s=~s/\.""\././g;
+return $s;
+}
+
 sub run
 {
 print OUT <<EOF;
@@ -257,9 +267,9 @@ EOF
 EOF
 	 $f=1;
 	 }
-       my $value=$$item{$key};
+       my $value=trimQuotes('"'.$$item{$key}.'"');
        print OUT <<EOF
-  '$1' => "$value",
+  '$1' => $value,
 EOF
        }
    if($f)
@@ -271,16 +281,16 @@ EOF
      }
    if(exists($$item{'parent.path'}))
      {
-     my $parent=$$item{'parent.path'};
+     my $parent=trimQuotes('"'.$$item{'parent.path'}.'"');
      print OUT <<EOF
-  \$info->setParent(getParentLocationInfo("$parent",\$redirid));
+  \$info->setParent(getParentLocationInfo($parent,\$redirid));
 EOF
      }
    if(exists($$item{'_title'}))
      {
-     my $title=$$item{'_title'};
+     my $title=trimQuotes('"'.$$item{'_title'}.'"');
      print OUT <<EOF
-  \$info->setTitle("$title");
+  \$info->setTitle($title);
 EOF
      }
    print OUT <<EOF;
