@@ -392,7 +392,8 @@ if(hasCachedValue('obj','entries',$id))
 $mhide=$userModerator ? 2 : 1;
 $hide=topicsPermFilter(PERM_READ,'entries');
 $result=sql(
-       "select entries.id as id,entries.up as up,entries.subject as subject,
+       "select entries.id as id,entries.up as up,entries.track as track,
+               entries.catalog as catalog,entries.subject as subject,
                entries.comment0 as comment0,
 	       entries.comment0_xml as comment0_xml,
 	       entries.comment1 as comment1,

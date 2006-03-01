@@ -15,6 +15,21 @@
  <log event=links text#='topic($topic_id) offset=$offset'>
 </if>
 
+<element name='hierarchy' params='topic_id'>
+<div class='ninept'>
+ <a href='links/'>Ссылки</a>
+ <iterate_topic_hierarchy topic_id='$topic_id' root='$`links`'>
+ <for>
+  /
+  <if what='$.Id!=$topic_id'>
+   <a href='$.Catalog'>$=.Subject</a>
+  <else>
+   <b>$=.Subject</b>
+  </if>
+ </for>
+</div>
+</element>
+
 <element name='intro' params='topic_id'>
 <if what='$topic_id<=0'>
  <subtitle title='Каталог еврейских ресурсов'>
@@ -27,6 +42,9 @@
  </ife>
 </if>
 <links_switcher ident='catalog'>
+<if what='$topic_id>0'>
+ <hierarchy topic_id='$topic_id'>
+</if>
 <p>
 <postings_info grp='*GRP_LINKS' topic_id!='$topic_id<=0 ? $`links` : $topic_id'
                recursive='*true'>
