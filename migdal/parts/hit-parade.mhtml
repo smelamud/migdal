@@ -8,9 +8,7 @@
  <topics_table class='eightpt' title='$title'>
   <for>
    <<identify posting='$.'>>
-   <<topics_line time='$.Sent' href#='$.DetailsHref' text#='$.SubjectDesc'
-                rating!='$.VoteCount!=0 ? $.Vote20 : -1'>>
-   <topics_line time='$.Sent' text='$.SubjectDesc'
+   <topics_line time='$.Sent' href='$.GrpDetailsHref' text='$.SubjectDesc'
                 rating!='$.VoteCount!=0 ? $.Rating20 : -1'>
   </for>
  </topics_table>

@@ -507,6 +507,7 @@ sub printConstParam
 my ($name)=@_;
 
 my $Name=ucfirst $name;
+my $composite=0;
 print GRPS "\$$arrayPrefix$Name=array(\n";
 for(@Classes)
    {
@@ -527,6 +528,7 @@ for(@Classes)
      $out.="    )";
      $value=$out;
      }
+   $composite=1 if $value=~/\$[\[{]/;
    print GRPS "    $flag => $value,\n";
    }
 my $value=${$defaultClass->getParams()}{$name};
@@ -545,6 +547,7 @@ if(ref($value) eq 'ARRAY')
   $out.="    )";
   $value=$out;
   }
+$composite=1 if $value=~/\$[\[{]/;
 print GRPS "    ${constPrefix}NONE => $value,\n";
 print GRPS ");\n";
 print GRPS "\n";
@@ -552,7 +555,14 @@ print POSTINGS "function $name()\n";
 print POSTINGS "{\n";
 print POSTINGS "global \$$arrayPrefix${Name};\n";
 print POSTINGS "\n";
-print POSTINGS "return \$$arrayPrefix${Name}[\$this->$grpField];\n";
+if(!$composite)
+  {
+  print POSTINGS "return \$$arrayPrefix${Name}[\$this->$grpField];\n";
+  }
+else
+  {
+  print POSTINGS "return \$this->getCompositeValue(\$$arrayPrefix${Name}[\$this->$grpField]);\n";
+  }
 print POSTINGS "}\n";
 print POSTINGS "\n";
 }

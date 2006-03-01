@@ -117,9 +117,17 @@ function getTrack()
 return $this->track;
 }
 
-function getCatalog()
+function getCatalog($start=0,$length=0)
 {
-return $this->catalog;
+if($start==0 && $length==0 || $this->catalog=='')
+  return $this->catalog;
+$elements=explode('/',substr($this->catalog,0,-1));
+$catalog='';
+$begin=$start>=0 ? $start : count($elements)+$start;
+$end=$length>0 ? $begin+$length : count($elements)+$length;
+for($i=$begin;$i<$end;$i++)
+   $catalog.=$elements[$i].'/';
+return $catalog;
 }
 
 function getParentId()
@@ -700,6 +708,20 @@ return $this->large_image_format;
 function getLargeImageFilename()
 {
 return $this->large_image_filename;
+}
+
+function getProperty($name)
+{
+$func='get'.ucfirst($name);
+return $this->$func();
+}
+
+function getCompositeValue($value)
+{
+$value=preg_replace('/\$\[(\d+)\]/e','$this->getCatalog(\1,0)',$value);
+$value=preg_replace('/\$\[(\d+),(\d+)\]/e','$this->getCatalog(\1,\2)',$value);
+$value=preg_replace('/\$\{(\w+)\}/e','$this->getProperty("\1")',$value);
+return $value;
 }
 
 }
