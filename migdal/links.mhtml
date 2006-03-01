@@ -61,15 +61,19 @@
 </element>
 
 <element name='fastjump'>
-<form method=get action='$~' style='margin: 0'><table class='eightpt'>
- <tr>
-  <td>
-   <topicselect name='topic_id' grp='*GRP_LINKS' root='$`links`'
-                null_title='Быстрый переход'>
-  </td>
-  <td><input type=submit value='Перейти'></td>
- </tr>
-</table></form>
+<form method=get action='actions/links/goto' style='margin: 0'>
+ <hidden name='okdir' value='/'>
+ <hidden name='faildir' value='/links/'>
+ <table class='eightpt'>
+  <tr>
+   <td>
+    <topicselect name='topic_id' grp='*GRP_LINKS' root='$`links`'
+		 null_title='Быстрый переход'>
+   </td>
+   <td><input type=submit value='Перейти'></td>
+  </tr>
+ </table>
+</form>
 </element>
 
 <element name='navigator' params='topic_id'>

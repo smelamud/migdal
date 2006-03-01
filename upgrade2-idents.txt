@@ -1,0 +1,5 @@
+topics	88	links.free-mail
+topics	296	links.demographics
+topics	101	links.israel
+topics	277	links.israel.cities	Города Израиля
+topics	147	links.israel.cities.jerusalem
