@@ -2,22 +2,18 @@
 # @(#) $Id$
 
 require_once('lib/track.php');
+require_once('lib/utils.php');
 
 function catalog($id,$ident,$prev='')
 {
 if($ident!='')
   {
   $catalog=strtr($ident,'.','/');
-  if($catalog{0}=='/')
-    $catalog=substr($catalog,1);
-  if($catalog{strlen($catalog)-1}!='/')
-    $catalog.='/';
-  return $catalog;
+  return normalizePath($catalog,false,SLASH_NO,SLASH_YES);
   }
 else
   {
-  if($prev!='' && $prev{strlen($prev)-1}!='/')
-    $prev.='/';
+  $prev=normalizePath($prev,false,SLASH_NO,SLASH_YES);
   $id=(int)$id;
   return "$prev$id/";
   }

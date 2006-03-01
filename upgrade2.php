@@ -679,6 +679,29 @@ echo "\n";
 
 function convertIdents()
 {
+$fd=fopen('upgrade2-idents.txt','r');
+while(!feof($fd))
+     {
+     $s=chop(fgets($fd,4096));
+     if($s=='')
+       continue;
+     list($table,$oldId,$ident,$body)=explode("\t",$s);
+     $id=getNewId($table,$oldId);
+     echo "$oldId ";
+     $vars=array('ident' => $ident);
+     if($body!='')
+       {
+       $bodyXML=wikiToXML($body,TF_PLAIN,MTEXT_SHORT);
+       $vars=array_merge($vars,
+                         array('body'     => $body,
+			       'body_xml' => $bodyXML));
+       }
+     sql(makeUpdate('entries',
+                    $vars,
+		    array('id' => $id)),
+         __FUNCTION__,'update');
+     }
+fclose($fd);
 updateCatalogs(0);
 echo "\n";
 }
