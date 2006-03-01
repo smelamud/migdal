@@ -494,7 +494,7 @@ function topicExists($id)
 $hide=topicsPermFilter(PERM_READ);
 $result=sql("select id
 	     from entries
-	     where id=$id and $hide",
+	     where id=$id and entry=".ENT_TOPIC." and $hide",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
