@@ -15,7 +15,7 @@
 </element>
 
 <element name='further_url' params='posting'>
-<a href='actions/link.php?id=$posting.Id&okdir=$#posting.Url'
+<a href='actions/link/$posting.Id?&okdir=$#posting.Url'
    target=_blank>$posting.URLEllip</a>
 <if what='$posting.URLCheckFailDays>=3'>
  <array vals='день,дня,дней'>

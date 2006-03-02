@@ -12,7 +12,7 @@
 </element>>
 
 <element name='editlink'>
-<a href="postingedit.php?editid=$posting.Id&topic_id=$posting.TopicId&grp=$posting.Grp&redirid=$_"
+<a href="${posting.GrpDetailsHref}edit/?redirid=$_"
    ><notenglish>Изменить<else>Edit</notenglish></a>
 </element>
 
@@ -36,16 +36,14 @@
 </notenglish>
 </element>
 
-<<remake>>
 <element name='printlink'>
-<<identify posting='$posting'>
 <table cellspacing=0 cellpadding=0><tr>
  <td><image src='pics/print.gif'>&nbsp;</td>
  <td>
- <a href='$posting.DetailsHref&print=1' target='_blank'><asp>
+ <a href='$posting.GrpDetailsHref?&print=1' target='_blank'><asp>
   <notenglish>Для печати<else>Print version</notenglish></a>
  </td>
-</tr></table>>
+</tr></table>
 </element>
 
 <element name='posting_image'>

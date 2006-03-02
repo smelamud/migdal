@@ -84,6 +84,8 @@ if($posting->isMandatory('url') && $posting->url=='')
   return EP_URL_ABSENT;
 if($posting->isMandatory('topic') && $posting->parent_id==0)
   return EP_TOPIC_ABSENT;
+if($posting->up==$original->parent_id)
+  $posting->up=$posting->parent_id;
 $correct=validateHierarchy($posting->parent_id,$posting->up,ENT_POSTING,
                            $posting->id);
 if($correct!=EG_OK)

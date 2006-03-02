@@ -863,4 +863,13 @@ if(!$correct)
   return EVH_INCORRECT;
 return EG_OK;
 }
+
+function entryExists($entry,$id)
+{
+$result=sql("select id
+	     from entries
+	     where id=$id and entry=$entry",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0;
+}
 ?>

@@ -4,14 +4,12 @@
 
 <element name='batcher' params='&list,topic_id'>
 <assign name='topic_id' value!='$topic_id<0 ? $`links` : $topic_id'>
+<catalog name='catalog' id='$topic_id'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <table><tr valign=center>
    <td><image src='pics/sheet.gif'></td>
-   <td>
-    <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_LINKS&redirid=$_'
-       >Добавить ссылку</a>
-   </td>
+   <td><a href='${catalog}add/?redirid=$_'>Добавить ссылку</a></td>
   </tr></table>
  </td>
  <td align=center><spin list='$list'></td>

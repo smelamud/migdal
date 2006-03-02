@@ -5,8 +5,7 @@ require_once('lib/iterator.php');
 require_once('lib/redirs.php');
 require_once('lib/utils.php');
 require_once('lib/ident.php');
-require_once('lib/topics.php');
-require_once('lib/postings.php');
+require_once('lib/entries.php');
 
 require_once('grp/titles.php');
 require_once('grp/structure.php');

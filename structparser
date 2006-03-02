@@ -75,10 +75,11 @@ for my $var(keys %$item)
    {
    next unless $var=~/^cond:(\w+)$/;
    my ($table,$value)=($1,$$item{$var});
-   $value="\".idByIdent(\"$value\").\"" unless $value=~/|/;
+   $value="\".idByIdent(\"$value\").\"" unless $value=~/\|/;
    $value="\".idOrCatalog(\"$1\",\"$2\").\"" if $value=~/^(.*)\|(.*)$/;
    $$item{'_cond'}='' unless exists($$item{'_cond'});
-   $$item{'_cond'}.=" && ${table}Exists(\"$value\")";
+   $table=uc $table;
+   $$item{'_cond'}.=" && entryExists(ENT_$table,\"$value\")";
    }
 }
 
@@ -116,8 +117,19 @@ for my $var(keys %$item)
    next unless $var=~/^arg\./;
    my $type;
    ($var,$type)=$var=~/^arg\.(\w+):(\w+)$/;
-   $type=ucfirst $type;
-   $$item{"_arg.$var"}="\".postProcess$type(\"".$$item{"_arg.$var"}."\").\"";
+   if($type eq 'grp')
+     {
+     my $name=uc $$item{"_arg.$var"};
+     my $value;
+     $value="constant(\"GRP_$name\")" if $name=~/\$/;
+     $value="GRP_$name" unless $name=~/\$/;
+     $$item{"_arg.$var"}="\".$value.\"";
+     }
+   else
+     {
+     $type=ucfirst $type;
+     $$item{"_arg.$var"}="\".postProcess$type(\"".$$item{"_arg.$var"}."\").\"";
+     }
    }
 }
 
@@ -197,8 +209,8 @@ if($path=~/{/)
   {
   processPathPattern($item);
   processConds($item);
-  processArgs($item);
   }
+processArgs($item);
 processTitle($item) if exists($$item{'title'});
 push @Structure,$item;
 }
