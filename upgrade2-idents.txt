@@ -1,5 +1,93 @@
 topics	88	links.free-mail
 topics	296	links.demographics
+topics	133	links.painting
+topics	278	links.painting.personal	Персональные страницы художников
+topics	279	links.painting.personal.chagall
+topics	300	links.painting.holocaust	Искусство Холокоста
+topics	262	links.acquaint
 topics	101	links.israel
+topics	105	links.israel.analytics	Аналитика об Израиле
 topics	277	links.israel.cities	Города Израиля
 topics	147	links.israel.cities.jerusalem
+topics	134	links.land	Земля Израиля
+topics	102	links.politics	Политические организации Израиля
+topics	83	links.history
+topics	95	links.history.arab-israel	История арабо-израильского конфликта
+topics	297	links.history.soviet	История евреев СССР
+topics	232	links.history.khazars	История хазар
+topics	124	links.history.holocaust	История Холокоста
+topics	82	links.judaism
+topics	234	links.judaism.sources	Еврейские источники
+topics	118	links.judaism.calendar	Еврейский календарь
+topics	173	links.judaism.kosher
+topics	284	links.judaism.daat-emet
+topics	245	links.judaism.rabbis
+topics	106	links.judaism.holidays	Еврейские праздники
+topics	107	links.judaism.chassidus
+topics	244	links.judaism.chassidus.braslav	Браславский хасидизм
+topics	103	links.judaism.chassidus.chabad	Хасидизм ХаБаД
+topics	89	links.catalogs
+topics	109	links.catalogs.search
+topics	90	links.catalogs.ratings
+topics	200	links.cinema
+topics	85	links.literature
+topics	260	links.literature.publishers
+topics	108	links.literature.catalogs
+topics	276	links.literature.personal	Персональные страницы писателей
+topics	116	links.music
+topics	117	links.music.nigguns
+topics	155	links.music.about
+topics	125	links.music.remake
+topics	81	links.news
+topics	138	links.odessa
+topics	99	links.org
+topics	153	links.org.theaters
+topics	188	links.org.hillel
+topics	190	links.org.joint
+topics	137	links.org.associations
+topics	201	links.org.icc
+topics	248	links.org.kosher	Организации кошерного питания
+topics	121	links.org.museums
+topics	185	links.org.jcc
+topics	187	links.org.communities
+topics	189	links.org.ort
+topics	179	links.org.sinagogues
+topics	186	links.org.sohnut
+topics	191	links.org.unions
+topics	100	links.org.catalogs	Справочники еврейских организаций
+topics	291	links.org.education
+topics	196	links.org.education.yeshivas
+topics	195	links.org.chesed
+topics	192	links.org.holocaust
+topics	111	links.periodics
+topics	112	links.periodics.printed	Печатная периодика
+topics	198	links.periodics.printed.israel	Печатная периодика Израиля
+topics	199	links.periodics.printed.usa	Печатная периодика США
+topics	197	links.periodics.printed.cis	Печатная периодика СНГ
+topics	113	links.periodics.electronic	Электронная периодика
+topics	104	links.personal
+topics	280	links.personal.a-p	Персональные страницы, А-П
+topics	281	links.personal.r-ja	Персональные страницы, Р-Я
+topics	93	links.human-search
+topics	80	links.portals
+topics	94	links.teaching
+topics	289	links.software
+topics	91	links.propaganda
+topics	98	links.propaganda.jewish-state	Пропаганда за Еврейское Государство
+topics	287	links.propaganda.settlement	Пропаганда за сохранение поселений
+topics	92	links.propaganda.antisemitism	Пропаганда против антисемитизма
+topics	235	links.propaganda.missionaries	Пропаганда против миссионеров
+topics	145	links.propaganda.holocaust	Пропаганда против отрицания Холокоста
+topics	97	links.propaganda.terrorism	Пропаганда против терроризма
+topics	202	links.propaganda.terrorism.chronicles
+topics	254	links.recipes
+topics	273	links.family
+topics	86	links.forums
+topics	110	links.hosting
+topics	87	links.chat
+topics	154	links.postcards
+topics	246	links.encyclopaedies
+topics	84	links.humour
+topics	114	links.languages
+topics	184	links.languages.hebrew
+topics	115	links.languages.yiddish
