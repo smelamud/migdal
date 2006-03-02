@@ -434,6 +434,8 @@ $this->fields=$fields;
 
 $Select=$showShadows ? postingListFields($this->fields)
 		     : 'distinct entries.orig_id';
+$SelectCount=$showShadows ? 'count(*)'
+		          : 'count(distinct entries.orig_id)';
 $From=postingListTables($this->fields);
 $this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
                                $withAnswers,$user,$index1,$later,$up,$fields,
@@ -458,7 +460,7 @@ $this->LimitSelectIterator('Posting',
 			    where {$this->where}
 			    $Order",
 			   $limit,$offset,
-			   "select count(*)
+			   "select $SelectCount
 			    from $From
 			    where {$this->where}");
 }
