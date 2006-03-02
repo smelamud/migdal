@@ -78,7 +78,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/domainmod.php
 - actions/ear.php
 - actions/forumanswermod.php
-- actions/goto.php
++ actions/goto.php
 - actions/groupadd.php
 - actions/groupdel.php
 - actions/hide.php
@@ -359,7 +359,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/posting-ear.mhtml
 - migdal/parts/posting-general.mhtml
 - migdal/parts/posting-library-announce.mhtml
-* migdal/parts/posting-link.mhtml
++ migdal/parts/posting-link.mhtml
 * migdal/parts/posting.mhtml
 + migdal/parts/postings-links.mhtml
 - migdal/parts/postings.mhtml
