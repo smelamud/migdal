@@ -14,4 +14,10 @@ function titleTopicBodyOrName($id)
 $topic=getTopicById($id);
 return $topic->getBody()=='' ? $topic->getSubject() : $topic->getBody();
 }
+
+function titlePostingSubjectDesc($id)
+{
+$posting=getPostingById($id);
+return $posting->getSubjectDesc();
+}
 ?>

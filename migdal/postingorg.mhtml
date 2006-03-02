@@ -70,8 +70,7 @@
    // $=posting.GrpTitle
   </td></tr>
   <tr><td>
-   <<identify posting='$posting'>>
-   <b><<a href='$posting.DetailsHref'>>$=posting.SubjectDesc<</a>></b>
+   <b><a href='$posting.GrpDetailsHref'>$=posting.SubjectDesc</a></b>
    <ifne what='$posting.Ident'>
     [$posting.Ident=$posting.Id]
    <else>

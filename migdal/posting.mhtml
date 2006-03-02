@@ -3,24 +3,24 @@
 <int name='postid'>
 <grps>
 <posting_obj name='posting' id='$postid' grp='*GRP_FORUMS'
-             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY|*SELECT_TOPICS'>
 <ifzero what='$,Id'>
  <fail>
 </ifzero>
 <log event=posting text#='post($,Id)'>
-<pagetitle title='$,SubjectDesc'>
+<<pagetitle title='$,SubjectDesc'>>
 
 <html>
 <preamble>
 <body>
- <top ident='$,MenuIndex'>
+ <top ident='$,GrpMenuIndex'>
  <table width=100% cellpadding=5>
   <tr valign=top>
    <notprint>
     <if what='$,Grp!=*GRP_LINKS'>
      <td width=150 class='eframe'>
-      <topics posting='$,'>
-      <ears>
+      <<topics posting='$,'>
+      <ears>>
      </td>
     <else>
      <td width=150 class='nframe'>

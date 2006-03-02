@@ -1,11 +1,8 @@
 << @(#) $Id$ >>
 
-<<remake>>
-<<element name='topiclink'>
-<identify posting='$posting'>
-<at href='$posting.GeneralHref' class='$class'
-    title='$posting.FullTopicDescription'>$posting.FullTopicName</at>
-</element>>
+<element name='topiclink'>
+<at href='$posting.GrpGeneralHref' class='$class' title='$comment'>$title</at>
+</element>
 
 <<remake>>
 <<element name='topiclink_gallery'>
@@ -98,21 +95,10 @@
 </notprint>
 </element>
 
-<<remake>>
-<<element name='posting'>
-<require name='parts/posting-general.php'>
-<require name='parts/picture.php'>
-<require name='parts/blog-posting.php'>
-<require name='parts/posting-book.php'>
-<require name='parts/posting-ear.php'>
-<require name='parts/posting-library-announce.php'>
-<require name='parts/posting-times.php'>
-<require name='parts/posting-times-cover.php'>
-<require name='parts/kaitana-picture.php'>
-<require name='parts/tip-posting.php'>
-<require name='parts/link-posting.php'>
-<if what='$posting.TapeCenter'><center></if>
- <exec element='$posting.TapeElement' arg1='$posting' arg2='$showtopic'
+<element name='posting'>
+<if what='$posting.GrpTapeCenter'><center></if>
+ <require_once name='$posting.GrpTapeFile'>
+ <exec element='$posting.GrpTapeElement' arg1='$posting' arg2='$showtopic'
        arg3='$showdiscuss' arg4='$showcomplain' arg5='$shorten'>
-<if what='$posting.TapeCenter'></center></if>
-</element>>
+<if what='$posting.GrpTapeCenter'></center></if>
+</element>

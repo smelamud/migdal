@@ -854,6 +854,13 @@ my ($self)=@_;
 ::request($self->getConstArg('name'));
 }
 
+sub elRequire_once
+{
+my ($self)=@_;
+
+::body('<?php require_once(',$self->getVarArg('name'),'); ?>');
+}
+
 sub elInclude
 {
 my ($self)=@_;

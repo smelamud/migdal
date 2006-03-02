@@ -26,7 +26,7 @@ define('SORT_PSENT',SORT_PRIORITY|SORT_SENT);
 define('SORT_PNAME',SORT_PRIORITY|SORT_NAME);
 define('SORT_PACTIVITY',SORT_PRIORITY|SORT_ACTIVITY);
 
-function getOrderBy($sort,$names,$priority='priority')
+function getOrderBy($sort,$names,$priority='entries.priority')
 {
 $order=@$names[$sort & SORT_ORDER];
 return $order=='' ? '' : 'order by '.

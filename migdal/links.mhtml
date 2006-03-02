@@ -9,9 +9,6 @@
 <if what='$topic_id<=0'>
  <log event=links text#='topic(-1) offset=$offset'>
 <else>
- <<topic_name id='$topic_id'>
- <assign name='topic_name' value='$,Name'>
- <pagetitle title#='Ссылки - $topic_name'>>
  <log event=links text#='topic($topic_id) offset=$offset'>
 </if>
 

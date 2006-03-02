@@ -67,14 +67,31 @@ while($$item{'_path_regex'}=~/{([^}]*)}/)
      }
 }
 
+sub processConds
+{
+my ($item)=@_;
+
+for my $var(keys %$item)
+   {
+   next unless $var=~/^cond:(\w+)$/;
+   my ($table,$value)=($1,$$item{$var});
+   $value="\".idByIdent(\"$value\").\"" unless $value=~/|/;
+   $value="\".idOrCatalog(\"$1\",\"$2\").\"" if $value=~/^(.*)\|(.*)$/;
+   $$item{'_cond'}='' unless exists($$item{'_cond'});
+   $$item{'_cond'}.=" && ${table}Exists(\"$value\")";
+   }
+}
+
 sub saveArgs
 {
 my ($item)=@_;
 
 for my $var(keys %$item)
    {
-   next unless $var=~/^arg\.(\w+)/;
-   $$item{"_arg.$1"}=$$item{$var};
+   if($var=~/^arg\.(\w+)/)
+     {
+     $$item{"_arg.$1"}=$$item{$var};
+     }
    }
 }
 
@@ -84,10 +101,9 @@ my ($item)=@_;
 
 for my $var(keys %$item)
    {
-   next unless $var=~/^arg\.(\w+)/;
-   my $name="_arg.$1";
-   next unless $$item{$name}=~/^(.*)\|(.*)$/;
-   $$item{$name}="\".idOrCatalog(\"$1\",\"$2\").\"";
+   next unless $var=~/^_arg\./;
+   next unless $$item{$var}=~/^(.*)\|(.*)$/;
+   $$item{$var}="\".idOrCatalog(\"$1\",\"$2\").\"";
    }
 }
 
@@ -117,7 +133,7 @@ for my $sub(@{$$item{'_subs'}})
    {
    for my $var(keys %$item)
       {
-      next unless $var=~/^arg\./ || $var eq 'parent.path';
+      next unless $var=~/^arg\./ || $var eq 'parent.path' || $var eq '_cond';
       $var="_arg.$1" if $var=~/^arg\.(\w+):\w+$/;
       $$item{$var}=~s/\${$sub}/"{\$m[$n]}"/ge;
       }
@@ -177,8 +193,12 @@ return unless exists($$item{'path'});
 $path=$$item{'path'};
 $path.='/' if substr($path,$#path) ne '/';
 $$item{'path'}=$path;
-processPathPattern($item) if $path=~/{/;
-processArgs($item) if $path=~/{/;
+if($path=~/{/)
+  {
+  processPathPattern($item);
+  processConds($item);
+  processArgs($item);
+  }
 processTitle($item) if exists($$item{'title'});
 push @Structure,$item;
 }
@@ -236,11 +256,12 @@ if(substr(\$path,-5)=='.html')
 EOF
 for my $item(@Structure)
    {
+   my $cond=trimQuotes($$item{'_cond'});
    if(!exists($$item{'_path_regex'}))
      {
      my $path=$$item{'path'};
      print OUT <<EOF;
-if(\$path=='$path')
+if(\$path=='$path'$cond)
   {
 EOF
      }
@@ -248,7 +269,7 @@ EOF
      {
      my $regex=$$item{'_path_regex'};
      print OUT <<EOF;
-if(preg_match('/$regex/',\$path,\$m))
+if(preg_match('/$regex/',\$path,\$m)$cond)
   {
 EOF
      }

@@ -718,8 +718,9 @@ return $this->$func();
 
 function getCompositeValue($value)
 {
-$value=preg_replace('/\$\[(\d+)\]/e','$this->getCatalog(\1,0)',$value);
-$value=preg_replace('/\$\[(\d+),(\d+)\]/e','$this->getCatalog(\1,\2)',$value);
+$value=preg_replace('/\$\[([-\d]+)\]/e','$this->getCatalog(\1,0)',$value);
+$value=preg_replace('/\$\[([-\d]+),([-\d]+)\]/e','$this->getCatalog(\1,\2)',
+                    $value);
 $value=preg_replace('/\$\{(\w+)\}/e','$this->getProperty("\1")',$value);
 return $value;
 }
