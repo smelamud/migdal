@@ -12,12 +12,13 @@ class AlphabetIterator
 
 function getAlphas($query,$limit=0,$sortCoding=false,$prefix='')
 {
+$METHOD=get_method($this,'getAlphas');
 $result=sql(str_replace(array('@prefix@',
                               '@len@'),
                         array($sortCoding ? convertSort($prefix) : $prefix,
 			      strlen($prefix)+1),
 	                $query),
-            __METHOD__);
+            $METHOD);
 $counts=array();
 while($row=mysql_fetch_assoc($result))
      if($row['count']!=0)

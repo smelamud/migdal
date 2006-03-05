@@ -11,7 +11,7 @@ if(is_array($grp))
   return $grp;
 if($grp===GRP_NONE)
   return array();
-if(is_numeric($grp))
+if(is_numeric("0$grp")) // Странный глюк...
   return array($grp);
 return $grpGroups[$grp];
 }
@@ -45,9 +45,9 @@ return getPlural($n,$pl);
 
 function grpFilter($grp,$field='grp',$prefix='')
 {
-if($grp==GRP_NONE)
+if($grp===GRP_NONE)
   return 0;
-if($grp==GRP_ALL)
+if($grp===GRP_ALL)
   return 1;
 $grp=grpArray($grp);
 if($prefix!='' && substr($prefix,-1)!='.')

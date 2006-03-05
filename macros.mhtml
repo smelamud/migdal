@@ -100,9 +100,9 @@
 	 defaults="message_id=0 note_base=1">
 <deciter macro='posting_alphabet' class='PostingAlphabetIterator'
          file='lib/postings.php'
-	 params='sort,topic_id,recursive,grp,showshadows'
-	 defaults="sort='*SORT_URL_DOMAIN' topic_id=-1 recursive='*false'
-	           grp='*GRP_ALL' showshadows='*false'">
+	 params='limit,sort,topic_id,recursive,grp,showshadows'
+	 defaults="limit=0 sort='*SORT_URL_DOMAIN' topic_id=-1
+	           recursive='*false' grp='*GRP_ALL' showshadows='*false'">
 <deciter macro='posting_modbits' class='PostingModbitIterator'
          file='lib/modbits.php'>
 <deciter macro='posting_paragraphs' class='PostingParagraphIterator'

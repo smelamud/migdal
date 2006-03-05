@@ -1,13 +1,11 @@
 << @(#) $Id$ >>
 
 <grps>
-<int name='offset'>
-<pagetitle title='Ссылки - Алфавитный указатель'>
-<topictitle title='Алфавитный указатель еврейских ссылок'>
+<string name='prefix'>
 <log event=urls text#='offset=$offset'>
 
 <element name='intro'>
-<subtitle>
+<subtitle title='Алфавитный указатель еврейских ссылок'>
 <links_switcher ident='index'>
 <p>
 <postings_info grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'>
@@ -28,30 +26,28 @@
 
 <element name='navigator'>
 <div style='padding-left: 10px; padding-bottom: 10px'>
- <iterate_posting_alphabet topic_id='$`links`' recursive='*true'
+ <iterate_posting_alphabet limit=100 topic_id='$`links`' recursive='*true'
                            grp='*GRP_LINKS'>
  <for>
-  <if what='$.Offset!=$$offset'>
-   <a href='$[offset=$.Offset]'>$.Letter</a>&sp;
+  <if what="$;isFirst && $$prefix==''">
+   <assign_global name='prefix' value='$.'>
+  </if>
+  <if what='$.!=$$prefix'>
+   <a href='$[prefix=$.]'>$.</a>&sp;
   <else>
-   <b>$.Letter</b>&sp;
+   <b>$.</b>&sp;
   </if>
  </for>
 </div>
 </element>
 
 <element name='batcher' params='&list'>
-<table width=70%><tr valign=bottom>
- <td align=left class='info'>
-  <table><tr valign=center>
-   <td><image src='pics/sheet.gif'></td>
-   <td>
-    <a href='postingedit.php?topic_id=$`links`&grp=*GRP_LINKS&redirid=$_'
-       >Добавить ссылку</a><asp>
-   </td>
-  </tr></table>
+<table class='info'><tr valign=center>
+ <td><image src='pics/sheet.gif'></td>
+ <td>
+  <a href='postingedit.php?topic_id=$`links`&grp=*GRP_LINKS&redirid=$_'
+     >Добавить ссылку</a><asp>
  </td>
- <td align=center><spin list='$list'></td>
 </tr></table>
 </element>
 
@@ -67,20 +63,19 @@
   </td></tr>
   <tr><td class='cframe'>
    <iterate_postinglist grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'
-                        limit=30 offset='$offset' sort='*SORT_URL_DOMAIN'
-			fields='*SELECT_TOPICS' showshadows='*false'>
+                        sort='*SORT_URL_DOMAIN' fields='*SELECT_TOPICS'
+			showshadows='*false'>
    <batcher list='$;'>
    <assign name='domain' value=''>
    <dl class='ninept index'>
     <for>
-     <identify posting='$.'>
      <if what='$domain!=$.URLDomain'>
       <ifne what='$domain'><dt>&nbsp;</ifne>
-      <dt>$.URLDomain
+      <dt>$=.URLDomain
       <assign name='domain' value='$.URLDomain'>
      </if>
-     <dd><a href='$.DetailsHref'>$.SubjectDesc</a>
-     <dd class='url'>$.URL
+     <dd><a href='$.GrpDetailsHref'>$=.SubjectDesc</a>
+     <dd class='url'>$=.URL
     </for>
    </dl>
    <ifnzero what='$;Count'>

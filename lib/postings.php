@@ -617,35 +617,32 @@ return newGrpPosting(GRP_TIMES_COVER,$row);
 
 }
 
-// remake
 class PostingAlphabetIterator
       extends AlphabetIterator
 {
 
-function PostingAlphabetIterator($sort=SORT_URL_DOMAIN,$topic_id=-1,
+function PostingAlphabetIterator($limit=0,$sort=SORT_URL_DOMAIN,$topic_id=-1,
                                  $recursive=false,$grp=GRP_ALL,
 				 $showShadows=false)
 {
-$hide=messagesPermFilter(PERM_READ,'messages');
+$hide='and '.postingsPermFilter(PERM_READ);
 $fields=array(SORT_NAME       => 'subject',
 	      SORT_URL_DOMAIN => 'url_domain');
 $field=@$fields[$sort]!='' ? $fields[$sort] : 'url';
+$sortFields=array(SORT_NAME       => 'subject_sort',
+	          SORT_URL_DOMAIN => 'url_domain');
+$sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'url';
 $order=getOrderBy($sort,
-       array(SORT_NAME       => 'subject',
-	     SORT_URL_DOMAIN => 'url_domain,url'));
-$topicFilter=$topic_id>=0
-             ? 'and topics.'.subtree('topics',$topic_id,$recursive) : '';
+                  array(SORT_NAME       => 'subject_sort',
+	                SORT_URL_DOMAIN => 'url_domain,url'));
+$topicFilter=$topic_id>=0 ? 'and '.subtree('entries',$topic_id,$recursive) : '';
 $grpFilter='and '.grpFilter($grp);
-$shadowFilter=!$showShadows ? 'and shadow=0' : '';
-$this->AlphabetIterator(
-        "select left($field,1) as letter,count(*) as count
-         from messages
-	 left join postings
-	      on postings.message_id=messages.id
-	 left join topics
-	      on topics.id=postings.topic_id
-         where $hide $topicFilter $grpFilter $shadowFilter
-	 group by messages.id
+$shadowFilter=!$showShadows ? 'and id=orig_id' : '';
+parent::AlphabetIterator(
+        "select left($field,@len@) as letter,1 as count
+         from entries
+         where entry=".ENT_POSTING." $hide $topicFilter $grpFilter
+	       $shadowFilter and $sortField like '@prefix@%'
 	 $order",true);
 }
 
@@ -966,21 +963,16 @@ $result=sql("select index1
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-// remake
 function getPostingDomainCount($topic_id=-1,$recursive=false,$grp=GRP_ALL)
 {
-$hide=messagesPermFilter(PERM_READ,'messages');
-$topicFilter=$topic_id>=0
-             ? 'and topics.'.subtree('topics',$topic_id,$recursive) : '';
+$hide='and '.postingsPermFilter(PERM_READ);
+$topicFilter=$topic_id>=0 ? 'and '.subtree('entries',$topic_id,$recursive) : '';
 $grpFilter='and '.grpFilter($grp);
 $result=sql("select count(distinct url_domain)
-	     from messages
-	     left join postings
-		  on postings.message_id=messages.id
-	     left join topics
-		  on topics.id=postings.topic_id
-	     where $hide and shadow=0 $topicFilter $grpFilter",
-	    'getPostingDomainCount');
+	     from entries
+	     where entry=".ENT_POSTING." and id=orig_id $hide $topicFilter
+	           $grpFilter",
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>
