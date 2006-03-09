@@ -1,5 +1,16 @@
 << @(#) $Id$ >>
 
+<element name='selflink'>
+<table cellspacing=0 cellpadding=0><tr>
+ <td><image src='pics/self.gif'>&nbsp;</td>
+ <td>
+  <a href='$posting.GrpDetailsHref'><asp>
+   <notenglish>Ссылка<else>Link</notenglish></a>
+ </td>
+</tr></table>
+</element>
+
+
 <element name='topiclink'>
 <at href='$posting.GrpGeneralHref' class='$class' title='$comment'>$title</at>
 </element>
@@ -40,8 +51,8 @@
 <table cellspacing=0 cellpadding=0><tr>
  <td><image src='pics/print.gif'>&nbsp;</td>
  <td>
- <a href='$posting.GrpDetailsHref?&print=1' target='_blank'><asp>
-  <notenglish>Для печати<else>Print version</notenglish></a>
+  <a href='$posting.GrpDetailsHref?&print=1' target='_blank'><asp>
+   <notenglish>Для печати<else>Print version</notenglish></a>
  </td>
 </tr></table>
 </element>
@@ -69,10 +80,12 @@
 <notprint>
  <table width=$len class='bottom'><tr>
   <td>
-   <outer><table cellspacing=0 cellpadding=0><tr>
-    <td><common><printlink posting='$posting'></common></td>
+   <table cellspacing=0 cellpadding=0><tr>
+    <td><selflink posting='$posting'></td>
     <td>&nbsp;&nbsp;&nbsp;</td>
-    <td><inner>
+    <td><printlink posting='$posting'></td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
+    <td>
      <iswrite what='$posting'>
       <editlink posting='$posting'>
      <else>
@@ -83,8 +96,8 @@
        </logged>
       </if>
      </iswrite>
-    </inner></td>
-   </tr></table></outer>
+    </td>
+   </tr></table>
   </td>
   <if what='$showdiscuss'>
    <td align=right><discusslink posting='$posting'></td>
