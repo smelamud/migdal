@@ -14,18 +14,27 @@ $info->setScript('404.php');
 return $info;
 }
 
-function &dispatchScript($requestPath)
+function &dispatchScript($requestPath,$parts)
 {
 $info=new LocationInfo();
 $scriptName=substr($requestPath,1);
+$oldRedirectFunc='oldRedirect'.ucfirst(substr($scriptName,0,-4));
+if(function_exists($oldRedirectFunc))
+  {
+  $path=$oldRedirectFunc(parseQuery($parts['query']));
+  if($path!='')
+    {
+    $info->setPath($path);
+    return $info;
+    }
+  else
+    return dispatch404($requestPath);
+  }
 if(!file_exists($scriptName))
   return dispatch404($requestPath);
-else
-  {
-  $info->setPath($requestPath);
-  $info->setScript($scriptName);
-  return $info;
-  }
+$info->setPath($requestPath);
+$info->setScript($scriptName);
+return $info;
 }
 
 function &dispatchAddSlash($requestPath,$parts)
@@ -63,7 +72,7 @@ $requestPath=$parts['path'];
 if($requestPath=='/dispatcher.php')
   return dispatch404($requestPath);
 elseif(substr($requestPath,-4)=='.php')
-  return dispatchScript($requestPath);
+  return dispatchScript($requestPath,$parts);
 elseif(substr($requestPath,0,9)!='/actions/' && substr($requestPath,-1)!='/'
        && substr($requestPath,5)!='.html')
   return dispatchAddSlash($requestPath,$parts);
