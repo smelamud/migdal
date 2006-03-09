@@ -24,18 +24,18 @@
 <identify posting='$posting'>
 <if what='$posting.isRebe'><span class='rebe'></if>
  <dl class='posting'>
-  <dt class='subject'>
+  <dt>
    <topic posting='$posting' showtopic='$showtopic'>
    <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
 	       image='$$style_cframe_back_pic'>
    <biff time='$posting.Sent'>
    <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
-    <a href='$posting.DetailsHref'>$posting.Subject</a>
+    <a class='subject' href='$posting.DetailsHref'>$posting.Subject</a>
    <else>
-    $posting.Subject
+    <span class='subject'>$posting.Subject</span>
    </if>
    <ifne what='$posting.Author'>
-    <br><span class='author'>$posting.Author</span>
+    <br><span class='posting-author'>$posting.Author</span>
    </ifne>
   </dt>
   <dd><p>
@@ -72,7 +72,7 @@
     <senderlink message='$posting'>
    </td>
    <ifne what='$posting.Source'>
-    <td class='source'>
+    <td class='posting-source'>
      $posting.HTMLSource
     </td>
    </ifne>

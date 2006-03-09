@@ -83,6 +83,7 @@ posting_em=%mrd
 posting_split=%mrd
 posting_controls=%mrd
 posting_controls_hover=blue
+posting_error=red
 
 textears_title=%mrd
 textears_split=%mrd

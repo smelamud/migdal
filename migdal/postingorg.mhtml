@@ -58,15 +58,13 @@
  <table class='posting' width=100%>
   <tr><td>
    <iterate_topic_hierarchy topic_id='$posting.TopicId'>
-   <span class='subject'>
-    <a href='$[topic_id=$posting.TopicId]' title='$=posting.TopicBodyNormal'
-       class='topic'><asp>
-     <for>
-      <if what='!$;isFirst'>&sp;::&sp;</if>
-      $=.Subject
-     </for>
-    <asp></a>
-   </span>
+   <a href='$[topic_id=$posting.TopicId]' title='$=posting.TopicBodyNormal'
+      class='posting-topic'><asp>
+    <for>
+     <if what='!$;isFirst'>&sp;::&sp;</if>
+     $=.Subject
+    </for>
+   <asp></a>
    // $=posting.GrpTitle
   </td></tr>
   <tr><td>
@@ -98,7 +96,7 @@
    <asp>(<asp><sentview date='$posting.Modified'>)
    <senderlink message='$posting'>
   </td></tr>
-  <tr><td class='bottom'>
+  <tr><td class='posting-bottom'>
    <if what='$posting.isHidden'>
     <b>[X]</b>
     &nbsp;

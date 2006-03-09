@@ -78,7 +78,7 @@
 
 <element name='posting_controls'>
 <notprint>
- <table width=$len class='bottom'><tr>
+ <table width=$len class='posting-bottom'><tr>
   <td>
    <table cellspacing=0 cellpadding=0><tr>
     <td><selflink posting='$posting'></td>

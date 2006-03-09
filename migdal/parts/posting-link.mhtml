@@ -20,7 +20,7 @@
 <if what='$posting.URLCheckFailDays>=3'>
  <array vals='день,дня,дней'>
  <plural value='$posting.URLCheckFailDays'>
- <span class='error'>
+ <span class='posting-error'>
   (Ссылка не работает $posting.URLCheckFailDays&sp;$,)
  </span>
 </if>
@@ -29,12 +29,12 @@
 <element name='posting_link'>
 <dl class='posting'>
  <dt>
-  <span class='subject'>
-   <topic posting='$posting' showtopic='$showtopic'>
-   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
-	       image='$$style_cframe_back_pic'>
-   $=posting.Subject<biff time='$posting.Sent'>
-  </span><br>
+  <topic posting='$posting' showtopic='$showtopic'>
+  <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
+	      image='$$style_cframe_back_pic'>
+  <span class='posting-subject'>$=posting.Subject</span>
+  <biff time='$posting.Modified'>
+  <br>
   <further_url posting='$posting'>
  </dt>
  <dd><p>

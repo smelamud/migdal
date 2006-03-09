@@ -12,7 +12,7 @@
    <p>
    <a href='$posting.URL'>$posting.URL</a>
    <p>
-   <table cellspacing=0 class='statistics'><tr>
+   <table cellspacing=0 class='posting-statistics'><tr>
     <td width=25 align=left>
      <if what='!$posting.isHidden && $posting.Priority<-1'>
       <assign name='priority' value!='-$posting.Priority'>
@@ -41,7 +41,7 @@
    </tr></table>
   </td>
  </tr>
- <tr height=20><td class='bottom' colspan=3>
+ <tr height=20><td class='posting-bottom' colspan=3>
   <iswrite what='$posting'>
    <a href="admin/ears/$posting.Id/edit/?topic_id=$`ears`&grp=*GRP_EARS&redirid=$_"
       >Изменить</a>
