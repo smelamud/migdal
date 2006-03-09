@@ -173,7 +173,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/permissions.php
 * lib/postings-info.php (кроме кэша)
 * lib/postings.php
-- lib/postings-random.php
++ lib/postings-random.php
 + lib/post.php
 - lib/profiling.php
 + lib/random.php
@@ -326,7 +326,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/bottom.mhtml
 - migdal/parts/complain.mhtml
 - migdal/parts/discussions.mhtml
-+ migdal/parts/ears.mhtml
+* migdal/parts/ears.mhtml (нет альтернативного текста)
 - migdal/parts/events.mhtml
 - migdal/parts/failpage.mhtml
 + migdal/parts/formutils.mhtml

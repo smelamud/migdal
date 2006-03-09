@@ -3,24 +3,23 @@
 
 require_once('lib/array.php');
 require_once('lib/sql.php');
+require_once('lib/postings.php');
 
 function getRandomPostingIds($limit,$grp=GRP_ALL,$topic_id=-1,$user_id=0,
                              $index1=-1)
 {
-$hide=messagesPermFilter(PERM_READ);
+$hide='and '.postingsPermFilter(PERM_READ);
 $grpFilter=grpFilter($grp);
-$topicFilter=$topic_id>=0 ? " and topic_id=$topic_id " : '';
-$userFilter=$user_id<=0 ? '' : " and messages.sender_id=$user_id ";
-$index1Filter=$index1>=0 ? "and postings.index1=$index1" : '';
+$topicFilter=$topic_id>=0 ? "and parent_id=$topic_id " : '';
+$userFilter=$user_id>0 ? " and user_id=$user_id " : '';
+$index1Filter=$index1>=0 ? "and index1=$index1" : '';
 $result=sql("select priority,count(*)
-	     from postings
-		  left join messages
-		       on postings.message_id=messages.id
-	     where $hide and priority<=0 and $grpFilter $topicFilter
-	           $userFilter $index1Filter
+	     from entries
+	     where entry=".ENT_POSTING." $hide and priority<=0 and $grpFilter
+	           $topicFilter $userFilter $index1Filter
 	     group by priority
 	     order by priority",
-	    'getRandomPostingIds','calculate');
+	    __FUNCTION__,'calculate');
 
 $counts=array();
 $total=0;
@@ -61,15 +60,13 @@ while(count($positions)<$limit)
 $ids=array();
 foreach($positions as $pos)
        {
-       $result=sql("select postings.id
-		    from postings
-			 left join messages
-			      on postings.message_id=messages.id
-		    where $hide and priority<=0 and $grpFilter $topicFilter
-			  $userFilter $index1Filter
+       $result=sql("select id
+		    from entries
+		    where entry=".ENT_POSTING." $hide and priority<=0
+		          and $grpFilter $topicFilter $userFilter $index1Filter
 		    order by priority,sent desc
 		    limit $pos,1",
-		   'getRandomPostingIds','get_id');
+		   __FUNCTION__,'get_id');
        $ids[]=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
        }
 
