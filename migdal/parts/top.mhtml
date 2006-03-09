@@ -6,7 +6,7 @@
   <col width=0* span=2>
   <tr valign=bottom>
    <td>
-    <at href='/index.php' target='$target'>
+    <at href='/' target='$target'>
      <image src='$$style_banner_logo'
 	    alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></at>
    </td>
@@ -15,17 +15,17 @@
      <notenglish>
       <tr><td><hannukah></td></tr>
       <tr><td>
-       <at href='/index.php' target='$target'>
+       <at href='/' target='$target'>
 	<image src='$$style_banner_migdal' alt='Мигдаль' border=0></at>
       </td></tr>
      <else>
       <tr><td>
-       <at href='/index.php' target='$target'>
+       <at href='/' target='$target'>
 	<image src='$$style_banner_migdal_english' alt='Migdal' border=0></at>
       </td></tr>
      </notenglish>
      <tr><td>
-      <at href='/index.php' target='$target'>
+      <at href='/' target='$target'>
        <image src='$$style_banner_online' alt='on-line' border=0></at>
      </td></tr>
     </table>
@@ -37,11 +37,11 @@
   <col width=0* span=2>
   <tr valign=bottom>
    <td>
-    <at href='/index.php' target='$target'>
+    <at href='/' target='$target'>
      <image src='$$style_banner_migdal' border=0></at>
    </td>
    <td>
-    <at href='/index.php' target='$target'>
+    <at href='/' target='$target'>
      <image src='$$style_banner_online' border=0></at>
    </td>
   </tr>
