@@ -44,9 +44,9 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
-    <posting_new topic_id='$topic_id' grp='*GRP_NEWS'>
-    <topics posting='$,'>
-    <ears>
+    <<posting_new topic_id='$topic_id' grp='*GRP_NEWS'>
+    <topics posting='$,'>>
+    <<ears>>
     <if what='$topic_id<=0'>
      <p>&nbsp;</p>
      <p><rabbi></p>
@@ -66,17 +66,17 @@
        <<kaitana_announce>>
        <textears>
       </if>
-      <postings grp='*GRP_TAPE' topic_id='$topic_id' limit=10 offset='$offset'
-                showshadows!='$topic_id>0'>
+      <<postings grp='*GRP_TAPE' topic_id='$topic_id' limit=10 offset='$offset'
+                showshadows!='$topic_id>0'>>
      </td>
      <td width=130 class='nframe'>
-      <tzdaka>
+      <<tzdaka>
       <tip>
       <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'
 			showshadows!='$topic_id>0'>
       <if what='$topic_id<=0'>
        <discussions limit=7>
-      </if>
+      </if>>
      </td>
     </tr></table>
    </td>
