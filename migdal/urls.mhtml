@@ -45,8 +45,7 @@
 <table class='info'><tr valign=center>
  <td><image src='pics/sheet.gif'></td>
  <td>
-  <a href='postingedit.php?topic_id=$`links`&grp=*GRP_LINKS&redirid=$_'
-     >Добавить ссылку</a><asp>
+  <a href='links/urls/add/?redirid=$_'>Добавить ссылку</a><asp>
  </td>
 </tr></table>
 </element>
@@ -64,20 +63,30 @@
   <tr><td class='cframe'>
    <iterate_postinglist grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'
                         sort='*SORT_URL_DOMAIN' fields='*SELECT_TOPICS'
-			showshadows='*false'>
+			showshadows='*false' prefix='$prefix' limit=0>
    <batcher list='$;'>
-   <assign name='domain' value=''>
-   <dl class='ninept index'>
-    <for>
-     <if what='$domain!=$.URLDomain'>
-      <ifne what='$domain'><dt>&nbsp;</ifne>
-      <dt>$=.URLDomain
-      <assign name='domain' value='$.URLDomain'>
-     </if>
-     <dd><a href='$.GrpDetailsHref'>$=.SubjectDesc</a>
-     <dd class='url'>$=.URL
-    </for>
-   </dl>
+   <table width='100%' cellspacing=5 cellpadding=0>
+    <tr valign='top'><td width='50%'>
+     <assign name='domain' value=''>
+     <assign name='column' value=0>
+     <dl class='ninept index'>
+      <for>
+       <if what='$domain!=$.URLDomain'>
+	<ifne what='$domain'><dt>&nbsp;</ifne>
+	<if what='$;Position>=$;Count/2 && $column==0'>
+	 </dl></td>
+	 <td width='50%'><dl class='ninept index'>
+	 <assign name='column' value=1>
+	</if>
+	<dt>$=.URLDomain
+	<assign name='domain' value='$.URLDomain'>
+       </if>
+       <dd><a href='$.GrpDetailsHref'>$=.SubjectDesc</a>
+       <dd class='url'>$=.URL
+      </for>
+     </dl>
+    </tr></td>
+   </table>
    <ifnzero what='$;Count'>
     <batcher list='$;'>
    </ifnzero>

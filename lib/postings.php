@@ -375,7 +375,7 @@ return count($conds)>0 ? '('.join(' or ',$conds).')' : '1';
 function postingListFilter($grp,$topic_id=-1,$recursive=false,$person_id=-1,
                            $sort=SORT_SENT,$withAnswers=GRP_NONE,$user=0,
 			   $index1=-1,$later=0,$up=-1,$fields=SELECT_GENERAL,
-			   $modbits=MOD_NONE,$hidden=-1,$disabled=-1)
+			   $modbits=MOD_NONE,$hidden=-1,$disabled=-1,$prefix='')
 {
 $Filter='entries.entry='.ENT_POSTING;
 $Filter.=' and '.postingsPermFilter(PERM_READ,'entries');
@@ -413,6 +413,13 @@ if($disabled>=0)
     $Filter.=" and entries.disabled<>0";
   else
     $Filter.=" and entries.disabled=0";
+if($prefix!='')
+  {
+  $prefixFilters=array(SORT_NAME       => " and entries.subject like '$prefix%'",
+                       SORT_URL_DOMAIN => " and entries.url_domain like '$prefix%'
+		                            and entries.url_domain<>''");
+  $Filter.=@$prefixFilters[$sort]!='' ? $prefixFilters[$sort] : '';
+  }
 return $Filter;
 }
 
@@ -426,7 +433,8 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
                              $offset=0,$person_id=-1,$sort=SORT_SENT,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
 			     $up=-1,$showShadows=true,$fields=SELECT_GENERAL,
-			     $modbits=MOD_NONE,$hidden=-1,$disabled=-1)
+			     $modbits=MOD_NONE,$hidden=-1,$disabled=-1,
+			     $prefix='')
 {
 if($sort==SORT_CTR)
   $fields|=SELECT_CTR;
@@ -439,7 +447,7 @@ $SelectCount=$showShadows ? 'count(*)'
 $From=postingListTables($this->fields);
 $this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
                                $withAnswers,$user,$index1,$later,$up,$fields,
-			       $modbits,$hidden,$disabled);
+			       $modbits,$hidden,$disabled,$prefix);
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'entries.sent desc',
              SORT_NAME       => 'entries.subject_sort',
@@ -629,9 +637,11 @@ $hide='and '.postingsPermFilter(PERM_READ);
 $fields=array(SORT_NAME       => 'subject',
 	      SORT_URL_DOMAIN => 'url_domain');
 $field=@$fields[$sort]!='' ? $fields[$sort] : 'url';
-$sortFields=array(SORT_NAME       => 'subject_sort',
-	          SORT_URL_DOMAIN => 'url_domain');
-$sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'url';
+$prefixFilters=array(SORT_NAME       => "and subject like '@prefix@%'",
+	             SORT_URL_DOMAIN => "and url_domain like '@prefix@%'
+		                         and url_domain<>''");
+$prefixFilter=@$prefixFilters[$sort]!='' ? $prefixFilters[$sort]
+                                         : " and url like '@prefix@%'";
 $order=getOrderBy($sort,
                   array(SORT_NAME       => 'subject_sort',
 	                SORT_URL_DOMAIN => 'url_domain,url'));
@@ -642,7 +652,7 @@ parent::AlphabetIterator(
         "select left($field,@len@) as letter,1 as count
          from entries
          where entry=".ENT_POSTING." $hide $topicFilter $grpFilter
-	       $shadowFilter and $sortField like '@prefix@%'
+	       $shadowFilter $prefixFilter
 	 $order",true);
 }
 
