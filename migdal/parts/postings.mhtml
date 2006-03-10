@@ -3,7 +3,6 @@
 <grps>
 
 <element name='batcher' params='&list,topic_id,grp,showadvert,access'>
-<posting_new grp='$grp'>
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <if what='$access || $showadvert'>
@@ -11,17 +10,22 @@
     <td><image src='pics/sheet.gif'></td>
     <td>
      <assign name='noguests' value!='$access ? 0 : 1'>
-     <if what='$,isValid'> <<isValid deprecated>>
+     <grp_valid grp='$grp'>
+     <if what='$,'>
+      <posting_new name='sample' grp='$grp'>
       <a href='postingedit.php?topic_id=$topic_id&grp=$grp&noguests=$noguests&redirid=$_'
-	 >Добавить $,GrpItemTitle</a>
+	 >Добавить $sample.GrpWhat</a>
      <else>
       <notenglish>
        <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$noguests&redirid=$_'
 	  >Добавить новость</a>,
        <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$noguests&redirid=$_'
-	  >статью</a>,
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&noguests=$noguests&redirid=$_'
-	  >книгу</a>
+	  >статью</a><asp>
+       <moderator>
+	<asp>,
+	<a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&noguests=$noguests&redirid=$_'
+	   >книгу</a>
+       </moderator>
       <else>
        <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$noguests&redirid=$_'
 	  >Add news</a>,
@@ -47,7 +51,7 @@
 <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
                      offset='$offset' sort='$sort' subdomain='$subdomain'
 		     user='$user_id' showshadows='$showshadows'
-		     recursive='$recursive'>
+		     recursive='$recursive' fields='*SELECT_TOPICS'>
 <if what='$access || $showadvert || $;Count!=0'>
  <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'
           access='$access'>

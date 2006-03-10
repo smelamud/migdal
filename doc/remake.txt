@@ -341,7 +341,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/history.mhtml
 * migdal/parts/hit-parade.mhtml
 - migdal/parts/hotlog.mhtml
-- migdal/parts/identify.mhtml
+- migdal/parts/identify.mhtml (удалить)
 - migdal/parts/jewishru.mhtml
 - migdal/parts/kaitana-announce.mhtml
 - migdal/parts/kaitana-picture.mhtml
@@ -349,19 +349,19 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/links-switcher.mhtml
 + migdal/parts/login.mhtml
 - migdal/parts/mailru.mhtml
-- migdal/parts/menu.mhtml
++ migdal/parts/menu.mhtml
 - migdal/parts/migdal-news.mhtml
 - migdal/parts/picture-main.mhtml
 - migdal/parts/picture.mhtml
 - migdal/parts/pointer.mhtml
 - migdal/parts/posting-book.mhtml
 + migdal/parts/posting-ear.mhtml
-- migdal/parts/posting-general.mhtml
+* migdal/parts/posting-general.mhtml
 - migdal/parts/posting-library-announce.mhtml
 + migdal/parts/posting-link.mhtml
 * migdal/parts/posting.mhtml
 + migdal/parts/postings-links.mhtml
-- migdal/parts/postings.mhtml
++ migdal/parts/postings.mhtml
 - migdal/parts/postings-migdal-news.mhtml
 - migdal/parts/posting-times-cover.mhtml
 - migdal/parts/posting-times.mhtml

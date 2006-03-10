@@ -7,8 +7,7 @@
   <tr><td align=left style='padding-bottom: 5px'>
    <posting_obj id='$.' grp='*GRP_EARS'>
    <a href='actions/ear.php?postid=$,Id&okdir=$#,URL'><asp>
-    <img src='$,ImageURL' alt='$=,BodyNormal' title='$=,BodyNormal'
-         width='$,ImageX' height='$,ImageY' border=0></a>
+    <posting_image posting='$,' title='$,BodyNormal'></a>
   </td></tr> 
  </for>
 </table></p>

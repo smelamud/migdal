@@ -1,84 +1,78 @@
 << @(#) $Id$ >>
 
-<complains>
-
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topiclink posting='$posting'><br>
+ <topiclink posting='$posting' title='$posting.TopicSubject'
+            comment='$posting.TopicBodyNormal'><br>
 </if>
 </element>
 
 <element name='further' params='posting,title'>
-<identify posting='$posting'>
-<p><image src='pics/further.gif'>&sp;
-<a href='$posting.DetailsHref'>$title</a>
+<image src='pics/further.gif'>&sp;
+<a href='$posting.GrpDetailsHref'>$=title</a>
 </element>
 
 <element name='further_url' params='posting,url'>
-<p><image src='pics/further-far.gif'>&sp;
-<a href='actions/link.php?msgid=$posting.MessageId&okdir=$#url' target=_blank
-   >Подробности на другом сайте</a>
+<image src='pics/further-far.gif'>&sp;
+<a href='actions/link.php?msgid=$posting.Id&okdir=$#url'>Подробности на другом
+                                                         сайте</a>
 </element>
 
 <element name='posting_general'>
-<identify posting='$posting'>
-<if what='$posting.isRebe'><span class='rebe'></if>
- <dl class='posting'>
-  <dt>
-   <topic posting='$posting' showtopic='$showtopic'>
-   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
-	       image='$$style_cframe_back_pic'>
-   <biff time='$posting.Sent'>
-   <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
-    <a class='subject' href='$posting.DetailsHref'>$posting.Subject</a>
-   <else>
-    <span class='subject'>$posting.Subject</span>
-   </if>
-   <ifne what='$posting.Author'>
-    <br><span class='posting-author'>$posting.Author</span>
-   </ifne>
-  </dt>
-  <dd><p>
-  <ifnzero what='$posting.ImageSet'>
-   <table align=left class='pic'>
-    <tr><td>
-     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
-    </td></tr>
-    <ifne what='$posting.Title'>
-     <tr><td>$posting.HTMLTitle</td></tr>
-    </ifne>
-   </table>
-  </ifnzero>
-  <if what='$shorten && !$posting.hasLargeBody'>
-   $posting.HTMLBodyMedium&nbsp;<asp>
-   <if what='!$posting.isBodyMedium'>
-    <further posting='$posting'
-             title!="!$$englishDomain ? 'Читать дальше' : 'Read more'">
-   </if>
+<dl class='posting'>
+ <dt>
+  <topic posting='$posting' showtopic='$showtopic'>
+  <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
+	      image='$$style_cframe_back_pic'>
+  <biff time='$posting.Modified'>
+  <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
+   <a class='posting-subject'
+      href='$posting.GrpDetailsHref'>$=posting.Subject</a>
   <else>
-   $posting.HTMLBody&nbsp;<asp>
+   <span class='posting-subject'>$=posting.Subject</span>
   </if>
-  <if what='$posting.hasLargeBody'>
-   <further posting='$posting'
-            title!="!$$englishDomain ? 'Читать статью' : 'Read article'">
-  </if>
-  <ifne what='$posting.URL'>
-   <further_url posting='$posting' url='$posting.URL'>
+  <ifne what='$posting.Author'>
+   <br><span class='posting-author'>$=posting.Author</span>
   </ifne>
-  </p>
-  <table width=90% style="clear: left"><tr>
-   <td align=left class='sent'>
-    <sentview date='$posting.Sent'>&nbsp;
-    <senderlink message='$posting'>
-   </td>
-   <ifne what='$posting.Source'>
-    <td class='posting-source'>
-     $posting.HTMLSource
-    </td>
+ </dt>
+ <dd><p>
+ <if what='$posting.hasSmallImage'>
+  <table align=left class='pic'>
+   <tr><td>
+    <posting_image posting='$posting'>
+   </td></tr>
+   <ifne what='$posting.Title'>
+    <tr><td>$posting.TitleHTML</td></tr>
    </ifne>
-  </tr></table>
-  <posting_controls posting='$posting' showdiscuss='$showdiscuss'
-                    showcomplain!="$showcomplain && !$$englishDomain">
- </dl>
-<if what='$posting.isRebe'></span></if>
+  </table>
+ </ifnzero>
+ <if what='$shorten && !$posting.hasLargeBody'>
+  $posting.BodyMediumHTML&nbsp;<asp>
+  <if what='!$posting.isBodyMedium'>
+   <further posting='$posting'
+	    title!="!$$englishDomain ? 'Читать дальше' : 'Read more'">
+  </if>
+ <else>
+  $posting.BodyHTML&nbsp;<asp>
+ </if>
+ <if what='$posting.hasLargeBody'>
+  <further posting='$posting'
+	   title!="!$$englishDomain ? 'Читать статью' : 'Read article'">
+ </if>
+ <ifne what='$posting.URL'>
+  <further_url posting='$posting' url='$posting.URL'>
+ </ifne>
+ </p>
+ <table width=90% style="clear: left"><tr>
+  <td align=left class='sent'>
+   <sentview date='$posting.Sent'>&nbsp;
+   <senderlink message='$posting'>
+  </td>
+  <ifne what='$posting.Source'>
+   <td class='posting-source'>$posting.SourceHTML</td>
+  </ifne>
+ </tr></table>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'
+		   showcomplain!="$showcomplain && !$$englishDomain">
+</dl>
 </element>

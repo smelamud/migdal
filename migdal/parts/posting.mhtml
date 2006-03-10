@@ -10,9 +10,8 @@
 </tr></table>
 </element>
 
-
 <element name='topiclink'>
-<at href='$posting.GrpGeneralHref' class='$class' title='$comment'>$title</at>
+<at href='$posting.GrpGeneralHref' class='$class' title='$=comment'>$=title</at>
 </element>
 
 <<remake>>
@@ -64,7 +63,7 @@
  <assign name='al' value#='align="$align"'>
 </ifne>
 <ifne what='$title'>
- <assign name='alt' value#='alt="$title" title="$title"'>
+ <assign name='alt' value#='alt="$=title" title="$=title"'>
 </ifne>
 <if what='$posting.hasLargeImage'>
  <a href='$posting.LargeImageURL' title='Нажмите, чтобы увеличить'

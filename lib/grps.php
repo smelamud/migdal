@@ -24,7 +24,7 @@ return round(log($grp)/M_LN2);
 
 function isGrpValid($grp)
 {
-return in_array($grp,grpArray(GRP_ALL));
+return !is_array($grp) && in_array($grp,grpArray(GRP_ALL));
 }
 
 // remake

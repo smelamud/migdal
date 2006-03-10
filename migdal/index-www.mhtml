@@ -67,8 +67,8 @@
        <<kaitana_announce>>
        <textears>
       </if>
-      <<postings grp='*GRP_TAPE' topic_id='$topic_id' limit=10 offset='$offset'
-                showshadows!='$topic_id>0'>>
+      <postings grp='*GRP_TAPE' topic_id='$topic_id' limit=10 offset='$offset'
+                showshadows!='$topic_id>0'>
      </td>
      <td width=130 class='nframe'>
       <tzdaka>
