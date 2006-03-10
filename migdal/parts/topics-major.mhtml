@@ -30,13 +30,17 @@
 <iterate_topic_cross topic_id='$`major`' topic_grp='*GRP_NEWS'
 		     peer_grp='*GRP_ALL'>
 <for>
+ << Брать CrossTopic.PeerPosting >>
  <posting_new name='post' grp='$.PeerGrp' topic_id='$.PeerId'
 	      topic_name='$.PeerName'>
- <identify posting='$post'>
  <topic_obj id='$.PeerId' fields='*SELECT_INFO'>
- <topics_line class='item ninept' time='$,LastMessage'
-	      href#='$post.GeneralHref' title='$,Description' text='$,Name'
-	      arrow!='$posting!=0 && $,Id==$posting.TopicId' span='$span'>
+ <zone>
+  <posting_info name='info' topic_id='$,Id'>
+ </zone>
+ <topics_line class='item ninept' time='$info.MaxSent'
+	      href#='$post.GrpGeneralHref' title='$,BodyNormal'
+	      text='$,Subject' arrow!='$posting!=0 && $,Id==$posting.TopicId'
+	      span='$span'>
 </for>
 </element>
 
@@ -44,7 +48,7 @@
 <topics_table title='Разделы' span=2>
  <navi_main ident='$ident' span=2>
  <navi_migdal posting='$posting' span=2>
- <topics_migdal posting='$posting'>
+ <<topics_migdal posting='$posting'>>
  <general posting='$posting' span=2>
  <topics_splitter>
  <navi_help ident='$ident' span=2>

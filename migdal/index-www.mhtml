@@ -45,8 +45,7 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
-    <<posting_new topic_id='$topic_id' grp='*GRP_NEWS'>
-    <topics posting='$,'>>
+    <topics_major ident=''>
     <ears>
     <if what='$topic_id<=0'>
      <p>&nbsp;</p>

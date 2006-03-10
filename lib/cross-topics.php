@@ -7,39 +7,39 @@ require_once('lib/postings.php');
 class CrossTopic
       extends DataObject
 {
-var $topic_id;
-var $topic_name;
-var $topic_grp;
+var $source_id;
+var $source_subject;
+var $source_grp;
 var $peer_id;
-var $peer_name;
+var $peer_subject;
 var $peer_grp;
 
 function CrossTopic($row)
 {
-$this->DataObject($row);
+parent::DataObject($row);
 }
 
 function getTopicId()
 {
-return $this->topic_id;
+return $this->source_id;
 }
 
 function getTopicName()
 {
-return $this->topic_name;
+return $this->source_subject;
 }
 
 function getTopicGrp()
 {
-return $this->topic_grp;
+return $this->source_grp;
 }
 
 function getTopicPosting()
 {
-$row=array('topic_id'   => $this->topic_id,
-           'topic_name' => $this->topic_name,
-	   'grp'        => $this->topic_grp);
-return newPosting($row);
+$row=array('parent_id'     => $this->source_id,
+           'topic_subject' => $this->source_subject,
+	   'grp'           => $this->source_grp);
+return new Posting($row);
 }
 
 function getPeerId()
@@ -49,7 +49,7 @@ return $this->peer_id;
 
 function getPeerName()
 {
-return $this->peer_name;
+return $this->peer_subject;
 }
 
 function getPeerGrp()
@@ -59,10 +59,10 @@ return $this->peer_grp;
 
 function getPeerPosting()
 {
-$row=array('topic_id'   => $this->peer_id,
-           'topic_name' => $this->peer_name,
-	   'grp'        => $this->peer_grp);
-return newPosting($row);
+$row=array('parent_id'     => $this->peer_id,
+           'topic_subject' => $this->peer_subject,
+	   'grp'           => $this->peer_grp);
+return new Posting($row);
 }
 
 }
@@ -74,16 +74,16 @@ class CrossTopicIterator
 function CrossTopicIterator($topic_id,$peer_grp=GRP_ALL,$topic_grp=GRP_ALL)
 {
 $grpFilter='';
-$grpFilter.=" and ".grpFilter($topic_grp,'topic_grp');
+$grpFilter.=" and ".grpFilter($topic_grp,'source_grp');
 $grpFilter.=" and ".grpFilter($peer_grp,'peer_grp');
 $this->SelectIterator('CrossTopic',
-                      "select topic_id,topic_grp,peer_id,name as peer_name,
-		              peer_grp
-		       from cross_topics
-		            left join topics
-			         on topics.id=cross_topics.peer_id
-		       where topic_id=$topic_id $grpFilter
-		       order by topics.name_sort");
+                      "select source_id,source_grp,peer_id,
+		              subject as peer_subject,peer_grp
+		       from cross_entries
+		            left join entries
+			         on entries.id=cross_entries.peer_id
+		       where source_id=$topic_id $grpFilter
+		       order by subject_sort");
 }
 
 }
