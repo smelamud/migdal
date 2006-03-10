@@ -326,7 +326,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/bottom.mhtml
 - migdal/parts/complain.mhtml
 - migdal/parts/discussions.mhtml
-* migdal/parts/ears.mhtml (нет альтернативного текста)
++ migdal/parts/ears.mhtml
 - migdal/parts/events.mhtml
 - migdal/parts/failpage.mhtml
 + migdal/parts/formutils.mhtml
@@ -373,7 +373,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/spin.mhtml
 + migdal/parts/subtitle.mhtml
 - migdal/parts/textears.mhtml
-- migdal/parts/tip.mhtml
++ migdal/parts/tip.mhtml
 - migdal/parts/tip-posting.mhtml
 - migdal/parts/today.mhtml
 - migdal/parts/top-404.mhtml
@@ -397,7 +397,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/topics-minor.mhtml
 - migdal/parts/topics-times.mhtml
 + migdal/parts/top.mhtml
-- migdal/parts/tzdaka.mhtml
++ migdal/parts/tzdaka.mhtml
 - migdal/parts/unititle.mhtml
 + migdal/parts/uploader.mhtml
 + migdal/parts/userinfo.mhtml
