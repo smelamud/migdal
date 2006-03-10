@@ -75,9 +75,9 @@
       <tip>
       <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'
 			showshadows!='$topic_id>0'>
-      <<if what='$topic_id<=0'>
+      <if what='$topic_id<=0'>
        <discussions limit=7>
-      </if>>
+      </if>
      </td>
     </tr></table>
    </td>

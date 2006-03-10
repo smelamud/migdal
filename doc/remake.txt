@@ -324,7 +324,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/book-ring-static.mhtml
 + migdal/parts/bottom.mhtml
 - migdal/parts/complain.mhtml
-- migdal/parts/discussions.mhtml
++ migdal/parts/discussions.mhtml
 + migdal/parts/ears.mhtml
 - migdal/parts/events.mhtml
 - migdal/parts/failpage.mhtml

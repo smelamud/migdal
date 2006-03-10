@@ -16,6 +16,21 @@ if(is_numeric("0$grp")) // Странный глюк...
 return $grpGroups[$grp];
 }
 
+function grpJoin($grp1,$grp2)
+{
+$grp=grpArray($grp1);
+$grp2=grpArray($grp2);
+foreach($grp2 as $g)
+       if(!in_array($g,$grp))
+         $grp[]=$g;
+return $grp;
+}
+
+function grpDiff($grp1,$grp2)
+{
+return array_diff(grpArray($grp1),grpArray($grp2));
+}
+
 // remake
 function getGrpOrder($grp)
 {
