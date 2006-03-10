@@ -10,6 +10,7 @@
 
 <log event=review text#='post($,Id)'>
 
+<html>
 <stylesheet ident='article'>
 <preamble>
 <body>

@@ -424,14 +424,6 @@
 </macro>
 
 << Subdomains >>
-<macro name='force_english'>
- <force_domain domain='english'>
-</macro>
-
-<macro name='force_www'>
- <force_domain domain='www'>
-</macro>
-
 <macro name='english'>
  <if what="$$userDomain=='english'">
 </macro>
@@ -448,7 +440,7 @@
 <endif name='/www'>
 
 <macro name='notwww'>
- <if what="$$userDomain=='notwww'">
+ <if what="$$userDomain!='www'">
 </macro>
 <endif name='/notwww'>
 

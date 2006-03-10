@@ -261,7 +261,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/help.mhtml
 - migdal/horisontedit.mhtml
 - migdal/index-english.mhtml
-- migdal/index.mhtml
 * migdal/index-www.mhtml
 - migdal/jcc.mhtml
 - migdal/journal.mhtml

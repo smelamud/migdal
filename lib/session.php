@@ -10,7 +10,6 @@ require_once('lib/utils.php');
 require_once('lib/sessions.php');
 require_once('lib/users.php');
 require_once('lib/sql.php');
-require_once('grp/subdomains.php');
 require_once('lib/ctypes.php');
 
 $userRights=array('AdminUsers'           => USR_ADMIN_USERS,
@@ -30,7 +29,7 @@ $userSetNames=array('MsgPortion', // obsolete
 		    'PictureColumnPortion',
 		    'BiffTime',
 		    'ReadKOI',
-		    'IndexPage',
+		    'IndexPage', // obsolete
 		    'ChatUsersRefresh',
 		    'UserPortion'); // obsolete
 $userSetDefaults=array('MsgPortion'           => 10, // obsolete
@@ -44,7 +43,7 @@ $userSetDefaults=array('MsgPortion'           => 10, // obsolete
 		       'PictureColumnPortion' => 5,
 		       'BiffTime'             => 24,
 		       'ReadKOI'              => 0,
-		       'IndexPage'            => 1,
+		       'IndexPage'            => 1, // obsolete
 		       'ChatUsersRefresh'     => 60,
 		       'UserPortion'          => 30); // obsolete
 $userSetParams=array('MsgPortion'           => 'mp', // obsolete
@@ -58,7 +57,7 @@ $userSetParams=array('MsgPortion'           => 'mp', // obsolete
 		     'PictureColumnPortion' => 'pcp',
 		     'BiffTime'             => 'bt',
 		     'ReadKOI'              => 'rk',
-		     'IndexPage'            => 'ip',
+		     'IndexPage'            => 'ip', // obsolete
 		     'ChatUsersRefresh'     => 'chur',
 		     'UserPortion'          => 'up'); // obsolete
 
@@ -204,35 +203,9 @@ if($globs!=$cookieSettings)
   SetCookie('settings',$globs,time()+3600*24*366,'/',$siteDomain);
 }
 
-function subDomain()
-{
-global $forceDomain,$siteDomain,$userDomain,$subdomains,$userIndexPage;
-
-if($_SERVER['SERVER_NAME']=='')
-  return;
-if(strlen($_SERVER['SERVER_NAME'])>strlen($siteDomain))
-  $currentDomain=substr(strtolower($_SERVER['SERVER_NAME']),0,
-                        strlen($_SERVER['SERVER_NAME'])-strlen($siteDomain)-1);
-else
-  $currentDomain=strtolower($_SERVER['SERVER_NAME']);
-if($forceDomain!='')
-  $userDomain=$forceDomain;
-else
-  if(in_array($currentDomain,$subdomains))
-    $userDomain=$currentDomain;
-  else
-    if(!empty($subdomains[$userIndexPage]))
-      $userDomain=$subdomains[$userIndexPage];
-    else
-      $userDomain=$subdomains[1];
-if($userDomain!=$currentDomain)
-  reload("http://$userDomain.$siteDomain{$_SERVER['REQUEST_URI']}");
-}
-
 function session($aUserId=-1)
 {
 userRights($aUserId);
 userSettings();
-subDomain();
 }
 ?>

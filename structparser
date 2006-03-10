@@ -73,13 +73,21 @@ my ($item)=@_;
 
 for my $var(keys %$item)
    {
-   next unless $var=~/^cond:(\w+)$/;
-   my ($table,$value)=($1,$$item{$var});
-   $value="\".idByIdent(\"$value\").\"" unless $value=~/\|/;
-   $value="\".idOrCatalog(\"$1\",\"$2\").\"" if $value=~/^(.*)\|(.*)$/;
-   $$item{'_cond'}='' unless exists($$item{'_cond'});
-   $table=uc $table;
-   $$item{'_cond'}.=" && entryExists(ENT_$table,\"$value\")";
+   if($var=~/^cond:(\w+)$/)
+     {
+     my ($table,$value)=($1,$$item{$var});
+     $value="\".idByIdent(\"$value\").\"" unless $value=~/\|/;
+     $value="\".idOrCatalog(\"$1\",\"$2\").\"" if $value=~/^(.*)\|(.*)$/;
+     $$item{'_cond'}='' unless exists($$item{'_cond'});
+     $table=uc $table;
+     $$item{'_cond'}.=" && entryExists(ENT_$table,\"$value\")";
+     }
+   elsif($var eq 'domain')
+     {
+     $$item{'_cond'}='' unless exists($$item{'_cond'});
+     my $value=$$item{$var};
+     $$item{'_cond'}.=" && \$userDomain=='$value'";
+     }
    }
 }
 
@@ -205,11 +213,8 @@ return unless exists($$item{'path'});
 $path=$$item{'path'};
 $path.='/' if substr($path,$#path) ne '/';
 $$item{'path'}=$path;
-if($path=~/{/)
-  {
-  processPathPattern($item);
-  processConds($item);
-  }
+processPathPattern($item) if $path=~/{/;
+processConds($item);
 processArgs($item);
 processTitle($item) if exists($$item{'title'});
 push @Structure,$item;
@@ -260,6 +265,8 @@ print OUT <<EOF;
 <?php
 function &getLocationInfo(\$path,\$redirid=0)
 {
+global \$userDomain;
+
 \$info=new LocationInfo();
 \$info->setPath(\$path);
 if(substr(\$path,-5)=='.html')

@@ -1,5 +1,0 @@
-<< @(#) $Id$ >>
-
-<html>
- <include name#='index-$${userDomain}.php'>
-</html>

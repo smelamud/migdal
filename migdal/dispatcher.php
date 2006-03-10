@@ -1,10 +1,39 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/structure.php');
 require_once('lib/post.php');
 require_once('lib/database.php');
 require_once('lib/redirs.php');
+
+require_once('grp/subdomains.php');
+
+function &dispatchSubDomain($requestURI)
+{
+global $siteDomain,$userDomain,$subdomains;
+
+if($_SERVER['SERVER_NAME']=='')
+  return;
+if(strlen($_SERVER['SERVER_NAME'])>strlen($siteDomain))
+  $currentDomain=substr(strtolower($_SERVER['SERVER_NAME']),0,
+                        strlen($_SERVER['SERVER_NAME'])-strlen($siteDomain)-1);
+else
+  $currentDomain=strtolower($_SERVER['SERVER_NAME']);
+if(in_array($currentDomain,$subdomains))
+  $userDomain=$currentDomain;
+else
+  $userDomain=$subdomains[1];
+if($userDomain!=$currentDomain)
+  {
+  $info=new LocationInfo();
+  $info->setPath("http://$userDomain.$siteDomain{$_SERVER['REQUEST_URI']}");
+  return $info;
+  }
+else
+  return null;
+}
 
 function &dispatch404($requestPath)
 {
@@ -67,6 +96,9 @@ return $info;
 
 function &dispatch()
 {
+$info=dispatchSubDomain($_SERVER['REQUEST_URI']);
+if(!is_null($info))
+  return $info;
 $parts=parse_url($_SERVER['REQUEST_URI']);
 $requestPath=$parts['path'];
 if($requestPath=='/dispatcher.php')
