@@ -43,15 +43,15 @@
 
 <element name='postings'>
 <if what='$topic_id>0'>
- <perms table='topics' id='$topic_id'>
+ <perms id='$topic_id'>
  <assign name='access' value='$,isPostable'>
 <else>
  <assign name='access' value!='$$userId>0'>
 </if>
 <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
-                     offset='$offset' sort='$sort' subdomain='$subdomain'
-		     user='$user_id' showshadows='$showshadows'
-		     recursive='$recursive' fields='*SELECT_TOPICS'>
+                     offset='$offset' sort='$sort' user='$user_id'
+		     showshadows='$showshadows' recursive='$recursive'
+		     fields='*SELECT_TOPICS'>
 <if what='$access || $showadvert || $;Count!=0'>
  <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'
           access='$access'>

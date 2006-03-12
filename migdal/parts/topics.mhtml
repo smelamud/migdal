@@ -5,7 +5,8 @@
  <ifbiff time='$time'>
   <image src='$$style_topics_ner_arrow'>
  <else>
-  <image src='$$style_topics_arrow'>
+  &#x25ba;<< &#x25b6; >>
+  <<image src='$$style_topics_arrow'>>
  </ifbiff>
 <else>
  <ifbiff time='$time'>
@@ -14,7 +15,8 @@
   <if what='$nobullet'>
    &nbsp;
   <else>
-   <image src='pics/bullet.gif'>
+   &#x2022;
+   <<image src='pics/bullet.gif'>>
   </if>
  </ifbiff>
 </if>
@@ -113,4 +115,9 @@
  <td width=20><image src='pics/up-level.gif'></td>
  <td><a href='$href' class='ninept'>$title</a></td>
 </tr></table>
+</element>
+
+<element name='topics'>
+<require_once name='$$menufile'>
+<exec element='$$menuelement' arg1='$$menuindex'>
 </element>

@@ -24,8 +24,8 @@ OBJECTS = article.php backtrace.php bannerbank.php banners.php blog.php \
 	  topics-gallery-migdal.php topics-general.php topics-home.php \
 	  topics-kaitana.php topics-links.php topics-major.php \
 	  topics-migdal.php topics-migdal-english.php topics-minor.php \
-	  topics-times.php topicselect.php tzdaka.php unititle.php \
-	  uploader.php userinfo.php utils.php vote.php xml-text.php
+	  topics-times.php topicselect.php tzdaka.php uploader.php \
+	  userinfo.php utils.php vote.php xml-text.php
 	  
 %.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@

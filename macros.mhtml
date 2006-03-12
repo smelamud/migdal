@@ -235,7 +235,7 @@
 <decexec macro='outer' func='beginOuter' file='lib/inner.php'>
 <decexec macro='/outer' func='endOuter' file='lib/inner.php'>
 <deccall macro='perms' func='getPermsById' file='lib/permissions.php'
-         params='table,id'>
+         params='id'>
 <deccall macro='plural' func='getPlural' file='lib/text.php'
          params='value,words' defaults="words='$*'">
 <deccall macro='posting_domains' func='getPostingDomainCount'
@@ -318,7 +318,12 @@
  ?>
 </macro>
 
-<macro name='posting_new'>
+<macro name='posting_catalog' defaults='start=0 length=0'>
+ <call name='%name' object='%entry' func='getCatalog' arg1='%start'
+       arg2='%length'>
+</macro>
+
+<macro name='posting_new' defaults="name=''">
  <require name='lib/postings.php'>
  <hash>
   <mapping key='grp' value='%grp'>

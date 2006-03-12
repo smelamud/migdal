@@ -13,18 +13,10 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <notprint>
-    <if what='$,Grp!=*GRP_LINKS'>
-     <td width=150 class='eframe'>
-      <<topics posting='$,'>
-      <ears>>
-     </td>
-    <else>
-     <td width=150 class='nframe'>
-      <topics_links posting='$,'>
-     </td>
-    </tr>
-    <tr valign=top>
-    </if>
+    <td width=150 class='eframe'>
+     <<topics posting='$,'>>
+     <ears>
+    </td>
    </notprint>
    <td class='cframe'>
     <posting posting='$posting' showdiscuss='*true' showcomplain='*true'>

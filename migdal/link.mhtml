@@ -1,0 +1,24 @@
+<< @(#) $Id$ >>
+
+<int name='postid'>
+<grps>
+<posting_obj name='posting' id='$postid' grp='*GRP_FORUMS'>
+<log event=posting text#='post($,Id)'>
+
+<html>
+<preamble>
+<body>
+ <top ident='$,GrpMenuIndex'>
+ <table width=100% cellpadding=5>
+  <notprint>
+   <tr valign=top><td width=150 class='nframe'>
+    <topics_links posting='$,'>
+   </td></tr>
+  </notprint>
+  <tr valign=top><td class='cframe'>
+   <posting_link posting='$posting'>
+  </td></tr>
+ </table>
+ <bottom>
+</body>
+</html>

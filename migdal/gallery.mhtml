@@ -45,7 +45,7 @@
  <log event=gallery text#='topic($,) offset=$offset'>
 </zone>
 <if what='$user_id<=0'>
- <unititle chapter='Галерея' topic_id='$topic_id'>
+ <<unititle chapter='Галерея' topic_id='$topic_id'>> << FIXME deprecated >>
  <if what='$topic_id<=0'>
   <topictitle title='Галерея'>
  </if>

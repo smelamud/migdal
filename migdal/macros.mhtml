@@ -212,11 +212,10 @@
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
 <decel name='postings' file='parts/postings.php'
-       params='grp,topic_id,limit,offset,subdomain,user_id,showadvert,
-               showshadows,sort,recursive'
-       defaults="topic_id=-1 limit=10 offset=0 subdomain=-1 user_id=0
-                 showadvert='*true' showshadows='*true' sort='*SORT_PSENT'
-		 recursive='*false'">
+       params='grp,topic_id,limit,offset,user_id,showadvert,showshadows,sort,
+               recursive'
+       defaults="topic_id=-1 limit=10 offset=0 user_id=0 showadvert='*true'
+                 showshadows='*true' sort='*SORT_PSENT' recursive='*false'">
 <decel name='postings_links' file='parts/postings-links.php'
        params='topic_id,limit,offset'
        defaults="topic_id=-1 limit=10 offset=0">
@@ -261,8 +260,7 @@
        params='&posting,title,comment,class' defaults="class='posting-topic'">
 <decel name='topiclink_gallery' file='parts/posting.php' params='&posting,class'
        defaults="class='topic'">
-<decel name='topics' file='parts/topics-general.php' params='posting,ident'
-       defaults="posting=0 ident=''">
+<decel name='topics' file='parts/topics.php'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
 <decel name='topics_choir' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_common_events' file='parts/topics-events.php'
@@ -301,8 +299,7 @@
                  class='item' indent=0 span=1 rating='' nobullet='*false'"
        file='parts/topics.php'>
 <decel name='topics_links' params='posting' file='parts/topics-links.php'>
-<decel name='topics_major' file='parts/topics-major.php' params='ident,posting'
-       defaults="posting=0">
+<decel name='topics_major' file='parts/topics-major.php' params='index'>
 <decel name='topics_mazltov' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_methodics' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_migdal' file='parts/topics-migdal.php' params='posting'>
@@ -340,8 +337,6 @@
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
 <decel name='tzdaka' file='parts/tzdaka.php'>
-<decel name='unititle' file='parts/unititle.php' params='chapter,topic_id'
-       defaults="chapter='' topic_id='-1'">
 <decel name='uploader' file='parts/uploader.php'
        params='name,loaded,delname,plainid' defaults="plainid=0">
 <decel name='upload_format' file='parts/uploader.php'

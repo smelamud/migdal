@@ -1,26 +1,25 @@
 << @(#) $Id$ >>
 
-<element name='navi_main' params='ident,span' defaults='span=1'>
-<topics_line href='index.php' title='На главную страницу'
-	     text='Главная' arrow!="$ident=='index'" span='$span'>
+<element name='navi_main' params='index,span' defaults='span=1'>
+<topics_line href='/' title='На главную страницу' text='Главная'
+             arrow!="$index=='index'" span='$span'>
 </element>
 
-<element name='navi_migdal' params='posting,span' defaults='span=1'>
+<element name='navi_migdal' params='index,span' defaults='span=1'>
 <topics_line href='migdal.php' text='Мигдаль'
-             arrow!="$posting!=0 && $posting.Id==$`postings:migdal`"
-	     span='$span' class='item'>
+             arrow!="$index==$`migdal`" span='$span' class='item'>
 </element>
 
-<element name='navi_help' params='ident,span' defaults='span=1'>
+<element name='navi_help' params='index,span' defaults='span=1'>
 <topic_obj name='tips' id='$`tips`'>
 
 <posting_last topic_id='$`tips`' recursive='*false'>
 <topics_line time='$,' href='tips.php' title='Помощь по работе с сайтом'
-	     text='Справка' arrow!="$ident=='help'"
-	     class='item ninept' span='$span'>
+	     text='Справка' arrow!="$index=='help'" class='item ninept'
+	     span='$span'>
 </element>
 
-<element name='general' params='posting,span' defaults='span=1'>
+<element name='general' params='index,span' defaults='span=1'>
 <admin_topics>
  <tr><td colspan=3 class='eightpt'>
   <a href='topiclinks.php?topic_id=$`major`&topic_grp=*GRP_NEWS&peer_grp=*GRP_NEWS&redirid=$_'>
@@ -30,29 +29,30 @@
 <iterate_topic_cross topic_id='$`major`' topic_grp='*GRP_NEWS'
 		     peer_grp='*GRP_ALL'>
 <for>
- << Брать CrossTopic.PeerPosting >>
- <posting_new name='post' grp='$.PeerGrp' topic_id='$.PeerId'
-	      topic_name='$.PeerName'>
- <topic_obj id='$.PeerId' fields='*SELECT_INFO'>
- <zone>
-  <posting_info name='info' topic_id='$,Id'>
- </zone>
- <topics_line class='item ninept' time='$info.MaxSent'
-	      href#='$post.GrpGeneralHref' title='$,BodyNormal'
-	      text='$,Subject' arrow!='$posting!=0 && $,Id==$posting.TopicId'
-	      span='$span'>
+ <topic_obj name='topic' id='$.PeerId' fields='*SELECT_INFO'>
+ <assign name='info' value='$,PostingsInfo'>
+ <if what='$/$topic.Id,0/==$`general`'>
+  <zone>
+   <posting_catalog name='catalog' entry='$,' start=1>
+  </zone>
+ <else>
+  <assign name='catalog' value='$,Catalog'>
+ </if>
+ <topics_line class='item ninept' time='$info.MaxSent' href='$catalog'
+              title='$,BodyNormal' text='$,Subject' span='$span'
+	      arrow!='$,Id==$index'>
 </for>
 </element>
 
 <element name='topics_major'>
 <topics_table title='Разделы' span=2>
- <navi_main ident='$ident' span=2>
- <navi_migdal posting='$posting' span=2>
+ <navi_main index='$index' span=2>
+ <navi_migdal index='$index' span=2>
  <<topics_migdal posting='$posting'>>
- <general posting='$posting' span=2>
+ <general index='$index' span=2>
  <topics_splitter>
- <navi_help ident='$ident' span=2>
- <topics_line href='archive.php' text='Архив' arrow!="$ident=='archive'"
+ <navi_help index='$index' span=2>
+ <topics_line href='archive.php' text='Архив' arrow!="$index=='archive'"
               class='item eightpt' span=2>
 </topics_table>
 </element>

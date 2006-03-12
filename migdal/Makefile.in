@@ -12,7 +12,7 @@ OBJECTS = 404.php 500.php archive.php article.php article-times.php book.php \
 	  gallery.php groupadd.php grouporg.php halom.php halom-main.php \
 	  help.php horisontedit.php index-english.php index-www.php jcc.php \
 	  journal.php kaitana.php kaitana-main.php limedit.php liminsert.php \
-	  links.php methodic-center.php methodics.php migdal.php \
+	  link.php links.php methodic-center.php methodics.php migdal.php \
 	  migdal-library.php migdal-library-news.php migdal-news.php \
 	  modbits.php moderator.php posting.php postingedit.php postingorg.php \
 	  printings.php rating.php register.php reorder.php search.php \
