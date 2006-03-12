@@ -1,12 +1,14 @@
 ! @(#) $Id$
 
 .topics {
-	margin-top: 10px;
-	border-spacing: 0;
-	border-collapse: collapse;
+	margin-top: 0;
+	margin-left: 0;
+	padding-left: 1em;
+	text-indent: -1em;
+	list-style-type: none;
 }
 
-.topics TH {
+.topics-head {
 	color: %topics_title;
 	border-bottom: solid 1px %topics_title;
 	text-align: left;

@@ -24,29 +24,27 @@
 
 <element name='topics_line'>
 <if what='$arrow'>
- <tr class='arrow' valign='top'>
+ <li class='arrow'>
 <else>
- <tr valign='top'>
+ <li>
 </if>
  <if what='$indent>0'>
   <tdspan span='$indent'>&nbsp;</tdspan>
  </if>
  <if what='$indent>=0'>
-  <td width='$$style_topics_arrow_width'>
+  <<td width='$$style_topics_arrow_width'>
    <topics_ner time='$time' arrow='$arrow' nobullet='$nobullet'>
-  </td>
+  </td>>&#x2022;&nbsp;
  </if>
- <tdspan span='$span'>
-  <ifne what='$title'>
-   <a href='$href' title='$title' class='$class'><asp>
-  <else>
-   <a href='$href' class='$class'><asp>
-  </ifne>
-  <asp>$text<asp>
-  <ifne what='$count'>&nbsp;<span class='answers'>($count)</span></ifne></a>
-  <ifne what='$rating'><br><rating value='$rating'></ifne>
- </tdspan>
-</tr>
+ <ifne what='$title'>
+  <a href='$href' title='$title' class='$class'><asp>
+ <else>
+  <a href='$href' class='$class'><asp>
+ </ifne>
+ <asp>$text<asp>
+ <ifne what='$count'>&nbsp;<span class='answers'>($count)</span></ifne></a>
+ <ifne what='$rating'><br><rating value='$rating'></ifne>
+</li>
 </element>
 
 <element name='topics_section'>
@@ -86,25 +84,22 @@
 
 <element name='topics_table'>
 <ifne what='$class'>
- <assign name='tableclass' value#='topics $class'>
+ <assign name='listclass' value#='topics $class'>
 <else>
- <assign name='tableclass' value='topics'>
+ <assign name='listclass' value='topics'>
+</ifne>
+<ifne what='$title'>
+ <div class='topics-head' style='width: 100%'>$title</div><br>
 </ifne>
 <if what='$nomargin'>
- <table class='$tableclass' width=100% style='margin-top: 0'>
+ <ul class='$listclass' style='margin-top: 0'>
 <else>
- <table class='$tableclass' width=100%>
+ <ul class='$listclass'>
 </if>
- <ifne what='$title'>
-  <assign name='headspan' value!='$span+1'>
-  <tr><th colspan=$headspan>$title</th></tr>
- </ifne>
- <tbody class='names'>
 </element>
 
 <element name='topics_table_end'>
- </tbody>
-</table>
+</ul>
 </element>
 
 <element name='upper_level'>
