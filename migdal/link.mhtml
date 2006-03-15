@@ -8,7 +8,7 @@
 <html>
 <preamble>
 <body>
- <top ident='$,GrpMenuIndex'>
+ <top ident='links'>
  <table width=100% cellpadding=5>
   <notprint>
    <tr valign=top><td width=150 class='nframe'>

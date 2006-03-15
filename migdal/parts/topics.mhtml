@@ -116,6 +116,6 @@
 </element>
 
 <element name='topics'>
-<require_once name='$$menufile'>
-<exec element='$$menuelement' arg1='$$menuindex'>
+<require_once name='$$menu_file'>
+<exec element='$$menu_element' arg1='$$menu_index'>
 </element>

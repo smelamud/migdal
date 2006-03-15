@@ -6,7 +6,7 @@ require_once('lib/post.php');
 require_once('lib/catalog.php');
 require_once('lib/users.php');
 
-function oldRedirectLinks($args)
+function trapLinks($args)
 {
 $id=postProcessInteger($args['topic_id']);
 if($id<=0)
@@ -16,17 +16,17 @@ else
                        array('topic_id'));
 }
 
-function oldRedirectRegister($args)
+function trapRegister($args)
 {
 return remakeMakeURI('/register/',$args);
 }
 
-function oldRedirectUrls($args)
+function trapUrls($args)
 {
 return remakeMakeURI('/links/urls/',$args,array('offset'));
 }
 
-function oldRedirectUserinfo($args)
+function trapUserinfo($args)
 {
 $id=postProcessInteger($args['id']);
 $user=getUserById($id);
@@ -36,7 +36,7 @@ else
   return '';
 }
 
-function oldRedirectUsers($args)
+function trapUsers($args)
 {
 return remakeMakeURI('/users/',$args,array('offset'));
 }

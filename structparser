@@ -226,14 +226,17 @@ my $item={};
 while(<>)
      {
      s/#.*$//;
-     unless(/^\s*([\w.:]+)\s*=\s*(.*)$/)
+     unless(/^\s*([\w.:]+)\s*=(.*)$/)
            {
 	   addItem($item);
 	   $item={};
 	   }
      else
            {
-           $$item{$1}=$2;
+	   my ($name,$value)=($1,$2);
+	   $value=~s/^\s*//;
+	   $value=~s/\s*$//;
+           $$item{$name}=$value;
 	   }
      }
 addItem($item);

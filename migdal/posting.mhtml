@@ -9,7 +9,7 @@
 <html>
 <preamble>
 <body>
- <top ident='$,GrpMenuIndex'>
+ <top ident='$$menu_main'>
  <table width=100% cellpadding=5>
   <tr valign=top>
    <notprint>

@@ -47,10 +47,10 @@ function &dispatchScript($requestPath,$parts)
 {
 $info=new LocationInfo();
 $scriptName=substr($requestPath,1);
-$oldRedirectFunc='oldRedirect'.ucfirst(substr($scriptName,0,-4));
-if(function_exists($oldRedirectFunc))
+$trapFunc='trap'.ucfirst(substr($scriptName,0,-4));
+if(function_exists($trapFunc))
   {
-  $path=$oldRedirectFunc(parseQuery($parts['query']));
+  $path=$trapFunc(parseQuery($parts['query']));
   if($path!='')
     {
     $info->setPath($path);
