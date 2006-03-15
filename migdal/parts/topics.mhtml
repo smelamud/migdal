@@ -5,8 +5,7 @@
  <ifbiff time='$time'>
   <image src='$$style_topics_ner_arrow'>
  <else>
-  &#x25ba;<< &#x25b6; >>
-  <<image src='$$style_topics_arrow'>>
+  <image src='$$style_topics_arrow'>
  </ifbiff>
 <else>
  <ifbiff time='$time'>
@@ -15,8 +14,7 @@
   <if what='$nobullet'>
    &nbsp;
   <else>
-   &#x2022;
-   <<image src='pics/bullet.gif'>>
+   <image src='pics/bullet.gif'>
   </if>
  </ifbiff>
 </if>
@@ -24,7 +22,7 @@
 
 <element name='topics_line'>
 <if what='$arrow'>
- <tr class='arrow' valign='top'>
+ <tr class='topics-arrow' valign='top'>
 <else>
  <tr valign='top'>
 </if>
@@ -43,7 +41,9 @@
    <a href='$href' class='$class'><asp>
   </ifne>
   <asp>$text<asp>
-  <ifne what='$count'>&nbsp;<span class='answers'>($count)</span></ifne></a>
+  <ifne what='$count'>
+   <asp>&nbsp;<span class='topics-answers'>($count)</span><asp>
+  </ifne></a>
   <ifne what='$rating'><br><rating value='$rating'></ifne>
  </tdspan>
 </tr>
@@ -97,13 +97,11 @@
 </if>
  <ifne what='$title'>
   <assign name='headspan' value!='$span+1'>
-  <tr><th colspan=$headspan>$title</th></tr>
+  <tr><th class='topics-header' colspan=$headspan>$title</th></tr>
  </ifne>
- <tbody class='names'>
 </element>
 
 <element name='topics_table_end'>
- </tbody>
 </table>
 </element>
 

@@ -60,7 +60,7 @@ function StyleNamesIterator()
 {
 global $styleNames;
 
-$this->ArrayIterator($styleNames);
+parent::ArrayIterator($styleNames);
 }
 
 }

@@ -93,15 +93,15 @@
 
 <element name='navigator' params='topic_id'>
 <table cellspacing=5><tr valign=top>
- <td><table class='topics' style='margin: 0'><tbody class='names'>
+ <td><table class='topics' style='margin: 0'>
   <assign name='up' value!='$topic_id<=0 ? $`links` : $topic_id'>
   <iterate_sortedtopicnames grp='*GRP_LINKS' up='$up' name_root='$up'>
   <iterate_fixed_rows rows=4 mincols=3>
   <for>
    <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
    <tr><td>
-    <a href='$.Catalog' class='item'>
-     $=.Subject&nbsp;<span class='answers'>($,Total)</span><asp>
+    <a href='$.Catalog' class='topics-item'>
+     $=.Subject&nbsp;<span class='topics-answers'>($,Total)</span><asp>
     <asp></a><asp>
     <biff time='$,MaxSent' small='*true'>
     <topic_count id='$.Id' recursive='*true'>
@@ -115,12 +115,12 @@
     </ifnzero>
    </td></tr>
    <if what='$;isEol'>
-    </tbody></table></td>
+    </table></td>
     <td>&nbsp;</td>
-    <td><table class='topics' style='margin: 0'><tbody class='names'>
+    <td><table class='topics' style='margin: 0'>
    </if>
   </for>
- </tbody></table></td>
+ </table></td>
 </tr></table>
 </element>
 

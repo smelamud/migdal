@@ -6,7 +6,7 @@
 	border-collapse: collapse;
 }
 
-.topics TH {
+.topics-header {
 	color: %topics_title;
 	border-bottom: solid 1px %topics_title;
 	text-align: left;
@@ -19,47 +19,43 @@
 	padding-bottom: 2px;
 }
 
-.topics .arrow * {
+.topics-arrow * {
 	font-weight: bold;
 }
 
-.topics A.edit {
+.topics A.edit { !FIXME remake
 	color: %topics_controls;
 	font-size: 8pt;
 }
 
-.topics A.edit:hover {
+.topics A.edit:hover { !FIXME remake
 	color: %topics_controls_hover;
 }
 
-.topics .names {
-	vertical-align: middle;
-}
-
-.topics .names A.item {
+A.topics-item {
 	color: %topics_names;
 	text-decoration: none;
 }
 
-.topics .names A.item:hover {
+A.topics-item:hover {
 	color: %topics_names_hover;
 	text-decoration: underline;
 }
 
-.topics .names A.new {
+.topics A.new { !FIXME remake
 	color: %topics_new;
 	font-style: italic;
 }
 
-.topics .names A.new:hover {
+.topics A.new:hover { !FIXME remake
 	color: %topics_names_hover;
 }
 
-.topics A .answers {
+.topics-answers {
 	color: %topics_answers;
 }
 
-.topics A:hover .answers {
+A.topics-item:hover > .topics-answers {
 	color: %topics_names_hover;
 }
 
@@ -67,11 +63,11 @@
 	font-size: 7pt;
 }
 
-.topics .comment {
+.topics .comment { !FIXME remake
 	color: %topics_comment;
 }
 
-.topics .topicsect {
+.topics-section {
 	color: %topics_section;
 	font-weight: bold;
 	font-size: 8pt;

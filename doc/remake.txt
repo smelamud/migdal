@@ -189,7 +189,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/stat.php
 - lib/stotext-images.php
 - lib/stotext.php
-- lib/style.php
++ lib/style.php
 + lib/text.php
 + lib/tmptexts.php
 + lib/topics.php
@@ -389,7 +389,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/topics-kaitana.mhtml
 + migdal/parts/topics-links.mhtml
 * migdal/parts/topics-major.mhtml
-* migdal/parts/topics.mhtml
++ migdal/parts/topics.mhtml
 - migdal/parts/topics-migdal-english.mhtml
 - migdal/parts/topics-migdal.mhtml
 - migdal/parts/topics-minor.mhtml

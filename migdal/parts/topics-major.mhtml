@@ -7,7 +7,7 @@
 
 <element name='navi_migdal' params='index,span' defaults='span=1'>
 <topics_line href='migdal.php' text='Мигдаль'
-             arrow!="$index==$`migdal`" span='$span' class='item'>
+             arrow!="$index==$`migdal`" span='$span'>
 </element>
 
 <element name='navi_help' params='index,span' defaults='span=1'>
@@ -15,7 +15,7 @@
 
 <posting_last topic_id='$`tips`' recursive='*false'>
 <topics_line time='$,' href='tips.php' title='Помощь по работе с сайтом'
-	     text='Справка' arrow!="$index=='help'" class='item ninept'
+	     text='Справка' arrow!="$index=='help'" class='topics-item ninept'
 	     span='$span'>
 </element>
 
@@ -38,10 +38,15 @@
  <else>
   <assign name='catalog' value='$,Catalog'>
  </if>
- <topics_line class='item ninept' time='$info.MaxSent' href='$catalog'
+ <topics_line class='topics-item ninept' time='$info.MaxSent' href='$catalog'
               title='$,BodyNormal' text='$,Subject' span='$span'
 	      arrow!='$,Id==$index'>
 </for>
+</element>
+
+<element name='navi_archive' params='index,span' defaults='span=1'>
+ <topics_line href='archive.php' text='Архив' arrow!="$index=='archive'"
+              class='topics-item eightpt' span='$span'>
 </element>
 
 <element name='topics_major'>
@@ -52,7 +57,6 @@
  <general index='$index' span=2>
  <topics_splitter>
  <navi_help index='$index' span=2>
- <topics_line href='archive.php' text='Архив' arrow!="$index=='archive'"
-              class='item eightpt' span=2>
+ <navi_archive index='$index' span=2>
 </topics_table>
 </element>

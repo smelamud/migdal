@@ -316,7 +316,7 @@
 <decel name='topics_museum' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_section' file='parts/topics.php'
        params='class,indent,span,title'
-       defaults="class='topicsect' indent=0 span=1">
+       defaults="class='topics-section' indent=0 span=1">
 <decel name='topics_splitter' file='parts/topics.php'
        params='class,indent,span' defaults="class='ninept' indent=0 span=1">
 <decel name='topics_static' file='parts/topics.php'
