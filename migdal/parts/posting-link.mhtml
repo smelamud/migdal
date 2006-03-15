@@ -8,8 +8,7 @@
   <if what='!$;isFirst'><assign name='title' value#='$title / '></if>
   <assign name='title' value#='$title$.Subject'>
  </for>
- <topiclink posting='$posting' title='$title'
-            comment='$posting.TopicBodyNormal'>
+ <topiclink posting='$posting' title='$title'>
  <br>
 </if>
 </element>

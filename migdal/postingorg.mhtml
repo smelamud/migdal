@@ -58,8 +58,7 @@
  <table class='posting' width=100%>
   <tr><td>
    <iterate_topic_hierarchy topic_id='$posting.TopicId'>
-   <a href='$[topic_id=$posting.TopicId]' title='$=posting.TopicBodyNormal'
-      class='posting-topic'><asp>
+   <a href='$[topic_id=$posting.TopicId]' class='posting-topic'><asp>
     <for>
      <if what='!$;isFirst'>&sp;::&sp;</if>
      $=.Subject
@@ -138,8 +137,7 @@
  <top ident='index'>
  <iterate_postinglist limit=20 offset='$offset' topic_id='$topic_id'
                       recursive='$recursive' showshadows='$shadows' grp='$grp'
-		      index1!='$use_index1 ? $index1 : -1'
-		      fields='*SELECT_TOPICS'>
+		      index1!='$use_index1 ? $index1 : -1'>
  <table width="100%" cellpadding="5">
   <tr valign=top>
    <td width=150 class='eframe'>

@@ -3,7 +3,7 @@
 <int name='postid'>
 <grps>
 <posting_obj name='posting' id='$postid' grp='*GRP_FORUMS'
-             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY|*SELECT_TOPICS'>
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <log event=posting text#='post($,Id)'>
 
 <html>

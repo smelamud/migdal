@@ -2,8 +2,8 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topiclink posting='$posting' title='$posting.TopicSubject'
-            comment='$posting.TopicBodyNormal'><br>
+ <topic_obj id='$posting.TopicId'>
+ <topiclink posting='$posting' title='$,Subject' comment='$,BodyNormal'><br>
 </if>
 </element>
 

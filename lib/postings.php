@@ -28,11 +28,6 @@ require_once('lib/uri.php');
 class Posting
       extends GrpEntry
 {
-var $topic_ident;
-var $topic_subject;
-var $topic_body;
-var $topic_body_xml;
-var $topic_body_format;
 var $counter_value0;
 var $counter_value1;
 var $co_ctr;
@@ -144,47 +139,6 @@ function getTopicId()
 return $this->getParentId();
 }
 
-function getTopicIdent()
-{
-return $this->topic_ident;
-}
-
-function getTopicSubject()
-{
-return $this->topic_subject;
-}
-
-function getTopicName()
-{
-return $this->getTopicSubject();
-}
-
-function getTopicBody()
-{
-return $this->topic_body;
-}
-
-function getTopicBodyXML()
-{
-return $this->topic_body_xml;
-}
-
-function getTopicBodyHTML()
-{
-return mtextToHTML($this->getTopicBodyXML(),$this->getTopicBodyFormat(),
-                   $this->getTopicId());
-}
-
-function getTopicBodyNormal()
-{
-return shortenNote($this->topic_body_xml,65535,0,0);
-}
-
-function getTopicBodyFormat()
-{
-return $this->topic_body_format;
-}
-
 function getCounterValue0()
 {
 return $this->counter_value0;
@@ -278,11 +232,6 @@ $Fields='entries.id as id,entries.ident as ident,entries.up as up,
 if(($fields & SELECT_LARGE_BODY)!=0)
   $Fields.=',entries.large_body as large_body,
             entries.large_body_xml as large_body_xml';
-if(($fields & SELECT_TOPICS)!=0)
-  $Fields.=',topics.subject as topic_subject,topics.body as topic_body,
-            topics.body_xml as topic_body_xml,
-	    topics.body_format as topic_body_format,
-	    topics.ident as topic_ident';
 if(($fields & SELECT_CTR)!=0)
   $Fields.=',counter0.value as counter_value0,
 	    counter1.value as counter_value1,
@@ -325,9 +274,6 @@ function postingListTables($fields=SELECT_GENERAL)
 $Tables='entries
          left join users
 	      on entries.user_id=users.id';
-if(($fields & SELECT_TOPICS)!=0)
-  $Tables.=' left join entries as topics
-		  on entries.parent_id=topics.id';
 if(($fields & SELECT_CTR)!=0)
   $Tables.=' left join counters as counter0
 	          on entries.orig_id=counter0.entry_id and counter0.serial=1

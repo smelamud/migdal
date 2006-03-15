@@ -21,7 +21,7 @@
                      topic_id!='$topic_id>0 ? $topic_id : $`links`'
                      recursive!='$topic_id<=0' limit='$limit' offset='$offset'
 		     sort!='$topic_id>0 ? *SORT_RATING : *SORT_PSENT'
-	             showshadows!='$topic_id>0' fields='*SELECT_TOPICS'>
+	             showshadows!='$topic_id>0'>
 <batcher list='$;' topic_id='$topic_id'>
 <for>
  <posting_link posting='$.' showtopic!='$topic_id<0' shorten='*true'

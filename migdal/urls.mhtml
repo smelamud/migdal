@@ -62,8 +62,8 @@
   </td></tr>
   <tr><td class='cframe'>
    <iterate_postinglist grp='*GRP_LINKS' topic_id='$`links`' recursive='*true'
-                        sort='*SORT_URL_DOMAIN' fields='*SELECT_TOPICS'
-			showshadows='*false' prefix='$prefix' limit=0>
+                        sort='*SORT_URL_DOMAIN' showshadows='*false'
+			prefix='$prefix' limit=0>
    <batcher list='$;'>
    <table width='100%' cellspacing=5 cellpadding=0>
     <tr valign='top'><td width='50%'>
