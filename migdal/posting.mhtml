@@ -14,7 +14,7 @@
   <tr valign=top>
    <notprint>
     <td width=150 class='eframe'>
-     <<topics posting='$,'>>
+     <topics>
      <ears>
     </td>
    </notprint>
