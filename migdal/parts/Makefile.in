@@ -2,38 +2,45 @@
 
 # @(#) $Id$
 
-OBJECTS = article.php backtrace.php bannerbank.php banners.php blog.php \
-	  blog-gallery.php blog-posting.php book-chapters.php \
-	  book-chapters-static.php book-ring.php book-ring-static.php \
-	  bottom.php catalog.php complain.php discussions.php ears.php \
-	  events.php failpage.php formutils.php forumanswer.php \
-	  forumcatalog.php forums.php gallery.php gallery-main.php \
-	  googleru.php grpselect.php hannukah.php help-link.php history.php \
-	  hit-parade.php hotlog.php identify.php inner-image.php jewishru.php \
-	  kaitana-announce.php kaitana-picture.php langselect.php \
-	  links-switcher.php login.php mailru.php menu.php migdal-news.php \
-	  picture.php picture-main.php pointer.php posting.php \
-	  posting-book.php posting-ear.php posting-general.php \
-	  posting-link.php posting-library-announce.php posting-times.php \
-	  posting-times-cover.php postings.php postings-links.php \
-	  postings-migdal-news.php rabbi.php rambler.php relogin.php \
-	  seealso.php spin.php subtitle.php textears.php tip.php \
-	  tip-posting.php today.php top.php top-404.php topics.php \
-	  topics-admin.php topics-blog.php topics-book.php topics-events.php \
-	  topics-help.php topics-gallery-general.php topics-gallery-major.php \
-	  topics-gallery-migdal.php topics-general.php topics-home.php \
-	  topics-kaitana.php topics-links.php topics-major.php \
-	  topics-migdal.php topics-migdal-english.php topics-minor.php \
-	  topics-times.php topicselect.php tzdaka.php uploader.php \
-	  userinfo.php utils.php vote.php xml-text.php
+targetdir=$(builddir)/www/parts/
+
+OBJECTS = article.mhtml backtrace.mhtml bannerbank.mhtml banners.mhtml \
+	  blog.mhtml blog-gallery.mhtml blog-posting.mhtml book-chapters.mhtml \
+	  book-chapters-static.mhtml book-ring.mhtml book-ring-static.mhtml \
+	  bottom.mhtml catalog.mhtml complain.mhtml discussions.mhtml \
+	  ears.mhtml events.mhtml failpage.mhtml formutils.mhtml \
+	  forumanswer.mhtml forumcatalog.mhtml forums.mhtml gallery.mhtml \
+	  gallery-main.mhtml googleru.mhtml grpselect.mhtml hannukah.mhtml \
+	  help-link.mhtml history.mhtml hit-parade.mhtml hotlog.mhtml \
+	  identify.mhtml inner-image.mhtml jewishru.mhtml \
+	  kaitana-announce.mhtml kaitana-picture.mhtml langselect.mhtml \
+	  links-switcher.mhtml login.mhtml mailru.mhtml menu.mhtml \
+	  migdal-news.mhtml picture.mhtml picture-main.mhtml pointer.mhtml \
+	  posting.mhtml posting-book.mhtml posting-ear.mhtml \
+	  posting-general.mhtml posting-link.mhtml \
+	  posting-library-announce.mhtml posting-times.mhtml \
+	  posting-times-cover.mhtml postings.mhtml postings-links.mhtml \
+	  postings-migdal-news.mhtml rabbi.mhtml rambler.mhtml relogin.mhtml \
+	  seealso.mhtml spin.mhtml subtitle.mhtml textears.mhtml tip.mhtml \
+	  tip-posting.mhtml today.mhtml top.mhtml top-404.mhtml topics.mhtml \
+	  topics-admin.mhtml topics-blog.mhtml topics-book.mhtml \
+	  topics-events.mhtml topics-help.mhtml topics-gallery-general.mhtml \
+	  topics-gallery-major.mhtml topics-gallery-migdal.mhtml \
+	  topics-general.mhtml topics-home.mhtml topics-kaitana.mhtml \
+	  topics-links.mhtml topics-major.mhtml topics-migdal.mhtml \
+	  topics-migdal-english.mhtml topics-minor.mhtml topics-times.mhtml \
+	  topicselect.mhtml tzdaka.mhtml uploader.mhtml userinfo.mhtml \
+	  utils.mhtml vote.mhtml xml-text.mhtml
 	  
-%.php: %.mhtml ../../miparser ../../macros.mhtml ../macros.mhtml
+$(targetdir):
+	mkdir -p $(targetdir)
+
+$(targetdir)/%.php: %.mhtml $(targetdir) ../../miparser ../../macros.mhtml ../macros.mhtml
 	../../miparser -M ../../macros.mhtml -M ../macros.mhtml $< > $@
 
-all: $(OBJECTS) ;
+all: $(OBJECTS:%.mhtml=$(targetdir)/%.php)
+	-mkdir -p $(targetdir)
+	cp .htaccess $(targetdir)
 
 Makefile: Makefile.in ../../conf/migdal.conf
-	../../confmake $^ > Makefile
-
-clean:
-	-rm $(OBJECTS)
+	../../confmake $^ $(builddir) > Makefile

@@ -11,7 +11,7 @@ OBJECTS = confirmed.php register.php registering.php repair-password.php \
 all: $(OBJECTS) ;
 
 Makefile: Makefile.in ../../conf/migdal.conf
-	../../confmake $^ > Makefile
+	../../confmake $^ $(builddir) > Makefile
 
 clean:
 	-rm $(OBJECTS)

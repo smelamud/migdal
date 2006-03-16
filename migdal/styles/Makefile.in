@@ -2,6 +2,8 @@
 
 # @(#) $Id$
 
+targetdir=$(builddir)/www/styles/
+
 FLAVOURS = default print
 STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-frames.mcss sheet-info.mcss sheet-menu.mcss sheet-bottom.mcss \
@@ -24,94 +26,98 @@ STATIC_ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-article.mcss
 
 all: style.stamp article.stamp book.stamp chat.stamp complain.stamp \
-	index.stamp times.stamp timesnfo.stamp votes.stamp static-article.css
+	index.stamp times.stamp timesnfo.stamp votes.stamp \
+	$(targetdir)/static-article.css
 
-style-%.php: style.mcss $(STYLE_PARTS) ../../cssparser
+$(targetdir):
+	mkdir -p $(targetdir)
+
+$(targetdir)/style-%.php: style.mcss $(targetdir) $(STYLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-style-%.css: style.mcss $(STYLE_PARTS) ../../cssparser
+$(targetdir)/style-%.css: style.mcss $(targetdir) $(STYLE_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-style.stamp: $(patsubst %,style-%.css,$(FLAVOURS)) $(patsubst %,style-%.php,$(FLAVOURS))
+style.stamp: $(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/style-%.php,$(FLAVOURS))
 	touch $@
 
-article-%.php: article.mcss $(ARTICLE_PARTS) ../../cssparser
+$(targetdir)/article-%.php: article.mcss $(targetdir) $(ARTICLE_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-article-%.css: article.mcss $(ARTICLE_PARTS) ../../cssparser
+$(targetdir)/article-%.css: article.mcss $(targetdir) $(ARTICLE_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-article.stamp: $(patsubst %,article-%.css,$(FLAVOURS)) $(patsubst %,article-%.php,$(FLAVOURS))
+article.stamp: $(patsubst %,$(targetdir)/article-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/article-%.php,$(FLAVOURS))
 	touch $@
 
-book-%.php: book.mcss $(BOOK_PARTS) ../../cssparser
+$(targetdir)/book-%.php: book.mcss $(targetdir) $(BOOK_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-book-%.css: book.mcss $(BOOK_PARTS) ../../cssparser
+$(targetdir)/book-%.css: book.mcss $(targetdir) $(BOOK_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-book.stamp: $(patsubst %,book-%.css,$(FLAVOURS)) $(patsubst %,book-%.php,$(FLAVOURS))
+book.stamp: $(patsubst %,$(targetdir)/book-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/book-%.php,$(FLAVOURS))
 	touch $@
 
-chat-%.php: chat.mcss $(CHAT_PARTS) ../../cssparser
+$(targetdir)/chat-%.php: chat.mcss $(targetdir) $(CHAT_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-chat-%.css: chat.mcss $(CHAT_PARTS) ../../cssparser
+$(targetdir)/chat-%.css: chat.mcss $(targetdir) $(CHAT_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-chat.stamp: $(patsubst %,chat-%.css,$(FLAVOURS)) $(patsubst %,chat-%.php,$(FLAVOURS))
+chat.stamp: $(patsubst %,$(targetdir)/chat-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/chat-%.php,$(FLAVOURS))
 	touch $@
 
-complain-%.php: complain.mcss $(COMPLAIN_PARTS) ../../cssparser
+$(targetdir)/complain-%.php: complain.mcss $(targetdir) $(COMPLAIN_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-complain-%.css: complain.mcss $(COMPLAIN_PARTS) ../../cssparser
+$(targetdir)/complain-%.css: complain.mcss $(targetdir) $(COMPLAIN_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-complain.stamp: $(patsubst %,complain-%.css,$(FLAVOURS)) $(patsubst %,complain-%.php,$(FLAVOURS))
+complain.stamp: $(patsubst %,$(targetdir)/complain-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/complain-%.php,$(FLAVOURS))
 	touch $@
 
-index-%.php: index.mcss $(INDEX_PARTS) ../../cssparser
+$(targetdir)/index-%.php: index.mcss $(targetdir) $(INDEX_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-index-%.css: index.mcss $(INDEX_PARTS) ../../cssparser
+$(targetdir)/index-%.css: index.mcss $(targetdir) $(INDEX_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-index.stamp: $(patsubst %,index-%.css,$(FLAVOURS)) $(patsubst %,index-%.php,$(FLAVOURS))
+index.stamp: $(patsubst %,$(targetdir)/index-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/index-%.php,$(FLAVOURS))
 	touch $@
 
-times-%.php: times.mcss $(TIMES_PARTS) ../../cssparser
+$(targetdir)/times-%.php: times.mcss $(targetdir) $(TIMES_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-times-%.css: times.mcss $(TIMES_PARTS) ../../cssparser
+$(targetdir)/times-%.css: times.mcss $(targetdir) $(TIMES_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-times.stamp: $(patsubst %,times-%.css,$(FLAVOURS)) $(patsubst %,times-%.php,$(FLAVOURS))
+times.stamp: $(patsubst %,$(targetdir)/times-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/times-%.php,$(FLAVOURS))
 	touch $@
 
-timesnfo-%.php: timesnfo.mcss $(TIMESNFO_PARTS) ../../cssparser
+$(targetdir)/timesnfo-%.php: timesnfo.mcss $(targetdir) $(TIMESNFO_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-timesnfo-%.css: timesnfo.mcss $(TIMESNFO_PARTS) ../../cssparser
+$(targetdir)/timesnfo-%.css: timesnfo.mcss $(targetdir) $(TIMESNFO_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-timesnfo.stamp: $(patsubst %,timesnfo-%.css,$(FLAVOURS)) $(patsubst %,timesnfo-%.php,$(FLAVOURS))
+timesnfo.stamp: $(patsubst %,$(targetdir)/timesnfo-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/timesnfo-%.php,$(FLAVOURS))
 	touch $@
 
-votes-%.php: votes.mcss $(VOTES_PARTS) ../../cssparser
+$(targetdir)/votes-%.php: votes.mcss $(targetdir) $(VOTES_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-votes-%.css: votes.mcss $(VOTES_PARTS) ../../cssparser
+$(targetdir)/votes-%.css: votes.mcss $(targetdir) $(VOTES_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-votes.stamp: $(patsubst %,votes-%.css,$(FLAVOURS)) $(patsubst %,votes-%.php,$(FLAVOURS))
+votes.stamp: $(patsubst %,$(targetdir)/votes-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/votes-%.php,$(FLAVOURS))
 	touch $@
 
-static-article.css: static-article.mcss $(STATIC_ARTICLE_PARTS) ../../cssparser
+$(targetdir)/static-article.css: static-article.mcss $(targetdir) $(STATIC_ARTICLE_PARTS) ../../cssparser
 	../../cssparser -s static-article.css $< > $@
 
 Makefile: Makefile.in ../../conf/migdal.conf
-	../../confmake $^ > Makefile
+	../../confmake $^ $(builddir) > Makefile
 
 clean:
-	-rm $(OBJECTS)
+	-rm *.stamp

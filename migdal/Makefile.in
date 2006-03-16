@@ -2,45 +2,55 @@
 
 # @(#) $Id$
 
-OBJECTS = 404.php 500.php archive.php article.php article-times.php book.php \
-	  book-chapter.php book-chapter-split.php book-print.php \
-	  book-split.php book-static.php callbacks.php chat.php chatboard.php \
-	  chatbottom.php chatconsole.php chattop.php chatusers.php chmod.php \
-	  complainactionedit.php complainanswer.php complainedit.php \
-	  complainforum.php complains.php ears.php event.php events.php \
-	  events-english.php forum.php forumansweredit.php forumcatalog.php \
-	  gallery.php groupadd.php grouporg.php halom.php halom-main.php \
-	  help.php horisontedit.php index-english.php index-www.php jcc.php \
-	  journal.php kaitana.php kaitana-main.php limedit.php liminsert.php \
-	  link.php links.php methodic-center.php methodics.php migdal.php \
-	  migdal-library.php migdal-library-news.php migdal-news.php \
-	  modbits.php moderator.php posting.php postingedit.php postingorg.php \
-	  printings.php rating.php register.php reorder.php search.php \
-	  stotext-help-subs.php stotext-help-types.php style.php taglit.php \
-	  taglit-user.php times.php tips.php topicdel.php topicedit.php \
-	  topiclinkadd.php topiclinks.php topicorg.php topics-reorder.php \
-	  urls.php useredit.php userfin.php userinfo.php userinfo-panel.php \
-	  userlost.php userok.php userrepair.php users.php veterans.php \
-	  veterans-user.php
+targetdir=$(builddir)/www/
+
+OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
+	  book.mhtml book-chapter.mhtml book-chapter-split.mhtml \
+	  book-print.mhtml book-split.mhtml book-static.mhtml callbacks.mhtml \
+	  chat.mhtml chatboard.mhtml chatbottom.mhtml chatconsole.mhtml \
+	  chattop.mhtml chatusers.mhtml chmod.mhtml complainactionedit.mhtml \
+	  complainanswer.mhtml complainedit.mhtml complainforum.mhtml \
+	  complains.mhtml ears.mhtml event.mhtml events.mhtml \
+	  events-english.mhtml forum.mhtml forumansweredit.mhtml \
+	  forumcatalog.mhtml gallery.mhtml groupadd.mhtml grouporg.mhtml \
+	  halom.mhtml halom-main.mhtml help.mhtml horisontedit.mhtml \
+	  index-english.mhtml index-www.mhtml jcc.mhtml journal.mhtml \
+	  kaitana.mhtml kaitana-main.mhtml limedit.mhtml liminsert.mhtml \
+	  link.mhtml links.mhtml methodic-center.mhtml methodics.mhtml \
+	  migdal.mhtml migdal-library.mhtml migdal-library-news.mhtml \
+	  migdal-news.mhtml modbits.mhtml moderator.mhtml posting.mhtml \
+	  postingedit.mhtml postingorg.mhtml printings.mhtml rating.mhtml \
+	  register.mhtml reorder.mhtml search.mhtml stotext-help-subs.mhtml \
+	  stotext-help-types.mhtml style.mhtml taglit.mhtml taglit-user.mhtml \
+	  times.mhtml tips.mhtml topicdel.mhtml topicedit.mhtml \
+	  topiclinkadd.mhtml topiclinks.mhtml topicorg.mhtml \
+	  topics-reorder.mhtml urls.mhtml useredit.mhtml userfin.mhtml \
+	  userinfo.mhtml userinfo-panel.mhtml userlost.mhtml userok.mhtml \
+	  userrepair.mhtml users.mhtml veterans.mhtml veterans-user.mhtml
 	  
-%.php: %.mhtml ../miparser ../macros.mhtml macros.mhtml
+$(targetdir):
+	mkdir -p $(targetdir)
+
+$(targetdir)/%.php: %.mhtml $(targetdir) ../miparser ../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
 
-all: $(OBJECTS)
+all: $(OBJECTS:%.mhtml=$(targetdir)/%.php)
+	-mkdir -p $(targetdir)
+	-mkdir -p $(targetdir)/books
+	-mkdir -p $(targetdir)/images
+	cp dispatcher.php .htaccess robots.txt window.js $(targetdir)
 	(cd grp; $(MAKE) all)
 	(cd parts; $(MAKE) all)
+	(cd pics; $(MAKE) all)
 	(cd styles; $(MAKE) all)
 	(cd mailings; $(MAKE) all)
 
 Makefile: Makefile.in ../conf/migdal.conf
-	../confmake $^ > Makefile
+	../confmake $^ $(builddir) > Makefile
 
 dbinfo:
 	echo > migdal.db
 
 clean:
-	-rm $(OBJECTS)
 	(cd grp; $(MAKE) clean)
-	(cd parts; $(MAKE) clean)
 	(cd styles; $(MAKE) clean)
-	(cd mailings; $(MAKE) clean)

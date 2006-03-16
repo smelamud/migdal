@@ -17,12 +17,20 @@ while($pos<length($s))
 return substr($s,0,$pos);
 }
 
-($input,$config)=@ARGV;
+($input,$config,$builddir)=@ARGV;
 
 $input='Makefile.in' if $input eq '';
 $config='conf/migdal.conf' if $config eq '';
+$builddir='.build' if $builddir eq '';
 $status=0;
 
+while($input=~s/^\.\///)
+     {
+     }
+$depth=$input=~s/\//\//g;
+$builddir=('../' x $depth).$builddir if $depth>0;
+
+print STDERR "processing $input\n";
 print "# Created automatically from Makefile.in\n";
 open IN,$input;
 while(<IN>)
@@ -32,6 +40,7 @@ while(<IN>)
            print;
 	   next;
 	   }
+     print "builddir=$builddir\n";
      open CONF,$config;
      while(<CONF>)
 	  {

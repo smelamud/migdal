@@ -3,10 +3,17 @@
 # @(#) $Id$
 
 all: crontab php dbcreate.sql
+	(cd actions; $(MAKE) all)
+	(cd cgi-bin; $(MAKE) all)
+	(cd conf; $(MAKE) all)
+	(cd lib; $(MAKE) all)
+	(cd scripts; $(MAKE) all)
+	(cd sources; $(MAKE) all)
+	(cd tools; $(MAKE) all)
 	(cd $(uiName); $(MAKE) all)
-	ln -snf $(uiName)/grp grp
 
 crontab: Makefile conf/migdal.conf
+	-mkdir -p $(builddir)
 	(\
 	echo 'PATH=/usr/local/bin:/bin:/usr/bin';\
 	echo;\
@@ -19,18 +26,20 @@ crontab: Makefile conf/migdal.conf
 	echo '  20      *   *   *   *  $(homeDir)/php $(scriptsDir)/urlcheck.php';\
 	echo '# 0       2   *   *   *  $(homeDir)/php $(scriptsDir)/replicate.php some.host';\
 	echo;\
-	) > crontab
+	) > $(builddir)/crontab
 
 php: Makefile conf/migdal.conf
+	-mkdir -p $(builddir)
 	(\
 	echo '#!/bin/sh';\
 	echo;\
 	echo '$(phpCommand) -q -d include_path=.:..:$(siteDir) -d max_execution_time=36000 $$*';\
-	) > php
-	chmod +x php
+	) > $(builddir)/php
+	chmod +x $(builddir)/php
 	
 dbcreate.sql: Makefile conf/migdal.conf
-	cat migdal.db $(uiName)/migdal.db > dbcreate.sql
+	-mkdir -p $(builddir)
+	cat migdal.db $(uiName)/migdal.db > $(builddir)/dbcreate.sql
 	(\
 	if [ $(rebeLogin) ]; then \
 	echo "insert into users(login,login_sort,password,birthday,\
@@ -47,10 +56,10 @@ dbcreate.sql: Makefile conf/migdal.conf
 	echo "insert into users(login,login_sort,password,birthday) \
 	values($(regularLogin),$(regularLogin),MD5($(regularPassword)),'1900-01-01');";\
 	fi\
-	) >> dbcreate.sql
+	) >> $(builddir)/dbcreate.sql
 
 Makefile: Makefile.in conf/migdal.conf
-	./confmake $^ > Makefile
+	./confmake $^ $(builddir) > Makefile
 
 dbinfo:
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
@@ -60,13 +69,8 @@ dbinfo:
 	(cd $(uiName); $(MAKE) dbinfo)
 
 pack: all
-	tar zchf $(uiName).tar.gz --exclude 'CVS' --exclude '*.mhtml' \
-		--exclude '*.mcss' --exclude 'Makefile*' \
-		--exclude '_template*' --exclude '.cvsignore' \
-		--exclude '.xvpics' --exclude 'migdal.db' \
-		--exclude 'groups.conf' $(uiName) scripts crontab \
-		dbcreate.sql php
+	tar zchf build.tar.gz $(builddir)
 
 clean:
-	-rm $(OBJECTS) crontab dbcreate.sql
+	-rm -r $(builddir)
 	(cd $(uiName); $(MAKE) clean)

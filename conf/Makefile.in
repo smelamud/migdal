@@ -1,0 +1,9 @@
+# Makefile for Migdal kernel
+
+# @(#) $Id$
+
+targetdir=$(builddir)/www/conf/
+
+all: migdal.conf
+	-mkdir -p $(targetdir)
+	cp migdal.conf .htaccess $(targetdir)

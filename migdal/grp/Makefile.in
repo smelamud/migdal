@@ -2,35 +2,41 @@
 
 # @(#) $Id$
 
+targetdir=$(builddir)/www/grp/
+
 all: groups.stamp mailings.stamp complains.stamp structure.stamp
+	cp .htaccess counters.php subdomains.php titles.php traps.php \
+		$(targetdir)
 
 Makefile: Makefile.in ../../conf/migdal.conf
-	../../confmake $^ > Makefile
+	../../confmake $^ $(builddir) > Makefile
 
 clean:
 	-rm *.stamp
-	-rm grps.php grpentry-body.php grpentry.php
-	-rm mailtypes.php mailings.php
-	-rm compltypes.php complains.php
-	-rm structure.php
+	-rm grpentry-body.php
 
 groups.stamp: groups.conf ../../grpparser
-	../../grpparser -C grps.php -L grpentry-body.php -p GRP_ -f grp \
-		-a grp $<
+	-mkdir -p $(targetdir)
+	../../grpparser -C $(targetdir)/grps.php -L grpentry-body.php -p GRP_ \
+		-f grp -a grp $<
 	cat grpentry-header.php grpentry-body.php grpentry-footer.php \
-		> grpentry.php
+		> $(targetdir)/grpentry.php
 	touch $@
 
 mailings.stamp: mailings.conf ../../grpparser
-	../../grpparser -C mailtypes.php -L mailings.php -p MAIL_ -f type_id \
-		-a mailing $<
+	-mkdir -p $(targetdir)
+	../../grpparser -C $(targetdir)/mailtypes.php \
+		-L $(targetdir)/mailings.php -p MAIL_ -f type_id -a mailing $<
 	touch $@
 
 complains.stamp: complains.conf ../../grpparser
-	../../grpparser -C compltypes.php -L complains.php -p COMPL_ \
-		-f type_id -a complain $<
+	-mkdir -p $(targetdir)
+	../../grpparser -C $(targetdir)/compltypes.php \
+		-L $(targetdir)/complains.php -p COMPL_ -f type_id \
+		-a complain $<
 	touch $@
 
 structure.stamp: structure.conf ../../structparser
-	../../structparser -o structure.php $<
+	-mkdir -p $(targetdir)
+	../../structparser -o $(targetdir)/structure.php $<
 	touch $@

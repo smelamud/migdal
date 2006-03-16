@@ -2,17 +2,9 @@
 
 # @(#) $Id$
 
-DIRS='. migdal migdal/grp migdal/parts migdal/styles migdal/mailings lcenter lcenter/grp lcenter/parts lcenter/styles lcenter/mailings'
+BUILDDIR='.build'
+DIRS='. actions cgi-bin conf lib migdal scripts sources tools migdal/grp migdal/parts migdal/pics migdal/styles migdal/mailings'
 
 for s in $DIRS; do
-    ./confmake $s/Makefile.in conf/migdal.conf > $s/Makefile
-done
-
-INTERFACES='migdal lcenter'
-LINKS='actions conf lib tools'
-
-for s in $INTERFACES; do
-    for l in $LINKS; do
-        ln -sfn ../$l $s/$l
-    done
+    ./confmake $s/Makefile.in conf/migdal.conf $BUILDDIR > $s/Makefile
 done

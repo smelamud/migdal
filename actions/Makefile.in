@@ -1,0 +1,11 @@
+# Makefile for Migdal kernel
+
+# @(#) $Id$
+
+targetdir=$(builddir)/www/actions/
+
+all:
+	-mkdir -p $(targetdir)
+	find . -maxdepth 1 -name '*.php' | grep -v _template.php \
+		| xargs -i cp {} $(targetdir)
+	cp .htaccess $(targetdir)
