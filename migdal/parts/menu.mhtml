@@ -27,7 +27,7 @@
     <posting_last name='gallery_time' grp='*GRP_GRAPHICS' topic_id='-1'>
     <posting_last name='links_time' grp='*GRP_LINKS' topic_id='$`links`'
 		  recursive='*true'>
-    <menuitem ident='index' alt='Главная' link='index.php' target='$target'
+    <menuitem ident='index' alt='Главная' link='/' target='$target'
 	      current='$ident'>
     <menuitem ident='times' alt='Мигдаль Times' link='times.php'
               target='$target' current='$ident' time='$times_time'>

@@ -306,9 +306,6 @@
 <deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>
 <deccall macro='vote' func='getVote' file='lib/votes.php' params='id'>
 
-<decel name='image' file='lib/utils.php' params='src,alt,title,border'
-       defaults="src='' alt='' title='' border=''">
-
 <macro name='parse_url'>
  <assign name='fragments' value!='parse_url(%url)'>
  <?php
@@ -561,39 +558,13 @@
 </macro>
 
 << HTML shortcuts >>
-<macro name='tdspan' defaults='span=0'>
- <if what='(%span)==0 || (%span)==1'>
-  <asp><td><asp>
- <else>
-  <asp><td colspan='%span'><asp>
- </if>
-</macro>
+<decel name='image' file='lib/utils.php' params='src,alt,title,border'
+       defaults="src='' alt='' title='' border=''">
+
+<decel name='tdspan' file='lib/utils.php' params='span,class,align,width',
+       defaults="span=0 class='' align='' width=''">
 
 <macro name='/tdspan'>
- </td>
-</macro>
-
-<macro name='tdcspan' defaults='span=0'>
- <if what='(%span)==0 || (%span)==1'>
-  <asp><td class='%class'><asp>
- <else>
-  <asp><td class='%class' colspan='%span'><asp>
- </if>
-</macro>
-
-<macro name='/tdcspan'>
- </td>
-</macro>
-
-<macro name='tdaspan' defaults='span=0'>
- <if what='(%span)==0 || (%span)==1'>
-  <asp><td align='%align'><asp>
- <else>
-  <asp><td align='%align' colspan='%span'><asp>
- </if>
-</macro>
-
-<macro name='/tdaspan'>
  </td>
 </macro>
 

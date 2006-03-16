@@ -55,7 +55,7 @@
   <tdspan span='$indent'>&nbsp;</tdspan>
  </if>
  <assign name='headspan' value!='$span+1'>
- <tdcspan class='$class' span='$headspan'>$title</tdcspan>
+ <tdspan class='$class' span='$headspan'>$title</tdspan>
 </tr>
 </element>
 
@@ -85,6 +85,12 @@
 </element>
 
 <element name='topics_table'>
+<ifne what='$title'>
+ <div class='topics-header' width='100%'>$title</div>
+ <assign name='margin' value=''>
+<else>
+ <assign name='margin' value='style="margin-top: 10px"'>
+</ifne>
 <ifne what='$class'>
  <assign name='tableclass' value#='topics $class'>
 <else>
@@ -93,12 +99,8 @@
 <if what='$nomargin'>
  <table class='$tableclass' width=100% style='margin-top: 0'>
 <else>
- <table class='$tableclass' width=100%>
+ <table class='$tableclass' width=100% $margin>
 </if>
- <ifne what='$title'>
-  <assign name='headspan' value!='$span+1'>
-  <tr><th class='topics-header' colspan=$headspan>$title</th></tr>
- </ifne>
 </element>
 
 <element name='topics_table_end'>

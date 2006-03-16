@@ -76,6 +76,20 @@ if($border!='')
 echo "$s>";
 }
 
+function displayTdspan($span=0,$class='',$align='',$width='')
+{
+$s='';
+if($span>1)
+  $s.=" colspan=$span";
+if($class!='')
+  $s.=" class='$class'";
+if($align!='')
+  $s.=" align='$align'";
+if($width!='')
+  $s.=" width='$width'";
+echo "<td$s>";
+}
+
 function disjunct($values)
 {
 if(!is_array($values))
