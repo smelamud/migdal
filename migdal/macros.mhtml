@@ -403,8 +403,13 @@
   <if what='$metaNoIndex'>
    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
   </if>
-  <title><notenglish>Мигдаль<else>Migdal</notenglish>
-  <ifne what='$LocationInfo.Title'>&sp;- $=LocationInfo.Title</ifne></title>
+  <title><asp>
+   <notenglish>Мигдаль<else>Migdal</notenglish>
+   <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='Главная'
+				     && $LocationInfo.Title!='Main'">
+    - $=LocationInfo.Title<asp>
+   </ifne>
+  </title>
  </head>
 </macro>
 

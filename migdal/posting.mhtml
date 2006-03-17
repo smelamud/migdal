@@ -9,6 +9,9 @@
 <html>
 <preamble>
 <body>
+ <ife what='$$menu_main'>
+  <assign_global name='menu_main' value='index'>
+ </ife>
  <top ident='$$menu_main'>
  <table width=100% cellpadding=5>
   <tr valign=top>
