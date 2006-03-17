@@ -9,6 +9,7 @@ require_once('lib/image-types.php');
 require_once('lib/track.php');
 require_once('lib/answers.php');
 require_once('lib/langs.php');
+require_once('lib/text-large.php');
 
 define('ENT_NULL',0);
 define('ENT_POSTING',1);

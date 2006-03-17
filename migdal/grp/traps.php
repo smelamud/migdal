@@ -5,6 +5,17 @@ require_once('lib/old-ids.php');
 require_once('lib/post.php');
 require_once('lib/catalog.php');
 require_once('lib/users.php');
+require_once('lib/postings.php');
+
+function trapArticle($args)
+{
+$id=postProcessInteger($args['artid']);
+$posting=getPostingById(getNewId('postings',$id));
+if($posting->getId()>0)
+  return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('artid'));
+else
+  return '';
+}
 
 function trapLinks($args)
 {
@@ -14,6 +25,16 @@ if($id<=0)
 else
   return remakeMakeURI('/'.catalogById(getNewId('topics',$id)),$args,
                        array('topic_id'));
+}
+
+function trapPosting($args)
+{
+$id=postProcessInteger($args['postid']);
+$posting=getPostingById(getNewId('postings',$id));
+if($posting->getId()>0)
+  return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('postid'));
+else
+  return '';
 }
 
 function trapRegister($args)

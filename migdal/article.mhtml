@@ -9,7 +9,8 @@
 </if>
 << /Traps >>
 
-<posting_obj id='$postid' grp='*GRP_ARTICLES' fields!='*SELECT_GENERAL'>
+<posting_obj id='$postid' grp='*GRP_ARTICLES'
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <log event=article text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 
@@ -29,7 +30,7 @@
    </td>
   </notprint>
   <td class='article cframe'>
-   <<article_controls posting='$,'>>
+   <article_controls posting='$,'>
    <table align=right class='sent'>
     <tr><td>&nbsp;</td></tr>
     <tr><td align=right><sentview date='$,Sent'></td></tr>
@@ -46,8 +47,8 @@
      <div class='author'>$,AuthorHTML</div>
     </ifne>
    </h1>
-   <<article_full posting='$,'>
-   <article_controls posting='$,'>>
+   <article_full posting='$,'>
+   <article_controls posting='$,'>
   </td>
  </tr></table>
  <bottom>

@@ -31,7 +31,7 @@
 </notprint>
 </element>
 
-<macro name='isplaced'>
+<<macro name='isplaced'>
 <if what='$par->isPlaced(%place)'>
 </macro>
 
@@ -171,14 +171,25 @@
 <ifne what='$note_base_var'>
  <?php $GLOBALS[$note_base_var]=$list->getNoteOffset(); ?>
 </ifne>
+</element>>
+
+<element name='article'>
+<assign name='note_base'
+        value!="$note_base_var!='' ? $GLOBALS[$note_base_var] : 1">
+<assign name='text' value='$posting.LargeBodyHTML'>
+$text.TextHTML
+<if what='$withvote'>
+ <vote_frame id='$posting.Id' color='$$style_cframe_back'
+	     image='$$style_cframe_back_pic'>
+</if>
 </element>
 
 <element name='article_full'>
 <blockquote class='preface'>
- $posting.HTMLBody
+ $posting.BodyHTML
 </blockquote>
 <article posting='$posting'>
 <ifne what='$posting.Source'>
- <div class='source' align=right>$posting.HTMLSource</div>
+ <div class='source' align=right>$posting.SourceHTML</div>
 </ifne>
 </element>
