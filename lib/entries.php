@@ -496,7 +496,7 @@ return $this->large_body_xml;
 
 function getLargeBodyHTML()
 {
-return mtextToHTML($this->getLargeBodyXML(),MTEXT_LONG,$this->getId(),true);
+return new LargeText($this->getLargeBodyXML(),$this->getId());
 }
 
 function getLargeBodyFormat()
@@ -800,6 +800,15 @@ if(getTypeByEntryId($id)==ENT_FORUM)
 function getTypeByEntryId($id)
 {
 $result=sql("select entry
+	     from entries
+	     where id=$id",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : ENT_NULL;
+}
+
+function getGrpByEntryId($id)
+{
+$result=sql("select grp
 	     from entries
 	     where id=$id",
 	    __FUNCTION__);

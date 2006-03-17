@@ -1,19 +1,15 @@
 << @(#) $Id$ >>
 
-<ident name='artid' table='postings'>
+<ident name='postid'>
 
 << Traps >>
-<if what='$artid>=283 && $artid<=286 || $artid==301'>
+<if what='$postid>=283 && $postid<=286 || $postid==301'>
  <trap text='Ecology and Torah'>
- <reload href#="book-chapter.php?chapid=$artid">
+ <reload href#="book-chapter.php?chapid=$postid">
 </if>
 << /Traps >>
 
-<posting_obj id='$artid' grp='*GRP_FORUMS'
-             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
-<ifzero what='$,Id'>
- <fail>
-</ifzero>
+<posting_obj id='$postid' grp='*GRP_ARTICLES' fields!='*SELECT_GENERAL'>
 <log event=article text#='post($,Id)'>
 <pagetitle title='$,Subject'>
 
@@ -21,31 +17,37 @@
 <stylesheet ident='article'>
 <preamble>
 <body>
- <top ident='$,MenuIndex'>
+ <ife what='$$menu_main'>
+  <assign_global name='menu_main' value='index'>
+ </ife>
+ <top ident='$$menu_main'>
  <table width=100% cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <topics posting='$,'>
+    <topics>
     <ears>
    </td>
   </notprint>
   <td class='article cframe'>
-   <article_controls posting='$,'>
+   <<article_controls posting='$,'>>
    <table align=right class='sent'>
     <tr><td>&nbsp;</td></tr>
     <tr><td align=right><sentview date='$,Sent'></td></tr>
     <tr><td align=right><senderlink message='$,'></td></tr>
    </table>
    <h1>
-    <topiclink posting='$,'>
+    <zone>
+     <topic_obj name='topic' id='$posting.TopicId'>
+    </zone>
+    <topiclink posting='$,' title='$topic.Subject' comment='$topic.BodyNormal'>
     <br>
-    $,Subject
+    $=,Subject
     <ifne what='$,Author'>
-     <div class='author'>$,HTMLAuthor</div>
+     <div class='author'>$,AuthorHTML</div>
     </ifne>
    </h1>
-   <article_full posting='$,'>
-   <article_controls posting='$,'>
+   <<article_full posting='$,'>
+   <article_controls posting='$,'>>
   </td>
  </tr></table>
  <bottom>

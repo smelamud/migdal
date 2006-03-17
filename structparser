@@ -174,21 +174,21 @@ return "{\$$expr}";
 
 sub subTitleFunc
 {
-my ($expr)=@_;
+my ($expr,$prefix)=@_;
 
 my ($name,$arg)=$expr=~/^(\w+)\(([^)]*)\)$/;
 $name=ucfirst $name;
 $arg=subTitleVar($arg);
-return "\".title$name(\"$arg\").\"";
+return "\".$prefix$name(\"$arg\").\"";
 }
 
 sub subTitleExpr
 {
-my ($expr)=@_;
+my ($expr,$prefix)=@_;
 
 if($expr=~/\(/)
   {
-  return subTitleFunc($expr);
+  return subTitleFunc($expr,$prefix);
   }
 else
   {
@@ -198,11 +198,20 @@ else
 
 sub processTitle
 {
+my ($item,$name)=@_;
+
+return unless exists($$item{$name});
+my $title=$$item{$name};
+$title=~s/\${([^}]*)}/subTitleExpr($1,$name)/ge;
+$$item{"_$name"}=$title;
+}
+
+sub processTitleLike
+{
 my ($item)=@_;
 
-my $title=$$item{'title'};
-$title=~s/\${([^}]*)}/subTitleExpr($1)/ge;
-$$item{'_title'}=$title;
+processTitle($item,'title');
+processTitle($item,'script');
 }
 
 sub addItem
@@ -216,7 +225,7 @@ $$item{'path'}=$path;
 processPathPattern($item) if $path=~/{/;
 processConds($item);
 processArgs($item);
-processTitle($item) if exists($$item{'title'});
+processTitleLike($item);
 push @Structure,$item;
 }
 
@@ -295,10 +304,6 @@ if(preg_match('/$regex/',\$path,\$m)$cond)
   {
 EOF
      }
-   my $script=$$item{'script'};
-   print OUT <<EOF;
-  \$info->setScript('$script');
-EOF
    my $f=0;
    for my $key(keys %$item)
        {
@@ -327,6 +332,13 @@ EOF
      my $parent=trimQuotes('"'.$$item{'parent.path'}.'"');
      print OUT <<EOF
   \$info->setParent(getParentLocationInfo($parent,\$redirid));
+EOF
+     }
+   if(exists($$item{'_script'}))
+     {
+     my $script=trimQuotes('"'.$$item{'_script'}.'"');
+     print OUT <<EOF;
+  \$info->setScript($script);
 EOF
      }
    if(exists($$item{'_title'}))

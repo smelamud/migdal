@@ -8,6 +8,7 @@ require_once('lib/ident.php');
 require_once('lib/entries.php');
 
 require_once('grp/titles.php');
+require_once('grp/scripts.php');
 require_once('grp/traps.php');
 require_once('grp/structure.php');
 
