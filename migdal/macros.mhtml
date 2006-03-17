@@ -407,7 +407,7 @@
    <notenglish>Мигдаль<else>Migdal</notenglish>
    <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='Главная'
 				     && $LocationInfo.Title!='Main'">
-    - $=LocationInfo.Title<asp>
+    &sp;- $=LocationInfo.Title<asp>
    </ifne>
   </title>
  </head>
