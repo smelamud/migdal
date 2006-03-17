@@ -8,14 +8,18 @@
 </element>
 
 <element name='further' params='posting,title'>
-<image src='pics/further.gif'>&sp;
-<a href='$posting.GrpDetailsHref'>$=title</a>
+<p>
+ <image src='pics/further.gif'>&sp;
+ <a href='$posting.GrpDetailsHref'>$=title</a>
+</p>
 </element>
 
 <element name='further_url' params='posting,url'>
-<image src='pics/further-far.gif'>&sp;
-<a href='actions/link.php?msgid=$posting.Id&okdir=$#url'>Подробности на другом
-                                                         сайте</a>
+<p>
+ <image src='pics/further-far.gif'>&sp;
+ <a href='actions/link.php?msgid=$posting.Id&okdir=$#url'>Подробности на другом
+							  сайте</a>
+</p>
 </element>
 
 <element name='posting_general'>
@@ -35,7 +39,7 @@
    <br><span class='posting-author'>$=posting.Author</span>
   </ifne>
  </dt>
- <dd><p>
+ <dd>
  <if what='$posting.hasSmallImage'>
   <table align=left class='pic'>
    <tr><td>
@@ -47,13 +51,13 @@
   </table>
  </ifnzero>
  <if what='$shorten && !$posting.hasLargeBody'>
-  $posting.BodyMediumHTML&nbsp;<asp>
+  $posting.BodyMediumHTML<asp>
   <if what='!$posting.isBodyMedium'>
    <further posting='$posting'
 	    title!="!$$englishDomain ? 'Читать дальше' : 'Read more'">
   </if>
  <else>
-  $posting.BodyHTML&nbsp;<asp>
+  $posting.BodyHTML<asp>
  </if>
  <if what='$posting.hasLargeBody'>
   <further posting='$posting'
@@ -62,7 +66,6 @@
  <ifne what='$posting.URL'>
   <further_url posting='$posting' url='$posting.URL'>
  </ifne>
- </p>
  <table width=90% style="clear: left"><tr>
   <td align=left class='sent'>
    <sentview date='$posting.Sent'>&nbsp;
