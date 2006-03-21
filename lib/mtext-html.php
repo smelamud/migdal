@@ -7,6 +7,7 @@ require_once('lib/xml.php');
 require_once('lib/mtext-shorten.php');
 require_once('lib/callbacks.php');
 require_once('lib/text.php');
+require_once('lib/inner-images.php');
 
 $mtextRootTag=array(MTEXT_LINE  => 'mtext-line',
                     MTEXT_SHORT => 'mtext-short',
@@ -45,6 +46,40 @@ var $sizeX=0;
 var $sizeY=0;
 var $placement=IPL_CENTER;
 var $images=array();
+
+function isPlaced($place)
+{
+return $place<=IPL_HORIZONTAL ? ($this->placement & IPL_HORIZONTAL)==$place
+                              : ($this->placement & IPL_VERTICAL)==$place;
+}
+
+}
+
+class ImageCallbackData
+{
+var $id;
+var $align;
+var $image;
+
+function ImageCallbackData()
+{
+}
+
+function getId()
+{
+return $this->id;
+}
+
+function getAlign()
+{
+return $this->align;
+}
+
+function getImage()
+{
+return $this->image;
+}
+
 }
 
 class MTextToHTMLXML
@@ -105,14 +140,44 @@ return strtr(shortenNote($this->xmlFootnote,$inplaceSize,
                          $inplaceSizeMinus,$inplaceSizePlus),"\n",' ');
 }
 
-function putImage($beforeP)
+function putImage($image)
+{
+$data=new ImageCallbackData();
+$data->id=$this->id;
+$data->image=$image->getImage();
+if($image->isPlaced(IPL_LEFT))
+  $data->align='left';
+if($image->isPlaced(IPL_HCENTER))
+  $data->align='center';
+if($image->isPlaced(IPL_RIGHT))
+  $data->align='right';
+$this->html.=callback('image',$data);
+}
+
+function putImageBlock($beforeP)
 {
 if($this->format<MTEXT_LONG)
   return;
-if(!$beforeP)
+if($beforeP)
   {
-  $this->html.=" <em>Image {$this->par} here</em> ";
+  $par=$this->par;
+  if(!isset($this->imageBlocks[$par]))
+    return;
+  $block=$this->imageBlocks[$par];
+  if(!$block->isPlaced(IPL_VCENTER))
+    return;
+  $this->putImage($block->images[0]);
+  }
+else
+  {
+  $par=$this->par;
   $this->par++;
+  if(!isset($this->imageBlocks[$par]))
+    return;
+  $block=$this->imageBlocks[$par];
+  if(!$block->isPlaced(IPL_BOTTOM))
+    return;
+  $this->putImage($block->images[0]);
   }
 }
 
@@ -160,13 +225,13 @@ switch($name)
            $this->html.=makeTag($name,$attrs,true);
 	   break;
       case 'P':
-	   $this->putImage(true);
+	   $this->putImageBlock(true);
            $clear=isset($attrs['CLEAR']) ? $attrs['CLEAR'] : 'none';
 	   if($clear=='none')
 	     $this->html.=makeTag($name);
 	   else
 	     $this->html.=makeTag($name,array('style' => "clear: $clear"));
-	   $this->putImage(false);
+	   $this->putImageBlock(false);
 	   break;
       case 'LI':
            if(count($this->listStyles)==0)
@@ -333,9 +398,9 @@ while($image=$iterator->next())
      {
      $par=$image->getPar();
      if(!isset($blocks[$par]))
-       $blocks[$par]=new ImageBlock();
+       $blocks[$par]=new InnerImageBlock();
      $block=&$blocks[$par];
-     $block->images[]=&$image;
+     $block->images[]=$image;
      $block->sizeX=max($block->sizeX,$image->getX()+1);
      $block->sizeY=max($block->sizeY,$image->getY()+1);
      $block->placement=$image->getPlacement();

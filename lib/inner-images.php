@@ -10,6 +10,7 @@ define('IPL_RIGHT',3);
 define('IPL_HORIZONTAL',3);
 define('IPL_TOP',4);
 define('IPL_VCENTER',8);
+define('IPL_BOTTOM',12);
 define('IPL_VERTICAL',12);
 
 define('IPL_TOPLEFT',IPL_TOP|IPL_LEFT);
@@ -18,6 +19,9 @@ define('IPL_TOPRIGHT',IPL_TOP|IPL_RIGHT);
 define('IPL_CENTERLEFT',IPL_VCENTER|IPL_LEFT);
 define('IPL_CENTER',IPL_VCENTER|IPL_HCENTER);
 define('IPL_CENTERRIGHT',IPL_VCENTER|IPL_RIGHT);
+define('IPL_BOTTOMLEFT',IPL_BOTTOM|IPL_LEFT);
+define('IPL_BOTTOMCENTER',IPL_BOTTOM|IPL_HCENTER);
+define('IPL_BOTTOMRIGHT',IPL_BOTTOM|IPL_RIGHT);
 
 class InnerImage
       extends DataObject
@@ -28,11 +32,13 @@ var $x;
 var $y;
 var $image_id;
 var $placement;
+var $image;
 
 function InnerImage($row)
 {
 $this->placement=IPL_CENTER;
-$this->DataObject($row);
+parent::DataObject($row);
+$this->image=new Entry($row);
 }
 
 function getEntryId()
@@ -65,6 +71,17 @@ function getPlacement()
 return $this->placement;
 }
 
+function isPlaced($place)
+{
+return $place<=IPL_HORIZONTAL ? ($this->placement & IPL_HORIZONTAL)==$place
+                              : ($this->placement & IPL_VERTICAL)==$place;
+}
+
+function getImage()
+{
+return $this->image;
+}
+
 }
 
 class InnerImagesIterator
@@ -74,8 +91,14 @@ class InnerImagesIterator
 function InnerImagesIterator($id)
 {
 parent::SelectIterator('InnerImage',
-                       "select entry_id,par,x,y,image_id,placement
+                       "select entry_id,par,x,y,image_id,placement,id,entry,
+		               title,title_xml,small_image,small_image_x,
+			       small_image_y,large_image,large_image_x,
+			       large_image_y,large_image_size,
+			       large_image_format
 		        from inner_images
+			     left join entries
+			          on inner_images.image_id=entries.id
 			where entry_id=$id
 			order by par,y,x");
 }

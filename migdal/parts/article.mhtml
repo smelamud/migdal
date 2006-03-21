@@ -1,5 +1,20 @@
 << @(#) $Id$ >>
 
+<callback name='article_image'>
+<assign name='image' value='$data.Image'>
+<ifne what='$data.Align'>
+ <assign name='align' value#='align="$data.Align"'>
+</ifne>
+<table $align class='pic'>
+ <tr><td>
+  <posting_image posting='$image'>
+ </td></tr>
+ <ifne what='$image.Title'>
+  <tr><td>$image.TitleHTML</td></tr>
+ </ifne>
+</table>
+</callback>
+
 <element name='article_controls'>
 <notprint>
  <outer>

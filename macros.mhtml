@@ -347,6 +347,9 @@
  </element>
 </macro>
 
+<deccallback event='image' name='article_image' file='parts/article.php'
+             params='data'>
+
 << GRP >>
 <deccall macro='grpword' func='getGrpWord' file='lib/grps.php'
          params='grp,words' defaults="grp='$grp' words='$*'">

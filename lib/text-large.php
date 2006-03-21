@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/mtext-html.php');
+require_once('lib/inner-images.php');
 
 class LargeText
 {
@@ -14,7 +15,8 @@ function LargeText($text_xml,$id)
 {
 $this->text_xml=$text_xml;
 $this->id=$id;
-$text=mtextToHTML($this->text_xml,MTEXT_LONG,$this->id,true);
+$text=mtextToHTML($this->text_xml,MTEXT_LONG,$this->id,true,
+                  new InnerImagesIterator($this->id));
 $this->text_html=$text['body'];
 $this->footnotes_html=$text['footnotes'];
 }
