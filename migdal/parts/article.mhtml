@@ -148,45 +148,7 @@
 </ifnzero>
 </element>
 
-<element name='footnotes' params='&source'>
-<iterate_footnotes source='$source'>
-<ifnzero what='$;Count'><p>
- <hr class='notes' align=left>
- <for>
-  <a href='#_ref$.No'>
-  <if what='$.isNumbered'>
-   <sup>$.No</sup><asp>
-  <else>
-   $.Term<asp>
-  </if>
-  <asp></a> ---
-  <a name='_note$.No'></a>$.HTMLBody<br>
- </for>
-</p></ifnzero>
-</element>
-
-<text_formats>
-
-<element name='article'>
-<assign name='note_base'
-        value!="$note_base_var!='' ? $GLOBALS[$note_base_var] : 1">
-<iterate_posting_paragraphs name='list' posting='$posting'
-                            note_base='$note_base'>
-<p>
-<for>
- <pic posting='$posting' par='$.' drop_left='$.isDropLeft' static='$static'>
- $.HTMLBody
-</for>
-</p>
-<if what='$withvote'>
- <vote_frame id='$posting.Id' color='$$style_cframe_back'
-	     image='$$style_cframe_back_pic'>
-</if>
-<footnotes source='$;'>
-<ifne what='$note_base_var'>
- <?php $GLOBALS[$note_base_var]=$list->getNoteOffset(); ?>
-</ifne>
-</element>>
+<text_formats>>
 
 <element name='article'>
 <assign name='note_base'
@@ -197,6 +159,13 @@ $text.TextHTML
  <vote_frame id='$posting.Id' color='$$style_cframe_back'
 	     image='$$style_cframe_back_pic'>
 </if>
+<ifne what='$text.FootnotesHTML'>
+ <hr class='notes' align=left>
+ $text.FootnotesHTML
+</ifne>
+<<ifne what='$note_base_var'>
+ <?php $GLOBALS[$note_base_var]=$list->getNoteOffset(); ?>
+</ifne>>
 </element>
 
 <element name='article_full'>

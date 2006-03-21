@@ -68,8 +68,6 @@
 <deciter macro='forum_answerlist' class='ForumAnswerListIterator'
          file='lib/forums.php' params='parent_id,limit,offset'
 	 defaults='limit=20 offset=0'>
-<deciter macro='footnotes' class='FootnoteIterator' file='lib/paragraphs.php'
-         params='source' defaults="source='$;'">
 <deciter macro='grp_editor' class='GrpEditorIterator' file='lib/grps.php'
          params='grp,inverse' defaults="grp='*GRP_NONE' inverse='*false'">
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>
@@ -88,9 +86,6 @@
 	 defaults="limit=20 offset=0">
 <deciter macro='packages' class='PackagesIterator' file='lib/packages.php'
          params='posting_id'>
-<deciter macro='paragraphs' class='ParagraphIterator' file='lib/paragraphs.php'
-         params='format,body,message_id,note_base'
-	 defaults="message_id=0 note_base=1">
 <deciter macro='posting_alphabet' class='PostingAlphabetIterator'
          file='lib/postings.php'
 	 params='limit,sort,topic_id,recursive,grp,showshadows'
@@ -98,9 +93,6 @@
 	           recursive='*false' grp='*GRP_ALL' showshadows='*false'">
 <deciter macro='posting_modbits' class='PostingModbitIterator'
          file='lib/modbits.php'>
-<deciter macro='posting_paragraphs' class='PostingParagraphIterator'
-         file='lib/postings.php' params='posting,note_base'
-	 defaults="note_base=1">
 <deciter macro='posting_random' class='RandomPostingsIterator'
          file='lib/postings-random.php'
 	 params='limit,grp,topic_id,user_id,index1'

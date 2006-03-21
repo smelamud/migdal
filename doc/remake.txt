@@ -168,7 +168,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/no-cache.php
 - lib/package.php
 - lib/packages.php
-- lib/paragraphs.php
 + lib/permissions.php
 * lib/postings-info.php (кроме кэша)
 * lib/postings.php
@@ -187,7 +186,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/sort.php
 + lib/sql.php
 - lib/stat.php
-- lib/stotext-images.php
+* lib/stotext-images.php (удалить, частично переведено в lib/inner-images.php)
 - lib/stotext.php
 + lib/style.php
 + lib/text.php

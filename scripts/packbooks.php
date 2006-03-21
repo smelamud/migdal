@@ -102,7 +102,7 @@ $list->reset();
 while($item=$list->next())
      {
      $chap=getPostingById($item->getId(),GRP_BOOK_CHAPTERS,-1,-1,SELECT_IMAGES);
-     $pars=new PostingParagraphIterator($chap);
+     $pars=new PostingParagraphIterator($chap); // FIXME no such class
      while($par=$pars->next())
           copyImage($dir,$par);
      }

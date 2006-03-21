@@ -11,7 +11,6 @@ require_once('lib/limitselect.php');
 require_once('lib/entries.php');
 require_once('lib/grpentry.php');
 require_once('lib/mtext-shorten.php');
-//require_once('lib/paragraphs.php');
 require_once('lib/random.php');
 require_once('lib/selectiterator.php');
 require_once('lib/select.php');
@@ -492,48 +491,6 @@ $this->SelectIterator(
 }
 
 }
-
-// remake
-/*class PostingParagraphIterator
-      extends ParagraphIterator
-{
-var $images;
-
-function PostingParagraphIterator($posting,$noteBase=1)
-{
-$this->ParagraphIterator($posting->getLargeFormat(),$posting->getLargeBody(),
-                         $posting->getMessageId(),$noteBase);
-$this->loadImages($posting);
-}
-
-function loadImages($posting)
-{
-$this->images=array();
-$sid=$posting->getStotextId();
-settype($sid,'integer');
-$result=sql("select stotext_id,par,image_id,placement,
-		    has_large as has_large_image,title,format
-	     from stotext_images
-		  left join images
-		       on images.id=stotext_images.image_id
-	     where stotext_id=$sid",
-	    get_method($this,'loadImages'));
-while($row=mysql_fetch_assoc($result))
-     {
-     $image=new StotextImage($row);
-     $this->images[$image->getPar()]=$image;
-     }
-}
-
-function next()
-{
-$paragraph=ParagraphIterator::next();
-if($paragraph)
-  $paragraph->setImage($this->images[$paragraph->getNumber()]);
-return $paragraph;
-}
-
-}*/
 
 // remake
 class ArticleCoversIterator
