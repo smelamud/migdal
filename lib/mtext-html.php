@@ -39,6 +39,14 @@ $mtextTagLevel=array('MTEXT-LINE' => MTEXT_LINE,
                      'TD'       => MTEXT_LONG,
                      'TH'       => MTEXT_LONG);
 
+class InnerImageBlock
+{
+var $sizeX=0;
+var $sizeY=0;
+var $placement=IPL_CENTER;
+var $images=array();
+}
+
 class MTextToHTMLXML
       extends XMLParser
 {
@@ -54,13 +62,16 @@ var $id;
 var $listFonts=array('i');
 var $listStyles=array();
 var $noteNo=1;
+var $imageBlocks=array();
+var $par=0;
 
-function MTextToHTMLXML($format,$id)
+function MTextToHTMLXML($format,$id,$imageBlocks=array())
 {
 $this->XMLParser();
 $this->format=$format;
 $this->id=$id;
 $this->html=& $this->htmlBody;
+$this->imageBlocks=$imageBlocks;
 }
 
 function xmlError($message)
@@ -92,6 +103,17 @@ global $inplaceSize,$inplaceSizeMinus,$inplaceSizePlus;
 
 return strtr(shortenNote($this->xmlFootnote,$inplaceSize,
                          $inplaceSizeMinus,$inplaceSizePlus),"\n",' ');
+}
+
+function putImage($beforeP)
+{
+if($this->format<MTEXT_LONG)
+  return;
+if(!$beforeP)
+  {
+  $this->html.=" <em>Image {$this->par} here</em> ";
+  $this->par++;
+  }
 }
 
 function startElement($parser,$name,$attrs)
@@ -138,11 +160,13 @@ switch($name)
            $this->html.=makeTag($name,$attrs,true);
 	   break;
       case 'P':
+	   $this->putImage(true);
            $clear=isset($attrs['CLEAR']) ? $attrs['CLEAR'] : 'none';
 	   if($clear=='none')
 	     $this->html.=makeTag($name);
 	   else
 	     $this->html.=makeTag($name,array('style' => "clear: $clear"));
+	   $this->putImage(false);
 	   break;
       case 'LI':
            if(count($this->listStyles)==0)
@@ -300,9 +324,29 @@ if($this->inFootnote)
 
 }
 
-function mtextToHTML($body,$format=MTEXT_LINE,$id=0,$showFootnotes=false)
+function getImageBlocks(&$iterator)
 {
-$xml=new MTextToHTMLXML($format,$id);
+$blocks=array();
+if(is_null($iterator))
+  return $blocks;
+while($image=$iterator->next())
+     {
+     $par=$image->getPar();
+     if(!isset($blocks[$par]))
+       $blocks[$par]=new ImageBlock();
+     $block=&$blocks[$par];
+     $block->images[]=&$image;
+     $block->sizeX=max($block->sizeX,$image->getX()+1);
+     $block->sizeY=max($block->sizeY,$image->getY()+1);
+     $block->placement=$image->getPlacement();
+     }
+return $blocks;
+}
+
+function mtextToHTML($body,$format=MTEXT_LINE,$id=0,$showFootnotes=false,
+                     $iterator=null)
+{
+$xml=new MTextToHTMLXML($format,$id,getImageBlocks($iterator));
 $xml->parse($body);
 $xml->free();
 return $showFootnotes ? array('body'      => $xml->getBodyHTML(),

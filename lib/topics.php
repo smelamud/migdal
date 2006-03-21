@@ -164,7 +164,7 @@ return " where entry=".ENT_TOPIC." $hide $userFilter $grpFilter $levelFilter
 
 function TopicIterator($query,$limit=0,$offset=0)
 {
-$this->LimitSelectIterator('Topic',$query,$limit,$offset);
+parent::LimitSelectIterator('Topic',$query,$limit,$offset);
 }
 
 }
