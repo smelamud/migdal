@@ -10,7 +10,7 @@
  <tr valign=bottom>
   <td align=left class='info'>
    <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
+    <td><image src='/pics/sheet.gif'></td>
     <td>
      <a href='/admin/ears/add/?grp=*GRP_EARS&redirid=$_'>Добавить ушко</a>
     </td>

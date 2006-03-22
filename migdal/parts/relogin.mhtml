@@ -37,7 +37,7 @@
     </td>
     <td colspan=6>
      <label for='relogin-same'>Зарегистрированный пользователь</label>
-     <b><a href='users/$$#userFolder/'>$$=userLogin</a></b>
+     <b><a href='/users/$$#userFolder/'>$$=userLogin</a></b>
     </td>
    </tr>
   </logged>
@@ -62,7 +62,7 @@
     <tr valign='top'>
      <td width='1'>&nbsp;</td>
      <td colspan=6>
-      <a href='register/?redirid=$_'>Зарегистрироваться</a>&nbsp;&nbsp;<asp>
+      <a href='/register/?redirid=$_'>Зарегистрироваться</a>&nbsp;&nbsp;<asp>
       <asp><a href='userlost.php?redirid=$_'>Забыли пароль?</a>
      </td>
     </tr>

@@ -16,7 +16,8 @@
 <<decstyle ident='test' desc='Тестовый'>>
 
 << Callbacks >>
-<require name='callbacks.php'>
+<deccallback event='image' name='article_image' file='parts/article.php'
+             params='data'>
 
 << Elements >>
 <decel name='article' file='parts/article.php'
@@ -237,7 +238,7 @@
 <decel name='selflink' file='parts/posting.php' params='posting'>
 <decel name='senderlink' file='parts/utils.php' params='message'>
 <decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'
-       defaults="picprev='pics/left.gif' picnext='pics/right.gif'">
+       defaults="picprev='/pics/left.gif' picnext='/pics/right.gif'">
 <decel name='star' file='parts/formutils.php' params='mandatory'
        defaults="mandatory='*false'">
 <decel name='starinfo' file='parts/formutils.php'>
@@ -392,7 +393,6 @@
   <meta_noindex>
  </print>
  <head>
-  <base href="http://$$userDomain.$$siteDomain/">
   <notprint>
    <link rel='alternate' media='print' href='$[print=1]'>
   </notprint>
@@ -417,9 +417,9 @@
 <macro name='biff' defaults="small='*false'">
  <ifbiff time%!time='%time'>
   <if what='%small'>
-   &nbsp;<image src='pics/ner-small.gif' title='новое'>&nbsp;
+   &nbsp;<image src='/pics/ner-small.gif' title='новое'>&nbsp;
   <else>
-   &nbsp;<image src='pics/ner.gif' title='новое'>&nbsp;
+   &nbsp;<image src='/pics/ner.gif' title='новое'>&nbsp;
   </if>
  </ifbiff>
 </macro>

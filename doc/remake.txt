@@ -55,6 +55,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 с картинками. Убедиться, что в команде репликации track указывается всегда
 правильное имя таблицы.
 32. У PostingListIterator/getPostingById поменялся набор SELECT_*;
+33. Все ссылки должны быть абсолютными.
 
 Прогресс пересмотра файлов
 --------------------------
@@ -320,7 +321,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/book-chapters-static.mhtml
 - migdal/parts/book-ring.mhtml
 - migdal/parts/book-ring-static.mhtml
-+ migdal/parts/bottom.mhtml
+* migdal/parts/bottom.mhtml
 - migdal/parts/complain.mhtml
 + migdal/parts/discussions.mhtml
 + migdal/parts/ears.mhtml

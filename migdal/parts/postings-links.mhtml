@@ -8,7 +8,7 @@
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <table><tr valign=center>
-   <td><image src='pics/sheet.gif'></td>
+   <td><image src='/pics/sheet.gif'></td>
    <td><a href='${catalog}add/?redirid=$_'>Добавить ссылку</a></td>
   </tr></table>
  </td>

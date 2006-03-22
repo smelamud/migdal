@@ -10,8 +10,8 @@
 
 <element name='links_switcher'>
 <table width=100%><tr><td align=right class='eightpt'>
- <navi ident='catalog' title='Тематический каталог' href='links/'>
+ <navi ident='catalog' title='Тематический каталог' href='/links/'>
  |
- <navi ident='index' title='Алфавитный указатель' href='links/urls/'>
+ <navi ident='index' title='Алфавитный указатель' href='/links/urls/'>
 </td></tr></table>
 </element>

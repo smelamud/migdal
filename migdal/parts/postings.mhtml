@@ -7,7 +7,7 @@
  <td align=left class='info'>
   <if what='$access || $showadvert'>
    <table><tr valign=center>
-    <td><image src='pics/sheet.gif'></td>
+    <td><image src='/pics/sheet.gif'></td>
     <td>
      <assign name='noguests' value!='$access ? 0 : 1'>
      <grp_valid grp='$grp'>

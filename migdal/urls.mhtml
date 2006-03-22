@@ -43,9 +43,9 @@
 
 <element name='batcher' params='&list'>
 <table class='info'><tr valign=center>
- <td><image src='pics/sheet.gif'></td>
+ <td><image src='/pics/sheet.gif'></td>
  <td>
-  <a href='links/urls/add/?redirid=$_'>Добавить ссылку</a><asp>
+  <a href='/links/urls/add/?redirid=$_'>Добавить ссылку</a><asp>
  </td>
 </tr></table>
 </element>

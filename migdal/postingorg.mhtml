@@ -16,9 +16,9 @@
 <table width=100%><tr valign=bottom>
  <td align=left class='info'>
   <table><tr valign=center>
-   <td><image src='pics/sheet.gif'></td>
+   <td><image src='/pics/sheet.gif'></td>
    <td>
-    <a href='admin/postings/add/?grp=*GRP_NEWS&full=1&redirid=$_'
+    <a href='/admin/postings/add/?grp=*GRP_NEWS&full=1&redirid=$_'
        >Добавить сообщение</a>
    </td>
   </tr></table>
@@ -76,7 +76,7 @@
   </td></tr>
   <ifnzero what='$posting.VoteCount'>
    <tr><td>
-    $posting.RatingString&nbsp;<image src#='pics/bar-${posting.Rating20}.gif'>
+    $posting.RatingString&nbsp;<image src#='/pics/bar-${posting.Rating20}.gif'>
     &nbsp;
     <array vals='голос,голоса,голосов'>
     <plural value='$posting.VoteCount'>
@@ -100,7 +100,7 @@
     <b>[X]</b>
     &nbsp;
    </if>
-   <a href="admin/postings/$posting.Id/edit/?full=1&redirid=$_">Изменить</a>
+   <a href="/admin/postings/$posting.Id/edit/?full=1&redirid=$_">Изменить</a>
    &nbsp;
    <if what='$posting.isDisabled'>
     <a href="actions/moderate.php?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"
@@ -145,7 +145,7 @@
    </td>
    <td style='padding: 0'>
     <table class='ninept nframe' style='padding: 5px'>
-     <form method=post action='actions/admin/postings/'>
+     <form method=post action='/actions/admin/postings/'>
       <hidden name='okdir' value='$-'>
       <hidden name='faildir' value='$-'>
       <tr><td colspan=2>

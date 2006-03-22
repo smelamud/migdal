@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='further' params='posting'>
-<p><image src='pics/further.gif'>&sp;
+<p><image src='/pics/further.gif'>&sp;
 <a href='$posting.GrpDetailsHref'>Читать дальше</a>
 </element>
 

@@ -30,7 +30,8 @@
  <else>
   <form_table title='Добавить тему'>
  </if>
- <form method=post enctype='multipart/form-data' action='actions/topic/modify/'>
+ <form method=post enctype='multipart/form-data'
+       action='/actions/topic/modify/'>
   <hidden name='edittag' value=1>
   <hidden name='okdir' value='$--'>
   <hidden name='faildir' value='$-'>

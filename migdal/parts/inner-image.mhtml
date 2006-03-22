@@ -1,5 +1,0 @@
-<< @(#) $Id$ >>
-
-<callback name='inner_image'>
- Image: $id
-</callback>

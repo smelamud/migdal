@@ -76,7 +76,9 @@
    <th class='catalog-cell'>Ник</th>
    <th class='catalog-cell'>Имя</th>
    <th class='catalog-cell'>Возраст</th>
-   <th class='catalog-cell'><img src='pics/tower.gif' title='Мигдалевец'></th>
+   <th class='catalog-cell'>
+    <image src='/pics/tower.gif' title='Мигдалевец'>
+   </th>
    <th class='catalog-cell'>Адрес</th>
    <th class='catalog-cell'>Последний раз<br>был здесь</th>
   </tr>
@@ -88,14 +90,14 @@
    </if>
    <tr>
     <td class='$class ninept'>
-     <a href='users/$#.Folder/'>$=.Login</a>
+     <a href='/users/$#.Folder/'>$=.Login</a>
     </td>
     <td class='$class eightpt'><fullname user='$.'></td>
     <if what='$.isConfirmed'>
      <td align=center class='$class eightpt'>$.Age</td>
      <td align=center class='$class'>
       <if what='$.isMigdalStudent'>
-       <img src='pics/check.gif'>
+       <image src='/pics/check.gif'>
       <else>
        &nbsp;
       </if>

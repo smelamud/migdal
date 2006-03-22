@@ -281,7 +281,7 @@
  </if>
  <form_table title='$head'>
   <form method=post enctype='multipart/form-data'
-	action='actions/posting/modify'>
+	action='/actions/posting/modify'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
@@ -308,10 +308,10 @@
    <moderator>
     <tr valign='top'><td class='form-cell' colspan=2><table><tr>
      <full>
-      <td><image src='pics/down.gif'></td>
+      <td><image src='/pics/down.gif'></td>
       <td><a href='$[full=0]'>Скрыть все неиспользуемые поля</a></td>
      <else>
-      <td><image src='pics/right.gif'></td>
+      <td><image src='/pics/right.gif'></td>
       <td><a href='$[full=1]'>Показать все поля</a></td>
      </full>
     </tr></table></td></tr>

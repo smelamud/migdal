@@ -12,13 +12,13 @@
 	val7='http://www.jewniverse.ru/'
 	val8='http://futureisrael.org/ind-ru.html'>
  <array name='pics'
-	val1='pics/ioc.gif'
-	val2='pics/lookstein.gif'
+	val1='/pics/ioc.gif'
+	val2='/pics/lookstein.gif'
 	val3='http://www.antho.net/banners/88/88x31-03.gif'
 	val4='http://www.rjews.net/gazeta/a7ban.gif'
 	val5='http://www.lcenter.net/pics/banners/11.png'
 	val6='http://www.spectr.org/images/spectr88x31.gif'
-	val7='pics/jewniverse.jpg'
+	val7='/pics/jewniverse.jpg'
 	val8='http://futureisrael.org/ifg-ie-88x31.gif'>
  <array name='alts'
         val1=''

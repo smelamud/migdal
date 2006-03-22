@@ -26,23 +26,23 @@
  </ifne>
  <table class='login ninept' cellspacing=0 cellpadding=0>
   <notlogged>
-   <tform action='actions/login'>
+   <tform action='/actions/login'>
     <tr>
      <td>Ник</td>
-     <td><image src='pics/leftinput.gif'></td>
-     <td><input class=line type=text name='login' size=6 maxlength=30></td>
-     <td><image src='pics/rightinput.gif'></td>
+     <td><image src='/pics/leftinput.gif'></td>
+     <td><input class='line' type=text name='login' size=6 maxlength=30></td>
+     <td><image src='/pics/rightinput.gif'></td>
      <td>&nbsp;</td>
      <td>Пароль</td>
-     <td><image src='pics/leftinput.gif'></td>
-     <td><input class=line type=password name='password' size=6></td>
-     <td><image src='pics/rightinput.gif'></td>
+     <td><image src='/pics/leftinput.gif'></td>
+     <td><input class='line' type=password name='password' size=6></td>
+     <td><image src='/pics/rightinput.gif'></td>
      <td>&nbsp;</td>
-     <td><input type=image src='pics/enter.gif'></td>
+     <td><input type=image src='/pics/enter.gif'></td>
     </tr>
     <master>
      <tr><td colspan=11 align=right>
-      <at href#='register/?redirid=$_'
+      <at href#='/register/?redirid=$_'
 	  target='$target'>Зарегистрироваться<asp></at>&nbsp;&nbsp;<asp>
       <at href#='userlost.php?redirid=$_'
 	  target='$target'>Забыли пароль?</at>
@@ -50,30 +50,30 @@
     </master>
    </tform>
   <else>
-   <tform action='actions/logout'>
+   <tform action='/actions/logout'>
     <tr>
      <admin_users><td colspan=3><else><td></admin_users>
       <b>
       <if what='$$userHidden'>
        $$=userLogin
       <else>
-       <at href#='users/$$#userFolder/' class='name'
+       <at href#='/users/$$#userFolder/' class='name'
 	   target='$target'>$$=userLogin</at>
       </if>
       </b>
      </td>
      <td>&nbsp;</td>
-     <td><input type='image' src='pics/exit.gif'></td>
+     <td><input type='image' src='/pics/exit.gif'></td>
     </tr>
    </tform>
    <admin_users>
-    <tform action='actions/su'>
+    <tform action='/actions/su'>
      <tr>
-      <td><image src='pics/leftinput.gif'></td>
+      <td><image src='/pics/leftinput.gif'></td>
       <td><input class='line' type='text' name='login' size=10 maxlength=30></td>
-      <td><image src='pics/rightinput.gif'></td>
+      <td><image src='/pics/rightinput.gif'></td>
       <td>&nbsp;</td>
-      <td><input type='image' src='pics/su.gif'></td>
+      <td><input type='image' src='/pics/su.gif'></td>
      </tr>
     </tform>
    </admin_users>

@@ -3,9 +3,9 @@
 <element name='rating'>
 <if what='$showtitle'><span class='rating'>Рейтинг: </span></if>
 <if what='$value>=0'>
- <image border=0 src#='pics/bar-small-${value}.gif' title='Рейтинг'>
+ <image border=0 src#='/pics/bar-small-${value}.gif' title='Рейтинг'>
 <else>
- <image border=0 src='pics/bar-small-null.gif' title='Рейтинг'>
+ <image border=0 src='/pics/bar-small-null.gif' title='Рейтинг'>
 </if>
 </element>
 
@@ -17,7 +17,6 @@
   <else>
    <assign name='al' value=''>
   </ifne>
-  << По непонятной причине, относительная ссылка здесь не работает >>
   <iframe frameborder=0 $al width=140 height=35
 	  src='/rating/$id/?color=$#color&image=$#image'
 	  scrolling=no></iframe>

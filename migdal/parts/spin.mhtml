@@ -2,7 +2,7 @@
 
 <element name='spin'>
 <if what='$list.Size>$list.Limit && $list.Limit!=0'>
- <form method=post action='actions/goto'>
+ <form method=post action='/actions/goto'>
   <hidden name='okdir' value='$-'>
   <hidden name='pagesize' value='$list.Limit'>
   <hidden name='size' value='$list.Size'>

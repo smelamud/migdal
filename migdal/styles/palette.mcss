@@ -5,7 +5,7 @@ error=white
 
 :default	body_back=%r_b
 :print		body_back=white
-:default	body_back_pic=pics/b-back.gif
+:default	body_back_pic=/pics/b-back.gif
 :print		body_back_pic=
 
 body_404_back=%r_l
@@ -25,14 +25,14 @@ sent=%mrm
 
 :default	cframe_back=%r_l
 :print		cframe_back=white
-:default	cframe_back_pic=pics/l-back.jpg
+:default	cframe_back_pic=/pics/l-back.jpg
 :print		cframe_back_pic=
 :default	cframe_border=%mrd
 :print		cframe_border=
 
 :default	eframe_back=%r_m
 :print		eframe_back=white
-:default	eframe_back_pic=pics/m-back.jpg
+:default	eframe_back_pic=/pics/m-back.jpg
 :print		eframe_back_pic=
 :default	eframe_border=%mrl
 :print		eframe_border=
@@ -48,7 +48,7 @@ sent=%mrm
 :print		nframe_border=
 
 menu_back=%r_n
-menu_back_pic=pics/n-back.jpg
+menu_back_pic=/pics/n-back.jpg
 
 menu_date=%mrl
 menu_date_border=black
@@ -58,10 +58,10 @@ bottom_link=blue
 bottom_biglink=%mrm
 bottom_biglink_hover=blue
 
-banner_logo=pics/big-tower.gif
-banner_migdal=pics/migdal.jpg
-banner_migdal_english=pics/migdal-english.gif
-banner_online=pics/online.jpg
+banner_logo=/pics/big-tower.gif
+banner_migdal=/pics/migdal.jpg
+banner_migdal_english=/pics/migdal-english.gif
+banner_online=/pics/online.jpg
 
 register_hover=blue
 
@@ -102,8 +102,8 @@ topics_answers=%mrm
 topics_new=black
 topics_controls=%mrm
 topics_controls_hover=blue
-topics_arrow=pics/arrow.gif
-topics_ner_arrow=pics/arrow-ner.gif
+topics_arrow=/pics/arrow.gif
+topics_ner_arrow=/pics/arrow-ner.gif
 topics_comment=%mrd
 topics_section=%mrd
 topics_arrow_width=13
@@ -118,13 +118,13 @@ catalog_odd=%r_lm
 catalog_subject=%mrd
 catalog_subject_hover=blue
 
-mail_image=pics/mail.gif
+mail_image=/pics/mail.gif
 
 picmain_title=black
 picmain_title_hover=blue
 
 picture_back=%r_l
-picture_back_pic=pics/l-back.jpg
+picture_back_pic=/pics/l-back.jpg
 picture_name=yellow
 picture_control=%mrd
 picture_control_hover=blue

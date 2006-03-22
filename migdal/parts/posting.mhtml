@@ -2,7 +2,7 @@
 
 <element name='selflink'>
 <table cellspacing=0 cellpadding=0><tr>
- <td><image src='pics/self.gif'>&nbsp;</td>
+ <td><image src='/pics/self.gif'>&nbsp;</td>
  <td>
   <a href='$posting.GrpDetailsHref'><asp>
    <notenglish>Ссылка<else>Link</notenglish></a>
@@ -38,9 +38,9 @@
   <asp></a>
  </td>
  <ifbiff time='$posting.LastAnswer'>
-  <td>&nbsp;<image src='pics/discussion-new.gif'></td>
+  <td>&nbsp;<image src='/pics/discussion-new.gif'></td>
  <else>
-  <td>&nbsp;<image src='pics/discussion.gif'></td>
+  <td>&nbsp;<image src='/pics/discussion.gif'></td>
  </ifbiff>
  </tr></table>
 </notenglish>
@@ -48,7 +48,7 @@
 
 <element name='printlink'>
 <table cellspacing=0 cellpadding=0><tr>
- <td><image src='pics/print.gif'>&nbsp;</td>
+ <td><image src='/pics/print.gif'>&nbsp;</td>
  <td>
   <a href='$posting.GrpDetailsHref?&print=1' target='_blank'><asp>
    <notenglish>Для печати<else>Print version</notenglish></a>
@@ -68,7 +68,7 @@
 <if what='$posting.hasLargeImage'>
  <a href='$posting.LargeImageURL' title='Нажмите, чтобы увеличить'
     ><img border=0 width='$posting.SmallImageX' height='$posting.SmallImageY'
-	$al $alt src='$posting.SmallImageURL'></a>
+	  $al $alt src='$posting.SmallImageURL'></a>
 <else>
  <img border=0 width='$posting.ImageX' height='$posting.ImageY' $al $alt
       src='$posting.ImageURL'>

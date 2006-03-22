@@ -9,7 +9,7 @@
    <iterate_array>
    &nbsp;&nbsp;<b>(</b>&nbsp;
    <for>
-    <a href='plaintext/$plainid/$./'><asp>
+    <a href='/plaintext/$plainid/$./'><asp>
      <if what="$.!='utf8'">$.<else>unicode (utf8)</if></a>&nbsp;
    </for>
    <b>)</b>

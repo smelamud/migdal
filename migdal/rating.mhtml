@@ -39,9 +39,9 @@
   <table class='eightpt' width=130>
    <tr><td colspan=6 align=right>
     <ifnzero what='$,VoteCount'>
-     $,RatingString&nbsp;<image src#='pics/bar-${,Rating20}.gif'>
+     $,RatingString&nbsp;<image src#='/pics/bar-${,Rating20}.gif'>
     <else>
-     <span class='empty'>2.50&nbsp;</span><image src='pics/bar-null.gif'>
+     <span class='empty'>2.50&nbsp;</span><image src='/pics/bar-null.gif'>
     </ifnzero>
    </td></tr>
    <tr>

@@ -303,12 +303,12 @@ return "$imageDir/$fname";
 
 function getImageURL($id,$ext,$fileId=0,$size='large')
 {
-global $siteDomain,$imageURL;
+global $imageURL;
 
 $fname=getImageFilename($id,$ext,$fileId,$size);
 if($imageURL[0]!='/')
   $imageURL="/$imageURL";
-return "http://$siteDomain$imageURL/$fname";
+return "$imageURL/$fname";
 }
 
 # remake

@@ -12,7 +12,7 @@
   <assign name='full_name' value='$item.Subject'>
  </ife>
  <iswrite what='$item'>
-  <a href='admin/topics/$item.Id/edit/?redirid=$_'
+  <a href='/admin/topics/$item.Id/edit/?redirid=$_'
      title='$=item.BodyNormal'>$=full_name</a>&sp;$info&sp;
  <else>
   $=full_name&sp;$info&sp;
@@ -25,10 +25,10 @@
   <br>
  </if>
  <if what='!$root && $;Count!=0'>
-  <a href='admin/topics/$up/' class='edit'>Ветка</a>
+  <a href='/admin/topics/$up/' class='edit'>Ветка</a>
  </if>
  <if what='$append'>
-  <a href='admin/topics/$up/add/?redirid=$_' class='edit'>Добавить</a>
+  <a href='/admin/topics/$up/add/?redirid=$_' class='edit'>Добавить</a>
  </if>
  <if what='$up!=0 && $write'>
   <a href='topicdel.php?redirid=$_&topic_id=$up' class='edit'>Удалить</a>
@@ -68,7 +68,7 @@
      <ifnzero what='$up'>
       <topic_full_name name='full_name' id='$up'>
       <topic_obj id='$up'>
-      <a href='admin/topics/$,UpValue/' class='edit'>На уровень вверх</a>
+      <a href='/admin/topics/$,UpValue/' class='edit'>На уровень вверх</a>
       <br><br>
       <hd item='$,' full_name='$full_name'>
      </ifnzero>

@@ -76,7 +76,7 @@
   <td align=right style='padding-right: 5px; padding-top: 5px'>
    <outer><table cellspacing=0 cellpadding=0><tr valign=top>
     <td><inner><translation href='$transref'></inner></td>
-    <td><common><image src='pics/bsd-main.gif' alt='ву"д'></common></td>
+    <td><common><image src='/pics/bsd-main.gif' alt='ву"д'></common></td>
    </tr></table></outer>
   </td>
  </tr>

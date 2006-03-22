@@ -9,12 +9,12 @@
 <assign name='title'
         value!='!$$englishDomain ? "Написать письмо" : "Send e-mail"'>
 <a href="mailto:$addr" title="$title">
-   <image src="pics/mail.gif" border=0></a>
+   <image src="/pics/mail.gif" border=0></a>
 </element>
 
 <element name='snapshot'>
 <?php
-$fd=fopen('sources/current','r');
+$fd=fopen('/sources/current','r');
 if($fd)
   {
   $date=trim(fgets($fd));
@@ -24,7 +24,7 @@ else
   $date='';
 ?>
 <ifne what='$date'>
- Download <a href='sources/migdal-snapshot-${date}.tar.bz2'>
+ Download <a href='/sources/migdal-snapshot-${date}.tar.bz2'>
  current CVS snapshot ($date)</a><br>
 </ifne>
 </element>
@@ -46,7 +46,7 @@ else
   <a href='http://yosele.rabbi.ru/'>р.&nbsp;Йосеф Херсонский</a>.
  </td>
  <td align=right>
-  <image src='pics/book.gif'>&nbsp;
+  <image src='/pics/book.gif'>&nbsp;
   <a class='big' href='complains.php?redirid=$_'>
    Замечания/предложения<br>по работе сайта</a>
  </td>
@@ -54,7 +54,7 @@ else
 <tr valign=bottom>
  <td align=right>
   <kernel>
-  <snapshot>
+  <<snapshot>>
   <moderator>
    <a href='moderator.php'>Страница модератора</a>
   <else>
@@ -71,7 +71,7 @@ else
   Programming, design and maintenance by <b>Jewish Student Club</b> of
   <br>
   the International Center of Jewish Community Programs
-  <a href='index.php'>&lt;&lt;Migdal&gt;&gt;</a>
+  <a href='/'>&lt;&lt;Migdal&gt;&gt;</a>
   <email addr='migdal@migdal.ru'>, Odessa.
   <p>
   <b>Kira Verkhovskaya</b> <email addr='verkhov@tm.odessa.ua'>, the President

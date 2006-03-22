@@ -6,15 +6,15 @@
               text='Модератор' href#='moderator.php'>
  <topics_splitter>
  <topics_line arrow!="$ident=='admin-topics'" class='item'
-              text='Темы' href#='admin/topics/'>
+              text='Темы' href#='/admin/topics/'>
  <topics_line arrow!="$ident=='admin-messages'" class='item'
-              text='Сообщения' href#='admin/postings/'>
+              text='Сообщения' href#='/admin/postings/'>
  <topics_line arrow!="$ident=='admin-groups'" class='item'
               text='Группы' href#='grouporg.php'>
  <topics_line arrow!="$ident=='admin-journal'" class='item'
               text='Журнал' href#='journal.php'>
  <topics_splitter>
  <topics_line arrow!="$ident=='ears'" class='item'
-              text='Ушки' href#='admin/ears/'>
+              text='Ушки' href#='/admin/ears/'>
 </topics_table>
 </element>

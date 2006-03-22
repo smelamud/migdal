@@ -24,7 +24,7 @@
  <user_obj name='user' id=0>
  <setup>
  <form_table title='Введите информацию о себе'>
-  <form method=post action='actions/user/modify'>
+  <form method=post action='/actions/user/modify'>
    <hidden name='edittag' value=1>
    <admin_users>
     <hidden name='okdir' value='$--'>

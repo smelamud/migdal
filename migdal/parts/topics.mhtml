@@ -9,12 +9,12 @@
  </ifbiff>
 <else>
  <ifbiff time='$time'>
-  <image src='pics/ner-small.gif' title='новое'>
+  <image src='/pics/ner-small.gif' title='новое'>
  <else>
   <if what='$nobullet'>
    &nbsp;
   <else>
-   <image src='pics/bullet.gif'>
+   <image src='/pics/bullet.gif'>
   </if>
  </ifbiff>
 </if>
@@ -76,7 +76,7 @@
    <if what='$nobullet'>
     &nbsp;
    <else>
-    <image src='pics/bullet-mrd.gif'>
+    <image src='/pics/bullet-mrd.gif'>
    </if>
   </td>
  </if>
@@ -112,7 +112,7 @@
  <assign name='title' value#='К разделу &lt;&lt;$name&gt;&gt;'>
 </ife>
 <table><tr>
- <td width=20><image src='pics/up-level.gif'></td>
+ <td width=20><image src='/pics/up-level.gif'></td>
  <td><a href='$href' class='ninept'>$title</a></td>
 </tr></table>
 </element>
