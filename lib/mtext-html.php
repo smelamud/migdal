@@ -144,13 +144,18 @@ function putImage($image)
 {
 $data=new ImageCallbackData();
 $data->id=$this->id;
-$data->image=$image->getImage();
-if($image->isPlaced(IPL_LEFT))
-  $data->align='left';
-if($image->isPlaced(IPL_HCENTER))
-  $data->align='center';
-if($image->isPlaced(IPL_RIGHT))
-  $data->align='right';
+if(!is_null($image))
+  {
+  $data->image=$image->getImage();
+  if($image->isPlaced(IPL_LEFT))
+    $data->align='left';
+  if($image->isPlaced(IPL_HCENTER))
+    $data->align='center';
+  if($image->isPlaced(IPL_RIGHT))
+    $data->align='right';
+  }
+else
+  $data->image=0;
 $this->html.=callback('image',$data);
 }
 
@@ -166,19 +171,23 @@ if($beforeP)
   $block=$this->imageBlocks[$par];
   if(!$block->isPlaced(IPL_VCENTER))
     return;
-  $this->putImage($block->images[0]);
+  $image=$block->images[0];
   }
 else
   {
   $par=$this->par;
   $this->par++;
   if(!isset($this->imageBlocks[$par]))
-    return;
-  $block=$this->imageBlocks[$par];
-  if(!$block->isPlaced(IPL_BOTTOM))
-    return;
-  $this->putImage($block->images[0]);
+    $image=null;
+  else
+    {
+    $block=$this->imageBlocks[$par];
+    if(!$block->isPlaced(IPL_BOTTOM))
+      return;
+    $image=$block->images[0];
+    }
   }
+$this->putImage($image);
 }
 
 function startElement($parser,$name,$attrs)

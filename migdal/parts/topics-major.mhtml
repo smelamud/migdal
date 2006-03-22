@@ -38,7 +38,7 @@
  <else>
   <assign name='catalog' value='$,Catalog'>
  </if>
- <topics_line class='topics-item ninept' time='$info.MaxSent' href='$catalog'
+ <topics_line class='topics-item ninept' time='$info.MaxSent' href#='/$catalog'
               title='$,BodyNormal' text='$,Subject' span='$span'
 	      arrow!='$,Id==$index'>
 </for>

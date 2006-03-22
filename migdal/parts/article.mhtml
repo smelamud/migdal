@@ -1,17 +1,43 @@
 << @(#) $Id$ >>
 
+<element name='article_editmode'>
+<?php
+if(!isset($editmodeHistory))
+  $editmodeHistory=array();
+?>
+<array_push array='$$editmodeHistory' value='$editing'>
+<assign_global name='editmode' value='$editing'>
+</element>
+
+<element name='/article_editmode'>
+<array_pop array='$$editmodeHistory'>
+<assign_global name='editmode' value='$,'>
+</element>
+
 <callback name='article_image'>
 <assign name='image' value='$data.Image'>
 <ifne what='$data.Align'>
  <assign name='align' value#='align="$data.Align"'>
 </ifne>
-<table $align class='pic'>
- <tr><td>
-  <posting_image posting='$image'>
- </td></tr>
- <ifne what='$image.Title'>
-  <tr><td>$image.TitleHTML</td></tr>
- </ifne>
+<table $align>
+ <notprint>
+  <if what='$$editmode'>
+   <tr><td align=center>
+    <<a href='liminsert.php?postid=$data.Id&par=$par.Number&redirid=$_'
+       class='ninept'><notenglish>Картинка<else>Picture</notenglish></a>>
+    <a href='liminsert.php?postid=$data.Id&redirid=$_'
+       class='ninept'><notenglish>Картинка<else>Picture</notenglish></a>
+   </td></tr>
+  </if>
+ </notprint>
+ <ifnzero what='$image'>
+  <tr><td>
+   <posting_image posting='$image'>
+  </td></tr>
+  <ifne what='$image.Title'>
+   <tr><td>$image.TitleHTML</td></tr>
+  </ifne>
+ </ifnzero>
 </table>
 </callback>
 
@@ -46,115 +72,13 @@
 </notprint>
 </element>
 
-<<macro name='isplaced'>
-<if what='$par->isPlaced(%place)'>
-</macro>
-
-<macro name='/isplaced'>
-</if>
-</macro>
-
-<macro name='notplaced'>
-<if what='!$par->isPlaced(%place)'>
-</macro>
-
-<macro name='/notplaced'>
-</if>
-</macro>
-
-<element name='pic' params='posting,par,drop_left,static'
-                    defaults="static='*false'">
-<image_placements>
-<if what='$drop_left'>
- <assign name='clear' value=' style="clear: left"'>
-<else>
- <ifnzero what='$par.ImageId'>
-  <isplaced place='IPL_LEFT'>
-   <assign name='clear' value=' style="clear: left"'>
-  </isplaced>
-  <isplaced place='IPL_HCENTER'>
-   <assign name='clear' value=''>
-  </isplaced>
-  <isplaced place='IPL_RIGHT'>
-   <assign name='clear' value=' style="clear: right"'>
-  </isplaced>
- <else>
-  <assign name='clear' value=''>
- </ifnzero>
-</if>
-<ifnzero what='$par.ImageId'>
- <notplaced place='IPL_TOP'>
-  </p>
- </notplaced>
- <isplaced place='IPL_BOTTOM'>
-  <p$clear>
- </isplaced>
- <isplaced place='IPL_VCENTER'>
-  <isplaced place='IPL_LEFT'>
-   <table$clear width=100%><tr><td align=left>
-  </isplaced>
-  <isplaced place='IPL_HCENTER'>
-   <table$clear width=100%><tr><td align=center>
-  </isplaced>
-  <isplaced place='IPL_RIGHT'>
-   <table$clear width=100%><tr><td align=right>
-  </isplaced>
- </isplaced>
-  <isplaced place='IPL_LEFT'>
-   <table align=left>
-  </isplaced>
-  <isplaced place='IPL_HCENTER'>
-   <table>
-  </isplaced>
-  <isplaced place='IPL_RIGHT'>
-   <table align=right>
-  </isplaced>
-  <notprint>
-   <iswrite what='$posting'>
-    <tr><td align=center>
-     <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
-	class='ninept'><notenglish>Картинка<else>Picture</notenglish></a>
-    </td></tr>
-   </iswrite>
-  </notprint>
-   <tr><td align=center>
-    <image_linked_tag id='$par.ImageId' enlarge='$par.hasLargeImage'
-                      static='$static'>
-   </td></tr>
-   <ifne what='$par.Title'>
-    <tr><td class='imagetitle'>$par.HTMLTitle</td></tr>
-   </ifne>
-  </table>
- <isplaced place='IPL_VCENTER'>
-  </td></tr></table>
- </isplaced>
- <isplaced place='IPL_TOP'>
-  </p>
- </isplaced>
- <notplaced place='IPL_BOTTOM'>
-  <p$clear>
- </notplaced>
-<else>
- </p>
- <notprint>
-  <iswrite what='$posting'>
-   <p$clear>
-   <a href='liminsert.php?postid=$posting.Id&par=$par.Number&redirid=$_'
-      class='ninept'><notenglish>Картинка<else>Picture</notenglish></a>
-   </p>
-  </iswrite>
- </notprint>
- <p$clear>
-</ifnzero>
-</element>
-
-<text_formats>>
-
 <element name='article'>
 <assign name='note_base'
         value!="$note_base_var!='' ? $GLOBALS[$note_base_var] : 1">
-<assign name='text' value='$posting.LargeBodyHTML'>
-$text.TextHTML
+<article_editmode editing!='$posting.isWritable'>
+ <assign name='text' value='$posting.LargeBodyHTML'>
+ $text.TextHTML
+</article_editmode>
 <if what='$withvote'>
  <vote_frame id='$posting.Id' color='$$style_cframe_back'
 	     image='$$style_cframe_back_pic'>

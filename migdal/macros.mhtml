@@ -25,6 +25,8 @@
        defaults="withvote='*true' static='*false' note_base_var=''">
 <decel name='article_controls' file='parts/article.php'
        params='posting,nodiscuss' defaults="nodiscuss='*false'">
+<decel name='article_editmode' file='parts/article.php' params='editing'>
+<decel name='/article_editmode' file='parts/article.php'>
 <decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='at' file='parts/utils.php' params='target,class,href,title'
        defaults="target='' class='' title=''">
