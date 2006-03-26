@@ -251,10 +251,8 @@ $rootComplainUserName='admin';
 $rootComplainGroupName='admin';
 $rootComplainPerms=0xDDDF;
 
-# Флаги модерирования/редактирования по умолчанию
-$defaultPremoderate=1;
-$defaultModerate=1;
-$defaultEdit=1;
+# Флаги модерирования/редактирования по умолчанию для тем
+$rootTopicModbits=MODT_PREMODERATE|MODT_MODERATE|MODT_EDIT;
 
 # Права гостей
 $allowGuests=true;

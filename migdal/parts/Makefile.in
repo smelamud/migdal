@@ -12,12 +12,11 @@ OBJECTS = article.mhtml backtrace.mhtml bannerbank.mhtml banners.mhtml \
 	  forumanswer.mhtml forumcatalog.mhtml forums.mhtml gallery.mhtml \
 	  gallery-main.mhtml googleru.mhtml grpselect.mhtml hannukah.mhtml \
 	  help-link.mhtml history.mhtml hit-parade.mhtml hotlog.mhtml \
-	  identify.mhtml inner-image.mhtml jewishru.mhtml \
-	  kaitana-announce.mhtml kaitana-picture.mhtml langselect.mhtml \
-	  links-switcher.mhtml login.mhtml mailru.mhtml menu.mhtml \
-	  migdal-news.mhtml picture.mhtml picture-main.mhtml pointer.mhtml \
-	  posting.mhtml posting-book.mhtml posting-ear.mhtml \
-	  posting-general.mhtml posting-link.mhtml \
+	  identify.mhtml jewishru.mhtml kaitana-announce.mhtml \
+	  kaitana-picture.mhtml langselect.mhtml links-switcher.mhtml \
+	  login.mhtml mailru.mhtml menu.mhtml migdal-news.mhtml picture.mhtml \
+	  picture-main.mhtml pointer.mhtml posting.mhtml posting-book.mhtml \
+	  posting-ear.mhtml posting-general.mhtml posting-link.mhtml \
 	  posting-library-announce.mhtml posting-times.mhtml \
 	  posting-times-cover.mhtml postings.mhtml postings-links.mhtml \
 	  postings-migdal-news.mhtml rabbi.mhtml rambler.mhtml relogin.mhtml \
