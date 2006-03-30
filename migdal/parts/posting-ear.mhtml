@@ -43,7 +43,7 @@
  </tr>
  <tr height=20><td class='posting-bottom' colspan=3>
   <iswrite what='$posting'>
-   <a href="/admin/ears/$posting.Id/edit/?topic_id=$`ears`&grp=*GRP_EARS&redirid=$_"
+   <a href="/admin/ears/$posting.Id/edit/?redirid=$_"
       >Изменить</a>
    &nbsp;
    <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
