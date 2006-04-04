@@ -14,6 +14,8 @@ return true;
 
 function c_digit($s)
 {
+if(is_int($s) || is_numeric($s))
+  return true;
 for($i=0;$i<strlen($s);$i++)
    {
    $v=ord($s[$i]);
