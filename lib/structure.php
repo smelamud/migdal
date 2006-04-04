@@ -45,11 +45,13 @@ class LocationInfo
 var $path;
 var $script;
 var $args=array();
+var $ids=array();
 var $redir=null;
 var $title='Untitled';
 var $titleExpr;
 var $parent=null;
 var $child=null;
+var $orig=null;
 
 function LocationInfo()
 {
@@ -83,6 +85,30 @@ return $this->args;
 function setArgs($args)
 {
 $this->args=$args;
+}
+
+function getIds()
+{
+return $this->ids;
+}
+
+function setIds($ids)
+{
+$this->ids=$ids;
+}
+
+function getId($name)
+{
+return $this->ids[$name];
+}
+
+function origHasIds($ids)
+{
+$orig=$this->getOrig();
+foreach($ids as $id)
+       if(!isset($orig->ids[$id]))
+         return false;
+return true;
 }
 
 function getRedir()
@@ -157,6 +183,16 @@ else
 function &getChild()
 {
 return $this->child;
+}
+
+function &getOrig()
+{
+return $this->orig;
+}
+
+function setOrig(&$orig)
+{
+$this->orig=&$orig;
 }
 
 function &getRoot()

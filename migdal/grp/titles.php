@@ -20,4 +20,10 @@ function titlePostingSubjectDesc($id)
 $posting=getPostingById($id);
 return $posting->getSubjectDesc();
 }
+
+function titlePostingGrpWhatV($id)
+{
+$posting=getPostingById($id);
+return $posting->getGrpWhatV();
+}
 ?>

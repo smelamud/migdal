@@ -97,9 +97,9 @@ my ($item)=@_;
 
 for my $var(keys %$item)
    {
-   if($var=~/^arg\.(\w+)/)
+   if($var=~/^((?:arg|id)\.\w+)/)
      {
-     $$item{"_arg.$1"}=$$item{$var};
+     $$item{"_$1"}=$$item{$var};
      }
    }
 }
@@ -110,7 +110,7 @@ my ($item)=@_;
 
 for my $var(keys %$item)
    {
-   next unless $var=~/^_arg\./;
+   next unless $var=~/^_(?:arg|id)\./;
    next unless $$item{$var}=~/^(.*)\|(.*)$/;
    $$item{$var}="\".idOrCatalog(\"$1\",\"$2\").\"";
    }
@@ -122,23 +122,31 @@ my ($item)=@_;
 
 for my $var(keys %$item)
    {
-   next unless $var=~/^arg\./;
+   next unless $var=~/^(?:arg|id)\./;
    my $type;
-   ($var,$type)=$var=~/^arg\.(\w+):(\w+)$/;
+   ($var,$type)=$var=~/^((?:arg|id)\.\w+):(\w+)$/;
    if($type eq 'grp')
      {
-     my $name=uc $$item{"_arg.$var"};
+     my $name=uc $$item{"_$var"};
      my $value;
      $value="constant(\"GRP_$name\")" if $name=~/\$/;
      $value="GRP_$name" unless $name=~/\$/;
-     $$item{"_arg.$var"}="\".$value.\"";
+     $$item{"_$var"}="\".$value.\"";
      }
    else
      {
      $type=ucfirst $type;
-     $$item{"_arg.$var"}="\".postProcess$type(\"".$$item{"_arg.$var"}."\").\"";
+     $$item{"_$var"}="\".postProcess$type(\"".$$item{"_$var"}."\").\"";
      }
    }
+}
+
+sub addOrigId
+{
+my ($item,$name)=@_;
+
+$$item{'_orig.ids'}=[] if !exists($$item{'_orig.ids'});
+push @{$$item{'_orig.ids'}},$name;
 }
 
 sub processArgs
@@ -153,11 +161,19 @@ for my $sub(@{$$item{'_subs'}})
    {
    for my $var(keys %$item)
       {
-      next unless $var=~/^arg\./ || $var eq 'parent.path' || $var eq '_cond';
-      $var="_arg.$1" if $var=~/^arg\.(\w+):\w+$/;
+      next unless $var=~/^(?:arg|id)\./ || $var eq 'parent.path'
+                  || $var eq '_cond' || $var eq 'orig.path';
+      $var="_$1" if $var=~/^((?:arg|id)\.\w+):\w+$/;
       $$item{$var}=~s/\${$sub}/"{\$m[$n]}"/ge;
       }
    $n++;
+   }
+
+for my $var(keys %$item)
+   {
+   next unless $var=~/^(?:arg|id)\./;
+   $var="_$1" if $var=~/^((?:arg|id)\.\w+):\w+$/;
+   $$item{$var}=~s/\${((?:parent|orig)\.id\.\w+)}/subTitleVar($1,$item)/ge;
    }
 
 postProcessArgs($item);
@@ -165,34 +181,41 @@ postProcessArgs($item);
 
 sub subTitleVar
 {
-my ($expr)=@_;
+my ($expr,$item)=@_;
 
 return "{\$args['$1']}" if $expr=~/^arg\.(\w+)$/;
+return "{\$ids['$1']}" if $expr=~/^id\.(\w+)$/;
+if($expr=~/^orig.id\.(\w+)$/)
+  {
+  addOrigId($item,$1);
+  return "\".\$info->orig->getId('$1').\"";
+  }
+return "\".\$info->parent->getId('$1').\"" if $expr=~/^parent.id\.(\w+)$/;
 return "\".\$info->parent->getTitle().\"" if $expr eq 'parent.title';
 return "{\$$expr}";
 }
 
 sub subTitleFunc
 {
-my ($expr,$prefix)=@_;
+my ($expr,$prefix,$item)=@_;
 
 my ($name,$arg)=$expr=~/^(\w+)\(([^)]*)\)$/;
 $name=ucfirst $name;
-$arg=subTitleVar($arg);
+$arg=subTitleVar($arg,$item);
 return "\".$prefix$name(\"$arg\").\"";
 }
 
 sub subTitleExpr
 {
-my ($expr,$prefix)=@_;
+my ($expr,$prefix,$item)=@_;
 
 if($expr=~/\(/)
   {
-  return subTitleFunc($expr,$prefix);
+  return subTitleFunc($expr,$prefix,$item);
   }
 else
   {
-  return subTitleVar($expr);
+  return subTitleVar($expr,$item);
   }
 }
 
@@ -202,7 +225,7 @@ my ($item,$name)=@_;
 
 return unless exists($$item{$name});
 my $title=$$item{$name};
-$title=~s/\${([^}]*)}/subTitleExpr($1,$name)/ge;
+$title=~s/\${([^}]*)}/subTitleExpr($1,$name,$item)/ge;
 $$item{"_$name"}=$title;
 }
 
@@ -304,7 +327,52 @@ if(preg_match('/$regex/',\$path,\$m)$cond)
   {
 EOF
      }
+   if(exists($$item{'parent.path'}))
+     {
+     my $parent=trimQuotes('"'.$$item{'parent.path'}.'"');
+     print OUT <<EOF
+  \$info->setParent(getParentLocationInfo($parent,\$redirid));
+EOF
+     }
+   if(exists($$item{'orig.path'}))
+     {
+     my $orig=trimQuotes('"'.$$item{'orig.path'}.'"');
+     print OUT <<EOF
+  \$info->setOrig(getParentLocationInfo($orig,0));
+EOF
+     }
+   if(exists($$item{'_orig.ids'}))
+     {
+     my $pids="array(".join(',',map("'$_'",@{$$item{'_orig.ids'}})).")";
+     print OUT <<EOF
+  if(\$info->origHasIds($pids))
+  {
+EOF
+     }
    my $f=0;
+   for my $key(keys %$item)
+       {
+       next unless $key=~/^_id\.([\w:]*)$/;
+       if(!$f)
+         {
+	 print OUT <<EOF;
+  \$ids=array(
+EOF
+	 $f=1;
+	 }
+       my $value=trimQuotes('"'.$$item{$key}.'"');
+       print OUT <<EOF
+  '$1' => $value,
+EOF
+       }
+   if($f)
+     {
+     print OUT <<EOF
+  );
+  \$info->setIds(\$ids);
+EOF
+     }
+   $f=0;
    for my $key(keys %$item)
        {
        next unless $key=~/^_arg\.([\w:]*)$/;
@@ -327,13 +395,6 @@ EOF
   \$info->setArgs(\$args);
 EOF
      }
-   if(exists($$item{'parent.path'}))
-     {
-     my $parent=trimQuotes('"'.$$item{'parent.path'}.'"');
-     print OUT <<EOF
-  \$info->setParent(getParentLocationInfo($parent,\$redirid));
-EOF
-     }
    if(exists($$item{'_script'}))
      {
      my $script=trimQuotes('"'.$$item{'_script'}.'"');
@@ -350,6 +411,14 @@ EOF
      }
    print OUT <<EOF;
   return \$info;
+EOF
+   if(exists($$item{'_orig.ids'}))
+     {
+     print OUT <<EOF
+  }
+EOF
+     }
+   print OUT <<EOF;
   }
 EOF
    }
