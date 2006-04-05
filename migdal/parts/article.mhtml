@@ -58,7 +58,7 @@ if(!isset($editmodeHistory))
       &nbsp;
      </td>
      <td style='padding-bottom: 3px'>
-      <a href="limedit.php?postid=$posting.Id&redirid=$_">
+      <a href="${posting.GrpDetailsHref}images/?redirid=$_">
        <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
       &nbsp;
      </td>

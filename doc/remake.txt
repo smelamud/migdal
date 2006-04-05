@@ -265,7 +265,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/journal.mhtml
 - migdal/kaitana-main.mhtml
 - migdal/kaitana.mhtml
-- migdal/limedit.mhtml
+* migdal/limedit.mhtml
 - migdal/liminsert.mhtml
 - migdal/links.mhtml
 - migdal/methodic-center.mhtml
