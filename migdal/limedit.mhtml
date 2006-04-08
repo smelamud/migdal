@@ -10,13 +10,13 @@
  <posting_obj id='$postid'>
  <table width=100%><tr valign=top>
   <td class='eframe' width=200>
-   <<iterate_imageset imageset='$,LargeImageSet'>>
+   <iterate_images postid='$,Id'>
    <topics_table class='ninept' title='Иллюстрации'>
-    <<for>
+    <for>
      <ife what='$.Title'>
       <assign name='name' value='$.Filename'>
      <else>
-      <assign name='name' value='$.CleanTitlePea'>
+      <assign name='name' value='$.TitlePea'>
       <if what='!$.isTitlePea'>
        <assign name='name' value#='$name...'>
       </if>
@@ -26,8 +26,8 @@
      <tr valign=top>
       <td>&nbsp;</td>
       <td class='comment'>
-       <if what='$.hasLarge'>
-        (${.SmallX}x${.SmallY})
+       <if what='$.hasLargeImage'>
+        (${.SmallImageX}x${.SmallImageY})
        </if>
        ${.ImageX}x${.ImageY}, ${.ImageSizeKB}KB
       </td>
@@ -36,7 +36,7 @@
       <topics_line href#='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$#-&faildir=$#-'
 		   class='edit' text='Удалить' nobullet='*true'>
      </if>
-    </for>>
+    </for>
     <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
                  class='new' text='-- Добавить --'>
    </topics_table>

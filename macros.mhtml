@@ -73,8 +73,8 @@
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>
 <deciter macro='groups' class='GroupsIterator' file='lib/groups.php'>
 <deciter macro='horisonts' class='HorisontsIterator' file='lib/horisonts.php'>
-<deciter macro='imageset' class='ImageSetIterator' file='lib/images.php'
-         params='imageset'>
+<deciter macro='images' class='ImagesIterator' file='lib/images.php'
+         params='postid'>
 <deciter macro='instant_messagelist' class='InstantMessageListIterator'
          file='lib/instants.php'>
 <deciter macro='journallist' class='JournalListIterator' file='lib/journal.php'

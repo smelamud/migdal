@@ -326,6 +326,32 @@ function getTitleHTML()
 return mtextToHTML($this->getTitleXML(),MTEXT_SHORT,$this->getId());
 }
 
+function isTitlePea()
+{
+global $peaSize,$peaSizeMinus,$peaSizePlus;
+
+return cleanLength($this->getTitleXML())<=$peaSize+$peaSizePlus;
+}
+
+function getTitlePea()
+{
+global $peaSize,$peaSizeMinus,$peaSizePlus;
+
+return shortenNote($this->getTitleXML(),$peaSize,$peaSizeMinus,$peaSizePlus);
+}
+
+function getTitlePeaXML()
+{
+global $peaSize,$peaSizeMinus,$peaSizePlus;
+
+return shorten($this->getTitleXML(),$peaSize,$peaSizeMinus,$peaSizePlus);
+}
+
+function getTitlePeaHTML()
+{
+return mtextToHTML($this->getTitlePeaXML(),MTEXT_SHORT,$this->getId());
+}
+
 function getComment0()
 {
 return $this->comment0;

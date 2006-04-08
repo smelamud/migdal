@@ -3,7 +3,7 @@
 
 require_once('conf/migdal.conf');
 
-require_once('lib/dataobject.php');
+require_once('lib/entries.php');
 require_once('lib/selectiterator.php');
 require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
@@ -11,32 +11,17 @@ require_once('lib/text.php');
 require_once('lib/image-types.php');
 require_once('lib/sql.php');
 
-# remake
 class Image
-      extends DataObject
+      extends Entry
 {
-var $id;
-var $image_set;
-var $filename;
-var $small;
-var $small_x;
-var $small_y;
-var $has_large;
-var $large;
-var $large_x;
-var $large_y;
-var $format;
-var $title;
-var $image_size;
-var $image_x;
-var $image_y;
 
 function Image($row)
 {
-$this->DataObject($row);
+$this->entry=ENT_IMAGE;
+parent::Entry($row);
 }
 
-function setup($vars)
+/*function setup($vars)
 {
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
@@ -95,153 +80,25 @@ else
     }
   }
 return $result;
-}
-
-function getId()
-{
-return $this->id;
-}
-
-function getImageSet()
-{
-return $this->image_set;
-}
-
-function setImageSet($image_set)
-{
-$this->image_set=$image_set;
-}
-
-function getFilename()
-{
-return $this->filename;
-}
-
-function getSmall()
-{
-return $this->small;
-}
-
-function getSmallX()
-{
-return $this->small_x;
-}
-
-function getSmallY()
-{
-return $this->small_y;
-}
-
-function isEmpty()
-{
-return $this->getLarge()=='';
-}
-
-function hasLarge()
-{
-return $this->has_large;
-}
-
-function getLarge()
-{
-return $this->has_large ? $this->large : $this->small;
-}
-
-function getLargeX()
-{
-return $this->large_x;
-}
-
-function getLargeY()
-{
-return $this->large_y;
-}
-
-function getFormat()
-{
-return $this->format;
-}
-
-function getTitle()
-{
-return $this->title;
-}
-
-function getHTMLTitle()
-{
-return stotextToHTML(TF_MAIL,$this->title);
-}
-
-function isTitlePea()
-{
-global $peaSize,$peaSizeMinus,$peaSizePlus;
-
-return strlen($this->getTitle())<=$peaSize+$peaSizePlus;
-}
-
-function getTitlePea()
-{
-global $peaSize,$peaSizeMinus,$peaSizePlus;
-
-return shorten($this->getTitle(),$peaSize,$peaSizeMinus,$peaSizePlus);
-}
-
-function getHTMLTitlePea()
-{
-return stotextToHTML(TF_MAIL,$this->getTitlePea());
-}
-
-function getCleanTitlePea()
-{
-global $peaSize,$peaSizeMinus,$peaSizePlus;
-
-// FIXME user shortenNote()
-return shorten(clearStotext(TF_MAIL,$this->getTitle()),
-               $peaSize,$peaSizeMinus,$peaSizePlus);
-}
-
-function setTitle($title)
-{
-$this->title=$title;
-}
-
-function getImageSize()
-{
-return $this->image_size;
-}
-
-function getImageSizeKB()
-{
-return (int)($this->image_size/1024);
-}
-
-function getImageX()
-{
-return $this->image_x;
-}
-
-function getImageY()
-{
-return $this->image_y;
-}
+}*/
 
 }
 
-# remake
-class ImageSetIterator
+class ImagesIterator
       extends SelectIterator
 {
 
-function ImageSetIterator($image_set)
+function ImagesIterator($postid)
 {
-$this->SelectIterator('Image',
-                      "select id,filename,small_x,small_y,
-	               has_large,title,
-		       if(has_large,length(large),length(small)) as image_size,
-		       if(has_large,large_x,small_x) as image_x,
-		       if(has_large,large_y,small_y) as image_y
-		       from images
-		       where image_set=$image_set");
+parent::SelectIterator('Entry',
+		       "select id,ident,entry,up,track,catalog,parent_id,
+		               user_id,group_id,perms,disabled,title,title_xml,
+			       sent,created,modified,accessed,small_image,
+			       small_image_x,small_image_y,large_image,
+			       large_image_x,large_image_y,large_image_size,
+			       large_image_format,large_image_filename
+			from entries
+			where up=$postid");
 }
 
 }

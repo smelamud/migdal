@@ -213,7 +213,7 @@ $Order=getOrderBy($sort,
 	     SORT_RINDEX1         => 'index1 desc',
 	     SORT_RINDEX2_RINDEX0 => 'index2 desc,index0 desc'));
 /* Query */
-$this->TopicIterator(
+parent::TopicIterator(
       "select $Select
        from $From
        $Where
