@@ -90,6 +90,8 @@ class ImagesIterator
 
 function ImagesIterator($postid)
 {
+// Показываем все нижестоящие entries, в которых есть картинка, не обязательно
+// типа ENT_IMAGE
 parent::SelectIterator('Entry',
 		       "select id,ident,entry,up,track,catalog,parent_id,
 		               user_id,group_id,perms,disabled,title,title_xml,
@@ -98,7 +100,7 @@ parent::SelectIterator('Entry',
 			       large_image_x,large_image_y,large_image_size,
 			       large_image_format,large_image_filename
 			from entries
-			where up=$postid");
+			where up=$postid and small_image<>0");
 }
 
 }
