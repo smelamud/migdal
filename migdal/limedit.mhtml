@@ -14,7 +14,7 @@
    <topics_table class='ninept' title='Иллюстрации'>
     <for>
      <ife what='$.Title'>
-      <assign name='name' value='$.Filename'>
+      <assign name='name' value='$.LargeImageFilename'>
      <else>
       <assign name='name' value='$.TitlePea'>
       <if what='!$.isTitlePea'>
@@ -29,7 +29,7 @@
        <if what='$.hasLargeImage'>
         (${.SmallImageX}x${.SmallImageY})
        </if>
-       ${.ImageX}x${.ImageY}, ${.ImageSizeKB}KB
+       ${.ImageX}x${.ImageY}, ${.LargeImageSizeKB}KB
       </td>
      </tr>
      <if what='$editid==$.Id'>
