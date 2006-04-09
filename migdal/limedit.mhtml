@@ -43,8 +43,8 @@
   </td>
   <td>
    <form_table title#='Иллюстрации к статье "$=,Subject"'>
-    <<image_obj id='$editid'>
-    <setup>>
+    <image_obj id='$editid'>
+    <setup>
     <form method=post enctype='multipart/form-data'
 	  action='actions/limmod.php'>
      <hidden name='edittag' value=1>
@@ -60,18 +60,21 @@
      <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
      <error id='*EIU_UNKNOWN_THUMBNAIL'
 	    text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+     <if what='$,hasSmallImage'>
+      <assign name='loaded' value#='Загружен файл $=,LargeImageFilename
+				    (${,LargeImageSizeKB}K)'>
+     <else>
+      <assign name='loaded' value=''>
+     </if>
      <form_uploader title='Изображение' name='image_file'
-                    loaded='Загружен файл' delname='del_image'
+                    loaded='$loaded' delname='del_image'
 		    mandatory='*true'>
-	       <<filename='$,Filename'>>
-     <form_checkbox title='Вставлять в уменьшенном виде' name='has_large'>
-                    <<value='$,hasLarge'>>
+     <form_checkbox title='Вставлять в уменьшенном виде' name='has_large_image'
+                    value='$,hasLargeImage'>
      <form_line title='Размер'>
-      <edit name='small_x' value='' size=4 maxlength=4>
-      <<edit name='small_x' value='$,SmallX' size=4 maxlength=4>>
+      <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4>
       x
-      <edit type=text name='small_y' value='' size=4 maxlength=4>
-      <<edit type=text name='small_y' value='$,SmallY' size=4 maxlength=4>>
+      <edit name='small_image_y' value='$,SmallImageY' size=4 maxlength=4>
      </form_line>
      <form_editor title='Подпись' name='title' body='$=,Title' rows=3>
      <if what='$editid'>

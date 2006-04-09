@@ -21,18 +21,17 @@ $this->entry=ENT_IMAGE;
 parent::Entry($row);
 }
 
-/*function setup($vars)
+function setup($vars)
 {
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-foreach($this->getCorrespondentVars() as $var)
-       $this->$var=htmlspecialchars($vars[$var],ENT_QUOTES);
-
-if(isset($vars['titleid']))
-  $this->title=tmpTextRestore($vars['titleid']);
+$this->up=$vars['postid'];
+$this->body_format=TF_PLAIN;
+$this->title=$vars['title'];
+$this->title_xml=wikiToXML($this->title,$this->body_format,MTEXT_LINE);
 }
 
-function getCorrespondentVars()
+/*function getCorrespondentVars()
 {
 return array('has_large','small_x','small_y','title');
 }
@@ -105,13 +104,16 @@ parent::SelectIterator('Entry',
 
 }
 
-# remake
 function getImageById($id)
 {
-$result=sql("select id,image_set,filename,small_x,small_y,has_large,title
-	     from images
+$result=sql("select id,ident,entry,up,track,catalog,parent_id,user_id,group_id,
+                    perms,disabled,title,title_xml,sent,created,modified,
+		    accessed,small_image,small_image_x,small_image_y,
+		    large_image,large_image_x,large_image_y,large_image_size,
+		    large_image_format,large_image_filename
+	     from entries
 	     where id=$id",
-	    'getImageById');
+	    __FUNCTION__);
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
 }

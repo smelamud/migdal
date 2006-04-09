@@ -86,7 +86,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/horisontmod.php
 - actions/limdel.php
 - actions/liminsert.php
-- actions/limmod.php
+* actions/limmod.php
 + actions/link.php
 + actions/login.php
 + actions/logout.php
@@ -265,7 +265,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/journal.mhtml
 - migdal/kaitana-main.mhtml
 - migdal/kaitana.mhtml
-* migdal/limedit.mhtml
++ migdal/limedit.mhtml
 - migdal/liminsert.mhtml
 - migdal/links.mhtml
 - migdal/methodic-center.mhtml

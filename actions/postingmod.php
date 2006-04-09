@@ -191,8 +191,8 @@ $posting=getPostingById($editid,$grp,$index1,$parent_id,
 $original=$posting;
 $posting->setup($Args);
 
-$erru=uploadImage('image_file',$posting,$thumbnailWidth,$thumbnailHeight,
-		  $del_image);
+$erru=uploadImage('image_file',$posting,$posting->createThumbnail(),
+                  $thumbnailWidth,$thumbnailHeight,$del_image);
 if($err==EG_OK)
   $err=$erru;
 $erru=uploadLargeBody($posting,$del_large_body);

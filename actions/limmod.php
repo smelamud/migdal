@@ -83,38 +83,53 @@ if(!$userModerator)
 return EG_OK;
 }
 
+function modifyImage($posting,$original)
+{
+return EG_OK;
+}
+
+postString('okdir');
+postString('faildir');
+
+postInteger('edittag');
 postInteger('postid');
 postInteger('editid');
-postInteger('has_large');
-postInteger('small_x');
-postInteger('small_y');
+postInteger('del_image');
+postInteger('has_large_image');
+postInteger('small_image_x');
+postInteger('small_image_y');
 postString('title');
 
 dbOpen();
 session();
 $posting=getPostingById($postid);
-$err=storeImage($posting);
+$original=$posting;
+$posting->setup($Args);
+$err=uploadImage('image_file',$posting,$has_large_image,
+                 $small_image_x,$small_image_y,$del_image);
+if($err==EG_OK)
+  $err=modifyImage($posting,$original);
 $titleId=tmpTextSave($title);
 if($err==EG_OK)
   header('Location: '.remakeMakeURI($okdir,
-				    $HTTP_POST_VARS,
+				    $Args,
 				    array('err',
 				          'title',
-					  'titleid',
+					  'title_i',
 					  'edittag',
-					  'small_x',
-					  'small_y',
-					  'has_large',
+					  'small_image_x',
+					  'small_image_y',
+					  'has_large_image',
+					  'del_image',
 					  'okdir',
-				          'faildir'),
-				    array('titleid' => $titleId)));
+				          'faildir')));
 else
   header('Location: '.remakeMakeURI($faildir,
-				    $HTTP_POST_VARS,
+				    $Args,
 				    array('title',
 				          'okdir',
 					  'faildir'),
 				    array('err'     => $err,
-					  'titleid' => $titleId)).'#error');
+					  'title_i' => $titleId)).'#error');
 dbClose();
 ?>

@@ -13,7 +13,6 @@ require_once('lib/charsets.php');
 require_once('lib/modbits.php');
 require_once('lib/grps.php');
 require_once('lib/votes.php');
-require_once('lib/entries.php');
 require_once('lib/images.php');
 require_once('lib/image-types.php');
 require_once('lib/image-upload.php');

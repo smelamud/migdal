@@ -6,7 +6,8 @@ require_once('conf/migdal.conf');
 require_once('lib/images.php');
 require_once('lib/image-types.php');
 
-function uploadImage($name,&$posting,$thumbnailX,$thumbnailY,$del)
+function uploadImage($name,&$posting,$createThumbnail,$thumbnailX,$thumbnailY,
+                     $del)
 {
 global $maxImageSize,$thumbnailType,$imageDir;
 
@@ -40,7 +41,7 @@ $posting->large_image_size=$file['size'];
 $posting->large_image_format=$file['type'];
 $posting->large_image_filename=$file['name'];
 $hasThumbnail=false;
-if($posting->createThumbnail())
+if($createThumbnail)
   {
   $smallId=getNextImageId();
   $smallName=getImagePath($posting->getId(),getImageExtension($thumbnailType),
