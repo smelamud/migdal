@@ -24,40 +24,6 @@ require_once('lib/counters.php');
 require_once('lib/logging.php');
 require_once('lib/sql.php');
 
-function isModbitRequired($modbits,$bit,$posting,$original)
-{
-global $userId,$userModerator;
-
-$required=($modbits & $bit)!=0;
-switch($bit)
-      {
-      case MODT_PREMODERATE:
-	   $required=$original->getId()==0 && $required && $userId>0
-	             && !$userModerator;
-           break;
-      case MODT_MODERATE:
-	   $required=$required && !$userModerator;
-           break;
-      case MODT_EDIT:
-	   $required=$required && !$userModerator;
-           break;
-      }
-return $required;
-}
-
-function setPremoderates($posting,$original)
-{
-$tmod=getModbitsByTopicId($posting->getParentId());
-if(isModbitRequired($tmod,MODT_PREMODERATE,$posting,$original))
-  setDisabledByEntryId($posting->getId(),1);
-$modbits=MOD_NONE;
-if(isModbitRequired($tmod,MODT_MODERATE,$posting,$original))
-  $modbits|=MOD_MODERATE;
-if(isModbitRequired($tmod,MODT_EDIT,$posting,$original))
-  $modbits|=MOD_EDIT;
-setModbitsByEntryId($posting->getId(),$modbits);
-}
-
 function modifyPosting($posting,$original)
 {
 global $thumbnailType;

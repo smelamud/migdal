@@ -48,39 +48,7 @@ return array('image_set' => 'images','filename' => '','small' => '',
              'large' => '','title' => '');
 }
 
-function store()
-{
-global $userId;
-
-$normal=$this->getNormal();
-if($this->id)
-  {
-  $result=sql(makeUpdate('images',
-                         $normal,
-			 array('id' => $this->id)),
-	      get_method($this,'store'),'update');
-  journal(makeUpdate('images',
-                     jencodeVars($normal,$this->getJencodedVars()),
-		     array('id' => journalVar('images',$this->id))));
-  }
-else
-  {
-  $result=sql(makeInsert('images',
-                         $normal),
-	      get_method($this,'store'),'insert');
-  $this->id=sql_insert_id();
-  journal(makeInsert('images',
-                     jencodeVars($normal,$this->getJencodedVars())),
-	  'images',$this->id);
-  if($this->image_set==0)
-    {
-    $this->image_set=$this->id;
-    $result=setSelfImageSet($this->id);
-    }
-  }
-return $result;
-}*/
-
+*/
 }
 
 class ImagesIterator
@@ -102,6 +70,60 @@ parent::SelectIterator('Entry',
 			where up=$postid and small_image<>0");
 }
 
+}
+
+function storeImage(&$image)
+{
+global $userId;
+
+$jencoded=array('title' => '','title_xml' => '','small_image' => 'images',
+                'large_image' => 'images','large_image_filename' => '',
+		'user_id' => 'users', 'group_id' => 'users','up' => 'entries',
+		'parent_id' => 'entries');
+$vars=array('ident' => $image->ident,
+            'up' => $image->up,
+	    'track' => $image->track,
+	    'catalog' => $image->catalog,
+	    'parent_id' => $image->parent_id,
+	    'user_id' => $image->user_id,
+	    'group_id' => $image->group_id,
+	    'perms' => $image->perms,
+	    'title' => $image->title,
+	    'title_xml' => $image->title_xml,
+	    'small_image' => $image->small_image,
+	    'small_image_x' => $image->small_image_x,
+	    'small_image_y' => $image->small_image_y,
+	    'large_image' => $image->large_image,
+	    'large_image_x' => $image->large_image_x,
+	    'large_image_y' => $image->large_image_y,
+	    'large_image_size' => $image->large_image_size,
+	    'large_image_format' => $image->large_image_format,
+	    'large_image_filename' => $image->large_image_filename,
+	    'modified' => sqlNow());
+if($image->id)
+  {
+  $result=sql(makeUpdate('entries',
+                         $vars,
+			 array('id' => $image->id)),
+	      __FUNCTION__,'update');
+  journal(makeUpdate('entries',
+                     jencodeVars($vars,$jencoded),
+		     array('id' => journalVar('entries',$image->id))));
+  }
+else
+  {
+  $vars['id']=$image->id;
+  $vars['sent']=sqlNow();
+  $vars['created']=sqlNow();
+  $result=sql(makeInsert('entries',
+                         $vars),
+	      __FUNCTION__,'insert');
+  $image->id=sql_insert_id();
+  journal(makeInsert('entries',
+                     jencodeVars($vars,$jencoded)),
+	  'entries',$this->id);
+  }
+return $result;
 }
 
 function getImageById($id)

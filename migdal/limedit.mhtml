@@ -46,7 +46,7 @@
     <image_obj id='$editid'>
     <setup>
     <form method=post enctype='multipart/form-data'
-	  action='actions/limmod.php'>
+	  action='/actions/posting/image/modify'>
      <hidden name='edittag' value=1>
      <hidden name='okdir' value='$-'>
      <hidden name='faildir' value='$-'>

@@ -888,4 +888,39 @@ $result=sql("select count(distinct url_domain)
 	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
+
+function isModbitRequired($topicModbits,$bit,$posting)
+{
+global $userId,$userModerator;
+
+$required=($topicModbits & $bit)!=0;
+switch($bit)
+      {
+      case MODT_PREMODERATE:
+	   $required=($posting->getId()==0 || $posting->isDisabled())
+	             && $required && $userId>0 && !$userModerator;
+           break;
+      case MODT_MODERATE:
+	   $required=$required && !$userModerator;
+           break;
+      case MODT_EDIT:
+	   $required=$required && !$userModerator;
+           break;
+      }
+return $required;
+}
+
+function setPremoderates($posting,$original,$required=MODT_ALL)
+{
+$tmod=getModbitsByTopicId($posting->getParentId());
+$tmod&=$required;
+if(isModbitRequired($tmod,MODT_PREMODERATE,$original))
+  setDisabledByEntryId($posting->getId(),1);
+$modbits=MOD_NONE;
+if(isModbitRequired($tmod,MODT_MODERATE,$original))
+  $modbits|=MOD_MODERATE;
+if(isModbitRequired($tmod,MODT_EDIT,$original))
+  $modbits|=MOD_EDIT;
+setModbitsByEntryId($posting->getId(),$modbits);
+}
 ?>
