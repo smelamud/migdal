@@ -93,7 +93,9 @@ define('EMID_NO_EDIT',230);
 define('EMID_NO_ITEM',231);
 
 define('ELIM_NO_EDIT',240);
-define('ELIM_IMAGE_ABSENT',241);
+define('ELIM_NO_POSTING',241);
+define('ELIM_POSTING_APPEND',242);
+define('ELIM_IMAGE_ABSENT',243);
 
 define('ELII_NO_EDIT',250);
 define('ELII_MESSAGE_ABSENT',251);

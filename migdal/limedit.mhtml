@@ -53,13 +53,21 @@
      <hidden name='postid' value='$postid'>
      <hidden name='editid' value='$editid'>
      <starinfo>
-     <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать этот список'>
-     <error id='*ELID_NO_EDIT' text='Вы не можете редактировать этот список'>
-     <error id='*ELIM_IMAGE_ABSENT' text='Такого изображения не существует'>
+     <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать эту картинку'>
+     <error id='*ELIM_NO_POSTING' text='Вышестоящего сообщения не существует'>
+     <error id='*ELIM_POSTING_APPEND' text='Вы не можете редактировать этот список'>
+     <error id='*ELIM_IMAGE_ABSENT' text='Картинка не указана'>
      <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки'>
      <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
      <error id='*EIU_UNKNOWN_THUMBNAIL'
-	    text='Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается'>
+	    text='Формат маленькой картинки, указанный при конфигурации сервера,
+		  не поддерживается'>
+     <error id='*EVH_NO_PARENT' text='Такой темы не существует'>
+     <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
+     <error id='*EVH_LOOP' text='Сообщение не может быть подчиненным себе'>
+     <error id='*EVH_NOT_UP_UNDER_PARENT'
+	    text='Тема вышестоящего сообщения должна совпадать с этой темой'>
+     <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
      <if what='$,hasSmallImage'>
       <assign name='loaded' value#='Загружен файл $=,LargeImageFilename
 				    (${,LargeImageSizeKB}K)'>
@@ -70,7 +78,7 @@
                     loaded='$loaded' delname='del_image'
 		    mandatory='*true'>
      <form_checkbox title='Вставлять в уменьшенном виде' name='has_large_image'
-                    value='$,hasLargeImage'>
+                    value='$,hasLargeImage' style='radio'>
      <form_line title='Размер'>
       <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4>
       x

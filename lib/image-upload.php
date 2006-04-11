@@ -7,7 +7,7 @@ require_once('lib/images.php');
 require_once('lib/image-types.php');
 
 function uploadImage($name,&$posting,$createThumbnail,$thumbnailX,$thumbnailY,
-                     $del)
+                     $del,$resize=false)
 {
 global $maxImageSize,$thumbnailType,$imageDir;
 
@@ -21,25 +21,44 @@ if($del)
   $posting->large_image_format='';
   $posting->large_image_filename='';
   }
-if(!isset($_FILES[$name]))
-  return EG_OK;
-$file=$_FILES[$name];
-if($file['tmp_name']=='' || !is_uploaded_file($file['tmp_name'])
-   || filesize($file['tmp_name'])!=$file['size'])
-  return EG_OK;
-if($file['size']>$maxImageSize)
-  return EIU_IMAGE_LARGE;
+if(!$resize || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
+  {
+  if(!isset($_FILES[$name]))
+    return EG_OK;
+  $file=$_FILES[$name];
+  if($file['tmp_name']=='' || !is_uploaded_file($file['tmp_name'])
+     || filesize($file['tmp_name'])!=$file['size'])
+    return EG_OK;
+  if($file['size']>$maxImageSize)
+    return EIU_IMAGE_LARGE;
 
-$largeId=getNextImageId();
-$largeFilename=getImageFilename($posting->getId(),
-                                getImageExtension($file['type']),$largeId,
-				'large');
-$largeName="$imageDir/$largeFilename";
-if(!move_uploaded_file($file['tmp_name'],$largeName))
-  return EG_OK;
-$posting->large_image_size=$file['size'];
-$posting->large_image_format=$file['type'];
-$posting->large_image_filename=$file['name'];
+  $largeId=getNextImageId();
+  $largeFilename=getImageFilename($posting->getId(),
+				  getImageExtension($file['type']),$largeId,
+				  'large');
+  $largeName="$imageDir/$largeFilename";
+  if(!move_uploaded_file($file['tmp_name'],$largeName))
+    return EG_OK;
+  $posting->large_image_size=$file['size'];
+  $posting->large_image_format=$file['type'];
+  $posting->large_image_filename=$file['name'];
+  }
+else
+  {
+  if(!$posting->hasSmallImage())
+    return EG_OK;
+  $oldFilename=getImageFilename($posting->getId(),
+				getImageExtension($posting->large_image_format),
+				$posting->getImage(),
+				$posting->getImageDimension());
+  $oldName="$imageDir/$oldFilename";
+  $largeId=getNextImageId();
+  $largeFilename=getImageFilename($posting->getId(),
+				  getImageExtension($posting->large_image_format),
+				  $largeId,'large');
+  $largeName="$imageDir/$largeFilename";
+  rename($oldName,$largeName);
+  }
 $hasThumbnail=false;
 if($createThumbnail)
   {
@@ -156,6 +175,10 @@ if($lFname=='')
 $imageFrom="ImageCreateFrom$lFname";
 $lHandle=$imageFrom($fnameFrom);
 
+if($thumbnailX==0)
+  $thumbnailX=65535;
+if($thumbnailY==0)
+  $thumbnailY=65535;
 $large_size_x=ImageSX($lHandle);
 $large_size_y=ImageSY($lHandle);
 if($large_size_x>$thumbnailX || $large_size_y>$thumbnailY)

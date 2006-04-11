@@ -719,6 +719,11 @@ return $this->hasLargeImage() ? $this->getLargeImageURL()
                               : $this->getSmallImageURL();
 }
 
+function getImageDimension()
+{
+return $this->hasLargeImage() ? 'large' : 'small';
+}
+
 function getLargeImageSize()
 {
 return $this->large_image_size;

@@ -53,9 +53,8 @@ session();
 $image=getImageById($editid);
 $original=$image;
 $image->setup($Args);
-// FIXME не реализовано изменение размеров уже загруженной картинки
 $err=uploadImage('image_file',$image,$has_large_image,
-                 $small_image_x,$small_image_y,$del_image);
+                 $small_image_x,$small_image_y,$del_image,true);
 if($err==EG_OK)
   $err=modifyImage($image,$original);
 $titleId=tmpTextSave($title);

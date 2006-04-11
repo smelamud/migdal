@@ -112,7 +112,7 @@ if($image->id)
   }
 else
   {
-  $vars['id']=$image->id;
+  $vars['entry']=$image->entry;
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
   $result=sql(makeInsert('entries',
