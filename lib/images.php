@@ -31,24 +31,6 @@ $this->title=$vars['title'];
 $this->title_xml=wikiToXML($this->title,$this->body_format,MTEXT_LINE);
 }
 
-/*function getCorrespondentVars()
-{
-return array('has_large','small_x','small_y','title');
-}
-
-function getWorldVars()
-{
-return array('image_set','filename','small','small_x','small_y','has_large',
-             'large','large_x','large_y','format','title');
-}
-
-function getJencodedVars()
-{
-return array('image_set' => 'images','filename' => '','small' => '',
-             'large' => '','title' => '');
-}
-
-*/
 }
 
 class ImagesIterator
@@ -65,7 +47,10 @@ parent::SelectIterator('Entry',
 			       sent,created,modified,accessed,small_image,
 			       small_image_x,small_image_y,large_image,
 			       large_image_x,large_image_y,large_image_size,
-			       large_image_format,large_image_filename
+			       large_image_format,large_image_filename,
+			       exists(select *
+			              from inner_images
+				      where image_id=entries.id) as inserted
 			from entries
 			where up=$postid and small_image<>0");
 }
@@ -138,6 +123,49 @@ $result=sql("select id,ident,entry,up,track,catalog,parent_id,user_id,group_id,
 	    __FUNCTION__);
 return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                            : array());
+}
+
+function deleteImage($id,$small_image,$large_image,$large_image_format)
+{
+sql("delete
+     from inner_images
+     where image_id=$id",
+    __FUNCTION__,'inner');
+journal('delete
+	 from inner_images
+	 where image_id='.journalVar('entries',$id),
+	__FUNCTION__,'inner');
+sql("delete
+     from entries
+     where id=$id",
+    __FUNCTION__,'entry');
+journal('delete
+         from entries
+	 where id='.journalVar('entries',$id));
+deleteImageFiles($id,$small_image,$large_image,$large_image_format);
+}
+
+function deleteImageFiles($id,$small_image,$large_image,$large_image_format)
+{
+global $thumbnailType;
+
+// FIXME Journal!
+$smallExt=getImageExtension($thumbnailType);
+$largeExt=getImageExtension($large_image_format);
+if($large_image!=0)
+  {
+  @unlink(getImagePath($id,$smallExt,$small_image,'small'));
+  @unlink(getImagePath($id,$largeExt,$large_image,'large'));
+  @unlink(getImagePath($id,$smallExt,0,'small'));
+  @unlink(getImagePath($id,$largeExt,0,'large'));
+  }
+else
+  {
+  @unlink(getImagePath($id,$largeExt,$small_image,'small'));
+  @unlink(getImagePath($id,$largeExt,$small_image,'large'));
+  @unlink(getImagePath($id,$largeExt,0,'small'));
+  @unlink(getImagePath($id,$largeExt,0,'large'));
+  }
 }
 
 # remake

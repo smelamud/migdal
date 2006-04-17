@@ -87,7 +87,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/groupdel.php
 - actions/hide.php
 - actions/horisontmod.php
-- actions/limdel.php
++ actions/limdel.php
 - actions/liminsert.php
 + actions/limmod.php
 + actions/link.php

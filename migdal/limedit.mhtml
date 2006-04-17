@@ -21,6 +21,9 @@
        <assign name='name' value#='$name...'>
       </if>
      </if>
+     <if what='$.isInserted'>
+      <assign name='name' value#='(+) $name'>
+     </if>
      <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
 		  text='$name'>
      <tr valign=top>
@@ -32,10 +35,8 @@
        ${.ImageX}x${.ImageY}, ${.LargeImageSizeKB}KB
       </td>
      </tr>
-     <if what='$editid==$.Id'>
-      <topics_line href#='/actions/limdel.php?postid=$postid&editid=$.Id&okdir=$#-&faildir=$#-'
-		   class='edit' text='Удалить' nobullet='*true'>
-     </if>
+     <topics_line href#='/actions/posting/image/delete?editid=$.Id&okdir=$#-&faildir=$#-'
+		  class='edit' text='Удалить' nobullet='*true'>
     </for>
     <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
                  class='new' text='-- Добавить --'>

@@ -10,31 +10,28 @@ require_once('lib/images.php');
 require_once('lib/modbits.php');
 require_once('lib/sql.php');
 
-function deleteImage($posting)
+function deleteImageAction($image)
 {
-global $editid,$userModerator;
-
-if(!$posting->isWritable())
+if($image->getId()==0 || !$image->isWritable())
   return ELID_NO_EDIT;
-sql("delete
-     from images
-     where id=$editid",
-    'deleteImage');
-journal('delete
-         from images
-	 where id='.journalVar('images',$editid));
-if(!$userModerator)
-  setModbitsByMessageId($posting->getMessageId(),MOD_EDIT);
+$posting=getPostingById($image->up);
+if(!$posting->isAppendable())
+  return ELID_POSTING_APPEND;
+deleteImage($image->getId(),$image->getSmallImage(),$image->getLargeImage(),
+            $image->getLargeImageFormat());
+setPremoderates($posting,$posting);
 return EG_OK;
 }
 
-postInteger('postid');
+postString('okdir');
+postString('faildir');
+
 postInteger('editid');
 
 dbOpen();
 session();
-$posting=getPostingById($postid);
-$err=deleteImage($posting);
+$image=getImageById($editid);
+$err=deleteImageAction($image);
 if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array('err'),array('editid' => 0)));
 else

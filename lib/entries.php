@@ -89,6 +89,7 @@ var $large_image_y=0;
 var $large_image_size=0;
 var $large_image_format='';
 var $large_image_filename='';
+var $inserted=false;
 
 function Entry($row)
 {
@@ -742,6 +743,11 @@ return $this->large_image_format;
 function getLargeImageFilename()
 {
 return $this->large_image_filename;
+}
+
+function isInserted()
+{
+return (boolean)$this->inserted;
 }
 
 function getProperty($name)

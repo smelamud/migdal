@@ -47,17 +47,21 @@ else
   {
   if(!$posting->hasSmallImage())
     return EG_OK;
+  $format=$posting->hasLargeImage() ? $thumbnailType
+                                    : $posting->getLargeImageFormat();
   $oldFilename=getImageFilename($posting->getId(),
-				getImageExtension($posting->large_image_format),
+				getImageExtension($format),
 				$posting->getImage(),
 				$posting->getImageDimension());
   $oldName="$imageDir/$oldFilename";
   $largeId=getNextImageId();
   $largeFilename=getImageFilename($posting->getId(),
-				  getImageExtension($posting->large_image_format),
+				  getImageExtension($format),
 				  $largeId,'large');
   $largeName="$imageDir/$largeFilename";
   rename($oldName,$largeName);
+  deleteImageFiles($posting->getId(),$posting->getSmallImage(),
+                   $posting->getLargeImage(),$posting->getLargeImageFormat());
   }
 $hasThumbnail=false;
 if($createThumbnail)

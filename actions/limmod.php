@@ -21,8 +21,8 @@ if($image->up==0)
 $correct=validateHierarchy($image->parent_id,$image->up,ENT_IMAGE,$image->id);
 if($correct!=EG_OK)
   return $correct;
-$perms=getPermsById($image->up);
-if(!$perms->isAppendable())
+$posting=getPostingById($image->up);
+if(!$posting->isAppendable())
   return ELIM_POSTING_APPEND;
 if(!$image->hasSmallImage())
   return ELIM_IMAGE_ABSENT;
@@ -31,7 +31,6 @@ storeImage($image);
 commitImages($image,$original);
 updateTracks('entries',$image->id);
 updateCatalogs($image->id);
-$posting=getPostingById($image->up);
 setPremoderates($posting,$posting);
 return EG_OK;
 }
