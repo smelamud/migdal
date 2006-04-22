@@ -47,16 +47,13 @@ else
   {
   if(!$posting->hasSmallImage())
     return EG_OK;
-  $format=$posting->hasLargeImage() ? $thumbnailType
-                                    : $posting->getLargeImageFormat();
-  $oldFilename=getImageFilename($posting->getId(),
-				getImageExtension($format),
+  $largeExt=getImageExtension($posting->getLargeImageFormat());
+  $oldFilename=getImageFilename($posting->getId(),$largeExt,
 				$posting->getImage(),
 				$posting->getImageDimension());
   $oldName="$imageDir/$oldFilename";
   $largeId=getNextImageId();
-  $largeFilename=getImageFilename($posting->getId(),
-				  getImageExtension($format),
+  $largeFilename=getImageFilename($posting->getId(),$largeExt,
 				  $largeId,'large');
   $largeName="$imageDir/$largeFilename";
   rename($oldName,$largeName);
@@ -88,9 +85,9 @@ else
   {
   $posting->small_image=$largeId;
   $posting->large_image=0;
-  $smallFilename=getImageFilename($posting->getId(),
-                                  getImageExtension($file['type']),$largeId,
-			          'small');
+  $largeExt=getImageExtension($posting->getLargeImageFormat());
+  $smallFilename=getImageFilename($posting->getId(),$largeExt,
+				  $largeId,'small');
   $smallName="$imageDir/$smallFilename";
   rename($largeName,$smallName);
   list($posting->small_image_x,$posting->small_image_y)=getImageSize($smallName);
