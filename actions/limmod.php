@@ -41,10 +41,17 @@ postString('faildir');
 postInteger('edittag');
 postInteger('postid');
 postInteger('editid');
-postInteger('del_image');
-postInteger('has_large_image');
+postInteger('small_image');
 postInteger('small_image_x');
 postInteger('small_image_y');
+postInteger('has_large_image');
+postInteger('large_image');
+postInteger('large_image_x');
+postInteger('large_image_y');
+postInteger('large_image_size');
+postString('large_image_format');
+postString('large_image_filename');
+postInteger('del_image');
 postString('title');
 
 dbOpen();
@@ -56,7 +63,6 @@ $err=uploadImage('image_file',$image,$has_large_image,
                  $small_image_x,$small_image_y,$del_image,true);
 if($err==EG_OK)
   $err=modifyImage($image,$original);
-$titleId=tmpTextSave($title);
 if($err==EG_OK)
   header('Location: '.remakeMakeURI($okdir,
 				    $Args,
@@ -64,19 +70,42 @@ if($err==EG_OK)
 				          'title',
 					  'title_i',
 					  'edittag',
+					  'small_image',
 					  'small_image_x',
 					  'small_image_y',
+					  'large_image',
+					  'large_image_x',
+					  'large_image_y',
+					  'large_image_size',
+					  'large_image_format',
+					  'large_image_format_i',
+					  'large_image_filename',
+					  'large_image_filename_i',
 					  'has_large_image',
 					  'del_image',
 					  'okdir',
 				          'faildir')));
 else
+  {
+  $largeImageFormatId=tmpTextSave($image->large_image_format);
+  $largeImageFilenameId=tmpTextSave($image->large_image_filename);
+  $titleId=tmpTextSave($title);
   header('Location: '.remakeMakeURI($faildir,
 				    $Args,
 				    array('title',
 				          'okdir',
 					  'faildir'),
 				    array('err'     => $err,
+					  'small_image'   => $image->small_image,
+					  'small_image_x' => $image->small_image_x,
+					  'small_image_y' => $image->small_image_y,
+					  'large_image'   => $image->large_image,
+					  'large_image_x' => $image->large_image_x,
+					  'large_image_y' => $image->large_image_y,
+					  'large_image_size' => $image->large_image_size,
+					  'large_image_format_i' => $largeImageFormatId,
+					  'large_image_filename_i' => $largeImageFilenameId,
 					  'title_i' => $titleId)).'#error');
+  }
 dbClose();
 ?>
