@@ -24,8 +24,21 @@ if(!isset($editmodeHistory))
   <if what='$$editmode'>
    <posting_obj id='$data.Id'>
    <tr><td align=center>
+    <ifnzero what='$image'>
+     <notenglish>
+      <assign name='ititle' value='Изменить картинку'>
+     <else>
+      <assign name='ititle' value='Modify the Picture'>
+     </notenglish>
+    <else>
+     <notenglish>
+      <assign name='ititle' value='Вставить картинку'>
+     <else>
+      <assign name='ititle' value='Insert a Picture'>
+     </notenglish>
+    </ifnzero>
     <a href='${,GrpDetailsHref}images/insert/?par=$data.Par' class='ninept'><asp>
-     <notenglish>Вставить картинку<else>Insert a Picture</notenglish></a>
+     $ititle</a>
    </td></tr>
   </if>
  </notprint>
