@@ -97,6 +97,13 @@
       x
       <edit name='small_image_y' value='$,SmallImageY' size=4 maxlength=4>
      </form_line>
+     <hidden name='small_image' value='$small_image'>
+     <hidden name='large_image' value='$large_image'>
+     <hidden name='large_image_x' value='$large_image_x'>
+     <hidden name='large_image_y' value='$large_image_y'>
+     <hidden name='large_image_size' value='$large_image_size'>
+     <hidden name='large_image_format' value='$large_image_format'>
+     <hidden name='large_image_filename' value='$large_image_filename'>
      <form_editor title='Подпись' name='title' body='$=,Title' rows=3>
      <if what='$editid'>
       <form_buttons title='Изменить'>
