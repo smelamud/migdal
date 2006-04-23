@@ -57,11 +57,12 @@ parent::SelectIterator('Entry',
 			       small_image_x,small_image_y,large_image,
 			       large_image_x,large_image_y,large_image_size,
 			       large_image_format,large_image_filename,
-			       exists(select *
-			              from inner_images
-				      where image_id=entries.id) as inserted
+			       count(entry_id) as inserted
 			from entries
-			where up=$postid and small_image<>0");
+			     left join inner_images
+			          on entries.id=image_id
+			where up=$postid and small_image<>0
+			group by id");
 }
 
 }
