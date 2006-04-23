@@ -60,6 +60,7 @@ class ImageCallbackData
 var $id;
 var $align;
 var $image;
+var $par;
 
 function ImageCallbackData()
 {
@@ -78,6 +79,11 @@ return $this->align;
 function getImage()
 {
 return $this->image;
+}
+
+function getPar()
+{
+return $this->par;
 }
 
 }
@@ -140,10 +146,11 @@ return strtr(shortenNote($this->xmlFootnote,$inplaceSize,
                          $inplaceSizeMinus,$inplaceSizePlus),"\n",' ');
 }
 
-function putImage($image)
+function putImage($image,$par)
 {
 $data=new ImageCallbackData();
 $data->id=$this->id;
+$data->par=$par;
 if(!is_null($image))
   {
   $data->image=$image->getImage();
@@ -187,7 +194,7 @@ else
     $image=$block->images[0];
     }
   }
-$this->putImage($image);
+$this->putImage($image,$par);
 }
 
 function startElement($parser,$name,$attrs)

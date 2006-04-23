@@ -22,11 +22,10 @@ if(!isset($editmodeHistory))
 <table $align>
  <notprint>
   <if what='$$editmode'>
+   <posting_obj id='$data.Id'>
    <tr><td align=center>
-    <<a href='liminsert.php?postid=$data.Id&par=$par.Number&redirid=$_'
-       class='ninept'><notenglish>Картинка<else>Picture</notenglish></a>>
-    <a href='liminsert.php?postid=$data.Id&redirid=$_'
-       class='ninept'><notenglish>Картинка<else>Picture</notenglish></a>
+    <a href='${,GrpDetailsHref}images/insert/?par=$data.Par' class='ninept'><asp>
+     <notenglish>Вставить картинку<else>Insert a Picture</notenglish></a>
    </td></tr>
   </if>
  </notprint>

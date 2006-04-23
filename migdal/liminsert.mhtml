@@ -1,94 +1,126 @@
 << @(#) $Id$ >>
 
 <element name=place params='value'>
-<if what='$value==$$image.Placement'>
+<<if what='$value==$$image.Placement'>
  <input type='radio' name='placement' value=$value checked>
-<else>
+<else>>
  <input type='radio' name='placement' value=$value>
-</if>
+<</if>>
 </element>
 
 <int name='postid'>
 <int name='par'>
-<pagetitle title='Размещение картинки'>
+<int name='x'>
+<int name='y'>
+
+<int name='edittag'>
+<int name='editid'>
+<int name='replace'>
+<int name='small_image'>
+<int name='small_image_x'>
+<int name='small_image_y'>
+<int name='large_image'>
+<int name='large_image_x'>
+<int name='large_image_y'>
+<int name='large_image_size'>
+<string name='large_image_format'>
+<string name='large_image_filename'>
+<string name='title'>
 
 <html>
 <preamble>
 <body>
  <top ident='index'>
- <posting_obj id='$postid' fields='*SELECT_GENERAL'>
- <zone><stotext_image_obj id='$,StotextId' par='$par'><setup></zone>
- <formtable title='Размещение картинки'>
-  <form method=post action='actions/liminsert.php'>
+ <posting_obj id='$postid'>
+ <form_table title#='Вставка картинки в статью "$=,Subject"'>
+  <form method=post enctype='multipart/form-data'
+	action='/actions/posting/image/modify'>
    <hidden name='edittag' value=1>
-   <hidden name='okdir' value='$--'>
+   <hidden name='okdir' value='$,GrpDetailsHref'>
    <hidden name='faildir' value='$-'>
    <hidden name='postid' value='$postid'>
-   <hidden name='par' value='$par'>
-   <table>
-    <starinfo>
-    <error id='*ELII_NO_EDIT'
-	   text='Вы не имеете права редактировать это сообщение'>
-    <error id='*ELII_MESSAGE_ABSENT' text='Такого сообщения не существует'>
-    <error id='*ELII_IMAGE_ABSENT' text='Такой картинки не существует'>
-   </table>
-   <table cellspacing=10>
-    <tr>
-     <td>Картинка</td>
-     <td>
-      <select name='image_id'>
-       <iterate_imageset imageset='$,LargeImageSet'>
-       <option value=0>--- Без картинки ---</option>
-       <for>
-	<ife what='$.Title'>
-	 <assign name='name' value='$.Filename'>
-	<else>
-	 <assign name='name' value='$.CleanTitlePea'>
-	 <if what='!$.isTitlePea'>
-	  <assign name='name' value#='$name...'>
-	 </if>
-	</if>
-	<if what='$.Id==$image.ImageId'>
-	 <option value=$.Id selected>$name (${.SmallX}x$.SmallY)</option>
-	<else>
-	 <option value=$.Id>$name (${.SmallX}x$.SmallY)</option>
-	</if>
-       </for>
-      </select>
-     </td>
-     <td>
-      <a href='/limedit.php?postid=$postid&editid=$image.ImageId&redirid=$_'
-	 >Список &gt;&#x3e;&gt;</a>
-     </td>
-    </tr>
-    <tr>
-     <td>Размещение</td>
-     <td>
-      <table>
-       << Disabled due to incorrect behavior of rendering engine TODO
-	<tr>
-	 <td align=center><place value='*IPL_TOPLEFT'></td>
-	 <td align=center></td>
-	 <td align=center><place value='*IPL_TOPRIGHT'></td>
-	</tr>
-       >>
-       <tr>
-	<td align=center><place value='*IPL_CENTERLEFT'></td>
-	<td align=center><place value='*IPL_CENTER'></td>
-	<td align=center><place value='*IPL_CENTERRIGHT'></td>
-       </tr>
-       <tr>
-	<td align=center><place value='*IPL_BOTTOMLEFT'></td>
-	<td align=center><i>Абзац</i></td>
-	<td align=center><place value='*IPL_BOTTOMRIGHT'></td>
-       </tr>
-      </table>
-     </td>
-    </tr>
-    <formbuttons title='Изменить' span=3>
-   </table>
+   <starinfo>
+   <form_section title='Выбрать из списка'>
+   <iterate_images postid='$postid'>
+   <form_select title='Выбрать картинку' name='editid'>
+    <form_option title='-- Пусто --' value='0' selected!='$editid==0'>
+    <for>
+     <ife what='$.Title'>
+      <assign name='name' value='$.LargeImageFilename'>
+     <else>
+      <assign name='name' value='$.TitlePea'>
+      <if what='!$.isTitlePea'>
+       <assign name='name' value#='$name...'>
+      </if>
+     </if>
+     <assign name='name' value#='$name (${.SmallImageX}x${.SmallImageY})'>
+     <if what='$.isInserted'>
+      <assign name='name' value#='(+) $name'>
+     </if>
+     <form_option title='$name' value='$.Id' selected!='$editid==$.Id'>
+    </for>
+   </form_select>
+   <form_line title='Размещение картинки'>
+    <table>
+     <tr>
+      <td align=center><place value='*IPL_CENTERLEFT'></td>
+      <td align=center><place value='*IPL_CENTER'></td>
+      <td align=center><place value='*IPL_CENTERRIGHT'></td>
+     </tr>
+     <tr>
+      <td align=center><place value='*IPL_BOTTOMLEFT'></td>
+      <td align=center><i>Абзац</i></td>
+      <td align=center><place value='*IPL_BOTTOMRIGHT'></td>
+     </tr>
+    </table>
+   </form_line>
+   <image_obj id='0'>
+   <setup>
+   <form_section title='Загрузить из файла'>
+   <form_checkbox title='Заменить картинку из списка' name='replace'
+                  value='$replace'>
+   <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать эту картинку'>
+   <error id='*ELIM_NO_POSTING' text='Вышестоящего сообщения не существует'>
+   <error id='*ELIM_POSTING_APPEND' text='Вы не можете редактировать этот список'>
+   <error id='*ELIM_IMAGE_ABSENT' text='Картинка не указана'>
+   <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки'>
+   <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
+   <error id='*EIU_UNKNOWN_THUMBNAIL'
+	  text='Формат маленькой картинки, указанный при конфигурации сервера,
+		не поддерживается'>
+   <error id='*EVH_NO_PARENT' text='Такой темы не существует'>
+   <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
+   <error id='*EVH_LOOP' text='Сообщение не может быть подчиненным себе'>
+   <error id='*EVH_NOT_UP_UNDER_PARENT'
+	  text='Тема вышестоящего сообщения должна совпадать с этой темой'>
+   <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
+   <if what='$,hasSmallImage'>
+    <assign name='loaded' value#='Загружен файл $=,LargeImageFilename
+				  (${,LargeImageSizeKB}K)'>
+   <else>
+    <assign name='loaded' value=''>
+   </if>
+   <form_uploader title='Изображение' name='image_file'
+		  loaded='$loaded' delname='del_image'
+		  mandatory='*true'>
+   <form_checkbox title='Вставлять в уменьшенном виде' name='has_large_image'
+		  value='$,hasLargeImage' style='radio'>
+   <form_line title='Размер'>
+    <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4>
+    x
+    <edit name='small_image_y' value='$,SmallImageY' size=4 maxlength=4>
+   </form_line>
+   <hidden name='small_image' value='$small_image'>
+   <hidden name='large_image' value='$large_image'>
+   <hidden name='large_image_x' value='$large_image_x'>
+   <hidden name='large_image_y' value='$large_image_y'>
+   <hidden name='large_image_size' value='$large_image_size'>
+   <hidden name='large_image_format' value='$large_image_format'>
+   <hidden name='large_image_filename' value='$large_image_filename'>
+   <form_editor title='Подпись' name='title' body='$=,Title' rows=3>
+   <form_buttons title='Вставить'>
   </form>
- </formtable>
+ </form_table>
  <bottom>
 </body>
 </html>
