@@ -221,6 +221,9 @@
          params='set' defaults='name=image'>
 <decexec macro='inner' func='beginInner' file='lib/inner.php'>
 <decexec macro='/inner' func='endInner' file='lib/inner.php'>
+<deccall macro='inner_image_par' func='getInnerImageByParagraph'
+         file='lib/inner-images.php' params='id,par,x,y'
+	 defaults='name=image x=0 y=0'>
 <deccall macro='last_chat' func='getLastChat' file='lib/chat-users.php'
          params='id'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
@@ -273,8 +276,6 @@
 <deccall macro='sibling_issue' func='getSiblingIssue' file='lib/postings.php'
          params='grp,topic_id,index1,next'
 	 defaults="grp='*GRP_ALL' topic_id=-1 next='*true'">
-<deccall macro='stotext_image_obj' func='getStotextImageByParagraph'
-         file='lib/stotext-images.php' params='id,par' defaults='name=image'>
 <decexec macro='stylesheet' func='declareStylesheet' file='lib/style.php'
          params='ident'>
 <deccall macro='time' func='time'>

@@ -104,4 +104,18 @@ parent::SelectIterator('InnerImage',
 }
 
 }
+
+function getInnerImageByParagraph($entry_id,$par,$x=0,$y=0)
+{
+$result=sql("select entry_id,par,x,y,image_id,placement
+             from inner_images
+	     where entry_id=$entry_id and par=$par and x=$x and y=$y");
+return new InnerImage(mysql_num_rows($result)>0
+                      ? mysql_fetch_assoc($result)
+		      : array('entry_id' => $entry_id,
+		              'par' => $par,
+			      'x' => $x,
+			      'y' => $y,
+			      'placement' => IPL_CENTERLEFT));
+}
 ?>

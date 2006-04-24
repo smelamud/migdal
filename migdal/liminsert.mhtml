@@ -1,11 +1,7 @@
 << @(#) $Id$ >>
 
 <element name=place params='value'>
-<<if what='$value==$$image.Placement'>
- <input type='radio' name='placement' value=$value checked>
-<else>>
- <input type='radio' name='placement' value=$value>
-<</if>>
+<radio_button name='placement' value='$value' peervalue='$$inner.Placement'>
 </element>
 
 <int name='postid'>
@@ -40,10 +36,11 @@
    <hidden name='faildir' value='$-'>
    <hidden name='postid' value='$postid'>
    <starinfo>
+   <inner_image_par name='inner' id='$postid' par='$par' x='$x' y='$y'>
    <form_section title='Выбрать из списка'>
    <iterate_images postid='$postid'>
    <form_select title='Выбрать картинку' name='editid'>
-    <form_option title='-- Пусто --' value='0' selected!='$editid==0'>
+    <form_option title='-- Пусто --' value='0' selected!='$,ImageId==0'>
     <for>
      <ife what='$.Title'>
       <assign name='name' value='$.LargeImageFilename'>
@@ -57,7 +54,7 @@
      <if what='$.isInserted'>
       <assign name='name' value#='(+) $name'>
      </if>
-     <form_option title='$name' value='$.Id' selected!='$editid==$.Id'>
+     <form_option title='$name' value='$.Id' selected!='$,ImageId==$.Id'>
     </for>
    </form_select>
    <form_line title='Размещение картинки'>
