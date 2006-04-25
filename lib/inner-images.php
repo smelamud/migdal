@@ -41,6 +41,14 @@ parent::DataObject($row);
 $this->image=new Entry($row);
 }
 
+function setup($vars)
+{
+if(!isset($vars['edittag']) || !$vars['edittag'])
+  return;
+$this->image_id=$vars['editid'];
+$this->placement=$vars['placement'];
+}
+
 function getEntryId()
 {
 return $this->entry_id;

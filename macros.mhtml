@@ -222,7 +222,7 @@
 <decexec macro='inner' func='beginInner' file='lib/inner.php'>
 <decexec macro='/inner' func='endInner' file='lib/inner.php'>
 <deccall macro='inner_image_par' func='getInnerImageByParagraph'
-         file='lib/inner-images.php' params='id,par,x,y'
+         file='lib/inner-images.php' params='entry_id,par,x,y'
 	 defaults='name=image x=0 y=0'>
 <deccall macro='last_chat' func='getLastChat' file='lib/chat-users.php'
          params='id'>

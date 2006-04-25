@@ -11,7 +11,8 @@
 
 <int name='edittag'>
 <int name='editid'>
-<int name='replace'>
+<int name='placement'>
+<int name='append'>
 <int name='small_image'>
 <int name='small_image_x'>
 <int name='small_image_y'>
@@ -35,8 +36,10 @@
    <hidden name='okdir' value='$,GrpDetailsHref'>
    <hidden name='faildir' value='$-'>
    <hidden name='postid' value='$postid'>
+   <hidden name='insert' value='1'>
    <starinfo>
-   <inner_image_par name='inner' id='$postid' par='$par' x='$x' y='$y'>
+   <inner_image_par name='inner' entry_id='$postid' par='$par' x='$x' y='$y'>
+   <setup>
    <form_section title='Выбрать из списка'>
    <iterate_images postid='$postid'>
    <form_select title='Выбрать картинку' name='editid'>
@@ -57,7 +60,7 @@
      <form_option title='$name' value='$.Id' selected!='$,ImageId==$.Id'>
     </for>
    </form_select>
-   <form_line title='Размещение картинки'>
+   <form_line title='Размещение картинки относительно текста'>
     <table>
      <tr>
       <td align=center><place value='*IPL_CENTERLEFT'></td>
@@ -66,7 +69,7 @@
      </tr>
      <tr>
       <td align=center><place value='*IPL_BOTTOMLEFT'></td>
-      <td align=center><i>Абзац</i></td>
+      <td align=center><i>Текст</i></td>
       <td align=center><place value='*IPL_BOTTOMRIGHT'></td>
      </tr>
     </table>
@@ -74,8 +77,12 @@
    <image_obj id='0'>
    <setup>
    <form_section title='Загрузить из файла'>
-   <form_checkbox title='Заменить картинку из списка' name='replace'
-                  value='$replace'>
+   <form_select title='Заменить картинку из списка' name='append' style='box'>
+    <form_option title='Добавить картинку из файла к списку' value='1'
+                 selected!='$append!=0'>
+    <form_option title='Заменить выбранную картинку из списка на картинку
+                        из файла' value='0' selected!='$append==0'>
+   </form_select>
    <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать эту картинку'>
    <error id='*ELIM_NO_POSTING' text='Вышестоящего сообщения не существует'>
    <error id='*ELIM_POSTING_APPEND' text='Вы не можете редактировать этот список'>
@@ -98,8 +105,7 @@
     <assign name='loaded' value=''>
    </if>
    <form_uploader title='Изображение' name='image_file'
-		  loaded='$loaded' delname='del_image'
-		  mandatory='*true'>
+		  loaded='$loaded' delname='del_image'>
    <form_checkbox title='Вставлять в уменьшенном виде' name='has_large_image'
 		  value='$,hasLargeImage' style='radio'>
    <form_line title='Размер'>

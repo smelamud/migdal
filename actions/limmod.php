@@ -35,12 +35,23 @@ setPremoderates($posting,$posting);
 return EG_OK;
 }
 
+function insertImage($inner,$original,$image)
+{
+return EG_OK;
+}
+
 postString('okdir');
 postString('faildir');
 
 postInteger('edittag');
 postInteger('postid');
 postInteger('editid');
+postInteger('par');
+postInteger('x');
+postInteger('y');
+postInteger('placement');
+postInteger('insert');
+postInteger('append');
 postInteger('small_image');
 postInteger('small_image_x');
 postInteger('small_image_y');
@@ -63,6 +74,18 @@ $err=uploadImage('image_file',$image,$has_large_image,
                  $small_image_x,$small_image_y,$del_image,true);
 if($err==EG_OK)
   $err=modifyImage($image,$original);
+if($insert)
+  {
+  if($err==ELIM_IMAGE_ABSENT)
+    $err=EG_OK;
+  if($err==EG_OK)
+    {
+    $inner=getInnerImageByParagraph($postid,$par,$x,$y);
+    $original=$inner;
+    $inner->setup($Args);
+    $err=insertImage($inner,$original,$image);
+    }
+  }
 if($err==EG_OK)
   header('Location: '.remakeMakeURI($okdir,
 				    $Args,
