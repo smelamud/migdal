@@ -262,7 +262,7 @@
 		      format='$posting.LargeBodyFormat'
 		      mandatory='$editor.isMandatory'>
  <else>
-  <hidden name='large_body_format' value='$=posting.LargeBodyFormat'>
+  <hidden name='large_body_format' value='$posting.LargeBodyFormat'>
  </if>
 <else>
  <form_section title='$ident'>

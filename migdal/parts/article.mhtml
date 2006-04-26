@@ -23,7 +23,7 @@ if(!isset($editmodeHistory))
  <notprint>
   <if what='$$editmode'>
    <posting_obj id='$data.Id'>
-   <tr><td align=center>
+   <tr><td align='center'>
     <ifnzero what='$image'>
      <notenglish>
       <assign name='ititle' value='Изменить картинку'>
@@ -43,11 +43,11 @@ if(!isset($editmodeHistory))
   </if>
  </notprint>
  <ifnzero what='$image'>
-  <tr><td>
+  <tr><td align='center'>
    <posting_image posting='$image'>
   </td></tr>
   <ifne what='$image.Title'>
-   <tr><td>$image.TitleHTML</td></tr>
+   <tr><td class='image-title' align='center'>$image.TitleHTML</td></tr>
   </ifne>
  </ifnzero>
 </table>

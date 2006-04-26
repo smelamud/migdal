@@ -12,7 +12,7 @@ require_once('lib/errors.php');
 require_once('lib/modbits.php');
 require_once('lib/sql.php');
 
-function modifyImage($image,$original)
+function modifyImage(&$image,$original)
 {
 if($original->getId()!=0 && !$original->isWritable())
   return ELIM_NO_EDIT;
@@ -37,7 +37,6 @@ return EG_OK;
 
 function insertImage($inner,$image,$append)
 {
-echo "({$inner->image_id})({$image->id})";
 if($inner->image_id==0 || !$append && $image->id!=0)
   $inner->image_id=$image->id;
 if($inner->entry_id==0)

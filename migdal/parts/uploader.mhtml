@@ -45,7 +45,7 @@
              mandatory='$mandatory'>
  <iterate_text_formats>
  <for>
-  <form_option title='$.Value' value='$.Name' selected!='$.Value==$format'>
+  <form_option title='$.Value' value='$.Name' selected!='$.Name==$format'>
  </for>
 </form_select>
 </element>

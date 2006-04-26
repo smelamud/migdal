@@ -164,20 +164,21 @@ if(!is_null($image))
 else
   $data->image=0;
 $this->html.=callback('image',$data);
+return $data->align=='center' ? 'none' : $data->align;
 }
 
 function putImageBlock($beforeP)
 {
 if($this->format<MTEXT_LONG)
-  return;
+  return 'none';
 if($beforeP)
   {
   $par=$this->par;
   if(!isset($this->imageBlocks[$par]))
-    return;
+    return 'none';
   $block=$this->imageBlocks[$par];
   if(!$block->isPlaced(IPL_VCENTER))
-    return;
+    return 'none';
   $image=$block->images[0];
   }
 else
@@ -190,11 +191,11 @@ else
     {
     $block=$this->imageBlocks[$par];
     if(!$block->isPlaced(IPL_BOTTOM))
-      return;
+      return 'none';
     $image=$block->images[0];
     }
   }
-$this->putImage($image,$par);
+return $this->putImage($image,$par);
 }
 
 function startElement($parser,$name,$attrs)
@@ -241,8 +242,8 @@ switch($name)
            $this->html.=makeTag($name,$attrs,true);
 	   break;
       case 'P':
-	   $this->putImageBlock(true);
-           $clear=isset($attrs['CLEAR']) ? $attrs['CLEAR'] : 'none';
+	   $clear=$this->putImageBlock(true);
+           $clear=isset($attrs['CLEAR']) ? $attrs['CLEAR'] : $clear;
 	   if($clear=='none')
 	     $this->html.=makeTag($name);
 	   else

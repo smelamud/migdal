@@ -64,7 +64,7 @@
 	font-weight: normal;
 }
 
-.article .imagetitle {
+.article .image-title {
 	text-align: center;
 	font: italic 8pt %verdana;
 }
