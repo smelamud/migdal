@@ -203,11 +203,15 @@
    <assign name='loaded' value#='Загружен файл $=posting.LargeImageFilename
                                  (${posting.ImageX}x$posting.ImageY,
 				  ${posting.LargeImageSizeKB}K)'>
+   <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
+   <assign name='large_url'
+	   value!="$,hasLargeImage ? $,LargeImageURL : $,SmallImageURL">
   <else>
    <assign name='loaded' value=''>
   </if>
   <form_uploader title='$=editor.Title' comment='$editor.Comment'
                  name='image_file' loaded='$loaded' delname='del_image'
+		 small_url='$small_url' large_url='$large_url'
 	         mandatory='$editor.isMandatory'>
  <else>
   <hidden name='small_image' value='$posting.SmallImage'>

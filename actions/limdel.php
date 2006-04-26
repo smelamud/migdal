@@ -9,6 +9,7 @@ require_once('lib/postings.php');
 require_once('lib/images.php');
 require_once('lib/modbits.php');
 require_once('lib/sql.php');
+require_once('lib/errors.php');
 
 function deleteImageAction($image)
 {

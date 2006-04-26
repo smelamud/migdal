@@ -111,8 +111,10 @@
        params='name,format,title,comment,mandatory'
        defaults="name='large_body_format' comment='',mandatory='*false'">
 <decel name='form_uploader' file='parts/uploader.php'
-       params='name,loaded,delname,plainid,title,comment,mandatory'
-       defaults="plainid=0,comment='',mandatory='*false'">
+       params='name,loaded,delname,plainid,title,comment,mandatory,small_url,
+               large_url'
+       defaults="plainid=0 comment='' mandatory='*false' small_url=''
+                 large_url=''">
 <decel name='forum_answer' file='parts/forumanswer.php'
        params='answer,complain' defaults="complain='*true'">
 <decel name='forumcatalog' file='parts/forumcatalog.php' params='offset'
@@ -342,7 +344,8 @@
        defaults="target=''">
 <decel name='tzdaka' file='parts/tzdaka.php'>
 <decel name='uploader' file='parts/uploader.php'
-       params='name,loaded,delname,plainid' defaults="plainid=0">
+       params='name,loaded,delname,plainid,small_url,large_url'
+       defaults="plainid=0 small_url='' large_url=''">
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_body_format'">
 <decel name='upper_level' file='parts/topics.php' params='title,name,href'

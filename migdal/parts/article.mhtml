@@ -37,8 +37,18 @@ if(!isset($editmodeHistory))
       <assign name='ititle' value='Insert a Picture'>
      </notenglish>
     </ifnzero>
-    <a href='${,GrpDetailsHref}images/insert/?par=$data.Par' class='ninept'><asp>
-     $ititle</a>
+    <a href='${,GrpDetailsHref}images/insert/?par=$data.Par'
+       class='ninept'>$ititle</a>
+    <ifnzero what='$image'>
+     <notenglish>
+      <assign name='dtitle' value='Убрать картинку'>
+     <else>
+      <assign name='dtitle' value='Remove the Picture'>
+     </notenglish>
+     <br>
+     <a href='/actions/posting/image/modify?edittag=1&insert=1&postid=$data.Id&editid=0&par=$data.Par&okdir=$#-&faildir=$#-'
+        class='ninept'>$dtitle</a>
+    </ifnzero>
    </td></tr>
   </if>
  </notprint>

@@ -14,6 +14,14 @@
    </for>
    <b>)</b>
   </ifnzero>
+  <ifne what='$large_url'>
+   &nbsp;&nbsp;<b>(</b>&nbsp;
+   <ifne what='$small_url'>
+    <a href='$small_url'>маленькая</a>&nbsp;
+   </ifne>
+   <a href='$large_url'>большая</a>&nbsp;
+   <b>)</b>
+  </ifne>
   <br>
   <checkbox name='$delname' title='Удалить'>
  </p>
@@ -23,7 +31,8 @@
 
 <element name='form_uploader'>
 <form_line title='$title' comment='$comment' mandatory='$mandatory'>
- <uploader name='$name' loaded='$loaded' delname='$delname' plainid='$plainid'>
+ <uploader name='$name' loaded='$loaded' delname='$delname' plainid='$plainid'
+           small_url='$small_url' large_url='$large_url'>
 </form_line>
 </element>
 
