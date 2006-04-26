@@ -113,6 +113,29 @@ parent::SelectIterator('InnerImage',
 
 }
 
+function storeInnerImage(&$inner)
+{
+sql("delete from inner_images
+     where entry_id={$inner->entry_id} and par={$inner->par}
+           and x={$inner->x} and y={$inner->y}",
+    __FUNCTION__,'delete');
+journal("delete from inner_images
+	 where entry_id=".journalVar('entries',$inner->entry_id)
+	    ." and par={$inner->par} and x={$inner->x} and y={$inner->y}");
+if($inner->image_id==0)
+  return;
+$jencoded=array('entry_id' => 'entries', 'image_id' => 'entries');
+$vars=array('entry_id' => $inner->entry_id,
+            'par' => $inner->par,
+            'x' => $inner->x,
+            'y' => $inner->y,
+            'image_id' => $inner->image_id,
+            'placement' => $inner->placement);
+sql(makeInsert('inner_images',$vars),
+    __FUNCTION__,'insert');
+journal(makeInsert('inner_images',jencodeVars($vars,$jencoded)));
+}
+
 function getInnerImageByParagraph($entry_id,$par,$x=0,$y=0)
 {
 $result=sql("select entry_id,par,x,y,image_id,placement

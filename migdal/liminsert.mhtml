@@ -41,6 +41,7 @@
    <inner_image_par name='inner' entry_id='$postid' par='$par' x='$x' y='$y'>
    <setup>
    <form_section title='Выбрать из списка'>
+   <error id='*ELIM_POSTING_WRITE' text='Вы не можете вставлять картинки в это сообщение'>
    <iterate_images postid='$postid'>
    <form_select title='Выбрать картинку' name='editid'>
     <form_option title='-- Пусто --' value='0' selected!='$,ImageId==0'>
@@ -60,6 +61,9 @@
      <form_option title='$name' value='$.Id' selected!='$,ImageId==$.Id'>
     </for>
    </form_select>
+   <hidden name='par' value='$par'>
+   <hidden name='x' value='$x'>
+   <hidden name='y' value='$y'>
    <form_line title='Размещение картинки относительно текста'>
     <table>
      <tr>

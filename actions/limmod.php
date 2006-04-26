@@ -35,8 +35,17 @@ setPremoderates($posting,$posting);
 return EG_OK;
 }
 
-function insertImage($inner,$original,$image)
+function insertImage($inner,$image,$append)
 {
+echo "({$inner->image_id})({$image->id})";
+if($inner->image_id==0 || !$append && $image->id!=0)
+  $inner->image_id=$image->id;
+if($inner->entry_id==0)
+  return ELIM_NO_POSTING;
+$perms=getPermsById($inner->entry_id);
+if(!$perms->isWritable())
+  return ELIM_POSTING_WRITE;
+storeInnerImage($inner);
 return EG_OK;
 }
 
@@ -67,7 +76,7 @@ postString('title');
 
 dbOpen();
 session();
-$image=getImageById($editid);
+$image=getImageById($append ? 0 : $editid);
 $original=$image;
 $image->setup($Args);
 $err=uploadImage('image_file',$image,$has_large_image,
@@ -81,33 +90,36 @@ if($insert)
   if($err==EG_OK)
     {
     $inner=getInnerImageByParagraph($postid,$par,$x,$y);
-    $original=$inner;
     $inner->setup($Args);
-    $err=insertImage($inner,$original,$image);
+    $err=insertImage($inner,$image,$append);
     }
   }
 if($err==EG_OK)
-  header('Location: '.remakeMakeURI($okdir,
-				    $Args,
-				    array('err',
-				          'title',
-					  'title_i',
-					  'edittag',
-					  'small_image',
-					  'small_image_x',
-					  'small_image_y',
-					  'large_image',
-					  'large_image_x',
-					  'large_image_y',
-					  'large_image_size',
-					  'large_image_format',
-					  'large_image_format_i',
-					  'large_image_filename',
-					  'large_image_filename_i',
-					  'has_large_image',
-					  'del_image',
-					  'okdir',
-				          'faildir')));
+  {
+  if(!$insert)
+    $okdir=remakeMakeURI($okdir,
+			 $Args,
+			 array('err',
+			       'title',
+			       'title_i',
+			       'edittag',
+			       'small_image',
+			       'small_image_x',
+			       'small_image_y',
+			       'large_image',
+			       'large_image_x',
+			       'large_image_y',
+			       'large_image_size',
+			       'large_image_format',
+			       'large_image_format_i',
+			       'large_image_filename',
+			       'large_image_filename_i',
+			       'has_large_image',
+			       'del_image',
+			       'okdir',
+			       'faildir'));
+  header("Location: $okdir");
+  }
 else
   {
   $largeImageFormatId=tmpTextSave($image->large_image_format);
@@ -116,6 +128,8 @@ else
   header('Location: '.remakeMakeURI($faildir,
 				    $Args,
 				    array('title',
+				          'insert',
+					  'append',
 				          'okdir',
 					  'faildir'),
 				    array('err'     => $err,

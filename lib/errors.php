@@ -96,12 +96,10 @@ define('ELIM_NO_EDIT',240);
 define('ELIM_NO_POSTING',241);
 define('ELIM_POSTING_APPEND',242);
 define('ELIM_IMAGE_ABSENT',243);
-
-define('ELII_NO_EDIT',250);
-define('ELII_MESSAGE_ABSENT',251);
-define('ELII_IMAGE_ABSENT',252);
+define('ELIM_POSTING_WRITE',244);
 
 define('ELID_NO_EDIT',260);
+define('ELID_POSTING_APPEND',261);
 
 define('ECAM_NO_EDIT',270);
 define('ECAM_NO_TYPE',271);
