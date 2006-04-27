@@ -6,8 +6,8 @@
 </element>
 
 <element name='navi_migdal' params='index,span' defaults='span=1'>
-<topics_line href='migdal.php' text='Мигдаль'
-             arrow!="$index==$`migdal`" span='$span'>
+<topics_line href='/migdal/' text='Мигдаль'
+             arrow!="$index=='migdal'" span='$span'>
 </element>
 
 <element name='navi_help' params='index,span' defaults='span=1'>
@@ -53,7 +53,7 @@
 <topics_table title='Разделы' span=2>
  <navi_main index='$index' span=2>
  <navi_migdal index='$index' span=2>
- <<topics_migdal posting='$posting'>>
+ <topics_migdal index='$index'>
  <general index='$index' span=2>
  <topics_splitter>
  <navi_help index='$index' span=2>

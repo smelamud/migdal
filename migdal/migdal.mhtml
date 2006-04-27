@@ -1,58 +1,48 @@
 << @(#) $Id$ >>
 
 <modbits>
-<ident name='artid' table='postings'>
-
-<ifzero what='$artid'>
- <assign name='artid' value='$`postings:migdal`'>
-</ifzero>
+<ident name='artid'>
 
 << Traps >>
-<if what='$artid==$`postings:migdal-library`'>
+<<if what='$artid==$`postings:migdal-library`'>
  <trap text='Migdal library'>
  <reload href='migdal-library.php'>
-</if>
+</if>>
 << Thu May 22 17:29:57 EEST 2003 >>
-<if what='$artid==$`postings:methodic-center`'>
+<<if what='$artid==$`postings:methodic-center`'>
  <trap text='Methodical center'>
  <reload href='methodic-center.php'>
-</if>
+</if>>
 << /Traps >>
 
 <posting_obj id='$artid' grp='*GRP_REVIEWS'
-             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
-<ifzero what='$,Id'>
- <fail>
-</ifzero>
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <log event=review text#='post($,Id)'>
-<ifzero what='$,Modbits & MOD_ARCHIVE'>
- <pagetitle title#='$,Subject'>
- <topictitle title#='$,Subject'>
-<else>
- <pagetitle title#='$,Subject (архив от $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
- <topictitle title#='$,Subject<br>(архив от $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
-</ifzero>
 
 <html>
 <stylesheet ident='article'>
 <preamble>
 <body>
  <top ident='index'
-      transref!='$,Id==$`postings:migdal` ? "http://english.$siteDomain/" : ""'>
+      transref!='$,Id==$`post.migdal` ? "http://english.$siteDomain/" : ""'>
  <table width=100% cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <topics posting='$,'>
+    <topics>
     <ears>
    </td>
   </notprint>
   <td class='article cframe'>
-   <ifnzero what='$,Id'>
-    <subtitle>
-    <article_controls posting='$,' nodiscuss!='$englishDomain'>
-    <article posting='$,' withvote='*false'>
-    <article_controls posting='$,' nodiscuss!='$englishDomain'>
-   </ifnzero>
+   <ifzero what='$,Modbits & MOD_ARCHIVE'>
+    <assign name='title' title='$,Subject'>
+   <else>
+    <assign name='title'
+            title#='$,Subject<br>(архив от $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
+   </ifzero>
+   <subtitle title='$title'>
+   <article_controls posting='$,' nodiscuss='$englishDomain'>
+   <article posting='$,' withvote='*false'>
+   <article_controls posting='$,' nodiscuss='$englishDomain'>
   </td>
  </tr></table>
  <bottom>

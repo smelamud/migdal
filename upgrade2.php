@@ -3,7 +3,7 @@
 
 require_once('conf/migdal.conf');
 
-require_once('lib/errorreporting.php');
+//require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/sql.php');
 require_once('lib/text-wiki.php');
@@ -19,7 +19,10 @@ require_once('lib/image-upload.php');
 require_once('lib/answers.php');
 require_once('lib/users.php');
 require_once('lib/catalog.php');
-require_once('grp/compltypes.php');
+
+define('COMPL_NORMAL',1);
+define('COMPL_FORUM',3);
+define('COMPL_POSTING',4);
 
 $complainIds=array(0 => 0);
 $topicIds=array(0 => 0);

@@ -118,3 +118,4 @@ topics	84	links.humour
 topics	114	links.languages
 topics	184	links.languages.hebrew
 topics	115	links.languages.yiddish
+postings	1474	post.migdal

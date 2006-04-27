@@ -53,10 +53,10 @@
 <ifne what='$href'>
  <table class='ninept'><tr valign=center>
   <english>
-   <td><image src='pics/lang-ru.gif'></td>
+   <td><image src='/pics/lang-ru.gif'></td>
    <td><a href='$href'>Русская версия</a>&nbsp;&nbsp;</td>
   <else>
-   <td><image src='pics/lang-us.gif'></td>
+   <td><image src='/pics/lang-us.gif'></td>
    <td><a href='$href'>English version</a>&nbsp;&nbsp;</td>
   </english>
  </tr></table>
