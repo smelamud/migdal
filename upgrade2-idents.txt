@@ -119,3 +119,4 @@ topics	114	links.languages
 topics	184	links.languages.hebrew
 topics	115	links.languages.yiddish
 postings	1474	post.migdal
+postings	1977	post.migdal.migdal-or

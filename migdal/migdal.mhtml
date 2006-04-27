@@ -34,10 +34,10 @@
   </notprint>
   <td class='article cframe'>
    <ifzero what='$,Modbits & MOD_ARCHIVE'>
-    <assign name='title' title='$,Subject'>
+    <assign name='title' value='$,Subject'>
    <else>
     <assign name='title'
-            title#='$,Subject<br>(архив от $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
+            value#='$,Subject<br>(архив от $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
    </ifzero>
    <subtitle title='$title'>
    <article_controls posting='$,' nodiscuss='$englishDomain'>

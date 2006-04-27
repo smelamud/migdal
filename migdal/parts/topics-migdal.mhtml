@@ -225,8 +225,9 @@
 	             ($/$posting.TopicId,1/==$`museum` ||
 		      $/$posting.TopicId,2/==$`museum-news`)">>
 <posting_last topic_id='$`migdal-ohr`' recursive='*true'>
-<topics_line time='$,' href#='migdal.php?artid=$`post.migdal-ohr`'
+<topics_line time='$,' href='/migdal/migdal-or/'
 	     text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+	     arrow!="$index=='migdal.migdal-or'"
 	     indent=1 class='topics-item eightpt'>
 	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-ohr`">>
 <hash>
