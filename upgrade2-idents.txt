@@ -118,9 +118,9 @@ topics	84	links.humour
 topics	114	links.languages
 topics	184	links.languages.hebrew
 topics	115	links.languages.yiddish
-topics	66	migdal.migdal-or
-topics	58	migdal.mazltov
-topics	140	migdal.beitenu
+topics	176	migdal.migdal-or
+topics	30	migdal.mazltov
+topics	258	migdal.beitenu
 postings	1474	post.migdal
 postings	1977	post.migdal.migdal-or
 postings	1475	post.migdal.mazltov
