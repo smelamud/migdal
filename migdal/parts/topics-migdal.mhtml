@@ -39,7 +39,7 @@
 
 <element name='topics_jcc'>
 <topic_obj name='jcc' id='$`jcc`'>
-<topics_table title='$,Name'>
+<topics_table title='$,Subject'>
  <ispost what='$jcc'>
   <tr><td colspan=2>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
@@ -53,26 +53,26 @@
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
                       topic_id='$,Id' recursive='*false'
 		      fields='*SELECT_TOPICS'>
- <posting_obj id='$`postings:jcc`' fields='*SELECT_GENERAL'>
+ <posting_obj id='$`post.jcc`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='Об общинном центре' href='jcc.php'
               arrow!='$,Id==$posting.Id' class='item ninept'>
  <posting_last topic_id='$`choir`' recursive='*true'>
  <topics_line time='$,' text='Хоровые коллективы'
-              href#='migdal.php?artid=$`postings:choir`'
+              href#='migdal.php?artid=$`post.choir`'
               arrow!="$/$posting.TopicId,2/==$`choir`" class='item eightpt'>
  <posting_last topic_id='$`dances`' recursive='*true'>
  <topics_line time='$,' text='Танцевальные коллективы'
-              href#='migdal.php?artid=$`postings:dances`'
+              href#='migdal.php?artid=$`post.dances`'
               arrow!="$/$posting.TopicId,2/==$`dances`" class='item eightpt'>
  <for>
-  <if what='$.Id!=$`postings:jcc`'>
+  <if what='$.Id!=$`post.jcc`'>
    <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
                 arrow!='$.Id==$posting.Id' class='item eightpt'>
   </if>
  </for>
  <posting_last topic_id='$`kes`' recursive='*true'>
  <topics_line time='$,' text='Клуб Еврейского Студента'
-              href#='migdal.php?artid=$`postings:kes`'
+              href#='migdal.php?artid=$`post.kes`'
               arrow!="$/$posting.TopicId,2/==$`kes`" class='item eightpt'>
 </topics_table>
 <topics_common_events id='$`kaitana`'>
@@ -205,10 +205,10 @@
 	     indent=1 class='topics-item eightpt'>
 	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`events`">>
 <posting_last topic_id='$`jcc`' recursive='*true'>
-<topics_line time='$,' href='jcc.php' text='Общинный центр (JCC)'
+<topics_line time='$,' href='/migdal/jcc/' text='Общинный центр (JCC)'
 	     title='Живопись, музыка, танцы, программы для всех возрастов'
+	     arrow!="$index=='migdal.jcc'"
 	     indent=1 class='topics-item eightpt'>
-	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`jcc`">>
 <posting_last topic_id='$`migdal-library`' recursive='*true'>
 <topics_line time='$,' href='migdal-library.php' text='Библиотека'
 	     indent=1 class='topics-item eightpt'>

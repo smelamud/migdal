@@ -54,7 +54,7 @@
 
 <element name='topics_common_events'>
 <topic_obj name='topic' id='$id'>
-<topics_table class='ninept' title='$,Name'>
+<topics_table class='ninept' title='$,Subject'>
  <iterate_topiclist grp!='*GRP_EVENT' up='$,Id' recursive='*false'
                     sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_INFO'>
  <for>

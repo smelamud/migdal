@@ -1,10 +1,8 @@
 << @(#) $Id$ >>
 
-<posting_obj id='$`postings:jcc`' grp='*GRP_REVIEWS'
-             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
+<posting_obj id='$`post.migdal.jcc`' grp='*GRP_REVIEWS'
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <log event=review text#='post($,Id)'>
-<pagetitle title='$,Subject'>
-<topictitle title='$,Subject'>
 
 <html>
 <stylesheet ident='article'>
@@ -13,18 +11,18 @@
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
-   <topics posting='$,'>
+   <topics>
    <ears>
   </td>
   <td class='cframe'>
    <ifnzero what='$,Id'>
-    <subtitle>
-    <outer><div class='nframe' style='padding: 5'><inner>
+    <subtitle title='$,Subject'>
+    <<outer><div class='nframe' style='padding: 5'><inner>
      <seealso_links topic_id='$`jcc`' topic_grp='*GRP_REVIEWS'
 		    title='См. также в разделе ссылок'>
      <seealso_other topic_id='$`jcc`' topic_grp='*GRP_REVIEWS'
 		    title='По этой теме в других разделах'>
-    </inner></div></outer>
+    </inner></div></outer>>
     <div class='article'>
      <article_controls posting='$,'>
      <article posting='$,' withvote='*false'>
