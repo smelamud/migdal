@@ -294,7 +294,7 @@
 <decel name='topics_help_info' file='parts/topics-help.php' params='posting'>
 <decel name='topics_home' file='parts/topics-home.php' params='posting'
        defaults="posting=0">
-<decel name='topics_jcc' file='parts/topics-migdal.php' params='posting'>
+<decel name='topics_jcc' file='parts/topics-migdal.php' params='index'>
 <decel name='topics_kaitana' file='parts/topics-kaitana.php' params='posting'>
 <decel name='topics_kes' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_line'

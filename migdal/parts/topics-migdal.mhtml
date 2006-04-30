@@ -54,29 +54,31 @@
                       topic_id='$,Id' recursive='*false'
 		      fields='*SELECT_TOPICS'>
  <posting_obj id='$`post.migdal.jcc`' fields='*SELECT_GENERAL'>
- <topics_line time='$,Modified' text='Об общинном центре' href='jcc.php'
-              arrow!='$,Id==$posting.Id' class='topics-item ninept'>
+ <topics_line time='$,Modified' text='Об общинном центре' href='/migdal/jcc/'
+              arrow!="$index=='migdal.jcc'" class='topics-item ninept'>
  <posting_last topic_id='$`choir`' recursive='*true'>
  <topics_line time='$,' text='Хоровые коллективы'
               href#='migdal.php?artid=$`post.choir`'
-              arrow!="$/$posting.TopicId,2/==$`choir`"
 	      class='topics-item eightpt'>
+              <<arrow!="$/$posting.TopicId,2/==$`choir`">>
  <posting_last topic_id='$`dances`' recursive='*true'>
  <topics_line time='$,' text='Танцевальные коллективы'
               href#='migdal.php?artid=$`post.dances`'
-              arrow!="$/$posting.TopicId,2/==$`dances`"
 	      class='topics-item eightpt'>
+              <<arrow!="$/$posting.TopicId,2/==$`dances`">>
  <for>
   <if what='$.Id!=$`post.migdal.jcc`'>
-   <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
-                arrow!='$.Id==$posting.Id' class='topics-item eightpt'>
+   <topics_line time='$.Modified' text='$=.Subject'
+                href#='migdal.php?artid=$.Id'
+                arrow!="$index=='post.migdal.jcc.'.$.Ident"
+		class='topics-item eightpt'>
   </if>
  </for>
  <posting_last topic_id='$`kes`' recursive='*true'>
  <topics_line time='$,' text='Клуб Еврейского Студента'
               href#='migdal.php?artid=$`post.kes`'
-              arrow!="$/$posting.TopicId,2/==$`kes`"
 	      class='topics-item eightpt'>
+              <<arrow!="$/$posting.TopicId,2/==$`kes`">>
 </topics_table>
 <topics_common_events id='$`kaitana`'>
 <topics_common_events id='$`halom`'>
