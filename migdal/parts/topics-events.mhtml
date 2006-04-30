@@ -58,7 +58,8 @@
  <iterate_topiclist grp!='*GRP_EVENT' up='$,Id' recursive='*false'
                     sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_INFO'>
  <for>
-  <topics_line time='$.LastMessage' text='$.Comment1' title='$.Description'
+  <posting_last topic_id='$.Id' recursive='*true'>
+  <topics_line time='$,' text='$.Comment1' title='$.Body'
                href#='event.php?topic_id=$.Id' class='$class_line'>
  </for>
 </topics_table>

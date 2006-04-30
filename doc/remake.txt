@@ -147,7 +147,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * lib/grps.php
 - lib/horisonts.php
 + lib/ident.php
-* lib/images.php (новые функции получения путей к картинкам)
+* lib/images.php (функции работы с файлами можно выделить отдельно)
 + lib/image-types.php
 + lib/image-upload.php
 - lib/indexer.php
@@ -263,14 +263,14 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/help.mhtml
 - migdal/horisontedit.mhtml
 - migdal/index-english.mhtml
-* migdal/index-www.mhtml
-- migdal/jcc.mhtml
+* migdal/index-www.mhtml (кроме seealso и ловушек)
+* migdal/jcc.mhtml (кроме seealso)
 - migdal/journal.mhtml
 - migdal/kaitana-main.mhtml
 - migdal/kaitana.mhtml
 + migdal/limedit.mhtml
 + migdal/liminsert.mhtml
-- migdal/links.mhtml
+* migdal/links.mhtml (кроме seealso)
 - migdal/methodic-center.mhtml
 - migdal/methodics.mhtml
 - migdal/migdal-library.mhtml
