@@ -97,7 +97,7 @@
   <error id='*EP_IDENT_ABSENT' text='Обозначение не указано'>
   <error id='*EP_IDENT_UNIQUE' text='Так уже обозначено другое сообщение'>
   <form_edit title='$=editor.Title' comment='$editor.Comment' name='ident'
-             value='$posting.Ident' size=15 maxlength=15
+             value='$posting.Ident' size=20 maxlength=75
 	     mandatory='$editor.isMandatory'>
  <else>
   <hidden name='ident' value='$posting.Ident'>
