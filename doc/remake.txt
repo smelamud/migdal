@@ -259,7 +259,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/forumansweredit.mhtml
 - migdal/forumcatalog.mhtml
 - migdal/forum.mhtml
-- migdal/gallery.mhtml
+* migdal/gallery.mhtml
+* migdal/gallery-main.mhtml
 - migdal/groupadd.mhtml
 - migdal/grouporg.mhtml
 - migdal/halom-main.mhtml
