@@ -267,12 +267,12 @@
        defaults="class='topic'">
 <decel name='topics' file='parts/topics.php'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
-<decel name='topics_choir' file='parts/topics-migdal.php' params='posting'>
-<decel name='topics_common_events' file='parts/topics-events.php'
-       params='id,class_line' defaults="class_line='topics-item'">
 <decel name='topics_beitenu' file='parts/topics-migdal.php' params='posting'>
 <decel name='topics_book' file='parts/topics-book.php' params='posting'>
-<decel name='topics_dances' file='parts/topics-migdal.php' params='posting'>
+<decel name='topics_choir' file='parts/topics-migdal.php' params='index'>
+<decel name='topics_common_events' file='parts/topics-events.php'
+       params='id,class_line' defaults="class_line='topics-item'">
+<decel name='topics_dances' file='parts/topics-migdal.php' params='index'>
 <decel name='topics_events' file='parts/topics-events.php' params='posting'>
 <decel name='topics_gallery' file='parts/topics-gallery-general.php'
        params='&posting'>
@@ -296,7 +296,7 @@
        defaults="posting=0">
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index'>
 <decel name='topics_kaitana' file='parts/topics-kaitana.php' params='posting'>
-<decel name='topics_kes' file='parts/topics-migdal.php' params='posting'>
+<decel name='topics_kes' file='parts/topics-migdal.php' params='index'>
 <decel name='topics_line'
        params='time,arrow,text,title,href,count,class,indent,span,rating,
                nobullet'

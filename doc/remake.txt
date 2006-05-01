@@ -62,6 +62,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 36. Проверить все тексты на отсутствие XML error.
 37. Проверить, что установлены ловушки на все старые URL'ы (проверять по
 списку скриптов в предыдущем релизе).
+38. В навигаторе тем на каждом уровне должен присутствовать <upper_level> со
+ссылкой наверх. Сейчас он вставляется прямо в соответствующий <topic_*>.
 
 Прогресс пересмотра файлов
 --------------------------
@@ -342,7 +344,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/grpselect.mhtml
 - migdal/parts/hannukah.mhtml
 - migdal/parts/help-link.mhtml
-- migdal/parts/history.mhtml
++ migdal/parts/history.mhtml
 * migdal/parts/hit-parade.mhtml
 - migdal/parts/hotlog.mhtml
 - migdal/parts/identify.mhtml (удалить)

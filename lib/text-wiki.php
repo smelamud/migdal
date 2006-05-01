@@ -283,6 +283,9 @@ $c=delicateAmps(cropXML($c));
 if($dformat<=MTEXT_LINE)
   return $c;
 else
-  return "<p>$c</p>";
+  if(substr($c,0,5)=='&lt;-')
+    return '<p clear="left">'.substr($c,5).'</p>';
+  else
+    return "<p>$c</p>";
 }
 ?>
