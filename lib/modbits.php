@@ -12,16 +12,14 @@ define('MOD_HTML',0x0002); # deprecated
 define('MOD_EDIT',0x0004);
 define('MOD_ATTENTION',0x0008);
 define('MOD_MULTIPART',0x0010);
-define('MOD_ARCHIVE',0x0020);
-define('MOD_ALL',0x003f);
+define('MOD_ALL',0x001f);
 
-$modbitLetters=array('M','H' /* deprecated */,'E','S','L','A');
+$modbitLetters=array('M','H' /* deprecated */,'E','S','L');
 $modbitNames=array('Модерировать',
 		   'HTML', # deprecated
 		   'Редактировать',
 		   'Особо проверить',
-		   'Многостраничное',
-		   'Архив');
+		   'Многостраничное');
 
 // For complains
 define('MODC_NONE',0x0000);

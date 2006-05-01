@@ -2,6 +2,7 @@
 
 <modbits>
 <ident name='artid'>
+<int name='archive'>
 
 << Traps >>
 <<if what='$artid==$`postings:migdal-library`'>
@@ -33,7 +34,7 @@
    </td>
   </notprint>
   <td class='article cframe'>
-   <ifzero what='$,Modbits & MOD_ARCHIVE'>
+   <if what='!$archive'>
     <assign name='title' value='$,Subject'>
    <else>
     <assign name='title'

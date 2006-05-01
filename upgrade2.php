@@ -292,7 +292,7 @@ while($row=mysql_fetch_assoc($result))
 			  'created' => $row['sent'],
 			  'modified' => $row['last_updated'],
 			  'accessed' => $row['last_read'],
-			  'modbits' => $row['modbits']
+			  'modbits' => $row['modbits'] & MOD_ALL
 			  )),
 	 __FUNCTION__,'insert');
 
@@ -357,7 +357,7 @@ while($row=mysql_fetch_assoc($result))
 			  'created' => $orig['created'],
 			  'modified' => $orig['modified'],
 			  'accessed' => $orig['accessed'],
-			  'modbits' => $orig['modbits']
+			  'modbits' => $orig['modbits'] & MOD_ALL
 			  )),
 	 __FUNCTION__,'insert');
 
