@@ -8,6 +8,8 @@ function catalog($id,$ident,$prev='')
 {
 if($ident!='')
   {
+  if(substr($ident,0,5)=='post.')
+    $ident=substr($ident,5);
   $catalog=strtr($ident,'.','/');
   return normalizePath($catalog,false,SLASH_NO,SLASH_YES);
   }

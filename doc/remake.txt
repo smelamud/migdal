@@ -232,7 +232,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/404.mhtml
 - migdal/500.mhtml
 - migdal/archive.mhtml
-* migdal/article.mhtml
+* migdal/article.mhtml (кроме ловушек)
 - migdal/article-times.mhtml
 - migdal/book-chapter.mhtml
 - migdal/book-chapter-split.mhtml

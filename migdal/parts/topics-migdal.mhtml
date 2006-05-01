@@ -74,8 +74,7 @@
 	      class='topics-item eightpt'>
  <for>
   <if what='$.Id!=$`post.migdal.jcc`'>
-   <posting_catalog entry='$.' start=1>
-   <topics_line time='$.Modified' text='$=.Subject' href#='/$,'
+   <topics_line time='$.Modified' text='$=.Subject' href#='/$.Catalog'
                 arrow!="$index==$.Id" class='topics-item eightpt'>
   </if>
  </for>
