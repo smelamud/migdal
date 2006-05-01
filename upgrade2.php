@@ -3,7 +3,7 @@
 
 require_once('conf/migdal.conf');
 
-//require_once('lib/errorreporting.php');
+require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/sql.php');
 require_once('lib/text-wiki.php');
@@ -217,7 +217,7 @@ while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
      $subject=unhtmlentities($row['subject']);
-     if(($row['grp'] & GRP_GRAPHICS)==0)
+     if(!in_array($row['grp'],grpArray(GRP_GRAPHICS)))
        {
        $body=unhtmlentities($row['body']);
        $title='';

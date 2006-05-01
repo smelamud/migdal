@@ -28,14 +28,12 @@
 <upper_level name='Общинный центр (JCC)' href='/migdal/jcc/'>
 <topics_table title='КЕС'>
  <posting_obj id='$`post.migdal.jcc.student`'>
- <topics_line time='$,Modified' text='О клубе'
-              href='/migdal/jcc/student/'
+ <topics_line time='$,Modified' text='О клубе' href='/migdal/jcc/student/'
               arrow!="$index==$`post.migdal.jcc.student`"
 	      class='topics-item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*false'>
- <topics_line time='$,' text='Галерея'
-              href#='gallery.php?topic_id=$`kes`&general=1'
-              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`kes`'
+ <topics_line time='$,' text='Галерея' href='/migdal/jcc/student/gallery/'
+              arrow!="$index=='migdal.jcc.student.gallery'"
 	      class='topics-item ninept'>
 </topics_table>
 <topics_common_events id='$`youth-confs`'>

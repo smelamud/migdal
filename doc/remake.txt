@@ -340,7 +340,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/forumcatalog.mhtml
 - migdal/parts/forums.mhtml
 - migdal/parts/gallery-main.mhtml
-- migdal/parts/gallery.mhtml
++ migdal/parts/gallery.mhtml
 - migdal/parts/googleru.mhtml
 + migdal/parts/grpselect.mhtml
 - migdal/parts/hannukah.mhtml
@@ -359,7 +359,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/menu.mhtml
 - migdal/parts/migdal-news.mhtml
 - migdal/parts/picture-main.mhtml
-- migdal/parts/picture.mhtml
++ migdal/parts/picture.mhtml
 - migdal/parts/pointer.mhtml
 - migdal/parts/posting-book.mhtml
 + migdal/parts/posting-ear.mhtml

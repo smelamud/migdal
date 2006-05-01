@@ -40,7 +40,7 @@
 << /Traps >>
 
 <zone>
- <ident_id table='topics' ident='$topic_id'>
+ <ident_id ident='$topic_id'>
  <log event=gallery text#='topic($,) offset=$offset'>
 </zone>
 <if what='$user_id<=0'>
@@ -59,7 +59,7 @@
 </if>
 
 <element name='notonly' params='posting'>
-<if what='!$$general'>
+<<if what='!$$general'>
  <identify posting='$posting'>
  <ifne what='$posting.MainHref'>
   <div class='ninept'>
@@ -67,33 +67,30 @@
    <a href='$posting.MainHref'>Увидеть раздел полностью.</a>
   </div>
  </ifne>
-</if>
+</if>>
 </element>
 
 <html>
 <preamble>
 <body>
- <top ident!="$general ? 'index' : 'gallery'">
- <posting_new grp='*GRP_GALLERY' topic_id='$topic_id' sender_id='$user_id'>
+ <ife what='$$menu_main'>
+  <assign_global name='menu_main' value='index'>
+ </ife>
+ <top ident='$$menu_main'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
-   <if what='$general'>
-    <topics posting='$,'>
-    <ears>
-   <else>
-    <topics_gallery posting='$,'>
-    <ears>
-   </if>
+   <topics>
+   <ears>
   </td>
   <td>
    <div class='nframe' style='margin-bottom: 5px; padding: 5px'>
     <subtitle>
-    <notonly posting='$,'>
+    <notonly>
     <p>
-    <seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'
+    <<seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'
 		   title='См. также в разделе ссылок'>
     <seealso_other topic_id='$topic_id' topic_grp='*GRP_GALLERY'
-		   title='По этой теме в других разделах'>
+		   title='По этой теме в других разделах'>>
    </div>
    <gallery topic_id='$topic_id' rows='$userPictureRowPortion'
 	    cols='$userPictureColumnPortion' offset='$offset' sort='$sort'

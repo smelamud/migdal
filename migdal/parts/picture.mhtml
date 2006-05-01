@@ -5,7 +5,8 @@
 <element name='topic' params='picture,showtopic'>
 <if what='$showtopic'>
  <tr><td class='eightpt' align=center>
-  <topiclink posting='$picture'>
+  <topic_obj id='$picture.TopicId'>
+  <topiclink posting='$picture' title='$,Subject' comment='$,BodyNormal'>
  </td></tr>
 </if>
 </element>
@@ -17,7 +18,7 @@
   <iswrite what='$picture'>
    <editlink posting='$picture'>
   <else>
-   <if what='$showcomplain'>
+   <if what='!$$userModerator && $showcomplain'>
     <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
        >Жалоба</a>
    </if>
@@ -27,41 +28,39 @@
 </element>
 
 <element name='picture'>
-<if what='$picture.isRebe'><span class='rebe'></if>
- <table class='picture'>
-  <tr class='border'><td align=right>
-   <biff time='$picture.Sent' small='*true'>
-   <senderlink message='$picture'>
+<table class='picture'>
+ <tr class='border'><td align=right>
+  <biff time='$picture.Modified' small='*true'>
+  <senderlink message='$picture'>
+ </td></tr>
+ <topic picture='$picture' showtopic='$showtopic'>
+ <tr><td align=right>
+  <vote_frame id='$picture.Id' color='$$style_picture_back'
+	      image='$$style_picture_back_pic'>
+ </td></tr>
+ <if what='$picture.hasSmallImage'>
+  <tr><td class='image'>
+   <posting_image posting='$picture'>
   </td></tr>
-  <topic picture='$picture' showtopic='$showtopic'>
-  <tr><td align=right>
-   <vote_frame id='$picture.Id' color='$$style_picture_back'
-               image='$$style_picture_back_pic'>
+ </if>
+ <controls picture='$picture' showcomplain='$showcomplain'>
+ <tr><td class='body ninept'>
+  $picture.TitleHTML
+ </td></tr>
+ <ifne what='$picture.Source'>
+  <tr><td class='source eightpt' align=right>
+   $picture.SourceHTML
   </td></tr>
-  <ifnzero what='$picture.ImageSet'>
-   <tr><td class='image'>
-    <image_linked_tag id='$picture.ImageId' enlarge='$picture.hasLargeImage'>
-   </td></tr>
-  </ifnzero>
-  <controls picture='$picture' showcomplain='$showcomplain'>
-  <tr><td class='body ninept'>
-   $picture.HTMLBody
+ </ifne>
+ <if what='$showdiscuss'>
+  <tr><td class='control' align=right>
+   <discusslink posting='$picture'>
   </td></tr>
-  <ifne what='$picture.HTMLSource'>
-   <tr><td class='source eightpt' align=right>
-    $picture.HTMLSource
-   </td></tr>
-  </ifne>
-  <if what='$showdiscuss'>
-   <tr><td class='control' align=right>
-    <discusslink posting='$picture'>
-   </td></tr>
-  </if>
-  <ifnzero what='$picture.ImageSet'>
-   <tr><td class='border' align=center>
-    ${picture.ImageX}x${picture.ImageY}, ${picture.ImageSizeKB}KB
-   </td></tr>
-  </ifnzero>
- </table>
-<if what='$picture.isRebe'></span></if>
+ </if>
+ <if what='$picture.hasSmallImage'>
+  <tr><td class='border' align=center>
+   ${picture.ImageX}x${picture.ImageY}, ${picture.LargeImageSizeKB}KB
+  </td></tr>
+ </if>
+</table>
 </element>

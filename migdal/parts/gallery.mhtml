@@ -6,7 +6,7 @@
   <if what='!$noedit'>
    <td align=left class='info'>
     <table><tr valign=center>
-     <td><image src='pics/sheet.gif'></td>
+     <td><image src='/pics/sheet.gif'></td>
      <td>
       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_GALLERY&noguests=$access&redirid=$_'
 	 >Добавить картинку</a>
@@ -28,8 +28,8 @@
 <if what='$topic_id>0'>
  <perms table='topics' id='$topic_id'>
  <assign name='access' value='$,isPostable'>
- <topic_grp id='$topic_id'>
- <assign name='noedit' value!='($, & *GRP_GALLERY)==0'>
+ <entry_grps id='$topic_id'>
+ <assign name='noedit' value!='!in_array(*GRP_GALLERY,$,)'>
 <else>
  <assign name='access' value!='$$userId>0'>
  <assign name='noedit' value='*false'>

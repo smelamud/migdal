@@ -33,10 +33,10 @@ else
 <tr valign=top>
  <td rowspan=2>
   Сайт создан и поддерживается
-  <a href='migdal.php?artid=$`post.kes`'>Клубом Еврейского Студента</a>
+  <a href='/migdal/jcc/student/'>Клубом Еврейского Студента</a>
   <br>
   Международного Еврейского Общинного Центра
-  <a href='migdal.php'>&lt;&lt;Мигдаль&gt;&gt;</a>
+  <a href='/migdal/'>&lt;&lt;Мигдаль&gt;&gt;</a>
   <email addr='migdal@migdal.ru'>, Одесса.
   <p>
   Председатель правления центра &lt;&lt;Мигдаль&gt;&gt; --- Кира Верховская

@@ -196,6 +196,8 @@
 	 defaults="name=complain type_id='*COMPL_NORMAL' link=0">
 <deccall macro='counter_value' func='getCounterValue' file='lib/counters.php'
          params='entry_id,mode,serial' defaults='serial=0'>
+<deccall macro='entry_grps' func='getGrpsByEntryId' file='lib/entries.php'
+         params='id'>
 <deccall macro='forum_answer_obj' func='getForumAnswerById'
          file='lib/forums.php' params='id,parent_id,quote,quote_width'
 	 defaults="name=answer parent_id=0 quote='' quote_width=75">
@@ -281,15 +283,13 @@
 <deccall macro='time' func='time'>
 <deccall macro='tmptext' func='tmpTextRestore' file='lib/tmptexts.php'
          params='id'>
-<deccall macro='topic_grp' func='getAllowByTopicId' file='lib/topics.php'
-         params='id'>
 <deccall macro='topic_count' func='getSubtopicsCountById' file='lib/topics.php'
          params='id,recursive' defaults="name=topic recursive='*false'">
-<deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
-         params='id' defaults='name=topic id="$topic_id"'>
 <deccall macro='topic_full_name' func='getTopicFullNameById'
          file='lib/topics.php' params='id,root,delimiter'
 	 defaults="name=topic root=0 delimiter=' :: '">
+<deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
+         params='id' defaults='name=topic id="$topic_id"'>
 <deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
          params='id,up,fields'
 	 defaults="name=topic id='$topic_id' up=0 fields='*SELECT_GENERAL'">
