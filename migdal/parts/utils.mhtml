@@ -4,15 +4,15 @@
 <ifne what='$title'>
  <ifne what='$target'>
   <ifne what='$class'>
-   <asp><a href='$href' target='$target' class='$class' title='$=title'><asp>
+   <asp><a href='$href' target='$target' class='$class' title='$title'><asp>
   <else>
-   <asp><a href='$href' target='$target' title='$=title'><asp>
+   <asp><a href='$href' target='$target' title='$title'><asp>
   </ifne>
  <else>
   <ifne what='$class'>
-   <asp><a href='$href' class='$class' title='$=title'><asp>
+   <asp><a href='$href' class='$class' title='$title'><asp>
   <else>
-   <asp><a href='$href' title='$=title'><asp>
+   <asp><a href='$href' title='$title'><asp>
   </ifne>
  </ifne>
 <else>

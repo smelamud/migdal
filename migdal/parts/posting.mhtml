@@ -18,7 +18,7 @@
 <<element name='topiclink_gallery'>
 <identify posting='$posting'>
 <at href='$posting.GalleryHref' class='$class'
-    title='$posting.FullTopicDescription'>$posting.FullTopicName</at>
+    title='$=posting.FullTopicDescription'>$posting.FullTopicName</at>
 </element>>
 
 <element name='editlink'>

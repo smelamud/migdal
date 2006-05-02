@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/xml.php');
+require_once('lib/text.php');
 
 class MTextToLineXML
       extends XMLParser
