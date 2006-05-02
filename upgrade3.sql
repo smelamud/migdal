@@ -32,3 +32,7 @@ DROP `judge` ,
 DROP `admin_domain` ;
 ALTER TABLE `votes` DROP `posting_id` ;
 ALTER TABLE `users` CHANGE `guest` `guest` TINYINT( 4 ) NOT NULL DEFAULT '0';
+ALTER TABLE `inner_images` DROP INDEX `entry_id`;
+ALTER TABLE `inner_images` DROP INDEX `par`;
+DELETE FROM `inner_images` WHERE entry_id =0;
+ALTER TABLE `inner_images` ADD PRIMARY KEY ( `entry_id` , `par` , `x` , `y` );

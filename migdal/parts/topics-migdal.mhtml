@@ -87,6 +87,7 @@
 </element>
 
 <element name='topics_beitenu'>
+<upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Бейтену'>
  <posting_obj id='$`postings:beitenu`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О программе'
@@ -107,6 +108,7 @@
 </element>
 
 <element name='topics_mazltov'>
+<upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Мазл Тов'>
  <posting_obj id='$`postings:mazltov`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О программе'
@@ -128,6 +130,7 @@
 </element>
 
 <element name='topics_methodics'>
+<upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Методический центр'>
  <posting_obj id='$`postings:methodic-center`' fields='*SELECT_GENERAL'>
  <topics_line time='$,Sent' text='О центре' href='methodic-center.php'
@@ -145,6 +148,7 @@
 </element>
 
 <element name='topics_migdal_library'>
+<upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Библиотека'>
  <topics_line text='О библиотеке' href#='migdal-library.php'
               arrow!='$posting.Id==$`postings:migdal-library`'
@@ -161,40 +165,41 @@
 <topics_common_events id='$`ofeks`'>
 </element>
 
-<element name='topics_migdal_ohr'>
+<element name='topics_migdal_or'>
+<upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Мигдаль-ор'>
- <posting_obj id='$`postings:migdal-ohr`' fields='*SELECT_GENERAL'>
- <topics_line time='$,Sent' text='О театре'
-              href#='migdal.php?artid=$`postings:migdal-ohr`'
-              arrow!='$posting.Id==$`postings:migdal-ohr`' class='item ninept'>
- <posting_last grp='*GRP_GALLERY' topic_id='$`migdal-ohr`' recursive='*false'>
- <topics_line time='$,' text='Галерея'
-              href#='gallery.php?topic_id=$`migdal-ohr`&general=1'
-              arrow!='$posting.Grp==*GRP_GALLERY &&
-	              $posting.TopicId==$`migdal-ohr`'
-	      class='item ninept'>
+ <posting_obj id='$`post.migdal.migdal-or`'>
+ <topics_line time='$,Modified' text='О театре' href='/migdal/migdal-or/'
+              arrow!="$index=='migdal.migdal-or'" class='topics-item ninept'>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`migdal.migdal-or`'
+               recursive='*false'>
+ <topics_line time='$,' text='Галерея' href='/migdal/migdal-or/gallery/'
+              arrow!="$index=='migdal.migdal-or.gallery'"
+	      class='topics-item ninept'>
 </topics_table>
+<< FIXME сюда надо добавить гастроли >>
 </element>
 
 <element name='topics_museum'>
+<upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Музей истории евреев Одессы'>
- <posting_obj id='$`postings:museum`' fields='*SELECT_GENERAL'>
- <topics_line time='$,Sent' text='О музее'
-              href#='migdal.php?artid=$`postings:museum`'
-              arrow!='$posting.Id==$`postings:museum`' class='item ninept'>
+ <posting_obj id='$`post.migdal.museum`'>
+ <topics_line time='$,Modified' text='О музее' href='/migdal/museum/'
+              arrow!="$index=='migdal.museum'" class='topics-item ninept'>
  <posting_last grp='*GRP_NEWS' topic_id='$`museum-news`' recursive='*false'>
  <topics_line time='$,' text='Новости'
               href#='migdal-news.php?topic_id=$`museum-news`'
-              arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
-	              $posting.TopicId==$`museum-news`'
-	      class='item ninept'>
- <posting_last grp='*GRP_GALLERY' topic_id='$`museum`' recursive='*false'>
- <topics_line time='$,' text='Галерея'
-              href#='gallery.php?topic_id=$`museum`&general=1'
-              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`museum`'
-	      class='item ninept'>
+	      class='topics-item ninept'>
+              <<arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
+	              $posting.TopicId==$`museum-news`'>>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`migdal.museum`'
+               recursive='*false'>
+ <topics_line time='$,' text='Галерея' href='/migdal/museum/gallery/'
+              arrow!="$index=='migdal.museum.gallery'"
+	      class='topics-item ninept'>
 </topics_table>
-<history topic_id='$`museum`' current='$posting.Id' today='$`postings:museum`'>
+<history topic_id='$`migdal.museum`' current='$posting.Id'
+         today='$`post.migdal.museum`'>
 <topics_common_events id='$`jewishcivs`'>
 </element>
 
@@ -225,8 +230,8 @@
  <hash_topic topic_id='$`museum-news`' recursive='*true'>
 </hash>
 <posting_last topic_id='$*'>
-<topics_line time='$,' href#='migdal.php?artid=$`post.museum`'
-	     text='Музей истории евреев Одессы'
+<topics_line time='$,' href='/migdal/museum/' text='Музей истории евреев Одессы'
+	     arrow!="$index=='migdal.museum'"
              indent=1 class='topics-item eightpt'>
 	     <<arrow!="$posting!=0 &&
 	             ($/$posting.TopicId,1/==$`museum` ||

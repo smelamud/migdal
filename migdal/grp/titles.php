@@ -26,4 +26,12 @@ function titlePostingGrpWhatV($id)
 $posting=getPostingById($id);
 return $posting->getGrpWhatV();
 }
+
+function titleArchiveDate($id)
+{
+$posting=getPostingById($id);
+return formatAnyDate('Rj',$posting->getSent()).' '
+       .formatAnyDate('Rk',$posting->getSent()).' '
+       .formatAnyDate('RY',$posting->getSent());
+}
 ?>
