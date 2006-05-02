@@ -89,42 +89,40 @@
 <element name='topics_beitenu'>
 <upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Бейтену'>
- <posting_obj id='$`postings:beitenu`' fields='*SELECT_GENERAL'>
- <topics_line time='$,Sent' text='О программе'
-              href#='migdal.php?artid=$`postings:beitenu`'
-              arrow!='$posting.Id==$`postings:beitenu`' class='item ninept'>
+ <posting_obj id='$`migdal.beitenu`'>
+ <topics_line time='$,Modified' text='О программе' href='/migdal/beitenu/'
+              arrow!="$index=='migdal.beitenu'" class='topics-item ninept'>
  <posting_last grp='*GRP_NEWS' topic_id='$`beitenu-news`' recursive='*false'>
  <topics_line time='$,' text='Новости'
               href#='migdal-news.php?topic_id=$`beitenu-news`'
-              arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
-	              $posting.TopicId==$`beitenu-news`'
-	      class='item ninept'>
- <posting_last grp='*GRP_GALLERY' topic_id='$`beitenu`' recursive='*false'>
- <topics_line time='$,' text='Галерея'
-              href#='gallery.php?topic_id=$`beitenu`&general=1'
-              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`beitenu`'
-	      class='item ninept'>
+	      class='topics-item ninept'>
+              <<arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
+	              $posting.TopicId==$`beitenu-news`'>>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`migdal-beitenu`'
+               recursive='*false'>
+ <topics_line time='$,' text='Галерея' href='/migdal/beitenu/gallery/'
+              arrow!="$index=='migdal.beitenu.gallery'"
+	      class='topics-item ninept'>
 </topics_table>
 </element>
 
 <element name='topics_mazltov'>
 <upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Мазл Тов'>
- <posting_obj id='$`postings:mazltov`' fields='*SELECT_GENERAL'>
- <topics_line time='$,Sent' text='О программе'
-              href#='migdal.php?artid=$`postings:mazltov`'
-              arrow!='$posting.Id==$`postings:mazltov`' class='item ninept'>
+ <posting_obj id='$`post.migdal.mazltov`'>
+ <topics_line time='$,Modified' text='О программе' href='/migdal/mazltov/'
+              arrow!="$index=='migdal.mazltov'" class='topics-item ninept'>
  <posting_last grp='*GRP_NEWS' topic_id='$`mazltov-news`' recursive='*false'>
  <topics_line time='$,' text='Новости'
               href#='migdal-news.php?topic_id=$`mazltov-news`'
-              arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
-	              $posting.TopicId==$`mazltov-news`'
-	      class='item ninept'>
- <posting_last grp='*GRP_GALLERY' topic_id='$`mazltov`' recursive='*false'>
- <topics_line time='$,' text='Галерея'
-              href#='gallery.php?topic_id=$`mazltov`&general=1'
-              arrow!='$posting.Grp==*GRP_GALLERY && $posting.TopicId==$`mazltov`'
-	      class='item ninept'>
+	      class='topics-item ninept'>
+              <<arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
+	              $posting.TopicId==$`mazltov-news`'>>
+ <posting_last grp='*GRP_GALLERY' topic_id='$`migdal.mazltov`'
+               recursive='*false'>
+ <topics_line time='$,' text='Галерея' href='/migdal/mazltov/gallery/'
+              arrow!="$index=='migdal.mazltov.gallery'"
+	      class='topics-item ninept'>
 </topics_table>
 <topics_common_events id='$`mazltov-births`'>
 </element>
