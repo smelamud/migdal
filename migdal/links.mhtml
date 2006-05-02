@@ -76,7 +76,7 @@
 </element>
 
 <element name='fastjump'>
-<form method=get action='actions/links/goto' style='margin: 0'>
+<form method=get action='/actions/links/goto' style='margin: 0'>
  <hidden name='okdir' value='/'>
  <hidden name='faildir' value='/links/'>
  <table class='eightpt'>

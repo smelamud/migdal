@@ -48,7 +48,7 @@ var $args=array();
 var $ids=array();
 var $redir=null;
 var $title='Untitled';
-var $titleExpr;
+var $relativeTitle='Untitled';
 var $parent=null;
 var $child=null;
 var $orig=null;
@@ -150,14 +150,14 @@ function setTitle($title)
 $this->title=$title;
 }
 
-function getTitleExpr()
+function getRelativeTitle()
 {
-return $this->titleExpr;
+return $this->relativeTitle;
 }
 
-function setTitleExpr($titleExpr)
+function setRelativeTitle($title)
 {
-$this->titleExpr=$titleExpr;
+$this->relativeTitle=$title;
 }
 
 function &getParent()

@@ -40,7 +40,7 @@ switch($name)
 
 function characterData($parser,$data)
 {
-$this->line.=utf8_decode($data);
+$this->line.=unhtmlentities(utf8_decode($data));
 }
 
 }
@@ -141,7 +141,8 @@ if($this->stop)
   return;
 $n=strlen(utf8_decode($data));
 $this->clen+=$n;
-$this->short.=utf8DecodeMarkup($data,$n-($this->clen-$this->len));
+$this->short.=unhtmlentities(utf8DecodeMarkup($data,
+                                              $n-($this->clen-$this->len)));
 if($this->clen>=$this->len)
   $this->stop=true;
 }

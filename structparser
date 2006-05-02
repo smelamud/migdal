@@ -221,11 +221,11 @@ else
 
 sub processTitle
 {
-my ($item,$name)=@_;
+my ($item,$name,$prefix)=@_;
 
 return unless exists($$item{$name});
 my $title=$$item{$name};
-$title=~s/\${([^}]*)}/subTitleExpr($1,$name,$item)/ge;
+$title=~s/\${([^}]*)}/subTitleExpr($1,$prefix,$item)/ge;
 $$item{"_$name"}=$title;
 }
 
@@ -233,8 +233,9 @@ sub processTitleLike
 {
 my ($item)=@_;
 
-processTitle($item,'title');
-processTitle($item,'script');
+processTitle($item,'title','title');
+processTitle($item,'reltitle','title');
+processTitle($item,'script','script');
 }
 
 sub addItem
@@ -407,6 +408,20 @@ EOF
      my $title=trimQuotes('"'.$$item{'_title'}.'"');
      print OUT <<EOF
   \$info->setTitle($title);
+EOF
+     }
+   if(exists($$item{'_reltitle'}))
+     {
+     my $reltitle=trimQuotes('"'.$$item{'_reltitle'}.'"');
+     print OUT <<EOF
+  \$info->setRelativeTitle($reltitle);
+EOF
+     }
+   elsif(exists($$item{'_title'}))
+     {
+     my $title=trimQuotes('"'.$$item{'_title'}.'"');
+     print OUT <<EOF
+  \$info->setRelativeTitle($title);
 EOF
      }
    print OUT <<EOF;

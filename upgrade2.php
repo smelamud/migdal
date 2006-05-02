@@ -710,7 +710,7 @@ echo "\n";
 
 dbOpen();
 endJournal();
-/*echo "1. Chat messages...\n";
+echo "1. Chat messages...\n";
 convertChatMessages();
 echo "2. Truncate...\n";
 truncateEntries();
@@ -744,7 +744,7 @@ convertLinkedTable('inner_images','image_id','image_entry_id',$imageIds);
 echo "16. Votes...\n";
 convertLinkedTable('votes','posting_id','entry_id',$postingIds);
 echo "17. Users...\n";
-convertUsers();*/
+convertUsers();
 echo "18. Idents...\n";
 convertIdents();
 beginJournal();

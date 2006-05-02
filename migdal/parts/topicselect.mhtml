@@ -26,7 +26,7 @@
   </if>
   <for>
    <ifne what='$.FullName'>
-    <radio title='$.FullNameShort' value='$.Id' peervalue='$value'>
+    <radio title='$=.FullNameShort' value='$.Id' peervalue='$value'>
    </ifne>
   </for>
  </select>
@@ -56,7 +56,7 @@
   </if>
   <for>
    <ifne what='$.FullName'>
-    <form_option title='$.FullNameShort' value='$.Id' selected!='$.Id==$value'>
+    <form_option title='$=.FullNameShort' value='$.Id' selected!='$.Id==$value'>
    </ifne>
   </for>
  </form_select>
