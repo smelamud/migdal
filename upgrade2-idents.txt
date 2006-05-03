@@ -25,6 +25,7 @@ topics	264	general.sports
 topics	120	general.terrorism
 topics	288	general.ukraine
 topics	96	general.humour
+topics	161	general.migdal.news
 topics	88	links.free-mail
 topics	296	links.demographics
 topics	133	links.painting

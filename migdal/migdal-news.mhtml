@@ -1,21 +1,13 @@
 << @(#) $Id$ >>
 
-<ident name='topic_id' table='topics'>
+<grps>
+<ident name='topic_id'>
 <int name='offset'>
 <ifzero what='$topic_id'>
- <assign name='topic_id' value='$`migdal-news`'>
+ <assign name='topic_id' value='$`general.migdal.news`'>
 </ifzero>
 
 <log event=index text#='topic($topic_id) offset=$offset'>
-<grps>
-<topic_obj id='$`migdal-news`'>
-<assign name='title' value='$,Name'>
-<if what='$topic_id!=$`migdal-news`'>
- <topic_obj id='$topic_id'>
- <assign name='title' value#='$title :: $,Name'>
-</if>
-<pagetitle title='$title'>
-<topictitle title='$title'>
 
 <html>
 <preamble>
@@ -24,26 +16,25 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
-    <posting_new topic_id='$topic_id' grp='*GRP_NEWS'>
-    <topics posting='$,'>
+    <topics>
     <ears>
    </td>
    <td class='cframe'>
     <outer><table width=100% cellspacing=0 cellpadding=5><tr valign=top>
      <td><common>
       <subtitle>
-      <outer><div class='nframe' style='padding: 5'><inner>
+      <<outer><div class='nframe' style='padding: 5'><inner>
        <seealso_links topic_id='$topic_id' topic_grp='*GRP_NEWS'
 		      title='См. также в разделе ссылок'>
        <seealso_other topic_id='$topic_id' topic_grp='*GRP_NEWS'
 		      title='По этой теме в других разделах'>
-      </inner></div></outer>
+      </inner></div></outer>>
       <postings_migdal_news topic_id='$topic_id' offset='$offset'>
      </common></td>
      <td width=130 class='nframe'><inner>
-      <if what='$topic_id==$`migdal-news`'>
+      <if what='$topic_id==$`general.migdal.news`'>
        <migdal_news>
-       <events>
+       <<events>>
       </if>
      </inner></td>
     </tr></table></outer>
