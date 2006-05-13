@@ -3,6 +3,8 @@
 
 require_once('lib/track.php');
 require_once('lib/utils.php');
+require_once('lib/modbits.php');
+require_once('lib/entries.php');
 
 function catalog($id,$ident,$prev='')
 {
@@ -15,8 +17,10 @@ if($ident!='')
   }
 else
   {
-  $prev=normalizePath($prev,false,SLASH_NO,SLASH_YES);
   $id=(int)$id;
+  if($prev=='')
+    return "$id/";
+  $prev=normalizePath($prev,false,SLASH_NO,SLASH_YES);
   return "$prev$id/";
   }
 }
@@ -47,7 +51,7 @@ return sql("update entries
 function updateCatalogs($id,$journalize=true)
 {
 $filter=$id>0 ? "track like '%".track($id)."%'" : '1';
-$result=sql("select id,ident,up
+$result=sql("select entry,id,ident,up,modbits
 	     from entries
 	     where $filter or catalog=''
 	     order by track",
@@ -57,8 +61,16 @@ while($row=mysql_fetch_assoc($result))
      {
      if(!isset($catalogs[$row['up']]))
        $catalogs[$row['up']]=catalogById($row['up']);
-     $catalogs[$row['id']]=catalog($row['id'],$row['ident'],
-                                   $catalogs[$row['up']]);
+     if($row['entry']==ENT_TOPIC
+        && ($row['modbits'] & (MODT_ROOT|MODT_TRASPARENT))!=0)
+       $catalogs[$row['id']]='';
+     elseif($row['entry']==ENT_TOPIC && ($row['modbits'] & MODT_ROOT)!=0)
+       $catalogs[$row['id']]=catalog($row['id'],$row['ident'],'');
+     elseif($row['entry']==ENT_TOPIC && ($row['modbits'] & MODT_TRANSPARENT)!=0)
+       $catalogs[$row['id']]=$catalogs[$row['up']];
+     else
+       $catalogs[$row['id']]=catalog($row['id'],$row['ident'],
+				     $catalogs[$row['up']]);
      updateCatalogById($row['id'],$catalogs[$row['id']]);
      }
 if($journalize)

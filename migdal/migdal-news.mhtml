@@ -4,7 +4,7 @@
 <ident name='topic_id'>
 <int name='offset'>
 <ifzero what='$topic_id'>
- <assign name='topic_id' value='$`general.migdal.news`'>
+ <assign name='topic_id' value='$`migdal.news`'>
 </ifzero>
 
 <log event=index text#='topic($topic_id) offset=$offset'>
@@ -32,7 +32,7 @@
       <postings_migdal_news topic_id='$topic_id' offset='$offset'>
      </common></td>
      <td width=130 class='nframe'><inner>
-      <if what='$topic_id==$`general.migdal.news`'>
+      <if what='$topic_id==$`migdal.news`'>
        <migdal_news>
        <<events>>
       </if>

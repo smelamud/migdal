@@ -35,11 +35,15 @@ define('MODT_NONE',0x0000);
 define('MODT_PREMODERATE',0x0001);
 define('MODT_MODERATE',0x0002);
 define('MODT_EDIT',0x0004);
-define('MODT_ALL',0x0007);
+define('MODT_ROOT',0x0008);
+define('MODT_TRANSPARENT',0x0010);
+define('MODT_ALL',0x001f);
 
 $modbitTNames=array('Премодерировать',
                     'Модерировать',
-		    'Редактировать');
+		    'Редактировать',
+		    'Корневая',
+		    'Прозрачная');
 
 class Modbit
 {

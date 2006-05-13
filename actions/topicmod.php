@@ -61,7 +61,7 @@ if(!is_null($topic->ident) && $cid!=0 && $topic->id!=$cid)
 if($topic->id==0 || $original->up!=$topic->up)
   $topic->track='';
 if($topic->id==0 || $original->up!=$topic->up
-   || $original->ident!=$topic->ident)
+   || $original->ident!=$topic->ident || $original->modbits!=$topic->modbits)
   $topic->catalog='';
 storeTopic($topic);
 if($topic->track=='')

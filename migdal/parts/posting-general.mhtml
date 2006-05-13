@@ -4,7 +4,7 @@
 <if what='$showtopic'>
  <topic_obj id='$posting.TopicId'>
  <assign name='title' value='$,Subject'>
- <if what=$,UpValue==$`general.migdal.news`>
+ <if what=$,UpValue==$`migdal.news`>
   <assign name='title' value#='Новости <<Мигдаля>> :: $title'>
  </if>
  <topiclink posting='$posting' title='$title' comment='$,BodyNormal'><br>

@@ -17,6 +17,7 @@
  <else>
   $=full_name&sp;$info&sp;
  </iswrite>
+ <br>$item.Catalog
 </element>
 
 <element name='branch' params='up,append,write,root' defaults="root='*false'">
@@ -38,8 +39,7 @@
  <ifnzero what='$;Count'>
   <ul class='names'>
    <for>
-    <li><hd item='$.'>
-    <br>
+    <li><hd item='$.'><br>
     <tt>$.PermHTML&nbsp;$=.Login:$=.GroupLogin</tt>
     <branch up='$.Id' append='$.isAppendable' write='$.isWritable'>
    </for>

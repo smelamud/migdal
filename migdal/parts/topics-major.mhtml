@@ -31,14 +31,7 @@
 <for>
  <topic_obj name='topic' id='$.PeerId' fields='*SELECT_INFO'>
  <assign name='info' value='$,PostingsInfo'>
- <if what='$/$topic.Id,0/==$`general`'>
-  <zone>
-   <posting_catalog name='catalog' entry='$,' start=1>
-  </zone>
- <else>
-  <assign name='catalog' value='$,Catalog'>
- </if>
- <topics_line class='topics-item ninept' time='$info.MaxSent' href#='/$catalog'
+ <topics_line class='topics-item ninept' time='$info.MaxSent' href#='/$,Catalog'
               title='$,BodyNormal' text='$,Subject' span='$span'
 	      arrow!='$,Id==$index'>
 </for>

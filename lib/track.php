@@ -17,7 +17,7 @@ else
          $track.=' '.sprintf('%010u',$i);
   $track=substr($track,1);
   }
-return $prev!='' ? "$prev $track" : $track;
+return $prev!='' && $prev!=0 ? "$prev $track" : $track;
 }
 
 function upById($table,$id)

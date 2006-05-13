@@ -92,6 +92,7 @@ if($posting->hasLargeImage()
 if($posting->person_id!=0 && !personalExists($posting->person_id))
   return EP_NO_PERSON;
 $posting->track='';
+$posting->catalog='';
 storePosting($posting);
 commitImages($posting,$original);
 updateTracks('entries',$posting->id);

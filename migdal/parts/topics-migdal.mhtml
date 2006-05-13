@@ -92,7 +92,7 @@
  <posting_obj id='$`migdal.beitenu`'>
  <topics_line time='$,Modified' text='О программе' href='/migdal/beitenu/'
               arrow!="$index=='migdal.beitenu'" class='topics-item ninept'>
- <posting_last grp='*GRP_NEWS' topic_id='$`general.migdal.beitenu.news`'
+ <posting_last grp='*GRP_NEWS' topic_id='$`migdal.beitenu.news`'
                recursive='*false'>
  <topics_line time='$,' text='Новости' href='/migdal/beitenu/news/'
 	      arrow!="$index=='migdal.beitenu.news'" class='topics-item ninept'>
@@ -110,7 +110,7 @@
  <posting_obj id='$`post.migdal.mazltov`'>
  <topics_line time='$,Modified' text='О программе' href='/migdal/mazltov/'
               arrow!="$index=='migdal.mazltov'" class='topics-item ninept'>
- <posting_last grp='*GRP_NEWS' topic_id='$`general.migdal.mazltov.news`'
+ <posting_last grp='*GRP_NEWS' topic_id='$`migdal.mazltov.news`'
                recursive='*false'>
  <topics_line time='$,' text='Новости' href='/migdal/mazltov/news/'
 	      arrow!="$index=='migdal.mazltov.news'" class='topics-item ninept'>
@@ -180,7 +180,7 @@
  <posting_obj id='$`post.migdal.museum`'>
  <topics_line time='$,Modified' text='О музее' href='/migdal/museum/'
               arrow!="$index=='migdal.museum'" class='topics-item ninept'>
- <posting_last grp='*GRP_NEWS' topic_id='$`general.migdal.museum.news`'
+ <posting_last grp='*GRP_NEWS' topic_id='$`migdal.museum.news`'
                recursive='*false'>
  <topics_line time='$,' text='Новости' href='/migdal/museum/news/'
 	      arrow!="$index=='migdal.museum.news'" class='topics-item ninept'>
@@ -198,7 +198,7 @@
 <element name='topics_migdal'>
 <hash>
  <hash_topic topic_id='$`events`' recursive='*true'>
- <hash_topic topic_id='$`general.migdal.news`' recursive='*true'>
+ <hash_topic topic_id='$`migdal.news`' recursive='*true'>
 </hash>
 <posting_last topic_id='$*' grp='*GRP_TAPE'>
 <topics_line time='$,' href='/migdal/news/' text='Новости'

@@ -184,14 +184,14 @@ $this->grp=$grp;
 /* Select */
 $distinct=$grp!=GRP_ALL ? 'distinct' : '';
 $Select="$distinct entries.id as id,entries.ident as ident,entries.up as up,
-         entries.subject as subject,entries.comment0 as comment0,
-         entries.comment0_xml as comment0_xml,entries.comment1 as comment1,
-	 entries.comment1_xml as comment1_xml,entries.body as body,
-	 entries.body_xml as body_xml,entries.user_id as user_id,
-	 entries.group_id as group_id,users.login as login,
-	 gusers.login as group_login,entries.perms as perms,entries.grp as grp,
-	 entries.index2 as index2,entries.answers as answers,
-	 entries.last_answer as last_answer";
+         entries.catalog as catalog,entries.subject as subject,
+	 entries.comment0 as comment0,entries.comment0_xml as comment0_xml,
+	 entries.comment1 as comment1,entries.comment1_xml as comment1_xml,
+	 entries.body as body,entries.body_xml as body_xml,
+	 entries.user_id as user_id,entries.group_id as group_id,
+	 users.login as login,gusers.login as group_login,
+	 entries.perms as perms,entries.grp as grp,entries.index2 as index2,
+	 entries.answers as answers,entries.last_answer as last_answer";
 /* From */
 $grpTable=$grp!=GRP_ALL ? 'left join entry_grps
                                 on entry_grps.entry_id=entries.id'
@@ -328,8 +328,6 @@ $jencoded=array('ident' => '','up' => 'entries','subject' => '',
 $vars=array('entry' => $topic->entry,
             'ident' => $topic->ident,
             'up' => $topic->up,
-	    'track' => $topic->track,
-	    'catalog' => $topic->catalog,
 	    'subject' => $topic->subject,
 	    'subject_sort' => $topic->subject_sort,
 	    'comment0' => $topic->comment0,
@@ -344,6 +342,10 @@ $vars=array('entry' => $topic->entry,
 	    'body' => $topic->body,
 	    'body_xml' => $topic->body_xml,
 	    'modified' => sqlNow());
+if($topic->track=='')
+  $vars['track']='';
+if($topic->catalog=='')
+  $vars['catalog']='';
 if($topic->id)
   {
   $result=sql(makeUpdate('entries',
