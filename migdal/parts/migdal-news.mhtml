@@ -2,14 +2,12 @@
 
 <element name='migdal_news'>
 <topics_table class='ninept' title='Новости'>
-<posting_last topic_id='$`museum-news`' recursive='*true'>
+<posting_last topic_id='$`general.migdal.museum.news`' recursive='*false'>
 <topics_line time='$,' text='Музей истории евреев Одессы'
-	     href#='migdal-news.php?topic_id=$`museum-news`'>
-<posting_last topic_id='$`mazltov-news`' recursive='*true'>
-<topics_line time='$,' text='Мазл Тов'
-	     href#='migdal-news.php?topic_id=$`mazltov-news`'>
-<posting_last topic_id='$`beitenu-news`' recursive='*true'>
-<topics_line time='$,' text='Бейтену'
-	     href#='migdal-news.php?topic_id=$`beitenu-news`'>
+	     href='/migdal/museum/news/'>
+<posting_last topic_id='$`general.migdal.mazltov.news`' recursive='*false'>
+<topics_line time='$,' text='Мазл Тов' href='/migdal/mazltov/news/'>
+<posting_last topic_id='$`general.migdal.beitenu.news`' recursive='*false'>
+<topics_line time='$,' text='Бейтену' href='/migdal/beitenu/news/'>
 </topics_table>
 </element>

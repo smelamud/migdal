@@ -92,12 +92,10 @@
  <posting_obj id='$`migdal.beitenu`'>
  <topics_line time='$,Modified' text='О программе' href='/migdal/beitenu/'
               arrow!="$index=='migdal.beitenu'" class='topics-item ninept'>
- <posting_last grp='*GRP_NEWS' topic_id='$`beitenu-news`' recursive='*false'>
- <topics_line time='$,' text='Новости'
-              href#='migdal-news.php?topic_id=$`beitenu-news`'
-	      class='topics-item ninept'>
-              <<arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
-	              $posting.TopicId==$`beitenu-news`'>>
+ <posting_last grp='*GRP_NEWS' topic_id='$`general.migdal.beitenu.news`'
+               recursive='*false'>
+ <topics_line time='$,' text='Новости' href='/migdal/beitenu/news/'
+	      arrow!="$index=='migdal.beitenu.news'" class='topics-item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`migdal-beitenu`'
                recursive='*false'>
  <topics_line time='$,' text='Галерея' href='/migdal/beitenu/gallery/'
@@ -112,12 +110,10 @@
  <posting_obj id='$`post.migdal.mazltov`'>
  <topics_line time='$,Modified' text='О программе' href='/migdal/mazltov/'
               arrow!="$index=='migdal.mazltov'" class='topics-item ninept'>
- <posting_last grp='*GRP_NEWS' topic_id='$`mazltov-news`' recursive='*false'>
- <topics_line time='$,' text='Новости'
-              href#='migdal-news.php?topic_id=$`mazltov-news`'
-	      class='topics-item ninept'>
-              <<arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
-	              $posting.TopicId==$`mazltov-news`'>>
+ <posting_last grp='*GRP_NEWS' topic_id='$`general.migdal.mazltov.news`'
+               recursive='*false'>
+ <topics_line time='$,' text='Новости' href='/migdal/mazltov/news/'
+	      arrow!="$index=='migdal.mazltov.news'" class='topics-item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`migdal.mazltov`'
                recursive='*false'>
  <topics_line time='$,' text='Галерея' href='/migdal/mazltov/gallery/'
@@ -184,12 +180,10 @@
  <posting_obj id='$`post.migdal.museum`'>
  <topics_line time='$,Modified' text='О музее' href='/migdal/museum/'
               arrow!="$index=='migdal.museum'" class='topics-item ninept'>
- <posting_last grp='*GRP_NEWS' topic_id='$`museum-news`' recursive='*false'>
- <topics_line time='$,' text='Новости'
-              href#='migdal-news.php?topic_id=$`museum-news`'
-	      class='topics-item ninept'>
-              <<arrow!='($posting.Grp & *GRP_TAPE)!=0 &&
-	              $posting.TopicId==$`museum-news`'>>
+ <posting_last grp='*GRP_NEWS' topic_id='$`general.migdal.museum.news`'
+               recursive='*false'>
+ <topics_line time='$,' text='Новости' href='/migdal/museum/news/'
+	      arrow!="$index=='migdal.museum.news'" class='topics-item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`migdal.museum`'
                recursive='*false'>
  <topics_line time='$,' text='Галерея' href='/migdal/museum/gallery/'

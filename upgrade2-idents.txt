@@ -26,6 +26,9 @@ topics	120	general.terrorism
 topics	288	general.ukraine
 topics	96	general.humour
 topics	161	general.migdal.news
+topics	259	general.migdal.beitenu.news
+topics	174	general.migdal.mazltov.news
+topics	177	general.migdal.museum.news
 topics	88	links.free-mail
 topics	296	links.demographics
 topics	133	links.painting
