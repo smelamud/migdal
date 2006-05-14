@@ -121,6 +121,26 @@ function getTrack()
 return $this->track;
 }
 
+function getTrackPath()
+{
+$s='';
+foreach(explode(' ',$this->getTrack()) as $item)
+       $s.=(int)$item.'/';
+return $s;
+}
+
+function getParentTrackPath()
+{
+$s='';
+$c='';
+foreach(explode(' ',$this->getTrack()) as $item)
+       {
+       $s=$c;
+       $c.=(int)$item.'/';
+       }
+return $s;
+}
+
 function getCatalog($start=0,$length=0)
 {
 if($start==0 && $length==0 || $this->catalog=='')

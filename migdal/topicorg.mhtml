@@ -12,7 +12,7 @@
   <assign name='full_name' value='$item.Subject'>
  </ife>
  <iswrite what='$item'>
-  <a href='/admin/topics/$item.Id/edit/?redirid=$_'
+  <a href='/admin/topics/${item.TrackPath}edit/?redirid=$_'
      title='$=item.BodyNormal'>$=full_name</a>&sp;$info&sp;
  <else>
   $=full_name&sp;$info&sp;
@@ -20,16 +20,17 @@
  <br>$item.Catalog
 </element>
 
-<element name='branch' params='up,append,write,root' defaults="root='*false'">
+<element name='branch' params='up,up_path,append,write,root'
+         defaults="root='*false'">
  <iterate_topiclist grp='*GRP_ALL' up='$up'>
  <if what='$up!=0 && ($;Count!=0 || $append || $write)'>
   <br>
  </if>
  <if what='!$root && $;Count!=0'>
-  <a href='/admin/topics/$up/' class='edit'>Ветка</a>
+  <a href='/admin/topics/$up_path' class='edit'>Ветка</a>
  </if>
  <if what='$append'>
-  <a href='/admin/topics/$up/add/?redirid=$_' class='edit'>Добавить</a>
+  <a href='/admin/topics/${up_path}add/?redirid=$_' class='edit'>Добавить</a>
  </if>
  <if what='$up!=0 && $write'>
   <a href='topicdel.php?redirid=$_&topic_id=$up' class='edit'>Удалить</a>
@@ -41,7 +42,8 @@
    <for>
     <li><hd item='$.'><br>
     <tt>$.PermHTML&nbsp;$=.Login:$=.GroupLogin</tt>
-    <branch up='$.Id' append='$.isAppendable' write='$.isWritable'>
+    <branch up='$.Id' up_path='$.TrackPath' append='$.isAppendable'
+            write='$.isWritable'>
    </for>
   </ul>
  </ifnzero>
@@ -68,12 +70,13 @@
      <ifnzero what='$up'>
       <topic_full_name name='full_name' id='$up'>
       <topic_obj id='$up'>
-      <a href='/admin/topics/$,UpValue/' class='edit'>На уровень вверх</a>
+      <a href='/admin/topics/$,ParentTrackPath'
+         class='edit'>На уровень вверх</a>
       <br><br>
       <hd item='$,' full_name='$full_name'>
      </ifnzero>
-     <branch up='$up' append='$userAdminTopics' write='$userAdminTopics'
-             root='*true'>
+     <branch up='$up' up_path='$,TrackPath' append='$userAdminTopics'
+             write='$userAdminTopics' root='*true'>
     </div>
    </td>
   </tr>
