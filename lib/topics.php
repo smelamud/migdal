@@ -433,9 +433,10 @@ else
   if($up>0)
     {
     $topic=getTopicById($up,0,SELECT_GENERAL|SELECT_GRPS);
+    $modbits=$topic->getModbits() & ~(MODT_ROOT|MODT_TRANSPARENT);
     $topic=new Topic(array('up'          => $topic->getId(),
 			   'grps'        => $topic->getGrps(),
-			   'modbits'     => $topic->getModbits(),
+			   'modbits'     => $modbits,
 			   'user_id'     => $userId,
 			   'login'       => $userLogin,
 			   'group_id'    => $topic->getGroupId(),
@@ -500,5 +501,48 @@ $result=sql("select id
 	     where id=$id and entry=".ENT_TOPIC." and $hide",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0;
+}
+
+function topicHasContent($id)
+{
+$result=sql("select count(*)
+             from entries
+	     where (parent_id=$id or up=$id)
+	           and (entry=".ENT_TOPIC.' or entry='.ENT_POSTING.')',
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0)>0 : false;
+}
+
+function topicDelete($id,$destid)
+{
+sql("delete from entries
+     where id=$id",
+    __FUNCTION__,'delete_topic');
+journal('delete from entries
+         where id='.journalVar('entries',$id));
+sql("delete from cross_entries
+     where source_id=$id or peer_id=$id",
+    __FUNCTION__,'delete_cross_topics');
+journal('delete from cross_entries
+         where source_id='.journalVar('entries',$id).' or
+	       peer_id='.journalVar('entries',$id));
+if($destid<=0)
+  return;
+sql("update entries
+     set up=$destid,track='',catalog=''
+     where up=$id",
+    __FUNCTION__,'update_up');
+journal('update entries
+         set up='.journalVar('entries',$destid).",track='',catalog=''
+         where up=".journalVar('entries',$id));
+sql("update entries
+     set parent_id=$destid,track='',catalog=''
+     where parent_id=$id",
+    __FUNCTION__,'update_parent_id');
+journal('update entries
+         set parent_id='.journalVar('entries',$destid).",track='',catalog=''
+         where parent_id=".journalVar('entries',$id));
+updateTracks('entries',$destid);
+updateCatalogs($destid);
 }
 ?>

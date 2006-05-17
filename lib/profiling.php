@@ -52,7 +52,7 @@ function endProfiling()
 {
 global $profileStack,$profilingLevel;
 
-if($profilingLevel<=plevel_none)
+if($profilingLevel<=PLEVEL_NONE)
   return;
 $id=array_pop($profileStack);
 if(!$id)

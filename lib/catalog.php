@@ -62,7 +62,7 @@ while($row=mysql_fetch_assoc($result))
      if(!isset($catalogs[$row['up']]))
        $catalogs[$row['up']]=catalogById($row['up']);
      if($row['entry']==ENT_TOPIC
-        && ($row['modbits'] & (MODT_ROOT|MODT_TRASPARENT))!=0)
+        && ($row['modbits'] & (MODT_ROOT|MODT_TRANSPARENT))!=0)
        $catalogs[$row['id']]='';
      elseif($row['entry']==ENT_TOPIC && ($row['modbits'] & MODT_ROOT)!=0)
        $catalogs[$row['id']]=catalog($row['id'],$row['ident'],'');

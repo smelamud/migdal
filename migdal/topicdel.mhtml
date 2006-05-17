@@ -34,16 +34,16 @@
      <plural value='$posts'>
      <em>$posts</em> $,
     </ifnzero>
-    <asp>.
+    <asp>, которые необходимо переместить в другую тему.
    </form_comment>
    <error id='*ETD_DEST_ABSENT' text='Тема для перемещения не указана'>
    <error id='*ETD_DEST_ACCESS' text='В эту тему нельзя добавлять сообщения'>
    <error id='*ETD_NO_DELETE' text='Вы не имеете права удалять эту тему'>
    <error id='*ETD_TOPIC_ABSENT' text='Тема не указана'>
-   <form_topicselect title='Отправить сообщения и подтемы в' name='destid'
+   <form_topicselect title='Переместить сообщения и подтемы в' name='destid'
                      value='$destid' only_appendable='*true'
 		     only_postable='*true' mandatory='*true'>
-   <form_buttons title='Удалить'>
+   <form_buttons title='Удалить тему'>
   </form>
  </form_table>
  <bottom>

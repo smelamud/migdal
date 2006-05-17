@@ -110,7 +110,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/shadow.php
 - actions/style.php
 + actions/_template.php
-- actions/topicdel.php
++ actions/topicdel.php
 - actions/topiclinkadd.php
 - actions/topiclinkdel.php
 + actions/topicmod.php
