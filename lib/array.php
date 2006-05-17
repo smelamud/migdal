@@ -34,6 +34,11 @@ function getCount()
 return count($this->vars);
 }
 
+function isLast()
+{
+return !(boolean)current($this->vars);
+}
+
 }
 
 class SortedArrayIterator
