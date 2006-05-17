@@ -44,7 +44,7 @@
     </td></tr>
    </iswrite>
   </if>
-  <posting_info grp='*GRP_GRAPHICS' topic_id='$.Id' recursive='*true'>
+  <postings_info grp='*GRP_GRAPHICS' topic_id='$.Id' recursive='*true'>
   <topics_line time='$,MaxSent' text='$.Comment0' title='$.Description'
                count='$,Total' href#='gallery.php?topic_id=$.Id'
 	       arrow!='$posting.TopicId==$.Id'>

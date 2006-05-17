@@ -106,6 +106,7 @@ if(!is_array($topic_id))
   if($info)
     return $info;
   }
+$grp=grpArray($grp);
 $msgInfo=getPostingsMessagesInfo($grp,$topic_id,$user_id,$recursive);
 $ansInfo=getPostingsAnswersInfo($answers,$topic_id,$user_id,$recursive);
 $info=new PostingsInfo(array('total' => $msgInfo->getTotal()+

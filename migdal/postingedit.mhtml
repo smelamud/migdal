@@ -310,7 +310,7 @@
    <error id='*EP_UP_APPEND'
 	  text='Вы не имеете права присоединять сообщения к этому сообщению'>
    <moderator>
-    <tr valign='top'><td class='form-cell' colspan=2><table><tr>
+    <form_comment><table><tr>
      <full>
       <td><image src='/pics/down.gif'></td>
       <td><a href='$[full=0]'>Скрыть все неиспользуемые поля</a></td>
@@ -318,7 +318,7 @@
       <td><image src='/pics/right.gif'></td>
       <td><a href='$[full=1]'>Показать все поля</a></td>
      </full>
-    </tr></table></td></tr>
+    </tr></table></form_comment>
    </moderator>
    <if what='!$editid'>
     <form_relogin noguests='$noguests' relogin='$relogin' login='$login'

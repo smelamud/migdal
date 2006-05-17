@@ -42,6 +42,14 @@
 </tr>
 </element>
 
+<element name='form_comment'>
+<tr><td class='form-cell' colspan=2>
+</element>
+
+<element name='/form_comment'>
+</td></tr>
+</element>
+
 <element name='form_section'>
 <tr valign='top'>
  <th class='form-section' colspan=2>&nbsp;&nbsp;$title</th>

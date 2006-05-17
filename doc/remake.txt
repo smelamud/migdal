@@ -300,7 +300,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/_template.mhtml
 - migdal/times.mhtml
 - migdal/tips.mhtml
-- migdal/topicdel.mhtml
++ migdal/topicdel.mhtml
 + migdal/topicedit.mhtml
 - migdal/topiclinkadd.mhtml
 - migdal/topiclinks.mhtml

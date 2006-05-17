@@ -8,7 +8,7 @@
 <body>
  <top ident='users'>
  <form_table title='Подтверждение регистрации'>
-  <tr><td class='form-cell' colspan=2>
+  <form_comment>
    <b>Пожалуйста, внимательно прочтите эту инструкцию.</b>
    <p>
     До того, как вы сможете зайти на сайт под своим ником, должна пройти
@@ -44,7 +44,7 @@
     <a href='/users/'>&lt;&lt;Пользователи&gt;&gt;</a> (найдите там
     пользователя под ником <b>$=user.Login</b>).
    </p>
-  </td></tr>
+  </form_comment>
   <ifne what='$--'>
    <tr><td colspan='2' class='form-section' style='text-align: center'>
     <form method=get action='$--' style='margin: 0'>

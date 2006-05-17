@@ -243,11 +243,6 @@
 <deccall macro='posting_index' func='getMaxIndexOfPosting'
          file='lib/postings.php' params='index,grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
-<deccall macro='posting_info' func='getPostingsInfo'
-         file='lib/postings-info.php'
-	 params='grp,topic_id,answers,user_id,recursive'
-	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
-	           recursive=*false'>
 <deccall macro='posting_last' func='getLastPostingDate'
          file='lib/postings-info.php'
 	 params='grp,topic_id,answers,user_id,recursive'

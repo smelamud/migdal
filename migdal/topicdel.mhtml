@@ -1,7 +1,5 @@
 << @(#) $Id$ >>
 
-<pagetitle title='Удаление темы'>
-
 <conf>
 <int name='topic_id'>
 <int name='destid'>
@@ -13,46 +11,41 @@
 <html>
 <preamble>
 <if what='$tops==0 && $posts==0'>
- <reload href#='actions/topicdel.php?id=$topic_id&okdir=$#--&faildir=$#-'>
+ <reload href#='/actions/topic/delete?id=$topic_id&okdir=$#--&faildir=$#-'>
 </if>
 <body>
  <top ident='index'>
- <formtable title='Удалить тему'>
-  <form method=post action='actions/topicdel.php'>
+ <form_table title='Удалить тему'>
+  <form method=post action='/actions/topic/delete'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='id' value='$topic_id'>
-   <table>
-    <starinfo span=2>
-    <tr><td colspan=2 class='comment'>
-     Тема содержит
-     <ifnzero what='$tops'>
-      <array vals='подтему,подтемы,подтем'>
-      <plural value='$tops'>
-      <em>$tops</em> $,
-     </ifnzero>
-     <if what='$tops!=0 && $posts!=0'>&sp;и&sp;</if>
-     <ifnzero what='$posts'>
-      <array vals='сообщение,сообщения,сообщений'>
-      <plural value='$posts'>
-      <em>$posts</em> $,
-     </ifnzero>
-     <asp>.
-    </td></tr>
-    <tr><td colspan=2>&nbsp;</td></tr>
-    <error id='*ETD_DEST_ABSENT' span=2
-           text='Тема для перемещения не указана'>
-    <error id='*ETD_DEST_ACCESS' span=2
-           text='В эту тему нельзя добавлять сообщения'>
-    <error id='*ETD_NO_DELETE' span=2
-           text='Вы не имеете права удалять эту тему'>
-    <error id='*ETD_TOPIC_ABSENT' span=2 text='Тема не указана'>
-    <topicselect title='Отправить в' name='destid' grp='*GRP_ALL'
-		 value='$destid' root=-1 mandatory='*true'>
-    <formbuttons title='Удалить' span=2>
-   </table>
+   <starinfo>
+   <form_comment>
+    Тема содержит
+    <ifnzero what='$tops'>
+     <array vals='подтему,подтемы,подтем'>
+     <plural value='$tops'>
+     <em>$tops</em> $,
+    </ifnzero>
+    <if what='$tops!=0 && $posts!=0'>&sp;и&sp;</if>
+    <ifnzero what='$posts'>
+     <array vals='сообщение,сообщения,сообщений'>
+     <plural value='$posts'>
+     <em>$posts</em> $,
+    </ifnzero>
+    <asp>.
+   </form_comment>
+   <error id='*ETD_DEST_ABSENT' text='Тема для перемещения не указана'>
+   <error id='*ETD_DEST_ACCESS' text='В эту тему нельзя добавлять сообщения'>
+   <error id='*ETD_NO_DELETE' text='Вы не имеете права удалять эту тему'>
+   <error id='*ETD_TOPIC_ABSENT' text='Тема не указана'>
+   <form_topicselect title='Отправить сообщения и подтемы в' name='destid'
+                     value='$destid' only_appendable='*true'
+		     only_postable='*true' mandatory='*true'>
+   <form_buttons title='Удалить'>
   </form>
- </formtable>
+ </form_table>
  <bottom>
 </body>
 </html>
