@@ -15,14 +15,15 @@
 </if>
 <body>
  <top ident='index'>
- <form_table title='Удалить тему'>
+ <topic_obj id='$topic_id'>
+ <form_table title#='Удалить тему &lt;&lt;$=,Subject&gt;&gt;'>
   <form method=post action='/actions/topic/delete'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='id' value='$topic_id'>
    <starinfo>
    <form_comment>
-    Тема содержит
+    Тема &lt;&lt;$=,Subject&gt;&gt; содержит
     <ifnzero what='$tops'>
      <array vals='подтему,подтемы,подтем'>
      <plural value='$tops'>

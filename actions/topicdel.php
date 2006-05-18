@@ -28,7 +28,7 @@ if(topicHasContent($id))
   }
 else
   $destid=0;
-topicDelete($id,$destid);
+deleteTopic($id,$destid);
 return EG_OK;
 }
 

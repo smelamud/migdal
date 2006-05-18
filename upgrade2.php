@@ -19,6 +19,7 @@ require_once('lib/image-upload.php');
 require_once('lib/answers.php');
 require_once('lib/users.php');
 require_once('lib/catalog.php');
+require_once('lib/topics.php');
 
 define('COMPL_NORMAL',1);
 define('COMPL_FORUM',3);
@@ -708,6 +709,21 @@ updateCatalogs(0);
 echo "\n";
 }
 
+function convertMigdalNews()
+{
+$news=array('.beitenu','.mazltov','.museum','');
+foreach($news as $mid)
+       {
+       $id=idByIdent("migdal$mid.news");
+       if($id<=0)
+         continue;
+       echo "$id ";
+       $destid=idByIdent("migdal$mid");
+       deleteTopic($id,$destid);
+       }
+echo "\n";
+}
+
 dbOpen();
 endJournal();
 /*echo "1. Chat messages...\n";
@@ -747,6 +763,8 @@ echo "17. Users...\n";
 convertUsers();*/
 echo "18. Idents...\n";
 convertIdents();
+echo "19. Migdal news...\n";
+convertMigdalNews();
 beginJournal();
 dbClose();
 ?>

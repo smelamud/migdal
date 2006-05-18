@@ -24,7 +24,7 @@
 <element name='postings_migdal_news'>
 <perms id='$topic_id'>
 <assign name='access' value='$,isPostable'>
-<if what='$topic_id==$`migdal.news`'>
+<if what='$topic_id==$`migdal`'>
  <array name='topic_ids' val1='$topic_id' val2='$`events`'>
  <array name='recursive' val1='*true' val2='*true'>
 <else>
@@ -35,8 +35,8 @@
                      grp='*GRP_TAPE' limit=10 offset='$offset'>
 <batcher list='$;' topic_id='$topic_id' access='$access'>
 <for>
- <posting posting='$.' showtopic!='$topic_id==$`migdal.news`'
-          shorten='*true' showdiscuss='*true' showcomplain='*true'>
+ <posting posting='$.' showtopic!='$topic_id==$`migdal`' shorten='*true'
+          showdiscuss='*true' showcomplain='*true'>
 </for>
 <ifnzero what='$;Count'>
  <batcher list='$;' topic_id='$topic_id' access='$access'>

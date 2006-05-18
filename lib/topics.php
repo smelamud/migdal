@@ -513,7 +513,7 @@ $result=sql("select count(*)
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)>0 : false;
 }
 
-function topicDelete($id,$destid)
+function deleteTopic($id,$destid)
 {
 sql("delete from entries
      where id=$id",
