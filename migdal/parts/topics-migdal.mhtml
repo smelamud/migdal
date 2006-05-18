@@ -212,46 +212,25 @@
 <topics_line time='$,' href='migdal-library.php' text='Библиотека'
 	     indent=1 class='topics-item eightpt'>
 	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-library`">>
-<hash>
- <hash_topic topic_id='$`museum`' recursive='*true'>
- <hash_topic topic_id='$`museum-news`' recursive='*true'>
-</hash>
-<posting_last topic_id='$*'>
+<posting_last topic_id='$`migdal.museum`' recursive='*true'>
 <topics_line time='$,' href='/migdal/museum/' text='Музей истории евреев Одессы'
 	     arrow!="$index=='migdal.museum'"
              indent=1 class='topics-item eightpt'>
-	     <<arrow!="$posting!=0 &&
-	             ($/$posting.TopicId,1/==$`museum` ||
-		      $/$posting.TopicId,2/==$`museum-news`)">>
 <posting_last topic_id='$`migdal.migdal-or`'>
 <topics_line time='$,' href='/migdal/migdal-or/'
 	     text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
 	     arrow!="$index=='migdal.migdal-or'"
 	     indent=1 class='topics-item eightpt'>
-<hash>
- <hash_topic topic_id='$`migdal.mazltov`' recursive='*true'>
- <hash_topic topic_id='$`mazltov-news`' recursive='*true'>
-</hash>
-<posting_last topic_id='$*'>
+<posting_last topic_id='$`migdal.mazltov`' recursive='*true'>
 <topics_line time='$,' href='/migdal/mazltov/'
 	     text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
 	     arrow!="$index=='migdal.mazltov'"
 	     indent=1 class='topics-item eightpt'>
-	     <<arrow!="$posting!=0 &&
-	             ($/$posting.TopicId,1/==$`mazltov` ||
-		      $/$posting.TopicId,2/==$`mazltov-news`)">>
-<hash>
- <hash_topic topic_id='$`migdal.beitenu`' recursive='*true'>
- <hash_topic topic_id='$`beitenu-news`' recursive='*true'>
-</hash>
-<posting_last topic_id='$*'>
+<posting_last topic_id='$`migdal.beitenu`' recursive='*true'>
 <topics_line time='$,' href='/migdal/beitenu/'
 	     text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
 	     arrow!="$index=='migdal.beitenu'"
 	     indent=1 class='topics-item eightpt'>
-	     <<arrow!="$posting!=0 &&
-	             ($/$posting.TopicId,1/==$`beitenu` ||
-		      $/$posting.TopicId,2/==$`beitenu-news`)">>
 <posting_last topic_id='$`methodics`' recursive='*true'>
 <topics_line time='$,' text='Методический центр'
 	     href='methodic-center.php'

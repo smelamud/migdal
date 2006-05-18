@@ -680,6 +680,78 @@ while($row=mysql_fetch_assoc($result))
 echo "\n";
 }
 
+function parseEntryAttrs($s)
+{
+$s.=',';
+$attrs=array();
+$quote=0;
+$prev=0;
+for($i=0;$i<strlen($s);$i++)
+   switch($s{$i})
+         {
+	 case '"':
+	      $quote=1-$quote;
+	      break;
+	 case ',':
+	      if($quote)
+	        break;
+	      $c=trim(substr($s,$prev,$i-$prev));
+	      if($c!='')
+	        {
+		$pos=strpos($c,'=');
+		if($pos==false)
+		  {
+		  $name=trim($c);
+		  $value='1';
+		  }
+		else
+		  {
+		  $name=trim(substr($c,0,$pos));
+		  $value=trim(substr($c,$pos+1));
+		  if($value!='' && $value{0}=='"')
+		    $value=substr($value,1,-1);
+		  }
+		$attrs[$name]=$value;
+		}
+	      $prev=$i+1;
+              break;
+	 }
+return $attrs;
+}
+
+function processGrpAttr(&$grp,$expr)
+{
+$prev=0;
+for($i=0;$i<=strlen($expr);$i++)
+   {
+   if($i<strlen($expr) && $expr{$i}!='+' && $expr{$i}!='-')
+     continue;
+   $term=trim(substr($expr,$prev,$i-$prev));
+   if($term=='')
+     continue;
+   if($term{0}=='+' || $term{0}=='-')
+     $name=trim(substr($term,1));
+   else
+     $name=$term;
+   eval("\$value=GRP_$name;");
+   switch($term{0})
+         {
+	 case '+':
+	      if(!in_array($value,$grp))
+	        $grp[]=$value;
+              break;
+	 case '-':
+	      $key=array_search($value,$grp);
+	      if($key!==false)
+	        unset($grp[$key]);
+	      break;
+	 default:
+	      $grp=array($value);
+	 }
+   $prev=$i;
+   }
+}
+
 function convertIdents()
 {
 $fd=fopen('upgrade2-idents.txt','r');
@@ -688,21 +760,28 @@ while(!feof($fd))
      $s=chop(fgets($fd,4096));
      if($s=='')
        continue;
-     list($table,$oldId,$ident,$body)=explode("\t",$s);
+     list($table,$oldId,$ident,$other)=explode("\t",$s);
+     $attrs=parseEntryAttrs($other);
      $id=getNewId($table,$oldId);
      echo "$oldId ";
      $vars=array('ident' => $ident);
-     if($body!='')
+     if(isset($attrs['body']))
        {
-       $bodyXML=wikiToXML($body,TF_PLAIN,MTEXT_SHORT);
+       $bodyXML=wikiToXML($attrs['body'],TF_PLAIN,MTEXT_SHORT);
        $vars=array_merge($vars,
-                         array('body'     => $body,
+                         array('body'     => $attrs['body'],
 			       'body_xml' => $bodyXML));
        }
      sql(makeUpdate('entries',
                     $vars,
 		    array('id' => $id)),
          __FUNCTION__,'update');
+     if(isset($attrs['grp']))
+       {
+       $grps=getGrpsByEntryId($id);
+       processGrpAttr($grps,$attrs['grp']);
+       setGrpsByEntryId($id,$grps);
+       }
      }
 fclose($fd);
 updateCatalogs(0);
