@@ -233,6 +233,7 @@ if($hasMarkup)
   $xml1=new MTextShortenXML($n);
   $xml1->parse($s);
   $xml1->free();
+  echo '"',htmlentities($xml1->getShort()),'"';
   return $xml1->getShort();
   }
 else
