@@ -140,10 +140,12 @@ function characterData($parser,$data)
 {
 if($this->stop)
   return;
-$n=strlen(utf8_decode($data));
+$n=strlen(unhtmlentities(utf8_decode($data)));
 $this->clen+=$n;
-$this->short.=unhtmlentities(utf8DecodeMarkup($data,
-                                              $n-($this->clen-$this->len)));
+$text=utf8DecodeMarkup($data,$n-($this->clen-$this->len));
+if(!$this->clearTags)
+  $text=delicateSpecialChars($text);
+$this->short.=$text;
 if($this->clen>=$this->len)
   $this->stop=true;
 }
@@ -177,16 +179,24 @@ $c=substr($s,$st,$mdlen+$pdlen);
 $patterns=array("\x1F",
                 array('. ','! ','? ',".\n","!\n","?\n"),
                 array(': ',', ','; ',') ',":\n",",\n",";\n",")\n"));
+$n=0; //!
 foreach($patterns as $pat)
        {
+       $n++; //!
        $matches=array();
        if(!strpos_all($c,$pat,$matches))
          continue;
+       echo "$n -> "; //!
+       print_r($matches); //!
        $bestpos=-1;
        foreach($matches as $pos)
+              {
+	      echo "<br>",substr($c,0,$pos),"<br>"; //!
               if($bestpos<0 || abs($bestpos-$mdlen)>abs($pos-$mdlen))
 	        $bestpos=$pos;
-       return $bestpos+$len-$mdlen+2;
+	      }
+       echo $bestpos;
+       return $bestpos+$st+2;
        }
 return $len;
 }
@@ -213,7 +223,7 @@ $xml->free();
 return strlen($xml->getLine());
 }
 
-function shorten($s,$len,$mdlen,$pdlen)
+function shortenUniversal($s,$len,$mdlen,$pdlen,$clearTags=false,$suffix='')
 {
 $hasMarkup=hasMarkup($s);
 if($hasMarkup)
@@ -226,42 +236,25 @@ if($hasMarkup)
 else
   $line=$s;
 $n=getShortenLength($line,$len,$mdlen,$pdlen);
-if($n>=strlen($line))
-  return $s;
+$c=$n>=strlen($line) ? '' : $suffix;
 if($hasMarkup)
   {
-  $xml1=new MTextShortenXML($n);
-  $xml1->parse($s);
-  $xml1->free();
-  echo '"',htmlentities($xml1->getShort()),'"';
-  return $xml1->getShort();
-  }
-else
-  return substr($s,0,$n);
-}
-
-function shortenNote($s,$len,$mdlen,$pdlen)
-{
-$hasMarkup=hasMarkup($s);
-if($hasMarkup)
-  {
-  $xml=new MTextToLineXML();
-  $xml->parse($s);
-  $xml->free();
-  $line=$xml->getLine();
-  }
-else
-  $line=$s;
-$n=getShortenLength($line,$len,$mdlen,$pdlen);
-$c=$n>=strlen($line) ? '' : '...';
-if($hasMarkup)
-  {
-  $xml1=new MTextShortenXML($n,true);
+  $xml1=new MTextShortenXML($n,$clearTags);
   $xml1->parse($s);
   $xml1->free();
   return $xml1->getShort().$c;
   }
 else
   return substr($s,0,$n).$c;
+}
+
+function shorten($s,$len,$mdlen,$pdlen)
+{
+return shortenUniversal($s,$len,$mdlen,$pdlen);
+}
+
+function shortenNote($s,$len,$mdlen,$pdlen)
+{
+return shortenUniversal($s,$len,$mdlen,$pdlen,true,'...');
 }
 ?>
