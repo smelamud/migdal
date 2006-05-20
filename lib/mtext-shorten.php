@@ -179,23 +179,17 @@ $c=substr($s,$st,$mdlen+$pdlen);
 $patterns=array("\x1F",
                 array('. ','! ','? ',".\n","!\n","?\n"),
                 array(': ',', ','; ',') ',":\n",",\n",";\n",")\n"));
-$n=0; //!
 foreach($patterns as $pat)
        {
-       $n++; //!
        $matches=array();
        if(!strpos_all($c,$pat,$matches))
          continue;
-       echo "$n -> "; //!
-       print_r($matches); //!
        $bestpos=-1;
        foreach($matches as $pos)
               {
-	      echo "<br>",substr($c,0,$pos),"<br>"; //!
               if($bestpos<0 || abs($bestpos-$mdlen)>abs($pos-$mdlen))
 	        $bestpos=$pos;
 	      }
-       echo $bestpos;
        return $bestpos+$st+2;
        }
 return $len;
