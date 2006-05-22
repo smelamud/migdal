@@ -279,9 +279,9 @@
  <top ident='index'>
  <setup>
  <if what='$editid'>
-  <assign name='head' value#='Изменить $,GrpWhat'>
+  <assign name='head' value#='Редактирование $,GrpWhatV'>
  <else>
-  <assign name='head' value#='Добавить $posting.GrpWhat'>
+  <assign name='head' value#='Добавление $posting.GrpWhatV'>
  </if>
  <form_table title='$head'>
   <form method=post enctype='multipart/form-data'

@@ -13,7 +13,7 @@
 <body>
  <top ident='links'>
  <center>
-  <formtable title='Добавить перекрестную ссылку'>
+  <formtable title='Добавление перекрестной ссылки'>
    <form method=post action='actions/topiclinkadd.php'>
     <hidden name='okdir' value='$--'>
     <hidden name='faildir' value='$-'>

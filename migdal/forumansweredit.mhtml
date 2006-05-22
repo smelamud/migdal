@@ -20,9 +20,9 @@
                    quote_width=60>
  <setup>
  <if what='$editid'>
-  <assign name='head' value='Изменить комментарий'>
+  <assign name='head' value='Изменение комментария'>
  <else>
-  <assign name='head' value='Добавить комментарий'>
+  <assign name='head' value='Добавление комментария'>
  </if>
  <center>
   <formtable title='$head'>

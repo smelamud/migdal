@@ -26,9 +26,9 @@
  <setup>
  <assign name='xmlid' value!='$$userModerator ? $editid : 0'>
  <if what='$editid'>
-  <form_table title='Изменить тему'>
+  <form_table title='Редактирование темы'>
  <else>
-  <form_table title='Добавить тему'>
+  <form_table title='Добавление темы'>
  </if>
  <form method=post enctype='multipart/form-data'
        action='/actions/topic/modify/'>
