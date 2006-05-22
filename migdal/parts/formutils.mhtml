@@ -1,7 +1,12 @@
 << @(#) $Id$ >>
 
 <element name='form_table'>
-<center><table class='form' width='95%' cellspacing='0' cellpadding='1'>
+<if what='$mini'>
+ <assign name='width' value='50%'>
+<else>
+ <assign name='width' value='95%'>
+</if>
+<center><table class='form' width='$width' cellspacing='0' cellpadding='1'>
  <ifne what='$title'>
   <tr><td class='form-title'>$title</td></tr>
  </ifne>

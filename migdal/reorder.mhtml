@@ -1,60 +1,52 @@
 << @(#) $Id$ >>
 
-<pagetitle title='Расстановка статей'>
-
-<int name='issue'>
 <int name='topic_id'>
 <int name='grp'>
 <int name='up'>
+<int name='issue'>
 <int name='isbook'>
 
-<element name='order_selector' params='sels,current'>
-<select name='art[]'>
+<if what='$issue<=0'>
+ <assign name='issue' value='-1'>
+</if>
+
+<element name='order_selector' params='title,sels,current'>
+<form_select title='$title' name='art[]'>
  <reset_iterator list='$sels'>
  <for list='sels'>
   <assign name='title'
-          value!='!$$isbook ? $.Subject
-                            : $.Author."&lt;&lt;".$.Source."&gt;&gt;"'>
-  <assign name='stitle' value!='shorten(${title},64,16,16)'>
-  <if what='strlen($stitle)<strlen($title)'>
-   <assign name='stitle' value#='$stitle...'>
-  </if>
-  <radio title='$stitle' value='$.Id' peervalue='$current'>
+          value!='!$$isbook ? $=.Subject
+                            : $.AuthorXML."&lt;&lt;".$.SourceXML.">>"'>
+  <assign name='stitle' value!='shortenNote(${title},64,16,16)'>
+  <form_option title='$=stitle' value='$.Id' selected!='$.Id==$current'>
  </for>
-</select>
+</form_select>
 </element>
 
 <html>
 <preamble>
 <body>
  <top ident='index'>
- <formtable title='Расстановка статей'>
+ <form_table title='$LocationInfo.Title' mini='*true'>
   <form method=post action='actions/reorder.php'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <iterate_postinglist name='sels' grp='$grp' topic_id='$topic_id'
                         recursive='*true' limit=0 sort='*SORT_INDEX0'
-			index1!='$issue' up='$up' fields='*SELECT_TOPICS'>
+			index1!='$issue' up='$up'>
    <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='*true'
-                        limit=0 sort='*SORT_INDEX0' index1!='$issue' up='$up'
-			fields='*SELECT_TOPICS'>
-   <table>
-    <error id='*EO_DUPS' text='Некоторые статьи указаны дважды' span=2>
-    <error id='*EO_NO_ARTICLE' text='Статьи не существует' span=2>
-    <error id='*EO_NO_REORDER' text='Вы не имеете права менять порядок статей'
-           span=2>
-    <for>
-     <tr>
-      <td>$;NextPosition.</td>
-      <td><order_selector sels='$sels'
-                          current!='$edittag ? $art[$;Position] : $.Id'></td>
-     </tr>
-    </for>
-   </table>
-   <formbuttons title='Изменить'>
+                        limit=0 sort='*SORT_INDEX0' index1!='$issue' up='$up'>
+   <error id='*EO_DUPS' text='Некоторые статьи указаны дважды'>
+   <error id='*EO_NO_ARTICLE' text='Статьи не существует'>
+   <error id='*EO_NO_REORDER' text='Вы не имеете права менять порядок статей'>
+   <for>
+    <order_selector title#='$;NextPosition.' sels='$sels'
+		    current!='$edittag ? $art[$;Position] : $.Id'>
+   </for>
+   <form_buttons title='Изменить'>
   </form>
- </formtable>
+ </form_table>
  <bottom>
 </body>
 </html>

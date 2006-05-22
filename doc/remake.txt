@@ -290,7 +290,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/printings.mhtml
 + migdal/rating.mhtml
 + migdal/register.mhtml
-- migdal/reorder.mhtml
+* migdal/reorder.mhtml
 * migdal/search.mhtml
 - migdal/stotext-help-subs.mhtml
 - migdal/stotext-help-types.mhtml
