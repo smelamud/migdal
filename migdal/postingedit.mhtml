@@ -67,6 +67,9 @@
   <assign name='root' value='$`$root`'>
  </if>
 </full>
+<if what='$grp<=0 && $posting.Grp>0'>
+ <assign name='grp' value='$posting.Grp'>
+</if>
 
 <element name='editor_line' params='posting,editor,visible'>
 <assign name='ident' value='$editor.Ident'>

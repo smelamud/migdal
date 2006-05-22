@@ -47,8 +47,7 @@
 <topics_table title='$,Subject'>
  <ispost what='$jcc'>
   <tr><td colspan=2>
-   <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
-      class='edit'>Добавить</a>
+   <a href='/migdal/jcc/add/?redirid=$_' class='edit'>Добавить</a>
   </td></tr>
   <tr><td colspan=2>
    <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
@@ -76,7 +75,7 @@
                 arrow!="$index==$.Id" class='topics-item eightpt'>
   </if>
  </for>
- <posting_last topic_id='$`kes`' recursive='*true'>
+ <posting_last topic_id='$`migdal.jcc.student`' recursive='*true'>
  <topics_line time='$,' text='Клуб Еврейского Студента'
               href='/migdal/jcc/student/'
 	      arrow!="$index==$`post.migdal.jcc.student`"
