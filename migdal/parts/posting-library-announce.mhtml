@@ -1,37 +1,43 @@
 << @(#) $Id$ >>
 
+<element name='topic' params='posting,showtopic'>
+<if what='$showtopic'>
+ <topiclink posting='$posting' title='Новинки библиотеки'><br>
+</if>
+</element>
+
 <element name='posting_library_announce'>
-<div class='posting'>
- <table width=100%>
-  <if what='$showtopic'>
-   <tr><td colspan=2 class='subject'><topiclink posting='$posting'></td></tr>
-  </if>
-  <tr valign=top>
-   <ifnzero what='$posting.ImageSet'>
-    <td class='pic' width=110>
-     <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
-    </td>
-   </ifnzero>
-   <td>
-    <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
-		image='$$style_cframe_back_pic'>
-    <biff time='$posting.Sent'>
-    <span class='subject'>
-     $posting.Author&sp;&lt;&lt;$posting.Source&gt;&gt;
-    </span>
-    <br>
-    <i>$posting.Subject</i>
-    <p>$posting.HTMLBody&nbsp;</p>
-   </td>
-  </tr>
- </table>
- <table width=100%><tr>
+<dl class='posting'>
+ <dt>
+  <topic posting='$posting' showtopic='$showtopic'>
+  <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
+	      image='$$style_cframe_back_pic'>
+  <biff time='$posting.Modified'>
+  <span class='posting-subject'>
+   $=posting.Author&sp;&lt;&lt;$=posting.Source&gt;&gt;
+  </span>
+  <br>
+  $=posting.Subject
+ </dt>
+ <dd>
+ <if what='$posting.hasSmallImage'>
+  <table align=left class='pic'>
+   <tr><td>
+    <posting_image posting='$posting'>
+   </td></tr>
+   <ifne what='$posting.Title'>
+    <tr><td>$posting.TitleHTML</td></tr>
+   </ifne>
+  </table>
+ </ifnzero>
+ $posting.BodyHTML
+ <table width=90% style="clear: left"><tr>
   <td align=left class='sent'>
    <sentview date='$posting.Sent'>&nbsp;
    <senderlink message='$posting'>
   </td>
  </tr></table>
  <posting_controls posting='$posting' showdiscuss='$showdiscuss'
-	           showcomplain='$showcomplain' len='100%'>
-</div>
+		   showcomplain!="$showcomplain && !$$englishDomain">
+</dl>
 </element>

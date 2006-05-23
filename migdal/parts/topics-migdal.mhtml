@@ -45,14 +45,6 @@
 <upper_level name='Мигдаль' href='/migdal/'>
 <topic_obj name='jcc' id='$`migdal.jcc`'>
 <topics_table title='$,Subject'>
- <ispost what='$jcc'>
-  <tr><td colspan=2>
-   <a href='/migdal/jcc/add/?redirid=$_' class='edit'>Добавить</a>
-  </td></tr>
-  <tr><td colspan=2>
-   <a href='/migdal/jcc/reorder/?redirid=$_' class='edit'>Расставить</a>
-  </td></tr>
- </ispost>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
                       topic_id='$,Id' recursive='*false'
 		      fields='*SELECT_TOPICS'>
@@ -68,6 +60,14 @@
  	      href='/migdal/jcc/dances/'
 	      arrow!="$index==$`post.migdal.jcc.dances`"
 	      class='topics-item eightpt'>
+ <ispost what='$jcc'>
+  <tr><td colspan=2>
+   <a href='/migdal/jcc/add/?redirid=$_' class='edit'>Добавить</a>
+  </td></tr>
+  <tr><td colspan=2>
+   <a href='/migdal/jcc/reorder/?redirid=$_' class='edit'>Расставить</a>
+  </td></tr>
+ </ispost>
  <for>
   <if what='$.Id!=$`post.migdal.jcc`'>
    <topics_line time='$.Modified' text='$=.Subject' href#='/$.Catalog'
@@ -142,16 +142,14 @@
 <element name='topics_migdal_library'>
 <upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Библиотека'>
- <topics_line text='О библиотеке' href#='migdal-library.php'
-              arrow!='$posting.Id==$`postings:migdal-library`'
-	      class='item ninept'>
- <posting_last grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
+ <topics_line text='О библиотеке' href='/migdal/library/'
+	      arrow!="$index=='migdal.library'"
+	      class='topics-item ninept'>
+ <posting_last grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal.library`'
                recursive='*false'>
- <topics_line time='$,' text='Новые поступления'
-              href#='migdal-library-news.php'
-              arrow!='$posting.Grp==*GRP_LIBRARY_ANNOUNCES &&
-	              $posting.TopicId==$`migdal-library`'
-	      class='item ninept'>
+ <topics_line time='$,' text='Новинки' href='/migdal/library/news/'
+	      arrow!="$index=='migdal.library.news'"
+	      class='topics-item ninept'>
 </topics_table>
 <topics_common_events id='$`abokers`'>
 <topics_common_events id='$`ofeks`'>
@@ -206,10 +204,10 @@
 	     title='Живопись, музыка, танцы, программы для всех возрастов'
 	     arrow!="$index=='migdal.jcc'"
 	     indent=1 class='topics-item eightpt'>
-<posting_last topic_id='$`migdal-library`' recursive='*true'>
-<topics_line time='$,' href='migdal-library.php' text='Библиотека'
+<posting_last topic_id='$`migdal.library`' recursive='*true'>
+<topics_line time='$,' href='/migdal/library/' text='Библиотека'
+	     arrow!="$index=='migdal.library'"
 	     indent=1 class='topics-item eightpt'>
-	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-library`">>
 <posting_last topic_id='$`migdal.museum`' recursive='*true'>
 <topics_line time='$,' href='/migdal/museum/' text='Музей истории евреев Одессы'
 	     arrow!="$index=='migdal.museum'"

@@ -3,9 +3,7 @@
 <int name='offset'>
 
 <grps>
-<log event=review text#='topic($`migdal-library`)'>
-<pagetitle title='Новые поступления в библиотеку'>
-<topictitle title='Новые поступления в библиотеку'>
+<log event=review text#='topic($`migdal.library`)'>
 
 <html>
 <preamble>
@@ -14,21 +12,20 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
-    <posting_new grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'>
-    <topics posting='$,'>
+    <topics>
     <ears>
    </td>
    <td class='cframe'>
     <subtitle>
-    <outer><div class='nframe' style='padding: 5'><inner>
+    <<outer><div class='nframe' style='padding: 5'><inner>
      <seealso_links topic_id='$`migdal-library`'
                     topic_grp='*GRP_LIBRARY_ANNOUNCES'
 		    title='См. также в разделе ссылок'>
      <seealso_other topic_id='$`migdal-library`'
                     topic_grp='*GRP_LIBRARY_ANNOUNCES'
 		    title='По этой теме в других разделах'>
-    </inner></div></outer>
-    <postings grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
+    </inner></div></outer>>
+    <postings grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal.library`'
               limit=10 offset='$offset' showshadows='*true' showadvert='*false'>
    </td>
   </tr>

@@ -105,7 +105,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/postingdel.php
 + actions/postingmod.php
 + actions/postingorg-goto.php
-* actions/reorder.php
++ actions/reorder.php
 - actions/search.php
 - actions/shadow.php
 - actions/style.php
@@ -114,7 +114,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/topiclinkadd.php
 - actions/topiclinkdel.php
 + actions/topicmod.php
-- actions/topicsreorder.php
+- actions/topicsreorder.php (удалить)
 - actions/userconfirm.php
 - actions/userlost.php
 + actions/usermod.php
@@ -172,7 +172,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * lib/messages.php (удалить)
 + lib/mime.php
 - lib/mnogosearch.php
-+ lib/modbits.php (только новые наборы флагов)
++ lib/modbits.php
 + lib/no-cache.php
 - lib/package.php
 - lib/packages.php
@@ -278,8 +278,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * migdal/links.mhtml (кроме seealso)
 - migdal/methodic-center.mhtml
 - migdal/methodics.mhtml
-- migdal/migdal-library.mhtml
-- migdal/migdal-library-news.mhtml
++ migdal/migdal-library.mhtml
+* migdal/migdal-library-news.mhtml (кроме seealso)
 + migdal/migdal.mhtml (кроме ловушек)
 * migdal/migdal-news.mhtml
 - migdal/modbits.mhtml
@@ -290,7 +290,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/printings.mhtml
 + migdal/rating.mhtml
 + migdal/register.mhtml
-* migdal/reorder.mhtml
++ migdal/reorder.mhtml
 * migdal/search.mhtml
 - migdal/stotext-help-subs.mhtml
 - migdal/stotext-help-types.mhtml
@@ -305,7 +305,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/topiclinkadd.mhtml
 - migdal/topiclinks.mhtml
 + migdal/topicorg.mhtml
-- migdal/topics-reorder.mhtml
+- migdal/topics-reorder.mhtml (удалить)
 + migdal/urls.mhtml
 * migdal/useredit.mhtml (кроме ссылок на help)
 - migdal/userfin.mhtml
@@ -364,7 +364,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/posting-book.mhtml
 + migdal/parts/posting-ear.mhtml
 * migdal/parts/posting-general.mhtml
-- migdal/parts/posting-library-announce.mhtml
++ migdal/parts/posting-library-announce.mhtml
 + migdal/parts/posting-link.mhtml
 * migdal/parts/posting.mhtml
 + migdal/parts/postings-links.mhtml

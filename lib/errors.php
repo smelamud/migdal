@@ -121,7 +121,8 @@ define('EMR_NO_MESSAGE',311);
 
 define('EO_NO_REORDER',320);
 define('EO_DUPS',321);
-define('EO_NO_ARTICLE',322);
+define('EO_NO_ENTRY',322);
+define('EO_LITTLE',323);
 
 define('EV_NO_POSTING',330);
 define('EV_ALREADY_VOTED',331);

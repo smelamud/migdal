@@ -24,9 +24,10 @@
  </if>
  <if what='$up!=0 && $write'>
   <a href='/admin/topics/${up_path}edit/?redirid=$_' class='edit'>Изменить</a>
-  <a href='/admin/topics/${up_path}delete?redirid=$_' class='edit'>Удалить</a>
+  <a href='/admin/topics/${up_path}delete/?redirid=$_' class='edit'>Удалить</a>
   <a href='chmod.php?redirid=$_&topic_id=$up' class='edit'>Права</a>
-  <a href='topics-reorder.php?redirid=$_&up=$up' class='edit'>Расставить</a>
+  <a href='/admin/topics/${up_path}reorder/?redirid=$_'
+     class='edit'>Расставить</a>
  </if>
  <ifnzero what='$;Count'>
   <ul class='names'>

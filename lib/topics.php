@@ -153,12 +153,12 @@ class TopicIterator
 function getWhere($grp,$up=0,$prefix='',$recursive=false,$level=1,$index2=-1)
 {
 $hide='and '.topicsPermFilter(PERM_READ,$prefix);
-$userFilter=$up>=0 ? 'and '.subtree('entries',$up,$recursive,'up') : '';
+$parentFilter=$up>=0 ? 'and '.subtree('entries',$up,$recursive,'up') : '';
 $grpFilter=$grp!=GRP_ALL ? 'and '.grpFilter($grp,'grp','entry_grps') : '';
 // TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
 $levelFilter=$level<=1 || $up<0 ? '' : "and entries.id<>$up and up<>$up";
 $index2Filter=$index2<0 ? '' : "and index2=$index2";
-return " where entry=".ENT_TOPIC." $hide $userFilter $grpFilter $levelFilter
+return " where entry=".ENT_TOPIC." $hide $parentFilter $grpFilter $levelFilter
          $index2Filter ";
 }
 

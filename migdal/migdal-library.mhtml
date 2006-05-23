@@ -1,26 +1,20 @@
 << @(#) $Id$ >>
 
-<posting_obj id='$`postings:migdal-library`' grp='*GRP_REVIEW'
-             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
-<log event=review text#='post($,Id)'>
-<pagetitle title='$,Subject'>
-<topictitle title='$,Subject'>
+<log event=review text#='post($`post.migdal.library`)'>
 
 <element name='news'>
 <notprint>
- <iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal-library`'
-		      recursive='*false' limit=10 sort='*SORT_PSENT'
-		      fields='*SELECT_TOPICS'>
+ <iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal.library`'
+		      recursive='*false' limit=10 sort='*SORT_PSENT'>
  <ifnzero what='$;Count'>
   <table class='nframe' width=180 align=right
 	 cellpadding=5 cellspacing=0 style='margin-left: 5px'>
    <tr><td>
-    <topics_table title='Новые поступления'>
+    <topics_table title='Новинки'>
      <for>
-      <identify posting='$.'>
-      <topics_line time='$.Sent' href#='$.DetailsHref'
-		   text#='$.Author&sp;&lt;&lt;$.Source&gt;&gt;'
-		   class='item eightpt'>
+      <topics_line time='$.Modified' href='$.GrpDetailsHref'
+		   text#='$=.Author&sp;&lt;&lt;$=.Source&gt;&gt;'
+		   class='topics-item eightpt'>
      </for>
      <tr><td align=center colspan=2>
       <a href='migdal-library-news.php' class='eightpt'>Все новинки</a>
@@ -40,11 +34,13 @@
  <table width=100% cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <topics posting='$,'>
+    <topics>
     <ears>
    </td>
   </notprint>
   <td class='cframe'>
+   <posting_obj id='$`post.migdal.library`' grp='*GRP_REVIEW'
+                fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
    <ifnzero what='$,Id'>
     <subtitle>
     <news>

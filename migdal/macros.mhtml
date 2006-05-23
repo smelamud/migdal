@@ -316,7 +316,7 @@
 <decel name='topics_migdal_english' file='parts/topics-migdal-english.php'
        params='posting'>
 <decel name='topics_migdal_library' file='parts/topics-migdal.php'
-       params='posting'>
+       params='index'>
 <decel name='topics_migdal_or' file='parts/topics-migdal.php' params='index'>
 <decel name='topics_minor' file='parts/topics-minor.php'
        params='id,up,grp,href,title'
