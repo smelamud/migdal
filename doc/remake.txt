@@ -114,7 +114,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/topiclinkadd.php
 - actions/topiclinkdel.php
 + actions/topicmod.php
-- actions/topicsreorder.php (удалить)
 - actions/userconfirm.php
 - actions/userlost.php
 + actions/usermod.php
@@ -305,7 +304,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/topiclinkadd.mhtml
 - migdal/topiclinks.mhtml
 + migdal/topicorg.mhtml
-- migdal/topics-reorder.mhtml (удалить)
 + migdal/urls.mhtml
 * migdal/useredit.mhtml (кроме ссылок на help)
 - migdal/userfin.mhtml
