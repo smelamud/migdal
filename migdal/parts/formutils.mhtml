@@ -6,6 +6,13 @@
 <else>
  <assign name='width' value='95%'>
 </if>
+<if what='$minititle'>
+ <assign_global name='formTitleWidth' value='10%'>
+ <assign_global name='formValueWidth' value='90%'>
+<else>
+ <assign_global name='formTitleWidth' value='25%'>
+ <assign_global name='formValueWidth' value='75%'>
+</if>
 <center><table class='form' width='$width' cellspacing='0' cellpadding='1'>
  <ifne what='$title'>
   <tr><td class='form-title'>$title</td></tr>
@@ -33,13 +40,13 @@
 
 <element name='form_line'>
 <tr valign='top'>
- <th class='form-cell' width='25%'><asp>
+ <th class='form-cell' width='$$formTitleWidth'><asp>
   <star mandatory='$mandatory'>$title
   <ifne what='$comment'>
    <p class='form-comment'>$comment</p>
   </ifne>
  </th>
- <td class='form-cell ninept' width='75%'>
+ <td class='form-cell ninept' width='$$formValueWidth'>
 </element>
 
 <element name='/form_line'>

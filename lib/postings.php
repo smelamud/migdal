@@ -320,7 +320,8 @@ return count($conds)>0 ? '('.join(' or ',$conds).')' : '1';
 function postingListFilter($grp,$topic_id=-1,$recursive=false,$person_id=-1,
                            $sort=SORT_SENT,$withAnswers=GRP_NONE,$user=0,
 			   $index1=-1,$later=0,$up=-1,$fields=SELECT_GENERAL,
-			   $modbits=MOD_NONE,$hidden=-1,$disabled=-1,$prefix='')
+			   $modbits=MOD_NONE,$hidden=-1,$disabled=-1,$prefix='',
+			   $withIdent=false)
 {
 $Filter='entries.entry='.ENT_POSTING;
 $Filter.=' and '.postingsPermFilter(PERM_READ,'entries');
@@ -365,6 +366,8 @@ if($prefix!='')
 		                            and entries.url_domain<>''");
   $Filter.=@$prefixFilters[$sort]!='' ? $prefixFilters[$sort] : '';
   }
+if($withIdent)
+  $Filter.=" and entries.ident<>''";
 return $Filter;
 }
 
@@ -379,7 +382,7 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
 			     $up=-1,$showShadows=true,$fields=SELECT_GENERAL,
 			     $modbits=MOD_NONE,$hidden=-1,$disabled=-1,
-			     $prefix='')
+			     $prefix='',$withIdent=false)
 {
 if($sort==SORT_CTR)
   $fields|=SELECT_CTR;
@@ -392,7 +395,7 @@ $SelectCount=$showShadows ? 'count(*)'
 $From=postingListTables($this->fields);
 $this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
                                $withAnswers,$user,$index1,$later,$up,$fields,
-			       $modbits,$hidden,$disabled,$prefix);
+			       $modbits,$hidden,$disabled,$prefix,$withIdent);
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'entries.sent desc',
              SORT_NAME       => 'entries.subject_sort',

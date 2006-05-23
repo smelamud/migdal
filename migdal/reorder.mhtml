@@ -5,6 +5,7 @@
 <int name='up'>
 <int name='issue'>
 <int name='isbook'>
+<int name='withident'>
 
 <if what='$issue<=0'>
  <assign name='issue' value='-1'>
@@ -12,6 +13,7 @@
 
 <element name='order_selector' params='title,sels,current'>
 <form_select title='$title' name='art[]'>
+ <form_option title='-- Пусто --' value='0' selected!='$current<=0'>
  <reset_iterator list='$sels'>
  <for list='sels'>
   <assign name='title'
@@ -27,22 +29,31 @@
 <preamble>
 <body>
  <top ident='index'>
- <form_table title='$LocationInfo.Title' mini='*true'>
+ <form_table title='$LocationInfo.Title' mini='*true' minititle='*true'>
   <form method=post action='actions/reorder.php'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <iterate_postinglist name='sels' grp='$grp' topic_id='$topic_id'
                         recursive='*true' limit=0 sort='*SORT_INDEX0'
-			index1!='$issue' up='$up'>
+			index1!='$issue' up='$up' withident='$withident'>
+   <hidden name='count' value='$;Count'>
    <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='*true'
-                        limit=0 sort='*SORT_INDEX0' index1!='$issue' up='$up'>
+                        limit=0 sort='*SORT_INDEX0' index1!='$issue' up='$up'
+			withident='$withident'>
    <error id='*EO_DUPS' text='Некоторые статьи указаны дважды'>
    <error id='*EO_NO_ARTICLE' text='Статьи не существует'>
    <error id='*EO_NO_REORDER' text='Вы не имеете права менять порядок статей'>
+   <assign name='n' value=1>
+   <order_selector title#='$n.' sels='$sels'
+		   current!='$edittag ? $art[$n] : -1'>
    <for>
-    <order_selector title#='$;NextPosition.' sels='$sels'
-		    current!='$edittag ? $art[$;Position] : $.Id'>
+    <assign name='n' value!='$n+1'>
+    <order_selector title#='$n.' sels='$sels'
+		    current!='$edittag ? $art[$n] : $.Id'>
+    <assign name='n' value!='$n+1'>
+    <order_selector title#='$n.' sels='$sels'
+		    current!='$edittag ? $art[$n] : -1'>
    </for>
    <form_buttons title='Изменить'>
   </form>

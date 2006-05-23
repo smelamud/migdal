@@ -103,12 +103,12 @@
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic_id,recursive,limit,offset,person_id,sort,withanswers,
 	         user,index1,later,up,showshadows,fields,modbits,
-		 hidden,disabled,prefix'
+		 hidden,disabled,prefix,withident'
          defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           person_id=-1 sort='*SORT_SENT' withanswers='*GRP_NONE'
 		   user=0 index1=-1 later=0 up=-1 showshadows='*true'
 		   fields='*SELECT_GENERAL' modbits='*MOD_NONE' hidden=-1
-		   disabled=-1 prefix=''">
+		   disabled=-1 prefix='' withident='*false'">
 <deciter macro='random_seq' class='RandomSequenceIterator' file='lib/random.php'
          params='n,min,max'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
