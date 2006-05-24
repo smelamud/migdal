@@ -14,7 +14,7 @@
 	      image='$$style_cframe_back_pic'>
   <biff time='$posting.Modified'>
   <span class='posting-subject'>
-   $=posting.Author&sp;&lt;&lt;$=posting.Source&gt;&gt;
+   $=posting.Author&sp;&lt;&lt;$=posting.Comment0&gt;&gt;
   </span>
   <br>
   $=posting.Subject

@@ -286,7 +286,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/postingedit.mhtml (кроме ссылок на help)
 + migdal/posting.mhtml
 * migdal/postingorg.mhtml
-- migdal/printings.mhtml
+* migdal/printings.mhtml (кроме seealso)
 + migdal/rating.mhtml
 + migdal/register.mhtml
 + migdal/reorder.mhtml

@@ -128,6 +128,12 @@ topics	175	migdal.museum	grp=+NEWS+ARTICLES
 topics	176	migdal.migdal-or
 topics	30	migdal.mazltov	grp=+NEWS+ARTICLES
 topics	258	migdal.beitenu	grp=+NEWS+ARTICLES
+topics	204	migdal.printings
+topics	209	migdal.printings.records
+topics	205	migdal.printings.art
+topics	208	migdal.printings.methodics
+topics	206	migdal.printings.music
+topics	207	migdal.printings.fiction
 topics	167	migdal.jcc
 topics	268	migdal.jcc.choir
 topics	269	migdal.jcc.dances

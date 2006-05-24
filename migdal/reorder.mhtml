@@ -51,7 +51,7 @@
  <for list='sels'>
   <assign name='title'
           value!='!$$isbook ? $=.Subject
-                            : $.AuthorXML."&lt;&lt;".$.SourceXML.">>"'>
+                            : $.AuthorXML."&lt;&lt;".$.Comment0XML.">>"'>
   <assign name='stitle' value!='shortenNote(${title},64,16,16)'>
   <form_option title='$=stitle' value='$.Id' selected!='$.Id==$current'>
  </for>

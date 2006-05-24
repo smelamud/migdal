@@ -13,7 +13,7 @@
     <topics_table title='Новинки'>
      <for>
       <topics_line time='$.Modified' href='$.GrpDetailsHref'
-		   text#='$=.Author&sp;&lt;&lt;$=.Source&gt;&gt;'
+		   text#='$=.Author&sp;&lt;&lt;$=.Comment0&gt;&gt;'
 		   class='topics-item eightpt'>
      </for>
      <tr><td align=center colspan=2>

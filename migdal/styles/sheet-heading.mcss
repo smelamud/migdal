@@ -6,4 +6,5 @@
 
 .heading TD {
 	font-weight: bold;
+	text-transform: uppercase;
 }

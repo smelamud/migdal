@@ -268,7 +268,7 @@ if(($fields & SELECT_LARGE_BODY)!=0)
 return $Fields;
 }
 
-function postingListTables($fields=SELECT_GENERAL)
+function postingListTables($fields=SELECT_GENERAL,$sort=SORT_SENT)
 {
 $Tables='entries
          left join users
@@ -280,6 +280,9 @@ if(($fields & SELECT_CTR)!=0)
              left join counters as counter1
 	          on entries.orig_id=counter1.entry_id and counter1.serial=1
 	 	     and counter1.mode='.CMODE_EAR_CLICKS;
+if($sort==SORT_TOPIC_INDEX0_INDEX0)
+  $Tables.=' left join entries as topics
+                  on entries.parent_id=topics.id';
 return $Tables;
 }
 
@@ -392,7 +395,7 @@ $Select=$showShadows ? postingListFields($this->fields)
 		     : 'distinct entries.orig_id';
 $SelectCount=$showShadows ? 'count(*)'
 		          : 'count(distinct entries.orig_id)';
-$From=postingListTables($this->fields);
+$From=postingListTables($this->fields,$sort);
 $this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
                                $withAnswers,$user,$index1,$later,$up,$fields,
 			       $modbits,$hidden,$disabled,$prefix,$withIdent);

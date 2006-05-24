@@ -233,9 +233,9 @@
 	     title='Южно-украинский региональный методический центр'
 	     indent=1 class='topics-item eightpt'>
 	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`methodics`">>
-<posting_last topic_id='$`printings`' recursive='*true'>
+<posting_last topic_id='$`migdal.printings`' recursive='*true'>
 <topics_line time='$,' text='Издательский центр'
-	     href='printings.php'
+	     href='/migdal/printings/'
+	     arrow!="$index=='migdal.printings'"
 	     indent=1 class='topics-item eightpt'>
-	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`printings`">>
 </element>

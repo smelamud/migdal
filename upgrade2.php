@@ -233,6 +233,11 @@ while($row=mysql_fetch_assoc($result))
      $source=unhtmlentities($row['source']);
      $comment0=unhtmlentities($row['comment0']);
      $comment1=unhtmlentities($row['comment1']);
+     if($row['grp']==GRP_LIBRARY_NOVELTIES)
+       {
+       $comment0=$source;
+       $source='';
+       }
      $now=date('Y-m-d H:i:s',time());
      sql(makeInsert('entries',
                     array('entry' => ENT_POSTING,
