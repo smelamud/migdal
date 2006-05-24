@@ -18,7 +18,7 @@ OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  journal.mhtml kaitana.mhtml kaitana-main.mhtml limedit.mhtml \
 	  liminsert.mhtml link.mhtml links.mhtml methodic-center.mhtml \
 	  methodics.mhtml migdal.mhtml migdal-library.mhtml \
-	  migdal-library-news.mhtml migdal-news.mhtml modbits.mhtml \
+	  migdal-library-novelties.mhtml migdal-news.mhtml modbits.mhtml \
 	  moderator.mhtml posting.mhtml postingedit.mhtml postingorg.mhtml \
 	  printings.mhtml rating.mhtml register.mhtml reorder.mhtml \
 	  search.mhtml stotext-help-subs.mhtml stotext-help-types.mhtml \

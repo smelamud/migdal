@@ -204,7 +204,7 @@
                  shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
        params='posting,align,title' defaults="align='' title=''">
-<decel name='posting_library_announce' file='parts/posting-library-announce.php'
+<decel name='posting_library_novelty' file='parts/posting-library-novelty.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">

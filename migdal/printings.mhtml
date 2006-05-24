@@ -16,7 +16,7 @@
    <td>&nbsp;</td>
    <td><image src='pics/sheet.gif'></td>
    <td>
-    <a href='postingedit.php?topic_id=$`printings`&grp=*GRP_LIBRARY_ANNOUNCES&redirid=$_'
+    <a href='postingedit.php?topic_id=$`printings`&grp=*GRP_LIBRARY_NOVELTIES&redirid=$_'
        >Добавить анонс</a>
    </td>
    <td>&nbsp;</td>
@@ -37,7 +37,7 @@
   <tr valign=top>
    <notprint>
     <td width=150 class='eframe'>
-     <posting_new grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`printings`'>
+     <posting_new grp='*GRP_LIBRARY_NOVELTIES' topic_id='$`printings`'>
      <topics posting='$,'>
      <ears>
     </td>
@@ -46,15 +46,15 @@
     <subtitle>
     <outer><div class='nframe' style='padding: 5'><inner>
      <seealso_links topic_id='$`printings`'
-                    topic_grp='*GRP_LIBRARY_ANNOUNCES'
+                    topic_grp='*GRP_LIBRARY_NOVELTIES'
 		    title='См. также в разделе ссылок'>
      <seealso_other topic_id='$`printings`'
-                    topic_grp='*GRP_LIBRARY_ANNOUNCES'
+                    topic_grp='*GRP_LIBRARY_NOVELTIES'
 		    title='По этой теме в других разделах'>
     </inner></div></outer>
     <perms name='printings' table='topics' id='$`printings`'>
     <batcher printings='$printings'>
-    <iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`printings`'
+    <iterate_postinglist grp='*GRP_LIBRARY_NOVELTIES' topic_id='$`printings`'
 			 recursive='*true' limit=0
 			 sort='*SORT_TOPIC_INDEX0_INDEX0'>
     <assign name='topicname' value=''>
@@ -72,7 +72,7 @@
 	 <table class='info'><tr valign=center>
 	   <td>&nbsp;</td>
 	   <td>
-	    <a href='reorder.php?topic_id=$.TopicId&grp=*GRP_LIBRARY_ANNOUNCES&up=-1&isbook=1&redirid=$_'
+	    <a href='reorder.php?topic_id=$.TopicId&grp=*GRP_LIBRARY_NOVELTIES&up=-1&isbook=1&redirid=$_'
 	       >Расставить анонсы</a>
 	   </td>
 	 </tr></table>

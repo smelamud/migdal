@@ -6,7 +6,7 @@
 </if>
 </element>
 
-<element name='posting_library_announce'>
+<element name='posting_library_novelty'>
 <dl class='posting'>
  <dt>
   <topic posting='$posting' showtopic='$showtopic'>

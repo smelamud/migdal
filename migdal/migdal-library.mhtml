@@ -4,7 +4,7 @@
 
 <element name='news'>
 <notprint>
- <iterate_postinglist grp='*GRP_LIBRARY_ANNOUNCES' topic_id='$`migdal.library`'
+ <iterate_postinglist grp='*GRP_LIBRARY_NOVELTIES' topic_id='$`migdal.library`'
 		      recursive='*false' limit=10 sort='*SORT_PSENT'>
  <ifnzero what='$;Count'>
   <table class='nframe' width=180 align=right
@@ -17,7 +17,7 @@
 		   class='topics-item eightpt'>
      </for>
      <tr><td align=center colspan=2>
-      <a href='migdal-library-news.php' class='eightpt'>Все новинки</a>
+      <a href='/migdal/library/novelties/' class='eightpt'>Все новинки</a>
      </td></tr>
     </topics_table>
    </td></tr>
