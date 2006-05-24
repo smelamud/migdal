@@ -19,8 +19,7 @@
    </td>
    <td>&nbsp;</td>
    <td>
-    <a href='topics-reorder.php?up=$`printings`&redirid=$_'
-       >Расставить подразделы</a>
+    <a href='/migdal/printings/reorder/'>Расставить подразделы</a>
    </td>
   </ispost>
  </tr></table>

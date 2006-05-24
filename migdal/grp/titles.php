@@ -21,6 +21,12 @@ $posting=getPostingById($id);
 return $posting->getSubjectDesc();
 }
 
+function titlePostingAuthorComment0($id)
+{
+$posting=getPostingById($id);
+return $posting->getAuthor().' '.$posting->getComment0();
+}
+
 function titlePostingGrpWhatV($id)
 {
 $posting=getPostingById($id);
