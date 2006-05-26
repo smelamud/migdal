@@ -15,7 +15,7 @@
    <td><image src='/pics/sheet.gif'></td>
    <td>
     <a href='postingedit.php?topic_id=$`printings`&grp=*GRP_LIBRARY_NOVELTIES&redirid=$_'
-       >Добавить анонс</a>
+       >Добавить книгу</a>
    </td>
    <td>&nbsp;</td>
    <td>
@@ -69,8 +69,7 @@
 	 <table class='info'><tr valign=center>
 	   <td>&nbsp;</td>
 	   <td>
-	    <a href='reorder.php?topic_id=$.TopicId&grp=*GRP_LIBRARY_NOVELTIES&up=-1&isbook=1&redirid=$_'
-	       >Расставить анонсы</a>
+	    <a href='${.GrpGeneralHref}reorder?redirid=$_'>Расставить книги</a>
 	   </td>
 	 </tr></table>
         </ispost>

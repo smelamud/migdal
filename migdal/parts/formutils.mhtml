@@ -7,9 +7,11 @@
  <assign name='width' value='95%'>
 </if>
 <if what='$minititle'>
+ <assign_global name='formStar' value='*false'>
  <assign_global name='formTitleWidth' value='10%'>
  <assign_global name='formValueWidth' value='90%'>
 <else>
+ <assign_global name='formStar' value='*true'>
  <assign_global name='formTitleWidth' value='25%'>
  <assign_global name='formValueWidth' value='75%'>
 </if>
@@ -41,7 +43,10 @@
 <element name='form_line'>
 <tr valign='top'>
  <th class='form-cell' width='$$formTitleWidth'><asp>
-  <star mandatory='$mandatory'>$title
+  <if what='$$formStar'>
+   <star mandatory='$mandatory'>
+  </if>
+  <asp>$title
   <ifne what='$comment'>
    <p class='form-comment'>$comment</p>
   </ifne>
