@@ -43,7 +43,7 @@ $iter=new PostingListIterator(GRP_ALL,-1,false,0);
 while($post=$iter->next())
      fputs($fd,$post->getId()."\t".$post->getTopicId().
                "\t".$post->getMessageId()."\t".$post->getImageSet().
-	       "\t".removeControlChars($post->getSubjectDesc())."\n");
+	       "\t".removeControlChars($post->getSubjectDesc())."\n"); #FIXME deprecated
 fclose($fd);
 
 $fd=fopen("$dir/topics",'w');

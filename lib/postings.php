@@ -16,7 +16,6 @@ require_once('lib/selectiterator.php');
 require_once('lib/select.php');
 require_once('lib/sort.php');
 require_once('lib/sql.php');
-//require_once('lib/stotext-images.php');
 require_once('lib/text.php');
 require_once('lib/topics.php');
 require_once('lib/track.php');

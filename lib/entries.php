@@ -281,15 +281,6 @@ function getSubject()
 return $this->subject;
 }
 
-function getSubjectDesc()
-{
-return $this->getSubject()!=''
-       ? $this->getSubject()
-       : ($this->getTitle()!=''
-          ? $this->getTitle()
-	  : $this->getBodyTiny());
-}
-
 function getLang()
 {
 return $this->lang;
@@ -345,6 +336,32 @@ return $this->title_xml;
 function getTitleHTML()
 {
 return mtextToHTML($this->getTitleXML(),MTEXT_SHORT,$this->getId());
+}
+
+function isTitleTiny()
+{
+global $tinySize,$tinySizeMinus,$tinySizePlus;
+
+return cleanLength($this->getTitleXML())<=$tinySize+$tinySizePlus;
+}
+
+function getTitleTiny()
+{
+global $tinySize,$tinySizeMinus,$tinySizePlus;
+
+return shortenNote($this->getTitleXML(),$tinySize,$tinySizeMinus,$tinySizePlus);
+}
+
+function getTitleTinyXML()
+{
+global $tinySize,$tinySizeMinus,$tinySizePlus;
+
+return shorten($this->getTitleXML(),$tinySize,$tinySizeMinus,$tinySizePlus);
+}
+
+function getTitleTinyHTML()
+{
+return mtextToHTML($this->getTitleTinyXML(),MTEXT_SHORT,$this->getId());
 }
 
 function isTitlePea()

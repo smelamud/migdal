@@ -19,7 +19,7 @@ for($i=0;$i<strlen($scheme);$i++)
 	      $s.=' '.$posting->getSubject();
 	      break;
 	 case 'D':
-	      $s.=' '.$posting->getSubjectDesc();
+	      $s.=' '.$posting->getSubjectDesc(); # FIXME deprecated
 	      break;
 	 case 'A':
 	      $s.=' '.$posting->getHTMLAuthor();

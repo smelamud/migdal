@@ -18,7 +18,7 @@
   </ifzero>
   <topics_line time!='$.Sent>$.LastAnswer ? $.Sent : $.LastAnswer'
                href#='forum.php?msgid=$.Id'
-               text='$.SubjectDesc' count='$.Answers'
+               text='$=.GrpHeading' count='$.Answers'
                title#='$login - $last@j.$last@m.$last@Y&sp;$last@H:$last@i'>
  </for>
 </topics_table>

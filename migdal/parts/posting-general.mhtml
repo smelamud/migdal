@@ -35,9 +35,9 @@
   <biff time='$posting.Modified'>
   <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
    <a class='posting-subject'
-      href='$posting.GrpDetailsHref'>$=posting.Subject</a>
+      href='$posting.GrpDetailsHref'>$=posting.GrpHeading</a>
   <else>
-   <span class='posting-subject'>$=posting.Subject</span>
+   <span class='posting-subject'>$=posting.GrpHeading</span>
   </if>
   <ifne what='$posting.Author'>
    <br><span class='posting-author'>$=posting.Author</span>

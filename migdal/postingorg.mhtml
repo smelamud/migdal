@@ -67,7 +67,7 @@
    // $=posting.GrpTitle
   </td></tr>
   <tr><td>
-   <b><a href='$posting.GrpDetailsHref'>$=posting.SubjectDesc</a></b>
+   <b><a href='$posting.GrpDetailsHref'>$=posting.GrpHeading</a></b>
    <ifne what='$posting.Ident'>
     [$posting.Ident=$posting.Id]
    <else>
