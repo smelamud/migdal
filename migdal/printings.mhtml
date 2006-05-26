@@ -14,8 +14,7 @@
    <td>&nbsp;</td>
    <td><image src='/pics/sheet.gif'></td>
    <td>
-    <a href='postingedit.php?topic_id=$`printings`&grp=*GRP_LIBRARY_NOVELTIES&redirid=$_'
-       >Добавить книгу</a>
+    <a href='/migdal/printings/add/?redirid=$_'>Добавить книгу</a>
    </td>
    <td>&nbsp;</td>
    <td>
