@@ -52,6 +52,8 @@ var $relativeTitle='Untitled';
 var $parent=null;
 var $child=null;
 var $orig=null;
+var $linkId=0;
+var $linkTitle='';
 
 function LocationInfo()
 {
@@ -193,6 +195,26 @@ return $this->orig;
 function setOrig(&$orig)
 {
 $this->orig=&$orig;
+}
+
+function getLinkId()
+{
+return $this->linkId;
+}
+
+function setLinkId($linkId)
+{
+$this->linkId=$linkId;
+}
+
+function getLinkTitle()
+{
+return $this->linkTitle;
+}
+
+function setLinkTitle($linkTitle)
+{
+$this->linkTitle=$linkTitle;
 }
 
 function &getRoot()

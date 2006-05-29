@@ -124,15 +124,13 @@ ALTER TABLE `chat_messages` ADD `text_xml` VARCHAR( 255 ) NOT NULL ;
 ALTER TABLE `counters` ADD `entry_id` INT NOT NULL AFTER `message_id` ;
 ALTER TABLE `counters` ADD INDEX ( `entry_id` ) ;
 CREATE TABLE `cross_entries` (
-`source_id` INT NOT NULL ,
-`source_grp` INT NOT NULL ,
+`source_name` VARCHAR( 255 ) NULL ,
+`source_id` INT NULL ,
+`link_type` INT NOT NULL ,
 `peer_id` INT NOT NULL ,
-`peer_grp` INT NOT NULL
+`peer_path` VARCHAR( 255 ) NOT NULL ,
+`peer_subject` VARCHAR( 255 ) NOT NULL
 );
-ALTER TABLE `cross_entries` ADD INDEX ( `source_grp` );
-ALTER TABLE `cross_entries` ADD INDEX ( `peer_grp` );
-ALTER TABLE `cross_entries` ADD INDEX `source_idgrp` ( `source_id` , `source_grp` , `peer_grp` );
-ALTER TABLE `cross_entries` ADD INDEX `peer_idgrp` ( `peer_id` , `peer_grp` , `source_grp` );
 ALTER TABLE `packages` ADD `entry_id` INT NOT NULL AFTER `message_id` ;
 ALTER TABLE `packages` ADD INDEX ( `entry_id` ) ;
 TRUNCATE TABLE `sessions`;

@@ -20,6 +20,9 @@ require_once('lib/answers.php');
 require_once('lib/users.php');
 require_once('lib/catalog.php');
 require_once('lib/topics.php');
+require_once('lib/structure.php');
+require_once('lib/catalog.php');
+require_once('lib/cross-entries.php');
 
 define('COMPL_NORMAL',1);
 define('COMPL_FORUM',3);
@@ -65,6 +68,8 @@ sql('truncate table entry_grps',
 sql('update image_files
      set max_id=0',
     __FUNCTION__,'image_files');
+sql('truncate table cross_entries',
+    __FUNCTION__,'cross_entries');
 }
 
 function convertComplains()
@@ -808,6 +813,53 @@ foreach($news as $mid)
 echo "\n";
 }
 
+function convertCrossEntries()
+{
+$result=sql("select sources.entry_id as source_id,topic_grp as source_grp,
+                    peers.entry_id as peer_id,peer_grp
+             from cross_topics
+                  left join old_ids as sources
+		       on cross_topics.topic_id=sources.old_id and
+                          sources.table_name='topics'
+                  left join old_ids as peers
+		       on cross_topics.peer_id=peers.old_id and
+                          peers.table_name='topics'",
+	    __FUNCTION__,'select');
+while($row=mysql_fetch_assoc($result))
+     {
+     echo $row['source_id'],'-',$row['source_grp'],'-',$row['peer_grp'],'-';
+     $cross=array('link_type' => LINKT_STANDARD);
+     if($row['source_grp']==GRP_LINKS)
+       $cross['source_id']=$row['source_id'];
+     if($row['peer_grp']==GRP_LINKS)
+       {
+       $id=$row['peer_id'];
+       $post=new Posting(array('parent_id' => $id,
+                               'grp' => $row['peer_grp'],
+			       'catalog' => catalog(0,'',catalogById($id))));
+       $cross['peer_path']=$post->getGrpGeneralHref();
+       }
+     if(!isset($cross['peer_path']))
+       {
+       echo 'N ';
+       continue;
+       }
+     $info=getLocationInfo($cross['peer_path']);
+     if($info->getLinkId()<=0)
+       {
+       echo 'L ';
+       continue;
+       }
+     echo 'Y ';
+     $cross['peer_id']=$info->getLinkId();
+     $cross['peer_subject']=$info->getLinkTitle();
+     sql(makeInsert('cross_entries',
+                    $cross),
+	 __FUNCTION__,'insert');
+     }
+echo "\n";
+}
+
 dbOpen();
 endJournal();
 /*echo "1. Chat messages...\n";
@@ -844,11 +896,13 @@ convertLinkedTable('inner_images','image_id','image_entry_id',$imageIds);
 echo "16. Votes...\n";
 convertLinkedTable('votes','posting_id','entry_id',$postingIds);
 echo "17. Users...\n";
-convertUsers();*/
+convertUsers();
 echo "18. Idents...\n";
 convertIdents();
 echo "19. Migdal news...\n";
-convertMigdalNews();
+convertMigdalNews();*/
+echo "20. Interlinks...\n";
+convertCrossEntries();
 beginJournal();
 dbClose();
 ?>

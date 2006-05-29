@@ -2,7 +2,9 @@
 # @(#) $Id$
 
 require_once('lib/dataobject.php');
-require_once('lib/postings.php');
+require_once('lib/selectiterator.php');
+
+require_once('grp/cross-entries.php');
 
 class CrossTopic
       extends DataObject

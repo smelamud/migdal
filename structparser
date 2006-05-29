@@ -163,7 +163,7 @@ for my $sub(@{$$item{'_subs'}})
       {
       next unless $var=~/^(?:arg|id)\./ || $var eq 'parent.path'
                   || $var eq '_cond' || $var eq 'orig.path'
-		  || $var eq 'redirect.path';
+		  || $var eq 'redirect.path' || $var eq 'link.id';
       $var="_$1" if $var=~/^((?:arg|id)\.\w+):\w+$/;
       $$item{$var}=~s/\${$sub}/"{\$m[$n]}"/ge;
       }
@@ -172,9 +172,9 @@ for my $sub(@{$$item{'_subs'}})
 
 for my $var(keys %$item)
    {
-   next unless $var=~/^(?:arg|id)\./;
+   next unless $var=~/^(?:arg|id)\./ || $var eq 'link.id';
    $var="_$1" if $var=~/^((?:arg|id)\.\w+):\w+$/;
-   $$item{$var}=~s/\${((?:parent|orig)\.id\.\w+)}/subTitleVar($1,$item)/ge;
+   $$item{$var}=~s/\${((?:(?:parent|orig)\.id|arg|id)\.\w+)}/subTitleVar($1,$item)/ge;
    }
 
 postProcessArgs($item);
@@ -193,6 +193,7 @@ if($expr=~/^orig.id\.(\w+)$/)
   }
 return "\".\$info->parent->getId('$1').\"" if $expr=~/^parent.id\.(\w+)$/;
 return "\".\$info->parent->getTitle().\"" if $expr eq 'parent.title';
+return "\".\$info->parent->getLinkTitle().\"" if $expr eq 'parent.link.title';
 return "{\$$expr}";
 }
 
@@ -236,6 +237,7 @@ my ($item)=@_;
 
 processTitle($item,'title','title');
 processTitle($item,'reltitle','title');
+processTitle($item,'link.title','title');
 processTitle($item,'script','script');
 }
 
@@ -430,6 +432,20 @@ EOF
      my $title=trimQuotes('"'.$$item{'_title'}.'"');
      print OUT <<EOF
   \$info->setRelativeTitle($title);
+EOF
+     }
+   if(exists($$item{'link.id'}))
+     {
+     my $linkId=trimQuotes('idByIdent("'.$$item{'link.id'}.'")');
+     print OUT <<EOF
+  \$info->setLinkId($linkId);
+EOF
+     }
+   if(exists($$item{'_link.title'}))
+     {
+     my $linkTitle=trimQuotes('"'.$$item{'_link.title'}.'"');
+     print OUT <<EOF
+  \$info->setLinkTitle($linkTitle);
 EOF
      }
    print OUT <<EOF;
