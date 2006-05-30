@@ -12,6 +12,7 @@
 <decconst name='errors' file='lib/errors.php'>
 <decconst name='grps' file='lib/grps.php'>
 <decconst name='image_placements' file='lib/stotext-images.php'>
+<decconst name='link_types' file='lib/cross-entries.php'>
 <decconst name='modbits' file='lib/modbits.php'>
 <decconst name='relogin' file='lib/logging.php'>
 <decconst name='sorts' file='lib/sort.php'>
@@ -62,6 +63,9 @@
          file='lib/complaintypes.php'>
 <deciter macro='confirm_instant_messagelist'
          class='ConfirmInstantMessageListIterator' file='lib/instants.php'>
+<deciter macro='entry_cross' class='CrossEntryIterator'
+         file='lib/cross-entries.php' params='source_name,source_id,link_type'
+	 defaults="source_name='',source_id=0,link_type='*LINKT_NONE'">
 <deciter macro='fixed_rows' class='FixedRowsIterator' file='lib/rowscols.php'
          params='iterator,rows,mincols'
 	 defaults="iterator='$;' rows=5 mincols=3">
@@ -124,9 +128,6 @@
 	           only_writable='*false' only_postable='*false'">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
 <deciter macro='text_formats' class='TextFormatsIterator' file='lib/text.php'>
-<deciter macro='topic_cross' class='CrossTopicIterator'
-         file='lib/cross-topics.php' params='topic_id,peer_grp,topic_grp'
-	 defaults="peer_grp='*GRP_ALL' topic_grp='*GRP_ALL'">
 <deciter macro='topic_hierarchy' class='TopicHierarchyIterator'
          file='lib/topics.php' params='topic_id,root,reverse'
 	 defaults="root=-1 reverse='*false'">

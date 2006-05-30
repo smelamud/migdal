@@ -6,42 +6,43 @@ require_once('lib/selectiterator.php');
 
 require_once('grp/cross-entries.php');
 
-class CrossTopic
+define('LINKT_NONE',0);
+
+class CrossEntry
       extends DataObject
 {
+var $source_name;
 var $source_id;
-var $source_subject;
-var $source_grp;
+var $link_type;
+var $peer_name;
 var $peer_id;
+var $peer_path;
 var $peer_subject;
-var $peer_grp;
+var $peer_icon;
 
-function CrossTopic($row)
+function CrossEntry($row)
 {
 parent::DataObject($row);
 }
 
-function getTopicId()
+function getSourceName()
+{
+return $this->source_name;
+}
+
+function getSourceId()
 {
 return $this->source_id;
 }
 
-function getTopicName()
+function getLinkType()
 {
-return $this->source_subject;
+return $this->link_type;
 }
 
-function getTopicGrp()
+function getPeerName()
 {
-return $this->source_grp;
-}
-
-function getTopicPosting()
-{
-$row=array('parent_id'     => $this->source_id,
-           'topic_subject' => $this->source_subject,
-	   'grp'           => $this->source_grp);
-return new Posting($row);
+return $this->peer_name;
 }
 
 function getPeerId()
@@ -49,43 +50,42 @@ function getPeerId()
 return $this->peer_id;
 }
 
-function getPeerName()
+function getPeerPath()
+{
+return $this->peer_path;
+}
+
+function getPeerSubject()
 {
 return $this->peer_subject;
 }
 
-function getPeerGrp()
+function getPeerIcon()
 {
-return $this->peer_grp;
-}
-
-function getPeerPosting()
-{
-$row=array('parent_id'     => $this->peer_id,
-           'topic_subject' => $this->peer_subject,
-	   'grp'           => $this->peer_grp);
-return new Posting($row);
+return $this->peer_icon;
 }
 
 }
 
-class CrossTopicIterator
+class CrossEntryIterator
       extends SelectIterator
 {
 
-function CrossTopicIterator($topic_id,$peer_grp=GRP_ALL,$topic_grp=GRP_ALL)
+function CrossEntryIterator($source_name='',$source_id=0,$link_type=LINKT_NONE)
 {
-$grpFilter='';
-$grpFilter.=" and ".grpFilter($topic_grp,'source_grp');
-$grpFilter.=" and ".grpFilter($peer_grp,'peer_grp');
-$this->SelectIterator('CrossTopic',
-                      "select source_id,source_grp,peer_id,
-		              subject as peer_subject,peer_grp
+$filter='';
+if($source_name!='')
+  $filter.=" and source_name='$source_name'";
+if($source_id>0)
+  $filter.=" and source_id=$source_id";
+if($link_type!=LINKT_NONE)
+  $filter.=" and link_type=$link_type";
+$this->SelectIterator('CrossEntry',
+                      "select source_name,source_id,link_type,peer_name,
+		              peer_id,peer_path,peer_subject,peer_icon
 		       from cross_entries
-		            left join entries
-			         on entries.id=cross_entries.peer_id
-		       where source_id=$topic_id $grpFilter
-		       order by subject_sort");
+		       where 1 $filter
+		       order by peer_icon,peer_subject");
 }
 
 }

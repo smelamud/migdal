@@ -1,13 +1,15 @@
--- MySQL dump 10.9
+-- MySQL dump 10.10
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	4.1.15-Debian_1-log
+-- Server version	5.0.21-Debian_3-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -23,8 +25,8 @@ CREATE TABLE `chat_messages` (
   `sender_id` int(11) NOT NULL default '0',
   `private_id` int(11) NOT NULL default '0',
   `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `text` varchar(255) NOT NULL default '',
-  `text_xml` varchar(255) NOT NULL default '',
+  `text` varchar(255) NOT NULL,
+  `text_xml` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `sender_id` (`sender_id`),
   KEY `sent` (`sent`)
@@ -54,7 +56,7 @@ CREATE TABLE `complain_actions` (
 DROP TABLE IF EXISTS `counters`;
 CREATE TABLE `counters` (
   `id` int(11) NOT NULL auto_increment,
-  `entry_id` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL,
   `mode` int(11) NOT NULL default '0',
   `serial` int(11) NOT NULL default '0',
   `value` int(11) NOT NULL default '0',
@@ -90,14 +92,14 @@ CREATE TABLE `counters_ip` (
 
 DROP TABLE IF EXISTS `cross_entries`;
 CREATE TABLE `cross_entries` (
-  `source_id` int(11) NOT NULL default '0',
-  `source_grp` int(11) NOT NULL default '0',
-  `peer_id` int(11) NOT NULL default '0',
-  `peer_grp` int(11) NOT NULL default '0',
-  KEY `source_grp` (`source_grp`),
-  KEY `peer_grp` (`peer_grp`),
-  KEY `source_idgrp` (`source_id`,`source_grp`,`peer_grp`),
-  KEY `peer_idgrp` (`peer_id`,`peer_grp`,`source_grp`)
+  `source_name` varchar(255) default NULL,
+  `source_id` int(11) default NULL,
+  `link_type` int(11) NOT NULL,
+  `peer_name` varchar(255) default NULL,
+  `peer_id` int(11) default NULL,
+  `peer_path` varchar(255) NOT NULL,
+  `peer_subject` varchar(255) NOT NULL,
+  `peer_icon` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -108,74 +110,76 @@ DROP TABLE IF EXISTS `entries`;
 CREATE TABLE `entries` (
   `id` int(11) NOT NULL auto_increment,
   `ident` varchar(75) default NULL,
-  `entry` tinyint(4) NOT NULL default '0',
-  `up` int(11) NOT NULL default '0',
-  `track` varchar(255) NOT NULL default '',
-  `parent_id` int(11) NOT NULL default '0',
-  `orig_id` int(11) NOT NULL default '0',
-  `current_id` int(11) NOT NULL default '0',
-  `grp` int(11) NOT NULL default '0',
-  `link` int(11) NOT NULL default '0',
-  `person_id` int(11) NOT NULL default '0',
-  `user_id` int(11) NOT NULL default '0',
-  `group_id` int(11) NOT NULL default '0',
-  `perms` int(11) NOT NULL default '0',
-  `disabled` tinyint(4) NOT NULL default '0',
-  `subject` varchar(255) NOT NULL default '',
-  `subject_sort` varchar(255) NOT NULL default '',
-  `lang` varchar(7) NOT NULL default '',
-  `author` varchar(255) NOT NULL default '',
-  `author_xml` varchar(255) NOT NULL default '',
-  `source` varchar(255) NOT NULL default '',
-  `source_xml` varchar(255) NOT NULL default '',
-  `title` varchar(255) NOT NULL default '',
-  `title_xml` varchar(255) NOT NULL default '',
-  `comment0` varchar(255) NOT NULL default '',
-  `comment0_xml` varchar(255) NOT NULL default '',
-  `comment1` varchar(255) NOT NULL default '',
-  `comment1_xml` varchar(255) NOT NULL default '',
-  `url` varchar(255) NOT NULL default '',
-  `url_domain` varchar(70) NOT NULL default '',
-  `url_check` datetime NOT NULL default '0000-00-00 00:00:00',
-  `url_check_success` datetime NOT NULL default '0000-00-00 00:00:00',
+  `entry` tinyint(4) NOT NULL,
+  `up` int(11) NOT NULL,
+  `track` varchar(255) NOT NULL,
+  `catalog` varchar(255) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `orig_id` int(11) NOT NULL,
+  `current_id` int(11) NOT NULL,
+  `grp` int(11) NOT NULL,
+  `link` int(11) NOT NULL,
+  `person_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `perms` int(11) NOT NULL,
+  `disabled` tinyint(4) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `subject_sort` varchar(255) NOT NULL,
+  `lang` varchar(7) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `author_xml` varchar(255) NOT NULL,
+  `source` varchar(255) NOT NULL,
+  `source_xml` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `title_xml` varchar(255) NOT NULL,
+  `comment0` varchar(255) NOT NULL,
+  `comment0_xml` varchar(255) NOT NULL,
+  `comment1` varchar(255) NOT NULL,
+  `comment1_xml` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `url_domain` varchar(70) NOT NULL,
+  `url_check` datetime NOT NULL,
+  `url_check_success` datetime NOT NULL,
   `body` text NOT NULL,
   `body_xml` text NOT NULL,
-  `body_format` int(11) NOT NULL default '0',
-  `has_large_body` tinyint(4) NOT NULL default '0',
+  `body_format` int(11) NOT NULL,
+  `has_large_body` tinyint(4) NOT NULL,
   `large_body` mediumtext NOT NULL,
   `large_body_xml` mediumtext NOT NULL,
-  `large_body_format` int(11) NOT NULL default '0',
-  `large_body_filename` varchar(70) NOT NULL default '',
-  `priority` tinyint(4) NOT NULL default '0',
-  `index0` int(11) NOT NULL default '0',
-  `index1` int(11) NOT NULL default '0',
-  `index2` int(11) NOT NULL default '0',
-  `set0` int(11) NOT NULL default '0',
-  `set0_index` int(11) NOT NULL default '0',
-  `set1` int(11) NOT NULL default '0',
-  `set1_index` int(11) NOT NULL default '0',
-  `vote` int(11) NOT NULL default '0',
-  `vote_count` int(10) unsigned NOT NULL default '0',
-  `rating` double NOT NULL default '0',
+  `large_body_format` int(11) NOT NULL,
+  `large_body_filename` varchar(70) NOT NULL,
+  `priority` tinyint(4) NOT NULL,
+  `index0` int(11) NOT NULL,
+  `index1` int(11) NOT NULL,
+  `index2` int(11) NOT NULL,
+  `set0` int(11) NOT NULL,
+  `set0_index` int(11) NOT NULL,
+  `set1` int(11) NOT NULL,
+  `set1_index` int(11) NOT NULL,
+  `vote` int(11) NOT NULL,
+  `vote_count` int(10) unsigned NOT NULL,
+  `rating` double NOT NULL,
   `tmpid` int(11) default NULL,
-  `sent` datetime NOT NULL default '0000-00-00 00:00:00',
-  `created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `modified` datetime NOT NULL default '0000-00-00 00:00:00',
-  `accessed` datetime NOT NULL default '0000-00-00 00:00:00',
-  `modbits` int(11) NOT NULL default '0',
-  `answers` int(11) NOT NULL default '0',
-  `last_answer` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_answer_id` int(11) NOT NULL default '0',
-  `small_image` int(11) NOT NULL default '0',
-  `small_image_x` smallint(6) NOT NULL default '0',
-  `small_image_y` smallint(6) NOT NULL default '0',
-  `large_image` int(11) NOT NULL default '0',
-  `large_image_x` smallint(6) NOT NULL default '0',
-  `large_image_y` smallint(6) NOT NULL default '0',
-  `large_image_size` int(11) NOT NULL default '0',
-  `large_image_format` varchar(30) NOT NULL default '',
-  `large_image_filename` varchar(70) NOT NULL default '',
-  `used` tinyint(4) NOT NULL default '0',
+  `sent` datetime NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `accessed` datetime NOT NULL,
+  `modbits` int(11) NOT NULL,
+  `answers` int(11) NOT NULL,
+  `last_answer` datetime NOT NULL,
+  `last_answer_id` int(11) NOT NULL,
+  `last_answer_user_id` int(11) NOT NULL,
+  `small_image` int(11) NOT NULL,
+  `small_image_x` smallint(6) NOT NULL,
+  `small_image_y` smallint(6) NOT NULL,
+  `large_image` int(11) NOT NULL,
+  `large_image_x` smallint(6) NOT NULL,
+  `large_image_y` smallint(6) NOT NULL,
+  `large_image_size` int(11) NOT NULL,
+  `large_image_format` varchar(30) NOT NULL,
+  `large_image_filename` varchar(70) NOT NULL,
+  `used` tinyint(4) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `ident` (`ident`),
   UNIQUE KEY `tmpid` (`tmpid`),
@@ -212,8 +216,8 @@ CREATE TABLE `entries` (
 
 DROP TABLE IF EXISTS `entry_grps`;
 CREATE TABLE `entry_grps` (
-  `entry_id` int(11) NOT NULL default '0',
-  `grp` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL,
+  `grp` int(11) NOT NULL,
   KEY `entry_id` (`entry_id`),
   KEY `grp` (`grp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -249,7 +253,7 @@ CREATE TABLE `horisonts` (
 
 DROP TABLE IF EXISTS `image_files`;
 CREATE TABLE `image_files` (
-  `max_id` int(11) NOT NULL default '0'
+  `max_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -258,10 +262,10 @@ CREATE TABLE `image_files` (
 
 DROP TABLE IF EXISTS `inner_images`;
 CREATE TABLE `inner_images` (
-  `entry_id` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL,
   `par` int(11) NOT NULL default '0',
-  `x` tinyint(4) NOT NULL default '0',
-  `y` tinyint(4) NOT NULL default '0',
+  `x` tinyint(4) NOT NULL,
+  `y` tinyint(4) NOT NULL,
   `image_id` int(11) NOT NULL default '0',
   `placement` tinyint(4) NOT NULL default '0',
   `used` tinyint(4) NOT NULL default '0',
@@ -344,10 +348,10 @@ CREATE TABLE `mailings` (
 
 DROP TABLE IF EXISTS `old_ids`;
 CREATE TABLE `old_ids` (
-  `table_name` varchar(32) NOT NULL default '',
-  `old_id` int(11) NOT NULL default '0',
+  `table_name` char(32) NOT NULL,
+  `old_id` int(11) NOT NULL,
   `old_ident` varchar(75) default NULL,
-  `entry_id` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL,
   PRIMARY KEY  (`table_name`,`old_id`),
   UNIQUE KEY `table_name` (`table_name`,`entry_id`),
   UNIQUE KEY `table_name_2` (`table_name`,`old_ident`)
@@ -360,7 +364,7 @@ CREATE TABLE `old_ids` (
 DROP TABLE IF EXISTS `packages`;
 CREATE TABLE `packages` (
   `id` int(11) NOT NULL auto_increment,
-  `entry_id` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL,
   `type` int(11) NOT NULL default '0',
   `mime_type` varchar(50) NOT NULL default '',
   `title` varchar(250) NOT NULL default '',
@@ -475,7 +479,7 @@ CREATE TABLE `users` (
   `email_disabled` tinyint(4) NOT NULL default '0',
   `shames` tinyint(4) NOT NULL default '0',
   `guest` tinyint(4) NOT NULL default '0',
-  `rights` int(11) NOT NULL default '0',
+  `rights` int(11) NOT NULL,
   `hidden` tinyint(4) NOT NULL default '0',
   `no_login` tinyint(4) NOT NULL default '0',
   `has_personal` tinyint(4) NOT NULL default '0',
@@ -512,7 +516,7 @@ CREATE TABLE `version` (
 
 DROP TABLE IF EXISTS `votes`;
 CREATE TABLE `votes` (
-  `entry_id` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL,
   `ip` int(10) unsigned NOT NULL default '0',
   `user_id` int(11) NOT NULL default '0',
   `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
@@ -522,6 +526,7 @@ CREATE TABLE `votes` (
   KEY `sent` (`sent`),
   KEY `entry_id` (`entry_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -531,16 +536,18 @@ CREATE TABLE `votes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- MySQL dump 10.9
+-- MySQL dump 10.10
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	4.1.15-Debian_1-log
+-- Server version	5.0.21-Debian_3-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -556,6 +563,7 @@ LOCK TABLES `version` WRITE;
 INSERT INTO `version` VALUES (10);
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `version` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

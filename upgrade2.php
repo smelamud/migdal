@@ -828,10 +828,10 @@ $result=sql("select sources.entry_id as source_id,topic_grp as source_grp,
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['source_id'],'-',$row['source_grp'],'-',$row['peer_grp'],'-';
-     $cross=array('link_type' => LINKT_STANDARD);
+     $cross=array('link_type' => LINKT_SEEALSO);
      if($row['source_grp']==GRP_LINKS)
        $cross['source_id']=$row['source_id'];
-     if($row['peer_grp']==GRP_LINKS)
+     if($row['peer_grp']==GRP_LINKS || $row['peer_grp']==GRP_NEWS)
        {
        $id=$row['peer_id'];
        $post=new Posting(array('parent_id' => $id,
@@ -845,13 +845,17 @@ while($row=mysql_fetch_assoc($result))
        continue;
        }
      $info=getLocationInfo($cross['peer_path']);
-     if($info->getLinkId()<=0)
+     if($info->getLinkId()<=0 && $info->getLinkName()=='')
        {
        echo 'L ';
        continue;
        }
      echo 'Y ';
-     $cross['peer_id']=$info->getLinkId();
+     if($info->getLinkName()!='')
+       $cross['peer_name']=$info->getLinkName();
+     if($info->getLinkId()>0)
+       $cross['peer_id']=$info->getLinkId();
+     $cross['peer_icon']=$info->getLinkIcon();
      $cross['peer_subject']=$info->getLinkTitle();
      sql(makeInsert('cross_entries',
                     $cross),

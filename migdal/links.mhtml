@@ -14,12 +14,12 @@
 
 <element name='hierarchy' params='topic_id'>
 <div class='ninept'>
- <a href='links/'>Ссылки</a>
+ <a href='/links/'>Ссылки</a>
  <iterate_topic_hierarchy topic_id='$topic_id' root='$`links`'>
  <for>
   /
   <if what='$.Id!=$topic_id'>
-   <a href='$.Catalog'>$=.Subject</a>
+   <a href='/$.Catalog'>$=.Subject</a>
   <else>
    <b>$=.Subject</b>
   </if>
@@ -100,7 +100,7 @@
   <for>
    <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
    <tr><td>
-    <a href='$.Catalog' class='topics-item'>
+    <a href='/$.Catalog' class='topics-item'>
      $=.Subject&nbsp;<span class='topics-answers'>($,Total)</span><asp>
     <asp></a><asp>
     <biff time='$,MaxSent' small='*true'>
@@ -132,9 +132,8 @@
   <tr valign=top><td class='nframe'>
    <intro topic_id='$topic_id'>
    <navigator topic_id='$topic_id'>
+   <seealso>
    <fastjump>
-   <<seealso_links topic_id='$topic_id' topic_grp='*GRP_LINKS'>
-   <seealso_other topic_id='$topic_id' topic_grp='*GRP_LINKS'>>
   </td></tr>
   <tr><td class='cframe'><outer>
    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>

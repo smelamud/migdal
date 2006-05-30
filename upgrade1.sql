@@ -127,9 +127,11 @@ CREATE TABLE `cross_entries` (
 `source_name` VARCHAR( 255 ) NULL ,
 `source_id` INT NULL ,
 `link_type` INT NOT NULL ,
-`peer_id` INT NOT NULL ,
+`peer_name` VARCHAR( 255 ) NULL ,
+`peer_id` INT NULL ,
 `peer_path` VARCHAR( 255 ) NOT NULL ,
-`peer_subject` VARCHAR( 255 ) NOT NULL
+`peer_subject` VARCHAR( 255 ) NOT NULL ,
+`peer_icon` VARCHAR( 64 ) NOT NULL
 );
 ALTER TABLE `packages` ADD `entry_id` INT NOT NULL AFTER `message_id` ;
 ALTER TABLE `packages` ADD INDEX ( `entry_id` ) ;

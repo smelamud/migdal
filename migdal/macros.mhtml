@@ -236,13 +236,9 @@
 <decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
        defaults="showtitle='*true'">
-<decel name='seealso_links' file='parts/seealso.php'
-       params='topic_id,title,topic_grp'
-       defaults="title='См. также' topic_grp='*GRP_ALL'">
-<decel name='seealso_other' file='parts/seealso.php'
-       params='topic_id,title,topic_grp'
-       defaults="title='Читайте по этой теме на нашем сайте'
-                 topic_grp='*GRP_ALL'">
+<decel name='seealso' file='parts/seealso.php'
+       params='link_type,title'
+       defaults="link_type='*LINKT_SEEALSO' title='См. также'">
 <decel name='selflink' file='parts/posting.php' params='posting'>
 <decel name='senderlink' file='parts/utils.php' params='message'>
 <decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'

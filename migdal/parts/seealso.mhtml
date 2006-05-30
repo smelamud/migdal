@@ -1,47 +1,46 @@
 << @(#) $Id$ >>
 
-<grps>
+<link_types>
 
-<element name='fullname' params='topic_id'>
-<iterate_topic_hierarchy topic_id='$topic_id' root='$`links`'>
-<for>
- <if what='!$;isFirst'>&sp;/&sp;</if>
- $.Name
-</for>
-</element>
-
-<element name='seealso_links'>
+<element name='seealso'>
 <notprint>
- <if what='$topic_id>0'>
-  <outer><table class='topics ninept' style='margin: 0'>
-   <iterate_topic_cross topic_id='$topic_id' topic_grp='$topic_grp'
-			peer_grp='*GRP_LINKS'>
+ <outer><table class='topics ninept' style='margin: 0'>
+  <assign name='source_name' value='$$LocationInfo.LinkName'>
+  <assign name='source_id' value='$$LocationInfo.LinkId'>
+  <if what="$source_name!='' || $source_id>0">
+   <iterate_entry_cross source_name='$source_name' source_id='$source_id'
+			link_type='$link_type'>
    <tr><td><b>$title:</b></td></tr>
    <inner>
-    <admin_topics>
+    <<admin_topics>
      <tr><td>
       <a href='topiclinkadd.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=*GRP_LINKS&redirid=$_'
 	 class='edit'>Добавить</a>
      </td></tr>
-    </admin_topics>
+    </admin_topics>>
     <outer><tr><td><ul><inner>
+     <assign name='icon' value=''>
      <for>
-      <li><a href='links.php?topic_id=$.PeerId'><fullname topic_id=$.PeerId></a>
-      <admin_topics>
+      <if what="$icon!=$.PeerIcon && $icon!=''">
+       <br>&nbsp;
+      </if>
+      <assign name='icon' value='$.PeerIcon'>
+      <li><a href='$.PeerPath'>$=.PeerSubject</a>
+      <<admin_topics>
        <asp>&nbsp;<asp>
        <a href='actions/topiclinkdel.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=*GRP_LINKS&peer_id=$.PeerId&okdir=$#-&faildir=$#-'
 	  class='edit'><asp>
 	<asp>Удалить</a>
-      </admin_topics>
+      </admin_topics>>
      </for>
     </inner></ul></td></tr></outer>
    </inner>
-  </table></outer>
- </if>
+  </if>
+ </table></outer>
 </notprint>
 </element>
 
-<element name='seealso_other'>
+<<element name='seealso_other'>
 <notprint>
  <if what='$topic_id>0'>
   <outer><table class='topics ninept' style='margin: 0'>
@@ -72,4 +71,4 @@
   </table></outer>
  </if>
 </notprint>
-</element>
+</element>>

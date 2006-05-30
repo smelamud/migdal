@@ -52,8 +52,10 @@ var $relativeTitle='Untitled';
 var $parent=null;
 var $child=null;
 var $orig=null;
+var $linkName='';
 var $linkId=0;
 var $linkTitle='';
+var $linkIcon='';
 
 function LocationInfo()
 {
@@ -197,6 +199,16 @@ function setOrig(&$orig)
 $this->orig=&$orig;
 }
 
+function getLinkName()
+{
+return $this->linkName;
+}
+
+function setLinkName($linkName)
+{
+$this->linkName=$linkName;
+}
+
 function getLinkId()
 {
 return $this->linkId;
@@ -215,6 +227,16 @@ return $this->linkTitle;
 function setLinkTitle($linkTitle)
 {
 $this->linkTitle=$linkTitle;
+}
+
+function getLinkIcon()
+{
+return $this->linkIcon;
+}
+
+function setLinkIcon($linkIcon)
+{
+$this->linkIcon=$linkIcon;
 }
 
 function &getRoot()
