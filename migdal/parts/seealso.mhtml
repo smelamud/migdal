@@ -25,7 +25,7 @@
        <br>&nbsp;
       </if>
       <assign name='icon' value='$.PeerIcon'>
-      <li><a href='$.PeerPath'>$=.PeerSubject</a>
+      <li class='seealso-$icon'><a href='$.PeerPath'>$=.PeerSubject</a>
       <<admin_topics>
        <asp>&nbsp;<asp>
        <a href='actions/topiclinkdel.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=*GRP_LINKS&peer_id=$.PeerId&okdir=$#-&faildir=$#-'
@@ -39,36 +39,3 @@
  </table></outer>
 </notprint>
 </element>
-
-<<element name='seealso_other'>
-<notprint>
- <if what='$topic_id>0'>
-  <outer><table class='topics ninept' style='margin: 0'>
-   <iterate_topic_cross topic_id='$topic_id' topic_grp='$topic_grp'
-			peer_grp='*GRP_NOT_LINKS'>
-   <tr><td><b>$title:</b></td></tr>
-   <inner>
-    <admin_topics>
-     <tr><td>
-      <a href='topiclinkadd.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=*GRP_NOT_LINKS&redirid=$_'
-	 class='edit'>Добавить</a>
-     </td></tr>
-    </admin_topics>
-    <outer><tr><td><ul><inner>
-     <for>
-      <if what='$.PeerId!=$`major` && $.PeerId!=$`major-gallery`'>
-       <li><topiclink posting='$.PeerPosting'>
-       <admin_topics>
-	<asp>&nbsp;<asp>
-	<a href='actions/topiclinkdel.php?topic_id=$topic_id&topic_grp=$topic_grp&peer_grp=$.PeerGrp&peer_id=$.PeerId&okdir=$#-&faildir=$#-'
-	   class='edit'><asp>
-	 <asp>Удалить</a>
-       </admin_topics>
-      </if>
-     </for>
-    </inner></ul></td></tr></outer>
-   </inner>
-  </table></outer>
- </if>
-</notprint>
-</element>>

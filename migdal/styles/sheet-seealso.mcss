@@ -1,0 +1,5 @@
+! @(#) $Id$
+
+LI.seealso-links {
+	list-style-image: url("/pics/outlink.gif");
+}
