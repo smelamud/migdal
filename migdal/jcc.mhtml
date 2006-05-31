@@ -17,12 +17,7 @@
   <td class='cframe'>
    <ifnzero what='$,Id'>
     <subtitle title='$,Subject'>
-    <<outer><div class='nframe' style='padding: 5'><inner>
-     <seealso_links topic_id='$`jcc`' topic_grp='*GRP_REVIEWS'
-		    title='См. также в разделе ссылок'>
-     <seealso_other topic_id='$`jcc`' topic_grp='*GRP_REVIEWS'
-		    title='По этой теме в других разделах'>
-    </inner></div></outer>>
+    <seealso_frame>
     <div class='article'>
      <article_controls posting='$,'>
      <article posting='$,' withvote='*false'>

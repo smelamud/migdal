@@ -39,3 +39,9 @@
  </table></outer>
 </notprint>
 </element>
+
+<element name='seealso_frame'>
+<outer><div class='nframe' style='padding: 5'><inner>
+ <seealso link_type='$link_type' title='$title'>
+</inner></div></outer>
+</element>

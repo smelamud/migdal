@@ -39,14 +39,7 @@
    </notprint>
    <td class='cframe'>
     <subtitle>
-    <<outer><div class='nframe' style='padding: 5'><inner>
-     <seealso_links topic_id='$`migdal.printings`'
-                    topic_grp='*GRP_LIBRARY_NOVELTIES'
-		    title='См. также в разделе ссылок'>
-     <seealso_other topic_id='$`migdal.printings`'
-                    topic_grp='*GRP_LIBRARY_NOVELTIES'
-		    title='По этой теме в других разделах'>
-    </inner></div></outer>>
+    <seealso_frame>
     <perms name='printings' id='$`migdal.printings`'>
     <batcher printings='$printings'>
     <iterate_postinglist grp='*GRP_LIBRARY_NOVELTIES'

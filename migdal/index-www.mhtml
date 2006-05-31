@@ -58,12 +58,7 @@
        <topic_name id='$topic_id'>
        <subtitle title='$,Subject'>
       </if>
-      <outer><div class='nframe' style='padding: 5'><inner>
-       <<seealso_links topic_id='$topic_id' topic_grp='*GRP_TAPE'
-                      title='См. также в разделе ссылок'>
-       <seealso_other topic_id='$topic_id' topic_grp='*GRP_TAPE'
-                      title='По этой теме в других разделах'>>
-      </inner></div></outer>
+      <seealso_frame>
       <if what='$topic_id<=0'>
        <<kaitana_announce>>
        <textears>

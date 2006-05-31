@@ -261,8 +261,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/help.mhtml
 - migdal/horisontedit.mhtml
 - migdal/index-english.mhtml
-* migdal/index-www.mhtml (кроме seealso и ловушек)
-* migdal/jcc.mhtml (кроме seealso)
+* migdal/index-www.mhtml (кроме ловушек)
++ migdal/jcc.mhtml
 - migdal/journal.mhtml
 - migdal/kaitana-main.mhtml
 - migdal/kaitana.mhtml
@@ -271,16 +271,16 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/links.mhtml
 - migdal/methodic-center.mhtml
 - migdal/methodics.mhtml
-+ migdal/migdal-library.mhtml
-* migdal/migdal-library-news.mhtml (кроме seealso)
 + migdal/migdal.mhtml (кроме ловушек)
-* migdal/migdal-news.mhtml
++ migdal/migdal-library.mhtml
++ migdal/migdal-library-novelties.mhtml
+* migdal/migdal-news.mhtml (кроме событий)
 - migdal/modbits.mhtml
 - migdal/moderator.mhtml
 + migdal/postingedit.mhtml (кроме ссылок на help)
 + migdal/posting.mhtml
 * migdal/postingorg.mhtml
-* migdal/printings.mhtml (кроме seealso)
++ migdal/printings.mhtml
 + migdal/rating.mhtml
 + migdal/register.mhtml
 + migdal/reorder.mhtml
@@ -388,7 +388,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/topics-home.mhtml
 - migdal/parts/topics-kaitana.mhtml
 + migdal/parts/topics-links.mhtml
-* migdal/parts/topics-major.mhtml
++ migdal/parts/topics-major.mhtml
 + migdal/parts/topics.mhtml
 - migdal/parts/topics-migdal-english.mhtml
 * migdal/parts/topics-migdal.mhtml
