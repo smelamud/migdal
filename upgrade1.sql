@@ -131,6 +131,7 @@ CREATE TABLE `cross_entries` (
 `peer_id` INT NULL ,
 `peer_path` VARCHAR( 255 ) NOT NULL ,
 `peer_subject` VARCHAR( 255 ) NOT NULL ,
+`peer_subject_sort` VARCHAR( 255 ) NOT NULL ,
 `peer_icon` VARCHAR( 64 ) NOT NULL
 );
 ALTER TABLE `packages` ADD `entry_id` INT NOT NULL AFTER `message_id` ;

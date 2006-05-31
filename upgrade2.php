@@ -813,8 +813,23 @@ foreach($news as $mid)
 echo "\n";
 }
 
+function printArray($f,$row)
+{
+$s='';
+ksort($row);
+foreach($row as $key => $value)
+       {
+       if($s!='')
+         $s.="\t";
+       $s.="$key: $value";
+       }
+fputs($f,"$s\n");
+}
+
 function convertCrossEntries()
 {
+$log=fopen('upgrade2-cross.log','a+');
+fputs($log,"\n".date('r')."\tStarted conversion\n");
 $result=sql("select sources.entry_id as source_id,topic_grp as source_grp,
                     peers.entry_id as peer_id,peer_grp
              from cross_topics
@@ -827,11 +842,24 @@ $result=sql("select sources.entry_id as source_id,topic_grp as source_grp,
 	    __FUNCTION__,'select');
 while($row=mysql_fetch_assoc($result))
      {
+     fputs($log,"\n");
      echo $row['source_id'],'-',$row['source_grp'],'-',$row['peer_grp'],'-';
+     $row['source_ident']=identById($row['source_id']);
+     $row['peer_ident']=identById($row['peer_id']);
+     printArray($log,$row);
      $cross=array('link_type' => LINKT_SEEALSO);
      if($row['source_grp']==GRP_LINKS)
        $cross['source_id']=$row['source_id'];
-     if($row['peer_grp']==GRP_LINKS || $row['peer_grp']==GRP_NEWS)
+     if($row['source_ident']=='major')
+       {
+       $cross['source_name']='major';
+       $cross['link_type']=LINKT_MAJOR;
+       }
+     if($row['source_ident']=='major-gallery')
+       $cross['source_name']='gallery.major';
+     if(($row['peer_grp']==GRP_LINKS || $row['peer_grp']==GRP_NEWS
+         || $row['peer_grp']==GRP_ARTICLES) && $row['peer_ident']!='major'
+	&& $row['peer_ident']!='major_gallery')
        {
        $id=$row['peer_id'];
        $post=new Posting(array('parent_id' => $id,
@@ -839,15 +867,18 @@ while($row=mysql_fetch_assoc($result))
 			       'catalog' => catalog(0,'',catalogById($id))));
        $cross['peer_path']=$post->getGrpGeneralHref();
        }
-     if(!isset($cross['peer_path']))
+     if(!isset($cross['peer_path'])
+        || !isset($cross['source_id']) && !isset($cross['source_name']))
        {
        echo 'N ';
+       fputs($log,"* N\n");
        continue;
        }
      $info=getLocationInfo($cross['peer_path']);
      if($info->getLinkId()<=0 && $info->getLinkName()=='')
        {
        echo 'L ';
+       fputs($log,"* L\n");
        continue;
        }
      echo 'Y ';
@@ -857,11 +888,14 @@ while($row=mysql_fetch_assoc($result))
        $cross['peer_id']=$info->getLinkId();
      $cross['peer_icon']=$info->getLinkIcon();
      $cross['peer_subject']=$info->getLinkTitle();
+     $cross['peer_subject_sort']=convertSort($info->getLinkTitle());
+     printArray($log,$cross);
      sql(makeInsert('cross_entries',
                     $cross),
 	 __FUNCTION__,'insert');
      }
 echo "\n";
+fclose($log);
 }
 
 dbOpen();

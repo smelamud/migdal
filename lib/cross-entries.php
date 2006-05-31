@@ -85,7 +85,7 @@ $this->SelectIterator('CrossEntry',
 		              peer_id,peer_path,peer_subject,peer_icon
 		       from cross_entries
 		       where 1 $filter
-		       order by peer_icon,peer_subject");
+		       order by peer_icon,peer_subject_sort");
 }
 
 }

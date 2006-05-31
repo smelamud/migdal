@@ -26,7 +26,7 @@
      Изменить</a>
  </td></tr>
 </admin_topics>
-<iterate_entry_cross peer_name='major' link_type='*LINKT_MAJOR'>
+<iterate_entry_cross source_name='major' link_type='*LINKT_MAJOR'>
 <for>
  <topic_obj name='topic' id='$.PeerId' fields='*SELECT_INFO'>
  <assign name='info' value='$,PostingsInfo'>
