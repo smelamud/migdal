@@ -6,6 +6,7 @@ require_once('lib/redirs.php');
 require_once('lib/utils.php');
 require_once('lib/ident.php');
 require_once('lib/entries.php');
+require_once('lib/cross-entries.php');
 
 require_once('grp/titles.php');
 require_once('grp/scripts.php');

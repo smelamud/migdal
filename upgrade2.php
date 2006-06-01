@@ -873,8 +873,8 @@ while($row=mysql_fetch_assoc($result))
        $cross['source_name']=$row['source_ident'];
      
      if(($row['peer_grp']==GRP_LINKS || $row['peer_grp']==GRP_NEWS
-         || $row['peer_grp']==GRP_ARTICLES || $row['peer_grp']==GRP_REVIEWS)
-	&& $row['peer_ident']!='major' && $row['peer_ident']!='major_gallery')
+         || $row['peer_grp']==GRP_ARTICLES) && $row['peer_ident']!='major'
+	&& $row['peer_ident']!='major_gallery')
        {
        $id=$row['peer_id'];
        $post=new Posting(array('parent_id' => $id,
@@ -884,6 +884,8 @@ while($row=mysql_fetch_assoc($result))
        }
      if($row['peer_grp']==GRP_LIBRARY_NOVELTIES)
        $cross['peer_path']='/migdal/library/novelties/';
+     if($row['peer_grp']==GRP_REVIEWS)
+       $cross['peer_path']='/'.catalog($row['peer_id'],$row['peer_ident']);
      
      if(!isset($cross['peer_path'])
         || !isset($cross['source_id']) && !isset($cross['source_name']))

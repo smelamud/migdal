@@ -133,6 +133,14 @@ for my $var(keys %$item)
      $value="GRP_$name" unless $name=~/\$/;
      $$item{"_$var"}="\".$value.\"";
      }
+   elsif($type eq 'link_type')
+     {
+     my $name=uc $$item{"_$var"};
+     my $value;
+     $value="constant(\"LINKT_$name\")" if $name=~/\$/;
+     $value="LINKT_$name" unless $name=~/\$/;
+     $$item{"_$var"}="\".$value.\"";
+     }
    else
      {
      $type=ucfirst $type;

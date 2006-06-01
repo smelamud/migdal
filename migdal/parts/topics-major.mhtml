@@ -22,8 +22,7 @@
 <element name='general' params='index,span' defaults='span=1'>
 <admin_topics>
  <tr><td colspan=3 class='eightpt'>
-  <a href='topiclinks.php?topic_id=$`major`&topic_grp=*GRP_NEWS&peer_grp=*GRP_NEWS&redirid=$_'>
-     Изменить</a>
+  <a href='/major/?redirid=$_'>Изменить</a>
  </td></tr>
 </admin_topics>
 <iterate_entry_cross source_name='major' link_type='*LINKT_MAJOR'>

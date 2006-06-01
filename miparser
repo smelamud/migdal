@@ -137,7 +137,7 @@ return "$st\$".getGlobal('LocationInfo')."->getParentURI()$ed"
        if $s=~/^\$--$/;
 return "${st}urlencode(\$".getGlobal('LocationInfo')."->getParentURI())$ed"
        if $s=~/^\$#--$/;
-return "$st\$_SERVER['SCRIPT_NAME']$ed"
+return "$st\$".getGlobal('LocationInfo')."->getPath()$ed"
        if $s=~/^\$~$/;
 return "$st\$_SERVER['QUERY_STRING']$ed"
        if $s=~/^\$\?$/;

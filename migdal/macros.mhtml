@@ -237,11 +237,12 @@
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
        defaults="showtitle='*true'">
 <decel name='seealso' file='parts/seealso.php'
-       params='link_type,title'
-       defaults="link_type='*LINKT_SEEALSO' title='óÍ. ÔÁËÖÅ'">
+       params='source_name,source_id,link_type,title,adddir'
+       defaults="source_name='' source_id=0 link_type='*LINKT_SEEALSO'
+                 title='óÍ. ÔÁËÖÅ' adddir=''">
 <decel name='seealso_frame' file='parts/seealso.php'
-       params='link_type,title'
-       defaults="link_type='*LINKT_SEEALSO' title='óÍ. ÔÁËÖÅ'">
+       params='link_type,title,adddir'
+       defaults="link_type='*LINKT_SEEALSO' title='óÍ. ÔÁËÖÅ' adddir=''">
 <decel name='selflink' file='parts/posting.php' params='posting'>
 <decel name='senderlink' file='parts/utils.php' params='message'>
 <decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'

@@ -1,0 +1,31 @@
+<< @(#) $Id$ >>
+
+<string name='source_name'>
+<int name='source_id'>
+<int name='link_type'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <center>
+  <form_table title='$$LocationInfo.Title'>
+   <form method=post action='actions/topiclinkadd.php'>
+    <hidden name='okdir' value='$--'>
+    <hidden name='faildir' value='$-'>
+    <hidden name='source_name' value='$source_name'>
+    <hidden name='source_id' value='$source_id'>
+    <hidden name='link_type' value='$link_type'>
+    <starinfo>
+    <error id='*ETLA_NO_ADD'
+	   text='Добавлять перекрестные ссылки может только администратор'>
+    <error id='*ETLA_TOPIC_ABSENT' text='Такой ссылки не существует'>
+    <form_edit title='URL' name='peer_path' value='' size=75 maxlength=250
+	       mandatory='*true' comment='Адрес страницы на сайте'>
+    <form_buttons title='Добавить'>
+   </form>
+  </form_table>
+ </center>
+ <bottom>
+</body>
+</html>

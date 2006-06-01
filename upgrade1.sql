@@ -124,6 +124,7 @@ ALTER TABLE `chat_messages` ADD `text_xml` VARCHAR( 255 ) NOT NULL ;
 ALTER TABLE `counters` ADD `entry_id` INT NOT NULL AFTER `message_id` ;
 ALTER TABLE `counters` ADD INDEX ( `entry_id` ) ;
 CREATE TABLE `cross_entries` (
+`id` INT NOT NULL AUTO_INCREMENT ,
 `source_name` VARCHAR( 255 ) NULL ,
 `source_id` INT NULL ,
 `link_type` INT NOT NULL ,
@@ -132,7 +133,8 @@ CREATE TABLE `cross_entries` (
 `peer_path` VARCHAR( 255 ) NOT NULL ,
 `peer_subject` VARCHAR( 255 ) NOT NULL ,
 `peer_subject_sort` VARCHAR( 255 ) NOT NULL ,
-`peer_icon` VARCHAR( 64 ) NOT NULL
+`peer_icon` VARCHAR( 64 ) NOT NULL ,
+PRIMARY KEY ( `id` )
 );
 ALTER TABLE `packages` ADD `entry_id` INT NOT NULL AFTER `message_id` ;
 ALTER TABLE `packages` ADD INDEX ( `entry_id` ) ;

@@ -11,6 +11,7 @@ define('LINKT_NONE',0);
 class CrossEntry
       extends DataObject
 {
+var $id;
 var $source_name;
 var $source_id;
 var $link_type;
@@ -23,6 +24,11 @@ var $peer_icon;
 function CrossEntry($row)
 {
 parent::DataObject($row);
+}
+
+function getId()
+{
+return $this->id;
 }
 
 function getSourceName()
@@ -81,7 +87,7 @@ if($source_id>0)
 if($link_type!=LINKT_NONE)
   $filter.=" and link_type=$link_type";
 $this->SelectIterator('CrossEntry',
-                      "select source_name,source_id,link_type,peer_name,
+                      "select id,source_name,source_id,link_type,peer_name,
 		              peer_id,peer_path,peer_subject,peer_icon
 		       from cross_entries
 		       where 1 $filter

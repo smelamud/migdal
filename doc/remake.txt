@@ -245,6 +245,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/complainedit.mhtml
 - migdal/complainforum.mhtml
 - migdal/complains.mhtml
++ migdal/cross-entries.mhtml
+* migdal/cross-entry-add.mhtml
 + migdal/ears.mhtml
 - migdal/event.mhtml
 - migdal/events-english.mhtml
@@ -295,8 +297,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/tips.mhtml
 + migdal/topicdel.mhtml
 + migdal/topicedit.mhtml
-- migdal/topiclinkadd.mhtml
-- migdal/topiclinks.mhtml
 + migdal/topicorg.mhtml
 + migdal/urls.mhtml
 * migdal/useredit.mhtml (кроме ссылок на help)

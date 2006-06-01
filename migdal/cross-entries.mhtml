@@ -1,0 +1,18 @@
+<< @(#) $Id$ >>
+
+<string name='source_name'>
+<int name='source_id'>
+<int name='link_type'>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <center><div class='nframe' style='width: 90%; padding: 5px'>
+  <subtitle>
+  <seealso source_name='$source_name' source_id='$source_id'
+           link_type='$link_type' title='Связанные страницы'>
+ </div></center>
+ <bottom>
+</body>
+</html>
