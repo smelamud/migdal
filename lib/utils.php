@@ -125,4 +125,10 @@ if($lastSlash==SLASH_NO)
     $path=substr($path,0,-1);
 return $path;
 }
+
+function getURLPath($url)
+{
+$parts=parse_url($url);
+return $parts['path'];
+}
 ?>

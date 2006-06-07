@@ -6,7 +6,7 @@
 <iterate_postinglist grp='*GRP_TEXTEARS' topic_id='$`textears`' limit=3>
 <ifnzero what='$;Count'>
  <table style='margin: 0'>
-  <tr><td class='textears-title'>Коротко о главном:</td></tr>
+  <tr><td class='textears-title'>Коротко о важном:</td></tr>
   <tr><td><ul class='ninept'>
    <for>
     <li><a href='$.URL'>$=.Subject</a></li>

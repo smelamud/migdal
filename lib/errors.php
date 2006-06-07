@@ -132,8 +132,12 @@ define('EDM_NO_POSTING',341);
 
 define('EPL_NO_LOGIN',350);
 
-define('ETLA_NO_ADD',360);
-define('ETLA_TOPIC_ABSENT',361);
+define('ECEA_NO_ADD',360);
+define('ECEA_ENTRY_ABSENT',361);
+define('ECEA_NO_SOURCE',362);
+define('ECEA_NO_PATH',363);
+define('ECEA_PATH_ABSENT',364);
+define('ECEA_NO_LINKING',365);
 
 define('ETLD_NO_DEL',370);
 

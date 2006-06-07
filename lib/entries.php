@@ -952,9 +952,12 @@ return EG_OK;
 
 function entryExists($entry,$id)
 {
+$filter="id=$id";
+if($entry!=ENT_NULL)
+  $filter.=" and entry=$entry";
 $result=sql("select id
 	     from entries
-	     where id=$id and entry=$entry",
+	     where $filter",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }

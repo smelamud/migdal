@@ -12,11 +12,11 @@ class CrossEntry
       extends DataObject
 {
 var $id;
-var $source_name;
-var $source_id;
+var $source_name=null;
+var $source_id=null;
 var $link_type;
-var $peer_name;
-var $peer_id;
+var $peer_name=null;
+var $peer_id=null;
 var $peer_path;
 var $peer_subject;
 var $peer_icon;
@@ -94,5 +94,42 @@ $this->SelectIterator('CrossEntry',
 		       order by peer_icon,peer_subject_sort");
 }
 
+}
+
+function storeCrossEntry(&$cross)
+{
+$jencoded=array('source_name' => '','source_id' => 'entries','peer_name' => '',
+                'peer_id' => 'entries','peer_path' => '','peer_subject' => '',
+		'peer_subject_sort' => '','peer_icon' => '');
+$vars=array('source_name' => $cross->source_name,
+            'source_id' => $cross->source_id,
+            'link_type' => $cross->link_type,
+            'peer_name' => $cross->peer_name,
+            'peer_id' => $cross->peer_id,
+            'peer_path' => $cross->peer_path,
+            'peer_subject' => $cross->peer_subject,
+            'peer_subject_sort' => $cross->peer_subject_sort,
+            'peer_icon' => $cross->peer_icon);
+if($cross->id)
+  {
+  $result=sql(makeUpdate('cross_entries',
+                         $vars,
+			 array('id' => $cross->id)),
+	      __FUNCTION__,'update');
+  journal(makeUpdate('cross_entries',
+                     jencodeVars($vars,$jencoded),
+		     array('id' => journalVar('cross_entries',$cross->id))));
+  }
+else
+  {
+  $result=sql(makeInsert('cross_entries',
+                         $vars),
+	      __FUNCTION__,'insert');
+  $cross->id=sql_insert_id();
+  journal(makeInsert('cross_entries',
+                     jencodeVars($vars,$jencoded)),
+	  'cross_entries',$cross->id);
+  }
+return $result;
 }
 ?>
