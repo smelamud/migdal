@@ -132,4 +132,16 @@ else
   }
 return $result;
 }
+
+function deleteCrossEntry($id)
+{
+sql("delete
+     from cross_entries
+     where id=$id",
+    __FUNCTION__);
+journal('delete
+	 from cross_entries
+	 where id='.journalVar('cross_entries',$id),
+	__FUNCTION__);
+}
 ?>

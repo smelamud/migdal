@@ -35,7 +35,7 @@
       <li class='seealso-$icon'><a href='$.PeerPath'>$=.PeerSubject</a>
       <moderator>
        <asp>&nbsp;<asp>
-       <a href='actions/topiclinkdel.php?id=$.Id&okdir=$#-&faildir=$#-'
+       <a href='/actions/cross-entry/delete?id=$.Id&okdir=$#-&faildir=$#-'
 	  class='edit'><asp>
 	<asp>Удалить</a>
       </moderator>
