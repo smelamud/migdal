@@ -311,7 +311,7 @@
 <decel name='topics_links' params='posting' file='parts/topics-links.php'>
 <decel name='topics_major' file='parts/topics-major.php' params='index'>
 <decel name='topics_mazltov' file='parts/topics-migdal.php' params='index'>
-<decel name='topics_methodics' file='parts/topics-migdal.php' params='posting'>
+<decel name='topics_methodology' file='parts/topics-migdal.php' params='index'>
 <decel name='topics_migdal' file='parts/topics-migdal.php' params='index'>
 <decel name='topics_migdal_english' file='parts/topics-migdal-english.php'
        params='posting'>

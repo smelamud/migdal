@@ -121,17 +121,18 @@
 <topics_common_events id='$`mazltov-births`'>
 </element>
 
-<element name='topics_methodics'>
+<element name='topics_methodology'>
 <upper_level name='Мигдаль' href='/migdal/'>
 <topics_table title='Методический центр'>
- <posting_obj id='$`postings:methodic-center`' fields='*SELECT_GENERAL'>
- <topics_line time='$,Sent' text='О центре' href='methodic-center.php'
-              arrow!='$posting.Id==$,Id' class='item ninept'>
- <posting_last grp='*GRP_BOOKS' topic_id='$`methodics`' recursive='*true'>
- <topics_line time='$,' text='Методические пособия' href='methodics.php'
-              arrow!='($posting.Grp & (*GRP_BOOKS|*GRP_BOOK_CHAPTERS))!=0 &&
-	              $posting.TopicId==$`methodics`'
-	      class='item ninept'>
+ <posting_obj id='$`post.migdal.methodology`'>
+ <topics_line time='$,Modified' text='О центре' href='/migdal/methodology/'
+              arrow!="$index=='migdal.methodology'" class='topics-item ninept'>
+ <posting_last grp='*GRP_BOOKS' topic_id='$`migdal.methodology`'
+               recursive='*false'>
+ <topics_line time='$,' text='Методические пособия'
+              href='/migdal/methodology/books/'
+              arrow!="$index=='migdal.methodology.books'"
+	      class='topics-item ninept'>
 </topics_table>
 <topics_common_events id='$`abokers`'>
 <topics_common_events id='$`halom`'>
@@ -229,10 +230,10 @@
 	     indent=1 class='topics-item eightpt'>
 <posting_last topic_id='$`methodics`' recursive='*true'>
 <topics_line time='$,' text='Методический центр'
-	     href='methodic-center.php'
+	     href='/migdal/methodology/'
 	     title='Южно-украинский региональный методический центр'
+	     arrow!="$index=='migdal.methodology'"
 	     indent=1 class='topics-item eightpt'>
-	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`methodics`">>
 <posting_last topic_id='$`migdal.printings`' recursive='*true'>
 <topics_line time='$,' text='Издательский центр'
 	     href='/migdal/printings/'

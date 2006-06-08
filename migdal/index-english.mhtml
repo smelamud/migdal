@@ -4,7 +4,7 @@
 << /Traps >>
 
 <grps>
-<posting_obj id='$`postings:migdal,e`' grp='*GRP_REVIEW'
+<posting_obj id='$`postings:migdal,e`' grp='*GRP_REVIEWS'
              fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
 <topictitle title='$,Subject'>
 

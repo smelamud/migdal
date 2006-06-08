@@ -857,6 +857,9 @@ while($row=mysql_fetch_assoc($result))
          || $row['source_grp']==GRP_ARTICLES) && $row['source_ident']!='major'
 	&& $row['source_ident']!='major_gallery')
        $cross['source_id']=$row['source_id'];
+     if($row['source_grp']==GRP_BOOKS
+        && $row['source_ident']=='migdal.methodology')
+       $cross['source_name']='migdal.methodology.books';
      if($row['source_ident']=='major')
        {
        $cross['source_name']='major';
@@ -882,6 +885,8 @@ while($row=mysql_fetch_assoc($result))
 			       'catalog' => catalog(0,'',catalogById($id))));
        $cross['peer_path']=$post->getGrpGeneralHref();
        }
+     if($row['peer_grp']==GRP_BOOKS && $row['peer_ident']=='migdal.methodology')
+       $cross['peer_path']='/migdal/methodology/books/';
      if($row['peer_grp']==GRP_LIBRARY_NOVELTIES)
        $cross['peer_path']='/migdal/library/novelties/';
      if($row['peer_grp']==GRP_REVIEWS)
@@ -955,10 +960,10 @@ convertLinkedTable('inner_images','image_id','image_entry_id',$imageIds);
 echo "16. Votes...\n";
 convertLinkedTable('votes','posting_id','entry_id',$postingIds);
 echo "17. Users...\n";
-convertUsers();
+convertUsers();*/
 echo "18. Idents...\n";
 convertIdents();
-echo "19. Migdal news...\n";
+/*echo "19. Migdal news...\n";
 convertMigdalNews();*/
 echo "20. Interlinks...\n";
 convertCrossEntries();
