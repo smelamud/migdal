@@ -42,7 +42,7 @@
      </ifzero>
     </td>
     <td>
-     <a href='forum.php?msgid=$.Id' class='ninept'>$.GrpHeading</a>
+     <a href='forum.php?msgid=$.Id' class='ninept'>$.Heading</a>
      <if what='$.TopicId!=$`forums`'>
       <br>
       <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>

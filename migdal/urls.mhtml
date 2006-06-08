@@ -81,7 +81,7 @@
 	<dt>$=.URLDomain
 	<assign name='domain' value='$.URLDomain'>
        </if>
-       <dd><a href='$.GrpDetailsHref'>$=.GrpHeading</a>
+       <dd><a href='$.GrpDetailsHref'>$=.Heading</a>
        <dd class='url'>$=.URL
       </for>
      </dl>

@@ -7,7 +7,7 @@
 <ifnzero what='$;Count'>
  <topics_table class='eightpt' title='$title'>
   <for>
-   <topics_line time='$.Sent' href='$.GrpDetailsHref' text='$=.GrpHeading'
+   <topics_line time='$.Sent' href='$.GrpDetailsHref' text='$=.Heading'
                 rating!='$.VoteCount!=0 ? $.Rating20 : -1'>
   </for>
  </topics_table>

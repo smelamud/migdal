@@ -8,7 +8,7 @@
 <ifnzero what='$;Count'>
  <topics_table title='Методические пособия'>
   <for>
-   <topics_line time='$.Modified' href='$.GrpDetailsHref' text='$=.GrpHeading'
+   <topics_line time='$.Modified' href='$.GrpDetailsHref' text='$=.Heading'
                 class='topics-item ninept'>
   </for>
  </topics_table>

@@ -15,16 +15,10 @@ $topic=getTopicById($id);
 return $topic->getBody()=='' ? $topic->getSubject() : $topic->getBody();
 }
 
-function titlePostingSubjectDesc($id)
+function titlePostingHeading($id)
 {
 $posting=getPostingById($id);
-return $posting->getSubjectDesc();
-}
-
-function titlePostingGrpHeading($id)
-{
-$posting=getPostingById($id);
-return $posting->getGrpHeading();
+return $posting->getHeading();
 }
 
 function titlePostingGrpWhatV($id)

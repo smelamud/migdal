@@ -98,7 +98,7 @@
 	  <hidden name='id[]' value='$.MessageId'>
 	 </td>
 	 <td>
-	  <a href='$.DetailsHref' class='ninept'>$.GrpHeading</a><br>
+	  <a href='$.DetailsHref' class='ninept'>$.Heading</a><br>
 	  <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
 	 </td>
 	 <td align=center>

@@ -161,6 +161,20 @@ foreach($editor as $item)
 return false;
 }
 
+function getHeading()
+{
+$heading='';
+if(method_exists($this,'getGrpHeading'))
+  $heading=$this->getGrpHeading();
+if($heading=='' && method_exists($this,'getSubject'))
+  $heading=$this->getSubject();
+if($heading=='' && method_exists($this,'getBodyTiny'))
+  $heading=$this->getBodyTiny();
+if($heading=='')
+  $heading='Без названия';
+return $heading;
+}
+
 }
 
 // from Message FIXME

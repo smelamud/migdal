@@ -10,9 +10,9 @@
 </ifzero>
 <log event=forum text#='post($,Id)'>
 <notenglish>
- <pagetitle title#='Форум - $,GrpHeading'>
+ <pagetitle title#='Форум - $,Heading'>
 <else>
- <pagetitle title#='Forum - $,GrpHeading'>
+ <pagetitle title#='Forum - $,Heading'>
 </notenglish>
 
 <html>

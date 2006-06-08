@@ -48,7 +48,7 @@
  <form_option title='-- Пусто --' value='0' selected!='$current<=0'>
  <reset_iterator list='$sels'>
  <for list='sels'>
-  <assign name='heading' value='$=.GrpHeading'>
+  <assign name='heading' value='$=.Heading'>
   <assign name='heading' value!='shortenNote(${heading},64,16,5)'>
   <form_option title='$=heading' value='$.Id' selected!='$.Id==$current'>
  </for>

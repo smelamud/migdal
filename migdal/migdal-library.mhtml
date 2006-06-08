@@ -13,7 +13,7 @@
     <topics_table title='Новинки'>
      <for>
       <topics_line time='$.Modified' href='$.GrpDetailsHref'
-		   text='$=.GrpHeading' class='topics-item eightpt'>
+		   text='$=.Heading' class='topics-item eightpt'>
      </for>
      <tr><td align=center colspan=2>
       <a href='/migdal/library/novelties/' class='eightpt'>Все новинки</a>

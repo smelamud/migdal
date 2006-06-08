@@ -29,7 +29,7 @@
        <assign name='day' value='$.Sent@d'>
       </if>
       <dd>$.Sent@H:$.Sent@i&sp;
-	  <a href='$.DetailsHref'>$.GrpHeading</a>
+	  <a href='$.DetailsHref'>$.Heading</a>
      </for>
     </dl>
    </td>

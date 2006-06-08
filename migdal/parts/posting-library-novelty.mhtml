@@ -14,7 +14,7 @@
 	      image='$$style_cframe_back_pic'>
   <biff time='$posting.Modified'>
   <span class='posting-subject'>
-   $=posting.GrpHeading
+   $=posting.Heading
   </span>
   <br>
   $=posting.Subject
