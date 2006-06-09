@@ -53,7 +53,7 @@
     <tr><td>$posting.TitleHTML</td></tr>
    </ifne>
   </table>
- </ifnzero>
+ </if>
  <if what='$shorten && !$posting.hasLargeBody'>
   $posting.BodyMediumHTML<asp>
   <if what='!$posting.isBodyMedium'>

@@ -827,19 +827,16 @@ $result=sql("select id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-// remake
 function getSibling($up,$index0,$next=true)
 {
 $filter=$next ? "index0>$index0" : "index0<$index0";
 $order=$next ? 'asc' : 'desc';
-$result=sql("select postings.id
-	     from postings
-		  left join messages
-		       on postings.message_id=messages.id
+$result=sql("select id
+	     from entries
 	     where up=$up and $filter
 	     order by index0 $order
 	     limit 1",
-	    'getSibling');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 

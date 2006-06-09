@@ -2,43 +2,53 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topiclink posting='$posting'>
+ <topic_obj id='$posting.TopicId'>
+ <assign name='title' value='$,Subject'>
+ <if what=$,UpValue==$`migdal`>
+  <assign name='title' value#='Мигдаль :: $title'>
+ </if>
+ <topiclink posting='$posting' title='$title' comment='$,BodyNormal'>
  <br>
 </if>
 </element>
 
 <element name='further' params='posting'>
-<sibling up='$posting.MessageId' index0='-1'>
+<sibling up='$posting.Id' index0='-1'>
 <if what='$,>0'>
- <p><image src='pics/further.gif'>&sp;
- <a href='book-chapter.php?chapid=$,'>Читать книгу</a>
+ <p>
+  <image src='/pics/further.gif'>&sp;
+  <a href='book-chapter.php?chapid=$,'>Читать книгу</a>
+ </p>
 </if>
 </element>
 
 <element name='posting_book'>
-<identify posting='$posting'>
 <dl class='posting'>
- <dt class='subject'>
+ <dt>
   <topic posting='$posting' showtopic='$showtopic'>
   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
 	      image='$$style_cframe_back_pic'>
-  <biff time='$posting.Sent'>
-  <a href='$posting.DetailsHref'>$posting.Subject</a>
+  <biff time='$posting.Modified'>
+  <a class='posting-subject'
+     href='$posting.GrpDetailsHref'>$=posting.Heading</a>
   <ifne what='$posting.Author'>
-   <br><span class='author'>$posting.Author</span>
+   <br><span class='posting-author'>$=posting.Author</span>
   </ifne>
  </dt>
- <dd><p>
- <ifnzero what='$posting.ImageSet'>
+ <dd>
+ <if what='$posting.hasSmallImage'>
   <table align=left class='pic'>
    <tr><td>
-    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+    <posting_image posting='$posting'>
    </td></tr>
+   <ifne what='$posting.Title'>
+    <tr><td>$posting.TitleHTML</td></tr>
+   </ifne>
   </table>
- </ifnzero>
- $posting.HTMLBody&nbsp;<asp>
+ </if>
+ $posting.BodyHTML<asp>
  <further posting='$posting'>
- <iterate_packages posting_id='$posting.Id'>
+ <<iterate_packages posting_id='$posting.Id'>
  <for>
   <br><image src='pics/package.gif' border=0>&sp;
   <if what='$.Type==*PT_BOOK_ONEFILE'>
@@ -47,9 +57,8 @@
    <assign name='title' value='Вся книга по главам в архиве'>
   </if>
   <a href='$.Href'>$title</a>&sp;<i>(ZIP, ${.SizeKB}KB)</i>
- </for>
- </p>
- <table width=100% style="clear: left"><tr>
+ </for>>
+ <table width=90% style="clear: left"><tr>
   <td align=left class='sent'>
    <sentview date='$posting.Sent'>&nbsp;
    <senderlink message='$posting'>

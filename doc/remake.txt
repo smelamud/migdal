@@ -353,7 +353,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/picture-main.mhtml
 + migdal/parts/picture.mhtml
 - migdal/parts/pointer.mhtml
-- migdal/parts/posting-book.mhtml
+* migdal/parts/posting-book.mhtml
 + migdal/parts/posting-ear.mhtml
 * migdal/parts/posting-general.mhtml
 + migdal/parts/posting-library-announce.mhtml
