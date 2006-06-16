@@ -81,12 +81,13 @@ if($posting->isMandatory('index1') && $posting->index1==0)
 if($posting->isMandatory('image') && !$posting->hasSmallImage())
   return EP_IMAGE_ABSENT;
 if($posting->hasSmallImage()
-   && !(imageExists($posting->id,$thumbnailType,$posting->small_image,'small')
-	|| imageExists($posting->id,$posting->large_image_format,
+   && !(imageExists($posting->orig_id,$thumbnailType,
+                    $posting->small_image,'small')
+	|| imageExists($posting->orig_id,$posting->large_image_format,
 		       $posting->small_image,'small')))
   return EP_NO_IMAGE;
 if($posting->hasLargeImage()
-   && !imageExists($posting->id,$posting->large_image_format,
+   && !imageExists($posting->orig_id,$posting->large_image_format,
                    $posting->large_image,'large'))
   return EP_NO_IMAGE;
 if($posting->person_id!=0 && !personalExists($posting->person_id))

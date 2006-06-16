@@ -7,7 +7,7 @@
 </element>
 
 <element name='further' params='posting'>
-<sibling up='$posting.Id' index0='-1'>
+<sibling up='$posting.OrigId' index0='-1'>
 <if what='$,>0'>
  <p>
   <image src='/pics/further.gif'>&sp;

@@ -702,7 +702,7 @@ function getSmallImageURL()
 global $thumbnailType;
 
 $format=$this->hasLargeImage() ? $thumbnailType : $this->getLargeImageFormat();
-return getImageURL($this->getId(),getImageExtension($format),
+return getImageURL($this->getOrigId(),getImageExtension($format),
                    $this->getSmallImage(),'small');
 }
 
@@ -729,7 +729,7 @@ return $this->large_image_y;
 function getLargeImageURL()
 {
 $format=$this->getLargeImageFormat();
-return getImageURL($this->getId(),getImageExtension($format),
+return getImageURL($this->getOrigId(),getImageExtension($format),
                    $this->getLargeImage(),'large');
 }
 
