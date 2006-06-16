@@ -202,6 +202,7 @@ if($expr=~/^orig.id\.(\w+)$/)
   }
 return "\".\$info->parent->getId('$1').\"" if $expr=~/^parent.id\.(\w+)$/;
 return "\".\$info->parent->getTitle().\"" if $expr eq 'parent.title';
+return "\".\$info->parent->getTitleFull().\"" if $expr eq 'parent.title.full';
 return "\".\$info->parent->getLinkTitle().\"" if $expr eq 'parent.link.title';
 return "{\$$expr}";
 }
@@ -245,7 +246,8 @@ sub processTitleLike
 my ($item)=@_;
 
 processTitle($item,'title','title');
-processTitle($item,'reltitle','title');
+processTitle($item,'title.rel','title');
+processTitle($item,'title.full','title');
 processTitle($item,'link.title','title');
 processTitle($item,'script','script');
 }
@@ -315,6 +317,8 @@ function &getLocationInfo(\$path,\$redirid=0)
 {
 global \$userDomain;
 
+if(hasCachedValue('location_info','location_info',\$path))
+  return getCachedValue('location_info','location_info',\$path);
 \$info=new LocationInfo();
 \$info->setPath(\$path);
 if(substr(\$path,-5)=='.html')
@@ -429,18 +433,32 @@ EOF
   \$info->setTitle($title);
 EOF
      }
-   if(exists($$item{'_reltitle'}))
+   if(exists($$item{'_title.rel'}))
      {
-     my $reltitle=trimQuotes('"'.$$item{'_reltitle'}.'"');
+     my $reltitle=trimQuotes('"'.$$item{'_title.rel'}.'"');
      print OUT <<EOF
-  \$info->setRelativeTitle($reltitle);
+  \$info->setTitleRelative($reltitle);
 EOF
      }
    elsif(exists($$item{'_title'}))
      {
      my $title=trimQuotes('"'.$$item{'_title'}.'"');
      print OUT <<EOF
-  \$info->setRelativeTitle($title);
+  \$info->setTitleRelative($title);
+EOF
+     }
+   if(exists($$item{'_title.full'}))
+     {
+     my $fulltitle=trimQuotes('"'.$$item{'_title.full'}.'"');
+     print OUT <<EOF
+  \$info->setTitleFull($fulltitle);
+EOF
+     }
+   elsif(exists($$item{'_title'}))
+     {
+     my $title=trimQuotes('"'.$$item{'_title'}.'"');
+     print OUT <<EOF
+  \$info->setTitleFull($title);
 EOF
      }
    if(exists($$item{'link.name'}))
@@ -472,6 +490,7 @@ EOF
 EOF
      }
    print OUT <<EOF;
+  setCachedValue('location_info','location_info',\$path,\$info);
   return \$info;
 EOF
    if(exists($$item{'_orig.ids'}))
@@ -485,6 +504,7 @@ EOF
 EOF
    }
 print OUT <<EOF;
+setCachedValue('location_info','location_info',\$path,\$info);
 return \$info;
 }
 ?>

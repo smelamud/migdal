@@ -2,13 +2,13 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <assign name='title' value=''>
+ <<assign name='title' value=''>
  <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
  <for>
   <if what='!$;isFirst'><assign name='title' value#='$title / '></if>
   <assign name='title' value#='$title$.Subject'>
- </for>
- <topiclink posting='$posting' title='$title'>
+ </for>>
+ <topiclink posting='$posting'>
  <br>
 </if>
 </element>

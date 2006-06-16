@@ -2,7 +2,7 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topiclink posting='$posting' title='Новинки библиотеки'><br>
+ <topiclink posting='$posting'><br>
 </if>
 </element>
 

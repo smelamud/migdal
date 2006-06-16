@@ -229,6 +229,8 @@
 	 defaults='name=image x=0 y=0'>
 <deccall macro='last_chat' func='getLastChat' file='lib/chat-users.php'
          params='id'>
+<deccall macro='location_info' func='getLocationInfo' file='lib/structure.php'
+         params='path'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
 <deccall macro='message_posting' func='getPostingIdByMessageId'
          file='lib/postings.php' params='id'>

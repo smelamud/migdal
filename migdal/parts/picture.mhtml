@@ -4,9 +4,8 @@
 
 <element name='topic' params='picture,showtopic'>
 <if what='$showtopic'>
- <tr><td class='eightpt' align=center>
-  <topic_obj id='$picture.TopicId'>
-  <topiclink posting='$picture' title='$,Subject' comment='$,BodyNormal'>
+ <tr><td class='eightpt' align='center'>
+  <topiclink posting='$picture'>
  </td></tr>
 </if>
 </element>

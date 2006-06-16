@@ -240,9 +240,9 @@
  <div class='return ninept'>
   <for>
    <islast what='$locs'>
-    <nobr><b>$=.RelativeTitle</b></nobr>
+    <nobr><b>$=.TitleRelative</b></nobr>
    <else>
-    <nobr><at href='$.URI' target='$target'>$=.RelativeTitle</at>&sp;&gt;</nobr>
+    <nobr><at href='$.URI' target='$target'>$=.TitleRelative</at>&sp;&gt;</nobr>
    </islast>
   </for>
  </div>

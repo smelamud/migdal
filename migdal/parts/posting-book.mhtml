@@ -2,13 +2,7 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topic_obj id='$posting.TopicId'>
- <assign name='title' value='$,Subject'>
- <if what=$,UpValue==$`migdal`>
-  <assign name='title' value#='Мигдаль :: $title'>
- </if>
- <topiclink posting='$posting' title='$title' comment='$,BodyNormal'>
- <br>
+ <topiclink posting='$posting'><br>
 </if>
 </element>
 

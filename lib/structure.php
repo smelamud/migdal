@@ -7,6 +7,7 @@ require_once('lib/utils.php');
 require_once('lib/ident.php');
 require_once('lib/entries.php');
 require_once('lib/cross-entries.php');
+require_once('lib/cache.php');
 
 require_once('grp/titles.php');
 require_once('grp/scripts.php');
@@ -49,7 +50,8 @@ var $args=array();
 var $ids=array();
 var $redir=null;
 var $title='Untitled';
-var $relativeTitle='Untitled';
+var $titleRelative='Untitled';
+var $titleFull='Untitled';
 var $parent=null;
 var $child=null;
 var $orig=null;
@@ -155,14 +157,24 @@ function setTitle($title)
 $this->title=$title;
 }
 
-function getRelativeTitle()
+function getTitleRelative()
 {
-return $this->relativeTitle;
+return $this->titleRelative;
 }
 
-function setRelativeTitle($title)
+function setTitleRelative($title)
 {
-$this->relativeTitle=$title;
+$this->titleRelative=$title;
+}
+
+function getTitleFull()
+{
+return $this->titleFull;
+}
+
+function setTitleFull($title)
+{
+$this->titleFull=$title;
 }
 
 function &getParent()

@@ -11,7 +11,8 @@
 </element>
 
 <element name='topiclink'>
-<at href='$posting.GrpGeneralHref' class='$class' title='$=comment'>$=title</at>
+<location_info path='$posting.GrpGeneralHref'>
+<at href='$posting.GrpGeneralHref' class='$class'>$=,TitleFull</at>
 </element>
 
 <<remake>>
