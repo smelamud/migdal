@@ -183,7 +183,7 @@ for my $var(keys %$item)
    {
    next unless $var=~/^(?:arg|id)\./ || $var=~/^link\.(?:id|name|icon)$/;
    $var="_$1" if $var=~/^((?:arg|id)\.\w+):\w+$/;
-   $$item{$var}=~s/\${((?:(?:parent|orig)\.id|arg|id)\.\w+)}/subTitleVar($1,$item)/ge;
+   $$item{$var}=~s/\${((?:parent\.|orig\.)?(?:arg|id)\.\w+)}/subTitleVar($1,$item)/ge;
    }
 
 postProcessArgs($item);
@@ -201,6 +201,7 @@ if($expr=~/^orig.id\.(\w+)$/)
   return "\".\$info->orig->getId('$1').\"";
   }
 return "\".\$info->parent->getId('$1').\"" if $expr=~/^parent.id\.(\w+)$/;
+return "\".\$info->parent->getArg('$1').\"" if $expr=~/^parent.arg\.(\w+)$/;
 return "\".\$info->parent->getTitle().\"" if $expr eq 'parent.title';
 return "\".\$info->parent->getTitleFull().\"" if $expr eq 'parent.title.full';
 return "\".\$info->parent->getLinkTitle().\"" if $expr eq 'parent.link.title';

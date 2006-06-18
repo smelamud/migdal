@@ -94,6 +94,11 @@ function setArgs($args)
 $this->args=$args;
 }
 
+function getArg($name)
+{
+return $this->args[$name];
+}
+
 function getIds()
 {
 return $this->ids;
