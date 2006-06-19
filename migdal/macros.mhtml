@@ -404,13 +404,15 @@
   <notprint>
    <link rel='alternate' media='print' href='$[print=1]'>
   </notprint>
-  <link rel='search' href='search.php'>
+  <link rel='search' href='/search'>
   <ifne what="'%stylesheet'">
    <link rel='stylesheet' href='%stylesheet'>
   </ife>
   <if what='$metaNoIndex'>
    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
   </if>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <title><asp>
    <notenglish>Мигдаль<else>Migdal</notenglish>
    <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='Главная'
