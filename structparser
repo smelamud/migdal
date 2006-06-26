@@ -181,7 +181,8 @@ for my $sub(@{$$item{'_subs'}})
 
 for my $var(keys %$item)
    {
-   next unless $var=~/^(?:arg|id)\./ || $var=~/^link\.(?:id|name|icon)$/;
+   next unless $var=~/^(?:arg|id)\./ || $var=~/^link\.(?:id|name|icon)$/
+               || $var eq 'parent.path';
    $var="_$1" if $var=~/^((?:arg|id)\.\w+):\w+$/;
    $$item{$var}=~s/\${((?:parent\.|orig\.)?(?:arg|id)\.\w+)}/subTitleVar($1,$item)/ge;
    }
@@ -352,13 +353,6 @@ EOF
   \$info->setPath('$redirect');
 EOF
      }
-   if(exists($$item{'parent.path'}))
-     {
-     my $parent=trimQuotes('"'.$$item{'parent.path'}.'"');
-     print OUT <<EOF
-  \$info->setParent(getParentLocationInfo($parent,\$redirid));
-EOF
-     }
    if(exists($$item{'orig.path'}))
      {
      my $orig=trimQuotes('"'.$$item{'orig.path'}.'"');
@@ -372,6 +366,13 @@ EOF
      print OUT <<EOF
   if(\$info->origHasIds($pids))
   {
+EOF
+     }
+   if(exists($$item{'parent.path'}))
+     {
+     my $parent=trimQuotes('"'.$$item{'parent.path'}.'"');
+     print OUT <<EOF
+  \$info->setParent(getParentLocationInfo($parent,\$redirid));
 EOF
      }
    my $f=0;
