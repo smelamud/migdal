@@ -1,22 +1,20 @@
 << @(#) $Id$ >>
 
-<ident name='bookid' table='postings'>
-<posting_obj id='$bookid' grp='*GRP_BOOKS'
-             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
-<ifzero what='$,Id'>
+<ident name='postid' table='postings'>
+<posting_obj name='book' id='$postid' grp='*GRP_BOOKS'>
+<<ifzero what='$,Id'>
  <fail>
-</ifzero>
+</ifzero>>
 
 << Traps >>
 << Wed Sep 24 02:36:32 EEST 2003 >>
-<if what='$,Grp==*GRP_BOOK_CHAPTERS'>
+<<if what='$,Grp==*GRP_BOOK_CHAPTERS'>
  <trap text='Book chapter replaced book'>
- <reload href#='book-chapter.php?chapid=$bookid'>
-</if>
+ <reload href#='book-chapter.php?chapid=$postid'>
+</if>>
 << /Traps >>
 
 <log event=book text#='post($,Id)'>
-<pagetitle title='$,Subject'>
 
 <html>
 <stylesheet ident='article'>
@@ -27,7 +25,7 @@
  <table width=100% cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <topics posting='$,'>
+    <topics>
     <ears>
    </td>
   </notprint>
@@ -46,41 +44,42 @@
     <tr valign=top>
      <td width=100>&nbsp;</td>
      <td>
-      <ifnzero what='$,ImageId'>
-       <table class=pic align=left style='padding-right: 5px'><tr><td>
-	<image_tag_put id='$,ImageId' size=large>
+      <if what='$,hasSmallImage'>
+       <table class='pic' align=left style='padding-right: 5px'><tr><td>
+        <posting_image posting='$,'>
        </td></tr></table>
       </ifnzero>
       <topiclink posting='$,'>
       <ifne what='$,Author'>
-       <p class='author'>$,HTMLAuthor</p>
+       <p class='posting-author'>$,AuthorHTML</p>
       </ifne>
-      <p><h1 style='margin: 0'>$,Subject</h1></p>
+      <p><h1 style='margin: 0'>$=,Subject</h1></p>
       <ifne what='$,Source'>
-       <p class='source'>$,HTMLSource</p>
+       <p class='posting-source'>$,SourceHTML</p>
       </ifne>
-      <p style='clear: left'>$,HTMLBody</p>
+      <p style='clear: left'>$,BodyHTML</p>
       <notprint>
        <zone>
-	<sibling up='$,MessageId' index0='-1'>
+	<sibling up='$,OrigId' index0='-1'>
 	<if what='$,>0'>
 	 <p>
 	  <table class='ring' cellpadding=0>
 	   <tr valign=center>
-	    <td align=right><image src='pics/further.gif' border=0></td>
+	    <td align=right><image src='/pics/further.gif' border=0></td>
 	    <td>&nbsp;</td>
-	    <td><a href='book-chapter.php?chapid=$,'>Читать книгу</a></td>
+	    <td><a href='${book.GrpDetailsHref}$,/'>Читать книгу</a></td>
 	   </tr>
 	   <tr valign=center>
-	    <td align=right><image src='pics/print.gif' border=0></td>
+	    <td align=right><image src='/pics/print.gif' border=0></td>
 	    <td>&nbsp;</td>
-	    <td><a href='book-print.php?bookid=$bookid&print=1'>Вся книга
-	     для печати</a></td>
+	    <td>
+	     <a href='${book.GrpDetailsHref}print/'>Вся книга для печати</a>
+	    </td>
 	   </tr>
-	   <iterate_packages posting_id='$bookid'>
+	   <<iterate_packages posting_id='$postid'>
 	   <for>
 	    <tr valign=center>
-	     <td align=right><image src='pics/package.gif' border=0></td>
+	     <td align=right><image src='/pics/package.gif' border=0></td>
 	     <td>&nbsp;</td>
 	     <td>
 	      <if what='$.Type==*PT_BOOK_ONEFILE'>
@@ -94,7 +93,7 @@
 	    <tr valign=center>
 	     <td colspan=2>&nbsp;</td>
 	     <td><i>(ZIP, ${.SizeKB}KB)</i></td>
-	   </for>
+	   </for>>
 	  </table>
 	 </p>
 	</if>

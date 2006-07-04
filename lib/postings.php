@@ -753,7 +753,7 @@ function getPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1,
 {
 $Select=postingListFields($fields);
 $From=postingListTables($fields);
-if($id>=0)
+if($id>=0 && $id!='')
   $Where="entries.id=$id";
 else
   {

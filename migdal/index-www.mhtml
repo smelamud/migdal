@@ -6,7 +6,7 @@
  <assign name='topic_id' value='-1'>
 </ifzero>
 
-<< Traps >>
+<< Traps >
 <if what='$topic_id==5'>
  <trap text='Jewish Internet'>
  <reload href='links/'>
@@ -31,7 +31,7 @@
  <trap text='Veterans'>
  <reload href='veterans.php'>
 </if>
-<< /Traps >>
+< /Traps >>
 
 <log event=index text#='topic($topic_id) offset=$offset'>
 <grps>

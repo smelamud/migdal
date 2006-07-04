@@ -1,14 +1,15 @@
 << @(#) $Id$ >>
 
 <element name='topics_events'>
-<topic_obj name='topic' id='$`events`'>
+<upper_level name='Мигдаль' href='/migdal/'>
+<topic_obj name='topic' id='$`migdal.events`'>
 <topics_table class='ninept' title='События'>
  <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
                     sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_INFO'>
  <assign name='year' value='0'>
  <for>
-  <if what='$.Index4!=$year && $.Index4!=0'>
-   <assign name='year' value='$.Index4'>
+  <if what='$.Index2!=$year && $.Index2!=0'>
+   <assign name='year' value='$.Index2'>
    <assign name='gyearp' value!='$year-3761'>
    <assign name='gyear' value!='$year-3760'>
    <topics_section title#='$year/$gyearp-$gyear г.' nobullet='*true'>
@@ -19,8 +20,9 @@
     </td></tr>
    </iswrite>
   </if>
-  <topics_line time='$.LastMessage' text='$.Comment0' title='$.Description'
-               href#='event.php?topic_id=$.Id' arrow!='$posting.TopicId==$.Id'>
+  <assign name='info' value='$.PostingsInfo'>
+  <topics_line time='$info.MaxSent' text='$=.Comment0' title='$=.BodyNormal'
+               href#='/$.Catalog' arrow!='$index==$.Id'>
  </for>
 </topics_table>
 </element>
@@ -54,13 +56,13 @@
 
 <element name='topics_common_events'>
 <topic_obj name='topic' id='$id'>
-<topics_table class='ninept' title='$,Subject'>
+<topics_table class='ninept' title='$=,Subject'>
  <iterate_topiclist grp!='*GRP_EVENT' up='$,Id' recursive='*false'
                     sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_INFO'>
  <for>
-  <posting_last topic_id='$.Id' recursive='*true'>
-  <topics_line time='$,' text='$.Comment1' title='$.Body'
-               href#='event.php?topic_id=$.Id' class='$class_line'>
+  <assign name='info' value='$.PostingsInfo'>
+  <topics_line time='$info.MaxSent' text='$=.Comment1' title='$=.BodyNormal'
+               href#='/$.Catalog' class='$class_line'>
  </for>
 </topics_table>
 </element>

@@ -964,9 +964,9 @@ convertUsers();*/
 echo "18. Idents...\n";
 convertIdents();
 /*echo "19. Migdal news...\n";
-convertMigdalNews();*/
+convertMigdalNews();
 echo "20. Interlinks...\n";
-convertCrossEntries();
+convertCrossEntries();*/
 beginJournal();
 dbClose();
 ?>

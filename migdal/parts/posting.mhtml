@@ -67,12 +67,23 @@
  <assign name='alt' value#='alt="$=title" title="$=title"'>
 </ifne>
 <if what='$posting.hasLargeImage'>
- <a href='$posting.LargeImageURL' title='Нажмите, чтобы увеличить'
-    ><img border=0 width='$posting.SmallImageX' height='$posting.SmallImageY'
-	  $al $alt src='$posting.SmallImageURL'></a>
+ <ife what='$href'>
+  <a href='$posting.LargeImageURL' title='Нажмите, чтобы увеличить'>
+ <else>
+  <a href='$href'>
+ </ife>
+  <asp><img border=0 width='$posting.SmallImageX' height='$posting.SmallImageY'
+	    $al $alt src='$posting.SmallImageURL'><asp>
+ </a>
 <else>
- <img border=0 width='$posting.ImageX' height='$posting.ImageY' $al $alt
-      src='$posting.ImageURL'>
+ <ifne what='$href'>
+  <a href='$href'>
+ </ifne>
+  <asp><img border=0 width='$posting.ImageX' height='$posting.ImageY' $al $alt
+        src='$posting.ImageURL'><asp>
+ <ifne what='$href'>
+  </a>
+ </ifne>
 </if>
 </element>
 

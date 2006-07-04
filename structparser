@@ -67,26 +67,40 @@ while($$item{'_path_regex'}=~/{([^}]*)}/)
      }
 }
 
+sub addCond
+{
+my ($item,$cond)=@_;
+
+$$item{'_cond'}='' unless exists($$item{'_cond'});
+$$item{'_cond'}.=$cond;
+}
+
 sub processConds
 {
 my ($item)=@_;
 
 for my $var(keys %$item)
    {
-   if($var=~/^cond:(\w+)$/)
+   if($var eq 'cond:grp')
+     {
+     my ($value,$grp)=$$item{$var}=~/^(\S+)\s+in\s+(\S+)$/;
+     $value="\".idByIdent(\"$value\").\"" unless $value=~/\|/;
+     $value="\".idOrCatalog(\"$1\",\"$2\").\"" if $value=~/^(.*)\|(.*)$/;
+     $grp=uc $grp;
+     addCond($item," && isEntryInGrp(\"$value\",GRP_$grp)");
+     }
+   elsif($var=~/^cond:(\w+)$/)
      {
      my ($table,$value)=($1,$$item{$var});
      $value="\".idByIdent(\"$value\").\"" unless $value=~/\|/;
      $value="\".idOrCatalog(\"$1\",\"$2\").\"" if $value=~/^(.*)\|(.*)$/;
-     $$item{'_cond'}='' unless exists($$item{'_cond'});
      $table=uc $table;
-     $$item{'_cond'}.=" && entryExists(ENT_$table,\"$value\")";
+     addCond($item," && entryExists(ENT_$table,\"$value\")");
      }
    elsif($var eq 'domain')
      {
-     $$item{'_cond'}='' unless exists($$item{'_cond'});
      my $value=$$item{$var};
-     $$item{'_cond'}.=" && \$userDomain=='$value'";
+     addCond($item," && \$userDomain=='$value'");
      }
    }
 }

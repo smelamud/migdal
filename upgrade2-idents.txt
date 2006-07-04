@@ -139,6 +139,7 @@ topics	268	migdal.jcc.choir
 topics	269	migdal.jcc.dances
 topics	13	migdal.jcc.student
 topics	146	migdal.methodology
+topics	210	migdal.events
 postings	1474	post.migdal
 postings	1582	post.migdal.museum
 postings	1977	post.migdal.migdal-or

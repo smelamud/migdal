@@ -197,9 +197,9 @@
 	     arrow!="$index=='migdal.news'"
 	     indent=1 class='topics-item eightpt'>
 <posting_last topic_id='$`events`' grp='*GRP_TAPE'>
-<topics_line time='$,' href='events.php' text='События'
+<topics_line time='$,' href='/migdal/events/' text='События'
+	     arrow!="$index=='migdal.events'"
 	     indent=1 class='topics-item eightpt'>
-	     <<arrow!="$posting!=0 && $/$posting.TopicId,1/==$`events`">>
 <posting_last topic_id='$`migdal.jcc`' recursive='*true'>
 <topics_line time='$,' href='/migdal/jcc/' text='Общинный центр (JCC)'
 	     title='Живопись, музыка, танцы, программы для всех возрастов'

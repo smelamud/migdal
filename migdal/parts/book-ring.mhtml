@@ -5,33 +5,34 @@
  <table width=100% style='clear: both' class='ring'>
   <if what='$index>=0'>
    <tr valign=bottom><td width=33%>&nbsp;</td><td align=center width=33%>
-    <b><a href='book.php?bookid=$book.Id'>$book.Subject</a></b>
+    <b><a href='$book.GrpDetailsHref'
+          title='К началу книги'>$=book.Subject</a></b>
    </td><td width=33%>&nbsp;</td></tr>
   </if>
   <tr valign=center>
-   <sibling up='$book.MessageId' index0='$index' next='*false'>
+   <sibling up='$book.OrigId' index0='$index' next='*false'>
    <if what='$,>0'>
-    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_GENERAL'>
+    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
     <td align=left width=33%>
-     <pointer href#='book-chapter.php?chapid=$,Id' text='$,Subject'
+     <pointer href#='${book.GrpDetailsHref}$,Id/' text='$=,Subject'
               title='Предыдущая глава' left='*true'>
     </td>
    <else>
     <td width=33%>&nbsp;</td>
    </if>
    <if what='$index>=0'>
-    <td align=center width=33%><a href='book.php?bookid=$book.Id'
+    <td align=center width=33%><a href='$book.GrpDetailsHref'
 				  title='К началу книги'><asp>
-     <image src='pics/up.gif' border=0>
+     <image src='/pics/up.gif' border=0>
     <asp></a></td>
    <else>
     <td width=33%>&nbsp;</td>
    </if>
-   <sibling up='$book.MessageId' index0='$index' next='*true'>
+   <sibling up='$book.OrigId' index0='$index' next='*true'>
    <if what='$,>0'>
-    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_GENERAL'>
+    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
     <td align=right width=33%>
-     <pointer href#='book-chapter.php?chapid=$,Id' text='$,Subject'
+     <pointer href#='${book.GrpDetailsHref}$,Id/' text='$=,Subject'
               title='Следующая глава' left='*false'>
     </td>
    <else>

@@ -1,11 +1,11 @@
 << @(#) $Id$ >>
 
 <element name='topics_book'>
-<if what='$posting.Grp==*GRP_BOOKS'>
- <book_chapters book='$posting'>
-<else>
- <message_posting id='$posting.UpValue'>
- <posting_obj id='$,' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
- <book_chapters book='$,' id='$posting.Id'>
-</if>
+<posting_obj id='$base' grp='*GRP_BOOKS'>
+<zone>
+ <location_info name='info' path='$,GrpDetailsHref'>
+ <assign name='info' value='$info.Parent'>
+</zone>
+<upper_level href='$,GrpGeneralHref' name='$info.Title'>
+<book_chapters book='$,' id='$index'>
 </element>

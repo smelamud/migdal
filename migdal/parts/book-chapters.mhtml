@@ -13,25 +13,25 @@
       class='edit'>Расставить</a>
   </td></tr>
  </isappend>
- <topics_line time='$book.Sent' text='О книге' href#='book.php?bookid=$book.Id'
-              arrow!='$id<=0' class='item ninept'>
+ <topics_line time='$book.Modified' text='Обложка' href='$book.GrpDetailsHref'
+              arrow!='$id<=0 || $id==$book.Id' class='topics-item ninept'>
  <iterate_postinglist grp='*GRP_BOOK_CHAPTERS' limit=0 sort='*SORT_INDEX0'
-                      up='$book.MessageId' fields='*SELECT_GENERAL'>
+                      up='$book.OrigId'>
  <for>
-  <topics_line time='$.Sent' text='$.Subject'
-               href#='book-chapter.php?chapid=$.Id' arrow!='$.Id==$id'
-	       class='item ninept'>
+  <topics_line time='$.Modified' text='$=.Subject'
+               href#='${book.GrpDetailsHref}$.Id/' arrow!='$.Id==$id'
+	       class='topics-item ninept'>
  </for>
  <topics_splitter>
- <iterate_packages posting_id='$book.Id'>
+ <<iterate_packages posting_id='$book.Id'>
  <for>
   <if what='$.Type==*PT_BOOK_ONEFILE'>
    <assign name='title' value='Вся книга одним файлом в архиве'>
   <else>
    <assign name='title' value='Вся книга по главам в архиве'>
   </if>
-  <topics_line text='$title' class='item ninept' nobullet='*true'
+  <topics_line text='$title' class='topics-item ninept' nobullet='*true'
                href='$.Href' count#='${.SizeKB}KB' indent='-1' span=2>
- </for>
+ </for>>
 </topics_table>
 </element>

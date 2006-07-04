@@ -1,12 +1,8 @@
 << @(#) $Id$ >>
 
-<ident name='bookid' table='postings'>
-<posting_obj id='$bookid' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
-<ifzero what='$,Id'>
- <fail>
-</ifzero>
+<ident name='postid'>
+<posting_obj id='$postid' grp='*GRP_BOOKS'>
 <log event=book text#='post($,Id)'>
-<pagetitle title='$,Subject'>
 
 <html>
 <stylesheet ident='article'>
@@ -15,28 +11,28 @@
 <div class='article' style='padding: 5'>
  <table width=50% cellspacing=0 cellpadding=0><tr><td>
   <ifne what='$,Author'>
-   <p class='author'>$,HTMLAuthor</p>
+   <p class='posting-author'>$,AuthorHTML</p>
   </ifne>
-  <p><h1 style='margin-left: 0'>$,Subject</h1></p>
+  <p><h1 style='margin-left: 0'>$=,Subject</h1></p>
   <ifne what='$,Source'>
-   <p class='source'>$,HTMLSource</p>
+   <p class='posting-source'>$,SourceHTML</p>
   </ifne>
-  <p>$,HTMLBody</p>
+  <p>$,BodyHTML</p>
  </td></tr></table>
  <h1>Оглавление</h1>
  <iterate_postinglist grp='*GRP_BOOK_CHAPTERS' limit=0 sort='*SORT_INDEX0'
-		      up='$,MessageId' fields='*SELECT_GENERAL'>
+		      up='$,OrigId'>
  <ul>
   <for>
-   <li>$.Subject
+   <li>$=.Subject
   </for>
  </ul>
  <reset_iterator>
  <for>
-  <posting_obj id='$.Id' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_IMAGES'>
-  <h1 style='clear: both; padding-top: 20px'>$,Subject
+  <posting_obj id='$.Id' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_LARGE_BODY'>
+  <h1 style='clear: both; padding-top: 20px'>$=,Subject
    <ifne what='$,Author'>
-    <div class='author'>$,HTMLAuthor</div>
+    <div class='author'>$,AuthorHTML</div>
    </ifne>
   </h1>
   <article posting='$,' withvote='*false'>

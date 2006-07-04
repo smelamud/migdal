@@ -119,5 +119,5 @@
 
 <element name='topics'>
 <require_once name='$$menu_file'>
-<exec element='$$menu_element' arg1='$$menu_index'>
+<exec element='$$menu_element' arg1='$$menu_index' arg2='$$menu_base'>
 </element>

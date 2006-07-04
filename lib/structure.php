@@ -28,6 +28,13 @@ $catalog=strtr($catalog,'/','.');
 return idByIdent($catalog);
 }
 
+function isEntryInGrp($id,$grp)
+{
+$egrp=getGrpByEntryId($id);
+$grp=grpArray($grp);
+return in_array($egrp,$grp);
+}
+
 function &getParentLocationInfo($path,$redirid)
 {
 if($redirid!=0)

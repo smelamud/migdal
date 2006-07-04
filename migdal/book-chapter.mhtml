@@ -1,17 +1,13 @@
 << @(#) $Id$ >>
 
-<ident name='chapid' table='postings'>
-<posting_obj id='$chapid' grp='*GRP_BOOK_CHAPTERS'
-             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
-<ifzero what='$,Id'>
- <fail>
-</ifzero>
+<ident name='bookid'>
+<ident name='postid'>
+<posting_obj id='$postid' grp='*GRP_BOOK_CHAPTERS'
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <zone>
- <message_posting id='$,UpValue'>
- <posting_obj name='book' id='$,' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
+ <posting_obj name='book' id='$bookid' grp='*GRP_BOOKS'>
 </zone>
 <log event=chapter text#='post($,Id) post($book.Id)'>
-<pagetitle title#='$book.Subject - $,Subject'>
 
 <html>
 <stylesheet ident='article'>
@@ -22,7 +18,7 @@
  <table width=100% cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <topics posting='$,'>
+    <topics>
     <ears>
    </td>
   </notprint>
@@ -34,9 +30,9 @@
     <tr><td align=right><senderlink message='$,'></td></tr>
    </table>
    <book_ring book='$book' index='$,Index0'>
-   <h1>$,Subject
+   <h1>$=,Subject
     <ifne what='$,Author'>
-     <div class='author'>$,HTMLAuthor</div>
+     <div class='author'>$,AuthorHTML</div>
     </ifne>
    </h1>
    <article posting='$,' withvote='*false'>

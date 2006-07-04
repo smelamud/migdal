@@ -11,7 +11,7 @@
 <if what='$,>0'>
  <p>
   <image src='/pics/further.gif'>&sp;
-  <a href='book-chapter.php?chapid=$,'>Читать книгу</a>
+  <a href='${posting.GrpDetailsHref}$,/'>Читать книгу</a>
  </p>
 </if>
 </element>

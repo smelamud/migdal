@@ -164,7 +164,7 @@ else
 
 function userSettings()
 {
-global $userId,$userSetNames,$userSetDefaults,$userSetParams,$siteDomain;
+global $userId,$userSetNames,$userSetDefaults,$userSetParams,$siteDomain,$Args;
        
 if($userId>0)
   {
@@ -194,7 +194,7 @@ foreach($userSetNames as $name)
        $update[]=$glob;
        $GLOBALS["user$name"]=$glob;
        }
-if($_GET['print']!=0)
+if(isset($Args['print']) && $Args['print']!=0 || $_GET['print']!=0)
   $GLOBALS['userStyle']=-1;
 $globs=join(':',$update);
 if($userId>0 && $globs!=$dbSettings)

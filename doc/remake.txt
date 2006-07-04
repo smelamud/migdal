@@ -47,7 +47,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
     заголовок страницы.
 29. sqlDate() и sqlNow() при вставке времени в запрос.
 30. Групповые GRP_ теперь не маски, а строки. Массивы, им соотвествующие,
-берутся из $grpGroups (не забыть global!).
+берутся функцией grpArray() из lib/grps.php.
 31. Убедиться, что все модифицирующие запросы реплицируются, включая операции
 с картинками. Убедиться, что в команде репликации track указывается всегда
 правильное имя таблицы.
@@ -58,6 +58,9 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 35. Проверить на отсутствие <pagetitle>.
 38. В навигаторе тем на каждом уровне должен присутствовать <upper_level> со
 ссылкой наверх. Сейчас он вставляется прямо в соответствующий <topic_*>.
+39. Проверить правильность значения аргумента showshadows postinglist-итератора
+на всех страницах. Можно переименовать аргумент, чтобы сделать его смысл более
+понятным.
 
 Прогресс пересмотра файлов
 --------------------------
@@ -227,10 +230,10 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/archive.mhtml
 * migdal/article.mhtml (кроме ловушек)
 - migdal/article-times.mhtml
-- migdal/book-chapter.mhtml
++ migdal/book-chapter.mhtml
 - migdal/book-chapter-split.mhtml
-- migdal/book.mhtml
-- migdal/book-print.mhtml
+* migdal/book.mhtml (кроме пакетов и ловушек)
++ migdal/book-print.mhtml
 - migdal/book-split.mhtml
 - migdal/book-static.mhtml
 * migdal/chatboard.mhtml
@@ -250,7 +253,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/ears.mhtml
 - migdal/event.mhtml
 - migdal/events-english.mhtml
-- migdal/events.mhtml
++ migdal/events.mhtml
 - migdal/forumansweredit.mhtml
 - migdal/forumcatalog.mhtml
 - migdal/forum.mhtml
@@ -317,9 +320,9 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/blog-gallery.mhtml
 - migdal/parts/blog.mhtml
 - migdal/parts/blog-posting.mhtml
-- migdal/parts/book-chapters.mhtml
+* migdal/parts/book-chapters.mhtml (кроме пакетов)
 - migdal/parts/book-chapters-static.mhtml
-- migdal/parts/book-ring.mhtml
++ migdal/parts/book-ring.mhtml
 - migdal/parts/book-ring-static.mhtml
 * migdal/parts/bottom.mhtml
 - migdal/parts/complain.mhtml
@@ -352,7 +355,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/migdal-news.mhtml
 - migdal/parts/picture-main.mhtml
 + migdal/parts/picture.mhtml
-- migdal/parts/pointer.mhtml
++ migdal/parts/pointer.mhtml
 * migdal/parts/posting-book.mhtml
 + migdal/parts/posting-ear.mhtml
 * migdal/parts/posting-general.mhtml
@@ -377,7 +380,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/top-404.mhtml
 * migdal/parts/topics-admin.mhtml
 - migdal/parts/topics-blog.mhtml
-- migdal/parts/topics-book.mhtml
++ migdal/parts/topics-book.mhtml
 + migdal/parts/topicselect.mhtml
 * migdal/parts/topics-events.mhtml
 - migdal/parts/topics-gallery-general.mhtml
