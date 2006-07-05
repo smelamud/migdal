@@ -61,6 +61,9 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 39. Проверить правильность значения аргумента showshadows postinglist-итератора
 на всех страницах. Можно переименовать аргумент, чтобы сделать его смысл более
 понятным.
+40. В функции, вызываемые из structure.conf аргументы передаются
+    непосредственно из пути, без обработки. Производить обработку во всех
+    функциях и написать строгое предупреждение в начале файла.
 
 Прогресс пересмотра файлов
 --------------------------
@@ -251,7 +254,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/cross-entries.mhtml
 * migdal/cross-entry-add.mhtml
 + migdal/ears.mhtml
-- migdal/event.mhtml
++ migdal/event.mhtml
 - migdal/events-english.mhtml
 + migdal/events.mhtml
 - migdal/forumansweredit.mhtml
@@ -269,7 +272,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * migdal/index-www.mhtml (кроме ловушек)
 + migdal/jcc.mhtml
 - migdal/journal.mhtml
-- migdal/kaitana-main.mhtml
+- migdal/kaitana-main.mhtml (удалить, сохранив ловушку)
 - migdal/kaitana.mhtml
 + migdal/limedit.mhtml
 + migdal/liminsert.mhtml
@@ -328,7 +331,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/complain.mhtml
 + migdal/parts/discussions.mhtml
 + migdal/parts/ears.mhtml
-- migdal/parts/events.mhtml
++ migdal/parts/events.mhtml
 - migdal/parts/failpage.mhtml
 + migdal/parts/formutils.mhtml
 - migdal/parts/forumanswer.mhtml

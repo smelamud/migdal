@@ -243,6 +243,9 @@
 <deccall macro='posting_domains' func='getPostingDomainCount'
          file='lib/postings.php' params='topic_id,recursive,grp'
 	 defaults="topic_id=-1 recursive='*false' grp='*GRP_ALL'">
+<deccall macro='posting_id' func='getPostingId' file='lib/postings.php'
+         params='grp,index1,topic_id'
+	 defaults="grp=*GRP_ALL index1=-1 topic_id=-1">
 <deccall macro='posting_index' func='getMaxIndexOfPosting'
          file='lib/postings.php' params='index,grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">

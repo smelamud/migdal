@@ -2,6 +2,12 @@
 # @(#) $Id$
 
 require_once('lib/topics.php');
+require_once('lib/users.php');
+
+function titleUserLogin($id)
+{
+return getUserLoginById($id);
+}
 
 function titleTopicName($id)
 {

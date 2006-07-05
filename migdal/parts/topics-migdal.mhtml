@@ -38,7 +38,7 @@
 </topics_table>
 <topics_common_events id='$`youth-confs`'>
 <topics_common_events id='$`oels`'>
-<topics_common_events id='$`others`'>
+<topics_common_events id='$`migdal.events.other`'>
 </element>
 
 <element name='topics_jcc'>

@@ -30,5 +30,5 @@ if(win.focus)
 
 function UserInfo(id)
 {
-NewWindow('userinfo-panel.php?id='+id,'info','400','400','auto','random');
+NewWindow('/users/'+id+'/panel/','info','400','400','auto','random');
 }

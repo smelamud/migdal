@@ -1,26 +1,34 @@
 << @(#) $Id$ >>
 
 <element name='events'>
-<topic_obj name='topic' id='$`events`'>
-<topics_table class='eightpt' title='События'>
+<topic_obj name='topic' id='$`migdal.events`'>
+<topics_table class!="$active ? 'ninept' : 'eightpt'" title='События'>
  <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
-                    sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_INFO'>
+                    sort='*SORT_RINDEX2_RINDEX0'
+		    fields!='$active ? *SELECT_INFO : *SELECT_GENERAL'>
  <assign name='year' value='0'>
  <for>
-  <if what='$.Index4!=$year && $.Index4!=0'>
-   <assign name='year' value='$.Index4'>
+  <if what='$.Index2!=$year && $.Index2!=0'>
+   <assign name='year' value='$.Index2'>
    <assign name='gyearp' value!='$year-3761'>
    <assign name='gyear' value!='$year-3760'>
    <topics_section title#='$year/$gyearp-$gyear г.' nobullet='*true'>
-   <iswrite what='$topic'>
-    <tr><td colspan=2>
-     <a href='topics-reorder.php?up=$,Id&level=2&index4=$year&redirid=$_'
-	class='edit'>Расставить</a>
-    </td></tr>
-   </iswrite>
+   <if what='$active'>
+    <iswrite what='$topic'>
+     <tr><td colspan=2>
+      <a href='topics-reorder.php?up=$,Id&level=2&index4=$year&redirid=$_'
+	 class='eightpt'>Расставить</a>
+     </td></tr>
+    </iswrite>
+   </if>
   </if>
-  <topics_line time='$.LastMessage' text='$.Comment0' title='$.Description'
-               href#='event.php?topic_id=$.Id'>
+  <if what='$active'>
+   <assign name='info' value='$.PostingsInfo'>
+  </if>
+  <topics_line time!='$active ? $info.MaxSent : 0' text='$=.Comment0'
+               title='$=.BodyNormal' href#='/$.Catalog'
+	       arrow!='$active && $index==$.Id'
+	       class!="$active ? 'topics-item' : 'none'">
  </for>
 </topics_table>
 </element>

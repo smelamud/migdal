@@ -140,6 +140,9 @@ topics	269	migdal.jcc.dances
 topics	13	migdal.jcc.student
 topics	146	migdal.methodology
 topics	210	migdal.events
+topics	218	migdal.events.other
+topics	223	migdal.events.other.jewish-vienne
+topics	267	migdal.events.other.uman
 postings	1474	post.migdal
 postings	1582	post.migdal.museum
 postings	1977	post.migdal.migdal-or

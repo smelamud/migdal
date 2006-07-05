@@ -5,11 +5,11 @@
 <topics_table title='Оглавление'>
  <isappend what='$book'>
   <tr><td colspan=2>
-   <a href='postingedit.php?redirid=$_&topic_id=$book.TopicId&grp=*GRP_BOOK_CHAPTERS&up=$book.MessageId'
+   <a href='postingedit.php?redirid=$_&topic_id=$book.TopicId&grp=*GRP_BOOK_CHAPTERS&up=$book.OrigId'
       class='edit'>Добавить</a>
   </td></tr>
   <tr><td colspan=2>
-   <a href='reorder.php?redirid=$_&issue=-1&topic_id=-1&grp=*GRP_BOOK_CHAPTERS&up=$book.MessageId'
+   <a href='reorder.php?redirid=$_&issue=-1&topic_id=-1&grp=*GRP_BOOK_CHAPTERS&up=$book.OrigId'
       class='edit'>Расставить</a>
   </td></tr>
  </isappend>

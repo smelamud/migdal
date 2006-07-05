@@ -789,6 +789,21 @@ else
   return getRootPosting($grp,$topic_id,$up);
 }
 
+function getPostingId($grp=GRP_ALL,$index1=-1,$topic_id=-1)
+{
+$Where='entry='.ENT_POSTING;
+$Where.=' and '.postingsPermFilter(PERM_READ);
+$Where.=' and '.postingListGrpFilter($grp);
+$Where.=' and '.postingListTopicFilter($topic_id);
+if($index1>=0)
+  $Where.=" and index1=$index1";
+$result=sql("select id
+	     from entries
+	     where $Where",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
 // remake
 function getMaxIndexOfPosting($indexN,$grp,$topic_id=-1,$recursive=false)
 {

@@ -9,7 +9,7 @@
  <topics_table title='Методические пособия'>
   <for>
    <topics_line time='$.Modified' href='$.GrpDetailsHref' text='$=.Heading'
-                class='topics-item ninept'>
+                class='ninept'>
   </for>
  </topics_table>
 </ifnzero>
@@ -37,16 +37,22 @@
       <seealso_frame>
       <span class='article'>
        <article_controls posting='$,'>
+      </span>
+      <notprint>
+       <table class='nframe' width=180 align=right
+	      cellpadding=5 cellspacing=0
+	      style='margin-left: 5px; margin-top: 2ex'>
+	<tr><td>
+	 <books>
+        </td></tr>
+       </table>
+      </notprint>
+      <span class='article'>
        <article posting='$,' withvote='*false'>
        <article_controls posting='$,'>
       </span>
      </ifnzero>
     </td>
-    <notprint>
-     <td width=130 class='nframe'>
-      <books>
-     </td>
-    </notprint>
    </tr></table>
   </td>
  </tr></table>

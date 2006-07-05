@@ -62,7 +62,8 @@
 <decel name='edit' file='parts/formutils.php' params='name,value,size,maxlength'
        defaults='size=40 maxlength=250'>
 <decel name='editlink' file='parts/posting.php' params='posting'>
-<decel name='events' file='parts/events.php'>
+<decel name='events' file='parts/events.php' params='active,index'
+       defaults='index=0'>
 <decel name='failpage' file='parts/failpage.php'>
 <decel name='form_buttons' file='parts/formutils.php' params='title'
        defaults="title='Изменить'">

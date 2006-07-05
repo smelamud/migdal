@@ -11,18 +11,13 @@
 <grps>
 
 <topic_obj id='$topic_id'>
-<ifzero what='$,Id'>
- <fail>
-</ifzero>
-<if what='$/$topic_id,2/==$`kaitana`'>
+<<if what='$/$topic_id,2/==$`kaitana`'>
  <reload href#='kaitana.php?topic_id=$topic_id'>
 </if>
 <if what='$/$topic_id,2/==$`halom` && ($,Allow & GRP_KAITANA_NEWS)!=0'>
  <reload href#='halom.php?topic_id=$topic_id'>
-</if>
+</if>>
 
-<pagetitle title='$,Name'>
-<topictitle title='$,Name'>
 <log event=event text#='topic($,Id) offset=$offset'>
 
 <html>
@@ -30,20 +25,14 @@
 <body>
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'><zone>
-   <posting_new grp='*GRP_NEWS' topic_id='$,Id'>
-   <topics posting='$,'>
+  <td width=150 class='eframe'>
+   <topics>
    <ears>
-  </zone></td>
+  </td>
   <td>
    <div class='cframe' style='padding: 5'>
     <subtitle>
-    <outer><div class='nframe' style='padding: 5'><inner>
-     <seealso_links topic_id='$,Id' topic_grp='*GRP_EVENT'
-		    title='См. также в разделе ссылок'>
-     <seealso_other topic_id='$,Id' topic_grp='*GRP_EVENT'
-		    title='По этой теме в других разделах'>
-    </inner></div></outer>
+    <seealso_frame>
     <ifzero what='$offset'>
      <postings grp='*GRP_EVENT' topic_id='$,Id' limit=0>
     </ifzero>
