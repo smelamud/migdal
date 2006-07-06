@@ -307,6 +307,8 @@
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_kaitana' file='parts/topics-kaitana.php' params='posting'>
+<decel name='topics_kaitana_days' file='parts/topics-kaitana.php'
+       params='index,base' defaults="base=''">
 <decel name='topics_kes' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_line'

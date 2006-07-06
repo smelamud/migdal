@@ -12,7 +12,7 @@ postString('charset');
 
 dbOpen();
 session();
-$posting=getPostingById($id,GRP_ALL,-1,-1,SELECT_GENERAL|SELECT_LARGE_BODY);
+$posting=getPostingById($id,GRP_ALL,-1,SELECT_GENERAL|SELECT_LARGE_BODY);
 $data=$posting->getLargeBody();
 $size=strlen($data);
 header('Content-Type: text/plain');

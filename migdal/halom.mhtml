@@ -24,6 +24,7 @@
  <ifzero what='$,Id'>
   <fail>
  </ifzero>
+ << FIXME deprecated >>
  <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$halom.Id'
               index1='$day'
               fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>

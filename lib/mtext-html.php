@@ -236,7 +236,7 @@ switch($name)
 	     }
            if(!isset($attrs['LOCAL']) || $attrs['LOCAL']=='false')
 	     $this->html.=makeTag($name,
-			    array('href' => 'actions/link/'.$this->id.
+			    array('href' => '/actions/link/'.$this->id.
 			                    '?okdir='.urlencode($attrs{'HREF'})));
 	   else
              $this->html.=makeTag($name,array('href' => $attrs{'HREF'}));

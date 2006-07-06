@@ -165,6 +165,7 @@
  </zone></ifzero>
  <log event=times text#='issue($issue)'>
  <table width=100% cellpadding=5><tr valign=top>
+  << FIXME deprecated >>
   <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic_id='$`migdal-times`'
 	       index1!='$issue<0 ? 0 : $issue'
 	       fields!='*SELECT_IMAGES|*SELECT_ANSWERS'>

@@ -1,42 +1,19 @@
 << @(#) $Id$ >>
 
-<int name='day'>
 <int name='postid'>
 <int name='topic_id'>
+<int name='day'>
 
-<< Traps >>
+<< Traps >
 <if what='$postid==0 && $topic_id<=0'>
  <trap text='Kaitana'>
  <reload href='$[topic_id=$`kaitana-s-5762`]'>
 </if>
-<< /Traps >>
+< /Traps >>
 
 <grps>
-<assign name='day' value!='$day<=0 ? 1 : $day'>
-<ifnzero what='$postid'>
- <posting_obj name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'
-              fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
- <ifzero what='$,Id'>
-  <fail>
- </ifzero>
- <topic_obj name='kaitana' id='$posting.TopicId'>
- <ifzero what='$,Id'>
-  <fail>
- </ifzero>
-<else>
- <topic_obj name='kaitana' id='$topic_id'>
- <ifzero what='$,Id'>
-  <fail>
- </ifzero>
- <posting_obj name='posting' grp='*GRP_KAITANA_NEWS' topic_id='$kaitana.Id'
-              index1='$day'
-              fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
- <ifzero what='$,Id'>
-  <fail>
- </ifzero>
-</ifzero>
-<pagetitle title#='$kaitana.Name - $posting.Subject'>
-<topictitle title='$kaitana.Name'>
+<posting_obj name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'>
+<topic_obj name='kaitana' id='$posting.TopicId'>
 <log event=kaitana text#='topic($kaitana.Id) post($posting.Id)'>
 
 <macro name='editor'>
@@ -47,13 +24,13 @@
 <element name='batcher' params='kaitana'>
 <editor>
  <table class='info'><tr valign=center>
-  <td><image src='pics/sheet.gif'></td>
+  <td><image src='/pics/sheet.gif'></td>
   <td>
    <a href='postingedit.php?topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
       >Добавить новость</a>
   </td>
   <td>&nbsp;</td>
-  <td><image src='pics/sheet.gif'></td>
+  <td><image src='/pics/sheet.gif'></td>
   <td>
    <a href='postingedit.php?topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
       >Добавить картинку</a>
@@ -80,29 +57,29 @@
 </ifnzero>
 </element>
 
-<element name='kaitana_ring' params='posting'>
+<element name='kaitana_ring' params='current,kaitana'>
 <notprint>
  <table width=100% style='clear: both' class='ring'>
   <tr valign=center>
-   <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$posting.TopicId'
-                  index1='$posting.Index1' next='*false'>
+   <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$current.TopicId'
+                  index1='$current.Index1' next='*false'>
    <if what='$,>0'>
-    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS' fields='*SELECT_GENERAL'>
+    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS'>
     <td align=left width=40%>
-     <pointer href#='kaitana.php?topic_id=$,TopicId&day=$,Index1'
-              text='$,Subject' title='Предыдущий выпуск' left='*true'>
+     <pointer href#='/${kaitana.Catalog}day-$,Index1/'
+              text='$=,Subject' title='Предыдущий выпуск' left='*true'>
     </td>
    <else>
     <td width=40%>&nbsp;</td>
    </if>
    <td width=20%>&nbsp;</td>
-   <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$posting.TopicId'
-                  index1='$posting.Index1' next='*true'>
+   <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$current.TopicId'
+                  index1='$current.Index1' next='*true'>
    <if what='$,>0'>
-    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS' fields='*SELECT_GENERAL'>
+    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS'>
     <td align=right width=40%>
-     <pointer href#='kaitana.php?topic_id=$,TopicId&day=$,Index1'
-              text='$,Subject' title='Следующий выпуск' left='*false'>
+     <pointer href#='/${kaitana.Catalog}day-$,Index1/'
+              text='$=,Subject' title='Следующий выпуск' left='*false'>
     </td>
    <else>
     <td width=40%>&nbsp;</td>
@@ -119,7 +96,7 @@
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
-   <topics posting='$posting'>
+   <topics>
    <ears>
   </zone></td>
   <td class='cframe'>
@@ -128,8 +105,7 @@
    <table class='article' width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
 			 sort='*SORT_RATING' limit=0
-			 index1!='$posting.Id!=0 ? $posting.Index1 : $day'
-			 fields!='*SELECT_IMAGES|*SELECT_TOPICS'>
+			 index1!='$posting.Id!=0 ? $posting.Index1 : $day'>
     <outer><td width=140><inner>
      <for>
       <if what='$;isOdd'>
@@ -145,15 +121,15 @@
        <tr><td align=right><sentview date='$posting.Sent'></td></tr>
        <tr><td align=right><senderlink message='$posting'></td></tr>
       </table>
-      <kaitana_ring posting='$posting'>
+      <kaitana_ring current='$posting' kaitana='$kaitana'>
       <h1 style='clear: both'>
-       $posting.Subject
-       <div class='author'>$posting.Source</div>
+       $=posting.Subject
+       <div class='author'>$=posting.Source<< FIXME Comment0 ? >></div>
       </h1>
-      <p>$posting.HTMLBody</p>
+      <p>$posting.BodyHTML</p>
       <vote_frame id='$posting.Id' color='$$style_cframe_back'
 		  image='$$style_cframe_back_pic' align=center>
-      <kaitana_ring posting='$posting'>
+      <kaitana_ring current='$posting' kaitana='$kaitana'>
       <controls posting='$posting' kaitana='$kaitana'>
      </ifnzero>
     </td>

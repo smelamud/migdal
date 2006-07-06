@@ -6,18 +6,18 @@
   <vote_frame id='$picture.Id' color='$$style_cframe_back'
 	      image='$$style_cframe_back_pic'>
  </td></tr>
- <ifnzero what='$picture.ImageSet'>
+ <if what='$picture.hasSmallImage'>
   <tr><td align=center>
-   <image_linked_tag id='$picture.ImageId' enlarge='$picture.hasLargeImage'>
+   <posting_image posting='$picture'>
   </td></tr>
- </ifnzero>
+ </if>
  <iswrite what='$picture'>
   <tr><td class='eightpt' align=center>
    <editlink posting='$picture'>
   </td></tr>
  </iswrite>
  <tr><td class='imagetitle'>
-  $picture.HTMLBody
+  $picture.TitleHTML
  </td></tr>
 </table>
 </element>

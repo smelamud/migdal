@@ -7,6 +7,7 @@
  <fail>
 </ifzero>
 <zone>
+ << FIXME deprecated >>
  <posting_obj name='cover' grp='*GRP_TIMES_COVERS' index1='$,Index1'
               topic_id='-1' fields='*SELECT_GENERAL'>
 </zone>

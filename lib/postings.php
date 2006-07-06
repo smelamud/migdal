@@ -748,25 +748,16 @@ return new Posting(array('id'        => 0,
 			 'perms'     => $perms));
 }
 
-function getPostingById($id=-1,$grp=GRP_ALL,$index1=-1,$topic_id=-1,
-                        $fields=SELECT_GENERAL,$up=-1)
+function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=-1,$fields=SELECT_GENERAL,
+                        $up=-1)
 {
 $Select=postingListFields($fields);
 $From=postingListTables($fields);
-if($id>=0 && $id!='')
-  $Where="entries.id=$id";
-else
-  {
-  $Where='entries.entry='.ENT_POSTING;
-  $Where.=' and '.postingsPermFilter(PERM_READ,'entries');
-  $Where.=' and '.postingListGrpFilter($grp);
-  $Where.=' and '.postingListTopicFilter($topic_id);
-  if($index1>=0)
-    $Where.=" and entries.index1=$index1";
-  }
+if($id=='' || $id<0)
+  return getRootPosting($grp,$topic_id,$up);
 $result=sql("select $Select
 	     from $From
-	     where $Where",
+	     where entries.id=$id",
 	    __FUNCTION__,'shadow');
 if(mysql_num_rows($result)>0)
   {
@@ -775,10 +766,9 @@ if(mysql_num_rows($result)>0)
     {
     $Select=origFields($fields);
     $From=origTables($fields);
-    $Where="entries.id={$row['orig_id']}";
     $result=sql("select $Select
 		 from $From
-		 where $Where",
+		 where entries.id={$row['orig_id']}",
 		__FUNCTION__,'original');
     $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
     $row=array_merge($row,$orig);
@@ -871,21 +861,19 @@ $result=sql("select index0
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
 }
 
-// remake
 function getSiblingIssue($grp,$topic_id,$index1,$next=true)
 {
-$grpFilter=grpFilter($grp);
+$grpFilter=postingListGrpFilter($grp);
+$topicFilter=postingListTopicFilter($topic_id);
 $issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
 $order=$next ? 'asc' : 'desc';
-$topicFilter=$topic_id>=0 ? "and topic_id=$topic_id" : '';
-$result=sql("select postings.id
-	     from postings
-		  left join messages
-		       on postings.message_id=messages.id
-	     where $grpFilter $topicFilter $issueFilter
+$result=sql("select id
+	     from entries
+	     where entry=".ENT_POSTING." and $grpFilter and $topicFilter
+	           $issueFilter
 	     order by index1 $order
 	     limit 1",
-	    'getSiblingIssue');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 

@@ -70,7 +70,7 @@ global $userModerator;
 
 if(!$userModerator)
   return EPC_NO_COPY;
-$posting=getPostingById($postid,GRP_ALL,-1,-1,SELECT_TOPICS);
+$posting=getPostingById($postid,GRP_ALL,-1,SELECT_TOPICS);
 if($posting->getId()<=0)
   return EPC_NO_POSTING;
 $posting->id=0;

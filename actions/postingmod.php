@@ -154,7 +154,7 @@ session();
 $err=EG_OK;
 if($editid<=0)
   $err=relogin($relogin,$login,$password,$remember);
-$posting=getPostingById($editid,$grp,$index1,$parent_id,
+$posting=getPostingById($editid,$grp,$parent_id,
                         SELECT_GENERAL|SELECT_LARGE_BODY,$up);
 $original=$posting;
 $posting->setup($Args);

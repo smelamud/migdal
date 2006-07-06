@@ -130,6 +130,20 @@ for my $var(keys %$item)
    }
 }
 
+sub processGetPostingId
+{
+my ($item)=@_;
+
+for my $var(keys %$item)
+   {
+   next unless $var=~/^_(?:arg|id)\./;
+   next unless $$item{$var}=~/^(\S+)\s+issue\s+(\S+)(?:\s+in\s+(\S+))?$/;
+   my $grp=$3;
+   $grp='ALL' if $grp eq '';
+   $$item{$var}="\".getPostingId(GRP_$grp,\"$2\",idByIdent(\"$1\")).\"";
+   }
+}
+
 sub postProcessArgs
 {
 my ($item)=@_;
@@ -177,6 +191,7 @@ my ($item)=@_;
 
 saveArgs($item);
 processIdOrCatalog($item);
+processGetPostingId($item);
 
 my $n=1;
 for my $sub(@{$$item{'_subs'}})
@@ -362,9 +377,9 @@ EOF
      }
    if(exists($$item{'redirect.path'}))
      {
-     my $redirect=$$item{'redirect.path'};
+     my $redirect=trimQuotes('"'.$$item{'redirect.path'}.'"');
      print OUT <<EOF
-  \$info->setPath('$redirect');
+  \$info->setPath($redirect);
 EOF
      }
    if(exists($$item{'orig.path'}))

@@ -1,9 +1,8 @@
 << @(#) $Id$ >>
 
-<element name='topics_kaitana_days' params='posting,href'
-         defaults="href='kaitana.php'">
-<topic_obj name='kaitana' id='$posting.TopicId'>
-<topics_table class='eightpt' title='$,Name'>
+<element name='topics_kaitana_days'>
+<topic_obj name='kaitana' id='$base'>
+<topics_table class='eightpt' title='$=,Subject'>
  <ispost what='$kaitana'>
   <tr><td colspan=2>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_ARTICLES'
@@ -15,27 +14,24 @@
   </td></tr>
  </ispost>
  <iterate_postinglist grp='*GRP_ARTICLES' limit=0 sort='*SORT_INDEX0'
-                      topic_id='$,Id' recursive='*false'
-		      fields='*SELECT_TOPICS'>
+                      topic_id='$,Id' recursive='*false'>
  <for>
-  <identify posting='$.'>
-  <topics_line time='$.Sent' text='$.Subject' href#='$.DetailsHref'
-	       arrow!='$.Id==$posting.Id'>
+  <topics_line time='$.Modified' text='$=.Heading' href#='$.GrpDetailsHref'
+	       arrow!='$.Id==$index'>
  </for>
  <ifnzero what='$;Count'>
   <topics_splitter>
  </ifnzero>
  <iterate_postinglist topic_id='$,Id' grp='*GRP_KAITANA_NEWS'
-                      sort='*SORT_INDEX1' limit=0 fields='*SELECT_TOPICS'>
+                      sort='*SORT_INDEX1' limit=0>
  <for>
-  <topics_line time='$.Sent' text='$.Subject'
-               href#='$href?topic_id=$,Id&day=$.Index1'
-               arrow!='$posting.Index1==$.Index1'>
+  <topics_line time='$.Modified' text='$=.Heading'
+               href#='/${,Catalog}day-$.Index1/' arrow!='$.Id==$index'>
  </for>
 </topics_table>
 </element>
 
-<element name='topics_kaitanot' params='topic_id,root,href'
+<<element name='topics_kaitanot' params='topic_id,root,href'
          defaults="topic_id=-1 root='$`kaitana`' href='kaitana.php'">
 <topic_obj id='$root'>
 <iterate_topiclist grp='*GRP_KAITANA_GALLERY' up='$root' sort='*SORT_RINDEX0'>
@@ -63,4 +59,4 @@
 <else>
  <topics_kaitanot topic_id='$posting.TopicId' root='$`halom`' href='halom.php'>
 </if>
-</element>
+</element>>
