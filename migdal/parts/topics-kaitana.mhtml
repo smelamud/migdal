@@ -51,12 +51,4 @@
  <topics_kaitanot topic_id='$posting.TopicId' root='$`kaitana`'
 		  href='kaitana.php'>
 </if>
-</element>
-
-<element name='topics_halom'>
-<if what='$posting.TopicId!=$`halom`'>
- <topics_kaitana posting='$posting' href='halom.php'>
-<else>
- <topics_kaitanot topic_id='$posting.TopicId' root='$`halom`' href='halom.php'>
-</if>
 </element>>
