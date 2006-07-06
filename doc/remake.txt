@@ -264,8 +264,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * migdal/gallery-main.mhtml
 - migdal/groupadd.mhtml
 - migdal/grouporg.mhtml
-- migdal/halom-main.mhtml
-- migdal/halom.mhtml
+- migdal/halom-main.mhtml (удалить, сохранив ловушку)
 - migdal/help.mhtml
 - migdal/horisontedit.mhtml
 - migdal/index-english.mhtml

@@ -30,9 +30,18 @@ return idByIdent($catalog);
 
 function isEntryInGrp($id,$grp)
 {
-$egrp=getGrpByEntryId($id);
 $grp=grpArray($grp);
-return in_array($egrp,$grp);
+$egrp=getGrpByEntryId($id);
+if($egrp<=0 || !in_array($egrp,$grp))
+  {
+  $egrps=getGrpsByEntryId($id);
+  foreach($egrps as $egrp)
+         if(in_array($egrp,$grp))
+	   return true;
+  return false;
+  }
+else
+  return true;
 }
 
 function &getParentLocationInfo($path,$redirid)
