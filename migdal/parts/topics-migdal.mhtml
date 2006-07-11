@@ -36,8 +36,8 @@
               arrow!="$index=='migdal.jcc.student.gallery'"
 	      class='topics-item ninept'>
 </topics_table>
-<topics_common_events id='$`youth-confs`'>
-<topics_common_events id='$`oels`'>
+<topics_common_events id='$`migdal.events.youth-confs`'>
+<topics_common_events id='$`migdal.events.kvorim`'>
 <topics_common_events id='$`migdal.events.other`'>
 </element>
 
@@ -80,8 +80,8 @@
 	      arrow!="$index==$`post.migdal.jcc.student`"
 	      class='topics-item eightpt'>
 </topics_table>
-<topics_common_events id='$`kaitana`'>
-<topics_common_events id='$`halom`'>
+<topics_common_events id='$`migdal.events.kaitanot`'>
+<topics_common_events id='$`migdal.events.halom`'>
 </element>
 
 <element name='topics_beitenu'>
@@ -118,7 +118,7 @@
               arrow!="$index=='migdal.mazltov.gallery'"
 	      class='topics-item ninept'>
 </topics_table>
-<topics_common_events id='$`mazltov-births`'>
+<topics_common_events id='$`migdal.events.mazltov-birth`'>
 </element>
 
 <element name='topics_methodology'>
@@ -134,10 +134,10 @@
               arrow!="$index=='migdal.methodology.books'"
 	      class='topics-item ninept'>
 </topics_table>
-<topics_common_events id='$`abokers`'>
-<topics_common_events id='$`halom`'>
-<topics_common_events id='$`youth-confs`'>
-<topics_common_events id='$`jewishcivs`'>
+<topics_common_events id='$`migdal.events.ad-or-aboker`'>
+<topics_common_events id='$`migdal.events.halom`'>
+<topics_common_events id='$`migdal.events.youth-confs`'>
+<topics_common_events id='$`migdal.events.science-confs`'>
 </element>
 
 <element name='topics_migdal_library'>
@@ -152,8 +152,8 @@
 	      arrow!="$index=='migdal.library.novelties'"
 	      class='topics-item ninept'>
 </topics_table>
-<topics_common_events id='$`abokers`'>
-<topics_common_events id='$`ofeks`'>
+<topics_common_events id='$`migdal.events.ad-or-aboker`'>
+<topics_common_events id='$`migdal.events.ofek`'>
 </element>
 
 <element name='topics_migdal_or'>
@@ -188,7 +188,7 @@
 </topics_table>
 <history topic_id='$`migdal.museum`' current='$posting.Id'
          today='$`post.migdal.museum`'>
-<topics_common_events id='$`jewishcivs`'>
+<topics_common_events id='$`migdal.events.science-confs`'>
 </element>
 
 <element name='topics_migdal'>

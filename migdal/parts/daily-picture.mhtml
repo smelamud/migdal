@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='kaitana_picture'>
+<element name='daily_picture'>
 <table>
  <tr><td>
   <vote_frame id='$picture.Id' color='$$style_cframe_back'
@@ -16,7 +16,7 @@
    <editlink posting='$picture'>
   </td></tr>
  </iswrite>
- <tr><td class='imagetitle'>
+ <tr><td class='image-title'>
   $picture.TitleHTML
  </td></tr>
 </table>

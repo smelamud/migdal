@@ -2,10 +2,10 @@
 
 <require name='parts/topics-blog.php'>
 <require name='parts/topics-book.php'>
+<require name='parts/topics-daily.php'>
 <require name='parts/topics-help.php'>
 <require name='parts/topics-home.php'>
 <require name='parts/topics-events.php'>
-<require name='parts/topics-kaitana.php'>
 <require name='parts/topics-migdal.php'>
 <require name='parts/topics-times.php'>
 

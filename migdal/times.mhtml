@@ -1,52 +1,60 @@
 << @(#) $Id$ >>
 
+<int name='postid'>
 <int name='issue'>
 <grps>
-<pagetitle title='Мигдаль Times'>
+
+<topic_obj name='times' id='$`times`'>
+<posting_obj name='cover' id='$postid' grp='*GRP_TIMES_COVERS'
+             topic_id='$`times`'>
+<assign name='issues' value!='$cover.Id>0 ? $cover.getIssues : $issue'>
+
+<log event=times text#='issue($issue)'>
 
 <macro name='editor'>
- <ispost what='$times'>
+ <ispost what='$$times'>
 </macro>
 <endif name='/editor'>
 
-<element name='cover' params='times,cover'>
+<element name='cover'>
 <editor>
  <table class='info'><tr valign=center>
-  <td><image src='pics/sheet.gif'></td>
+  <td><image src='/pics/sheet.gif'></td>
   <td>
    <a href='postingedit.php?topic_id=$`migdal-times`&grp=*GRP_TIMES_COVERS&redirid=$_'
       >Добавить обложку</a>
   </td>
  </tr></table>
 </editor>
-<ifnzero what='$cover.Id'>
- <center class=pic>
-  <image_tag_put id='$cover.ImageId' size=large>
+<ifnzero what='$$cover.Id'>
+ <center class='pic'>
+  <img border=0 width='$$cover.ImageX' height='$$cover.ImageY'
+       src='$$cover.ImageURL'>
  </center>
- <vote_frame align=right id='$cover.Id' color='$$style_nframe_back'>
- <center class='posting'><table width=150 class='bottom'><tr>
+ <vote_frame align=right id='$$cover.Id' color='$$style_nframe_back'>
+ <center><table width=150 class='posting-bottom'><tr>
   <editor>
-   <td><editlink posting='$cover'></td>
+   <td><editlink posting='$$cover'></td>
   </editor>
-  <td align=right><discusslink posting='$cover'></td>
+  <td align=right><discusslink posting='$$cover'></td>
  </tr></table></center>
 </ifnzero>
 </element>
 
-<element name='times_issue' params='issue,month,length'>
-<if what='$issue>0'>
- <table width=120>
-  <tr><td class='issue'>
-   No.<times_no index1='$issue' index2='$length'>
-  </td></tr>
+<element name='times_issue'>
+<table width=120>
+ <tr><td class='issue'>
+  No.$$issues
+ </td></tr>
+ <ifnzero what='$$cover.Id'>
   <tr><td class='month'>
-   $month
+   $$=cover.Comment0
   </td></tr>
- </table>
-</if>
+ </ifnzero>
+</table>
 </element>
 
-<element name='batcher' params='times,issue'>
+<<element name='batcher' params='times,issue'>
 <editor>
  <table class='info'><tr valign=center>
   <td><image src='pics/sheet.gif'></td>
@@ -86,37 +94,37 @@
   </td>
  </tr>
 </tr></table></form>
-</element>
+</element>>
 
-<element name='times_info' params='issue'>
+<element name='times_info'>
 <div class='ninept'>
  <dl class='info'>
-  <if what='$issue>=26'>
+  <if what='$$issue>=26'>
    <dt>Директор издания</dt>
    <dd>Кира Верховская</dd>
   </if>
-  <if what='$issue<26'>
+  <if what='$$issue<26'>
    <dt>Главный редактор</dt>
    <dd>Болеслав Капулкин</dd>
-  <elif what='$issue>=36'>
+  <elif what='$$issue>=36'>
    <dt>Главный редактор</dt>
    <dd>Инна Найдис</dd>
   </if>
 
-  <if what='$issue>=38'>
+  <if what='$$issue>=38'>
    <dt>Редактор</dt>
    <dd>Ольга Ксендзюк</dd>
   </if>
 
   <dt>Редколлегия</dt>
-  <if what='$issue>=26'>
+  <if what='$$issue>=26'>
    <dd>Полина Блиндер</dd>
   </if>
-  <if what='$issue<27'>
+  <if what='$$issue<27'>
    <dd>Елена Каракина</dd>
   </if>
   <dd>Анна Мисюк</dd>
-  <if what='$issue<36'>
+  <if what='$$issue<36'>
    <dd>Инна Найдис</dd>
   </if>
   <dd>Леонид Штекель</dd>
@@ -141,7 +149,7 @@
 </div>
 </element>
 
-<element name='issue_further' params='issue,pic,title'>
+<<element name='issue_further' params='issue,pic,title'>
 <ifnzero what='$issue'>
  <table><tr valign=center>
   <td align=left>
@@ -153,39 +161,71 @@
 </ifnzero>
 </element>
 
+<element name='navigator'>
+<assign name='nfirst' value='$issue'>
+<for n!=2>
+ <sibling_index1 name='prev' grp='*GRP_TIMES_COVERS' index1='$nfirst'
+		 next='*true'>
+ <ifnzero what='$prev'>
+  <assign name='nfirst' value='$prev'>
+ </ifnzero>
+</for>
+<sibling_index1 grp='*GRP_TIMES_COVERS' index1='$nfirst' next='*true'>
+<issue_further issue='$,' pic='pics/upper.gif' title='Новые номера'>
+<iterate_postinglist name='covers' grp='*GRP_TIMES_COVERS' limit=5
+		     sort='*SORT_RINDEX1' fields='*SELECT_IMAGES'
+		     index1='$nfirst'>
+<for>
+ <islast what='$covers'>
+  <assign name='nlast' value='$.Index1'>
+ </islast>
+ <table>
+  <tr><td align=right>
+   <rating value!='$.VoteCount!=0 ? $.Vote20 : -1' showtitle='*false'>
+  </td></tr>
+  <tr><td class=pic>
+   <a href='times.php?issue=$.Index1'><image_tag_put id='$.ImageId'></a>
+  </td></tr>
+  <tr><td align=center><b>
+   <if what='$issue!=$.Index1'>
+    <a href='times.php?issue=$.Index1'>
+     No.<times_no index1='$.Index1' index2='$.Index2'></a>
+   <else>
+     No.<times_no index1='$.Index1' index2='$.Index2'>
+   </if>
+  </b></td></tr>
+ </table>
+ <p>
+</for>
+<sibling_index1 grp='*GRP_TIMES_COVERS' index1='$nlast' next='*false'>
+<issue_further issue='$,' pic='pics/lower.gif' title='Старые номера'>
+</element>>
+
 <html>
 <stylesheet ident='times'>
 <preamble>
 <body>
  <top ident='times'>
- <topic_obj name='times' id='$`migdal-times`'>
- <ifzero what='$issue'><zone>
-  <posting_index index=1 grp='*GRP_TIMES_ARTICLES'>
-  <assign name='issue' value='$,'>
- </zone></ifzero>
- <log event=times text#='issue($issue)'>
  <table width=100% cellpadding=5><tr valign=top>
-  << FIXME deprecated >>
-  <posting_obj name='cover' grp='*GRP_TIMES_COVERS' topic_id='$`migdal-times`'
-	       index1!='$issue<0 ? 0 : $issue'
-	       fields!='*SELECT_IMAGES|*SELECT_ANSWERS'>
   <td class='mtimes cframe'>
    <table><tr valign=bottom><td>
-    <image src='pics/times.gif' alt='Мигдаль Times'>
+    <a href='/times/'><asp>
+     <image src='/pics/times.gif' alt='Мигдаль Times' border=0>
+    <asp></a>
    </td><td>
-    <times_issue issue='$issue' month='$cover.Source' length='$cover.Index2'>
+    <times_issue>
    </td></tr></table>
    <p>
    <table width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <td width=150><div class='nframe' style='padding: 5px'>
-     <cover times='$times' cover='$cover'>
+     <cover>
      <p>
-     <times_info issue='$issue'>
+     <times_info>
     </div></td>
     <td>
      <select_issue issue='$issue'>
      <p>
-     <batcher times='$times' issue='$issue'>
+     <<batcher times='$times' issue='$issue'>
      <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`migdal-times`'
 			  recursive='*true' limit=0 sort='*SORT_INDEX0'
 			  index1!='$issue<0 ? 0 : $issue'>
@@ -204,48 +244,12 @@
      </for>
      <ifnzero what='$;Count'>
       <batcher times='$times' issue='$issue'>
-     </ifnzero>
+     </ifnzero>>
     </td>
    </tr></table>
   </td>
   <td width=80 align=center class='mtimes'>
-   <assign name='nfirst' value='$issue'>
-   <for n!=2>
-    <sibling_index1 name='prev' grp='*GRP_TIMES_COVERS' index1='$nfirst'
-		    next='*true'>
-    <ifnzero what='$prev'>
-     <assign name='nfirst' value='$prev'>
-    </ifnzero>
-   </for>
-   <sibling_index1 grp='*GRP_TIMES_COVERS' index1='$nfirst' next='*true'>
-   <issue_further issue='$,' pic='pics/upper.gif' title='Новые номера'>
-   <iterate_postinglist name='covers' grp='*GRP_TIMES_COVERS' limit=5
-                        sort='*SORT_RINDEX1' fields='*SELECT_IMAGES'
-			index1='$nfirst'>
-   <for>
-    <islast what='$covers'>
-     <assign name='nlast' value='$.Index1'>
-    </islast>
-    <table>
-     <tr><td align=right>
-      <rating value!='$.VoteCount!=0 ? $.Vote20 : -1' showtitle='*false'>
-     </td></tr>
-     <tr><td class=pic>
-      <a href='times.php?issue=$.Index1'><image_tag_put id='$.ImageId'></a>
-     </td></tr>
-     <tr><td align=center><b>
-      <if what='$issue!=$.Index1'>
-       <a href='times.php?issue=$.Index1'>
-	No.<times_no index1='$.Index1' index2='$.Index2'></a>
-      <else>
-	No.<times_no index1='$.Index1' index2='$.Index2'>
-      </if>
-     </b></td></tr>
-    </table>
-    <p>
-   </for>
-   <sibling_index1 grp='*GRP_TIMES_COVERS' index1='$nlast' next='*false'>
-   <issue_further issue='$,' pic='pics/lower.gif' title='Старые номера'>
+   <<navigator>>
   </td>
  </tr></table>
  <bottom>

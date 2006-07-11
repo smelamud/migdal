@@ -1,0 +1,21 @@
+<< @(#) $Id$ >>
+
+<element name='daily_announce'>
+<iterate_postinglist topic_id='$topic_id' grp='*GRP_DAILY_NEWS'
+                     sort='*SORT_RINDEX1' limit=0 fields='*SELECT_TOPICS'>
+<ifnzero what='$;Count'>
+ <table style='margin: 0'>
+  <topic_obj id='$topic_id'>
+  <tr><td class='textears-title'>$=,Comment0</td></tr>
+  <tr><td><ul class='ninept'>
+   <for>
+    <li>
+     <b>$=.Subject.</b>
+     <a href='$.GrpDetailsHref'>$.Comment0HTML</a>
+     <biff time='$.Modified' small='*true'>
+    </li>
+   </for>
+  </ul></td></tr>
+ </table>
+</ifnzero>
+</element>

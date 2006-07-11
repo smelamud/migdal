@@ -2,19 +2,19 @@
 
 <element name='topics_admin'>
 <topics_table class='ninept' title='Администратор'>
- <topics_line arrow!="$ident=='moderator'" text='Модератор'
+ <topics_line arrow!="$index=='moderator'" text='Модератор'
               href='moderator.php'>
  <topics_splitter>
- <topics_line arrow!="$ident=='admin-topics'" text='Темы'
+ <topics_line arrow!="$index=='admin-topics'" text='Темы'
               href='/admin/topics/'>
- <topics_line arrow!="$ident=='admin-messages'" text='Сообщения'
+ <topics_line arrow!="$index=='admin-messages'" text='Сообщения'
               href='/admin/postings/'>
- <topics_line arrow!="$ident=='admin-groups'" text='Группы'
+ <topics_line arrow!="$index=='admin-groups'" text='Группы'
               href='grouporg.php'>
- <topics_line arrow!="$ident=='admin-journal'" text='Журнал'
+ <topics_line arrow!="$index=='admin-journal'" text='Журнал'
               href='journal.php'>
  <topics_splitter>
- <topics_line arrow!="$ident=='ears'" text='Ушки'
+ <topics_line arrow!="$index=='ears'" text='Ушки'
               href='/admin/ears/'>
 </topics_table>
 </element>

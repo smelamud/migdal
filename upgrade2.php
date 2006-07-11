@@ -223,7 +223,8 @@ while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
      $subject=unhtmlentities($row['subject']);
-     if(!in_array($row['grp'],grpArray(GRP_GRAPHICS)))
+     $graphicsGrps=grpArray(GRP_GRAPHICS);
+     if(!in_array($row['grp'],$graphicsGrps))
        {
        $body=unhtmlentities($row['body']);
        $title='';
@@ -238,7 +239,9 @@ while($row=mysql_fetch_assoc($result))
      $source=unhtmlentities($row['source']);
      $comment0=unhtmlentities($row['comment0']);
      $comment1=unhtmlentities($row['comment1']);
-     if($row['grp']==GRP_LIBRARY_NOVELTIES)
+     $sourceGrps=array(GRP_BOOKS,GRP_TIMES_COVERS,GRP_DAILY_NEWS,
+                       GRP_LIBRARY_NOVELTIES);
+     if(in_array($row['grp'],$sourceGrps))
        {
        $comment0=$source;
        $source='';

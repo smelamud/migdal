@@ -1,9 +1,10 @@
 << @(#) $Id$ >>
 
-<element name='topics_kaitana_days'>
-<topic_obj name='kaitana' id='$base'>
+<element name='topics_daily'>
+<upper_level name='События' href='/migdal/events/'>
+<topic_obj name='event' id='$base'>
 <topics_table class='eightpt' title='$=,Subject'>
- <ispost what='$kaitana'>
+ <ispost what='$event'>
   <tr><td colspan=2>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_ARTICLES'
       class='edit'>Добавить</a>
@@ -22,11 +23,15 @@
  <ifnzero what='$;Count'>
   <topics_splitter>
  </ifnzero>
- <iterate_postinglist topic_id='$,Id' grp='*GRP_KAITANA_NEWS'
+ <zone>
+  <posting_obj id='$index'>
+  <assign name='index1' value='$,Index1'>
+ </zone>
+ <iterate_postinglist topic_id='$,Id' grp='*GRP_DAILY_NEWS'
                       sort='*SORT_INDEX1' limit=0>
  <for>
   <topics_line time='$.Modified' text='$=.Heading'
-               href#='/${,Catalog}day-$.Index1/' arrow!='$.Id==$index'>
+               href#='/${,Catalog}day-$.Index1/' arrow!='$.Index1==$index1'>
  </for>
 </topics_table>
 </element>

@@ -54,6 +54,11 @@
 <decel name='/catalog_table' file='parts/catalog.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">
+<decel name='daily_announce' file='parts/daily-announce.php' params='topic_id'>
+<decel name='daily_picture' file='parts/daily-picture.php'
+       params='picture,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
 <decel name='discussions' file='parts/discussions.php'
        params='topic_id,title,limit'
        defaults="topic_id='-1' title='Форум' limit=5">
@@ -157,11 +162,6 @@
 <decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='identify' file='parts/identify.php' params='&posting'>
 <decel name='jewishru' file='parts/jewishru.php'>
-<decel name='kaitana_announce' file='parts/kaitana-announce.php'>
-<decel name='kaitana_picture' file='parts/kaitana-picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
 <decel name='langselect' file='parts/langselect.php' params='name,value'>
 <decel name='lastonline' file='parts/utils.php' params='user'>
 <decel name='links_switcher' file='parts/links-switcher.php' params='ident'>
@@ -254,8 +254,6 @@
 <decel name='subtitle' file='parts/subtitle.php' params='title'
        defaults="title='$$LocationInfo.Title'">
 <decel name='textears' file='parts/textears.php'>
-<decel name='times_no' file='parts/posting-times-cover.php'
-       params='index1,index2'>
 <decel name='tip' file='parts/tip.php'>
 <decel name='tip_posting' file='parts/tip-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
@@ -271,7 +269,8 @@
 <decel name='topiclink_gallery' file='parts/posting.php' params='&posting,class'
        defaults="class='topic'">
 <decel name='topics' file='parts/topics.php'>
-<decel name='topics_admin' file='parts/topics-admin.php' params='ident'>
+<decel name='topics_admin' file='parts/topics-admin.php' params='index,base'
+       defaults="base=''">
 <decel name='topics_beitenu' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_book' file='parts/topics-book.php' params='index,base'
@@ -280,6 +279,8 @@
        defaults="base=''">
 <decel name='topics_common_events' file='parts/topics-events.php'
        params='id,class_line' defaults="class_line='topics-item'">
+<decel name='topics_daily' file='parts/topics-daily.php' params='index,base'
+       defaults="base=''">
 <decel name='topics_dances' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_events' file='parts/topics-events.php' params='index,base'
@@ -305,9 +306,7 @@
        defaults="posting=0">
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
-<decel name='topics_kaitana' file='parts/topics-kaitana.php' params='posting'>
-<decel name='topics_kaitana_days' file='parts/topics-kaitana.php'
-       params='index,base' defaults="base=''">
+<decel name='topics_kaitana' file='parts/topics-daily.php' params='posting'>
 <decel name='topics_kes' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_line'

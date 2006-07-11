@@ -137,6 +137,14 @@ function getTopicId()
 return $this->getParentId();
 }
 
+function getIssues()
+{
+$s=$this->getIndex1();
+if($this->getIndex2()>0)
+  $s.='-'.$this->getIndex2();
+return $s;
+}
+
 function getCounterValue0()
 {
 return $this->counter_value0;

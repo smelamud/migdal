@@ -25,7 +25,7 @@
       <assign name='topic_path' value=''>
       <for>
        <if what='$picid<=0'>
-        <array val1='*GRP_KAITANA_GALLERY' val2='*GRP_GALLERY'>
+        <array val1='*GRP_DAILY_GALLERY' val2='*GRP_GALLERY'>
         <posting_random grp='$*' topic_id='$.Id'>
 	<assign name='picid' value='$,'>
 	<assign name='topic_name' value='$.Subject'>

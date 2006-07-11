@@ -10,12 +10,12 @@ OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  chatboard.mhtml chatbottom.mhtml chatconsole.mhtml chattop.mhtml \
 	  chatusers.mhtml chmod.mhtml complainactionedit.mhtml \
 	  complainanswer.mhtml complainedit.mhtml complainforum.mhtml \
-	  complains.mhtml cross-entries.mhtml cross-entry-add.mhtml ears.mhtml \
-	  event.mhtml events.mhtml events-english.mhtml forum.mhtml \
-	  forumansweredit.mhtml forumcatalog.mhtml gallery.mhtml \
-	  gallery-main.mhtml groupadd.mhtml grouporg.mhtml halom.mhtml \
-	  halom-main.mhtml help.mhtml horisontedit.mhtml index-english.mhtml \
-	  index-www.mhtml jcc.mhtml journal.mhtml kaitana.mhtml \
+	  complains.mhtml cross-entries.mhtml cross-entry-add.mhtml \
+	  daily-news.mhtml ears.mhtml event.mhtml events.mhtml \
+	  events-english.mhtml forum.mhtml forumansweredit.mhtml \
+	  forumcatalog.mhtml gallery.mhtml gallery-main.mhtml groupadd.mhtml \
+	  grouporg.mhtml halom-main.mhtml help.mhtml horisontedit.mhtml \
+	  index-english.mhtml index-www.mhtml jcc.mhtml journal.mhtml \
 	  kaitana-main.mhtml limedit.mhtml liminsert.mhtml link.mhtml \
 	  links.mhtml methodic-center.mhtml methodics.mhtml migdal.mhtml \
 	  migdal-library.mhtml migdal-library-novelties.mhtml \

@@ -253,6 +253,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/complains.mhtml
 + migdal/cross-entries.mhtml
 * migdal/cross-entry-add.mhtml
++ migdal/daily-news.mhtml
 + migdal/ears.mhtml
 + migdal/event.mhtml
 - migdal/events-english.mhtml
@@ -272,7 +273,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/jcc.mhtml
 - migdal/journal.mhtml
 - migdal/kaitana-main.mhtml (удалить, сохранив ловушку)
-+ migdal/kaitana.mhtml
 + migdal/limedit.mhtml
 + migdal/liminsert.mhtml
 + migdal/links.mhtml
@@ -298,7 +298,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/taglit.mhtml
 - migdal/taglit-user.mhtml
 - migdal/_template.mhtml
-- migdal/times.mhtml
+* migdal/times.mhtml
 - migdal/tips.mhtml
 + migdal/topicdel.mhtml
 + migdal/topicedit.mhtml
@@ -328,6 +328,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/book-ring-static.mhtml
 * migdal/parts/bottom.mhtml
 - migdal/parts/complain.mhtml
++ migdal/parts/daily-announce.mhtml
++ migdal/parts/daily-picture.mhtml
 + migdal/parts/discussions.mhtml
 + migdal/parts/ears.mhtml
 + migdal/parts/events.mhtml
@@ -347,8 +349,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/hotlog.mhtml
 - migdal/parts/identify.mhtml (удалить)
 - migdal/parts/jewishru.mhtml
-- migdal/parts/kaitana-announce.mhtml
-+ migdal/parts/kaitana-picture.mhtml
 + migdal/parts/langselect.mhtml
 + migdal/parts/links-switcher.mhtml
 + migdal/parts/login.mhtml
@@ -383,6 +383,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * migdal/parts/topics-admin.mhtml
 - migdal/parts/topics-blog.mhtml
 + migdal/parts/topics-book.mhtml
+* migdal/parts/topics-daily.mhtml
 + migdal/parts/topicselect.mhtml
 * migdal/parts/topics-events.mhtml
 - migdal/parts/topics-gallery-general.mhtml
@@ -391,7 +392,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * migdal/parts/topics-general.mhtml (удалить)
 - migdal/parts/topics-help.mhtml
 - migdal/parts/topics-home.mhtml
-* migdal/parts/topics-kaitana.mhtml
 + migdal/parts/topics-links.mhtml
 + migdal/parts/topics-major.mhtml
 + migdal/parts/topics.mhtml

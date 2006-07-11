@@ -12,34 +12,34 @@
 < /Traps >>
 
 <grps>
-<posting_obj name='posting' id='$postid' grp='*GRP_KAITANA_NEWS'>
-<topic_obj name='kaitana' id='$posting.TopicId'>
-<log event=kaitana text#='topic($kaitana.Id) post($posting.Id)'>
+<posting_obj name='posting' id='$postid' grp='*GRP_DAILY_NEWS'>
+<topic_obj name='event' id='$posting.TopicId'>
+<log event=kaitana text#='topic($event.Id) post($posting.Id)'>
 
 <macro name='editor'>
- <ispost what='$kaitana'>
+ <ispost what='$event'>
 </macro>
 <endif name='/editor'>
 
-<element name='batcher' params='kaitana'>
+<element name='batcher' params='event'>
 <editor>
  <table class='info'><tr valign=center>
   <td><image src='/pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?topic_id=$kaitana.Id&grp=*GRP_KAITANA_NEWS&redirid=$_'
-      >Добавить новость</a>
+   <a href='postingedit.php?topic_id=$event.Id&grp=*GRP_DAILY_NEWS&redirid=$_'
+      >Добавить репортаж</a>
   </td>
   <td>&nbsp;</td>
   <td><image src='/pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?topic_id=$kaitana.Id&grp=*GRP_KAITANA_GALLERY&redirid=$_'
+   <a href='postingedit.php?topic_id=$event.Id&grp=*GRP_DAILY_GALLERY&redirid=$_'
       >Добавить картинку</a>
   </td>
  </tr></table>
 </editor>
 </element>
 
-<element name='controls' params='posting,kaitana'>
+<element name='controls' params='posting,event'>
 <ifnzero what='$posting.Id'>
  <div align=right><table class=controls>
   <tr>
@@ -57,28 +57,28 @@
 </ifnzero>
 </element>
 
-<element name='kaitana_ring' params='current,kaitana'>
+<element name='daily_ring' params='current,event'>
 <notprint>
  <table width=100% style='clear: both' class='ring'>
   <tr valign=center>
-   <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$current.TopicId'
+   <sibling_issue grp='*GRP_DAILY_NEWS' topic_id='$current.TopicId'
                   index1='$current.Index1' next='*false'>
    <if what='$,>0'>
-    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS'>
+    <posting_obj id='$,' grp='*GRP_DAILY_NEWS'>
     <td align=left width=40%>
-     <pointer href#='/${kaitana.Catalog}day-$,Index1/'
+     <pointer href#='/${event.Catalog}day-$,Index1/'
               text='$=,Subject' title='Предыдущий выпуск' left='*true'>
     </td>
    <else>
     <td width=40%>&nbsp;</td>
    </if>
    <td width=20%>&nbsp;</td>
-   <sibling_issue grp='*GRP_KAITANA_NEWS' topic_id='$current.TopicId'
+   <sibling_issue grp='*GRP_DAILY_NEWS' topic_id='$current.TopicId'
                   index1='$current.Index1' next='*true'>
    <if what='$,>0'>
-    <posting_obj id='$,' grp='*GRP_KAITANA_NEWS'>
+    <posting_obj id='$,' grp='*GRP_DAILY_NEWS'>
     <td align=right width=40%>
-     <pointer href#='/${kaitana.Catalog}day-$,Index1/'
+     <pointer href#='/${event.Catalog}day-$,Index1/'
               text='$=,Subject' title='Следующий выпуск' left='*false'>
     </td>
    <else>
@@ -101,45 +101,45 @@
   </zone></td>
   <td class='cframe'>
    <subtitle>
-   <batcher kaitana='$kaitana'>
+   <batcher event='$event'>
    <table class='article' width=100% cellspacing=5 cellpadding=0><tr valign=top>
-    <iterate_postinglist topic_id='$kaitana.Id' grp='*GRP_KAITANA_GALLERY'
+    <iterate_postinglist topic_id='$event.Id' grp='*GRP_DAILY_GALLERY'
 			 sort='*SORT_RATING' limit=0
 			 index1!='$posting.Id!=0 ? $posting.Index1 : $day'>
     <outer><td width=140><inner>
      <for>
       <if what='$;isOdd'>
-       <kaitana_picture picture='$.'>
+       <daily_picture picture='$.'>
       </if>
      </for>
     </inner></td></outer>
     <td>
-     <controls posting='$posting' kaitana='$kaitana'>
+     <controls posting='$posting' event='$event'>
      <ifnzero what='$posting.Id'>
       <table class=sent align=right>
        <tr><td>&nbsp;</td></tr>
        <tr><td align=right><sentview date='$posting.Sent'></td></tr>
        <tr><td align=right><senderlink message='$posting'></td></tr>
       </table>
-      <kaitana_ring current='$posting' kaitana='$kaitana'>
+      <daily_ring current='$posting' event='$event'>
       <h1 style='clear: both'>
        $=posting.Subject
-       <ifne what='$posting.Source'>
-        <div class='author'>$posting.SourceHTML<< FIXME Comment0 >></div>
+       <ifne what='$posting.Comment0'>
+        <div class='author'>$posting.Comment0HTML</div>
        </ifne>
       </h1>
       <p>$posting.BodyHTML</p>
       <vote_frame id='$posting.Id' color='$$style_cframe_back'
 		  image='$$style_cframe_back_pic' align=center>
-      <kaitana_ring current='$posting' kaitana='$kaitana'>
-      <controls posting='$posting' kaitana='$kaitana'>
+      <daily_ring current='$posting' event='$event'>
+      <controls posting='$posting' event='$event'>
      </ifnzero>
     </td>
     <outer><td width=140><inner>
      <reset_iterator>
      <for>
       <if what='!$;isOdd'>
-       <kaitana_picture picture='$.'>
+       <daily_picture picture='$.'>
       </if>
      </for>
     </inner></td></outer>

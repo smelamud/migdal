@@ -169,6 +169,11 @@ for my $var(keys %$item)
      $value="LINKT_$name" unless $name=~/\$/;
      $$item{"_$var"}="\".$value.\"";
      }
+   elsif($type eq 'orig_ident')
+     {
+     $$item{"_$var"}="\".getOrigIdByEntryId(postProcessIdent(\""
+                     .$$item{"_$var"}."\")).\"";
+     }
    else
      {
      $type=ucfirst $type;
