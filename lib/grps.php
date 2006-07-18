@@ -90,6 +90,7 @@ var $ident;
 var $title;
 var $comment;
 var $mandatory;
+var $style;
 
 function GrpEditor($props)
 {
@@ -115,6 +116,11 @@ return $this->comment;
 function isMandatory()
 {
 return $this->mandatory;
+}
+
+function getStyle()
+{
+return $this->style;
 }
 
 }

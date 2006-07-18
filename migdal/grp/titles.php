@@ -40,4 +40,10 @@ return formatAnyDate('Rj',$posting->getSent()).' '
        .formatAnyDate('Rk',$posting->getSent()).' '
        .formatAnyDate('RY',$posting->getSent());
 }
+
+function titlePostingIssues($id)
+{
+$posting=getPostingById($id);
+return $posting->getIssues();
+}
 ?>

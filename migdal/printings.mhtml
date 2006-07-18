@@ -42,9 +42,9 @@
     <seealso_frame>
     <perms name='printings' id='$`migdal.printings`'>
     <batcher printings='$printings'>
-    <iterate_postinglist grp='*GRP_LIBRARY_NOVELTIES'
-                         topic_id='$`migdal.printings`' recursive='*true'
-			 limit=0 sort='*SORT_TOPIC_INDEX0_INDEX0'>
+    <iterate_postinglist grp='*GRP_PRINTINGS' topic_id='$`migdal.printings`'
+                         recursive='*true' limit=0
+			 sort='*SORT_TOPIC_INDEX0_INDEX0'>
     <assign name='topic_id' value=0>
     <for>
      <if what='$topic_id!=$.TopicId'>

@@ -18,8 +18,8 @@
    <td class='cframe'>
     <subtitle>
     <seealso_frame>
-    <postings grp='*GRP_LIBRARY_NOVELTIES' topic_id='$`migdal.library`'
-              limit=10 offset='$offset' showshadows='*true' showadvert='*false'>
+    <postings grp='*GRP_PRINTINGS' topic_id='$`migdal.library`' limit=10
+              offset='$offset' showshadows='*true' showadvert='*false'>
    </td>
   </tr>
  </table>

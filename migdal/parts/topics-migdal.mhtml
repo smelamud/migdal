@@ -146,7 +146,7 @@
  <topics_line text='О библиотеке' href='/migdal/library/'
 	      arrow!="$index=='migdal.library'"
 	      class='topics-item ninept'>
- <posting_last grp='*GRP_LIBRARY_NOVELTIES' topic_id='$`migdal.library`'
+ <posting_last grp='*GRP_PRINTINGS' topic_id='$`migdal.library`'
                recursive='*false'>
  <topics_line time='$,' text='Новинки' href='/migdal/library/novelties/'
 	      arrow!="$index=='migdal.library.novelties'"

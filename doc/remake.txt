@@ -64,6 +64,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 40. В функции, вызываемые из structure.conf аргументы передаются
     непосредственно из пути, без обработки. Производить обработку во всех
     функциях и написать строгое предупреждение в начале файла.
+41. Плохо обрабатывается украинская "г", которую вставляют вместо еврейской.
+42. Обложки МТ - 150 по ширине (ошибка с 58-го)!
 
 Прогресс пересмотра файлов
 --------------------------
@@ -232,7 +234,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/500.mhtml
 - migdal/archive.mhtml
 * migdal/article.mhtml (кроме ловушек)
-- migdal/article-times.mhtml
++ migdal/article-times.mhtml
 + migdal/book-chapter.mhtml
 - migdal/book-chapter-split.mhtml
 * migdal/book.mhtml (кроме пакетов и ловушек)
@@ -298,7 +300,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/taglit.mhtml
 - migdal/taglit-user.mhtml
 - migdal/_template.mhtml
-* migdal/times.mhtml
++ migdal/times.mhtml
 - migdal/tips.mhtml
 + migdal/topicdel.mhtml
 + migdal/topicedit.mhtml
@@ -361,14 +363,14 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * migdal/parts/posting-book.mhtml
 + migdal/parts/posting-ear.mhtml
 * migdal/parts/posting-general.mhtml
-+ migdal/parts/posting-library-announce.mhtml
 + migdal/parts/posting-link.mhtml
++ migdal/parts/posting-printing.mhtml
 * migdal/parts/posting.mhtml
 + migdal/parts/postings-links.mhtml
 + migdal/parts/postings.mhtml
 + migdal/parts/postings-migdal-news.mhtml
-- migdal/parts/posting-times-cover.mhtml
-- migdal/parts/posting-times.mhtml
++ migdal/parts/posting-times-cover.mhtml
++ migdal/parts/posting-times.mhtml
 - migdal/parts/rabbi.mhtml
 - migdal/parts/rambler.mhtml
 + migdal/parts/relogin.mhtml
@@ -391,14 +393,13 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/topics-gallery-migdal.mhtml
 * migdal/parts/topics-general.mhtml (удалить)
 - migdal/parts/topics-help.mhtml
-- migdal/parts/topics-home.mhtml
 + migdal/parts/topics-links.mhtml
 + migdal/parts/topics-major.mhtml
 + migdal/parts/topics.mhtml
 - migdal/parts/topics-migdal-english.mhtml
 * migdal/parts/topics-migdal.mhtml
 - migdal/parts/topics-minor.mhtml
-- migdal/parts/topics-times.mhtml
++ migdal/parts/topics-times.mhtml
 + migdal/parts/top.mhtml
 + migdal/parts/tzdaka.mhtml
 + migdal/parts/uploader.mhtml

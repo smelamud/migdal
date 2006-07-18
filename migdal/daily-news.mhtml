@@ -61,8 +61,8 @@
 <notprint>
  <table width=100% style='clear: both' class='ring'>
   <tr valign=center>
-   <sibling_issue grp='*GRP_DAILY_NEWS' topic_id='$current.TopicId'
-                  index1='$current.Index1' next='*false'>
+   <sibling_id grp='*GRP_DAILY_NEWS' topic_id='$current.TopicId'
+               index1='$current.Index1' next='*false'>
    <if what='$,>0'>
     <posting_obj id='$,' grp='*GRP_DAILY_NEWS'>
     <td align=left width=40%>
@@ -73,8 +73,8 @@
     <td width=40%>&nbsp;</td>
    </if>
    <td width=20%>&nbsp;</td>
-   <sibling_issue grp='*GRP_DAILY_NEWS' topic_id='$current.TopicId'
-                  index1='$current.Index1' next='*true'>
+   <sibling_id grp='*GRP_DAILY_NEWS' topic_id='$current.TopicId'
+               index1='$current.Index1' next='*true'>
    <if what='$,>0'>
     <posting_obj id='$,' grp='*GRP_DAILY_NEWS'>
     <td align=right width=40%>

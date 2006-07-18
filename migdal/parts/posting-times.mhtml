@@ -2,41 +2,41 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topiclink posting='$posting'>
- <br>
+ <topiclink posting='$posting'><br>
 </if>
 </element>
 
 <element name='further' params='posting,title'>
-<identify posting='$posting'>
-<p><image src='pics/further.gif'>&sp;
-<a href='$posting.DetailsHref'>$title</a>
+<p>
+ <image src='/pics/further.gif'>&sp;
+ <a href='$posting.GrpDetailsHref'>$title</a>
+</p>
 </element>
 
 <element name='posting_times'>
-<identify posting='$posting'>
 <dl class='posting'>
- <dt class='subject'>
+ <dt>
   <topic posting='$posting' showtopic='$showtopic'>
   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
               image='$$style_cframe_back_pic'>
-  <a href='$posting.DetailsHref'>$posting.Subject</a>
+  <a class='posting-subject'
+     href='$posting.GrpDetailsHref'>$=posting.Heading</a>
   <ifne what='$posting.Author'>
-   <br><span class='author'>$posting.Author</span>
+   <br><span class='posting-author'>$=posting.Author</span>
   </ifne>
  </dt>
  <dd>
- <ifnzero what='$posting.ImageSet'>
+ <ifnzero what='$posting.hasSmallImage'>
   <table align=left class='pic'>
    <tr><td>
-    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+    <posting_image posting='$posting'>
    </td></tr>
    <ifne what='$posting.Title'>
-    <tr><td>$posting.HTMLTitle</td></tr>
+    <tr><td>$posting.TitleHTML</td></tr>
    </ifne>
   </table>
  </ifnzero>
- $posting.HTMLBody&nbsp;<asp>
+ $posting.BodyHTML<asp>
  <further posting='$posting' title='Читать статью'>
  <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
 </dl>

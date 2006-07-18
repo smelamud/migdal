@@ -27,6 +27,7 @@
     </ifne>
     <p>$,HTMLBody</p>
     <zone>
+     << FIXME deprecated >>
      <sibling_index0 name='index' up='$,MessageId' index0='-1'>
      <if what='$,>=0'>
       <p>

@@ -10,7 +10,7 @@
    </td><td width=33%>&nbsp;</td></tr>
   </if>
   <tr valign=center>
-   <sibling up='$book.OrigId' index0='$index' next='*false'>
+   <sibling_id up='$book.OrigId' index0='$index' next='*false'>
    <if what='$,>0'>
     <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
     <td align=left width=33%>
@@ -28,7 +28,7 @@
    <else>
     <td width=33%>&nbsp;</td>
    </if>
-   <sibling up='$book.OrigId' index0='$index' next='*true'>
+   <sibling_id up='$book.OrigId' index0='$index' next='*true'>
    <if what='$,>0'>
     <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
     <td align=right width=33%>

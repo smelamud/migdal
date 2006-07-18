@@ -8,6 +8,7 @@
   </td><td width=33%>&nbsp;</td></tr>
  </if>
  <tr valign=center>
+  << FIXME deprecated >>
   <sibling up='$book.MessageId' index0='$index' next='*false'>
   <if what='$,>0'>
    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_GENERAL'>
@@ -25,6 +26,7 @@
   <else>
    <td width=33%>&nbsp;</td>
   </if>
+  << FIXME deprecated >>
   <sibling up='$book.MessageId' index0='$index' next='*true'>
   <if what='$,>0'>
    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_GENERAL'>

@@ -1,48 +1,41 @@
 << @(#) $Id$ >>
-<< Based-on: migdal/posting.mhtml 1.36 >>
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topiclink posting='$posting'>
- <br>
+ <topiclink posting='$posting'><br>
 </if>
 </element>
 
 <element name='further' params='posting'>
-<p><image src='pics/further.gif'>&sp;
-<a href='times.php?issue=$posting.Index1'>Читать журнал</a>
-</element>
-
-<element name='times_no'>
-<assign name='nlast' value!='$index1+$index2'>
-<asp>$index1<if what='$index2>0'>-$nlast</if>
+<p>
+ <image src='/pics/further.gif'>&sp;
+ <a href='/times/$posting.Index1/'>Читать журнал</a>
+</p>
 </element>
 
 <element name='posting_times_cover'>
 <dl class='posting'>
- <dt class='subject'>
+ <dt>
   <topic posting='$posting' showtopic='$showtopic'>
-  <biff time='$posting.Sent'>
   <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
               image='$$style_cframe_back_pic'>
-  <a href='times.php?issue=$posting.Index1'>
-   &lt;&lt;Мигдаль Times&gt;&gt; No.<asp>
-   <times_no index1='$posting.Index1' index2='$posting.Index2'></a>
+  <biff time='$posting.Modified'>
+  <a class='posting-subject' href='/times/$posting.Index1/'>
+   &lt;&lt;Мигдаль Times&gt;&gt; No.$posting.getIssues</a>
  </dt>
  <dd><p>
- <ifnzero what='$posting.ImageSet'>
+ <ifnzero what='$posting.hasSmallImage'>
   <table align=left class='pic'>
    <tr><td>
-    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+    <posting_image posting='$posting'>
    </td></tr>
    <ifne what='$posting.Title'>
-    <tr><td>$posting.HTMLTitle</td></tr>
+    <tr><td>$posting.TitleHTML</td></tr>
    </ifne>
   </table>
  </ifnzero>
- $posting.HTMLBody&nbsp;<asp>
+ $posting.BodyHTML<asp>
  <further posting='$posting'>
- </p>
  <div class='sent' style="clear: left">
   <sentview date='$posting.Sent'>&nbsp;
   <senderlink message='$posting'>

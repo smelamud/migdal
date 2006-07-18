@@ -141,7 +141,7 @@ function getIssues()
 {
 $s=$this->getIndex1();
 if($this->getIndex2()>0)
-  $s.='-'.$this->getIndex2();
+  $s.='-'.($this->getIndex1()+$this->getIndex2());
 return $s;
 }
 
@@ -519,42 +519,6 @@ $this->SelectIterator(
 
 }
 
-// remake
-class ArticleCoversIterator
-      extends SelectIterator
-{
-
-function ArticleCoversIterator($articleGrp,$coverGrp)
-{
-$hideMessages=messagesPermFilter(PERM_READ,'messages');
-$hideCovers=messagesPermFilter(PERM_READ,'cover_messages');
-$joinGrpFilter=grpFilter($coverGrp,'grp','covers');
-$articleGrpFilter=grpFilter($articleGrp,'grp','postings');
-$coverGrpFilter=grpFilter($coverGrp,'grp','postings');
-$this->SelectIterator(
-       'Posting',
-       "select distinct postings.index1 as index1,covers.index2 as index2,
-               cover_messages.source as source
-        from postings
-             left join postings as covers
-	          on postings.index1=covers.index1 and
-		     $joinGrpFilter
-	     left join messages
-	          on postings.message_id=messages.id
-	     left join messages as cover_messages
-	          on covers.message_id=cover_messages.id
-	where ($articleGrpFilter or $coverGrpFilter) and
-	      $hideMessages and (covers.id is null or $hideCovers)
-	order by postings.index1 desc");
-}
-
-function create($row)
-{
-return newGrpPosting(GRP_TIMES_COVER,$row);
-}
-
-}
-
 class PostingAlphabetIterator
       extends AlphabetIterator
 {
@@ -802,24 +766,6 @@ $result=sql("select id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-// remake
-function getMaxIndexOfPosting($indexN,$grp,$topic_id=-1,$recursive=false)
-{
-$hide=messagesPermFilter(PERM_READ,'messages');
-$grpFilter=grpFilter($grp);
-$topicFilter=($topic_id<0 || $recursive && $topic_id==0)
-             ? '' : ' and topics.'.subtree('topics',$topic_id,$recursive);
-$result=sql("select max(postings.index$indexN)
-	     from postings
-		  left join messages
-		       on postings.message_id=messages.id
-		  left join topics
-		       on postings.topic_id=topics.id
-	     where $hide and $grpFilter $topicFilter",
-	    'getMaxIndexOfPosting');
-return mysql_num_rows($result)>0 ? (int)mysql_result($result,0,0) : 0;
-}
-
 function getVoteInfoByPostingId($id,$grp=GRP_ALL)
 {
 $result=sql("select id,vote,vote_count,rating
@@ -840,67 +786,59 @@ $result=sql("select id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-function getSibling($up,$index0,$next=true)
+define('SIBLING_ID',1);
+define('SIBLING_INDEX',2);
+
+define('SIBLING_UNDEF',-1);
+define('SIBLING_EDGE',-2);
+
+function getSibling($grp=GRP_ALL,$topic_id=-1,$up=-1,$index0=SIBLING_UNDEF,
+                    $index1=SIBLING_UNDEF,$next=true,$field=SIBLING_ID)
 {
-$filter=$next ? "index0>$index0" : "index0<$index0";
+if($index0!=SIBLING_UNDEF)
+  {
+  $indexField='index0';
+  if($index0!=SIBLING_EDGE)
+    $filter=$next ? "index0>$index0" : "index0<$index0";
+  else
+    $filter='1';
+  if($index1!=SIBLING_UNDEF)
+    $filter.=" and index1=$index1";
+  }
+else
+  {
+  $indexField='index1';
+  if($index1!=SIBLING_EDGE)
+    $filter=$next ? "index1>$index1" : "index1<$index1";
+  else
+    $filter='1';
+  }
+$filter.=' and '.postingsPermFilter(PERM_READ);
+$filter.=' and '.postingListGrpFilter($grp);
+$filter.=' and '.postingListTopicFilter($topic_id,false);
+if($up>0)
+  $filter.=" and up=$up";
 $order=$next ? 'asc' : 'desc';
-$result=sql("select id
+$select=$field==SIBLING_ID ? 'id' : $indexField;
+$result=sql("select $select
 	     from entries
-	     where up=$up and $filter
-	     order by index0 $order
+	     where $filter
+	     order by $indexField $order
 	     limit 1",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-// remake
-function getSiblingIndex0($up,$index0,$next=true)
+function getSiblingId($grp=GRP_ALL,$topic_id=-1,$up=-1,$index0=SIBLING_UNDEF,
+                      $index1=SIBLING_UNDEF,$next=true)
 {
-$filter=$next ? "index0>$index0" : "index0<$index0";
-$order=$next ? 'asc' : 'desc';
-$result=sql("select index0
-	     from postings
-		  left join messages
-		       on postings.message_id=messages.id
-	     where up=$up and $filter
-	     order by index0 $order
-	     limit 1",
-	    'getSiblingIndex0');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
+return getSibling($grp,$topic_id,$up,$index0,$index1,$next,SIBLING_ID);
 }
 
-function getSiblingIssue($grp,$topic_id,$index1,$next=true)
+function getSiblingIndex($grp=GRP_ALL,$topic_id=-1,$up=-1,$index0=SIBLING_UNDEF,
+                         $index1=SIBLING_UNDEF,$next=true)
 {
-$grpFilter=postingListGrpFilter($grp);
-$topicFilter=postingListTopicFilter($topic_id);
-$issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
-$order=$next ? 'asc' : 'desc';
-$result=sql("select id
-	     from entries
-	     where entry=".ENT_POSTING." and $grpFilter and $topicFilter
-	           $issueFilter
-	     order by index1 $order
-	     limit 1",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-}
-
-// remake
-function getSiblingIndex1($grp,$topic_id,$index1,$next=true)
-{
-$grpFilter=grpFilter($grp);
-$issueFilter=$next ? "and index1>$index1" : "and index1<$index1";
-$order=$next ? 'asc' : 'desc';
-$topicFilter=$topic_id>=0 ? "and topic_id=$topic_id" : '';
-$result=sql("select index1
-	     from postings
-		  left join messages
-		       on postings.message_id=messages.id
-	     where $grpFilter $topicFilter $issueFilter
-	     order by index1 $order
-	     limit 1",
-	    'getSiblingIndex1');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+return getSibling($grp,$topic_id,$up,$index0,$index1,$next,SIBLING_INDEX);
 }
 
 function getPostingDomainCount($topic_id=-1,$recursive=false,$grp=GRP_ALL)

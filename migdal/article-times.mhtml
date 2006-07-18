@@ -1,18 +1,19 @@
 << @(#) $Id$ >>
 
-<ident name='artid' table='postings'>
-<posting_obj id='$artid' grp='*GRP_TIMES_ARTICLES'
-             fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
-<ifzero what='$,Id'>
- <fail>
-</ifzero>
-<zone>
- << FIXME deprecated >>
- <posting_obj name='cover' grp='*GRP_TIMES_COVERS' index1='$,Index1'
-              topic_id='-1' fields='*SELECT_GENERAL'>
-</zone>
+<ident name='postid'>
+<posting_obj id='$postid' grp='*GRP_TIMES_ARTICLES' fields='*SELECT_LARGE_BODY'>
 <log event=article text#='post($,Id)'>
-<pagetitle title='$,Subject'>
+
+<element name='times_mark' params='issue'>
+<posting_id grp='*GRP_TIMES_COVERS' index1='$issue' topic_id='$`times`'>
+<posting_obj id='$,' grp='*GRP_TIMES_COVERS'>
+<table align=right class='timesnfo aframe'><tr valign=center>
+ <td><a href='/times/$issue/'>
+  <image src='/pics/times-small.gif' border=0></a>
+ </td>
+ <td><a href='/times/$issue/'>No.$,getIssues</a></td>
+</tr></table>
+</element>
 
 <html>
 <stylesheet ident='article'>
@@ -23,25 +24,19 @@
  <table width=100% cellpadding=5><tr valign=top>
   <notprint>
    <td width=150 class='eframe'>
-    <topics posting='$,'>
+    <topics>
     <ears>
    </td>
   </notprint>
   <td class='article cframe'>
    <article_controls posting='$,'>
    <h1>
-    <table align=right class='timesnfo aframe'><tr valign=center>
-     <td><a href='/times.php?issue=$,Index1'>
-      <image src='pics/times-small.gif' border=0></a>
-     </td>
-     <td><a href='/times.php?issue=$,Index1'>
-      No.<times_no index1='$,Index1' index2='$cover.Index2'></a></td>
-    </tr></table>
+    <times_mark issue='$,Index1'>
     <topiclink posting='$,'>
     <br>
-    $,Subject
+    $=,Subject
     <ifne what='$,Author'>
-     <div class='author'>$,HTMLAuthor</div>
+     <div class='author'>$,AuthorHTML</div>
     </ifne>
    </h1>
    <article_full posting='$,'>

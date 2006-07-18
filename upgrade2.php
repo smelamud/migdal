@@ -240,7 +240,7 @@ while($row=mysql_fetch_assoc($result))
      $comment0=unhtmlentities($row['comment0']);
      $comment1=unhtmlentities($row['comment1']);
      $sourceGrps=array(GRP_BOOKS,GRP_TIMES_COVERS,GRP_DAILY_NEWS,
-                       GRP_LIBRARY_NOVELTIES);
+                       GRP_PRINTINGS);
      if(in_array($row['grp'],$sourceGrps))
        {
        $comment0=$source;
@@ -873,7 +873,7 @@ while($row=mysql_fetch_assoc($result))
        $cross['source_name']='gallery.major';
        $cross['link_type']=LINKT_MAJOR;
        }
-     if($row['source_grp']==GRP_LIBRARY_NOVELTIES)
+     if($row['source_grp']==GRP_PRINTINGS)
        $cross['source_name']='migdal.library.novelties';
      if($row['source_grp']==GRP_REVIEWS)
        $cross['source_name']=$row['source_ident'];
@@ -890,7 +890,7 @@ while($row=mysql_fetch_assoc($result))
        }
      if($row['peer_grp']==GRP_BOOKS && $row['peer_ident']=='migdal.methodology')
        $cross['peer_path']='/migdal/methodology/books/';
-     if($row['peer_grp']==GRP_LIBRARY_NOVELTIES)
+     if($row['peer_grp']==GRP_PRINTINGS)
        $cross['peer_path']='/migdal/library/novelties/';
      if($row['peer_grp']==GRP_REVIEWS)
        $cross['peer_path']='/'.catalog($row['peer_id'],$row['peer_ident']);

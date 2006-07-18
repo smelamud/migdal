@@ -60,7 +60,7 @@
       <p style='clear: left'>$,BodyHTML</p>
       <notprint>
        <zone>
-	<sibling up='$,OrigId' index0='-1'>
+	<sibling_id up='$,OrigId' index0='*SIBLING_EDGE' next='*true'>
 	<if what='$,>0'>
 	 <p>
 	  <table class='ring' cellpadding=0>

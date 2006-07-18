@@ -1,28 +1,19 @@
 << @(#) $Id$ >>
 
-<element name='times_articles' params='issue,id,length,cover'>
+<element name='topics_times'>
 <grps>
-<assign name='nlast' value!='$issue+$length'>
-<assign name='no' value!='$issue>=$nlast ? $issue : "$issue-$nlast"'>
-<topics_table title#='В номере No.$no'>
- <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`migdal-times`'
+<posting_id grp='*GRP_TIMES_COVERS' index1='$base' topic_id='$`times`'>
+<posting_obj id='$,' grp='*GRP_TIMES_COVERS'>
+<upper_level name='Мигдаль Times' href='/times/'>
+<topics_table title#='В номере No.$,getIssues'>
+ <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`times`'
 		      recursive='*true' limit=0 sort='*SORT_INDEX0'
-		      index1='$issue'>
- <identify posting='$cover'>
- <topics_line text='Обложка' href='$cover.DetailsHref' arrow!='$id==$cover.Id'
-              class='item ninept'>
+		      index1='$base'>
+ <topics_line text='Обложка' href#='/times/$base/' arrow!='$index==$,Id'
+              class='topics-item ninept'>
  <for>
-  <identify posting='$.'>
-  <topics_line time='$.Sent' text='$.Subject' href='$.DetailsHref'
-               arrow!='$.Id==$id' class='item ninept'>
+  <topics_line time='$.Modified' text='$=.Subject' href='$.GrpDetailsHref'
+               arrow!='$.Id==$index' class='topics-item ninept'>
  </for>
 </topics_table>
-</element>
-
-<element name='topics_times'>
-<< FIXME deprecated >>
-<posting_obj grp='*GRP_TIMES_COVERS' index1='$posting.Index1' topic_id='-1'
-             fields='*SELECT_GENERAL'>
-<times_articles issue='$posting.Index1' length='$,Index2' id='$posting.Id'
-                cover='$,'>
 </element>

@@ -205,11 +205,11 @@
                  shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
        params='posting,align,title,href' defaults="align='' title='' href=''">
-<decel name='posting_library_novelty' file='parts/posting-library-novelty.php'
+<decel name='posting_link' file='parts/posting-link.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
-<decel name='posting_link' file='parts/posting-link.php'
+<decel name='posting_printing' file='parts/posting-printing.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
@@ -349,7 +349,8 @@
        file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
 <decel name='topics_taglit' params='posting' file='parts/topics-blog.php'>
-<decel name='topics_times' params='posting' file='parts/topics-times.php'>
+<decel name='topics_times' file='parts/topics-times.php' params='index,base'
+       defaults="base=''">
 <decel name='topics_tips' file='parts/topics-help.php' params='posting'>
 <decel name='topics_veterans' params='posting' file='parts/topics-blog.php'>
 <decel name='topicselect' file='parts/topicselect.php'

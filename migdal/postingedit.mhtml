@@ -160,9 +160,20 @@
  </if>
 <elif what="$ident=='index2'">
  <if what='$visible'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment'
-             value='$posting.Index2' name='index2' size=3 maxlength=5
-	     mandatory='$editor.isMandatory'>
+  <if what="$editor.Style=='issue-length'">
+   <form_select title='$=editor.Title' comment='$editor.Comment'
+	        name='index2' mandatory='$editor.isMandatory'>
+    <form_option title='Обычный номер' value=0 selected!='$posting.Index2==0'>
+    <form_option title='Сдвоенный номер' value=1 selected!='$posting.Index2==1'>
+    <form_option title='Строенный номер' value=2 selected!='$posting.Index2==2'>
+    <form_option title='Счетверенный номер' value=3
+                 selected!='$posting.Index2==3'>
+   </form_select>
+  <else>
+   <form_edit title='$=editor.Title' comment='$editor.Comment'
+	      value='$posting.Index2' name='index2' size=3 maxlength=5
+	      mandatory='$editor.isMandatory'>
+  </if>
  <else>
   <hidden name='index2' value='$posting.Index2'>
  </if>
