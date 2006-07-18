@@ -77,7 +77,7 @@ return new PostingsInfo($row);
 }
 
 function getPostingsAnswersInfo($grp=GRP_NONE,$topic_id=-1,$user_id=0,
-                                 $recursive=false)
+                                $recursive=false)
 {
 if($grp==GRP_NONE)
   return new PostingsInfo();

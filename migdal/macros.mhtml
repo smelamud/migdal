@@ -127,8 +127,6 @@
                  large_url=''">
 <decel name='forum_answer' file='parts/forumanswer.php'
        params='answer,complain' defaults="complain='*true'">
-<decel name='forumcatalog' file='parts/forumcatalog.php' params='offset'
-       defaults="offset=0">
 <decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'

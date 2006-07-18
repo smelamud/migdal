@@ -1,29 +1,21 @@
 << @(#) $Id$ >>
 
-<int name='msgid'>
+<int name='postid'>
 <int name='offset'>
+
 <grps>
-<posting_obj name='posting' id='$msgid' grp='*GRP_FORUMS'
-             fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
-<ifzero what='$,Id'>
- <fail>
-</ifzero>
+<posting_obj id='$postid' grp='*GRP_FORUMS'>
 <log event=forum text#='post($,Id)'>
-<notenglish>
- <pagetitle title#='Форум - $,Heading'>
-<else>
- <pagetitle title#='Forum - $,Heading'>
-</notenglish>
 
 <html>
 <preamble>
 <body>
  <top ident='discuss'>
  <table width=100% cellpadding=5><tr valign=top><td class='cframe'>
-  <posting posting='$posting' shorten='*true' showdiscuss='*false'
-	   showcomplain='*true'>
+  <posting posting='$,' shorten='*true' showdiscuss='*false'
+           showcomplain='*true'>
   <p>
-  <forums parent_id='$,MessageId' limit='$$userForumPortion' offset='$offset'>
+  <forums parent_id='$,Id' limit='$$userForumPortion' offset='$offset'>
  </td></tr></table>
  <bottom>
 </body>

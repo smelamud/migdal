@@ -23,7 +23,7 @@ $userSetNames=array('MsgPortion', // obsolete
                     'ComplainPortion', // obsolete
 	            'ChatPortion',
 	            'ChatRefresh',
-		    'ForumCatalogPortion',
+		    'ForumCatalogPortion', // obsolete
 		    'Style',
 		    'PictureRowPortion',
 		    'PictureColumnPortion',
@@ -37,7 +37,7 @@ $userSetDefaults=array('MsgPortion'           => 10, // obsolete
                        'ComplainPortion'      => 20, // obsolete
 	               'ChatPortion'          => 20,
 	               'ChatRefresh'          => 10,
-		       'ForumCatalogPortion'  => 20,
+		       'ForumCatalogPortion'  => 20, // obsolete
 		       'Style'                => 1,
 		       'PictureRowPortion'    => 4,
 		       'PictureColumnPortion' => 5,
@@ -51,7 +51,7 @@ $userSetParams=array('MsgPortion'           => 'mp', // obsolete
 		     'ComplainPortion'      => 'cp', // obsolete
 		     'ChatPortion'          => 'chp',
 		     'ChatRefresh'          => 'chr',
-		     'ForumCatalogPortion'  => 'fcp',
+		     'ForumCatalogPortion'  => 'fcp', // obsolete
 		     'Style'                => 'st',
 		     'PictureRowPortion'    => 'prp',
 		     'PictureColumnPortion' => 'pcp',

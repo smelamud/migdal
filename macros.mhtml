@@ -200,9 +200,6 @@
 <deccall macro='forum_answer_obj' func='getForumAnswerById'
          file='lib/forums.php' params='id,parent_id,quote,quote_width'
 	 defaults="name=answer parent_id=0 quote='' quote_width=75">
-<deccall macro='forum_answer_author' func='getForumAnswerAuthorBySent'
-         file='lib/forums.php' params='parent_id,sent'
-	 defaults='name=answer parent_id=0'>
 <deccall macro='forum_answer_full' func='getFullForumAnswerById'
          file='lib/forums.php' params='id' defaults='name=answer'>
 <deccall macro='grp_array' func='grpArray' file='lib/grps.php' params='grp'>

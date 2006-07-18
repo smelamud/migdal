@@ -113,9 +113,21 @@ function getId()
 return $this->id;
 }
 
+// For compatibility with Entry
+function getUserId()
+{
+return $this->getId();
+}
+
 function getFolder()
 {
 return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getId();
+}
+
+// For compatibility with Entry
+function getUserFolder()
+{
+return $this->getFolder();
 }
 
 function getName()

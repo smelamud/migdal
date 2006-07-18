@@ -150,24 +150,6 @@ else
   }
 }
 
-function getForumAnswerAuthorBySent($parent_id,$sent)
-{
-$hide=messagesPermFilter(PERM_READ,'messages');
-$result=sql("select forums.id as id,message_id,sender_id,
-		    users.hidden as sender_hidden,
-		    login,gender,email,hide_email,rebe
-	     from forums
-		  left join messages
-		       on forums.message_id=messages.id
-		  left join users
-		       on messages.sender_id=users.id
-	     where $hide and forums.parent_id=$parent_id and
-		   unix_timestamp(sent)=$sent",
-	    'getForumAnswerAuthorBySent');
-return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                                 : array());
-}
-
 function getFullForumAnswerById($id)
 {
 $hide=messagesPermFilter(PERM_READ,'messages');

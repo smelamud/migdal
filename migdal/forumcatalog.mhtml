@@ -1,28 +1,129 @@
 << @(#) $Id$ >>
 
-<int name='topic_id'>
 <int name='offset'>
 
-<< Traps >>
-<< Tue Jun 17 18:56:06 EEST 2003 >>
+<< Traps >
+< Tue Jun 17 18:56:06 EEST 2003 >
 <ifnzero what='$topic_id'>
  <trap text='topic_id!=0 in forumcatalog.php'>
  <reload href='forumcatalog.php'>
 </ifnzero>
-<< /Traps >>
+< /Traps >>
 
 <log event=forumcatalog text#='offset=$offset'>
-
 <grps>
-<pagetitle title='Форум'>
+
+<element name='batcher' params='&list'>
+<table width=100%><tr valign=bottom>
+ <td align=left class='info'>
+  <table><tr valign=center>
+   <td><image src='/pics/sheet.gif'></td>
+   <td>
+    <a href='postingedit.php?topic_id=$`forums`&grp=*GRP_FORUMS&redirid=$_'
+       >Добавить тему</a>
+   </td>
+  </tr></table>
+ </td>
+ <td><spin list='$list'></td>
+</tr></table>
+</element>
 
 <html>
 <preamble>
 <body>
  <top ident='discuss'>
  <div style='padding: 5'>
-  <forumcatalog topic_id='-1' limit='$userForumCatalogPortion'
-		offset='$offset'>
+  <grp_diff name='grp' grp1='*GRP_ALL' grp2='*GRP_FORUMS'>
+  <iterate_postinglist grp='*GRP_DISCUSS' limit=20 offset='$offset'
+		       sort='*SORT_ACTIVITY' withanswers='$grp'
+		       showshadows='*false'>
+  <if what='$$userId>0 || $;Count!=0'>
+   <batcher list='$;'>
+   <catalog_table>
+    <tr valign=top>
+     <th class='catalog-cell'>&nbsp;</th>
+     <th class='catalog-cell'>Тема</th>
+     <th class='catalog-cell'>Прислал(а)</th>
+     <th class='catalog-cell'>Ответов</th>
+     <th class='catalog-cell'>Последний ответ</th>
+    </tr>
+    <for name='posting'>
+     <if what='$;isOdd'>
+      <assign name='class' value='catalog-cell-odd'>
+     <else>
+      <assign name='class' value='catalog-cell'>
+     </if>
+     <tr height=40>
+      <td class='$class' width=30>
+       <ifzero what='$.LastAnswer'>
+	<biff time='$.Modified'>
+       <else>
+	<biff time='$.LastAnswer'>
+       </ifzero>
+      </td>
+      <td class='$class'>
+       <a href='forum.php?msgid=$.Id' class='ninept'>$=.Heading</a>
+       <if what='$.Answers>$$userForumPortion'>
+        <span class='eightpt' style='white-space: nowrap'>
+	 <assign name='pages' value!='(int)($.Answers / $$userForumPortion)'>
+	 <if what='$.Answers % $$userForumPortion>0'>
+	  <assign name='pages' value!='$pages + 1'>
+	 </if>
+	 (Страницы:
+	 <if what='$pages>6'>
+	  <for n=3>
+	   <assign name='off' value!='$. * $$userForumPortion'>
+	   <assign name='page' value!='$. + 1'>
+	   &sp;<a href='/forum/$posting.Id/?offset=$off'
+		  class='ninept'>$page</a><asp>
+	  </for>
+	  &sp;...&sp;
+	  <for n=3>
+	   <assign name='off' value!='($pages + $. - 2) * $$userForumPortion'>
+	   <assign name='page' value!='$. + 1'>
+	   &sp;<a href='/forum/$posting.Id/?offset=$off'
+		  class='ninept'>$page</a><asp>
+	  </for>
+	 <else>
+	  <for n!='$pages'>
+	   <assign name='off' value!='$. * $$userForumPortion'>
+	   <assign name='page' value!='$. + 1'>
+	   &sp;<a href='/forum/$posting.Id/?offset=$off'
+		  class='ninept'>$page</a><asp>
+	  </for>
+	 </if>
+	 <asp>)
+        </span>
+       </if>
+       <if what='$.TopicId!=$`forums`'>
+	<br>
+	<span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
+       </if>
+      </td>
+      <td class='$class' align=center><senderlink message='$.'></td>
+      <td class='$class' align=center>
+       <a href='/forum/$.Id/' class='ninept'>$.Answers</a>
+      </td>
+      <ifzero what='$.LastAnswer'>
+       <td class='$class' align=center>---</td>
+      <else>
+       <td class='$class ninept'>
+	<sentview date='$.LastAnswer'><br>
+	<zone>
+	 <user_obj id='$.LastAnswerUserId'>
+	 Автор: <senderlink message='$,'>
+	</zone>
+       </td>
+      </ifzero>
+     </tr>
+    </for>
+   </catalog_table>
+   <ifnzero what='$;Count'>
+    <batcher list='$;'>
+   </ifnzero>
+  <else>
+   &nbsp;
+  </if>
  </div>
  <bottom>
 </body>
