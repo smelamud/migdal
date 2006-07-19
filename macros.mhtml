@@ -67,9 +67,9 @@
 <deciter macro='fixed_rows' class='FixedRowsIterator' file='lib/rowscols.php'
          params='iterator,rows,mincols'
 	 defaults="iterator='$;' rows=5 mincols=3">
-<deciter macro='forum_answerlist' class='ForumAnswerListIterator'
-         file='lib/forums.php' params='parent_id,limit,offset'
-	 defaults='limit=20 offset=0'>
+<deciter macro='forumlist' class='ForumListIterator' file='lib/forums.php'
+         params='parent_id,limit,offset,sort'
+	 defaults="limit=10 offset=0 sort='*SORT_SENT'">
 <deciter macro='grp_editor' class='GrpEditorIterator' file='lib/grps.php'
          params='grp,inverse' defaults="grp='*GRP_NONE' inverse='*false'">
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>

@@ -1,16 +1,16 @@
 << @(#) $Id$ >>
 
-<element name='forum_answer'>
+<element name='forum'>
 <table width=100% class='forum' cellspacing=1 cellpadding=0>
  <tr valign=top>
   <td class='header' rowspan=2 width=150 align=left>
    <table cellpadding=0>
     <tr>
-     <td><senderlink message='$answer'></td>
-     <td rowspan=2><biff time='$answer.Sent'></td>
+     <td><senderlink message='$forum'></td>
+     <td rowspan=2><biff time='$forum.Modified'></td>
     </tr>
     <tr><td class='sent'>
-     <sentview date='$answer.Sent'>
+     <sentview date='$forum.Sent'>
     </td></tr>
    </table>
    <<p align=center>
@@ -19,24 +19,24 @@
    <p>>
   </td>
   <td class='body ninept' align=left>
-   $answer.HTMLBody
+   $forum.BodyHTML
   </td>
  </tr>
  <tr valign=bottom>
   <td class='controls' height=22>&nbsp;
-   <a href="forumansweredit.php?parent_id=$answer.ParentId&peerid=$answer.Id&redirid=$_"
+   <a href="forumansweredit.php?parent_id=$forum.ParentId&peerid=$forum.Id&redirid=$_"
       title='Ответить с цитированием'>Ответить</a>
-   <iswrite what='$answer'>
+   <iswrite what='$forum'>
     &nbsp;
-    <a href="forumansweredit.php?editid=$answer.Id&redirid=$_"
+    <a href="forumansweredit.php?editid=$forum.Id&redirid=$_"
      >Изменить</a>
     <moderator>
      &nbsp;
-     <if what='$answer.isDisabled'>
-      <a href="actions/moderate.php?editid=$answer.MessageId&hide=0&okdir=$#-&faildir=$#-"
+     <if what='$forum.isDisabled'>
+      <a href="actions/moderate.php?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"
        >Разрешить&nbsp;показ</a>
      <else>
-      <a href="actions/moderate.php?editid=$answer.MessageId&hide=1&okdir=$#-&faildir=$#-"
+      <a href="actions/moderate.php?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"
        >Запретить&nbsp;показ</a>
      </if>
     </moderator>

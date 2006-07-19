@@ -2,7 +2,7 @@
 
 <element name='batcher' params='&list,parent_id'>
 <table width=100%><tr valign=bottom>
- <perms table='messages' id='$parent_id'>
+ <perms id='$parent_id'>
  <if what='$,isPostable'>
   <td align=left class='info'>
    <table><tr valign=center>
@@ -21,14 +21,14 @@
 </element>
 
 <element name='forums'>
-<iterate_forum_answerlist parent_id='$parent_id' limit='$limit'
-                          offset='$offset'>
+<iterate_forumlist parent_id='$parent_id' limit='$limit' offset='$offset'
+                   sort='*SORT_RSENT'>
 <batcher list='$;' parent_id='$parent_id'>
 <table width=100% cellspacing=0 cellpadding=0 class='forums'><tr><td>
  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
  <for>
-  <forum_answer answer='$.'>
+  <forum forum='$.'>
  </for>
 </tr></td></table>
 <ifnzero what='$;Count'>

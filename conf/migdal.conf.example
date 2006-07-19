@@ -262,7 +262,7 @@ $allowGuestChat=true;
 
 $topicMandatoryDescription=true;
 
-## Настройки сообщений в форуме (ForumAnswer) ##
+## Настройки сообщений в форуме (Forum) ##
 
 $forumanswerMandatorySubject=false;	# Не реализовано
 $forumanswerMandatoryAuthor=false;	# Не реализовано

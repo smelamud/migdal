@@ -33,7 +33,7 @@ var $co_ctr;
 function Posting($row)
 {
 $this->entry=ENT_POSTING;
-$this->body_format=TF_MAIL;
+$this->body_format=TF_PLAIN;
 parent::GrpEntry($row);
 }
 
@@ -434,15 +434,15 @@ $Order=getOrderBy($sort,
 	     SORT_TOPIC_INDEX0_INDEX0
 	                     => 'topics.index0,entries.index0',
              SORT_RSENT      => 'entries.sent asc'));
-$this->LimitSelectIterator('Posting',
-			   "select $Select
-			    from $From
-			    where {$this->where}
-			    $Order",
-			   $limit,$offset,
-			   "select $SelectCount
-			    from $From
-			    where {$this->where}");
+parent::LimitSelectIterator('Posting',
+			    "select $Select
+			     from $From
+			     where {$this->where}
+			     $Order",
+			    $limit,$offset,
+			    "select $SelectCount
+			     from $From
+			     where {$this->where}");
 }
 
 function create($row)

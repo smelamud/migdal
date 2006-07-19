@@ -21,7 +21,7 @@
   </zone></if>
   <if what='$,TypeId==*COMPL_FORUM'><zone>
    <forum_answer_full id='$,Link'>
-   <forum_answer answer='$,' complain='*false'>
+   <forum forum='$,' showcomplain='*false'>
    <p>
   </zone></if>
   <complain complain='$,' discuss='*false'>

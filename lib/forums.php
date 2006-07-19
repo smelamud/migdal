@@ -2,119 +2,249 @@
 # @(#) $Id$
 
 require_once('lib/limitselect.php');
-require_once('lib/messages.php');
+require_once('lib/entries.php');
 require_once('lib/permissions.php');
 require_once('lib/utils.php');
 require_once('lib/bug.php');
 require_once('lib/answers.php');
 require_once('lib/sql.php');
 
-class ForumAnswer
-      extends Message
+class Forum
+      extends Entry
 {
-var $message_id;
-var $parent_id;
 
-function getCorrespondentVars()
+function Forum($row)
 {
-$list=Message::getCorrespondentVars();
-array_push($list,'parent_id');
-return $list;
+$this->entry=ENT_FORUM;
+$this->body_format=TF_MAIL;
+parent::Entry($row);
 }
 
-function getWorldForumVars()
+function setup($vars)
 {
-return array('message_id','parent_id');
-}
-
-function getAdminForumVars()
-{
-return array();
-}
-
-function getJencodedForumVars()
-{
-return array('message_id' => 'messages','parent_id' => 'messages');
-}
-
-function getNormalForum($isAdmin=false)
-{
-$normal=$this->collectVars($this->getWorldForumVars());
-if($isAdmin)
-  $normal=array_merge($normal,$this->collectVars($this->getAdminForumVars()));
-return $normal;
-}
-
-function store()
-{
-global $userModerator;
-
-$result=Message::store('message_id');
-if(!$result)
-  return $result;
-$normal=$this->getNormalForum($userModerator);
-if($this->id)
+if(!isset($vars['edittag']) || !$vars['edittag'])
+  return;
+// from Stotext FIXME
+$this->body_format=TF_MAIL;
+$this->body=$vars['body'];
+$this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
+$this->large_body_format=$vars['large_body_format'];
+if(!c_digit($this->large_body_format) || $this->large_body_format>TF_MAX)
+  $this->large_body_format=TF_PLAIN;
+$this->has_large_body=0;
+$this->large_body='';
+$this->large_body_xml='';
+if($vars['large_body']!='')
   {
-  $result=sql(makeUpdate('forums',
-                         $normal,
-			 array('id' => $this->id)),
-              get_method($this,'store'),'update');
-  journal(makeUpdate('forums',
-                     jencodeVars($normal,$this->getJencodedForumVars()),
-		     array('id' => journalVar('forums',$this->id))));
+  $this->has_large_body=1;
+  $this->large_body=$vars['large_body'];
+  $this->large_body_xml=wikiToXML($this->large_body,$this->large_body_format,
+                                  MTEXT_LONG);
+  }
+if($vars['large_body_filename']!='')
+  $this->large_body_filename=$vars['large_body_filename'];
+$this->small_image=$vars['small_image'];
+$this->small_image_x=$vars['small_image_x'];
+$this->small_image_y=$vars['small_image_y'];
+$this->large_image=$vars['large_image'];
+$this->large_image_x=$vars['large_image_x'];
+$this->large_image_y=$vars['large_image_y'];
+$this->large_image_size=$vars['large_image_size'];
+$this->large_image_format=$vars['large_image_format'];
+$this->large_image_filename=$vars['large_image_filename'];
+// from Message FIXME
+$this->up=$vars['up'];
+$this->subject=$vars['subject'];
+$this->subject_sort=convertSort($this->subject);
+$this->comment0=$vars['comment0'];
+$this->comment0_xml=wikiToXML($this->comment0,$this->body_format,MTEXT_LINE);
+$this->comment1=$vars['comment1'];
+$this->comment1_xml=wikiToXML($this->comment1,$this->body_format,MTEXT_LINE);
+$this->author=$vars['author'];
+$this->author_xml=wikiToXML($this->author,$this->body_format,MTEXT_LINE);
+$this->source=$vars['source'];
+$this->source_xml=wikiToXML($this->source,$this->body_format,MTEXT_LINE);
+$this->title=$vars['title'];
+$this->title_xml=wikiToXML($this->title,$this->body_format,MTEXT_LINE);
+$this->login=$vars['login'];
+if($vars['user_name']!='')
+  $this->login=$vars['user_name'];
+$this->group_login=$vars['group_login'];
+if($vars['group_name']!='')
+  $this->group_login=$vars['group_name'];
+$this->perm_string=$vars['perm_string'];
+if($this->perm_string!='')
+  $this->perms=permString($this->perm_string,strPerms($this->perms));
+else
+  if($vars['hidden'])
+    $this->perms&=~0x1100;
+  else
+    $this->perms|=0x1100;
+$this->lang=$vars['lang'];
+$this->disabled=$vars['disabled'];
+$this->url=$vars['url'];
+$this->url_domain=getURLDomain($this->url);
+// from Posting FIXME
+$this->parent_id=$vars['parent_id'];
+if($this->up<=0)
+  $this->up=$this->parent_id;
+else
+  if(getTypeByEntryId($this->up)==ENT_FORUM)
+    $this->parent_id=getParentIdByEntryId($this->up);
+}
+
+function isPermitted($right)
+{
+global $userModerator,$userId;
+
+return $userModerator
+       ||
+       (!$this->isDisabled() || $this->getUserId()==$userId) &&
+       perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
+}
+
+}
+
+function forumPermFilter($right,$prefix='')
+{
+global $userModerator,$userId;
+
+if($userModerator)
+  return '1';
+$filter=permFilter($right,$prefix);
+if($prefix!='' && substr($prefix,-1)!='.')
+  $prefix.='.';
+return "$filter and (${prefix}disabled=0".
+       ($userId>0 ? " or ${prefix}user_id=$userId)" : ')');
+}
+
+function forumExists($id)
+{
+$hide=forumPermFilter(PERM_READ);
+$result=sql("select id
+	     from entries
+	     where id=$id and entry=".ENT_FORUM." and $hide",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0;
+}
+
+class ForumListIterator
+      extends LimitSelectIterator
+{
+
+function ForumListIterator($parent_id,$limit=10,$offset=0,$sort=SORT_SENT)
+{
+$Filter='entry='.ENT_FORUM;
+$Filter.=' and '.forumPermFilter(PERM_READ);
+$Filter.=" and parent_id=$parent_id";
+$Order=getOrderBy($sort,
+       array(SORT_SENT  => 'entries.sent desc',
+             SORT_RSENT => 'entries.sent asc'));
+parent::LimitSelectIterator(
+        'Forum',
+	"select entries.id as id,body,body_xml,sent,user_id,group_id,perms,
+		disabled,parent_id,users.login as login,users.gender as gender,
+		users.email as email,users.hide_email as hide_email,
+		users.hidden as user_hidden
+	 from entries
+	      left join users
+		   on entries.user_id=users.id
+	 where $Filter
+	 $Order",
+	 $limit,$offset,
+	"select count(*)
+	 from entries
+	 where $Filter");
+}
+
+}
+
+function storeForum(&$forum)
+{
+$jencoded=array('subject' => '','author' => '','author_xml' => '',
+                'source' => '','source_xml' => '','title' => '',
+		'title_xml' => '','comment0' => '','comment0_xml' => '',
+		'comment1' => '','comment1_xml' => '','url' => '',
+		'url_domain' => '','body' => '','body_xml' => '',
+		'large_body' => '','large_body_xml' => '',
+		'large_body_filename' => '','small_image' => 'images',
+		'large_image' => 'images','large_image_filename' => '',
+		'person_id' => 'users','user_id' => 'users',
+		'group_id' => 'users','subject_sort' => '','up' => 'entries',
+		'parent_id' => 'entries');
+$vars=array('entry' => $forum->entry,
+            'modified' => sqlNow(),
+            'subject' => $forum->subject,
+	    'subject_sort' => $forum->subject_sort,
+	    'author' => $forum->author,
+	    'author_xml' => $forum->author_xml,
+	    'source' => $forum->source,
+	    'source_xml' => $forum->source_xml,
+	    'title' => $forum->title,
+	    'title_xml' => $forum->title_xml,
+	    'comment0' => $forum->comment0,
+	    'comment0_xml' => $forum->comment0_xml,
+	    'comment1' => $forum->comment1,
+	    'comment1_xml' => $forum->comment1_xml,
+	    'url' => $forum->url,
+	    'url_domain' => $forum->url_domain,
+	    'body' => $forum->body,
+	    'body_xml' => $forum->body_xml,
+	    'body_format' => $forum->body_format,
+	    'has_large_body' => $forum->has_large_body,
+	    'large_body' => $forum->large_body,
+	    'large_body_xml' => $forum->large_body_xml,
+	    'large_body_format' => $forum->large_body_format,
+	    'large_body_filename' => $forum->large_body_filename,
+	    'small_image' => $forum->small_image,
+	    'small_image_x' => $forum->small_image_x,
+	    'small_image_y' => $forum->small_image_y,
+	    'large_image' => $forum->large_image,
+	    'large_image_x' => $forum->large_image_x,
+	    'large_image_y' => $forum->large_image_y,
+	    'large_image_size' => $forum->large_image_size,
+	    'large_image_format' => $forum->large_image_format,
+	    'large_image_filename' => $forum->large_image_filename,
+            'person_id' => $forum->person_id,
+	    'user_id' => $forum->user_id,
+	    'group_id' => $forum->group_id,
+	    'perms' => $forum->perms,
+	    'lang' => $forum->lang,
+            'up' => $forum->up,
+	    'track' => $forum->track,
+	    'catalog' => $forum->catalog,
+	    'parent_id' => $forum->parent_id);
+if($userModerator)
+  $vars=array_merge($vars,
+		    array('disabled' => $forum->disabled,
+			  'priority' => $forum->priority));
+if($forum->id)
+  {
+  $result=sql(makeUpdate('entries',
+                         $vars,
+			 array('id' => $forum->id)),
+	      __FUNCTION__,'update');
+  journal(makeUpdate('entries',
+                     jencodeVars($vars,$jencoded),
+		     array('id' => journalVar('entries',$forum->id))));
   }
 else
   {
-  $result=sql(makeInsert('forums',
-                         $normal),
-	      get_method($this,'store'),'insert');
-  $this->id=sql_insert_id();
-  journal(makeInsert('forums',
-                     jencodeVars($normal,$this->getJencodedForumVars())),
-	  'forums',$this->id);
+  $vars['sent']=sqlNow();
+  $vars['created']=sqlNow();
+  $result=sql(makeInsert('entries',
+                         $vars),
+	      __FUNCTION__,'insert');
+  $forum->id=sql_insert_id();
+  journal(makeInsert('entries',
+                     jencodeVars($vars,$jencoded)),
+	  'entries',$forum->id);
+
   }
 return $result;
 }
 
-function getMessageId()
-{
-return $this->message_id;
-}
-
-function getParentId()
-{
-return $this->parent_id;
-}
-
-}
-
-class ForumAnswerListIterator
-      extends LimitSelectIterator
-{
-
-function ForumAnswerListIterator($parent_id,$limit=10,$offset=0)
-{
-$hide=messagesPermFilter(PERM_READ,'messages');
-$this->LimitSelectIterator(
-       'ForumAnswer',
-	"select forums.id as id,message_id,stotext_id,body,sent,sender_id,
-	        group_id,parent_id,perms,
-		if((messages.perms & 0x1100)=0,1,0) as hidden,disabled,
-		users.hidden as sender_hidden,
-		login,gender,email,hide_email,rebe
-	 from forums
-	      left join messages
-		   on forums.message_id=messages.id
-	      left join stotexts
-	           on stotexts.id=messages.stotext_id
-	      left join users
-		   on messages.sender_id=users.id
-	 where $hide and parent_id=$parent_id
-	 order by sent desc",$limit,$offset);
-}
-
-}
-
+// remake
 function getForumAnswerById($id,$parent_id=0,$quote='',$quoteWidth=75)
 {
 $hide=messagesPermFilter(PERM_READ);
@@ -129,7 +259,7 @@ $result=sql("select forums.id as id,message_id,stotext_id,body,
 	     where forums.id=$id and $hide",
 	    'getForumAnswerById');
 if(mysql_num_rows($result)>0)
-  return new ForumAnswer(mysql_fetch_assoc($result));
+  return new Forum(mysql_fetch_assoc($result));
 else
   {
   global $rootForumPerms;
@@ -141,7 +271,7 @@ else
     }
   else
     $group_id=0;
-  return new ForumAnswer(array('parent_id' => $parent_id,
+  return new Forum(array('parent_id' => $parent_id,
 		               'body'      => $quote!=''
 			                       ? getQuote($quote,$quoteWidth)
 			                       : '',
@@ -150,6 +280,7 @@ else
   }
 }
 
+// remake
 function getFullForumAnswerById($id)
 {
 $hide=messagesPermFilter(PERM_READ,'messages');
@@ -172,10 +303,11 @@ $result=sql(
 		   on messages.sender_id=users.id
 	 where $hide and forums.id=$id",
 	'getFullForumAnswerById');
-return new ForumAnswer(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+return new Forum(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                                  : array());
 }
 
+// remake
 function postForumAnswer($message_id,$body,$sender_id=0)
 {
 global $rootForumPerms;
@@ -187,7 +319,7 @@ if($parent_id>0)
   }
 else
   $group_id=0;
-$forum=new ForumAnswer(array('body'      => $body,
+$forum=new Forum(array('body'      => $body,
                              'parent_id' => $message_id,
     			     'sender_id' => $sender_id,
 			     'group_id'  => $group_id,
@@ -195,6 +327,7 @@ $forum=new ForumAnswer(array('body'      => $body,
 return $forum->store();
 }
 
+// remake
 function getForumAnswersInfoByMessageId($message_id)
 {
 global $userId;
@@ -214,6 +347,7 @@ else
   }
 }
 
+// remake
 function getForumAnswerIdByMessageId($message_id)
 {
 $result=sql("select id
@@ -223,17 +357,9 @@ $result=sql("select id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+// remake
 function isForumAnswer($message_id)
 {
 return getForumAnswerIdByMessageId($message_id)>0;
-}
-
-function getParentIdByMessageId($message_id)
-{
-$result=sql("select parent_id
-	     from forums
-	     where message_id=$message_id",
-	    'getParentIdByMessageId');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

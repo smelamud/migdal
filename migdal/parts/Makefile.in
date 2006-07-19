@@ -9,7 +9,7 @@ OBJECTS = article.mhtml backtrace.mhtml bannerbank.mhtml banners.mhtml \
 	  book-chapters-static.mhtml book-ring.mhtml book-ring-static.mhtml \
 	  bottom.mhtml catalog.mhtml complain.mhtml daily-announce.mhtml \
 	  daily-picture.mhtml discussions.mhtml ears.mhtml events.mhtml \
-	  failpage.mhtml formutils.mhtml forumanswer.mhtml forums.mhtml \
+	  failpage.mhtml formutils.mhtml forum.mhtml forums.mhtml \
 	  gallery.mhtml gallery-main.mhtml googleru.mhtml grpselect.mhtml \
 	  hannukah.mhtml help-link.mhtml history.mhtml hit-parade.mhtml \
 	  hotlog.mhtml identify.mhtml jewishru.mhtml langselect.mhtml \

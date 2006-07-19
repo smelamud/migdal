@@ -145,7 +145,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/errorreporting.php
 + lib/errors.php
 + lib/exec.php
-- lib/forums.php
+* lib/forums.php
 + lib/gregor-calendar.php
 - lib/groups.php
 + lib/grpiterator.php
@@ -288,7 +288,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/moderator.mhtml
 + migdal/postingedit.mhtml (кроме ссылок на help)
 + migdal/posting.mhtml
-* migdal/postingorg.mhtml
+* migdal/postingorg.mhtml (исправить стиль сообщений об ошибках)
 + migdal/printings.mhtml
 + migdal/rating.mhtml
 + migdal/register.mhtml
@@ -337,9 +337,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/events.mhtml
 - migdal/parts/failpage.mhtml
 + migdal/parts/formutils.mhtml
-- migdal/parts/forumanswer.mhtml
-- migdal/parts/forumcatalog.mhtml
-* migdal/parts/forums.mhtml
++ migdal/parts/forum.mhtml
++ migdal/parts/forums.mhtml (кроме стиля сообщений об ошибках)
 - migdal/parts/gallery-main.mhtml
 + migdal/parts/gallery.mhtml
 - migdal/parts/googleru.mhtml
