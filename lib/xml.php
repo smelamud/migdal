@@ -17,10 +17,16 @@ for($i=0;$i<$len+2;$i+=2)
 return $c;
 }
 
-function delicateSpecialChars($s)
+define('DSC_NO_GT',0);
+define('DSC_GT',1);
+
+function delicateSpecialChars($s,$gt=DSC_NO_GT)
 {
-return strtr($s,array('<' => '&lt;',
-                      '"' => '&quot;'));
+$specials=array('<' => '&lt;',
+                '"' => '&quot;');
+if($gt==DSC_GT)
+  $specials['>']='&gt;';
+return strtr($s,$specials);
 }
 
 function delicateAmps($s,$xmlEntities=true)
@@ -61,7 +67,7 @@ return $s;
 
 function makeText($text)
 {
-return delicateSpecialChars(utf8DecodeMarkup($text));
+return delicateSpecialChars(utf8DecodeMarkup($text),DSC_GT);
 }
 
 class XMLParser

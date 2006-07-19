@@ -62,7 +62,7 @@
        </ifzero>
       </td>
       <td class='$class'>
-       <a href='forum.php?msgid=$.Id' class='ninept'>$=.Heading</a>
+       <a href='/forum/$.Id/' class='ninept'>$=.Heading</a>
        <if what='$.Answers>$$userForumPortion'>
         <span class='eightpt' style='white-space: nowrap'>
 	 <assign name='pages' value!='(int)($.Answers / $$userForumPortion)'>

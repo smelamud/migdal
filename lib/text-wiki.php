@@ -160,8 +160,8 @@ return $c;
 function getQuoteLevel($s)
 {
 $n=0;
-for($i=0;$i<=strlen($s)-4;$i+=5)
-   if(substr($s,$i,4)=='>')
+for($i=0;$i<=strlen($s)-1;$i+=2)
+   if($s{$i}=='>')
      $n++;
    else
      return $n;
@@ -181,7 +181,7 @@ for($i=0;$i<count($lines);$i++)
                            $lines[$i]);
    $l=getQuoteLevel($lines[$i]);
    if(!$showQuoteChars)
-     $lines[$i]=substr($lines[$i],5*$l);
+     $lines[$i]=substr($lines[$i],2*$l);
    if($l>=$level)
      for($j=0;$j<$l-$level;$j++)
         $lines[$i]='<quote>'.$lines[$i];
