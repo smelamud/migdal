@@ -3,7 +3,7 @@
 
 function utf8DecodeMarkup($s,$maxlen=0)
 {
-$s=iconv("UTF-8","UTF-16",$s);
+$s=iconv('UTF-8','UTF-16',$s);
 $c='';
 $len=strlen($s)-2;
 if($maxlen!=0)
@@ -79,9 +79,9 @@ function XMLParser()
 $this->xml_parser=xml_parser_create();
 xml_set_object($this->xml_parser,$this);
 xml_parser_set_option($this->xml_parser,XML_OPTION_CASE_FOLDING,true);
-xml_parser_set_option($this->xml_parser,XML_OPTION_TARGET_ENCODING,"UTF-8");
-xml_set_element_handler($this->xml_parser,"startElement","endElement");
-xml_set_character_data_handler($this->xml_parser,"characterData");
+xml_parser_set_option($this->xml_parser,XML_OPTION_TARGET_ENCODING,'UTF-8');
+xml_set_element_handler($this->xml_parser,'startElement','endElement');
+xml_set_character_data_handler($this->xml_parser,'characterData');
 }
 
 function xmlError($message)
@@ -92,7 +92,7 @@ function parse($rootTag,$body)
 {
 xml_parse($this->xml_parser,"<$rootTag>",false);
 if(!xml_parse($this->xml_parser,$body,false))
-  $this->xmlError(sprintf("** XML error: %s at line %d **",
+  $this->xmlError(sprintf('** XML error: %s at line %d **',
 	               xml_error_string(xml_get_error_code($this->xml_parser)),
 	               xml_get_current_line_number($this->xml_parser)));
 xml_parse($this->xml_parser,"</$rootTag>",true);

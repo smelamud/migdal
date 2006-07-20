@@ -19,7 +19,7 @@
   <table><tr valign=center>
    <td><image src='/pics/sheet.gif'></td>
    <td>
-    <a href='postingedit.php?topic_id=$`forums`&grp=*GRP_FORUMS&redirid=$_'
+    <a href='postingedit.php?topic_id=$`forum`&grp=*GRP_FORUMS&redirid=$_'
        >Добавить тему</a>
    </td>
   </tr></table>
@@ -95,7 +95,7 @@
 	 <asp>)
         </span>
        </if>
-       <if what='$.TopicId!=$`forums`'>
+       <if what='$.TopicId!=$`forum`'>
 	<br>
 	<span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
        </if>

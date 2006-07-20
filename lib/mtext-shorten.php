@@ -190,7 +190,8 @@ foreach($patterns as $pat)
               if($bestpos<0 || abs($bestpos-$mdlen)>abs($pos-$mdlen))
 	        $bestpos=$pos;
 	      }
-       return $bestpos+$st+2;
+       $matchLen=is_array($pat) ? 2 : 1;
+       return $bestpos+$st+$matchLen;
        }
 return $len;
 }

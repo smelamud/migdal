@@ -213,6 +213,7 @@ topics	294	migdal.events.halom.9
 topics	214	migdal.events.hanukkah
 topics	10	migdal.events.hanukkah.5761
 topics	33	times
+topics	231	forum
 postings	1474	post.migdal
 postings	1582	post.migdal.museum
 postings	1977	post.migdal.migdal-or
