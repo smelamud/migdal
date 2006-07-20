@@ -266,6 +266,11 @@ function isPostable()
 return $this->isPermitted(PERM_POST);
 }
 
+function isGuestPostable()
+{
+return ($this->perms & PERM_EP)!=0;
+}
+
 function isHidden()
 {
 return ($this->perms & 0x1100)==0;

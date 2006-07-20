@@ -73,12 +73,13 @@ define('EIU_IMAGE_LARGE',190);
 define('EIU_UNKNOWN_IMAGE',191);
 define('EIU_UNKNOWN_THUMBNAIL',192);
 
-define('EFA_NO_SEND',200);
-define('EFA_NO_EDIT',201);
-define('EFA_BODY_ABSENT',202);
-define('EFA_IMAGE_ABSENT',203);
-define('EFA_NO_IMAGE',204);
-define('EFA_NO_UP',205);
+define('EF_NO_SEND',200);
+define('EF_NO_EDIT',201);
+define('EF_NO_PARENT',202);
+define('EF_UP_APPEND',203);
+define('EF_BODY_ABSENT',204);
+define('EF_IMAGE_ABSENT',205);
+define('EF_NO_IMAGE',206);
 
 define('EMI_NO_EDIT',210);
 define('EMI_NAME_ABSENT',211);

@@ -90,7 +90,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/crossentrydel.php
 - actions/domainmod.php
 - actions/ear.php
-- actions/forumanswermod.php
++ actions/forummod.php
 + actions/goto.php
 - actions/groupadd.php
 - actions/groupdel.php
@@ -260,8 +260,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/event.mhtml
 - migdal/events-english.mhtml
 + migdal/events.mhtml
-- migdal/forumansweredit.mhtml
 + migdal/forumcatalog.mhtml (кроме ловушек)
++ migdal/forumedit.mhtml (кроме ссылок на help и hidden для гостей)
 + migdal/forum.mhtml
 * migdal/gallery.mhtml
 * migdal/gallery-main.mhtml
@@ -286,7 +286,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * migdal/migdal-news.mhtml (кроме событий)
 - migdal/modbits.mhtml
 - migdal/moderator.mhtml
-+ migdal/postingedit.mhtml (кроме ссылок на help)
++ migdal/postingedit.mhtml (кроме ссылок на help и hidden для гостей)
 + migdal/posting.mhtml
 * migdal/postingorg.mhtml (исправить стиль сообщений об ошибках)
 + migdal/printings.mhtml

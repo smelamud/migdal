@@ -20,7 +20,7 @@
    </if>
   </zone></if>
   <if what='$,TypeId==*COMPL_FORUM'><zone>
-   <forum_answer_full id='$,Link'>
+   <forum_obj id='$,Link'>
    <forum forum='$,' showcomplain='*false'>
    <p>
   </zone></if>

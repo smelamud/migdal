@@ -184,10 +184,10 @@ for($i=0;$i<count($lines);$i++)
      $lines[$i]=substr($lines[$i],2*$l);
    if($l>=$level)
      for($j=0;$j<$l-$level;$j++)
-        $lines[$i]='<quote>'.$lines[$i];
+        $lines[$i]='<quote><p>'.$lines[$i];
    else
      for($j=0;$j<$level-$l;$j++)
-        $lines[$i-1]=$lines[$i-1].'</quote>';
+        $lines[$i-1]=$lines[$i-1].'</p></quote>';
    $level=$l;
    }
 endProfiling();
@@ -202,8 +202,19 @@ return preg_replace('/(^|\n)[^\S\n]{10}[^\S\n]*([^\n]+)(\n|$)/',
 
 function replaceHeading($s,$n,$c)
 {
-return preg_replace('/(^\s*|[\n\r]\s*)([^\n\r]*)[\n\r]\s*'.$c.'{3}'.$c.'*([\n\r]|$)/',
-                    '\\1<h'.$n.'>\\2</h'.$n.'>\\3',$s);
+$lines=explode("\n",$s);
+$out=array();
+for($i=0;$i<count($lines);$i++)
+   if($i+1<count($lines)
+      && preg_match("/^\s*$c{3}$c*\s*$/",$lines[$i+1])
+      && !preg_match('/^\s*$/',$lines[$i]))
+     {
+     $out[]="<h$n>".$lines[$i]."</h$n>";
+     $i++;
+     }
+   else
+     $out[]=$lines[$i];
+return join("\n",$out);
 }
 
 function replaceHeadings($s)

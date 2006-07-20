@@ -157,41 +157,18 @@ parent::LimitSelectIterator(
 
 function storeForum(&$forum)
 {
-$jencoded=array('subject' => '','author' => '','author_xml' => '',
-                'source' => '','source_xml' => '','title' => '',
-		'title_xml' => '','comment0' => '','comment0_xml' => '',
-		'comment1' => '','comment1_xml' => '','url' => '',
-		'url_domain' => '','body' => '','body_xml' => '',
-		'large_body' => '','large_body_xml' => '',
-		'large_body_filename' => '','small_image' => 'images',
-		'large_image' => 'images','large_image_filename' => '',
-		'person_id' => 'users','user_id' => 'users',
+$jencoded=array('subject' => '','body' => '','body_xml' => '',
+                'small_image' => 'images','large_image' => 'images',
+		'large_image_filename' => '','user_id' => 'users',
 		'group_id' => 'users','subject_sort' => '','up' => 'entries',
 		'parent_id' => 'entries');
 $vars=array('entry' => $forum->entry,
             'modified' => sqlNow(),
             'subject' => $forum->subject,
 	    'subject_sort' => $forum->subject_sort,
-	    'author' => $forum->author,
-	    'author_xml' => $forum->author_xml,
-	    'source' => $forum->source,
-	    'source_xml' => $forum->source_xml,
-	    'title' => $forum->title,
-	    'title_xml' => $forum->title_xml,
-	    'comment0' => $forum->comment0,
-	    'comment0_xml' => $forum->comment0_xml,
-	    'comment1' => $forum->comment1,
-	    'comment1_xml' => $forum->comment1_xml,
-	    'url' => $forum->url,
-	    'url_domain' => $forum->url_domain,
 	    'body' => $forum->body,
 	    'body_xml' => $forum->body_xml,
 	    'body_format' => $forum->body_format,
-	    'has_large_body' => $forum->has_large_body,
-	    'large_body' => $forum->large_body,
-	    'large_body_xml' => $forum->large_body_xml,
-	    'large_body_format' => $forum->large_body_format,
-	    'large_body_filename' => $forum->large_body_filename,
 	    'small_image' => $forum->small_image,
 	    'small_image_x' => $forum->small_image_x,
 	    'small_image_y' => $forum->small_image_y,
@@ -201,11 +178,9 @@ $vars=array('entry' => $forum->entry,
 	    'large_image_size' => $forum->large_image_size,
 	    'large_image_format' => $forum->large_image_format,
 	    'large_image_filename' => $forum->large_image_filename,
-            'person_id' => $forum->person_id,
 	    'user_id' => $forum->user_id,
 	    'group_id' => $forum->group_id,
 	    'perms' => $forum->perms,
-	    'lang' => $forum->lang,
             'up' => $forum->up,
 	    'track' => $forum->track,
 	    'catalog' => $forum->catalog,
@@ -250,20 +225,24 @@ $result=sql("select id
 return mysql_num_rows($result)>0;
 }
 
-// remake
-function getForumAnswerById($id,$parent_id=0,$quote='',$quoteWidth=75)
+function getForumById($id,$parent_id=0,$quote='',$quoteWidth=75)
 {
-$hide=messagesPermFilter(PERM_READ);
-$result=sql("select forums.id as id,message_id,stotext_id,body,
-		    sender_id,group_id,image_set,parent_id,perms,
-		    if((perms & 0x1100)=0,1,0) as hidden,disabled
-	     from forums
-		  left join messages
-		       on forums.message_id=messages.id
-		  left join stotexts
-		       on stotexts.id=messages.stotext_id
-	     where forums.id=$id and $hide",
-	    'getForumAnswerById');
+global $userId,$realUserId;
+
+$hide=forumPermFilter(PERM_READ);
+$result=sql("select entries.id as id,body,body_xml,user_id,group_id,perms,
+		    small_image,small_image_x,small_image_y,
+		    large_image,large_image_x,large_image_y,large_image_size,
+		    large_image_format,large_image_filename,
+		    parent_id,disabled,sent,created,modified,
+		    users.login as login,users.gender as gender,
+		    users.email as email,users.hide_email as hide_email,
+		    users.hidden as user_hidden
+	     from entries
+		  left join users
+		       on entries.user_id=users.id
+	     where entries.id=$id and $hide",
+	    __FUNCTION__);
 if(mysql_num_rows($result)>0)
   return new Forum(mysql_fetch_assoc($result));
 else
@@ -272,45 +251,19 @@ else
 
   if($parent_id>0)
     {
-    $perms=getPermsById('messages',$parent_id);
+    $perms=getPermsById($parent_id);
     $group_id=$perms->getGroupId();
     }
   else
     $group_id=0;
   return new Forum(array('parent_id' => $parent_id,
-		               'body'      => $quote!=''
-			                       ? getQuote($quote,$quoteWidth)
-			                       : '',
-			       'group_id'  => $group_id,
-			       'perms'     => $rootForumPerms));
+			 'body'      => $quote!=''
+					 ? getQuote($quote,$quoteWidth)
+					 : '',
+			 'user_id'   => $userId>0 ? $userId : $realUserId,
+			 'group_id'  => $group_id,
+			 'perms'     => $rootForumPerms));
   }
-}
-
-// remake
-function getFullForumAnswerById($id)
-{
-$hide=messagesPermFilter(PERM_READ,'messages');
-$result=sql(
-	"select forums.id as id,message_id,stotext_id,body,sent,sender_id,
-	        group_id,perms,if((messages.perms & 0x1100)=0,1,0) as hidden,
-		disabled,users.hidden as sender_hidden,
-		images.image_set as image_set,images.id as image_id,
-		images.small_x<images.large_x or
-		images.small_y<images.large_y as has_large_image,
-		login,gender,email,hide_email,rebe
-	 from forums
-	      left join messages
-		   on forums.message_id=messages.id
-	      left join stotexts
-	           on stotexts.id=messages.stotext_id
-	      left join images
-		   on stotexts.image_set=images.image_set
-	      left join users
-		   on messages.sender_id=users.id
-	 where $hide and forums.id=$id",
-	'getFullForumAnswerById');
-return new Forum(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                                 : array());
 }
 
 // remake

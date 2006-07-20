@@ -264,13 +264,13 @@ $topicMandatoryDescription=true;
 
 ## Настройки сообщений в форуме (Forum) ##
 
-$forumanswerMandatorySubject=false;	# Не реализовано
-$forumanswerMandatoryAuthor=false;	# Не реализовано
-$forumanswerMandatorySource=false;	# Не реализовано
-$forumanswerMandatoryBody=true;
-$forumanswerMandatoryLargeBody=false;	# Не реализовано
-$forumanswerMandatoryImage=false;
-$forumanswerMandatoryTitle=false;	# Не реализовано
+$forumMandatorySubject=false;	# Не реализовано
+$forumMandatoryAuthor=false;	# Не реализовано
+$forumMandatorySource=false;	# Не реализовано
+$forumMandatoryBody=true;
+$forumMandatoryLargeBody=false;	# Не реализовано
+$forumMandatoryImage=false;
+$forumMandatoryTitle=false;	# Не реализовано
 
 ## Пользователи, создаваемые изначально ##
 

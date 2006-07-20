@@ -8,8 +8,7 @@
    <table><tr valign=center>
     <td><image src='/pics/sheet.gif'></td>
     <td>
-     <a href='forumansweredit.php?parent_id=$parent_id&redirid=$_'
-	>Добавить комментарий</a>
+     <a href='/forum/$parent_id/add?redirid=$_'>Добавить комментарий</a>
     </td>
    </tr></table>
   </td>

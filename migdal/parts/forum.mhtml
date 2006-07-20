@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='forum_selflink'>
-<selflink href#='$[offset tid=$forum.Id]#t$forum.Id'>
+<selflink href#='/forum/$forum.ParentId/?tid=$forum.Id#t$forum.Id'>
 </element>
 
 <element name='forum'>
@@ -18,10 +18,6 @@
      <sentview date='$forum.Sent'>
     </td></tr>
    </table>
-   <<p align=center>
-    <img src='...'>
-   </p>
-   <p>>
   </td>
   <td class='body ninept' align=left>
    $forum.BodyHTML
@@ -34,13 +30,13 @@
     <td><forum_selflink forum='$forum'></td>
     <td>&nbsp;&nbsp;&nbsp;</td>
     <td>
-     <a href="forumansweredit.php?parent_id=$forum.ParentId&peerid=$forum.Id&redirid=$_"
+     <a href="/forum/$forum.ParentId/reply?peerid=$forum.Id&redirid=$_"
 	title='Ответить с цитированием'>Ответить</a>
     </td>
     <iswrite what='$forum'>
      <td>&nbsp;&nbsp;&nbsp;</td>
      <td>
-      <a href="forumansweredit.php?editid=$forum.Id&redirid=$_"><asp>
+      <a href="/forum/$forum.ParentId/edit?editid=$forum.Id&redirid=$_"><asp>
        <asp>Изменить<asp>
       <asp></a>
      </td>
