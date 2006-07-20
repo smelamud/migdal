@@ -41,6 +41,15 @@
 </if>
 </element>
 
+<element name='selflink'>
+<table cellspacing=0 cellpadding=0><tr valign=bottom>
+ <td><image src='/pics/self.gif'>&nbsp;</td>
+ <td>
+  <a href='$href'><notenglish>Ссылка<else>Link</notenglish></a>
+ </td>
+</tr></table>
+</element>
+
 <element name='maillink'>
 <if what='$message.isEmailVisible'>
  <asp>&nbsp;<asp>

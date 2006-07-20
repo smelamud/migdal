@@ -127,6 +127,7 @@
                  large_url=''">
 <decel name='forum' file='parts/forum.php' params='forum,showcomplain'
        defaults="showcomplain='*true'">
+<decel name='forum_selflink' file='parts/forum.php' params='forum'>
 <decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'
@@ -229,6 +230,7 @@
        defaults="topic_id=-1 limit=10 offset=0">
 <decel name='postings_migdal_news' file='parts/postings-migdal-news.php'
        params='topic_id,offset' defaults="offset=0">
+<decel name='posting_selflink' file='parts/posting.php' params='posting'>
 <decel name='printlink' file='parts/posting.php' params='posting'>
 <decel name='rabbi' file='parts/rabbi.php'>
 <decel name='rambler_count' file='parts/rambler.php'>
@@ -242,7 +244,7 @@
 <decel name='seealso_frame' file='parts/seealso.php'
        params='link_type,title,adddir'
        defaults="link_type='*LINKT_SEEALSO' title='óÍ. ÔÁËÖÅ' adddir=''">
-<decel name='selflink' file='parts/posting.php' params='posting'>
+<decel name='selflink' file='parts/utils.php' params='href'>
 <decel name='senderlink' file='parts/utils.php' params='message'>
 <decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'
        defaults="picprev='/pics/left.gif' picnext='/pics/right.gif'">

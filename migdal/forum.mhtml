@@ -2,6 +2,13 @@
 
 <int name='postid'>
 <int name='offset'>
+<int name='tid'>
+<if what='$offset==0 && $tid!=0'>
+ <forumlist_offset name='offset' parent_id='$postid' id='$tid'
+                   sort='*SORT_RSENT'>
+ <assign name='offset'
+         value!='(int)($offset / $$userForumPortion) * $$userForumPortion'>
+</if>
 
 <grps>
 <posting_obj id='$postid' grp='*GRP_FORUMS'>

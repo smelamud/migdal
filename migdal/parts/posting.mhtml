@@ -1,13 +1,7 @@
 << @(#) $Id$ >>
 
-<element name='selflink'>
-<table cellspacing=0 cellpadding=0><tr>
- <td><image src='/pics/self.gif'>&nbsp;</td>
- <td>
-  <a href='$posting.GrpDetailsHref'><asp>
-   <notenglish>Ссылка<else>Link</notenglish></a>
- </td>
-</tr></table>
+<element name='posting_selflink'>
+<selflink href='$posting.GrpDetailsHref'>
 </element>
 
 <element name='topiclink'>
@@ -92,7 +86,7 @@
  <table width=$len class='posting-bottom'><tr>
   <td>
    <table cellspacing=0 cellpadding=0><tr>
-    <td><selflink posting='$posting'></td>
+    <td><posting_selflink posting='$posting'></td>
     <td>&nbsp;&nbsp;&nbsp;</td>
     <td><printlink posting='$posting'></td>
     <td>&nbsp;&nbsp;&nbsp;</td>

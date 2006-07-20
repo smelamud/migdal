@@ -202,6 +202,9 @@
 	 defaults="name=answer parent_id=0 quote='' quote_width=75">
 <deccall macro='forum_answer_full' func='getFullForumAnswerById'
          file='lib/forums.php' params='id' defaults='name=answer'>
+<deccall macro='forumlist_offset' func='getForumListOffset'
+         file='lib/forums.php' params='parent_id,id,sort'
+	 defaults="sort='*SORT_SENT'">
 <deccall macro='grp_array' func='grpArray' file='lib/grps.php' params='grp'>
 <deccall macro='grp_diff' func='grpDiff' file='lib/grps.php' params='grp1,grp2'>
 <deccall macro='grp_join' func='grpJoin' file='lib/grps.php' params='grp1,grp2'>

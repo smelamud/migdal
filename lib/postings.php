@@ -199,17 +199,6 @@ return "$filter and (${prefix}disabled=0".
        ($userId>0 ? " or ${prefix}user_id=$userId)" : ')');
 }
 
-// from Message FIXME
-function postingExists($id)
-{
-$hide=postingsPermFilter(PERM_READ);
-$result=sql("select id
-	     from entries
-	     where id=$id and entry=".ENT_POSTING." and $hide",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0;
-}
-
 function postingListFields($fields=SELECT_GENERAL)
 {
 $Fields='entries.id as id,entries.ident as ident,entries.up as up,
@@ -718,6 +707,17 @@ return new Posting(array('id'        => 0,
 			 'user_id'   => $userId>0 ? $userId : $realUserId,
 			 'group_id'  => $group_id,
 			 'perms'     => $perms));
+}
+
+// from Message FIXME
+function postingExists($id)
+{
+$hide=postingsPermFilter(PERM_READ);
+$result=sql("select id
+	     from entries
+	     where id=$id and entry=".ENT_POSTING." and $hide",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0;
 }
 
 function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=-1,$fields=SELECT_GENERAL,

@@ -118,14 +118,12 @@ return "$filter and (${prefix}disabled=0".
        ($userId>0 ? " or ${prefix}user_id=$userId)" : ')');
 }
 
-function forumExists($id)
+function forumListFilter($parent_id)
 {
-$hide=forumPermFilter(PERM_READ);
-$result=sql("select id
-	     from entries
-	     where id=$id and entry=".ENT_FORUM." and $hide",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0;
+$Filter='entry='.ENT_FORUM;
+$Filter.=' and '.forumPermFilter(PERM_READ);
+$Filter.=" and parent_id=$parent_id";
+return $Filter;
 }
 
 class ForumListIterator
@@ -134,9 +132,7 @@ class ForumListIterator
 
 function ForumListIterator($parent_id,$limit=10,$offset=0,$sort=SORT_SENT)
 {
-$Filter='entry='.ENT_FORUM;
-$Filter.=' and '.forumPermFilter(PERM_READ);
-$Filter.=" and parent_id=$parent_id";
+$Filter=forumListFilter($parent_id);
 $Order=getOrderBy($sort,
        array(SORT_SENT  => 'entries.sent desc',
              SORT_RSENT => 'entries.sent asc'));
@@ -242,6 +238,16 @@ else
 
   }
 return $result;
+}
+
+function forumExists($id)
+{
+$hide=forumPermFilter(PERM_READ);
+$result=sql("select id
+	     from entries
+	     where id=$id and entry=".ENT_FORUM." and $hide",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0;
 }
 
 // remake
@@ -361,5 +367,26 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 function isForumAnswer($message_id)
 {
 return getForumAnswerIdByMessageId($message_id)>0;
+}
+
+function getForumListOffset($parent_id,$id,$sort=SORT_SENT)
+{
+$Filter=forumListFilter($parent_id);
+$conds=array(SORT_SENT  => array('field' => 'sent',
+                                 'condition' => "sent > '%s'"),
+             SORT_RSENT => array('field' => 'sent',
+                                 'condition' => "sent < '%s'"));
+$field=$conds[$sort]['field'];
+$result=sql("select $field
+             from entries
+	     where id=$id",
+	    __FUNCTION__,'find');
+$value=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+$Filter.=' and '.sprintf($conds[$sort]['condition'],$value);
+$result=sql("select count(*)
+	     from entries
+	     where $Filter",
+	    __FUNCTION__,'count');
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

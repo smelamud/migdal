@@ -42,7 +42,7 @@
 <element name='controls' params='posting,event'>
 <ifnzero what='$posting.Id'>
  <div align=right><table class=controls>
-  <tr>
+  <tr valign=bottom>
    <editor>
     <td>
      <editlink posting='$posting'>
