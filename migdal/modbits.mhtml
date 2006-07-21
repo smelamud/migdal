@@ -1,42 +1,33 @@
 << @(#) $Id$ >>
 
 <int name='postid'>
-<pagetitle title#='Редактирование флагов сообщения'>
-
-<element name='check' params='name,value,title,letter'>
-<tr>
- <td align=center class='nframe'><b>$letter</b></td>
- <td align=left>
-  <checkbox name='$name' value='$value' title='$title'>
- </td>
-</tr>
-</element>
 
 <html>
 <preamble>
 <body>
  <top ident='index'>
- <posting_obj id='$postid' fields='*SELECT_GENERAL'>
- <formtable title#='Редактирование флагов сообщения'>
-  <form method=post action='actions/moderateone.php'>
+ <posting_obj id='$postid'>
+ <form_table title='Редактирование флагов сообщения' mini='*true'>
+  <form method=post action='/actions/entry/modbits/'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
-   <hidden name='id' value='$,MessageId'>
-   <hidden name='edittag' value=1>
-   <table>
-    <error id='*EMO_NO_MODERATE' text='Вы не модератор' span=2>
-    <error id='*EMO_NO_MESSAGE' text='Такого сообщения не существует' span=2>
-    <check letter='h' name='hidden' value='$,isHidden' title='Не показывать'>
-    <check letter='d' name='disabled' value='$,isDisabled' title='Запретить'>
-    <iterate_modbits>
+   <hidden name='id' value='$,Id'>
+   <error id='*EMO_NO_MODERATE' text='Вы не модератор'>
+   <error id='*EMO_NO_MESSAGE' text='Такого сообщения не существует'>
+   <form_select title='Флаги' name='modbits[]' multiple='*true' style='box'>
+    <form_option title='(h) Не показывать' value='*MOD_HIDDEN'
+                 selected='$,isHidden'>
+    <form_option title='(d) Запретить показ' value='*MOD_DISABLED'
+                 selected='$,isDisabled'>
+    <iterate_posting_modbits>
     <for>
-     <check letter='$.Letter' name#='bit$.Bit' value!='$,getModbits & $.Bit'
-            title='$.Name'>
+     <form_option title#='($.Letter) $.Name' value='$.Bit'
+                  selected!='($,Modbits & $.Bit)!=0'>
     </for>
-   </table>
-   <formbuttons title='Изменить'>
+   </form_select>
+   <form_buttons title='Изменить'>
   </form>
- </formtable>
+ </form_table>
  <bottom>
 </body>
 </html>

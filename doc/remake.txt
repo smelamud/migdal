@@ -101,8 +101,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/login.php
 + actions/logout.php
 - actions/messagerenew.php
++ actions/modbits.php
 - actions/moderatemass.php
-- actions/moderateone.php
 + actions/moderate.php
 - actions/postingcopy.php
 - actions/postingdel.php
@@ -283,7 +283,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/migdal-library.mhtml
 + migdal/migdal-library-novelties.mhtml
 * migdal/migdal-news.mhtml (кроме событий)
-- migdal/modbits.mhtml
++ migdal/modbits.mhtml
 - migdal/moderator.mhtml
 + migdal/postingedit.mhtml (кроме ссылок на help и hidden для гостей)
 + migdal/posting.mhtml

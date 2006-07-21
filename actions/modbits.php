@@ -8,34 +8,36 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/utils.php');
 require_once('lib/random.php');
-/* Required to prevent inclusion of Posting class before Message */
-require_once('lib/postings.php');
-require_once('lib/messages.php');
+require_once('lib/entries.php');
 require_once('lib/modbits.php');
 
-function modifyMessage($id)
+function modifyEntry($id,$modbits)
 {
-global $userModerator,$HTTP_POST_VARS;
+global $userModerator;
 
 if(!$userModerator)
   return EMO_NO_MODERATE;
-if(!messageExists($id))
-  return EMO_NO_MESSAGE;
-setHiddenByMessageId($id,$HTTP_POST_VARS["hidden"]);
-setDisabledByMessageId($id,$HTTP_POST_VARS["disabled"]);
+if(!entryExists(ENT_NULL,$id))
+  return EMO_NO_ENTRY;
+setHiddenByEntryId($id,in_array(MOD_HIDDEN,$modbits) ? 1 : 0);
+setDisabledByEntryId($id,in_array(MOD_DISABLED,$modbits) ? 1 : 0);
 $bits=0;
-for($bit=1;$bit<=MOD_ALL;$bit*=2)
-   if($HTTP_POST_VARS["bit$bit"])
-     $bits|=$bit;
-assignModbitsByMessageId($id,$bits);
+foreach($modbits as $bit)
+       if($bit>MOD_NONE && $bit<MOD_ALL)
+         $bits|=$bit;
+assignModbitsByEntryId($id,$bits);
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
+
 postInteger('id');
+postIntegerArray('modbits');
 
 dbOpen();
 session();
-$err=modifyMessage($id);
+$err=modifyEntry($id,$modbits);
 if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
 				array('err')));

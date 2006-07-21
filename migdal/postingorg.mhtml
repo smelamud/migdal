@@ -124,7 +124,7 @@
    &nbsp;
    <a href="chmod.php?msgid=$posting.Id&redirid=$_">Права</a>
    &nbsp;
-   <a href="modbits.php?postid=$posting.Id&redirid=$_">Флаги</a>
+   <a href="/admin/postings/$posting.Id/modbits/?redirid=$_">Флаги</a>
   </td></tr>
  </table>
 <ifnzero what='$posting.isShadow'></blockquote></ifnzero>
