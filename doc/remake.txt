@@ -103,7 +103,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/messagerenew.php
 - actions/moderatemass.php
 - actions/moderateone.php
-- actions/moderate.php
++ actions/moderate.php
 - actions/postingcopy.php
 - actions/postingdel.php
 + actions/postingmod.php

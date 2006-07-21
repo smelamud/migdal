@@ -30,7 +30,7 @@
 <element name='error_lines'>
 <if what='$$err!=0'>
  <table>
-  <error id='*EMH_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
   <error id='*EMR_NO_RENEW' text='Вы не модератор'>
   <error id='*EMR_NO_MESSAGE' text='Такого сообщения не существует'>
@@ -103,10 +103,10 @@
    <a href="/admin/postings/$posting.Id/edit/?full=1&redirid=$_">Изменить</a>
    &nbsp;
    <if what='$posting.isDisabled'>
-    <a href="actions/moderate.php?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"
+    <a href="/actions/entry/moderate?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"
        >Разрешить&nbsp;показ</a>
    <else>
-    <a href="actions/moderate.php?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"
+    <a href="/actions/entry/moderate?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"
        >Запретить&nbsp;показ</a>
    </if>
    &nbsp;

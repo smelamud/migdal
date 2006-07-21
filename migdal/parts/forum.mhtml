@@ -44,11 +44,11 @@
       <td>&nbsp;&nbsp;&nbsp;</td>
       <td>
        <if what='$forum.isDisabled'>
-	<a href="actions/moderate.php?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
+	<a href="/actions/entry/moderate?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
 	 <asp>Разрешить&nbsp;показ<asp>
 	<asp></a>
        <else>
-	<a href="actions/moderate.php?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
+	<a href="/actions/entry/moderate?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
 	 <asp>Запретить показ<asp>
 	<asp></a>
        </if>

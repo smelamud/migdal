@@ -48,7 +48,7 @@ define('EP_LANG_ABSENT',1316);
 define('EP_UP_APPEND',1317);
 
 define('EMH_NO_MODERATE',140);
-define('EMH_NO_MESSAGE',141);
+define('EMH_NO_ENTRY',141);
 
 define('EC_NO_SEND',150);
 define('EC_NO_EDIT',151);

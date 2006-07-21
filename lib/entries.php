@@ -878,7 +878,7 @@ journal("update entries
 	 where id=".journalVar('entries',$id));
 dropPostingsInfoCache(DPIC_POSTINGS);
 if(getTypeByEntryId($id)==ENT_FORUM)
-  answerUpdate($parent_id);
+  answerUpdate(getParentIdByEntryId($id));
 }
 
 function getTypeByEntryId($id)
