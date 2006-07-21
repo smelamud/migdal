@@ -264,13 +264,8 @@ $topicMandatoryDescription=true;
 
 ## Настройки сообщений в форуме (Forum) ##
 
-$forumMandatorySubject=false;	# Не реализовано
-$forumMandatoryAuthor=false;	# Не реализовано
-$forumMandatorySource=false;	# Не реализовано
 $forumMandatoryBody=true;
-$forumMandatoryLargeBody=false;	# Не реализовано
 $forumMandatoryImage=false;
-$forumMandatoryTitle=false;	# Не реализовано
 
 ## Пользователи, создаваемые изначально ##
 

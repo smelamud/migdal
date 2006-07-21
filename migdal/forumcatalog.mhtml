@@ -53,6 +53,11 @@
      <else>
       <assign name='class' value='catalog-cell'>
      </if>
+     <ifnzero what='$.Answers'>
+      <assign name='href' value#='/forum/$.Id/'>
+     <else>
+      <assign name='href' value#='/forum/$.Id/add/'>
+     </ifnzero>
      <tr height=40>
       <td class='$class' width=30>
        <ifzero what='$.LastAnswer'>
@@ -62,7 +67,7 @@
        </ifzero>
       </td>
       <td class='$class'>
-       <a href='/forum/$.Id/' class='ninept'>$=.Heading</a>
+       <a href='$href' class='ninept'>$=.Heading</a>
        <if what='$.Answers>$$userForumPortion'>
         <span class='eightpt' style='white-space: nowrap'>
 	 <assign name='pages' value!='(int)($.Answers / $$userForumPortion)'>
@@ -102,7 +107,7 @@
       </td>
       <td class='$class' align=center><senderlink message='$.'></td>
       <td class='$class' align=center>
-       <a href='/forum/$.Id/' class='ninept'>$.Answers</a>
+       <a href='$href' class='ninept'>$.Answers</a>
       </td>
       <ifzero what='$.LastAnswer'>
        <td class='$class' align=center>---</td>

@@ -25,12 +25,16 @@
 <notenglish>
  <table cellspacing=0 cellpadding=0><tr>
  <td>
-  <a href='forum.php?msgid=$posting.Id'>
-   <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
-   <ifnzero what='$posting.Answers'>
+  <ifnzero what='$posting.Answers'>
+   <a href='/forum/$posting.Id/'><asp>
+    <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
     <asp>&nbsp;($posting.Answers)<asp>
-   </ifnzero>
-  <asp></a>
+   <asp></a>
+  <else>
+   <a href='/forum/$posting.Id/add/'><asp>
+    <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
+   <asp></a>
+  </ifnzero>
  </td>
  <ifbiff time='$posting.LastAnswer'>
   <td>&nbsp;<image src='/pics/discussion-new.gif'></td>
