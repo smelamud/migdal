@@ -1,9 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='subtitle'>
-<ifne what='$$topicTitle'>
- <div class="title">
-  $$topicTitle
- </div>
-</ifne>
-</element>
