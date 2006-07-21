@@ -3,7 +3,7 @@
 <element name='topics_admin'>
 <topics_table class='ninept' title='Администратор'>
  <topics_line arrow!="$index=='moderator'" text='Модератор'
-              href='moderator.php'>
+              href='/admin/moderator/'>
  <topics_splitter>
  <topics_line arrow!="$index=='admin-topics'" text='Темы'
               href='/admin/topics/'>

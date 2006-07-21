@@ -9,13 +9,17 @@
 <int name='sort'>
 <assign name='sort' value!='$sort!=*SORT_RSENT ? *SORT_SENT : *SORT_RSENT'>
 
-<pagetitle title='Модератор'>
-<topictitle title='Модератор'>
-
 <element name='batcher' params='&list'>
-<table width=100%><tr valign=bottom><td align=center>
- <spin list='$list'>
-</td></tr></table>
+<table width=100%><tr>
+ <td width=30%>&nbsp;</td>
+ <td align=center>
+  <spin list='$list'>
+ </td>
+ <td align=right width=30%><table><tr>
+  <td><input type=submit value='Сохранить'></td>
+  <td><input type=reset value='Очистить'></td>
+ </tr></table></td>
+</tr></table>
 </element>
 
 <element name='selector'>
@@ -23,10 +27,10 @@
  <td>
   <if what='$$sort==*SORT_SENT'>
    <a href="$[sort='*SORT_RSENT']">
-    <image src='pics/down-level.gif' border=0></a>
+    <image src='/pics/down-level.gif' border=0></a>
   <else>
    <a href="$[sort='*SORT_SENT']">
-    <image src='pics/up-level.gif' border=0></a>
+    <image src='/pics/up-level.gif' border=0></a>
   </if>
  </td>
  <form method=get action='$-'>
@@ -34,7 +38,7 @@
   <td><select name='bit'>
    <radio title='(h) Не показывать' value='-2' peervalue='$$bit'>
    <radio title='(d) Запретить' value='-1' peervalue='$$bit'>
-   <iterate_modbits>
+   <iterate_posting_modbits>
    <for>
     <radio title#='($.Letter) $.Name' value='$.Bit' peervalue='$$bit'>
    </for>
@@ -51,80 +55,75 @@
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
-    <topics_admin ident='moderator'>
+    <topics>
    </td>
    <td class='cframe'>
     <subtitle>
     <selector>
     <iterate_postinglist grp='*GRP_ALL' limit=20 offset='$offset' sort='$sort'
-                         showshadows='*false' fields='*SELECT_TOPICS'
-			 modbits!='$bit>=0 ? $bit : 0'
-			 hidden!='$bit==-2 ? 1 : -1'
-			 disabled!='$bit==-1 ? 1 : -1'>
-    <batcher list='$;'>
-    <div class='nframe' style='padding: 3px'>
-     <form method=post action='actions/moderatemass.php' style='margin: 0'>
-      <hidden name='okdir' value='$-'>
-      <hidden name='faildir' value='$-'>
-      <table width=100%><tr><td align=right><table><tr>
-       <td><input type=submit value='Сохранить'></td>
-       <td><input type=reset value='Очистить'></td>
-      </tr></table></td></tr></table>
-      <outer><table><inner>
-       <error id='*EMM_NO_MODERATE' text='Вы не модератор'>
-       <error id='*EMM_NO_MESSAGE' text='Такого сообщения не существует'>
-      </inner></table></outer>
-      <table width=100% class='catalog'>
-       <tr>
-	<th width=40>id</th><th>Заголовок</th><th width=20>h</th>
-	<th width=20>d</th>
+                         showshadows='*false' modbits!='$bit>=0 ? $bit : 0'
+			 hidden!='$bit==MOD_HIDDEN ? 1 : -1'
+			 disabled!='$bit==MOD_DISABLED ? 1 : -1'>
+    <form method=post action='actions/moderatemass.php' style='margin: 0'>
+     <hidden name='okdir' value='$-'>
+     <hidden name='faildir' value='$-'>
+     <batcher list='$;'>
+     <outer><table><inner>
+      <error id='*EMM_NO_MODERATE' text='Вы не модератор'>
+      <error id='*EMM_NO_MESSAGE' text='Такого сообщения не существует'>
+     </inner></table></outer>
+     <catalog_table>
+      <tr>
+       <th class='catalog-cell' width=40>id</th>
+       <th class='catalog-cell'>Заголовок</th>
+       <th class='catalog-cell' width=20>h</th>
+       <th class='catalog-cell' width=20>d</th>
+       <zone>
+	<iterate_posting_modbits>
+	<for>
+	 <th class='catalog-cell' width=20>$.Letter</th>
+	</for>
+       </zone>
+       <th class='catalog-cell' width=20>уд</th>
+      </tr>
+      <for name='posting'>
+       <if what='$;isOdd'>
+	<assign name='class' value='catalog-cell-odd'>
+       <else>
+	<assign name='class' value='catalog-cell'>
+       </if>
+       <tr height=40>
+	<td class='$class' width=40 align=right>
+	 $.Id
+	 <hidden name='id[]' value='$.Id'>
+	</td>
+	<td class='$class'>
+	 <a href='$.GrpDetailsHref' class='ninept'>$=.Heading</a><br>
+	 <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
+	</td>
+	<td class='$class' align=center>
+	 <checkbox_button name#='hidden$.Id' value='$.isHidden'>
+	</td>
+	<td class='$class' align=center>
+	 <checkbox_button name#='disabled$.Id' value='$.isDisabled'>
+	</td>
 	<zone>
-	 <iterate_modbits>
+	 <iterate_posting_modbits>
 	 <for>
-	  <th width=20>$.Letter</th>
+	  <td class='$class' align=center>
+	   <checkbox_button name#='bit$posting.Id-$.Bit'
+			    value!='$posting.Modbits & $.Bit'>
+	  </td>
 	 </for>
 	</zone>
-	<th width=20>&nbsp;</th>
+	<td class='$class' align=center>
+	 <checkbox_button name#='delete$.Id' value='0'>
+	</td>
        </tr>
-       <for name='posting'>
-        <identify posting='$.'>
-	<if what='$;isOdd'>
-	 <tr class='odd' height=40>
-	<else>
-	 <tr height=40>
-	</if>
-	 <td width=40 align=right>
-	  $.Id
-	  <hidden name='id[]' value='$.MessageId'>
-	 </td>
-	 <td>
-	  <a href='$.DetailsHref' class='ninept'>$.Heading</a><br>
-	  <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
-	 </td>
-	 <td align=center>
-	  <checkbox_button name#='hidden$.MessageId' value='$.isHidden'>
-	 </td>
-	 <td align=center>
-	  <checkbox_button name#='disabled$.MessageId' value='$.isDisabled'>
-	 </td>
-	 <zone>
-	  <iterate_modbits>
-	  <for>
-	   <td align=center>
-	    <checkbox_button name#='bit$posting.MessageId-$.Bit'
-	                     value='$posting.getModbits & $.Bit'>
-	   </td>
-	  </for>
-	 </zone>
-	 <td align=center><b>
-	  <a href='actions/postingdel.php?id=$.Id&okdir=$#-&faildir=$#-'>X</a>
-	 </b></td>
-	</tr>
-       </for>
-      </table>
-     </form>
-    </div>
-    <batcher list='$;'>
+      </for>
+     </catalog_table>
+     <batcher list='$;'>
+    </form>
    </td>
   </tr>
  </table>
