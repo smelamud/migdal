@@ -141,7 +141,7 @@
  <table width="100%" cellpadding="5">
   <tr valign=top>
    <td width=150 class='eframe'>
-    <topics_admin ident='admin-messages'>
+    <topics>
    </td>
    <td style='padding: 0'>
     <table class='ninept nframe' style='padding: 5px'>

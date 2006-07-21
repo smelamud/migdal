@@ -7,7 +7,7 @@
  <topics_splitter>
  <topics_line arrow!="$index=='admin-topics'" text='Темы'
               href='/admin/topics/'>
- <topics_line arrow!="$index=='admin-messages'" text='Сообщения'
+ <topics_line arrow!="$index=='admin-postings'" text='Сообщения'
               href='/admin/postings/'>
  <topics_line arrow!="$index=='admin-groups'" text='Группы'
               href='grouporg.php'>
