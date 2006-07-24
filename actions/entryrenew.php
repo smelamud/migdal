@@ -7,39 +7,38 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/random.php');
-/* Required to prevent inclusion of Posting class before Message */
-require_once('lib/postings.php');
-require_once('lib/messages.php');
-require_once('lib/postings-info.php');
+require_once('lib/entries.php');
 require_once('lib/forums.php');
-require_once('lib/answers.php');
 require_once('lib/sql.php');
 
-function renewMessage($id)
+function renewEntryAction($id)
 {
 global $userModerator;
 
 if(!$userModerator)
   return EMR_NO_RENEW;
-if(!messageExists($id))
-  return EMR_NO_MESSAGE;
-sql("update messages
-     set sent=now()
-     where id=$id",
-    'renewMessage');
-journal('update messages
-         set sent=now()
-	 where id='.journalVar('messages',$id));
-if(isForumAnswer($id))
-  answerUpdate($id);
+if(!entryExists(ENT_NULL,$id))
+  return EMR_NO_ENTRY;
+$entryType=getTypeByEntryId($id);
+switch($entryType)
+      {
+      case ENT_FORUM:
+           renewForum($id);
+	   break;
+      default:
+           renewEntry($id);
+      }
 return EG_OK;
 }
+
+postString('okdir');
+postString('faildir');
 
 postInteger('id');
 
 dbOpen();
 session();
-$err=renewMessage($id);
+$err=renewEntryAction($id);
 if($err==EG_OK)
   {
   header('Location: '.remakeURI($okdir,

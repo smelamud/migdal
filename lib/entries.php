@@ -993,4 +993,16 @@ foreach($ids as $id)
        $n++;
        }
 }
+
+function renewEntry($id)
+{
+$now=sqlNow();
+sql("update entries
+     set sent='$now'
+     where id=$id",
+    __FUNCTION__);
+journal("update entries
+         set sent='$now'
+	 where id=".journalVar('entries',$id));
+}
 ?>

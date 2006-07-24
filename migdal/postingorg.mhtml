@@ -33,7 +33,7 @@
   <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
   <error id='*EMR_NO_RENEW' text='Вы не модератор'>
-  <error id='*EMR_NO_MESSAGE' text='Такого сообщения не существует'>
+  <error id='*EMR_NO_ENTRY' text='Такого сообщения не существует'>
   <error id='*EPD_NO_DELETE' text='Вы не модератор'>
   <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'>
  </table>
@@ -116,7 +116,7 @@
    <a href='actions/postingcopy.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
       >Скопировать</a>
    &nbsp;
-   <a href="actions/messagerenew.php?id=$posting.Id&okdir=$#-&faildir=$#-"
+   <a href="/actions/entry/renew?id=$posting.Id&okdir=$#-&faildir=$#-"
       >Осовременить</a>
    &nbsp;
    <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-"

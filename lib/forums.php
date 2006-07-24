@@ -366,4 +366,11 @@ updateTracks('entries',$forum->getParentId());
 updateCatalogs($forum->getParentId());
 answerUpdate($forum->getParentId());
 }
+
+function renewForum($id)
+{
+renewEntry($id);
+$parent_id=getParentByEntryId($id);
+answerUpdate($parent_id);
+}
 ?>

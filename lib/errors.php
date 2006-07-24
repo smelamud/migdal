@@ -118,7 +118,7 @@ define('EUS_NO_SWITCH',300);
 define('EUS_NO_USER',301);
 
 define('EMR_NO_RENEW',310);
-define('EMR_NO_MESSAGE',311);
+define('EMR_NO_ENTRY',311);
 
 define('EO_NO_REORDER',320);
 define('EO_DUPS',321);
