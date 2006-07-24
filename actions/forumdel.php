@@ -6,17 +6,17 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
-require_once('lib/postings.php');
+require_once('lib/forums.php');
 require_once('lib/sql.php');
 
-function deletePostingAction($id)
+function deleteForumAction($id)
 {
-if(!postingExists($id))
-  return EPD_POSTING_ABSENT;
+if(!forumExists($id))
+  return EFD_FORUM_ABSENT;
 $perms=getPermsById($id);
 if(!$perms->isWritable())
-  return EPD_NO_DELETE;
-deletePosting($id);
+  return EFD_NO_DELETE;
+deleteForum($id);
 return EG_OK;
 }
 
@@ -27,7 +27,7 @@ postInteger('id');
 
 dbOpen();
 session();
-$err=deletePostingAction($id);
+$err=deleteForumAction($id);
 if($err==EG_OK)
   {
   header('Location: '.remakeURI($okdir,

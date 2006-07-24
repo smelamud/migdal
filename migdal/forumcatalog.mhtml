@@ -19,8 +19,7 @@
   <table><tr valign=center>
    <td><image src='/pics/sheet.gif'></td>
    <td>
-    <a href='postingedit.php?topic_id=$`forum`&grp=*GRP_FORUMS&redirid=$_'
-       >Добавить тему</a>
+    <a href='/forum/add/?redirid=$_'>Добавить тему</a>
    </td>
   </tr></table>
  </td>

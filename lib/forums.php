@@ -8,6 +8,7 @@ require_once('lib/utils.php');
 require_once('lib/bug.php');
 require_once('lib/answers.php');
 require_once('lib/sql.php');
+require_once('lib/images.php');
 
 class Forum
       extends Entry
@@ -138,10 +139,10 @@ $Order=getOrderBy($sort,
              SORT_RSENT => 'entries.sent asc'));
 parent::LimitSelectIterator(
         'Forum',
-	"select entries.id as id,body,body_xml,sent,user_id,group_id,perms,
-		disabled,parent_id,users.login as login,users.gender as gender,
-		users.email as email,users.hide_email as hide_email,
-		users.hidden as user_hidden
+	"select entries.id as id,body,body_xml,sent,created,modified,user_id,
+	        group_id,perms,disabled,parent_id,users.login as login,
+		users.gender as gender,users.email as email,
+		users.hide_email as hide_email,users.hidden as user_hidden
 	 from entries
 	      left join users
 		   on entries.user_id=users.id
@@ -234,7 +235,7 @@ $result=sql("select entries.id as id,body,body_xml,user_id,group_id,perms,
 		    small_image,small_image_x,small_image_y,
 		    large_image,large_image_x,large_image_y,large_image_size,
 		    large_image_format,large_image_filename,
-		    parent_id,disabled,sent,created,modified,
+		    up,parent_id,disabled,sent,created,modified,
 		    users.login as login,users.gender as gender,
 		    users.email as email,users.hide_email as hide_email,
 		    users.hidden as user_hidden
@@ -341,5 +342,28 @@ $result=sql("select count(*)
 	     where $Filter",
 	    __FUNCTION__,'count');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function deleteForum($id)
+{
+$forum=getForumById($id);
+$up=$forum->getUpValue();
+sql("update entries
+     set up=$up,track='',catalog=''
+     where up=$id",
+    __FUNCTION__,'children');
+journal('update entries
+         set up='.journalVar('entries',$up).",track='',catalog=''
+         where up=".journalVar('entries',$id));
+deleteImageFiles($id,$forum->getSmallImage(),$forum->getLargeImage(),
+                 $forum->getLargeImageFormat());
+sql("delete from entries
+     where id=$id",
+    __FUNCTION__,'delete');
+journal('delete from entries
+         where id='.journalVar('entries',$id));
+updateTracks('entries',$forum->getParentId());
+updateCatalogs($forum->getParentId());
+answerUpdate($forum->getParentId());
 }
 ?>

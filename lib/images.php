@@ -143,8 +143,7 @@ sql("delete
     __FUNCTION__,'inner');
 journal('delete
 	 from inner_images
-	 where image_id='.journalVar('entries',$id),
-	__FUNCTION__,'inner');
+	 where image_id='.journalVar('entries',$id));
 sql("delete
      from entries
      where id=$id",
@@ -175,6 +174,43 @@ else
   @unlink(getImagePath($id,$largeExt,$small_image,'large'));
   @unlink(getImagePath($id,$largeExt,0,'small'));
   @unlink(getImagePath($id,$largeExt,0,'large'));
+  }
+}
+
+function moveImageFiles($id,$destid,$small_image,$large_image,
+                        $large_image_format)
+{
+global $thumbnailType;
+
+// FIXME Journal!
+$smallExt=getImageExtension($thumbnailType);
+$largeExt=getImageExtension($large_image_format);
+if($large_image!=0)
+  {
+  rename(getImagePath($id,$smallExt,$small_image,'small'),
+         getImagePath($destid,$smallExt,$small_image,'small'));
+  rename(getImagePath($id,$largeExt,$large_image,'large'),
+         getImagePath($destid,$largeExt,$large_image,'large'));
+  @unlink(getImagePath($id,$smallExt,0,'small'));
+  symlink(getImagePath($destid,$smallExt,$small_image,'small'),
+          getImagePath($destid,$smallExt,0,'small'));
+  @unlink(getImagePath($id,$largeExt,0,'large'));
+  symlink(getImagePath($destid,$largeExt,$large_image,'large'),
+          getImagePath($destid,$largeExt,0,'large'));
+  }
+else
+  {
+  rename(getImagePath($id,$largeExt,$small_image,'small'),
+         getImagePath($destid,$largeExt,$small_image,'small'));
+  @unlink(getImagePath($id,$largeExt,$small_image,'large'));
+  symlink(getImagePath($destid,$largeExt,$small_image,'small'),
+          getImagePath($destid,$largeExt,$small_image,'large'));
+  @unlink(getImagePath($id,$largeExt,0,'small'));
+  symlink(getImagePath($destid,$largeExt,$small_image,'small'),
+          getImagePath($destid,$largeExt,0,'small'));
+  @unlink(getImagePath($id,$largeExt,0,'large'));
+  symlink(getImagePath($destid,$largeExt,$small_image,'large'),
+          getImagePath($destid,$largeExt,0,'large'));
   }
 }
 
@@ -242,7 +278,7 @@ $result=sql("select id
 return mysql_num_rows($result)>0;
 }
 
-function imageExists($id,$format,$fileId=0,$size='large')
+function imageFileExists($id,$format,$fileId=0,$size='large')
 {
 return file_exists(getImagePath($id,getMimeExtension($format),$fileId,$size));
 }
@@ -283,7 +319,7 @@ journal('update images
 return $result;
 }
 
-function setMaxImage($max_id)
+function setMaxImageFileId($max_id)
 {
 sql("update image_files
      set max_id=$max_id",
@@ -292,7 +328,7 @@ journal('update image_files
          set max_id='.journalVar('images',$max_id));
 }
 
-function getNextImageId()
+function getNextImageFileId()
 {
 sql('lock tables image_files write',
     __FUNCTION__,'lock');

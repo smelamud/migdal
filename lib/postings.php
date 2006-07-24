@@ -5,7 +5,7 @@ require_once('lib/alphabet.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
 require_once('lib/counters.php');
-//require_once('lib/forums.php'); # FIXME
+require_once('lib/forums.php');
 require_once('lib/grps.php');
 require_once('lib/limitselect.php');
 require_once('lib/entries.php');
@@ -615,19 +615,24 @@ if(($fields & SPF_SHADOW)!=0)
 return $vars;
 }
 
+function postingJencoded()
+{
+return array('subject' => '','author' => '','author_xml' => '',
+	     'source' => '','source_xml' => '','title' => '',
+	     'title_xml' => '','comment0' => '','comment0_xml' => '',
+	     'comment1' => '','comment1_xml' => '','url' => '',
+	     'url_domain' => '','body' => '','body_xml' => '',
+	     'large_body' => '','large_body_xml' => '',
+	     'large_body_filename' => '','small_image' => 'images',
+	     'large_image' => 'images','large_image_filename' => '',
+	     'person_id' => 'users','user_id' => 'users',
+	     'group_id' => 'users','subject_sort' => '','up' => 'entries',
+	     'parent_id' => 'entries');
+}
+
 function storePosting(&$posting)
 {
-$jencoded=array('subject' => '','author' => '','author_xml' => '',
-                'source' => '','source_xml' => '','title' => '',
-		'title_xml' => '','comment0' => '','comment0_xml' => '',
-		'comment1' => '','comment1_xml' => '','url' => '',
-		'url_domain' => '','body' => '','body_xml' => '',
-		'large_body' => '','large_body_xml' => '',
-		'large_body_filename' => '','small_image' => 'images',
-		'large_image' => 'images','large_image_filename' => '',
-		'person_id' => 'users','user_id' => 'users',
-		'group_id' => 'users','subject_sort' => '','up' => 'entries',
-		'parent_id' => 'entries');
+$jencoded=postingJencoded();
 if($posting->id)
   {
   $vars=storePostingFields($posting,SPF_SHADOW);
@@ -660,9 +665,9 @@ else
   $vars=storePostingFields($posting,SPF_ALL);
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
-  $result=sql(makeInsert('entries',
-                         $vars),
-	      __FUNCTION__,'insert');
+  sql(makeInsert('entries',
+                 $vars),
+      __FUNCTION__,'insert');
   $posting->id=sql_insert_id();
   journal(makeInsert('entries',
                      jencodeVars($vars,$jencoded)),
@@ -887,5 +892,159 @@ if(isModbitRequired($tmod,MODT_MODERATE,$original))
 if(isModbitRequired($tmod,MODT_EDIT,$original))
   $modbits|=MOD_EDIT;
 setModbitsByEntryId($posting->getId(),$modbits);
+}
+
+function deleteShadowPosting($id)
+{
+sql("delete from entries
+     where id=$id",
+    __FUNCTION__,'delete_posting');
+journal('delete from entries
+         where id='.journalVar('entries',$id));
+sql("delete from cross_entries
+     where source_id=$id or peer_id=$id",
+    __FUNCTION__,'delete_cross_postings');
+journal('delete from cross_entries
+         where source_id='.journalVar('entries',$id).' or
+	       peer_id='.journalVar('entries',$id));
+}
+
+function getPostingShadowCount($origId)
+{
+$result=sql("select count(*)
+             from entries
+	     where orig_id=$origId",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function selectNewOrigPosting($origId)
+{
+$result=sql("select min(id)
+             from entries
+	     where orig_id=$origId and id<>$origId",
+	    __FUNCTION__,'find');
+if(mysql_num_rows($result)<=0)
+  return;
+$destId=mysql_result($result,0,0);
+sql("update entries
+     set up=$destId,track='',catalog=''
+     where up=$origId",
+    __FUNCTION__,'update_up');
+journal('update entries
+         set up='.journalVar('entries',$destId).",track='',catalog=''
+         where up=".journalVar('entries',$origId));
+sql("update entries
+     set parent_id=$destId,track='',catalog=''
+     where parent_id=$origId",
+    __FUNCTION__,'update_parent_id');
+journal('update entries
+         set parent_id='.journalVar('entries',$destId).",track='',catalog=''
+         where parent_id=".journalVar('entries',$origId));
+sql("update entries
+     set orig_id=$destId
+     where orig_id=$origId",
+    __FUNCTION__,'move');
+journal('update entries
+         set orig_id='.journalVar('entries',$destId)
+       .'where orig_id='.journalVar('entries',$origId),
+        __FUNCTION__,'move');
+$fields=origFields(SELECT_ALLPOSTING);
+$result=sql("select $fields
+             from entries
+	     where id=$origId",
+	    __FUNCTION__,'get_fields');
+$row=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
+$jencoded=postingJencoded();
+sql(makeUpdate('entries',
+               $row,
+	       array('id' => $destId)),
+    __FUNCTION__,'move_fields');
+journal(makeUpdate('entries',
+		   jencodeVars($row,$jencoded),
+		   array('id' => journalVar('entries',$destId))));
+moveImageFiles($origId,$destId,$row['small_image'],$row['large_image'],
+               $row['large_image_format']);
+sql("update inner_images
+     set entry_id=$destId
+     where entry_id=$origId",
+    __FUNCTION__,'inner_images');
+journal('update inner_images
+         set entry_id='.journalVar('entries',$destId)
+       .'where entry_id='.journalVar('entries',$origId));
+updateTracks('entries',$destId);
+updateCatalogs($destId);
+}
+
+function deletePosting($id)
+{
+$posting=getPostingById($id);
+if($id!=$posting->getOrigId())
+  {
+  deleteShadowPosting($id);
+  return;
+  }
+if(getPostingShadowCount($id)>1)
+  {
+  selectNewOrigPosting($id);
+  deleteShadowPosting($id);
+  return;
+  }
+$up=$posting->getUpValue();
+sql("update entries
+     set up=$up,track='',catalog=''
+     where up=$id and entry<>".ENT_IMAGE,
+    __FUNCTION__,'update_up');
+journal('update entries
+         set up='.journalVar('entries',$up).",track='',catalog=''
+         where up=".journalVar('entries',$id));
+$result=sql("select id,small_image,large_image,large_image_format
+             from entries
+	     where parent_id=$id or up=$id and entry=".ENT_IMAGE,
+	    __FUNCTION__,'select_children');
+while($row=mysql_fetch_assoc($result))
+     deleteImageFiles($row['id'],$row['small_image'],$row['large_image'],
+                      $row['large_image_format']);
+sql("delete from entries
+     where parent_id=$id or up=$id and entry=".ENT_IMAGE,
+    __FUNCTION__,'delete_children');
+journal('delete from entries
+         where parent_id='.journalVar('entries',$id).' 
+	       or up='.journalVar('entries',$id).' and entry='.ENT_IMAGE);
+sql('delete from inner_images
+     where entry_id='.journalVar('entries',$id),
+    __FUNCTION__,'inner_images');
+journal('delete from inner_images
+         where entry_id='.journalVar('entries',$id));
+updateTracks('entries',$posting->getParentId());
+updateCatalogs($posting->getParentId());
+deleteShadowPosting($id);
+}
+
+function createPostingShadow($id)
+{
+$result=sql("select entry,up,parent_id,orig_id,grp,person_id,user_id,group_id,
+                    perms,disabled,subject_sort,lang,priority,index0,index1,
+		    index2,set0,set0_index,set1,set1_index,vote,vote_count,
+		    rating,sent,accessed,modbits,answers,last_answer,
+		    last_answer_id,last_answer_user_id
+	     from entries
+	     where id=$id",
+	    __FUNCTION__,'select');
+if(mysql_num_rows($result)<=0)
+  return;
+$row=mysql_fetch_assoc($result);
+$row['created']=sqlNow();
+$row['modified']=sqlNow();
+sql(makeInsert('entries',
+               $row),
+    __FUNCTION__,'insert');
+$shid=sql_insert_id();
+$jencoded=postingJencoded();
+journal(makeInsert('entries',
+                   jencodeVars($row,$jencoded)),
+        'entries',$shid);
+updateTracks('entries',$shid);
+updateCatalogs($shid);
 }
 ?>

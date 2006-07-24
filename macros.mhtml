@@ -559,17 +559,26 @@
  <input type=hidden name='%name' value="%value">
 </macro>
 
-<macro name='checkbox_button' defaults='value=0 iftrue=1'>
- <ifzero what='%value'>
-  <input type='checkbox' name='%name' value='%iftrue'>
+<macro name='checkbox_button' defaults="value=0 iftrue=1 class=''">
+ <ife what="'%class'">
+  <ifzero what='%value'>
+   <input type='checkbox' name='%name' value='%iftrue'>
+  <else>
+   <input type='checkbox' name='%name' value='%iftrue' checked>
+  </ifzero>
  <else>
-  <input type='checkbox' name='%name' value='%iftrue' checked>
- </ifzero>
+  <ifzero what='%value'>
+   <input type='checkbox' name='%name' value='%iftrue' class='%class'>
+  <else>
+   <input type='checkbox' name='%name' value='%iftrue' class='%class' checked>
+  </ifzero>
+ </ife>
 </macro>
 
-<macro name='checkbox' defaults='value=0 iftrue=1'>
+<macro name='checkbox' defaults="value=0 iftrue=1 class=''">
  <label>
-  <checkbox_button name='%name' value='%value' iftrue='%iftrue'> %title
+  <checkbox_button name='%name' value='%value'
+                   iftrue='%iftrue' class='%class'> %title
  </label>
 </macro>
 

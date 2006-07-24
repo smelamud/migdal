@@ -46,13 +46,13 @@ if($forumMandatoryBody && $forum->body=='')
 if($forumMandatoryImage && !$forum->hasSmallImage())
   return EF_IMAGE_ABSENT;
 if($forum->hasSmallImage()
-   && !(imageExists($forum->id,$thumbnailType,$forum->small_image,'small')
-	|| imageExists($forum->id,$forum->large_image_format,
-		       $forum->small_image,'small')))
+   && !(imageFileExists($forum->id,$thumbnailType,$forum->small_image,'small')
+	|| imageFileExists($forum->id,$forum->large_image_format,
+		           $forum->small_image,'small')))
   return EF_NO_IMAGE;
 if($forum->hasLargeImage()
-   && !imageExists($forum->id,$forum->large_image_format,
-                   $forum->large_image,'large'))
+   && !imageFileExists($forum->id,$forum->large_image_format,
+                       $forum->large_image,'large'))
   return EF_NO_IMAGE;
 $forum->track='';
 $forum->catalog='';

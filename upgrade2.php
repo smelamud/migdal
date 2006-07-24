@@ -945,7 +945,7 @@ echo "7. Posting images...\n";
 convertPostingImages();
 echo "8. Article images...\n";
 convertArticleImages();
-setMaxImage($maxImage);
+setMaxImageFileId($maxImage);
 echo "9. Forums...\n";
 convertForums();
 echo "10. Complain links...\n";

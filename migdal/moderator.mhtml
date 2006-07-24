@@ -95,29 +95,32 @@
        <tr height=40>
 	<td class='$class' width=40 align=right>
 	 $.Id
-	 <hidden name='id[]' value='$.Id'>
+	 <hidden name='ids[]' value='$.Id'>
 	</td>
 	<td class='$class'>
 	 <a href='$.GrpDetailsHref' class='ninept'>$=.Heading</a><br>
 	 <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
 	</td>
 	<td class='$class' align=center>
-	 <checkbox_button name#='hidden$.Id' value='$.isHidden'>
+	 <checkbox_button name#='modbits[$.Id][]' value='$.isHidden'
+	                  iftrue='*MOD_HIDDEN'>
 	</td>
 	<td class='$class' align=center>
-	 <checkbox_button name#='disabled$.Id' value='$.isDisabled'>
+	 <checkbox_button name#='modbits[$.Id][]' value='$.isDisabled'
+	                  iftrue='*MOD_DISABLED'>
 	</td>
 	<zone>
 	 <iterate_posting_modbits>
 	 <for>
 	  <td class='$class' align=center>
-	   <checkbox_button name#='bit$posting.Id-$.Bit'
-			    value!='$posting.Modbits & $.Bit'>
+	   <checkbox_button name#='modbits[$posting.Id][]'
+			    value!='$posting.Modbits & $.Bit' iftrue='$.Bit'>
 	  </td>
 	 </for>
 	</zone>
 	<td class='$class' align=center>
-	 <checkbox_button name#='delete$.Id' value='0'>
+	 <checkbox_button name#='modbits[$.Id][]' value='0'
+	                  iftrue='*MOD_DELETE'>
 	</td>
        </tr>
       </for>

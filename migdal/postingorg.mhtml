@@ -110,7 +110,7 @@
        >Запретить&nbsp;показ</a>
    </if>
    &nbsp;
-   <a href='actions/shadow.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
+   <a href='/actions/posting/shadow?postid=$posting.Id&okdir=$#-&faildir=$#-'
       >Тень</a>
    &nbsp;
    <a href='actions/postingcopy.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
@@ -119,7 +119,7 @@
    <a href="actions/messagerenew.php?id=$posting.Id&okdir=$#-&faildir=$#-"
       >Осовременить</a>
    &nbsp;
-   <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
+   <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-"
       >Удалить</a>
    &nbsp;
    <a href="chmod.php?msgid=$posting.Id&redirid=$_">Права</a>

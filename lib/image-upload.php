@@ -32,7 +32,7 @@ if(!$resize || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
   if($file['size']>$maxImageSize)
     return EIU_IMAGE_LARGE;
 
-  $largeId=getNextImageId();
+  $largeId=getNextImageFileId();
   $largeFilename=getImageFilename($posting->getOrigId(),
 				  getImageExtension($file['type']),$largeId,
 				  'large');
@@ -52,7 +52,7 @@ else
 				$posting->getImage(),
 				$posting->getImageDimension());
   $oldName="$imageDir/$oldFilename";
-  $largeId=getNextImageId();
+  $largeId=getNextImageFileId();
   $largeFilename=getImageFilename($posting->getOrigId(),$largeExt,
 				  $largeId,'large');
   $largeName="$imageDir/$largeFilename";
@@ -63,7 +63,7 @@ else
 $hasThumbnail=false;
 if($createThumbnail)
   {
-  $smallId=getNextImageId();
+  $smallId=getNextImageFileId();
   $smallName=getImagePath($posting->getOrigId(),
                           getImageExtension($thumbnailType),$smallId,'small');
   $err=imageFileResize($largeName,$posting->large_image_format,$smallName,

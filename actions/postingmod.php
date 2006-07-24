@@ -48,6 +48,9 @@ if(($posting->isMandatory('large_body')
   return EP_LARGE_BODY_ABSENT;
 if($posting->isMandatory('url') && $posting->url=='')
   return EP_URL_ABSENT;
+if($posting->url!='' && strpos($posting->url,'://')===false
+   && $posting->url{0}!='/')
+  $posting->url="http://{$posting->url}";
 if($posting->isMandatory('topic') && $posting->parent_id==0)
   return EP_TOPIC_ABSENT;
 if($posting->up==$original->parent_id)
@@ -81,14 +84,14 @@ if($posting->isMandatory('index1') && $posting->index1==0)
 if($posting->isMandatory('image') && !$posting->hasSmallImage())
   return EP_IMAGE_ABSENT;
 if($posting->hasSmallImage()
-   && !(imageExists($posting->orig_id,$thumbnailType,
-                    $posting->small_image,'small')
-	|| imageExists($posting->orig_id,$posting->large_image_format,
-		       $posting->small_image,'small')))
+   && !(imageFileExists($posting->orig_id,$thumbnailType,
+                        $posting->small_image,'small')
+	|| imageFileExists($posting->orig_id,$posting->large_image_format,
+		           $posting->small_image,'small')))
   return EP_NO_IMAGE;
 if($posting->hasLargeImage()
-   && !imageExists($posting->orig_id,$posting->large_image_format,
-                   $posting->large_image,'large'))
+   && !imageFileExists($posting->orig_id,$posting->large_image_format,
+                       $posting->large_image,'large'))
   return EP_NO_IMAGE;
 if($posting->person_id!=0 && !personalExists($posting->person_id))
   return EP_NO_PERSON;

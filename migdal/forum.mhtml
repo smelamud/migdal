@@ -19,10 +19,10 @@
 <body>
  <top ident='discuss'>
  <table width=100% cellpadding=5><tr valign=top><td class='cframe'>
-  <posting posting='$,' shorten='*true' showdiscuss='*false'
+  <posting posting='$,' shorten!='$,Grp!=*GRP_FORUMS' showdiscuss='*false'
            showcomplain='*true'>
   <p>
-  <forums parent_id='$,Id' limit='$$userForumPortion' offset='$offset'>
+  <forums parent_id='$,OrigId' limit='$$userForumPortion' offset='$offset'>
  </td></tr></table>
  <bottom>
 </body>

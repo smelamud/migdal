@@ -56,7 +56,7 @@ else
   <kernel>
   <<snapshot>>
   <moderator>
-   <a href='moderator.php'>Страница модератора</a>
+   <a href='/admin/'>Страница модератора</a>
   <else>
    Вебмастер живет по адресу
    <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>

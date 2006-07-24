@@ -16,6 +16,7 @@ define('MOD_ALL',0x001f);
 
 define('MOD_HIDDEN',-1);
 define('MOD_DISABLED',-2);
+define('MOD_DELETE',-3);
 
 $modbitLetters=array('M','H' /* deprecated */,'E','S','L');
 $modbitNames=array('Модерировать',

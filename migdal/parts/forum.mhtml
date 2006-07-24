@@ -9,15 +9,10 @@
 <table width=100% class='forum' cellspacing=1 cellpadding=0>
  <tr valign=top>
   <td class='header' rowspan=2 width=150 align=left>
-   <table cellpadding=0>
-    <tr>
-     <td><senderlink message='$forum'></td>
-     <td rowspan=2><biff time='$forum.Modified'></td>
-    </tr>
-    <tr><td class='sent'>
-     <sentview date='$forum.Sent'>
-    </td></tr>
-   </table>
+   <senderlink message='$forum'><br>
+   <span class='sent'><sentview date='$forum.Sent'></span>
+   <p>
+   <biff time='$forum.Modified'>
   </td>
   <td class='body ninept' align=left>
    $forum.BodyHTML
@@ -30,13 +25,13 @@
     <td><forum_selflink forum='$forum'></td>
     <td>&nbsp;&nbsp;&nbsp;</td>
     <td>
-     <a href="/forum/$forum.ParentId/reply?peerid=$forum.Id&redirid=$_"
+     <a href="/forum/$forum.ParentId/reply/?peerid=$forum.Id&redirid=$_"
 	title='Ответить с цитированием'>Ответить</a>
     </td>
     <iswrite what='$forum'>
      <td>&nbsp;&nbsp;&nbsp;</td>
      <td>
-      <a href="/forum/$forum.ParentId/edit?editid=$forum.Id&redirid=$_"><asp>
+      <a href="/forum/$forum.ParentId/update/?editid=$forum.Id&redirid=$_"><asp>
        <asp>Изменить<asp>
       <asp></a>
      </td>
@@ -52,6 +47,12 @@
 	 <asp>Запретить показ<asp>
 	<asp></a>
        </if>
+      </td>
+     <td>&nbsp;&nbsp;&nbsp;</td>
+      <td>
+       <a href="/actions/forum/delete?id=$forum.Id&okdir=$#-&faildir=$#-"><asp>
+	<asp>Удалить<asp>
+       <asp></a>
       </td>
      </moderator>
     </iswrite>
