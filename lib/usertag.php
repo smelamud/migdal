@@ -28,6 +28,11 @@ function getUserName()
 return $this->getLogin();
 }
 
+function getUserFolder()
+{
+return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getUserId();
+}
+
 function isMan()
 {
 return $this->gender=='mine' || $this->gender=='';

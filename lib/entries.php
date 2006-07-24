@@ -199,11 +199,6 @@ function setUserId($id)
 $this->user_id=$id;
 }
 
-function getUserFolder()
-{
-return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getUserId();
-}
-
 function getGroupId()
 {
 return $this->group_id;

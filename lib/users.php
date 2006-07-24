@@ -113,7 +113,7 @@ function getId()
 return $this->id;
 }
 
-// For compatibility with Entry
+// Used by UserTag::getUserFolder()
 function getUserId()
 {
 return $this->getId();
@@ -121,13 +121,7 @@ return $this->getId();
 
 function getFolder()
 {
-return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getId();
-}
-
-// For compatibility with Entry
-function getUserFolder()
-{
-return $this->getFolder();
+return $this->getUserFolder();
 }
 
 function getName()
