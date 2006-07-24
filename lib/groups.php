@@ -16,7 +16,7 @@ var $group_name;
 
 function UserGroup($row)
 {
-$this->DataObject($row);
+parent::DataObject($row);
 }
 
 function getUserId()
@@ -47,15 +47,15 @@ class GroupsIterator
 
 function GroupsIterator()
 {
-$this->SelectIterator('UserGroup',
-                      'select user_id,group_id,users.login as user_name,
-		              gusers.login as group_name
-		       from groups
-		            left join users
-			         on user_id=users.id
-			    left join users as gusers
-			         on group_id=gusers.id
-		       order by gusers.login,users.login');
+parent::SelectIterator('UserGroup',
+		       'select user_id,group_id,users.login as user_name,
+			       gusers.login as group_name
+			from groups
+			     left join users
+				  on user_id=users.id
+			     left join users as gusers
+				  on group_id=gusers.id
+			order by gusers.login,users.login');
 }
 
 }
@@ -67,7 +67,7 @@ if($user_id==$group_id)
 $result=sql("select user_id
 	     from groups
 	     where user_id=$user_id and group_id=$group_id",
-	    'isUserInGroup');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
@@ -77,7 +77,7 @@ if(isUserInGroup($user_id,$group_id))
   return;
 sql("insert into groups(user_id,group_id)
      values($user_id,$group_id)",
-    'addUserGroup');
+    __FUNCTION__);
 journal('insert into groups(user_id,group_id)
          values('.journalVar('users',$user_id).','.
 	          journalVar('users',$group_id).')');
@@ -87,7 +87,7 @@ function delUserGroup($user_id,$group_id)
 {
 sql("delete from groups
      where user_id=$user_id and group_id=$group_id",
-    'delUserGroup');
+    __FUNCTION__);
 journal('delete from groups
          where user_id='.journalVar('users',$user_id).' and
 	       group_id='.journalVar('users',$group_id));

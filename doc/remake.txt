@@ -93,8 +93,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/ear.php
 + actions/forummod.php
 + actions/goto.php
-- actions/groupadd.php
-- actions/groupdel.php
++ actions/groupadd.php
++ actions/groupdel.php
 - actions/hide.php
 - actions/horisontmod.php
 + actions/limdel.php
@@ -148,7 +148,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/exec.php
 * lib/forums.php
 + lib/gregor-calendar.php
-- lib/groups.php
++ lib/groups.php
 + lib/grpiterator.php
 * lib/grps.php
 - lib/horisonts.php
@@ -266,8 +266,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/forum.mhtml
 * migdal/gallery.mhtml
 * migdal/gallery-main.mhtml
-- migdal/groupadd.mhtml
-- migdal/grouporg.mhtml
++ migdal/groupadd.mhtml
++ migdal/grouporg.mhtml
 - migdal/halom-main.mhtml (удалить, сохранив ловушку)
 - migdal/help.mhtml
 - migdal/horisontedit.mhtml

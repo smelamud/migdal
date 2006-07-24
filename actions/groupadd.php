@@ -18,15 +18,18 @@ if($user_name=='')
   return EGA_USER_EMPTY;
 if($group_name=='')
   return EGA_GROUP_EMPTY;
-$userId=getUserIdByLogin(addslashes($user_name));
+$userId=getUserIdByLogin($user_name);
 if($userId<=0)
   return EGA_NO_USER;
-$groupId=getUserIdByLogin(addslashes($group_name));
+$groupId=getUserIdByLogin($group_name);
 if($groupId<=0)
   return EGA_NO_GROUP;
 addUserGroup($userId,$groupId);
 return EG_OK;
 }
+
+postString('okdir');
+postString('faildir');
 
 postString('user_name');
 postString('group_name');

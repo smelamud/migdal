@@ -23,6 +23,9 @@ delUserGroup($user_id,$group_id);
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
+
 postInteger('user_id');
 postInteger('group_id');
 
