@@ -48,7 +48,7 @@
 <tr>
  <td>&nbsp;</td>
  <td>
-  <checkbox title='С подтемами' name#='recursive($n)' value='$recursive'>
+  <checkbox title='С подтемами' name#='recursive($n)' checked='$recursive'>
  </td>
 </tr>
 </element>
@@ -173,12 +173,12 @@
        </td>
        <td align=left><table>
         <tr>
-	 <td><checkbox_button name='use_index1' value='$use_index1'></td>
+	 <td><checkbox_button name='use_index1' checked='$use_index1'></td>
 	 <td>Номер </td>
 	 <td><edit name='index1' value='$index1' size=8 maxlength=8></td>
         </tr>
 	<tr>
-	 <td><checkbox_button name='shadows' value='$shadows'></td>
+	 <td><checkbox_button name='shadows' checked='$shadows'></td>
 	 <td colspan=2>Показывать все тени</td>
 	</tr>
        </table></td>

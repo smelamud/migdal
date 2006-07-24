@@ -64,8 +64,8 @@ postString('okdir');
 postString('faildir');
 postInteger('editid');
 postInteger('edittag');
-postString('login');
-postString('password');
+postString('new_login');
+postString('new_password');
 postString('dup_password');
 postString('name');
 postString('jewish_name');
@@ -107,7 +107,7 @@ else
   header('Location: '.
 	  remakeMakeURI($faildir,
 			$Args,
-			array('password','dup_password','info','okdir',
+			array('new_password','dup_password','info','okdir',
 			      'faildir'),
 			array('info_i' => $infoId,'err' => $err)).'#error');
   }

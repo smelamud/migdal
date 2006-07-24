@@ -4,9 +4,9 @@
 <iterate_langs>
 <select name='$name'>
  <assign name='none' value=''>
- <radio title='-- Неизвестен --' value='$none' peervalue='$value'>
+ <select_option title='-- Неизвестен --' value='' selected!="$value==''">
  <for>
-  <radio title='$.Name' value='$.Code' peervalue='$value'>
+  <select_option title='$.Name' value='$.Code' selected!='$value==$.Code'>
  </for>
 </select>
 </element>

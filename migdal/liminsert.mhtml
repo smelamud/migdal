@@ -1,9 +1,5 @@
 << @(#) $Id$ >>
 
-<element name=place params='value'>
-<radio_button name='placement' value='$value' peervalue='$$inner.Placement'>
-</element>
-
 <int name='postid'>
 <int name='par'>
 <int name='x'>
@@ -23,6 +19,11 @@
 <string name='large_image_format'>
 <string name='large_image_filename'>
 <string name='title'>
+
+<element name=place params='value'>
+<radio_button name='placement' value='$value'
+              checked!='$$inner.Placement==$value'>
+</element>
 
 <html>
 <preamble>
@@ -115,7 +116,7 @@
                   loaded='$loaded' delname='del_image'
 		  small_url='$small_url' large_url='$large_url'>
    <form_checkbox title='Вставлять в уменьшенном виде' name='has_large_image'
-		  value='$,hasLargeImage' style='radio'>
+		  checked='$,hasLargeImage' style='radio'>
    <form_line title='Размер'>
     <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4>
     x

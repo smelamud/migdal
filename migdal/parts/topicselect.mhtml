@@ -22,11 +22,12 @@
    <else>
     <assign name='title' value#='-- $null_title --'>
    </ife>
-   <radio title='$title' value='0' peervalue='$value'>
+   <select_option title='$title' value='0' selected!='$value==0'>
   </if>
   <for>
    <ifne what='$.FullName'>
-    <radio title='$=.FullNameShort' value='$.Id' peervalue='$value'>
+    <select_option title='$=.FullNameShort' value='$.Id'
+                   selected!='$value==$.Id'>
    </ifne>
   </for>
  </select>

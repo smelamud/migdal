@@ -76,9 +76,9 @@ function setup($vars)
 {
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-$this->login=$vars['login'];
+$this->login=$vars['new_login'];
 $this->login_sort=convertSort($this->login);
-$this->password=$vars['password'];
+$this->password=$vars['new_password'];
 $this->dup_password=$vars['dup_password'];
 $this->name=$vars['name'];
 $this->name_sort=convertSort($this->name);

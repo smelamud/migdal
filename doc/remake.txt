@@ -104,7 +104,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/logout.php
 - actions/messagerenew.php
 + actions/modbits.php
-- actions/moderatemass.php
++ actions/moderatemass.php
 + actions/moderate.php
 - actions/postingcopy.php
 + actions/postingdel.php

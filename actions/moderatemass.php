@@ -8,46 +8,65 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/utils.php');
 require_once('lib/random.php');
-/* Required to prevent inclusion of Posting class before Message */
+require_once('lib/entries.php');
 require_once('lib/postings.php');
-require_once('lib/messages.php');
+require_once('lib/forums.php');
 require_once('lib/modbits.php');
 
-function modifyMessage($editid)
+function modifyEntry($id,$modbits)
 {
-global $userModerator,$HTTP_POST_VARS;
+global $userModerator;
 
 if(!$userModerator)
-  return EMM_NO_MODERATE;
-if(!messageExists($editid))
-  return EMM_NO_MESSAGE;
-setHiddenByMessageId($editid,$HTTP_POST_VARS["hidden$editid"]);
-setDisabledByMessageId($editid,$HTTP_POST_VARS["disabled$editid"]);
+  return EMO_NO_MODERATE;
+if(!entryExists(ENT_NULL,$id))
+  return EMO_NO_ENTRY;
+if(in_array(MOD_DELETE,$modbits))
+  {
+  $entryType=getTypeByEntryId($id);
+  switch($entryType)
+        {
+	case ENT_FORUM:
+	     deleteForum($id);
+	     return EG_OK;
+	case ENT_POSTING:
+	     deletePosting($id);
+	     return EG_OK;
+	default:
+	     return EMO_CANNOT_DELETE;
+	}
+  }
+setHiddenByEntryId($id,in_array(MOD_HIDDEN,$modbits) ? 1 : 0);
+setDisabledByEntryId($id,in_array(MOD_DISABLED,$modbits) ? 1 : 0);
 $bits=0;
-for($bit=1;$bit<=MOD_ALL;$bit*=2)
-   if($HTTP_POST_VARS["bit$editid-$bit"])
-     $bits|=$bit;
-assignModbitsByMessageId($editid,$bits);
+foreach($modbits as $bit)
+       if($bit>MOD_NONE && $bit<MOD_ALL)
+         $bits|=$bit;
+assignModbitsByEntryId($id,$bits);
 return EG_OK;
 }
 
-postIntegerArray('id');
+postString('okdir');
+postString('faildir');
+
+postIntegerArray('ids');
+postIntegerArray2D('modbits');
 
 dbOpen();
 session();
-foreach($id as $editid)
+foreach($ids as $id)
        {
-       $err=modifyMessage($editid);
+       $err=modifyEntry($id,$modbits[$id]);
        if($err!=EG_OK)
-         {
-         header('Location: '.remakeURI($faildir,
-	                               array(),
-				       array('err' => $err)).'#error');
-	 exit;
-	 }
+         break;
        }
-header('Location: '.remakeURI($okdir,
-                              array('err'),
-			      array('reload' => random(0,999))));
+if($err==EG_OK)
+  header('Location: '.remakeURI($okdir,
+				array('err'),
+			        array('reload' => random(0,999))));
+else
+  header('Location: '.remakeURI($faildir,
+				array(),
+				array('err' => $err)).'#error');
 dbClose();
 ?>

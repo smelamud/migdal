@@ -174,11 +174,9 @@ define('ETO_NO_REORDER',450);
 define('ETO_DUPS',451);
 define('ETO_NO_TOPIC',452);
 
-define('EMM_NO_MODERATE',460);
-define('EMM_NO_MESSAGE',461);
-
 define('EMO_NO_MODERATE',470);
-define('EMO_NO_MESSAGE',471);
+define('EMO_NO_ENTRY',471);
+define('EMO_CANNOT_DELETE',472);
 
 define('EMS_NO_HIDE',480);
 define('EMS_NO_MESSAGE',481);

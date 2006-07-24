@@ -16,8 +16,8 @@
   <tr valign='middle'>
    <if what='!$noguests'>
     <td width='1'>
-     <radio_button name='relogin' value='*RELOGIN_GUEST' peervalue='$relogin'
-                   id='relogin-guest'>
+     <radio id='relogin-guest' name='relogin' value='*RELOGIN_GUEST'
+            checked!='$relogin==*RELOGIN_GUEST'>
     </td>
     <td colspan=6>
      <label for='relogin-guest'>анонимный пользователь (Гость)</label>
@@ -32,8 +32,8 @@
   <logged>
    <tr valign='middle'>
     <td width='1'>
-     <radio_button name='relogin' value='*RELOGIN_SAME' peervalue='$relogin'
-                   id='relogin-same'>
+     <radio id='relogin-same' name='relogin' value='*RELOGIN_SAME'
+            checked!='$relogin==*RELOGIN_SAME'>
     </td>
     <td colspan=6>
      <label for='relogin-same'>Зарегистрированный пользователь</label>
@@ -43,8 +43,8 @@
   </logged>
   <tr valign='middle'>
    <td width='1'>
-    <radio_button name='relogin' value='*RELOGIN_LOGIN' peervalue='$relogin'
-                  id='relogin-login'>
+    <radio id='relogin-login' name='relogin' value='*RELOGIN_LOGIN'
+           checked!='$relogin==*RELOGIN_LOGIN'>
    </td>
    <td>Ник</td>
    <td>
@@ -57,7 +57,7 @@
            onkeypress='document.getElementById("relogin-login").checked=true'>
    </td>
    <td>Войти?</td>
-   <td><checkbox_button name='remember' value='$remember'></td>
+   <td><checkbox_button name='remember' checked='$remember'></td>
    <master>
     <tr valign='top'>
      <td width='1'>&nbsp;</td>

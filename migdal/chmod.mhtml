@@ -39,6 +39,7 @@
     <tr>
      <td>&nbsp;</td>
      <td>
+      << FIXME deprecated >>
       <checkbox title='Рекурсивно' name='r_user_name' value=$r_user_name>
      </td>
     </tr>
@@ -49,6 +50,7 @@
     <tr>
      <td>&nbsp;</td>
      <td>
+      << FIXME deprecated >>
       <checkbox title='Рекурсивно' name='r_group_name' value=$r_group_name>
      </td>
     </tr>
@@ -57,6 +59,7 @@
 	       maxlength=17>
     <tr>
      <td>&nbsp;</td>
+      << FIXME deprecated >>
      <td><checkbox title='Рекурсивно' name='r_perm' value=$r_perm></td>
     </tr>
    </table>

@@ -90,6 +90,30 @@ if($width!='')
 echo "<td$s>";
 }
 
+function displayCheckbox_button($name,$value=1,$checked=false,$id='',$class='')
+{
+$s='';
+if($checked)
+  $s.=" checked";
+if($id!='')
+  $s.=" id='$id'";
+if($class!='')
+  $s.=" class='$class'";
+echo "<input type='checkbox' name='$name' value='$value'$s>";
+}
+
+function displayRadio_button($name,$value,$checked=false,$id='',$class='')
+{
+$s='';
+if($checked)
+  $s.=" checked";
+if($id!='')
+  $s.=" id='$id'";
+if($class!='')
+  $s.=" class='$class'";
+echo "<input type='radio' name='$name' value='$value'$s>";
+}
+
 function disjunct($values)
 {
 if(!is_array($values))

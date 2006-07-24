@@ -15,6 +15,7 @@
   <td><select name='typeid'>
    <iterate_complain_types>
    <for>
+    << FIXME deprecated >>
     <radio title='$.TypeName' value='$.TypeId' peervalue='$typeid'>
    </for>
   </select></td>
@@ -65,13 +66,16 @@
      <tr>
       <td><select name='script_id'>
        <iterate_complain_scriptlist mask='$type.ScriptMask'>
+       << FIXME deprecated >>
        <radio title='-- Ничего не делать --' value=0 peervalue='$,ScriptId'>
        <for>
+	<< FIXME deprecated >>
 	<radio title='$.Title' value='$.Id' peervalue='$,ScriptId'>
        </for>
       </select></td>
       </td>
       <td>
+       << FIXME deprecated >>
        <checkbox name='automatic' value='$,isAutomatic'
 		 title='Автоматически'>
       </td>

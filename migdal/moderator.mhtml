@@ -10,12 +10,14 @@
 <assign name='sort' value!='$sort!=*SORT_RSENT ? *SORT_SENT : *SORT_RSENT'>
 
 <element name='batcher' params='&list'>
+<center style='margin: 0; padding: 0'>
+ <spin list='$list'>
+</center>
+</element>
+
+<element name='buttons'>
 <table width=100%><tr>
- <td width=30%>&nbsp;</td>
- <td align=center>
-  <spin list='$list'>
- </td>
- <td align=right width=30%><table><tr>
+ <td align=right><table><tr>
   <td><input type=submit value='Сохранить'></td>
   <td><input type=reset value='Очистить'></td>
  </tr></table></td>
@@ -36,11 +38,14 @@
  <form method=get action='$-'>
   <hidden name='sort' value='$$sort'>
   <td><select name='bit'>
-   <radio title='(h) Не показывать' value='-2' peervalue='$$bit'>
-   <radio title='(d) Запретить' value='-1' peervalue='$$bit'>
+   <select_option title='(h) Не показывать' value='*MOD_HIDDEN'
+                  selected!='$$bit==*MOD_HIDDEN'>
+   <select_option title='(d) Запретить' value='*MOD_DISABLED'
+                  selected!='$$bit==*MOD_DISABLED'>
    <iterate_posting_modbits>
    <for>
-    <radio title#='($.Letter) $.Name' value='$.Bit' peervalue='$$bit'>
+    <select_option title#='($.Letter) $.Name' value='$.Bit'
+                   selected!='$$bit==$.Bit'>
    </for>
   </select></td>
   <td><input type=submit value='Просмотр'></td>
@@ -60,17 +65,21 @@
    <td class='cframe'>
     <subtitle>
     <selector>
+    <p>
     <iterate_postinglist grp='*GRP_ALL' limit=20 offset='$offset' sort='$sort'
                          showshadows='*false' modbits!='$bit>=0 ? $bit : 0'
 			 hidden!='$bit==MOD_HIDDEN ? 1 : -1'
 			 disabled!='$bit==MOD_DISABLED ? 1 : -1'>
-    <form method=post action='actions/moderatemass.php' style='margin: 0'>
+    <batcher list='$;'>
+    <form method=post action='/actions/entries/modbits' style='margin: 0'>
      <hidden name='okdir' value='$-'>
      <hidden name='faildir' value='$-'>
-     <batcher list='$;'>
+     <buttons>
      <outer><table><inner>
-      <error id='*EMM_NO_MODERATE' text='Вы не модератор'>
-      <error id='*EMM_NO_MESSAGE' text='Такого сообщения не существует'>
+      <error id='*EMO_NO_MODERATE' text='Вы не модератор'>
+      <error id='*EMO_NO_ENTRY' text='Такого сообщения не существует'>
+      <error id='*EMO_CANNOT_DELETE'
+             text='Не могу удалить сообщение этого типа'>
      </inner></table></outer>
      <catalog_table>
       <tr>
@@ -102,31 +111,31 @@
 	 <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
 	</td>
 	<td class='$class' align=center>
-	 <checkbox_button name#='modbits[$.Id][]' value='$.isHidden'
-	                  iftrue='*MOD_HIDDEN'>
+	 <checkbox_button name#='modbits[$.Id][]' value='*MOD_HIDDEN'
+	                  checked='$.isHidden'>
 	</td>
 	<td class='$class' align=center>
-	 <checkbox_button name#='modbits[$.Id][]' value='$.isDisabled'
-	                  iftrue='*MOD_DISABLED'>
+	 <checkbox_button name#='modbits[$.Id][]' value='*MOD_DISABLED'
+	                  checked='$.isDisabled'>
 	</td>
 	<zone>
 	 <iterate_posting_modbits>
 	 <for>
 	  <td class='$class' align=center>
-	   <checkbox_button name#='modbits[$posting.Id][]'
-			    value!='$posting.Modbits & $.Bit' iftrue='$.Bit'>
+	   <checkbox_button name#='modbits[$posting.Id][]' value='$.Bit'
+			    checked!='($posting.Modbits & $.Bit)!=0'>
 	  </td>
 	 </for>
 	</zone>
 	<td class='$class' align=center>
-	 <checkbox_button name#='modbits[$.Id][]' value='0'
-	                  iftrue='*MOD_DELETE'>
+	 <checkbox_button name#='modbits[$.Id][]' value='*MOD_DELETE'>
 	</td>
        </tr>
       </for>
      </catalog_table>
-     <batcher list='$;'>
+     <buttons>
     </form>
+    <batcher list='$;'>
    </td>
   </tr>
  </table>

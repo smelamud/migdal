@@ -36,8 +36,8 @@ $result=array();
 if(!is_array($value))
   $result[]=(int)$value;
 else
-  foreach($value as $var)
-	 $result[]=(int)$var;
+  foreach($value as $key => $var)
+	 $result[$key]=(int)$var;
 return $result;
 }
 
@@ -51,6 +51,29 @@ postValue($name,
           postProcessIntegerArray(isset($_REQUEST[$name])
 	                          ? $_REQUEST[$name]
 				  : array()));
+}
+
+function postProcessIntegerArray2D($value)
+{
+$result=array();
+if(!is_array($value))
+  $result[]=array((int)$value);
+else
+  foreach($value as $key => $var)
+	 $result[$key]=postProcessIntegerArray($var);
+return $result;
+}
+
+function postIntegerArray2D($name)
+{
+global $Args;
+
+if(!isset($_REQUEST[$name]) && isset($Args[$name]))
+  return;
+postValue($name,
+          postProcessIntegerArray2D(isset($_REQUEST[$name])
+	                            ? $_REQUEST[$name]
+				    : array()));
 }
 
 function postProcessIdent($value,$table='entries')

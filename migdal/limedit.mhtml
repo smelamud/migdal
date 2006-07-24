@@ -95,7 +95,7 @@
 		    small_url='$small_url' large_url='$large_url'
 		    mandatory='*true'>
      <form_checkbox title='Вставлять в уменьшенном виде' name='has_large_image'
-                    value='$,hasLargeImage' style='radio'>
+                    checked='$,hasLargeImage' style='radio'>
      <form_line title='Размер'>
       <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4>
       x

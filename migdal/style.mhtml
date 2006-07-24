@@ -17,7 +17,8 @@
       <select name='style'>
        <iterate_styles>
        <for>
-	<radio title='$.' value='$;NextPosition' peervalue='$$userStyle'>
+	<select_option title='$.' value='$;NextPosition'
+	               selected!='$;NextPosition==$$userStyle'>
        </for>
       </select>
      </td>
@@ -26,14 +27,14 @@
      <td>Показывать<br>обновления за</td>
      <td>
       <select name='biff'>
-       <radio value=3 peervalue='$$userBiffTime' title='3 часа'>
-       <radio value=6 peervalue='$$userBiffTime' title='6 часов'>
-       <radio value=12 peervalue='$$userBiffTime' title='12 часов'>
-       <radio value=24 peervalue='$$userBiffTime' title='1 день'>
-       <radio value=48 peervalue='$$userBiffTime' title='2 дня'>
-       <radio value=72 peervalue='$$userBiffTime' title='3 дня'>
-       <radio value=120 peervalue='$$userBiffTime' title='5 дней'>
-       <radio value=168 peervalue='$$userBiffTime' title='7 дней'>
+       <select_option value=3 selected!='$$userBiffTime==3' title='3 часа'>
+       <select_option value=6 selected!='$$userBiffTime==6' title='6 часов'>
+       <select_option value=12 selected!='$$userBiffTime==12' title='12 часов'>
+       <select_option value=24 selected!='$$userBiffTime==24' title='1 день'>
+       <select_option value=48 selected!='$$userBiffTime==48' title='2 дня'>
+       <select_option value=72 selected!='$$userBiffTime==72' title='3 дня'>
+       <select_option value=120 selected!='$$userBiffTime==120' title='5 дней'>
+       <select_option value=168 selected!='$$userBiffTime==168' title='7 дней'>
       </select>
      </td>
     </tr>
@@ -43,6 +44,7 @@
      Ваша основная кодировка - KOI8, то<br>
      Вам может пригодиться следующая настройка:
     </td></tr>
+    << FIXME deprecated >>
     <checkbox_line name='koi' value!='$$userReadKOI>0'
 		   title='Читаю только в KOI8' span=2>
    </table></td>

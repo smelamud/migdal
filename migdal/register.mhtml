@@ -68,11 +68,11 @@
 	      maxlength=30 mandatory='*true'>
    <error id='*EUM_GENDER' text='Неизвестный пол'>
    <form_line title='Пол'>
-    <radio_button name='gender' value='mine' peervalue='$,Gender'
-		  title='Мужской'>
+    <radio name='gender' value='mine' checked!="$,Gender=='mine'"
+           title='Мужской'>
     &nbsp;
-    <radio_button name='gender' value='femine' peervalue='$,Gender'
-		  title='Женский'>
+    <radio name='gender' value='femine' checked!="$,Gender=='femine'"
+	   title='Женский'>
    </form_line>
    <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
    <form_line title='Дата рождения'>
@@ -83,17 +83,18 @@
      <for>
       <if what='!$;isFirst'>
        <call func='$user->isMonthOfBirth' arg1='$;Position'>
-       <radio value='$;Position' peervalue='$,' title='$.'>
+       <select_option value='$;Position' selected!='$;Position==$,' title='$.'>
       </if>
      </for>
     </select>
     19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
    </form_line>
+   << FIXME incorrect field `migdal_student` >>
    <form_checkbox title='Мигдалевец'
                   comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
 		           его раньше? Или, может быть, вы чувствуете себя
 			   мигдалевцем в душе?'
-                  name='migdal_student' value='$,isMigdalStudent'>
+                  name='migdal_student' checked='$,isMigdalStudent'>
    <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен'>
    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно'>
    <form_edit title='E-mail'
@@ -108,14 +109,14 @@
                   comment='Ответ <i>Да</i> означает, что никто из посетителей
 		           сайта (кроме администратора) не увидит ващ адрес
 			   E-mail'
-                  name='hide_email' value='$,isHideEmail'>
+                  name='hide_email' checked='$,isHideEmail'>
    <form_checkbox title='Разрешаю посылать почту на мой адрес'
                   comment='Ответ <i>Нет</i> означает, что вы не будете получать
 		           письма, которые администрация сайта отправляет всем
 			   зарегистрированным пользователям. Мы крайне редко
 			   отправляем такие письма --- за 4 года мы не делали
 			   этого ни разу'
-                  name='email_enabled' value='$,isEmailEnabled'>
+                  name='email_enabled' checked='$,isEmailEnabled'>
    <form_edit title='ICQ' 
 	      comment='Если вы не знаете, что это такое, не заполняйте это поле'
               value='$=,ICQ' name='icq' size=15 maxlength=15>

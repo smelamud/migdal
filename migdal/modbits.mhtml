@@ -13,7 +13,7 @@
    <hidden name='faildir' value='$-'>
    <hidden name='id' value='$,Id'>
    <error id='*EMO_NO_MODERATE' text='Вы не модератор'>
-   <error id='*EMO_NO_MESSAGE' text='Такого сообщения не существует'>
+   <error id='*EMO_NO_ENTRY' text='Такого сообщения не существует'>
    <form_select title='Флаги' name='modbits[]' multiple='*true' style='box'>
     <form_option title='(h) Не показывать' value='*MOD_HIDDEN'
                  selected='$,isHidden'>

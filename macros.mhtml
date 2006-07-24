@@ -523,6 +523,13 @@
  </header>
 </macro>
 
+<macro name='int_array_2d'>
+ <header>
+  <require name='lib/post.php'>
+  <exec func='postIntegerArray2D' arg1='%name'>
+ </header>
+</macro>
+
 <macro name='ident' defaults="table='entries'">
  <header>
   <require name='lib/post.php'>
@@ -559,49 +566,33 @@
  <input type=hidden name='%name' value="%value">
 </macro>
 
-<macro name='checkbox_button' defaults="value=0 iftrue=1 class=''">
- <ife what="'%class'">
-  <ifzero what='%value'>
-   <input type='checkbox' name='%name' value='%iftrue'>
-  <else>
-   <input type='checkbox' name='%name' value='%iftrue' checked>
-  </ifzero>
- <else>
-  <ifzero what='%value'>
-   <input type='checkbox' name='%name' value='%iftrue' class='%class'>
-  <else>
-   <input type='checkbox' name='%name' value='%iftrue' class='%class' checked>
-  </ifzero>
- </ife>
-</macro>
+<decel name='checkbox_button' file='lib/utils.php'
+       params='name,value,checked,id,class'
+       defaults="value=1 checked='*false' id='' class=''">
 
-<macro name='checkbox' defaults="value=0 iftrue=1 class=''">
+<macro name='checkbox'
+       defaults="value=1 checked='*false' id='' class='' title=''">
  <label>
-  <checkbox_button name='%name' value='%value'
-                   iftrue='%iftrue' class='%class'> %title
+  <checkbox_button name%!name='%name' value%!value='%value'
+                   checked%!checked='%checked' id%!id='%id'
+		   class%!class='%class'> %title
  </label>
 </macro>
 
-<macro name='radio_button' defaults='peervalue="-1"'>
+<decel name='radio_button' file='lib/utils.php'
+       params='name,value,checked,id,class'
+       defaults="checked='*false' id='' class=''">
+
+<macro name='radio' defaults="checked='*false' id='' class='' title=''">
  <label>
-  <ife what="'%id'">
-   <if what='(%value)==(%peervalue)'>
-    <input type='radio' name='%name' value='%value' checked>%title
-   <else>
-    <input type='radio' name='%name' value='%value'>%title
-   </if>
-  <else>
-   <if what='(%value)==(%peervalue)'>
-    <input type='radio' id='%id' name='%name' value='%value' checked>%title
-   <else>
-    <input type='radio' id='%id' name='%name' value='%value'>%title
-   </if>
-  </ife>
+  <radio_button name%!name='%name' value%!value='%value'
+                checked%!checked='%checked' id%!id='%id'
+		class%!class='%class'> %title
  </label>
 </macro>
 
-<macro name='radio' defaults='peervalue="-1"'>
- <if what='(%value)==(%peervalue)'>
+<macro name='select_option' defaults='selected="*false"'>
+ <if what='%selected'>
   <option value='%value' selected>%title
  <else>
   <option value='%value'>%title

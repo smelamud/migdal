@@ -107,17 +107,17 @@
 <form_line title='$title' mandatory='$mandatory' comment='$comment'>
  <if what="$style=='select'">
   <select name='$name'>
-   <radio value='$iftrue' peervalue='$value' title='Да'>
-   <radio value='0' peervalue='$value' title='Нет'>
+   <select_option value='$value' selected='$checked' title='Да'>
+   <select_option value='0' selected='!$checked' title='Нет'>
   </select>
  <elif what="$style=='radio'">
-  <radio_button name='$name' value='$iftrue' peervalue='$value' title='Да'>
+  <radio name='$name' value='$value' checked='$checked' title='Да'>
   &nbsp;
-  <radio_button name='$name' value='0' peervalue='$value' title='Нет'>
+  <radio name='$name' value='0' checked='!$checked' title='Нет'>
  <elif what="$style=='box'">
-  <checkbox_button name='$name' value='$value' iftrue='$iftrue'>
+  <checkbox_button name='$name' value='$value' checked='$checked'>
  <else>
-  <checkbox_button name='$name' value='$value' iftrue='$iftrue'>
+  <checkbox_button name='$name' value='$value' checked='$checked'>
  </if>
 </form_line>
 </element>

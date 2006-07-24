@@ -2,8 +2,8 @@
 
 <int name='editid'>
 <int name='edittag'>
-<string name='login'>
-<string name='password'>
+<string name='new_login'>
+<string name='new_password'>
 <string name='dup_password'>
 <string name='name'>
 <string name='jewish_name'>
@@ -45,7 +45,7 @@
    <form_edit title='Ник'
               comment='Ваш псевдоним, под которым вы будете видны на сайте. Вы
 	               можете сменить его в любой момент'
-              value='$=,Login' name='login' size=20 maxlength=30
+              value='$=,Login' name='new_login' size=20 maxlength=30
 	      mandatory='*true'>
    <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
    <error id='*EUM_PASSWORD_DIFF'
@@ -53,7 +53,7 @@
    <form_password title='Новый пароль'
                   comment='Не менее 5 символов.<br>Заполните это поле, только
 		           если вы хотите сменить пароль'
-		  name='password' size=20 maxlength=40>
+		  name='new_password' size=20 maxlength=40>
    <form_password title='Новый пароль (еще раз)'
 	          comment='Повторите ввод пароля, чтобы убедиться, что вы не
 		           ошиблись при наборе'
@@ -71,11 +71,11 @@
 	      maxlength=30 mandatory='*true'>
    <error id='*EUM_GENDER' text='Неизвестный пол'>
    <form_line title='Пол'>
-    <radio_button name='gender' value='mine' peervalue='$,Gender'
-		  title='Мужской'>
+    <radio name='gender' value='mine' checked!="$,Gender=='mine'"
+	   title='Мужской'>
     &nbsp;
-    <radio_button name='gender' value='femine' peervalue='$,Gender'
-		  title='Женский'>
+    <radio name='gender' value='femine' checked!="$,Gender=='femine'"
+	   title='Женский'>
    </form_line>
    <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
    <form_line title='Дата рождения'>
@@ -86,7 +86,7 @@
      <for>
       <if what='!$;isFirst'>
        <call func='$user->isMonthOfBirth' arg1='$;Position'>
-       <radio value='$;Position' peervalue='$,' title='$.'>
+       <select_option value='$;Position' selected!='$;Position==$,' title='$.'>
       </if>
      </for>
     </select>
@@ -96,8 +96,8 @@
                   comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
 		           его раньше? Или, может быть, вы чувствуете себя
 			   мигдалевцем в душе?'
-                  name='rights[]' value='$,isMigdalStudent'
-		  iftrue='*USR_MIGDAL_STUDENT'>
+                  name='rights[]' value='*USR_MIGDAL_STUDENT'
+		  checked='$,isMigdalStudent'>
    <form_editor title='Коротко о себе'
                 comment='Напишите несколько слов о себе: биография, работа,
 		         друзья, интересы...'
@@ -117,14 +117,14 @@
                   comment='Ответ <i>Да</i> означает, что никто из посетителей
 		           сайта (кроме администратора) не увидит ващ адрес
 			   E-mail'
-                  name='hide_email' value='$,isHideEmail'>
+                  name='hide_email' checked='$,isHideEmail'>
    <form_checkbox title='Разрешаю посылать почту на мой адрес'
                   comment='Ответ <i>Нет</i> означает, что вы не будете получать
 		           письма, которые администрация сайта отправляет всем
 			   зарегистрированным пользователям. Мы крайне редко
 			   отправляем такие письма --- за 4 года мы не делали
 			   этого ни разу'
-                  name='email_enabled' value='$,isEmailEnabled'>
+                  name='email_enabled' checked='$,isEmailEnabled'>
     <if what='$,isEmailDisabled==2'>
      <tr><td colspan=2 class='error'>
       Посылка почты на этот адрес временно приостановлена, поскольку адрес не
@@ -136,28 +136,27 @@
 	      comment='Если вы не знаете, что это такое, не заполняйте это поле'
 	      value='$=,ICQ' name='icq' size=15 maxlength=15>
    <admin_users>
-    <form_checkbox name='has_personal' value='$,isHasPersonal'
+    <form_checkbox name='has_personal' checked='$,isHasPersonal'
 		   title='Имеет персональную страницу'>
     <form_section title='Привилегии'>
-    <form_checkbox name='rights[]' value='$,isAcceptsComplains'
-                   iftrue='*USR_ACCEPTS_COMPLAINS' title='Принимает жалобы'>
-    <form_checkbox name='rights[]' value='$,isAdminUsers'
-                   iftrue='*USR_ADMIN_USERS'
-		   title='Администратор пользователей'>
-    <form_checkbox name='rights[]' value='$,isAdminTopics'
-                   iftrue='*USR_ADMIN_TOPICS' title='Администратор тем'>
-    <form_checkbox name='rights[]' value='$,isAdminComplainAnswers'
-		   iftrue='*USR_ADMIN_COMPLAIN_ANSWERS'
+    <form_checkbox name='rights[]' value='*USR_ACCEPTS_COMPLAINS'
+                   checked='$,isAcceptsComplains' title='Принимает жалобы'>
+    <form_checkbox name='rights[]' value='*USR_ADMIN_USERS'
+                   checked='$,isAdminUsers' title='Администратор пользователей'>
+    <form_checkbox name='rights[]' value='*USR_ADMIN_TOPICS'
+                   checked='$,isAdminTopics' title='Администратор тем'>
+    <form_checkbox name='rights[]' value='*USR_ADMIN_COMPLAIN_ANSWERS'
+                   checked='$,isAdminComplainAnswers'
 		   title='Администратор ответов на жалобы'>
-    <form_checkbox name='rights[]' value='$,isModerator'
-                   iftrue='*USR_MODERATOR' title='Модератор'>
-    <form_checkbox name='rights[]' value='$,isJudge'
-                   iftrue='*USR_JUDGE' title='Арбитр'>
-    <form_checkbox name='admin_domain' value='$,isAdminDomain'
-		   iftrue='*USR_ADMIN_DOMAIN' title='Администратор субдоменов'>
-    <form_checkbox name='hidden' value='$,isHidden'
+    <form_checkbox name='rights[]' value='*USR_MODERATOR'
+                   checked='$,isModerator' title='Модератор'>
+    <form_checkbox name='rights[]' value='*USR_JUDGE'
+                   checked='$,isJudge' title='Арбитр'>
+    <form_checkbox name='admin_domain' value='*USR_ADMIN_DOMAIN'
+                   checked='$,isAdminDomain' title='Администратор субдоменов'>
+    <form_checkbox name='hidden' checked='$,isHidden'
 		   title='Скрыть в списке пользователей'>
-    <form_checkbox name='no_login' value='$,isNoLogin' title='Запретить вход'>
+    <form_checkbox name='no_login' checked='$,isNoLogin' title='Запретить вход'>
    </admin_users>
    <form_buttons title='Изменить'>
   </form>

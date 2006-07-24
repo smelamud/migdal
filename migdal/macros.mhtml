@@ -28,8 +28,6 @@
 <decel name='article_editmode' file='parts/article.php' params='editing'>
 <decel name='/article_editmode' file='parts/article.php'>
 <decel name='article_full' file='parts/article.php' params='posting'>
-<decel name='at' file='parts/utils.php' params='target,class,href,title'
-       defaults="target='' class='' title=''">
 <decel name='backtrace' file='parts/backtrace.php' params='target'
        defaults="target=''">
 <decel name='bannerbank' file='parts/bannerbank.php'>
@@ -73,8 +71,9 @@
 <decel name='form_buttons' file='parts/formutils.php' params='title'
        defaults="title='Изменить'">
 <decel name='form_checkbox' file='parts/formutils.php'
-       params='title,mandatory,comment,name,value,style,iftrue'
-       defaults="mandatory='*false' comment='' style='select' iftrue=1">
+       params='title,mandatory,comment,name,value,style,checked'
+       defaults="mandatory='*false' comment='' style='select' value=1
+                 checked='*true'">
 <decel name='form_comment' file='parts/formutils.php'>
 <decel name='/form_comment' file='parts/formutils.php'>
 <decel name='form_edit' file='parts/formutils.php'
@@ -387,6 +386,9 @@
 </macro>
 
 << HTML shortcuts >>
+<decel name='at' file='parts/utils.php' params='target,class,href,title'
+       defaults="target='' class='' title=''">
+
 <macro name='/at'>
  <asp></a><asp>
 </macro>
