@@ -252,7 +252,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/complainactionedit.mhtml
 - migdal/complainanswer.mhtml
 - migdal/complainedit.mhtml
-- migdal/complainforum.mhtml
+* migdal/complainforum.mhtml
 + migdal/complains.mhtml
 + migdal/cross-entries.mhtml
 * migdal/cross-entry-add.mhtml
@@ -330,7 +330,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/book-ring.mhtml
 - migdal/parts/book-ring-static.mhtml
 * migdal/parts/bottom.mhtml
-- migdal/parts/complain.mhtml
+* migdal/parts/complain.mhtml
 + migdal/parts/daily-announce.mhtml
 + migdal/parts/daily-picture.mhtml
 + migdal/parts/discussions.mhtml

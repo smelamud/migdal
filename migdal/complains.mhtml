@@ -21,7 +21,7 @@
 <preamble>
 <body>
  <top ident='index'>
- <div class='padding: 5px'><div class='cframe' style='padding: 5px'>
+ <table width=100% cellspacing=5 cellpadding=5><tr><td class='cframe'>
   <subtitle>
   <iterate_complainlist name='list' limit=20 offset='$offset'>
   <batcher list='$;'>
@@ -57,7 +57,7 @@
    <td class='$class eightpt'><sentview date='$.Sent'></td>
    <td class='$class eightpt'><senderlink message='$.'></td>
    <td class='$class ninept'>
-    <a href='complainforum.php?compid=$.Id&redirid=$_'>$.Subject</a>
+    <a href='/complains/$.Id/?redirid=$_'>$.Subject</a>
     <biff time='$.Modified' small='*true'>
    </td>
    <if what='$.isAssigned'>
@@ -73,7 +73,7 @@
   </for>
   </catalog_table>
   <batcher list='$;'>
- </div></div>
+ </td></tr></table>
  <bottom>
 </body>
 </html>

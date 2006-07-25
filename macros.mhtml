@@ -185,14 +185,8 @@
 <decexec macro='/common' func='endCommon' file='lib/inner.php'>
 <deccall macro='complain_action_obj' func='getComplainActionById'
          file='lib/complainactions.php' params='id' defaults='name=act'>
-<deccall macro='complain_full' func='getFullComplainById'
-         file='lib/complains.php' params='id,type_id'
-	 defaults="name=complain type_id='*COMPL_NORMAL'">
-<deccall macro='complain_new' func='newComplain' file='lib/complains.php'
-         params='type_id'>
 <deccall macro='complain_obj' func='getComplainById' file='lib/complains.php'
-         params='id,type_id,link'
-	 defaults="name=complain type_id='*COMPL_NORMAL' link=0">
+         params='id,url' defaults="name=complain url=''">
 <deccall macro='counter_value' func='getCounterValue' file='lib/counters.php'
          params='entry_id,mode,serial' defaults='serial=0'>
 <deccall macro='entry_grps' func='getGrpsByEntryId' file='lib/entries.php'

@@ -1,33 +1,23 @@
 << @(#) $Id$ >>
 
 <int name='compid'>
-<grps>
-<pagetitle title='Обсуждение жалобы'>
+<int name='offset'>
 
 <html>
 <stylesheet ident='complain'>
 <preamble>
 <body>
  <top ident='index'>
- <complain_full id='$compid'>
- <div class='cframe' style='padding: 5px'>
-  <if what='$,TypeId==*COMPL_POSTING || $,TypeId==*COMPL_AUTO_POSTING'><zone>
-   <posting_obj name='posting' id='$,Link' grp='*GRP_NONE'
-                fields!='*SELECT_GENERAL|*SELECT_IMAGES|*SELECT_ANSWERS|*SELECT_TOPICS'>
-   <if what='$posting.Grp!=*GRP_NONE'>
-    <posting posting='$posting' showcomplain='*false'>
-    <p>
-   </if>
-  </zone></if>
-  <if what='$,TypeId==*COMPL_FORUM'><zone>
-   <forum_obj id='$,Link'>
-   <forum forum='$,' showcomplain='*false'>
-   <p>
-  </zone></if>
-  <complain complain='$,' discuss='*false'>
-  <p>
-  <forums parent_id='$,MessageId' limit='$$userForumPortion'>
- </div>
+ <table width=100% cellspacing=5 cellpadding=5>
+  <tr><td>
+   <complain_obj id='$compid'>
+   <complain complain='$,' discuss='*false'>
+  </td></tr>
+  <tr><td class='cframe'>
+   <forums parent_id='$,Id' limit='$$userForumPortion' offset='$offset'
+           parent_prefix='/complains'>
+  </td></tr>
+ </table>
  <bottom>
 </body>
 </html>

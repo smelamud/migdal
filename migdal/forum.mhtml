@@ -22,7 +22,8 @@
   <posting posting='$,' shorten!='$,Grp!=*GRP_FORUMS' showdiscuss='*false'
            showcomplain='*true'>
   <p>
-  <forums parent_id='$,OrigId' limit='$$userForumPortion' offset='$offset'>
+  <forums parent_id='$,OrigId' limit='$$userForumPortion' offset='$offset'
+          parent_prefix='/forum'>
  </td></tr></table>
  <bottom>
 </body>

@@ -246,6 +246,7 @@ $rootPostingPerms=0x99FF;
 # Права по умолчанию для форума
 $rootForumPerms=0x5557;
 
+# FIXME deprecated
 # Права по умолчанию для жалобы
 $rootComplainUserName='admin';
 $rootComplainGroupName='admin';

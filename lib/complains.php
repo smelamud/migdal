@@ -171,28 +171,37 @@ $this->LimitSelectIterator(
 
 }
 
-// remake
-function getComplainById($id,$type_id=COMPL_NORMAL,$link=0)
+function getComplainById($id,$url='')
 {
-global $rootComplainPerms;
+global $userId,$realUserId;
 
-$result=sql("select complains.id as id,stotext_id,body,subject,
-		    message_id,type_id,link,closed,no_auto
-	     from complains
-		  left join messages
-		       on messages.id=complains.message_id
-		  left join stotexts
-		       on stotexts.id=messages.stotext_id
-	     where complains.id=$id",
-	    'getComplainById');
+if(hasCachedValue('obj','entries',$id))
+  return getCachedValue('obj','entries',$id);
+$result=sql("select entries.id as id,subject,body,body_xml,url,sent,created,
+		    modified,user_id,group_id,perms,person_id,disabled,modbits,
+		    users.login as login,users.gender as gender,
+		    users.email as email,users.hide_email as hide_email,
+		    users.hidden as user_hidden,person.login as person_login,
+		    person.gender as person_gender,person.email as person_email,
+		    person.hide_email as person_hide_email,
+		    person.hidden as person_hidden,answers,last_answer,
+		    last_answer_id,last_answer_user_id
+	     from entries
+		  left join users
+		       on entries.user_id=users.id
+		  left join users as person
+		       on entries.person_id=person.id
+		  where entries.id=$id",
+	    __FUNCTION__);
 if(mysql_num_rows($result)>0)
   {
-  $row=mysql_fetch_assoc($result);
-  return newComplain($row['type_id'],$row);
+  $complain=new Complain(mysql_fetch_assoc($result));
+  setCachedValue('obj','entries',$id,$complain);
   }
 else
-  return newComplain($type_id,array('link'  => $link,
-                                    'perms' => $rootComplainPerms));
+  $complain=new Complain(array('user_id' => $userId>0 ? $userId : $realUserId,
+		               'url'     => $url));
+return $complain;
 }
 
 // remake
@@ -217,46 +226,12 @@ return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					      : array());
 }
 
-// remake
-function getFullComplainById($id,$type_id=COMPL_NORMAL)
-{
-$result=sql("select complains.id as id,stotext_id,body,subject,
-		    sender_id,sent,closed,no_auto,message_id,type_id,
-		    link,users.login as login,
-		    users.gender as gender,users.email as email,
-		    users.hide_email as hide_email,users.rebe as rebe,
-		    users.hidden as sender_hidden,recipient_id,
-		    recs.login as rec_login,recs.gender as rec_gender,
-		    recs.email as rec_email,
-		    recs.hide_email as rec_hide_email,
-		    recs.rebe as rec_rebe,recs.hidden as rec_hidden
-	     from complains
-		  left join messages
-		       on messages.id=complains.message_id
-		  left join stotexts
-		       on stotexts.id=messages.stotext_id
-		  left join users
-		       on messages.sender_id=users.id
-		  left join users as recs
-		       on complains.recipient_id=recs.id
-	     where complains.id=$id",
-	    'getFullComplainById');
-if(mysql_num_rows($result)>0)
-  {
-  $row=mysql_fetch_assoc($result);
-  return newComplain($row['type_id'],$row);
-  }
-else
-  return newComplain($type_id,array());
-}
-
-// remake
 function complainExists($id)
 {
 $result=sql("select id
-	     from complains
-	     where id=$id",
-	    'complainExists');
+	     from entries
+	     where id=$id and entry=".ENT_COMPLAIN,
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 

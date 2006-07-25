@@ -3,6 +3,7 @@
 
 require_once('lib/topics.php');
 require_once('lib/users.php');
+require_once('lib/complains.php');
 
 function titleUserLogin($id)
 {
@@ -45,5 +46,11 @@ function titlePostingIssues($id)
 {
 $posting=getPostingById($id);
 return $posting->getIssues();
+}
+
+function titleComplainSubject($id)
+{
+$complain=getComplainById($id);
+return $complain->getSubject();
 }
 ?>

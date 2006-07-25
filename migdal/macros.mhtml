@@ -124,10 +124,11 @@
                large_url'
        defaults="plainid=0 comment='' mandatory='*false' small_url=''
                  large_url=''">
-<decel name='forum' file='parts/forum.php' params='forum,showcomplain'
-       defaults="showcomplain='*true'">
-<decel name='forum_selflink' file='parts/forum.php' params='forum'>
-<decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
+<decel name='forum' file='parts/forum.php'
+       params='forum,showcomplain,parent_path' defaults="showcomplain='*true'">
+<decel name='forum_selflink' file='parts/forum.php' params='id,parent_path'>
+<decel name='forums' file='parts/forums.php'
+       params='parent_id,limit,offset,parent_prefix'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'
        params='topic_id,rows,cols,offset,subdomain,sort,user_id'
