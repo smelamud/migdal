@@ -25,10 +25,6 @@
  <trap text='Kaitanot gallery'>
  <reload href='gallery.php'>
 </if>
-<if what='$topic_id==4'>
- <trap text='Arab-Israel gallery'>
- <reload href='index.php?topic_id=4'>
-</if>
 <if what='$topic_id==143'>
  <trap text='Museum gallery'>
  <reload href='migdal.php?artid=1582'>

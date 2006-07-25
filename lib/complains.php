@@ -2,48 +2,30 @@
 # @(#) $Id$
 
 require_once('lib/limitselect.php');
-/* Required to prevent inclusion of Posting class before Message */
-require_once('lib/postings.php');
-require_once('lib/messages.php');
+require_once('lib/entries.php');
 require_once('lib/usertag.php');
 require_once('lib/users.php');
 require_once('lib/random.php');
-require_once('grp/compltypes.php');
 require_once('lib/bug.php');
 require_once('lib/sql.php');
+require_once('lib/modbits.php');
 
 class Complain
-      extends Message
+      extends Entry
 {
-var $message_id;
-var $type_id;
-var $link;
-var $closed;
-var $no_auto;
-var $recipient_id;
-
-var $recipient_info;
-var $rec_login;
-var $rec_gender;
-var $rec_email;
-var $rec_hide_email;
-var $rec_rebe;
-var $rec_hidden;
+var $person_info;
 
 function Complain($row)
 {
-$this->id=0;
-$this->Message($row);
-$this->recipient_info=
-       new SenderTag(array('sender_id'     => $this->recipient_id,
-			   'login'         => $this->rec_login,
-			   'gender'        => $this->rec_gender,
-			   'email'         => $this->rec_email,
-			   'hide_email'    => $this->rec_hide_email,
-			   'rebe'          => $this->rec_rebe,
-			   'sender_hidden' => $this->rec_hidden));
+$this->entry=ENT_COMPLAIN;
+parent::Entry($row);
+$prow=array();
+foreach($row as $key => $value)
+       if(substr($key,0,7)=='person_')
+         $prow[substr($key,7)]=$value;
+$this->person_info=new User($prow);
 }
-
+/*
 function getCorrespondentVars()
 {
 $list=Message::getCorrespondentVars();
@@ -65,14 +47,6 @@ function getJencodedComplainVars()
 {
 return array('recipient_id' => 'users','message_id' => 'messages',
              'link' => $this->getLinkTable());
-}
-
-function getNormalComplain($isAdmin=false)
-{
-$normal=$this->collectVars($this->getWorldComplainVars());
-if($isAdmin)
-  $normal=array_merge($normal,$this->collectVars($this->getAdminComplainVars()));
-return $normal;
 }
 
 function getAutoAssign()
@@ -123,87 +97,47 @@ else
   }
 return $result;
 }
-
-function isEditable()
+*/
+function isPermitted($right)
 {
 global $userId;
 
-return !$this->isClosed() && $this->isWritable();
-}
-
-function isModerable()
-{
-return false;
-}
-
-function hasTopic()
-{
-return false;
-}
-
-function hasImage()
-{
-return false;
-}
-
-function getMessageId()
-{
-return $this->message_id;
-}
-
-function getTypeId()
-{
-return $this->type_id;
-}
-
-function getLink()
-{
-return $this->link;
+switch($right)
+      {
+      case PERM_READ:
+           return true;
+      case PERM_WRITE:
+           return $this->getUserId()==$userId || $userModerator;
+      case PERM_APPEND:
+           return false;
+      case PERM_POST:
+           return true;
+      default:
+           return false;
+      }
 }
 
 function isClosed()
 {
-return $this->closed!='';
+return ($this->getModbits() & MODC_CLOSED)!=0;
 }
-
-function getClosed()
-{
-return strtotime($this->closed);
-}
-
-function isNoAuto()
-{
-return $this->no_auto!=0;
-}
-
+/*
 function getDisplay()
 {
 return $this->display;
 }
-
-function getRecipientId()
+*/
+function getPersonInfo()
 {
-return $this->recipient_id;
+return $this->person_info;
 }
 
 function isAssigned()
 {
-return $this->recipient_id!=0;
-}
-
-function getRecipientInfo()
-{
-return $this->recipient_info;
-}
-
-function getRecipientLogin()
-{
-return $this->rec_login;
+return $this->person_id!=0;
 }
 
 }
-
-require_once('grp/complains.php');
 
 class ComplainListIterator
       extends LimitSelectIterator
@@ -211,47 +145,33 @@ class ComplainListIterator
 
 function ComplainListIterator($limit=20,$offset=0)
 {
-$hide=messagesPermFilter(PERM_READ,'forummesgs');
 $this->LimitSelectIterator(
        'Complain',
-       "select complains.id as id,messages.subject as subject,
-               messages.sent as sent,messages.sender_id as sender_id,
-	       closed,recipient_id,
-               users.login as login,users.gender as gender,
-	       users.email as email,users.hide_email as hide_email,
-	       users.rebe as rebe,users.hidden as sender_hidden,
-               recs.login as rec_login,recs.gender as rec_gender,
-	       recs.email as rec_email,recs.hide_email as rec_hide_email,
-	       recs.rebe as rec_rebe,recs.hidden as rec_hidden,
-	       count(forummesgs.id) as answer_count,
-	       max(forummesgs.sent) as last_answer
-        from complains
-	     left join messages
-		  on messages.id=complains.message_id
+       'select entries.id as id,subject,sent,created,modified,user_id,group_id,
+               perms,person_id,disabled,modbits,
+	       users.login as login,users.gender as gender,users.email as email,
+	       users.hide_email as hide_email,users.hidden as user_hidden,
+	       person.login as person_login,person.gender as person_gender,
+	       person.email as person_email,
+	       person.hide_email as person_hide_email,
+	       person.hidden as person_hidden,
+	       answers,last_answer,last_answer_id,last_answer_user_id
+        from entries
 	     left join users
-		  on messages.sender_id=users.id
-	     left join users as recs
-		  on complains.recipient_id=recs.id
-	     left join forums
-	          on messages.id=forums.parent_id
-	     left join messages as forummesgs
-	          on forums.message_id=forummesgs.id and $hide
-	group by messages.id
-        order by closed is null desc,sent desc",$limit,$offset,
+		  on entries.user_id=users.id
+	     left join users as person
+		  on entries.person_id=person.id
+	where entry='.ENT_COMPLAIN.'
+        order by (modbits & '.MODC_CLOSED.')<>0 asc,sent desc',
+       $limit,$offset,
        'select count(*)
-        from complains');
+        from entries
+	where entry='.ENT_COMPLAIN);
 }
 
 }
 
-function newComplain($typeid,$row=array())
-{
-global $complainClassNames;
-
-$name=$complainClassNames[$typeid];
-return new $name($row);
-}
-
+// remake
 function getComplainById($id,$type_id=COMPL_NORMAL,$link=0)
 {
 global $rootComplainPerms;
@@ -275,6 +195,7 @@ else
                                     'perms' => $rootComplainPerms));
 }
 
+// remake
 function getComplainInfoById($id)
 {
 $result=sql("select id,message_id,recipient_id,link
@@ -285,6 +206,7 @@ return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					      : array());
 }
 
+// remake
 function getComplainInfoByLink($type_id,$link)
 {
 $result=sql("select id,type_id,message_id,recipient_id,link,closed
@@ -295,6 +217,7 @@ return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
 					      : array());
 }
 
+// remake
 function getFullComplainById($id,$type_id=COMPL_NORMAL)
 {
 $result=sql("select complains.id as id,stotext_id,body,subject,
@@ -327,6 +250,7 @@ else
   return newComplain($type_id,array());
 }
 
+// remake
 function complainExists($id)
 {
 $result=sql("select id
@@ -336,6 +260,7 @@ $result=sql("select id
 return mysql_num_rows($result)>0;
 }
 
+// remake
 function sendAutomaticComplain($type_id,$subject,$body,$link,$no_auto=false)
 {
 global $rootComplainPerms;
@@ -351,6 +276,7 @@ $complain=newComplain($type_id,
 $complain->store();
 }
 
+// remake
 function reopenComplain($id,$no_auto=false)
 {
 $no_auto=(int)$no_auto;

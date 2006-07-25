@@ -32,15 +32,15 @@ TD.catalog-cell-odd {
 	border-right: solid 1px %catalog_border;
 	padding: 3px;
 }
-
-.catalog TR.div {
+*/
+TD.catalog-div {
 	background-color: %catalog_div;
 	color: %catalog_div_text;
 	font-size: 9pt;
 	font-weight: bold;
 	text-align: center;
 }
-
+/*
 .catalog .subject A {
 	color: %catalog_subject;
 	text-decoration: underline;

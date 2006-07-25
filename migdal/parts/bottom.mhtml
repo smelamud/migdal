@@ -47,7 +47,7 @@ else
  </td>
  <td align=right>
   <image src='/pics/book.gif'>&nbsp;
-  <a class='big' href='complains.php?redirid=$_'>
+  <a class='big' href='/complains/?redirid=$_'>
    Замечания/предложения<br>по работе сайта</a>
  </td>
 </tr>
