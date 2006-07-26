@@ -1,62 +1,28 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/messages.php');
-require_once('lib/postings.php');
 require_once('lib/bug.php');
 require_once('lib/sql.php');
 
-define('CSCR_NONE',0);
-define('CSCR_CLOSE',1);
-define('CSCR_CLOSE_ENABLE',2);
-define('CSCR_OPEN',4);
-define('CSCR_OPEN_DISABLE',8);
-define('CSCR_ALL',15);
-define('CSCR_MASK_NORMAL',CSCR_CLOSE|CSCR_OPEN);
-define('CSCR_MASK_FORUM',CSCR_CLOSE|CSCR_OPEN);
-define('CSCR_MASK_POSTING',CSCR_CLOSE|CSCR_CLOSE_ENABLE|CSCR_OPEN
-                           |CSCR_OPEN_DISABLE);
+define('CSCR_NONE',0x0000);
+define('CSCR_CLOSE',0x0001);
+define('CSCR_OPEN',0x0002);
+define('CSCR_ALL',0x0003);
 
-$cscrProcNames=array(CSCR_CLOSE        => 'cscrClose',
-		     CSCR_CLOSE_ENABLE => 'cscrCloseEnable',
-		     CSCR_OPEN         => 'cscrOpen',
-		     CSCR_OPEN_DISABLE => 'cscrOpenDisable');
+$cscrProcNames=array(CSCR_CLOSE => 'cscrClose',
+		     CSCR_OPEN  => 'cscrOpen');
 
-$cscrTitles=array(CSCR_CLOSE        => 'Закрыть жалобу',
-		  CSCR_CLOSE_ENABLE => 'Закрыть жалобу и открыть доступ',
-		  CSCR_OPEN         => 'Возобновить жалобу',
-		  CSCR_OPEN_DISABLE => 'Возобновить жалобу и закрыть доступ');
+$cscrTitles=array(CSCR_CLOSE => 'Закрыть жалобу',
+		  CSCR_OPEN  => 'Возобновить жалобу');
 
 function cscrClose($complain)
 {
-$id=$complain->getId();
-sql("update complains
-     set closed=now()
-     where id=$id",
-    'cscrClose');
-journal('update complains
-         set closed=now()
-	 where id='.journalVar('complains',$id));
-}
-
-function cscrCloseEnable($complain)
-{
-cscrClose($complain);
-$message_id=getMessageIdByPostingId($complain->getLink());
-setDisabledByMessageId($message_id,0);
+closeComplain($complain->getId());
 }
 
 function cscrOpen($complain)
 {
-$id=$complain->getId();
-reopenComplain($id);
-}
-
-function cscrOpenDisable($complain)
-{
-cscrOpen($complain);
-$message_id=getMessageIdByPostingId($complain->getLink());
-setDisabledByMessageId($message_id,1);
+openComplain($complain->getId());
 }
 
 class ComplainScript
@@ -72,7 +38,7 @@ function exec($complain)
 {
 global $cscrProcNames;
 
-if($this->id>CSCR_NONE && $this->id<=CSCR_ALL)
+if(isset($cscrProcNames[$this->id]))
   {
   $proc=$cscrProcNames[$this->id];
   $proc($complain);
@@ -88,8 +54,7 @@ function getTitle()
 {
 global $cscrTitles;
 
-return ($this->id>CSCR_NONE && $this->id<=CSCR_ALL)
-       ? $cscrTitles[$this->id] : '';
+return isset($cscrTitles[$this->id]) ? $cscrTitles[$this->id] : '';
 }
 
 }
@@ -102,7 +67,7 @@ var $mask;
 
 function ComplainScriptListIterator($mask)
 {
-$this->Iterator();
+parent::Iterator();
 $this->id=1;
 $this->mask=$mask;
 $this->roll();

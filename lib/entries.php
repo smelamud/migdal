@@ -19,6 +19,14 @@ define('ENT_IMAGE',4);
 define('ENT_COMPLAIN',5);
 define('ENT_VERSION',6);
 
+$entryClassNames=array(ENT_NULL     => 'Entry',
+                       ENT_POSTING  => 'Posting',
+		       ENT_FORUM    => 'Forum',
+		       ENT_TOPIC    => 'Topic',
+		       ENT_IMAGE    => 'Image',
+		       ENT_COMPLAIN => 'Complain',
+		       ENT_VERSION  => 'Entry');
+
 class Entry
       extends UserTag
 {
@@ -804,6 +812,19 @@ $value=preg_replace('/\$\{(\w+)\}/e','$this->getProperty("\1")',$value);
 return $value;
 }
 
+}
+
+function newEntry($row)
+{
+global $entryClassNames;
+
+if(isset($entryClassNames[$row['entry']]))
+  $className=$entryClassNames[$row['entry']];
+else
+  $className='Entry';
+if(!class_exists($className))
+  $className='Entry';
+return new $className($row);
 }
 
 function getGrpsByEntryId($id)

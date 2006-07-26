@@ -51,7 +51,8 @@ return $userId==$user_id &&
        ($perms & $right<<PB_GUEST)!=0;
 }
 
-// Извлечение permission'ов от указанного entry (в виде объекта Entry)
+// Извлечение permission'ов от указанного entry (в виде соответствующего
+// наследника Entry)
 function getPermsById($id)
 {
 $result=sql("select entries.id as id,user_id,group_id,users.login as login,
@@ -63,14 +64,14 @@ $result=sql("select entries.id as id,user_id,group_id,users.login as login,
 		       on entries.group_id=gusers.id
 	     where entries.id=$id",
 	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? new Entry(mysql_fetch_assoc($result)) : 0;
+return mysql_num_rows($result)>0 ? newEntry(mysql_fetch_assoc($result)) : 0;
 }
 
 // Извлечение permission'ов для "корневого" entry указанного класса
 // (в виде объекта Entry)
 function getRootPerms($class)
 {
-return new Entry(
+return new $class(
         array('user_id'  => getUserIdByLogin($GLOBALS["root${class}UserName"]),
               'group_id' => getUserIdByLogin($GLOBALS["root${class}GroupName"]),
 	      'perms'    => $GLOBALS["root${class}Perms"]));

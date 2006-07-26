@@ -8,7 +8,8 @@
    <table><tr valign=center>
     <td><image src='/pics/sheet.gif'></td>
     <td>
-     <a href='/forum/$parent_id/add?redirid=$_'>Добавить комментарий</a>
+     <forum_obj id=0 parent_id='$parent_id'>
+     <a href='$,ParentHref/add/?redirid=$_'>Добавить комментарий</a>
     </td>
    </tr></table>
   </td>
@@ -27,7 +28,7 @@
  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
  <for>
-  <forum forum='$.' parent_path#='$parent_prefix/$.ParentId'>
+  <forum forum='$.'>
  </for>
 </tr></td></table>
 <ifnzero what='$;Count'>

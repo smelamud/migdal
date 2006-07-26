@@ -10,9 +10,12 @@ require_once('lib/answers.php');
 require_once('lib/sql.php');
 require_once('lib/images.php');
 
+require_once('grp/forums.php');
+
 class Forum
       extends Entry
 {
+var $parent_type;
 
 function Forum($row)
 {
@@ -94,6 +97,21 @@ else
     $this->parent_id=getParentIdByEntryId($this->up);
 }
 
+function getParentType()
+{
+return $this->parent_type;
+}
+
+function getParentHref()
+{
+global $forumParentHref;
+
+$href=isset($forumParentHref[$this->getParentType()])
+      ? $forumParentHref[$this->getParentType()]
+      : $forumParentHref[ENT_NULL];
+return $this->getCompositeValue($href);
+}
+
 function isPermitted($right)
 {
 global $userModerator,$userId;
@@ -130,9 +148,11 @@ return $Filter;
 class ForumListIterator
       extends LimitSelectIterator
 {
+var $parent_type;
 
 function ForumListIterator($parent_id,$limit=10,$offset=0,$sort=SORT_SENT)
 {
+$this->parent_type=getTypeByEntryId($parent_id);
 $Filter=forumListFilter($parent_id);
 $Order=getOrderBy($sort,
        array(SORT_SENT  => 'entries.sent desc',
@@ -152,6 +172,12 @@ parent::LimitSelectIterator(
 	"select count(*)
 	 from entries
 	 where $Filter");
+}
+
+function create($row)
+{
+$row['parent_type']=$this->parent_type;
+return parent::create($row);
 }
 
 }
@@ -245,7 +271,11 @@ $result=sql("select entries.id as id,body,body_xml,user_id,group_id,perms,
 	     where entries.id=$id and $hide",
 	    __FUNCTION__);
 if(mysql_num_rows($result)>0)
-  return new Forum(mysql_fetch_assoc($result));
+  {
+  $row=mysql_fetch_assoc($result);
+  $row['parent_type']=getTypeByEntryId($row['parent_id']);
+  return new Forum($row);
+  }
 else
   {
   global $rootForumPerms;
@@ -257,13 +287,14 @@ else
     }
   else
     $group_id=0;
-  return new Forum(array('parent_id' => $parent_id,
-			 'body'      => $quote!=''
-					 ? getQuote($quote,$quoteWidth)
-					 : '',
-			 'user_id'   => $userId>0 ? $userId : $realUserId,
-			 'group_id'  => $group_id,
-			 'perms'     => $rootForumPerms));
+  return new Forum(array('parent_id'   => $parent_id,
+                         'parent_type' => getTypeByEntryId($parent_id),
+			 'body'        => $quote!=''
+					  ? getQuote($quote,$quoteWidth)
+					  : '',
+			 'user_id'     => $userId>0 ? $userId : $realUserId,
+			 'group_id'    => $group_id,
+			 'perms'       => $rootForumPerms));
   }
 }
 

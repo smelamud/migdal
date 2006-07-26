@@ -201,6 +201,7 @@ if(mysql_num_rows($result)>0)
 else
   $complain=new Complain(array('user_id' => $userId>0 ? $userId : $realUserId,
 		               'url'     => $url));
+  # FIXME прописывать perms?
 return $complain;
 }
 
@@ -262,5 +263,38 @@ sql("update complains
 journal("update complains
          set closed=null,no_auto=$no_auto
 	 where id=".journalVar('complains',$id));
+}
+
+function assignComplain($id,$person_id)
+{
+$result=sql("update entries
+	     set person_id=$person_id
+	     where id=$id",
+	    __FUNCTION__);
+journal('update entries
+         set person_id='.journalVar('users',$person_id).'
+	 where id='.journalVar('entries',$id));
+}
+
+function setComplainClosedStatus($id,$closed)
+{
+$expr=$closed ? 'modbits | '.MODC_CLOSED : 'modbits & ~'.MODC_CLOSED;
+sql("update entries
+     set modbits=$expr
+     where id=$id",
+    __FUNCTION__);
+journal("update entries
+         set modbits=$expr
+         where id=".journalVar('entries',$id));
+}
+
+function openComplain($id)
+{
+setComplainClosedStatus($id,false);
+}
+
+function closeComplain($id)
+{
+setComplainClosedStatus($id,true);
 }
 ?>

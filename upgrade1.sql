@@ -173,3 +173,6 @@ CREATE TABLE `entry_grps` (
 INDEX ( `entry_id` )
 ) ;
 ALTER TABLE `entry_grps` ADD INDEX ( `grp` ) ;
+DELETE FROM `complain_actions` WHERE script_id <>1;
+ALTER TABLE `complain_actions` DROP `type_id` ,
+DROP `automatic` ;

@@ -67,6 +67,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 42. Обложки МТ - 150 по ширине (ошибка с 58-го)!
 43. Пакеты надо тоже удалять вместе с постингами (и вместе с файлом). При
 копировании они не копируются.
+44. Подредактировать список ComplainAction'ов - из-за удаления type_id они все
+    смешались в одну кучу.
 
 Прогресс пересмотра файлов
 --------------------------
@@ -84,8 +86,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/checkcookies.php
 - actions/chmod.php
 - actions/complainact.php
-- actions/complainassign.php
-- actions/complainauto.php
++ actions/complainassign.php
 - actions/complainmod.php
 + actions/crossentryadd.php
 + actions/crossentrydel.php
@@ -134,10 +135,9 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * lib/charsets.php (обработка иврита должна быть не при выводе)
 * lib/chat.php (функции не обработаны)
 - lib/chat-users.php
-- lib/complainactions.php
-- lib/complainscripts.php
++ lib/complainactions.php
++ lib/complainscripts.php
 * lib/complains.php
-- lib/complaintypes.php
 + lib/counters.php
 + lib/cross-topics.php
 + lib/ctypes.php
@@ -252,7 +252,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/complainactionedit.mhtml
 - migdal/complainanswer.mhtml
 - migdal/complainedit.mhtml
-* migdal/complainforum.mhtml
++ migdal/complainforum.mhtml
 + migdal/complains.mhtml
 + migdal/cross-entries.mhtml
 * migdal/cross-entry-add.mhtml
@@ -330,7 +330,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/book-ring.mhtml
 - migdal/parts/book-ring-static.mhtml
 * migdal/parts/bottom.mhtml
-* migdal/parts/complain.mhtml
++ migdal/parts/complain.mhtml
 + migdal/parts/daily-announce.mhtml
 + migdal/parts/daily-picture.mhtml
 + migdal/parts/discussions.mhtml

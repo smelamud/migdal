@@ -52,15 +52,11 @@
          file='lib/complains.php' params='limit,offset'
 	 defaults='limit=20 offset=0'>
 <deciter macro='complain_actionlist' class='ComplainActionListIterator'
-         file='lib/complainactions.php' params='type'>
+         file='lib/complainactions.php'>
 <deciter macro='complain_modbits' class='ComplainModbitIterator'
          file='lib/modbits.php'>
 <deciter macro='complain_scriptlist' class='ComplainScriptListIterator'
          file='lib/complainscripts.php' params='mask'>
-<deciter macro='complain_types' class='ComplainTypeListIterator'
-         file='lib/complaintypes.php'>
-<deciter macro='confirm_instant_messagelist'
-         class='ConfirmInstantMessageListIterator' file='lib/instants.php'>
 <deciter macro='entry_cross' class='CrossEntryIterator'
          file='lib/cross-entries.php' params='source_name,source_id,link_type'
 	 defaults="source_name='',source_id=0,link_type='*LINKT_NONE'">
@@ -77,8 +73,6 @@
 <deciter macro='horisonts' class='HorisontsIterator' file='lib/horisonts.php'>
 <deciter macro='images' class='ImagesIterator' file='lib/images.php'
          params='postid'>
-<deciter macro='instant_messagelist' class='InstantMessageListIterator'
-         file='lib/instants.php'>
 <deciter macro='journallist' class='JournalListIterator' file='lib/journal.php'
          params='limit,offset' defaults='limit=20 offset=0'>
 <deciter macro='langs' class='LangIterator' file='lib/langs.php'>
@@ -190,6 +184,8 @@
 <deccall macro='counter_value' func='getCounterValue' file='lib/counters.php'
          params='entry_id,mode,serial' defaults='serial=0'>
 <deccall macro='entry_grps' func='getGrpsByEntryId' file='lib/entries.php'
+         params='id'>
+<deccall macro='entry_type' func='getTypeByEntryId' file='lib/entries.php'
          params='id'>
 <deccall macro='forum_obj' func='getForumById' file='lib/forums.php'
          params='id,parent_id,quote,quote_width'

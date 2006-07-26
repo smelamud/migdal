@@ -27,7 +27,7 @@ if($userId<=0 && $realUserId<=0)
   return EF_NO_SEND;
 if($original->getId()!=0 && !$original->isWritable())
   return EF_NO_EDIT;
-if(!postingExists($forum->getParentId()))
+if(!entryExists(ENT_NULL,$forum->getParentId()))
   return EF_NO_PARENT;
 $correct=validateHierarchy($forum->parent_id,$forum->up,ENT_FORUM,$forum->id);
 if($correct!=EG_OK)

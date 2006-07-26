@@ -16,11 +16,3 @@
 .complain .subject {
 	font-weight: bold;
 }
-
-.complain A {
-	text-decoration: none;
-}
-
-.complain A:hover {
-	text-decoration: underline;
-}

@@ -1,10 +1,10 @@
 << @(#) $Id$ >>
 
 <element name='complain_assign' params='complain'>
+<assign name='info' value='$complain.PersonInfo'>
 <judge>
- <assign name='info' value='$complain.PersonInfo'>
  <table cellspacing=0 cellpadding=0><tr>
-  <form method=post action='actions/complainassign.php'>
+  <form method=post action='/actions/complain/assign'>
    <hidden name='okdir' value='$-'>
    <hidden name='faildir' value='$-'>
    <hidden name='id' value='$complain.Id'>
@@ -29,56 +29,41 @@
 </element>
 
 <element name='answerselect' params='complain'>
-<<td><table>
+<td><table>
  <tr>
   <form method=get action='complainanswer.php'>
    <hidden name='redirid' value='$_'>
    <hidden name='complain_id' value='$complain.Id'>
    <td><select name='actid'>
-    <iterate_complain_actionlist type='$complain.TypeId'>
+    <iterate_complain_actionlist>
     <for>
-     <if what='$.isAutomatic'>
-      <option value='$.Id' selected>$.Name
-     <else>
-      <option value='$.Id'>$.Name
-     </if>
+     <select_option value='$.Id' title='$=.Name'>
     </for>
    </select></td>
    <td><input type=submit value='Ответить'></td>
   </form> 
   <admin_complain_answers>
    <td>
-    <a href='complainactionedit.php?typeid=$complain.TypeId&redirid=$_'
-       >Редактировать&nbsp;список&nbsp;&gt;&#x3e;&gt;</a>
+    <a href='complainactionedit.php?redirid=$_'><asp>
+     <asp>Редактировать&nbsp;список&nbsp;&gt;&#x3e;&gt;<asp>
+    <asp></a>
    </td>
   </admin_complain_answers>
  </tr>
- <ifnzero what='$complain.Deadline'>
-  <tr>
-   <td colspan=2>
-    <if what='$complain.isNoAuto'>
-     <a href='actions/complainauto.php?id=$complain.Id&no_auto=0&okdir=$#-&faildir=$#-'
-	>Рассматривать автоматически</a>
-    <else>
-     <a href='actions/complainauto.php?id=$complain.Id&no_auto=1&okdir=$#-&faildir=$#-'
-	>Не рассматривать автоматически</a>
-    </if>
-   </td>
-  </tr>
- </ifnzero>
-</table></td>>
+</table></td>
 </element>
 
 <element name='complain'>
+<outer><table width=100%><inner>
+ <error id='*EC_NO_ASSIGN'
+	text='Вы не имеете права направлять жалобы на рассмотрение'>
+ <error id='*EC_NO_COMPLAIN' text='Такой жалобы не существует'>
+ <error id='*EC_LOGIN_ASSIGN' text='Такой пользователь не зарегистрирован'>
+ <error id='*EC_NO_AUTO'
+	text='Вы не имеете права управлять автоматическим рассмотрением жалобы'>
+</inner></table></outer>
 <table width=100% class='complains' cellspacing=0 cellpadding=0><tr><td>
  <table width=100% class='complain' cellspacing=1>
-  <error id='*EC_NO_ASSIGN' span=3
-	 text='Вы не имеете права направлять жалобы на рассмотрение'>
-  <error id='*EC_NO_COMPLAIN' text='Такой жалобы не существует' span=3>
-  <error id='*EC_LOGIN_ASSIGN' text='Такой пользователь не зарегистрирован'
-	 span=3>
-  <error id='*EC_NO_AUTO' span=3
-	 text='Вы не имеете права управлять автоматическим рассмотрением жалобы'>
   <tr>
    <td width=200 class='eightpt'>Автор: <senderlink message='$complain'></td>
    <td rowspan=2 class='subject'>

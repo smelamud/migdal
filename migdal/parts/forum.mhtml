@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='forum_selflink'>
-<selflink href#='$parent_path/?tid=$id#t$id'>
+<selflink href#='$forum.ParentHref/?tid=$forum.Id#t$forum.Id'>
 </element>
 
 <element name='forum'>
@@ -22,16 +22,16 @@
   <td class='controls' height=22>
    <table cellspacing=0 cellpadding=0><tr valign=bottom>
     <td>&nbsp;&nbsp;&nbsp;</td>
-    <td><forum_selflink id='$forum.Id' parent_path='$parent_path'></td>
+    <td><forum_selflink forum='$forum'></td>
     <td>&nbsp;&nbsp;&nbsp;</td>
     <td>
-     <a href="$parent_path/reply/?peerid=$forum.Id&redirid=$_"
+     <a href="$forum.ParentHref/reply/?peerid=$forum.Id&redirid=$_"
 	title='Ответить с цитированием'>Ответить</a>
     </td>
     <iswrite what='$forum'>
      <td>&nbsp;&nbsp;&nbsp;</td>
      <td>
-      <a href="$parent_path/update/?editid=$forum.Id&redirid=$_"><asp>
+      <a href="$forum.ParentHref/update/?editid=$forum.Id&redirid=$_"><asp>
        <asp>Изменить<asp>
       <asp></a>
      </td>
