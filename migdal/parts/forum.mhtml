@@ -55,6 +55,14 @@
        <asp></a>
       </td>
      </moderator>
+    <else>
+     <td>&nbsp;&nbsp;&nbsp;</td>
+     <td>
+      <assign name='url' value#='$forum.ParentHref/?tid=$forum.Id#t$forum.Id'>
+      <a href="/complains/add/?url=$#url&redirid=$_"><asp>
+       <asp>Жалоба<asp>
+      <asp></a>
+     </td>
     </iswrite>
    </tr></table>
   </td>

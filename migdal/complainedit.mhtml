@@ -36,7 +36,7 @@
   <error id='*EC_BODY_ABSENT'
 	 text='Напишите хотя бы пару строчек в теле жалобы'>
   <form_editor title='Текст' mandatory='*true'
-               comment='Изложите подробно суть жалобы или предложения'
+               comment='Изложите подробно суть жалобы или предложения.'
 	       name='body' body='$,Body'>
   <<help_link href='stotext-help-subs.php'
 	     title='Список обозначений, используемых в тексте'>>
