@@ -89,14 +89,14 @@
      <answerselect complain='$complain'> 
     </if>
     <iswrite what='$complain'>
-     <td>
-      <a href='complainedit.php?editid=$complain.Id&redirid=$_'>Изменить</a>
+     <td align=right>
+      <a href='/complains/$complain.Id/edit/?redirid=$_'>Изменить</a>
      </td>
     </iswrite>
     <if what='$discuss'>
-     <td align=right>
+     <td align=right width=1>
       <a href='/complains/$complain.Id/?redirid=$_'><asp>
-       <asp>Обсудить ($complain.Answers)<asp>
+       <asp>Обсудить&nbsp;($complain.Answers)<asp>
       <asp></a>
      </td>
     </if>

@@ -251,11 +251,11 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/chmod.mhtml
 - migdal/complainactionedit.mhtml
 - migdal/complainanswer.mhtml
-- migdal/complainedit.mhtml
+* migdal/complainedit.mhtml (кроме ссылок на help)
 + migdal/complainforum.mhtml
 + migdal/complains.mhtml
 + migdal/cross-entries.mhtml
-* migdal/cross-entry-add.mhtml
++ migdal/cross-entry-add.mhtml
 + migdal/daily-news.mhtml
 + migdal/ears.mhtml
 + migdal/event.mhtml

@@ -100,8 +100,9 @@
      <else>
       <if what='!$$userModerator && $showcomplain'>
        <logged>
-	<a href="complainedit.php?type_id=*COMPL_POSTING&link=$posting.Id&redirid=$_"
-	   >Жалоба</a>
+	<a href="/complains/add/?url=$#posting.GrpDetailsHref&redirid=$_"><asp>
+	 <asp>Жалоба<asp>
+	<asp></a>
        </logged>
       </if>
      </iswrite>

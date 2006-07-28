@@ -1,51 +1,52 @@
 << @(#) $Id$ >>
 
 <int name='editid'>
-<int name='type_id'>
-<int name='link'>
-<pagetitle title='Жалоба'>
+<string name='url'>
 
 <html>
-<stylesheet ident='complain'>
 <preamble>
 <body>
  <top ident='index'>
- <complain_obj id='$editid' type_id='$type_id' link='$link'>
+ <complain_obj id='$editid' url='$url'>
  <setup>
- <center>
-  <formtable title='Жалоба'>
-   <form method=post enctype='multipart/form-data'
-	 action='actions/complainmod.php'>
-    <hidden name='edittag' value=1>
-    <hidden name='okdir' value='$--'>
-    <hidden name='faildir' value='$-'>
-    <hidden name='editid' value='$editid'>
-    <hidden name='type_id' value='$,TypeId'>
-    <hidden name='link' value='$,Link'>
-    <table>
-     <error id='*EC_NO_SEND'
-	    text='Посылать жалобы могут только зарегистрированные пользователи'>
-     <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
-     <error id='*EC_NO_TYPE' text='Такого типа жалобы не существует'>
-     <tr><td><table>
-      <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
-      <edit_line title='Заголовок' value='$,Subject' name='subject'
-		 size=42 maxlength=250>
-     </table></td></tr>
-     <error id='*EC_BODY_ABSENT'
-	    text='Напишите хотя бы пару строчек в теле жалобы'>
-     <editor_line name='body' title='Текст' body='$,Body'>
-     <help_link href='stotext-help-subs.php'
-		title='Список обозначений, используемых в тексте'>
-     <if what='$editid'>
-      <formbuttons title='Изменить'>
-     <else>
-      <formbuttons title='Добавить'>
-     </if>
-    </table>
-   </form>
-  </formtable>
- </center>
+ <if what='$editid'>
+  <form_table title='Редактирование жалобы'>
+ <else>
+  <form_table title='Добавление жалобы'>
+ </if>
+ <form method=post enctype='multipart/form-data'
+       action='actions/complainmod.php'>
+  <hidden name='edittag' value=1>
+  <hidden name='okdir' value='$--'>
+  <hidden name='faildir' value='$-'>
+  <hidden name='editid' value='$editid'>
+  <error id='*EC_NO_SEND'
+	 text='Посылать жалобы могут только зарегистрированные пользователи'>
+  <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
+  <error id='*EC_NO_TYPE' text='Такого типа жалобы не существует'>
+  <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст'>
+  <form_edit title='Ссылка'
+             comment='Если вы жалуетесь на сообщение на сайте или в форуме,
+	              укажите здесь ссылку на него.'
+	     value='$=complain.URL' name='url' size=52 maxlength=250
+	     mandatory='*false'>
+  <form_section title='Текст жалобы/предложения'>
+  <form_edit title='Заголовок' mandatory='*true' name='subject'
+             value='$=,Subject' size=70 maxlength=250>
+  <error id='*EC_BODY_ABSENT'
+	 text='Напишите хотя бы пару строчек в теле жалобы'>
+  <form_editor title='Текст' mandatory='*true'
+               comment='Изложите подробно суть жалобы или предложения'
+	       name='body' body='$,Body'>
+  <<help_link href='stotext-help-subs.php'
+	     title='Список обозначений, используемых в тексте'>>
+  <if what='$editid'>
+   <form_buttons title='Изменить'>
+  <else>
+   <form_buttons title='Добавить'>
+  </if>
+ </form>
+ </form_table>
  <bottom>
 </body>
 </html>

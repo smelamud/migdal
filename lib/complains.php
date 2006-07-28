@@ -25,6 +25,18 @@ foreach($row as $key => $value)
          $prow[substr($key,7)]=$value;
 $this->person_info=new User($prow);
 }
+
+function setup($vars)
+{
+if(!isset($vars['edittag']) || !$vars['edittag'])
+  return;
+$this->body_format=TF_PLAIN;
+$this->body=$vars['body'];
+$this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
+$this->subject=$vars['subject'];
+$this->subject_sort=convertSort($this->subject);
+$this->url=$vars['url'];
+}
 /*
 function getCorrespondentVars()
 {
@@ -100,7 +112,7 @@ return $result;
 */
 function isPermitted($right)
 {
-global $userId;
+global $userId,$userModerator;
 
 switch($right)
       {

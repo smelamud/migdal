@@ -48,7 +48,7 @@
 	<asp></a>
        </if>
       </td>
-     <td>&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;</td>
       <td>
        <a href="/actions/forum/delete?id=$forum.Id&okdir=$#-&faildir=$#-"><asp>
 	<asp>Удалить<asp>

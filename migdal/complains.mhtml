@@ -8,8 +8,7 @@
   <table><tr valign=center>
    <td><image src='/pics/sheet.gif'></td>
    <td>
-    <a href='complainedit.php?type_id=*COMPL_NORMAL&redirid=$_'
-       >Добавить жалобу</a>
+    <a href='/complains/add/?redirid=$_'>Добавить жалобу</a>
    </td>
   </tr></table>
  </td>
