@@ -14,54 +14,58 @@ require_once('lib/complains.php');
 
 function modifyComplain($complain,$original)
 {
-global $userId,$rootComplainUserName,$rootComplainGroupName,$rootComplainPerms;
+global $userId;
 
 if($original->getId()==0)
   {
-  $root=new Complain(
-	 array('sender_id' => getUserIdByLogin($rootComplainUserName),
-	       'group_id'  => getUserIdByLogin($rootComplainGroupName),
-	       'perms'     => $rootComplainPerms)
-	);
+  $root=getRootComplain();
   if(!$root->isAppendable())
     return EC_NO_SEND;
   }
 else
-  if(!$original->isEditable())
+  if(!$original->isWritable())
     return EC_NO_EDIT;
-if($complain->stotext->body=='')
+if($complain->body=='')
   return EC_BODY_ABSENT;
 if($complain->subject=='')
   return EC_SUBJECT_ABSENT;
-if($complain->type_id<=COMPL_NONE || $complain->type_id>COMPL_MAX)
-  return EC_NO_TYPE;
-$complain->store();
+storeComplain($complain);
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
+
+postInteger('edittag');
 postInteger('editid');
-postInteger('type_id');
-postString('body');
+postString('url');
 postString('subject');
+postString('body');
 
 dbOpen();
 session();
-$complain=getComplainById($editid,$type_id);
+$complain=getComplainById($editid,$url);
 $original=$complain;
-$complain->setup($HTTP_POST_VARS);
+$complain->setup($Args);
 $err=modifyComplain($complain,$original);
 if($err==EG_OK)
   header("Location: $okdir");
 else
   {
-  $bodyId=tmpTextSave($body);
+  $urlId=tmpTextSave($url);
   $subjectId=tmpTextSave($subject);
+  $bodyId=tmpTextSave($body);
   header('Location: '.
           remakeMakeURI($faildir,
-			$HTTP_POST_VARS,
-			array('body','subject','okdir','faildir'),
-			array('bodyid'       => $bodyId,
-			      'subjectid'    => $subjectId,
+			$Args,
+			array('okdir',
+			      'faildir',
+			      'subject',
+			      'body',
+			      'url'),
+			array('subject_i'    => $subjectId,
+			      'body_i'       => $bodyId,
+			      'url_i'        => $urlId,
 			      'err'          => $err)).'#error');
   }
 dbClose();

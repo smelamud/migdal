@@ -65,7 +65,7 @@ class ComplainScriptListIterator
 var $id;
 var $mask;
 
-function ComplainScriptListIterator($mask)
+function ComplainScriptListIterator($mask=CSCR_ALL)
 {
 parent::Iterator();
 $this->id=1;

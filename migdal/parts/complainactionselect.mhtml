@@ -1,0 +1,11 @@
+<< @(#) $Id$ >>
+
+<element name='form_complainactionselect'>
+<form_select title='$title' name='$name' mandatory='$mandatory'>
+ <form_option title='-- Ничего не делать --' value=0 selected!='$value==0'>
+ <iterate_complain_scriptlist>
+ <for>
+  <form_option title='$=.Title' value='$.Id' selected!='$.Id==$value'>
+ </for>
+</form_select>
+</element>

@@ -52,7 +52,7 @@
    <else>
     <assign name='class' value='catalog-cell'>
    </if>
-   <td align=right class='$class eightpt'>$.Id '$.Modbits'</td>
+   <td align=right class='$class eightpt'>$.Id</td>
    <td class='$class eightpt'><sentview date='$.Sent'></td>
    <td class='$class eightpt'><senderlink message='$.'></td>
    <td class='$class ninept'>

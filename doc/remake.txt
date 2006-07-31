@@ -80,14 +80,14 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 Все остальные файлы, не упомянутые здесь, появились позже или удалены.
 
 - actions/bookupload.php
-- actions/cadel.php
-- actions/camod.php
++ actions/cadel.php
++ actions/camod.php
 - actions/chatpost.php
 + actions/checkcookies.php
 - actions/chmod.php
 - actions/complainact.php
 + actions/complainassign.php
-- actions/complainmod.php
++ actions/complainmod.php
 + actions/crossentryadd.php
 + actions/crossentrydel.php
 - actions/domainmod.php
@@ -249,8 +249,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/chattop.mhtml
 - migdal/chatusers.mhtml
 - migdal/chmod.mhtml
-- migdal/complainactionedit.mhtml
-- migdal/complainanswer.mhtml
++ migdal/complainactionedit.mhtml
+* migdal/complainanswer.mhtml (кроме ссылок на help)
 * migdal/complainedit.mhtml (кроме ссылок на help)
 + migdal/complainforum.mhtml
 + migdal/complains.mhtml
@@ -286,7 +286,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/migdal-library-novelties.mhtml
 * migdal/migdal-news.mhtml (кроме событий)
 + migdal/modbits.mhtml
-- migdal/moderator.mhtml
++ migdal/moderator.mhtml
 + migdal/postingedit.mhtml (кроме ссылок на help и hidden для гостей)
 + migdal/posting.mhtml
 * migdal/postingorg.mhtml (исправить стиль сообщений об ошибках)

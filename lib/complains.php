@@ -37,79 +37,7 @@ $this->subject=$vars['subject'];
 $this->subject_sort=convertSort($this->subject);
 $this->url=$vars['url'];
 }
-/*
-function getCorrespondentVars()
-{
-$list=Message::getCorrespondentVars();
-array_push($list,'type_id','link');
-return $list;
-}
 
-function getWorldComplainVars()
-{
-return array('message_id','type_id','link','recipient_id','no_auto');
-}
-
-function getAdminComplainVars()
-{
-return array();
-}
-
-function getJencodedComplainVars()
-{
-return array('recipient_id' => 'users','message_id' => 'messages',
-             'link' => $this->getLinkTable());
-}
-
-function getAutoAssign()
-{
-settype($this->recipient_id,'integer');
-if($this->recipient_id!=0)
-  return $this->recipient_id;
-$type=newComplain($this->type_id);
-$assign=$type->getAssign();
-if($assign=='')
-  return 0;
-$result=sql("select id
-	     from users
-	     where $assign<>0 and accepts_complains<>0",
-	    get_method($this,'getAutoAssign'));
-if(mysql_num_rows($result)<=0)
-  return 0;
-return mysql_result($result,random(0,mysql_num_rows($result)-1),0);
-}
-
-function store()
-{
-global $userJudge;
-
-$result=Message::store('message_id');
-if(!$result)
-  return $result;
-$complain=$this->getNormalComplain($userJudge);
-if($this->id)
-  {
-  $result=sql(makeUpdate('complains',
-			 $complain,
-			 array('id' => $this->id)),
-	      get_method($this,'store'),'update');
-  journal(makeUpdate('complains',
-                     jencodeVars($complain,$this->getJencodedComplainVars()),
-		     array('id' => journalVar('complains',$this->id))));
-  }
-else
-  {
-  $this->recipient_id=$this->getAutoAssign();
-  $complain=$this->getNormalComplain($userJudge);
-  $result=sql(makeInsert('complains',$complain),
-              get_method($this,'store'),'insert');
-  journal(makeInsert('complains',
-                     jencodeVars($complain,$this->getJencodedComplainVars())),
-	  'complains',sql_insert_id());
-  }
-return $result;
-}
-*/
 function isPermitted($right)
 {
 global $userId,$userModerator;
@@ -121,7 +49,7 @@ switch($right)
       case PERM_WRITE:
            return $this->getUserId()==$userId || $userModerator;
       case PERM_APPEND:
-           return false;
+           return true; // for abstract root complain
       case PERM_POST:
            return true;
       default:
@@ -183,9 +111,78 @@ $this->LimitSelectIterator(
 
 }
 
+function getComplainAssignee()
+{
+$mask=USR_MODERATOR|USR_ACCEPTS_COMPLAINS;
+$result=sql("select id
+             from users
+	     where (rights & $mask)=$mask
+	     order by id",
+	    __FUNCTION__);
+$n=mysql_num_rows($result);
+return $n<=0 ? 0 : mysql_result($result,random(0,$n-1),0);
+}
+
+function storeComplain(&$complain)
+{
+$jencoded=array('subject' => '','subject_sort' => '','user_id' => 'users',
+                'group_id' => 'users','person_id' => 'users','body' => '',
+		'body_xml' => '');
+$vars=array('entry' => $complain->entry,
+            'person_id' => $complain->person_id,
+	    'user_id' => $complain->user_id,
+	    'group_id' => $complain->group_id,
+	    'perms' => $complain->perms,
+	    'subject' => $complain->subject,
+	    'subject_sort' => $complain->subject_sort,
+	    'url' => $complain->url,
+	    'body' => $complain->body,
+	    'body_xml' => $complain->body_xml,
+	    'body_format' => $complain->body_format,
+	    'modified' => sqlNow(),
+	    'modbits' => $complain->modbits);
+if($complain->id)
+  {
+  $result=sql(makeUpdate('entries',
+			 $vars,
+			 array('id' => $complain->id)),
+	      __FUNCTION__,'update');
+  journal(makeUpdate('entries',
+                     jencodeVars($vars,$jencoded),
+		     array('id' => journalVar('entries',$complain->id))));
+  answerUpdate($complain->id);
+  }
+else
+  {
+  $vars['sent']=sqlNow();
+  $vars['created']=sqlNow();
+  $complain->person_id=getComplainAssignee();
+  $vars['person_id']=$complain->person_id;
+  $result=sql(makeInsert('entries',
+                         $vars),
+              __FUNCTION__,'insert');
+  $complain->id=sql_insert_id();
+  journal(makeInsert('entries',
+                     jencodeVars($vars,$jencoded)),
+	  'entries',$complain->id);
+  }
+return $result;
+}
+
+function getRootComplain()
+{
+global $rootComplainUserName,$rootComplainGroupName,$rootComplainPerms;
+
+return new Complain(
+		 array('sender_id' => getUserIdByLogin($rootComplainUserName),
+		       'group_id'  => getUserIdByLogin($rootComplainGroupName),
+		       'perms'     => $rootComplainPerms));
+}
+
 function getComplainById($id,$url='')
 {
-global $userId,$realUserId;
+global $userId,$realUserId,$rootComplainUserName,$rootComplainGroupName,
+       $rootComplainPerms;
 
 if(hasCachedValue('obj','entries',$id))
   return getCachedValue('obj','entries',$id);
@@ -211,9 +208,13 @@ if(mysql_num_rows($result)>0)
   setCachedValue('obj','entries',$id,$complain);
   }
 else
-  $complain=new Complain(array('user_id' => $userId>0 ? $userId : $realUserId,
-		               'url'     => $url));
-  # FIXME прописывать perms?
+  {
+  $group_id=getUserIdByLogin($rootComplainGroupName);
+  $complain=new Complain(array('user_id'  => $userId>0 ? $userId : $realUserId,
+                               'group_id' => $group_id,
+			       'perms'    => $rootComplainPerms,
+		               'url'      => $url));
+  }
 return $complain;
 }
 
@@ -262,19 +263,6 @@ $complain=newComplain($type_id,
 			    'perms'     => $rootComplainPerms,
 			    'no_auto'   => (int)$no_auto));
 $complain->store();
-}
-
-// remake
-function reopenComplain($id,$no_auto=false)
-{
-$no_auto=(int)$no_auto;
-sql("update complains
-     set closed=null,no_auto=$no_auto
-     where id=$id",
-    'reopenComplain');
-journal("update complains
-         set closed=null,no_auto=$no_auto
-	 where id=".journalVar('complains',$id));
 }
 
 function assignComplain($id,$person_id)

@@ -7,15 +7,15 @@ targetdir=$(builddir)/www/parts/
 OBJECTS = article.mhtml backtrace.mhtml bannerbank.mhtml banners.mhtml \
 	  blog.mhtml blog-gallery.mhtml blog-posting.mhtml book-chapters.mhtml \
 	  book-chapters-static.mhtml book-ring.mhtml book-ring-static.mhtml \
-	  bottom.mhtml catalog.mhtml complain.mhtml daily-announce.mhtml \
-	  daily-picture.mhtml discussions.mhtml ears.mhtml events.mhtml \
-	  failpage.mhtml formutils.mhtml forum.mhtml forums.mhtml \
-	  gallery.mhtml gallery-main.mhtml googleru.mhtml grpselect.mhtml \
-	  hannukah.mhtml help-link.mhtml history.mhtml hit-parade.mhtml \
-	  hotlog.mhtml identify.mhtml jewishru.mhtml langselect.mhtml \
-	  links-switcher.mhtml login.mhtml mailru.mhtml menu.mhtml \
-	  migdal-news.mhtml picture.mhtml picture-main.mhtml pointer.mhtml \
-	  posting.mhtml posting-book.mhtml posting-ear.mhtml \
+	  bottom.mhtml catalog.mhtml complain.mhtml complainactionselect.mhtml \
+	  daily-announce.mhtml daily-picture.mhtml discussions.mhtml \
+	  ears.mhtml events.mhtml failpage.mhtml formutils.mhtml forum.mhtml \
+	  forums.mhtml gallery.mhtml gallery-main.mhtml googleru.mhtml \
+	  grpselect.mhtml hannukah.mhtml help-link.mhtml history.mhtml \
+	  hit-parade.mhtml hotlog.mhtml identify.mhtml jewishru.mhtml \
+	  langselect.mhtml links-switcher.mhtml login.mhtml mailru.mhtml \
+	  menu.mhtml migdal-news.mhtml picture.mhtml picture-main.mhtml \
+	  pointer.mhtml posting.mhtml posting-book.mhtml posting-ear.mhtml \
 	  posting-general.mhtml posting-link.mhtml posting-printing.mhtml \
 	  posting-times.mhtml posting-times-cover.mhtml postings.mhtml \
 	  postings-links.mhtml postings-migdal-news.mhtml rabbi.mhtml \

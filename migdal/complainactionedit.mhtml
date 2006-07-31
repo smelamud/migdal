@@ -1,38 +1,20 @@
 << @(#) $Id$ >>
 
-<int name='typeid'>
 <int name='editid'>
-<pagetitle title='Ответы на жалобы'>
 
 <html>
 <preamble>
 <body>
  <top ident='index'>
- <complain_new name='type' type_id='$typeid'>
- <form method=get action='$~'><table class='form'><tr>
-  <th>&nbsp;</th>
-  <td>Тип</td>
-  <td><select name='typeid'>
-   <iterate_complain_types>
-   <for>
-    << FIXME deprecated >>
-    <radio title='$.TypeName' value='$.TypeId' peervalue='$typeid'>
-   </for>
-  </select></td>
-  <td class='buttons-nosplit'><input type=submit value='Просмотр'></td>
- </tr></table></form>
- <p>
  <table width=100%><tr valign=top>
   <td class='eframe' width=200>
    <topics_table class='ninept' title='Ответы'>
-    <iterate_complain_actionlist type='$typeid'>
+    <iterate_complain_actionlist>
     <for>
      <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
 		  text='$.Name'>
-     <if what='$editid==$.Id'>
-      <topics_line href#='/actions/cadel.php?editid=$.Id&okdir=$#-&faildir=$#-'
-		   class='edit' text='Удалить'>
-     </if>
+     <topics_line href#='/actions/complain/action/delete?editid=$.Id&okdir=$#-&faildir=$#-'
+		  class='edit' text='Удалить' nobullet='*true'>
     </for>
     <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
                  class='new' text='-- Добавить --'>
@@ -42,61 +24,35 @@
    <complain_action_obj id='$editid'>
    <setup>
    <if what='$editid'>
-    <formtable title='Изменить ответ на жалобу'>
+    <form_table title='Редактирование ответа на жалобу'>
    <else>
-    <formtable title='Добавить ответ на жалобу'>
+    <form_table title='Добавление ответа на жалобу'>
    </if>
-   <form method=post action='actions/camod.php'>
-    <hidden name='edittag' value=2>
+   <form method=post action='/actions/complain/action/modify'>
+    <hidden name='edittag' value=1>
     <hidden name='okdir' value='$-'>
     <hidden name='faildir' value='$-'>
-    <hidden name='type_id' value='$typeid'>
     <hidden name='editid' value='$editid'>
-    <table>
-     <starinfo>
-     <error id='*ECAM_NO_EDIT' text='Вы не администратор'>
-     <error id='*ECAD_NO_EDIT' text='Вы не администратор'>
-     <error id='*ECAD_NO_ACTION' text='Такого ответа на жалобу не существует'>
-     <error id='*ECAM_NO_TYPE' text='Такого типа жалобы не существует'>
-    </table>
-    <table>
-     <error id='*ECAM_NO_SCRIPT' text='Такого скрипта не существует' span=2>
-     <error id='*ECAM_ILLEGAL_SCRIPT' span=2
-	    text='Этот скрипт нельзя прикреплять к такому типу жалобы'>
-     <tr>
-      <td><select name='script_id'>
-       <iterate_complain_scriptlist mask='$type.ScriptMask'>
-       << FIXME deprecated >>
-       <radio title='-- Ничего не делать --' value=0 peervalue='$,ScriptId'>
-       <for>
-	<< FIXME deprecated >>
-	<radio title='$.Title' value='$.Id' peervalue='$,ScriptId'>
-       </for>
-      </select></td>
-      </td>
-      <td>
-       << FIXME deprecated >>
-       <checkbox name='automatic' value='$,isAutomatic'
-		 title='Автоматически'>
-      </td>
-     </tr>
-    </table>
-    <table>
-     <error id='*ECAM_NAME_ABSENT' text='Укажите заголовок ответа' span=2>
-     <edit_line name='name' value='$,Name' title='Заголовок' size=40
-		maxlength=70 mandatory='*true'>
-     <error id='*ECAM_TEXT_ABSENT' span=2
-	    text='Напишите хотя бы пару строчек в теле ответа'>
-     <editor_line name='text' body='$,Text' title='Текст' span=2
-		  mandatory='*true'>
+    <starinfo>
+    <error id='*ECAD_NO_EDIT' text='Вы не администратор'>
+    <error id='*ECAD_NO_ACTION' text='Такого ответа на жалобу не существует'>
+    <error id='*ECAM_NO_EDIT' text='Вы не администратор'>
+    <error id='*ECAM_NO_SCRIPT' text='Такого скрипта не существует'>
+    <form_complainactionselect title='Действие' name='script_id'
+                               value='$,ScriptId' mandatory='*false'>
+    <error id='*ECAM_NAME_ABSENT' text='Укажите заголовок ответа'>
+    <form_edit title='Заголовок' mandatory='*true' name='name' value='$=,Name'
+               size=40 maxlength=70>
+    <error id='*ECAM_TEXT_ABSENT'
+	   text='Напишите хотя бы пару строчек в теле ответа'>
+    <form_editor title='Текст' mandatory='*true' name='text' body='$=,Text'>
     <if what='$editid'>
-     <formbuttons title='Изменить' span=3>
+     <form_buttons title='Изменить'>
     <else>
-     <formbuttons title='Добавить' span=3>
+     <form_buttons title='Добавить'>
     </if>
-    </table>
    </form>
-   </formtable>
+   </form_table>
   </td>
  </tr></table>
  <bottom>

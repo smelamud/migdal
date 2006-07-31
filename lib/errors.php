@@ -54,11 +54,10 @@ define('EC_NO_SEND',150);
 define('EC_NO_EDIT',151);
 define('EC_SUBJECT_ABSENT',152);
 define('EC_BODY_ABSENT',153);
-define('EC_NO_TYPE',154);
-define('EC_LOGIN_ASSIGN',155);
-define('EC_NO_ASSIGN',156);
-define('EC_NO_COMPLAIN',157);
-define('EC_NO_AUTO',158);
+define('EC_LOGIN_ASSIGN',154);
+define('EC_NO_ASSIGN',155);
+define('EC_NO_COMPLAIN',156);
+define('EC_NO_AUTO',157);
 
 define('EECA_NO_ACTION',160);
 define('EECA_NO_COMPLAIN',161);
@@ -103,11 +102,9 @@ define('ELID_NO_EDIT',260);
 define('ELID_POSTING_APPEND',261);
 
 define('ECAM_NO_EDIT',270);
-define('ECAM_NO_TYPE',271);
-define('ECAM_NAME_ABSENT',272);
-define('ECAM_TEXT_ABSENT',273);
-define('ECAM_NO_SCRIPT',274);
-define('ECAM_ILLEGAL_SCRIPT',275);
+define('ECAM_NAME_ABSENT',271);
+define('ECAM_TEXT_ABSENT',272);
+define('ECAM_NO_SCRIPT',273);
 
 define('ECAD_NO_EDIT',280);
 define('ECAD_NO_ACTION',281);

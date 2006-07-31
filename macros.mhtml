@@ -56,7 +56,8 @@
 <deciter macro='complain_modbits' class='ComplainModbitIterator'
          file='lib/modbits.php'>
 <deciter macro='complain_scriptlist' class='ComplainScriptListIterator'
-         file='lib/complainscripts.php' params='mask'>
+         file='lib/complainscripts.php' params='mask'
+	 defaults="mask='*CSCR_ALL'">
 <deciter macro='entry_cross' class='CrossEntryIterator'
          file='lib/cross-entries.php' params='source_name,source_id,link_type'
 	 defaults="source_name='',source_id=0,link_type='*LINKT_NONE'">

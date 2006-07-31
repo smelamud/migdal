@@ -76,6 +76,9 @@
                  checked='*true'">
 <decel name='form_comment' file='parts/formutils.php'>
 <decel name='/form_comment' file='parts/formutils.php'>
+<decel name='form_complainactionselect' file='parts/complainactionselect.php'
+       params='title,name,value,mandatory,comment'
+       defaults="mandatory='*false' comment=''">
 <decel name='form_edit' file='parts/formutils.php'
        params='title,mandatory,comment,name,value,size,maxlength,xmlid'
        defaults="mandatory='*false' comment='' size=40 maxlength=250 xmlid=0">

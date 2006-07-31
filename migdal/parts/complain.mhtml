@@ -31,9 +31,8 @@
 <element name='answerselect' params='complain'>
 <td><table>
  <tr>
-  <form method=get action='complainanswer.php'>
+  <form method=get action='/complains/$complain.Id/answer/'>
    <hidden name='redirid' value='$_'>
-   <hidden name='complain_id' value='$complain.Id'>
    <td><select name='actid'>
     <iterate_complain_actionlist>
     <for>
@@ -44,7 +43,7 @@
   </form> 
   <admin_complain_answers>
    <td>
-    <a href='complainactionedit.php?redirid=$_'><asp>
+    <a href='/complains/answers/?redirid=$_'><asp>
      <asp>Редактировать&nbsp;список&nbsp;&gt;&#x3e;&gt;<asp>
     <asp></a>
    </td>

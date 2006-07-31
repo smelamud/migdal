@@ -18,8 +18,7 @@
    <editlink posting='$picture'>
   <else>
    <if what='!$$userModerator && $showcomplain'>
-    <a href="complainedit.php?type_id=*COMPL_POSTING&link=$picture.Id&redirid=$_"
-       >Жалоба</a>
+    <a href="/complains/add/?url=$#picture.GrpDetailsHref&redirid=$_">Жалоба</a>
    </if>
   </iswrite>
  </td></tr>

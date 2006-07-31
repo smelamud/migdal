@@ -659,6 +659,7 @@ if($posting->id)
   journal(makeUpdate('entries',
                      jencodeVars($vars,$jencoded),
 		     array('id' => journalVar('entries',$posting->orig_id))));
+  answerUpdate($posting->id);
   }
 else
   {

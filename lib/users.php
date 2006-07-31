@@ -56,7 +56,6 @@ var $last_online;
 var $last_minutes;
 var $icq;
 var $email_disabled;
-var $accepts_complains;
 var $shames;
 var $hidden;
 var $online;

@@ -34,7 +34,6 @@
     <error id='*EC_NO_SEND'
 	   text='Посылать жалобы могут только зарегистрированные пользователи'>
     <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
-    <error id='*EC_NO_TYPE' text='Такого типа жалобы не существует'>
     <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
     <error id='*EC_BODY_ABSENT'
 	   text='Напишите хотя бы пару строчек в теле жалобы'>

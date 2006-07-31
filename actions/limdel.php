@@ -34,8 +34,12 @@ session();
 $image=getImageById($editid);
 $err=deleteImageAction($image);
 if($err==EG_OK)
-  header('Location: '.remakeURI($okdir,array('err'),array('editid' => 0)));
+  header('Location: '.remakeURI($okdir,
+                                array('err'),
+				array('editid' => 0)));
 else
-  header('Location: '.remakeURI($faildir,array(),array('err' => $err)).'#error');
+  header('Location: '.remakeURI($faildir,
+                                array(),
+				array('err' => $err)).'#error');
 dbClose();
 ?>

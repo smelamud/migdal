@@ -9,16 +9,6 @@ require_once('lib/complainactions.php');
 require_once('lib/errors.php');
 require_once('lib/sql.php');
 
-function deleteComplainAction($id)
-{
-$result=sql("delete from complain_actions
-	     where id=$id",
-	    'deleteComplainAction');
-journal('delete from complain_actions
-         where id='.journalVar('complain_actions',$id));
-return $result;
-}
-
 function removeComplainAction($editid)
 {
 global $userAdminComplainAnswers;
@@ -31,14 +21,21 @@ deleteComplainAction($editid);
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
+
 postInteger('editid');
 
 dbOpen();
 session();
 $err=removeComplainAction($editid);
 if($err==EG_OK)
-  header('Location: '.remakeURI($okdir,array('err'),array('editid' => 0)));
+  header('Location: '.remakeURI($okdir,
+                                array('err'),
+				array('editid' => 0)));
 else
-  header('Location: '.remakeURI($faildir,array(),array('err' => $err)));
+  header('Location: '.remakeURI($faildir,
+                                array(),
+				array('err' => $err)));
 dbClose();
 ?>

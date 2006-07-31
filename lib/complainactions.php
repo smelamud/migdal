@@ -55,28 +55,28 @@ return $this->script_id;
 function storeComplainAction(&$action)
 {
 $jencoded=array('name' => '','text' => '');
-$vars=array('name'      => $this->name,
-            'text'      => $this->text,
-	    'script_id' => $this->script_id);
-if(!$this->id)
+$vars=array('name'      => $action->name,
+            'text'      => $action->text,
+	    'script_id' => $action->script_id);
+if(!$action->id)
   {
   $result=sql(makeInsert('complain_actions',
 			 $vars),
 	      __FUNCTION__,'insert');
-  $this->id=sql_insert_id();
+  $action->id=sql_insert_id();
   journal(makeInsert('complain_actions',
 		     jencodeVars($vars,$jencoded)),
-		     'complain_actions',$this->id);
+	  'complain_actions',$action->id);
   }
 else
   {
   $result=sql(makeUpdate('complain_actions',
 			 $vars,
-			 array('id' => $this->id)),
+			 array('id' => $action->id)),
 	      __FUNCTION__,'update');
   journal(makeUpdate('complain_actions',
 		     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('complain_actions',$this->id))));
+		     array('id' => journalVar('complain_actions',$action->id))));
   }
 return $result;
 }
@@ -112,5 +112,14 @@ $result=sql("select id
 	     where id=$id",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0;
+}
+
+function deleteComplainAction($id)
+{
+sql("delete from complain_actions
+     where id=$id",
+    __FUNCTION__);
+journal('delete from complain_actions
+         where id='.journalVar('complain_actions',$id));
 }
 ?>
