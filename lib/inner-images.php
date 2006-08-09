@@ -131,9 +131,9 @@ $vars=array('entry_id' => $inner->entry_id,
             'y' => $inner->y,
             'image_id' => $inner->image_id,
             'placement' => $inner->placement);
-sql(makeInsert('inner_images',$vars),
+sql(sqlInsert('inner_images',$vars),
     __FUNCTION__,'insert');
-journal(makeInsert('inner_images',jencodeVars($vars,$jencoded)));
+journal(sqlInsert('inner_images',jencodeVars($vars,$jencoded)));
 }
 
 function getInnerImageByParagraph($entry_id,$par,$x=0,$y=0)

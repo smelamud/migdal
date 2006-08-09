@@ -37,7 +37,7 @@ if($r_user_name || $r_group_name || $r_perm)
 		    $r_user_name ? $perms->getUserId() : 0,
 		    $r_group_name ? $perms->getGroupId() : 0,
 		    $r_perm ? $perm_string : '????????????????');
-if(get_class($perms)=='Message' && isForumAnswer($perms->getId()))
+if(get_class($perms)=='Message' /* deprecated */ && isForumAnswer($perms->getId()))
   answerUpdate($perms->getId()); //FIXME не обрабатывается рекурсивная
                                  //установка прав
 return EG_OK;

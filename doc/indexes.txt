@@ -110,7 +110,6 @@ comment1 (VARCHAR(250))
    getPostingById() и getFullPostingById() возвращают это поле.
 
 Based-on: migdal.db 1.76
-Based-on: lib/messages.php 1.100
 Based-on: lib/postings.php 1.131
 Based-on: lib/topics.php 1.93
 

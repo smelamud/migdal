@@ -112,22 +112,22 @@ $vars=array('source_name' => $cross->source_name,
             'peer_icon' => $cross->peer_icon);
 if($cross->id)
   {
-  $result=sql(makeUpdate('cross_entries',
-                         $vars,
-			 array('id' => $cross->id)),
+  $result=sql(sqlUpdate('cross_entries',
+			$vars,
+			array('id' => $cross->id)),
 	      __FUNCTION__,'update');
-  journal(makeUpdate('cross_entries',
-                     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('cross_entries',$cross->id))));
+  journal(sqlUpdate('cross_entries',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('cross_entries',$cross->id))));
   }
 else
   {
-  $result=sql(makeInsert('cross_entries',
-                         $vars),
+  $result=sql(sqlInsert('cross_entries',
+                        $vars),
 	      __FUNCTION__,'insert');
   $cross->id=sql_insert_id();
-  journal(makeInsert('cross_entries',
-                     jencodeVars($vars,$jencoded)),
+  journal(sqlInsert('cross_entries',
+                    jencodeVars($vars,$jencoded)),
 	  'cross_entries',$cross->id);
   }
 return $result;

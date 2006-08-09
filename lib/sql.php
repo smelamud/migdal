@@ -50,4 +50,43 @@ function sqlNow()
 {
 return sqlDate(time());
 }
+
+function sqlValue($value)
+{
+if(!is_null($value))
+  {
+  $c=is_numeric($value) ? '' : '"';
+  return $c.addslashes($value).$c;
+  }
+else
+  return 'null';
+}
+
+function sqlKeyValue($join,$list)
+{
+$s='';
+foreach($list as $key=>$value)
+       $s.=($s!='' ? $join : '')."$key=".sqlValue($value);
+return $s;
+}
+
+function sqlValueList($join,$list)
+{
+$s='';
+foreach($list as $value)
+       $s.=($s!='' ? $join : '').sqlValue($value);
+return $s;
+}
+
+function sqlInsert($table,$what)
+{
+return "insert into $table(".join(',',array_keys($what)).
+            ') values ('.sqlValueList(',',$what).')';
+}
+
+function sqlUpdate($table,$what,$where)
+{
+return "update $table set ".sqlKeyValue(',',$what).
+                    ' where '.sqlKeyValue(' and ',$where);
+}
 ?>

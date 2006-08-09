@@ -34,6 +34,7 @@ function Topic($row)
 global $rootTopicModbits;
 
 $this->entry=ENT_TOPIC;
+$this->body_format=TF_PLAIN;
 $this->modbits=$rootTopicModbits;
 parent::GrpEntry($row);
 }
@@ -188,11 +189,11 @@ $Select="$distinct entries.id as id,entries.ident as ident,entries.up as up,
 	 entries.subject as subject,entries.comment0 as comment0,
 	 entries.comment0_xml as comment0_xml,entries.comment1 as comment1,
 	 entries.comment1_xml as comment1_xml,entries.body as body,
-	 entries.body_xml as body_xml,entries.user_id as user_id,
-	 entries.group_id as group_id,users.login as login,
-	 gusers.login as group_login,entries.perms as perms,entries.grp as grp,
-	 entries.index2 as index2,entries.answers as answers,
-	 entries.last_answer as last_answer";
+	 entries.body_xml as body_xml,entries.body_format as body_format,
+	 entries.user_id as user_id,entries.group_id as group_id,
+	 users.login as login,gusers.login as group_login,
+	 entries.perms as perms,entries.grp as grp,entries.index2 as index2,
+	 entries.answers as answers,entries.last_answer as last_answer";
 /* From */
 $grpTable=$grp!=GRP_ALL ? 'left join entry_grps
                                 on entry_grps.entry_id=entries.id'
@@ -342,6 +343,7 @@ $vars=array('entry' => $topic->entry,
 	    'index2' => $topic->index2,
 	    'body' => $topic->body,
 	    'body_xml' => $topic->body_xml,
+	    'body_format' => $topic->body_format,
 	    'modified' => sqlNow());
 if($topic->track=='')
   $vars['track']='';
@@ -349,26 +351,30 @@ if($topic->catalog=='')
   $vars['catalog']='';
 if($topic->id)
   {
-  $result=sql(makeUpdate('entries',
-                         $vars,
-			 array('id' => $topic->id)),
+  $result=sql(sqlUpdate('entries',
+			$vars,
+			array('id' => $topic->id)),
 	      __FUNCTION__,'update');
-  journal(makeUpdate('entries',
-                     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('entries',$topic->id))));
+  journal(sqlUpdate('entries',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('entries',$topic->id))));
   }
 else
   {
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
-  $result=sql(makeInsert('entries',
-                         $vars),
+  $result=sql(sqlInsert('entries',
+                        $vars),
 	      __FUNCTION__,'insert');
   $topic->id=sql_insert_id();
-  journal(makeInsert('entries',
-                     jencodeVars($vars,$jencoded)),
+  journal(sqlInsert('entries',
+                    jencodeVars($vars,$jencoded)),
 	  'entries',$topic->id);
   }
+if($topic->track=='')
+  updateTracks('entries',$topic->id);
+if($topic->catalog=='')
+  updateCatalogs($topic->id);
 return $result;
 }
 
@@ -401,10 +407,10 @@ $result=sql(
 	       entries.comment0_xml as comment0_xml,
 	       entries.comment1 as comment1,
                entries.comment1_xml as comment1_xml,entries.body as body,
-	       entries.body_xml as body_xml,entries.grp as grp,
-	       entries.modbits as modbits,entries.ident as ident,
-	       entries.user_id as user_id,users.login as login,
-	       users.gender as gender,users.email as email,
+	       entries.body_xml as body_xml,entries.body_format as body_format,
+	       entries.grp as grp,entries.modbits as modbits,
+	       entries.ident as ident,entries.user_id as user_id,
+	       users.login as login,users.gender as gender,users.email as email,
 	       users.hide_email as hide_email,entries.group_id as group_id,
 	       gusers.login as group_login,entries.perms as perms,
 	       entries.index2 as index2

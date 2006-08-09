@@ -28,7 +28,6 @@ function setup($vars)
 {
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-// from Stotext FIXME
 $this->body_format=TF_MAIL;
 $this->body=$vars['body'];
 $this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
@@ -56,7 +55,6 @@ $this->large_image_y=$vars['large_image_y'];
 $this->large_image_size=$vars['large_image_size'];
 $this->large_image_format=$vars['large_image_format'];
 $this->large_image_filename=$vars['large_image_filename'];
-// from Message FIXME
 $this->up=$vars['up'];
 $this->subject=$vars['subject'];
 $this->subject_sort=convertSort($this->subject);
@@ -88,7 +86,6 @@ $this->lang=$vars['lang'];
 $this->disabled=$vars['disabled'];
 $this->url=$vars['url'];
 $this->url_domain=getURLDomain($this->url);
-// from Posting FIXME
 $this->parent_id=$vars['parent_id'];
 if($this->up<=0)
   $this->up=$this->parent_id;
@@ -159,10 +156,11 @@ $Order=getOrderBy($sort,
              SORT_RSENT => 'entries.sent asc'));
 parent::LimitSelectIterator(
         'Forum',
-	"select entries.id as id,body,body_xml,sent,created,modified,user_id,
-	        group_id,perms,disabled,parent_id,users.login as login,
-		users.gender as gender,users.email as email,
-		users.hide_email as hide_email,users.hidden as user_hidden
+	"select entries.id as id,body,body_xml,body_format,sent,created,
+	        modified,user_id,group_id,perms,disabled,parent_id,
+		users.login as login,users.gender as gender,
+		users.email as email,users.hide_email as hide_email,
+		users.hidden as user_hidden
 	 from entries
 	      left join users
 		   on entries.user_id=users.id
@@ -218,27 +216,30 @@ if($userModerator)
 			  'priority' => $forum->priority));
 if($forum->id)
   {
-  $result=sql(makeUpdate('entries',
-                         $vars,
-			 array('id' => $forum->id)),
+  $result=sql(sqlUpdate('entries',
+			$vars,
+			array('id' => $forum->id)),
 	      __FUNCTION__,'update');
-  journal(makeUpdate('entries',
-                     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('entries',$forum->id))));
+  journal(sqlUpdate('entries',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('entries',$forum->id))));
   }
 else
   {
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
-  $result=sql(makeInsert('entries',
-                         $vars),
+  $result=sql(sqlInsert('entries',
+                        $vars),
 	      __FUNCTION__,'insert');
   $forum->id=sql_insert_id();
-  journal(makeInsert('entries',
-                     jencodeVars($vars,$jencoded)),
+  journal(sqlInsert('entries',
+                    jencodeVars($vars,$jencoded)),
 	  'entries',$forum->id);
 
   }
+updateTracks('entries',$forum->id);
+updateCatalogs($forum->id);
+answerUpdate($forum->parent_id);
 return $result;
 }
 
@@ -257,9 +258,9 @@ function getForumById($id,$parent_id=0,$quote='',$quoteWidth=75)
 global $userId,$realUserId;
 
 $hide=forumPermFilter(PERM_READ);
-$result=sql("select entries.id as id,body,body_xml,user_id,group_id,perms,
-		    small_image,small_image_x,small_image_y,
-		    large_image,large_image_x,large_image_y,large_image_size,
+$result=sql("select entries.id as id,body,body_xml,body_format,user_id,group_id,
+                    perms,small_image,small_image_x,small_image_y,large_image,
+		    large_image_x,large_image_y,large_image_size,
 		    large_image_format,large_image_filename,
 		    up,parent_id,disabled,sent,created,modified,
 		    users.login as login,users.gender as gender,

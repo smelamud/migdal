@@ -26,11 +26,8 @@ if(!$posting->isAppendable())
   return ELIM_POSTING_APPEND;
 if(!$image->hasSmallImage())
   return ELIM_IMAGE_ABSENT;
-$image->track='';
 storeImage($image);
 commitImages($image,$original);
-updateTracks('entries',$image->id);
-updateCatalogs($image->id);
 setPremoderates($posting,$posting);
 return EG_OK;
 }

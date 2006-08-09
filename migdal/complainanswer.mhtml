@@ -15,7 +15,7 @@
  <complain_action_obj id='$actid'>
  <setup>
  <form_table title='Ответ на жалобу'>
-  <form method=post action='actions/complainact.php'>
+  <form method=post action='/actions/complain/action/execute'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>

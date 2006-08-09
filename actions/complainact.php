@@ -19,38 +19,53 @@ global $userId;
 
 if($action->getId()==0)
   return EECA_NO_ACTION;
-$complain=getComplainInfoById($complain_id);
+$complain=getComplainById($complain_id);
 if($complain->getId()==0)
   return EECA_NO_COMPLAIN;
-if($complain->getRecipientId()!=$userId)
+if($complain->getPersonId()!=$userId)
   return EECA_NO_EXEC;
 if($action->getText()!='')
-  postForumAnswer($complain->getMessageId(),$action->getText());
+  {
+  $forum=getForumById(0,$complain->getId());
+  $forum->body_format=TF_MAIL;
+  $forum->body=$action->getText();
+  $forum->body_xml=wikiToXML($forum->body,$forum->body_format,MTEXT_SHORT);
+  $forum->up=$complain->getId();
+  storeForum($forum);
+  }
 $script=getComplainScriptById($action->getScriptId());
 $script->exec($complain);
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
+
+postInteger('edittag');
 postInteger('actid');
 postInteger('complain_id');
+postInteger('script_id');
 postString('text');
 
 dbOpen();
 session();
 $action=getComplainActionById($actid);
-$action->setup($HTTP_POST_VARS);
+$action->setup($Args);
 $err=executeAction($action,$complain_id);
 if($err==EG_OK)
-  header('Location: '.remakeURI($okdir,array('err')));
+  header('Location: '.remakeURI($okdir,
+                                array('err')));
 else
   {
   $textId=tmpTextSave($text);
   header('Location: '.
          remakeMakeURI($faildir,
-		       $HTTP_POST_VARS,
-		       array('text','okdir','faildir'),
+		       $Args,
+		       array('text',
+		             'okdir',
+			     'faildir'),
 		       array('err'    => $err,
-			     'textid' => $textId)));
+			     'text_i' => $textId)).'#error');
   }
 dbClose();
 ?>

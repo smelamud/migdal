@@ -55,15 +55,15 @@ function store()
 {
 $normal=$this->getNormal(false);
 if($this->id)
-  $result=sql(makeUpdate('packages',
-			 $normal,
-			 array('id' => $this->id)),
+  $result=sql(sqlUpdate('packages',
+			$normal,
+			array('id' => $this->id)),
 	      get_method($this,'store'),'update');
 else
   {
   $normal['created']=date('Y-m-d H:i:s',time());
-  $result=sql(makeInsert('packages',
-                         $normal),
+  $result=sql(sqlInsert('packages',
+                        $normal),
 	      get_method($this,'store'),'insert');
   $this->id=sql_insert_id();
   $this->created=$normal['created'];

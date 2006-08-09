@@ -4,6 +4,7 @@
 require_once('lib/iterator.php');
 require_once('lib/redirs.php');
 require_once('lib/utils.php');
+require_once('lib/uri.php');
 require_once('lib/ident.php');
 require_once('lib/entries.php');
 require_once('lib/cross-entries.php');

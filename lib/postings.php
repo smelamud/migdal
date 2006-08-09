@@ -41,7 +41,6 @@ function setup($vars)
 {
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-// from Stotext FIXME
 $this->body_format=TF_PLAIN;
 $this->body=$vars['body'];
 $this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
@@ -69,7 +68,6 @@ $this->large_image_y=$vars['large_image_y'];
 $this->large_image_size=$vars['large_image_size'];
 $this->large_image_format=$vars['large_image_format'];
 $this->large_image_filename=$vars['large_image_filename'];
-// from Message FIXME
 $this->up=$vars['up'];
 $this->subject=$vars['subject'];
 $this->subject_sort=convertSort($this->subject);
@@ -101,7 +99,6 @@ $this->lang=$vars['lang'];
 $this->disabled=$vars['disabled'];
 $this->url=$vars['url'];
 $this->url_domain=getURLDomain($this->url);
-// from Posting FIXME
 $this->ident=$vars['ident']!='' ? $vars['ident'] : null;
 $this->index1=$vars['index1'];
 $this->index2=$vars['index2'];
@@ -116,7 +113,6 @@ else
     $this->parent_id=getParentIdByEntryId($this->up);
 }
 
-// from Message FIXME
 function isPermitted($right)
 {
 global $userModerator,$userId;
@@ -185,7 +181,6 @@ return $heading;
 
 }
 
-// from Message FIXME
 function postingsPermFilter($right,$prefix='')
 {
 global $userModerator,$userId;
@@ -215,7 +210,8 @@ $Fields='entries.id as id,entries.ident as ident,entries.up as up,
 	 entries.comment1 as comment1,entries.comment1_xml as comment1_xml,
          entries.url as url,entries.url_domain as url_domain,
 	 entries.url_check_success as url_check_success,entries.body as body,
-	 entries.body_xml as body_xml,entries.has_large_body as has_large_body,
+	 entries.body_xml as body_xml,entries.body_format as body_format,
+	 entries.has_large_body as has_large_body,
 	 entries.large_body_format as large_body_format,
 	 entries.large_body_filename as large_body_filename,
 	 entries.priority as priority,entries.index0 as index0,
@@ -260,7 +256,8 @@ $Fields='entries.subject as subject,
 	 entries.comment1 as comment1,entries.comment1_xml as comment1_xml,
          entries.url as url,entries.url_domain as url_domain,
 	 entries.url_check_success as url_check_success,entries.body as body,
-	 entries.body_xml as body_xml,entries.has_large_body as has_large_body,
+	 entries.body_xml as body_xml,entries.body_format as body_format,
+	 entries.has_large_body as has_large_body,
 	 entries.large_body_format as large_body_format,
 	 entries.large_body_filename as large_body_filename,
 	 entries.small_image as small_image,
@@ -636,29 +633,29 @@ $jencoded=postingJencoded();
 if($posting->id)
   {
   $vars=storePostingFields($posting,SPF_SHADOW);
-  $result=sql(makeUpdate('entries',
-                         $vars,
-			 array('id' => $posting->id)),
+  $result=sql(sqlUpdate('entries',
+			$vars,
+			array('id' => $posting->id)),
 	      __FUNCTION__,'update_shadow');
-  journal(makeUpdate('entries',
-                     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('entries',$posting->id))));
+  journal(sqlUpdate('entries',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('entries',$posting->id))));
   $vars=storePostingFields($posting,SPF_DUPLICATE);
-  $result=sql(makeUpdate('entries',
-                         $vars,
-			 array('orig_id' => $posting->orig_id)),
+  $result=sql(sqlUpdate('entries',
+			$vars,
+			array('orig_id' => $posting->orig_id)),
 	      __FUNCTION__,'update_duplicate');
-  journal(makeUpdate('entries',
-                     jencodeVars($vars,$jencoded),
-		     array('orig_id' => journalVar('entries',$posting->orig_id))));
+  journal(sqlUpdate('entries',
+		    jencodeVars($vars,$jencoded),
+		    array('orig_id' => journalVar('entries',$posting->orig_id))));
   $vars=storePostingFields($posting,SPF_ORIGINAL);
-  $result=sql(makeUpdate('entries',
-                         $vars,
-			 array('id' => $posting->orig_id)),
+  $result=sql(sqlUpdate('entries',
+			$vars,
+			array('id' => $posting->orig_id)),
 	      __FUNCTION__,'update_original');
-  journal(makeUpdate('entries',
-                     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('entries',$posting->orig_id))));
+  journal(sqlUpdate('entries',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('entries',$posting->orig_id))));
   answerUpdate($posting->id);
   }
 else
@@ -666,12 +663,12 @@ else
   $vars=storePostingFields($posting,SPF_ALL);
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
-  sql(makeInsert('entries',
-                 $vars),
+  sql(sqlInsert('entries',
+                $vars),
       __FUNCTION__,'insert');
   $posting->id=sql_insert_id();
-  journal(makeInsert('entries',
-                     jencodeVars($vars,$jencoded)),
+  journal(sqlInsert('entries',
+                    jencodeVars($vars,$jencoded)),
 	  'entries',$posting->id);
 
   sql("update entries
@@ -682,6 +679,8 @@ else
 	   set orig_id=id
 	   where id='.journalVar('entries',$posting->id));
   }
+updateTracks('entries',$posting->id);
+updateCatalogs($posting->id);
 return $result;
 }
 
@@ -715,7 +714,6 @@ return new Posting(array('id'        => 0,
 			 'perms'     => $perms));
 }
 
-// from Message FIXME
 function postingExists($id)
 {
 $hide=postingsPermFilter(PERM_READ);
@@ -957,13 +955,13 @@ $result=sql("select $fields
 	    __FUNCTION__,'get_fields');
 $row=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
 $jencoded=postingJencoded();
-sql(makeUpdate('entries',
-               $row,
-	       array('id' => $destId)),
+sql(sqlUpdate('entries',
+	      $row,
+	      array('id' => $destId)),
     __FUNCTION__,'move_fields');
-journal(makeUpdate('entries',
-		   jencodeVars($row,$jencoded),
-		   array('id' => journalVar('entries',$destId))));
+journal(sqlUpdate('entries',
+		  jencodeVars($row,$jencoded),
+		  array('id' => journalVar('entries',$destId))));
 moveImageFiles($origId,$destId,$row['small_image'],$row['large_image'],
                $row['large_image_format']);
 sql("update inner_images
@@ -1037,13 +1035,13 @@ if(mysql_num_rows($result)<=0)
 $row=mysql_fetch_assoc($result);
 $row['created']=sqlNow();
 $row['modified']=sqlNow();
-sql(makeInsert('entries',
-               $row),
+sql(sqlInsert('entries',
+              $row),
     __FUNCTION__,'insert');
 $shid=sql_insert_id();
 $jencoded=postingJencoded();
-journal(makeInsert('entries',
-                   jencodeVars($row,$jencoded)),
+journal(sqlInsert('entries',
+                  jencodeVars($row,$jencoded)),
         'entries',$shid);
 updateTracks('entries',$shid);
 updateCatalogs($shid);

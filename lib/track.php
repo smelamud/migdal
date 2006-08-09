@@ -56,10 +56,14 @@ return (int)($levels[$level]);
 
 function updateTrackById($table,$id,$track)
 {
-return sql("update $table
-	    set track='$track'
-	    where id=$id",
-	   __FUNCTION__,'','',false);
+if(trackById($table,$id)!=$track)
+  {
+  sql("update $table
+       set track='$track'
+       where id=$id",
+      __FUNCTION__,'','',false);
+  setCachedValue('track',$table,$id,$track);
+  }
 }
 
 function updateTracks($table,$id,$journalize=true)
@@ -72,6 +76,7 @@ $result=sql("select id,up
 $tracks=array();
 while($row=mysql_fetch_assoc($result))
      {
+     setCachedValue('track',$table,$row['id'],$row['track']);
      if(!isset($tracks[$row['up']]))
        $tracks[$row['up']]=trackById($table,$row['up']);
      $tracks[$row['id']]=track($row['id'],$tracks[$row['up']]);

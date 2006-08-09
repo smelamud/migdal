@@ -64,10 +64,6 @@ if($topic->id==0 || $original->up!=$topic->up
    || $original->ident!=$topic->ident || $original->modbits!=$topic->modbits)
   $topic->catalog='';
 storeTopic($topic);
-if($topic->track=='')
-  updateTracks('entries',$topic->id);
-if($topic->catalog=='')
-  updateCatalogs($topic->id);
 setGrpsByEntryId($topic->id,$topic->grps);
 return EG_OK;
 }

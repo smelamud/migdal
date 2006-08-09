@@ -47,11 +47,11 @@ while(list($id,$text,$sent)=mysql_fetch_array($result))
      echo $id,' ';
      $text=unhtmlentities($text);
      $dtext=wikiToXML($text,TF_PLAIN,MTEXT_LINE);
-     sql(makeUpdate('chat_messages',
-                    array('text'         => $text,
-		          'text_xml' => $dtext,
-			  'sent'         => $sent),
-		    array('id' => $id)),
+     sql(sqlUpdate('chat_messages',
+		   array('text'         => $text,
+			 'text_xml'     => $dtext,
+			 'sent'         => $sent),
+		   array('id' => $id)),
 	 __FUNCTION__,'update');
      }
 echo "\n";
@@ -91,28 +91,28 @@ while($row=mysql_fetch_assoc($result))
      echo $row['id'],' ';
      $subject=unhtmlentities($row['subject']);
      $body=unhtmlentities($row['body']);
-     sql(makeInsert('entries',
-                    array('entry' => ENT_COMPLAIN,
-		          'grp' => $row['type_id'],
-			  'link' => $row['link'],
-			  'person_id' => $row['recipient_id'],
-			  'user_id' => $row['sender_id'],
-			  'group_id' => $row['group_id'],
-			  'perms' => $row['perms'],
-			  'subject' => $subject,
-			  'subject_sort' => convertSort($subject),
-			  'body' => $body,
-			  'body_xml' => wikiToXML($body,TF_MAIL,MTEXT_SHORT),
-			  'body_format' => TF_MAIL,
-			  'sent' => $row['sent'],
-			  'created' => $row['sent'],
-			  'modified' => $row['closed']!='' ? $row['closed']
-			                                   : $row['sent'],
-			  'modbits' => ($row['closed']!='' ? MODC_CLOSED
-			                                   : MODC_NONE) |
-				       ($row['no_auto'] ? MODC_NO_AUTO
-				                        : MODC_NONE)
-			  )),
+     sql(sqlInsert('entries',
+		   array('entry' => ENT_COMPLAIN,
+			 'grp' => $row['type_id'],
+			 'link' => $row['link'],
+			 'person_id' => $row['recipient_id'],
+			 'user_id' => $row['sender_id'],
+			 'group_id' => $row['group_id'],
+			 'perms' => $row['perms'],
+			 'subject' => $subject,
+			 'subject_sort' => convertSort($subject),
+			 'body' => $body,
+			 'body_xml' => wikiToXML($body,TF_PLAIN,MTEXT_SHORT),
+			 'body_format' => TF_PLAIN,
+			 'sent' => $row['sent'],
+			 'created' => $row['sent'],
+			 'modified' => $row['closed']!='' ? $row['closed']
+							  : $row['sent'],
+			 'modbits' => ($row['closed']!='' ? MODC_CLOSED
+							  : MODC_NONE) |
+				      ($row['no_auto'] ? MODC_NO_AUTO
+						       : MODC_NONE)
+			 )),
 	 __FUNCTION__,'insert');
 
      $id=sql_insert_id();
@@ -131,9 +131,9 @@ function convertGrp($entry_id,$grp)
 {
 for($current=1;$current<0x20000;$current<<=1)
    if(($current & $grp)!=0)
-     sql(makeInsert('entry_grps',
-                    array('entry_id' => $entry_id,
-		          'grp' => $current)),
+     sql(sqlInsert('entry_grps',
+		   array('entry_id' => $entry_id,
+			 'grp' => $current)),
 	 __FUNCTION__);
 }
 
@@ -157,37 +157,37 @@ while($row=mysql_fetch_assoc($result))
      $comment0=unhtmlentities($row['comment0']);
      $comment1=unhtmlentities($row['comment1']);
      $now=date('Y-m-d H:i:s',time());
-     sql(makeInsert('entries',
-                    array('entry' => ENT_TOPIC,
-		          'ident' => $row['ident']!='' ? $row['ident'] : NULL,
-                          'up' => $topicIds[$row['up']],
-			  'user_id' => $row['user_id'],
-			  'group_id' => $row['group_id'],
-			  'perms' => $row['perms'],
-			  'subject' => $name,
-			  'subject_sort' => convertSort($name),
-			  'comment0' => $comment0,
-			  'comment0_xml' => wikiToXML($comment0,
-			                              TF_PLAIN,MTEXT_LINE),
-			  'comment1' => $comment1,
-			  'comment1_xml' => wikiToXML($comment1,
-			                              TF_PLAIN,MTEXT_LINE),
-			  'body' => $body,
-			  'body_xml' => wikiToXML($body,TF_PLAIN,MTEXT_SHORT),
-			  'body_format' => TF_PLAIN,
-			  'index0' => $row['index0'],
-			  'index1' => $row['index1'],
-			  'index2' => $row['index4'],
-			  'sent' => $now,
-			  'created' => $now,
-			  'modified' => $now,
-			  'modbits' => ($row['premoderate'] ? MODT_PREMODERATE
-			                                    : MODT_NONE) |
-			               ($row['moderate'] ? MODT_MODERATE
-			                                 : MODT_NONE) |
-			               ($row['edit'] ? MODT_EDIT
-			                             : MODT_NONE)
-			  )),
+     sql(sqlInsert('entries',
+		   array('entry' => ENT_TOPIC,
+			 'ident' => $row['ident']!='' ? $row['ident'] : NULL,
+			 'up' => $topicIds[$row['up']],
+			 'user_id' => $row['user_id'],
+			 'group_id' => $row['group_id'],
+			 'perms' => $row['perms'],
+			 'subject' => $name,
+			 'subject_sort' => convertSort($name),
+			 'comment0' => $comment0,
+			 'comment0_xml' => wikiToXML($comment0,
+						     TF_PLAIN,MTEXT_LINE),
+			 'comment1' => $comment1,
+			 'comment1_xml' => wikiToXML($comment1,
+						     TF_PLAIN,MTEXT_LINE),
+			 'body' => $body,
+			 'body_xml' => wikiToXML($body,TF_PLAIN,MTEXT_SHORT),
+			 'body_format' => TF_PLAIN,
+			 'index0' => $row['index0'],
+			 'index1' => $row['index1'],
+			 'index2' => $row['index4'],
+			 'sent' => $now,
+			 'created' => $now,
+			 'modified' => $now,
+			 'modbits' => ($row['premoderate'] ? MODT_PREMODERATE
+							   : MODT_NONE) |
+				      ($row['moderate'] ? MODT_MODERATE
+							: MODT_NONE) |
+				      ($row['edit'] ? MODT_EDIT
+						    : MODT_NONE)
+			 )),
 	 __FUNCTION__,'insert');
 
      $id=sql_insert_id();
@@ -247,67 +247,67 @@ while($row=mysql_fetch_assoc($result))
        $source='';
        }
      $now=date('Y-m-d H:i:s',time());
-     sql(makeInsert('entries',
-                    array('entry' => ENT_POSTING,
-		          'ident' => $row['ident']!='' ? 'post.'.$row['ident']
-			                               : NULL,
-                          'up' => $row['up'] ? $messageIds[$row['up']]
-			                     : $topicIds[$row['topic_id']],
-			  'parent_id' => $topicIds[$row['topic_id']],
-			  'grp' => $row['grp'],
-			  'person_id' => $row['personal_id'],
-			  'user_id' => $row['sender_id'],
-			  'group_id' => $row['group_id'],
-			  'perms' => $row['perms'],
-			  'disabled' => $row['disabled'],
-			  'subject' => $subject,
-			  'subject_sort' => convertSort($subject),
-			  'lang' => $row['lang'],
-			  'author' => $author,
-			  'author_xml' => wikiToXML($author,TF_MAIL,MTEXT_LINE),
-			  'source' => $source,
-			  'source_xml' => wikiToXML($source,TF_MAIL,MTEXT_LINE),
-			  'title' => $title,
-			  'title_xml' => $title!=''
-			                 ? wikiToXML($title,TF_MAIL,MTEXT_SHORT)
-					 : '',
-			  'comment0' => $comment0,
-			  'comment0_xml' => wikiToXML($comment0,
-			                              TF_MAIL,MTEXT_LINE),
-			  'comment1' => $comment1,
-			  'comment1_xml' => wikiToXML($comment1,
-			                              TF_MAIL,MTEXT_LINE),
-			  'url' => $row['url'],
-			  'url_domain' => $row['url_domain'],
-			  'url_check' => $row['url_check'],
-			  'url_check_success' => $row['url_check_success'],
-			  'body' => $body,
-			  'body_xml' => $body!=''
-					? wikiToXML($body,TF_MAIL,MTEXT_SHORT)
+     sql(sqlInsert('entries',
+		   array('entry' => ENT_POSTING,
+			 'ident' => $row['ident']!='' ? 'post.'.$row['ident']
+						      : NULL,
+			 'up' => $row['up'] ? $messageIds[$row['up']]
+					    : $topicIds[$row['topic_id']],
+			 'parent_id' => $topicIds[$row['topic_id']],
+			 'grp' => $row['grp'],
+			 'person_id' => $row['personal_id'],
+			 'user_id' => $row['sender_id'],
+			 'group_id' => $row['group_id'],
+			 'perms' => $row['perms'],
+			 'disabled' => $row['disabled'],
+			 'subject' => $subject,
+			 'subject_sort' => convertSort($subject),
+			 'lang' => $row['lang'],
+			 'author' => $author,
+			 'author_xml' => wikiToXML($author,TF_PLAIN,MTEXT_LINE),
+			 'source' => $source,
+			 'source_xml' => wikiToXML($source,TF_PLAIN,MTEXT_LINE),
+			 'title' => $title,
+			 'title_xml' => $title!=''
+					? wikiToXML($title,TF_PLAIN,MTEXT_SHORT)
 					: '',
-			  'body_format' => TF_MAIL,
-			  'has_large_body' => $large_body!='' ? 1 : 0,
-			  'large_body' => $large_body,
-			  'large_body_xml' => $large_body!=''
-					      ? wikiToXML($large_body,
-					                  $row['large_format'],
-							  MTEXT_LONG)
-					      : '',
-			  'large_body_format' => $row['large_format'],
-			  'large_body_filename' => $row['large_filename'],
-			  'priority' => $row['priority'],
-			  'index0' => $row['index0'],
-			  'index1' => $row['index1'],
-			  'index2' => $row['index2'],
-			  'vote' => $row['vote'],
-			  'vote_count' => $row['vote_count'],
-			  'rating' => getRating($row['vote'],$row['vote_count']),
-			  'sent' => $row['sent'],
-			  'created' => $row['sent'],
-			  'modified' => $row['last_updated'],
-			  'accessed' => $row['last_read'],
-			  'modbits' => $row['modbits'] & MOD_ALL
-			  )),
+			 'comment0' => $comment0,
+			 'comment0_xml' => wikiToXML($comment0,
+						     TF_PLAIN,MTEXT_LINE),
+			 'comment1' => $comment1,
+			 'comment1_xml' => wikiToXML($comment1,
+						     TF_PLAIN,MTEXT_LINE),
+			 'url' => $row['url'],
+			 'url_domain' => $row['url_domain'],
+			 'url_check' => $row['url_check'],
+			 'url_check_success' => $row['url_check_success'],
+			 'body' => $body,
+			 'body_xml' => $body!=''
+				       ? wikiToXML($body,TF_PLAIN,MTEXT_SHORT)
+				       : '',
+			 'body_format' => TF_PLAIN,
+			 'has_large_body' => $large_body!='' ? 1 : 0,
+			 'large_body' => $large_body,
+			 'large_body_xml' => $large_body!=''
+					     ? wikiToXML($large_body,
+							 $row['large_format'],
+							 MTEXT_LONG)
+					     : '',
+			 'large_body_format' => $row['large_format'],
+			 'large_body_filename' => $row['large_filename'],
+			 'priority' => $row['priority'],
+			 'index0' => $row['index0'],
+			 'index1' => $row['index1'],
+			 'index2' => $row['index2'],
+			 'vote' => $row['vote'],
+			 'vote_count' => $row['vote_count'],
+			 'rating' => getRating($row['vote'],$row['vote_count']),
+			 'sent' => $row['sent'],
+			 'created' => $row['sent'],
+			 'modified' => $row['last_updated'],
+			 'accessed' => $row['last_read'],
+			 'modbits' => $row['modbits'] & MOD_ALL
+			 )),
 	 __FUNCTION__,'insert');
 
      $id=sql_insert_id();
@@ -345,34 +345,34 @@ while($row=mysql_fetch_assoc($result))
      if(mysql_num_rows($oresult)<=0)
        bug('No original for '.$row['id']);
      $orig=mysql_fetch_assoc($oresult);
-     sql(makeInsert('entries',
-                    array('entry' => ENT_POSTING,
-		          'ident' => $row['ident']!='' ? 'post.'.$row['ident']
-			                               : NULL,
-			  'up' => $topicIds[$row['topic_id']],
-			  'parent_id' => $topicIds[$row['topic_id']],
-			  'orig_id' => $orig['id'],
-			  'grp' => $row['grp'],
-			  'person_id' => $orig['person_id'],
-			  'user_id' => $orig['user_id'],
-			  'group_id' => $orig['group_id'],
-			  'perms' => $orig['perms'],
-			  'disabled' => $orig['disabled'],
-			  'subject_sort' => $orig['subject_sort'],
-			  'lang' => $orig['lang'],
-			  'priority' => $orig['priority'],
-			  'index0' => $row['index0'],
-			  'index1' => $orig['index1'],
-			  'index2' => $orig['index2'],
-			  'vote' => $orig['vote'],
-			  'vote_count' => $orig['vote_count'],
-			  'rating' => $orig['rating'],
-			  'sent' => $orig['sent'],
-			  'created' => $orig['created'],
-			  'modified' => $orig['modified'],
-			  'accessed' => $orig['accessed'],
-			  'modbits' => $orig['modbits'] & MOD_ALL
-			  )),
+     sql(sqlInsert('entries',
+		   array('entry' => ENT_POSTING,
+			 'ident' => $row['ident']!='' ? 'post.'.$row['ident']
+						      : NULL,
+			 'up' => $topicIds[$row['topic_id']],
+			 'parent_id' => $topicIds[$row['topic_id']],
+			 'orig_id' => $orig['id'],
+			 'grp' => $row['grp'],
+			 'person_id' => $orig['person_id'],
+			 'user_id' => $orig['user_id'],
+			 'group_id' => $orig['group_id'],
+			 'perms' => $orig['perms'],
+			 'disabled' => $orig['disabled'],
+			 'subject_sort' => $orig['subject_sort'],
+			 'lang' => $orig['lang'],
+			 'priority' => $orig['priority'],
+			 'index0' => $row['index0'],
+			 'index1' => $orig['index1'],
+			 'index2' => $orig['index2'],
+			 'vote' => $orig['vote'],
+			 'vote_count' => $orig['vote_count'],
+			 'rating' => $orig['rating'],
+			 'sent' => $orig['sent'],
+			 'created' => $orig['created'],
+			 'modified' => $orig['modified'],
+			 'accessed' => $orig['accessed'],
+			 'modbits' => $orig['modbits'] & MOD_ALL
+			 )),
 	 __FUNCTION__,'insert');
 
      $id=sql_insert_id();
@@ -470,8 +470,9 @@ while($row=mysql_fetch_assoc($result))
      if($title!='')
        $update=array('title' => $title,
   		     'title_xml' => $title!=''
-				    ? wikiToXML($title,TF_MAIL,MTEXT_SHORT)
-				    : ''
+				    ? wikiToXML($title,TF_PLAIN,MTEXT_SHORT)
+				    : '',
+		     'body_format' => TF_PLAIN
 		    );
      else
        $update=array();
@@ -486,9 +487,9 @@ while($row=mysql_fetch_assoc($result))
 			       'large_image_format' => $row['format'],
 			       'large_image_filename' => $row['filename']
 			       ));
-     sql(makeUpdate('entries',
-                    $update,
-		    array('id' => $id)),
+     sql(sqlUpdate('entries',
+		   $update,
+		   array('id' => $id)),
 	 __FUNCTION__,'update');
      $usedEntries[$id]=true;
      $imageIds[$row['image_id']]=$id;
@@ -521,34 +522,35 @@ while($row=mysql_fetch_assoc($result))
        }
      $title=unhtmlentities($row['title']);
      $now=date('Y-m-d H:i:s',time());
-     sql(makeInsert('entries',
-                    array('entry' => ENT_IMAGE,
-		          'up' => $parent_id,
-		          'title' => $title,
-         		  'title_xml' => $title!=''
-					 ? wikiToXML($title,TF_MAIL,MTEXT_SHORT)
-					 : '',
-			  'created' => $now,
-			  'modified' => $now,
-			  'accessed' => $now
-			 )),
+     sql(sqlInsert('entries',
+		   array('entry' => ENT_IMAGE,
+			 'up' => $parent_id,
+			 'title' => $title,
+			 'title_xml' => $title!=''
+					? wikiToXML($title,TF_PLAIN,MTEXT_SHORT)
+					: '',
+		         'body_format' => TF_PLAIN,
+			 'created' => $now,
+			 'modified' => $now,
+			 'accessed' => $now
+			)),
 	 __FUNCTION__,'insert');
      $id=sql_insert_id();
 
      list($small,$small_x,$small_y,
           $large,$large_size)=extractImage($id,$row,false);
-     sql(makeUpdate('entries',
-	            array('small_image' => $small,
-			  'small_image_x' => $small_x,
-			  'small_image_y' => $small_y,
-			  'large_image' => $large,
-			  'large_image_x' => $row['large_x'],
-			  'large_image_y' => $row['large_y'],
-			  'large_image_size' => $large_size,
-			  'large_image_format' => $row['format'],
-			  'large_image_filename' => $row['filename']
-			 ),
-		    array('id' => $id)),
+     sql(sqlUpdate('entries',
+		   array('small_image' => $small,
+			 'small_image_x' => $small_x,
+			 'small_image_y' => $small_y,
+			 'large_image' => $large,
+			 'large_image_x' => $row['large_x'],
+			 'large_image_y' => $row['large_y'],
+			 'large_image_size' => $large_size,
+			 'large_image_format' => $row['format'],
+			 'large_image_filename' => $row['filename']
+			),
+		   array('id' => $id)),
 	 __FUNCTION__,'update');
 
      $imageIds[$row['image_id']]=$id;
@@ -581,23 +583,23 @@ while($row=mysql_fetch_assoc($result))
        echo "Unknown message({$row['parent_id']})\n";
        continue;
        }
-     sql(makeInsert('entries',
-                    array('entry' => ENT_FORUM,
-                          'up' => $parent_id,
-			  'parent_id' => $parent_id,
-			  'user_id' => $row['sender_id'],
-			  'group_id' => $row['group_id'],
-			  'perms' => $row['perms'],
-			  'disabled' => $row['disabled'],
-			  'body' => $body,
-			  'body_xml' => $body!=''
-					? wikiToXML($body,TF_MAIL,MTEXT_SHORT)
-					: '',
-			  'body_format' => TF_MAIL,
-			  'sent' => $row['sent'],
-			  'created' => $row['sent'],
-			  'modified' => $row['last_updated']
-			  )),
+     sql(sqlInsert('entries',
+		   array('entry' => ENT_FORUM,
+			 'up' => $parent_id,
+			 'parent_id' => $parent_id,
+			 'user_id' => $row['sender_id'],
+			 'group_id' => $row['group_id'],
+			 'perms' => $row['perms'],
+			 'disabled' => $row['disabled'],
+			 'body' => $body,
+			 'body_xml' => $body!=''
+				       ? wikiToXML($body,TF_MAIL,MTEXT_SHORT)
+				       : '',
+			 'body_format' => TF_MAIL,
+			 'sent' => $row['sent'],
+			 'created' => $row['sent'],
+			 'modified' => $row['last_updated']
+			 )),
 	 __FUNCTION__,'insert');
 
      $id=sql_insert_id();
@@ -623,11 +625,11 @@ $result=sql("select id,type_id,link
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
-     sql(makeUpdate('entries',
-                    array('link' => $row['type_id']==COMPL_FORUM
-		                    ? $forumIds[$row['link']]
-		                    : $postingIds[$row['link']]),
-		    array('id' => $complainIds[$row['id']])),
+     sql(sqlUpdate('entries',
+		   array('link' => $row['type_id']==COMPL_FORUM
+				   ? $forumIds[$row['link']]
+				   : $postingIds[$row['link']]),
+		   array('id' => $complainIds[$row['id']])),
 	 __FUNCTION__,'update');
      }
 echo "\n";
@@ -682,12 +684,12 @@ while($row=mysql_fetch_assoc($result))
      foreach($fields as $field => $flag)
             if($row[$field])
 	      $rights|=$flag;
-     sql(makeUpdate('users',
-                    array('rights' => $rights,
-		          'info' => $info,
-			  'info_xml' => wikiToXML($info,TF_PLAIN,MTEXT_SHORT)
-			 ),
-		    array('id' => $row['id'])),
+     sql(sqlUpdate('users',
+		   array('rights' => $rights,
+			 'info' => $info,
+			 'info_xml' => wikiToXML($info,TF_PLAIN,MTEXT_SHORT)
+			),
+		   array('id' => $row['id'])),
 	 __FUNCTION__,'update');
      }
 echo "\n";
@@ -785,9 +787,9 @@ while(!feof($fd))
                          array('body'     => $attrs['body'],
 			       'body_xml' => $bodyXML));
        }
-     sql(makeUpdate('entries',
-                    $vars,
-		    array('id' => $id)),
+     sql(sqlUpdate('entries',
+		   $vars,
+		   array('id' => $id)),
          __FUNCTION__,'update');
      if(isset($attrs['grp']))
        {
@@ -919,17 +921,53 @@ while($row=mysql_fetch_assoc($result))
      $cross['peer_subject']=$info->getLinkTitle();
      $cross['peer_subject_sort']=convertSort($info->getLinkTitle());
      printArray($log,$cross);
-     sql(makeInsert('cross_entries',
-                    $cross),
+     sql(sqlInsert('cross_entries',
+                   $cross),
 	 __FUNCTION__,'insert');
      }
 echo "\n";
 fclose($log);
 }
 
+function convertComplainURLs()
+{
+sql('update entries
+     set grp=0,link=0
+     where grp='.COMPL_NORMAL.' and entry='.ENT_COMPLAIN,
+    __FUNCTION__,'reset_normal');
+$result=sql('select id,grp,link
+             from entries
+	     where grp<>0 and entry='.ENT_COMPLAIN,
+	    __FUNCTION__,'select');
+while($row=mysql_fetch_assoc($result))
+     {
+     echo ' '.$row['id'];
+     switch($row['grp'])
+           {
+	   case COMPL_FORUM:
+	        $forum=getForumById($row['link']);
+		$parent_id=$forum->getParentId();
+		$id=$forum->getId();
+		$url="/forum/$parent_id/?tid=$id#t$id";
+	        break;
+	   case COMPL_POSTING:
+	        $posting=getPostingById($row['link']);
+		$url=$posting->getGrpDetailsHref();
+	        break;
+	   }
+     sql(sqlUpdate('entries',
+		   array('grp' => 0,
+			 'link' => 0,
+			 'url' => $url),
+		   array('id' => $row['id'])),
+	 __FUNCTION__,'update');
+     }
+echo "\n";
+}
+
 dbOpen();
 endJournal();
-/*echo "1. Chat messages...\n";
+echo "1. Chat messages...\n";
 convertChatMessages();
 echo "2. Truncate...\n";
 truncateEntries();
@@ -963,13 +1001,15 @@ convertLinkedTable('inner_images','image_id','image_entry_id',$imageIds);
 echo "16. Votes...\n";
 convertLinkedTable('votes','posting_id','entry_id',$postingIds);
 echo "17. Users...\n";
-convertUsers();*/
+convertUsers();
 echo "18. Idents...\n";
 convertIdents();
-/*echo "19. Migdal news...\n";
+echo "19. Migdal news...\n";
 convertMigdalNews();
 echo "20. Interlinks...\n";
-convertCrossEntries();*/
+convertCrossEntries();
+echo "21. Complain URLs...\n";
+convertComplainURLs();
 beginJournal();
 dbClose();
 ?>

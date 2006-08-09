@@ -21,7 +21,15 @@
  <form method=post enctype='multipart/form-data'
        action='/actions/complain/modify'>
   <hidden name='edittag' value=1>
-  <hidden name='okdir' value='$--'>
+  <ifzero what='$editid'>
+   <ifnzero what='$redirid'>
+    <hidden name='okdir' value#='/complains/?redirid=$redirid'>
+   <else>
+    <hidden name='okdir' value='/complains/'>
+   </ifnzero>
+  <else>
+   <hidden name='okdir' value='$--'>
+  </ifzero>
   <hidden name='faildir' value='$-'>
   <hidden name='editid' value='$editid'>
   <error id='*EC_NO_SEND'

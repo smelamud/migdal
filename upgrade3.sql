@@ -29,3 +29,4 @@ ALTER TABLE `inner_images` DROP INDEX `entry_id`;
 ALTER TABLE `inner_images` DROP INDEX `par`;
 DELETE FROM `inner_images` WHERE entry_id =0;
 ALTER TABLE `inner_images` ADD PRIMARY KEY ( `entry_id` , `par` , `x` , `y` );
+ALTER TABLE `entries` DROP `link` ;

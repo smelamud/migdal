@@ -319,9 +319,21 @@ function isHidden()
 return $this->hidden ? 1 : 0;
 }
 
+// Override UserTag method
+function isUserHidden()
+{
+return $this->isHidden();
+}
+
 function isAdminHidden()
 {
 return $this->hidden>1 ? 1 : 0;
+}
+
+// Override UserTag method
+function isUserAdminHidden()
+{
+return $this->isAdminHidden();
 }
 
 function isVisible()
@@ -455,7 +467,7 @@ $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
 		    floor((unix_timestamp(confirm_deadline)
 			   -unix_timestamp(now()))/86400) as confirm_days
 	     from users
-	     where users.id=$id and hidden<$hide
+	     where users.id=$id and (hidden<$hide or guest<>0)
 	     group by users.id",
 	    __FUNCTION__);
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
@@ -499,22 +511,22 @@ if(!$user->id || $user->dup_password!='')
                     array('password' => md5($user->password)));
 if($user->id)
   {
-  $result=sql(makeUpdate('users',
-                         $vars,
-			 array('id' => $user->id)),
+  $result=sql(sqlUpdate('users',
+			$vars,
+			array('id' => $user->id)),
 	      __FUNCTION__,'update');
-  journal(makeUpdate('users',
-                     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('users',$user->id))));
+  journal(sqlUpdate('users',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('users',$user->id))));
   }
 else
   {
-  $result=sql(makeInsert('users',
-                         $vars),
+  $result=sql(sqlInsert('users',
+                        $vars),
 	      __FUNCTION__,'insert');
   $user->id=sql_insert_id();
-  journal(makeInsert('users',
-                     jencodeVars($vars,$jencoded)),
+  journal(sqlInsert('users',
+                    jencodeVars($vars,$jencoded)),
 	  'users',$user->id);
   }
 return $result;

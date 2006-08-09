@@ -26,6 +26,9 @@ $dbUser='root';
 # Пароль БД
 $dbPassword='xxxxxxxx';
 
+# Кодировка соединения с БД
+$dbCharset='koi8u';
+
 # Домен сайта
 $siteDomain='migdal.localhost';
 

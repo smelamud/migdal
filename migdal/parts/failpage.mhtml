@@ -27,8 +27,8 @@
    <hidden name='okdir' value="/404.php?sent=1">
    <hidden name='faildir' value="/404.php">
    <hidden name='editid' value="0">
-   <hidden name='type_id' value="1">
-   <hidden name='link' value="0">
+   <hidden name='type_id' value="1"> << deprecated >>
+   <hidden name='link' value="0"> << deprecated >>
    <hidden name='subject' value#="404 - $-">
    <table>
     <error id='*EC_NO_SEND'

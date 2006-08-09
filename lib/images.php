@@ -18,6 +18,7 @@ class Image
 function Image($row)
 {
 $this->entry=ENT_IMAGE;
+$this->body_format=TF_PLAIN;
 parent::Entry($row);
 }
 
@@ -53,11 +54,11 @@ function ImagesIterator($postid)
 parent::SelectIterator('Entry',
 		       "select id,ident,entry,up,track,catalog,parent_id,
 		               user_id,group_id,perms,disabled,title,title_xml,
-			       sent,created,modified,accessed,small_image,
-			       small_image_x,small_image_y,large_image,
-			       large_image_x,large_image_y,large_image_size,
-			       large_image_format,large_image_filename,
-			       count(entry_id) as inserted
+			       body_format,sent,created,modified,accessed,
+			       small_image,small_image_x,small_image_y,
+			       large_image,large_image_x,large_image_y,
+			       large_image_size,large_image_format,
+			       large_image_filename,count(entry_id) as inserted
 			from entries
 			     left join inner_images
 			          on entries.id=image_id
@@ -85,6 +86,7 @@ $vars=array('ident' => $image->ident,
 	    'perms' => $image->perms,
 	    'title' => $image->title,
 	    'title_xml' => $image->title_xml,
+	    'body_format' => $image->body_format,
 	    'small_image' => $image->small_image,
 	    'small_image_x' => $image->small_image_x,
 	    'small_image_y' => $image->small_image_y,
@@ -97,35 +99,37 @@ $vars=array('ident' => $image->ident,
 	    'modified' => sqlNow());
 if($image->id)
   {
-  $result=sql(makeUpdate('entries',
-                         $vars,
-			 array('id' => $image->id)),
+  $result=sql(sqlUpdate('entries',
+			$vars,
+			array('id' => $image->id)),
 	      __FUNCTION__,'update');
-  journal(makeUpdate('entries',
-                     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('entries',$image->id))));
+  journal(sqlUpdate('entries',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('entries',$image->id))));
   }
 else
   {
   $vars['entry']=$image->entry;
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
-  $result=sql(makeInsert('entries',
-                         $vars),
+  $result=sql(sqlInsert('entries',
+                        $vars),
 	      __FUNCTION__,'insert');
   $image->id=sql_insert_id();
-  journal(makeInsert('entries',
-                     jencodeVars($vars,$jencoded)),
+  journal(sqlInsert('entries',
+                    jencodeVars($vars,$jencoded)),
 	  'entries',$this->id);
   }
+updateTracks('entries',$image->id);
+updateCatalogs($image->id);
 return $result;
 }
 
 function getImageById($id)
 {
 $result=sql("select id,ident,entry,up,track,catalog,parent_id,user_id,group_id,
-                    perms,disabled,title,title_xml,sent,created,modified,
-		    accessed,small_image,small_image_x,small_image_y,
+                    perms,disabled,title,title_xml,body_format,sent,created,
+		    modified,accessed,small_image,small_image_x,small_image_y,
 		    large_image,large_image_x,large_image_y,large_image_size,
 		    large_image_format,large_image_filename
 	     from entries

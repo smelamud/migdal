@@ -85,7 +85,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/chatpost.php
 + actions/checkcookies.php
 - actions/chmod.php
-- actions/complainact.php
++ actions/complainact.php
 + actions/complainassign.php
 + actions/complainmod.php
 + actions/crossentryadd.php
@@ -137,7 +137,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/chat-users.php
 + lib/complainactions.php
 + lib/complainscripts.php
-* lib/complains.php
++ lib/complains.php
 + lib/counters.php
 + lib/cross-topics.php
 + lib/ctypes.php
@@ -171,7 +171,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/logs.php
 + lib/mailings.php
 - lib/mail.php
-* lib/messages.php (удалить)
 + lib/mime.php
 - lib/mnogosearch.php
 + lib/modbits.php
@@ -196,8 +195,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/sort.php
 + lib/sql.php
 - lib/stat.php
-* lib/stotext-images.php (удалить, частично переведено в lib/inner-images.php)
-- lib/stotext.php (удалить)
 + lib/style.php
 + lib/text.php
 + lib/tmptexts.php
@@ -219,7 +216,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - scripts/replicate.php
 - scripts/urlcheck.php
 
-- migdal/grp/complains.conf
 - migdal/grp/counters.php
 * migdal/grp/groups.conf
 - migdal/grp/mailings.conf

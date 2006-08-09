@@ -3,6 +3,7 @@
 
 require_once('lib/track.php');
 require_once('lib/utils.php');
+require_once('lib/uri.php');
 require_once('lib/modbits.php');
 require_once('lib/entries.php');
 
@@ -42,10 +43,14 @@ return $catalog;
 
 function updateCatalogById($id,$catalog)
 {
-return sql("update entries
-	    set catalog='$catalog'
-	    where id=$id",
-	   __FUNCTION__);
+if(catalogById($id)!=$catalog)
+  {
+  sql("update entries
+       set catalog='$catalog'
+       where id=$id",
+      __FUNCTION__);
+  setCachedValue('catalog','entries',$id,$catalog);
+  }
 }
 
 function updateCatalogs($id,$journalize=true)
@@ -59,6 +64,7 @@ $result=sql("select entry,id,ident,up,modbits
 $catalogs=array();
 while($row=mysql_fetch_assoc($result))
      {
+     setCachedValue('catalog','entries',$row['id'],$row['catalog']);
      if(!isset($catalogs[$row['up']]))
        $catalogs[$row['up']]=catalogById($row['up']);
      if($row['entry']==ENT_TOPIC

@@ -99,8 +99,6 @@ $posting->track='';
 $posting->catalog='';
 storePosting($posting);
 commitImages($posting,$original);
-updateTracks('entries',$posting->id);
-updateCatalogs($posting->id);
 setPremoderates($posting,$original);
 if($original->getId()==0)
   createCounters($posting->id,$posting->grp);

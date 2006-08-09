@@ -76,6 +76,11 @@
     <if what='$complain.isClosed'><b>Жалоба закрыта</b><else>&nbsp;</if>
    </td>
   </tr>
+  <ifne what='$complain.URL'>
+   <tr valign=top><td align=left class='ninept' colspan=3>
+    <b>Ссылка:</b> <a href='$complain.URL'>$complain.URL</a>
+   </td></tr>
+  </ifne>
   <ifne what='$complain.Body'>
    <tr valign=top><td align=left class='ninept' colspan=3>
     $complain.BodyHTML

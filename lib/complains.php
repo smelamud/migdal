@@ -18,6 +18,7 @@ var $person_info;
 function Complain($row)
 {
 $this->entry=ENT_COMPLAIN;
+$this->body_format=TF_PLAIN;
 parent::Entry($row);
 $prow=array();
 foreach($row as $key => $value)
@@ -61,12 +62,7 @@ function isClosed()
 {
 return ($this->getModbits() & MODC_CLOSED)!=0;
 }
-/*
-function getDisplay()
-{
-return $this->display;
-}
-*/
+
 function getPersonInfo()
 {
 return $this->person_info;
@@ -87,8 +83,8 @@ function ComplainListIterator($limit=20,$offset=0)
 {
 $this->LimitSelectIterator(
        'Complain',
-       'select entries.id as id,subject,sent,created,modified,user_id,group_id,
-               perms,person_id,disabled,modbits,
+       'select entries.id as id,subject,body_format,sent,created,modified,
+               user_id,group_id,perms,person_id,disabled,modbits,
 	       users.login as login,users.gender as gender,users.email as email,
 	       users.hide_email as hide_email,users.hidden as user_hidden,
 	       person.login as person_login,person.gender as person_gender,
@@ -143,13 +139,13 @@ $vars=array('entry' => $complain->entry,
 	    'modbits' => $complain->modbits);
 if($complain->id)
   {
-  $result=sql(makeUpdate('entries',
-			 $vars,
-			 array('id' => $complain->id)),
+  $result=sql(sqlUpdate('entries',
+			$vars,
+			array('id' => $complain->id)),
 	      __FUNCTION__,'update');
-  journal(makeUpdate('entries',
-                     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('entries',$complain->id))));
+  journal(sqlUpdate('entries',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('entries',$complain->id))));
   answerUpdate($complain->id);
   }
 else
@@ -158,12 +154,12 @@ else
   $vars['created']=sqlNow();
   $complain->person_id=getComplainAssignee();
   $vars['person_id']=$complain->person_id;
-  $result=sql(makeInsert('entries',
-                         $vars),
+  $result=sql(sqlInsert('entries',
+                        $vars),
               __FUNCTION__,'insert');
   $complain->id=sql_insert_id();
-  journal(makeInsert('entries',
-                     jencodeVars($vars,$jencoded)),
+  journal(sqlInsert('entries',
+                    jencodeVars($vars,$jencoded)),
 	  'entries',$complain->id);
   }
 return $result;
@@ -186,9 +182,9 @@ global $userId,$realUserId,$rootComplainUserName,$rootComplainGroupName,
 
 if(hasCachedValue('obj','entries',$id))
   return getCachedValue('obj','entries',$id);
-$result=sql("select entries.id as id,subject,body,body_xml,url,sent,created,
-		    modified,user_id,group_id,perms,person_id,disabled,modbits,
-		    users.login as login,users.gender as gender,
+$result=sql("select entries.id as id,subject,body,body_xml,body_format,url,sent,
+                    created,modified,user_id,group_id,perms,person_id,disabled,
+		    modbits,users.login as login,users.gender as gender,
 		    users.email as email,users.hide_email as hide_email,
 		    users.hidden as user_hidden,person.login as person_login,
 		    person.gender as person_gender,person.email as person_email,
@@ -218,28 +214,6 @@ else
 return $complain;
 }
 
-// remake
-function getComplainInfoById($id)
-{
-$result=sql("select id,message_id,recipient_id,link
-	     from complains
-	     where id=$id",
-	    'getComplainInfoById');
-return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-					      : array());
-}
-
-// remake
-function getComplainInfoByLink($type_id,$link)
-{
-$result=sql("select id,type_id,message_id,recipient_id,link,closed
-	     from complains
-	     where type_id=$type_id and link=$link",
-	    'getComplainInfoByLink');
-return new Complain(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-					      : array());
-}
-
 function complainExists($id)
 {
 $result=sql("select id
@@ -247,22 +221,6 @@ $result=sql("select id
 	     where id=$id and entry=".ENT_COMPLAIN,
 	    __FUNCTION__);
 return mysql_num_rows($result)>0;
-}
-
-// remake
-function sendAutomaticComplain($type_id,$subject,$body,$link,$no_auto=false)
-{
-global $rootComplainPerms;
-
-$complain=newComplain($type_id,
-                      array('type_id'   => $type_id,
-                            'link'      => $link,
-                            'subject'   => $subject,
-			    'body'      => $body,
-			    'sender_id' => getShamesId(),
-			    'perms'     => $rootComplainPerms,
-			    'no_auto'   => (int)$no_auto));
-$complain->store();
 }
 
 function assignComplain($id,$person_id)

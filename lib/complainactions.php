@@ -60,23 +60,23 @@ $vars=array('name'      => $action->name,
 	    'script_id' => $action->script_id);
 if(!$action->id)
   {
-  $result=sql(makeInsert('complain_actions',
-			 $vars),
+  $result=sql(sqlInsert('complain_actions',
+			$vars),
 	      __FUNCTION__,'insert');
   $action->id=sql_insert_id();
-  journal(makeInsert('complain_actions',
-		     jencodeVars($vars,$jencoded)),
+  journal(sqlInsert('complain_actions',
+		    jencodeVars($vars,$jencoded)),
 	  'complain_actions',$action->id);
   }
 else
   {
-  $result=sql(makeUpdate('complain_actions',
-			 $vars,
-			 array('id' => $action->id)),
+  $result=sql(sqlUpdate('complain_actions',
+			$vars,
+			array('id' => $action->id)),
 	      __FUNCTION__,'update');
-  journal(makeUpdate('complain_actions',
-		     jencodeVars($vars,$jencoded),
-		     array('id' => journalVar('complain_actions',$action->id))));
+  journal(sqlUpdate('complain_actions',
+		    jencodeVars($vars,$jencoded),
+		    array('id' => journalVar('complain_actions',$action->id))));
   }
 return $result;
 }

@@ -15,7 +15,6 @@ require_once('lib/forums.php');
 require_once('lib/permissions.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings-info.php');
-require_once('lib/answers.php');
 require_once('lib/logging.php');
 
 function modifyForum(&$forum,$original)
@@ -54,12 +53,8 @@ if($forum->hasLargeImage()
    && !imageFileExists($forum->id,$forum->large_image_format,
                        $forum->large_image,'large'))
   return EF_NO_IMAGE;
-$forum->track='';
-$forum->catalog='';
 storeForum($forum);
 commitImages($forum,$original);
-updateTracks('entries',$forum->id);
-updateCatalogs($forum->id);
 return EG_OK;
 }
 
@@ -108,7 +103,6 @@ if($err==EG_OK)
 if($err==EG_OK)
   {
   dropPostingsInfoCache(DPIC_FORUMS);
-  answerUpdate($forum->getParentId());
   header('Location: '.remakeURI($okdir,
                                 array('offset'),
 				array('tid' => $forum->getId()),
