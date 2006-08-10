@@ -18,8 +18,7 @@ $dbLink=mysql_connect($dbHost,$dbUser,$dbPassword)
             or sqlbug(__FUNCTION__.'().mysql_connect');
 mysql_select_db(!$replication ? $dbName : $replicationDbName)
       or sqlbug(__FUNCTION__.'().mysql_select_db');
-mysql_query("set names '$dbCharset'")
-      or sqlbug(__FUNCTION__.'().set_names');
+@mysql_query("set names '$dbCharset'"); // Ignore error, if MySQL do not support charsets
 beginJournal();
 if(!$replication)
   beginProfiling(POBJ_PAGE,$ScriptName);

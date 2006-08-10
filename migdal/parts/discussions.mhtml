@@ -16,9 +16,13 @@
    <user_obj id='$.LastAnswerUserId'>
    <assign name='login' value='$,Login'>
   </ifzero>
+  <ifnzero what='$.Answers'>
+   <assign name='href' value#='/forum/$.Id/'>
+  <else>
+   <assign name='href' value#='/forum/$.Id/add/'>
+  </ifnzero>
   <topics_line time!='$.Sent>$.LastAnswer ? $.Sent : $.LastAnswer'
-               href#='forum.php?msgid=$.Id'
-               text='$=.Heading' count='$.Answers'
+               href='$href' text='$=.Heading' count='$.Answers'
                title#='$login - $last@j.$last@m.$last@Y&sp;$last@H:$last@i'>
  </for>
 </topics_table>

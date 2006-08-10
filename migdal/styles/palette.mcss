@@ -120,8 +120,7 @@ catalog_subject_hover=blue
 
 mail_image=/pics/mail.gif
 
-picmain_title=black
-picmain_title_hover=blue
+picture_main_back_pic=/pics/film.png
 
 picture_back=%r_l
 picture_back_pic=/pics/l-back.jpg

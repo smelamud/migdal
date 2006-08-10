@@ -32,7 +32,6 @@
        defaults="target=''">
 <decel name='bannerbank' file='parts/bannerbank.php'>
 <decel name='banners' file='parts/banners.php'>
-<decel name='blog' file='parts/blog.php' params='topic_id,href'>
 <decel name='blog_gallery' file='parts/blog-gallery.php'
        params='user_id,rows,cols,offset,sort,topic_id'
        defaults="sort='*SORT_PSENT'">
@@ -178,12 +177,13 @@
 <decel name='migdal_news' file='parts/migdal-news.php'>
 <decel name='navi_sort' file='parts/utils.php' params='value,title'>
 <decel name='perror' file='parts/utils.php' params='id,text'>
+<decel name='peruser' file='parts/peruser.php' params='topic_id'>
 <decel name='picture' file='parts/picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
 <decel name='picture_main' file='parts/picture-main.php'
-       params='href,biff,name,text,image_id' defaults="text=''">
+       params='href,biff,name,title,image_href' defaults="title=''">
 <decel name='pointer' file='parts/pointer.php' params='href,text,title,left'
        defaults="title=''">
 <decel name='posting' file='parts/posting.php'
@@ -256,6 +256,7 @@
 <decel name='starinfo' file='parts/formutils.php'>
 <decel name='subtitle' file='parts/subtitle.php' params='title'
        defaults="title='$$LocationInfo.Title'">
+<decel name='taglit_intro' file='parts/peruser-intros.php'>
 <decel name='textears' file='parts/textears.php'>
 <decel name='tip' file='parts/tip.php'>
 <decel name='tip_posting' file='parts/tip-posting.php'
@@ -339,6 +340,8 @@
        defaults="up='$`general`' grp='*GRP_ALL' href='index.php'">
 <decel name='topics_museum' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
+<decel name='topics_peruser' file='parts/topics-peruser.php' params='index,base'
+       defaults="base=''">
 <decel name='topics_section' file='parts/topics.php'
        params='class,indent,span,title'
        defaults="class='topics-section' indent=0 span=1">
@@ -351,11 +354,9 @@
        defaults="class='' span=1 title='' nomargin='*false'"
        file='parts/topics.php'>
 <decel name='topics_table_end' file='parts/topics.php'>
-<decel name='topics_taglit' params='posting' file='parts/topics-blog.php'>
 <decel name='topics_times' file='parts/topics-times.php' params='index,base'
        defaults="base=''">
 <decel name='topics_tips' file='parts/topics-help.php' params='posting'>
-<decel name='topics_veterans' params='posting' file='parts/topics-blog.php'>
 <decel name='topicselect' file='parts/topicselect.php'
        params='name,value,grp,root,only_appendable,only_postable,mandatory,
                null_title'
@@ -373,6 +374,7 @@
        defaults="title='' name=''">
 <decel name='userinfo' file='parts/userinfo.php' params='id,target,class'
        defaults="class=''">
+<decel name='veterans_intro' file='parts/peruser-intros.php'>
 <decel name='vote_frame' file='parts/vote.php' params='id,align,color,image'
        defaults="align=''">
 <decel name='xml_text' file='parts/xml-text.php' params='id,name'>

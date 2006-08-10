@@ -475,31 +475,24 @@ return parent::create($row);
 
 }
 
-// remake
 class PostingUsersIterator
       extends SelectIterator
 {
 
 function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false)
 {
-$hide=messagesPermFilter(PERM_READ,'messages');
-$grpFilter=grpFilter($grp);
-$topicFilter=($topic_id<0 || $recursive && $topic_id==0) ? ''
-             : ' and topics.'.subtree('topics',$topic_id,$recursive);
-$this->SelectIterator(
+$hide=postingsPermFilter(PERM_READ,'entries');
+$grpFilter=postingListGrpFilter($grp);
+$topicFilter=postingListTopicFilter($topic_id,$recursive);
+parent::SelectIterator(
        'User',
-       "select distinct users.id as id,login,gender,email,hide_email,rebe,
-                        users.name as name,jewish_name,surname,
-			max(sent) as last_message
+       "select distinct users.id as id,login,gender,email,hide_email,
+                        users.hidden as user_hidden,users.name as name,
+			jewish_name,surname
         from users
-	     left join messages
-	          on messages.sender_id=users.id
-	     left join postings
-	          on postings.message_id=messages.id
-	     left join topics
-	          on postings.topic_id=topics.id
-	where $hide and $grpFilter $topicFilter
-	group by users.id
+	     left join entries
+	          on entries.user_id=users.id
+	where $hide and $grpFilter and $topicFilter
 	order by surname,jewish_name,name");
 }
 

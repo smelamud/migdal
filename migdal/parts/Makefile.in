@@ -5,7 +5,7 @@
 targetdir=$(builddir)/www/parts/
 
 OBJECTS = article.mhtml backtrace.mhtml bannerbank.mhtml banners.mhtml \
-	  blog.mhtml blog-gallery.mhtml blog-posting.mhtml book-chapters.mhtml \
+	  blog-gallery.mhtml blog-posting.mhtml book-chapters.mhtml \
 	  book-chapters-static.mhtml book-ring.mhtml book-ring-static.mhtml \
 	  bottom.mhtml catalog.mhtml complain.mhtml complainactionselect.mhtml \
 	  daily-announce.mhtml daily-picture.mhtml discussions.mhtml \
@@ -14,21 +14,22 @@ OBJECTS = article.mhtml backtrace.mhtml bannerbank.mhtml banners.mhtml \
 	  grpselect.mhtml hannukah.mhtml help-link.mhtml history.mhtml \
 	  hit-parade.mhtml hotlog.mhtml identify.mhtml jewishru.mhtml \
 	  langselect.mhtml links-switcher.mhtml login.mhtml mailru.mhtml \
-	  menu.mhtml migdal-news.mhtml picture.mhtml picture-main.mhtml \
-	  pointer.mhtml posting.mhtml posting-book.mhtml posting-ear.mhtml \
-	  posting-general.mhtml posting-link.mhtml posting-printing.mhtml \
-	  posting-times.mhtml posting-times-cover.mhtml postings.mhtml \
-	  postings-links.mhtml postings-migdal-news.mhtml rabbi.mhtml \
-	  rambler.mhtml relogin.mhtml seealso.mhtml spin.mhtml subtitle.mhtml \
-	  textears.mhtml tip.mhtml tip-posting.mhtml today.mhtml top.mhtml \
-	  top-404.mhtml topics.mhtml topics-admin.mhtml topics-blog.mhtml \
-	  topics-book.mhtml topics-daily.mhtml topics-events.mhtml \
-	  topics-help.mhtml topics-gallery-general.mhtml \
+	  menu.mhtml migdal-news.mhtml peruser.mhtml peruser-intros.mhtml \
+	  picture.mhtml picture-main.mhtml pointer.mhtml posting.mhtml \
+	  posting-book.mhtml posting-ear.mhtml posting-general.mhtml \
+	  posting-link.mhtml posting-printing.mhtml posting-times.mhtml \
+	  posting-times-cover.mhtml postings.mhtml postings-links.mhtml \
+	  postings-migdal-news.mhtml rabbi.mhtml rambler.mhtml relogin.mhtml \
+	  seealso.mhtml spin.mhtml subtitle.mhtml textears.mhtml tip.mhtml \
+	  tip-posting.mhtml today.mhtml top.mhtml top-404.mhtml topics.mhtml \
+	  topics-admin.mhtml topics-book.mhtml topics-daily.mhtml \
+	  topics-events.mhtml topics-help.mhtml topics-gallery-general.mhtml \
 	  topics-gallery-major.mhtml topics-gallery-migdal.mhtml \
 	  topics-general.mhtml topics-links.mhtml topics-major.mhtml \
 	  topics-migdal.mhtml topics-migdal-english.mhtml topics-minor.mhtml \
-	  topics-times.mhtml topicselect.mhtml tzdaka.mhtml uploader.mhtml \
-	  userinfo.mhtml utils.mhtml vote.mhtml xml-text.mhtml
+	  topics-peruser.mhtml topics-times.mhtml topicselect.mhtml \
+	  tzdaka.mhtml uploader.mhtml userinfo.mhtml utils.mhtml vote.mhtml \
+	  xml-text.mhtml
 	  
 $(targetdir):
 	mkdir -p $(targetdir)

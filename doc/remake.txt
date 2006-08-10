@@ -283,6 +283,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * migdal/migdal-news.mhtml (кроме событий)
 + migdal/modbits.mhtml
 + migdal/moderator.mhtml
++ migdal/peruser.mhtml
 + migdal/postingedit.mhtml (кроме ссылок на help и hidden для гостей)
 + migdal/posting.mhtml
 * migdal/postingorg.mhtml (исправить стиль сообщений об ошибках)
@@ -294,7 +295,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/stotext-help-subs.mhtml
 - migdal/stotext-help-types.mhtml
 - migdal/style.mhtml
-- migdal/taglit.mhtml
 - migdal/taglit-user.mhtml
 - migdal/_template.mhtml
 + migdal/times.mhtml
@@ -311,7 +311,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/userok.mhtml
 - migdal/userrepair.mhtml
 + migdal/users.mhtml
-- migdal/veterans.mhtml
 - migdal/veterans-user.mhtml
 
 * migdal/parts/article.mhtml
@@ -319,7 +318,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/bannerbank.mhtml
 + migdal/parts/banners.mhtml
 - migdal/parts/blog-gallery.mhtml
-- migdal/parts/blog.mhtml
 - migdal/parts/blog-posting.mhtml
 * migdal/parts/book-chapters.mhtml (кроме пакетов)
 - migdal/parts/book-chapters-static.mhtml
@@ -353,7 +351,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/mailru.mhtml
 + migdal/parts/menu.mhtml
 + migdal/parts/migdal-news.mhtml
-- migdal/parts/picture-main.mhtml
++ migdal/parts/peruser.mhtml
++ migdal/parts/picture-main.mhtml
 + migdal/parts/picture.mhtml
 + migdal/parts/pointer.mhtml
 * migdal/parts/posting-book.mhtml
@@ -379,7 +378,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/today.mhtml
 - migdal/parts/top-404.mhtml
 * migdal/parts/topics-admin.mhtml
-- migdal/parts/topics-blog.mhtml
 + migdal/parts/topics-book.mhtml
 * migdal/parts/topics-daily.mhtml
 + migdal/parts/topicselect.mhtml
@@ -395,6 +393,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/parts/topics-migdal-english.mhtml
 * migdal/parts/topics-migdal.mhtml
 - migdal/parts/topics-minor.mhtml
++ migdal/parts/topics-peruser.mhtml
 + migdal/parts/topics-times.mhtml
 + migdal/parts/top.mhtml
 + migdal/parts/tzdaka.mhtml

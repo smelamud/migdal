@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.0.21-Debian_3-log
+-- Server version	5.0.22-Debian_4-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,12 +25,12 @@ CREATE TABLE `chat_messages` (
   `sender_id` int(11) NOT NULL default '0',
   `private_id` int(11) NOT NULL default '0',
   `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `text` varchar(255) NOT NULL,
-  `text_xml` varchar(255) NOT NULL,
+  `text` varchar(255) collate koi8u_bin NOT NULL,
+  `text_xml` varchar(255) collate koi8u_bin NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `sender_id` (`sender_id`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `complain_actions`
@@ -39,15 +39,12 @@ CREATE TABLE `chat_messages` (
 DROP TABLE IF EXISTS `complain_actions`;
 CREATE TABLE `complain_actions` (
   `id` int(11) NOT NULL auto_increment,
-  `type_id` int(11) NOT NULL default '0',
-  `name` varchar(70) NOT NULL default '',
-  `text` text NOT NULL,
-  `automatic` tinyint(4) NOT NULL default '0',
+  `name` varchar(70) collate koi8u_bin NOT NULL default '',
+  `text` text collate koi8u_bin NOT NULL,
   `script_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
-  KEY `type_id` (`type_id`),
   KEY `script_id` (`script_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `counters`
@@ -71,7 +68,7 @@ CREATE TABLE `counters` (
   KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `counters_ip`
@@ -84,7 +81,7 @@ CREATE TABLE `counters_ip` (
   `expires` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`counter_id`,`ip`),
   KEY `expires` (`expires`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `cross_entries`
@@ -92,15 +89,18 @@ CREATE TABLE `counters_ip` (
 
 DROP TABLE IF EXISTS `cross_entries`;
 CREATE TABLE `cross_entries` (
-  `source_name` varchar(255) default NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `source_name` varchar(255) collate koi8u_bin default NULL,
   `source_id` int(11) default NULL,
   `link_type` int(11) NOT NULL,
-  `peer_name` varchar(255) default NULL,
+  `peer_name` varchar(255) collate koi8u_bin default NULL,
   `peer_id` int(11) default NULL,
-  `peer_path` varchar(255) NOT NULL,
-  `peer_subject` varchar(255) NOT NULL,
-  `peer_icon` varchar(64) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `peer_path` varchar(255) collate koi8u_bin NOT NULL,
+  `peer_subject` varchar(255) collate koi8u_bin NOT NULL,
+  `peer_subject_sort` varchar(255) collate koi8u_bin NOT NULL,
+  `peer_icon` varchar(64) collate koi8u_bin NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `entries`
@@ -109,46 +109,45 @@ CREATE TABLE `cross_entries` (
 DROP TABLE IF EXISTS `entries`;
 CREATE TABLE `entries` (
   `id` int(11) NOT NULL auto_increment,
-  `ident` varchar(75) default NULL,
+  `ident` varchar(75) collate koi8u_bin default NULL,
   `entry` tinyint(4) NOT NULL,
   `up` int(11) NOT NULL,
-  `track` varchar(255) NOT NULL,
-  `catalog` varchar(255) NOT NULL,
+  `track` varchar(255) collate koi8u_bin NOT NULL,
+  `catalog` varchar(255) collate koi8u_bin NOT NULL,
   `parent_id` int(11) NOT NULL,
   `orig_id` int(11) NOT NULL,
   `current_id` int(11) NOT NULL,
   `grp` int(11) NOT NULL,
-  `link` int(11) NOT NULL,
   `person_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
   `perms` int(11) NOT NULL,
   `disabled` tinyint(4) NOT NULL,
-  `subject` varchar(255) NOT NULL,
-  `subject_sort` varchar(255) NOT NULL,
-  `lang` varchar(7) NOT NULL,
-  `author` varchar(255) NOT NULL,
-  `author_xml` varchar(255) NOT NULL,
-  `source` varchar(255) NOT NULL,
-  `source_xml` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `title_xml` varchar(255) NOT NULL,
-  `comment0` varchar(255) NOT NULL,
-  `comment0_xml` varchar(255) NOT NULL,
-  `comment1` varchar(255) NOT NULL,
-  `comment1_xml` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `url_domain` varchar(70) NOT NULL,
+  `subject` varchar(255) collate koi8u_bin NOT NULL,
+  `subject_sort` varchar(255) collate koi8u_bin NOT NULL,
+  `lang` varchar(7) collate koi8u_bin NOT NULL,
+  `author` varchar(255) collate koi8u_bin NOT NULL,
+  `author_xml` varchar(255) collate koi8u_bin NOT NULL,
+  `source` varchar(255) collate koi8u_bin NOT NULL,
+  `source_xml` varchar(255) collate koi8u_bin NOT NULL,
+  `title` varchar(255) collate koi8u_bin NOT NULL,
+  `title_xml` varchar(255) collate koi8u_bin NOT NULL,
+  `comment0` varchar(255) collate koi8u_bin NOT NULL,
+  `comment0_xml` varchar(255) collate koi8u_bin NOT NULL,
+  `comment1` varchar(255) collate koi8u_bin NOT NULL,
+  `comment1_xml` varchar(255) collate koi8u_bin NOT NULL,
+  `url` varchar(255) collate koi8u_bin NOT NULL,
+  `url_domain` varchar(70) collate koi8u_bin NOT NULL,
   `url_check` datetime NOT NULL,
   `url_check_success` datetime NOT NULL,
-  `body` text NOT NULL,
-  `body_xml` text NOT NULL,
+  `body` text collate koi8u_bin NOT NULL,
+  `body_xml` text collate koi8u_bin NOT NULL,
   `body_format` int(11) NOT NULL,
   `has_large_body` tinyint(4) NOT NULL,
-  `large_body` mediumtext NOT NULL,
-  `large_body_xml` mediumtext NOT NULL,
+  `large_body` mediumtext collate koi8u_bin NOT NULL,
+  `large_body_xml` mediumtext collate koi8u_bin NOT NULL,
   `large_body_format` int(11) NOT NULL,
-  `large_body_filename` varchar(70) NOT NULL,
+  `large_body_filename` varchar(70) collate koi8u_bin NOT NULL,
   `priority` tinyint(4) NOT NULL,
   `index0` int(11) NOT NULL,
   `index1` int(11) NOT NULL,
@@ -177,8 +176,8 @@ CREATE TABLE `entries` (
   `large_image_x` smallint(6) NOT NULL,
   `large_image_y` smallint(6) NOT NULL,
   `large_image_size` int(11) NOT NULL,
-  `large_image_format` varchar(30) NOT NULL,
-  `large_image_filename` varchar(70) NOT NULL,
+  `large_image_format` varchar(30) collate koi8u_bin NOT NULL,
+  `large_image_filename` varchar(70) collate koi8u_bin NOT NULL,
   `used` tinyint(4) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `ident` (`ident`),
@@ -208,7 +207,7 @@ CREATE TABLE `entries` (
   KEY `last_answer` (`last_answer`),
   KEY `used` (`used`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `entry_grps`
@@ -220,7 +219,7 @@ CREATE TABLE `entry_grps` (
   `grp` int(11) NOT NULL,
   KEY `entry_id` (`entry_id`),
   KEY `grp` (`grp`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `groups`
@@ -232,7 +231,7 @@ CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL default '0',
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `horisonts`
@@ -240,12 +239,12 @@ CREATE TABLE `groups` (
 
 DROP TABLE IF EXISTS `horisonts`;
 CREATE TABLE `horisonts` (
-  `host` varchar(30) NOT NULL default '',
+  `host` varchar(30) collate koi8u_bin NOT NULL default '',
   `we_know` int(11) NOT NULL default '0',
   `they_know` int(11) NOT NULL default '0',
   `lock` datetime default NULL,
   PRIMARY KEY  (`host`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `image_files`
@@ -254,7 +253,7 @@ CREATE TABLE `horisonts` (
 DROP TABLE IF EXISTS `image_files`;
 CREATE TABLE `image_files` (
   `max_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `inner_images`
@@ -269,11 +268,10 @@ CREATE TABLE `inner_images` (
   `image_id` int(11) NOT NULL default '0',
   `placement` tinyint(4) NOT NULL default '0',
   `used` tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (`entry_id`,`par`,`x`,`y`),
   KEY `used` (`used`),
-  KEY `par` (`par`),
-  KEY `entry_id` (`entry_id`),
   KEY `image_entry_id` (`image_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `journal`
@@ -294,7 +292,7 @@ CREATE TABLE `journal` (
   KEY `result_id` (`result_id`),
   KEY `result_var` (`result_var`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
 
 --
 -- Table structure for table `journal_vars`
@@ -309,7 +307,7 @@ CREATE TABLE `journal_vars` (
   KEY `var` (`var`),
   KEY `host` (`host`),
   KEY `last_read` (`last_read`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
 
 --
 -- Table structure for table `logs`
@@ -325,7 +323,7 @@ CREATE TABLE `logs` (
   PRIMARY KEY  (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
 
 --
 -- Table structure for table `mailings`
@@ -340,7 +338,7 @@ CREATE TABLE `mailings` (
   PRIMARY KEY  (`id`),
   KEY `type_id` (`type_id`),
   KEY `receiver_id` (`receiver_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `old_ids`
@@ -348,14 +346,14 @@ CREATE TABLE `mailings` (
 
 DROP TABLE IF EXISTS `old_ids`;
 CREATE TABLE `old_ids` (
-  `table_name` char(32) NOT NULL,
+  `table_name` char(32) collate koi8u_bin NOT NULL,
   `old_id` int(11) NOT NULL,
-  `old_ident` varchar(75) default NULL,
+  `old_ident` varchar(75) collate koi8u_bin default NULL,
   `entry_id` int(11) NOT NULL,
   PRIMARY KEY  (`table_name`,`old_id`),
   UNIQUE KEY `table_name` (`table_name`,`entry_id`),
   UNIQUE KEY `table_name_2` (`table_name`,`old_ident`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `packages`
@@ -366,11 +364,11 @@ CREATE TABLE `packages` (
   `id` int(11) NOT NULL auto_increment,
   `entry_id` int(11) NOT NULL,
   `type` int(11) NOT NULL default '0',
-  `mime_type` varchar(50) NOT NULL default '',
-  `title` varchar(250) NOT NULL default '',
+  `mime_type` varchar(50) collate koi8u_bin NOT NULL default '',
+  `title` varchar(250) collate koi8u_bin NOT NULL default '',
   `body` longblob NOT NULL,
   `size` int(11) NOT NULL default '0',
-  `url` varchar(250) NOT NULL default '',
+  `url` varchar(250) collate koi8u_bin NOT NULL default '',
   `created` datetime NOT NULL default '0000-00-00 00:00:00',
   `used` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`),
@@ -378,7 +376,7 @@ CREATE TABLE `packages` (
   KEY `created` (`created`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `profiling`
@@ -388,20 +386,20 @@ DROP TABLE IF EXISTS `profiling`;
 CREATE TABLE `profiling` (
   `id` int(11) NOT NULL auto_increment,
   `up` int(11) NOT NULL default '0',
-  `track` varchar(255) NOT NULL default '',
+  `track` varchar(255) collate koi8u_bin NOT NULL default '',
   `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `object` smallint(6) NOT NULL default '0',
-  `name` varchar(250) NOT NULL default '',
+  `name` varchar(250) collate koi8u_bin NOT NULL default '',
   `begin_time` int(11) NOT NULL default '0',
   `end_time` int(11) NOT NULL default '0',
-  `comment` varchar(250) NOT NULL default '',
+  `comment` varchar(250) collate koi8u_bin NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `up` (`up`),
   KEY `track` (`track`),
   KEY `object` (`object`),
   KEY `name` (`name`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `redirs`
@@ -418,7 +416,7 @@ CREATE TABLE `redirs` (
   KEY `up` (`up`),
   KEY `track` (`track`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
 
 --
 -- Table structure for table `sessions`
@@ -435,7 +433,7 @@ CREATE TABLE `sessions` (
   UNIQUE KEY `sid` (`sid`),
   KEY `user_id` (`user_id`),
   KEY `last` (`last`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
 
 --
 -- Table structure for table `tmp_texts`
@@ -448,7 +446,7 @@ CREATE TABLE `tmp_texts` (
   `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
 
 --
 -- Table structure for table `users`
@@ -457,25 +455,25 @@ CREATE TABLE `tmp_texts` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL auto_increment,
-  `login` varchar(30) NOT NULL default '',
-  `login_sort` varchar(60) NOT NULL default '',
-  `password` varchar(40) NOT NULL default '',
-  `name` varchar(30) NOT NULL default '',
-  `name_sort` varchar(60) NOT NULL default '',
-  `jewish_name` varchar(30) NOT NULL default '',
-  `jewish_name_sort` varchar(60) NOT NULL default '',
-  `surname` varchar(30) NOT NULL default '',
-  `surname_sort` varchar(60) NOT NULL default '',
-  `gender` enum('mine','femine') NOT NULL default 'mine',
-  `info` text NOT NULL,
-  `info_xml` text NOT NULL,
+  `login` varchar(30) collate koi8u_bin NOT NULL default '',
+  `login_sort` varchar(60) collate koi8u_bin NOT NULL default '',
+  `password` varchar(40) collate koi8u_bin NOT NULL default '',
+  `name` varchar(30) collate koi8u_bin NOT NULL default '',
+  `name_sort` varchar(60) collate koi8u_bin NOT NULL default '',
+  `jewish_name` varchar(30) collate koi8u_bin NOT NULL default '',
+  `jewish_name_sort` varchar(60) collate koi8u_bin NOT NULL default '',
+  `surname` varchar(30) collate koi8u_bin NOT NULL default '',
+  `surname_sort` varchar(60) collate koi8u_bin NOT NULL default '',
+  `gender` enum('mine','femine') collate koi8u_bin NOT NULL default 'mine',
+  `info` text collate koi8u_bin NOT NULL,
+  `info_xml` text collate koi8u_bin NOT NULL,
   `birthday` date NOT NULL default '0000-00-00',
   `last_online` datetime NOT NULL default '0000-00-00 00:00:00',
   `confirm_deadline` datetime default NULL,
-  `confirm_code` varchar(20) NOT NULL default '',
-  `email` varchar(70) NOT NULL default '',
+  `confirm_code` varchar(20) collate koi8u_bin NOT NULL default '',
+  `email` varchar(70) collate koi8u_bin NOT NULL default '',
   `hide_email` tinyint(4) NOT NULL default '0',
-  `icq` varchar(15) NOT NULL default '',
+  `icq` varchar(15) collate koi8u_bin NOT NULL default '',
   `email_disabled` tinyint(4) NOT NULL default '0',
   `shames` tinyint(4) NOT NULL default '0',
   `guest` tinyint(4) NOT NULL default '0',
@@ -483,7 +481,7 @@ CREATE TABLE `users` (
   `hidden` tinyint(4) NOT NULL default '0',
   `no_login` tinyint(4) NOT NULL default '0',
   `has_personal` tinyint(4) NOT NULL default '0',
-  `settings` varchar(70) NOT NULL default '',
+  `settings` varchar(70) collate koi8u_bin NOT NULL default '',
   `last_chat` datetime NOT NULL default '0000-00-00 00:00:00',
   `in_chat` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`),
@@ -499,7 +497,7 @@ CREATE TABLE `users` (
   KEY `in_chat` (`in_chat`),
   KEY `shames` (`shames`),
   KEY `guest` (`guest`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `version`
@@ -508,7 +506,7 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `version`;
 CREATE TABLE `version` (
   `db_version` int(11) NOT NULL default '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `votes`
@@ -525,7 +523,7 @@ CREATE TABLE `votes` (
   KEY `user_id` (`user_id`),
   KEY `sent` (`sent`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -540,7 +538,7 @@ CREATE TABLE `votes` (
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.0.21-Debian_3-log
+-- Server version	5.0.22-Debian_4-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
