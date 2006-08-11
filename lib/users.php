@@ -588,6 +588,19 @@ $result=sql("select id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+function idByLogin($login)
+{
+if(isId($login))
+  return $login;
+if(is_null($login) || $login=='')
+  return 0;
+if(hasCachedValue('login','users',$login))
+  return getCachedValue('login','users',$login);
+$id=getUserIdByLogin($login);
+setCachedValue('login','users',$login,$id);
+return $id;
+}
+
 function getUserIdByLoginPassword($login,$password)
 {
 $loginS=addslashes($login);

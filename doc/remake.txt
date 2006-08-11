@@ -284,6 +284,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/modbits.mhtml
 + migdal/moderator.mhtml
 + migdal/peruser.mhtml
++ migdal/peruser-user.mhtml
 + migdal/postingedit.mhtml (кроме ссылок на help и hidden для гостей)
 + migdal/posting.mhtml
 * migdal/postingorg.mhtml (исправить стиль сообщений об ошибках)
@@ -295,7 +296,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - migdal/stotext-help-subs.mhtml
 - migdal/stotext-help-types.mhtml
 - migdal/style.mhtml
-- migdal/taglit-user.mhtml
 - migdal/_template.mhtml
 + migdal/times.mhtml
 - migdal/tips.mhtml
@@ -311,13 +311,11 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/userok.mhtml
 - migdal/userrepair.mhtml
 + migdal/users.mhtml
-- migdal/veterans-user.mhtml
 
 * migdal/parts/article.mhtml
 * migdal/parts/backtrace.mhtml (удалить лишний код)
 - migdal/parts/bannerbank.mhtml
 + migdal/parts/banners.mhtml
-- migdal/parts/blog-gallery.mhtml
 - migdal/parts/blog-posting.mhtml
 * migdal/parts/book-chapters.mhtml (кроме пакетов)
 - migdal/parts/book-chapters-static.mhtml

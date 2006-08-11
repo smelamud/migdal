@@ -38,8 +38,13 @@
     </ifzero>
    </div>
    <p>
+   <zone>
+    <entry_grps id='$topic_id'>
+    <assign name='noadd' value!='!in_array(*GRP_GALLERY,$,)'>
+   </zone>
    <gallery topic_id='$,Id' rows='$userPictureRowPortion'
-            cols='$userPictureColumnPortion' offset='$offset' sort='$sort'>
+            cols='$userPictureColumnPortion' offset='$offset' sort='$sort'
+	    noguests!='!$,isGuestPostable' noadd='$noadd'>
   </td>
  </tr></table>
  <bottom>

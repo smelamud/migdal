@@ -10,6 +10,12 @@ function titleUserLogin($id)
 return getUserLoginById($id);
 }
 
+function titleUserFullName($id)
+{
+$user=getUserById($id);
+return $user->getFullName();
+}
+
 function titleTopicName($id)
 {
 $topic=getTopicNameById($id);

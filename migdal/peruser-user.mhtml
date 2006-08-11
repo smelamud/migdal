@@ -1,52 +1,46 @@
 << @(#) $Id$ >>
 
-<int name='offset'>
+<int name='topic_id'>
 <int name='user_id'>
+<int name='offset'>
 <int name='sort'>
 <ifzero what='$sort'>
  <assign name='sort' value='*SORT_PSENT'>
 <else>
  <meta_noindex>
 </ifzero>
+
 <grps>
 <user_obj name='user' id='$user_id'>
-<ifzero what='$,Id'>
- <fail>
-</ifzero>
-<pagetitle title#='Таглит - $user.FullName'>
-<topictitle title#='Таглит - $user.FullName'>
-<log event=taglit text#='user($user.Id) offset=$offset'>
+<<log event=taglit text#='user($user.Id) offset=$offset'>>
 
 <html>
 <preamble>
 <body>
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
-  <td width=150 class='eframe'><zone>
-   <posting_new topic_id='$`taglit`' grp='*GRP_BLOG_FORUMS'
-                sender_id='$user.Id'>
-   <topics posting='$,'>
+  <td width=150 class='eframe'>
+   <topics>
    <ears>
-  </zone></td>
+  </td>
   <td>
    <div class='cframe' style='padding: 5'>
     <subtitle>
     <div class='ninept'>
-     <a href='users/$#user.Folder/'
+     <a href='/users/$#user.Folder/?redirid=$_'
 	onClick="UserInfo($user.Id);return false">О пользователе $user.Login</a>
      <maillink message='$user'>
     </div>
     <ifzero what='$offset'>
      <p>
-     <postings grp='*GRP_BLOG_FORUMS' topic_id='$`taglit`' limit=0
+     <postings grp='*GRP_BLOG_FORUMS' topic_id='$topic_id' limit=0
                user_id='$user.Id'>
     </ifzero>
    </div>
    <p>
-   <blog_gallery topic_id='$`taglit`' user_id='$user.Id'
-                   rows='$userPictureRowPortion'
- 		   cols='$userPictureColumnPortion' offset='$offset'
-		   sort='$sort'>
+   <gallery topic_id='$topic_id' rows='$userPictureRowPortion'
+            cols='$userPictureColumnPortion' offset='$offset' sort='$sort'
+	    user_id='$user.Id' noguests='*true'>
   </td>
  </tr></table>
  <bottom>

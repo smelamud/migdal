@@ -117,7 +117,7 @@ postValue($name,postProcessString($value));
 
 function postProcessUser($value)
 {
-return isId($value) ? $value : getUserIdByLogin($value);
+return idByLogin($value);
 }
 
 function postUser($name)

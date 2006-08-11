@@ -1,14 +1,14 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='&list,topic_id,access,noedit'>
+<element name='batcher' params='&list,topic_id,noguests,noadd'>
 <table width=100%>
  <tr valign=bottom>
-  <if what='!$noedit'>
+  <if what='!$noadd'>
    <td align=left class='info'>
     <table><tr valign=center>
      <td><image src='/pics/sheet.gif'></td>
      <td>
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_GALLERY&noguests=$access&redirid=$_'
+      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_GALLERY&noguests=$noguests&redirid=$_'
 	 >Добавить картинку</a>
      </td>
     </tr></table>
@@ -25,22 +25,13 @@
 </element>
 
 <element name='gallery'>
-<if what='$topic_id>0'>
- <perms table='topics' id='$topic_id'>
- <assign name='access' value='$,isPostable'>
- <entry_grps id='$topic_id'>
- <assign name='noedit' value!='!in_array(*GRP_GALLERY,$,)'>
-<else>
- <assign name='access' value!='$$userId>0'>
- <assign name='noedit' value='*false'>
-</if>
 <assign name='limit' value!='$rows * $cols'>
 <iterate_postinglist name='list' grp='*GRP_GRAPHICS' topic_id='$topic_id'
                      offset='$offset' limit='$limit' sort='$sort'
 		     subdomain='$subdomain' user='$user_id'>
 <iterate_rows cols='$cols'>
-<batcher list='$list' topic_id='$topic_id' access='$access' noedit='$noedit'>
-<if what='$access || $list.Count!=0'>
+<batcher list='$list' topic_id='$topic_id' noguests='$noguests' noadd='$noadd'>
+<ifnzero what='$list.Count'>
  <table cellspacing=10 cellpadding=0>
   <tr valign=top>
    <for>
@@ -54,8 +45,6 @@
    </for>
   </tr>
  </table>
- <ifnzero what='$list.Count'>
-  <batcher list='$list' topic_id='$topic_id' access='$access' noedit='$noedit'>
- </ifnzero>
-</if>
+ <batcher list='$list' topic_id='$topic_id' noguests='$noguests' noadd='$noadd'>
+</ifnzero>
 </element>

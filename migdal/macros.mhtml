@@ -32,9 +32,6 @@
        defaults="target=''">
 <decel name='bannerbank' file='parts/bannerbank.php'>
 <decel name='banners' file='parts/banners.php'>
-<decel name='blog_gallery' file='parts/blog-gallery.php'
-       params='user_id,rows,cols,offset,sort,topic_id'
-       defaults="sort='*SORT_PSENT'">
 <decel name='blog_posting' file='parts/blog-posting.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
@@ -133,9 +130,9 @@
        params='parent_id,limit,offset'
        defaults='limit=10 offset=0'>
 <decel name='gallery' file='parts/gallery.php'
-       params='topic_id,rows,cols,offset,subdomain,sort,user_id'
+       params='topic_id,rows,cols,offset,subdomain,sort,user_id,noguests,noadd'
        defaults="topic_id=-1 rows=4 cols=5 offset=0 subdomain=-1
-                 sort='*SORT_PSENT' user_id=0">
+                 sort='*SORT_PSENT' user_id=0 noguests='*false' noadd='*false'">
 <decel name='gallery_main' file='parts/gallery-main.php'
        params='offset,topic_id' defaults="offset=0 topic_id=-1">
 <decel name='googleru' file='parts/googleru.php'>

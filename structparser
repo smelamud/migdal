@@ -89,6 +89,12 @@ for my $var(keys %$item)
      $grp=uc $grp;
      addCond($item," && isEntryInGrp(\"$value\",GRP_$grp)");
      }
+   elsif($var eq 'cond:user')
+     {
+     my $value=$$item{$var};
+     $value="\".idByLogin(\"$value\").\"";
+     addCond($item," && userExists(\"$value\")");
+     }
    elsif($var=~/^cond:(\w+)$/)
      {
      my ($table,$value)=($1,$$item{$var});
