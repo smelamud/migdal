@@ -1,11 +1,11 @@
 << @(#) $Id$ >>
 
 <element name='events'>
+<assign name='active' value!='$grp!==*GRP_NONE'>
 <topic_obj name='topic' id='$`migdal.events`'>
 <topics_table class!="$active ? 'ninept' : 'eightpt'" title='События'>
  <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
-                    sort='*SORT_RINDEX2_RINDEX0'
-		    fields!='$active ? *SELECT_INFO : *SELECT_GENERAL'>
+                    sort='*SORT_RINDEX2_RINDEX0'>
  <assign name='year' value='0'>
  <for>
   <if what='$.Index2!=$year && $.Index2!=0'>
@@ -23,10 +23,11 @@
    </if>
   </if>
   <if what='$active'>
-   <assign name='info' value='$.PostingsInfo'>
+   <postings_info name='info' grp='$grp' topic_id='$.Id' recursive='*true'>
   </if>
   <topics_line time!='$active ? $info.MaxSent : 0' text='$=.Comment0'
                title='$=.BodyNormal' href#='$prefix/$.Catalog'
+	       count!="$active && $grp!=*GRP_ALL ? $info.Total : ''"
 	       arrow!='$active && $index==$.Id'
 	       class!="$active ? 'topics-item' : 'none'">
  </for>

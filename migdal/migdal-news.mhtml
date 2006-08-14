@@ -29,7 +29,7 @@
      <td width=130 class='nframe'><inner>
       <if what='$topic_id==$`migdal`'>
        <migdal_news>
-       <events active='*false'>
+       <events grp='*GRP_NONE'>
       </if>
      </inner></td>
     </tr></table></outer>

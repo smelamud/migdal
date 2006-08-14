@@ -1,33 +1,34 @@
 << @(#) $Id$ >>
 
 <element name='topics_gallery_migdal'>
-<postings_info grp='*GRP_GRAPHICS' topic_id='$`kes`' recursive='*true'>
-<topics_line time='$,MaxSent' text='Клуб Еврейского Студента'
-	     count='$,Total' href#='gallery.php?topic_id=$`kes`'
-	     arrow!="$/$posting.TopicId,2/==$`kes`" indent=1
-	     class='item eightpt'>
-<postings_info grp='*GRP_GRAPHICS' topic_id='$`museum`' recursive='*true'>
-<topics_line time='$,MaxSent' count='$,Total'
-             href#='gallery.php?topic_id=$`museum`'
+<postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.jcc.student`'
+               recursive='*true'>
+<topics_line time='$,MaxSent' text='Клуб Еврейского Студента' count='$,Total'
+             href='/gallery/migdal/jcc/student/'
+	     arrow!="$index=='gallery.migdal.jcc.student'" indent=1
+	     class='topics-item eightpt'>
+<postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.museum`'
+               recursive='*true'>
+<topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/museum/'
 	     text='Музей истории евреев Одессы'
-	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`museum`" indent=1
-	     class='item eightpt'>
-<postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal-ohr`' recursive='*true'>
-<topics_line time='$,MaxSent' count='$,Total'
-             href#='gallery.php?topic_id=$`migdal-ohr`'
+	     arrow!="$index=='gallery.migdal.museum'" indent=1
+	     class='topics-item eightpt'>
+<postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.migdal-or`'
+               recursive='*true'>
+<topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/migdal-or/'
 	     text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
-	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`migdal-ohr`"
-	     indent=1 class='item eightpt'>
-<postings_info grp='*GRP_GRAPHICS' topic_id='$`mazltov`' recursive='*true'>
-<topics_line time='$,MaxSent' count='$,Total'
-             href#='gallery.php?topic_id=$`mazltov`'
+	     arrow!="$index=='gallery.migdal.migdal-or'" indent=1
+	     class='topics-item eightpt'>
+<postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.mazltov`'
+               recursive='*true'>
+<topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/mazltov/'
 	     text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
-	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`mazltov`" indent=1
-	     class='item eightpt'>
-<postings_info grp='*GRP_GRAPHICS' topic_id='$`beitenu`' recursive='*true'>
-<topics_line time='$,MaxSent' count='$,Total'
-             href#='gallery.php?topic_id=$`beitenu`'
+	     arrow!="$index=='gallery.migdal.mazltov'" indent=1
+	     class='topics-item eightpt'>
+<postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.beitenu`'
+               recursive='*true'>
+<topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/beitenu/'
 	     text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
-	     arrow!="$posting!=0 && $/$posting.TopicId,1/==$`beitenu`" indent=1
-	     class='item eightpt'>
+	     arrow!="$index=='gallery.migdal.beitenu'" indent=1
+	     class='topics-item eightpt'>
 </element>

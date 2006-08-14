@@ -4,9 +4,9 @@
 <topics_table title='Разделы' span=2>
  <topics_line href='/gallery/' title='На главную страницу галереи'
 	      text='Главная' arrow!="$index=='gallery'" span=2>
- <topics_line href#='gallery.php?topic_id=$`migdal`' text='Мигдаль' span=2>
-	      <<arrow!="$posting!=0 && $posting.TopicId==$`migdal`">>
- <<topics_gallery_migdal posting='$posting'>>
+ <topics_line href='/gallery/migdal/' text='Мигдаль' span=2
+              arrow!="$index=='gallery.migdal'">
+ <topics_gallery_migdal index='$index'>
  <admin_topics>
   <tr><td colspan=3 class='eightpt'>
    <a href='/gallery/major/?redirid=$_'>Изменить</a>
@@ -22,5 +22,21 @@
 	       title='$=,BodyNormal' text='$=,Subject' span=2
 	       arrow!='$topic.Id==$index'>
  </for>
+</topics_table>
+</element>
+
+<element name='topics_gallery_misc'>
+<topics_table class='ninept' title='Разное'>
+<iterate_topiclist grp='*GRP_GALLERY' up='$`general`'>
+<for>
+ <entry_grps id='$.Id'>
+ <if what='count($,)==1 && $,[0]==*GRP_GALLERY'>
+  <postings_info name='info' grp='*GRP_GALLERY' topic_id='$.Id'>
+  <posting_catalog name='href' entry='$.' start=1>
+  <topics_line time='$info.MaxSent' href#='/gallery/$href'
+	       title='$=.BodyNormal' text='$=.Subject' count='$info.Total'
+	       arrow!='$.Id==$index'>
+ </if>
+</for>
 </topics_table>
 </element>

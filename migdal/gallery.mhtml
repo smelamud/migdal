@@ -83,10 +83,7 @@
     <subtitle>
     <notonly>
     <p>
-    <<seealso_links topic_id='$topic_id' topic_grp='*GRP_GALLERY'
-		   title='См. также в разделе ссылок'>
-    <seealso_other topic_id='$topic_id' topic_grp='*GRP_GALLERY'
-		   title='По этой теме в других разделах'>>
+    <seealso_frame>
    </div>
    <perms table='topics' id='$topic_id'>
    <assign name='noguests' value!='!$,isGuestPostable'>

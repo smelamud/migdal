@@ -379,10 +379,10 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + migdal/parts/topics-book.mhtml
 * migdal/parts/topics-daily.mhtml
 + migdal/parts/topicselect.mhtml
-* migdal/parts/topics-events.mhtml (кроме PostingInfo о картинках)
++ migdal/parts/topics-events.mhtml
 * migdal/parts/topics-gallery-general.mhtml
 * migdal/parts/topics-gallery-major.mhtml
-- migdal/parts/topics-gallery-migdal.mhtml
++ migdal/parts/topics-gallery-migdal.mhtml
 * migdal/parts/topics-general.mhtml (удалить)
 - migdal/parts/topics-help.mhtml
 + migdal/parts/topics-links.mhtml

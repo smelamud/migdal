@@ -13,21 +13,6 @@
 </topics_table>
 </element>
 
-<element name='topics_gallery_home'>
-<topics_gallery_major posting='$posting'>
-<topics_gallery_events posting='$posting'>
-<topics_table class='ninept' title='Разное'>
-<iterate_topiclist grp='*GRP_GALLERY' fields='*SELECT_INFO' up='$`general`'>
-<for>
- <if what='$.Allow==*GRP_GALLERY'>
-  <topics_line time='$.LastMessage' href#='gallery.php?topic_id=$.Id'
-	       title='$.Description' text='$.Name' count='$.MessageCount'
-	       arrow!='$.Id==$posting.TopicId'>
- </if>
-</for>
-</topics_table>
-</element>
-
 <element name='topics_gallery_taglit'>
 <topics_gallery_blog posting='$posting' title='Таглит' topic_id='$`taglit`'>
 </element>
@@ -54,4 +39,5 @@
 <element name='topics_gallery_general'>
 <topics_gallery_major index='$index' base='$base'>
 <topics_gallery_events index='$index' base='$base'>
+<topics_gallery_misc index='$index' base='$base'>
 </element>

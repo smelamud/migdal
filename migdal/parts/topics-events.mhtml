@@ -2,12 +2,11 @@
 
 <element name='topics_events'>
 <upper_level name='Мигдаль' href='/migdal/'>
-<events active='*true' index='$index'>
+<events grp='*GRP_ALL' index='$index'>
 </element>
 
 <element name='topics_gallery_events'>
-<events active='*true' index='$index' prefix='/gallery'>
-<<postings_info grp='*GRP_GRAPHICS' topic_id='$.Id' recursive='*true'>>
+<events grp='*GRP_GRAPHICS' index='$index' prefix='/gallery'>
 </element>
 
 <element name='topics_common_events'>
