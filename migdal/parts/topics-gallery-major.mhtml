@@ -2,30 +2,25 @@
 
 <element name='topics_gallery_major'>
 <topics_table title='Разделы' span=2>
- <topics_line href='gallery.php' title='На главную страницу галереи'
-	      text='Главная' arrow!="$posting.TopicId<=0" span=2>
- <topics_line href#='gallery.php?topic_id=$`migdal`' text='Мигдаль'
-	      arrow!="$posting!=0 && $posting.TopicId==$`migdal`"
-	      span=2 class='item'>
- <topics_gallery_migdal posting='$posting'>
+ <topics_line href='/gallery/' title='На главную страницу галереи'
+	      text='Главная' arrow!="$index=='gallery'" span=2>
+ <topics_line href#='gallery.php?topic_id=$`migdal`' text='Мигдаль' span=2>
+	      <<arrow!="$posting!=0 && $posting.TopicId==$`migdal`">>
+ <<topics_gallery_migdal posting='$posting'>>
  <admin_topics>
   <tr><td colspan=3 class='eightpt'>
-   <a href='topiclinks.php?topic_id=$`major-gallery`&topic_grp=*GRP_GALLERY&peer_grp=*GRP_GALLERY&redirid=$_'>
-      Изменить</a>
+   <a href='/gallery/major/?redirid=$_'>Изменить</a>
   </td></tr>
  </admin_topics>
- <iterate_topic_cross topic_id='$`major-gallery`' topic_grp='*GRP_GALLERY'
-		      peer_grp='*GRP_ALL'>
+ <iterate_entry_cross source_name='gallery.major' link_type='*LINKT_MAJOR'>
  <for>
-  <posting_new name='post' grp='$.PeerGrp' topic_id='$.PeerId'
-	       topic_name='$.PeerName'>
-  <identify posting='$post'>
-  <postings_info name='info' grp='*GRP_GRAPHICS' topic_id='$.PeerId'
-                recursive='*true'>
-  <topic_obj id='$.PeerId' fields='*SELECT_GENERAL'>
-  <topics_line class='item ninept' time='$info.MaxSent' count='$info.Total'
-	       href#='$post.GalleryHref' title='$,Description' text='$,Name'
-	       arrow!='$posting!=0 && $,Id==$posting.TopicId' span=2>
+  <topic_obj name='topic' id='$.PeerId'>
+  <postings_info name='info' grp='*GRP_GRAPHICS' topic_id='$topic.Id'
+                 recursive='*true'>
+  <topics_line class='topic-item ninept' time='$info.MaxSent'
+               count='$info.Total' href#='/gallery/$topic.Catalog'
+	       title='$=,BodyNormal' text='$=,Subject' span=2
+	       arrow!='$topic.Id==$index'>
  </for>
 </topics_table>
 </element>

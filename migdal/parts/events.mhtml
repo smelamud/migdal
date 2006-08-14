@@ -26,7 +26,7 @@
    <assign name='info' value='$.PostingsInfo'>
   </if>
   <topics_line time!='$active ? $info.MaxSent : 0' text='$=.Comment0'
-               title='$=.BodyNormal' href#='/$.Catalog'
+               title='$=.BodyNormal' href#='$prefix/$.Catalog'
 	       arrow!='$active && $index==$.Id'
 	       class!="$active ? 'topics-item' : 'none'">
  </for>

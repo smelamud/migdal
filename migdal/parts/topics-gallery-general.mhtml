@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='topics_gallery_blog' params='title,topic_id,posting'>
+<<element name='topics_gallery_blog' params='title,topic_id,posting'>
 <topics_table title='$title'>
  <iterate_posting_users topic_id='$topic_id'>
  <topics_line text='Новые поступления' href#='gallery.php?topic_id=$topic_id'
@@ -49,4 +49,9 @@
  </ifne>
 </ifne>
 <exec element='$posting.GalleryTopicElement' arg1='$posting'>
+</element>>
+
+<element name='topics_gallery_general'>
+<topics_gallery_major index='$index' base='$base'>
+<topics_gallery_events index='$index' base='$base'>
 </element>

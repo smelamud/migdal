@@ -32,7 +32,7 @@
               current='$ident' time='$times_time'>
     <menuitem ident='discuss' alt='Форум' link='/forum/' target='$target'
               current='$ident' time='$forums_time'>
-    <menuitem ident='gallery' alt='Галерея' link='gallery.php' target='$target'
+    <menuitem ident='gallery' alt='Галерея' link='/gallery/' target='$target'
 	      current='$ident' time='$gallery_time'>
     <menuitem ident='links' alt='Ссылки' link='/links/' target='$target'
 	      current='$ident' time='$links_time'>

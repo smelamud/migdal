@@ -6,31 +6,8 @@
 </element>
 
 <element name='topics_gallery_events'>
-<< FIXME use events element >>
-<topic_obj name='topic' id='$`events`'>
-<topics_table class='ninept' title='События'>
- <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
-                    sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_GENERAL'>
- <assign name='year' value='0'>
- <for>
-  <if what='$.Index4!=$year && $.Index4!=0'>
-   <assign name='year' value='$.Index4'>
-   <assign name='gyearp' value!='$year-3761'>
-   <assign name='gyear' value!='$year-3760'>
-   <topics_section title#='$year/$gyearp-$gyear г.' nobullet='*true'>
-   <iswrite what='$topic'>
-    <tr><td colspan=2>
-     <a href='topics-reorder.php?up=$,Id&level=2&index4=$year&redirid=$_'
-	class='eightpt'>Расставить</a>
-    </td></tr>
-   </iswrite>
-  </if>
-  <postings_info grp='*GRP_GRAPHICS' topic_id='$.Id' recursive='*true'>
-  <topics_line time='$,MaxSent' text='$.Comment0' title='$.Description'
-               count='$,Total' href#='gallery.php?topic_id=$.Id'
-	       arrow!='$posting.TopicId==$.Id'>
- </for>
-</topics_table>
+<events active='*true' index='$index' prefix='/gallery'>
+<<postings_info grp='*GRP_GRAPHICS' topic_id='$.Id' recursive='*true'>>
 </element>
 
 <element name='topics_common_events'>

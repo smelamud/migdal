@@ -6,7 +6,7 @@
   <if what='!$noedit'>
    <td align=left class='info'>
     <table><tr valign=center>
-     <td><image src='pics/sheet.gif'></td>
+     <td><image src='/pics/sheet.gif'></td>
      <td>
       <if what='$topic_id<=0'>
        <assign name='topic_id' value='$`general`'>
@@ -26,25 +26,25 @@
 <table class='posting' width=100%>
  <tr valign=top>
   <td align=center width='$$thumbnailWidth' class='pic'>
-   <ifnzero what='$posting.ImageSet'>
-    <image_linked_tag id='$posting.ImageId' enlarge='$posting.hasLargeImage'>
+   <ifnzero what='$posting.SmallImage'>
+    <posting_image posting='$posting'>
    </ifnzero>
   </td>
   <td width=10>&nbsp;</td>
   <td align=left>
-   <p class='subject'>
-    <topiclink_gallery posting='$posting'>
+   <p class='posting-subject'>
+    <<topiclink_gallery posting='$posting'>>
    </p>
    <p>
     <biff time='$posting.Sent'>
     <array vals='0,1,2'>
     <plural value='$count'>
     <if what='$,==0'>
-     Добавлена <a href='$posting.GalleryHref'>$count новая картинка</a>.
+     Добавлена <<a href='$posting.GalleryHref'>>$count новая картинка<</a>>.
     <elif what='$,==1'>
-     Добавлены <a href='$posting.GalleryHref'>$count новые картинки</a>.
+     Добавлены <<a href='$posting.GalleryHref'>>$count новые картинки<</a>>.
     <else>
-     Добавлены <a href='$posting.GalleryHref'>$count новых картинок</a>.
+     Добавлены <<a href='$posting.GalleryHref'>>$count новых картинок<</a>>.
     </if>
    </p>
    <p class='sent'>
@@ -54,21 +54,20 @@
   </td>
  </tr>
  <tr><td colspan=3>
-  <table width=100% class='bottom'><tr><td>&nbsp;</td></tr></table>
+  <table width=100% class='posting-bottom'><tr><td>&nbsp;</td></tr></table>
  </td></tr>
 </table>
 </element>
 
 <element name='gallery_main'>
 <if what='$topic_id>0'>
- <topic_grp id='$topic_id'>
- <assign name='noedit' value!='($, & *GRP_GALLERY)==0'>
+ <entry_grps id='$topic_id'>
+ <assign name='noedit' value!='!in_array(*GRP_GALLERY,$,)'>
 <else>
  <assign name='noedit' value='*false'>
 </if>
 <iterate_postinglist grp='*GRP_GRAPHICS' topic_id='$topic_id' limit=40
-                     offset='$offset' recursive='*true'
-		     fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
+                     offset='$offset' recursive='*true'>
 <batcher list='$;' topic_id='$topic_id' noedit='$noedit'>
 <assign name='count' value=0>
 <assign name='topic_id' value=0>

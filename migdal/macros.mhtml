@@ -61,8 +61,8 @@
 <decel name='edit' file='parts/formutils.php' params='name,value,size,maxlength'
        defaults='size=40 maxlength=250'>
 <decel name='editlink' file='parts/posting.php' params='posting'>
-<decel name='events' file='parts/events.php' params='active,index'
-       defaults='index=0'>
+<decel name='events' file='parts/events.php' params='active,index,prefix'
+       defaults="index=0 prefix=''">
 <decel name='failpage' file='parts/failpage.php'>
 <decel name='form_buttons' file='parts/formutils.php' params='title'
        defaults="title='Изменить'">
@@ -289,11 +289,13 @@
 <decel name='topics_gallery' file='parts/topics-gallery-general.php'
        params='&posting'>
 <decel name='topics_gallery_events' file='parts/topics-events.php'
-       params='posting'>
+       params='index,base' defaults="base=''">
+<decel name='topics_gallery_general' file='parts/topics-gallery-general.php'
+       params='index,base' defaults="base=''">
 <decel name='topics_gallery_home' file='parts/topics-gallery-general.php'
        params='posting'>
 <decel name='topics_gallery_major' file='parts/topics-gallery-major.php'
-       params='posting'>
+       params='index,base' defaults="base=''">
 <decel name='topics_gallery_migdal' file='parts/topics-gallery-migdal.php'
        params='posting'>
 <decel name='topics_gallery_taglit' file='parts/topics-gallery-general.php'
