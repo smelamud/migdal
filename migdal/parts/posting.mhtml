@@ -5,16 +5,10 @@
 </element>
 
 <element name='topiclink'>
-<location_info path='$posting.GrpGeneralHref'>
-<at href='$posting.GrpGeneralHref' class='$class'>$=,TitleFull</at>
+<assign name='href' value#='$prefix$posting.GrpGeneralHref'>
+<location_info path='$href'>
+<at href='$href' class='$class'>$=,TitleFull</at>
 </element>
-
-<<remake>>
-<<element name='topiclink_gallery'>
-<identify posting='$posting'>
-<at href='$posting.GalleryHref' class='$class'
-    title='$=posting.FullTopicDescription'>$posting.FullTopicName</at>
-</element>>
 
 <element name='editlink'>
 <a href="${posting.GrpDetailsHref}edit/?redirid=$_"

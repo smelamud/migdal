@@ -33,18 +33,19 @@
   <td width=10>&nbsp;</td>
   <td align=left>
    <p class='posting-subject'>
-    <<topiclink_gallery posting='$posting'>>
+    <topiclink posting='$posting' prefix='/gallery'>
    </p>
    <p>
     <biff time='$posting.Sent'>
+    <assign name='href' value#='/gallery$posting.GrpGeneralHref'>
     <array vals='0,1,2'>
     <plural value='$count'>
     <if what='$,==0'>
-     Добавлена <<a href='$posting.GalleryHref'>>$count новая картинка<</a>>.
+     Добавлена <a href='$href'>$count новая картинка</a>.
     <elif what='$,==1'>
-     Добавлены <<a href='$posting.GalleryHref'>>$count новые картинки<</a>>.
+     Добавлены <a href='$href'>$count новые картинки</a>.
     <else>
-     Добавлены <<a href='$posting.GalleryHref'>>$count новых картинок<</a>>.
+     Добавлены <a href='$href'>$count новых картинок</a>.
     </if>
    </p>
    <p class='sent'>

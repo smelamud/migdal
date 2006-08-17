@@ -266,9 +266,8 @@
        defaults="target='' showimages='*true' transref=''">
 <decel name='top_404' file='parts/top-404.php'>
 <decel name='topiclink' file='parts/posting.php'
-       params='&posting,class' defaults="class='posting-topic'">
-<decel name='topiclink_gallery' file='parts/posting.php' params='&posting,class'
-       defaults="class='topic'">
+       params='&posting,class,prefix'
+       defaults="class='posting-topic' prefix=''">
 <decel name='topics' file='parts/topics.php'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='index,base'
        defaults="base=''">
