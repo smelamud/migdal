@@ -13,6 +13,7 @@
 <else>
  <meta_noindex>
 </ifzero>
+<string name='notonly_href'>
 
 << Traps >>
 << Tue Jun 29 02:06:37 EEST 2004 >>
@@ -35,10 +36,10 @@
 </ifnzero>
 << /Traps >>
 
-<zone>
+<<zone>
  <ident_id ident='$topic_id'>
  <log event=gallery text#='topic($,) offset=$offset'>
-</zone>
+</zone>>
 <if what='$user_id<=0'>
  <<unititle chapter='Галерея' topic_id='$topic_id'>> << FIXME deprecated >>
 <else>
@@ -54,16 +55,13 @@
  <topictitle title#='$topic.Name --- $,FullName'>
 </if>
 
-<element name='notonly' params='posting'>
-<<if what='!$$general'>
- <identify posting='$posting'>
- <ifne what='$posting.MainHref'>
-  <div class='ninept'>
-   Этот раздел содержит не только картинки.
-   <a href='$posting.MainHref'>Увидеть раздел полностью.</a>
-  </div>
- </ifne>
-</if>>
+<element name='notonly'>
+<ifne what='$$notonly_href'>
+ <div class='ninept'>
+  Этот раздел содержит не только картинки.
+  <a href='$$notonly_href'>Увидеть раздел полностью.</a>
+ </div>
+</ifne>
 </element>
 
 <html>

@@ -286,8 +286,6 @@
        defaults="base=''">
 <decel name='topics_events' file='parts/topics-events.php' params='index,base'
        defaults="base=''">
-<decel name='topics_gallery' file='parts/topics-gallery-general.php'
-       params='&posting'>
 <decel name='topics_gallery_events' file='parts/topics-events.php'
        params='index,base' defaults="base=''">
 <decel name='topics_gallery_general' file='parts/topics-gallery-general.php'

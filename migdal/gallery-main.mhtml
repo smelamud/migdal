@@ -6,6 +6,7 @@
  <assign name='topic_id' value='-1'>
 </ifzero>
 <int name='offset'>
+<string name='notonly_href'>
 
 << Traps >>
 << Tue Jun 29 02:06:37 EEST 2004 >
@@ -37,15 +38,13 @@
  <log event=gallery text#='topic($,) offset=$offset'>
 </zone>>
 
-<element name='notonly' params='posting'>
-<<if what='!$$general'>
- <ifne what='$posting.MainHref'>
-  <div class='ninept'>
-   Этот раздел содержит не только картинки.
-   <a href='$posting.MainHref'>Увидеть раздел полностью.</a>
-  </div>
- </ifne>
-</if>>
+<element name='notonly'>
+<ifne what='$$notonly_href'>
+ <div class='nframe ninept' style='margin-bottom: 5px; padding: 5px'>
+  Этот раздел содержит не только картинки.
+  <a href='$$notonly_href'>Увидеть раздел полностью.</a>
+ </div>
+</ifne>
 </element>
 
 <html>
@@ -61,9 +60,7 @@
    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
     <td><common>
      <subtitle>
-     <<outer><div class='nframe' style='margin-bottom: 5px; padding: 5px'>
-      <inner><notonly posting='$,'></inner>
-     </div></outer>>
+     <notonly>
      <p>
      <seealso_frame>
      <gallery_main topic_id='$topic_id' offset='$offset'>

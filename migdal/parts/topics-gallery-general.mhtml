@@ -20,20 +20,6 @@
 <element name='topics_gallery_veterans'>
 <topics_gallery_blog posting='$posting' title='Уголок ветерана'
                      topic_id='$`veterans`'>
-</element>
-
-<element name='topics_gallery'>
-<identify posting='$posting'>
-<ifne what='$posting.GalleryUplevelHref'>
- <ifne what='$posting.GalleryUplevelTitle'>
-  <upper_level name='$posting.GalleryUplevelTitle'
-               href='$posting.GalleryUplevelHref'>
- <else>
-  <upper_level title='На главную страницу галереи'
-               href='$posting.GalleryUplevelHref'>
- </ifne>
-</ifne>
-<exec element='$posting.GalleryTopicElement' arg1='$posting'>
 </element>>
 
 <element name='topics_gallery_general'>
