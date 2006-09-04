@@ -1,0 +1,20 @@
+<< @(#) $Id$ >>
+
+<element name='peruser'>
+ <topic_obj name='topic' id='$topic_id'>
+ <iterate_posting_users topic_id='$topic_id'>
+ <iterate_rows cols='$$userPictureColumnPortion'>
+ <table cellspacing=10 cellpadding=0><tr valign=top>
+ <for>
+  <td>
+   <posting_random grp='*GRP_GALLERY' topic_id='$topic_id' user_id='$.Id'>
+   <posting_obj id='$,' grp='*GRP_GALLERY'>
+   <picture_main href#='/${topic.Catalog}$.Folder/' biff='$.LastMessage'
+                 name='$.FullName' image_href='$,SmallImageURL'>
+  </td>
+  <if what='$;isEol'>
+   </tr><tr valign=top>
+  </if>
+ </for>
+ </tr></table>
+</element>

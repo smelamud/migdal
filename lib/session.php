@@ -84,7 +84,7 @@ function userRights($aUserId=-1)
 {
 global $sessionid,$userId,$realUserId,$userGroups,$userRights;
 
-$sessionid=$_COOKIE['sessionid'];
+$sessionid=getSessionCookie();
 $globalsid=$_REQUEST['globalsid'];
 
 clearUserRights();
@@ -173,7 +173,7 @@ if($userId>0)
   }
 else
   $row=array();
-$cookieSettings=$_COOKIE['settings'];
+$cookieSettings=getSettingsCookie();
 $cookie=explode(':',$cookieSettings);
 foreach($userSetNames as $i => $name)
        {
@@ -200,7 +200,7 @@ $globs=join(':',$update);
 if($userId>0 && $globs!=$dbSettings)
   updateUserSettings($userId,$globs);
 if($globs!=$cookieSettings)
-  SetCookie('settings',$globs,time()+3600*24*366,'/',$siteDomain);
+  setSettingsCookie($globs);
 }
 
 function session($aUserId=-1)

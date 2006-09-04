@@ -1,0 +1,44 @@
+<< @(#) $Id$ >>
+
+<int name='topic_id'>
+<string name='intro_element'>
+
+<grps>
+<<log event=taglit>>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=150 class='eframe'>
+   <topics>
+   <ears>
+  </td>
+  <td>
+   <div class='ninept cframe' style='padding: 5'>
+    <subtitle>
+    <require name='parts/peruser-intros.php'>
+    <exec element='$intro_element'>
+   </div>
+   <p>
+    <table class='info'><tr valign=center>
+     <td><image src='/pics/sheet.gif'></td>
+     <td>
+      <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_BLOG_FORUMS&noguests=1&redirid=$_'
+	 >Добавить текст</a>
+     </td>
+     <td>&nbsp;</td>
+     <td><image src='/pics/sheet.gif'></td>
+     <td>
+      <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_GALLERY&noguests=1&redirid=$_'
+	 >Добавить фотографию</a>
+     </td>
+    </tr></table>
+   </p>
+   <peruser topic_id='$topic_id'>
+  </td>
+ </tr></table>
+ <bottom>
+</body>
+</html>

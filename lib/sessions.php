@@ -84,14 +84,47 @@ sql("delete from sessions
     __FUNCTION__);
 }
 
+function getSubdomainCookie($name)
+{
+global $siteDomain;
+
+$sd=strtr($siteDomain,'.','_');
+return $_COOKIE["$name-$sd"];
+}
+
+function setSubdomainCookie($name,$value,$expire,$path,$domain)
+{
+global $siteDomain;
+
+$sd=strtr($siteDomain,'.','_');
+setcookie("$name-$sd",$value,$expire,$path,$domain);
+}
+
+function getSessionCookie()
+{
+return getSubdomainCookie('sessionid');
+}
+
 function setSessionCookie($sessionId)
 {
 global $sessionTimeout,$siteDomain;
 
-if($sessionId==0)
-  SetCookie('sessionid',0,0,'/',$siteDomain);
+if($sessionId===0)
+  setSubdomainCookie('sessionid',0,0,'/',$siteDomain);
 else
-  SetCookie('sessionid',$sessionId,time()+($sessionTimeout+24)*3600,'/',
-	    $siteDomain);
+  setSubdomainCookie('sessionid',$sessionId,time()+($sessionTimeout+24)*3600,
+                     '/',$siteDomain);
+}
+
+function getSettingsCookie()
+{
+return getSubdomainCookie('settings');
+}
+
+function setSettingsCookie($settings)
+{
+global $siteDomain;
+
+setSubdomainCookie('settings',$settings,time()+3600*24*366,'/',$siteDomain);
 }
 ?>

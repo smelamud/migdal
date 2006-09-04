@@ -7,6 +7,7 @@ require_once('lib/structure.php');
 require_once('lib/post.php');
 require_once('lib/database.php');
 require_once('lib/redirs.php');
+require_once('lib/session.php'); // FIXME Не очень хорошее решение
 
 require_once('grp/subdomains.php');
 
@@ -14,13 +15,17 @@ function &dispatchSubDomain($requestURI)
 {
 global $siteDomain,$userDomain,$subdomains;
 
-if($_SERVER['SERVER_NAME']=='')
+$serverName=$_SERVER['SERVER_NAME'];
+if(isset($_SERVER['HTTP_HOST'])
+   && strlen($_SERVER['HTTP_HOST'])>strlen($serverName))
+  $serverName=$_SERVER['HTTP_HOST'];
+if($serverName=='')
   return;
-if(strlen($_SERVER['SERVER_NAME'])>strlen($siteDomain))
-  $currentDomain=substr(strtolower($_SERVER['SERVER_NAME']),0,
-                        strlen($_SERVER['SERVER_NAME'])-strlen($siteDomain)-1);
+if(strlen($serverName)>strlen($siteDomain))
+  $currentDomain=substr(strtolower($serverName),0,
+                        strlen($serverName)-strlen($siteDomain)-1);
 else
-  $currentDomain=strtolower($_SERVER['SERVER_NAME']);
+  $currentDomain=strtolower($serverName);
 if(in_array($currentDomain,$subdomains))
   $userDomain=$currentDomain;
 else
@@ -122,6 +127,8 @@ postInteger('redirid');
 unset($Args['redirid']);
 
 dbOpen();
+session(); // FIXME Не очень хорошее решение для того, чтобы можно было в
+           // structure.conf проверять права юзера
 $LocationInfo=&dispatch();
 $ScriptName=$LocationInfo->getScript();
 if($ScriptName!='')

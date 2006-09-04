@@ -1,0 +1,17 @@
+<< @(#) $Id$ >>
+
+<element name='topics_peruser'>
+<topic_obj id='$base'>
+<topics_table title='$=,Subject'>
+ <iterate_posting_users topic_id='$,Id'>
+ <topics_line text='Все пользователи' href#='/$,Catalog' arrow!='$index<=0'
+              class='ninept topics-item'>
+ <for>
+  <zone>
+   <posting_last name='last' topic_id='$,Id' user_id='$.Id'>
+  </zone>
+  <topics_line time='$last' text='$=.FullName' href#='/${,Catalog}$.Folder/'
+               arrow!='$.Id==$index' class='eightpt topics-item'>
+ </for>
+</topics_table>
+</element>

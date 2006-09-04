@@ -12,7 +12,7 @@ postString('faildir');
 postString('svalue');
 
 dbOpen();
-if($_COOKIE['sessionid']==$svalue)
+if(getSessionCookie()==$svalue)
   header('Location: '.remakeURI($okdir,array('err')));
 else
   header('Location: '.remakeURI($faildir,
