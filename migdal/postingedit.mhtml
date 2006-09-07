@@ -282,6 +282,12 @@
  <else>
   <hidden name='large_body_format' value='$posting.LargeBodyFormat'>
  </if>
+<elif what="$ident=='sent'">
+ <if what='$visible'>
+  <form_date title='$=editor.Title' comment='$editor.Comment'
+             name='sent' value='$posting.Sent'
+	     mandatory='$editor.isMandatory' base_year='$editor.Base'>
+ </if>
 <else>
  <form_section title='$ident'>
 </if>

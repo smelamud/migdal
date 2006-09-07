@@ -22,6 +22,7 @@ require_once('lib/track.php');
 require_once('lib/users.php');
 require_once('lib/votes.php');
 require_once('lib/uri.php');
+require_once('lib/time.php');
 
 class Posting
       extends GrpEntry
@@ -106,6 +107,9 @@ $this->parent_id=$vars['parent_id'];
 $this->grp=$vars['grp'];
 $this->person_id=$vars['person_id'];
 $this->priority=$vars['priority'];
+if(!empty($vars['sent']))
+  $this->sent=sqlDate($vars['sent']);
+$this->sent=sqlDate(composeDateTime($this->getSent(),$vars,'sent'));
 if($this->up<=0)
   $this->up=$this->parent_id;
 else
@@ -331,7 +335,7 @@ function postingListFilter($grp,$topic_id=-1,$recursive=false,$person_id=-1,
                            $sort=SORT_SENT,$withAnswers=GRP_NONE,$user=0,
 			   $index1=-1,$later=0,$up=-1,$fields=SELECT_GENERAL,
 			   $modbits=MOD_NONE,$hidden=-1,$disabled=-1,$prefix='',
-			   $withIdent=false)
+			   $withIdent=false,$earlier=0)
 {
 $Filter='entries.entry='.ENT_POSTING;
 $Filter.=' and '.postingsPermFilter(PERM_READ,'entries');
@@ -354,7 +358,9 @@ if($index1>=0)
              $Filter.=" and entries.index1=$index1";
         }
 if($later>0)
-  $Filter.=" and unix_timestamp(entries.sent)>$later";
+  $Filter.=" and unix_timestamp(entries.sent)>=$later";
+if($earlier>0)
+  $Filter.=" and unix_timestamp(entries.sent)<$earlier";
 if($up>0)
   $Filter.=" and entries.up=$up";
 if($modbits>0)
@@ -392,7 +398,7 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
 			     $up=-1,$showShadows=true,$fields=SELECT_GENERAL,
 			     $modbits=MOD_NONE,$hidden=-1,$disabled=-1,
-			     $prefix='',$withIdent=false)
+			     $prefix='',$withIdent=false,$earlier=0)
 {
 if($sort==SORT_CTR)
   $fields|=SELECT_CTR;
@@ -405,7 +411,8 @@ $SelectCount=$showShadows ? 'count(*)'
 $From=postingListTables($this->fields,$sort);
 $this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
                                $withAnswers,$user,$index1,$later,$up,$fields,
-			       $modbits,$hidden,$disabled,$prefix,$withIdent);
+			       $modbits,$hidden,$disabled,$prefix,$withIdent,
+			       $earlier);
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'entries.sent desc',
              SORT_NAME       => 'entries.subject_sort',
@@ -588,7 +595,8 @@ if(($fields & SPF_DUPLICATE)!=0)
   if($userModerator)
     $vars=array_merge($vars,
 		      array('disabled' => $posting->disabled,
-		            'priority' => $posting->priority));
+		            'priority' => $posting->priority,
+		            'sent' => $posting->sent));
   }
 if(($fields & SPF_SHADOW)!=0)
   {
@@ -654,7 +662,6 @@ if($posting->id)
 else
   {
   $vars=storePostingFields($posting,SPF_ALL);
-  $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
   sql(sqlInsert('entries',
                 $vars),
@@ -671,6 +678,7 @@ else
   journal('update entries
 	   set orig_id=id
 	   where id='.journalVar('entries',$posting->id));
+  $posting->orig_id=$posting->id;
   }
 updateTracks('entries',$posting->id);
 updateCatalogs($posting->id);
@@ -704,7 +712,8 @@ return new Posting(array('id'        => 0,
 			 'up'        => $up>0 ? $up : $topic_id,
 			 'user_id'   => $userId>0 ? $userId : $realUserId,
 			 'group_id'  => $group_id,
-			 'perms'     => $perms));
+			 'perms'     => $perms,
+			 'sent'      => sqlNow()));
 }
 
 function postingExists($id)

@@ -75,6 +75,9 @@
 <decel name='form_complainactionselect' file='parts/complainactionselect.php'
        params='title,name,value,mandatory,comment'
        defaults="mandatory='*false' comment=''">
+<decel name='form_date' file='parts/formutils.php'
+       params='title,mandatory,comment,name,value,base_year'
+       defaults="mandatory='*false' comment='' base_year=2000">
 <decel name='form_edit' file='parts/formutils.php'
        params='title,mandatory,comment,name,value,size,maxlength,xmlid'
        defaults="mandatory='*false' comment='' size=40 maxlength=250 xmlid=0">
@@ -158,7 +161,9 @@
        defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
 <decel name='hotlog_count' file='parts/hotlog.php'>
 <decel name='hotlog_logo' file='parts/hotlog.php'>
-<decel name='identify' file='parts/identify.php' params='&posting'>
+<decel name='input_datetime' file='parts/utils.php'
+       params='name,value,format,base_year'
+       defaults="format='yMd' base_year=2000">
 <decel name='jewishru' file='parts/jewishru.php'>
 <decel name='langselect' file='parts/langselect.php' params='name,value'>
 <decel name='lastonline' file='parts/utils.php' params='user'>

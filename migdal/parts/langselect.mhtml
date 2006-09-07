@@ -4,7 +4,7 @@
 <iterate_langs>
 <select name='$name'>
  <assign name='none' value=''>
- <select_option title='-- Неизвестен --' value='' selected!="$value==''">
+ <select_option title='-- Неизвестен --' value='' selected!="empty($value)">
  <for>
   <select_option title='$.Name' value='$.Code' selected!='$value==$.Code'>
  </for>

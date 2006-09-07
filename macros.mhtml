@@ -100,12 +100,12 @@
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic_id,recursive,limit,offset,person_id,sort,withanswers,
 	         user,index1,later,up,showshadows,fields,modbits,
-		 hidden,disabled,prefix,withident'
+		 hidden,disabled,prefix,withident,earlier'
          defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           person_id=-1 sort='*SORT_SENT' withanswers='*GRP_NONE'
 		   user=0 index1=-1 later=0 up=-1 showshadows='*true'
 		   fields='*SELECT_GENERAL' modbits='*MOD_NONE' hidden=-1
-		   disabled=-1 prefix='' withident='*false'">
+		   disabled=-1 prefix='' withident='*false' earlier=0">
 <deciter macro='random_seq' class='RandomSequenceIterator' file='lib/random.php'
          params='n,min,max'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
@@ -264,6 +264,9 @@
 <decexec macro='stylesheet' func='declareStylesheet' file='lib/style.php'
          params='ident'>
 <deccall macro='time' func='time'>
+<deccall macro='timestamp' func='getTimestamp' file='lib/time.php'
+         params='year,month,day,hour,minute,second'
+         defaults="year=0,month=0,day=0,hour=-1,minute=-1,second=-1">
 <deccall macro='tmptext' func='tmpTextRestore' file='lib/tmptexts.php'
          params='id'>
 <deccall macro='topic_count' func='getSubtopicsCountById' file='lib/topics.php'

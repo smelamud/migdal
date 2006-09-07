@@ -41,6 +41,7 @@ dbcreate.sql: Makefile conf/migdal.conf
 	-mkdir -p $(builddir)
 	cat migdal.db $(uiName)/migdal.db > $(builddir)/dbcreate.sql
 	(\
+	echo "insert into image_files(max_id) values(1);";\
 	if [ $(rebeLogin) ]; then \
 	echo "insert into users(login,login_sort,password,birthday,\
 	email_disabled,rights,hidden) values($(rebeLogin),$(rebeLogin),\

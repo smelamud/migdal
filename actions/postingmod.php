@@ -149,6 +149,13 @@ postInteger('del_image');
 postInteger('person_id');
 postInteger('hidden');
 postInteger('disabled');
+postInteger('sent');
+postInteger('sent_year');
+postInteger('sent_month');
+postInteger('sent_day');
+postInteger('sent_hour');
+postInteger('sent_minute');
+postInteger('sent_second');
 
 dbOpen();
 session();

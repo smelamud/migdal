@@ -98,7 +98,19 @@ for my $var(keys %$item)
    elsif($var eq 'cond:admin')
      {
      my $value=$$item{$var};
-     addCond($item," && \$GLOBALS['user$value']");
+     if($value eq 'guest')
+       {
+       $value="\$GLOBALS['userId']<=0";
+       }
+     elsif($value eq 'logged')
+       {
+       $value="\$GLOBALS['userId']>0";
+       }
+     else
+       {
+       $value="\$GLOBALS['user$value']";
+       }
+     addCond($item," && $value");
      }
    elsif($var=~/^cond:(\w+)$/)
      {
@@ -331,19 +343,20 @@ sub readStructure
 my $item={};
 while(<>)
      {
+     my $was=$_;
      s/#.*$//;
-     unless(/^\s*([\w.:]+)\s*=(.*)$/)
-           {
-	   addItem($item);
-	   $item={};
-	   }
-     else
-           {
-	   my ($name,$value)=($1,$2);
-	   $value=~s/^\s*//;
-	   $value=~s/\s*$//;
-           $$item{$name}=$value;
-	   }
+     if(/^\s*([\w.:]+)\s*=(.*)$/)
+       {
+       my ($name,$value)=($1,$2);
+       $value=~s/^\s*//;
+       $value=~s/\s*$//;
+       $$item{$name}=$value;
+       }
+     elsif($was=~/^\s*$/)
+       {
+       addItem($item);
+       $item={};
+       }
      }
 addItem($item);
 }

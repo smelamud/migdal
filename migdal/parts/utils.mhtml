@@ -120,3 +120,81 @@
  <b>$title</b>
 </if>
 </element>
+
+<element name='input_datetime'>
+<assign name='year' value='$value@Y'>
+<assign name='month' value='$value@n'>
+<assign name='day' value='$value@j'>
+<assign name='hour' value='$value@G'>
+<assign name='minute' value='$value@i'>
+<assign name='second' value='$value@s'>
+
+<assign name='has_year' value!="strpos($format,'y')!==false">
+<assign name='has_month' value!="strpos($format,'M')!==false">
+<assign name='has_day' value!="strpos($format,'d')!==false">
+<assign name='has_hour' value!="strpos($format,'h')!==false">
+<assign name='has_minute' value!="strpos($format,'m')!==false">
+<assign name='has_second' value!="strpos($format,'s')!==false">
+
+<if what='$has_year'>
+ <select name='${name}_year'>
+  <time>
+  <for n!='$,@Y - $base_year + 1'>
+   <assign name='i' value!='$. + $base_year'>
+   <select_option title='$i' value='$i' selected!='$i==$year'>
+  </for>
+ </select>
+</if>
+<if what='$has_year && $has_month'>
+ -
+</if>
+<if what='$has_month'>
+ <select name='${name}_month'>
+  <for n=12>
+   <assign name='i' value!='$. + 1'>
+   <select_option title='$i' value='$i' selected!='$i==$month'>
+  </for>
+ </select>
+</if>
+<if what='($has_year || $has_month) && $has_day'>
+ -
+</if>
+<if what='$has_day'>
+ <select name='${name}_day'>
+  <for n=31>
+   <assign name='i' value!='$. + 1'>
+   <select_option title='$i' value='$i' selected!='$i==$day'>
+  </for>
+ </select>
+</if>
+<if what='$has_hour || $has_minute || $has_second'>
+ &nbsp;
+</if>
+<if what='$has_hour'>
+ <select name='${name}_hour'>
+  <for n=24>
+   <select_option title='$.' value='$.' selected!='$.==$hour'>
+  </for>
+ </select>
+</if>
+<if what='$has_hour && $has_minute'>
+ :
+</if>
+<if what='$has_minute'>
+ <select name='${name}_minute'>
+  <for n=60>
+   <select_option title='$.' value='$.' selected!='$.==$minute'>
+  </for>
+ </select>
+</if>
+<if what='($has_hour || $has_minute) && $has_second'>
+ :
+</if>
+<if what='$has_second'>
+ <select name='${name}_second'>
+  <for n=60>
+   <select_option title='$.' value='$.' selected!='$.==$second'>
+  </for>
+ </select>
+</if>
+</element>
