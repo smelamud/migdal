@@ -406,8 +406,8 @@ if($row['has_large'])
   $smallName=getImageFilename($id,getImageExtension($thumbnailType),
 			      $small,'small');
   $fname="$imageDir/$smallName";
-  $result=imageFileResize("$imageDir/$largeName",$format,$fname,
-                          $row['small_x'],$row['small_y']);
+  $result=imageFileResize("$imageDir/$largeName",$format,$fname,$thumbnailType,
+                          0,0,$row['small_x'],$row['small_y'],true);
   if($result==IFR_OK)
     list($row['small_x'],$row['small_y'])=getImageSize($fname);
   else

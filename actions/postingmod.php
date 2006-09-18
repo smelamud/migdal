@@ -24,7 +24,7 @@ require_once('lib/counters.php');
 require_once('lib/logging.php');
 require_once('lib/sql.php');
 
-function modifyPosting($posting,$original)
+function modifyPosting($posting,$original,$imageEditor,$iuFlags)
 {
 global $thumbnailType;
 
@@ -93,6 +93,77 @@ if($posting->hasLargeImage()
    && !imageFileExists($posting->orig_id,$posting->large_image_format,
                        $posting->large_image,'large'))
   return EP_NO_IMAGE;
+if($imageEditor['imageExactX']>0 || $imageEditor['imageExactY']>0)
+  {
+  if(abs($imageEditor['imageExactX']-$posting->getImageX())>1)
+    {
+    if($imageEditor['imageExactX']>0 && $imageEditor['imageExactY']>0)
+      return EP_LARGE_IMAGE_EXACT;
+    if($imageEditor['imageExactX']>0)
+      return EP_LARGE_IMAGE_EXACT_X;
+    }
+  if(abs($imageEditor['imageExactY']-$posting->getImageY())>1)
+    {
+    if($imageEditor['imageExactX']>0 && $imageEditor['imageExactY']>0)
+      return EP_LARGE_IMAGE_EXACT;
+    if($imageEditor['imageExactY']>0)
+      return EP_LARGE_IMAGE_EXACT_Y;
+    }
+  }
+if($imageEditor['imageMaxX']>0 || $imageEditor['imageMaxY']>0)
+  {
+  if($imageEditor['imageMaxX']<$posting->getImageX())
+    {
+    if($imageEditor['imageMaxX']>0 && $imageEditor['imageMaxY']>0)
+      return EP_LARGE_IMAGE_MAX;
+    if($imageEditor['imageMaxX']>0)
+      return EP_LARGE_IMAGE_MAX_X;
+    }
+  if($imageEditor['imageMaxY']<$posting->getImageY())
+    {
+    if($imageEditor['imageMaxX']>0 && $imageEditor['imageMaxY']>0)
+      return EP_LARGE_IMAGE_MAX;
+    if($imageEditor['imageMaxY']>0)
+      return EP_LARGE_IMAGE_MAX_Y;
+    }
+  }
+if(($iuFlags & IU_THUMB)!=IU_THUMB_NONE)
+  {
+  if($imageEditor['thumbExactX']>0 || $imageEditor['thumbExactY']>0)
+    {
+    if(abs($imageEditor['thumbExactX']-$posting->getSmallImageX())>1)
+      {
+      if($imageEditor['thumbExactX']>0 && $imageEditor['thumbExactY']>0)
+	return EP_SMALL_IMAGE_EXACT;
+      if($imageEditor['thumbExactX']>0)
+	return EP_SMALL_IMAGE_EXACT_X;
+      }
+    if(abs($imageEditor['thumbExactY']-$posting->getSmallImageY())>1)
+      {
+      if($imageEditor['thumbExactX']>0 && $imageEditor['thumbExactY']>0)
+	return EP_SMALL_IMAGE_EXACT;
+      if($imageEditor['thumbExactY']>0)
+	return EP_SMALL_IMAGE_EXACT_Y;
+      }
+    }
+  if($imageEditor['thumbMaxX']>0 || $imageEditor['thumbMaxY']>0)
+    {
+    if($imageEditor['thumbMaxX']<$posting->getSmallImageX())
+      {
+      if($imageEditor['thumbMaxX']>0 && $imageEditor['thumbMaxY']>0)
+	return EP_SMALL_IMAGE_MAX;
+      if($imageEditor['thumbMaxX']>0)
+	return EP_SMALL_IMAGE_MAX_X;
+      }
+    if($imageEditor['thumbMaxY']<$posting->getSmallImageY())
+      {
+      if($imageEditor['thumbMaxX']>0 && $imageEditor['thumbMaxY']>0)
+	return EP_SMALL_IMAGE_MAX;
+      if($imageEditor['thumbMaxY']>0)
+	return EP_SMALL_IMAGE_MAX_Y;
+      }
+    }
+  }
 if($posting->person_id!=0 && !personalExists($posting->person_id))
   return EP_NO_PERSON;
 $posting->track='';
@@ -167,15 +238,21 @@ $posting=getPostingById($editid,$grp,$parent_id,
 $original=$posting;
 $posting->setup($Args);
 
-$erru=uploadImage('image_file',$posting,$posting->createThumbnail(),
-                  $thumbnailWidth,$thumbnailHeight,$del_image);
+$imageEditor=$posting->getGrpImageEditor();
+$iuFlags=imageUploadFlags($imageEditor['style']);
+$erru=imageUpload('image_file',$posting,$iuFlags,
+                  $imageEditor['thumbExactX'],$imageEditor['thumbExactY'],
+                  $imageEditor['thumbMaxX'],$imageEditor['thumbMaxY'],
+                  $imageEditor['imageExactX'],$imageEditor['imageExactY'],
+                  $imageEditor['imageMaxX'],$imageEditor['imageMaxY'],
+		  $del_image);
 if($err==EG_OK)
   $err=$erru;
 $erru=uploadLargeBody($posting,$del_large_body);
 if($err==EG_OK)
   $err=$erru;
 if($err==EG_OK)
-  $err=modifyPosting($posting,$original);
+  $err=modifyPosting($posting,$original,$imageEditor,$iuFlags);
 if($err==EG_OK)
   {
   header("Location: $okdir");

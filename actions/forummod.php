@@ -94,8 +94,9 @@ $forum=getForumById($editid,$parent_id);
 $original=$forum;
 $forum->setup($Args);
 
-$erru=uploadImage('image_file',$forum,true,$thumbnailWidth,$thumbnailHeight,
-                  $del_image);
+$erru=imageUpload('image_file',$forum,IU_THUMB_AUTO|IU_MANUAL,
+                  0,0,$thumbnailWidth,$thumbnailHeight,
+		  0,0,0,0,$del_image);
 if($err==EG_OK)
   $err=$erru;
 if($err==EG_OK)

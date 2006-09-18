@@ -6,8 +6,41 @@ require_once('conf/migdal.conf');
 require_once('lib/images.php');
 require_once('lib/image-types.php');
 
-function uploadImage($name,&$posting,$createThumbnail,$thumbnailX,$thumbnailY,
-                     $del,$resize=false)
+// Large image
+define('IU_IMAGE',0x0F);
+define('IU_MANUAL',0x00); // Dimensions are set manually by user
+define('IU_RESIZE',0x01); // Resize automatically
+// Small image (thumbnail)
+define('IU_THUMB',0xF0);
+define('IU_THUMB_NONE',0x10);     // Thumbnail is not needed
+define('IU_THUMB_MANUAL',0x20);   // Thumbnail is uploaded by user
+                                  // (FIXME not implemented)
+define('IU_THUMB_RESIZE',0x30);   // Thumbnail is uploaded by user and resized
+                                  // automatically (FIXME not implemented)
+define('IU_THUMB_AUTO',0x00);     // Thumbnail is created automatically
+define('IU_THUMB_NO_GLASS',0x40); // Thumbnail is created automatically without
+                                  // glass icon
+
+$imageUploadFlags=array(''         => IU_MANUAL,
+                        'manual'   => IU_MANUAL,
+                        'resize'   => IU_RESIZE,
+			'-'        => IU_THUMB_AUTO,
+			'none-'    => IU_THUMB_NONE,
+			'manual-'  => IU_THUMB_MANUAL,
+			'auto-'    => IU_THUMB_AUTO,
+			'noglass-' => IU_THUMB_NO_GLASS);
+
+function imageUploadFlags($s)
+{
+global $imageUploadFlags;
+
+@list($thumb,$image)=explode('-',$s);
+return $imageUploadFlags["$thumb-"] | $imageUploadFlags[$image];
+}
+
+function imageUpload($name,&$posting,$flags,$thumbExactX,$thumbExactY,
+                     $thumbMaxX,$thumbMaxY,$imageExactX,$imageExactY,
+		     $imageMaxX,$imageMaxY,$del,$resizeIfExists=false)
 {
 global $maxImageSize,$thumbnailType,$imageDir;
 
@@ -21,8 +54,9 @@ if($del)
   $posting->large_image_format='';
   $posting->large_image_filename='';
   }
-if(!$resize || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
+if(!$resizeIfExists || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
   {
+  // Move uploaded image into archive
   if(!isset($_FILES[$name]))
     return EG_OK;
   $file=$_FILES[$name];
@@ -45,6 +79,7 @@ if(!$resize || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
   }
 else
   {
+  // Remove thumbnail and rename large image
   if(!$posting->hasSmallImage())
     return EG_OK;
   $largeExt=getImageExtension($posting->getLargeImageFormat());
@@ -60,20 +95,42 @@ else
   deleteImageFiles($posting->getOrigId(),$posting->getSmallImage(),
                    $posting->getLargeImage(),$posting->getLargeImageFormat());
   }
+// Resize the image
+if(($flags & IU_IMAGE)==IU_RESIZE)
+  {
+  $tmpName="$largeName.tmp";
+  $err=imageFileResize($largeName,$posting->large_image_format,
+                       $tmpName,$posting->large_image_format,
+                       $imageExactX,$imageExactY,$imageMaxX,$imageMaxY,false);
+
+  if($err==IFR_UNKNOWN_FORMAT || $err==IFR_UNSUPPORTED_FORMAT
+     || $err==IFR_UNSUPPORTED_THUMBNAIL)
+    return EIU_UNKNOWN_IMAGE;
+  if($err==IFR_OK)
+    {
+    @unlink($largeName);
+    rename($tmpName,$largeName);
+    }
+  }
+// Create thumbnail
 $hasThumbnail=false;
-if($createThumbnail)
+if(($flags & IU_THUMB)==IU_THUMB_AUTO
+   || ($flags & IU_THUMB)==IU_THUMB_NO_GLASS)
   {
   $smallId=getNextImageFileId();
   $smallName=getImagePath($posting->getOrigId(),
                           getImageExtension($thumbnailType),$smallId,'small');
-  $err=imageFileResize($largeName,$posting->large_image_format,$smallName,
-                       $thumbnailX,$thumbnailY);
+  $err=imageFileResize($largeName,$posting->large_image_format,
+                       $smallName,$thumbnailType,
+                       $thumbExactX,$thumbExactY,$thumbMaxX,$thumbMaxY,
+		       ($flags & IU_THUMB)!=IU_THUMB_NO_GLASS);
   if($err==IFR_UNKNOWN_FORMAT || $err==IFR_UNSUPPORTED_FORMAT)
     return EIU_UNKNOWN_IMAGE;
   if($err==IFR_UNSUPPORTED_THUMBNAIL)
     return EIU_UNKNOWN_THUMBNAIL;
   $hasThumbnail=$err==IFR_OK;
   }
+// Fill the record with thumbnail parameters
 if($hasThumbnail)
   {
   $posting->small_image=$smallId;
@@ -164,42 +221,79 @@ define('IFR_UNKNOWN_FORMAT',2);
 define('IFR_UNSUPPORTED_FORMAT',3);
 define('IFR_UNSUPPORTED_THUMBNAIL',4);
 
-function imageFileResize($fnameFrom,$format,$fnameTo,$thumbnailX,$thumbnailY)
+function imageFileResize($fnameFrom,$formatFrom,$fnameTo,$formatTo,
+                         $thumbExactX=0,$thumbExactY=0,
+                         $thumbMaxX=0,$thumbMaxY=0,$addGlass=true)
 {
 global $thumbnailType,$glassImagePath;
 
-if((ImageTypes() & getImageTypeCode($format))==0)
+if((ImageTypes() & getImageTypeCode($formatFrom))==0)
   return IFR_UNSUPPORTED_FORMAT;
   
-$lFname=getImageTypeName($format);
+// Load the image
+$lFname=getImageTypeName($formatFrom);
 if($lFname=='')
   return IFR_UNKNOWN_FORMAT;
 $imageFrom="ImageCreateFrom$lFname";
 $lHandle=$imageFrom($fnameFrom);
 
-if($thumbnailX==0)
-  $thumbnailX=65535;
-if($thumbnailY==0)
-  $thumbnailY=65535;
+// Calculate the dimensions of the thumbnail
 $large_size_x=ImageSX($lHandle);
 $large_size_y=ImageSY($lHandle);
-if($large_size_x>$thumbnailX || $large_size_y>$thumbnailY)
+$lAspect=$large_size_x/$large_size_y;
+if($thumbExactX>0 || $thumbExactY>0)
   {
-  $lAspect=$large_size_x/$large_size_y;
-  $small_size_x=$thumbnailX;
-  $small_size_y=(int)($small_size_x/$lAspect);
-  if($small_size_y>$thumbnailY)
+  // Exact dimensions given
+  if($thumbExactX>0 && $thumbExactY>0)
     {
-    $small_size_y=$thumbnailY;
-    $small_size_x=(int)($small_size_y*$lAspect);
+    $small_size_x=$thumbExactX;
+    $small_size_y=$thumbExactY;
     }
+  else
+    if($thumbExactX>0)
+      {
+      $small_size_x=$thumbExactX;
+      if(abs($small_size_x-$large_size_x)<=0)
+	$small_size_x=$large_size_x;
+      $small_size_y=(int)($small_size_x/$lAspect);
+      }
+    else
+      {
+      $small_size_y=$thumbExactY;
+      if(abs($small_size_y-$large_size_y)<=0)
+	$small_size_y=$large_size_y;
+      $small_size_x=(int)($small_size_y*$lAspect);
+      }
+  if(abs($small_size_x-$large_size_x)<=0)
+    $small_size_x=$large_size_x;
+  if(abs($small_size_y-$large_size_y)<=0)
+    $small_size_y=$large_size_y;
   }
 else
   {
-  $small_size_x=$large_size_x;
-  $small_size_y=$large_size_y;
+  // Maximal dimensions given
+  if($thumbMaxX==0)
+    $thumbMaxX=65535;
+  if($thumbMaxY==0)
+    $thumbMaxY=65535;
+  if($large_size_x>$thumbMaxX || $large_size_y>$thumbMaxY)
+    {
+    $small_size_x=$thumbMaxX;
+    $small_size_y=(int)($small_size_x/$lAspect);
+    if($small_size_y>$thumbMaxY)
+      {
+      $small_size_y=$thumbMaxY;
+      $small_size_x=(int)($small_size_y*$lAspect);
+      }
+    }
+  else
+    {
+    $small_size_x=$large_size_x;
+    $small_size_y=$large_size_y;
+    }
   }
   
+// Resize the image
 if(function_exists('ImageCopyResampled'))
   {
   $sHandle=ImageCreateTrueColor($small_size_x,$small_size_y);
@@ -216,13 +310,18 @@ else
 if($small_size_x==$large_size_x && $small_size_y==$large_size_y)
   return IFR_SMALL;
 
-$glass=imageCreateFromPNG($glassImagePath);
-list($gx,$gy,$hx,$hy)=array(imageSX($glass),imageSY($glass),
-                            imageSX($sHandle),imageSY($sHandle));
-imageCopy($sHandle,$glass,$hx-$gx,$hy-$gy,0,0,$gx,$gy);
+// Add the glass
+if($addGlass)
+  {
+  $glass=imageCreateFromPNG($glassImagePath);
+  list($gx,$gy,$hx,$hy)=array(imageSX($glass),imageSY($glass),
+			      imageSX($sHandle),imageSY($sHandle));
+  imageCopy($sHandle,$glass,$hx-$gx,$hy-$gy,0,0,$gx,$gy);
+  }
 
-$sFname=getImageTypeName($thumbnailType);
-if((ImageTypes() & getImageTypeCode($thumbnailType))==0 || $sFname=='')
+// Save the thumbnail
+$sFname=getImageTypeName($formatTo);
+if((ImageTypes() & getImageTypeCode($formatTo))==0 || $sFname=='')
   return IFR_UNSUPPORTED_THUMBNAIL;
 $imageTo="Image$sFname";
 $imageTo($sHandle,$fnameTo);

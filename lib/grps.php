@@ -93,6 +93,15 @@ var $mandatory;
 var $style;
 var $base;
 
+var $imageExactX=0;
+var $imageExactY=0;
+var $imageMaxX=0;
+var $imageMaxY=0;
+var $thumbExactX=0;
+var $thumbExactY=0;
+var $thumbMaxX=0;
+var $thumbMaxY=0;
+
 function GrpEditor($props)
 {
 foreach($props as $key => $value)
@@ -127,6 +136,46 @@ return $this->style;
 function getBase()
 {
 return $this->base;
+}
+
+function getImageExactX()
+{
+return $this->imageExactX;
+}
+
+function getImageExactY()
+{
+return $this->imageExactY;
+}
+
+function getImageMaxX()
+{
+return $this->imageMaxX;
+}
+
+function getImageMaxY()
+{
+return $this->imageMaxY;
+}
+
+function getThumbExactX()
+{
+return $this->thumbExactX;
+}
+
+function getThumbExactY()
+{
+return $this->thumbExactY;
+}
+
+function getThumbMaxX()
+{
+return $this->thumbMaxX;
+}
+
+function getThumbMaxY()
+{
+return $this->thumbMaxY;
 }
 
 }

@@ -75,8 +75,10 @@ session();
 $image=getImageById($append ? 0 : $editid);
 $original=$image;
 $image->setup($Args);
-$err=uploadImage('image_file',$image,$has_large_image,
-                 $small_image_x,$small_image_y,$del_image,true);
+$err=imageUpload('image_file',$image,
+                 ($has_large_image ? IU_THUMB_AUTO : IU_THUMB_NONE) | IU_MANUAL,
+                 0,0,$small_image_x,$small_image_y,
+		 0,0,0,0,$del_image,true);
 if($err==EG_OK)
   $err=modifyImage($image,$original);
 if($insert)
