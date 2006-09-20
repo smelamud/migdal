@@ -12,7 +12,6 @@
 <posting_obj id='$postid' grp='*GRP_ARTICLES'
              fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <log event=article text#='post($,Id)'>
-<pagetitle title='$,Subject'>
 
 <html>
 <stylesheet ident='article'>

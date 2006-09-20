@@ -164,12 +164,16 @@ if($posting->getId()==$original->getId()
    && $posting->getSmallImage()==$original->getSmallImage()
    && $posting->getLargeImage()==$original->getLargeImage())
   return;
+$postingId=$posting->getEntry()==ENT_POSTING ? $posting->getOrigId()
+                                             : $posting->getId();
+$originalId=$original->getEntry()==ENT_POSTING ? $original->getOrigId()
+                                               : $original->getId();
 $ext=getImageExtension($thumbnailType);
-$mainSmallName=getImagePath($posting->getOrigId(),$ext,0,'small');
+$mainSmallName=getImagePath($postingId,$ext,0,'small');
 @unlink($mainSmallName);
 $ext=getImageExtension($original->getLargeImageFormat());
-$mainSmallName=getImagePath($posting->getOrigId(),$ext,0,'small');
-$mainLargeName=getImagePath($posting->getOrigId(),$ext,0,'large');
+$mainSmallName=getImagePath($postingId,$ext,0,'small');
+$mainLargeName=getImagePath($postingId,$ext,0,'large');
 @unlink($mainSmallName);
 @unlink($mainLargeName);
 if(!$posting->hasSmallImage())
@@ -177,31 +181,31 @@ if(!$posting->hasSmallImage())
 if($posting->hasLargeImage())
   {
   $ext=getImageExtension($thumbnailType);
-  $smallFilename=getImageFilename($original->getOrigId(),$ext,
+  $smallFilename=getImageFilename($originalId,$ext,
 				  $posting->getSmallImage(),'small');
-  $newSmallFilename=getImageFilename($posting->getOrigId(),$ext,
+  $newSmallFilename=getImageFilename($postingId,$ext,
 				     $posting->getSmallImage(),'small');
-  $mainSmallFilename=getImageFilename($posting->getOrigId(),$ext,0,'small');
+  $mainSmallFilename=getImageFilename($postingId,$ext,0,'small');
   $ext=getImageExtension($posting->getLargeImageFormat());
-  $largeFilename=getImageFilename($original->getOrigId(),$ext,
+  $largeFilename=getImageFilename($originalId,$ext,
 				  $posting->getLargeImage(),'large');
-  $newLargeFilename=getImageFilename($posting->getOrigId(),$ext,
+  $newLargeFilename=getImageFilename($postingId,$ext,
 				     $posting->getLargeImage(),'large');
-  $mainLargeFilename=getImageFilename($posting->getOrigId(),$ext,0,'large');
+  $mainLargeFilename=getImageFilename($postingId,$ext,0,'large');
   }
 else
   {
   $ext=getImageExtension($posting->getLargeImageFormat());
-  $smallFilename=getImageFilename($original->getOrigId(),$ext,
+  $smallFilename=getImageFilename($originalId,$ext,
 				  $posting->getSmallImage(),'small');
-  $newSmallFilename=getImageFilename($posting->getOrigId(),$ext,
+  $newSmallFilename=getImageFilename($postingId,$ext,
 				     $posting->getSmallImage(),'small');
-  $mainSmallFilename=getImageFilename($posting->getOrigId(),$ext,0,'small');
-  $largeFilename=getImageFilename($original->getOrigId(),$ext,
+  $mainSmallFilename=getImageFilename($postingId,$ext,0,'small');
+  $largeFilename=getImageFilename($originalId,$ext,
 				  $posting->getSmallImage(),'large');
-  $newLargeFilename=getImageFilename($posting->getOrigId(),$ext,
+  $newLargeFilename=getImageFilename($postingId,$ext,
 				     $posting->getSmallImage(),'large');
-  $mainLargeFilename=getImageFilename($posting->getOrigId(),$ext,0,'large');
+  $mainLargeFilename=getImageFilename($postingId,$ext,0,'large');
   }
 rename("$imageDir/$smallFilename","$imageDir/$newSmallFilename");
 @unlink("$imageDir/$mainSmallFilename");

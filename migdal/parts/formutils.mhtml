@@ -108,12 +108,12 @@
  <if what="$style=='select'">
   <select name='$name'>
    <select_option value='$value' selected='$checked' title='Да'>
-   <select_option value='0' selected='!$checked' title='Нет'>
+   <select_option value='0' selected!='!$checked' title='Нет'>
   </select>
  <elif what="$style=='radio'">
   <radio name='$name' value='$value' checked='$checked' title='Да'>
   &nbsp;
-  <radio name='$name' value='0' checked='!$checked' title='Нет'>
+  <radio name='$name' value='0' checked!='!$checked' title='Нет'>
  <elif what="$style=='box'">
   <checkbox_button name='$name' value='$value' checked='$checked'>
  <else>
