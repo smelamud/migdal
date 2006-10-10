@@ -21,6 +21,7 @@ require_once('lib/tmptexts.php');
 require_once('lib/track.php');
 require_once('lib/modbits.php');
 require_once('lib/utils.php');
+require_once('lib/text-any.php');
 
 class Topic
       extends GrpEntry
@@ -31,28 +32,30 @@ var $sub_count;
 
 function Topic($row)
 {
-global $rootTopicModbits;
+global $rootTopicModbits,$tfRegular;
 
 $this->entry=ENT_TOPIC;
-$this->body_format=TF_PLAIN;
+$this->body_format=$tfRegular;
 $this->modbits=$rootTopicModbits;
 parent::GrpEntry($row);
 }
 
 function setup($vars)
 {
+global $tfRegular;
+
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-$this->body_format=TF_PLAIN;
+$this->body_format=$tfRegular;
 $this->body=$vars['body'];
-$this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
+$this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
 $this->up=$vars['up'];
 $this->subject=$vars['subject'];
 $this->subject_sort=convertSort($this->subject);
 $this->comment0=$vars['comment0'];
-$this->comment0_xml=wikiToXML($this->comment0,$this->body_format,MTEXT_LINE);
+$this->comment0_xml=anyToXML($this->comment0,$this->body_format,MTEXT_LINE);
 $this->comment1=$vars['comment1'];
-$this->comment1_xml=wikiToXML($this->comment1,$this->body_format,MTEXT_LINE);
+$this->comment1_xml=anyToXML($this->comment1,$this->body_format,MTEXT_LINE);
 $this->ident=$vars['ident']!='' ? $vars['ident'] : null;
 $this->login=$vars['login'];
 if($vars['user_name']!='')

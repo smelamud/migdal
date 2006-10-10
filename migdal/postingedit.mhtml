@@ -50,6 +50,7 @@
 <int name='person_id'>
 <int name='hidden'>
 <int name='disabled'>
+<int name='sent'>
 
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
              fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>

@@ -62,7 +62,8 @@ return preg_replace('/^/m','> ',wordwrap($s,$width));
 }
 
 $TextFormats=array(TF_PLAIN => 'Простой текст (без переносов строк)',
-                   TF_TEX => 'Простой текст (с переносами строк)');
+                   TF_TEX => 'Простой текст (с переносами строк)',
+                   TF_XML => 'XML');
 
 class TextFormatsIterator
       extends AssocArrayIterator

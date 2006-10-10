@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/limitselect.php');
 require_once('lib/entries.php');
 require_once('lib/usertag.php');
@@ -9,6 +11,7 @@ require_once('lib/random.php');
 require_once('lib/bug.php');
 require_once('lib/sql.php');
 require_once('lib/modbits.php');
+require_once('lib/text-any.php');
 
 class Complain
       extends Entry
@@ -17,8 +20,10 @@ var $person_info;
 
 function Complain($row)
 {
+global $tfRegular;
+
 $this->entry=ENT_COMPLAIN;
-$this->body_format=TF_PLAIN;
+$this->body_format=$tfRegular;
 parent::Entry($row);
 $prow=array();
 foreach($row as $key => $value)
@@ -29,11 +34,13 @@ $this->person_info=new User($prow);
 
 function setup($vars)
 {
+global $tfRegular;
+
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-$this->body_format=TF_PLAIN;
+$this->body_format=$tfRegular;
 $this->body=$vars['body'];
-$this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
+$this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
 $this->subject=$vars['subject'];
 $this->subject_sort=convertSort($this->subject);
 $this->url=$vars['url'];

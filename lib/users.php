@@ -12,7 +12,7 @@ require_once('lib/tmptexts.php');
 require_once('lib/calendar.php');
 require_once('lib/random.php');
 require_once('lib/text.php');
-require_once('lib/text-wiki.php');
+require_once('lib/text-any.php');
 require_once('lib/alphabet.php');
 require_once('lib/sort.php');
 require_once('lib/sql.php');
@@ -73,6 +73,8 @@ parent::UserTag($row);
 
 function setup($vars)
 {
+global $tfUser;
+
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 $this->login=$vars['new_login'];
@@ -88,7 +90,7 @@ $this->surname_sort=convertSort($this->surname);
 $this->gender=$vars['gender'];
 $this->rights=disjunct($vars['rights']);
 $this->info=$vars['info'];
-$this->info_xml=wikiToXML($this->info,TF_MAIL,MTEXT_SHORT);
+$this->info_xml=anyToXML($this->info,$tfUser,MTEXT_SHORT);
 $this->email=$vars['email'];
 $this->hide_email=$vars['hide_email'];
 $this->icq=$vars['icq'];

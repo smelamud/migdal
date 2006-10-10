@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
@@ -12,10 +14,11 @@ require_once('lib/complainscripts.php');
 require_once('lib/forums.php');
 require_once('lib/uri.php');
 require_once('lib/tmptexts.php');
+require_once('lib/text-any.php');
 
 function executeAction($action,$complain_id)
 {
-global $userId;
+global $userId,$tfForum;
 
 if($action->getId()==0)
   return EECA_NO_ACTION;
@@ -27,9 +30,9 @@ if($complain->getPersonId()!=$userId)
 if($action->getText()!='')
   {
   $forum=getForumById(0,$complain->getId());
-  $forum->body_format=TF_MAIL;
+  $forum->body_format=$tfForum;
   $forum->body=$action->getText();
-  $forum->body_xml=wikiToXML($forum->body,$forum->body_format,MTEXT_SHORT);
+  $forum->body_xml=anyToXML($forum->body,$forum->body_format,MTEXT_SHORT);
   $forum->up=$complain->getId();
   storeForum($forum);
   }

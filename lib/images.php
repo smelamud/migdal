@@ -10,6 +10,7 @@ require_once('lib/tmptexts.php');
 require_once('lib/text.php');
 require_once('lib/image-types.php');
 require_once('lib/sql.php');
+require_once('lib/text-any.php');
 
 class Image
       extends Entry
@@ -17,19 +18,23 @@ class Image
 
 function Image($row)
 {
+global $tfRegular;
+
 $this->entry=ENT_IMAGE;
-$this->body_format=TF_PLAIN;
+$this->body_format=$tfRegular;
 parent::Entry($row);
 }
 
 function setup($vars)
 {
+global $tfRegular;
+
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 $this->up=$vars['postid'];
-$this->body_format=TF_PLAIN;
+$this->body_format=$tfRegular;
 $this->title=$vars['title'];
-$this->title_xml=wikiToXML($this->title,$this->body_format,MTEXT_LINE);
+$this->title_xml=anyToXML($this->title,$this->body_format,MTEXT_LINE);
 $this->small_image=$vars['small_image'];
 $this->small_image_x=$vars['small_image_x'];
 $this->small_image_y=$vars['small_image_y'];

@@ -2,6 +2,8 @@
 # @(#) $Id$
 
 require_once('lib/grps.php');
+require_once('lib/modbits.php');
+require_once('lib/text.php');
 
 #****************************#
 #                            #
@@ -270,6 +272,20 @@ $topicMandatoryDescription=true;
 
 $forumMandatoryBody=true;
 $forumMandatoryImage=false;
+
+## Форматы текстов по умолчанию ##
+
+# Для обычных постингов, тем, жалоб
+$tfRegular=TF_PLAIN;
+
+# Для форумов
+$tfForum=TF_MAIL;
+
+# Для больших текстов
+$tfLarge=TF_PLAIN;
+
+# Для информации о пользователе
+$tfUser=TF_PLAIN;
 
 ## Пользователи, создаваемые изначально ##
 

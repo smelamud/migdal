@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/alphabet.php');
 require_once('lib/bug.php');
 require_once('lib/cache.php');
@@ -23,6 +25,7 @@ require_once('lib/users.php');
 require_once('lib/votes.php');
 require_once('lib/uri.php');
 require_once('lib/time.php');
+require_once('lib/text-any.php');
 
 class Posting
       extends GrpEntry
@@ -33,21 +36,25 @@ var $co_ctr;
 
 function Posting($row)
 {
+global $tfRegular;
+
 $this->entry=ENT_POSTING;
-$this->body_format=TF_PLAIN;
+$this->body_format=$tfRegular;
 parent::GrpEntry($row);
 }
 
 function setup($vars)
 {
+global $tfRegular,$tfLarge;
+
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-$this->body_format=TF_PLAIN;
+$this->body_format=$tfRegular;
 $this->body=$vars['body'];
-$this->body_xml=wikiToXML($this->body,$this->body_format,MTEXT_SHORT);
+$this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
 $this->large_body_format=$vars['large_body_format'];
 if(!c_digit($this->large_body_format) || $this->large_body_format>TF_MAX)
-  $this->large_body_format=TF_PLAIN;
+  $this->large_body_format=$tfLarge;
 $this->has_large_body=0;
 $this->large_body='';
 $this->large_body_xml='';
@@ -55,8 +62,8 @@ if($vars['large_body']!='')
   {
   $this->has_large_body=1;
   $this->large_body=$vars['large_body'];
-  $this->large_body_xml=wikiToXML($this->large_body,$this->large_body_format,
-                                  MTEXT_LONG);
+  $this->large_body_xml=anyToXML($this->large_body,$this->large_body_format,
+                                 MTEXT_LONG);
   }
 if($vars['large_body_filename']!='')
   $this->large_body_filename=$vars['large_body_filename'];
@@ -73,15 +80,15 @@ $this->up=$vars['up'];
 $this->subject=$vars['subject'];
 $this->subject_sort=convertSort($this->subject);
 $this->comment0=$vars['comment0'];
-$this->comment0_xml=wikiToXML($this->comment0,$this->body_format,MTEXT_LINE);
+$this->comment0_xml=anyToXML($this->comment0,$this->body_format,MTEXT_LINE);
 $this->comment1=$vars['comment1'];
-$this->comment1_xml=wikiToXML($this->comment1,$this->body_format,MTEXT_LINE);
+$this->comment1_xml=anyToXML($this->comment1,$this->body_format,MTEXT_LINE);
 $this->author=$vars['author'];
-$this->author_xml=wikiToXML($this->author,$this->body_format,MTEXT_LINE);
+$this->author_xml=anyToXML($this->author,$this->body_format,MTEXT_LINE);
 $this->source=$vars['source'];
-$this->source_xml=wikiToXML($this->source,$this->body_format,MTEXT_LINE);
+$this->source_xml=anyToXML($this->source,$this->body_format,MTEXT_LINE);
 $this->title=$vars['title'];
-$this->title_xml=wikiToXML($this->title,$this->body_format,MTEXT_LINE);
+$this->title_xml=anyToXML($this->title,$this->body_format,MTEXT_LINE);
 $this->login=$vars['login'];
 if($vars['user_name']!='')
   $this->login=$vars['user_name'];

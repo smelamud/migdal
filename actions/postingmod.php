@@ -285,6 +285,12 @@ else
 			      'comment1',
 			      'title',
 			      'url',
+			      'sent_year',
+			      'sent_month',
+			      'sent_day',
+			      'sent_hour',
+			      'sent_minute',
+			      'sent_second',
 			      'okdir',
 			      'faildir'),
 			array('body_i'        => $bodyId,
@@ -306,6 +312,7 @@ else
 			      'large_image_size' => $posting->large_image_size,
 			      'large_image_format_i' => $largeImageFormatId,
 			      'large_image_filename_i' => $largeImageFilenameId,
+			      'sent'          => $posting->getSent(),
 			      'err'           => $err)).'#error');
   }
 dbClose();

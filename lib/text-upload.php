@@ -5,7 +5,7 @@ require_once('conf/migdal.conf');
 
 require_once('lib/errors.php');
 require_once('lib/text.php');
-require_once('lib/text-wiki.php');
+require_once('lib/text-any.php');
 
 function uploadLargeBody(&$posting,$del)
 {
@@ -30,8 +30,8 @@ $posting->has_large_body=1;
 $posting->large_body_filename=$file['name'];
 $text=fread($fd,$maxLargeText);
 $posting->large_body=isKOI($text) ? $text : convertInput($text);
-$posting->large_body_xml=wikiToXML($posting->large_body,$posting->large_format,
-                                   MTEXT_LONG);
+$posting->large_body_xml=anyToXML($posting->large_body,$posting->large_format,
+                                  MTEXT_LONG);
 fclose($fd);
 unlink($tmpname);
 

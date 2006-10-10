@@ -4,6 +4,7 @@
 require_once('lib/ctypes.php');
 require_once('lib/xml.php');
 require_once('lib/text.php');
+require_once('lib/text-xml.php');
 
 function is_delim($c)
 {
@@ -59,12 +60,6 @@ if($tag)
   $c.=$_bar;
 endProfiling();
 return $c;
-}
-
-function replaceParagraphs($s)
-{
-$s=preg_replace('/\n\s*\n/','</p><p>',$s);
-return preg_replace('/<p>&lt;-/','<p clear="left">',$s);
 }
 
 function getURLTag($whole,$url,$protocol,$content)
@@ -222,12 +217,6 @@ function replaceHeadings($s)
 return replaceHeading(replaceHeading(replaceHeading($s,2,'='),3,'-'),4,'~');
 }
 
-function cropXML($s)
-{
-$s=preg_replace('/^(\s|<[pP]>|<\/[pP]>|<[bB][rR] \/>)*/','',$s);
-return preg_replace('/(\s|<[pP]>|<\/[pP]>|<[bB][rR] \/>)*$/','',$s);
-}
-
 function replaceFootnotes($s)
 {
 $pattern="/(?:^|(?<=>)|\s+)(?:'([^']+)'\s)?{{((?:[^}]|}[^}])+)}}/";
@@ -253,12 +242,16 @@ switch($format)
       {
       default:
       case TF_MAIL:
-	   $c=replaceQuoting($c);
+	   if($dformat>=MTEXT_SHORT)
+	     $c=replaceQuoting($c);
       case TF_PLAIN:
  	   $c=replaceURLs($c);
-	   $c=replaceHeadings($c);
- 	   $c=replaceCenter($c);
- 	   $c=replaceParagraphs($c);
+	   if($dformat>=MTEXT_SHORT)
+	     {
+	     $c=replaceHeadings($c);
+	     $c=replaceCenter($c);
+	     $c=replaceParagraphs($c);
+	     }
 	   if($dformat>=MTEXT_LONG)
 	     $c=replaceFootnotes($c);
  	   $c=str_replace("\n",'<br />',$c);
@@ -271,9 +264,12 @@ switch($format)
 	   break;
       case TF_TEX:
 	   $c=replaceURLs($c);
-	   $c=replaceHeadings($c);
-	   $c=replaceCenter($c);
-	   $c=replaceParagraphs($c);
+	   if($dformat>=MTEXT_SHORT)
+	     {
+	     $c=replaceHeadings($c);
+	     $c=replaceCenter($c);
+	     $c=replaceParagraphs($c);
+	     }
 	   if($dformat>=MTEXT_LONG)
 	     $c=replaceFootnotes($c);
 	   $c=str_replace('\\\\','<br />',$c);
@@ -283,20 +279,8 @@ switch($format)
  	   $c=flipReplace('^','<sup>','</sup>',$c,false);
 	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
-      case TF_XML:
-	   $c=replaceParagraphs($c);
-	   if($dformat>=MTEXT_LONG)
-	     $c=replaceFootnotes($c);
-	   break;
       }
 endProfiling();
-$c=delicateAmps(cropXML($c));
-if($dformat<=MTEXT_LINE)
-  return $c;
-else
-  if(substr($c,0,5)=='&lt;-')
-    return '<p clear="left">'.substr($c,5).'</p>';
-  else
-    return "<p>$c</p>";
+return delicateAmps(cleanupXML($c));
 }
 ?>
