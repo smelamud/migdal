@@ -79,7 +79,7 @@ beginProfiling(POBJ_FUNCTION,'goFurther');
 if($end>$start)
   {
   $out.=preg_replace('/(^|[\s.,:;\(\)])(([^\s\(\)]+:\/)?\/[^\s&;]\S*[^\s.,:;\(\)&\\\\])/e',
-		     "'\\1'.getURLTag('\\0','\\2','\\3','\\2')",
+		     "'\\1'.getURLTag('\\2','\\2','\\3','\\2')",
 		     substr($in,$start,$end-$start));
   $start=$end;
   }

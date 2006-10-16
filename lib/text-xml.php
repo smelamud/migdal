@@ -166,7 +166,7 @@ preg_match('/^<\s*(\/?\w+)\s*(.*)>$/',$tag,$m);
 if(!isset($m[1]) || !isTagValid($m[1]))
   {
   $xmlQueue[]=new MTText(delicateSpecialChars($tag));
-  continue;
+  return;
   }
 $out='<'.$m[1];
 $tagName=strtoupper($m[1]);
