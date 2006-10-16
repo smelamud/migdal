@@ -24,6 +24,7 @@
 <int name='index1'>
 <int name='index2'>
 <string name='body'>
+<int name='body_format'>
 <string name='large_body'>
 <string name='large_body_filename'>
 <int name='del_large_body'>
@@ -149,6 +150,14 @@
 	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
  <else>
   <hidden name='body' value='$=posting.Body'>
+ </if>
+<elif what="$ident=='body_format'">
+ <if what='$visible'>
+  <form_upload_format title='$=editor.Title' comment='$editor.Comment'
+		      name='body_format' format='$posting.BodyFormat'
+		      mandatory='$editor.isMandatory'>
+ <else>
+  <hidden name='body_format' value='$posting.BodyFormat'>
  </if>
 <elif what="$ident=='index1'">
  <if what='$visible'>

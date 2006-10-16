@@ -36,10 +36,11 @@ var $co_ctr;
 
 function Posting($row)
 {
-global $tfRegular;
+global $tfRegular,$tfLarge;
 
 $this->entry=ENT_POSTING;
 $this->body_format=$tfRegular;
+$this->large_body_format=$tfLarge;
 parent::GrpEntry($row);
 }
 
@@ -49,7 +50,9 @@ global $tfRegular,$tfLarge;
 
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
-$this->body_format=$tfRegular;
+$this->body_format=$vars['body_format'];
+if(!c_digit($this->body_format) || $this->body_format>TF_MAX)
+  $this->body_format=$tfRegular;
 $this->body=$vars['body'];
 $this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
 $this->large_body_format=$vars['large_body_format'];
@@ -222,6 +225,7 @@ $Fields='entries.id as id,entries.ident as ident,entries.up as up,
          entries.url as url,entries.url_domain as url_domain,
 	 entries.url_check_success as url_check_success,entries.body as body,
 	 entries.body_xml as body_xml,entries.body_format as body_format,
+	 entries.body_format as body_format,
 	 entries.has_large_body as has_large_body,
 	 entries.large_body_format as large_body_format,
 	 entries.large_body_filename as large_body_filename,

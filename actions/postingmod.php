@@ -193,6 +193,7 @@ postInteger('index1');
 postInteger('index2');
 postInteger('up');
 postString('body');
+postInteger('body_format');
 postString('large_body');
 postInteger('del_large_body');
 postInteger('large_body_format');
