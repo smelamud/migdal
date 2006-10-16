@@ -290,13 +290,15 @@ class LocationIterator
 var $current;
 var $count;
 
-function LocationIterator()
+function LocationIterator($offset=0)
 {
 global $LocationInfo;
 
 parent::Iterator();
 $this->current=&$LocationInfo->getRoot();
 $this->count=0;
+for($i=0;$i<$offset && $this->current!=null;$i++)
+   $this->current=&$this->current->getChild();
 for($p=&$this->current;$p!=null;$p=&$p->getChild())
    $this->count++;
 }
