@@ -252,8 +252,9 @@ return $return;
 
 function xmlFormatToXML($s,$format,$dformat)
 {
+$c=$s;
 if($dformat>=MTEXT_SHORT)
-  $c=replaceParagraphs($s);
+  $c=replaceParagraphs($c);
 return delicateAmps(cleanupXML($c));
 }
 ?>
