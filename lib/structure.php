@@ -8,6 +8,7 @@ require_once('lib/uri.php');
 require_once('lib/ident.php');
 require_once('lib/entries.php');
 require_once('lib/cross-entries.php');
+require_once('lib/text.php');
 require_once('lib/cache.php');
 
 require_once('grp/titles.php');

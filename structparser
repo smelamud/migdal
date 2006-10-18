@@ -204,6 +204,14 @@ for my $var(keys %$item)
      $value="LINKT_$name" unless $name=~/\$/;
      $$item{"_$var"}="\".$value.\"";
      }
+   elsif($type eq 'text_format')
+     {
+     my $name=uc $$item{"_$var"};
+     my $value;
+     $value="constant(\"TF_$name\")" if $name=~/\$/;
+     $value="TF_$name" unless $name=~/\$/;
+     $$item{"_$var"}="\".$value.\"";
+     }
    elsif($type eq 'orig_ident')
      {
      $$item{"_$var"}="\".getOrigIdByEntryId(postProcessIdent(\""
