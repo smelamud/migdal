@@ -912,7 +912,7 @@ $result=sql("select grp
 	     from entries
 	     where id=$id",
 	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : ENT_NULL;
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function getParentIdByEntryId($id)

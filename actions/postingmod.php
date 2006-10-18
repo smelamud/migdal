@@ -53,7 +53,8 @@ if($posting->url!='' && strpos($posting->url,'://')===false
   $posting->url="http://{$posting->url}";
 if($posting->isMandatory('topic') && $posting->parent_id==0)
   return EP_TOPIC_ABSENT;
-if($posting->up==$original->parent_id)
+if(getTypeByEntryId($posting->up)==ENT_TOPIC
+   || $posting->up==$original->parent_id)
   $posting->up=$posting->parent_id;
 $correct=validateHierarchy($posting->parent_id,$posting->up,ENT_POSTING,
                            $posting->id);
