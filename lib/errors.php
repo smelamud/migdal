@@ -91,6 +91,8 @@ define('EF_UP_APPEND',203);
 define('EF_BODY_ABSENT',204);
 define('EF_IMAGE_ABSENT',205);
 define('EF_NO_IMAGE',206);
+define('EF_SUBJECT_ABSENT',207);
+define('EF_AUTHOR_ABSENT',208);
 
 define('EMI_NO_EDIT',210);
 define('EMI_NAME_ABSENT',211);

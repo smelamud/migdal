@@ -65,8 +65,9 @@
          params='iterator,rows,mincols'
 	 defaults="iterator='$;' rows=5 mincols=3">
 <deciter macro='forumlist' class='ForumListIterator' file='lib/forums.php'
-         params='parent_id,limit,offset,sort'
-	 defaults="limit=10 offset=0 sort='*SORT_SENT'">
+         params='parent_id,limit,offset,sort,disabled'
+	 defaults="parent_id=0 limit=10 offset=0 sort='*SORT_SENT'
+	           disabled='-1'">
 <deciter macro='grp_editor' class='GrpEditorIterator' file='lib/grps.php'
          params='grp,inverse' defaults="grp='*GRP_NONE' inverse='*false'">
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>

@@ -270,6 +270,9 @@ $topicMandatoryDescription=true;
 
 ## Настройки сообщений в форуме (Forum) ##
 
+$forumPremoderate=false;
+$forumMandatorySubject=false;
+$forumMandatoryAuthor=false;
 $forumMandatoryBody=true;
 $forumMandatoryImage=false;
 

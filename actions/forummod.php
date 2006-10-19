@@ -40,6 +40,10 @@ if($forum->up!=$forum->parent_id)
   if(!$perms->isAppendable())
     return EF_UP_APPEND;
   }
+if($forumMandatorySubject && $forum->subject=='')
+  return EF_SUBJECT_ABSENT;
+if($forumMandatoryAuthor && $forum->author=='')
+  return EF_AUTHOR_ABSENT;
 if($forumMandatoryBody && $forum->body=='')
   return EF_BODY_ABSENT;
 if($forumMandatoryImage && !$forum->hasSmallImage())
@@ -71,6 +75,7 @@ postInteger('edittag');
 postInteger('parent_id');
 postInteger('up');
 postString('subject');
+postString('author');
 postString('body');
 postInteger('small_image');
 postInteger('small_image_x');
@@ -113,6 +118,7 @@ else
   {
   $bodyId=tmpTextSave($body);
   $subjectId=tmpTextSave($subject);
+  $authorId=tmpTextSave($author);
   $largeImageFormatId=tmpTextSave($forum->large_image_format);
   $largeImageFilenameId=tmpTextSave($forum->large_image_filename);
   header('Location: '.
@@ -121,10 +127,12 @@ else
 			array('password',
 			      'body',
 			      'subject',
+			      'author',
 			      'okdir',
 			      'faildir'),
 			array('body_i'        => $bodyId,
 			      'subject_i'     => $subjectId,
+			      'author_i'      => $authorId,
 			      'small_image'   => $forum->small_image,
 			      'small_image_x' => $forum->small_image_x,
 			      'small_image_y' => $forum->small_image_y,

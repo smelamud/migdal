@@ -156,18 +156,31 @@ var $parent_type;
 
 function ForumListIterator($parent_id,$limit=10,$offset=0,$sort=SORT_SENT)
 {
-$this->parent_type=getTypeByEntryId($parent_id);
-$Filter=forumListFilter($parent_id);
+if($parent_id>0)
+  {
+  $this->parent_type=getTypeByEntryId($parent_id);
+  $Filter=forumListFilter($parent_id);
+  }
+else
+  {
+  $this->parent_type=ENT_NULL;
+  $Filter='1';
+  }
+if($disabled>=0)
+  if($disabled)
+    $Filter.=" and entries.disabled<>0";
+  else
+    $Filter.=" and entries.disabled=0";
 $Order=getOrderBy($sort,
        array(SORT_SENT  => 'entries.sent desc',
              SORT_RSENT => 'entries.sent asc'));
 parent::LimitSelectIterator(
         'Forum',
-	"select entries.id as id,body,body_xml,body_format,sent,created,
-	        modified,user_id,group_id,perms,disabled,parent_id,
-		users.login as login,users.gender as gender,
-		users.email as email,users.hide_email as hide_email,
-		users.hidden as user_hidden
+	"select entries.id as id,subject,subject_sort,author,author_xml,body,
+	        body_xml,body_format,sent,created,modified,user_id,group_id,
+		perms,disabled,parent_id,users.login as login,
+		users.gender as gender,users.email as email,
+		users.hide_email as hide_email,users.hidden as user_hidden
 	 from entries
 	      left join users
 		   on entries.user_id=users.id
@@ -181,7 +194,10 @@ parent::LimitSelectIterator(
 
 function create($row)
 {
-$row['parent_type']=$this->parent_type;
+if($this->parent_type!=ENT_NULL)
+  $row['parent_type']=$this->parent_type;
+else
+  $row['parent_type']=getTypeByEntryId($row['parent_id']);
 return parent::create($row);
 }
 
@@ -189,15 +205,19 @@ return parent::create($row);
 
 function storeForum(&$forum)
 {
-$jencoded=array('subject' => '','body' => '','body_xml' => '',
-                'small_image' => 'images','large_image' => 'images',
-		'large_image_filename' => '','user_id' => 'users',
-		'group_id' => 'users','subject_sort' => '','up' => 'entries',
-		'parent_id' => 'entries');
+global $forumPremoderate;
+
+$jencoded=array('subject' => '','author' => '','author_xml'=>'','body' => '',
+                'body_xml' => '','small_image' => 'images',
+		'large_image' => 'images','large_image_filename' => '',
+		'user_id' => 'users','group_id' => 'users','subject_sort' => '',
+		'up' => 'entries','parent_id' => 'entries');
 $vars=array('entry' => $forum->entry,
             'modified' => sqlNow(),
             'subject' => $forum->subject,
 	    'subject_sort' => $forum->subject_sort,
+	    'author' => $forum->author,
+	    'author_xml' => $forum->author_xml,
 	    'body' => $forum->body,
 	    'body_xml' => $forum->body_xml,
 	    'body_format' => $forum->body_format,
@@ -221,6 +241,9 @@ if($userModerator)
   $vars=array_merge($vars,
 		    array('disabled' => $forum->disabled,
 			  'priority' => $forum->priority));
+else
+  if($forumPremoderate && $forum->id<=0)
+    $vars['disabled']=true;
 if($forum->id)
   {
   $result=sql(sqlUpdate('entries',
@@ -265,8 +288,9 @@ function getForumById($id,$parent_id=0,$quote='',$quoteWidth=75)
 global $userId,$realUserId;
 
 $hide=forumPermFilter(PERM_READ);
-$result=sql("select entries.id as id,body,body_xml,body_format,user_id,group_id,
-                    perms,small_image,small_image_x,small_image_y,large_image,
+$result=sql("select entries.id as id,subject,subject_sort,author,author_xml,
+                    body,body_xml,body_format,user_id,group_id,perms,
+		    small_image,small_image_x,small_image_y,large_image,
 		    large_image_x,large_image_y,large_image_size,
 		    large_image_format,large_image_filename,
 		    up,parent_id,disabled,sent,created,modified,
