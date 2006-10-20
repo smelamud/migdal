@@ -455,7 +455,7 @@ parent::AlphabetIterator("select left($field,@len@) as letter,1 as count
 
 function getUserById($id)
 {
-global $userAdminUsers;
+global $userAdminUsers,$userId;
 
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
@@ -469,7 +469,8 @@ $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
 		    floor((unix_timestamp(confirm_deadline)
 			   -unix_timestamp(now()))/86400) as confirm_days
 	     from users
-	     where users.id=$id and (hidden<$hide or guest<>0)
+	     where users.id=$id and (hidden<$hide or guest<>0
+	                             or users.id=$userId)
 	     group by users.id",
 	    __FUNCTION__);
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
