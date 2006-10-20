@@ -38,8 +38,7 @@ all: $(OBJECTS:%.mhtml=$(targetdir)/%.php)
 	-mkdir -p $(targetdir)
 	-mkdir -p $(targetdir)/books
 	-mkdir -p $(targetdir)/images
-	cp favicon.ico dispatcher.php .htaccess robots.txt window.js \
-		$(targetdir)
+	cp favicon.ico dispatcher.php .htaccess robots.txt *.js $(targetdir)
 	(cd grp; $(MAKE) all)
 	(cd parts; $(MAKE) all)
 	(cd pics; $(MAKE) all)
