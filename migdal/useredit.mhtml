@@ -152,7 +152,7 @@
                    checked='$,isModerator' title='Модератор'>
     <form_checkbox name='rights[]' value='*USR_JUDGE'
                    checked='$,isJudge' title='Арбитр'>
-    <form_checkbox name='admin_domain' value='*USR_ADMIN_DOMAIN'
+    <form_checkbox name='rights[]' value='*USR_ADMIN_DOMAIN'
                    checked='$,isAdminDomain' title='Администратор субдоменов'>
     <form_checkbox name='hidden' checked='$,isHidden'
 		   title='Скрыть в списке пользователей'>
