@@ -102,12 +102,20 @@ if($s=~/^(.*)@([ERJI]?\w)$/)
   }
 if($s=~/^\$`([^`]*)`$/)
   {
-  request('lib/ident.php');
   my ($table,$ident)=$1=~/^\s*(?:(\w+):)?([^`]+)$/;
   $table='entries' if $table eq '';
   $table=subTypedValue('','%',$table);
   $ident=subTypedValue('','%',$ident);
-  return "${st}idByIdent($ident,$table)$ed";
+  if($table eq "'users'")
+    {
+    request('lib/users.php');
+    return "${st}idByLogin($ident)$ed";
+    }
+  else
+    {
+    request('lib/ident.php');
+    return "${st}idByIdent($ident,$table)$ed";
+    }
   }
 if($s=~/^\$\/([^\/]*)\/$/)
   {
