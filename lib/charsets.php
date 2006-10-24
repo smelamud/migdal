@@ -3,6 +3,95 @@
 
 require_once('lib/utils.php');
 
+function charsetName($name)
+{
+$pname='';
+for($i=0;$i<strlen($name);$i++)
+   if($name{$i}!='-' && $name{$i}!='_')
+     $pname.=strtoupper($name{$i});
+return $pname;
+}
+
+function charToEntity($c,$charset='UTF16')
+{
+$charset=charsetName($charset);
+if($charset!='UTF16')
+  $c=substr(iconv($charset,'UTF-16',$c),2);
+return '&#x'.sprintf('%02x',ord($c{1})).sprintf('%02x',ord($c{0})).';';
+}
+
+function entityToChar($c,$charset='UTF16')
+{
+if(preg_match('/^&#(\d+);$/',$c,$matches))
+  $code=(int)$matches[1];
+elseif(preg_match('/^&#x([\dA-Fa-f]+);$/',$c,$matches))
+  $code=hexdec($matches[1]);
+else
+  return $c;
+$s=chr($code%0x100).chr((int)($code/0x100));
+$charset=charsetName($charset);
+if($charset!='UTF16')
+  $s=iconv('UTF-16',$charset,"\xff\xfe".$s);
+return $s;
+}
+
+// Converts from $icharset to $ocharset and decodes all character entities.
+// Does not create character entities for unknown characters, so use this
+// function only for conversions into UTF-8 or UTF-16 encoding.
+function convertToUTF($s,$icharset,$ocharset)
+{
+$icharset=charsetName($icharset);
+$ocharset=charsetName($ocharset);
+if($icharset!='UTF8')
+  {
+  $s=iconv($icharset,'UTF-8',$s);
+  $icharset='UTF8';
+  }
+$s=preg_replace('/&[^;]+;/e',"entityToChar('\\0','$icharset')",$s);
+return $icharset==$ocharset ? $s : iconv($icharset,$ocharset,$s);
+}
+
+function convertCharset($s,$icharset,$ocharset)
+{
+$icharset=charsetName($icharset);
+$ocharset=charsetName($ocharset);
+if(substr($ocharset,0,3)=='UTF')
+  {
+  $s=convertToUTF($s,$icharset,$ocharset);
+  return $s;
+  }
+if($icharset==$ocharset)
+  return $s;
+if($icharset=='UTF8')
+  {
+  $s=iconv($icharset,'UTF-16',$s);
+  $s=substr($s,2);
+  $icharset='UTF16';
+  $icsize=2;
+  }
+else
+  $icsize=1;
+$c='';
+$pos=0;
+while(true)
+     {
+     $chunk=substr($s,$pos*$icsize);
+     if($icsize==2)
+       $chunk="\xff\xfe$chunk";
+     $chunk=iconv($icharset,$ocharset,$chunk);
+     if(strlen($chunk)>=strlen($s)/$icsize-$pos)
+       {
+       $c.=$chunk;
+       break;
+       }
+     $pos+=strlen($chunk)/$icsize;
+     $c.=$chunk;
+     $c.=charToEntity(substr($s,$pos*$icsize,$icsize),$icharset);
+     $pos++;
+     }
+return $c;
+}
+
 function isKOI($s)
 {
 $c=0;
