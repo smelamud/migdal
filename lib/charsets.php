@@ -105,13 +105,17 @@ for($i=0;$i<strlen($s);$i++)
 return $c<=0;
 }
 
-function convertInput($s)
+function convertLigatures($s)
 {
-return convert_cyr_string(
-       str_replace(array("\xAB","\xBB","\x96","\x97","\x93",
+return str_replace(array("\xAB","\xBB","\x96","\x97","\x93",
                          "\x94","\xAE","\x99","\xB9","\x85"),
                    array('<<','>>','---','---','``',
-	                 "''",'(r)','(tm)','No.','...'),$s),'w','k');
+	                 "''",'(r)','(tm)','No.','...'),$s);
+}
+
+function convertInput($s)
+{
+return convert_cyr_string(convertLigatures($s),'w','k');
 }
 
 $hebrewCodes=array(
