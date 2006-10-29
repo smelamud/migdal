@@ -551,8 +551,9 @@
 <decel name='image' file='lib/utils.php' params='src,alt,title,border,class'
        defaults="src='' alt='' title='' border='' class=''">
 
-<decel name='tdspan' file='lib/utils.php' params='span,class,align,width',
-       defaults="span=0 class='' align='' width=''">
+<decel name='tdspan' file='lib/utils.php'
+       params='span,class,align,width,height',
+       defaults="span=0 class='' align='' width='' height=''">
 
 <macro name='/tdspan'>
  </td>

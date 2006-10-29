@@ -38,7 +38,7 @@ if($class!='')
 echo "$s>";
 }
 
-function displayTdspan($span=0,$class='',$align='',$width='')
+function displayTdspan($span=0,$class='',$align='',$width='',$height='')
 {
 $s='';
 if($span>1)
@@ -49,6 +49,8 @@ if($align!='')
   $s.=" align='$align'";
 if($width!='')
   $s.=" width='$width'";
+if($height!='')
+  $s.=" height='$height'";
 echo "<td$s>";
 }
 

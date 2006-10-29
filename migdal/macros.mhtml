@@ -307,8 +307,6 @@
 <decel name='topics_help' file='parts/topics-help.php' params='posting,ident'
        defaults="posting=0 ident=''">
 <decel name='topics_help_info' file='parts/topics-help.php' params='posting'>
-<decel name='topics_home' file='parts/topics-home.php' params='posting'
-       defaults="posting=0">
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_kaitana' file='parts/topics-daily.php' params='posting'>
