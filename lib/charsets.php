@@ -84,7 +84,7 @@ while(true)
        $c.=$chunk;
        break;
        }
-     $pos+=strlen($chunk)/$icsize;
+     $pos+=strlen($chunk);
      $c.=$chunk;
      $c.=charToEntity(substr($s,$pos*$icsize,$icsize),$icharset);
      $pos++;
@@ -97,12 +97,36 @@ function isKOI($s)
 $c=0;
 for($i=0;$i<strlen($s);$i++)
    {
-   if($s[$i]>='à' && $s[$i]<='ÿ')
+   if($s{$i}>='à' && $s{$i}<='ÿ')
      $c++;
-   if($s[$i]>='À' && $s[$i]<='ß')
+   if($s{$i}>='À' && $s{$i}<='ß')
      $c--;
    }
 return $c<=0;
+}
+
+function isUTF8($s)
+{
+$errc=0;
+$cc=0;
+for($i=0;$i<strlen($s);$i++)
+   {
+   $byte=ord($s{$i});
+   if(($byte & 0xc0)==0x80)
+     if($cc>0)
+       $cc--;
+     else
+       $errc++;
+   elseif(($byte & 0x80)==0)
+     $cc=0;
+   elseif(($byte & 0xe0)==0xc0)
+     $cc=1;
+   elseif(($byte & 0xf0)==0xe0)
+     $cc=2;
+   elseif(($byte & 0xf8)==0xf0)
+     $cc=3;
+   }
+return $errc/strlen($s)<=0.01;
 }
 
 function convertLigatures($s)
@@ -116,6 +140,18 @@ return str_replace(array("\xAB","\xBB","\x96","\x97","\x93",
 function convertInput($s)
 {
 return convert_cyr_string(convertLigatures($s),'w','k');
+}
+
+function convertUploadedText($s)
+{
+if(isUTF8($s))
+  $icharset='UTF-8';
+elseif(isKOI($s))
+  $icharset='KOI8-R';
+else
+  $icharset='CP1251';
+$out=convertCharset($s,$icharset,'KOI8-R');
+return $out;
 }
 
 $hebrewCodes=array(

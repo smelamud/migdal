@@ -29,9 +29,9 @@ $fd=fopen($tmpname,'r');
 $posting->has_large_body=1;
 $posting->large_body_filename=$file['name'];
 $text=fread($fd,$maxLargeText);
-$posting->large_body=isKOI($text) ? $text : convertInput($text);
-$posting->large_body_xml=anyToXML($posting->large_body,$posting->large_format,
-                                  MTEXT_LONG);
+$posting->large_body=convertUploadedText($text);
+$posting->large_body_xml=anyToXML($posting->large_body,
+                                  $posting->large_body_format,MTEXT_LONG);
 fclose($fd);
 unlink($tmpname);
 

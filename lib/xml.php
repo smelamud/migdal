@@ -11,7 +11,7 @@ $len=strlen($s)-2;
 if($maxlen!=0)
   $len=min($len,$maxlen*2);
 for($i=2;$i<$len+2;$i+=2)
-   if($i+1<$len && ord($s{$i+1})!=0)
+   if(ord($s{$i+1})!=0)
      $c.=charToEntity(substr($s,$i,2),'UTF-16');
    else
      $c.=$s{$i};
