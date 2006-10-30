@@ -443,7 +443,7 @@ function mtextToHTML($body,$format=MTEXT_LINE,$id=0,$showFootnotes=false,
                      $iterator=null)
 {
 $xml=new MTextToHTMLXML($format,$id,getImageBlocks($iterator));
-$xml->parse($body);
+$xml->parse(convertToXMLText($body));
 $xml->free();
 return $showFootnotes ? array('body'      => $xml->getBodyHTML(),
                               'footnotes' => $xml->getFootnotesHTML())

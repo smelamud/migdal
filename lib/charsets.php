@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/utils.php');
 
 function charsetName($name)
@@ -92,6 +94,20 @@ while(true)
 return $c;
 }
 
+function convertFromXMLText($s)
+{
+global $charsetInternal;
+
+return convertCharset($s,'UTF-8',$charsetInternal);
+}
+
+function convertToXMLText($s)
+{
+global $charsetInternal;
+
+return iconv($charsetInternal,'UTF-8',$s);
+}
+
 function isKOI($s)
 {
 $c=0;
@@ -144,13 +160,15 @@ return convert_cyr_string(convertLigatures($s),'w','k');
 
 function convertUploadedText($s)
 {
+global $charsetInternal;
+
 if(isUTF8($s))
   $icharset='UTF-8';
 elseif(isKOI($s))
   $icharset='KOI8-R';
 else
   $icharset='CP1251';
-$out=convertCharset($s,$icharset,'KOI8-R');
+$out=convertCharset($s,$icharset,$charsetInternal);
 return $out;
 }
 

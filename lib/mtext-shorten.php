@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/xml.php');
+require_once('lib/charsets.php');
 require_once('lib/text.php');
 
 class MTextToLineXML
@@ -142,7 +143,7 @@ if($this->stop)
   return;
 $n=strlen(unhtmlentities(utf8_decode($data)));
 $this->clen+=$n;
-$text=utf8DecodeMarkup($data,$n-($this->clen-$this->len));
+$text=convertFromXMLText($data,$n-($this->clen-$this->len));
 if(!$this->clearTags)
   $text=delicateSpecialChars($text);
 $this->short.=$text;
@@ -235,7 +236,7 @@ $c=$n>=strlen($line) ? '' : $suffix;
 if($hasMarkup)
   {
   $xml1=new MTextShortenXML($n,$clearTags);
-  $xml1->parse($s);
+  $xml1->parse(convertToXMLText($s));
   $xml1->free();
   return $xml1->getShort().$c;
   }

@@ -3,21 +3,6 @@
 
 require_once('lib/charsets.php');
 
-function utf8DecodeMarkup($s,$maxlen=0)
-{
-$s=iconv('UTF-8','UTF-16',$s);
-$c='';
-$len=strlen($s)-2;
-if($maxlen!=0)
-  $len=min($len,$maxlen*2);
-for($i=2;$i<$len+2;$i+=2)
-   if(ord($s{$i+1})!=0)
-     $c.=charToEntity(substr($s,$i,2),'UTF-16');
-   else
-     $c.=$s{$i};
-return $c;
-}
-
 define('DSC_NO_GT',0);
 define('DSC_GT',1);
 
@@ -59,7 +44,7 @@ $s='<'.strtolower($name);
 foreach($attrs as $key => $value)
        {
        $key=strtolower($key);
-       $value=delicateSpecialChars(utf8DecodeMarkup($value));
+       $value=delicateSpecialChars(convertFromXMLText($value));
        $s.=" $key=\"$value\"";
        }
 $s.=$empty ? ' />' : '>';
@@ -68,7 +53,7 @@ return $s;
 
 function makeText($text)
 {
-return delicateSpecialChars(utf8DecodeMarkup($text),DSC_GT);
+return delicateSpecialChars(convertFromXMLText($text),DSC_GT);
 }
 
 class XMLParser
@@ -77,7 +62,7 @@ var $xml_parser;
 
 function XMLParser()
 {
-$this->xml_parser=xml_parser_create();
+$this->xml_parser=xml_parser_create('UTF-8');
 xml_set_object($this->xml_parser,$this);
 xml_parser_set_option($this->xml_parser,XML_OPTION_CASE_FOLDING,true);
 xml_parser_set_option($this->xml_parser,XML_OPTION_TARGET_ENCODING,'UTF-8');
