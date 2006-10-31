@@ -49,7 +49,7 @@ if($icharset!='UTF8')
   $s=iconv($icharset,'UTF-8',$s);
   $icharset='UTF8';
   }
-$s=preg_replace('/&[^;]+;/e',"entityToChar('\\0','$icharset')",$s);
+$s=preg_replace('/&#x?([\dA-Fa-f]+);/e',"entityToChar('\\0','$icharset')",$s);
 return $icharset==$ocharset ? $s : iconv($icharset,$ocharset,$s);
 }
 
@@ -147,29 +147,13 @@ return $errc/strlen($s)<=0.01;
 
 function convertLigatures($s)
 {
-return str_replace(array("\xAB","\xBB","\x96","\x97","\x93",
-                         "\x94","\xAE","\x99","\xB9","\x85"),
-                   array('<<','>>','---','---','``',
-	                 "''",'(r)','(tm)','No.','...'),$s);
-}
-
-function convertInput($s)
-{
-return convert_cyr_string(convertLigatures($s),'w','k');
-}
-
-function convertUploadedText($s)
-{
-global $charsetInternal;
-
-if(isUTF8($s))
-  $icharset='UTF-8';
-elseif(isKOI($s))
-  $icharset='KOI8-R';
-else
-  $icharset='CP1251';
-$out=convertCharset($s,$icharset,$charsetInternal);
-return $out;
+return str_replace(array('&lt;&lt;','>>','&gt;&gt;','&LT;&LT;','&GT;&GT;',
+			 '---','``','&#039;&#039;',"''",'(c)','(C)',
+			 '(r)','(R)','(tm)','(TM)','No.','&sp;','&nil;'),
+		   array('&laquo;','&raquo;','&raquo;','&laquo;','&raquo;',
+			 '&mdash;','&ldquo;','&rdquo;','&rdquo;','&copy;','&copy;',
+			 '&reg;','&reg;','&trade;','&trade;','&#8470;',' ',''),
+		   $s);
 }
 
 $hebrewCodes=array(
@@ -221,37 +205,58 @@ $hebrewCodes=array(
 		   '"' => '05F4'
                   );
 
-function convertHebrew($s,$htmlEntities=true)
+function convertHebrewBlock($s)
 {
 global $hebrewCodes;
 
-if($htmlEntities)
-  $s=unhtmlentities($s);
 $c='';
 for($i=0;$i<strlen($s);$i++)
-   $c.='&#x'.$hebrewCodes[$s[$i]].';';
+   $c.='&#x'.$hebrewCodes[$s{$i}].';';
 return "$c&lrm;";
 }
 
-function convertOutput($s,$koiChars=false,$koiCharset=false)
+function convertHebrew($s)
 {
-$s=$koiChars
-       ? str_replace(array('&lt;&lt;','>>','&gt;&gt;','&LT;&LT;','&GT;&GT;',
-                           '---','``','&#039;&#039;','&sp;','&nil;'),
-                     array('"','"','"','"','"',
-		           '--','"','"',' ',''),
-		     $s)
-       : str_replace(array('&lt;&lt;','>>','&gt;&gt;','&LT;&LT;','&GT;&GT;',
-                           '---','``','&#039;&#039;','(c)','(C)',
-			   '(r)','(R)','(tm)','(TM)','No.','&sp;','&nil;'),
-                     array('&laquo;','&raquo;','&raquo;','&laquo;','&raquo;',
-		           '&mdash;','&ldquo;','&rdquo;','&copy;','&copy;',
-			   '&reg;','&reg;','&trade;','&trade;','&#8470;',' ',''),
-		     $s);
-$s=preg_replace('/\$(-?)(\S+)\$/e',
-                "'\\1'=='-' ? convertHebrew(strrev('\\2'))
-		            : convertHebrew('\\2')",$s);
-return $koiCharset ? $s : convert_cyr_string($s,'k','w');
+return preg_replace('/\$(-?)(\S+)\$/e',
+		    "'\\1'=='-' ? convertHebrewBlock(strrev('\\2'))
+				: convertHebrewBlock('\\2')",$s);
+}
+
+function convertInputString($s)
+{
+global $charsetInternal,$charsetExternal;
+
+$s=convertLigatures($s);
+$s=convertCharset($s,$charsetExternal,$charsetInternal);
+$s=convertHebrew($s);
+return $s;
+}
+
+function convertUploadedText($s)
+{
+global $charsetInternal;
+
+if(isUTF8($s))
+  $icharset='UTF-8';
+elseif(isKOI($s))
+  $icharset='KOI8-R';
+else
+  $icharset='CP1251';
+$out=convertCharset($s,$icharset,$charsetInternal);
+return $out;
+}
+
+function convertOutputString($s)
+{
+return delicateSpecialChars($s);
+}
+
+function convertOutput($s)
+{
+global $charsetInternal,$charsetExternal;
+
+$c=convertCharset($s,$charsetInternal,$charsetExternal);
+return $c;
 }
 
 function convertSort($s)

@@ -11,7 +11,7 @@ $s=preg_replace('/\s*<\s*[pP]\s*>(.*?)<\s*\/\s*[pP]\s*>\s*/e',
                 "wordwrap(\"\\1\").'<br>'",$s);
 $s=str_replace('&nbsp;',' ',$s);
 $s=preg_replace('/\s*<\s*[bB][rR][\s\/]*>\s*/',"\n",$s);
-$s=convertOutput($s,true,true);
+$s=convertOutput($s,true,true); // FIXME 2 last parameters deprecated
 return preg_replace('/^--$/m','---',$s);
 }
 ?>

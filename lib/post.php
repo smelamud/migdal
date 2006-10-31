@@ -110,7 +110,7 @@ else
   {
   $value=isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
   if($convert)
-    $value=convertInput($value);
+    $value=convertInputString($value);
   }
 postValue($name,postProcessString($value));
 }

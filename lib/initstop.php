@@ -41,13 +41,11 @@ foreach($stylesheetList as $sheet)
 
 function finalize()
 {
-global $userReadKOI;
-
 dbClose(); // dbClose() должен находиться здесь, чтобы профайлер не учитывал
            // время скачивания страницы клиентом
 $Output=ob_get_contents();
 ob_end_clean();
-echo convertOutput($Output,$userReadKOI>0);
+echo convertOutput($Output);
 }
 
 function error_handler($errno,$errstr,$errfile,$errline)

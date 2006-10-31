@@ -28,7 +28,7 @@ $userSetNames=array('MsgPortion', // obsolete
 		    'PictureRowPortion',
 		    'PictureColumnPortion',
 		    'BiffTime',
-		    'ReadKOI',
+		    'ReadKOI', // obsolete
 		    'IndexPage', // obsolete
 		    'ChatUsersRefresh',
 		    'UserPortion'); // obsolete
@@ -42,7 +42,7 @@ $userSetDefaults=array('MsgPortion'           => 10, // obsolete
 		       'PictureRowPortion'    => 4,
 		       'PictureColumnPortion' => 5,
 		       'BiffTime'             => 24,
-		       'ReadKOI'              => 0,
+		       'ReadKOI'              => 0, // obsolete
 		       'IndexPage'            => 1, // obsolete
 		       'ChatUsersRefresh'     => 60,
 		       'UserPortion'          => 30); // obsolete

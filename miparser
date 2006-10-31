@@ -157,7 +157,7 @@ return "${st}uc(\$$item)$ed"
        if $s=~/^\$\^\.$/;
 return "${st}urlencode(\$$item)$ed"
        if $s=~/^\$#\.$/;
-return "${st}htmlspecialchars(\$$item,ENT_QUOTES)$ed"
+return "${st}convertOutputString(\$$item)$ed"
        if $s=~/^\$=\.$/;
 return "$st\$$result$ed"
        if $s=~/^\$,$/;
@@ -179,9 +179,9 @@ return "${st}urlencode(\$$1)$ed"
        if $s=~/^\$#{?(\w+)}?$/;
 return "${st}urlencode(\$".getGlobal($1).")$ed"
        if $s=~/^\$\$#{?(\w+)}?$/;
-return "${st}htmlspecialchars(\$$1,ENT_QUOTES)$ed"
+return "${st}convertOutputString(\$$1)$ed"
        if $s=~/^\$={?(\w+)}?$/;
-return "${st}htmlspecialchars(\$".getGlobal($1).",ENT_QUOTES)$ed"
+return "${st}convertOutputString(\$".getGlobal($1).")$ed"
        if $s=~/^\$\$={?(\w+)}?$/;
 return "$st\$$item->".getGetName($1)."()$ed"
        if $s=~/^\${?\.(\w+)}?$/;
@@ -213,16 +213,15 @@ return "${st}urlencode(\$$1->".getGetName($2)."())$ed"
        if $s=~/^\$#{?(\w+)[\.,;](\w+)}?$/;
 return "${st}urlencode(\$".getGlobal($1).'->'.getGetName($2)."())$ed"
        if $s=~/^\$\$#{?(\w+)[\.,;](\w+)}?$/;
-return "${st}htmlspecialchars(\$$item->".getGetName($1)."(),ENT_QUOTES)$ed"
+return "${st}convertOutputString(\$$item->".getGetName($1)."())$ed"
        if $s=~/^\$={?\.(\w+)}?$/;
-return "${st}htmlspecialchars(\$$result->".getGetName($1)."(),ENT_QUOTES)$ed"
+return "${st}convertOutputString(\$$result->".getGetName($1)."())$ed"
        if $s=~/^\$={?,(\w+)}?$/;
-return "${st}htmlspecialchars(\$$iter->".getGetName($1)."(),ENT_QUOTES)$ed"
+return "${st}convertOutputString(\$$iter->".getGetName($1)."())$ed"
        if $s=~/^\$={?;(\w+)}?$/;
-return "${st}htmlspecialchars(\$$1->".getGetName($2)."(),ENT_QUOTES)$ed"
+return "${st}convertOutputString(\$$1->".getGetName($2)."())$ed"
        if $s=~/^\$={?(\w+)[\.,;](\w+)}?$/;
-return "${st}htmlspecialchars(\$".getGlobal($1).'->'.getGetName($2).
-                                                    "(),ENT_QUOTES)$ed"
+return "${st}convertOutputString(\$".getGlobal($1).'->'.getGetName($2)."())$ed"
        if $s=~/^\$\$={?(\w+)[\.,;](\w+)}?$/;
 return "'$st$s$ed'";
 }
@@ -1464,6 +1463,18 @@ while($Line ne '')
      }
 }
 
+sub convertLigatures
+{
+my ($s)=@_;
+
+$s=~s/&lt;&lt;/&laquo;/ig;
+$s=~s/&gt;&gt;/&raquo;/ig;
+$s=~s/&#039;&#039;/&rdquo;/g;
+$s=~s/&sp;/ /g;
+$s=~s/&nil;//g;
+return $s;
+}
+
 sub done
 {
 my $s="<?php\n";
@@ -1475,6 +1486,7 @@ $s.="?>\n";
 $s.=$Header.$Body.$Footer;
 $s=~s/\s\?>\s*\n\s*<\?php\s/\n/sg;
 $s=~s/\s\?>\s*<\?php\s//sg;
+$s=convertLigatures($s);
 print $s;
 }
 
