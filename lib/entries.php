@@ -238,12 +238,6 @@ return $this->perm_string!='' ? $this->perm_string
                               : strPerms($this->getPerms());
 }
 
-function getPermHTML()
-{
-return $this->perm_string!='' ? str_replace('-','-&nil;',$this->perm_string)
-                              : strPerms($this->getPerms(),true);
-}
-
 function isPermitted($right)
 {
 return true;

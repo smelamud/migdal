@@ -217,7 +217,7 @@ for($i=0;$i<strlen($tmpl);$i++,$right*=2)
 	 return -1;
 }
 
-// Преобразует паску в строку прав
+// Преобразует маску в строку прав
 function strPerms($perm,$escape=false)
 {
 $tmpl="rwaprwaprwaprwap";

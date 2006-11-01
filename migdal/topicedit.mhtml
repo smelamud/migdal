@@ -67,7 +67,7 @@
   <form_edit title='Группа' name='group_login' value='$=,GroupLogin' size=20
 	     maxlength=30>
   <error id='*ET_BAD_PERMS' text='Права заданы некорректно'>
-  <form_edit title='Права' name='perm_string' value='$,PermHTML' size=17
+  <form_edit title='Права' name='perm_string' value='$,PermString' size=17
 	     maxlength=17>
   <form_grpselect title='Допустимые сообщения' name='grps[]' value='$,Grps'
                   rows='8' multiple='*true'>

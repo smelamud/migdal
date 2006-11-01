@@ -33,7 +33,7 @@
   <ul class='names'>
    <for>
     <li><hd item='$.'><br>
-    <tt>$.PermHTML&nbsp;$=.Login:$=.GroupLogin</tt>
+    <tt>$.PermString&nbsp;$=.Login:$=.GroupLogin</tt>
     <branch up='$.Id' up_path='$.TrackPath' append='$.isAppendable'
             write='$.isWritable'>
    </for>
