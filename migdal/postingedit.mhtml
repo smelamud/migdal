@@ -13,6 +13,7 @@
 <ident name='parent_id'>
 <int name='grp'>
 <int name='up'>
+<int name='index1'>
 <int name='full'>
 <int name='noguests'>
 
@@ -21,7 +22,6 @@
 <int name='remember'>
 
 <int name='edittag'>
-<int name='index1'>
 <int name='index2'>
 <string name='body'>
 <int name='body_format'>
@@ -54,7 +54,7 @@
 <int name='sent'>
 
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
-             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
+             index1='$index1' fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 
 <macro name='full'>
  <if what='$$full'>

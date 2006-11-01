@@ -830,6 +830,29 @@ my ($self)=@_;
 EOT
 }
 
+sub elXml
+{
+my ($self)=@_;
+
+$type=$self->getVarArg('type');
+$type='text/xml' if $type eq '';
+::request('lib/initstop.php');
+::header(<<EOT);
+<?php initialize(); ?>
+EOT
+::header("<?php header('Content-Type: '.$type);");
+::header("header('Content-Disposition: inline'); ?>");
+}
+
+sub el_xml
+{
+my ($self)=@_;
+
+::footer(<<EOT);
+<?php finalize(); ?>
+EOT
+}
+
 sub elHead
 {
 my ($self)=@_;
@@ -1472,6 +1495,7 @@ $s=~s/&gt;&gt;/&raquo;/ig;
 $s=~s/&#039;&#039;/&rdquo;/g;
 $s=~s/&sp;/ /g;
 $s=~s/&nil;//g;
+$s=~s/&no;/&#8470;/g;
 return $s;
 }
 

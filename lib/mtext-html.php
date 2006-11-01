@@ -211,6 +211,13 @@ else
 $this->putImage($image,$par);
 }
 
+function verifyURL($url)
+{
+if(strpos(strtolower($url),'javascript:')!==false)
+  return '';
+return $url;
+}
+
 function startElement($parser,$name,$attrs)
 {
 global $mtextTagLevel;
@@ -234,12 +241,13 @@ switch($name)
 	     $this->html.='<b>&lt;A HREF?&gt;</b>';
 	     break;
 	     }
+	   $href=$this->verifyURL($attrs['HREF']);
            if(!isset($attrs['LOCAL']) || $attrs['LOCAL']=='false')
 	     $this->html.=makeTag($name,
 			    array('href' => '/actions/link/'.$this->id.
-			                    '?okdir='.urlencode($attrs{'HREF'})));
+			                    '?okdir='.urlencode($href)));
 	   else
-             $this->html.=makeTag($name,array('href' => $attrs{'HREF'}));
+             $this->html.=makeTag($name,array('href' => $href));
            break; 
       case 'EMAIL':
 	   if(!isset($attrs['ADDR']))

@@ -42,9 +42,13 @@ else
 
 function &dispatch404($requestPath)
 {
-$info=new LocationInfo();
-$info->setPath($requestPath);
-$info->setScript('404.php');
+$info=getLocationInfo('/404/',0);
+if($info->getScript()=='' && $info->getPath()==$requestPath)
+  {
+  $info=new LocationInfo();
+  $info->setPath($requestPath);
+  $info->setScript('404.php');
+  }
 return $info;
 }
 

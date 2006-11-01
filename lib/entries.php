@@ -549,6 +549,14 @@ function getBodyMediumHTML()
 return mtextToHTML($this->getBodyMediumXML(),MTEXT_SHORT,$this->getId());
 }
 
+function getBodyMediumNormal()
+{
+global $mediumSize,$mediumSizeMinus,$mediumSizePlus;
+
+return shortenNote($this->getBodyXML(),$mediumSize,$mediumSizeMinus,
+                   $mediumSizePlus);
+}
+
 function getBodyFormat()
 {
 return $this->body_format;

@@ -696,7 +696,7 @@ updateCatalogs($posting->id);
 return $result;
 }
 
-function getRootPosting($grp,$topic_id,$up)
+function getRootPosting($grp,$topic_id,$up,$index1=0)
 {
 global $userId,$realUserId,$rootPostingPerms;
 
@@ -724,6 +724,7 @@ return new Posting(array('id'        => 0,
 			 'user_id'   => $userId>0 ? $userId : $realUserId,
 			 'group_id'  => $group_id,
 			 'perms'     => $perms,
+			 'index1'    => $index1,
 			 'sent'      => sqlNow()));
 }
 
@@ -738,12 +739,12 @@ return mysql_num_rows($result)>0;
 }
 
 function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=-1,$fields=SELECT_GENERAL,
-                        $up=-1)
+                        $up=-1,$index1=0)
 {
 $Select=postingListFields($fields);
 $From=postingListTables($fields);
 if($id=='' || $id<0)
-  return getRootPosting($grp,$topic_id,$up);
+  return getRootPosting($grp,$topic_id,$up,$index1);
 $result=sql("select $Select
 	     from $From
 	     where entries.id=$id",
@@ -765,7 +766,7 @@ if(mysql_num_rows($result)>0)
   return new Posting($row);
   }
 else
-  return getRootPosting($grp,$topic_id,$up);
+  return getRootPosting($grp,$topic_id,$up,$index1);
 }
 
 function getPostingId($grp=GRP_ALL,$index1=-1,$topic_id=-1)
