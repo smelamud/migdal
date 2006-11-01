@@ -6,16 +6,19 @@ require_once('conf/migdal.conf');
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
-require_once('lib/complains.php');
+require_once('lib/sessions.php');
+require_once('lib/tmptexts.php');
+require_once('lib/redirs.php');
+/*require_once('lib/complains.php');
 require_once('lib/users.php');
 require_once('lib/forums.php');
 require_once('lib/complainscripts.php');
 require_once('lib/postings.php');
 require_once('lib/modbits.php');
 require_once('lib/counters.php');
-require_once('lib/sql.php');
+require_once('lib/sql.php');*/
 
-function deleteCond($table,$cond)
+/*function deleteCond($table,$cond)
 {
 sql("delete
      from $table
@@ -23,11 +26,11 @@ sql("delete
     'deleteCond','delete');
 sql("optimize table $table",
     'deleteCond','optimize');
-}
+}*/
 
 function cleanup()
 {
-global $sessionTimeout,$tmpTextTimeout,$redirTimeout,$anonVoteTimeout,
+/*global $sessionTimeout,$tmpTextTimeout,$redirTimeout,$anonVoteTimeout,
        $userVoteTimeout;
 
 deleteCond('counters_ip','expires<now()');
@@ -36,10 +39,13 @@ deleteCond('users','confirm_deadline is not null and confirm_deadline<now()');
 deleteCond('tmp_texts',"last_access+interval $tmpTextTimeout hour<now()");
 deleteCond('redirs',"last_access+interval $redirTimeout hour<now()");
 deleteCond('votes',"user_id=0 and sent+interval $anonVoteTimeout hour<now()");
-deleteCond('votes',"user_id<>0 and sent+interval $userVoteTimeout hour<now()");
+deleteCond('votes',"user_id<>0 and sent+interval $userVoteTimeout hour<now()");*/
+deleteClosedSessions();
+deleteObsoleteTmpTexts();
+deleteObsoleteRedirs();
 }
 
-function closeComplains()
+/*function closeComplains()
 {
 global $replicationMaster;
 
@@ -97,13 +103,13 @@ $result=sql("select message_id,mode
 	    'rotateCounters');
 while(list($message_id,$mode)=mysql_fetch_array($result))
      rotateCounter($message_id,$mode);
-}
+}*/
 
 dbOpen();
 session(getShamesId());
 cleanup();
-closeComplains();
+/*closeComplains();
 enableMessages();
-rotateCounters();
+rotateCounters();*/
 dbClose();
 ?>

@@ -259,6 +259,30 @@ else
 return "migdal$sizeC-$id$fileC.$ext";
 }
 
+function parseImageFilename($fname)
+{
+list($name,$ext)=explode('.',basename($fname));
+$parts=explode('-',$name);
+$info=array();
+if($parts[0]!='migdal')
+  return $info;
+$info['ext']=$ext;
+if($parts[1]=='small')
+  {
+  $info['size']='small';
+  $pos=2;
+  }
+else
+  {
+  $info['size']='large';
+  $pos=1;
+  }
+$info['entry_id']=$parts[$pos];
+if(isset($parts[$pos+1]))
+  $info['file_id']=$parts[$pos+1];
+return $info;
+}
+
 function getImagePath($id,$ext,$fileId=0,$size='large')
 {
 global $imageDir;
@@ -352,5 +376,45 @@ sql('unlock tables',
     __FUNCTION__,'unlock');
 // FIXME journal() !
 return $id;
+}
+
+// Если появятся ссылки на файлы картинок из других таблиц и полей, не забыть
+// упомянуть их здесь
+function deleteObsoleteImageFiles()
+{
+global $imageDir,$imageFileTimeout;
+
+$used=array();
+$result=sql('select small_image,large_image
+             from entries
+	     where small_image<>0 or large_image<>0',
+	    __FUNCTION__);
+while($row=mysql_fetch_array($result))
+     {
+     if($row[0]!=0)
+       $used[$row[0]]=true;
+     if($row[1]!=0)
+       $used[$row[1]]=true;
+     }
+$dh=opendir($imageDir);
+while(($fname=readdir($dh))!==false)
+     {
+     $ffname="$imageDir/$fname";
+     if(is_link($ffname))
+       {
+       if(!file_exists("$imageDir/".readlink($ffname)))
+	 @unlink("$ffname");
+       continue;
+       }
+     if(!($info=parseImageFilename($fname)))
+       continue;
+     if(!isset($used[$info['file_id']]) || !$used[$info['file_id']])
+       {
+       $stat=stat($ffname);
+       if(time()-$stat['mtime']>$imageFileTimeout*3600)
+	 @unlink($ffname);
+       }
+     }
+closedir($dh);
 }
 ?>

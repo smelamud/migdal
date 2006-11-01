@@ -106,4 +106,15 @@ $result=sql("select id
 	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
+
+function deleteObsoleteRedirs()
+{
+global $redirTimeout;
+
+sql("delete from redirs
+     where last_access+interval $redirTimeout hour<now()",
+    __FUNCTION__);
+sql('optimize table redirs',
+    __FUNCTION__,'optimize');
+}
 ?>

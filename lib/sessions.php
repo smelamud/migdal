@@ -84,6 +84,17 @@ sql("delete from sessions
     __FUNCTION__);
 }
 
+function deleteClosedSessions()
+{
+global $sessionTimeout;
+
+sql("delete from sessions
+     where last+interval $sessionTimeout hour<now()",
+    __FUNCTION__,'delete');
+sql('optimize table sessions',
+    __FUNCTION__,'optimize');
+}
+
 function getSubdomainCookie($name)
 {
 global $siteDomain;

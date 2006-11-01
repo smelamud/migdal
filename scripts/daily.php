@@ -6,12 +6,13 @@ require_once('conf/migdal.conf');
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
-require_once('lib/users.php');
+require_once('lib/images.php');
+/*require_once('lib/users.php');
 require_once('lib/journal.php');
 require_once('lib/answers.php');
-require_once('lib/sql.php');
+require_once('lib/sql.php');*/
 
-function deleteCond($table,$cond)
+/*function deleteCond($table,$cond)
 {
 sql("delete
      from $table
@@ -65,11 +66,11 @@ while($row=mysql_fetch_assoc($result))
 	   'cleanupJournal','delete');
 sql('optimize table journal',
     'cleanupJournal','optimize');
-}
+}*/
 
 function cleanup()
 {
-global $disabledMessageTimeout,$journalVarTimeout,$statisticsTimeout;
+/*global $disabledMessageTimeout,$journalVarTimeout,$statisticsTimeout;
 
 if($disabledMessageTimeout>=0)
   deleteCond('messages',"disabled<>0 and
@@ -139,7 +140,8 @@ useLinks('topics','stotext_id','stotexts','id');
 deleteTagged('topics');
 answersRecalculate();
 
-cleanupJournal();
+cleanupJournal();*/
+deleteObsoleteImageFiles();
 }
 
 dbOpen();

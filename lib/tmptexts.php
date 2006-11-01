@@ -25,4 +25,15 @@ sql("update tmp_texts
     __FUNCTION__,'timestamp');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
 }
+
+function deleteObsoleteTmpTexts()
+{
+global $tmpTextTimeout;
+
+sql("delete from tmp_texts
+     where last_access+interval $tmpTextTimeout hour<now()",
+    __FUNCTION__);
+sql('optimize table tmp_texts',
+    __FUNCTION__,'optimize');
+}
 ?>
