@@ -58,9 +58,9 @@ function ImagesIterator($postid)
 // типа ENT_IMAGE
 parent::SelectIterator('Entry',
 		       "select id,ident,entry,up,track,catalog,parent_id,
-		               user_id,group_id,perms,disabled,title,title_xml,
-			       body_format,sent,created,modified,accessed,
-			       small_image,small_image_x,small_image_y,
+		               orig_id,user_id,group_id,perms,disabled,title,
+			       title_xml,body_format,sent,created,modified,
+			       accessed,small_image,small_image_x,small_image_y,
 			       large_image,large_image_x,large_image_y,
 			       large_image_size,large_image_format,
 			       large_image_filename,count(entry_id) as inserted
@@ -123,7 +123,8 @@ else
   $image->id=sql_insert_id();
   journal(sqlInsert('entries',
                     jencodeVars($vars,$jencoded)),
-	  'entries',$this->id);
+	  'entries',$image->id);
+  setOrigIdToEntryId($image);
   }
 updateTracks('entries',$image->id);
 updateCatalogs($image->id);
@@ -132,11 +133,11 @@ return $result;
 
 function getImageById($id)
 {
-$result=sql("select id,ident,entry,up,track,catalog,parent_id,user_id,group_id,
-                    perms,disabled,title,title_xml,body_format,sent,created,
-		    modified,accessed,small_image,small_image_x,small_image_y,
-		    large_image,large_image_x,large_image_y,large_image_size,
-		    large_image_format,large_image_filename
+$result=sql("select id,ident,entry,up,track,catalog,parent_id,orig_id,user_id,
+                    group_id,perms,disabled,title,title_xml,body_format,sent,
+		    created,modified,accessed,small_image,small_image_x,
+		    small_image_y,large_image,large_image_x,large_image_y,
+		    large_image_size,large_image_format,large_image_filename
 	     from entries
 	     where id=$id",
 	    __FUNCTION__);

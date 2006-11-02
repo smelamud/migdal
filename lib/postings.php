@@ -681,15 +681,7 @@ else
   journal(sqlInsert('entries',
                     jencodeVars($vars,$jencoded)),
 	  'entries',$posting->id);
-
-  sql("update entries
-       set orig_id=id
-       where id={$posting->id}",
-      __FUNCTION__,'orig_id');
-  journal('update entries
-	   set orig_id=id
-	   where id='.journalVar('entries',$posting->id));
-  $posting->orig_id=$posting->id;
+  setOrigIdToEntryId($posting);
   }
 updateTracks('entries',$posting->id);
 updateCatalogs($posting->id);

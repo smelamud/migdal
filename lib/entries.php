@@ -935,6 +935,18 @@ $result=sql("select orig_id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
+function setOrigIdToEntryId(&$entry)
+{
+sql("update entries
+     set orig_id=id
+     where id={$entry->id}",
+    __FUNCTION__,'orig_id');
+journal('update entries
+         set orig_id=id
+         where id='.journalVar('entries',$entry->id));
+$entry->orig_id=$entry->id;
+}
+
 function validateHierarchy($parentId,$up,$entry,$id)
 {
 if($parentId<0)
