@@ -83,6 +83,7 @@ define('ECHP_NO_ADD',181);
 define('EIU_IMAGE_LARGE',190);
 define('EIU_UNKNOWN_IMAGE',191);
 define('EIU_UNKNOWN_THUMBNAIL',192);
+define('EIU_THUMBNAIL_LARGE',193);
 
 define('EF_NO_SEND',200);
 define('EF_NO_EDIT',201);

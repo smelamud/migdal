@@ -26,13 +26,34 @@
   <checkbox name='$delname' title='Удалить'>
  </p>
 </ifne>
-<input type=file name='$name' size=35>
+<ifne what='$small_name'>
+ <table cellspacing='5' cellpadding='0'>
+  <tr>
+   <td><ifne what='$large_title'>
+    $large_title
+   </ifne></td>
+   <td><input type='file' name='$name' size='35'></td>
+  </tr>
+  <tr>
+   <td><ifne what='$small_title'>
+    $small_title
+   </ifne></td>
+   <td><input type='file' name='$small_name' size='35'></td>
+  </tr>
+ </table>
+<else>
+ <ifne what='$large_title'>
+  $large_title&nbsp;
+ </ifne>
+ <input type='file' name='$name' size='35'>
+</ifne>
 </element>
 
 <element name='form_uploader'>
 <form_line title='$title' comment='$comment' mandatory='$mandatory'>
- <uploader name='$name' loaded='$loaded' delname='$delname' plainid='$plainid'
-           small_url='$small_url' large_url='$large_url'>
+ <uploader name='$name' small_name='$small_name' small_title='$small_title'
+           large_title='$large_title' loaded='$loaded' delname='$delname'
+	   plainid='$plainid' small_url='$small_url' large_url='$large_url'>
 </form_line>
 </element>
 

@@ -5,38 +5,7 @@ require_once('conf/migdal.conf');
 
 require_once('lib/images.php');
 require_once('lib/image-types.php');
-
-// Large image
-define('IU_IMAGE',0x0F);
-define('IU_MANUAL',0x00); // Dimensions are set manually by user
-define('IU_RESIZE',0x01); // Resize automatically
-// Small image (thumbnail)
-define('IU_THUMB',0xF0);
-define('IU_THUMB_NONE',0x10);     // Thumbnail is not needed
-define('IU_THUMB_MANUAL',0x20);   // Thumbnail is uploaded by user
-                                  // (FIXME not implemented)
-define('IU_THUMB_RESIZE',0x30);   // Thumbnail is uploaded by user and resized
-                                  // automatically (FIXME not implemented)
-define('IU_THUMB_AUTO',0x00);     // Thumbnail is created automatically
-define('IU_THUMB_NO_GLASS',0x40); // Thumbnail is created automatically without
-                                  // glass icon
-
-$imageUploadFlags=array(''         => IU_MANUAL,
-                        'manual'   => IU_MANUAL,
-                        'resize'   => IU_RESIZE,
-			'-'        => IU_THUMB_AUTO,
-			'none-'    => IU_THUMB_NONE,
-			'manual-'  => IU_THUMB_MANUAL,
-			'auto-'    => IU_THUMB_AUTO,
-			'noglass-' => IU_THUMB_NO_GLASS);
-
-function imageUploadFlags($s)
-{
-global $imageUploadFlags;
-
-@list($thumb,$image)=explode('-',$s);
-return $imageUploadFlags["$thumb-"] | $imageUploadFlags[$image];
-}
+require_once('lib/image-upload-flags.php');
 
 function imageUpload($name,&$posting,$flags,$thumbExactX,$thumbExactY,
                      $thumbMaxX,$thumbMaxY,$imageExactX,$imageExactY,
@@ -54,7 +23,9 @@ if($del)
   $posting->large_image_format='';
   $posting->large_image_filename='';
   }
-if(!$resizeIfExists || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
+if(!$resizeIfExists && ($flags & IU_THUMB)!=IU_THUMB_MANUAL
+   && ($flags & IU_THUMB)!=IU_THUMB_RESIZE
+   || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
   {
   // Move uploaded image into archive
   if(!isset($_FILES[$name]))
@@ -67,7 +38,7 @@ if(!$resizeIfExists || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
     return EIU_IMAGE_LARGE;
 
   $largeId=getNextImageFileId();
-  $largeFilename=getImageFilename($posting->getOrigId(),
+  $largeFilename=getImageFilename($posting->orig_id,
 				  getImageExtension($file['type']),$largeId,
 				  'large');
   $largeName="$imageDir/$largeFilename";
@@ -80,20 +51,22 @@ if(!$resizeIfExists || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
 else
   {
   // Remove thumbnail and rename large image
-  if(!$posting->hasSmallImage())
+  if($posting->small_image==0)
     return EG_OK;
-  $largeExt=getImageExtension($posting->getLargeImageFormat());
-  $oldFilename=getImageFilename($posting->getOrigId(),$largeExt,
+  $largeExt=getImageExtension($posting->large_image_format);
+  $oldFilename=getImageFilename($posting->orig_id,$largeExt,
 				$posting->getImage(),
 				$posting->getImageDimension());
   $oldName="$imageDir/$oldFilename";
   $largeId=getNextImageFileId();
-  $largeFilename=getImageFilename($posting->getOrigId(),$largeExt,
+  $largeFilename=getImageFilename($posting->orig_id,$largeExt,
 				  $largeId,'large');
   $largeName="$imageDir/$largeFilename";
   rename($oldName,$largeName);
-  deleteImageFiles($posting->getOrigId(),$posting->getSmallImage(),
-                   $posting->getLargeImage(),$posting->getLargeImageFormat());
+  if(($flags & IU_THUMB)!=IU_THUMB_MANUAL
+     && ($flags & IU_THUMB)!=IU_THUMB_RESIZE)
+    deleteImageFiles($posting->orig_id,$posting->small_image,
+		     $posting->large_image,$posting->large_image_format);
   }
 // Resize the image
 if(($flags & IU_IMAGE)==IU_RESIZE)
@@ -112,13 +85,12 @@ if(($flags & IU_IMAGE)==IU_RESIZE)
     rename($tmpName,$largeName);
     }
   }
-// Create thumbnail
-$hasThumbnail=false;
 if(($flags & IU_THUMB)==IU_THUMB_AUTO
    || ($flags & IU_THUMB)==IU_THUMB_NO_GLASS)
   {
+  // Create thumbnail from large image
   $smallId=getNextImageFileId();
-  $smallName=getImagePath($posting->getOrigId(),
+  $smallName=getImagePath($posting->orig_id,
                           getImageExtension($thumbnailType),$smallId,'small');
   $err=imageFileResize($largeName,$posting->large_image_format,
                        $smallName,$thumbnailType,
@@ -128,26 +100,79 @@ if(($flags & IU_THUMB)==IU_THUMB_AUTO
     return EIU_UNKNOWN_IMAGE;
   if($err==IFR_UNSUPPORTED_THUMBNAIL)
     return EIU_UNKNOWN_THUMBNAIL;
-  $hasThumbnail=$err==IFR_OK;
+  if($err!=IFR_OK)
+    $smallId=0;
+  }
+elseif(($flags & IU_THUMB)==IU_THUMB_MANUAL
+       || ($flags & IU_THUMB)==IU_THUMB_RESIZE)
+  {
+  // Upload thumbnail
+  $tname="${name}_thumb";
+  if(isset($_FILES[$tname]) && $_FILES[$tname]['tmp_name']!='')
+    {
+    // Move uploaded thumbnail into archive
+    $file=$_FILES[$tname];
+    if($file['tmp_name']=='' || !is_uploaded_file($file['tmp_name'])
+       || filesize($file['tmp_name'])!=$file['size'])
+      return EG_OK;
+    if($file['size']>$maxImageSize)
+      return EIU_THUMBNAIL_LARGE;
+    if(getImageTypeCode($file['type'])!=getImageTypeCode($thumbnailType))
+      return EIU_UNKNOWN_THUMBNAIL;
+
+    $smallId=getNextImageFileId();
+    $smallName=getImagePath($posting->orig_id,
+			    getImageExtension($thumbnailType),$smallId,'small');
+    if(!move_uploaded_file($file['tmp_name'],$smallName))
+      return EG_OK;
+    }
+  else
+    {
+    $smallId=$posting->small_image;
+    $smallName=getImagePath($posting->orig_id,
+			    getImageExtension($thumbnailType),$smallId,'small');
+    }
+  }
+// Resize the thumbnail
+if(($flags & IU_THUMB)==IU_THUMB_RESIZE)
+  {
+  $tmpName="$smallName.tmp";
+  $err=imageFileResize($smallName,$thumbnailType,
+                       $tmpName,$thumbnailType,
+                       $thumbExactX,$thumbExactY,$thumbMaxX,$thumbMaxY,false);
+
+  if($err==IFR_UNKNOWN_FORMAT || $err==IFR_UNSUPPORTED_FORMAT
+     || $err==IFR_UNSUPPORTED_THUMBNAIL)
+    return EIU_UNKNOWN_THUMBNAIL;
+  if($err==IFR_OK)
+    {
+    @unlink($smallName);
+    rename($tmpName,$smallName);
+    }
   }
 // Fill the record with thumbnail parameters
-if($hasThumbnail)
+if($smallId!=0)
   {
+  // Image has a thumbnail
   $posting->small_image=$smallId;
   $posting->large_image=$largeId;
-  list($posting->small_image_x,$posting->small_image_y)=getImageSize($smallName);
-  list($posting->large_image_x,$posting->large_image_y)=getImageSize($largeName);
+  list($posting->small_image_x,
+       $posting->small_image_y)=getImageSize($smallName);
+  list($posting->large_image_x,
+       $posting->large_image_y)=getImageSize($largeName);
   }
 else
   {
+  // Image hasn't any thumbnail
   $posting->small_image=$largeId;
   $posting->large_image=0;
-  $largeExt=getImageExtension($posting->getLargeImageFormat());
-  $smallFilename=getImageFilename($posting->getOrigId(),$largeExt,
-				  $largeId,'small');
+  $largeExt=getImageExtension($posting->large_image_format);
+  $smallFilename=getImageFilename($posting->orig_id,$largeExt,$largeId,
+				  'small');
   $smallName="$imageDir/$smallFilename";
   rename($largeName,$smallName);
-  list($posting->small_image_x,$posting->small_image_y)=getImageSize($smallName);
+  list($posting->small_image_x,
+       $posting->small_image_y)=getImageSize($smallName);
   $posting->large_image_x=$posting->large_image_y=0;
   symlink($smallFilename,$largeName);
   }

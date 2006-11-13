@@ -9,6 +9,7 @@
 >>
 
 <grps>
+<image_upload>
 <ident name='editid'>
 <ident name='parent_id'>
 <int name='grp'>
@@ -211,9 +212,11 @@
   <error id='*EP_NO_IMAGE' text='Указанной картинки не существует'>
   <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки'>
   <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
+  <error id='*EIU_THUMBNAIL_LARGE'
+         text='Маленькая картинка слишком велика (больше 2M)'>
   <error id='*EIU_UNKNOWN_THUMBNAIL'
 	 text='Формат маленькой картинки, указанный при конфигурации сервера,
-	       не поддерживается'>
+	       не поддерживается, либо вы загрузили картинку не этого формата'>
   <error id='*EP_LARGE_IMAGE_EXACT'
          text#='Картинка должна быть размером ${editor.ImageExactX}x$editor.ImageExactY'>
   <error id='*EP_LARGE_IMAGE_EXACT_X'
@@ -257,10 +260,20 @@
   <else>
    <assign name='loaded' value=''>
   </if>
-  <form_uploader title='$=editor.Title' comment='$editor.Comment'
-                 name='image_file' loaded='$loaded' delname='del_image'
-		 small_url='$small_url' large_url='$large_url'
-	         mandatory='$editor.isMandatory'>
+  <assign name='flags' value!='$editor.UploadFlags & *IU_THUMB'>
+  <if what='$flags!=*IU_THUMB_MANUAL && $flags!=*IU_THUMB_RESIZE'>
+   <form_uploader title='$=editor.Title' comment='$editor.Comment'
+		  name='image_file' loaded='$loaded' delname='del_image'
+		  small_url='$small_url' large_url='$large_url'
+		  mandatory='$editor.isMandatory'>
+  <else>
+   <form_uploader title='$=editor.Title' comment='$editor.Comment'
+		  name='image_file' small_name='image_file_thumb'
+		  small_title='Маленькая:' large_title='Большая:'
+		  loaded='$loaded' delname='del_image'
+		  small_url='$small_url' large_url='$large_url'
+		  mandatory='$editor.isMandatory'>
+  </if>
  <else>
   <hidden name='small_image' value='$posting.SmallImage'>
   <hidden name='small_image_x' value='$posting.SmallImageX'>

@@ -122,23 +122,10 @@
        params='name,format,title,comment,mandatory'
        defaults="name='large_body_format' comment='',mandatory='*false'">
 <decel name='form_uploader' file='parts/uploader.php'
-       params='name,loaded,delname,plainid,title,comment,mandatory,small_url,
-               large_url'
-       defaults="plainid=0 comment='' mandatory='*false' small_url=''
-                 large_url=''">
-<decel name='forum' file='parts/forum.php' params='forum,showcomplain'
-       defaults="showcomplain='*true'">
-<decel name='forum_selflink' file='parts/forum.php' params='forum'>
-<decel name='forums' file='parts/forums.php'
-       params='parent_id,limit,offset'
-       defaults='limit=10 offset=0'>
-<decel name='gallery' file='parts/gallery.php'
-       params='topic_id,rows,cols,offset,subdomain,sort,user_id,noguests,noadd'
-       defaults="topic_id=-1 rows=4 cols=5 offset=0 subdomain=-1
-                 sort='*SORT_PSENT' user_id=0 noguests='*false' noadd='*false'">
-<decel name='gallery_main' file='parts/gallery-main.php'
-       params='offset,topic_id' defaults="offset=0 topic_id=-1">
-<decel name='googleru' file='parts/googleru.php'>
+       params='name,small_name,small_title,large_title,loaded,delname,plainid,
+               title,comment,mandatory,small_url,large_url'
+       defaults="small_name='' small_title='' large_title='' plainid=0
+                 comment='' mandatory='*false' small_url='' large_url=''">
 <decel name='grpselect' file='parts/grpselect.php'
        params='name,value,rows,multiple' defaults="rows=8 multiple='*false'">
 <decel name='hannukah' file='parts/hannukah.php'>
@@ -365,8 +352,10 @@
        defaults="target=''">
 <decel name='tzdaka' file='parts/tzdaka.php'>
 <decel name='uploader' file='parts/uploader.php'
-       params='name,loaded,delname,plainid,small_url,large_url'
-       defaults="plainid=0 small_url='' large_url=''">
+       params='name,small_name,small_title,large_title,loaded,delname,plainid,
+               small_url,large_url'
+       defaults="small_name='' small_title='' large_title='' plainid=0
+                 small_url='' large_url=''">
 <decel name='upload_format' file='parts/uploader.php'
        params='name,format' defaults="name='large_body_format'">
 <decel name='upper_level' file='parts/topics.php' params='title,name,href'
