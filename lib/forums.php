@@ -12,6 +12,7 @@ require_once('lib/answers.php');
 require_once('lib/sql.php');
 require_once('lib/images.php');
 require_once('lib/text-any.php');
+require_once('lib/catalog.php');
 
 require_once('grp/forums.php');
 
@@ -154,7 +155,8 @@ class ForumListIterator
 {
 var $parent_type;
 
-function ForumListIterator($parent_id,$limit=10,$offset=0,$sort=SORT_SENT)
+function ForumListIterator($parent_id=0,$limit=10,$offset=0,$sort=SORT_SENT,
+                           $disabled=-1)
 {
 if($parent_id>0)
   {
