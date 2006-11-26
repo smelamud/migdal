@@ -3,7 +3,7 @@
 <!ENTITY % font "b|i|u|tt|sup">
 <!ENTITY % line "%font;|a|email|br">
 
-<!ELEMENT mtext-short (p|quote|center|h2|h3|h4)*>
+<!ELEMENT mtext-short (p|quote|center|h2|h3|h4|object|embed)*>
 
 <!ELEMENT p (#PCDATA|%line;|ul|ol|dl)*>
 <!ATTLIST p
@@ -16,6 +16,23 @@
 <!ELEMENT h2 (#PCDATA|br)*>
 <!ELEMENT h3 (#PCDATA|br)*>
 <!ELEMENT h4 (#PCDATA|br)*>
+
+<!ELEMENT object (param|embed)*>
+<!ATTLIST object
+          width CDATA #IMPLIED
+          height CDATA #IMPLIED>
+
+<!ELEMENT param EMPTY>
+<!ATTLIST param
+          name CDATA #REQUIRED
+          value CDATA #REQUIRED>
+
+<!ELEMENT embed (param)*
+          width CDATA #IMPLIED
+          height CDATA #IMPLIED
+	  src CDATA #REQUIRED
+          type CDATA #IMPLIED
+          wmode CDATA #IMPLIED>
 
 <!ELEMENT a (#PCDATA|%font;|br)*>
 <!ATTLIST a

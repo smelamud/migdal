@@ -24,7 +24,10 @@ $mtextEmptyTags=array('A'        => false,
 		      'TABLE'    => false,
 		      'TR'       => false,
 		      'TD'       => false,
-		      'TH'       => false);
+		      'TH'       => false,
+		      'OBJECT'   => false,
+		      'PARAM'    => true,
+		      'EMBED'    => false);
 
 function replaceParagraphs($s)
 {
