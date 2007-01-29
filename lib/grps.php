@@ -210,12 +210,12 @@ else
 }
 
 class GrpEditorIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function GrpEditorIterator($grp=GRP_NONE,$inverse=false)
 {
-parent::ArrayIterator(grpEditor($grp,$inverse));
+parent::MArrayIterator(grpEditor($grp,$inverse));
 }
 
 function create($key,$value)

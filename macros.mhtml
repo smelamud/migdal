@@ -41,7 +41,7 @@
  </zone>
 </macro>
 
-<deciter macro='array' class='ArrayIterator' file='lib/array.php'
+<deciter macro='array' class='MArrayIterator' file='lib/array.php'
          params='values' defaults="values='$*'">
 <deciter macro='assoc_array' class='AssocArrayIterator' file='lib/array.php'
          params='values,class' defaults="values='$*' class='Association'">

@@ -37,7 +37,10 @@ if($userDomain!=$currentDomain)
   return $info;
   }
 else
-  return null;
+  {
+  $info=null;
+  return $info;
+  }
 }
 
 function &dispatch404($requestPath)

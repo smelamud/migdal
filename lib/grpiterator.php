@@ -4,12 +4,12 @@ require_once('lib/array.php');
 require_once('lib/grpentry.php');
 
 class GrpIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function GrpIterator()
 {
-parent::ArrayIterator(grpArray(GRP_ALL));
+parent::MArrayIterator(grpArray(GRP_ALL));
 }
 
 function create($key,$value)

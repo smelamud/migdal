@@ -286,7 +286,7 @@ return $topic;
 }
 
 class SortedTopicNamesIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function SortedTopicNamesIterator($grp,$up=-1,$recursive=false,
@@ -299,13 +299,13 @@ $topics=array();
 while($item=$iterator->next())
      $topics[convertSort($item->getFullName())]=$item;
 ksort($topics);
-parent::ArrayIterator($topics);
+parent::MArrayIterator($topics);
 }
 
 }
 
 class TopicHierarchyIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function TopicHierarchyIterator($topic_id,$root=-1,$reverse=false)
@@ -319,7 +319,7 @@ for($id=idByIdent($topic_id);$id>0 && $id!=$root;)
    }
 if(!$reverse)
   $topics=array_reverse($topics);
-parent::ArrayIterator($topics);
+parent::MArrayIterator($topics);
 }
 
 }

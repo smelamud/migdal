@@ -3,14 +3,14 @@
 
 require_once('lib/iterator.php');
 
-class ArrayIterator
-      extends Iterator
+class MArrayIterator
+      extends MIterator
 {
 var $vars;
 
-function ArrayIterator($vars)
+function MArrayIterator($vars)
 {
-parent::Iterator();
+parent::MIterator();
 $this->vars=$vars;
 reset($this->vars);
 }
@@ -42,14 +42,14 @@ return !(boolean)current($this->vars);
 }
 
 class SortedArrayIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function SortedArrayIterator($vars)
 {
 sort($vars);
 $vars=array_unique($vars);
-parent::ArrayIterator($vars);
+parent::MArrayIterator($vars);
 }
 
 }
@@ -78,13 +78,13 @@ return $this->value;
 }
 
 class AssocArrayIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 var $class;
 
 function AssocArrayIterator($vars,$class='Association')
 {
-parent::ArrayIterator($vars);
+parent::MArrayIterator($vars);
 $this->class=$class;
 }
 

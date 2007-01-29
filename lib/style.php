@@ -53,14 +53,14 @@ return $styleList[isset($styleList[$n]) ? $n : 1];
 }
 
 class StyleNamesIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function StyleNamesIterator()
 {
 global $styleNames;
 
-parent::ArrayIterator($styleNames);
+parent::MArrayIterator($styleNames);
 }
 
 }

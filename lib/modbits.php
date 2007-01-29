@@ -80,7 +80,7 @@ return $this->name;
 }
 
 class ModbitIterator
-      extends Iterator
+      extends MIterator
 {
 var $bit,$lbbit;
 var $max;
@@ -88,7 +88,7 @@ var $letters,$names;
 
 function ModbitIterator($max,$letters,$names)
 {
-parent::Iterator();
+parent::MIterator();
 $this->bit=1;
 $this->lbbit=0;
 $this->max=$max;

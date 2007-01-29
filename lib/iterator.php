@@ -1,13 +1,13 @@
 <?php
 # @(#) $Id$
 
-class Iterator
+class MIterator
 {
 var $first;
 var $odd;
 var $position;
 
-function Iterator()
+function MIterator()
 {
 $this->first=2;
 $this->odd=0;

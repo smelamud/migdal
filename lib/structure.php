@@ -286,7 +286,7 @@ else
 }
 
 class LocationIterator
-      extends Iterator
+      extends MIterator
 {
 var $current;
 var $count;
@@ -295,7 +295,7 @@ function LocationIterator($offset=0)
 {
 global $LocationInfo;
 
-parent::Iterator();
+parent::MIterator();
 $this->current=&$LocationInfo->getRoot();
 $this->count=0;
 for($i=0;$i<$offset && $this->current!=null;$i++)

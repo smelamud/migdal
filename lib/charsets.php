@@ -14,60 +14,70 @@ for($i=0;$i<strlen($name);$i++)
 return $pname;
 }
 
-function charToEntity($c,$charset='UTF16')
+function charToEntity($c,$_charset='UTF-16',$lsb=0)
 {
-$charset=charsetName($charset);
+$charset=charsetName($_charset);
 if($charset!='UTF16')
-  $c=substr(iconv($charset,'UTF-16',$c),2);
-return '&#x'.sprintf('%02x',ord($c{1})).sprintf('%02x',ord($c{0})).';';
+  {
+  $c=iconv($_charset,'UTF-16',$c);
+  $lsb=ord($c{0})==0xfe ? 1 : 0;
+  $c=substr($c,2);
+  }
+return '&#x'.sprintf('%02x',ord($c{1-$lsb})).sprintf('%02x',ord($c{$lsb})).';';
 }
 
-function entityToChar($c,$charset='UTF16')
+function entityToChar($c,$_charset='UTF-16')
 {
 if(preg_match('/^&#(\d+);$/',$c,$matches))
   $code=(int)$matches[1];
 elseif(preg_match('/^&#x([\dA-Fa-f]+);$/',$c,$matches))
-  $code=hexdec($matches[1]);
+  $code=(int)hexdec($matches[1]);
 else
   return $c;
-$s=chr($code%0x100).chr((int)($code/0x100));
-$charset=charsetName($charset);
+$s=pack('SS',0xfeff,$code);
+$charset=charsetName($_charset);
 if($charset!='UTF16')
-  $s=iconv('UTF-16',$charset,"\xff\xfe".$s);
+  $s=iconv('UTF-16',$_charset,$s);
+else
+  $s=substr($s,2);
 return $s;
 }
 
 // Converts from $icharset to $ocharset and decodes all character entities.
 // Does not create character entities for unknown characters, so use this
 // function only for conversions into UTF-8 or UTF-16 encoding.
-function convertToUTF($s,$icharset,$ocharset)
+function convertToUTF($s,$i_charset,$o_charset)
 {
-$icharset=charsetName($icharset);
-$ocharset=charsetName($ocharset);
+$icharset=charsetName($i_charset);
+$ocharset=charsetName($o_charset);
 if($icharset!='UTF8')
   {
-  $s=iconv($icharset,'UTF-8',$s);
+  $s=iconv($i_charset,'UTF-8',$s);
+  $i_charset='UTF-8';
   $icharset='UTF8';
   }
-$s=preg_replace('/&#x?([\dA-Fa-f]+);/e',"entityToChar('\\0','$icharset')",$s);
-return $icharset==$ocharset ? $s : iconv($icharset,$ocharset,$s);
+$s=preg_replace('/&#x?([\dA-Fa-f]+);/e',"entityToChar('\\0','$i_charset')",$s);
+return $icharset==$ocharset ? $s : iconv($i_charset,$o_charset,$s);
 }
 
-function convertCharset($s,$icharset,$ocharset)
+function convertCharset($s,$i_charset,$o_charset)
 {
-$icharset=charsetName($icharset);
-$ocharset=charsetName($ocharset);
+$icharset=charsetName($i_charset);
+$ocharset=charsetName($o_charset);
 if(substr($ocharset,0,3)=='UTF')
   {
-  $s=convertToUTF($s,$icharset,$ocharset);
+  $s=convertToUTF($s,$i_charset,$o_charset);
   return $s;
   }
 if($icharset==$ocharset)
   return $s;
+$lsb=0;
 if($icharset=='UTF8')
   {
-  $s=iconv($icharset,'UTF-16',$s);
+  $s=iconv($i_charset,'UTF-16',$s);
+  $lsb=ord($s{0})==0xfe ? 1 : 0;
   $s=substr($s,2);
+  $i_charset='UTF-16';
   $icharset='UTF16';
   $icsize=2;
   }
@@ -80,7 +90,7 @@ while(true)
      $chunk=substr($s,$pos*$icsize);
      if($icsize==2)
        $chunk="\xff\xfe$chunk";
-     $chunk=iconv($icharset,$ocharset,$chunk);
+     $chunk=iconv($i_charset,$o_charset,$chunk);
      if(strlen($chunk)>=strlen($s)/$icsize-$pos)
        {
        $c.=$chunk;
@@ -88,7 +98,7 @@ while(true)
        }
      $pos+=strlen($chunk);
      $c.=$chunk;
-     $c.=charToEntity(substr($s,$pos*$icsize,$icsize),$icharset);
+     $c.=charToEntity(substr($s,$pos*$icsize,$icsize),$i_charset,$lsb);
      $pos++;
      }
 return $c;

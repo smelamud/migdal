@@ -27,7 +27,7 @@ return $array[random(0,count($array)-1)];
 }
 
 class RandomSequenceIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function RandomSequenceIterator($n,$min,$max)
@@ -39,7 +39,7 @@ while(count($seq)<$n && count($seq)<$max-$min+1)
      if(!in_array($k,$seq))
        $seq[]=$k;
      }
-parent::ArrayIterator($seq);
+parent::MArrayIterator($seq);
 }
 
 }

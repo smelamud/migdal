@@ -5,7 +5,7 @@ require_once('lib/iterator.php');
 require_once('lib/bug.php');
 
 class SelectIterator
-      extends Iterator
+      extends MIterator
 {
 var $query;
 var $result;
@@ -14,7 +14,7 @@ var $class;
 
 function SelectIterator($aClass,$query)
 {
-parent::Iterator();
+parent::MIterator();
 $this->query=$query;
 $this->result=0;
 $this->class=$aClass;

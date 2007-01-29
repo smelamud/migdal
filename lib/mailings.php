@@ -79,7 +79,7 @@ return $this->email_disabled;
 require_once('grp/mailings.php');
 
 class MailingsExtractIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function MailingsExtractIterator()
@@ -105,7 +105,7 @@ sql('delete from mailings',
     $METHOD,'delete');
 sql('unlock tables',
     $METHOD,'unlock');
-parent::ArrayIterator($mails);
+parent::MArrayIterator($mails);
 }
 
 }

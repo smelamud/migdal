@@ -80,14 +80,14 @@ return (int)$id;
 }
 
 class RandomPostingsIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function RandomPostingsIterator($limit,$grp=GRP_ALL,$topic_id=-1,$user_id=0,
                                 $index1=-1)
 {
-$this->ArrayIterator(getRandomPostingIds($limit,$grp,$topic_id,$user_id,
-                                         $index1));
+$this->MArrayIterator(getRandomPostingIds($limit,$grp,$topic_id,$user_id,
+                                          $index1));
 }
 
 }

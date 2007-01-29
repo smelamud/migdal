@@ -4,14 +4,14 @@
 require_once('lib/iterator.php');
 
 class RowsIterator
-      extends Iterator
+      extends MIterator
 {
 var $iterator;
 var $cols;
 
 function RowsIterator($iterator,$cols)
 {
-parent::Iterator();
+parent::MIterator();
 $this->iterator=$iterator;
 $this->cols=$cols;
 }

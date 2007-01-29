@@ -7,7 +7,7 @@ require_once('lib/sql.php');
 require_once('lib/charsets.php');
 
 class AlphabetIterator
-      extends ArrayIterator
+      extends MArrayIterator
 {
 
 function getAlphas($query,$limit=0,$sortCoding=false,$prefix='')
@@ -38,7 +38,7 @@ return $alpha;
 
 function AlphabetIterator($query,$limit=0,$sortCoding=false)
 {
-parent::ArrayIterator($this->getAlphas($query,$limit,$sortCoding));
+parent::MArrayIterator($this->getAlphas($query,$limit,$sortCoding));
 }
 
 }

@@ -60,14 +60,14 @@ return isset($cscrTitles[$this->id]) ? $cscrTitles[$this->id] : '';
 }
 
 class ComplainScriptListIterator
-      extends Iterator
+      extends MIterator
 {
 var $id;
 var $mask;
 
 function ComplainScriptListIterator($mask=CSCR_ALL)
 {
-parent::Iterator();
+parent::MIterator();
 $this->id=1;
 $this->mask=$mask;
 $this->roll();

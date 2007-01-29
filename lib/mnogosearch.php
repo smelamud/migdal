@@ -43,7 +43,7 @@ return $this->title;
 }
 
 class MnogosearchIterator
-      extends Iterator
+      extends MIterator
 {
 var $fd;
 var $status;
