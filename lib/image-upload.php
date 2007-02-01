@@ -3,6 +3,7 @@
 
 require_once('conf/migdal.conf');
 
+require_once('lib/debug-log.php');
 require_once('lib/images.php');
 require_once('lib/image-types.php');
 require_once('lib/image-upload-flags.php');
@@ -13,8 +14,21 @@ function imageUpload($name,&$posting,$flags,$thumbExactX,$thumbExactY,
 {
 global $maxImageSize,$thumbnailType,$imageDir;
 
+if(isDebugLogging(LL_FUNCTIONS))
+  {
+  debugLog(LL_FUNCTIONS,
+	   'imageUpload(name=%,posting='.imagePostingData($posting).',flags=%'
+	   .',thumbExactX=%,thumbExactY=%,thumbMaxX=%,thumbMaxY=%'
+	   .',imageExactX=%,imageExactY=%,imageMaxX=%,imageMaxY=%,del=%'
+	   .',resizeIfExists=%)',
+	   array($name,$flags,$thumbExactX,$thumbExactY,$thumbMaxX,$thumbMaxY,
+	         $imageExactX,$imageExactY,$imageMaxX,$imageMaxY,$del,
+		 $resizeIfExists));
+  debugLog(LL_FUNCTIONS,'\$_FILES[%]=%',array($name,@$_FILES[$name]));
+  }
 if($del)
   {
+  debugLog(LL_DETAILS,'cleaning up the posting');
   $posting->small_image=0;
   $posting->small_image_x=$posting->small_image_y=0;
   $posting->large_image=0;
@@ -27,23 +41,39 @@ if(!$resizeIfExists && ($flags & IU_THUMB)!=IU_THUMB_MANUAL
    && ($flags & IU_THUMB)!=IU_THUMB_RESIZE
    || isset($_FILES[$name]) && $_FILES[$name]['tmp_name']!='')
   {
+  debugLog(LL_DETAILS,'moving uploaded image');
   // Move uploaded image into archive
   if(!isset($_FILES[$name]))
+    {
+    debugLog(LL_FUNCTIONS,'EG_OK, no image in POST request');
     return EG_OK;
+    }
   $file=$_FILES[$name];
   if($file['tmp_name']=='' || !is_uploaded_file($file['tmp_name'])
      || filesize($file['tmp_name'])!=$file['size'])
+    {
+    debugLog(LL_FUNCTIONS,'EG_OK, invalid file in POST request');
     return EG_OK;
+    }
   if($file['size']>$maxImageSize)
+    {
+    debugLog(LL_FUNCTIONS,'EIU_IMAGE_LARGE, file is too large');
     return EIU_IMAGE_LARGE;
+    }
 
   $largeId=getNextImageFileId();
   $largeFilename=getImageFilename($posting->orig_id,
 				  getImageExtension($file['type']),$largeId,
 				  'large');
   $largeName="$imageDir/$largeFilename";
+  debugLog(LL_DETAILS,'move_uploaded_file(%,%)',
+           array($file['tmp_name'],$largeName));
   if(!move_uploaded_file($file['tmp_name'],$largeName))
+    {
+    debugLog(LL_FUNCTIONS,'EG_OK, failed to move the file');
     return EG_OK;
+    }
+  chmod($largeName,0644);
   $posting->large_image_size=$file['size'];
   $posting->large_image_format=$file['type'];
   $posting->large_image_filename=$file['name'];
@@ -51,8 +81,12 @@ if(!$resizeIfExists && ($flags & IU_THUMB)!=IU_THUMB_MANUAL
 else
   {
   // Remove thumbnail and rename large image
+  debugLog(LL_DETAILS,'removing thumbnail');
   if($posting->small_image==0)
+    {
+    debugLog(LL_FUNCTIONS,'EG_OK, no image in the posting');
     return EG_OK;
+    }
   $largeExt=getImageExtension($posting->large_image_format);
   $oldFilename=getImageFilename($posting->orig_id,$largeExt,
 				$posting->getImage(),
@@ -62,12 +96,15 @@ else
   $largeFilename=getImageFilename($posting->orig_id,$largeExt,
 				  $largeId,'large');
   $largeName="$imageDir/$largeFilename";
+  debugLog(LL_DETAILS,'rename(%,%)',array($oldName,$largeName));
   rename($oldName,$largeName);
   if(($flags & IU_THUMB)!=IU_THUMB_MANUAL
      && ($flags & IU_THUMB)!=IU_THUMB_RESIZE)
     deleteImageFiles($posting->orig_id,$posting->small_image,
 		     $posting->large_image,$posting->large_image_format);
   }
+if(isDebugLogging(LL_DETAILS))
+  debugLog(LL_DETAILS,'posting='.imagePostingData($posting));
 // Resize the image
 if(($flags & IU_IMAGE)==IU_RESIZE)
   {
@@ -76,12 +113,18 @@ if(($flags & IU_IMAGE)==IU_RESIZE)
                        $tmpName,$posting->large_image_format,
                        $imageExactX,$imageExactY,$imageMaxX,$imageMaxY,false);
 
+  debugLog(LL_DETAILS,'err=%',array($err));
   if($err==IFR_UNKNOWN_FORMAT || $err==IFR_UNSUPPORTED_FORMAT
      || $err==IFR_UNSUPPORTED_THUMBNAIL)
+    {
+    debugLog(LL_FUNCTIONS,'EIU_UNKNOWN_IMAGE, imageFileResize() returned error');
     return EIU_UNKNOWN_IMAGE;
+    }
   if($err==IFR_OK)
     {
+    debugLog(LL_DETAILS,'unlink(%)',array($largeName));
     @unlink($largeName);
+    debugLog(LL_DETAILS,'rename(%,%)',array($tmpName,$largeName));
     rename($tmpName,$largeName);
     }
   }
@@ -89,6 +132,7 @@ if(($flags & IU_THUMB)==IU_THUMB_AUTO
    || ($flags & IU_THUMB)==IU_THUMB_NO_GLASS)
   {
   // Create thumbnail from large image
+  debugLog(LL_DETAILS,'create thumbnail from large image');
   $smallId=getNextImageFileId();
   $smallName=getImagePath($posting->orig_id,
                           getImageExtension($thumbnailType),$smallId,'small');
@@ -96,6 +140,7 @@ if(($flags & IU_THUMB)==IU_THUMB_AUTO
                        $smallName,$thumbnailType,
                        $thumbExactX,$thumbExactY,$thumbMaxX,$thumbMaxY,
 		       ($flags & IU_THUMB)!=IU_THUMB_NO_GLASS);
+  debugLog(LL_DETAILS,'err=%',array($err));
   if($err==IFR_UNKNOWN_FORMAT || $err==IFR_UNSUPPORTED_FORMAT)
     return EIU_UNKNOWN_IMAGE;
   if($err==IFR_UNSUPPORTED_THUMBNAIL)
@@ -108,26 +153,46 @@ elseif(($flags & IU_THUMB)==IU_THUMB_MANUAL
   {
   // Upload thumbnail
   $tname="${name}_thumb";
+  debugLog(LL_DETAILS,'uploading thumbnail');
+  debugLog(LL_FUNCTIONS,'\$_FILES[%]=%',array($tname,@$_FILES[$tname]));
   if(isset($_FILES[$tname]) && $_FILES[$tname]['tmp_name']!='')
     {
     // Move uploaded thumbnail into archive
+    debugLog(LL_DETAILS,'moving uploaded thumbnail');
     $file=$_FILES[$tname];
     if($file['tmp_name']=='' || !is_uploaded_file($file['tmp_name'])
        || filesize($file['tmp_name'])!=$file['size'])
+      {
+      debugLog(LL_FUNCTIONS,'EG_OK, invalid file in POST request');
       return EG_OK;
+      }
     if($file['size']>$maxImageSize)
+      {
+      debugLog(LL_FUNCTIONS,'EIU_THUMBNAIL_LARGE, file is too large');
       return EIU_THUMBNAIL_LARGE;
+      }
     if(getImageTypeCode($file['type'])!=getImageTypeCode($thumbnailType))
+      {
+      debugLog(LL_FUNCTIONS,
+               'EIU_UNKNOWN_THUMBNAIL, thumbnail is not of the required type');
       return EIU_UNKNOWN_THUMBNAIL;
+      }
 
     $smallId=getNextImageFileId();
     $smallName=getImagePath($posting->orig_id,
 			    getImageExtension($thumbnailType),$smallId,'small');
+    debugLog(LL_DETAILS,'move_uploaded_file(%,%)',
+	     array($file['tmp_name'],$smallName));
     if(!move_uploaded_file($file['tmp_name'],$smallName))
+      {
+      debugLog(LL_FUNCTIONS,'EG_OK, failed to move the file');
       return EG_OK;
+      }
+    chmod($smallName,0644);
     }
   else
     {
+    debugLog(LL_DETAILS,'no thumbnail file in the POST request');
     $smallId=$posting->small_image;
     $smallName=getImagePath($posting->orig_id,
 			    getImageExtension($thumbnailType),$smallId,'small');
@@ -151,32 +216,47 @@ if(($flags & IU_THUMB)==IU_THUMB_RESIZE)
     }
   }
 // Fill the record with thumbnail parameters
+debugLog(LL_DETAILS,'filling the record with thumbnail parameters');
 if($smallId!=0)
   {
   // Image has a thumbnail
+  debugLog(LL_DETAILS,'image has a thumbnail');
   $posting->small_image=$smallId;
   $posting->large_image=$largeId;
+  $smallImageSize=getImageSize($smallName);
+  debugLog(LL_DEBUG,'small getImageSize(%)=%',
+           array($smallName,$smallImageSize));
   list($posting->small_image_x,
-       $posting->small_image_y)=getImageSize($smallName);
+       $posting->small_image_y)=$smallImageSize;
+  $largeImageSize=getImageSize($largeName);
+  debugLog(LL_DEBUG,'large getImageSize(%)=%',
+           array($largeName,$largeImageSize));
   list($posting->large_image_x,
-       $posting->large_image_y)=getImageSize($largeName);
+       $posting->large_image_y)=$largeImageSize;
   }
 else
   {
   // Image hasn't any thumbnail
+  debugLog(LL_DETAILS,'image hasn\'t any thumbnail');
   $posting->small_image=$largeId;
   $posting->large_image=0;
   $largeExt=getImageExtension($posting->large_image_format);
   $smallFilename=getImageFilename($posting->orig_id,$largeExt,$largeId,
 				  'small');
   $smallName="$imageDir/$smallFilename";
+  debugLog(LL_DETAILS,'rename(%,%)',array($largeName,$smallName));
   rename($largeName,$smallName);
+  $smallImageSize=getImageSize($smallName);
+  debugLog(LL_DEBUG,'small getImageSize(%)=%',$smallName,$smallImageSize);
   list($posting->small_image_x,
-       $posting->small_image_y)=getImageSize($smallName);
+       $posting->small_image_y)=$smallImageSize;
   $posting->large_image_x=$posting->large_image_y=0;
+  debugLog(LL_DETAILS,'symlink(%,%)',array($smallFilename,$largeName));
   symlink($smallFilename,$largeName);
   }
 //FIXME journal() !
+if(isDebugLogging(LL_FUNCTIONS))
+  debugLog(LL_FUNCTIONS,'EG_OK, posting='.imagePostingData($posting));
 return EG_OK;
 }
 
@@ -256,6 +336,11 @@ function imageFileResize($fnameFrom,$formatFrom,$fnameTo,$formatTo,
 {
 global $thumbnailType,$glassImagePath;
 
+debugLog(LL_FUNCTIONS,'imageFileResize(fnameFrom=%,formatFrom=%,fnameTo=%,'
+                      .'formatTo=%,thumbExactX=%,thumbExactY=%,'
+		      .'thumbMaxX=%,thumbMaxY=%,addGlass=%)',
+	 array($fnameFrom,$formatFrom,$fnameTo,$formatTo,
+	       $thumbExactX,$thumbExactY,$thumbMaxX,$thumbMaxY,$addGlass));
 if((ImageTypes() & getImageTypeCode($formatFrom))==0)
   return IFR_UNSUPPORTED_FORMAT;
   
@@ -356,5 +441,18 @@ $imageTo="Image$sFname";
 $imageTo($sHandle,$fnameTo);
 
 return IFR_OK;
+}
+
+function imagePostingData($posting)
+{
+if(!is_a($posting,'Posting'))
+  return '!Posting';
+$s='Posting[image]{';
+foreach(array('id','small_image','small_image_x','small_image_y','large_image',
+              'large_image_x','large_image_y','large_image_size',
+	      'large_image_format','large_image_filename') as $key)
+       $s.="$key => ".debugLogData($posting->$key).', ';
+$s.='}';
+return $s;
 }
 ?>

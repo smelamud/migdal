@@ -6,6 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/entries.php');
 require_once('lib/selectiterator.php');
 require_once('lib/bug.php');
+require_once('lib/debug-log.php');
 require_once('lib/tmptexts.php');
 require_once('lib/text.php');
 require_once('lib/image-types.php');
@@ -168,6 +169,9 @@ function deleteImageFiles($id,$small_image,$large_image,$large_image_format)
 {
 global $thumbnailType;
 
+debugLog(LL_FUNCTIONS,
+         'deleteImageFiles(id=%,small_image=%,large_image=%,large_image_format=%)',
+	 array($id,$small_image,$large_image,$large_image_format));
 // FIXME Journal!
 $smallExt=getImageExtension($thumbnailType);
 $largeExt=getImageExtension($large_image_format);
