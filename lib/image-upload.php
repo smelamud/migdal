@@ -439,6 +439,7 @@ if((ImageTypes() & getImageTypeCode($formatTo))==0 || $sFname=='')
   return IFR_UNSUPPORTED_THUMBNAIL;
 $imageTo="Image$sFname";
 $imageTo($sHandle,$fnameTo);
+chmod($fnameTo,0644);
 
 return IFR_OK;
 }
