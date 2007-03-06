@@ -4,6 +4,7 @@
 require_once('lib/grps.php');
 require_once('lib/modbits.php');
 require_once('lib/text.php');
+require_once('lib/debug-log.php');
 
 #****************************#
 #                            #
@@ -28,8 +29,14 @@ $dbUser='root';
 # Пароль БД
 $dbPassword='xxxxxxxx';
 
-# Кодировка соединения с БД
+# Кодировка соединения с БД, нотация MySQL
 $dbCharset='koi8u';
+
+# Внутренняя кодировка, должна совпадать с $dbCharset, но нотация iconv
+$charsetInternal='KOI8-U';
+
+# Внешняя кодировка, нотация iconv
+$charsetExternal='CP1251';
 
 # Домен сайта
 $siteDomain='migdal.localhost';
@@ -96,6 +103,10 @@ $tmpTextTimeout=24;
 # обращения к нему
 $redirTimeout=24;
 
+# Максимальное время (в часах) хранения файла-картинки, не привязанного ни к
+# одному сообщению
+$imageFileTimeout=6;
+
 # Время (в сутках) ожидания подтверждения пользователем регистрации на сайте
 $regConfirmTimeout=3;
 
@@ -116,7 +127,17 @@ $disabledMessageTimeout=30;
 # Отладочный режим (включает отладочные сообщения PHP)
 $debug=false;
 
-# Выключить логи
+# Уровень отладочных логов. В лог попадут только сообщения большей либо равной
+# важности.
+$debugLogLevel=LL_OFF;
+
+# Максимальная длина строки данных, попадающей в логи
+$debugLogEllipSize=64;
+
+# Имя файла для отладочных логов
+$debugLogFile='/home/balu/web/migdal-html/debug.log';
+
+# Выключить статистические логи
 $disableLogging=false;
 
 # Время жизни (в сутках) статистики.
