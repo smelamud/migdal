@@ -48,9 +48,6 @@ all: $(OBJECTS:%.mhtml=$(targetdir)/%.php)
 Makefile: Makefile.in ../conf/migdal.conf
 	../confmake $^ $(builddir) > Makefile
 
-dbinfo:
-	echo > migdal.db
-
 clean:
 	(cd grp; $(MAKE) clean)
 	(cd styles; $(MAKE) clean)

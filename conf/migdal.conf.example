@@ -14,9 +14,6 @@ require_once('lib/debug-log.php');
 
 ## Общие настройки ##
 
-# Используемый UI
-$uiName='migdal';
-
 # Хост, на котором лежит БД
 $dbHost='localhost';
 

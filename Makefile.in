@@ -10,7 +10,7 @@ all: crontab php dbcreate.sql
 	(cd scripts; $(MAKE) all)
 	(cd sources; $(MAKE) all)
 	(cd tools; $(MAKE) all)
-	(cd $(uiName); $(MAKE) all)
+	(cd pages; $(MAKE) all)
 
 crontab: Makefile conf/migdal.conf
 	-mkdir -p $(builddir)
@@ -39,7 +39,7 @@ php: Makefile conf/migdal.conf
 	
 dbcreate.sql: Makefile conf/migdal.conf
 	-mkdir -p $(builddir)
-	cat migdal.db $(uiName)/migdal.db > $(builddir)/dbcreate.sql
+	cat migdal.db pages/migdal.db > $(builddir)/dbcreate.sql
 	(\
 	echo "insert into image_files(max_id) values(1);";\
 	if [ $(rebeLogin) ]; then \
@@ -66,11 +66,10 @@ dbinfo:
 		--no-data -Q > migdal.db
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
 		version --no-create-info -Q >> migdal.db
-	(cd $(uiName); $(MAKE) dbinfo)
 
 pack: all
 	tar zchf build.tar.gz $(builddir)
 
 clean:
 	-rm -r $(builddir)
-	(cd $(uiName); $(MAKE) clean)
+	(cd pages; $(MAKE) clean)
