@@ -39,7 +39,7 @@ php: Makefile conf/migdal.conf
 	
 dbcreate.sql: Makefile conf/migdal.conf
 	-mkdir -p $(builddir)
-	cat migdal.db pages/migdal.db > $(builddir)/dbcreate.sql
+	cp migdal.db $(builddir)/dbcreate.sql
 	(\
 	echo "insert into image_files(max_id) values(1);";\
 	if [ $(rebeLogin) ]; then \
