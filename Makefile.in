@@ -73,4 +73,5 @@ pack: all
 
 clean:
 	-rm -r $(builddir)
+	(cd conf; $(MAKE) clean)
 	(cd pages; $(MAKE) clean)

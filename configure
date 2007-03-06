@@ -3,7 +3,7 @@
 # @(#) $Id$
 
 BUILDDIR='.build'
-DIRS='. actions cgi-bin conf lib pages scripts sources tools pages/grp pages/parts pages/pics pages/styles mailings'
+DIRS='. actions cgi-bin conf lib pages scripts sources tools pages/parts pages/pics pages/styles mailings'
 
 for s in $DIRS; do
     ./confmake $s/Makefile.in conf/migdal.conf $BUILDDIR > $s/Makefile
