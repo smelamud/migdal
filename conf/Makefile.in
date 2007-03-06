@@ -4,6 +4,33 @@
 
 targetdir=$(builddir)/www/conf/
 
-all: migdal.conf
+all: migdal.conf groups.stamp mailings.stamp structure.stamp
 	-mkdir -p $(targetdir)
-	cp migdal.conf .htaccess $(targetdir)
+	cp migdal.conf .htaccess counters.php subdomains.php titles.php \
+		scripts.php traps.php cross-entries.php forums.php $(targetdir)
+
+Makefile: Makefile.in migdal.conf
+	../confmake $^ $(builddir) > Makefile
+
+clean:
+	-rm *.stamp
+	-rm grpentry-body.php
+
+groups.stamp: groups.conf ../grpparser
+	-mkdir -p $(targetdir)
+	../grpparser -C $(targetdir)/grps.php -L grpentry-body.php -p GRP_ \
+		-f grp -a grp $<
+	cat grpentry-header.php grpentry-body.php grpentry-footer.php \
+		> $(targetdir)/grpentry.php
+	touch $@
+
+mailings.stamp: mailings.conf ../grpparser
+	-mkdir -p $(targetdir)
+	../grpparser -C $(targetdir)/mailtypes.php \
+		-L $(targetdir)/mailings.php -p MAIL_ -f type_id -a mailing $<
+	touch $@
+
+structure.stamp: structure.conf ../structparser
+	-mkdir -p $(targetdir)
+	../structparser -o $(targetdir)/structure.php $<
+	touch $@
