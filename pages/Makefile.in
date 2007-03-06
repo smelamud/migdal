@@ -43,7 +43,6 @@ all: $(OBJECTS:%.mhtml=$(targetdir)/%.php)
 	(cd parts; $(MAKE) all)
 	(cd pics; $(MAKE) all)
 	(cd styles; $(MAKE) all)
-	(cd mailings; $(MAKE) all)
 
 Makefile: Makefile.in ../conf/migdal.conf
 	../confmake $^ $(builddir) > Makefile

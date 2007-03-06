@@ -11,6 +11,7 @@ all: crontab php dbcreate.sql
 	(cd sources; $(MAKE) all)
 	(cd tools; $(MAKE) all)
 	(cd pages; $(MAKE) all)
+	(cd mailings; $(MAKE) all)
 
 crontab: Makefile conf/migdal.conf
 	-mkdir -p $(builddir)
