@@ -89,7 +89,7 @@ while(true)
      {
      $chunk=substr($s,$pos*$icsize);
      if($icsize==2)
-       $chunk="\xff\xfe$chunk";
+       $chunk=($lsb==0 ? "\xff\xfe" : "\xfe\xff").$chunk;
      $chunk=iconv($i_charset,$o_charset,$chunk);
      if(strlen($chunk)>=strlen($s)/$icsize-$pos)
        {
@@ -143,14 +143,19 @@ for($i=0;$i<strlen($s);$i++)
        $cc--;
      else
        $errc++;
-   elseif(($byte & 0x80)==0)
-     $cc=0;
-   elseif(($byte & 0xe0)==0xc0)
-     $cc=1;
-   elseif(($byte & 0xf0)==0xe0)
-     $cc=2;
-   elseif(($byte & 0xf8)==0xf0)
-     $cc=3;
+   else
+     {
+     if($cc>0)
+       $errc++;
+     if(($byte & 0x80)==0)
+       $cc=0;
+     elseif(($byte & 0xe0)==0xc0)
+       $cc=1;
+     elseif(($byte & 0xf0)==0xe0)
+       $cc=2;
+     elseif(($byte & 0xf8)==0xf0)
+       $cc=3;
+     }
    }
 return $errc/strlen($s)<=0.01;
 }
