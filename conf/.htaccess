@@ -1,4 +1,2 @@
-<Files migdal.conf>
-  Order Deny,Allow
-  Deny from all
-</Files>
+Order Deny,Allow
+Deny from all
