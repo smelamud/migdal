@@ -12,7 +12,7 @@
  *              Set to -1 for unlimited.
  */
 
-require_once('grp/grps.php');
+require_once('conf/grps.php');
 
 define('CMODE_EAR_HITS',1);
 define('CMODE_EAR_CLICKS',2);

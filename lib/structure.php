@@ -11,10 +11,10 @@ require_once('lib/cross-entries.php');
 require_once('lib/text.php');
 require_once('lib/cache.php');
 
-require_once('grp/titles.php');
-require_once('grp/scripts.php');
-require_once('grp/traps.php');
-require_once('grp/structure.php');
+require_once('conf/titles.php');
+require_once('conf/scripts.php');
+require_once('conf/traps.php');
+require_once('conf/structure.php');
 
 function idOrCatalog($id,$catalog)
 {

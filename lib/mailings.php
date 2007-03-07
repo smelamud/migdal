@@ -8,7 +8,7 @@ require_once('lib/array.php');
 require_once('lib/dataobject.php');
 require_once('lib/bug.php');
 require_once('lib/sql.php');
-require_once('grp/mailtypes.php');
+require_once('conf/mailtypes.php');
 
 function sendMail($typeId,$userId,$link=0)
 {
@@ -76,7 +76,7 @@ return $this->email_disabled;
 
 }
 
-require_once('grp/mailings.php');
+require_once('conf/mailings.php');
 
 class MailingsExtractIterator
       extends MArrayIterator

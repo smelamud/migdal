@@ -4,33 +4,37 @@
 
 targetdir=$(builddir)/www/conf/
 
-all: migdal.conf groups.stamp mailings.stamp structure.stamp
-	-mkdir -p $(targetdir)
-	cp migdal.conf .htaccess counters.php subdomains.php titles.php \
-		scripts.php traps.php cross-entries.php forums.php $(targetdir)
+CONFIGS = migdal.conf .htaccess counters.php subdomains.php titles.php \
+          scripts.php traps.php cross-entries.php forums.php
+
+all: $(targetdir)/migdal.conf $(targetdir)/grps.php $(targetdir)/grpentry.php \
+	$(targetdir)/mailings.php $(targetdir)/structure.php ;
 
 Makefile: Makefile.in migdal.conf
 	../confmake $^ $(builddir) > Makefile
 
 clean:
-	-rm *.stamp
-	-rm grpentry-body.php
+	-rm $(targetdir)/grps.php grpentry-body.php $(targetdir)/grpentry.php \
+		$(targetdir)/mailings.php $(targetdir)/structure.php
 
-groups.stamp: groups.conf ../grpparser
+$(targetdir)/migdal.conf: $(CONFIGS)
+	-mkdir -p $(targetdir)
+	cp $(CONFIGS) $(targetdir)
+
+$(targetdir)/grps.php grpentry-body.php: groups.conf ../grpparser
 	-mkdir -p $(targetdir)
 	../grpparser -C $(targetdir)/grps.php -L grpentry-body.php -p GRP_ \
 		-f grp -a grp $<
-	cat grpentry-header.php grpentry-body.php grpentry-footer.php \
-		> $(targetdir)/grpentry.php
-	touch $@
 
-mailings.stamp: mailings.conf ../grpparser
+$(targetdir)/grpentry.php: grpentry-header.php grpentry-body.php grpentry-footer.php
+	-mkdir -p $(targetdir)
+	cat grpentry-header.php grpentry-body.php grpentry-footer.php > $@
+
+$(targetdir)/mailings.php: mailings.conf ../grpparser
 	-mkdir -p $(targetdir)
 	../grpparser -C $(targetdir)/mailtypes.php \
 		-L $(targetdir)/mailings.php -p MAIL_ -f type_id -a mailing $<
-	touch $@
 
-structure.stamp: structure.conf ../structparser
+$(targetdir)/structure.php: structure.conf ../structparser
 	-mkdir -p $(targetdir)
-	../structparser -o $(targetdir)/structure.php $<
-	touch $@
+	../structparser -o $@ $<

@@ -216,190 +216,190 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - scripts/replicate.php
 - scripts/urlcheck.php
 
-- migdal/grp/counters.php
-* migdal/grp/groups.conf
-- migdal/grp/mailings.conf
-+ migdal/grp/subdomains.php
+- conf/counters.php
+* conf/groups.conf
+- conf/mailings.conf
++ conf/subdomains.php
 
-- migdal/mailings/confirmed.mhtml
-- migdal/mailings/registering.mhtml
-- migdal/mailings/register.mhtml
-- migdal/mailings/repairing-password.mhtml
-- migdal/mailings/repair-password.mhtml
+- mailings/confirmed.mhtml
+- mailings/registering.mhtml
+- mailings/register.mhtml
+- mailings/repairing-password.mhtml
+- mailings/repair-password.mhtml
 
-- migdal/404.mhtml
-- migdal/500.mhtml
-- migdal/archive.mhtml
-* migdal/article.mhtml (кроме ловушек)
-+ migdal/article-times.mhtml
-+ migdal/book-chapter.mhtml
-- migdal/book-chapter-split.mhtml
-* migdal/book.mhtml (кроме пакетов и ловушек)
-+ migdal/book-print.mhtml
-- migdal/book-split.mhtml
-- migdal/book-static.mhtml
-* migdal/chatboard.mhtml
-- migdal/chatbottom.mhtml
-- migdal/chatconsole.mhtml
-- migdal/chat.mhtml
-- migdal/chattop.mhtml
-- migdal/chatusers.mhtml
-- migdal/chmod.mhtml
-+ migdal/complainactionedit.mhtml
-* migdal/complainanswer.mhtml (кроме ссылок на help)
-* migdal/complainedit.mhtml (кроме ссылок на help)
-+ migdal/complainforum.mhtml
-+ migdal/complains.mhtml
-+ migdal/cross-entries.mhtml
-+ migdal/cross-entry-add.mhtml
-+ migdal/daily-news.mhtml
-+ migdal/ears.mhtml
-+ migdal/event.mhtml
-- migdal/events-english.mhtml
-+ migdal/events.mhtml
-+ migdal/forumcatalog.mhtml (кроме ловушек)
-+ migdal/forumedit.mhtml (кроме ссылок на help и hidden для гостей)
-+ migdal/forum.mhtml
-* migdal/gallery.mhtml
-* migdal/gallery-main.mhtml
-+ migdal/groupadd.mhtml
-+ migdal/grouporg.mhtml
-- migdal/halom-main.mhtml (удалить, сохранив ловушку)
-- migdal/help.mhtml
-- migdal/horisontedit.mhtml
-- migdal/index-english.mhtml
-* migdal/index-www.mhtml (кроме ловушек)
-+ migdal/jcc.mhtml
-- migdal/journal.mhtml
-- migdal/kaitana-main.mhtml (удалить, сохранив ловушку)
-+ migdal/limedit.mhtml
-+ migdal/liminsert.mhtml
-+ migdal/links.mhtml
-+ migdal/methodic-center.mhtml
-+ migdal/methodics.mhtml
-+ migdal/migdal.mhtml (кроме ловушек)
-+ migdal/migdal-library.mhtml
-+ migdal/migdal-library-novelties.mhtml
-* migdal/migdal-news.mhtml (кроме событий)
-+ migdal/modbits.mhtml
-+ migdal/moderator.mhtml
-+ migdal/peruser.mhtml
-+ migdal/peruser-user.mhtml
-+ migdal/postingedit.mhtml (кроме ссылок на help и hidden для гостей)
-+ migdal/posting.mhtml
-* migdal/postingorg.mhtml (исправить стиль сообщений об ошибках)
-+ migdal/printings.mhtml
-+ migdal/rating.mhtml
-+ migdal/register.mhtml
-+ migdal/reorder.mhtml
-* migdal/search.mhtml
-- migdal/stotext-help-subs.mhtml
-- migdal/stotext-help-types.mhtml
-- migdal/style.mhtml
-- migdal/_template.mhtml
-+ migdal/times.mhtml
-- migdal/tips.mhtml
-+ migdal/topicdel.mhtml
-+ migdal/topicedit.mhtml
-+ migdal/topicorg.mhtml
-+ migdal/urls.mhtml
-* migdal/useredit.mhtml (кроме ссылок на help)
-- migdal/userfin.mhtml
-+ migdal/userinfo.mhtml
-+ migdal/userinfo-panel.mhtml
-- migdal/userlost.mhtml
-+ migdal/userok.mhtml
-- migdal/userrepair.mhtml
-+ migdal/users.mhtml
+- pages/404.mhtml
+- pages/500.mhtml
+- pages/archive.mhtml
+* pages/article.mhtml (кроме ловушек)
++ pages/article-times.mhtml
++ pages/book-chapter.mhtml
+- pages/book-chapter-split.mhtml
+* pages/book.mhtml (кроме пакетов и ловушек)
++ pages/book-print.mhtml
+- pages/book-split.mhtml
+- pages/book-static.mhtml
+* pages/chatboard.mhtml
+- pages/chatbottom.mhtml
+- pages/chatconsole.mhtml
+- pages/chat.mhtml
+- pages/chattop.mhtml
+- pages/chatusers.mhtml
+- pages/chmod.mhtml
++ pages/complainactionedit.mhtml
+* pages/complainanswer.mhtml (кроме ссылок на help)
+* pages/complainedit.mhtml (кроме ссылок на help)
++ pages/complainforum.mhtml
++ pages/complains.mhtml
++ pages/cross-entries.mhtml
++ pages/cross-entry-add.mhtml
++ pages/daily-news.mhtml
++ pages/ears.mhtml
++ pages/event.mhtml
+- pages/events-english.mhtml
++ pages/events.mhtml
++ pages/forumcatalog.mhtml (кроме ловушек)
++ pages/forumedit.mhtml (кроме ссылок на help и hidden для гостей)
++ pages/forum.mhtml
+* pages/gallery.mhtml
+* pages/gallery-main.mhtml
++ pages/groupadd.mhtml
++ pages/grouporg.mhtml
+- pages/halom-main.mhtml (удалить, сохранив ловушку)
+- pages/help.mhtml
+- pages/horisontedit.mhtml
+- pages/index-english.mhtml
+* pages/index-www.mhtml (кроме ловушек)
++ pages/jcc.mhtml
+- pages/journal.mhtml
+- pages/kaitana-main.mhtml (удалить, сохранив ловушку)
++ pages/limedit.mhtml
++ pages/liminsert.mhtml
++ pages/links.mhtml
++ pages/methodic-center.mhtml
++ pages/methodics.mhtml
++ pages/migdal.mhtml (кроме ловушек)
++ pages/migdal-library.mhtml
++ pages/migdal-library-novelties.mhtml
+* pages/migdal-news.mhtml (кроме событий)
++ pages/modbits.mhtml
++ pages/moderator.mhtml
++ pages/peruser.mhtml
++ pages/peruser-user.mhtml
++ pages/postingedit.mhtml (кроме ссылок на help и hidden для гостей)
++ pages/posting.mhtml
+* pages/postingorg.mhtml (исправить стиль сообщений об ошибках)
++ pages/printings.mhtml
++ pages/rating.mhtml
++ pages/register.mhtml
++ pages/reorder.mhtml
+* pages/search.mhtml
+- pages/stotext-help-subs.mhtml
+- pages/stotext-help-types.mhtml
+- pages/style.mhtml
+- pages/_template.mhtml
++ pages/times.mhtml
+- pages/tips.mhtml
++ pages/topicdel.mhtml
++ pages/topicedit.mhtml
++ pages/topicorg.mhtml
++ pages/urls.mhtml
+* pages/useredit.mhtml (кроме ссылок на help)
+- pages/userfin.mhtml
++ pages/userinfo.mhtml
++ pages/userinfo-panel.mhtml
+- pages/userlost.mhtml
++ pages/userok.mhtml
+- pages/userrepair.mhtml
++ pages/users.mhtml
 
-* migdal/parts/article.mhtml
-* migdal/parts/backtrace.mhtml (удалить лишний код)
-- migdal/parts/bannerbank.mhtml
-+ migdal/parts/banners.mhtml
-- migdal/parts/blog-posting.mhtml
-* migdal/parts/book-chapters.mhtml (кроме пакетов)
-- migdal/parts/book-chapters-static.mhtml
-+ migdal/parts/book-ring.mhtml
-- migdal/parts/book-ring-static.mhtml
-* migdal/parts/bottom.mhtml
-+ migdal/parts/complain.mhtml
-+ migdal/parts/daily-announce.mhtml
-+ migdal/parts/daily-picture.mhtml
-+ migdal/parts/discussions.mhtml
-+ migdal/parts/ears.mhtml
-+ migdal/parts/events.mhtml
-- migdal/parts/failpage.mhtml
-+ migdal/parts/formutils.mhtml
-+ migdal/parts/forum.mhtml
-+ migdal/parts/forums.mhtml (кроме стиля сообщений об ошибках)
-+ migdal/parts/gallery-main.mhtml
-+ migdal/parts/gallery.mhtml
-- migdal/parts/googleru.mhtml
-+ migdal/parts/grpselect.mhtml
-- migdal/parts/hannukah.mhtml
-- migdal/parts/help-link.mhtml
-+ migdal/parts/history.mhtml
-* migdal/parts/hit-parade.mhtml
-- migdal/parts/hotlog.mhtml
-- migdal/parts/identify.mhtml (удалить)
-- migdal/parts/jewishru.mhtml
-+ migdal/parts/langselect.mhtml
-+ migdal/parts/links-switcher.mhtml
-+ migdal/parts/login.mhtml
-- migdal/parts/mailru.mhtml
-+ migdal/parts/menu.mhtml
-+ migdal/parts/migdal-news.mhtml
-+ migdal/parts/peruser.mhtml
-+ migdal/parts/picture-main.mhtml
-+ migdal/parts/picture.mhtml
-+ migdal/parts/pointer.mhtml
-* migdal/parts/posting-book.mhtml
-+ migdal/parts/posting-ear.mhtml
-* migdal/parts/posting-general.mhtml
-+ migdal/parts/posting-link.mhtml
-+ migdal/parts/posting-printing.mhtml
-+ migdal/parts/posting.mhtml
-+ migdal/parts/postings-links.mhtml
-+ migdal/parts/postings.mhtml
-+ migdal/parts/postings-migdal-news.mhtml
-+ migdal/parts/posting-times-cover.mhtml
-+ migdal/parts/posting-times.mhtml
-- migdal/parts/rabbi.mhtml
-- migdal/parts/rambler.mhtml
-+ migdal/parts/relogin.mhtml
-* migdal/parts/seealso.mhtml
-+ migdal/parts/spin.mhtml
-+ migdal/parts/subtitle.mhtml
-+ migdal/parts/textears.mhtml
-+ migdal/parts/tip.mhtml
-- migdal/parts/tip-posting.mhtml
-- migdal/parts/today.mhtml
-- migdal/parts/top-404.mhtml
-* migdal/parts/topics-admin.mhtml
-+ migdal/parts/topics-book.mhtml
-* migdal/parts/topics-daily.mhtml
-+ migdal/parts/topicselect.mhtml
-+ migdal/parts/topics-events.mhtml
-* migdal/parts/topics-gallery-general.mhtml
-* migdal/parts/topics-gallery-major.mhtml
-+ migdal/parts/topics-gallery-migdal.mhtml
-* migdal/parts/topics-general.mhtml (удалить)
-- migdal/parts/topics-help.mhtml
-+ migdal/parts/topics-links.mhtml
-+ migdal/parts/topics-major.mhtml
-+ migdal/parts/topics.mhtml
-- migdal/parts/topics-migdal-english.mhtml
-* migdal/parts/topics-migdal.mhtml
-- migdal/parts/topics-minor.mhtml
-+ migdal/parts/topics-peruser.mhtml
-+ migdal/parts/topics-times.mhtml
-+ migdal/parts/top.mhtml
-+ migdal/parts/tzdaka.mhtml
-+ migdal/parts/uploader.mhtml
-+ migdal/parts/userinfo.mhtml
-+ migdal/parts/utils.mhtml
-+ migdal/parts/vote.mhtml
+* pages/parts/article.mhtml
+* pages/parts/backtrace.mhtml (удалить лишний код)
+- pages/parts/bannerbank.mhtml
++ pages/parts/banners.mhtml
+- pages/parts/blog-posting.mhtml
+* pages/parts/book-chapters.mhtml (кроме пакетов)
+- pages/parts/book-chapters-static.mhtml
++ pages/parts/book-ring.mhtml
+- pages/parts/book-ring-static.mhtml
+* pages/parts/bottom.mhtml
++ pages/parts/complain.mhtml
++ pages/parts/daily-announce.mhtml
++ pages/parts/daily-picture.mhtml
++ pages/parts/discussions.mhtml
++ pages/parts/ears.mhtml
++ pages/parts/events.mhtml
+- pages/parts/failpage.mhtml
++ pages/parts/formutils.mhtml
++ pages/parts/forum.mhtml
++ pages/parts/forums.mhtml (кроме стиля сообщений об ошибках)
++ pages/parts/gallery-main.mhtml
++ pages/parts/gallery.mhtml
+- pages/parts/googleru.mhtml
++ pages/parts/grpselect.mhtml
+- pages/parts/hannukah.mhtml
+- pages/parts/help-link.mhtml
++ pages/parts/history.mhtml
+* pages/parts/hit-parade.mhtml
+- pages/parts/hotlog.mhtml
+- pages/parts/identify.mhtml (удалить)
+- pages/parts/jewishru.mhtml
++ pages/parts/langselect.mhtml
++ pages/parts/links-switcher.mhtml
++ pages/parts/login.mhtml
+- pages/parts/mailru.mhtml
++ pages/parts/menu.mhtml
++ pages/parts/migdal-news.mhtml
++ pages/parts/peruser.mhtml
++ pages/parts/picture-main.mhtml
++ pages/parts/picture.mhtml
++ pages/parts/pointer.mhtml
+* pages/parts/posting-book.mhtml
++ pages/parts/posting-ear.mhtml
+* pages/parts/posting-general.mhtml
++ pages/parts/posting-link.mhtml
++ pages/parts/posting-printing.mhtml
++ pages/parts/posting.mhtml
++ pages/parts/postings-links.mhtml
++ pages/parts/postings.mhtml
++ pages/parts/postings-migdal-news.mhtml
++ pages/parts/posting-times-cover.mhtml
++ pages/parts/posting-times.mhtml
+- pages/parts/rabbi.mhtml
+- pages/parts/rambler.mhtml
++ pages/parts/relogin.mhtml
+* pages/parts/seealso.mhtml
++ pages/parts/spin.mhtml
++ pages/parts/subtitle.mhtml
++ pages/parts/textears.mhtml
++ pages/parts/tip.mhtml
+- pages/parts/tip-posting.mhtml
+- pages/parts/today.mhtml
+- pages/parts/top-404.mhtml
+* pages/parts/topics-admin.mhtml
++ pages/parts/topics-book.mhtml
+* pages/parts/topics-daily.mhtml
++ pages/parts/topicselect.mhtml
++ pages/parts/topics-events.mhtml
+* pages/parts/topics-gallery-general.mhtml
+* pages/parts/topics-gallery-major.mhtml
++ pages/parts/topics-gallery-migdal.mhtml
+* pages/parts/topics-general.mhtml (удалить)
+- pages/parts/topics-help.mhtml
++ pages/parts/topics-links.mhtml
++ pages/parts/topics-major.mhtml
++ pages/parts/topics.mhtml
+- pages/parts/topics-migdal-english.mhtml
+* pages/parts/topics-migdal.mhtml
+- pages/parts/topics-minor.mhtml
++ pages/parts/topics-peruser.mhtml
++ pages/parts/topics-times.mhtml
++ pages/parts/top.mhtml
++ pages/parts/tzdaka.mhtml
++ pages/parts/uploader.mhtml
++ pages/parts/userinfo.mhtml
++ pages/parts/utils.mhtml
++ pages/parts/vote.mhtml
 
-* migdal/report
+* pages/report
 
 @(#) $Id$

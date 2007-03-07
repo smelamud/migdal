@@ -26,99 +26,130 @@ VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 STATIC_ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-article.mcss
 
-all: style.stamp article.stamp book.stamp chat.stamp complain.stamp \
-	index.stamp times.stamp timesnfo.stamp votes.stamp \
-	$(targetdir)/static-article.css
+all: $(targetdir)/.style.stamp $(targetdir)/.article.stamp \
+	$(targetdir)/.book.stamp $(targetdir)/.chat.stamp \
+	$(targetdir)/.complain.stamp $(targetdir)/.index.stamp \
+	$(targetdir)/.times.stamp $(targetdir)/.timesnfo.stamp \
+	$(targetdir)/.votes.stamp $(targetdir)/static-article.css
 
-$(targetdir):
-	mkdir -p $(targetdir)
-
-$(targetdir)/style-%.php: style.mcss $(targetdir) $(STYLE_PARTS) ../../cssparser
-	../../cssparser -p -s $* $< > $@
-
-$(targetdir)/style-%.css: style.mcss $(targetdir) $(STYLE_PARTS) ../../cssparser
-	../../cssparser -s $* $< > $@
-
-style.stamp: $(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/style-%.php,$(FLAVOURS))
+$(targetdir)/.stamp:
+	-mkdir -p $(targetdir)
 	touch $@
 
-$(targetdir)/article-%.php: article.mcss $(targetdir) $(ARTICLE_PARTS) ../../cssparser
+$(targetdir)/style-%.php: style.mcss $(targetdir)/.stamp $(STYLE_PARTS) \
+		../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-$(targetdir)/article-%.css: article.mcss $(targetdir) $(ARTICLE_PARTS) ../../cssparser
+$(targetdir)/style-%.css: style.mcss $(targetdir)/.stamp $(STYLE_PARTS) \
+		../../cssparser
 	../../cssparser -s $* $< > $@
 
-article.stamp: $(patsubst %,$(targetdir)/article-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/article-%.php,$(FLAVOURS))
+$(targetdir)/.style.stamp: $(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/style-%.php,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/book-%.php: book.mcss $(targetdir) $(BOOK_PARTS) ../../cssparser
+$(targetdir)/article-%.php: article.mcss $(targetdir)/.stamp $(ARTICLE_PARTS) \
+		../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-$(targetdir)/book-%.css: book.mcss $(targetdir) $(BOOK_PARTS) ../../cssparser
+$(targetdir)/article-%.css: article.mcss $(targetdir)/.stamp $(ARTICLE_PARTS) \
+		../../cssparser
 	../../cssparser -s $* $< > $@
 
-book.stamp: $(patsubst %,$(targetdir)/book-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/book-%.php,$(FLAVOURS))
+$(targetdir)/.article.stamp: $(patsubst %,$(targetdir)/article-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/article-%.php,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/chat-%.php: chat.mcss $(targetdir) $(CHAT_PARTS) ../../cssparser
+$(targetdir)/book-%.php: book.mcss $(targetdir)/.stamp $(BOOK_PARTS) \
+		../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-$(targetdir)/chat-%.css: chat.mcss $(targetdir) $(CHAT_PARTS) ../../cssparser
+$(targetdir)/book-%.css: book.mcss $(targetdir)/.stamp $(BOOK_PARTS) \
+		../../cssparser
 	../../cssparser -s $* $< > $@
 
-chat.stamp: $(patsubst %,$(targetdir)/chat-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/chat-%.php,$(FLAVOURS))
+$(targetdir)/.book.stamp: $(patsubst %,$(targetdir)/book-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/book-%.php,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/complain-%.php: complain.mcss $(targetdir) $(COMPLAIN_PARTS) ../../cssparser
+$(targetdir)/chat-%.php: chat.mcss $(targetdir)/.stamp $(CHAT_PARTS) \
+		../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-$(targetdir)/complain-%.css: complain.mcss $(targetdir) $(COMPLAIN_PARTS) ../../cssparser
+$(targetdir)/chat-%.css: chat.mcss $(targetdir)/.stamp $(CHAT_PARTS) \
+		../../cssparser
 	../../cssparser -s $* $< > $@
 
-complain.stamp: $(patsubst %,$(targetdir)/complain-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/complain-%.php,$(FLAVOURS))
+$(targetdir)/.chat.stamp: $(patsubst %,$(targetdir)/chat-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/chat-%.php,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/index-%.php: index.mcss $(targetdir) $(INDEX_PARTS) ../../cssparser
+$(targetdir)/complain-%.php: complain.mcss $(targetdir)/.stamp \
+		$(COMPLAIN_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-$(targetdir)/index-%.css: index.mcss $(targetdir) $(INDEX_PARTS) ../../cssparser
+$(targetdir)/complain-%.css: complain.mcss $(targetdir)/.stamp \
+		$(COMPLAIN_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-index.stamp: $(patsubst %,$(targetdir)/index-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/index-%.php,$(FLAVOURS))
+$(targetdir)/.complain.stamp: $(patsubst %,$(targetdir)/complain-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/complain-%.php,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/times-%.php: times.mcss $(targetdir) $(TIMES_PARTS) ../../cssparser
+$(targetdir)/index-%.php: index.mcss $(targetdir)/.stamp $(INDEX_PARTS) \
+		../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-$(targetdir)/times-%.css: times.mcss $(targetdir) $(TIMES_PARTS) ../../cssparser
+$(targetdir)/index-%.css: index.mcss $(targetdir)/.stamp $(INDEX_PARTS) \
+		../../cssparser
 	../../cssparser -s $* $< > $@
 
-times.stamp: $(patsubst %,$(targetdir)/times-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/times-%.php,$(FLAVOURS))
+$(targetdir)/.index.stamp: $(patsubst %,$(targetdir)/index-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/index-%.php,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/timesnfo-%.php: timesnfo.mcss $(targetdir) $(TIMESNFO_PARTS) ../../cssparser
+$(targetdir)/times-%.php: times.mcss $(targetdir)/.stamp $(TIMES_PARTS) \
+		../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-$(targetdir)/timesnfo-%.css: timesnfo.mcss $(targetdir) $(TIMESNFO_PARTS) ../../cssparser
+$(targetdir)/times-%.css: times.mcss $(targetdir)/.stamp $(TIMES_PARTS) \
+		../../cssparser
 	../../cssparser -s $* $< > $@
 
-timesnfo.stamp: $(patsubst %,$(targetdir)/timesnfo-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/timesnfo-%.php,$(FLAVOURS))
+$(targetdir)/.times.stamp: $(patsubst %,$(targetdir)/times-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/times-%.php,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/votes-%.php: votes.mcss $(targetdir) $(VOTES_PARTS) ../../cssparser
+$(targetdir)/timesnfo-%.php: timesnfo.mcss $(targetdir)/.stamp \
+		$(TIMESNFO_PARTS) ../../cssparser
 	../../cssparser -p -s $* $< > $@
 
-$(targetdir)/votes-%.css: votes.mcss $(targetdir) $(VOTES_PARTS) ../../cssparser
+$(targetdir)/timesnfo-%.css: timesnfo.mcss $(targetdir)/.stamp \
+		$(TIMESNFO_PARTS) ../../cssparser
 	../../cssparser -s $* $< > $@
 
-votes.stamp: $(patsubst %,$(targetdir)/votes-%.css,$(FLAVOURS)) $(patsubst %,$(targetdir)/votes-%.php,$(FLAVOURS))
+$(targetdir)/.timesnfo.stamp: $(patsubst %,$(targetdir)/timesnfo-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/timesnfo-%.php,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/static-article.css: static-article.mcss $(targetdir) $(STATIC_ARTICLE_PARTS) ../../cssparser
+$(targetdir)/votes-%.php: votes.mcss $(targetdir)/.stamp $(VOTES_PARTS) \
+		../../cssparser
+	../../cssparser -p -s $* $< > $@
+
+$(targetdir)/votes-%.css: votes.mcss $(targetdir)/.stamp $(VOTES_PARTS) \
+		../../cssparser
+	../../cssparser -s $* $< > $@
+
+$(targetdir)/.votes.stamp: $(patsubst %,$(targetdir)/votes-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/votes-%.php,$(FLAVOURS))
+	touch $@
+
+$(targetdir)/static-article.css: static-article.mcss $(targetdir)/.stamp \
+		$(STATIC_ARTICLE_PARTS) ../../cssparser
 	../../cssparser -s static-article.css $< > $@
 
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ $(builddir) > Makefile
 
 clean:
-	-rm *.stamp
+	-rm $(targetdir)/.*.stamp $(targetdir)/static-article.css

@@ -14,7 +14,7 @@ require_once('lib/images.php');
 require_once('lib/text-any.php');
 require_once('lib/catalog.php');
 
-require_once('grp/forums.php');
+require_once('conf/forums.php');
 
 class Forum
       extends Entry

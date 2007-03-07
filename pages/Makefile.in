@@ -28,17 +28,21 @@ OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  userinfo.mhtml userinfo-panel.mhtml userlost.mhtml userok.mhtml \
 	  userrepair.mhtml users.mhtml
 	  
-$(targetdir):
-	mkdir -p $(targetdir)
-
-$(targetdir)/%.php: %.mhtml $(targetdir) ../miparser ../macros.mhtml macros.mhtml
-	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
-
-all: $(OBJECTS:%.mhtml=$(targetdir)/%.php)
+$(targetdir)/.stamp:
 	-mkdir -p $(targetdir)
 	-mkdir -p $(targetdir)/books
 	-mkdir -p $(targetdir)/images
+	touch $@
+
+$(targetdir)/.htaccess: $(targetdir)/.stamp favicon.ico dispatcher.php \
+		.htaccess robots.txt *.js
 	cp favicon.ico dispatcher.php .htaccess robots.txt *.js $(targetdir)
+
+$(targetdir)/%.php: %.mhtml $(targetdir)/.stamp ../miparser \
+		../macros.mhtml macros.mhtml
+	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
+
+all: $(targetdir)/.htaccess $(OBJECTS:%.mhtml=$(targetdir)/%.php)
 	(cd parts; $(MAKE) all)
 	(cd pics; $(MAKE) all)
 	(cd styles; $(MAKE) all)
@@ -47,4 +51,5 @@ Makefile: Makefile.in ../conf/migdal.conf
 	../confmake $^ $(builddir) > Makefile
 
 clean:
+	(cd parts; $(MAKE) clean)
 	(cd styles; $(MAKE) clean)

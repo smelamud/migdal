@@ -4,7 +4,7 @@
 require_once('lib/dataobject.php');
 require_once('lib/selectiterator.php');
 
-require_once('grp/cross-entries.php');
+require_once('conf/cross-entries.php');
 
 define('LINKT_NONE',0);
 

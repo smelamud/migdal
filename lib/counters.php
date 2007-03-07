@@ -1,7 +1,7 @@
 <?php
 # @(#) $Id$
 
-require_once('grp/counters.php');
+require_once('conf/counters.php');
 require_once('lib/ip.php');
 require_once('lib/sql.php');
 

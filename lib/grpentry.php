@@ -1,5 +1,5 @@
 <?php
 # @(#) $Id$
 
-require_once('grp/grpentry.php');
+require_once('conf/grpentry.php');
 ?>

@@ -1,6 +1,6 @@
 <?php
 require_once('lib/entries.php');
-require_once('grp/grps.php');
+require_once('conf/grps.php');
 
 class GrpEntry
       extends Entry

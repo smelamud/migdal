@@ -9,7 +9,7 @@ require_once('lib/database.php');
 require_once('lib/redirs.php');
 require_once('lib/session.php'); // FIXME Не очень хорошее решение
 
-require_once('grp/subdomains.php');
+require_once('conf/subdomains.php');
 
 function &dispatchSubDomain($requestURI)
 {
