@@ -126,6 +126,10 @@
                title,comment,mandatory,small_url,large_url'
        defaults="small_name='' small_title='' large_title='' plainid=0
                  comment='' mandatory='*false' small_url='' large_url=''">
+<decel name='gallery' file='parts/gallery.php'
+       params='topic_id,rows,cols,offset,sort,user_id,noguests,noadd'
+       defaults="rows=4 cols=5 offset=0 sort='*SORT_SENT' user_id=0
+                 noguests='*false' noadd='*false'">
 <decel name='grpselect' file='parts/grpselect.php'
        params='name,value,rows,multiple' defaults="rows=8 multiple='*false'">
 <decel name='hannukah' file='parts/hannukah.php'>
