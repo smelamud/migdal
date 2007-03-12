@@ -82,7 +82,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/bookupload.php
 + actions/cadel.php
 + actions/camod.php
-- actions/chatpost.php
 + actions/checkcookies.php
 - actions/chmod.php
 + actions/complainact.php
@@ -133,8 +132,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/calendar.php
 + lib/calendar-tables.php
 * lib/charsets.php (обработка иврита должна быть не при выводе)
-* lib/chat.php (функции не обработаны)
-- lib/chat-users.php
 + lib/complainactions.php
 + lib/complainscripts.php
 + lib/complains.php
@@ -207,7 +204,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/utils.php
 + lib/votes.php
 
-- scripts/chat.php
 * scripts/daily.php
 * scripts/hourly.php
 - scripts/mailrobot.php
@@ -238,12 +234,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/book-print.mhtml
 - pages/book-split.mhtml
 - pages/book-static.mhtml
-* pages/chatboard.mhtml
-- pages/chatbottom.mhtml
-- pages/chatconsole.mhtml
-- pages/chat.mhtml
-- pages/chattop.mhtml
-- pages/chatusers.mhtml
 - pages/chmod.mhtml
 + pages/complainactionedit.mhtml
 * pages/complainanswer.mhtml (кроме ссылок на help)

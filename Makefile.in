@@ -19,7 +19,6 @@ crontab: Makefile conf/migdal.conf
 	echo 'PATH=/usr/local/bin:/bin:/usr/bin';\
 	echo;\
 	echo '# m       h  dom mon dow command';\
-	echo '  0-59/$(chatTimeout)  *   *   *   *  $(homeDir)/php $(scriptsDir)/chat.php';\
 	echo '  30      *   *   *   *  $(homeDir)/php $(scriptsDir)/hourly.php';\
 	echo '  0-50/10 *   *   *   *  $(homeDir)/php $(scriptsDir)/mailrobot.php';\
 	echo '  30      23  *   *   *  $(homeDir)/php $(scriptsDir)/daily.php';\

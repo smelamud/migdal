@@ -36,10 +36,6 @@
 	      current='$ident' time='$gallery_time'>
     <menuitem ident='links' alt='Ссылки' link='/links/' target='$target'
 	      current='$ident' time='$links_time'>
-    <master>
-     <menuitem ident='chat' alt='Чат' link='chat.php' target='$target'
-	       current='$ident'>
-    </master>
     <menuitem ident='users' alt='Пользователи' link='/users/'
 	      target='$target' current='$ident'>
    <asp></td>

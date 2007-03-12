@@ -45,10 +45,6 @@
          params='values' defaults="values='$*'">
 <deciter macro='assoc_array' class='AssocArrayIterator' file='lib/array.php'
          params='values,class' defaults="values='$*' class='Association'">
-<deciter macro='chat' class='ChatMessageListIterator' file='lib/chat.php'
-         params='limit' defaults='limit=20'>
-<deciter macro='chat_users' class='ChatUsersIterator'
-         file='lib/chat-users.php'>
 <deciter macro='complainlist' class='ComplainListIterator'
          file='lib/complains.php' params='limit,offset'
 	 defaults='limit=20 offset=0'>
@@ -177,8 +173,6 @@
 <deccall macro='array_random' func='array_random' file='lib/random.php'
          params='array' defaults="array='$*'">
 <deccall macro='catalog' func='catalogById' file='lib/catalog.php' params='id'>
-<deccall macro='chat_users_count' func='getChatUsersCount'
-         file='lib/chat-users.php'>
 <decexec macro='common' func='beginCommon' file='lib/inner.php'>
 <decexec macro='/common' func='endCommon' file='lib/inner.php'>
 <deccall macro='complain_action_obj' func='getComplainActionById'
@@ -217,8 +211,6 @@
 <deccall macro='inner_image_par' func='getInnerImageByParagraph'
          file='lib/inner-images.php' params='entry_id,par,x,y'
 	 defaults='name=image x=0 y=0'>
-<deccall macro='last_chat' func='getLastChat' file='lib/chat-users.php'
-         params='id'>
 <deccall macro='location_info' func='getLocationInfo' file='lib/structure.php'
          params='path'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
@@ -282,8 +274,6 @@
 <deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
          params='id,up,fields'
 	 defaults="name=topic id='$topic_id' up=0 fields='*SELECT_GENERAL'">
-<decexec macro='update_last_chat' func='updateLastChat'
-         file='lib/chat-users.php'>
 <deccall macro='user_login' func='getUserLoginById' file='lib/users.php'
          params='id'>
 <deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>

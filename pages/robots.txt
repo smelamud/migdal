@@ -1,12 +1,5 @@
 User-Agent: *
 Disallow: /actions/
-Disallow: /chatboard.php
-Disallow: /chatbottom.php
-Disallow: /chatconsole.php
-Disallow: /chat.php
-Disallow: /chattop.php
-Disallow: /chattune.php
-Disallow: /chatusers.php
 Disallow: /complainactionedit.php
 Disallow: /complainanswer.php
 Disallow: /complainedit.php

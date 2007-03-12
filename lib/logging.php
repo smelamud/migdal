@@ -5,7 +5,6 @@ require_once('lib/errors.php');
 require_once('lib/logs.php');
 require_once('lib/sessions.php');
 require_once('lib/users.php');
-require_once('lib/chat-users.php');
 
 define('RELOGIN_GUEST',1);
 define('RELOGIN_SAME',2);
@@ -21,14 +20,6 @@ if($id==0)
 if($remember)
   {
   logEvent('login',"user($id)");
-  $prevId=$userId!=0 ? $userId : $realUserId;
-  if(isChatLogged($prevId))
-    {
-    clearLastChat($prevId);
-    chatLogout($prevId);
-    postChatSwitchMessage($id,$prevId);
-    chatLogin($id);
-    }
   updateSession($sessionid,$id,$id);
   }
 session($id);
@@ -52,13 +43,6 @@ if($remember)
       updateSession($sessionid,$realUserId,$realUserId);
       session();
       return EG_OK;
-      }
-    if(isChatLogged($userId))
-      {
-      clearLastChat($userId);
-      chatLogout($userId);
-      postChatSwitchMessage($guestId,$userId);
-      chatLogin($guestId);
       }
     }
   updateSession($sessionid,0,$guestId);
