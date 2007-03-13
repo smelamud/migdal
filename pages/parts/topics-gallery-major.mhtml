@@ -15,9 +15,11 @@
  <iterate_entry_cross source_name='gallery.major' link_type='*LINKT_MAJOR'>
  <for>
   <topic_obj name='topic' id='$.PeerId'>
-  <postings_info name='info' grp='*GRP_GRAPHICS' topic_id='$topic.Id'
-                 recursive='*true'>
-  <topics_line class='topic-item ninept' time='$info.MaxSent'
+  <zone>
+   <postings_info name='info' grp='*GRP_GRAPHICS' topic_id='$topic.Id'
+		  recursive='*true'>
+  </zone>
+  <topics_line class='topics-item ninept' time='$info.MaxSent'
                count='$info.Total' href#='/gallery/$topic.Catalog'
 	       title='$=,BodyNormal' text='$=,Subject' span=2
 	       arrow!='$topic.Id==$index'>

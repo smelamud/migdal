@@ -82,7 +82,7 @@ postString('login');
 postString('user_name');
 postString('group_login');
 postString('group_name');
-postString('perm_string');
+postString('perm_string',false);
 postIntegerArray('modbits');
 postInteger('index2');
 postIntegerArray('grps');
