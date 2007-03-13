@@ -1,3 +1,5 @@
+<< @(#) $Id$ >>
+
 <element name='posting_ear'>
 <table class='posting'>
  <tr valign=top>
