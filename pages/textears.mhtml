@@ -1,4 +1,4 @@
-<< @(#) $Id$ >>
+<< @(#) $Id: ears.mhtml 2379 2007-03-06 18:34:55Z balu $ >>
 
 <int name='offset'>
 
@@ -9,7 +9,7 @@
    <table><tr valign=center>
     <td><image src='/pics/sheet.gif'></td>
     <td>
-     <a href='/admin/ears/add/?redirid=$_'>Добавить ушко</a>
+     <a href='/admin/textears/add/?redirid=$_'>Добавить ушко</a>
     </td>
    </tr></table>
   </td>
@@ -38,13 +38,12 @@
    </td>
    <td class='cframe'>
     <subtitle>
-    <iterate_postinglist name='list' grp='*GRP_EARS' topic_id='$`ears`'
-			 limit=20 offset='$offset' fields='*SELECT_CTR'
-			 sort='*SORT_CTR'>
+    <iterate_postinglist name='list' grp='*GRP_TEXTEARS' topic_id='$`textears`'
+			 limit=20 offset='$offset' sort='*SORT_SENT'>
     <error_lines>
     <batcher list='$list'>
     <for>
-     <posting_ear posting='$.'>
+     <posting_textear posting='$.'>
     </for>
     <ifnzero what='$list.Count'>
      <batcher list='$list'>

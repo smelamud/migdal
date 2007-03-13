@@ -16,5 +16,7 @@
  <topics_splitter>
  <topics_line arrow!="$index=='ears'" text='Ушки'
               href='/admin/ears/'>
+ <topics_line arrow!="$index=='textears'" text='Текстовые ушки'
+              href='/admin/textears/'>
 </topics_table>
 </element>

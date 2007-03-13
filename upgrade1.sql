@@ -4,7 +4,7 @@ CREATE TABLE `old_ids` (
 `old_ident` VARCHAR( 75 ) ,
 `entry_id` INT NOT NULL ,
 PRIMARY KEY ( `table_name` , `old_id` )
-);
+) DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 ALTER TABLE `old_ids` ADD UNIQUE (
 `table_name` ,
 `entry_id`
@@ -92,7 +92,7 @@ UNIQUE (
 UNIQUE (
 `tmpid`
 )
-);
+) DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 ALTER TABLE `entries` ADD INDEX ( `entry` );
 ALTER TABLE `entries` ADD INDEX ( `up` );
 ALTER TABLE `entries` ADD INDEX ( `track` );
@@ -135,7 +135,7 @@ CREATE TABLE `cross_entries` (
 `peer_subject_sort` VARCHAR( 255 ) NOT NULL ,
 `peer_icon` VARCHAR( 64 ) NOT NULL ,
 PRIMARY KEY ( `id` )
-);
+) DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 ALTER TABLE `packages` ADD `entry_id` INT NOT NULL AFTER `message_id` ;
 ALTER TABLE `packages` ADD INDEX ( `entry_id` ) ;
 TRUNCATE TABLE `sessions`;
@@ -157,7 +157,7 @@ ALTER TABLE `entries` ADD `sent` DATETIME NOT NULL AFTER `tmpid` ;
 ALTER TABLE `entries` ADD INDEX ( `sent` ) ;
 CREATE TABLE `image_files` (
 `max_id` INT NOT NULL
-);
+) DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 INSERT INTO `image_files` ( `max_id` )
 VALUES (
 '0'
@@ -171,7 +171,7 @@ CREATE TABLE `entry_grps` (
 `entry_id` INT NOT NULL ,
 `grp` INT NOT NULL ,
 INDEX ( `entry_id` )
-) ;
+)  DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 ALTER TABLE `entry_grps` ADD INDEX ( `grp` ) ;
 DELETE FROM `complain_actions` WHERE script_id <>1;
 ALTER TABLE `complain_actions` DROP `type_id` ,

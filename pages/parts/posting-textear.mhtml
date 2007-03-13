@@ -1,0 +1,30 @@
+<element name='posting_textear'>
+<table class='posting' width='50%'>
+ <tr valign='top'><td>
+  <p>
+   <span class='sent'>$posting.Sent@j.$posting.Sent@m.$posting.Sent@Y</span><br>
+   $=posting.Subject
+  </p>
+  <p><a href='$posting.URL'>$posting.URL</p>
+ </td></tr>
+ <tr height=20><td class='posting-bottom'>
+  <iswrite what='$posting'>
+   <if what='!$posting.isDisabled'>
+    [<a href="/actions/entry/moderate?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
+	<asp>Выключить</a>]
+   <else>
+    [<a href="/actions/entry/moderate?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
+	<asp><b>Включить</b></a>]
+   </if>
+   &nbsp;
+   <a href="/admin/textears/$posting.Id/edit/?redirid=$_"
+      >Изменить</a>
+   &nbsp;
+   <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-"
+      >Удалить</a>
+  <else>
+   &nbsp;
+  </iswrite>
+ </td></tr>
+</table>
+</element>
