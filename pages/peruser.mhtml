@@ -25,7 +25,7 @@
     <table class='info'><tr valign=center>
      <td><image src='/pics/sheet.gif'></td>
      <td>
-      <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_BLOG_FORUMS&noguests=1&redirid=$_'
+      <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_PERUSER_FORUMS&noguests=1&redirid=$_'
 	 >Добавить текст</a>
      </td>
      <td>&nbsp;</td>

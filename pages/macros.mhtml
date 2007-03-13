@@ -32,10 +32,6 @@
        defaults="target=''">
 <decel name='bannerbank' file='parts/bannerbank.php'>
 <decel name='banners' file='parts/banners.php'>
-<decel name='blog_posting' file='parts/blog-posting.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
 <decel name='book_chapters' file='parts/book-chapters.php' params='book,id'
        defaults="id='-1'">
 <decel name='book_chapters_static' file='parts/book-chapters-static.php'
@@ -203,6 +199,10 @@
 <decel name='posting_image' file='parts/posting.php'
        params='posting,align,title,href' defaults="align='' title='' href=''">
 <decel name='posting_link' file='parts/posting-link.php'
+       params='posting,showtopic,showdiscuss,showcomplain,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
+                 shorten='*false'">
+<decel name='posting_peruser' file='parts/posting-peruser.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">

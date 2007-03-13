@@ -21,7 +21,7 @@
   свободно добавлять свои рассказы и фотографии.
  <else>
   нажать на ссылку
-  <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_BLOG_FORUMS&redirid=$_'>
+  <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_PERUSER_FORUMS&redirid=$_'>
    &lt;&lt;Добавить текст&gt;&gt;</a> или
   <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_GALLERY&redirid=$_'>
    &lt;&lt;Добавить фотографию&gt;&gt;</a>.
@@ -49,7 +49,7 @@
   добавлять свои рассказы и фотографии.
  <else>
   нажать на ссылку
-  <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_BLOG_FORUMS&noguests=1&redirid=$_'>
+  <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_PERUSER_FORUMS&noguests=1&redirid=$_'>
    &lt;&lt;Добавить текст&gt;&gt;</a> или
   <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_GALLERY&noguests=1&redirid=$_'>
    &lt;&lt;Добавить фотографию&gt;&gt;</a>.
