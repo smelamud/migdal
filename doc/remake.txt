@@ -249,7 +249,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/forumcatalog.mhtml (кроме ловушек)
 + pages/forumedit.mhtml (кроме ссылок на help и hidden для гостей)
 + pages/forum.mhtml
-* pages/gallery.mhtml
+* pages/gallery.mhtml (кроме ловушек, статистики и notonly для блогов)
 * pages/gallery-main.mhtml
 + pages/groupadd.mhtml
 + pages/grouporg.mhtml

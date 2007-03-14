@@ -40,20 +40,6 @@
  <ident_id ident='$topic_id'>
  <log event=gallery text#='topic($,) offset=$offset'>
 </zone>>
-<if what='$user_id<=0'>
- <<unititle chapter='Галерея' topic_id='$topic_id'>> << FIXME deprecated >>
-<else>
- <topic_obj name='topic' id='$topic_id'>
- <ifzero what='$,Id'>
-  <fail>
- </ifzero>
- <user_obj id='$user_id'>
- <ifzero what='$,Id'>
-  <fail>
- </ifzero>
- <pagetitle title#='Галерея - $topic.Name - $,FullName'>
- <topictitle title#='$topic.Name --- $,FullName'>
-</if>
 
 <element name='notonly'>
 <ifne what='$$notonly_href'>
