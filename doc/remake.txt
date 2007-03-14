@@ -131,7 +131,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/cache.php
 + lib/calendar.php
 + lib/calendar-tables.php
-* lib/charsets.php (обработка иврита должна быть не при выводе)
+* lib/charsets.php (иврит и лигатуры не обрабатываются для текстов из файла)
 + lib/complainactions.php
 + lib/complainscripts.php
 + lib/complains.php
@@ -363,7 +363,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/textears.mhtml
 + pages/parts/tip.mhtml
 - pages/parts/tip-posting.mhtml
-- pages/parts/today.mhtml
++ pages/parts/today.mhtml
 - pages/parts/top-404.mhtml
 * pages/parts/topics-admin.mhtml
 + pages/parts/topics-book.mhtml
