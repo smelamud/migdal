@@ -177,10 +177,12 @@ define('EGD_NO_USER',430);
 define('EGD_NO_GROUP',431);
 define('EGD_NO_DELETE',432);
 
-define('ECHM_NO_USER',440);
-define('ECHM_NO_GROUP',441);
-define('ECHM_NO_ADD',442);
-define('ECHM_BAD_PERMS',442);
+define('ECHM_NO_CHMOD',440);
+define('ECHM_USER_EMPTY',441);
+define('ECHM_NO_USER',442);
+define('ECHM_GROUP_EMPTY',443);
+define('ECHM_NO_GROUP',444);
+define('ECHM_BAD_PERMS',445);
 
 define('ETO_NO_REORDER',450);
 define('ETO_DUPS',451);

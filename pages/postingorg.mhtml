@@ -122,7 +122,7 @@
    <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-"
       >Удалить</a>
    &nbsp;
-   <a href="chmod.php?msgid=$posting.Id&redirid=$_">Права</a>
+   <a href="/admin/postings/$posting.Id/chmod/?redirid=$_">Права</a>
    &nbsp;
    <a href="/admin/postings/$posting.Id/modbits/?redirid=$_">Флаги</a>
   </td></tr>

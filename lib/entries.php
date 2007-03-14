@@ -810,9 +810,9 @@ function getDateProperty($name,$format)
 return formatAnyDate($format,$this->getProperty($name));
 }
 
-function getCompositeValue($value)
+function getCompositeValue($value,$term=false)
 {
-if(strpos($value,' ')===false)
+if($term || strpos($value,' ')===false)
   {
   $value=preg_replace('/\$\[([-\d]+)\]/e','$this->getCatalog(\1,0)',$value);
   $value=preg_replace('/\$\[([-\d]+),([-\d]+)\]/e','$this->getCatalog(\1,\2)',
@@ -820,6 +820,7 @@ if(strpos($value,' ')===false)
   $value=preg_replace('/\$\{(\w+)\}/e','$this->getProperty("\1")',$value);
   $value=preg_replace('/\$\{(\w+)@(\w+)\}/e',
                       '$this->getDateProperty("\1","\2")',$value);
+  return $value;
   }
 else
   {
@@ -831,17 +832,19 @@ else
 	 if($ep>=count($program)-2)
 	   break;
 	 if(strpos($this->getTrack(),track(idByIdent($program[$ep+1])))!==false)
-	   return $this->getCompositeValue($program[$ep+2]);
+	   return $this->getCompositeValue($program[$ep+2],true);
 	 $ep+=3;
 	 }
        elseif($program[$ep]=='default')
          {
 	 if($ep>=count($program)-1)
 	   break;
-	 return $this->getCompositeValue($program[$ep+1]);
+	 return $this->getCompositeValue($program[$ep+1],true);
 	 }
+       else
+         break;
+  return $this->getCompositeValue($value,true);
   }
-return $value;
 }
 
 }

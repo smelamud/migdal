@@ -83,7 +83,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/cadel.php
 + actions/camod.php
 + actions/checkcookies.php
-- actions/chmod.php
++ actions/chmod.php
 + actions/complainact.php
 + actions/complainassign.php
 + actions/complainmod.php
@@ -233,7 +233,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/book-print.mhtml
 - pages/book-split.mhtml
 - pages/book-static.mhtml
-- pages/chmod.mhtml
++ pages/chmod.mhtml
 + pages/complainactionedit.mhtml
 * pages/complainanswer.mhtml (кроме ссылок на help)
 * pages/complainedit.mhtml (кроме ссылок на help)
@@ -269,7 +269,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/migdal.mhtml (кроме ловушек)
 + pages/migdal-library.mhtml
 + pages/migdal-library-novelties.mhtml
-* pages/migdal-news.mhtml (кроме событий)
++ pages/migdal-news.mhtml
 + pages/modbits.mhtml
 + pages/moderator.mhtml
 + pages/peruser.mhtml

@@ -51,6 +51,36 @@ return $userId==$user_id &&
        ($perms & $right<<PB_GUEST)!=0;
 }
 
+// Этот класс используется как объект формы при редактировании permission'ов
+// отдельно от всех остальных атрибутов
+class Perms
+      extends Entry
+{
+
+function Perms($row)
+{
+parent::Entry($row);
+}
+
+function setup($vars)
+{
+if(!isset($vars['edittag']) || !$vars['edittag'])
+  return;
+$this->login=$vars['login'];
+if($vars['user_name']!='')
+  $this->login=$vars['user_name'];
+$this->group_login=$vars['group_login'];
+if($vars['group_name']!='')
+  $this->group_login=$vars['group_name'];
+$this->perm_string=$vars['perm_string'];
+if($this->perm_string!='')
+  $this->perms=permString($this->perm_string,strPerms($this->perms));
+$this->recursive=$vars['recursive'];
+$this->entry=$vars['entry'];
+}
+
+}
+
 // Извлечение permission'ов от указанного entry (в виде соответствующего
 // наследника Entry)
 function getPermsById($id)
@@ -64,7 +94,7 @@ $result=sql("select entries.id as id,user_id,group_id,users.login as login,
 		       on entries.group_id=gusers.id
 	     where entries.id=$id",
 	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? newEntry(mysql_fetch_assoc($result)) : 0;
+return mysql_num_rows($result)>0 ? new Perms(mysql_fetch_assoc($result)) : 0;
 }
 
 // Извлечение permission'ов для "корневого" entry указанного класса
@@ -96,7 +126,7 @@ journal("update entries
 // Сохранение указанных permission'ов рекурсивно от указанного entry. Можно
 // не указывать владельца/группу, а в строке прав указывать вопросительные
 // знаки.
-function setPermsRecursive($id,$user_id,$group_id,$perms)
+function setPermsRecursive($id,$user_id,$group_id,$perms,$entry=ENT_NULL)
 {
 global $journalSeq;
 
@@ -108,9 +138,10 @@ if($group_id!=0)
 permStringMask($perms,&$andMask,&$orMask);
 $set[]="perms=(perms & $andMask) | $orMask";
 $set=join(',',$set);
+$entryFilter=$entry!=ENT_NULL ? "entry=$entry" : '1';
 sql("update entries
      set $set
-     where ".subtree('entries',$id,true),
+     where $entryFilter and ".subtree('entries',$id,true),
     __FUNCTION__);
 if($journalSeq!=0)
   journal("perms entries ".journalVar('entries',$id).

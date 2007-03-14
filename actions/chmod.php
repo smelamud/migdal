@@ -8,64 +8,65 @@ require_once('lib/post.php');
 require_once('lib/permissions.php');
 require_once('lib/errors.php');
 require_once('lib/postings-info.php');
-require_once('lib/forums.php');
-require_once('lib/answers.php');
 
 function doChmod($id,$perms)
 {
-global $userModerator,$table,$r_user_name,$r_group_name,$r_perm,$perm_string;
+global $userModerator,$userAdminTopics;
 
-if(!$perms->isWritable())
+$moder=$perms->entry==ENT_TOPIC ? $userAdminTopics : $userModerator;
+if(!$perms->isWritable() || $perms->recursive && !$moder)
   return ECHM_NO_CHMOD;
 if($perms->getUserName()!='')
   {
-  $perms->setUserId(getUserIdByLogin(addslashes($perms->getUserName())));
+  $perms->setUserId(getUserIdByLogin($perms->getUserName()));
   if($perms->getUserId()<=0)
     return ECHM_NO_USER;
   }
+else
+  $perms->setUserId(0);
 if($perms->getGroupName()!='')
   {
-  $perms->setGroupId(getUserIdByLogin(addslashes($perms->getGroupName())));
+  $perms->setGroupId(getUserIdByLogin($perms->getGroupName()));
   if($perms->getGroupId()<=0)
     return ECHM_NO_GROUP;
   }
-if($perms->perms<0)
-  return ECHM_BAD_PERMS;
-setPermsById($perms);
-if($r_user_name || $r_group_name || $r_perm)
-  setPermsRecursive($table,$id,
-		    $r_user_name ? $perms->getUserId() : 0,
-		    $r_group_name ? $perms->getGroupId() : 0,
-		    $r_perm ? $perm_string : '????????????????');
-if(get_class($perms)=='Message' /* deprecated */ && isForumAnswer($perms->getId()))
-  answerUpdate($perms->getId()); //FIXME не обрабатывается рекурсивная
-                                 //установка прав
+else
+  $perms->setGroupId(0);
+if(!$perms->recursive)
+  {
+  if($perms->getUserId()<=0)
+    return ECHM_USER_EMPTY;
+  if($perms->getGroupId()<=0)
+    return ECHM_GROUP_EMPTY;
+  if($perms->perms<0)
+    return ECHM_BAD_PERMS;
+  setPermsById($perms);
+  }
+else
+  setPermsRecursive($id,$perms->getUserId(),$perms->getGroupId(),
+                    $perms->perm_string!='' ? $perms->perm_string
+		                            : '????????????????',
+		    $perms->entry);
+// FIXME этот скрипт не работает для ответов в форуме. Для них нужно вызывать
+// answerUpdate()
 return EG_OK;
 }
 
-postInteger('msgid');
-postInteger('topic_id');
+postString('okdir');
+postString('faildir');
+
+postInteger('edittag');
+postInteger('id');
+postInteger('entry');
 postString('user_name');
 postString('group_name');
-postString('perm_string');
-postInteger('r_user_name');
-postInteger('r_group_name');
-postInteger('r_perm');
+postString('perm_string',false);
+postInteger('recursive');
 
 dbOpen();
 session();
-if($msgid==0)
-  {
-  $id=$topic_id;
-  $table='topics';
-  }
-else
-  {
-  $id=$msgid;
-  $table='messages';
-  }
-$perms=getPermsById($table,$id);
-$perms->setup($HTTP_POST_VARS);
+$perms=getPermsById($id);
+$perms->setup($Args);
 $err=doChmod($id,$perms);
 if($err==EG_OK)
   {
@@ -75,7 +76,7 @@ if($err==EG_OK)
   }
 else
   header('Location: '.remakeMakeURI($faildir,
-                                    $HTTP_POST_VARS,
+                                    $Args,
                                     array('okdir',
 				          'faildir'),
 				    array('err' => $err)).'#error');
