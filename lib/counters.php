@@ -84,7 +84,7 @@ if($ttl!=0)
   $finished=date("Y-m-d H:i:s",time()+$ttl*60*60);
 else
   $finished="2100-01-01 00:00:00";
-  // Leave solution of this problem to next generations of programmers ;)
+  // Leave solution of this problem to the next generations of programmers ;)
 sql("insert into counters(entry_id,mode,started,finished)
      values($entry_id,$mode,'$started','$finished')",
     __FUNCTION__,'create');

@@ -9,6 +9,7 @@
 
 <decconst name='conf' file='conf/migdal.conf'>
 <decconst name='complains' file='lib/complains.php'>
+<decconst name='counters' file='conf/counters.php'>
 <decconst name='errors' file='lib/errors.php'>
 <decconst name='grps' file='lib/grps.php'>
 <decconst name='image_placements' file='lib/stotext-images.php'>
@@ -179,6 +180,8 @@
          file='lib/complainactions.php' params='id' defaults='name=act'>
 <deccall macro='complain_obj' func='getComplainById' file='lib/complains.php'
          params='id,url' defaults="name=complain url=''">
+<decexec macro='counter_inc' func='incCounter' file='lib/counters.php'
+         params='entry_id,mode'>
 <deccall macro='counter_value' func='getCounterValue' file='lib/counters.php'
          params='entry_id,mode,serial' defaults='serial=0'>
 <deccall macro='entry_grps' func='getGrpsByEntryId' file='lib/entries.php'

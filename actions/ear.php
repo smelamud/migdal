@@ -9,11 +9,13 @@ require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/counters.php');
 
-postInteger('postid');
+postString('okdir');
+
+postInteger('id');
 
 dbOpen();
 session();
-incCounter(getMessageIdByPostingId($postid),CMODE_EAR_CLICKS);
+incCounter($id,CMODE_EAR_CLICKS);
 header("Location: $okdir");
 dbClose();
 ?>
