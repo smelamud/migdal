@@ -352,6 +352,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/postings-migdal-news.mhtml
 + pages/parts/posting-times-cover.mhtml
 + pages/parts/posting-times.mhtml
++ pages/parts/posting-tip.mhtml
 - pages/parts/rabbi.mhtml
 - pages/parts/rambler.mhtml
 + pages/parts/relogin.mhtml
@@ -360,7 +361,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/subtitle.mhtml
 + pages/parts/textears.mhtml
 + pages/parts/tip.mhtml
-- pages/parts/tip-posting.mhtml
 + pages/parts/today.mhtml
 - pages/parts/top-404.mhtml
 * pages/parts/topics-admin.mhtml
