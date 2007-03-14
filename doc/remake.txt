@@ -95,7 +95,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/goto.php
 + actions/groupadd.php
 + actions/groupdel.php
-- actions/hide.php
++ actions/hide.php
 - actions/horisontmod.php
 + actions/limdel.php
 + actions/limmod.php

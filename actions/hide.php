@@ -8,25 +8,28 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/utils.php');
 require_once('lib/random.php');
-/* Required to prevent inclusion of Posting class before Message */
-require_once('lib/postings.php');
+require_once('lib/entries.php');
 
-function modifyMessage($editid,$hide)
+function modifyEntry($editid,$hide)
 {
-$perms=getPermsById('messages',$editid);
+$perms=getPermsById($editid);
 if(!$perms->isWritable())
   return EMS_NO_HIDE;
-if(!messageExists($editid))
-  return EMS_NO_MESSAGE;
-setHiddenByMessageId($editid,$hide);
+if(!entryExists(ENT_NULL,$editid))
+  return EMS_NO_ENTRY;
+setHiddenByEntryId($editid,$hide);
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
+
 postInteger('editid');
+postInteger('hide');
 
 dbOpen();
 session();
-$err=modifyMessage($editid,$hide ? 1 : 0);
+$err=modifyEntry($editid,$hide ? 1 : 0);
 if($err==EG_OK)
   header('Location: '.remakeURI($okdir,array(),array('reload' => random(0,999))));
 else

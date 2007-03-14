@@ -33,10 +33,10 @@
     <td width=5>&nbsp;</td>
     <td width=20 align=left>
      <if what='!$posting.isHidden'>
-      [<a href="actions/hide.php?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
+      [<a href="/actions/entry/hide?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
           <asp>Выключить</a>]
      <else>
-      [<a href="actions/hide.php?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
+      [<a href="/actions/entry/hide?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
           <asp><b>Включить</b></a>]
      </if>
     </td>

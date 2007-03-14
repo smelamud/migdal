@@ -191,7 +191,7 @@ define('EMO_NO_ENTRY',471);
 define('EMO_CANNOT_DELETE',472);
 
 define('EMS_NO_HIDE',480);
-define('EMS_NO_MESSAGE',481);
+define('EMS_NO_ENTRY',481);
 
 define('EPC_NO_COPY',490);
 define('EPC_NO_POSTING',491);
