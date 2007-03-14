@@ -1,0 +1,19 @@
+<< @(#) $Id$ >>
+
+<element name='topics_gallery_peruser'>
+<upper_level title='На главную страницу галереи' href='/gallery/'>
+<topic_obj id='$base'>
+<topics_table title='$=,Subject'>
+ <iterate_posting_users topic_id='$,Id'>
+ <topics_line text='Все пользователи' href#='/gallery/$,Catalog'
+              arrow!='$index<=0' class='ninept topics-item'>
+ <for>
+  <zone>
+   <posting_last name='last' topic_id='$,Id' user_id='$.Id' grp='*GRP_GALLERY'>
+  </zone>
+  <topics_line time='$last' text='$=.FullName'
+               href#='/gallery/${,Catalog}$.Folder/' arrow!='$.Id==$index'
+	       class='eightpt topics-item'>
+ </for>
+</topics_table>
+</element>

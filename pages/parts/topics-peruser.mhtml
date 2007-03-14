@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='topics_peruser'>
+<upper_level title='На главную страницу' href='/'>
 <topic_obj id='$base'>
 <topics_table title='$=,Subject'>
  <iterate_posting_users topic_id='$,Id'>

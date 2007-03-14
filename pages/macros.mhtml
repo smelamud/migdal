@@ -297,6 +297,8 @@
        params='index,base' defaults="base=''">
 <decel name='topics_gallery_misc' file='parts/topics-gallery-major.php'
        params='index,base' defaults="base=''">
+<decel name='topics_gallery_peruser' file='parts/topics-gallery-peruser.php'
+       params='index,base' defaults="base=''">
 <decel name='topics_gallery_taglit' file='parts/topics-gallery-general.php'
        params='posting'>
 <decel name='topics_gallery_veterans' file='parts/topics-gallery-general.php'
