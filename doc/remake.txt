@@ -89,7 +89,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/complainmod.php
 + actions/crossentryadd.php
 + actions/crossentrydel.php
-- actions/domainmod.php
 - actions/ear.php
 + actions/entryrenew.php
 + actions/forummod.php

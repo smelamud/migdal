@@ -812,12 +812,35 @@ return formatAnyDate($format,$this->getProperty($name));
 
 function getCompositeValue($value)
 {
-$value=preg_replace('/\$\[([-\d]+)\]/e','$this->getCatalog(\1,0)',$value);
-$value=preg_replace('/\$\[([-\d]+),([-\d]+)\]/e','$this->getCatalog(\1,\2)',
-                    $value);
-$value=preg_replace('/\$\{(\w+)\}/e','$this->getProperty("\1")',$value);
-$value=preg_replace('/\$\{(\w+)@(\w+)\}/e','$this->getDateProperty("\1","\2")',
-                    $value);
+if(strpos($value,' ')===false)
+  {
+  $value=preg_replace('/\$\[([-\d]+)\]/e','$this->getCatalog(\1,0)',$value);
+  $value=preg_replace('/\$\[([-\d]+),([-\d]+)\]/e','$this->getCatalog(\1,\2)',
+		      $value);
+  $value=preg_replace('/\$\{(\w+)\}/e','$this->getProperty("\1")',$value);
+  $value=preg_replace('/\$\{(\w+)@(\w+)\}/e',
+                      '$this->getDateProperty("\1","\2")',$value);
+  }
+else
+  {
+  $program=preg_split('/\s+/',$value);
+  $ep=0;
+  while($ep<count($program))
+       if($program[$ep]=='subtree')
+         {
+	 if($ep>=count($program)-2)
+	   break;
+	 if(strpos($this->getTrack(),track(idByIdent($program[$ep+1])))!==false)
+	   return $this->getCompositeValue($program[$ep+2]);
+	 $ep+=3;
+	 }
+       elseif($program[$ep]=='default')
+         {
+	 if($ep>=count($program)-1)
+	   break;
+	 return $this->getCompositeValue($program[$ep+1]);
+	 }
+  }
 return $value;
 }
 
