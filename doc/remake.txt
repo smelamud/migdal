@@ -302,7 +302,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/users.mhtml
 
 * pages/parts/article.mhtml
-* pages/parts/backtrace.mhtml (удалить лишний код)
++ pages/parts/backtrace.mhtml
 - pages/parts/bannerbank.mhtml
 + pages/parts/banners.mhtml
 * pages/parts/book-chapters.mhtml (кроме пакетов)
@@ -329,7 +329,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/history.mhtml
 + pages/parts/hit-parade.mhtml
 - pages/parts/hotlog.mhtml
-- pages/parts/identify.mhtml (удалить)
 - pages/parts/jewishru.mhtml
 + pages/parts/langselect.mhtml
 + pages/parts/links-switcher.mhtml

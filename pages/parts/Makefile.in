@@ -12,8 +12,8 @@ OBJECTS = article.mhtml backtrace.mhtml bannerbank.mhtml banners.mhtml \
 	  formutils.mhtml forum.mhtml forums.mhtml gallery.mhtml \
 	  gallery-main.mhtml googleru.mhtml grpselect.mhtml hannukah.mhtml \
 	  help-link.mhtml history.mhtml hit-parade.mhtml hotlog.mhtml \
-	  identify.mhtml jewishru.mhtml langselect.mhtml links-switcher.mhtml \
-	  login.mhtml mailru.mhtml menu.mhtml migdal-news.mhtml peruser.mhtml \
+	  jewishru.mhtml langselect.mhtml links-switcher.mhtml login.mhtml \
+	  mailru.mhtml menu.mhtml migdal-news.mhtml peruser.mhtml \
 	  peruser-intros.mhtml picture.mhtml picture-main.mhtml pointer.mhtml \
 	  posting.mhtml posting-book.mhtml posting-ear.mhtml \
 	  posting-general.mhtml posting-link.mhtml posting-peruser.mhtml \
