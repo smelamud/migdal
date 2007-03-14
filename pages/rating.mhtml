@@ -6,7 +6,7 @@
 
 <element name='votebtn' params='id,class,vote,peer,text'>
 <ifzero what='$peer'>
- <td class=$class><a href='actions/vote.php?postid=$id&vote=$vote&okdir=$#-&faildir=$#-'
+ <td class=$class><a href='/actions/posting/$id/vote?vote=$vote&okdir=$#-&faildir=$#-'
   		     title='$text'>$vote</a></td>
 <else>
  <if what='$peer==$vote'>

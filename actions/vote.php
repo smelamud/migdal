@@ -22,16 +22,11 @@ if(getVote($id))
   return EV_ALREADY_VOTED;
 addVote($id,$vote);
 logEvent('vote',"post($id)");
-$weight=$userModerator ? $moderatorVoteWeight : ($userId>0 ? $userVoteWeight : 1);
-sql("update postings
-     set vote=vote+$weight*$vote,vote_count=vote_count+$weight
-     where id=$id",
-    'vote');
-journal("update postings
-         set vote=vote+$weight*$vote,vote_count=vote_count+$weight
-	 where id=".journalVar('postings',$id));
 return EG_OK;
 }
+
+postString('okdir');
+postString('faildir');
 
 postInteger('postid');
 postInteger('vote');

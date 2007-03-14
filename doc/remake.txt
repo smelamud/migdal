@@ -120,7 +120,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - actions/userlost.php
 + actions/usermod.php
 + actions/userswitch.php
-- actions/vote.php
++ actions/vote.php
 
 + lib/alphabet.php
 + lib/answers.php
