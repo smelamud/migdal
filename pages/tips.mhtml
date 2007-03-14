@@ -2,8 +2,6 @@
 
 <grps>
 <int name='offset'>
-<pagetitle title='Справка - Знаете ли вы, что...'>
-<topictitle title='Знаете ли вы, что...'>
 
 <html>
 <preamble>
@@ -11,8 +9,7 @@
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
-   <posting_new grp='*GRP_TIPS' topic_id='$`tips`'>
-   <topics posting='$,'>
+   <topics>
    <ears>
   </td>
   <td class='cframe'>

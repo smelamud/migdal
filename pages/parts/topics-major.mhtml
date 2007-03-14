@@ -14,8 +14,8 @@
 <topic_obj name='tips' id='$`tips`'>
 
 <posting_last topic_id='$`tips`' recursive='*false'>
-<topics_line time='$,' href='tips.php' title='Помощь по работе с сайтом'
-	     text='Справка' arrow!="$index=='help'" class='topics-item ninept'
+<topics_line time='$,' href='/tips/' title='Помощь по работе с сайтом'
+	     text='Справка' arrow!="$index=='tips'" class='topics-item ninept'
 	     span='$span'>
 </element>
 

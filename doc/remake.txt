@@ -287,7 +287,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - pages/style.mhtml
 - pages/_template.mhtml
 + pages/times.mhtml
-- pages/tips.mhtml
++ pages/tips.mhtml
 + pages/topicdel.mhtml
 + pages/topicedit.mhtml
 + pages/topicorg.mhtml

@@ -1,0 +1,42 @@
+<< @(#) $Id$ >>
+
+<grps>
+
+<element name='topic' params='posting,showtopic'>
+<if what='$showtopic'>
+ <topiclink posting='$posting'><br>
+</if>
+</element>
+
+<element name='further' params='posting'>
+<p>
+ <image src='/pics/further.gif'>&sp;
+ <a href='$posting.GrpDetailsHref'>Читать дальше</a>
+</p>
+</element>
+
+<element name='posting_tip'>
+<dl class='posting'>
+ <dt>
+  <topic posting='$posting' showtopic='$showtopic'>
+  <biff time='$posting.Modified'>
+ </dt>
+ <dd>
+ <if what='$shorten'>
+  $posting.BodyMediumHTML<asp>
+  <if what='!$posting.isBodyMedium'>
+   <further posting='$posting'>
+  </if>
+ <else>
+  $posting.BodyHTML<asp>
+ </if>
+ <table width=90% style="clear: left"><tr>
+  <td align=left class='sent'>
+   <sentview date='$posting.Sent'>&nbsp;
+   <senderlink message='$posting'>
+  </td>
+ </tr></table>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'
+		   showcomplain='$showcomplain'>
+</dl>
+</element>
