@@ -66,8 +66,8 @@
      <gallery_main topic_id='$topic_id' offset='$offset'>
     </common></td>
     <td width=130 class='nframe'><inner>
-     <<hit_parade_gallery_month grp='*GRP_GRAPHICS' topic_id='$topic_id'
-			       showshadows!='$topic_id>0'>>
+     <hit_parade_gallery_month grp='*GRP_GRAPHICS' topic_id='$topic_id'
+			       showshadows!='$topic_id>0'>
     </inner></td>
    </tr></table>
   </outer></td>

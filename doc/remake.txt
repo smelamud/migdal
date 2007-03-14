@@ -250,7 +250,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/forumedit.mhtml (кроме ссылок на help и hidden для гостей)
 + pages/forum.mhtml
 * pages/gallery.mhtml (кроме ловушек, статистики и notonly для блогов)
-* pages/gallery-main.mhtml
+* pages/gallery-main.mhtml (кроме ловушек и статистики)
 + pages/groupadd.mhtml
 + pages/grouporg.mhtml
 - pages/halom-main.mhtml (удалить, сохранив ловушку)
@@ -327,7 +327,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - pages/parts/hannukah.mhtml
 - pages/parts/help-link.mhtml
 + pages/parts/history.mhtml
-* pages/parts/hit-parade.mhtml
++ pages/parts/hit-parade.mhtml
 - pages/parts/hotlog.mhtml
 - pages/parts/identify.mhtml (удалить)
 - pages/parts/jewishru.mhtml
