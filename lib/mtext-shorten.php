@@ -42,7 +42,7 @@ switch($name)
 
 function characterData($parser,$data)
 {
-$this->line.=unhtmlentities(utf8_decode($data));
+$this->line.=unhtmlentities(convertFromXMLText($data));
 }
 
 }
@@ -172,8 +172,14 @@ return count($found);
 
 function getShortenLength($s,$len,$mdlen,$pdlen)
 {
+debugLog(LL_FUNCTIONS,'getShortenLength(s=%,len=%,mdlen=%,pdlen=%)',
+	 array($s,$len,$mdlen,$pdlen));
 if(strlen($s)<=$len+$pdlen)
-  return strlen($s);
+  {
+  $return=strlen($s);
+  debugLog(LL_FUNCTIONS,'getShortenLength() returned %',array($return));
+  return $return;
+  }
 $st=$len-$mdlen;
 $st=$st<0 ? 0 : $st;
 $c=substr($s,$st,$mdlen+$pdlen);
@@ -192,8 +198,11 @@ foreach($patterns as $pat)
 	        $bestpos=$pos;
 	      }
        $matchLen=is_array($pat) ? 2 : 1;
-       return $bestpos+$st+$matchLen;
+       $return=$bestpos+$st+$matchLen;
+       debugLog(LL_FUNCTIONS,'getShortenLength() returned %',array($return));
+       return $return;
        }
+debugLog(LL_FUNCTIONS,'getShortenLength() returned %',array($len));
 return $len;
 }
 
@@ -214,18 +223,23 @@ function cleanLength($s)
 if(!hasMarkup($s))
   return strlen($s);
 $xml=new MTextToLineXML();
-$xml->parse($s);
+$xml->parse(convertToXMLText($s));
 $xml->free();
 return strlen($xml->getLine());
 }
 
 function shortenUniversal($s,$len,$mdlen,$pdlen,$clearTags=false,$suffix='')
 {
+debugLog(LL_FUNCTIONS,
+         'shortenUniversal(s=%,len=%,mdlen=%,pdlen=%,clearTags=%,suffix=%)',
+	 array($s,$len,$mdlen,$pdlen,$clearTags,$suffix));
 $hasMarkup=hasMarkup($s);
 if($hasMarkup)
   {
   $xml=new MTextToLineXML();
-  $xml->parse($s);
+  $xmlText=convertToXMLText($s);
+  debugLog(LL_DETAILS,'convertToXMLText(s)=%',array($xmlText));
+  $xml->parse($xmlText);
   $xml->free();
   $line=$xml->getLine();
   }
@@ -238,10 +252,12 @@ if($hasMarkup)
   $xml1=new MTextShortenXML($n,$clearTags);
   $xml1->parse(convertToXMLText($s));
   $xml1->free();
-  return $xml1->getShort().$c;
+  $return=$xml1->getShort().$c;
   }
 else
-  return substr($s,0,$n).$c;
+  $return=substr($s,0,$n).$c;
+debugLog(LL_FUNCTIONS,'shortenUniversal() returned %',array($return));
+return $return;
 }
 
 function shorten($s,$len,$mdlen,$pdlen)
