@@ -164,7 +164,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/langs.php
 + lib/limitselect.php
 + lib/logging.php
-- lib/logs.php
++ lib/logs.php
 + lib/mailings.php
 - lib/mail.php
 + lib/mime.php

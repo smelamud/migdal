@@ -15,12 +15,12 @@ global $disableLogging;
 
 if($disableLogging)
   return;
-$event=addslashes($event);
+$eventS=addslashes($event);
 $ip=IPToInteger($_SERVER['REMOTE_ADDR']);
-$body=addslashes($body);
+$bodyS=addslashes($body);
 sql("insert into logs(event,ip,body)
-     values('$event',$ip,'$body')",
-    'logEvent','','',false);
+     values('1: $eventS',$ip,'$bodyS')",
+    __FUNCTION__,'','',false);
 }
 
 class LogLine
@@ -34,7 +34,7 @@ var $body;
 
 function LogLine($row)
 {
-$this->DataObject($row);
+parent::DataObject($row);
 }
 
 function getId()
@@ -70,10 +70,10 @@ class LogIterator
 
 function LogIterator($from=0)
 {
-$this->SelectIterator('LogLine',
-                      "select id,event,unix_timestamp(sent) as sent,ip,body
-		       from logs
-		       where unix_timestamp(sent)>$from");
+parent::SelectIterator('LogLine',
+		       "select id,event,unix_timestamp(sent) as sent,ip,body
+			from logs
+			where unix_timestamp(sent)>$from");
 }
 
 }
