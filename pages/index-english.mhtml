@@ -4,24 +4,22 @@
 << /Traps >>
 
 <grps>
-<posting_obj id='$`postings:migdal,e`' grp='*GRP_REVIEWS'
-             fields!='*SELECT_TOPICS|*SELECT_IMAGES'>
-<topictitle title='$,Subject'>
-
+<posting_obj id='$`post.migdal,e`' grp='*GRP_REVIEWS'
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <log event=review text#='post($,Id)'>
 
 <html>
 <stylesheet ident='article'>
 <preamble>
 <body>
- <top ident='index' transref#='http://www.$$siteDomain/migdal.php'>
+ <top ident='index' transref#='http://www.$$siteDomain/migdal/'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
-   <topics posting='$,'>
+   <<topics>>
   </td>
   <td class='article cframe'>
    <ifnzero what='$,Id'>
-    <subtitle>
+    <subtitle title='$=,Subject'>
     <article_controls posting='$,' nodiscuss='*true'>
     <article posting='$,' withvote='*false'>
     <article_controls posting='$,' nodiscuss='*true'>

@@ -255,7 +255,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/grouporg.mhtml
 - pages/halom-main.mhtml (удалить, сохранив ловушку)
 - pages/horisontedit.mhtml
-- pages/index-english.mhtml
+* pages/index-english.mhtml (кроме топиков)
 * pages/index-www.mhtml (кроме ловушек)
 + pages/jcc.mhtml
 - pages/journal.mhtml
