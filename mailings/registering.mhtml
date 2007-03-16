@@ -1,8 +1,7 @@
 << @(#) $Id$ >>
 
-<user_obj id='$link'>
-
-<mail>
+<mail name='registering' params='user_id'>
+<user_obj id='$user_id'>
 <headers>
 <subject>Запрос на регистрацию</subject>
 </headers>

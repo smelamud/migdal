@@ -816,8 +816,13 @@ sub elMail
 my ($self)=@_;
 
 ::request('lib/initstop-mail.php');
-::header(<<EOT);
-<?php initializeMail(); ?>
+$self->{'args'}{'name'}='mailing_'.$self->{'args'}{'name'};
+$self->elDecel();
+$self->elElement();
+::body(<<EOT);
+<?php initializeMail();
+echo "<?xml version=\\\"1.0\\\"?>\\n"; ?>
+<mail>
 EOT
 }
 
@@ -825,9 +830,11 @@ sub el_mail
 {
 my ($self)=@_;
 
-::footer(<<EOT);
-<?php finalizeMail(); ?>
+::body(<<EOT);
+</mail>
+<?php return finalizeMail(); ?>
 EOT
+$self->el_element();
 }
 
 sub elXml
@@ -838,7 +845,8 @@ $type=$self->getVarArg('type');
 $type='text/xml' if $type eq '';
 ::request('lib/initstop.php');
 ::header(<<EOT);
-<?php initialize(); ?>
+<?php initialize();
+echo "<?xml version=\\\"1.0\\\"?>\\n"; ?>
 EOT
 ::header("<?php header('Content-Type: '.$type);");
 ::header("header('Content-Disposition: inline'); ?>");
