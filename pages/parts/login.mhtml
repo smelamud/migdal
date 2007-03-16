@@ -1,11 +1,7 @@
 << @(#) $Id$ >>
 
 <macro name='tform'>
- <ifne what='$target'>
-  <form method='post' action='%action' target='$target'>
- <else>
-  <form method='post' action='%action'>
- </ifne>
+ <form method='post' action='%action'>
  <hidden name='okdir' value="$[err]">
  <hidden name='faildir' value="$[err]">
 </macro>
@@ -42,10 +38,9 @@
     </tr>
     <master>
      <tr><td colspan=11 align=right>
-      <at href#='/register/?redirid=$_'
-	  target='$target'>Зарегистрироваться<asp></at>&nbsp;&nbsp;<asp>
-      <at href#='userlost.php?redirid=$_'
-	  target='$target'>Забыли пароль?</at>
+      <a href='/register/?redirid=$_'>Зарегистрироваться</a>
+      &nbsp;
+      <a href='userlost.php?redirid=$_'>Забыли пароль?</a>
      </td></tr>
     </master>
    </tform>
@@ -57,8 +52,7 @@
       <if what='$$userHidden'>
        $$=userLogin
       <else>
-       <at href#='/users/$$#userFolder/' class='name'
-	   target='$target'>$$=userLogin</at>
+       <a href='/users/$$#userFolder/' class='name'>$$=userLogin</a>
       </if>
       </b>
      </td>

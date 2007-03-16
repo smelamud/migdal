@@ -1,19 +1,19 @@
 << @(#) $Id$ >>
 
-<element name='menuitem' params='ident,link,target,current,time,alt'
+<element name='menuitem' params='ident,link,current,time,alt'
          defaults="time=0 alt=''">
 <ifbiff time='$time'>
  <assign name='biff' value='-ner'>
 <else>
  <assign name='biff' value=''>
 </ifbiff>
-<at href='$link' target='$target'>
+<asp><a href='$link'><asp>
  <if what='$current==$ident'>
   <image src#='/pics/menu$biff-${ident}.gif' alt='$alt' border=0>
  <else>
   <image src#='/pics/menu$biff-${ident}-na.gif' alt='$alt' border=0>
  </if>
-</at>
+<asp></a><asp>
 </element>
 
 <element name='menu'>
@@ -26,24 +26,21 @@
     <posting_last name='gallery_time' grp='*GRP_GRAPHICS' topic_id='-1'>
     <posting_last name='links_time' grp='*GRP_LINKS' topic_id='$`links`'
 		  recursive='*true'>
-    <menuitem ident='index' alt='Главная' link='/' target='$target'
-	      current='$ident'>
-    <menuitem ident='times' alt='Мигдаль Times' link='/times/' target='$target'
-              current='$ident' time='$times_time'>
-    <menuitem ident='discuss' alt='Форум' link='/forum/' target='$target'
-              current='$ident' time='$forums_time'>
-    <menuitem ident='gallery' alt='Галерея' link='/gallery/' target='$target'
-	      current='$ident' time='$gallery_time'>
-    <menuitem ident='links' alt='Ссылки' link='/links/' target='$target'
-	      current='$ident' time='$links_time'>
-    <menuitem ident='users' alt='Пользователи' link='/users/'
-	      target='$target' current='$ident'>
+    <menuitem ident='index' alt='Главная' link='/' current='$ident'>
+    <menuitem ident='times' alt='Мигдаль Times' link='/times/' current='$ident'
+              time='$times_time'>
+    <menuitem ident='discuss' alt='Форум' link='/forum/' current='$ident'
+              time='$forums_time'>
+    <menuitem ident='gallery' alt='Галерея' link='/gallery/' current='$ident'
+              time='$gallery_time'>
+    <menuitem ident='links' alt='Ссылки' link='/links/' current='$ident'
+              time='$links_time'>
+    <menuitem ident='users' alt='Пользователи' link='/users/' current='$ident'>
    <asp></td>
    <td align=right><asp>
-    <menuitem ident='search' alt='Поиск' link='search.php'
-              target='$target' current='$ident'>
+    <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
     <asp><noindex><menuitem ident='style' alt='Настройки'
-                            link#='style.php?redirid=$_' target='$target'
+                            link#='style.php?redirid=$_'
 			    current='$ident'></noindex><asp>
    <asp></td>
   </tr>

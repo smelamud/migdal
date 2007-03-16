@@ -1,52 +1,36 @@
 << @(#) $Id$ >>
 
-<element name='banner' params='target,showimages'>
-<if what='$showimages'>
- <table>
-  <col width=0* span=2>
-  <tr valign=bottom>
-   <td>
-    <at href='/' target='$target'>
-     <image src='$$style_banner_logo'
-	    alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></at>
-   </td>
-   <td align=center>
-    <table cellspacing=0 cellpadding=0>
-     <notenglish>
-      <tr><td><hannukah></td></tr>
-      <tr><td>
-       <at href='/' target='$target'>
-	<image src='$$style_banner_migdal' alt='Мигдаль' border=0></at>
-      </td></tr>
-     <else>
-      <tr><td>
-       <at href='/' target='$target'>
-	<image src='$$style_banner_migdal_english' alt='Migdal' border=0></at>
-      </td></tr>
-     </notenglish>
+<element name='banner'>
+<table>
+ <col width=0* span=2>
+ <tr valign=bottom>
+  <td>
+   <a href='/'>
+    <image src='$$style_banner_logo'
+	   alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></a>
+  </td>
+  <td align=center>
+   <table cellspacing=0 cellpadding=0>
+    <notenglish>
+     <tr><td><hannukah></td></tr>
      <tr><td>
-      <at href='/' target='$target'>
-       <image src='$$style_banner_online' alt='on-line' border=0></at>
+      <a href='/'>
+       <image src='$$style_banner_migdal' alt='Мигдаль' border=0></a>
      </td></tr>
-    </table>
-   </td>
-  </tr>
- </table>
-<else>
- <table style='padding-left: 10px; padding-top: 10px;'>
-  <col width=0* span=2>
-  <tr valign=bottom>
-   <td>
-    <at href='/' target='$target'>
-     <image src='$$style_banner_migdal' border=0></at>
-   </td>
-   <td>
-    <at href='/' target='$target'>
-     <image src='$$style_banner_online' border=0></at>
-   </td>
-  </tr>
- </table>
-</if>
+    <else>
+     <tr><td>
+      <a href='/'>
+       <image src='$$style_banner_migdal_english' alt='Migdal' border=0></a>
+     </td></tr>
+    </notenglish>
+    <tr><td>
+     <a href='/'>
+      <image src='$$style_banner_online' alt='on-line' border=0></a>
+    </td></tr>
+   </table>
+  </td>
+ </tr>
+</table>
 </element>
 
 <element name='translation' params='href'>
@@ -63,12 +47,12 @@
 </ifne>
 </element>
 
-<element name='top_web' params='ident,target,showimages,transref'>
+<element name='top_web' params='ident,transref'>
 <script src='/window.js' language='JavaScript'></script>
 <table width=100% cellspacing=0 cellpadding=0>
  <tr valign=top>
   <td align=left rowspan=2>
-   <banner target='$target' showimages='$showimages'>
+   <banner>
    <hotlog_count>
    <mailru_count>
    <rambler_count>
@@ -82,19 +66,18 @@
  </tr>
  <tr>
   <td align=right style='padding-right: 8px'>
-   <login target='$target'>
+   <login>
   </td>
  </tr>
  <error id='*EL_NO_COOKIES' span=2
 	text='Не работают cookies. Включите поддержку cookies в настройках вашего браузера.'>
 </table>
-<menu ident='$ident' target='$target'>
-<backtrace target='$target'>
+<menu ident='$ident'>
+<backtrace>
 </element>
 
 <element name='top'>
 <notprint>
- <top_web ident='$ident' target='$target' showimages='$showimages'
-          transref='$transref'>
+ <top_web ident='$ident' transref='$transref'>
 </notprint>
 </element>

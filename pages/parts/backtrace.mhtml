@@ -8,7 +8,7 @@
    <islast what='$locs'>
     <nobr><b>$=.TitleRelative</b></nobr>
    <else>
-    <nobr><at href='$.URI' target='$target'>$=.TitleRelative</at>&sp;&gt;</nobr>
+    <nobr><a href='$.URI'>$=.TitleRelative</a>&sp;&gt;</nobr>
    </islast>
   </for>
  </div>

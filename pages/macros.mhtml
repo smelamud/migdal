@@ -28,8 +28,7 @@
 <decel name='article_editmode' file='parts/article.php' params='editing'>
 <decel name='/article_editmode' file='parts/article.php'>
 <decel name='article_full' file='parts/article.php' params='posting'>
-<decel name='backtrace' file='parts/backtrace.php' params='target'
-       defaults="target=''">
+<decel name='backtrace' file='parts/backtrace.php'>
 <decel name='bannerbank' file='parts/bannerbank.php'>
 <decel name='banners' file='parts/banners.php'>
 <decel name='book_chapters' file='parts/book-chapters.php' params='book,id'
@@ -157,14 +156,13 @@
 <decel name='langselect' file='parts/langselect.php' params='name,value'>
 <decel name='lastonline' file='parts/utils.php' params='user'>
 <decel name='links_switcher' file='parts/links-switcher.php' params='ident'>
-<decel name='login' file='parts/login.php' params='target' defaults="target=''">
+<decel name='login' file='parts/login.php'>
 <decel name='maillink' file='parts/utils.php' params='message'>
 <decel name='mailloginlink' file='parts/utils.php' params='message'>
 <decel name='mailru_count' file='parts/mailru.php'>
 <decel name='mailru_logo' file='parts/mailru.php'>
 <decel name='mailtolink' file='parts/utils.php' params='message'>
-<decel name='menu' file='parts/menu.php' params='ident,target'
-       defaults="target=''">
+<decel name='menu' file='parts/menu.php' params='ident'>
 <decel name='migdal_news' file='parts/migdal-news.php'>
 <decel name='navi_sort' file='parts/utils.php' params='value,title'>
 <decel name='perror' file='parts/utils.php' params='id,text'>
@@ -263,9 +261,8 @@
 <decel name='textears' file='parts/textears.php'>
 <decel name='tip' file='parts/tip.php'>
 <decel name='today' file='parts/today.php'>
-<decel name='top' file='parts/top.php'
-       params='ident,target,showimages,transref'
-       defaults="target='' showimages='*true' transref=''">
+<decel name='top' file='parts/top.php' params='ident,transref'
+       defaults="transref=''">
 <decel name='top_404' file='parts/top-404.php'>
 <decel name='topiclink' file='parts/posting.php'
        params='&posting,class,prefix'
