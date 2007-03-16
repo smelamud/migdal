@@ -1,8 +1,5 @@
 << @(#) $Id$ >>
 
-<< Traps >>
-<< /Traps >>
-
 <grps>
 <posting_obj id='$`post.migdal,e`' grp='*GRP_REVIEWS'
              fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>

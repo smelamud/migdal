@@ -67,13 +67,10 @@
    <form_edit title='Фамилия' value='$=,Surname' name='surname' size=30
 	      maxlength=30 mandatory='*true'>
    <error id='*EUM_GENDER' text='Неизвестный пол'>
-   <form_line title='Пол'>
-    <radio name='gender' value='mine' checked!="$,Gender=='mine'"
-           title='Мужской'>
-    &nbsp;
-    <radio name='gender' value='femine' checked!="$,Gender=='femine'"
-	   title='Женский'>
-   </form_line>
+   <form_select title='Пол' name='gender' style='box'>
+    <form_option title='Мужской' value='mine' selected="$,isMan">
+    <form_option title='Женский' value='femine' selected="$,isWoman">
+   </form_select>
    <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
    <form_line title='Дата рождения'>
     <edit name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>

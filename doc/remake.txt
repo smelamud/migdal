@@ -217,7 +217,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + conf/subdomains.php
 
 - mailings/confirmed.mhtml
-- mailings/registering.mhtml
++ mailings/registering.mhtml
 - mailings/register.mhtml
 - mailings/repairing-password.mhtml
 - mailings/repair-password.mhtml
