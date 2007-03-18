@@ -341,7 +341,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/pointer.mhtml
 * pages/parts/posting-book.mhtml
 + pages/parts/posting-ear.mhtml
-* pages/parts/posting-general.mhtml
++ pages/parts/posting-general.mhtml
 + pages/parts/posting-link.mhtml
 + pages/parts/posting-peruser.mhtml
 + pages/parts/posting-printing.mhtml
@@ -355,7 +355,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - pages/parts/rabbi.mhtml
 - pages/parts/rambler.mhtml
 + pages/parts/relogin.mhtml
-* pages/parts/seealso.mhtml
++ pages/parts/seealso.mhtml
 + pages/parts/spin.mhtml
 + pages/parts/subtitle.mhtml
 + pages/parts/textears.mhtml
@@ -367,7 +367,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 * pages/parts/topics-daily.mhtml
 + pages/parts/topicselect.mhtml
 + pages/parts/topics-events.mhtml
-* pages/parts/topics-gallery-general.mhtml
++ pages/parts/topics-gallery-general.mhtml
 + pages/parts/topics-gallery-major.mhtml
 + pages/parts/topics-gallery-migdal.mhtml
 * pages/parts/topics-general.mhtml (удалить)

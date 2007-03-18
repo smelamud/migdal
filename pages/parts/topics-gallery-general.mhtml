@@ -1,27 +1,5 @@
 << @(#) $Id$ >>
 
-<<element name='topics_gallery_blog' params='title,topic_id,posting'>
-<topics_table title='$title'>
- <iterate_posting_users topic_id='$topic_id'>
- <topics_line text='Новые поступления' href#='gallery.php?topic_id=$topic_id'
-              arrow!='$posting.UserId<=0' class='ninept item'>
- <for>
-  <topics_line time='$.LastMessage' text='$.FullName'
-	       href#='gallery.php?topic_id=$topic_id&user_id=$.Id'
-	       arrow!='$.Id==$posting.UserId' class='eightpt item'>
- </for>
-</topics_table>
-</element>
-
-<element name='topics_gallery_taglit'>
-<topics_gallery_blog posting='$posting' title='Таглит' topic_id='$`taglit`'>
-</element>
-
-<element name='topics_gallery_veterans'>
-<topics_gallery_blog posting='$posting' title='Уголок ветерана'
-                     topic_id='$`veterans`'>
-</element>>
-
 <element name='topics_gallery_general'>
 <topics_gallery_major index='$index' base='$base'>
 <topics_gallery_events index='$index' base='$base'>
