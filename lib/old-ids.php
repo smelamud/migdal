@@ -36,4 +36,53 @@ if($new_id==0)
 else
   echo "Duplicate id for $table_name($old_id): $new_id and $entry_id\n";
 }
+
+class OldId
+      extends DataObject
+{
+
+var $table_name;
+var $old_id;
+var $old_ident;
+var $entry_id;
+
+function OldId($row)
+{
+parent::DataObject($row);
+}
+
+function getTableName()
+{
+return $this->table_name;
+}
+
+function getOldId()
+{
+return $this->old_id;
+}
+
+function getOldIdent()
+{
+return $this->old_ident;
+}
+
+function getEntryId()
+{
+return $this->entry_id;
+}
+
+}
+
+class OldIdsIterator
+      extends SelectIterator
+{
+
+function OldIdsIterator()
+{
+parent::SelectIterator('OldId',
+                       'select table_name,old_id,old_ident,entry_id
+		        from old_ids');
+}
+
+}
 ?>
