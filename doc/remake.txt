@@ -190,7 +190,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/sessions.php
 + lib/sort.php
 + lib/sql.php
-- lib/stat.php
 + lib/style.php
 + lib/text.php
 + lib/tmptexts.php
@@ -202,6 +201,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/usertag.php
 + lib/utils.php
 + lib/votes.php
+
++ sources/stat.php
 
 * scripts/daily.php
 * scripts/hourly.php

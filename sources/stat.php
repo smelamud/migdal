@@ -17,10 +17,10 @@ function removeControlChars($s)
 return preg_replace('/\s+/',' ',$s);
 }
 
-settype($from,'integer');
+postInteger('from');
 
 dbOpen();
-session();
+session(getUserIdByLogin($rebeLogin));
 
 $dir=tempnam($tmpDir,'mig-stat-');
 unlink($dir);
@@ -41,9 +41,8 @@ fclose($fd);
 $fd=fopen("$dir/postings",'w');
 $iter=new PostingListIterator(GRP_ALL,-1,false,0);
 while($post=$iter->next())
-     fputs($fd,$post->getId()."\t".$post->getTopicId().
-               "\t".$post->getMessageId()."\t".$post->getImageSet().
-	       "\t".removeControlChars($post->getSubjectDesc())."\n"); #FIXME deprecated
+     fputs($fd,$post->getId()."\t".$post->getParentId().
+	       "\t".removeControlChars($post->getHeading(true))."\n");
 fclose($fd);
 
 $fd=fopen("$dir/topics",'w');
@@ -53,7 +52,7 @@ while($topic=$iter->next())
 fclose($fd);
 
 $fd=fopen("$dir/users",'w');
-$iter=new UserListIterator(0);
+$iter=new UserListIterator('');
 while($user=$iter->next())
      fputs($fd,$user->getId()."\t".$user->getLogin()."\n");
 fclose($fd);
@@ -65,14 +64,17 @@ $cmd=str_replace(array('#','%'),
                  array($tmpDir,substr($dir,strlen($tmpDir)+
 		                           ($dir[strlen($tmpDir)]=='/' ? 1 : 0))),
 		 $compressCommand);
+$fd=fopen('/tmp/xxx','w');
+fputs($fd,$cmd);
+fclose($fd);
 echoCommand($cmd);
 
-unlink("$dir/users");
+/*unlink("$dir/users");
 unlink("$dir/topics");
 unlink("$dir/postings");
 unlink("$dir/log");
 unlink("$dir/timestamp");
-rmdir($dir);
+rmdir($dir);*/
 
 dbClose();
 ?>

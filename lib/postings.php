@@ -179,7 +179,7 @@ foreach($editor as $item)
 return false;
 }
 
-function getHeading()
+function getHeading($useURL=false)
 {
 $heading='';
 if(method_exists($this,'getGrpHeading'))
@@ -188,6 +188,8 @@ if($heading=='' && method_exists($this,'getSubject'))
   $heading=$this->getSubject();
 if($heading=='' && method_exists($this,'getBodyTiny'))
   $heading=$this->getBodyTiny();
+if($heading=='' && $useURL && method_exists($this,'getGrpDetailsHref'))
+  $heading=$this->getGrpDetailsHref();
 if($heading=='')
   $heading='Без названия';
 return $heading;
