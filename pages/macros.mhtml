@@ -305,7 +305,6 @@
 <decel name='topics_help_info' file='parts/topics-help.php' params='posting'>
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
-<decel name='topics_kaitana' file='parts/topics-daily.php' params='posting'>
 <decel name='topics_kes' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_line'

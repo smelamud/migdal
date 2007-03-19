@@ -362,15 +362,14 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/tip.mhtml
 + pages/parts/today.mhtml
 - pages/parts/top-404.mhtml
-* pages/parts/topics-admin.mhtml
++ pages/parts/topics-admin.mhtml
 + pages/parts/topics-book.mhtml
-* pages/parts/topics-daily.mhtml
++ pages/parts/topics-daily.mhtml
 + pages/parts/topicselect.mhtml
 + pages/parts/topics-events.mhtml
 + pages/parts/topics-gallery-general.mhtml
 + pages/parts/topics-gallery-major.mhtml
 + pages/parts/topics-gallery-migdal.mhtml
-* pages/parts/topics-general.mhtml (удалить)
 - pages/parts/topics-help.mhtml
 + pages/parts/topics-links.mhtml
 + pages/parts/topics-major.mhtml
