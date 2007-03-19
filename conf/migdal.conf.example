@@ -78,7 +78,7 @@ $wgetPath='wget';
 
 # Команда для упаковки каталога (имя каталога подставляется вместо '%', имя
 # каталога, в котором он находится - вместо '#') на STDOUT
-$compressCommand='tar zcf - %';
+$compressCommand='(cd #; tar zcf - %)';
 
 # Тип (MIME-type) упакованного каталога
 $compressType='application/x-tar';
