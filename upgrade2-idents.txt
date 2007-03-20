@@ -151,6 +151,7 @@ topics	160	migdal.events.kaitanot.5763.winter
 topics	255	migdal.events.kaitanot.5764.winter
 topics	283	migdal.events.kaitanot.5765.winter
 topics	299	migdal.events.kaitanot.5766.winter
+topics	309	migdal.events.kaitanot.5767.winter
 topics	71	migdal.events.kaitanot.5762.summer
 topics	230	migdal.events.kaitanot.5763.summer
 topics	271	migdal.events.kaitanot.5764.summer
@@ -164,6 +165,7 @@ topics	162	migdal.events.migdal-birth.11
 topics	261	migdal.events.migdal-birth.12
 topics	285	migdal.events.migdal-birth.13
 topics	302	migdal.events.migdal-birth.14
+topics	311	migdal.events.migdal-birth.15
 topics	211	migdal.events.kvorim
 topics	9	migdal.events.kvorim.5760
 topics	15	migdal.events.kvorim.5761
@@ -210,6 +212,7 @@ topics	73	migdal.events.halom.6
 topics	238	migdal.events.halom.7
 topics	275	migdal.events.halom.8
 topics	294	migdal.events.halom.9
+topics	308	migdal.events.halom.10
 topics	214	migdal.events.hanukkah
 topics	10	migdal.events.hanukkah.5761
 topics	33	times

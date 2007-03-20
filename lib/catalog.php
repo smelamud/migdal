@@ -13,6 +13,9 @@ if($ident!='')
   {
   if(substr($ident,0,5)=='post.')
     $ident=substr($ident,5);
+  $pos=strrpos($ident,',');
+  if($pos!==false)
+    $ident=substr($ident,0,$pos);
   $catalog=strtr($ident,'.','/');
   return normalizePath($catalog,false,SLASH_NO,SLASH_YES);
   }

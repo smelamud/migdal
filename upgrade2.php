@@ -37,6 +37,14 @@ $imageIds=array(0 => 0);
 $forumIds=array(0 => 0);
 $maxImage=0;
 
+function convertText($s)
+{
+$s=unhtmlentities($s);
+$s=convertLigatures($s);
+$s=convertHebrew($s);
+return $s;
+}
+
 function convertChatMessages()
 {
 $result=sql("select id,text,sent
@@ -45,7 +53,7 @@ $result=sql("select id,text,sent
 while(list($id,$text,$sent)=mysql_fetch_array($result))
      {
      echo $id,' ';
-     $text=unhtmlentities($text);
+     $text=convertText($text);
      $dtext=wikiToXML($text,TF_PLAIN,MTEXT_LINE);
      sql(sqlUpdate('chat_messages',
 		   array('text'         => $text,
@@ -89,8 +97,8 @@ $result=sql("select complains.id as id,recipient_id,message_id,type_id,link,
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
-     $subject=unhtmlentities($row['subject']);
-     $body=unhtmlentities($row['body']);
+     $subject=convertText($row['subject']);
+     $body=convertText($row['body']);
      sql(sqlInsert('entries',
 		   array('entry' => ENT_COMPLAIN,
 			 'grp' => $row['type_id'],
@@ -152,10 +160,10 @@ $result=sql("select topics.id as id,up,name,comment0,comment1,user_id,group_id,
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
-     $name=unhtmlentities($row['name']);
-     $body=unhtmlentities($row['body']);
-     $comment0=unhtmlentities($row['comment0']);
-     $comment1=unhtmlentities($row['comment1']);
+     $name=convertText($row['name']);
+     $body=convertText($row['body']);
+     $comment0=convertText($row['comment0']);
+     $comment1=convertText($row['comment1']);
      $now=date('Y-m-d H:i:s',time());
      sql(sqlInsert('entries',
 		   array('entry' => ENT_TOPIC,
@@ -181,12 +189,15 @@ while($row=mysql_fetch_assoc($result))
 			 'sent' => $now,
 			 'created' => $now,
 			 'modified' => $now,
-			 'modbits' => ($row['premoderate'] ? MODT_PREMODERATE
-							   : MODT_NONE) |
-				      ($row['moderate'] ? MODT_MODERATE
-							: MODT_NONE) |
-				      ($row['edit'] ? MODT_EDIT
-						    : MODT_NONE)
+			 'modbits' => ($row['premoderate']
+			               ? MODT_PREMODERATE : MODT_NONE) |
+				      ($row['moderate']
+				       ? MODT_MODERATE : MODT_NONE) |
+				      ($row['edit']
+				       ? MODT_EDIT : MODT_NONE) |
+				      ($row['ident']=='general'
+				       ? MODT_ROOT | MODT_TRANSPARENT
+				       : MODT_NONE)
 			 )),
 	 __FUNCTION__,'insert');
 
@@ -222,23 +233,23 @@ $result=sql("select postings.id as id,ident,message_id,up,lang,subject,author,
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
-     $subject=unhtmlentities($row['subject']);
+     $subject=convertText($row['subject']);
      $graphicsGrps=grpArray(GRP_GRAPHICS);
      if(!in_array($row['grp'],$graphicsGrps))
        {
-       $body=unhtmlentities($row['body']);
+       $body=convertText($row['body']);
        $title='';
        }
      else
        {
        $body='';
-       $title=unhtmlentities($row['body']);
+       $title=convertText($row['body']);
        }
-     $large_body=unhtmlentities($row['large_body']);
-     $author=unhtmlentities($row['author']);
-     $source=unhtmlentities($row['source']);
-     $comment0=unhtmlentities($row['comment0']);
-     $comment1=unhtmlentities($row['comment1']);
+     $large_body=convertText($row['large_body']);
+     $author=convertText($row['author']);
+     $source=convertText($row['source']);
+     $comment0=convertText($row['comment0']);
+     $comment1=convertText($row['comment1']);
      $sourceGrps=array(GRP_BOOKS,GRP_TIMES_COVERS,GRP_DAILY_NEWS,
                        GRP_PRINTINGS);
      if(in_array($row['grp'],$sourceGrps))
@@ -466,7 +477,7 @@ while($row=mysql_fetch_assoc($result))
      list($small,$small_x,$small_y,
           $large,$large_size)=extractImage($id,$row,true);
      
-     $title=unhtmlentities($row['title']);
+     $title=convertText($row['title']);
      if($title!='')
        $update=array('title' => $title,
   		     'title_xml' => $title!=''
@@ -520,7 +531,7 @@ while($row=mysql_fetch_assoc($result))
        echo "Unknown stotext({$row['stotext_id']})\n";
        continue;
        }
-     $title=unhtmlentities($row['title']);
+     $title=convertText($row['title']);
      $now=date('Y-m-d H:i:s',time());
      sql(sqlInsert('entries',
 		   array('entry' => ENT_IMAGE,
@@ -576,7 +587,7 @@ $result=sql("select forums.id as id,parent_id,message_id,stotext_id,sender_id,
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
-     $body=unhtmlentities($row['body']);
+     $body=convertText($row['body']);
      $parent_id=$messageIds[$row['parent_id']];
      if($parent_id=='')
        {
@@ -679,7 +690,7 @@ $result=sql("select id,migdal_student,accepts_complains,rebe,admin_users,
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
-     $info=unhtmlentities($row['info']);
+     $info=convertText($row['info']);
      $rights=0;
      foreach($fields as $field => $flag)
             if($row[$field])
