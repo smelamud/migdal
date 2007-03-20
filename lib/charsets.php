@@ -162,12 +162,12 @@ return $errc/strlen($s)<=0.01;
 
 function convertLigatures($s)
 {
-return str_replace(array('&lt;&lt;','>>','&gt;&gt;','&LT;&LT;','&GT;&GT;',
+return str_replace(array('<<','&lt;&lt;','>>','&gt;&gt;','&LT;&LT;','&GT;&GT;',
 			 '---','``','&#039;&#039;',"''",'(c)','(C)',
 			 '(r)','(R)','(tm)','(TM)','No.','&sp;','&nil;'),
-		   array('&laquo;','&raquo;','&raquo;','&laquo;','&raquo;',
-			 '&mdash;','&ldquo;','&rdquo;','&rdquo;','&copy;','&copy;',
-			 '&reg;','&reg;','&trade;','&trade;','&#8470;',' ',''),
+		   array('&#171;','&#171;','&#187;','&#187;','&#171;','&#187;',
+			 '&#8212;','&#8220;','&#8221;','&#8221;','&#169;','&#169;',
+			 '&#174;','&#174;','&#8482;','&#8482;','&#8470;',' ',''),
 		   $s);
 }
 
