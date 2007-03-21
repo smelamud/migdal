@@ -1,8 +1,8 @@
--- MySQL dump 10.10
+-- MySQL dump 10.11
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.0.22-Debian_4-log
+-- Server version	5.0.32-Debian_7-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `chat_messages` (
   PRIMARY KEY  (`id`),
   KEY `sender_id` (`sender_id`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=19275 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `complain_actions`
@@ -44,7 +44,7 @@ CREATE TABLE `complain_actions` (
   `script_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `script_id` (`script_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `counters`
@@ -68,7 +68,7 @@ CREATE TABLE `counters` (
   KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=14067 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `counters_ip`
@@ -100,7 +100,7 @@ CREATE TABLE `cross_entries` (
   `peer_subject_sort` varchar(255) collate koi8u_bin NOT NULL,
   `peer_icon` varchar(64) collate koi8u_bin NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=151 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `entries`
@@ -207,7 +207,7 @@ CREATE TABLE `entries` (
   KEY `last_answer` (`last_answer`),
   KEY `used` (`used`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=13211 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `entry_grps`
@@ -281,7 +281,7 @@ DROP TABLE IF EXISTS `journal`;
 CREATE TABLE `journal` (
   `id` int(11) NOT NULL auto_increment,
   `seq` int(11) NOT NULL default '0',
-  `result_table` varchar(30) NOT NULL default '',
+  `result_table` varchar(30) collate koi8u_bin NOT NULL default '',
   `result_id` int(11) NOT NULL default '0',
   `result_var` int(11) NOT NULL default '0',
   `query` mediumblob NOT NULL,
@@ -292,7 +292,7 @@ CREATE TABLE `journal` (
   KEY `result_id` (`result_id`),
   KEY `result_var` (`result_var`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=4165010 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `journal_vars`
@@ -301,13 +301,13 @@ CREATE TABLE `journal` (
 DROP TABLE IF EXISTS `journal_vars`;
 CREATE TABLE `journal_vars` (
   `var` int(11) NOT NULL default '0',
-  `host` varchar(30) NOT NULL default '',
+  `host` varchar(30) collate koi8u_bin NOT NULL default '',
   `value` int(11) NOT NULL default '0',
   `last_read` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   KEY `var` (`var`),
   KEY `host` (`host`),
   KEY `last_read` (`last_read`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `logs`
@@ -316,29 +316,41 @@ CREATE TABLE `journal_vars` (
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs` (
   `id` int(11) NOT NULL auto_increment,
-  `event` varchar(30) NOT NULL default '',
+  `event` varchar(30) collate koi8u_bin NOT NULL default '',
   `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `ip` int(10) unsigned NOT NULL default '0',
-  `body` varchar(250) NOT NULL default '',
+  `body` varchar(250) collate koi8u_bin NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=5957931 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
--- Table structure for table `mailings`
+-- Table structure for table `mail_log`
 --
 
-DROP TABLE IF EXISTS `mailings`;
-CREATE TABLE `mailings` (
+DROP TABLE IF EXISTS `mail_log`;
+CREATE TABLE `mail_log` (
   `id` int(11) NOT NULL auto_increment,
-  `type_id` int(11) NOT NULL default '0',
-  `link` int(11) NOT NULL default '0',
-  `receiver_id` int(11) NOT NULL default '0',
+  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
-  KEY `type_id` (`type_id`),
-  KEY `receiver_id` (`receiver_id`)
+  KEY `sent` (`sent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+
+--
+-- Table structure for table `mail_queue`
+--
+
+DROP TABLE IF EXISTS `mail_queue`;
+CREATE TABLE `mail_queue` (
+  `id` int(11) NOT NULL auto_increment,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `destination` varchar(255) collate utf8_bin NOT NULL,
+  `headers` text collate utf8_bin NOT NULL,
+  `body` mediumtext collate utf8_bin NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `created` (`created`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Table structure for table `old_ids`
@@ -376,7 +388,7 @@ CREATE TABLE `packages` (
   KEY `created` (`created`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=10721 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `profiling`
@@ -399,7 +411,7 @@ CREATE TABLE `profiling` (
   KEY `object` (`object`),
   KEY `name` (`name`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=19193 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `redirs`
@@ -409,14 +421,14 @@ DROP TABLE IF EXISTS `redirs`;
 CREATE TABLE `redirs` (
   `id` int(11) NOT NULL auto_increment,
   `up` int(11) NOT NULL default '0',
-  `track` varchar(255) NOT NULL default '',
-  `uri` text NOT NULL,
+  `track` varchar(255) collate koi8u_bin NOT NULL default '',
+  `uri` text collate koi8u_bin NOT NULL,
   `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `up` (`up`),
   KEY `track` (`track`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=4437472 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `sessions`
@@ -428,12 +440,12 @@ CREATE TABLE `sessions` (
   `user_id` int(11) NOT NULL default '0',
   `real_user_id` int(11) NOT NULL default '0',
   `last` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `sid` char(32) default NULL,
+  `sid` char(32) collate koi8u_bin default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `sid` (`sid`),
   KEY `user_id` (`user_id`),
   KEY `last` (`last`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `tmp_texts`
@@ -442,11 +454,11 @@ CREATE TABLE `sessions` (
 DROP TABLE IF EXISTS `tmp_texts`;
 CREATE TABLE `tmp_texts` (
   `id` int(11) NOT NULL auto_increment,
-  `value` mediumtext NOT NULL,
+  `value` mediumtext collate koi8u_bin NOT NULL,
   `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=77818 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `users`
@@ -497,7 +509,7 @@ CREATE TABLE `users` (
   KEY `in_chat` (`in_chat`),
   KEY `shames` (`shames`),
   KEY `guest` (`guest`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=1962 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `version`
@@ -534,11 +546,12 @@ CREATE TABLE `votes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- MySQL dump 10.10
+-- Dump completed on 2007-03-21  0:55:34
+-- MySQL dump 10.11
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.0.22-Debian_4-log
+-- Server version	5.0.32-Debian_7-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -555,12 +568,11 @@ CREATE TABLE `votes` (
 -- Dumping data for table `version`
 --
 
-
-/*!40000 ALTER TABLE `version` DISABLE KEYS */;
 LOCK TABLES `version` WRITE;
+/*!40000 ALTER TABLE `version` DISABLE KEYS */;
 INSERT INTO `version` VALUES (10);
-UNLOCK TABLES;
 /*!40000 ALTER TABLE `version` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -571,3 +583,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+-- Dump completed on 2007-03-21  0:55:34
