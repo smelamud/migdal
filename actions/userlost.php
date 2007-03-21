@@ -10,7 +10,7 @@ require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/users.php');
 require_once('lib/tmptexts.php');
-require_once('lib/mailings.php');
+require_once('lib/mail.php');
 require_once('lib/exec.php');
 require_once('lib/sql.php');
 

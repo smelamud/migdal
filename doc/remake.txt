@@ -165,8 +165,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/limitselect.php
 + lib/logging.php
 + lib/logs.php
-+ lib/mailings.php (удалить)
-* lib/mail.php
++ lib/mail.php
 - lib/mail-format.php
 + lib/mime.php
 - lib/mnogosearch.php
@@ -207,7 +206,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 
 * scripts/daily.php
 * scripts/hourly.php
-- scripts/mailrobot.php
++ scripts/mailrobot.php
 - scripts/packbooks.php
 - scripts/pull.php
 - scripts/replicate.php

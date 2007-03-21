@@ -46,9 +46,8 @@ if($user->getId()<=0)
   return ESM_NO_USER;
 if($user->isEmailDisabled() && !in_array($template,$forcedMailings))
   return EG_OK;
-list($destination,$subject,
-     $headers,$body)=formatMail($user,$template,$params);
-return sendMailOrDefer($destination,$subject,$headers,$body);
+list($subject,$headers,$body)=formatMail($user,$template,$params);
+return sendMailOrDefer($user->getEmail(),$subject,$headers,$body);
 }
 
 function getMailLimit()

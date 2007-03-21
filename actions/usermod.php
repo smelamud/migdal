@@ -12,7 +12,7 @@ require_once('lib/utils.php');
 require_once('lib/errors.php');
 require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
-require_once('lib/mailings.php');
+require_once('lib/mail.php');
 require_once('lib/sql.php');
 
 function modifyUser($user)

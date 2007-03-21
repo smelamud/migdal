@@ -6,7 +6,7 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
-require_once('lib/mailings.php');
+require_once('lib/mail.php');
 require_once('lib/sql.php');
 
 function confirmUser($id,$code,&$userLogin)
