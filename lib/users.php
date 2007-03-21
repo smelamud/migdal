@@ -20,6 +20,7 @@ require_once('lib/charsets.php');
 require_once('lib/mtext-html.php');
 require_once('lib/ctypes.php');
 
+define('USR_NONE',0);
 define('USR_MIGDAL_STUDENT',0x0001);
 define('USR_ACCEPTS_COMPLAINS',0x0002);
 define('USR_REBE',0x0004);
@@ -381,7 +382,7 @@ class UserListIterator
       extends SelectIterator
 {
 
-function UserListIterator($prefix,$sort=SORT_LOGIN)
+function UserListIterator($prefix,$sort=SORT_LOGIN,$right=USR_NONE)
 {
 global $userAdminUsers;
 
@@ -398,6 +399,7 @@ if($prefix!='')
   }
 else
   $fieldFilter='';
+$rightFilter=$right!=USR_NONE ? "and (rights & $right)<>0" : '';
 $order=getOrderBy($sort,
                   array(SORT_LOGIN       => 'login_sort',
 		        SORT_NAME        => 'name_sort,surname_sort',
@@ -416,7 +418,7 @@ parent::SelectIterator(
 		floor((unix_timestamp(confirm_deadline)
 		       -unix_timestamp(now()))/86400) as confirm_days
 	 from users
-	 where hidden<$hide $fieldFilter
+	 where hidden<$hide $fieldFilter $rightFilter
 	 group by users.id
 	 $order");
 }

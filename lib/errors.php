@@ -203,4 +203,7 @@ define('EVH_NO_UP',501);
 define('EVH_NOT_UP_UNDER_PARENT',502);
 define('EVH_LOOP',503);
 define('EVH_INCORRECT',504);
+
+define('ESM_SEND',510);
+define('ESM_NO_USER',511);
 ?>

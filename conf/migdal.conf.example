@@ -59,9 +59,6 @@ $siteDir='/home/balu/web/migdal-html/.build/www';
 # Каталог, в котором находятся скрипты (hourly, mailrobot, etc.) на Web-сервере
 $scriptsDir='/home/balu/web/migdal-html/.build/scripts';
 
-# Каталог, в котором находятся файлы с образцами писем на Web-сервере
-$mailingsDir='/home/balu/web/migdal-html/.build/mailings';
-
 # Каталог для временных файлов
 $tmpDir='/tmp';
 
@@ -251,6 +248,16 @@ $bookCompressCommand='(cd #; zip -r -q - %)';
 
 # Тип (MIME-type) упакованного каталога с книгой
 $bookCompressType='application/zip';
+
+## Почта ##
+
+# Каталог, в котором находятся файлы с шаблонами писем на Web-сервере
+$mailingsDir='/home/balu/web/migdal-html/.build/mailings';
+
+# Эти два параметра задают частоту отправки писем с сервера. Максимальная
+# разрешенная частота - это $mailSendLimit писем за $mailSendPeriod минут.
+$mailSendLimit=10;
+$mailSendPeriod=10;
 
 ## Права по умолчанию ##
 

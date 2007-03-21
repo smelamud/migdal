@@ -136,7 +136,8 @@
 	 defaults="up=-1 recursive='*false' delimiter=' :: ' name_root=-1
 	           only_writable='*false' only_postable='*false'">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'
-         params='prefix,sort' defaults="sort='*SORT_LOGIN'">
+         params='prefix,sort,right'
+	 defaults="sort='*SORT_LOGIN' right='*USR_NONE'">
 <deciter macro='user_alphabet' class='UserAlphabetIterator'
          file='lib/users.php' params='limit,sort'
 	 defaults="limit=0 sort='*SORT_LOGIN'">

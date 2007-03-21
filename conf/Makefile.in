@@ -5,17 +5,17 @@
 targetdir=$(builddir)/www/conf/
 
 CONFIGS = migdal.conf .htaccess counters.php subdomains.php titles.php \
-          scripts.php traps.php cross-entries.php forums.php
+          scripts.php traps.php cross-entries.php forums.php mailings.php
 
 all: $(targetdir)/migdal.conf $(targetdir)/grps.php $(targetdir)/grpentry.php \
-	$(targetdir)/mailings.php $(targetdir)/structure.php ;
+	$(targetdir)/structure.php ;
 
 Makefile: Makefile.in migdal.conf
 	../confmake $^ $(builddir) > Makefile
 
 clean:
 	-rm $(targetdir)/grps.php grpentry-body.php $(targetdir)/grpentry.php \
-		$(targetdir)/mailings.php $(targetdir)/structure.php
+		$(targetdir)/structure.php $(CONFIGS:%=$(targetdir)/%)
 
 $(targetdir)/migdal.conf: $(CONFIGS)
 	-mkdir -p $(targetdir)
@@ -29,11 +29,6 @@ $(targetdir)/grps.php grpentry-body.php: groups.conf ../grpparser
 $(targetdir)/grpentry.php: grpentry-header.php grpentry-body.php grpentry-footer.php
 	-mkdir -p $(targetdir)
 	cat grpentry-header.php grpentry-body.php grpentry-footer.php > $@
-
-$(targetdir)/mailings.php: mailings.conf ../grpparser
-	-mkdir -p $(targetdir)
-	../grpparser -C $(targetdir)/mailtypes.php \
-		-L $(targetdir)/mailings.php -p MAIL_ -f type_id -a mailing $<
 
 $(targetdir)/structure.php: structure.conf ../structparser
 	-mkdir -p $(targetdir)

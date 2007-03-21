@@ -165,8 +165,9 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/limitselect.php
 + lib/logging.php
 + lib/logs.php
-+ lib/mailings.php
-- lib/mail.php
++ lib/mailings.php (удалить)
+* lib/mail.php
+- lib/mail-format.php
 + lib/mime.php
 - lib/mnogosearch.php
 + lib/modbits.php
@@ -214,7 +215,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 
 + conf/counters.php
 * conf/groups.conf
-- conf/mailings.conf
++ conf/mailings.php
 + conf/subdomains.php
 
 - mailings/confirmed.mhtml
