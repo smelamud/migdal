@@ -19,7 +19,7 @@ $eventS=addslashes($event);
 $ip=IPToInteger($_SERVER['REMOTE_ADDR']);
 $bodyS=addslashes($body);
 sql("insert into logs(event,ip,body)
-     values('1: $eventS',$ip,'$bodyS')",
+     values('1:$eventS',$ip,'$bodyS')",
     __FUNCTION__,'','',false);
 }
 
