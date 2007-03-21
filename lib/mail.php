@@ -97,9 +97,10 @@ $limit=getMailLimit();
 if($limit<=0)
   return EG_OK;
 $runResult=EG_OK;
-$result=sql('select id,destination,subject,headers,body
+$result=sql("select id,destination,subject,headers,body
 	     from mail_queue
-	     order by created',
+	     order by created
+	     limit $limit",
 	    __FUNCTION__,'select');
 $sentList=array();
 while($row=mysql_fetch_assoc($result))
