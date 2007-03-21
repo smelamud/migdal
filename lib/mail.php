@@ -71,7 +71,7 @@ if(!$replicationMaster)
   return;
 lockMailTables();
 if(getMailLimit()>=1)
-  return sendMail($destination,$subject,$headers,$body);
+  $result=sendMail($destination,$subject,$headers,$body);
 else
   {
   sql(sqlInsert('mail_queue',
@@ -80,9 +80,41 @@ else
 		      'headers'     => $headers,
 		      'body'        => $body)),
       __FUNCTION__);
-  return EG_OK;
+  $result=EG_OK;
   }
 unlockMailTables();
+return $result;
+}
+
+function runMailQueue()
+{
+global $replicationMaster;
+
+if(!$replicationMaster)
+  return;
+lockMailTables();
+$limit=getMailLimit();
+if($limit<=0)
+  return EG_OK;
+$runResult=EG_OK;
+$result=sql('select id,destination,subject,headers,body
+	     from mail_queue
+	     order by created',
+	    __FUNCTION__,'select');
+$sentList=array();
+while($row=mysql_fetch_assoc($result))
+     {
+     $sendResult=sendMail($row['destination'],$row['subject'],$row['headers'],
+                          $row['body']);
+     if($sendResult!=EG_OK)
+       $runResult=$sendResult;
+     $sentList[]=$row['id'];
+     }
+sql('delete from mail_queue
+     where id in ('.join(',',$sentList).')',
+    __FUNCTION__);
+unlockMailTables();
+return $runResult;
 }
 
 function sendMail($destination,$subject,$headers,$body)
