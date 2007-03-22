@@ -2,7 +2,7 @@
 
 <element name='topics_migdal_english'>
 <topic_obj name='migdal' id='$`migdal,e`'>
-<topics_table title='Migdal' span=3>
+<topics_table title='Migdal' span=2>
  <ispost what='$migdal'>
   <tr><td colspan=3>
    <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
@@ -14,27 +14,24 @@
   </td></tr>
  </ispost>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
-                      topic_id='$,Id' recursive='*false'
-		      fields='*SELECT_TOPICS'>
- <posting_obj id='$`postings:migdal,e`' fields='*SELECT_GENERAL'>
- <topics_line time='$,Sent' text='Home' href='index.php'
-              arrow!='$,Id==$posting.Id' class='item' span=2>
+                      topic_id='$,Id' recursive='*false'>
+ <posting_obj id='$`post.migdal,e`'>
+ <topics_line time='$,Modified' text='Home' href='/' arrow!="$index=='index'"
+              span=2>
  <for>
-  <if what='$.Id!=$`postings:migdal,e`'>
-   <topics_line time='$.Sent' text='$.Subject' href#='migdal.php?artid=$.Id'
-                arrow!='$.Id==$posting.Id' class='item ninept' span=2>
+  <if what='$.Id!=$`post.migdal,e`'>
+   <topics_line time='$.Modified' text='$=.Subject' href='$.GrpDetailsHref'
+                arrow!='$index==$.Id' class='topics-item ninept' span=2>
   </if>
  </for>
  <posting_last topic_id='$`events,e`' recursive='*false'>
- <topics_line time='$,' text='Events' href='events-english.php'
-              arrow!='$posting.Id<=0 && $posting.TopicId==$`events,e`'
-	      class='item' span=2>
+ <topics_line time='$,' text='Events' href='/events/' arrow!="$index=='events'"
+              span=2>
  <iterate_postinglist grp='*GRP_TAPE' limit=0 sort='*SORT_SENT'
-                      topic_id='$`events,e`' recursive='*false'
-		      fields='*SELECT_TOPICS'>
+                      topic_id='$`events,e`' recursive='*false'>
  <for>
-  <topics_line time='$.Sent' text='$.Subject' href#='article.php?artid=$.Id'
-	       arrow!='$.Id==$posting.Id' class='item ninept' indent=1>
+  <topics_line time='$.Modified' text='$=.Subject' href='$.GrpDetailsHref'
+	       arrow!='$index==$.Id' class='topics-item ninept' indent=1>
  </for>
 </topics_table>
 </element>

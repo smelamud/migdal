@@ -300,9 +300,6 @@
        params='posting'>
 <decel name='topics_gallery_veterans' file='parts/topics-gallery-general.php'
        params='posting'>
-<decel name='topics_help' file='parts/topics-help.php' params='posting,ident'
-       defaults="posting=0 ident=''">
-<decel name='topics_help_info' file='parts/topics-help.php' params='posting'>
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_kes' file='parts/topics-migdal.php' params='index,base'
@@ -324,14 +321,11 @@
 <decel name='topics_migdal' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_migdal_english' file='parts/topics-migdal-english.php'
-       params='posting'>
+       params='index,base' defaults="base=''">
 <decel name='topics_migdal_library' file='parts/topics-migdal.php'
        params='index,base' defaults="base=''">
 <decel name='topics_migdal_or' file='parts/topics-migdal.php'
        params='index,base' defaults="base=''">
-<decel name='topics_minor' file='parts/topics-minor.php'
-       params='id,up,grp,href,title'
-       defaults="up='$`general`' grp='*GRP_ALL' href='index.php'">
 <decel name='topics_museum' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_peruser' file='parts/topics-peruser.php' params='index,base'

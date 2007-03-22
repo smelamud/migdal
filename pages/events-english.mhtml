@@ -1,16 +1,12 @@
 << @(#) $Id$ >>
 
-<pagetitle title='Events'>
-<topictitle title='Events'>
-
 <html>
 <preamble>
 <body>
- <top ident='index' transref#='http://www.$$siteDomain/events.php'>
+ <top ident='index' transref#='http://www.$$siteDomain/migdal/events/'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
-   <posting_new name='posting' topic_id='$`events,e`'>
-   <topics posting='$posting'>
+   <topics>
   </td>
   <td class='cframe'>
    <subtitle>

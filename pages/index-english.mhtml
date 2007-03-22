@@ -12,7 +12,7 @@
  <top ident='index' transref#='http://www.$$siteDomain/migdal/'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
-   <<topics>>
+   <topics>
   </td>
   <td class='article cframe'>
    <ifnzero what='$,Id'>

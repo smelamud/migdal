@@ -245,7 +245,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/daily-news.mhtml
 + pages/ears.mhtml
 + pages/event.mhtml
-- pages/events-english.mhtml
++ pages/events-english.mhtml
 + pages/events.mhtml
 + pages/forumcatalog.mhtml (кроме ловушек)
 + pages/forumedit.mhtml (кроме ссылок на help и hidden для гостей)
@@ -256,7 +256,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/grouporg.mhtml
 - pages/halom-main.mhtml (удалить, сохранив ловушку)
 - pages/horisontedit.mhtml
-* pages/index-english.mhtml (кроме топиков)
++ pages/index-english.mhtml
 * pages/index-www.mhtml (кроме ловушек)
 + pages/jcc.mhtml
 - pages/journal.mhtml
@@ -371,13 +371,11 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/topics-gallery-general.mhtml
 + pages/parts/topics-gallery-major.mhtml
 + pages/parts/topics-gallery-migdal.mhtml
-- pages/parts/topics-help.mhtml
 + pages/parts/topics-links.mhtml
 + pages/parts/topics-major.mhtml
 + pages/parts/topics.mhtml
-- pages/parts/topics-migdal-english.mhtml
++ pages/parts/topics-migdal-english.mhtml
 * pages/parts/topics-migdal.mhtml
-- pages/parts/topics-minor.mhtml
 + pages/parts/topics-peruser.mhtml
 + pages/parts/topics-times.mhtml
 + pages/parts/top.mhtml

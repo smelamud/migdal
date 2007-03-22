@@ -23,13 +23,13 @@ OBJECTS = article.mhtml backtrace.mhtml bannerbank.mhtml banners.mhtml \
 	  rambler.mhtml relogin.mhtml seealso.mhtml spin.mhtml subtitle.mhtml \
 	  textears.mhtml tip.mhtml today.mhtml top.mhtml top-404.mhtml \
 	  topics.mhtml topics-admin.mhtml topics-book.mhtml topics-daily.mhtml \
-	  topics-events.mhtml topics-help.mhtml topics-gallery-general.mhtml \
+	  topics-events.mhtml topics-gallery-general.mhtml \
 	  topics-gallery-major.mhtml topics-gallery-migdal.mhtml \
 	  topics-gallery-peruser.mhtml topics-general.mhtml topics-links.mhtml \
 	  topics-major.mhtml topics-migdal.mhtml topics-migdal-english.mhtml \
-	  topics-minor.mhtml topics-peruser.mhtml topics-times.mhtml \
-	  topicselect.mhtml tzdaka.mhtml uploader.mhtml userinfo.mhtml \
-	  utils.mhtml vote.mhtml xml-text.mhtml
+	  topics-peruser.mhtml topics-times.mhtml topicselect.mhtml \
+	  tzdaka.mhtml uploader.mhtml userinfo.mhtml utils.mhtml vote.mhtml \
+	  xml-text.mhtml
 	  
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)
