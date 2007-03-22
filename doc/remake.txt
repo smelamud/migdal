@@ -204,7 +204,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 
 + sources/stat.php
 
-* scripts/daily.php
+* scripts/daily.php (+чистка mail_log)
 * scripts/hourly.php
 + scripts/mailrobot.php
 - scripts/packbooks.php
