@@ -23,11 +23,15 @@ sql('unlock tables',
 
 function postMailTo($user_id,$template,$params)
 {
+debugLog(LL_FUNCTIONS,'postMailTo(user_id=%,template=%,params=%)',
+         array($user_id,$template,$params));
 return postMailToUser(getUserById($user_id),$template,$params);
 }
 
 function postMailToAdmins($right,$template,$params)
 {
+debugLog(LL_FUNCTIONS,'postMailToAdmins(right=%,template=%,params=%)',
+         array($right,$template,$params));
 $iter=new UserListIterator('',SORT_LOGIN,$right);
 while($user=$iter->next())
      {
@@ -42,11 +46,13 @@ function postMailToUser($user,$template,$params)
 {
 global $forcedMailings;
 
+debugLog(LL_FUNCTIONS,'postMailToUser(user=%,template=%,params=%)',
+         array($user,$template,$params));
 if($user->getId()<=0)
   return ESM_NO_USER;
 if($user->isEmailDisabled() && !in_array($template,$forcedMailings))
   return EG_OK;
-list($subject,$headers,$body)=formatMail($user,$template,$params);
+list($subject,$headers,$body)=formatMail($template,$params);
 return sendMailOrDefer($user->getEmail(),$subject,$headers,$body);
 }
 

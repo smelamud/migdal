@@ -111,7 +111,7 @@ var $par=0;
 
 function MTextToHTMLXML($format,$id,$imageBlocks=array())
 {
-$this->XMLParser();
+parent::XMLParser();
 $this->format=$format;
 $this->id=$id;
 $this->html=& $this->htmlBody;

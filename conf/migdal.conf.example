@@ -259,6 +259,15 @@ $mailingsDir='/home/balu/web/migdal-html/.build/mailings';
 $mailSendLimit=10;
 $mailSendPeriod=10;
 
+# Префикс, который вставляется в начало заголовка всех отправляемых писем
+$mailSubjectPrefix='[Мигдаль] ';
+
+# Адрес, который проставляется в поле "From:" всех отправляемых писем
+$mailFromAddress='mailrobot@migdal.ru';
+
+# Адрес, который проставляется в поле "Reply-To:" всех отправляемых писем
+$mailReplyToAddress='webmaster@migdal.ru';
+
 ## Права по умолчанию ##
 
 # Права на несуществующую "корневую" тему

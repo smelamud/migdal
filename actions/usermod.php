@@ -54,8 +54,8 @@ if($editid==0)
   if(!$userAdminUsers)
     {
     preconfirmUser($user->getId());
-    sendMail(MAIL_REGISTER,$user->getId(),$user->getId());
-    sendMailAdmin(MAIL_REGISTERING,USR_ADMIN_USERS,$user->getId());
+    postMailTo($user->getId(),'register',array($user->getId()));
+    postMailToAdmins(USR_ADMIN_USERS,'registering',array($user->getId()));
     }
 return EG_OK;
 }

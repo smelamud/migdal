@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
 
 <int name='edittag'>
-<string name='login'>
-<string name='password'>
+<string name='new_login'>
+<string name='new_password'>
 <string name='dup_password'>
 <string name='name'>
 <string name='jewish_name'>
@@ -44,13 +44,13 @@
 	  text='Пользователь с таким ником уже существует'>
    <form_edit title='Ник'
               comment='Ваш псевдоним, под которым вы будете видны на сайте'
-	      value='$=,Login' name='login' size=20 maxlength=30
+	      value='$=,Login' name='new_login' size=20 maxlength=30
 	      mandatory='*true'>
    <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
    <error id='*EUM_PASSWORD_DIFF'
 	  text='Опечатка при вводе пароля - введите еще раз'>
-   <form_password title='Пароль' comment='Не менее 5 символов' name='password'
-                  size=20 maxlength=40 mandatory='*true'>
+   <form_password title='Пароль' comment='Не менее 5 символов'
+                  name='new_password' size=20 maxlength=40 mandatory='*true'>
    <form_password title='Пароль (еще раз)'
 	          comment='Повторите ввод пароля, чтобы убедиться, что вы не
 		           ошиблись при наборе'

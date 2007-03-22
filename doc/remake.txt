@@ -166,7 +166,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/logging.php
 + lib/logs.php
 + lib/mail.php
-- lib/mail-format.php
++ lib/mail-format.php
 + lib/mime.php
 - lib/mnogosearch.php
 + lib/modbits.php
@@ -219,7 +219,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 
 - mailings/confirmed.mhtml
 + mailings/registering.mhtml
-- mailings/register.mhtml
++ mailings/register.mhtml
 - mailings/repairing-password.mhtml
 - mailings/repair-password.mhtml
 

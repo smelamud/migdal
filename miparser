@@ -820,8 +820,7 @@ $self->{'args'}{'name'}='mailing_'.$self->{'args'}{'name'};
 $self->elDecel();
 $self->elElement();
 ::body(<<EOT);
-<?php initializeMail();
-echo "<?xml version=\\\"1.0\\\"?>\\n"; ?>
+<?php initializeMail(); ?>
 <mail>
 EOT
 }
