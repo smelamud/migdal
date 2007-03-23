@@ -12,29 +12,25 @@
 	val7='http://www.jewniverse.ru/'
 	val8='http://futureisrael.org/ind-ru.html'>
  <array name='pics'
-	val1='/pics/ioc.gif'
-	val2='/pics/lookstein.gif'
+	val1='/pics/banners/ioc.gif'
+	val2='/pics/banners/lookstein.gif'
 	val3='http://www.antho.net/banners/88/88x31-03.gif'
 	val4='http://www.rjews.net/gazeta/a7ban.gif'
 	val5='http://www.lcenter.net/pics/banners/11.png'
 	val6='http://www.spectr.org/images/spectr88x31.gif'
-	val7='/pics/jewniverse.jpg'
+	val7='/pics/banners/jewniverse.jpg'
 	val8='http://futureisrael.org/ifg-ie-88x31.gif'>
  <array name='alts'
-        val1=''
-        val2=''
+        val1='&nil;'
+        val2='&nil;'
         val3='Jerusalem&sp;Anthologia'
 	val4='Jerusalem&sp;chronikles'
 	val5='Одесский&sp;центр&sp;Linux'
 	val6='Журнал&sp;"Спектр"'
 	val7='Jewniverse&sp;-&sp;Yiddish&sp;Shtetl'
 	val8='Будущее&sp;Правительство&sp;Израиля'>
- <assign name='url' value!='$urls[7]'>
- <assign name='pic' value!='$pics[7]'>
- <assign name='alt' value!='$alts[7]'>
- <a href='$url' target=_blank>
-  <img src='$pic' width=88 height=31 border=0 alt='$alt'></a>
- <iterate_random_seq n=2 min=1 max=7>
+ <assign name='count' value!='count($urls)'>
+ <iterate_random_seq n=3 min=1 max='$count'>
  <for>
   <assign name='url' value!='$urls[$. - 1]'>
   <assign name='pic' value!='$pics[$. - 1]'>

@@ -2,10 +2,9 @@
 
 # @(#) $Id$
 
-targetdir=$(builddir)/www/pics/
+targetdir=$(builddir)/www/pics/banners/
 
 all:
 	-mkdir -p $(targetdir)
 	find . -maxdepth 1 -type f -a \! -name '.*' | grep -v Makefile \
 		| xargs -i cp {} $(targetdir)
-	(cd banners; $(MAKE) all)

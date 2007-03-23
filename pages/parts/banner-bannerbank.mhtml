@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='bannerbank'>
+<element name='banner_bannerbank'>
 <english>
  <assign name='n' value=3>
 <else>

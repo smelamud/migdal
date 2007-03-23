@@ -102,11 +102,11 @@ else
    <table width=100%><tr>
     <td align=left>
      <banners>
-     <bannerbank>
+     <banner_bannerbank>
     </td>
     <td align=right>
-     <mailru_logo>
-     <rambler_logo>
+     <banner_mailru>
+     <banner_rambler>
     </td>
    </tr></table>
   </p>

@@ -29,7 +29,14 @@
 <decel name='/article_editmode' file='parts/article.php'>
 <decel name='article_full' file='parts/article.php' params='posting'>
 <decel name='backtrace' file='parts/backtrace.php'>
-<decel name='bannerbank' file='parts/bannerbank.php'>
+<decel name='banner_bannerbank' file='parts/banner-bannerbank.php'>
+<decel name='banner_hotlog' file='parts/banner-hotlog.php'>
+<decel name='banner_hotlog_top' file='parts/banner-hotlog.php'>
+<decel name='banner_mailru' file='parts/banner-mailru.php'>
+<decel name='banner_mailru_top' file='parts/banner-mailru.php'>
+<decel name='banner_rabbi' file='parts/banner-rabbi.php'>
+<decel name='banner_rambler' file='parts/banner-rambler.php'>
+<decel name='banner_rambler_top' file='parts/banner-rambler.php'>
 <decel name='banners' file='parts/banners.php'>
 <decel name='book_chapters' file='parts/book-chapters.php' params='book,id'
        defaults="id='-1'">
@@ -147,20 +154,15 @@
 <decel name='hit_parade_month' file='parts/hit-parade.php'
        params='grp,topic_id,showshadows'
        defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
-<decel name='hotlog_count' file='parts/hotlog.php'>
-<decel name='hotlog_logo' file='parts/hotlog.php'>
 <decel name='input_datetime' file='parts/utils.php'
        params='name,value,format,base_year'
        defaults="format='yMd' base_year=2000">
-<decel name='jewishru' file='parts/jewishru.php'>
 <decel name='langselect' file='parts/langselect.php' params='name,value'>
 <decel name='lastonline' file='parts/utils.php' params='user'>
 <decel name='links_switcher' file='parts/links-switcher.php' params='ident'>
 <decel name='login' file='parts/login.php'>
 <decel name='maillink' file='parts/utils.php' params='message'>
 <decel name='mailloginlink' file='parts/utils.php' params='message'>
-<decel name='mailru_count' file='parts/mailru.php'>
-<decel name='mailru_logo' file='parts/mailru.php'>
 <decel name='mailtolink' file='parts/utils.php' params='message'>
 <decel name='menu' file='parts/menu.php' params='ident'>
 <decel name='migdal_news' file='parts/migdal-news.php'>
@@ -236,9 +238,6 @@
        params='topic_id,offset' defaults="offset=0">
 <decel name='posting_selflink' file='parts/posting.php' params='posting'>
 <decel name='printlink' file='parts/posting.php' params='posting'>
-<decel name='rabbi' file='parts/rabbi.php'>
-<decel name='rambler_count' file='parts/rambler.php'>
-<decel name='rambler_logo' file='parts/rambler.php'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
        defaults="showtitle='*true'">
 <decel name='seealso' file='parts/seealso.php'

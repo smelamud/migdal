@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='hotlog_count'>
+<element name='banner_hotlog_top'>
 <noparse>
  <!-- HotLog -->
   <script language="javascript">
@@ -41,7 +41,7 @@
 </noparse>
 </element>
 
-<element name='hotlog_logo'>
+<element name='banner_hotlog'>
 <a href=http://www.hotlog.ru/ target=_top>
  <img src="http://www.hotlog.ru/buttons/88_31_12.gif" width="88" height="31"
       alt="HotLog" border="0"></a>

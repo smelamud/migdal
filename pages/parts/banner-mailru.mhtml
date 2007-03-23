@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='mailru_count'>
+<element name='banner_mailru_top'>
 <noparse>
  <!--Rating@Mail.ru COUNTER-->
   <script language="JavaScript">
@@ -44,7 +44,7 @@
 </noparse>
 </element>
 
-<element name='mailru_logo'>
+<element name='banner_mailru'>
 <!--Rating@Mail.ru LOGO-->
  <a target=_top href="http://top.mail.ru/jump?from=284568">
   <img src="http://top.list.ru/counter?id=284568;t=57;l=1" border=0 height=31

@@ -53,9 +53,9 @@
  <tr valign=top>
   <td align=left rowspan=2>
    <banner>
-   <hotlog_count>
-   <mailru_count>
-   <rambler_count>
+   <banner_hotlog_top>
+   <banner_mailru_top>
+   <banner_rambler_top>
   </td>
   <td align=right style='padding-right: 5px; padding-top: 5px'>
    <outer><table cellspacing=0 cellpadding=0><tr valign=top>
