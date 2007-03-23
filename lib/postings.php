@@ -788,16 +788,6 @@ return mysql_num_rows($result)>0 ? new Posting(mysql_fetch_assoc($result))
                                  : new Posting(array('grp' => $grp));
 }
 
-// remake
-function getPostingIdByMessageId($id)
-{
-$result=sql("select id
-	     from postings
-	     where message_id=$id",
-	    'getPostingIdByMessageId');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-}
-
 define('SIBLING_ID',1);
 define('SIBLING_INDEX',2);
 

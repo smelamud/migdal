@@ -32,31 +32,9 @@ function grpDiff($grp1,$grp2)
 return array_diff(grpArray($grp1),grpArray($grp2));
 }
 
-// remake
-function getGrpOrder($grp)
-{
-return round(log($grp)/M_LN2);
-}
-
 function isGrpValid($grp)
 {
 return !is_array($grp) && in_array($grp,grpArray(GRP_ALL));
-}
-
-// remake
-function getGrpWord($grp,$words)
-{
-return $words[getGrpValid($grp) ? getGrpOrder($grp)+1 : 0];
-}
-
-// remake
-function getGrpPlural($n,$grp,$words)
-{
-$pl=array();
-$w=getGrpValid($grp) ? (getGrpOrder($grp)+1)*3 : 0;
-for($i=0;$i<3;$i++)
-   $pl[$i]=$words[$w+$i];
-return getPlural($n,$pl);
 }
 
 function grpFilter($grp,$field='grp',$prefix='')
@@ -72,17 +50,6 @@ $conds=array();
 foreach($grp as $i)
        $conds[]="${prefix}$field=$i";
 return '('.join(' or ',$conds).')';
-}
-
-// remake
-function grpSample($grp)
-{
-if($grp==GRP_NONE)
-  return 0;
-for($i=1;$i<=GRP_ALL;$i*=2)
-   if(($i & $grp)!=0)
-     return $i;
-return 0;
 }
 
 class GrpEditor

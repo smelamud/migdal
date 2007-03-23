@@ -332,62 +332,6 @@ else
   }
 }
 
-// remake
-function postForumAnswer($message_id,$body,$sender_id=0)
-{
-global $rootForumPerms;
-
-if($parent_id>0)
-  {
-  $perms=getPermsById('messages',$message_id);
-  $group_id=$perms->getGroupId();
-  }
-else
-  $group_id=0;
-$forum=new Forum(array('body'      => $body,
-                             'parent_id' => $message_id,
-    			     'sender_id' => $sender_id,
-			     'group_id'  => $group_id,
-			     'perms'     => $rootForumPerms));
-return $forum->store();
-}
-
-// remake
-function getForumAnswersInfoByMessageId($message_id)
-{
-global $userId;
-
-if($userId<=0)
-  return answerGet($message_id);
-else
-  {
-  $hide=messagesPermFilter(PERM_READ,'messages');
-  $result=sql("select count(*) as answers,max(sent) as last_answer
-	       from forums
-		    left join messages
-			 on forums.message_id=messages.id
-	       where parent_id=$message_id and $hide",
-	      'getForumAnswersInfoByMessageId');
-  return mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
-  }
-}
-
-// remake
-function getForumAnswerIdByMessageId($message_id)
-{
-$result=sql("select id
-	     from forums
-	     where message_id=$message_id",
-	    'getForumAnswerIdByMessageId');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-}
-
-// remake
-function isForumAnswer($message_id)
-{
-return getForumAnswerIdByMessageId($message_id)>0;
-}
-
 function getForumListOffset($parent_id,$id,$sort=SORT_SENT)
 {
 $Filter=forumListFilter($parent_id);

@@ -198,7 +198,6 @@
 <deccall macro='grp_array' func='grpArray' file='lib/grps.php' params='grp'>
 <deccall macro='grp_diff' func='grpDiff' file='lib/grps.php' params='grp1,grp2'>
 <deccall macro='grp_join' func='grpJoin' file='lib/grps.php' params='grp1,grp2'>
-<deccall macro='grp_sample' func='grpSample' file='lib/grps.php' params='grp'>
 <deccall macro='grp_valid' func='isGrpValid' file='lib/grps.php' params='grp'>
 <deccall macro='horisont_obj' func='getHorisontByHost' file='lib/horisonts.php'
          params='host'>
@@ -218,8 +217,6 @@
 <deccall macro='location_info' func='getLocationInfo' file='lib/structure.php'
          params='path'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
-<deccall macro='message_posting' func='getPostingIdByMessageId'
-         file='lib/postings.php' params='id'>
 <decexec macro='outer' func='beginOuter' file='lib/inner.php'>
 <decexec macro='/outer' func='endOuter' file='lib/inner.php'>
 <deccall macro='perms' func='getPermsById' file='lib/permissions.php'
@@ -324,12 +321,6 @@
  <?php return endCallback(); ?>
  </element>
 </macro>
-
-<< GRP >>
-<deccall macro='grpword' func='getGrpWord' file='lib/grps.php'
-         params='grp,words' defaults="grp='$grp' words='$*'">
-<deccall macro='grpplural' func='getGrpPlural' file='lib/grps.php'
-         params='value,grp,words' defaults="grp='$grp' words='$*'">
 
 << Conditionals >>
 <macro name='endif'>

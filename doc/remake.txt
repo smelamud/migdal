@@ -142,11 +142,11 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/errorreporting.php
 + lib/errors.php
 + lib/exec.php
-* lib/forums.php
++ lib/forums.php
 + lib/gregor-calendar.php
 + lib/groups.php
 + lib/grpiterator.php
-* lib/grps.php
++ lib/grps.php
 - lib/horisonts.php
 + lib/ident.php
 * lib/images.php (функции работы с файлами можно выделить отдельно)
@@ -175,7 +175,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - lib/packages.php
 + lib/permissions.php
 * lib/postings-info.php (кроме кэша)
-* lib/postings.php
++ lib/postings.php
 + lib/postings-random.php
 + lib/post.php
 - lib/profiling.php
@@ -313,7 +313,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - pages/parts/book-chapters-static.mhtml
 + pages/parts/book-ring.mhtml
 - pages/parts/book-ring-static.mhtml
-* pages/parts/bottom.mhtml
+* pages/parts/bottom.mhtml (кроме snapshot)
 + pages/parts/complain.mhtml
 + pages/parts/daily-announce.mhtml
 + pages/parts/daily-picture.mhtml
@@ -328,7 +328,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/gallery.mhtml
 + pages/parts/grpselect.mhtml
 + pages/parts/hannukah.mhtml
-- pages/parts/help-link.mhtml
++ pages/parts/help-link.mhtml
 + pages/parts/history.mhtml
 + pages/parts/hit-parade.mhtml
 + pages/parts/langselect.mhtml
@@ -373,7 +373,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/topics-major.mhtml
 + pages/parts/topics.mhtml
 + pages/parts/topics-migdal-english.mhtml
-* pages/parts/topics-migdal.mhtml
+* pages/parts/topics-migdal.mhtml (кроме гастролей "Мигдаль-ора")
 + pages/parts/topics-peruser.mhtml
 + pages/parts/topics-times.mhtml
 + pages/parts/top.mhtml
