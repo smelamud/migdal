@@ -365,7 +365,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/topics-major.mhtml
 + pages/parts/topics.mhtml
 + pages/parts/topics-migdal-english.mhtml
-* pages/parts/topics-migdal.mhtml (кроме гастролей "Мигдаль-ора")
++ pages/parts/topics-migdal.mhtml
 + pages/parts/topics-peruser.mhtml
 + pages/parts/topics-times.mhtml
 + pages/parts/top.mhtml

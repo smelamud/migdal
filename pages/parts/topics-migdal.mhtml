@@ -168,7 +168,7 @@
               arrow!="$index=='migdal.migdal-or.gallery'"
 	      class='topics-item ninept'>
 </topics_table>
-<< FIXME сюда надо добавить гастроли >>
+<topics_common_events id='$`migdal.events.migdal-or-tours`'>
 </element>
 
 <element name='topics_museum'>
