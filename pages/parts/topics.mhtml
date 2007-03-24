@@ -103,7 +103,7 @@
 </if>
 </element>
 
-<element name='topics_table_end'>
+<element name='/topics_table'>
 </table>
 </element>
 

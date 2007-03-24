@@ -124,8 +124,10 @@
 
 <element name='form_buttons'>
 <tr><td colspan='2' class='form-section' style='text-align: center'>
- <input type=submit value='$title'>&nbsp;&nbsp;
- <input type=reset value='Очистить'>
+ <input type=submit value='$title'>
+ <if what='$clear'>
+  &nbsp;&nbsp;<input type=reset value='Очистить'>
+ </if>
 </td></tr>
 </element>
 

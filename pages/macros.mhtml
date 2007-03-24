@@ -66,8 +66,8 @@
 <decel name='events' file='parts/events.php' params='grp,index,prefix'
        defaults="index=0 prefix=''">
 <decel name='failpage' file='parts/failpage.php'>
-<decel name='form_buttons' file='parts/formutils.php' params='title'
-       defaults="title='Изменить'">
+<decel name='form_buttons' file='parts/formutils.php' params='title,clear'
+       defaults="title='Изменить' clear='*true'">
 <decel name='form_checkbox' file='parts/formutils.php'
        params='title,mandatory,comment,name,value,style,checked'
        defaults="mandatory='*false' comment='' style='select' value=1
@@ -213,6 +213,7 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
+<decel name='posting_selflink' file='parts/posting.php' params='posting'>
 <decel name='posting_textear' file='parts/posting-textear.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
@@ -239,7 +240,6 @@
        defaults="topic_id=-1 limit=10 offset=0">
 <decel name='postings_migdal_news' file='parts/postings-migdal-news.php'
        params='topic_id,offset' defaults="offset=0">
-<decel name='posting_selflink' file='parts/posting.php' params='posting'>
 <decel name='printlink' file='parts/posting.php' params='posting'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
        defaults="showtitle='*true'">
@@ -343,7 +343,7 @@
 <decel name='topics_table' params='class,span,title,nomargin'
        defaults="class='' span=1 title='' nomargin='*false'"
        file='parts/topics.php'>
-<decel name='topics_table_end' file='parts/topics.php'>
+<decel name='/topics_table' file='parts/topics.php'>
 <decel name='topics_times' file='parts/topics-times.php' params='index,base'
        defaults="base=''">
 <decel name='topics_tips' file='parts/topics-help.php' params='posting'>
@@ -370,10 +370,6 @@
 <decel name='vote_frame' file='parts/vote.php' params='id,align,color,image'
        defaults="align=''">
 <decel name='xml_text' file='parts/xml-text.php' params='id,name'>
-
-<macro name='/topics_table'>
- <topics_table_end>
-</macro>
 
 <macro name='bymessages'>
  <zone>
