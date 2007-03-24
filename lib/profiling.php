@@ -18,7 +18,7 @@ $profileStack=array();
 
 function millitime()
 {
-list($usec,$sec)=explode(" ",microtime());
+list($usec,$sec)=explode(' ',microtime());
 return (int)((float)$usec*1000)+$sec%1000*1000;
 }
 
@@ -35,11 +35,11 @@ if($object==POBJ_PAGE || $profilingLevel>PLEVEL_PAGES)
   else
     $up=$profileStack[count($profileStack)-1];
   $time=millitime();
-  $name=addslashes($name);
-  $comment=addslashes($comment);
+  $nameS=addslashes($name);
+  $commentS=addslashes($comment);
   sql("insert into profiling(up,object,name,begin_time,comment)
-       values($up,$object,'$name',$time,'$comment')",
-      'beginProfiling','','',false);
+       values($up,$object,'$nameS',$time,'$commentS')",
+      __FUNCTION__,'','',false);
   $id=sql_insert_id();
   array_push($profileStack,$id);
   updateTrackById('profiling',$id,track($profileStack));
@@ -61,6 +61,6 @@ $time=millitime();
 sql("update profiling
      set end_time=$time
      where id=$id",
-    'endProfiling','','',false);
+    __FUNCTION__,'','',false);
 }
 ?>

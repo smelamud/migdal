@@ -170,7 +170,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/postings.php
 + lib/postings-random.php
 + lib/post.php
-- lib/profiling.php
++ lib/profiling.php
 + lib/random.php
 + lib/redirs.php
 - lib/replication.php
