@@ -36,7 +36,7 @@
 </element>
 
 <element name='navi_archive' params='index,span' defaults='span=1'>
- <topics_line href='archive.php' text='Архив' arrow!="$index=='archive'"
+ <topics_line href='/archive/' text='Архив' arrow!="$index=='archive'"
               class='topics-item eightpt' span='$span'>
 </element>
 

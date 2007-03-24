@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<element name='forum_selflink'>
+<element name='forum_selflink' params='forum'>
 <selflink href#='$forum.ParentHref/?tid=$forum.Id#t$forum.Id'>
 </element>
 
