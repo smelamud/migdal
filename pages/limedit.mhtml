@@ -24,6 +24,8 @@
   <td class='eframe' width=200>
    <iterate_images postid='$,Id'>
    <topics_table class='ninept' title='Иллюстрации'>
+    <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
+                 class='new' text='-- Добавить --'>
     <for>
      <ife what='$.Title'>
       <assign name='name' value='$.LargeImageFilename'>
@@ -50,8 +52,6 @@
      <topics_line href#='/actions/posting/image/delete?editid=$.Id&okdir=$#-&faildir=$#-'
 		  class='edit' text='Удалить' nobullet='*true'>
     </for>
-    <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
-                 class='new' text='-- Добавить --'>
    </topics_table>
   </td>
   <td>
