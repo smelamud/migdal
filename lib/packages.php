@@ -57,17 +57,18 @@ function store()
 {
 # FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены
 $normal=$this->getNormal(false);
+$METHOD=get_method($this,'store');
 if($this->id)
   $result=sql(sqlUpdate('packages',
 			$normal,
 			array('id' => $this->id)),
-	      get_method($this,'store'),'update');
+	      $METHOD,'update');
 else
   {
   $normal['created']=date('Y-m-d H:i:s',time());
   $result=sql(sqlInsert('packages',
                         $normal),
-	      get_method($this,'store'),'insert');
+	      $METHOD,'insert');
   $this->id=sql_insert_id();
   $this->created=$normal['created'];
   }

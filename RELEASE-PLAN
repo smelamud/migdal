@@ -22,9 +22,6 @@
       storeObject() должен передаваться по ссылке.
     * HTMLSmth() переименовывается в SmthHTML().
     * is_int() иногда нужно заменить на is_numeric().
-    * $`postings:smth` -> $`post.smth`.
-    * Объявлять переменную $METHOD там, где используется get_method() для
-      получения имени метода для sql().
     * <subtitle> теперь принимает непосредственный параметр, по умолчанию -
       заголовок страницы.
     * У PostingListIterator/getPostingById поменялся набор SELECT_*.

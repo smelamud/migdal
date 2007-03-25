@@ -30,10 +30,11 @@ parent::SelectIterator($aClass,$limit==0 ? $query
 
 function countSelect()
 {
+$METHOD=get_method($this,'countSelect');
 if($this->size<0)
   {
   $result=sql($this->count_query,
-              get_method($this,'countSelect'));
+              $METHOD);
   $this->size=mysql_result($result,0,0);
   }
 }
