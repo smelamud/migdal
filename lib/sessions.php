@@ -126,16 +126,4 @@ else
   setSubdomainCookie('sessionid',$sessionId,time()+($sessionTimeout+24)*3600,
                      '/',$siteDomain);
 }
-
-function getSettingsCookie()
-{
-return getSubdomainCookie('settings');
-}
-
-function setSettingsCookie($settings)
-{
-global $siteDomain;
-
-setSubdomainCookie('settings',$settings,time()+3600*24*366,'/',$siteDomain);
-}
 ?>

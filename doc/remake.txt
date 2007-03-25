@@ -99,8 +99,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/postingorg-goto.php
 + actions/reorder.php
 - actions/search.php
++ actions/setup.php
 + actions/shadow.php
-- actions/style.php
 + actions/_template.php
 + actions/topicdel.php
 + actions/topicmod.php
@@ -270,9 +270,9 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/register.mhtml
 + pages/reorder.mhtml
 * pages/search.mhtml
++ pages/setup.mhtml
 - pages/stotext-help-subs.mhtml
 - pages/stotext-help-types.mhtml
-- pages/style.mhtml
 + pages/_template.mhtml
 + pages/times.mhtml
 + pages/tips.mhtml

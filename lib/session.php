@@ -11,6 +11,7 @@ require_once('lib/sessions.php');
 require_once('lib/users.php');
 require_once('lib/sql.php');
 require_once('lib/ctypes.php');
+require_once('lib/settings.php');
 
 $userRights=array('AdminUsers'           => USR_ADMIN_USERS,
                   'AdminTopics'          => USR_ADMIN_TOPICS,
@@ -18,48 +19,6 @@ $userRights=array('AdminUsers'           => USR_ADMIN_USERS,
 		  'Moderator'            => USR_MODERATOR,
 		  'Judge'                => USR_JUDGE,
 		  'AdminDomain'          => USR_ADMIN_DOMAIN);
-$userSetNames=array('MsgPortion', // obsolete
-                    'ForumPortion',
-                    'ComplainPortion', // obsolete
-	            'ChatPortion',
-	            'ChatRefresh',
-		    'ForumCatalogPortion', // obsolete
-		    'Style',
-		    'PictureRowPortion',
-		    'PictureColumnPortion',
-		    'BiffTime',
-		    'ReadKOI', // obsolete
-		    'IndexPage', // obsolete
-		    'ChatUsersRefresh',
-		    'UserPortion'); // obsolete
-$userSetDefaults=array('MsgPortion'           => 10, // obsolete
-                       'ForumPortion'         => 10,
-                       'ComplainPortion'      => 20, // obsolete
-	               'ChatPortion'          => 20,
-	               'ChatRefresh'          => 10,
-		       'ForumCatalogPortion'  => 20, // obsolete
-		       'Style'                => 1,
-		       'PictureRowPortion'    => 4,
-		       'PictureColumnPortion' => 5,
-		       'BiffTime'             => 24,
-		       'ReadKOI'              => 0, // obsolete
-		       'IndexPage'            => 1, // obsolete
-		       'ChatUsersRefresh'     => 60,
-		       'UserPortion'          => 30); // obsolete
-$userSetParams=array('MsgPortion'           => 'mp', // obsolete
-                     'ForumPortion'         => 'fp',
-		     'ComplainPortion'      => 'cp', // obsolete
-		     'ChatPortion'          => 'chp',
-		     'ChatRefresh'          => 'chr',
-		     'ForumCatalogPortion'  => 'fcp', // obsolete
-		     'Style'                => 'st',
-		     'PictureRowPortion'    => 'prp',
-		     'PictureColumnPortion' => 'pcp',
-		     'BiffTime'             => 'bt',
-		     'ReadKOI'              => 'rk',
-		     'IndexPage'            => 'ip', // obsolete
-		     'ChatUsersRefresh'     => 'chur',
-		     'UserPortion'          => 'up'); // obsolete
 
 function sessionGuest()
 {
@@ -160,47 +119,6 @@ if($GLOBALS['userLogin']!='' && c_ascii($GLOBALS['userLogin']))
   $GLOBALS['userFolder']=$GLOBALS['userLogin'];
 else
   $GLOBALS['userFolder']=$userId;
-}
-
-function userSettings()
-{
-global $userId,$userSetNames,$userSetDefaults,$userSetParams,$siteDomain,$Args;
-       
-if($userId>0)
-  {
-  $dbSettings=getSettingsByUserId($userId);
-  $row=explode(':',$dbSettings);
-  }
-else
-  $row=array();
-$cookieSettings=getSettingsCookie();
-$cookie=explode(':',$cookieSettings);
-foreach($userSetNames as $i => $name)
-       {
-       $row[$name]=$row[$i];
-       $cookie[$name]=$cookie[$i];
-       }
-$update=array();
-foreach($userSetNames as $name)
-       {
-       $par=$_GET[$userSetParams[$name]];
-       $cook=$cookie[$name];
-       $db=$row[$name];
-       settype($par,'integer');
-       settype($cook,'integer');
-       $glob=!empty($par) ? $par :
-            (!empty($db) ? $db :
-            (!empty($cook) ? $cook : $userSetDefaults[$name]));
-       $update[]=$glob;
-       $GLOBALS["user$name"]=$glob;
-       }
-if(isset($Args['print']) && $Args['print']!=0 || $_GET['print']!=0)
-  $GLOBALS['userStyle']=-1;
-$globs=join(':',$update);
-if($userId>0 && $globs!=$dbSettings)
-  updateUserSettings($userId,$globs);
-if($globs!=$cookieSettings)
-  setSettingsCookie($globs);
 }
 
 function session($aUserId=-1)

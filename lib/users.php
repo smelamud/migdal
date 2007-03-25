@@ -689,26 +689,6 @@ sql("update users
     __FUNCTION__);
 }
 
-function getSettingsByUserId($userId)
-{
-$result=sql("select settings
-	     from users
-	     where id=$userId",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : '';
-}
-
-function updateUserSettings($userId,$settings)
-{
-sql("update users
-     set settings='$settings'
-     where id=$userId",
-    __FUNCTION__);
-journal("update users
-	 set settings='".jencode($settings)."'
-	 where id=".journalVar('users',$userId));
-}
-
 function personalExists($id)
 {
 global $userAdminUsers;
