@@ -13,10 +13,11 @@ function getHorisont($host,$weKnow)
 {
 global $dbName;
 
+$hostS=addslashes($host);
 $result=sql('select '.($weKnow ? 'we_know' : 'they_know')."
 	     from $dbName.horisonts
-	     where host='$host'",
-	    'getHorisont');
+	     where host='$hostS'",
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -24,41 +25,43 @@ function setHorisont($host,$horisont,$weKnow)
 {
 global $dbName;
 
-$host=addslashes($host);
+$hostS=addslashes($host);
 $result=sql("select host
 	     from $dbName.horisonts
-	     where host='$host'",
-	    'setHorisont','get');
+	     where host='$hostS'",
+	    __FUNCTION__,'get');
 if(mysql_num_rows($result)<=0)
   sql("insert into $dbName.horisonts(host,".($weKnow ? 'we_know'
                                                      : 'they_know').")
-		   values('$host',$horisont)",
-      'setHorisont','create');
+		   values('$hostS',$horisont)",
+      __FUNCTION__,'create');
 else
   sql("update $dbName.horisonts
        set ".($weKnow ? 'we_know' : 'they_know')."=$horisont
-       where host='$host'",
-      'setHorisont','update');
+       where host='$hostS'",
+      __FUNCTION__,'update');
 }
 
 function lockReplication($host)
 {
 global $dbName;
 
+$hostS=addslashes($host);
 sql("update $dbName.horisonts
      set `lock`=now()
-     where host='".addslashes($host)."'",
-    'lockReplication');
+     where host='$hostS'",
+    __FUNCTION__);
 }
 
 function unlockReplication($host)
 {
 global $dbName;
 
+$hostS=addslashes($host);
 sql("update $dbName.horisonts
      set `lock`=null
-     where host='".addslashes($host)."'",
-    'unlockReplication');
+     where host='$hostS'",
+    __FUNCTION__);
 }
 
 function updateReplicationLock($host)
@@ -70,12 +73,13 @@ function isReplicationLocked($host)
 {
 global $replicationLockTimeout,$dbName;
 
+$hostS=addslashes($host);
 $result=sql("select host
 	     from $dbName.horisonts
-	     where host='".addslashes($host)."' and
+	     where host='$hostS' and
 		   `lock` is not null and
 		   `lock`+interval $replicationLockTimeout minute>now()",
-	    'isReplicationLocked');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
@@ -88,7 +92,7 @@ var $they_know;
 
 function Horisont($row)
 {
-$this->DataObject($row);
+parent::DataObject($row);
 }
 
 function getHost()
@@ -114,12 +118,12 @@ $this->we_know=$vars['we_know'];
 $this->they_know=$vars['they_know'];
 }
 
-function store()
-{
-setHorisont($this->host,$this->we_know,HOR_WE_KNOW);
-setHorisont($this->host,$this->they_know,HOR_THEY_KNOW);
 }
 
+function storeHorisont(&$horisont)
+{
+setHorisont($horisont->host,$horisont->we_know,HOR_WE_KNOW);
+setHorisont($horisont->host,$horisont->they_know,HOR_THEY_KNOW);
 }
 
 class HorisontsIterator
@@ -130,10 +134,10 @@ function HorisontsIterator()
 {
 global $dbName;
 
-$this->SelectIterator('Horisont',
-                      "select host,we_know,they_know
-		       from $dbName.horisonts
-		       order by host");
+parent::SelectIterator('Horisont',
+		       "select host,we_know,they_know
+			from $dbName.horisonts
+			order by host");
 }
 
 }
@@ -142,10 +146,11 @@ function getHorisontByHost($host)
 {
 global $dbName;
 
+$hostS=addslashes($host);
 $result=sql("select host,we_know,they_know
 	     from $dbName.horisonts
-	     where host='".addslashes($host)."'",
-	    'getHorisontByHost');
+	     where host='$hostS'",
+	    __FUNCTION__);
 return new Horisont(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                               : array());
 }

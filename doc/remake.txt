@@ -10,7 +10,6 @@
 подстановка $=var для вставки в HTML простых строк, в которых могут быть
 неэкранированные спецсимволы. Это не требуется, где есть методы *HTML() которые
 конвертируют из внутреннего представления в уже подготовленный для HTML формат.
-5. getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены.
 6. PHP3 умер. Рассчитываем на PHP 4.1. Используем parent::, superglobals.
 8. Функции, генерирующие SQL, сами обрабатывают свои параметры через
 addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
@@ -139,7 +138,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/groups.php
 + lib/grpiterator.php
 + lib/grps.php
-- lib/horisonts.php
++ lib/horisonts.php
 + lib/ident.php
 * lib/images.php (функции работы с файлами можно выделить отдельно)
 + lib/image-types.php
@@ -152,7 +151,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/iterator.php
 + lib/jewish-calendar.php
 + lib/jewish-calendar-utils.php
-- lib/journal.php
++ lib/journal.php
 + lib/langs.php
 + lib/limitselect.php
 + lib/logging.php

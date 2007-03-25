@@ -29,7 +29,7 @@ if($journalSeq==0)
   bug('No sequence.');
 if($journalSeq>0)
   sql("insert into journal(seq) values($journalSeq)",
-      'endJournal');
+      __FUNCTION__);
 $journalSeq=0;
 }
 
@@ -41,10 +41,10 @@ if(!$replicationJournal)
   return;
 if($journalSeq==0)
   bug('No sequence.');
-$query=addslashes($query);
+$queryS=addslashes($query);
 sql("insert into journal(seq,result_table,result_id,query)
-     values($journalSeq,'$table',$id,'$query')",
-    'journal','log');
+     values($journalSeq,'$table',$id,'$queryS')",
+    __FUNCTION__,'log');
 if($table!='' || $journalSeq<0)
   {
   $id=sql_insert_id();
@@ -53,7 +53,7 @@ if($table!='' || $journalSeq<0)
 	    .($table!='' && $journalSeq<0 ? ',' : '')
 	    .($journalSeq<0 ? "seq=$id" : '').
      " where id=$id",
-      'journal','seq_var');
+      __FUNCTION__,'seq_var');
   if($journalSeq<0)
     $journalSeq=$id;
   }
@@ -70,7 +70,7 @@ if($id==0)
 $result=sql("select result_var
 	     from journal
 	     where result_table='$table' and result_id=$id",
-	    'journalVar');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? '$'.mysql_result($result,0,0) : $id;
 }
 
@@ -117,7 +117,7 @@ function isSeqClosed($seq)
 $result=sql("select id
 	     from journal
 	     where seq=$seq and query=''",
-	    'isSeqClosed');
+	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
@@ -134,7 +134,7 @@ var $sent;
 
 function JournalLine($row)
 {
-$this->DataObject($row);
+parent::DataObject($row);
 }
 
 function getId()
@@ -208,11 +208,11 @@ var $seq;
 
 function JournalIterator($from=0)
 {
-$this->SelectIterator('JournalLine',
-                      "select id,seq,result_table,result_id,result_var,query
-		       from journal
-		       where seq>$from
-		       order by seq,id");
+parent::SelectIterator('JournalLine',
+		       "select id,seq,result_table,result_id,result_var,query
+			from journal
+			where seq>$from
+			order by seq,id");
 $this->seq=0;
 }
 
@@ -262,55 +262,57 @@ return new JournalLine($row);
 
 function getJournalVar($host,$var)
 {
+$hostS=addslashes($host);
 sql("update journal_vars
      set last_read=null
-     where host='$host' and var=$var",
-    'getJournalVar','timestamp');
+     where host='$hostS' and var=$var",
+    __FUNCTION__,'timestamp');
 $result=sql("select value
 	     from journal_vars
-	     where host='".addslashes($host)."' and var=$var",
-	    'getJournalVar','get');
+	     where host='$hostS' and var=$var",
+	    __FUNCTION__,'get');
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
 function setJournalVar($host,$var,$value)
 {
-$host=addslashes($host);
+$hostS=addslashes($host);
 $result=sql("select value
 	     from journal_vars
-	     where host='$host' and var=$var",
-	    'setJournalVar','check');
+	     where host='$hostS' and var=$var",
+	    __FUNCTION__,'check');
 if(mysql_num_rows($result)>0)
   sql("update journal_vars
        set value=$value
-       where host='$host' and var=$var",
-      'setJournalVar','update');
+       where host='$hostS' and var=$var",
+      __FUNCTION__,'update');
 else
   sql("insert into journal_vars(var,host,value)
-       values($var,'$host',$value)",
-      'setJournalVar','create');
+       values($var,'$hostS',$value)",
+      __FUNCTION__,'create');
 }
 
 function subJournalVars($host,$query)
 {
-$host=addslashes($host);
-return preg_replace('/\$([0-9]+)/e',"getJournalVar('$host',\\1)",$query);
+$hostS=addslashes($host);
+return preg_replace('/\$([0-9]+)/e',"getJournalVar('$hostS',\\1)",$query);
 }
 
 function clearJournal()
 {
-sql('insert into journal(seq) values(0)',
-    'clearJournal','create_barrier');
+sql('insert into journal(seq)
+     values(0)',
+    __FUNCTION__,'create_barrier');
 $id=sql_insert_id();
 sql("update journal set seq=$id where id=$id",
-    'clearJournal','seq_barrier');
+    __FUNCTION__,'seq_barrier');
 $result=sql('select min(they_know)
 	     from horisonts',
-	    'clearJournal','get_min_horisont');
+	    __FUNCTION__,'get_min_horisont');
 $level=mysql_result($result,0,0);
 sql("delete from journal
      where seq<=$level",
-    'clearJournal','delete_extra');
+    __FUNCTION__,'delete_extra');
 }
 
 function isJournalEmpty()
@@ -320,7 +322,7 @@ global $dbName;
 $result=sql("select count(*)
 	     from $dbName.journal
 	     where query<>''",
-	    'isJournalEmpty');
+	    __FUNCTION__);
 return mysql_result($result,0,0)==0;
 }
 
@@ -328,15 +330,16 @@ function duplicateDatabase()
 {
 global $dbName;
 
+// FIXME incorrect list of tables
 $tables=array('complain_actions','complains','counters','cross_topics',
               'forums','groups','images','instants','messages','multisites',
 	      'postings','stotext_images','stotexts','topics','users','votes');
 foreach($tables as $table)
        {
        sql("delete from $dbName.$table",
-           'duplicateDatabase','drop',"table='$table'");
+           __FUNCTION__,'drop',"table='$table'");
        sql("insert into $dbName.$table select * from $table",
-           'duplicateDatabase','copy',"table='$table'");
+           __FUNCTION__,'copy',"table='$table'");
        }
 }
 ?>

@@ -41,11 +41,13 @@ function Package($row)
 $this->DataObject($row);
 }
 
+# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены
 function getWorldVars()
 {
 return array('message_id','type','mime_type','title','body','size','url');
 }
 
+# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены
 function getAdminVars()
 {
 return array();
@@ -53,6 +55,7 @@ return array();
 
 function store()
 {
+# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены
 $normal=$this->getNormal(false);
 if($this->id)
   $result=sql(sqlUpdate('packages',
