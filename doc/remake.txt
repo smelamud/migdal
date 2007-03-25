@@ -121,7 +121,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/cache.php
 + lib/calendar.php
 + lib/calendar-tables.php
-* lib/charsets.php (иврит и лигатуры не обрабатываются для текстов из файла)
++ lib/charsets.php
 + lib/complainactions.php
 + lib/complainscripts.php
 + lib/complains.php
@@ -276,7 +276,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - pages/stotext-help-subs.mhtml
 - pages/stotext-help-types.mhtml
 - pages/style.mhtml
-- pages/_template.mhtml
++ pages/_template.mhtml
 + pages/times.mhtml
 + pages/tips.mhtml
 + pages/topicdel.mhtml

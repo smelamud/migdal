@@ -2,12 +2,22 @@
 
 << This is a template of user-viewable page >>
 
-<pagetitle title='&lt;шаблон&gt;'>
-
 <html>
 <preamble>
 <body>
  <top ident='template'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics>
+    <ears>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    Текст страницы...
+   </td>
+  </tr>
+ </table>
  <bottom>
 </body>
 </html>

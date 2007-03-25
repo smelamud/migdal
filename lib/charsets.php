@@ -251,14 +251,16 @@ function convertUploadedText($s)
 {
 global $charsetInternal;
 
+$s=convertLigatures($s);
 if(isUTF8($s))
   $icharset='UTF-8';
 elseif(isKOI($s))
   $icharset='KOI8-R';
 else
   $icharset='CP1251';
-$out=convertCharset($s,$icharset,$charsetInternal);
-return $out;
+$s=convertCharset($s,$icharset,$charsetInternal);
+$s=convertHebrew($s);
+return $s;
 }
 
 function convertOutputString($s)
