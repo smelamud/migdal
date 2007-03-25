@@ -172,7 +172,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/profiling.php
 + lib/random.php
 + lib/redirs.php
-- lib/replication.php
 + lib/rowscols.php
 + lib/run-script.php
 + lib/selectiterator.php
@@ -193,6 +192,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/utils.php
 + lib/votes.php
 
++ sources/replication.php
 + sources/stat.php
 
 * scripts/daily.php (+чистка mail_log)
