@@ -1,6 +1,6 @@
 << @(#) $Id$ >>
 
-<pagetitle title='Редактирование горизонта'>
+<string name='host'>
 
 <html>
 <preamble>
@@ -8,23 +8,21 @@
  <top ident='index'>
  <horisont_obj host='$host'>
  <setup>
- <formtable title#='Изменить горизонт для $host'>
-  <form method=post action='actions/horisontmod.php'>
+ <form_table title#='Изменить горизонт для $host' mini='*true'>
+  <form method=post action='/actions/horisont/modify'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='host' value='$host'>
-   <table>
-    <starinfo span=2>
-    <error id='*ET_NO_EDIT' text='У вас нет права менять список тем' span=2>
-    <edit_line title='Мы о них' name='we_know' value='$,WeKnow' size=5
-               maxlength=10>
-    <edit_line title='Они о нас' name='they_know' value='$,TheyKnow' size=5
-               maxlength=10>
-    <formbuttons title='Изменить' span=2>
-   </table>
+   <starinfo>
+   <error id='*EH_NO_MODIFY' text='У вас нет права менять горизонты'>
+   <form_edit title='Мы о них' name='we_know' value='$,WeKnow' size=10
+	      maxlength=10>
+   <form_edit title='Они о нас' name='they_know' value='$,TheyKnow' size=10
+	      maxlength=10>
+   <form_buttons title='Изменить'>
   </form>
- </formtable>
+ </form_table>
  <bottom>
 </body>
 </html>

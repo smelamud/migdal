@@ -84,7 +84,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/groupadd.php
 + actions/groupdel.php
 + actions/hide.php
-- actions/horisontmod.php
++ actions/horisontmod.php
 + actions/limdel.php
 + actions/limmod.php
 + actions/link.php
@@ -243,11 +243,11 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/groupadd.mhtml
 + pages/grouporg.mhtml
 - pages/halom-main.mhtml (удалить, сохранив ловушку)
-- pages/horisontedit.mhtml
++ pages/horisontedit.mhtml
 + pages/index-english.mhtml
 * pages/index-www.mhtml (кроме ловушек)
 + pages/jcc.mhtml
-- pages/journal.mhtml
++ pages/journal.mhtml
 - pages/kaitana-main.mhtml (удалить, сохранив ловушку)
 + pages/limedit.mhtml
 + pages/liminsert.mhtml

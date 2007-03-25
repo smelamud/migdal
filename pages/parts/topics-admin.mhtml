@@ -12,7 +12,7 @@
  <topics_line arrow!="$index=='admin-groups'" text='Группы'
               href='/admin/groups/'>
  <topics_line arrow!="$index=='admin-journal'" text='Журнал'
-              href='journal.php'>
+              href='/admin/journal/'>
  <topics_splitter>
  <topics_line arrow!="$index=='ears'" text='Ушки'
               href='/admin/ears/'>

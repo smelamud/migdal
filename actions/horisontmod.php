@@ -19,6 +19,9 @@ setHorisont($host,$they_know,HOR_THEY_KNOW);
 return EG_OK;
 }
 
+postString('okdir');
+postString('faildir');
+
 postString('host');
 postInteger('we_know');
 postInteger('they_know');
@@ -31,7 +34,7 @@ if($err==EG_OK)
                                 array('err')));
 else
   header('Location: '.remakeMakeURI($faildir,
-                                    $HTTP_POST_VARS,
+                                    $Args,
 				    array('okdir',
 				          'faildir'),
 				    array('err' => $err)));

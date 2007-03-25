@@ -46,7 +46,8 @@
 <decel name='book_ring_static' file='parts/book-ring-static.php'
        params='book,index'>
 <decel name='bottom' file='parts/bottom.php'>
-<decel name='catalog_table' file='parts/catalog.php'>
+<decel name='catalog_table' file='parts/catalog.php' params='compact'
+       defaults="compact='*false'">
 <decel name='/catalog_table' file='parts/catalog.php'>
 <decel name='complain' file='parts/complain.php'
        params='complain,discuss' defaults="discuss='*true'">

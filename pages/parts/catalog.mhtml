@@ -1,7 +1,12 @@
 << @(#) $Id$ >>
 
 <element name='catalog_table'>
-<table width='100%' class='catalog' cellspacing='0' cellpadding='0'><tr><td>
+<if what='$compact'>
+ <assign name='width' value=''>
+<else>
+ <assign name='width' value='width="100%"'>
+</if>
+<table $width class='catalog' cellspacing='0' cellpadding='0'><tr><td>
  <table width='100%' class='catalog-layer' cellspacing='1' cellpadding='3'>
 </element>
 
