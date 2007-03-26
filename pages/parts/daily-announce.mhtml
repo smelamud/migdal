@@ -2,7 +2,7 @@
 
 <element name='daily_announce'>
 <iterate_postinglist topic_id='$topic_id' grp='*GRP_DAILY_NEWS'
-                     sort='*SORT_RINDEX1' limit=5 fields='*SELECT_TOPICS'>
+                     sort='*SORT_RINDEX1' limit=5>
 <ifnzero what='$;Count'>
  <table style='margin: 0'>
   <topic_obj id='$topic_id'>

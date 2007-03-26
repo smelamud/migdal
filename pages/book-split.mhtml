@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <ident name='bookid' table='postings'>
+<< FIXME |SELECT_LARGE_BODY ? >>
 <posting_obj id='$bookid' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
 <ifzero what='$,Id'>
  <fail>

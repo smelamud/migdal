@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <ident name='bookid' table='postings'>
+<< FIXME |SELECT_LARGE_BODY ? >>
 <posting_obj id='$bookid' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
 <ifzero what='$,Id'>
  <fail>
@@ -25,6 +26,7 @@
   </td></tr></table>
   <a name='contents'></a>
   <h1>Оглавление</h1>
+  << FIXME |SELECT_LARGE_BODY ? >>
   <iterate_postinglist grp='*GRP_BOOK_CHAPTERS' limit=0 sort='*SORT_INDEX0'
 		       up='$,MessageId' fields='*SELECT_GENERAL'>
   <ul>
@@ -35,6 +37,7 @@
   <reset_iterator>
   <assign name='static_note_base' value=1>
   <for>
+   << FIXME |SELECT_LARGE_BODY ? SELECT_IMAGES deprecated >>
    <posting_obj id='$.Id' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_IMAGES'>
    <a name='chap$.Id'></a>
    <h1 style='clear: both; padding-top: 20px'>$,Subject

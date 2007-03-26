@@ -54,6 +54,7 @@
       <<assign name='ln' value!='$ln+1'>
       <li value='$ln'><p class='search'>
        <ifnzero what='$.PostingId'>
+	<< FIXME SELECT_TOPICS deprecated >>
 	<posting_obj id='$.PostingId' fields='*SELECT_TOPICS'>
 	<identify posting='$,'>
 	<a href='$,DetailsHref'>$.Title</a><br>

@@ -37,6 +37,7 @@
 << /Traps >>
 
 <<zone>
+ << FIXME `topics` table is deprecated >>
  <ident_id ident='$topic_id'>
  <log event=gallery text#='topic($,) offset=$offset'>
 </zone>>

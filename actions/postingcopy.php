@@ -70,6 +70,7 @@ global $userModerator;
 
 if(!$userModerator)
   return EPC_NO_COPY;
+// FIXME SELECT_TOPICS deprecated
 $posting=getPostingById($postid,GRP_ALL,-1,SELECT_TOPICS);
 if($posting->getId()<=0)
   return EPC_NO_POSTING;

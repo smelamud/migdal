@@ -101,6 +101,7 @@ if($type==PT_BOOK_SPLIT)
 $list->reset();
 while($item=$list->next())
      {
+     // FIXME SELECT_IMAGES deprecated
      $chap=getPostingById($item->getId(),GRP_BOOK_CHAPTERS,-1,SELECT_IMAGES);
      $pars=new PostingParagraphIterator($chap); // FIXME no such class
      while($par=$pars->next())
