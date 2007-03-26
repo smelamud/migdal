@@ -1,5 +1,7 @@
 << @(#) $Id$>>
 
+<conf>
+
 <mail name='register' params='user_id'>
 <user_obj id='$user_id'>
 <headers>
@@ -17,7 +19,7 @@
  Вашего браузера:
 </p>
 <p>
- http://www.migdal.ru/actions/userconfirm.php?code=$,ConfirmCode
+ http://www.$$siteDomain/actions/user/confirm?code=$,ConfirmCode
 </p>
 <p>
  В большинстве современных почтовых программ для завершения регистрации

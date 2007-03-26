@@ -546,16 +546,48 @@ for($i=0;$i<20;$i++)
    {
    $s.=chr(random(ord('A'),ord('Z')));
    }
-$result=sql("update users
-	     set no_login=1,confirm_code='$s',
-		 confirm_deadline=now()+interval $regConfirmTimeout day
-	     where id=$userId",
-	    __FUNCTION__);
+sql("update users
+     set no_login=1,confirm_code='$s',
+	 confirm_deadline=now()+interval $regConfirmTimeout day
+     where id=$userId",
+    __FUNCTION__);
 journal("update users
          set no_login=1,confirm_code='$s',
 	     confirm_deadline=now()+interval $regConfirmTimeout day
  	 where id=".journalVar('users',$userId));
-return $result;
+}
+
+function confirmUser($userId)
+{
+sql("update users
+     set no_login=0,hidden=0,confirm_deadline=null,
+	 last_online=now()
+     where id=$userId",
+    __FUNCTION__);
+journal('update users
+         set no_login=0,hidden=0,confirm_deadline=null,
+	     last_online=now()
+	 where id='.journalVar('users',$userId));
+}
+
+function getUserIdByConfirmCode($confirmCode)
+{
+$confirmCodeS=addslashes($confirmCode);
+$result=sql("select id
+	     from users
+	     where confirm_code='$confirmCodeS'
+		   and hidden<2",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function isUserConfirmed($id)
+{
+$result=sql("select if(confirm_deadline is null,1,0)
+             from users
+	     where id=$id",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0)!=0 : false;
 }
 
 function getUserLoginById($id)

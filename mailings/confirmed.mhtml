@@ -1,22 +1,23 @@
 << @(#) $Id$ >>
 
-<user_obj id='$link'>
-
-<mail>
-From: mailrobot@migdal.ru<br>
-Subject: [Мигдаль] Регистрация подтверждена<br>
-Content-Type: text/plain; charset=koi8-r<br>
-<br>
-Подтверждена регистрация пользователя:<br>
-<br>
-Ник:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Login<br>
-Имя:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Name<br>
-Еврейское&sp;имя:&sp;&sp;$,JewishName<br>
-Фамилия:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Surname<br>
-<assign value!="$,isMan ? 'Мужской' : 'Женский'">
-Пол:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$*<br>
-E-mail:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Email<br>
-ICQ:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,ICQ<br>
-<br>
----<br>
+<mail name='confirmed' params='user_id'>
+<user_obj id='$user_id'>
+<headers>
+<subject>Регистрация подтверждена</subject>
+</headers>
+<content>
+<p>
+ Подтверждена регистрация пользователя:
+</p>
+ Ник:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Login<br />
+ Имя:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Name<br />
+ Еврейское&sp;имя:&sp;&sp;$,JewishName<br />
+ Фамилия:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Surname<br />
+ <assign value!="$,isMan ? 'Мужской' : 'Женский'">
+ Пол:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$*<br />
+ E-mail:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Email<br />
+ ICQ:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,ICQ
+</p>
+<p>---</p>
+</content>
 </mail>

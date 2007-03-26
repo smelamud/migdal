@@ -1,5 +1,7 @@
 << @(#) $Id$ >>
 
+<int name='novice'>
+
 <html>
 <preamble>
 <body>
@@ -7,8 +9,20 @@
  <form_table title='Вход на сайт' mini='*true'>
   <notlogged>
    <form method=post action='/actions/login'>
-    <hidden name='okdir' value='$--'>
+    <if what='!$novice'>
+     <hidden name='okdir' value='$--'>
+    <else>
+     <hidden name='okdir' value='/register/ok/'>
+    </if>
     <hidden name='faildir' value='$-'>
+    <if what='$novice'>
+     <form_comment>
+      <b>Поздравляем, Ваша регистрация успешно подтверждена!</b>
+      <p>
+      Чтобы войти на сайт под своим ником, введите ник и пароль в эту форму и
+      нажмите кнопку &lt;&lt;Войти&gt;&gt; внизу.
+     </form_comment>
+    </if>
     <error id='*EL_INVALID' text='Неверный ник или пароль'>
     <form_edit title='Ник' name='login' value='$$userLoginHint' size=30
                maxlength=30>
@@ -20,8 +34,10 @@
                   selected!='$$userMyComputerHint==0'>
     </form_select>
     <form_comment>
-     Если у вас еще нет ника и пароля, вам нужно
-     <a href='/register/?redirid=$_'>зарегистрироваться</a>.<br>
+     <if what='!$novice'>
+      Если у вас еще нет ника и пароля, вам нужно
+      <a href='/register/?redirid=$_'>зарегистрироваться</a>.<br>
+     </if>
      Забыли пароль? Мы <a href='userlost.php?redirid=$_'>вышлем вам новый</a>.
     </form_comment>
     <form_buttons title='Войти'>

@@ -21,12 +21,13 @@ OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  migdal-library.mhtml migdal-library-novelties.mhtml \
 	  migdal-news.mhtml modbits.mhtml moderator.mhtml peruser.mhtml \
 	  peruser-user.mhtml posting.mhtml postingedit.mhtml postingorg.mhtml \
-	  printings.mhtml rating.mhtml register.mhtml reorder.mhtml \
-	  search.mhtml setup.mhtml signin.mhtml stotext-help-subs.mhtml \
+	  printings.mhtml rating.mhtml register.mhtml register-confirm.mhtml \
+	  register-error.mhtml register-ok.mhtml reorder.mhtml search.mhtml \
+	  setup.mhtml signin.mhtml stotext-help-subs.mhtml \
 	  stotext-help-types.mhtml textears.mhtml times.mhtml tips.mhtml \
 	  topicdel.mhtml topicedit.mhtml topicorg.mhtml urls.mhtml \
-	  useredit.mhtml userfin.mhtml userinfo.mhtml userinfo-panel.mhtml \
-	  userlost.mhtml userok.mhtml userrepair.mhtml users.mhtml
+	  useredit.mhtml userinfo.mhtml userinfo-panel.mhtml userlost.mhtml \
+	  userrepair.mhtml users.mhtml
 	  
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)
