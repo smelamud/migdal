@@ -23,7 +23,7 @@ return getUserIdBySessionId($sessionId)>=0;
 function getUserIdsBySessionId($sessionId)
 {
 $sessionIdS=addslashes($sessionId);
-$result=sql("select user_id,real_user_id
+$result=sql("select user_id,real_user_id,duration
 	     from sessions
 	     where sid='$sessionIdS'",
 	    __FUNCTION__);
@@ -49,20 +49,22 @@ while(sessionExists($sid));
 return $sid;
 }
 
-function createSession($userId,$realUserId=0)
+function createSession($userId,$realUserId)
 {
+global $shortSessionTimeout;
+
 $sid=createSessionId();
-sql("insert into sessions(user_id,real_user_id,sid)
-     values($userId,$realUserId,'$sid')",
+sql("insert into sessions(user_id,real_user_id,duration,sid)
+     values($userId,$realUserId,$shortSessionTimeout,'$sid')",
     __FUNCTION__);
 return $sid;
 }
 
-function updateSession($sessionId,$userId,$realUserId)
+function updateSession($sessionId,$userId,$realUserId,$duration)
 {
 $sessionIdS=addslashes($sessionId);
 sql("update sessions
-     set user_id=$userId,real_user_id=$realUserId
+     set user_id=$userId,real_user_id=$realUserId,duration=$duration
      where sid='$sessionIdS'",
     __FUNCTION__);
 }
@@ -86,10 +88,8 @@ sql("delete from sessions
 
 function deleteClosedSessions()
 {
-global $sessionTimeout;
-
 sql("delete from sessions
-     where last+interval $sessionTimeout hour<now()",
+     where last+interval duration hour<now()",
     __FUNCTION__,'delete');
 sql('optimize table sessions',
     __FUNCTION__,'optimize');
@@ -118,12 +118,12 @@ return getSubdomainCookie('sessionid');
 
 function setSessionCookie($sessionId)
 {
-global $sessionTimeout,$siteDomain;
+global $siteDomain,$longSessionTimeout;
 
 if($sessionId===0)
   setSubdomainCookie('sessionid',0,0,'/',$siteDomain);
 else
-  setSubdomainCookie('sessionid',$sessionId,time()+($sessionTimeout+24)*3600,
-                     '/',$siteDomain);
+  setSubdomainCookie('sessionid',$sessionId,
+                     time()+($longSessionTimeout+24)*3600,'/',$siteDomain);
 }
 ?>

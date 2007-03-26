@@ -629,14 +629,14 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function getGuestId()
 {
-global $allowGuests,$sessionTimeout,$guestLogin;
+global $allowGuests,$shortSessionTimeout,$guestLogin;
 
 if(!$allowGuests)
   return 0;
 $result=sql("select id
 	     from users
 	     where guest<>0 and
-		   last_online+interval $sessionTimeout hour<now()
+		   last_online+interval $shortSessionTimeout hour<now()
 	     order by login_sort
 	     limit 1",
 	    __FUNCTION__,'locate_free');

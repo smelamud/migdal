@@ -41,7 +41,8 @@ foreach($userRights as $name => $code)
 
 function userRights($aUserId=-1)
 {
-global $sessionid,$userId,$realUserId,$userGroups,$userRights;
+global $sessionid,$userId,$realUserId,$userGroups,$userRights,
+       $shortSessionTimeout;
 
 $sessionid=getSessionCookie();
 $globalsid=$_REQUEST['globalsid'];
@@ -65,12 +66,12 @@ elseif($aUserId<0)
     sessionGuest();
   else
     {
-    list($userId,$realUserId)=$row;
+    list($userId,$realUserId,$duration)=$row;
     if($userId<=0 && $realUserId<=0)
       {
       $userId=0;
       $realUserId=getGuestId();
-      updateSession($sessionid,0,$realUserId);
+      updateSession($sessionid,0,$realUserId,$shortSessionTimeout);
       }
     else
       {

@@ -16,10 +16,12 @@ postString('okdir');
 postString('faildir');
 postString('login');
 postString('password');
+postInteger('my_computer');
 
 dbOpen();
 session();
-$err=login($login,$password);
+$err=login($login,$password,
+           $my_computer ? $longSessionTimeout : $shortSessionTimeout);
 if($err==EG_OK)
   header('Location: /actions/checkcookies?'.
           makeQuery(array('svalue'  => $sessionid,

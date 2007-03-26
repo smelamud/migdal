@@ -10,17 +10,19 @@ define('RELOGIN_GUEST',1);
 define('RELOGIN_SAME',2);
 define('RELOGIN_LOGIN',3);
 
-function login($login,$password,$remember=true)
+function login($login,$password,$duration)
 {
-global $sessionid,$userId,$realUserId;
+global $sessionid,$userId,$realUserId,$shortSessionTimeout;
 
 $id=getUserIdByLoginPassword($login,$password);
 if($id==0)
   return EL_INVALID;
-if($remember)
+if($duration)
   {
   logEvent('login',"user($id)");
-  updateSession($sessionid,$id,$id);
+  if($duration<0)
+    $duration=$shortSessionTimeout;
+  updateSession($sessionid,$id,$id,$duration);
   }
 session($id);
 return EG_OK;
@@ -28,7 +30,7 @@ return EG_OK;
 
 function logout($remember=true)
 {
-global $sessionid;
+global $sessionid,$shortSessionTimeout;
 
 if($remember)
   {
@@ -36,16 +38,16 @@ if($remember)
   $guestId=getGuestId();
   if($row)
     {
-    list($userId,$realUserId)=$row;
+    list($userId,$realUserId,$duration)=$row;
     logEvent('logout',"user($userId)");
     if($userId!=0 && $userId!=$realUserId)
       {
-      updateSession($sessionid,$realUserId,$realUserId);
+      updateSession($sessionid,$realUserId,$realUserId,$duration);
       session();
       return EG_OK;
       }
     }
-  updateSession($sessionid,0,$guestId);
+  updateSession($sessionid,0,$guestId,$shortSessionTimeout);
   session();
   }
 else
@@ -60,7 +62,7 @@ if(!$relogin)
 switch($relogin)
       {
       case RELOGIN_LOGIN:
-           return login($login,$password,$remember);
+           return login($login,$password,$remember ? -1 : 0);
       case RELOGIN_GUEST:
            return logout(false);
       }

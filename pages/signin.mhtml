@@ -1,4 +1,4 @@
-<< @(#) $Id: horisontedit.mhtml 2454 2007-03-25 23:27:47Z balu $ >>
+<< @(#) $Id$ >>
 
 <html>
 <preamble>
@@ -12,6 +12,12 @@
     <error id='*EL_INVALID' text='Неверный ник или пароль'>
     <form_edit title='Ник' name='login' size=30  maxlength=30>
     <form_password title='Пароль' name='password' size=30 maxlength=30>
+    <form_select title='Чужой компьютер' name='my_computer' style='box'>
+     <form_option title='Я захожу со своего компьютера' value=1
+                  selected='*true'>
+     <form_option title='Я захожу с чужого компьютера' value=0
+                  selected='*false'>
+    </form_select>
     <form_comment>
      Если у вас еще нет ника и пароля, вам нужно
      <a href='/register/?redirid=$_'>зарегистрироваться</a>.<br>

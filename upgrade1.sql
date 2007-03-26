@@ -142,6 +142,7 @@ TRUNCATE TABLE `sessions`;
 ALTER TABLE `sessions` CHANGE `sid` `sid` CHAR( 32 );
 ALTER TABLE `sessions` DROP INDEX `sid` ,
 ADD UNIQUE `sid` ( `sid` );
+ALTER TABLE `sessions` ADD `duration` INT NOT NULL AFTER `last` ;
 ALTER TABLE `stotext_images` RENAME `inner_images`;
 ALTER TABLE `inner_images` ADD `entry_id` INT NOT NULL AFTER `stotext_id` ;
 ALTER TABLE `inner_images` ADD INDEX ( `entry_id` ) ;

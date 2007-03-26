@@ -30,14 +30,10 @@ sql("optimize table $table",
 
 function cleanup()
 {
-/*global $sessionTimeout,$tmpTextTimeout,$redirTimeout,$anonVoteTimeout,
-       $userVoteTimeout;
+/*global $anonVoteTimeout,$userVoteTimeout;
 
 deleteCond('counters_ip','expires<now()');
-deleteCond('sessions',"last+interval $sessionTimeout hour<now()");
 deleteCond('users','confirm_deadline is not null and confirm_deadline<now()');
-deleteCond('tmp_texts',"last_access+interval $tmpTextTimeout hour<now()");
-deleteCond('redirs',"last_access+interval $redirTimeout hour<now()");
 deleteCond('votes',"user_id=0 and sent+interval $anonVoteTimeout hour<now()");
 deleteCond('votes',"user_id<>0 and sent+interval $userVoteTimeout hour<now()");*/
 deleteClosedSessions();
