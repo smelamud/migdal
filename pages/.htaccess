@@ -1,6 +1,6 @@
 AddDefaultCharset UTF-8
-ErrorDocument 404 /404.php
-ErrorDocument 500 /500.php
+ErrorDocument 404 /404/
+ErrorDocument 500 /500/
 php_value include_path ".:..:/etc/mnogosearch-php:/usr/share/mnogosearch-php"
 php_flag magic_quotes_gpc off
 php_flag magic_quotes_runtime off

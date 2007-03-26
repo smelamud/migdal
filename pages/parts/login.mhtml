@@ -1,75 +1,37 @@
 << @(#) $Id$ >>
 
-<macro name='tform'>
- <form method='post' action='%action'>
- <hidden name='okdir' value="$[err]">
- <hidden name='faildir' value="$[err]">
-</macro>
-
-<macro name='/tform'>
- </form>
-</macro>
-
-<errors>
 <element name='login'>
 <notenglish>
- <ifne what='$$err'>
-  <table class='ninept'>
-   <error id='*EL_INVALID' text='Неверный ник или пароль'>
-   <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
-   <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
-  </table>
- </ifne>
- <table class='login ninept' cellspacing=0 cellpadding=0>
+ <table cellspacing=5 cellpadding=0>
   <notlogged>
-   <tform action='/actions/login'>
-    <tr>
-     <td>Ник</td>
-     <td><image src='/pics/leftinput.gif'></td>
-     <td><input class='line' type=text name='login' size=6 maxlength=30></td>
-     <td><image src='/pics/rightinput.gif'></td>
-     <td>&nbsp;</td>
-     <td>Пароль</td>
-     <td><image src='/pics/leftinput.gif'></td>
-     <td><input class='line' type=password name='password' size=6></td>
-     <td><image src='/pics/rightinput.gif'></td>
-     <td>&nbsp;</td>
-     <td><input type=image src='/pics/enter.gif'></td>
-    </tr>
-    <master>
-     <tr><td colspan=11 align=right>
-      <a href='/register/?redirid=$_'>Зарегистрироваться</a>
-      &nbsp;
-      <a href='userlost.php?redirid=$_'>Забыли пароль?</a>
-     </td></tr>
-    </master>
-   </tform>
+   <tr><td align='right' colspan=3>
+    <a href='/signin/?redirid=$_'><input type='image' src='/pics/enter.gif'></a>
+   </td></tr>
+   <master>
+    <tr><td class='eightpt' align='right' colspan=3>
+     Чтобы войти, сначала <a href='/register/?redirid=$_'>зарегистрируйтесь</a>.
+    </td></tr>
+   </master>
   <else>
-   <tform action='/actions/logout'>
-    <tr>
-     <admin_users><td colspan=3><else><td></admin_users>
-      <b>
-      <if what='$$userHidden'>
-       $$=userLogin
-      <else>
-       <a href='/users/$$#userFolder/' class='name'>$$=userLogin</a>
-      </if>
-      </b>
-     </td>
-     <td>&nbsp;</td>
-     <td><input type='image' src='/pics/exit.gif'></td>
-    </tr>
-   </tform>
+   <tr>
+    <td>
+     <if what='$$userHidden'>
+      <b>$$=userLogin</b>
+     <else>
+      <a href='/users/$$#userFolder/' class='login'>$$=userLogin</a>
+     </if>
+    </td>
+    <td>&nbsp;</td>
+    <td>
+     <a href='/actions/logout?okdir=$#-'><asp>
+      <asp><input type='image' src='/pics/exit.gif'><asp>
+     <asp></a>
+    </td>
+   </tr>
    <admin_users>
-    <tform action='/actions/su'>
-     <tr>
-      <td><image src='/pics/leftinput.gif'></td>
-      <td><input class='line' type='text' name='login' size=10 maxlength=30></td>
-      <td><image src='/pics/rightinput.gif'></td>
-      <td>&nbsp;</td>
-      <td><input type='image' src='/pics/su.gif'></td>
-     </tr>
-    </tform>
+    <tr><td align='right' colspan=3>
+     <a href='/signin/?redirid=$_'><input type='image' src='/pics/su.gif'></a>
+    </td></tr>
    </admin_users>
   </notlogged>
  </table>

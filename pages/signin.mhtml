@@ -1,0 +1,52 @@
+<< @(#) $Id: horisontedit.mhtml 2454 2007-03-25 23:27:47Z balu $ >>
+
+<html>
+<preamble>
+<body>
+ <top ident='index'>
+ <form_table title='Вход на сайт' mini='*true'>
+  <notlogged>
+   <form method=post action='/actions/login'>
+    <hidden name='okdir' value='$--'>
+    <hidden name='faildir' value='$-'>
+    <error id='*EL_INVALID' text='Неверный ник или пароль'>
+    <form_edit title='Ник' name='login' size=30  maxlength=30>
+    <form_password title='Пароль' name='password' size=30 maxlength=30>
+    <form_comment>
+     Если у вас еще нет ника и пароля, вам нужно
+     <a href='/register/?redirid=$_'>зарегистрироваться</a>.<br>
+     Забыли пароль? Мы <a href='userlost.php?redirid=$_'>вышлем вам новый</a>.
+    </form_comment>
+    <form_buttons title='Войти'>
+   </form>
+  <else>
+   <form method=post action='/actions/logout'>
+    <hidden name='okdir' value='$--'>
+    <hidden name='faildir' value='$-'>
+    <form_comment>
+     Вы вошли на сайт как
+     <if what='$$userHidden'>
+      <asp><b>$$=userLogin</b><asp>
+     <else>
+      <asp><a href='/users/$$#userFolder/'>$$=userLogin</a><asp>
+     </if>.
+    </form_comment>
+    <form_buttons title='Выйти' clear='*false'>
+   </form>
+  </notlogged>
+ </form_table>
+ <admin_users>
+  <form_table title='Сменить пользователя' mini='*true'>
+   <form method=post action='/actions/su'>
+    <hidden name='okdir' value='$--'>
+    <hidden name='faildir' value='$-'>
+    <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
+    <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
+    <form_edit title='Ник' name='login' size=30  maxlength=30>
+    <form_buttons title='Сменить'>
+   </form>
+  </form_table>
+ </admin_users>
+ <bottom>
+</body>
+</html>

@@ -63,13 +63,6 @@ banner_migdal=/pics/migdal.jpg
 banner_migdal_english=/pics/migdal-english.gif
 banner_online=/pics/online.jpg
 
-register_hover=blue
-
-login_name=blue
-login_text=%mrm
-login_input_back=%mrl
-login_input_border=%mrd
-
 spin_input_back=%mrl
 spin_input_border=%mrd
 spin_input_text=%mrm
