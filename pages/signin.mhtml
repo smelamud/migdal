@@ -10,13 +10,14 @@
     <hidden name='okdir' value='$--'>
     <hidden name='faildir' value='$-'>
     <error id='*EL_INVALID' text='Неверный ник или пароль'>
-    <form_edit title='Ник' name='login' size=30  maxlength=30>
+    <form_edit title='Ник' name='login' value='$$userLoginHint' size=30
+               maxlength=30>
     <form_password title='Пароль' name='password' size=30 maxlength=30>
     <form_select title='Чужой компьютер' name='my_computer' style='box'>
      <form_option title='Я захожу со своего компьютера' value=1
-                  selected='*true'>
+                  selected!='$$userMyComputerHint!=0'>
      <form_option title='Я захожу с чужого компьютера' value=0
-                  selected='*false'>
+                  selected!='$$userMyComputerHint==0'>
     </form_select>
     <form_comment>
      Если у вас еще нет ника и пароля, вам нужно

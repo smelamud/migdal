@@ -20,6 +20,7 @@ postInteger('my_computer');
 
 dbOpen();
 session();
+loginHints($login,$my_computer);
 $err=login($login,$password,
            $my_computer ? $longSessionTimeout : $shortSessionTimeout);
 if($err==EG_OK)

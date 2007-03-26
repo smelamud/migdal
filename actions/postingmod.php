@@ -233,6 +233,7 @@ postInteger('sent_second');
 dbOpen();
 session();
 $err=EG_OK;
+loginHints($login,$userMyComputerHint);
 if($editid<=0)
   $err=relogin($relogin,$login,$password,$remember);
 $posting=getPostingById($editid,$grp,$parent_id,

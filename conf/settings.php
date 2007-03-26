@@ -35,6 +35,18 @@ $allSettings=array(
 		'type' => 'integer',
 		'location' => SETL_USER
 	),
+	'loginHint' => array(
+		'default' => '',
+		'abbrev' => 'log',
+		'type' => 'string',
+		'location' => SETL_HOST
+	),
+	'myComputerHint' => array(
+		'default' => 1,
+		'abbrev' => 'my',
+		'type' => 'integer',
+		'location' => SETL_HOST
+	),
 );
 
 ?>

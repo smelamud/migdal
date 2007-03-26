@@ -388,7 +388,8 @@
     </tr></table></form_comment>
    </moderator>
    <if what='!$editid'>
-    <form_relogin noguests='$noguests' relogin='$relogin' login='$login'
+    <form_relogin noguests='$noguests' relogin='$relogin'
+                  login!='$edittag ? $login : $$userLoginHint'
                   remember='$remember'>
    </if>
    <full>

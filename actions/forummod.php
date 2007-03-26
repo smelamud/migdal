@@ -93,6 +93,7 @@ postInteger('disabled');
 dbOpen();
 session();
 $err=EG_OK;
+loginHints($login,$userMyComputerHint);
 if($editid<=0)
   $err=relogin($relogin,$login,$password,$remember);
 $forum=getForumById($editid,$parent_id);

@@ -86,7 +86,8 @@
     <zone>
      <perms id='$,ParentId'>
      <form_relogin noguests!='!$,isGuestPostable' relogin='$relogin'
-                   login='$login' remember='$remember'>
+                   login!='$edittag ? $login : $$userLoginHint'
+		   remember='$remember'>
     </zone>
    </if>
    <error id='*EF_BODY_ABSENT'

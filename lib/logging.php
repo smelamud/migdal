@@ -5,6 +5,7 @@ require_once('lib/errors.php');
 require_once('lib/logs.php');
 require_once('lib/sessions.php');
 require_once('lib/users.php');
+require_once('lib/settings.php');
 
 define('RELOGIN_GUEST',1);
 define('RELOGIN_SAME',2);
@@ -12,7 +13,8 @@ define('RELOGIN_LOGIN',3);
 
 function login($login,$password,$duration)
 {
-global $sessionid,$userId,$realUserId,$shortSessionTimeout;
+global $sessionid,$userId,$realUserId,$userMyComputerHint,$shortSessionTimeout,
+       $longSessionTimeout;
 
 $id=getUserIdByLoginPassword($login,$password);
 if($id==0)
@@ -21,7 +23,7 @@ if($duration)
   {
   logEvent('login',"user($id)");
   if($duration<0)
-    $duration=$shortSessionTimeout;
+    $duration=$userMyComputerHint ? $longSessionTimeout : $shortSessionTimeout;
   updateSession($sessionid,$id,$id,$duration);
   }
 session($id);
@@ -66,5 +68,14 @@ switch($relogin)
       case RELOGIN_GUEST:
            return logout(false);
       }
+}
+
+function loginHints($login,$my_computer)
+{
+global $userLoginHint,$userMyComputerHint;
+
+$userLoginHint=$login;
+$userMyComputerHint=$my_computer;
+updateSettingsCookie(SETL_HOST);
 }
 ?>
