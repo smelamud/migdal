@@ -5,10 +5,6 @@
 <int name='sent'>
 
 <log event=fail text#='code(404) $-'>
-<pagetitle title!='$$userDomain=="www" ? "Страница не найдена"
-                                       : "Page not found"'>
-<topictitle title!='$$userDomain=="www" ? "404 --- Страница не найдена"
-                                        : "404 --- Page not found"'>
 
 <html>
 <preamble>

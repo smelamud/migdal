@@ -211,8 +211,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - mailings/repairing-password.mhtml
 - mailings/repair-password.mhtml
 
-- pages/404.mhtml
-- pages/500.mhtml
+* pages/404.mhtml
+* pages/500.mhtml
 + pages/archive.mhtml
 * pages/article.mhtml (кроме ловушек)
 + pages/article-times.mhtml

@@ -4,11 +4,7 @@
 
 <int name='sent'>
 
-<log event=fail text#='code(404) $-'>
-<pagetitle title!='$$userDomain=="www" ? "Ошибка сервера"
-                                       : "Server error"'>
-<topictitle title!='$$userDomain=="www" ? "500 --- Ошибка сервера"
-                                        : "500 --- Server error"'>
+<log event=fail text#='code(500) $-'>
 
 <html>
 <preamble>
