@@ -201,8 +201,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + mailings/repairing-password.mhtml
 + mailings/repair-password.mhtml
 
-* pages/404.mhtml
-* pages/500.mhtml
++ pages/404.mhtml
++ pages/500.mhtml
 + pages/archive.mhtml
 * pages/article.mhtml (кроме ловушек)
 + pages/article-times.mhtml
@@ -299,7 +299,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/discussions.mhtml
 + pages/parts/ears.mhtml
 + pages/parts/events.mhtml
-- pages/parts/failpage.mhtml
++ pages/parts/failpage.mhtml
 + pages/parts/formutils.mhtml
 + pages/parts/forum.mhtml
 + pages/parts/forums.mhtml (кроме стиля сообщений об ошибках)
@@ -339,7 +339,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/textears.mhtml
 + pages/parts/tip.mhtml
 + pages/parts/today.mhtml
-- pages/parts/top-404.mhtml
++ pages/parts/top-404.mhtml
 + pages/parts/topics-admin.mhtml
 + pages/parts/topics-book.mhtml
 + pages/parts/topics-daily.mhtml

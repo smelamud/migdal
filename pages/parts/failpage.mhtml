@@ -2,43 +2,36 @@
 
 <element name='failpage'>
 <li>
- Можете начать с <a href='/index.php'>главной страницы</a>.
+ Можете начать с <a href='/'>главной страницы</a>.
 </li>
 <li>
- Можете воспользоваться поиском:<br>
- <table cellspacing=0><tr valign=center>
-  <form method=post action='actions/search.php'>
-   <hidden name='okdir' value='/search.php'>
-   <hidden name='faildir' value='/search.php'>
-   <td><edit name='q' value='$q' size=45 maxlength=255></td>
-   <td><input type=submit value='Найти'></td>
-  </form>
- </tr></table>
+ Можете воспользоваться <a href='/search/'>поиском</a>.
 </li>
-<ifzero what='$sent'>
+<ifzero what='$$sent'>
  <li>
   Можете сообщить об ошибке вебмастеру по электронной почте
   <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
  </li>
  <li>
   Или отправить это сообщение прямо с сайта:<br>
-  <form method=post action='actions/complainmod.php'>
+  <form method=post action='/actions/complain/modify'>
    <hidden name='edittag' value="1">
-   <hidden name='okdir' value="/404.php?sent=1">
-   <hidden name='faildir' value="/404.php">
+   <hidden name='okdir' value="/404/?sent=1">
+   <hidden name='faildir' value="/404/">
    <hidden name='editid' value="0">
-   <hidden name='type_id' value="1"> << deprecated >>
-   <hidden name='link' value="0"> << deprecated >>
-   <hidden name='subject' value#="404 - $-">
+   <hidden name='url' value="$-">
+   <hidden name='subject' value="404">
    <table>
     <error id='*EC_NO_SEND'
 	   text='Посылать жалобы могут только зарегистрированные пользователи'>
     <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
-    <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст' span=2>
+    <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст'>
     <error id='*EC_BODY_ABSENT'
 	   text='Напишите хотя бы пару строчек в теле жалобы'>
-    <editor_line name='body'>
-    <tr><td>
+    <tr><td colspan=2>
+     <textarea name='body' rows='5' cols='35' wrap='virtual'></textarea>
+    </td></tr>
+    <tr><td colspan=2>
      <input type=submit value='Отправить'>
      &nbsp;
      <input type=reset value='Очистить'>

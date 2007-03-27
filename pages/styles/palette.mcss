@@ -8,7 +8,7 @@ error=white
 :default	body_back_pic=/pics/b-back.gif
 :print		body_back_pic=
 
-body_404_back=%r_l
+body_404_back=white
 
 info=black
 info_link=blue
@@ -62,6 +62,8 @@ banner_logo=/pics/big-tower.gif
 banner_migdal=/pics/migdal.jpg
 banner_migdal_english=/pics/migdal-english.gif
 banner_online=/pics/online.jpg
+
+banner_404_logo=/pics/bw-tower.gif
 
 spin_input_back=%mrl
 spin_input_border=%mrd

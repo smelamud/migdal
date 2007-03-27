@@ -4,13 +4,13 @@
 <table>
  <tr valign=bottom>
   <td align=left width=61>
-   <a href='/index.php'>
-    <image src='$$style_banner_logo'
+   <a href='/'>
+    <image src='$$style_banner_404_logo'
 	   alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></a>
   </td>
   <td width=10>&nbsp;</td>
   <td align=left>
-   <subtitle>
+   <h1 style='font-size: 24pt'>$$LocationInfo.Title</h1>
   </td>
  </tr>
 </table>
