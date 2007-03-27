@@ -11,16 +11,13 @@ require_once('lib/errors.php');
 require_once('lib/users.php');
 require_once('lib/tmptexts.php');
 require_once('lib/mail.php');
-require_once('lib/exec.php');
-require_once('lib/sql.php');
+require_once('lib/password.php');
 
 function repairPassword($id)
 {
-global $passwdCommand;
-
 if($id<=0)
   return EPL_NO_LOGIN;
-$password=trim(getCommand($passwdCommand));
+$password=generatePassword();
 sql("update users
      set password=md5('$password')
      where id=$id",

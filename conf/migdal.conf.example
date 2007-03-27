@@ -67,9 +67,6 @@ $tmpDir='/tmp';
 # Команда для запуска PHP4 в режиме командной строки
 $phpCommand='/usr/bin/php4';
 
-# Команда для генерации пароля
-$passwdCommand='pwgen 8 1';
-
 # Путь к wget
 $wgetPath='wget';
 

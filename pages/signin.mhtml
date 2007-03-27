@@ -38,7 +38,8 @@
       Если у вас еще нет ника и пароля, вам нужно
       <a href='/register/?redirid=$_'>зарегистрироваться</a>.<br>
      </if>
-     Забыли пароль? Мы <a href='userlost.php?redirid=$_'>вышлем вам новый</a>.
+     Забыли пароль? Мы
+     <a href='/remember-password/?redirid=$_'>вышлем вам новый</a>.
     </form_comment>
     <form_buttons title='Войти'>
    </form>
