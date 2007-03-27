@@ -1,0 +1,70 @@
+<< @(#) $Id$ >>
+
+<string name='q'>
+
+<element name='google_search'>
+<noparse>
+<!-- Google CSE Search Box Begins  -->
+  <form id="searchbox_000382786483905528259:szxa26ocu1k"
+        action="http://www.google.com/search" style='margin: 0; padding: 0'>
+    <input type="hidden" name="cx" value="000382786483905528259:szxa26ocu1k" />
+    <input type="hidden" name="cof" value="FORID:1" />
+    <input name="q" type="text" size="85" />
+    <input type="submit" name="sa" value="Найти" />
+  </form>
+  <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_000382786483905528259%3Aszxa26ocu1k"></script>
+<!-- Google CSE Search Box Ends -->
+</noparse>
+</element>
+
+<element name='google_search_inplace'>
+<noparse>
+<!-- Google CSE Search Box Begins -->
+  <form id="searchbox_000382786483905528259:szxa26ocu1k"
+        action="http://www.migdal.localhost/search/"
+        style='margin: 0; padding: 0'>
+    <input type="hidden" name="cx" value="000382786483905528259:szxa26ocu1k" />
+    <input type="hidden" name="cof" value="FORID:9" />
+    <input name="q" type="text" size="40" />
+    <input type="submit" name="sa" value="Найти" />
+  </form>
+  <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_000382786483905528259%3Aszxa26ocu1k"></script>
+<!-- Google CSE Search Box Ends -->
+</noparse>
+</element>
+
+<element name='google_search_results'>
+<noparse>
+<!-- Google Search Result Snippet Begins -->
+  <div id="results_000382786483905528259:szxa26ocu1k"></div>
+  <script type="text/javascript">
+    var googleSearchIframeName = "results_000382786483905528259:szxa26ocu1k";
+    var googleSearchFormName = "searchbox_000382786483905528259:szxa26ocu1k";
+    var googleSearchFrameWidth = 600;
+    var googleSearchFrameborder = 0;
+    var googleSearchDomain = "www.google.com";
+    var googleSearchPath = "/cse";
+  </script>
+  <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
+<!-- Google Search Result Snippet Ends -->
+</noparse>
+</element>
+
+<html>
+<preamble>
+<body>
+ <top ident='search'>
+ <div class='cframe' style='background-image: none; padding: 5'>
+  <subtitle>
+  <table><tr valign='center'>
+   <td><b>Я ищу:</b></td>
+   <td><google_search_inplace></td>
+  </tr></table>
+  <ifne what='$q'>
+   <p>
+   <google_search_results>
+  </ifne>
+ </div>
+ <bottom>
+</body>
+</html>
