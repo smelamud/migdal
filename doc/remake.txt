@@ -87,7 +87,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/postingdel.php
 + actions/postingmod.php
 + actions/postingorg-goto.php
-- actions/remember-password.php
++ actions/remember-password.php
 + actions/reorder.php
 - actions/search.php
 + actions/setup.php
@@ -198,8 +198,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + mailings/confirmed.mhtml
 + mailings/registering.mhtml
 + mailings/register.mhtml
-- mailings/repairing-password.mhtml
-- mailings/repair-password.mhtml
++ mailings/repairing-password.mhtml
++ mailings/repair-password.mhtml
 
 * pages/404.mhtml
 * pages/500.mhtml
@@ -260,8 +260,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/register.mhtml
 + pages/register-error.mhtml
 + pages/register-ok.mhtml
-- pages/remember-password.mhtml
-- pages/remember-password-ok.mhtml
++ pages/remember-password.mhtml
++ pages/remember-password-ok.mhtml
 + pages/reorder.mhtml
 * pages/search.mhtml
 + pages/setup.mhtml

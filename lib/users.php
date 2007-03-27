@@ -485,54 +485,54 @@ global $userAdminUsers;
 
 $jencoded=array('login' => '','login_sort' => '','password' => '','name' => '',
                 'name_sort' => '','jewish_name' => '','jewish_name_sort' => '',
- 	        'surname' => '','surname_sort' => '','info' => '',
-		'info_xml' => '','email' => '','icq' => '','settings' => '');
+                'surname' => '','surname_sort' => '','info' => '',
+                'info_xml' => '','email' => '','icq' => '','settings' => '');
 // Здесь допускается установка админских прав не админом! Проверка должна
 // производиться раньше.
 $vars=array('login' => $user->login,
-	    'login_sort' => $user->login_sort,
+            'login_sort' => $user->login_sort,
             'name' => $user->name,
             'name_sort' => $user->name_sort,
-	    'jewish_name' => $user->jewish_name,
+            'jewish_name' => $user->jewish_name,
             'jewish_name_sort' => $user->jewish_name_sort,
-	    'surname' => $user->surname,
+            'surname' => $user->surname,
             'surname_sort' => $user->surname_sort,
-	    'gender' => $user->gender,
-	    'info' => $user->info,
-	    'info_xml' => $user->info_xml,
-	    'birthday' => $user->birthday,
+            'gender' => $user->gender,
+            'info' => $user->info,
+            'info_xml' => $user->info_xml,
+            'birthday' => $user->birthday,
             'rights' => $user->rights,
-	    'email' => $user->email,
-	    'hide_email' => $user->hide_email,
-	    'email_disabled' => $user->email_disabled,
-	    'icq' => $user->icq);
+            'email' => $user->email,
+            'hide_email' => $user->hide_email,
+            'email_disabled' => $user->email_disabled,
+            'icq' => $user->icq);
 if($userAdminUsers)
   $vars=array_merge($vars,
-		    array('hidden' => $user->hidden,
-			  'no_login' => $user->no_login,
-			  'has_personal' => $user->has_personal));
+                    array('hidden' => $user->hidden,
+                          'no_login' => $user->no_login,
+                          'has_personal' => $user->has_personal));
 if(!$user->id || $user->dup_password!='')
   $vars=array_merge($vars,
                     array('password' => md5($user->password)));
 if($user->id)
   {
   $result=sql(sqlUpdate('users',
-			$vars,
-			array('id' => $user->id)),
-	      __FUNCTION__,'update');
+                        $vars,
+                        array('id' => $user->id)),
+              __FUNCTION__,'update');
   journal(sqlUpdate('users',
-		    jencodeVars($vars,$jencoded),
-		    array('id' => journalVar('users',$user->id))));
+                    jencodeVars($vars,$jencoded),
+                    array('id' => journalVar('users',$user->id))));
   }
 else
   {
   $result=sql(sqlInsert('users',
                         $vars),
-	      __FUNCTION__,'insert');
+              __FUNCTION__,'insert');
   $user->id=sql_insert_id();
   journal(sqlInsert('users',
                     jencodeVars($vars,$jencoded)),
-	  'users',$user->id);
+          'users',$user->id);
   }
 return $result;
 }
@@ -648,6 +648,17 @@ $result=sql("select id
 		   and no_login=0",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function setPasswordByUserId($id,$password)
+{
+sql("update users
+     set password=md5('$password')
+     where id=$id",
+    __FUNCTION__);
+journal("update users
+         set password=md5('".jencode($password)."')
+	 where id=".journalVar('users',$id));
 }
 
 function getShamesId()

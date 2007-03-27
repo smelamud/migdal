@@ -5,7 +5,7 @@
 targetdir=$(builddir)/mailings/
 
 OBJECTS = confirmed.mhtml register.mhtml registering.mhtml \
-	repair-password.mhtml repairing-password.mhtml
+	remember-password.mhtml remembering-password.mhtml
 
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)

@@ -1,24 +1,24 @@
 << @(#) $Id$ >>
 
 <mail name='registering' params='user_id'>
-<user_obj id='$user_id'>
-<headers>
-<subject>Запрос на регистрацию</subject>
-</headers>
-<content>
-<p>
- Поступил запрос на регистрацию пользователя:
-</p>
-<p>
- Ник:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Login<br />
- Имя:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Name<br />
- Еврейское&sp;имя:&sp;&sp;$,JewishName<br />
- Фамилия:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Surname<br />
- <assign value!="$,isMan ? 'Мужской' : 'Женский'">
- Пол:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$*<br />
- E-mail:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,Email<br />
- ICQ:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$,ICQ
-</p>
-<p>---</p>
-</content>
+ <user_obj id='$user_id'>
+ <headers>
+  <subject>Запрос на регистрацию</subject>
+ </headers>
+ <content>
+  <p>
+   Поступил запрос на регистрацию пользователя:
+  </p>
+  <p>
+   Ник:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Login<br />
+   Имя:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Name<br />
+   Еврейское&sp;имя:&sp;&sp;$=,JewishName<br />
+   Фамилия:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Surname<br />
+   <assign value!="$,isMan ? 'Мужской' : 'Женский'">
+   Пол:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$*<br />
+   E-mail:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Email<br />
+   ICQ:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,ICQ
+  </p>
+  <p>---</p>
+ </content>
 </mail>

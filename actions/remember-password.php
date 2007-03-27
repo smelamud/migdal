@@ -9,38 +9,33 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 require_once('lib/users.php');
-require_once('lib/tmptexts.php');
 require_once('lib/mail.php');
-require_once('lib/password.php');
+require_once('lib/pwgen.php');
 
-function repairPassword($id)
+function rememberPassword($id)
 {
 if($id<=0)
   return EPL_NO_LOGIN;
 $password=generatePassword();
-sql("update users
-     set password=md5('$password')
-     where id=$id",
-    'repairPassword');
-journal("update users
-         set password=md5('".jencode($password)."')
-	 where id=".journalVar('users',$id));
-$passwordId=tmpTextSave($password);
-sendMail(MAIL_REPAIR_PASSWORD,$id,$passwordId);
-sendMailAdmin(MAIL_REPAIRING_PASSWORD,'admin_users',$id);
+setPasswordByUserId($id,$password);
+postMailTo($id,'remember_password',array($id,$password));
+postMailToAdmins(USR_ADMIN_USERS,'remembering_password',array($id));
 return EG_OK;
 }
+
+postString('okdir');
+postString('faildir');
 
 postString('login');
 
 dbOpen();
 session();
 $id=getUserIdByLogin($login);
-$err=repairPassword($id);
+$err=rememberPassword($id);
 if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err'),
-				array('userid' => $id)));
+				array('id' => $id)));
 else
   header('Location: '.remakeURI($faildir,
                                 array(),

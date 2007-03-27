@@ -71,11 +71,9 @@
 	      maxlength=30 mandatory='*true'>
    <error id='*EUM_GENDER' text='Неизвестный пол'>
    <form_line title='Пол'>
-    <radio name='gender' value='mine' checked!="$,Gender=='mine'"
-	   title='Мужской'>
+    <radio name='gender' value='mine' checked='$,isMan' title='Мужской'>
     &nbsp;
-    <radio name='gender' value='femine' checked!="$,Gender=='femine'"
-	   title='Женский'>
+    <radio name='gender' value='femine' checked='$,isWoman' title='Женский'>
    </form_line>
    <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
    <form_line title='Дата рождения'>
