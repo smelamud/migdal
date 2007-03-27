@@ -1,4 +1,5 @@
 <?php
+# @(#) $Id$
 /*
  * Based on pw_phonemes.c --- generate secure passwords using phoneme rules
  * from pwgen
