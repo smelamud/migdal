@@ -11,6 +11,7 @@
  << FIXME |SELECT_LARGE_BODY ? >>
  <posting_obj name='book' id='$,' grp='*GRP_BOOK' fields='*SELECT_GENERAL'>
 </zone>
+<< FIXME pagetitle is deprecated >>
 <pagetitle title#='$book.Subject - $,Subject'>
 
 <html>
