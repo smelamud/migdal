@@ -13,8 +13,9 @@ $dt=getdate($timestamp);
 foreach($comps as $comp => $varname)
        {
        $name="${base_name}_$varname";
-       if(isset($vars[$name]) && $vars[$name]>0
-          || $comp{strlen($comp)-1}=='s' && $vars[$name]>=0)
+       if(isset($vars[$name])
+          && ($vars[$name]>0
+	      || $comp[strlen($comp)-1]=='s' && $vars[$name]>=0))
 	 $dt[$comp]=$vars[$name];
        }
 $ts=mktime($dt['hours'],$dt['minutes'],$dt['seconds'],
