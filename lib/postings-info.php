@@ -16,7 +16,7 @@ var $max_sent;
 
 function PostingsInfo($row)
 {
-$this->DataObject($row);
+parent::DataObject($row);
 }
 
 function getTotal()

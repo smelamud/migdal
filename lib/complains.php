@@ -88,7 +88,7 @@ class ComplainListIterator
 
 function ComplainListIterator($limit=20,$offset=0)
 {
-$this->LimitSelectIterator(
+parent::LimitSelectIterator(
        'Complain',
        'select entries.id as id,subject,body_format,sent,created,modified,
                user_id,group_id,perms,person_id,disabled,modbits,

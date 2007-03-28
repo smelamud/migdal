@@ -86,12 +86,12 @@ if($source_id>0)
   $filter.=" and source_id=$source_id";
 if($link_type!=LINKT_NONE)
   $filter.=" and link_type=$link_type";
-$this->SelectIterator('CrossEntry',
-                      "select id,source_name,source_id,link_type,peer_name,
-		              peer_id,peer_path,peer_subject,peer_icon
-		       from cross_entries
-		       where 1 $filter
-		       order by peer_icon,peer_subject_sort");
+parent::SelectIterator('CrossEntry',
+		       "select id,source_name,source_id,link_type,peer_name,
+			       peer_id,peer_path,peer_subject,peer_icon
+			from cross_entries
+			where 1 $filter
+			order by peer_icon,peer_subject_sort");
 }
 
 }

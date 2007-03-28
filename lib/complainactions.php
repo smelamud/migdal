@@ -87,9 +87,9 @@ class ComplainActionListIterator
 
 function ComplainActionListIterator()
 {
-$this->SelectIterator('ComplainAction',
-                      'select id,name
-		       from complain_actions');
+parent::SelectIterator('ComplainAction',
+                       'select id,name
+	 	        from complain_actions');
 }
 
 }

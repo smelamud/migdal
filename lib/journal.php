@@ -218,7 +218,7 @@ $this->seq=0;
 
 function next()
 {
-$line=SelectIterator::next();
+$line=parent::next();
 if($line==0)
   return 0;
 if($this->seq!=0 && $this->seq!=$line->getSeq()
@@ -236,13 +236,13 @@ class JournalListIterator
 
 function JournalListIterator($limit=20,$offset=0)
 {
-$this->LimitSelectIterator('JournalLine',
-                           'select id,seq,result_table,result_id,result_var,
-			           query,unix_timestamp(sent) as sent
-			    from journal
-			    order by seq,id',$limit,$offset,
-			   'select count(*)
-			    from journal');
+parent::LimitSelectIterator('JournalLine',
+			    'select id,seq,result_table,result_id,result_var,
+				    query,unix_timestamp(sent) as sent
+			     from journal
+			     order by seq,id',$limit,$offset,
+			    'select count(*)
+			     from journal');
 }
 
 }

@@ -59,7 +59,7 @@ var $stop=false;
 
 function MTextShortenXML($len,$clearTags=false)
 {
-$this->XMLParser();
+parent::XMLParser();
 $this->len=$len;
 $this->clearTags=$clearTags;
 }
