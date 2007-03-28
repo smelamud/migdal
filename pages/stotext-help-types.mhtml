@@ -1,7 +1,9 @@
 << @(#) $Id$ >>
 << Based-on: doc/stotext.txt 1.16 >>
 
+<< FIXME pagetitle is deprecated >>
 <pagetitle title='Справка - Какой формат статьи выбрать?'>
+<< FIXME topictitle is deprecated >>
 <topictitle title='Какой формат статьи выбрать?'>
 
 <html>

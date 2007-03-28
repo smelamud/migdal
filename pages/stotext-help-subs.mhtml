@@ -1,7 +1,9 @@
 << @(#) $Id$ >>
 << Based-on: doc/stotext.txt 1.16 >>
 
+<< FIXME pagetitle is deprecated >>
 <pagetitle title='Справка - Список обозначений, используемых в тексте'>
+<< FIXME topictitle is deprecated >>
 <topictitle title='Список обозначений, используемых в тексте'>
 
 <html>

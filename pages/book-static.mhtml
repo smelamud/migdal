@@ -6,6 +6,7 @@
 <ifzero what='$,Id'>
  <fail>
 </ifzero>
+<< FIXME pagetitle is deprecated >>
 <pagetitle title='$,Subject'>
 
 <html>
