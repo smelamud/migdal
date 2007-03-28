@@ -334,6 +334,13 @@
   <form_date title='$=editor.Title' comment='$editor.Comment'
              name='sent' value='$posting.Sent'
 	     mandatory='$editor.isMandatory' base_year='$editor.Base'>
+ <else>
+  <hidden name='sent_year' value=0>
+  <hidden name='sent_month' value=0>
+  <hidden name='sent_day' value=0>
+  <hidden name='sent_hour' value='-1'>
+  <hidden name='sent_minute' value='-1'>
+  <hidden name='sent_second' value='-1'>
  </if>
 <else>
  <form_section title='$ident'>

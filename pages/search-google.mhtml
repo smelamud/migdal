@@ -25,7 +25,7 @@
         style='margin: 0; padding: 0'>
     <input type="hidden" name="cx" value="000382786483905528259:szxa26ocu1k" />
     <input type="hidden" name="cof" value="FORID:9" />
-    <input name="q" type="text" size="40" />
+    <input name="q" type="text" size="85" />
     <input type="submit" name="sa" value="Найти" />
   </form>
   <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_000382786483905528259%3Aszxa26ocu1k"></script>
