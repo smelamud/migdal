@@ -198,7 +198,7 @@
      </td></tr>
     </table>
     <table class='ninept cframe' width=100%><tr><td>
-     <<error_lines>>
+     <error_lines>
      <batcher list='$;'>
      <ifnzero what='$;Count'>
       <for>

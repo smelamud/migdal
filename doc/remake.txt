@@ -254,7 +254,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/peruser-user.mhtml
 + pages/postingedit.mhtml (кроме ссылок на help и hidden для гостей)
 + pages/posting.mhtml
-* pages/postingorg.mhtml (исправить стиль сообщений об ошибках)
++ pages/postingorg.mhtml
 + pages/printings.mhtml
 + pages/rating.mhtml
 + pages/register.mhtml
