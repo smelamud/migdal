@@ -228,29 +228,6 @@ else
   }
 }
 
-# remake
-function getImageContentById($id,$size='large')
-{
-$fields=$size=='small' ? ',small' : ",if(has_large,'',small) as small,large";
-$result=sql("select id,filename,has_large,format,image_set$fields
-	     from images
-	     where id=$id",
-	    'getImageContentById');
-return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                           : array());
-}
-
-# remake
-function getImageNameBySet($image_set)
-{
-$result=sql("select id,image_set,filename,title
-	     from images
-	     where image_set=$image_set",
-	    'getImageNameBySet');
-return new Image(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                           : array());
-}
-
 function getImageFilename($id,$ext,$fileId=0,$size='large')
 {
 if($size!='' && $size!='large')
@@ -304,57 +281,6 @@ $fname=getImageFilename($id,$ext,$fileId,$size);
 if($imageURL[0]!='/')
   $imageURL="/$imageURL";
 return "$imageURL/$fname";
-}
-
-# remake
-function imageSetExists($image_set)
-{
-$result=sql("select id
-	     from images
-	     where image_set=$image_set",
-	    'imageSetExists');
-return mysql_num_rows($result)>0;
-}
-
-function imageFileExists($id,$format,$fileId=0,$size='large')
-{
-return file_exists(getImagePath($id,getMimeExtension($format),$fileId,$size));
-}
-
-# remake
-function imageLoad($mime,$content)
-{
-global $tmpDir,$maxImageSize;
-
-if((ImageTypes() & getImageTypeCode($mime))==0)
-  return false;
-$tmpFile=tempnam($tmpDir,'mig-load-');
-$fd=fopen($tmpFile,'w');
-fwrite($fd,$content,$maxImageSize);
-fclose($fd);
-$ext=getImageTypeName($mime);
-if($ext=='')
-  {
-  unlink($tmpFile);
-  return false;
-  }
-$imageFrom="ImageCreateFrom$ext";
-$handle=$imageFrom($tmpFile);
-unlink($tmpFile);
-return $handle;
-}
-
-# remake
-function setSelfImageSet($id)
-{
-$result=sql("update images
-	     set image_set=$id
-	     where id=$id",
-	    'setSelfImageSet');
-journal('update images
-	 set image_set='.journalVar('images',$id).
-       ' where id='.journalVar('images',$id));
-return $result;
 }
 
 function setMaxImageFileId($max_id)
