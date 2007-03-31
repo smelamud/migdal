@@ -551,7 +551,8 @@ while($row=mysql_fetch_assoc($result))
      list($small,$small_x,$small_y,
           $large,$large_size)=extractImage($id,$row,false);
      sql(sqlUpdate('entries',
-		   array('small_image' => $small,
+		   array('orig_id' => $id,
+		         'small_image' => $small,
 			 'small_image_x' => $small_x,
 			 'small_image_y' => $small_y,
 			 'large_image' => $large,

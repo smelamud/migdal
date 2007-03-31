@@ -12,7 +12,7 @@
 <decconst name='counters' file='conf/counters.php'>
 <decconst name='errors' file='lib/errors.php'>
 <decconst name='grps' file='lib/grps.php'>
-<decconst name='image_placements' file='lib/stotext-images.php'>
+<decconst name='image_placements' file='lib/inner-images.php'>
 <decconst name='image_upload' file='lib/image-upload-flags.php'>
 <decconst name='link_types' file='lib/cross-entries.php'>
 <decconst name='modbits' file='lib/modbits.php'>
@@ -207,8 +207,6 @@
          params='ident,table'>
 <deccall macro='image_obj' func='getImageById' file='lib/images.php' params='id'
          defaults='name=image id=0'>
-<deccall macro='image_name' func='getImageNameBySet' file='lib/images.php'
-         params='set' defaults='name=image'>
 <decexec macro='inner' func='beginInner' file='lib/inner.php'>
 <decexec macro='/inner' func='endInner' file='lib/inner.php'>
 <deccall macro='inner_image_par' func='getInnerImageByParagraph'

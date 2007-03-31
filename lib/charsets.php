@@ -75,7 +75,7 @@ $lsb=0;
 if($icharset=='UTF8')
   {
   $s=iconv($i_charset,'UTF-16',$s);
-  $lsb=ord($s{0})==0xfe ? 1 : 0;
+  $lsb=$s!='' && ord($s{0})==0xfe ? 1 : 0;
   $s=substr($s,2);
   $i_charset='UTF-16';
   $icharset='UTF16';

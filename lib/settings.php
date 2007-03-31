@@ -130,7 +130,8 @@ parseSettingsString(getSettingsCookie(SETL_HOST),true);
 
 updateSettingsCookie(SETL_USER);
 
-if(isset($Args['print']) && $Args['print']!=0 || $_GET['print']!=0)
+if(isset($Args['print']) && $Args['print']!=0
+   || isset($_GET['print']) && $_GET['print']!=0)
   $GLOBALS['userStyle']=-1;
 }
 ?>

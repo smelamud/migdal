@@ -420,7 +420,7 @@
   <ifne what="'%stylesheet'">
    <link rel='stylesheet' href='%stylesheet'>
   </ife>
-  <if what='$metaNoIndex'>
+  <if what='isset($metaNoIndex) && $metaNoIndex'>
    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
   </if>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">

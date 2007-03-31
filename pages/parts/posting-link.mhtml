@@ -2,12 +2,6 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <<assign name='title' value=''>
- <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
- <for>
-  <if what='!$;isFirst'><assign name='title' value#='$title / '></if>
-  <assign name='title' value#='$title$.Subject'>
- </for>>
  <topiclink posting='$posting'>
  <br>
 </if>
@@ -15,13 +9,14 @@
 
 <element name='further_url' params='posting'>
 <a href='/actions/link/$posting.Id?&okdir=$#posting.Url'>$posting.URLEllip</a>
+<< FIXME проверка ссылок временно выключена
 <if what='$posting.URLCheckFailDays>=3'>
  <array vals='день,дня,дней'>
  <plural value='$posting.URLCheckFailDays'>
  <span class='posting-error'>
   (Ссылка не работает $posting.URLCheckFailDays&sp;$,)
  </span>
-</if>
+</if>>
 </element>
 
 <element name='posting_link'>

@@ -21,7 +21,13 @@ $asses=explode('&',$query);
 $vars=array();
 foreach($asses as $ass) 
        { 
-       list($key,$value)=explode('=',$ass); 
+       if(strpos($ass,'=')!==false)
+         list($key,$value)=explode('=',$ass);
+       else
+         {
+	 $key=$ass;
+	 $value='';
+	 }
        $value=urldecode($value);
        if(substr($key,-2)!='[]')
          $vars[$key]=$value;
@@ -41,10 +47,25 @@ function remakeQuery($query,$remove=array(),$subs=array())
 return makeQuery(parseQuery($query),$remove,$subs);
 }
 
+function parseURI($uri)
+{
+if(strpos($uri,'#')!==false)
+  list($start,$end)=explode('#',$uri);
+else
+  {
+  $start=$uri;
+  $end='';
+  }
+if(strpos($start,'?')!==false)
+  list($start,$query)=explode('?',$start);
+else
+  $query='';
+return array($start,$query,$end);
+}
+
 function remakeURI($uri,$remove=array(),$subs=array(),$location='#')
 {
-list($start,$end)=explode('?',$uri);
-list($query,$end)=explode('#',$end);
+list($start,$query,$end)=parseURI($uri);
 $query=remakeQuery($query,$remove,$subs);
 $end=$location=='#' ? $end : $location;
 return $start.($query!='' ? "?$query" : '').($end!='' ? "#$end" : '');
@@ -59,8 +80,7 @@ return makeQuery($all,$remove,$subs);
 
 function remakeMakeURI($uri,$vars,$remove=array(),$subs=array(),$location='#')
 {
-list($start,$end)=explode('?',$uri);
-list($query,$end)=explode('#',$end);
+list($start,$query,$end)=parseURI($uri);
 $query=remakeMakeQuery($query,$vars,$remove,$subs);
 $end=$location=='#' ? $end : $location;
 return $start.($query!='' ? "?$query" : '').($end!='' ? "#$end" : '');

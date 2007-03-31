@@ -45,7 +45,7 @@ global $sessionid,$userId,$realUserId,$userGroups,$userRights,
        $shortSessionTimeout;
 
 $sessionid=getSessionCookie();
-$globalsid=$_REQUEST['globalsid'];
+$globalsid=isset($_REQUEST['globalsid']) ? $_REQUEST['globalsid'] : 0;
 
 clearUserRights();
 

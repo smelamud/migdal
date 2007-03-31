@@ -18,6 +18,8 @@ if(!isset($editmodeHistory))
 <assign name='image' value='$data.Image'>
 <ifne what='$data.Align'>
  <assign name='align' value#='align="$data.Align"'>
+<else>
+ <assign name='align' value=''>
 </ifne>
 <table $align>
  <notprint>

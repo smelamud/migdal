@@ -61,7 +61,7 @@ function getPostingsMessagesInfo($grp=GRP_ALL,$topic_id=-1,$user_id=0,
                                  $recursive=false)
 {
 if($grp==GRP_NONE)
-  return new PostingsInfo();
+  return new PostingsInfo(array());
 $hide='and '.postingsPermFilter(PERM_READ);
 $grpFilter='and '.grpFilter($grp,'grp');
 $topicFilter=getInfoTopicFilter($topic_id,$recursive);
@@ -80,7 +80,7 @@ function getPostingsAnswersInfo($grp=GRP_NONE,$topic_id=-1,$user_id=0,
                                 $recursive=false)
 {
 if($grp==GRP_NONE)
-  return new PostingsInfo();
+  return new PostingsInfo(array());
 $hide='and '.postingsPermFilter(PERM_READ);
 $grpFilter='and '.grpFilter($grp,'grp');
 $topicFilter=getInfoTopicFilter($topic_id,$recursive);
