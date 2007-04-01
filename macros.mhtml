@@ -28,20 +28,6 @@
  </macro>
 </macro>
 
-<macro name='iterate_http' defaults="method=get remove=''">
- <require name='lib/uri.php'>
- <iterate name='%name' class='HTTPVarsIterator'
-          arg1='$$HTTP_%^{method}_VARS' arg2%!remove='%remove'>
-</macro>
-
-<macro name='hiddenget'>
- <zone>
-  <array vals='%remove'>
-  <iterate_http remove='$*'>
-  <for><input type=hidden name='$.Name' value='$.Value'></for>
- </zone>
-</macro>
-
 <deciter macro='array' class='MArrayIterator' file='lib/array.php'
          params='values' defaults="values='$*'">
 <deciter macro='assoc_array' class='AssocArrayIterator' file='lib/array.php'

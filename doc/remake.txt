@@ -86,7 +86,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + actions/postingorg-goto.php
 + actions/remember-password.php
 + actions/reorder.php
-- actions/search.php
++ actions/search.php
 + actions/setup.php
 + actions/shadow.php
 + actions/_template.php
@@ -168,7 +168,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/topics.php
 + lib/track.php
 + lib/unix-calendar.php
-+ lib/uri.php (HTTPVarsIterator нужен?)
++ lib/uri.php
 + lib/users.php
 + lib/usertag.php
 + lib/utils.php

@@ -7,6 +7,9 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/logs.php');
 
+postString('okdir');
+postString('faildir');
+
 postString('q');
 postInteger('offset');
 
@@ -14,7 +17,7 @@ dbOpen();
 session();
 logEvent('search',"offset=$offset query=".urlencode($q));
 header('Location: '.remakeMakeURI($okdir,
-                                  $HTTP_POST_VARS,
+                                  $Args,
 				  array('okdir',
 				        'faildir',
 					'offset')));

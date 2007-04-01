@@ -23,6 +23,7 @@ $counts=array();
 while($row=mysql_fetch_assoc($result))
      if($row['count']!=0)
        $counts[uc($row['letter'])]+=$row['count'];
+// FIXME должно проставляться в конфиге
 setlocale(LC_COLLATE,'ru_RU.KOI8-R');
 uksort($counts,'strcoll');
 $alpha=array();
