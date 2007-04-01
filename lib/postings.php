@@ -453,7 +453,7 @@ parent::LimitSelectIterator('Posting',
 
 function create($row)
 {
-if($row['id']<=0 && $row['orig_id']>0)
+if((!isset($row['id']) || $row['id']<=0) && $row['orig_id']>0)
   {
   $Select=postingListFields($this->fields);
   $From=postingListTables($this->fields);
@@ -480,7 +480,7 @@ if($row['id']!=$row['orig_id'])
   }
 if($row['parent_id']>0)
   {
-  if($row['topic_ident']!='')
+  if(isset($row['topic_ident']) && $row['topic_ident']!='')
     setCachedValue('ident','entries',$row['topic_ident'],$row['parent_id']);
   setCachedValue('track','entries',$row['parent_id'],$row['topic_track']);
   }

@@ -62,7 +62,7 @@
 <element name='topics_splitter'>
 <assign name='splitspan' value!='$span+$indent+1'>
 <tr valign='top'>
- <tdspan span='$splitspan'>$text</tdspan>
+ <tdspan span='$splitspan'>&nbsp;</tdspan>
 </tr>
 </element>
 

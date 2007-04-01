@@ -34,7 +34,7 @@ foreach($asses as $ass)
        else
          {
 	 $key=substr($key,0,strlen($key)-2);
-	 if(!is_array($vars[$key]))
+	 if(!isset($vars[$key]) || !is_array($vars[$key]))
 	   $vars[$key]=array();
 	 $vars[$key][]=$value;
 	 }
