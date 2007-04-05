@@ -3,7 +3,7 @@
 
 require_once('lib/bug.php');
 require_once('lib/sql.php');
-require_once('lib/entries.php');
+require_once('lib/entry-types.php');
 
 function answerGet($id)
 {

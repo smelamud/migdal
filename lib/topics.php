@@ -94,17 +94,6 @@ return strlen($s)>$fullNameShortSize
        : $s;
 }
 
-function isPermitted($right)
-{
-global $userAdminTopics,$userModerator;
-
-return $userAdminTopics && $right!=PERM_POST
-       ||
-       $userModerator && $right==PERM_POST
-       ||
-       perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
-}
-
 function getPostingsInfo()
 {
 return $this->postings_info;

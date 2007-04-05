@@ -3,6 +3,7 @@
 
 require_once('conf/migdal.conf');
 
+require_once('lib/entry-types.php');
 require_once('lib/usertag.php');
 require_once('lib/mtext-shorten.php');
 require_once('lib/image-types.php');
@@ -10,14 +11,7 @@ require_once('lib/track.php');
 require_once('lib/answers.php');
 require_once('lib/langs.php');
 require_once('lib/text-large.php');
-
-define('ENT_NULL',0);
-define('ENT_POSTING',1);
-define('ENT_FORUM',2);
-define('ENT_TOPIC',3);
-define('ENT_IMAGE',4);
-define('ENT_COMPLAIN',5);
-define('ENT_VERSION',6);
+require_once('lib/permission-schemes.php');
 
 $entryClassNames=array(ENT_NULL     => 'Entry',
                        ENT_POSTING  => 'Posting',
@@ -240,7 +234,7 @@ return $this->perm_string!='' ? $this->perm_string
 
 function isPermitted($right)
 {
-return true;
+return isPermittedEntry($this,$right);
 }
 
 function isReadable()

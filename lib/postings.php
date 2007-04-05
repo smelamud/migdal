@@ -127,16 +127,6 @@ else
     $this->parent_id=getParentIdByEntryId($this->up);
 }
 
-function isPermitted($right)
-{
-global $userModerator,$userId;
-
-return $userModerator
-       ||
-       (!$this->isDisabled() || $this->getUserId()==$userId) &&
-       perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
-}
-
 function isShadow()
 {
 return $this->getId()!=$this->getOrigId();

@@ -46,25 +46,6 @@ $this->subject_sort=convertSort($this->subject);
 $this->url=$vars['url'];
 }
 
-function isPermitted($right)
-{
-global $userId,$userModerator;
-
-switch($right)
-      {
-      case PERM_READ:
-           return true;
-      case PERM_WRITE:
-           return $this->getUserId()==$userId || $userModerator;
-      case PERM_APPEND:
-           return true; // for abstract root complain
-      case PERM_POST:
-           return true;
-      default:
-           return false;
-      }
-}
-
 function isClosed()
 {
 return ($this->getModbits() & MODC_CLOSED)!=0;

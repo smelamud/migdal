@@ -117,16 +117,6 @@ $href=isset($forumParentHref[$this->getParentType()])
 return $this->getCompositeValue($href);
 }
 
-function isPermitted($right)
-{
-global $userModerator,$userId;
-
-return $userModerator
-       ||
-       (!$this->isDisabled() || $this->getUserId()==$userId) &&
-       perm($this->getUserId(),$this->getGroupId(),$this->getPerms(),$right);
-}
-
 }
 
 function forumPermFilter($right,$prefix='')

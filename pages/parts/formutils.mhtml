@@ -168,13 +168,14 @@
  <tr>
   <td width='1'>
    <if what='$selected'>
-    <input id='$name$value' type='$type' name='$$FormSelectName' value='$value'
-           checked>
+    <input id='$$FormSelectName$value' type='$type' name='$$FormSelectName'
+           value='$value' checked>
    <else>
-    <input id='$name$value' type='$type' name='$$FormSelectName' value='$value'>
+    <input id='$$FormSelectName$value' type='$type' name='$$FormSelectName'
+           value='$value'>
    </if>
   </td>
-  <td><label for='$name$value'>$title</label></td>
+  <td><label for='$$FormSelectName$value'>$title</label></td>
  </tr>
 </if>
 </element>

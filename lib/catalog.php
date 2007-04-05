@@ -5,7 +5,7 @@ require_once('lib/track.php');
 require_once('lib/utils.php');
 require_once('lib/uri.php');
 require_once('lib/modbits.php');
-require_once('lib/entries.php');
+require_once('lib/entry-types.php');
 
 function catalog($id,$ident,$prev='')
 {

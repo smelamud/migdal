@@ -85,8 +85,8 @@ $this->entry=$vars['entry'];
 // наследника Entry)
 function getPermsById($id)
 {
-$result=sql("select entries.id as id,user_id,group_id,users.login as login,
-		    gusers.login as group_login,perms
+$result=sql("select entries.id as id,entry,user_id,group_id,
+                    users.login as login,gusers.login as group_login,perms
 	     from entries
 		  left join users
 		       on entries.user_id=users.id
