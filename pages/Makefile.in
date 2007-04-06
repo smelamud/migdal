@@ -36,14 +36,15 @@ $(targetdir)/.stamp:
 	touch $@
 
 $(targetdir)/.htaccess: $(targetdir)/.stamp favicon.ico dispatcher.php \
-		.htaccess robots.txt *.js
-	cp favicon.ico dispatcher.php .htaccess robots.txt *.js $(targetdir)
+		.htaccess robots.txt
+	cp favicon.ico dispatcher.php .htaccess robots.txt $(targetdir)
 
 $(targetdir)/%.php: %.mhtml $(targetdir)/.stamp ../miparser \
 		../macros.mhtml macros.mhtml
 	../miparser -M ../macros.mhtml -M macros.mhtml $< > $@
 
 all: $(targetdir)/.htaccess $(OBJECTS:%.mhtml=$(targetdir)/%.php)
+	(cd js; $(MAKE) all)
 	(cd parts; $(MAKE) all)
 	(cd pics; $(MAKE) all)
 	(cd styles; $(MAKE) all)

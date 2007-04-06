@@ -48,7 +48,7 @@
 </element>
 
 <element name='top_web' params='ident,transref'>
-<script src='/window.js' language='JavaScript'></script>
+<script src='/js/window.js' language='JavaScript'></script>
 <table width=100% cellspacing=0 cellpadding=0>
  <tr valign=top>
   <td align=left rowspan=2>

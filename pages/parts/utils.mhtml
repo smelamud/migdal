@@ -79,7 +79,7 @@
 <notenglish>
  <if what='$message.isUserVisible'>
   <a href='/users/$#message.UserFolder/?redirid=$_'
-     onClick="UserInfo($message.UserId);return false"
+     onClick="userInfo($message.UserId); return false"
      title='подробнее' class='name'>$=message.Login</a><asp>
  <else>
   <span class='name'>$=message.Login</span><asp>
