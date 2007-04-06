@@ -7,12 +7,57 @@ require_once('lib/catalog.php');
 require_once('lib/users.php');
 require_once('lib/postings.php');
 
+function trapArchive($args)
+{
+return remakeMakeURI('/archive/',$args);
+}
+
 function trapArticle($args)
 {
 $id=postProcessInteger($args['artid']);
 $posting=getPostingById(getNewId('postings',$id));
 if($posting->getId()>0)
   return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('artid'));
+else
+  return '';
+}
+
+function trapArticle_times($args)
+{
+$id=postProcessInteger($args['artid']);
+$posting=getPostingById(getNewId('postings',$id));
+if($posting->getId()>0)
+  return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('artid'));
+else
+  return '';
+}
+
+function trapBook_chapter($args)
+{
+$id=postProcessInteger($args['chapid']);
+$posting=getPostingById(getNewId('postings',$id));
+if($posting->getId()>0)
+  return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('chapid'));
+else
+  return '';
+}
+
+function trapBook_chapter_split($args)
+{
+$id=postProcessInteger($args['chapid']);
+$posting=getPostingById(getNewId('postings',$id));
+if($posting->getId()>0)
+  return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('chapid'));
+else
+  return '';
+}
+
+function trapBook($args)
+{
+$id=postProcessInteger($args['bookid']);
+$posting=getPostingById(getNewId('postings',$id));
+if($posting->getId()>0)
+  return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('bookid'));
 else
   return '';
 }

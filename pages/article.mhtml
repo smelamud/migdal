@@ -2,13 +2,6 @@
 
 <ident name='postid'>
 
-<< Traps >>
-<if what='$postid>=283 && $postid<=286 || $postid==301'>
- <trap text='Ecology and Torah'>
- <reload href#="book-chapter.php?chapid=$postid">
-</if>
-<< /Traps >>
-
 <posting_obj id='$postid' grp='*GRP_ARTICLES'
              fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <log event=article text#='post($,Id)'>

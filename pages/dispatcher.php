@@ -59,7 +59,7 @@ function &dispatchScript($requestPath,$parts)
 {
 $info=new LocationInfo();
 $scriptName=substr($requestPath,1);
-$trapFunc='trap'.ucfirst(substr($scriptName,0,-4));
+$trapFunc='trap'.ucfirst(substr(strtr($scriptName,'-','_'),0,-4));
 if(function_exists($trapFunc))
   {
   $path=$trapFunc(parseQuery($parts['query']));

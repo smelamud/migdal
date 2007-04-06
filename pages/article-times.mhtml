@@ -11,7 +11,7 @@
  <td><a href='/times/$issue/'>
   <image src='/pics/times-small.gif' border=0></a>
  </td>
- <td><a href='/times/$issue/'>No.$,getIssues</a></td>
+ <td><a href='/times/$issue/'>&no;$,getIssues</a></td>
 </tr></table>
 </element>
 

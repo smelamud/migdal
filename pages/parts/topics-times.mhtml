@@ -5,7 +5,7 @@
 <posting_id grp='*GRP_TIMES_COVERS' index1='$base' topic_id='$`times`'>
 <posting_obj id='$,' grp='*GRP_TIMES_COVERS'>
 <upper_level name='Мигдаль Times' href='/times/'>
-<topics_table title#='В номере No.$,getIssues'>
+<topics_table title#='В номере &no;$,getIssues'>
  <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`times`'
 		      recursive='*true' limit=0 sort='*SORT_INDEX0'
 		      index1='$base'>
