@@ -21,13 +21,13 @@
   <td class='article'>
    <table width=50% cellspacing=0 cellpadding=0><tr><td>
     <ifne what='$,Author'>
-     <p class='author'>$,HTMLAuthor</p>
+     <p class='author'>$,AuthorHTML</p>
     </ifne>
     <p><h1 style='margin-left: 0'>$,Subject</h1></p>
     <ifne what='$,Source'>
-     <p class='source'>$,HTMLSource</p>
+     <p class='source'>$,SourceHTML</p>
     </ifne>
-    <p>$,HTMLBody</p>
+    <p>$,BodyHTML</p>
     <zone>
      << FIXME deprecated >>
      <sibling_index0 name='index' up='$,MessageId' index0='-1'>

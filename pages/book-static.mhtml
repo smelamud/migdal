@@ -17,13 +17,13 @@
  <div class='article' style='padding: 5'>
   <table width=50% cellspacing=0 cellpadding=0><tr><td>
    <ifne what='$,Author'>
-    <p class='author'>$,HTMLAuthor</p>
+    <p class='author'>$,AuthorHTML</p>
    </ifne>
    <p><h1 style='margin-left: 0'>$,Subject</h1></p>
    <ifne what='$,Source'>
-    <p class='source'>$,HTMLSource</p>
+    <p class='source'>$,SourceHTML</p>
    </ifne>
-   <p>$,HTMLBody</p>
+   <p>$,BodyHTML</p>
   </td></tr></table>
   <a name='contents'></a>
   <h1>Оглавление</h1>
@@ -43,7 +43,7 @@
    <a name='chap$.Id'></a>
    <h1 style='clear: both; padding-top: 20px'>$,Subject
     <ifne what='$,Author'>
-     <div class='author'>$,HTMLAuthor</div>
+     <div class='author'>$,AuthorHTML</div>
     </ifne>
    </h1>
    <article posting='$,' withvote='*false' static='*true'

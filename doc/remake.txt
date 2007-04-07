@@ -19,7 +19,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 12. Метод Object::store() выносится как функция storeObject(). Аналогично и
 другие методы, работающие с базой. Аргумент в storeObject() должен
 передаваться по ссылке (!), чтобы записывать туда id новосозданного объекта.
-13. HTMLSmth() переименовывается в SmthHTML().
 16. Перестраиваем таблицы вместо border на комбинацию двух таблиц.
 18. Избавляемся от селекторов-вложений в CSS и переходим на имена классов типа
 .form-cell, если возможно.
@@ -204,11 +203,11 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/article.mhtml
 + pages/article-times.mhtml
 + pages/book-chapter.mhtml
-- pages/book-chapter-split.mhtml
+* pages/book-chapter-split.mhtml
 * pages/book.mhtml (кроме пакетов)
 + pages/book-print.mhtml
-- pages/book-split.mhtml
-- pages/book-static.mhtml
+* pages/book-split.mhtml
+* pages/book-static.mhtml
 + pages/chmod.mhtml
 + pages/complainactionedit.mhtml
 * pages/complainanswer.mhtml (кроме ссылок на help)

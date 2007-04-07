@@ -27,7 +27,7 @@
    <book_ring_static book='$book' index='$,Index0'>
    <h1>$,Subject
     <ifne what='$,Author'>
-     <div class='author'>$,HTMLAuthor</div>
+     <div class='author'>$,AuthorHTML</div>
     </ifne>
    </h1>
    <article posting='$,' withvote='*false' static='*true'>
