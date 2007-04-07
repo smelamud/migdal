@@ -12,7 +12,7 @@ function getMimeExtension($mime_type)
 {
 global $mimeExtensions;
 
-return $mimeExtensions[$mime_type];
+return isset($mimeExtensions[$mime_type]) ? $mimeExtensions[$mime_type] : '';
 }
 
 $mimeTypes=array('jpg' => 'image/jpeg',
@@ -24,6 +24,6 @@ function getMimeType($ext)
 {
 global $mimeTypes;
 
-return $mimeTypes[$ext];
+return isset($mimeTypes[$ext]) ? $mimeTypes[$ext] : '';
 }
 ?>

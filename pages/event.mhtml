@@ -11,12 +11,6 @@
 <grps>
 
 <topic_obj id='$topic_id'>
-<<if what='$/$topic_id,2/==$`kaitana`'>
- <reload href#='kaitana.php?topic_id=$topic_id'>
-</if>
-<if what='$/$topic_id,2/==$`halom` && ($,Allow & GRP_KAITANA_NEWS)!=0'>
- <reload href#='halom.php?topic_id=$topic_id'>
-</if>>
 
 <log event=event text#='topic($,Id) offset=$offset'>
 

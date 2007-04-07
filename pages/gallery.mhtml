@@ -15,27 +15,6 @@
 </ifzero>
 <string name='notonly_href'>
 
-<< Traps >>
-<< Tue Jun 29 02:06:37 EEST 2004 >>
-<if what='$topic_id==213'>
- <trap text='Halom gallery'>
- <reload href='gallery.php'>
-</if>
-<< Tue Jun 29 01:28:28 EEST 2004 >>
-<if what='$topic_id==159'>
- <trap text='Kaitanot gallery'>
- <reload href='gallery.php'>
-</if>
-<if what='$topic_id==143'>
- <trap text='Museum gallery'>
- <reload href='migdal.php?artid=1582'>
-</if>
-<ifnzero what='$grp'>
- <trap text='grp!=0 in gallery.php'>
- <reload href='$[grp]'>
-</ifnzero>
-<< /Traps >>
-
 <<zone>>
  << FIXME `topics` table is deprecated >>
  <<ident_id ident='$topic_id'>
@@ -54,9 +33,9 @@
 <html>
 <preamble>
 <body>
- <ife what='$$menu_main'>
+ <if what="!isset($$menu_main) || $$menu_main==''">
   <assign_global name='menu_main' value='index'>
- </ife>
+ </if>
  <top ident='$$menu_main'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>

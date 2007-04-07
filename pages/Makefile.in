@@ -14,9 +14,8 @@ OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  daily-news.mhtml ears.mhtml event.mhtml events.mhtml \
 	  events-english.mhtml forum.mhtml forumedit.mhtml forumcatalog.mhtml \
 	  gallery.mhtml gallery-main.mhtml groupadd.mhtml grouporg.mhtml \
-	  halom-main.mhtml horisontedit.mhtml index-english.mhtml \
-	  index-www.mhtml jcc.mhtml journal.mhtml kaitana-main.mhtml \
-	  limedit.mhtml liminsert.mhtml link.mhtml links.mhtml \
+	  horisontedit.mhtml index-english.mhtml index-www.mhtml jcc.mhtml \
+	  journal.mhtml limedit.mhtml liminsert.mhtml link.mhtml links.mhtml \
 	  methodic-center.mhtml methodics.mhtml migdal.mhtml \
 	  migdal-library.mhtml migdal-library-novelties.mhtml \
 	  migdal-news.mhtml modbits.mhtml moderator.mhtml peruser.mhtml \

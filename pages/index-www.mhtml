@@ -1,40 +1,13 @@
 << @(#) $Id$ >>
 
+<grps>
 <ident name='topic_id'>
 <int name='offset'>
 <ifzero what='$topic_id'>
  <assign name='topic_id' value='-1'>
 </ifzero>
 
-<< Traps >
-<if what='$topic_id==5'>
- <trap text='Jewish Internet'>
- <reload href='links/'>
-</if>
-<if what='$topic_id==12'>
- <trap text='Migdal'>
- <reload href='migdal.php'>
-</if>
-<if what='$topic_id==13'>
- <trap text='KES'>
- <reload href='migdal.php?artid=1479'>
-</if>
-<if what='$topic_id==146'>
- <trap text='Methodics'>
- <reload href='methodics.php'>
-</if>
-<if what='$topic_id==24'>
- <trap text='Tu bi-Shvat'>
- <reload href='$[topic_id=6]'>
-</if>
-<if what='$topic_id==27'>
- <trap text='Veterans'>
- <reload href='veterans.php'>
-</if>
-< /Traps >>
-
 <log event=index text#='topic($topic_id) offset=$offset'>
-<grps>
 
 <html>
 <preamble>

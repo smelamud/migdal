@@ -62,7 +62,7 @@
    <if what='$.isAssigned'>
     <td class='$class eightpt'><senderlink message='$.PersonInfo'></td>
    <else>
-    <td class='$class' align=center>---</td>
+    <td class='$class' align=center>&mdash;</td>
    </if>
    <td class='$class ninept' align=center>
     <biff time='$.LastAnswer' small='*true'>

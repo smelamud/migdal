@@ -1,17 +1,9 @@
 << @(#) $Id$ >>
 
+<grps>
 <int name='offset'>
 
-<< Traps >
-< Tue Jun 17 18:56:06 EEST 2003 >
-<ifnzero what='$topic_id'>
- <trap text='topic_id!=0 in forumcatalog.php'>
- <reload href='forumcatalog.php'>
-</ifnzero>
-< /Traps >>
-
 <log event=forumcatalog text#='offset=$offset'>
-<grps>
 
 <element name='batcher' params='&list'>
 <table width=100%><tr valign=bottom>

@@ -75,8 +75,8 @@ return $ids;
 
 function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)
 {
-list($id)=getRandomPostingIds(1,$grp,$topic_id,$user_id,$index1);
-return (int)$id;
+$ids=getRandomPostingIds(1,$grp,$topic_id,$user_id,$index1);
+return count($ids)>0 ? (int)$ids[0] : 0;
 }
 
 class RandomPostingsIterator

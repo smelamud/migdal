@@ -221,20 +221,18 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/event.mhtml
 + pages/events-english.mhtml
 + pages/events.mhtml
-+ pages/forumcatalog.mhtml (кроме ловушек)
++ pages/forumcatalog.mhtml
 + pages/forumedit.mhtml (кроме ссылок на help)
 + pages/forum.mhtml
-* pages/gallery.mhtml (кроме ловушек и статистики)
-* pages/gallery-main.mhtml (кроме ловушек и статистики)
+* pages/gallery.mhtml (кроме статистики)
+* pages/gallery-main.mhtml (кроме статистики)
 + pages/groupadd.mhtml
 + pages/grouporg.mhtml
-- pages/halom-main.mhtml (удалить, сохранив ловушку)
 + pages/horisontedit.mhtml
 + pages/index-english.mhtml
-* pages/index-www.mhtml (кроме ловушек)
++ pages/index-www.mhtml
 + pages/jcc.mhtml
 + pages/journal.mhtml
-- pages/kaitana-main.mhtml (удалить, сохранив ловушку)
 + pages/limedit.mhtml
 + pages/liminsert.mhtml
 + pages/links.mhtml
