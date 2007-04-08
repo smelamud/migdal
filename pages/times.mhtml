@@ -19,7 +19,7 @@
 <element name='times_issue'>
 <table width=120>
  <tr><td class='issue'>
-  No.$$issues
+  &no;$$issues
  </td></tr>
  <ifnzero what='$$cover.Id'>
   <tr><td class='month'>
@@ -55,7 +55,7 @@
   <td><select name='okdir'>
    <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=0 sort='*SORT_RINDEX1'>
    <for>
-    <assign name='title' value#='No.$.getIssues&nbsp;$=.Comment0'>
+    <assign name='title' value#='&no;$.getIssues&nbsp;$=.Comment0'>
     <if what='$.Index1==$$issue'>
      <option value='/times/$.Index1/' selected>$title
     <else>
@@ -193,9 +193,9 @@
   </td></tr>
   <tr><td align=center><b>
    <if what='$$issue!=$.Index1'>
-    <a href='/times/$.Index1/'>No.$.getIssues</a>
+    <a href='/times/$.Index1/'>&no;$.getIssues</a>
    <else>
-     No.$.getIssues
+     &no;$.getIssues
    </if>
   </b></td></tr>
  </table>
