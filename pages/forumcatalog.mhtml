@@ -101,7 +101,7 @@
        <a href='$href' class='ninept'>$.Answers</a>
       </td>
       <ifzero what='$.LastAnswer'>
-       <td class='$class' align=center>---</td>
+       <td class='$class' align=center>&mdash;</td>
       <else>
        <td class='$class ninept'>
 	<sentview date='$.LastAnswer'><br>

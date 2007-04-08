@@ -19,7 +19,7 @@ function charToEntity($c,$_charset='UTF-16',$lsb=0)
 $charset=charsetName($_charset);
 if($charset!='UTF16')
   {
-  $c=iconv($_charset,'UTF-16',$c);
+  $c=@iconv($_charset,'UTF-16',$c);
   $lsb=ord($c{0})==0xfe ? 1 : 0;
   $c=substr($c,2);
   }
@@ -37,7 +37,7 @@ else
 $s=pack('SS',0xfeff,$code);
 $charset=charsetName($_charset);
 if($charset!='UTF16')
-  $s=iconv('UTF-16',$_charset,$s);
+  $s=@iconv('UTF-16',$_charset,$s);
 else
   $s=substr($s,2);
 return $s;
@@ -52,12 +52,12 @@ $icharset=charsetName($i_charset);
 $ocharset=charsetName($o_charset);
 if($icharset!='UTF8')
   {
-  $s=iconv($i_charset,'UTF-8',$s);
+  $s=@iconv($i_charset,'UTF-8',$s);
   $i_charset='UTF-8';
   $icharset='UTF8';
   }
 $s=preg_replace('/&#x?([\dA-Fa-f]+);/e',"entityToChar('\\0','$i_charset')",$s);
-return $icharset==$ocharset ? $s : iconv($i_charset,$o_charset,$s);
+return $icharset==$ocharset ? $s : @iconv($i_charset,$o_charset,$s);
 }
 
 function convertCharset($s,$i_charset,$o_charset)
@@ -74,7 +74,7 @@ if($icharset==$ocharset)
 $lsb=0;
 if($icharset=='UTF8')
   {
-  $s=iconv($i_charset,'UTF-16',$s);
+  $s=@iconv($i_charset,'UTF-16',$s);
   $lsb=$s!='' && ord($s{0})==0xfe ? 1 : 0;
   $s=substr($s,2);
   $i_charset='UTF-16';
@@ -90,7 +90,7 @@ while(true)
      $chunk=substr($s,$pos*$icsize);
      if($icsize==2)
        $chunk=($lsb==0 ? "\xff\xfe" : "\xfe\xff").$chunk;
-     $chunk=iconv($i_charset,$o_charset,$chunk);
+     $chunk=@iconv($i_charset,$o_charset,$chunk);
      if(strlen($chunk)>=strlen($s)/$icsize-$pos)
        {
        $c.=$chunk;
@@ -108,6 +108,7 @@ function convertFromXMLText($s)
 {
 global $charsetInternal;
 
+debugLog(LL_DEBUG,'convertFromXMLText(s=%)',array($s));
 return convertCharset($s,'UTF-8',$charsetInternal);
 }
 
@@ -115,7 +116,7 @@ function convertToXMLText($s)
 {
 global $charsetInternal;
 
-return iconv($charsetInternal,'UTF-8',$s);
+return @iconv($charsetInternal,'UTF-8',$s);
 }
 
 function isKOI($s)

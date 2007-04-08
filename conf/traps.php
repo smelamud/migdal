@@ -227,8 +227,10 @@ if($id==5) /* Еврейский Интернет */
   return remakeMakeURI('/links/',$args,array('topic_id'));
 if($id==13) /* КЕС */
   return remakeMakeURI('/migdal/jcc/student/',$args,array('topic_id'));
-if($id==24) /* КЕС */
+if($id==24) /* Ту би-Шват */
   return remakeMakeURI('/judaism/',$args,array('topic_id'));
+if($id==146) /* Методический центр */
+  return remakeMakeURI('/migdal/methodology/books/',$args,array('topic_id'));
 if($id<=0)
   return remakeMakeURI('/',$args);
 else
@@ -285,9 +287,46 @@ else
                        array('topic_id'));
 }
 
+function trapMethodic_center($args)
+{
+return remakeMakeURI('/migdal/methodology/',$args);
+}
+
+function trapMethodics($args)
+{
+return remakeMakeURI('/migdal/methodology/books/',$args);
+}
+
+function trapMigdal_library_news($args)
+{
+return remakeMakeURI('/migdal/library/novelties/',$args);
+}
+
+function trapMigdal_library($args)
+{
+return remakeMakeURI('/migdal/library/',$args);
+}
+
+function trapMigdal_news($args)
+{
+$dirs=array(177 => 'museum',
+            174 => 'mazltov',
+	    259 => 'beitenu');
+$id=postProcessInteger($args['topic_id']);
+if($id<=0)
+  return remakeMakeURI('/migdal/news/',$args,array('topic_id'));
+else
+  if(isset($dirs[$id]))
+    return remakeMakeURI("/migdal/{$dirs[$id]}/news/",$args,array('topic_id'));
+  else
+    return '';
+}
+
 function trapMigdal($args)
 {
 $id=postProcessInteger($args['artid']);
+if($id<=0)
+  return remakeMakeURI('/migdal/',$args);
 $posting=getPostingById(getNewId('postings',$id));
 if($posting->getId()>0)
   return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('artid'));
