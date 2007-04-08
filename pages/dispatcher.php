@@ -58,8 +58,9 @@ return $info;
 function &dispatchScript($requestPath,$parts)
 {
 $info=new LocationInfo();
-$scriptName=substr($requestPath,1);
-$trapFunc='trap'.ucfirst(substr(strtr($scriptName,'-','_'),0,-4));
+$pos=strpos($requestPath,'.php');
+$scriptName=substr($requestPath,1,$pos+3);
+$trapFunc='trap'.ucfirst(substr(strtr($scriptName,'/-','__'),0,-4));
 if(function_exists($trapFunc))
   {
   $path=$trapFunc(parseQuery($parts['query']));
@@ -115,7 +116,7 @@ $parts=parse_url($_SERVER['REQUEST_URI']);
 $requestPath=$parts['path'];
 if($requestPath=='/dispatcher.php')
   return dispatch404($requestPath);
-elseif(substr($requestPath,-4)=='.php')
+elseif(strpos($requestPath,'.php')!==false)
   return dispatchScript($requestPath,$parts);
 elseif(substr($requestPath,0,9)!='/actions/' && substr($requestPath,-1)!='/'
        && substr($requestPath,5)!='.html')

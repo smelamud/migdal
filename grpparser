@@ -61,7 +61,7 @@ while($self->{'current'}=~/^\s*$/)
      $self->{'line'}++;
      $current='',last if !defined($current);
      chomp $current;
-     $current=~s/#.*$//;
+     $current=~s/^#.*$//;
      $current=~s/\/\/.*$//;
      $current=~s/\/\*.*\*\///;
      if($self->{'comment'}!=0)

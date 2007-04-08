@@ -344,9 +344,42 @@ else
   return '';
 }
 
+function trapPrintings($args)
+{
+return remakeMakeURI('/migdal/printings/',$args);
+}
+
 function trapRegister($args)
 {
 return remakeMakeURI('/register/',$args);
+}
+
+function trapSearch($args)
+{
+return remakeMakeURI('/search/',$args);
+}
+
+function trapTaglit($args)
+{
+return remakeMakeURI('/taglit/',$args);
+}
+
+function trapTaglit_user($args)
+{
+$user_id=postProcessInteger($args['user_id']);
+$user=getUserById($user_id);
+if($user->getId()<=0)
+  return '';
+return remakeMakeURI('/taglit/'.$user->getFolder().'/',$args,array('user_id'));
+}
+
+function trapThumbnail($args)
+{
+$id=postProcessInteger($args['id']);
+$image=getImageById(getNewId('images',$id));
+if($image->getId()<=0)
+  return '';
+return remakeMakeURI($image->getSmallImageURL(),$args,array('id'));
 }
 
 function trapUrls($args)
