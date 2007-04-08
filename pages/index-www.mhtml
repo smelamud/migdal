@@ -1,25 +1,31 @@
 << @(#) $Id$ >>
 
 <grps>
-<ident name='topic_id'>
+<ident name='id'>
 <int name='offset'>
-<ifzero what='$topic_id'>
- <assign name='topic_id' value='-1'>
+<ifzero what='$id'>
+ <assign name='id' value='-1'>
 </ifzero>
 
-<log event=index text#='topic($topic_id) offset=$offset'>
+<< Catching old URLs without script name >>
+<int name='topic_id'>
+<if what='$topic_id>0'>
+ <reload href#='/index.php?topic_id=$topic_id'>
+</if>
+
+<log event=index text#='topic($id) offset=$offset'>
 
 <html>
 <preamble>
 <body>
  <top ident='index'
-      transref!='$topic_id<=0 ? "http://english.$$siteDomain/" : ""'>
+      transref!='$id<=0 ? "http://english.$$siteDomain/" : ""'>
  <table width=100% cellpadding=5>
   <tr valign=top>
    <td width=150 class='eframe'>
     <topics>
     <ears>
-    <if what='$topic_id<=0'>
+    <if what='$id<=0'>
      <p>&nbsp;</p>
      <p><banner_rabbi></p>
     </if>
@@ -27,24 +33,23 @@
    <td class='cframe'>
     <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
      <td>
-      <if what='$topic_id>0'>
-       <topic_name id='$topic_id'>
+      <if what='$id>0'>
+       <topic_name id='$id'>
        <subtitle title='$,Subject'>
       </if>
       <seealso_frame>
-      <if what='$topic_id<=0'>
+      <if what='$id<=0'>
        <<daily_announce topic_id='$`migdal.events.kaitanot.5766.winter`'>>
        <textears>
       </if>
-      <postings grp='*GRP_TAPE' topic_id='$topic_id' limit=10 offset='$offset'
-                showshadows!='$topic_id>0'>
+      <postings grp='*GRP_TAPE' topic_id='$id' limit=10 offset='$offset'
+                showshadows!='$id>0'>
      </td>
      <td width=130 class='nframe'>
       <tzdaka>
       <tip>
-      <hit_parade_month grp='*GRP_WRITINGS' topic_id='$topic_id'
-			showshadows!='$topic_id>0'>
-      <if what='$topic_id<=0'>
+      <hit_parade_month grp='*GRP_WRITINGS' topic_id='$id' showshadows!='$id>0'>
+      <if what='$id<=0'>
        <discussions limit=7>
       </if>
      </td>
