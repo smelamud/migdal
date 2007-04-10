@@ -8,6 +8,11 @@ require_once('lib/users.php');
 require_once('lib/postings.php');
 require_once('lib/complains.php');
 
+function trapActions_userconfirm($args)
+{
+return remakeMakeURI('/actions/user/confirm/',$args);
+}
+
 function trapArchive($args)
 {
 return remakeMakeURI('/archive/',$args);
@@ -277,6 +282,30 @@ else
   }
 }
 
+function trapLib_earview($args)
+{
+$id=postProcessInteger($args['image_id']);
+$image=getImageById(getNewId('images',$id));
+if($image->getId()<=0)
+  return '';
+return remakeMakeURI($image->getLargeImageURL(),$args,
+                     array('message_id','image_id'));
+}
+
+function trapLib_image($args)
+{
+$id=postProcessInteger($args['id']);
+$size=postProcessString($args['size']);
+if($size!='small' && $size!='large')
+  $size='small';
+$image=getImageById(getNewId('images',$id));
+if($image->getId()<=0)
+  return '';
+return remakeMakeURI($size=='small' ? $image->getSmallImageURL()
+                                    : $image->getLargeImageURL(),
+		     $args,array('id','size'));
+}
+
 function trapLinks($args)
 {
 $id=postProcessInteger($args['topic_id']);
@@ -379,7 +408,7 @@ $id=postProcessInteger($args['id']);
 $image=getImageById(getNewId('images',$id));
 if($image->getId()<=0)
   return '';
-return remakeMakeURI($image->getSmallImageURL(),$args,array('id'));
+return remakeMakeURI($image->getSmallImageURL(),$args,array('id','size'));
 }
 
 function trapUrls($args)
