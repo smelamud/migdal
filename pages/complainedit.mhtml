@@ -48,7 +48,7 @@
   <form_editor title='Текст' mandatory='*true'
                comment='Изложите подробно суть жалобы или предложения.'
 	       name='body' body='$,Body'>
-  <<help_link href='stotext-help-subs.php'
+  <<help_link href='/help/formatting/'
 	     title='Список обозначений, используемых в тексте'>>
   <if what='$editid'>
    <form_buttons title='Изменить'>

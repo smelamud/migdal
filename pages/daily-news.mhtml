@@ -19,8 +19,7 @@
  <table class='info'><tr valign=center>
   <td><image src='/pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?topic_id=$event.Id&grp=*GRP_DAILY_NEWS&redirid=$_'
-      >Добавить репортаж</a>
+   <a href='/${event.Catalog}add-day?redirid=$_'>Добавить репортаж</a>
   </td>
   <td>&nbsp;</td>
   <td><image src='/pics/sheet.gif'></td>

@@ -28,7 +28,7 @@
    <form_complainactionselect title='Действие' name='script_id'
 			      value='$,ScriptId' mandatory='*false'>
    <form_editor title='Текст' mandatory='*false' name='text' body='$=,Text'>
-   <<help_link href='stotext-help-subs.php'
+   <<help_link href='/help/formatting/'
 	      title='Список обозначений, используемых в тексте'>>
    <form_buttons title='Ответить'>
   </form>

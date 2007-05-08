@@ -47,7 +47,8 @@ return $row ? $this->create($row) : 0;
 function reset()
 {
 $this->select();
-mysql_data_seek($this->result,0);
+if($this->count>0)
+  mysql_data_seek($this->result,0);
 $this->first=2;
 $this->odd=0;
 $this->position=-1;
