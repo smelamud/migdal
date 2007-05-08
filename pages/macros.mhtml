@@ -388,14 +388,6 @@
  <asp></a><asp>
 </macro>
 
-<macro name='fail'>
- <?php
- finalize();
- include('404.php');
- exit;
- ?>
-</macro>
-
 <macro name='meta_noindex' defaults="value='*true'">
  <assign_global name='metaNoIndex' value%!value='%value'>
 </macro>
@@ -466,8 +458,3 @@
  <if what="$$userDomain!='www'">
 </macro>
 <endif name='/notwww'>
-
-<< Logging >>
-<macro name='trap'>
- <log event=trap text#='%text [$$HTTP_REFERER]'>
-</macro>

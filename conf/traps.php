@@ -326,6 +326,18 @@ function trapMethodics($args)
 return remakeMakeURI('/migdal/methodology/books/',$args);
 }
 
+function trapMigdal($args)
+{
+$id=postProcessInteger($args['artid']);
+if($id<=0)
+  return remakeMakeURI('/migdal/',$args);
+$posting=getPostingById(getNewId('postings',$id));
+if($posting->getId()>0)
+  return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('artid'));
+else
+  return '';
+}
+
 function trapMigdal_library_news($args)
 {
 return remakeMakeURI('/migdal/library/novelties/',$args);
@@ -349,18 +361,6 @@ else
     return remakeMakeURI("/migdal/{$dirs[$id]}/news/",$args,array('topic_id'));
   else
     return '';
-}
-
-function trapMigdal($args)
-{
-$id=postProcessInteger($args['artid']);
-if($id<=0)
-  return remakeMakeURI('/migdal/',$args);
-$posting=getPostingById(getNewId('postings',$id));
-if($posting->getId()>0)
-  return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('artid'));
-else
-  return '';
 }
 
 function trapPosting($args)
@@ -411,6 +411,21 @@ if($image->getId()<=0)
 return remakeMakeURI($image->getSmallImageURL(),$args,array('id','size'));
 }
 
+function trapTimes($args)
+{
+$issue=postProcessInteger($args['issue']);
+if($issue<=0)
+  return remakeMakeURI('/times/',$args);
+else
+  return remakeMakeURI("/times/$issue/",$args,array('issue'),
+                       array('issue' => $issue));
+}
+
+function trapTips($args)
+{
+return remakeMakeURI('/tips/',$args);
+}
+
 function trapUrls($args)
 {
 return remakeMakeURI('/links/urls/',$args,array('offset'));
@@ -426,8 +441,32 @@ else
   return '';
 }
 
+function trapUserinfo_panel($args)
+{
+return trapUserinfo($args);
+}
+
+function trapUserlost($args)
+{
+return remakeMakeURI('/remember-password/',$args);
+}
+
 function trapUsers($args)
 {
 return remakeMakeURI('/users/',$args,array('offset'));
+}
+
+function trapVeterans($args)
+{
+return remakeMakeURI('/veterans/',$args);
+}
+
+function trapVeterans_user($args)
+{
+$user_id=postProcessInteger($args['user_id']);
+$user=getUserById($user_id);
+if($user->getId()<=0)
+  return '';
+return remakeMakeURI('/veterans/'.$user->getFolder().'/',$args,array('user_id'));
 }
 ?>

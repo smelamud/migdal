@@ -4,6 +4,7 @@
 << FIXME |SELECT_LARGE_BODY ? SELECT_IMAGES deprecated >>
 <posting_obj id='$chapid' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_IMAGES'>
 <ifzero what='$,Id'>
+ << deprecated >>
  <fail>
 </ifzero>
 <zone>

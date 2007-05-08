@@ -4,6 +4,7 @@
 << FIXME |SELECT_LARGE_BODY ? >>
 <posting_obj id='$bookid' grp='*GRP_BOOKS' fields='*SELECT_GENERAL'>
 <ifzero what='$,Id'>
+ << deprecated >>
  <fail>
 </ifzero>
 << FIXME pagetitle is deprecated >>

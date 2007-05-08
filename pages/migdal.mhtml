@@ -4,18 +4,6 @@
 <ident name='artid'>
 <int name='archive'>
 
-<< Traps >>
-<<if what='$artid==$`postings:migdal-library`'>
- <trap text='Migdal library'>
- <reload href='migdal-library.php'>
-</if>>
-<< Thu May 22 17:29:57 EEST 2003 >>
-<<if what='$artid==$`postings:methodic-center`'>
- <trap text='Methodical center'>
- <reload href='methodic-center.php'>
-</if>>
-<< /Traps >>
-
 <posting_obj id='$artid' grp='*GRP_REVIEWS'
              fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
 <log event=review text#='post($,Id)'>
