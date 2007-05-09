@@ -259,6 +259,8 @@
 	   value!="$,hasLargeImage ? $,LargeImageURL : $,SmallImageURL">
   <else>
    <assign name='loaded' value=''>
+   <assign name='small_url' value=''>
+   <assign name='large_url' value=''>
   </if>
   <assign name='flags' value!='$editor.UploadFlags & *IU_THUMB'>
   <if what='$flags!=*IU_THUMB_MANUAL && $flags!=*IU_THUMB_RESIZE'>

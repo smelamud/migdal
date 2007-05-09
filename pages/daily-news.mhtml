@@ -14,7 +14,7 @@
 </macro>
 <endif name='/editor'>
 
-<element name='batcher' params='event'>
+<element name='batcher' params='event,day'>
 <editor>
  <table class='info'><tr valign=center>
   <td><image src='/pics/sheet.gif'></td>
@@ -24,8 +24,7 @@
   <td>&nbsp;</td>
   <td><image src='/pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?topic_id=$event.Id&grp=*GRP_DAILY_GALLERY&redirid=$_'
-      >Добавить картинку</a>
+   <a href='/${event.Catalog}day-$day/add-picture?redirid=$_'>Добавить картинку</a>
   </td>
  </tr></table>
 </editor>
@@ -93,7 +92,7 @@
   </zone></td>
   <td class='cframe'>
    <subtitle>
-   <batcher event='$event'>
+   <batcher event='$event' day!='$posting.Id!=0 ? $posting.Index1 : $day'>
    <table class='article' width=100% cellspacing=5 cellpadding=0><tr valign=top>
     <iterate_postinglist topic_id='$event.Id' grp='*GRP_DAILY_GALLERY'
 			 sort='*SORT_RATING' limit=0

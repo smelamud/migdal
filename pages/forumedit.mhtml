@@ -94,7 +94,7 @@
 	  text='Напишите хотя бы пару строчек в теле сообщения'>
    <form_editor name='body' title='Текст' body='$=,Body'
 		mandatory='$$forumMandatoryBody' rows=12 xmlid='$xmlid'>
-   <<help_link href='stotext-help-subs.php'
+   <<help_link href='/help/formatting/'
 	      title='Список обозначений, используемых в тексте'>>
    <error id='*EF_IMAGE_ABSENT' text='Отсутствует картинка'>
    <error id='*EF_NO_IMAGE' text='Указанной картинки не существует'>

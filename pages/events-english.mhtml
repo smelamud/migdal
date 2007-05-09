@@ -3,7 +3,7 @@
 <html>
 <preamble>
 <body>
- <top ident='index' transref#='http://www.$$siteDomain/migdal/events/'>
+ <top ident='index' transref#='http://www.$$siteDomain/migdal/news/'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
    <topics>

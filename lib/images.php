@@ -283,6 +283,11 @@ if($imageURL[0]!='/')
 return "$imageURL/$fname";
 }
 
+function imageFileExists($id,$format,$fileId=0,$size='large')
+{
+return file_exists(getImagePath($id,getMimeExtension($format),$fileId,$size));
+}
+
 function setMaxImageFileId($max_id)
 {
 sql("update image_files
