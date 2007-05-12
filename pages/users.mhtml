@@ -123,8 +123,7 @@
        <plural name='days' value='$.ConfirmDays'>
        Идет регистрация ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
        <admin_users>
-	<a href='/actions/userconfirm.php?id=$.Id'>
-	 Подтвердить</a>
+	<a href='/actions/user/confirm?id=$.Id'>Подтвердить</a>
        </admin_users>
       </zone>
      </td>

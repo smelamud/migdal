@@ -34,14 +34,12 @@
  <table class='info'><tr valign=center>
   <td><image src='/pics/sheet.gif'></td>
   <td>
-   <a href='postingedit.php?topic_id=$`times`&grp=*GRP_TIMES_ARTICLES&redirid=$_'
-      >Добавить статью</a>
+   <a href='/times/$$issue/add/?redirid=$_'>Добавить статью</a>
   </td>
   <if what='$$issue>0'>
    <td>&nbsp;</td>
    <td>
-    <a href='reorder.php?issue=$$issue&topic_id=$`times`&grp=*GRP_TIMES_ARTICLES&up=-1&redirid=$_'
-       >Расставить</a>
+    <a href='/times/$$issue/reorder/?redirid=$_'>Расставить</a>
    </td>
   </if>
  </tr></table>
@@ -79,8 +77,7 @@
      <table class='info'><tr valign=center>
       <td><image src='/pics/sheet.gif'></td>
       <td>
-       <a href='postingedit.php?topic_id=$`migdal-times`&grp=*GRP_TIMES_COVERS&redirid=$_'
-	  >Добавить номер</a>
+       <a href='/times/add/?redirid=$_'>Добавить номер</a>
       </td>
      </tr></table>
     </td></tr>

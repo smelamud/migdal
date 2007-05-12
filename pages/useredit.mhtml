@@ -100,7 +100,7 @@
                 comment='Напишите несколько слов о себе: биография, работа,
 		         друзья, интересы...'
 		name='info' body='$=,Info'>
-   <<help_link href='stotext-help-subs.php'
+   <<help_link href='/help/formatting/'
 	      title='Список обозначений, используемых в тексте'>>
    <if what='$,isEditable'>
     <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен'>

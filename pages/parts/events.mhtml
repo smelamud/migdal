@@ -16,7 +16,7 @@
    <if what='$active'>
     <iswrite what='$topic'>
      <tr><td colspan=2>
-      <a href='topics-reorder.php?up=$,Id&level=2&index4=$year&redirid=$_'
+      <a href='/migdal/events/reorder/?index2=$year&redirid=$_'
 	 class='eightpt'>Расставить</a>
      </td></tr>
     </iswrite>

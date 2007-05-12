@@ -113,7 +113,7 @@
    <a href='/actions/posting/shadow?postid=$posting.Id&okdir=$#-&faildir=$#-'
       >Тень</a>
    &nbsp;
-   <a href='actions/postingcopy.php?postid=$posting.Id&okdir=$#-&faildir=$#-'
+   <a href='/actions/posting/copy?postid=$posting.Id&okdir=$#-&faildir=$#-'
       >Скопировать</a>
    &nbsp;
    <a href="/actions/entry/renew?id=$posting.Id&okdir=$#-&faildir=$#-"
