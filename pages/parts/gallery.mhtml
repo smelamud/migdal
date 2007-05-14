@@ -8,7 +8,8 @@
     <table><tr valign=center>
      <td><image src='/pics/sheet.gif'></td>
      <td>
-      <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_GALLERY&noguests=$noguests&redirid=$_'
+      <catalog name='catalog' id='$topic_id'>
+      <a href='/gallery/${catalog}add/?noguests=$noguests&redirid=$_'
 	 >Добавить картинку</a>
      </td>
     </tr></table>
