@@ -2,7 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/entry-types.php');
-require_once('lib/permissions.php');
+require_once('lib/perm.php');
 
 /*
  * Эти функции необходимы для того, чтобы проверять права доступа на entry, не

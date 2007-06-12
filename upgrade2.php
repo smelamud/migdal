@@ -6,6 +6,8 @@ require_once('conf/migdal.conf');
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/sql.php');
+require_once('lib/entries.php');
+require_once('lib/permissions.php');
 require_once('lib/text-wiki.php');
 require_once('lib/utils.php');
 require_once('lib/old-ids.php');
@@ -977,6 +979,40 @@ while($row=mysql_fetch_assoc($result))
 echo "\n";
 }
 
+function convertDupInnerImages()
+{
+$result=sql('select entry_id,par,count(*) as cnt
+             from inner_images
+	     group by entry_id,par
+	     having cnt>1',
+	    __FUNCTION__,'find_dups');
+$dups=array();
+while($row=mysql_fetch_assoc($result))
+     $dups[]=$row;
+$updates=array();
+foreach($dups as $dup)
+       {
+       $entry_id=$dup['entry_id'];
+       $par=$dup['par'];
+       $result=sql("select entry_id,par,image_id
+		    from inner_images
+		    where entry_id=$entry_id and par=$par",
+		   __FUNCTION__,'select_image_ids');
+       $i=0;
+       while($row=mysql_fetch_assoc($result))
+	    {
+	    $update['set']=array('y' => $i++);
+	    $update['where']=$row;
+	    $updates[]=$update;
+	    }
+       }
+foreach($updates as $update)
+       sql(sqlUpdate('inner_images',
+		     $update['set'],
+		     $update['where']),
+	   __FUNCTION__,'update');
+}
+
 dbOpen();
 endJournal();
 echo "1. Chat messages...\n";
@@ -1022,6 +1058,8 @@ echo "20. Interlinks...\n";
 convertCrossEntries();
 echo "21. Complain URLs...\n";
 convertComplainURLs();
+echo "22. Several inner images on the same paragraph...\n";
+convertDupInnerImages();
 beginJournal();
 dbClose();
 ?>

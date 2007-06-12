@@ -6,27 +6,26 @@ targetdir=$(builddir)/www/
 
 OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  book.mhtml book-chapter.mhtml book-chapter-split.mhtml \
-	  book-print.mhtml book-split.mhtml book-static.mhtml chat.mhtml \
-	  chatboard.mhtml chatbottom.mhtml chatconsole.mhtml chattop.mhtml \
-	  chatusers.mhtml chmod.mhtml complainactionedit.mhtml \
-	  complainanswer.mhtml complainedit.mhtml complainforum.mhtml \
-	  complains.mhtml cross-entries.mhtml cross-entry-add.mhtml \
-	  daily-news.mhtml ears.mhtml event.mhtml events.mhtml \
-	  events-english.mhtml forum.mhtml forumedit.mhtml forumcatalog.mhtml \
-	  gallery.mhtml gallery-main.mhtml groupadd.mhtml grouporg.mhtml \
-	  horisontedit.mhtml index-english.mhtml index-www.mhtml jcc.mhtml \
-	  journal.mhtml limedit.mhtml liminsert.mhtml link.mhtml links.mhtml \
-	  methodic-center.mhtml methodics.mhtml migdal.mhtml \
-	  migdal-library.mhtml migdal-library-novelties.mhtml \
-	  migdal-news.mhtml modbits.mhtml moderator.mhtml peruser.mhtml \
-	  peruser-user.mhtml posting.mhtml postingedit.mhtml postingorg.mhtml \
-	  printings.mhtml rating.mhtml register.mhtml register-confirm.mhtml \
-	  register-error.mhtml register-ok.mhtml remember-password.mhtml \
-	  remember-password-ok.mhtml reorder.mhtml search.mhtml \
-	  search-google.mhtml setup.mhtml signin.mhtml stotext-help-subs.mhtml \
-	  stotext-help-types.mhtml textears.mhtml times.mhtml tips.mhtml \
-	  topicdel.mhtml topicedit.mhtml topicorg.mhtml urls.mhtml \
-	  useredit.mhtml userinfo.mhtml userinfo-panel.mhtml users.mhtml
+	  book-print.mhtml book-split.mhtml book-static.mhtml chmod.mhtml \
+	  complainactionedit.mhtml complainanswer.mhtml complainedit.mhtml \
+	  complainforum.mhtml complains.mhtml cross-entries.mhtml \
+	  cross-entry-add.mhtml daily-news.mhtml ears.mhtml event.mhtml \
+	  events.mhtml events-english.mhtml forum.mhtml forumedit.mhtml \
+	  forumcatalog.mhtml gallery.mhtml gallery-main.mhtml groupadd.mhtml \
+	  grouporg.mhtml horisontedit.mhtml index-english.mhtml \
+	  index-www.mhtml jcc.mhtml journal.mhtml limedit.mhtml \
+	  liminsert.mhtml link.mhtml links.mhtml methodic-center.mhtml \
+	  methodics.mhtml migdal.mhtml migdal-library.mhtml \
+	  migdal-library-novelties.mhtml migdal-news.mhtml modbits.mhtml \
+	  moderator.mhtml peruser.mhtml peruser-user.mhtml posting.mhtml \
+	  postingedit.mhtml postingorg.mhtml printings.mhtml rating.mhtml \
+	  register.mhtml register-confirm.mhtml register-error.mhtml \
+	  register-ok.mhtml remember-password.mhtml remember-password-ok.mhtml \
+	  reorder.mhtml search.mhtml search-google.mhtml setup.mhtml \
+	  signin.mhtml stotext-help-subs.mhtml stotext-help-types.mhtml \
+	  textears.mhtml times.mhtml tips.mhtml topicdel.mhtml topicedit.mhtml \
+	  topicorg.mhtml urls.mhtml useredit.mhtml userinfo.mhtml \
+	  userinfo-panel.mhtml users.mhtml
 	  
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)

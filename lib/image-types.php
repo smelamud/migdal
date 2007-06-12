@@ -1,7 +1,6 @@
 <?php
 # @(#) $Id$
 
-require_once('lib/images.php');
 require_once('lib/mime.php');
 
 function getImageExtension($mime_type)
