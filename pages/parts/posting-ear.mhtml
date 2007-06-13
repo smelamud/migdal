@@ -48,7 +48,7 @@
    <a href="/admin/ears/$posting.Id/edit/?redirid=$_"
       >Изменить</a>
    &nbsp;
-   <a href="actions/postingdel.php?id=$posting.Id&okdir=$#-&faildir=$#-"
+   <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-"
       >Удалить</a>
   <else>
    &nbsp;

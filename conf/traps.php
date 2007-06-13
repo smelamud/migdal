@@ -331,7 +331,10 @@ function trapMigdal($args)
 $id=postProcessInteger($args['artid']);
 if($id<=0)
   return remakeMakeURI('/migdal/',$args);
+echo "$id<br>";
 $posting=getPostingById(getNewId('postings',$id));
+echo getNewId('postings',$id),'<br>';
+exit;
 if($posting->getId()>0)
   return remakeMakeURI($posting->getGrpDetailsHref(),$args,array('artid'));
 else

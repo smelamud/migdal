@@ -21,9 +21,9 @@
   свободно добавлять свои рассказы и фотографии.
  <else>
   нажать на ссылку
-  <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_PERUSER_FORUMS&redirid=$_'>
-   &lt;&lt;Добавить текст&gt;&gt;</a> или
-  <a href='postingedit.php?topic_id=$`taglit`&grp=*GRP_GALLERY&redirid=$_'>
+  <a href='/taglit/add-message?redirid=$_'>
+   &lt;&lt;Добавить сообщение&gt;&gt;</a> или
+  <a href='/taglit/add-photo?redirid=$_'>
    &lt;&lt;Добавить фотографию&gt;&gt;</a>.
  </notlogged>
  Для каждого пользователя автоматически создается отдельный раздел.
@@ -49,9 +49,9 @@
   свободно добавлять свои рассказы и фотографии.
  <else>
   нажать на ссылку
-  <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_PERUSER_FORUMS&noguests=1&redirid=$_'>
-   &lt;&lt;Добавить текст&gt;&gt;</a> или
-  <a href='postingedit.php?topic_id=$`veterans`&grp=*GRP_GALLERY&noguests=1&redirid=$_'>
+  <a href='/veterans/add-message?redirid=$_'>
+   &lt;&lt;Добавить сообщение&gt;&gt;</a> или
+  <a href='/veterans/add-photo?redirid=$_'>
    &lt;&lt;Добавить фотографию&gt;&gt;</a>.
  </notlogged>
  Для каждого пользователя автоматически создается отдельный раздел.
