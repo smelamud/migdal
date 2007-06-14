@@ -16,6 +16,6 @@
    <further posting='$,'>
   </if>
  </td></tr>
- <tr><td align=center><a href='tips.php'>Все советы</a></td></tr>
+ <tr><td align=center><a href='/tips/'>Все советы</a></td></tr>
 </topics_table>
 </element>

@@ -10,26 +10,27 @@
     <td><image src='/pics/sheet.gif'></td>
     <td>
      <assign name='noguests' value!='$access ? 0 : 1'>
+     <catalog name='catalog' id='$topic_id'>
      <grp_valid grp='$grp'>
      <if what='$,'>
       <posting_new name='sample' grp='$grp'>
-      <a href='postingedit.php?topic_id=$topic_id&grp=$grp&noguests=$noguests&redirid=$_'
+      <a href='/${catalog}add?noguests=$noguests&redirid=$_'
 	 >Добавить $sample.GrpWhat</a>
      <else>
       <notenglish>
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$noguests&redirid=$_'
+       <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
 	  >Добавить новость</a>,
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$noguests&redirid=$_'
+       <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
 	  >статью</a><asp>
        <moderator>
 	<asp>,
-	<a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&noguests=$noguests&redirid=$_'
+	<a href='/${catalog}add-book?noguests=$noguests&redirid=$_'
 	   >книгу</a>
        </moderator>
       <else>
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$noguests&redirid=$_'
+       <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
 	  >Add news</a>,
-       <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$noguests&redirid=$_'
+       <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
 	  >article</a>
       </notenglish>
      </if>

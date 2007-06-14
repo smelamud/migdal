@@ -8,11 +8,12 @@
   <table><tr valign=center>
    <td><image src='/pics/sheet.gif'></td>
    <td>
-    <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_NEWS&noguests=$access&redirid=$_'
+    <catalog name='catalog' id='$topic_id'>
+    <a href='/${catalog}add-news?noguests=$access&redirid=$_'
        >Добавить новость</a>,
-    <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_ARTICLES&noguests=$access&redirid=$_'
+    <a href='/${catalog}add-article?noguests=$access&redirid=$_'
        >статью</a>,
-    <a href='postingedit.php?topic_id=$topic_id&grp=*GRP_BOOKS&noguests=$access&redirid=$_'
+    <a href='/${catalog}add-book?noguests=$access&redirid=$_'
        >книгу</a>
    </td>
   </tr></table>
