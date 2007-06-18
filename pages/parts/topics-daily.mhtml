@@ -6,12 +6,10 @@
 <topics_table class='eightpt' title='$=,Subject'>
  <ispost what='$event'>
   <tr><td colspan=2>
-   <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_ARTICLES'
-      class='edit'>Добавить</a>
+   <a href='/${,Catalog}add-article/?redirid=$_' class='edit'>Добавить</a>
   </td></tr>
   <tr><td colspan=2>
-   <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_ARTICLES'
-      class='edit'>Расставить</a>
+   <a href='/${,Catalog}reorder/?redirid=$_' class='edit'>Расставить</a>
   </td></tr>
  </ispost>
  <iterate_postinglist grp='*GRP_ARTICLES' limit=0 sort='*SORT_INDEX0'

@@ -57,6 +57,8 @@ return $info;
 
 function &dispatchScript($requestPath,$parts)
 {
+global $directScripts;
+
 $info=new LocationInfo();
 $pos=strpos($requestPath,'.php');
 $scriptName=substr($requestPath,1,$pos+3);
@@ -72,7 +74,7 @@ if(function_exists($trapFunc))
   else
     return dispatch404($requestPath);
   }
-if(!file_exists($scriptName))
+if(!$directScripts || !file_exists($scriptName))
   return dispatch404($requestPath);
 $info->setPath($requestPath);
 $info->setScript($scriptName);

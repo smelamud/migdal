@@ -187,7 +187,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 - scripts/urlcheck.php
 
 + conf/counters.php
-* conf/groups.conf
+* conf/groups.conf (кроме индексации)
 + conf/mailings.php
 + conf/subdomains.php
 
@@ -274,7 +274,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/userok.mhtml
 + pages/users.mhtml
 
-* pages/parts/article.mhtml
+* pages/parts/article.mhtml (кроме footnotes, когда несколько статей на странице)
 + pages/parts/backtrace.mhtml
 + pages/parts/banner-bannerbank.mhtml
 + pages/parts/banner-hotlog.mhtml

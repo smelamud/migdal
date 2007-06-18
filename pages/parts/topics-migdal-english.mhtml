@@ -5,12 +5,10 @@
 <topics_table title='Migdal' span=2>
  <ispost what='$migdal'>
   <tr><td colspan=3>
-   <a href='postingedit.php?redirid=$_&topic_id=$,Id&grp=*GRP_REVIEWS'
-      class='edit'>Add</a>
+   <a href='/add-review/?redirid=$_' class='edit'>Add</a>
   </td></tr>
   <tr><td colspan=3>
-   <a href='reorder.php?redirid=$_&issue=-1&topic_id=$,Id&grp=*GRP_REVIEWS'
-      class='edit'>Reorder</a>
+   <a href='/reorder-reviews/?redirid=$_' class='edit'>Reorder</a>
   </td></tr>
  </ispost>
  <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
