@@ -109,7 +109,7 @@
 
 <element name='upper_level'>
 <ife what='$title'>
- <assign name='title' value#='К разделу <<$name>>'>
+ <assign name='title' value#='К разделу &lt;&lt;$name&gt;&gt;'>
 </ife>
 <table><tr>
  <td width=20><image src='/pics/up-level.gif'></td>

@@ -2,18 +2,37 @@
 
 <element name='failpage'>
 <li>
- Можете начать с <a href='/'>главной страницы</a>.
+ <notenglish>
+  Можете начать с
+ <else>
+  You can start from
+ </notenglish>
+ &sp;
+ <a href='/'><asp>
+  <notenglish>главной страницы<else>the main page<asp></notenglish>
+ <asp></a>.
 </li>
-<li>
- Можете воспользоваться <a href='/search/'>поиском</a>.
-</li>
+<notenglish>
+ <li>
+  Можете воспользоваться <a href='/search/'>поиском</a>.
+ </li>
+</notenglish>
 <ifzero what='$$sent'>
  <li>
-  Можете сообщить об ошибке вебмастеру по электронной почте
-  <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+  <notenglish>
+   Можете сообщить об ошибке вебмастеру по электронной почте
+  <else>
+   You can send a message to the webmaster by e-mail
+  </notenglish>
+  &sp;<a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
  </li>
  <li>
-  Или отправить это сообщение прямо с сайта:<br>
+  <notenglish>
+   Или отправить это сообщение прямо с сайта:
+  <else>
+   Or send it directly from the website:
+  </notenglish>
+  <br>
   <form method=post action='/actions/complain/modify'>
    <hidden name='edittag' value="1">
    <hidden name='okdir' value="/404/?sent=1">
@@ -22,19 +41,35 @@
    <hidden name='url' value="$-">
    <hidden name='subject' value="404">
    <table>
-    <error id='*EC_NO_SEND'
-	   text='Посылать жалобы могут только зарегистрированные пользователи'>
-    <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
-    <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст'>
-    <error id='*EC_BODY_ABSENT'
-	   text='Напишите хотя бы пару строчек в теле жалобы'>
+    <notenglish>
+     <error id='*EC_NO_SEND'
+	    text='Посылать жалобы могут только зарегистрированные пользователи'>
+     <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
+     <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст'>
+     <error id='*EC_BODY_ABSENT'
+	    text='Пожалуйста, напишите хотя бы пару строк о сути вашей проблемы'>
+    <else>
+     <error id='*EC_NO_SEND' text='Only registered users may send complains'>
+     <error id='*EC_NO_EDIT' text='You are not permitted to edit the complain'>
+     <error id='*EC_SUBJECT_ABSENT' text='Subject is empty'>
+     <error id='*EC_BODY_ABSENT'
+	    text='Please, describe your problem in several lines'>
+    </notenglish>
     <tr><td colspan=2>
      <textarea name='body' rows='5' cols='35' wrap='virtual'></textarea>
     </td></tr>
     <tr><td colspan=2>
-     <input type=submit value='Отправить'>
+     <notenglish>
+      <input type=submit value='Отправить'>
+     <else>
+      <input type=submit value='Send'>
+     </notenglish>
      &nbsp;
-     <input type=reset value='Очистить'>
+     <notenglish>
+      <input type=reset value='Очистить'>
+     <else>
+      <input type=reset value='Clear'>
+     </notenglish>
     </td></tr>
    </table>
   </form>

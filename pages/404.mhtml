@@ -14,22 +14,42 @@
  <p><table width='600'><tr><td>
   <p>
    <ifzero what='$sent'>
-    Страница, которую вы запросили, не существует. Скорее всего, она не
-    существовала никогда, поскольку мы, как правило, не удаляем информацию с
-    сайта.
+    <notenglish>
+     Страница, которую вы запросили, не существует. Скорее всего, она не
+     существовала никогда, поскольку мы, как правило, не удаляем информацию с
+     сайта.
+    <else>
+     The page you requested does not exist. It is possible that it was never
+     existed, because we usually do not remove any information from the
+     website.
+    </notenglish>
    <else>
-    <i>Большое спасибо за ваше сообщение. Мы приложим все усилия, чтобы
-    устранить проблему как можно скорее.</i>
+    <notenglish>
+     <i>Большое спасибо за ваше сообщение. Мы приложим все усилия, чтобы
+     устранить проблему как можно скорее.</i>
+    <else>
+     <i>Thank you very much for you message. We will do our best to fix the
+     problem as soon as possible.</i>
+    </notenglish>
    </ifzero>
   </p>
   <p>
-   <b>Вы можете поступить одним из следующих способов:</b>
+   <notenglish>
+    <b>Вы можете поступить одним из следующих способов:</b>
+   <else>
+    <b>Your possible actions:</b>
+   </notenglish>
   </p>
   <ul>
    <li>
-    Если вы набирали адрес страницы вручную, вы могли сделать ошибку при наборе.
-    Проверьте, нет ли в адресе пробелов, лишних или пропущенных символов, не
-    поменялись ли символы местами.
+    <notenglish>
+     Если вы набирали адрес страницы вручную, вы могли сделать ошибку при
+     наборе. Проверьте, нет ли в адресе пробелов, лишних или пропущенных
+     символов, не поменялись ли символы местами.
+    <else>
+     If you typed in the address by hand, you might make a typo. Please look
+     the address for spaces, extra, missing or misplaces characters.
+    </notenglish>
    </li>
    <failpage>
   </ul>
