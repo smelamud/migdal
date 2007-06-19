@@ -14,20 +14,39 @@
  <p><table width='600'><tr><td>
   <p>
    <ifzero what='$sent'>
-    При попытке получить страницу, которую вы запросили, произошла внутренняя
-    ошибка сервера. К сожалению, никто не застрахован от ошибок.
+    <notenglish>
+     При попытке получить страницу, которую вы запросили, произошла внутренняя
+     ошибка сервера. К сожалению, никто не застрахован от ошибок.
+    <else>
+     While getting the page you requested, an internal server error occured. We
+     are very sorry.
+    </notenglish>
    <else>
-    <i>Большое спасибо за ваше сообщение. Мы приложим все усилия, чтобы
-    устранить проблему как можно скорее.</i>
+    <notenglish>
+     <i>Большое спасибо за ваше сообщение. Мы приложим все усилия, чтобы
+     устранить проблему как можно скорее.</i>
+    <else>
+     <i>Thank you very much for you message. We will do our best to fix the
+     problem as soon as possible.</i>
+    </notenglish>
    </ifzero>
   </p>
   <p>
-   <b>Вы можете поступить одним из следующих способов:</b>
+   <notenglish>
+    <b>Вы можете поступить одним из следующих способов:</b>
+   <else>
+    <b>Your possible actions:</b>
+   </notenglish>
   </p>
   <ul>
    <li>
-    Попробуйте перезагрузить страницу &mdash; возможно, ошибка была случайной
-    и уже исчезла.
+    <notenglish>
+     Попробуйте перезагрузить страницу &mdash; возможно, ошибка была случайной
+     и уже исчезла.
+    <else>
+     Try to reload the page &mdash; it is possible that the error was transient
+     and it has already gone.
+    </notenglish>
    </li>
    <failpage>
   </ul>
