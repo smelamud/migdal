@@ -53,6 +53,7 @@ function getAdminVars()
 return array();
 }
 
+# FIXME метод store() должен быть заменен на функцию storeObject(&$obj)
 function store()
 {
 # FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены

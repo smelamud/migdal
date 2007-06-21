@@ -35,12 +35,14 @@ while($row=mysql_fetch_assoc($result))
      if($new_set==0)
        {
        $image->setImageSet(0);
+       # FIXME метод store() заменен на функцию storeObject(&$obj)
        $image->store();
        $new_set=$image->getImageSet();
        }
      else
        {
        $image->setImageSet($new_set);
+       # FIXME метод store() заменен на функцию storeObject(&$obj)
        $image->store();
        }
      $stimage=getStotextImageByImageId($row['id']);
@@ -60,6 +62,7 @@ global $stotextImages;
 foreach($stotextImages as $stimage)
        {
        $stimage->stotext_id=$stotext_id;
+       # FIXME метод store() заменен на функцию storeObject(&$obj)
        $stimage->store();
        }
 }
@@ -80,6 +83,7 @@ $posting->message_id=0;
 $posting->setStotextId(0);
 $posting->setImageSet(copyImageSet($posting->getImageSet()));
 $posting->setLargeImageSet(copyImageSet($posting->getLargeImageSet()));
+# FIXME метод store() заменен на функцию storeObject(&$obj)
 $posting->store();
 storeStotextImages($posting->getStotextId());
 return EG_OK;
