@@ -108,6 +108,8 @@ var $listStyles=array();
 var $noteNo=1;
 var $imageBlocks=array();
 var $par=0;
+var $inHx=false;
+var $brInHx=false;
 
 function MTextToHTMLXML($format,$id,$imageBlocks=array())
 {
@@ -262,8 +264,20 @@ switch($name)
            $this->html.=makeText($attrs['ADDR']);
 	   $this->html.=makeTag('/a');
 	   break;
+      case 'H2':
+      case 'H3':
+      case 'H4':
+           $this->html.=makeTag($name,$attrs);
+	   $this->inHx=true;
+	   $this->brInHx=false;
+	   break;
       case 'BR':
            $this->html.=makeTag($name,$attrs,true);
+	   if($this->inHx && !$this->brInHx)
+	     {
+	     $this->brInHx=true;
+             $this->html.=makeTag('span',array('class' => 'subheading'));
+	     }
 	   break;
       case 'P':
 	   $clear=$this->getParagraphClear();
@@ -366,6 +380,15 @@ switch($name)
       case 'MTEXT-LONG':
       case 'BR':
            break;
+      case 'H2':
+      case 'H3':
+      case 'H4':
+	   if($this->brInHx)
+             $this->html.=makeTag("/span");
+	   $this->inHx=false;
+	   $this->brInHx=false;
+           $this->html.=makeTag("/$name");
+	   break;
       case 'LI':
            if(count($this->listStyles)==0)
 	     {

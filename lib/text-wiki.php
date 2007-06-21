@@ -200,12 +200,18 @@ function replaceHeading($s,$n,$c)
 $lines=explode("\n",$s);
 $out=array();
 for($i=0;$i<count($lines);$i++)
-   if($i+1<count($lines)
-      && preg_match("/^\s*$c{3}$c*\s*$/",$lines[$i+1])
-      && !preg_match('/^\s*$/',$lines[$i]))
+   if($i+1<count($lines))
      {
-     $out[]="<h$n>".$lines[$i]."</h$n>";
-     $i++;
+     // Reverse ligature
+     $next=str_replace('&#8212;','---',$lines[$i+1]);
+     if(preg_match("/^\s*$c{3}$c*\s*$/",$next)
+        && !preg_match('/^\s*$/',$lines[$i]))
+       {
+       $out[]="<h$n>".$lines[$i]."</h$n>";
+       $i++;
+       }
+     else
+       $out[]=$lines[$i];
      }
    else
      $out[]=$lines[$i];
