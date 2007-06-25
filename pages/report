@@ -352,6 +352,33 @@ for my $trap(@traps)
     }
 }
 
+# Report 'trapfails'
+
+sub initTrapfails
+{
+}
+
+sub runTrapfails
+{
+my ($log)=@_;
+
+return if $$log[0] ne 'trap-fail';
+my $type=$$log[3];
+$type=~s/\s+\[[^\]]*\]$//;
+$counters{$type}=new Counter() unless defined $counters{$type};
+$counters{$type}->inc($$log[2],$$log[1]);
+}
+
+sub doneTrapfails
+{
+@fails=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+            keys %counters;
+for my $fail(@fails)
+    {
+    printf "%5i  %s\n",$counters{$fail}->getValue(),$fail;
+    }
+}
+
 # Report 'visits'
 
 sub initVisits
@@ -481,6 +508,7 @@ Migdal report generator (for 'migdal' interface)
 	popularity   Popularity report
         raw          Raw user-readable log (default)
 	search       Search phrases report
+	trapfails    Failed redirects from old-styled URLs report
 	traps        Traps activity report
 	visits       Output number of individual visits
 	visitsm	     Number of individual visits per month
