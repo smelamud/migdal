@@ -20,9 +20,11 @@ $verbose=0;
 
 @topics=();
 @postings=();
-@messages=();
-@imagesets=();
 @users=();
+%topicIdents=();
+%oldIds=();
+
+# Counter
 
 package Counter;
 
@@ -51,6 +53,8 @@ return $self->{'value'};
 
 package main;
 
+# Common functions
+
 sub parseDate
 {
 my ($s)=@_;
@@ -58,18 +62,6 @@ my ($s)=@_;
 my ($day,$month,$year,$hour,$min,$sec)=
   $s=~/^\s*(\d+)[-.\/](\d+)[-.\/](\d+)(?:\s+(\d+)[:.](\d+)(?:[:.](\d+))?)?\s*$/;
 return POSIX::mktime($sec,$min,$hour,$day,$month-1,$year-1900);
-}
-
-sub fromDate
-{
-shift;
-$fromDate=parseDate(shift);
-}
-
-sub toDate
-{
-shift;
-$toDate=parseDate(shift);
 }
 
 sub fixEntities
@@ -80,8 +72,393 @@ $s=~s/&gt;/>/g;
 $s=~s/&lt;/</g;
 $s=~s/&quot;/"/g;
 $s=~s/&#039;/'/g;
+$s=~s/&#169;/(c)/g;
+$s=~s/&#171;/<</g;
+$s=~s/&#174;/(r)/g;
+$s=~s/&#187;/>>/g;
+$s=~s/&#8212;/---/g;
+$s=~s/&#8220;/``/g;
+$s=~s/&#8221;/''/g;
+$s=~s/&#8470;/No./g;
+$s=~s/&#8482;/(tm)/g;
 return $s;
 }
+
+@Months=('Jan','Feb','Mar','Apr','May','Jun',
+         'Jul','Aug','Sep','Oct','Nov','Dec');
+
+sub getTimeStr
+{
+my ($time)=@_;
+
+my ($sec,$min,$hour,$day,$month)=localtime($time);
+return sprintf("%3s %2i %02i:%02i:%02i",$Months[$month],$day,$hour,$min,$sec);
+}
+
+sub getAddress
+{
+my ($ip)=@_;
+
+for($i=3;$i>=0;$i--)
+   {
+   $ip[$i]=$ip%256;
+   $ip/=256;
+   }
+return join '.',@ip;
+}
+
+sub urldecode
+{
+my ($s)=@_;
+
+$s=~s/%([0-9A-F]{2})/chr(hex($1))/ge;
+$s=~tr/+/ /;
+return $s;
+}
+
+sub specify
+{
+my ($event,$s)=@_;
+
+my $c='';
+my @specs=$s=~/\w+\(-?\d+\)/g;
+foreach(@specs)
+       {
+       my ($name,$value)=/^(\w+)\((-?\d+)\)$/;
+       $c.=' '.$topics[$value] if $name eq 'topic' && $value>0;
+       $c.=' Все темы' if $name eq 'topic' && $value<=0;
+       $c.=' '.$users[$value] if $name eq 'user';
+       $c.=' '.$postings[$value] if $name eq 'post';
+       $c.=" N$value" if $name eq 'issue';
+       }
+if($event eq 'search')
+  {
+  $s=~/query=(.*)$/;
+  $c.=' '.urldecode($1);
+  }
+return $c;
+}
+
+sub describe
+{
+my ($s)=@_;
+
+my ($type)=$s=~/^(\w+):/;
+my $c='';
+$c='[Статья]' if $type eq 'article';
+$c='[Книга]' if $type eq 'book';
+$c='[Глава книги]' if $type eq 'chapter';
+$c='[Чат]' if $type eq 'chat';
+$c='[Сообщество]' if $type eq 'community';
+$c='[Репортажи]' if $type eq 'daily';
+$c='[Событие]' if $type eq 'event';
+$c='[Event]' if $type eq 'event-english';
+$c='[Обсуждение]' if $type eq 'forum';
+$c='[Обсуждения]' if $type eq 'forumcatalog';
+$c='[Галерея]' if $type eq 'gallery';
+$c='[Картинка]' if $type eq 'imageview';
+$c='[Главная]' if $type eq 'index';
+$c='[Ссылка]' if $type eq 'link';
+$c='[Ссылки]' if $type eq 'links';
+$c='[Сообщение]' if $type eq 'posting';
+$c='[Обзор]' if $type eq 'review';
+$c='[Мигдаль Times]' if $type eq 'times';
+$c='[URLы]' if $type eq 'urls';
+$c='[О пользователе]' if $type eq 'userinfo';
+$c='[Голосование]' if $type eq 'vote';
+return $c.specify($type,$s);
+}
+
+# Report 'domains'
+
+sub initDomains
+{
+}
+
+sub runDomains
+{
+my ($log)=@_;
+
+return if $$log[0] ne 'enter';
+my ($domain)=$$log[3]=~/domain=(\w+)/;
+$counters{$domain}=new Counter() unless defined $counters{$domain};
+$counters{$domain}->inc($$log[2],$$log[1]);
+}
+
+sub doneDomains
+{
+@domains=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+              keys %counters;
+for my $domain(@domains)
+    {
+    printf "%5i  %s\n",$counters{$domain}->getValue(),$domain;
+    }
+}
+
+# Report 'monopoly'
+
+sub initMonopoly
+{
+}
+
+sub runMonopoly
+{
+my ($log)=@_;
+
+return if $$log[0] eq 'trap' || $$log[0] eq 'enter' || $$log[0] eq 'login'
+          || $$log[0] eq 'logout' || $$log[0] eq 'bug' || $$log[0] eq 'search'
+	  || $$log[0] eq 'fail' || $$log[0] eq 'trap-fail' || $$log[0] eq 'su';
+my $s=$$log[0].': '.$$log[3];
+$counters{$s}=new Counter() unless defined $counters{$s};
+$counters{$s}->inc($$log[2],$$log[1]);
+}
+
+sub doneMonopoly
+{
+my $sum=0;
+for my $counter(values(%counters))
+    {
+    $sum+=$counter->getValue() if $counter->getValue()>=$popularity;
+    }
+my $sq=0;
+for my $counter(values(%counters))
+    {
+    if($counter->getValue()>=$popularity)
+      {
+      $c=$counter->getValue()*100/$sum;
+      $sq+=$c*$c;
+      }
+    }
+printf "%5.2f\n",$sq;
+}
+
+# Report 'popularity'
+
+sub initPopularity
+{
+}
+
+sub runPopularity
+{
+my ($log)=@_;
+
+return if $$log[0] eq 'trap' || $$log[0] eq 'enter' || $$log[0] eq 'login'
+          || $$log[0] eq 'logout' || $$log[0] eq 'bug' || $$log[0] eq 'search'
+	  || $$log[0] eq 'fail' || $$log[0] eq 'trap-fail' || $$log[0] eq 'su';
+my $s=$$log[0].': '.$$log[3];
+$counters{$s}=new Counter() unless defined $counters{$s};
+$counters{$s}->inc($$log[2],$$log[1]);
+}
+
+sub donePopularity
+{
+@pages=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+            keys %counters;
+for my $page(@pages)
+    {
+    if($counters{$page}->getValue()>=$popularity)
+      {
+      unless($verbose)
+            {
+            printf "%5i  %s\n",$counters{$page}->getValue(),describe($page);
+	    }
+      else
+            {
+            printf "%5i  %s (%s)\n",$counters{$page}->getValue(),
+	                            describe($page),$page;
+	    }
+      }
+    }
+}
+
+# Report 'raw'
+
+sub initRaw
+{
+}
+
+sub comment
+{
+my ($event,$s)=@_;
+
+my $c=specify($event,$s);
+$s.=" /*$c */" if $c!~/^\s*$/;
+return $s;
+}
+
+sub runRaw
+{
+my ($log)=@_;
+
+print getTimeStr($$log[1]).' '.getAddress($$log[2])."\t".$$log[0].': '.
+      comment($$log[0],$$log[3])."\n";
+}
+
+sub doneRaw
+{
+}
+
+# Report 'search'
+
+sub initSearch
+{
+}
+
+sub runSearch
+{
+my ($log)=@_;
+
+return if $$log[0] ne 'search';
+$$log[3]=~/query=(.*)$/;
+my $s=lc(urldecode($1));
+$counters{$s}=new Counter() unless defined $counters{$s};
+$counters{$s}->inc($$log[2],$$log[1]);
+}
+
+sub doneSearch
+{
+@searches=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+               keys %counters;
+for my $search(@searches)
+    {
+    printf "%5i  %s\n",$counters{$search}->getValue(),$search;
+    }
+}
+
+# Report 'traps'
+
+sub initTraps
+{
+}
+
+sub runTraps
+{
+my ($log)=@_;
+
+return if $$log[0] ne 'trap';
+my $type=$$log[3];
+$type=~s/\s+\[[^\]]*\]$//;
+$counters{$type}=new Counter() unless defined $counters{$type};
+$counters{$type}->inc($$log[2],$$log[1]);
+}
+
+sub doneTraps
+{
+@traps=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
+            keys %counters;
+for my $trap(@traps)
+    {
+    printf "%5i  %s\n",$counters{$trap}->getValue(),$trap;
+    }
+}
+
+# Report 'visits'
+
+sub initVisits
+{
+$counter=new Counter;
+}
+
+sub runVisits
+{
+my ($log)=@_;
+
+$counter->inc($$log[2],$$log[1]);
+}
+
+sub doneVisits
+{
+print $counter->getValue(),"\n";
+}
+
+# Report 'visitsm'
+
+sub initVisitsm
+{
+$counter=new Counter;
+$cmonth=-1;
+$cyear=-1;
+}
+
+sub runVisitsm
+{
+my ($log)=@_;
+
+my (undef,undef,undef,undef,$month,$year)=localtime($$log[1]);
+$year+=1900;
+if($cmonth==-1 || $cyear==-1)
+  {
+  $cmonth=$month;
+  $cyear=$year;
+  }
+if($cmonth>=$month && $cyear==$year || $cyear>$year)
+  {
+  $counter->inc($$log[2],$$log[1]);
+  }
+else
+  {
+  print $cmonth+1,"\t$cyear\t",$counter->getValue(),"\n";
+  $cmonth=$month;
+  $cyear=$year;
+  $counter=new Counter;
+  $counter->inc($$log[2],$$log[1]);
+  }
+}
+
+sub doneVisitsm
+{
+print $cmonth+1,"\t$cyear\t",$counter->getValue(),"\n";
+}
+
+# Report 'visitsw'
+
+sub initVisitsw
+{
+$counter=new Counter;
+$cweek=-1;
+$cyear=-1;
+}
+
+sub runVisitsw
+{
+my ($log)=@_;
+
+my (undef,undef,undef,$day,$month,$year)=localtime($$log[1]);
+$year+=1900;
+my $week;
+if(check_date($year,$month+1,$day))
+  {
+  ($week,$year)=Week_of_Year($year,$month+1,$day);
+  }
+else
+  {
+  ($week,$year)=(0,1970);
+  }
+if($cweek==-1 || $cyear==-1)
+  {
+  $cweek=$week;
+  $cyear=$year;
+  }
+if($cweek>=$week && $cyear==$year || $cyear>$year)
+  {
+  $counter->inc($$log[2],$$log[1]);
+  }
+else
+  {
+  print "$cweek\t$cyear\t",$counter->getValue(),"\n";
+  $cweek=$week;
+  $cyear=$year;
+  $counter=new Counter;
+  $counter->inc($$log[2],$$log[1]);
+  }
+}
+
+sub doneVisitsw
+{
+print "$cweek\t$cyear\t",$counter->getValue(),"\n";
+}
+
+# Global
 
 sub help
 {
@@ -131,6 +508,18 @@ EOF
 exit;
 }
 
+sub fromDate
+{
+shift;
+$fromDate=parseDate(shift);
+}
+
+sub toDate
+{
+shift;
+$toDate=parseDate(shift);
+}
+
 sub initTopics
 {
 open IN,"$directory/topics";
@@ -138,7 +527,8 @@ while(<IN>)
      {
      chomp;
      my @line=split /\t/;
-     $topics[$line[0]]=fixEntities($line[1]);
+     $topics[$line[0]]=fixEntities($line[2]);
+     $topicIdents{$line[1]}=$line[0];
      }
 close IN;
 }
@@ -150,10 +540,8 @@ while(<IN>)
      {
      chomp;
      my @line=split /\t/;
-     my $info=fixEntities($line[4]).', '.$topics[$line[1]];
+     my $info=fixEntities($line[2]).', '.$topics[$line[1]];
      $postings[$line[0]]=$info;
-     $messages[$line[2]]=$info;
-     $imagesets[$line[3]]=$info if $line[3] ne '';
      }
 close IN;
 }
@@ -170,6 +558,19 @@ while(<IN>)
 close IN;
 }
 
+sub initOldIds
+{
+open IN,"$directory/old-ids";
+while(<IN>)
+     {
+     chomp;
+     my @line=split / /;
+     $oldIds{$line[0]}={} unless defined $oldIds{$line[0]};
+     $oldIds{$line[0]}{$line[1]}=$line[2];
+     }
+close IN;
+}
+
 sub getInitSub
 {
 return 'init'.ucfirst(lc $report);
@@ -180,147 +581,43 @@ sub init
 initTopics();
 initPostings();
 initUsers();
+initOldIds();
 die "report: unknown report type\n" if !defined(&{getInitSub()});
 &{getInitSub()}();
 }
 
-sub initDomains
+sub convertLogSpecifier
 {
+my ($name,$value)=@_;
+
+return 'topic('.$oldIds{'topics'}{$value}.')' if $name eq 'topic' && $value>0;
+return 'post('.$oldIds{'postings'}{$value}.')' if $name eq 'post';
+return 'post('.$oldIds{'messages'}{$value}.')' if $name eq 'msg';
+return 'post('.$oldIds{'images'}{$value}.')' if $name eq 'imageset';
+return "$name($value)";
 }
 
-sub initMonopoly
+sub convertLogLine
 {
-}
+my ($log)=@_;
 
-sub initPopularity
-{
-}
-
-sub initRaw
-{
-}
-
-sub initSearch
-{
-}
-
-sub initTraps
-{
-}
-
-sub initVisits
-{
-$counter=new Counter;
-}
-
-sub initVisitsm
-{
-$counter=new Counter;
-$cmonth=-1;
-$cyear=-1;
-}
-
-sub initVisitsw
-{
-$counter=new Counter;
-$cweek=-1;
-$cyear=-1;
-}
-
-@Months=('Jan','Feb','Mar','Apr','May','Jun',
-         'Jul','Aug','Sep','Oct','Nov','Dec');
-
-sub getTimeStr
-{
-my ($time)=@_;
-
-my ($sec,$min,$hour,$day,$month)=localtime($time);
-return sprintf("%3s %2i %02i:%02i:%02i",$Months[$month],$day,$hour,$min,$sec);
-}
-
-sub getAddress
-{
-my ($ip)=@_;
-
-for($i=3;$i>=0;$i--)
-   {
-   $ip[$i]=$ip%256;
-   $ip/=256;
-   }
-return join '.',@ip;
-}
-
-sub urldecode
-{
-my ($s)=@_;
-
-$s=~s/%([0-9A-F]{2})/chr(hex($1))/ge;
-$s=~tr/+/ /;
-return $s;
-}
-
-sub specify
-{
-my ($event,$s)=@_;
-
-my $c='';
-my @specs=$s=~/\w+\(-?\d+\)/g;
-foreach(@specs)
-       {
-       my ($name,$value)=/^(\w+)\((-?\d+)\)$/;
-       $c.=' '.$topics[$value] if $name eq 'topic' && $value>0;
-       $c.=' Все темы' if $name eq 'topic' && $value<=0;
-       $c.=' '.$users[$value] if $name eq 'user';
-       $c.=' '.$postings[$value] if $name eq 'post';
-       $c.=' '.$messages[$value] if $name eq 'msg';
-       $c.=' '.$imagesets[$value] if $name eq 'imageset';
-       $c.=" N$value" if $name eq 'issue';
-       }
-if($event eq 'search')
+if($$log[0]=~/^1:(.*)$/)
   {
-  $s=~/query=(.*)$/;
-  $c.=' '.urldecode($1);
+  $$log[0]=$1;
+  return;
   }
-return $c;
-}
-
-sub comment
-{
-my ($event,$s)=@_;
-
-my $c=specify($event,$s);
-$s.=" /*$c */" if $c!~/^\s*$/;
-return $s;
-}
-
-sub describe
-{
-my ($s)=@_;
-
-my ($type)=$s=~/^(\w+):/;
-my $c='';
-$c='[Статья]' if $type eq 'article';
-$c='[Чат]' if $type eq 'chat';
-$c='[Обсуждение]' if $type eq 'forum';
-$c='[Обсуждения]' if $type eq 'forumcatalog';
-$c='[Галерея]' if $type eq 'gallery';
-$c='[Картинка]' if $type eq 'imageview';
-$c='[Главная]' if $type eq 'index';
-$c='[Площадка]' if $type eq 'kaitana';
-$c='[Халом]' if $type eq 'halom';
-$c='[Ссылка]' if $type eq 'link';
-$c='[Сообщение]' if $type eq 'posting';
-$c='[Таглит]' if $type eq 'taglit';
-$c='[Мигдаль Times]' if $type eq 'times';
-$c='[О пользователе]' if $type eq 'userinfo';
-$c='[Голосование]' if $type eq 'vote';
-$c='[Ссылки]' if $type eq 'links';
-$c='[Книга]' if $type eq 'book';
-$c='[Глава книги]' if $type eq 'chapter';
-$c='[Обзор]' if $type eq 'review';
-$c='[Уголок ветерана]' if $type eq 'veterans';
-$c='[Событие]' if $type eq 'event';
-return $c.specify($type,$s);
+$$log[0]='daily' if $$log[0] eq 'halom' || $$log[0] eq 'kaitana';
+if($$log[0] eq 'taglit')
+  {
+  $$log[0]='community';
+  $$log[3]='topic(8) '.$$log[3];
+  }
+if($$log[0] eq 'veterans')
+  {
+  $$log[0]='community';
+  $$log[3]='topic(27) '.$$log[3];
+  }
+$$log[3]=~s/(\w+)\((-?\d+)\)/convertLogSpecifier($1,$2)/ge;
 }
 
 sub getRunSub
@@ -337,138 +634,10 @@ while(<IN>)
      chomp;
      my @log=split /\t/;
      next if $log[1]<$fromDate || $toDate!=0 && $log[1]>=$toDate;
+     convertLogLine(\@log);
      &{getRunSub()}(\@log);
      }
 close IN;
-}
-
-sub runDomains
-{
-my ($log)=@_;
-
-return if $$log[0] ne 'enter';
-my ($domain)=$$log[3]=~/domain=(\w+)/;
-$counters{$domain}=new Counter() unless defined $counters{$domain};
-$counters{$domain}->inc($$log[2],$$log[1]);
-}
-
-sub runMonopoly
-{
-my ($log)=@_;
-
-return if $$log[0] eq 'trap' || $$log[0] eq 'enter' || $$log[0] eq 'login'
-          || $$log[0] eq 'logout' || $$log[0] eq 'bug' || $$log[0] eq 'search';
-my $s=$$log[0].': '.$$log[3];
-$counters{$s}=new Counter() unless defined $counters{$s};
-$counters{$s}->inc($$log[2],$$log[1]);
-}
-
-sub runPopularity
-{
-my ($log)=@_;
-
-return if $$log[0] eq 'trap' || $$log[0] eq 'enter' || $$log[0] eq 'login'
-          || $$log[0] eq 'logout' || $$log[0] eq 'bug' || $$log[0] eq 'search'
-	  || $$log[0] eq 'fail';
-my $s=$$log[0].': '.$$log[3];
-$counters{$s}=new Counter() unless defined $counters{$s};
-$counters{$s}->inc($$log[2],$$log[1]);
-}
-
-sub runRaw
-{
-my ($log)=@_;
-
-print getTimeStr($$log[1]).' '.getAddress($$log[2])."\t".$$log[0].': '.
-      comment($$log[0],$$log[3])."\n";
-}
-
-sub runSearch
-{
-my ($log)=@_;
-
-return if $$log[0] ne 'search';
-$$log[3]=~/query=(.*)$/;
-my $s=lc(urldecode($1));
-$counters{$s}=new Counter() unless defined $counters{$s};
-$counters{$s}->inc($$log[2],$$log[1]);
-}
-
-sub runTraps
-{
-my ($log)=@_;
-
-return if $$log[0] ne 'trap';
-my $type=$$log[3];
-$type=~s/\s+\[[^\]]*\]$//;
-$counters{$type}=new Counter() unless defined $counters{$type};
-$counters{$type}->inc($$log[2],$$log[1]);
-}
-
-sub runVisits
-{
-my ($log)=@_;
-
-$counter->inc($$log[2],$$log[1]);
-}
-
-sub runVisitsm
-{
-my ($log)=@_;
-
-my (undef,undef,undef,undef,$month,$year)=localtime($$log[1]);
-$year+=1900;
-if($cmonth==-1 || $cyear==-1)
-  {
-  $cmonth=$month;
-  $cyear=$year;
-  }
-if($cmonth>=$month && $cyear==$year || $cyear>$year)
-  {
-  $counter->inc($$log[2],$$log[1]);
-  }
-else
-  {
-  print $cmonth+1,"\t$cyear\t",$counter->getValue(),"\n";
-  $cmonth=$month;
-  $cyear=$year;
-  $counter=new Counter;
-  $counter->inc($$log[2],$$log[1]);
-  }
-}
-
-sub runVisitsw
-{
-my ($log)=@_;
-
-my (undef,undef,undef,$day,$month,$year)=localtime($$log[1]);
-$year+=1900;
-my $week;
-if(check_date($year,$month+1,$day))
-  {
-  ($week,$year)=Week_of_Year($year,$month+1,$day);
-  }
-else
-  {
-  ($week,$year)=(0,1970);
-  }
-if($cweek==-1 || $cyear==-1)
-  {
-  $cweek=$week;
-  $cyear=$year;
-  }
-if($cweek>=$week && $cyear==$year || $cyear>$year)
-  {
-  $counter->inc($$log[2],$$log[1]);
-  }
-else
-  {
-  print "$cweek\t$cyear\t",$counter->getValue(),"\n";
-  $cweek=$week;
-  $cyear=$year;
-  $counter=new Counter;
-  $counter->inc($$log[2],$$log[1]);
-  }
 }
 
 sub getDoneSub
@@ -480,95 +649,6 @@ sub done
 {
 die "report: unknown report type\n" if !defined(&{getDoneSub()});
 &{getDoneSub()}();
-}
-
-sub doneDomains
-{
-@domains=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
-              keys %counters;
-for my $domain(@domains)
-    {
-    printf "%5i  %s\n",$counters{$domain}->getValue(),$domain;
-    }
-}
-
-sub doneMonopoly
-{
-my $sum=0;
-for my $counter(values(%counters))
-    {
-    $sum+=$counter->getValue() if $counter->getValue()>=$popularity;
-    }
-my $sq=0;
-for my $counter(values(%counters))
-    {
-    if($counter->getValue()>=$popularity)
-      {
-      $c=$counter->getValue()*100/$sum;
-      $sq+=$c*$c;
-      }
-    }
-printf "%5.2f\n",$sq;
-}
-
-sub donePopularity
-{
-@pages=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
-            keys %counters;
-for my $page(@pages)
-    {
-    if($counters{$page}->getValue()>=$popularity)
-      {
-      unless($verbose)
-            {
-            printf "%5i  %s\n",$counters{$page}->getValue(),describe($page);
-	    }
-      else
-            {
-            printf "%5i  %s (%s)\n",$counters{$page}->getValue(),
-	                            describe($page),$page;
-	    }
-      }
-    }
-}
-
-sub doneRaw
-{
-}
-
-sub doneSearch
-{
-@searches=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
-               keys %counters;
-for my $search(@searches)
-    {
-    printf "%5i  %s\n",$counters{$search}->getValue(),$search;
-    }
-}
-
-sub doneTraps
-{
-@traps=sort {$counters{$b}->getValue() <=> $counters{$a}->getValue()}
-            keys %counters;
-for my $trap(@traps)
-    {
-    printf "%5i  %s\n",$counters{$trap}->getValue(),$trap;
-    }
-}
-
-sub doneVisits
-{
-print $counter->getValue(),"\n";
-}
-
-sub doneVisitsm
-{
-print $cmonth+1,"\t$cyear\t",$counter->getValue(),"\n";
-}
-
-sub doneVisitsw
-{
-print "$cweek\t$cyear\t",$counter->getValue(),"\n";
 }
 
 GetOptions('directory|d=s'  => \$directory,

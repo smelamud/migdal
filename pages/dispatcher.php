@@ -72,10 +72,16 @@ if(function_exists($trapFunc))
     return $info;
     }
   else
+    {
+    logEvent('trap-fail',$requestPath);
     return dispatch404($requestPath);
+    }
   }
 if(!$directScripts || !file_exists($scriptName))
+  {
+  logEvent('trap-fail',$requestPath);
   return dispatch404($requestPath);
+  }
 $info->setPath($requestPath);
 $info->setScript($scriptName);
 return $info;

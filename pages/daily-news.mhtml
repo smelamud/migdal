@@ -7,7 +7,7 @@
 <grps>
 <posting_obj name='posting' id='$postid' grp='*GRP_DAILY_NEWS'>
 <topic_obj name='event' id='$posting.TopicId'>
-<log event=kaitana text#='topic($event.Id) post($posting.Id)'>
+<log event=daily text#='topic($event.Id) post($posting.Id)'>
 
 <macro name='editor'>
  <ispost what='$event'>

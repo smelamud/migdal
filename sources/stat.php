@@ -48,7 +48,8 @@ fclose($fd);
 $fd=fopen("$dir/topics",'w');
 $iter=new TopicNamesIterator(GRP_ALL);
 while($topic=$iter->next())
-     fputs($fd,$topic->getId()."\t".$topic->getFullName()."\n");
+     fputs($fd,$topic->getId()."\t".$topic->getIdent().
+               "\t".$topic->getFullName()."\n");
 fclose($fd);
 
 $fd=fopen("$dir/users",'w');
@@ -64,17 +65,14 @@ $cmd=str_replace(array('#','%'),
                  array($tmpDir,substr($dir,strlen($tmpDir)+
 		                           ($dir[strlen($tmpDir)]=='/' ? 1 : 0))),
 		 $compressCommand);
-$fd=fopen('/tmp/xxx','w');
-fputs($fd,$cmd);
-fclose($fd);
 echoCommand($cmd);
 
-/*unlink("$dir/users");
+unlink("$dir/users");
 unlink("$dir/topics");
 unlink("$dir/postings");
 unlink("$dir/log");
 unlink("$dir/timestamp");
-rmdir($dir);*/
+rmdir($dir);
 
 dbClose();
 ?>

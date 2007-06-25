@@ -3,7 +3,7 @@
 <int name='offset'>
 
 <grps>
-<log event=review text#='topic($`printings`)'>
+<log event=review text#='topic($`migdal.printings`)'>
 
 <element name='batcher' params='printings'>
 <notprint>

@@ -15,11 +15,7 @@
 </ifzero>
 <string name='notonly_href'>
 
-<<zone>>
- << FIXME `topics` table is deprecated >>
- <<ident_id ident='$topic_id'>
- <log event=gallery text#='topic($,) offset=$offset'>
-</zone>>
+<log event=gallery text#='topic($topic_id) offset=$offset'>
 
 <element name='notonly'>
 <ifne what='$$notonly_href'>

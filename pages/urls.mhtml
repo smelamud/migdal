@@ -2,7 +2,7 @@
 
 <grps>
 <string name='prefix'>
-<log event=urls text#='offset=$offset'>
+<log event=urls text#='prefix=$prefix'>
 
 <element name='intro'>
 <subtitle title='Алфавитный указатель еврейских ссылок'>

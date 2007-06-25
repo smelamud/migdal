@@ -12,7 +12,7 @@
 
 <grps>
 <user_obj name='user' id='$user_id'>
-<<log event=taglit text#='user($user.Id) offset=$offset'>>
+<log event=community text#='topic($topic_id) user($user.Id) offset=$offset'>
 
 <html>
 <preamble>

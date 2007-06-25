@@ -5,6 +5,8 @@
  <?php $LocationInfo->setTitle('Поиск: '.$Args['q']); ?>
 </ifne>
 
+<log event=search text#='query=$#q'>
+
 <element name='google_search'>
 <noparse>
 <!-- Google CSE Search Box Begins  -->
