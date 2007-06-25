@@ -489,7 +489,9 @@ Migdal report generator (for 'migdal' interface)
   -v, --version             Print version information and exit
   -V, --verbose             More verbose
 
-Report bugs to <balu\@yes.ru>
+Date format is 'DD-MM-YYYY [hh[:mm[:ss]]]'
+
+Report bugs to <balu\@migdal.ru>
 EOF
 exit;
 }
@@ -498,7 +500,7 @@ sub version
 {
 print <<EOF;
 report (migdal $VERSION)
-Copyright (C) 2002 by Dmitry E. Melamud.
+Copyright (C) 2002-07 by Dmitry E. Melamud.
 
 This program is free software; you can redistribute it
 and/or modify it under the terms of the GNU General Public
