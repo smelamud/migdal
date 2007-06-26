@@ -7,6 +7,7 @@ require_once('lib/structure.php');
 require_once('lib/post.php');
 require_once('lib/database.php');
 require_once('lib/redirs.php');
+require_once('lib/logs.php');
 require_once('lib/session.php'); // FIXME Не очень хорошее решение
 
 require_once('conf/subdomains.php');

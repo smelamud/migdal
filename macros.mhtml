@@ -177,7 +177,7 @@
          params='id'>
 <deccall macro='forum_obj' func='getForumById' file='lib/forums.php'
          params='id,parent_id,quote,quote_width'
-	 defaults="name=answer parent_id=0 quote='' quote_width=75">
+	 defaults="name=answer parent_id=0 quote='' quote_width=77">
 <deccall macro='forumlist_offset' func='getForumListOffset'
          file='lib/forums.php' params='parent_id,id,sort'
 	 defaults="sort='*SORT_SENT'">

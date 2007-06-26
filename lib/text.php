@@ -58,7 +58,18 @@ return $b==1 || $a>=5 || $a==0 ? $forms[2] : ($a==1 ? $forms[0] : $forms[1]);
 
 function getQuote($s,$width)
 {
-return preg_replace('/^/m','> ',wordwrap($s,$width));
+$lines=explode("\n",$s);
+$out='';
+foreach($lines as $line)
+       {
+       $pos=0;
+       while($pos<strlen($line) && ($line[$pos]==' ' || $line[$pos]=='>'))
+            $pos++;
+       $prefix='> '.substr($line,0,$pos);
+       $qline=wordwrap(substr($line,$pos),$width-strlen($prefix));
+       $out.=preg_replace('/^/m',$prefix,$qline);
+       }
+return $out;
 }
 
 $TextFormats=array(TF_PLAIN => 'Простой текст (без переносов строк)',

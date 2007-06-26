@@ -275,7 +275,7 @@ $result=sql("select id
 return mysql_num_rows($result)>0;
 }
 
-function getForumById($id,$parent_id=0,$quote='',$quoteWidth=75)
+function getForumById($id,$parent_id=0,$quote='',$quoteWidth=77)
 {
 global $userId,$realUserId;
 

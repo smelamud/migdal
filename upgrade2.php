@@ -872,9 +872,12 @@ while($row=mysql_fetch_assoc($result))
 
      $cross=array('link_type' => LINKT_SEEALSO);
 
-     if(($row['source_grp']==GRP_LINKS || $row['source_grp']==GRP_NEWS
-         || $row['source_grp']==GRP_ARTICLES) && $row['source_ident']!='major'
-	&& $row['source_ident']!='major_gallery')
+     if(($row['source_grp']==GRP_LINKS
+         || $row['source_grp']==GRP_NEWS
+         || $row['source_grp']==GRP_ARTICLES
+         || $row['source_grp']==GRP_PERUSER_FORUMS)
+	&& $row['source_ident']!='major'
+	&& $row['source_ident']!='major-gallery')
        $cross['source_id']=$row['source_id'];
      if($row['source_grp']==GRP_BOOKS
         && $row['source_ident']=='migdal.methodology')
@@ -893,10 +896,16 @@ while($row=mysql_fetch_assoc($result))
        $cross['source_name']='migdal.library.novelties';
      if($row['source_grp']==GRP_REVIEWS)
        $cross['source_name']=$row['source_ident'];
+     if($row['source_ident']=='times')
+       $cross['source_name']='times';
      
-     if(($row['peer_grp']==GRP_LINKS || $row['peer_grp']==GRP_NEWS
-         || $row['peer_grp']==GRP_ARTICLES) && $row['peer_ident']!='major'
-	&& $row['peer_ident']!='major_gallery')
+     if(($row['peer_grp']==GRP_LINKS
+         || $row['peer_grp']==GRP_NEWS
+         || $row['peer_grp']==GRP_ARTICLES
+         || $row['peer_grp']==GRP_PERUSER_FORUMS
+         || $row['peer_grp']==GRP_GALLERY)
+	&& $row['peer_ident']!='major'
+	&& $row['peer_ident']!='major-gallery')
        {
        $id=$row['peer_id'];
        $post=new Posting(array('parent_id' => $id,
@@ -910,11 +919,14 @@ while($row=mysql_fetch_assoc($result))
        $cross['peer_path']='/migdal/library/novelties/';
      if($row['peer_grp']==GRP_REVIEWS)
        $cross['peer_path']='/'.catalog($row['peer_id'],$row['peer_ident']);
+     if($row['peer_ident']=='times')
+       $cross['peer_path']='/times/';
      
      if(!isset($cross['peer_path'])
         || !isset($cross['source_id']) && !isset($cross['source_name']))
        {
        echo 'N ';
+       printArray($log,$cross);
        fputs($log,"* N\n");
        continue;
        }
@@ -1015,7 +1027,7 @@ foreach($updates as $update)
 
 dbOpen();
 endJournal();
-echo "1. Chat messages...\n";
+/*echo "1. Chat messages...\n";
 convertChatMessages();
 echo "2. Truncate...\n";
 truncateEntries();
@@ -1053,13 +1065,13 @@ convertUsers();
 echo "18. Idents...\n";
 convertIdents();
 echo "19. Migdal news...\n";
-convertMigdalNews();
+convertMigdalNews();*/
 echo "20. Interlinks...\n";
 convertCrossEntries();
-echo "21. Complain URLs...\n";
+/*echo "21. Complain URLs...\n";
 convertComplainURLs();
 echo "22. Several inner images on the same paragraph...\n";
-convertDupInnerImages();
+convertDupInnerImages();*/
 beginJournal();
 dbClose();
 ?>
