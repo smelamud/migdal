@@ -395,7 +395,8 @@ $sortFields=array(SORT_LOGIN       => 'login_sort',
 if($prefix!='')
   {
   $sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login_sort';
-  $fieldFilter="and $sortField like '".convertSort($prefix)."%'";
+  $fieldFilter="and ($sortField like '".convertSort($prefix)."%'
+                     or $sortField like '".convertSort(strtolower($prefix))."%')";
   }
 else
   $fieldFilter='';

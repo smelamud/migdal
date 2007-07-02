@@ -16,6 +16,8 @@ function rememberPassword($id)
 {
 if($id<=0)
   return EPL_NO_LOGIN;
+if(!isUserConfirmed($id))
+  return EPL_NOT_CONFIRMED;
 $password=generatePassword();
 setPasswordByUserId($id,$password);
 postMailTo($id,'remember_password',array($id,$password));
@@ -39,6 +41,7 @@ if($err==EG_OK)
 else
   header('Location: '.remakeURI($faildir,
                                 array(),
-				array('err' => $err)).'#error');
+				array('err' => $err,
+				      'login' => $login)).'#error');
 dbClose();
 ?>

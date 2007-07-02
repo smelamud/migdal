@@ -380,8 +380,9 @@ if($disabled>=0)
     $Filter.=" and entries.disabled=0";
 if($prefix!='')
   {
+  $lprefix=strtolower($prefix);
   $prefixFilters=array(SORT_NAME       => " and entries.subject like '$prefix%'",
-                       SORT_URL_DOMAIN => " and entries.url_domain like '$prefix%'
+                       SORT_URL_DOMAIN => " and entries.url_domain like '$lprefix%'
 		                            and entries.url_domain<>''");
   $Filter.=@$prefixFilters[$sort]!='' ? $prefixFilters[$sort] : '';
   }
@@ -595,6 +596,9 @@ if(($fields & SPF_DUPLICATE)!=0)
 			  'lang' => $posting->lang,
 			  'index1' => $posting->index1,
 			  'index2' => $posting->index2));
+  if($posting->id<=0)
+    $vars=array_merge($vars,
+		      array('sent' => sqlNow()));
   if($userModerator)
     $vars=array_merge($vars,
 		      array('disabled' => $posting->disabled,
@@ -867,18 +871,22 @@ switch($bit)
 return $required;
 }
 
-function setPremoderates($posting,$original,$required=MODT_ALL)
+function setPremoderates(&$posting,$original,$required=MODT_ALL)
 {
 $tmod=getModbitsByTopicId($posting->getParentId());
 $tmod&=$required;
 if(isModbitRequired($tmod,MODT_PREMODERATE,$original))
+  {
   setDisabledByEntryId($posting->getId(),1);
+  $posting->disabled=1;
+  }
 $modbits=MOD_NONE;
 if(isModbitRequired($tmod,MODT_MODERATE,$original))
   $modbits|=MOD_MODERATE;
 if(isModbitRequired($tmod,MODT_EDIT,$original))
   $modbits|=MOD_EDIT;
 setModbitsByEntryId($posting->getId(),$modbits);
+$posting->modbits=$modbits;
 }
 
 function deleteShadowPosting($id)

@@ -24,7 +24,7 @@ require_once('lib/counters.php');
 require_once('lib/logging.php');
 require_once('lib/sql.php');
 
-function modifyPosting($posting,$original,$imageEditor,$iuFlags)
+function modifyPosting(&$posting,$original,$imageEditor,$iuFlags)
 {
 global $thumbnailType;
 
@@ -258,7 +258,13 @@ if($err==EG_OK)
   $err=modifyPosting($posting,$original,$imageEditor,$iuFlags);
 if($err==EG_OK)
   {
-  header("Location: $okdir");
+  if($posting->isDisabled() && ($userId<=0 || $userWillBeModeratedNote))
+    header('Location: '.
+           remakeURI('/will-be-moderated/',
+	             array(),
+		     array('okdir_i' => tmpTextSave($okdir))));
+  else
+    header("Location: $okdir");
   dropPostingsInfoCache(DPIC_POSTINGS);
   }
 else

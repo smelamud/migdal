@@ -76,6 +76,7 @@ define('EECA_NO_COMPLAIN',161);
 define('EECA_NO_EXEC',162);
 
 define('EUC_NO_USER',170);
+define('EUC_ALREADY_CONFIRMED',171);
 
 define('ECHP_NO_PERSON',180);
 define('ECHP_NO_ADD',181);
@@ -144,6 +145,7 @@ define('EDM_NO_CHANGE',340);
 define('EDM_NO_POSTING',341);
 
 define('EPL_NO_LOGIN',350);
+define('EPL_NOT_CONFIRMED',351);
 
 define('ECEA_NO_ADD',360);
 define('ECEA_ENTRY_ABSENT',361);

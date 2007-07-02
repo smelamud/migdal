@@ -47,6 +47,12 @@ $allSettings=array(
 		'type' => 'integer',
 		'location' => SETL_HOST
 	),
+	'willBeModeratedNote' => array(
+		'default' => 1,
+		'abbrev' => 'wbm',
+		'type' => 'integer',
+		'location' => SETL_USER
+	),
 );
 
 ?>

@@ -29,6 +29,8 @@ if(!isUserConfirmed($id))
   confirmUser($id);
   postMailToAdmins(USR_ADMIN_USERS,'confirmed',array($id));
   }
+else
+  return EUC_ALREADY_CONFIRMED;
 return EG_OK;
 }
 
@@ -38,9 +40,11 @@ postString('code');
 dbOpen();
 session();
 $err=doConfirmUser($id,$code);
-if($err!=EG_OK)
-  header("Location: /register/error/?err=$err");
-else
+if($err==EG_OK)
   header('Location: /register/signin/');
+elseif($err==EUC_ALREADY_CONFIRMED)
+  header('Location: /register/already-confirmed/');
+else
+  header("Location: /register/error/?err=$err");
 dbClose();
 ?>

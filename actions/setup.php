@@ -15,6 +15,8 @@ session();
 
 foreach($allSettings as $name => $info)
        {
+       if(!isset($_REQUEST[$name]))
+         continue;
        $func='post'.ucfirst($info['type']);
        if(function_exists($func))
 	 $func($name);

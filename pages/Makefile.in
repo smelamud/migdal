@@ -25,7 +25,7 @@ OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  signin.mhtml stotext-help-subs.mhtml stotext-help-types.mhtml \
 	  textears.mhtml times.mhtml tips.mhtml topicdel.mhtml topicedit.mhtml \
 	  topicorg.mhtml urls.mhtml useredit.mhtml userinfo.mhtml \
-	  userinfo-panel.mhtml users.mhtml
+	  userinfo-panel.mhtml users.mhtml will-be-moderated.mhtml
 	  
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)
