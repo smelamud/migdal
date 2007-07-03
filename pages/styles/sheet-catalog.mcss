@@ -7,11 +7,7 @@
 .catalog-layer {
 	background-color: transparent;
 }
-/*
-.catalog TT,.catalog PRE {
-	font: 10pt %courier;
-}
-*/
+
 TH.catalog-cell {
 	font-size: 9pt;
 	background-color: %catalog_header;
@@ -27,12 +23,7 @@ TD.catalog-cell {
 TD.catalog-cell-odd {
 	background-color: %catalog_odd;
 }
-/*
-.catalog TD,.catalog TH {
-	border-right: solid 1px %catalog_border;
-	padding: 3px;
-}
-*/
+
 TD.catalog-div {
 	background-color: %catalog_div;
 	color: %catalog_div_text;
@@ -40,24 +31,3 @@ TD.catalog-div {
 	font-weight: bold;
 	text-align: center;
 }
-/*
-.catalog .subject A {
-	color: %catalog_subject;
-	text-decoration: underline;
-}
-
-.catalog .subject A:hover {
-	color: %catalog_subject_hover;
-}
-
-.catalog .email A {
-	text-decoration: none;
-}
-
-.catalog .email A:hover {
-	text-decoration: underline;
-}
-
-.catalog .name {
-	font-weight: normal;
-}*/

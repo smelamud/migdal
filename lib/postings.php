@@ -729,6 +729,14 @@ return mysql_num_rows($result)>0;
 function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=-1,$fields=SELECT_GENERAL,
                         $up=-1,$index1=0)
 {
+/* эта функция может вызываться из structure.conf */
+$id=(int)$id;
+$grp=(int)$grp;
+$topic_id=(int)$topic_id;
+$fields=(int)$fields;
+$up=(int)$up;
+$index1=(int)$index1;
+
 $Select=postingListFields($fields);
 $From=postingListTables($fields);
 if($id=='' || $id<0)
@@ -1041,5 +1049,19 @@ journal(sqlInsert('entries',
         'entries',$shid);
 updateTracks('entries',$shid);
 updateCatalogs($shid);
+}
+
+function autoEnablePostings()
+{
+global $messageEnableTimeout;
+
+$result=sql('select id
+	     from entries
+	     where entry='.ENT_POSTING.' and disabled<>0
+	           and (modbits & '.MOD_MODERATE.')<>0
+		   and modified+interval $messageEnableTimeout hour<now()',
+	    __FUNCTION__);
+while($row=mysql_fetch_assoc($result))
+     setDisabledByEntryId($row['id'],0);
 }
 ?>

@@ -298,6 +298,18 @@ $hostS=addslashes($host);
 return preg_replace('/\$([0-9]+)/e',"getJournalVar('$hostS',\\1)",$query);
 }
 
+function purgeJournalVars()
+{
+global $journalVarTimeout;
+
+sql("delete
+     from journal_vars
+     where last_read+interval $journalVarTimeout day<now()",
+    __FUNCTION__,'delete');
+sql("optimize table journal_vars",
+    __FUNCTION__,'optimize');
+}
+
 function clearJournal()
 {
 sql('insert into journal(seq)
@@ -324,6 +336,25 @@ $result=sql("select count(*)
 	     where query<>''",
 	    __FUNCTION__);
 return mysql_result($result,0,0)==0;
+}
+
+function purgeJournal()
+{
+global $replicationJournal,$unclosedSeqTimeout;
+
+if(!$replicationJournal)
+  return;
+$result=sql("select distinct seq
+	     from journal
+	     where sent+interval $unclosedSeqTimeout day<now()",
+	    __FUNCTION__,'select_old');
+while($row=mysql_fetch_assoc($result))
+     if(!isSeqClosed($row['seq']))
+       sql('delete from journal
+	    where seq='.$row['seq'],
+	   __FUNCTION__,'delete');
+sql('optimize table journal',
+    __FUNCTION__,'optimize');
 }
 
 function duplicateDatabase()

@@ -1,6 +1,12 @@
 <?php
 # @(#) $Id$
 
+/*
+ * ПРЕДУПРЕЖДЕНИЕ: все эти функции могут вызываться только с параметрами arg.*,
+ * id.*. Поскольку эти параметры, если они отмечены как числовые, уже прошли
+ * обработку, их безопасно вставлять в SQL-операторы. Для всех остальных
+ * параметров обработка необходима.
+ */
 require_once('lib/topics.php');
 require_once('lib/users.php');
 require_once('lib/complains.php');
@@ -58,5 +64,12 @@ function titleComplainSubject($id)
 {
 $complain=getComplainById($id);
 return $complain->getSubject();
+}
+
+function titleMonth($n)
+{
+global $rusMonthIL;
+
+return $rusMonthIL[$n];
 }
 ?>

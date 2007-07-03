@@ -32,6 +32,9 @@
          params='values' defaults="values='$*'">
 <deciter macro='assoc_array' class='AssocArrayIterator' file='lib/array.php'
          params='values,class' defaults="values='$*' class='Association'">
+<deciter macro='chat_messagelist' class='ChatMessageListIterator'
+         file='lib/chat.php' params='later,earlier'
+	 defaults='later=0 earlier=0'>
 <deciter macro='complainlist' class='ComplainListIterator'
          file='lib/complains.php' params='limit,offset'
 	 defaults='limit=20 offset=0'>

@@ -38,6 +38,9 @@
 <element name='navi_archive' params='index,span' defaults='span=1'>
  <topics_line href='/archive/' text='Архив' arrow!="$index=='archive'"
               class='topics-item eightpt' span='$span'>
+ <topics_line href='/chat-archive/' text='Архив чата'
+              arrow!="$index=='chat-archive'" class='topics-item eightpt'
+	      span='$span'>
 </element>
 
 <element name='topics_major'>

@@ -99,6 +99,21 @@ else
   return '';
 }
 
+function trapChat($args)
+{
+return remakeMakeURI('/chat-archive/',$args);
+}
+
+function trapChatboard($args)
+{
+return remakeMakeURI('/chat-archive/',$args);
+}
+
+function trapChatconsole($args)
+{
+return remakeMakeURI('/chat-archive/',$args);
+}
+
 function trapComplainforum($args)
 {
 $id=postProcessInteger($args['compid']);

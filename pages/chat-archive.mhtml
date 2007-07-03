@@ -1,0 +1,91 @@
+<< @(#) $Id: archive.mhtml 2442 2007-03-24 20:22:48Z balu $ >>
+
+<grps>
+<int name='year'>
+<int name='month'>
+
+<if what='$year<2001 || $year>2007'>
+ <assign name='year' value='2007'>
+</if>
+<if what='$month<1 || $month>12'>
+ <assign name='month' value!='$year!=2007 ? 12 : 7'>
+</if>
+
+<html>
+<stylesheet ident='index'>
+<preamble>
+<body>
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics>
+    <ears>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <b>Год:</b>
+    <for n=7>
+     <assign name='cyear' value!='2007 - $.'>
+     <if what='$cyear==$year'>
+      &nbsp;<b>$cyear</b>
+     <else>
+      &nbsp;<a href='/chat-archive/$cyear/'>$cyear</a>
+     </if>
+    </for>
+    <p>
+    <b>Месяц:</b>
+    <for n=12>
+     <assign name='n' value!='12 - $.'>
+     <assign name='name' value!='$$rusMonthIL[$n]'>
+     <if what='$year!=2001 && $year!=2007
+               || $year==2001 && $n>=11
+	       || $year==2007 && $n<=7'>
+      <if what='$n==$month'>
+       &nbsp;<b>$=name</b>
+      <else>
+       &nbsp;<a href='/chat-archive/$year/$n/'>$=name</a>
+      </if>
+     </if>
+    </for>
+    <p>&nbsp;</p>
+    <timestamp name='later' year='$year' month='$month' day=1 hour=0
+               minute=0 second=0>
+    <if what='$month<12'>
+     <assign name='nmonth' value!='$month + 1'>
+     <assign name='nyear' value='$year'>
+    <else>
+     <assign name='nmonth' value='1'>
+     <assign name='nyear' value!='$year + 1'>
+    </if>
+    <timestamp name='earlier' year='$nyear' month='$nmonth' day=1 hour=0
+               minute=0 second=0>
+    <iterate_chat_messagelist later='$later' earlier='$earlier'>
+    <p>
+     <array vals='сообщение,сообщения,сообщений'>
+     <plural value='$;Count'>
+     <b>Всего <em>$;Count</em> $,</b>
+    </p>
+    <assign name='day' value=0>
+    <p>
+     <for>
+      <if what='$day!=$.Sent@d'>
+       <ifnzero what='$day'></p><p></ifnzero>
+       <b>$.Sent@d.$.Sent@m.$.Sent@Y</b><br>
+       <assign name='day' value='$.Sent@d'>
+      </if>
+      $.Sent@H:$.Sent@i:$.Sent@s&sp;
+      <if what="$.Login=='shames'">
+       <b>$.TextHTML</b>
+      <else>
+       <senderlink message='$.'>: $.TextHTML
+      </if>
+      <br>
+     </for>
+    </p>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</body>
+</html>

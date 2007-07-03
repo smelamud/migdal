@@ -591,6 +591,16 @@ $result=sql("select if(confirm_deadline is null,1,0)
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)!=0 : false;
 }
 
+function deleteNonConfirmedUsers()
+{
+sql("delete
+     from users
+     where confirm_deadline is not null and confirm_deadline<now()",
+    __FUNCTION__,'delete');
+sql("optimize table users",
+    __FUNCTION__,'optimize');
+}
+
 function getUserLoginById($id)
 {
 // Hidden users' logins must be returned, because system users must be

@@ -33,6 +33,16 @@ $result=sql("select counter_id
 return mysql_num_rows($result)>0;
 }
 
+function deleteExpiredCounterIPs()
+{
+sql("delete
+     from counters_ip
+     where expires<now()",
+    __FUNCTION__,'delete');
+sql("optimize table counters_ip",
+    __FUNCTION__,'optimize');
+}
+
 function incCounter($entry_id,$mode)
 {
 $result=sql("select id
@@ -91,6 +101,20 @@ sql("insert into counters(entry_id,mode,started,finished)
 journal('insert into counters(entry_id,mode,started,finished)
          values('.journalVar('entries',$entry_id).",$mode,
 	         '$started','$finished')");
+}
+
+function rotateAllCounters()
+{
+global $replicationMaster;
+
+if(!$replicationMaster)
+  return;
+$result=sql("select entry_id,mode
+	     from counters
+	     where finished<now() and serial=0",
+	    __FUNCTION__);
+while(list($entry_id,$mode)=mysql_fetch_array($result))
+     rotateCounter($entry_id,$mode);
 }
 
 function createCounters($entry_id,$grp)

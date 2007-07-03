@@ -77,4 +77,16 @@ parent::SelectIterator('LogLine',
 }
 
 }
+
+function purgeLog()
+{
+global $statisticsTimeout;
+
+sql("delete
+     from logs
+     where sent+interval $statisticsTimeout day<now()",
+    __FUNCTION__,'delete');
+sql("optimize table logs",
+    __FUNCTION__,'optimize');
+}
 ?>
