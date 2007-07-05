@@ -71,7 +71,8 @@ function ComplainListIterator($limit=20,$offset=0)
 {
 parent::LimitSelectIterator(
        'Complain',
-       'select entries.id as id,subject,body_format,sent,created,modified,
+       'select entries.id as id,subject,body_format,sent,
+               entries.created as created,entries.modified as modified,
                user_id,group_id,perms,person_id,disabled,modbits,
 	       users.login as login,users.gender as gender,users.email as email,
 	       users.hide_email as hide_email,users.hidden as user_hidden,
@@ -109,9 +110,12 @@ return $n<=0 ? 0 : mysql_result($result,random(0,$n-1),0);
 
 function storeComplain(&$complain)
 {
+global $userId,$realUserId;
+
 $jencoded=array('subject' => '','subject_sort' => '','user_id' => 'users',
                 'group_id' => 'users','person_id' => 'users','body' => '',
-		'body_xml' => '');
+		'body_xml' => '','creator_id' => 'users',
+		'modifier_id' => 'users');
 $vars=array('entry' => $complain->entry,
             'person_id' => $complain->person_id,
 	    'user_id' => $complain->user_id,
@@ -124,6 +128,7 @@ $vars=array('entry' => $complain->entry,
 	    'body_xml' => $complain->body_xml,
 	    'body_format' => $complain->body_format,
 	    'modified' => sqlNow(),
+            'modifier_id' => $userId>0 ? $userId : $realUserId,
 	    'modbits' => $complain->modbits);
 if($complain->id)
   {
@@ -140,6 +145,7 @@ else
   {
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
+  $vars['creator_id']=$vars['modifier_id'];
   $complain->person_id=getComplainAssignee();
   $vars['person_id']=$complain->person_id;
   $result=sql(sqlInsert('entries',
@@ -171,8 +177,9 @@ global $userId,$realUserId,$rootComplainUserName,$rootComplainGroupName,
 if(hasCachedValue('obj','entries',$id))
   return getCachedValue('obj','entries',$id);
 $result=sql("select entries.id as id,subject,body,body_xml,body_format,url,sent,
-                    created,modified,user_id,group_id,perms,person_id,disabled,
-		    modbits,users.login as login,users.gender as gender,
+                    entries.created as created,entries.modified as modified,
+		    user_id,group_id,perms,person_id,disabled,modbits,
+		    users.login as login,users.gender as gender,
 		    users.email as email,users.hide_email as hide_email,
 		    users.hidden as user_hidden,person.login as person_login,
 		    person.gender as person_gender,person.email as person_email,

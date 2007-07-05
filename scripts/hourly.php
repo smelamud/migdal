@@ -14,6 +14,7 @@ require_once('lib/votes.php');
 require_once('lib/users.php');
 require_once('lib/mail.php');
 require_once('lib/postings.php');
+require_once('lib/captcha.php');
 
 dbOpen();
 session(getShamesId());
@@ -24,6 +25,7 @@ deleteExpiredVotes();
 deleteClosedSessions();
 deleteObsoleteTmpTexts();
 deleteObsoleteRedirs();
+deleteObsoleteCaptchas();
 purgeMailLog();
 
 autoEnablePostings();

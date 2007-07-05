@@ -69,6 +69,7 @@
 <decel name='failpage' file='parts/failpage.php'>
 <decel name='form_buttons' file='parts/formutils.php' params='title,clear'
        defaults="title='Изменить' clear='*true'">
+<decel name='form_captcha' file='parts/captcha.php' params='name'>
 <decel name='form_checkbox' file='parts/formutils.php'
        params='title,mandatory,comment,name,value,style,checked'
        defaults="mandatory='*false' comment='' style='select' value=1

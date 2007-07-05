@@ -15,6 +15,8 @@ define('EUM_SURNAME_ABSENT',108);
 define('EUM_EMAIL_ABSENT',109);
 define('EUM_NOT_EMAIL',1010);
 define('EUM_DISABLED',1011);
+define('EUM_CAPTCHA_ABSENT',1012);
+define('EUM_CAPTCHA',1013);
 
 define('EL_INVALID',110);
 define('EL_NO_COOKIES',111);
@@ -126,6 +128,7 @@ define('ECAD_NO_EDIT',280);
 define('ECAD_NO_ACTION',281);
 
 define('EUL_LARGE',290);
+define('EUL_UNKNOWN_FORMAT',291);
 
 define('EUS_NO_SWITCH',300);
 define('EUS_NO_USER',301);

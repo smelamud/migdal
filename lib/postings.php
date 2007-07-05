@@ -549,7 +549,7 @@ define('SPF_ALL',SPF_ORIGINAL|SPF_DUPLICATE|SPF_SHADOW);
 
 function storePostingFields(&$posting,$fields)
 {
-global $userModerator;
+global $userId,$realUserId,$userModerator;
 
 $vars=array('entry' => $posting->entry,
             'modified' => sqlNow());
@@ -612,7 +612,8 @@ if(($fields & SPF_SHADOW)!=0)
 		          'track' => $posting->track,
 		          'catalog' => $posting->catalog,
 			  'parent_id' => $posting->parent_id,
-			  'grp' => $posting->grp));
+			  'grp' => $posting->grp,
+			  'modifier_id' => $userId>0 ? $userId : $realUserId));
   if($userModerator)
     $vars=array_merge($vars,
 		      array('ident' => $posting->ident));
@@ -632,7 +633,8 @@ return array('subject' => '','author' => '','author_xml' => '',
 	     'large_image' => 'images','large_image_filename' => '',
 	     'person_id' => 'users','user_id' => 'users',
 	     'group_id' => 'users','subject_sort' => '','up' => 'entries',
-	     'parent_id' => 'entries');
+	     'parent_id' => 'entries','creator_id' => 'users',
+	     'modifier_id' => 'users');
 }
 
 function storePosting(&$posting)
@@ -670,6 +672,7 @@ else
   {
   $vars=storePostingFields($posting,SPF_ALL);
   $vars['created']=sqlNow();
+  $vars['creator_id']=$vars['modifier_id'];
   sql(sqlInsert('entries',
                 $vars),
       __FUNCTION__,'insert');
@@ -1026,6 +1029,8 @@ deleteShadowPosting($id);
 
 function createPostingShadow($id)
 {
+global $userId,$realUserId;
+
 $result=sql("select entry,up,parent_id,orig_id,grp,person_id,user_id,group_id,
                     perms,disabled,subject_sort,lang,priority,index0,index1,
 		    index2,set0,set0_index,set1,set1_index,vote,vote_count,
@@ -1039,6 +1044,8 @@ if(mysql_num_rows($result)<=0)
 $row=mysql_fetch_assoc($result);
 $row['created']=sqlNow();
 $row['modified']=sqlNow();
+$row['creator_id']=$userId>0 ? $userId : $realUserId;
+$row['modifier_id']=$row['creator_id'];
 sql(sqlInsert('entries',
               $row),
     __FUNCTION__,'insert');
@@ -1058,8 +1065,8 @@ global $messageEnableTimeout;
 $result=sql('select id
 	     from entries
 	     where entry='.ENT_POSTING.' and disabled<>0
-	           and (modbits & '.MOD_MODERATE.')<>0
-		   and modified+interval $messageEnableTimeout hour<now()',
+	           and (modbits & '.MOD_MODERATE.")<>0
+		   and modified+interval $messageEnableTimeout hour<now()",
 	    __FUNCTION__);
 while($row=mysql_fetch_assoc($result))
      setDisabledByEntryId($row['id'],0);

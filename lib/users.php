@@ -52,6 +52,8 @@ var $surname_sort;
 var $info;
 var $info_xml;
 var $birthday;
+var $created;
+var $modified;
 var $rights;
 var $last_online;
 var $last_minutes;
@@ -144,25 +146,36 @@ return $this->surname;
 function getFullName()
 {
 if($this->jewish_name!='')
-  return "$this->jewish_name ($this->name) $this->surname";
+  $fullName="$this->jewish_name ($this->name)";
 else
-  return "$this->name $this->surname";
+  $fullName=$this->name;
+if($this->surname!='')
+  $fullName.=" $this->surname";
+return $fullName;
 }
 
 function getFullNameCivil()
 {
 if($this->jewish_name!='')
-  return "$this->name ($this->jewish_name) $this->surname";
+  $fullName="$this->name ($this->jewish_name)";
 else
-  return "$this->name $this->surname";
+  $fullName=$this->name;
+if($this->surname!='')
+  $fullName.=" $this->surname";
+return $fullName;
 }
 
 function getFullNameSurname()
 {
-if($this->jewish_name!='')
-  return "$this->surname $this->jewish_name ($this->name)";
+if($this->surname!='')
+  $fullName=$this->surname;
 else
-  return "$this->surname $this->name";
+  $fullName='';
+if($this->jewish_name!='')
+  $fullName.=" $this->jewish_name ($this->name)";
+else
+  $fullName.=" $this->name";
+return $fullName;
 }
 
 function getInfo()
@@ -222,6 +235,16 @@ function getYearOfBirth()
 $bt=explode('-',$this->birthday);
 $c=substr($bt[0],2);
 return $c ? $c : '00';
+}
+
+function getCreated()
+{
+return strtotime($this->created);
+}
+
+function getModified()
+{
+return strtotime($this->modified);
 }
 
 function getRights()
@@ -502,6 +525,7 @@ $vars=array('login' => $user->login,
             'info' => $user->info,
             'info_xml' => $user->info_xml,
             'birthday' => $user->birthday,
+	    'modified' => sqlNow(),
             'rights' => $user->rights,
             'email' => $user->email,
             'hide_email' => $user->hide_email,
@@ -527,6 +551,7 @@ if($user->id)
   }
 else
   {
+  $vars['created']=sqlNow();
   $result=sql(sqlInsert('users',
                         $vars),
               __FUNCTION__,'insert');
@@ -663,12 +688,13 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 
 function setPasswordByUserId($id,$password)
 {
+$now=sqlNow();
 sql("update users
-     set password=md5('$password')
+     set password=md5('$password'),modified='$now'
      where id=$id",
     __FUNCTION__);
 journal("update users
-         set password=md5('".jencode($password)."')
+         set password=md5('".jencode($password)."'),modified='$now'
 	 where id=".journalVar('users',$id));
 }
 
@@ -724,13 +750,16 @@ if(mysql_num_rows($result)>0)
 else
   $login="$guestLogin-0";
 $login_sort=convertSort($login);
-sql("insert into users(login,login_sort,email_disabled,guest,hidden,no_login)
-     values('$login','$login_sort',1,1,2,1)",
-    'getGuestId','create');
+$now=sqlNow();
+sql("insert into users(login,login_sort,email_disabled,guest,hidden,no_login,
+                       created,modified)
+     values('$login','$login_sort',1,1,2,1,'$now','$now')",
+    __FUNCTION__,'create');
 $id=sql_insert_id();
 journal("insert into users(login,login_sort,email_disabled,guest,hidden,
-                           no_login)
-         values('".jencode($login)."','".jencode($login_sort)."',1,1,2,1)",
+                           no_login,created,modified)
+         values('".jencode($login)."','".jencode($login_sort)."',1,1,2,1,
+	        '$now','$now')",
 	 'users',$id);
 return $id;
 }

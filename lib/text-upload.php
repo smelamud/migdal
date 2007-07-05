@@ -21,6 +21,9 @@ if($file['tmp_name']=='' || !is_uploaded_file($file['tmp_name'])
   return EG_OK;
 if($file['size']>$maxLargeText)
   return EUL_LARGE;
+$format='text/';
+if(substr($file['type'],0,strlen($format))!=$format)
+  return EUL_UNKNOWN_FORMAT;
 
 $tmpname=tempnam($tmpDir,'mig-');
 if(!move_uploaded_file($file['tmp_name'],$tmpname))

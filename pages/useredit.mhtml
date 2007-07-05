@@ -68,7 +68,7 @@
               value='$=,JewishName' name='jewish_name' size=30 maxlength=30>
    <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена'>
    <form_edit title='Фамилия' value='$=,Surname' name='surname' size=30
-	      maxlength=30 mandatory='*true'>
+	      maxlength=30 mandatory='$$usersMandatorySurname'>
    <error id='*EUM_GENDER' text='Неизвестный пол'>
    <form_line title='Пол'>
     <radio name='gender' value='mine' checked='$,isMan' title='Мужской'>
@@ -113,7 +113,7 @@
 	       mandatory='*true'>
    <form_checkbox title='Скрыть E-mail на сайте'
                   comment='Ответ <i>Да</i> означает, что никто из посетителей
-		           сайта (кроме администратора) не увидит ващ адрес
+		           сайта (кроме администратора) не увидит ваш адрес
 			   E-mail'
                   name='hide_email' checked='$,isHideEmail'>
    <form_checkbox title='Разрешаю посылать почту на мой адрес'

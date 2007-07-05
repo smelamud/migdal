@@ -70,6 +70,8 @@ CREATE TABLE `entries` (
 `created` DATETIME NOT NULL ,
 `modified` DATETIME NOT NULL ,
 `accessed` DATETIME NOT NULL ,
+`creator_id` INT NOT NULL ,
+`modifier_id` INT NOT NULL ,
 `modbits` INT NOT NULL ,
 `answers` INT NOT NULL ,
 `last_answer` DATETIME NOT NULL ,
@@ -194,3 +196,12 @@ INDEX ( `sent` )
 ) ENGINE = MYISAM ;
 ALTER TABLE `users` DROP `last_chat` ,
 DROP `in_chat` ;
+ALTER TABLE `users` ADD `created` DATETIME NOT NULL AFTER `birthday` ,
+ADD `modified` DATETIME NOT NULL AFTER `created` ;
+CREATE TABLE `captcha_keys` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`keystring` VARCHAR( 6 ) NOT NULL ,
+`sid` CHAR( 32 ) NOT NULL ,
+`created` DATETIME NOT NULL
+) ENGINE = MYISAM CHARACTER SET koi8u COLLATE koi8u_bin;
+ALTER TABLE `captcha_keys` ADD INDEX ( `key` , `session_id` ) ;

@@ -315,10 +315,13 @@ parent::MArrayIterator($topics);
 
 function storeTopic(&$topic)
 {
+global $userId,$realUserId;
+
 $jencoded=array('ident' => '','up' => 'entries','subject' => '',
                 'subject_sort' => '','comment0' => '','comment0_xml' => '',
 		'comment1' => '','comment1_xml' => '','user_id' => 'users',
-		'group_id' => 'users','body' => '','body_xml' => '');
+		'group_id' => 'users','body' => '','body_xml' => '',
+		'creator_id' => 'users','modifier_id' => 'users');
 $vars=array('entry' => $topic->entry,
             'ident' => $topic->ident,
             'up' => $topic->up,
@@ -336,7 +339,8 @@ $vars=array('entry' => $topic->entry,
 	    'body' => $topic->body,
 	    'body_xml' => $topic->body_xml,
 	    'body_format' => $topic->body_format,
-	    'modified' => sqlNow());
+	    'modified' => sqlNow(),
+            'modifier_id' => $userId>0 ? $userId : $realUserId);
 if($topic->track=='')
   $vars['track']='';
 if($topic->catalog=='')
@@ -355,6 +359,7 @@ else
   {
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
+  $vars['creator_id']=$vars['modifier_id'];
   $result=sql(sqlInsert('entries',
                         $vars),
 	      __FUNCTION__,'insert');

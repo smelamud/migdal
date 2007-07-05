@@ -118,6 +118,8 @@ while($row=mysql_fetch_assoc($result))
 			 'created' => $row['sent'],
 			 'modified' => $row['closed']!='' ? $row['closed']
 							  : $row['sent'],
+			 'creator_id' => $row['sender_id'],
+			 'modifier_id' => $row['sender_id'],
 			 'modbits' => ($row['closed']!='' ? MODC_CLOSED
 							  : MODC_NONE) |
 				      ($row['no_auto'] ? MODC_NO_AUTO
@@ -191,6 +193,8 @@ while($row=mysql_fetch_assoc($result))
 			 'sent' => $now,
 			 'created' => $now,
 			 'modified' => $now,
+			 'creator_id' => $row['user_id'],
+			 'modifier_id' => $row['user_id'],
 			 'modbits' => ($row['premoderate']
 			               ? MODT_PREMODERATE : MODT_NONE) |
 				      ($row['moderate']
@@ -319,6 +323,8 @@ while($row=mysql_fetch_assoc($result))
 			 'created' => $row['sent'],
 			 'modified' => $row['last_updated'],
 			 'accessed' => $row['last_read'],
+			 'creator_id' => $row['sender_id'],
+			 'modifier_id' => $row['sender_id'],
 			 'modbits' => $row['modbits'] & MOD_ALL
 			 )),
 	 __FUNCTION__,'insert');
@@ -384,6 +390,8 @@ while($row=mysql_fetch_assoc($result))
 			 'created' => $orig['created'],
 			 'modified' => $orig['modified'],
 			 'accessed' => $orig['accessed'],
+			 'creator_id' => $orig['user_id'],
+			 'modifier_id' => $orig['user_id'],
 			 'modbits' => $orig['modbits'] & MOD_ALL
 			 )),
 	 __FUNCTION__,'insert');
@@ -612,7 +620,9 @@ while($row=mysql_fetch_assoc($result))
 			 'body_format' => TF_MAIL,
 			 'sent' => $row['sent'],
 			 'created' => $row['sent'],
-			 'modified' => $row['last_updated']
+			 'modified' => $row['last_updated'],
+			 'creator_id' => $row['sender_id'],
+			 'modifier_id' => $row['sender_id']
 			 )),
 	 __FUNCTION__,'insert');
 

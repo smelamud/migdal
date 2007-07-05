@@ -78,7 +78,7 @@ parent::SelectIterator('LogLine',
 
 }
 
-function purgeLog()
+function purgeLogs()
 {
 global $statisticsTimeout;
 

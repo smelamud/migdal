@@ -99,6 +99,9 @@ $tmpTextTimeout=24;
 # обращения к нему
 $redirTimeout=24;
 
+# Максимальное время (в часах) хранения в БД CAPTCHA с момента ее создания
+$captchaTimeout=24;
+
 # Максимальное время (в часах) хранения файла-картинки, не привязанного ни к
 # одному сообщению
 $imageFileTimeout=6;
@@ -290,6 +293,10 @@ $rootTopicModbits=MODT_PREMODERATE|MODT_MODERATE|MODT_EDIT;
 
 # Права гостей
 $allowGuests=true;
+
+## Настройки пользователей ##
+
+$usersMandatorySurname=false;
 
 ## Настройки тем ##
 

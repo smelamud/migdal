@@ -1,3 +1,5 @@
+UPDATE users SET created = last_online, modified = last_online WHERE last_online<>0;
+UPDATE users SET created = now(), modified = now() WHERE last_online=0;
 DROP TABLE `cross_topics`;
 DROP TABLE `complains` ;
 ALTER TABLE `counters` DROP `message_id` ;

@@ -169,10 +169,11 @@ $Order=getOrderBy($sort,
 parent::LimitSelectIterator(
         'Forum',
 	"select entries.id as id,subject,subject_sort,author,author_xml,body,
-	        body_xml,body_format,sent,created,modified,user_id,group_id,
-		perms,disabled,parent_id,users.login as login,
-		users.gender as gender,users.email as email,
-		users.hide_email as hide_email,users.hidden as user_hidden
+	        body_xml,body_format,sent,entries.created as created,
+		entries.modified as modified,user_id,group_id,perms,disabled,
+		parent_id,users.login as login,users.gender as gender,
+		users.email as email,users.hide_email as hide_email,
+		users.hidden as user_hidden
 	 from entries
 	      left join users
 		   on entries.user_id=users.id
@@ -197,15 +198,17 @@ return parent::create($row);
 
 function storeForum(&$forum)
 {
-global $forumPremoderate;
+global $userId,$realUserId,$forumPremoderate;
 
 $jencoded=array('subject' => '','author' => '','author_xml'=>'','body' => '',
                 'body_xml' => '','small_image' => 'images',
 		'large_image' => 'images','large_image_filename' => '',
 		'user_id' => 'users','group_id' => 'users','subject_sort' => '',
-		'up' => 'entries','parent_id' => 'entries');
+		'up' => 'entries','parent_id' => 'entries',
+		'creator_id' => 'users','modifier_id' => 'users');
 $vars=array('entry' => $forum->entry,
             'modified' => sqlNow(),
+            'modifier_id' => $userId>0 ? $userId : $realUserId,
             'subject' => $forum->subject,
 	    'subject_sort' => $forum->subject_sort,
 	    'author' => $forum->author,
@@ -250,6 +253,7 @@ else
   {
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
+  $vars['creator_id']=$vars['modifier_id'];
   $result=sql(sqlInsert('entries',
                         $vars),
 	      __FUNCTION__,'insert');
@@ -285,7 +289,8 @@ $result=sql("select entries.id as id,subject,subject_sort,author,author_xml,
 		    small_image,small_image_x,small_image_y,large_image,
 		    large_image_x,large_image_y,large_image_size,
 		    large_image_format,large_image_filename,
-		    up,parent_id,disabled,sent,created,modified,
+		    up,parent_id,disabled,sent,entries.created as created,
+		    entries.modified as modified,
 		    users.login as login,users.gender as gender,
 		    users.email as email,users.hide_email as hide_email,
 		    users.hidden as user_hidden

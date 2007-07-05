@@ -210,7 +210,9 @@
  <if what='$visible'>
   <error id='*EP_IMAGE_ABSENT' text='Нужно указать картинку для отображения'>
   <error id='*EP_NO_IMAGE' text='Указанной картинки не существует'>
-  <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки'>
+  <error id='*EIU_UNKNOWN_IMAGE'
+         text='Неизвестный формат картинки. Сайт понимает картинки только в
+	       форматах JPEG, PNG и GIF'>
   <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
   <error id='*EIU_THUMBNAIL_LARGE'
          text='Маленькая картинка слишком велика (больше 2M)'>
@@ -307,6 +309,10 @@
 <elif what="$ident=='large_body_upload'">
  <if what='$visible'>
   <error id='*EUL_LARGE' text#='$=editor.Title слишком велик (больше 2M)'>
+  <error id='*EUL_UNKNOWN_FORMAT'
+         text='Этот файл не является простым текстовым файлом. Сайт не понимает
+	       документы MS Word и другие подобные форматы. Допускается
+	       загрузка только простого текстового файла.'>
   <if what='$posting.hasLargeBody'>
    <ifne what='$posting.LargeBodyFilename'>
     <assign name='loaded' value#='Загружен файл $=posting.LargeBodyFilename

@@ -77,6 +77,8 @@ var $sent=0;
 var $created=0;
 var $modified=0;
 var $accessed=0;
+var $creator_id=0;
+var $modifier_id=0;
 var $modbits=MOD_NONE;
 var $answers=0;
 var $last_answer=0;
@@ -653,6 +655,16 @@ return strtotime($this->modified);
 function getAccessed()
 {
 return strtotime($this->accessed);
+}
+
+function getCreatorId()
+{
+return $this->creator_id;
+}
+
+function getModifierId()
+{
+return $this->modifier_id;
 }
 
 function getModbits()

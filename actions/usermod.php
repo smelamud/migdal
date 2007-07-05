@@ -14,10 +14,11 @@ require_once('lib/bug.php');
 require_once('lib/tmptexts.php');
 require_once('lib/mail.php');
 require_once('lib/sql.php');
+require_once('lib/captcha.php');
 
-function modifyUser($user)
+function modifyUser($user,$original)
 {
-global $editid,$disableRegister,$userAdminUsers;
+global $editid,$captcha,$disableRegister,$usersMandatorySurname,$userAdminUsers;
 
 if(!$editid)
   $editid=0;
@@ -35,7 +36,7 @@ if(userLoginExists($user->login,$editid))
   return EUM_LOGIN_EXISTS;
 if($user->name=='')
   return EUM_NAME_ABSENT;
-if($user->surname=='')
+if($usersMandatorySurname && $user->surname=='')
   return EUM_SURNAME_ABSENT;
 if($user->getGender()!='mine' && $user->getGender()!='femine')
   return EUM_GENDER;
@@ -47,6 +48,13 @@ if($user->email=='')
 if(!preg_match('/^[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*$/',
                $user->email))
   return EUM_NOT_EMAIL;
+if($editid==0)
+  {
+  if($captcha=='')
+    return EUM_CAPTCHA_ABSENT;
+  if(!validateCaptcha($captcha))
+    return EUM_CAPTCHA;
+  }
 if(!$userAdminUsers)
   $user->rights=$user->rights & USR_USER | $original->rights & ~USR_USER;
 storeUser($user);
@@ -64,6 +72,7 @@ postString('okdir');
 postString('faildir');
 postInteger('editid');
 postInteger('edittag');
+postString('captcha');
 postString('new_login');
 postString('new_password');
 postString('dup_password');

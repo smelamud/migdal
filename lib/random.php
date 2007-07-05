@@ -5,20 +5,7 @@ require_once('lib/array.php');
 
 function random($min,$max)
 {
-static $randomized=false;
-
-if(!$randomized)
-  {
-  srand(time());
-  $randomized=true;
-  }
-return rand($min,$max);
-}
-
-function rnd()
-{
-random(0,1);
-return rand();
+return mt_rand($min,$max);
 }
 
 function array_random($array)

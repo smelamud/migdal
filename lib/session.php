@@ -16,9 +16,9 @@ require_once('lib/settings.php');
 $userRights=array('AdminUsers'           => USR_ADMIN_USERS,
                   'AdminTopics'          => USR_ADMIN_TOPICS,
                   'AdminComplainAnswers' => USR_ADMIN_COMPLAIN_ANSWERS,
-		  'Moderator'            => USR_MODERATOR,
-		  'Judge'                => USR_JUDGE,
-		  'AdminDomain'          => USR_ADMIN_DOMAIN);
+                  'Moderator'            => USR_MODERATOR,
+                  'Judge'                => USR_JUDGE,
+                  'AdminDomain'          => USR_ADMIN_DOMAIN);
 
 function sessionGuest()
 {

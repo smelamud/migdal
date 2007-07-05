@@ -38,6 +38,11 @@
    <error id='*EUM_DISABLED' text='Регистрация пользователей запрещена'>
    <error id='*EUM_NO_EDIT'
 	  text='У вас нет права менять информацию для этого пользователя'>
+   <error id='*EUM_CAPTCHA_ABSENT'
+          text='Пожалуйста, введите цифры и буквы, которые вы видите на
+                картинке. Это необходимо нам для борьбы со спамом.'>
+   <error id='*EUM_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+   <form_captcha name='captcha'>
    <form_section title='Информация для входа на сайт'>
    <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен'>
    <error id='*EUM_LOGIN_EXISTS'
@@ -65,7 +70,7 @@
 	      value='$=,JewishName' name='jewish_name' size=30 maxlength=30>
    <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена'>
    <form_edit title='Фамилия' value='$=,Surname' name='surname' size=30
-	      maxlength=30 mandatory='*true'>
+	      maxlength=30 mandatory='$$usersMandatorySurname'>
    <error id='*EUM_GENDER' text='Неизвестный пол'>
    <form_select title='Пол' name='gender' style='box'>
     <form_option title='Мужской' value='mine' selected="$,isMan">
@@ -104,7 +109,7 @@
 	      mandatory='*true'>
    <form_checkbox title='Скрыть E-mail на сайте'
                   comment='Ответ <i>Да</i> означает, что никто из посетителей
-		           сайта (кроме администратора) не увидит ващ адрес
+		           сайта (кроме администратора) не увидит ваш адрес
 			   E-mail'
                   name='hide_email' checked='$,isHideEmail'>
    <form_checkbox title='Разрешаю посылать почту на мой адрес'

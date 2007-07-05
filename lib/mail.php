@@ -128,9 +128,10 @@ while($row=mysql_fetch_assoc($result))
        $runResult=$sendResult;
      $sentList[]=$row['id'];
      }
-sql('delete from mail_queue
-     where id in ('.join(',',$sentList).')',
-    __FUNCTION__);
+if(count($sentList)>0)
+  sql('delete from mail_queue
+       where id in ('.join(',',$sentList).')',
+      __FUNCTION__);
 unlockMailTables();
 return $runResult;
 }
