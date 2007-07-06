@@ -1,5 +1,5 @@
 function newWindow(page, name, w, h, scroll, pos) {
-    var win=null;
+    var win = null;
 
     if(pos == "random") {
         leftPosition = screen.width

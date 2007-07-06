@@ -164,9 +164,9 @@ function getRootComplain()
 global $rootComplainUserName,$rootComplainGroupName,$rootComplainPerms;
 
 return new Complain(
-		 array('sender_id' => getUserIdByLogin($rootComplainUserName),
-		       'group_id'  => getUserIdByLogin($rootComplainGroupName),
-		       'perms'     => $rootComplainPerms));
+		 array('user_id'  => getUserIdByLogin($rootComplainUserName),
+		       'group_id' => getUserIdByLogin($rootComplainGroupName),
+		       'perms'    => $rootComplainPerms));
 }
 
 function getComplainById($id,$url='')

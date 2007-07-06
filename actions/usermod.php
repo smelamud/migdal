@@ -18,21 +18,19 @@ require_once('lib/captcha.php');
 
 function modifyUser($user,$original)
 {
-global $editid,$captcha,$disableRegister,$usersMandatorySurname,$userAdminUsers;
+global $captcha,$disableRegister,$usersMandatorySurname,$userAdminUsers;
 
-if(!$editid)
-  $editid=0;
-if($editid==0 && $disableRegister && !$userAdminUsers)
+if($user->id==0 && $disableRegister && !$userAdminUsers)
   return EUM_DISABLED;
 if(!$user->isEditable())
   return EUM_NO_EDIT;
 if($user->login=='')
   return EUM_LOGIN_ABSENT;
-if((!$editid || $user->password!='') && strlen($user->password)<5)
+if(($user->id==0 || $user->password!='') && strlen($user->password)<5)
   return EUM_PASSWORD_LEN;
 if($user->password!=$user->dup_password)
   return EUM_PASSWORD_DIFF;
-if(userLoginExists($user->login,$editid))
+if(userLoginExists($user->login,$user->id))
   return EUM_LOGIN_EXISTS;
 if($user->name=='')
   return EUM_NAME_ABSENT;
@@ -48,7 +46,7 @@ if($user->email=='')
 if(!preg_match('/^[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*$/',
                $user->email))
   return EUM_NOT_EMAIL;
-if($editid==0)
+if($user->id==0)
   {
   if($captcha=='')
     return EUM_CAPTCHA_ABSENT;
@@ -58,7 +56,7 @@ if($editid==0)
 if(!$userAdminUsers)
   $user->rights=$user->rights & USR_USER | $original->rights & ~USR_USER;
 storeUser($user);
-if($editid==0)
+if($user->id==0)
   if(!$userAdminUsers)
     {
     preconfirmUser($user->getId());

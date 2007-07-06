@@ -60,6 +60,8 @@ define('EP_SMALL_IMAGE_EXACT_Y',1326);
 define('EP_SMALL_IMAGE_MAX',1327);
 define('EP_SMALL_IMAGE_MAX_X',1328);
 define('EP_SMALL_IMAGE_MAX_Y',1329);
+define('EP_CAPTCHA_ABSENT',1330);
+define('EP_CAPTCHA',1331);
 
 define('EMH_NO_MODERATE',140);
 define('EMH_NO_ENTRY',141);
@@ -97,6 +99,8 @@ define('EF_IMAGE_ABSENT',205);
 define('EF_NO_IMAGE',206);
 define('EF_SUBJECT_ABSENT',207);
 define('EF_AUTHOR_ABSENT',208);
+define('EF_CAPTCHA_ABSENT',209);
+define('EF_CAPTCHA',2010);
 
 define('EMI_NO_EDIT',210);
 define('EMI_NAME_ABSENT',211);

@@ -500,7 +500,7 @@ $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
 	     group by users.id",
 	    __FUNCTION__);
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                          : array());
+                                          : array('id' => 0));
 }
 
 function storeUser(&$user)

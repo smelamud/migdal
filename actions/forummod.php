@@ -16,10 +16,11 @@ require_once('lib/permissions.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings-info.php');
 require_once('lib/logging.php');
+require_once('lib/captcha.php');
 
 function modifyForum(&$forum,$original)
 {
-global $userId,$realUserId,$thumbnailType,$forumMandatoryBody,
+global $captcha,$userId,$realUserId,$thumbnailType,$forumMandatoryBody,
        $forumMandatoryImage;
 
 if($userId<=0 && $realUserId<=0)
@@ -57,6 +58,13 @@ if($forum->hasLargeImage()
    && !imageFileExists($forum->id,$forum->large_image_format,
                        $forum->large_image,'large'))
   return EF_NO_IMAGE;
+if($forum->id<=0 && $userId<=0)
+  {
+  if($captcha=='')
+    return EF_CAPTCHA_ABSENT;
+  if(!validateCaptcha($captcha))
+    return EF_CAPTCHA;
+  }
 storeForum($forum);
 commitImages($forum,$original);
 return EG_OK;
@@ -72,6 +80,7 @@ postInteger('remember');
 
 postInteger('editid');
 postInteger('edittag');
+postString('captcha');
 postInteger('parent_id');
 postInteger('up');
 postString('subject');

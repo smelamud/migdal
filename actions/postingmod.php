@@ -23,10 +23,11 @@ require_once('lib/modbits.php');
 require_once('lib/counters.php');
 require_once('lib/logging.php');
 require_once('lib/sql.php');
+require_once('lib/captcha.php');
 
 function modifyPosting(&$posting,$original,$imageEditor,$iuFlags)
 {
-global $thumbnailType;
+global $captcha,$thumbnailType,$userId;
 
 if($original->getId()!=0 && !$original->isWritable())
   return EP_NO_EDIT;
@@ -167,6 +168,13 @@ if(($iuFlags & IU_THUMB)!=IU_THUMB_NONE)
   }
 if($posting->person_id!=0 && !personalExists($posting->person_id))
   return EP_NO_PERSON;
+if($posting->id<=0 && $userId<=0)
+  {
+  if($captcha=='')
+    return EP_CAPTCHA_ABSENT;
+  if(!validateCaptcha($captcha))
+    return EP_CAPTCHA;
+  }
 $posting->track='';
 $posting->catalog='';
 storePosting($posting);
@@ -189,6 +197,7 @@ postInteger('noguests');
 
 postIdent('editid');
 postInteger('edittag');
+postString('captcha');
 postInteger('grp');
 postInteger('index1');
 postInteger('index2');

@@ -89,6 +89,11 @@
                    login!='$edittag ? $login : $$userLoginHint'
 		   remember='$remember'>
     </zone>
+    <error id='*EF_CAPTCHA_ABSENT'
+           text='Пожалуйста, введите цифры и буквы, которые вы видите на
+                 картинке. Это необходимо нам для борьбы со спамом.'>
+    <error id='*EF_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+    <form_captcha name='captcha'>
    </if>
    <error id='*EF_BODY_ABSENT'
 	  text='Напишите хотя бы пару строчек в теле сообщения'>

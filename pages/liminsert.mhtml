@@ -116,11 +116,13 @@
                   loaded='$loaded' delname='del_image'
 		  small_url='$small_url' large_url='$large_url'>
    <form_checkbox title='Вставлять в уменьшенном виде' name='has_large_image'
-		  checked='$,hasLargeImage' style='radio'>
+		  checked='$,hasLargeImage' style='radio' id_yes='hlm-yes'>
    <form_line title='Размер'>
-    <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4>
+    <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4
+          onkeypress='document.getElementById("hlm-yes").click();'>
     x
-    <edit name='small_image_y' value='$,SmallImageY' size=4 maxlength=4>
+    <edit name='small_image_y' value='$,SmallImageY' size=4 maxlength=4
+          onkeypress='document.getElementById("hlm-yes").click();'>
    </form_line>
    <hidden name='small_image' value='$small_image'>
    <hidden name='large_image' value='$large_image'>

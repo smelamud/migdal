@@ -61,8 +61,9 @@
        defaults="topic_id='-1' title='Форум' limit=5">
 <decel name='discusslink' file='parts/posting.php' params='posting'>
 <decel name='ears' file='parts/ears.php'>
-<decel name='edit' file='parts/formutils.php' params='name,value,size,maxlength'
-       defaults='size=40 maxlength=250'>
+<decel name='edit' file='parts/formutils.php'
+       params='name,value,size,maxlength,onkeypress'
+       defaults="size=40 maxlength=250 onkeypress=''">
 <decel name='editlink' file='parts/posting.php' params='posting'>
 <decel name='events' file='parts/events.php' params='grp,index,prefix'
        defaults="index=0 prefix=''">
@@ -71,9 +72,9 @@
        defaults="title='Изменить' clear='*true'">
 <decel name='form_captcha' file='parts/captcha.php' params='name'>
 <decel name='form_checkbox' file='parts/formutils.php'
-       params='title,mandatory,comment,name,value,style,checked'
+       params='title,mandatory,comment,name,value,style,checked,id_yes,id_no'
        defaults="mandatory='*false' comment='' style='select' value=1
-                 checked='*true'">
+                 checked='*true' id_yes='' id_no=''">
 <decel name='form_comment' file='parts/formutils.php'>
 <decel name='/form_comment' file='parts/formutils.php'>
 <decel name='form_complainactionselect' file='parts/complainactionselect.php'
@@ -265,8 +266,8 @@
 <decel name='textears' file='parts/textears.php'>
 <decel name='tip' file='parts/tip.php'>
 <decel name='today' file='parts/today.php'>
-<decel name='top' file='parts/top.php' params='ident,transref'
-       defaults="transref=''">
+<decel name='top' file='parts/top.php' params='ident,transref,js'
+       defaults="transref='' js=''">
 <decel name='top_404' file='parts/top-404.php'>
 <decel name='topiclink' file='parts/posting.php'
        params='&posting,class,prefix'

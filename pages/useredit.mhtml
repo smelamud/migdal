@@ -130,9 +130,7 @@
      </td></tr>
     </if>
    </if>
-   <form_edit title='ICQ'
-	      comment='Если вы не знаете, что это такое, не заполняйте это поле'
-	      value='$=,ICQ' name='icq' size=15 maxlength=15>
+   <form_edit title='ICQ' value='$=,ICQ' name='icq' size=15 maxlength=15>
    <admin_users>
     <form_checkbox name='has_personal' checked='$,isHasPersonal'
 		   title='Имеет персональную страницу'>

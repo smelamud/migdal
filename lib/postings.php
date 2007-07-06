@@ -732,14 +732,6 @@ return mysql_num_rows($result)>0;
 function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=-1,$fields=SELECT_GENERAL,
                         $up=-1,$index1=0)
 {
-/* эта функция может вызываться из structure.conf */
-$id=(int)$id;
-$grp=(int)$grp;
-$topic_id=(int)$topic_id;
-$fields=(int)$fields;
-$up=(int)$up;
-$index1=(int)$index1;
-
 $Select=postingListFields($fields);
 $From=postingListTables($fields);
 if($id=='' || $id<0)
@@ -770,6 +762,10 @@ else
 
 function getPostingId($grp=GRP_ALL,$index1=-1,$topic_id=-1)
 {
+/* эта функция может вызываться из structure.conf */
+$index1=(int)$index1;
+$topic_id=(int)$topic_id;
+
 $Where='entry='.ENT_POSTING;
 $Where.=' and '.postingsPermFilter(PERM_READ);
 $Where.=' and '.postingListGrpFilter($grp);

@@ -91,12 +91,12 @@
     </select>
     19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
    </form_line>
-   << FIXME incorrect field `migdal_student` >>
    <form_checkbox title='Мигдалевец'
                   comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
 		           его раньше? Или, может быть, вы чувствуете себя
 			   мигдалевцем в душе?'
-                  name='migdal_student' checked='$,isMigdalStudent'>
+                  name='rights[]' value='*USR_MIGDAL_STUDENT'
+		  checked='$,isMigdalStudent'>
    <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен'>
    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно'>
    <form_edit title='E-mail'
@@ -119,9 +119,7 @@
 			   отправляем такие письма &mdash; за 5 лет мы не делали
 			   этого ни разу'
                   name='email_enabled' checked='$,isEmailEnabled'>
-   <form_edit title='ICQ' 
-	      comment='Если вы не знаете, что это такое, не заполняйте это поле'
-              value='$=,ICQ' name='icq' size=15 maxlength=15>
+   <form_edit title='ICQ' value='$=,ICQ' name='icq' size=15 maxlength=15>
    <admin_users>
     <form_buttons title='Зарегистрировать'>
    <else>
