@@ -29,14 +29,17 @@ noCacheMeta();
 
 function initializeHead()
 {
-global $stylesheetList,$userStyle;
+global $stylesheetList,$userStyle,$jsList;
 
 foreach($stylesheetList as $sheet)
        {
        echo "<link rel='stylesheet' href='/styles/$sheet-".
-             getStyle($userStyle).".css'>";
+             getStyle($userStyle).".css'>\n";
        include("styles/$sheet-".getStyle($userStyle).'.php');
        }
+if(isset($jsList))
+  foreach($jsList as $src)
+         echo "<script src='$src' language='JavaScript'></script>\n";
 }
 
 function finalize()

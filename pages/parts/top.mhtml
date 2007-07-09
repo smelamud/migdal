@@ -47,11 +47,7 @@
 </ifne>
 </element>
 
-<element name='top_web' params='ident,transref,js'>
-<script src='/js/window.js' language='JavaScript'></script>
-<ifne what='$js'>
- <script src='$js' language='JavaScript'></script>
-</ifne>
+<element name='top_web' params='ident,transref'>
 <table width=100% cellspacing=0 cellpadding=0>
  <tr valign=top>
   <td align=left rowspan=2>
@@ -81,6 +77,6 @@
 
 <element name='top'>
 <notprint>
- <top_web ident='$ident' transref='$transref' js='$js'>
+ <top_web ident='$ident' transref='$transref'>
 </notprint>
 </element>

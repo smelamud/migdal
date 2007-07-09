@@ -356,8 +356,9 @@
 </element>
 
 <html>
+<js src='/js/captcha.js'>
 <preamble>
-<body>
+<body onload='reloginInit();'>
  <top ident='index'>
  <setup>
  <if what='$editid'>
@@ -405,12 +406,12 @@
    <if what='!$editid'>
     <form_relogin noguests='$noguests' relogin='$relogin'
                   login!='$edittag ? $login : $$userLoginHint'
-                  remember='$remember'>
+                  remember='$remember' onclick='reloginSelected(this);'>
     <error id='*EP_CAPTCHA_ABSENT'
            text='Пожалуйста, введите цифры и буквы, которые вы видите на
                  картинке. Это необходимо нам для борьбы со спамом.'>
     <error id='*EP_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
-    <form_captcha name='captcha'>
+    <form_captcha id='captcha' name='captcha'>
    </if>
    <full>
     <form_grpselect title='Группа' mandatory='*true' name='grp' value='$,Grp'>

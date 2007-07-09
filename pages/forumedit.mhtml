@@ -27,8 +27,9 @@
 
 <html>
 <stylesheet ident='complain'>
+<js src='/js/captcha.js'>
 <preamble>
-<body>
+<body onload='reloginInit();'>
  <top ident='discuss'>
  <ifnzero what='$peerid'>
   <forum_obj id='$peerid'>
@@ -87,13 +88,13 @@
      <perms id='$,ParentId'>
      <form_relogin noguests!='!$,isGuestPostable' relogin='$relogin'
                    login!='$edittag ? $login : $$userLoginHint'
-		   remember='$remember'>
+		   remember='$remember' onclick='reloginSelected(this);'>
     </zone>
     <error id='*EF_CAPTCHA_ABSENT'
            text='Пожалуйста, введите цифры и буквы, которые вы видите на
                  картинке. Это необходимо нам для борьбы со спамом.'>
     <error id='*EF_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
-    <form_captcha name='captcha'>
+    <form_captcha id='captcha' name='captcha'>
    </if>
    <error id='*EF_BODY_ABSENT'
 	  text='Напишите хотя бы пару строчек в теле сообщения'>

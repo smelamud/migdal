@@ -15,11 +15,11 @@ require_once('lib/permission-schemes.php');
 
 $entryClassNames=array(ENT_NULL     => 'Entry',
                        ENT_POSTING  => 'Posting',
-		       ENT_FORUM    => 'Forum',
-		       ENT_TOPIC    => 'Topic',
-		       ENT_IMAGE    => 'Image',
-		       ENT_COMPLAIN => 'Complain',
-		       ENT_VERSION  => 'Entry');
+                       ENT_FORUM    => 'Forum',
+                       ENT_TOPIC    => 'Topic',
+                       ENT_IMAGE    => 'Image',
+                       ENT_COMPLAIN => 'Complain',
+                       ENT_VERSION  => 'Entry');
 
 class Entry
       extends UserTag
@@ -1041,9 +1041,9 @@ $filter="id=$id";
 if($entry!=ENT_NULL)
   $filter.=" and entry=$entry";
 $result=sql("select id
-	     from entries
-	     where $filter",
-	    __FUNCTION__);
+             from entries
+             where $filter",
+            __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 

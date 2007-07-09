@@ -17,7 +17,7 @@
    <if what='!$noguests'>
     <td width='1'>
      <radio id='relogin-guest' name='relogin' value='*RELOGIN_GUEST'
-            checked!='$relogin==*RELOGIN_GUEST'>
+            checked!='$relogin==*RELOGIN_GUEST' onclick='$onclick'>
     </td>
     <td colspan=6>
      <label for='relogin-guest'>анонимный пользователь (Гость)</label>
@@ -33,7 +33,7 @@
    <tr valign='middle'>
     <td width='1'>
      <radio id='relogin-same' name='relogin' value='*RELOGIN_SAME'
-            checked!='$relogin==*RELOGIN_SAME'>
+            checked!='$relogin==*RELOGIN_SAME' onclick='$onclick'>
     </td>
     <td colspan=6>
      <label for='relogin-same'>Зарегистрированный пользователь</label>
@@ -44,7 +44,7 @@
   <tr valign='middle'>
    <td width='1'>
     <radio id='relogin-login' name='relogin' value='*RELOGIN_LOGIN'
-           checked!='$relogin==*RELOGIN_LOGIN'>
+           checked!='$relogin==*RELOGIN_LOGIN' onclick='$onclick'>
    </td>
    <td>Ник</td>
    <td>

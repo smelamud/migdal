@@ -59,8 +59,14 @@
   $posting.BodyHTML<asp>
  </if>
  <if what='$posting.hasLargeBody'>
-  <further posting='$posting'
-	   title!="!$$englishDomain ? 'Читать статью' : 'Read article'">
+  <if what='$posting.Grp != *GRP_BOOK_CHAPTERS'>
+   <further posting='$posting'
+            title!="!$$englishDomain ? 'Читать статью' : 'Read article'">
+  <else>
+   <further posting='$posting'
+            title!="!$$englishDomain ? 'Читать главу книги'
+                                     : 'Read book chapter'">
+  </if>
  </if>
  <ifne what='$posting.URL'>
   <further_url posting='$posting' url='$posting.URL'>

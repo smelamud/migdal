@@ -41,7 +41,11 @@
 </element>
 
 <element name='form_line'>
-<tr valign='top'>
+<ifne what='$id'>
+ <tr id='$id' valign='top'>
+<else>
+ <tr valign='top'>
+</if>
  <th class='form-cell' width='$$formTitleWidth'><asp>
   <if what='$$formStar'>
    <star mandatory='$mandatory'>

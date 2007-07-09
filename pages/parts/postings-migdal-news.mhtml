@@ -32,8 +32,9 @@
  <array name='topic_ids' val1='$topic_id'>
  <array name='recursive' val1='*false'>
 </if>
-<iterate_postinglist topic_id='$topic_ids' recursive='$recursive'
-                     grp='*GRP_TAPE' limit=10 offset='$offset'>
+<grp_join name='grp' grp1='*GRP_TAPE' grp2='*GRP_TIMES_ARTICLES'>
+<iterate_postinglist topic_id='$topic_ids' recursive='$recursive' grp='$grp'
+                     limit=10 offset='$offset'>
 <batcher list='$;' topic_id='$topic_id' access='$access'>
 <for>
  <posting posting='$.' showtopic!='$topic_id==$`migdal`' shorten='*true'

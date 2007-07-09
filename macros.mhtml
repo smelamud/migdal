@@ -201,6 +201,7 @@
 <deccall macro='inner_image_par' func='getInnerImageByParagraph'
          file='lib/inner-images.php' params='entry_id,par,x,y'
 	 defaults='name=image x=0 y=0'>
+<decexec macro='js' func='declareJS' file='lib/js.php' params='src'>
 <deccall macro='location_info' func='getLocationInfo' file='lib/structure.php'
          params='path'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
@@ -550,14 +551,15 @@
 </macro>
 
 <decel name='radio_button' file='lib/utils.php'
-       params='name,value,checked,id,class'
-       defaults="checked='*false' id='' class=''">
+       params='name,value,checked,id,class,onclick'
+       defaults="checked='*false' id='' class='' onclick=''">
 
-<macro name='radio' defaults="checked='*false' id='' class='' title=''">
+<macro name='radio' defaults="checked='*false' id='' class='' title=''
+                              onclick=''">
  <label>
   <radio_button name%!name='%name' value%!value='%value'
                 checked%!checked='%checked' id%!id='%id'
-		class%!class='%class'> %title
+		class%!class='%class' onclick%!onclick='%onclick'> %title
  </label>
 </macro>
 

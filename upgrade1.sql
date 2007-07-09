@@ -138,6 +138,8 @@ CREATE TABLE `cross_entries` (
 `peer_icon` VARCHAR( 64 ) NOT NULL ,
 PRIMARY KEY ( `id` )
 ) DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+ALTER TABLE `cross_entries` ADD INDEX ( `source_id` , `source_name` , `link_type` );
+ALTER TABLE `cross_entries` ADD INDEX ( `peer_id` ) ;
 ALTER TABLE `packages` ADD `entry_id` INT NOT NULL AFTER `message_id` ;
 ALTER TABLE `packages` ADD INDEX ( `entry_id` ) ;
 TRUNCATE TABLE `sessions`;
@@ -204,4 +206,4 @@ CREATE TABLE `captcha_keys` (
 `sid` CHAR( 32 ) NOT NULL ,
 `created` DATETIME NOT NULL
 ) ENGINE = MYISAM CHARACTER SET koi8u COLLATE koi8u_bin;
-ALTER TABLE `captcha_keys` ADD INDEX ( `key` , `session_id` ) ;
+ALTER TABLE `captcha_keys` ADD INDEX ( `keystring` , `sid` ) ;

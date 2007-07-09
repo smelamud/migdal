@@ -432,9 +432,18 @@ if($row['has_large'])
   if($result==IFR_OK)
     list($row['small_x'],$row['small_y'])=getImageSize($fname);
   else
+    {
     echo "Resize error: $result\n";
+    list($row['small_x'],$row['small_y'])=getImageSize("$imageDir/$largeName");
+    $small=$large;
+    $large=0;
+    $smallName=getImageFilename($id,getImageExtension($format),$small,'small');
+    $largeName=getImageFilename($id,getImageExtension($format),$small,'large');
+    @rename("$imageDir/$largeName","$imageDir/$smallName");
+    symlink($smallName,"$imageDir/$largeName");
+    }
   }
-if(!$row['has_large'] || $result==IFR_SMALL)
+if(!$row['has_large'])
   {
   $small=$large;
   $large=0;
@@ -1037,7 +1046,7 @@ foreach($updates as $update)
 
 dbOpen();
 endJournal();
-/*echo "1. Chat messages...\n";
+echo "1. Chat messages...\n";
 convertChatMessages();
 echo "2. Truncate...\n";
 truncateEntries();
@@ -1075,13 +1084,13 @@ convertUsers();
 echo "18. Idents...\n";
 convertIdents();
 echo "19. Migdal news...\n";
-convertMigdalNews();*/
+convertMigdalNews();
 echo "20. Interlinks...\n";
 convertCrossEntries();
-/*echo "21. Complain URLs...\n";
+echo "21. Complain URLs...\n";
 convertComplainURLs();
 echo "22. Several inner images on the same paragraph...\n";
-convertDupInnerImages();*/
+convertDupInnerImages();
 beginJournal();
 dbClose();
 ?>

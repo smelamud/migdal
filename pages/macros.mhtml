@@ -70,7 +70,8 @@
 <decel name='failpage' file='parts/failpage.php'>
 <decel name='form_buttons' file='parts/formutils.php' params='title,clear'
        defaults="title='Изменить' clear='*true'">
-<decel name='form_captcha' file='parts/captcha.php' params='name'>
+<decel name='form_captcha' file='parts/captcha.php' params='name,id'
+       defaults="id=''">
 <decel name='form_checkbox' file='parts/formutils.php'
        params='title,mandatory,comment,name,value,style,checked,id_yes,id_no'
        defaults="mandatory='*false' comment='' style='select' value=1
@@ -97,8 +98,8 @@
        params='name,value,mandatory,title,comment'
        defaults="mandatory='*false' title='Язык' comment=''">
 <decel name='form_line' file='parts/formutils.php'
-       params='title,mandatory,comment'
-       defaults="mandatory='*false' comment=''">
+       params='title,mandatory,comment,id'
+       defaults="mandatory='*false' comment='' id=''">
 <decel name='/form_line' file='parts/formutils.php'>
 <decel name='form_option' file='parts/formutils.php'
        params='title,value,selected' defaults="selected='*false'">
@@ -106,8 +107,9 @@
        params='title,mandatory,comment,name,size,maxlength'
        defaults="mandatory='*false' comment='' size=40 maxlength=250">
 <decel name='form_relogin' file='parts/relogin.php'
-       params='noguests,relogin,login,remember'
-       defaults="noguests='*false' relogin=0 login='' remember='*false'">
+       params='noguests,relogin,login,remember,onclick'
+       defaults="noguests='*false' relogin=0 login='' remember='*false'
+                 onclick=''">
 <decel name='form_section' file='parts/formutils.php' params='title'>
 <decel name='form_select' file='parts/formutils.php'
        params='title,name,mandatory,comment,multiple,style,rows'
@@ -266,8 +268,8 @@
 <decel name='textears' file='parts/textears.php'>
 <decel name='tip' file='parts/tip.php'>
 <decel name='today' file='parts/today.php'>
-<decel name='top' file='parts/top.php' params='ident,transref,js'
-       defaults="transref='' js=''">
+<decel name='top' file='parts/top.php' params='ident,transref'
+       defaults="transref=''">
 <decel name='top_404' file='parts/top-404.php'>
 <decel name='topiclink' file='parts/posting.php'
        params='&posting,class,prefix'
@@ -396,6 +398,7 @@
 
 <macro name='preamble'>
  <stylesheet ident='style'>
+ <js src='/js/window.js'>
  <preamble_tiny>
 </macro>
 

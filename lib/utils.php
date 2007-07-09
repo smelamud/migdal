@@ -66,7 +66,8 @@ if($class!='')
 echo "<input type='checkbox' name='$name' value='$value'$s>";
 }
 
-function displayRadio_button($name,$value,$checked=false,$id='',$class='')
+function displayRadio_button($name,$value,$checked=false,$id='',$class='',
+                             $onclick='')
 {
 $s='';
 if($checked)
@@ -75,6 +76,8 @@ if($id!='')
   $s.=" id='$id'";
 if($class!='')
   $s.=" class='$class'";
+if($onclick!='')
+  $s.=" onclick='$onclick'";
 echo "<input type='radio' name='$name' value='$value'$s>";
 }
 
