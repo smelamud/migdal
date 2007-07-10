@@ -482,6 +482,8 @@ $result=sql("select stotexts.id as id,stotexts.image_set as image_set,
 while($row=mysql_fetch_assoc($result))
      {
      echo $row['id'],' ';
+     if($row['has_large']==1 && $row['large_x']==0)
+       continue;
      $id=$stotextIds[$row['id']];
      if($id=='')
        {

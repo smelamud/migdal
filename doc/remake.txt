@@ -19,12 +19,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 12. Метод Object::store() выносится как функция storeObject(). Аналогично и
 другие методы, работающие с базой. Аргумент в storeObject() должен
 передаваться по ссылке (!), чтобы записывать туда id новосозданного объекта.
-16. Перестраиваем таблицы вместо border на комбинацию двух таблиц.
-18. Избавляемся от селекторов-вложений в CSS и переходим на имена классов типа
-.form-cell, если возможно.
 20. Функции, работающие с базой, убираем из actions/ и кладем в lib/.
-22. Ставить <label> везде, где только можно.
-27. Все (проверить!) ссылки должны быть переведены на ЧПУ.
 29. sqlDate() и sqlNow() при вставке времени в запрос.
 30. Групповые GRP_ теперь не маски, а строки. Массивы, им соотвествующие,
 берутся функцией grpArray() из lib/grps.php.
@@ -35,9 +30,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 39. Проверить правильность значения аргумента showshadows postinglist-итератора
 на всех страницах. Можно переименовать аргумент, чтобы сделать его смысл более
 понятным.
-40. В функции, вызываемые из structure.conf, аргументы передаются
-    непосредственно из пути, без обработки. Производить обработку во всех
-    функциях и написать строгое предупреждение в начале файла.
 42. Обложки МТ - 150 по ширине (ошибка с 58-го)!
 43. Пакеты надо тоже удалять вместе с постингами (и вместе с файлом). При
 копировании они не копируются.
@@ -224,8 +216,8 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/forumcatalog.mhtml
 + pages/forumedit.mhtml (кроме ссылок на help)
 + pages/forum.mhtml
-* pages/gallery.mhtml (кроме статистики)
-* pages/gallery-main.mhtml (кроме статистики)
++ pages/gallery.mhtml
++ pages/gallery-main.mhtml
 + pages/groupadd.mhtml
 + pages/grouporg.mhtml
 + pages/horisontedit.mhtml
@@ -238,7 +230,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/links.mhtml
 + pages/methodic-center.mhtml
 + pages/methodics.mhtml
-+ pages/migdal.mhtml (кроме ловушек)
++ pages/migdal.mhtml
 + pages/migdal-library.mhtml
 + pages/migdal-library-novelties.mhtml
 + pages/migdal-news.mhtml
@@ -296,7 +288,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/failpage.mhtml
 + pages/parts/formutils.mhtml
 + pages/parts/forum.mhtml
-+ pages/parts/forums.mhtml (кроме стиля сообщений об ошибках)
++ pages/parts/forums.mhtml
 + pages/parts/gallery-main.mhtml
 + pages/parts/gallery.mhtml
 + pages/parts/grpselect.mhtml
@@ -356,6 +348,6 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + pages/parts/utils.mhtml
 + pages/parts/vote.mhtml
 
-* pages/report
++ pages/report
 
 @(#) $Id$

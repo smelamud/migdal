@@ -26,16 +26,20 @@ $dir=tempnam($tmpDir,'mig-stat-');
 unlink($dir);
 mkdir($dir,0777);
 
+$timestamp=0;
+$fd=fopen("$dir/log",'w');
+$iter=new LogIterator($from,$statisticsQuota);
+while($line=$iter->next())
+     {
+     fputs($fd,$line->getEvent()."\t".$line->getSent()."\t".$line->getIP().
+               "\t".$line->getBody()."\n");
+     $timestamp=$line->getSent();
+     }
+fclose($fd);
+
 $fd=fopen("$dir/timestamp",'w');
 fputs($fd,"$from\n");
 fputs($fd,time()."\n");
-fclose($fd);
-
-$fd=fopen("$dir/log",'w');
-$iter=new LogIterator($from);
-while($line=$iter->next())
-     fputs($fd,$line->getEvent()."\t".$line->getSent()."\t".$line->getIP().
-               "\t".$line->getBody()."\n");
 fclose($fd);
 
 $fd=fopen("$dir/postings",'w');

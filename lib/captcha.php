@@ -10,8 +10,8 @@ global $sessionid;
 
 sql(sqlInsert('captcha_keys',
               array('keystring' => $keystring,
-                    'sid' => $sessionid,
-                    'created' => sqlNow())),
+                    'sid'       => $sessionid,
+                    'created'   => sqlNow())),
     __FUNCTION__);
 }
 
@@ -19,9 +19,10 @@ function captchaExists($keystring)
 {
 global $sessionid;
 
+$keystringS=addslashes($keystring);
 $result=sql("select id
              from captcha_keys
-             where keystring='$keystring' and sid='$sessionid'",
+             where keystring='$keystringS' and sid='$sessionid'",
             __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
@@ -30,8 +31,9 @@ function deleteCaptcha($keystring)
 {
 global $sessionid;
 
+$keystringS=addslashes($keystring);
 sql("delete from captcha_keys
-     where keystring='$keystring' and sid='$sessionid'",
+     where keystring='$keystringS' and sid='$sessionid'",
     __FUNCTION__);
 }
 

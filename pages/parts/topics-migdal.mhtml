@@ -238,4 +238,7 @@
 	     href='/migdal/printings/'
 	     arrow!="$index=='migdal.printings'"
 	     indent=1 class='topics-item eightpt'>
+<topics_line text='Пожертвования' href='/migdal/tzdaka/'
+             arrow!="$index=='migdal.tzdaka'"
+	     indent=1 class='topics-item eightpt'>
 </element>

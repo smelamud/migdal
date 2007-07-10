@@ -68,12 +68,14 @@ class LogIterator
       extends SelectIterator
 {
 
-function LogIterator($from=0)
+function LogIterator($from=0,$limit=0)
 {
+$limiter=$limit<=0 ? '' : "limit $limit"
 parent::SelectIterator('LogLine',
 		       "select id,event,unix_timestamp(sent) as sent,ip,body
 			from logs
-			where unix_timestamp(sent)>$from");
+			where unix_timestamp(sent)>$from
+			$limiter");
 }
 
 }
