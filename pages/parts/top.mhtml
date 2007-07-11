@@ -12,7 +12,7 @@
   <td align=center>
    <table cellspacing=0 cellpadding=0>
     <notenglish>
-     <tr><td><hannukah></td></tr>
+     <<tr><td><hannukah></td></tr>>
      <tr><td>
       <a href='/'>
        <image src='$$style_banner_migdal' alt='Мигдаль' border=0></a>
@@ -55,6 +55,10 @@
    <banner_hotlog_top>
    <banner_mailru_top>
    <banner_rambler_top>
+  </td>
+  <td align='center' rowspan=2 style="padding-top: 10px">
+   <<countdown title='15-летия &lt;&lt;Мигдаля&gt;&gt;'
+              href='' day='35' image='pics/logo-birthday-15.jpg'>>
   </td>
   <td align=right style='padding-right: 5px; padding-top: 5px'>
    <outer><table cellspacing=0 cellpadding=0><tr valign=top>

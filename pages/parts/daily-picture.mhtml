@@ -16,8 +16,10 @@
    <editlink posting='$picture'>
   </td></tr>
  </iswrite>
- <tr><td class='image-title'>
-  $picture.TitleHTML
- </td></tr>
+ <ifne what='$picture.TitleHTML'>
+  <tr><td class='image-title'>
+   $picture.TitleHTML
+  </td></tr>
+ </ifne>
 </table>
 </element>

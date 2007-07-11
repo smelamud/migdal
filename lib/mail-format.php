@@ -5,10 +5,10 @@ require_once('conf/migdal.conf');
 
 require_once('lib/xml.php');
 
-define(FMS_GLOBAL,0);
-define(FMS_SUBJECT,1);
-define(FMS_BODY,2);
-define(FMS_P,3);
+define('FMS_GLOBAL',0);
+define('FMS_SUBJECT',1);
+define('FMS_BODY',2);
+define('FMS_P',3);
 
 class FormatMailXML
       extends XMLParser
@@ -37,7 +37,6 @@ $this->body.="*** $message ***";
 
 function flushCurrent()
 {
-//$this->body.=wordwrap($this->current,70,"\n",true);
 $this->body.="{$this->current}\n";
 $this->current='';
 }

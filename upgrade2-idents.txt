@@ -229,6 +229,7 @@ postings	1689	post.migdal.jcc.music
 postings	1927	post.migdal.jcc.painting
 postings	1595	post.migdal.jcc.pre-school
 postings	1479	post.migdal.jcc.student
+postings	9945	post.migdal.jewish-odessa-tours
 postings	1581	post.migdal.library
 postings	1475	post.migdal.mazltov
 postings	1788	post.migdal.methodology

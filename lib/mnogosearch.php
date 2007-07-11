@@ -1,7 +1,10 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/iterator.php');
+require_once('lib/url-fopen.php');
 
 class SearchItem
 {
@@ -58,10 +61,10 @@ global $siteDomain;
 
 $this->limit=$limit;
 $this->offset=$offset;
-$this->fd=fopen("http://$siteDomain/cgi-bin/search.cgi?q=".
-	        urlencode(convert_cyr_string($query,'k','w')).
-		'&wf=14442&np='.($this->getPage()-1).'&ps='.$this->getLimit().
-		'&GroupBySite=no','r');
+$this->fd=url_fopen("http://$siteDomain/cgi-bin/search.cgi?q="
+                    .urlencode(convert_cyr_string($query,'k','w'))
+		    .'&wf=14442&np='.($this->getPage()-1).'&ps='
+		    .$this->getLimit());
 $this->status=$this->nextLine();
 if($this->status=='OK')
   {
@@ -141,13 +144,13 @@ return $this->status;
 
 function nextLine()
 {
-if($this->fd && !feof($this->fd))
-  return trim(convert_cyr_string(fgets($this->fd,65535),'w','k'));
+if($this->fd && !url_feof($this->fd))
+  return trim(convert_cyr_string(url_fgets($this->fd),'w','k'));
 else
   {
   if($this->fd)
     {
-    fclose($this->fd);
+    url_fclose($this->fd);
     $this->fd=0;
     }
   return 'EOF';

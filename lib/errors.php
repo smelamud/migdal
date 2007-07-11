@@ -62,6 +62,7 @@ define('EP_SMALL_IMAGE_MAX_X',1328);
 define('EP_SMALL_IMAGE_MAX_Y',1329);
 define('EP_CAPTCHA_ABSENT',1330);
 define('EP_CAPTCHA',1331);
+define('EP_SPAM',1332);
 
 define('EMH_NO_MODERATE',140);
 define('EMH_NO_ENTRY',141);

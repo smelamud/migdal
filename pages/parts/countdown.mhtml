@@ -1,0 +1,34 @@
+<< @(#) $Id: countdown.mhtml 2269 2006-05-26 11:55:24Z balu $ >>
+
+<element name='countdown'>
+<notenglish>
+ <time>
+ <assign name='current' value!='$day-$,@z-1'>
+ <if what='$current>0'>
+  <table cellspacing=5 cellpadding=0><tr valign='middle'>
+   <td align='right'>
+    <ifne what='href'>
+     <a href='$href'><image src='$image' border=0></a>
+    <else>
+     <image src='$image'>
+    </ifne>
+   </td>
+   <td align='left' style='font: 14px Arial,sans-serif'>
+    <array vals='остался,осталось,осталось'>
+    <plural name='last' value='$current'>
+    <array vals='день,дня,дней'>
+    <plural name='days' value='$current'>
+    До
+    <b>
+     <ifne what='$href'>
+      <a href='$href'>$title</a>
+     <else>
+      $title
+     </ifne>
+    </b>
+    $last<br>$current&sp;$days
+   </td>
+  </table>
+ </if>
+</notenglish>
+</element>

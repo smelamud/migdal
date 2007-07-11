@@ -25,6 +25,19 @@ require_once('lib/logging.php');
 require_once('lib/sql.php');
 require_once('lib/captcha.php');
 
+function isSpam($body)
+{
+$spams=array('clickcashmoney.com','porno-video-free','porno-exe',
+             'rem-stroi.com','hiphoprussia.ru','retrade.ru','t35.com','viagra');
+foreach($spams as $spam)
+       if(strpos($body,$spam)!==false)
+	 {
+	 logEvent('spam',$spam);
+	 return true;
+	 }
+return false;
+}
+
 function modifyPosting(&$posting,$original,$imageEditor,$iuFlags)
 {
 global $captcha,$thumbnailType,$userId;
@@ -35,6 +48,8 @@ if(!isGrpValid($posting->grp))
   return EP_INVALID_GRP;
 if($posting->isMandatory('body') && $posting->body=='')
   return EP_BODY_ABSENT;
+if($posting->body!='' && isSpam($posting->body))
+  return EP_SPAM;
 if($posting->isMandatory('lang') && $posting->lang=='')
   return EP_LANG_ABSENT;
 if($posting->isMandatory('subject') && $posting->subject=='')

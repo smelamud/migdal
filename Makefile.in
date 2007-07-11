@@ -33,7 +33,7 @@ php: Makefile conf/migdal.conf
 	(\
 	echo '#!/bin/sh';\
 	echo;\
-	echo '$(phpCommand) -q -d include_path=.:..:$(siteDir) -d max_execution_time=36000 $$*';\
+	echo '$(phpCommand) -q -d include_path=.:..:$(siteDir) -d max_execution_time=36000 -d allow_url_fopen=1 $$*';\
 	) > $(builddir)/php
 	chmod +x $(builddir)/php
 	
