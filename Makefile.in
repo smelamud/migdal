@@ -71,6 +71,5 @@ pack: all
 	tar zchf build.tar.gz $(builddir)
 
 clean:
-	-rm -r $(builddir)
 	(cd conf; $(MAKE) clean)
-	(cd pages; $(MAKE) clean)
+	-rm -r $(builddir)

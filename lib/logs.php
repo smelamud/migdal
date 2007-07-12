@@ -11,9 +11,9 @@ require_once('lib/sql.php');
 
 function logEvent($event,$body)
 {
-global $disableLogging;
+global $disableStatistics;
 
-if($disableLogging)
+if($disableStatistics)
   return;
 $eventS=addslashes($event);
 $ip=IPToInteger($_SERVER['REMOTE_ADDR']);
