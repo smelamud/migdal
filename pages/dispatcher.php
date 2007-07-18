@@ -74,7 +74,7 @@ if(function_exists($trapFunc))
     }
   else
     {
-    logEvent('trap-fail',$requestPath);
+    logEvent('trap-fail',$_SERVER['REQUEST_URI']);
     return dispatch404($requestPath);
     }
   }
