@@ -47,10 +47,14 @@ return $this->uri;
 
 function updateRedirectTimestamps($track)
 {
-sql("update redirs
-     set last_access=null
-     where '$track' like concat(track,'%')",
-    __FUNCTION__);
+foreach(explode(' ',$track) as $level)
+       {
+       $id=(int)$level;
+       sql("update redirs
+	    set last_access=null
+	    where id=$id",
+	   __FUNCTION__);
+       }
 }
 
 function redirect()
