@@ -733,7 +733,7 @@ function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=-1,$fields=SELECT_GENERAL,
 {
 if($id=='' || $id<0)
   return getRootPosting($grp,$topic_id,$up,$index1);
-if(hasCachedValue('obj','entries',$id))
+if($fields==SELECT_GENERAL && hasCachedValue('obj','entries',$id))
   return getCachedValue('obj','entries',$id);
 $Select=postingListFields($fields);
 $From=postingListTables($fields);

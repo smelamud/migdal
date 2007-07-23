@@ -67,10 +67,10 @@ else
     $userId=0;
     $realUserId=getGuestId();
     if($sessionid)
-      updateSession($sessionid,0,$realUserId,$shortSessionTimeout);
+      updateSession($sessionid,$userId,$realUserId,$shortSessionTimeout);
     else
       {
-      $sessionid=createSession(0,$realUserId);
+      $sessionid=createSession($userId,$realUserId);
       setSessionCookie($sessionid);
       }
     }
