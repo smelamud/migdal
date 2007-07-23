@@ -20,15 +20,6 @@ $userRights=array('AdminUsers'           => USR_ADMIN_USERS,
                   'Judge'                => USR_JUDGE,
                   'AdminDomain'          => USR_ADMIN_DOMAIN);
 
-function sessionGuest()
-{
-global $userId,$realUserId,$sessionid;
-
-$userId=$realUserId=0;
-$sessionid=createSession(0,0);
-setSessionCookie($sessionid);
-}
-
 function clearUserRights()
 {
 global $userRights;
@@ -44,44 +35,51 @@ function userRights($aUserId=-1)
 global $sessionid,$userId,$realUserId,$userGroups,$userRights,
        $shortSessionTimeout;
 
+if(isset($sessionid) && $aUserId<0)
+  return;
+
 $sessionid=getSessionCookie();
-$globalsid=isset($_REQUEST['globalsid']) ? $_REQUEST['globalsid'] : 0;
 
 clearUserRights();
 
-if($globalsid!=0)
-  $sessionid=$globalsid;
-
-if(!$sessionid && $aUserId<0)
-  sessionGuest();
+if($aUserId>0)
+  {
+  unset($sessionid);
+  $userId=$realUserId=$aUserId;
+  }
 elseif($aUserId==0)
   {
+  unset($sessionid);
   $userId=0;
   $realUserId=getGuestId();
   }
-elseif($aUserId<0)
+else
   {
-  $row=getUserIdsBySessionId($sessionid);
+  $row=false;
+  if($sessionid)
+    $row=getUserIdsBySessionId($sessionid);
   if(!$row)
-    sessionGuest();
+    $userId=$realUserId=0;
   else
-    {
     list($userId,$realUserId,$duration)=$row;
-    if($userId<=0 && $realUserId<=0)
-      {
-      $userId=0;
-      $realUserId=getGuestId();
+  if($userId<=0 && $realUserId<=0)
+    {
+    $userId=0;
+    $realUserId=getGuestId();
+    if($sessionid)
       updateSession($sessionid,0,$realUserId,$shortSessionTimeout);
-      }
     else
       {
-      updateSessionTimestamp($sessionid);
+      $sessionid=createSession(0,$realUserId);
       setSessionCookie($sessionid);
       }
     }
+  else
+    {
+    updateSessionTimestamp($sessionid);
+    setSessionCookie($sessionid);
+    }
   }
-else
-  $userId=$realUserId=$aUserId;
 
 $userGroups=array();
 if($userId>0)

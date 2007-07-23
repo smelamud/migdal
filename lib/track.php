@@ -66,25 +66,42 @@ if(trackById($table,$id)!=$track)
   }
 }
 
-function updateTracks($table,$id,$journalize=true)
+function createTrack($table,$id)
 {
-$result=sql("select id,up
-	     from $table
-	     where track like '%".track($id)."%' or track=''
-	     order by track",
-	    __FUNCTION__);
-$tracks=array();
-while($row=mysql_fetch_assoc($result))
+$path=array();
+$up=$id;
+while($up!=0)
      {
-     setCachedValue('track',$table,$row['id'],$row['track']);
-     if(!isset($tracks[$row['up']]))
-       $tracks[$row['up']]=trackById($table,$row['up']);
-     $tracks[$row['id']]=track($row['id'],$tracks[$row['up']]);
-     updateTrackById($table,$row['id'],$tracks[$row['id']]);
+     $path[]=$up;
+     $result=sql("select up
+                  from $table
+		  where id=$up",
+		 __FUNCTION__,'up');
+     if(mysql_num_rows($result)<=0)
+       break;
+     $up=mysql_result($result,0,0);
      }
-if($journalize)
-  journal("tracks $table ".journalVar($table,$id));
-return true;
+$track='';
+for($i=count($path)-1;$i>=0;$i--)
+   $track=track($path[$i],$track);
+updateTrackById($table,$id,$track);
+}
+
+function replaceTracks($table,$oldTrack,$newTrack)
+{
+if($oldTrack==$newTrack)
+  return;
+$tailPos=strlen($oldTrack)+1;
+sql("update $table
+     set track=concat('$newTrack',substring(track from $tailPos))
+     where track like '$oldTrack%'",
+    __FUNCTION__);
+// FIXME journal!
+}
+
+function replaceTracksToUp($table,$oldTrack,$newUp,$id)
+{
+replaceTracks($table,$oldTrack,track($id,trackById('entries',$newUp)));
 }
 
 function subtree($table,$id,$recursive=false,$byId='parent_id',$byTrack='track')

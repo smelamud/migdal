@@ -469,19 +469,17 @@ if($row['id']!=$row['orig_id'])
   $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
   $row=array_merge($row,$orig);
   }
-if($row['parent_id']>0)
-  {
-  if(isset($row['topic_ident']) && $row['topic_ident']!='')
-    setCachedValue('ident','entries',$row['topic_ident'],$row['parent_id']);
-  setCachedValue('track','entries',$row['parent_id'],$row['topic_track']);
-  }
 if($row['id']>0)
   {
   if($row['ident']!='')
     setCachedValue('ident','entries',$row['ident'],$row['id']);
   setCachedValue('track','entries',$row['id'],$row['track']);
+  setCachedValue('catalog','entries',$row['id'],$row['catalog']);
   }
-return parent::create($row);
+$posting=parent::create($row);
+if($row['id']>0)
+  setCachedValue('obj','entries',$id,$posting);
+return $posting;
 }
 
 }
@@ -609,7 +607,6 @@ if(($fields & SPF_SHADOW)!=0)
   {
   $vars=array_merge($vars,
                     array('up' => $posting->up,
-		          'track' => $posting->track,
 		          'catalog' => $posting->catalog,
 			  'parent_id' => $posting->parent_id,
 			  'grp' => $posting->grp,
@@ -642,6 +639,7 @@ function storePosting(&$posting)
 $jencoded=postingJencoded();
 if($posting->id)
   {
+  $posting->track=trackById('entries',$posting->id);
   $vars=storePostingFields($posting,SPF_SHADOW);
   $result=sql(sqlUpdate('entries',
 			$vars,
@@ -666,6 +664,7 @@ if($posting->id)
   journal(sqlUpdate('entries',
 		    jencodeVars($vars,$jencoded),
 		    array('id' => journalVar('entries',$posting->orig_id))));
+  replaceTracksToUp('entries',$posting->track,$posting->up,$posting->id);
   answerUpdate($posting->id);
   }
 else
@@ -681,8 +680,8 @@ else
                     jencodeVars($vars,$jencoded)),
 	  'entries',$posting->id);
   setOrigIdToEntryId($posting);
+  createTrack('entries',$posting->id);
   }
-updateTracks('entries',$posting->id);
 updateCatalogs($posting->id);
 return $result;
 }
@@ -732,10 +731,12 @@ return mysql_num_rows($result)>0;
 function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=-1,$fields=SELECT_GENERAL,
                         $up=-1,$index1=0)
 {
-$Select=postingListFields($fields);
-$From=postingListTables($fields);
 if($id=='' || $id<0)
   return getRootPosting($grp,$topic_id,$up,$index1);
+if(hasCachedValue('obj','entries',$id))
+  return getCachedValue('obj','entries',$id);
+$Select=postingListFields($fields);
+$From=postingListTables($fields);
 $result=sql("select $Select
 	     from $From
 	     where entries.id=$id",
@@ -754,7 +755,9 @@ if(mysql_num_rows($result)>0)
     $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
     $row=array_merge($row,$orig);
     }
-  return new Posting($row);
+  $posting=new Posting($row);
+  setCachedValue('obj','entries',$id,$posting);
+  return $posting;
   }
 else
   return getRootPosting($grp,$topic_id,$up,$index1);
@@ -930,18 +933,18 @@ if(mysql_num_rows($result)<=0)
   return;
 $destId=mysql_result($result,0,0);
 sql("update entries
-     set up=$destId,track='',catalog=''
+     set up=$destId,catalog=''
      where up=$origId",
     __FUNCTION__,'update_up');
 journal('update entries
-         set up='.journalVar('entries',$destId).",track='',catalog=''
+         set up='.journalVar('entries',$destId).",catalog=''
          where up=".journalVar('entries',$origId));
 sql("update entries
-     set parent_id=$destId,track='',catalog=''
+     set parent_id=$destId,catalog=''
      where parent_id=$origId",
     __FUNCTION__,'update_parent_id');
 journal('update entries
-         set parent_id='.journalVar('entries',$destId).",track='',catalog=''
+         set parent_id='.journalVar('entries',$destId).",catalog=''
          where parent_id=".journalVar('entries',$origId));
 sql("update entries
      set orig_id=$destId
@@ -974,7 +977,8 @@ sql("update inner_images
 journal('update inner_images
          set entry_id='.journalVar('entries',$destId)
        .'where entry_id='.journalVar('entries',$origId));
-updateTracks('entries',$destId);
+replaceTracks('entries',trackById('entries',$origId).' ',
+              trackById('entries',$destId).' ');
 updateCatalogs($destId);
 }
 
@@ -994,12 +998,13 @@ if(getPostingShadowCount($id)>1)
   }
 $up=$posting->getUpValue();
 sql("update entries
-     set up=$up,track='',catalog=''
-     where up=$id and entry<>".ENT_IMAGE,
+     set up=$up,catalog=''
+     where up=$id and entry<>".ENT_IMAGE." and entry<>".ENT_FORUM,
     __FUNCTION__,'update_up');
 journal('update entries
-         set up='.journalVar('entries',$up).",track='',catalog=''
-         where up=".journalVar('entries',$id));
+         set up='.journalVar('entries',$up).",catalog=''
+         where up=".journalVar('entries',$id)." and entry<>".ENT_IMAGE
+      ." and entry<>".ENT_FORUM);
 $result=sql("select id,small_image,large_image,large_image_format
              from entries
 	     where parent_id=$id or up=$id and entry=".ENT_IMAGE,
@@ -1018,7 +1023,13 @@ sql('delete from inner_images
     __FUNCTION__,'inner_images');
 journal('delete from inner_images
          where entry_id='.journalVar('entries',$id));
-updateTracks('entries',$posting->getParentId());
+$result=sql("select id
+             from entries
+	     where up=$id and entry=".ENT_FORUM,
+	    __FUNCTION__,'select_forum');
+while($row=mysql_fetch_assoc($result))
+     deleteForum($row['id']);
+replaceTracks('entries',$posting->track.' ',trackById('entries',$up).' ');
 updateCatalogs($posting->getParentId());
 deleteShadowPosting($id);
 }
@@ -1050,7 +1061,7 @@ $jencoded=postingJencoded();
 journal(sqlInsert('entries',
                   jencodeVars($row,$jencoded)),
         'entries',$shid);
-updateTracks('entries',$shid);
+createTrack('entries',$shid);
 updateCatalogs($shid);
 }
 

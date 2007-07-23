@@ -870,6 +870,8 @@ return new $className($row);
 
 function getGrpsByEntryId($id)
 {
+if(hasCachedValue('grps','entries',$id))
+  return getCachedValue('grps','entries',$id);
 $result=sql("select grp
 	     from entry_grps
 	     where entry_id=$id",
@@ -877,6 +879,7 @@ $result=sql("select grp
 $grps=array();
 while(list($grp)=mysql_fetch_row($result))
      $grps[]=$grp;
+setCachedValue('grps','entries',$id,$grps);
 return $grps;
 }
 
@@ -901,6 +904,7 @@ foreach($grps as $grp)
                 values('.journalVar('entries',$id).",$grp)",
 	       'entry_grps',$eid);
        }
+setCachedValue('grps','entries',$id,$grps);
 sql('unlock tables',
     __FUNCTION__,'unlock');
 }
@@ -940,20 +944,38 @@ if(getTypeByEntryId($id)==ENT_FORUM)
 
 function getTypeByEntryId($id)
 {
+if(hasCachedValue('entry','entries',$id))
+  return getCachedValue('entry','entries',$id);
 $result=sql("select entry
 	     from entries
 	     where id=$id",
 	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : ENT_NULL;
+if(mysql_num_rows($result)>0)
+  {
+  $type=mysql_result($result,0,0);
+  setCachedValue('entry','entries',$id,$type);
+  return $type;
+  }
+else
+  return ENT_NULL;
 }
 
 function getGrpByEntryId($id)
 {
+if(hasCachedValue('grp','entries',$id))
+  return getCachedValue('grp','entries',$id);
 $result=sql("select grp
 	     from entries
 	     where id=$id",
 	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+if(mysql_num_rows($result)>0)
+  {
+  $grp=mysql_result($result,0,0);
+  setCachedValue('grp','entries',$id,$grp);
+  return $grp;
+  }
+else
+  return 0;
 }
 
 function getParentIdByEntryId($id)

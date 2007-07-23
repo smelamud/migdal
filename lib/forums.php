@@ -229,7 +229,6 @@ $vars=array('entry' => $forum->entry,
 	    'group_id' => $forum->group_id,
 	    'perms' => $forum->perms,
             'up' => $forum->up,
-	    'track' => $forum->track,
 	    'catalog' => $forum->catalog,
 	    'parent_id' => $forum->parent_id);
 if($userModerator)
@@ -241,6 +240,7 @@ else
     $vars['disabled']=true;
 if($forum->id)
   {
+  $forum->track=trackById('entries',$forum->id);
   $result=sql(sqlUpdate('entries',
 			$vars,
 			array('id' => $forum->id)),
@@ -248,6 +248,7 @@ if($forum->id)
   journal(sqlUpdate('entries',
 		    jencodeVars($vars,$jencoded),
 		    array('id' => journalVar('entries',$forum->id))));
+  replaceTracksToUp('entries',$forum->track,$forum->up,$forum->id);
   }
 else
   {
@@ -261,9 +262,8 @@ else
   journal(sqlInsert('entries',
                     jencodeVars($vars,$jencoded)),
 	  'entries',$forum->id);
-
+  createTrack('entries',$forum->id);
   }
-updateTracks('entries',$forum->id);
 updateCatalogs($forum->id);
 answerUpdate($forum->parent_id);
 return $result;
@@ -284,9 +284,9 @@ function getForumById($id,$parent_id=0,$quote='',$quoteWidth=77)
 global $userId,$realUserId;
 
 $hide=forumPermFilter(PERM_READ);
-$result=sql("select entries.id as id,subject,subject_sort,author,author_xml,
-                    body,body_xml,body_format,user_id,group_id,perms,
-		    small_image,small_image_x,small_image_y,large_image,
+$result=sql("select entries.id as id,track,subject,subject_sort,author,
+                    author_xml,body,body_xml,body_format,user_id,group_id,
+		    perms,small_image,small_image_x,small_image_y,large_image,
 		    large_image_x,large_image_y,large_image_size,
 		    large_image_format,large_image_filename,
 		    up,parent_id,disabled,sent,entries.created as created,
@@ -303,6 +303,7 @@ if(mysql_num_rows($result)>0)
   {
   $row=mysql_fetch_assoc($result);
   $row['parent_type']=getTypeByEntryId($row['parent_id']);
+  setCachedValue('track','entries',$row['id'],$row['track']);
   return new Forum($row);
   }
 else
@@ -353,11 +354,11 @@ function deleteForum($id)
 $forum=getForumById($id);
 $up=$forum->getUpValue();
 sql("update entries
-     set up=$up,track='',catalog=''
+     set up=$up,catalog=''
      where up=$id",
     __FUNCTION__,'children');
 journal('update entries
-         set up='.journalVar('entries',$up).",track='',catalog=''
+         set up='.journalVar('entries',$up).",catalog=''
          where up=".journalVar('entries',$id));
 deleteImageFiles($id,$forum->getSmallImage(),$forum->getLargeImage(),
                  $forum->getLargeImageFormat());
@@ -366,7 +367,7 @@ sql("delete from entries
     __FUNCTION__,'delete');
 journal('delete from entries
          where id='.journalVar('entries',$id));
-updateTracks('entries',$forum->getParentId());
+replaceTracks('entries',$forum->getTrack(),trackById('entries',$up));
 updateCatalogs($forum->getParentId());
 answerUpdate($forum->getParentId());
 }

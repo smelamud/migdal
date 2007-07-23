@@ -341,12 +341,11 @@ $vars=array('entry' => $topic->entry,
 	    'body_format' => $topic->body_format,
 	    'modified' => sqlNow(),
             'modifier_id' => $userId>0 ? $userId : $realUserId);
-if($topic->track=='')
-  $vars['track']='';
 if($topic->catalog=='')
   $vars['catalog']='';
 if($topic->id)
   {
+  $topic->track=trackById('entries',$topic->id);
   $result=sql(sqlUpdate('entries',
 			$vars,
 			array('id' => $topic->id)),
@@ -354,6 +353,7 @@ if($topic->id)
   journal(sqlUpdate('entries',
 		    jencodeVars($vars,$jencoded),
 		    array('id' => journalVar('entries',$topic->id))));
+  replaceTracksToUp('entries',$topic->track,$topic->up,$topic->id);
   }
 else
   {
@@ -367,9 +367,8 @@ else
   journal(sqlInsert('entries',
                     jencodeVars($vars,$jencoded)),
 	  'entries',$topic->id);
+  createTrack('entries',$topic->id);
   }
-if($topic->track=='')
-  updateTracks('entries',$topic->id);
 if($topic->catalog=='')
   updateCatalogs($topic->id);
 return $result;
@@ -518,6 +517,7 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)>0 : false;
 
 function deleteTopic($id,$destid)
 {
+$oldTrack=trackById('entries',$id);
 sql("delete from entries
      where id=$id",
     __FUNCTION__,'delete_topic');
@@ -532,20 +532,20 @@ journal('delete from cross_entries
 if($destid<=0)
   return;
 sql("update entries
-     set up=$destid,track='',catalog=''
+     set up=$destid,catalog=''
      where up=$id",
     __FUNCTION__,'update_up');
 journal('update entries
-         set up='.journalVar('entries',$destid).",track='',catalog=''
+         set up='.journalVar('entries',$destid).",catalog=''
          where up=".journalVar('entries',$id));
 sql("update entries
-     set parent_id=$destid,track='',catalog=''
+     set parent_id=$destid,catalog=''
      where parent_id=$id",
     __FUNCTION__,'update_parent_id');
 journal('update entries
-         set parent_id='.journalVar('entries',$destid).",track='',catalog=''
+         set parent_id='.journalVar('entries',$destid).",catalog=''
          where parent_id=".journalVar('entries',$id));
-updateTracks('entries',$destid);
+replaceTracks('entries',$oldTrack.' ',trackById('entries',$destid).' ');
 updateCatalogs($destid);
 }
 ?>
