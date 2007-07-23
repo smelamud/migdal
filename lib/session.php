@@ -59,7 +59,10 @@ else
   if($sessionid)
     $row=getUserIdsBySessionId($sessionid);
   if(!$row)
+    {
     $userId=$realUserId=0;
+    $sessionid=0;
+    }
   else
     list($userId,$realUserId,$duration)=$row;
   if($userId<=0 && $realUserId<=0)
