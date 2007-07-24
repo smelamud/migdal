@@ -360,6 +360,7 @@ else
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
   $vars['creator_id']=$vars['modifier_id'];
+  $vars['track']=(string) time();
   $result=sql(sqlInsert('entries',
                         $vars),
 	      __FUNCTION__,'insert');

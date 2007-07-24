@@ -672,6 +672,7 @@ else
   $vars=storePostingFields($posting,SPF_ALL);
   $vars['created']=sqlNow();
   $vars['creator_id']=$vars['modifier_id'];
+  $vars['track']=(string) time();
   sql(sqlInsert('entries',
                 $vars),
       __FUNCTION__,'insert');

@@ -148,6 +148,7 @@ else
   $vars['creator_id']=$vars['modifier_id'];
   $complain->person_id=getComplainAssignee();
   $vars['person_id']=$complain->person_id;
+  $vars['track']=(string) time();
   $result=sql(sqlInsert('entries',
                         $vars),
               __FUNCTION__,'insert');
@@ -155,6 +156,7 @@ else
   journal(sqlInsert('entries',
                     jencodeVars($vars,$jencoded)),
 	  'entries',$complain->id);
+  createTrack('entries',$complain->id);
   }
 return $result;
 }

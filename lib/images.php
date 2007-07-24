@@ -119,6 +119,7 @@ else
   $vars['entry']=$image->entry;
   $vars['sent']=sqlNow();
   $vars['created']=sqlNow();
+  $vars['track']=(string) time();
   $result=sql(sqlInsert('entries',
                         $vars),
 	      __FUNCTION__,'insert');
