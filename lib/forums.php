@@ -229,7 +229,6 @@ $vars=array('entry' => $forum->entry,
 	    'group_id' => $forum->group_id,
 	    'perms' => $forum->perms,
             'up' => $forum->up,
-	    'catalog' => $forum->catalog,
 	    'parent_id' => $forum->parent_id);
 if($userModerator)
   $vars=array_merge($vars,
@@ -248,6 +247,7 @@ if($forum->id)
   journal(sqlUpdate('entries',
 		    jencodeVars($vars,$jencoded),
 		    array('id' => journalVar('entries',$forum->id))));
+  updateCatalogs($forum->track);
   replaceTracksToUp('entries',$forum->track,$forum->up,$forum->id);
   }
 else
@@ -264,8 +264,8 @@ else
                     jencodeVars($vars,$jencoded)),
 	  'entries',$forum->id);
   createTrack('entries',$forum->id);
+  updateCatalogs(trackById('entries',$forum->id));
   }
-updateCatalogs($forum->id);
 answerUpdate($forum->parent_id);
 return $result;
 }
@@ -355,12 +355,12 @@ function deleteForum($id)
 $forum=getForumById($id);
 $up=$forum->getUpValue();
 sql("update entries
-     set up=$up,catalog=''
+     set up=$up
      where up=$id",
     __FUNCTION__,'children');
 journal('update entries
-         set up='.journalVar('entries',$up).",catalog=''
-         where up=".journalVar('entries',$id));
+         set up='.journalVar('entries',$up).'
+         where up='.journalVar('entries',$id));
 deleteImageFiles($id,$forum->getSmallImage(),$forum->getLargeImage(),
                  $forum->getLargeImageFormat());
 sql("delete from entries
@@ -368,8 +368,8 @@ sql("delete from entries
     __FUNCTION__,'delete');
 journal('delete from entries
          where id='.journalVar('entries',$id));
+updateCatalogs($forum->getTrack());
 replaceTracks('entries',$forum->getTrack(),trackById('entries',$up));
-updateCatalogs($forum->getParentId());
 answerUpdate($forum->getParentId());
 }
 

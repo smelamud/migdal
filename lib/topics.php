@@ -341,8 +341,6 @@ $vars=array('entry' => $topic->entry,
 	    'body_format' => $topic->body_format,
 	    'modified' => sqlNow(),
             'modifier_id' => $userId>0 ? $userId : $realUserId);
-if($topic->catalog=='')
-  $vars['catalog']='';
 if($topic->id)
   {
   $topic->track=trackById('entries',$topic->id);
@@ -353,6 +351,7 @@ if($topic->id)
   journal(sqlUpdate('entries',
 		    jencodeVars($vars,$jencoded),
 		    array('id' => journalVar('entries',$topic->id))));
+  updateCatalogs($topic->track);
   replaceTracksToUp('entries',$topic->track,$topic->up,$topic->id);
   }
 else
@@ -369,9 +368,8 @@ else
                     jencodeVars($vars,$jencoded)),
 	  'entries',$topic->id);
   createTrack('entries',$topic->id);
+  updateCatalogs(trackById('entries',$topic->id));
   }
-if($topic->catalog=='')
-  updateCatalogs($topic->id);
 return $result;
 }
 
@@ -533,20 +531,20 @@ journal('delete from cross_entries
 if($destid<=0)
   return;
 sql("update entries
-     set up=$destid,catalog=''
+     set up=$destid
      where up=$id",
     __FUNCTION__,'update_up');
 journal('update entries
-         set up='.journalVar('entries',$destid).",catalog=''
-         where up=".journalVar('entries',$id));
+         set up='.journalVar('entries',$destid).'
+         where up='.journalVar('entries',$id));
 sql("update entries
-     set parent_id=$destid,catalog=''
+     set parent_id=$destid
      where parent_id=$id",
     __FUNCTION__,'update_parent_id');
 journal('update entries
-         set parent_id='.journalVar('entries',$destid).",catalog=''
-         where parent_id=".journalVar('entries',$id));
+         set parent_id='.journalVar('entries',$destid).'
+         where parent_id='.journalVar('entries',$id));
+updateCatalogs($oldTrack.' ');
 replaceTracks('entries',$oldTrack.' ',trackById('entries',$destid).' ');
-updateCatalogs($destid);
 }
 ?>

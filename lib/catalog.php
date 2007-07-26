@@ -56,12 +56,12 @@ if(catalogById($id)!=$catalog)
   }
 }
 
-function updateCatalogs($id,$journalize=true)
+function updateCatalogs($trackPrefix='',$journalize=true)
 {
-$filter=$id>0 ? "track like '%".track($id)."%'" : '1';
-$result=sql("select entry,id,ident,up,modbits
+$filter=$trackPrefix!='' ? "track like '$trackPrefix%'" : '1';
+$result=sql("select entry,id,ident,up,catalog,modbits
 	     from entries
-	     where $filter or catalog=''
+	     where $filter
 	     order by track",
 	    __FUNCTION__);
 $catalogs=array();
@@ -83,6 +83,7 @@ while($row=mysql_fetch_assoc($result))
      updateCatalogById($row['id'],$catalogs[$row['id']]);
      }
 if($journalize)
+  // FIXME journal $trackPrefix instead of $id
   journal("catalogs entries ".journalVar('entries',$id));
 }
 ?>

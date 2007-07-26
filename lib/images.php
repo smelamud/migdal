@@ -84,7 +84,6 @@ $jencoded=array('title' => '','title_xml' => '','small_image' => 'images',
 		'parent_id' => 'entries');
 $vars=array('ident' => $image->ident,
             'up' => $image->up,
-	    'catalog' => $image->catalog,
 	    'parent_id' => $image->parent_id,
 	    'user_id' => $image->user_id,
 	    'group_id' => $image->group_id,
@@ -112,6 +111,7 @@ if($image->id)
   journal(sqlUpdate('entries',
 		    jencodeVars($vars,$jencoded),
 		    array('id' => journalVar('entries',$image->id))));
+  updateCatalogs($image->track);
   replaceTracksToUp('entries',$image->track,$image->up,$image->id);
   }
 else
@@ -129,8 +129,8 @@ else
 	  'entries',$image->id);
   setOrigIdToEntryId($image);
   createTrack('entries',$image->id);
+  updateCatalogs(trackById('entries',$image->id));
   }
-updateCatalogs($image->id);
 return $result;
 }
 
