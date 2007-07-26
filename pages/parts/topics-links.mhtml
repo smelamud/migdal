@@ -8,7 +8,7 @@
  <a href='/links/'>Ссылки</a> /
  <iterate_topic_hierarchy topic_id='$posting.TopicId' root='$`links`'>
  <for>
-  <a href='$.Catalog'>$=.Subject</a> /
+  <a href='/$.Catalog'>$=.Subject</a> /
  </for>
 </div>
 <postings_info grp='*GRP_LINKS' topic_id='$posting.TopicId' recursive='*false'>
