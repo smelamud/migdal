@@ -75,6 +75,8 @@ define('EC_LOGIN_ASSIGN',154);
 define('EC_NO_ASSIGN',155);
 define('EC_NO_COMPLAIN',156);
 define('EC_NO_AUTO',157);
+define('EC_CAPTCHA_ABSENT',158);
+define('EC_CAPTCHA',159);
 
 define('EECA_NO_ACTION',160);
 define('EECA_NO_COMPLAIN',161);

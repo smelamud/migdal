@@ -21,26 +21,25 @@
  <form method=post enctype='multipart/form-data'
        action='/actions/complain/modify'>
   <hidden name='edittag' value=1>
-  <ifzero what='$editid'>
-   <ifnzero what='$redirid'>
-    <hidden name='okdir' value#='/complains/?redirid=$redirid'>
-   <else>
-    <hidden name='okdir' value='/complains/'>
-   </ifnzero>
-  <else>
-   <hidden name='okdir' value='$--'>
-  </ifzero>
+  <hidden name='okdir' value='$--'>
   <hidden name='faildir' value='$-'>
   <hidden name='editid' value='$editid'>
   <error id='*EC_NO_SEND'
 	 text='Посылать жалобы могут только зарегистрированные пользователи'>
   <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
-  <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст'>
+  <notlogged>
+   <error id='*EC_CAPTCHA_ABSENT'
+	  text='Пожалуйста, введите цифры и буквы, которые вы видите на
+		картинке. Это необходимо нам для борьбы со спамом.'>
+   <error id='*EC_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+   <form_captcha name='captcha'>
+  </notlogged>
   <form_edit title='Ссылка'
              comment='Если вы жалуетесь на сообщение на сайте или в форуме,
 	              укажите здесь ссылку на него.'
 	     value='$=,URL' name='url' size=52 maxlength=250 mandatory='*false'>
   <form_section title='Текст жалобы/предложения'>
+  <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст'>
   <form_edit title='Заголовок' mandatory='*true' name='subject'
              value='$=,Subject' size=70 maxlength=250>
   <error id='*EC_BODY_ABSENT'

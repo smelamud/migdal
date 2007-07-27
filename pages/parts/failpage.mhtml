@@ -1,6 +1,10 @@
 << @(#) $Id$ >>
 
 <element name='failpage'>
+
+<int name='edittag'>
+<string name='body'>
+
 <li>
  <notenglish>
   Можете начать с
@@ -33,12 +37,14 @@
    Or send it directly from the website:
   </notenglish>
   <br>
+  <complain_obj id='0' url='$-'>
+  <setup>
   <form method=post action='/actions/complain/modify'>
    <hidden name='edittag' value="1">
-   <hidden name='okdir' value="/404/?sent=1">
-   <hidden name='faildir' value="/404/">
+   <hidden name='okdir' value="$[sent=1]">
+   <hidden name='faildir' value="$-">
    <hidden name='editid' value="0">
-   <hidden name='url' value="$-">
+   <hidden name='url' value="$=,URL">
    <hidden name='subject' value="404">
    <table>
     <notenglish>
@@ -48,15 +54,30 @@
      <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст'>
      <error id='*EC_BODY_ABSENT'
 	    text='Пожалуйста, напишите хотя бы пару строк о сути вашей проблемы'>
+     <error id='*EC_CAPTCHA_ABSENT'
+	    text='Пожалуйста, введите цифры и буквы, которые вы видите на
+		  картинке. Это необходимо нам для борьбы со спамом.'>
+     <error id='*EC_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
     <else>
      <error id='*EC_NO_SEND' text='Only registered users may send complains'>
      <error id='*EC_NO_EDIT' text='You are not permitted to edit the complain'>
      <error id='*EC_SUBJECT_ABSENT' text='Subject is empty'>
      <error id='*EC_BODY_ABSENT'
 	    text='Please, describe your problem in several lines'>
+     <error id='*EC_CAPTCHA_ABSENT'
+	    text='Please, enter digits and letters you see on the picture. It
+	          is required to eliminate spam.'>
+     <error id='*EC_CAPTCHA' text='Wrong digits and letters, try again'>
     </notenglish>
     <tr><td colspan=2>
-     <textarea name='body' rows='5' cols='35' wrap='virtual'></textarea>
+     <textarea name='body' rows='5' cols='35' wrap='virtual'>$,Body</textarea>
+    </td></tr>
+    <tr><td colspan=2>
+     <table cellspacing='0' cellpadding='0'><tr valign='top'>
+      <td><img src='/captcha/' width='120' height='60'></td>
+      <td>&nbsp;&nbsp;</td>
+      <td><edit name='captcha' value='' size='6' maxlength='6'></td>
+     </tr></table>
     </td></tr>
     <tr><td colspan=2>
      <notenglish>

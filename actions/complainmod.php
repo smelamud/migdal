@@ -11,10 +11,11 @@ require_once('lib/uri.php');
 require_once('lib/errors.php');
 require_once('lib/tmptexts.php');
 require_once('lib/complains.php');
+require_once('lib/captcha.php');
 
 function modifyComplain($complain,$original)
 {
-global $userId;
+global $captcha,$userId;
 
 if($original->getId()==0)
   {
@@ -29,6 +30,13 @@ if($complain->body=='')
   return EC_BODY_ABSENT;
 if($complain->subject=='')
   return EC_SUBJECT_ABSENT;
+if($complain->id<=0 && $userId<=0)
+  {
+  if($captcha=='')
+    return EC_CAPTCHA_ABSENT;
+  if(!validateCaptcha($captcha))
+    return EC_CAPTCHA;
+  }
 storeComplain($complain);
 return EG_OK;
 }
@@ -38,6 +46,7 @@ postString('faildir');
 
 postInteger('edittag');
 postInteger('editid');
+postString('captcha');
 postString('url');
 postString('subject');
 postString('body');
