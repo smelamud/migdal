@@ -27,7 +27,7 @@ CREATE TABLE `captcha_keys` (
   `created` datetime NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `keystring` (`keystring`,`sid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `chat_messages`
@@ -44,7 +44,7 @@ CREATE TABLE `chat_messages` (
   PRIMARY KEY  (`id`),
   KEY `sender_id` (`sender_id`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=19622 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=19799 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `complain_actions`
@@ -82,7 +82,7 @@ CREATE TABLE `counters` (
   KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15299 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=15739 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `counters_ip`
@@ -198,11 +198,11 @@ CREATE TABLE `entries` (
   `large_image_filename` varchar(70) collate koi8u_bin NOT NULL,
   `used` tinyint(4) NOT NULL,
   PRIMARY KEY  (`id`),
+  UNIQUE KEY `track` (`track`),
   UNIQUE KEY `ident` (`ident`),
   UNIQUE KEY `tmpid` (`tmpid`),
   KEY `entry` (`entry`),
   KEY `up` (`up`),
-  KEY `track` (`track`),
   KEY `parent_id` (`parent_id`),
   KEY `orig_id` (`orig_id`),
   KEY `current_id` (`current_id`),
@@ -225,7 +225,7 @@ CREATE TABLE `entries` (
   KEY `last_answer` (`last_answer`),
   KEY `used` (`used`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=13664 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=14779 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `entry_grps`
@@ -341,7 +341,7 @@ CREATE TABLE `logs` (
   PRIMARY KEY  (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=6555911 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=6868487 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `mail_log`
@@ -447,7 +447,7 @@ CREATE TABLE `redirs` (
   KEY `up` (`up`),
   KEY `track` (`track`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=5232139 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=5632734 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `sessions`
@@ -465,7 +465,7 @@ CREATE TABLE `sessions` (
   UNIQUE KEY `sid` (`sid`),
   KEY `user_id` (`user_id`),
   KEY `last` (`last`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `tmp_texts`
@@ -478,7 +478,7 @@ CREATE TABLE `tmp_texts` (
   `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=109580 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=125165 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `users`
@@ -527,7 +527,7 @@ CREATE TABLE `users` (
   KEY `surname_sort` (`surname_sort`),
   KEY `shames` (`shames`),
   KEY `guest` (`guest`)
-) ENGINE=MyISAM AUTO_INCREMENT=2346 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=2641 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `version`
@@ -564,7 +564,7 @@ CREATE TABLE `votes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-07-09 21:40:00
+-- Dump completed on 2007-07-26 22:41:38
 -- MySQL dump 10.11
 --
 -- Host: localhost    Database: migdal
@@ -588,7 +588,7 @@ CREATE TABLE `votes` (
 
 LOCK TABLES `version` WRITE;
 /*!40000 ALTER TABLE `version` DISABLE KEYS */;
-INSERT INTO `version` VALUES (10);
+INSERT INTO `version` VALUES (11);
 /*!40000 ALTER TABLE `version` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -601,4 +601,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-07-09 21:40:00
+-- Dump completed on 2007-07-26 22:41:38
