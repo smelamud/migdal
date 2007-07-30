@@ -123,13 +123,7 @@ $outer=array_pop($Outers);
 if($outer->isInnersEmpty())
   {
   $s=substr_replace(ob_get_contents(),$outer->getCommons(),$outer->getStart());
-  if(function_exists('ob_clean'))
-    ob_clean();
-  else
-    {
-    ob_end_clean();
-    ob_start();
-    }
+  ob_clean();
   echo $s;
   }
 }

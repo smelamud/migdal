@@ -7,7 +7,6 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/permissions.php');
 require_once('lib/errors.php');
-require_once('lib/postings-info.php');
 
 function doChmod($id,$perms)
 {
@@ -69,11 +68,8 @@ $perms=getPermsById($id);
 $perms->setup($Args);
 $err=doChmod($id,$perms);
 if($err==EG_OK)
-  {
   header('Location: '.remakeURI($okdir,
                                 array('err')));
-  dropPostingsInfoCache(DPIC_BOTH);
-  }
 else
   header('Location: '.remakeMakeURI($faildir,
                                     $Args,

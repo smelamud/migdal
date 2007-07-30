@@ -113,7 +113,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/grps.php
 + lib/horisonts.php
 + lib/ident.php
-* lib/images.php (функции работы с файлами можно выделить отдельно)
++ lib/images.php
 + lib/image-types.php
 + lib/image-upload.php
 + lib/initstop-mail.php
@@ -136,7 +136,7 @@ addslashes(), используя промежуточные переменные $*S (вообще почаще пользуемся
 + lib/no-cache.php
 * lib/packages.php
 + lib/permissions.php
-* lib/postings-info.php (кроме кэша)
++ lib/postings-info.php
 + lib/postings.php
 + lib/postings-random.php
 + lib/post.php

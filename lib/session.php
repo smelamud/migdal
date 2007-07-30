@@ -12,6 +12,7 @@ require_once('lib/users.php');
 require_once('lib/sql.php');
 require_once('lib/ctypes.php');
 require_once('lib/settings.php');
+require_once('lib/html-cache.php');
 
 $userRights=array('AdminUsers'           => USR_ADMIN_USERS,
                   'AdminTopics'          => USR_ADMIN_TOPICS,
@@ -34,9 +35,6 @@ function userRights($aUserId=-1)
 {
 global $sessionid,$userId,$realUserId,$userGroups,$userRights,
        $shortSessionTimeout;
-
-if(isset($sessionid) && $aUserId<0)
-  return;
 
 $sessionid=getSessionCookie();
 
@@ -125,7 +123,13 @@ else
 
 function session($aUserId=-1)
 {
+global $sessionid;
+
+if(isset($sessionid) && $aUserId<0)
+  return;
+
 userRights($aUserId);
 userSettings();
+contentVersions();
 }
 ?>

@@ -1,40 +1,44 @@
 << @(#) $Id$ >>
 
 <element name='hit_parade'>
-<iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
-		     sort='$sort' recursive='*true' later='$later'
-		     showshadows='$showshadows'>
-<ifnzero what='$;Count'>
- <topics_table class='eightpt' title='$title'>
-  <for>
-   <topics_line time='$.Sent' href='$.GrpDetailsHref' text='$=.Heading'
-                rating!='$.VoteCount!=0 ? $.Rating20 : -1'>
-  </for>
- </topics_table>
-</ifnzero>
+<html_cache ident#='hit_parade-$grp-$topic_id' period!='15 * 60'>
+ <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
+		      sort='$sort' recursive='*true' later='$later'
+		      showshadows='$showshadows' as_guest='*true'>
+ <ifnzero what='$;Count'>
+  <topics_table class='eightpt' title='$title'>
+   <for>
+    <topics_line time='$.Sent' href='$.GrpDetailsHref' text='$=.Heading'
+		 rating!='$.VoteCount!=0 ? $.Rating20 : -1'>
+   </for>
+  </topics_table>
+ </ifnzero>
+</html_cache>
 </element>
 
 <element name='hit_parade_gallery'>
-<iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
-		     sort='$sort' recursive='*true' later='$later'
-		     showshadows='$showshadows'>
-<ifnzero what='$;Count'>
- <topics_table class='eightpt' title='$title'>
-  <for>
-   <topics_splitter>
-   <tr><td colspan=2 class='pic' align=center>
-    <ifnzero what='$.SmallImage'>
-     <a href='$.GrpDetailsHref'>
-      <img border=0 width='$.SmallImageX' height='$.SmallImageY'
-           src='$.SmallImageURL' alt='$=.Title' title='$=.Title'></a>
-    </ifnzero>
-   </td></tr>
-   <tr><td colspan=2 align=left>
-    <rating value!='$.VoteCount!=0 ? $.Rating20 : -1'>
-   </td></tr>
-  </for>
- </topics_table>
-</ifnzero>
+<html_cache ident#='hit_parade_gallery-$grp-$topic_id' period!='15 * 60'>
+ <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
+		      sort='$sort' recursive='*true' later='$later'
+		      showshadows='$showshadows' as_guest='*true'>
+ <ifnzero what='$;Count'>
+  <topics_table class='eightpt' title='$title'>
+   <for>
+    <topics_splitter>
+    <tr><td colspan=2 class='pic' align=center>
+     <ifnzero what='$.SmallImage'>
+      <a href='$.GrpDetailsHref'>
+       <img border=0 width='$.SmallImageX' height='$.SmallImageY'
+	    src='$.SmallImageURL' alt='$=.Title' title='$=.Title'></a>
+     </ifnzero>
+    </td></tr>
+    <tr><td colspan=2 align=left>
+     <rating value!='$.VoteCount!=0 ? $.Rating20 : -1'>
+    </td></tr>
+   </for>
+  </topics_table>
+ </ifnzero>
+</html_cache>
 </element>
 
 <element name='hit_parade_month'>

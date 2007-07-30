@@ -6,7 +6,6 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
-require_once('lib/postings-info.php');
 require_once('lib/track.php');
 require_once('lib/topics.php');
 require_once('lib/sql.php');
@@ -42,12 +41,9 @@ dbOpen();
 session();
 $err=deleteTopicAction($id,$destid);
 if($err==EG_OK)
-  {
   header('Location: '.remakeURI($okdir,
                                 array('err','destid'),
 				array('reload' => random(0,999))));
-  dropPostingsInfoCache(DPIC_POSTINGS);
-  }
 else
   header('Location: '.remakeURI($faildir,
                                 array(),

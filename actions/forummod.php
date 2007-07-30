@@ -14,7 +14,6 @@ require_once('lib/postings.php');
 require_once('lib/forums.php');
 require_once('lib/permissions.php');
 require_once('lib/image-upload.php');
-require_once('lib/postings-info.php');
 require_once('lib/logging.php');
 require_once('lib/captcha.php');
 
@@ -117,13 +116,10 @@ if($err==EG_OK)
 if($err==EG_OK)
   $err=modifyForum($forum,$original);
 if($err==EG_OK)
-  {
-  dropPostingsInfoCache(DPIC_FORUMS);
   header('Location: '.remakeURI($okdir,
                                 array('offset'),
 				array('tid' => $forum->getId()),
 				't'.$forum->getId()));
-  }
 else
   {
   $bodyId=tmpTextSave($body);

@@ -65,7 +65,7 @@ dbinfo:
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
 		--no-data -Q > migdal.db
 	mysqldump -u $(dbUser) --password=$(dbPassword) $(dbName) \
-		version --no-create-info -Q >> migdal.db
+		content_versions version --no-create-info -Q >> migdal.db
 
 pack: all
 	tar zchf build.tar.gz $(builddir)

@@ -18,7 +18,7 @@ dbOpen();
 session();
 postInteger('err');
 set_error_handler('error_handler');
-ob_start();
+ob_start('convertOutput');
 }
 
 function initializeMeta()
@@ -46,9 +46,7 @@ function finalize()
 {
 dbClose(); // dbClose() должен находиться здесь, чтобы профайлер не учитывал
            // время скачивания страницы клиентом
-$Output=ob_get_contents();
-ob_end_clean();
-echo convertOutput($Output);
+ob_end_flush();
 }
 
 function error_handler($errno,$errstr,$errfile,$errline)

@@ -4,6 +4,7 @@
 require_once('lib/entries.php');
 require_once('lib/sql.php');
 require_once('lib/perm.php');
+require_once('lib/html-cache.php');
 
 // Этот класс используется как объект формы при редактировании permission'ов
 // отдельно от всех остальных атрибутов
@@ -75,6 +76,7 @@ journal("update entries
 	     group_id='.journalVar('users',$perms->getGroupId()).',
 	     perms='.$perms->getPerms().'
 	 where id='.journalVar('entries',$perms->getId()));
+incContentVersionsByEntryId($perms->getId());
 }
 
 // Сохранение указанных permission'ов рекурсивно от указанного entry. Можно
@@ -101,6 +103,7 @@ if($journalSeq!=0)
   journal("perms entries ".journalVar('entries',$id).
 		       ' '.journalVar('users',$user_id).
 		       ' '.journalVar('users',$group_id)." $perms");
+incContentVersionsByEntryId(array('postings','forums','topics'));
 }
 
 $permVarietyCache=null;
@@ -135,20 +138,23 @@ else
 }
 
 // Получение SQL-выражения для проверки наличия указанного права
-function permFilter($right,$prefix='')
+function permFilter($right,$prefix='',$asGuest=false)
 {
 global $userId,$userGroups;
+
+$eUserId=!$asGuest ? $userId : 0;
+$eUserGroups=!$asGuest ? $userGroups : array();
 
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 $perms="${prefix}perms";
-if($userId<=0)
+if($eUserId<=0)
   return permMask($perms,$right<<PB_GUEST);
 $groups=array();
-foreach($userGroups as $g)
+foreach($eUserGroups as $g)
        $groups[]="${prefix}group_id=$g";
-$groups[]="${prefix}group_id=$userId";
-return "($userId=${prefix}user_id and
+$groups[]="${prefix}group_id=$eUserId";
+return "($eUserId=${prefix}user_id and
 	".permMask($perms,$right<<PB_USER).'
 	or
 	('.join(' or ',$groups).") and

@@ -40,12 +40,9 @@ dbOpen();
 session();
 $err=renewEntryAction($id);
 if($err==EG_OK)
-  {
   header('Location: '.remakeURI($okdir,
                                 array(),
 				array('reload' => random(0,999))));
-  dropPostingsInfoCache(DPIC_BOTH);
-  }
 else
   header('Location: '.remakeURI($faildir,
                                 array(),

@@ -27,7 +27,7 @@ CREATE TABLE `captcha_keys` (
   `created` datetime NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `keystring` (`keystring`,`sid`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `chat_messages`
@@ -61,6 +61,17 @@ CREATE TABLE `complain_actions` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
+-- Table structure for table `content_versions`
+--
+
+DROP TABLE IF EXISTS `content_versions`;
+CREATE TABLE `content_versions` (
+  `postings_version` int(11) NOT NULL,
+  `forums_version` int(11) NOT NULL,
+  `topics_version` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+
+--
 -- Table structure for table `counters`
 --
 
@@ -82,7 +93,7 @@ CREATE TABLE `counters` (
   KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15739 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=15827 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `counters_ip`
@@ -225,7 +236,7 @@ CREATE TABLE `entries` (
   KEY `last_answer` (`last_answer`),
   KEY `used` (`used`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=14779 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=14780 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `entry_grps`
@@ -262,6 +273,21 @@ CREATE TABLE `horisonts` (
   `they_know` int(11) NOT NULL default '0',
   `lock` datetime default NULL,
   PRIMARY KEY  (`host`)
+) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+
+--
+-- Table structure for table `html_cache`
+--
+
+DROP TABLE IF EXISTS `html_cache`;
+CREATE TABLE `html_cache` (
+  `ident` varchar(255) collate koi8u_bin NOT NULL,
+  `content` mediumtext collate koi8u_bin NOT NULL,
+  `deadline` datetime default NULL,
+  `postings_version` int(11) default NULL,
+  `forums_version` int(11) default NULL,
+  `topics_version` int(11) default NULL,
+  PRIMARY KEY  (`ident`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
@@ -341,7 +367,7 @@ CREATE TABLE `logs` (
   PRIMARY KEY  (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=6868487 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=6868538 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `mail_log`
@@ -447,7 +473,7 @@ CREATE TABLE `redirs` (
   KEY `up` (`up`),
   KEY `track` (`track`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=5632734 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=5633033 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `sessions`
@@ -564,7 +590,7 @@ CREATE TABLE `votes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-07-26 22:41:38
+-- Dump completed on 2007-07-29 13:30:39
 -- MySQL dump 10.11
 --
 -- Host: localhost    Database: migdal
@@ -583,12 +609,22 @@ CREATE TABLE `votes` (
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Dumping data for table `content_versions`
+--
+
+LOCK TABLES `content_versions` WRITE;
+/*!40000 ALTER TABLE `content_versions` DISABLE KEYS */;
+INSERT INTO `content_versions` VALUES (0,0,0);
+/*!40000 ALTER TABLE `content_versions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `version`
 --
 
 LOCK TABLES `version` WRITE;
 /*!40000 ALTER TABLE `version` DISABLE KEYS */;
-INSERT INTO `version` VALUES (11);
+INSERT INTO `version` VALUES (12);
 /*!40000 ALTER TABLE `version` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -601,4 +637,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-07-26 22:41:38
+-- Dump completed on 2007-07-29 13:30:39

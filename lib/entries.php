@@ -907,6 +907,7 @@ foreach($grps as $grp)
 setCachedValue('grps','entries',$id,$grps);
 sql('unlock tables',
     __FUNCTION__,'unlock');
+incContentVersionsByEntryId($id);
 }
 
 function setHiddenByEntryId($id,$hidden)
@@ -922,9 +923,9 @@ sql("update entries
 journal("update entries
          set perms=perms $op
 	 where id=".journalVar('entries',$id));
-dropPostingsInfoCache(DPIC_POSTINGS);
 if(getTypeByEntryId($id)==ENT_FORUM)
   answerUpdate(getParentIdByEntryId($id));
+incContentVersionsByEntryId($id);
 }
 
 function setDisabledByEntryId($id,$disabled)
@@ -937,9 +938,9 @@ sql("update entries
 journal("update entries
          set disabled=$disabled
 	 where id=".journalVar('entries',$id));
-dropPostingsInfoCache(DPIC_POSTINGS);
 if(getTypeByEntryId($id)==ENT_FORUM)
   answerUpdate(getParentIdByEntryId($id));
+incContentVersionsByEntryId($id);
 }
 
 function getTypeByEntryId($id)
@@ -1006,6 +1007,7 @@ journal('update entries
          set orig_id=id
          where id='.journalVar('entries',$entry->id));
 $entry->orig_id=$entry->id;
+incContentVersionsByEntryId($entry->id);
 }
 
 function validateHierarchy($parentId,$up,$entry,$id)
@@ -1083,6 +1085,8 @@ foreach($ids as $id)
 		where id=".journalVar('entries',$id));
        $n++;
        }
+if(count($ids)>0)
+  incContentVersionsByEntryId($ids[0]);
 }
 
 function renewEntry($id)
@@ -1095,5 +1099,23 @@ sql("update entries
 journal("update entries
          set sent='$now'
 	 where id=".journalVar('entries',$id));
+incContentVersionsByEntryId($id);
+}
+
+function incContentVersionsByEntryId($id)
+{
+$type=getTypeByEntryId($id);
+switch($type)
+      {
+      case ENT_POSTING:
+           incContentVersions('postings');
+	   break;
+      case ENT_FORUM:
+           incContentVersions('forums');
+	   break;
+      case ENT_TOPIC:
+           incContentVersions('topics');
+	   break;
+      }
 }
 ?>

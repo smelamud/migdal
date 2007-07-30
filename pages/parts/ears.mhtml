@@ -3,15 +3,20 @@
 <counters>
 
 <element name='ears'>
-<iterate_posting_random limit=3 grp='*GRP_EARS' topic_id='$`ears`'>
-<p><table cellpadding=0 cellspacing=0 width=100%>
- <for>
-  <tr><td align=left style='padding-bottom: 5px'>
-   <counter_inc entry_id='$.' mode='*CMODE_EAR_HITS'>
-   <posting_obj id='$.' grp='*GRP_EARS'>
-   <a href='/actions/ear/$,Id?okdir=$#,URL'><asp>
-    <posting_image posting='$,' title='$,BodyNormal'></a>
-  </td></tr> 
- </for>
-</table></p>
+<random min=0 max=200>
+<html_cache ident#='ears-$,' period!='3 * 60 * 60'>
+ <iterate_posting_random limit=3 grp='*GRP_EARS' topic_id='$`ears`'
+                         as_guest='*true'>
+ <p><table cellpadding=0 cellspacing=0 width=100%>
+  <for>
+   <tr><td align=left style='padding-bottom: 5px'>
+    << FIXME из-за кэширования будет работать некорректно >>
+    <counter_inc entry_id='$.' mode='*CMODE_EAR_HITS'>
+    <posting_obj id='$.' grp='*GRP_EARS'>
+    <a href='/actions/ear/$,Id?okdir=$#,URL'><asp>
+     <posting_image posting='$,' title='$,BodyNormal'></a>
+   </td></tr> 
+  </for>
+ </table></p>
+</html_cache>
 </element>

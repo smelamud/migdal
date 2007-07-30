@@ -6,9 +6,8 @@ class DataObject
 
 function DataObject($row)
 {
-reset($row);
-while(list($var,$value)=each($row))
-     $this->$var=$value;
+foreach($row as $var => $value)
+       $this->$var=$value;
 }
 
 }

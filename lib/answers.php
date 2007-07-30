@@ -23,6 +23,7 @@ sql("update entries
          last_answer_user_id=$last_user_id
      where id=$id or orig_id=$id",
     __FUNCTION__);
+incContentVersions('forums');
 // id=$id or orig_id=$id требуется для жалоб, у которых не проставлено orig_id
 }
 

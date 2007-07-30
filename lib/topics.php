@@ -22,6 +22,7 @@ require_once('lib/track.php');
 require_once('lib/modbits.php');
 require_once('lib/utils.php');
 require_once('lib/text-any.php');
+require_once('lib/html-cache.php');
 
 class Topic
       extends GrpEntry
@@ -128,24 +129,28 @@ $this->sub_count=$sub_count;
 
 }
 
-function topicsPermFilter($right,$prefix='')
+function topicsPermFilter($right,$prefix='',$asGuest=false)
 {
 global $userAdminTopics,$userModerator;
 
-if($userAdminTopics && $right!=PERM_POST)
+$eUserAdminTopics=!$asGuest ? $userAdminTopics : 0;
+$eUserModerator=!$asGuest ? $userModerator : 0;
+
+if($eUserAdminTopics && $right!=PERM_POST)
   return '1';
-if($userModerator && $right==PERM_POST)
+if($eUserModerator && $right==PERM_POST)
   return '1';
-return permFilter($right,$prefix);
+return permFilter($right,$prefix,$asGuest);
 }
 
 class TopicIterator
       extends LimitSelectIterator
 {
 
-function getWhere($grp,$up=0,$prefix='',$recursive=false,$level=1,$index2=-1)
+function getWhere($grp,$up=0,$prefix='',$recursive=false,$level=1,$index2=-1,
+                  $asGuest=false)
 {
-$hide='and '.topicsPermFilter(PERM_READ,$prefix);
+$hide='and '.topicsPermFilter(PERM_READ,$prefix,$asGuest);
 $parentFilter=$up>=0 ? 'and '.subtree('entries',$up,$recursive,'up') : '';
 $grpFilter=$grp!=GRP_ALL ? 'and '.grpFilter($grp,'grp','entry_grps') : '';
 // TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
@@ -167,13 +172,15 @@ class TopicListIterator
 {
 var $fields;
 var $grp;
+var $asGuest;
 
 function TopicListIterator($grp,$up=0,$sort=SORT_SUBJECT,$recursive=false,
                            $level=1,$fields=SELECT_GENERAL,$index2=-1,
-			   $limit=0,$offset=0)
+			   $limit=0,$offset=0,$asGuest=false)
 {
 $this->fields=$fields;
 $this->grp=$grp;
+$this->asGuest=$asGuest;
 /* Select */
 $distinct=$grp!=GRP_ALL ? 'distinct' : '';
 $Select="$distinct entries.id as id,entries.ident as ident,entries.up as up,
@@ -197,7 +204,7 @@ $From="entries
 	    on entries.group_id=gusers.id
        $grpTable";
 /* Where */
-$Where=$this->getWhere($grp,$up,'entries.',$recursive,$level,$index2);
+$Where=$this->getWhere($grp,$up,'entries.',$recursive,$level,$index2,$asGuest);
 /* Order */
 $Order=getOrderBy($sort,
        array(SORT_SUBJECT         => 'subject_sort',
@@ -220,7 +227,8 @@ $topic=parent::create($row);
 if(($this->fields & SELECT_GRPS)!=0)
   $topic->setGrps(getGrpsByEntryId($row['id']));
 if(($this->fields & SELECT_INFO)!=0)
-  $topic->setPostingsInfo(getPostingsInfo($this->grp,$row['id']));
+  $topic->setPostingsInfo(getPostingsInfo($this->grp,$row['id'],GRP_NONE,0,
+                                          false,$this->asGuest));
 return $topic;
 }
 
@@ -235,7 +243,7 @@ var $delimiter;
 
 function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ',
                             $nameRoot=-1,$onlyAppendable=false,
-			    $onlyPostable=false)
+			    $onlyPostable=false,$asGuest=false)
 {
 $this->nameRoot=$nameRoot;
 $this->delimiter=$delimiter;
@@ -244,7 +252,7 @@ $distinct=$grp!=GRP_ALL ? 'distinct' : '';
 $grpTable=$grp!=GRP_ALL ? 'left join entry_grps
                                 on entry_grps.entry_id=entries.id'
 			: '';
-$Where=$this->getWhere($grp,$up,'',$recursive);
+$Where=$this->getWhere($grp,$up,'',$recursive,1,-1,$asGuest);
 if($onlyAppendable)
   $Where.=' and '.permMask('perms',PERM_UA|PERM_GA|PERM_OA|PERM_EA);
 if($onlyPostable)
@@ -280,10 +288,11 @@ class SortedTopicNamesIterator
 
 function SortedTopicNamesIterator($grp,$up=-1,$recursive=false,
                                   $delimiter=' :: ',$nameRoot=-1,
-				  $onlyWritable=false,$onlyPostable=false)
+				  $onlyWritable=false,$onlyPostable=false,
+				  $asGuest=false)
 {
 $iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter,$nameRoot,
-                                 $onlyWritable,$onlyPostable);
+                                 $onlyWritable,$onlyPostable,$asGuest);
 $topics=array();
 while($item=$iterator->next())
      $topics[convertSort($item->getFullName())]=$item;
@@ -370,6 +379,7 @@ else
   createTrack('entries',$topic->id);
   updateCatalogs(trackById('entries',$topic->id));
   }
+incContentVersions('topics');
 return $result;
 }
 
@@ -386,7 +396,7 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
                                  : $rootTopicModbits;
 }
 
-function getTopicById($id,$up=0,$fields=SELECT_GENERAL)
+function getTopicById($id,$up=0,$fields=SELECT_GENERAL,$asGuest=false)
 {
 global $userId,$userLogin,$userModerator,$rootTopicModbits,$rootTopicGroupName,
        $rootTopicPerms;
@@ -427,7 +437,8 @@ if(mysql_num_rows($result)>0)
   if(($fields & SELECT_GRPS)!=0)
     $topic->setGrps(getGrpsByEntryId($id));
   if(($fields & SELECT_INFO)!=0)
-    $topic->setPostingsInfo(getPostingsInfo(GRP_ALL,$id));
+    $topic->setPostingsInfo(getPostingsInfo(GRP_ALL,$id,GRP_NONE,0,false,
+                                            $asGuest));
   setCachedValue('obj','entries',$id,$topic);
   }
 else
@@ -528,6 +539,7 @@ sql("delete from cross_entries
 journal('delete from cross_entries
          where source_id='.journalVar('entries',$id).' or
 	       peer_id='.journalVar('entries',$id));
+incContentVersions('topics');
 if($destid<=0)
   return;
 sql("update entries
@@ -546,5 +558,6 @@ journal('update entries
          where parent_id='.journalVar('entries',$id));
 updateCatalogs($oldTrack.' ');
 replaceTracks('entries',$oldTrack.' ',trackById('entries',$destid).' ');
+incContentVersions('postings');
 }
 ?>

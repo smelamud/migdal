@@ -26,6 +26,7 @@ require_once('lib/votes.php');
 require_once('lib/uri.php');
 require_once('lib/time.php');
 require_once('lib/text-any.php');
+require_once('lib/html-cache.php');
 
 class Posting
       extends GrpEntry
@@ -187,17 +188,20 @@ return $heading;
 
 }
 
-function postingsPermFilter($right,$prefix='')
+function postingsPermFilter($right,$prefix='',$asGuest=false)
 {
 global $userModerator,$userId;
 
-if($userModerator)
+$eUserId=!$asGuest ? $userId : 0;
+$eUserModerator=!$asGuest ? $userModerator : 0;
+
+if($eUserModerator)
   return '1';
-$filter=permFilter($right,$prefix);
+$filter=permFilter($right,$prefix,$asGuest);
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 return "$filter and (${prefix}disabled=0".
-       ($userId>0 ? " or ${prefix}user_id=$userId)" : ')');
+       ($eUserId>0 ? " or ${prefix}user_id=$eUserId)" : ')');
 }
 
 function postingListFields($fields=SELECT_GENERAL)
@@ -338,10 +342,10 @@ function postingListFilter($grp,$topic_id=-1,$recursive=false,$person_id=-1,
                            $sort=SORT_SENT,$withAnswers=GRP_NONE,$user=0,
 			   $index1=-1,$later=0,$up=-1,$fields=SELECT_GENERAL,
 			   $modbits=MOD_NONE,$hidden=-1,$disabled=-1,$prefix='',
-			   $withIdent=false,$earlier=0)
+			   $withIdent=false,$earlier=0,$asGuest=false)
 {
 $Filter='entries.entry='.ENT_POSTING;
-$Filter.=' and '.postingsPermFilter(PERM_READ,'entries');
+$Filter.=' and '.postingsPermFilter(PERM_READ,'entries',$asGuest);
 $Filter.=' and '.postingListGrpFilter($grp,$withAnswers);
 $Filter.=' and '.postingListTopicFilter($topic_id,$recursive);
 if($person_id>=0)
@@ -402,7 +406,8 @@ function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
 			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
 			     $up=-1,$showShadows=true,$fields=SELECT_GENERAL,
 			     $modbits=MOD_NONE,$hidden=-1,$disabled=-1,
-			     $prefix='',$withIdent=false,$earlier=0)
+			     $prefix='',$withIdent=false,$earlier=0,
+			     $asGuest=false)
 {
 if($sort==SORT_CTR)
   $fields|=SELECT_CTR;
@@ -416,7 +421,7 @@ $From=postingListTables($this->fields,$sort);
 $this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
                                $withAnswers,$user,$index1,$later,$up,$fields,
 			       $modbits,$hidden,$disabled,$prefix,$withIdent,
-			       $earlier);
+			       $earlier,$asGuest);
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'entries.sent desc',
              SORT_NAME       => 'entries.subject_sort',
@@ -684,6 +689,7 @@ else
   createTrack('entries',$posting->id);
   updateCatalogs(trackById('entries',$posting->id));
   }
+incContentVersions('postings');
 return $result;
 }
 
@@ -898,6 +904,7 @@ if(isModbitRequired($tmod,MODT_EDIT,$original))
   $modbits|=MOD_EDIT;
 setModbitsByEntryId($posting->getId(),$modbits);
 $posting->modbits=$modbits;
+incContentVersions('postings');
 }
 
 function deleteShadowPosting($id)
@@ -913,6 +920,7 @@ sql("delete from cross_entries
 journal('delete from cross_entries
          where source_id='.journalVar('entries',$id).' or
 	       peer_id='.journalVar('entries',$id));
+incContentVersions('postings');
 }
 
 function getPostingShadowCount($origId)
@@ -981,6 +989,7 @@ journal('update inner_images
 updateCatalogs(trackById('entries',$origId).' ');
 replaceTracks('entries',trackById('entries',$origId).' ',
               trackById('entries',$destId).' ');
+incContentVersions('postings');
 }
 
 function deletePosting($id)
@@ -1064,6 +1073,7 @@ journal(sqlInsert('entries',
         'entries',$shid);
 createTrack('entries',$shid);
 updateCatalogs(trackById('entries',$shid));
+incContentVersions('postings');
 }
 
 function autoEnablePostings()
@@ -1078,5 +1088,6 @@ $result=sql('select id
 	    __FUNCTION__);
 while($row=mysql_fetch_assoc($result))
      setDisabledByEntryId($row['id'],0);
+incContentVersions('postings');
 }
 ?>

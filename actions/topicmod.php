@@ -15,7 +15,6 @@ require_once('lib/tmptexts.php');
 require_once('lib/track.php');
 require_once('lib/catalog.php');
 require_once('lib/users.php');
-require_once('lib/postings-info.php');
 
 function modifyTopic($topic,$original)
 {
@@ -94,10 +93,7 @@ $original=$topic;
 $topic->setup($Args);
 $err=modifyTopic($topic,$original);
 if($err==EG_OK)
-  {
   header("Location: $okdir");
-  dropPostingsInfoCache(DPIC_POSTINGS);
-  }
 else
   {
   $bodyId=tmpTextSave($body);

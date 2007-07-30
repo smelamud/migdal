@@ -6,9 +6,9 @@ require_once('lib/sql.php');
 require_once('lib/postings.php');
 
 function getRandomPostingIds($limit,$grp=GRP_ALL,$topic_id=-1,$user_id=0,
-                             $index1=-1)
+                             $index1=-1,$asGuest=false)
 {
-$hide='and '.postingsPermFilter(PERM_READ);
+$hide='and '.postingsPermFilter(PERM_READ,'entries',$asGuest);
 $grpFilter=grpFilter($grp);
 $topicFilter=$topic_id>=0 ? "and parent_id=$topic_id " : '';
 $userFilter=$user_id>0 ? " and user_id=$user_id " : '';
@@ -73,9 +73,10 @@ foreach($positions as $pos)
 return $ids;
 }
 
-function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1)
+function getRandomPostingId($grp=GRP_ALL,$topic_id=-1,$user_id=0,$index1=-1,
+                            $asGuest=false)
 {
-$ids=getRandomPostingIds(1,$grp,$topic_id,$user_id,$index1);
+$ids=getRandomPostingIds(1,$grp,$topic_id,$user_id,$index1,$asGuest);
 return count($ids)>0 ? (int)$ids[0] : 0;
 }
 
@@ -84,10 +85,10 @@ class RandomPostingsIterator
 {
 
 function RandomPostingsIterator($limit,$grp=GRP_ALL,$topic_id=-1,$user_id=0,
-                                $index1=-1)
+                                $index1=-1,$asGuest=false)
 {
 parent::MArrayIterator(getRandomPostingIds($limit,$grp,$topic_id,$user_id,
-                                           $index1));
+                                           $index1,$asGuest));
 }
 
 }

@@ -14,7 +14,6 @@ require_once('lib/grps.php');
 require_once('lib/topics.php');
 require_once('lib/image-upload.php');
 require_once('lib/postings.php');
-require_once('lib/postings-info.php');
 require_once('lib/text-upload.php');
 require_once('lib/track.php');
 require_once('lib/catalog.php');
@@ -281,7 +280,6 @@ if($err==EG_OK)
 if($err==EG_OK)
   $err=modifyPosting($posting,$original,$imageEditor,$iuFlags);
 if($err==EG_OK)
-  {
   if($posting->isDisabled() && ($userId<=0 || $userWillBeModeratedNote))
     header('Location: '.
            remakeURI('/will-be-moderated/',
@@ -289,8 +287,6 @@ if($err==EG_OK)
 		     array('okdir_i' => tmpTextSave($okdir))));
   else
     header("Location: $okdir");
-  dropPostingsInfoCache(DPIC_POSTINGS);
-  }
 else
   {
   $bodyId=tmpTextSave($body);

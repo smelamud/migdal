@@ -4,6 +4,7 @@
 require_once('lib/bug.php');
 require_once('lib/journal.php');
 require_once('lib/sql.php');
+require_once('lib/entries.php');
 
 // For regular postings
 define('MOD_NONE',0x0000);
@@ -170,6 +171,7 @@ sql("update entries
 journal("update entries
          set modbits=modbits | $bits
 	 where id=".journalVar('entries',$id));
+incContentVersionsByEntryId($id);
 }
 
 function resetModbitsByEntryId($id,$bits)
@@ -181,6 +183,7 @@ sql("update entries
 journal("update entries
          set modbits=modbits & ~$bits
 	 where id=".journalVar('entries',$id));
+incContentVersionsByEntryId($id);
 }
 
 function assignModbitsByEntryId($id,$bits)
@@ -192,5 +195,6 @@ sql("update entries
 journal("update entries
          set modbits=$bits
 	 where id=".journalVar('entries',$id));
+incContentVersionsByEntryId($id);
 }
 ?>

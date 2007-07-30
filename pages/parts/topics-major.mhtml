@@ -13,21 +13,16 @@
 <element name='navi_help' params='index,span' defaults='span=1'>
 <topic_obj name='tips' id='$`tips`'>
 
-<posting_last topic_id='$`tips`' recursive='*false'>
+<posting_last topic_id='$`tips`' recursive='*false' as_guest='*true'>
 <topics_line time='$,' href='/tips/' title='Помощь по работе с сайтом'
 	     text='Справка' arrow!="$index=='tips'" class='topics-item ninept'
 	     span='$span'>
 </element>
 
 <element name='general' params='index,span' defaults='span=1'>
-<admin_topics>
- <tr><td colspan=3 class='eightpt'>
-  <a href='/major/?redirid=$_'>Изменить</a>
- </td></tr>
-</admin_topics>
 <iterate_entry_cross source_name='major' link_type='*LINKT_MAJOR'>
 <for>
- <topic_obj name='topic' id='$.PeerId' fields='*SELECT_INFO'>
+ <topic_obj name='topic' id='$.PeerId' fields='*SELECT_INFO' as_guest='*true'>
  <assign name='info' value='$,PostingsInfo'>
  <topics_line class='topics-item ninept' time='$info.MaxSent' href#='/$,Catalog'
               title='$=,BodyNormal' text='$=,Subject' span='$span'
@@ -45,12 +40,20 @@
 
 <element name='topics_major'>
 <topics_table title='Разделы' span=2>
- <navi_main index='$index' span=2>
- <navi_migdal index='$index' span=2>
- <topics_migdal index='$index'>
- <general index='$index' span=2>
- <topics_splitter>
- <navi_help index='$index' span=2>
- <navi_archive index='$index' span=2>
+ <html_cache ident#='topics_major-$index' period!='3 * 60 * 60'
+             depends='postings,topics'>
+  <navi_main index='$index' span=2>
+  <navi_migdal index='$index' span=2>
+  <topics_migdal index='$index'>
+  <general index='$index' span=2>
+  <topics_splitter>
+  <navi_help index='$index' span=2>
+  <navi_archive index='$index' span=2>
+ </html_cache>
+ <admin_topics>
+  <tr><td colspan=3 class='eightpt'>
+   <a href='/major/?redirid=$_'>Изменить</a>
+  </td></tr>
+ </admin_topics>
 </topics_table>
 </element>

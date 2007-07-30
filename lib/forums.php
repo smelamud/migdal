@@ -13,6 +13,7 @@ require_once('lib/sql.php');
 require_once('lib/images.php');
 require_once('lib/text-any.php');
 require_once('lib/catalog.php');
+require_once('lib/html-cache.php');
 
 require_once('conf/forums.php');
 
@@ -119,17 +120,20 @@ return $this->getCompositeValue($href);
 
 }
 
-function forumPermFilter($right,$prefix='')
+function forumPermFilter($right,$prefix='',$asGuest=false)
 {
 global $userModerator,$userId;
 
-if($userModerator)
+$eUserId=!$asGuest ? $userId : 0;
+$eUserModerator=!$asGuest ? $userModerator : 0;
+
+if($eUserModerator)
   return '1';
-$filter=permFilter($right,$prefix);
+$filter=permFilter($right,$prefix,$asGuest);
 if($prefix!='' && substr($prefix,-1)!='.')
   $prefix.='.';
 return "$filter and (${prefix}disabled=0".
-       ($userId>0 ? " or ${prefix}user_id=$userId)" : ')');
+       ($eUserId>0 ? " or ${prefix}user_id=$eUserId)" : ')');
 }
 
 function forumListFilter($parent_id)
@@ -267,6 +271,7 @@ else
   updateCatalogs(trackById('entries',$forum->id));
   }
 answerUpdate($forum->parent_id);
+incContentVersions('forums');
 return $result;
 }
 
@@ -371,6 +376,7 @@ journal('delete from entries
 updateCatalogs($forum->getTrack());
 replaceTracks('entries',$forum->getTrack(),trackById('entries',$up));
 answerUpdate($forum->getParentId());
+incContentVersions('forums');
 }
 
 function renewForum($id)
@@ -378,5 +384,6 @@ function renewForum($id)
 renewEntry($id);
 $parent_id=getParentByEntryId($id);
 answerUpdate($parent_id);
+incContentVersions('forums');
 }
 ?>

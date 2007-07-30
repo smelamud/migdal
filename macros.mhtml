@@ -81,20 +81,22 @@
          file='lib/modbits.php'>
 <deciter macro='posting_random' class='RandomPostingsIterator'
          file='lib/postings-random.php'
-	 params='limit,grp,topic_id,user_id,index1'
-	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1'>
+	 params='limit,grp,topic_id,user_id,index1,as_guest'
+	 defaults="grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1
+	           as_guest='*false'">
 <deciter macro='posting_users' class='PostingUsersIterator'
          file='lib/postings.php' params='grp,topic_id,recursive'
 	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic_id,recursive,limit,offset,person_id,sort,withanswers,
 	         user,index1,later,up,showshadows,fields,modbits,
-		 hidden,disabled,prefix,withident,earlier'
+		 hidden,disabled,prefix,withident,earlier,as_guest'
          defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           person_id=-1 sort='*SORT_SENT' withanswers='*GRP_NONE'
 		   user=0 index1=-1 later=0 up=-1 showshadows='*true'
 		   fields='*SELECT_GENERAL' modbits='*MOD_NONE' hidden=-1
-		   disabled=-1 prefix='' withident='*false' earlier=0">
+		   disabled=-1 prefix='' withident='*false' earlier=0
+		   as_guest='*false'">
 <deciter macro='random_seq' class='RandomSequenceIterator' file='lib/random.php'
          params='n,min,max'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
@@ -105,25 +107,29 @@
 <deciter macro='sortedtopicnames' class='SortedTopicNamesIterator'
          file='lib/topics.php'
 	 params='grp,up,recursive,delimiter,name_root,only_writable,
-	         only_postable'
+	         only_postable,as_guest'
 	 defaults="up=-1 recursive='*false' delimiter=' :: ' name_root=-1
-	           only_writable='*false' only_postable='*false'">
+	           only_writable='*false' only_postable='*false'
+		   as_guest='*false'">
 <deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
 <deciter macro='text_formats' class='TextFormatsIterator' file='lib/text.php'>
 <deciter macro='topic_hierarchy' class='TopicHierarchyIterator'
          file='lib/topics.php' params='topic_id,root,reverse'
 	 defaults="root=-1 reverse='*false'">
 <deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
-         params='grp,up,sort,recursive,level,fields,index2,limit,offset'
+         params='grp,up,sort,recursive,level,fields,index2,limit,offset,
+	         as_guest'
          defaults="up=0 sort='*SORT_SUBJECT' recursive='*false' level=1
-		   fields='*SELECT_GENERAL' index2=-1 limit=0 offset=0">
+		   fields='*SELECT_GENERAL' index2=-1 limit=0 offset=0
+		   as_guest='*false'">
 <deciter macro='topic_modbits' class='TopicModbitIterator'
          file='lib/modbits.php'>
 <deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
          params='grp,up,recursive,delimiter,name_root,only_writable,
-	         only_postable'
+	         only_postable,as_guest'
 	 defaults="up=-1 recursive='*false' delimiter=' :: ' name_root=-1
-	           only_writable='*false' only_postable='*false'">
+	           only_writable='*false' only_postable='*false'
+		   as_guest='*false'">
 <deciter macro='userlist' class='UserListIterator' file='lib/users.php'
          params='prefix,sort,right'
 	 defaults="sort='*SORT_LOGIN' right='*USR_NONE'">
@@ -188,6 +194,13 @@
 <deccall macro='grp_diff' func='grpDiff' file='lib/grps.php' params='grp1,grp2'>
 <deccall macro='grp_join' func='grpJoin' file='lib/grps.php' params='grp1,grp2'>
 <deccall macro='grp_valid' func='isGrpValid' file='lib/grps.php' params='grp'>
+<deccall macro='html_cache_obj' func='getHTMLCacheRecord'
+         file='lib/html-cache.php' params='ident,period,depends'
+	 defaults='period=*null'>
+<decexec macro='html_cache_push' func='pushHTMLCacheStack' params='record'>
+<deccall macro='html_cache_pop' func='popHTMLCacheStack'>
+<decexec macro='html_cache_store' func='storeHTMLCacheRecord'
+         params='record,content'>
 <deccall macro='horisont_obj' func='getHorisontByHost' file='lib/horisonts.php'
          params='host'>
 <deccall macro='id_ident' func='identById' file='lib/ident.php'
@@ -219,23 +232,26 @@
 	 defaults="grp=*GRP_ALL index1=-1 topic_id=-1">
 <deccall macro='posting_last' func='getLastPostingDate'
          file='lib/postings-info.php'
-	 params='grp,topic_id,answers,user_id,recursive'
+	 params='grp,topic_id,answers,user_id,recursive,as_guest'
 	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
-	           recursive=*false'>
+	           recursive=*false as_guest=*false'>
 <deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
          params='id,grp,topic_id,fields,up,index1'
 	 defaults="id=-1 name=posting grp=*GRP_ALL topic_id=-1
 	           fields='*SELECT_GENERAL' up=-1 index1=0">
 <deccall macro='posting_random' func='getRandomPostingId'
-         file='lib/postings-random.php' params='grp,topic_id,user_id,index1'
-	 defaults='grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1'>
+         file='lib/postings-random.php'
+	 params='grp,topic_id,user_id,index1,as_guest'
+	 defaults="grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1
+	           as_guest='*false'">
 <deccall macro='posting_vote' func='getVoteInfoByPostingId'
          file='lib/postings.php' params='id,grp' defaults="grp='*GRP_ALL'">
 <deccall macro='postings_info' func='getPostingsInfo'
          file='lib/postings-info.php'
-	 params='grp,topic_id,answers,user_id,recursive'
+	 params='grp,topic_id,answers,user_id,recursive,as_guest'
 	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
-	           recursive=*false'>
+	           recursive=*false as_guest=*false'>
+<deccall macro='random' func='random' params='min,max'>
 <decexec macro='reload' func='reload' file='lib/utils.php' params='href'>
 <deccall macro='sibling_id' func='getSiblingId' file='lib/postings.php'
          params='grp,topic_id,up,index0,index1,next'
@@ -261,8 +277,9 @@
 <deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
          params='id' defaults='name=topic id="$topic_id"'>
 <deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
-         params='id,up,fields'
-	 defaults="name=topic id='$topic_id' up=0 fields='*SELECT_GENERAL'">
+         params='id,up,fields,as_guest'
+	 defaults="name=topic id='$topic_id' up=0 fields='*SELECT_GENERAL'
+	           as_guest='*false'">
 <deccall macro='user_login' func='getUserLoginById' file='lib/users.php'
          params='id'>
 <deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
@@ -579,6 +596,27 @@
   <radio value='$.' peervalue='%value' title='$.'>
  </for>
 </select>
+</macro>
+
+<< HTML cache >>
+<macro name='html_cache'>
+<zone>
+ <array vals%!depends='%depends'>
+ <html_cache_obj ident%!ident='%ident' period%!period='%period' depends='$*'>
+ <if what='!$,isEmpty'>
+  $,Content
+ <else>
+  <html_cache_push record='$,'>
+  <?php ob_start(); ?>
+</zone>
+</macro>
+
+<macro name='/html_cache'>
+<zone>
+  <html_cache_pop>
+  <html_cache_store record='$,' content!='ob_get_contents()'>
+  <?php ob_end_flush(); ?>
+ </if>
 </macro>
 
 << Meta tags >>

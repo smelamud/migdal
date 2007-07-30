@@ -29,12 +29,9 @@ dbOpen();
 session();
 $err=deleteForumAction($id);
 if($err==EG_OK)
-  {
   header('Location: '.remakeURI($okdir,
                                 array('err'),
 				array('reload' => random(0,999))));
-  dropPostingsInfoCache(DPIC_POSTINGS);
-  }
 else
   header('Location: '.remakeURI($faildir,
                                 array(),

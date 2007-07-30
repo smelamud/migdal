@@ -78,10 +78,15 @@ foreach($list as $value)
 return $s;
 }
 
-function sqlInsert($table,$what)
+function sqlInsert($table,$what,$keyword='insert')
 {
-return "insert into $table(".join(',',array_keys($what)).
+return "$keyword into $table(".join(',',array_keys($what)).
             ') values ('.sqlValueList(',',$what).')';
+}
+
+function sqlReplace($table,$what)
+{
+return sqlInsert($table,$what,'replace');
 }
 
 function sqlUpdate($table,$what,$where)
