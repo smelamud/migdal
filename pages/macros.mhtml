@@ -250,6 +250,7 @@
 <decel name='printlink' file='parts/posting.php' params='posting'>
 <decel name='rating' file='parts/vote.php' params='value,showtitle'
        defaults="showtitle='*true'">
+<decel name='rss' file='parts/utils.php'>
 <decel name='seealso' file='parts/seealso.php'
        params='source_name,source_id,link_type,title,adddir'
        defaults="source_name='' source_id=0 link_type='*LINKT_SEEALSO'
@@ -415,6 +416,10 @@
   <notprint>
    <link rel='alternate' media='print' href='$[print=1]'>
   </notprint>
+  <ifne what='$$rss_href'>
+   <link rel="alternate" type="application/rss+xml" title="RSS"
+	 href="http://www.$siteDomain$$rss_href">
+  </ifne>
   <link rel='search' href='/search'>
   <ifne what="'%stylesheet'">
    <link rel='stylesheet' href='%stylesheet'>

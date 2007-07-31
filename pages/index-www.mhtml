@@ -44,6 +44,7 @@
       </if>
       <postings grp='*GRP_TAPE' topic_id='$id' limit=10 offset='$offset'
                 showshadows!='$id>0'>
+      <rss>
      </td>
      <td width=130 class='nframe'>
       <tzdaka>

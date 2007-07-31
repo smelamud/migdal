@@ -14,7 +14,7 @@ if($grp===GRP_NONE)
   return array();
 if(is_numeric("0$grp")) // Странный глюк...
   return array($grp);
-return $grpGroups[$grp];
+return isset($grpGroups[$grp]) ? $grpGroups[$grp] : array();
 }
 
 function grpJoin($grp1,$grp2)

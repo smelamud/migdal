@@ -1,0 +1,90 @@
+<< @(#) $Id$ >>
+
+<conf>
+<ident name='topic_id'>
+<string name='grp'>
+<int name='recursive'>
+<int name='showshadows'>
+<string name='path'>
+
+<topic_obj name='topic' id='$topic_id'>
+<location_info name='loc' path='$path'>
+
+<assign name='the_site' value#='http://www.$siteDomain'>
+
+<element name='item_image' params='posting'>
+<if what='$posting.hasSmallImage'>
+ <if what='$posting.hasLargeImage'>
+  &lt;a href='$the_site$posting.LargeImageURL'
+	title='Нажмите, чтобы увеличить'&gt;
+  <asp>&lt;img border=0 align='left' width='$posting.SmallImageX'
+	       height='$posting.SmallImageY'
+	       src='$the_site$posting.SmallImageURL'
+	       style='margin: 5px' hspace='5'&gt;<asp>
+  &lt;/a&gt;
+ <else>
+  <asp>&lt;img border=0 width='$posting.ImageX' height='$posting.ImageY'
+	       src='$the_site$posting.ImageURL' align='left'
+	       style='margin: 5px' hspace='5'&gt;<asp>
+ </if>
+</if>
+</element>
+
+<xml type='text/xml; charset="utf-8"'>
+ <rss version="2.0">
+  <channel>
+   <title><asp>
+    <notenglish>Мигдаль<else>Migdal</notenglish>
+    <if what="$loc.Title!='' && $loc.Title!='Главная' && $loc.Title!='Main'">
+     &sp;- $=loc.Title<asp>
+    </if>
+   </title>
+   <link>$the_site$path</link>
+   <&nil;description><asp>
+    <ifne what='$topic.Body'>
+     $=topic.Body
+    <else>
+     <asp>Мигдаль<asp>
+    </ifne>
+   </description>
+   <&nil;image>
+    <url>$the_site$style_banner_logo</url>
+    <title>Мигдаль</title>
+    <link>$the_site/</link>
+   </image>
+   <language>ru-ru</language>
+   <webMaster>webmaster@migdal.ru (Dmitry E. Melamud)</webMaster>
+   <posting_last grp='$grp' topic_id='$topic_id' recursive='$recursive'>
+   <assign name='date' value#='$,@D, $,@d&sp;$,@M&sp;$,@Y&sp;$,@H:$,@i:$,@s&sp;GMT+2'>
+   <pubDate>$date</pubDate>
+   <lastBuildDate>$date</lastBuildDate>
+   <generator>Migdal website kernel</generator>
+   <ttl>15</ttl>
+   <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='$recursive'
+			limit=20 sort='*SORT_SENT' showshadows='$showshadows'
+			as_guest='*true'>
+   <for>
+    <item>
+     <location_info path#='/$.GrpGeneralHref'>
+     <title><asp>
+      $=.Heading
+      <if what="$,TitleFull!='Untitled'">
+       &sp;- $=,TitleFull
+      </if>
+     </title>
+     <link>$the_site$.GrpDetailsHref</link>
+     <&nil;description>
+      <item_image posting='$.'>
+      $=.BodyHTML
+      <ifne what='$.Author'>
+       &lt;p&gt;&lt;i&gt;$=.Author&lt;/i&gt;&lt;/p&gt;
+      </ifne>
+     </description>
+     <guid>$the_site$.GrpDetailsHref</guid>
+     <pubDate>$.Sent@D, $.Sent@d&sp;$.Sent@M&sp;$.Sent@Y&sp;$.Sent@H:$.Sent@i:$.Sent@s&sp;GMT+2</pubDate>
+     <comments>$the_site/forum/$.Id/</comments>
+    </item>
+   </for>
+  </channel>
+ </rss>
+</xml>
