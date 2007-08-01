@@ -227,7 +227,7 @@
 	     text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
 	     arrow!="$index=='migdal.beitenu'"
 	     indent=1 class='topics-item eightpt'>
-<posting_last topic_id='$`methodics`' recursive='*true'>
+<posting_last topic_id='$`migdal.methodology`' recursive='*true'>
 <topics_line time='$,' text='Методический центр'
 	     href='/migdal/methodology/'
 	     title='Южно-украинский региональный методический центр'
