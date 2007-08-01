@@ -79,7 +79,7 @@ return new PostingsInfo($row);
 function getPostingsAnswersInfo($grp=GRP_NONE,$topic_id=-1,$user_id=0,
                                 $recursive=false,$asGuest=false)
 {
-if($grp==GRP_NONE)
+if(count($grp)==0)
   return new PostingsInfo(array());
 $hide='and '.postingsPermFilter(PERM_READ,'entries',$asGuest);
 $grpFilter='and '.grpFilter($grp,'grp');
@@ -101,6 +101,7 @@ function getPostingsInfo($grp=GRP_ALL,$topic_id=-1,$answers=GRP_NONE,
                          $user_id=0,$recursive=false,$asGuest=false)
 {
 $grp=grpArray($grp);
+$answers=grpArray($answers);
 $msgInfo=getPostingsMessagesInfo($grp,$topic_id,$user_id,$recursive,$asGuest);
 $ansInfo=getPostingsAnswersInfo($answers,$topic_id,$user_id,$recursive,$asGuest);
 $info=new PostingsInfo(array('total' => $msgInfo->getTotal()+

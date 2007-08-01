@@ -1,6 +1,7 @@
 function reloginInit() {
     var captcha = document.getElementById("captcha");
-    if (!document.getElementById("relogin-guest").checked) {
+    var rg = document.getElementById("relogin-guest");
+    if (!rg || !rg.checked) {
         captcha.style.display = "none";
     } else {
         captcha.style.display = "";

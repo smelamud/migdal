@@ -49,7 +49,10 @@ if($prefix!='' && substr($prefix,-1)!='.')
 $conds=array();
 foreach($grp as $i)
        $conds[]="${prefix}$field=$i";
-return '('.join(' or ',$conds).')';
+if(count($conds)==0)
+  return '1';
+else
+  return '('.join(' or ',$conds).')';
 }
 
 class GrpEditor
