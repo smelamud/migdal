@@ -31,60 +31,62 @@
 </element>
 
 <xml type='text/xml; charset="utf-8"'>
- <rss version="2.0">
-  <channel>
-   <title><asp>
-    <notenglish>Мигдаль<else>Migdal</notenglish>
-    <if what="$loc.Title!='' && $loc.Title!='Главная' && $loc.Title!='Main'">
-     &sp;- $=loc.Title<asp>
-    </if>
-   </title>
-   <link>$the_site$path</link>
-   <&nil;description><asp>
-    <ifne what='$topic.Body'>
-     $=topic.Body
-    <else>
-     <asp>Мигдаль<asp>
-    </ifne>
-   </description>
-   <&nil;image>
-    <url>$the_site$style_banner_logo</url>
-    <title>Мигдаль</title>
-    <link>$the_site/</link>
-   </image>
-   <language>ru-ru</language>
-   <webMaster>webmaster@migdal.ru (Dmitry E. Melamud)</webMaster>
-   <posting_last grp='$grp' topic_id='$topic_id' recursive='$recursive'>
-   <assign name='date' value#='$,@D, $,@d&sp;$,@M&sp;$,@Y&sp;$,@H:$,@i:$,@s&sp;GMT+2'>
-   <pubDate>$date</pubDate>
-   <lastBuildDate>$date</lastBuildDate>
-   <generator>Migdal website kernel</generator>
-   <ttl>15</ttl>
-   <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='$recursive'
-			limit=20 sort='*SORT_SENT' showshadows='$showshadows'
-			as_guest='*true'>
-   <for>
-    <item>
-     <location_info path#='/$.GrpGeneralHref'>
-     <title><asp>
-      $=.Heading
-      <if what="$,TitleFull!='Untitled'">
-       &sp;- $=,TitleFull
-      </if>
-     </title>
-     <link>$the_site$.GrpDetailsHref</link>
-     <&nil;description>
-      <item_image posting='$.'>
-      $=.BodyHTML
-      <ifne what='$.Author'>
-       &lt;p&gt;&lt;i&gt;$=.Author&lt;/i&gt;&lt;/p&gt;
-      </ifne>
-     </description>
-     <guid>$the_site$.GrpDetailsHref</guid>
-     <pubDate>$.Sent@D, $.Sent@d&sp;$.Sent@M&sp;$.Sent@Y&sp;$.Sent@H:$.Sent@i:$.Sent@s&sp;GMT+2</pubDate>
-     <comments>$the_site/forum/$.Id/</comments>
-    </item>
-   </for>
-  </channel>
- </rss>
+ <html_cache ident#='rss-$topic_id-$grp' period!='1 * 60 * 60'>
+  <&nil;rss version="2.0">
+   <channel>
+    <title><asp>
+     <notenglish>Мигдаль<else>Migdal</notenglish>
+     <if what="$loc.Title!='' && $loc.Title!='Главная' && $loc.Title!='Main'">
+      &sp;- $=loc.Title<asp>
+     </if>
+    </title>
+    <link>$the_site$path</link>
+    <&nil;description><asp>
+     <ifne what='$topic.Body'>
+      $=topic.Body
+     <else>
+      <asp>Мигдаль<asp>
+     </ifne>
+    </description>
+    <&nil;image>
+     <url>$the_site$style_banner_logo</url>
+     <title>Мигдаль</title>
+     <link>$the_site/</link>
+    </image>
+    <language>ru-ru</language>
+    <webMaster>webmaster@migdal.ru (Dmitry E. Melamud)</webMaster>
+    <posting_last grp='$grp' topic_id='$topic_id' recursive='$recursive'>
+    <assign name='date' value#='$,@D, $,@d&sp;$,@M&sp;$,@Y&sp;$,@H:$,@i:$,@s&sp;GMT+2'>
+    <pubDate>$date</pubDate>
+    <lastBuildDate>$date</lastBuildDate>
+    <generator>Migdal website kernel</generator>
+    <ttl>60</ttl>
+    <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='$recursive'
+			 limit=20 sort='*SORT_SENT' showshadows='$showshadows'
+			 as_guest='*true'>
+    <for>
+     <item>
+      <location_info path#='/$.GrpGeneralHref'>
+      <title><asp>
+       $=.Heading
+       <if what="$,TitleFull!='Untitled'">
+	&sp;- $=,TitleFull
+       </if>
+      </title>
+      <link>$the_site$.GrpDetailsHref</link>
+      <&nil;description>
+       <item_image posting='$.'>
+       $=.BodyHTML
+       <ifne what='$.Author'>
+	&lt;p&gt;&lt;i&gt;$=.Author&lt;/i&gt;&lt;/p&gt;
+       </ifne>
+      </description>
+      <guid>$the_site$.GrpDetailsHref</guid>
+      <pubDate>$.Sent@D, $.Sent@d&sp;$.Sent@M&sp;$.Sent@Y&sp;$.Sent@H:$.Sent@i:$.Sent@s&sp;GMT+2</pubDate>
+      <comments>$the_site/forum/$.Id/</comments>
+     </item>
+    </for>
+   </channel>
+  </rss>
+ </html_cache>
 </xml>

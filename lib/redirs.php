@@ -67,8 +67,11 @@ unset($Args['globalid']);
 if($globalid==0)
   {
   $requestURIS=addslashes($_SERVER['REQUEST_URI']);
-  sql("insert into redirs(up,uri)
-       values($redirid,'$requestURIS')",
+  $track=(string) time();
+  sql(sqlInsert('redirs',
+                array('up'    => $redirid,
+		      'track' => $track,
+		      'uri'   => $_SERVER['REQUEST_URI'])),
       __FUNCTION__);
   $id=sql_insert_id();
   $track=track($id,trackById('redirs',$redirid));
