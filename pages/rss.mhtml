@@ -7,9 +7,6 @@
 <int name='showshadows'>
 <string name='path'>
 
-<topic_obj name='topic' id='$topic_id'>
-<location_info name='loc' path='$path'>
-
 <assign name='the_site' value#='http://www.$siteDomain'>
 
 <element name='item_image' params='posting'>
@@ -32,6 +29,9 @@
 
 <xml type='text/xml; charset="utf-8"'>
  <html_cache ident#='rss-$topic_id-$grp' period!='1 * 60 * 60'>
+  <topic_obj name='topic' id='$topic_id'>
+  <location_info name='loc' path='$path'>
+
   <&nil;rss version="2.0">
    <channel>
     <title><asp>
