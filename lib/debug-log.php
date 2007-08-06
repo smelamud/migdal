@@ -16,7 +16,7 @@ define('LL_DEBUG',3);
 // Все выключено
 define('LL_OFF',4);
 
-if($logLevel<LL_OFF)
+if($debugLogLevel<LL_OFF)
   ini_set('track_errors',true);
 
 $debugLogFD=null;
