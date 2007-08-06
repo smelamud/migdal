@@ -13,6 +13,7 @@
   <td class='cframe'>
    <subtitle>
    <postings grp='*GRP_TAPE' topic_id='$`events,e`' limit=0>
+   <rss>
   </td>
  </tr></table>
  <bottom>

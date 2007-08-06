@@ -36,6 +36,7 @@
      <p>
      <seealso_frame>
      <gallery_main topic_id='$topic_id' offset='$offset'>
+     <rss>
     </common></td>
     <td width=130 class='nframe'><inner>
      <hit_parade_gallery_month grp='*GRP_GRAPHICS' topic_id='$topic_id'

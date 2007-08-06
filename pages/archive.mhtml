@@ -54,6 +54,7 @@
 	  <a href='$.GrpDetailsHref'>$=.Heading</a>
      </for>
     </dl>
+    <rss>
    </td>
   </tr>
  </table>

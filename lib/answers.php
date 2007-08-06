@@ -14,7 +14,7 @@ $result=sql("select answers,last_answer,last_answer_id,last_answer_user_id
 return mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
 }
 
-function answerSet($id,$answers,$last,$last_id,$last_user_id)
+function answerSet($id,$answers,$last,$last_id,$last_user_id,$incVersion=true)
 {
 if($id<=0)
   return;
@@ -23,7 +23,8 @@ sql("update entries
          last_answer_user_id=$last_user_id
      where id=$id or orig_id=$id",
     __FUNCTION__);
-incContentVersions('forums');
+if($incVersion)
+  incContentVersions('forums');
 // id=$id or orig_id=$id требуется для жалоб, у которых не проставлено orig_id
 }
 
@@ -66,6 +67,6 @@ $result=sql("select parent_id,count(*) as answers,
 while(list($id,$answers,$last)=mysql_fetch_array($result))
      {
      list($last_id,$last_user_id)=answerFindLastId($id);
-     answerSet($id,$answers,$last,$last_id,$last_user_id);
+     answerSet($id,$answers,$last,$last_id,$last_user_id,false);
      }
 }

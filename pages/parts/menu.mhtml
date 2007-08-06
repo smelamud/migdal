@@ -19,31 +19,37 @@
 <element name='menu'>
 <table class='menu' width=100% cellspacing=0 cellpadding=0 vspace=0>
  <notenglish>
-  <tr valign=bottom>
-   <td><asp>
-    <posting_last name='times_time' topic_id='$`times`' recursive='*true'>
-    <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_ALL'>
-    <posting_last name='gallery_time' grp='*GRP_GRAPHICS' topic_id='-1'>
-    <posting_last name='links_time' grp='*GRP_LINKS' topic_id='$`links`'
-		  recursive='*true'>
-    <menuitem ident='index' alt='Главная' link='/' current='$ident'>
-    <menuitem ident='times' alt='Мигдаль Times' link='/times/' current='$ident'
-              time='$times_time'>
-    <menuitem ident='discuss' alt='Форум' link='/forum/' current='$ident'
-              time='$forums_time'>
-    <menuitem ident='gallery' alt='Галерея' link='/gallery/' current='$ident'
-              time='$gallery_time'>
-    <menuitem ident='links' alt='Ссылки' link='/links/' current='$ident'
-              time='$links_time'>
-    <menuitem ident='users' alt='Пользователи' link='/users/' current='$ident'>
-   <asp></td>
-   <td align=right><asp>
-    <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
-    <asp><noindex><menuitem ident='setup' alt='Настройки'
-                            link#='/setup/?redirid=$_'
-			    current='$ident'></noindex><asp>
-   <asp></td>
-  </tr>
+  <html_cache ident#='menu-$ident' period!='3 * 60 * 60'
+              depends='postings,forums'>
+   <tr valign=bottom>
+    <td><asp>
+     <posting_last name='times_time' topic_id='$`times`' recursive='*true'
+                   as_guest='*true'>
+     <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_ALL'
+                   as_guest='*true'>
+     <posting_last name='gallery_time' grp='*GRP_GRAPHICS' topic_id='-1'
+                   as_guest='*true'>
+     <posting_last name='links_time' grp='*GRP_LINKS' topic_id='$`links`'
+		   recursive='*true' as_guest='*true'>
+     <menuitem ident='index' alt='Главная' link='/' current='$ident'>
+     <menuitem ident='times' alt='Мигдаль Times' link='/times/' current='$ident'
+	       time='$times_time'>
+     <menuitem ident='discuss' alt='Форум' link='/forum/' current='$ident'
+	       time='$forums_time'>
+     <menuitem ident='gallery' alt='Галерея' link='/gallery/' current='$ident'
+	       time='$gallery_time'>
+     <menuitem ident='links' alt='Ссылки' link='/links/' current='$ident'
+	       time='$links_time'>
+     <menuitem ident='users' alt='Пользователи' link='/users/' current='$ident'>
+    <asp></td>
+    <td align=right><asp>
+     <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
+     <asp><noindex><menuitem ident='setup' alt='Настройки'
+			     link#='/setup/?redirid=$_'
+			     current='$ident'></noindex><asp>
+    <asp></td>
+   </tr>
+  </html_cache>
  </notenglish>
  <tr><td colspan=2 class='date' align=right><today>&nbsp;</td></tr>
 </table>

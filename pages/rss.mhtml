@@ -2,33 +2,37 @@
 
 <conf>
 <ident name='topic_id'>
+<int name='user_id'>
 <string name='grp'>
 <int name='recursive'>
 <int name='showshadows'>
 <string name='path'>
+<int name='limit'>
 
-<assign name='the_site' value#='http://www.$siteDomain'>
+<ifzero what='$limit'>
+ <assign name='limit' value='20'>
+</ifzero>
+
+<assign name='the_site' value#='http://$userDomain.$siteDomain'>
 
 <element name='item_image' params='posting'>
 <if what='$posting.hasSmallImage'>
  <if what='$posting.hasLargeImage'>
   &lt;a href='$the_site$posting.LargeImageURL'
 	title='Нажмите, чтобы увеличить'&gt;
-  <asp>&lt;img border=0 align='left' width='$posting.SmallImageX'
-	       height='$posting.SmallImageY'
-	       src='$the_site$posting.SmallImageURL'
-	       style='margin: 5px' hspace='5'&gt;<asp>
+  <asp>&lt;img border=0 width='$posting.SmallImageX'
+               height='$posting.SmallImageY'
+	       src='$the_site$posting.SmallImageURL'&gt;<asp>
   &lt;/a&gt;
  <else>
   <asp>&lt;img border=0 width='$posting.ImageX' height='$posting.ImageY'
-	       src='$the_site$posting.ImageURL' align='left'
-	       style='margin: 5px' hspace='5'&gt;<asp>
+	       src='$the_site$posting.ImageURL'&gt;<asp>
  </if>
 </if>
 </element>
 
 <xml type='text/xml; charset="utf-8"'>
- <html_cache ident#='rss-$topic_id-$grp' period!='1 * 60 * 60'>
+ <html_cache ident#='rss-$topic_id-$grp-$user_id' period!='1 * 60 * 60'>
   <topic_obj name='topic' id='$topic_id'>
   <location_info name='loc' path='$path'>
 
@@ -62,8 +66,8 @@
     <generator>Migdal website kernel</generator>
     <ttl>60</ttl>
     <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='$recursive'
-			 limit=20 sort='*SORT_SENT' showshadows='$showshadows'
-			 as_guest='*true'>
+			 user_id='$user_id' limit='$limit' sort='*SORT_SENT'
+			 showshadows='$showshadows' as_guest='*true'>
     <for>
      <item>
       <location_info path#='/$.GrpGeneralHref'>
@@ -75,11 +79,23 @@
       </title>
       <link>$the_site$.GrpDetailsHref</link>
       <&nil;description>
-       <item_image posting='$.'>
-       $=.BodyHTML
-       <ifne what='$.Author'>
-	&lt;p&gt;&lt;i&gt;$=.Author&lt;/i&gt;&lt;/p&gt;
-       </ifne>
+       <outer>
+	&lt;table width='100%' cellspacing='0' cellpadding='0'&gt;
+	 &lt;tr valign='top'&gt;
+	  &lt;td align='left' width='105'&gt;
+	   <inner><item_image posting='$.'></inner>
+	  &lt;/td&gt;
+	  &lt;td&gt;
+	   <common>
+	    $=.BodyHTML
+	    <ifne what='$.Author'>
+	     &lt;p&gt;&lt;i&gt;$=.Author&lt;/i&gt;&lt;/p&gt;
+	    </ifne>
+	   </common>
+	  &lt;/td&gt;
+	 &lt;/tr&gt;
+	&lt;/table&gt;
+       </outer>
       </description>
       <guid>$the_site$.GrpDetailsHref</guid>
       <pubDate>$.Sent@D, $.Sent@d&sp;$.Sent@M&sp;$.Sent@Y&sp;$.Sent@H:$.Sent@i:$.Sent@s&sp;GMT+2</pubDate>

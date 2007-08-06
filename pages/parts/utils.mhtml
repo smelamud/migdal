@@ -201,12 +201,14 @@
 
 <element name='rss'>
 <ifne what='$$rss_href'>
- <table width='100%' cellspacing='0' cellpadding='3'><tr valign='center'>
-  <td>&nbsp;</td>
-  <td align='right' width='1'><a href='$$rss_href'>RSS</a></td>
-  <td align='right' width='1'>
-   <a href='$$rss_href'><image src='/pics/rss_new.png' border='0'></a>
-  </td>
- </tr></table>
+ <table width='100%' cellspacing='0' cellpadding='3' style='clear: both'>
+  <tr valign='center'>
+   <td>&nbsp;</td>
+   <td align='right' width='1'><a href='$$rss_href'>RSS</a></td>
+   <td align='right' width='1'>
+    <a href='$$rss_href'><image src='/pics/rss_new.png' border='0'></a>
+   </td>
+  </tr>
+ </table>
 </ifne>
 </element>

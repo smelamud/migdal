@@ -15,7 +15,9 @@
 		  selected!='$;NextPosition==$$userStyle'>
     </for>
    </form_select>
-   <form_select title='Показывать обновления за' name='biffTime' style='list'>
+   << FIXME В этой настройке нет смысла, если содержимое кэшируется вместе с
+      отметкой об обновлениях >>
+   <<form_select title='Показывать обновления за' name='biffTime' style='list'>
     <form_option value=3 selected!='$$userBiffTime==3' title='3 часа'>
     <form_option value=6 selected!='$$userBiffTime==6' title='6 часов'>
     <form_option value=12 selected!='$$userBiffTime==12' title='12 часов'>
@@ -24,7 +26,8 @@
     <form_option value=72 selected!='$$userBiffTime==72' title='3 дня'>
     <form_option value=120 selected!='$$userBiffTime==120' title='5 дней'>
     <form_option value=168 selected!='$$userBiffTime==168' title='7 дней'>
-   </form_select>
+   </form_select>>
+   <hidden name='biffTime' value='24'>
    <form_select title='Сообщений в форуме' name='forumPortion' style='list'
                 comment='Количество сообщений на одной странице форума'>
     <array vals='10 15 20 25 30 35 40'>

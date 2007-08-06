@@ -47,5 +47,6 @@
   </tr>
  </table>
  <batcher list='$list' topic_id='$topic_id' noguests='$noguests' noadd='$noadd'>
+ <rss>
 </ifnzero>
 </element>

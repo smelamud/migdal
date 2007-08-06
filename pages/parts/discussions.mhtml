@@ -2,28 +2,31 @@
 
 <element name='discussions'>
 <grps>
-<topics_table class='eightpt' title='$title'>
- <grp_diff name='withanswers' grp1='*GRP_DISCUSS' grp2='*GRP_FORUMS'>
- <iterate_postinglist grp='*GRP_DISCUSS' topic_id='$topic_id' limit='$limit'
-		      sort='*SORT_ACTIVITY' showshadows='*false'
-		      withanswers='$withanswers'>
- <for>
-  <ifzero what='$.LastAnswer'>
-   <assign name='last' value='$.Sent'>
-   <assign name='login' value='$.Login'>
-  <else>
-   <assign name='last' value='$.LastAnswer'>
-   <user_obj id='$.LastAnswerUserId'>
-   <assign name='login' value='$,Login'>
-  </ifzero>
-  <ifnzero what='$.Answers'>
-   <assign name='href' value#='/forum/$.Id/'>
-  <else>
-   <assign name='href' value#='/forum/$.Id/add/'>
-  </ifnzero>
-  <topics_line time!='$.Sent>$.LastAnswer ? $.Sent : $.LastAnswer'
-               href='$href' text='$=.Heading' count='$.Answers'
-               title#='$login - $last@j.$last@m.$last@Y&sp;$last@H:$last@i'>
- </for>
-</topics_table>
+<html_cache ident#='discussions-$topic_id' period!='3 * 60 * 60'
+            depends='postings,forums'>
+ <topics_table class='eightpt' title='$title'>
+  <grp_diff name='withanswers' grp1='*GRP_DISCUSS' grp2='*GRP_FORUMS'>
+  <iterate_postinglist grp='*GRP_DISCUSS' topic_id='$topic_id' limit='$limit'
+		       sort='*SORT_ACTIVITY' showshadows='*false'
+		       withanswers='$withanswers' as_guest='*true'>
+  <for>
+   <ifzero what='$.LastAnswer'>
+    <assign name='last' value='$.Sent'>
+    <assign name='login' value='$.Login'>
+   <else>
+    <assign name='last' value='$.LastAnswer'>
+    <user_obj id='$.LastAnswerUserId'>
+    <assign name='login' value='$,Login'>
+   </ifzero>
+   <ifnzero what='$.Answers'>
+    <assign name='href' value#='/forum/$.Id/'>
+   <else>
+    <assign name='href' value#='/forum/$.Id/add/'>
+   </ifnzero>
+   <topics_line time!='$.Sent>$.LastAnswer ? $.Sent : $.LastAnswer'
+		href='$href' text='$=.Heading' count='$.Answers'
+		title#='$login - $last@j.$last@m.$last@Y&sp;$last@H:$last@i'>
+  </for>
+ </topics_table>
+</html_cache>
 </element>

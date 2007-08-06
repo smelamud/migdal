@@ -16,4 +16,5 @@ CREATE TABLE `html_cache` (
 `topics_version` INT NULL ,
 PRIMARY KEY ( `ident` )
 ) ENGINE = MYISAM ;
+ALTER TABLE `users`  DEFAULT CHARACTER SET koi8u COLLATE koi8u_general_ci ;
 UPDATE `version` SET `db_version` = '12' WHERE `version`.`db_version` =11 LIMIT 1 ;
