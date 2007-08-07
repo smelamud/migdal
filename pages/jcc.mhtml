@@ -24,6 +24,7 @@
      <article_controls posting='$,'>
     </div>
    </ifnzero>
+   <rss>
   </td>
  </tr></table>
  <bottom>

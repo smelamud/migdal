@@ -126,6 +126,7 @@
       <daily_ring current='$posting' event='$event'>
       <controls posting='$posting' event='$event'>
      </ifnzero>
+     <rss>
     </td>
     <outer><td width=140><inner>
      <reset_iterator>

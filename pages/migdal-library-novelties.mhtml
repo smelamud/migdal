@@ -20,6 +20,7 @@
     <seealso_frame>
     <postings grp='*GRP_PRINTINGS' topic_id='$`migdal.library`' limit=10
               offset='$offset' showshadows='*true' showadvert='*false'>
+    <rss>
    </td>
   </tr>
  </table>

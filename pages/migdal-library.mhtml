@@ -48,6 +48,7 @@
      <article posting='$,' withvote='*false'>
      <article_controls posting='$,'>
     </span>
+    <rss>
    </ifnzero>
   </td>
  </tr></table>

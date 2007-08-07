@@ -60,18 +60,21 @@
      </tr>
      <tr><td class='textears-split' height=5>&nbsp;</td></tr>
     </table>
-    <iterate_topiclist grp='*GRP_ALL' up='$`migdal.events`'>
-    <iterate_rows cols=3>
-    <table width=100% cellpadding=10 cellspacing=0><tr valign='top'>
-     <for>
-      <td width=180>
-       <topics_common_events id='$.Id' class_line='none'>
-      </td>
-      <if what='$;isEol'>
-       <td>&nbsp;</td></tr><tr valign='top'>
-      </if>
-     </for>
-    </tr></table>
+    <html_cache ident='events_table' depends='topics'>
+     <iterate_topiclist grp='*GRP_ALL' up='$`migdal.events`'>
+     <iterate_rows cols=3>
+     <table width=100% cellpadding=10 cellspacing=0><tr valign='top'>
+      <for>
+       <td width=180>
+	<topics_common_events id='$.Id' class_line='none'>
+       </td>
+       <if what='$;isEol'>
+	<td>&nbsp;</td></tr><tr valign='top'>
+       </if>
+      </for>
+     </tr></table>
+    </html_cache>
+    <rss>
    </td>
   </tr>
  </table>

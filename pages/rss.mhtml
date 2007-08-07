@@ -2,12 +2,28 @@
 
 <conf>
 <ident name='topic_id'>
-<int name='user_id'>
+<ident name='topic_id2'>
 <string name='grp'>
+<string name='grp2'>
 <int name='recursive'>
+<int name='recursive2'>
+<int name='user_id'>
 <int name='showshadows'>
 <string name='path'>
 <int name='limit'>
+
+<ifnzero what='$topic_id2'>
+ <array name='topic_ids' val1='$topic_id' val2='$topic_id2'>
+ <array name='recursives' val1='$recursive' val2='$recursive2'>
+<else>
+ <array name='topic_ids' val1='$topic_id'>
+ <array name='recursives' val1='$recursive'>
+</ifnzero>
+<ifne what='$grp2'>
+ <grp_join name='grps' grp1='$grp' grp2='$grp2'>
+<else>
+ <assign name='grps' value='$grp'>
+</ifne>
 
 <ifzero what='$limit'>
  <assign name='limit' value='20'>
@@ -32,7 +48,8 @@
 </element>
 
 <xml type='text/xml; charset="utf-8"'>
- <html_cache ident#='rss-$topic_id-$grp-$user_id' period!='1 * 60 * 60'>
+ <html_cache ident#='rss-$topic_id-$topic_id2-$grp-$grp2-$user_id'
+             period!='1 * 60 * 60'>
   <topic_obj name='topic' id='$topic_id'>
   <location_info name='loc' path='$path'>
 
@@ -59,14 +76,15 @@
     </image>
     <language>ru-ru</language>
     <webMaster>webmaster@migdal.ru (Dmitry E. Melamud)</webMaster>
-    <posting_last grp='$grp' topic_id='$topic_id' recursive='$recursive'>
+    <posting_last grp='$grps' topic_id='$topic_ids' recursive='$recursives'>
     <assign name='date' value#='$,@D, $,@d&sp;$,@M&sp;$,@Y&sp;$,@H:$,@i:$,@s&sp;GMT+2'>
     <pubDate>$date</pubDate>
     <lastBuildDate>$date</lastBuildDate>
     <generator>Migdal website kernel</generator>
     <ttl>60</ttl>
-    <iterate_postinglist grp='$grp' topic_id='$topic_id' recursive='$recursive'
-			 user_id='$user_id' limit='$limit' sort='*SORT_SENT'
+    <iterate_postinglist grp='$grps' topic_id='$topic_ids'
+                         recursive='$recursives'
+			 user='$user_id' limit='$limit' sort='*SORT_SENT'
 			 showshadows='$showshadows' as_guest='*true'>
     <for>
      <item>

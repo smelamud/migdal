@@ -73,6 +73,7 @@
     <ifnzero what='$;Count'>
      <batcher printings='$printings'>
     </ifnzero>
+    <rss>
    </td>
   </tr>
  </table>

@@ -44,11 +44,11 @@ if(is_array($topic_id))
   {
   $topicFilter='';
   $op='';
-  foreach($topic_id as $id => $recursive)
-         {
-         $topicFilter.=" $op ".subtree('entries',$id,$recursive);
-	 $op='or';
-	 }
+  for($i=0;$i<count($topic_id);$i++)
+     {
+     $topicFilter.=" $op ".subtree('entries',$topic_id[$i],$recursive[$i]);
+     $op='or';
+     }
   $topicFilter=" and ($topicFilter)";
   }
 else

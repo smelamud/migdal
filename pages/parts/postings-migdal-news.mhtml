@@ -26,7 +26,7 @@
 <perms id='$topic_id'>
 <assign name='access' value='$,isPostable'>
 <if what='$topic_id==$`migdal`'>
- <array name='topic_ids' val1='$topic_id' val2='$`events`'>
+ <array name='topic_ids' val1='$topic_id' val2='$`migdal.events`'>
  <array name='recursive' val1='*true' val2='*true'>
 <else>
  <array name='topic_ids' val1='$topic_id'>

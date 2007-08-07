@@ -4,17 +4,7 @@
 require_once('conf/migdal.conf');
 
 require_once('lib/bug.php');
-
-// Все включено
-define('LL_ALL',0);
-// Информация о вызываемых библиотечных функциях и их параметрах
-define('LL_FUNCTIONS',1);
-// Пошаговая информация о работе функций
-define('LL_DETAILS',2);
-// Избыточная отладочная информация
-define('LL_DEBUG',3);
-// Все выключено
-define('LL_OFF',4);
+require_once('lib/debug-log-levels.php');
 
 if($debugLogLevel<LL_OFF)
   ini_set('track_errors',true);
