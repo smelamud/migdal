@@ -3,7 +3,7 @@
 
 require_once('lib/grps.php');
 require_once('lib/modbits.php');
-require_once('lib/text.php');
+require_once('lib/text-formats.php');
 require_once('lib/debug-log-levels.php');
 
 #****************************#
