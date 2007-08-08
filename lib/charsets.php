@@ -60,6 +60,32 @@ $s=preg_replace('/&#x?([\dA-Fa-f]+);/e',"entityToChar('\\0','$i_charset')",$s);
 return $icharset==$ocharset ? $s : @iconv($i_charset,$o_charset,$s);
 }
 
+function iconvMaxSubstr($s,$i_charset,$o_charset,$icsize)
+{
+global $brokenIconv;
+
+if(!$brokenIconv)
+  return @iconv($i_charset,$o_charset,$s);
+$c='';
+$pos=$icsize==2 ? 1 : 0;
+$len=(int)(strlen($s)/($icsize*2));
+while($len!=0)
+     {
+     $ichunk=substr($s,$pos*$icsize,$len*$icsize);
+     if($icsize==2)
+       $ichunk=substr($s,0,2).$ichunk;
+     $ochunk=@iconv($i_charset,$o_charset,$ichunk);
+     if($ochunk!='')
+       {
+       $c.=$ochunk;
+       $pos+=strlen($ochunk); // Output charset is 8-bit
+       }
+     else
+       $len=(int)($len/2);
+     }
+return $c;
+}
+
 function convertCharset($s,$i_charset,$o_charset)
 {
 $icharset=charsetName($i_charset);
@@ -90,7 +116,7 @@ while(true)
      $chunk=substr($s,$pos*$icsize);
      if($icsize==2)
        $chunk=($lsb==0 ? "\xff\xfe" : "\xfe\xff").$chunk;
-     $chunk=@iconv($i_charset,$o_charset,$chunk);
+     $chunk=iconvMaxSubstr($chunk,$i_charset,$o_charset,$icsize);
      if(strlen($chunk)>=strlen($s)/$icsize-$pos)
        {
        $c.=$chunk;

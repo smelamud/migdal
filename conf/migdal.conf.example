@@ -35,6 +35,10 @@ $charsetInternal='KOI8-U';
 # Внешняя кодировка, нотация iconv
 $charsetExternal='CP1251';
 
+# iconv() не возвращает частично сконвертированную строку (такое поведение
+# замечено, например, на FreeBSD)
+$brokenIconv=false;
+
 # Домен сайта
 $siteDomain='migdal.localhost';
 
