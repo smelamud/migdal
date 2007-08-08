@@ -119,7 +119,8 @@ return "displaymailing_$template";
 
 function formatMail($template,$params)
 {
-global $mailSubjectPrefix,$charsetExternal,$mailFromAddress,$mailReplyToAddress;
+global $mailSubjectPrefix,$charsetExternal,$mailFromAddress,$mailReplyToAddress,
+       $mailHeadersDelimiter;
 
 debugLog(LL_FUNCTIONS,'formatMail(template=%,params=%)',
          array($template,$params));
@@ -136,7 +137,7 @@ if(function_exists($func))
   $result[0]=convertOutput($mailSubjectPrefix).$result[0];
   $result[0]="=?$charsetExternal?B?".base64_encode($result[0]).'?=';
   // Headers
-  $result[1]=join("\r\n",
+  $result[1]=join($mailHeadersDelimiter,
                   array("From: $mailFromAddress",
                         "Reply-To: $mailReplyToAddress",
                         "Content-Type: text/plain; charset=$charsetExternal",
