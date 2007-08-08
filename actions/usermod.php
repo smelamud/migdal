@@ -56,7 +56,7 @@ if($user->id==0)
 if(!$userAdminUsers)
   $user->rights=$user->rights & USR_USER | $original->rights & ~USR_USER;
 storeUser($user);
-if($user->id==0)
+if($original->id==0)
   if(!$userAdminUsers)
     {
     preconfirmUser($user->getId());
