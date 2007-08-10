@@ -10,14 +10,17 @@
 </element>
 
 <element name='topics_common_events'>
-<topic_obj name='topic' id='$id'>
-<topics_table class='ninept' title='$=,Subject'>
- <iterate_topiclist grp!='*GRP_EVENT' up='$,Id' recursive='*false'
-                    sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_INFO'>
- <for>
-  <assign name='info' value='$.PostingsInfo'>
-  <topics_line time='$info.MaxSent' text='$=.Comment1' title='$=.BodyNormal'
-               href#='/$.Catalog' class='$class_line'>
- </for>
-</topics_table>
+<html_cache ident#='topics_common_events-$id' period!='3 * 60 * 60'
+            depends='postings,topics'>
+ <topic_obj name='topic' id='$id'>
+ <topics_table class='ninept' title='$=,Subject'>
+  <iterate_topiclist grp!='*GRP_EVENT' up='$,Id' recursive='*false'
+		     sort='*SORT_RINDEX2_RINDEX0' fields='*SELECT_INFO'>
+  <for>
+   <assign name='info' value='$.PostingsInfo'>
+   <topics_line time='$info.MaxSent' text='$=.Comment1' title='$=.BodyNormal'
+		href#='/$.Catalog' class='$class_line'>
+  </for>
+ </topics_table>
+</html_cache>
 </element>

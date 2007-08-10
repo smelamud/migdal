@@ -42,7 +42,6 @@ var $perms=PERM_NONE;
 var $perm_string='';
 var $disabled=0;
 var $subject='';
-var $subject_sort='';
 var $lang='';
 var $author='';
 var $author_xml='';

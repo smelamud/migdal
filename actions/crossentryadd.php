@@ -44,7 +44,6 @@ $cross->peer_name=$info->getLinkName()!='' ? $info->getLinkName() : null;
 $cross->peer_id=$info->getLinkId()>0 ? $info->getLinkId() : null;
 $cross->peer_path=$peer_path;
 $cross->peer_subject=$info->getLinkTitle();
-$cross->peer_subject_sort=convertSort($cross->peer_subject);
 $cross->peer_icon=$info->getLinkIcon();
 storeCrossEntry($cross);
 return EG_OK;

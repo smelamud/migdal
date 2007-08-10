@@ -40,15 +40,11 @@ class User
       extends UserTag
 {
 var $id;
-var $login_sort;
 var $password;
 var $dup_password;
 var $name;
-var $name_sort;
 var $jewish_name;
-var $jewish_name_sort;
 var $surname;
-var $surname_sort;
 var $info;
 var $info_xml;
 var $birthday;
@@ -81,15 +77,11 @@ global $tfUser;
 if(!isset($vars['edittag']) || !$vars['edittag'])
   return;
 $this->login=$vars['new_login'];
-$this->login_sort=convertSort($this->login);
 $this->password=$vars['new_password'];
 $this->dup_password=$vars['dup_password'];
 $this->name=$vars['name'];
-$this->name_sort=convertSort($this->name);
 $this->jewish_name=$vars['jewish_name'];
-$this->jewish_name_sort=convertSort($this->jewish_name);
 $this->surname=$vars['surname'];
-$this->surname_sort=convertSort($this->surname);
 $this->gender=$vars['gender'];
 $this->rights=disjunct($vars['rights']);
 $this->info=$vars['info'];
@@ -410,27 +402,26 @@ function UserListIterator($prefix,$sort=SORT_LOGIN,$right=USR_NONE)
 global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
-$sortFields=array(SORT_LOGIN       => 'login_sort',
-		  SORT_NAME        => 'name_sort',
-		  SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
-			                  jewish_name_sort,name_sort)',
-		  SORT_SURNAME     => 'surname_sort');
+$sortFields=array(SORT_LOGIN       => 'login',
+		  SORT_NAME        => 'name',
+		  SORT_JEWISH_NAME => 'if(jewish_name<>"",jewish_name,name)',
+		  SORT_SURNAME     => 'surname');
 if($prefix!='')
   {
-  $sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login_sort';
-  $fieldFilter="and ($sortField like '".convertSort($prefix)."%'
-                     or $sortField like '".convertSort(strtolower($prefix))."%')";
+  $prefixS=addslashes($prefix);
+  $sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login';
+  $fieldFilter="and ($sortField like '$prefixS%')";
   }
 else
   $fieldFilter='';
 $rightFilter=$right!=USR_NONE ? "and (rights & $right)<>0" : '';
 $order=getOrderBy($sort,
-                  array(SORT_LOGIN       => 'login_sort',
-		        SORT_NAME        => 'name_sort,surname_sort',
-		        SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
-			                        jewish_name_sort,name_sort),
-					     surname_sort',
-		        SORT_SURNAME     => 'surname_sort,name_sort'));
+                  array(SORT_LOGIN       => 'login',
+		        SORT_NAME        => 'name,surname',
+		        SORT_JEWISH_NAME => 'if(jewish_name<>"",
+			                        jewish_name,name),
+					     surname',
+		        SORT_SURNAME     => 'surname,name'));
 parent::SelectIterator(
 	'User',
 	"select id,login,name,jewish_name,surname,gender,birthday,rights,email,
@@ -443,7 +434,6 @@ parent::SelectIterator(
 		       -unix_timestamp(now()))/86400) as confirm_days
 	 from users
 	 where hidden<$hide $fieldFilter $rightFilter
-	 group by users.id
 	 $order");
 }
 
@@ -463,18 +453,18 @@ $fields=array(SORT_LOGIN       => 'login',
 	      SORT_JEWISH_NAME => 'if(jewish_name<>"",jewish_name,name)',
 	      SORT_SURNAME     => 'surname');
 $field=@$fields[$sort]!='' ? $fields[$sort] : 'login';
-$sortFields=array(SORT_LOGIN       => 'login_sort',
-		  SORT_NAME        => 'name_sort',
-		  SORT_JEWISH_NAME => 'if(jewish_name_sort<>"",
-			                  jewish_name_sort,name_sort)',
-		  SORT_SURNAME     => 'surname_sort');
-$sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login_sort';
+$sortFields=array(SORT_LOGIN       => 'login',
+		  SORT_NAME        => 'name',
+		  SORT_JEWISH_NAME => 'if(jewish_name<>"",
+			                  jewish_name,name)',
+		  SORT_SURNAME     => 'surname');
+$sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login';
 $order=getOrderBy($sort,$sortFields);
 parent::AlphabetIterator("select left($field,@len@) as letter,1 as count
                           from users
 			  where hidden<$hide and guest=0
 			        and $sortField like '@prefix@%'
-			  $order",$limit,true);
+			  $order",$limit);
 }
 
 }
@@ -496,8 +486,7 @@ $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
 			   -unix_timestamp(now()))/86400) as confirm_days
 	     from users
 	     where users.id=$id and (hidden<$hide or guest<>0
-	                             or users.id=$userId)
-	     group by users.id",
+	                             or users.id=$userId)",
 	    __FUNCTION__);
 return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                           : array('id' => 0));
@@ -507,20 +496,15 @@ function storeUser(&$user)
 {
 global $userAdminUsers;
 
-$jencoded=array('login' => '','login_sort' => '','password' => '','name' => '',
-                'name_sort' => '','jewish_name' => '','jewish_name_sort' => '',
-                'surname' => '','surname_sort' => '','info' => '',
-                'info_xml' => '','email' => '','icq' => '','settings' => '');
+$jencoded=array('login' => '','password' => '','name' => '','jewish_name' => '',
+                'surname' => '','info' => '','info_xml' => '','email' => '',
+		'icq' => '','settings' => '');
 // Здесь допускается установка админских прав не админом! Проверка должна
 // производиться раньше.
 $vars=array('login' => $user->login,
-            'login_sort' => $user->login_sort,
             'name' => $user->name,
-            'name_sort' => $user->name_sort,
             'jewish_name' => $user->jewish_name,
-            'jewish_name_sort' => $user->jewish_name_sort,
             'surname' => $user->surname,
-            'surname_sort' => $user->surname_sort,
             'gender' => $user->gender,
             'info' => $user->info,
             'info_xml' => $user->info_xml,
@@ -717,7 +701,7 @@ $result=sql("select id
 	     from users
 	     where guest<>0 and
 		   last_online+interval $shortSessionTimeout hour<now()
-	     order by login_sort
+	     order by login
 	     limit 1",
 	    __FUNCTION__,'locate_free');
 if(mysql_num_rows($result)>0)
@@ -725,7 +709,7 @@ if(mysql_num_rows($result)>0)
 $result=sql("select login
 	     from users
 	     where guest<>0
-	     order by login_sort desc
+	     order by login desc
 	     limit 1",
 	    __FUNCTION__,'find_last');
 if(mysql_num_rows($result)>0)
@@ -749,17 +733,15 @@ if(mysql_num_rows($result)>0)
   }
 else
   $login="$guestLogin-0";
-$login_sort=convertSort($login);
 $now=sqlNow();
-sql("insert into users(login,login_sort,email_disabled,guest,hidden,no_login,
-                       created,modified)
-     values('$login','$login_sort',1,1,2,1,'$now','$now')",
+sql("insert into users(login,email_disabled,guest,hidden,no_login,created,
+                       modified)
+     values('$login',1,1,2,1,'$now','$now')",
     __FUNCTION__,'create');
 $id=sql_insert_id();
-journal("insert into users(login,login_sort,email_disabled,guest,hidden,
-                           no_login,created,modified)
-         values('".jencode($login)."','".jencode($login_sort)."',1,1,2,1,
-	        '$now','$now')",
+journal("insert into users(login,email_disabled,guest,hidden,no_login,created,
+                           modified)
+         values('".jencode($login)."',1,1,2,1,'$now','$now')",
 	 'users',$id);
 return $id;
 }

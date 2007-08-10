@@ -14,6 +14,8 @@ var $postings_version=null;
 var $forums_version=null;
 var $topics_version=null;
 
+var $condition=true;
+
 function HTMLCacheRecord($row)
 {
 parent::DataObject($row);
@@ -54,6 +56,11 @@ function getTopicsVersion()
 return $this->topics_version;
 }
 
+function isCondition()
+{
+return $this->condition;
+}
+
 }
 
 $htmlCacheStack=array();
@@ -74,41 +81,46 @@ if(count($htmlCacheStack)==0)
 return array_pop($htmlCacheStack);
 }
 
-function getHTMLCacheRecord($ident,$period=null,$depends=array())
+function getHTMLCacheRecord($ident,$period=null,$depends=array(),
+                            $condition=true)
 {
 global $contentVersions;
 
-$filter='';
-if($period!=null)
-  $filter.=' and deadline>=now()';
-foreach($depends as $dep)
-       {
-       $name="${dep}_version";
-       if(isset($contentVersions[$name]))
-         $filter.=" and $name>=".$contentVersions[$name];
-       }
-$result=sql("select ident,content,deadline
-             from html_cache
-	     where ident='$ident' $filter",
-	    __FUNCTION__);
-if(mysql_num_rows($result)>0)
-  return new HTMLCacheRecord(mysql_fetch_assoc($result));
-else
+if($condition)
   {
-  $vars=array('ident' => $ident,
-	      'deadline' => $period!=null ? sqlDate(time()+$period) : null);
+  $filter='';
+  if($period!=null)
+    $filter.=' and deadline>=now()';
   foreach($depends as $dep)
 	 {
 	 $name="${dep}_version";
 	 if(isset($contentVersions[$name]))
-	   $vars[$name]=$contentVersions[$name];
+	   $filter.=" and $name>=".$contentVersions[$name];
 	 }
-  return new HTMLCacheRecord($vars);
+  $result=sql("select ident,content,deadline
+	       from html_cache
+	       where ident='$ident' $filter",
+	      __FUNCTION__);
+  if(mysql_num_rows($result)>0)
+    return new HTMLCacheRecord(mysql_fetch_assoc($result));
   }
+
+$vars=array('ident' => $ident,
+	    'deadline' => $period!=null ? sqlDate(time()+$period) : null,
+	    'condition' => $condition);
+foreach($depends as $dep)
+       {
+       $name="${dep}_version";
+       if(isset($contentVersions[$name]))
+	 $vars[$name]=$contentVersions[$name];
+       }
+return new HTMLCacheRecord($vars);
 }
 
 function storeHTMLCacheRecord($record,$content)
 {
+if(!$record->condition)
+  return;
 $vars=array('ident' => $record->ident,
             'content' => $content,
  	    'deadline' => $record->deadline,

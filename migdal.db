@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.0.41-Debian_2-log
+-- Server version	5.0.32-Debian_7etch1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +27,7 @@ CREATE TABLE `captcha_keys` (
   `created` datetime NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `keystring` (`keystring`,`sid`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `chat_messages`
@@ -93,7 +93,7 @@ CREATE TABLE `counters` (
   KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15739 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=15915 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `counters_ip`
@@ -122,7 +122,6 @@ CREATE TABLE `cross_entries` (
   `peer_id` int(11) default NULL,
   `peer_path` varchar(255) collate koi8u_bin NOT NULL,
   `peer_subject` varchar(255) collate koi8u_bin NOT NULL,
-  `peer_subject_sort` varchar(255) collate koi8u_bin NOT NULL,
   `peer_icon` varchar(64) collate koi8u_bin NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `source_id` (`source_id`,`source_name`,`link_type`),
@@ -151,7 +150,6 @@ CREATE TABLE `entries` (
   `perms` int(11) NOT NULL,
   `disabled` tinyint(4) NOT NULL,
   `subject` varchar(255) collate koi8u_bin NOT NULL,
-  `subject_sort` varchar(255) collate koi8u_bin NOT NULL,
   `lang` varchar(7) collate koi8u_bin NOT NULL,
   `author` varchar(255) collate koi8u_bin NOT NULL,
   `author_xml` varchar(255) collate koi8u_bin NOT NULL,
@@ -223,7 +221,6 @@ CREATE TABLE `entries` (
   KEY `group_id` (`group_id`),
   KEY `perms` (`perms`),
   KEY `disabled` (`disabled`),
-  KEY `subject_sort` (`subject_sort`),
   KEY `url_domain` (`url_domain`),
   KEY `url_check` (`url_check`),
   KEY `url_check_success` (`url_check_success`),
@@ -235,8 +232,9 @@ CREATE TABLE `entries` (
   KEY `answers` (`answers`),
   KEY `last_answer` (`last_answer`),
   KEY `used` (`used`),
-  KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=14768 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+  KEY `sent` (`sent`),
+  KEY `subject` (`subject`)
+) ENGINE=MyISAM AUTO_INCREMENT=14780 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `entry_grps`
@@ -367,7 +365,7 @@ CREATE TABLE `logs` (
   PRIMARY KEY  (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=6868621 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=6868857 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `mail_log`
@@ -470,10 +468,10 @@ CREATE TABLE `redirs` (
   `uri` text collate koi8u_bin NOT NULL,
   `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `track` (`track`),
   KEY `up` (`up`),
+  KEY `track` (`track`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=5632913 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=5634969 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `sessions`
@@ -491,7 +489,7 @@ CREATE TABLE `sessions` (
   UNIQUE KEY `sid` (`sid`),
   KEY `user_id` (`user_id`),
   KEY `last` (`last`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `tmp_texts`
@@ -504,7 +502,7 @@ CREATE TABLE `tmp_texts` (
   `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=125144 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=125165 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 
 --
 -- Table structure for table `users`
@@ -514,14 +512,10 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL auto_increment,
   `login` varchar(30) character set koi8u collate koi8u_bin NOT NULL default '',
-  `login_sort` varchar(60) character set koi8u collate koi8u_bin NOT NULL default '',
   `password` varchar(40) character set koi8u collate koi8u_bin NOT NULL default '',
   `name` varchar(30) character set koi8u collate koi8u_bin NOT NULL default '',
-  `name_sort` varchar(60) character set koi8u collate koi8u_bin NOT NULL default '',
   `jewish_name` varchar(30) character set koi8u collate koi8u_bin NOT NULL default '',
-  `jewish_name_sort` varchar(60) character set koi8u collate koi8u_bin NOT NULL default '',
   `surname` varchar(30) character set koi8u collate koi8u_bin NOT NULL default '',
-  `surname_sort` varchar(60) character set koi8u collate koi8u_bin NOT NULL default '',
   `gender` enum('mine','femine') character set koi8u collate koi8u_bin NOT NULL default 'mine',
   `info` text character set koi8u collate koi8u_bin NOT NULL,
   `info_xml` text character set koi8u collate koi8u_bin NOT NULL,
@@ -547,12 +541,12 @@ CREATE TABLE `users` (
   KEY `password` (`password`),
   KEY `confirm_deadline` (`confirm_deadline`),
   KEY `confirm_code` (`confirm_code`),
-  KEY `login_sort` (`login_sort`),
-  KEY `name_sort` (`name_sort`),
-  KEY `jewish_name_sort` (`jewish_name_sort`),
-  KEY `surname_sort` (`surname_sort`),
   KEY `shames` (`shames`),
-  KEY `guest` (`guest`)
+  KEY `guest` (`guest`),
+  KEY `login_2` (`login`),
+  KEY `name` (`name`),
+  KEY `jewish_name` (`jewish_name`),
+  KEY `surname` (`surname`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2641 DEFAULT CHARSET=koi8u;
 
 --
@@ -590,12 +584,12 @@ CREATE TABLE `votes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-08-06 15:53:25
+-- Dump completed on 2007-08-09 22:30:19
 -- MySQL dump 10.11
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.0.41-Debian_2-log
+-- Server version	5.0.32-Debian_7etch1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -614,7 +608,7 @@ CREATE TABLE `votes` (
 
 LOCK TABLES `content_versions` WRITE;
 /*!40000 ALTER TABLE `content_versions` DISABLE KEYS */;
-INSERT INTO `content_versions` VALUES (10,4,0);
+INSERT INTO `content_versions` VALUES (80,1522,0);
 /*!40000 ALTER TABLE `content_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -624,7 +618,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `version` WRITE;
 /*!40000 ALTER TABLE `version` DISABLE KEYS */;
-INSERT INTO `version` VALUES (12);
+INSERT INTO `version` VALUES (13);
 /*!40000 ALTER TABLE `version` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -637,4 +631,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-08-06 15:53:25
+-- Dump completed on 2007-08-09 22:30:19

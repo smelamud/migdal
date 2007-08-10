@@ -52,7 +52,6 @@ $this->body=$vars['body'];
 $this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
 $this->up=$vars['up'];
 $this->subject=$vars['subject'];
-$this->subject_sort=convertSort($this->subject);
 $this->comment0=$vars['comment0'];
 $this->comment0_xml=anyToXML($this->comment0,$this->body_format,MTEXT_LINE);
 $this->comment1=$vars['comment1'];
@@ -207,7 +206,7 @@ $From="entries
 $Where=$this->getWhere($grp,$up,'entries.',$recursive,$level,$index2,$asGuest);
 /* Order */
 $Order=getOrderBy($sort,
-       array(SORT_SUBJECT         => 'subject_sort',
+       array(SORT_SUBJECT         => 'subject',
 	     SORT_INDEX0          => 'index0',
 	     SORT_RINDEX0         => 'index0 desc',
 	     SORT_INDEX1          => 'index1',
@@ -295,8 +294,10 @@ $iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter,$nameRoot,
                                  $onlyWritable,$onlyPostable,$asGuest);
 $topics=array();
 while($item=$iterator->next())
-     $topics[convertSort($item->getFullName())]=$item;
-ksort($topics);
+     $topics[$item->getFullName()]=$item;
+// FIXME должно проставляться в конфиге
+setlocale(LC_COLLATE,'ru_RU.KOI8-R');
+uksort($topics,'strcoll');
 parent::MArrayIterator($topics);
 }
 
@@ -327,15 +328,14 @@ function storeTopic(&$topic)
 global $userId,$realUserId;
 
 $jencoded=array('ident' => '','up' => 'entries','subject' => '',
-                'subject_sort' => '','comment0' => '','comment0_xml' => '',
-		'comment1' => '','comment1_xml' => '','user_id' => 'users',
-		'group_id' => 'users','body' => '','body_xml' => '',
-		'creator_id' => 'users','modifier_id' => 'users');
+                'comment0' => '','comment0_xml' => '','comment1' => '',
+		'comment1_xml' => '','user_id' => 'users','group_id' => 'users',
+		'body' => '','body_xml' => '','creator_id' => 'users',
+		'modifier_id' => 'users');
 $vars=array('entry' => $topic->entry,
             'ident' => $topic->ident,
             'up' => $topic->up,
 	    'subject' => $topic->subject,
-	    'subject_sort' => $topic->subject_sort,
 	    'comment0' => $topic->comment0,
 	    'comment0_xml' => $topic->comment0_xml,
 	    'comment1' => $topic->comment1,

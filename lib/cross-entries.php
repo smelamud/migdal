@@ -91,7 +91,7 @@ parent::SelectIterator('CrossEntry',
 			       peer_id,peer_path,peer_subject,peer_icon
 			from cross_entries
 			where 1 $filter
-			order by peer_icon,peer_subject_sort");
+			order by peer_icon,peer_subject");
 }
 
 }
@@ -100,7 +100,7 @@ function storeCrossEntry(&$cross)
 {
 $jencoded=array('source_name' => '','source_id' => 'entries','peer_name' => '',
                 'peer_id' => 'entries','peer_path' => '','peer_subject' => '',
-		'peer_subject_sort' => '','peer_icon' => '');
+		'peer_icon' => '');
 $vars=array('source_name' => $cross->source_name,
             'source_id' => $cross->source_id,
             'link_type' => $cross->link_type,
@@ -108,7 +108,6 @@ $vars=array('source_name' => $cross->source_name,
             'peer_id' => $cross->peer_id,
             'peer_path' => $cross->peer_path,
             'peer_subject' => $cross->peer_subject,
-            'peer_subject_sort' => $cross->peer_subject_sort,
             'peer_icon' => $cross->peer_icon);
 if($cross->id)
   {

@@ -3,16 +3,18 @@
 <log event=review text#='post($`post.migdal.methodology`)'>
 
 <element name='books'>
-<iterate_postinglist grp='*GRP_BOOKS' topic_id='$`migdal.methodology`'
-                     recursive='*false' limit=0 sort='*SORT_PSENT'>
-<ifnzero what='$;Count'>
- <topics_table title='Методические пособия'>
-  <for>
-   <topics_line time='$.Modified' href='$.GrpDetailsHref' text='$=.Heading'
-                class='ninept'>
-  </for>
- </topics_table>
-</ifnzero>
+<html_cache ident='methodic_center_books' depends='postings'>
+ <iterate_postinglist grp='*GRP_BOOKS' topic_id='$`migdal.methodology`'
+		      recursive='*false' limit=0 sort='*SORT_PSENT'
+		      as_guest='*true'>
+ <ifnzero what='$;Count'>
+  <topics_table title='Методические пособия'>
+   <for>
+    <topics_line href='$.GrpDetailsHref' text='$=.Heading' class='ninept'>
+   </for>
+  </topics_table>
+ </ifnzero>
+</html_cache>
 </element>
 
 <html>

@@ -85,8 +85,9 @@
 	 defaults="grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1
 	           as_guest='*false'">
 <deciter macro='posting_users' class='PostingUsersIterator'
-         file='lib/postings.php' params='grp,topic_id,recursive'
-	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'">
+         file='lib/postings.php' params='grp,topic_id,recursive,as_guest'
+	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'
+	           as_guest='*false'">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic_id,recursive,limit,offset,person_id,sort,withanswers,
 	         user,index1,later,up,showshadows,fields,modbits,
@@ -195,8 +196,8 @@
 <deccall macro='grp_join' func='grpJoin' file='lib/grps.php' params='grp1,grp2'>
 <deccall macro='grp_valid' func='isGrpValid' file='lib/grps.php' params='grp'>
 <deccall macro='html_cache_obj' func='getHTMLCacheRecord'
-         file='lib/html-cache.php' params='ident,period,depends'
-	 defaults='period=*null'>
+         file='lib/html-cache.php' params='ident,period,depends,if'
+	 defaults='period=*null if=*true'>
 <decexec macro='html_cache_push' func='pushHTMLCacheStack' params='record'>
 <deccall macro='html_cache_pop' func='popHTMLCacheStack'>
 <decexec macro='html_cache_store' func='storeHTMLCacheRecord'
@@ -602,7 +603,8 @@
 <macro name='html_cache'>
 <zone>
  <array vals%!depends='%depends'>
- <html_cache_obj ident%!ident='%ident' period%!period='%period' depends='$*'>
+ <html_cache_obj ident%!ident='%ident' period%!period='%period' depends='$*'
+                 if%!if='%if'>
  <if what='!$,isEmpty'>
   $,Content
  <else>

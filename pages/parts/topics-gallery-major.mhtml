@@ -12,33 +12,39 @@
    <a href='/gallery/major/?redirid=$_'>Изменить</a>
   </td></tr>
  </admin_topics>
- <iterate_entry_cross source_name='gallery.major' link_type='*LINKT_MAJOR'>
- <for>
-  <topic_obj name='topic' id='$.PeerId'>
-  <zone>
-   <postings_info name='info' grp='*GRP_GRAPHICS' topic_id='$topic.Id'
-		  recursive='*true'>
-  </zone>
-  <topics_line class='topics-item ninept' time='$info.MaxSent'
-               count='$info.Total' href#='/gallery/$topic.Catalog'
-	       title='$=,BodyNormal' text='$=,Subject' span=2
-	       arrow!='$topic.Id==$index'>
- </for>
+ <html_cache ident#='topics_gallery_major-$index' period!='3 * 60 * 60'
+             depends='topics,postings'>
+  <iterate_entry_cross source_name='gallery.major' link_type='*LINKT_MAJOR'>
+  <for>
+   <topic_obj name='topic' id='$.PeerId'>
+   <zone>
+    <postings_info name='info' grp='*GRP_GRAPHICS' topic_id='$topic.Id'
+		   recursive='*true' as_guest='*true'>
+   </zone>
+   <topics_line class='topics-item ninept' time='$info.MaxSent'
+		count='$info.Total' href#='/gallery/$,Catalog'
+		title='$=,BodyNormal' text='$=,Subject' span=2
+		arrow!='$,Id==$index'>
+  </for>
+ </html_cache>
 </topics_table>
 </element>
 
 <element name='topics_gallery_misc'>
-<topics_table class='ninept' title='Разное'>
-<iterate_topiclist grp='*GRP_GALLERY' up='$`general`'>
-<for>
- <entry_grps id='$.Id'>
- <if what='count($,)==1 && $,[0]==*GRP_GALLERY'>
-  <postings_info name='info' grp='*GRP_GALLERY' topic_id='$.Id'>
-  <posting_catalog name='href' entry='$.' start=1>
-  <topics_line time='$info.MaxSent' href#='/gallery/$href'
-	       title='$=.BodyNormal' text='$=.Subject' count='$info.Total'
-	       arrow!='$.Id==$index'>
- </if>
-</for>
+<html_cache ident#='topics_gallery_misc-$index' period!='3 * 60 * 60'
+	    depends='topics,postings'>
+ <topics_table class='ninept' title='Разное'>
+ <iterate_topiclist grp='*GRP_GALLERY' up='$`general`'>
+ <for>
+  <entry_grps id='$.Id'>
+  <if what='count($,)==1 && $,[0]==*GRP_GALLERY'>
+   <postings_info name='info' grp='*GRP_GALLERY' topic_id='$.Id'
+                  as_guest='*true'>
+   <topics_line time='$info.MaxSent' href#='/gallery/$.Catalog'
+		title='$=.BodyNormal' text='$=.Subject' count='$info.Total'
+		arrow!='$.Id==$index'>
+  </if>
+ </for>
+</html_cache>
 </topics_table>
 </element>

@@ -82,7 +82,6 @@ $this->large_image_format=$vars['large_image_format'];
 $this->large_image_filename=$vars['large_image_filename'];
 $this->up=$vars['up'];
 $this->subject=$vars['subject'];
-$this->subject_sort=convertSort($this->subject);
 $this->comment0=$vars['comment0'];
 $this->comment0_xml=anyToXML($this->comment0,$this->body_format,MTEXT_LINE);
 $this->comment1=$vars['comment1'];
@@ -424,7 +423,7 @@ $this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
 			       $earlier,$asGuest);
 $Order=getOrderBy($sort,
        array(SORT_SENT       => 'entries.sent desc',
-             SORT_NAME       => 'entries.subject_sort',
+             SORT_NAME       => 'entries.subject',
              SORT_ACTIVITY   => 'if(entries.answers!=0,entries.last_answer,entries.sent) desc',
 	     SORT_CTR        => 'hidden asc,co_ctr asc,counter_value0 asc',
 	     SORT_INDEX0     => 'entries.index0',
@@ -493,9 +492,10 @@ class PostingUsersIterator
       extends SelectIterator
 {
 
-function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false)
+function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false,
+                              $asGuest=false)
 {
-$hide=postingsPermFilter(PERM_READ,'entries');
+$hide=postingsPermFilter(PERM_READ,'entries',$asGuest);
 $grpFilter=postingListGrpFilter($grp);
 $topicFilter=postingListTopicFilter($topic_id,$recursive);
 parent::SelectIterator(
@@ -530,7 +530,7 @@ $prefixFilters=array(SORT_NAME       => "and subject like '@prefix@%'",
 $prefixFilter=@$prefixFilters[$sort]!='' ? $prefixFilters[$sort]
                                          : " and url like '@prefix@%'";
 $order=getOrderBy($sort,
-                  array(SORT_NAME       => 'subject_sort',
+                  array(SORT_NAME       => 'subject',
 	                SORT_URL_DOMAIN => 'url_domain,url'));
 $topicFilter=$topic_id>=0 ? 'and '.subtree('entries',$topic_id,$recursive) : '';
 $grpFilter='and '.grpFilter($grp);
@@ -540,7 +540,7 @@ parent::AlphabetIterator(
          from entries
          where entry=".ENT_POSTING." $hide $topicFilter $grpFilter
 	       $shadowFilter $prefixFilter
-	 $order",true);
+	 $order");
 }
 
 }
@@ -595,7 +595,6 @@ if(($fields & SPF_DUPLICATE)!=0)
 		          'user_id' => $posting->user_id,
 			  'group_id' => $posting->group_id,
 			  'perms' => $posting->perms,
-			  'subject_sort' => $posting->subject_sort,
 			  'lang' => $posting->lang,
 			  'index1' => $posting->index1,
 			  'index2' => $posting->index2));
@@ -633,9 +632,8 @@ return array('subject' => '','author' => '','author_xml' => '',
 	     'large_body_filename' => '','small_image' => 'images',
 	     'large_image' => 'images','large_image_filename' => '',
 	     'person_id' => 'users','user_id' => 'users',
-	     'group_id' => 'users','subject_sort' => '','up' => 'entries',
-	     'parent_id' => 'entries','creator_id' => 'users',
-	     'modifier_id' => 'users');
+	     'group_id' => 'users','up' => 'entries','parent_id' => 'entries',
+	     'creator_id' => 'users','modifier_id' => 'users');
 }
 
 function storePosting(&$posting)
@@ -1049,10 +1047,10 @@ function createPostingShadow($id)
 global $userId,$realUserId;
 
 $result=sql("select entry,up,parent_id,orig_id,grp,person_id,user_id,group_id,
-                    perms,disabled,subject_sort,lang,priority,index0,index1,
-		    index2,set0,set0_index,set1,set1_index,vote,vote_count,
-		    rating,sent,accessed,modbits,answers,last_answer,
-		    last_answer_id,last_answer_user_id
+                    perms,disabled,lang,priority,index0,index1,index2,set0,
+		    set0_index,set1,set1_index,vote,vote_count,rating,sent,
+		    accessed,modbits,answers,last_answer,last_answer_id,
+		    last_answer_user_id
 	     from entries
 	     where id=$id",
 	    __FUNCTION__,'select');
@@ -1088,6 +1086,5 @@ $result=sql('select id
 	    __FUNCTION__);
 while($row=mysql_fetch_assoc($result))
      setDisabledByEntryId($row['id'],0);
-incContentVersions('postings');
 }
 ?>

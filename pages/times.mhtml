@@ -47,25 +47,28 @@
 </element>
 
 <element name='select_issue'>
-<form method='get' action='/actions/goto/href'><table class='ninept'>
- <tr>
-  <td>Номер</td>
-  <td><select name='okdir'>
-   <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=0 sort='*SORT_RINDEX1'>
-   <for>
-    <assign name='title' value#='&no;$.getIssues&nbsp;$=.Comment0'>
-    <if what='$.Index1==$$issue'>
-     <option value='/times/$.Index1/' selected>$title
-    <else>
-     <option value='/times/$.Index1/'>$title
-    </if>
-   </for>
-  </select></td>
-  <td>
-   <input type=submit value='Выбрать'>
-  </td>
- </tr>
-</tr></table></form>
+<html_cache ident#='times_select_issue-$$issue' depends='postings'
+            if!='!$$times.isPostable'>
+ <form method='get' action='/actions/goto/href'><table class='ninept'>
+  <tr>
+   <td>Номер</td>
+   <td><select name='okdir'>
+    <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=0 sort='*SORT_RINDEX1'>
+    <for>
+     <assign name='title' value#='&no;$.getIssues&nbsp;$=.Comment0'>
+     <if what='$.Index1==$$issue'>
+      <option value='/times/$.Index1/' selected>$title
+     <else>
+      <option value='/times/$.Index1/'>$title
+     </if>
+    </for>
+   </select></td>
+   <td>
+    <input type=submit value='Выбрать'>
+   </td>
+  </tr>
+ </tr></table></form>
+</html_cache>
 </element>
 
 <element name='announce'>
@@ -168,41 +171,43 @@
 </element>
 
 <element name='navigator'>
-<assign name='nfirst' value='$$issue'>
-<for n=2>
- <sibling_index name='prev' grp='*GRP_TIMES_COVERS' index1='$nfirst'
-	        next='*true'>
- <ifnzero what='$prev'>
-  <assign name='nfirst' value='$prev'>
- </ifnzero>
-</for>
-<sibling_index grp='*GRP_TIMES_COVERS' index1='$nfirst' next='*true'>
-<issue_further issue='$,' pic='/pics/upper.gif' title='Новые номера'>
-<iterate_postinglist name='covers' grp='*GRP_TIMES_COVERS' limit=5
-		     sort='*SORT_RINDEX1' index1='$nfirst'>
-<for>
- <islast what='$covers'>
-  <assign name='nlast' value='$.Index1'>
- </islast>
- <table>
-  <tr><td align=right>
-   <rating value!='$.VoteCount!=0 ? $.Rating20 : -1' showtitle='*false'>
-  </td></tr>
-  <tr><td class='pic'>
-   <posting_image posting='$.' href#='/times/$.Index1/'>
-  </td></tr>
-  <tr><td align=center><b>
-   <if what='$$issue!=$.Index1'>
-    <a href='/times/$.Index1/'>&no;$.getIssues</a>
-   <else>
-     &no;$.getIssues
-   </if>
-  </b></td></tr>
- </table>
- <p>
-</for>
-<sibling_index grp='*GRP_TIMES_COVERS' index1='$nlast' next='*false'>
-<issue_further issue='$,' pic='/pics/lower.gif' title='Старые номера'>
+<html_cache ident#='times_navigator-$$issue' depends='postings'>
+ <assign name='nfirst' value='$$issue'>
+ <for n=2>
+  <sibling_index name='prev' grp='*GRP_TIMES_COVERS' index1='$nfirst'
+		 next='*true'>
+  <ifnzero what='$prev'>
+   <assign name='nfirst' value='$prev'>
+  </ifnzero>
+ </for>
+ <sibling_index grp='*GRP_TIMES_COVERS' index1='$nfirst' next='*true'>
+ <issue_further issue='$,' pic='/pics/upper.gif' title='Новые номера'>
+ <iterate_postinglist name='covers' grp='*GRP_TIMES_COVERS' limit=5
+		      sort='*SORT_RINDEX1' index1='$nfirst' as_guest='*true'>
+ <for>
+  <islast what='$covers'>
+   <assign name='nlast' value='$.Index1'>
+  </islast>
+  <table>
+   <tr><td align=right>
+    <rating value!='$.VoteCount!=0 ? $.Rating20 : -1' showtitle='*false'>
+   </td></tr>
+   <tr><td class='pic'>
+    <posting_image posting='$.' href#='/times/$.Index1/'>
+   </td></tr>
+   <tr><td align=center><b>
+    <if what='$$issue!=$.Index1'>
+     <a href='/times/$.Index1/'>&no;$.getIssues</a>
+    <else>
+      &no;$.getIssues
+    </if>
+   </b></td></tr>
+  </table>
+  <p>
+ </for>
+ <sibling_index grp='*GRP_TIMES_COVERS' index1='$nlast' next='*false'>
+ <issue_further issue='$,' pic='/pics/lower.gif' title='Старые номера'>
+</html_cache>
 </element>
 
 <html>

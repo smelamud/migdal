@@ -66,7 +66,6 @@ $this->large_image_format=$vars['large_image_format'];
 $this->large_image_filename=$vars['large_image_filename'];
 $this->up=$vars['up'];
 $this->subject=$vars['subject'];
-$this->subject_sort=convertSort($this->subject);
 $this->comment0=$vars['comment0'];
 $this->comment0_xml=anyToXML($this->comment0,$this->body_format,MTEXT_LINE);
 $this->comment1=$vars['comment1'];
@@ -172,8 +171,8 @@ $Order=getOrderBy($sort,
              SORT_RSENT => 'entries.sent asc'));
 parent::LimitSelectIterator(
         'Forum',
-	"select entries.id as id,subject,subject_sort,author,author_xml,body,
-	        body_xml,body_format,sent,entries.created as created,
+	"select entries.id as id,subject,author,author_xml,body,body_xml,
+	        body_format,sent,entries.created as created,
 		entries.modified as modified,user_id,group_id,perms,disabled,
 		parent_id,users.login as login,users.gender as gender,
 		users.email as email,users.hide_email as hide_email,
@@ -207,14 +206,13 @@ global $userId,$realUserId,$forumPremoderate;
 $jencoded=array('subject' => '','author' => '','author_xml'=>'','body' => '',
                 'body_xml' => '','small_image' => 'images',
 		'large_image' => 'images','large_image_filename' => '',
-		'user_id' => 'users','group_id' => 'users','subject_sort' => '',
-		'up' => 'entries','parent_id' => 'entries',
-		'creator_id' => 'users','modifier_id' => 'users');
+		'user_id' => 'users','group_id' => 'users','up' => 'entries',
+		'parent_id' => 'entries','creator_id' => 'users',
+		'modifier_id' => 'users');
 $vars=array('entry' => $forum->entry,
             'modified' => sqlNow(),
             'modifier_id' => $userId>0 ? $userId : $realUserId,
             'subject' => $forum->subject,
-	    'subject_sort' => $forum->subject_sort,
 	    'author' => $forum->author,
 	    'author_xml' => $forum->author_xml,
 	    'body' => $forum->body,
@@ -290,13 +288,12 @@ function getForumById($id,$parent_id=0,$quote='',$quoteWidth=77)
 global $userId,$realUserId;
 
 $hide=forumPermFilter(PERM_READ);
-$result=sql("select entries.id as id,track,subject,subject_sort,author,
-                    author_xml,body,body_xml,body_format,user_id,group_id,
-		    perms,small_image,small_image_x,small_image_y,large_image,
-		    large_image_x,large_image_y,large_image_size,
-		    large_image_format,large_image_filename,
-		    up,parent_id,disabled,sent,entries.created as created,
-		    entries.modified as modified,
+$result=sql("select entries.id as id,track,subject,author,author_xml,body,
+                    body_xml,body_format,user_id,group_id,perms,small_image,
+		    small_image_x,small_image_y,large_image,large_image_x,
+		    large_image_y,large_image_size,large_image_format,
+		    large_image_filename,up,parent_id,disabled,sent,
+		    entries.created as created,entries.modified as modified,
 		    users.login as login,users.gender as gender,
 		    users.email as email,users.hide_email as hide_email,
 		    users.hidden as user_hidden

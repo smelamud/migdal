@@ -12,24 +12,27 @@
    <a href='/${,Catalog}reorder/?redirid=$_' class='edit'>Расставить</a>
   </td></tr>
  </ispost>
- <iterate_postinglist grp='*GRP_ARTICLES' limit=0 sort='*SORT_INDEX0'
-                      topic_id='$,Id' recursive='*false'>
- <for>
-  <topics_line time='$.Modified' text='$=.Heading' href#='$.GrpDetailsHref'
-	       arrow!='$.Id==$index'>
- </for>
- <ifnzero what='$;Count'>
-  <topics_splitter>
- </ifnzero>
- <zone>
-  <posting_obj id='$index'>
-  <assign name='index1' value='$,Index1'>
- </zone>
- <iterate_postinglist topic_id='$,Id' grp='*GRP_DAILY_NEWS'
-                      sort='*SORT_INDEX1' limit=0>
- <for>
-  <topics_line time='$.Modified' text='$=.Heading'
-               href#='/${,Catalog}day-$.Index1/' arrow!='$.Index1==$index1'>
- </for>
+ <html_cache ident#='topics_daily-$,Id-$index' period!='3 * 60 * 60'
+             depends='postings'>
+  <iterate_postinglist grp='*GRP_ARTICLES' limit=0 sort='*SORT_INDEX0'
+		       topic_id='$,Id' recursive='*false' as_guest='*true'>
+  <for>
+   <topics_line time='$.Modified' text='$=.Heading' href#='$.GrpDetailsHref'
+		arrow!='$.Id==$index'>
+  </for>
+  <ifnzero what='$;Count'>
+   <topics_splitter>
+  </ifnzero>
+  <zone>
+   <posting_obj id='$index'>
+   <assign name='index1' value='$,Index1'>
+  </zone>
+  <iterate_postinglist topic_id='$,Id' grp='*GRP_DAILY_NEWS'
+		       sort='*SORT_INDEX1' limit=0 as_guest='*true'>
+  <for>
+   <topics_line time='$.Modified' text='$=.Heading'
+		href#='/${,Catalog}day-$.Index1/' arrow!='$.Index1==$index1'>
+  </for>
+ </html_cache>
 </topics_table>
 </element>

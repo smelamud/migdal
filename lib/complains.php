@@ -42,7 +42,6 @@ $this->body_format=$tfRegular;
 $this->body=$vars['body'];
 $this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
 $this->subject=$vars['subject'];
-$this->subject_sort=convertSort($this->subject);
 $this->url=$vars['url'];
 }
 
@@ -112,17 +111,15 @@ function storeComplain(&$complain)
 {
 global $userId,$realUserId;
 
-$jencoded=array('subject' => '','subject_sort' => '','user_id' => 'users',
-                'group_id' => 'users','person_id' => 'users','body' => '',
-		'body_xml' => '','creator_id' => 'users',
-		'modifier_id' => 'users');
+$jencoded=array('subject' => '','user_id' => 'users','group_id' => 'users',
+                'person_id' => 'users','body' => '','body_xml' => '',
+		'creator_id' => 'users','modifier_id' => 'users');
 $vars=array('entry' => $complain->entry,
             'person_id' => $complain->person_id,
 	    'user_id' => $complain->user_id,
 	    'group_id' => $complain->group_id,
 	    'perms' => $complain->perms,
 	    'subject' => $complain->subject,
-	    'subject_sort' => $complain->subject_sort,
 	    'url' => $complain->url,
 	    'body' => $complain->body,
 	    'body_xml' => $complain->body_xml,

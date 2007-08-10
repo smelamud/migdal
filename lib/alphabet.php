@@ -10,12 +10,12 @@ class AlphabetIterator
       extends MArrayIterator
 {
 
-function getAlphas($query,$limit=0,$sortCoding=false,$prefix='')
+function getAlphas($query,$limit=0,$prefix='')
 {
 $METHOD=get_method($this,'getAlphas');
 $result=sql(str_replace(array('@prefix@',
                               '@len@'),
-                        array($sortCoding ? convertSort($prefix) : $prefix,
+                        array($prefix,
 			      strlen($prefix)+1),
 	                $query),
             $METHOD);
@@ -32,14 +32,13 @@ foreach($counts as $letter => $count)
 	 if($count<=$limit || $limit==0)
 	   $alpha[]=$letter;
 	 else
-	   $alpha=array_merge($alpha,$this->getAlphas($query,$limit,$sortCoding,
-						      $letter));
+	   $alpha=array_merge($alpha,$this->getAlphas($query,$limit,$letter));
 return $alpha;
 }
 
-function AlphabetIterator($query,$limit=0,$sortCoding=false)
+function AlphabetIterator($query,$limit=0)
 {
-parent::MArrayIterator($this->getAlphas($query,$limit,$sortCoding));
+parent::MArrayIterator($this->getAlphas($query,$limit));
 }
 
 }

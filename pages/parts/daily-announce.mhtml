@@ -1,27 +1,30 @@
 << @(#) $Id$ >>
 
 <element name='daily_announce'>
-<iterate_postinglist name='days' topic_id='$topic_id' grp='*GRP_DAILY_NEWS'
-                     sort='*SORT_RINDEX1' limit=5>
-<ifnzero what='$;Count'>
- <table style='margin: 0'>
-  <topic_obj id='$topic_id'>
-  <tr><td class='textears-title'>$=,Comment0:</td></tr>
-  <tr><td><ul class='ninept' style='margin-bottom: 0'>
-   <for>
-    <li>
-     <b>$=.Subject.</b>
-     <a href='$.GrpDetailsHref'>$.Comment0HTML</a>
-     <biff time='$.Modified' small='*true'>
-    </li>
-    <assign name='href' value='$.GrpGeneralHref'>
-   </for>
-  </ul></td></tr>
-  <islast what='$days'>
-   <tr><td style='padding-left: 2em'>
-    <a href='$href' class='eightpt'><b>Все дни</b></a>
-   </td></tr>
-  </islast>
- </table>
-</ifnzero>
+<html_cache ident#='daily_announce-$topic_id' period!='3 * 60 * 60'
+            depends='postings'>
+ <iterate_postinglist name='days' topic_id='$topic_id' grp='*GRP_DAILY_NEWS'
+		      sort='*SORT_RINDEX1' limit=5>
+ <ifnzero what='$;Count'>
+  <table style='margin: 0'>
+   <topic_obj id='$topic_id'>
+   <tr><td class='textears-title'>$=,Comment0:</td></tr>
+   <tr><td><ul class='ninept' style='margin-bottom: 0'>
+    <for>
+     <li>
+      <b>$=.Subject.</b>
+      <a href='$.GrpDetailsHref'>$.Comment0HTML</a>
+      <biff time='$.Modified' small='*true'>
+     </li>
+     <assign name='href' value='$.GrpGeneralHref'>
+    </for>
+   </ul></td></tr>
+   <islast what='$days'>
+    <tr><td style='padding-left: 2em'>
+     <a href='$href' class='eightpt'><b>Все дни</b></a>
+    </td></tr>
+   </islast>
+  </table>
+ </ifnzero>
+</html_cache>
 </element>

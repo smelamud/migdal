@@ -302,28 +302,4 @@ global $charsetInternal,$charsetExternal;
 $c=convertCharset($s,$charsetInternal,$charsetExternal);
 return $c;
 }
-
-function convertSort($s)
-{
-$c=convert_cyr_string(
-   str_replace(array('<<','>>','---','``',"''",
-                     '(c)','(C)','(r)','(R)',
-		     '(tm)','(TM)','No.'),
-	       array("\xAB","\xBB","\x96","\x93","\x94",
-	             "\xA9","\xA9","\xAE","\xAE",
-		     "\x99","\x99","\xB9"),$s),'k','w');
-$cc='';
-for($i=0;$i<strlen($c);$i++)
-   {
-   $code=ord($c[$i]);
-   $cc.=($code<0x7D || $code>=0x80 && $code<0xC0)
-         ? $c[$i]
-	 : (($code>=0xC0 && $code<0xE0)
-	    ? "\x7E".chr($code-0x90)
-	    : (($code>=0xE0 && $code<=0xFF)
-	       ? "\x7E".chr($code-0xB0)
-	       : "\x7D".$c[$i]));
-   }
-return $cc;
-}
 ?>
