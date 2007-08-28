@@ -392,6 +392,8 @@
    <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
    <error id='*EP_UP_APPEND'
 	  text='Вы не имеете права присоединять сообщения к этому сообщению'>
+   <error id='*EL_INVALID' text='Неверный ник или пароль'>
+   <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>
    <moderator>
     <form_comment><table><tr>
      <full>

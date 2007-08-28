@@ -20,6 +20,7 @@ define('EUM_CAPTCHA',1013);
 
 define('EL_INVALID',110);
 define('EL_NO_COOKIES',111);
+define('EL_GUEST_LOGIN_ABSENT',112);
 
 define('ET_NAME_ABSENT',120);
 define('ET_DESCRIPTION_ABSENT',121);

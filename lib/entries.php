@@ -35,6 +35,7 @@ var $orig_id=0;
 var $grp=0;
 var $grps=array();
 var $person_id=0;
+var $guest_login='';
 var $user_id=0;
 var $group_id=0;
 var $group_login='';
@@ -190,6 +191,11 @@ $this->grps=$grps;
 function getPersonId()
 {
 return $this->person_id;
+}
+
+function getGuestLogin()
+{
+return $this->guest_login;
 }
 
 function getUserId()

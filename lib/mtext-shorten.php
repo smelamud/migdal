@@ -257,7 +257,7 @@ if($hasMarkup)
 else
   $return=substr($s,0,$n).$c;
 debugLog(LL_FUNCTIONS,'shortenUniversal() returned %',array($return));
-return $return;
+return delicateAmps($return);
 }
 
 function shorten($s,$len,$mdlen,$pdlen)

@@ -77,14 +77,18 @@
 
 <element name='senderlink'>
 <notenglish>
- <if what='$message.isUserVisible'>
-  <a href='/users/$#message.UserFolder/?redirid=$_'
-     onClick="userInfo($message.UserId); return false"
-     title='подробнее' class='name'>$=message.Login</a><asp>
+ <if what='!$message.isUserGuest'>
+  <if what='$message.isUserVisible'>
+   <a href='/users/$#message.UserFolder/?redirid=$_'
+      onClick="userInfo($message.UserId); return false"
+      title='подробнее' class='name'>$=message.Login</a><asp>
+  <else>
+   <span class='name'>$=message.Login</span><asp>
+  </if>
+  <maillink message='$message'>
  <else>
-  <span class='name'>$=message.Login</span><asp>
+  <span class='guest-name'>$=message.GuestLogin</span><asp>
  </if>
- <maillink message='$message'>
 </notenglish>
 </element>
 

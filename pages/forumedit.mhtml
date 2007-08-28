@@ -83,6 +83,8 @@
    <error id='*EVH_NOT_UP_UNDER_PARENT'
           text='Сообщение и ответ должны находиться в одной ветке'>
    <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
+   <error id='*EL_INVALID' text='Неверный ник или пароль'>
+   <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>
    <if what='!$editid'>
     <zone>
      <perms id='$,ParentId'>

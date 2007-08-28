@@ -11,6 +11,7 @@ class ChatMessage
       extends UserTag
 {
 var $id;
+var $guest_login;
 var $sender_id;
 var $private_id;
 var $sent;
@@ -25,6 +26,11 @@ parent::UserTag($row);
 function getId()
 {
 return $this->id;
+}
+
+function getGuestLogin()
+{
+return $this->guest_login;
 }
 
 function getSenderId()
@@ -78,9 +84,11 @@ if($later>0)
 if($earlier>0)
   $filter.=" and unix_timestamp(sent)<$earlier";
 parent::SelectIterator('ChatMessage',
-		       "select chat_messages.id as id,sender_id,login,gender,
-		               email,hide_email,users.hidden as user_hidden,
-			       text,text_xml,unix_timestamp(sent) as sent
+		       "select chat_messages.id as id,guest_login,sender_id,
+		               login,gender,email,hide_email,
+			       users.hidden as user_hidden,
+			       users.guest as user_guest,text,text_xml,
+			       unix_timestamp(sent) as sent
 			from chat_messages
 			     left join users
 				  on chat_messages.sender_id=users.id

@@ -76,6 +76,7 @@ $this->source=$vars['source'];
 $this->source_xml=anyToXML($this->source,$this->body_format,MTEXT_LINE);
 $this->title=$vars['title'];
 $this->title_xml=anyToXML($this->title,$this->body_format,MTEXT_LINE);
+$this->guest_login=$vars['guest_login'];
 $this->login=$vars['login'];
 if($vars['user_name']!='')
   $this->login=$vars['user_name'];
@@ -173,10 +174,11 @@ parent::LimitSelectIterator(
         'Forum',
 	"select entries.id as id,subject,author,author_xml,body,body_xml,
 	        body_format,sent,entries.created as created,
-		entries.modified as modified,user_id,group_id,perms,disabled,
-		parent_id,users.login as login,users.gender as gender,
-		users.email as email,users.hide_email as hide_email,
-		users.hidden as user_hidden
+		entries.modified as modified,guest_login,user_id,group_id,
+		perms,disabled,parent_id,users.login as login,
+		users.gender as gender,users.email as email,
+		users.hide_email as hide_email,users.hidden as user_hidden,
+		users.guest as user_guest
 	 from entries
 	      left join users
 		   on entries.user_id=users.id
@@ -206,9 +208,9 @@ global $userId,$realUserId,$forumPremoderate;
 $jencoded=array('subject' => '','author' => '','author_xml'=>'','body' => '',
                 'body_xml' => '','small_image' => 'images',
 		'large_image' => 'images','large_image_filename' => '',
-		'user_id' => 'users','group_id' => 'users','up' => 'entries',
-		'parent_id' => 'entries','creator_id' => 'users',
-		'modifier_id' => 'users');
+		'guest_login' => '','user_id' => 'users','group_id' => 'users',
+		'up' => 'entries','parent_id' => 'entries',
+		'creator_id' => 'users','modifier_id' => 'users');
 $vars=array('entry' => $forum->entry,
             'modified' => sqlNow(),
             'modifier_id' => $userId>0 ? $userId : $realUserId,
@@ -227,6 +229,7 @@ $vars=array('entry' => $forum->entry,
 	    'large_image_size' => $forum->large_image_size,
 	    'large_image_format' => $forum->large_image_format,
 	    'large_image_filename' => $forum->large_image_filename,
+	    'guest_login' => $forum->guest_login,
 	    'user_id' => $forum->user_id,
 	    'group_id' => $forum->group_id,
 	    'perms' => $forum->perms,
@@ -289,14 +292,15 @@ global $userId,$realUserId;
 
 $hide=forumPermFilter(PERM_READ);
 $result=sql("select entries.id as id,track,subject,author,author_xml,body,
-                    body_xml,body_format,user_id,group_id,perms,small_image,
-		    small_image_x,small_image_y,large_image,large_image_x,
-		    large_image_y,large_image_size,large_image_format,
-		    large_image_filename,up,parent_id,disabled,sent,
-		    entries.created as created,entries.modified as modified,
-		    users.login as login,users.gender as gender,
-		    users.email as email,users.hide_email as hide_email,
-		    users.hidden as user_hidden
+                    body_xml,body_format,guest_login,user_id,group_id,perms,
+		    small_image,small_image_x,small_image_y,large_image,
+		    large_image_x,large_image_y,large_image_size,
+		    large_image_format,large_image_filename,up,parent_id,
+		    disabled,sent,entries.created as created,
+		    entries.modified as modified,users.login as login,
+		    users.gender as gender,users.email as email,
+		    users.hide_email as hide_email,users.hidden as user_hidden,
+		    users.guest as user_guest
 	     from entries
 		  left join users
 		       on entries.user_id=users.id

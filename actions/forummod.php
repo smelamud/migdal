@@ -73,6 +73,7 @@ postString('okdir');
 postString('faildir');
 
 postInteger('relogin');
+postString('guest_login');
 postString('login');
 postString('password');
 postInteger('remember');
@@ -103,7 +104,7 @@ session();
 $err=EG_OK;
 loginHints($login,$userMyComputerHint);
 if($editid<=0)
-  $err=relogin($relogin,$login,$password,$remember);
+  $err=relogin($relogin,$login,$password,$remember,$guest_login);
 $forum=getForumById($editid,$parent_id);
 $original=$forum;
 $forum->setup($Args);

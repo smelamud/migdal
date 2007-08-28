@@ -11,6 +11,7 @@ var $gender;
 var $email;
 var $hide_email;
 var $user_hidden;
+var $user_guest;
 
 function UserTag($row)
 {
@@ -84,6 +85,11 @@ global $userAdminUsers;
 
 return !$this->isUserHidden()
        || ($userAdminUsers && !$this->isUserAdminHidden());
+}
+
+function isUserGuest()
+{
+return $this->user_guest ? 1 : 0;
 }
 
 }

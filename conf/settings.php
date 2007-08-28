@@ -35,6 +35,12 @@ $allSettings=array(
 		'type' => 'integer',
 		'location' => SETL_USER
 	),
+	'guestLogin' => array(
+		'default' => '',
+		'abbrev' => 'gl',
+		'type' => 'string',
+		'location' => SETL_HOST
+	),
 	'loginHint' => array(
 		'default' => '',
 		'abbrev' => 'log',

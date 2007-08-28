@@ -23,66 +23,68 @@
     <ears>
    </td>
    <td class='cframe'>
-    <subtitle>
-    <b>Год:</b>
-    <for n=7>
-     <assign name='cyear' value!='2007 - $.'>
-     <if what='$cyear==$year'>
-      &nbsp;<b>$cyear</b>
-     <else>
-      &nbsp;<a href='/chat-archive/$cyear/'>$cyear</a>
-     </if>
-    </for>
-    <p>
-    <b>Месяц:</b>
-    <for n=12>
-     <assign name='n' value!='12 - $.'>
-     <assign name='name' value!='$$rusMonthIL[$n]'>
-     <if what='$year!=2001 && $year!=2007
-               || $year==2001 && $n>=11
-	       || $year==2007 && $n<=7'>
-      <if what='$n==$month'>
-       &nbsp;<b>$=name</b>
+    <html_cache ident#='chat_archive-$year-$month'>
+     <subtitle>
+     <b>Год:</b>
+     <for n=7>
+      <assign name='cyear' value!='2007 - $.'>
+      <if what='$cyear==$year'>
+       &nbsp;<b>$cyear</b>
       <else>
-       &nbsp;<a href='/chat-archive/$year/$n/'>$=name</a>
+       &nbsp;<a href='/chat-archive/$cyear/'>$cyear</a>
       </if>
-     </if>
-    </for>
-    <p>&nbsp;</p>
-    <timestamp name='later' year='$year' month='$month' day=1 hour=0
-               minute=0 second=0>
-    <if what='$month<12'>
-     <assign name='nmonth' value!='$month + 1'>
-     <assign name='nyear' value='$year'>
-    <else>
-     <assign name='nmonth' value='1'>
-     <assign name='nyear' value!='$year + 1'>
-    </if>
-    <timestamp name='earlier' year='$nyear' month='$nmonth' day=1 hour=0
-               minute=0 second=0>
-    <iterate_chat_messagelist later='$later' earlier='$earlier'>
-    <p>
-     <array vals='сообщение,сообщения,сообщений'>
-     <plural value='$;Count'>
-     <b>Всего <em>$;Count</em> $,</b>
-    </p>
-    <assign name='day' value=0>
-    <p>
-     <for>
-      <if what='$day!=$.Sent@d'>
-       <ifnzero what='$day'></p><p></ifnzero>
-       <b>$.Sent@d.$.Sent@m.$.Sent@Y</b><br>
-       <assign name='day' value='$.Sent@d'>
-      </if>
-      $.Sent@H:$.Sent@i:$.Sent@s&sp;
-      <if what="$.Login=='shames'">
-       <b>$.TextHTML</b>
-      <else>
-       <senderlink message='$.'>: $.TextHTML
-      </if>
-      <br>
      </for>
-    </p>
+     <p>
+     <b>Месяц:</b>
+     <for n=12>
+      <assign name='n' value!='12 - $.'>
+      <assign name='name' value!='$$rusMonthIL[$n]'>
+      <if what='$year!=2001 && $year!=2007
+		|| $year==2001 && $n>=11
+		|| $year==2007 && $n<=7'>
+       <if what='$n==$month'>
+	&nbsp;<b>$=name</b>
+       <else>
+	&nbsp;<a href='/chat-archive/$year/$n/'>$=name</a>
+       </if>
+      </if>
+     </for>
+     <p>&nbsp;</p>
+     <timestamp name='later' year='$year' month='$month' day=1 hour=0
+		minute=0 second=0>
+     <if what='$month<12'>
+      <assign name='nmonth' value!='$month + 1'>
+      <assign name='nyear' value='$year'>
+     <else>
+      <assign name='nmonth' value='1'>
+      <assign name='nyear' value!='$year + 1'>
+     </if>
+     <timestamp name='earlier' year='$nyear' month='$nmonth' day=1 hour=0
+		minute=0 second=0>
+     <iterate_chat_messagelist later='$later' earlier='$earlier'>
+     <p>
+      <array vals='сообщение,сообщения,сообщений'>
+      <plural value='$;Count'>
+      <b>Всего <em>$;Count</em> $,</b>
+     </p>
+     <assign name='day' value=0>
+     <p>
+      <for>
+       <if what='$day!=$.Sent@d'>
+	<ifnzero what='$day'></p><p></ifnzero>
+	<b>$.Sent@d.$.Sent@m.$.Sent@Y</b><br>
+	<assign name='day' value='$.Sent@d'>
+       </if>
+       $.Sent@H:$.Sent@i:$.Sent@s&sp;
+       <if what="$.Login=='shames'">
+	<b>$.TextHTML</b>
+       <else>
+	<senderlink message='$.'>: $.TextHTML
+       </if>
+       <br>
+      </for>
+     </p>
+    </html_cache>
    </td>
   </tr>
  </table>

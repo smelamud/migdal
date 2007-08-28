@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/dataobject.php');
 require_once('lib/sql.php');
 
@@ -84,9 +86,9 @@ return array_pop($htmlCacheStack);
 function getHTMLCacheRecord($ident,$period=null,$depends=array(),
                             $condition=true)
 {
-global $contentVersions;
+global $htmlCache,$contentVersions;
 
-if($condition)
+if($htmlCache && $condition)
   {
   $filter='';
   if($period!=null)
@@ -107,7 +109,7 @@ if($condition)
 
 $vars=array('ident' => $ident,
 	    'deadline' => $period!=null ? sqlDate(time()+$period) : null,
-	    'condition' => $condition);
+	    'condition' => $htmlCache && $condition);
 foreach($depends as $dep)
        {
        $name="${dep}_version";

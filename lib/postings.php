@@ -92,6 +92,7 @@ $this->source=$vars['source'];
 $this->source_xml=anyToXML($this->source,$this->body_format,MTEXT_LINE);
 $this->title=$vars['title'];
 $this->title_xml=anyToXML($this->title,$this->body_format,MTEXT_LINE);
+$this->guest_login=$vars['guest_login'];
 $this->login=isset($vars['login']) ? $vars['login'] : '';
 if(isset($vars['user_name']) && $vars['user_name']!='')
   $this->login=$vars['user_name'];
@@ -209,8 +210,9 @@ $Fields='entries.id as id,entries.ident as ident,entries.up as up,
          entries.track as track,entries.catalog as catalog,
 	 entries.parent_id as parent_id,entries.orig_id as orig_id,
 	 entries.grp as grp,entries.person_id as person_id,
-	 entries.user_id as user_id,entries.group_id as group_id,
-	 entries.perms as perms,entries.disabled as disabled,
+	 entries.guest_login as guest_login,entries.user_id as user_id,
+	 entries.group_id as group_id,entries.perms as perms,
+	 entries.disabled as disabled,
 	 entries.subject as subject,entries.lang as lang,
 	 entries.author as author,entries.author_xml as author_xml,
 	 entries.source as source,entries.source_xml as source_xml,
@@ -243,7 +245,8 @@ $Fields='entries.id as id,entries.ident as ident,entries.up as up,
 	 entries.large_image_format as large_image_format,
 	 entries.large_image_filename as large_image_filename,
 	 users.login as login,users.gender as gender,users.email as email,
-	 users.hide_email as hide_email,users.hidden as user_hidden';
+	 users.hide_email as hide_email,users.hidden as user_hidden,
+	 users.guest as user_guest';
 if(($fields & SELECT_LARGE_BODY)!=0)
   $Fields.=',entries.large_body as large_body,
             entries.large_body_xml as large_body_xml';
@@ -592,6 +595,7 @@ if(($fields & SPF_DUPLICATE)!=0)
   {
   $vars=array_merge($vars,
                     array('person_id' => $posting->person_id,
+		          'guest_login' => $posting->guest_login,
 		          'user_id' => $posting->user_id,
 			  'group_id' => $posting->group_id,
 			  'perms' => $posting->perms,
@@ -631,7 +635,7 @@ return array('subject' => '','author' => '','author_xml' => '',
 	     'large_body' => '','large_body_xml' => '',
 	     'large_body_filename' => '','small_image' => 'images',
 	     'large_image' => 'images','large_image_filename' => '',
-	     'person_id' => 'users','user_id' => 'users',
+	     'person_id' => 'users','guest_login' => '','user_id' => 'users',
 	     'group_id' => 'users','up' => 'entries','parent_id' => 'entries',
 	     'creator_id' => 'users','modifier_id' => 'users');
 }
@@ -1046,11 +1050,11 @@ function createPostingShadow($id)
 {
 global $userId,$realUserId;
 
-$result=sql("select entry,up,parent_id,orig_id,grp,person_id,user_id,group_id,
-                    perms,disabled,lang,priority,index0,index1,index2,set0,
-		    set0_index,set1,set1_index,vote,vote_count,rating,sent,
-		    accessed,modbits,answers,last_answer,last_answer_id,
-		    last_answer_user_id
+$result=sql("select entry,up,parent_id,orig_id,grp,person_id,guest_login,
+                    user_id,group_id,perms,disabled,lang,priority,index0,
+		    index1,index2,set0,set0_index,set1,set1_index,vote,
+		    vote_count,rating,sent,accessed,modbits,answers,
+		    last_answer,last_answer_id,last_answer_user_id
 	     from entries
 	     where id=$id",
 	    __FUNCTION__,'select');

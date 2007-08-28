@@ -699,44 +699,16 @@ if(!$allowGuests)
   return 0;
 $result=sql("select id
 	     from users
-	     where guest<>0 and
-		   last_online+interval $shortSessionTimeout hour<now()
+	     where guest<>0
 	     order by login
 	     limit 1",
-	    __FUNCTION__,'locate_free');
+	    __FUNCTION__,'locate_guest');
 if(mysql_num_rows($result)>0)
   return mysql_result($result,0,0);
-$result=sql("select login
-	     from users
-	     where guest<>0
-	     order by login desc
-	     limit 1",
-	    __FUNCTION__,'find_last');
-if(mysql_num_rows($result)>0)
-  {
-  $login=mysql_result($result,0,0);
-  $lt=$login{strlen($login)-1};
-  switch($lt)
-        {
-	case '9':
-	     $lt='A';
-	     break;
-	case 'Z':
-	     $lt='a';
-	     break;
-	case 'z':
-	     return 0;
-	default:
-	     $lt=chr(ord($lt)+1);
-	}
-  $login{strlen($login)-1}=$lt;
-  }
-else
-  $login="$guestLogin-0";
 $now=sqlNow();
 sql("insert into users(login,email_disabled,guest,hidden,no_login,created,
                        modified)
-     values('$login',1,1,2,1,'$now','$now')",
+     values('$guestLogin',1,1,2,1,'$now','$now')",
     __FUNCTION__,'create');
 $id=sql_insert_id();
 journal("insert into users(login,email_disabled,guest,hidden,no_login,created,

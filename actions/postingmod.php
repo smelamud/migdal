@@ -204,6 +204,7 @@ postString('faildir');
 
 postInteger('full');
 postInteger('relogin');
+postString('guest_login');
 postString('login');
 postString('password');
 postInteger('remember');
@@ -258,7 +259,7 @@ session();
 $err=EG_OK;
 loginHints($login,$userMyComputerHint);
 if($editid<=0)
-  $err=relogin($relogin,$login,$password,$remember);
+  $err=relogin($relogin,$login,$password,$remember,$guest_login);
 $posting=getPostingById($editid,$grp,$parent_id,
                         SELECT_GENERAL|SELECT_LARGE_BODY,$up);
 $original=$posting;

@@ -165,7 +165,8 @@ function processTag($tag,&$tagStack,&$xmlQueue)
 {
 global $mtextEmptyTags;
 
-preg_match('/^<\s*(\/?\w+)\s*(.*)>$/',$tag,$m);
+//preg_match('/^<\s*(\/?\w+)\s*(.*)>$/',$tag,$m);
+preg_match('/^<\s*(\/?\w+)\s*([^<]*)>$/',$tag,$m); // UNCHECKED CHANGE
 if(!isset($m[1]) || !isTagValid($m[1]))
   {
   $xmlQueue[]=new MTText(delicateSpecialChars($tag));
@@ -174,6 +175,7 @@ if(!isset($m[1]) || !isTagValid($m[1]))
 $out='<'.$m[1];
 $tagName=strtoupper($m[1]);
 $tail=isset($m[2]) ? $m[2] : '';
+debugLog(LL_DEBUG,'processing tag: tagName=(%) tail=(%)',array($tagName,$tail));
 while($tail!='')
      {
      if(preg_match('/^(\w+)\s*=\s*("[^"]*"|\'[^\']*\')\s*(.*)$/',$tail,

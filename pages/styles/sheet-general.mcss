@@ -42,6 +42,11 @@ A.name,SPAN.name {
 	font: bold 9pt %verdana;
 }
 
+SPAN.guest-name {
+	color: %name;
+	font: italic 9pt %verdana;
+}
+
 .sent {
 	color: %sent;
 	font-size: 9pt;

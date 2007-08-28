@@ -57,8 +57,10 @@ else
 return EG_OK;
 }
 
-function relogin($relogin,$login,$password,$remember)
+function relogin($relogin,$login,$password,$remember,$guest_login='')
 {
+global $userGuestLogin;
+
 if(!$relogin)
   return EG_OK;
 switch($relogin)
@@ -66,6 +68,10 @@ switch($relogin)
       case RELOGIN_LOGIN:
            return login($login,$password,$remember ? -1 : 0);
       case RELOGIN_GUEST:
+           if(empty($guest_login))
+	     return EL_GUEST_LOGIN_ABSENT;
+           $userGuestLogin=$guest_login;
+           updateSettingsCookie(SETL_HOST);
            return logout(false);
       }
 }

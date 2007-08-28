@@ -19,14 +19,20 @@
      <radio id='relogin-guest' name='relogin' value='*RELOGIN_GUEST'
             checked!='$relogin==*RELOGIN_GUEST' onclick='$onclick'>
     </td>
-    <td colspan=6>
-     <label for='relogin-guest'>анонимный пользователь (Гость)</label>
+    <td>Имя</td>
+    <td>
+     <input type=text name='guest_login' value='$$=userGuestLogin' size=15
+            maxlength=30
+	    onkeypress='document.getElementById("relogin-guest").checked=true'>
+    </td>
+    <td colspan=4>
+     <label for='relogin-guest'>без пароля (гостевой вход)</label>
     </td>
    <else>
     <td width='1' align='center'>
      (&nbsp;)
     </td>
-    <td colspan=6><i>анонимно писать нельзя</i></td>
+    <td colspan=6><i>гости не могут писать сюда</i></td>
    </if>
   </tr>
   <logged>

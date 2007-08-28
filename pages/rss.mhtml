@@ -47,6 +47,20 @@
 </if>
 </element>
 
+<element name='item_further' params='posting,title'>
+&lt;p&gt;
+ &lt;a href='$the_site$posting.GrpDetailsHref'&gt;<asp>
+  <asp>&#187; $=title&lt;/a&gt;
+&lt;/p&gt;
+</element>
+
+<element name='item_further_url' params='posting,url'>
+&lt;p&gt;
+ &lt;a href='$the_site/actions/link/$posting.Id/?okdir=$#url'&gt;<asp>
+  <asp>&#187; Подробности на другом сайте&lt;/a&gt;
+&lt;/p&gt;
+</element>
+
 <xml type='text/xml; charset="utf-8"'>
  <html_cache ident#='rss-$topic_id-$topic_id2-$grp-$grp2-$user_id'
              period!='1 * 60 * 60'>
@@ -114,8 +128,22 @@
 	 &lt;/tr&gt;
 	&lt;/table&gt;
        </outer>
+       <if what='$.hasLargeBody'>
+	<if what='$.Grp != *GRP_BOOK_CHAPTERS'>
+	 <item_further posting='$.'
+		       title!="!$$englishDomain ? 'Читать статью'
+		                                : 'Read article'">
+	<else>
+	 <item_further posting='$.'
+		       title!="!$$englishDomain ? 'Читать главу книги'
+		 			        : 'Read book chapter'">
+	</if>
+       </if>
+       <ifne what='$.URL'>
+	<item_further_url posting='$.' url='$.URL'>
+       </ifne>
       </description>
-      <guid>$the_site$.GrpDetailsHref</guid>
+      <guid isPermaLink="false">urn:entry:$.Id</guid>
       <pubDate>$.Sent@D, $.Sent@d&sp;$.Sent@M&sp;$.Sent@Y&sp;$.Sent@H:$.Sent@i:$.Sent@s&sp;GMT+2</pubDate>
       <comments>$the_site/forum/$.Id/</comments>
      </item>
