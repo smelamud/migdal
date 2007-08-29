@@ -243,8 +243,7 @@ return $s;
 function wikiToXML($s,$format,$dformat)
 {
 beginProfiling(POBJ_FUNCTION,'wikiToXML');
-//$c=delicateSpecialChars($s);
-$c=$s; // UNCHECKED CHANGE
+$c=cleanupXML($s);
 switch($format)
       {
       default:

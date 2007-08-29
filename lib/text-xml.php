@@ -165,13 +165,9 @@ function processTag($tag,&$tagStack,&$xmlQueue)
 {
 global $mtextEmptyTags;
 
-//preg_match('/^<\s*(\/?\w+)\s*(.*)>$/',$tag,$m);
-preg_match('/^<\s*(\/?\w+)\s*([^<]*)>$/',$tag,$m); // UNCHECKED CHANGE
+preg_match('/^<\s*(\/?\w+)\s*(.*)>$/',$tag,$m);
 if(!isset($m[1]) || !isTagValid($m[1]))
-  {
-  $xmlQueue[]=new MTText(delicateSpecialChars($tag));
-  return;
-  }
+  return false;
 $out='<'.$m[1];
 $tagName=strtoupper($m[1]);
 $tail=isset($m[2]) ? $m[2] : '';
@@ -200,10 +196,14 @@ while($tail!='')
        }
      }
 $tagObject=new MTTag($tagName,$out);
-if($tagName{0}=='/')
+if($tagName[0]=='/')
   {
-  $tagObject->text.='>';
-  closeTag(substr($tagName,1),$tagStack,$xmlQueue,$tagObject);
+  if(!$mtextEmptyTags[substr($tagName,1)])
+    {
+    $tagObject->text.='>';
+    closeTag(substr($tagName,1),$tagStack,$xmlQueue,$tagObject);
+    }
+  // For empty tags closing tag is silently ignored
   }
 else
   if(!$mtextEmptyTags[$tagName])
@@ -217,6 +217,7 @@ else
     $tagObject->text.=' />';
     $xmlQueue[]=$tagObject;
     }
+return true;
 }
 
 function cleanupXML($s)
@@ -228,7 +229,7 @@ $xmlQueue=array();
 $i=0;
 while($i<strlen($s))
      {
-     if($s{$i}!='<')
+     if($s[$i]!='<')
        {
        $pos=strpos($s,'<',$i);
        if($pos===false)
@@ -246,8 +247,13 @@ while($i<strlen($s))
 	 continue;
 	 }
        $tag=substr($s,$i,$pos-$i+1);
-       $i=$pos+1;
-       processTag($tag,$tagStack,$xmlQueue);
+       if(!processTag($tag,$tagStack,$xmlQueue))
+         {
+         $xmlQueue[]=new MTText('&lt;');
+	 $i++;
+	 }
+       else
+         $i=$pos+1;
        }
      }
 closeTag('',$tagStack,$xmlQueue,null);
