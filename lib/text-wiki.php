@@ -142,6 +142,25 @@ endProfiling();
 return $c;
 }
 
+function globalReplaceURLs($s)
+{
+$c='';
+$st=0;
+while($st<strlen($s))
+     {
+     $ed=strpos($s,'<',$st);
+     $ed=$ed===false ? strlen($s) : $ed;
+     $c.=replaceURLs(substr($s,$st,$ed-$st));
+     if($ed>=strlen($s))
+       return $c;
+     $st=strpos($s,'>',$ed);
+     $st=$st===false ? strlen($s)-1 : $st;
+     $c.=substr($s,$ed,$st-$ed+1);
+     $st++;
+     }
+return $c;
+}
+
 function getProperQuoting($s)
 {
 $matches=array();
@@ -251,7 +270,7 @@ switch($format)
 	   if($dformat>=MTEXT_SHORT)
 	     $c=replaceQuoting($c);
       case TF_PLAIN:
- 	   $c=replaceURLs($c);
+ 	   $c=globalReplaceURLs($c);
 	   if($dformat>=MTEXT_SHORT)
 	     {
 	     $c=replaceHeadings($c);
@@ -269,7 +288,7 @@ switch($format)
  	   $c=flipReplace('#','<tt>','</tt>',$c);
 	   break;
       case TF_TEX:
-	   $c=replaceURLs($c);
+	   $c=globalReplaceURLs($c);
 	   if($dformat>=MTEXT_SHORT)
 	     {
 	     $c=replaceHeadings($c);
