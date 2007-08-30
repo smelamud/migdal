@@ -245,7 +245,7 @@ switch($name)
 	   if(isset($attrs['NAME']))
 	     {
 	     $data->guest=false;
-	     $data->login=makeText('-'.$attrs['NAME']);
+	     $data->login=makeText($attrs['NAME']);
 	     }
 	   else
 	     {
