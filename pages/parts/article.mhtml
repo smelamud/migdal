@@ -21,7 +21,7 @@ if(!isset($editmodeHistory))
 <else>
  <assign name='align' value=''>
 </ifne>
-<table $align>
+<outer><table $align><inner>
  <notprint>
   <if what='$$editmode'>
    <posting_obj id='$data.Id'>
@@ -62,7 +62,7 @@ if(!isset($editmodeHistory))
    <tr><td class='image-title' align='center'>$image.TitleHTML</td></tr>
   </ifne>
  </ifnzero>
-</table>
+</inner></table></outer>
 </callback>
 
 <element name='article_controls'>

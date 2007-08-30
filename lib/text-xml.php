@@ -28,6 +28,7 @@ $mtextEmptyTags=array('A'        => false,
 		      'TR'       => false,
 		      'TD'       => false,
 		      'TH'       => false,
+		      'INCUT'    => false,
 		      'OBJECT'   => false,
 		      'PARAM'    => true,
 		      'EMBED'    => false);

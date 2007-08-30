@@ -5,7 +5,7 @@
 <!ENTITY % line "%noteline;|footnote">
 <!ENTITY % para "%line;|ul|ol|dl">
 
-<!ELEMENT mtext-long (p|quote|center|h2|h3|h4|object|embed|table)*>
+<!ELEMENT mtext-long (p|quote|center|h2|h3|h4|object|embed|table|incut)*>
 
 <!ELEMENT p (#PCDATA|%para;)*>
 <!ATTLIST p
@@ -104,3 +104,8 @@
 	  colspan CDATA #IMPLIED
           align (left|center|right) "center"
 	  class CDATA #IMPLIED>
+
+<!ELEMENT incut (#PCDATA|%para;)*>
+<!ATTLIST incut
+          align (left|right) "right"
+	  width CDATA "50%">

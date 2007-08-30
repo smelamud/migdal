@@ -20,6 +20,8 @@
              params='data'>
 <deccallback event='user_name' name='user_name' file='parts/utils.php'
              params='data'>
+<deccallback event='incut' name='incut' file='parts/utils.php' params='data'>
+<deccallback event='_incut' name='_incut' file='parts/utils.php' params='data'>
 
 << Elements >>
 <decel name='article' file='parts/article.php'

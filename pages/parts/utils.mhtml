@@ -230,3 +230,19 @@
  </table>
 </ifne>
 </element>
+
+<callback name='incut'>
+<if what="$data.Align=='right'">
+ <assign name='ralign' value='left'>
+<else>
+ <assign name='ralign' value='right'>
+</if>
+<table class='nframe' width='$data.Width' align='$data.Align'
+       cellpadding=5 cellspacing=0 style='margin-$ralign: 5px'>
+ <tr><td>
+</callback>
+
+<callback name='_incut'>
+ </td></tr>
+</table>
+</callback>

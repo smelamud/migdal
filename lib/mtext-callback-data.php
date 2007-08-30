@@ -54,4 +54,25 @@ return $this->login;
 }
 
 }
+
+class IncutCallbackData
+{
+var $align='right';
+var $width='50%';
+
+function IncutCallbackData()
+{
+}
+
+function getAlign()
+{
+return $this->align;
+}
+
+function getWidth()
+{
+return $this->width;
+}
+
+}
 ?>

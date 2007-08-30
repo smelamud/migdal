@@ -45,7 +45,8 @@ $mtextTagLevel=array('MTEXT-LINE' => MTEXT_LINE,
                      'TABLE'    => MTEXT_LONG,
                      'TR'       => MTEXT_LONG,
                      'TD'       => MTEXT_LONG,
-                     'TH'       => MTEXT_LONG);
+                     'TH'       => MTEXT_LONG,
+                     'INCUT'    => MTEXT_LONG);
 
 class InnerImageBlock
 {
@@ -349,6 +350,14 @@ switch($name)
            $this->html.=makeTag('a',array('name' => '_note'.$this->noteNo));
 	   $this->html.=makeTag('/a');
 	   break;
+      case 'INCUT':
+           $data=new IncutCallbackData();
+	   if(isset($attrs['ALIGN']))
+	     $data->align=$attrs['ALIGN'];
+	   if(isset($attrs['WIDTH']))
+	     $data->width=$attrs['WIDTH'];
+	   $this->html.=callback('incut',$data);
+	   break;
       default:
            $this->html.=makeTag($name,$attrs);
       }
@@ -426,6 +435,9 @@ switch($name)
 	     $this->html.=makeTag('/a');
 	     }
 	   $this->noteNo++;
+	   break;
+      case 'INCUT':
+	   $this->html.=callback('_incut',null);
 	   break;
       default:
            $this->html.=makeTag("/$name");
