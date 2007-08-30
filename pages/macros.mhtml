@@ -18,6 +18,8 @@
 << Callbacks >>
 <deccallback event='image' name='article_image' file='parts/article.php'
              params='data'>
+<deccallback event='user_name' name='user_name' file='parts/utils.php'
+             params='data'>
 
 << Elements >>
 <decel name='article' file='parts/article.php'

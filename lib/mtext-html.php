@@ -6,6 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/xml.php');
 require_once('lib/mtext-shorten.php');
 require_once('lib/callbacks.php');
+require_once('lib/mtext-callback-data.php');
 require_once('lib/text.php');
 require_once('lib/inner-images.php');
 
@@ -15,9 +16,13 @@ $mtextRootTag=array(MTEXT_LINE  => 'mtext-line',
 $mtextTagLevel=array('MTEXT-LINE' => MTEXT_LINE,
                      'A'        => MTEXT_LINE,
                      'EMAIL'    => MTEXT_LINE,
+                     'USER'     => MTEXT_LINE,
+                     'IMG'      => MTEXT_LINE,
                      'B'        => MTEXT_LINE,
                      'I'        => MTEXT_LINE,
                      'U'        => MTEXT_LINE,
+                     'S'        => MTEXT_LINE,
+                     'STRIKE'   => MTEXT_LINE,
                      'TT'       => MTEXT_LINE,
                      'SUP'      => MTEXT_LINE,
 		     'MTEXT-SHORT' => MTEXT_SHORT,
@@ -37,7 +42,6 @@ $mtextTagLevel=array('MTEXT-LINE' => MTEXT_LINE,
                      'EMBED'    => MTEXT_SHORT,
 		     'MTEXT-LONG' => MTEXT_LONG,
                      'FOOTNOTE' => MTEXT_LONG,
-                     'IMG'      => MTEXT_LONG,
                      'TABLE'    => MTEXT_LONG,
                      'TR'       => MTEXT_LONG,
                      'TD'       => MTEXT_LONG,
@@ -54,39 +58,6 @@ function isPlaced($place)
 {
 return $place<=IPL_HORIZONTAL ? ($this->placement & IPL_HORIZONTAL)==$place
                               : ($this->placement & IPL_VERTICAL)==$place;
-}
-
-}
-
-class ImageCallbackData
-{
-var $id;
-var $align;
-var $image;
-var $par;
-
-function ImageCallbackData()
-{
-}
-
-function getId()
-{
-return $this->id;
-}
-
-function getAlign()
-{
-return $this->align;
-}
-
-function getImage()
-{
-return $this->image;
-}
-
-function getPar()
-{
-return $this->par;
 }
 
 }
@@ -263,6 +234,25 @@ switch($name)
            $this->html.=makeTag('a',array('href' => 'mailto:'.$attrs['ADDR']));
            $this->html.=makeText($attrs['ADDR']);
 	   $this->html.=makeTag('/a');
+	   break;
+      case 'USER':
+	   if(!isset($attrs['NAME']) && !isset($attrs['GUEST-NAME']))
+	     {
+	     $this->html.='<b>&lt;USER NAME?&gt;</b>';
+	     break;
+	     }
+	   $data=new UserNameCallbackData();
+	   if(isset($attrs['NAME']))
+	     {
+	     $data->guest=false;
+	     $data->login=makeText('-'.$attrs['NAME']);
+	     }
+	   else
+	     {
+	     $data->guest=true;
+	     $data->login=makeText($attrs['GUEST-NAME']);
+             }
+           $this->html.=callback('user_name',$data);
 	   break;
       case 'H2':
       case 'H3':

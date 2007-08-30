@@ -1,7 +1,7 @@
 <!-- @(#) $Id$ -->
 
-<!ENTITY % font "b|i|u|tt|sup">
-<!ENTITY % line "%font;|a|email|br">
+<!ENTITY % font "b|i|u|s|strike|tt|sup">
+<!ENTITY % line "%font;|a|email|user|img|br">
 
 <!ELEMENT mtext-short (p|quote|center|h2|h3|h4|object|embed)*>
 
@@ -43,9 +43,22 @@
 <!ATTLIST email
           addr CDATA #REQUIRED>
 
+<!ELEMENT user EMPTY>
+<!ATTLIST user
+          name CDATA #REQUIRED>
+
+<!ELEMENT img EMPTY>
+<!ATTLIST img
+          src CDATA #REQUIRED
+	  width CDATA #IMPLIED
+	  height CDATA #IMPLIED
+	  border CDATA #IMPLIED>
+
 <!ELEMENT b (#PCDATA|%line;)*>
 <!ELEMENT i (#PCDATA|%line;)*>
 <!ELEMENT u (#PCDATA|%line;)*>
+<!ELEMENT s (#PCDATA|%line;)*>
+<!ELEMENT strike (#PCDATA|%line;)*>
 <!ELEMENT tt (#PCDATA|%line;)*>
 <!ELEMENT sup (#PCDATA|%line;)*>
 

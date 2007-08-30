@@ -92,6 +92,20 @@
 </notenglish>
 </element>
 
+<callback name='user_name'>
+<if what='!$data.isGuest'>
+ <user_id login='$data.Login'>
+ <ifnzero what='$,'>
+  <user_obj id='$,'>
+  <senderlink message='$,'>
+ <else>
+  <asp><span class='guest-name'>$data.Login</span><asp>
+ </ifzero>
+<else>
+ <asp><span class='guest-name'>$data.Login</span><asp>
+</if>
+</callback>
+
 <element name='lastonline'>
 <if what='$user.isOnline'>
  <ifnzero what='$user.LastMinutes'>

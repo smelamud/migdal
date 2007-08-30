@@ -3,9 +3,12 @@
 
 $mtextEmptyTags=array('A'        => false,
 		      'EMAIL'    => true,
+		      'USER'     => true,
 		      'B'        => false,
 		      'I'        => false,
 		      'U'        => false,
+		      'S'        => false,
+		      'STRIKE'   => false,
 		      'TT'       => false,
 		      'SUP'      => false,
 		      'P'        => false,
@@ -174,18 +177,18 @@ $tail=isset($m[2]) ? $m[2] : '';
 debugLog(LL_DEBUG,'processing tag: tagName=(%) tail=(%)',array($tagName,$tail));
 while($tail!='')
      {
-     if(preg_match('/^(\w+)\s*=\s*("[^"]*"|\'[^\']*\')\s*(.*)$/',$tail,
+     if(preg_match('/^([-\w]+)\s*=\s*("[^"]*"|\'[^\']*\')\s*(.*)$/',$tail,
                    $m))
        {
        $out.=' '.$m[1].'='.$m[2];
        $tail=isset($m[3]) ? $m[3] : '';
        }
-     elseif(preg_match('/^(\w+)\s*=\s*(\S+)\s*(.*)$/',$tail,$m))
+     elseif(preg_match('/^([-\w]+)\s*=\s*(\S+)\s*(.*)$/',$tail,$m))
        {
        $out.=' '.$m[1].'="'.$m[2].'"';
        $tail=isset($m[3]) ? $m[3] : '';
        }
-     elseif(preg_match('/^(\w+)\s*(.*)$/',$tail,$m))
+     elseif(preg_match('/^([-\w]+)\s*(.*)$/',$tail,$m))
        {
        $out.=' '.$m[1].'="'.$m[1].'"';
        $tail=isset($m[2]) ? $m[2] : '';

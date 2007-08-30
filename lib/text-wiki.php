@@ -27,7 +27,8 @@ for($n=0;$n<strlen($s);$n++)
    if($s[$n]=='<')
      $intag++;
    if($s[$n]=='>' && ($n==strlen($s)-1 || $s[$n+1]!='>') && $s[$n-1]!='>')
-     $intag--;
+     if($intag>0)
+       $intag--;
    if(!$intag && !$tag && $s[$n]==$foo
       && ($n==0 || (!$delim || is_delim($s[$n-1])) && $s[$n-1]!='&'
                                          # &#entity; combinations are

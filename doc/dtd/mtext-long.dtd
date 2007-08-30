@@ -1,8 +1,8 @@
 <!-- @(#) $Id$ -->
 
-<!ENTITY % font "b|i|u|tt|sup">
-<!ENTITY % noteline "%font;|a|email|br">
-<!ENTITY % line "%noteline;|footnote|img">
+<!ENTITY % font "b|i|u|s|strike|tt|sup">
+<!ENTITY % noteline "%font;|a|email|user|img|br">
+<!ENTITY % line "%noteline;|footnote">
 <!ENTITY % para "%line;|ul|ol|dl">
 
 <!ELEMENT mtext-long (p|quote|center|h2|h3|h4|object|embed|table)*>
@@ -45,15 +45,26 @@
 <!ATTLIST email
           addr CDATA #REQUIRED>
 
+<!ELEMENT user EMPTY>
+<!ATTLIST user
+          name CDATA #REQUIRED>
+
+<!ELEMENT img EMPTY>
+<!ATTLIST img
+          src CDATA #REQUIRED
+	  width CDATA #IMPLIED
+	  height CDATA #IMPLIED
+	  border CDATA #IMPLIED>
+
 <!ELEMENT footnote (#PCDATA|%noteline;)*>
 <!ATTLIST footnote
           title CDATA #IMPLIED>
 
-<!ELEMENT img EMPTY>
-
 <!ELEMENT b (#PCDATA|%line;)*>
 <!ELEMENT i (#PCDATA|%line;)*>
 <!ELEMENT u (#PCDATA|%line;)*>
+<!ELEMENT s (#PCDATA|%line;)*>
+<!ELEMENT strike (#PCDATA|%line;)*>
 <!ELEMENT tt (#PCDATA|%line;)*>
 <!ELEMENT sup (#PCDATA|%line;)*>
 

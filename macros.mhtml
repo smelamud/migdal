@@ -281,6 +281,8 @@
          params='id,up,fields,as_guest'
 	 defaults="name=topic id='$topic_id' up=0 fields='*SELECT_GENERAL'
 	           as_guest='*false'">
+<deccall macro='user_id' func='getUserIdByLogin' file='lib/users.php'
+         params='login'>
 <deccall macro='user_login' func='getUserLoginById' file='lib/users.php'
          params='id'>
 <deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
