@@ -132,6 +132,10 @@
   <topics_line time='$,' text='Галерея' href='/migdal/mazltov/gallery/'
 	       arrow!="$index=='migdal.mazltov.gallery'"
 	       class='topics-item ninept'>
+  <posting_obj id='$`post.migdal.mazltov.funny-stories`'>
+  <topics_line time='$,Modified' text='&laquo;Веселые истории&raquo;'
+               href='/migdal/mazltov/funny-stories/' arrow!="$index==$,Id"
+	       class='topics-item ninept'>
  </html_cache>
 </topics_table>
 <topics_common_events id='$`migdal.events.mazltov-birth`'>
