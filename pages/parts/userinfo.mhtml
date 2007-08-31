@@ -1,10 +1,12 @@
 << @(#) $Id$ >>
 
-<element name='infoline' params='title,value,escape' defaults="escape='*true'">
+<element name='infoline' params='title,value,escape,class'
+         defaults="escape='*true' class=''">
 <ifne what='$value'>
  <tr valign='top'>
   <th style='white-space: nowrap' align='left'>$=title:</th>
-  <td width='100%'><if what='$escape'>$=value<else>$value</if></td>
+  <td width='100%'
+      class='$class'><if what='$escape'>$=value<else>$value</if></td>
  </tr>
 </ifne>
 </element>
@@ -23,18 +25,22 @@
 <user_obj name='user' id='$id'>
 <log event=userinfo text#='user($user.Id)'>
 <controls target='$target'>
-<ifne what='$class'>
- <table width=100% cellspacing=5 cellpadding=0 class='$class'>
-<else>
- <table width=100% cellspacing=5 cellpadding=0>
-</ifne>
- <infoline title='Ник' value='$,Login'>
- <infoline title='Имя' value='$,FullName'>
+<table width=100% cellspacing=5 cellpadding=0 class='vcard $class'>
+ <infoline title='Ник' value='$,Login' class='nickname'>
+ <tr style='display: none'><td colspan='2' class='n'>
+  <span class='given-name'>$,Name</span>
+  <span class='family-name'>$,Surname</span>
+  <span class='additional-name'>$,JewishName</span>
+ </td></tr>
+ <infoline title='Имя' value='$,FullName' class='fn'>
  <if what='$,isMan'>
   <infoline title='Пол' value='Мужской'>
  <else>
   <infoline title='Пол' value='Женский'>
  </if>
+ <tr style='display: none'><td colspan='2' class='bday'>
+  $,NumericBirthday
+ </td></tr>
  <if what="$,Age!='-'">
   <infoline title='Дата рождения' value#='$,Birthday / $,JewishBirthday'>
  </if>
@@ -51,7 +57,7 @@
    <th style='white-space: nowrap' align='left'>
     E-mail
    </th>
-   <td width='100%'>
+   <td width='100%' class='email'>
     <mailtolink message='$,'>&nbsp;
     <if what='$,isEmailDisabled==2'>
      <i>(адрес не работает)</i>

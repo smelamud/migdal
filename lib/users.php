@@ -193,6 +193,11 @@ $age=getCalendarAge($bt[1],$bt[2],$bt[0],$t['mon'],$t['mday'],$t['year']);
 return $age<100 ? $age : '-';
 }
 
+function getNumericBirthday()
+{
+return $this->birthday;
+}
+
 function getBirthday()
 {
 $bt=explode('-',$this->birthday);

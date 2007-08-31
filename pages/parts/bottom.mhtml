@@ -8,7 +8,7 @@
 <element name='email' params='addr'>
 <assign name='title'
         value!='!$$englishDomain ? "Написать письмо" : "Send e-mail"'>
-<a href="mailto:$addr" title="$title">
+<a href="mailto:$addr" title="$title" class="email">
    <image src="/pics/mail.gif" border=0></a>
 </element>
 
@@ -32,18 +32,34 @@ else
 <element name='bottom_www'>
 <tr valign=top>
  <td rowspan=2>
-  Сайт создан и поддерживается
-  <a href='/migdal/jcc/student/'>Клубом Еврейского Студента</a>
-  <br>
-  Международного Еврейского Общинного Центра
-  <a href='/migdal/'>&lt;&lt;Мигдаль&gt;&gt;</a>
-  <email addr='migdal@migdal.ru'>.
-  <p>
-  <em>Адрес:</em> г. Одесса, ул. Малая Арнаутская, 46-а.<br>
-  <em>Тел.:</em> 37-21-28, 777-07-18, факс: 34-39-68.
-  <p>
-  Председатель правления центра &lt;&lt;Мигдаль&gt;&gt; &mdash; Кира Верховская
-  <email addr='verkhov@tm.odessa.ua'>.
+  <div class='vcard'>
+   Сайт создан и поддерживается
+   <a href='/migdal/jcc/student/'>Клубом Еврейского Студента</a>
+   <br>
+   <span class='n fn org' style='display: none'>
+    <span class='honorific-prefix'>Международный Еврейский Общинный Центр</span>
+    <span class='given-name'>&lt;&lt;Мигдаль&gt;&gt;</span>
+   </span>
+   Международного Еврейского Общинного Центра
+   <a class='url' href='http://www.migdal.ru/migdal/'>&lt;&lt;Мигдаль&gt;&gt;</a>
+   <email addr='migdal@migdal.ru'>.
+   <p>
+   <em>Адрес:</em>
+   <span class='adr'>
+    г. <span class='locality'>Одесса</span>,
+    <span class='street-address'>ул. Малая Арнаутская, 46-а.</span>
+   </span><br>
+   <em>Тел.:</em>
+   <span class='tel'>37-21-28</span>,
+   <span class='tel'>777-07-18</span>,
+   факс: <span class='tel'>34-39-68</span>.
+  </div>
+  <p class='vcard'>
+   <span class='title'>Председатель правления</span> центра
+   <span class='org'>&lt;&lt;Мигдаль&gt;&gt;</span> &mdash;
+   <span class='fn'>Кира Верховская</span>
+   <email addr='verkhov@tm.odessa.ua'>.
+  </p>
  </td>
  <td align=right>
   <image src='/pics/book.gif'>&nbsp;
@@ -68,14 +84,25 @@ else
 <element name='bottom_english'>
 <tr valign=bottom>
  <td>
-  Programming, design and maintenance by <b>Jewish Student Club</b> of
-  <br>
-  the International Center of Jewish Community Programs
-  <a href='/'>&lt;&lt;Migdal&gt;&gt;</a>
-  <email addr='migdal@migdal.ru'>, Odessa.
-  <p>
-  <b>Kira Verkhovskaya</b> <email addr='verkhov@tm.odessa.ua'>, the President
-  of the JCC &lt;&lt;Migdal&gt;&gt; center.
+  <div class='vcard'>
+   Programming, design and maintenance by <b>Jewish Student Club</b> of
+   <br>
+   <span class='n fn org'>
+    <span class='given-name'>Migdal</span>
+    <span class='honorific-suffix'>
+     International Center of Jewish Community Programs
+    </span>
+   </span>
+   the International Center of Jewish Community Programs
+   <a href='http://english.migdal.ru/' class='url'>&lt;&lt;Migdal&gt;&gt;</a>
+   <email addr='migdal@migdal.ru'>,
+   <span class='adr'><span class='locality'>Odessa</span></span>.
+  </div>
+  <p class='vcard'>
+   <b class='fn'>Kira Verkhovskaya</b> <email addr='verkhov@tm.odessa.ua'>,
+   the <span class='title'>President</span> of the
+   <span class='org'>JCC &lt;&lt;Migdal&gt;&gt;</span> center.
+  </p>
  </td>
  <td align=right>
   <kernel>
