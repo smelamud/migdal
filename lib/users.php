@@ -480,6 +480,9 @@ class UsersNowIterator
 
 function UsersNowIterator($period)
 {
+global $userAdminUsers;
+
+$hide=$userAdminUsers ? 2 : 1;
 parent::SelectIterator('User',
                        "select users.id as id,login,gender,email,hide_email,
 		               hidden
@@ -487,6 +490,7 @@ parent::SelectIterator('User',
 			     left join sessions
 			          on sessions.user_id=users.id
 			where last+interval $period minute>now()
+			      and hidden<$hide
 			order by last desc");
 }
 
