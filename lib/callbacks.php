@@ -24,31 +24,13 @@ $Callbacks[$name]=$value;
 
 function beginCallback()
 {
-global $callbackBuffer;
-
-$callbackBuffer=ob_get_contents();
-if(function_exists('ob_clean'))
-  ob_clean();
-else
-  {
-  ob_end_clean();
-  ob_start();
-  }
+ob_start();
 }
 
 function endCallback()
 {
-global $callbackBuffer;
-
 $s=ob_get_contents();
-if(function_exists('ob_clean'))
-  ob_clean();
-else
-  {
-  ob_end_clean();
-  ob_start();
-  }
-echo $callbackBuffer;
+ob_end_clean();
 return $s;
 }
 ?>

@@ -35,7 +35,6 @@ var $orig_id=0;
 var $grp=0;
 var $grps=array();
 var $person_id=0;
-var $guest_login='';
 var $user_id=0;
 var $group_id=0;
 var $group_login='';
@@ -84,6 +83,7 @@ var $answers=0;
 var $last_answer=0;
 var $last_answer_id=0;
 var $last_answer_user_id=0;
+var $last_answer_guest_login=0;
 var $small_image=0;
 var $small_image_x=0;
 var $small_image_y=0;
@@ -191,11 +191,6 @@ $this->grps=$grps;
 function getPersonId()
 {
 return $this->person_id;
-}
-
-function getGuestLogin()
-{
-return $this->guest_login;
 }
 
 function getUserId()
@@ -696,6 +691,11 @@ return $this->last_answer_id;
 function getLastAnswerUserId()
 {
 return $this->last_answer_user_id;
+}
+
+function getLastAnswerGuestLogin()
+{
+return $this->last_answer_guest_login;
 }
 
 function getSmallImage()

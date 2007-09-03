@@ -137,6 +137,8 @@
 <deciter macro='user_alphabet' class='UserAlphabetIterator'
          file='lib/users.php' params='limit,sort'
 	 defaults="limit=0 sort='*SORT_LOGIN'">
+<deciter macro='users_now' class='UsersNowIterator' file='lib/users.php'
+         params='period'>
 
 <macro name='reset_iterator' defaults="list='$;'">
  <call object%!list='%list' func='reset'>
@@ -195,6 +197,8 @@
 <deccall macro='grp_diff' func='grpDiff' file='lib/grps.php' params='grp1,grp2'>
 <deccall macro='grp_join' func='grpJoin' file='lib/grps.php' params='grp1,grp2'>
 <deccall macro='grp_valid' func='isGrpValid' file='lib/grps.php' params='grp'>
+<deccall macro='guests_now' func='getGuestsNow' file='lib/users.php'
+         params='period'>
 <deccall macro='html_cache_obj' func='getHTMLCacheRecord'
          file='lib/html-cache.php' params='ident,period,depends,if'
 	 defaults='period=*null if=*true'>
@@ -285,7 +289,8 @@
          params='login'>
 <deccall macro='user_login' func='getUserLoginById' file='lib/users.php'
          params='id'>
-<deccall macro='user_obj' func='getUserById' file='lib/users.php' params='id'>
+<deccall macro='user_obj' func='getUserById' file='lib/users.php'
+         params='id,guest_login' defaults="guest_login=''">
 <deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>
 <deccall macro='vote' func='getVote' file='lib/votes.php' params='id'>
 

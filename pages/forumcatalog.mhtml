@@ -24,6 +24,25 @@
 <body>
  <top ident='discuss'>
  <div style='padding: 5'>
+  <iterate_users_now name='list' period='30'>
+  <b class='ninept'>Сейчас на сайте:</b>&sp;
+  <ifnzero what='$;Count'>
+   <for>
+    <notfirst what='$list'>,&sp;</notfirst>
+    <senderlink message='$.'>
+   </for>
+  <else>
+   никого из зарегистрированных
+  </ifnzero>
+  <guests_now period='30'>
+  <ifnzero what='$,'>
+   <array vals='гость,гостя,гостей'>
+   <zone>
+    <plural name='guests' value='$,'>
+   </zone>
+   &sp;и <em>$,</em> $guests
+  </ifnzero>
+  <br /><br />
   <html_cache ident#='forumcatalog-$offset' period!='3 * 60 * 60'
 	      depends='postings,forums'>
    <grp_diff name='grp' grp1='*GRP_ALL' grp2='*GRP_FORUMS'>
@@ -108,7 +127,8 @@
 	<td class='$class ninept'>
 	 <sentview date='$.LastAnswer'><br>
 	 <zone>
-	  <user_obj id='$.LastAnswerUserId'>
+	  <user_obj id='$.LastAnswerUserId'
+	            guest_login='$.LastAnswerGuestLogin'>
 	  Автор: <senderlink message='$,'>
 	 </zone>
 	</td>

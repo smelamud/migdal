@@ -474,14 +474,33 @@ parent::AlphabetIterator("select left($field,@len@) as letter,1 as count
 
 }
 
-function getUserById($id)
+class UsersNowIterator
+      extends SelectIterator
+{
+
+function UsersNowIterator($period)
+{
+parent::SelectIterator('User',
+                       "select users.id as id,login,gender,email,hide_email,
+		               hidden
+			from users
+			     left join sessions
+			          on sessions.user_id=users.id
+			where last+interval $period minute>now()
+			order by last desc");
+}
+
+}
+
+function getUserById($id,$guest_login='')
 {
 global $userAdminUsers,$userId;
 
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
                     birthday,rights,last_online,email,hide_email,icq,
-		    email_disabled,hidden,no_login,has_personal,
+		    guest as user_guest,email_disabled,hidden,no_login,
+		    has_personal,
 		    if(last_online+interval 1 hour>now(),1,0) as online,
 		    floor((unix_timestamp(now())
 			   -unix_timestamp(last_online))/60) as last_minutes,
@@ -493,8 +512,10 @@ $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
 	     where users.id=$id and (hidden<$hide or guest<>0
 	                             or users.id=$userId)",
 	    __FUNCTION__);
-return new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                          : array('id' => 0));
+$user=new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
+                                         : array('id' => 0));
+$user->guest_login=$guest_login;
+return $user;
 }
 
 function storeUser(&$user)
@@ -802,5 +823,14 @@ return mysql_num_rows($result)>0 ?
        new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
                         mysql_result($result,0,1)) :
        new UsersSummary(0,0);
+}
+
+function getGuestsNow($period)
+{
+$result=sql("select count(*)
+             from sessions
+  	     where user_id=0 and last+interval $period minute>now()",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 ?>

@@ -234,6 +234,7 @@ $Fields='entries.id as id,entries.ident as ident,entries.up as up,
 	 entries.answers as answers,entries.last_answer as last_answer,
 	 entries.last_answer_id as last_answer_id,
 	 entries.last_answer_user_id as last_answer_user_id,
+	 entries.last_answer_guest_login as last_answer_guest_login,
 	 if(entries.answers!=0,entries.last_answer,entries.modified) as age,
 	 entries.small_image as small_image,
 	 entries.small_image_x as small_image_x,
@@ -1054,7 +1055,8 @@ $result=sql("select entry,up,parent_id,orig_id,grp,person_id,guest_login,
                     user_id,group_id,perms,disabled,lang,priority,index0,
 		    index1,index2,set0,set0_index,set1,set1_index,vote,
 		    vote_count,rating,sent,accessed,modbits,answers,
-		    last_answer,last_answer_id,last_answer_user_id
+		    last_answer,last_answer_id,last_answer_user_id,
+		    last_answer_guest_login
 	     from entries
 	     where id=$id",
 	    __FUNCTION__,'select');

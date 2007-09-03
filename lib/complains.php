@@ -79,7 +79,8 @@ parent::LimitSelectIterator(
 	       person.email as person_email,
 	       person.hide_email as person_hide_email,
 	       person.hidden as person_hidden,
-	       answers,last_answer,last_answer_id,last_answer_user_id
+	       answers,last_answer,last_answer_id,last_answer_user_id,
+	       last_answer_guest_login
         from entries
 	     left join users
 		  on entries.user_id=users.id
@@ -184,7 +185,7 @@ $result=sql("select entries.id as id,subject,body,body_xml,body_format,url,sent,
 		    person.gender as person_gender,person.email as person_email,
 		    person.hide_email as person_hide_email,
 		    person.hidden as person_hidden,answers,last_answer,
-		    last_answer_id,last_answer_user_id
+		    last_answer_id,last_answer_user_id,last_answer_guest_login
 	     from entries
 		  left join users
 		       on entries.user_id=users.id

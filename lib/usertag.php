@@ -12,6 +12,7 @@ var $email;
 var $hide_email;
 var $user_hidden;
 var $user_guest;
+var $guest_login='';
 
 function UserTag($row)
 {
@@ -90,6 +91,11 @@ return !$this->isUserHidden()
 function isUserGuest()
 {
 return $this->user_guest ? 1 : 0;
+}
+
+function getGuestLogin()
+{
+return $this->guest_login;
 }
 
 }

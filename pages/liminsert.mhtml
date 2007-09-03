@@ -62,23 +62,6 @@
      <form_option title='$name' value='$.Id' selected!='$,ImageId==$.Id'>
     </for>
    </form_select>
-   <hidden name='par' value='$par'>
-   <hidden name='x' value='$x'>
-   <hidden name='y' value='$y'>
-   <form_line title='Размещение картинки относительно текста'>
-    <table>
-     <tr>
-      <td align=center><place value='*IPL_CENTERLEFT'></td>
-      <td align=center><place value='*IPL_CENTER'></td>
-      <td align=center><place value='*IPL_CENTERRIGHT'></td>
-     </tr>
-     <tr>
-      <td align=center><place value='*IPL_BOTTOMLEFT'></td>
-      <td align=center><i>Текст</i></td>
-      <td align=center><place value='*IPL_BOTTOMRIGHT'></td>
-     </tr>
-    </table>
-   </form_line>
    <image_obj id='0'>
    <setup>
    <form_section title='Загрузить из файла'>
@@ -132,6 +115,24 @@
    <hidden name='large_image_format' value='$large_image_format'>
    <hidden name='large_image_filename' value='$large_image_filename'>
    <form_editor title='Подпись' name='title' body='$=,Title' rows=3>
+   <form_section title='Размещение'>
+   <hidden name='par' value='$par'>
+   <hidden name='x' value='$x'>
+   <hidden name='y' value='$y'>
+   <form_line title='Размещение картинки относительно текста'>
+    <table>
+     <tr>
+      <td align=center><place value='*IPL_CENTERLEFT'></td>
+      <td align=center><place value='*IPL_CENTER'></td>
+      <td align=center><place value='*IPL_CENTERRIGHT'></td>
+     </tr>
+     <tr>
+      <td align=center><place value='*IPL_BOTTOMLEFT'></td>
+      <td align=center><i>Текст</i></td>
+      <td align=center><place value='*IPL_BOTTOMRIGHT'></td>
+     </tr>
+    </table>
+   </form_line>
    <form_buttons title='Вставить'>
   </form>
  </form_table>
