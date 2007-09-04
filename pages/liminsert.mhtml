@@ -26,6 +26,7 @@
 </element>
 
 <html>
+<js_jquery>
 <preamble>
 <body>
  <top ident='index'>
@@ -102,10 +103,10 @@
 		  checked='$,hasLargeImage' style='radio' id_yes='hlm-yes'>
    <form_line title='Размер'>
     <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4
-          onkeypress='document.getElementById("hlm-yes").click();'>
+          onkeypress='$("#hlm-yes").attr("checked", true)'>
     x
     <edit name='small_image_y' value='$,SmallImageY' size=4 maxlength=4
-          onkeypress='document.getElementById("hlm-yes").click();'>
+          onkeypress='$("#hlm-yes").attr("checked", true)'>
    </form_line>
    <hidden name='small_image' value='$small_image'>
    <hidden name='large_image' value='$large_image'>

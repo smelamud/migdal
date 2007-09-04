@@ -7,7 +7,7 @@
 <element name='topiclink'>
 <assign name='href' value#='$prefix$posting.GrpGeneralHref'>
 <location_info path='$href'>
-<at href='$href' class='$class'>$=,TitleFull</at>
+<a href='$href' class='$class'>$=,TitleFull</a>
 </element>
 
 <element name='editlink'>

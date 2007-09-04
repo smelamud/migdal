@@ -27,9 +27,10 @@
 
 <html>
 <stylesheet ident='complain'>
+<js_jquery>
 <js src='/js/captcha.js'>
 <preamble>
-<body onload='reloginInit();'>
+<body>
  <top ident='discuss'>
  <ifnzero what='$peerid'>
   <forum_obj id='$peerid'>

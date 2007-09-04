@@ -1,18 +1,24 @@
 function reloginInit() {
-    var captcha = document.getElementById("captcha");
-    var rg = document.getElementById("relogin-guest");
-    if (!rg || !rg.checked) {
-        captcha.style.display = "none";
+    var rg = $("#relogin-guest");
+    if (rg.size() > 0) {
+    	rg.each(function(box) {
+	    if (!box.checked) {
+		$("#captcha").hide();
+	    } else {
+		$("#captcha").show();
+	    }
+	});
     } else {
-        captcha.style.display = "";
+	$("#captcha").hide();
     }
 }
 
 function reloginSelected(button) {
-    var captcha = document.getElementById("captcha");
     if (button.id != "relogin-guest") {
-        captcha.style.display = "none";
+        $("#captcha").hide();
     } else {
-        captcha.style.display = "";
+        $("#captcha").show();
     }
 }
+
+$(reloginInit);

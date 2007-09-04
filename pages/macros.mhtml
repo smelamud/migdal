@@ -443,6 +443,10 @@
  </head>
 </macro>
 
+<macro name='js_jquery'>
+ <js src='/js/jquery-1.1.4.pack.js'>
+</macro>
+
 << Biff >>
 <macro name='biff' defaults="small='*false'">
  <ifbiff time%!time='%time'>

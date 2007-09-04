@@ -22,8 +22,7 @@
     <td>Имя</td>
     <td>
      <input type=text name='guest_login' value='$$=userGuestLogin' size=15
-            maxlength=30
-	    onkeypress='document.getElementById("relogin-guest").checked=true'>
+            maxlength=30 onkeypress='$("#relogin-guest").attr("checked", true)'>
     </td>
     <td colspan=4>
      <label for='relogin-guest'>без пароля (гостевой вход)</label>
@@ -55,12 +54,12 @@
    <td>Ник</td>
    <td>
     <input type=text name='login' value='$=login' size=15 maxlength=30
-           onkeypress='document.getElementById("relogin-login").checked=true'>
+           onkeypress='$("#relogin-login").attr("checked", true)'>
    </td>
    <td>Пароль</td>
    <td>
     <input type=password name='password' size=15
-           onkeypress='document.getElementById("relogin-login").checked=true'>
+           onkeypress='$("#relogin-login").attr("checked", true)'>
    </td>
    <td>Войти?</td>
    <td><checkbox_button name='remember' checked='$remember'></td>
