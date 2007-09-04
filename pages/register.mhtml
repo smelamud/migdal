@@ -18,6 +18,8 @@
 <int name='email_enabled'>
 
 <html>
+<js_jquery>
+<js src='/js/login-verify.js'>
 <preamble>
 <body>
  <top ident='users'>
@@ -47,10 +49,21 @@
    <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен'>
    <error id='*EUM_LOGIN_EXISTS'
 	  text='Пользователь с таким ником уже существует'>
-   <form_edit title='Ник'
-              comment='Ваш псевдоним, под которым вы будете видны на сайте'
-	      value='$=,Login' name='new_login' size=20 maxlength=30
-	      mandatory='*true'>
+   <form_line title='Ник' mandatory='*true'
+              comment='Ваш псевдоним, под которым вы будете видны на сайте'>
+    <table width='100%' cellspacing='0' cellpadding='0' border='0'>
+     <tr valign='center'>
+      <td width='1' align='left'>
+       <edit id='login' name='new_login' value='$=,Login' size=20 maxlength=30>
+      </td>
+      <td width='5'>&nbsp;</td>
+      <td align='left'>
+       <input type='submit' id='login-button' value='Проверить'>
+      </td>
+     </tr>
+     <tr><td colspan='3' id='login-status'>&nbsp;</td></tr>
+    </table>
+   </form_line>
    <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
    <error id='*EUM_PASSWORD_DIFF'
 	  text='Опечатка при вводе пароля - введите еще раз'>

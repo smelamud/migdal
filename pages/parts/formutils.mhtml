@@ -79,12 +79,17 @@
 
 <element name='edit'>
 <ifne what='$onkeypress'>
- <?php $onkeypress_ev="onkeypress='$onkeypress'"; ?>
+ <?php $onkeypressS="onkeypress='$onkeypress'"; ?>
 <else>
- <assign name='onkeypress_ev' value=''>
+ <assign name='onkeypressS' value=''>
+</ifne>
+<ifne what='$id'>
+ <?php $idS="id='$id'"; ?>
+<else>
+ <assign name='idS' value=''>
 </ifne>
 <input type='text' name='$name' value='$value' size='$size'
-       maxlength='$maxlength' $onkeypress_ev>
+       maxlength='$maxlength' $onkeypressS $idS>
 </element>
 
 <element name='form_edit'>

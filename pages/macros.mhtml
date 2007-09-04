@@ -68,8 +68,8 @@
 <decel name='discusslink' file='parts/posting.php' params='posting'>
 <decel name='ears' file='parts/ears.php'>
 <decel name='edit' file='parts/formutils.php'
-       params='name,value,size,maxlength,onkeypress'
-       defaults="size=40 maxlength=250 onkeypress=''">
+       params='name,value,size,maxlength,onkeypress,id'
+       defaults="size=40 maxlength=250 onkeypress='' id=''">
 <decel name='editlink' file='parts/posting.php' params='posting'>
 <decel name='events' file='parts/events.php' params='grp,index,prefix'
        defaults="index=0 prefix=''">
