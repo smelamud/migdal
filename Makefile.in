@@ -4,6 +4,7 @@
 
 all: crontab php dbcreate.sql
 	(cd actions; $(MAKE) all)
+	(cd ajax; $(MAKE) all)
 	(cd cgi-bin; $(MAKE) all)
 	(cd conf; $(MAKE) all)
 	(cd lib; $(MAKE) all)

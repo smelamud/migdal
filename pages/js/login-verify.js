@@ -5,7 +5,7 @@ function loginChanged() {
 
 function loginVerify(event) {
     $("#login-status").removeClass().text("Идет проверка...");
-    $.getJSON("/actions/user/login/exists",
+    $.getJSON("/ajax/sources/user/login/exists",
               {login: $("#login").val()},
               function(data) {
                   if (data.exists) {
