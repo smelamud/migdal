@@ -1,11 +1,11 @@
 << @(#) $Id$ >>
 
 <string name='q' convert='*true'>
+
 <ifne what='$q'>
  <?php $LocationInfo->setTitle('Поиск: '.$Args['q']); ?>
+ <log event=search text#='query=$#q'>
 </ifne>
-
-<log event=search text#='query=$#q'>
 
 <element name='google_search'>
 <noparse>
