@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/charsets.php');
+
 function isListArray($data)
 {
 if(!is_array($data))
@@ -49,5 +51,10 @@ foreach($data as $key => $val)
        }
 $s.='}';
 return $s;
+}
+
+function jsonOutput($data)
+{
+echo convertOutput(jsonEncode($data));
 }
 ?>

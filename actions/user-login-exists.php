@@ -13,7 +13,7 @@ postString('login');
 dbOpen();
 session();
 header('Content-Type: application/json');
-echo jsonEncode(array('login' => $login,
-                      'exists' => userLoginExists($login)));
+jsonOutput(array('login' => $login,
+                 'exists' => userLoginExists($login)));
 dbClose();
 ?>

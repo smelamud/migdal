@@ -165,3 +165,6 @@ index_url=%mrm
 heading_split=black
 
 search_topic=%grm
+
+register_login_avail=green
+register_login_busy=red

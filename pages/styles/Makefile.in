@@ -11,7 +11,7 @@ STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-posting.mcss sheet-textears.mcss sheet-forum.mcss \
 	sheet-topics.mcss sheet-catalog.mcss sheet-picmain.mcss \
 	sheet-picture.mcss sheet-form.mcss sheet-heading.mcss \
-	sheet-seealso.mcss
+	sheet-seealso.mcss sheet-register.mcss
 ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-article.mcss
 BOOK_PARTS = colors.mcss fonts.mcss palette.mcss sheet-book.mcss
 COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
