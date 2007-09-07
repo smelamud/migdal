@@ -103,6 +103,9 @@ if(!isset($editmodeHistory))
  <assign name='text' value='$posting.LargeBodyHTML'>
  $text.TextHTML
 </article_editmode>
+<ifne what='$posting.Source'>
+ <p class='source'>Источник: $posting.SourceHTML</p>
+</ifne>
 <if what='$withvote'>
  <vote_frame id='$posting.Id' color='$$style_cframe_back'
 	     image='$$style_cframe_back_pic'>
@@ -121,7 +124,4 @@ if(!isset($editmodeHistory))
  $posting.BodyHTML
 </blockquote>
 <article posting='$posting'>
-<ifne what='$posting.Source'>
- <div class='source' align=right>$posting.SourceHTML</div>
-</ifne>
 </element>

@@ -14,8 +14,8 @@
    <p class='posting-author'>$,AuthorHTML</p>
   </ifne>
   <p><h1 style='margin-left: 0'>$=,Subject</h1></p>
-  <ifne what='$,Source'>
-   <p class='posting-source'>$,SourceHTML</p>
+  <ifne what='$,Comment0'>
+   <p class='posting-source'>$,Comment0HTML</p>
   </ifne>
   <p>$,BodyHTML</p>
  </td></tr></table>

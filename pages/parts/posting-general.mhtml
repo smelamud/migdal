@@ -6,6 +6,12 @@
 </if>
 </element>
 
+<element name='source' params='posting'>
+<ifne what='$posting.Source'>
+ <p class='posting-source'>Источник: $posting.SourceHTML</p>
+</ifne>
+</element>
+
 <element name='further' params='posting,title'>
 <p>
  <image src='/pics/further.gif'>&sp;
@@ -54,9 +60,14 @@
   <if what='!$posting.isBodyMedium'>
    <further posting='$posting'
 	    title!="!$$englishDomain ? 'Читать дальше' : 'Read more'">
+  <else>
+   <source posting='$posting'>
   </if>
  <else>
   $posting.BodyHTML<asp>
+  <if what='!$posting.hasLargeBody'>
+   <source posting='$posting'>
+  </if>
  </if>
  <if what='$posting.hasLargeBody'>
   <if what='$posting.Grp != *GRP_BOOK_CHAPTERS'>
@@ -67,19 +78,15 @@
             title!="!$$englishDomain ? 'Читать главу книги'
                                      : 'Read book chapter'">
   </if>
+ <else>
  </if>
  <ifne what='$posting.URL'>
   <further_url posting='$posting' url='$posting.URL'>
  </ifne>
- <table width=90% style="clear: left"><tr>
-  <td align=left class='sent'>
-   <sentview date='$posting.Sent'>&nbsp;
-   <senderlink message='$posting'>
-  </td>
-  <ifne what='$posting.Source'>
-   <td class='posting-source'>$posting.SourceHTML</td>
-  </ifne>
- </tr></table>
+ <div class='sent'style="clear: left">
+  <sentview date='$posting.Sent'>&nbsp;
+  <senderlink message='$posting'>
+ </div>
  <posting_controls posting='$posting' showdiscuss='$showdiscuss'
 		   showcomplain!="$showcomplain && !$$englishDomain">
 </dl>
