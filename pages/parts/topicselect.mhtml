@@ -37,31 +37,33 @@
 </element>
 
 <element name='form_topicselect'>
-<iterate_sortedtopicnames grp='$grp' up='-1' recursive='*true'
-                          name_root='$root' only_appendable='$only_appendable'
-			  only_postable='$only_postable'>
-<if what='$;Count<=0'>
- <hidden name='$name' value='$value'>
-<elif what='$;Count==1 && $mandatory'>
- <for>
-  <hidden name='$name' value='$.Id'>
- </for>
-<else>
- <form_select name='$name' title='$title' comment='$comment'
-              mandatory='$mandatory'>
-  <if what='!$mandatory || $value<=0'>
-   <if what='$mandatory'>
-    <assign name='title' value='-- Выберите тему --'>
-   <else>
-    <assign name='title' value='-- Без темы --'>
-   </if>
-   <form_option title='$title' value='0' selected!='$value==0'>
-  </if>
+<html_cache ident#='form_topicselect-$name-$value-$grp-$mandatory-$root-$only_appendable-$only_postable-$title-$comment' depends='topics'>
+ <iterate_sortedtopicnames grp='$grp' up='-1' recursive='*true'
+			   name_root='$root' only_appendable='$only_appendable'
+			   only_postable='$only_postable'>
+ <if what='$;Count<=0'>
+  <hidden name='$name' value='$value'>
+ <elif what='$;Count==1 && $mandatory'>
   <for>
-   <ifne what='$.FullName'>
-    <form_option title='$=.FullNameShort' value='$.Id' selected!='$.Id==$value'>
-   </ifne>
+   <hidden name='$name' value='$.Id'>
   </for>
- </form_select>
-</if>
+ <else>
+  <form_select name='$name' title='$title' comment='$comment'
+	       mandatory='$mandatory'>
+   <if what='!$mandatory || $value<=0'>
+    <if what='$mandatory'>
+     <assign name='title' value='-- Выберите тему --'>
+    <else>
+     <assign name='title' value='-- Без темы --'>
+    </if>
+    <form_option title='$title' value='0' selected!='$value==0'>
+   </if>
+   <for>
+    <ifne what='$.FullName'>
+     <form_option title='$=.FullNameShort' value='$.Id' selected!='$.Id==$value'>
+    </ifne>
+   </for>
+  </form_select>
+ </if>
+</html_cache>
 </element>
