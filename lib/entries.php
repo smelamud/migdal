@@ -1079,8 +1079,10 @@ return mysql_num_rows($result)>0;
 function reorderEntries($ids)
 {
 $n=1;
+$some_id=null;
 foreach($ids as $id)
        {
+       $some_id=$id;
        sql("update entries
 	    set index0=$n
 	    where id=$id",
@@ -1090,8 +1092,8 @@ foreach($ids as $id)
 		where id=".journalVar('entries',$id));
        $n++;
        }
-if(count($ids)>0)
-  incContentVersionsByEntryId($ids[0]);
+if($some_id!=null)
+  incContentVersionsByEntryId($some_id);
 }
 
 function renewEntry($id)
