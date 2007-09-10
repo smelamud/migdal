@@ -1,5 +1,5 @@
 <?php
-# @(#) $Id: style.php 2372 2007-01-29 20:14:23Z balu $
+# @(#) $Id$
 
 function createJSList()
 {

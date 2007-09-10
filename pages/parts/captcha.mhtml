@@ -1,4 +1,4 @@
-<< @(#) $Id: formutils.mhtml 2483 2007-04-05 23:57:59Z balu $ >>
+<< @(#) $Id$ >>
 
 <element name='form_captcha'>
 <form_line id='$id' title='Введите эти цифры и буквы' mandatory='*true'

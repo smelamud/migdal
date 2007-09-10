@@ -1,5 +1,5 @@
 <?php
-# @(#) $Id: chat.php 2117 2006-01-31 16:50:28Z balu $
+# @(#) $Id$
 
 require_once('lib/usertag.php');
 require_once('lib/mtext-html.php');

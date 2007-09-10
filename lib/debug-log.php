@@ -1,5 +1,5 @@
 <?php
-# @(#) $Id: debug-log.php,v 1.2 2007-01-31 22:33:49 balu Exp $
+# @(#) $Id$
 
 require_once('conf/migdal.conf');
 
