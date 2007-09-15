@@ -52,6 +52,7 @@
    <gallery topic_id='$topic_id' rows='$userPictureRowPortion'
 	    cols='$userPictureColumnPortion' offset='$offset' sort='$sort'
 	    user_id='$user_id' noguests='$noguests' noadd='$noadd'>
+   <rss>
   </td>
  </tr></table>
  <bottom>
