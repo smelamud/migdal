@@ -32,9 +32,9 @@
   <senderlink message='$picture'>
  </td></tr>
  <topic picture='$picture' showtopic='$showtopic'>
- <tr><td align=right>
-  <vote_frame id='$picture.Id' color='$$style_picture_back'
-	      image='$$style_picture_back_pic'>
+ <tr><td align='center'>
+  <assign name='rating' value!='$picture.Vote - 3 * $picture.VoteCount'>
+  <vote_panel id='$picture.Id' rating='$rating' mini='*true'>
  </td></tr>
  <if what='$picture.hasSmallImage'>
   <tr><td class='image'>

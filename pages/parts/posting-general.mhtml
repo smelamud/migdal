@@ -31,8 +31,8 @@
 <dl class='posting'>
  <dt>
   <topic posting='$posting' showtopic='$showtopic'>
-  <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
-	      image='$$style_cframe_back_pic'>
+  <assign name='rating' value!='$posting.Vote - 3 * $posting.VoteCount'>
+  <vote_panel align='right' id='$posting.Id' rating='$rating'>
   <biff time='$posting.Modified'>
   <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
    <a class='posting-subject'

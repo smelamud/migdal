@@ -381,6 +381,8 @@
 <decel name='veterans_intro' file='parts/peruser-intros.php'>
 <decel name='vote_frame' file='parts/vote.php' params='id,align,color,image'
        defaults="align=''">
+<decel name='vote_panel' file='parts/vote.php' params='id,rating,align,mini'
+       defaults="align='' mini='*false'">
 <decel name='xml_text' file='parts/xml-text.php' params='id,name'>
 
 <macro name='bymessages'>
