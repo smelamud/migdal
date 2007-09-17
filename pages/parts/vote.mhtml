@@ -33,9 +33,7 @@
    <assign name='al' value=''>
   </ifne>
   <table cellspacing='0' cellpadding='0' $al><tr valign='center' height='12'>
-   <if what='!$mini'>
-    <td width='70' align='right'>Рейтинг:&nbsp;&nbsp;</td>
-   </if>
+   <td width='70' align='right'>Рейтинг:&nbsp;&nbsp;</td>
    <td width='12'><image src='/pics/vote-minus.png'></td>
    <ifzero what='$rating'>
     <assign name='color' value='#999999'>
