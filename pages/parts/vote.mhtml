@@ -32,11 +32,11 @@
   <else>
    <assign name='al' value=''>
   </ifne>
-  <table cellspacing='0' cellpadding='0' $al><tr valign='center' height='16'>
+  <table cellspacing='0' cellpadding='0' $al><tr valign='center' height='12'>
    <if what='!$mini'>
     <td width='70' align='right'>Рейтинг:&nbsp;&nbsp;</td>
    </if>
-   <td width='16'><image src='/pics/vote-minus.gif'></td>
+   <td width='12'><image src='/pics/vote-minus.png'></td>
    <ifzero what='$rating'>
     <assign name='color' value='#999999'>
    <else>
@@ -47,8 +47,8 @@
      <assign name='color' value='#cc6666'>
     </if>
    </ifzero>
-   <td width='50' style='text-align: center; color: $color; font-weight: bold; font-size: 14px'>$rating</td>
-   <td width='16'><image src='/pics/vote-plus.gif'></td>
+   <td width='40' style='text-align: center; color: $color; font-weight: bold; font-size: 10pt'>$rating</td>
+   <td width='12'><image src='/pics/vote-plus.png'></td>
   </tr></table>
  </notenglish>
 </notprint>
