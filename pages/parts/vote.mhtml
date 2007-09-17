@@ -1,27 +1,17 @@
 << @(#) $Id$ >>
 
 <element name='rating'>
-<if what='$showtitle'><span class='rating'>Рейтинг: </span></if>
-<if what='$value>=0'>
- <image border=0 src#='/pics/bar-small-${value}.gif' title='Рейтинг'>
+<ifzero what='$value'>
+ <assign name='class' value='small-rating-zero'>
 <else>
- <image border=0 src='/pics/bar-small-null.gif' title='Рейтинг'>
-</if>
-</element>
-
-<element name='vote_frame'>
-<notprint>
- <notenglish>
-  <ifne what='$align'>
-   <assign name='al' value#='align=$align'>
-  <else>
-   <assign name='al' value=''>
-  </ifne>
-  <iframe frameborder=0 $al width=140 height=35
-	  src='/rating/$id/?color=$#color&image=$#image'
-	  scrolling=no></iframe>
- </notenglish>
-</notprint>
+ <if what='$value>0'>
+  <assign name='class' value='small-rating-plus'>
+  <assign name='value' value#='+$value'>
+ <else>
+  <assign name='class' value='small-rating-minus'>
+ </if>
+</ifzero>
+<span class='$class'>($value)</span>
 </element>
 
 <element name='vote_panel'>
@@ -32,22 +22,34 @@
   <else>
    <assign name='al' value=''>
   </ifne>
-  <table cellspacing='0' cellpadding='0' $al><tr valign='center' height='12'>
-   <td width='70' align='right'>Рейтинг:&nbsp;&nbsp;</td>
-   <td width='12'><image src='/pics/vote-minus.png'></td>
-   <ifzero what='$rating'>
-    <assign name='color' value='#999999'>
-   <else>
-    <if what='$rating>0'>
-     <assign name='color' value='#669966'>
-     <assign name='rating' value#='+$rating'>
+  <table id='vote-$id' cellspacing='0' cellpadding='0' $al>
+   <tr valign='center' height='12'>
+    <td width='70' align='right'>Рейтинг:&nbsp;&nbsp;</td>
+    <td width='12'><asp>
+     <asp><a href='/actions/posting/$id/vote?vote=2&okdir=$#-&faildir=$#-'><asp>
+      <image class='vote-minus' src='/pics/vote-minus.png'
+	     alt='Неинтересно, плохо написано'
+	     title='Неинтересно, плохо написано'></a><asp>
+    <asp></td>
+    <ifzero what='$rating'>
+     <assign name='class' value='rating-zero'>
     <else>
-     <assign name='color' value='#cc6666'>
-    </if>
-   </ifzero>
-   <td width='40' style='text-align: center; color: $color; font-weight: bold; font-size: 10pt'>$rating</td>
-   <td width='12'><image src='/pics/vote-plus.png'></td>
-  </tr></table>
+     <if what='$rating>0'>
+      <assign name='class' value='rating-plus'>
+      <assign name='rating' value#='+$rating'>
+     <else>
+      <assign name='class' value='rating-minus'>
+     </if>
+    </ifzero>
+    <td width='40' class='$class'>$rating</td>
+    <td width='12'><asp>
+     <asp><a href='/actions/posting/$id/vote?vote=4&okdir=$#-&faildir=$#-'><asp>
+      <image class='vote-plus' src='/pics/vote-plus.png'
+	     alt='Интересно, хорошо написано'
+	     title='Интересно, хорошо написано'></a><asp>
+    <asp></td>
+   </tr>
+  </table>
  </notenglish>
 </notprint>
 </element>

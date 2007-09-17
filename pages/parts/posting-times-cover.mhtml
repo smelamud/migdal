@@ -17,8 +17,7 @@
 <dl class='posting'>
  <dt>
   <topic posting='$posting' showtopic='$showtopic'>
-  <vote_frame align=right id='$posting.Id' color='$$style_cframe_back'
-              image='$$style_cframe_back_pic'>
+  <vote_panel align='right' id='$posting.Id' rating='$posting.Rating'>
   <biff time='$posting.Modified'>
   <a class='posting-subject' href='/times/$posting.Index1/'>
    &lt;&lt;Мигдаль Times&gt;&gt; &no;$posting.getIssues</a>

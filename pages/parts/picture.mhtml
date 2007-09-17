@@ -33,8 +33,7 @@
  </td></tr>
  <topic picture='$picture' showtopic='$showtopic'>
  <tr><td align='center'>
-  <assign name='rating' value!='$picture.Vote - 3 * $picture.VoteCount'>
-  <vote_panel id='$picture.Id' rating='$rating' mini='*true'>
+  <vote_panel id='$picture.Id' rating='$picture.Rating'>
  </td></tr>
  <if what='$picture.hasSmallImage'>
   <tr><td class='image'>

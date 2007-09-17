@@ -121,8 +121,7 @@
        </ifne>
       </h1>
       <p>$posting.BodyHTML</p>
-      <vote_frame id='$posting.Id' color='$$style_cframe_back'
-		  image='$$style_cframe_back_pic' align=center>
+      <vote_panel id='$posting.Id' rating='$posting.Rating' align='center'>
       <daily_ring current='$posting' event='$event'>
       <controls posting='$posting' event='$event'>
      </ifnzero>

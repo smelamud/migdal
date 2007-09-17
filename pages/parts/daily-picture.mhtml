@@ -3,8 +3,7 @@
 <element name='daily_picture'>
 <table>
  <tr><td>
-  <vote_frame id='$picture.Id' color='$$style_cframe_back'
-	      image='$$style_cframe_back_pic'>
+  <vote_panel id='$picture.Id' rating='$picture.Rating'>
  </td></tr>
  <if what='$picture.hasSmallImage'>
   <tr><td align=center>

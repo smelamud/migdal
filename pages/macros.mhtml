@@ -252,8 +252,7 @@
 <decel name='postings_migdal_news' file='parts/postings-migdal-news.php'
        params='topic_id,offset' defaults="offset=0">
 <decel name='printlink' file='parts/posting.php' params='posting'>
-<decel name='rating' file='parts/vote.php' params='value,showtitle'
-       defaults="showtitle='*true'">
+<decel name='rating' file='parts/vote.php' params='value'>
 <decel name='rss' file='parts/utils.php'>
 <decel name='seealso' file='parts/seealso.php'
        params='source_name,source_id,link_type,title,adddir'
@@ -379,10 +378,8 @@
 <decel name='userinfo' file='parts/userinfo.php' params='id,target,class'
        defaults="class=''">
 <decel name='veterans_intro' file='parts/peruser-intros.php'>
-<decel name='vote_frame' file='parts/vote.php' params='id,align,color,image'
+<decel name='vote_panel' file='parts/vote.php' params='id,rating,align'
        defaults="align=''">
-<decel name='vote_panel' file='parts/vote.php' params='id,rating,align,mini'
-       defaults="align='' mini='*false'">
 <decel name='xml_text' file='parts/xml-text.php' params='id,name'>
 
 <macro name='bymessages'>

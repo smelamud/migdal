@@ -76,7 +76,7 @@
   </td></tr>
   <ifnzero what='$posting.VoteCount'>
    <tr><td>
-    $posting.RatingString&nbsp;<image src#='/pics/bar-${posting.Rating20}.gif'>
+    $posting.RatingString
     &nbsp;
     <array vals='голос,голоса,голосов'>
     <plural value='$posting.VoteCount'>

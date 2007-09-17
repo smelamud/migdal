@@ -168,3 +168,7 @@ search_topic=%grm
 
 register_login_avail=green
 register_login_busy=red
+
+rating_minus=%rd
+rating_zero=%gr
+rating_plus=%gn

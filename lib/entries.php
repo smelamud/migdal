@@ -1015,6 +1015,15 @@ $entry->orig_id=$entry->id;
 incContentVersionsByEntryId($entry->id);
 }
 
+function getRatingByEntryId($id)
+{
+$result=sql("select rating
+	     from entries
+	     where id=$id",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
 function validateHierarchy($parentId,$up,$entry,$id)
 {
 if($parentId<0)

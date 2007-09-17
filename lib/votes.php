@@ -6,14 +6,12 @@ require_once('lib/sql.php');
 
 function getRatingSQL($vote,$vote_count)
 {
-return "if($vote_count=0,3,".
-       "$vote_count/($vote_count+1)*($vote/$vote_count-3)+3)";
+return "$vote-3*cast($vote_count as signed)";
 }
 
 function getRating($vote,$vote_count)
 {
-return $vote_count==0 ? 3
-                      : $vote_count/($vote_count+1)*($vote/$vote_count-3)+3;
+return $vote-3*$vote_count;
 }
 
 function getVote($id)

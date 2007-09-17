@@ -90,8 +90,7 @@
       </notprint>
      </td>
      <td width=100>
-      <vote_frame id='$,Id' color='$$style_cframe_back'
-		  image='$$style_cframe_back_pic'>
+      <vote_panel id='$,Id' rating='$,Rating'>
      </td>
     </tr>
    </table>

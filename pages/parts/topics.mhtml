@@ -44,7 +44,7 @@
   <ifne what='$count'>
    <asp>&nbsp;<span class='topics-answers'>($count)</span><asp>
   </ifne></a>
-  <ifne what='$rating'><br><rating value='$rating'></ifne>
+  <ifne what='$rating'><rating value='$rating'></ifne>
  </tdspan>
 </tr>
 </element>

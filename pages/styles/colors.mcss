@@ -13,6 +13,14 @@ mrd=#886655	! Dark
 mrm=#996600	! Medium
 mrl=#f4f1cb	! Light
 
+! Green
+
+gn=#669966
+
+! Red
+
+rd=#cc6666
+
 ! Replacers
 
 r_b=#e9d9a6

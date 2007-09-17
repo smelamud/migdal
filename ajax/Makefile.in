@@ -3,4 +3,5 @@
 # @(#) $Id: Makefile.in 2559 2007-08-10 15:36:31Z balu $
 
 all:
+	(cd actions; $(MAKE) all)
 	(cd sources; $(MAKE) all)

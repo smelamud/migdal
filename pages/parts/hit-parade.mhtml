@@ -9,7 +9,7 @@
   <topics_table class='eightpt' title='$title'>
    <for>
     <topics_line time='$.Sent' href='$.GrpDetailsHref' text='$=.Heading'
-		 rating!='$.VoteCount!=0 ? $.Rating20 : -1'>
+		 rating='$.Rating'>
    </for>
   </topics_table>
  </ifnzero>
@@ -32,8 +32,8 @@
 	    src='$.SmallImageURL' alt='$=.Title' title='$=.Title'></a>
      </ifnzero>
     </td></tr>
-    <tr><td colspan=2 align=left>
-     <rating value!='$.VoteCount!=0 ? $.Rating20 : -1'>
+    <tr><td colspan=2 align='right'>
+     <rating value='$.Rating'>
     </td></tr>
    </for>
   </topics_table>

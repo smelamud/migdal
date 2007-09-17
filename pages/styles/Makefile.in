@@ -11,15 +11,13 @@ STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-posting.mcss sheet-textears.mcss sheet-forum.mcss \
 	sheet-topics.mcss sheet-catalog.mcss sheet-picmain.mcss \
 	sheet-picture.mcss sheet-form.mcss sheet-heading.mcss \
-	sheet-seealso.mcss sheet-register.mcss
+	sheet-seealso.mcss sheet-register.mcss sheet-votes.mcss
 ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-article.mcss
 BOOK_PARTS = colors.mcss fonts.mcss palette.mcss sheet-book.mcss
 COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
 INDEX_PARTS = colors.mcss fonts.mcss palette.mcss sheet-index.mcss
 TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
 TIMESNFO_PARTS = colors.mcss fonts.mcss palette.mcss sheet-timesnfo.mcss
-VOTES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
-	sheet-votes.mcss
 
 STATIC_ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-article.mcss
@@ -27,8 +25,7 @@ STATIC_ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 all: $(targetdir)/.style.stamp $(targetdir)/.article.stamp \
 	$(targetdir)/.book.stamp $(targetdir)/.complain.stamp \
 	$(targetdir)/.index.stamp $(targetdir)/.times.stamp \
-	$(targetdir)/.timesnfo.stamp $(targetdir)/.votes.stamp \
-	$(targetdir)/static-article.css
+	$(targetdir)/.timesnfo.stamp $(targetdir)/static-article.css
 
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)
@@ -116,18 +113,6 @@ $(targetdir)/timesnfo-%.css: timesnfo.mcss $(targetdir)/.stamp \
 
 $(targetdir)/.timesnfo.stamp: $(patsubst %,$(targetdir)/timesnfo-%.css,$(FLAVOURS)) \
 		$(patsubst %,$(targetdir)/timesnfo-%.php,$(FLAVOURS))
-	touch $@
-
-$(targetdir)/votes-%.php: votes.mcss $(targetdir)/.stamp $(VOTES_PARTS) \
-		../../cssparser
-	../../cssparser -p -s $* $< > $@
-
-$(targetdir)/votes-%.css: votes.mcss $(targetdir)/.stamp $(VOTES_PARTS) \
-		../../cssparser
-	../../cssparser -s $* $< > $@
-
-$(targetdir)/.votes.stamp: $(patsubst %,$(targetdir)/votes-%.css,$(FLAVOURS)) \
-		$(patsubst %,$(targetdir)/votes-%.php,$(FLAVOURS))
 	touch $@
 
 $(targetdir)/static-article.css: static-article.mcss $(targetdir)/.stamp \

@@ -92,7 +92,7 @@
 	  src='$$cover.ImageURL'>
     </td>
     <td>
-     <vote_frame align=right id='$$cover.Id' color='$$style_nframe_back'>
+     <vote_panel align='right' id='$$cover.Id' rating='$$cover.Rating'>
      $$cover.BodyHTML
      <posting_controls posting='$$cover' showdiscuss='*true'>
     </td>
@@ -190,7 +190,7 @@
   </islast>
   <table>
    <tr><td align=right>
-    <rating value!='$.VoteCount!=0 ? $.Rating20 : -1' showtitle='*false'>
+    <rating value='$.Rating'>
    </td></tr>
    <tr><td class='pic'>
     <posting_image posting='$.' href#='/times/$.Index1/'>

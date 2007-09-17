@@ -19,7 +19,7 @@ OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  migdal-library.mhtml migdal-library-novelties.mhtml \
 	  migdal-news.mhtml modbits.mhtml moderator.mhtml peruser.mhtml \
 	  peruser-user.mhtml posting.mhtml postingedit.mhtml postingorg.mhtml \
-	  printings.mhtml rating.mhtml register.mhtml register-confirm.mhtml \
+	  printings.mhtml register.mhtml register-confirm.mhtml \
 	  register-error.mhtml register-ok.mhtml remember-password.mhtml \
 	  remember-password-ok.mhtml reorder.mhtml rss.mhtml search.mhtml \
 	  search-google.mhtml setup.mhtml signin.mhtml stotext-help-subs.mhtml \

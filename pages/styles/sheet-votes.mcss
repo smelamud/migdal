@@ -1,56 +1,44 @@
 ! @(#) $Id$
 
-BODY {
-	margin: 0;
-	padding: 0;
+.vote-minus, .vote-plus {
+	border-width: 0;
 }
 
-TABLE {
-	border-spacing: 2;
-	margin: 0;
-	padding: 0;
-}
-
-TD {
-	margin: 0;
-	padding-left: 2;
-	padding-right: 2;
-	padding-top: 0;
-	padding-bottom: 0;
-}
-
-TD.eh {
-	background-color: red;
-}
-
-TD.st {
-	background-color: purple;
-}
-
-TD.sl {
-	background-color: navy;
-}
-
-TD.ar {
-	background-color: teal;
-}
-
-TD.hm {
-	background-color: green;
-}
-
-TD.sel {
-	color: yellow;
+.rating-minus {
+	text-align: center;
+	color: %rating_minus;
 	font-weight: bold;
+	font-size: 10pt;
 }
 
-A {
-	color: white;
+.rating-zero {
+	text-align: center;
+	color: %rating_zero;
 	font-weight: bold;
-	text-decoration: none;
+	font-size: 10pt;
 }
 
-A:hover {
-	color: yellow;
-	text-decoration: underline;
+.rating-plus {
+	text-align: center;
+	color: %rating_plus;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+.small-rating-minus {
+	color: %rating_minus;
+	font-weight: bold;
+	font-size: 8pt;
+}
+
+.small-rating-zero {
+	color: %rating_zero;
+	font-weight: bold;
+	font-size: 8pt;
+}
+
+.small-rating-plus {
+	color: %rating_plus;
+	font-weight: bold;
+	font-size: 8pt;
 }
