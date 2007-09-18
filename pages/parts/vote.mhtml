@@ -22,14 +22,24 @@
   <else>
    <assign name='al' value=''>
   </ifne>
+  <vote id='$id'>
   <table cellspacing='0' cellpadding='0' $al>
    <tr valign='center' height='12'>
     <td width='70' align='right'>Рейтинг:&nbsp;&nbsp;</td>
     <td width='12'><asp>
-     <asp><a href='/actions/posting/$id/vote?vote=2&okdir=$#-&faildir=$#-'><asp>
-      <image class='vote-button' src='/pics/vote-minus.png'
-	     alt='Неинтересно, плохо написано'
-	     title='Неинтересно, плохо написано'></a><asp>
+     <if what='$,==0'>
+      <asp><a href='/actions/posting/$id/vote?vote=2&okdir=$#-&faildir=$#-'><asp>
+       <image id#='vote-minus-$id' class='vote-button'
+              src='/pics/vote-minus.png'
+              alt='Неинтересно, плохо написано'
+              title='Неинтересно, плохо написано'></a><asp>
+     <else>
+      <if what='$,<3'>
+       <image class='vote-button' src='/pics/vote-minus-gray.png'>
+      <else>
+       &nbsp;
+      </if>
+     </if>
     <asp></td>
     <ifzero what='$rating'>
      <assign name='class' value='rating-zero'>
@@ -43,10 +53,19 @@
     </ifzero>
     <td width='40' id='rating-$id' class='$class'>$rating</td>
     <td width='12'><asp>
-     <asp><a href='/actions/posting/$id/vote?vote=4&okdir=$#-&faildir=$#-'><asp>
-      <image class='vote-button' src='/pics/vote-plus.png'
-	     alt='Интересно, хорошо написано'
-	     title='Интересно, хорошо написано'></a><asp>
+     <if what='$,==0'>
+      <asp><a href='/actions/posting/$id/vote?vote=4&okdir=$#-&faildir=$#-'><asp>
+       <image id#='vote-plus-$id' class='vote-button'
+              src='/pics/vote-plus.png'
+              alt='Интересно, хорошо написано'
+              title='Интересно, хорошо написано'></a><asp>
+     <else>
+      <if what='$,>3'>
+       <image class='vote-button' src='/pics/vote-plus-gray.png'>
+      <else>
+       &nbsp;
+      </if>
+     </if>
     <asp></td>
    </tr>
   </table>

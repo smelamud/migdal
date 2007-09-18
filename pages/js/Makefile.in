@@ -7,3 +7,4 @@ targetdir=$(builddir)/www/js/
 all:
 	-mkdir -p $(targetdir)
 	find . -maxdepth 1 -name '*.js' | xargs -i cp {} $(targetdir)
+	cp .htaccess $(targetdir)

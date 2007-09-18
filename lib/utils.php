@@ -10,7 +10,7 @@ dbClose();
 exit;
 }
 
-function displayImage($src='',$alt='',$title='',$border='',$class='')
+function displayImage($src='',$alt='',$title='',$border='',$class='',$id='')
 {
 static $sizes=array();
 
@@ -35,6 +35,8 @@ if($border!='')
   $s.=" border='$border'";
 if($class!='')
   $s.=" class='$class'";
+if($id!='')
+  $s.=" id='$id'";
 echo "$s>";
 }
 

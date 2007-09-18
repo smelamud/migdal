@@ -1,4 +1,4 @@
-<< @(#) $Id$ >>
+<$(targetdir)< @(#) $Id$ >>
 
 << Errors >>
 <macro name='error'>
@@ -443,7 +443,7 @@
 </macro>
 
 <macro name='js_jquery'>
- <js src='/js/jquery-1.1.4.pack.js'>
+ <js src='/js/jquery-1.2.1.min.js'>
 </macro>
 
 << Biff >>

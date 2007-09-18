@@ -14,6 +14,16 @@ function voteClick(event) {
             }
             $("#rating-" + data.id).removeClass().addClass(className)
                 .text(data.rating);
+            if (data.vote > 3) {
+                $("#vote-minus-" + data.id).css("visibility", "hidden");
+                button = $("#vote-plus-" + data.id);
+                button[0].src = "/pics/vote-plus-gray.png";
+            } else {
+                $("#vote-plus-" + data.id).css("visibility", "hidden");
+                button = $("#vote-minus-" + data.id);
+                button[0].src = "/pics/vote-minus-gray.png";
+            }
+            button.parent().parent().empty().append(button);
     });
     event.preventDefault();
 }

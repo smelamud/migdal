@@ -135,7 +135,10 @@
                depends='topics,postings'>
     <intro topic_id='$topic_id'>
     <navigator topic_id='$topic_id'>
-    <seealso>
+   </html_cache>
+   <seealso>
+   <html_cache ident#='links_fastjump-$topic_id' period!='3 * 60 * 60'
+               depends='topics'>
     <fastjump>
    </html_cache>
   </td></tr>
