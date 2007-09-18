@@ -484,11 +484,11 @@ global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
 parent::SelectIterator('User',
-                       "select users.id as id,login,gender,email,hide_email,
-		               hidden
+                       "select distinct users.id as id,login,gender,email,
+		               hide_email,hidden
 			from users
-			     left join sessions
-			          on sessions.user_id=users.id
+			     inner join sessions
+			           on sessions.user_id=users.id
 			where last+interval $period minute>now()
 			      and hidden<$hide
 			order by last desc");
