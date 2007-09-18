@@ -1,4 +1,4 @@
-<$(targetdir)< @(#) $Id$ >>
+<< @(#) $Id$ >>
 
 << Errors >>
 <macro name='error'>
