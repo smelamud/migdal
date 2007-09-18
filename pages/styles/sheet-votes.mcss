@@ -1,6 +1,6 @@
 ! @(#) $Id$
 
-.vote-minus, .vote-plus {
+.vote-button {
 	border-width: 0;
 }
 
