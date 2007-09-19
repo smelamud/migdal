@@ -139,10 +139,7 @@
     <navigator topic_id='$topic_id'>
    </html_cache>
    <seealso>
-   <html_cache ident#='links_fastjump-$topic_id' period!='3 * 60 * 60'
-               depends='topics'>
-    <fastjump>
-   </html_cache>
+   <fastjump>
   </td></tr>
   <tr><td class='cframe'><outer>
    <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
