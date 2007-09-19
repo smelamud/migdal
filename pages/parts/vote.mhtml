@@ -30,12 +30,12 @@
      <if what='$,==0'>
       <asp><a href='/actions/posting/$id/vote?vote=2&okdir=$#-&faildir=$#-'><asp>
        <image id#='vote-minus-$id' class='vote-button'
-              src='/pics/vote-minus.png'
+              src='/pics/vote-minus.gif'
               alt='Неинтересно, плохо написано'
               title='Неинтересно, плохо написано'></a><asp>
      <else>
       <if what='$,<3'>
-       <image class='vote-button' src='/pics/vote-minus-gray.png'>
+       <image class='vote-button' src='/pics/vote-minus-gray.gif'>
       <else>
        &nbsp;
       </if>
@@ -56,12 +56,12 @@
      <if what='$,==0'>
       <asp><a href='/actions/posting/$id/vote?vote=4&okdir=$#-&faildir=$#-'><asp>
        <image id#='vote-plus-$id' class='vote-button'
-              src='/pics/vote-plus.png'
+              src='/pics/vote-plus.gif'
               alt='Интересно, хорошо написано'
               title='Интересно, хорошо написано'></a><asp>
      <else>
       <if what='$,>3'>
-       <image class='vote-button' src='/pics/vote-plus-gray.png'>
+       <image class='vote-button' src='/pics/vote-plus-gray.gif'>
       <else>
        &nbsp;
       </if>

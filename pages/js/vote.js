@@ -17,11 +17,11 @@ function voteClick(event) {
             if (data.vote > 3) {
                 $("#vote-minus-" + data.id).css("visibility", "hidden");
                 button = $("#vote-plus-" + data.id);
-                button[0].src = "/pics/vote-plus-gray.png";
+                button[0].src = "/pics/vote-plus-gray.gif";
             } else {
                 $("#vote-plus-" + data.id).css("visibility", "hidden");
                 button = $("#vote-minus-" + data.id);
-                button[0].src = "/pics/vote-minus-gray.png";
+                button[0].src = "/pics/vote-minus-gray.gif";
             }
             button.parent().parent().empty().append(button);
     });
