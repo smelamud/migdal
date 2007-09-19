@@ -129,7 +129,11 @@
 	 <zone>
 	  <user_obj id='$.LastAnswerUserId'
 	            guest_login='$.LastAnswerGuestLogin'>
-	  Автор: <senderlink message='$,'>
+	  Автор: <senderlink message='$,'>&nbsp;
+          <a href='$href?tid=$.LastAnswerId#t$.LastAnswerId'><asp>
+           <image src='/pics/further-far.gif' border='0'
+                  alt='К последнему ответу'
+                  title='К последнему ответу'></a>
 	 </zone>
 	</td>
        </ifzero>
