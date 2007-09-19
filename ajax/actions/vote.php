@@ -33,10 +33,9 @@ session();
 $err=vote($postid,$vote);
 header('Content-Type: application/json');
 $data=array('id' => $postid,
-            'vote' => $vote);
-if($err==EG_OK)
-  $data['rating']=getRatingByEntryId($postid);
-else
+            'vote' => $vote,
+            'rating' => getRatingByEntryId($postid));
+if($err!=EG_OK)
   $data['err']=$err;
 jsonOutput($data);
 dbClose();

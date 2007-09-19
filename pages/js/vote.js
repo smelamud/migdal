@@ -1,9 +1,9 @@
 function voteClick(event) {
-    $.getJSON("/ajax" + $(this).attr("href"),
+    href = "/ajax" + $(this).attr("href");
+    id = href.split("/")[4];
+    $("#rating-" + id).removeClass().addClass("rating-zero").text("...");
+    $.getJSON(href,
         function(data) {
-            if (data.err) {
-                return;
-            }
             if (data.rating == 0) {
                 className = "rating-zero";
             } else if (data.rating > 0) {
