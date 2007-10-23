@@ -1,11 +1,13 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/time.php');
+
 function biff($time)
 {
 global $userBiffTime;
 
-return (time()-$time)/3600<=$userBiffTime;
+return (ourtime()-$time)/3600<=$userBiffTime;
 }
 
 ?>

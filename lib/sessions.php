@@ -4,6 +4,7 @@
 require_once('lib/random.php');
 require_once('lib/bug.php');
 require_once('lib/sql.php');
+require_once('lib/time.php');
 
 function getUserIdBySessionId($sessionId)
 {
@@ -88,8 +89,9 @@ sql("delete from sessions
 
 function deleteClosedSessions()
 {
+$now=sqlNow();
 sql("delete from sessions
-     where last+interval duration hour<now()",
+     where last+interval duration hour<'$now'",
     __FUNCTION__,'delete');
 sql('optimize table sessions',
     __FUNCTION__,'optimize');

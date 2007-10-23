@@ -60,9 +60,10 @@ function getMailLimit()
 {
 global $mailSendLimit,$mailSendPeriod;
 
+$now=sqlNow();
 $result=sql("select count(*)
 	     from mail_log
-	     where sent+interval $mailSendPeriod minute>=now()",
+	     where sent+interval $mailSendPeriod minute>='$now'",
 	    __FUNCTION__);
 $sent=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 return $mailSendLimit-$sent;
@@ -72,9 +73,10 @@ function purgeMailLog()
 {
 global $mailSendPeriod;
 
+$now=sqlNow();
 $result=sql("delete
              from mail_log
-	     where sent+interval $mailSendPeriod minute<now()",
+	     where sent+interval $mailSendPeriod minute<'$now'",
 	    __FUNCTION__);
 sql("optimize table mail_log",
     __FUNCTION__,'optimize');

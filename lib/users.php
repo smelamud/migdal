@@ -19,6 +19,7 @@ require_once('lib/sql.php');
 require_once('lib/charsets.php');
 require_once('lib/mtext-html.php');
 require_once('lib/ctypes.php');
+require_once('lib/time.php');
 
 define('USR_NONE',0);
 define('USR_MIGDAL_STUDENT',0x0001);
@@ -289,7 +290,7 @@ return $this->online!=0;
 
 function isTooOld()
 {
-return time()-$this->getLastOnline()>365*24*60*60;
+return ourtime()-$this->getLastOnline()>365*24*60*60;
 }
 
 function getLastOnline()
@@ -406,6 +407,7 @@ function UserListIterator($prefix,$sort=SORT_LOGIN,$right=USR_NONE)
 {
 global $userAdminUsers;
 
+$now=sqlNow();
 $hide=$userAdminUsers ? 2 : 1;
 $sortFields=array(SORT_LOGIN       => 'login',
 		  SORT_NAME        => 'name',
@@ -431,12 +433,12 @@ parent::SelectIterator(
 	'User',
 	"select id,login,name,jewish_name,surname,gender,birthday,rights,email,
 	        hide_email,icq,last_online,
-		if(last_online+interval 1 hour>now(),1,0) as online,
-		floor((unix_timestamp(now())
+		if(last_online+interval 1 hour>'$now',1,0) as online,
+		floor((unix_timestamp('$now')
 		       -unix_timestamp(last_online))/60) as last_minutes,
 		confirm_deadline is null as confirmed,
 		floor((unix_timestamp(confirm_deadline)
-		       -unix_timestamp(now()))/86400) as confirm_days
+		       -unix_timestamp('$now'))/86400) as confirm_days
 	 from users
 	 where hidden<$hide $fieldFilter $rightFilter
 	 $order");
@@ -482,6 +484,7 @@ function UsersNowIterator($period)
 {
 global $userAdminUsers;
 
+$now=sqlNow();
 $hide=$userAdminUsers ? 2 : 1;
 parent::SelectIterator('User',
                        "select distinct users.id as id,login,gender,email,
@@ -489,7 +492,7 @@ parent::SelectIterator('User',
 			from users
 			     inner join sessions
 			           on sessions.user_id=users.id
-			where last+interval $period minute>now()
+			where last+interval $period minute>'$now'
 			      and hidden<$hide
 			order by last desc");
 }
@@ -500,18 +503,19 @@ function getUserById($id,$guest_login='')
 {
 global $userAdminUsers,$userId;
 
+$now=sqlNow();
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
                     birthday,rights,last_online,email,hide_email,icq,
 		    guest as user_guest,email_disabled,hidden,no_login,
 		    has_personal,
-		    if(last_online+interval 1 hour>now(),1,0) as online,
-		    floor((unix_timestamp(now())
+		    if(last_online+interval 1 hour>'$now',1,0) as online,
+		    floor((unix_timestamp('$now')
 			   -unix_timestamp(last_online))/60) as last_minutes,
 		    confirm_code,
 		    confirm_deadline is null as confirmed,
 		    floor((unix_timestamp(confirm_deadline)
-			   -unix_timestamp(now()))/86400) as confirm_days
+			   -unix_timestamp('$now'))/86400) as confirm_days
 	     from users
 	     where users.id=$id and (hidden<$hide or guest<>0
 	                             or users.id=$userId)",
@@ -586,27 +590,29 @@ for($i=0;$i<20;$i++)
    {
    $s.=chr(random(ord('A'),ord('Z')));
    }
+$now=sqlNow();
 sql("update users
      set no_login=1,confirm_code='$s',
-	 confirm_deadline=now()+interval $regConfirmTimeout day
+	 confirm_deadline='$now'+interval $regConfirmTimeout day
      where id=$userId",
     __FUNCTION__);
 journal("update users
          set no_login=1,confirm_code='$s',
-	     confirm_deadline=now()+interval $regConfirmTimeout day
+	     confirm_deadline='$now'+interval $regConfirmTimeout day
  	 where id=".journalVar('users',$userId));
 }
 
 function confirmUser($userId)
 {
+$now=sqlNow();
 sql("update users
      set no_login=0,hidden=0,confirm_deadline=null,
-	 last_online=now()
+	 last_online='$now'
      where id=$userId",
     __FUNCTION__);
 journal('update users
          set no_login=0,hidden=0,confirm_deadline=null,
-	     last_online=now()
+	     last_online='$now'
 	 where id='.journalVar('users',$userId));
 }
 
@@ -632,9 +638,10 @@ return mysql_num_rows($result)>0 ? mysql_result($result,0,0)!=0 : false;
 
 function deleteNonConfirmedUsers()
 {
+$now=sqlNow();
 sql("delete
      from users
-     where confirm_deadline is not null and confirm_deadline<now()",
+     where confirm_deadline is not null and confirm_deadline<'$now'",
     __FUNCTION__,'delete');
 sql("optimize table users",
     __FUNCTION__,'optimize');
@@ -750,8 +757,9 @@ return $id;
 
 function updateLastOnline($userId)
 {
+$now=sqlNow();
 sql("update users
-     set last_online=now()
+     set last_online='$now'
      where id=$userId",
     __FUNCTION__);
 }
@@ -831,9 +839,10 @@ return mysql_num_rows($result)>0 ?
 
 function getGuestsNow($period)
 {
+$now=sqlNow();
 $result=sql("select count(*)
              from sessions
-  	     where user_id=0 and last+interval $period minute>now()",
+  	     where user_id=0 and last+interval $period minute>'$now'",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }

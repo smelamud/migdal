@@ -9,12 +9,13 @@ function storeCounterIP($id,$mode)
 {
 global $counterModes;
 
+$now=sqlNow();
 $period=$counterModes[$mode]['period'];
 if($period<=0)
   return;
 $ip=IPToInteger($_SERVER['REMOTE_ADDR']);
 sql("insert into counters_ip(counter_id,ip,expires)
-     values($id,$ip,now()+interval $period hour)",
+     values($id,$ip,'$now'+interval $period hour)",
     __FUNCTION__);
 }
 
@@ -35,9 +36,10 @@ return mysql_num_rows($result)>0;
 
 function deleteExpiredCounterIPs()
 {
+$now=sqlNow();
 sql("delete
      from counters_ip
-     where expires<now()",
+     where expires<'$now'",
     __FUNCTION__,'delete');
 sql("optimize table counters_ip",
     __FUNCTION__,'optimize');
@@ -91,7 +93,7 @@ if($max_serial>=0)
 $started=date("Y-m-d H:i:s");
 $ttl=$counterModes[$mode]['ttl'];
 if($ttl!=0)
-  $finished=date("Y-m-d H:i:s",time()+$ttl*60*60);
+  $finished=date("Y-m-d H:i:s",ourtime()+$ttl*60*60);
 else
   $finished="2100-01-01 00:00:00";
   // Leave solution of this problem to the next generations of programmers ;)
@@ -109,9 +111,10 @@ global $replicationMaster;
 
 if(!$replicationMaster)
   return;
+$now=sqlNow();
 $result=sql("select entry_id,mode
 	     from counters
-	     where finished<now() and serial=0",
+	     where finished<'$now' and serial=0",
 	    __FUNCTION__);
 while(list($entry_id,$mode)=mysql_fetch_array($result))
      rotateCounter($entry_id,$mode);

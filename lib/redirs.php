@@ -118,8 +118,9 @@ function deleteObsoleteRedirs()
 {
 global $redirTimeout;
 
+$now=sqlNow();
 sql("delete from redirs
-     where last_access+interval $redirTimeout hour<now()",
+     where last_access+interval $redirTimeout hour<'$now'",
     __FUNCTION__);
 sql('optimize table redirs',
     __FUNCTION__,'optimize');

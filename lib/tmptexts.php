@@ -30,8 +30,9 @@ function deleteObsoleteTmpTexts()
 {
 global $tmpTextTimeout;
 
+$now=sqlNow();
 sql("delete from tmp_texts
-     where last_access+interval $tmpTextTimeout hour<now()",
+     where last_access+interval $tmpTextTimeout hour<'$now'",
     __FUNCTION__);
 sql('optimize table tmp_texts',
     __FUNCTION__,'optimize');

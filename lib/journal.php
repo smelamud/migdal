@@ -302,9 +302,10 @@ function purgeJournalVars()
 {
 global $journalVarTimeout;
 
+$now=sqlNow();
 sql("delete
      from journal_vars
-     where last_read+interval $journalVarTimeout day<now()",
+     where last_read+interval $journalVarTimeout day<'$now'",
     __FUNCTION__,'delete');
 sql("optimize table journal_vars",
     __FUNCTION__,'optimize');
@@ -344,9 +345,10 @@ global $replicationJournal,$unclosedSeqTimeout;
 
 if(!$replicationJournal)
   return;
+$now=sqlNow();
 $result=sql("select distinct seq
 	     from journal
-	     where sent+interval $unclosedSeqTimeout day<now()",
+	     where sent+interval $unclosedSeqTimeout day<'$now'",
 	    __FUNCTION__,'select_old');
 while($row=mysql_fetch_assoc($result))
      if(!isSeqClosed($row['seq']))

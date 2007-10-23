@@ -66,7 +66,7 @@ if($this->id)
 	      $METHOD,'update');
 else
   {
-  $normal['created']=date('Y-m-d H:i:s',time());
+  $normal['created']=sqlNow();
   $result=sql(sqlInsert('packages',
                         $normal),
 	      $METHOD,'insert');

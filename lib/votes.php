@@ -63,13 +63,14 @@ function deleteExpiredVotes()
 {
 global $anonVoteTimeout,$userVoteTimeout;
 
+$now=sqlNow();
 sql("delete
      from votes
-     where user_id=0 and sent+interval $anonVoteTimeout hour<now()",
+     where user_id=0 and sent+interval $anonVoteTimeout hour<'$now'",
     __FUNCTION__,'delete_anonymous');
 sql("delete
      from votes
-     where user_id<>0 and sent+interval $userVoteTimeout hour<now()",
+     where user_id<>0 and sent+interval $userVoteTimeout hour<'$now'",
     __FUNCTION__,'delete_registered');
 sql("optimize table votes",
     __FUNCTION__,'optimize');

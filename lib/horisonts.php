@@ -46,9 +46,10 @@ function lockReplication($host)
 {
 global $dbName;
 
+$now=sqlNow();
 $hostS=addslashes($host);
 sql("update $dbName.horisonts
-     set `lock`=now()
+     set `lock`='$now'
      where host='$hostS'",
     __FUNCTION__);
 }
@@ -73,12 +74,13 @@ function isReplicationLocked($host)
 {
 global $replicationLockTimeout,$dbName;
 
+$now=sqlNow();
 $hostS=addslashes($host);
 $result=sql("select host
 	     from $dbName.horisonts
 	     where host='$hostS' and
 		   `lock` is not null and
-		   `lock`+interval $replicationLockTimeout minute>now()",
+		   `lock`+interval $replicationLockTimeout minute>'$now'",
 	    __FUNCTION__);
 return mysql_num_rows($result)>0;
 }

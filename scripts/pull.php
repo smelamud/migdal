@@ -14,13 +14,14 @@ function pull($postid)
 {
 global $rootPostingPerms;
 
+$now=sqlNow();
 $msgid=getMessageIdByPostingId($postid);
 sql("update messages
-     set sent=now(),perms=$rootPostingPerms
+     set sent='$now',perms=$rootPostingPerms
      where id=$msgid",
     'pull');
 journal("update messages
-         set sent=now(),perms=$rootPostingPerms
+         set sent='$now',perms=$rootPostingPerms
 	 where id=".journalVar('messages',$msgid));
 }
 

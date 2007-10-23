@@ -11,6 +11,7 @@ require_once('lib/logs.php');
 require_once('lib/postings.php');
 require_once('lib/redirs.php');
 require_once('lib/exec.php');
+require_once('lib/time.php');
 
 function removeControlChars($s)
 {
@@ -39,7 +40,7 @@ fclose($fd);
 
 $fd=fopen("$dir/timestamp",'w');
 fputs($fd,"$from\n");
-fputs($fd,time()."\n");
+fputs($fd,ourtime()."\n");
 fclose($fd);
 
 $fd=fopen("$dir/postings",'w');

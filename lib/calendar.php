@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('lib/time.php');
+
 $calendarAvailableCache=-1;
 
 function isCalendarAvailable()
@@ -203,14 +205,9 @@ switch($f)
 
 function formatAnyDate($f,$time=0,$fix=true)
 {
-global $fixTime;
-
 if($fix)
-  {
   if($time==0)
-    $time=time();
-  $time+=$fixTime*3600;
-  }
+    $time=ourtime();
 if(strlen($f)!=2)
   return formatEnglishDate($f,$time);
 else

@@ -6,6 +6,7 @@ require_once('conf/settings.php');
 require_once('lib/sessions.php');
 require_once('lib/charsets.php');
 require_once('lib/post.php');
+require_once('lib/time.php');
 
 function getSettingsCookieName($location)
 {

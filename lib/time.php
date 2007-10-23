@@ -1,6 +1,13 @@
 <?php
 # @(#) $Id$
 
+function ourtime()
+{
+global $timeZone;
+
+return gmdate('u',time())+$timeZone*3600;
+}
+
 function composeDateTime($timestamp,$vars,$base_name)
 {
 $comps=array('seconds' => 'second',
@@ -21,7 +28,7 @@ foreach($comps as $comp => $varname)
 $ts=mktime($dt['hours'],$dt['minutes'],$dt['seconds'],
            $dt['mon'],$dt['mday'],$dt['year']);
 if($ts===false || $ts===-1)
-  return time();
+  return ourtime();
 else
   return $ts;
 }
@@ -34,6 +41,6 @@ $vars=array('_year'   => $year,
 	    '_hour'   => $hour,
 	    '_minute' => $minute,
 	    '_second' => $second);
-return composeDateTime(time(),$vars,'');
+return composeDateTime(ourtime(),$vars,'');
 }
 ?>

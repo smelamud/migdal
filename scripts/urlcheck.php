@@ -25,10 +25,11 @@ function checkURLs()
 {
 global $urlCheckTimeout,$urlCheckQuota,$wgetPath;
 
+$now=sqlNow();
 $result=sql("select id,url
 	     from messages
 	     where url like '%://%' and
-		   url_check+interval $urlCheckTimeout day<now()
+		   url_check+interval $urlCheckTimeout day<'$now'
 	     order by url_check asc
 	     limit $urlCheckQuota",
 	    'checkURLs','select');
@@ -38,11 +39,11 @@ while($row=mysql_fetch_assoc($result))
            array_flip(get_html_translation_table(HTML_ENTITIES,ENT_QUOTES))));
      $rc=getCommand("$wgetPath -q --spider '$url' >/dev/null;echo $?");
      sql('update messages
-	  set url_check=now()'.($rc==0 ? ',url_check_success=now()' : '').
+	  set url_check=now()'.($rc==0 ? ",url_check_success='$now'" : '').
 	' where id='.$row['id'],
 	 'checkURLs','store');
      journal('update messages
-              set url_check=now()'.($rc==0 ? ',url_check_success=now()' : '').
+              set url_check=now()'.($rc==0 ? ",url_check_success='$now'" : '').
 	    ' where id='.journalVar('messages',$row['id']));
      }
 }

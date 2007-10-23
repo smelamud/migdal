@@ -49,8 +49,9 @@ function deleteObsoleteCaptchas()
 {
 global $captchaTimeout;
 
+$now=sqlNow();
 sql("delete from captcha_keys
-     where created+interval $captchaTimeout hour<now()",
+     where created+interval $captchaTimeout hour<'$now'",
     __FUNCTION__);
 sql('optimize table captcha_keys',
     __FUNCTION__,'optimize');

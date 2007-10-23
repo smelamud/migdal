@@ -5,6 +5,7 @@ require_once('conf/migdal.conf');
 
 require_once('lib/dataobject.php');
 require_once('lib/sql.php');
+require_once('lib/time.php');
 
 class HTMLCacheRecord
       extends DataObject
@@ -90,9 +91,10 @@ global $htmlCache,$contentVersions;
 
 if($htmlCache && $condition)
   {
+  $now=sqlNow();
   $filter='';
   if($period!=null)
-    $filter.=' and deadline>=now()';
+    $filter.=" and deadline>='$now'";
   foreach($depends as $dep)
 	 {
 	 $name="${dep}_version";
@@ -108,7 +110,7 @@ if($htmlCache && $condition)
   }
 
 $vars=array('ident' => $ident,
-	    'deadline' => $period!=null ? sqlDate(time()+$period) : null,
+	    'deadline' => $period!=null ? sqlDate(ourtime()+$period) : null,
 	    'condition' => $htmlCache && $condition);
 foreach($depends as $dep)
        {

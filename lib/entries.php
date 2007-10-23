@@ -12,6 +12,7 @@ require_once('lib/answers.php');
 require_once('lib/langs.php');
 require_once('lib/text-large.php');
 require_once('lib/permission-schemes.php');
+require_once('lib/time.php');
 
 $entryClassNames=array(ENT_NULL     => 'Entry',
                        ENT_POSTING  => 'Posting',
@@ -447,7 +448,7 @@ return $this->url_check_success;
 
 function getURLCheckFail()
 {
-return $this->url_check_success==0 ? 0 : time()-$this->url_check_success;
+return $this->url_check_success==0 ? 0 : ourtime()-$this->url_check_success;
 }
 
 function getURLCheckFailDays()

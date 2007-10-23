@@ -1084,11 +1084,12 @@ function autoEnablePostings()
 {
 global $messageEnableTimeout;
 
+$now=sqlNow();
 $result=sql('select id
 	     from entries
 	     where entry='.ENT_POSTING.' and disabled<>0
 	           and (modbits & '.MOD_MODERATE.")<>0
-		   and modified+interval $messageEnableTimeout hour<now()",
+		   and modified+interval $messageEnableTimeout hour<'$now'",
 	    __FUNCTION__);
 while($row=mysql_fetch_assoc($result))
      setDisabledByEntryId($row['id'],0);
