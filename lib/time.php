@@ -5,7 +5,7 @@ function ourtime()
 {
 global $timeZone;
 
-return gmdate('u',time())+$timeZone*3600;
+return gmdate('U',time())+$timeZone*3600;
 }
 
 function composeDateTime($timestamp,$vars,$base_name)
