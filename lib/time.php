@@ -1,11 +1,13 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 function ourtime()
 {
 global $timeZone;
 
-return gmdate('U',time())+$timeZone*3600;
+return time()-gmmktime()+mktime()+$timeZone*3600;
 }
 
 function composeDateTime($timestamp,$vars,$base_name)
