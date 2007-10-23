@@ -610,10 +610,10 @@ sql("update users
 	 last_online='$now'
      where id=$userId",
     __FUNCTION__);
-journal('update users
+journal("update users
          set no_login=0,hidden=0,confirm_deadline=null,
 	     last_online='$now'
-	 where id='.journalVar('users',$userId));
+	 where id=".journalVar('users',$userId));
 }
 
 function getUserIdByConfirmCode($confirmCode)
