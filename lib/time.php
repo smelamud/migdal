@@ -7,7 +7,9 @@ function ourtime()
 {
 global $timeZone;
 
-return mktime(explode(',',gmdate('H,i,s,m,d,Y',time())))+$timeZone*3600;
+$time=explode(',',gmdate('H,i,s,m,d,Y',time()));
+return mktime($time[0],$time[1],$time[2],$time[3],$time[4],$time[5])
+       +$timeZone*3600;
 }
 
 function composeDateTime($timestamp,$vars,$base_name)
