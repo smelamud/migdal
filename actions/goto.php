@@ -17,5 +17,7 @@ if($offset<0)
   $offset=0;
 if($offset>=$size)
   $offset=(int)(($size-1)/$pagesize)*$pagesize;
-header('Location: '.remakeURI($okdir,array(),array('offset' => $offset)));
+header('Location: '.remakeURI($okdir,
+                              array('tid'),
+			      array('offset' => $offset)));
 ?>
