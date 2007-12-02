@@ -1,8 +1,8 @@
 function reloginInit() {
     var rg = $("#relogin-guest");
     if (rg.size() > 0) {
-    	rg.each(function(box) {
-	    if (!box.checked) {
+    	rg.each(function() {
+	    if (!this.checked) {
 		$("#captcha").hide();
 	    } else {
 		$("#captcha").show();
