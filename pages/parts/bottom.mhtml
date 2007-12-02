@@ -69,6 +69,7 @@ else
 </tr>
 <tr valign=bottom>
  <td align=right>
+  <span class='eightpt'><?php echo sqlNow();?></span><br />
   <kernel>
   <<snapshot>>
   <moderator>
