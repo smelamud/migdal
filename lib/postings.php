@@ -700,7 +700,7 @@ function getRootPosting($grp,$topic_id,$up,$index1=0)
 {
 global $userId,$realUserId,$rootPostingPerms;
 
-if($up>0)
+if($up>0 && $up!=$topic_id)
   {
   $msg=getPermsById($up);
   $group_id=$msg->getGroupId();
