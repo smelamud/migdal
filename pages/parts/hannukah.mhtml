@@ -7,6 +7,6 @@
  <assign name='current' value!='$current+1'>
 </if>
 <if what='$current>=1 && $current<=8'>
- <image src#='pics/hk-${current}.gif'>
+ <image src#='/pics/hk-${current}.gif'>
 </if>
 </element>
