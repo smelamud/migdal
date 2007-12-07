@@ -29,7 +29,11 @@ return '&#x'.sprintf('%02x',ord($c{1-$lsb})).sprintf('%02x',ord($c{$lsb})).';';
 function entityToChar($c,$_charset='UTF-16')
 {
 if(preg_match('/^&#(\d+);$/',$c,$matches))
+  {
   $code=(int)$matches[1];
+  if($code==39) // do not convert single quotes
+    return $c;
+  }
 elseif(preg_match('/^&#x([\dA-Fa-f]+);$/',$c,$matches))
   $code=(int)hexdec($matches[1]);
 else
@@ -292,7 +296,7 @@ return $s;
 
 function convertOutputString($s)
 {
-return delicateSpecialChars($s);
+return delicateSpecialChars($s,DSC_SQ);
 }
 
 function convertOutput($s)

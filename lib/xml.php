@@ -5,13 +5,17 @@ require_once('lib/charsets.php');
 
 define('DSC_NO_GT',0);
 define('DSC_GT',1);
+define('DSC_NO_SQ',0);
+define('DSC_SQ',2);
 
 function delicateSpecialChars($s,$gt=DSC_NO_GT)
 {
 $specials=array('<' => '&lt;',
                 '"' => '&quot;');
-if($gt==DSC_GT)
+if(($gt & DSC_GT)!=0)
   $specials['>']='&gt;';
+if(($gt & DSC_SQ)!=0)
+  $specials["'"]='&#39;';
 return strtr($s,$specials);
 }
 
