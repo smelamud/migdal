@@ -223,7 +223,7 @@ for($i=0;$i<count($lines);$i++)
    if($i+1<count($lines))
      {
      // Reverse ligature
-     $next=str_replace('&#8212;','---',$lines[$i+1]);
+     $next=str_replace(array('&#8212;','&#x2014;'),array('---','---'),$lines[$i+1]);
      if(preg_match("/^\s*$c{3}$c*\s*$/",$next)
         && !preg_match('/^\s*$/',$lines[$i]))
        {
