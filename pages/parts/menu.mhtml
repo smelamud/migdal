@@ -44,9 +44,8 @@
     <asp></td>
     <td align=right><asp>
      <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
-     <asp><noindex><menuitem ident='setup' alt='Настройки'
-			     link#='/setup/?redirid=$_'
-			     current='$ident'></noindex><asp>
+     <menuitem ident='setup' alt='Настройки' link#='/setup/?redirid=$_'
+               current='$ident'>
     <asp></td>
    </tr>
   </html_cache>

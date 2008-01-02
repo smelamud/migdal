@@ -193,7 +193,7 @@
 
 <element name='topics_museum'>
 <upper_level name='Мигдаль' href='/migdal/'>
-<topics_table title='Музей истории евреев Одессы'>
+<topics_table title='Еврейский музей Одессы'>
  <html_cache ident#='topics_museum-$index' period!='3 * 60 * 60'
              depends='postings'>
   <posting_obj id='$`post.migdal.museum`'>
@@ -237,7 +237,7 @@
 	      arrow!="$index=='migdal.library'"
 	      indent=1 class='topics-item eightpt'>
  <posting_last topic_id='$`migdal.museum`' recursive='*true' as_guest='*true'>
- <topics_line time='$,' href='/migdal/museum/' text='Музей истории евреев Одессы'
+ <topics_line time='$,' href='/migdal/museum/' text='Еврейский музей Одессы'
 	      arrow!="$index=='migdal.museum'"
 	      indent=1 class='topics-item eightpt'>
  <posting_last topic_id='$`migdal.migdal-or`' as_guest='*true'>

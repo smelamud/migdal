@@ -10,7 +10,7 @@
  <p><table cellpadding=0 cellspacing=0 width=100%>
   <for>
    <tr><td align=left style='padding-bottom: 5px'>
-    << FIXME Ð¸Ð·-Ð·Ð° ÐºÑÑˆÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ Ð±ÑƒÐ´ÐµÑ‚ Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ñ‚ÑŒ Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾ >>
+    << FIXME ÉÚ-ÚÁ ËÜÛÉÒÏ×ÁÎÉÑ ÂÕÄÅÔ ÒÁÂÏÔÁÔØ ÎÅËÏÒÒÅËÔÎÏ >>
     <counter_inc entry_id='$.' mode='*CMODE_EAR_HITS'>
     <posting_obj id='$.' grp='*GRP_EARS'>
     <a href='/actions/ear/$,Id?okdir=$#,URL'><asp>

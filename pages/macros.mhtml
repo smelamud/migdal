@@ -412,9 +412,6 @@
  <conf>
  <assign_global name='wwwDomain' value!="$$userDomain=='www'">
  <assign_global name='englishDomain' value!="$$userDomain=='english'">
- <print>
-  <meta_noindex>
- </print>
  <head>
   <notprint>
    <link rel='alternate' media='print' href='$[print=1]'>
