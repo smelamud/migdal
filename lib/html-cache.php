@@ -6,6 +6,7 @@ require_once('conf/migdal.conf');
 require_once('lib/dataobject.php');
 require_once('lib/sql.php');
 require_once('lib/time.php');
+require_once('lib/debug-log.php');
 
 class HTMLCacheRecord
       extends DataObject
@@ -89,6 +90,10 @@ function getHTMLCacheRecord($ident,$period=null,$depends=array(),
 {
 global $htmlCache,$contentVersions;
 
+debugLog(LL_FUNCTIONS,
+         'getHTMLCacheRecord(ident=%,...)',
+	 array($ident));
+
 if($htmlCache && $condition)
   {
   $now=sqlNow();
@@ -123,6 +128,10 @@ return new HTMLCacheRecord($vars);
 
 function storeHTMLCacheRecord($record,$content)
 {
+debugLog(LL_FUNCTIONS,
+         'storeHTMLCacheRecord(record.ident=%,...)',
+	 array($record->ident));
+
 if(!$record->condition)
   return;
 $vars=array('ident' => $record->ident,

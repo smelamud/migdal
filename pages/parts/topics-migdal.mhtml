@@ -210,8 +210,7 @@
 	       class='topics-item ninept'>
  </html_cache>
 </topics_table>
-<history topic_id='$`migdal.museum`' current='$posting.Id'
-         today='$`post.migdal.museum`'>
+<history topic_id='$`migdal.museum`' current='$index' today='$`post.migdal.museum`'>
 <topics_common_events id='$`migdal.events.science-confs`'>
 </element>
 
