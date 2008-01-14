@@ -117,10 +117,10 @@
    <dd>Инна Найдис</dd>
   </if>
 
-  <if what='$issue>=38 && $issue<67'>
+  <if what='$issue>=38 && $issue<67 || $issue>=88'>
    <dt>Редактор</dt>
    <dd>Ольга Ксендзюк</dd>
-  <elif what='$issue>=67'>
+  <elif what='$issue>=67 && $issue<88'>
    <dt>Редактор</dt>
    <dd>Людмила Клигман</dd>
   </if>
