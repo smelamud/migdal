@@ -32,3 +32,27 @@
  </if>
 </notenglish>
 </element>
+
+<element name='countdown_pic'>
+<notenglish>
+ <time>
+ <assign name='current' value!='$day-$,@z-1'>
+ <if what='$current>0'>
+  <div style='background-image: $image; width: 303px; height: 80px; padding: 20px 90px; font: 14px Arial,sans-serif'>
+   <array vals='остался,осталось,осталось'>
+   <plural name='last' value='$current'>
+   <array vals='день,дня,дней'>
+   <plural name='days' value='$current'>
+   До
+   <b>
+    <ifne what='$href'>
+     <a href='$href'>$title</a>
+    <else>
+     $title
+    </ifne>
+   </b>
+   $last<br>$current&sp;$days
+  </div>
+ </if>
+</notenglish>
+</element>

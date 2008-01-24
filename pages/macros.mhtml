@@ -57,6 +57,8 @@
        params='complain,discuss' defaults="discuss='*true'">
 <decel name='countdown' file='parts/countdown.php' params='title,day,image,href'
        defaults="href=''">
+<decel name='countdown_pic' file='parts/countdown.php'
+       params='title,day,image,href' defaults="href=''">
 <decel name='daily_announce' file='parts/daily-announce.php' params='topic_id'>
 <decel name='daily_picture' file='parts/daily-picture.php'
        params='picture,showtopic,showdiscuss,showcomplain,shorten'
