@@ -57,8 +57,8 @@
    <banner_rambler_top>
   </td>
   <td align='center' rowspan=2 style="padding-top: 10px">
-   <<countdown title='15-летия &lt;&lt;Мигдаля&gt;&gt;'
-              href='' day='35' image='pics/logo-birthday-15.jpg'>>
+   <countdown_pic title='бала' href='/migdal/15975/' day='34'
+                  image='/pics/logo-birthday-16.gif'>
   </td>
   <td align=right style='padding-right: 5px; padding-top: 5px'>
    <outer><table cellspacing=0 cellpadding=0><tr valign=top>

@@ -38,19 +38,17 @@
  <time>
  <assign name='current' value!='$day-$,@z-1'>
  <if what='$current>0'>
-  <div style='background-image: $image; width: 303px; height: 80px; padding: 20px 90px; font: 14px Arial,sans-serif'>
+  <div style="background-image: url('$image'); width: 123px; height: 34px; padding: 23px 90px; font: 14px Arial,sans-serif">
    <array vals='остался,осталось,осталось'>
    <plural name='last' value='$current'>
    <array vals='день,дня,дней'>
    <plural name='days' value='$current'>
    До
-   <b>
-    <ifne what='$href'>
-     <a href='$href'>$title</a>
-    <else>
-     $title
-    </ifne>
-   </b>
+   <ifne what='$href'>
+    <a href='$href' style='font: 14px Arial,sans-serif'>$title</a>
+   <else>
+    $title
+   </ifne>
    $last<br>$current&sp;$days
   </div>
  </if>
