@@ -23,7 +23,7 @@ ob_start('convertOutput');
 
 function initializeMeta()
 {
-echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n";
+echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\">\n";
 noCacheMeta();
 }
 

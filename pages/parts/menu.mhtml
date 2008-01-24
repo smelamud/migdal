@@ -22,7 +22,7 @@
   <html_cache ident#='menu-$ident' period!='3 * 60 * 60'
               depends='postings,forums'>
    <tr valign=bottom>
-    <td><asp>
+    <td style='line-height: 1px'><asp>
      <posting_last name='times_time' topic_id='$`times`' recursive='*true'
                    as_guest='*true'>
      <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_ALL'
@@ -42,7 +42,7 @@
 	       time='$links_time'>
      <menuitem ident='users' alt='Пользователи' link='/users/' current='$ident'>
     <asp></td>
-    <td align=right><asp>
+    <td align=right style='line-height: 1px'><asp>
      <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
      <menuitem ident='setup' alt='Настройки' link#='/setup/?redirid=$_'
                current='$ident'>
