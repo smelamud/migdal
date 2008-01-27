@@ -14,7 +14,7 @@ global $dbLink,$dbHost,$dbName,$replicationDbName,$dbUser,$dbPassword,
 
 if($dbLink>0)
   return;
-$dbLink=mysql_connect($dbHost,$dbUser,$dbPassword)
+$dbLink=mysql_pconnect($dbHost,$dbUser,$dbPassword)
             or sqlbug(__FUNCTION__.'().mysql_connect');
 mysql_select_db(!$replication ? $dbName : $replicationDbName)
       or sqlbug(__FUNCTION__.'().mysql_select_db');
