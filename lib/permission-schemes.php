@@ -3,6 +3,7 @@
 
 require_once('lib/entry-types.php');
 require_once('lib/perm.php');
+require_once('lib/debug-log.php');
 
 /*
  * Эти функции необходимы для того, чтобы проверять права доступа на entry, не
@@ -27,8 +28,18 @@ if(isset($permSchemes[$entry->entry]))
   {
   $func=$permSchemes[$entry->entry];
   if($func!='' && function_exists($func))
-    return $func($entry,$right);
+    {
+    $result=$func($entry,$right);
+    debugLog(LL_DETAILS,'Permission check: %(entry %,%)=%',
+             array($func,(int)$entry->id,sprintf('0x%04X',$right),$result));
+    return $result;
+    }
+  debugLog(LL_DETAILS,'Permission check: registered permission function % for entry'
+                     .' type % does not exists',array($func,$entry->entry));
+  return true;
   }
+debugLog(LL_DETAILS,'Permission check: permission function for entry type'
+                   .' % is not registered',array($entry->entry));
 return true;
 }
 
