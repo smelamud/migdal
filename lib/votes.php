@@ -3,6 +3,7 @@
 
 require_once('lib/ip.php');
 require_once('lib/sql.php');
+require_once('lib/entries.php');
 
 function getRatingSQL($vote,$vote_count)
 {
@@ -48,6 +49,52 @@ sql("update entries
     __FUNCTION__,'update_votes');
 journal("update entries
          set vote=vote+$weight*$vote,vote_count=vote_count+$weight
+	 where id=".journalVar('entries',$id));
+sql('update entries
+     set rating='.getRatingSQL('vote','vote_count')."
+     where id=$id",
+    __FUNCTION__,'update_rating');
+journal('update entries
+         set rating='.getRatingSQL('vote','vote_count')."
+	 where id=".journalVar('entries',$id));
+return $result;
+}
+
+function getSelectVote($parent_id)
+{
+global $userId;
+
+$uidFilter=$userId<=0 ? '' : "and votes.user_id=$userId";
+$ipFilter=$userId<=0 ? 'and votes.ip='.IPToInteger($_SERVER['REMOTE_ADDR']) : '';
+$result=sql("select vote
+	     from votes
+	          left join entries
+		       on votes.entry_id=entries.id
+	     where entries.parent_id=$id $uidFilter $ipFilter",
+	    __FUNCTION__);
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+}
+
+function addSelectVote($id,$vote)
+{
+global $userId;
+
+$parent_id=getParentIdByEntryId($id);
+$uid=$userId<=0 ? 0 : $userId;
+$ip=$userId<=0 ? IPToInteger($_SERVER['REMOTE_ADDR']) : 0;
+$result=sql("insert into votes(entry_id,ip,user_id,vote)
+	     values($parent_id,$ip,$uid,$vote)",
+	    __FUNCTION__,'insert');
+journal("insert into votes(entry_id,ip,user_id,vote)
+         values(".journalVar('entries',$parent_id).",$ip,
+	        ".journalVar('users',$uid).",$vote)");
+
+sql("update entries
+     set vote=vote+$vote,vote_count=vote_count+1
+     where id=$id",
+    __FUNCTION__,'update_votes');
+journal("update entries
+         set vote=vote+$vote,vote_count=vote_count+1
 	 where id=".journalVar('entries',$id));
 sql('update entries
      set rating='.getRatingSQL('vote','vote_count')."

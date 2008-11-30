@@ -12,15 +12,22 @@ require_once('lib/random.php');
 require_once('lib/logs.php');
 require_once('lib/sql.php');
 
-function vote($id,$vote)
+function vote($id,$vote,$isSelect)
 {
-global $userId,$userModerator,$userVoteWeight,$moderatorVoteWeight;
-
 if(!postingExists($id))
   return EV_NO_POSTING;
-if(getVote($id))
-  return EV_ALREADY_VOTED;
-addVote($id,$vote);
+if(!$isSelect)
+  {
+  if(getVote($id))
+    return EV_ALREADY_VOTED;
+  addVote($id,$vote);
+  }
+else
+  {
+  if(getSelectVote($id))
+    return EV_ALREADY_VOTED;
+  addSelectVote($id,$vote);
+  }
 logEvent('vote',"post($id)");
 return EG_OK;
 }
@@ -30,10 +37,11 @@ postString('faildir');
 
 postInteger('postid');
 postInteger('vote');
+postInteger('isselect');
 
 dbOpen();
 session();
-$err=vote($postid,$vote);
+$err=vote($postid,$vote,$isselect);
 if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err'),
