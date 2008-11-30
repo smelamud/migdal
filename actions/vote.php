@@ -24,7 +24,7 @@ if(!$isSelect)
   }
 else
   {
-  if(getSelectVote($id))
+  if(getSelectVote(getParentIdByEntryId($id)))
     return EV_ALREADY_VOTED;
   addSelectVote($id,$vote);
   }
