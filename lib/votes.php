@@ -25,7 +25,7 @@ $result=sql("select vote
 	     from votes
 	     where entry_id=$id $uidFilter $ipFilter",
 	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
 }
 
 function addVote($id,$vote)
@@ -72,7 +72,7 @@ $result=sql("select votes.vote
 		       on votes.entry_id=entries.id
 	     where entries.parent_id=$parent_id $uidFilter $ipFilter",
 	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : -1;
 }
 
 function addSelectVote($id,$vote)

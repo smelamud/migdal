@@ -18,7 +18,7 @@ global $userId,$userModerator,$userVoteWeight,$moderatorVoteWeight;
 
 if(!postingExists($id))
   return EV_NO_POSTING;
-if(getVote($id))
+if(getVote($id)>=0)
   return EV_ALREADY_VOTED;
 addVote($id,$vote);
 logEvent('vote',"post($id)");

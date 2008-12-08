@@ -18,13 +18,13 @@ if(!postingExists($id))
   return EV_NO_POSTING;
 if(!$isSelect)
   {
-  if(getVote($id))
+  if(getVote($id)>=0)
     return EV_ALREADY_VOTED;
   addVote($id,$vote);
   }
 else
   {
-  if(getSelectVote(getParentIdByEntryId($id)))
+  if(getSelectVote(getParentIdByEntryId($id))>=0)
     return EV_ALREADY_VOTED;
   addSelectVote($id,$vote);
   }
