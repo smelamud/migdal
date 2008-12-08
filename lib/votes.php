@@ -5,6 +5,9 @@ require_once('lib/ip.php');
 require_once('lib/sql.php');
 require_once('lib/entries.php');
 
+define('MIN_VOTE',2);
+define('MAX_VOTE',4);
+
 function getRatingSQL($vote,$vote_count)
 {
 return "$vote-3*cast($vote_count as signed)";

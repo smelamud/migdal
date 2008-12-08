@@ -18,6 +18,8 @@ global $userId,$userModerator,$userVoteWeight,$moderatorVoteWeight;
 
 if(!postingExists($id))
   return EV_NO_POSTING;
+if($vote<MIN_VOTE || $vote>MAX_VOTE)
+  return EV_INVALID_VOTE;
 if(getVote($id)>=0)
   return EV_ALREADY_VOTED;
 addVote($id,$vote);

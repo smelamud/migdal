@@ -151,6 +151,7 @@ define('EO_LITTLE',323);
 
 define('EV_NO_POSTING',330);
 define('EV_ALREADY_VOTED',331);
+define('EV_INVALID_VOTE',332);
 
 define('EDM_NO_CHANGE',340);
 define('EDM_NO_POSTING',341);

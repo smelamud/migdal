@@ -16,6 +16,8 @@ function vote($id,$vote,$isSelect)
 {
 if(!postingExists($id))
   return EV_NO_POSTING;
+if($vote<MIN_VOTE || $vote>MAX_VOTE)
+  return EV_INVALID_VOTE;
 if(!$isSelect)
   {
   if(getVote($id)>=0)
