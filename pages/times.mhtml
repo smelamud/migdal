@@ -117,10 +117,10 @@
    <dd>Инна Найдис</dd>
   </if>
 
-  <if what='$issue>=38 && $issue<67 || $issue>=86'>
+  <if what='$$issue>=38 && $$issue<67 || $$issue>=86 && $$issue<99'>
    <dt>Редактор</dt>
    <dd>Ольга Ксендзюк</dd>
-  <elif what='$issue>=67 && $issue<86'>
+  <elif what='$$issue>=67 && $$issue<86'>
    <dt>Редактор</dt>
    <dd>Людмила Клигман</dd>
   </if>
@@ -136,10 +136,12 @@
   <if what='$$issue<36'>
    <dd>Инна Найдис</dd>
   </if>
-  <dd>Леонид Штекель</dd>
+  <if what='$$issue<99'>
+   <dd>Леонид Штекель</dd>
+  </if>
 
   <dt>Адрес редакции:</dt>
-  <dd>г. Одесса, ул. М. Арнаутская, 46-а, к.1. Тел.: 22-65-90.</dd>
+  <dd>г. Одесса, ул. М. Арнаутская, 46-а, к.1. Тел.: 37-21-28.</dd>
 
   <dt>E-mail:</dt>
   <dd><a href='mailto:m_times@migdal.ru'>m_times@migdal.ru</a></dd>
