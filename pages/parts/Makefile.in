@@ -28,8 +28,8 @@ OBJECTS = article.mhtml backtrace.mhtml banner-bannerbank.mhtml \
 	  topics-gallery-migdal.mhtml topics-gallery-peruser.mhtml \
 	  topics-links.mhtml topics-major.mhtml topics-migdal.mhtml \
 	  topics-migdal-english.mhtml topics-peruser.mhtml topics-times.mhtml \
-	  topicselect.mhtml tzdaka.mhtml uploader.mhtml userinfo.mhtml \
-	  utils.mhtml vote.mhtml xml-text.mhtml
+	  topicselect.mhtml tweetfeed.mhtml tzdaka.mhtml uploader.mhtml \
+	  userinfo.mhtml utils.mhtml vote.mhtml xml-text.mhtml
 	  
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)

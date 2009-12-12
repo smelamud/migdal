@@ -367,6 +367,7 @@
                  only_postable='*false' mandatory='*false' null_title=''">
 <decel name='tune' file='parts/tune.php' params='ident,target'
        defaults="target=''">
+<decel name='tweetfeed' file='parts/tweetfeed.php'>
 <decel name='tzdaka' file='parts/tzdaka.php'>
 <decel name='uploader' file='parts/uploader.php'
        params='name,small_name,small_title,large_title,loaded,delname,plainid,
