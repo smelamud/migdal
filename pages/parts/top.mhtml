@@ -57,9 +57,9 @@
    <banner_rambler_top>
   </td>
   <td align='center' rowspan=2 style="padding-top: 10px">
-   <<countdown title='Хануки' href='/migdal/events/hanukkah/5769/' day='356'
-                  image='/pics/logo-hanukkah-5769.jpg'>>
-   <notenglish><table cellspacing=5 cellpadding=0><tr valign='middle'>
+   <countdown title='дня рождения &#171;Мигдаля&#187;' href='/migdal/events/migdal-birth/18/'
+                  day='34' image='/pics/logo-birthday.gif'>
+   <<notenglish><table cellspacing=5 cellpadding=0><tr valign='middle'>
     <td align='right'>
      <a href='/migdal/events/other/rainbow-festival-2009/'><asp>
       <image src='/pics/logo-festival.gif' border=0></a>
@@ -68,7 +68,7 @@
      <a href='/migdal/events/other/rainbow-festival-2009/'><asp>
       <asp>Фестиваль &#171;Радуга еврейской Диаспоры&#187;</a>
     </td>
-   </table></notenglish>
+   </table></notenglish>>
   </td>
   <td align=right style='padding-right: 5px; padding-top: 5px'>
    <outer><table cellspacing=0 cellpadding=0><tr valign=top>
