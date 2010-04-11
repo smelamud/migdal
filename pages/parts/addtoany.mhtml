@@ -6,7 +6,11 @@
   <td><image src="/pics/share.jpg" border='0'></td>
   <td>&nbsp;</td>
   <td><a class="a2a_dd" href="http://www.addtoany.com/share_save"><asp>
-   <asp>Отправить ссылку друзьям<asp>
+   <notenglish>
+    <asp>Отправить ссылку друзьям<asp>
+   <else>
+    <asp>Share & Bookmark<asp>
+   </notenglish>
   <asp></a></td>
  </tr></table>
 </p>
