@@ -39,6 +39,7 @@
     </ifne>
    </h1>
    <article_full posting='$,'>
+   <addtoany>
    <article_controls posting='$,'>
   </td>
  </tr></table>

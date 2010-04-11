@@ -1,0 +1,14 @@
+<< @(#) $Id: complain.mhtml 2329 2006-08-09 12:54:54Z balu $ >>
+
+<element name='addtoany'>
+<p>
+ <table cellspacing='0' cellpadding='0'><tr>
+  <td><image src="/pics/share.jpg" border='0'></td>
+  <td>&nbsp;</td>
+  <td><a class="a2a_dd" href="http://www.addtoany.com/share_save"><asp>
+   <asp>Отправить ссылку друзьям<asp>
+  <asp></a></td>
+ </tr></table>
+</p>
+<script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
+</element>

@@ -42,6 +42,7 @@
             cols='$userPictureColumnPortion' offset='$offset' sort='$sort'
 	    noguests!='!$,isGuestPostable' noadd='$noadd'>
    <rss>
+   <addtoany>
   </td>
  </tr></table>
  <bottom>

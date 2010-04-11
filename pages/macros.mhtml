@@ -24,6 +24,7 @@
 <deccallback event='_incut' name='_incut' file='parts/utils.php' params='data'>
 
 << Elements >>
+<decel name='addtoany' file='parts/addtoany.php'>
 <decel name='article' file='parts/article.php'
        params='posting,withvote,static,note_base_var'
        defaults="withvote='*true' static='*false' note_base_var=''">

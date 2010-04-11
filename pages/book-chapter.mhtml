@@ -38,6 +38,7 @@
     </ifne>
    </h1>
    <article posting='$,' withvote='*false'>
+   <addtoany>
    <book_ring book='$book' index='$,Index0'>
    <article_controls posting='$,'>
   </td>

@@ -53,6 +53,7 @@
       </notprint>
       <span class='article'>
        <article posting='$,' withvote='*false'>
+       <addtoany>
        <article_controls posting='$,'>
       </span>
      </ifnzero>

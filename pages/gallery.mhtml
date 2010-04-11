@@ -55,6 +55,7 @@
 	    cols='$userPictureColumnPortion' offset='$offset' sort='$sort'
 	    user_id='$user_id' noguests='$noguests' noadd='$noadd'>
    <rss>
+   <addtoany>
   </td>
  </tr></table>
  <bottom>

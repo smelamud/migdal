@@ -50,6 +50,7 @@
     <span class='article'>
      <article_controls posting='$,'>
      <article posting='$,' withvote='*false'>
+     <addtoany>
      <article_controls posting='$,'>
     </span>
     <rss>

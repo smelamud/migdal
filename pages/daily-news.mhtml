@@ -124,6 +124,7 @@
       </h1>
       <p>$posting.BodyHTML</p>
       <vote_panel id='$posting.Id' rating='$posting.Rating' align='center'>
+      <addtoany>
       <daily_ring current='$posting' event='$event'>
       <controls posting='$posting' event='$event'>
      </ifnzero>

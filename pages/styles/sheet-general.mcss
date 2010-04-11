@@ -61,3 +61,12 @@ SPAN.guest-name {
 	font-style: italic;
 	font-size: 8pt;
 }
+
+A.a2a_dd {
+	color: %posting_controls;
+	font: bold 9pt %verdana;
+}
+
+A.a2a_dd:hover {
+	color: %posting_controls_hover;
+}

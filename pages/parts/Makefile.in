@@ -4,7 +4,7 @@
 
 targetdir=$(builddir)/www/parts/
 
-OBJECTS = article.mhtml backtrace.mhtml banner-bannerbank.mhtml \
+OBJECTS = addtoany.mhtml article.mhtml backtrace.mhtml banner-bannerbank.mhtml \
           banner-hotlog.mhtml banner-mailru.mhtml banner-rabbi.mhtml \
 	  banner-rambler.mhtml banners.mhtml book-chapters.mhtml \
 	  book-chapters-static.mhtml book-ring.mhtml book-ring-static.mhtml \
