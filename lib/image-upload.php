@@ -247,7 +247,7 @@ else
   debugLog(LL_DETAILS,'rename(%,%)',array($largeName,$smallName));
   rename($largeName,$smallName);
   $smallImageSize=getImageSize($smallName);
-  debugLog(LL_DEBUG,'small getImageSize(%)=%',$smallName,$smallImageSize);
+  debugLog(LL_DEBUG,'small getImageSize(%)=%',array($smallName,$smallImageSize));
   list($posting->small_image_x,
        $posting->small_image_y)=$smallImageSize;
   $posting->large_image_x=$posting->large_image_y=0;

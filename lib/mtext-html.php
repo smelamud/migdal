@@ -57,8 +57,11 @@ var $images=array();
 
 function isPlaced($place)
 {
-return $place<=IPL_HORIZONTAL ? ($this->placement & IPL_HORIZONTAL)==$place
-                              : ($this->placement & IPL_VERTICAL)==$place;
+$hplace=$place & IPL_HORIZONTAL;
+$h=$hplace==0 || ($this->placement & IPL_HORIZONTAL)==$hplace;
+$vplace=$place & IPL_VERTICAL;
+$v=$vplace==0 || ($this->placement & IPL_VERTICAL)==$vplace;
+return $h && $v;
 }
 
 }
@@ -130,9 +133,9 @@ if($this->format<MTEXT_LONG)
 if(!isset($this->imageBlocks[$this->par]))
   return 'none';
 $block=$this->imageBlocks[$this->par];
-if($block->isPlaced(IPL_LEFT))
+if($block->isPlaced(IPL_CENTERLEFT))
   return 'left';
-if($block->isPlaced(IPL_RIGHT))
+if($block->isPlaced(IPL_CENTERRIGHT))
   return 'right';
 return 'none';
 }
@@ -157,34 +160,21 @@ else
 $this->html.=callback('image',$data);
 }
 
-function putImageBlock($beforeP)
+function putImageBlock()
 {
 if($this->format<MTEXT_LONG)
   return;
-if($beforeP)
-  {
-  $par=$this->par;
-  if(!isset($this->imageBlocks[$par]))
-    return;
-  $block=$this->imageBlocks[$par];
-  if(!$block->isPlaced(IPL_VCENTER))
-    return;
-  $image=$block->images[0];
-  }
+
+$par=$this->par;
+$this->par++;
+if(!isset($this->imageBlocks[$par]))
+  $image=null;
 else
   {
-  $par=$this->par;
-  $this->par++;
-  if(!isset($this->imageBlocks[$par]))
-    $image=null;
-  else
-    {
-    $block=$this->imageBlocks[$par];
-    if(!$block->isPlaced(IPL_BOTTOM))
-      return;
-    $image=$block->images[0];
-    }
+  $block=$this->imageBlocks[$par];
+  $image=$block->images[0];
   }
+
 $this->putImage($image,$par);
 }
 
@@ -272,13 +262,12 @@ switch($name)
 	   break;
       case 'P':
 	   $clear=$this->getParagraphClear();
-	   $this->putImageBlock(true);
+	   $this->putImageBlock();
            $clear=isset($attrs['CLEAR']) ? $attrs['CLEAR'] : $clear;
 	   if($clear=='none')
 	     $this->html.=makeTag($name);
 	   else
 	     $this->html.=makeTag($name,array('style' => "clear: $clear"));
-	   $this->putImageBlock(false);
 	   break;
       case 'LI':
            if(count($this->listStyles)==0)

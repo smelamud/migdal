@@ -81,8 +81,11 @@ return $this->placement;
 
 function isPlaced($place)
 {
-return $place<=IPL_HORIZONTAL ? ($this->placement & IPL_HORIZONTAL)==$place
-                              : ($this->placement & IPL_VERTICAL)==$place;
+$hplace=$place & IPL_HORIZONTAL;
+$h=$hplace==0 || ($this->placement & IPL_HORIZONTAL)==$hplace;
+$vplace=$place & IPL_VERTICAL;
+$v=$vplace==0 || ($this->placement & IPL_VERTICAL)==$vplace;
+return $h && $v;
 }
 
 function getImage()
