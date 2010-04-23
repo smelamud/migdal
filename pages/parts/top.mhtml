@@ -15,7 +15,7 @@
 
 <element name='translation' params='href'>
 <ifne what='$href'>
- <table class='ninept'><tr valign=center>
+ <table class='ninept'><tr valign='middle'>
   <english>
    <td><image src='/pics/lang-ru.gif'></td>
    <td><a href='$href'>Русская версия</a>&nbsp;&nbsp;</td>
