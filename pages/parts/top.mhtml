@@ -1,36 +1,16 @@
 << @(#) $Id$ >>
 
 <element name='banner'>
-<table>
- <col width=0* span=2>
- <tr valign=bottom>
-  <td>
-   <a href='/'>
-    <image src='$$style_banner_logo'
-	   alt!='!$$englishDomain ? "Башня" : "Tower"' border=0></a>
-  </td>
-  <td align=center>
-   <table cellspacing=0 cellpadding=0>
-    <notenglish>
-     <tr><td><hannukah></td></tr>
-     <tr><td>
-      <a href='/'>
-       <image src='$$style_banner_migdal' alt='Мигдаль' border=0></a>
-     </td></tr>
-    <else>
-     <tr><td>
-      <a href='/'>
-       <image src='$$style_banner_migdal_english' alt='Migdal' border=0></a>
-     </td></tr>
-    </notenglish>
-    <tr><td>
-     <a href='/'>
-      <image src='$$style_banner_online' alt='on-line' border=0></a>
-    </td></tr>
-   </table>
-  </td>
- </tr>
-</table>
+<a href='/'>
+ <image src='$$style_banner_logo'
+        alt!='!$$englishDomain ? "Башня" : "Tower"' border='0'></a>
+<notenglish>
+ <a href='/'>
+  <image src='$$style_banner_migdal' alt='Мигдаль' id='migdal'></a>
+<else>
+ <a href='/'>
+  <image src='$$style_banner_migdal_english' alt='Migdal' id='migdal'></a>
+</notenglish>
 </element>
 
 <element name='translation' params='href'>
