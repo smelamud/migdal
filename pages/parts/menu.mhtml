@@ -9,9 +9,9 @@
 </ifbiff>
 <asp><a href='$link'><asp>
  <if what='$current==$ident'>
-  <image src#='/pics/menu$biff-${ident}.gif' alt='$alt' border=0>
+  <image src#='/pics/menu$biff-${ident}.gif' alt='$alt'>
  <else>
-  <image src#='/pics/menu$biff-${ident}-na.gif' alt='$alt' border=0>
+  <image src#='/pics/menu$biff-${ident}-na.gif' alt='$alt'>
  </if>
 <asp></a><asp>
 </element>

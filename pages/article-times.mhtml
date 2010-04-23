@@ -9,7 +9,7 @@
 <posting_obj id='$,' grp='*GRP_TIMES_COVERS'>
 <table align=right class='timesnfo aframe'><tr valign=center>
  <td><a href='/times/$issue/'>
-  <image src='/pics/times-small.gif' border=0></a>
+  <image src='/pics/times-small.gif'></a>
  </td>
  <td><a href='/times/$issue/'>&no;$,getIssues</a></td>
 </tr></table>

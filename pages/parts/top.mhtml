@@ -3,7 +3,7 @@
 <element name='banner'>
 <a href='/'>
  <image src='$$style_banner_logo'
-        alt!='!$$englishDomain ? "Башня" : "Tower"' border='0'></a>
+        alt!='!$$englishDomain ? "Башня" : "Tower"'></a>
 <notenglish>
  <a href='/'>
   <image src='$$style_banner_migdal' alt='Мигдаль' id='migdal'></a>
@@ -28,21 +28,18 @@
 </element>
 
 <element name='top_web' params='ident,transref'>
-<table width=100% cellspacing=0 cellpadding=0>
- <tr valign=top>
-  <td align=left rowspan=2>
+<table width='100%' cellspacing='0' cellpadding='0'>
+ <tr valign='top'>
+  <td align='left' rowspan='2'>
    <banner>
-   <banner_hotlog_top>
-   <banner_mailru_top>
-   <banner_rambler_top>
   </td>
-  <td align='center' rowspan=2 style="padding-top: 10px">
+  <td align='center' rowspan='2' style="padding-top: 10px">
    <countdown title='дня рождения &#171;Мигдаля&#187;' href='/migdal/events/migdal-birth/18/'
                   day='38' image='/pics/logo-birthday.gif'>
-   <<notenglish><table cellspacing=5 cellpadding=0><tr valign='middle'>
+   <<notenglish><table cellspacing='5' cellpadding='0'><tr valign='middle'>
     <td align='right'>
      <a href='/migdal/events/other/rainbow-festival-2009/'><asp>
-      <image src='/pics/logo-festival.gif' border=0></a>
+      <image src='/pics/logo-festival.gif'></a>
     </td>
     <td align='left' style='font: 14px Arial,sans-serif'>
      <a href='/migdal/events/other/rainbow-festival-2009/'><asp>
@@ -50,19 +47,19 @@
     </td>
    </table></notenglish>>
   </td>
-  <td align=right style='padding-right: 5px; padding-top: 5px'>
-   <outer><table cellspacing=0 cellpadding=0><tr valign=top>
+  <td align='right' style='padding-right: 5px; padding-top: 5px'>
+   <outer><table cellspacing='0' cellpadding='0'><tr valign='top'>
     <td><inner><translation href='$transref'></inner></td>
     <td><common><image src='/pics/bsd-main.gif' alt='БС"Д'></common></td>
    </tr></table></outer>
   </td>
  </tr>
  <tr>
-  <td align=right style='padding-right: 8px'>
+  <td align='right' style='padding-right: 8px'>
    <login>
   </td>
  </tr>
- <error id='*EL_NO_COOKIES' span=2
+ <error id='*EL_NO_COOKIES' span='2'
 	text='Не работают cookies. Включите поддержку cookies в настройках вашего браузера.'>
 </table>
 <menu ident='$ident'>

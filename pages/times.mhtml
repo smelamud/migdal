@@ -223,7 +223,7 @@
   <td class='mtimes cframe'>
    <table><tr valign=bottom><td>
     <a href='/times/'><asp>
-     <image src='/pics/times.gif' alt='Мигдаль Times' border=0>
+     <image src='/pics/times.gif' alt='Мигдаль Times'>
     <asp></a>
    </td><td>
     <times_issue>

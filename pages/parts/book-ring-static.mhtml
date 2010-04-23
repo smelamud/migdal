@@ -21,7 +21,7 @@
   </if>
   <if what='$index>=0'>
    <td align=center width=33%><a href='index.html' title='К началу книги'><asp>
-    <image src='pics/up.gif' border=0>
+    <image src='pics/up.gif'>
    <asp></a></td>
   <else>
    <td width=33%>&nbsp;</td>

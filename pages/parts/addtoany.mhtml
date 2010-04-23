@@ -3,7 +3,7 @@
 <element name='addtoany'>
 <p>
  <table cellspacing='0' cellpadding='0'><tr>
-  <td><image src="/pics/share.jpg" border='0'></td>
+  <td><image src="/pics/share.jpg"></td>
   <td>&nbsp;</td>
   <td><a class="a2a_dd" href="http://www.addtoany.com/share_save"><asp>
    <notenglish>

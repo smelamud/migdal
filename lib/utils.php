@@ -10,7 +10,7 @@ dbClose();
 exit;
 }
 
-function displayImage($src='',$alt='',$title='',$border='',$class='',$id='')
+function displayImage($src='',$alt='',$title='',$class='',$id='')
 {
 static $sizes=array();
 
@@ -27,12 +27,9 @@ if($src!='')
     $sizes[$src]=$is[3];
     }
   }
-if($alt!='')
-  $s.=" alt='$alt'";
+$s.=" alt='$alt'";
 if($title!='')
   $s.=" title='$title'";
-if($border!='')
-  $s.=" border='$border'";
 if($class!='')
   $s.=" class='$class'";
 if($id!='')

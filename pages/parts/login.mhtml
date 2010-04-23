@@ -5,7 +5,7 @@
  <table cellspacing=5 cellpadding=0>
   <notlogged>
    <tr><td align='right' colspan=3>
-    <a href='/signin/?redirid=$_'><image src='/pics/enter.gif' border='0'></a>
+    <a href='/signin/?redirid=$_'><image src='/pics/enter.gif'></a>
    </td></tr>
    <master>
     <tr><td class='eightpt' align='right' colspan=3>
@@ -24,13 +24,13 @@
     <td>&nbsp;</td>
     <td>
      <a href='/actions/logout?okdir=$#-'><asp>
-      <asp><image src='/pics/exit.gif' border='0'><asp>
+      <asp><image src='/pics/exit.gif'><asp>
      <asp></a>
     </td>
    </tr>
    <admin_users>
     <tr><td align='right' colspan=3>
-     <a href='/signin/?redirid=$_'><image src='/pics/su.gif' border='0'></a>
+     <a href='/signin/?redirid=$_'><image src='/pics/su.gif'></a>
     </td></tr>
    </admin_users>
   </notlogged>

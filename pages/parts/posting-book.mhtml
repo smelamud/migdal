@@ -43,7 +43,7 @@
  <further posting='$posting'>
  <<iterate_packages posting_id='$posting.Id'>
  <for>
-  <br><image src='pics/package.gif' border=0>&sp;
+  <br><image src='pics/package.gif'>&sp;
   <if what='$.Type==*PT_BOOK_ONEFILE'>
    <assign name='title' value='÷ÓÑ ËÎÉÇÁ ÏÄÎÉÍ ÆÁÊÌÏÍ × ÁÒÈÉ×Å'>
   <else>

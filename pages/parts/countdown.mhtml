@@ -8,7 +8,7 @@
   <table cellspacing=5 cellpadding=0><tr valign='middle'>
    <td align='right'>
     <ifne what='href'>
-     <a href='$href'><image src='$image' border=0></a>
+     <a href='$href'><image src='$image'></a>
     <else>
      <image src='$image'>
     </ifne>

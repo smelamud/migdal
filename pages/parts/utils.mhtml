@@ -54,7 +54,7 @@
 <if what='$message.isEmailVisible'>
  <asp>&nbsp;<asp>
  <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
-  <image src='$$style_mail_image' border=0>
+  <image src='$$style_mail_image'>
  <asp></a>
 </if>
 </element>
@@ -223,7 +223,7 @@
    <td>&nbsp;</td>
    <td align='right' width='1'><a href='$$rss_href'>RSS</a></td>
    <td align='right' width='1'>
-    <a href='$$rss_href'><image src='/pics/rss_new.png' border='0'></a>
+    <a href='$$rss_href'><image src='/pics/rss_new.png'></a>
    </td>
   </tr>
  </table>

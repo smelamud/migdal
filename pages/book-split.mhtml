@@ -36,7 +36,7 @@
       <p>
        <table class='ring' cellpadding=0>
 	<tr valign=center>
-	 <td align=right><image src='pics/further.gif' border=0></td>
+	 <td align=right><image src='pics/further.gif'></td>
 	 <td>&nbsp;</td>
 	 <td><a href='chapter-${index}.html'>Читать книгу</a></td>
 	</tr>

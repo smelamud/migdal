@@ -56,12 +56,12 @@
 	 <p>
 	  <table class='ring' cellpadding=0>
 	   <tr valign=center>
-	    <td align=right><image src='/pics/further.gif' border=0></td>
+	    <td align=right><image src='/pics/further.gif'></td>
 	    <td>&nbsp;</td>
 	    <td><a href='${book.GrpDetailsHref}$,/'>Читать книгу</a></td>
 	   </tr>
 	   <tr valign=center>
-	    <td align=right><image src='/pics/print.gif' border=0></td>
+	    <td align=right><image src='/pics/print.gif'></td>
 	    <td>&nbsp;</td>
 	    <td>
 	     <a href='${book.GrpDetailsHref}print/'>Вся книга для печати</a>
@@ -70,7 +70,7 @@
 	   <<iterate_packages posting_id='$postid'>
 	   <for>
 	    <tr valign=center>
-	     <td align=right><image src='/pics/package.gif' border=0></td>
+	     <td align=right><image src='/pics/package.gif'></td>
 	     <td>&nbsp;</td>
 	     <td>
 	      <if what='$.Type==*PT_BOOK_ONEFILE'>

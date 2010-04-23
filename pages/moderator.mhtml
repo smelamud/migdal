@@ -29,10 +29,10 @@
  <td>
   <if what='$$sort==*SORT_SENT'>
    <a href="$[sort='*SORT_RSENT']">
-    <image src='/pics/down-level.gif' border=0></a>
+    <image src='/pics/down-level.gif'></a>
   <else>
    <a href="$[sort='*SORT_SENT']">
-    <image src='/pics/up-level.gif' border=0></a>
+    <image src='/pics/up-level.gif'></a>
   </if>
  </td>
  <form method=get action='$-'>

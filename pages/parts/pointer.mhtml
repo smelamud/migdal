@@ -8,11 +8,11 @@
   </td>
   <td>&nbsp;</td>
   <td>
-   <a href='$href' title='$title'><image src='/pics/left.gif' border=0></a>
+   <a href='$href' title='$title'><image src='/pics/left.gif'></a>
   </td>
  <else>
   <td>
-   <a href='$href' title='$title'><image src='/pics/right.gif' border=0></a>
+   <a href='$href' title='$title'><image src='/pics/right.gif'></a>
   </td>
   <td>&nbsp;</td>
   <td>

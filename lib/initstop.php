@@ -14,6 +14,7 @@ require_once('lib/logs.php');
 function initialize()
 {
 noCacheHeaders();
+header('Content-Style-Type: text/css'); 
 dbOpen();
 session();
 postInteger('err');
@@ -24,7 +25,6 @@ ob_start('convertOutput');
 function initializeMeta()
 {
 echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\">\n";
-noCacheMeta();
 }
 
 function initializeHead()
@@ -39,7 +39,7 @@ foreach($stylesheetList as $sheet)
        }
 if(isset($jsList))
   foreach($jsList as $src)
-         echo "<script src='$src' language='JavaScript'></script>\n";
+         echo "<script src='$src' type='text/javascript'></script>\n";
 }
 
 function finalize()

@@ -2,6 +2,6 @@
 
 <element name='banner_rabbi'>
 <a href='http://yosele.rabbi.ru/'>
- <image src='/pics/banners/rabbi.gif' alt='Раввин сайта - Йосеф Херсонский'
-        border=0></a>
+ <image src='/pics/banners/rabbi.gif' alt='Раввин сайта - Йосеф Херсонский'>
+<asp></a>
 </element>
