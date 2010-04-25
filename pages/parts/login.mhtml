@@ -2,38 +2,28 @@
 
 <element name='login'>
 <notenglish>
- <table cellspacing=5 cellpadding=0>
   <notlogged>
-   <tr><td align='right' colspan=3>
-    <a href='/signin/?redirid=$_'><image src='/pics/enter.gif' alt='Войти'></a>
-   </td></tr>
+   <a href='/signin/?redirid=$_'><asp>
+    <asp><image src='/pics/enter.gif' alt='Войти' class='top-button'></a>
    <master>
-    <tr><td class='eightpt' align='right' colspan='3'>
+    <div class='eightpt top-button'>
      Чтобы войти, сначала <a href='/register/?redirid=$_'>зарегистрируйтесь</a>.
-    </td></tr>
+    </div>
    </master>
   <else>
-   <tr>
-    <td>
-     <if what='$$userHidden'>
-      <b>$$=userLogin</b>
-     <else>
-      <a href='/users/$$#userFolder/' class='login'>$$=userLogin</a>
-     </if>
-    </td>
-    <td>&nbsp;</td>
-    <td>
-     <a href='/actions/logout?okdir=$#-'><asp>
-      <asp><image src='/pics/exit.gif' alt='Выйти'><asp>
-     <asp></a>
-    </td>
-   </tr>
-   <admin_users>
-    <tr><td align='right' colspan=3>
-     <a href='/signin/?redirid=$_'><image src='/pics/su.gif' alt='Сменить'></a>
-    </td></tr>
-   </admin_users>
+   <div class='top-button'>
+    <if what='$$userHidden'>
+     <strong id='login'>$$=userLogin</strong>
+    <else>
+     <a href='/users/$$#userFolder/' id='login'>$$=userLogin</a>
+    </if>
+    <a href='/actions/logout?okdir=$#-'><asp>
+     <asp><image src='/pics/exit.gif' alt='Выйти'></a>
+    <admin_users>
+     <a href='/signin/?redirid=$_'><asp>
+      <asp><image src='/pics/su.gif' alt='Сменить'></a>
+    </admin_users>
+   </div>
   </notlogged>
- </table>
 </notenglish>
 </element>

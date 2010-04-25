@@ -1,5 +1,9 @@
 ! @(#) $Id$
 
+.menu {
+	margin-top: 1ex;
+}
+
 .menu .date {
 	background-color: %menu_back;
 	background-image: url("../%menu_back_pic");

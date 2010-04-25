@@ -1,4 +1,0 @@
-.login {
-	font: bold 11pt %courier;
-	text-decoration: underline;
-}

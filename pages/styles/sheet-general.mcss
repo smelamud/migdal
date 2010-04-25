@@ -27,11 +27,6 @@ BODY {
 	margin: 0;
 }
 
-#migdal {
-	position: relative;
-	top: -20px;
-}
-
 .title {
 	margin-bottom: 2ex;
 }
