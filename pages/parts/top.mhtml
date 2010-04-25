@@ -1,16 +1,18 @@
 << @(#) $Id$ >>
 
 <element name='banner'>
-<a href='/'>
- <image src='$$style_banner_logo'
-        alt!='!$$englishDomain ? "Башня" : "Tower"'></a>
-<notenglish>
+<div id='logo'>
  <a href='/'>
-  <image src='$$style_banner_migdal' alt='Мигдаль' id='migdal'></a>
-<else>
- <a href='/'>
-  <image src='$$style_banner_migdal_english' alt='Migdal' id='migdal'></a>
-</notenglish>
+  <image src='$$style_banner_logo'
+	 alt!='!$$englishDomain ? "Башня" : "Tower"'></a>
+ <notenglish>
+  <a href='/'>
+   <image src='$$style_banner_migdal' alt='Мигдаль' id='migdal'></a>
+ <else>
+  <a href='/'>
+   <image src='$$style_banner_migdal_english' alt='Migdal' id='migdal'></a>
+ </notenglish>
+</div>
 </element>
 
 <element name='translation' params='href'>

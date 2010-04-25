@@ -1,5 +1,11 @@
 #top {
 	width: 100%;
+	text-align: right;
+}
+
+#logo {
+	width: 230px;
+	float: left;
 }
 
 #migdal {
@@ -8,8 +14,6 @@
 }
 
 #bsd-block {
-	width: 50%;
-	float: right;
 	margin-top: 5px;
 	margin-right: 5px;
 	margin-bottom: 10px;
@@ -28,8 +32,6 @@
 
 .top-button {
 	display: block;
-	float: right;
-	clear: right;
 	margin-top: 5px;
 	margin-right: 5px;
 }
