@@ -1,15 +1,10 @@
 ! @(#) $Id$
 
-* {
-	font-size: 10pt;
-	font-family: %verdana;
-}
-
-.ninept,.ninept * {
+.ninept {
 	font-size: 9pt;
 }
 
-.eightpt,.eightpt * {
+.eightpt {
 	font-size: 8pt;
 }
 
@@ -17,6 +12,7 @@
 	background-color: %error_back;
 	color: %error;
 	font-weight: bold;
+	font-size: 10pt;
 	padding-top: 0;
 	padding-bottom: 0;
 }
@@ -25,6 +21,8 @@ BODY {
 	background-color: %body_back;
 	background-image: url("../%body_back_pic");
 	margin: 0;
+	font-size: 10pt;
+	font-family: %verdana;
 }
 
 .title {
@@ -39,12 +37,14 @@ BODY {
 
 A.name,SPAN.name {
 	color: %name;
-	font: bold 9pt %verdana;
+	font-weight: bold;
+	font-size: 9pt;
 }
 
 SPAN.guest-name {
 	color: %name;
-	font: italic 9pt %verdana;
+	font-style: italic;
+	font-size: 9pt;
 }
 
 .sent {
@@ -68,7 +68,8 @@ A IMG {
 
 A.a2a_dd {
 	color: %posting_controls;
-	font: bold 9pt %verdana;
+	font-weight: bold;
+	font-size: 9pt;
 }
 
 A.a2a_dd:hover {

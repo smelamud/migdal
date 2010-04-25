@@ -1,8 +1,7 @@
 ! @(#) $Id$
 
-.article * {
-	font-size: 12pt;
-	font-family: %times;
+.article {
+	font-size: 9pt;
 }
 
 .article .controls {
@@ -11,7 +10,7 @@
 }
 
 .article .controls A {
-	font: 8pt %verdana;
+	font-size: 8pt;
 	color: %article_controls;
 	text-decoration: none;
 }
@@ -24,7 +23,6 @@
 .article A.topic {
 	color: %article_topic;
 	font-size: 10pt;
-	font-weight: bold;
 	text-decoration: underline;
 }
 
@@ -34,25 +32,24 @@
 
 .article H1 {
 	color: %article_title;
-	font-size: 18pt;
-	font-weight: bold;
+	font: bold 18pt %times;
 	margin: 20px;
 }
 
 .article H2 {
-	font-size: 16pt;
+	font-size: 14pt;
 	font-weight: bold;
 	margin: 15px;
 }
 
 .article H3 {
-	font-size: 14pt;
+	font-size: 12pt;
 	font-weight: bold;
 	margin: 10px;
 }
 
 .article H4 {
-	font-size: 12pt;
+	font-size: 10pt;
 	font-weight: bold;
 	text-decoration: underline;
 	margin: 5px;
@@ -62,17 +59,18 @@
 	color: %article_author;
 	font-style: italic;
 	font-weight: normal;
+	font-size: 12pt;
 }
 
 .article .image-title,.article .image-title > P {
 	text-align: center;
-	font: italic 8pt %verdana;
+	font-style: italic;
+	font-size: 8pt;
 }
 
-.article .sent * {
+.article .sent {
 	color: %article_sent;
 	font-size: 9pt;
-	font-family: %verdana;
 }
 
 .article .preface {
@@ -80,16 +78,7 @@
 	padding-left: 1ex;
 }
 
-.article P,.article BLOCKQUOTE {
-	text-align: justify;
-}
-
-.article BLOCKQUOTE,.article BLOCKQUOTE P {
-	font-size: 10pt;
-	font-family: %verdana;
-}
-
-.article TT,.article TT * {
+.article TT {
 	font-size: 10pt;
 	font-family: %courier;
 }

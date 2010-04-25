@@ -3,14 +3,7 @@
 .posting {
 	margin-top: 1ex;
 	margin-bottom: 1ex;
-}
-
-.posting * {
 	font-size: 9pt;
-}
-
-.posting DD,.posting DD P {
-	text-align: justify;
 }
 
 .posting-topic {
@@ -35,7 +28,8 @@ A.posting-subject:hover {
 }
 
 .posting-author {
-	font: italic 11pt %times;
+	font-style: italic;
+	font-size: 11pt;
 	color: %posting_author;
 }
 
@@ -44,7 +38,7 @@ A.posting-subject:hover {
 	color: %posting_em;
 }
 
-.posting-statistics, .posting-statistics * {
+.posting-statistics {
 	font-family: %courier;
 	font-size: 10pt;
 }

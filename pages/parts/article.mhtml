@@ -40,7 +40,7 @@ if(!isset($editmodeHistory))
      </notenglish>
     </ifnzero>
     <a href='${,GrpDetailsHref}images/insert/?par=$data.Par'
-       class='ninept'>$ititle</a>
+       class='eightpt'>$ititle</a>
     <ifnzero what='$image'>
      <notenglish>
       <assign name='dtitle' value='Убрать картинку'>
@@ -49,7 +49,7 @@ if(!isset($editmodeHistory))
      </notenglish>
      <br>
      <a href='/actions/posting/image/modify?edittag=1&insert=1&postid=$data.Id&editid=0&par=$data.Par&okdir=$#-&faildir=$#-'
-        class='ninept'>$dtitle</a>
+        class='eightpt'>$dtitle</a>
     </ifnzero>
    </td></tr>
   </if>

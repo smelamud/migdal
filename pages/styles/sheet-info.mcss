@@ -1,6 +1,6 @@
 ! @(#) $Id$
 
-.info,.info * {
+.info {
 	color: %info;
 	font-size: 8pt;
 	font-weight: bold;

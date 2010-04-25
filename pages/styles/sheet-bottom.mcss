@@ -2,9 +2,6 @@
 
 .bottom {
 	margin-top: 1.5ex;
-}
-
-.bottom * {
 	color: %bottom;
 	font-size: 8pt;
 }
