@@ -1,12 +1,9 @@
 ! @(#) $Id$
 
-.topics {
-	border-spacing: 0;
-	border-collapse: collapse;
-}
-
 .topics-header {
+	width: 100%;
 	margin-top: 10px;
+	margin-bottom: 5px;
 	color: %topics_title;
 	border-bottom: solid 1px %topics_title;
 	text-align: left;
@@ -14,13 +11,32 @@
 	font-size: 10pt;
 }
 
-.topics TD {
-	padding-top: 2px;
-	padding-bottom: 2px;
+.topics {
+	margin-top: 0;
+	padding-left: 20px;
+	list-style-image: url('/pics/bullet.gif');
+}
+
+.topics LI {
+	padding-bottom: 4px;
 }
 
 .topics-arrow {
 	font-weight: bold;
+	list-style-image: url('%topics_arrow');
+}
+
+.topics-ner-arrow {
+	font-weight: bold;
+	list-style-image: url('%topics_ner_arrow');
+}
+
+.topics-ner {
+	list-style-image: url('/pics/ner-small.gif');
+}
+
+.topics-nobullet {
+	list-style-type: none;
 }
 
 .topics A.edit { !FIXME remake

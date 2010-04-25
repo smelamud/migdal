@@ -1,52 +1,34 @@
 << @(#) $Id$ >>
 
-<element name='topics_ner' params='time,arrow,nobullet' defaults='time=0'>
+<element name='topics_line'>
 <if what='$arrow'>
  <ifbiff time='$time'>
-  <image src='$$style_topics_ner_arrow'>
+  <li class='topics-ner-arrow'>
  <else>
-  <image src='$$style_topics_arrow'>
+  <li class='topics-arrow'>
  </ifbiff>
 <else>
  <ifbiff time='$time'>
-  <image src='/pics/ner-small.gif' title='новое'>
+  <li class='topics-ner'>
  <else>
   <if what='$nobullet'>
-   &nbsp;
+   <li class='topics-nobullet'>
   <else>
-   <image src='/pics/bullet.gif'>
+   <li>
   </if>
  </ifbiff>
 </if>
-</element>
-
-<element name='topics_line'>
-<if what='$arrow'>
- <tr class='topics-arrow' valign='top'>
-<else>
- <tr valign='top'>
-</if>
- <if what='$indent>0'>
-  <tdspan span='$indent'>&nbsp;</tdspan>
- </if>
- <if what='$indent>=0'>
-  <td width='$$style_topics_arrow_width'>
-   <topics_ner time='$time' arrow='$arrow' nobullet='$nobullet'>
-  </td>
- </if>
- <tdspan span='$span'>
-  <ifne what='$title'>
-   <a href='$href' title='$title' class='$class'><asp>
-  <else>
-   <a href='$href' class='$class'><asp>
-  </ifne>
-  <asp>$text<asp>
-  <ifne what='$count'>
-   <asp>&nbsp;<span class='topics-answers'>($count)</span><asp>
-  </ifne></a>
-  <ifne what='$rating'><rating value='$rating'></ifne>
- </tdspan>
-</tr>
+ <ifne what='$title'>
+  <a href='$href' title='$title' class='$class'><asp>
+ <else>
+  <a href='$href' class='$class'><asp>
+ </ifne>
+ <asp>$text<asp>
+ <ifne what='$count'>
+  <asp>&nbsp;<span class='topics-answers'>($count)</span><asp>
+ </ifne></a>
+ <ifne what='$rating'><rating value='$rating'></ifne>
+</li>
 </element>
 
 <element name='topics_section'>
@@ -86,25 +68,18 @@
 
 <element name='topics_table'>
 <ifne what='$title'>
- <div class='topics-header' width='100%'>$title</div>
- <assign name='margin' value=''>
-<else>
- <assign name='margin' value='style="margin-top: 10px"'>
+ <div class='topics-header'>$title</div>
 </ifne>
 <ifne what='$class'>
  <assign name='tableclass' value#='topics $class'>
 <else>
  <assign name='tableclass' value='topics'>
 </ifne>
-<if what='$nomargin'>
- <table class='$tableclass' width=100% style='margin-top: 0'>
-<else>
- <table class='$tableclass' width=100% $margin>
-</if>
+<ul class='$tableclass'>
 </element>
 
 <element name='/topics_table'>
-</table>
+</ul>
 </element>
 
 <element name='upper_level'>
