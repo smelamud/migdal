@@ -64,14 +64,14 @@
  <else>
   <a href='$href'>
  </ife>
-  <asp><img border=0 width='$posting.SmallImageX' height='$posting.SmallImageY'
+  <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
 	    $al $alt src='$posting.SmallImageURL'><asp>
  </a>
 <else>
  <ifne what='$href'>
   <a href='$href'>
  </ifne>
-  <asp><img border=0 width='$posting.ImageX' height='$posting.ImageY' $al $alt
+  <asp><img width='$posting.ImageX' height='$posting.ImageY' $al $alt
         src='$posting.ImageURL'><asp>
  <ifne what='$href'>
   </a>
