@@ -111,10 +111,9 @@
 <ife what='$title'>
  <assign name='title' value#='К разделу &lt;&lt;$name&gt;&gt;'>
 </ife>
-<table><tr>
- <td width=20><image src='/pics/up-level.gif'></td>
- <td><a href='$href' class='ninept'>$=title</a></td>
-</tr></table>
+<ul class='up-level'>
+ <li><a href='$href'>$=title</a></li>
+</ul>
 </element>
 
 <element name='topics'>
