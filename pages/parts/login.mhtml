@@ -3,8 +3,10 @@
 <element name='login'>
 <notenglish>
   <notlogged>
-   <a href='/signin/?redirid=$_'><asp>
-    <asp><image src='/pics/enter.gif' alt='Войти' class='top-button'></a>
+   <div class='top-button'>
+    <a href='/signin/?redirid=$_'><asp>
+     <asp><image src='/pics/enter.gif' alt='Войти'></a>
+   </div>
    <master>
     <div class='eightpt top-button'>
      Чтобы войти, сначала <a href='/register/?redirid=$_'>зарегистрируйтесь</a>.
