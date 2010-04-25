@@ -28,8 +28,7 @@ A.posting-subject:hover {
 }
 
 .posting-author {
-	font-style: italic;
-	font-size: 11pt;
+	font: italic 11pt %times;
 	color: %posting_author;
 }
 
