@@ -27,7 +27,7 @@
 
 <element name='top_web' params='ident,transref'>
 <div id='top'>
-  <banner>
+ <banner>
   <<td align='center' rowspan='2' style="padding-top: 10px">
    <countdown title='дня рождения &#171;Мигдаля&#187;' href='/migdal/events/migdal-birth/18/'
                   day='38' image='/pics/logo-birthday.gif'>
