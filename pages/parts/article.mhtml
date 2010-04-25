@@ -17,7 +17,7 @@ if(!isset($editmodeHistory))
 <callback name='article_image'>
 <assign name='image' value='$data.Image'>
 <ifne what='$data.Align'>
- <assign name='align' value#='align="$data.Align"'>
+ <assign name='align' value#='style="float: $data.Align; clear: $data.Align"'>
 <else>
  <assign name='align' value=''>
 </ifne>
