@@ -47,6 +47,7 @@
 }
 
 .topics LI.topics-subtable {
+	display: inline-block;	! Fixes extra space in IE
 	background-image: none;
 }
 
