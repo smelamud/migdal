@@ -4,7 +4,7 @@
 
 <element name='seealso'>
 <notprint>
- <outer><table class='topics ninept' style='margin: 0' width='100%'>
+ <outer><div class='seealso'>
   <ife what='$adddir'>
    <assign name='adddir' value#='$~add-cross/'>
   </ife>
@@ -17,15 +17,14 @@
   <if what="$source_name!='' || $source_id>0">
    <iterate_entry_cross source_name='$source_name' source_id='$source_id'
 			link_type='$link_type'>
-   <tr><td><b>$title:</b></td></tr>
+   <b>$title:</b>
    <inner>
     <moderator>
-     <tr><td>
+      <br>
       <a href='${adddir}?source_name=$source_name&source_id=$source_id&link_type=$link_type&redirid=$_'
 	 class='edit'>Добавить</a>
-     </td></tr>
     </moderator>
-    <outer><tr><td><ul><inner>
+    <outer><ul><inner>
      <assign name='icon' value=''>
      <for>
       <if what="$icon!=$.PeerIcon && $icon!=''">
@@ -40,10 +39,10 @@
 	<asp>Удалить</a>
       </moderator>
      </for>
-    </inner></ul></td></tr></outer>
+    </inner></ul></outer>
    </inner>
   </if>
- </table></outer>
+ </div></outer>
 </notprint>
 </element>
 

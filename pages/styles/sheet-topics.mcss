@@ -12,39 +12,41 @@
 }
 
 .topics {
-	margin-top: 0;
-	padding-left: 20px;
-	list-style-image: url('/pics/bullet.gif');
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
 }
 
 .topics LI {
 	padding-bottom: 4px;
+	padding-left: 15px;
+	background: url('/pics/bullet.gif') no-repeat top left;
 }
 
-.topics-arrow {
+.topics LI.topics-arrow {
 	font-weight: bold;
-	list-style-image: url('%topics_arrow');
+	background-image: url('%topics_arrow');
 }
 
-.topics-ner-arrow {
+.topics LI.topics-ner-arrow {
 	font-weight: bold;
-	list-style-image: url('%topics_ner_arrow');
+	background-image: url('%topics_ner_arrow');
 }
 
-.topics-ner {
-	list-style-image: url('/pics/ner-small.gif');
+.topics LI.topics-ner {
+	background-image: url('/pics/ner-small.gif');
 }
 
-.topics-nobullet {
-	list-style-type: none;
+.topics LI.topics-nobullet {
+	background-image: none;
 }
 
-.topics A.edit { !FIXME remake
+.topics A.edit {
 	color: %topics_controls;
 	font-size: 8pt;
 }
 
-.topics A.edit:hover { !FIXME remake
+.topics A.edit:hover {
 	color: %topics_controls_hover;
 }
 
