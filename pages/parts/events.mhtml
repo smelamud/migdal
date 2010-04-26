@@ -13,13 +13,13 @@
     <assign name='year' value='$.Index2'>
     <assign name='gyearp' value!='$year-3761'>
     <assign name='gyear' value!='$year-3760'>
-    <topics_section title#='$year/$gyearp-$gyear г.' nobullet='*true'>
+    <topics_section title#='$year/$gyearp-$gyear г.'>
     <if what='$active'>
      <iswrite what='$topic'>
-      <tr><td colspan=2>
+      <li class='topics-nobullet eightpt'>
        <a href='/migdal/events/reorder/?index2=$year&redirid=$_'
 	  class='eightpt'>Расставить</a>
-      </td></tr>
+      </li>
      </iswrite>
     </if>
    </if>

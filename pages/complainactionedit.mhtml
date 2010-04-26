@@ -6,8 +6,8 @@
 <preamble>
 <body>
  <top ident='index'>
- <table width=100%><tr valign=top>
-  <td class='eframe' width=200>
+ <table width='100%'><tr valign='top'>
+  <td class='eframe' width='200'>
    <topics_table class='ninept' title='Ответы'>
     <iterate_complain_actionlist>
     <for>

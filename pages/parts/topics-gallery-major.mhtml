@@ -1,16 +1,16 @@
 << @(#) $Id$ >>
 
 <element name='topics_gallery_major'>
-<topics_table title='Разделы' span=2>
- <topics_line href='/gallery/' title='На главную страницу галереи'
-	      text='Главная' arrow!="$index=='gallery'" span=2>
- <topics_line href='/gallery/migdal/' text='Мигдаль' span=2
+<topics_table title='Разделы'>
+ <topics_line href='/gallery/' title='На главную страницу галереи' text='Главная'
+              arrow!="$index=='gallery'">
+ <topics_line href='/gallery/migdal/' text='Мигдаль'
               arrow!="$index=='gallery.migdal'">
  <topics_gallery_migdal index='$index'>
  <admin_topics>
-  <tr><td colspan=3 class='eightpt'>
+  <li class='topics-nobullet eightpt'>
    <a href='/gallery/major/?redirid=$_'>Изменить</a>
-  </td></tr>
+  </li>
  </admin_topics>
  <html_cache ident#='topics_gallery_major-$index' period!='3 * 60 * 60'
              depends='topics,postings'>
@@ -23,7 +23,7 @@
    </zone>
    <topics_line class='topics-item ninept' time='$info.MaxSent'
 		count='$info.Total' href#='/gallery/$,Catalog'
-		title='$=,BodyNormal' text='$=,Subject' span=2
+		title='$=,BodyNormal' text='$=,Subject'
 		arrow!='$,Id==$index'>
   </for>
  </html_cache>

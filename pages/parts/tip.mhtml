@@ -6,16 +6,15 @@
 </element>
 
 <element name='tip'>
-<topics_table class='eightpt' title='Знаете ли вы, что...'>
- <posting_random grp='*GRP_TIPS'>
- <posting_obj id='$,' grp='*GRP_TIPS'>
- <tr><td align=left>
-  <biff time='$,Modified' small='*true'>
-  $,BodySmallHTML&nbsp;<asp>
-  <if what='!$,isBodySmall'>
-   <further posting='$,'>
-  </if>
- </td></tr>
- <tr><td align=center><a href='/tips/'>Все советы</a></td></tr>
-</topics_table>
+<div class='topics-header'>Знаете ли вы, что...</div>
+<posting_random grp='*GRP_TIPS'>
+<posting_obj id='$,' grp='*GRP_TIPS'>
+<div class='eightpt'>
+ <biff time='$,Modified' small='*true'>
+ $,BodySmallHTML&nbsp;<asp>
+ <if what='!$,isBodySmall'>
+  <further posting='$,'>
+ </if>
+ <div style='margin-top: -10px; text-align: center'><a href='/tips/'>Все советы</a></div>
+</div>
 </element>

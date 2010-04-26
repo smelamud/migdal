@@ -41,17 +41,14 @@
      </if>
      <topics_line arrow!='$editid==$.Id' href='$[err edittag editid=$.Id]'
 		  text='$name'>
-     <tr valign=top>
-      <td>&nbsp;</td>
-      <td class='comment'>
-       <if what='$.hasLargeImage'>
-        (${.SmallImageX}x${.SmallImageY})
-       </if>
-       ${.ImageX}x${.ImageY}, ${.LargeImageSizeKB}KB
-      </td>
-     </tr>
-     <topics_line href#='/actions/posting/image/delete?editid=$.Id&okdir=$#-&faildir=$#-'
-		  class='edit' text='Удалить' nobullet='*true'>
+     <li class='topics-comment'>
+      <if what='$.hasLargeImage'>
+       (${.SmallImageX}x${.SmallImageY})
+      </if>
+      ${.ImageX}x${.ImageY}, ${.LargeImageSizeKB}KB
+      <br><a href='/actions/posting/image/delete?editid=$.Id&okdir=$#-&faildir=$#-'
+             class='edit'>Удалить</a>
+     </li>
     </for>
    </topics_table>
   </td>

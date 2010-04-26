@@ -3,35 +3,37 @@
 <element name='topics_gallery_migdal'>
 <html_cache ident#='topics_gallery_migdal-$index' period!='3 * 60 * 60'
             depends='postings'>
- <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.jcc.student`'
-		recursive='*true' as_guest='*true'>
- <topics_line time='$,MaxSent' text='Клуб Еврейского Студента' count='$,Total'
-	      href='/gallery/migdal/jcc/student/'
-	      arrow!="$index=='gallery.migdal.jcc.student'" indent=1
-	      class='topics-item eightpt'>
- <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.museum`'
-		recursive='*true' as_guest='*true'>
- <topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/museum/'
-	      text='Музей истории евреев Одессы'
-	      arrow!="$index=='gallery.migdal.museum'" indent=1
-	      class='topics-item eightpt'>
- <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.migdal-or`'
-		recursive='*true' as_guest='*true'>
- <topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/migdal-or/'
-	      text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
-	      arrow!="$index=='gallery.migdal.migdal-or'" indent=1
-	      class='topics-item eightpt'>
- <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.mazltov`'
-		recursive='*true' as_guest='*true'>
- <topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/mazltov/'
-	      text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
-	      arrow!="$index=='gallery.migdal.mazltov'" indent=1
-	      class='topics-item eightpt'>
- <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.beitenu`'
-		recursive='*true' as_guest='*true'>
- <topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/beitenu/'
-	      text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
-	      arrow!="$index=='gallery.migdal.beitenu'" indent=1
-	      class='topics-item eightpt'>
+ <topics_subtable>
+  <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.jcc.student`'
+		 recursive='*true' as_guest='*true'>
+  <topics_line time='$,MaxSent' text='Клуб Еврейского Студента' count='$,Total'
+	       href='/gallery/migdal/jcc/student/'
+	       arrow!="$index=='gallery.migdal.jcc.student'"
+	       class='topics-item eightpt'>
+  <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.museum`'
+		 recursive='*true' as_guest='*true'>
+  <topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/museum/'
+	       text='Музей истории евреев Одессы'
+	       arrow!="$index=='gallery.migdal.museum'"
+	       class='topics-item eightpt'>
+  <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.migdal-or`'
+		 recursive='*true' as_guest='*true'>
+  <topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/migdal-or/'
+	       text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+	       arrow!="$index=='gallery.migdal.migdal-or'"
+	       class='topics-item eightpt'>
+  <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.mazltov`'
+		 recursive='*true' as_guest='*true'>
+  <topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/mazltov/'
+	       text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
+	       arrow!="$index=='gallery.migdal.mazltov'"
+	       class='topics-item eightpt'>
+  <postings_info grp='*GRP_GRAPHICS' topic_id='$`migdal.beitenu`'
+		 recursive='*true' as_guest='*true'>
+  <topics_line time='$,MaxSent' count='$,Total' href='/gallery/migdal/beitenu/'
+	       text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
+	       arrow!="$index=='gallery.migdal.beitenu'"
+	       class='topics-item eightpt'>
+ </topics_subtable>
 </html_cache>
 </element>

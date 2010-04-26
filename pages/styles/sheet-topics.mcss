@@ -23,14 +23,18 @@
 	background: url('/pics/bullet.gif') no-repeat top left;
 }
 
+.topics LI.topics-static {
+	background-image: url('/pics/bullet-mrd.gif');
+}
+
 .topics LI.topics-arrow {
 	font-weight: bold;
-	background-image: url('%topics_arrow');
+	background-image: url('/pics/arrow.gif');
 }
 
 .topics LI.topics-ner-arrow {
 	font-weight: bold;
-	background-image: url('%topics_ner_arrow');
+	background-image: url('/pics/arrow-ner.gif');
 }
 
 .topics LI.topics-ner {
@@ -39,6 +43,33 @@
 
 .topics LI.topics-nobullet {
 	background-image: none;
+	padding-left: 0;
+}
+
+.topics LI.topics-subtable {
+	background-image: none;
+}
+
+.topics LI.topics-view-all {
+	background-image: none;
+	padding-left: 0;
+	font-weight: bold;
+	font-size: 8pt;
+	text-align: center;
+}
+
+.topics LI.topics-section {
+	background-image: none;
+	padding-left: 0;
+	color: %topics_section;
+	font-weight: bold;
+	font-size: 8pt;
+	margin-top: 10px;
+}
+
+.topics LI.topics-comment {
+	background-image: none;
+	color: %topics_comment;
 }
 
 .topics A.edit {
@@ -79,17 +110,6 @@ A.topics-item:hover > .topics-answers {
 
 .topics .rating {
 	font-size: 7pt;
-}
-
-.topics .comment { !FIXME remake
-	color: %topics_comment;
-}
-
-.topics-section {
-	color: %topics_section;
-	font-weight: bold;
-	font-size: 8pt;
-	padding-top: 10px;
 }
 
 .up-level {

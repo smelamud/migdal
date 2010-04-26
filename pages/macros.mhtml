@@ -345,13 +345,13 @@
 <decel name='topics_peruser' file='parts/topics-peruser.php' params='index,base'
        defaults="base=''">
 <decel name='topics_section' file='parts/topics.php'
-       params='class,indent,span,title'
-       defaults="class='topics-section' indent=0 span=1">
+       params='class,title' defaults="class='topics-section'">
 <decel name='topics_splitter' file='parts/topics.php'
-       params='class,indent,span' defaults="class='ninept' indent=0 span=1">
+       params='class' defaults="class='ninept'">
 <decel name='topics_static' file='parts/topics.php'
-       params='text,class,indent,span,nobullet'
-       defaults="text='' class='item' indent=0 span=1 nobullet='*false'">
+       params='text,class,nobullet' defaults="text='' class='' nobullet='*false'">
+<decel name='topics_subtable' params='class' defaults="class=''" file='parts/topics.php'>
+<decel name='/topics_subtable' file='parts/topics.php'>
 <decel name='topics_table' params='class,title'
        defaults="class='' title=''" file='parts/topics.php'>
 <decel name='/topics_table' file='parts/topics.php'>

@@ -1,59 +1,54 @@
 << @(#) $Id$ >>
 
-<element name='navi_main' params='index,span' defaults='span=1'>
-<topics_line href='/' title='На главную страницу' text='Главная'
-             arrow!="$index=='index'" span='$span'>
+<element name='navi_main' params='index'>
+<topics_line href='/' title='На главную страницу' text='Главная' arrow!="$index=='index'">
 </element>
 
-<element name='navi_migdal' params='index,span' defaults='span=1'>
-<topics_line href='/migdal/' text='Мигдаль'
-             arrow!="$index=='migdal'" span='$span'>
+<element name='navi_migdal' params='index'>
+<topics_line href='/migdal/' text='Мигдаль' arrow!="$index=='migdal'">
 </element>
 
-<element name='navi_help' params='index,span' defaults='span=1'>
+<element name='navi_help' params='index'>
 <topic_obj name='tips' id='$`tips`'>
 
 <posting_last topic_id='$`tips`' recursive='*false' as_guest='*true'>
 <topics_line time='$,' href='/tips/' title='Помощь по работе с сайтом'
-	     text='Справка' arrow!="$index=='tips'" class='topics-item ninept'
-	     span='$span'>
+	     text='Справка' arrow!="$index=='tips'" class='topics-item ninept'>
 </element>
 
-<element name='general' params='index,span' defaults='span=1'>
+<element name='general' params='index'>
 <iterate_entry_cross source_name='major' link_type='*LINKT_MAJOR'>
 <for>
  <topic_obj name='topic' id='$.PeerId' fields='*SELECT_INFO' as_guest='*true'>
  <assign name='info' value='$,PostingsInfo'>
  <topics_line class='topics-item ninept' time='$info.MaxSent' href#='/$,Catalog'
-              title='$=,BodyNormal' text='$=,Subject' span='$span'
-	      arrow!='$,Id==$index'>
+              title='$=,BodyNormal' text='$=,Subject' arrow!='$,Id==$index'>
 </for>
 </element>
 
-<element name='navi_archive' params='index,span' defaults='span=1'>
+<element name='navi_archive' params='index'>
  <topics_line href='/archive/' text='Архив' arrow!="$index=='archive'"
-              class='topics-item eightpt' span='$span'>
+              class='topics-item eightpt'>
  <topics_line href='/chat-archive/' text='Архив чата'
-              arrow!="$index=='chat-archive'" class='topics-item eightpt'
-	      span='$span'>
+              arrow!="$index=='chat-archive'" class='topics-item eightpt'>
 </element>
 
 <element name='topics_major'>
-<topics_table title='Разделы' span=2>
+<topics_table title='Разделы'>
  <html_cache ident#='topics_major-$index' period!='3 * 60 * 60'
              depends='postings,topics'>
-  <navi_main index='$index' span=2>
-  <navi_migdal index='$index' span=2>
+  <navi_main index='$index'>
+  <navi_migdal index='$index'>
   <topics_migdal index='$index'>
-  <general index='$index' span=2>
+  <general index='$index'>
   <topics_splitter>
-  <navi_help index='$index' span=2>
-  <navi_archive index='$index' span=2>
+  <navi_help index='$index'>
+  <navi_archive index='$index'>
  </html_cache>
  <admin_topics>
-  <tr><td colspan=3 class='eightpt'>
+  <li class='topics-nobullet eightpt'>
    <a href='/major/?redirid=$_'>Изменить</a>
-  </td></tr>
+  </li>
  </admin_topics>
 </topics_table>
 </element>

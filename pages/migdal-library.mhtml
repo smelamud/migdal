@@ -18,9 +18,9 @@
        <topics_line time='$.Modified' href='$.GrpDetailsHref' text='$=.Heading'
 		    class='eightpt'>
       </for>
-      <tr><td align=center colspan=2>
-       <a href='/migdal/library/novelties/' class='eightpt'><b>Все новинки</b></a>
-      </td></tr>
+      <li class='topics-view-all'>
+       <a href='/migdal/library/novelties/'>Все новинки</a>
+      </li>
      </topics_table>
     </td></tr>
    </table>

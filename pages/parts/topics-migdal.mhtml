@@ -63,12 +63,10 @@
 	       class='topics-item eightpt'>
  </html_cache>
  <ispost what='$jcc'>
-  <tr><td colspan=2>
-   <a href='/migdal/jcc/add/?redirid=$_' class='edit'>Добавить</a>
-  </td></tr>
-  <tr><td colspan=2>
+  <li class='topics-nobullet'>
+   <a href='/migdal/jcc/add/?redirid=$_' class='edit'>Добавить</a><br>
    <a href='/migdal/jcc/reorder/?redirid=$_' class='edit'>Расставить</a>
-  </td></tr>
+  </li>
  </ispost>
  <html_cache ident#='topics_jcc_2-$index' period!='3 * 60 * 60'
              depends='postings'>
@@ -217,58 +215,49 @@
 <element name='topics_migdal'>
 <html_cache ident#='topics_migdal-$index' period!='3 * 60 * 60'
 	    depends='postings'>
- <posting_last topic_id='$`migdal`' recursive='*true' grp='*GRP_TAPE'
-               as_guest='*true'>
- <topics_line time='$,' href='/migdal/news/' text='Новости'
-	      arrow!="$index=='migdal.news'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`events`' grp='*GRP_TAPE' as_guest='*true'>
- <topics_line time='$,' href='/migdal/events/' text='События'
-	      arrow!="$index=='migdal.events'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`migdal.jcc`' recursive='*true' as_guest='*true'>
- <topics_line time='$,' href='/migdal/jcc/' text='Общинный центр (JCC)'
-	      title='Живопись, музыка, танцы, программы для всех возрастов'
-	      arrow!="$index=='migdal.jcc'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`migdal.library`' recursive='*true' as_guest='*true'>
- <topics_line time='$,' href='/migdal/library/' text='Библиотека'
-	      arrow!="$index=='migdal.library'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`migdal.museum`' recursive='*true' as_guest='*true'>
- <topics_line time='$,' href='/migdal/museum/' text='Еврейский музей Одессы'
-	      arrow!="$index=='migdal.museum'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`migdal.migdal-or`' as_guest='*true'>
- <topics_line time='$,' href='/migdal/migdal-or/'
-	      text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
-	      arrow!="$index=='migdal.migdal-or'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`migdal.mazltov`' recursive='*true' as_guest='*true'>
- <topics_line time='$,' href='/migdal/mazltov/'
-	      text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
-	      arrow!="$index=='migdal.mazltov'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`migdal.beitenu`' recursive='*true' as_guest='*true'>
- <topics_line time='$,' href='/migdal/beitenu/'
-	      text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
-	      arrow!="$index=='migdal.beitenu'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`migdal.methodology`' recursive='*true'
-               as_guest='*true'>
- <topics_line time='$,' text='Методический центр'
-	      href='/migdal/methodology/'
-	      title='Южно-украинский региональный методический центр'
-	      arrow!="$index=='migdal.methodology'"
-	      indent=1 class='topics-item eightpt'>
- <posting_last topic_id='$`migdal.printings`' recursive='*true'
-               as_guest='*true'>
- <topics_line time='$,' text='Издательский центр'
-	      href='/migdal/printings/'
-	      arrow!="$index=='migdal.printings'"
-	      indent=1 class='topics-item eightpt'>
- <topics_line text='Пожертвования' href='/migdal/tzdaka/'
-	      arrow!="$index=='migdal.tzdaka'"
-	      indent=1 class='topics-item eightpt'>
+ <topics_subtable>
+  <posting_last topic_id='$`migdal`' recursive='*true' grp='*GRP_TAPE'
+		as_guest='*true'>
+  <topics_line time='$,' href='/migdal/news/' text='Новости'
+	       arrow!="$index=='migdal.news'" class='topics-item eightpt'>
+  <posting_last topic_id='$`events`' grp='*GRP_TAPE' as_guest='*true'>
+  <topics_line time='$,' href='/migdal/events/' text='События'
+	       arrow!="$index=='migdal.events'" class='topics-item eightpt'>
+  <posting_last topic_id='$`migdal.jcc`' recursive='*true' as_guest='*true'>
+  <topics_line time='$,' href='/migdal/jcc/' text='Общинный центр (JCC)'
+	       title='Живопись, музыка, танцы, программы для всех возрастов'
+	       arrow!="$index=='migdal.jcc'" class='topics-item eightpt'>
+  <posting_last topic_id='$`migdal.library`' recursive='*true' as_guest='*true'>
+  <topics_line time='$,' href='/migdal/library/' text='Библиотека'
+	       arrow!="$index=='migdal.library'" class='topics-item eightpt'>
+  <posting_last topic_id='$`migdal.museum`' recursive='*true' as_guest='*true'>
+  <topics_line time='$,' href='/migdal/museum/' text='Еврейский музей Одессы'
+	       arrow!="$index=='migdal.museum'" class='topics-item eightpt'>
+  <posting_last topic_id='$`migdal.migdal-or`' as_guest='*true'>
+  <topics_line time='$,' href='/migdal/migdal-or/'
+	       text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+	       arrow!="$index=='migdal.migdal-or'" class='topics-item eightpt'>
+  <posting_last topic_id='$`migdal.mazltov`' recursive='*true' as_guest='*true'>
+  <topics_line time='$,' href='/migdal/mazltov/'
+	       text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
+	       arrow!="$index=='migdal.mazltov'" class='topics-item eightpt'>
+  <posting_last topic_id='$`migdal.beitenu`' recursive='*true' as_guest='*true'>
+  <topics_line time='$,' href='/migdal/beitenu/'
+	       text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
+	       arrow!="$index=='migdal.beitenu'" class='topics-item eightpt'>
+  <posting_last topic_id='$`migdal.methodology`' recursive='*true'
+		as_guest='*true'>
+  <topics_line time='$,' text='Методический центр'
+	       href='/migdal/methodology/'
+	       title='Южно-украинский региональный методический центр'
+	       arrow!="$index=='migdal.methodology'" class='topics-item eightpt'>
+  <posting_last topic_id='$`migdal.printings`' recursive='*true'
+		as_guest='*true'>
+  <topics_line time='$,' text='Издательский центр'
+	       href='/migdal/printings/'
+	       arrow!="$index=='migdal.printings'" class='topics-item eightpt'>
+  <topics_line text='Пожертвования' href='/migdal/tzdaka/'
+	       arrow!="$index=='migdal.tzdaka'" class='topics-item eightpt'>
+ </topics_subtable>
 </html_cache>
 </element>

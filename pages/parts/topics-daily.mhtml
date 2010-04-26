@@ -5,12 +5,10 @@
 <topic_obj name='event' id='$base'>
 <topics_table class='eightpt' title='$=,Subject'>
  <ispost what='$event'>
-  <tr><td colspan=2>
-   <a href='/${,Catalog}add-article/?redirid=$_' class='edit'>Добавить</a>
-  </td></tr>
-  <tr><td colspan=2>
+  <li class='topics-nobullet'>
+   <a href='/${,Catalog}add-article/?redirid=$_' class='edit'>Добавить</a><br>
    <a href='/${,Catalog}reorder/?redirid=$_' class='edit'>Расставить</a>
-  </td></tr>
+  </li>
  </ispost>
  <html_cache ident#='topics_daily-$,Id-$index' period!='3 * 60 * 60'
              depends='postings'>

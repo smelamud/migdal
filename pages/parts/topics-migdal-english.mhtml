@@ -4,36 +4,34 @@
 <topic_obj name='migdal' id='$`migdal,e`'>
 <topics_table title='Migdal' span=2>
  <ispost what='$migdal'>
-  <tr><td colspan=3>
-   <a href='/add-review/?redirid=$_' class='edit'>Add</a>
-  </td></tr>
-  <tr><td colspan=3>
+  <li class='topics-nobullet'>
+   <a href='/add-review/?redirid=$_' class='edit'>Add</a><br>
    <a href='/reorder-reviews/?redirid=$_' class='edit'>Reorder</a>
-  </td></tr>
+  </li>
  </ispost>
  <html_cache ident#='topics_migdal_english-$index' period!='3 * 60 * 60'
              depends='postings'>
   <iterate_postinglist grp='*GRP_REVIEWS' limit=0 sort='*SORT_INDEX0'
 		       topic_id='$,Id' recursive='*false' as_guest='*true'>
   <posting_obj id='$`post.migdal,e`'>
-  <topics_line time='$,Modified' text='Home' href='/' arrow!="$index=='index'"
-	       span=2>
+  <topics_line time='$,Modified' text='Home' href='/' arrow!="$index=='index'">
   <for>
    <if what='$.Id!=$`post.migdal,e`'>
     <topics_line time='$.Modified' text='$=.Subject' href='$.GrpDetailsHref'
-		 arrow!='$index==$.Id' class='topics-item ninept' span=2>
+		 arrow!='$index==$.Id' class='topics-item ninept'>
    </if>
   </for>
   <posting_last topic_id='$`events,e`' recursive='*false' as_guest='*true'>
-  <topics_line time='$,' text='Events' href='/events/' arrow!="$index=='events'"
-	       span=2>
+  <topics_line time='$,' text='Events' href='/events/' arrow!="$index=='events'">
   <iterate_postinglist grp='*GRP_TAPE' limit=0 sort='*SORT_SENT'
 		       topic_id='$`events,e`' recursive='*false'
 		       as_guest='*true'>
-  <for>
-   <topics_line time='$.Modified' text='$=.Subject' href='$.GrpDetailsHref'
-		arrow!='$index==$.Id' class='topics-item ninept' indent=1>
-  </for>
+  <topics_subtable>
+   <for>
+    <topics_line time='$.Modified' text='$=.Subject' href='$.GrpDetailsHref'
+		 arrow!='$index==$.Id' class='topics-item ninept' indent=1>
+   </for>
+  </topics_subtable>
  </html_cache>
 </topics_table>
 </element>

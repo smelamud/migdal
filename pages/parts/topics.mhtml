@@ -32,38 +32,26 @@
 </element>
 
 <element name='topics_section'>
-<tr valign='top'>
- <if what='$indent>0'>
-  <tdspan span='$indent'>&nbsp;</tdspan>
- </if>
- <assign name='headspan' value!='$span+1'>
- <tdspan class='$class' span='$headspan'>$title</tdspan>
-</tr>
+<li class='$class'>
+ $title
+</li>
 </element>
 
 <element name='topics_splitter'>
-<assign name='splitspan' value!='$span+$indent+1'>
-<tr valign='top'>
- <tdspan span='$splitspan'>&nbsp;</tdspan>
-</tr>
+<li class='topics-nobullet $class'>
+ &nbsp;
+</li>
 </element>
 
 <element name='topics_static'>
-<tr valign=top>
- <if what='$indent>0'>
-  <tdspan span='$indent'>&nbsp;</tdspan>
- </if>
- <if what='$indent>=0'>
-  <td width=$$style_topics_arrow_width>
-   <if what='$nobullet'>
-    &nbsp;
-   <else>
-    <image src='/pics/bullet-mrd.gif'>
-   </if>
-  </td>
- </if>
- <tdspan span='$span'>$text</tdspan>
-</tr>
+<if what='$nobullet'>
+ <assign name='liclass' value#='topics-nobullet $class'>
+<else>
+ <assign name='liclass' value#='topics-static $class'>
+</if>
+<li class='$liclass'>
+ $text
+</li>
 </element>
 
 <element name='topics_table'>
@@ -80,6 +68,19 @@
 
 <element name='/topics_table'>
 </ul>
+</element>
+
+<element name='topics_subtable'>
+<ifne what='$class'>
+ <assign name='tableclass' value#='topics $class'>
+<else>
+ <assign name='tableclass' value='topics'>
+</ifne>
+<li class='topics-subtable'><ul class='$tableclass'>
+</element>
+
+<element name='/topics_subtable'>
+</ul></li>
 </element>
 
 <element name='upper_level'>
