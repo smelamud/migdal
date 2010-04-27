@@ -2,6 +2,8 @@
 
 #bottom {
 	margin-top: 1.5ex;
+	padding-left: 1ex;
+	padding-right: 1ex;
 	color: %bottom;
 	font-size: 8pt;
 }

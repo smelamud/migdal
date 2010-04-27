@@ -75,35 +75,31 @@ else
 </element>
 
 <element name='bottom_english'>
-<tr valign='bottom'>
- <td>
-  <div class='vcard'>
-   Programming, design and maintenance by <b>Jewish Student Club</b> of
-   <br>
-   <span class='n fn org'>
-    <span class='given-name'>Migdal</span>
-    <span class='honorific-suffix'>
-     International Center of Jewish Community Programs
-    </span>
-   </span>
-   the International Center of Jewish Community Programs
-   <a href='http://english.migdal.ru/' class='url'>&lt;&lt;Migdal&gt;&gt;</a>
-   <email addr='migdal@migdal.ru'>,
-   <span class='adr'><span class='locality'>Odessa</span></span>.
-  </div>
-  <p class='vcard'>
-   <b class='fn'>Kira Verkhovskaya</b> <email addr='verkhov@tm.odessa.ua'>,
-   the <span class='title'>President</span> of the
-   <span class='org'>JCC &lt;&lt;Migdal&gt;&gt;</span> center.
-  </p>
- </td>
- <td align=right>
-  <kernel>
-  <snapshot>
-  Webmaster lives here:
-  <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
- </td>
-</tr>
+<div style='float: right; text-align: right; width: 30%'>
+ <kernel>
+ <snapshot>
+ Webmaster lives here:
+ <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+</div>
+<div class='vcard'>
+ Programming, design and maintenance by <b>Jewish Student Club</b> of
+ <br>
+ <span class='n fn org'>
+  <span class='given-name'>Migdal</span>
+  <span class='honorific-suffix'>
+   International Center of Jewish Community Programs
+  </span>
+ </span>
+ the International Center of Jewish Community Programs
+ <a href='http://english.migdal.ru/' class='url'>&lt;&lt;Migdal&gt;&gt;</a>
+ <email addr='migdal@migdal.ru'>,
+ <span class='adr'><span class='locality'>Odessa</span></span>.
+</div>
+<p class='vcard'>
+ <b class='fn'>Kira Verkhovskaya</b> <email addr='verkhov@tm.odessa.ua'>,
+ the <span class='title'>President</span> of the
+ <span class='org'>JCC &lt;&lt;Migdal&gt;&gt;</span> center.
+</p>
 </element>
 
 <element name='bottom'>
