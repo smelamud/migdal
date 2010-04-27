@@ -115,8 +115,7 @@ A.topics-item:hover > .topics-answers {
 
 .up-level {
 	font-size: 9pt;
-	list-style-image: url("/pics/up-level.gif");
-	list-style-position: outside;
+	background: url("/pics/up-level.gif") no-repeat left center;
 	margin: 0;
 	padding-left: 25px;
 }

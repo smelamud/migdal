@@ -87,9 +87,9 @@
 <ife what='$title'>
  <assign name='title' value#='К разделу &lt;&lt;$name&gt;&gt;'>
 </ife>
-<ul class='up-level'>
- <li><a href='$href'>$=title</a></li>
-</ul>
+<div class='up-level'>
+ <a href='$href'>$=title</a>
+</div>
 </element>
 
 <element name='topics'>
