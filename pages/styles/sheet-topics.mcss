@@ -23,6 +23,11 @@
 	background: url('/pics/bullet.gif') no-repeat top left;
 }
 
+UL.eightpt LI {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
 .topics LI.topics-static {
 	background-image: url('/pics/bullet-mrd.gif');
 }
