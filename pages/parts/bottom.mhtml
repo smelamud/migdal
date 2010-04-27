@@ -9,7 +9,7 @@
 <assign name='title'
         value!='!$$englishDomain ? "Написать письмо" : "Send e-mail"'>
 <a href="mailto:$addr" title="$title" class="email">
-   <image src="/pics/mail.gif"></a>
+   <image class="icon" src="/pics/mail.gif" alt="$addr"></a>
 </element>
 
 <element name='snapshot'>
@@ -30,56 +30,48 @@ else
 </element>
 
 <element name='bottom_www'>
-<tr valign='top'>
- <td rowspan='2'>
-  <div class='vcard'>
-   Сайт создан и поддерживается
-   <a href='/migdal/jcc/student/'>Клубом Еврейского Студента</a>
-   <br>
-   <span class='n fn org' style='display: none'>
-    <span class='honorific-prefix'>Международный Еврейский Общинный Центр</span>
-    <span class='given-name'>&lt;&lt;Мигдаль&gt;&gt;</span>
-   </span>
-   Международного Еврейского Общинного Центра
-   <a class='url' href='http://www.migdal.ru/migdal/'>&lt;&lt;Мигдаль&gt;&gt;</a>
-   <email addr='migdal@migdal.ru'>.
-   <p>
-   <em>Адрес:</em>
-   <span class='adr'>
-    г. <span class='locality'>Одесса</span>,
-    <span class='street-address'>ул. Малая Арнаутская, 46-а.</span>
-   </span><br>
-   <em>Тел.:</em>
-   <span class='tel'>37-21-28</span>,
-   <span class='tel'>777-07-18</span>,
-   факс: <span class='tel'>34-39-68</span>.
-  </div>
-  <p class='vcard'>
-   <span class='title'>Председатель правления</span> центра
-   <span class='org'>&lt;&lt;Мигдаль&gt;&gt;</span> &mdash;
-   <span class='fn'>Кира Верховская</span>
-   <email addr='verkhov@migdal.ru'>.
-  </p>
- </td>
- <td align='right'>
-  <image src='/pics/book.gif'>&nbsp;
-  <a class='big' href='/complains/?redirid=$_'>
-   Замечания/предложения<br>по работе сайта</a>
- </td>
-</tr>
-<tr valign='bottom'>
- <td align='right'>
-  <span class='eightpt'><?php echo sqlNow();?></span><br>
-  <kernel>
-  <<snapshot>>
-  <moderator>
-   <a href='/admin/'>Страница модератора</a>
-  <else>
-   Вебмастер живет по адресу
-   <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
-  </moderator>
- </td>
-</tr>
+<div style='float: right; text-align: right; width: 30%'>
+ <image class='icon' src='/pics/book.gif'>&nbsp;
+ <a href='/complains/?redirid=$_' class='complains-link'>
+   Замечания/предложения<br>по работе сайта</a><br><br>
+ <span class='eightpt'><?php echo sqlNow();?></span><br>
+ <kernel>
+ <<snapshot>>
+ <moderator>
+  <a href='/admin/'>Страница модератора</a>
+ <else>
+  Вебмастер живет по адресу
+  <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+ </moderator>
+</div>
+<div class='vcard'>
+ Сайт создан и поддерживается
+ <a href='/migdal/jcc/student/'>Клубом Еврейского Студента</a>
+ <br>
+ <span class='n fn org' style='display: none'>
+  <span class='honorific-prefix'>Международный Еврейский Общинный Центр</span>
+  <span class='given-name'>&lt;&lt;Мигдаль&gt;&gt;</span>
+ </span>
+ Международного Еврейского Общинного Центра
+ <a class='url' href='http://www.migdal.ru/migdal/'>&lt;&lt;Мигдаль&gt;&gt;</a>
+ <email addr='migdal@migdal.ru'>.
+ <p>
+ <b>Адрес:</b>
+ <span class='adr'>
+  г. <span class='locality'>Одесса</span>,
+  <span class='street-address'>ул. Малая Арнаутская, 46-а.</span>
+ </span><br>
+ <b>Тел.:</b>
+ <span class='tel'>37-21-28</span>,
+ <span class='tel'>777-07-18</span>,
+ факс: <span class='tel'>34-39-68</span>.
+</div>
+<p class='vcard'>
+ <span class='title'>Председатель правления</span> центра
+ <span class='org'>&lt;&lt;Мигдаль&gt;&gt;</span> &mdash;
+ <span class='fn'>Кира Верховская</span>
+ <email addr='verkhov@migdal.ru'>.
+</p>
 </element>
 
 <element name='bottom_english'>
@@ -117,14 +109,14 @@ else
 <element name='bottom'>
 <notprint>
  <backtrace target='$target'>
- <div class='bottom'>
-  <table width='100%'>
+ <div id='bottom'>
+  <div style='width: 100%'>
    <notenglish>
     <bottom_www>
    <else>
     <bottom_english>
    </notenglish>
-  </table>
+  </div>
   <hr>
   <p><banners></p>
  </div>

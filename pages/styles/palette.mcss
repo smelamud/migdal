@@ -55,8 +55,8 @@ menu_date_border=black
 
 bottom=%mrm
 bottom_link=blue
-bottom_biglink=%mrm
-bottom_biglink_hover=blue
+bottom_complainslink=%mrm
+bottom_complainslink_hover=blue
 
 banner_logo=/pics/big-tower.gif
 banner_migdal=/pics/migdal.jpg
