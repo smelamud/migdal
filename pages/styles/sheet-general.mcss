@@ -69,6 +69,11 @@ A IMG {
 	top: +2px;
 }
 
+.ears IMG {
+	display: block;
+	margin-bottom: 5px;
+}
+
 A.a2a_dd {
 	color: %posting_controls;
 	font-weight: bold;
