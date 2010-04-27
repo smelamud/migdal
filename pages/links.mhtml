@@ -76,10 +76,10 @@
 </element>
 
 <element name='fastjump'>
-<form method=get action='/actions/goto/topic' style='margin: 0'>
+<form method='get' action='/actions/goto/topic' style='margin: 0'>
  <hidden name='okdir' value='/'>
  <hidden name='faildir' value='/links/'>
- <table class='eightpt'>
+ <table class='eightpt' style='clear: both'>
   <tr>
    <td>
     <topicselect name='topic_id' grp='*GRP_LINKS' root='$`links`'
@@ -92,15 +92,15 @@
 </element>
 
 <element name='navigator' params='topic_id'>
-<table cellspacing=5><tr valign=top>
- <td><table class='topics' style='margin: 0'>
+<div style='vertical-align: top'>
+ <ul class='topics' style='float: left; margin-left: 2em'>
   <assign name='up' value!='$topic_id<=0 ? $`links` : $topic_id'>
   <iterate_sortedtopicnames grp='*GRP_LINKS' up='$up' name_root='$up'
                             as_guest='*true'>
   <iterate_fixed_rows rows=4 mincols=3>
   <for>
    <postings_info grp='*GRP_LINKS' topic_id='$.Id' recursive='*true'>
-   <tr><td>
+   <li class='topics-nobullet'>
     <a href='/$.Catalog' class='topics-item'>
      $=.Subject&nbsp;<span class='topics-answers'>($,Total)</span><asp>
     <asp></a><asp>
@@ -112,17 +112,16 @@
       <array vals='подкатегория,подкатегории,подкатегорий'>
       <plural name='subs' value='$,'>
      </zone>
-     <span class='eightpt'><em>$,</em> $subs
+     <span class='eightpt'><em>$,</em> $subs</span>
     </ifnzero>
-   </td></tr>
+   </li>
    <if what='$;isEol'>
-    </table></td>
-    <td>&nbsp;</td>
-    <td><table class='topics' style='margin: 0'>
+    </ul>
+    <ul class='topics' style='float: left; margin-left: 2em'>
    </if>
   </for>
- </table></td>
-</tr></table>
+ </ul>
+</div>
 </element>
 
 <html>
