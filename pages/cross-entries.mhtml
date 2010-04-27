@@ -8,11 +8,11 @@
 <preamble>
 <body>
  <top ident='index'>
- <center><div class='nframe' style='width: 90%; padding: 5px'>
+ <div class='nframe' style='width: 90%; padding: 5px; margin: 0 auto'>
   <subtitle>
   <seealso source_name='$source_name' source_id='$source_id'
            link_type='$link_type' title='Связанные страницы'>
- </div></center>
+ </div>
  <bottom>
 </body>
 </html>
