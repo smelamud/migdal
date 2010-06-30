@@ -206,6 +206,8 @@
   <topics_line time='$,' text='Галерея' href='/migdal/museum/gallery/'
 	       arrow!="$index=='migdal.museum.gallery'"
 	       class='topics-item ninept'>
+  <topics_line text='Каталог музея' href='http://lamed.od.ua/museum/'
+	       arrow='*false' class='topics-item ninept'>
  </html_cache>
 </topics_table>
 <history topic_id='$`migdal.museum`' current='$index' today='$`post.migdal.museum`'>
