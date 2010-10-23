@@ -73,7 +73,7 @@ postString('title');
 dbOpen();
 session();
 $image=getImageById($append ? 0 : $editid);
-$original=$image;
+$original=clone $image;
 $image->setup($Args);
 $err=imageUpload('image_file',$image,
                  ($has_large_image ? IU_THUMB_AUTO : IU_THUMB_NONE) | IU_MANUAL,

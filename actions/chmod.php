@@ -8,12 +8,12 @@ require_once('lib/post.php');
 require_once('lib/permissions.php');
 require_once('lib/errors.php');
 
-function doChmod($id,$perms)
+function doChmod($id,$perms,$original)
 {
 global $userModerator,$userAdminTopics;
 
-$moder=$perms->entry==ENT_TOPIC ? $userAdminTopics : $userModerator;
-if(!$perms->isWritable() || $perms->recursive && !$moder)
+$moder=$original->entry==ENT_TOPIC ? $userAdminTopics : $userModerator;
+if(!$original->isWritable() || $perms->recursive && !$moder)
   return ECHM_NO_CHMOD;
 if($perms->getUserName()!='')
   {
@@ -65,8 +65,9 @@ postInteger('recursive');
 dbOpen();
 session();
 $perms=getPermsById($id);
+$original=clone $perms;
 $perms->setup($Args);
-$err=doChmod($id,$perms);
+$err=doChmod($id,$perms,$original);
 if($err==EG_OK)
   header('Location: '.remakeURI($okdir,
                                 array('err')));
