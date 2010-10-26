@@ -206,7 +206,8 @@
   <topics_line time='$,' text='Галерея' href='/migdal/museum/gallery/'
 	       arrow!="$index=='migdal.museum.gallery'"
 	       class='topics-item ninept'>
-  <topics_line text='Каталог музея' href='http://lamed.od.ua/museum/'
+  <topics_line text='Одесские евреи и русские революции'
+               href='/migdal/museum/catalog/'
 	       arrow='*false' class='topics-item ninept'>
  </html_cache>
 </topics_table>
