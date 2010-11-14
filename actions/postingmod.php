@@ -262,7 +262,7 @@ if($editid<=0)
   $err=relogin($relogin,$login,$password,$remember,$guest_login);
 $posting=getPostingById($editid,$grp,$parent_id,
                         SELECT_GENERAL|SELECT_LARGE_BODY,$up);
-$original=$posting;
+$original=clone $posting;
 $posting->setup($Args);
 
 $imageEditor=$posting->getGrpImageEditor();
