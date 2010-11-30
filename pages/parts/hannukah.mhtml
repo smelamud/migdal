@@ -2,11 +2,11 @@
 
 <element name='hannukah'>
 <time>
-<assign name='current' value!='$,@z-344'>
+<assign name='current' value!='$,@z-334'>
 <if what='$,@G>17'>
  <assign name='current' value!='$current+1'>
 </if>
 <if what='$current>=1 && $current<=8'>
- <image src#='/pics/hk-${current}.gif'>
+ <image src#='/pics/hk-${current}.gif' id='hannukah'>
 </if>
 </element>
