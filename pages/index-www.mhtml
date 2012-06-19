@@ -41,7 +41,7 @@
       </if>
       <seealso_frame>
       <if what='$id<=0'>
-       <<daily_announce topic_id='$`migdal.events.kaitanot.5768.winter`'>>
+       <daily_announce topic_id='$`migdal.events.kaitanot.5772.summer`'>
        <<tweetfeed>>
        <textears>
       </if>
