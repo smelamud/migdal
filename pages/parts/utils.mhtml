@@ -132,7 +132,7 @@
 
 <element name='navi_sort'>
 <if what='$$sort!=$value'>
- <a href='$[sort=$value offset]'>$title</a>
+ <a href='$[sort=$value offset prefix]'>$title</a>
 <else>
  <b>$title</b>
 </if>

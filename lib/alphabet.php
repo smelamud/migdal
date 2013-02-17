@@ -6,11 +6,13 @@ require_once('lib/bug.php');
 require_once('lib/sql.php');
 require_once('lib/charsets.php');
 
+define('AI_MAX_DEPTH', 6);
+
 class AlphabetIterator
       extends MArrayIterator
 {
 
-function getAlphas($query,$limit=0,$prefix='')
+function getAlphas($query,$limit=0,$prefix='',$depth=0)
 {
 $METHOD=get_method($this,'getAlphas');
 $result=sql(str_replace(array('@prefix@',
@@ -29,10 +31,11 @@ uksort($counts,'strcoll');
 $alpha=array();
 foreach($counts as $letter => $count)
        if($letter!='')
-	 if($count<=$limit || $limit==0)
+	 if($count<=$limit || $limit==0 || $depth>=AI_MAX_DEPTH)
 	   $alpha[]=$letter;
 	 else
-	   $alpha=array_merge($alpha,$this->getAlphas($query,$limit,$letter));
+	   $alpha=array_merge($alpha,
+	                      $this->getAlphas($query,$limit,$letter,$depth+1));
 return $alpha;
 }
 

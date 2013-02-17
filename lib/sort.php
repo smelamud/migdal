@@ -19,6 +19,10 @@ define('SORT_TOPIC_INDEX0_INDEX0',14);
 define('SORT_RSENT',15);
 define('SORT_RINDEX2_RINDEX0',16);
 define('SORT_SUBJECT',17);
+define('SORT_NAME_RUSSIAN',18);
+define('SORT_LOCATION',19);
+define('SORT_GHETTO_NAME',20);
+define('SORT_SENDER_NAME',21);
 define('SORT_ORDER',255);
 define('SORT_PRIORITY',256);
 

@@ -209,6 +209,10 @@
   <topics_line text='Одесские евреи и русские революции'
                href='/migdal/museum/catalog/'
 	       arrow='*false' class='topics-item ninept'>
+  <topics_line text='Узники гетто'
+               href='/migdal/museum/prisoners/'
+	       arrow!="$index=='migdal.museum.prisoners'"
+	       class='topics-item ninept'>
  </html_cache>
 </topics_table>
 <history topic_id='$`migdal.museum`' current='$index' today='$`post.migdal.museum`'>

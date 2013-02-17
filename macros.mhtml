@@ -98,6 +98,13 @@
 		   fields='*SELECT_GENERAL' modbits='*MOD_NONE' hidden=-1
 		   disabled=-1 prefix='' withident='*false' earlier=0
 		   as_guest='*false'">
+<deciter macro='prisonerlist' class='PrisonerListIterator'
+         file='lib/prisoners.php'
+         params='prefix,sort'
+	 defaults="sort='*SORT_NAME'">
+<deciter macro='prisoner_alphabet' class='PrisonerAlphabetIterator'
+         file='lib/prisoners.php' params='limit,sort'
+	 defaults="limit=0 sort='*SORT_NAME'">
 <deciter macro='random_seq' class='RandomSequenceIterator' file='lib/random.php'
          params='n,min,max'>
 <deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
@@ -256,6 +263,8 @@
 	 params='grp,topic_id,answers,user_id,recursive,as_guest'
 	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
 	           recursive=*false as_guest=*false'>
+<deccall macro='prisoners_summary' func='getPrisonersSummary'
+         file='lib/prisoners.php'>
 <deccall macro='random' func='random' params='min,max'>
 <decexec macro='reload' func='reload' file='lib/utils.php' params='href'>
 <deccall macro='sibling_id' func='getSiblingId' file='lib/postings.php'
