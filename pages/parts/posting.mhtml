@@ -49,6 +49,14 @@
 </tr></table>
 </element>
 
+<element name='posting_og_image'>
+<if what='$posting.hasLargeImage'>
+ <og_image src='$posting.LargeImageURL'>
+<else>
+ <og_image src='$posting.ImageURL'>
+</if>
+</element>
+
 <element name='posting_image'>
 <assign name='al' value=''>
 <assign name='alt' value=''>

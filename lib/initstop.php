@@ -29,7 +29,7 @@ echo "<!DOCTYPE html>\n";
 
 function initializeHead()
 {
-global $stylesheetList,$userStyle,$jsList;
+global $stylesheetList,$userStyle,$jsList,$ogImageList;
 
 foreach($stylesheetList as $sheet)
        {
@@ -40,6 +40,12 @@ foreach($stylesheetList as $sheet)
 if(isset($jsList))
   foreach($jsList as $src)
          echo "<script src='$src' type='text/javascript'></script>\n";
+if(isset($ogImageList) && count($ogImageList)>0)
+  {
+  echo "<link rel='image_src' href='{$ogImageList[0]}'>\n";
+  foreach($ogImageList as $src)
+         echo "<meta property='og:image' content='$src'>\n";
+  }
 }
 
 function finalize()

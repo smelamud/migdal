@@ -230,6 +230,8 @@
 <deccall macro='location_info' func='getLocationInfo' file='lib/structure.php'
          params='path'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
+<decexec macro='og_image' func='declareOGImage' file='lib/ogimages.php'
+         params='src'>
 <decexec macro='outer' func='beginOuter' file='lib/inner.php'>
 <decexec macro='/outer' func='endOuter' file='lib/inner.php'>
 <deccall macro='perms' func='getPermsById' file='lib/permissions.php'

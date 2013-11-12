@@ -9,6 +9,7 @@
 <html>
 <js_jquery>
 <js src='/js/vote.js'>
+<posting_og_image posting='$posting'>
 <preamble>
 <body>
  <ife what='$$menu_main'>

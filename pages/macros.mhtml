@@ -219,6 +219,7 @@
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
                  shorten='*false'">
+<decel name='posting_og_image' file='parts/posting.php' params='posting'>
 <decel name='posting_peruser' file='parts/posting-peruser.php'
        params='posting,showtopic,showdiscuss,showcomplain,shorten'
        defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
@@ -426,17 +427,31 @@
    <link rel='stylesheet' href='%stylesheet'>
   </ife>
   <if what='isset($metaNoIndex) && $metaNoIndex'>
-   <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+   <meta property="ROBOTS" content="NOINDEX, NOFOLLOW">
   </if>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <notenglish>
+   <assign name='siteName' value='Мигдаль'>
+  <else>
+   <assign name='siteName' value='Migdal'>
+  </notenglish>
+  <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='Главная'
+				    && $LocationInfo.Title!='Main'">
+   <meta property="og:type" content="article">
+   <assign name='pageTitle' value='$LocationInfo.Title'>
+  <else>
+   <meta property="og:type" content="website">
+   <assign name='pageTitle' value=''>
+  </if>
+  <meta property="og:site_name" content="$siteName">
+  <meta property="og:title" content="$=pageTitle">
   <title><asp>
-   <notenglish>Мигдаль<else>Migdal</notenglish>
-   <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='Главная'
-				     && $LocationInfo.Title!='Main'">
-    &sp;- $=LocationInfo.Title<asp>
+   <ifne what='$pageTitle'>
+    <asp>$=pageTitle |&sp;<asp>
    </ifne>
-  </title>
+   $siteName
+  <asp></title>
  </head>
 </macro>
 

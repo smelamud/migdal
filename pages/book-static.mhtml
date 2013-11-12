@@ -13,6 +13,7 @@
 <html>
 <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>
 <assign_global name='userStyle' value='-1'>
+<posting_og_image posting='$,'>
 <preamble_tiny stylesheet='style/static-article.css'>
 <body>
  <div class='article' style='padding: 5'>

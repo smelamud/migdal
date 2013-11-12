@@ -10,6 +10,7 @@
 
 <html>
 <stylesheet ident='article'>
+<posting_og_image posting='$,'>
 <preamble>
 <body>
  <if what='$,Id==$`post.migdal`'>

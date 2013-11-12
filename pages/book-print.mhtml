@@ -6,6 +6,7 @@
 
 <html>
 <stylesheet ident='article'>
+<posting_og_image posting='$,'>
 <preamble>
 <body>
 <div class='article' style='padding: 5'>
