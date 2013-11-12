@@ -50,10 +50,12 @@
 </element>
 
 <element name='posting_og_image'>
-<if what='$posting.hasLargeImage'>
- <og_image src='$posting.LargeImageURL'>
-<else>
- <og_image src='$posting.ImageURL'>
+<if what='$posting.hasSmallImage'>
+ <if what='$posting.hasLargeImage'>
+  <og_image src='$posting.LargeImageURL'>
+ <else>
+  <og_image src='$posting.ImageURL'>
+ </if>
 </if>
 </element>
 
