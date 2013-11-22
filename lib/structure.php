@@ -314,9 +314,9 @@ function isLast()
 return $this->current==null;
 }
 
-function next()
+function getNext()
 {
-parent::next();
+parent::getNext();
 $result=&$this->current;
 if($this->current!=null)
   $this->current=&$this->current->getChild();

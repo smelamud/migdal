@@ -36,9 +36,9 @@ $c=$this->class;
 return new $c($row);
 }
 
-function next()
+function getNext()
 {
-parent::next();
+parent::getNext();
 $this->select();
 $row=mysql_fetch_assoc($this->result);
 return $row ? $this->create($row) : 0;
@@ -96,7 +96,7 @@ if($reverse)
   $this->index=$this->getCount()-1;
 }
 
-function next()
+function getNext()
 {
 if($reverse)
   if($this->index<0)
@@ -104,10 +104,10 @@ if($reverse)
   else
     {
     mysql_data_seek($this->getResult(),$this->index--);
-    return parent::next();
+    return parent::getNext();
     }
 else
-  return parent::next();
+  return parent::getNext();
 }
 
 }

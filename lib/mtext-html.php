@@ -450,7 +450,7 @@ function getImageBlocks(&$iterator)
 $blocks=array();
 if(is_null($iterator))
   return $blocks;
-while($image=$iterator->next())
+while($image=$iterator->getNext())
      {
      $par=$image->getPar();
      if(!isset($blocks[$par]))

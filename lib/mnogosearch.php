@@ -157,7 +157,7 @@ else
   }
 }
 
-function next()
+function getNext()
 {
 $url=$this->nextLine();
 if($url=='EOF')

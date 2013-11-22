@@ -216,9 +216,9 @@ parent::SelectIterator('JournalLine',
 $this->seq=0;
 }
 
-function next()
+function getNext()
 {
-$line=parent::next();
+$line=parent::getNext();
 if($line==0)
   return 0;
 if($this->seq!=0 && $this->seq!=$line->getSeq()

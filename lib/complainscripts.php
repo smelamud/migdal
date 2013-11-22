@@ -79,7 +79,7 @@ while(($this->id & $this->mask)==0 && $this->id<=CSCR_ALL)
      $this->id*=2;
 }
 
-function next()
+function getNext()
 {
 if($this->id<=CSCR_ALL)
   {

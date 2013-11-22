@@ -97,11 +97,11 @@ $this->letters=$letters;
 $this->names=$names;
 }
 
-function next()
+function getNext()
 {
 global $modbitLetters,$modbitNames;
 
-parent::next();
+parent::getNext();
 $result=$this->bit<=$this->max
         ? new Modbit($this->bit,
 	             $this->letters!=null ? $this->letters[$this->lbbit] : '',

@@ -293,7 +293,7 @@ function SortedTopicNamesIterator($grp,$up=-1,$recursive=false,
 $iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter,$nameRoot,
                                  $onlyWritable,$onlyPostable,$asGuest);
 $topics=array();
-while($item=$iterator->next())
+while($item=$iterator->getNext())
      $topics[$item->getFullName()]=$item;
 // FIXME должно проставляться в конфиге
 setlocale(LC_COLLATE,'ru_RU.KOI8-R');

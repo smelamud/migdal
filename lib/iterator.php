@@ -24,7 +24,7 @@ function isOdd()
 return $this->odd!=0;
 }
 
-function next()
+function getNext()
 {
 if($this->first>0)
   $this->first--;

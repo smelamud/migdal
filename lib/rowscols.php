@@ -21,10 +21,10 @@ function isEol()
 return ($this->iterator->getPosition() % $this->cols)==$this->cols-1;
 }
 
-function next()
+function getNext()
 {
-parent::next();
-return $this->iterator->next();
+parent::getNext();
+return $this->iterator->getNext();
 }
 
 }

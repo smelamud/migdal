@@ -91,7 +91,7 @@ if($user_id!=0)
   $set[]="user_id=$user_id";
 if($group_id!=0)
   $set[]="group_id=$group_id";
-permStringMask($perms,&$andMask,&$orMask);
+permStringMask($perms,$andMask,$orMask);
 $set[]="perms=(perms & $andMask) | $orMask";
 $set=join(',',$set);
 $entryFilter=$entry!=ENT_NULL ? "entry=$entry" : '1';

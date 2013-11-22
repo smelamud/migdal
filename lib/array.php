@@ -20,9 +20,9 @@ function create($key,$value)
 return $value;
 }
 
-function next()
+function getNext()
 {
-parent::next();
+parent::getNext();
 $key=key($this->vars);
 $val=current($this->vars);
 next($this->vars);
