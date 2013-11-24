@@ -20,9 +20,9 @@ var $topics_version=null;
 
 var $condition=true;
 
-function HTMLCacheRecord($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getIdent()

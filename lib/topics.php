@@ -31,14 +31,14 @@ var $full_name;
 var $postings_info;
 var $sub_count;
 
-function Topic($row)
+function __construct($row)
 {
 global $rootTopicModbits,$tfRegular;
 
 $this->entry=ENT_TOPIC;
 $this->body_format=$tfRegular;
 $this->modbits=$rootTopicModbits;
-parent::GrpEntry($row);
+parent::__construct($row);
 }
 
 function setup($vars)
@@ -159,9 +159,9 @@ return " where entry=".ENT_TOPIC." $hide $parentFilter $grpFilter $levelFilter
          $index2Filter ";
 }
 
-function TopicIterator($query,$limit=0,$offset=0)
+function __construct($query,$limit=0,$offset=0)
 {
-parent::LimitSelectIterator('Topic',$query,$limit,$offset);
+parent::__construct('Topic',$query,$limit,$offset);
 }
 
 }
@@ -173,9 +173,9 @@ var $fields;
 var $grp;
 var $asGuest;
 
-function TopicListIterator($grp,$up=0,$sort=SORT_SUBJECT,$recursive=false,
-                           $level=1,$fields=SELECT_GENERAL,$index2=-1,
-			   $limit=0,$offset=0,$asGuest=false)
+function __construct($grp,$up=0,$sort=SORT_SUBJECT,$recursive=false,
+                     $level=1,$fields=SELECT_GENERAL,$index2=-1,
+		     $limit=0,$offset=0,$asGuest=false)
 {
 $this->fields=$fields;
 $this->grp=$grp;
@@ -213,7 +213,7 @@ $Order=getOrderBy($sort,
 	     SORT_RINDEX1         => 'index1 desc',
 	     SORT_RINDEX2_RINDEX0 => 'index2 desc,index0 desc'));
 /* Query */
-parent::TopicIterator(
+parent::__construct(
       "select $Select
        from $From
        $Where
@@ -240,9 +240,9 @@ var $names;
 var $up;
 var $delimiter;
 
-function TopicNamesIterator($grp,$up=-1,$recursive=false,$delimiter=' :: ',
-                            $nameRoot=-1,$onlyAppendable=false,
-			    $onlyPostable=false,$asGuest=false)
+function __construct($grp,$up=-1,$recursive=false,$delimiter=' :: ',
+                     $nameRoot=-1,$onlyAppendable=false,
+		     $onlyPostable=false,$asGuest=false)
 {
 $this->nameRoot=$nameRoot;
 $this->delimiter=$delimiter;
@@ -256,11 +256,11 @@ if($onlyAppendable)
   $Where.=' and '.permMask('perms',PERM_UA|PERM_GA|PERM_OA|PERM_EA);
 if($onlyPostable)
   $Where.=' and '.permMask('perms',PERM_UP|PERM_GP|PERM_OP|PERM_EP);
-parent::TopicIterator("select $distinct id,ident,up,track,catalog,subject
-		       from entries
-		            $grpTable
-		       $Where
-                       order by track");
+parent::__construct("select $distinct id,ident,up,track,catalog,subject
+		     from entries
+		          $grpTable
+		     $Where
+                     order by track");
 }
 
 function create($row)
@@ -285,10 +285,10 @@ class SortedTopicNamesIterator
       extends MArrayIterator
 {
 
-function SortedTopicNamesIterator($grp,$up=-1,$recursive=false,
-                                  $delimiter=' :: ',$nameRoot=-1,
-				  $onlyWritable=false,$onlyPostable=false,
-				  $asGuest=false)
+function __construct($grp,$up=-1,$recursive=false,
+                     $delimiter=' :: ',$nameRoot=-1,
+		     $onlyWritable=false,$onlyPostable=false,
+		     $asGuest=false)
 {
 $iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter,$nameRoot,
                                  $onlyWritable,$onlyPostable,$asGuest);
@@ -298,7 +298,7 @@ while($item=$iterator->getNext())
 // FIXME должно проставляться в конфиге
 setlocale(LC_COLLATE,'ru_RU.KOI8-R');
 uksort($topics,'strcoll');
-parent::MArrayIterator($topics);
+parent::__construct($topics);
 }
 
 }
@@ -307,7 +307,7 @@ class TopicHierarchyIterator
       extends MArrayIterator
 {
 
-function TopicHierarchyIterator($topic_id,$root=-1,$reverse=false)
+function __construct($topic_id,$root=-1,$reverse=false)
 {
 $topics=array();
 for($id=idByIdent($topic_id);$id>0 && $id!=$root;)
@@ -318,7 +318,7 @@ for($id=idByIdent($topic_id);$id>0 && $id!=$root;)
    }
 if(!$reverse)
   $topics=array_reverse($topics);
-parent::MArrayIterator($topics);
+parent::__construct($topics);
 }
 
 }

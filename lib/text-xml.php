@@ -47,7 +47,7 @@ class MTText
 {
 var $text;
 
-function MTText($text)
+function __construct($text)
 {
 $this->text=$text;
 }
@@ -64,9 +64,9 @@ class MTTag
 {
 var $name;
 
-function MTTag($name,$text)
+function __construct($name,$text)
 {
-parent::MTText($text);
+parent::__construct($text);
 $this->name=$name;
 }
 

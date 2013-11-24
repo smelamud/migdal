@@ -4,7 +4,7 @@
 class DataObject
 {
 
-function DataObject($row)
+function __construct($row)
 {
 foreach($row as $var => $value)
        $this->$var=$value;

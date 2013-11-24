@@ -17,7 +17,7 @@ class RandomSequenceIterator
       extends MArrayIterator
 {
 
-function RandomSequenceIterator($n,$min,$max)
+function __construct($n,$min,$max)
 {
 $seq=array();
 while(count($seq)<$n && count($seq)<$max-$min+1)
@@ -26,7 +26,7 @@ while(count($seq)<$n && count($seq)<$max-$min+1)
      if(!in_array($k,$seq))
        $seq[]=$k;
      }
-parent::MArrayIterator($seq);
+parent::__construct($seq);
 }
 
 }

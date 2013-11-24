@@ -12,9 +12,9 @@ var $result;
 var $count;
 var $class;
 
-function SelectIterator($aClass,$query)
+function __construct($aClass,$query)
 {
-parent::MIterator();
+parent::__construct();
 $this->query=$query;
 $this->result=0;
 $this->class=$aClass;
@@ -89,9 +89,9 @@ class ReverseSelectIterator
 {
 var $index;
 
-function ReverseSelectIterator($class,$query,$reverse=true)
+function __construct($class,$query,$reverse=true)
 {
-parent::SelectIterator($class,$query);
+parent::__construct($class,$query);
 if($reverse)
   $this->index=$this->getCount()-1;
 }

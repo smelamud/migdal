@@ -8,7 +8,7 @@ class StrSeq
 var $start;
 var $length;
 
-function StrSeq($start,$length=0)
+function __construct($start,$length=0)
 {
 $this->start=$start;
 $this->length=$length;
@@ -37,7 +37,7 @@ var $start;
 var $commons;
 var $inners;
 
-function Outer($start)
+function __construct($start)
 {
 $this->start=$start;
 $this->commons=array();

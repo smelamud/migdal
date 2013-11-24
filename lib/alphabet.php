@@ -39,9 +39,9 @@ foreach($counts as $letter => $count)
 return $alpha;
 }
 
-function AlphabetIterator($query,$limit=0)
+function __construct($query,$limit=0)
 {
-parent::MArrayIterator($this->getAlphas($query,$limit));
+parent::__construct($this->getAlphas($query,$limit));
 }
 
 }

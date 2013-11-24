@@ -132,9 +132,9 @@ var $result_var;
 var $query;
 var $sent;
 
-function JournalLine($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getId()
@@ -206,13 +206,13 @@ class JournalIterator
 {
 var $seq;
 
-function JournalIterator($from=0)
+function __construct($from=0)
 {
-parent::SelectIterator('JournalLine',
-		       "select id,seq,result_table,result_id,result_var,query
-			from journal
-			where seq>$from
-			order by seq,id");
+parent::__construct('JournalLine',
+		    "select id,seq,result_table,result_id,result_var,query
+		     from journal
+		     where seq>$from
+		     order by seq,id");
 $this->seq=0;
 }
 
@@ -234,15 +234,15 @@ class JournalListIterator
       extends LimitSelectIterator
 {
 
-function JournalListIterator($limit=20,$offset=0)
+function __construct($limit=20,$offset=0)
 {
-parent::LimitSelectIterator('JournalLine',
-			    'select id,seq,result_table,result_id,result_var,
-				    query,unix_timestamp(sent) as sent
-			     from journal
-			     order by seq,id',$limit,$offset,
-			    'select count(*)
-			     from journal');
+parent::__construct('JournalLine',
+		    'select id,seq,result_table,result_id,result_var,
+			    query,unix_timestamp(sent) as sent
+		     from journal
+		     order by seq,id',$limit,$offset,
+		    'select count(*)
+		     from journal');
 }
 
 }

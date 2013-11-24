@@ -96,9 +96,9 @@ var $large_image_format='';
 var $large_image_filename='';
 var $inserted=false;
 
-function Entry($row)
+function __construct($row)
 {
-parent::UserTag($row);
+parent::__construct($row);
 }
 
 function getId()

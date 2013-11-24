@@ -14,9 +14,9 @@ class PostingsInfo
 var $total;
 var $max_sent;
 
-function PostingsInfo($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getTotal()

@@ -18,9 +18,9 @@ var $sent;
 var $text;
 var $text_xml;
 
-function ChatMessage($row)
+function __construct($row)
 {
-parent::UserTag($row);
+parent::__construct($row);
 }
 
 function getId()
@@ -74,7 +74,7 @@ class ChatMessageListIterator
       extends SelectIterator
 {
 
-function ChatMessageListIterator($later=0,$earlier=0)
+function __construct($later=0,$earlier=0)
 {
 global $userId;
 
@@ -83,17 +83,17 @@ if($later>0)
   $filter.=" and unix_timestamp(sent)>=$later";
 if($earlier>0)
   $filter.=" and unix_timestamp(sent)<$earlier";
-parent::SelectIterator('ChatMessage',
-		       "select chat_messages.id as id,guest_login,sender_id,
-		               login,gender,email,hide_email,
-			       users.hidden as user_hidden,
-			       users.guest as user_guest,text,text_xml,
-			       unix_timestamp(sent) as sent
-			from chat_messages
-			     left join users
-				  on chat_messages.sender_id=users.id
-			where $filter
-			order by sent desc");
+parent::__construct('ChatMessage',
+		    "select chat_messages.id as id,guest_login,sender_id,
+			    login,gender,email,hide_email,
+			    users.hidden as user_hidden,
+			    users.guest as user_guest,text,text_xml,
+			    unix_timestamp(sent) as sent
+		     from chat_messages
+			  left join users
+			       on chat_messages.sender_id=users.id
+		     where $filter
+		     order by sent desc");
 }
 
 }

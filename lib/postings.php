@@ -35,14 +35,14 @@ var $counter_value0;
 var $counter_value1;
 var $co_ctr;
 
-function Posting($row)
+function __construct($row)
 {
 global $tfRegular,$tfLarge;
 
 $this->entry=ENT_POSTING;
 $this->body_format=$tfRegular;
 $this->large_body_format=$tfLarge;
-parent::GrpEntry($row);
+parent::__construct($row);
 }
 
 function setup($vars)
@@ -404,13 +404,13 @@ class PostingListIterator
 var $fields;
 var $where;
 
-function PostingListIterator($grp,$topic_id=-1,$recursive=false,$limit=10,
-                             $offset=0,$person_id=-1,$sort=SORT_SENT,
-			     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
-			     $up=-1,$showShadows=true,$fields=SELECT_GENERAL,
-			     $modbits=MOD_NONE,$hidden=-1,$disabled=-1,
-			     $prefix='',$withIdent=false,$earlier=0,
-			     $asGuest=false)
+function __construct($grp,$topic_id=-1,$recursive=false,$limit=10,
+		     $offset=0,$person_id=-1,$sort=SORT_SENT,
+		     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
+		     $up=-1,$showShadows=true,$fields=SELECT_GENERAL,
+		     $modbits=MOD_NONE,$hidden=-1,$disabled=-1,
+		     $prefix='',$withIdent=false,$earlier=0,
+		     $asGuest=false)
 {
 if($sort==SORT_CTR)
   $fields|=SELECT_CTR;
@@ -439,15 +439,15 @@ $Order=getOrderBy($sort,
 	     SORT_TOPIC_INDEX0_INDEX0
 	                     => 'topics.index0,entries.index0',
              SORT_RSENT      => 'entries.sent asc'));
-parent::LimitSelectIterator('Posting',
-			    "select $Select
-			     from $From
-			     where {$this->where}
-			     $Order",
-			    $limit,$offset,
-			    "select $SelectCount
-			     from $From
-			     where {$this->where}");
+parent::__construct('Posting',
+		    "select $Select
+		     from $From
+		     where {$this->where}
+		     $Order",
+		    $limit,$offset,
+		    "select $SelectCount
+		     from $From
+		     where {$this->where}");
 }
 
 function create($row)
@@ -496,13 +496,13 @@ class PostingUsersIterator
       extends SelectIterator
 {
 
-function PostingUsersIterator($grp=GRP_ALL,$topic_id=-1,$recursive=false,
-                              $asGuest=false)
+function __construct($grp=GRP_ALL,$topic_id=-1,$recursive=false,
+		     $asGuest=false)
 {
 $hide=postingsPermFilter(PERM_READ,'entries',$asGuest);
 $grpFilter=postingListGrpFilter($grp);
 $topicFilter=postingListTopicFilter($topic_id,$recursive);
-parent::SelectIterator(
+parent::__construct(
        'User',
        "select distinct users.id as id,login,gender,email,hide_email,
                         users.hidden as user_hidden,users.name as name,
@@ -520,9 +520,9 @@ class PostingAlphabetIterator
       extends AlphabetIterator
 {
 
-function PostingAlphabetIterator($limit=0,$sort=SORT_URL_DOMAIN,$topic_id=-1,
-                                 $recursive=false,$grp=GRP_ALL,
-				 $showShadows=false)
+function __construct($limit=0,$sort=SORT_URL_DOMAIN,$topic_id=-1,
+                     $recursive=false,$grp=GRP_ALL,
+		     $showShadows=false)
 {
 $hide='and '.postingsPermFilter(PERM_READ);
 $fields=array(SORT_NAME       => 'subject',
@@ -539,7 +539,7 @@ $order=getOrderBy($sort,
 $topicFilter=$topic_id>=0 ? 'and '.subtree('entries',$topic_id,$recursive) : '';
 $grpFilter='and '.grpFilter($grp);
 $shadowFilter=!$showShadows ? 'and id=orig_id' : '';
-parent::AlphabetIterator(
+parent::__construct(
         "select left($field,@len@) as letter,1 as count
          from entries
          where entry=".ENT_POSTING." $hide $topicFilter $grpFilter

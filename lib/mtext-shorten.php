@@ -57,9 +57,9 @@ var $open=array();
 var $clen=0;
 var $stop=false;
 
-function MTextShortenXML($len,$clearTags=false)
+function __construct($len,$clearTags=false)
 {
-parent::XMLParser();
+parent::__construct();
 $this->len=$len;
 $this->clearTags=$clearTags;
 }

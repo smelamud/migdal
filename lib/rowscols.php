@@ -9,9 +9,9 @@ class RowsIterator
 var $iterator;
 var $cols;
 
-function RowsIterator($iterator,$cols)
+function __construct($iterator,$cols)
 {
-parent::MIterator();
+parent::__construct();
 $this->iterator=$iterator;
 $this->cols=$cols;
 }
@@ -33,11 +33,11 @@ class FixedRowsIterator
       extends RowsIterator
 {
 
-function FixedRowsIterator($iterator,$rows,$minCols)
+function __construct($iterator,$rows,$minCols)
 {
 $cols=ceil($iterator->getCount()/$rows);
 $cols=$cols<$minCols ? $minCols : $cols;
-parent::RowsIterator($iterator,$cols);
+parent::__construct($iterator,$cols);
 }
 
 }

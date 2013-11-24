@@ -92,9 +92,9 @@ var $host;
 var $we_know;
 var $they_know;
 
-function Horisont($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getHost()
@@ -132,14 +132,14 @@ class HorisontsIterator
       extends SelectIterator
 {
 
-function HorisontsIterator()
+function __construct()
 {
 global $dbName;
 
-parent::SelectIterator('Horisont',
-		       "select host,we_know,they_know
-			from $dbName.horisonts
-			order by host");
+parent::__construct('Horisont',
+		    "select host,we_know,they_know
+		     from $dbName.horisonts
+		     order by host");
 }
 
 }

@@ -12,9 +12,9 @@ class Perms
       extends Entry
 {
 
-function Perms($row)
+function __construct($row)
 {
-parent::Entry($row);
+parent::__construct($row);
 }
 
 function setup($vars)

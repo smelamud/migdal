@@ -66,9 +66,9 @@ var $confirmed;
 var $confirm_days;
 var $last_message;
 
-function User($row)
+function __construct($row)
 {
-parent::UserTag($row);
+parent::__construct($row);
 }
 
 function setup($vars)
@@ -403,7 +403,7 @@ class UserListIterator
       extends SelectIterator
 {
 
-function UserListIterator($prefix,$sort=SORT_LOGIN,$right=USR_NONE)
+function __construct($prefix,$sort=SORT_LOGIN,$right=USR_NONE)
 {
 global $userAdminUsers;
 
@@ -429,7 +429,7 @@ $order=getOrderBy($sort,
 			                        jewish_name,name),
 					     surname',
 		        SORT_SURNAME     => 'surname,name'));
-parent::SelectIterator(
+parent::__construct(
 	'User',
 	"select id,login,name,jewish_name,surname,gender,birthday,rights,email,
 	        hide_email,icq,last_online,
@@ -450,7 +450,7 @@ class UserAlphabetIterator
       extends AlphabetIterator
 {
 
-function UserAlphabetIterator($limit=0,$sort=SORT_LOGIN)
+function __construct($limit=0,$sort=SORT_LOGIN)
 {
 global $userAdminUsers;
 
@@ -467,11 +467,11 @@ $sortFields=array(SORT_LOGIN       => 'login',
 		  SORT_SURNAME     => 'surname');
 $sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login';
 $order=getOrderBy($sort,$sortFields);
-parent::AlphabetIterator("select left($field,@len@) as letter,1 as count
-                          from users
-			  where hidden<$hide and guest=0
-			        and $sortField like '@prefix@%'
-			  $order",$limit);
+parent::__construct("select left($field,@len@) as letter,1 as count
+		     from users
+		     where hidden<$hide and guest=0
+			   and $sortField like '@prefix@%'
+		     $order",$limit);
 }
 
 }
@@ -480,21 +480,21 @@ class UsersNowIterator
       extends SelectIterator
 {
 
-function UsersNowIterator($period)
+function __construct($period)
 {
 global $userAdminUsers;
 
 $now=sqlNow();
 $hide=$userAdminUsers ? 2 : 1;
-parent::SelectIterator('User',
-                       "select distinct users.id as id,login,gender,email,
-		               hide_email,hidden
-			from users
-			     inner join sessions
-			           on sessions.user_id=users.id
-			where last+interval $period minute>'$now'
-			      and hidden<$hide
-			order by last desc");
+parent::__construct('User',
+		    "select distinct users.id as id,login,gender,email,
+			    hide_email,hidden
+		     from users
+			  inner join sessions
+				on sessions.user_id=users.id
+		     where last+interval $period minute>'$now'
+			   and hidden<$hide
+		     order by last desc");
 }
 
 }
@@ -804,7 +804,7 @@ class UsersSummary
 var $total;
 var $waiting;
 
-function UsersSummary($total,$waiting)
+function __construct($total,$waiting)
 {
 $this->total=$total;
 $this->waiting=$waiting;

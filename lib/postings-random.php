@@ -84,11 +84,11 @@ class RandomPostingsIterator
       extends MArrayIterator
 {
 
-function RandomPostingsIterator($limit,$grp=GRP_ALL,$topic_id=-1,$user_id=0,
-                                $index1=-1,$asGuest=false)
+function __construct($limit,$grp=GRP_ALL,$topic_id=-1,$user_id=0,
+                     $index1=-1,$asGuest=false)
 {
-parent::MArrayIterator(getRandomPostingIds($limit,$grp,$topic_id,$user_id,
-                                           $index1,$asGuest));
+parent::__construct(getRandomPostingIds($limit,$grp,$topic_id,$user_id,
+                                        $index1,$asGuest));
 }
 
 }

@@ -64,7 +64,7 @@ class XMLParser
 {
 var $xml_parser;
 
-function XMLParser()
+function __construct()
 {
 $this->xml_parser=xml_parser_create('UTF-8');
 xml_set_object($this->xml_parser,$this);

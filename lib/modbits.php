@@ -56,7 +56,7 @@ var $bit;
 var $letter;
 var $name;
 
-function Modbit($bit,$letter,$name)
+function __construct($bit,$letter,$name)
 {
 $this->bit=$bit;
 $this->letter=$letter;
@@ -87,9 +87,9 @@ var $bit,$lbbit;
 var $max;
 var $letters,$names;
 
-function ModbitIterator($max,$letters,$names)
+function __construct($max,$letters,$names)
 {
-parent::MIterator();
+parent::__construct();
 $this->bit=1;
 $this->lbbit=0;
 $this->max=$max;
@@ -118,11 +118,11 @@ class PostingModbitIterator
       extends ModbitIterator
 {
 
-function PostingModbitIterator()
+function __construct()
 {
 global $modbitLetters,$modbitNames;
 
-parent::ModbitIterator(MOD_ALL,$modbitLetters,$modbitNames);
+parent::__construct(MOD_ALL,$modbitLetters,$modbitNames);
 }
 
 }
@@ -131,11 +131,11 @@ class ComplainModbitIterator
       extends ModbitIterator
 {
 
-function ComplainModbitIterator()
+function __construct()
 {
 global $modbitCNames;
 
-parent::ModbitIterator(MODC_ALL,null,$modbitCNames);
+parent::__construct(MODC_ALL,null,$modbitCNames);
 }
 
 }
@@ -144,11 +144,11 @@ class TopicModbitIterator
       extends ModbitIterator
 {
 
-function TopicModbitIterator()
+function __construct()
 {
 global $modbitTNames;
 
-parent::ModbitIterator(MODT_ALL,null,$modbitTNames);
+parent::__construct(MODT_ALL,null,$modbitTNames);
 }
 
 }

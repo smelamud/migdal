@@ -14,10 +14,10 @@ var $user_hidden;
 var $user_guest;
 var $guest_login='';
 
-function UserTag($row)
+function __construct($row)
 {
 $this->gender='mine';
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getLogin()

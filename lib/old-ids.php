@@ -46,9 +46,9 @@ var $old_id;
 var $old_ident;
 var $entry_id;
 
-function OldId($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getTableName()
@@ -77,11 +77,11 @@ class OldIdsIterator
       extends SelectIterator
 {
 
-function OldIdsIterator()
+function __construct()
 {
-parent::SelectIterator('OldId',
-                       'select table_name,old_id,old_ident,entry_id
-		        from old_ids');
+parent::__construct('OldId',
+		    'select table_name,old_id,old_ident,entry_id
+		     from old_ids');
 }
 
 }

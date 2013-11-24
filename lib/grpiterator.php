@@ -7,9 +7,9 @@ class GrpIterator
       extends MArrayIterator
 {
 
-function GrpIterator()
+function __construct()
 {
-parent::MArrayIterator(grpArray(GRP_ALL));
+parent::__construct(grpArray(GRP_ALL));
 }
 
 function create($key,$value)

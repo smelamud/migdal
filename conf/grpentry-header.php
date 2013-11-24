@@ -6,11 +6,11 @@ class GrpEntry
       extends Entry
 {
 
-function GrpEntry($row)
+function __construct($row)
 {
 $this->grp=GRP_NONE;
 $this->grps=array();
-parent::Entry($row);
+parent::__construct($row);
 }
 
 function getGrpImageEditor()

@@ -18,13 +18,13 @@ class Complain
 {
 var $person_info;
 
-function Complain($row)
+function __construct($row)
 {
 global $tfRegular;
 
 $this->entry=ENT_COMPLAIN;
 $this->body_format=$tfRegular;
-parent::Entry($row);
+parent::__construct($row);
 $prow=array();
 foreach($row as $key => $value)
        if(substr($key,0,7)=='person_')
@@ -66,9 +66,9 @@ class ComplainListIterator
       extends LimitSelectIterator
 {
 
-function ComplainListIterator($limit=20,$offset=0)
+function __construct($limit=20,$offset=0)
 {
-parent::LimitSelectIterator(
+parent::__construct(
        'Complain',
        'select entries.id as id,subject,body_format,sent,
                entries.created as created,entries.modified as modified,

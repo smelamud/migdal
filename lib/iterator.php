@@ -7,7 +7,7 @@ var $first;
 var $odd;
 var $position;
 
-function MIterator()
+function __construct()
 {
 $this->first=2;
 $this->odd=0;

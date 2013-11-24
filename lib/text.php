@@ -71,11 +71,11 @@ class TextFormatsIterator
       extends AssocArrayIterator
 {
 
-function TextFormatsIterator()
+function __construct()
 {
 global $TextFormats;
 
-parent::AssocArrayIterator($TextFormats);
+parent::__construct($TextFormats);
 }
 
 }

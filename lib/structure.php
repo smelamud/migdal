@@ -78,7 +78,7 @@ var $linkId=0;
 var $linkTitle='';
 var $linkIcon='';
 
-function LocationInfo()
+function __construct()
 {
 }
 
@@ -291,11 +291,11 @@ class LocationIterator
 var $current;
 var $count;
 
-function LocationIterator($offset=0)
+function __construct($offset=0)
 {
 global $LocationInfo;
 
-parent::MIterator();
+parent::__construct();
 $this->current=&$LocationInfo->getRoot();
 $this->count=0;
 for($i=0;$i<$offset && $this->current!=null;$i++)

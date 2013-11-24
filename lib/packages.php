@@ -36,9 +36,9 @@ var $size;
 var $url;
 var $created;
 
-function Package($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 # FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() упразднены
@@ -143,16 +143,16 @@ class PackagesIterator
       extends SelectIterator
 {
 
-function PackagesIterator($posting_id)
+function __construct($posting_id)
 {
-parent::SelectIterator('Package',
-		       "select packages.id as id,postings.id as posting_id,type,
-			       mime_type,title,size,url
-			from packages
-			     left join postings
-				  on packages.message_id=postings.message_id
-			where postings.id=$posting_id
-			order by type,created");
+parent::__construct('Package',
+		    "select packages.id as id,postings.id as posting_id,type,
+			    mime_type,title,size,url
+		     from packages
+			  left join postings
+			       on packages.message_id=postings.message_id
+		     where postings.id=$posting_id
+		     order by type,created");
 }
 
 }

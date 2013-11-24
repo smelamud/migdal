@@ -20,9 +20,9 @@ var $body='';
 var $state=FMS_GLOBAL;
 var $current='';
 
-function FormatMailXML()
+function __construct()
 {
-parent::XMLParser();
+parent::__construct();
 }
 
 function getResult()

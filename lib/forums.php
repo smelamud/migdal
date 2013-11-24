@@ -22,13 +22,13 @@ class Forum
 {
 var $parent_type;
 
-function Forum($row)
+function __construct($row)
 {
 global $tfForum;
 
 $this->entry=ENT_FORUM;
 $this->body_format=$tfForum;
-parent::Entry($row);
+parent::__construct($row);
 }
 
 function setup($vars)
@@ -149,8 +149,8 @@ class ForumListIterator
 {
 var $parent_type;
 
-function ForumListIterator($parent_id=0,$limit=10,$offset=0,$sort=SORT_SENT,
-                           $disabled=-1)
+function __construct($parent_id=0,$limit=10,$offset=0,$sort=SORT_SENT,
+                     $disabled=-1)
 {
 if($parent_id>0)
   {
@@ -170,7 +170,7 @@ if($disabled>=0)
 $Order=getOrderBy($sort,
        array(SORT_SENT  => 'entries.sent desc',
              SORT_RSENT => 'entries.sent asc'));
-parent::LimitSelectIterator(
+parent::__construct(
         'Forum',
 	"select entries.id as id,subject,author,author_xml,body,body_xml,
 	        body_format,sent,entries.created as created,

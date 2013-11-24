@@ -56,11 +56,11 @@ class StyleNamesIterator
       extends MArrayIterator
 {
 
-function StyleNamesIterator()
+function __construct()
 {
 global $styleNames;
 
-parent::MArrayIterator($styleNames);
+parent::__construct($styleNames);
 }
 
 }

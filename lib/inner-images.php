@@ -34,10 +34,10 @@ var $image_id;
 var $placement;
 var $image;
 
-function InnerImage($row)
+function __construct($row)
 {
 $this->placement=IPL_CENTER;
-parent::DataObject($row);
+parent::__construct($row);
 $this->image=new Entry($row);
 }
 
@@ -99,19 +99,19 @@ class InnerImagesIterator
       extends SelectIterator
 {
 
-function InnerImagesIterator($id)
+function __construct($id)
 {
-parent::SelectIterator('InnerImage',
-                       "select entry_id,par,x,y,image_id,placement,id,entry,
-		               title,title_xml,small_image,small_image_x,
-			       small_image_y,large_image,large_image_x,
-			       large_image_y,large_image_size,
-			       large_image_format
-		        from inner_images
-			     left join entries
-			          on inner_images.image_id=entries.id
-			where entry_id=$id
-			order by par,y,x");
+parent::__construct('InnerImage',
+		    "select entry_id,par,x,y,image_id,placement,id,entry,
+			    title,title_xml,small_image,small_image_x,
+			    small_image_y,large_image,large_image_x,
+			    large_image_y,large_image_size,
+			    large_image_format
+		     from inner_images
+			  left join entries
+			       on inner_images.image_id=entries.id
+		     where entry_id=$id
+		     order by par,y,x");
 }
 
 }

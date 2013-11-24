@@ -14,9 +14,9 @@ var $group_id;
 var $user_name;
 var $group_name;
 
-function UserGroup($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getUserId()
@@ -45,17 +45,17 @@ class GroupsIterator
       extends SelectIterator
 {
 
-function GroupsIterator()
+function __construct()
 {
-parent::SelectIterator('UserGroup',
-		       'select user_id,group_id,users.login as user_name,
-			       gusers.login as group_name
-			from groups
-			     left join users
-				  on user_id=users.id
-			     left join users as gusers
-				  on group_id=gusers.id
-			order by gusers.login,users.login');
+parent::__construct('UserGroup',
+		    'select user_id,group_id,users.login as user_name,
+			    gusers.login as group_name
+		     from groups
+			  left join users
+			       on user_id=users.id
+			  left join users as gusers
+			       on group_id=gusers.id
+		     order by gusers.login,users.login');
 }
 
 }

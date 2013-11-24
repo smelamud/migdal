@@ -7,7 +7,7 @@ var $curl;
 var $data;
 var $pos;
 
-function CURLSession($curl,$transfer)
+function __construct($curl,$transfer)
 {
 $this->curl=$curl;
 $this->data=explode("\n",$transfer);

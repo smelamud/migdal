@@ -73,7 +73,7 @@ var $thumbExactY=0;
 var $thumbMaxX=0;
 var $thumbMaxY=0;
 
-function GrpEditor($props)
+function __construct($props)
 {
 foreach($props as $key => $value)
        $this->$key=$value;
@@ -183,9 +183,9 @@ class GrpEditorIterator
       extends MArrayIterator
 {
 
-function GrpEditorIterator($grp=GRP_NONE,$inverse=false)
+function __construct($grp=GRP_NONE,$inverse=false)
 {
-parent::MArrayIterator(grpEditor($grp,$inverse));
+parent::__construct(grpEditor($grp,$inverse));
 }
 
 function create($key,$value)

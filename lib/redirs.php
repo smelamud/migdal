@@ -18,9 +18,9 @@ var $track;
 var $uri;
 var $last_access;
 
-function Redir($row=array())
+function __construct($row=array())
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getId()

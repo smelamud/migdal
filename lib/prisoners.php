@@ -23,9 +23,9 @@ var $sender_name;
 var $sum;
 var $search_data;
 
-function Prisoner($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getId()
@@ -74,7 +74,7 @@ class PrisonerListIterator
       extends SelectIterator
 {
 
-function PrisonerListIterator($prefix,$sort=SORT_NAME)
+function __construct($prefix,$sort=SORT_NAME)
 {
 $sortFields=array(SORT_NAME         => 'name',
 		  SORT_NAME_RUSSIAN => 'name_russian',
@@ -90,7 +90,7 @@ if($prefix!='')
 else
   $fieldFilter='';
 $order=getOrderBy($sort, $sortFields);
-parent::SelectIterator(
+parent::__construct(
 	'Prisoner',
 	"select id,name,name_russian,location,ghetto_name,sender_name,sum,
 	        search_data
@@ -105,7 +105,7 @@ class PrisonerAlphabetIterator
       extends AlphabetIterator
 {
 
-function PrisonerAlphabetIterator($limit=0,$sort=SORT_NAME)
+function __construct($limit=0,$sort=SORT_NAME)
 {
 $fields=array(SORT_NAME         => 'name',
 	      SORT_NAME_RUSSIAN => 'name_russian',
@@ -114,10 +114,10 @@ $fields=array(SORT_NAME         => 'name',
 	      SORT_SENDER_NAME  => 'sender_name');
 $field=@$fields[$sort]!='' ? $fields[$sort] : 'name';
 $order=getOrderBy($sort,$fields);
-parent::AlphabetIterator("select left($field,@len@) as letter,1 as count
-                          from prisoners
-			  where $field<>'' and $field like '@prefix@%'
-			  $order",$limit);
+parent::__construct("select left($field,@len@) as letter,1 as count
+		     from prisoners
+		     where $field<>'' and $field like '@prefix@%'
+		     $order",$limit);
 }
 
 }

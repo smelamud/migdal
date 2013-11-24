@@ -8,7 +8,7 @@ var $align;
 var $image;
 var $par;
 
-function ImageCallbackData()
+function __construct()
 {
 }
 
@@ -39,7 +39,7 @@ class UserNameCallbackData
 var $guest;
 var $login;
 
-function UserNameCallbackData()
+function __construct()
 {
 }
 
@@ -60,7 +60,7 @@ class IncutCallbackData
 var $align='right';
 var $width='50%';
 
-function IncutCallbackData()
+function __construct()
 {
 }
 

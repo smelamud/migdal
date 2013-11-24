@@ -13,7 +13,7 @@ var $size;
 var $limit;
 var $offset;
 
-function LimitSelectIterator($aClass,$query,$limit=10,$offset=0,$cquery='')
+function __construct($aClass,$query,$limit=10,$offset=0,$cquery='')
 {
 if($cquery=='')
   {
@@ -24,8 +24,8 @@ $this->count_query=$cquery;
 $this->size=-1;
 $this->limit=$limit;
 $this->offset=$offset;
-parent::SelectIterator($aClass,$limit==0 ? $query
-                                         : "$query limit $offset,$limit" );
+parent::__construct($aClass,$limit==0 ? $query
+                                      : "$query limit $offset,$limit" );
 }
 
 function countSelect()

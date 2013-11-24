@@ -86,9 +86,9 @@ var $par=0;
 var $inHx=false;
 var $brInHx=false;
 
-function MTextToHTMLXML($format,$id,$imageBlocks=array())
+function __construct($format,$id,$imageBlocks=array())
 {
-parent::XMLParser();
+parent::__construct();
 $this->format=$format;
 $this->id=$id;
 $this->html=& $this->htmlBody;

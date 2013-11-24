@@ -13,7 +13,7 @@ var $topic_id;
 var $body;
 var $title;
 
-function SearchItem($postid,$topic_id,$body,$title)
+function __construct($postid,$topic_id,$body,$title)
 {
 $this->postid=$postid;
 $this->topic_id=$topic_id;
@@ -55,7 +55,7 @@ var $limit;
 var $offset;
 var $count;
 
-function MnogosearchIterator($query,$limit=20,$offset=0)
+function __construct($query,$limit=20,$offset=0)
 {
 global $siteDomain;
 

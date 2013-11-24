@@ -32,9 +32,9 @@ var $sent;
 var $ip;
 var $body;
 
-function LogLine($row)
+function __construct($row)
 {
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function getId()
@@ -68,14 +68,14 @@ class LogIterator
       extends SelectIterator
 {
 
-function LogIterator($from=0,$limit=0)
+function __construct($from=0,$limit=0)
 {
 $limiter=$limit<=0 ? '' : "limit $limit";
-parent::SelectIterator('LogLine',
-		       "select id,event,unix_timestamp(sent) as sent,ip,body
-			from logs
-			where unix_timestamp(sent)>$from
-			$limiter");
+parent::__construct('LogLine',
+		    "select id,event,unix_timestamp(sent) as sent,ip,body
+		     from logs
+		     where unix_timestamp(sent)>$from
+		     $limiter");
 }
 
 }

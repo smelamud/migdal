@@ -29,7 +29,7 @@ class ComplainScript
 {
 var $id;
 
-function ComplainScript($id)
+function __construct($id)
 {
 $this->id=$id;
 }
@@ -65,9 +65,9 @@ class ComplainScriptListIterator
 var $id;
 var $mask;
 
-function ComplainScriptListIterator($mask=CSCR_ALL)
+function __construct($mask=CSCR_ALL)
 {
-parent::MIterator();
+parent::__construct();
 $this->id=1;
 $this->mask=$mask;
 $this->roll();

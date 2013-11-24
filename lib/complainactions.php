@@ -15,10 +15,10 @@ var $name;
 var $text;
 var $script_id;
 
-function ComplainAction($row)
+function __construct($row)
 {
 $this->id=0;
-parent::DataObject($row);
+parent::__construct($row);
 }
 
 function setup($vars)
@@ -85,11 +85,11 @@ class ComplainActionListIterator
       extends SelectIterator
 {
 
-function ComplainActionListIterator()
+function __construct()
 {
-parent::SelectIterator('ComplainAction',
-                       'select id,name
-	 	        from complain_actions');
+parent::__construct('ComplainAction',
+		    'select id,name
+		     from complain_actions');
 }
 
 }

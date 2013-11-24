@@ -8,9 +8,9 @@ class MArrayIterator
 {
 var $vars;
 
-function MArrayIterator($vars)
+function __construct($vars)
 {
-parent::MIterator();
+parent::__construct();
 $this->vars=$vars;
 reset($this->vars);
 }
@@ -45,11 +45,11 @@ class SortedArrayIterator
       extends MArrayIterator
 {
 
-function SortedArrayIterator($vars)
+function __construct($vars)
 {
 sort($vars);
 $vars=array_unique($vars);
-parent::MArrayIterator($vars);
+parent::__construct($vars);
 }
 
 }
@@ -59,7 +59,7 @@ class Association
 var $name;
 var $value;
 
-function Association($name,$value)
+function __construct($name,$value)
 {
 $this->name=$name;
 $this->value=$value;
@@ -82,9 +82,9 @@ class AssocArrayIterator
 {
 var $class;
 
-function AssocArrayIterator($vars,$class='Association')
+function __construct($vars,$class='Association')
 {
-parent::MArrayIterator($vars);
+parent::__construct($vars);
 $this->class=$class;
 }
 

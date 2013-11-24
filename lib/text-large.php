@@ -11,7 +11,7 @@ var $text_xml;
 var $text_html;
 var $footnotes_html;
 
-function LargeText($text_xml,$id)
+function __construct($text_xml,$id)
 {
 $this->text_xml=$text_xml;
 $this->id=$id;
