@@ -1,47 +1,57 @@
 <?php
 # @(#) $Id$
 
-class MIterator
-{
-var $first;
-var $odd;
-var $position;
+abstract class MIterator implements Iterator {
 
-function __construct()
-{
-$this->first=2;
-$this->odd=0;
-$this->position=-1;
-}
+    protected $iPosition;
+    protected $iCurrent;
 
-function isFirst()
-{
-return $this->first!=0;
-}
+    public function __construct() {
+        $this->iPosition = -1;
+        $this->iCurrent = 0;
+    }
 
-function isOdd()
-{
-return $this->odd!=0;
-}
+    public function isFirst() {
+        return $this->iPosition <= 0;
+    }
 
-function getNext()
-{
-if($this->first>0)
-  $this->first--;
-$this->odd=1-$this->odd;
-$this->position++;
-return 0;
-}
+    public function isOdd() {
+        return $this->iPosition < 0 || $this->iPosition % 2 == 0;
+    }
 
-function getPosition()
-{
-return $this->position;
-}
+    public function getNext() {
+        $this->iPosition++;
+        return 0;
+    }
 
-function getNextPosition()
-{
-return $this->position+1;
-}
+    public function getPosition() {
+        return $this->iPosition;
+    }
+
+    public function getNextPosition() {
+        return $this->iPosition + 1;
+    }
+
+    public function current() {
+        return $this->iCurrent;
+    }
+
+    public function key() {
+        return $this->getPosition();
+    }
+
+    public function next() {
+        $this->iCurrent = $this->getNext();
+    }
+
+    public function rewind() {
+        $this->iPosition = -1;
+        $this->iCurrent = $this->getNext();
+    }
+
+    public function valid() {
+        return !($this->iCurrent);
+    }
 
 }
 ?>

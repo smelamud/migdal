@@ -49,9 +49,7 @@ function reset()
 $this->select();
 if($this->count>0)
   mysql_data_seek($this->result,0);
-$this->first=2;
-$this->odd=0;
-$this->position=-1;
+$this->rewind();
 }
 
 function isLast()
