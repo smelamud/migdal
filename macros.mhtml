@@ -67,9 +67,6 @@
 <deciter macro='langs' class='LangIterator' file='lib/langs.php'>
 <deciter macro='locations' class='LocationIterator' file='lib/structure.php'
          params='offset' defaults='offset=0'>
-<deciter macro='mnogosearch' class='MnogosearchIterator'
-         file='lib/mnogosearch.php' params='query,limit,offset'
-	 defaults="limit=20 offset=0">
 <deciter macro='packages' class='PackagesIterator' file='lib/packages.php'
          params='posting_id'>
 <deciter macro='posting_alphabet' class='PostingAlphabetIterator'
