@@ -276,13 +276,13 @@ return "{\$ids['$1']}" if $expr=~/^id\.(\w+)$/;
 if($expr=~/^orig.id\.(\w+)$/)
   {
   addOrigId($item,$1);
-  return "\".\$info->orig->getId('$1').\"";
+  return "\".\$info->getOrig()->getId('$1').\"";
   }
-return "\".\$info->parent->getId('$1').\"" if $expr=~/^parent.id\.(\w+)$/;
-return "\".\$info->parent->getArg('$1').\"" if $expr=~/^parent.arg\.(\w+)$/;
-return "\".\$info->parent->getTitle().\"" if $expr eq 'parent.title';
-return "\".\$info->parent->getTitleFull().\"" if $expr eq 'parent.title.full';
-return "\".\$info->parent->getLinkTitle().\"" if $expr eq 'parent.link.title';
+return "\".\$info->getParent()->getId('$1').\"" if $expr=~/^parent.id\.(\w+)$/;
+return "\".\$info->getParent()->getArg('$1').\"" if $expr=~/^parent.arg\.(\w+)$/;
+return "\".\$info->getParent()->getTitle().\"" if $expr eq 'parent.title';
+return "\".\$info->getParent()->getTitleFull().\"" if $expr eq 'parent.title.full';
+return "\".\$info->getParent()->getLinkTitle().\"" if $expr eq 'parent.link.title';
 return "{\$$expr}";
 }
 
@@ -386,7 +386,7 @@ sub init
 {
 $|=1;
 GetOptions('help|h|?'	      => \&help,
-	   'output|o=s'       => \$outputFileName,
+           'output|o=s'       => \$outputFileName,
            'version|v'	      => \&version);
 open OUT,">$outputFileName";
 readStructure;
