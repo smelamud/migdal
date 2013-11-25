@@ -16,272 +16,228 @@ require_once('conf/scripts.php');
 require_once('conf/traps.php');
 require_once('conf/structure.php');
 
-function idOrCatalog($id,$catalog)
-{
-$id=normalizePath($id,true,SLASH_NO,SLASH_NO);
-$pos=strrpos($id,'/');
-if($pos!==false)
-  $id=substr($id,$pos+1);
-if(isId($id))
-  return (int)$id;
-$catalog=strtr($catalog,'.','/');
-$catalog=normalizePath($catalog,true,SLASH_NO,SLASH_NO);
-$catalog=strtr($catalog,'/','.');
-return idByIdent($catalog);
+function idOrCatalog($id, $catalog) {
+    $id = normalizePath($id, true, SLASH_NO, SLASH_NO);
+    $pos = strrpos($id, '/');
+    if ($pos !== false)
+        $id = substr($id, $pos + 1);
+    if (isId($id))
+        return (int)$id;
+    $catalog = strtr($catalog, '.', '/');
+    $catalog = normalizePath($catalog, true, SLASH_NO, SLASH_NO);
+    $catalog = strtr($catalog, '/', '.');
+    return idByIdent($catalog);
 }
 
-function isEntryInGrp($id,$grp)
-{
-$grp=grpArray($grp);
-$egrp=getGrpByEntryId($id);
-if($egrp<=0 || !in_array($egrp,$grp))
-  {
-  $egrps=getGrpsByEntryId($id);
-  foreach($egrps as $egrp)
-         if(in_array($egrp,$grp))
-	   return true;
-  return false;
-  }
-else
-  return true;
+function isEntryInGrp($id, $grp) {
+    $grp = grpArray($grp);
+    $egrp = getGrpByEntryId($id);
+    if ($egrp <= 0 || !in_array($egrp, $grp)) {
+        $egrps = getGrpsByEntryId($id);
+        foreach ($egrps as $egrp)
+            if (in_array($egrp, $grp))
+                return true;
+        return false;
+    } else
+        return true;
 }
 
-function &getParentLocationInfo($path,$redirid)
-{
-if($redirid!=0)
-  {
-  $redir=getRedirById($redirid);
-  $parts=parse_url($redir->getURI());
-  $info=&getLocationInfo($parts['path'],$redir->getUp());
-  $info->setRedir($redir);
-  return $info;
-  }
-else
-  return getLocationInfo($path,0);
+function getParentLocationInfo($path, $redirid) {
+    if ($redirid != 0) {
+        $redir = getRedirById($redirid);
+        $parts = parse_url($redir->getURI());
+        $info = getLocationInfo($parts['path'], $redir->getUp());
+        $info->setRedir($redir);
+        return $info;
+    } else
+        return getLocationInfo($path, 0);
 }
 
-class LocationInfo
-{
-var $path;
-var $script;
-var $args=array();
-var $ids=array();
-var $redir=null;
-var $title='Untitled';
-var $titleRelative='Untitled';
-var $titleFull='Untitled';
-var $parent=null;
-var $child=null;
-var $orig=null;
-var $linkName='';
-var $linkId=0;
-var $linkTitle='';
-var $linkIcon='';
+class LocationInfo {
 
-function __construct()
-{
-}
+    private $path;
+    private $script;
+    private $args = array();
+    private $ids = array();
+    private $redir = null;
+    private $title = 'Untitled';
+    private $titleRelative = 'Untitled';
+    private $titleFull = 'Untitled';
+    private $parent = null;
+    private $child = null;
+    private $orig = null;
+    private $linkName = '';
+    private $linkId = 0;
+    private $linkTitle = '';
+    private $linkIcon = '';
 
-function getPath()
-{
-return $this->path;
-}
+    public function __construct() {
+    }
 
-function setPath($path)
-{
-$this->path=$path;
-}
+    public function getPath() {
+        return $this->path;
+    }
 
-function getScript()
-{
-return $this->script;
-}
+    public function setPath($path) {
+        $this->path = $path;
+    }
 
-function setScript($script)
-{
-$this->script=$script;
-}
+    public function getScript() {
+        return $this->script;
+    }
 
-function getArgs()
-{
-return $this->args;
-}
+    public function setScript($script) {
+        $this->script = $script;
+    }
 
-function setArgs($args)
-{
-$this->args=$args;
-}
+    public function getArgs() {
+        return $this->args;
+    }
 
-function getArg($name)
-{
-return $this->args[$name];
-}
+    public function setArgs($args) {
+        $this->args = $args;
+    }
 
-function getIds()
-{
-return $this->ids;
-}
+    public function getArg($name) {
+        return $this->args[$name];
+    }
 
-function setIds($ids)
-{
-$this->ids=$ids;
-}
+    public function getIds() {
+        return $this->ids;
+    }
 
-function getId($name)
-{
-return $this->ids[$name];
-}
+    public function setIds($ids) {
+        $this->ids = $ids;
+    }
 
-function origHasIds($ids)
-{
-$orig=$this->getOrig();
-foreach($ids as $id)
-       if(!isset($orig->ids[$id]))
-         return false;
-return true;
-}
+    public function getId($name) {
+      return $this->ids[$name];
+    }
 
-function getRedir()
-{
-return $this->redir;
-}
+    public function origHasIds($ids) {
+        $orig = $this->getOrig();
+        foreach ($ids as $id)
+            if (!isset($orig->ids[$id]))
+                return false;
+        return true;
+    }
 
-function setRedir($redir)
-{
-$this->redir=$redir;
-}
+    public function getRedir() {
+        return $this->redir;
+    }
 
-function getURI()
-{
-if($this->redir!=null)
-  return $this->redir->getURI();
-else
-  if($this->child==null)
-    return $_SERVER['REQUEST_URI'];
-  else
-    return $this->path;
-}
+    public function setRedir($redir) {
+        $this->redir = $redir;
+    }
 
-function getRedirId()
-{
-if($this->redir!=null)
-  return $this->redir->getId();
-else
-  return 0;
-}
+    public function getURI() {
+        if ($this->redir != null)
+            return $this->redir->getURI();
+        else
+            if ($this->child == null)
+                return $_SERVER['REQUEST_URI'];
+            else
+                return $this->path;
+    }
 
-function getTitle()
-{
-return $this->title;
-}
+    public function getRedirId() {
+        if ($this->redir != null)
+            return $this->redir->getId();
+        else
+            return 0;
+    }
 
-function setTitle($title)
-{
-$this->title=$title;
-}
+    public function getTitle() {
+        return $this->title;
+    }
 
-function getTitleRelative()
-{
-return $this->titleRelative;
-}
+    public function setTitle($title) {
+        $this->title = $title;
+    }
 
-function setTitleRelative($title)
-{
-$this->titleRelative=$title;
-}
+    public function getTitleRelative() {
+        return $this->titleRelative;
+    }
 
-function getTitleFull()
-{
-return $this->titleFull;
-}
+    public function setTitleRelative($title) {
+        $this->titleRelative = $title;
+    }
 
-function setTitleFull($title)
-{
-$this->titleFull=$title;
-}
+    public function getTitleFull() {
+        return $this->titleFull;
+    }
 
-function &getParent()
-{
-return $this->parent;
-}
+    public function setTitleFull($title) {
+        $this->titleFull = $title;
+    }
 
-function setParent(&$parent)
-{
-$this->parent=&$parent;
-if($parent!=null)
-  $this->parent->child=&$this;
-}
+    public function getParent() {
+        return $this->parent;
+    }
 
-function getParentURI()
-{
-if($this->parent!=null)
-  return $this->parent->getURI();
-else
-  return '';
-}
+    public function setParent(LocationInfo $parent) {
+        $this->parent = $parent;
+        if ($parent != null)
+            $this->parent->child = $this;
+    }
 
-function &getChild()
-{
-return $this->child;
-}
+    public function getParentURI() {
+        if ($this->parent != null)
+            return $this->parent->getURI();
+        else
+            return '';
+    }
 
-function &getOrig()
-{
-return $this->orig;
-}
+    public function getChild() {
+        return $this->child;
+    }
 
-function setOrig(&$orig)
-{
-$this->orig=&$orig;
-}
+    public function getOrig() {
+        return $this->orig;
+    }
 
-function getLinkName()
-{
-return $this->linkName;
-}
+    public function setOrig(LocationInfo $orig) {
+        $this->orig = $orig;
+    }
 
-function setLinkName($linkName)
-{
-$this->linkName=$linkName;
-}
+    public function getLinkName() {
+        return $this->linkName;
+    }
 
-function getLinkId()
-{
-return $this->linkId;
-}
+    public function setLinkName($linkName) {
+        $this->linkName = $linkName;
+    }
 
-function setLinkId($linkId)
-{
-$this->linkId=$linkId;
-}
+    public function getLinkId() {
+        return $this->linkId;
+    }
 
-function getLinkTitle()
-{
-return $this->linkTitle;
-}
+    public function setLinkId($linkId) {
+        $this->linkId = $linkId;
+    }
 
-function setLinkTitle($linkTitle)
-{
-$this->linkTitle=$linkTitle;
-}
+    public function getLinkTitle() {
+        return $this->linkTitle;
+    }
 
-function getLinkIcon()
-{
-return $this->linkIcon;
-}
+    public function setLinkTitle($linkTitle) {
+        $this->linkTitle = $linkTitle;
+    }
 
-function setLinkIcon($linkIcon)
-{
-$this->linkIcon=$linkIcon;
-}
+    public function getLinkIcon() {
+        return $this->linkIcon;
+    }
 
-function &getRoot()
-{
-if($this->parent==null)
-  return $this;
-else
-  return $this->parent->getRoot();
-}
+    public function setLinkIcon($linkIcon) {
+        $this->linkIcon = $linkIcon;
+    }
+
+    public function getRoot() {
+        if ($this->parent == null)
+            return $this;
+        else
+            return $this->parent->getRoot();
+    }
 
 }
 
@@ -305,11 +261,11 @@ class LocationIterator
     private function getBeginning() {
         global $LocationInfo;
 
-        $beginning =& $LocationInfo->getRoot();
+        $beginning = $LocationInfo->getRoot();
         $this->itemCount = 0;
         for ($i = 0; $i < $this->offset && $beginning != null; $i++)
-            $beginning =& $beginning->getChild();
-        for ($p =& $beginning; $p != null; $p =& $p->getChild())
+            $beginning = $beginning->getChild();
+        for ($p = $beginning; $p != null; $p = $p->getChild())
             $this->itemCount++;
         return $beginning;
     }
@@ -321,7 +277,7 @@ class LocationIterator
     public function next() {
         parent::next();
         if ($this->cursor != null)
-            $this->cursor =& $this->cursor->getChild();
+            $this->cursor = $this->cursor->getChild();
     }
 
     public function rewind() {

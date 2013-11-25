@@ -406,7 +406,7 @@ sub run
 {
 print OUT <<EOF;
 <?php
-function &getLocationInfo(\$path,\$redirid=0)
+function getLocationInfo(\$path,\$redirid=0)
 {
 global \$userDomain;
 
