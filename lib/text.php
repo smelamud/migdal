@@ -63,20 +63,18 @@ foreach($lines as $line)
 return $out;
 }
 
-$TextFormats=array(TF_PLAIN => 'Простой текст (без переносов строк)',
-                   TF_TEX => 'Простой текст (с переносами строк)',
-                   TF_XML => 'XML');
+$TextFormats = array(TF_PLAIN => 'Простой текст (без переносов строк)',
+                     TF_TEX   => 'Простой текст (с переносами строк)',
+                     TF_XML   => 'XML');
 
 class TextFormatsIterator
-      extends AssocArrayIterator
-{
+        extends AssocArrayIterator {
 
-function __construct()
-{
-global $TextFormats;
+    public function __construct() {
+        global $TextFormats;
 
-parent::__construct($TextFormats);
-}
+        parent::__construct($TextFormats);
+    }
 
 }
 ?>

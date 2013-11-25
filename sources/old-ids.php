@@ -10,8 +10,8 @@ require_once('lib/old-ids.php');
 dbOpen();
 session();
 header('Content-Type: text/plain');
-$iter=new OldIdsIterator();
-while($item=$iter->next())
-     echo $item->getTableName().' '.$item->getOldId()
-                               .' '.$item->getEntryId()."\n";
+$iter = new OldIdsIterator();
+foreach ($iter as $item)
+    echo $item->getTableName().' '.$item->getOldId()
+                              .' '.$item->getEntryId()."\n";
 dbClose();

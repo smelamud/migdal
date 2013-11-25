@@ -42,21 +42,20 @@ return $this->group_name;
 }
 
 class GroupsIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct()
-{
-parent::__construct('UserGroup',
-		    'select user_id,group_id,users.login as user_name,
-			    gusers.login as group_name
-		     from groups
-			  left join users
-			       on user_id=users.id
-			  left join users as gusers
-			       on group_id=gusers.id
-		     order by gusers.login,users.login');
-}
+    public function __construct() {
+        parent::__construct(
+            'UserGroup',
+            'select user_id,group_id,users.login as user_name,
+                    gusers.login as group_name
+             from groups
+                  left join users
+                       on user_id=users.id
+                  left join users as gusers
+                       on group_id=gusers.id
+             order by gusers.login,users.login');
+    }
 
 }
 

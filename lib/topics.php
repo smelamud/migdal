@@ -143,183 +143,180 @@ return permFilter($right,$prefix,$asGuest);
 }
 
 class TopicIterator
-      extends LimitSelectIterator
-{
+        extends LimitSelectIterator {
 
-function getWhere($grp,$up=0,$prefix='',$recursive=false,$level=1,$index2=-1,
-                  $asGuest=false)
-{
-$hide='and '.topicsPermFilter(PERM_READ,$prefix,$asGuest);
-$parentFilter=$up>=0 ? 'and '.subtree('entries',$up,$recursive,'up') : '';
-$grpFilter=$grp!=GRP_ALL ? 'and '.grpFilter($grp,'grp','entry_grps') : '';
-// TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
-$levelFilter=$level<=1 || $up<0 ? '' : "and entries.id<>$up and up<>$up";
-$index2Filter=$index2<0 ? '' : "and index2=$index2";
-return " where entry=".ENT_TOPIC." $hide $parentFilter $grpFilter $levelFilter
-         $index2Filter ";
-}
+    protected function getWhere($grp, $up = 0, $prefix = '', $recursive = false,
+                                $level = 1, $index2 = -1, $asGuest = false) {
+        $hide = 'and '.topicsPermFilter(PERM_READ, $prefix, $asGuest);
+        $parentFilter = $up >= 0
+                        ? 'and '.subtree('entries', $up, $recursive, 'up')
+                        : '';
+        $grpFilter = $grp != GRP_ALL
+                     ? 'and '.grpFilter($grp, 'grp', 'entry_grps')
+                     : '';
+        // TODO: Levels > 2 are not implemented. strlen(topics.track) must be checked.
+        $levelFilter = $level <= 1
+                       || $up < 0 ? '' : "and entries.id<>$up and up<>$up";
+        $index2Filter = $index2 < 0 ? '' : "and index2=$index2";
+        return " where entry=".ENT_TOPIC." $hide $parentFilter $grpFilter
+                       $levelFilter $index2Filter ";
+    }
 
-function __construct($query,$limit=0,$offset=0)
-{
-parent::__construct('Topic',$query,$limit,$offset);
-}
+    public function __construct($query, $limit = 0, $offset = 0) {
+        parent::__construct('Topic', $query, $limit, $offset);
+    }
 
 }
 
 class TopicListIterator
-      extends TopicIterator
-{
-var $fields;
-var $grp;
-var $asGuest;
+        extends TopicIterator {
 
-function __construct($grp,$up=0,$sort=SORT_SUBJECT,$recursive=false,
-                     $level=1,$fields=SELECT_GENERAL,$index2=-1,
-		     $limit=0,$offset=0,$asGuest=false)
-{
-$this->fields=$fields;
-$this->grp=$grp;
-$this->asGuest=$asGuest;
-/* Select */
-$distinct=$grp!=GRP_ALL ? 'distinct' : '';
-$Select="$distinct entries.id as id,entries.ident as ident,entries.up as up,
-         entries.track as track,entries.catalog as catalog,
-	 entries.subject as subject,entries.comment0 as comment0,
-	 entries.comment0_xml as comment0_xml,entries.comment1 as comment1,
-	 entries.comment1_xml as comment1_xml,entries.body as body,
-	 entries.body_xml as body_xml,entries.body_format as body_format,
-	 entries.user_id as user_id,entries.group_id as group_id,
-	 users.login as login,gusers.login as group_login,
-	 entries.perms as perms,entries.grp as grp,entries.index2 as index2,
-	 entries.answers as answers,entries.last_answer as last_answer";
-/* From */
-$grpTable=$grp!=GRP_ALL ? 'left join entry_grps
-                                on entry_grps.entry_id=entries.id'
-			: '';
-$From="entries
-       left join users
-	    on entries.user_id=users.id
-       left join users as gusers
-	    on entries.group_id=gusers.id
-       $grpTable";
-/* Where */
-$Where=$this->getWhere($grp,$up,'entries.',$recursive,$level,$index2,$asGuest);
-/* Order */
-$Order=getOrderBy($sort,
-       array(SORT_SUBJECT         => 'subject',
-	     SORT_INDEX0          => 'index0',
-	     SORT_RINDEX0         => 'index0 desc',
-	     SORT_INDEX1          => 'index1',
-	     SORT_RINDEX1         => 'index1 desc',
-	     SORT_RINDEX2_RINDEX0 => 'index2 desc,index0 desc'));
-/* Query */
-parent::__construct(
-      "select $Select
-       from $From
-       $Where
-       $Order",$limit,$offset);
-}
+    private $fields;
+    private $grp;
+    private $asGuest;
 
-function create($row)
-{
-$topic=parent::create($row);
-if(($this->fields & SELECT_GRPS)!=0)
-  $topic->setGrps(getGrpsByEntryId($row['id']));
-if(($this->fields & SELECT_INFO)!=0)
-  $topic->setPostingsInfo(getPostingsInfo($this->grp,$row['id'],GRP_NONE,0,
-                                          false,$this->asGuest));
-return $topic;
-}
+    public function __construct($grp, $up = 0, $sort = SORT_SUBJECT,
+            $recursive = false, $level = 1, $fields = SELECT_GENERAL,
+            $index2 = -1, $limit = 0, $offset = 0, $asGuest = false) {
+        $this->fields = $fields;
+        $this->grp = $grp;
+        $this->asGuest = $asGuest;
+        /* Select */
+        $distinct = $grp != GRP_ALL ? 'distinct' : '';
+        $Select = "$distinct entries.id as id,entries.ident as ident,
+                   entries.up as up,entries.track as track,
+                   entries.catalog as catalog,entries.subject as subject,
+                   entries.comment0 as comment0,
+                   entries.comment0_xml as comment0_xml,
+                   entries.comment1 as comment1,
+                   entries.comment1_xml as comment1_xml,entries.body as body,
+                   entries.body_xml as body_xml,
+                   entries.body_format as body_format,
+                   entries.user_id as user_id,entries.group_id as group_id,
+                   users.login as login,gusers.login as group_login,
+                   entries.perms as perms,entries.grp as grp,
+                   entries.index2 as index2,entries.answers as answers,
+                   entries.last_answer as last_answer";
+        /* From */
+        $grpTable = $grp != GRP_ALL ? 'left join entry_grps
+                                            on entry_grps.entry_id=entries.id'
+                                    : '';
+        $From = "entries
+                 left join users
+                      on entries.user_id=users.id
+                 left join users as gusers
+                      on entries.group_id=gusers.id
+                 $grpTable";
+        /* Where */
+        $Where = $this->getWhere($grp, $up, 'entries.', $recursive, $level,
+                                 $index2, $asGuest);
+        /* Order */
+        $Order = getOrderBy($sort,
+                            array(SORT_SUBJECT         => 'subject',
+                                  SORT_INDEX0          => 'index0',
+                                  SORT_RINDEX0         => 'index0 desc',
+                                  SORT_INDEX1          => 'index1',
+                                  SORT_RINDEX1         => 'index1 desc',
+                                  SORT_RINDEX2_RINDEX0 => 'index2 desc,index0 desc'));
+        /* Query */
+        parent::__construct("select $Select
+                             from $From
+                             $Where
+                             $Order",
+                             $limit, $offset);
+    }
+
+    protected function create($row) {
+        $topic = parent::create($row);
+        if (($this->fields & SELECT_GRPS) != 0)
+            $topic->setGrps(getGrpsByEntryId($row['id']));
+        if (($this->fields & SELECT_INFO) != 0)
+            $topic->setPostingsInfo(getPostingsInfo(
+                $this->grp, $row['id'], GRP_NONE, 0, false, $this->asGuest));
+        return $topic;
+    }
 
 }
 
 class TopicNamesIterator
-      extends TopicIterator
-{
-var $names;
-var $up;
-var $delimiter;
+        extends TopicIterator {
 
-function __construct($grp,$up=-1,$recursive=false,$delimiter=' :: ',
-                     $nameRoot=-1,$onlyAppendable=false,
-		     $onlyPostable=false,$asGuest=false)
-{
-$this->nameRoot=$nameRoot;
-$this->delimiter=$delimiter;
+    private $names;
+    private $up;
+    private $delimiter;
 
-$distinct=$grp!=GRP_ALL ? 'distinct' : '';
-$grpTable=$grp!=GRP_ALL ? 'left join entry_grps
-                                on entry_grps.entry_id=entries.id'
-			: '';
-$Where=$this->getWhere($grp,$up,'',$recursive,1,-1,$asGuest);
-if($onlyAppendable)
-  $Where.=' and '.permMask('perms',PERM_UA|PERM_GA|PERM_OA|PERM_EA);
-if($onlyPostable)
-  $Where.=' and '.permMask('perms',PERM_UP|PERM_GP|PERM_OP|PERM_EP);
-parent::__construct("select $distinct id,ident,up,track,catalog,subject
-		     from entries
-		          $grpTable
-		     $Where
-                     order by track");
-}
+    public function __construct($grp, $up = -1, $recursive = false,
+            $delimiter = ' :: ', $nameRoot = -1, $onlyAppendable = false,
+            $onlyPostable = false, $asGuest = false) {
+        $this->nameRoot = $nameRoot;
+        $this->delimiter = $delimiter;
 
-function create($row)
-{
-if($row['id']!=$this->nameRoot)
-  {
-  if($row['up']!=0 && $row['up']!=$this->nameRoot)
-    $row['full_name']=getTopicFullNameById($row['up'],$this->nameRoot,
-                                           $this->delimiter)
-                      .$this->delimiter.$row['subject'];
-  else
-    $row['full_name']=$row['subject'];
-  }
-$topic=parent::create($row);
-setCachedValue('name','entries',$row['id'],$topic);
-return $topic;
-}
+        $distinct = $grp != GRP_ALL ? 'distinct' : '';
+        $grpTable = $grp != GRP_ALL ? 'left join entry_grps
+                                            on entry_grps.entry_id=entries.id'
+                                    : '';
+        $Where = $this->getWhere($grp, $up, '', $recursive, 1, -1, $asGuest);
+        if ($onlyAppendable)
+            $Where .= ' and '.permMask('perms',PERM_UA|PERM_GA|PERM_OA|PERM_EA);
+        if ($onlyPostable)
+            $Where .= ' and '.permMask('perms',PERM_UP|PERM_GP|PERM_OP|PERM_EP);
+        parent::__construct("select $distinct id,ident,up,track,catalog,subject
+                             from entries
+                                  $grpTable
+                             $Where
+                             order by track");
+    }
+
+    protected function create($row) {
+        if ($row['id'] != $this->nameRoot) {
+            if ($row['up'] != 0 && $row['up'] != $this->nameRoot)
+                $row['full_name'] = getTopicFullNameById(
+                                        $row['up'], $this->nameRoot,
+                                        $this->delimiter)
+                                    .$this->delimiter.$row['subject'];
+            else
+                $row['full_name'] = $row['subject'];
+        }
+        $topic = parent::create($row);
+        setCachedValue('name', 'entries', $row['id'], $topic);
+        return $topic;
+    }
 
 }
 
 class SortedTopicNamesIterator
-      extends MArrayIterator
-{
+        extends MArrayIterator {
 
-function __construct($grp,$up=-1,$recursive=false,
-                     $delimiter=' :: ',$nameRoot=-1,
-		     $onlyWritable=false,$onlyPostable=false,
-		     $asGuest=false)
-{
-$iterator=new TopicNamesIterator($grp,$up,$recursive,$delimiter,$nameRoot,
-                                 $onlyWritable,$onlyPostable,$asGuest);
-$topics=array();
-while($item=$iterator->getNext())
-     $topics[$item->getFullName()]=$item;
-// FIXME Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð¿Ñ€Ð¾ÑÑ‚Ð°Ð²Ð»ÑÑ‚ÑŒÑÑ Ð² ÐºÐ¾Ð½Ñ„Ð¸Ð³Ðµ
-setlocale(LC_COLLATE,'ru_RU.KOI8-R');
-uksort($topics,'strcoll');
-parent::__construct($topics);
-}
+    public function __construct($grp, $up = -1, $recursive = false,
+            $delimiter = ' :: ', $nameRoot = -1, $onlyWritable = false,
+            $onlyPostable = false, $asGuest = false) {
+        $iterator = new TopicNamesIterator($grp, $up, $recursive, $delimiter,
+                $nameRoot, $onlyWritable, $onlyPostable, $asGuest);
+        $topics = array();
+        foreach ($iterator as $item)
+            $topics[$item->getFullName()] = $item;
+        // FIXME ÄÏÌÖÎÏ ÐÒÏÓÔÁ×ÌÑÔØÓÑ × ËÏÎÆÉÇÅ
+        setlocale(LC_COLLATE, 'ru_RU.KOI8-R');
+        uksort($topics, 'strcoll');
+        parent::__construct($topics);
+    }
 
 }
 
 class TopicHierarchyIterator
-      extends MArrayIterator
-{
+        extends MArrayIterator {
 
-function __construct($topic_id,$root=-1,$reverse=false)
-{
-$topics=array();
-for($id=idByIdent($topic_id);$id>0 && $id!=$root;)
-   {
-   $topic=getTopicById($id);
-   $topics[]=$topic;
-   $id=$topic->getUpValue();
-   }
-if(!$reverse)
-  $topics=array_reverse($topics);
-parent::__construct($topics);
-}
+    public function __construct($topic_id, $root = -1, $reverse = false) {
+        $topics = array();
+        for ($id = idByIdent($topic_id); $id > 0 && $id != $root;) {
+            $topic = getTopicById($id);
+            $topics[] = $topic;
+            $id = $topic->getUpValue();
+        }
+        if (!$reverse)
+            $topics = array_reverse($topics);
+        parent::__construct($topics);
+    }
 
 }
 

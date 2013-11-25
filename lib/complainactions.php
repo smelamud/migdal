@@ -82,15 +82,13 @@ return $result;
 }
 
 class ComplainActionListIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct()
-{
-parent::__construct('ComplainAction',
-		    'select id,name
-		     from complain_actions');
-}
+    public function __construct() {
+        parent::__construct('ComplainAction',
+                            'select id,name
+                             from complain_actions');
+    }
 
 }
 

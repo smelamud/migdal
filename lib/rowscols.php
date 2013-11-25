@@ -4,41 +4,29 @@
 require_once('lib/iterator.php');
 
 class RowsIterator
-      extends MIterator
-{
-var $iterator;
-var $cols;
+        extends MForwardIterator {
 
-function __construct($iterator,$cols)
-{
-parent::__construct();
-$this->iterator=$iterator;
-$this->cols=$cols;
-}
+    private $cols;
 
-function isEol()
-{
-return ($this->iterator->getPosition() % $this->cols)==$this->cols-1;
-}
+    public function __construct(MIterator $iterator, $cols) {
+        parent::__construct($iterator);
+        $this->cols = $cols;
+    }
 
-function getNext()
-{
-parent::getNext();
-return $this->iterator->getNext();
-}
+    public function isEol() {
+        return $this->iterator->getPosition() % $this->cols == $this->cols - 1;
+    }
 
 }
 
 class FixedRowsIterator
-      extends RowsIterator
-{
+        extends RowsIterator {
 
-function __construct($iterator,$rows,$minCols)
-{
-$cols=ceil($iterator->getCount()/$rows);
-$cols=$cols<$minCols ? $minCols : $cols;
-parent::__construct($iterator,$cols);
-}
+    public function __construct(MIterator $iterator, $rows, $minCols) {
+        $cols = ceil($iterator->getCount() / $rows);
+        $cols = $cols < $minCols ? $minCols : $cols;
+        parent::__construct($iterator, $cols);
+    }
 
 }
 ?>

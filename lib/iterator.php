@@ -1,56 +1,89 @@
 <?php
 # @(#) $Id$
 
-abstract class MIterator implements Iterator {
+abstract class MIterator
+        implements Iterator {
 
-    protected $iPosition;
-    protected $iCurrent;
+    private $position;
 
     public function __construct() {
-        $this->iPosition = -1;
-        $this->iCurrent = 0;
+        $this->position = -1;
     }
 
     public function isFirst() {
-        return $this->iPosition <= 0;
+        return $this->position <= 0;
     }
 
     public function isOdd() {
-        return $this->iPosition < 0 || $this->iPosition % 2 == 0;
-    }
-
-    public function getNext() {
-        $this->iPosition++;
-        return 0;
+        return $this->position < 0 || $this->position % 2 == 0;
     }
 
     public function getPosition() {
-        return $this->iPosition;
+        return $this->position;
     }
 
     public function getNextPosition() {
-        return $this->iPosition + 1;
+        return $this->position + 1;
     }
 
-    public function current() {
-        return $this->iCurrent;
-    }
+    public abstract function current();
 
     public function key() {
         return $this->getPosition();
     }
 
     public function next() {
-        $this->iCurrent = $this->getNext();
+        $this->position++;
     }
 
     public function rewind() {
-        $this->iPosition = -1;
-        $this->iCurrent = $this->getNext();
+        $this->position = 0;
+    }
+
+    public abstract function valid();
+
+}
+
+trait CountableIterator {
+
+    public abstract function count();
+
+    public function getCount() {
+        return $this->count();
+    }
+
+    public function isLast() {
+        return $this->getPosition() >= $this->getCount() - 1;
+    }
+
+}
+
+class MForwardIterator
+        extends MIterator {
+
+    protected $iterator;
+
+    public function __construct(Iterator $iterator) {
+        parent::__construct();
+        $this->iterator = $iterator;
+    }
+
+    public function current() {
+        return $this->iterator->current();
+    }
+
+    public function next() {
+        parent::next();
+        $this->iterator->next();
+    }
+
+    public function rewind() {
+        parent::rewind();
+        $this->iterator->rewind();
     }
 
     public function valid() {
-        return !($this->iCurrent);
+        return $this->iterator->valid();
     }
 
 }

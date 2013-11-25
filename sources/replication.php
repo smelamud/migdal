@@ -21,10 +21,10 @@ clearJournal();
 noCacheHeaders();
 header("Content-Type: $replicationType");
 $iter=new JournalIterator($from);
-while($line=$iter->next())
-     echo $line->getId()."\t".$line->getSeq().
-          "\t".$line->getResultTableTransfer()."\t".$line->getResultId().
-	  "\t".$line->getResultVar()."\t".$line->getQueryTransfer()."\n";
+foreach($iter as $line)
+       echo $line->getId()."\t".$line->getSeq().
+            "\t".$line->getResultTableTransfer()."\t".$line->getResultId().
+            "\t".$line->getResultVar()."\t".$line->getQueryTransfer()."\n";
 
 dbClose();
 ?>

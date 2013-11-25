@@ -4,94 +4,74 @@
 require_once('lib/iterator.php');
 
 class MArrayIterator
-      extends MIterator
-{
-var $vars;
+        extends MForwardIterator
+        implements Countable {
 
-function __construct($vars)
-{
-parent::__construct();
-$this->vars=$vars;
-reset($this->vars);
-}
+    use CountableIterator;
 
-function create($key,$value)
-{
-return $value;
-}
+    public function __construct(array $vars) {
+        parent::__construct(new ArrayIterator($vars));
+    }
 
-function getNext()
-{
-parent::getNext();
-$key=key($this->vars);
-$val=current($this->vars);
-next($this->vars);
-return $val ? $this->create($key,$val) : $val;
-}
+    protected function create($key, $value) {
+        return $value;
+    }
 
-function getCount()
-{
-return count($this->vars);
-}
+    public function current() {
+        return $this->create($this->iterator->key(),
+                             $this->iterator->current());
+    }
 
-function isLast()
-{
-return !(boolean)current($this->vars);
-}
+    public function count() {
+        return $this->iterator->count();
+    }
 
 }
 
 class SortedArrayIterator
-      extends MArrayIterator
-{
+        extends MArrayIterator {
 
-function __construct($vars)
-{
-sort($vars);
-$vars=array_unique($vars);
-parent::__construct($vars);
-}
+    public function __construct(array $vars) {
+        sort($vars);
+        $vars = array_unique($vars);
+        parent::__construct($vars);
+    }
 
 }
 
-class Association
-{
-var $name;
-var $value;
+class Association {
 
-function __construct($name,$value)
-{
-$this->name=$name;
-$this->value=$value;
-}
+    private $name;
+    private $value;
 
-function getName()
-{
-return $this->name;
-}
+    public function __construct($name, $value) {
+        $this->name = $name;
+        $this->value = $value;
+    }
 
-function getValue()
-{
-return $this->value;
-}
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getValue() {
+        return $this->value;
+    }
 
 }
 
 class AssocArrayIterator
-      extends MArrayIterator
-{
-var $class;
+        extends MArrayIterator {
 
-function __construct($vars,$class='Association')
-{
-parent::__construct($vars);
-$this->class=$class;
-}
+    private $class;
 
-function create($key,$value)
-{
-return new $this->class($key,$value);
-}
+    public function __construct(array $vars, $class = 'Association') {
+        parent::__construct($vars);
+        $this->class = $class;
+    }
+
+    protected function create($key, $value) {
+        return new $this->class($key, $value);
+    }
 
 }
 ?>

@@ -81,15 +81,14 @@ return count($ids)>0 ? (int)$ids[0] : 0;
 }
 
 class RandomPostingsIterator
-      extends MArrayIterator
-{
+        extends MArrayIterator {
 
-function __construct($limit,$grp=GRP_ALL,$topic_id=-1,$user_id=0,
-                     $index1=-1,$asGuest=false)
-{
-parent::__construct(getRandomPostingIds($limit,$grp,$topic_id,$user_id,
-                                        $index1,$asGuest));
-}
+    public function __construct($limit, $grp = GRP_ALL, $topic_id = -1,
+            $user_id=0, $index1 = -1, $asGuest = false) {
+        parent::__construct(
+            getRandomPostingIds($limit, $grp, $topic_id, $user_id, $index1,
+                                $asGuest));
+    }
 
 }
 ?>

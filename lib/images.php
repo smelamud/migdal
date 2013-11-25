@@ -50,27 +50,26 @@ $this->large_image_filename=$vars['large_image_filename'];
 }
 
 class ImagesIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct($postid)
-{
-// Показываем все нижестоящие entries, в которых есть картинка, не обязательно
-// типа ENT_IMAGE
-parent::__construct('Entry',
-		    "select id,ident,entry,up,track,catalog,parent_id,
-			    orig_id,user_id,group_id,perms,disabled,title,
-			    title_xml,body_format,sent,created,modified,
-			    accessed,small_image,small_image_x,small_image_y,
-			    large_image,large_image_x,large_image_y,
-			    large_image_size,large_image_format,
-			    large_image_filename,count(entry_id) as inserted
-		     from entries
-			  left join inner_images
-			       on entries.id=image_id
-		     where up=$postid and small_image<>0
-		     group by id");
-}
+    public function __construct($postid) {
+        // Показываем все нижестоящие entries, в которых есть картинка, не обязательно
+        // типа ENT_IMAGE
+        parent::__construct(
+            'Entry',
+            "select id,ident,entry,up,track,catalog,parent_id,
+                    orig_id,user_id,group_id,perms,disabled,title,
+                    title_xml,body_format,sent,created,modified,
+                    accessed,small_image,small_image_x,small_image_y,
+                    large_image,large_image_x,large_image_y,
+                    large_image_size,large_image_format,
+                    large_image_filename,count(entry_id) as inserted
+             from entries
+                  left join inner_images
+                       on entries.id=image_id
+             where up=$postid and small_image<>0
+             group by id");
+    }
 
 }
 

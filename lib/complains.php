@@ -63,36 +63,34 @@ return $this->person_id!=0;
 }
 
 class ComplainListIterator
-      extends LimitSelectIterator
-{
+        extends LimitSelectIterator {
 
-function __construct($limit=20,$offset=0)
-{
-parent::__construct(
-       'Complain',
-       'select entries.id as id,subject,body_format,sent,
-               entries.created as created,entries.modified as modified,
-               user_id,group_id,perms,person_id,disabled,modbits,
-	       users.login as login,users.gender as gender,users.email as email,
-	       users.hide_email as hide_email,users.hidden as user_hidden,
-	       person.login as person_login,person.gender as person_gender,
-	       person.email as person_email,
-	       person.hide_email as person_hide_email,
-	       person.hidden as person_hidden,
-	       answers,last_answer,last_answer_id,last_answer_user_id,
-	       last_answer_guest_login
-        from entries
-	     left join users
-		  on entries.user_id=users.id
-	     left join users as person
-		  on entries.person_id=person.id
-	where entry='.ENT_COMPLAIN.'
-        order by (modbits & '.MODC_CLOSED.')<>0 asc,sent desc',
-       $limit,$offset,
-       'select count(*)
-        from entries
-	where entry='.ENT_COMPLAIN);
-}
+    public function __construct($limit = 20, $offset = 0) {
+        parent::__construct(
+            'Complain',
+            'select entries.id as id,subject,body_format,sent,
+                    entries.created as created,entries.modified as modified,
+                    user_id,group_id,perms,person_id,disabled,modbits,
+                    users.login as login,users.gender as gender,
+                    users.email as email,users.hide_email as hide_email,
+                    users.hidden as user_hidden,person.login as person_login,
+                    person.gender as person_gender,person.email as person_email,
+                    person.hide_email as person_hide_email,
+                    person.hidden as person_hidden,
+                    answers,last_answer,last_answer_id,last_answer_user_id,
+                    last_answer_guest_login
+             from entries
+                  left join users
+                       on entries.user_id=users.id
+                  left join users as person
+                       on entries.person_id=person.id
+             where entry='.ENT_COMPLAIN.'
+             order by (modbits & '.MODC_CLOSED.')<>0 asc,sent desc',
+             $limit,$offset,
+            'select count(*)
+             from entries
+             where entry='.ENT_COMPLAIN);
+    }
 
 }
 

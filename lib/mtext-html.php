@@ -450,17 +450,17 @@ function getImageBlocks(&$iterator)
 $blocks=array();
 if(is_null($iterator))
   return $blocks;
-while($image=$iterator->getNext())
-     {
-     $par=$image->getPar();
-     if(!isset($blocks[$par]))
-       $blocks[$par]=new InnerImageBlock();
-     $block=&$blocks[$par];
-     $block->images[]=$image;
-     $block->sizeX=max($block->sizeX,$image->getX()+1);
-     $block->sizeY=max($block->sizeY,$image->getY()+1);
-     $block->placement=$image->getPlacement();
-     }
+foreach($iterator as $image)
+       {
+       $par=$image->getPar();
+       if(!isset($blocks[$par]))
+         $blocks[$par]=new InnerImageBlock();
+       $block=&$blocks[$par];
+       $block->images[]=$image;
+       $block->sizeX=max($block->sizeX,$image->getX()+1);
+       $block->sizeY=max($block->sizeY,$image->getY()+1);
+       $block->placement=$image->getPlacement();
+       }
 return $blocks;
 }
 

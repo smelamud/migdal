@@ -71,54 +71,49 @@ return $this->search_data;
 }
 
 class PrisonerListIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct($prefix,$sort=SORT_NAME)
-{
-$sortFields=array(SORT_NAME         => 'name',
-		  SORT_NAME_RUSSIAN => 'name_russian',
-		  SORT_LOCATION     => 'location',
-		  SORT_GHETTO_NAME  => 'ghetto_name',
-		  SORT_SENDER_NAME  => 'sender_name');
-if($prefix!='')
-  {
-  $prefixS=addslashes($prefix);
-  $sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'name';
-  $fieldFilter="$sortField like '$prefixS%'";
-  }
-else
-  $fieldFilter='';
-$order=getOrderBy($sort, $sortFields);
-parent::__construct(
-	'Prisoner',
-	"select id,name,name_russian,location,ghetto_name,sender_name,sum,
-	        search_data
-	 from prisoners
-	 where $fieldFilter
-	 $order");
-}
+    public function __construct($prefix, $sort = SORT_NAME) {
+        $sortFields = array(SORT_NAME         => 'name',
+                            SORT_NAME_RUSSIAN => 'name_russian',
+                            SORT_LOCATION     => 'location',
+                            SORT_GHETTO_NAME  => 'ghetto_name',
+                            SORT_SENDER_NAME  => 'sender_name');
+        if ($prefix != '') {
+            $prefixS = addslashes($prefix);
+            $sortField = @$sortFields[$sort] != '' ? $sortFields[$sort]
+                                                   : 'name';
+            $fieldFilter = "$sortField like '$prefixS%'";
+        } else
+            $fieldFilter = '';
+        $order = getOrderBy($sort, $sortFields);
+        parent::__construct(
+            'Prisoner',
+            "select id,name,name_russian,location,ghetto_name,sender_name,sum,
+                    search_data
+             from prisoners
+             where $fieldFilter
+             $order");
+    }
 
 }
 
 class PrisonerAlphabetIterator
-      extends AlphabetIterator
-{
+        extends AlphabetIterator {
 
-function __construct($limit=0,$sort=SORT_NAME)
-{
-$fields=array(SORT_NAME         => 'name',
-	      SORT_NAME_RUSSIAN => 'name_russian',
-	      SORT_LOCATION     => 'location',
-	      SORT_GHETTO_NAME  => 'ghetto_name',
-	      SORT_SENDER_NAME  => 'sender_name');
-$field=@$fields[$sort]!='' ? $fields[$sort] : 'name';
-$order=getOrderBy($sort,$fields);
-parent::__construct("select left($field,@len@) as letter,1 as count
-		     from prisoners
-		     where $field<>'' and $field like '@prefix@%'
-		     $order",$limit);
-}
+    public function __construct($limit = 0, $sort = SORT_NAME) {
+        $fields = array(SORT_NAME         => 'name',
+                        SORT_NAME_RUSSIAN => 'name_russian',
+                        SORT_LOCATION     => 'location',
+                        SORT_GHETTO_NAME  => 'ghetto_name',
+                        SORT_SENDER_NAME  => 'sender_name');
+        $field = @$fields[$sort] != '' ? $fields[$sort] : 'name';
+        $order = getOrderBy($sort, $fields);
+        parent::__construct("select left($field,@len@) as letter,1 as count
+                             from prisoners
+                             where $field<>'' and $field like '@prefix@%'
+                             $order", $limit);
+    }
 
 }
 

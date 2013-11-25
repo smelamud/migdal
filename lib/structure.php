@@ -286,42 +286,58 @@ else
 }
 
 class LocationIterator
-      extends MIterator
-{
-var $current;
-var $count;
+        extends MIterator
+        implements Countable {
 
-function __construct($offset=0)
-{
-global $LocationInfo;
+    use CountableIterator;
 
-parent::__construct();
-$this->current=&$LocationInfo->getRoot();
-$this->count=0;
-for($i=0;$i<$offset && $this->current!=null;$i++)
-   $this->current=&$this->current->getChild();
-for($p=&$this->current;$p!=null;$p=&$p->getChild())
-   $this->count++;
-}
+    private $offset;
+    private $cursor;
+    private $itemCount;
 
-function getCount()
-{
-return $this->count;
-}
+    public function __construct($offset = 0) {
+        parent::__construct();
+        $this->offset = $offset;
+        $this->cursor = null;
+        $this->itemCount = -1;
+    }
 
-function isLast()
-{
-return $this->current==null;
-}
+    private function getBeginning() {
+        global $LocationInfo;
 
-function getNext()
-{
-parent::getNext();
-$result=&$this->current;
-if($this->current!=null)
-  $this->current=&$this->current->getChild();
-return $result;
-}
+        $beginning =& $LocationInfo->getRoot();
+        $this->itemCount = 0;
+        for ($i = 0; $i < $this->offset && $beginning != null; $i++)
+            $beginning =& $beginning->getChild();
+        for ($p =& $beginning; $p != null; $p =& $p->getChild())
+            $this->itemCount++;
+        return $beginning;
+    }
+
+    public function current() {
+        return $this->cursor;
+    }
+
+    public function next() {
+        parent::next();
+        if ($this->cursor != null)
+            $this->cursor =& $this->cursor->getChild();
+    }
+
+    public function rewind() {
+        parent::rewind();
+        $this->cursor = $this->getBeginning();
+    }
+
+    public function valid() {
+        $this->cursor != null;
+    }
+
+    public function count() {
+        if ($this->itemCount < 0)
+            $this->getBeginning();
+        return $this->itemCount;
+    }
 
 }
 ?>

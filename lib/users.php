@@ -400,102 +400,97 @@ return !empty($this->last_message) ? strtotime($this->last_message) : 0;
 }
 
 class UserListIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct($prefix,$sort=SORT_LOGIN,$right=USR_NONE)
-{
-global $userAdminUsers;
+    public function __construct($prefix, $sort = SORT_LOGIN,
+                                $right = USR_NONE) {
+        global $userAdminUsers;
 
-$now=sqlNow();
-$hide=$userAdminUsers ? 2 : 1;
-$sortFields=array(SORT_LOGIN       => 'login',
-		  SORT_NAME        => 'name',
-		  SORT_JEWISH_NAME => 'if(jewish_name<>"",jewish_name,name)',
-		  SORT_SURNAME     => 'surname');
-if($prefix!='')
-  {
-  $prefixS=addslashes($prefix);
-  $sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login';
-  $fieldFilter="and ($sortField like '$prefixS%')";
-  }
-else
-  $fieldFilter='';
-$rightFilter=$right!=USR_NONE ? "and (rights & $right)<>0" : '';
-$order=getOrderBy($sort,
-                  array(SORT_LOGIN       => 'login',
-		        SORT_NAME        => 'name,surname',
-		        SORT_JEWISH_NAME => 'if(jewish_name<>"",
-			                        jewish_name,name),
-					     surname',
-		        SORT_SURNAME     => 'surname,name'));
-parent::__construct(
-	'User',
-	"select id,login,name,jewish_name,surname,gender,birthday,rights,email,
-	        hide_email,icq,last_online,
-		if(last_online+interval 1 hour>'$now',1,0) as online,
-		floor((unix_timestamp('$now')
-		       -unix_timestamp(last_online))/60) as last_minutes,
-		confirm_deadline is null as confirmed,
-		floor((unix_timestamp(confirm_deadline)
-		       -unix_timestamp('$now'))/86400) as confirm_days
-	 from users
-	 where hidden<$hide $fieldFilter $rightFilter
-	 $order");
-}
+        $now = sqlNow();
+        $hide = $userAdminUsers ? 2 : 1;
+        $sortFields = array(SORT_LOGIN       => 'login',
+                            SORT_NAME        => 'name',
+                            SORT_JEWISH_NAME => 'if(jewish_name<>"",jewish_name,name)',
+                            SORT_SURNAME     => 'surname');
+        if ($prefix != '') {
+            $prefixS = addslashes($prefix);
+            $sortField = @$sortFields[$sort] != '' ? $sortFields[$sort]
+                                                   : 'login';
+            $fieldFilter = "and ($sortField like '$prefixS%')";
+        } else
+            $fieldFilter = '';
+        $rightFilter = $right != USR_NONE ? "and (rights & $right)<>0" : '';
+        $order = getOrderBy($sort,
+                            array(SORT_LOGIN       => 'login',
+                                  SORT_NAME        => 'name,surname',
+                                  SORT_JEWISH_NAME => 'if(jewish_name<>"",
+                                                          jewish_name,name),
+                                                       surname',
+                                  SORT_SURNAME     => 'surname,name'));
+        parent::__construct(
+            'User',
+            "select id,login,name,jewish_name,surname,gender,birthday,rights,
+                    email,hide_email,icq,last_online,
+                    if(last_online+interval 1 hour>'$now',1,0) as online,
+                    floor((unix_timestamp('$now')
+                           -unix_timestamp(last_online))/60) as last_minutes,
+                    confirm_deadline is null as confirmed,
+                    floor((unix_timestamp(confirm_deadline)
+                           -unix_timestamp('$now'))/86400) as confirm_days
+             from users
+             where hidden<$hide $fieldFilter $rightFilter
+             $order");
+    }
 
 }
 
 class UserAlphabetIterator
-      extends AlphabetIterator
-{
+        extends AlphabetIterator {
 
-function __construct($limit=0,$sort=SORT_LOGIN)
-{
-global $userAdminUsers;
+    public function __construct($limit = 0, $sort = SORT_LOGIN) {
+        global $userAdminUsers;
 
-$hide=$userAdminUsers ? 2 : 1;
-$fields=array(SORT_LOGIN       => 'login',
-	      SORT_NAME        => 'name',
-	      SORT_JEWISH_NAME => 'if(jewish_name<>"",jewish_name,name)',
-	      SORT_SURNAME     => 'surname');
-$field=@$fields[$sort]!='' ? $fields[$sort] : 'login';
-$sortFields=array(SORT_LOGIN       => 'login',
-		  SORT_NAME        => 'name',
-		  SORT_JEWISH_NAME => 'if(jewish_name<>"",
-			                  jewish_name,name)',
-		  SORT_SURNAME     => 'surname');
-$sortField=@$sortFields[$sort]!='' ? $sortFields[$sort] : 'login';
-$order=getOrderBy($sort,$sortFields);
-parent::__construct("select left($field,@len@) as letter,1 as count
-		     from users
-		     where hidden<$hide and guest=0
-			   and $sortField like '@prefix@%'
-		     $order",$limit);
-}
+        $hide = $userAdminUsers ? 2 : 1;
+        $fields = array(SORT_LOGIN       => 'login',
+                        SORT_NAME        => 'name',
+                        SORT_JEWISH_NAME => 'if(jewish_name<>"",jewish_name,name)',
+                        SORT_SURNAME     => 'surname');
+        $field = @$fields[$sort] != '' ? $fields[$sort] : 'login';
+        $sortFields = array(SORT_LOGIN       => 'login',
+                            SORT_NAME        => 'name',
+                            SORT_JEWISH_NAME => 'if(jewish_name<>"",
+                                                    jewish_name,name)',
+                            SORT_SURNAME     => 'surname');
+        $sortField = @$sortFields[$sort] != '' ? $sortFields[$sort] : 'login';
+        $order = getOrderBy($sort, $sortFields);
+        parent::__construct("select left($field,@len@) as letter,1 as count
+                             from users
+                             where hidden<$hide and guest=0
+                                   and $sortField like '@prefix@%'
+                             $order",
+                            $limit);
+    }
 
 }
 
 class UsersNowIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct($period)
-{
-global $userAdminUsers;
+    public function __construct($period) {
+        global $userAdminUsers;
 
-$now=sqlNow();
-$hide=$userAdminUsers ? 2 : 1;
-parent::__construct('User',
-		    "select distinct users.id as id,login,gender,email,
-			    hide_email,hidden
-		     from users
-			  inner join sessions
-				on sessions.user_id=users.id
-		     where last+interval $period minute>'$now'
-			   and hidden<$hide
-		     order by last desc");
-}
+        $now = sqlNow();
+        $hide = $userAdminUsers ? 2 : 1;
+        parent::__construct(
+                'User',
+                "select distinct users.id as id,login,gender,email,
+                                 hide_email,hidden
+                 from users
+                      inner join sessions
+                            on sessions.user_id=users.id
+                 where last+interval $period minute>'$now' and hidden<$hide
+                 order by last desc");
+    }
 
 }
 

@@ -399,153 +399,146 @@ return $Filter;
 }
 
 class PostingListIterator
-      extends LimitSelectIterator
-{
-var $fields;
-var $where;
+        extends LimitSelectIterator {
 
-function __construct($grp,$topic_id=-1,$recursive=false,$limit=10,
-		     $offset=0,$person_id=-1,$sort=SORT_SENT,
-		     $withAnswers=GRP_NONE,$user=0,$index1=-1,$later=0,
-		     $up=-1,$showShadows=true,$fields=SELECT_GENERAL,
-		     $modbits=MOD_NONE,$hidden=-1,$disabled=-1,
-		     $prefix='',$withIdent=false,$earlier=0,
-		     $asGuest=false)
-{
-if($sort==SORT_CTR)
-  $fields|=SELECT_CTR;
-$this->fields=$fields;
+    private $fields;
+    private $where;
 
-$Select=$showShadows ? postingListFields($this->fields)
-		     : 'distinct entries.orig_id';
-$SelectCount=$showShadows ? 'count(*)'
-		          : 'count(distinct entries.orig_id)';
-$From=postingListTables($this->fields,$sort);
-$this->where=postingListFilter($grp,$topic_id,$recursive,$person_id,$sort,
-                               $withAnswers,$user,$index1,$later,$up,$fields,
-			       $modbits,$hidden,$disabled,$prefix,$withIdent,
-			       $earlier,$asGuest);
-$Order=getOrderBy($sort,
-       array(SORT_SENT       => 'entries.sent desc',
-             SORT_NAME       => 'entries.subject',
-             SORT_ACTIVITY   => 'if(entries.answers!=0,entries.last_answer,entries.sent) desc',
-	     SORT_CTR        => 'hidden asc,co_ctr asc,counter_value0 asc',
-	     SORT_INDEX0     => 'entries.index0',
-	     SORT_INDEX1     => 'entries.index1',
-	     SORT_RINDEX1    => 'entries.index1 desc',
-	     SORT_RATING     => 'entries.rating desc,entries.vote_count desc,
-	                         entries.sent desc',
-	     SORT_URL_DOMAIN => 'entries.url_domain,entries.url',
-	     SORT_TOPIC_INDEX0_INDEX0
-	                     => 'topics.index0,entries.index0',
-             SORT_RSENT      => 'entries.sent asc'));
-parent::__construct('Posting',
-		    "select $Select
-		     from $From
-		     where {$this->where}
-		     $Order",
-		    $limit,$offset,
-		    "select $SelectCount
-		     from $From
-		     where {$this->where}");
-}
+    public function __construct($grp, $topic_id = -1, $recursive = false,
+            $limit = 10, $offset = 0, $person_id = -1, $sort = SORT_SENT,
+            $withAnswers = GRP_NONE, $user = 0, $index1 = -1, $later = 0,
+            $up = -1, $showShadows = true, $fields = SELECT_GENERAL,
+            $modbits = MOD_NONE, $hidden = -1, $disabled = -1, $prefix = '',
+            $withIdent = false, $earlier = 0, $asGuest = false) {
+        if ($sort == SORT_CTR)
+            $fields |= SELECT_CTR;
+        $this->fields = $fields;
 
-function create($row)
-{
-if((!isset($row['id']) || $row['id']<=0) && $row['orig_id']>0)
-  {
-  $Select=postingListFields($this->fields);
-  $From=postingListTables($this->fields);
-  $Where="{$this->where} and entries.orig_id={$row['orig_id']}";
-  $result=sql("select $Select
-               from $From
-	       where $Where
-	       order by entries.id",
-	      __FUNCTION__,'shadow');
-  $shadow=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
-  $row=array_merge($row,$shadow);
-  }
-if($row['id']!=$row['orig_id'])
-  {
-  $Select=origFields($this->fields);
-  $From=origTables($this->fields);
-  $Where="entries.id={$row['orig_id']}";
-  $result=sql("select $Select
-               from $From
-	       where $Where",
-	      __FUNCTION__,'original');
-  $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
-  $row=array_merge($row,$orig);
-  }
-if($row['id']>0)
-  {
-  if($row['ident']!='')
-    setCachedValue('ident','entries',$row['ident'],$row['id']);
-  setCachedValue('track','entries',$row['id'],$row['track']);
-  setCachedValue('catalog','entries',$row['id'],$row['catalog']);
-  }
-$posting=parent::create($row);
-if($row['id']>0)
-  setCachedValue('obj','entries',$id,$posting);
-return $posting;
-}
+        $Select = $showShadows ? postingListFields($this->fields)
+                               : 'distinct entries.orig_id';
+        $SelectCount = $showShadows ? 'count(*)'
+                                    : 'count(distinct entries.orig_id)';
+        $From = postingListTables($this->fields, $sort);
+        $this->where = postingListFilter($grp, $topic_id, $recursive,
+                $person_id, $sort, $withAnswers, $user, $index1, $later, $up,
+                $fields, $modbits, $hidden, $disabled, $prefix, $withIdent,
+                $earlier, $asGuest);
+        $Order = getOrderBy($sort,
+            array(SORT_SENT       => 'entries.sent desc',
+                  SORT_NAME       => 'entries.subject',
+                  SORT_ACTIVITY   => 'if(entries.answers!=0,entries.last_answer,entries.sent) desc',
+                  SORT_CTR        => 'hidden asc,co_ctr asc,counter_value0 asc',
+                  SORT_INDEX0     => 'entries.index0',
+                  SORT_INDEX1     => 'entries.index1',
+                  SORT_RINDEX1    => 'entries.index1 desc',
+                  SORT_RATING     => 'entries.rating desc,entries.vote_count desc,
+                                      entries.sent desc',
+                  SORT_URL_DOMAIN => 'entries.url_domain,entries.url',
+                  SORT_TOPIC_INDEX0_INDEX0
+                                  => 'topics.index0,entries.index0',
+                  SORT_RSENT      => 'entries.sent asc'));
+        parent::__construct('Posting',
+                            "select $Select
+                             from $From
+                             where {$this->where}
+                             $Order",
+                            $limit, $offset,
+                            "select $SelectCount
+                             from $From
+                             where {$this->where}");
+    }
+
+    protected function create($row) {
+        if ((!isset($row['id']) || $row['id'] <= 0) && $row['orig_id'] > 0) {
+            $Select = postingListFields($this->fields);
+            $From = postingListTables($this->fields);
+            $Where = "{$this->where} and entries.orig_id={$row['orig_id']}";
+            $result = sql("select $Select
+                           from $From
+                           where $Where
+                           order by entries.id",
+                          __FUNCTION__, 'shadow');
+            $shadow = mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result)
+                                                  : array();
+            $row = array_merge($row, $shadow);
+        }
+        if ($row['id'] != $row['orig_id']) {
+            $Select = origFields($this->fields);
+            $From = origTables($this->fields);
+            $Where = "entries.id={$row['orig_id']}";
+            $result = sql("select $Select
+                           from $From
+                           where $Where",
+                          __FUNCTION__, 'original');
+            $orig = mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result)
+                                                : array();
+            $row=array_merge($row,$orig);
+        }
+        if ($row['id'] > 0) {
+            if ($row['ident'] != '')
+                setCachedValue('ident', 'entries', $row['ident'], $row['id']);
+            setCachedValue('track', 'entries', $row['id'], $row['track']);
+            setCachedValue('catalog', 'entries', $row['id'], $row['catalog']);
+        }
+        $posting = parent::create($row);
+        if ($row['id'] > 0)
+            setCachedValue('obj', 'entries', $id, $posting);
+        return $posting;
+    }
 
 }
 
 class PostingUsersIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct($grp=GRP_ALL,$topic_id=-1,$recursive=false,
-		     $asGuest=false)
-{
-$hide=postingsPermFilter(PERM_READ,'entries',$asGuest);
-$grpFilter=postingListGrpFilter($grp);
-$topicFilter=postingListTopicFilter($topic_id,$recursive);
-parent::__construct(
-       'User',
-       "select distinct users.id as id,login,gender,email,hide_email,
-                        users.hidden as user_hidden,users.name as name,
-			jewish_name,surname
-        from users
-	     left join entries
-	          on entries.user_id=users.id
-	where $hide and $grpFilter and $topicFilter
-	order by surname,jewish_name,name");
-}
+    public function __construct($grp = GRP_ALL, $topic_id = -1,
+                                $recursive = false, $asGuest = false) {
+        $hide = postingsPermFilter(PERM_READ, 'entries', $asGuest);
+        $grpFilter = postingListGrpFilter($grp);
+        $topicFilter = postingListTopicFilter($topic_id, $recursive);
+        parent::__construct(
+               'User',
+               "select distinct users.id as id,login,gender,email,hide_email,
+                                users.hidden as user_hidden,users.name as name,
+                                jewish_name,surname
+                from users
+                     left join entries
+                          on entries.user_id=users.id
+                where $hide and $grpFilter and $topicFilter
+                order by surname,jewish_name,name");
+    }
 
 }
 
 class PostingAlphabetIterator
-      extends AlphabetIterator
-{
+        extends AlphabetIterator {
 
-function __construct($limit=0,$sort=SORT_URL_DOMAIN,$topic_id=-1,
-                     $recursive=false,$grp=GRP_ALL,
-		     $showShadows=false)
-{
-$hide='and '.postingsPermFilter(PERM_READ);
-$fields=array(SORT_NAME       => 'subject',
-	      SORT_URL_DOMAIN => 'url_domain');
-$field=@$fields[$sort]!='' ? $fields[$sort] : 'url';
-$prefixFilters=array(SORT_NAME       => "and subject like '@prefix@%'",
-	             SORT_URL_DOMAIN => "and url_domain like '@prefix@%'
-		                         and url_domain<>''");
-$prefixFilter=@$prefixFilters[$sort]!='' ? $prefixFilters[$sort]
-                                         : " and url like '@prefix@%'";
-$order=getOrderBy($sort,
-                  array(SORT_NAME       => 'subject',
-	                SORT_URL_DOMAIN => 'url_domain,url'));
-$topicFilter=$topic_id>=0 ? 'and '.subtree('entries',$topic_id,$recursive) : '';
-$grpFilter='and '.grpFilter($grp);
-$shadowFilter=!$showShadows ? 'and id=orig_id' : '';
-parent::__construct(
-        "select left($field,@len@) as letter,1 as count
-         from entries
-         where entry=".ENT_POSTING." $hide $topicFilter $grpFilter
-	       $shadowFilter $prefixFilter
-	 $order");
-}
+    public function __construct($limit = 0, $sort = SORT_URL_DOMAIN,
+                                $topic_id = -1, $recursive = false,
+                                $grp = GRP_ALL, $showShadows = false) {
+        $hide = 'and '.postingsPermFilter(PERM_READ);
+        $fields = array(SORT_NAME       => 'subject',
+                        SORT_URL_DOMAIN => 'url_domain');
+        $field = @$fields[$sort] != '' ? $fields[$sort] : 'url';
+        $prefixFilters = array(SORT_NAME       => "and subject like '@prefix@%'",
+                               SORT_URL_DOMAIN => "and url_domain like '@prefix@%'
+                                                   and url_domain<>''");
+        $prefixFilter = @$prefixFilters[$sort] != '' ? $prefixFilters[$sort]
+                                                     : " and url like '@prefix@%'";
+        $order = getOrderBy($sort,
+                            array(SORT_NAME       => 'subject',
+                                  SORT_URL_DOMAIN => 'url_domain,url'));
+        $topicFilter = $topic_id>=0
+                       ? 'and '.subtree('entries', $topic_id, $recursive) : '';
+        $grpFilter = 'and '.grpFilter($grp);
+        $shadowFilter = !$showShadows ? 'and id=orig_id' : '';
+        parent::__construct(
+            "select left($field,@len@) as letter,1 as count
+             from entries
+             where entry=".ENT_POSTING." $hide $topicFilter $grpFilter
+                   $shadowFilter $prefixFilter
+             $order");
+    }
 
 }
 

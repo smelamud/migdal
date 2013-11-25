@@ -180,18 +180,15 @@ else
 }
 
 class GrpEditorIterator
-      extends MArrayIterator
-{
+        extends MArrayIterator {
 
-function __construct($grp=GRP_NONE,$inverse=false)
-{
-parent::__construct(grpEditor($grp,$inverse));
-}
+    public function __construct($grp = GRP_NONE, $inverse = false) {
+        parent::__construct(grpEditor($grp, $inverse));
+    }
 
-function create($key,$value)
-{
-return new GrpEditor($value);
-}
+    protected function create($key, $value) {
+        return new GrpEditor($value);
+    }
 
 }
 ?>

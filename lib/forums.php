@@ -145,59 +145,54 @@ return $Filter;
 }
 
 class ForumListIterator
-      extends LimitSelectIterator
-{
-var $parent_type;
+        extends LimitSelectIterator {
 
-function __construct($parent_id=0,$limit=10,$offset=0,$sort=SORT_SENT,
-                     $disabled=-1)
-{
-if($parent_id>0)
-  {
-  $this->parent_type=getTypeByEntryId($parent_id);
-  $Filter=forumListFilter($parent_id);
-  }
-else
-  {
-  $this->parent_type=ENT_NULL;
-  $Filter='1';
-  }
-if($disabled>=0)
-  if($disabled)
-    $Filter.=" and entries.disabled<>0";
-  else
-    $Filter.=" and entries.disabled=0";
-$Order=getOrderBy($sort,
-       array(SORT_SENT  => 'entries.sent desc',
-             SORT_RSENT => 'entries.sent asc'));
-parent::__construct(
-        'Forum',
-	"select entries.id as id,subject,author,author_xml,body,body_xml,
-	        body_format,sent,entries.created as created,
-		entries.modified as modified,guest_login,user_id,group_id,
-		perms,disabled,parent_id,users.login as login,
-		users.gender as gender,users.email as email,
-		users.hide_email as hide_email,users.hidden as user_hidden,
-		users.guest as user_guest
-	 from entries
-	      left join users
-		   on entries.user_id=users.id
-	 where $Filter
-	 $Order",
-	 $limit,$offset,
-	"select count(*)
-	 from entries
-	 where $Filter");
-}
+    private $parent_type;
 
-function create($row)
-{
-if($this->parent_type!=ENT_NULL)
-  $row['parent_type']=$this->parent_type;
-else
-  $row['parent_type']=getTypeByEntryId($row['parent_id']);
-return parent::create($row);
-}
+    public function __construct($parent_id = 0, $limit = 10, $offset = 0,
+                                $sort = SORT_SENT, $disabled = -1) {
+        if ($parent_id > 0) {
+            $this->parent_type = getTypeByEntryId($parent_id);
+            $Filter = forumListFilter($parent_id);
+        } else {
+            $this->parent_type = ENT_NULL;
+            $Filter = '1';
+        }
+        if ($disabled >= 0)
+            if ($disabled)
+                $Filter .= " and entries.disabled<>0";
+            else
+                $Filter .= " and entries.disabled=0";
+        $Order = getOrderBy($sort,
+                    array(SORT_SENT  => 'entries.sent desc',
+                          SORT_RSENT => 'entries.sent asc'));
+        parent::__construct(
+            'Forum',
+            "select entries.id as id,subject,author,author_xml,body,body_xml,
+                    body_format,sent,entries.created as created,
+                    entries.modified as modified,guest_login,user_id,group_id,
+                    perms,disabled,parent_id,users.login as login,
+                    users.gender as gender,users.email as email,
+                    users.hide_email as hide_email,users.hidden as user_hidden,
+                    users.guest as user_guest
+             from entries
+                  left join users
+                       on entries.user_id=users.id
+             where $Filter
+             $Order",
+            $limit, $offset,
+            "select count(*)
+             from entries
+             where $Filter");
+    }
+
+    protected function create($row) {
+        if($this->parent_type!=ENT_NULL)
+          $row['parent_type'] = $this->parent_type;
+        else
+          $row['parent_type'] = getTypeByEntryId($row['parent_id']);
+        return parent::create($row);
+    }
 
 }
 

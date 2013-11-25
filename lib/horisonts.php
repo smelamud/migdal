@@ -129,18 +129,16 @@ setHorisont($horisont->host,$horisont->they_know,HOR_THEY_KNOW);
 }
 
 class HorisontsIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct()
-{
-global $dbName;
+    public function __construct() {
+        global $dbName;
 
-parent::__construct('Horisont',
-		    "select host,we_know,they_know
-		     from $dbName.horisonts
-		     order by host");
-}
+        parent::__construct('Horisont',
+                            "select host,we_know,they_know
+                             from $dbName.horisonts
+                             order by host");
+    }
 
 }
 

@@ -74,15 +74,13 @@ return $this->entry_id;
 }
 
 class OldIdsIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct()
-{
-parent::__construct('OldId',
-		    'select table_name,old_id,old_ident,entry_id
-		     from old_ids');
-}
+    public function __construct() {
+        parent::__construct('OldId',
+                            'select table_name,old_id,old_ident,entry_id
+                             from old_ids');
+    }
 
 }
 ?>

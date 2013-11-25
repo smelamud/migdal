@@ -30,12 +30,12 @@ mkdir($dir,0777);
 $timestamp=0;
 $fd=fopen("$dir/log",'w');
 $iter=new LogIterator($from,$statisticsQuota);
-while($line=$iter->next())
-     {
-     fputs($fd,$line->getEvent()."\t".$line->getSent()."\t".$line->getIP().
-               "\t".$line->getBody()."\n");
-     $timestamp=$line->getSent();
-     }
+foreach($iter as $line)
+       {
+       fputs($fd,$line->getEvent()."\t".$line->getSent()."\t".$line->getIP().
+                 "\t".$line->getBody()."\n");
+       $timestamp=$line->getSent();
+       }
 fclose($fd);
 
 $fd=fopen("$dir/timestamp",'w');
@@ -45,22 +45,22 @@ fclose($fd);
 
 $fd=fopen("$dir/postings",'w');
 $iter=new PostingListIterator(GRP_ALL,-1,false,0);
-while($post=$iter->next())
-     fputs($fd,$post->getId()."\t".$post->getParentId().
-	       "\t".removeControlChars($post->getHeading(true))."\n");
+foreach($iter as $post)
+       fputs($fd,$post->getId()."\t".$post->getParentId().
+             "\t".removeControlChars($post->getHeading(true))."\n");
 fclose($fd);
 
 $fd=fopen("$dir/topics",'w');
 $iter=new TopicNamesIterator(GRP_ALL);
-while($topic=$iter->next())
-     fputs($fd,$topic->getId()."\t".$topic->getIdent().
-               "\t".$topic->getFullName()."\n");
+foreach($iter as $topic)
+       fputs($fd,$topic->getId()."\t".$topic->getIdent().
+                 "\t".$topic->getFullName()."\n");
 fclose($fd);
 
 $fd=fopen("$dir/users",'w');
 $iter=new UserListIterator('');
-while($user=$iter->next())
-     fputs($fd,$user->getId()."\t".$user->getLogin()."\n");
+foreach($iter as $user)
+       fputs($fd,$user->getId()."\t".$user->getLogin()."\n");
 fclose($fd);
 
 noCacheHeaders();

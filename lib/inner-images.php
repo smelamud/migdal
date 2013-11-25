@@ -96,23 +96,21 @@ return $this->image;
 }
 
 class InnerImagesIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct($id)
-{
-parent::__construct('InnerImage',
-		    "select entry_id,par,x,y,image_id,placement,id,entry,
-			    title,title_xml,small_image,small_image_x,
-			    small_image_y,large_image,large_image_x,
-			    large_image_y,large_image_size,
-			    large_image_format
-		     from inner_images
-			  left join entries
-			       on inner_images.image_id=entries.id
-		     where entry_id=$id
-		     order by par,y,x");
-}
+    public function __construct($id) {
+        parent::__construct('InnerImage',
+                "select entry_id,par,x,y,image_id,placement,id,entry,
+                    title,title_xml,small_image,small_image_x,
+                    small_image_y,large_image,large_image_x,
+                    large_image_y,large_image_size,
+                    large_image_format
+                 from inner_images
+                  left join entries
+                       on inner_images.image_id=entries.id
+                 where entry_id=$id
+                 order by par,y,x");
+    }
 
 }
 

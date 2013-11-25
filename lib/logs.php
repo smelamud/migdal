@@ -65,18 +65,17 @@ return $this->body;
 }
 
 class LogIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct($from=0,$limit=0)
-{
-$limiter=$limit<=0 ? '' : "limit $limit";
-parent::__construct('LogLine',
-		    "select id,event,unix_timestamp(sent) as sent,ip,body
-		     from logs
-		     where unix_timestamp(sent)>$from
-		     $limiter");
-}
+    public function __construct($from = 0, $limit = 0) {
+        $limiter = $limit <= 0 ? '' : "limit $limit";
+        parent::__construct(
+            'LogLine',
+            "select id,event,unix_timestamp(sent) as sent,ip,body
+             from logs
+             where unix_timestamp(sent)>$from
+             $limiter");
+    }
 
 }
 

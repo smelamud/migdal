@@ -9,93 +9,80 @@ define('CSCR_CLOSE',0x0001);
 define('CSCR_OPEN',0x0002);
 define('CSCR_ALL',0x0003);
 
-$cscrProcNames=array(CSCR_CLOSE => 'cscrClose',
-		     CSCR_OPEN  => 'cscrOpen');
+$cscrProcNames = array(CSCR_CLOSE => 'cscrClose',
+		               CSCR_OPEN  => 'cscrOpen');
 
-$cscrTitles=array(CSCR_CLOSE => 'Закрыть жалобу',
-		  CSCR_OPEN  => 'Возобновить жалобу');
+$cscrTitles = array(CSCR_CLOSE => 'Закрыть жалобу',
+		            CSCR_OPEN  => 'Возобновить жалобу');
 
-function cscrClose($complain)
-{
-closeComplain($complain->getId());
+function cscrClose($complain) {
+    closeComplain($complain->getId());
 }
 
-function cscrOpen($complain)
-{
-openComplain($complain->getId());
+function cscrOpen($complain) {
+    openComplain($complain->getId());
 }
 
-class ComplainScript
-{
-var $id;
+class ComplainScript {
 
-function __construct($id)
-{
-$this->id=$id;
-}
+    private $id;
 
-function exec($complain)
-{
-global $cscrProcNames;
+    public function __construct($id) {
+        $this->id = $id;
+    }
 
-if(isset($cscrProcNames[$this->id]))
-  {
-  $proc=$cscrProcNames[$this->id];
-  $proc($complain);
-  }
-}
+    public function exec($complain) {
+        global $cscrProcNames;
 
-function getId()
-{
-return $this->id;
-}
+        if (isset($cscrProcNames[$this->id])) {
+            $proc = $cscrProcNames[$this->id];
+            $proc($complain);
+        }
+    }
 
-function getTitle()
-{
-global $cscrTitles;
+    public function getId() {
+        return $this->id;
+    }
 
-return isset($cscrTitles[$this->id]) ? $cscrTitles[$this->id] : '';
-}
+    public function getTitle() {
+        global $cscrTitles;
+
+        return isset($cscrTitles[$this->id]) ? $cscrTitles[$this->id] : '';
+    }
 
 }
 
 class ComplainScriptListIterator
-      extends MIterator
-{
-var $id;
-var $mask;
+        extends MIterator {
 
-function __construct($mask=CSCR_ALL)
-{
-parent::__construct();
-$this->id=1;
-$this->mask=$mask;
-$this->roll();
-}
+    private $id;
+    private $mask;
 
-function roll()
-{
-while(($this->id & $this->mask)==0 && $this->id<=CSCR_ALL)
-     $this->id*=2;
-}
+    public function __construct($mask = CSCR_ALL) {
+        parent::__construct();
+        $this->mask = $mask;
+    }
 
-function getNext()
-{
-if($this->id<=CSCR_ALL)
-  {
-  $script=new ComplainScript($this->id);
-  $this->id*=2;
-  $this->roll();
-  return $script;
-  }
-else
-  return 0;
-}
+    public function current() {
+        $script=new ComplainScript($this->id);
+    }
+
+    public function next() {
+        while (($this->id & $this->mask) == 0 && $this->id <= CSCR_ALL)
+            $this->id *= 2;
+    }
+
+    public function rewind() {
+        $this->id = 1;
+    }
+
+    public function valid() {
+        return $this->id <= CSCR_ALL;
+    }
 
 }
 
-function getComplainScriptById($id)
-{
-return new ComplainScript($id);
+function getComplainScriptById($id) {
+    return new ComplainScript($id);
 }
 ?>

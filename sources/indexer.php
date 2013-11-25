@@ -51,8 +51,8 @@ function getTopic($posting)
 {
 $s='';
 $iterator=new TopicHierarchyIterator($posting->getTopicId());
-while($item=$iterator->next())
-     $s.=(!$iterator->isFirst() ? ' :: ' : '').$item->getName();
+foreach($iterator as $item)
+       $s.=(!$iterator->isFirst() ? ' :: ' : '').$item->getName();
 return $s;
 }
 
@@ -67,13 +67,13 @@ if($postid==0 && $topic_id==0)
 	   '<head><title></title></head>'.
 	   '<body>';
   $iterator=new TopicListIterator(GRP_ALL,-1);
-  while($item=$iterator->next())
-       if(($item->getPerms() & PERM_UP)!=0)
-         $output.="<a href='indexer.php?topic_id=".$item->getId()."'>@</a>";
+  foreach($iterator as $item)
+         if(($item->getPerms() & PERM_UP)!=0)
+           $output.="<a href='indexer.php?topic_id=".$item->getId()."'>@</a>";
   $iterator=new PostingListIterator(GRP_ALL,-1,false,0,0,0,SORT_SENT,GRP_NONE,0,
                                     -1,0,-1,-1,true,SELECT_GENERAL);
-  while($item=$iterator->next())
-       $output.="<a href='indexer.php?postid=".$item->getId()."'>@</a>";
+  foreach($iterator as $item)
+         $output.="<a href='indexer.php?postid=".$item->getId()."'>@</a>";
   $output.='</body>'.
 	  '</html>';
   }

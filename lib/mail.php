@@ -33,12 +33,12 @@ function postMailToAdmins($right,$template,$params)
 debugLog(LL_FUNCTIONS,'postMailToAdmins(right=%,template=%,params=%)',
          array($right,$template,$params));
 $iter=new UserListIterator('',SORT_LOGIN,$right);
-while($user=$iter->getNext())
-     {
-     $result=postMailToUser($user,$template,$params);
-     if($result!=EG_OK)
-       return $result;
-     }
+foreach($iter as $user)
+       {
+       $result=postMailToUser($user,$template,$params);
+       if($result!=EG_OK)
+         return $result;
+       }
 return EG_OK;
 }
 

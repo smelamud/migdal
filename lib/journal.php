@@ -202,48 +202,52 @@ return $this->sent;
 }
 
 class JournalIterator
-      extends SelectIterator
-{
-var $seq;
+        extends SelectIterator {
 
-function __construct($from=0)
-{
-parent::__construct('JournalLine',
-		    "select id,seq,result_table,result_id,result_var,query
-		     from journal
-		     where seq>$from
-		     order by seq,id");
-$this->seq=0;
-}
+    private $seq;
 
-function getNext()
-{
-$line=parent::getNext();
-if($line==0)
-  return 0;
-if($this->seq!=0 && $this->seq!=$line->getSeq()
-   && !isSeqClosed($line->getSeq()))
-  return 0;
-$this->seq=$line->getSeq();
-return $line;
-}
+    public function __construct($from = 0) {
+        parent::__construct(
+            'JournalLine',
+            "select id,seq,result_table,result_id,result_var,query
+             from journal
+             where seq>$from
+             order by seq,id");
+        $this->seq = 0;
+    }
+
+    public function rewind() {
+        parent::rewind();
+        $this->seq = 0;
+    }
+
+    protected function fetch() {
+        $line = parent::fetch();
+        if ($line == 0)
+            return 0;
+        if ($this->seq != 0 && $this->seq != $line->getSeq()
+            && !isSeqClosed($line->getSeq()))
+            return 0;
+        $this->seq = $line->getSeq();
+        return $line;
+    }
 
 }
 
 class JournalListIterator
-      extends LimitSelectIterator
-{
+        extends LimitSelectIterator {
 
-function __construct($limit=20,$offset=0)
-{
-parent::__construct('JournalLine',
-		    'select id,seq,result_table,result_id,result_var,
-			    query,unix_timestamp(sent) as sent
-		     from journal
-		     order by seq,id',$limit,$offset,
-		    'select count(*)
-		     from journal');
-}
+    public function __construct($limit = 20, $offset = 0) {
+        parent::__construct(
+            'JournalLine',
+            'select id,seq,result_table,result_id,result_var,
+                    query,unix_timestamp(sent) as sent
+             from journal
+             order by seq,id',
+            $limit, $offset,
+            'select count(*)
+             from journal');
+    }
 
 }
 

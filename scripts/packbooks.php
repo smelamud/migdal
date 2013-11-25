@@ -82,10 +82,10 @@ if($type==PT_BOOK_ONEFILE)
 else
   {
   copyFile("http://$siteDomain/book-split.php?bookid=$id","$dir/index.html");
-  while($item=$list->next())
-       copyFile("http://$siteDomain/book-chapter-split.php?chapid=".
+  foreach($list as $item)
+         copyFile("http://$siteDomain/book-chapter-split.php?chapid=".
                                                            $item->getId(),
-                "$dir/chapter-".$item->getIndex0().'.html');
+                  "$dir/chapter-".$item->getIndex0().'.html');
   }
 
 copyFile("http://$siteDomain/styles/static-article.css",
@@ -99,14 +99,14 @@ if($type==PT_BOOK_SPLIT)
   }
 
 $list->reset();
-while($item=$list->next())
-     {
-     // FIXME SELECT_IMAGES deprecated
-     $chap=getPostingById($item->getId(),GRP_BOOK_CHAPTERS,-1,SELECT_IMAGES);
-     $pars=new PostingParagraphIterator($chap); // FIXME no such class
-     while($par=$pars->next())
-          copyImage($dir,$par);
-     }
+foreach($iter as $item)
+       {
+       // FIXME SELECT_IMAGES deprecated
+       $chap=getPostingById($item->getId(),GRP_BOOK_CHAPTERS,-1,SELECT_IMAGES);
+       $pars=new PostingParagraphIterator($chap); // FIXME no such class
+       foreach($pars as $par)
+              copyImage($dir,$par);
+       }
 
 $cmd=str_replace(array('#','%'),
                  array($tmpDir,"book-$message_id"),
@@ -177,13 +177,13 @@ function run()
 {
 $iter=new PostingListIterator(GRP_BOOKS,-1,true,0,0,0,SORT_SENT,GRP_NONE,0,-1,
                               0,-1,-1,false,SELECT_GENERAL);
-while($item=$iter->next())
-     if(!arePackagesReady($item->getMessageId()))
-       {
-       dropBook($item->getMessageId());
-       packBook($item->getId(),$item->getMessageId(),PT_BOOK_ONEFILE);
-       packBook($item->getId(),$item->getMessageId(),PT_BOOK_SPLIT);
-       }
+foreach($iter as $item)
+       if(!arePackagesReady($item->getMessageId()))
+         {
+         dropBook($item->getMessageId());
+         packBook($item->getId(),$item->getMessageId(),PT_BOOK_ONEFILE);
+         packBook($item->getId(),$item->getMessageId(),PT_BOOK_SPLIT);
+         }
 }
 
 dbOpen();

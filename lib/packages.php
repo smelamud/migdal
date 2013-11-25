@@ -140,20 +140,19 @@ return strtotime($this->created);
 }
 
 class PackagesIterator
-      extends SelectIterator
-{
+        extends SelectIterator {
 
-function __construct($posting_id)
-{
-parent::__construct('Package',
-		    "select packages.id as id,postings.id as posting_id,type,
-			    mime_type,title,size,url
-		     from packages
-			  left join postings
-			       on packages.message_id=postings.message_id
-		     where postings.id=$posting_id
-		     order by type,created");
-}
+    public function __construct($posting_id) {
+        parent::__construct(
+            'Package',
+            "select packages.id as id,postings.id as posting_id,type,mime_type,
+                    title,size,url
+             from packages
+                  left join postings
+                       on packages.message_id=postings.message_id
+             where postings.id=$posting_id
+             order by type,created");
+    }
 
 }
 

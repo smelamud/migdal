@@ -3,47 +3,42 @@
 
 require_once('lib/iterator.php');
 
-$langCodes=array('ru' => 'Русский',
-                 'en' => 'Английский',
-		 'he' => 'Иврит',
-		 'uk' => 'Украинский',
-		 'be' => 'Белорусский',
-		 'yi' => 'Идиш',
-		 'de' => 'Немецкий');
+$langCodes = array('ru' => 'Русский',
+                   'en' => 'Английский',
+                   'he' => 'Иврит',
+                   'uk' => 'Украинский',
+                   'be' => 'Белорусский',
+                   'yi' => 'Идиш',
+                   'de' => 'Немецкий');
 
-class LangInfo
-{
-var $code;
-var $name;
+class LangInfo {
 
-function __construct($code,$name)
-{
-$this->code=$code;
-$this->name=$name;
-}
+    private $code;
+    private $name;
 
-function getCode()
-{
-return $this->code;
-}
+    public function __construct($code, $name) {
+        $this->code = $code;
+        $this->name = $name;
+    }
 
-function getName()
-{
-return $this->name;
-}
+    public function getCode() {
+        return $this->code;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
 
 }
 
 class LangIterator
-      extends AssocArrayIterator
-{
+        extends AssocArrayIterator {
 
-function __construct()
-{
-global $langCodes;
+    public function __construct() {
+        global $langCodes;
 
-parent::__construct($langCodes,'LangInfo');
-}
+        parent::__construct($langCodes, 'LangInfo');
+    }
 
 }
 ?>

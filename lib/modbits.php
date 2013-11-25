@@ -81,75 +81,74 @@ return $this->name;
 }
 
 class ModbitIterator
-      extends MIterator
-{
-var $bit,$lbbit;
-var $max;
-var $letters,$names;
+        extends MIterator {
 
-function __construct($max,$letters,$names)
-{
-parent::__construct();
-$this->bit=1;
-$this->lbbit=0;
-$this->max=$max;
-$this->letters=$letters;
-$this->names=$names;
-}
+    private $bit, $lbbit;
+    private $max;
+    private $letters,$names;
 
-function getNext()
-{
-global $modbitLetters,$modbitNames;
+    public function __construct($max, $letters, $names) {
+        parent::__construct();
+        $this->max = $max;
+        $this->letters = $letters;
+        $this->names = $names;
+    }
 
-parent::getNext();
-$result=$this->bit<=$this->max
-        ? new Modbit($this->bit,
-	             $this->letters!=null ? $this->letters[$this->lbbit] : '',
-	             $this->names[$this->lbbit])
-	: 0;
-$this->bit*=2;
-$this->lbbit++;
-return $result;
-}
+    public function current() {
+        return new Modbit(
+                $this->bit,
+                $this->letters!=null ? $this->letters[$this->lbbit] : '',
+                $this->names[$this->lbbit]);
+    }
+
+    public function next() {
+        parent::next();
+        $this->bit*=2;
+        $this->lbbit++;
+    }
+
+    public function rewind() {
+        parent::rewind();
+        $this->bit = 1;
+        $this->lbbit = 0;
+    }
+
+    public function valid() {
+        return $this->bit <= $this->max;
+    }
 
 }
 
 class PostingModbitIterator
-      extends ModbitIterator
-{
+        extends ModbitIterator {
 
-function __construct()
-{
-global $modbitLetters,$modbitNames;
+    public function __construct() {
+        global $modbitLetters, $modbitNames;
 
-parent::__construct(MOD_ALL,$modbitLetters,$modbitNames);
-}
+        parent::__construct(MOD_ALL, $modbitLetters, $modbitNames);
+    }
 
 }
 
 class ComplainModbitIterator
-      extends ModbitIterator
-{
+        extends ModbitIterator {
 
-function __construct()
-{
-global $modbitCNames;
+    public function __construct() {
+        global $modbitCNames;
 
-parent::__construct(MODC_ALL,null,$modbitCNames);
-}
+        parent::__construct(MODC_ALL, null, $modbitCNames);
+    }
 
 }
 
 class TopicModbitIterator
-      extends ModbitIterator
-{
+        extends ModbitIterator {
 
-function __construct()
-{
-global $modbitTNames;
+    public function __construct() {
+        global $modbitTNames;
 
-parent::__construct(MODT_ALL,null,$modbitTNames);
-}
+        parent::__construct(MODT_ALL, null, $modbitTNames);
+    }
 
 }
 
