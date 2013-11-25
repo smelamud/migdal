@@ -330,7 +330,7 @@ class LocationIterator
     }
 
     public function valid() {
-        $this->cursor != null;
+        return $this->cursor != null;
     }
 
     public function count() {
