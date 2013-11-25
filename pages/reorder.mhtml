@@ -46,7 +46,7 @@
 <element name='order_selector' params='title,sels,current'>
 <form_select title='$title' name='ids[]'>
  <form_option title='-- Пусто --' value='0' selected!='$current<=0'>
- <reset_iterator list='$sels'>
+ <rewind_iterator list='$sels'>
  <for list='sels'>
   <assign name='heading' value!='!$$istopic ? $=.Heading : $=.Subject'>
   <assign name='heading' value!='shortenNote(${heading},64,16,5)'>

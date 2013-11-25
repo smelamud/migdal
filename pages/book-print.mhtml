@@ -28,7 +28,7 @@
    <li>$=.Subject
   </for>
  </ul>
- <reset_iterator>
+ <rewind_iterator>
  <for>
   <posting_obj id='$.Id' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_LARGE_BODY'>
   <h1 style='clear: both; padding-top: 20px'>$=,Subject

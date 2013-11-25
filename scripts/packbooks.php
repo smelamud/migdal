@@ -98,7 +98,7 @@ if($type==PT_BOOK_SPLIT)
   copyFile("http://$siteDomain/pics/further.gif","$dir/pics/further.gif");
   }
 
-$list->reset();
+$list->rewind();
 foreach($iter as $item)
        {
        // FIXME SELECT_IMAGES deprecated

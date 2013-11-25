@@ -144,8 +144,8 @@
 <deciter macro='users_now' class='UsersNowIterator' file='lib/users.php'
          params='period'>
 
-<macro name='reset_iterator' defaults="list='$;'">
- <call object%!list='%list' func='reset'>
+<macro name='rewind_iterator' defaults="list='$;'">
+ <call object%!list='%list' func='rewind'>
 </macro>
 
 <macro name='hash_topic' defaults="recursive='*false'">

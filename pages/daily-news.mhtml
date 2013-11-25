@@ -132,7 +132,7 @@
      <rss>
     </td>
     <outer><td width=140><inner>
-     <reset_iterator>
+     <rewind_iterator>
      <for>
       <if what='!$;isOdd'>
        <daily_picture picture='$.'>

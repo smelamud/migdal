@@ -43,7 +43,7 @@
      <td align='left'><table style='margin: 0'>
       <tr><td class='textears-title'>Последние события:</td></tr>
       <tr><td><ul class='ninept'>
-       <reset_iterator>
+       <rewind_iterator>
        <for>
 	<li>
 	 <a href='/$.Catalog' title='$=.BodyNormal'>$=.Comment0</a>

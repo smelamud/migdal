@@ -37,7 +37,7 @@
     <li><a href='#chap$.Id'>$.Subject</a>
    </for>
   </ul>
-  <reset_iterator>
+  <rewind_iterator>
   <assign name='static_note_base' value=1>
   <for>
    << FIXME |SELECT_LARGE_BODY ? SELECT_IMAGES deprecated >>

@@ -60,11 +60,6 @@ class SelectIterator
         $this->current = $this->fetch();
     }
 
-    // DEPRECATED alias of rewind()
-    public function reset() {
-        $this->rewind();
-    }
-
     public function valid() {
         return (boolean) $this->current;
     }
