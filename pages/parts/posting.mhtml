@@ -75,7 +75,7 @@
   <a href='$href'>
  </ife>
   <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
-	    $al $alt src='$posting.SmallImageURL'><asp>
+            $al $alt src='$posting.SmallImageURL'><asp>
  </a>
 <else>
  <ifne what='$href'>
@@ -101,14 +101,6 @@
     <td>
      <iswrite what='$posting'>
       <editlink posting='$posting'>
-     <else>
-      <if what='!$$userModerator && $showcomplain'>
-       <logged>
-	<a href="/complains/add/?url=$#posting.GrpDetailsHref&redirid=$_"><asp>
-	 <asp>Жалоба<asp>
-	<asp></a>
-       </logged>
-      </if>
      </iswrite>
     </td>
    </tr></table>
@@ -124,6 +116,6 @@
 <if what='$posting.GrpTapeCenter'><center></if>
  <require_once name='$posting.GrpTapeFile'>
  <exec element='$posting.GrpTapeElement' arg1='$posting' arg2='$showtopic'
-       arg3='$showdiscuss' arg4='$showcomplain' arg5='$shorten'>
+       arg3='$showdiscuss' arg4='$shorten'>
 <if what='$posting.GrpTapeCenter'></center></if>
 </element>

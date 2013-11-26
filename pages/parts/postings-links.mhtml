@@ -25,7 +25,7 @@
 <batcher list='$;' topic_id='$topic_id'>
 <for>
  <posting_link posting='$.' showtopic!='$topic_id<0' shorten='*true'
-               showdiscuss='*true' showcomplain='*true'>
+               showdiscuss='*true'>
 </for>
 <ifnzero what='$;Count'>
  <batcher list='$;' topic_id='$topic_id'>

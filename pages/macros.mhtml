@@ -62,9 +62,8 @@
        params='title,day,image,href' defaults="href=''">
 <decel name='daily_announce' file='parts/daily-announce.php' params='topic_id'>
 <decel name='daily_picture' file='parts/daily-picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='picture,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='discussions' file='parts/discussions.php'
        params='topic_id,title,limit'
        defaults="topic_id='-1' title='Форум' limit=5">
@@ -187,64 +186,52 @@
 <decel name='perror' file='parts/utils.php' params='id,text'>
 <decel name='peruser' file='parts/peruser.php' params='topic_id'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='picture,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,title,image_href' defaults="title=''">
 <decel name='pointer' file='parts/pointer.php' params='href,text,title,left'
        defaults="title=''">
 <decel name='posting' file='parts/posting.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_book' file='parts/posting-book.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_controls' file='parts/posting.php'
-       params='posting,showdiscuss,showcomplain,len'
-       defaults="showdiscuss='*false' showcomplain='*false' len='90%'">
+       params='posting,showdiscuss,len'
+       defaults="showdiscuss='*false' len='90%'">
 <decel name='posting_ear' file='parts/posting-ear.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_general' file='parts/posting-general.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
        params='posting,align,title,href' defaults="align='' title='' href=''">
 <decel name='posting_link' file='parts/posting-link.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_og_image' file='parts/posting.php' params='posting'>
 <decel name='posting_peruser' file='parts/posting-peruser.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_printing' file='parts/posting-printing.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_selflink' file='parts/posting.php' params='posting'>
 <decel name='posting_textear' file='parts/posting-textear.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_times' file='parts/posting-times.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_times_cover' file='parts/posting-times-cover.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_tip' file='parts/posting-tip.php'
-       params='posting,showtopic,showdiscuss,showcomplain,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' showcomplain='*true'
-                 shorten='*false'">
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='postings' file='parts/postings.php'
        params='grp,topic_id,limit,offset,user_id,showadvert,showshadows,sort,
                recursive'

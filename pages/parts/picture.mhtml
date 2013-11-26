@@ -10,16 +10,12 @@
 </if>
 </element>
 
-<element name='controls' params='picture,showcomplain'>
+<element name='controls' params='picture'>
 <logged>
  <tr><td class='control' align=center
          style='padding-top: 0; padding-bottom: 1ex'>
   <iswrite what='$picture'>
    <editlink posting='$picture'>
-  <else>
-   <if what='!$$userModerator && $showcomplain'>
-    <a href="/complains/add/?url=$#picture.GrpDetailsHref&redirid=$_">Жалоба</a>
-   </if>
   </iswrite>
  </td></tr>
 </logged>
@@ -40,7 +36,7 @@
    <posting_image posting='$picture'>
   </td></tr>
  </if>
- <controls picture='$picture' showcomplain='$showcomplain'>
+ <controls picture='$picture'>
  <ifne what='$picture.TitleHTML'>
   <tr><td class='body ninept'>
    $picture.TitleHTML

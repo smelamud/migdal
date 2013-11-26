@@ -37,40 +37,64 @@
    Or send it directly from the website:
   </notenglish>
   <br>
-  <complain_obj id='0' url='$-'>
+  <forum_obj id='0' parent_id='$`post.complains`'>
   <setup>
-  <form method=post action='/actions/complain/modify'>
-   <hidden name='edittag' value="1">
+  <form method=post enctype='multipart/form-data'
+	action='/actions/forum/modify'>
+   <hidden name='edittag' value=1>
    <hidden name='okdir' value="$[sent=1]">
    <hidden name='faildir' value="$-">
    <hidden name='editid' value="0">
-   <hidden name='url' value="$=,URL">
-   <hidden name='subject' value="404">
+   <hidden name='parent_id' value='$,ParentId'>
+   <hidden name='up' value='$,ParentId'>
    <table>
     <notenglish>
-     <error id='*EC_NO_SEND'
-	    text='Посылать жалобы могут только зарегистрированные пользователи'>
-     <error id='*EC_NO_EDIT' text='У вас нет права редактировать эту жалобу'>
-     <error id='*EC_SUBJECT_ABSENT' text='Заголовок пуст'>
-     <error id='*EC_BODY_ABSENT'
-	    text='Пожалуйста, напишите хотя бы пару строк о сути вашей проблемы'>
-     <error id='*EC_CAPTCHA_ABSENT'
-	    text='Пожалуйста, введите цифры и буквы, которые вы видите на
-		  картинке. Это необходимо нам для борьбы со спамом.'>
-     <error id='*EC_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+     <error id='*EF_NO_SEND'
+        text='Добавлять комментарии могут только зарегистрированные
+              пользователи'>
+     <error id='*EF_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+     <error id='*EF_NO_PARENT'
+        text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
+     <error id='*EF_UP_APPEND' text='У вас нет права отвечать на это сообщение'>
+     <error id='*EVH_NO_PARENT' text='Такого сообщения не существует'>
+     <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
+     <error id='*EVH_LOOP' text='Сообщение не может быть ответом на себя'>
+     <error id='*EVH_NOT_UP_UNDER_PARENT'
+            text='Сообщение и ответ должны находиться в одной ветке'>
+     <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
+     <error id='*EL_INVALID' text='Неверный ник или пароль'>
+     <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>
+     <error id='*EF_CAPTCHA_ABSENT'
+            text='Пожалуйста, введите цифры и буквы, которые вы видите на
+                  картинке. Это необходимо нам для борьбы со спамом.'>
+     <error id='*EF_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+     <error id='*EF_BODY_ABSENT'
+        text='Напишите хотя бы пару строчек в теле сообщения'>
     <else>
-     <error id='*EC_NO_SEND' text='Only registered users may send complains'>
-     <error id='*EC_NO_EDIT' text='You are not permitted to edit the complain'>
-     <error id='*EC_SUBJECT_ABSENT' text='Subject is empty'>
-     <error id='*EC_BODY_ABSENT'
-	    text='Please, describe your problem in several lines'>
-     <error id='*EC_CAPTCHA_ABSENT'
+     <error id='*EF_NO_SEND' text='Only registered users may add comments'>
+     <error id='*EF_NO_EDIT' text='You are not permitted to edit the message'>
+     <error id='*EF_NO_PARENT'
+            text='The message you&quot;re trying to reply to is not written yet'>
+     <error id='*EF_UP_APPEND'
+            text='You have no permission to reply to the message'>
+     <error id='*EVH_NO_PARENT' text='The message does not exists'>
+     <error id='*EVH_NO_UP' text='Upper message does not exists'>
+     <error id='*EVH_LOOP' text='Message cannot be reply to itself'>
+     <error id='*EVH_NOT_UP_UNDER_PARENT'
+            text='Message and reply must be on the same branch'>
+     <error id='*EVH_INCORRECT' text='Object hierarchy violation'>
+     <error id='*EL_INVALID' text='Incorrect username or password'>
+     <error id='*EL_GUEST_LOGIN_ABSENT' text='Please, add your username'>
+     <error id='*EF_CAPTCHA_ABSENT'
 	    text='Please, enter digits and letters you see on the picture. It
 	          is required to eliminate spam.'>
-     <error id='*EC_CAPTCHA' text='Wrong digits and letters, try again'>
+     <error id='*EF_CAPTCHA' text='Wrong digits and letters, try again'>
+     <error id='*EF_BODY_ABSENT'
+	    text='Please, describe your problem in several lines'>
     </notenglish>
     <tr><td colspan=2>
-     <textarea name='body' rows='5' cols='35' wrap='virtual'>$,Body</textarea>
+    <tr><td colspan=2>
+     <textarea name='body' rows='5' cols='35' wrap='virtual'>$=,Body</textarea>
     </td></tr>
     <tr><td colspan=2>
      <table cellspacing='0' cellpadding='0'><tr valign='top'>
@@ -79,6 +103,8 @@
       <td><edit name='captcha' value='' size='6' maxlength='6'></td>
      </tr></table>
     </td></tr>
+    <hidden name='hidden' value='0'>
+    <hidden name='disabled' value='$,isDisabled'>
     <tr><td colspan=2>
      <notenglish>
       <input type=submit value='Отправить'>
@@ -92,8 +118,8 @@
       <input type=reset value='Clear'>
      </notenglish>
     </td></tr>
-   </table>
-  </form>
+    <table>
+   </form>
  </li>
 </ifzero>
 </element>

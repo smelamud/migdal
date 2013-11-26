@@ -86,7 +86,6 @@
   <sentview date='$posting.Sent'>&nbsp;
   <senderlink message='$posting'>
  </div>
- <posting_controls posting='$posting' showdiscuss='$showdiscuss'
-		   showcomplain!="$showcomplain && !$$englishDomain">
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
 </dl>
 </element>

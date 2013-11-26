@@ -7,9 +7,9 @@ require_once('lib/sessions.php');
 require_once('lib/users.php');
 require_once('lib/settings.php');
 
-define('RELOGIN_GUEST',1);
-define('RELOGIN_SAME',2);
-define('RELOGIN_LOGIN',3);
+const RELOGIN_GUEST = 1;
+const RELOGIN_SAME = 2;
+const RELOGIN_LOGIN = 3;
 
 function login($login, $password, $duration) {
     global $sessionid, $userId, $realUserId, $userMyComputerHint,

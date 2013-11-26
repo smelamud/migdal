@@ -25,7 +25,7 @@
     </td>
    </notprint>
    <td class='cframe'>
-    <posting posting='$posting' showdiscuss='*true' showcomplain='*true'>
+    <posting posting='$posting' showdiscuss='*true'>
     <addtoany>
    </td>
   </tr>

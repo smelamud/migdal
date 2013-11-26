@@ -57,7 +57,7 @@
           access='$access'>
  <for>
   <posting posting='$.' showtopic!='$recursive || $topic_id<0' shorten='*true'
-           showdiscuss='*true' showcomplain='*true'>
+           showdiscuss='*true'>
  </for>
  <ifnzero what='$;Count'>
   <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'

@@ -36,7 +36,6 @@
    <senderlink message='$posting'>
   </td>
  </tr></table>
- <posting_controls posting='$posting' showdiscuss='$showdiscuss'
-		   showcomplain='$showcomplain'>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
 </dl>
 </element>

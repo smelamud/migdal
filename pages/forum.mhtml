@@ -22,8 +22,7 @@
 <body>
  <top ident='discuss'>
  <table width=100% cellpadding=5><tr valign=top><td class='cframe'>
-  <posting posting='$,' shorten!='$,Grp!=*GRP_FORUMS' showdiscuss='*false'
-           showcomplain='*true'>
+  <posting posting='$,' shorten!='$,Grp!=*GRP_FORUMS' showdiscuss='*false'>
   <p>
   <forums parent_id='$,OrigId' limit='$portion' offset='$offset'>
  </td></tr></table>

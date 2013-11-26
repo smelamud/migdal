@@ -137,7 +137,7 @@
  <top ident='index'>
  <iterate_postinglist limit=20 offset='$offset' topic_id='$topic_id'
                       recursive='$recursive' showshadows='$shadows' grp='$grp'
-		      index1!='$use_index1 ? $index1 : -1'>
+                      index1!='$use_index1 ? $index1 : -1'>
  <table width="100%" cellpadding="5">
   <tr valign=top>
    <td width=150 class='eframe'>
@@ -156,9 +156,9 @@
        <iterate_array values='$topic_id'>
        <assign name='n' value=0>
        <for>
-	<assign name='id' value!='abs($.)'>
-	<assign name='rec' value!='$recursive[$n]'>
-	<topic_choice title='$title' id='$id' n='$n' recursive='$rec'>
+        <assign name='id' value!='abs($.)'>
+        <assign name='rec' value!='$recursive[$n]'>
+        <topic_choice title='$title' id='$id' n='$n' recursive='$rec'>
         <assign name='title' value='<i>Или</i>'>
         <assign name='n' value!='$n+1'>
        </for>
@@ -173,20 +173,20 @@
        </td>
        <td align=left><table>
         <tr>
-	 <td><checkbox_button name='use_index1' checked='$use_index1'></td>
-	 <td>Номер </td>
-	 <td><edit name='index1' value='$index1' size=8 maxlength=8></td>
+         <td><checkbox_button name='use_index1' checked='$use_index1'></td>
+         <td>Номер </td>
+         <td><edit name='index1' value='$index1' size=8 maxlength=8></td>
         </tr>
-	<tr>
-	 <td><checkbox_button name='shadows' checked='$shadows'></td>
-	 <td colspan=2>Показывать все тени</td>
-	</tr>
+        <tr>
+         <td><checkbox_button name='shadows' checked='$shadows'></td>
+         <td colspan=2>Показывать все тени</td>
+        </tr>
        </table></td>
       </tr>
       <tr><td align=left colspan=2>
        <table cellspacing=10><tr>
-	<td><input type=submit value='Просмотр'></td>
-	<td><input type=reset value='Очистить'></td>
+        <td><input type=submit value='Просмотр'></td>
+        <td><input type=reset value='Очистить'></td>
        </tr></table>
       </td></tr>
      </form>

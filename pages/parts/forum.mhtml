@@ -26,10 +26,10 @@
     <td>&nbsp;&nbsp;&nbsp;</td>
     <td>
      <a href="$forum.ParentHref/reply/?peerid=$forum.Id&redirid=$_"
-	title='Ответить с цитированием'>Ответить</a>
+        title='Ответить с цитированием'>Ответить</a>
     </td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
     <iswrite what='$forum'>
-     <td>&nbsp;&nbsp;&nbsp;</td>
      <td>
       <a href="$forum.ParentHref/update/?editid=$forum.Id&redirid=$_"><asp>
        <asp>Изменить<asp>
@@ -39,30 +39,22 @@
       <td>&nbsp;&nbsp;&nbsp;</td>
       <td>
        <if what='$forum.isDisabled'>
-	<a href="/actions/entry/moderate?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
-	 <asp>Разрешить&nbsp;показ<asp>
-	<asp></a>
+        <a href="/actions/entry/moderate?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
+         <asp>Разрешить&nbsp;показ<asp>
+        <asp></a>
        <else>
-	<a href="/actions/entry/moderate?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
-	 <asp>Запретить показ<asp>
-	<asp></a>
+        <a href="/actions/entry/moderate?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
+         <asp>Запретить показ<asp>
+        <asp></a>
        </if>
       </td>
       <td>&nbsp;&nbsp;&nbsp;</td>
       <td>
        <a href="/actions/forum/delete?id=$forum.Id&okdir=$#-&faildir=$#-"><asp>
-	<asp>Удалить<asp>
+        <asp>Удалить<asp>
        <asp></a>
       </td>
      </moderator>
-    <else>
-     <td>&nbsp;&nbsp;&nbsp;</td>
-     <td>
-      <assign name='url' value#='$forum.ParentHref/?tid=$forum.Id#t$forum.Id'>
-      <a href="/complains/add/?url=$#url&redirid=$_"><asp>
-       <asp>Жалоба<asp>
-      <asp></a>
-     </td>
     </iswrite>
    </tr></table>
   </td>

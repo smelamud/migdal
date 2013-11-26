@@ -12,31 +12,13 @@
    <image class="icon" src="/pics/mail.gif" alt="$addr"></a>
 </element>
 
-<element name='snapshot'>
-<?php
-$fd=fopen('/sources/current','r');
-if($fd)
-  {
-  $date=trim(fgets($fd));
-  fclose($fd);
-  }
-else
-  $date='';
-?>
-<ifne what='$date'>
- Download <a href='/sources/migdal-snapshot-${date}.tar.bz2'>
- current CVS snapshot ($date)</a><br>
-</ifne>
-</element>
-
 <element name='bottom_www'>
 <div style='float: right; text-align: right; width: 30%'>
  <image class='icon' src='/pics/book.gif'>&nbsp;
- <a href='/complains/?redirid=$_' class='complains-link'>
+ <a href='/forum/$`post.complains`' class='complains-link'>
    Замечания/предложения<br>по работе сайта</a><br><br>
  <span class='eightpt'><?php echo sqlNow();?></span><br>
  <kernel>
- <<snapshot>>
  <moderator>
   <a href='/admin/'>Страница модератора</a>
  <else>
