@@ -3,6 +3,7 @@
 
 require_once('lib/dataobject.php');
 require_once('lib/sql.php');
+require_once('lib/selectiterator.php');
 
 define('IPL_LEFT',1);
 define('IPL_HCENTER',2);
@@ -120,12 +121,8 @@ sql("delete from inner_images
      where entry_id={$inner->entry_id} and par={$inner->par}
            and x={$inner->x} and y={$inner->y}",
     __FUNCTION__,'delete');
-journal("delete from inner_images
-	 where entry_id=".journalVar('entries',$inner->entry_id)
-	    ." and par={$inner->par} and x={$inner->x} and y={$inner->y}");
 if($inner->image_id==0)
   return;
-$jencoded=array('entry_id' => 'entries', 'image_id' => 'entries');
 $vars=array('entry_id' => $inner->entry_id,
             'par' => $inner->par,
             'x' => $inner->x,
@@ -134,7 +131,6 @@ $vars=array('entry_id' => $inner->entry_id,
             'placement' => $inner->placement);
 sql(sqlInsert('inner_images',$vars),
     __FUNCTION__,'insert');
-journal(sqlInsert('inner_images',jencodeVars($vars,$jencoded)));
 }
 
 function getInnerImageByParagraph($entry_id,$par,$x=0,$y=0)

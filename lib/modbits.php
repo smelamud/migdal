@@ -2,7 +2,6 @@
 # @(#) $Id$
 
 require_once('lib/bug.php');
-require_once('lib/journal.php');
 require_once('lib/sql.php');
 require_once('lib/entries.php');
 
@@ -167,9 +166,6 @@ sql("update entries
      set modbits=modbits | $bits
      where id=$id",
     __FUNCTION__);
-journal("update entries
-         set modbits=modbits | $bits
-	 where id=".journalVar('entries',$id));
 incContentVersionsByEntryId($id);
 }
 
@@ -179,9 +175,6 @@ sql("update entries
      set modbits=modbits & ~$bits
      where id=$id",
     __FUNCTION__);
-journal("update entries
-         set modbits=modbits & ~$bits
-	 where id=".journalVar('entries',$id));
 incContentVersionsByEntryId($id);
 }
 
@@ -191,9 +184,6 @@ sql("update entries
      set modbits=$bits
      where id=$id",
     __FUNCTION__);
-journal("update entries
-         set modbits=$bits
-	 where id=".journalVar('entries',$id));
 incContentVersionsByEntryId($id);
 }
 ?>

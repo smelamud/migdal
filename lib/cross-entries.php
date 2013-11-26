@@ -98,9 +98,6 @@ class CrossEntryIterator
 
 function storeCrossEntry(&$cross)
 {
-$jencoded=array('source_name' => '','source_id' => 'entries','peer_name' => '',
-                'peer_id' => 'entries','peer_path' => '','peer_subject' => '',
-		'peer_icon' => '');
 $vars=array('source_name' => $cross->source_name,
             'source_id' => $cross->source_id,
             'link_type' => $cross->link_type,
@@ -115,9 +112,6 @@ if($cross->id)
 			$vars,
 			array('id' => $cross->id)),
 	      __FUNCTION__,'update');
-  journal(sqlUpdate('cross_entries',
-		    jencodeVars($vars,$jencoded),
-		    array('id' => journalVar('cross_entries',$cross->id))));
   }
 else
   {
@@ -125,9 +119,6 @@ else
                         $vars),
 	      __FUNCTION__,'insert');
   $cross->id=sql_insert_id();
-  journal(sqlInsert('cross_entries',
-                    jencodeVars($vars,$jencoded)),
-	  'cross_entries',$cross->id);
   }
 return $result;
 }
@@ -138,9 +129,5 @@ sql("delete
      from cross_entries
      where id=$id",
     __FUNCTION__);
-journal('delete
-	 from cross_entries
-	 where id='.journalVar('cross_entries',$id),
-	__FUNCTION__);
 }
 ?>

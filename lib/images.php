@@ -77,10 +77,6 @@ function storeImage(&$image)
 {
 global $userId;
 
-$jencoded=array('title' => '','title_xml' => '','small_image' => 'images',
-                'large_image' => 'images','large_image_filename' => '',
-		'user_id' => 'users', 'group_id' => 'users','up' => 'entries',
-		'parent_id' => 'entries');
 $vars=array('ident' => $image->ident,
             'up' => $image->up,
 	    'parent_id' => $image->parent_id,
@@ -107,9 +103,6 @@ if($image->id)
 			$vars,
 			array('id' => $image->id)),
 	      __FUNCTION__,'update');
-  journal(sqlUpdate('entries',
-		    jencodeVars($vars,$jencoded),
-		    array('id' => journalVar('entries',$image->id))));
   updateCatalogs($image->track);
   replaceTracksToUp('entries',$image->track,$image->up,$image->id);
   }
@@ -123,9 +116,6 @@ else
                         $vars),
 	      __FUNCTION__,'insert');
   $image->id=sql_insert_id();
-  journal(sqlInsert('entries',
-                    jencodeVars($vars,$jencoded)),
-	  'entries',$image->id);
   setOrigIdToEntryId($image);
   createTrack('entries',$image->id);
   updateCatalogs(trackById('entries',$image->id));
@@ -153,16 +143,10 @@ sql("delete
      from inner_images
      where image_id=$id",
     __FUNCTION__,'inner');
-journal('delete
-	 from inner_images
-	 where image_id='.journalVar('entries',$id));
 sql("delete
      from entries
      where id=$id",
     __FUNCTION__,'entry');
-journal('delete
-         from entries
-	 where id='.journalVar('entries',$id));
 deleteImageFiles($id,$small_image,$large_image,$large_image_format);
 }
 
@@ -173,7 +157,6 @@ global $thumbnailType;
 debugLog(LL_FUNCTIONS,
          'deleteImageFiles(id=%,small_image=%,large_image=%,large_image_format=%)',
 	 array($id,$small_image,$large_image,$large_image_format));
-// FIXME Journal!
 $smallExt=getImageExtension($thumbnailType);
 $largeExt=getImageExtension($large_image_format);
 if($large_image!=0)
@@ -197,7 +180,6 @@ function moveImageFiles($id,$destid,$small_image,$large_image,
 {
 global $thumbnailType;
 
-// FIXME Journal!
 $smallExt=getImageExtension($thumbnailType);
 $largeExt=getImageExtension($large_image_format);
 if($large_image!=0)
@@ -294,8 +276,6 @@ function setMaxImageFileId($max_id)
 sql("update image_files
      set max_id=$max_id",
     __FUNCTION__);
-journal('update image_files
-         set max_id='.journalVar('images',$max_id));
 }
 
 function getNextImageFileId()
@@ -311,7 +291,6 @@ sql('update image_files
     __FUNCTION__,'update');
 sql('unlock tables',
     __FUNCTION__,'unlock');
-// FIXME journal() !
 return $id;
 }
 

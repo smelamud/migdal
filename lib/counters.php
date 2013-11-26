@@ -60,9 +60,6 @@ sql("update counters
      set value=value+1
      where id=$id",
     __FUNCTION__,'increment');
-journal('update counters
-         set value=value+1
-	 where id='.journalVar('counters',$id));
 storeCounterIP($id,$mode);
 }
 
@@ -74,10 +71,6 @@ sql("update counters
      set serial=serial+1
      where entry_id=$entry_id and mode=$mode",
     __FUNCTION__,'rotate');
-journal('update counters
-         set serial=serial+1
-         where entry_id='.journalVar('entries',$entry_id).
-	     " and mode=$mode");
 
 $max_serial=$counterModes[$mode]['max_serial'];
 if($max_serial>=0)
@@ -85,9 +78,6 @@ if($max_serial>=0)
   sql("delete from counters
        where entry_id=$entry_id and mode=$mode and serial>$max_serial",
       __FUNCTION__,'delete');
-  journal('delete from counters
-	   where entry_id='.journalVar('entries',$entry_id).
-	       " and mode=$mode and serial>$max_serial");
   }
 
 $started=date("Y-m-d H:i:s");
@@ -100,17 +90,10 @@ else
 sql("insert into counters(entry_id,mode,started,finished)
      values($entry_id,$mode,'$started','$finished')",
     __FUNCTION__,'create');
-journal('insert into counters(entry_id,mode,started,finished)
-         values('.journalVar('entries',$entry_id).",$mode,
-	         '$started','$finished')");
 }
 
 function rotateAllCounters()
 {
-global $replicationMaster;
-
-if(!$replicationMaster)
-  return;
 $now=sqlNow();
 $result=sql("select entry_id,mode
 	     from counters

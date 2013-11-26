@@ -1,8 +1,8 @@
--- MySQL dump 10.11
+-- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.0.32-Debian_7etch1-log
+-- Server version	5.5.31-0+wheezy1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -20,73 +20,87 @@
 --
 
 DROP TABLE IF EXISTS `captcha_keys`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `captcha_keys` (
-  `id` int(11) NOT NULL auto_increment,
-  `keystring` varchar(6) collate koi8u_bin NOT NULL default '',
-  `sid` varchar(32) collate koi8u_bin NOT NULL default '',
-  `created` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `keystring` varchar(6) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `sid` varchar(32) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
   KEY `keystring` (`keystring`,`sid`)
-) ENGINE=MyISAM AUTO_INCREMENT=1041 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=103317 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `chat_messages`
 --
 
 DROP TABLE IF EXISTS `chat_messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `chat_messages` (
-  `id` int(11) NOT NULL auto_increment,
-  `guest_login` varchar(30) character set koi8u NOT NULL,
-  `sender_id` int(11) NOT NULL default '0',
-  `private_id` int(11) NOT NULL default '0',
-  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `text` varchar(255) collate koi8u_bin NOT NULL default '',
-  `text_xml` varchar(255) collate koi8u_bin NOT NULL default '',
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `guest_login` varchar(30) CHARACTER SET koi8u NOT NULL,
+  `sender_id` int(11) NOT NULL DEFAULT '0',
+  `private_id` int(11) NOT NULL DEFAULT '0',
+  `sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `text` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `text_xml` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
   KEY `sender_id` (`sender_id`),
   KEY `sent` (`sent`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19799 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `complain_actions`
 --
 
 DROP TABLE IF EXISTS `complain_actions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `complain_actions` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(70) collate koi8u_bin NOT NULL default '',
-  `text` text collate koi8u_bin NOT NULL,
-  `script_id` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(70) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `text` text COLLATE koi8u_bin NOT NULL,
+  `script_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `script_id` (`script_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `content_versions`
 --
 
 DROP TABLE IF EXISTS `content_versions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `content_versions` (
   `postings_version` int(11) NOT NULL,
   `forums_version` int(11) NOT NULL,
   `topics_version` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `counters`
 --
 
 DROP TABLE IF EXISTS `counters`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `counters` (
-  `id` int(11) NOT NULL auto_increment,
-  `entry_id` int(11) NOT NULL default '0',
-  `mode` int(11) NOT NULL default '0',
-  `serial` int(11) NOT NULL default '0',
-  `value` int(11) NOT NULL default '0',
-  `started` datetime NOT NULL default '0000-00-00 00:00:00',
-  `finished` datetime NOT NULL default '0000-00-00 00:00:00',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entry_id` int(11) NOT NULL DEFAULT '0',
+  `mode` int(11) NOT NULL DEFAULT '0',
+  `serial` int(11) NOT NULL DEFAULT '0',
+  `value` int(11) NOT NULL DEFAULT '0',
+  `started` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `finished` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `used` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `mode` (`mode`),
   KEY `serial` (`serial`),
   KEY `started` (`started`),
@@ -94,123 +108,132 @@ CREATE TABLE `counters` (
   KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16267 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=44037 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `counters_ip`
 --
 
 DROP TABLE IF EXISTS `counters_ip`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `counters_ip` (
-  `counter_id` int(11) NOT NULL default '0',
-  `ip` int(10) unsigned NOT NULL default '0',
-  `expires` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`counter_id`,`ip`),
+  `counter_id` int(11) NOT NULL DEFAULT '0',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `expires` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`counter_id`,`ip`),
   KEY `expires` (`expires`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `cross_entries`
 --
 
 DROP TABLE IF EXISTS `cross_entries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cross_entries` (
-  `id` int(11) NOT NULL auto_increment,
-  `source_name` varchar(255) collate koi8u_bin default NULL,
-  `source_id` int(11) default NULL,
-  `link_type` int(11) NOT NULL default '0',
-  `peer_name` varchar(255) collate koi8u_bin default NULL,
-  `peer_id` int(11) default NULL,
-  `peer_path` varchar(255) collate koi8u_bin NOT NULL default '',
-  `peer_subject` varchar(255) character set koi8u NOT NULL,
-  `peer_icon` varchar(64) collate koi8u_bin NOT NULL default '',
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `source_name` varchar(255) COLLATE koi8u_bin DEFAULT NULL,
+  `source_id` int(11) DEFAULT NULL,
+  `link_type` int(11) NOT NULL DEFAULT '0',
+  `peer_name` varchar(255) COLLATE koi8u_bin DEFAULT NULL,
+  `peer_id` int(11) DEFAULT NULL,
+  `peer_path` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `peer_subject` varchar(255) CHARACTER SET koi8u NOT NULL,
+  `peer_icon` varchar(64) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
   KEY `source_id` (`source_id`,`source_name`,`link_type`),
   KEY `peer_id` (`peer_id`),
   KEY `peer_icon` (`peer_icon`,`peer_subject`)
-) ENGINE=MyISAM AUTO_INCREMENT=163 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=170 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `entries`
 --
 
 DROP TABLE IF EXISTS `entries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `entries` (
-  `id` int(11) NOT NULL auto_increment,
-  `ident` varchar(75) collate koi8u_bin default NULL,
-  `entry` tinyint(4) NOT NULL default '0',
-  `up` int(11) NOT NULL default '0',
-  `track` varchar(255) collate koi8u_bin NOT NULL default '',
-  `catalog` varchar(255) collate koi8u_bin NOT NULL default '',
-  `parent_id` int(11) NOT NULL default '0',
-  `orig_id` int(11) NOT NULL default '0',
-  `current_id` int(11) NOT NULL default '0',
-  `grp` int(11) NOT NULL default '0',
-  `person_id` int(11) NOT NULL default '0',
-  `guest_login` varchar(30) character set koi8u NOT NULL,
-  `user_id` int(11) NOT NULL default '0',
-  `group_id` int(11) NOT NULL default '0',
-  `perms` int(11) NOT NULL default '0',
-  `disabled` tinyint(4) NOT NULL default '0',
-  `subject` varchar(255) character set koi8u NOT NULL,
-  `lang` varchar(7) collate koi8u_bin NOT NULL default '',
-  `author` varchar(255) collate koi8u_bin NOT NULL default '',
-  `author_xml` varchar(255) collate koi8u_bin NOT NULL default '',
-  `source` varchar(255) collate koi8u_bin NOT NULL default '',
-  `source_xml` varchar(255) collate koi8u_bin NOT NULL default '',
-  `title` varchar(255) collate koi8u_bin NOT NULL default '',
-  `title_xml` varchar(255) collate koi8u_bin NOT NULL default '',
-  `comment0` varchar(255) collate koi8u_bin NOT NULL default '',
-  `comment0_xml` varchar(255) collate koi8u_bin NOT NULL default '',
-  `comment1` varchar(255) collate koi8u_bin NOT NULL default '',
-  `comment1_xml` varchar(255) collate koi8u_bin NOT NULL default '',
-  `url` varchar(255) collate koi8u_bin NOT NULL default '',
-  `url_domain` varchar(70) collate koi8u_bin NOT NULL default '',
-  `url_check` datetime NOT NULL default '0000-00-00 00:00:00',
-  `url_check_success` datetime NOT NULL default '0000-00-00 00:00:00',
-  `body` text collate koi8u_bin NOT NULL,
-  `body_xml` text collate koi8u_bin NOT NULL,
-  `body_format` int(11) NOT NULL default '0',
-  `has_large_body` tinyint(4) NOT NULL default '0',
-  `large_body` mediumtext collate koi8u_bin NOT NULL,
-  `large_body_xml` mediumtext collate koi8u_bin NOT NULL,
-  `large_body_format` int(11) NOT NULL default '0',
-  `large_body_filename` varchar(70) collate koi8u_bin NOT NULL default '',
-  `priority` tinyint(4) NOT NULL default '0',
-  `index0` int(11) NOT NULL default '0',
-  `index1` int(11) NOT NULL default '0',
-  `index2` int(11) NOT NULL default '0',
-  `set0` int(11) NOT NULL default '0',
-  `set0_index` int(11) NOT NULL default '0',
-  `set1` int(11) NOT NULL default '0',
-  `set1_index` int(11) NOT NULL default '0',
-  `vote` int(11) NOT NULL default '0',
-  `vote_count` int(10) unsigned NOT NULL default '0',
-  `rating` double NOT NULL default '0',
-  `tmpid` int(11) default NULL,
-  `sent` datetime NOT NULL default '0000-00-00 00:00:00',
-  `created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `modified` datetime NOT NULL default '0000-00-00 00:00:00',
-  `accessed` datetime NOT NULL default '0000-00-00 00:00:00',
-  `creator_id` int(11) NOT NULL default '0',
-  `modifier_id` int(11) NOT NULL default '0',
-  `modbits` int(11) NOT NULL default '0',
-  `answers` int(11) NOT NULL default '0',
-  `last_answer` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_answer_id` int(11) NOT NULL default '0',
-  `last_answer_user_id` int(11) NOT NULL default '0',
-  `last_answer_guest_login` varchar(30) character set koi8u NOT NULL,
-  `small_image` int(11) NOT NULL default '0',
-  `small_image_x` smallint(6) NOT NULL default '0',
-  `small_image_y` smallint(6) NOT NULL default '0',
-  `large_image` int(11) NOT NULL default '0',
-  `large_image_x` smallint(6) NOT NULL default '0',
-  `large_image_y` smallint(6) NOT NULL default '0',
-  `large_image_size` int(11) NOT NULL default '0',
-  `large_image_format` varchar(30) collate koi8u_bin NOT NULL default '',
-  `large_image_filename` varchar(70) collate koi8u_bin NOT NULL default '',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ident` varchar(75) COLLATE koi8u_bin DEFAULT NULL,
+  `entry` tinyint(4) NOT NULL DEFAULT '0',
+  `up` int(11) NOT NULL DEFAULT '0',
+  `track` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `catalog` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `orig_id` int(11) NOT NULL DEFAULT '0',
+  `current_id` int(11) NOT NULL DEFAULT '0',
+  `grp` int(11) NOT NULL DEFAULT '0',
+  `person_id` int(11) NOT NULL DEFAULT '0',
+  `guest_login` varchar(30) CHARACTER SET koi8u NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `group_id` int(11) NOT NULL DEFAULT '0',
+  `perms` int(11) NOT NULL DEFAULT '0',
+  `disabled` tinyint(4) NOT NULL DEFAULT '0',
+  `subject` varchar(255) CHARACTER SET koi8u NOT NULL,
+  `lang` varchar(7) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `author` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `author_xml` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `source` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `source_xml` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `title` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `title_xml` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `comment0` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `comment0_xml` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `comment1` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `comment1_xml` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `url` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `url_domain` varchar(70) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `url_check` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `url_check_success` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `body` text COLLATE koi8u_bin NOT NULL,
+  `body_xml` text COLLATE koi8u_bin NOT NULL,
+  `body_format` int(11) NOT NULL DEFAULT '0',
+  `has_large_body` tinyint(4) NOT NULL DEFAULT '0',
+  `large_body` mediumtext COLLATE koi8u_bin NOT NULL,
+  `large_body_xml` mediumtext COLLATE koi8u_bin NOT NULL,
+  `large_body_format` int(11) NOT NULL DEFAULT '0',
+  `large_body_filename` varchar(70) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `priority` tinyint(4) NOT NULL DEFAULT '0',
+  `index0` int(11) NOT NULL DEFAULT '0',
+  `index1` int(11) NOT NULL DEFAULT '0',
+  `index2` int(11) NOT NULL DEFAULT '0',
+  `set0` int(11) NOT NULL DEFAULT '0',
+  `set0_index` int(11) NOT NULL DEFAULT '0',
+  `set1` int(11) NOT NULL DEFAULT '0',
+  `set1_index` int(11) NOT NULL DEFAULT '0',
+  `vote` int(11) NOT NULL DEFAULT '0',
+  `vote_count` int(10) unsigned NOT NULL DEFAULT '0',
+  `rating` double NOT NULL DEFAULT '0',
+  `tmpid` int(11) DEFAULT NULL,
+  `sent` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `accessed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `creator_id` int(11) NOT NULL DEFAULT '0',
+  `modifier_id` int(11) NOT NULL DEFAULT '0',
+  `modbits` int(11) NOT NULL DEFAULT '0',
+  `answers` int(11) NOT NULL DEFAULT '0',
+  `last_answer` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_answer_id` int(11) NOT NULL DEFAULT '0',
+  `last_answer_user_id` int(11) NOT NULL DEFAULT '0',
+  `last_answer_guest_login` varchar(30) CHARACTER SET koi8u NOT NULL,
+  `small_image` int(11) NOT NULL DEFAULT '0',
+  `small_image_x` smallint(6) NOT NULL DEFAULT '0',
+  `small_image_y` smallint(6) NOT NULL DEFAULT '0',
+  `large_image` int(11) NOT NULL DEFAULT '0',
+  `large_image_x` smallint(6) NOT NULL DEFAULT '0',
+  `large_image_y` smallint(6) NOT NULL DEFAULT '0',
+  `large_image_size` int(11) NOT NULL DEFAULT '0',
+  `large_image_format` varchar(30) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `large_image_filename` varchar(70) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `used` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   UNIQUE KEY `track` (`track`),
   UNIQUE KEY `ident` (`ident`),
   UNIQUE KEY `tmpid` (`tmpid`),
@@ -238,309 +261,332 @@ CREATE TABLE `entries` (
   KEY `used` (`used`),
   KEY `sent` (`sent`),
   KEY `subject` (`subject`)
-) ENGINE=MyISAM AUTO_INCREMENT=14846 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=29738 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `entry_grps`
 --
 
 DROP TABLE IF EXISTS `entry_grps`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `entry_grps` (
-  `entry_id` int(11) NOT NULL default '0',
-  `grp` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL DEFAULT '0',
+  `grp` int(11) NOT NULL DEFAULT '0',
   KEY `entry_id` (`entry_id`),
   KEY `grp` (`grp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `groups`
 --
 
 DROP TABLE IF EXISTS `groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `groups` (
-  `user_id` int(11) NOT NULL default '0',
-  `group_id` int(11) NOT NULL default '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `group_id` int(11) NOT NULL DEFAULT '0',
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
-
---
--- Table structure for table `horisonts`
---
-
-DROP TABLE IF EXISTS `horisonts`;
-CREATE TABLE `horisonts` (
-  `host` varchar(30) collate koi8u_bin NOT NULL default '',
-  `we_know` int(11) NOT NULL default '0',
-  `they_know` int(11) NOT NULL default '0',
-  `lock` datetime default NULL,
-  PRIMARY KEY  (`host`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `html_cache`
 --
 
 DROP TABLE IF EXISTS `html_cache`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `html_cache` (
-  `ident` varchar(255) collate koi8u_bin NOT NULL,
-  `content` mediumtext collate koi8u_bin NOT NULL,
-  `deadline` datetime default NULL,
-  `postings_version` int(11) default NULL,
-  `forums_version` int(11) default NULL,
-  `topics_version` int(11) default NULL,
-  PRIMARY KEY  (`ident`)
+  `ident` varchar(255) COLLATE koi8u_bin NOT NULL,
+  `content` mediumtext COLLATE koi8u_bin NOT NULL,
+  `deadline` datetime DEFAULT NULL,
+  `postings_version` int(11) DEFAULT NULL,
+  `forums_version` int(11) DEFAULT NULL,
+  `topics_version` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ident`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `image_files`
 --
 
 DROP TABLE IF EXISTS `image_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `image_files` (
-  `max_id` int(11) NOT NULL default '0'
+  `max_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `inner_images`
 --
 
 DROP TABLE IF EXISTS `inner_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `inner_images` (
-  `entry_id` int(11) NOT NULL default '0',
-  `par` int(11) NOT NULL default '0',
-  `x` tinyint(4) NOT NULL default '0',
-  `y` tinyint(4) NOT NULL default '0',
-  `image_id` int(11) NOT NULL default '0',
-  `placement` tinyint(4) NOT NULL default '0',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`entry_id`,`par`,`x`,`y`),
+  `entry_id` int(11) NOT NULL DEFAULT '0',
+  `par` int(11) NOT NULL DEFAULT '0',
+  `x` tinyint(4) NOT NULL DEFAULT '0',
+  `y` tinyint(4) NOT NULL DEFAULT '0',
+  `image_id` int(11) NOT NULL DEFAULT '0',
+  `placement` tinyint(4) NOT NULL DEFAULT '0',
+  `used` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`entry_id`,`par`,`x`,`y`),
   KEY `used` (`used`),
   KEY `image_entry_id` (`image_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
-
---
--- Table structure for table `journal`
---
-
-DROP TABLE IF EXISTS `journal`;
-CREATE TABLE `journal` (
-  `id` int(11) NOT NULL auto_increment,
-  `seq` int(11) NOT NULL default '0',
-  `result_table` varchar(30) collate koi8u_bin NOT NULL default '',
-  `result_id` int(11) NOT NULL default '0',
-  `result_var` int(11) NOT NULL default '0',
-  `query` mediumblob NOT NULL,
-  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`),
-  KEY `seq` (`seq`),
-  KEY `result_table` (`result_table`),
-  KEY `result_id` (`result_id`),
-  KEY `result_var` (`result_var`),
-  KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
-
---
--- Table structure for table `journal_vars`
---
-
-DROP TABLE IF EXISTS `journal_vars`;
-CREATE TABLE `journal_vars` (
-  `var` int(11) NOT NULL default '0',
-  `host` varchar(30) collate koi8u_bin NOT NULL default '',
-  `value` int(11) NOT NULL default '0',
-  `last_read` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  KEY `var` (`var`),
-  KEY `host` (`host`),
-  KEY `last_read` (`last_read`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `logs`
 --
 
 DROP TABLE IF EXISTS `logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `logs` (
-  `id` int(11) NOT NULL auto_increment,
-  `event` varchar(30) collate koi8u_bin NOT NULL default '',
-  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `ip` int(10) unsigned NOT NULL default '0',
-  `body` varchar(250) collate koi8u_bin NOT NULL default '',
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event` varchar(30) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `body` varchar(250) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=7164853 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=41409495 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mail_log`
 --
 
 DROP TABLE IF EXISTS `mail_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mail_log` (
-  `id` int(11) NOT NULL auto_increment,
-  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=2094 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mail_queue`
 --
 
 DROP TABLE IF EXISTS `mail_queue`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mail_queue` (
-  `id` int(11) NOT NULL auto_increment,
-  `created` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `destination` varchar(255) collate utf8_bin NOT NULL default '',
-  `subject` varchar(255) collate utf8_bin NOT NULL default '',
-  `headers` text collate utf8_bin NOT NULL,
-  `body` mediumtext collate utf8_bin NOT NULL,
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `destination` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `subject` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `headers` text COLLATE utf8_bin NOT NULL,
+  `body` mediumtext COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `created` (`created`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `old_ids`
 --
 
 DROP TABLE IF EXISTS `old_ids`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `old_ids` (
-  `table_name` varchar(32) collate koi8u_bin NOT NULL default '',
-  `old_id` int(11) NOT NULL default '0',
-  `old_ident` varchar(75) collate koi8u_bin default NULL,
-  `entry_id` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`table_name`,`old_id`),
+  `table_name` varchar(32) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `old_id` int(11) NOT NULL DEFAULT '0',
+  `old_ident` varchar(75) COLLATE koi8u_bin DEFAULT NULL,
+  `entry_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`table_name`,`old_id`),
   UNIQUE KEY `table_name` (`table_name`,`entry_id`),
   UNIQUE KEY `table_name_2` (`table_name`,`old_ident`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `packages`
 --
 
 DROP TABLE IF EXISTS `packages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `packages` (
-  `id` int(11) NOT NULL auto_increment,
-  `entry_id` int(11) NOT NULL default '0',
-  `type` int(11) NOT NULL default '0',
-  `mime_type` varchar(50) collate koi8u_bin NOT NULL default '',
-  `title` varchar(250) collate koi8u_bin NOT NULL default '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entry_id` int(11) NOT NULL DEFAULT '0',
+  `type` int(11) NOT NULL DEFAULT '0',
+  `mime_type` varchar(50) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `title` varchar(250) COLLATE koi8u_bin NOT NULL DEFAULT '',
   `body` longblob NOT NULL,
-  `size` int(11) NOT NULL default '0',
-  `url` varchar(250) collate koi8u_bin NOT NULL default '',
-  `created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `used` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
+  `size` int(11) NOT NULL DEFAULT '0',
+  `url` varchar(250) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `used` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `type` (`type`),
   KEY `created` (`created`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10722 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `prisoners`
+--
+
+DROP TABLE IF EXISTS `prisoners`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prisoners` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `name_russian` varchar(255) NOT NULL,
+  `gender` char(1) NOT NULL,
+  `age` varchar(31) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `ghetto_name` varchar(255) NOT NULL,
+  `sender_name` varchar(255) NOT NULL,
+  `sum` int(11) NOT NULL,
+  `search_data` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`),
+  KEY `name_russian` (`name_russian`),
+  KEY `location` (`location`),
+  KEY `ghetto_name` (`ghetto_name`),
+  KEY `sender_name` (`sender_name`)
+) ENGINE=MyISAM AUTO_INCREMENT=5037 DEFAULT CHARSET=koi8u;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `profiling`
 --
 
 DROP TABLE IF EXISTS `profiling`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `profiling` (
-  `id` int(11) NOT NULL auto_increment,
-  `up` int(11) NOT NULL default '0',
-  `track` varchar(255) collate koi8u_bin NOT NULL default '',
-  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `object` smallint(6) NOT NULL default '0',
-  `name` varchar(250) collate koi8u_bin NOT NULL default '',
-  `begin_time` int(11) NOT NULL default '0',
-  `end_time` int(11) NOT NULL default '0',
-  `comment` varchar(250) collate koi8u_bin NOT NULL default '',
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `up` int(11) NOT NULL DEFAULT '0',
+  `track` varchar(255) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `object` smallint(6) NOT NULL DEFAULT '0',
+  `name` varchar(250) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `begin_time` int(11) NOT NULL DEFAULT '0',
+  `end_time` int(11) NOT NULL DEFAULT '0',
+  `comment` varchar(250) COLLATE koi8u_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
   KEY `up` (`up`),
   KEY `track` (`track`),
   KEY `object` (`object`),
   KEY `name` (`name`),
   KEY `sent` (`sent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `redirs`
 --
 
 DROP TABLE IF EXISTS `redirs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `redirs` (
-  `id` int(11) NOT NULL auto_increment,
-  `up` int(11) NOT NULL default '0',
-  `track` varchar(255) collate koi8u_bin NOT NULL default '',
-  `uri` text collate koi8u_bin NOT NULL,
-  `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `up` int(11) NOT NULL DEFAULT '0',
+  `track` varchar(255) CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `uri` text CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL,
+  `last_access` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `track` (`track`),
   KEY `up` (`up`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=6115511 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=417303 DEFAULT CHARSET=koi8u;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `sessions`
 --
 
 DROP TABLE IF EXISTS `sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessions` (
-  `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) NOT NULL default '0',
-  `real_user_id` int(11) NOT NULL default '0',
-  `last` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `duration` int(11) NOT NULL default '0',
-  `sid` char(32) collate koi8u_bin default NULL,
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `real_user_id` int(11) NOT NULL DEFAULT '0',
+  `last` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `duration` int(11) NOT NULL DEFAULT '0',
+  `sid` char(32) COLLATE koi8u_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `sid` (`sid`),
   KEY `user_id` (`user_id`),
   KEY `last` (`last`)
-) ENGINE=MyISAM AUTO_INCREMENT=823473 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=61217409 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `tmp_texts`
 --
 
 DROP TABLE IF EXISTS `tmp_texts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tmp_texts` (
-  `id` int(11) NOT NULL auto_increment,
-  `value` mediumtext collate koi8u_bin NOT NULL,
-  `last_access` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` mediumtext COLLATE koi8u_bin NOT NULL,
+  `last_access` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=148420 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=3581671 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(30) NOT NULL,
-  `password` varchar(40) character set koi8u collate koi8u_bin NOT NULL default '',
+  `password` varchar(40) CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL DEFAULT '',
   `name` varchar(30) NOT NULL,
   `jewish_name` varchar(30) NOT NULL,
   `surname` varchar(30) NOT NULL,
-  `gender` enum('mine','femine') character set koi8u collate koi8u_bin NOT NULL default 'mine',
-  `info` text character set koi8u collate koi8u_bin NOT NULL,
-  `info_xml` text character set koi8u collate koi8u_bin NOT NULL,
-  `birthday` date NOT NULL default '0000-00-00',
-  `created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `modified` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_online` datetime NOT NULL default '0000-00-00 00:00:00',
-  `confirm_deadline` datetime default NULL,
-  `confirm_code` varchar(20) character set koi8u collate koi8u_bin NOT NULL default '',
-  `email` varchar(70) character set koi8u collate koi8u_bin NOT NULL default '',
-  `hide_email` tinyint(4) NOT NULL default '0',
-  `icq` varchar(15) character set koi8u collate koi8u_bin NOT NULL default '',
-  `email_disabled` tinyint(4) NOT NULL default '0',
-  `shames` tinyint(4) NOT NULL default '0',
-  `guest` tinyint(4) NOT NULL default '0',
-  `rights` int(11) NOT NULL default '0',
-  `hidden` tinyint(4) NOT NULL default '0',
-  `no_login` tinyint(4) NOT NULL default '0',
-  `has_personal` tinyint(4) NOT NULL default '0',
-  `settings` varchar(70) character set koi8u collate koi8u_bin NOT NULL default '',
-  PRIMARY KEY  (`id`),
+  `gender` enum('mine','femine') CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL DEFAULT 'mine',
+  `info` text CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL,
+  `info_xml` text CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL,
+  `birthday` date NOT NULL DEFAULT '0000-00-00',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_online` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `confirm_deadline` datetime DEFAULT NULL,
+  `confirm_code` varchar(20) CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `email` varchar(70) CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `hide_email` tinyint(4) NOT NULL DEFAULT '0',
+  `icq` varchar(15) CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL DEFAULT '',
+  `email_disabled` tinyint(4) NOT NULL DEFAULT '0',
+  `shames` tinyint(4) NOT NULL DEFAULT '0',
+  `guest` tinyint(4) NOT NULL DEFAULT '0',
+  `rights` int(11) NOT NULL DEFAULT '0',
+  `hidden` tinyint(4) NOT NULL DEFAULT '0',
+  `no_login` tinyint(4) NOT NULL DEFAULT '0',
+  `has_personal` tinyint(4) NOT NULL DEFAULT '0',
+  `settings` varchar(70) CHARACTER SET koi8u COLLATE koi8u_bin NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
   KEY `login` (`login`),
   KEY `password` (`password`),
   KEY `confirm_deadline` (`confirm_deadline`),
@@ -551,33 +597,40 @@ CREATE TABLE `users` (
   KEY `name` (`name`),
   KEY `jewish_name` (`jewish_name`),
   KEY `surname` (`surname`)
-) ENGINE=MyISAM AUTO_INCREMENT=2686 DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=3937 DEFAULT CHARSET=koi8u;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `version`
 --
 
 DROP TABLE IF EXISTS `version`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `version` (
-  `db_version` int(11) NOT NULL default '0'
+  `db_version` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `votes`
 --
 
 DROP TABLE IF EXISTS `votes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `votes` (
-  `entry_id` int(11) NOT NULL default '0',
-  `ip` int(10) unsigned NOT NULL default '0',
-  `user_id` int(11) NOT NULL default '0',
-  `sent` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `vote` int(11) NOT NULL default '0',
+  `entry_id` int(11) NOT NULL DEFAULT '0',
+  `ip` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `vote` int(11) NOT NULL DEFAULT '0',
   KEY `ip` (`ip`),
   KEY `user_id` (`user_id`),
   KEY `sent` (`sent`),
   KEY `entry_id` (`entry_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -588,12 +641,12 @@ CREATE TABLE `votes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-09-01 22:20:51
--- MySQL dump 10.11
+-- Dump completed on 2013-11-26 17:55:53
+-- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.0.32-Debian_7etch1-log
+-- Server version	5.5.31-0+wheezy1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -612,7 +665,7 @@ CREATE TABLE `votes` (
 
 LOCK TABLES `content_versions` WRITE;
 /*!40000 ALTER TABLE `content_versions` DISABLE KEYS */;
-INSERT INTO `content_versions` VALUES (470,91,0);
+INSERT INTO `content_versions` VALUES (84076,31276,136);
 /*!40000 ALTER TABLE `content_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -622,7 +675,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `version` WRITE;
 /*!40000 ALTER TABLE `version` DISABLE KEYS */;
-INSERT INTO `version` VALUES (15);
+INSERT INTO `version` VALUES (18);
 /*!40000 ALTER TABLE `version` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -635,4 +688,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-09-01 22:20:51
+-- Dump completed on 2013-11-26 17:55:53

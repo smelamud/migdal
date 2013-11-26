@@ -71,11 +71,6 @@ sql('update entries
 	 perms='.$perms->getPerms().'
      where id='.$perms->getId(),
     __FUNCTION__);
-journal("update entries
-         set user_id=".journalVar('users',$perms->getUserId()).',
-	     group_id='.journalVar('users',$perms->getGroupId()).',
-	     perms='.$perms->getPerms().'
-	 where id='.journalVar('entries',$perms->getId()));
 incContentVersionsByEntryId($perms->getId());
 }
 
@@ -84,8 +79,6 @@ incContentVersionsByEntryId($perms->getId());
 // знаки.
 function setPermsRecursive($id,$user_id,$group_id,$perms,$entry=ENT_NULL)
 {
-global $journalSeq;
-
 $set=array();
 if($user_id!=0)
   $set[]="user_id=$user_id";
@@ -99,10 +92,6 @@ sql("update entries
      set $set
      where $entryFilter and ".subtree('entries',$id,true),
     __FUNCTION__);
-if($journalSeq!=0)
-  journal("perms entries ".journalVar('entries',$id).
-		       ' '.journalVar('users',$user_id).
-		       ' '.journalVar('users',$group_id)." $perms");
 incContentVersionsByEntryId(array('postings','forums','topics'));
 }
 

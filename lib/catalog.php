@@ -56,7 +56,7 @@ if(catalogById($id)!=$catalog)
   }
 }
 
-function updateCatalogs($trackPrefix='',$journalize=true)
+function updateCatalogs($trackPrefix='')
 {
 $filter=$trackPrefix!='' ? "track like '$trackPrefix%'" : '1';
 $result=sql("select entry,id,ident,up,catalog,modbits
@@ -82,8 +82,5 @@ while($row=mysql_fetch_assoc($result))
 				     $catalogs[$row['up']]);
      updateCatalogById($row['id'],$catalogs[$row['id']]);
      }
-if($journalize)
-  // FIXME journal $trackPrefix instead of $id
-  journal("catalogs entries ".journalVar('entries',$id));
 }
 ?>

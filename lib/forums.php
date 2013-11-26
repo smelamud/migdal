@@ -200,12 +200,6 @@ function storeForum(&$forum)
 {
 global $userId,$realUserId,$forumPremoderate;
 
-$jencoded=array('subject' => '','author' => '','author_xml'=>'','body' => '',
-                'body_xml' => '','small_image' => 'images',
-		'large_image' => 'images','large_image_filename' => '',
-		'guest_login' => '','user_id' => 'users','group_id' => 'users',
-		'up' => 'entries','parent_id' => 'entries',
-		'creator_id' => 'users','modifier_id' => 'users');
 $vars=array('entry' => $forum->entry,
             'modified' => sqlNow(),
             'modifier_id' => $userId>0 ? $userId : $realUserId,
@@ -244,9 +238,6 @@ if($forum->id)
 			$vars,
 			array('id' => $forum->id)),
 	      __FUNCTION__,'update');
-  journal(sqlUpdate('entries',
-		    jencodeVars($vars,$jencoded),
-		    array('id' => journalVar('entries',$forum->id))));
   updateCatalogs($forum->track);
   replaceTracksToUp('entries',$forum->track,$forum->up,$forum->id);
   }
@@ -260,9 +251,6 @@ else
                         $vars),
 	      __FUNCTION__,'insert');
   $forum->id=sql_insert_id();
-  journal(sqlInsert('entries',
-                    jencodeVars($vars,$jencoded)),
-	  'entries',$forum->id);
   createTrack('entries',$forum->id);
   updateCatalogs(trackById('entries',$forum->id));
   }
@@ -359,16 +347,11 @@ sql("update entries
      set up=$up
      where up=$id",
     __FUNCTION__,'children');
-journal('update entries
-         set up='.journalVar('entries',$up).'
-         where up='.journalVar('entries',$id));
 deleteImageFiles($id,$forum->getSmallImage(),$forum->getLargeImage(),
                  $forum->getLargeImageFormat());
 sql("delete from entries
      where id=$id",
     __FUNCTION__,'delete');
-journal('delete from entries
-         where id='.journalVar('entries',$id));
 updateCatalogs($forum->getTrack());
 replaceTracks('entries',$forum->getTrack(),trackById('entries',$up));
 answerUpdate($forum->getParentId());

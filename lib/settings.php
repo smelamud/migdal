@@ -41,9 +41,6 @@ sql("update users
      set settings='$settings'
      where id=$userId",
     __FUNCTION__);
-journal("update users
-	 set settings='".jencode($settings)."'
-	 where id=".journalVar('users',$userId));
 }
 
 function settingsDefault()

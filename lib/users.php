@@ -525,9 +525,6 @@ function storeUser(&$user)
 {
 global $userAdminUsers;
 
-$jencoded=array('login' => '','password' => '','name' => '','jewish_name' => '',
-                'surname' => '','info' => '','info_xml' => '','email' => '',
-		'icq' => '','settings' => '');
 // Здесь допускается установка админских прав не админом! Проверка должна
 // производиться раньше.
 $vars=array('login' => $user->login,
@@ -558,9 +555,6 @@ if($user->id)
                         $vars,
                         array('id' => $user->id)),
               __FUNCTION__,'update');
-  journal(sqlUpdate('users',
-                    jencodeVars($vars,$jencoded),
-                    array('id' => journalVar('users',$user->id))));
   }
 else
   {
@@ -569,9 +563,6 @@ else
                         $vars),
               __FUNCTION__,'insert');
   $user->id=sql_insert_id();
-  journal(sqlInsert('users',
-                    jencodeVars($vars,$jencoded)),
-          'users',$user->id);
   }
 return $result;
 }
@@ -591,10 +582,6 @@ sql("update users
 	 confirm_deadline='$now'+interval $regConfirmTimeout day
      where id=$userId",
     __FUNCTION__);
-journal("update users
-         set no_login=1,confirm_code='$s',
-	     confirm_deadline='$now'+interval $regConfirmTimeout day
- 	 where id=".journalVar('users',$userId));
 }
 
 function confirmUser($userId)
@@ -605,10 +592,6 @@ sql("update users
 	 last_online='$now'
      where id=$userId",
     __FUNCTION__);
-journal("update users
-         set no_login=0,hidden=0,confirm_deadline=null,
-	     last_online='$now'
-	 where id=".journalVar('users',$userId));
 }
 
 function getUserIdByConfirmCode($confirmCode)
@@ -709,9 +692,6 @@ sql("update users
      set password=md5('$password'),modified='$now'
      where id=$id",
     __FUNCTION__);
-journal("update users
-         set password=md5('".jencode($password)."'),modified='$now'
-	 where id=".journalVar('users',$id));
 }
 
 function getShamesId()
@@ -743,10 +723,6 @@ sql("insert into users(login,email_disabled,guest,hidden,no_login,created,
      values('$guestLogin',1,1,2,1,'$now','$now')",
     __FUNCTION__,'create');
 $id=sql_insert_id();
-journal("insert into users(login,email_disabled,guest,hidden,no_login,created,
-                           modified)
-         values('".jencode($login)."',1,1,2,1,'$now','$now')",
-	 'users',$id);
 return $id;
 }
 

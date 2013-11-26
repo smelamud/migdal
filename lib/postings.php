@@ -619,24 +619,8 @@ if(($fields & SPF_SHADOW)!=0)
 return $vars;
 }
 
-function postingJencoded()
-{
-return array('subject' => '','author' => '','author_xml' => '',
-	     'source' => '','source_xml' => '','title' => '',
-	     'title_xml' => '','comment0' => '','comment0_xml' => '',
-	     'comment1' => '','comment1_xml' => '','url' => '',
-	     'url_domain' => '','body' => '','body_xml' => '',
-	     'large_body' => '','large_body_xml' => '',
-	     'large_body_filename' => '','small_image' => 'images',
-	     'large_image' => 'images','large_image_filename' => '',
-	     'person_id' => 'users','guest_login' => '','user_id' => 'users',
-	     'group_id' => 'users','up' => 'entries','parent_id' => 'entries',
-	     'creator_id' => 'users','modifier_id' => 'users');
-}
-
 function storePosting(&$posting)
 {
-$jencoded=postingJencoded();
 if($posting->id)
   {
   $posting->track=trackById('entries',$posting->id);
@@ -645,25 +629,16 @@ if($posting->id)
 			$vars,
 			array('id' => $posting->id)),
 	      __FUNCTION__,'update_shadow');
-  journal(sqlUpdate('entries',
-		    jencodeVars($vars,$jencoded),
-		    array('id' => journalVar('entries',$posting->id))));
   $vars=storePostingFields($posting,SPF_DUPLICATE);
   $result=sql(sqlUpdate('entries',
 			$vars,
 			array('orig_id' => $posting->orig_id)),
 	      __FUNCTION__,'update_duplicate');
-  journal(sqlUpdate('entries',
-		    jencodeVars($vars,$jencoded),
-		    array('orig_id' => journalVar('entries',$posting->orig_id))));
   $vars=storePostingFields($posting,SPF_ORIGINAL);
   $result=sql(sqlUpdate('entries',
 			$vars,
 			array('id' => $posting->orig_id)),
 	      __FUNCTION__,'update_original');
-  journal(sqlUpdate('entries',
-		    jencodeVars($vars,$jencoded),
-		    array('id' => journalVar('entries',$posting->orig_id))));
   updateCatalogs($posting->track);
   replaceTracksToUp('entries',$posting->track,$posting->up,$posting->id);
   answerUpdate($posting->id);
@@ -678,9 +653,6 @@ else
                 $vars),
       __FUNCTION__,'insert');
   $posting->id=sql_insert_id();
-  journal(sqlInsert('entries',
-                    jencodeVars($vars,$jencoded)),
-	  'entries',$posting->id);
   setOrigIdToEntryId($posting);
   createTrack('entries',$posting->id);
   updateCatalogs(trackById('entries',$posting->id));
@@ -908,14 +880,9 @@ function deleteShadowPosting($id)
 sql("delete from entries
      where id=$id",
     __FUNCTION__,'delete_posting');
-journal('delete from entries
-         where id='.journalVar('entries',$id));
 sql("delete from cross_entries
      where source_id=$id or peer_id=$id",
     __FUNCTION__,'delete_cross_postings');
-journal('delete from cross_entries
-         where source_id='.journalVar('entries',$id).' or
-	       peer_id='.journalVar('entries',$id));
 incContentVersions('postings');
 }
 
@@ -941,47 +908,30 @@ sql("update entries
      set up=$destId
      where up=$origId",
     __FUNCTION__,'update_up');
-journal('update entries
-         set up='.journalVar('entries',$destId).'
-         where up='.journalVar('entries',$origId));
 sql("update entries
      set parent_id=$destId
      where parent_id=$origId",
     __FUNCTION__,'update_parent_id');
-journal('update entries
-         set parent_id='.journalVar('entries',$destId).'
-         where parent_id='.journalVar('entries',$origId));
 sql("update entries
      set orig_id=$destId
      where orig_id=$origId",
     __FUNCTION__,'move');
-journal('update entries
-         set orig_id='.journalVar('entries',$destId)
-       .'where orig_id='.journalVar('entries',$origId),
-        __FUNCTION__,'move');
 $fields=origFields(SELECT_ALLPOSTING);
 $result=sql("select $fields
              from entries
 	     where id=$origId",
 	    __FUNCTION__,'get_fields');
 $row=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
-$jencoded=postingJencoded();
 sql(sqlUpdate('entries',
 	      $row,
 	      array('id' => $destId)),
     __FUNCTION__,'move_fields');
-journal(sqlUpdate('entries',
-		  jencodeVars($row,$jencoded),
-		  array('id' => journalVar('entries',$destId))));
 moveImageFiles($origId,$destId,$row['small_image'],$row['large_image'],
                $row['large_image_format']);
 sql("update inner_images
      set entry_id=$destId
      where entry_id=$origId",
     __FUNCTION__,'inner_images');
-journal('update inner_images
-         set entry_id='.journalVar('entries',$destId)
-       .'where entry_id='.journalVar('entries',$origId));
 updateCatalogs(trackById('entries',$origId).' ');
 replaceTracks('entries',trackById('entries',$origId).' ',
               trackById('entries',$destId).' ');
@@ -1007,10 +957,6 @@ sql("update entries
      set up=$up
      where up=$id and entry<>".ENT_IMAGE." and entry<>".ENT_FORUM,
     __FUNCTION__,'update_up');
-journal('update entries
-         set up='.journalVar('entries',$up).'
-         where up='.journalVar('entries',$id)." and entry<>".ENT_IMAGE
-      ." and entry<>".ENT_FORUM);
 $result=sql("select id,small_image,large_image,large_image_format
              from entries
 	     where parent_id=$id or up=$id and entry=".ENT_IMAGE,
@@ -1021,14 +967,9 @@ while($row=mysql_fetch_assoc($result))
 sql("delete from entries
      where parent_id=$id or up=$id and entry=".ENT_IMAGE,
     __FUNCTION__,'delete_children');
-journal('delete from entries
-         where parent_id='.journalVar('entries',$id).' 
-	       or up='.journalVar('entries',$id).' and entry='.ENT_IMAGE);
-sql('delete from inner_images
-     where entry_id='.journalVar('entries',$id),
+sql("delete from inner_images
+     where entry_id=$id",
     __FUNCTION__,'inner_images');
-journal('delete from inner_images
-         where entry_id='.journalVar('entries',$id));
 $result=sql("select id
              from entries
 	     where up=$id and entry=".ENT_FORUM,
@@ -1064,10 +1005,6 @@ sql(sqlInsert('entries',
               $row),
     __FUNCTION__,'insert');
 $shid=sql_insert_id();
-$jencoded=postingJencoded();
-journal(sqlInsert('entries',
-                  jencodeVars($row,$jencoded)),
-        'entries',$shid);
 createTrack('entries',$shid);
 updateCatalogs(trackById('entries',$shid));
 incContentVersions('postings');

@@ -897,18 +897,12 @@ sql("delete
      from entry_grps
      where entry_id=$id",
     __FUNCTION__,'delete');
-journal("delete
-         from entry_grps
-         where entry_id=".journalVar('entries',$id));
 foreach($grps as $grp)
        {
        sql("insert into entry_grps(entry_id,grp)
             values($id,$grp)",
 	   __FUNCTION__,'insert');
        $eid=sql_insert_id();
-       journal('insert into entry_grps(entry_id,grp)
-                values('.journalVar('entries',$id).",$grp)",
-	       'entry_grps',$eid);
        }
 setCachedValue('grps','entries',$id,$grps);
 sql('unlock tables',
@@ -926,9 +920,6 @@ sql("update entries
      set perms=perms $op
      where id=$id",
     __FUNCTION__);
-journal("update entries
-         set perms=perms $op
-	 where id=".journalVar('entries',$id));
 if(getTypeByEntryId($id)==ENT_FORUM)
   answerUpdate(getParentIdByEntryId($id));
 incContentVersionsByEntryId($id);
@@ -941,9 +932,6 @@ sql("update entries
      set disabled=$disabled
      where id=$id",
     __FUNCTION__);
-journal("update entries
-         set disabled=$disabled
-	 where id=".journalVar('entries',$id));
 if(getTypeByEntryId($id)==ENT_FORUM)
   answerUpdate(getParentIdByEntryId($id));
 incContentVersionsByEntryId($id);
@@ -1009,9 +997,6 @@ sql("update entries
      set orig_id=id
      where id={$entry->id}",
     __FUNCTION__,'orig_id');
-journal('update entries
-         set orig_id=id
-         where id='.journalVar('entries',$entry->id));
 $entry->orig_id=$entry->id;
 incContentVersionsByEntryId($entry->id);
 }
@@ -1097,9 +1082,6 @@ foreach($ids as $id)
 	    set index0=$n
 	    where id=$id",
 	   __FUNCTION__);
-       journal("update entries
-                set index0=$n
-		where id=".journalVar('entries',$id));
        $n++;
        }
 if($some_id!=null)
@@ -1113,9 +1095,6 @@ sql("update entries
      set sent='$now'
      where id=$id",
     __FUNCTION__);
-journal("update entries
-         set sent='$now'
-	 where id=".journalVar('entries',$id));
 incContentVersionsByEntryId($id);
 }
 

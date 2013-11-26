@@ -59,11 +59,8 @@
          params='grp,inverse' defaults="grp='*GRP_NONE' inverse='*false'">
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>
 <deciter macro='groups' class='GroupsIterator' file='lib/groups.php'>
-<deciter macro='horisonts' class='HorisontsIterator' file='lib/horisonts.php'>
 <deciter macro='images' class='ImagesIterator' file='lib/images.php'
          params='postid'>
-<deciter macro='journallist' class='JournalListIterator' file='lib/journal.php'
-         params='limit,offset' defaults='limit=20 offset=0'>
 <deciter macro='langs' class='LangIterator' file='lib/langs.php'>
 <deciter macro='locations' class='LocationIterator' file='lib/structure.php'
          params='offset' defaults='offset=0'>
@@ -210,8 +207,6 @@
 <deccall macro='html_cache_pop' func='popHTMLCacheStack'>
 <decexec macro='html_cache_store' func='storeHTMLCacheRecord'
          params='record,content'>
-<deccall macro='horisont_obj' func='getHorisontByHost' file='lib/horisonts.php'
-         params='host'>
 <deccall macro='id_ident' func='identById' file='lib/ident.php'
          params='id,table'>
 <deccall macro='ident_id' func='idByIdent' file='lib/ident.php'
@@ -497,19 +492,6 @@
  <if what="$$userStyle!=-1">
 </macro>
 <endif name='/notprint'>
-
-<< Role >>
-<macro name='master'>
- <conf>
- <if what='$$replicationMaster'>
-</macro>
-<endif name='/master'>
-
-<macro name='slave'>
- <conf>
- <if what='!$$replicationMaster'>
-</macro>
-<endif name='/slave'>
 
 << Typecasts >>
 <macro name='int'>

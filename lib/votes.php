@@ -40,9 +40,6 @@ $ip=$userId<=0 ? IPToInteger($_SERVER['REMOTE_ADDR']) : 0;
 $result=sql("insert into votes(entry_id,ip,user_id,vote)
 	     values($id,$ip,$uid,$vote)",
 	    __FUNCTION__,'insert');
-journal("insert into votes(entry_id,ip,user_id,vote)
-         values(".journalVar('entries',$id).",$ip,
-	        ".journalVar('users',$uid).",$vote)");
 
 $weight=$userModerator ? $moderatorVoteWeight
                        : ($userId>0 ? $userVoteWeight : 1);
@@ -50,16 +47,10 @@ sql("update entries
      set vote=vote+$weight*$vote,vote_count=vote_count+$weight
      where id=$id",
     __FUNCTION__,'update_votes');
-journal("update entries
-         set vote=vote+$weight*$vote,vote_count=vote_count+$weight
-	 where id=".journalVar('entries',$id));
 sql('update entries
      set rating='.getRatingSQL('vote','vote_count')."
      where id=$id",
     __FUNCTION__,'update_rating');
-journal('update entries
-         set rating='.getRatingSQL('vote','vote_count')."
-	 where id=".journalVar('entries',$id));
 return $result;
 }
 
@@ -87,24 +78,15 @@ $ip=$userId<=0 ? IPToInteger($_SERVER['REMOTE_ADDR']) : 0;
 $result=sql("insert into votes(entry_id,ip,user_id,vote)
 	     values($id,$ip,$uid,$vote)",
 	    __FUNCTION__,'insert');
-journal("insert into votes(entry_id,ip,user_id,vote)
-         values(".journalVar('entries',$parent_id).",$ip,
-	        ".journalVar('users',$uid).",$vote)");
 
 sql("update entries
      set vote=vote+$vote,vote_count=vote_count+1
      where id=$id",
     __FUNCTION__,'update_votes');
-journal("update entries
-         set vote=vote+$vote,vote_count=vote_count+1
-	 where id=".journalVar('entries',$id));
 sql('update entries
      set rating='.getRatingSQL('vote','vote_count')."
      where id=$id",
     __FUNCTION__,'update_rating');
-journal('update entries
-         set rating='.getRatingSQL('vote','vote_count')."
-	 where id=".journalVar('entries',$id));
 return $result;
 }
 

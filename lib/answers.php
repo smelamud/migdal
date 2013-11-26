@@ -53,9 +53,6 @@ $result=sql("select count(*) as answers,max(sent) as last_answer
 list($answers,$last)=mysql_fetch_array($result);
 list($last_id,$last_user_id,$last_guest_login)=answerFindLastId($id);
 answerSet($id,$answers,$last,$last_id,$last_user_id,$last_guest_login);
-
-if($journalSeq!=0)
-  journal('answers '.journalVar('entries',$id));
 }
 
 function answersRecalculate()

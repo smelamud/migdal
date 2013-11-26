@@ -110,9 +110,6 @@ function storeComplain(&$complain)
 {
 global $userId,$realUserId;
 
-$jencoded=array('subject' => '','user_id' => 'users','group_id' => 'users',
-                'person_id' => 'users','body' => '','body_xml' => '',
-		'creator_id' => 'users','modifier_id' => 'users');
 $vars=array('entry' => $complain->entry,
             'person_id' => $complain->person_id,
 	    'user_id' => $complain->user_id,
@@ -132,9 +129,6 @@ if($complain->id)
 			$vars,
 			array('id' => $complain->id)),
 	      __FUNCTION__,'update');
-  journal(sqlUpdate('entries',
-		    jencodeVars($vars,$jencoded),
-		    array('id' => journalVar('entries',$complain->id))));
   answerUpdate($complain->id);
   }
 else
@@ -149,9 +143,6 @@ else
                         $vars),
               __FUNCTION__,'insert');
   $complain->id=sql_insert_id();
-  journal(sqlInsert('entries',
-                    jencodeVars($vars,$jencoded)),
-	  'entries',$complain->id);
   createTrack('entries',$complain->id);
   }
 return $result;
@@ -222,9 +213,6 @@ $result=sql("update entries
 	     set person_id=$person_id
 	     where id=$id",
 	    __FUNCTION__);
-journal('update entries
-         set person_id='.journalVar('users',$person_id).'
-	 where id='.journalVar('entries',$id));
 }
 
 function setComplainClosedStatus($id,$closed)
@@ -234,9 +222,6 @@ sql("update entries
      set modbits=$expr
      where id=$id",
     __FUNCTION__);
-journal("update entries
-         set modbits=$expr
-         where id=".journalVar('entries',$id));
 }
 
 function openComplain($id)

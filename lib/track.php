@@ -96,7 +96,6 @@ sql("update $table
      set track=concat('$newTrack',substring(track from $tailPos))
      where track like '$oldTrack%'",
     __FUNCTION__);
-// FIXME journal!
 }
 
 function replaceTracksToUp($table,$oldTrack,$newUp,$id)

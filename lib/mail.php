@@ -84,10 +84,6 @@ sql("optimize table mail_log",
 
 function sendMailOrDefer($destination,$subject,$headers,$body)
 {
-global $replicationMaster;
-
-if(!$replicationMaster)
-  return;
 lockMailTables();
 if(getMailLimit()>=1)
   $result=sendMail($destination,$subject,$headers,$body);
@@ -107,10 +103,6 @@ return $result;
 
 function runMailQueue()
 {
-global $replicationMaster;
-
-if(!$replicationMaster)
-  return;
 lockMailTables();
 $limit=getMailLimit();
 if($limit<=0)

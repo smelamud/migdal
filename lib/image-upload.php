@@ -254,7 +254,6 @@ else
   debugLog(LL_DETAILS,'symlink(%,%)',array($smallFilename,$largeName));
   symlink($smallFilename,$largeName);
   }
-//FIXME journal() !
 if(isDebugLogging(LL_FUNCTIONS))
   debugLog(LL_FUNCTIONS,'EG_OK, posting='.imagePostingData($posting));
 return EG_OK;
@@ -321,7 +320,6 @@ else
   symlink($newSmallFilename,"$imageDir/$newLargeFilename");
 @unlink("$imageDir/$mainLargeFilename");
 symlink($newLargeFilename,"$imageDir/$mainLargeFilename");
-//FIXME journal() !
 }
 
 define('IFR_OK',0);
