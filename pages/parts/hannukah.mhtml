@@ -2,7 +2,7 @@
 
 <element name='hannukah'>
 <time>
-<assign name='current' value!='$,@z-329'>
+<assign name='current' value!='$,@z-330'>
 <if what='$,@G>17'>
  <assign name='current' value!='$current+1'>
 </if>
