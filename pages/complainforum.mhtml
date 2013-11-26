@@ -6,8 +6,8 @@
 <if what='$offset==0 && $tid!=0'>
  <forumlist_offset name='offset' parent_id='$compid' id='$tid'
                    sort='*SORT_RSENT'>
- <assign name='offset'
-         value!='(int)($offset / $$userForumPortion) * $$userForumPortion'>
+ <assign name='portion' value='15'>
+ <assign name='offset' value!='(int)($offset / $portion) * $portion'>
 </if>
 
 <html>
@@ -21,7 +21,7 @@
    <complain complain='$,' discuss='*false'>
   </td></tr>
   <tr><td>
-   <forums parent_id='$,Id' limit='$$userForumPortion' offset='$offset'>
+   <forums parent_id='$,Id' limit='$portion' offset='$offset'>
   </td></tr>
  </table>
  <bottom>

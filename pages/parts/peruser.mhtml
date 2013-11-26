@@ -3,7 +3,7 @@
 <element name='peruser'>
  <topic_obj name='topic' id='$topic_id'>
  <iterate_posting_users topic_id='$topic_id'>
- <iterate_rows cols='$$userPictureColumnPortion'>
+ <iterate_rows cols='5'>
  <table cellspacing=10 cellpadding=0><tr valign=top>
  <for>
   <td>

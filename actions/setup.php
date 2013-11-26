@@ -13,19 +13,18 @@ postString('faildir');
 dbOpen();
 session();
 
-foreach($allSettings as $name => $info)
-       {
-       if(!isset($_REQUEST[$name]))
-         continue;
-       $func='post'.ucfirst($info['type']);
-       if(function_exists($func))
-	 $func($name);
-       if(isset($Args[$name]))
-         $GLOBALS['user'.ucfirst($name)]=$Args[$name];
-       }
-$settings=getSettingsString(SETL_USER,false);
-if($userId>0)
-  setSettingsByUserId($userId,$settings);
+foreach($allSettings as $name => $info) {
+    if (!isset($_REQUEST[$name]))
+        continue;
+    $func = 'post'.ucfirst($info['type']);
+    if (function_exists($func))
+        $func($name);
+    if (isset($Args[$name]))
+        $GLOBALS['user'.ucfirst($name)] = $Args[$name];
+}
+$settings = getSettingsString(SETL_USER, false);
+if ($userId > 0)
+    setSettingsByUserId($userId, $settings);
 updateSettingsCookie(SETL_USER);
 
 header("Location: $okdir");

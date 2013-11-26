@@ -40,8 +40,6 @@
     <asp></td>
     <td align=right style='line-height: 1px'><asp>
      <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
-     <menuitem ident='setup' alt='Настройки' link#='/setup/?redirid=$_'
-               current='$ident'>
     <asp></td>
    </tr>
   </html_cache>

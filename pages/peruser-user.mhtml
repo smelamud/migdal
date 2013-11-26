@@ -39,9 +39,8 @@
     </ifzero>
    </div>
    <p>
-   <gallery topic_id='$topic_id' rows='$userPictureRowPortion'
-            cols='$userPictureColumnPortion' offset='$offset' sort='$sort'
-	    user_id='$user.Id' noguests='*true'>
+   <gallery topic_id='$topic_id' rows='4' cols='5' offset='$offset'
+            sort='$sort' user_id='$user.Id' noguests='*true'>
    <rss>
   </td>
  </tr></table>

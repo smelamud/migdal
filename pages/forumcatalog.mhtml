@@ -80,30 +80,31 @@
        </td>
        <td class='$class'>
 	<a href='$href' class='ninept'>$=.Heading</a>
-	<if what='$.Answers>$$userForumPortion'>
+    <assign name='portion' value='15'>
+	<if what='$.Answers>$portion'>
 	 <span class='eightpt' style='white-space: nowrap'>
-	  <assign name='pages' value!='(int)($.Answers / $$userForumPortion)'>
-	  <if what='$.Answers % $$userForumPortion>0'>
+	  <assign name='pages' value!='(int)($.Answers / $portion)'>
+	  <if what='$.Answers % $portion>0'>
 	   <assign name='pages' value!='$pages + 1'>
 	  </if>
 	  (Страницы:
 	  <if what='$pages>6'>
 	   <for n=3>
-	    <assign name='off' value!='$. * $$userForumPortion'>
+	    <assign name='off' value!='$. * $portion'>
 	    <assign name='page' value!='$. + 1'>
 	    &sp;<a href='/forum/$posting.Id/?offset=$off'
 		   class='ninept'>$page</a><asp>
 	   </for>
 	   &sp;...&sp;
 	   <for n=3>
-	    <assign name='off' value!='($pages + $. - 2) * $$userForumPortion'>
+	    <assign name='off' value!='($pages + $. - 2) * $portion'>
 	    <assign name='page' value!='$. + 1'>
 	    &sp;<a href='/forum/$posting.Id/?offset=$off'
 		   class='ninept'>$page</a><asp>
 	   </for>
 	  <else>
 	   <for n!='$pages'>
-	    <assign name='off' value!='$. * $$userForumPortion'>
+	    <assign name='off' value!='$. * $portion'>
 	    <assign name='page' value!='$. + 1'>
 	    &sp;<a href='/forum/$posting.Id/?offset=$off'
 		   class='ninept'>$page</a><asp>
