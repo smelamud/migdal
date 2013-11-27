@@ -10,119 +10,99 @@ require_once('lib/sql.php');
 require_once('lib/post.php');
 
 class Redir
-      extends DataObject
-{
-var $id;
-var $up;
-var $track;
-var $uri;
-var $last_access;
+        extends DataObject {
 
-function __construct($row=array())
-{
-parent::__construct($row);
-}
+    protected $id;
+    protected $up;
+    protected $track;
+    protected $uri;
+    protected $last_access;
 
-function getId()
-{
-return $this->id;
-}
-
-function getUp()
-{
-return $this->up;
-}
-
-function getTrack()
-{
-return $this->track;
-}
-
-function getURI()
-{
-return $this->uri;
-}
-
-}
-
-function updateRedirectTimestamps($track)
-{
-foreach(explode(' ',$track) as $level)
-       {
-       $id=(int)$level;
-       sql("update redirs
-	    set last_access=null
-	    where id=$id",
-	   __FUNCTION__);
-       }
-}
-
-function redirect()
-{
-global $LocationInfo,$redirid,$globalid,$Args;
-
-postInteger('globalid');
-unset($Args['globalid']);
-
-if($globalid==0)
-  {
-  $requestURIS=addslashes($_SERVER['REQUEST_URI']);
-  $track=(string) time();
-  sql(sqlInsert('redirs',
-                array('up'    => $redirid,
-		      'track' => $track,
-		      'uri'   => $_SERVER['REQUEST_URI'])),
-      __FUNCTION__);
-  $id=sql_insert_id();
-  $track=track($id,trackById('redirs',$redirid));
-  updateTrackById('redirs',$id,$track);
-  $redir=new Redir(array('id'    => $id,
-			 'up'    => $redirid,
-			 'track' => $track,
-			 'uri'   => $_SERVER['REQUEST_URI']));
-  }
-else
-  {
-  $redir=getRedirById($globalid);
-  if($redir->getId()==0)
-    {
-    postIntegerValue('globalid',0);
-    redirect();
-    return;
+    public function getId() {
+        return $this->id;
     }
-  }
-updateRedirectTimestamps($redir->getTrack());
-$LocationInfo->setRedir($redir);
+
+    public function getUp() {
+        return $this->up;
+    }
+
+    public function getTrack() {
+        return $this->track;
+    }
+
+    public function getURI() {
+        return $this->uri;
+    }
+
 }
 
-function getRedirById($id)
-{
-$result=sql("select id,up,track,uri
-	     from redirs
-	     where id=$id",
-	    __FUNCTION__);
-return new Redir(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                           : array());
+function updateRedirectTimestamps($track) {
+    foreach (explode(' ', $track) as $level) {
+        $id = (int)$level;
+        sql("update redirs
+             set last_access=null
+             where id=$id",
+            __FUNCTION__);
+    }
 }
 
-function redirExists($id)
-{
-$result=sql("select id
-	     from redirs
-	     where id=$id",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0;
+function redirect() {
+    global $LocationInfo, $redirid, $globalid, $Args;
+
+    postInteger('globalid');
+    unset($Args['globalid']);
+
+    if ($globalid == 0) {
+        $requestURIS = addslashes($_SERVER['REQUEST_URI']);
+        sql(sqlInsert('redirs',
+                      array('up'    => $redirid,
+                            'track' => null,
+                            'uri'   => $_SERVER['REQUEST_URI'])),
+            __FUNCTION__);
+        $id = sql_insert_id();
+        $track = track($id, trackById('redirs', $redirid));
+        updateTrackById('redirs', $id, $track);
+        $redir = new Redir(array('id'    => $id,
+                                 'up'    => $redirid,
+                                 'track' => $track,
+                                 'uri'   => $_SERVER['REQUEST_URI']));
+    } else {
+        $redir = getRedirById($globalid);
+        if ($redir->getId() == 0) {
+            postIntegerValue('globalid', 0);
+            redirect();
+            return;
+        }
+    }
+    updateRedirectTimestamps($redir->getTrack());
+    $LocationInfo->setRedir($redir);
 }
 
-function deleteObsoleteRedirs()
-{
-global $redirTimeout;
+function getRedirById($id) {
+    $result = sql("select id,up,track,uri
+                   from redirs
+                   where id=$id",
+                  __FUNCTION__);
+    return new Redir(mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result)
+                                                 : array());
+}
 
-$now=sqlNow();
-sql("delete from redirs
-     where last_access+interval $redirTimeout hour<'$now'",
-    __FUNCTION__);
-sql('optimize table redirs',
-    __FUNCTION__,'optimize');
+function redirExists($id) {
+    $result = sql("select id
+                   from redirs
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
+}
+
+function deleteObsoleteRedirs() {
+    global $redirTimeout;
+
+    $now = sqlNow();
+    sql("delete from redirs
+         where last_access+interval $redirTimeout hour<'$now'",
+        __FUNCTION__);
+    sql('optimize table redirs',
+        __FUNCTION__, 'optimize');
 }
 ?>

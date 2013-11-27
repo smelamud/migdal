@@ -1,14 +1,12 @@
 <?php
 # @(#) $Id$
 
-class DataObject
-{
+class DataObject {
 
-function __construct($row)
-{
-foreach($row as $var => $value)
-       $this->$var=$value;
-}
+    public function __construct(array $row = array()) {
+        foreach($row as $var => $value)
+            $this->$var = $value;
+    }
 
 }
 ?>
