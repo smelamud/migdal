@@ -99,7 +99,7 @@ class LocationInfo {
     }
 
     public function getArg($name) {
-        return $this->args[$name];
+        return isset($this->args[$name]) ? $this->args[$name] : '';
     }
 
     public function getIds() {

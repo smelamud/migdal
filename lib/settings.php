@@ -79,7 +79,7 @@ function parseSettingsString($settings, $convert) {
 
     $map = getSettingsAbbrevMap();
     foreach(explode(':', $settings) as $assign) {
-        list($abbrev, $value) = explode('=', $assign);
+        @list($abbrev, $value) = explode('=', $assign);
         if (!isset($map[$abbrev]))
             continue;
         $name = $map[$abbrev];

@@ -3,11 +3,8 @@
 
 require_once('lib/time.php');
 
-function biff($time)
-{
-global $userBiffTime;
-
-return (ourtime()-$time)/3600<=$userBiffTime;
+function biff($time) {
+    return (ourtime() - $time) / 3600 <= 24 /*hours*/;
 }
 
 ?>
