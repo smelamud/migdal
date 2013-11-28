@@ -7,8 +7,6 @@ Disallow: /add-book
 Disallow: /add-news
 Disallow: /add-review
 Disallow: /admin
-Disallow: /complains/add
-Disallow: /complains/answers
 Disallow: /events/add-article
 Disallow: /events/add-book
 Disallow: /events/add-news

@@ -54,8 +54,6 @@
 <decel name='catalog_table' file='parts/catalog.php' params='compact'
        defaults="compact='*false'">
 <decel name='/catalog_table' file='parts/catalog.php'>
-<decel name='complain' file='parts/complain.php'
-       params='complain,discuss' defaults="discuss='*true'">
 <decel name='countdown' file='parts/countdown.php' params='title,day,image,href'
        defaults="href=''">
 <decel name='countdown_pic' file='parts/countdown.php'
@@ -86,9 +84,6 @@
                  checked='*true' id_yes='' id_no=''">
 <decel name='form_comment' file='parts/formutils.php'>
 <decel name='/form_comment' file='parts/formutils.php'>
-<decel name='form_complainactionselect' file='parts/complainactionselect.php'
-       params='title,name,value,mandatory,comment'
-       defaults="mandatory='*false' comment=''">
 <decel name='form_date' file='parts/formutils.php'
        params='title,mandatory,comment,name,value,base_year'
        defaults="mandatory='*false' comment='' base_year=2000">

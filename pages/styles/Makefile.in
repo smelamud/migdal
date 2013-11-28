@@ -14,7 +14,6 @@ STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-seealso.mcss sheet-register.mcss sheet-votes.mcss
 ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-article.mcss
 BOOK_PARTS = colors.mcss fonts.mcss palette.mcss sheet-book.mcss
-COMPLAIN_PARTS = colors.mcss fonts.mcss palette.mcss sheet-complain.mcss
 INDEX_PARTS = colors.mcss fonts.mcss palette.mcss sheet-index.mcss
 TIMES_PARTS = colors.mcss fonts.mcss palette.mcss sheet-times.mcss
 TIMESNFO_PARTS = colors.mcss fonts.mcss palette.mcss sheet-timesnfo.mcss
@@ -23,9 +22,9 @@ STATIC_ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
 	sheet-article.mcss
 
 all: $(targetdir)/.style.stamp $(targetdir)/.article.stamp \
-	$(targetdir)/.book.stamp $(targetdir)/.complain.stamp \
-	$(targetdir)/.index.stamp $(targetdir)/.times.stamp \
-	$(targetdir)/.timesnfo.stamp $(targetdir)/static-article.css
+	$(targetdir)/.book.stamp $(targetdir)/.index.stamp \
+	$(targetdir)/.times.stamp $(targetdir)/.timesnfo.stamp \
+	$(targetdir)/static-article.css
 
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)
@@ -65,18 +64,6 @@ $(targetdir)/book-%.css: book.mcss $(targetdir)/.stamp $(BOOK_PARTS) \
 
 $(targetdir)/.book.stamp: $(patsubst %,$(targetdir)/book-%.css,$(FLAVOURS)) \
 		$(patsubst %,$(targetdir)/book-%.php,$(FLAVOURS))
-	touch $@
-
-$(targetdir)/complain-%.php: complain.mcss $(targetdir)/.stamp \
-		$(COMPLAIN_PARTS) ../../cssparser
-	../../cssparser -p -s $* $< > $@
-
-$(targetdir)/complain-%.css: complain.mcss $(targetdir)/.stamp \
-		$(COMPLAIN_PARTS) ../../cssparser
-	../../cssparser -s $* $< > $@
-
-$(targetdir)/.complain.stamp: $(patsubst %,$(targetdir)/complain-%.css,$(FLAVOURS)) \
-		$(patsubst %,$(targetdir)/complain-%.php,$(FLAVOURS))
 	touch $@
 
 $(targetdir)/index-%.php: index.mcss $(targetdir)/.stamp $(INDEX_PARTS) \

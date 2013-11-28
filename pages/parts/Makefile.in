@@ -7,8 +7,7 @@ targetdir=$(builddir)/www/parts/
 OBJECTS = addtoany.mhtml article.mhtml backtrace.mhtml banner-rabbi.mhtml \
 	  banners.mhtml book-chapters.mhtml book-chapters-static.mhtml \
 	  book-ring.mhtml book-ring-static.mhtml bottom.mhtml captcha.mhtml \
-	  catalog.mhtml complain.mhtml complainactionselect.mhtml \
-	  countdown.mhtml daily-announce.mhtml daily-picture.mhtml \
+	  catalog.mhtml countdown.mhtml daily-announce.mhtml daily-picture.mhtml \
 	  discussions.mhtml ears.mhtml events.mhtml failpage.mhtml \
 	  formutils.mhtml forum.mhtml forums.mhtml gallery.mhtml \
 	  gallery-main.mhtml grpselect.mhtml hannukah.mhtml help-link.mhtml \

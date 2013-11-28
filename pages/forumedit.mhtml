@@ -26,7 +26,6 @@
 <conf>
 
 <html>
-<stylesheet ident='complain'>
 <js_jquery>
 <js src='/js/captcha.js'>
 <preamble>
@@ -41,17 +40,10 @@
  <else>
   <assign name='quote' value=''>
   <entry_type name='type' id='$parent_id'>
-  <if what='$,==ENT_COMPLAIN'>
-   <complain_obj id='$parent_id'>
-   <center><table width=95% cellspacing=0 cellpadding=0><tr><td>
-    <complain complain='$,'>
-   </td></tr></table></center>
-  <else>
-   <posting_obj id='$parent_id' grp='*GRP_FORUMS'>
-   <center><table width=95% cellspacing=0 cellpadding=5 class='cframe'><tr><td>
-    <posting posting='$,' shorten='*true'>
-   </td></tr></table></center>
-  </if>
+  <posting_obj id='$parent_id' grp='*GRP_FORUMS'>
+  <center><table width=95% cellspacing=0 cellpadding=5 class='cframe'><tr><td>
+   <posting posting='$,' shorten='*true'>
+  </td></tr></table></center>
  </ifnzero>
  <forum_obj id='$editid' parent_id='$parent_id' quote='$quote' quote_width=70>
  <setup>

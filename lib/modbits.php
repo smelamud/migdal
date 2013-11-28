@@ -25,15 +25,6 @@ $modbitNames=array('Модерировать',
 		   'Особо проверить',
 		   'Многостраничное');
 
-// For complains
-define('MODC_NONE',0x0000);
-define('MODC_CLOSED',0x0001);
-define('MODC_NO_AUTO',0x0002); # deprecated
-define('MODC_ALL',0x0003);
-
-$modbitCNames=array('Закрыта',
-                    'Автоматически не закрывается'); # deprecated
-
 // For topics
 define('MODT_NONE',0x0000);
 define('MODT_PREMODERATE',0x0001);
@@ -125,17 +116,6 @@ class PostingModbitIterator
         global $modbitLetters, $modbitNames;
 
         parent::__construct(MOD_ALL, $modbitLetters, $modbitNames);
-    }
-
-}
-
-class ComplainModbitIterator
-        extends ModbitIterator {
-
-    public function __construct() {
-        global $modbitCNames;
-
-        parent::__construct(MODC_ALL, null, $modbitCNames);
     }
 
 }

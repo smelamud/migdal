@@ -19,7 +19,6 @@ $entryClassNames=array(ENT_NULL     => 'Entry',
                        ENT_FORUM    => 'Forum',
                        ENT_TOPIC    => 'Topic',
                        ENT_IMAGE    => 'Image',
-                       ENT_COMPLAIN => 'Complain',
                        ENT_VERSION  => 'Entry');
 
 class Entry
@@ -1038,7 +1037,7 @@ switch($entry)
 	            && ($upEntry==ENT_POSTING || $parentId==$up);
            break;
       case ENT_FORUM:
-           $correct=($parentEntry==ENT_POSTING || $parentEntry==ENT_COMPLAIN)
+           $correct=$parentEntry==ENT_POSTING
 	            && ($upEntry==ENT_FORUM || $parentId==$up);
            break;
       case ENT_TOPIC:
@@ -1049,9 +1048,6 @@ switch($entry)
 	                             || $upEntry==ENT_FORUM
 				     || $upEntry==ENT_TOPIC
 				     || $up==0);
-           break;
-      case ENT_COMPLAIN:
-           $correct=$parentId==0 && $up==0;
            break;
       }
 if(!$correct)

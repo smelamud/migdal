@@ -7,9 +7,7 @@ targetdir=$(builddir)/www/
 OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  book.mhtml book-chapter.mhtml book-chapter-split.mhtml \
 	  book-print.mhtml book-split.mhtml book-static.mhtml \
-	  chat-archive.mhtml chmod.mhtml complainactionedit.mhtml \
-	  complainanswer.mhtml complainedit.mhtml complainforum.mhtml \
-	  complains.mhtml cross-entries.mhtml cross-entry-add.mhtml \
+	  chat-archive.mhtml chmod.mhtml cross-entries.mhtml cross-entry-add.mhtml \
 	  daily-news.mhtml ears.mhtml event.mhtml events.mhtml \
 	  events-english.mhtml forum.mhtml forumedit.mhtml forumcatalog.mhtml \
 	  gallery.mhtml gallery-main.mhtml groupadd.mhtml grouporg.mhtml \

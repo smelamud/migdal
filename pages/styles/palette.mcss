@@ -140,9 +140,6 @@ article_preface=%gr
 article_notes_split=black
 article_source=
 
-complain_back=%r_m
-complain_border=%mrm
-
 chatboard_back=%r_l
 chatboard_time=%mrm
 chatboard_name=%mrd

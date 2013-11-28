@@ -21,21 +21,17 @@ require_once('lib/mtext-html.php');
 require_once('lib/ctypes.php');
 require_once('lib/time.php');
 
-define('USR_NONE',0);
-define('USR_MIGDAL_STUDENT',0x0001);
-define('USR_ACCEPTS_COMPLAINS',0x0002);
-define('USR_REBE',0x0004);
-define('USR_ADMIN_USERS',0x0008);
-define('USR_ADMIN_TOPICS',0x0010);
-define('USR_ADMIN_COMPLAIN_ANSWERS',0x0020);
-define('USR_MODERATOR',0x0040);
-define('USR_JUDGE',0x0080);
-define('USR_ADMIN_DOMAIN',0x0100);
+const USR_NONE = 0;
+const USR_MIGDAL_STUDENT = 0x0001;
+const USR_REBE = 0x0004;
+const USR_ADMIN_USERS = 0x0008;
+const USR_ADMIN_TOPICS = 0x0010;
+const USR_MODERATOR = 0x0040;
+const USR_ADMIN_DOMAIN = 0x0100;
 
-define('USR_USER',USR_MIGDAL_STUDENT);
-define('USR_ADMIN',USR_ACCEPTS_COMPLAINS|USR_REBE|USR_ADMIN_USERS
-                   |USR_ADMIN_TOPICS|USR_ADMIN_COMPLAIN_ANSWERS|USR_MODERATOR
-		   |USR_JUDGE|USR_ADMIN_DOMAIN);
+define('USR_USER', USR_MIGDAL_STUDENT);
+define('USR_ADMIN', USR_REBE | USR_ADMIN_USERS | USR_ADMIN_TOPICS |
+                    USR_MODERATOR | USR_ADMIN_DOMAIN);
 
 class User
       extends UserTag
@@ -303,11 +299,6 @@ function getLastMinutes()
 return $this->last_minutes;
 }
 
-function isAcceptsComplains()
-{
-return $this->hasRight(USR_ACCEPTS_COMPLAINS);
-}
-
 function isAdminUsers()
 {
 return $this->hasRight(USR_ADMIN_USERS);
@@ -318,19 +309,9 @@ function isAdminTopics()
 return $this->hasRight(USR_ADMIN_TOPICS);
 }
 
-function isAdminComplainAnswers()
-{
-return $this->hasRight(USR_ADMIN_COMPLAIN_ANSWERS);
-}
-
 function isModerator()
 {
 return $this->hasRight(USR_MODERATOR);
-}
-
-function isJudge()
-{
-return $this->hasRight(USR_JUDGE);
 }
 
 function isAdminDomain()

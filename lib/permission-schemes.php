@@ -14,11 +14,10 @@ require_once('lib/debug-log.php');
 
 $permSchemes=array(ENT_NULL     => '',
                    ENT_POSTING  => 'isPermittedPosting',
-		   ENT_FORUM    => 'isPermittedForum',
-		   ENT_TOPIC    => 'isPermittedTopic',
-		   ENT_IMAGE    => '',
-		   ENT_COMPLAIN => 'isPermittedComplain',
-		   ENT_VERSION  => '');
+                   ENT_FORUM    => 'isPermittedForum',
+                   ENT_TOPIC    => 'isPermittedTopic',
+                   ENT_IMAGE    => '',
+                   ENT_VERSION  => '');
 
 function isPermittedEntry($entry,$right)
 {
@@ -75,24 +74,5 @@ return $userAdminTopics && $right!=PERM_POST
        ||
        perm($topic->getUserId(),$topic->getGroupId(),
             $topic->getPerms(),$right);
-}
-
-function isPermittedComplain($complain,$right)
-{
-global $userId,$userModerator;
-
-switch($right)
-      {
-      case PERM_READ:
-           return true;
-      case PERM_WRITE:
-           return $complain->getUserId()==$userId || $userModerator;
-      case PERM_APPEND:
-           return true; // for abstract root complain
-      case PERM_POST:
-           return true;
-      default:
-           return false;
-      }
 }
 ?>

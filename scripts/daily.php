@@ -14,9 +14,7 @@ dbOpen();
 session(getShamesId());
 
 purgeLogs();
-
 answersRecalculate();
-
 deleteObsoleteImageFiles();
 
 dbClose();

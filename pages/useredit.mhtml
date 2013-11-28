@@ -135,19 +135,12 @@
     <form_checkbox name='has_personal' checked='$,isHasPersonal'
 		   title='Имеет персональную страницу'>
     <form_section title='Привилегии'>
-    <form_checkbox name='rights[]' value='*USR_ACCEPTS_COMPLAINS'
-                   checked='$,isAcceptsComplains' title='Принимает жалобы'>
     <form_checkbox name='rights[]' value='*USR_ADMIN_USERS'
                    checked='$,isAdminUsers' title='Администратор пользователей'>
     <form_checkbox name='rights[]' value='*USR_ADMIN_TOPICS'
                    checked='$,isAdminTopics' title='Администратор тем'>
-    <form_checkbox name='rights[]' value='*USR_ADMIN_COMPLAIN_ANSWERS'
-                   checked='$,isAdminComplainAnswers'
-		   title='Администратор ответов на жалобы'>
     <form_checkbox name='rights[]' value='*USR_MODERATOR'
                    checked='$,isModerator' title='Модератор'>
-    <form_checkbox name='rights[]' value='*USR_JUDGE'
-                   checked='$,isJudge' title='Арбитр'>
     <form_checkbox name='rights[]' value='*USR_ADMIN_DOMAIN'
                    checked='$,isAdminDomain' title='Администратор субдоменов'>
     <form_checkbox name='hidden' checked='$,isHidden'

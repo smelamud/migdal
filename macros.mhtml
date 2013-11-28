@@ -8,7 +8,6 @@
 </macro>
 
 <decconst name='conf' file='conf/migdal.conf'>
-<decconst name='complains' file='lib/complains.php'>
 <decconst name='counters' file='conf/counters.php'>
 <decconst name='errors' file='lib/errors.php'>
 <decconst name='grps' file='lib/grps.php'>
@@ -35,16 +34,6 @@
 <deciter macro='chat_messagelist' class='ChatMessageListIterator'
          file='lib/chat.php' params='later,earlier'
 	 defaults='later=0 earlier=0'>
-<deciter macro='complainlist' class='ComplainListIterator'
-         file='lib/complains.php' params='limit,offset'
-	 defaults='limit=20 offset=0'>
-<deciter macro='complain_actionlist' class='ComplainActionListIterator'
-         file='lib/complainactions.php'>
-<deciter macro='complain_modbits' class='ComplainModbitIterator'
-         file='lib/modbits.php'>
-<deciter macro='complain_scriptlist' class='ComplainScriptListIterator'
-         file='lib/complainscripts.php' params='mask'
-	 defaults="mask='*CSCR_ALL'">
 <deciter macro='entry_cross' class='CrossEntryIterator'
          file='lib/cross-entries.php' params='source_name,source_id,link_type'
 	 defaults="source_name='',source_id=0,link_type='*LINKT_NONE'">
@@ -176,10 +165,6 @@
 <deccall macro='catalog' func='catalogById' file='lib/catalog.php' params='id'>
 <decexec macro='common' func='beginCommon' file='lib/inner.php'>
 <decexec macro='/common' func='endCommon' file='lib/inner.php'>
-<deccall macro='complain_action_obj' func='getComplainActionById'
-         file='lib/complainactions.php' params='id' defaults='name=act'>
-<deccall macro='complain_obj' func='getComplainById' file='lib/complains.php'
-         params='id,url' defaults="name=complain url=''">
 <decexec macro='counter_inc' func='incCounter' file='lib/counters.php'
          params='entry_id,mode'>
 <deccall macro='counter_value' func='getCounterValue' file='lib/counters.php'
@@ -462,20 +447,10 @@
 </macro>
 <endif name='/admin_topics'>
 
-<macro name='admin_complain_answers'>
- <if what='$$userAdminComplainAnswers'>
-</macro>
-<endif name='/admin_complain_answers'>
-
 <macro name='moderator'>
  <if what='$$userModerator'>
 </macro>
 <endif name='/moderator'>
-
-<macro name='judge'>
- <if what='$$userJudge'>
-</macro>
-<endif name='/judge'>
 
 <macro name='admin_domain'>
  <if what='$$userAdminDomain'>

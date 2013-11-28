@@ -6,7 +6,6 @@ require_once('lib/post.php');
 require_once('lib/catalog.php');
 require_once('lib/users.php');
 require_once('lib/postings.php');
-require_once('lib/complains.php');
 
 function trapActions_userconfirm($args)
 {
@@ -112,21 +111,6 @@ return remakeMakeURI('/chat-archive/',$args);
 function trapChatconsole($args)
 {
 return remakeMakeURI('/chat-archive/',$args);
-}
-
-function trapComplainforum($args)
-{
-$id=postProcessInteger($args['compid']);
-$id=getNewId('complains',$id);
-if(complainExists($id))
-  return remakeMakeURI("/complains/$id/",$args,array('compid'));
-else
-  return '';
-}
-
-function trapComplains($args)
-{
-return remakeMakeURI('/complains/',$args);
 }
 
 function trapEvent($args)
