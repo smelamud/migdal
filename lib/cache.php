@@ -1,34 +1,31 @@
 <?php
 # @(#) $Id$
 
-$Cache=array();
+$Cache = array();
 
-function &getCachedValue($part,$table,$name)
-{
-global $Cache;
+function &getCachedValue($part, $table, $name) {
+    global $Cache;
 
-if(hasCachedValue($part,$table,$name))
-  return $Cache[$part][$table][$name];
-else
-  return null;
+    if (hasCachedValue($part, $table, $name))
+        return $Cache[$part][$table][$name];
+    else
+        return null;
 }
 
-function hasCachedValue($part,$table,$name)
-{
-global $Cache;
+function hasCachedValue($part, $table, $name) {
+    global $Cache;
 
-return isset($Cache[$part]) && isset($Cache[$part][$table]) &&
-       isset($Cache[$part][$table][$name]);
+    return isset($Cache[$part]) && isset($Cache[$part][$table]) &&
+           isset($Cache[$part][$table][$name]);
 }
 
-function setCachedValue($part,$table,$name,&$value)
-{
-global $Cache;
+function setCachedValue($part, $table, $name, &$value) {
+    global $Cache;
 
-if(!isset($Cache[$part]))
-  $Cache[$part]=array();
-if(!isset($Cache[$part][$table]))
-  $Cache[$part][$table]=array();
-$Cache[$part][$table][$name]=&$value;
+    if (!isset($Cache[$part]))
+        $Cache[$part] = array();
+    if (!isset($Cache[$part][$table]))
+        $Cache[$part][$table] = array();
+    $Cache[$part][$table][$name] =& $value;
 }
 ?>
