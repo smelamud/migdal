@@ -8,7 +8,7 @@ require_once('lib/post.php');
 require_once('lib/json.php');
 require_once('lib/users.php');
 
-postString('login');
+httpRequestString('login');
 
 dbOpen();
 session();

@@ -5,11 +5,11 @@ require_once('lib/errorreporting.php');
 require_once('lib/uri.php');
 require_once('lib/post.php');
 
-postString('okdir');
+httpRequestString('okdir');
 
-postInteger('value');
-postInteger('pagesize');
-postInteger('size');
+httpRequestInteger('value');
+httpRequestInteger('pagesize');
+httpRequestInteger('size');
 
 $pagesize=empty($pagesize) ? 1 : $pagesize;
 $offset=($value-1)*$pagesize;

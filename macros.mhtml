@@ -472,42 +472,42 @@
 <macro name='int'>
  <header>
   <require name='lib/post.php'>
-  <exec func='postInteger' arg1='%name'>
+  <exec func='httpRequestInteger' arg1='%name'>
  </header>
 </macro>
 
 <macro name='int_array'>
  <header>
   <require name='lib/post.php'>
-  <exec func='postIntegerArray' arg1='%name'>
+  <exec func='httpRequestIntegerArray' arg1='%name'>
  </header>
 </macro>
 
 <macro name='int_array_2d'>
  <header>
   <require name='lib/post.php'>
-  <exec func='postIntegerArray2D' arg1='%name'>
+  <exec func='httpRequestIntegerArray2D' arg1='%name'>
  </header>
 </macro>
 
 <macro name='ident' defaults="table='entries'">
  <header>
   <require name='lib/post.php'>
-  <exec func='postIdent' arg1='%name' arg2='%table'>
+  <exec func='httpRequestIdent' arg1='%name' arg2='%table'>
  </header>
 </macro>
 
 <macro name='string' defaults="convert='*false'">
  <header>
   <require name='lib/post.php'>
-  <exec func='postString' arg1='%name' arg2='%convert'>
+  <exec func='httpRequestString' arg1='%name' arg2='%convert'>
  </header>
 </macro>
 
 <macro name='user'>
  <header>
   <require name='lib/post.php'>
-  <exec func='postUser' arg1='%name'>
+  <exec func='httpRequestUser' arg1='%name'>
  </header>
 </macro>
 

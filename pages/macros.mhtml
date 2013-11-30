@@ -438,7 +438,7 @@
 </macro>
 
 <macro name='js_jquery'>
- <js src='/js/jquery-1.2.1.min.js'>
+ <js src='/js/jquery-1.10.2.min.js'>
 </macro>
 
 << Biff >>

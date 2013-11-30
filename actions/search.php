@@ -7,11 +7,11 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/logs.php');
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postString('q');
-postInteger('offset');
+httpRequestString('q');
+httpRequestInteger('offset');
 
 dbOpen();
 session();

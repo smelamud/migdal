@@ -31,11 +31,11 @@ deleteTopic($id,$destid);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('id');
-postInteger('destid');
+httpRequestInteger('id');
+httpRequestInteger('destid');
 
 dbOpen();
 session();

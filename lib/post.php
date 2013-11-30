@@ -5,135 +5,198 @@ require_once('lib/charsets.php');
 require_once('lib/ident.php');
 require_once('lib/users.php');
 
-$Args=array();
+$Args = array();
 
-function postValue($name,$value)
-{
-global $Args;
+function httpValue($name, $value) {
+    global $Args;
 
-$Args[$name]=$value;
-$GLOBALS[$name]=$value;
+    $Args[$name] = $value;
+    $GLOBALS[$name] = $value;
 }
 
-function postProcessInteger($value)
-{
-return (int)$value;
+function postProcessInteger($value) {
+    return (int)$value;
 }
 
-function postInteger($name)
-{
-global $Args;
+function httpInteger(array $httpVars, $name) {
+    global $Args;
 
-if(!isset($_REQUEST[$name]) && isset($Args[$name]))
-  return;
-postValue($name,
-          postProcessInteger(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0));
+    if (!isset($httpVars[$name]) && isset($Args[$name]))
+      return;
+    httpValue($name,
+              postProcessInteger(isset($httpVars[$name])
+                                 ? $httpVars[$name]
+                                 : 0));
 }
 
-function postProcessIntegerArray($value)
-{
-$result=array();
-if(!is_array($value))
-  $result[]=(int)$value;
-else
-  foreach($value as $key => $var)
-	 $result[$key]=(int)$var;
-return $result;
+function httpGetInteger($name) {
+    return httpInteger($_GET, $name);
 }
 
-function postIntegerArray($name)
-{
-global $Args;
-
-if(!isset($_REQUEST[$name]) && isset($Args[$name]))
-  return;
-postValue($name,
-          postProcessIntegerArray(isset($_REQUEST[$name])
-	                          ? $_REQUEST[$name]
-				  : array()));
+function httpPostInteger($name) {
+    return httpInteger($_POST, $name);
 }
 
-function postProcessIntegerArray2D($value)
-{
-$result=array();
-if(!is_array($value))
-  $result[]=array((int)$value);
-else
-  foreach($value as $key => $var)
-	 $result[$key]=postProcessIntegerArray($var);
-return $result;
+function httpRequestInteger($name) {
+    return httpInteger($_REQUEST, $name);
 }
 
-function postIntegerArray2D($name)
-{
-global $Args;
-
-if(!isset($_REQUEST[$name]) && isset($Args[$name]))
-  return;
-postValue($name,
-          postProcessIntegerArray2D(isset($_REQUEST[$name])
-	                            ? $_REQUEST[$name]
-				    : array()));
+function postProcessIntegerArray($value) {
+    $result = array();
+    if (!is_array($value))
+        $result[] = (int)$value;
+    else
+        foreach ($value as $key => $var)
+            $result[$key] = (int)$var;
+    return $result;
 }
 
-function postProcessIdent($value,$table='entries')
-{
-return idByIdent($value,$table);
+function httpIntegerArray(array $httpVars, $name) {
+    global $Args;
+
+    if (!isset($httpVars[$name]) && isset($Args[$name]))
+        return;
+    httpValue($name,
+              postProcessIntegerArray(isset($httpVars[$name])
+                                      ? $httpVars[$name]
+                                      : array()));
 }
 
-function postIdent($name,$table='entries')
-{
-global $Args;
-
-if(!isset($_REQUEST[$name]) && isset($Args[$name]))
-  return;
-postValue($name,
-          postProcessIdent(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0,
-	                   $table));
+function httpGetIntegerArray($name) {
+    return httpIntegerArray($_GET, $name);
 }
 
-function postProcessString($value)
-{
-return $value;
+function httpPostIntegerArray($name) {
+    return httpIntegerArray($_POST, $name);
 }
 
-function postString($name,$convert=true)
-{
-global $Args;
-
-if(!isset($_REQUEST[$name]) && !isset($_REQUEST["${name}_i"])
-   && isset($Args[$name]))
-  return;
-if(isset($_REQUEST["${name}_i"]))
-  $value=tmpTextRestore($_REQUEST["${name}_i"]);
-else
-  {
-  $value=isset($_REQUEST[$name]) ? $_REQUEST[$name] : '';
-  if($convert)
-    $value=convertInputString($value);
-  }
-postValue($name,postProcessString($value));
+function httpRequestIntegerArray($name) {
+    return httpIntegerArray($_REQUEST, $name);
 }
 
-function postProcessUser($value)
-{
-return idByLogin($value);
+function postProcessIntegerArray2D($value) {
+    $result = array();
+    if (!is_array($value))
+        $result[] = array((int)$value);
+    else
+        foreach($value as $key => $var)
+            $result[$key] = postProcessIntegerArray($var);
+    return $result;
 }
 
-function postUser($name)
-{
-global $Args;
+function httpIntegerArray2D(array $httpVars, $name) {
+    global $Args;
 
-if(!isset($_REQUEST[$name]) && isset($Args[$name]))
-  return;
-postValue($name,
-          postProcessUser(isset($_REQUEST[$name]) ? $_REQUEST[$name] : 0));
+    if (!isset($httpVars[$name]) && isset($Args[$name]))
+        return;
+    httpValue($name,
+              postProcessIntegerArray2D(isset($httpVars[$name])
+                                        ? $httpVars[$name]
+                                        : array()));
 }
 
-function commandLineArgs()
-{
-global $Args;
+function httpGetIntegerArray2D($name) {
+    return httpIntegerArray2D($_GET, $name);
+}
 
-$Args=array_slice($_SERVER['argv'],1);
+function httpPostIntegerArray2D($name) {
+    return httpIntegerArray2D($_POST, $name);
+}
+
+function httpRequestIntegerArray2D($name) {
+    return httpIntegerArray2D($_REQUEST, $name);
+}
+
+function postProcessIdent($value, $table = 'entries') {
+    return idByIdent($value, $table);
+}
+
+function httpIdent(array $httpVars, $name, $table = 'entries') {
+    global $Args;
+
+    if (!isset($httpVars[$name]) && isset($Args[$name]))
+        return;
+    httpValue($name,
+              postProcessIdent(isset($httpVars[$name])
+                               ? $httpVars[$name]
+                               : 0,
+                               $table));
+}
+
+function httpGetIdent($name, $table = 'entries') {
+    return httpIdent($_GET, $name);
+}
+
+function httpPostIdent($name, $table = 'entries') {
+    return httpIdent($_POST, $name);
+}
+
+function httpRequestIdent($name, $table = 'entries') {
+    return httpIdent($_REQUEST, $name);
+}
+
+function postProcessString($value) {
+    return $value;
+}
+
+function httpString(array $httpVars, $name, $convert = true) {
+    global $Args;
+
+    if (!isset($httpVars[$name]) && !isset($httpVars["${name}_i"])
+        && isset($Args[$name]))
+        return;
+    if (isset($httpVars["${name}_i"]))
+        $value = tmpTextRestore($httpVars["${name}_i"]);
+    else {
+        $value = isset($httpVars[$name]) ? $httpVars[$name] : '';
+        if ($convert)
+            $value = convertInputString($value);
+    }
+    httpValue($name, postProcessString($value));
+}
+
+function httpGetString($name, $convert = true) {
+    return httpString($_GET, $name);
+}
+
+function httpPostString($name, $convert = true) {
+    return httpString($_POST, $name);
+}
+
+function httpRequestString($name, $convert = true) {
+    return httpString($_REQUEST, $name);
+}
+
+function postProcessUser($value) {
+    return idByLogin($value);
+}
+
+function httpUser(array $httpVars, $name) {
+    global $Args;
+
+    if (!isset($httpVars[$name]) && isset($Args[$name]))
+        return;
+    httpValue($name,
+              postProcessUser(isset($httpVars[$name])
+                              ? $httpVars[$name]
+                              : 0));
+}
+
+function httpGetUser($name) {
+    return httpUser($_GET, $name);
+}
+
+function httpPostUser($name) {
+    return httpUser($_POST, $name);
+}
+
+function httpRequestUser($name) {
+    return httpUser($_REQUEST, $name);
+}
+
+function commandLineArgs() {
+    global $Args;
+
+    $Args = array_slice($_SERVER['argv'], 1);
 }
 ?>

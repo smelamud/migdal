@@ -22,11 +22,11 @@ setDisabledByEntryId($editid,$hide);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('editid');
-postInteger('hide');
+httpRequestInteger('editid');
+httpRequestInteger('hide');
 
 dbOpen();
 session();

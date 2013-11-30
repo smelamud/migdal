@@ -88,7 +88,7 @@ storeStotextImages($posting->getStotextId());
 return EG_OK;
 }
 
-postInteger('postid');
+httpRequestInteger('postid');
 
 dbOpen();
 session();

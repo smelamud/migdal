@@ -12,27 +12,35 @@ require_once('lib/logs.php');
 require_once('lib/json.php');
 require_once('lib/entries.php');
 
-function vote($id,$vote)
+function vote($id,$vote,$isSelect)
 {
-global $userId,$userModerator,$userVoteWeight,$moderatorVoteWeight;
-
 if(!postingExists($id))
   return EV_NO_POSTING;
 if($vote<MIN_VOTE || $vote>MAX_VOTE)
   return EV_INVALID_VOTE;
-if(getVote($id)>=0)
-  return EV_ALREADY_VOTED;
-addVote($id,$vote);
+if(!$isSelect)
+  {
+  if(getVote($id)>=0)
+    return EV_ALREADY_VOTED;
+  addVote($id,$vote);
+  }
+else
+  {
+  if(getSelectVote(getParentIdByEntryId($id))>=0)
+    return EV_ALREADY_VOTED;
+  addSelectVote($id,$vote);
+  }
 logEvent('vote',"post($id)");
 return EG_OK;
 }
 
-postInteger('postid');
-postInteger('vote');
+httpRequestInteger('postid');
+httpRequestInteger('vote');
+httpRequestInteger('isselect');
 
 dbOpen();
 session();
-$err=vote($postid,$vote);
+$err=vote($postid,$vote,$isselect);
 header('Content-Type: application/json');
 $data=array('id' => $postid,
             'vote' => $vote,

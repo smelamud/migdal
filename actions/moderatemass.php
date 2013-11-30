@@ -46,11 +46,11 @@ assignModbitsByEntryId($id,$bits);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postIntegerArray('ids');
-postIntegerArray2D('modbits');
+httpRequestIntegerArray('ids');
+httpRequestIntegerArray2D('modbits');
 
 dbOpen();
 session();

@@ -22,10 +22,10 @@ createPostingShadow($postid);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('postid');
+httpRequestInteger('postid');
 
 dbOpen();
 session();

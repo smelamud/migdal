@@ -9,9 +9,9 @@ require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/counters.php');
 
-postString('okdir');
+httpRequestString('okdir');
 
-postInteger('id');
+httpRequestInteger('id');
 
 dbOpen();
 session();

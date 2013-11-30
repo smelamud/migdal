@@ -137,10 +137,10 @@ else
 function exposeArgs($args)
 {
 foreach($args as $name => $value)
-       postValue($name,$value);
+       httpValue($name,$value);
 }
 
-postInteger('redirid');
+httpRequestInteger('redirid');
 unset($Args['redirid']);
 
 dbOpen();

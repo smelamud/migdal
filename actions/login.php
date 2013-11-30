@@ -12,11 +12,11 @@ require_once('lib/post.php');
 require_once('lib/session.php');
 require_once('lib/logging.php');
 
-postString('okdir');
-postString('faildir');
-postString('login');
-postString('password');
-postInteger('my_computer');
+httpRequestString('okdir');
+httpRequestString('faildir');
+httpRequestString('login');
+httpRequestString('password');
+httpRequestInteger('my_computer');
 
 dbOpen();
 session();

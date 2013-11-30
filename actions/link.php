@@ -7,9 +7,9 @@ require_once('lib/session.php');
 require_once('lib/logs.php');
 require_once('lib/post.php');
 
-postString('okdir');
+httpRequestString('okdir');
 
-postInteger('msgid');
+httpRequestInteger('msgid');
 
 dbOpen();
 session();

@@ -10,7 +10,6 @@ require_once('lib/votes.php');
 require_once('lib/errors.php');
 require_once('lib/random.php');
 require_once('lib/logs.php');
-require_once('lib/sql.php');
 
 function vote($id,$vote,$isSelect)
 {
@@ -34,12 +33,12 @@ logEvent('vote',"post($id)");
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('postid');
-postInteger('vote');
-postInteger('isselect');
+httpRequestInteger('postid');
+httpRequestInteger('vote');
+httpRequestInteger('isselect');
 
 dbOpen();
 session();

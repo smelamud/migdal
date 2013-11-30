@@ -8,8 +8,8 @@ require_once('lib/database.php');
 require_once('lib/session.php');
 require_once('lib/post.php');
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
 dbOpen();
 session();

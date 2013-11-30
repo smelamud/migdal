@@ -7,8 +7,8 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/postings.php');
 
-postIdent('id');
-postString('charset');
+httpRequestIdent('id');
+httpRequestString('charset');
 
 dbOpen();
 session();

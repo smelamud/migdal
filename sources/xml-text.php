@@ -8,8 +8,8 @@ require_once('lib/post.php');
 require_once('lib/postings.php');
 require_once('lib/text.php');
 
-postIdent('id');
-postString('name');
+httpRequestIdent('id');
+httpRequestString('name');
 
 dbOpen();
 session();

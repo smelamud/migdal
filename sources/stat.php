@@ -18,7 +18,7 @@ function removeControlChars($s)
 return preg_replace('/\s+/',' ',$s);
 }
 
-postInteger('from');
+httpRequestInteger('from');
 
 dbOpen();
 session(getUserIdByLogin($rebeLogin));

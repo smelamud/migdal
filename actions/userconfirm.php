@@ -34,8 +34,8 @@ else
 return EG_OK;
 }
 
-postInteger('id');
-postString('code');
+httpRequestInteger('id');
+httpRequestString('code');
 
 dbOpen();
 session();

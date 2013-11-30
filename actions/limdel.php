@@ -24,10 +24,10 @@ setPremoderates($posting,$posting);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('editid');
+httpRequestInteger('editid');
 
 dbOpen();
 session();

@@ -11,8 +11,8 @@ require_once('lib/errors.php');
 require_once('lib/packages.php');
 require_once('lib/sql.php');
 
-postInteger('message_id');
-postInteger('type');
+httpRequestInteger('message_id');
+httpRequestInteger('type');
 
 function dropBook($message_id,$type)
 {

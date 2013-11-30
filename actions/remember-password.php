@@ -25,10 +25,10 @@ postMailToAdmins(USR_ADMIN_USERS,'remembering_password',array($id));
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postString('login');
+httpRequestString('login');
 
 dbOpen();
 session();

@@ -49,7 +49,7 @@ function updateRedirectTimestamps($track) {
 function redirect() {
     global $LocationInfo, $redirid, $globalid, $Args;
 
-    postInteger('globalid');
+    httpRequestInteger('globalid');
     unset($Args['globalid']);
 
     if ($globalid == 0) {
@@ -69,7 +69,7 @@ function redirect() {
     } else {
         $redir = getRedirById($globalid);
         if ($redir->getId() == 0) {
-            postIntegerValue('globalid', 0);
+            httpValue('globalid', 0);
             redirect();
             return;
         }

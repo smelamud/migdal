@@ -7,9 +7,9 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/errors.php');
 
-postString('okdir');
-postString('faildir');
-postString('svalue');
+httpRequestString('okdir');
+httpRequestString('faildir');
+httpRequestString('svalue');
 
 dbOpen();
 if(getSessionCookie()==$svalue)

@@ -49,13 +49,13 @@ storeCrossEntry($cross);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postString('source_name');
-postInteger('source_id');
-postInteger('link_type');
-postString('peer_path');
+httpRequestString('source_name');
+httpRequestInteger('source_id');
+httpRequestInteger('link_type');
+httpRequestString('peer_path');
 
 dbOpen();
 session();

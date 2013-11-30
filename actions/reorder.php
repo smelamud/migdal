@@ -35,11 +35,11 @@ reorderEntries($ids);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postIntegerArray('ids');
-postInteger('count');
+httpRequestIntegerArray('ids');
+httpRequestInteger('count');
 
 dbOpen();
 session();

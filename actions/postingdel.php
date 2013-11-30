@@ -20,10 +20,10 @@ deletePosting($id);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('id');
+httpRequestInteger('id');
 
 dbOpen();
 session();

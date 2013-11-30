@@ -7,10 +7,10 @@ require_once('lib/session.php');
 require_once('lib/post.php');
 require_once('lib/catalog.php');
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('topic_id');
+httpRequestInteger('topic_id');
 
 dbOpen();
 session();

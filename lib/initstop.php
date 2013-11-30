@@ -17,7 +17,7 @@ noCacheHeaders();
 header('Content-Style-Type: text/css'); 
 dbOpen();
 session();
-postInteger('err');
+httpRequestInteger('err');
 set_error_handler('error_handler');
 ob_start('convertOutput');
 }

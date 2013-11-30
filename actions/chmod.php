@@ -51,16 +51,16 @@ else
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('edittag');
-postInteger('id');
-postInteger('entry');
-postString('user_name');
-postString('group_name');
-postString('perm_string',false);
-postInteger('recursive');
+httpRequestInteger('edittag');
+httpRequestInteger('id');
+httpRequestInteger('entry');
+httpRequestString('user_name');
+httpRequestString('group_name');
+httpRequestString('perm_string',false);
+httpRequestInteger('recursive');
 
 dbOpen();
 session();

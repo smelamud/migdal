@@ -28,11 +28,11 @@ addUserGroup($userId,$groupId);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postString('user_name');
-postString('group_name');
+httpRequestString('user_name');
+httpRequestString('group_name');
 
 dbOpen();
 session();

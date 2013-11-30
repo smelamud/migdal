@@ -24,9 +24,9 @@ updateSessionUserId($sessionid,$id);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
-postString('login');
+httpRequestString('okdir');
+httpRequestString('faildir');
+httpRequestString('login');
 
 dbOpen();
 session();

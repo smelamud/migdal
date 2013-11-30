@@ -4,7 +4,7 @@
 require_once('lib/errorreporting.php');
 require_once('lib/post.php');
 
-postString('okdir');
+httpRequestString('okdir');
 
 header("Location: $okdir");
 ?>

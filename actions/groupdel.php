@@ -23,11 +23,11 @@ delUserGroup($user_id,$group_id);
 return EG_OK;
 }
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
-postInteger('user_id');
-postInteger('group_id');
+httpRequestInteger('user_id');
+httpRequestInteger('group_id');
 
 dbOpen();
 session();

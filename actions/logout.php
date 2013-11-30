@@ -12,8 +12,8 @@ require_once('lib/errors.php');
 require_once('lib/session.php');
 require_once('lib/logging.php');
 
-postString('okdir');
-postString('faildir');
+httpRequestString('okdir');
+httpRequestString('faildir');
 
 dbOpen();
 session();
