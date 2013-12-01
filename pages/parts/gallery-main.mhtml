@@ -69,8 +69,7 @@
 <assign name='sent' value=0>
 <array name='postings'>
 <for>
- <if what='$topic_id!=$.TopicId || $user_id!=$.UserId ||
-           ($sent-$.Sent)/3600>$$userBiffTime'>
+ <if what='$topic_id!=$.TopicId || $user_id!=$.UserId || ($sent-$.Sent)/3600>6'>
   <ifnzero what='$topic_id'>
    <array_random array='$postings'>
    <announce posting='$,' count='$count'>
