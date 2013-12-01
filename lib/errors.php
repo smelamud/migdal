@@ -137,6 +137,7 @@ const EO_LITTLE = 323;
 const EV_NO_POSTING = 330;
 const EV_ALREADY_VOTED = 331;
 const EV_INVALID_VOTE = 332;
+const EV_NO_LOGIN = 333;
 
 const EDM_NO_CHANGE = 340;
 const EDM_NO_POSTING = 341;

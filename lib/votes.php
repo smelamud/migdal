@@ -38,8 +38,11 @@ function addVote($id, $vote) {
                    values($id,$ip,$uid,$vote)",
                   __FUNCTION__,'insert');
 
-    $weight = $userModerator ? $moderatorVoteWeight
-                             : ($userId > 0 ? $userVoteWeight : 1);
+    if ($vote > (MIN_VOTE + MAX_VOTE) / 2)
+        $weight = $userModerator ? $moderatorVoteWeight
+                                 : ($userId > 0 ? $userVoteWeight : 1);
+    else
+        $weight = 1;
     sql("update entries
          set vote=vote+$weight*$vote,vote_count=vote_count+$weight
          where id=$id",

@@ -12,26 +12,26 @@ require_once('lib/logs.php');
 require_once('lib/json.php');
 require_once('lib/entries.php');
 
-function vote($id,$vote,$isSelect)
-{
-if(!postingExists($id))
-  return EV_NO_POSTING;
-if($vote<MIN_VOTE || $vote>MAX_VOTE)
-  return EV_INVALID_VOTE;
-if(!$isSelect)
-  {
-  if(getVote($id)>=0)
-    return EV_ALREADY_VOTED;
-  addVote($id,$vote);
-  }
-else
-  {
-  if(getSelectVote(getParentIdByEntryId($id))>=0)
-    return EV_ALREADY_VOTED;
-  addSelectVote($id,$vote);
-  }
-logEvent('vote',"post($id)");
-return EG_OK;
+function vote($id, $vote, $isSelect) {
+    global $userId;
+
+    if (!postingExists($id))
+        return EV_NO_POSTING;
+    if ($vote < MIN_VOTE || $vote > MAX_VOTE)
+        return EV_INVALID_VOTE;
+    if ($vote < (MIN_VOTE + MAX_VOTE) / 2 && $userId <= 0)
+        return EV_NO_LOGIN;
+    if (!$isSelect) {
+        if (getVote($id) >= 0)
+            return EV_ALREADY_VOTED;
+        addVote($id, $vote);
+    } else {
+        if (getSelectVote(getParentIdByEntryId($id)) >= 0)
+            return EV_ALREADY_VOTED;
+        addSelectVote($id, $vote);
+    }
+    logEvent('vote', "post($id)");
+    return EG_OK;
 }
 
 httpPostInteger('postid');
@@ -40,13 +40,13 @@ httpPostInteger('isselect');
 
 dbOpen();
 session();
-$err=vote($postid,$vote,$isselect);
+$err = vote($postid, $vote, $isselect);
 header('Content-Type: application/json');
-$data=array('id' => $postid,
-            'vote' => $vote,
-            'rating' => getRatingByEntryId($postid));
-if($err!=EG_OK)
-  $data['err']=$err;
+$data = array('id' => $postid,
+              'vote' => $vote,
+              'rating' => getRatingByEntryId($postid));
+if ($err != EG_OK)
+    $data['err'] = $err;
 jsonOutput($data);
 dbClose();
 ?>
