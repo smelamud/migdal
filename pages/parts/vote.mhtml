@@ -28,11 +28,11 @@
     <td width='70' align='right'>Рейтинг:&nbsp;&nbsp;</td>
     <td width='12'><asp>
      <if what='$,<0'>
-      <asp><a href='/actions/posting/$id/vote?vote=2&okdir=$#-&faildir=$#-'><asp>
-       <image id#='vote-minus-$id' class='vote-button'
-              src='/pics/vote-minus.gif'
-              alt='Неинтересно, плохо написано'
-              title='Неинтересно, плохо написано'></a><asp>
+      <image id#='vote-minus-$id' class='vote-button vote-active'
+             src='/pics/vote-minus.gif'
+             alt='Неинтересно, плохо написано'
+             title='Неинтересно, плохо написано'
+             data_id='$id' data_value='2'>
      <else>
       <if what='$,>=0 && $,<3'>
        <image class='vote-button' src='/pics/vote-minus-gray.gif'>
@@ -54,11 +54,11 @@
     <td width='40' id='rating-$id' class='$class'>$rating</td>
     <td width='12'><asp>
      <if what='$,<0'>
-      <asp><a href='/actions/posting/$id/vote?vote=4&okdir=$#-&faildir=$#-'><asp>
-       <image id#='vote-plus-$id' class='vote-button'
-              src='/pics/vote-plus.gif'
-              alt='Интересно, хорошо написано'
-              title='Интересно, хорошо написано'></a><asp>
+      <image id#='vote-plus-$id' class='vote-button vote-active'
+             src='/pics/vote-plus.gif'
+             alt='Интересно, хорошо написано'
+             title='Интересно, хорошо написано'
+             data_id='$id' data_value='4'>
      <else>
       <if what='$,>3'>
        <image class='vote-button' src='/pics/vote-plus-gray.gif'>

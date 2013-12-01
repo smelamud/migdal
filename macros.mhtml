@@ -512,8 +512,9 @@
 </macro>
 
 << HTML shortcuts >>
-<decel name='image' file='lib/utils.php' params='src,alt,title,class,id'
-       defaults="src='' alt='' title='' class='' id=''">
+<decel name='image' file='lib/utils.php'
+       params='src,alt,title,class,id,data_id,data_value'
+       defaults="src='' alt='' title='' class='' id='' data_id='' data_value=''">
 
 <decel name='tdspan' file='lib/utils.php'
        params='span,class,align,width,height',

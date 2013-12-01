@@ -34,9 +34,9 @@ logEvent('vote',"post($id)");
 return EG_OK;
 }
 
-httpRequestInteger('postid');
-httpRequestInteger('vote');
-httpRequestInteger('isselect');
+httpPostInteger('postid');
+httpPostInteger('vote');
+httpPostInteger('isselect');
 
 dbOpen();
 session();

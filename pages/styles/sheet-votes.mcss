@@ -4,6 +4,10 @@
 	border-width: 0;
 }
 
+.vote-active {
+    cursor: pointer;
+}
+
 .rating-minus {
 	text-align: center;
 	color: %rating_minus;

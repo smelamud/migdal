@@ -1,8 +1,12 @@
 function voteClick(event) {
-    href = "/ajax" + $(this).attr("href");
-    id = href.split("/")[4];
+    id = $(this).attr("data-id");
+    href = "/ajax/actions/posting/" + id + "/vote/";
     $("#rating-" + id).removeClass().addClass("rating-zero").text("...");
-    $.getJSON(href,
+    $.post(href,
+        {
+            postid: id,
+            vote: $(this).attr("data-value")
+        },
         function(data) {
             if (data.rating == 0) {
                 className = "rating-zero";
@@ -23,13 +27,14 @@ function voteClick(event) {
                 button = $("#vote-minus-" + data.id);
                 button[0].src = "/pics/vote-minus-gray.gif";
             }
-            button.parent().parent().empty().append(button);
-    });
+            button.parent().empty().append(button);
+        }
+    );
     event.preventDefault();
 }
 
 function voteInit() {
-    $(".vote-button").parent().click(voteClick);
+    $(".vote-active").click(voteClick);
 }
 
 $(voteInit)

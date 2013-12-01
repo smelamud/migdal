@@ -33,12 +33,12 @@ logEvent('vote',"post($id)");
 return EG_OK;
 }
 
-httpRequestString('okdir');
-httpRequestString('faildir');
+httpPostString('okdir');
+httpPostString('faildir');
 
-httpRequestInteger('postid');
-httpRequestInteger('vote');
-httpRequestInteger('isselect');
+httpPostInteger('postid');
+httpPostInteger('vote');
+httpPostInteger('isselect');
 
 dbOpen();
 session();
