@@ -30,8 +30,9 @@ function getUserIdsBySessionId($sessionId) {
 
 function updateSessionTimestamp($sessionId) {
     $sessionIdS = addslashes($sessionId);
+    $now = sqlNow();
     sql("update sessions
-         set last=null
+         set last='$now'
          where sid='$sessionIdS'",
         __FUNCTION__);
 }
@@ -47,24 +48,28 @@ function createSession($userId, $realUserId) {
     global $shortSessionTimeout;
 
     $sid = createSessionId();
-    sql("insert into sessions(user_id,real_user_id,duration,sid)
-         values($userId,$realUserId,$shortSessionTimeout,'$sid')",
+    $now = sqlNow();
+    sql("insert into sessions(user_id,real_user_id,duration,sid,last)
+         values($userId,$realUserId,$shortSessionTimeout,'$sid','$now')",
         __FUNCTION__);
     return $sid;
 }
 
 function updateSession($sessionId, $userId, $realUserId, $duration) {
     $sessionIdS = addslashes($sessionId);
+    $now = sqlNow();
     sql("update sessions
-         set user_id=$userId,real_user_id=$realUserId,duration=$duration
+         set user_id=$userId,real_user_id=$realUserId,duration=$duration,
+             last='$now'
          where sid='$sessionIdS'",
         __FUNCTION__);
 }
 
 function updateSessionUserId($sessionId, $userId) {
     $sessionIdS = addslashes($sessionId);
+    $now = sqlNow();
     sql("update sessions
-         set user_id=$userId
+         set user_id=$userId,last='$now'
          where sid='$sessionIdS'",
         __FUNCTION__);
 }
@@ -81,6 +86,9 @@ function deleteClosedSessions() {
     sql("delete from sessions
          where last+interval duration hour<'$now'",
         __FUNCTION__,'delete');
+    sql("delete from sessions
+         where user_id > (select max(id) from users)",
+        __FUNCTION__,'delete_garbage');
     sql('optimize table sessions',
         __FUNCTION__,'optimize');
 }

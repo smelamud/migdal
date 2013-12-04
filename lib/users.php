@@ -483,19 +483,19 @@ $now=sqlNow();
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
                     birthday,rights,last_online,email,hide_email,icq,
-		    guest as user_guest,email_disabled,hidden,no_login,
-		    has_personal,
-		    if(last_online+interval 1 hour>'$now',1,0) as online,
-		    floor((unix_timestamp('$now')
-			   -unix_timestamp(last_online))/60) as last_minutes,
-		    confirm_code,
-		    confirm_deadline is null as confirmed,
-		    floor((unix_timestamp(confirm_deadline)
-			   -unix_timestamp('$now'))/86400) as confirm_days
-	     from users
-	     where users.id=$id and (hidden<$hide or guest<>0
-	                             or users.id=$userId)",
-	    __FUNCTION__);
+                    guest as user_guest,email_disabled,hidden,no_login,
+                    has_personal,
+                    if(last_online+interval 1 hour>'$now',1,0) as online,
+                    floor((unix_timestamp('$now')
+                           -unix_timestamp(last_online))/60) as last_minutes,
+                    confirm_code,
+                    confirm_deadline is null as confirmed,
+                    floor((unix_timestamp(confirm_deadline)
+                           -unix_timestamp('$now'))/86400) as confirm_days
+             from users
+             where users.id=$id and (hidden<$hide or guest<>0
+                                     or users.id=$userId)",
+            __FUNCTION__);
 $user=new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
                                          : array('id' => 0));
 $user->guest_login=$guest_login;
@@ -516,7 +516,7 @@ $vars=array('login' => $user->login,
             'info' => $user->info,
             'info_xml' => $user->info_xml,
             'birthday' => $user->birthday,
-	    'modified' => sqlNow(),
+            'modified' => sqlNow(),
             'rights' => $user->rights,
             'email' => $user->email,
             'hide_email' => $user->hide_email,
@@ -560,7 +560,7 @@ for($i=0;$i<20;$i++)
 $now=sqlNow();
 sql("update users
      set no_login=1,confirm_code='$s',
-	 confirm_deadline='$now'+interval $regConfirmTimeout day
+         confirm_deadline='$now'+interval $regConfirmTimeout day
      where id=$userId",
     __FUNCTION__);
 }
@@ -570,7 +570,7 @@ function confirmUser($userId)
 $now=sqlNow();
 sql("update users
      set no_login=0,hidden=0,confirm_deadline=null,
-	 last_online='$now'
+         last_online='$now'
      where id=$userId",
     __FUNCTION__);
 }
@@ -579,10 +579,10 @@ function getUserIdByConfirmCode($confirmCode)
 {
 $confirmCodeS=addslashes($confirmCode);
 $result=sql("select id
-	     from users
-	     where confirm_code='$confirmCodeS'
-		   and hidden<2",
-	    __FUNCTION__);
+             from users
+             where confirm_code='$confirmCodeS'
+                   and hidden<2",
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -590,8 +590,8 @@ function isUserConfirmed($id)
 {
 $result=sql("select if(confirm_deadline is null,1,0)
              from users
-	     where id=$id",
-	    __FUNCTION__);
+             where id=$id",
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0)!=0 : false;
 }
 
@@ -612,9 +612,9 @@ function getUserLoginById($id)
 // identified
 
 $result=sql("select login
-	     from users
-	     where id=$id",
-	    __FUNCTION__);
+             from users
+             where id=$id",
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -625,9 +625,9 @@ global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select gender
-	     from users
-	     where id=$id and hidden<$hide",
-	    __FUNCTION__);
+             from users
+             where id=$id and hidden<$hide",
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 'mine';
 }
 
@@ -635,9 +635,9 @@ function getUserIdByLogin($login)
 {
 $loginS=addslashes($login);
 $result=sql("select id
-	     from users
-	     where login='$loginS'",
-	    __FUNCTION__);
+             from users
+             where login='$loginS'",
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -659,10 +659,10 @@ function getUserIdByLoginPassword($login,$password)
 $loginS=addslashes($login);
 $passwordMD5=md5($password);
 $result=sql("select id
-	     from users
-	     where login='$login' and password='$passwordMD5'
-		   and no_login=0",
-	    __FUNCTION__);
+             from users
+             where login='$login' and password='$passwordMD5'
+                   and no_login=0",
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -678,9 +678,9 @@ sql("update users
 function getShamesId()
 {
 $result=sql('select id
-	     from users
-	     where shames=1',
-	    __FUNCTION__);
+             from users
+             where shames=1',
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
@@ -691,11 +691,11 @@ global $allowGuests,$shortSessionTimeout,$guestLogin;
 if(!$allowGuests)
   return 0;
 $result=sql("select id
-	     from users
-	     where guest<>0
-	     order by login
-	     limit 1",
-	    __FUNCTION__,'locate_guest');
+             from users
+             where guest<>0
+             order by login
+             limit 1",
+            __FUNCTION__,'locate_guest');
 if(mysql_num_rows($result)>0)
   return mysql_result($result,0,0);
 $now=sqlNow();
@@ -722,9 +722,9 @@ global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id
-	     from users
-	     where id=$id and hidden<$hide and has_personal<>0",
-	    __FUNCTION__);
+             from users
+             where id=$id and hidden<$hide and has_personal<>0",
+            __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
@@ -734,9 +734,9 @@ global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select id
-	     from users
-	     where id=$id and hidden<$hide",
-	    __FUNCTION__);
+             from users
+             where id=$id and hidden<$hide",
+            __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
@@ -746,8 +746,8 @@ $loginS=addslashes($login);
 $filter=$excludeId!=0 ? "and id<>$excludeId" : '';
 $result=sql("select id
              from users
-	     where login='$loginS' $filter",
-	    __FUNCTION__);
+             where login='$loginS' $filter",
+            __FUNCTION__);
 return mysql_num_rows($result)>0;
 }
 
@@ -780,22 +780,21 @@ global $userAdminUsers;
 
 $hide=$userAdminUsers ? 2 : 1;
 $result=sql("select count(*),count(confirm_deadline)
-	     from users
-	     where hidden<$hide",
-	    __FUNCTION__);
+             from users
+             where hidden<$hide",
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ?
        new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
                         mysql_result($result,0,1)) :
        new UsersSummary(0,0);
 }
 
-function getGuestsNow($period)
-{
-$now=sqlNow();
-$result=sql("select count(*)
-             from sessions
-  	     where user_id=0 and last+interval $period minute>'$now'",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getGuestsNow($period) {
+    $now = sqlNow();
+    $result = sql("select count(*)
+                   from sessions
+                   where user_id=0 and last+interval $period minute>'$now'",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 ?>
