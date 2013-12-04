@@ -51,7 +51,7 @@
      </td>
      <td width=130 class='nframe'>
       <tzdaka>
-      <tip>
+      <<tip>>
       <hit_parade_month grp='*GRP_WRITINGS' topic_id='$id' showshadows!='$id>0'>
       <if what='$id<=0'>
        <discussions limit=7>
