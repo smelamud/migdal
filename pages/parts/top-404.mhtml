@@ -5,8 +5,8 @@
  <tr valign=bottom>
   <td align=left width=61>
    <a href='/'>
-    <image src='$$style_banner_404_logo'
-	   alt!='!$$englishDomain ? "Башня" : "Tower"'></a>
+    <image src='/pics/bw-tower.gif'
+           alt!='!$$englishDomain ? "Башня" : "Tower"'></a>
   </td>
   <td width=10>&nbsp;</td>
   <td align=left>

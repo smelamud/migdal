@@ -8,8 +8,7 @@
 
 <html>
 <preamble>
-<body style='background-color: $$style_body_404_back; background-image: none;
-             padding: 10px'>
+<body class='error-page'>
  <top_404>
  <p><table width='600'><tr><td>
   <p>

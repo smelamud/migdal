@@ -25,6 +25,12 @@ BODY {
 	font-family: %verdana;
 }
 
+BODY.error-page {
+    background-color: %body_404_back;
+    background-image: none;
+    padding: 10px;
+}
+
 .page-title {
 	margin: 0 70px 2ex 10px;
 	text-align: left;
@@ -82,4 +88,8 @@ A.a2a_dd {
 
 A.a2a_dd:hover {
 	color: %posting_controls_hover;
+}
+
+TT {
+	font-family: %courier;
 }

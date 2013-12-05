@@ -58,12 +58,6 @@ bottom_link=blue
 bottom_complainslink=%mrm
 bottom_complainslink_hover=blue
 
-banner_logo=/pics/big-tower.gif
-banner_migdal=/pics/migdal.jpg
-banner_migdal_english=/pics/migdal-english.gif
-
-banner_404_logo=/pics/bw-tower.gif
-
 spin_input_back=%mrl
 spin_input_border=%mrd
 spin_input_text=%mrm
@@ -108,8 +102,6 @@ catalog_even=%r_m
 catalog_odd=%r_lm
 catalog_subject=%mrd
 catalog_subject_hover=blue
-
-mail_image=/pics/mail.gif
 
 picture_main_back_pic=/pics/film.png
 

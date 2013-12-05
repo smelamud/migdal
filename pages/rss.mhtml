@@ -84,7 +84,7 @@
      </ifne>
     </description>
     <&nil;image>
-     <url>$the_site$style_banner_logo</url>
+     <url>${the_site}/pics/big-tower.gif</url>
      <title>Мигдаль</title>
      <link>$the_site/</link>
     </image>

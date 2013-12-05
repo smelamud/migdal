@@ -3,14 +3,14 @@
 <element name='banner'>
 <div id='logo'>
  <a href='/'>
-  <image src='$$style_banner_logo'
+  <image src='/pics/big-tower.gif'
 	 alt!='!$$englishDomain ? "Башня" : "Tower"'></a>
  <notenglish>
   <a href='/'>
-   <image src='$$style_banner_migdal' alt='Мигдаль' id='migdal'></a>
+   <image src='/pics/migdal.jpg' alt='Мигдаль' id='migdal'></a>
  <else>
   <a href='/'>
-   <image src='$$style_banner_migdal_english' alt='Migdal' id='migdal'></a>
+   <image src='/pics/migdal-english.gif' alt='Migdal' id='migdal'></a>
  </notenglish>
  <hannukah>
 </div>

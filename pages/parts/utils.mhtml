@@ -54,7 +54,7 @@
 <if what='$message.isEmailVisible'>
  <asp>&nbsp;<asp>
  <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
-  <image src='$$style_mail_image'>
+  <image src='/pics/mail.gif'>
  <asp></a>
 </if>
 </element>

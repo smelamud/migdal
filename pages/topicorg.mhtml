@@ -44,12 +44,6 @@
 <html>
 <preamble>
 <body>
- <style><!--
- TT {
- 	font-family: $style_courier;
- }
- //-->
- </style>
  <top ident='index'>
  <table width=100% cellpadding=5>
   <tr valign=top>

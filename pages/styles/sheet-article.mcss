@@ -80,7 +80,6 @@
 
 .article TT {
 	font-size: 10pt;
-	font-family: %courier;
 }
 
 .article .notes {
