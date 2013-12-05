@@ -6,7 +6,6 @@
 <log event=review text#='post($,Id)'>
 
 <html>
-<stylesheet ident='article'>
 <preamble>
 <body>
  <top ident='index' transref#='http://www.$$siteDomain/migdal/'>

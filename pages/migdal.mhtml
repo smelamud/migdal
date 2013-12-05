@@ -9,7 +9,6 @@
 <log event=review text#='post($,Id)'>
 
 <html>
-<stylesheet ident='article'>
 <posting_og_image posting='$,'>
 <preamble>
 <body>

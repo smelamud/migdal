@@ -51,7 +51,6 @@
 </element>
 
 <html>
-<stylesheet ident='index'>
 <preamble>
 <body>
  <top ident='links'>

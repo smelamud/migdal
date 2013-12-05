@@ -7,7 +7,6 @@
 <topictitle title='Список обозначений, используемых в тексте'>
 
 <html>
-<stylesheet ident='article'>
 <style><!--
  .catalog H1,.catalog H2,.catalog H3,.catalog H4 {
 	 font-family: "Times New Roman", Helvetica, sans-serif;

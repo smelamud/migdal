@@ -1,7 +1,0 @@
-! @(#) $Id$
-
-include 'colors.mcss'
-include 'fonts.mcss'
-include 'palette.mcss'
-
-include 'sheet-timesnfo.mcss'

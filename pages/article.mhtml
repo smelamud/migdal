@@ -7,7 +7,6 @@
 <log event=article text#='post($,Id)'>
 
 <html>
-<stylesheet ident='article'>
 <js_jquery>
 <js src='/js/vote.js'>
 <posting_og_image posting='$,'>
