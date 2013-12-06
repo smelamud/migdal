@@ -1,11 +1,11 @@
-! @(#) $Id$
+// @(#) $Id: sheet-topics.mcss 2667 2010-04-27 11:03:00Z balu $
 
 .topics-header {
 	width: 100%;
 	margin-top: 10px;
 	margin-bottom: 5px;
-	color: %topics_title;
-	border-bottom: solid 1px %topics_title;
+	color: @topics_title;
+	border-bottom: solid 1px @topics_title;
 	text-align: left;
 	font-weight: bold;
 	font-size: 10pt;
@@ -52,7 +52,7 @@ UL.eightpt LI {
 }
 
 .topics LI.topics-subtable {
-	display: inline-block;	! Fixes extra space in IE
+	display: inline-block;	// Fixes extra space in IE
 	background-image: none;
 }
 
@@ -67,7 +67,7 @@ UL.eightpt LI {
 .topics LI.topics-section {
 	background-image: none;
 	padding-left: 0;
-	color: %topics_section;
+	color: @topics_section;
 	font-weight: bold;
 	font-size: 8pt;
 	margin-top: 10px;
@@ -75,43 +75,43 @@ UL.eightpt LI {
 
 .topics LI.topics-comment {
 	background-image: none;
-	color: %topics_comment;
+	color: @topics_comment;
 }
 
 .topics A.edit {
-	color: %topics_controls;
+	color: @topics_controls;
 	font-size: 8pt;
 }
 
 .topics A.edit:hover {
-	color: %topics_controls_hover;
+	color: @topics_controls_hover;
 }
 
 A.topics-item {
-	color: %topics_names;
+	color: @topics_names;
 	text-decoration: none;
 }
 
 A.topics-item:hover {
-	color: %topics_names_hover;
+	color: @topics_names_hover;
 	text-decoration: underline;
 }
 
-.topics A.new { !FIXME remake
-	color: %topics_new;
+.topics A.new { //FIXME remake
+	color: @topics_new;
 	font-style: italic;
 }
 
-.topics A.new:hover { !FIXME remake
-	color: %topics_names_hover;
+.topics A.new:hover { //FIXME remake
+	color: @topics_names_hover;
 }
 
 .topics-answers {
-	color: %topics_answers;
+	color: @topics_answers;
 }
 
 A.topics-item:hover > .topics-answers {
-	color: %topics_names_hover;
+	color: @topics_names_hover;
 }
 
 .topics .rating {

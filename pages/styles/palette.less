@@ -1,0 +1,176 @@
+// @(#) $Id: palette.mcss 2719 2013-12-05 22:15:31Z balu $
+
+@error_back: red;
+@error: white;
+
+.body-back (default) {
+    @body_back: @r_b;
+    @body_back_pic: "/pics/b-back.gif";
+}
+
+.body-back (print) {
+    @body_back: white;
+    @body_back_pic: ;
+}
+
+.body-back (@flavour);
+
+@body_404_back: white;
+
+@info: black;
+@info_link: blue;
+
+@em: @mrm;
+
+@title: @mrd;
+
+@image_border: black;
+
+@name: @mrm;
+
+@sent: @mrm;
+
+.frames (default) {
+    @cframe_back: @r_l;
+    @cframe_back_pic: "/pics/l-back.jpg";
+    @cframe_border: @mrd;
+
+    @eframe_back: @r_m;
+    @eframe_back_pic: "/pics/m-back.jpg";
+    @eframe_border: @mrl;
+
+    @aframe_back: @r_c;
+    @aframe_border: @mrd;
+
+    @nframe_back: @r_lm;
+    @nframe_border: @mrd;
+}
+
+.frames (print) {
+    @cframe_back_pic: ;
+    @cframe_back: white;
+    @cframe_border: ;
+
+    @eframe_back: white;
+    @eframe_back_pic: ;
+    @eframe_border: ;
+
+    @aframe_back: @grl;
+    @aframe_border: ;
+
+    @nframe_back: white;
+    @nframe_border: ;
+}
+
+.frames (@flavour);
+
+@menu_back: @r_n;
+@menu_back_pic: "/pics/n-back.jpg";
+
+@menu_date: @mrl;
+@menu_date_border: black;
+
+@bottom: @mrm;
+@bottom_link: blue;
+@bottom_complainslink: @mrm;
+@bottom_complainslink_hover: blue;
+
+@spin_input_back: @mrl;
+@spin_input_border: @mrd;
+@spin_input_text: @mrm;
+
+@posting_topic: @mrd;
+@posting_topic_hover: blue;
+@posting_subject: @mrd;
+@posting_subject_hover: blue;
+@posting_author: black;
+@posting_em: @mrd;
+@posting_split: @mrd;
+@posting_controls: @mrd;
+@posting_controls_hover: blue;
+@posting_error: red;
+
+@textears_title: @mrd;
+@textears_split: @mrd;
+
+@forum_border: @mrd;
+@forum_header_back: @r_c;
+@forum_body_back: @r_l;
+@forum_controls: @mrd;
+@forum_controls_hover: blue;
+@forum_quote: @mrm;
+
+@topics_title: @mrd;
+@topics_names: black;
+@topics_names_hover: blue;
+@topics_answers: @mrm;
+@topics_new: black;
+@topics_controls: @mrm;
+@topics_controls_hover: blue;
+@topics_comment: @mrd;
+@topics_section: @mrd;
+
+@catalog_border: @mrd;
+@catalog_header: @r_n;
+@catalog_header_text: @mrl;
+@catalog_div: @r_c;
+@catalog_div_text: @mrd;
+@catalog_even: @r_m;
+@catalog_odd: @r_lm;
+@catalog_subject: @mrd;
+@catalog_subject_hover: blue;
+
+@picture_main_back_pic: "/pics/film.png";
+
+@picture_back: @r_l;
+@picture_back_pic: "/pics/l-back.jpg";
+@picture_name: yellow;
+@picture_control: @mrd;
+@picture_control_hover: blue;
+@picture_border_back: @mrd;
+@picture_border: @mrl;
+
+@form_cell: @r_l;
+@form_section: @r_c;
+@form_title: @mrl;
+@form_title_back: @r_n;
+@form_star: red;
+
+@article_split: @mrd;
+@article_controls: @mrd;
+@article_controls_hover: blue;
+@article_picture: blue;
+@article_topic: @mrd;
+@article_topic_hover: blue;
+@article_title: @mrd;
+@article_author: black;
+@article_sent: @mrm;
+@article_preface: @gr;
+@article_notes_split: black;
+@article_source: ;
+
+@chatboard_back: @r_l;
+@chatboard_time: @mrm;
+@chatboard_name: @mrd;
+
+@chatusers_back: @r_m;
+@chatusers_split: black;
+
+@chatbottom_input_back: @mrl;
+@chatbottom_input_border: @mrd;
+
+@timesnfo: black;
+@timesnfo_hover: blue;
+
+@index_url: @mrm;
+
+@heading_split: black;
+
+@search_topic: @grm;
+
+@register_login_avail: green;
+@register_login_busy: red;
+
+@rating_minus: @rd;
+@rating_zero: @gr;
+@rating_plus: @gn;

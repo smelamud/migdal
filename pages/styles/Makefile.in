@@ -5,18 +5,18 @@
 targetdir=$(builddir)/www/styles/
 
 FLAVOURS = default print
-STYLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
-	sheet-frames.mcss sheet-info.mcss sheet-menu.mcss sheet-bottom.mcss \
-	sheet-top.mcss sheet-return.mcss sheet-batcher.mcss \
-	sheet-posting.mcss sheet-textears.mcss sheet-forum.mcss \
-	sheet-topics.mcss sheet-catalog.mcss sheet-picmain.mcss \
-	sheet-picture.mcss sheet-form.mcss sheet-heading.mcss \
-	sheet-seealso.mcss sheet-register.mcss sheet-votes.mcss \
-	sheet-article.mcss sheet-times.mcss sheet-timesnfo.mcss sheet-book.mcss \
-	sheet-index.mcss
+STYLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
+	sheet-anytoany.less sheet-frames.less sheet-info.less sheet-menu.less \
+	sheet-bottom.less sheet-top.less sheet-return.less sheet-batcher.less \
+	sheet-posting.less sheet-textears.less sheet-forum.less \
+	sheet-topics.less sheet-catalog.less sheet-picmain.less \
+	sheet-picture.less sheet-form.less sheet-heading.less \
+	sheet-seealso.less sheet-register.less sheet-votes.less \
+	sheet-article.less sheet-times.less sheet-timesnfo.less sheet-book.less \
+	sheet-index.less
 
-STATIC_ARTICLE_PARTS = colors.mcss fonts.mcss palette.mcss sheet-general.mcss \
-	sheet-article.mcss
+STATIC_ARTICLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
+	sheet-article.less
 
 all: $(targetdir)/.style.stamp $(targetdir)/static-article.css
 
@@ -24,16 +24,19 @@ $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)
 	touch $@
 
-$(targetdir)/style-%.css: style.mcss $(targetdir)/.stamp $(STYLE_PARTS) \
-		../../cssparser
-	../../cssparser -s $* $< > $@
+$(targetdir)/style-%.min.css: style.less $(targetdir)/.stamp $(STYLE_PARTS)
+	../../lessc -x --global-var='flavour=$*' $< > $@
 
-$(targetdir)/.style.stamp: $(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS))
+$(targetdir)/style-%.css: style.less $(targetdir)/.stamp $(STYLE_PARTS)
+	../../lessc --global-var='flavour=$*' $< > $@
+
+$(targetdir)/.style.stamp: $(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) \
+		 $(patsubst %,$(targetdir)/style-%.min.css,$(FLAVOURS))
 	touch $@
 
-$(targetdir)/static-article.css: static-article.mcss $(targetdir)/.stamp \
-		$(STATIC_ARTICLE_PARTS) ../../cssparser
-	../../cssparser -s static-article.css $< > $@
+$(targetdir)/static-article.css: static-article.less $(targetdir)/.stamp \
+		$(STATIC_ARTICLE_PARTS)
+	../../lessc --global-var='flavour=default' $< > $@
 
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ $(builddir) > Makefile

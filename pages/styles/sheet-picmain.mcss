@@ -1,7 +1,0 @@
-! @(#) $Id$
-
-.picture-main {
-	background-image: url("../%picture_main_back_pic");
-	width: 150px;
-	height: 120px;
-}

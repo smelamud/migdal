@@ -1,9 +1,9 @@
-! @(#) $Id$
+// @(#) $Id: sheet-picture.mcss 1803 2003-12-21 00:32:51Z balu $
 
 .picture {
-	border: 5px solid %picture_border_back;
-	background-color: %picture_back;
-	background-image: url("../%picture_back_pic");
+	border: 5px solid @picture_border_back;
+	background-color: @picture_back;
+	background-image: url(@picture_back_pic);
 	border-spacing: 0;
 	padding: 0;
 	border-collapse: collapse;
@@ -11,13 +11,13 @@
 }
 
 .picture .border {
-	background-color: %picture_border_back;
-	color: %picture_border;
+	background-color: @picture_border_back;
+	color: @picture_border;
 	font-weight: bold;
 }
 
 .picture .border .name {
-	color: %picture_name;
+	color: @picture_name;
 	font-weight: normal;
 }
 
@@ -39,12 +39,12 @@
 }
 
 .picture .control A {
-	color: %picture_control;
+	color: @picture_control;
 	font-size: 8pt;
 	text-decoration: none;
 }
 
 .picture .control A:hover {
-	color: %picture_control_hover;
+	color: @picture_control_hover;
 	text-decoration: underline;
 }

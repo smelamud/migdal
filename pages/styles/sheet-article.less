@@ -1,38 +1,38 @@
-! @(#) $Id$
+// @(#) $Id: sheet-article.mcss 2719 2013-12-05 22:15:31Z balu $
 
 .article {
 	font-size: 9pt;
 }
 
 .article .controls {
-	border-bottom: 1px solid %article_split;
+	border-bottom: 1px solid @article_split;
 	border-spacing: 0;
 }
 
 .article .controls A {
 	font-size: 8pt;
-	color: %article_controls;
+	color: @article_controls;
 	text-decoration: none;
 }
 
 .article .controls A:hover {
-	color: %article_controls_hover;
+	color: @article_controls_hover;
 	text-decoration: underline;
 }
 
 .article A.topic {
-	color: %article_topic;
+	color: @article_topic;
 	font-size: 10pt;
 	text-decoration: underline;
 }
 
 .article A.topic:hover {
-	color: %article_topic_hover;
+	color: @article_topic_hover;
 }
 
 .article H1 {
-	color: %article_title;
-	font: bold 18pt %times;
+	color: @article_title;
+	font: bold 18pt @times;
 	margin: 20px;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .article .author {
-	color: %article_author;
+	color: @article_author;
 	font-style: italic;
 	font-weight: normal;
 	font-size: 12pt;
@@ -69,12 +69,12 @@
 }
 
 .article .sent {
-	color: %article_sent;
+	color: @article_sent;
 	font-size: 9pt;
 }
 
 .article .preface {
-	border-left: solid 5px %article_preface;
+	border-left: solid 5px @article_preface;
 	padding-left: 1ex;
 }
 
@@ -84,14 +84,14 @@
 
 .article .notes {
 	border-style: none;
-	color: %article_notes_split;
-	background-color: %article_notes_split;
+	color: @article_notes_split;
+	background-color: @article_notes_split;
 	height: 1px;
 	width: 200px;
 }
 
 .article .source {
-	color: %article_source;
+	color: @article_source;
 	font-style: italic;
 	padding-bottom: 2ex;
 }

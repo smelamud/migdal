@@ -1,7 +1,0 @@
-! @(#) $Id$
-
-.spin INPUT {
-	background-color: %spin_input_back;
-	border: solid 1px %spin_input_border;
-	color: %spin_input_text;
-}

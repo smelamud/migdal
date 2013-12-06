@@ -30,7 +30,7 @@ function initializeHead() {
 
     foreach ($stylesheetList as $sheet)
         echo "<link rel='stylesheet' href='/styles/$sheet-".
-              getStyle($userStyle).".css'>\n";
+              getStyle($userStyle).".min.css'>\n";
     if (isset($jsList))
         foreach ($jsList as $src)
             echo "<script src='$src' type='text/javascript'></script>\n";
