@@ -729,8 +729,8 @@ function userLoginExists($login, $excludeId = 0) {
     return mysql_num_rows($result) > 0;
 }
 
-class UsersSummary {
-        extends DataObject
+class UsersSummary
+        extends DataObject {
 
     private $total;
     private $waiting;
