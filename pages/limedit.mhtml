@@ -16,7 +16,6 @@
 <string name='title'>
 
 <html>
-<js_jquery>
 <preamble>
 <body>
  <top ident='index'>

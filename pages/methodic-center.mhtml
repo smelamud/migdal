@@ -18,8 +18,6 @@
 </element>
 
 <html>
-<js_jquery>
-<js src='/js/vote.js'>
 <preamble>
 <body>
  <top ident='index'>

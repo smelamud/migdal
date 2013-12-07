@@ -356,8 +356,6 @@
 </element>
 
 <html>
-<js_jquery>
-<js src='/js/captcha.js'>
 <preamble>
 <body>
  <top ident='index'>

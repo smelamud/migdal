@@ -15,8 +15,6 @@
 <log event=community text#='topic($topic_id) user($user.Id) offset=$offset'>
 
 <html>
-<js_jquery>
-<js src='/js/vote.js'>
 <preamble>
 <body>
  <top ident='index'>

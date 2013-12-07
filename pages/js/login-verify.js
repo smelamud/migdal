@@ -25,4 +25,4 @@ function loginVerifyInit() {
     $("#login-button").click(loginVerify);
 }
 
-$(loginVerifyInit)
+$(loginVerifyInit);

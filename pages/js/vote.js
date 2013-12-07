@@ -37,4 +37,4 @@ function voteInit() {
     $(".vote-active").click(voteClick);
 }
 
-$(voteInit)
+$(voteInit);

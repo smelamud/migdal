@@ -6,5 +6,12 @@ targetdir=$(builddir)/www/js/
 
 all:
 	-mkdir -p $(targetdir)
-	find . -maxdepth 1 -name '*.js' | xargs -i cp {} $(targetdir)
+	cp jquery*.js $(targetdir)
+	ls -1 *.js|grep -v '^jquery.*\.js$$'|xargs cat > $(targetdir)/default.js
 	cp .htaccess $(targetdir)
+
+Makefile: Makefile.in ../../conf/migdal.conf
+	../../confmake $^ $(builddir) > Makefile
+
+clean:
+	-rm $(targetdir)/*.js
