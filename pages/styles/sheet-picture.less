@@ -1,4 +1,10 @@
-// @(#) $Id: sheet-picture.mcss 1803 2003-12-21 00:32:51Z balu $
+// @(#) $Id$
+
+.picture-main {
+	background-image: url(@picture_main_back_pic);
+	width: 150px;
+	height: 120px;
+}
 
 .picture {
 	border: 5px solid @picture_border_back;
@@ -8,43 +14,43 @@
 	padding: 0;
 	border-collapse: collapse;
 	width: 150;
-}
 
-.picture .border {
-	background-color: @picture_border_back;
-	color: @picture_border;
-	font-weight: bold;
-}
+    .border {
+        background-color: @picture_border_back;
+        color: @picture_border;
+        font-weight: bold;
 
-.picture .border .name {
-	color: @picture_name;
-	font-weight: normal;
-}
+        .name {
+            color: @picture_name;
+            font-weight: normal;
+        }
+    }
 
-.picture .image {
-	height: 100;
-	text-align: center;
-	vertical-align: middle;
-}
+    .image {
+        height: 100;
+        text-align: center;
+        vertical-align: middle;
+    }
 
-.picture .body {
-	padding: 0.25em;
-	vertical-align: middle;
-}
+    .body {
+        padding: 0.25em;
+        vertical-align: middle;
+    }
 
-.picture .source {
-	padding: 0.25em;
-	vertical-align: middle;
-	font-style: italic;
-}
+    .source {
+        padding: 0.25em;
+        vertical-align: middle;
+        font-style: italic;
+    }
 
-.picture .control A {
-	color: @picture_control;
-	font-size: 8pt;
-	text-decoration: none;
-}
+    .control A {
+        color: @picture_control;
+        font-size: 8pt;
+        text-decoration: none;
 
-.picture .control A:hover {
-	color: @picture_control_hover;
-	text-decoration: underline;
+        &:hover {
+            color: @picture_control_hover;
+            text-decoration: underline;
+        }
+    }
 }

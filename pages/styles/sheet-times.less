@@ -1,29 +1,49 @@
-// @(#) $Id: sheet-times.mcss 1688 2003-08-26 21:28:50Z balu $
+// @(#) $Id$
 
-.mtimes .issue {
-	font: bold 24pt @times;
-	text-align: center;
+.mtimes {
+    .issue {
+        font: bold 24pt @times;
+        text-align: center;
+    }
+
+    .month {
+        font-family: @courier;
+        font-size: 9pt;
+        text-align: center;
+    }
+
+    .posting .subject A {
+        font-size: 12pt;
+    }
+
+    .info {
+        &, DD {
+            font-weight: normal;
+            text-align: left;
+        }
+
+        B, DT {
+            font-weight: bold;
+        }
+
+        P {
+            text-align: left;
+        }
+    }
 }
 
-.mtimes .month {
-	font-family: @courier;
-	font-size: 9pt;
-	text-align: center;
-}
+.timesnfo {
+	padding: .5em;
+	margin: .5em;
 
-.mtimes .posting .subject A {
-	font-size: 12pt;
-}
+    A {
+        font: bold 24pt @times;
+        color: @timesnfo;
+        text-decoration: none;
 
-.mtimes .info,.mtimes .info DD {
-	font-weight: normal;
-	text-align: left;
-}
-
-.mtimes .info B,.mtimes .info DT {
-	font-weight: bold;
-}
-
-.mtimes .info P {
-	text-align: left;
+        &:hover {
+            color: @timesnfo_hover;
+            text-decoration: underline;
+        }
+    }
 }

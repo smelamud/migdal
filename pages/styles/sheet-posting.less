@@ -4,67 +4,67 @@
 	margin-top: 1ex;
 	margin-bottom: 1ex;
 	font-size: 9pt;
-}
 
-.posting-topic {
-	color: @posting_topic;
-	font: bold 10pt @times;
-	text-decoration: underline;
-}
+    &-topic {
+        color: @posting_topic;
+        font: bold 10pt @times;
+        text-decoration: underline;
 
-A.posting-topic:hover {
-	color: @posting_topic_hover;
-}
+        A&:hover {
+            color: @posting_topic_hover;
+        }
+    }
 
-.posting-subject {
-	font: bold 14pt @times;
-	color: @posting_subject;
-	text-decoration: none;
-}
+    &-subject {
+        font: bold 14pt @times;
+        color: @posting_subject;
+        text-decoration: none;
 
-A.posting-subject:hover {
-	color: @posting_subject_hover;
-	text-decoration: underline;
-}
+        A&:hover {
+            color: @posting_subject_hover;
+            text-decoration: underline;
+        }
+    }
 
-.posting-author {
-	font: italic 11pt @times;
-	color: @posting_author;
-}
+    &-author {
+        font: italic 11pt @times;
+        color: @posting_author;
+    }
 
-.posting EM {
-	font: bold 12pt @times;
-	color: @posting_em;
-}
+    EM {
+        font: bold 12pt @times;
+        color: @posting_em;
+    }
 
-.posting-statistics {
-	font-family: @courier;
-	font-size: 10pt;
-}
+    &-statistics {
+        font-family: @courier;
+        font-size: 10pt;
+    }
 
-.posting-source {
-	font-style: italic;
-	font-size: 9pt;
-	text-align: right;
-}
+    &-source {
+        font-style: italic;
+        font-size: 9pt;
+        text-align: right;
+    }
 
-.posting-bottom {
-	border-bottom: 1px solid @posting_split;
-	margin-top: .5ex;
-	clear: both;
-}
+    &-bottom {
+        border-bottom: 1px solid @posting_split;
+        margin-top: .5ex;
+        clear: both;
 
-.posting-bottom A {
-	font-size: 8pt;
-	color: @posting_controls;
-	text-decoration: none;
-}
+        A {
+            font-size: 8pt;
+            color: @posting_controls;
+            text-decoration: none;
 
-.posting-bottom A:hover {
-	color: @posting_controls_hover;
-	text-decoration: underline;
-}
+            &:hover {
+                color: @posting_controls_hover;
+                text-decoration: underline;
+            }
+        }
+    }
 
-.posting-error {
-	color: @posting_error;
+    &-error {
+        color: @posting_error;
+    }
 }

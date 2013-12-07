@@ -1,4 +1,4 @@
-// @(#) $Id: sheet-general.mcss 2719 2013-12-05 22:15:31Z balu $
+// @(#) $Id$
 
 .ninept {
 	font-size: 9pt;
@@ -23,12 +23,12 @@ BODY {
 	margin: 0;
 	font-size: 10pt;
 	font-family: @verdana;
-}
 
-BODY.error-page {
-    background-color: @body_404_back;
-    background-image: none;
-    padding: 10px;
+    &.error-page {
+        background-color: @body_404_back;
+        background-image: none;
+        padding: 10px;
+    }
 }
 
 .page-title {
@@ -39,10 +39,12 @@ BODY.error-page {
 	border-bottom: solid 3px @title;
 }
 
-A.name,SPAN.name {
-	color: @name;
-	font-weight: bold;
-	font-size: 9pt;
+.name {
+    A&, SPAN& {
+        color: @name;
+        font-weight: bold;
+        font-size: 9pt;
+    }
 }
 
 SPAN.guest-name {
@@ -60,14 +62,16 @@ A IMG {
 	border: 0;
 }
 
-.pic IMG {
-	border: 1px solid @image_border;
-}
+.pic {
+    IMG {
+        border: 1px solid @image_border;
+    }
 
-.pic,.pic TD,.pic P {
-	text-align: center;
-	font-style: italic;
-	font-size: 8pt;
+    &, TD, P {
+        text-align: center;
+        font-style: italic;
+        font-size: 8pt;
+    }
 }
 
 .icon {
@@ -82,4 +86,10 @@ A IMG {
 
 TT {
 	font-family: @courier;
+}
+
+EM {
+	color: @em;
+	font-weight: bold;
+	font-style: normal;
 }

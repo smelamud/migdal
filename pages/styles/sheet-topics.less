@@ -1,121 +1,123 @@
-// @(#) $Id: sheet-topics.mcss 2667 2010-04-27 11:03:00Z balu $
+// @(#) $Id$
 
-.topics-header {
-	width: 100%;
-	margin-top: 10px;
-	margin-bottom: 5px;
-	color: @topics_title;
-	border-bottom: solid 1px @topics_title;
-	text-align: left;
-	font-weight: bold;
-	font-size: 10pt;
+UL.eightpt LI {
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 .topics {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
-}
 
-.topics LI {
-	padding-bottom: 4px;
-	padding-left: 15px;
-	background: url('/pics/bullet.gif') no-repeat top left;
-}
+    &-header {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        color: @topics_title;
+        border-bottom: solid 1px @topics_title;
+        text-align: left;
+        font-weight: bold;
+        font-size: 10pt;
+    }
 
-UL.eightpt LI {
-	padding-top: 2px;
-	padding-bottom: 2px;
-}
+    LI {
+        padding-bottom: 4px;
+        padding-left: 15px;
+        background: url('/pics/bullet.gif') no-repeat top left;
 
-.topics LI.topics-static {
-	background-image: url('/pics/bullet-mrd.gif');
-}
+        &.topics {
+            &-static {
+                background-image: url('/pics/bullet-mrd.gif');
+            }
 
-.topics LI.topics-arrow {
-	font-weight: bold;
-	background-image: url('/pics/arrow.gif');
-}
+            &-arrow {
+                font-weight: bold;
+                background-image: url('/pics/arrow.gif');
+            }
 
-.topics LI.topics-ner-arrow {
-	font-weight: bold;
-	background-image: url('/pics/arrow-ner.gif');
-}
+            &-ner-arrow {
+                font-weight: bold;
+                background-image: url('/pics/arrow-ner.gif');
+            }
 
-.topics LI.topics-ner {
-	background-image: url('/pics/ner-small.gif');
-}
+            &-ner {
+                background-image: url('/pics/ner-small.gif');
+            }
 
-.topics LI.topics-nobullet {
-	background-image: none;
-	padding-left: 0;
-}
+            &-nobullet {
+                background-image: none;
+                padding-left: 0;
+            }
 
-.topics LI.topics-subtable {
-	display: inline-block;	// Fixes extra space in IE
-	background-image: none;
-}
+            &-subtable {
+                display: inline-block;	// Fixes extra space in IE
+                background-image: none;
+            }
 
-.topics LI.topics-view-all {
-	background-image: none;
-	padding-left: 0;
-	font-weight: bold;
-	font-size: 8pt;
-	text-align: center;
-}
+            &-view-all {
+                background-image: none;
+                padding-left: 0;
+                font-weight: bold;
+                font-size: 8pt;
+                text-align: center;
+            }
 
-.topics LI.topics-section {
-	background-image: none;
-	padding-left: 0;
-	color: @topics_section;
-	font-weight: bold;
-	font-size: 8pt;
-	margin-top: 10px;
-}
+            &-section {
+                background-image: none;
+                padding-left: 0;
+                color: @topics_section;
+                font-weight: bold;
+                font-size: 8pt;
+                margin-top: 10px;
+            }
 
-.topics LI.topics-comment {
-	background-image: none;
-	color: @topics_comment;
-}
+            &-comment {
+                background-image: none;
+                color: @topics_comment;
+            }
+        }
+    }
 
-.topics A.edit {
-	color: @topics_controls;
-	font-size: 8pt;
-}
+    A.edit {
+        color: @topics_controls;
+        font-size: 8pt;
 
-.topics A.edit:hover {
-	color: @topics_controls_hover;
-}
+        &:hover {
+            color: @topics_controls_hover;
+        }
+    }
 
-A.topics-item {
-	color: @topics_names;
-	text-decoration: none;
-}
+    A&-item {
+        color: @topics_names;
+        text-decoration: none;
 
-A.topics-item:hover {
-	color: @topics_names_hover;
-	text-decoration: underline;
-}
+        &:hover {
+            color: @topics_names_hover;
+            text-decoration: underline;
+        }
+    }
 
-.topics A.new { //FIXME remake
-	color: @topics_new;
-	font-style: italic;
-}
+    A.new { //FIXME remake
+        color: @topics_new;
+        font-style: italic;
 
-.topics A.new:hover { //FIXME remake
-	color: @topics_names_hover;
-}
+        &:hover { //FIXME remake
+            color: @topics_names_hover;
+        }
+    }
 
-.topics-answers {
-	color: @topics_answers;
-}
+    &-answers {
+        color: @topics_answers;
+    }
 
-A.topics-item:hover > .topics-answers {
-	color: @topics_names_hover;
-}
+    A&-item:hover > &-answers {
+        color: @topics_names_hover;
+    }
 
-.topics .rating {
-	font-size: 7pt;
+    .rating {
+        font-size: 7pt;
+    }
 }
 
 .up-level {

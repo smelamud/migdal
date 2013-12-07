@@ -1,4 +1,4 @@
-// @(#) $Id: sheet-votes.mcss 2713 2013-12-01 00:42:40Z balu $
+// @(#) $Id$
 
 .vote-button {
 	border-width: 0;
@@ -8,41 +8,45 @@
     cursor: pointer;
 }
 
-.rating-minus {
-	text-align: center;
-	color: @rating_minus;
-	font-weight: bold;
-	font-size: 10pt;
+.rating {
+    &-minus {
+        text-align: center;
+        color: @rating_minus;
+        font-weight: bold;
+        font-size: 10pt;
+    }
+
+    &-zero {
+        text-align: center;
+        color: @rating_zero;
+        font-weight: bold;
+        font-size: 10pt;
+    }
+
+    &-plus {
+        text-align: center;
+        color: @rating_plus;
+        font-weight: bold;
+        font-size: 10pt;
+    }
 }
 
-.rating-zero {
-	text-align: center;
-	color: @rating_zero;
-	font-weight: bold;
-	font-size: 10pt;
-}
+.small-rating {
+    &-minus {
+        color: @rating_minus;
+        font-weight: bold;
+        font-size: 8pt;
+    }
 
-.rating-plus {
-	text-align: center;
-	color: @rating_plus;
-	font-weight: bold;
-	font-size: 10pt;
-}
+    &-zero {
+        color: @rating_zero;
+        font-weight: bold;
+        font-size: 8pt;
+    }
 
-.small-rating-minus {
-	color: @rating_minus;
-	font-weight: bold;
-	font-size: 8pt;
-}
-
-.small-rating-zero {
-	color: @rating_zero;
-	font-weight: bold;
-	font-size: 8pt;
-}
-
-.small-rating-plus {
-	color: @rating_plus;
-	font-weight: bold;
-	font-size: 8pt;
+    &-plus {
+        color: @rating_plus;
+        font-weight: bold;
+        font-size: 8pt;
+    }
 }

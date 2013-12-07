@@ -1,97 +1,97 @@
-// @(#) $Id: sheet-article.mcss 2719 2013-12-05 22:15:31Z balu $
+// @(#) $Id$
 
 .article {
 	font-size: 9pt;
-}
 
-.article .controls {
-	border-bottom: 1px solid @article_split;
-	border-spacing: 0;
-}
+    .controls {
+        border-bottom: 1px solid @article_split;
+        border-spacing: 0;
 
-.article .controls A {
-	font-size: 8pt;
-	color: @article_controls;
-	text-decoration: none;
-}
+        A {
+            font-size: 8pt;
+            color: @article_controls;
+            text-decoration: none;
 
-.article .controls A:hover {
-	color: @article_controls_hover;
-	text-decoration: underline;
-}
+            &:hover {
+                color: @article_controls_hover;
+                text-decoration: underline;
+            }
+        }
+    }
 
-.article A.topic {
-	color: @article_topic;
-	font-size: 10pt;
-	text-decoration: underline;
-}
+    A.topic {
+        color: @article_topic;
+        font-size: 10pt;
+        text-decoration: underline;
 
-.article A.topic:hover {
-	color: @article_topic_hover;
-}
+        &:hover {
+            color: @article_topic_hover;
+        }
+    }
 
-.article H1 {
-	color: @article_title;
-	font: bold 18pt @times;
-	margin: 20px;
-}
+    H1 {
+        color: @article_title;
+        font: bold 18pt @times;
+        margin: 20px;
+    }
 
-.article H2 {
-	font-size: 14pt;
-	font-weight: bold;
-	margin: 15px;
-}
+    H2 {
+        font-size: 14pt;
+        font-weight: bold;
+        margin: 15px;
+    }
 
-.article H3 {
-	font-size: 12pt;
-	font-weight: bold;
-	margin: 10px;
-}
+    H3 {
+        font-size: 12pt;
+        font-weight: bold;
+        margin: 10px;
+    }
 
-.article H4 {
-	font-size: 10pt;
-	font-weight: bold;
-	text-decoration: underline;
-	margin: 5px;
-}
+    H4 {
+        font-size: 10pt;
+        font-weight: bold;
+        text-decoration: underline;
+        margin: 5px;
+    }
 
-.article .author {
-	color: @article_author;
-	font-style: italic;
-	font-weight: normal;
-	font-size: 12pt;
-}
+    .author {
+        color: @article_author;
+        font-style: italic;
+        font-weight: normal;
+        font-size: 12pt;
+    }
 
-.article .image-title,.article .image-title > P {
-	text-align: center;
-	font-style: italic;
-	font-size: 8pt;
-}
+    .image-title,.image-title > P {
+        text-align: center;
+        font-style: italic;
+        font-size: 8pt;
+    }
 
-.article .sent {
-	color: @article_sent;
-	font-size: 9pt;
-}
+    .sent {
+        color: @article_sent;
+        font-size: 9pt;
+    }
 
-.article .preface {
-	border-left: solid 5px @article_preface;
-	padding-left: 1ex;
-}
+    .preface {
+        border-left: solid 5px @article_preface;
+        padding-left: 1ex;
+    }
 
-.article TT {
-	font-size: 10pt;
-}
+    TT {
+        font-size: 10pt;
+    }
 
-.article .notes {
-	border-style: none;
-	color: @article_notes_split;
-	background-color: @article_notes_split;
-	height: 1px;
-	width: 200px;
-}
+    .notes {
+        border-style: none;
+        color: @article_notes_split;
+        background-color: @article_notes_split;
+        height: 1px;
+        width: 200px;
+    }
 
-.article .source {
-	color: @article_source;
-	font-style: italic;
-	padding-bottom: 2ex;
+    .source {
+        color: @article_source;
+        font-style: italic;
+        padding-bottom: 2ex;
+    }
 }

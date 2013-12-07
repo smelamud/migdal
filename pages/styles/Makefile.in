@@ -9,11 +9,9 @@ STYLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 	sheet-anytoany.less sheet-frames.less sheet-info.less sheet-menu.less \
 	sheet-bottom.less sheet-top.less sheet-return.less sheet-batcher.less \
 	sheet-posting.less sheet-textears.less sheet-forum.less \
-	sheet-topics.less sheet-catalog.less sheet-picmain.less \
-	sheet-picture.less sheet-form.less sheet-heading.less \
-	sheet-seealso.less sheet-register.less sheet-votes.less \
-	sheet-article.less sheet-times.less sheet-timesnfo.less sheet-book.less \
-	sheet-index.less
+	sheet-topics.less sheet-catalog.less sheet-picture.less sheet-form.less \
+	sheet-heading.less sheet-seealso.less sheet-register.less sheet-votes.less \
+	sheet-article.less sheet-times.less sheet-book.less sheet-index.less
 
 STATIC_ARTICLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 	sheet-article.less
