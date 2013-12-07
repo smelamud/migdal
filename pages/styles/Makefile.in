@@ -18,28 +18,24 @@ STYLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 STATIC_ARTICLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 	sheet-article.less
 
-all: $(targetdir)/.style.stamp $(targetdir)/static-article.css
+all: $(targetdir)/static-article.css \
+		$(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) \
+		$(patsubst %,$(targetdir)/style-%.min.css,$(FLAVOURS))
 
-$(targetdir)/.stamp:
-	-mkdir -p $(targetdir)
-	touch $@
-
-$(targetdir)/style-%.min.css: style.less $(targetdir)/.stamp $(STYLE_PARTS)
+$(targetdir)/style-%.min.css: style.less $(STYLE_PARTS)
+	[ -d $(targetdir) ] || mkdir -p $(targetdir)
 	../../lessc -x --global-var='flavour=$*' $< > $@
 
-$(targetdir)/style-%.css: style.less $(targetdir)/.stamp $(STYLE_PARTS)
+$(targetdir)/style-%.css: style.less $(STYLE_PARTS)
+	[ -d $(targetdir) ] || mkdir -p $(targetdir)
 	../../lessc --global-var='flavour=$*' $< > $@
 
-$(targetdir)/.style.stamp: $(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) \
-		 $(patsubst %,$(targetdir)/style-%.min.css,$(FLAVOURS))
-	touch $@
-
-$(targetdir)/static-article.css: static-article.less $(targetdir)/.stamp \
-		$(STATIC_ARTICLE_PARTS)
+$(targetdir)/static-article.css: static-article.less $(STATIC_ARTICLE_PARTS)
+	[ -d $(targetdir) ] || mkdir -p $(targetdir)
 	../../lessc --global-var='flavour=default' $< > $@
 
 Makefile: Makefile.in ../../conf/migdal.conf
 	../../confmake $^ $(builddir) > Makefile
 
 clean:
-	-rm $(targetdir)/.*.stamp $(targetdir)/static-article.css
+	-rm $(targetdir)/*.css
