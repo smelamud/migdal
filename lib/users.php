@@ -475,318 +475,294 @@ class UsersNowIterator
 
 }
 
-function getUserById($id,$guest_login='')
-{
-global $userAdminUsers,$userId;
+function getUserById($id, $guest_login = '') {
+    global $userAdminUsers,$userId;
 
-$now=sqlNow();
-$hide=$userAdminUsers ? 2 : 1;
-$result=sql("select id,login,name,jewish_name,surname,gender,info,info_xml,
-                    birthday,rights,last_online,email,hide_email,icq,
-                    guest as user_guest,email_disabled,hidden,no_login,
-                    has_personal,
-                    if(last_online+interval 1 hour>'$now',1,0) as online,
-                    floor((unix_timestamp('$now')
-                           -unix_timestamp(last_online))/60) as last_minutes,
-                    confirm_code,
-                    confirm_deadline is null as confirmed,
-                    floor((unix_timestamp(confirm_deadline)
-                           -unix_timestamp('$now'))/86400) as confirm_days
-             from users
-             where users.id=$id and (hidden<$hide or guest<>0
-                                     or users.id=$userId)",
-            __FUNCTION__);
-$user=new User(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                         : array('id' => 0));
-$user->guest_login=$guest_login;
-return $user;
+    $now = sqlNow();
+    $hide = $userAdminUsers ? 2 : 1;
+    $result = sql("select id,login,name,jewish_name,surname,gender,info,
+                          info_xml,birthday,rights,last_online,email,hide_email,
+                          icq,guest as user_guest,email_disabled,hidden,
+                          no_login,has_personal,
+                          if(last_online+interval 1 hour>'$now',1,0) as online,
+                          floor((unix_timestamp('$now')
+                                 -unix_timestamp(last_online))/60) as last_minutes,
+                          confirm_code,
+                          confirm_deadline is null as confirmed,
+                          floor((unix_timestamp(confirm_deadline)
+                                 -unix_timestamp('$now'))/86400) as confirm_days
+                   from users
+                   where users.id=$id and (hidden<$hide or guest<>0
+                                           or users.id=$userId)",
+                  __FUNCTION__);
+    $user = new User(mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result)
+                                                 : array('id' => 0));
+    $user->guest_login = $guest_login;
+    return $user;
 }
 
-function storeUser(&$user)
-{
-global $userAdminUsers;
+function storeUser(&$user) {
+    global $userAdminUsers;
 
-// Здесь допускается установка админских прав не админом! Проверка должна
-// производиться раньше.
-$vars=array('login' => $user->login,
-            'name' => $user->name,
-            'jewish_name' => $user->jewish_name,
-            'surname' => $user->surname,
-            'gender' => $user->gender,
-            'info' => $user->info,
-            'info_xml' => $user->info_xml,
-            'birthday' => $user->birthday,
-            'modified' => sqlNow(),
-            'rights' => $user->rights,
-            'email' => $user->email,
-            'hide_email' => $user->hide_email,
-            'email_disabled' => $user->email_disabled,
-            'icq' => $user->icq);
-if($userAdminUsers)
-  $vars=array_merge($vars,
-                    array('hidden' => $user->hidden,
-                          'no_login' => $user->no_login,
-                          'has_personal' => $user->has_personal));
-if(!$user->id || $user->dup_password!='')
-  $vars=array_merge($vars,
-                    array('password' => md5($user->password)));
-if($user->id)
-  {
-  $result=sql(sqlUpdate('users',
-                        $vars,
-                        array('id' => $user->id)),
-              __FUNCTION__,'update');
-  }
-else
-  {
-  $vars['created']=sqlNow();
-  $result=sql(sqlInsert('users',
-                        $vars),
-              __FUNCTION__,'insert');
-  $user->id=sql_insert_id();
-  }
-return $result;
+    // Здесь допускается установка админских прав не админом! Проверка должна
+    // производиться раньше.
+    $vars=array('login' => $user->login,
+                'name' => $user->name,
+                'jewish_name' => $user->jewish_name,
+                'surname' => $user->surname,
+                'gender' => $user->gender,
+                'info' => $user->info,
+                'info_xml' => $user->info_xml,
+                'birthday' => $user->birthday,
+                'modified' => sqlNow(),
+                'rights' => $user->rights,
+                'email' => $user->email,
+                'hide_email' => $user->hide_email,
+                'email_disabled' => $user->email_disabled,
+                'icq' => $user->icq);
+    if ($userAdminUsers)
+        $vars = array_merge($vars,
+                            array('hidden' => $user->hidden,
+                                  'no_login' => $user->no_login,
+                                  'has_personal' => $user->has_personal));
+    if (!$user->id || $user->dup_password != '')
+        $vars = array_merge($vars,
+                            array('password' => md5($user->password)));
+    if ($user->id) {
+        $result = sql(sqlUpdate('users',
+                                $vars,
+                                array('id' => $user->id)),
+                      __FUNCTION__, 'update');
+    } else {
+        $vars['created'] = sqlNow();
+        $result = sql(sqlInsert('users',
+                                $vars),
+                      __FUNCTION__, 'insert');
+        $user->id = sql_insert_id();
+    }
+    return $result;
 }
 
-function preconfirmUser($userId)
-{
-global $regConfirmTimeout;
+function preconfirmUser($userId) {
+    global $regConfirmTimeout;
 
-$s='';
-for($i=0;$i<20;$i++)
-   {
-   $s.=chr(random(ord('A'),ord('Z')));
-   }
-$now=sqlNow();
-sql("update users
-     set no_login=1,confirm_code='$s',
-         confirm_deadline='$now'+interval $regConfirmTimeout day
-     where id=$userId",
-    __FUNCTION__);
+    $s = '';
+    for ($i = 0; $i < 20; $i++) {
+        $s.=chr(random(ord('A'),ord('Z')));
+    }
+    $now = sqlNow();
+    sql("update users
+         set no_login=1,confirm_code='$s',
+             confirm_deadline='$now'+interval $regConfirmTimeout day
+         where id=$userId",
+        __FUNCTION__);
 }
 
-function confirmUser($userId)
-{
-$now=sqlNow();
-sql("update users
-     set no_login=0,hidden=0,confirm_deadline=null,
-         last_online='$now'
-     where id=$userId",
-    __FUNCTION__);
+function confirmUser($userId) {
+    $now = sqlNow();
+    sql("update users
+         set no_login=0,hidden=0,confirm_deadline=null,
+             last_online='$now'
+         where id=$userId",
+        __FUNCTION__);
 }
 
-function getUserIdByConfirmCode($confirmCode)
-{
-$confirmCodeS=addslashes($confirmCode);
-$result=sql("select id
-             from users
-             where confirm_code='$confirmCodeS'
-                   and hidden<2",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getUserIdByConfirmCode($confirmCode) {
+    $confirmCodeS = addslashes($confirmCode);
+    $result = sql("select id
+                   from users
+                   where confirm_code='$confirmCodeS'
+                         and hidden<2",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function isUserConfirmed($id)
-{
-$result=sql("select if(confirm_deadline is null,1,0)
-             from users
-             where id=$id",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0)!=0 : false;
+function isUserConfirmed($id) {
+    $result = sql("select if(confirm_deadline is null,1,0)
+                   from users
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) != 0
+                                       : false;
 }
 
-function deleteNonConfirmedUsers()
-{
-$now=sqlNow();
-sql("delete
-     from users
-     where confirm_deadline is not null and confirm_deadline<'$now'",
-    __FUNCTION__,'delete');
-sql("optimize table users",
-    __FUNCTION__,'optimize');
+function deleteNonConfirmedUsers() {
+    $now = sqlNow();
+    sql("delete
+         from users
+         where confirm_deadline is not null and confirm_deadline<'$now'",
+        __FUNCTION__,'delete');
+    sql("optimize table users",
+        __FUNCTION__,'optimize');
 }
 
-function getUserLoginById($id)
-{
-// Hidden users' logins must be returned, because system users must be
-// identified
+function getUserLoginById($id) {
+    // Hidden users' logins must be returned, because system users must be
+    // identified
 
-$result=sql("select login
-             from users
-             where id=$id",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+    $result = sql("select login
+                   from users
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
 
-function getUserGenderById($id)
-{
-global $userAdminUsers;
+function getUserGenderById($id) {
+    global $userAdminUsers;
 
-$hide=$userAdminUsers ? 2 : 1;
-$result=sql("select gender
-             from users
-             where id=$id and hidden<$hide",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 'mine';
+    $hide = $userAdminUsers ? 2 : 1;
+    $result = sql("select gender
+                   from users
+                   where id=$id and hidden<$hide",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 'mine';
 }
 
-function getUserIdByLogin($login)
-{
-$loginS=addslashes($login);
-$result=sql("select id
-             from users
-             where login='$loginS'",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getUserIdByLogin($login) {
+    $loginS = addslashes($login);
+    $result = sql("select id
+                   from users
+                   where login='$loginS'",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function idByLogin($login)
-{
-if(isId($login))
-  return $login;
-if(is_null($login) || $login=='')
-  return 0;
-if(hasCachedValue('login','users',$login))
-  return getCachedValue('login','users',$login);
-$id=getUserIdByLogin($login);
-setCachedValue('login','users',$login,$id);
-return $id;
+function idByLogin($login) {
+    if (isId($login))
+        return $login;
+    if (is_null($login) || $login == '')
+        return 0;
+    if (hasCachedValue('login', 'users', $login))
+        return getCachedValue('login', 'users', $login);
+    $id = getUserIdByLogin($login);
+    setCachedValue('login', 'users', $login, $id);
+    return $id;
 }
 
-function getUserIdByLoginPassword($login,$password)
-{
-$loginS=addslashes($login);
-$passwordMD5=md5($password);
-$result=sql("select id
-             from users
-             where login='$login' and password='$passwordMD5'
-                   and no_login=0",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getUserIdByLoginPassword($login, $password) {
+    $loginS = addslashes($login);
+    $passwordMD5 = md5($password);
+    $result = sql("select id
+                   from users
+                   where login='$login' and password='$passwordMD5'
+                         and no_login=0",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function setPasswordByUserId($id,$password)
-{
-$now=sqlNow();
-sql("update users
-     set password=md5('$password'),modified='$now'
-     where id=$id",
-    __FUNCTION__);
+function setPasswordByUserId($id, $password) {
+    $now = sqlNow();
+    sql("update users
+         set password=md5('$password'),modified='$now'
+         where id=$id",
+        __FUNCTION__);
 }
 
-function getShamesId()
-{
-$result=sql('select id
-             from users
-             where shames=1',
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getShamesId() {
+    $result = sql('select id
+                   from users
+                   where shames=1',
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function getGuestId()
-{
-global $allowGuests,$shortSessionTimeout,$guestLogin;
+function getGuestId() {
+    global $allowGuests, $shortSessionTimeout, $guestLogin;
 
-if(!$allowGuests)
-  return 0;
-$result=sql("select id
-             from users
-             where guest<>0
-             order by login
-             limit 1",
-            __FUNCTION__,'locate_guest');
-if(mysql_num_rows($result)>0)
-  return mysql_result($result,0,0);
-$now=sqlNow();
-sql("insert into users(login,email_disabled,guest,hidden,no_login,created,
-                       modified)
-     values('$guestLogin',1,1,2,1,'$now','$now')",
-    __FUNCTION__,'create');
-$id=sql_insert_id();
-return $id;
+    if (!$allowGuests)
+        return 0;
+    $result = sql("select id
+                   from users
+                   where guest<>0
+                   order by login
+                   limit 1",
+                  __FUNCTION__, 'locate_guest');
+    if (mysql_num_rows($result) > 0)
+        return mysql_result($result, 0, 0);
+    $now = sqlNow();
+    sql("insert into users(login,email_disabled,guest,hidden,no_login,created,
+                           modified)
+         values('$guestLogin',1,1,2,1,'$now','$now')",
+        __FUNCTION__,'create');
+    $id = sql_insert_id();
+    return $id;
 }
 
-function updateLastOnline($userId)
-{
-$now=sqlNow();
-sql("update users
-     set last_online='$now'
-     where id=$userId",
-    __FUNCTION__);
+function updateLastOnline($userId) {
+    $now = sqlNow();
+    sql("update users
+         set last_online='$now'
+         where id=$userId",
+        __FUNCTION__);
 }
 
-function personalExists($id)
-{
-global $userAdminUsers;
+function personalExists($id) {
+    global $userAdminUsers;
 
-$hide=$userAdminUsers ? 2 : 1;
-$result=sql("select id
-             from users
-             where id=$id and hidden<$hide and has_personal<>0",
-            __FUNCTION__);
-return mysql_num_rows($result)>0;
+    $hide = $userAdminUsers ? 2 : 1;
+    $result = sql("select id
+                   from users
+                   where id=$id and hidden<$hide and has_personal<>0",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
 }
 
-function userExists($id)
-{
-global $userAdminUsers;
+function userExists($id) {
+    global $userAdminUsers;
 
-$hide=$userAdminUsers ? 2 : 1;
-$result=sql("select id
-             from users
-             where id=$id and hidden<$hide",
-            __FUNCTION__);
-return mysql_num_rows($result)>0;
+    $hide = $userAdminUsers ? 2 : 1;
+    $result = sql("select id
+                   from users
+                   where id=$id and hidden<$hide",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
 }
 
-function userLoginExists($login,$excludeId=0)
-{
-$loginS=addslashes($login);
-$filter=$excludeId!=0 ? "and id<>$excludeId" : '';
-$result=sql("select id
-             from users
-             where login='$loginS' $filter",
-            __FUNCTION__);
-return mysql_num_rows($result)>0;
+function userLoginExists($login, $excludeId = 0) {
+    $loginS = addslashes($login);
+    $filter = $excludeId != 0 ? "and id<>$excludeId" : '';
+    $result = sql("select id
+                   from users
+                   where login='$loginS' $filter",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
 }
 
-class UsersSummary
-{
-var $total;
-var $waiting;
+class UsersSummary {
+        extends DataObject
 
-function __construct($total,$waiting)
-{
-$this->total=$total;
-$this->waiting=$waiting;
-}
+    private $total;
+    private $waiting;
 
-function getTotal()
-{
-return $this->total;
-}
+    public function __construct($total, $waiting) {
+        $this->total = $total;
+        $this->waiting = $waiting;
+    }
 
-function getWaiting()
-{
-return $this->waiting;
-}
+    public function getTotal() {
+        return $this->total;
+    }
+
+    public function getWaiting() {
+        return $this->waiting;
+    }
 
 }
 
-function getUsersSummary()
-{
-global $userAdminUsers;
+function getUsersSummary() {
+    global $userAdminUsers;
 
-$hide=$userAdminUsers ? 2 : 1;
-$result=sql("select count(*),count(confirm_deadline)
-             from users
-             where hidden<$hide",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ?
-       new UsersSummary(mysql_result($result,0,0)-mysql_result($result,0,1),
-                        mysql_result($result,0,1)) :
-       new UsersSummary(0,0);
+    $hide = $userAdminUsers ? 2 : 1;
+    $result = sql("select count(*),count(confirm_deadline)
+                   from users
+                   where hidden<$hide",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ?
+           new UsersSummary(mysql_result($result, 0, 0)
+                            - mysql_result($result, 0, 1),
+                            mysql_result($result, 0, 1)) :
+           new UsersSummary(0, 0);
 }
 
 function getGuestsNow($period) {
