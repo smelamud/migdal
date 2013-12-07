@@ -89,7 +89,7 @@ httpRequestIntegerArray('grps');
 dbOpen();
 session();
 $topic=getTopicById($editid,$up);
-$original=$topic;
+$original=clone $topic;
 $topic->setup($Args);
 $err=modifyTopic($topic,$original);
 if($err==EG_OK)

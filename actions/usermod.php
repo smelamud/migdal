@@ -94,7 +94,7 @@ httpRequestInteger('email_enabled');
 dbOpen();
 session();
 $user=getUserById($editid);
-$original=$user;
+$original=clone $user;
 $user->setup($Args);
 $err=modifyUser($user,$original);
 if($err==EG_OK)

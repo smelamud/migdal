@@ -106,7 +106,7 @@ loginHints($login,$userMyComputerHint);
 if($editid<=0)
   $err=relogin($relogin,$login,$password,$remember,$guest_login);
 $forum=getForumById($editid,$parent_id);
-$original=$forum;
+$original=clone $forum;
 $forum->setup($Args);
 
 $erru=imageUpload('image_file',$forum,IU_THUMB_AUTO|IU_MANUAL,
