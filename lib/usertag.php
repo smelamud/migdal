@@ -14,7 +14,7 @@ var $user_hidden;
 var $user_guest;
 var $guest_login='';
 
-function __construct($row)
+function __construct(array $row)
 {
 $this->gender='mine';
 parent::__construct($row);

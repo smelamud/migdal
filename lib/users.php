@@ -62,12 +62,12 @@ var $confirmed;
 var $confirm_days;
 var $last_message;
 
-function __construct($row)
+function __construct(array $row)
 {
 parent::__construct($row);
 }
 
-function setup($vars)
+function setup(array $vars)
 {
 global $tfUser;
 
@@ -501,25 +501,25 @@ function getUserById($id, $guest_login = '') {
     return $user;
 }
 
-function storeUser(&$user) {
+function storeUser(User $user) {
     global $userAdminUsers;
 
     // Здесь допускается установка админских прав не админом! Проверка должна
     // производиться раньше.
-    $vars=array('login' => $user->login,
-                'name' => $user->name,
-                'jewish_name' => $user->jewish_name,
-                'surname' => $user->surname,
-                'gender' => $user->gender,
-                'info' => $user->info,
-                'info_xml' => $user->info_xml,
-                'birthday' => $user->birthday,
-                'modified' => sqlNow(),
-                'rights' => $user->rights,
-                'email' => $user->email,
-                'hide_email' => $user->hide_email,
-                'email_disabled' => $user->email_disabled,
-                'icq' => $user->icq);
+    $vars = array('login' => $user->login,
+                  'name' => $user->name,
+                  'jewish_name' => $user->jewish_name,
+                  'surname' => $user->surname,
+                  'gender' => $user->gender,
+                  'info' => $user->info,
+                  'info_xml' => $user->info_xml,
+                  'birthday' => $user->birthday,
+                  'modified' => sqlNow(),
+                  'rights' => $user->rights,
+                  'email' => $user->email,
+                  'hide_email' => $user->hide_email,
+                  'email_disabled' => $user->email_disabled,
+                  'icq' => $user->icq);
     if ($userAdminUsers)
         $vars = array_merge($vars,
                             array('hidden' => $user->hidden,
