@@ -1,20 +1,26 @@
 <?php
 # @(#) $Id$
 
-function createJSList()
-{
-global $jsList;
+function createJSList() {
+    global $jsList;
 
-if(!isset($jsList))
-  $jsList=array();
+    if (!isset($jsList))
+        $jsList = array();
 }
 
-function declareJS($src)
-{
-global $jsList;
+function declareBasicJS($src) {
+    global $jsList;
 
-createJSList();
-if(!in_array($src,$jsList))
-  $jsList[]=$src;
+    createJSList();
+    if (!in_array($src, $jsList))
+        array_unshift($jsList, $src);
+}
+
+function declareJS($src) {
+    global $jsList;
+
+    createJSList();
+    if (!in_array($src, $jsList))
+        $jsList[] = $src;
 }
 ?>

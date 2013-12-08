@@ -204,6 +204,7 @@
          file='lib/inner-images.php' params='entry_id,par,x,y'
 	 defaults='name=image x=0 y=0'>
 <decexec macro='js' func='declareJS' file='lib/js.php' params='src'>
+<decexec macro='js_basic' func='declareBasicJS' file='lib/js.php' params='src'>
 <deccall macro='location_info' func='getLocationInfo' file='lib/structure.php'
          params='path'>
 <decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>

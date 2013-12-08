@@ -19,6 +19,7 @@ STATIC_ARTICLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 all: $(targetdir)/static-article.css \
 		$(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) \
 		$(patsubst %,$(targetdir)/style-%.min.css,$(FLAVOURS))
+	cp -r humanity/ $(targetdir)
 
 $(targetdir)/style-%.min.css: style.less $(STYLE_PARTS)
 	[ -d $(targetdir) ] || mkdir -p $(targetdir)

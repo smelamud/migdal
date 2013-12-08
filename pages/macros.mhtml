@@ -388,8 +388,10 @@
 
 <macro name='preamble'>
  <stylesheet ident='style'>
+ <stylesheet_jquery_ui>
+ <js_basic src='/js/default.js'>
+ <js_jquery_ui>
  <js_jquery>
- <js src='/js/default.js'>
  <preamble_tiny>
 </macro>
 
@@ -438,8 +440,18 @@
  </head>
 </macro>
 
+<macro name='stylesheet_jquery_ui'>
+ <notprint>
+  <stylesheet ident='humanity/jquery-ui-1.10.3'>
+ </notprint>
+</macro>
+
 <macro name='js_jquery'>
- <js src='/js/jquery-1.10.2.min.js'>
+ <js_basic src='/js/jquery-1.10.2.min.js'>
+</macro>
+
+<macro name='js_jquery_ui'>
+ <js_basic src='/js/jquery-ui-1.10.3.custom.min.js'>
 </macro>
 
 << Biff >>

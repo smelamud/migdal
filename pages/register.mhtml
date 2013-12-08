@@ -18,6 +18,7 @@
 <int name='email_enabled'>
 
 <html>
+<js src='/js/login-verify.js'>
 <preamble>
 <body>
  <top ident='users'>
