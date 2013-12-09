@@ -378,6 +378,16 @@ function getLastMessage()
 return !empty($this->last_message) ? strtotime($this->last_message) : 0;
 }
 
+function getRank() {
+    if ($this->isAdminUsers())
+        return 'Вебмастер';
+    if ($this->isModerator())
+        return 'Модератор';
+    if ($this->isMigdalStudent())
+        return 'Мигдалевец';
+    return '';
+}
+
 }
 
 class UserListIterator

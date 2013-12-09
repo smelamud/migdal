@@ -1,32 +1,45 @@
-function newWindow(page, name, w, h, scroll, pos) {
-    var win = null;
+// @(#) $Id$
 
-    if(pos == "random") {
-        leftPosition = screen.width
-                ? Math.floor(Math.random() * (screen.width - w))
-                : 100;
-        topPosition = screen.height
-                ? Math.floor(Math.random() * (screen.height - h - 75))
-                : 100;
-    }
-    if(pos == "center") {
-        leftPosition = screen.width ? (screen.width - w) / 2 : 100;
-        topPosition = screen.height ? (screen.height - h) / 2 : 100;
-    }
-    if(pos != "center" && pos != "random" || pos == null) {
-        leftPosition = 0;
-        topPosition = 20;
-    }
-    settings = 'width=' + w + ',height=' + h + ',top=' + topPosition
-            + ',left=' + leftPosition + ',scrollbars=' + scroll
-            + ',location=no,directories=no,status=yes,menubar=no,toolbar=no,resizable=no';
-    win = window.open(page, name, settings);
-    if(win.focus) {
-        win.focus();
-    }
+function userInfoContent(id) {
+    var data = window.userInfo[id];
+    var content = "<div class='fullname'>" + data.fullName + "</div>" +
+                  "<div class='rank'>" + data.rank + "</div>" +
+                  "<div class='last-online'>" +
+                  (!data.femine ? "Заходил" : "Заходила") +
+                  " сюда " + data.lastOnline +
+                  "</div>"
+    return content;
 }
 
-function userInfo(id) {
-    newWindow('/users/' + id + '/panel/', 'info', '400', '400', 'auto',
-            'random');
-}
+$(function() {
+    $("a.name").each(function() {
+        $(this).qtip({
+            content: {
+                text: function(event, api) {
+                    var id = $(this).attr("data-id");
+                    if (!window.userInfo) {
+                        window.userInfo = {};
+                    }
+                    if (window.userInfo[id]) {
+                        return userInfoContent(id);
+                    }
+                    $.getJSON("/ajax/sources/user/" + id, function(data) {
+                        window.userInfo[id] = data;
+                        api.set("content.text", userInfoContent(id)); 
+                    });
+                }
+            },
+            style: {
+                widget: true,
+                def: false,
+                classes: "userinfo-tooltip"
+            },
+            position: {
+                adjust: {
+                    method: "flip flip"
+                },
+                viewport: $(window)
+            }
+        });
+    });
+});

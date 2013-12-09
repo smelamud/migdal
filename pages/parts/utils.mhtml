@@ -79,9 +79,8 @@
 <notenglish>
  <if what='!$message.isUserGuest'>
   <if what='$message.isUserVisible'>
-   <a href='/users/$#message.UserFolder/?redirid=$_'
-      onClick="userInfo($message.UserId); return false"
-      title='подробнее' class='name'>$=message.Login</a><asp>
+   <a href='/users/$#message.UserFolder/?redirid=$_' data-id='$message.UserId'
+      class='name'>$=message.Login</a><asp>
   <else>
    <span class='name'>$=message.Login</span><asp>
   </if>

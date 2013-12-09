@@ -32,7 +32,7 @@ return $this->getLogin();
 
 function getUserFolder()
 {
-return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getUserId();
+return c_ascii($this->getLogin()) ? $this->getLogin() : $this->getUserId()/*FIXME where defined?*/;
 }
 
 function isMan()

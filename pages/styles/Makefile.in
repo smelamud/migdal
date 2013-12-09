@@ -11,7 +11,8 @@ STYLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 	sheet-posting.less sheet-textears.less sheet-forum.less \
 	sheet-topics.less sheet-catalog.less sheet-picture.less sheet-form.less \
 	sheet-heading.less sheet-seealso.less sheet-register.less sheet-votes.less \
-	sheet-article.less sheet-times.less sheet-book.less sheet-index.less
+	sheet-article.less sheet-times.less sheet-book.less sheet-index.less \
+	sheet-userinfo.less
 
 STATIC_ARTICLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 	sheet-article.less
@@ -19,7 +20,9 @@ STATIC_ARTICLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 all: $(targetdir)/static-article.css \
 		$(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) \
 		$(patsubst %,$(targetdir)/style-%.min.css,$(FLAVOURS))
-	cp -r humanity/ $(targetdir)
+	find humanity/ -name '*.css' -o -name '*.png' -o -name '*.gif' | \
+		xargs -i cp --parents {} $(targetdir)
+	cp jquery.qtip-*.css $(targetdir)
 
 $(targetdir)/style-%.min.css: style.less $(STYLE_PARTS)
 	[ -d $(targetdir) ] || mkdir -p $(targetdir)

@@ -389,7 +389,9 @@
 <macro name='preamble'>
  <stylesheet ident='style'>
  <stylesheet_jquery_ui>
+ <stylesheet_jquery_qtip>
  <js_basic src='/js/default.js'>
+ <js_jquery_qtip>
  <js_jquery_ui>
  <js_jquery>
  <preamble_tiny>
@@ -446,12 +448,22 @@
  </notprint>
 </macro>
 
+<macro name='stylesheet_jquery_qtip'>
+ <notprint>
+  <stylesheet ident='jquery.qtip'>
+ </notprint>
+</macro>
+
 <macro name='js_jquery'>
  <js_basic src='/js/jquery-1.10.2.min.js'>
 </macro>
 
 <macro name='js_jquery_ui'>
  <js_basic src='/js/jquery-ui-1.10.3.custom.min.js'>
+</macro>
+
+<macro name='js_jquery_qtip'>
+ <js_basic src='/js/jquery.qtip.min.js'>
 </macro>
 
 << Biff >>
