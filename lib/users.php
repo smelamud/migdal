@@ -378,7 +378,7 @@ function getLastMessage()
 return !empty($this->last_message) ? strtotime($this->last_message) : 0;
 }
 
-function getRank() {
+public function getRank() {
     if ($this->isAdminUsers())
         return 'Вебмастер';
     if ($this->isModerator())
@@ -386,6 +386,10 @@ function getRank() {
     if ($this->isMigdalStudent())
         return 'Мигдалевец';
     return '';
+}
+
+public function getInfoOrRankHTML() {
+    return $this->getInfo() != '' ? $this->getInfoHTML() : $this->getRank();
 }
 
 }

@@ -26,7 +26,8 @@ function jsonEncode($data) {
     if (is_int($data))
         return (string) $data;
     if (!is_array($data))
-        return '"'.str_replace('"', '\"', $data).'"';
+        return '"'.str_replace(array('"', "\n"),
+                               array('\"', '\\n'), $data).'"';
     if(isListArray($data)) {
         $s = '[';
         $first = true;

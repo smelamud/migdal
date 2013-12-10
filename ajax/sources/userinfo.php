@@ -19,7 +19,7 @@ $user = getUserById($userid);
 header('Content-Type: application/json');
 jsonOutput(array('login' => $user->getLogin(),
                  'fullName' => $user->getFullName(),
-                 'rank' => $user->getRank(),
+                 'rank' => $user->getInfoOrRankHTML(),
                  'femine' => $user->isWoman(),
                  'lastOnline' => formatFuzzyTimeElapsed(
                                      $user->getLastOnline())));

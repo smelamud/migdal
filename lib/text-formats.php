@@ -1,13 +1,13 @@
 <?php
 # @(#) $Id$
 
-define('TF_PLAIN',0);
-define('TF_TEX',1);
-define('TF_XML',2);
-define('TF_MAIL',3);
-define('TF_MAX',3);
+const TF_PLAIN = 0;
+const TF_TEX = 1;
+const TF_XML = 2;
+const TF_MAIL = 3;
+const TF_MAX = 3;
 
-define('MTEXT_LINE',1);
-define('MTEXT_SHORT',2);
-define('MTEXT_LONG',3);
+const MTEXT_LINE = 1;
+const MTEXT_SHORT = 2;
+const MTEXT_LONG = 3;
 ?>

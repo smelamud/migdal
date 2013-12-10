@@ -32,7 +32,7 @@ $(function() {
             style: {
                 widget: true,
                 def: false,
-                classes: "userinfo-tooltip"
+                classes: "qtip-shadow userinfo-tooltip"
             },
             position: {
                 adjust: {
