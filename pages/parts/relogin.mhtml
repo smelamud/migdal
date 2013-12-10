@@ -42,7 +42,7 @@
     </td>
     <td colspan=6>
      <label for='relogin-same'>Зарегистрированный пользователь</label>
-     <b><a href='/users/$$#userFolder/'>$$=userLogin</a></b>
+     <b><a href='/users/$$#userFolder/?redirid=$_'>$$=userLogin</a></b>
     </td>
    </tr>
   </logged>

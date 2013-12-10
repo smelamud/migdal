@@ -23,17 +23,17 @@
       <if what='$cu!=$.GroupId'>
        <ifnzero what='$cu'></td></tr></ifnzero>
        <tr class='ninept'>
-	<td><b>$.GroupName</b></td>
-	<td width=20>&nbsp;</td>
-	<td>
-	 <admin_users>
-	  <a href='/admin/groups/add/?group_name=$#.GroupName&redirid=$_'
-	     class='edit'>Добавить</a>&nbsp;
-	 </admin_users>
+        <td><b>$.GroupName</b></td>
+        <td width=20>&nbsp;</td>
+        <td>
+         <admin_users>
+          <a href='/admin/groups/add/?group_name=$#.GroupName&redirid=$_'
+             class='edit'>Добавить</a>&nbsp;
+         </admin_users>
       </if>
       <admin_users>
        <a href='/actions/group/delete?user_id=$.UserId&group_id=$.GroupId&okdir=$#-&faildir=$#-'
-	  title='Удалить'>$.UserName</a>&nbsp;
+          title='Удалить'>$.UserName</a>&nbsp;
       <else>
        $.UserName&nbsp;
       </admin_users>

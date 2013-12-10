@@ -64,7 +64,7 @@
      <if what='$$userHidden'>
       <asp><b>$$=userLogin</b><asp>
      <else>
-      <asp><a href='/users/$$#userFolder/'>$$=userLogin</a><asp>
+      <asp><a href='/users/$$#userFolder/?redirid=$_'>$$=userLogin</a><asp>
      </if>.
     </form_comment>
     <form_buttons title='Выйти' clear='*false'>

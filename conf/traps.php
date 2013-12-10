@@ -464,10 +464,6 @@ function trapUserlost(array $args) {
     return remakeMakeURI('/remember-password/', $args);
 }
 
-function trapUsers(array $args) {
-    return remakeMakeURI('/users/', $args, array('offset'));
-}
-
 function trapVeterans(array $args) {
     return remakeMakeURI('/veterans/', $args);
 }

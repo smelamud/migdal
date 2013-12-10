@@ -98,25 +98,16 @@ $original=clone $user;
 $user->setup($Args);
 $err=modifyUser($user,$original);
 if($err==EG_OK)
-  {
-  $parts=parse_url($okdir);
-  $okdir=$parts['path'];
-  if(substr($okdir,-1)!='/')
-    $okdir.='/';
-  $okdir.=$user->getFolder().'/';
-  if($parts['query']!='')
-    $okdir.='?'.$parts['query'];
   header("Location: $okdir");
-  }
 else
   {
   $infoId=tmpTextSave($info);
   header('Location: '.
-	  remakeMakeURI($faildir,
-			$Args,
-			array('new_password','dup_password','info','okdir',
-			      'faildir'),
-			array('info_i' => $infoId,'err' => $err)).'#error');
+          remakeMakeURI($faildir,
+                        $Args,
+                        array('new_password','dup_password','info','okdir',
+                              'faildir'),
+                        array('info_i' => $infoId,'err' => $err)).'#error');
   }
 dbClose();
 ?>

@@ -42,13 +42,13 @@ function getPermsById($id)
 {
 $result=sql("select entries.id as id,entry,user_id,group_id,
                     users.login as login,gusers.login as group_login,perms
-	     from entries
-		  left join users
-		       on entries.user_id=users.id
-		  left join users as gusers
-		       on entries.group_id=gusers.id
-	     where entries.id=$id",
-	    __FUNCTION__);
+             from entries
+                  left join users
+                       on entries.user_id=users.id
+                  left join users as gusers
+                       on entries.group_id=gusers.id
+             where entries.id=$id",
+            __FUNCTION__);
 return mysql_num_rows($result)>0 ? new Perms(mysql_fetch_assoc($result)) : 0;
 }
 
@@ -59,7 +59,7 @@ function getRootPerms($class)
 return new $class(
         array('user_id'  => getUserIdByLogin($GLOBALS["root${class}UserName"]),
               'group_id' => getUserIdByLogin($GLOBALS["root${class}GroupName"]),
-	      'perms'    => $GLOBALS["root${class}Perms"]));
+              'perms'    => $GLOBALS["root${class}Perms"]));
 }
 
 // Сохранение указанных permission'ов
@@ -67,8 +67,8 @@ function setPermsById($perms)
 {
 sql('update entries
      set user_id='.$perms->getUserId().',
-	 group_id='.$perms->getGroupId().',
-	 perms='.$perms->getPerms().'
+         group_id='.$perms->getGroupId().',
+         perms='.$perms->getPerms().'
      where id='.$perms->getId(),
     __FUNCTION__);
 incContentVersionsByEntryId($perms->getId());
@@ -105,8 +105,8 @@ if(is_null($permVarietyCache))
   {
   $permVarietyCache=array();
   $result=sql("select distinct perms
-	       from entries",
-	      __FUNCTION__);
+               from entries",
+              __FUNCTION__);
   while($row=mysql_fetch_array($result))
        $permVarietyCache[]=$row[0];
   }
@@ -144,13 +144,13 @@ foreach($eUserGroups as $g)
        $groups[]="${prefix}group_id=$g";
 $groups[]="${prefix}group_id=$eUserId";
 return "($eUserId=${prefix}user_id and
-	".permMask($perms,$right<<PB_USER).'
-	or
-	('.join(' or ',$groups).") and
-	".permMask($perms,$right<<PB_GROUP)."
-	or
-	".permMask($perms,$right<<PB_OTHER)."
-	or
-	".permMask($perms,$right<<PB_GUEST).')';
+        ".permMask($perms,$right<<PB_USER).'
+        or
+        ('.join(' or ',$groups).") and
+        ".permMask($perms,$right<<PB_GROUP)."
+        or
+        ".permMask($perms,$right<<PB_OTHER)."
+        or
+        ".permMask($perms,$right<<PB_GUEST).')';
 }
 ?>

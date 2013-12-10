@@ -9,6 +9,8 @@
               href='/admin/topics/'>
  <topics_line arrow!="$index=='admin-postings'" text='Сообщения'
               href='/admin/postings/'>
+ <topics_line arrow!="$index=='admin-users'" text='Пользователи'
+              href='/admin/users/'>
  <topics_line arrow!="$index=='admin-groups'" text='Группы'
               href='/admin/groups/'>
  <topics_splitter>

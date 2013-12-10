@@ -27,8 +27,7 @@
    <div class='cframe' style='padding: 5'>
     <subtitle>
     <div class='ninept'>
-     <a href='/users/$#user.Folder/?redirid=$_'
-	onClick="userInfo($user.Id); return false">О пользователе $user.Login</a>
+     <a href='/users/$#user.Folder/?redirid=$_'>О пользователе $user.Login</a>
     </div>
     <ifzero what='$offset'>
      <p>

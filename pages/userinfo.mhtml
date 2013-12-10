@@ -5,7 +5,7 @@
 <html>
 <preamble>
 <body>
- <top ident='users'>
+ <top ident='index'>
  <div style='padding: 5px; margin: 10px' class='cframe'>
   <subtitle>
   <userinfo id='$id'>

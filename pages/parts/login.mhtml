@@ -17,7 +17,7 @@
     <if what='$$userHidden'>
      <strong id='login'>$$=userLogin</strong>
     <else>
-     <a href='/users/$$#userFolder/' id='login'>$$=userLogin</a>
+     <a href='/users/$$#userFolder/?redirid=$_' id='login'>$$=userLogin</a>
     </if>
     <a href='/actions/logout?okdir=$#-'><asp>
      <asp><image src='/pics/exit.gif' alt='Выйти'></a>
