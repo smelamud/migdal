@@ -10,23 +10,23 @@ function formatFuzzyTimeElapsed($time, $format/*for future extensions*/ = '') {
     $diff = ourtime() - $time;
     if ($diff < 60)
         return 'только что';
-    $diff /= 60;
+    $diff = (int)($diff / 60);
     if ($diff == 1)
         return 'минуту назад';
     if ($diff < 60)
-        return getPlural($diff, array('минуту', 'минуты', 'минут')).' назад';
-    $diff /= 60;
+        return $diff.getPlural($diff, array(' минуту', ' минуты', ' минут')).' назад';
+    $diff = (int)($diff / 60);
     if ($diff == 1)
         return 'час назад';
     if ($diff < 24)
-        return getPlural($diff, array('час', 'часа', 'часов')).' назад';
-    $diff /= 24;
+        return $diff.getPlural($diff, array(' час', ' часа', ' часов')).' назад';
+    $diff = (int)($diff / 24);
     if ($diff == 1)
         return 'вчера';
     if ($diff == 2)
         return 'позавчера';
     if ($diff < 30)
-        return getPlural($diff, array('день', 'дня', 'дней')).' назад';
+        return $diff.getPlural($diff, array('день', 'дня', 'дней')).' назад';
     if ($diff < 60)
         return 'два месяца назад';
     if ($diff < 90)
