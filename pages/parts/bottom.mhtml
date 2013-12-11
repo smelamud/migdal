@@ -15,7 +15,7 @@
 <element name='bottom_www'>
 <div style='float: right; text-align: right; width: 30%'>
  <image class='icon' src='/pics/book.gif'>&nbsp;
- <a href='/forum/$`post.complains`' class='complains-link'>
+ <a href='/forum/$`post.criticism`' class='complains-link'>
    Замечания/предложения<br>по работе сайта</a><br><br>
  <span class='eightpt'><?php echo sqlNow();?></span><br>
  <kernel>

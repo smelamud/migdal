@@ -37,7 +37,7 @@
    Or send it directly from the website:
   </notenglish>
   <br>
-  <forum_obj id='0' parent_id='$`post.complains`'>
+  <forum_obj id='0' parent_id='$`post.criticism`'>
   <setup>
   <form method=post enctype='multipart/form-data'
 	action='/actions/forum/modify'>
