@@ -20,6 +20,7 @@ require_once('lib/charsets.php');
 require_once('lib/mtext-html.php');
 require_once('lib/ctypes.php');
 require_once('lib/time.php');
+require_once('lib/fuzzy-calendar.php');
 
 const USR_NONE = 0;
 const USR_MIGDAL_STUDENT = 0x0001;
@@ -284,14 +285,17 @@ function isOnline()
 return $this->online!=0;
 }
 
-function isTooOld()
-{
-return ourtime()-$this->getLastOnline()>365*24*60*60;
+public function isTooOld() {
+    return ourtime() - $this->getLastOnline() > 10 * 365 * 24 * 60 * 60;
 }
 
 function getLastOnline()
 {
 return strtotime($this->last_online);
+}
+
+public function getFuzzyLastOnline() {
+    return formatFuzzyTimeElapsed(strtotime($this->last_online));
 }
 
 function getLastMinutes()

@@ -81,11 +81,9 @@
        <th class='catalog-cell'>Ник</th>
        <th class='catalog-cell'>Имя</th>
        <th class='catalog-cell'>Возраст</th>
-       <th class='catalog-cell'>
-        <image src='/pics/tower.gif' title='Мигдалевец'>
-       </th>
-       <th class='catalog-cell'>Адрес</th>
-       <th class='catalog-cell'>Последний раз<br>был здесь</th>
+       <th class='catalog-cell'>Статус</th>
+       <th class='catalog-cell'>Контакты</th>
+       <th class='catalog-cell'>Последний заход</th>
       </tr>
       <for>
        <if what='$;isOdd'>
@@ -100,13 +98,7 @@
         <td class='$class eightpt'><fullname user='$.'></td>
         <if what='$.isConfirmed'>
          <td align=center class='$class eightpt'>$.Age</td>
-         <td align=center class='$class'>
-          <if what='$.isMigdalStudent'>
-           <image src='/pics/check.gif'>
-          <else>
-           &nbsp;
-          </if>
-         </td>
+         <td align=center class='$class'>$.Rank</td>
          <td class='$class'>
           <if what='$.isEmailVisible'>
            <span class='email ninept'><mailtolink message='$.'></span>

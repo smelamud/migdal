@@ -2,13 +2,85 @@
 
 <int name='id'>
 
+<element name='infoline' params='title,value,escape' defaults="escape='*true'">
+<ifne what='$value'>
+ <tr valign='top'>
+  <th style='white-space: nowrap' align='left'>$=title:</th>
+  <td width='100%'><if what='$escape'>$=value<else>$value</if></td>
+ </tr>
+</ifne>
+</element>
+
+<element name='controls' params='user' defaults="user='$,'">
+<isedit what='$user'>
+ <p class='ninept'>
+  &nbsp;
+  <a href='/users/$#user.Folder/edit/?redirid=$_'><asp>
+     <asp>Изменить информацию о пользователе</a>
+ </p>
+</isedit>
+</element>
+
 <html>
 <preamble>
 <body>
  <top ident='index'>
  <div style='padding: 5px; margin: 10px' class='cframe'>
   <subtitle>
-  <userinfo id='$id'>
+  <user_obj name='user' id='$id'>
+  <log event=userinfo text#='user($user.Id)'>
+  <controls>
+  <table width=100% cellspacing=5 cellpadding=0 class='vcard'>
+   <infoline title='Ник' value='$,Login' class='nickname'>
+   <tr style='display: none'><td colspan='2' class='n'>
+    <span class='given-name'>$,Name</span>
+    <span class='family-name'>$,Surname</span>
+    <span class='additional-name'>$,JewishName</span>
+   </td></tr>
+   <infoline title='Имя' value='$,FullName' class='fn'>
+   <if what='$,isMan'>
+    <infoline title='Пол' value='Мужской'>
+   <else>
+    <infoline title='Пол' value='Женский'>
+   </if>
+   <tr style='display: none'><td colspan='2' class='bday'>
+    $,NumericBirthday
+   </td></tr>
+   <if what="$,Age!='-'">
+    <infoline title='Дата рождения' value#='$,Birthday / $,JewishBirthday'>
+   </if>
+   <if what='$,isMigdalStudent'>
+    <infoline title='Мигдалевец' value='Да'>
+   <else>
+    <infoline title='Мигдалевец' value='Нет'>
+   </if>
+   <ifne what='$,Info'>
+    <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
+   </ifne>
+   <if what='$,isEmailVisible'>
+    <tr valign='top'>
+     <th style='white-space: nowrap' align='left'>
+      E-mail
+     </th>
+     <td width='100%' class='email'>
+      <mailtolink message='$,'>&nbsp;
+      <if what='$,isEmailDisabled==2'>
+       <i>(адрес не работает)</i>
+      </if>
+     </td>
+    </tr>
+   </if>
+   <ifne what='$,ICQ'>
+    <infoline title='ICQ' value#='$,ICQStatusImage&nbsp;$=,ICQ' escape='*false'>
+   </ifne>
+   <tr valign='top'>
+    <th style='white-space: nowrap' align='left'>
+     Последний раз<br>заходил сюда:
+    </th>
+    <td width='100%'><lastonline user='$,'></td>
+   </tr>
+  </table>
+  <controls>
  </div>
  <bottom>
 </body>

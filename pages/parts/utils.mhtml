@@ -105,27 +105,10 @@
 </callback>
 
 <element name='lastonline'>
-<if what='$user.isOnline'>
- <ifnzero what='$user.LastMinutes'>
-  <zone>
-   <array vals='минуту,минуты,минут'>
-   <plural value='$user.LastMinutes'>
-   $user.lastMinutes&nbsp;$, назад
-  </zone>
- <else>
-  Сейчас
- </if>
- <zone>
-  <time>
-  <biff time='$,'>
- </zone>
+<if what='$user.isTooOld'>
+ очень давно
 <else>
- <if what='$user.isTooOld'>
-  Очень давно
- <else>
-  <sentview date='$user.LastOnline'>
-  <biff time='$user.LastOnline'>
- </if>
+ $user.FuzzyLastOnline
 </if>
 </element>
 

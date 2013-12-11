@@ -27,7 +27,7 @@ OBJECTS = addtoany.mhtml article.mhtml backtrace.mhtml banner-rabbi.mhtml \
 	  topics-links.mhtml topics-major.mhtml topics-migdal.mhtml \
 	  topics-migdal-english.mhtml topics-peruser.mhtml topics-times.mhtml \
 	  topicselect.mhtml tweetfeed.mhtml tzdaka.mhtml uploader.mhtml \
-	  userinfo.mhtml utils.mhtml vote.mhtml xml-text.mhtml
+	  utils.mhtml vote.mhtml xml-text.mhtml
 	  
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)

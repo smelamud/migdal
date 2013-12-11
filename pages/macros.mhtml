@@ -359,8 +359,6 @@
        params='name,format' defaults="name='large_body_format'">
 <decel name='upper_level' file='parts/topics.php' params='title,name,href'
        defaults="title='' name=''">
-<decel name='userinfo' file='parts/userinfo.php' params='id,target,class'
-       defaults="class=''">
 <decel name='veterans_intro' file='parts/peruser-intros.php'>
 <decel name='vote_panel' file='parts/vote.php' params='id,rating,align'
        defaults="align=''">
