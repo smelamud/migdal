@@ -1,6 +1,7 @@
 << @(#) $Id$ >>
 
 <int name='id'>
+<int name='admin'>
 
 <element name='infoline' params='title,value,escape' defaults="escape='*true'">
 <ifne what='$value'>
@@ -15,7 +16,8 @@
 <isedit what='$user'>
  <p class='ninept'>
   &nbsp;
-  <a href='/users/$#user.Folder/edit/?redirid=$_'><asp>
+  <assign name='tree' value!="$$admin ? '/admin' : ''">
+  <a href='$tree/users/$#user.Folder/edit/?redirid=$_'><asp>
      <asp>Изменить информацию о пользователе</a>
  </p>
 </isedit>
