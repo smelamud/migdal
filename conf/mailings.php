@@ -1,7 +1,7 @@
 <?php
 # @(#) $Id$
 
-$forcedMailings=array('register',
-                      'repair_password');
+$forcedMailings = array('register',
+                        'repair_password');
 
 ?>

@@ -469,11 +469,11 @@ my ($class)=@_;
 
 my $flag=$maskValues ? sprintf('0x%x',$class->getFlagValue())
                      : $class->getFlagValue();
-print GRPS "define('$constPrefix".$class->getFlag()."',$flag);\n";
+print GRPS "const $constPrefix".$class->getFlag()." = $flag;\n";
 if($maskValues)
   {
   my $notValue=sprintf('0x%x',$FlagValue-$class->getFlagValue()-1);
-  print(GRPS "define('${constPrefix}NOT_".$class->getFlag()."',$notValue);\n");
+  print(GRPS "const ${constPrefix}NOT_".$class->getFlag()." = $notValue;\n");
   }
 }
 
@@ -481,16 +481,14 @@ sub printScalarParam
 {
 my ($name)=@_;
 
-print POSTINGS "var \$$name;\n";
+print POSTINGS "private \$$name;\n";
 print POSTINGS "\n";
-print POSTINGS "function get$name()\n";
-print POSTINGS "{\n";
-print POSTINGS "return \$this->$name;\n";
+print POSTINGS "public function get$name() {\n";
+print POSTINGS "    return \$this->$name;\n";
 print POSTINGS "}\n";
 print POSTINGS "\n";
-print POSTINGS "function set$name(\$$name)\n";
-print POSTINGS "{\n";
-print POSTINGS "\$this->$name=\$$name;\n";
+print POSTINGS "public function set$name(\$$name) {\n";
+print POSTINGS "    \$this->$name = \$$name;\n";
 print POSTINGS "}\n";
 print POSTINGS "\n";
 }
@@ -551,17 +549,16 @@ $composite=1 if $value=~/\$[\[{]/;
 print GRPS "    ${constPrefix}NONE => $value,\n";
 print GRPS ");\n";
 print GRPS "\n";
-print POSTINGS "function $name()\n";
-print POSTINGS "{\n";
-print POSTINGS "global \$$arrayPrefix${Name};\n";
+print POSTINGS "public function $name() {\n";
+print POSTINGS "    global \$$arrayPrefix${Name};\n";
 print POSTINGS "\n";
 if(!$composite)
   {
-  print POSTINGS "return \$$arrayPrefix${Name}[\$this->$grpField];\n";
+  print POSTINGS "    return \$$arrayPrefix${Name}[\$this->$grpField];\n";
   }
 else
   {
-  print POSTINGS "return \$this->getCompositeValue(\$$arrayPrefix${Name}[\$this->$grpField]);\n";
+  print POSTINGS "    return \$this->getCompositeValue(\$$arrayPrefix${Name}[\$this->$grpField]);\n";
   }
 print POSTINGS "}\n";
 print POSTINGS "\n";
@@ -581,7 +578,7 @@ sub done
 open GRPS,">$constFileName";
 open POSTINGS,">$classFileName";
 print GRPS "<?php\n";
-print GRPS "define('${constPrefix}NONE',0);\n";
+print GRPS "const ${constPrefix}NONE = 0;\n";
 for(@Classes)
    {
    printConstant($_);
@@ -591,16 +588,16 @@ if($maskValues)
   while(my ($name,$value)=each(%Groups))
        {
        $value=sprintf('0x%x',$value);
-       print GRPS "define('$constPrefix$name',$value);\n";
+       print GRPS "const $constPrefix$name = $value;\n";
        }
   }
 else
   {
   for my $name(keys %Groups)
       {
-      print GRPS "define('$constPrefix$name','$constPrefix$name');\n";
+      print GRPS "const $constPrefix$name = $constPrefix$name;\n";
       }
-  print GRPS "\$${arrayPrefix}Groups=array(\n";
+  print GRPS "\$${arrayPrefix}Groups = array(\n";
   while(my ($name,$value)=each(%Groups))
        {
        $value='array('.join(',',@$value).')';
@@ -614,13 +611,13 @@ else
 if($maskValues)
   {
   my $all=sprintf('0x%x',$FlagValue-1);
-  print GRPS "define('${constPrefix}ALL',$all);\n";
+  print GRPS "const ${constPrefix}ALL = $all;\n";
   }
 else
   {
   my $max=$FlagValue-1;
-  print GRPS "define('${constPrefix}MAX',$max);\n";
-  print GRPS "define('${constPrefix}ALL','${constPrefix}ALL');\n";
+  print GRPS "const ${constPrefix}MAX = $max;\n";
+  print GRPS "const ${constPrefix}ALL = ${constPrefix}ALL;\n";
   }
 print GRPS "\n";
 while(my ($name,$value)=each(%{$defaultClass->getParams()}))

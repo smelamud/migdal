@@ -14,8 +14,6 @@ Disallow: /forum/add
 Disallow: /gallery/add
 Disallow: /gallery/major
 Disallow: /gallery/major/add-cross
-Disallow: /links/add
-Disallow: /links/urls/add
 Disallow: /major
 Disallow: /major/add-cross
 Disallow: /migdal/add-article

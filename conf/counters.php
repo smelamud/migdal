@@ -14,23 +14,23 @@
 
 require_once('conf/grps.php');
 
-define('CMODE_EAR_HITS',1);
-define('CMODE_EAR_CLICKS',2);
+const CMODE_EAR_HITS = 1;
+const CMODE_EAR_CLICKS = 2;
 
-$counterModes=array(
-                    CMODE_EAR_HITS
-                     => array(
-                              'ttl'        => 168,
-                              'period'     => 0,
-                              'grp'        => GRP_EARS,
-                              'max_serial' => 2
-                             ),
-                    CMODE_EAR_CLICKS
-                     => array(
-                              'ttl'        => 168,
-                              'period'     => 0,
-                              'grp'        => GRP_EARS,
-                              'max_serial' => 2
-                             ),
-                   );
+$counterModes = array(
+                      CMODE_EAR_HITS
+                       => array(
+                                'ttl'        => 168,
+                                'period'     => 0,
+                                'grp'        => GRP_EARS,
+                                'max_serial' => 2
+                               ),
+                      CMODE_EAR_CLICKS
+                       => array(
+                                'ttl'        => 168,
+                                'period'     => 0,
+                                'grp'        => GRP_EARS,
+                                'max_serial' => 2
+                               ),
+                     );
 ?>
