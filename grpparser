@@ -595,7 +595,7 @@ else
   {
   for my $name(keys %Groups)
       {
-      print GRPS "const $constPrefix$name = $constPrefix$name;\n";
+      print GRPS "const $constPrefix$name = '$constPrefix$name';\n";
       }
   print GRPS "\$${arrayPrefix}Groups = array(\n";
   while(my ($name,$value)=each(%Groups))
@@ -617,7 +617,7 @@ else
   {
   my $max=$FlagValue-1;
   print GRPS "const ${constPrefix}MAX = $max;\n";
-  print GRPS "const ${constPrefix}ALL = ${constPrefix}ALL;\n";
+  print GRPS "const ${constPrefix}ALL = '${constPrefix}ALL';\n";
   }
 print GRPS "\n";
 while(my ($name,$value)=each(%{$defaultClass->getParams()}))

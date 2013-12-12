@@ -58,7 +58,8 @@ function dispatchScript($requestPath, $parts) {
     $scriptName = substr($requestPath, 1, $pos + 3);
     $trapFunc='trap'.ucfirst(substr(strtr($scriptName, '/-', '__'), 0, -4));
     if (function_exists($trapFunc)) {
-        $path = $trapFunc(parseQuery($parts['query']));
+        $path = $trapFunc(parseQuery(
+                    isset($parts['query']) ? $parts['query'] : ''));
         if ($path != '') {
             $info->setPath($path);
             return $info;
