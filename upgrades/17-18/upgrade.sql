@@ -14,4 +14,5 @@ FROM complains
 DROP TABLE `complains` ;
 DELETE FROM `entries` WHERE `entry` =5;
 ALTER TABLE `sessions` CHANGE  `last`  `last` DATETIME NOT NULL ;
-UPDATE `migdal`.`version` SET `db_version` = '18' WHERE `version`.`db_version` =17 LIMIT 1 ;
+UPDATE `entries` SET `grp` =2 WHERE `entry` =1 AND `grp` =4096;
+UPDATE `version` SET `db_version` = '18' WHERE `version`.`db_version` =17 LIMIT 1 ;

@@ -13,7 +13,7 @@ httpRequestInteger('msgid');
 
 dbOpen();
 session();
-logEvent('link',"post($msgid) $okdir");
+logEvent('link', "post($msgid) $okdir");
 header("Location: $okdir");
 dbClose();
 ?>

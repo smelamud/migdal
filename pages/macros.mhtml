@@ -170,7 +170,6 @@
        defaults="format='yMd' base_year=2000">
 <decel name='langselect' file='parts/langselect.php' params='name,value'>
 <decel name='lastonline' file='parts/utils.php' params='user'>
-<decel name='links_switcher' file='parts/links-switcher.php' params='ident'>
 <decel name='login' file='parts/login.php'>
 <decel name='maillink' file='parts/utils.php' params='message'>
 <decel name='mailloginlink' file='parts/utils.php' params='message'>
@@ -204,9 +203,6 @@
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
        params='posting,align,title,href' defaults="align='' title='' href=''">
-<decel name='posting_link' file='parts/posting-link.php'
-       params='posting,showtopic,showdiscuss,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_og_image' file='parts/posting.php' params='posting'>
 <decel name='posting_peruser' file='parts/posting-peruser.php'
        params='posting,showtopic,showdiscuss,shorten'
@@ -232,9 +228,6 @@
                recursive'
        defaults="topic_id=-1 limit=10 offset=0 user_id=0 showadvert='*true'
                  showshadows='*true' sort='*SORT_PSENT' recursive='*false'">
-<decel name='postings_links' file='parts/postings-links.php'
-       params='topic_id,limit,offset'
-       defaults="topic_id=-1 limit=10 offset=0">
 <decel name='postings_migdal_news' file='parts/postings-migdal-news.php'
        params='topic_id,offset' defaults="offset=0">
 <decel name='printlink' file='parts/posting.php' params='posting'>
@@ -308,7 +301,6 @@
        defaults="time=0 arrow='*false' text='' title='' href='' count=''
                  class='topics-item' rating='' nobullet='*false'"
        file='parts/topics.php'>
-<decel name='topics_links' params='posting' file='parts/topics-links.php'>
 <decel name='topics_major' file='parts/topics-major.php' params='index,base'
        defaults="base=''">
 <decel name='topics_mazltov' file='parts/topics-migdal.php' params='index,base'
