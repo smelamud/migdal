@@ -194,12 +194,12 @@ return $errc/strlen($s)<=0.01;
 function convertLigatures($s)
 {
 return str_replace(array('<<','&lt;&lt;','>>','&gt;&gt;','&LT;&LT;','&GT;&GT;',
-			 '---','``','&#039;&#039;',"''",'(c)','(C)',
-			 '(r)','(R)','(tm)','(TM)','No.','&sp;','&nil;'),
-		   array('&#171;','&#171;','&#187;','&#187;','&#171;','&#187;',
-			 '&#8212;','&#8220;','&#8221;','&#8221;','&#169;','&#169;',
-			 '&#174;','&#174;','&#8482;','&#8482;','&#8470;',' ',''),
-		   $s);
+                         '---','``','&#039;&#039;',"''",'(c)','(C)',
+                         '(r)','(R)','(tm)','(TM)','No.','&sp;','&nil;'),
+                   array('&#171;','&#171;','&#187;','&#187;','&#171;','&#187;',
+                         '&#8212;','&#8220;','&#8221;','&#8221;','&#169;','&#169;',
+                         '&#174;','&#174;','&#8482;','&#8482;','&#8470;',' ',''),
+                   $s);
 }
 
 $hebrewCodes=array(
@@ -247,8 +247,8 @@ $hebrewCodes=array(
                    'ó' => '05EA',
                    '+' => 'FB29',
                    '-' => '05BE',
-		   "'" => '05F3',
-		   '"' => '05F4'
+                   "'" => '05F3',
+                   '"' => '05F4'
                   );
 
 function convertHebrewBlock($s)
@@ -264,8 +264,8 @@ return "$c&lrm;";
 function convertHebrew($s)
 {
 return preg_replace('/\$(-?)(\S+)\$/e',
-		    "'\\1'=='-' ? convertHebrewBlock(strrev('\\2'))
-				: convertHebrewBlock('\\2')",$s);
+                    "'\\1'=='-' ? convertHebrewBlock(strrev('\\2'))
+                                : convertHebrewBlock('\\2')",$s);
 }
 
 function convertInputString($s)
