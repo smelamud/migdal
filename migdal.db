@@ -29,7 +29,7 @@ CREATE TABLE `captcha_keys` (
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `keystring` (`keystring`,`sid`)
-) ENGINE=MyISAM AUTO_INCREMENT=107517 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=107675 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `counters` (
   KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44125 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=44301 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,7 +244,7 @@ CREATE TABLE `entries` (
   KEY `used` (`used`),
   KEY `sent` (`sent`),
   KEY `subject` (`subject`)
-) ENGINE=MyISAM AUTO_INCREMENT=29765 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=29820 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -344,7 +344,7 @@ CREATE TABLE `logs` (
   PRIMARY KEY (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=44742027 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=45093324 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,7 +359,7 @@ CREATE TABLE `mail_log` (
   `sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=2094 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=2099 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,6 +379,28 @@ CREATE TABLE `mail_queue` (
   PRIMARY KEY (`id`),
   KEY `created` (`created`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `media`
+--
+
+DROP TABLE IF EXISTS `media`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `media` (
+  `id` varchar(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `mime_type` varchar(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `width` smallint(6) NOT NULL,
+  `height` smallint(6) NOT NULL,
+  `size` int(11) NOT NULL,
+  `accessed` datetime NOT NULL,
+  `orig_id` int(11) DEFAULT NULL,
+  `trans_op` tinyint(4) DEFAULT NULL,
+  `trans_width` smallint(6) DEFAULT NULL,
+  `trans_height` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -495,7 +517,7 @@ CREATE TABLE `redirs` (
   UNIQUE KEY `track` (`track`),
   KEY `up` (`up`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=3770569 DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=4060243 DEFAULT CHARSET=koi8u;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -516,7 +538,7 @@ CREATE TABLE `sessions` (
   UNIQUE KEY `sid` (`sid`),
   KEY `user_id` (`user_id`),
   KEY `last` (`last`)
-) ENGINE=MyISAM AUTO_INCREMENT=2038073609 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=2038193786 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -532,7 +554,7 @@ CREATE TABLE `tmp_texts` (
   `last_access` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=3615574 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=3620566 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -580,7 +602,7 @@ CREATE TABLE `users` (
   KEY `name` (`name`),
   KEY `jewish_name` (`jewish_name`),
   KEY `surname` (`surname`)
-) ENGINE=MyISAM AUTO_INCREMENT=3939 DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=3941 DEFAULT CHARSET=koi8u;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -624,7 +646,7 @@ CREATE TABLE `votes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-04 21:41:10
+-- Dump completed on 2013-12-15  1:06:01
 -- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: migdal
@@ -648,7 +670,7 @@ CREATE TABLE `votes` (
 
 LOCK TABLES `content_versions` WRITE;
 /*!40000 ALTER TABLE `content_versions` DISABLE KEYS */;
-INSERT INTO `content_versions` VALUES (84224,31305,136);
+INSERT INTO `content_versions` VALUES (84829,31352,233);
 /*!40000 ALTER TABLE `content_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -671,4 +693,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-04 21:41:10
+-- Dump completed on 2013-12-15  1:06:01
