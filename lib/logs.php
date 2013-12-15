@@ -9,58 +9,51 @@ require_once('lib/ip.php');
 require_once('lib/bug.php');
 require_once('lib/sql.php');
 
-function logEvent($event,$body)
-{
-global $disableStatistics;
+function logEvent($event, $body) {
+    global $disableStatistics;
 
-if($disableStatistics)
-  return;
-$eventS=addslashes($event);
-$ip=IPToInteger($_SERVER['REMOTE_ADDR']);
-$bodyS=addslashes($body);
-sql("insert into logs(event,ip,body)
-     values('1:$eventS',$ip,'$bodyS')",
-    __FUNCTION__,'','',false);
+    if ($disableStatistics)
+        return;
+    $eventS = addslashes($event);
+    $ip = IPToInteger($_SERVER['REMOTE_ADDR']);
+    $bodyS = addslashes($body);
+    sql("insert into logs(event,ip,body)
+         values('1:$eventS',$ip,'$bodyS')",
+        __FUNCTION__,'','',false);
 }
 
 class LogLine
-      extends DataObject
-{
-var $id;
-var $event;
-var $sent;
-var $ip;
-var $body;
+        extends DataObject {
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    private $id;
+    private $event;
+    private $sent;
+    private $ip;
+    private $body;
 
-function getId()
-{
-return $this->id;
-}
+    public function __construct(array $row) {
+        parent::__construct($row);
+    }
 
-function getEvent()
-{
-return $this->event;
-}
+    public function getId() {
+        return $this->id;
+    }
 
-function getSent()
-{
-return $this->sent;
-}
+    public function getEvent() {
+        return $this->event;
+    }
 
-function getIP()
-{
-return $this->ip;
-}
+    public function getSent() {
+        return $this->sent;
+    }
 
-function getBody()
-{
-return $this->body;
-}
+    public function getIP() {
+        return $this->ip;
+    }
+
+    public function getBody() {
+        return $this->body;
+    }
 
 }
 
@@ -79,16 +72,15 @@ class LogIterator
 
 }
 
-function purgeLogs()
-{
-global $statisticsTimeout;
+function purgeLogs() {
+    global $statisticsTimeout;
 
-$now=sqlNow();
-sql("delete
-     from logs
-     where sent+interval $statisticsTimeout day<'$now'",
-    __FUNCTION__,'delete');
-sql("optimize table logs",
-    __FUNCTION__,'optimize');
+    $now = sqlNow();
+    sql("delete
+         from logs
+         where sent+interval $statisticsTimeout day<'$now'",
+        __FUNCTION__, 'delete');
+    sql("optimize table logs",
+        __FUNCTION__, 'optimize');
 }
 ?>

@@ -41,7 +41,7 @@ class OldId
     private $old_ident;
     private $entry_id;
 
-    public function __construct($row) {
+    public function __construct(array $row) {
         parent::__construct($row);
     }
 

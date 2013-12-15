@@ -6,37 +6,32 @@ require_once('lib/selectiterator.php');
 require_once('lib/sql.php');
 
 class UserGroup
-      extends DataObject
-{
-var $user_id;
-var $group_id;
-var $user_name;
-var $group_name;
+        extends DataObject {
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    private $user_id;
+    private $group_id;
+    private $user_name;
+    private $group_name;
 
-function getUserId()
-{
-return $this->user_id;
-}
+    public function __construct(array $row) {
+        parent::__construct($row);
+    }
 
-function getGroupId()
-{
-return $this->group_id;
-}
+    public function getUserId() {
+        return $this->user_id;
+    }
 
-function getUserName()
-{
-return $this->user_name;
-}
+    public function getGroupId() {
+        return $this->group_id;
+    }
 
-function getGroupName()
-{
-return $this->group_name;
-}
+    public function getUserName() {
+        return $this->user_name;
+    }
+
+    public function getGroupName() {
+        return $this->group_name;
+    }
 
 }
 
@@ -58,30 +53,27 @@ class GroupsIterator
 
 }
 
-function isUserInGroup($user_id,$group_id)
-{
-if($user_id==$group_id)
-  return true;
-$result=sql("select user_id
-	     from groups
-	     where user_id=$user_id and group_id=$group_id",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0;
+function isUserInGroup($user_id, $group_id) {
+    if ($user_id == $group_id)
+        return true;
+    $result = sql("select user_id
+                   from groups
+                   where user_id=$user_id and group_id=$group_id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
 }
 
-function addUserGroup($user_id,$group_id)
-{
-if(isUserInGroup($user_id,$group_id))
-  return;
-sql("insert into groups(user_id,group_id)
-     values($user_id,$group_id)",
-    __FUNCTION__);
+function addUserGroup($user_id, $group_id) {
+    if (isUserInGroup($user_id, $group_id))
+        return;
+    sql("insert into groups(user_id,group_id)
+         values($user_id,$group_id)",
+        __FUNCTION__);
 }
 
-function delUserGroup($user_id,$group_id)
-{
-sql("delete from groups
-     where user_id=$user_id and group_id=$group_id",
-    __FUNCTION__);
+function delUserGroup($user_id, $group_id) {
+    sql("delete from groups
+         where user_id=$user_id and group_id=$group_id",
+        __FUNCTION__);
 }
 ?>

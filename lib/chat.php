@@ -8,65 +8,55 @@ require_once('lib/users.php');
 require_once('lib/sql.php');
 
 class ChatMessage
-      extends UserTag
-{
-var $id;
-var $guest_login;
-var $sender_id;
-var $private_id;
-var $sent;
-var $text;
-var $text_xml;
+        extends UserTag {
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    private $id;
+    private $guest_login;
+    private $sender_id;
+    private $private_id;
+    private $sent;
+    private $text;
+    private $text_xml;
 
-function getId()
-{
-return $this->id;
-}
+    public function __construct(array $row) {
+        parent::__construct($row);
+    }
 
-function getGuestLogin()
-{
-return $this->guest_login;
-}
+    public function getId() {
+        return $this->id;
+    }
 
-function getSenderId()
-{
-return $this->sender_id;
-}
+    public function getGuestLogin() {
+        return $this->guest_login;
+    }
 
-function getUserId()
-{
-return $this->getSenderId();
-}
+    public function getSenderId() {
+        return $this->sender_id;
+    }
 
-function getPrivateId()
-{
-return $this->private_id;
-}
+    public function getUserId() {
+        return $this->getSenderId();
+    }
 
-function getSent()
-{
-return $this->sent;
-}
+    public function getPrivateId() {
+        return $this->private_id;
+    }
 
-function getText()
-{
-return $this->text;
-}
+    public function getSent() {
+        return $this->sent;
+    }
 
-function getTextXML()
-{
-return $this->text_xml;
-}
+    public function getText() {
+        return $this->text;
+    }
 
-function getTextHTML()
-{
-return mtextToHTML($this->getTextXML(),MTEXT_LINE);
-}
+    public function getTextXML() {
+        return $this->text_xml;
+    }
+
+    public function getTextHTML() {
+        return mtextToHTML($this->getTextXML(), MTEXT_LINE);
+    }
 
 }
 
