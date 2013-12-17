@@ -9,6 +9,7 @@ php_flag register_globals off
 DirectoryIndex /dispatcher.php
 RewriteEngine on
 RewriteBase /
+RewriteRule ^complains/ - [G]
 RewriteRule ^migdal/museum/catalog museum/index.php [L]
 RewriteRule ^([^.]+)$ /dispatcher.php
 RewriteRule ^([^.]+)\.html$ /dispatcher.php
