@@ -71,7 +71,8 @@
 <if what='$posting.hasLargeImage'>
  <ife what='$href'>
   <a class='enlargeable' href='$posting.LargeImageURL'
-     title='Нажмите, чтобы увеличить'>
+     title='Нажмите, чтобы увеличить'
+     data-fancybox-title='$title_large'>
  <else>
   <a href='$href'>
  </ife>

@@ -202,7 +202,8 @@
        params='posting,showtopic,showdiscuss,shorten'
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
-       params='posting,align,title,href' defaults="align='' title='' href=''">
+       params='posting,align,title,href,title_large'
+       defaults="align='' title='' href='' title_large=''">
 <decel name='posting_og_image' file='parts/posting.php' params='posting'>
 <decel name='posting_peruser' file='parts/posting-peruser.php'
        params='posting,showtopic,showdiscuss,shorten'
