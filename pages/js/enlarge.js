@@ -9,6 +9,10 @@ function enlargeInit() {
             title: {
                 type: 'inside'
             }
+        },
+
+        beforeLoad: function() {
+            this.title = $(this.element).attr('data-title-large');
         }
     });
 }

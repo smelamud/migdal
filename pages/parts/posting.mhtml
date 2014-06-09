@@ -72,7 +72,7 @@
  <ife what='$href'>
   <a class='enlargeable' href='$posting.LargeImageURL'
      title='Нажмите, чтобы увеличить'
-     data-fancybox-title='$title_large'>
+     data-title-large='$title_large'>
  <else>
   <a href='$href'>
  </ife>
