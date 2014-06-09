@@ -380,7 +380,10 @@
  <stylesheet ident='style'>
  <stylesheet_jquery_ui>
  <stylesheet_jquery_qtip>
+ <stylesheet_jquery_fancybox>
  <js_basic src='/js/default.js'>
+ << JS files are included in reverse order >>
+ <js_jquery_fancybox>
  <js_jquery_qtip>
  <js_jquery_ui>
  <js_jquery>
@@ -444,6 +447,12 @@
  </notprint>
 </macro>
 
+<macro name='stylesheet_jquery_fancybox'>
+ <notprint>
+  <stylesheet ident='jquery.fancybox'>
+ </notprint>
+</macro>
+
 <macro name='js_jquery'>
  <js_basic src='/js/jquery-1.10.2.min.js'>
 </macro>
@@ -454,6 +463,10 @@
 
 <macro name='js_jquery_qtip'>
  <js_basic src='/js/jquery.qtip.min.js'>
+</macro>
+
+<macro name='js_jquery_fancybox'>
+ <js_basic src='/js/jquery.fancybox.min.js'>
 </macro>
 
 << Biff >>

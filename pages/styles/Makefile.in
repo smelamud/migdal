@@ -20,9 +20,10 @@ STATIC_ARTICLE_PARTS = colors.less fonts.less palette.less sheet-general.less \
 all: $(targetdir)/static-article.css \
 		$(patsubst %,$(targetdir)/style-%.css,$(FLAVOURS)) \
 		$(patsubst %,$(targetdir)/style-%.min.css,$(FLAVOURS))
-	find humanity/ -name '*.css' -o -name '*.png' -o -name '*.gif' | \
+	find humanity/ fancybox/ -name '*.css' -o -name '*.png' -o -name '*.gif' | \
 		xargs -i cp --parents {} $(targetdir)
 	cp jquery.qtip-*.css $(targetdir)
+	cp jquery.fancybox-default.css $(targetdir)/jquery.fancybox-default.min.css
 
 $(targetdir)/style-%.min.css: style.less $(STYLE_PARTS)
 	[ -d $(targetdir) ] || mkdir -p $(targetdir)

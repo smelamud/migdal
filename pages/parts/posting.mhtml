@@ -70,7 +70,8 @@
 </ifne>
 <if what='$posting.hasLargeImage'>
  <ife what='$href'>
-  <a href='$posting.LargeImageURL' title='Нажмите, чтобы увеличить'>
+  <a class='enlargeable' href='$posting.LargeImageURL'
+     title='Нажмите, чтобы увеличить'>
  <else>
   <a href='$href'>
  </ife>
