@@ -1,78 +1,75 @@
 <?php
 # @(#) $Id$
 
-class ImageCallbackData
-{
-var $id;
-var $align;
-var $image;
-var $par;
+class ImageCallbackData {
 
-function __construct()
-{
-}
+    private $id;
+    private $par;
+    private $image;
+    private $align;
 
-function getId()
-{
-return $this->id;
-}
+    public function __construct($id, $par, $image = 0, $align = '') {
+        $this->id = $id;
+        $this->par = $par;
+        $this->image = $image;
+        $this->align = $align;
+    }
 
-function getAlign()
-{
-return $this->align;
-}
+    public function getId() {
+        return $this->id;
+    }
 
-function getImage()
-{
-return $this->image;
-}
+    public function getPar() {
+        return $this->par;
+    }
 
-function getPar()
-{
-return $this->par;
-}
+    public function getImage() {
+        return $this->image;
+    }
 
-}
-
-class UserNameCallbackData
-{
-var $guest;
-var $login;
-
-function __construct()
-{
-}
-
-function isGuest()
-{
-return $this->guest;
-}
-
-function getLogin()
-{
-return $this->login;
-}
+    public function getAlign() {
+        return $this->align;
+    }
 
 }
 
-class IncutCallbackData
-{
-var $align='right';
-var $width='50%';
+class UserNameCallbackData {
 
-function __construct()
-{
+    private $guest;
+    private $login;
+
+    public function __construct($guest, $login) {
+        $this->guest = $guest;
+        $this->login = $login;
+    }
+
+    public function isGuest() {
+        return $this->guest;
+    }
+
+    public function getLogin() {
+        return $this->login;
+    }
+
 }
 
-function getAlign()
-{
-return $this->align;
-}
+class IncutCallbackData {
 
-function getWidth()
-{
-return $this->width;
-}
+    private $align;
+    private $width;
+
+    public function __construct($align, $width) {
+        $this->align = $align;
+        $this->width = $width;
+    }
+
+    public function getAlign() {
+        return $this->align;
+    }
+
+    public function getWidth() {
+        return $this->width;
+    }
 
 }
 ?>
