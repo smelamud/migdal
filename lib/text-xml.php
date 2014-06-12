@@ -104,8 +104,7 @@ function joinQueue(array $queue) {
     return $out;
 }
 
-function closeTag($tagName, array &$tagStack, array &$xmlQueue,
-                  MTTag $tagObject) {
+function closeTag($tagName, array &$tagStack, array &$xmlQueue, $tagObject) {
     $rstack = array();
     while (count($tagStack) > 0
            && $tagStack[count($tagStack) - 1] != $tagName) {
