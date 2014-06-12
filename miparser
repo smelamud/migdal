@@ -868,8 +868,6 @@ my ($self)=@_;
 <head>
 <?php
 initializeHead();
-foreach(\$stylesheetList as \$sheet)
-       include("styles/\$sheet-".getStyle(\$userStyle).'.php');
 ?>
 EOT
 }
