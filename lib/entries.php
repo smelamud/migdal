@@ -336,6 +336,12 @@ function getTitleHTML()
 return mtextToHTML($this->getTitleXML(),MTEXT_SHORT,$this->getId());
 }
 
+function getTitleLineHTML()
+{
+return mtextToHTML($this->getTitleXML(),MTEXT_CONVERT|MTEXT_LINE,
+                   $this->getId());
+}
+
 function isTitleTiny()
 {
 global $tinySize,$tinySizeMinus,$tinySizePlus;

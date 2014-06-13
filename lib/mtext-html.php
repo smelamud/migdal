@@ -71,6 +71,7 @@ class MTextToHTMLXML
     private $xmlFootnote;
     private $htmlFootnotes = '';
     private $format;
+    private $convert = false;
     private $id;
     private $listFonts = array('i');
     private $listStyles = array();
@@ -82,7 +83,8 @@ class MTextToHTMLXML
 
     public function __construct($format, $id, $imageBlocks = array()) {
         parent::__construct();
-        $this->format = $format;
+        $this->format = $format & MTEXT_FORMAT;
+        $this->convert = ($format & MTEXT_CONVERT) != 0;
         $this->id = $id;
         $this->html =& $this->htmlBody;
         $this->imageBlocks = $imageBlocks;
@@ -171,7 +173,7 @@ class MTextToHTMLXML
 
         if (!isset($mtextTagLevel[$name])
             || $mtextTagLevel[$name] > $this->format) {
-            $this->html .= "<b>** &lt;$name&gt; **</b>";
+            $this->html .= !$this->convert ? "<b>** &lt;$name&gt; **</b>" : ' ';
             return;
         }
         if ($this->inFootnote)
@@ -340,7 +342,7 @@ class MTextToHTMLXML
 
         if (!isset($mtextTagLevel[$name])
             || $mtextTagLevel[$name] > $this->format) {
-            $this->html .= "<b>** &lt;/$name&gt; **</b>";
+            $this->html .= !$this->convert ? "<b>** &lt;/$name&gt; **</b>" : ' ';
             return;
         }
         switch ($name) {

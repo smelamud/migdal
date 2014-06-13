@@ -32,7 +32,7 @@
  <if what='$posting.hasSmallImage'>
   <table align=left class='pic'>
    <tr><td>
-    <posting_image posting='$posting'>
+    <posting_image posting='$posting' title_large='$posting.TitleLineHTML'>
    </td></tr>
    <ifne what='$posting.Title'>
     <tr><td>$posting.TitleHTML</td></tr>

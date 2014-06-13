@@ -10,4 +10,6 @@ const TF_MAX = 3;
 const MTEXT_LINE = 1;
 const MTEXT_SHORT = 2;
 const MTEXT_LONG = 3;
+const MTEXT_FORMAT = 0x0f;
+const MTEXT_CONVERT = 0x10;
 ?>
