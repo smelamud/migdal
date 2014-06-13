@@ -33,7 +33,8 @@
  </td></tr>
  <if what='$picture.hasSmallImage'>
   <tr><td class='image'>
-   <posting_image posting='$picture' title_large='$picture.TitleLineHTML'>
+   <posting_image posting='$picture' title_large='$picture.TitleLineHTML'
+                  rel='$rel'>
   </td></tr>
  </if>
  <controls picture='$picture'>

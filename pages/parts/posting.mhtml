@@ -62,17 +62,21 @@
 <element name='posting_image'>
 <assign name='al' value=''>
 <assign name='alt' value=''>
+<assign name='rl' value=''>
 <ifne what='$align'>
  <assign name='al' value#='align="$align"'>
 </ifne>
 <ifne what='$title'>
  <assign name='alt' value#='alt="$=title" title="$=title"'>
 </ifne>
+<ifne what='$rel'>
+ <assign name='rl' value#='rel="$rel"'>
+</ifne>
 <if what='$posting.hasLargeImage'>
  <ife what='$href'>
   <a class='enlargeable' href='$posting.LargeImageURL'
      title='Нажмите, чтобы увеличить'
-     data-title-large='$title_large'>
+     data-title-large='$title_large' $rl>
  <else>
   <a href='$href'>
  </ife>

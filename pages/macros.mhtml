@@ -180,8 +180,8 @@
 <decel name='perror' file='parts/utils.php' params='id,text'>
 <decel name='peruser' file='parts/peruser.php' params='topic_id'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,shorten'
-       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+       params='picture,showtopic,showdiscuss,shorten,rel'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false' rel=''">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,title,image_href' defaults="title=''">
 <decel name='pointer' file='parts/pointer.php' params='href,text,title,left'
@@ -202,8 +202,8 @@
        params='posting,showtopic,showdiscuss,shorten'
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
-       params='posting,align,title,href,title_large'
-       defaults="align='' title='' href='' title_large=''">
+       params='posting,align,title,href,title_large,rel'
+       defaults="align='' title='' href='' title_large='' rel=''">
 <decel name='posting_og_image' file='parts/posting.php' params='posting'>
 <decel name='posting_peruser' file='parts/posting-peruser.php'
        params='posting,showtopic,showdiscuss,shorten'
