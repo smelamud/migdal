@@ -101,7 +101,7 @@
     <outer><td width=140><inner>
      <for>
       <if what='$;isOdd'>
-       <daily_picture picture='$.'>
+       <daily_picture picture='$.' rel#='gallery-$event.Id'>
       </if>
      </for>
     </inner></td></outer>
@@ -132,7 +132,7 @@
      <rewind_iterator>
      <for>
       <if what='!$;isOdd'>
-       <daily_picture picture='$.'>
+       <daily_picture picture='$.' rel#='gallery-$event.Id'>
       </if>
      </for>
     </inner></td></outer>

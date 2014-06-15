@@ -7,7 +7,8 @@
  </td></tr>
  <if what='$picture.hasSmallImage'>
   <tr><td align=center>
-   <posting_image posting='$picture'>
+   <posting_image posting='$picture' title_large='$picture.TitleLineHTML'
+                  rel='$rel'>
   </td></tr>
  </if>
  <iswrite what='$picture'>
