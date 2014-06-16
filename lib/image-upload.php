@@ -4,7 +4,7 @@
 require_once('conf/migdal.conf');
 
 require_once('lib/debug-log.php');
-require_once('lib/images.php');
+require_once('lib/image-files.php');
 require_once('lib/image-types.php');
 require_once('lib/image-upload-flags.php');
 

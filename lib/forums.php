@@ -10,7 +10,7 @@ require_once('lib/utils.php');
 require_once('lib/bug.php');
 require_once('lib/answers.php');
 require_once('lib/sql.php');
-require_once('lib/images.php');
+require_once('lib/image-files.php');
 require_once('lib/text-any.php');
 require_once('lib/catalog.php');
 require_once('lib/html-cache.php');
