@@ -20,13 +20,8 @@ function deleteImageFiles($id, $small_image, $large_image,
     if ($large_image != 0) {
         @unlink(getImagePath($id, $smallExt, $small_image, 'small'));
         @unlink(getImagePath($id, $largeExt, $large_image, 'large'));
-        @unlink(getImagePath($id, $smallExt, 0, 'small'));
-        @unlink(getImagePath($id, $largeExt, 0, 'large'));
     } else {
         @unlink(getImagePath($id, $largeExt, $small_image, 'small'));
-        @unlink(getImagePath($id, $largeExt, $small_image, 'large'));
-        @unlink(getImagePath($id, $largeExt, 0, 'small'));
-        @unlink(getImagePath($id, $largeExt, 0, 'large'));
     }
 }
 
@@ -41,24 +36,9 @@ function moveImageFiles($id, $destid, $small_image, $large_image,
                getImagePath($destid, $smallExt, $small_image, 'small'));
         rename(getImagePath($id, $largeExt, $large_image, 'large'),
                getImagePath($destid, $largeExt, $large_image, 'large'));
-        @unlink(getImagePath($id, $smallExt, 0, 'small'));
-        symlink(getImagePath($destid, $smallExt, $small_image, 'small'),
-                getImagePath($destid, $smallExt, 0, 'small'));
-        @unlink(getImagePath($id, $largeExt, 0, 'large'));
-        symlink(getImagePath($destid, $largeExt, $large_image, 'large'),
-                getImagePath($destid, $largeExt, 0, 'large'));
     } else {
         rename(getImagePath($id, $largeExt, $small_image, 'small'),
                getImagePath($destid, $largeExt, $small_image, 'small'));
-        @unlink(getImagePath($id, $largeExt, $small_image, 'large'));
-        symlink(getImagePath($destid, $largeExt, $small_image, 'small'),
-                getImagePath($destid, $largeExt, $small_image, 'large'));
-        @unlink(getImagePath($id, $largeExt, 0, 'small'));
-        symlink(getImagePath($destid, $largeExt, $small_image, 'small'),
-                getImagePath($destid, $largeExt, 0, 'small'));
-        @unlink(getImagePath($id, $largeExt, 0, 'large'));
-        symlink(getImagePath($destid, $largeExt, $small_image, 'large'),
-                getImagePath($destid, $largeExt, 0, 'large'));
     }
 }
 

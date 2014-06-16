@@ -233,9 +233,6 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         list($posting->small_image_x,
              $posting->small_image_y) = $smallImageSize;
         $posting->large_image_x = $posting->large_image_y = 0;
-        debugLog(LL_DETAILS, 'symlink(%,%)',
-                 array($smallFilename, $largeName));
-        symlink($smallFilename, $largeName);
     }
     if (isDebugLogging(LL_FUNCTIONS))
         debugLog(LL_FUNCTIONS, 'EG_OK, posting='.imagePostingData($posting));
@@ -254,14 +251,6 @@ function commitImages(Entry $posting, Entry $original) {
                                                      : $posting->getId();
     $originalId = $original->getEntry() == ENT_POSTING ? $original->getOrigId()
                                                        : $original->getId();
-    $ext = getImageExtension($thumbnailType);
-    $mainSmallName = getImagePath($postingId, $ext, 0, 'small');
-    @unlink($mainSmallName);
-    $ext = getImageExtension($original->getLargeImageFormat());
-    $mainSmallName = getImagePath($postingId, $ext, 0, 'small');
-    $mainLargeName = getImagePath($postingId, $ext, 0, 'large');
-    @unlink($mainSmallName);
-    @unlink($mainLargeName);
     if (!$posting->hasSmallImage())
         return;
     if ($posting->hasLargeImage()) {
@@ -271,14 +260,12 @@ function commitImages(Entry $posting, Entry $original) {
         $newSmallFilename  = getImageFilename($postingId, $ext,
                                               $posting->getSmallImage(),
                                               'small');
-        $mainSmallFilename = getImageFilename($postingId, $ext, 0, 'small');
         $ext = getImageExtension($posting->getLargeImageFormat());
         $largeFilename = getImageFilename($originalId, $ext,
                                           $posting->getLargeImage(), 'large');
         $newLargeFilename  = getImageFilename($postingId, $ext,
                                               $posting->getLargeImage(),
                                               'large');
-        $mainLargeFilename = getImageFilename($postingId, $ext, 0, 'large');
     } else {
         $ext = getImageExtension($posting->getLargeImageFormat());
         $smallFilename = getImageFilename($originalId, $ext,
@@ -286,23 +273,15 @@ function commitImages(Entry $posting, Entry $original) {
         $newSmallFilename = getImageFilename($postingId, $ext,
                                              $posting->getSmallImage(),
                                              'small');
-        $mainSmallFilename = getImageFilename($postingId, $ext, 0, 'small');
         $largeFilename = getImageFilename($originalId, $ext,
                                           $posting->getSmallImage(), 'large');
         $newLargeFilename = getImageFilename($postingId, $ext,
                                              $posting->getSmallImage(),
                                              'large');
-        $mainLargeFilename = getImageFilename($postingId, $ext, 0, 'large');
     }
     rename("$imageDir/$smallFilename", "$imageDir/$newSmallFilename");
-    @unlink("$imageDir/$mainSmallFilename");
-    symlink($newSmallFilename, "$imageDir/$mainSmallFilename");
-    if (!is_link("$imageDir/$largeFilename"))
-        rename("$imageDir/$largeFilename", "$imageDir/$newLargeFilename");
-    else
-        symlink($newSmallFilename, "$imageDir/$newLargeFilename");
-    @unlink("$imageDir/$mainLargeFilename");
-    symlink($newLargeFilename, "$imageDir/$mainLargeFilename");
+    if (file_exists("$imageDir/$largeFilename"))
+        @rename("$imageDir/$largeFilename", "$imageDir/$newLargeFilename");
 }
 
 const IFR_OK = 0;
