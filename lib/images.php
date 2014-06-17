@@ -145,6 +145,6 @@ function deleteImage($id, $small_image, $large_image, $large_image_format) {
          from entries
          where id=$id",
         __FUNCTION__, 'entry');
-    deleteImageFiles($id, $small_image, $large_image, $large_image_format);
+    deleteImageFiles($small_image, $large_image, $large_image_format);
 }
 ?>

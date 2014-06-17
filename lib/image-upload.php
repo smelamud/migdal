@@ -55,9 +55,8 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         }
         
         $largeId = getNextImageFileId();
-        $largeFilename = getImageFilename($posting->orig_id,
-                                          getImageExtension($file['type']),
-                                          $largeId, 'large');
+        $largeFilename = getImageFilename(getImageExtension($file['type']),
+                                          $largeId);
         $largeName = "$imageDir/$largeFilename";
         debugLog(LL_DETAILS, 'move_uploaded_file(%,%)',
                  array($file['tmp_name'], $largeName));
@@ -77,18 +76,16 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
             return EG_OK;
         }
         $largeExt = getImageExtension($posting->large_image_format);
-        $oldFilename = getImageFilename($posting->orig_id, $largeExt,
-                       $posting->getImage(), $posting->getImageDimension());
+        $oldFilename = getImageFilename($largeExt, $posting->getImage());
         $oldName = "$imageDir/$oldFilename";
         $largeId = getNextImageFileId();
-        $largeFilename = getImageFilename($posting->orig_id, $largeExt,
-                                          $largeId, 'large');
+        $largeFilename = getImageFilename($largeExt, $largeId);
         $largeName = "$imageDir/$largeFilename";
         debugLog(LL_DETAILS, 'rename(%,%)', array($oldName, $largeName));
         rename($oldName, $largeName);
         if (($flags & IU_THUMB) != IU_THUMB_MANUAL
             && ($flags & IU_THUMB) != IU_THUMB_RESIZE)
-            deleteImageFiles($posting->orig_id, $posting->small_image,
+            deleteImageFiles($posting->small_image,
                              $posting->large_image,
                              $posting->large_image_format);
     }
@@ -121,9 +118,7 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         // Create thumbnail from large image
         debugLog(LL_DETAILS, 'create thumbnail from large image');
         $smallId = getNextImageFileId();
-        $smallName = getImagePath($posting->orig_id,
-                                  getImageExtension($thumbnailType),
-                                  $smallId, 'small');
+        $smallName = getImagePath(getImageExtension($thumbnailType), $smallId);
         $err = imageFileResize($largeName, $posting->large_image_format,
                                $smallName, $thumbnailType,
                                $thumbExactX, $thumbExactY,
@@ -166,9 +161,8 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
             }
             
             $smallId = getNextImageFileId();
-            $smallName = getImagePath($posting->orig_id,
-                                      getImageExtension($thumbnailType),
-                                      $smallId, 'small');
+            $smallName = getImagePath(getImageExtension($thumbnailType),
+                                      $smallId);
             debugLog(LL_DETAILS, 'move_uploaded_file(%,%)',
                      array($file['tmp_name'], $smallName));
             if (!move_uploaded_file($file['tmp_name'], $smallName)) {
@@ -179,9 +173,8 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         } else {
             debugLog(LL_DETAILS, 'no thumbnail file in the POST request');
             $smallId = $posting->small_image;
-            $smallName = getImagePath($posting->orig_id,
-                                      getImageExtension($thumbnailType),
-                                      $smallId, 'small');
+            $smallName = getImagePath(getImageExtension($thumbnailType),
+                                      $smallId);
         }
     }
     // Resize the thumbnail
@@ -222,8 +215,7 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         $posting->small_image = $largeId;
         $posting->large_image = 0;
         $largeExt = getImageExtension($posting->large_image_format);
-        $smallFilename = getImageFilename($posting->orig_id, $largeExt,
-                                          $largeId, 'small');
+        $smallFilename = getImageFilename($largeExt, $largeId);
         $smallName = "$imageDir/$smallFilename";
         debugLog(LL_DETAILS, 'rename(%,%)', array($largeName, $smallName));
         rename($largeName, $smallName);
@@ -237,51 +229,6 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
     if (isDebugLogging(LL_FUNCTIONS))
         debugLog(LL_FUNCTIONS, 'EG_OK, posting='.imagePostingData($posting));
     return EG_OK;
-}
-
-function commitImages(Entry $posting, Entry $original) {
-    global $thumbnailType, $imageDir;
-    
-    if ($posting->getId() == $original->getId()
-        && $posting->getOrigId() == $original->getOrigId()
-        && $posting->getSmallImage() == $original->getSmallImage()
-        && $posting->getLargeImage() == $original->getLargeImage())
-        return;
-    $postingId = $posting->getEntry() == ENT_POSTING ? $posting->getOrigId()
-                                                     : $posting->getId();
-    $originalId = $original->getEntry() == ENT_POSTING ? $original->getOrigId()
-                                                       : $original->getId();
-    if (!$posting->hasSmallImage())
-        return;
-    if ($posting->hasLargeImage()) {
-        $ext = getImageExtension($thumbnailType);
-        $smallFilename = getImageFilename($originalId, $ext,
-                                          $posting->getSmallImage(), 'small');
-        $newSmallFilename  = getImageFilename($postingId, $ext,
-                                              $posting->getSmallImage(),
-                                              'small');
-        $ext = getImageExtension($posting->getLargeImageFormat());
-        $largeFilename = getImageFilename($originalId, $ext,
-                                          $posting->getLargeImage(), 'large');
-        $newLargeFilename  = getImageFilename($postingId, $ext,
-                                              $posting->getLargeImage(),
-                                              'large');
-    } else {
-        $ext = getImageExtension($posting->getLargeImageFormat());
-        $smallFilename = getImageFilename($originalId, $ext,
-                                          $posting->getSmallImage(), 'small');
-        $newSmallFilename = getImageFilename($postingId, $ext,
-                                             $posting->getSmallImage(),
-                                             'small');
-        $largeFilename = getImageFilename($originalId, $ext,
-                                          $posting->getSmallImage(), 'large');
-        $newLargeFilename = getImageFilename($postingId, $ext,
-                                             $posting->getSmallImage(),
-                                             'large');
-    }
-    rename("$imageDir/$smallFilename", "$imageDir/$newSmallFilename");
-    if (file_exists("$imageDir/$largeFilename"))
-        @rename("$imageDir/$largeFilename", "$imageDir/$newLargeFilename");
 }
 
 const IFR_OK = 0;

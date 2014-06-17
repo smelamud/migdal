@@ -8,41 +8,23 @@ require_once('lib/debug-log.php');
 require_once('lib/image-types.php');
 require_once('lib/sql.php');
 
-function deleteImageFiles($id, $small_image, $large_image,
-                          $large_image_format) {
+function deleteImageFiles($small_image, $large_image, $large_image_format) {
     global $thumbnailType;
     
-    debugLog(LL_FUNCTIONS, 'deleteImageFiles(id=%,small_image=%,'.
+    debugLog(LL_FUNCTIONS, 'deleteImageFiles(small_image=%,'.
              'large_image=%,large_image_format=%)',
-             array($id, $small_image, $large_image, $large_image_format));
+             array($small_image, $large_image, $large_image_format));
     $smallExt = getImageExtension($thumbnailType);
     $largeExt = getImageExtension($large_image_format);
     if ($large_image != 0) {
-        @unlink(getImagePath($id, $smallExt, $small_image, 'small'));
-        @unlink(getImagePath($id, $largeExt, $large_image, 'large'));
+        @unlink(getImagePath($smallExt, $small_image));
+        @unlink(getImagePath($largeExt, $large_image));
     } else {
-        @unlink(getImagePath($id, $largeExt, $small_image, 'small'));
+        @unlink(getImagePath($largeExt, $small_image));
     }
 }
 
-function moveImageFiles($id, $destid, $small_image, $large_image,
-                        $large_image_format) {
-    global $thumbnailType;
-    
-    $smallExt = getImageExtension($thumbnailType);
-    $largeExt = getImageExtension($large_image_format);
-    if ($large_image != 0) {
-        rename(getImagePath($id, $smallExt, $small_image, 'small'),
-               getImagePath($destid, $smallExt, $small_image, 'small'));
-        rename(getImagePath($id, $largeExt, $large_image, 'large'),
-               getImagePath($destid, $largeExt, $large_image, 'large'));
-    } else {
-        rename(getImagePath($id, $largeExt, $small_image, 'small'),
-               getImagePath($destid, $largeExt, $small_image, 'small'));
-    }
-}
-
-function getImageFilename($id, $ext, $fileId = 0, $size = 'large') {
+function getImageFilename($ext, $fileId = 0) {
     return "migdal-$fileId.$ext";
 }
 
@@ -60,25 +42,24 @@ function parseImageFilename($fname) {
     return $info;
 }
 
-function getImagePath($id, $ext, $fileId = 0, $size = 'large') {
+function getImagePath($ext, $fileId = 0) {
     global $imageDir;
     
-    $fname = getImageFilename($id, $ext, $fileId, $size);
+    $fname = getImageFilename($ext, $fileId);
     return "$imageDir/$fname";
 }
 
-function getImageURL($id, $ext, $fileId = 0, $size = 'large') {
+function getImageURL($ext, $fileId = 0) {
     global $imageURL;
     
-    $fname = getImageFilename($id, $ext, $fileId, $size);
+    $fname = getImageFilename($ext, $fileId);
     if ($imageURL[0] != '/')
         $imageURL = "/$imageURL";
     return "$imageURL/$fname";
 }
 
-function imageFileExists($id, $format, $fileId = 0, $size = 'large') {
-    return file_exists(getImagePath($id, getMimeExtension($format), $fileId,
-                                    $size));
+function imageFileExists($format, $fileId = 0) {
+    return file_exists(getImagePath(getMimeExtension($format), $fileId));
 }
 
 function setMaxImageFileId($max_id) {

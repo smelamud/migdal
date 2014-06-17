@@ -49,13 +49,11 @@ if($forumMandatoryBody && $forum->body=='')
 if($forumMandatoryImage && !$forum->hasSmallImage())
   return EF_IMAGE_ABSENT;
 if($forum->hasSmallImage()
-   && !(imageFileExists($forum->id,$thumbnailType,$forum->small_image,'small')
-	|| imageFileExists($forum->id,$forum->large_image_format,
-		           $forum->small_image,'small')))
+   && !(imageFileExists($thumbnailType,$forum->small_image)
+	|| imageFileExists($forum->large_image_format, $forum->small_image)))
   return EF_NO_IMAGE;
 if($forum->hasLargeImage()
-   && !imageFileExists($forum->id,$forum->large_image_format,
-                       $forum->large_image,'large'))
+   && !imageFileExists($forum->large_image_format, $forum->large_image))
   return EF_NO_IMAGE;
 if($forum->id<=0 && $userId<=0)
   {
@@ -65,7 +63,6 @@ if($forum->id<=0 && $userId<=0)
     return EF_CAPTCHA;
   }
 storeForum($forum);
-commitImages($forum,$original);
 return EG_OK;
 }
 

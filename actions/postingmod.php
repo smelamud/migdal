@@ -100,14 +100,12 @@ if($posting->isMandatory('index1') && $posting->index1==0)
 if($posting->isMandatory('image') && !$posting->hasSmallImage())
   return EP_IMAGE_ABSENT;
 if($posting->hasSmallImage()
-   && !(imageFileExists($posting->orig_id,$thumbnailType,
-                        $posting->small_image,'small')
-	|| imageFileExists($posting->orig_id,$posting->large_image_format,
-		           $posting->small_image,'small')))
+   && !(imageFileExists($thumbnailType, $posting->small_image)
+	|| imageFileExists($posting->large_image_format,
+		           $posting->small_image)))
   return EP_NO_IMAGE;
 if($posting->hasLargeImage()
-   && !imageFileExists($posting->orig_id,$posting->large_image_format,
-                       $posting->large_image,'large'))
+   && !imageFileExists($posting->large_image_format, $posting->large_image))
   return EP_NO_IMAGE;
 if($imageEditor['imageExactX']>0 || $imageEditor['imageExactY']>0)
   {
@@ -192,7 +190,6 @@ if($posting->id<=0 && $userId<=0)
 $posting->track='';
 $posting->catalog='';
 storePosting($posting);
-commitImages($posting,$original);
 setPremoderates($posting,$original);
 if($original->getId()==0)
   createCounters($posting->id,$posting->grp);

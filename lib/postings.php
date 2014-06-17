@@ -926,8 +926,6 @@ sql(sqlUpdate('entries',
               $row,
               array('id' => $destId)),
     __FUNCTION__,'move_fields');
-moveImageFiles($origId,$destId,$row['small_image'],$row['large_image'],
-               $row['large_image_format']);
 sql("update inner_images
      set entry_id=$destId
      where entry_id=$origId",
@@ -962,7 +960,7 @@ $result=sql("select id,small_image,large_image,large_image_format
              where parent_id=$id or up=$id and entry=".ENT_IMAGE,
             __FUNCTION__,'select_children');
 while($row=mysql_fetch_assoc($result))
-     deleteImageFiles($row['id'],$row['small_image'],$row['large_image'],
+     deleteImageFiles($row['small_image'],$row['large_image'],
                       $row['large_image_format']);
 sql("delete from entries
      where parent_id=$id or up=$id and entry=".ENT_IMAGE,

@@ -27,7 +27,6 @@ if(!$posting->isAppendable())
 if(!$image->hasSmallImage())
   return ELIM_IMAGE_ABSENT;
 storeImage($image);
-commitImages($image,$original);
 setPremoderates($posting,$posting);
 return EG_OK;
 }
