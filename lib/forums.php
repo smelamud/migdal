@@ -347,8 +347,6 @@ sql("update entries
      set up=$up
      where up=$id",
     __FUNCTION__,'children');
-deleteImageFiles($forum->getSmallImage(),$forum->getLargeImage(),
-                 $forum->getLargeImageFormat());
 sql("delete from entries
      where id=$id",
     __FUNCTION__,'delete');

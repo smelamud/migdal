@@ -959,9 +959,6 @@ $result=sql("select id,small_image,large_image,large_image_format
              from entries
              where parent_id=$id or up=$id and entry=".ENT_IMAGE,
             __FUNCTION__,'select_children');
-while($row=mysql_fetch_assoc($result))
-     deleteImageFiles($row['small_image'],$row['large_image'],
-                      $row['large_image_format']);
 sql("delete from entries
      where parent_id=$id or up=$id and entry=".ENT_IMAGE,
     __FUNCTION__,'delete_children');
