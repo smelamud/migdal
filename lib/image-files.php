@@ -96,19 +96,19 @@ function imageFileExists($id, $format, $fileId = 0, $size = 'large') {
 }
 
 function setMaxImageFileId($max_id) {
-    sql("update image_files
+    sql("update image_files_c
          set max_id=$max_id",
         __FUNCTION__);
 }
 
 function getNextImageFileId() {
-    sql('lock tables image_files write',
+    sql('lock tables image_files_c write',
         __FUNCTION__, 'lock');
     $result = sql('select max_id
-                   from image_files',
+                   from image_files_c',
                   __FUNCTION__, 'select');
     $id = mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
-    sql('update image_files
+    sql('update image_files_c
          set max_id=max_id+1',
         __FUNCTION__, 'update');
     sql('unlock tables',
