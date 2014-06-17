@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+/* FIXME the script is heavily outdated */
+
 require_once('conf/migdal.conf');
 
 require_once('lib/errorreporting.php');

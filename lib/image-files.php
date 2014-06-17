@@ -43,15 +43,7 @@ function moveImageFiles($id, $destid, $small_image, $large_image,
 }
 
 function getImageFilename($id, $ext, $fileId = 0, $size = 'large') {
-    if ($size != '' && $size != 'large')
-        $sizeC = "-$size";
-    else
-        $sizeC = '';
-    if ($fileId != 0)
-        $fileC = "-$fileId";
-    else
-        $fileC = '';
-    return "migdal$sizeC-$id$fileC.$ext";
+    return "migdal-$fileId.$ext";
 }
 
 function parseImageFilename($fname) {
@@ -61,16 +53,10 @@ function parseImageFilename($fname) {
     if ($parts[0] != 'migdal')
         return $info;
     $info['ext'] = $ext;
-    if ($parts[1] == 'small') {
-        $info['size'] = 'small';
-        $pos = 2;
-    } else {
-        $info['size'] = 'large';
-        $pos = 1;
-    }
-    $info['entry_id'] = $parts[$pos];
-    if (isset($parts[$pos + 1]))
-        $info['file_id'] = $parts[$pos + 1];
+    $info['size'] = 'small'; // for backward compatibility
+    $info['entry_id'] = 0; // for backward compatibility
+    if (isset($parts[1]))
+        $info['file_id'] = $parts[1];
     return $info;
 }
 

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ ! -d "$1" -o ! -d "$2" ]; then
+    echo "Usage: $0 <source dir> <dest dir>"
+    exit 1
+fi
+
+SRCDIR=$1
+DSTDIR=$2
+find $SRCDIR -type f | while read s; do
+    OLDNAME=`basename $s`
+    NEWNAME=`echo $OLDNAME|sed -e 's/^\(migdal-\)\(small-\)\?[0-9]\+-\([0-9]\+\..*\)$/\1\3/'`
+    if [ "$OLDNAME" = "$NEWNAME" ]; then
+        echo "*** error $OLDNAME is not renamed"
+    fi
+    if [ -e $DSTDIR/$NEWNAME ]; then
+        echo "*** error while copying $OLDNAME: $DSTDIR/$NEWNAME already exists"
+    else
+        echo "$s -> $DSTDIR/$NEWNAME"
+        cp $s $DSTDIR/$NEWNAME
+    fi
+done
