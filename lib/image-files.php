@@ -7,6 +7,68 @@ require_once('lib/bug.php');
 require_once('lib/debug-log.php');
 require_once('lib/image-types.php');
 require_once('lib/sql.php');
+require_once('lib/dataobject.php');
+
+class ImageFile
+        extends DataObject {
+
+    private $id;
+    private $mime_type;
+    private $size_x;
+    private $size_y;
+    private $file_size;
+    private $created;
+    private $accessed;
+
+    public function __construct(array $row) {
+        parent::__construct($row);
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getMimeType() {
+        return $this->mime_type;
+    }
+
+    public function setMimeType($mime_type) {
+        $this->mime_type = $mime_type;
+    }
+
+    public function getSizeX() {
+        return $this->size_x;
+    }
+
+    public function setSizeX($size_x) {
+        $this->size_x = $size_x;
+    }
+
+    public function getSizeY() {
+        return $this->size_y;
+    }
+
+    public function setSizeY($size_y) {
+        $this->size_y = $size_y;
+    }
+
+    public function getFileSize() {
+        return $this->file_size;
+    }
+
+    public function setFileSize($file_size) {
+        $this->file_size = $file_size;
+    }
+
+    public function getCreated() {
+        return strtotime($this->created);
+    }
+
+    public function getAccessed() {
+        return strtotime($this->accessed);
+    }
+
+}
 
 function deleteImageFiles($small_image, $large_image, $large_image_format) {
     global $thumbnailType;
