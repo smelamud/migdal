@@ -19,8 +19,7 @@ require_once('lib/captcha.php');
 
 function modifyForum(&$forum,$original)
 {
-global $captcha,$userId,$realUserId,$thumbnailType,$forumMandatoryBody,
-       $forumMandatoryImage;
+global $captcha,$userId,$realUserId,$forumMandatoryBody,$forumMandatoryImage;
 
 if($userId<=0 && $realUserId<=0)
   return EF_NO_SEND;
@@ -49,8 +48,7 @@ if($forumMandatoryBody && $forum->body=='')
 if($forumMandatoryImage && !$forum->hasSmallImage())
   return EF_IMAGE_ABSENT;
 if($forum->hasSmallImage()
-   && !(imageFileExists($thumbnailType,$forum->small_image)
-	|| imageFileExists($forum->large_image_format, $forum->small_image)))
+   && !imageFileExists($forum->small_image_format, $forum->small_image))
   return EF_NO_IMAGE;
 if($forum->hasLargeImage()
    && !imageFileExists($forum->large_image_format, $forum->large_image))
@@ -86,6 +84,7 @@ httpRequestString('body');
 httpRequestInteger('small_image');
 httpRequestInteger('small_image_x');
 httpRequestInteger('small_image_y');
+httpRequestString('small_image_format');
 httpRequestInteger('large_image');
 httpRequestInteger('large_image_x');
 httpRequestInteger('large_image_y');
@@ -123,6 +122,7 @@ else
   $bodyId=tmpTextSave($body);
   $subjectId=tmpTextSave($subject);
   $authorId=tmpTextSave($author);
+  $smallImageFormatId=tmpTextSave($forum->small_image_format);
   $largeImageFormatId=tmpTextSave($forum->large_image_format);
   $largeImageFilenameId=tmpTextSave($forum->large_image_filename);
   header('Location: '.
@@ -140,6 +140,7 @@ else
 			      'small_image'   => $forum->small_image,
 			      'small_image_x' => $forum->small_image_x,
 			      'small_image_y' => $forum->small_image_y,
+			      'small_image_format_i' => $smallImageFormatId,
 			      'large_image'   => $forum->large_image,
 			      'large_image_x' => $forum->large_image_x,
 			      'large_image_y' => $forum->large_image_y,

@@ -39,7 +39,7 @@ return false;
 
 function modifyPosting(&$posting,$original,$imageEditor,$iuFlags)
 {
-global $captcha,$thumbnailType,$userId;
+global $captcha,$userId;
 
 if($original->getId()!=0 && !$original->isWritable())
   return EP_NO_EDIT;
@@ -100,9 +100,7 @@ if($posting->isMandatory('index1') && $posting->index1==0)
 if($posting->isMandatory('image') && !$posting->hasSmallImage())
   return EP_IMAGE_ABSENT;
 if($posting->hasSmallImage()
-   && !(imageFileExists($thumbnailType, $posting->small_image)
-	|| imageFileExists($posting->large_image_format,
-		           $posting->small_image)))
+   && !imageFileExists($posting->small_image_format, $posting->small_image))
   return EP_NO_IMAGE;
 if($posting->hasLargeImage()
    && !imageFileExists($posting->large_image_format, $posting->large_image))
@@ -233,6 +231,7 @@ httpRequestString('lang');
 httpRequestInteger('small_image');
 httpRequestInteger('small_image_x');
 httpRequestInteger('small_image_y');
+httpRequestString('small_image_format');
 httpRequestInteger('large_image');
 httpRequestInteger('large_image_x');
 httpRequestInteger('large_image_y');
@@ -297,6 +296,7 @@ else
   $comment1Id=tmpTextSave($comment1);
   $titleId=tmpTextSave($title);
   $urlId=tmpTextSave($url);
+  $smallImageFormatId=tmpTextSave($posting->small_image_format);
   $largeImageFormatId=tmpTextSave($posting->large_image_format);
   $largeImageFilenameId=tmpTextSave($posting->large_image_filename);
   header('Location: '.
@@ -333,6 +333,7 @@ else
 			      'small_image'   => $posting->small_image,
 			      'small_image_x' => $posting->small_image_x,
 			      'small_image_y' => $posting->small_image_y,
+			      'small_image_format_i' => $smallImageFormatId,
 			      'large_image'   => $posting->large_image,
 			      'large_image_x' => $posting->large_image_x,
 			      'large_image_y' => $posting->large_image_y,

@@ -58,6 +58,7 @@ if($vars['large_body_filename']!='')
 $this->small_image=$vars['small_image'];
 $this->small_image_x=$vars['small_image_x'];
 $this->small_image_y=$vars['small_image_y'];
+$this->small_image_format=$vars['small_image_format'];
 $this->large_image=$vars['large_image'];
 $this->large_image_x=$vars['large_image_x'];
 $this->large_image_y=$vars['large_image_y'];
@@ -212,6 +213,7 @@ $vars=array('entry' => $forum->entry,
 	    'small_image' => $forum->small_image,
 	    'small_image_x' => $forum->small_image_x,
 	    'small_image_y' => $forum->small_image_y,
+	    'small_image_format' => $forum->small_image_format,
 	    'large_image' => $forum->large_image,
 	    'large_image_x' => $forum->large_image_x,
 	    'large_image_y' => $forum->large_image_y,
@@ -276,8 +278,8 @@ global $userId,$realUserId;
 $hide=forumPermFilter(PERM_READ);
 $result=sql("select entries.id as id,track,subject,author,author_xml,body,
                     body_xml,body_format,guest_login,user_id,group_id,perms,
-		    small_image,small_image_x,small_image_y,large_image,
-		    large_image_x,large_image_y,large_image_size,
+		    small_image,small_image_x,small_image_y,small_image_format,
+                    large_image,large_image_x,large_image_y,large_image_size,
 		    large_image_format,large_image_filename,up,parent_id,
 		    disabled,sent,entries.created as created,
 		    entries.modified as modified,users.login as login,

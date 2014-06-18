@@ -18,8 +18,7 @@ if($image->getId()==0 || !$image->isWritable())
 $posting=getPostingById($image->up);
 if(!$posting->isAppendable())
   return ELID_POSTING_APPEND;
-deleteImage($image->getId(),$image->getSmallImage(),$image->getLargeImage(),
-            $image->getLargeImageFormat());
+deleteImage($image->getId());
 setPremoderates($posting,$posting);
 return EG_OK;
 }

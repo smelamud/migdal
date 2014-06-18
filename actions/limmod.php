@@ -59,6 +59,7 @@ httpRequestInteger('append');
 httpRequestInteger('small_image');
 httpRequestInteger('small_image_x');
 httpRequestInteger('small_image_y');
+httpRequestString('small_image_format');
 httpRequestInteger('has_large_image');
 httpRequestInteger('large_image');
 httpRequestInteger('large_image_x');
@@ -110,6 +111,8 @@ if($err==EG_OK)
 			       'small_image',
 			       'small_image_x',
 			       'small_image_y',
+			       'small_image_format',
+			       'small_image_format_i',
 			       'large_image',
 			       'large_image_x',
 			       'large_image_y',
@@ -126,6 +129,7 @@ if($err==EG_OK)
   }
 else
   {
+  $smallImageFormatId=tmpTextSave($image->small_image_format);
   $largeImageFormatId=tmpTextSave($image->large_image_format);
   $largeImageFilenameId=tmpTextSave($image->large_image_filename);
   $titleId=tmpTextSave($title);
@@ -140,6 +144,7 @@ else
 					  'small_image'   => $image->small_image,
 					  'small_image_x' => $image->small_image_x,
 					  'small_image_y' => $image->small_image_y,
+					  'small_image_format_i' => $smallImageFormatId,
 					  'large_image'   => $image->large_image,
 					  'large_image_x' => $image->large_image_x,
 					  'large_image_y' => $image->large_image_y,

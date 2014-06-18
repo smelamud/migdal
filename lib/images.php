@@ -39,6 +39,7 @@ $this->title_xml=anyToXML($this->title,$this->body_format,MTEXT_LINE);
 $this->small_image=$vars['small_image'];
 $this->small_image_x=$vars['small_image_x'];
 $this->small_image_y=$vars['small_image_y'];
+$this->small_image_format=$vars['small_image_format'];
 $this->large_image=$vars['large_image'];
 $this->large_image_x=$vars['large_image_x'];
 $this->large_image_y=$vars['large_image_y'];
@@ -61,7 +62,7 @@ class ImagesIterator
                     orig_id,user_id,group_id,perms,disabled,title,
                     title_xml,body_format,sent,created,modified,
                     accessed,small_image,small_image_x,small_image_y,
-                    large_image,large_image_x,large_image_y,
+                    small_image_format,large_image,large_image_x,large_image_y,
                     large_image_size,large_image_format,
                     large_image_filename,count(entry_id) as inserted
              from entries
@@ -89,6 +90,7 @@ function storeImage(&$image) {
         'small_image' => $image->small_image,
         'small_image_x' => $image->small_image_x,
         'small_image_y' => $image->small_image_y,
+        'small_image_format' => $image->small_image_format,
         'large_image' => $image->large_image,
         'large_image_x' => $image->large_image_x,
         'large_image_y' => $image->large_image_y,
@@ -126,8 +128,8 @@ function getImageById($id) {
                           user_id,group_id,perms,disabled,title,title_xml,
                           body_format,sent,created,modified,accessed,
                           small_image,small_image_x,small_image_y,
-                          large_image,large_image_x,large_image_y,
-                          large_image_size,large_image_format,
+                          small_image_format,large_image,large_image_x,
+                          large_image_y,large_image_size,large_image_format,
                           large_image_filename
                    from entries
                    where id=$id",
@@ -136,7 +138,7 @@ function getImageById($id) {
                                                  : array());
 }
 
-function deleteImage($id, $small_image, $large_image, $large_image_format) {
+function deleteImage($id) {
     sql("delete
          from inner_images
          where image_id=$id",

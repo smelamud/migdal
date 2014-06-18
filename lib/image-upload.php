@@ -28,6 +28,7 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         debugLog(LL_DETAILS, 'cleaning up the posting');
         $posting->small_image = 0;
         $posting->small_image_x = $posting->small_image_y = 0;
+        $posting->small_image_format = '';
         $posting->large_image = 0;
         $posting->large_image_x = $posting->large_image_y = 0;
         $posting->large_image_size = 0;
@@ -86,6 +87,7 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         if (($flags & IU_THUMB) != IU_THUMB_MANUAL
             && ($flags & IU_THUMB) != IU_THUMB_RESIZE)
             deleteImageFiles($posting->small_image,
+                             $posting->small_image_format,
                              $posting->large_image,
                              $posting->large_image_format);
     }
@@ -198,6 +200,7 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         // Image has a thumbnail
         debugLog(LL_DETAILS, 'image has a thumbnail');
         $posting->small_image = $smallId;
+        $posting->small_image_format = $thumbnailType;
         $posting->large_image = $largeId;
         $smallImageSize = getImageSize($smallName);
         debugLog(LL_DEBUG, 'small getImageSize(%)=%',
@@ -213,7 +216,8 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
         // Image hasn't any thumbnail
         debugLog(LL_DETAILS, 'image hasn\'t any thumbnail');
         $posting->small_image = $largeId;
-        $posting->large_image = 0;
+        $posting->small_image_format = $posting->large_image_format;
+        $posting->large_image = $largeId;
         $largeExt = getImageExtension($posting->large_image_format);
         $smallFilename = getImageFilename($largeExt, $largeId);
         $smallName = "$imageDir/$smallFilename";
@@ -224,7 +228,8 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
                  array($smallName, $smallImageSize));
         list($posting->small_image_x,
              $posting->small_image_y) = $smallImageSize;
-        $posting->large_image_x = $posting->large_image_y = 0;
+        list($posting->large_image_x,
+             $posting->large_image_y) = $smallImageSize;
     }
     if (isDebugLogging(LL_FUNCTIONS))
         debugLog(LL_FUNCTIONS, 'EG_OK, posting='.imagePostingData($posting));
@@ -240,7 +245,7 @@ const IFR_UNSUPPORTED_THUMBNAIL = 4;
 function imageFileResize($fnameFrom, $formatFrom, $fnameTo, $formatTo,
                          $thumbExactX = 0, $thumbExactY = 0,
                          $thumbMaxX = 0, $thumbMaxY = 0, $addGlass = true) {
-    global $thumbnailType, $glassImagePath;
+    global $glassImagePath;
     
     debugLog(LL_FUNCTIONS, 'imageFileResize(fnameFrom=%,formatFrom=%,'.
              'fnameTo=%,formatTo=%,thumbExactX=%,thumbExactY=%,thumbMaxX=%,'.
@@ -341,8 +346,8 @@ function imagePostingData($posting) {
         return '!Posting';
     $s = 'Posting[image]{';
     foreach (array('id', 'small_image', 'small_image_x', 'small_image_y',
-                   'large_image', 'large_image_x', 'large_image_y',
-                   'large_image_size', 'large_image_format',
+                   'small_image_format', 'large_image', 'large_image_x',
+                   'large_image_y', 'large_image_size', 'large_image_format',
                    'large_image_filename') as $key)
         $s .= "$key => ".debugLogData($posting->$key).', ';
     $s .= '}';

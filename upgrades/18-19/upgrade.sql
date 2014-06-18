@@ -19,4 +19,10 @@ CREATE TABLE `image_file_transforms` (
   PRIMARY KEY (`id`)
 );
 DROP TABLE `media` ;
+ALTER TABLE `entries` ADD `small_image_format` VARCHAR( 30 ) CHARACTER SET ascii COLLATE ascii_bin NOT NULL AFTER `small_image_y` ;
+UPDATE entries SET small_image_format =  'image/jpeg' WHERE small_image <>0 AND large_image <>0;
+UPDATE entries SET small_image_format = large_image_format,
+large_image_x = small_image_x,
+large_image_y = small_image_y,
+large_image = small_image WHERE small_image <>0 AND large_image =0;
 UPDATE `version` SET `db_version` = '19' WHERE `version`.`db_version` =18 LIMIT 1 ;

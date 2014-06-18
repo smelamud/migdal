@@ -12,6 +12,7 @@
 <int name='small_image'>
 <int name='small_image_x'>
 <int name='small_image_y'>
+<string name='small_image_format'>
 <int name='large_image'>
 <int name='large_image_x'>
 <int name='large_image_y'>
@@ -93,8 +94,7 @@
     <assign name='loaded' value=''>
    </if>
    <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
-   <assign name='large_url'
-           value!="$,hasLargeImage ? $,LargeImageURL : $,SmallImageURL">
+   <assign name='large_url' value="$,ImageURL">
    <form_uploader title='Изображение' name='image_file'
                   loaded='$loaded' delname='del_image'
 		  small_url='$small_url' large_url='$large_url'>
@@ -108,6 +108,7 @@
           onkeypress='$("#hlm-yes").attr("checked", true)'>
    </form_line>
    <hidden name='small_image' value='$small_image'>
+   <hidden name='small_image_format' value='$small_image_format'>
    <hidden name='large_image' value='$large_image'>
    <hidden name='large_image_x' value='$large_image_x'>
    <hidden name='large_image_y' value='$large_image_y'>

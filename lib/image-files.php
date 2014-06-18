@@ -70,13 +70,13 @@ class ImageFile
 
 }
 
-function deleteImageFiles($small_image, $large_image, $large_image_format) {
-    global $thumbnailType;
-    
+function deleteImageFiles($small_image, $small_image_format,
+                          $large_image, $large_image_format) {
     debugLog(LL_FUNCTIONS, 'deleteImageFiles(small_image=%,'.
-             'large_image=%,large_image_format=%)',
-             array($small_image, $large_image, $large_image_format));
-    $smallExt = getImageExtension($thumbnailType);
+             'small_image_format=%,large_image=%,large_image_format=%)',
+             array($small_image, $small_image_format,
+                   $large_image, $large_image_format));
+    $smallExt = getImageExtension($small_image_format);
     $largeExt = getImageExtension($large_image_format);
     if ($large_image != 0) {
         @unlink(getImagePath($smallExt, $small_image));

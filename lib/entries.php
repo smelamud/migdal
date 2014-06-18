@@ -87,6 +87,7 @@ var $last_answer_guest_login=0;
 var $small_image=0;
 var $small_image_x=0;
 var $small_image_y=0;
+var $small_image_format='';
 var $large_image=0;
 var $large_image_x=0;
 var $large_image_y=0;
@@ -724,11 +725,14 @@ function getSmallImageY()
 return $this->small_image_y;
 }
 
+function getSmallImageFormat()
+{
+return $this->small_image_format;
+}
+
 function getSmallImageURL()
 {
-global $thumbnailType;
-
-$format=$this->hasLargeImage() ? $thumbnailType : $this->getLargeImageFormat();
+$format=$this->getSmallImageFormat();
 return getImageURL(getImageExtension($format), $this->getSmallImage());
 }
 
@@ -739,7 +743,7 @@ return $this->large_image;
 
 function hasLargeImage()
 {
-return $this->large_image!=0;
+return $this->large_image!=0 && $this->small_image!=$this->large_image;
 }
 
 function getLargeImageX()
@@ -780,11 +784,6 @@ function getImageURL()
 {
 return $this->hasLargeImage() ? $this->getLargeImageURL()
                               : $this->getSmallImageURL();
-}
-
-function getImageDimension()
-{
-return $this->hasLargeImage() ? 'large' : 'small';
 }
 
 function getLargeImageSize()

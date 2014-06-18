@@ -14,6 +14,7 @@
 <int name='small_image'>
 <int name='small_image_x'>
 <int name='small_image_y'>
+<string name='small_image_format'>
 <int name='large_image'>
 <int name='large_image_x'>
 <int name='large_image_y'>

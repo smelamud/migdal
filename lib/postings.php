@@ -74,6 +74,7 @@ if($vars['large_body_filename']!='')
 $this->small_image=$vars['small_image'];
 $this->small_image_x=$vars['small_image_x'];
 $this->small_image_y=$vars['small_image_y'];
+$this->small_image_format=$vars['small_image_format'];
 $this->large_image=$vars['large_image'];
 $this->large_image_x=$vars['large_image_x'];
 $this->large_image_y=$vars['large_image_y'];
@@ -239,6 +240,7 @@ $Fields='entries.id as id,entries.ident as ident,entries.up as up,
          entries.small_image as small_image,
          entries.small_image_x as small_image_x,
          entries.small_image_y as small_image_y,
+         entries.small_image_format as small_image_format,
          entries.large_image as large_image,
          entries.large_image_x as large_image_x,
          entries.large_image_y as large_image_y,
@@ -277,6 +279,7 @@ $Fields='entries.subject as subject,
          entries.small_image as small_image,
          entries.small_image_x as small_image_x,
          entries.small_image_y as small_image_y,
+         entries.small_image_format as small_image_format,
          entries.large_image as large_image,
          entries.large_image_x as large_image_x,
          entries.large_image_y as large_image_y,
@@ -579,6 +582,7 @@ if(($fields & SPF_ORIGINAL)!=0)
                           'small_image' => $posting->small_image,
                           'small_image_x' => $posting->small_image_x,
                           'small_image_y' => $posting->small_image_y,
+                          'small_image_format' => $posting->small_image_format,
                           'large_image' => $posting->large_image,
                           'large_image_x' => $posting->large_image_x,
                           'large_image_y' => $posting->large_image_y,
@@ -955,7 +959,8 @@ sql("update entries
      set up=$up
      where up=$id and entry<>".ENT_IMAGE." and entry<>".ENT_FORUM,
     __FUNCTION__,'update_up');
-$result=sql("select id,small_image,large_image,large_image_format
+$result=sql("select id,small_image,small_image_format,
+                    large_image,large_image_format
              from entries
              where parent_id=$id or up=$id and entry=".ENT_IMAGE,
             __FUNCTION__,'select_children');
