@@ -6,6 +6,7 @@ require_once('lib/debug-log.php');
 require_once('lib/sql.php');
 require_once('lib/dataobject.php');
 
+const IFT_NULL = 0;
 const IFT_RESIZE = 1; // Resize proportionally
 const IFT_CLIP = 2; // Fill the rect and clip around
 
