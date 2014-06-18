@@ -50,7 +50,7 @@
 </element>
 
 <element name='posting_og_image'>
-<if what='$posting.hasSmallImage'>
+<if what='$posting.hasImage'>
  <og_image src='$posting.ImageURL'>
 </if>
 </element>

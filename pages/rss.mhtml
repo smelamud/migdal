@@ -32,7 +32,7 @@
 <assign name='the_site' value#='http://$userDomain.$siteDomain'>
 
 <element name='item_image' params='posting'>
-<if what='$posting.hasSmallImage'>
+<if what='$posting.hasImage'>
  <if what='$posting.hasLargeImage'>
   &lt;a href='$the_site$posting.LargeImageURL'
 	title='Нажмите, чтобы увеличить'&gt;

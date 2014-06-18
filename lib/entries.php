@@ -762,40 +762,34 @@ $format=$this->getLargeImageFormat();
 return getImageURL(getImageExtension($format), $this->getLargeImage());
 }
 
-// FIXME This function doesn't have sense, because hasLargeImage is false when
-// small_image == large_image. So this function will always return large
-// image.
-function getImage()
-{
-return $this->hasLargeImage() ? $this->getLargeImage()
-                              : $this->getSmallImage();
+// Useful synonyms
+
+function hasImage() {
+    return $this->hasSmallImage();
 }
 
-// FIXME This function doesn't have sense, because hasLargeImage is false when
-// small_image == large_image. So this function will always return large
-// image.
-function getImageX()
-{
-return $this->hasLargeImage() ? $this->getLargeImageX()
-                              : $this->getSmallImageX();
+function getImage() {
+    return $this->getLargeImage();
 }
 
-// FIXME This function doesn't have sense, because hasLargeImage is false when
-// small_image == large_image. So this function will always return large
-// image.
-function getImageY()
-{
-return $this->hasLargeImage() ? $this->getLargeImageY()
-                              : $this->getSmallImageY();
+function getImageX() {
+    return $this->getLargeImageX();
 }
 
-// FIXME This function doesn't have sense, because hasLargeImage is false when
-// small_image == large_image. So this function will always return large
-// image.
-function getImageURL()
-{
-return $this->hasLargeImage() ? $this->getLargeImageURL()
-                              : $this->getSmallImageURL();
+function getImageY() {
+    return $this->getLargeImageY();
+}
+
+function getImageURL() {
+    return $this->getLargeImageURL();
+}
+
+function getImageSize() {
+    return $this->getLargeImageSize();
+}
+
+function getImageSizeKB() {
+    return $this->getLargeImageSizeKB();
 }
 
 function getLargeImageSize()

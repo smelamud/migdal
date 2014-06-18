@@ -86,7 +86,7 @@
       <assign name='loaded' value=''>
      </if>
      <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
-     <assign name='large_url' value="$,ImageURL">
+     <assign name='large_url' value="$,LargeImageURL">
      <form_uploader title='Изображение' name='image_file'
                     loaded='$loaded' delname='del_image'
 		    small_url='$small_url' large_url='$large_url'

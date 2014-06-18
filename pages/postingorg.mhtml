@@ -83,11 +83,11 @@
     ($posting.VoteCount&sp;$,)
    </td></tr>
   </ifnzero>
-  <if what='$posting.hasSmallImage'>
+  <if what='$posting.hasImage'>
    <tr><td>
     <a href='$posting.ImageURL'>Картинка</a>
     &nbsp;
-    ${posting.ImageX}x${posting.ImageY}, ${posting.LargeImageSizeKB}KB
+    ${posting.ImageX}x${posting.ImageY}, ${posting.ImageSizeKB}KB
    </td></tr>
   </if>
   <tr><td class='sent'>

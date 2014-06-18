@@ -256,10 +256,10 @@
    <hidden name='large_image_format' value='$posting.LargeImageFormat'>
    <hidden name='large_image_filename' value='$posting.LargeImageFilename'>
    <assign name='loaded' value#='Загружен файл $=posting.LargeImageFilename
-                                 (${posting.ImageX}x$posting.ImageY,
-				  ${posting.LargeImageSizeKB}K)'>
+                                 (${posting.LargeImageX}x$posting.LargeImageY,
+                                 ${posting.LargeImageSizeKB}K)'>
    <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
-   <assign name='large_url' value="$,ImageURL">
+   <assign name='large_url' value="$,LargeImageURL">
   <else>
    <assign name='loaded' value=''>
    <assign name='small_url' value=''>
