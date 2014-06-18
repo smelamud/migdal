@@ -762,24 +762,36 @@ $format=$this->getLargeImageFormat();
 return getImageURL(getImageExtension($format), $this->getLargeImage());
 }
 
+// FIXME This function doesn't have sense, because hasLargeImage is false when
+// small_image == large_image. So this function will always return large
+// image.
 function getImage()
 {
 return $this->hasLargeImage() ? $this->getLargeImage()
                               : $this->getSmallImage();
 }
 
+// FIXME This function doesn't have sense, because hasLargeImage is false when
+// small_image == large_image. So this function will always return large
+// image.
 function getImageX()
 {
 return $this->hasLargeImage() ? $this->getLargeImageX()
                               : $this->getSmallImageX();
 }
 
+// FIXME This function doesn't have sense, because hasLargeImage is false when
+// small_image == large_image. So this function will always return large
+// image.
 function getImageY()
 {
 return $this->hasLargeImage() ? $this->getLargeImageY()
                               : $this->getSmallImageY();
 }
 
+// FIXME This function doesn't have sense, because hasLargeImage is false when
+// small_image == large_image. So this function will always return large
+// image.
 function getImageURL()
 {
 return $this->hasLargeImage() ? $this->getLargeImageURL()
