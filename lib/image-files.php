@@ -97,6 +97,20 @@ function storeImageFile(ImageFile $imageFile) {
     return $result;
 }
 
+function deleteImageFile($format, $id) {
+    if ($id == 0)
+        return;
+    @unlink(getImagePath(getImageExtension($format), $id));
+    sql("delete
+         from image_files
+         where id=$id",
+        __FUNCTION__, 'image_files');
+    sql("delete
+         from image_file_transforms
+         where dest_id=$id or orig_id=$id",
+        __FUNCTION__, 'image_file_transforms');
+}
+
 function deleteImageFiles($small_image, $small_image_format,
                           $large_image, $large_image_format) {
     debugLog(LL_FUNCTIONS, 'deleteImageFiles(small_image=%,'.
