@@ -28,6 +28,10 @@ class ImageFileTransform
         return $this->id;
     }
 
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function getDestId() {
         return $this->dest_id;
     }
@@ -70,4 +74,25 @@ class ImageFileTransform
     
 }
 
+function storeImageFileTransform(ImageFileTransform $imageFileTransform) {
+    $vars = array(
+        'dest_id' => $imageFileTransform->getDestId(),
+        'orig_id' => $imageFileTransform->getOrigId(),
+        'transform' => $imageFileTransform->getTransform(),
+        'size_x' => $imageFileTransform->getSizeX(),
+        'size_y' => $imageFileTransform->getSizeY()
+    );
+    if ($imageFileTransform->getId()) {
+        $result = sql(sqlUpdate('image_file_transforms',
+                                $vars,
+                                array('id' => $imageFileTransform->getId())),
+                      __FUNCTION__, 'update');
+    } else {
+        $result = sql(sqlInsert('image_file_transforms',
+                                $vars),
+                      __FUNCTION__, 'insert');
+        $imageFileTransform->setId(sql_insert_id());
+    }
+    return $result;
+}
 ?>

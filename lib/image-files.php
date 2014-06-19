@@ -28,6 +28,10 @@ class ImageFile
         return $this->id;
     }
 
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function getMimeType() {
         return $this->mime_type;
     }
@@ -68,6 +72,29 @@ class ImageFile
         return strtotime($this->accessed);
     }
 
+}
+
+function storeImageFile(ImageFile $imageFile) {
+    $vars = array(
+        'mime_type' => $imageFile->getMimeType(),
+        'size_x' => $imageFile->getSizeX(),
+        'size_y' => $imageFile->getSizeY(),
+        'file_size' => $imageFile->getFileSize(),
+        'accessed' => sqlNow()
+    );
+    if ($imageFile->getId()) {
+        $result = sql(sqlUpdate('image_files',
+                                $vars,
+                                array('id' => $imageFile->getId())),
+                      __FUNCTION__, 'update');
+    } else {
+        $vars['created'] = sqlNow();
+        $result = sql(sqlInsert('image_files',
+                                $vars),
+                      __FUNCTION__, 'insert');
+        $imageFile->setId(sql_insert_id());
+    }
+    return $result;
 }
 
 function deleteImageFiles($small_image, $small_image_format,
