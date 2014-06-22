@@ -215,7 +215,7 @@ function deleteObsoleteImageFiles() {
         if (!isset($used[$info['file_id']]) || !$used[$info['file_id']]) {
             $stat = stat($ffname);
             if (time() - $stat['mtime'] > $imageFileTimeout * 3600)
-                @unlink($ffname);
+                deleteImageFile(getMimeType($info['ext']), $info['file_id']);
         }
     }
     closedir($dh);
