@@ -339,6 +339,53 @@ function imageFileResize($fnameFrom, $formatFrom, $fnameTo, $formatTo,
     return IFR_OK;
 }
 
+// *** New functions ***
+
+const EIFU_NO_FILE = 1;
+const EIFU_INVALID_FILE = 2;
+const EIFU_FILE_LARGE = 3;
+const EIFU_INVALID_IMAGE = 4;
+const EIFU_INVALID_IMAGE_TYPE = 5;
+const EIFU_WRONG_IMAGE_SIZE = 6;
+const EIFU_CANNOT_MOVE = 7;
+
+function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY) {
+    global $maxImageSize;
+
+    if (!isset($_FILES[$name]))
+        return EIFU_NO_FILE;
+    $file = $_FILES[$name];
+    if ($file['tmp_name'] == '' || !is_uploaded_file($file['tmp_name'])
+        || filesize($file['tmp_name']) != $file['size'])
+        return EIFU_INVALID_FILE;
+    if ($file['size'] > $maxImageSize)
+        return EIFU_FILE_LARGE;
+    $imageFile = new ImageFile();
+    $imageFile->setFileSize($file['size']);
+    $imageInfo = getImageSize($file['tmp_name']);
+    if ($imageInfo === false)
+        return EIFU_INVALID_IMAGE;
+    list($sizeX, $sizeY, , , $mimeType) = $imageInfo;
+    if (!isImageTypeSupported($mimeType))
+        return EIFU_INVALID_IMAGE_TYPE;
+    $imageFile->setMimeType($mimeType);
+    if ($exactX > 0 && $sizeX != $exactX
+        || $exactY > 0 && $sizeY != $exactY)
+        return EIFU_WRONG_IMAGE_SIZE;
+    if ($maxX > 0 && $sizeX > $maxX
+        || $maxY > 0 && $sizeY > $maxY)
+        return EIFU_IMAGE_LARGE;
+    $imageFile->setSizeX($sizeX);
+    $imageFile->setSizeY($sizeY);
+    storeImageFile($imageFile);
+    if (!move_uploaded_file($file['tmp_name'], $imageFile->getPath())) {
+        deleteImageFile($imageFile->getMimeType(), $imageFile->getId());
+        return EIFU_CANNOT_MOVE;
+    }
+
+    return $imageFile;
+}
+
 function imagePostingData($posting) {
     if (!is_a($posting, 'Posting'))
         return '!Posting';

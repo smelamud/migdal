@@ -18,7 +18,8 @@ $imageTypeNames = array(
 function getImageTypeName($mime_type) {
     global $imageTypeNames;
     
-    return $imageTypeNames[$mime_type];
+    return isset($imageTypeNames[$mime_type]) ? $imageTypeNames[$mime_type]
+                                              : '';
 }
 
 $imageTypeCodes = array(
@@ -32,6 +33,11 @@ $imageTypeCodes = array(
 function getImageTypeCode($mime_type) {
     global $imageTypeCodes;
     
-    return $imageTypeCodes[$mime_type];
+    return isset($imageTypeCodes[$mime_type]) ? $imageTypeCodes[$mime_type] :
+                                              : false;
+}
+
+function isImageTypeSupported($mime_type) {
+    return isset($imageTypeCodes[$mime_type]);
 }
 ?>

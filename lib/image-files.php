@@ -20,7 +20,7 @@ class ImageFile
     private $created;
     private $accessed;
 
-    public function __construct(array $row) {
+    public function __construct(array $row = array()) {
         parent::__construct($row);
     }
 
@@ -70,6 +70,18 @@ class ImageFile
 
     public function getAccessed() {
         return strtotime($this->accessed);
+    }
+
+    public function getFilename() {
+        return getImageFilename($this->mime_type, $this->id);
+    }
+
+    public function getPath() {
+        return getImageFilePath($this->mime_type, $this->id);
+    }
+
+    public function getURL() {
+        return getImageURL($this->mime_type, $this->id);
     }
 
 }
