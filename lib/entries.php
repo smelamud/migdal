@@ -732,8 +732,7 @@ return $this->small_image_format;
 
 function getSmallImageURL()
 {
-$format=$this->getSmallImageFormat();
-return getImageURL(getImageExtension($format), $this->getSmallImage());
+return getImageURL($this->getSmallImageFormat(), $this->getSmallImage());
 }
 
 function getLargeImage()
@@ -758,8 +757,7 @@ return $this->large_image_y;
 
 function getLargeImageURL()
 {
-$format=$this->getLargeImageFormat();
-return getImageURL(getImageExtension($format), $this->getLargeImage());
+return getImageURL($this->getLargeImageFormat(), $this->getLargeImage());
 }
 
 // Useful synonyms

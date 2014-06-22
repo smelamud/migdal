@@ -100,7 +100,7 @@ function storeImageFile(ImageFile $imageFile) {
 function deleteImageFile($format, $id) {
     if ($id == 0)
         return;
-    @unlink(getImagePath(getImageExtension($format), $id));
+    @unlink(getImagePath($format, $id));
     sql("delete
          from image_files
          where id=$id",
@@ -117,18 +117,13 @@ function deleteImageFiles($small_image, $small_image_format,
              'small_image_format=%,large_image=%,large_image_format=%)',
              array($small_image, $small_image_format,
                    $large_image, $large_image_format));
-    $smallExt = getImageExtension($small_image_format);
-    $largeExt = getImageExtension($large_image_format);
-    if ($large_image != 0) {
-        @unlink(getImagePath($smallExt, $small_image));
-        @unlink(getImagePath($largeExt, $large_image));
-    } else {
-        @unlink(getImagePath($largeExt, $small_image));
-    }
+    @unlink(getImagePath($small_image_format, $small_image));
+    if ($large_image != 0)
+        @unlink(getImagePath($large_image_format, $large_image));
 }
 
-function getImageFilename($ext, $fileId = 0) {
-    return "migdal-$fileId.$ext";
+function getImageFilename($format, $fileId = 0) {
+    return "migdal-$fileId.".getMimeExtension($format);
 }
 
 function parseImageFilename($fname) {
@@ -138,6 +133,7 @@ function parseImageFilename($fname) {
     if ($parts[0] != 'migdal')
         return $info;
     $info['ext'] = $ext;
+    $info['format'] = getMimeType($ext);
     $info['size'] = 'small'; // for backward compatibility
     $info['entry_id'] = 0; // for backward compatibility
     if (isset($parts[1]))
@@ -145,24 +141,24 @@ function parseImageFilename($fname) {
     return $info;
 }
 
-function getImagePath($ext, $fileId = 0) {
+function getImagePath($format, $fileId = 0) {
     global $imageDir;
     
-    $fname = getImageFilename($ext, $fileId);
+    $fname = getImageFilename($format, $fileId);
     return "$imageDir/$fname";
 }
 
-function getImageURL($ext, $fileId = 0) {
+function getImageURL($format, $fileId = 0) {
     global $imageURL;
     
-    $fname = getImageFilename($ext, $fileId);
+    $fname = getImageFilename($format, $fileId);
     if ($imageURL[0] != '/')
         $imageURL = "/$imageURL";
     return "$imageURL/$fname";
 }
 
 function imageFileExists($format, $fileId = 0) {
-    return file_exists(getImagePath(getMimeExtension($format), $fileId));
+    return file_exists(getImagePath($format, $fileId));
 }
 
 function setMaxImageFileId($max_id) {
@@ -215,7 +211,7 @@ function deleteObsoleteImageFiles() {
         if (!isset($used[$info['file_id']]) || !$used[$info['file_id']]) {
             $stat = stat($ffname);
             if (time() - $stat['mtime'] > $imageFileTimeout * 3600)
-                deleteImageFile(getMimeType($info['ext']), $info['file_id']);
+                deleteImageFile($info['format'], $info['file_id']);
         }
     }
     closedir($dh);
