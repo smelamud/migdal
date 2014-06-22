@@ -348,8 +348,11 @@ const EIFU_INVALID_IMAGE = 4;
 const EIFU_INVALID_IMAGE_TYPE = 5;
 const EIFU_WRONG_IMAGE_SIZE = 6;
 const EIFU_CANNOT_MOVE = 7;
+const EIFU_CANNOT_READ = 8;
+const EIFU_CANNOT_WRITE = 9;
 
-function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY) {
+function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY, $transform,
+                         $transformX, $transformY) {
     global $maxImageSize;
 
     if (!isset($_FILES[$name]))
@@ -362,7 +365,7 @@ function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY) {
         return EIFU_FILE_LARGE;
     $imageFile = new ImageFile();
     $imageFile->setFileSize($file['size']);
-    $imageInfo = getImageSize($file['tmp_name']);
+    $imageInfo = getimagesize($file['tmp_name']);
     if ($imageInfo === false)
         return EIFU_INVALID_IMAGE;
     list($sizeX, $sizeY, , , $mimeType) = $imageInfo;
@@ -381,8 +384,27 @@ function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY) {
     if (!move_uploaded_file($file['tmp_name'], $imageFile->getPath())) {
         deleteImageFile($imageFile->getMimeType(), $imageFile->getId());
         return EIFU_CANNOT_MOVE;
+    } else {
+        chmod($imageFile->getPath(), 0644);
     }
 
+    if ($transform == IFT_NULL)
+        return $imageFile;
+
+    $handle = readImageFile($imageFile->getMimeType(), $imageFile->getId());
+    if ($handle === false)
+        return EIFU_CANNOT_READ;
+    transformImage($handle, $transform, $transformX, $transformY);
+    $imageFile->setSizeX(imagesx($handle));
+    $imageFile->setSizeY(imagesy($handle));
+    $ok = writeImageFile($handle, $imageFile->getMimeType(),
+                         $imageFile->getId());
+    imagedestroy($handle);
+    if (!$ok)
+        return EIFU_CANNOT_WRITE;
+    $imageFile->setFileSize(filesize($imageFile->getPath()));
+    storeImageFile($imageFile);
+    
     return $imageFile;
 }
 

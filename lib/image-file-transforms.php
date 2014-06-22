@@ -95,4 +95,50 @@ function storeImageFileTransform(ImageFileTransform $imageFileTransform) {
     }
     return $result;
 }
+
+function transformImage(&$handle, $transform, $transformX, $transformY) {
+    switch ($transform) {
+        case IFT_RESIZE:
+            resizeImage($handle, $transformX, $transformY);
+            break;
+
+        case IFT_CLIP:
+            clipImage($handle, $transformX, $transformY);
+            break;
+    }
+}
+
+function resizeImage(&$handle, $maxX, $maxY) {
+    // Calculate the dimensions
+    $largeSizeX = imagesx($handle);
+    $largeSizeY = imagesy($handle);
+
+    $aspect = $largeSizeX / $largeSizeY;
+
+    if ($maxX == 0)
+        $maxX = 65535;
+    if ($maxY == 0)
+        $maxY = 65535;
+    if ($largeSizeX > $maxX || $largeSizeY > $maxY) {
+        $smallSizeX = $maxX;
+        $smallSizeY = (int) ($smallSizeX / $aspect);
+        if ($smallSizeY > $maxY) {
+            $smallSizeY = $maxY;
+            $smallSizeX = (int) ($smallSizeY * $aspect);
+        }
+    } else {
+        $smallSizeX = $largeSizeX;
+        $smallSizeY = $largeSizeY;
+    }
+
+    // Resize the image
+    $smallHandle = imagecreatetruecolor($smallSizeX, $smallSizeY);
+    imagecopyresampled($smallHandle, $handle, 0, 0, 0, 0,
+                       $smallSizeX, $smallSizeY, $largeSizeX, $largeSizeY);
+    imagedestroy($handle);
+    $handle = $smallHandle;
+}
+
+function clipImage(&$handle, $clipX, $clipY) {
+}
 ?>

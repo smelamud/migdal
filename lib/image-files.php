@@ -123,6 +123,27 @@ function deleteImageFile($format, $id) {
         __FUNCTION__, 'image_file_transforms');
 }
 
+function readImageFile($format, $id) {
+    $typeName = getImageTypeName($format);
+    if ($typeName == '')
+        return false;
+    $func = "imagecreatefrom$typeName";
+    return $func(getImagePath($format, $id));
+}
+
+function writeImageFile($handle, $format, $id) {
+    $typeName = getImageTypeName($format);
+    if ($typeName == '')
+        return false;
+    $func = "image$typeName";
+    $fileName = getImagePath($format, $id);
+    $ok = $func($handle, $fileName);
+    if ($ok)
+        chmod($fileName, 0644);
+    return $ok;
+}
+
+// obsolete
 function deleteImageFiles($small_image, $small_image_format,
                           $large_image, $large_image_format) {
     debugLog(LL_FUNCTIONS, 'deleteImageFiles(small_image=%,'.
@@ -173,12 +194,14 @@ function imageFileExists($format, $fileId = 0) {
     return file_exists(getImagePath($format, $fileId));
 }
 
+// obsolete
 function setMaxImageFileId($max_id) {
     sql("update image_files_c
          set max_id=$max_id",
         __FUNCTION__);
 }
 
+// obsolete
 function getNextImageFileId() {
     sql('lock tables image_files_c write',
         __FUNCTION__, 'lock');
