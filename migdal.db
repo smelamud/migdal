@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.5.31-0+wheezy1
+-- Server version	5.5.37-0+wheezy1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `captcha_keys` (
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `keystring` (`keystring`,`sid`)
-) ENGINE=MyISAM AUTO_INCREMENT=107675 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=109543 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `counters` (
   KEY `message_id_2` (`mode`,`serial`),
   KEY `used` (`used`),
   KEY `entry_id` (`entry_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44301 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=46677 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,6 +209,7 @@ CREATE TABLE `entries` (
   `small_image` int(11) NOT NULL DEFAULT '0',
   `small_image_x` smallint(6) NOT NULL DEFAULT '0',
   `small_image_y` smallint(6) NOT NULL DEFAULT '0',
+  `small_image_format` varchar(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `large_image` int(11) NOT NULL DEFAULT '0',
   `large_image_x` smallint(6) NOT NULL DEFAULT '0',
   `large_image_y` smallint(6) NOT NULL DEFAULT '0',
@@ -244,7 +245,7 @@ CREATE TABLE `entries` (
   KEY `used` (`used`),
   KEY `sent` (`sent`),
   KEY `subject` (`subject`)
-) ENGINE=MyISAM AUTO_INCREMENT=29820 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=30017 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,6 +297,26 @@ CREATE TABLE `html_cache` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `image_file_transforms`
+--
+
+DROP TABLE IF EXISTS `image_file_transforms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image_file_transforms` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dest_id` int(11) NOT NULL,
+  `orig_id` int(11) NOT NULL,
+  `transform` tinyint(4) NOT NULL,
+  `size_x` int(11) NOT NULL,
+  `size_y` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `orig_id` (`orig_id`,`transform`,`size_x`,`size_y`),
+  KEY `dest_id` (`dest_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `image_files`
 --
 
@@ -303,6 +324,25 @@ DROP TABLE IF EXISTS `image_files`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `image_files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mime_type` varchar(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `size_x` smallint(6) NOT NULL,
+  `size_y` smallint(6) NOT NULL,
+  `file_size` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  `accessed` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `image_files_c`
+--
+
+DROP TABLE IF EXISTS `image_files_c`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image_files_c` (
   `max_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -344,7 +384,7 @@ CREATE TABLE `logs` (
   PRIMARY KEY (`id`),
   KEY `event` (`event`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=45093324 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=50316529 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,7 +399,7 @@ CREATE TABLE `mail_log` (
   `sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `sent` (`sent`)
-) ENGINE=MyISAM AUTO_INCREMENT=2099 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=2107 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,28 +419,6 @@ CREATE TABLE `mail_queue` (
   PRIMARY KEY (`id`),
   KEY `created` (`created`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `media`
---
-
-DROP TABLE IF EXISTS `media`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `media` (
-  `id` varchar(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-  `mime_type` varchar(30) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-  `width` smallint(6) NOT NULL,
-  `height` smallint(6) NOT NULL,
-  `size` int(11) NOT NULL,
-  `accessed` datetime NOT NULL,
-  `orig_id` int(11) DEFAULT NULL,
-  `trans_op` tinyint(4) DEFAULT NULL,
-  `trans_width` smallint(6) DEFAULT NULL,
-  `trans_height` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -517,7 +535,7 @@ CREATE TABLE `redirs` (
   UNIQUE KEY `track` (`track`),
   KEY `up` (`up`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=4060243 DEFAULT CHARSET=koi8u;
+) ENGINE=MyISAM AUTO_INCREMENT=7921801 DEFAULT CHARSET=koi8u;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -538,7 +556,7 @@ CREATE TABLE `sessions` (
   UNIQUE KEY `sid` (`sid`),
   KEY `user_id` (`user_id`),
   KEY `last` (`last`)
-) ENGINE=MyISAM AUTO_INCREMENT=2038193786 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=2039614791 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -554,7 +572,7 @@ CREATE TABLE `tmp_texts` (
   `last_access` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `last_access` (`last_access`)
-) ENGINE=MyISAM AUTO_INCREMENT=3620566 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=3680188 DEFAULT CHARSET=koi8u COLLATE=koi8u_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -646,12 +664,12 @@ CREATE TABLE `votes` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-15  1:06:01
--- MySQL dump 10.13  Distrib 5.5.31, for debian-linux-gnu (i686)
+-- Dump completed on 2014-06-23 20:38:23
+-- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: migdal
 -- ------------------------------------------------------
--- Server version	5.5.31-0+wheezy1
+-- Server version	5.5.37-0+wheezy1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -670,7 +688,7 @@ CREATE TABLE `votes` (
 
 LOCK TABLES `content_versions` WRITE;
 /*!40000 ALTER TABLE `content_versions` DISABLE KEYS */;
-INSERT INTO `content_versions` VALUES (84829,31352,233);
+INSERT INTO `content_versions` VALUES (87152,31684,236);
 /*!40000 ALTER TABLE `content_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -680,7 +698,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `version` WRITE;
 /*!40000 ALTER TABLE `version` DISABLE KEYS */;
-INSERT INTO `version` VALUES (18);
+INSERT INTO `version` VALUES (19);
 /*!40000 ALTER TABLE `version` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -693,4 +711,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-15  1:06:01
+-- Dump completed on 2014-06-23 20:38:23

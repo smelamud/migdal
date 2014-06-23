@@ -408,6 +408,54 @@ function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY, $transform,
     return $imageFile;
 }
 
+function thumbnailImageFile(ImageFile $imageFile, $transform,
+                            $transformX, $transformY) {
+    global $thumbnailType;
+
+    if (isImageTransformed($imageFile, $transform, $transformX, $transformY))
+        return $imageFile;
+    $readyFile = getTransformedImageBySource($imageFile->getId(), $transform,
+                                             $transformX, $transformY);
+    if (!is_null($readyFile) && $readyFile->getId() != 0)
+        return $readyFile;
+    $handle = readImageFile($imageFile->getMimeType(), $imageFile->getId());
+    if ($handle === false)
+        return EIFU_CANNOT_READ;
+    transformImage($handle, $transform, $transformX, $transformY);
+    $sizeX = imagesx($handle);
+    $sizeY = imagesy($handle);
+    $readyFile = getTransformedImageByResult($imageFile->getId(), $transform,
+                                             $sizeX, $sizeY);
+    if (!is_null($readyFile) && $readyFile->getId() != 0) {
+        imagedestroy($handle);
+        return $readyFile;
+    }
+
+    $destFile = new ImageFile();
+    $destFile->setMimeType($thumbnailType);
+    $destFile->setSizeX($sizeX);
+    $destFile->setSizeY($sizeY);
+    storeImageFile($destFile);
+    $ok = writeImageFile($handle, $destFile->getMimeType(), $destFile->getId());
+    imagedestroy($handle);
+    if (!$ok) {
+        deleteImageFile($destFile->getMimeType(), $destFile->getId());
+        return EIFU_CANNOT_WRITE;
+    }
+    $destFile->setFileSize(filesize($destFile->getPath()));
+    storeImageFile($destFile);
+
+    $trans = new ImageFileTransform();
+    $trans->setDestId($destFile->getId());
+    $trans->setOrigId($imageFile->getId());
+    $trans->setTransform($transform);
+    $trans->setSizeX($transformX);
+    $trans->setSizeY($transformY);
+    storeImageFileTransform($trans);
+
+    return $destFile;
+}
+
 function imagePostingData($posting) {
     if (!is_a($posting, 'Posting'))
         return '!Posting';

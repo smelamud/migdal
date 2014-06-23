@@ -96,6 +96,52 @@ function storeImageFileTransform(ImageFileTransform $imageFileTransform) {
     return $result;
 }
 
+function getTransformedImageBySource($id, $transform,
+                                     $transformX, $transformY) {
+    $result = sql("select image_files.id as id,mime_type,
+                          image_files.size_x as size_x,
+                          image_files.size_y as size_y,file_size
+                   from image_files
+                        left join image_file_transforms
+                             on image_file_transforms.dest_id=image_files.id
+                   where orig_id=$id and transform=$transform
+                         and image_file_transforms.size_x=$transformX
+                         and image_file_transforms.size_y=$transformY",
+                  __FUNCTION__);
+    return new ImageFile(mysql_num_rows($result) > 0
+                         ? mysql_fetch_assoc($result)
+                         : array());
+}
+
+function getTransformedImageByResult($id, $transform, $sizeX, $sizeY) {
+    $result = sql("select image_files.id as id,mime_type,
+                          image_files.size_x as size_x,
+                          image_files.size_y as size_y,file_size
+                   from image_files
+                        left join image_file_transforms
+                             on image_file_transforms.dest_id=image_files.id
+                   where orig_id=$id and transform=$transform
+                         and image_files.size_x=$sizeX
+                         and image_files.size_y=$sizeY",
+                  __FUNCTION__);
+    return new ImageFile(mysql_num_rows($result) > 0
+                         ? mysql_fetch_assoc($result)
+                         : array());
+}
+
+function isImageTransformed(ImageFile $imageFile, $transform,
+                            $transformX, $transformY) {
+    switch ($transform) {
+        case IFT_RESIZE:
+            return ($transformX <= 0 || $imageFile->getSizeX() <= $transformX)
+                && ($transformY <= 0 || $imageFile->getSizeY() <= $transformY);
+
+        case IFT_CLIP:
+            return ($transformX <= 0 || $imageFile->getSizeX() == $transformX)
+                && ($transformY <= 0 || $imageFile->getSizeY() == $transformY);
+    }
+}
+
 function transformImage(&$handle, $transform, $transformX, $transformY) {
     switch ($transform) {
         case IFT_RESIZE:

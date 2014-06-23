@@ -25,4 +25,11 @@ UPDATE entries SET small_image_format = large_image_format,
 large_image_x = small_image_x,
 large_image_y = small_image_y,
 large_image = small_image WHERE small_image <>0 AND large_image =0;
+ALTER TABLE `image_file_transforms` ADD UNIQUE (
+`orig_id` ,
+`transform` ,
+`size_x` ,
+`size_y`
+);
+ALTER TABLE  `image_file_transforms` ADD INDEX (  `dest_id` );
 UPDATE `version` SET `db_version` = '19' WHERE `version`.`db_version` =18 LIMIT 1 ;

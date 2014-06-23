@@ -33,7 +33,7 @@ $imageTypeCodes = array(
 function getImageTypeCode($mime_type) {
     global $imageTypeCodes;
     
-    return isset($imageTypeCodes[$mime_type]) ? $imageTypeCodes[$mime_type] :
+    return isset($imageTypeCodes[$mime_type]) ? $imageTypeCodes[$mime_type]
                                               : false;
 }
 
