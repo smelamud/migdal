@@ -123,6 +123,16 @@ function deleteImageFile($format, $id) {
         __FUNCTION__, 'image_file_transforms');
 }
 
+function getImageFileById($id) {
+    $result = sql("select id,mime_type,size_x,size_y,file_size
+                   from image_files
+                   where id=$id",
+                  __FUNCTION__);
+    return new ImageFile(mysql_num_rows($result) > 0
+                         ? mysql_fetch_assoc($result)
+                         : array());
+}
+
 function readImageFile($format, $id) {
     $typeName = getImageTypeName($format);
     if ($typeName == '')

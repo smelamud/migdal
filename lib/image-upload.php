@@ -8,6 +8,7 @@ require_once('lib/image-files.php');
 require_once('lib/image-types.php');
 require_once('lib/image-upload-flags.php');
 
+// obsolete
 function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
                      $thumbMaxX, $thumbMaxY, $imageExactX, $imageExactY,
                      $imageMaxX, $imageMaxY, $del, $resizeIfExists = false) {
@@ -240,6 +241,7 @@ const IFR_UNKNOWN_FORMAT = 2;
 const IFR_UNSUPPORTED_FORMAT = 3;
 const IFR_UNSUPPORTED_THUMBNAIL = 4;
 
+// obsolete
 function imageFileResize($fnameFrom, $formatFrom, $fnameTo, $formatTo,
                          $thumbExactX = 0, $thumbExactY = 0,
                          $thumbMaxX = 0, $thumbMaxY = 0, $addGlass = true) {
@@ -341,24 +343,154 @@ function imageFileResize($fnameFrom, $formatFrom, $fnameTo, $formatTo,
 
 // *** New functions ***
 
-const EIFU_NO_FILE = 1;
-const EIFU_INVALID_FILE = 2;
-const EIFU_FILE_LARGE = 3;
-const EIFU_INVALID_IMAGE = 4;
-const EIFU_INVALID_IMAGE_TYPE = 5;
-const EIFU_WRONG_IMAGE_SIZE = 6;
-const EIFU_CANNOT_MOVE = 7;
-const EIFU_CANNOT_READ = 8;
-const EIFU_CANNOT_WRITE = 9;
+const EIFU_INVALID_FILE = 1;
+const EIFU_FILE_LARGE = 2;
+const EIFU_INVALID_IMAGE = 3;
+const EIFU_INVALID_IMAGE_TYPE = 4;
+const EIFU_WRONG_IMAGE_SIZE = 5;
+const EIFU_CANNOT_MOVE = 6;
+const EIFU_CANNOT_READ = 7;
+const EIFU_CANNOT_WRITE = 8;
+
+function imageUploadUserError($err, $isThumbnail) {
+    switch ($err) {
+        case EIFU_INVALID_FILE:
+        case EIFU_INVALID_IMAGE:
+        case EIFU_INVALID_IMAGE_TYPE:
+            return isThumbnail ? EIU_UNKNOWN_IMAGE : EIU_UNKNOWN_THUMBNAIL;
+
+        case EIFU_FILE_LARGE:
+            return isThumbnail ? EIU_IMAGE_LARGE : EIU_THUMBNAIL_LARGE;
+
+        case EIFU_WRONG_IMAGE_SIZE:
+            return isThumbnail ? EIU_WRONG_IMAGE_SIZE
+                               : EIU_WRONG_THUMBNAIL_SIZE;
+
+        case EIFU_CANNOT_MOVE:
+        case EIFU_CANNOT_READ:
+        case EIFU_CANNOT_WRITE:
+        default:
+            return EIU_INTERNAL_ERROR;
+    }
+}
+
+/*
+ * Standard image flags: "<thumbnail>-<image>"
+ *
+ * <image> is one of:
+ *     manual - image is uploaded by user
+ *     resize - image is uploaded by user and resized automatically
+ *
+ * <thumbnail> is one of:
+ *     auto - thumbnail is created automatically
+ *     none - thumbnail is not needed
+ *     manual - thumbnail is uploaded by user
+ *     resize - thumbnail is uploaded by user and resized automatically
+ */
+function uploadStandardImage($name, Entry $posting, $flags,
+        $thumbExactX, $thumbExactY, $thumbMaxX, $thumbMaxY,
+        $imageExactX, $imageExactY, $imageMaxX, $imageMaxY, $deleteIfExists) {
+    @list($thumbFlag, $imageFlag) = explode('-', $flags);
+    if (!isset($imageFlag) || $imageFlag == '')
+        $imageFlag = 'manual';
+    if (!isset($thumbFlag) || $thumbFlag == '')
+        $thumbFlag = 'auto';
+
+    if ($deleteIfExists) {
+        $posting->small_image = 0;
+        $posting->small_image_x = $posting->small_image_y = 0;
+        $posting->small_image_format = '';
+        $posting->large_image = 0;
+        $posting->large_image_x = $posting->large_image_y = 0;
+        $posting->large_image_size = 0;
+        $posting->large_image_format = '';
+        $posting->large_image_filename = '';
+    }
+
+    switch ($imageFlag) {
+        case 'resize':
+            $transform = IFT_RESIZE;
+            $transformX = $imageMaxX;
+            $transformY = $imageMaxY;
+            break;
+
+        default:
+            $transform = IFT_NULL;
+            $transformX = 0;
+            $transformY = 0;
+    }
+    $largeImageFile = uploadImageFile($name, $imageExactX, $imageExactY,
+        $imageMaxX, $imageMaxY, $transform, $transformX, $transformY);
+    if (!($largeImageFile instanceof ImageFile))
+        return imageUploadUserError($largeImageFile, false);
+    if ($largeImageFile->getId() == 0 && $posting->large_image != 0)
+        $largeImageFile = getImageFileById($posting->large_image);
+
+    switch ($thumbFlag) {
+        case 'manual':
+        case 'resize':
+            switch ($thumbFlag) {
+                case 'resize':
+                    $transform = IFT_RESIZE;
+                    $transformX = $thumbMaxX;
+                    $transformY = $thumbMaxY;
+                    break;
+
+                default:
+                    $transform = IFT_NULL;
+                    $transformX = 0;
+                    $transformY = 0;
+            }
+            $smallImageFile = uploadImageFile("{$name}_thumb",
+                $thumbExactX, $thumbExactY, $thumbMaxX, $thumbMaxY,
+                $transform, $transformX, $transformY);
+            if (!($smallImageFile instanceof ImageFile))
+                return imageUploadUserError($smallImageFile, true);
+            if ($smallImageFile->getId() == 0) {
+                if ($posting->small_image != 0)
+                    $smallImageFile = getImageFileById($posting->small_image);
+                else
+                    $smallImageFile = $largeImageFile;
+            }
+            break;
+
+        case 'auto':
+            $smallImageFile = thumbnailImageFile($largeImageFile, IFT_RESIZE,
+                $thumbMaxX, $thumbMaxY);
+            if (!($smallImageFile instanceof ImageFile))
+                return imageUploadUserError($smallImageFile, true);
+            if ($smallImageFile->getId() == 0)
+                $smallImageFile = $largeImageFile;
+            break;
+
+        case 'none':
+        default:
+            $smallImageFile = $largeImageFile;
+    }
+
+    $posting->small_image = $smallImageFile->getId();
+    $posting->small_image_x = $smallImageFile->getSizeX();
+    $posting->small_image_y = $smallImageFile->getSizeY();
+    $posting->small_image_format = $smallImageFile->getMimeType();
+    $posting->large_image = $largeImageFile->getId();
+    $posting->large_image_x = $largeImageFile->getSizeX();
+    $posting->large_image_y = $largeImageFile->getSizeY();
+    $posting->large_image_size = $largeImageFile->getFileSize();
+    $posting->large_image_format = $largeImageFile->getMimeType();
+    if (isset($_FILES[$name]))
+        $posting->large_image_filename = $_FILES[$name]['name'];
+
+    return EG_OK;
+}
 
 function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY, $transform,
                          $transformX, $transformY) {
     global $maxImageSize;
 
-    if (!isset($_FILES[$name]))
-        return EIFU_NO_FILE;
+    if (!isset($_FILES[$name]) || $_FILES[$name]['tmp_name'] == '')
+        return new ImageFile(array('id' => 0));
     $file = $_FILES[$name];
-    if ($file['tmp_name'] == '' || !is_uploaded_file($file['tmp_name'])
+    if (!is_uploaded_file($file['tmp_name'])
         || filesize($file['tmp_name']) != $file['size'])
         return EIFU_INVALID_FILE;
     if ($file['size'] > $maxImageSize)
@@ -412,7 +544,8 @@ function thumbnailImageFile(ImageFile $imageFile, $transform,
                             $transformX, $transformY) {
     global $thumbnailType;
 
-    if (isImageTransformed($imageFile, $transform, $transformX, $transformY))
+    if ($imageFile->getId() == 0
+        || isImageTransformed($imageFile, $transform, $transformX, $transformY))
         return $imageFile;
     $readyFile = getTransformedImageBySource($imageFile->getId(), $transform,
                                              $transformX, $transformY);

@@ -25,6 +25,7 @@ $imageUploadFlags = array(
     'noglass-' => IU_THUMB_NO_GLASS
 );
 
+// obsolete
 function imageUploadFlags($s) {
     global $imageUploadFlags;
     
