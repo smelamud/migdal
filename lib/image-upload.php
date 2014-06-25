@@ -479,7 +479,7 @@ function uploadStandardImage($name, Entry $posting, $flags,
     $posting->large_image_y = $largeImageFile->getSizeY();
     $posting->large_image_size = $largeImageFile->getFileSize();
     $posting->large_image_format = $largeImageFile->getMimeType();
-    if (isset($_FILES[$name]))
+    if (isset($_FILES[$name]) && $_FILES[$name]['tmp_name'] != '')
         $posting->large_image_filename = $_FILES[$name]['name'];
 
     return EG_OK;

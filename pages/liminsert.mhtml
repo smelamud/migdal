@@ -63,7 +63,7 @@
      <form_option title='$name' value='$.Id' selected!='$,ImageId==$.Id'>
     </for>
    </form_select>
-   <image_obj id='0'>
+   <image_obj id='$editid'>
    <setup>
    <form_section title='Загрузить из файла'>
    <form_select title='Заменить картинку из списка' name='append' style='box'>
@@ -81,6 +81,7 @@
    <error id='*EIU_UNKNOWN_THUMBNAIL'
 	  text='Формат маленькой картинки, указанный при конфигурации сервера,
 		не поддерживается'>
+   <error id='*EIU_INTERNAL_ERROR' text='Не удалось загрузить картинку'>
    <error id='*EVH_NO_PARENT' text='Такой темы не существует'>
    <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
    <error id='*EVH_LOOP' text='Сообщение не может быть подчиненным себе'>
@@ -107,14 +108,14 @@
     <edit name='small_image_y' value='$,SmallImageY' size=4 maxlength=4
           onkeypress='$("#hlm-yes").attr("checked", true)'>
    </form_line>
-   <hidden name='small_image' value='$small_image'>
-   <hidden name='small_image_format' value='$small_image_format'>
-   <hidden name='large_image' value='$large_image'>
-   <hidden name='large_image_x' value='$large_image_x'>
-   <hidden name='large_image_y' value='$large_image_y'>
-   <hidden name='large_image_size' value='$large_image_size'>
-   <hidden name='large_image_format' value='$large_image_format'>
-   <hidden name='large_image_filename' value='$large_image_filename'>
+   <hidden name='small_image' value='$,SmallImage'>
+   <hidden name='small_image_format' value='$,SmallImageFormat'>
+   <hidden name='large_image' value='$,LargeImage'>
+   <hidden name='large_image_x' value='$,LargeImageX'>
+   <hidden name='large_image_y' value='$,LargeImageY'>
+   <hidden name='large_image_size' value='$,LargeImageSize'>
+   <hidden name='large_image_format' value='$,LargeImageFormat'>
+   <hidden name='large_image_filename' value='$,LargeImageFilename'>
    <form_editor title='Подпись' name='title' body='$=,Title' rows=3>
    <form_section title='Размещение'>
    <hidden name='par' value='$par'>

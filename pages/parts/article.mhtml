@@ -39,7 +39,7 @@ if(!isset($editmodeHistory))
       <assign name='ititle' value='Insert a Picture'>
      </notenglish>
     </ifnzero>
-    <a href='${,GrpDetailsHref}images/insert/?par=$data.Par'
+    <a href='${,GrpDetailsHref}images/insert/?par=$data.Par&editid=$image.Id'
        class='eightpt'>$ititle</a>
     <ifnzero what='$image'>
      <notenglish>

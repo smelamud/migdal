@@ -73,6 +73,7 @@
      <error id='*EIU_UNKNOWN_THUMBNAIL'
 	    text='Формат маленькой картинки, указанный при конфигурации сервера,
 		  не поддерживается'>
+     <error id='*EIU_INTERNAL_ERROR' text='Не удалось загрузить картинку'>
      <error id='*EVH_NO_PARENT' text='Такой темы не существует'>
      <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
      <error id='*EVH_LOOP' text='Сообщение не может быть подчиненным себе'>
