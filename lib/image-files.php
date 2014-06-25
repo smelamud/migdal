@@ -12,13 +12,13 @@ require_once('lib/dataobject.php');
 class ImageFile
         extends DataObject {
 
-    private $id = 0;
-    private $mime_type = '';
-    private $size_x = 0;
-    private $size_y = 0;
-    private $file_size = 0;
-    private $created = 0;
-    private $accessed = 0;
+    protected $id = 0;
+    protected $mime_type = '';
+    protected $size_x = 0;
+    protected $size_y = 0;
+    protected $file_size = 0;
+    protected $created = 0;
+    protected $accessed = 0;
 
     public function __construct(array $row = array()) {
         parent::__construct($row);
