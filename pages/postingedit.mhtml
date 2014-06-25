@@ -219,6 +219,7 @@
   <error id='*EIU_UNKNOWN_THUMBNAIL'
 	 text='Формат маленькой картинки, указанный при конфигурации сервера,
 	       не поддерживается, либо вы загрузили картинку не этого формата'>
+  <error id='*EIU_INTERNAL_ERROR' text='Не удалось загрузить картинку'>
   <error id='*EP_LARGE_IMAGE_EXACT'
          text#='Картинка должна быть размером ${editor.ImageExactX}x$editor.ImageExactY'>
   <error id='*EP_LARGE_IMAGE_EXACT_X'
