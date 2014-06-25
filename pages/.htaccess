@@ -13,6 +13,7 @@ RewriteRule ^complains/ - [G]
 RewriteRule ^migdal/museum/catalog museum/index.php [L]
 RewriteRule ^([^.]+)$ /dispatcher.php
 RewriteRule ^([^.]+)\.html$ /dispatcher.php
+RewriteRule ^([^.]+)/migdal-(?:small-)?(?:\d+)-(\d+)\.(jpg|gif|png)$ $1/migdal-$2.$3 [R,L]
 RewriteCond %{REQUEST_URI} !dispatcher.php
 RewriteCond %{REQUEST_URI} !museum/index.php
 RewriteRule ^([^.]+)\.php.*$ /dispatcher.php
