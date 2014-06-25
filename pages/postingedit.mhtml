@@ -264,8 +264,8 @@
    <assign name='small_url' value=''>
    <assign name='large_url' value=''>
   </if>
-  <assign name='flags' value!='$editor.UploadFlags & *IU_THUMB'>
-  <if what='$flags!=*IU_THUMB_MANUAL && $flags!=*IU_THUMB_RESIZE'>
+  <assign name='flags' value='$editor.ThumbnailStyle'>
+  <if what="$flags!='manual' && $flags!='resize'">
    <form_uploader title='$=editor.Title' comment='$editor.Comment'
 		  name='image_file' loaded='$loaded' delname='del_image'
 		  small_url='$small_url' large_url='$large_url'

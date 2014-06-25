@@ -104,9 +104,16 @@ function getStyle()
 return $this->style;
 }
 
-function getUploadFlags()
+function getImageStyle()
 {
-return imageUploadFlags($this->getStyle());
+@list($thumbFlag, $imageFlag) = explode('-', $this->getStyle());
+return isset($imageFlag) && $imageFlag != '' ? $imageFlag : 'manual';
+}
+
+function getThumbnailStyle()
+{
+@list($thumbFlag, $imageFlag) = explode('-', $this->getStyle());
+return isset($thumbFlag) && $thumbFlag != '' ? $thumbFlag : 'auto';
 }
 
 function getBase()
