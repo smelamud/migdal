@@ -210,7 +210,6 @@
 <elif what="$ident=='image'">
  <if what='$visible'>
   <error id='*EP_IMAGE_ABSENT' text='Нужно указать картинку для отображения'>
-  <error id='*EP_NO_IMAGE' text='Указанной картинки не существует'>
   <error id='*EIU_UNKNOWN_IMAGE'
          text='Неизвестный формат картинки. Сайт понимает картинки только в
 	       форматах JPEG, PNG и GIF'>

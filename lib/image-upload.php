@@ -14,6 +14,7 @@ function imageUpload($name, Entry $posting, $flags, $thumbExactX, $thumbExactY,
                      $imageMaxX, $imageMaxY, $del, $resizeIfExists = false) {
     global $maxImageSize, $thumbnailType, $imageDir;
     
+    return EG_OK; //blocked
     if (isDebugLogging(LL_FUNCTIONS)) {
         debugLog(LL_FUNCTIONS, 'imageUpload(name=%,posting='.
                  imagePostingData($posting).',flags=%,thumbExactX=%,'.
@@ -504,8 +505,8 @@ function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY, $transform,
     if (!isImageTypeSupported($mimeType))
         return EIFU_INVALID_IMAGE_TYPE;
     $imageFile->setMimeType($mimeType);
-    if ($exactX > 0 && $sizeX != $exactX
-        || $exactY > 0 && $sizeY != $exactY)
+    if ($exactX > 0 && ($sizeX - $exactX) > 1
+        || $exactY > 0 && ($sizeY - $exactY) > 1)
         return EIFU_WRONG_IMAGE_SIZE;
     if ($maxX > 0 && $sizeX > $maxX
         || $maxY > 0 && $sizeY > $maxY)
