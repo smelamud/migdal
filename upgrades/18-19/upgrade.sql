@@ -32,4 +32,25 @@ ALTER TABLE `image_file_transforms` ADD UNIQUE (
 `size_y`
 );
 ALTER TABLE  `image_file_transforms` ADD INDEX (  `dest_id` );
+INSERT INTO image_files(id,mime_type,size_x,size_y,created,accessed)
+SELECT small_image,small_image_format,small_image_x,small_image_y,now(),now()
+FROM entries
+WHERE small_image<>0;
+INSERT INTO image_files(id,mime_type,size_x,size_y,file_size,created,accessed)
+SELECT large_image,large_image_format,large_image_x,large_image_y,large_image_size,now(),now()
+FROM entries
+WHERE small_image<>0 and large_image<>small_image;
+INSERT INTO image_file_transforms( dest_id, orig_id, transform, size_x, size_y )
+SELECT small_image, large_image, 1, 100, 100
+FROM entries
+WHERE entry =1
+AND small_image <>0
+AND large_image <> small_image;
+INSERT INTO image_file_transforms( dest_id, orig_id, transform, size_x, size_y )
+SELECT small_image, large_image, 1, small_image_x, small_image_y
+FROM entries
+WHERE entry =1
+AND small_image <>0
+AND large_image <> small_image;
+ALTER TABLE `image_files` AUTO_INCREMENT =25825;
 UPDATE `version` SET `db_version` = '19' WHERE `version`.`db_version` =18 LIMIT 1 ;

@@ -38,6 +38,8 @@ function getImageTypeCode($mime_type) {
 }
 
 function isImageTypeSupported($mime_type) {
+    global $imageTypeCodes;
+    
     return isset($imageTypeCodes[$mime_type])
            && (imagetypes() & $imageTypeCodes[$mime_type]) != 0;
 }

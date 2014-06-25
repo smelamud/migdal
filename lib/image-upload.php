@@ -5,6 +5,7 @@ require_once('conf/migdal.conf');
 
 require_once('lib/debug-log.php');
 require_once('lib/image-files.php');
+require_once('lib/image-file-transforms.php');
 require_once('lib/image-types.php');
 require_once('lib/image-upload-flags.php');
 
@@ -501,7 +502,8 @@ function uploadImageFile($name, $exactX, $exactY, $maxX, $maxY, $transform,
     $imageInfo = getimagesize($file['tmp_name']);
     if ($imageInfo === false)
         return EIFU_INVALID_IMAGE;
-    list($sizeX, $sizeY, , , $mimeType) = $imageInfo;
+    list($sizeX, $sizeY) = $imageInfo;
+    $mimeType = $imageInfo['mime'];
     if (!isImageTypeSupported($mimeType))
         return EIFU_INVALID_IMAGE_TYPE;
     $imageFile->setMimeType($mimeType);

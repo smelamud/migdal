@@ -12,13 +12,13 @@ require_once('lib/dataobject.php');
 class ImageFile
         extends DataObject {
 
-    private $id;
-    private $mime_type;
-    private $size_x;
-    private $size_y;
-    private $file_size;
-    private $created;
-    private $accessed;
+    private $id = 0;
+    private $mime_type = '';
+    private $size_x = 0;
+    private $size_y = 0;
+    private $file_size = 0;
+    private $created = 0;
+    private $accessed = 0;
 
     public function __construct(array $row = array()) {
         parent::__construct($row);
@@ -77,7 +77,7 @@ class ImageFile
     }
 
     public function getPath() {
-        return getImageFilePath($this->mime_type, $this->id);
+        return getImagePath($this->mime_type, $this->id);
     }
 
     public function getURL() {

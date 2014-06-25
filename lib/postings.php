@@ -485,7 +485,7 @@ class PostingListIterator
         }
         $posting = parent::create($row);
         if ($row['id'] > 0)
-            setCachedValue('obj', 'entries', $id, $posting);
+            setCachedValue('obj', 'entries', $row['id'], $posting);
         return $posting;
     }
 

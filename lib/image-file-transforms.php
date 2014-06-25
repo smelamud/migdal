@@ -13,14 +13,14 @@ const IFT_CLIP = 2; // Fill the rect and clip around
 class ImageFileTransform
         extends DataObject {
 
-    private $id;
-    private $dest_id;
-    private $orig_id;
-    private $transform;
-    private $size_x;
-    private $size_y;
+    private $id = 0;
+    private $dest_id = 0;
+    private $orig_id = 0;
+    private $transform = 0;
+    private $size_x = 0;
+    private $size_y = 0;
 
-    public function __construct(array $row) {
+    public function __construct(array $row = array()) {
         parent::__construct($row);
     }
 
