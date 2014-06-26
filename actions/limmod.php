@@ -1,6 +1,8 @@
 <?php
 # @(#) $Id$
 
+require_once('conf/migdal.conf');
+
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
 require_once('lib/session.php');
@@ -67,6 +69,7 @@ httpRequestInteger('large_image_size');
 httpRequestString('large_image_format');
 httpRequestString('large_image_filename');
 httpRequestInteger('del_image');
+httpRequestInteger('no_resize');
 httpRequestString('title');
 
 dbOpen();
@@ -75,9 +78,14 @@ $image = getImageById($append ? 0 : $editid);
 $original = clone $image;
 $image->setup($Args);
 $err = uploadStandardImage('image_file', $image,
-                           $has_large_image ? 'auto-manual' : 'none-manual',
+                           !$no_resize
+                           ? ($has_large_image ? 'auto-resize' : 'none-resize')
+                           : ($has_large_image ? 'auto-manual' : 'none-manual'),
                            0, 0, $small_image_x, $small_image_y,
-                           0, 0, 0, 0, $del_image);
+                           0, 0,
+                           !$no_resize ? $innerImageMaxWidth : 0,
+                           !$no_resize ? $innerImageMaxHeight : 0,
+                           $del_image);
 if ($err == EG_OK)
     $err = modifyImage($image, $original);
 if ($insert) {
@@ -121,6 +129,7 @@ if ($err == EG_OK) {
                 'large_image_filename_i',
                 'has_large_image',
                 'del_image',
+                'no_resize',
                 'okdir',
                 'faildir'
             )
@@ -155,7 +164,8 @@ if ($err == EG_OK) {
                 'large_image_size' => $image->large_image_size,
                 'large_image_format_i' => $largeImageFormatId,
                 'large_image_filename_i' => $largeImageFilenameId,
-                'title_i' => $titleId
+                'title_i' => $titleId,
+                'no_resize' => $no_resize
             )
         ).'#error'
     );

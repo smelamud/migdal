@@ -20,6 +20,7 @@
 <string name='large_image_format'>
 <string name='large_image_filename'>
 <string name='title'>
+<int name='no_resize'>
 
 <element name=place params='value'>
 <radio_button name='placement' value='$value'
@@ -117,6 +118,9 @@
    <hidden name='large_image_format' value='$,LargeImageFormat'>
    <hidden name='large_image_filename' value='$,LargeImageFilename'>
    <form_editor title='Подпись' name='title' body='$=,Title' rows=3>
+   <form_checkbox title='Загружать в высоком разрешении'
+                  comment='Использовать только в исключительных случаях'
+                  name='no_resize' style='box' checked!='$no_resize!=0'>
    <form_section title='Размещение'>
    <hidden name='par' value='$par'>
    <hidden name='x' value='$x'>

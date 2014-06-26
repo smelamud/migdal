@@ -6,6 +6,7 @@ require_once('lib/post.php');
 require_once('lib/catalog.php');
 require_once('lib/users.php');
 require_once('lib/postings.php');
+require_once('lib/images.php');
 
 function trapInteger(array $args, $name) {
     return isset($args[$name]) ? postProcessInteger($args[$name]) : 0;
