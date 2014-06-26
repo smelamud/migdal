@@ -9,7 +9,6 @@
 >>
 
 <grps>
-<image_upload>
 <ident name='editid'>
 <ident name='parent_id'>
 <int name='grp'>

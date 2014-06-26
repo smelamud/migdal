@@ -153,18 +153,6 @@ function writeImageFile($handle, $format, $id) {
     return $ok;
 }
 
-// obsolete
-function deleteImageFiles($small_image, $small_image_format,
-                          $large_image, $large_image_format) {
-    debugLog(LL_FUNCTIONS, 'deleteImageFiles(small_image=%,'.
-             'small_image_format=%,large_image=%,large_image_format=%)',
-             array($small_image, $small_image_format,
-                   $large_image, $large_image_format));
-    @unlink(getImagePath($small_image_format, $small_image));
-    if ($large_image != 0)
-        @unlink(getImagePath($large_image_format, $large_image));
-}
-
 function getImageFilename($format, $fileId = 0) {
     return "migdal-$fileId.".getMimeExtension($format);
 }
@@ -202,29 +190,6 @@ function getImageURL($format, $fileId = 0) {
 
 function imageFileExists($format, $fileId = 0) {
     return file_exists(getImagePath($format, $fileId));
-}
-
-// obsolete
-function setMaxImageFileId($max_id) {
-    sql("update image_files_c
-         set max_id=$max_id",
-        __FUNCTION__);
-}
-
-// obsolete
-function getNextImageFileId() {
-    sql('lock tables image_files_c write',
-        __FUNCTION__, 'lock');
-    $result = sql('select max_id
-                   from image_files_c',
-                  __FUNCTION__, 'select');
-    $id = mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
-    sql('update image_files_c
-         set max_id=max_id+1',
-        __FUNCTION__, 'update');
-    sql('unlock tables',
-        __FUNCTION__, 'unlock');
-    return $id;
 }
 
 // Если появятся ссылки на файлы картинок из других таблиц и полей, не забыть

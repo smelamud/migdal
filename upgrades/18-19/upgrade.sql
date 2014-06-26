@@ -53,4 +53,5 @@ WHERE entry =1
 AND small_image <>0
 AND large_image <> small_image;
 ALTER TABLE `image_files` AUTO_INCREMENT =25825;
+DROP TABLE `image_files_c`;
 UPDATE `version` SET `db_version` = '19' WHERE `version`.`db_version` =18 LIMIT 1 ;

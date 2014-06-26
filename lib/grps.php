@@ -1,7 +1,6 @@
 <?php
 require_once('lib/utils.php');
 require_once('lib/array.php');
-require_once('lib/image-upload-flags.php');
 require_once('conf/grps.php');
 
 function grpArray($grp)

@@ -12,7 +12,6 @@
 <decconst name='errors' file='lib/errors.php'>
 <decconst name='grps' file='lib/grps.php'>
 <decconst name='image_placements' file='lib/inner-images.php'>
-<decconst name='image_upload' file='lib/image-upload-flags.php'>
 <decconst name='link_types' file='lib/cross-entries.php'>
 <decconst name='modbits' file='lib/modbits.php'>
 <decconst name='relogin' file='lib/logging.php'>
