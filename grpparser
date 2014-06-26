@@ -61,7 +61,7 @@ while($self->{'current'}=~/^\s*$/)
      $self->{'line'}++;
      $current='',last if !defined($current);
      chomp $current;
-     $current=~s/^#.*$//;
+     $current=~s/^\s*#.*$//;
      $current=~s/\/\/.*$//;
      $current=~s/\/\*.*\*\///;
      if($self->{'comment'}!=0)
@@ -506,7 +506,7 @@ my ($name)=@_;
 
 my $Name=ucfirst $name;
 my $composite=0;
-print GRPS "\$$arrayPrefix$Name=array(\n";
+print GRPS "\$$arrayPrefix$Name = array(\n";
 for(@Classes)
    {
    my $flag=$constPrefix.$_->getFlag();
