@@ -399,10 +399,10 @@
   <notprint>
    <link rel='alternate' media='print' href='$[print=1]'>
   </notprint>
-  <ifne what='$$rss_href'>
+  <if what="isset($$rss_href) && $$rss_href != ''">
    <link rel="alternate" type="application/rss+xml" title="RSS"
 	 href="http://$userDomain.$siteDomain$$rss_href">
-  </ifne>
+  </if>
   <link rel='search' href='/search'>
   <ifne what="'%stylesheet'">
    <link rel='stylesheet' href='%stylesheet'>

@@ -10,13 +10,13 @@ require_once('lib/sql.php');
 class ChatMessage
         extends UserTag {
 
-    private $id;
-    private $guest_login;
-    private $sender_id;
-    private $private_id;
-    private $sent;
-    private $text;
-    private $text_xml;
+    protected $id;
+    protected $guest_login;
+    protected $sender_id;
+    protected $private_id;
+    protected $sent;
+    protected $text;
+    protected $text_xml;
 
     public function __construct(array $row) {
         parent::__construct($row);

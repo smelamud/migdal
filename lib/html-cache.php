@@ -9,173 +9,157 @@ require_once('lib/time.php');
 require_once('lib/debug-log.php');
 
 class HTMLCacheRecord
-      extends DataObject
-{
-var $ident='';
-var $content=null;
-var $deadline=null;
-var $postings_version=null;
-var $forums_version=null;
-var $topics_version=null;
+        extends DataObject {
 
-var $condition=true;
+    protected $ident = '';
+    protected $content = null;
+    protected $deadline = null;
+    protected $postings_version = null;
+    protected $forums_version = null;
+    protected $topics_version = null;
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    protected $condition = true;
 
-function getIdent()
-{
-return $this->ident;
-}
+    public function __construct(array $row = array()) {
+        parent::__construct($row);
+    }
 
-function getContent()
-{
-return $this->content;
-}
+    public function getIdent() {
+        return $this->ident;
+    }
 
-function isEmpty()
-{
-return empty($this->content);
-}
+    public function getContent() {
+        return $this->content;
+    }
 
-function getDeadline()
-{
-return $this->deadline!=null ? strtotime($this->deadline) : null;
-}
+    public function isEmpty() {
+        return empty($this->content);
+    }
 
-function getPostingsVersion()
-{
-return $this->postings_version;
-}
+    public function getDeadline() {
+        return $this->deadline != null ? strtotime($this->deadline) : null;
+    }
 
-function getForumsVersion()
-{
-return $this->forums_version;
-}
+    public function getPostingsVersion() {
+        return $this->postings_version;
+    }
 
-function getTopicsVersion()
-{
-return $this->topics_version;
-}
+    public function getForumsVersion() {
+        return $this->forums_version;
+    }
 
-function isCondition()
-{
-return $this->condition;
-}
+    public function getTopicsVersion() {
+        return $this->topics_version;
+    }
+
+    public function isCondition() {
+        return $this->condition;
+    }
 
 }
 
-$htmlCacheStack=array();
+$htmlCacheStack = array();
 
-function pushHTMLCacheStack($record)
-{
-global $htmlCacheStack;
+function pushHTMLCacheStack($record) {
+    global $htmlCacheStack;
 
-array_push($htmlCacheStack,$record);
+    array_push($htmlCacheStack, $record);
 }
 
-function popHTMLCacheStack()
-{
-global $htmlCacheStack;
+function popHTMLCacheStack() {
+    global $htmlCacheStack;
 
-if(count($htmlCacheStack)==0)
-  bug('&lt;/html_cache&gt; without corresponding &lt;html_cache&gt;.');
-return array_pop($htmlCacheStack);
+    if (count($htmlCacheStack) == 0)
+        bug('&lt;/html_cache&gt; without corresponding &lt;html_cache&gt;.');
+    return array_pop($htmlCacheStack);
 }
 
-function getHTMLCacheRecord($ident,$period=null,$depends=array(),
-                            $condition=true)
-{
-global $htmlCache,$contentVersions;
+function getHTMLCacheRecord($ident, $period = null, $depends = array(),
+                            $condition = true) {
+    global $htmlCache, $contentVersions;
 
-debugLog(LL_FUNCTIONS,
-         'getHTMLCacheRecord(ident=%,...)',
-	 array($ident));
+    debugLog(LL_FUNCTIONS,
+             'getHTMLCacheRecord(ident=%,...)',
+             array($ident));
 
-if($htmlCache && $condition)
-  {
-  $now=sqlNow();
-  $filter='';
-  if($period!=null)
-    $filter.=" and deadline>='$now'";
-  foreach($depends as $dep)
-	 {
-	 $name="${dep}_version";
-	 if(isset($contentVersions[$name]))
-	   $filter.=" and $name>=".$contentVersions[$name];
-	 }
-  $result=sql("select ident,content,deadline
-	       from html_cache
-	       where ident='$ident' $filter",
-	      __FUNCTION__);
-  if(mysql_num_rows($result)>0)
-    return new HTMLCacheRecord(mysql_fetch_assoc($result));
-  }
+    if ($htmlCache && $condition) {
+        $now = sqlNow();
+        $filter = '';
+        if ($period != null)
+            $filter .= " and deadline>='$now'";
+        foreach($depends as $dep) {
+            $name = "${dep}_version";
+            if (isset($contentVersions[$name]))
+                $filter .= " and $name>=".$contentVersions[$name];
+        }
+        $result = sql("select ident,content,deadline
+                       from html_cache
+                       where ident='$ident' $filter",
+                      __FUNCTION__);
+        if (mysql_num_rows($result) > 0)
+            return new HTMLCacheRecord(mysql_fetch_assoc($result));
+    }
 
-$vars=array('ident' => $ident,
-	    'deadline' => $period!=null ? sqlDate(ourtime()+$period) : null,
-	    'condition' => $htmlCache && $condition);
-foreach($depends as $dep)
-       {
-       $name="${dep}_version";
-       if(isset($contentVersions[$name]))
-	 $vars[$name]=$contentVersions[$name];
-       }
-return new HTMLCacheRecord($vars);
+    $vars = array('ident' => $ident,
+                  'deadline' => $period != null ? sqlDate(ourtime() + $period)
+                                                : null,
+                  'condition' => $htmlCache && $condition);
+    foreach($depends as $dep) {
+        $name = "${dep}_version";
+        if (isset($contentVersions[$name]))
+            $vars[$name] = $contentVersions[$name];
+    }
+    return new HTMLCacheRecord($vars);
 }
 
-function storeHTMLCacheRecord($record,$content)
-{
-debugLog(LL_FUNCTIONS,
-         'storeHTMLCacheRecord(record.ident=%,...)',
-	 array($record->ident));
+function storeHTMLCacheRecord(HTMLCacheRecord $record, $content) {
+    debugLog(LL_FUNCTIONS,
+             'storeHTMLCacheRecord(record.ident=%,...)',
+             array($record->getIdent()));
 
-if(!$record->condition)
-  return;
-$vars=array('ident' => $record->ident,
-            'content' => $content,
- 	    'deadline' => $record->deadline,
-	    'postings_version' => $record->postings_version,
-	    'forums_version' => $record->forums_version,
-	    'topics_version' => $record->topics_version);
-sql(sqlReplace('html_cache',$vars),
-    __FUNCTION__);
+    if (!$record->isCondition())
+        return;
+    $vars = array('ident' => $record->getIdent(),
+                  'content' => $content,
+                  'deadline' => $record->getDeadline(),
+                  'postings_version' => $record->getPostingsVersion(),
+                  'forums_version' => $record->getForumsVersion(),
+                  'topics_version' => $record->getTopicsVersion());
+    sql(sqlReplace('html_cache', $vars),
+        __FUNCTION__);
 }
 
-function contentVersions()
-{
-global $contentVersions;
+function contentVersions() {
+    global $contentVersions;
 
-$result=sql('select postings_version,forums_version,topics_version
-             from content_versions',
-	    __FUNCTION__);
-if(mysql_num_rows($result)>0)
-  $contentVersions=mysql_fetch_assoc($result);
-else
-  $contentVersions=array();
+    $result = sql('select postings_version,forums_version,topics_version
+                   from content_versions',
+                  __FUNCTION__);
+    if (mysql_num_rows($result) > 0)
+        $contentVersions = mysql_fetch_assoc($result);
+    else
+        $contentVersions = array();
 }
 
-function incContentVersions($depends)
-{
-global $contentVersions;
+function incContentVersions($depends) {
+    global $contentVersions;
 
-if(!is_array($depends))
-  incContentVersions(array($depends));
-$ops=array();
-foreach($depends as $dep)
-       {
-       $name="${dep}_version";
-       if(isset($contentVersions[$name]))
-         {
-	 $contentVersions[$name]++;
-	 $ops[]="$name=$name+1";
-	 }
-       }
-if(count($ops)>0)
-  sql('update content_versions
-       set '.join(',',$ops),
-      __FUNCTION__);
+    if (!is_array($depends)) {
+        incContentVersions(array($depends));
+        return;
+    }
+    $ops = array();
+    foreach ($depends as $dep) {
+        $name = "${dep}_version";
+        if (isset($contentVersions[$name])) {
+            $contentVersions[$name]++;
+            $ops[] = "$name=$name+1";
+        }
+    }
+    if (count($ops) > 0) {
+        sql('update content_versions
+             set '.join(',', $ops),
+            __FUNCTION__);
+    }
 }
 ?>

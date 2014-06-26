@@ -16,6 +16,7 @@ const EIFU_WRONG_IMAGE_SIZE = 5;
 const EIFU_CANNOT_MOVE = 6;
 const EIFU_CANNOT_READ = 7;
 const EIFU_CANNOT_WRITE = 8;
+const EIFU_IMAGE_LARGE = 9;
 
 function imageUploadUserError($err, $isThumbnail) {
     switch ($err) {
@@ -26,6 +27,10 @@ function imageUploadUserError($err, $isThumbnail) {
 
         case EIFU_FILE_LARGE:
             return isThumbnail ? EIU_IMAGE_LARGE : EIU_THUMBNAIL_LARGE;
+
+        case EIFU_IMAGE_LARGE:
+            return isThumbnail ? EIU_LARGE_IMAGE_SIZE
+                               : EIU_LARGE_THUMBNAIL_SIZE;
 
         case EIFU_WRONG_IMAGE_SIZE:
             return isThumbnail ? EIU_WRONG_IMAGE_SIZE
@@ -74,18 +79,26 @@ function uploadStandardImage($name, Entry $posting, $flags,
 
     switch ($imageFlag) {
         case 'resize':
+            $exactX = 0;
+            $exactY = 0;
+            $maxX = 0;
+            $maxY = 0;
             $transform = IFT_RESIZE;
             $transformX = $imageMaxX;
             $transformY = $imageMaxY;
             break;
 
         default:
+            $exactX = $imageExactX;
+            $exactY = $imageExactY;
+            $maxX = $imageMaxX;
+            $maxY = $imageMaxY;
             $transform = IFT_NULL;
             $transformX = 0;
             $transformY = 0;
     }
-    $largeImageFile = uploadImageFile($name, $imageExactX, $imageExactY,
-        $imageMaxX, $imageMaxY, $transform, $transformX, $transformY);
+    $largeImageFile = uploadImageFile($name, $exactX, $exactY, $maxX, $maxY,
+                                      $transform, $transformX, $transformY);
     if (!($largeImageFile instanceof ImageFile))
         return imageUploadUserError($largeImageFile, false);
     if ($largeImageFile->getId() == 0 && $posting->large_image != 0)

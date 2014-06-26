@@ -16,6 +16,7 @@ if(!isset($editmodeHistory))
 
 <callback name='article_image'>
 <assign name='image' value='$data.Image'>
+<assign name='has_image' value!='$image instanceof Entry'>
 <ifne what='$data.Align'>
  <assign name='align' value#='style="float: $data.Align; clear: $data.Align"'>
 <else>
@@ -26,7 +27,7 @@ if(!isset($editmodeHistory))
   <if what='$$editmode'>
    <posting_obj id='$data.Id'>
    <tr><td align='center'>
-    <ifnzero what='$image'>
+    <if what='$has_image'>
      <notenglish>
       <assign name='ititle' value='Изменить картинку'>
      <else>
@@ -38,10 +39,15 @@ if(!isset($editmodeHistory))
      <else>
       <assign name='ititle' value='Insert a Picture'>
      </notenglish>
-    </ifnzero>
-    <a href='${,GrpDetailsHref}images/insert/?par=$data.Par&editid=$image.Id'
-       class='eightpt'>$ititle</a>
-    <ifnzero what='$image'>
+    </if>
+    <if what='$has_image'>
+     <a href='${,GrpDetailsHref}images/insert/?par=$data.Par&editid=$image.Id'
+        class='eightpt'>$ititle</a>
+    <else>
+     <a href='${,GrpDetailsHref}images/insert/?par=$data.Par'
+        class='eightpt'>$ititle</a>
+    </if>
+    <if what='$has_image'>
      <notenglish>
       <assign name='dtitle' value='Убрать картинку'>
      <else>
@@ -50,11 +56,11 @@ if(!isset($editmodeHistory))
      <br>
      <a href='/actions/posting/image/modify?edittag=1&insert=1&postid=$data.Id&editid=0&par=$data.Par&okdir=$#-&faildir=$#-'
         class='eightpt'>$dtitle</a>
-    </ifnzero>
+    </if>
    </td></tr>
   </if>
  </notprint>
- <ifnzero what='$image'>
+ <if what='$has_image'>
   <tr><td align='center'>
    <posting_image posting='$image' title_large='$image.TitleLineHTML'
                   rel#='article-$data.Id'>
@@ -62,7 +68,7 @@ if(!isset($editmodeHistory))
   <ifne what='$image.Title'>
    <tr><td class='image-title' align='center'>$image.TitleHTML</td></tr>
   </ifne>
- </ifnzero>
+ </if>
 </inner></table></outer>
 </callback>
 

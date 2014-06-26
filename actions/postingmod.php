@@ -32,6 +32,8 @@ function imageSizeErrorCode($err, $imageEditor) {
             return EP_LARGE_IMAGE_EXACT_X;
         if ($imageEditor['imageExactY'] > 0)
             return EP_LARGE_IMAGE_EXACT_Y;
+    }
+    if ($err == EIU_LARGE_IMAGE_SIZE) {
         if ($imageEditor['imageMaxX'] > 0 && $imageEditor['imageMaxY'] > 0)
             return EP_LARGE_IMAGE_MAX;
         if ($imageEditor['imageMaxX'] > 0)
@@ -46,6 +48,8 @@ function imageSizeErrorCode($err, $imageEditor) {
             return EP_SMALL_IMAGE_EXACT_X;
         if ($imageEditor['thumbExactY'] > 0)
             return EP_SMALL_IMAGE_EXACT_Y;
+    }
+    if ($err == EIU_LARGE_THUMBNAIL_SIZE) {
         if ($imageEditor['thumbMaxX'] > 0 && $imageEditor['thumbMaxY'] > 0)
             return EP_SMALL_IMAGE_MAX;
         if ($imageEditor['thumbMaxX'] > 0)
