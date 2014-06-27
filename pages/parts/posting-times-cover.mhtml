@@ -23,16 +23,14 @@
    &lt;&lt;Мигдаль Times&gt;&gt; &no;$posting.getIssues</a>
  </dt>
  <dd><p>
- <ifnzero what='$posting.hasSmallImage'>
-  <table align=left class='pic'>
-   <tr><td>
-    <posting_image posting='$posting' title_large='$posting.TitleLineHTML'>
-   </td></tr>
+ <if what='$posting.hasImage'>
+  <div class='pic' style='width: ${posting.SmallImageX}px'>
+   <posting_image posting='$posting' title_large='$posting.TitleLineHTML'>
    <ifne what='$posting.Title'>
-    <tr><td>$posting.TitleHTML</td></tr>
+    <div class='pic-title'>$posting.TitleLineHTML</div>
    </ifne>
-  </table>
- </ifnzero>
+  </div>
+ </if>
  $posting.BodyHTML<asp>
  <further posting='$posting'>
  <div class='sent' style="clear: left">
