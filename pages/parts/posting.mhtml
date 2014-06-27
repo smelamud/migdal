@@ -70,7 +70,7 @@
 </ifne>
 <if what='$posting.hasLargeImage'>
  <ife what='$href'>
-  <div class='pic-glass'>
+  <div class='pic-glass' style='width: ${posting.SmallImageX}px'>
    <a class='enlargeable' href='$posting.LargeImageURL'
       data-title-large='$title_large' $rl>
  <else>
