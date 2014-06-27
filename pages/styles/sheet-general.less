@@ -63,14 +63,25 @@ A IMG {
 }
 
 .pic {
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 2ex;
+
+    .pic-rating {
+        text-align: right;
+        margin-bottom: 1pt;
+    }
+
     IMG {
+        display: block;
         border: 1px solid @image_border;
     }
 
-    &, TD, P {
-        text-align: center;
-        font-style: italic;
+    .pic-title {
+        margin-top: .5ex;
+        text-align: left;
         font-size: 8pt;
+        font-style: italic;
     }
 }
 

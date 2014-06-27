@@ -98,10 +98,10 @@
     <iterate_postinglist topic_id='$event.Id' grp='*GRP_DAILY_GALLERY'
 			 sort='*SORT_RATING' limit=0
 			 index1!='$posting.Id!=0 ? $posting.Index1 : $day'>
-    <outer><td width=140><inner>
+    <outer><td width=130><inner>
      <for>
       <if what='$;isOdd'>
-       <daily_picture picture='$.' rel#='gallery-$event.Id'>
+       <p><daily_picture picture='$.' rel#='gallery-$event.Id'></p>
       </if>
      </for>
     </inner></td></outer>
@@ -128,11 +128,11 @@
      </ifnzero>
      <rss>
     </td>
-    <outer><td width=140><inner>
+    <outer><td width=130 style='padding-left: 20px'><inner>
      <rewind_iterator>
      <for>
       <if what='!$;isOdd'>
-       <daily_picture picture='$.' rel#='gallery-$event.Id'>
+       <p><daily_picture picture='$.' rel#='gallery-$event.Id'></p>
       </if>
      </for>
     </inner></td></outer>

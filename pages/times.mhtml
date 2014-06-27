@@ -87,9 +87,9 @@
    </editor>
    <tr><td colspan=2><select_issue></td></tr>
    <tr valign=top>
-    <td class='pic' width=120>
-     <img border=0 width='$$cover.ImageX' height='$$cover.ImageY'
-	  src='$$cover.ImageURL'>
+    <td class='pic' width='$$cover.ImageX'>
+     <img width='$$cover.ImageX' height='$$cover.ImageY'
+          src='$$cover.ImageURL'>
     </td>
     <td>
      <vote_panel align='right' id='$$cover.Id' rating='$$cover.Rating'>
@@ -193,21 +193,19 @@
   <islast what='$covers'>
    <assign name='nlast' value='$.Index1'>
   </islast>
-  <table>
-   <tr><td align=right>
+  <div class='pic' style='width: ${.SmallImageX}px'>
+   <div class='pic-rating'>
     <rating value='$.Rating'>
-   </td></tr>
-   <tr><td class='pic'>
-    <posting_image posting='$.' href#='/times/$.Index1/'>
-   </td></tr>
-   <tr><td align=center><b>
+   </div>
+   <posting_image posting='$.' href#='/times/$.Index1/'>
+   <div class='pic-title'>
     <if what='$$issue!=$.Index1'>
      <a href='/times/$.Index1/'>&no;$.getIssues</a>
     <else>
       &no;$.getIssues
     </if>
-   </b></td></tr>
-  </table>
+   </div>
+  </div>
   <p>
  </for>
  <sibling_index grp='*GRP_TIMES_COVERS' index1='$nlast' next='*false'>
@@ -261,7 +259,7 @@
     </td>
    </tr></table>
   </td>
-  <td width=80 align=center class='mtimes'>
+  <td width=80 align=center class='mtimes-navigator'>
    <navigator>
   </td>
  </tr></table>

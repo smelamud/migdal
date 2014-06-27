@@ -17,41 +17,39 @@
     <subtitle>
     <iterate_topiclist grp='*GRP_EVENT' up='$`migdal.events`' recursive='*true'
                        level=2 sort='*SORT_RINDEX2_RINDEX0'
-		       fields='*SELECT_INFO' limit=5>
-    <table width=100% style='margin: 0'><tr valign='center'>
-     <td width=200 align='center' class='pic'>
-      <assign name='picid' value=0>
-      <assign name='topic_name' value=''>
-      <assign name='topic_path' value=''>
+                       fields='*SELECT_INFO' limit=5>
+    <div style='width: 100%; padding-left: 4em'>
+     <assign name='picid' value=0>
+     <assign name='topic_name' value=''>
+     <assign name='topic_path' value=''>
+     <for>
+      <if what='$picid<=0'>
+       <array val1='*GRP_DAILY_GALLERY' val2='*GRP_GALLERY'>
+       <posting_random grp='$*' topic_id='$.Id'>
+       <assign name='picid' value='$,'>
+       <assign name='topic_name' value='$.Subject'>
+       <assign name='topic_path' value#='/$.Catalog'>
+      </if>
+     </for>
+     <posting_obj id='$picid' grp='*GRP_GALLERY'>
+     <if what='$,hasImage'>
+      <div class='pic' style='width: ${posting.SmallImageX}px'>
+       <posting_image posting='$,' href='$topic_path'>
+       <div class='pic-title'>$=topic_name</div>
+      </div>
+     </ifnzero>
+     <div class='textears-title' style='margin-left: 100px'>
+      Последние события:
+     </div>
+     <ul class='ninept' style='margin-left: 100px'>
+      <rewind_iterator>
       <for>
-       <if what='$picid<=0'>
-        <array val1='*GRP_DAILY_GALLERY' val2='*GRP_GALLERY'>
-        <posting_random grp='$*' topic_id='$.Id'>
-	<assign name='picid' value='$,'>
-	<assign name='topic_name' value='$.Subject'>
-	<assign name='topic_path' value#='/$.Catalog'>
-       </if>
+       <li>
+        <a href='/$.Catalog' title='$=.BodyNormal'>$=.Comment0</a>
+       </li>
       </for>
-      <posting_obj id='$picid' grp='*GRP_GALLERY'>
-      <if what='$,hasSmallImage'>
-       <posting_image posting='$,' href='$topic_path'><br>
-       $=topic_name
-      <else>
-       &nbsp;
-      </ifnzero>
-     </td>
-     <td align='left'><table style='margin: 0'>
-      <tr><td class='textears-title'>Последние события:</td></tr>
-      <tr><td><ul class='ninept'>
-       <rewind_iterator>
-       <for>
-	<li>
-	 <a href='/$.Catalog' title='$=.BodyNormal'>$=.Comment0</a>
-	</li>
-       </for>
-      </ul></td></tr>
-     </table></td>
-    </tr></table>
+     </ul>
+    </div>
     <table width=100% cellspacing=0 cellpadding=0 class='eightpt'>
      <tr>
       <td rowspan=2 width=15% height=5>&nbsp;</td>
@@ -66,10 +64,10 @@
      <table width=100% cellpadding=10 cellspacing=0><tr valign='top'>
       <for>
        <td width=180>
-	<topics_common_events id='$.Id' class_line='none'>
+        <topics_common_events id='$.Id' class_line='none'>
        </td>
        <if what='$;isEol'>
-	<td>&nbsp;</td></tr><tr valign='top'>
+        <td>&nbsp;</td></tr><tr valign='top'>
        </if>
       </for>
      </tr></table>

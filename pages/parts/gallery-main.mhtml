@@ -24,7 +24,8 @@
 <element name='announce' params='posting,count'>
 <table class='posting' width=100%>
  <tr valign=top>
-  <td align=center width='$$thumbnailWidth' class='pic'>
+  <td align=center width='$$thumbnailWidth' class='pic'
+      style='float: none; padding-top: 20px'>
    <ifnzero what='$posting.SmallImage'>
     <posting_image posting='$posting'>
    </ifnzero>

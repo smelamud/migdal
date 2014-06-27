@@ -25,7 +25,6 @@
   <vote id='$id'>
   <table cellspacing='0' cellpadding='0' $al>
    <tr valign='center' height='12'>
-    <td width='70' align='right'>Рейтинг:&nbsp;&nbsp;</td>
     <td width='12'><asp>
      <if what='$,<0'>
       <logged>

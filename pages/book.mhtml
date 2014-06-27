@@ -32,10 +32,10 @@
     <tr valign=top>
      <td width=100>&nbsp;</td>
      <td>
-      <if what='$,hasSmallImage'>
-       <table class='pic' align=left style='padding-right: 5px'><tr><td>
+      <if what='$,hasImage'>
+       <div class='pic' style='width: ${posting.SmallImageX}px'>
         <posting_image posting='$,'>
-       </td></tr></table>
+       </div>
       </ifnzero>
       <topiclink posting='$,'>
       <ifne what='$,Author'>
