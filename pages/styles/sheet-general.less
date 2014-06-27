@@ -74,6 +74,22 @@ A IMG {
     }
 }
 
+.pic-glass {
+    position: relative;
+
+    .glass {
+        display: none;
+        position: absolute;
+        width: @glass_pic_width;
+        height: @glass_pic_height;
+        background-image: url(@glass_pic);
+    }
+
+    &:hover .glass {
+        display: block;
+    }
+}
+
 .icon {
 	position: relative;
 	top: +2px;

@@ -70,15 +70,21 @@
 </ifne>
 <if what='$posting.hasLargeImage'>
  <ife what='$href'>
-  <a class='enlargeable' href='$posting.LargeImageURL'
-     title='Нажмите, чтобы увеличить'
-     data-title-large='$title_large' $rl>
+  <div class='pic-glass'>
+   <a class='enlargeable' href='$posting.LargeImageURL'
+      data-title-large='$title_large' $rl>
  <else>
   <a href='$href'>
  </ife>
-  <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
-            $al $alt src='$posting.SmallImageURL'><asp>
- </a>
+    <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
+              $al $alt src='$posting.SmallImageURL'><asp>
+  </a>
+ <ife what='$href'>
+   <assign name='glass_x' value!='$posting.SmallImageX - 22'>
+   <assign name='glass_y' value!='$posting.SmallImageY - 22'>
+   <div class='glass' style='top: ${glass_y}px; left: ${glass_x}px'></div>
+  </div>
+ </ife>
 <else>
  <ifne what='$href'>
   <a href='$href'>
