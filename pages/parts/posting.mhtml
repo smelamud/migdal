@@ -56,11 +56,11 @@
 </element>
 
 <element name='posting_image'>
-<assign name='al' value=''>
+<assign name='float' value='float: none'>
 <assign name='alt' value=''>
 <assign name='rl' value=''>
 <ifne what='$align'>
- <assign name='al' value#='align="$align"'>
+ <assign name='float' value#='float: $align'>
 </ifne>
 <ifne what='$title'>
  <assign name='alt' value#='alt="$=title" title="$=title"'>
@@ -68,33 +68,36 @@
 <ifne what='$rel'>
  <assign name='rl' value#='rel="$rel"'>
 </ifne>
-<if what='$posting.hasLargeImage'>
- <ife what='$href'>
-  <div class='pic-glass' style='width: ${posting.SmallImageX}px'>
+<div class='pic' style='width: ${posting.SmallImageX}px; $float'>
+ <if what='$posting.hasLargeImage'>
+  <ife what='$href'>
    <a class='enlargeable' href='$posting.LargeImageURL'
       data-title-large='$title_large' $rl>
- <else>
-  <a href='$href'>
- </ife>
-    <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
-              $al $alt src='$posting.SmallImageURL'><asp>
+  <else>
+   <a href='$href'>
+  </ife>
+  <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
+            $alt src='$posting.SmallImageURL'><asp>
   </a>
- <ife what='$href'>
+  <ife what='$href'>
    <assign name='glass_x' value!='$posting.SmallImageX - 22'>
    <assign name='glass_y' value!='$posting.SmallImageY - 22'>
    <div class='glass' style='top: ${glass_y}px; left: ${glass_x}px'></div>
-  </div>
- </ife>
-<else>
- <ifne what='$href'>
-  <a href='$href'>
- </ifne>
-  <asp><img width='$posting.ImageX' height='$posting.ImageY' $al $alt
+  </ife>
+ <else>
+  <ifne what='$href'>
+   <a href='$href'>
+  </ifne>
+  <asp><img width='$posting.ImageX' height='$posting.ImageY' $alt
         src='$posting.ImageURL'><asp>
- <ifne what='$href'>
-  </a>
+  <ifne what='$href'>
+   </a>
+  </ifne>
+ </if>
+ <ifne what='$title_large'>
+  <div class='pic-title'>$title_large</div>
  </ifne>
-</if>
+</div>
 </element>
 
 <element name='posting_controls'>

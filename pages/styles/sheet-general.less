@@ -63,14 +63,9 @@ A IMG {
 }
 
 .pic {
-    float: left;
+    position: relative;
     margin-right: 1em;
     margin-bottom: 2ex;
-
-    .pic-rating {
-        text-align: right;
-        margin-bottom: 1pt;
-    }
 
     IMG {
         display: block;
@@ -83,10 +78,6 @@ A IMG {
         font-size: 8pt;
         font-style: italic;
     }
-}
-
-.pic-glass {
-    position: relative;
 
     .glass {
         display: none;
@@ -99,6 +90,11 @@ A IMG {
     &:hover .glass {
         display: block;
     }
+}
+
+.pic-rating {
+    text-align: right;
+    margin-bottom: 1pt;
 }
 
 .icon {

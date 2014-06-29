@@ -2,24 +2,17 @@
 
 <element name='daily_picture'>
 <div>
- <div>
+ <div style='margin-left: auto; margin-right: auto'>
   <vote_panel id='$picture.Id' rating='$picture.Rating'>
  </div>
  <if what='$picture.hasSmallImage'>
-  <div style='align: center'>
-   <posting_image posting='$picture' title_large='$picture.TitleLineHTML'
-                  rel='$rel'>
-  </div>
+  <posting_image posting='$picture' title_large='$picture.TitleLineHTML'
+                 rel='$rel'>
  </if>
  <iswrite what='$picture'>
   <div class='eightpt' style='align: center'>
    <editlink posting='$picture'>
   </div>
  </iswrite>
- <ifne what='$picture.TitleHTML'>
-  <div class='image-title' style='width: 120px'>
-   $picture.TitleLineHTML
-  </div>
- </ifne>
 </div>
 </element>

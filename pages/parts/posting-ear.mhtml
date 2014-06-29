@@ -4,9 +4,8 @@
 <table class='posting'>
  <tr valign=top>
   <td width=150>
-   <a href='$posting.URL'><asp>
-    <posting_image posting='$posting'></a>
-    <p class='sent'>$posting.Sent@j.$posting.Sent@m.$posting.Sent@Y</p>
+   <posting_image posting='$posting' href='$posting.URL'>
+   <p class='sent'>$posting.Sent@j.$posting.Sent@m.$posting.Sent@Y</p>
   </td>
   <td width=5>&nbsp;</td>
   <td width=250>

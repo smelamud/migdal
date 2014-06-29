@@ -38,11 +38,6 @@
   </td></tr>
  </if>
  <controls picture='$picture'>
- <ifne what='$picture.TitleHTML'>
-  <tr><td class='body ninept'>
-   $picture.TitleHTML
-  </td></tr>
- </ifne>
  <ifne what='$picture.Source'>
   <tr><td class='source eightpt' align=right>
    $picture.SourceHTML

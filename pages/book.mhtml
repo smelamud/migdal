@@ -33,9 +33,7 @@
      <td width=100>&nbsp;</td>
      <td>
       <if what='$,hasImage'>
-       <div class='pic' style='width: ${posting.SmallImageX}px'>
-        <posting_image posting='$,'>
-       </div>
+       <posting_image posting='$,'>
       </ifnzero>
       <topiclink posting='$,'>
       <ifne what='$,Author'>
@@ -48,43 +46,43 @@
       <p style='clear: left'>$,BodyHTML</p>
       <notprint>
        <zone>
-	<sibling_id up='$,OrigId' index0='*SIBLING_EDGE' next='*true'>
-	<if what='$,>0'>
-	 <p>
-	  <table class='ring' cellpadding=0>
-	   <tr valign=center>
-	    <td align=right><image src='/pics/further.gif'></td>
-	    <td>&nbsp;</td>
-	    <td><a href='${book.GrpDetailsHref}$,/'>Читать книгу</a></td>
-	   </tr>
-	   <tr valign=center>
-	    <td align=right><image src='/pics/print.gif'></td>
-	    <td>&nbsp;</td>
-	    <td>
-	     <a href='${book.GrpDetailsHref}print/'>Вся книга для печати</a>
-	    </td>
-	   </tr>
-	   <<iterate_packages posting_id='$postid'>
-	   <for>
-	    <tr valign=center>
-	     <td align=right><image src='/pics/package.gif'></td>
-	     <td>&nbsp;</td>
-	     <td>
-	      <if what='$.Type==*PT_BOOK_ONEFILE'>
-	       <assign name='title' value='Вся книга одним файлом в архиве'>
-	      <else>
-	       <assign name='title' value='Вся книга по главам в архиве'>
-	      </if>
-	      <a href='$.Href'>$title</a>
-	     </td>
-	    </tr>
-	    <tr valign=center>
-	     <td colspan=2>&nbsp;</td>
-	     <td><i>(ZIP, ${.SizeKB}KB)</i></td>
-	   </for>>
-	  </table>
-	 </p>
-	</if>
+        <sibling_id up='$,OrigId' index0='*SIBLING_EDGE' next='*true'>
+        <if what='$,>0'>
+         <p>
+          <table class='ring' cellpadding=0>
+           <tr valign=center>
+            <td align=right><image src='/pics/further.gif'></td>
+            <td>&nbsp;</td>
+            <td><a href='${book.GrpDetailsHref}$,/'>Читать книгу</a></td>
+           </tr>
+           <tr valign=center>
+            <td align=right><image src='/pics/print.gif'></td>
+            <td>&nbsp;</td>
+            <td>
+             <a href='${book.GrpDetailsHref}print/'>Вся книга для печати</a>
+            </td>
+           </tr>
+           <<iterate_packages posting_id='$postid'>
+           <for>
+            <tr valign=center>
+             <td align=right><image src='/pics/package.gif'></td>
+             <td>&nbsp;</td>
+             <td>
+              <if what='$.Type==*PT_BOOK_ONEFILE'>
+               <assign name='title' value='Вся книга одним файлом в архиве'>
+              <else>
+               <assign name='title' value='Вся книга по главам в архиве'>
+              </if>
+              <a href='$.Href'>$title</a>
+             </td>
+            </tr>
+            <tr valign=center>
+             <td colspan=2>&nbsp;</td>
+             <td><i>(ZIP, ${.SizeKB}KB)</i></td>
+           </for>>
+          </table>
+         </p>
+        </if>
        </zone>
       </notprint>
      </td>

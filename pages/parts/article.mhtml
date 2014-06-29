@@ -65,9 +65,6 @@ if(!isset($editmodeHistory))
    <posting_image posting='$image' title_large='$image.TitleLineHTML'
                   rel#='article-$data.Id'>
   </td></tr>
-  <ifne what='$image.Title'>
-   <tr><td class='image-title' align='center'>$image.TitleHTML</td></tr>
-  </ifne>
  </if>
 </inner></table></outer>
 </callback>

@@ -193,12 +193,12 @@
   <islast what='$covers'>
    <assign name='nlast' value='$.Index1'>
   </islast>
-  <div class='pic' style='width: ${.SmallImageX}px'>
+  <div style='width: ${.SmallImageX}px'>
    <div class='pic-rating'>
     <rating value='$.Rating'>
    </div>
    <posting_image posting='$.' href#='/times/$.Index1/'>
-   <div class='pic-title'>
+   <div class='issue'>
     <if what='$$issue!=$.Index1'>
      <a href='/times/$.Index1/'>&no;$.getIssues</a>
     <else>

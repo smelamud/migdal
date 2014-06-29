@@ -30,12 +30,8 @@
  </dt>
  <dd>
  <if what='$posting.hasImage'>
-  <div class='pic' style='width: ${posting.SmallImageX}px'>
-   <posting_image posting='$posting' title_large='$posting.TitleLineHTML'>
-   <ifne what='$posting.Title'>
-    <div class='pic-title'>$posting.TitleLineHTML</div>
-   </ifne>
-  </div>
+  <posting_image posting='$posting' title_large='$posting.TitleLineHTML'
+                 align='left'>
  </if>
  $posting.BodyHTML<asp>
  <further posting='$posting'>
