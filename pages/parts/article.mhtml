@@ -62,8 +62,8 @@ if(!isset($editmodeHistory))
  </notprint>
  <if what='$has_image'>
   <tr><td align='center'>
-   <posting_image posting='$image' title_large='$image.TitleLineHTML'
-                  rel#='article-$data.Id'>
+   <posting_image posting='$image' title='$image.TitleHTML'
+                  title_large='$image.TitleLineHTML' rel#='article-$data.Id'>
   </td></tr>
  </if>
 </inner></table></outer>

@@ -12,7 +12,7 @@
    << FIXME из-за кэширования будет работать некорректно >>
    <counter_inc entry_id='$.' mode='*CMODE_EAR_HITS'>
    <posting_obj id='$.' grp='*GRP_EARS'>
-   <posting_image posting='$,' title='$,BodyNormal'
+   <posting_image posting='$,' image_title='$,BodyNormal'
                   href#='/actions/ear/$,Id?okdir=$#,URL'>
   </for>
  </p>

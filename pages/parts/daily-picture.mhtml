@@ -6,8 +6,8 @@
   <vote_panel id='$picture.Id' rating='$picture.Rating'>
  </div>
  <if what='$picture.hasSmallImage'>
-  <posting_image posting='$picture' title_large='$picture.TitleLineHTML'
-                 rel='$rel'>
+  <posting_image posting='$picture' title='$picture.TitleHTML'
+                 title_large='$picture.TitleLineHTML' rel='$rel'>
  </if>
  <iswrite what='$picture'>
   <div class='eightpt' style='align: center'>

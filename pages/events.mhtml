@@ -33,8 +33,8 @@
      </for>
      <posting_obj id='$picid' grp='*GRP_GALLERY'>
      <if what='$,hasImage'>
-      <posting_image posting='$,' href='$topic_path' title_large='$=topic_name'
-                     align='left'>
+      <posting_image posting='$,' href='$topic_path' title='$topic_name'
+                     title_large='$,TitleLineHTML' align='left'>
      </ifnzero>
      <div class='textears-title' style='margin-left: 100px'>
       Последние события:

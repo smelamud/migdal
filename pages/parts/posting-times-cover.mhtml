@@ -24,8 +24,8 @@
  </dt>
  <dd><p>
  <if what='$posting.hasImage'>
-  <posting_image posting='$posting' title_large='$posting.TitleLineHTML'
-                 align='left'>
+  <posting_image posting='$posting' title='$posting.TitleHTML'
+                 title_large='$posting.TitleLineHTML' align='left'>
  </if>
  $posting.BodyHTML<asp>
  <further posting='$posting'>

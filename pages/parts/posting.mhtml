@@ -62,8 +62,8 @@
 <ifne what='$align'>
  <assign name='float' value#='float: $align'>
 </ifne>
-<ifne what='$title'>
- <assign name='alt' value#='alt="$=title" title="$=title"'>
+<ifne what='$image_title'>
+ <assign name='alt' value#='alt="$=image_title" title="$=image_title"'>
 </ifne>
 <ifne what='$rel'>
  <assign name='rl' value#='rel="$rel"'>
@@ -94,8 +94,8 @@
    </a>
   </ifne>
  </if>
- <ifne what='$title_large'>
-  <div class='pic-title'>$title_large</div>
+ <ifne what='$title'>
+  <div class='pic-title'>$title</div>
  </ifne>
 </div>
 </element>
