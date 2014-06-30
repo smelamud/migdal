@@ -6,13 +6,14 @@
   <vote_panel id='$picture.Id' rating='$picture.Rating'>
  </div>
  <if what='$picture.hasSmallImage'>
+  <iswrite what='$picture'>
+   <assign name='edithref' value='auto'>
+  <else>
+   <assign name='edithref' value=''>
+  </iswrite>
   <posting_image posting='$picture' title='$picture.TitleHTML'
-                 title_large='$picture.TitleLineHTML' rel='$rel'>
+                 title_large='$picture.TitleLineHTML' rel='$rel'
+                 edithref='$edithref'>
  </if>
- <iswrite what='$picture'>
-  <div class='eightpt' style='align: center'>
-   <editlink posting='$picture'>
-  </div>
- </iswrite>
 </div>
 </element>

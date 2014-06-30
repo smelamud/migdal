@@ -10,17 +10,6 @@
 </if>
 </element>
 
-<element name='controls' params='picture'>
-<logged>
- <tr><td class='control' align=center
-         style='padding-top: 0; padding-bottom: 1ex'>
-  <iswrite what='$picture'>
-   <editlink posting='$picture'>
-  </iswrite>
- </td></tr>
-</logged>
-</element>
-
 <element name='picture'>
 <table class='picture'>
  <tr class='border'><td align=right>
@@ -33,11 +22,16 @@
  </td></tr>
  <if what='$picture.hasSmallImage'>
   <tr><td class='image'>
+   <iswrite what='$picture'>
+    <assign name='edithref' value='auto'>
+   <else>
+    <assign name='edithref' value=''>
+   </iswrite>
    <posting_image posting='$picture' title='$picture.TitleHTML'
-                  title_large='$picture.TitleLineHTML' rel='$rel'>
+                  title_large='$picture.TitleLineHTML' rel='$rel'
+                  edithref='$edithref'>
   </td></tr>
  </if>
- <controls picture='$picture'>
  <ifne what='$picture.Source'>
   <tr><td class='source eightpt' align=right>
    $picture.SourceHTML

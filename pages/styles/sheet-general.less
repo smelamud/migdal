@@ -69,7 +69,6 @@ A IMG {
 
     IMG {
         display: block;
-        border: 1px solid @image_border;
     }
 
     .pic-title {
@@ -85,11 +84,44 @@ A IMG {
         width: @glass_pic_width;
         height: @glass_pic_height;
         background-image: url(@glass_pic);
+        cursor: pointer;
     }
 
     &:hover .glass {
         display: block;
     }
+
+    .buttons {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        SPAN {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            padding: 1px;
+            background-color: @pic_buttons_background;
+            margin-left: 3px;
+            margin-top: 3px;
+
+            IMG {
+                display: block;
+                border: 0;
+            }
+        }
+    }
+
+    &:hover .buttons {
+        display: block;
+
+        SPAN:hover {
+            background-color: @pic_buttons_background_active;
+        }
+
+    }
+
 }
 
 .pic-rating {

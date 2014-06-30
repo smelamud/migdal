@@ -17,56 +17,39 @@ if(!isset($editmodeHistory))
 <callback name='article_image'>
 <assign name='image' value='$data.Image'>
 <assign name='has_image' value!='$image instanceof Entry'>
-<ifne what='$data.Align'>
- <assign name='align' value#='style="float: $data.Align; clear: $data.Align"'>
-<else>
- <assign name='align' value=''>
-</ifne>
-<outer><table $align><inner>
- <notprint>
-  <if what='$$editmode'>
-   <posting_obj id='$data.Id'>
-   <tr><td align='center'>
-    <if what='$has_image'>
-     <notenglish>
-      <assign name='ititle' value='Изменить картинку'>
-     <else>
-      <assign name='ititle' value='Modify the Picture'>
-     </notenglish>
-    <else>
-     <notenglish>
-      <assign name='ititle' value='Вставить картинку'>
-     <else>
-      <assign name='ititle' value='Insert a Picture'>
-     </notenglish>
-    </if>
-    <if what='$has_image'>
-     <a href='${,GrpDetailsHref}images/insert/?par=$data.Par&editid=$image.Id'
-        class='eightpt'>$ititle</a>
-    <else>
-     <a href='${,GrpDetailsHref}images/insert/?par=$data.Par'
-        class='eightpt'>$ititle</a>
-    </if>
-    <if what='$has_image'>
-     <notenglish>
-      <assign name='dtitle' value='Убрать картинку'>
-     <else>
-      <assign name='dtitle' value='Remove the Picture'>
-     </notenglish>
-     <br>
-     <a href='/actions/posting/image/modify?edittag=1&insert=1&postid=$data.Id&editid=0&par=$data.Par&okdir=$#-&faildir=$#-'
-        class='eightpt'>$dtitle</a>
-    </if>
-   </td></tr>
-  </if>
- </notprint>
- <if what='$has_image'>
-  <tr><td align='center'>
-   <posting_image posting='$image' title='$image.TitleHTML'
-                  title_large='$image.TitleLineHTML' rel#='article-$data.Id'>
-  </td></tr>
+<if what='$has_image'>
+ <if what='$$editmode'>
+  <posting_obj id='$data.Id'>
+  <assign name='edithref'
+          value#='${,GrpDetailsHref}images/insert/?par=$data.Par&editid=$image.Id'>
+  <assign name='rmhref'
+          value#='/actions/posting/image/modify?edittag=1&insert=1&postid=$data.Id&editid=0&par=$data.Par&okdir=$#-&faildir=$#-'>
+ <else>
+  <assign name='edithref' value=''>
+  <assign name='rmhref' value=''>
  </if>
-</inner></table></outer>
+ <posting_image posting='$image' title='$image.TitleHTML'
+                title_large='$image.TitleLineHTML' rel#='article-$data.Id'
+                edithref='$edithref' rmhref='$rmhref' align='$data.Align'>
+<else>
+ <if what='$$editmode'>
+  <ifne what='$data.Align'>
+   <assign name='align' value#='style="float: $data.Align; clear: $data.Align"'>
+  <else>
+   <assign name='align' value=''>
+  </ifne>
+  <posting_obj id='$data.Id'>
+  <notenglish>
+   <assign name='ititle' value='Вставить картинку'>
+  <else>
+   <assign name='ititle' value='Insert a Picture'>
+  </notenglish>
+  <div $align>
+   <a href='${,GrpDetailsHref}images/insert/?par=$data.Par'
+      class='eightpt'>$ititle</a>
+  </div>
+ </if>
+</if>
 </callback>
 
 <element name='article_controls'>

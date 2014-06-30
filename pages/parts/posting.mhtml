@@ -60,7 +60,11 @@
 <assign name='alt' value=''>
 <assign name='rl' value=''>
 <ifne what='$align'>
- <assign name='float' value#='float: $align'>
+ <if what="$align != 'center'">
+  <assign name='float' value#='float: $align; clear: $align'>
+ <else>
+  <assign name='float' value='margin-left: auto; margin-right: auto'>
+ </if>
 </ifne>
 <ifne what='$image_title'>
  <assign name='alt' value#='alt="$=image_title" title="$=image_title"'>
@@ -94,6 +98,36 @@
    </a>
   </ifne>
  </if>
+ <outer>
+  <div class='buttons'>
+   <inner>
+    <ifne what='$edithref'>
+     <if what="$edithref == 'auto'">
+      <assign name='edithref'
+              value#='${posting.GrpDetailsHref}edit/?redirid=$_'>
+     </if>
+     <notenglish>
+      <assign name='tooltip' value='Изменить'>
+     <else>
+      <assign name='tooltip' value='Edit'>
+     </notenglish>
+     <span><a href='$edithref'><asp>
+      <image src='/pics/edit.png' title='$tooltip' alt='$tooltip'>
+     <asp></a></span>
+    </ifne>
+    <ifne what='$rmhref'>
+     <notenglish>
+      <assign name='tooltip' value='Убрать'>
+     <else>
+      <assign name='tooltip' value='Remove'>
+     </notenglish>
+     <span><a href='$rmhref'><asp>
+      <image src='/pics/remove.png' title='$tooltip' alt='$tooltip'>
+     <asp></a></span>
+    </ifne>
+   </inner>
+  </div>
+ </outer>
  <ifne what='$title'>
   <div class='pic-title'>$title</div>
  </ifne>
