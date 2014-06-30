@@ -88,4 +88,29 @@
         font-style: italic;
         padding-bottom: 2ex;
     }
+
+    .insert-image {
+        visibility: hidden;
+        border-top: 1px dotted @article_insert_image_line;
+        height: 0;
+        width: 100%;
+        margin-bottom: -12px;
+
+        SPAN {
+            position: relative;
+            top: -7pt;
+            background-color: @article_insert_image_back;
+            display: inline-block;
+            margin-left: 4em;
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-bottom: 2pt;
+            border: 1px solid @article_insert_image_border;
+            border-radius: 20px;
+
+            A {
+                text-decoration: none;
+            }
+        }
+    }
 }

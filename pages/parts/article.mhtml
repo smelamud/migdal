@@ -44,10 +44,10 @@ if(!isset($editmodeHistory))
   <else>
    <assign name='ititle' value='Insert a Picture'>
   </notenglish>
-  <div $align>
+  <div class='insert-image' $align><span>
    <a href='${,GrpDetailsHref}images/insert/?par=$data.Par'
       class='eightpt'>$ititle</a>
-  </div>
+  </span></div>
  </if>
 </if>
 </callback>
