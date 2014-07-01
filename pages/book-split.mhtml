@@ -11,11 +11,13 @@
 <pagetitle title='$,Subject'>
 
 <html>
-<meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>
-<assign_global name='userStyle' value='-1'>
-<posting_og_image posting='$,'>
-<preamble_tiny stylesheet='style/static-article.css'>
-<body>
+ <head>
+  <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>
+ </head>
+ <assign_global name='userStyle' value='-1'>
+ <posting_og_image posting='$,'>
+ <preamble_tiny stylesheet='style/static-article.css'>
+
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=150 class='contents'>
    <book_chapters_static book='$,'>
@@ -48,5 +50,4 @@
    </td></tr></table>
   </td>
  </tr></table>
-</body>
 </html>

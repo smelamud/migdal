@@ -24,8 +24,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <div style='padding: 5px; margin: 10px' class='cframe'>
   <subtitle>
@@ -85,5 +85,4 @@
   <controls>
  </div>
  <bottom>
-</body>
 </html>

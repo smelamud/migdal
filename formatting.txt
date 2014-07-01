@@ -82,7 +82,7 @@
 + lib/initstop-mail.php
 + lib/initstop.php
 - lib/inner-images.php
-- lib/inner.php
++ lib/inner.php
 + lib/ip.php
 + lib/iterator.php
 - lib/jewish-calendar.php

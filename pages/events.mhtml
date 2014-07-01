@@ -4,8 +4,8 @@
 <grps>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index' transref#='http://english.$$siteDomain/events/'>
  <table width=100% cellpadding=5>
   <tr valign=top>
@@ -75,5 +75,4 @@
   </tr>
  </table>
  <bottom>
-</body>
 </html>

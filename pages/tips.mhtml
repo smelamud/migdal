@@ -4,8 +4,8 @@
 <int name='offset'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
@@ -18,5 +18,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

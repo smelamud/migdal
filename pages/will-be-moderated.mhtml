@@ -3,8 +3,8 @@
 <string name='okdir'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <form_table title='Сообщение отправлено модератору' mini='*true'>
   <form method=get action='/actions/setup'>
@@ -28,5 +28,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

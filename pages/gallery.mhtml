@@ -27,8 +27,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <if what="!isset($$menu_main) || $$menu_main==''">
   <assign_global name='menu_main' value='index'>
  </if>
@@ -56,5 +56,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

@@ -56,8 +56,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <form_table title='$LocationInfo.Title' mini='*true' minititle='*true'>
   <form method='post' action='/actions/reorder'>
@@ -84,5 +84,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

@@ -3,8 +3,8 @@
 << This is a template of user-viewable page >>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='template'>
  <table width=100% cellpadding=5>
   <tr valign=top>
@@ -19,5 +19,4 @@
   </tr>
  </table>
  <bottom>
-</body>
 </html>

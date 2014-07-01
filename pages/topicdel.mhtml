@@ -9,11 +9,11 @@
 <topic_count name='tops' id='$topic_id'>
 
 <html>
-<preamble>
-<if what='$tops==0 && $posts==0'>
- <reload href#='/actions/topic/delete?id=$topic_id&okdir=$#--&faildir=$#-'>
-</if>
-<body>
+ <preamble>
+ <if what='$tops==0 && $posts==0'>
+  <reload href#='/actions/topic/delete?id=$topic_id&okdir=$#--&faildir=$#-'>
+ </if>
+
  <top ident='index'>
  <topic_obj id='$topic_id'>
  <form_table title#='Удалить тему &lt;&lt;$=,Subject&gt;&gt;'>
@@ -48,5 +48,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

@@ -7,8 +7,9 @@
 <log event=fail text#='code(500) $-'>
 
 <html>
-<preamble>
-<body class='error-page'>
+ <preamble>
+ <body_class class='error-page'>
+
  <top_404>
  <p><table width='600'><tr><td>
   <p>
@@ -50,5 +51,4 @@
    <failpage>
   </ul>
  </td></tr></table></p>
-</body>
 </html>

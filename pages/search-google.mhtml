@@ -56,8 +56,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='search'>
  <div class='cframe' style='background-image: none; padding: 5'>
   <subtitle>
@@ -71,5 +71,4 @@
   </ifne>
  </div>
  <bottom>
-</body>
 </html>

@@ -23,8 +23,8 @@
 <int name='email_enabled'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <user_obj name='user' id='$editid'>
  <setup>
@@ -151,5 +151,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

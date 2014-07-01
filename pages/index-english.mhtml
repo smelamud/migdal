@@ -6,8 +6,8 @@
 <log event=review text#='post($,Id)'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index' transref#='http://www.$$siteDomain/migdal/'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
@@ -24,5 +24,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

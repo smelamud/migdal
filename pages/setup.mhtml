@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='setup'>
  <form_table title='Настройки'>
   <form method=post action='/actions/setup/'>
@@ -45,5 +45,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

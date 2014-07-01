@@ -16,8 +16,8 @@
 <log event=index text#='topic($id) offset=$offset'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'
       transref!='$id<=0 ? "http://english.$$siteDomain/" : ""'>
  <table width=100% cellpadding=5>
@@ -60,5 +60,4 @@
   </tr>
  </table>
  <bottom>
-</body>
 </html>

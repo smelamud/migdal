@@ -15,3 +15,4 @@ foreach ($iter as $item)
     echo $item->getTableName().' '.$item->getOldId()
                               .' '.$item->getEntryId()."\n";
 dbClose();
+?>

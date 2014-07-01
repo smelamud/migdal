@@ -20,8 +20,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='discuss'>
  <div style='padding: 5'>
   <iterate_users_now name='list' period='30'>
@@ -152,5 +152,4 @@
   </html_cache>
  </div>
  <bottom>
-</body>
 </html>

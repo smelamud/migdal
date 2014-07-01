@@ -7,9 +7,9 @@
 <log event=posting text#='post($,Id)'>
 
 <html>
-<posting_og_image posting='$posting'>
-<preamble>
-<body>
+ <posting_og_image posting='$posting'>
+ <preamble>
+
  <ife what='$$menu_main'>
   <assign_global name='menu_main' value='index'>
  </ife>
@@ -29,5 +29,4 @@
   </tr>
  </table>
  <bottom>
-</body>
 </html>

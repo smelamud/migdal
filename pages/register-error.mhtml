@@ -4,8 +4,8 @@
 <errors>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='users'>
  <form_table title='Ошибка при подтверждении регистрации'>
   <form method=get action='/'>
@@ -27,5 +27,4 @@
  </form_table>
  </div>
  <bottom>
-</body>
 </html>

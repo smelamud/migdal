@@ -32,7 +32,7 @@ function KCAPTCHA() {
     if ($handle = opendir($fontsdir_absolute)) {
         while (false !== ($file = readdir($handle))) {
             if (preg_match('/\.png$/i', $file)) {
-                $fonts[]=$fontsdir_absolute.'/'.$file;
+                $fonts[] = $fontsdir_absolute.'/'.$file;
             }
         }
         closedir($handle);
@@ -230,12 +230,12 @@ function KCAPTCHA() {
     if (function_exists("imagejpeg")) {
         header("Content-Type: image/jpeg");
         imagejpeg($img2, null, $jpeg_quality);
-    } elseif (function_exists("imagegif")) {
-        header("Content-Type: image/gif");
-        imagegif($img2);
     } elseif (function_exists("imagepng")) {
         header("Content-Type: image/x-png");
         imagepng($img2);
+    } elseif (function_exists("imagegif")) {
+        header("Content-Type: image/gif");
+        imagegif($img2);
     }
 }
 

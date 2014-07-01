@@ -5,8 +5,8 @@
 <int name='link_type'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <div class='nframe' style='width: 90%; padding: 5px; margin: 0 auto'>
   <subtitle>
@@ -14,5 +14,4 @@
            link_type='$link_type' title='Связанные страницы'>
  </div>
  <bottom>
-</body>
 </html>

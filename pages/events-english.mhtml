@@ -3,8 +3,8 @@
 <log event='event-english' text#='topic(-1)'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index' transref#='http://www.$$siteDomain/migdal/news/'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
@@ -17,5 +17,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

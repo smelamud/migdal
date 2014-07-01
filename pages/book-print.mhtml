@@ -5,38 +5,37 @@
 <log event=book text#='post($,Id)'>
 
 <html>
-<posting_og_image posting='$,'>
-<preamble>
-<body>
-<div class='article' style='padding: 5'>
- <table width=50% cellspacing=0 cellpadding=0><tr><td>
-  <ifne what='$,Author'>
-   <p class='posting-author'>$,AuthorHTML</p>
-  </ifne>
-  <p><h1 style='margin-left: 0'>$=,Subject</h1></p>
-  <ifne what='$,Comment0'>
-   <p class='posting-source'>$,Comment0HTML</p>
-  </ifne>
-  <p>$,BodyHTML</p>
- </td></tr></table>
- <h1>Оглавление</h1>
- <iterate_postinglist grp='*GRP_BOOK_CHAPTERS' limit=0 sort='*SORT_INDEX0'
-		      up='$,OrigId'>
- <ul>
-  <for>
-   <li>$=.Subject
-  </for>
- </ul>
- <rewind_iterator>
- <for>
-  <posting_obj id='$.Id' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_LARGE_BODY'>
-  <h1 style='clear: both; padding-top: 20px'>$=,Subject
+ <posting_og_image posting='$,'>
+ <preamble>
+
+ <div class='article' style='padding: 5'>
+  <table width=50% cellspacing=0 cellpadding=0><tr><td>
    <ifne what='$,Author'>
-    <div class='author'>$,AuthorHTML</div>
+    <p class='posting-author'>$,AuthorHTML</p>
    </ifne>
-  </h1>
-  <article posting='$,' withvote='*false'>
- </for>
-</div>
-</body>
+   <p><h1 style='margin-left: 0'>$=,Subject</h1></p>
+   <ifne what='$,Comment0'>
+    <p class='posting-source'>$,Comment0HTML</p>
+   </ifne>
+   <p>$,BodyHTML</p>
+  </td></tr></table>
+  <h1>Оглавление</h1>
+  <iterate_postinglist grp='*GRP_BOOK_CHAPTERS' limit=0 sort='*SORT_INDEX0'
+               up='$,OrigId'>
+  <ul>
+   <for>
+    <li>$=.Subject
+   </for>
+  </ul>
+  <rewind_iterator>
+  <for>
+   <posting_obj id='$.Id' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_LARGE_BODY'>
+   <h1 style='clear: both; padding-top: 20px'>$=,Subject
+    <ifne what='$,Author'>
+     <div class='author'>$,AuthorHTML</div>
+    </ifne>
+   </h1>
+   <article posting='$,' withvote='*false'>
+  </for>
+ </div>
 </html>

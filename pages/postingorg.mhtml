@@ -132,8 +132,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <iterate_postinglist limit=20 offset='$offset' topic_id='$topic_id'
                       recursive='$recursive' showshadows='$shadows' grp='$grp'
@@ -211,5 +211,4 @@
   </tr>
  </table>
  <bottom>
-</body>
 </html>

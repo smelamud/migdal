@@ -16,11 +16,13 @@
 <pagetitle title#='$book.Subject - $,Subject'>
 
 <html>
-<meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>
-<assign_global name='userStyle' value='-1'>
-<posting_og_image posting='$,'>
-<preamble_tiny stylesheet='style/static-article.css'>
-<body>
+ <head>
+  <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>
+ </head>
+ <assign_global name='userStyle' value='-1'>
+ <posting_og_image posting='$,'>
+ <preamble_tiny stylesheet='style/static-article.css'>
+
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=150 class='contents'>
    <book_chapters_static book='$book' id='$,Id'>
@@ -36,5 +38,4 @@
    <book_ring_static book='$book' index='$,Index0'>
   </td>
  </tr></table>
-</body>
 </html>

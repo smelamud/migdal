@@ -3,8 +3,8 @@
 <int name='novice'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <form_table title='Вход на сайт' mini='*true'>
   <notlogged>
@@ -84,5 +84,4 @@
   </form_table>
  </admin_users>
  <bottom>
-</body>
 </html>

@@ -82,9 +82,9 @@
 </element>
 
 <html>
-<posting_og_image posting='$posting'>
-<preamble>
-<body>
+ <posting_og_image posting='$posting'>
+ <preamble>
+
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
   <td width=140 class='eframe'><zone>
@@ -140,5 +140,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

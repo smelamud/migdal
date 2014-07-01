@@ -34,34 +34,36 @@
 <element name='item_image' params='posting'>
 <if what='$posting.hasImage'>
  <if what='$posting.hasLargeImage'>
-  &lt;a href='$the_site$posting.LargeImageURL'
+  &lt;a href='$$the_site$posting.LargeImageURL'
 	title='Нажмите, чтобы увеличить'&gt;
   <asp>&lt;img border=0 width='$posting.SmallImageX'
                height='$posting.SmallImageY'
-	       src='$the_site$posting.SmallImageURL'&gt;<asp>
+	       src='$$the_site$posting.SmallImageURL'&gt;<asp>
   &lt;/a&gt;
  <else>
   <asp>&lt;img border=0 width='$posting.ImageX' height='$posting.ImageY'
-	       src='$the_site$posting.ImageURL'&gt;<asp>
+	       src='$$the_site$posting.ImageURL'&gt;<asp>
  </if>
 </if>
 </element>
 
 <element name='item_further' params='posting,title'>
 &lt;p&gt;
- &lt;a href='$the_site$posting.GrpDetailsHref'&gt;<asp>
+ &lt;a href='$$the_site$posting.GrpDetailsHref'&gt;<asp>
   <asp>&#187; $=title&lt;/a&gt;
 &lt;/p&gt;
 </element>
 
 <element name='item_further_url' params='posting,url'>
 &lt;p&gt;
- &lt;a href='$the_site/actions/link/$posting.Id/?okdir=$#url'&gt;<asp>
+ &lt;a href='$$the_site/actions/link/$posting.Id/?okdir=$#url'&gt;<asp>
   <asp>&#187; Подробности на другом сайте&lt;/a&gt;
 &lt;/p&gt;
 </element>
 
 <xml type='text/xml; charset="utf-8"'>
+ <preamble_xml>
+
  <html_cache ident#='rss-$topic_id-$topic_id2-$grp-$grp2-$user_id'
              period!='1 * 60 * 60'>
   <topic_obj name='topic' id='$topic_id'>

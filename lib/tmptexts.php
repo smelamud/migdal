@@ -30,4 +30,3 @@ function deleteObsoleteTmpTexts() {
     sql('optimize table tmp_texts', __FUNCTION__, 'optimize');
 }
 ?>
-

@@ -6,8 +6,8 @@
 <log event=review text#='topic($`migdal.library`)'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <table width=100% cellpadding=5>
   <tr valign=top>
@@ -25,5 +25,4 @@
   </tr>
  </table>
  <bottom>
-</body>
 </html>

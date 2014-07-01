@@ -214,8 +214,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='times'>
  <table width=100% cellpadding=5><tr valign=top>
   <td class='mtimes cframe'>
@@ -264,5 +264,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

@@ -48,8 +48,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <table width=100% cellpadding=5><tr valign=top>
   <notprint>
@@ -92,5 +92,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

@@ -4,8 +4,8 @@
 <user_obj name='user' id='$id'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='users'>
  <form_table title='Подтверждение регистрации'>
   <form method=get action='$--'>
@@ -47,5 +47,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

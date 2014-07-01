@@ -9,9 +9,9 @@
 <log event=review text#='post($,Id)'>
 
 <html>
-<posting_og_image posting='$,'>
-<preamble>
-<body>
+ <posting_og_image posting='$,'>
+ <preamble>
+
  <if what='$,Id==$`post.migdal`'>
   <assign name='transref' value#='http://english.$siteDomain/'>
  <elif what='$,Id==$`post.migdal.museum`'>
@@ -49,5 +49,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

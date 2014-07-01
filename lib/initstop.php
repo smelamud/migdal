@@ -10,6 +10,42 @@ require_once('lib/style.php');
 require_once('lib/redirs.php');
 require_once('lib/post.php');
 require_once('lib/logs.php');
+require_once('lib/head.php');
+
+function initializeHTML() {
+    global $bodyClass;
+
+    $bodyClass = '';
+    initialize();
+    ob_start();
+}
+
+function finalizeHTML() {
+    global $bodyClass;
+
+    finalize();
+
+    $bodyBuffer = ob_get_clean();?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <?php echo convertOutput(getHead()); ?>
+    </head>
+    <body<?php echo $bodyClass != '' ? " class='$bodyClass'" : '' ?>>
+    <?php echo convertOutput($bodyBuffer); ?>
+    </body>
+    </html><?php
+}
+
+function initializeXML() {
+    initialize();
+    ob_start('convertOutput');
+}
+
+function finalizeXML() {
+    finalize();
+    ob_end_flush();
+}
 
 function initialize() {
     noCacheHeaders();
@@ -18,11 +54,6 @@ function initialize() {
     session();
     httpRequestInteger('err');
     set_error_handler('error_handler');
-    ob_start('convertOutput');
-}
-
-function initializeMeta() {
-    echo "<!DOCTYPE html>\n";
 }
 
 function initializeHead() {
@@ -44,7 +75,6 @@ function initializeHead() {
 function finalize() {
     dbClose(); // dbClose() должен находиться здесь, чтобы профайлер не учитывал
                // время скачивания страницы клиентом
-    ob_end_flush();
 }
 
 function error_handler($errno, $errstr, $errfile, $errline) {

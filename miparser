@@ -793,12 +793,8 @@ my ($self)=@_;
 
 ::request('lib/initstop.php');
 ::header(<<EOT);
-<?php initialize(); ?>
+<?php initializeHTML(); ?>
 EOT
-::body(<<EOT);
-<?php initializeMeta(); ?>
-EOT
-::body($self->getToken());
 }
 
 sub el_html
@@ -806,9 +802,8 @@ sub el_html
 my ($self)=@_;
 
 ::footer(<<EOT);
-<?php finalize(); ?>
+<?php finalizeHTML(); ?>
 EOT
-::body($self->getToken());
 }
 
 sub elMail
@@ -844,7 +839,7 @@ $type=$self->getVarArg('type');
 $type='text/xml' if $type eq '';
 ::request('lib/initstop.php');
 ::header(<<EOT);
-<?php initialize();
+<?php initializeXML();
 echo "<?xml version=\\\"1.0\\\"?>\\n"; ?>
 EOT
 ::header("<?php header('Content-Type: '.$type);");
@@ -856,19 +851,7 @@ sub el_xml
 my ($self)=@_;
 
 ::footer(<<EOT);
-<?php finalize(); ?>
-EOT
-}
-
-sub elHead
-{
-my ($self)=@_;
-
-::body(<<EOT);
-<head>
-<?php
-initializeHead();
-?>
+<?php finalizeXML(); ?>
 EOT
 }
 

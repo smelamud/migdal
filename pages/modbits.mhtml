@@ -3,8 +3,8 @@
 <int name='postid'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <posting_obj id='$postid'>
  <form_table title='Редактирование флагов сообщения' mini='*true'>
@@ -29,5 +29,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

@@ -15,8 +15,8 @@
 <log event=community text#='topic($topic_id) user($user.Id) offset=$offset'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
   <td width=150 class='eframe'>
@@ -42,5 +42,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>

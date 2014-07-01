@@ -184,6 +184,9 @@
 <deccall macro='grp_valid' func='isGrpValid' file='lib/grps.php' params='grp'>
 <deccall macro='guests_now' func='getGuestsNow' file='lib/users.php'
          params='period'>
+<decexec macro='head' func='beginHead' file='lib/head.php'>
+<decexec macro='/head' func='endHead' file='lib/head.php'>
+<decexec macro='head_initialize' func='initializeHead' file='lib/initstop.php'>
 <deccall macro='html_cache_obj' func='getHTMLCacheRecord'
          file='lib/html-cache.php' params='ident,period,depends,if'
 	 defaults='period=*null if=*true'>
@@ -281,6 +284,10 @@
          params='id,guest_login' defaults="guest_login=''">
 <deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>
 <deccall macro='vote' func='getVote' file='lib/votes.php' params='id'>
+
+<macro name='body_class'>
+ <assign_global name='bodyClass' value%!value='%class'>
+</macro>
 
 <macro name='parse_url'>
  <assign name='fragments' value!='parse_url(%url)'>

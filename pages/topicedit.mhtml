@@ -19,8 +19,8 @@
 <int_array name='grps'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <topic_obj id='$editid' up='$up' fields!="*SELECT_GENERAL|*SELECT_GRPS">
  <setup>
@@ -87,5 +87,4 @@
  </form>
  </form_table>
  <bottom>
-</body>
 </html>

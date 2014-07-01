@@ -4,8 +4,8 @@
 <string name='group_name'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <form_table title='Добавление пользователя в группу'>
   <form method=post action='/actions/group/add'>
@@ -25,5 +25,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

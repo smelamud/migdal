@@ -357,8 +357,8 @@
 </element>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <setup>
  <if what='$editid'>
@@ -464,5 +464,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

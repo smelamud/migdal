@@ -18,9 +18,9 @@
 <int name='email_enabled'>
 
 <html>
-<js src='/js/login-verify.js'>
-<preamble>
-<body>
+ <js src='/js/login-verify.js'>
+ <preamble>
+
  <top ident='users'>
  <user_obj name='user' id=0>
  <setup>
@@ -141,5 +141,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

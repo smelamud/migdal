@@ -7,8 +7,8 @@
 <string name='peer_path'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <center>
   <form_table title='$$LocationInfo.Title'>
@@ -34,5 +34,4 @@
   </form_table>
  </center>
  <bottom>
-</body>
 </html>

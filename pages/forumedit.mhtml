@@ -27,8 +27,8 @@
 <conf>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='discuss'>
  <ifnzero what='$peerid'>
   <forum_obj id='$peerid'>
@@ -140,5 +140,4 @@
   </form>
  </form_table>
  <bottom>
-</body>
 </html>

@@ -18,8 +18,8 @@
 <int name='no_resize'>
 
 <html>
-<preamble>
-<body>
+ <preamble>
+
  <top ident='index'>
  <posting_obj id='$postid'>
  <table width=100%><tr valign=top>
@@ -124,5 +124,4 @@
   </td>
  </tr></table>
  <bottom>
-</body>
 </html>
