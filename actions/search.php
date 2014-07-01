@@ -15,11 +15,18 @@ httpRequestInteger('offset');
 
 dbOpen();
 session();
-logEvent('search',"offset=$offset query=".urlencode($q));
-header('Location: '.remakeMakeURI($okdir,
-                                  $Args,
-				  array('okdir',
-				        'faildir',
-					'offset')));
+logEvent('search', "offset=$offset query=".urlencode($q));
+header(
+    'Location: '.
+    remakeMakeURI(
+        $okdir,
+        $Args,
+        array(
+            'okdir',
+            'faildir',
+            'offset'
+        )
+    )
+);
 dbClose();
 ?>

@@ -14,10 +14,10 @@ httpRequestInteger('topic_id');
 
 dbOpen();
 session();
-$catalog=catalogById($topic_id);
-if($catalog!='')
-  header("Location: $okdir$catalog");
+$catalog = catalogById($topic_id);
+if ($catalog != '')
+    header("Location: $okdir$catalog");
 else
-  header("Location: $faildir");
+    header("Location: $faildir");
 dbClose();
 ?>

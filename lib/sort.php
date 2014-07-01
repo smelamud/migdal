@@ -26,9 +26,9 @@ const SORT_SENDER_NAME = 21;
 const SORT_ORDER = 255;
 const SORT_PRIORITY = 256;
 
-define('SORT_PSENT', SORT_PRIORITY|SORT_SENT);
-define('SORT_PNAME', SORT_PRIORITY|SORT_NAME);
-define('SORT_PACTIVITY', SORT_PRIORITY|SORT_ACTIVITY);
+define('SORT_PSENT', SORT_PRIORITY | SORT_SENT);
+define('SORT_PNAME', SORT_PRIORITY | SORT_NAME);
+define('SORT_PACTIVITY', SORT_PRIORITY | SORT_ACTIVITY);
 
 function getOrderBy($sort, $names, $priority='entries.priority') {
     $order = @$names[$sort & SORT_ORDER];

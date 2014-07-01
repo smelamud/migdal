@@ -15,7 +15,7 @@ httpRequestInteger('id');
 
 dbOpen();
 session();
-incCounter($id,CMODE_EAR_CLICKS);
+incCounter($id, CMODE_EAR_CLICKS);
 header("Location: $okdir");
 dbClose();
 ?>

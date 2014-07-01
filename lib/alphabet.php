@@ -6,7 +6,7 @@ require_once('lib/bug.php');
 require_once('lib/sql.php');
 require_once('lib/charsets.php');
 
-define('AI_MAX_DEPTH', 6);
+const AI_MAX_DEPTH = 6;
 
 class AlphabetIterator
         extends MArrayIterator {

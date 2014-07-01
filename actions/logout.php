@@ -17,14 +17,24 @@ httpRequestString('faildir');
 
 dbOpen();
 session();
-$err=logout($sessionid);
-if($err==EG_OK)
-  header('Location: '.remakeURI($okdir,
-				array(),
-				array('reload' => random(0,999))));
+$err = logout($sessionid);
+if ($err == EG_OK)
+    header(
+        'Location: '.
+        remakeURI(
+            $okdir,
+            array(),
+            array('reload' => random(0,999))
+        )
+    );
 else
-  header('Location: '.remakeURI($faildir,
-				array(),
-				array('err' => $err)));
+    header(
+        'Location: '.
+        remakeURI(
+            $faildir,
+            array(),
+            array('err' => $err)
+        )
+    );
 dbClose();
 ?>

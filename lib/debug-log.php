@@ -11,17 +11,17 @@ if (isset($debugLogLevel) && $debugLogLevel < LL_OFF)
 
 $debugLogFD = null;
 
-function debugLog($level, $message, array $args=array()) {
+function debugLog($level, $message, array $args = array()) {
     global $debugLogFile, $debugLogFD;
 
     if (!isDebugLogging($level))
         return;
     if (!isset($debugLogFD) || is_null($debugLogFD)) {
-        $debugLogFD = fopen($debugLogFile,'a');
+        $debugLogFD = fopen($debugLogFile, 'a');
         if (!$debugLogFD)
             bug("Cannot open '$debugLogFile' for appending");
     }
-    fputs($debugLogFD,date('M d H:i:s ').$_SERVER['REMOTE_ADDR'].' '
+    fputs($debugLogFD, date('M d H:i:s ').$_SERVER['REMOTE_ADDR'].' '
           .debugLogSubArgs($message,$args)."\n");
     fflush($debugLogFD);
 }

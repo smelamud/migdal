@@ -26,7 +26,7 @@ dbOpen();
   </form>
   <hr>
   <pre>
-<?php echo opScript($script,array($param => $value)); ?>
+<?php echo opScript($script, array($param => $value)); ?>
   </pre>
  </body>
 </html>

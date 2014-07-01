@@ -1,20 +1,18 @@
 <?php
-# @(#) $Id: js.php 2580 2007-09-10 16:09:04Z balu $
+# @(#) $Id$
 
-function createOGImageList()
-{
-global $ogImageList;
+function createOGImageList() {
+    global $ogImageList;
 
-if(!isset($ogImageList))
-  $ogImageList=array();
+    if (!isset($ogImageList))
+        $ogImageList = array();
 }
 
-function declareOGImage($src)
-{
-global $ogImageList,$userDomain,$siteDomain;
+function declareOGImage($src) {
+    global $ogImageList, $userDomain, $siteDomain;
 
-createOGImageList();
-if(!in_array($src,$ogImageList))
-  $ogImageList[]="http://$userDomain.$siteDomain$src";
+    createOGImageList();
+    if (!in_array($src, $ogImageList))
+        $ogImageList[] = "http://$userDomain.$siteDomain$src";
 }
 ?>
