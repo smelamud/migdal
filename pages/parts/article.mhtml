@@ -28,6 +28,7 @@ if(!isset($editmodeHistory))
   <assign name='edithref' value=''>
   <assign name='rmhref' value=''>
  </if>
+ <posting_og_image posting='$image'>
  <posting_image posting='$image' title='$image.TitleHTML'
                 title_large='$image.TitleLineHTML' rel#='article-$data.Id'
                 edithref='$edithref' rmhref='$rmhref' align='$data.Align'>

@@ -2,6 +2,7 @@
 # @(#) $Id$
 
 require_once('lib/array.php');
+require_once('lib/head.php');
 
 function createStylesheetList() {
     global $stylesheetList;
@@ -26,6 +27,16 @@ function declareStylesheet($ident) {
     createStylesheetList();
     if (!in_array(strtolower($ident), $stylesheetList))
         $stylesheetList[] = strtolower($ident);
+}
+
+function displayStylesheets() {
+    global $stylesheetList, $userStyle;
+
+    beginHead();
+    foreach ($stylesheetList as $sheet)
+        echo "<link rel='stylesheet' href='/styles/$sheet-".
+              getStyle($userStyle).".min.css'>\n";
+    endHead();
 }
 
 function declareStyle($ident, $name) {

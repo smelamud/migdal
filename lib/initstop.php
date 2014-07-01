@@ -20,9 +20,16 @@ function initializeHTML() {
     ob_start();
 }
 
+function finalizeHead() {
+    displayStylesheets();
+    displayJSs();
+    displayOGImages();
+}
+
 function finalizeHTML() {
     global $bodyClass;
 
+    finalizeHead();
     finalize();
 
     $bodyBuffer = ob_get_clean();?>
@@ -54,22 +61,6 @@ function initialize() {
     session();
     httpRequestInteger('err');
     set_error_handler('error_handler');
-}
-
-function initializeHead() {
-    global $stylesheetList, $userStyle, $jsList, $ogImageList;
-
-    foreach ($stylesheetList as $sheet)
-        echo "<link rel='stylesheet' href='/styles/$sheet-".
-              getStyle($userStyle).".min.css'>\n";
-    if (isset($jsList))
-        foreach ($jsList as $src)
-            echo "<script src='$src' type='text/javascript'></script>\n";
-    if (isset($ogImageList) && count($ogImageList) > 0) {
-        echo "<link rel='image_src' href='{$ogImageList[0]}'>\n";
-        foreach ($ogImageList as $src)
-            echo "<meta property='og:image' content='$src'>\n";
-    }
 }
 
 function finalize() {

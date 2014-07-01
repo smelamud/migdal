@@ -82,7 +82,6 @@
 </element>
 
 <html>
- <posting_og_image posting='$posting'>
  <preamble>
 
  <top ident='index'>
@@ -101,6 +100,7 @@
     <outer><td width=130><inner>
      <for>
       <if what='$;isOdd'>
+       <posting_og_image posting='$.'>
        <p><daily_picture picture='$.' rel#='gallery-$event.Id'></p>
       </if>
      </for>

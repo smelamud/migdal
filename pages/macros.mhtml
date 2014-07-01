@@ -398,7 +398,6 @@
  <assign_global name='wwwDomain' value!="$$userDomain=='www'">
  <assign_global name='englishDomain' value!="$$userDomain=='english'">
  <head>
-  <head_initialize>
   <notprint>
    <link rel='alternate' media='print' href='$[print=1]'>
   </notprint>
