@@ -18,62 +18,58 @@
 <notprint>
  <notenglish>
   <ifne what='$align'>
-   <assign name='al' value#='align=$align'>
+   <assign name='style' value#='style="float: $align"'>
   <else>
-   <assign name='al' value=''>
+   <assign name='style' value=''>
   </ifne>
   <vote id='$id'>
-  <table cellspacing='0' cellpadding='0' $al>
-   <tr valign='center' height='12'>
-    <td width='12'><asp>
-     <if what='$,<0'>
-      <logged>
-       <image id#='vote-minus-$id' class='vote-button vote-active'
-              src='/pics/vote-minus.gif'
-              alt='Неинтересно, плохо написано'
-              title='Неинтересно, плохо написано'
-              data_id='$id' data_value='2'>
-      <else>
-       <image class='vote-button' src='/pics/vote-minus-gray.gif'
-              alt='Чтобы ставить отрицательные оценки, нужно зарегистрироваться'
-              title='Чтобы ставить отрицательные оценки, нужно зарегистрироваться'>
-      </logged>
-     <else>
-      <if what='$,>=0 && $,<3'>
-       <image class='vote-button' src='/pics/vote-minus-gray.gif'>
-      <else>
-       &nbsp;
-      </if>
-     </if>
-    <asp></td>
-    <ifzero what='$rating'>
-     <assign name='class' value='rating-zero'>
+  <div class='vote-panel' $style><asp>
+   <if what='$,<0'>
+    <logged>
+     <image id#='vote-minus-$id' class='vote-button vote-active'
+            src='/pics/vote-minus.gif'
+            alt='Неинтересно, плохо написано'
+            title='Неинтересно, плохо написано'
+            data_id='$id' data_value='2'>
     <else>
-     <if what='$rating>0'>
-      <assign name='class' value='rating-plus'>
-      <assign name='rating' value#='+$rating'>
-     <else>
-      <assign name='class' value='rating-minus'>
-     </if>
-    </ifzero>
-    <td width='40' id='rating-$id' class='$class'>$rating</td>
-    <td width='12'><asp>
-     <if what='$,<0'>
-      <image id#='vote-plus-$id' class='vote-button vote-active'
-             src='/pics/vote-plus.gif'
-             alt='Интересно, хорошо написано'
-             title='Интересно, хорошо написано'
-             data_id='$id' data_value='4'>
-     <else>
-      <if what='$,>3'>
-       <image class='vote-button' src='/pics/vote-plus-gray.gif'>
-      <else>
-       &nbsp;
-      </if>
-     </if>
-    <asp></td>
-   </tr>
-  </table>
+     <image class='vote-button' src='/pics/vote-minus-gray.gif'
+            alt='Чтобы ставить отрицательные оценки, нужно зарегистрироваться'
+            title='Чтобы ставить отрицательные оценки, нужно зарегистрироваться'>
+    </logged>
+   <else>
+    <if what='$,>=0 && $,<3'>
+     <image class='vote-button' src='/pics/vote-minus-gray.gif'>
+    <else>
+     <asp><div class='vote-button'>&nbsp;</div><asp>
+    </if>
+   </if>
+
+   <ifzero what='$rating'>
+    <assign name='class' value='rating-zero'>
+   <else>
+    <if what='$rating>0'>
+     <assign name='class' value='rating-plus'>
+     <assign name='rating' value#='+$rating'>
+    <else>
+     <assign name='class' value='rating-minus'>
+    </if>
+   </ifzero>
+   <asp><div id='rating-$id' class='$class'>$rating</div><asp>
+
+   <if what='$,<0'>
+    <image id#='vote-plus-$id' class='vote-button vote-active'
+           src='/pics/vote-plus.gif'
+           alt='Интересно, хорошо написано'
+           title='Интересно, хорошо написано'
+           data_id='$id' data_value='4'>
+   <else>
+    <if what='$,>3'>
+     <image class='vote-button' src='/pics/vote-plus-gray.gif'>
+    <else>
+     <asp><div class='vote-button'>&nbsp;</div><asp>
+    </if>
+   </if>
+  <asp></div>
  </notenglish>
 </notprint>
 </element>

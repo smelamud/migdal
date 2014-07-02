@@ -21,13 +21,14 @@ function voteClick(event) {
             if (data.vote > 3) {
                 $("#vote-minus-" + data.id).css("visibility", "hidden");
                 button = $("#vote-plus-" + data.id);
-                button[0].src = "/pics/vote-plus-gray.gif";
+                button.attr("src", "/pics/vote-plus-gray.gif");
             } else {
                 $("#vote-plus-" + data.id).css("visibility", "hidden");
                 button = $("#vote-minus-" + data.id);
-                button[0].src = "/pics/vote-minus-gray.gif";
+                button.attr("src", "/pics/vote-minus-gray.gif");
             }
-            button.parent().empty().append(button);
+            button.removeClass("vote-active").removeAttr("alt")
+                  .removeAttr("title");
         }
     );
     event.preventDefault();
