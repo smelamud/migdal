@@ -9,30 +9,38 @@ require_once('lib/html-cache.php');
 // Этот класс используется как объект формы при редактировании permission'ов
 // отдельно от всех остальных атрибутов
 class Perms
-      extends Entry
-{
+        extends Entry {
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    private $recursive = false;
 
-function setup($vars)
-{
-if(!isset($vars['edittag']) || !$vars['edittag'])
-  return;
-$this->login=$vars['login'];
-if($vars['user_name']!='')
-  $this->login=$vars['user_name'];
-$this->group_login=$vars['group_login'];
-if($vars['group_name']!='')
-  $this->group_login=$vars['group_name'];
-$this->perm_string=$vars['perm_string'];
-if($this->perm_string!='')
-  $this->perms=permString($this->perm_string,strPerms($this->perms));
-$this->recursive=$vars['recursive'];
-$this->entry=$vars['entry'];
-}
+    public function __construct(array $row) {
+        parent::__construct($row);
+    }
+
+    public function setup(array $vars) {
+        if (!isset($vars['edittag']) || !$vars['edittag'])
+            return;
+        $this->login = $vars['login'];
+        if ($vars['user_name'] != '')
+            $this->login = $vars['user_name'];
+        $this->group_login = $vars['group_login'];
+        if ($vars['group_name'] != '')
+            $this->group_login = $vars['group_name'];
+        $this->perm_string = $vars['perm_string'];
+        if ($this->perm_string != '')
+            $this->perms = permString($this->perm_string,
+                                      strPerms($this->perms));
+        $this->recursive = $vars['recursive'];
+        $this->entry = $vars['entry'];
+    }
+
+    public function getRecursive() {
+        return $this->recursive;
+    }
+
+    public function setRecursive($recursive) {
+        $this->recursive = $recursive;
+    }
 
 }
 

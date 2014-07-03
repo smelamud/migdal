@@ -25,74 +25,68 @@ define('IPL_BOTTOMCENTER', IPL_BOTTOM | IPL_HCENTER);
 define('IPL_BOTTOMRIGHT', IPL_BOTTOM | IPL_RIGHT);
 
 class InnerImage
-      extends DataObject
-{
-var $entry_id;
-var $par;
-var $x;
-var $y;
-var $image_id;
-var $placement;
-var $image;
+        extends DataObject {
 
-function __construct($row)
-{
-$this->placement=IPL_CENTER;
-parent::__construct($row);
-$this->image=new Entry($row);
-}
+    protected $entry_id;
+    protected $par;
+    protected $x;
+    protected $y;
+    protected $image_id;
+    protected $placement;
+    protected $image;
 
-function setup($vars)
-{
-if(!isset($vars['edittag']) || !$vars['edittag'])
-  return;
-$this->image_id=$vars['editid'];
-$this->placement=$vars['placement'];
-}
+    public function __construct(array $row) {
+        $this->placement = IPL_CENTER;
+        parent::__construct($row);
+        $this->image = new Entry($row);
+    }
 
-function getEntryId()
-{
-return $this->entry_id;
-}
+    public function setup(array $vars) {
+        if (!isset($vars['edittag']) || !$vars['edittag'])
+            return;
+        $this->image_id = $vars['editid'];
+        $this->placement = $vars['placement'];
+    }
 
-function getPar()
-{
-return $this->par;
-}
+    public function getEntryId() {
+        return $this->entry_id;
+    }
 
-function getX()
-{
-return $this->x;
-}
+    public function getPar() {
+        return $this->par;
+    }
 
-function getY()
-{
-return $this->y;
-}
+    public function getX() {
+        return $this->x;
+    }
 
-function getImageId()
-{
-return $this->image_id;
-}
+    public function getY() {
+        return $this->y;
+    }
 
-function getPlacement()
-{
-return $this->placement;
-}
+    public function getImageId() {
+        return $this->image_id;
+    }
 
-function isPlaced($place)
-{
-$hplace=$place & IPL_HORIZONTAL;
-$h=$hplace==0 || ($this->placement & IPL_HORIZONTAL)==$hplace;
-$vplace=$place & IPL_VERTICAL;
-$v=$vplace==0 || ($this->placement & IPL_VERTICAL)==$vplace;
-return $h && $v;
-}
+    public function setImageId($image_id) {
+        $this->image_id = $image_id;
+    }
 
-function getImage()
-{
-return $this->image;
-}
+    public function getPlacement() {
+        return $this->placement;
+    }
+
+    public function isPlaced($place) {
+        $hplace = $place & IPL_HORIZONTAL;
+        $h = $hplace == 0 || ($this->placement & IPL_HORIZONTAL) == $hplace;
+        $vplace = $place & IPL_VERTICAL;
+        $v = $vplace == 0 || ($this->placement & IPL_VERTICAL) == $vplace;
+        return $h && $v;
+    }
+
+    public function getImage() {
+        return $this->image;
+    }
 
 }
 
@@ -116,17 +110,17 @@ class InnerImagesIterator
 
 function storeInnerImage($inner) {
     sql("delete from inner_images
-         where entry_id={$inner->entry_id} and par={$inner->par}
-               and x={$inner->x} and y={$inner->y}",
+         where entry_id={$inner->getEntryId()} and par={$inner->getPar()}
+               and x={$inner->getX()} and y={$inner->getY()}",
         __FUNCTION__,'delete');
-    if ($inner->image_id == 0)
+    if ($inner->getImageId() == 0)
         return;
-    $vars = array('entry_id' => $inner->entry_id,
-                  'par' => $inner->par,
-                  'x' => $inner->x,
-                  'y' => $inner->y,
-                  'image_id' => $inner->image_id,
-                  'placement' => $inner->placement);
+    $vars = array('entry_id' => $inner->getEntryId(),
+                  'par' => $inner->getPar(),
+                  'x' => $inner->getX(),
+                  'y' => $inner->getY(),
+                  'image_id' => $inner->getImageId(),
+                  'placement' => $inner->getPlacement());
     sql(sqlInsert('inner_images', $vars),
         __FUNCTION__, 'insert');
 }

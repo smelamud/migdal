@@ -20,33 +20,34 @@ function modifyUser($user,$original)
 {
 global $captcha,$disableRegister,$usersMandatorySurname,$userAdminUsers;
 
-if($user->id==0 && $disableRegister && !$userAdminUsers)
+if($user->getId()==0 && $disableRegister && !$userAdminUsers)
   return EUM_DISABLED;
 if(!$user->isEditable())
   return EUM_NO_EDIT;
-if($user->login=='')
+if($user->getLogin()=='')
   return EUM_LOGIN_ABSENT;
-if(($user->id==0 || $user->password!='') && strlen($user->password)<5)
+if(($user->getId()==0 || $user->getPassword()!='')
+   && strlen($user->getPassword())<5)
   return EUM_PASSWORD_LEN;
-if($user->password!=$user->dup_password)
+if($user->getPassword()!=$user->getDupPassword())
   return EUM_PASSWORD_DIFF;
-if(userLoginExists($user->login,$user->id))
+if(userLoginExists($user->getLogin(),$user->getId()))
   return EUM_LOGIN_EXISTS;
-if($user->name=='')
+if($user->getName()=='')
   return EUM_NAME_ABSENT;
-if($usersMandatorySurname && $user->surname=='')
+if($usersMandatorySurname && $user->getSurname()=='')
   return EUM_SURNAME_ABSENT;
 if($user->getGender()!='mine' && $user->getGender()!='femine')
   return EUM_GENDER;
 if(!checkdate($user->getMonthOfBirth(),$user->getDayOfBirth(),
               '19'.$user->getYearOfBirth()))
   return EUM_BIRTHDAY;
-if($user->email=='')
+if($user->getEmail()=='')
   return EUM_EMAIL_ABSENT;
 if(!preg_match('/^[A-Za-z0-9-_]+(\.[A-Za-z0-9-_]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*$/',
-               $user->email))
+               $user->getEmail()))
   return EUM_NOT_EMAIL;
-if($user->id==0)
+if($user->getId()==0)
   {
   if($captcha=='')
     return EUM_CAPTCHA_ABSENT;
@@ -54,9 +55,10 @@ if($user->id==0)
     return EUM_CAPTCHA;
   }
 if(!$userAdminUsers)
-  $user->rights=$user->rights & USR_USER | $original->rights & ~USR_USER;
+  $user->setRights($user->getRights() & USR_USER
+                   | $original->getRights() & ~USR_USER);
 storeUser($user);
-if($original->id==0)
+if($original->getId()==0)
   if(!$userAdminUsers)
     {
     preconfirmUser($user->getId());

@@ -54,7 +54,7 @@
 + lib/charsets.php
 + lib/chat.php
 + lib/counters.php
-- lib/cross-entries.php
++ lib/cross-entries.php
 + lib/ctypes.php
 + lib/database.php
 + lib/dataobject.php
@@ -81,7 +81,7 @@
 + lib/image-upload.php
 + lib/initstop-mail.php
 + lib/initstop.php
-- lib/inner-images.php
++ lib/inner-images.php
 + lib/inner.php
 + lib/ip.php
 + lib/iterator.php
@@ -105,14 +105,14 @@
 + lib/ogimages.php
 + lib/old-ids.php
 - lib/packages.php
-- lib/permission-schemes.php
++ lib/permission-schemes.php
 - lib/permissions.php
 + lib/perm.php
 - lib/postings-info.php
 - lib/postings.php
 - lib/postings-random.php
 + lib/post.php
-- lib/prisoners.php
++ lib/prisoners.php
 + lib/profiling.php
 - lib/pwgen.php
 + lib/random.php
@@ -130,9 +130,9 @@
 + lib/style.php
 + lib/text-any.php
 + lib/text-formats.php
-- lib/text-large.php
++ lib/text-large.php
 + lib/text.php
-- lib/text-upload.php
++ lib/text-upload.php
 - lib/text-wiki.php
 + lib/text-xml.php
 + lib/time.php
@@ -141,7 +141,7 @@
 + lib/track.php
 + lib/unix-calendar.php
 + lib/uri.php
-- lib/url-fopen.php
++ lib/url-fopen.php
 - lib/users.php
 - lib/usertag.php
 + lib/utils.php

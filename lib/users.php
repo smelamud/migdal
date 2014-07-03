@@ -113,6 +113,14 @@ function getUserId()
 return $this->getId();
 }
 
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getDupPassword() {
+        return $this->dup_password;
+    }
+
 function getFolder()
 {
 return $this->getUserFolder();
@@ -257,6 +265,10 @@ function isMigdalStudent()
 return $this->hasRight(USR_MIGDAL_STUDENT);
 }
 
+    public function setRights($rights) {
+        $this->rights = $rights;
+    }
+
 function getICQ()
 {
 return $this->icq;
@@ -322,6 +334,10 @@ function isAdminDomain()
 {
 return $this->hasRight(USR_ADMIN_DOMAIN);
 }
+
+    public function getHidden() {
+        return $this->hidden;
+    }
 
 function isHidden()
 {
@@ -515,7 +531,7 @@ function getUserById($id, $guest_login = '') {
                   __FUNCTION__);
     $user = new User(mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result)
                                                  : array('id' => 0));
-    $user->guest_login = $guest_login;
+    $user->setGuestLogin($guest_login);
     return $user;
 }
 
@@ -524,39 +540,43 @@ function storeUser(User $user) {
 
     // Здесь допускается установка админских прав не админом! Проверка должна
     // производиться раньше.
-    $vars = array('login' => $user->login,
-                  'name' => $user->name,
-                  'jewish_name' => $user->jewish_name,
-                  'surname' => $user->surname,
-                  'gender' => $user->gender,
-                  'info' => $user->info,
-                  'info_xml' => $user->info_xml,
-                  'birthday' => $user->birthday,
-                  'modified' => sqlNow(),
-                  'rights' => $user->rights,
-                  'email' => $user->email,
-                  'hide_email' => $user->hide_email,
-                  'email_disabled' => $user->email_disabled,
-                  'icq' => $user->icq);
+    $vars = array(
+        'login' => $user->getLogin(),
+        'name' => $user->getName(),
+        'jewish_name' => $user->getJewishName(),
+        'surname' => $user->getSurname(),
+        'gender' => $user->getGender(),
+        'info' => $user->getInfo(),
+        'info_xml' => $user->getInfoXML(),
+        'birthday' => $user->getBirthday(),
+        'modified' => sqlNow(),
+        'rights' => $user->getRights(),
+        'email' => $user->getEmail(),
+        'hide_email' => $user->isHideEmail(),
+        'email_disabled' => $user->isEmailDisabled(),
+        'icq' => $user->getICQ()
+    );
     if ($userAdminUsers)
-        $vars = array_merge($vars,
-                            array('hidden' => $user->hidden,
-                                  'no_login' => $user->no_login,
-                                  'has_personal' => $user->has_personal));
-    if (!$user->id || $user->dup_password != '')
-        $vars = array_merge($vars,
-                            array('password' => md5($user->password)));
-    if ($user->id) {
+        $vars = array_merge($vars, array(
+            'hidden' => $user->getHidden(),
+            'no_login' => $user->isNoLogin(),
+            'has_personal' => $user->isHasPersonal()
+        ));
+    if (!$user->getId() || $user->getDupPassword() != '')
+        $vars = array_merge($vars, array(
+            'password' => md5($user->getPassword())
+        ));
+    if ($user->getId()) {
         $result = sql(sqlUpdate('users',
                                 $vars,
-                                array('id' => $user->id)),
+                                array('id' => $user->getId())),
                       __FUNCTION__, 'update');
     } else {
         $vars['created'] = sqlNow();
         $result = sql(sqlInsert('users',
                                 $vars),
                       __FUNCTION__, 'insert');
-        $user->id = sql_insert_id();
+        $user->setId(sql_insert_id());
     }
     return $result;
 }

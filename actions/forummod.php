@@ -27,33 +27,35 @@ function modifyForum($forum, $original) {
         return EF_NO_EDIT;
     if (!entryExists(ENT_NULL, $forum->getParentId()))
         return EF_NO_PARENT;
-    $correct = validateHierarchy($forum->parent_id, $forum->up, ENT_FORUM,
-                                 $forum->id);
+    $correct = validateHierarchy($forum->getParentId(), $forum->getUpValue(),
+                                 ENT_FORUM, $forum->getId());
     if ($correct != EG_OK)
         return $correct;
     $parent = getPermsById($forum->getParentId());
     if (!$parent->isPostable())
         return EF_NO_SEND;
-    if ($forum->up != $forum->parent_id) {
-        $perms = getPermsById($forum->up);
+    if ($forum->getUpValue() != $forum->getParentId()) {
+        $perms = getPermsById($forum->getUpValue());
         if (!$perms->isAppendable())
             return EF_UP_APPEND;
     }
-    if ($forumMandatorySubject && $forum->subject == '')
+    if ($forumMandatorySubject && $forum->getSubject() == '')
         return EF_SUBJECT_ABSENT;
-    if ($forumMandatoryAuthor && $forum->author == '')
+    if ($forumMandatoryAuthor && $forum->getAuthor() == '')
         return EF_AUTHOR_ABSENT;
-    if ($forumMandatoryBody && $forum->body == '')
+    if ($forumMandatoryBody && $forum->getBody() == '')
         return EF_BODY_ABSENT;
     if ($forumMandatoryImage && !$forum->hasSmallImage())
         return EF_IMAGE_ABSENT;
     if ($forum->hasSmallImage()
-        && !imageFileExists($forum->small_image_format, $forum->small_image))
+        && !imageFileExists($forum->getSmallImageFormat(),
+                            $forum->getSmallImage()))
         return EF_NO_IMAGE;
     if ($forum->hasLargeImage()
-        && !imageFileExists($forum->large_image_format, $forum->large_image))
+        && !imageFileExists($forum->getLargeImageFormat(),
+                            $forum->getLargeImage()))
         return EF_NO_IMAGE;
-    if ($forum->id <= 0 && $userId <= 0) {
+    if ($forum->getId() <= 0 && $userId <= 0) {
         if ($captcha == '')
             return EF_CAPTCHA_ABSENT;
         if (!validateCaptcha($captcha))
@@ -129,9 +131,9 @@ if ($err == EG_OK) {
     $bodyId = tmpTextSave($body);
     $subjectId = tmpTextSave($subject);
     $authorId = tmpTextSave($author);
-    $smallImageFormatId = tmpTextSave($forum->small_image_format);
-    $largeImageFormatId = tmpTextSave($forum->large_image_format);
-    $largeImageFilenameId = tmpTextSave($forum->large_image_filename);
+    $smallImageFormatId = tmpTextSave($forum->getSmallImageFormat());
+    $largeImageFormatId = tmpTextSave($forum->getLargeImageFormat());
+    $largeImageFilenameId = tmpTextSave($forum->getLargeImageFilename());
     header(
         'Location: '.
         remakeMakeURI(
@@ -149,14 +151,14 @@ if ($err == EG_OK) {
                 'body_i'        => $bodyId,
                 'subject_i'     => $subjectId,
                 'author_i'      => $authorId,
-                'small_image'   => $forum->small_image,
-                'small_image_x' => $forum->small_image_x,
-                'small_image_y' => $forum->small_image_y,
+                'small_image'   => $forum->getSmallImage(),
+                'small_image_x' => $forum->getSmallImageX(),
+                'small_image_y' => $forum->getSmallImageY(),
                 'small_image_format_i' => $smallImageFormatId,
-                'large_image'   => $forum->large_image,
-                'large_image_x' => $forum->large_image_x,
-                'large_image_y' => $forum->large_image_y,
-                'large_image_size' => $forum->large_image_size,
+                'large_image'   => $forum->getLargeImage(),
+                'large_image_x' => $forum->getLargeImageX(),
+                'large_image_y' => $forum->getLargeImageY(),
+                'large_image_size' => $forum->getLargeImageSize(),
                 'large_image_format_i' => $largeImageFormatId,
                 'large_image_filename_i' => $largeImageFilenameId,
                 'err'           => $err)

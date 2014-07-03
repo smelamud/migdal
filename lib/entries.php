@@ -106,6 +106,10 @@ function getId()
 return $this->id;
 }
 
+    public function setId($id) {
+        $this->id = $id;
+    }
+
 function getIdent()
 {
 return $this->ident;
@@ -120,6 +124,10 @@ function getUpValue()
 {
 return $this->up;
 }
+
+    public function setUpValue($up) {
+        $this->up = $up;
+    }
 
 function getTrack()
 {
@@ -146,6 +154,10 @@ foreach(explode(' ',$this->getTrack()) as $item)
 return $s;
 }
 
+    public function setTrack($track) {
+        $this->track = $track;
+    }
+
 function getCatalog($start=0,$length=0)
 {
 if($start==0 && $length==0 || $this->catalog=='')
@@ -159,6 +171,10 @@ for($i=$begin;$i<$end;$i++)
 return $catalog;
 }
 
+    public function setCatalog($catalog) {
+        $this->catalog = $catalog;
+    }
+
 function getParentId()
 {
 return $this->parent_id;
@@ -168,6 +184,10 @@ function getOrigId()
 {
 return $this->orig_id;
 }
+
+    public function setOrigId($orig_id) {
+        $this->orig_id = $orig_id;
+    }
 
 function getGrp()
 {
@@ -219,6 +239,10 @@ function getGroupLogin()
 return $this->group_login;
 }
 
+    public function setGroupLogin($group_login) {
+        $this->group_login = $group_login;
+    }
+
 function getGroupName()
 {
 return $this->getGroupLogin();
@@ -227,6 +251,11 @@ return $this->getGroupLogin();
 function getPerms()
 {
 return $this->perms;
+}
+
+function getPermStringRaw()
+{
+return $this->perm_string;
 }
 
 function getPermString()
@@ -274,6 +303,10 @@ function isDisabled()
 {
 return $this->disabled;
 }
+
+    public function setDisabled($disabled) {
+        $this->disabled = $disabled;
+    }
 
 function getSubject()
 {
@@ -437,6 +470,10 @@ global $urlEllipSize;
 return ellipsize($this->url,$urlEllipSize);
 }
 
+    public function setURL($url) {
+        $this->url = $url;
+    }
+
 function getURLDomain()
 {
 return $this->url_domain;
@@ -564,15 +601,27 @@ function hasLargeBody()
 return $this->has_large_body;
 }
 
+    public function setHasLargeBody($has_large_body) {
+        $this->has_large_body = $has_large_body;
+    }
+
 function getLargeBody()
 {
 return $this->large_body;
 }
 
+    public function setLargeBody($large_body) {
+        $this->large_body = $large_body;
+    }
+
 function getLargeBodyXML()
 {
 return $this->large_body_xml;
 }
+
+    public function setLargeBodyXML($large_body_xml) {
+        $this->large_body_xml = $large_body_xml;
+    }
 
 function getLargeBodyHTML()
 {
@@ -588,6 +637,10 @@ function getLargeBodyFilename()
 {
 return $this->large_body_filename;
 }
+
+    public function setLargeBodyFilename($large_body_filename) {
+        $this->large_body_filename = $large_body_filename;
+    }
 
 function getLargeBodySize()
 {
@@ -679,6 +732,10 @@ function getModbits()
 return $this->modbits;
 }
 
+    public function setModbits($modbits) {
+        $this->modbits = $modbits;
+    }
+
 function getAnswers()
 {
 return $this->answers;
@@ -715,20 +772,36 @@ function hasSmallImage()
 return $this->small_image!=0;
 }
 
+    public function setSmallImage($small_image) {
+        $this->small_image = $small_image;
+    }
+
 function getSmallImageX()
 {
 return $this->small_image_x;
 }
+
+    public function setSmallImageX($small_image_x) {
+        $this->small_image_x = $small_image_x;
+    }
 
 function getSmallImageY()
 {
 return $this->small_image_y;
 }
 
+    public function setSmallImageY($small_image_y) {
+        $this->small_image_y = $small_image_y;
+    }
+
 function getSmallImageFormat()
 {
 return $this->small_image_format;
 }
+
+    public function setSmallImageFormat($small_image_format) {
+        $this->small_image_format = $small_image_format;
+    }
 
 function getSmallImageURL()
 {
@@ -745,15 +818,27 @@ function hasLargeImage()
 return $this->large_image!=0 && $this->small_image!=$this->large_image;
 }
 
+    public function setLargeImage($large_image) {
+        $this->large_image = $large_image;
+    }
+
 function getLargeImageX()
 {
 return $this->large_image_x;
 }
 
+    public function setLargeImageX($large_image_x) {
+        $this->large_image_x = $large_image_x;
+    }
+
 function getLargeImageY()
 {
 return $this->large_image_y;
 }
+
+    public function setLargeImageY($large_image_y) {
+        $this->large_image_y = $large_image_y;
+    }
 
 function getLargeImageURL()
 {
@@ -790,6 +875,8 @@ function getImageSizeKB() {
     return $this->getLargeImageSizeKB();
 }
 
+//
+
 function getLargeImageSize()
 {
 return $this->large_image_size;
@@ -800,15 +887,27 @@ function getLargeImageSizeKB()
 return (int)($this->large_image_size/1024);
 }
 
+    public function setLargeImageSize($large_image_size) {
+        $this->large_image_size = $large_image_size;
+    }
+
 function getLargeImageFormat()
 {
 return $this->large_image_format;
 }
 
+    public function setLargeImageFormat($large_image_format) {
+        $this->large_image_format = $large_image_format;
+    }
+
 function getLargeImageFilename()
 {
 return $this->large_image_filename;
 }
+
+    public function setLargeImageFilename($large_image_filename) {
+        $this->large_image_filename = $large_image_filename;
+    }
 
 function isInserted()
 {
@@ -995,14 +1094,13 @@ $result=sql("select orig_id
 return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
 }
 
-function setOrigIdToEntryId(&$entry)
-{
-sql("update entries
-     set orig_id=id
-     where id={$entry->id}",
-    __FUNCTION__,'orig_id');
-$entry->orig_id=$entry->id;
-incContentVersionsByEntryId($entry->id);
+function setOrigIdToEntryId(Entry $entry) {
+    sql("update entries
+         set orig_id=id
+         where id={$entry->getId()}",
+        __FUNCTION__,'orig_id');
+    $entry->setOrigId($entry->getId());
+    incContentVersionsByEntryId($entry->getId());
 }
 
 function getRatingByEntryId($id)

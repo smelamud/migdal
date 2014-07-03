@@ -36,10 +36,10 @@ function putOldId($entry_id, $table_name, $old_id, $old_ident = '') {
 class OldId
         extends DataObject {
 
-    private $table_name;
-    private $old_id;
-    private $old_ident;
-    private $entry_id;
+    protected $table_name;
+    protected $old_id;
+    protected $old_ident;
+    protected $entry_id;
 
     public function __construct(array $row) {
         parent::__construct($row);

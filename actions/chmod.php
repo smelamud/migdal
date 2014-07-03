@@ -12,8 +12,8 @@ function doChmod($id,$perms,$original)
 {
 global $userModerator,$userAdminTopics;
 
-$moder=$original->entry==ENT_TOPIC ? $userAdminTopics : $userModerator;
-if(!$original->isWritable() || $perms->recursive && !$moder)
+$moder=$original->getEntry()==ENT_TOPIC ? $userAdminTopics : $userModerator;
+if(!$original->isWritable() || $perms->getRecursive() && !$moder)
   return ECHM_NO_CHMOD;
 if($perms->getUserName()!='')
   {
@@ -31,21 +31,21 @@ if($perms->getGroupName()!='')
   }
 else
   $perms->setGroupId(0);
-if(!$perms->recursive)
+if(!$perms->getRecursive())
   {
   if($perms->getUserId()<=0)
     return ECHM_USER_EMPTY;
   if($perms->getGroupId()<=0)
     return ECHM_GROUP_EMPTY;
-  if($perms->perms<0)
+  if($perms->getPerms()<0)
     return ECHM_BAD_PERMS;
   setPermsById($perms);
   }
 else
   setPermsRecursive($id,$perms->getUserId(),$perms->getGroupId(),
-                    $perms->perm_string!='' ? $perms->perm_string
+                    $perms->getPermStringRaw()!='' ? $perms->getPermStringRaw()
 		                            : '????????????????',
-		    $perms->entry);
+		    $perms->getEntry());
 // FIXME этот скрипт не работает для ответов в форуме. Для них нужно вызывать
 // answerUpdate()
 return EG_OK;

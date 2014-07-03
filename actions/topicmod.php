@@ -23,47 +23,48 @@ global $userLogin,$topicMandatoryDescription,$rootTopicUserName,
 
 if($original->getId()!=0 && !$original->isWritable())
   return ET_NO_EDIT;
-if($topic->subject=='')
+if($topic->getSubject()=='')
   return ET_NAME_ABSENT;
-if($topic->login=='')
-  $topic->login=$userLogin;
-$uid=getUserIdByLogin($topic->login);
+if($topic->getLogin()=='')
+  $topic->setLogin($userLogin);
+$uid=getUserIdByLogin($topic->getLogin());
 if($uid==0)
   return ET_NO_USER;
-$topic->user_id=$uid;
-if($topic->group_login=='')
-  $topic->group_login=$userLogin;
-$gid=getUserIdByLogin($topic->group_login);
+$topic->setUserId($uid);
+if($topic->getGroupLogin()=='')
+  $topic->setGroupLogin($userLogin);
+$gid=getUserIdByLogin($topic->getGroupLogin());
 if($gid==0)
   return ET_NO_GROUP;
-$topic->group_id=$gid;
-if($topic->perms<0)
+$topic->setGroupId($gid);
+if($topic->getPerms()<0)
   return ET_BAD_PERMS;
-if($topicMandatoryDescription && $topic->body=='')
+if($topicMandatoryDescription && $topic->getBody()=='')
   return ET_DESCRIPTION_ABSENT;
-if($topic->up<0)
-  $topic->up=0;
-$correct=validateHierarchy(0,$topic->up,ENT_TOPIC,$topic->id);
+if($topic->getUpValue()<0)
+  $topic->setUpValue(0);
+$correct=validateHierarchy(0,$topic->getUpValue(),ENT_TOPIC,$topic->getId());
 if($correct!=EG_OK)
   return $correct;
-if($topic->up!=0)
-  $upPerms=getPermsById($topic->up);
+if($topic->getUpValue()!=0)
+  $upPerms=getPermsById($topic->getUpValue());
 else
   $upPerms=new Entry(array('user_id'  => getUserIdByLogin($rootTopicUserName),
                            'group_id' => getUserIdByLogin($rootTopicGroupName),
                            'perms'    => $rootTopicPerms));
 if(!$upPerms->isAppendable())
   return ET_NO_APPEND;
-$cid=idByIdent($topic->ident);
-if(!is_null($topic->ident) && $cid!=0 && $topic->id!=$cid)
+$cid=idByIdent($topic->getIdent());
+if(!is_null($topic->getIdent()) && $cid!=0 && $topic->getId()!=$cid)
   return ET_IDENT_UNIQUE;
-if($topic->id==0 || $original->up!=$topic->up)
-  $topic->track='';
-if($topic->id==0 || $original->up!=$topic->up
-   || $original->ident!=$topic->ident || $original->modbits!=$topic->modbits)
-  $topic->catalog='';
+if($topic->getId()==0 || $original->getUpValue()!=$topic->getUpValue())
+  $topic->setTrack('');
+if($topic->getId()==0 || $original->getUpValue()!=$topic->getUpValue()
+   || $original->getIdent()!=$topic->getIdent()
+   || $original->getModbits()!=$topic->getModbits())
+  $topic->setCatalog('');
 storeTopic($topic);
-setGrpsByEntryId($topic->id,$topic->grps);
+setGrpsByEntryId($topic->getId(),$topic->getGrps());
 return EG_OK;
 }
 

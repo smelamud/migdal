@@ -37,14 +37,14 @@ while(true)
 if($info->getLinkId()<=0 && $info->getLinkName()=='')
   return ECEA_NO_LINKING;
 $cross=new CrossEntry();
-$cross->source_name=$source_name!='' ? $source_name : null;
-$cross->source_id=$source_id>0 ? $source_id : null;
-$cross->link_type=$link_type;
-$cross->peer_name=$info->getLinkName()!='' ? $info->getLinkName() : null;
-$cross->peer_id=$info->getLinkId()>0 ? $info->getLinkId() : null;
-$cross->peer_path=$peer_path;
-$cross->peer_subject=$info->getLinkTitle();
-$cross->peer_icon=$info->getLinkIcon();
+$cross->setSourceName($source_name!='' ? $source_name : null);
+$cross->setSourceId($source_id>0 ? $source_id : null);
+$cross->setLinkType($link_type);
+$cross->setPeerName($info->getLinkName()!='' ? $info->getLinkName() : null);
+$cross->setPeerId($info->getLinkId()>0 ? $info->getLinkId() : null);
+$cross->setPeerPath($peer_path);
+$cross->setPeerSubject($info->getLinkTitle());
+$cross->setPeerIcon($info->getLinkIcon());
 storeCrossEntry($cross);
 return EG_OK;
 }

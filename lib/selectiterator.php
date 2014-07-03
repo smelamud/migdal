@@ -69,7 +69,7 @@ class SelectIterator
     }
 
     public function setQuery($query) {
-        $this->query=$query;
+        $this->query = $query;
     }
 
     public function count() {

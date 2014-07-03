@@ -67,14 +67,16 @@ function uploadStandardImage($name, Entry $posting, $flags,
         $thumbFlag = 'auto';
 
     if ($deleteIfExists) {
-        $posting->small_image = 0;
-        $posting->small_image_x = $posting->small_image_y = 0;
-        $posting->small_image_format = '';
-        $posting->large_image = 0;
-        $posting->large_image_x = $posting->large_image_y = 0;
-        $posting->large_image_size = 0;
-        $posting->large_image_format = '';
-        $posting->large_image_filename = '';
+        $posting->setSmallImage(0);
+        $posting->setSmallImageX(0);
+        $posting->setSmallImageY(0);
+        $posting->setSmallImageFormat('');
+        $posting->setLargeImage(0);
+        $posting->setLargeImageX(0);
+        $posting->setLargeImageY(0);
+        $posting->setLargeImageSize(0);
+        $posting->setLargeImageFormat('');
+        $posting->setLargeImageFilename('');
     }
 
     switch ($imageFlag) {
@@ -101,8 +103,8 @@ function uploadStandardImage($name, Entry $posting, $flags,
                                       $transform, $transformX, $transformY);
     if (!($largeImageFile instanceof ImageFile))
         return imageUploadUserError($largeImageFile, false);
-    if ($largeImageFile->getId() == 0 && $posting->large_image != 0)
-        $largeImageFile = getImageFileById($posting->large_image);
+    if ($largeImageFile->getId() == 0 && $posting->getLargeImage() != 0)
+        $largeImageFile = getImageFileById($posting->getLargeImage());
 
     switch ($thumbFlag) {
         case 'manual':
@@ -125,8 +127,9 @@ function uploadStandardImage($name, Entry $posting, $flags,
             if (!($smallImageFile instanceof ImageFile))
                 return imageUploadUserError($smallImageFile, true);
             if ($smallImageFile->getId() == 0) {
-                if ($posting->small_image != 0)
-                    $smallImageFile = getImageFileById($posting->small_image);
+                if ($posting->getSmallImage() != 0)
+                    $smallImageFile = getImageFileById(
+                                        $posting->getSmallImage());
                 else
                     $smallImageFile = $largeImageFile;
             }
@@ -146,17 +149,17 @@ function uploadStandardImage($name, Entry $posting, $flags,
             $smallImageFile = $largeImageFile;
     }
 
-    $posting->small_image = $smallImageFile->getId();
-    $posting->small_image_x = $smallImageFile->getSizeX();
-    $posting->small_image_y = $smallImageFile->getSizeY();
-    $posting->small_image_format = $smallImageFile->getMimeType();
-    $posting->large_image = $largeImageFile->getId();
-    $posting->large_image_x = $largeImageFile->getSizeX();
-    $posting->large_image_y = $largeImageFile->getSizeY();
-    $posting->large_image_size = $largeImageFile->getFileSize();
-    $posting->large_image_format = $largeImageFile->getMimeType();
+    $posting->setSmallImage($smallImageFile->getId());
+    $posting->setSmallImageX($smallImageFile->getSizeX());
+    $posting->setSmallImageY($smallImageFile->getSizeY());
+    $posting->setSmallImageFormat($smallImageFile->getMimeType());
+    $posting->setLargeImage($largeImageFile->getId());
+    $posting->setLargeImageX($largeImageFile->getSizeX());
+    $posting->setLargeImageY($largeImageFile->getSizeY());
+    $posting->setLargeImageSize($largeImageFile->getFileSize());
+    $posting->setLargeImageFormat($largeImageFile->getMimeType());
     if (isset($_FILES[$name]) && $_FILES[$name]['tmp_name'] != '')
-        $posting->large_image_filename = $_FILES[$name]['name'];
+        $posting->setLargeImageFilename($_FILES[$name]['name']);
 
     return EG_OK;
 }

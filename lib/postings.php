@@ -545,124 +545,125 @@ class PostingAlphabetIterator
 
 }
 
-define('SPF_ORIGINAL',1);
-define('SPF_DUPLICATE',2);
-define('SPF_SHADOW',4);
-define('SPF_ALL',SPF_ORIGINAL|SPF_DUPLICATE|SPF_SHADOW);
+const SPF_ORIGINAL = 1;
+const SPF_DUPLICATE = 2;
+const SPF_SHADOW = 4;
+define('SPF_ALL', SPF_ORIGINAL | SPF_DUPLICATE | SPF_SHADOW);
 
-function storePostingFields(&$posting,$fields)
-{
-global $userId,$realUserId,$userModerator;
+function storePostingFields(Posting $posting, $fields) {
+    global $userId, $realUserId, $userModerator;
 
-$vars=array('entry' => $posting->entry,
-            'modified' => sqlNow());
-if(($fields & SPF_ORIGINAL)!=0)
-  $vars=array_merge($vars,
-                    array('subject' => $posting->subject,
-                          'author' => $posting->author,
-                          'author_xml' => $posting->author_xml,
-                          'source' => $posting->source,
-                          'source_xml' => $posting->source_xml,
-                          'title' => $posting->title,
-                          'title_xml' => $posting->title_xml,
-                          'comment0' => $posting->comment0,
-                          'comment0_xml' => $posting->comment0_xml,
-                          'comment1' => $posting->comment1,
-                          'comment1_xml' => $posting->comment1_xml,
-                          'url' => $posting->url,
-                          'url_domain' => $posting->url_domain,
-                          'body' => $posting->body,
-                          'body_xml' => $posting->body_xml,
-                          'body_format' => $posting->body_format,
-                          'has_large_body' => $posting->has_large_body,
-                          'large_body' => $posting->large_body,
-                          'large_body_xml' => $posting->large_body_xml,
-                          'large_body_format' => $posting->large_body_format,
-                          'large_body_filename' => $posting->large_body_filename,
-                          'small_image' => $posting->small_image,
-                          'small_image_x' => $posting->small_image_x,
-                          'small_image_y' => $posting->small_image_y,
-                          'small_image_format' => $posting->small_image_format,
-                          'large_image' => $posting->large_image,
-                          'large_image_x' => $posting->large_image_x,
-                          'large_image_y' => $posting->large_image_y,
-                          'large_image_size' => $posting->large_image_size,
-                          'large_image_format' => $posting->large_image_format,
-                          'large_image_filename' => $posting->large_image_filename));
-if(($fields & SPF_DUPLICATE)!=0)
-  {
-  $vars=array_merge($vars,
-                    array('person_id' => $posting->person_id,
-                          'guest_login' => $posting->guest_login,
-                          'user_id' => $posting->user_id,
-                          'group_id' => $posting->group_id,
-                          'perms' => $posting->perms,
-                          'lang' => $posting->lang,
-                          'index1' => $posting->index1,
-                          'index2' => $posting->index2));
-  if($posting->id<=0)
-    $vars=array_merge($vars,
-                      array('sent' => sqlNow()));
-  if($userModerator)
-    $vars=array_merge($vars,
-                      array('disabled' => $posting->disabled,
-                            'priority' => $posting->priority,
-                            'sent' => $posting->sent));
-  }
-if(($fields & SPF_SHADOW)!=0)
-  {
-  $vars=array_merge($vars,
-                    array('up' => $posting->up,
-                          'parent_id' => $posting->parent_id,
-                          'grp' => $posting->grp,
-                          'modifier_id' => $userId>0 ? $userId : $realUserId));
-  if($userModerator)
-    $vars=array_merge($vars,
-                      array('ident' => $posting->ident));
-  }
-return $vars;
+    $vars = array(
+        'entry' => $posting->getEntry(),
+        'modified' => sqlNow()
+    );
+    if (($fields & SPF_ORIGINAL) != 0)
+        $vars = array_merge($vars, array(
+            'subject' => $posting->getSubject(),
+            'author' => $posting->getAuthor(),
+            'author_xml' => $posting->getAuthorXML(),
+            'source' => $posting->getSource(),
+            'source_xml' => $posting->getSourceXML(),
+            'title' => $posting->getTitle(),
+            'title_xml' => $posting->getTitleXML(),
+            'comment0' => $posting->getComment0(),
+            'comment0_xml' => $posting->getComment0XML(),
+            'comment1' => $posting->getComment1(),
+            'comment1_xml' => $posting->getComment1XML(),
+            'url' => $posting->getURL(),
+            'url_domain' => $posting->getURLDomain(),
+            'body' => $posting->getBody(),
+            'body_xml' => $posting->getBodyXML(),
+            'body_format' => $posting->getBodyFormat(),
+            'has_large_body' => $posting->hasLargeBody(),
+            'large_body' => $posting->getLargeBody(),
+            'large_body_xml' => $posting->getLargeBodyXML(),
+            'large_body_format' => $posting->getLargeBodyFormat(),
+            'large_body_filename' => $posting->getLargeBodyFilename(),
+            'small_image' => $posting->getSmallImage(),
+            'small_image_x' => $posting->getSmallImageX(),
+            'small_image_y' => $posting->getSmallImageY(),
+            'small_image_format' => $posting->getSmallImageFormat(),
+            'large_image' => $posting->getLargeImage(),
+            'large_image_x' => $posting->getLargeImageX(),
+            'large_image_y' => $posting->getLargeImageY(),
+            'large_image_size' => $posting->getLargeImageSize(),
+            'large_image_format' => $posting->getLargeImageFormat(),
+            'large_image_filename' => $posting->getLargeImageFilename()
+        ));
+    if (($fields & SPF_DUPLICATE) != 0) {
+        $vars = array_merge($vars, array(
+            'person_id' => $posting->getPersonId(),
+            'guest_login' => $posting->getGuestLogin(),
+            'user_id' => $posting->getUserId(),
+            'group_id' => $posting->getGroupId(),
+            'perms' => $posting->getPerms(),
+            'lang' => $posting->getLang(),
+            'index1' => $posting->getIndex1(),
+            'index2' => $posting->getIndex2()
+        ));
+        if ($posting->getId() <= 0)
+            $vars = array_merge($vars, array(
+                'sent' => sqlNow()
+            ));
+        if ($userModerator)
+            $vars = array_merge($vars, array(
+                'disabled' => $posting->isDisabled(),
+                'priority' => $posting->getPriority(),
+                'sent' => $posting->getSent()
+            ));
+    }
+    if (($fields & SPF_SHADOW) != 0) {
+        $vars = array_merge($vars, array(
+            'up' => $posting->getUpValue(),
+            'parent_id' => $posting->getParentId(),
+            'grp' => $posting->getGrp(),
+            'modifier_id' => $userId > 0 ? $userId : $realUserId));
+        if ($userModerator)
+            $vars = array_merge($vars, array(
+                'ident' => $posting->getIdent()
+            ));
+    }
+    return $vars;
 }
 
-function storePosting(&$posting)
-{
-if($posting->id)
-  {
-  $posting->track=trackById('entries',$posting->id);
-  $vars=storePostingFields($posting,SPF_SHADOW);
-  $result=sql(sqlUpdate('entries',
-                        $vars,
-                        array('id' => $posting->id)),
-              __FUNCTION__,'update_shadow');
-  $vars=storePostingFields($posting,SPF_DUPLICATE);
-  $result=sql(sqlUpdate('entries',
-                        $vars,
-                        array('orig_id' => $posting->orig_id)),
-              __FUNCTION__,'update_duplicate');
-  $vars=storePostingFields($posting,SPF_ORIGINAL);
-  $result=sql(sqlUpdate('entries',
-                        $vars,
-                        array('id' => $posting->orig_id)),
-              __FUNCTION__,'update_original');
-  updateCatalogs($posting->track);
-  replaceTracksToUp('entries',$posting->track,$posting->up,$posting->id);
-  answerUpdate($posting->id);
-  }
-else
-  {
-  $vars=storePostingFields($posting,SPF_ALL);
-  $vars['created']=sqlNow();
-  $vars['creator_id']=$vars['modifier_id'];
-  $vars['track']=(string) time();
-  sql(sqlInsert('entries',
-                $vars),
-      __FUNCTION__,'insert');
-  $posting->id=sql_insert_id();
-  setOrigIdToEntryId($posting);
-  createTrack('entries',$posting->id);
-  updateCatalogs(trackById('entries',$posting->id));
-  }
-incContentVersions('postings');
-return $result;
+function storePosting(Posting $posting) {
+    if($posting->getId()) {
+        $posting->setTrack(trackById('entries', $posting->getId()));
+        $vars = storePostingFields($posting, SPF_SHADOW);
+        $result = sql(sqlUpdate('entries',
+                                $vars,
+                                array('id' => $posting->getId())),
+                      __FUNCTION__, 'update_shadow');
+        $vars = storePostingFields($posting, SPF_DUPLICATE);
+        $result = sql(sqlUpdate('entries',
+                                $vars,
+                                array('orig_id' => $posting->getOrigId())),
+                      __FUNCTION__, 'update_duplicate');
+        $vars = storePostingFields($posting, SPF_ORIGINAL);
+        $result = sql(sqlUpdate('entries',
+                                $vars,
+                                array('id' => $posting->getOrigId())),
+                      __FUNCTION__, 'update_original');
+        updateCatalogs($posting->getTrack());
+        replaceTracksToUp('entries', $posting->getTrack(),
+                          $posting->getUpValue(), $posting->getId());
+        answerUpdate($posting->getId());
+    } else {
+        $vars = storePostingFields($posting, SPF_ALL);
+        $vars['created'] = sqlNow();
+        $vars['creator_id'] = $vars['modifier_id'];
+        $vars['track'] = (string) time();
+        sql(sqlInsert('entries',
+                      $vars),
+            __FUNCTION__, 'insert');
+        $posting->setId(sql_insert_id());
+        setOrigIdToEntryId($posting);
+        createTrack('entries', $posting->getId());
+        updateCatalogs(trackById('entries', $posting->getId()));
+    }
+    incContentVersions('postings');
+    return $result;
 }
 
 function getRootPosting($grp,$topic_id,$up,$index1=0)
@@ -867,7 +868,7 @@ $tmod&=$required;
 if(isModbitRequired($tmod,MODT_PREMODERATE,$original))
   {
   setDisabledByEntryId($posting->getId(),1);
-  $posting->disabled=1;
+  $posting->setDisabled(1);
   }
 $modbits=MOD_NONE;
 if(isModbitRequired($tmod,MODT_MODERATE,$original))
@@ -875,7 +876,7 @@ if(isModbitRequired($tmod,MODT_MODERATE,$original))
 if(isModbitRequired($tmod,MODT_EDIT,$original))
   $modbits|=MOD_EDIT;
 setModbitsByEntryId($posting->getId(),$modbits);
-$posting->modbits=$modbits;
+$posting->setModbits($modbits);
 incContentVersions('postings');
 }
 
@@ -976,8 +977,8 @@ $result=sql("select id
             __FUNCTION__,'select_forum');
 while($row=mysql_fetch_assoc($result))
      deleteForum($row['id']);
-updateCatalogs($posting->track.' ');
-replaceTracks('entries',$posting->track.' ',trackById('entries',$up).' ');
+updateCatalogs($posting->getTrack().' ');
+replaceTracks('entries',$posting->getTrack().' ',trackById('entries',$up).' ');
 deleteShadowPosting($id);
 }
 

@@ -14,7 +14,7 @@ require_once('lib/errors.php');
 function deleteImageAction($image) {
     if ($image->getId() == 0 || !$image->isWritable())
         return ELID_NO_EDIT;
-    $posting = getPostingById($image->up);
+    $posting = getPostingById($image->getUpValue());
     if (!$posting->isAppendable())
         return ELID_POSTING_APPEND;
     deleteImage($image->getId());

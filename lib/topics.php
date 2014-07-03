@@ -226,7 +226,7 @@ class TopicListIterator
                              $limit, $offset);
     }
 
-    protected function create($row) {
+    protected function create(array $row) {
         $topic = parent::create($row);
         if (($this->fields & SELECT_GRPS) != 0)
             $topic->setGrps(getGrpsByEntryId($row['id']));
@@ -323,32 +323,33 @@ class TopicHierarchyIterator
 function storeTopic(Topic $topic) {
     global $userId, $realUserId;
 
-    $vars = array('entry' => $topic->entry,
-                  'ident' => $topic->ident,
-                  'up' => $topic->up,
-                  'subject' => $topic->subject,
-                  'comment0' => $topic->comment0,
-                  'comment0_xml' => $topic->comment0_xml,
-                  'comment1' => $topic->comment1,
-                  'comment1_xml' => $topic->comment1_xml,
-                  'user_id' => $topic->user_id,
-                  'group_id' => $topic->group_id,
-                  'perms' => $topic->perms,
-                  'modbits' => $topic->modbits,
-                  'index2' => $topic->index2,
-                  'body' => $topic->body,
-                  'body_xml' => $topic->body_xml,
-                  'body_format' => $topic->body_format,
+    $vars = array('entry' => $topic->getEntry(),
+                  'ident' => $topic->getIdent(),
+                  'up' => $topic->getUpValue(),
+                  'subject' => $topic->getSubject(),
+                  'comment0' => $topic->getComment0(),
+                  'comment0_xml' => $topic->getComment0XML(),
+                  'comment1' => $topic->getComment1(),
+                  'comment1_xml' => $topic->getComment1XML(),
+                  'user_id' => $topic->getUserId(),
+                  'group_id' => $topic->getGroupId(),
+                  'perms' => $topic->getPerms(),
+                  'modbits' => $topic->getModbits(),
+                  'index2' => $topic->getIndex2(),
+                  'body' => $topic->getBody(),
+                  'body_xml' => $topic->getBodyXML(),
+                  'body_format' => $topic->getBodyFormat(),
                   'modified' => sqlNow(),
                   'modifier_id' => $userId>0 ? $userId : $realUserId);
-    if ($topic->id) {
-        $topic->track = trackById('entries', $topic->id);
+    if ($topic->getId()) {
+        $topic->setTrack(trackById('entries', $topic->getId());
         $result = sql(sqlUpdate('entries',
                                 $vars,
-                                array('id' => $topic->id)),
+                                array('id' => $topic->getId())),
                       __FUNCTION__, 'update');
-        updateCatalogs($topic->track);
-        replaceTracksToUp('entries', $topic->track, $topic->up, $topic->id);
+        updateCatalogs($topic->getTrack());
+        replaceTracksToUp('entries', $topic->getTrack(), $topic->getUpValue(),
+                          $topic->getId());
     } else {
         $vars['sent'] = sqlNow();
         $vars['created'] = sqlNow();
@@ -357,9 +358,9 @@ function storeTopic(Topic $topic) {
         $result = sql(sqlInsert('entries',
                                 $vars),
                       __FUNCTION__, 'insert');
-        $topic->id = sql_insert_id();
-        createTrack('entries', $topic->id);
-        updateCatalogs(trackById('entries', $topic->id));
+        $topic->setId(sql_insert_id());
+        createTrack('entries', $topic->getId());
+        updateCatalogs(trackById('entries', $topic->getId()));
     }
     incContentVersions('topics');
     return $result;

@@ -326,7 +326,7 @@ class MTextToHTMLXML
                 break;
 
             case 'INCUT':
-                $data=new IncutCallbackData(
+                $data = new IncutCallbackData(
                         isset($attrs['ALIGN']) ? $attrs['ALIGN'] : 'right',
                         isset($attrs['WIDTH']) ? $attrs['WIDTH'] : '50%');
                 $this->html .= callback('incut', $data);

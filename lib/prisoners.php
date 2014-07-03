@@ -12,61 +12,52 @@ require_once('lib/sort.php');
 require_once('lib/sql.php');
 
 class Prisoner
-      extends DataObject
-{
-var $id;
-var $name;
-var $name_russian;
-var $location;
-var $ghetto_name;
-var $sender_name;
-var $sum;
-var $search_data;
+        extends DataObject {
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    protected $id = 0;
+    protected $name = '';
+    protected $name_russian = '';
+    protected $location = '';
+    protected $ghetto_name = '';
+    protected $sender_name = '';
+    protected $sum = 0;
+    protected $search_data = '';
 
-function getId()
-{
-return $this->id;
-}
+    public function __construct(array $row) {
+        parent::__construct($row);
+    }
 
-function getName()
-{
-return $this->name;
-}
+    public function getId() {
+        return $this->id;
+    }
 
-function getNameRussian()
-{
-return $this->name_russian;
-}
+    public function getName() {
+        return $this->name;
+    }
 
-function getLocation()
-{
-return $this->location;
-}
+    public function getNameRussian() {
+        return $this->name_russian;
+    }
 
-function getGhettoName()
-{
-return $this->ghetto_name;
-}
+    public function getLocation() {
+        return $this->location;
+    }
 
-function getSenderName()
-{
-return $this->sender_name;
-}
+    public function getGhettoName() {
+        return $this->ghetto_name;
+    }
 
-function getSum()
-{
-return $this->sum;
-}
+    public function getSenderName() {
+        return $this->sender_name;
+    }
 
-function getSearchData()
-{
-return $this->search_data;
-}
+    public function getSum() {
+        return $this->sum;
+    }
+
+    public function getSearchData() {
+        return $this->search_data;
+    }
 
 }
 
@@ -117,11 +108,10 @@ class PrisonerAlphabetIterator
 
 }
 
-function getPrisonersSummary()
-{
-$result=sql("select count(*)
-	     from prisoners",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getPrisonersSummary() {
+    $result = sql("select count(*)
+                   from prisoners",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 ?>

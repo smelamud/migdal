@@ -6,70 +6,96 @@ require_once('lib/selectiterator.php');
 
 require_once('conf/cross-entries.php');
 
-define('LINKT_NONE',0);
+const LINKT_NONE = 0;
 
 class CrossEntry
-      extends DataObject
-{
-var $id;
-var $source_name=null;
-var $source_id=null;
-var $link_type;
-var $peer_name=null;
-var $peer_id=null;
-var $peer_path;
-var $peer_subject;
-var $peer_icon;
+        extends DataObject {
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    protected $id;
+    protected $source_name = null;
+    protected $source_id = null;
+    protected $link_type;
+    protected $peer_name = null;
+    protected $peer_id = null;
+    protected $peer_path;
+    protected $peer_subject;
+    protected $peer_icon;
 
-function getId()
-{
-return $this->id;
-}
+    public function __construct(array $row) {
+        parent::__construct($row);
+    }
 
-function getSourceName()
-{
-return $this->source_name;
-}
+    public function getId() {
+        return $this->id;
+    }
 
-function getSourceId()
-{
-return $this->source_id;
-}
+    public function setId($id) {
+        $this->id = $id;
+    }
 
-function getLinkType()
-{
-return $this->link_type;
-}
+    public function getSourceName() {
+        return $this->source_name;
+    }
 
-function getPeerName()
-{
-return $this->peer_name;
-}
+    public function setSourceName($source_name) {
+        $this->source_name = $source_name;
+    }
 
-function getPeerId()
-{
-return $this->peer_id;
-}
+    public function getSourceId() {
+        return $this->source_id;
+    }
 
-function getPeerPath()
-{
-return $this->peer_path;
-}
+    public function setSourceId($source_id) {
+        $this->source_id = $source_id;
+    }
 
-function getPeerSubject()
-{
-return $this->peer_subject;
-}
+    public function getLinkType() {
+        return $this->link_type;
+    }
 
-function getPeerIcon()
-{
-return $this->peer_icon;
-}
+    public function setLinkType($link_type) {
+        $this->link_type = $link_type;
+    }
+
+    public function getPeerName() {
+        return $this->peer_name;
+    }
+
+    public function setPeerName($peer_name) {
+        $this->peer_name = $peer_name;
+    }
+
+    public function getPeerId() {
+        return $this->peer_id;
+    }
+
+    public function setPeerId($peer_id) {
+        $this->peer_id = $peer_id;
+    }
+
+    public function getPeerPath() {
+        return $this->peer_path;
+    }
+
+    public function setPeerPath($peer_path) {
+        $this->peer_path = $peer_path;
+    }
+
+    public function getPeerSubject() {
+        return $this->peer_subject;
+    }
+
+    public function setPeerSubject($peer_subject) {
+        $this->peer_subject = $peer_subject;
+    }
+
+    public function getPeerIcon() {
+        return $this->peer_icon;
+    }
+
+    public function setPeerIcon($peer_icon) {
+        $this->peer_icon = $peer_icon;
+    }
 
 }
 
@@ -96,38 +122,33 @@ class CrossEntryIterator
 
 }
 
-function storeCrossEntry(&$cross)
-{
-$vars=array('source_name' => $cross->source_name,
-            'source_id' => $cross->source_id,
-            'link_type' => $cross->link_type,
-            'peer_name' => $cross->peer_name,
-            'peer_id' => $cross->peer_id,
-            'peer_path' => $cross->peer_path,
-            'peer_subject' => $cross->peer_subject,
-            'peer_icon' => $cross->peer_icon);
-if($cross->id)
-  {
-  $result=sql(sqlUpdate('cross_entries',
-			$vars,
-			array('id' => $cross->id)),
-	      __FUNCTION__,'update');
-  }
-else
-  {
-  $result=sql(sqlInsert('cross_entries',
-                        $vars),
-	      __FUNCTION__,'insert');
-  $cross->id=sql_insert_id();
-  }
-return $result;
+function storeCrossEntry(CrossEntry $cross) {
+    $vars = array('source_name' => $cross->getSourceName(),
+                  'source_id' => $cross->getSourceId(),
+                  'link_type' => $cross->getLinkType(),
+                  'peer_name' => $cross->getPeerName(),
+                  'peer_id' => $cross->getPeerId(),
+                  'peer_path' => $cross->getPeerPath(),
+                  'peer_subject' => $cross->getPeerSubject(),
+                  'peer_icon' => $cross->getPeerIcon());
+    if ($cross->getId()) {
+        $result = sql(sqlUpdate('cross_entries',
+                                $vars,
+                                array('id' => $cross->getId())),
+                      __FUNCTION__, 'update');
+    } else {
+        $result = sql(sqlInsert('cross_entries',
+                                $vars),
+                      __FUNCTION__,'insert');
+        $cross->setId(sql_insert_id());
+    }
+    return $result;
 }
 
-function deleteCrossEntry($id)
-{
-sql("delete
-     from cross_entries
-     where id=$id",
-    __FUNCTION__);
+function deleteCrossEntry($id) {
+    sql("delete
+         from cross_entries
+         where id=$id",
+        __FUNCTION__);
 }
 ?>

@@ -187,61 +187,62 @@ class ForumListIterator
              where $Filter");
     }
 
-    protected function create($row) {
-        if($this->parent_type!=ENT_NULL)
-          $row['parent_type'] = $this->parent_type;
+    protected function create(array $row) {
+        if ($this->parent_type != ENT_NULL)
+            $row['parent_type'] = $this->parent_type;
         else
-          $row['parent_type'] = getTypeByEntryId($row['parent_id']);
+            $row['parent_type'] = getTypeByEntryId($row['parent_id']);
         return parent::create($row);
     }
 
 }
 
-function storeForum(&$forum)
+function storeForum(Forum $forum)
 {
 global $userId,$realUserId,$forumPremoderate;
 
-$vars=array('entry' => $forum->entry,
+$vars=array('entry' => $forum->getEntry(),
             'modified' => sqlNow(),
             'modifier_id' => $userId>0 ? $userId : $realUserId,
-            'subject' => $forum->subject,
-	    'author' => $forum->author,
-	    'author_xml' => $forum->author_xml,
-	    'body' => $forum->body,
-	    'body_xml' => $forum->body_xml,
-	    'body_format' => $forum->body_format,
-	    'small_image' => $forum->small_image,
-	    'small_image_x' => $forum->small_image_x,
-	    'small_image_y' => $forum->small_image_y,
-	    'small_image_format' => $forum->small_image_format,
-	    'large_image' => $forum->large_image,
-	    'large_image_x' => $forum->large_image_x,
-	    'large_image_y' => $forum->large_image_y,
-	    'large_image_size' => $forum->large_image_size,
-	    'large_image_format' => $forum->large_image_format,
-	    'large_image_filename' => $forum->large_image_filename,
-	    'guest_login' => $forum->guest_login,
-	    'user_id' => $forum->user_id,
-	    'group_id' => $forum->group_id,
-	    'perms' => $forum->perms,
-            'up' => $forum->up,
-	    'parent_id' => $forum->parent_id);
+            'subject' => $forum->getSubject(),
+	    'author' => $forum->getAuthor(),
+	    'author_xml' => $forum->getAuthorXML(),
+	    'body' => $forum->getBody(),
+	    'body_xml' => $forum->getBodyXML(),
+	    'body_format' => $forum->getBodyFormat(),
+	    'small_image' => $forum->getSmallImage(),
+	    'small_image_x' => $forum->getSmallImageX(),
+	    'small_image_y' => $forum->getSmallImageY(),
+	    'small_image_format' => $forum->getSmallImageFormat(),
+	    'large_image' => $forum->getLargeImage(),
+	    'large_image_x' => $forum->getLargeImageX(),
+	    'large_image_y' => $forum->getLargeImageY(),
+	    'large_image_size' => $forum->getLargeImageSize(),
+	    'large_image_format' => $forum->getLargeImageFormat(),
+	    'large_image_filename' => $forum->getLargeImageFilename(),
+	    'guest_login' => $forum->getGuestLogin(),
+	    'user_id' => $forum->getUserId(),
+	    'group_id' => $forum->getGroupId(),
+	    'perms' => $forum->getPerms(),
+            'up' => $forum->getUpValue(),
+	    'parent_id' => $forum->getParentId());
 if($userModerator)
   $vars=array_merge($vars,
-		    array('disabled' => $forum->disabled,
-			  'priority' => $forum->priority));
+		    array('disabled' => $forum->isDisabled(),
+			  'priority' => $forum->getPriority()));
 else
-  if($forumPremoderate && $forum->id<=0)
+  if($forumPremoderate && $forum->getId()<=0)
     $vars['disabled']=true;
-if($forum->id)
+if($forum->getId())
   {
-  $forum->track=trackById('entries',$forum->id);
+  $forum->setTrack(trackById('entries',$forum->getId()));
   $result=sql(sqlUpdate('entries',
 			$vars,
-			array('id' => $forum->id)),
+			array('id' => $forum->getId())),
 	      __FUNCTION__,'update');
-  updateCatalogs($forum->track);
-  replaceTracksToUp('entries',$forum->track,$forum->up,$forum->id);
+  updateCatalogs($forum->getTrack());
+  replaceTracksToUp('entries',$forum->getTrack(),$forum->getUpValue(),
+                    $forum->getId());
   }
 else
   {
@@ -252,11 +253,11 @@ else
   $result=sql(sqlInsert('entries',
                         $vars),
 	      __FUNCTION__,'insert');
-  $forum->id=sql_insert_id();
-  createTrack('entries',$forum->id);
-  updateCatalogs(trackById('entries',$forum->id));
+  $forum->setId(sql_insert_id());
+  createTrack('entries',$forum->getId());
+  updateCatalogs(trackById('entries',$forum->getId()));
   }
-answerUpdate($forum->parent_id);
+answerUpdate($forum->getParentId());
 incContentVersions('forums');
 return $result;
 }

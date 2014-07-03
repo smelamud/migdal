@@ -78,47 +78,48 @@ function storeImage(&$image) {
     global $userId;
     
     $vars = array(
-        'ident' => $image->ident,
-        'up' => $image->up,
-        'parent_id' => $image->parent_id,
-        'user_id' => $image->user_id,
-        'group_id' => $image->group_id,
-        'perms' => $image->perms,
-        'title' => $image->title,
-        'title_xml' => $image->title_xml,
-        'body_format' => $image->body_format,
-        'small_image' => $image->small_image,
-        'small_image_x' => $image->small_image_x,
-        'small_image_y' => $image->small_image_y,
-        'small_image_format' => $image->small_image_format,
-        'large_image' => $image->large_image,
-        'large_image_x' => $image->large_image_x,
-        'large_image_y' => $image->large_image_y,
-        'large_image_size' => $image->large_image_size,
-        'large_image_format' => $image->large_image_format,
-        'large_image_filename' => $image->large_image_filename,
+        'ident' => $image->getIdent(),
+        'up' => $image->getUpValue(),
+        'parent_id' => $image->getParentId(),
+        'user_id' => $image->getUserId(),
+        'group_id' => $image->getGroupId(),
+        'perms' => $image->getPerms(),
+        'title' => $image->getTitle(),
+        'title_xml' => $image->getTitleXML(),
+        'body_format' => $image->getBodyFormat(),
+        'small_image' => $image->getSmallImage(),
+        'small_image_x' => $image->getSmallImageX(),
+        'small_image_y' => $image->getSmallImageY(),
+        'small_image_format' => $image->getSmallImageFormat(),
+        'large_image' => $image->getLargeImage(),
+        'large_image_x' => $image->getLargeImageX(),
+        'large_image_y' => $image->getLargeImageY(),
+        'large_image_size' => $image->getLargeImageSize(),
+        'large_image_format' => $image->getLargeImageFormat(),
+        'large_image_filename' => $image->getLargeImageFilename(),
         'modified' => sqlNow()
     );
-    if ($image->id) {
-        $image->track = trackById('entries', $image->id);
+    if ($image->getId()) {
+        $image->setTrack(trackById('entries', $image->getId());
         $result = sql(sqlUpdate('entries',
                                 $vars,
-                                array('id' => $image->id)),
+                                array('id' => $image->getId())),
                       __FUNCTION__, 'update');
-        updateCatalogs($image->track);
-        replaceTracksToUp('entries', $image->track, $image->up, $image->id);
+        updateCatalogs($image->getTrack());
+        replaceTracksToUp('entries', $image->getTrack(), $image->getUpValue(),
+                          $image->getId());
     } else {
-        $vars['entry'] = $image->entry;
+        $vars['entry'] = $image->getEntry();
         $vars['sent'] = sqlNow();
         $vars['created'] = sqlNow();
         $vars['track'] = (string) time();
         $result = sql(sqlInsert('entries',
                                 $vars),
                       __FUNCTION__, 'insert');
-        $image->id = sql_insert_id();
+        $image->setId(sql_insert_id());
         setOrigIdToEntryId($image);
-        createTrack('entries', $image->id);
-        updateCatalogs(trackById('entries', $image->id));
+        createTrack('entries', $image->getId());
+        updateCatalogs(trackById('entries', $image->getId()));
     }
     return $result;
 }

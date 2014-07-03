@@ -141,7 +141,7 @@ class MTextShortenXML
 
 }
 
-function strpos_all($haystack,$needle,&$found) {
+function strpos_all($haystack, $needle, &$found) {
     if (is_array($needle)) {
         foreach ($needle as $s)
             strpos_all($haystack, $s, $found);

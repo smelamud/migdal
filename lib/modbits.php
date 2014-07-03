@@ -6,67 +6,63 @@ require_once('lib/sql.php');
 require_once('lib/entries.php');
 
 // For regular postings
-define('MOD_NONE',0x0000);
-define('MOD_MODERATE',0x0001);
-define('MOD_HTML',0x0002); # deprecated
-define('MOD_EDIT',0x0004);
-define('MOD_ATTENTION',0x0008);
-define('MOD_MULTIPART',0x0010);
-define('MOD_ALL',0x001f);
+const MOD_NONE = 0x0000;
+const MOD_MODERATE = 0x0001;
+const MOD_HTML = 0x0002; # deprecated
+const MOD_EDIT = 0x0004;
+const MOD_ATTENTION = 0x0008;
+const MOD_MULTIPART = 0x0010;
+const MOD_ALL = 0x001f;
 
-define('MOD_HIDDEN',-1);
-define('MOD_DISABLED',-2);
-define('MOD_DELETE',-3);
+const MOD_HIDDEN = -1;
+const MOD_DISABLED = -2;
+const MOD_DELETE = -3;
 
-$modbitLetters=array('M','H' /* deprecated */,'E','S','L');
-$modbitNames=array('Модерировать',
-		   'HTML', # deprecated
-		   'Редактировать',
-		   'Особо проверить',
-		   'Многостраничное');
+$modbitLetters = array('M', 'H' /* deprecated */, 'E', 'S', 'L');
+$modbitNames = array('Модерировать',
+                     'HTML',  # deprecated
+                     'Редактировать',
+                     'Особо проверить',
+                     'Многостраничное');
 
 // For topics
-define('MODT_NONE',0x0000);
-define('MODT_PREMODERATE',0x0001);
-define('MODT_MODERATE',0x0002);
-define('MODT_EDIT',0x0004);
-define('MODT_ROOT',0x0008);
-define('MODT_TRANSPARENT',0x0010);
-define('MODT_ALL',0x001f);
+const MODT_NONE = 0x0000;
+const MODT_PREMODERATE = 0x0001;
+const MODT_MODERATE = 0x0002;
+const MODT_EDIT = 0x0004;
+const MODT_ROOT = 0x0008;
+const MODT_TRANSPARENT = 0x0010;
+const MODT_ALL = 0x001f;
 
-$modbitTNames=array('Премодерировать',
-                    'Модерировать',
-		    'Редактировать',
-		    'Корневая',
-		    'Прозрачная');
+$modbitTNames = array('Премодерировать',
+                      'Модерировать',
+                      'Редактировать',
+                      'Корневая',
+                      'Прозрачная');
 
-class Modbit
-{
-var $bit;
-var $letter;
-var $name;
+class Modbit {
 
-function __construct($bit,$letter,$name)
-{
-$this->bit=$bit;
-$this->letter=$letter;
-$this->name=$name;
-}
+    private $bit;
+    private $letter;
+    private $name;
 
-function getBit()
-{
-return $this->bit;
-}
+    public function __construct($bit, $letter, $name) {
+        $this->bit = $bit;
+        $this->letter = $letter;
+        $this->name = $name;
+    }
 
-function getLetter()
-{
-return $this->letter;
-}
+    public function getBit() {
+        return $this->bit;
+    }
 
-function getName()
-{
-return $this->name;
-}
+    public function getLetter() {
+        return $this->letter;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
 
 }
 
@@ -87,13 +83,13 @@ class ModbitIterator
     public function current() {
         return new Modbit(
                 $this->bit,
-                $this->letters!=null ? $this->letters[$this->lbbit] : '',
+                $this->letters != null ? $this->letters[$this->lbbit] : '',
                 $this->names[$this->lbbit]);
     }
 
     public function next() {
         parent::next();
-        $this->bit*=2;
+        $this->bit *= 2;
         $this->lbbit++;
     }
 

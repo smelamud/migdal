@@ -17,13 +17,13 @@ require_once('lib/sql.php');
 function modifyImage($image, $original) {
     if ($original->getId() != 0 && !$original->isWritable())
         return ELIM_NO_EDIT;
-    if ($image->up == 0)
+    if ($image->getUpValue() == 0)
         return ELIM_NO_POSTING;
-    $correct = validateHierarchy($image->parent_id, $image->up, ENT_IMAGE,
-                                 $image->id);
+    $correct = validateHierarchy($image->getParentId(), $image->getUpValue(),
+                                 ENT_IMAGE, $image->getId());
     if ($correct != EG_OK)
         return $correct;
-    $posting = getPostingById($image->up);
+    $posting = getPostingById($image->getUpValue());
     if (!$posting->isAppendable())
         return ELIM_POSTING_APPEND;
     if (!$image->hasSmallImage())
@@ -34,11 +34,11 @@ function modifyImage($image, $original) {
 }
 
 function insertImage($inner, $image, $append) {
-    if ($inner->image_id == 0 || !$append && $image->id != 0)
-        $inner->image_id = $image->id;
-    if ($inner->entry_id == 0)
+    if ($inner->getImageId() == 0 || !$append && $image->getId() != 0)
+        $inner->setImageId($image->getId());
+    if ($inner->getEntryId() == 0)
         return ELIM_NO_POSTING;
-    $perms = getPermsById($inner->entry_id);
+    $perms = getPermsById($inner->getEntryId());
     if (!$perms->isWritable())
         return ELIM_POSTING_WRITE;
     storeInnerImage($inner);
@@ -136,9 +136,9 @@ if ($err == EG_OK) {
         );
     header("Location: $okdir");
 } else {
-    $smallImageFormatId = tmpTextSave($image->small_image_format);
-    $largeImageFormatId = tmpTextSave($image->large_image_format);
-    $largeImageFilenameId = tmpTextSave($image->large_image_filename);
+    $smallImageFormatId = tmpTextSave($image->getSmallImageFormat());
+    $largeImageFormatId = tmpTextSave($image->getLargeImageFormat());
+    $largeImageFilenameId = tmpTextSave($image->getLargeImageFilename());
     $titleId = tmpTextSave($title);
     header(
         'Location: '.
@@ -154,14 +154,14 @@ if ($err == EG_OK) {
             ),
             array(
                 'err'     => $err,
-                'small_image'   => $image->small_image,
-                'small_image_x' => $image->small_image_x,
-                'small_image_y' => $image->small_image_y,
+                'small_image'   => $image->getSmallImage(),
+                'small_image_x' => $image->getSmallImageX(),
+                'small_image_y' => $image->getSmallImageY(),
                 'small_image_format_i' => $smallImageFormatId,
-                'large_image'   => $image->large_image,
-                'large_image_x' => $image->large_image_x,
-                'large_image_y' => $image->large_image_y,
-                'large_image_size' => $image->large_image_size,
+                'large_image'   => $image->getLargeImage(),
+                'large_image_x' => $image->getLargeImageX(),
+                'large_image_y' => $image->getLargeImageY(),
+                'large_image_size' => $image->getLargeImageSize(),
                 'large_image_format_i' => $largeImageFormatId,
                 'large_image_filename_i' => $largeImageFilenameId,
                 'title_i' => $titleId,
