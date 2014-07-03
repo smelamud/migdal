@@ -101,7 +101,7 @@ function modifyPosting(Posting $posting, Posting $original,
         return EP_URL_ABSENT;
     if ($posting->getURL() != ''
         && strpos($posting->getURL(), '://') === false
-        && $posting->getURL(){0} != '/')
+        && $posting->getURL()[0] != '/')
         $posting->setURL("http://{$posting->getURL()}");
     if ($posting->isMandatory('topic') && $posting->getParentId() == 0)
         return EP_TOPIC_ABSENT;

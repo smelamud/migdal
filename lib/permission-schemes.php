@@ -41,7 +41,7 @@ function isPermittedEntry(Entry $entry, $right) {
     return true;
 }
 
-function isPermittedPosting(Posting $posting, $right) {
+function isPermittedPosting(Entry $posting, $right) {
     global $userModerator, $userId;
 
     return $userModerator
@@ -51,7 +51,7 @@ function isPermittedPosting(Posting $posting, $right) {
                    $posting->getPerms(), $right);
 }
 
-function isPermittedForum(Forum $forum, $right) {
+function isPermittedForum(Entry $forum, $right) {
     global $userModerator, $userId;
 
     return $userModerator
@@ -61,7 +61,7 @@ function isPermittedForum(Forum $forum, $right) {
                    $forum->getPerms(), $right);
 }
 
-function isPermittedTopic(Topic $topic,$right) {
+function isPermittedTopic(Entry $topic, $right) {
     global $userAdminTopics, $userModerator;
 
     return $userAdminTopics && $right != PERM_POST
