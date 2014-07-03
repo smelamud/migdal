@@ -342,7 +342,7 @@ function storeTopic(Topic $topic) {
                   'modified' => sqlNow(),
                   'modifier_id' => $userId>0 ? $userId : $realUserId);
     if ($topic->getId()) {
-        $topic->setTrack(trackById('entries', $topic->getId());
+        $topic->setTrack(trackById('entries', $topic->getId()));
         $result = sql(sqlUpdate('entries',
                                 $vars,
                                 array('id' => $topic->getId())),

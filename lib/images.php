@@ -100,7 +100,7 @@ function storeImage(&$image) {
         'modified' => sqlNow()
     );
     if ($image->getId()) {
-        $image->setTrack(trackById('entries', $image->getId());
+        $image->setTrack(trackById('entries', $image->getId()));
         $result = sql(sqlUpdate('entries',
                                 $vars,
                                 array('id' => $image->getId())),
