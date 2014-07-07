@@ -610,7 +610,7 @@ function storePostingFields(Posting $posting, $fields) {
             $vars = array_merge($vars, array(
                 'disabled' => $posting->isDisabled(),
                 'priority' => $posting->getPriority(),
-                'sent' => $posting->getSent()
+                'sent' => sqlDate($posting->getSent())
             ));
     }
     if (($fields & SPF_SHADOW) != 0) {
@@ -628,7 +628,7 @@ function storePostingFields(Posting $posting, $fields) {
 }
 
 function storePosting(Posting $posting) {
-    if($posting->getId()) {
+    if ($posting->getId()) {
         $posting->setTrack(trackById('entries', $posting->getId()));
         $vars = storePostingFields($posting, SPF_SHADOW);
         $result = sql(sqlUpdate('entries',

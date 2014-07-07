@@ -6,7 +6,7 @@ function makeQuery($vars, array $remove = array(), array $subs = array()) {
     $s = '';
     $varsub = count($subs) != 0 ? array_merge($vars, $subs) : $vars;
     foreach ($varsub as $key => $value)
-        if (!in_array($key,$remove) && "$value" != '')
+        if (!in_array($key, $remove) && (is_array($value) || "$value" != ''))
             if (!is_array($value))
                 $s .= ($s != '' ? '&' : '')."$key=".urlencode($value);
             else
