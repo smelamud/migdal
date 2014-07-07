@@ -34,7 +34,7 @@
 - actions/topicdel.php
 - actions/topicmod.php
 - actions/userconfirm.php
-- actions/usermod.php
++ actions/usermod.php
 - actions/userswitch.php
 + actions/vote.php
 + ajax/actions/vote.php
@@ -142,8 +142,8 @@
 + lib/unix-calendar.php
 + lib/uri.php
 + lib/url-fopen.php
-- lib/users.php
-- lib/usertag.php
++ lib/users.php
++ lib/usertag.php
 + lib/utils.php
 + lib/votes.php
 + lib/xml.php

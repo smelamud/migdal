@@ -35,83 +35,83 @@ define('USR_ADMIN', USR_REBE | USR_ADMIN_USERS | USR_ADMIN_TOPICS |
                     USR_MODERATOR | USR_ADMIN_DOMAIN);
 
 class User
-      extends UserTag
-{
-var $id;
-var $password;
-var $dup_password;
-var $name;
-var $jewish_name;
-var $surname;
-var $info;
-var $info_xml;
-var $birthday;
-var $created;
-var $modified;
-var $rights;
-var $last_online;
-var $last_minutes;
-var $icq;
-var $email_disabled;
-var $shames;
-var $hidden;
-var $online;
-var $no_login;
-var $has_personal;
-var $confirm_code;
-var $confirmed;
-var $confirm_days;
-var $last_message;
+        extends UserTag {
 
-function __construct(array $row)
-{
-parent::__construct($row);
-}
+    protected $id = 0;
+    protected $password = '';
+    protected $dup_password = '';
+    protected $name = '';
+    protected $jewish_name = '';
+    protected $surname = '';
+    protected $info = '';
+    protected $info_xml = '';
+    protected $birthday = '1970-01-01';
+    protected $created = 0;
+    protected $modified = 0;
+    protected $rights = 0;
+    protected $last_online = 0;
+    protected $last_minutes = 0;
+    protected $icq = '';
+    protected $email_disabled = 0;
+    protected $shames = 0;
+    protected $hidden = 0;
+    protected $online = 0;
+    protected $no_login = 0;
+    protected $has_personal = 0;
+    protected $confirm_code = '';
+    protected $confirmed = 0;
+    protected $confirm_days = 0;
+    protected $last_message = 0;
 
-function setup(array $vars)
-{
-global $tfUser;
+    public function __construct(array $row = array()) {
+        parent::__construct($row);
+    }
 
-if(!isset($vars['edittag']) || !$vars['edittag'])
-  return;
-$this->login=$vars['new_login'];
-$this->password=$vars['new_password'];
-$this->dup_password=$vars['dup_password'];
-$this->name=$vars['name'];
-$this->jewish_name=$vars['jewish_name'];
-$this->surname=$vars['surname'];
-$this->gender=$vars['gender'];
-$this->rights=disjunct($vars['rights']);
-$this->info=$vars['info'];
-$this->info_xml=anyToXML($this->info,$tfUser,MTEXT_SHORT);
-$this->email=$vars['email'];
-$this->hide_email=$vars['hide_email'];
-$this->icq=$vars['icq'];
-$this->hidden=$vars['hidden'];
-$this->no_login=$vars['no_login'];
-$this->has_personal=$vars['has_personal'];
-$this->birthday=sprintf('19%02u-%02u-%02u',$vars['birth_year'],
-                        $vars['birth_month'],$vars['birth_day']);
-$this->email_disabled=$vars['email_enabled'] ? 0 : 1;
-}
+    public function setup(array $vars) {
+        global $tfUser;
 
-function isEditable()
-{
-global $userId,$userAdminUsers;
+        if (!isset($vars['edittag']) || !$vars['edittag'])
+            return;
+        $this->login = $vars['new_login'];
+        $this->password = $vars['new_password'];
+        $this->dup_password = $vars['dup_password'];
+        $this->name = $vars['name'];
+        $this->jewish_name = $vars['jewish_name'];
+        $this->surname = $vars['surname'];
+        $this->gender = $vars['gender'];
+        $this->rights = disjunct($vars['rights']);
+        $this->info = $vars['info'];
+        $this->info_xml = anyToXML($this->info, $tfUser, MTEXT_SHORT);
+        $this->email = $vars['email'];
+        $this->hide_email = $vars['hide_email'];
+        $this->icq = $vars['icq'];
+        $this->hidden = $vars['hidden'];
+        $this->no_login = $vars['no_login'];
+        $this->has_personal = $vars['has_personal'];
+        $birth_year = $vars['birth_year'];
+        if ($birth_year < 20)
+            $birth_year = 2000 + $birth_year;
+        elseif ($birth_year < 100)
+            $birth_year = 1900 + $birth_year;
+        $this->birthday = sprintf('%04u-%02u-%02u', $birth_year,
+                                  $vars['birth_month'], $vars['birth_day']);
+        $this->email_disabled = $vars['email_enabled'] ? 0 : 1;
+    }
 
-return $this->id==0 || $this->id==$userId || $userAdminUsers;
-}
+    public function isEditable() {
+        global $userId, $userAdminUsers;
 
-function getId()
-{
-return $this->id;
-}
+        return $this->id == 0 || $this->id == $userId || $userAdminUsers;
+    }
 
-// Used by UserTag::getUserFolder()
-function getUserId()
-{
-return $this->getId();
-}
+    public function getId() {
+        return $this->id;
+    }
+
+    // Used by UserTag::getUserFolder()
+    public function getUserId() {
+        return $this->getId();
+    }
 
     public function getPassword() {
         return $this->password;
@@ -121,296 +121,253 @@ return $this->getId();
         return $this->dup_password;
     }
 
-function getFolder()
-{
-return $this->getUserFolder();
-}
+    public function getFolder() {
+        return $this->getUserFolder();
+    }
 
-function getName()
-{
-return $this->name;
-}
+    public function getName() {
+        return $this->name;
+    }
 
-function getJewishName()
-{
-return $this->jewish_name;
-}
+    public function getJewishName() {
+        return $this->jewish_name;
+    }
 
-function getSurname()
-{
-return $this->surname;
-}
+    public function getSurname() {
+        return $this->surname;
+    }
 
-function getFullName()
-{
-if($this->jewish_name!='')
-  $fullName="$this->jewish_name ($this->name)";
-else
-  $fullName=$this->name;
-if($this->surname!='')
-  $fullName.=" $this->surname";
-return $fullName;
-}
+    public function getFullName() {
+        if ($this->jewish_name != '')
+            $fullName = "$this->jewish_name ($this->name)";
+        else
+            $fullName = $this->name;
+        if ($this->surname != '')
+            $fullName .= " $this->surname";
+        return $fullName;
+    }
 
-function getFullNameCivil()
-{
-if($this->jewish_name!='')
-  $fullName="$this->name ($this->jewish_name)";
-else
-  $fullName=$this->name;
-if($this->surname!='')
-  $fullName.=" $this->surname";
-return $fullName;
-}
+    public function getFullNameCivil() {
+        if ($this->jewish_name != '')
+            $fullName = "$this->name ($this->jewish_name)";
+        else
+            $fullName = $this->name;
+        if ($this->surname != '')
+            $fullName .= " $this->surname";
+        return $fullName;
+    }
 
-function getFullNameSurname()
-{
-if($this->surname!='')
-  $fullName=$this->surname;
-else
-  $fullName='';
-if($this->jewish_name!='')
-  $fullName.=" $this->jewish_name ($this->name)";
-else
-  $fullName.=" $this->name";
-return $fullName;
-}
+    public function getFullNameSurname() {
+        if ($this->surname != '')
+            $fullName = $this->surname;
+        else
+            $fullName = '';
+        if ($this->jewish_name != '')
+            $fullName .= " $this->jewish_name ($this->name)";
+        else
+            $fullName .= " $this->name";
+        return $fullName;
+    }
 
-function getInfo()
-{
-return $this->info;
-}
+    public function getInfo() {
+        return $this->info;
+    }
 
-function getInfoXML()
-{
-return $this->info_xml;
-}
+    public function getInfoXML() {
+        return $this->info_xml;
+    }
 
-function getInfoHTML()
-{
-return mtextToHTML($this->getInfoXML(),MTEXT_SHORT);
-}
+    public function getInfoHTML() {
+        return mtextToHTML($this->getInfoXML(), MTEXT_SHORT);
+    }
 
-function getAge()
-{
-$bt=explode('-',$this->birthday);
-$t=getdate();
-$age=getCalendarAge($bt[1],$bt[2],$bt[0],$t['mon'],$t['mday'],$t['year']);
-return $age<100 ? $age : '-';
-}
+    public function getAge() {
+        $bt = explode('-', $this->birthday);
+        $t = getdate();
+        $age = getCalendarAge($bt[1], $bt[2], $bt[0],
+                              $t['mon'], $t['mday'], $t['year']);
+        return $age < 100 ? $age : '-';
+    }
 
-function getNumericBirthday()
-{
-return $this->birthday;
-}
+    public function getBirthday() {
+        return $this->birthday;
+    }
 
-function getBirthday()
-{
-$bt=explode('-',$this->birthday);
-return $bt[2].' '.getRussianMonth((int)$bt[1]).' '.$bt[0];
-}
+    public function getRussianBirthday() {
+        $bt = explode('-', $this->birthday);
+        return $bt[2].' '.getRussianMonth((int)$bt[1]).' '.$bt[0];
+    }
 
-function getJewishBirthday()
-{
-$bt=explode('-',$this->birthday);
-return getJewishFromDate($bt[1],$bt[2],$bt[0]);
-}
+    public function getJewishBirthday() {
+        $bt = explode('-', $this->birthday);
+        return getJewishFromDate($bt[1], $bt[2], $bt[0]);
+    }
 
-function getDayOfBirth()
-{
-$bt=explode('-',$this->birthday);
-return $bt[2] ? $bt[2] : 1;
-}
+    public function getDayOfBirth() {
+        $bt = explode('-', $this->birthday);
+        return $bt[2] ? $bt[2] : 1;
+    }
 
-function getMonthOfBirth()
-{
-$bt=explode('-',$this->birthday);
-return $bt[1] ? $bt[1] : 1;
-}
+    public function getMonthOfBirth() {
+        $bt = explode('-', $this->birthday);
+        return $bt[1] ? $bt[1] : 1;
+    }
 
-function isMonthOfBirth($month)
-{
-return $this->getMonthOfBirth()==$month;
-}
+    public function isMonthOfBirth($month) {
+        return $this->getMonthOfBirth() == $month;
+    }
 
-function getYearOfBirth()
-{
-$bt=explode('-',$this->birthday);
-$c=substr($bt[0],2);
-return $c ? $c : '00';
-}
+    public function getYearOfBirth() {
+        $bt = explode('-', $this->birthday);
+        return $bt[0] ? $bt[0] : '1900';
+    }
 
-function getCreated()
-{
-return strtotime($this->created);
-}
+    public function getCreated() {
+        return strtotime($this->created);
+    }
 
-function getModified()
-{
-return strtotime($this->modified);
-}
+    public function getModified() {
+        return strtotime($this->modified);
+    }
 
-function getRights()
-{
-return $this->rights;
-}
+    public function getRights() {
+        return $this->rights;
+    }
 
-function hasRight($right)
-{
-return ($this->rights & $right)!=0;
-}
+    public function hasRight($right) {
+        return ($this->rights & $right) != 0;
+    }
 
-function isMigdalStudent()
-{
-return $this->hasRight(USR_MIGDAL_STUDENT);
-}
+    public function isMigdalStudent() {
+        return $this->hasRight(USR_MIGDAL_STUDENT);
+    }
 
     public function setRights($rights) {
         $this->rights = $rights;
     }
 
-function getICQ()
-{
-return $this->icq;
-}
+    public function getICQ() {
+        return $this->icq;
+    }
 
-function getICQStatusImage()
-{
-$icqH=htmlspecialchars($this->icq,ENT_QUOTES);
-return $icqH
-       ? "<img src=\"http://web.icq.com/whitepages/online?icq=$icqH&img=5\">"
-       : '';
-}
+    public function getICQStatusImage() {
+        $icqH = htmlspecialchars($this->icq, ENT_QUOTES);
+        return $icqH
+               ? "<img src=\"http://web.icq.com/whitepages/online?icq=$icqH&img=5\">"
+               : '';
+    }
 
-function isEmailDisabled()
-{
-return $this->email_disabled;
-}
+    public function isEmailDisabled() {
+        return $this->email_disabled;
+    }
 
-function isEmailEnabled()
-{
-return $this->email_disabled==0;
-}
+    public function isEmailEnabled() {
+        return $this->email_disabled == 0;
+    }
 
-function isOnline()
-{
-return $this->online!=0;
-}
+    public function isOnline() {
+        return $this->online != 0;
+    }
 
-public function isTooOld() {
-    return ourtime() - $this->getLastOnline() > 10 * 365 * 24 * 60 * 60;
-}
+    public function isTooOld() {
+        return ourtime() - $this->getLastOnline() > 10 * 365 * 24 * 60 * 60;
+    }
 
-function getLastOnline()
-{
-return strtotime($this->last_online);
-}
+    public function getLastOnline() {
+        return strtotime($this->last_online);
+    }
 
-public function getFuzzyLastOnline() {
-    return formatFuzzyTimeElapsed(strtotime($this->last_online));
-}
+    public function getFuzzyLastOnline() {
+        return formatFuzzyTimeElapsed($this->getLastOnline());
+    }
 
-function getLastMinutes()
-{
-return $this->last_minutes;
-}
+    public function getLastMinutes() {
+        return $this->last_minutes;
+    }
 
-function isAdminUsers()
-{
-return $this->hasRight(USR_ADMIN_USERS);
-}
+    public function isAdminUsers() {
+        return $this->hasRight(USR_ADMIN_USERS);
+    }
 
-function isAdminTopics()
-{
-return $this->hasRight(USR_ADMIN_TOPICS);
-}
+    public function isAdminTopics() {
+        return $this->hasRight(USR_ADMIN_TOPICS);
+    }
 
-function isModerator()
-{
-return $this->hasRight(USR_MODERATOR);
-}
+    public function isModerator() {
+        return $this->hasRight(USR_MODERATOR);
+    }
 
-function isAdminDomain()
-{
-return $this->hasRight(USR_ADMIN_DOMAIN);
-}
+    public function isAdminDomain() {
+        return $this->hasRight(USR_ADMIN_DOMAIN);
+    }
 
     public function getHidden() {
         return $this->hidden;
     }
 
-function isHidden()
-{
-return $this->hidden ? 1 : 0;
-}
+    public function isHidden() {
+        return $this->hidden ? 1 : 0;
+    }
 
-// Override UserTag method
-function isUserHidden()
-{
-return $this->isHidden();
-}
+    // Override UserTag method
+    public function isUserHidden() {
+        return $this->isHidden();
+    }
 
-function isAdminHidden()
-{
-return $this->hidden>1 ? 1 : 0;
-}
+    public function isAdminHidden() {
+        return $this->hidden > 1 ? 1 : 0;
+    }
 
-// Override UserTag method
-function isUserAdminHidden()
-{
-return $this->isAdminHidden();
-}
+    // Override UserTag method
+    public function isUserAdminHidden() {
+        return $this->isAdminHidden();
+    }
 
-function isVisible()
-{
-global $userAdminUsers;
+    public function isVisible() {
+        global $userAdminUsers;
 
-return !$this->isHidden() || ($userAdminUsers && !$this->isAdminHidden());
-}
+        return !$this->isHidden()
+               || ($userAdminUsers && !$this->isAdminHidden());
+    }
 
-function isNoLogin()
-{
-return $this->no_login;
-}
+    public function isNoLogin() {
+        return $this->no_login;
+    }
 
-function isHasPersonal()
-{
-return $this->has_personal;
-}
+    public function isHasPersonal() {
+        return $this->has_personal;
+    }
 
-function getConfirmCode()
-{
-return $this->confirm_code;
-}
+    public function getConfirmCode() {
+        return $this->confirm_code;
+    }
 
-function isConfirmed()
-{
-return $this->confirmed;
-}
+    public function isConfirmed() {
+        return $this->confirmed;
+    }
 
-function getConfirmDays()
-{
-return $this->confirm_days;
-}
+    public function getConfirmDays() {
+        return $this->confirm_days;
+    }
 
-function getLastMessage()
-{
-return !empty($this->last_message) ? strtotime($this->last_message) : 0;
-}
+    public function getLastMessage()
+    {
+    return !empty($this->last_message) ? strtotime($this->last_message) : 0;
+    }
 
-public function getRank() {
-    if ($this->isAdminUsers())
-        return 'Вебмастер';
-    if ($this->isModerator())
-        return 'Модератор';
-    if ($this->isMigdalStudent())
-        return 'Мигдалевец';
-    return '';
-}
+    public function getRank() {
+        if ($this->isAdminUsers())
+            return 'Вебмастер';
+        if ($this->isModerator())
+            return 'Модератор';
+        if ($this->isMigdalStudent())
+            return 'Мигдалевец';
+        return '';
+    }
 
-public function getInfoOrRankHTML() {
-    return $this->getInfo() != '' ? $this->getInfoHTML() : $this->getRank();
-}
+    public function getInfoOrRankHTML() {
+        return $this->getInfo() != '' ? $this->getInfoHTML() : $this->getRank();
+    }
 
 }
 

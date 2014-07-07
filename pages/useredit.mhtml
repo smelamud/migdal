@@ -88,7 +88,7 @@
       </if>
      </for>
     </select>
-    19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
+    <edit name='birth_year' size=4 maxlength=4 value='$,YearOfBirth'>
    </form_line>
    <form_checkbox title='Мигдалевец'
                   comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали

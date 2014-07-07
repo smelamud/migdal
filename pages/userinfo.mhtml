@@ -45,11 +45,9 @@
    <else>
     <infoline title='Пол' value='Женский'>
    </if>
-   <tr style='display: none'><td colspan='2' class='bday'>
-    $,NumericBirthday
-   </td></tr>
    <if what="$,Age!='-'">
-    <infoline title='Дата рождения' value#='$,Birthday / $,JewishBirthday'>
+    <infoline title='Дата рождения'
+              value#='$,RussianBirthday / $,JewishBirthday'>
    </if>
    <if what='$,isMigdalStudent'>
     <infoline title='Мигдалевец' value='Да'>
