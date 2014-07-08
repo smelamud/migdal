@@ -25,106 +25,99 @@ require_once('lib/text-any.php');
 require_once('lib/html-cache.php');
 
 class Topic
-      extends GrpEntry
-{
-var $full_name;
-var $postings_info;
-var $sub_count;
+        extends GrpEntry {
 
-function __construct($row)
-{
-global $rootTopicModbits,$tfRegular;
+    protected $full_name;
+    protected $postings_info;
+    protected $sub_count;
 
-$this->entry=ENT_TOPIC;
-$this->body_format=$tfRegular;
-$this->modbits=$rootTopicModbits;
-parent::__construct($row);
-}
+    public function __construct(array $row = array()) {
+        global $rootTopicModbits, $tfRegular;
 
-function setup($vars)
-{
-global $tfRegular;
+        $this->entry = ENT_TOPIC;
+        $this->body_format = $tfRegular;
+        $this->modbits = $rootTopicModbits;
+        parent::__construct($row);
+    }
 
-if(!isset($vars['edittag']) || !$vars['edittag'])
-  return;
-$this->body_format=$tfRegular;
-$this->body=$vars['body'];
-$this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
-$this->up=$vars['up'];
-$this->subject=$vars['subject'];
-$this->comment0=$vars['comment0'];
-$this->comment0_xml=anyToXML($this->comment0,$this->body_format,MTEXT_LINE);
-$this->comment1=$vars['comment1'];
-$this->comment1_xml=anyToXML($this->comment1,$this->body_format,MTEXT_LINE);
-$this->ident=$vars['ident']!='' ? $vars['ident'] : null;
-$this->login=$vars['login'];
-if($vars['user_name']!='')
-  $this->login=$vars['user_name'];
-$this->group_login=$vars['group_login'];
-if($vars['group_name']!='')
-  $this->group_login=$vars['group_name'];
-$this->perm_string=$vars['perm_string'];
-if($this->perm_string!='')
-  $this->perms=permString($this->perm_string,strPerms($this->perms));
-$this->modbits=disjunct($vars['modbits']);
-$this->index2=$vars['index2'];
-$this->grps=array();
-foreach($vars['grps'] as $grp)
-       if(isGrpValid($grp))
-         $this->grps[]=$grp;
-}
+    public function setup($vars) {
+        global $tfRegular;
 
-function getNbSubject()
-{
-return str_replace(' ','&nbsp;',$this->getSubject());
-}
+        if (!isset($vars['edittag']) || !$vars['edittag'])
+            return;
+        $this->body_format = $tfRegular;
+        $this->body = $vars['body'];
+        $this->body_xml = anyToXML($this->body, $this->body_format,
+                                   MTEXT_SHORT);
+        $this->up = $vars['up'];
+        $this->subject = $vars['subject'];
+        $this->comment0 = $vars['comment0'];
+        $this->comment0_xml = anyToXML($this->comment0, $this->body_format,
+                                       MTEXT_LINE);
+        $this->comment1 = $vars['comment1'];
+        $this->comment1_xml = anyToXML($this->comment1, $this->body_format,
+                                       MTEXT_LINE);
+        $this->ident = $vars['ident'] != '' ? $vars['ident'] : null;
+        $this->login = $vars['login'];
+        if ($vars['user_name'] != '')
+            $this->login = $vars['user_name'];
+        $this->group_login = $vars['group_login'];
+        if ($vars['group_name'] != '')
+            $this->group_login = $vars['group_name'];
+        $this->perm_string = $vars['perm_string'];
+        if ($this->perm_string != '')
+            $this->perms = permString($this->perm_string,
+                                      strPerms($this->perms));
+        $this->modbits = disjunct($vars['modbits']);
+        $this->index2 = $vars['index2'];
+        $this->grps = array();
+        foreach ($vars['grps'] as $grp)
+            if (isGrpValid($grp))
+                $this->grps[] = $grp;
+    }
 
-function getFullName()
-{
-return $this->full_name;
-}
+    public function getNbSubject() {
+        return str_replace(' ', '&nbsp;', $this->getSubject());
+    }
 
-function getFullNameShort()
-{
-global $fullNameShortSize;
+    public function getFullName() {
+        return $this->full_name;
+    }
 
-$s=$this->getFullName();
-return strlen($s)>$fullNameShortSize
-       ? '...'.substr($s,-($fullNameShortSize-3))
-       : $s;
-}
+    public function getFullNameShort() {
+        global $fullNameShortSize;
 
-function getPostingsInfo()
-{
-return $this->postings_info;
-}
+        $s = $this->getFullName();
+        return strlen($s) > $fullNameShortSize
+               ? '...'.substr($s, -($fullNameShortSize - 3))
+               : $s;
+    }
 
-function setPostingsInfo($postings_info)
-{
-$this->postings_info=$postings_info;
-}
+    public function getPostingsInfo() {
+        return $this->postings_info;
+    }
 
-function getAnswers()
-{
-$info=$this->getPostingsInfo();
-return $info ? $info->getTotal() : parent::getAnswers();
-}
+    public function setPostingsInfo($postings_info) {
+        $this->postings_info = $postings_info;
+    }
 
-function getLastAnswer()
-{
-$info=$this->getPostingsInfo();
-return $info ? $info->getMaxSent() : parent::getLastAnswer();
-}
+    public function getAnswers() {
+        $info = $this->getPostingsInfo();
+        return $info ? $info->getTotal() : parent::getAnswers();
+    }
 
-function getSubCount()
-{
-return $this->sub_count;
-}
+    public function getLastAnswer() {
+        $info = $this->getPostingsInfo();
+        return $info ? $info->getMaxSent() : parent::getLastAnswer();
+    }
 
-function setSubCount($sub_count)
-{
-$this->sub_count=$sub_count;
-}
+    public function getSubCount() {
+        return $this->sub_count;
+    }
+
+    public function setSubCount($sub_count) {
+        $this->sub_count = $sub_count;
+    }
 
 }
 

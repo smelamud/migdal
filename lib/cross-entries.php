@@ -21,7 +21,7 @@ class CrossEntry
     protected $peer_subject;
     protected $peer_icon;
 
-    public function __construct(array $row) {
+    public function __construct(array $row = array()) {
         parent::__construct($row);
     }
 

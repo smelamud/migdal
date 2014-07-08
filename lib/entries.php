@@ -22,945 +22,840 @@ $entryClassNames=array(ENT_NULL     => 'Entry',
                        ENT_VERSION  => 'Entry');
 
 class Entry
-      extends UserTag
-{
-var $id=0;
-var $ident=null;
-var $entry=ENT_NULL;
-var $up=0;
-var $track='';
-var $catalog='';
-var $parent_id=0;
-var $orig_id=0;
-var $grp=0;
-var $grps=array();
-var $person_id=0;
-var $user_id=0;
-var $group_id=0;
-var $group_login='';
-var $perms=PERM_NONE;
-var $perm_string='';
-var $disabled=0;
-var $subject='';
-var $lang='';
-var $author='';
-var $author_xml='';
-var $source='';
-var $source_xml='';
-var $title='';
-var $title_xml='';
-var $comment0='';
-var $comment0_xml='';
-var $comment1='';
-var $comment1_xml='';
-var $url='';
-var $url_domain='';
-var $url_check=0;
-var $url_check_success=0;
-var $body='';
-var $body_xml='';
-var $body_format=TF_MAIL;
-var $has_large_body=0;
-var $large_body='';
-var $large_body_xml='';
-var $large_body_format=TF_PLAIN;
-var $large_body_filename='';
-var $priority=0;
-var $index0=0;
-var $index1=0;
-var $index2=0;
-var $vote=0;
-var $vote_count=0;
-var $rating=0;
-var $sent=0;
-var $created=0;
-var $modified=0;
-var $accessed=0;
-var $creator_id=0;
-var $modifier_id=0;
-var $modbits=MOD_NONE;
-var $answers=0;
-var $last_answer=0;
-var $last_answer_id=0;
-var $last_answer_user_id=0;
-var $last_answer_guest_login=0;
-var $small_image=0;
-var $small_image_x=0;
-var $small_image_y=0;
-var $small_image_format='';
-var $large_image=0;
-var $large_image_x=0;
-var $large_image_y=0;
-var $large_image_size=0;
-var $large_image_format='';
-var $large_image_filename='';
-var $inserted=false;
+        extends UserTag {
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    protected $id = 0;
+    protected $ident = null;
+    protected $entry = ENT_NULL;
+    protected $up = 0;
+    protected $track = '';
+    protected $catalog = '';
+    protected $parent_id = 0;
+    protected $orig_id = 0;
+    protected $grp = 0;
+    protected $grps = array();
+    protected $person_id = 0;
+    protected $user_id = 0;
+    protected $group_id = 0;
+    protected $group_login = '';
+    protected $perms = PERM_NONE;
+    protected $perm_string = '';
+    protected $disabled = 0;
+    protected $subject = '';
+    protected $lang = '';
+    protected $author = '';
+    protected $author_xml = '';
+    protected $source = '';
+    protected $source_xml = '';
+    protected $title = '';
+    protected $title_xml = '';
+    protected $comment0 = '';
+    protected $comment0_xml = '';
+    protected $comment1 = '';
+    protected $comment1_xml = '';
+    protected $url = '';
+    protected $url_domain = '';
+    protected $url_check = 0;
+    protected $url_check_success = 0;
+    protected $body = '';
+    protected $body_xml = '';
+    protected $body_format = TF_MAIL;
+    protected $has_large_body = 0;
+    protected $large_body = '';
+    protected $large_body_xml = '';
+    protected $large_body_format = TF_PLAIN;
+    protected $large_body_filename = '';
+    protected $priority = 0;
+    protected $index0 = 0;
+    protected $index1 = 0;
+    protected $index2 = 0;
+    protected $vote = 0;
+    protected $vote_count = 0;
+    protected $rating = 0;
+    protected $sent = 0;
+    protected $created = 0;
+    protected $modified = 0;
+    protected $accessed = 0;
+    protected $creator_id = 0;
+    protected $modifier_id = 0;
+    protected $modbits = MOD_NONE;
+    protected $answers = 0;
+    protected $last_answer = 0;
+    protected $last_answer_id = 0;
+    protected $last_answer_user_id = 0;
+    protected $last_answer_guest_login = 0;
+    protected $small_image = 0;
+    protected $small_image_x = 0;
+    protected $small_image_y = 0;
+    protected $small_image_format = '';
+    protected $large_image = 0;
+    protected $large_image_x = 0;
+    protected $large_image_y = 0;
+    protected $large_image_size = 0;
+    protected $large_image_format = '';
+    protected $large_image_filename = '';
+    protected $inserted = false;
 
-function getId()
-{
-return $this->id;
-}
+    public function __construct(array $row = array()) {
+        parent::__construct($row);
+    }
+
+    public function getId() {
+        return $this->id;
+    }
 
     public function setId($id) {
         $this->id = $id;
     }
 
-function getIdent()
-{
-return $this->ident;
-}
+    public function getIdent() {
+        return $this->ident;
+    }
 
-function getEntry()
-{
-return $this->entry;
-}
+    public function getEntry() {
+        return $this->entry;
+    }
 
-function getUpValue()
-{
-return $this->up;
-}
+    public function getUpValue() {
+        return $this->up;
+    }
 
     public function setUpValue($up) {
         $this->up = $up;
     }
 
-function getTrack()
-{
-return $this->track;
-}
+    public function getTrack() {
+        return $this->track;
+    }
 
-function getTrackPath()
-{
-$s='';
-foreach(explode(' ',$this->getTrack()) as $item)
-       $s.=(int)$item.'/';
-return $s;
-}
+    public function getTrackPath() {
+        $s = '';
+        foreach (explode(' ', $this->getTrack()) as $item)
+            $s .= (int)$item.'/';
+        return $s;
+    }
 
-function getParentTrackPath()
-{
-$s='';
-$c='';
-foreach(explode(' ',$this->getTrack()) as $item)
-       {
-       $s=$c;
-       $c.=(int)$item.'/';
-       }
-return $s;
-}
+    public function getParentTrackPath() {
+        $s = '';
+        $c = '';
+        foreach(explode(' ', $this->getTrack()) as $item) {
+            $s = $c;
+            $c .= (int)$item.'/';
+        }
+        return $s;
+    }
 
     public function setTrack($track) {
         $this->track = $track;
     }
 
-function getCatalog($start=0,$length=0)
-{
-if($start==0 && $length==0 || $this->catalog=='')
-  return $this->catalog;
-$elements=explode('/',substr($this->catalog,0,-1));
-$catalog='';
-$begin=$start>=0 ? $start : count($elements)+$start;
-$end=$length>0 ? $begin+$length : count($elements)+$length;
-for($i=$begin;$i<$end;$i++)
-   $catalog.=$elements[$i].'/';
-return $catalog;
-}
+    public function getCatalog($start = 0, $length = 0) {
+        if ($start == 0 && $length == 0 || $this->catalog == '')
+            return $this->catalog;
+        $elements = explode('/', substr($this->catalog, 0, -1));
+        $catalog = '';
+        $begin = $start >= 0 ? $start : count($elements) + $start;
+        $end = $length > 0 ? $begin + $length : count($elements) + $length;
+        for ($i = $begin; $i < $end; $i++)
+            $catalog .= $elements[$i].'/';
+        return $catalog;
+    }
 
     public function setCatalog($catalog) {
         $this->catalog = $catalog;
     }
 
-function getParentId()
-{
-return $this->parent_id;
-}
+    public function getParentId() {
+        return $this->parent_id;
+    }
 
-function getOrigId()
-{
-return $this->orig_id;
-}
+    public function getOrigId() {
+        return $this->orig_id;
+    }
 
     public function setOrigId($orig_id) {
         $this->orig_id = $orig_id;
     }
 
-function getGrp()
-{
-return $this->grp;
-}
+    public function getGrp() {
+        return $this->grp;
+    }
 
-function setGrp($grp)
-{
-$this->grp=$grp;
-}
+    public function setGrp($grp) {
+        $this->grp = $grp;
+    }
 
-function getGrps()
-{
-return $this->grps;
-}
+    public function getGrps() {
+        return $this->grps;
+    }
 
-function setGrps($grps)
-{
-$this->grps=$grps;
-}
+    public function setGrps($grps) {
+        $this->grps=$grps;
+    }
 
-function getPersonId()
-{
-return $this->person_id;
-}
+    public function getPersonId() {
+        return $this->person_id;
+    }
 
-function getUserId()
-{
-return $this->user_id;
-}
+    public function getUserId() {
+        return $this->user_id;
+    }
 
-function setUserId($id)
-{
-$this->user_id=$id;
-}
+    public function setUserId($id) {
+        $this->user_id = $id;
+    }
 
-function getGroupId()
-{
-return $this->group_id;
-}
+    public function getGroupId() {
+        return $this->group_id;
+    }
 
-function setGroupId($id)
-{
-$this->group_id=$id;
-}
+    public function setGroupId($id) {
+        $this->group_id = $id;
+    }
 
-function getGroupLogin()
-{
-return $this->group_login;
-}
+    public function getGroupLogin() {
+        return $this->group_login;
+    }
 
     public function setGroupLogin($group_login) {
         $this->group_login = $group_login;
     }
 
-function getGroupName()
-{
-return $this->getGroupLogin();
-}
+    public function getGroupName() {
+        return $this->getGroupLogin();
+    }
 
-function getPerms()
-{
-return $this->perms;
-}
+    public function getPerms() {
+        return $this->perms;
+    }
 
-function getPermStringRaw()
-{
-return $this->perm_string;
-}
+    public function getPermStringRaw() {
+        return $this->perm_string;
+    }
 
-function getPermString()
-{
-return $this->perm_string!='' ? $this->perm_string
-                              : strPerms($this->getPerms());
-}
+    public function getPermString() {
+        return $this->perm_string != '' ? $this->perm_string
+                                        : strPerms($this->getPerms());
+    }
 
-function isPermitted($right)
-{
-return isPermittedEntry($this,$right);
-}
+    public function isPermitted($right) {
+        return isPermittedEntry($this, $right);
+    }
 
-function isReadable()
-{
-return $this->isPermitted(PERM_READ);
-}
+    public function isReadable() {
+        return $this->isPermitted(PERM_READ);
+    }
 
-function isWritable()
-{
-return $this->isPermitted(PERM_WRITE);
-}
+    public function isWritable() {
+        return $this->isPermitted(PERM_WRITE);
+    }
 
-function isAppendable()
-{
-return $this->isPermitted(PERM_APPEND);
-}
+    public function isAppendable() {
+        return $this->isPermitted(PERM_APPEND);
+    }
 
-function isPostable()
-{
-return $this->isPermitted(PERM_POST);
-}
+    public function isPostable() {
+        return $this->isPermitted(PERM_POST);
+    }
 
-function isGuestPostable()
-{
-return ($this->perms & PERM_EP)!=0;
-}
+    public function isGuestPostable() {
+        return ($this->perms & PERM_EP) != 0;
+    }
 
-function isHidden()
-{
-return ($this->perms & 0x1100)==0;
-}
+    public function isHidden() {
+        return ($this->perms & 0x1100) == 0;
+    }
 
-function isDisabled()
-{
-return $this->disabled;
-}
+    public function isDisabled() {
+        return $this->disabled;
+    }
 
     public function setDisabled($disabled) {
         $this->disabled = $disabled;
     }
 
-function getSubject()
-{
-return $this->subject;
-}
+    public function getSubject() {
+        return $this->subject;
+    }
 
-function getLang()
-{
-return $this->lang;
-}
+    public function getLang() {
+        return $this->lang;
+    }
 
-function getLangName()
-{
-global $langCodes;
+    public function getLangName() {
+        global $langCodes;
 
-return $langCodes[$this->lang];
-}
+        return $langCodes[$this->lang];
+    }
 
-function getAuthor()
-{
-return $this->author;
-}
+    public function getAuthor() {
+        return $this->author;
+    }
 
-function getAuthorXML()
-{
-return $this->author_xml;
-}
+    public function getAuthorXML() {
+        return $this->author_xml;
+    }
 
-function getAuthorHTML()
-{
-return mtextToHTML($this->getAuthorXML(),MTEXT_LINE,$this->getId());
-}
+    public function getAuthorHTML() {
+        return mtextToHTML($this->getAuthorXML(), MTEXT_LINE, $this->getId());
+    }
 
-function getSource()
-{
-return $this->source;
-}
+    public function getSource() {
+        return $this->source;
+    }
 
-function getSourceXML()
-{
-return $this->source_xml;
-}
+    public function getSourceXML() {
+        return $this->source_xml;
+    }
 
-function getSourceHTML()
-{
-return mtextToHTML($this->getSourceXML(),MTEXT_LINE,$this->getId());
-}
+    public function getSourceHTML() {
+        return mtextToHTML($this->getSourceXML(), MTEXT_LINE, $this->getId());
+    }
 
-function getTitle()
-{
-return $this->title;
-}
+    public function getTitle() {
+        return $this->title;
+    }
 
-function getTitleXML()
-{
-return $this->title_xml;
-}
+    public function getTitleXML() {
+        return $this->title_xml;
+    }
 
-function getTitleHTML()
-{
-return mtextToHTML($this->getTitleXML(),MTEXT_SHORT,$this->getId());
-}
+    public function getTitleHTML() {
+        return mtextToHTML($this->getTitleXML(), MTEXT_SHORT, $this->getId());
+    }
 
-function getTitleLineHTML()
-{
-return mtextToHTML($this->getTitleXML(),MTEXT_CONVERT|MTEXT_LINE,
-                   $this->getId());
-}
+    public function getTitleLineHTML() {
+        return mtextToHTML($this->getTitleXML(), MTEXT_CONVERT | MTEXT_LINE,
+                           $this->getId());
+    }
 
-function isTitleTiny()
-{
-global $tinySize,$tinySizeMinus,$tinySizePlus;
+    public function isTitleTiny() {
+        global $tinySize, $tinySizeMinus, $tinySizePlus;
 
-return cleanLength($this->getTitleXML())<=$tinySize+$tinySizePlus;
-}
+        return cleanLength($this->getTitleXML()) <= $tinySize + $tinySizePlus;
+    }
 
-function getTitleTiny()
-{
-global $tinySize,$tinySizeMinus,$tinySizePlus;
+    public function getTitleTiny() {
+        global $tinySize, $tinySizeMinus, $tinySizePlus;
 
-return shortenNote($this->getTitleXML(),$tinySize,$tinySizeMinus,$tinySizePlus);
-}
+        return shortenNote($this->getTitleXML(), $tinySize, $tinySizeMinus,
+                           $tinySizePlus);
+    }
 
-function getTitleTinyXML()
-{
-global $tinySize,$tinySizeMinus,$tinySizePlus;
+    public function getTitleTinyXML() {
+        global $tinySize, $tinySizeMinus, $tinySizePlus;
 
-return shorten($this->getTitleXML(),$tinySize,$tinySizeMinus,$tinySizePlus);
-}
+        return shorten($this->getTitleXML(), $tinySize, $tinySizeMinus,
+                       $tinySizePlus);
+    }
 
-function getTitleTinyHTML()
-{
-return mtextToHTML($this->getTitleTinyXML(),MTEXT_SHORT,$this->getId());
-}
+    public function getTitleTinyHTML() {
+        return mtextToHTML($this->getTitleTinyXML(), MTEXT_SHORT,
+                           $this->getId());
+    }
 
-function isTitlePea()
-{
-global $peaSize,$peaSizeMinus,$peaSizePlus;
+    public function isTitlePea() {
+        global $peaSize, $peaSizeMinus, $peaSizePlus;
 
-return cleanLength($this->getTitleXML())<=$peaSize+$peaSizePlus;
-}
+        return cleanLength($this->getTitleXML()) <= $peaSize + $peaSizePlus;
+    }
 
-function getTitlePea()
-{
-global $peaSize,$peaSizeMinus,$peaSizePlus;
+    public function getTitlePea() {
+        global $peaSize, $peaSizeMinus, $peaSizePlus;
 
-return shortenNote($this->getTitleXML(),$peaSize,$peaSizeMinus,$peaSizePlus);
-}
+        return shortenNote($this->getTitleXML(), $peaSize, $peaSizeMinus,
+                           $peaSizePlus);
+    }
 
-function getTitlePeaXML()
-{
-global $peaSize,$peaSizeMinus,$peaSizePlus;
+    public function getTitlePeaXML() {
+        global $peaSize, $peaSizeMinus, $peaSizePlus;
 
-return shorten($this->getTitleXML(),$peaSize,$peaSizeMinus,$peaSizePlus);
-}
+        return shorten($this->getTitleXML(), $peaSize, $peaSizeMinus,
+                       $peaSizePlus);
+    }
 
-function getTitlePeaHTML()
-{
-return mtextToHTML($this->getTitlePeaXML(),MTEXT_SHORT,$this->getId());
-}
+    public function getTitlePeaHTML() {
+        return mtextToHTML($this->getTitlePeaXML(), MTEXT_SHORT,
+                           $this->getId());
+    }
 
-function getComment0()
-{
-return $this->comment0;
-}
+    public function getComment0() {
+        return $this->comment0;
+    }
 
-function getComment0XML()
-{
-return $this->comment0_xml;
-}
+    public function getComment0XML() {
+        return $this->comment0_xml;
+    }
 
-function getComment0HTML()
-{
-return mtextToHTML($this->getComment0XML(),MTEXT_LINE,$this->getId());
-}
+    public function getComment0HTML() {
+        return mtextToHTML($this->getComment0XML(), MTEXT_LINE, $this->getId());
+    }
 
-function getComment1()
-{
-return $this->comment1;
-}
+    public function getComment1() {
+        return $this->comment1;
+    }
 
-function getComment1XML()
-{
-return $this->comment1_xml;
-}
+    public function getComment1XML() {
+        return $this->comment1_xml;
+    }
 
-function getComment1HTML()
-{
-return mtextToHTML($this->getComment1XML(),MTEXT_LINE,$this->getId());
-}
+    public function getComment1HTML() {
+        return mtextToHTML($this->getComment1XML(), MTEXT_LINE, $this->getId());
+    }
 
-function getURL()
-{
-return $this->url;
-}
+    public function getURL() {
+        return $this->url;
+    }
 
-function getURLEllip()
-{
-global $urlEllipSize;
+    public function getURLEllip() {
+        global $urlEllipSize;
 
-return ellipsize($this->url,$urlEllipSize);
-}
+        return ellipsize($this->url, $urlEllipSize);
+    }
 
     public function setURL($url) {
         $this->url = $url;
     }
 
-function getURLDomain()
-{
-return $this->url_domain;
-}
+    public function getURLDomain() {
+        return $this->url_domain;
+    }
 
-function getURLCheck()
-{
-return $this->url_check;
-}
+    public function getURLCheck() {
+        return $this->url_check;
+    }
 
-function getURLCheckSuccess()
-{
-return $this->url_check_success;
-}
+    public function getURLCheckSuccess() {
+        return $this->url_check_success;
+    }
 
-function getURLCheckFail()
-{
-return $this->url_check_success==0 ? 0 : ourtime()-$this->url_check_success;
-}
+    public function getURLCheckFail() {
+        return $this->url_check_success == 0
+               ? 0 : ourtime() - $this->url_check_success;
+    }
 
-function getURLCheckFailDays()
-{
-return floor($this->getURLCheckFail()/(24*60*60));
-}
+    public function getURLCheckFailDays() {
+        return floor($this->getURLCheckFail() / (24 * 60 * 60));
+    }
 
-function getBody()
-{
-return $this->body;
-}
+    public function getBody() {
+        return $this->body;
+    }
 
-function getBodyXML()
-{
-return $this->body_xml;
-}
+    public function getBodyXML() {
+        return $this->body_xml;
+    }
 
-function getBodyHTML()
-{
-return mtextToHTML($this->getBodyXML(),MTEXT_SHORT,$this->getId());
-}
+    public function getBodyHTML() {
+        return mtextToHTML($this->getBodyXML(), MTEXT_SHORT, $this->getId());
+    }
 
-function getBodyNormal()
-{
-return shortenNote($this->getBodyXML(),65535,0,0);
-}
+    public function getBodyNormal() {
+        return shortenNote($this->getBodyXML(), 65535, 0, 0);
+    }
 
-function isBodyTiny()
-{
-global $tinySize,$tinySizeMinus,$tinySizePlus;
+    public function isBodyTiny() {
+        global $tinySize, $tinySizeMinus, $tinySizePlus;
 
-return cleanLength($this->getBodyXML())<=$tinySize+$tinySizePlus;
-}
+        return cleanLength($this->getBodyXML()) <= $tinySize + $tinySizePlus;
+    }
 
-function getBodyTiny()
-{
-global $tinySize,$tinySizeMinus,$tinySizePlus;
+    public function getBodyTiny() {
+        global $tinySize, $tinySizeMinus, $tinySizePlus;
 
-return shortenNote($this->getBodyXML(),$tinySize,$tinySizeMinus,$tinySizePlus);
-}
+        return shortenNote($this->getBodyXML(), $tinySize, $tinySizeMinus,
+                           $tinySizePlus);
+    }
 
-function getBodyTinyXML()
-{
-global $tinySize,$tinySizeMinus,$tinySizePlus;
+    public function getBodyTinyXML() {
+        global $tinySize, $tinySizeMinus, $tinySizePlus;
 
-return shorten($this->getBodyXML(),$tinySize,$tinySizeMinus,$tinySizePlus);
-}
+        return shorten($this->getBodyXML(), $tinySize, $tinySizeMinus,
+                       $tinySizePlus);
+    }
 
-function getBodyTinyHTML()
-{
-return mtextToHTML($this->getBodyTinyXML(),MTEXT_SHORT,$this->getId());
-}
+    public function getBodyTinyHTML() {
+        return mtextToHTML($this->getBodyTinyXML(), MTEXT_SHORT,
+                           $this->getId());
+    }
 
-function isBodySmall()
-{
-global $smallSize,$smallSizeMinus,$smallSizePlus;
+    public function isBodySmall() {
+        global $smallSize, $smallSizeMinus, $smallSizePlus;
 
-return cleanLength($this->getBodyXML())<=$smallSize+$smallSizePlus;
-}
+        return cleanLength($this->getBodyXML()) <= $smallSize + $smallSizePlus;
+    }
 
-function getBodySmallXML()
-{
-global $smallSize,$smallSizeMinus,$smallSizePlus;
+    public function getBodySmallXML() {
+        global $smallSize, $smallSizeMinus, $smallSizePlus;
 
-return shorten($this->getBodyXML(),$smallSize,$smallSizeMinus,$smallSizePlus);
-}
+        return shorten($this->getBodyXML(), $smallSize, $smallSizeMinus,
+                       $smallSizePlus);
+    }
 
-function getBodySmallHTML()
-{
-return mtextToHTML($this->getBodySmallXML(),MTEXT_SHORT,$this->getId());
-}
+    public function getBodySmallHTML() {
+        return mtextToHTML($this->getBodySmallXML(), MTEXT_SHORT,
+                           $this->getId());
+    }
 
-function isBodyMedium()
-{
-global $mediumSize,$mediumSizeMinus,$mediumSizePlus;
+    public function isBodyMedium() {
+        global $mediumSize, $mediumSizeMinus, $mediumSizePlus;
 
-return cleanLength($this->getBodyXML())<=$mediumSize+$mediumSizePlus;
-}
+        return cleanLength($this->getBodyXML()) <= $mediumSize + $mediumSizePlus;
+    }
 
-function getBodyMediumXML()
-{
-global $mediumSize,$mediumSizeMinus,$mediumSizePlus;
+    public function getBodyMediumXML() {
+        global $mediumSize, $mediumSizeMinus, $mediumSizePlus;
 
-return shorten($this->getBodyXML(),$mediumSize,$mediumSizeMinus,$mediumSizePlus);
-}
+        return shorten($this->getBodyXML(), $mediumSize, $mediumSizeMinus,
+                       $mediumSizePlus);
+    }
 
-function getBodyMediumHTML()
-{
-return mtextToHTML($this->getBodyMediumXML(),MTEXT_SHORT,$this->getId());
-}
+    public function getBodyMediumHTML() {
+        return mtextToHTML($this->getBodyMediumXML(), MTEXT_SHORT,
+                           $this->getId());
+    }
 
-function getBodyMediumNormal()
-{
-global $mediumSize,$mediumSizeMinus,$mediumSizePlus;
+    public function getBodyMediumNormal() {
+        global $mediumSize, $mediumSizeMinus, $mediumSizePlus;
 
-return shortenNote($this->getBodyXML(),$mediumSize,$mediumSizeMinus,
-                   $mediumSizePlus);
-}
+        return shortenNote($this->getBodyXML(), $mediumSize, $mediumSizeMinus,
+                           $mediumSizePlus);
+    }
 
-function getBodyFormat()
-{
-return $this->body_format;
-}
+    public function getBodyFormat() {
+        return $this->body_format;
+    }
 
-function hasLargeBody()
-{
-return $this->has_large_body;
-}
+    public function hasLargeBody() {
+        return $this->has_large_body;
+    }
 
     public function setHasLargeBody($has_large_body) {
         $this->has_large_body = $has_large_body;
     }
 
-function getLargeBody()
-{
-return $this->large_body;
-}
+    public function getLargeBody() {
+        return $this->large_body;
+    }
 
     public function setLargeBody($large_body) {
         $this->large_body = $large_body;
     }
 
-function getLargeBodyXML()
-{
-return $this->large_body_xml;
-}
+    public function getLargeBodyXML() {
+        return $this->large_body_xml;
+    }
 
     public function setLargeBodyXML($large_body_xml) {
         $this->large_body_xml = $large_body_xml;
     }
 
-function getLargeBodyHTML()
-{
-return new LargeText($this->getLargeBodyXML(),$this->getId());
-}
+    public function getLargeBodyHTML() {
+        return new LargeText($this->getLargeBodyXML(), $this->getId());
+    }
 
-function getLargeBodyFormat()
-{
-return $this->large_body_format;
-}
+    public function getLargeBodyFormat() {
+        return $this->large_body_format;
+    }
 
-function getLargeBodyFilename()
-{
-return $this->large_body_filename;
-}
+    public function getLargeBodyFilename() {
+        return $this->large_body_filename;
+    }
 
     public function setLargeBodyFilename($large_body_filename) {
         $this->large_body_filename = $large_body_filename;
     }
 
-function getLargeBodySize()
-{
-return strlen($this->large_body);
-}
+    public function getLargeBodySize() {
+        return strlen($this->large_body);
+    }
 
-function getLargeBodySizeKB()
-{
-return (int)($this->getLargeBodySize()/1024);
-}
+    public function getLargeBodySizeKB() {
+        return (int)($this->getLargeBodySize() / 1024);
+    }
 
-function getPriority()
-{
-return $this->priority;
-}
+    public function getPriority() {
+        return $this->priority;
+    }
 
-function getIndex0()
-{
-return $this->index0;
-}
+    public function getIndex0() {
+        return $this->index0;
+    }
 
-function getIndex1()
-{
-return $this->index1;
-}
+    public function getIndex1() {
+        return $this->index1;
+    }
 
-function getIndex2()
-{
-return $this->index2;
-}
+    public function getIndex2() {
+        return $this->index2;
+    }
 
-function getVote()
-{
-return $this->vote;
-}
+    public function getVote() {
+        return $this->vote;
+    }
 
-function getVoteCount()
-{
-return $this->vote_count;
-}
+    public function getVoteCount() {
+        return $this->vote_count;
+    }
 
-function getRating()
-{
-return $this->rating;
-}
+    public function getRating() {
+        return $this->rating;
+    }
 
-function getRatingString()
-{
-return sprintf("%1.2f",$this->getRating());
-}
+    public function getRatingString() {
+        return sprintf("%1.2f", $this->getRating());
+    }
 
-function getRating20()
-{
-return (int)round($this->getRating()*4);
-}
+    public function getRating20() {
+        return (int)round($this->getRating() * 4);
+    }
 
-function getSent()
-{
-return strtotime($this->sent);
-}
+    public function getSent() {
+        return strtotime($this->sent);
+    }
 
-function getCreated()
-{
-return strtotime($this->created);
-}
+    public function getCreated() {
+        return strtotime($this->created);
+    }
 
-function getModified()
-{
-return strtotime($this->modified);
-}
+    public function getModified() {
+        return strtotime($this->modified);
+    }
 
-function getAccessed()
-{
-return strtotime($this->accessed);
-}
+    public function getAccessed() {
+        return strtotime($this->accessed);
+    }
 
-function getCreatorId()
-{
-return $this->creator_id;
-}
+    public function getCreatorId() {
+        return $this->creator_id;
+    }
 
-function getModifierId()
-{
-return $this->modifier_id;
-}
+    public function getModifierId() {
+        return $this->modifier_id;
+    }
 
-function getModbits()
-{
-return $this->modbits;
-}
+    public function getModbits() {
+        return $this->modbits;
+    }
 
     public function setModbits($modbits) {
         $this->modbits = $modbits;
     }
 
-function getAnswers()
-{
-return $this->answers;
-}
+    public function getAnswers() {
+        return $this->answers;
+    }
 
-function getLastAnswer()
-{
-return !empty($this->last_answer) && $this->last_answer!=0
-       ? strtotime($this->last_answer) : 0;
-}
+    public function getLastAnswer() {
+        return !empty($this->last_answer) && $this->last_answer != 0
+               ? strtotime($this->last_answer) : 0;
+    }
 
-function getLastAnswerId()
-{
-return $this->last_answer_id;
-}
+    public function getLastAnswerId() {
+        return $this->last_answer_id;
+    }
 
-function getLastAnswerUserId()
-{
-return $this->last_answer_user_id;
-}
+    public function getLastAnswerUserId() {
+        return $this->last_answer_user_id;
+    }
 
-function getLastAnswerGuestLogin()
-{
-return $this->last_answer_guest_login;
-}
+    public function getLastAnswerGuestLogin() {
+        return $this->last_answer_guest_login;
+    }
 
-function getSmallImage()
-{
-return $this->small_image;
-}
+    public function getSmallImage() {
+        return $this->small_image;
+    }
 
-function hasSmallImage()
-{
-return $this->small_image!=0;
-}
+    public function hasSmallImage() {
+        return $this->small_image != 0;
+    }
 
     public function setSmallImage($small_image) {
         $this->small_image = $small_image;
     }
 
-function getSmallImageX()
-{
-return $this->small_image_x;
-}
+    public function getSmallImageX() {
+        return $this->small_image_x;
+    }
 
     public function setSmallImageX($small_image_x) {
         $this->small_image_x = $small_image_x;
     }
 
-function getSmallImageY()
-{
-return $this->small_image_y;
-}
+    public function getSmallImageY() {
+        return $this->small_image_y;
+    }
 
     public function setSmallImageY($small_image_y) {
         $this->small_image_y = $small_image_y;
     }
 
-function getSmallImageFormat()
-{
-return $this->small_image_format;
-}
+    public function getSmallImageFormat() {
+        return $this->small_image_format;
+    }
 
     public function setSmallImageFormat($small_image_format) {
         $this->small_image_format = $small_image_format;
     }
 
-function getSmallImageURL()
-{
-return getImageURL($this->getSmallImageFormat(), $this->getSmallImage());
-}
+    public function getSmallImageURL() {
+        return getImageURL($this->getSmallImageFormat(),
+                           $this->getSmallImage());
+    }
 
-function getLargeImage()
-{
-return $this->large_image;
-}
+    public function getLargeImage() {
+        return $this->large_image;
+    }
 
-function hasLargeImage()
-{
-return $this->large_image!=0 && $this->small_image!=$this->large_image;
-}
+    public function hasLargeImage() {
+        return $this->large_image != 0
+               && $this->small_image != $this->large_image;
+    }
 
     public function setLargeImage($large_image) {
         $this->large_image = $large_image;
     }
 
-function getLargeImageX()
-{
-return $this->large_image_x;
-}
+    public function getLargeImageX() {
+        return $this->large_image_x;
+    }
 
     public function setLargeImageX($large_image_x) {
         $this->large_image_x = $large_image_x;
     }
 
-function getLargeImageY()
-{
-return $this->large_image_y;
-}
+    public function getLargeImageY() {
+        return $this->large_image_y;
+    }
 
     public function setLargeImageY($large_image_y) {
         $this->large_image_y = $large_image_y;
     }
 
-function getLargeImageURL()
-{
-return getImageURL($this->getLargeImageFormat(), $this->getLargeImage());
-}
+    public function getLargeImageURL() {
+        return getImageURL($this->getLargeImageFormat(),
+                           $this->getLargeImage());
+    }
 
-// Useful synonyms
+    // Useful synonyms
 
-function hasImage() {
-    return $this->hasSmallImage();
-}
+    public function hasImage() {
+        return $this->hasSmallImage();
+    }
 
-function getImage() {
-    return $this->getLargeImage();
-}
+    public function getImage() {
+        return $this->getLargeImage();
+    }
 
-function getImageX() {
-    return $this->getLargeImageX();
-}
+    public function getImageX() {
+        return $this->getLargeImageX();
+    }
 
-function getImageY() {
-    return $this->getLargeImageY();
-}
+    public function getImageY() {
+        return $this->getLargeImageY();
+    }
 
-function getImageURL() {
-    return $this->getLargeImageURL();
-}
+    public function getImageURL() {
+        return $this->getLargeImageURL();
+    }
 
-function getImageSize() {
-    return $this->getLargeImageSize();
-}
+    public function getImageSize() {
+        return $this->getLargeImageSize();
+    }
 
-function getImageSizeKB() {
-    return $this->getLargeImageSizeKB();
-}
+    public function getImageSizeKB() {
+        return $this->getLargeImageSizeKB();
+    }
 
-//
+    //
 
-function getLargeImageSize()
-{
-return $this->large_image_size;
-}
+    public function getLargeImageSize() {
+        return $this->large_image_size;
+    }
 
-function getLargeImageSizeKB()
-{
-return (int)($this->large_image_size/1024);
-}
+    public function getLargeImageSizeKB() {
+        return (int)($this->large_image_size / 1024);
+    }
 
     public function setLargeImageSize($large_image_size) {
         $this->large_image_size = $large_image_size;
     }
 
-function getLargeImageFormat()
-{
-return $this->large_image_format;
-}
+    public function getLargeImageFormat() {
+        return $this->large_image_format;
+    }
 
     public function setLargeImageFormat($large_image_format) {
         $this->large_image_format = $large_image_format;
     }
 
-function getLargeImageFilename()
-{
-return $this->large_image_filename;
-}
+    public function getLargeImageFilename() {
+        return $this->large_image_filename;
+    }
 
     public function setLargeImageFilename($large_image_filename) {
         $this->large_image_filename = $large_image_filename;
     }
 
-function isInserted()
-{
-return (boolean)$this->inserted;
-}
+    public function isInserted() {
+        return (boolean)$this->inserted;
+    }
 
-function getProperty($name)
-{
-$func='get'.ucfirst($name);
-return $this->$func();
-}
+    public function getProperty($name) {
+        $func = 'get'.ucfirst($name);
+        return $this->$func();
+    }
 
-function getDateProperty($name,$format)
-{
-return formatAnyDate($format,$this->getProperty($name));
-}
+    public function getDateProperty($name, $format) {
+        return formatAnyDate($format, $this->getProperty($name));
+    }
 
-function getCompositeValue($value,$term=false)
-{
-if($term || strpos($value,' ')===false)
-  {
-  $value=preg_replace('/\$\[([-\d]+)\]/e','$this->getCatalog(\1,0)',$value);
-  $value=preg_replace('/\$\[([-\d]+),([-\d]+)\]/e','$this->getCatalog(\1,\2)',
-		      $value);
-  $value=preg_replace('/\$\{(\w+)\}/e','$this->getProperty("\1")',$value);
-  $value=preg_replace('/\$\{(\w+)@(\w+)\}/e',
-                      '$this->getDateProperty("\1","\2")',$value);
-  return $value;
-  }
-else
-  {
-  $program=preg_split('/\s+/',$value);
-  $ep=0;
-  while($ep<count($program))
-       if($program[$ep]=='subtree')
-         {
-	 if($ep>=count($program)-2)
-	   break;
-	 if(strpos($this->getTrack(),track(idByIdent($program[$ep+1])))!==false)
-	   return $this->getCompositeValue($program[$ep+2],true);
-	 $ep+=3;
-	 }
-       elseif($program[$ep]=='default')
-         {
-	 if($ep>=count($program)-1)
-	   break;
-	 return $this->getCompositeValue($program[$ep+1],true);
-	 }
-       else
-         break;
-  return $this->getCompositeValue($value,true);
-  }
-}
+    protected function getCompositeValue($value, $term = false) {
+        if ($term || strpos($value, ' ') === false) {
+            $value = preg_replace(
+                '/\$\[([-\d]+)\]/e',
+                '$this->getCatalog(\1,0)',
+                $value
+            );
+            $value = preg_replace(
+                '/\$\[([-\d]+),([-\d]+)\]/e',
+                '$this->getCatalog(\1,\2)',
+                $value
+            );
+            $value = preg_replace(
+                '/\$\{(\w+)\}/e',
+                '$this->getProperty("\1")',
+                $value
+            );
+            $value = preg_replace(
+                '/\$\{(\w+)@(\w+)\}/e',
+                '$this->getDateProperty("\1","\2")',
+                $value
+            );
+            return $value;
+        } else {
+            $program = preg_split('/\s+/', $value);
+            $ep = 0;
+            while($ep < count($program)) {
+               if ($program[$ep] == 'subtree') {
+                   if ($ep >= count($program) - 2)
+                       break;
+                   if (strpos($this->getTrack(),
+                              track(idByIdent($program[$ep + 1]))) !== false)
+                       return $this->getCompositeValue($program[$ep + 2], true);
+                   $ep += 3;
+               } elseif ($program[$ep] == 'default') {
+                   if ($ep >= count($program) - 1)
+                       break;
+                   return $this->getCompositeValue($program[$ep + 1], true);
+               } else {
+                   break;
+               }
+            }
+            return $this->getCompositeValue($value, true);
+        }
+    }
 
 }
 

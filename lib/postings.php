@@ -29,163 +29,165 @@ require_once('lib/text-any.php');
 require_once('lib/html-cache.php');
 
 class Posting
-      extends GrpEntry
-{
-var $counter_value0;
-var $counter_value1;
-var $co_ctr;
+        extends GrpEntry {
 
-function __construct($row)
-{
-global $tfRegular,$tfLarge;
+    protected $counter_value0;
+    protected $counter_value1;
+    protected $co_ctr;
 
-$this->entry=ENT_POSTING;
-$this->body_format=$tfRegular;
-$this->large_body_format=$tfLarge;
-parent::__construct($row);
-}
+    public function __construct(array $row = array()) {
+        global $tfRegular, $tfLarge;
 
-function setup($vars)
-{
-global $tfRegular,$tfLarge;
+        $this->entry = ENT_POSTING;
+        $this->body_format = $tfRegular;
+        $this->large_body_format = $tfLarge;
+        parent::__construct($row);
+    }
 
-if(!isset($vars['edittag']) || !$vars['edittag'])
-  return;
-$this->body_format=$vars['body_format'];
-if(!c_digit($this->body_format) || $this->body_format>TF_MAX)
-  $this->body_format=$tfRegular;
-$this->body=$vars['body'];
-$this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
-$this->large_body_format=$vars['large_body_format'];
-if(!c_digit($this->large_body_format) || $this->large_body_format>TF_MAX)
-  $this->large_body_format=$tfLarge;
-$this->has_large_body=0;
-$this->large_body='';
-$this->large_body_xml='';
-if($vars['large_body']!='')
-  {
-  $this->has_large_body=1;
-  $this->large_body=$vars['large_body'];
-  $this->large_body_xml=anyToXML($this->large_body,$this->large_body_format,
-                                 MTEXT_LONG);
-  }
-if($vars['large_body_filename']!='')
-  $this->large_body_filename=$vars['large_body_filename'];
-$this->small_image=$vars['small_image'];
-$this->small_image_x=$vars['small_image_x'];
-$this->small_image_y=$vars['small_image_y'];
-$this->small_image_format=$vars['small_image_format'];
-$this->large_image=$vars['large_image'];
-$this->large_image_x=$vars['large_image_x'];
-$this->large_image_y=$vars['large_image_y'];
-$this->large_image_size=$vars['large_image_size'];
-$this->large_image_format=$vars['large_image_format'];
-$this->large_image_filename=$vars['large_image_filename'];
-$this->up=$vars['up'];
-$this->subject=$vars['subject'];
-$this->comment0=$vars['comment0'];
-$this->comment0_xml=anyToXML($this->comment0,$this->body_format,MTEXT_LINE);
-$this->comment1=$vars['comment1'];
-$this->comment1_xml=anyToXML($this->comment1,$this->body_format,MTEXT_LINE);
-$this->author=$vars['author'];
-$this->author_xml=anyToXML($this->author,$this->body_format,MTEXT_LINE);
-$this->source=$vars['source'];
-$this->source_xml=anyToXML($this->source,$this->body_format,MTEXT_LINE);
-$this->title=$vars['title'];
-$this->title_xml=anyToXML($this->title,$this->body_format,MTEXT_LINE);
-$this->guest_login=isset($vars['guest_login']) ? $vars['guest_login'] : '';
-$this->login=isset($vars['login']) ? $vars['login'] : '';
-if(isset($vars['user_name']) && $vars['user_name']!='')
-  $this->login=$vars['user_name'];
-$this->group_login=isset($vars['group_login']) ? $vars['group_login'] : '';
-if(isset($vars['group_name']) && $vars['group_name']!='')
-  $this->group_login=$vars['group_name'];
-$this->perm_string=isset($vars['perm_string']) ? $vars['perm_string'] : '';
-if($this->perm_string!='')
-  $this->perms=permString($this->perm_string,strPerms($this->perms));
-else
-  if($vars['hidden'])
-    $this->perms&=~0x1100;
-  else
-    $this->perms|=0x1100;
-$this->lang=$vars['lang'];
-$this->disabled=$vars['disabled'];
-$this->url=$vars['url'];
-$this->url_domain=getURLDomain($this->url);
-$this->ident=$vars['ident']!='' ? $vars['ident'] : null;
-$this->index1=$vars['index1'];
-$this->index2=$vars['index2'];
-$this->parent_id=$vars['parent_id'];
-$this->grp=$vars['grp'];
-$this->person_id=$vars['person_id'];
-$this->priority=$vars['priority'];
-if(!empty($vars['sent']))
-  $this->sent=sqlDate($vars['sent']);
-$this->sent=sqlDate(composeDateTime($this->getSent(),$vars,'sent'));
-if($this->up<=0)
-  $this->up=$this->parent_id;
-else
-  if(getTypeByEntryId($this->up)==ENT_POSTING)
-    $this->parent_id=getParentIdByEntryId($this->up);
-}
+    public function setup($vars) {
+        global $tfRegular, $tfLarge;
 
-function isShadow()
-{
-return $this->getId()!=$this->getOrigId();
-}
+        if (!isset($vars['edittag']) || !$vars['edittag'])
+            return;
+        $this->body_format = $vars['body_format'];
+        if (!c_digit($this->body_format) || $this->body_format > TF_MAX)
+            $this->body_format = $tfRegular;
+        $this->body = $vars['body'];
+        $this->body_xml = anyToXML($this->body, $this->body_format,
+                                   MTEXT_SHORT);
+        $this->large_body_format = $vars['large_body_format'];
+        if (!c_digit($this->large_body_format)
+            || $this->large_body_format > TF_MAX)
+            $this->large_body_format = $tfLarge;
+        $this->has_large_body = 0;
+        $this->large_body = '';
+        $this->large_body_xml = '';
+        if ($vars['large_body'] != '') {
+            $this->has_large_body = 1;
+            $this->large_body = $vars['large_body'];
+            $this->large_body_xml = anyToXML($this->large_body,
+                                             $this->large_body_format,
+                                             MTEXT_LONG);
+        }
+        if ($vars['large_body_filename'] != '')
+            $this->large_body_filename = $vars['large_body_filename'];
+        $this->small_image = $vars['small_image'];
+        $this->small_image_x = $vars['small_image_x'];
+        $this->small_image_y = $vars['small_image_y'];
+        $this->small_image_format = $vars['small_image_format'];
+        $this->large_image = $vars['large_image'];
+        $this->large_image_x = $vars['large_image_x'];
+        $this->large_image_y = $vars['large_image_y'];
+        $this->large_image_size = $vars['large_image_size'];
+        $this->large_image_format = $vars['large_image_format'];
+        $this->large_image_filename = $vars['large_image_filename'];
+        $this->up = $vars['up'];
+        $this->subject = $vars['subject'];
+        $this->comment0 = $vars['comment0'];
+        $this->comment0_xml = anyToXML($this->comment0, $this->body_format,
+                                       MTEXT_LINE);
+        $this->comment1 = $vars['comment1'];
+        $this->comment1_xml = anyToXML($this->comment1, $this->body_format,
+                                       MTEXT_LINE);
+        $this->author = $vars['author'];
+        $this->author_xml = anyToXML($this->author, $this->body_format,
+                                     MTEXT_LINE);
+        $this->source = $vars['source'];
+        $this->source_xml = anyToXML($this->source, $this->body_format,
+                                     MTEXT_LINE);
+        $this->title = $vars['title'];
+        $this->title_xml = anyToXML($this->title, $this->body_format,
+                                    MTEXT_LINE);
+        $this->guest_login = isset($vars['guest_login'])
+                                   ? $vars['guest_login'] : '';
+        $this->login = isset($vars['login']) ? $vars['login'] : '';
+        if (isset($vars['user_name']) && $vars['user_name'] != '')
+            $this->login = $vars['user_name'];
+        $this->group_login = isset($vars['group_login'])
+                             ? $vars['group_login'] : '';
+        if (isset($vars['group_name']) && $vars['group_name'] != '')
+            $this->group_login = $vars['group_name'];
+        $this->perm_string = isset($vars['perm_string'])
+                             ? $vars['perm_string'] : '';
+        if ($this->perm_string != '')
+            $this->perms = permString($this->perm_string,
+                                      strPerms($this->perms));
+        else
+            if($vars['hidden'])
+                $this->perms &= ~0x1100;
+            else
+                $this->perms |= 0x1100;
+        $this->lang = $vars['lang'];
+        $this->disabled = $vars['disabled'];
+        $this->url = $vars['url'];
+        $this->url_domain = getURLDomain($this->url);
+        $this->ident = $vars['ident'] != '' ? $vars['ident'] : null;
+        $this->index1 = $vars['index1'];
+        $this->index2 = $vars['index2'];
+        $this->parent_id = $vars['parent_id'];
+        $this->grp = $vars['grp'];
+        $this->person_id = $vars['person_id'];
+        $this->priority = $vars['priority'];
+        if (!empty($vars['sent']))
+            $this->sent = sqlDate($vars['sent']);
+        $this->sent = sqlDate(composeDateTime($this->getSent(), $vars, 'sent'));
+        if ($this->up <= 0)
+            $this->up = $this->parent_id;
+        else
+            if (getTypeByEntryId($this->up) == ENT_POSTING)
+                $this->parent_id = getParentIdByEntryId($this->up);
+    }
 
-function getTopicId()
-{
-return $this->getParentId();
-}
+    public function isShadow() {
+        return $this->getId() != $this->getOrigId();
+    }
 
-function getIssues()
-{
-$s=$this->getIndex1();
-if($this->getIndex2()>0)
-  $s.='-'.($this->getIndex1()+$this->getIndex2());
-return $s;
-}
+    public function getTopicId() {
+        return $this->getParentId();
+    }
 
-function getCounterValue0()
-{
-return $this->counter_value0;
-}
+    public function getIssues() {
+        $s = $this->getIndex1();
+        if ($this->getIndex2() > 0)
+            $s .= '-'.($this->getIndex1() + $this->getIndex2());
+        return $s;
+    }
 
-function getCounterValue1()
-{
-return $this->counter_value1;
-}
+    public function getCounterValue0() {
+        return $this->counter_value0;
+    }
 
-function getCTR()
-{
-return 1/$this->co_ctr;
-}
+    public function getCounterValue1() {
+        return $this->counter_value1;
+    }
 
-function isMandatory($field)
-{
-$editor=$this->getGrpEditor();
-foreach($editor as $item)
-       if($item['ident']==$field)
-         return $item['mandatory'];
-return false;
-}
+    public function getCTR() {
+        return 1 / $this->co_ctr;
+    }
 
-function getHeading($useURL=false)
-{
-$heading='';
-if(method_exists($this,'getGrpHeading'))
-  $heading=$this->getGrpHeading();
-if($heading=='' && method_exists($this,'getSubject'))
-  $heading=$this->getSubject();
-if($heading=='' && method_exists($this,'getBodyTiny'))
-  $heading=$this->getBodyTiny();
-if($heading=='' && $useURL && method_exists($this,'getGrpDetailsHref'))
-  $heading=$this->getGrpDetailsHref();
-if($heading=='')
-  $heading='Без названия';
-return $heading;
-}
+    public function isMandatory($field) {
+        $editor = $this->getGrpEditor();
+        foreach ($editor as $item)
+            if ($item['ident'] == $field)
+                return $item['mandatory'];
+        return false;
+    }
+
+    public function getHeading($useURL = false) {
+        $heading = '';
+        if (method_exists($this, 'getGrpHeading'))
+            $heading = $this->getGrpHeading();
+        if ($heading == '' && method_exists($this, 'getSubject'))
+            $heading = $this->getSubject();
+        if ($heading == '' && method_exists($this, 'getBodyTiny'))
+            $heading = $this->getBodyTiny();
+        if ($heading == '' && $useURL
+            && method_exists($this,'getGrpDetailsHref'))
+            $heading = $this->getGrpDetailsHref();
+        if ($heading == '')
+            $heading = 'Без названия';
+        return $heading;
+    }
 
 }
 

@@ -18,106 +18,110 @@ require_once('lib/html-cache.php');
 require_once('conf/forums.php');
 
 class Forum
-      extends Entry
-{
-var $parent_type;
+        extends Entry {
 
-function __construct($row)
-{
-global $tfForum;
+    protected $parent_type;
 
-$this->entry=ENT_FORUM;
-$this->body_format=$tfForum;
-parent::__construct($row);
-}
+    public function __construct(array $row = array()) {
+        global $tfForum;
 
-function setup($vars)
-{
-global $tfForum,$tfLarge;
+        $this->entry = ENT_FORUM;
+        $this->body_format = $tfForum;
+        parent::__construct($row);
+    }
 
-if(!isset($vars['edittag']) || !$vars['edittag'])
-  return;
-$this->body_format=$tfForum;
-$this->body=$vars['body'];
-$this->body_xml=anyToXML($this->body,$this->body_format,MTEXT_SHORT);
-$this->large_body_format=$vars['large_body_format'];
-if(!c_digit($this->large_body_format) || $this->large_body_format>TF_MAX)
-  $this->large_body_format=$tfLarge;
-$this->has_large_body=0;
-$this->large_body='';
-$this->large_body_xml='';
-if($vars['large_body']!='')
-  {
-  $this->has_large_body=1;
-  $this->large_body=$vars['large_body'];
-  $this->large_body_xml=anyToXML($this->large_body,$this->large_body_format,
-                                  MTEXT_LONG);
-  }
-if($vars['large_body_filename']!='')
-  $this->large_body_filename=$vars['large_body_filename'];
-$this->small_image=$vars['small_image'];
-$this->small_image_x=$vars['small_image_x'];
-$this->small_image_y=$vars['small_image_y'];
-$this->small_image_format=$vars['small_image_format'];
-$this->large_image=$vars['large_image'];
-$this->large_image_x=$vars['large_image_x'];
-$this->large_image_y=$vars['large_image_y'];
-$this->large_image_size=$vars['large_image_size'];
-$this->large_image_format=$vars['large_image_format'];
-$this->large_image_filename=$vars['large_image_filename'];
-$this->up=$vars['up'];
-$this->subject=$vars['subject'];
-$this->comment0=$vars['comment0'];
-$this->comment0_xml=anyToXML($this->comment0,$this->body_format,MTEXT_LINE);
-$this->comment1=$vars['comment1'];
-$this->comment1_xml=anyToXML($this->comment1,$this->body_format,MTEXT_LINE);
-$this->author=$vars['author'];
-$this->author_xml=anyToXML($this->author,$this->body_format,MTEXT_LINE);
-$this->source=$vars['source'];
-$this->source_xml=anyToXML($this->source,$this->body_format,MTEXT_LINE);
-$this->title=$vars['title'];
-$this->title_xml=anyToXML($this->title,$this->body_format,MTEXT_LINE);
-$this->guest_login=$vars['guest_login'];
-$this->login=$vars['login'];
-if($vars['user_name']!='')
-  $this->login=$vars['user_name'];
-$this->group_login=$vars['group_login'];
-if($vars['group_name']!='')
-  $this->group_login=$vars['group_name'];
-$this->perm_string=$vars['perm_string'];
-if($this->perm_string!='')
-  $this->perms=permString($this->perm_string,strPerms($this->perms));
-else
-  if($vars['hidden'])
-    $this->perms&=~0x1100;
-  else
-    $this->perms|=0x1100;
-$this->lang=$vars['lang'];
-$this->disabled=$vars['disabled'];
-$this->url=$vars['url'];
-$this->url_domain=getURLDomain($this->url);
-$this->parent_id=$vars['parent_id'];
-if($this->up<=0)
-  $this->up=$this->parent_id;
-else
-  if(getTypeByEntryId($this->up)==ENT_FORUM)
-    $this->parent_id=getParentIdByEntryId($this->up);
-}
+    public function setup($vars) {
+        global $tfForum, $tfLarge;
 
-function getParentType()
-{
-return $this->parent_type;
-}
+        if (!isset($vars['edittag']) || !$vars['edittag'])
+            return;
+        $this->body_format = $tfForum;
+        $this->body = $vars['body'];
+        $this->body_xml = anyToXML($this->body, $this->body_format,
+                                   MTEXT_SHORT);
+        $this->large_body_format = $vars['large_body_format'];
+        if (!c_digit($this->large_body_format)
+            || $this->large_body_format > TF_MAX)
+            $this->large_body_format = $tfLarge;
+        $this->has_large_body = 0;
+        $this->large_body = '';
+        $this->large_body_xml = '';
+        if ($vars['large_body'] != '') {
+            $this->has_large_body = 1;
+            $this->large_body = $vars['large_body'];
+            $this->large_body_xml = anyToXML($this->large_body,
+                                             $this->large_body_format,
+                                             MTEXT_LONG);
+        }
+        if ($vars['large_body_filename'] != '')
+            $this->large_body_filename = $vars['large_body_filename'];
+        $this->small_image = $vars['small_image'];
+        $this->small_image_x = $vars['small_image_x'];
+        $this->small_image_y = $vars['small_image_y'];
+        $this->small_image_format = $vars['small_image_format'];
+        $this->large_image = $vars['large_image'];
+        $this->large_image_x = $vars['large_image_x'];
+        $this->large_image_y = $vars['large_image_y'];
+        $this->large_image_size = $vars['large_image_size'];
+        $this->large_image_format = $vars['large_image_format'];
+        $this->large_image_filename = $vars['large_image_filename'];
+        $this->up = $vars['up'];
+        $this->subject = $vars['subject'];
+        $this->comment0 = $vars['comment0'];
+        $this->comment0_xml = anyToXML($this->comment0, $this->body_format,
+                                       MTEXT_LINE);
+        $this->comment1 = $vars['comment1'];
+        $this->comment1_xml = anyToXML($this->comment1, $this->body_format,
+                                       MTEXT_LINE);
+        $this->author = $vars['author'];
+        $this->author_xml = anyToXML($this->author, $this->body_format,
+                                     MTEXT_LINE);
+        $this->source = $vars['source'];
+        $this->source_xml = anyToXML($this->source, $this->body_format,
+                                     MTEXT_LINE);
+        $this->title = $vars['title'];
+        $this->title_xml = anyToXML($this->title, $this->body_format,
+                                    MTEXT_LINE);
+        $this->guest_login = $vars['guest_login'];
+        $this->login = $vars['login'];
+        if ($vars['user_name'] != '')
+            $this->login = $vars['user_name'];
+        $this->group_login = $vars['group_login'];
+        if ($vars['group_name'] != '')
+            $this->group_login = $vars['group_name'];
+        $this->perm_string = $vars['perm_string'];
+        if ($this->perm_string != '')
+            $this->perms = permString($this->perm_string,
+                                      strPerms($this->perms));
+        else
+            if ($vars['hidden'])
+                $this->perms &= ~0x1100;
+            else
+                $this->perms |= 0x1100;
+        $this->lang = $vars['lang'];
+        $this->disabled = $vars['disabled'];
+        $this->url = $vars['url'];
+        $this->url_domain = getURLDomain($this->url);
+        $this->parent_id = $vars['parent_id'];
+        if ($this->up <= 0)
+            $this->up = $this->parent_id;
+        else
+            if (getTypeByEntryId($this->up) == ENT_FORUM)
+                $this->parent_id = getParentIdByEntryId($this->up);
+    }
 
-function getParentHref()
-{
-global $forumParentHref;
+    public function getParentType() {
+        return $this->parent_type;
+    }
 
-$href=isset($forumParentHref[$this->getParentType()])
-      ? $forumParentHref[$this->getParentType()]
-      : $forumParentHref[ENT_NULL];
-return $this->getCompositeValue($href);
-}
+    public function getParentHref() {
+        global $forumParentHref;
+
+        $href = isset($forumParentHref[$this->getParentType()])
+                ? $forumParentHref[$this->getParentType()]
+                : $forumParentHref[ENT_NULL];
+        return $this->getCompositeValue($href);
+    }
 
 }
 

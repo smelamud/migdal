@@ -9,25 +9,22 @@ require_once('lib/entries.php');
 require_once('lib/postings.php');
 
 class PostingsInfo
-      extends DataObject
-{
-var $total;
-var $max_sent;
+        extends DataObject {
 
-function __construct($row)
-{
-parent::__construct($row);
-}
+    protected $total;
+    protected $max_sent;
 
-function getTotal()
-{
-return $this->total;
-}
+    public function __construct(array $row = array()) {
+        parent::__construct($row);
+    }
 
-function getMaxSent()
-{
-return $this->max_sent;
-}
+    public function getTotal() {
+        return $this->total;
+    }
+
+    public function getMaxSent() {
+        return $this->max_sent;
+    }
 
 }
 

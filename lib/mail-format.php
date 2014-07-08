@@ -5,103 +5,92 @@ require_once('conf/migdal.conf');
 
 require_once('lib/xml.php');
 
-define('FMS_GLOBAL',0);
-define('FMS_SUBJECT',1);
-define('FMS_BODY',2);
-define('FMS_P',3);
+const FMS_GLOBAL = 0;
+const FMS_SUBJECT = 1;
+const FMS_BODY = 2;
+const FMS_P = 3;
 
 class FormatMailXML
-      extends XMLParser
-{
-var $subject='';
-var $headers='';
-var $body='';
+        extends XMLParser {
 
-var $state=FMS_GLOBAL;
-var $current='';
+    private $subject = '';
+    private $headers = '';
+    private $body = '';
 
-function __construct()
-{
-parent::__construct();
-}
+    private $state = FMS_GLOBAL;
+    private $current = '';
 
-function getResult()
-{
-return array($this->subject,$this->headers,$this->body);
-}
+    public function __construct() {
+        parent::__construct();
+    }
 
-function xmlError($message)
-{
-$this->body.="*** $message ***";
-}
+    public function getResult() {
+        return array($this->subject, $this->headers, $this->body);
+    }
 
-function flushCurrent()
-{
-$this->body.="{$this->current}\n";
-$this->current='';
-}
+    protected function xmlError($message) {
+        $this->body .= "*** $message ***";
+    }
 
-function parse($body)
-{
-debugLog(LL_DETAILS,'parse(body=%)',array($body));
-parent::parse('mail',$body);
-}
+    private function flushCurrent() {
+        $this->body .= "{$this->current}\n";
+        $this->current = '';
+    }
 
-function startElement($parser,$name,$attrs)
-{
-debugLog(LL_DETAILS,'startElement(parser,name=%,attrs=%)',array($name,$attrs));
-debugLog(LL_DEBUG,'state=%',array($this));
-if($this->state==FMS_GLOBAL && $name=='SUBJECT')
-  $this->state=FMS_SUBJECT;
-elseif($this->state==FMS_GLOBAL && $name=='CONTENT')
-  $this->state=FMS_BODY;
-elseif($this->state==FMS_BODY && $name=='P')
-  $this->state=FMS_P;
-elseif($this->state==FMS_P && $name=='BR')
-  $this->flushCurrent();
-elseif($this->state==FMS_SUBJECT || $this->state==FMS_BODY
-       || $this->state==FMS_P)
-  $this->body.=makeTag($name,$attrs);
-debugLog(LL_DEBUG,'state=%',array($this));
-}
+    public function parse($body) {
+        debugLog(LL_DETAILS, 'parse(body=%)', array($body));
+        parent::parse('mail', $body);
+    }
 
-function endElement($parser,$name)
-{
-if($this->state==FMS_SUBJECT && $name=='SUBJECT')
-  {
-  $this->subject=$this->current;
-  $this->current='';
-  $this->state=FMS_GLOBAL;
-  }
-elseif($this->state==FMS_BODY && $name=='CONTENT')
-  $this->state=FMS_GLOBAL;
-elseif($this->state==FMS_P && $name=='P')
-  {
-  $this->flushCurrent();
-  $this->body.="\n";
-  $this->state=FMS_BODY;
-  }
-elseif($this->state==FMS_P && $name=='BR')
-  ;
-elseif($this->state==FMS_SUBJECT || $this->state==FMS_BODY
-       || $this->state==FMS_P)
-  $this->body.=makeTag("/$name",$attrs);
-}
+    protected function startElement($parser, $name, $attrs) {
+        debugLog(LL_DETAILS, 'startElement(parser,name=%,attrs=%)',
+                 array($name, $attrs));
+        debugLog(LL_DEBUG, 'state=%', array($this));
+        if ($this->state == FMS_GLOBAL && $name == 'SUBJECT')
+            $this->state = FMS_SUBJECT;
+        elseif ($this->state == FMS_GLOBAL && $name == 'CONTENT')
+            $this->state = FMS_BODY;
+        elseif ($this->state == FMS_BODY && $name == 'P')
+            $this->state = FMS_P;
+        elseif ($this->state == FMS_P && $name == 'BR')
+            $this->flushCurrent();
+        elseif ($this->state == FMS_SUBJECT || $this->state == FMS_BODY
+                || $this->state == FMS_P)
+            $this->body .= makeTag($name, $attrs);
+        debugLog(LL_DEBUG, 'state=%', array($this));
+    }
 
-function characterData($parser,$data)
-{
-if($this->state!=FMS_SUBJECT && $this->state!=FMS_P)
-  return;
-$data=strtr($data,"\r\n",'  ');
-$data=str_replace('&nbsp;',' ',$data);
-$data=preg_replace('/\s+/',' ',$data);
-if($data=='')
-  return;
-if($this->current=='' && $data[0]==' ')
-  $this->current.=substr($data,1);
-else
-  $this->current.=$data;
-}
+    protected function endElement($parser, $name) {
+        if ($this->state == FMS_SUBJECT && $name == 'SUBJECT') {
+            $this->subject = $this->current;
+            $this->current = '';
+            $this->state = FMS_GLOBAL;
+        } elseif ($this->state == FMS_BODY && $name == 'CONTENT') {
+            $this->state = FMS_GLOBAL;
+        } elseif ($this->state == FMS_P && $name == 'P') {
+            $this->flushCurrent();
+            $this->body .= "\n";
+            $this->state = FMS_BODY;
+        } elseif ($this->state == FMS_P && $name == 'BR') {
+        } elseif ($this->state == FMS_SUBJECT || $this->state == FMS_BODY
+                  || $this->state == FMS_P) {
+            $this->body .= makeTag("/$name", $attrs);
+        }
+    }
+
+    protected function characterData($parser, $data) {
+        if ($this->state != FMS_SUBJECT && $this->state != FMS_P)
+            return;
+        $data = strtr($data, "\r\n", '  ');
+        $data = str_replace('&nbsp;', ' ', $data);
+        $data = preg_replace('/\s+/', ' ', $data);
+        if ($data == '')
+            return;
+        if ($this->current == '' && $data[0] == ' ')
+            $this->current .= substr($data, 1);
+        else
+            $this->current .= $data;
+    }
 
 }
 
