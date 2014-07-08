@@ -38,7 +38,7 @@ class SelectIterator
         return $row ? $this->create($row) : 0;
     }
 
-    protected function create($row) {
+    protected function create(array $row) {
         $c = $this->class;
         return new $c($row);
     }

@@ -37,11 +37,6 @@ class FormatMailXML
         $this->current = '';
     }
 
-    public function parse($body) {
-        debugLog(LL_DETAILS, 'parse(body=%)', array($body));
-        parent::parse('mail', $body);
-    }
-
     protected function startElement($parser, $name, $attrs) {
         debugLog(LL_DETAILS, 'startElement(parser,name=%,attrs=%)',
                  array($name, $attrs));
@@ -119,7 +114,7 @@ if(function_exists($func))
   {
   $mail=call_user_func_array($func,$params);
   $xml=new FormatMailXML();
-  $xml->parse($mail);
+  $xml->parse('mail', $mail);
   $xml->free();
   $result=$xml->getResult();
   // Subject
