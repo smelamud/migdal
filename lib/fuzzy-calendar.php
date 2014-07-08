@@ -34,7 +34,7 @@ function formatFuzzyTimeElapsed($time, $format/*for future extensions*/ = '') {
         return 'два месяца назад';
     if ($diff < 90)
         return 'три месяца назад';
-    $day = gmdate('d ', $time);
+    $day = gmdate('j ', $time);
     $year = gmdate('Y', $time);
     if ($year == gmdate('Y', ourtime()))
         return $day.formatRussianDate('k', $time);
