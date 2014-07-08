@@ -186,5 +186,38 @@ function resizeImage(&$handle, $maxX, $maxY) {
 }
 
 function clipImage(&$handle, $clipX, $clipY) {
+    // Calculate the dimensions
+    $largeSizeX = imagesx($handle);
+    $largeSizeY = imagesy($handle);
+
+    $aspect = $largeSizeX / $largeSizeY;
+
+    if ($clipX > 0 || $clipY > 0) {
+        $smallSizeX = $clipX;
+        $smallSizeY = (int) ($clipX / $aspect);
+        if ($smallSizeY < $clipY) {
+            $smallSizeY = $clipY;
+            $smallSizeX = (int) ($clipY * $aspect);
+        }
+    } else {
+        $smallSizeX = $largeSizeX;
+        $smallSizeY = $largeSizeY;
+    }
+
+    $smallX = ($smallSizeX - $clipX) / 2;
+    $smallY = ($smallSizeY - $clipY) / 2;
+    $scale = $largeSizeX / $smallSizeX;
+    $largeX = (int) ($smallX * $scale);
+    $largeY = (int) ($smallY * $scale);
+    $largeClipX = (int) ($clipX * $scale);
+    $largeClipY = (int) ($clipY * $scale);
+
+    // Resize the image
+    $smallHandle = imagecreatetruecolor($clipX, $clipY);
+    imagecopyresampled($smallHandle, $handle,
+                       0, 0, $largeX, $largeY,
+                       $clipX, $clipY, $largeClipX, $largeClipY);
+    imagedestroy($handle);
+    $handle = $smallHandle;
 }
 ?>

@@ -52,10 +52,11 @@ function imageUploadUserError($err, $isThumbnail) {
  *     resize - image is uploaded by user and resized automatically
  *
  * <thumbnail> is one of:
- *     auto - thumbnail is created automatically
+ *     auto - thumbnail is created automatically by resizing
  *     none - thumbnail is not needed
  *     manual - thumbnail is uploaded by user
  *     resize - thumbnail is uploaded by user and resized automatically
+ *     clip - thumbnail is created automatically by clipping
  */
 function uploadStandardImage($name, Entry $posting, $flags,
         $thumbExactX, $thumbExactY, $thumbMaxX, $thumbMaxY,
@@ -137,7 +138,16 @@ function uploadStandardImage($name, Entry $posting, $flags,
 
         case 'auto':
             $smallImageFile = thumbnailImageFile($largeImageFile, IFT_RESIZE,
-                $thumbMaxX, $thumbMaxY);
+                                                 $thumbMaxX, $thumbMaxY);
+            if (!($smallImageFile instanceof ImageFile))
+                return imageUploadUserError($smallImageFile, true);
+            if ($smallImageFile->getId() == 0)
+                $smallImageFile = $largeImageFile;
+            break;
+
+        case 'clip':
+            $smallImageFile = thumbnailImageFile($largeImageFile, IFT_CLIP,
+                                                 $thumbExactX, $thumbExactY);
             if (!($smallImageFile instanceof ImageFile))
                 return imageUploadUserError($smallImageFile, true);
             if ($smallImageFile->getId() == 0)
