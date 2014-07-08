@@ -61,9 +61,14 @@
 <assign name='rl' value=''>
 <ifne what='$align'>
  <if what="$align != 'center'">
-  <assign name='float' value#='float: $align; clear: $align'>
+  <if what="$align == 'left'">
+   <assign name='float' value='float: left; clear: left; margin-right: 1em'>
+  <else>
+   <assign name='float' value='float: right; clear: right; margin-left: 1em'>
+  </if>
  <else>
-  <assign name='float' value='margin-left: auto; margin-right: auto'>
+  <assign name='float'
+          value='margin-left: auto; margin-right: auto; clear: both'>
  </if>
 </ifne>
 <ifne what='$image_title'>
