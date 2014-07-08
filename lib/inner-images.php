@@ -137,4 +137,17 @@ function getInnerImageByParagraph($entry_id, $par, $x = 0, $y = 0) {
                                   'y' => $y,
                                   'placement' => IPL_BOTTOMLEFT));
 }
+
+function deleteObsoleteInnerImages() {
+        global $innerImageTimeout;
+
+        sql("delete
+             from entries
+             where entry=".ENT_IMAGE." and not exists (
+                 select *
+                 from inner_images
+                 where image_id = entries.id
+             ) and created + interval $innerImageTimeout day < now()",
+             __FUNCTION__);
+}
 ?>
