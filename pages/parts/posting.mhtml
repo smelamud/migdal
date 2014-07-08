@@ -11,42 +11,38 @@
 </element>
 
 <element name='editlink'>
-<a href="${posting.GrpDetailsHref}edit/?redirid=$_"
-   ><notenglish>Изменить<else>Edit</notenglish></a>
+<a href="${posting.GrpDetailsHref}edit/?redirid=$_"><asp>
+ <notenglish>Изменить<else>Edit</notenglish></a>
 </element>
 
 <element name='discusslink'>
 <notenglish>
- <table cellspacing=0 cellpadding=0><tr>
- <td>
+ <span>
   <ifnzero what='$posting.Answers'>
    <a href='/forum/$posting.Id/'><asp>
     <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
     <asp>&nbsp;($posting.Answers)<asp>
-   <asp></a>
+   <asp></a><asp>
   <else>
    <a href='/forum/$posting.Id/add/'><asp>
     <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
-   <asp></a>
+   <asp></a><asp>
   </ifnzero>
- </td>
- <ifbiff time='$posting.LastAnswer'>
-  <td>&nbsp;<image src='/pics/discussion-new.gif'></td>
- <else>
-  <td>&nbsp;<image src='/pics/discussion.gif'></td>
- </ifbiff>
- </tr></table>
+  <ifbiff time='$posting.LastAnswer'>
+   <asp>&nbsp;<image src='/pics/discussion-new.gif'>
+  <else>
+   <asp>&nbsp;<image src='/pics/discussion.gif'>
+  </ifbiff>
+ </span>
 </notenglish>
 </element>
 
 <element name='printlink'>
-<table cellspacing=0 cellpadding=0><tr>
- <td><image src='/pics/print.gif'>&nbsp;</td>
- <td>
-  <a href='$posting.GrpDetailsHref?&print=1' target='_blank'><asp>
-   <notenglish>Для печати<else>Print version</notenglish></a>
- </td>
-</tr></table>
+<span>
+ <image src='/pics/print.gif' style='position: relative; top: 1px'>&nbsp;<asp>
+ <asp><a href='$posting.GrpDetailsHref?&print=1' target='_blank'><asp>
+  <notenglish>Для печати<else>Print version</notenglish></a>
+</span>
 </element>
 
 <element name='posting_og_image'>
@@ -77,11 +73,15 @@
 <ifne what='$rel'>
  <assign name='rl' value#='rel="$rel"'>
 </ifne>
+<ifne what='$title_large_id'>
+ <assign name='tl' value#='data-title-large-id="$title_large_id"'>
+<else>
+ <assign name='tl' value#='data-title-large="$title_large"'>
+</ifne>
 <div class='pic' style='width: ${posting.SmallImageX}px; $float'>
  <if what='$posting.hasLargeImage'>
   <ife what='$href'>
-   <a class='enlargeable' href='$posting.LargeImageURL'
-      data-title-large='$title_large' $rl>
+   <a class='enlargeable' href='$posting.LargeImageURL' $tl $rl>
   <else>
    <a href='$href'>
   </ife>

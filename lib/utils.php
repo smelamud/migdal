@@ -10,7 +10,7 @@ function reload($href) {
 }
 
 function displayImage($src = '', $alt = '', $title = '', $class = '',
-                      $id = '', $data_id = '', $data_value = '') {
+                      $id = '', $data_id = '', $data_value = '', $style = '') {
     static $sizes = array();
 
     $s = '<img';
@@ -35,6 +35,8 @@ function displayImage($src = '', $alt = '', $title = '', $class = '',
         $s .= " data-id='$data_id'";
     if ($data_value != '')
         $s .= " data-value='$data_value'";
+    if ($style != '')
+        $s .= " style='$style'";
     echo "$s>";
 }
 

@@ -1187,12 +1187,12 @@ my $func=$::Elements{$name}->{'name'};
 my @params=();
 foreach(@{$::Elements{$name}->{'params'}})
        {
-       my $def='';
+       my $def='*';
        $def=$::Elements{$name}->{'defaults'}->{$_}
             if exists($::Elements{$name}->{'defaults'}->{$_});
        push @params,($::Elements{$name}->{'byref'}->{$_} ? '&' : '').
                     "\$$_".
-                    ($def ne '' && substr($def,0,1) ne '$'
+                    ($def ne '*' && substr($def,0,1) ne '$'
                      ? '='.::subVar($def)
 		     : '');
        }

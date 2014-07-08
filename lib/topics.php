@@ -260,7 +260,7 @@ class TopicNamesIterator
                              order by track");
     }
 
-    protected function create($row) {
+    protected function create(array $row) {
         if ($row['id'] != $this->nameRoot) {
             if ($row['up'] != 0 && $row['up'] != $this->nameRoot)
                 $row['full_name'] = getTopicFullNameById(

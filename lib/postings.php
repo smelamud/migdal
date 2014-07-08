@@ -453,7 +453,7 @@ class PostingListIterator
                              where {$this->where}");
     }
 
-    protected function create($row) {
+    protected function create(array $row) {
         if ((!isset($row['id']) || $row['id'] <= 0) && $row['orig_id'] > 0) {
             $Select = postingListFields($this->fields);
             $From = postingListTables($this->fields);

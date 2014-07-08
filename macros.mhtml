@@ -519,8 +519,9 @@
 
 << HTML shortcuts >>
 <decel name='image' file='lib/utils.php'
-       params='src,alt,title,class,id,data_id,data_value'
-       defaults="src='' alt='' title='' class='' id='' data_id='' data_value=''">
+       params='src,alt,title,class,id,data_id,data_value,style'
+       defaults="src='' alt='' title='' class='' id='' data_id='' data_value=''
+                 style=''">
 
 <decel name='tdspan' file='lib/utils.php'
        params='span,class,align,width,height',

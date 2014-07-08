@@ -12,7 +12,12 @@ function enlargeInit() {
         },
 
         beforeLoad: function() {
-            this.title = $(this.element).attr('data-title-large');
+            var title_id = $(this.element).attr('data-title-large-id');
+            if (title_id) {
+                this.title = $("#" + title_id).html();
+            } else {
+                this.title = $(this.element).attr('data-title-large');
+            }
         }
     });
 }

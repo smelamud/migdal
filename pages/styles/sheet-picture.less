@@ -6,55 +6,33 @@
 	height: 120px;
 }
 
-.picture {
-	border: 5px solid @picture_border_back;
-	background-color: @picture_back;
-	background-image: url(@picture_back_pic);
-	border-spacing: 0;
-	padding: 0;
-	border-collapse: collapse;
-	width: 150;
+.picture-controls {
+    display: none;
+}
 
-    .border {
-        background-color: @picture_border_back;
-        color: @picture_border;
-        font-weight: bold;
+.fancybox-title {
 
-        .name {
-            color: @picture_name;
-            font-weight: normal;
-        }
+    .picture-title {
+        padding-left: 2em;
     }
 
-    .pic {
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 0;
-
-        .pic-title {
-            font-style: normal;
-        }
+    .sent {
+        margin-top: .5ex;
     }
 
-    .body {
-        padding: 0.25em;
-        vertical-align: middle;
-    }
+    .picture-bottom {
+        margin-top: 1ex;
+        clear: both;
 
-    .source {
-        padding: 0.25em;
-        vertical-align: middle;
-        font-style: italic;
-    }
+        A {
+            font-size: 8pt;
+            color: @posting_controls;
+            text-decoration: none;
 
-    .control A {
-        color: @picture_control;
-        font-size: 8pt;
-        text-decoration: none;
-
-        &:hover {
-            color: @picture_control_hover;
-            text-decoration: underline;
+            &:hover {
+                color: @posting_controls_hover;
+                text-decoration: underline;
+            }
         }
     }
 }

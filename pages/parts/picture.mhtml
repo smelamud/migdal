@@ -11,41 +11,31 @@
 </element>
 
 <element name='picture'>
-<table class='picture'>
- <tr class='border'><td align=right>
-  <biff time='$picture.Modified' small='*true'>
-  <senderlink message='$picture'>
- </td></tr>
- <topic picture='$picture' showtopic='$showtopic'>
- <tr><td align='center'>
-  <vote_panel id='$picture.Id' rating='$picture.Rating'>
- </td></tr>
- <if what='$picture.hasSmallImage'>
-  <tr><td class='image'>
-   <iswrite what='$picture'>
-    <assign name='edithref' value='auto'>
-   <else>
-    <assign name='edithref' value=''>
-   </iswrite>
-   <posting_image posting='$picture' title='$picture.TitleHTML'
-                  title_large='$picture.TitleLineHTML' rel='$rel'
-                  edithref='$edithref'>
-  </td></tr>
- </if>
- <ifne what='$picture.Source'>
-  <tr><td class='source eightpt' align=right>
-   $picture.SourceHTML
-  </td></tr>
- </ifne>
- <if what='$showdiscuss'>
-  <tr><td class='control' align=right>
-   <discusslink posting='$picture'>
-  </td></tr>
- </if>
- <if what='$picture.hasSmallImage'>
-  <tr><td class='border' align=center>
-   ${picture.ImageX}x${picture.ImageY}, ${picture.LargeImageSizeKB}KB
-  </td></tr>
- </if>
-</table>
+<if what='$picture.hasSmallImage'>
+ <iswrite what='$picture'>
+  <assign name='edithref' value='auto'>
+ <else>
+  <assign name='edithref' value=''>
+ </iswrite>
+</if>
+<posting_image posting='$picture'
+               title_large_id#='picture-controls-$picture.Id' rel='$rel'
+               edithref='$edithref'>
+<div id='picture-controls-$picture.Id' class='picture-controls'>
+ <vote_panel id='$picture.Id' rating='$picture.Rating' align='left'>
+ <span class='picture-title'>$picture.TitleLineHTML</span>
+ <ifne what='$picture.Source'>$picture.SourceHTML</ifne><br />
+ <div class="sent" style="clear: left">
+ <sentview date='$picture.Sent'>
+ &nbsp;
+ <senderlink message='$picture'>
+ </div>
+ <div class="picture-bottom">
+  <posting_selflink posting='$picture'>
+  &nbsp;
+  <editlink posting='$picture'>
+  &nbsp;
+  <discusslink posting='$picture'>
+ </div>
+</div>
 </element>

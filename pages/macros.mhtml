@@ -203,9 +203,9 @@
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
        params='posting,align,image_title,title,href,title_large,rel,edithref,
-               rmhref'
+               rmhref,title_large_id'
        defaults="align='' image_title='' title='' href='' title_large=''
-                 rel='' edithref='' rmhref=''">
+                 rel='' edithref='' rmhref='' title_large_id=''">
 <decel name='posting_og_image' file='parts/posting.php' params='posting'>
 <decel name='posting_peruser' file='parts/posting-peruser.php'
        params='posting,showtopic,showdiscuss,shorten'

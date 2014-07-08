@@ -42,12 +42,10 @@
 </element>
 
 <element name='selflink'>
-<table cellspacing=0 cellpadding=0><tr valign=bottom>
- <td><image src='/pics/self.gif'>&nbsp;</td>
- <td>
-  <a href='$href'><notenglish>Ссылка<else>Link</notenglish></a>
- </td>
-</tr></table>
+<span>
+ <image src='/pics/self.gif'>&nbsp;<asp>
+ <asp><a href='$href'><asp><notenglish>Ссылка<else>Link</notenglish><asp></a>
+</span>
 </element>
 
 <element name='maillink'>

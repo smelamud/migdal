@@ -76,7 +76,7 @@
  <ifne what='$posting.URL'>
   <further_url posting='$posting' url='$posting.URL'>
  </ifne>
- <div class='sent'style="clear: left">
+ <div class='sent' style="clear: left">
   <sentview date='$posting.Sent'>&nbsp;
   <senderlink message='$posting'>
  </div>
