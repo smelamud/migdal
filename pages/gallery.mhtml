@@ -38,13 +38,11 @@
    <topics>
    <ears>
   </td>
-  <td>
-   <div class='nframe' style='margin-bottom: 5px; padding: 5px'>
-    <subtitle>
-    <notonly>
-    <p>
-    <seealso_frame>
-   </div>
+  <td class='cframe'>
+   <subtitle>
+   <notonly>
+   <p>
+   <seealso_frame>
    <perms id='$topic_id'>
    <assign name='noguests' value!='!$,isGuestPostable'>
    <entry_grps id='$topic_id'>

@@ -23,14 +23,12 @@
    <topics>
    <ears>
   </td>
-  <td>
-   <div class='cframe' style='padding: 5'>
-    <subtitle>
-    <seealso_frame>
-    <ifzero what='$offset'>
-     <postings grp='*GRP_EVENT' topic_id='$,Id' limit=0>
-    </ifzero>
-   </div>
+  <td class='cframe' style='padding: 5'>
+   <subtitle>
+   <seealso_frame>
+   <ifzero what='$offset'>
+    <postings grp='*GRP_EVENT' topic_id='$,Id' limit=0>
+   </ifzero>
    <p>
    <zone>
     <entry_grps id='$topic_id'>
