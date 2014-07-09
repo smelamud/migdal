@@ -1,7 +1,9 @@
 function voteClick(event) {
     id = $(this).attr("data-id");
+    idClass = "rating-" + id;
     href = "/ajax/actions/posting/" + id + "/vote/";
-    $("#rating-" + id).removeClass().addClass("rating-zero").text("...");
+    $("." + idClass).removeClass().addClass(idClass).addClass("rating-zero")
+                    .text("...");
     $.post(href,
         {
             postid: id,
@@ -16,15 +18,16 @@ function voteClick(event) {
             } else {
                 className = "rating-minus";
             }
-            $("#rating-" + data.id).removeClass().addClass(className)
-                .text(data.rating);
+            var idClass = "rating-" + data.id;
+            $("." + idClass).removeClass("rating-zero").addClass(idClass)
+                            .addClass(className).text(data.rating);
             if (data.vote > 3) {
-                $("#vote-minus-" + data.id).css("visibility", "hidden");
-                button = $("#vote-plus-" + data.id);
+                $(".vote-minus-" + data.id).css("visibility", "hidden");
+                button = $(".vote-plus-" + data.id);
                 button.attr("src", "/pics/vote-plus-gray.gif");
             } else {
-                $("#vote-plus-" + data.id).css("visibility", "hidden");
-                button = $("#vote-minus-" + data.id);
+                $(".vote-plus-" + data.id).css("visibility", "hidden");
+                button = $(".vote-minus-" + data.id);
                 button.attr("src", "/pics/vote-minus-gray.gif");
             }
             button.removeClass("vote-active").removeAttr("alt")
@@ -34,8 +37,14 @@ function voteClick(event) {
     event.preventDefault();
 }
 
-function voteInit() {
-    $(".vote-active").click(voteClick);
+function voteInit(root) {
+    var elements = ".vote-active";
+    if (root) {
+        elements = root + ' ' + elements;
+    }
+    $(elements).click(voteClick);
 }
 
-$(voteInit);
+$(function() {
+    voteInit();
+});

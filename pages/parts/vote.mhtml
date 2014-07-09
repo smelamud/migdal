@@ -26,7 +26,7 @@
   <div class='vote-panel' $style><asp>
    <if what='$,<0'>
     <logged>
-     <image id#='vote-minus-$id' class='vote-button vote-active'
+     <image class#='vote-minus-$id vote-button vote-active'
             src='/pics/vote-minus.gif'
             alt='Неинтересно, плохо написано'
             title='Неинтересно, плохо написано'
@@ -54,10 +54,10 @@
      <assign name='class' value='rating-minus'>
     </if>
    </ifzero>
-   <asp><div id='rating-$id' class='$class'>$rating</div><asp>
+   <asp><div class='rating-$id&sp;$class'>$rating</div><asp>
 
    <if what='$,<0'>
-    <image id#='vote-plus-$id' class='vote-button vote-active'
+    <image class#='vote-plus-$id vote-button vote-active'
            src='/pics/vote-plus.gif'
            alt='Интересно, хорошо написано'
            title='Интересно, хорошо написано'

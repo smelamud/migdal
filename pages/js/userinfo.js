@@ -11,35 +11,41 @@ function userInfoContent(id) {
     return content;
 }
 
-$(function() {
-    $("a.name").each(function() {
-        $(this).qtip({
-            content: {
-                text: function(event, api) {
-                    var id = $(this).attr("data-id");
-                    if (!window.userInfo) {
-                        window.userInfo = {};
-                    }
-                    if (window.userInfo[id]) {
-                        return userInfoContent(id);
-                    }
-                    $.getJSON("/ajax/sources/user/" + id, function(data) {
-                        window.userInfo[id] = data;
-                        api.set("content.text", userInfoContent(id)); 
-                    });
+function userInfoInit(root) {
+    var elements = "a.name";
+    if (root) {
+        elements = root + ' ' + elements;
+    }
+    $(elements).qtip({
+        content: {
+            text: function(event, api) {
+                var id = $(this).attr("data-id");
+                if (!window.userInfo) {
+                    window.userInfo = {};
                 }
-            },
-            style: {
-                widget: true,
-                def: false,
-                classes: "qtip-shadow userinfo-tooltip"
-            },
-            position: {
-                adjust: {
-                    method: "flip flip"
-                },
-                viewport: $(window)
+                if (window.userInfo[id]) {
+                    return userInfoContent(id);
+                }
+                $.getJSON("/ajax/sources/user/" + id, function(data) {
+                    window.userInfo[id] = data;
+                    api.set("content.text", userInfoContent(id)); 
+                });
             }
-        });
+        },
+        style: {
+            widget: true,
+            def: false,
+            classes: "qtip-shadow userinfo-tooltip"
+        },
+        position: {
+            adjust: {
+                method: "flip flip"
+            },
+            viewport: $(window)
+        }
     });
+}
+
+$(function() {
+    userInfoInit();
 });

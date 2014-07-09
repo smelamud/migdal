@@ -36,10 +36,10 @@
       <posting_image posting='$,' href='$topic_path' title='$topic_name'
                      title_large='$,TitleLineHTML' align='left'>
      </ifnzero>
-     <div class='textears-title' style='margin-left: 100px'>
+     <div class='textears-title' style='margin-left: 220px'>
       Последние события:
      </div>
-     <ul class='ninept' style='margin-left: 100px'>
+     <ul class='ninept' style='margin-left: 200px'>
       <rewind_iterator>
       <for>
        <li>

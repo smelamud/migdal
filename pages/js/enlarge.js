@@ -18,6 +18,11 @@ function enlargeInit() {
             } else {
                 this.title = $(this.element).attr('data-title-large');
             }
+        },
+
+        afterShow: function() {
+            userInfoInit(".fancybox-title");
+            voteInit(".fancybox-title");
         }
     });
 }
