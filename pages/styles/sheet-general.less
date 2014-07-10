@@ -40,6 +40,7 @@ BODY {
 }
 
 .name {
+
     A&, SPAN& {
         color: @name;
         font-weight: bold;
@@ -118,9 +119,21 @@ A IMG {
         SPAN:hover {
             background-color: @pic_buttons_background_active;
         }
-
     }
 
+    .small-rating-plus, .small-rating-minus {
+        display: none;
+        position: absolute;
+        left: 0;
+        background-color: @pic_rating_background;
+        padding: 3px 10px 4px 3px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    &:hover .small-rating-plus, .small-rating-minus {
+        display: block;
+    }
 }
 
 .pic-rating {

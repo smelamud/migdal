@@ -136,6 +136,10 @@
  <ifne what='$title'>
   <div class='pic-title'>$title</div>
  </ifne>
+ <ifnzero what='$rating'>
+  <assign name='rating_y' value!='$posting.SmallImageY - 25'>
+  <rating value='$rating' style#='top: ${rating_y}px'>
+ </ifnzero>
 </div>
 </element>
 

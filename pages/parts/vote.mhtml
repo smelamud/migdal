@@ -11,7 +11,12 @@
   <assign name='class' value='small-rating-minus'>
  </if>
 </ifzero>
-<span class='$class'>($value)</span>
+<ifne what='$style'>
+ <assign name='st' value#=' style="$style"'>
+<else>
+ <assign name='st' value=''>
+</ifne>
+<span class='$class'$st>($value)</span>
 </element>
 
 <element name='vote_panel'>

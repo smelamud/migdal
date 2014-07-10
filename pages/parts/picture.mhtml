@@ -20,7 +20,7 @@
 </if>
 <posting_image posting='$picture'
                title_large_id#='picture-controls-$picture.Id' rel='$rel'
-               edithref='$edithref'>
+               edithref='$edithref' rating='$picture.Rating'>
 <div id='picture-controls-$picture.Id' class='picture-controls'>
  <vote_panel id='$picture.Id' rating='$picture.Rating' align='left'>
  <span class='picture-title'>$picture.TitleLineHTML</span>
