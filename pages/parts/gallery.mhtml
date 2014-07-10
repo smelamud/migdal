@@ -44,8 +44,12 @@
     </div>
     <div style='display: none'>
    </if>
+   <assign name='hollow'
+           value!='$list.Position < $offset
+                   || $list.Position >= $offset + $limit'>
    <picture picture='$.' showtopic!='$topic_id<0' showdiscuss='*true'
-            rel#='gallery-$topic_id'>
+            rel#='gallery-$topic_id' list_index!='$list.Position + 1'
+            list_size='$list.Size' hollow='$hollow'>
    <if what='$;isEol'>
     <br/>
    </if>

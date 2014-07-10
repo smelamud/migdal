@@ -60,8 +60,9 @@
        params='title,day,image,href' defaults="href=''">
 <decel name='daily_announce' file='parts/daily-announce.php' params='topic_id'>
 <decel name='daily_picture' file='parts/daily-picture.php'
-       params='picture,rel,showtopic,showdiscuss,shorten'
-       defaults="rel='' showtopic='*true' showdiscuss='*true' shorten='*false'">
+       params='picture,rel,showtopic,showdiscuss,shorten,list_index,list_size'
+       defaults="rel='' showtopic='*true' showdiscuss='*true' shorten='*false'
+                 list_index=0 list_size=0">
 <decel name='discussions' file='parts/discussions.php'
        params='topic_id,title,limit'
        defaults="topic_id='-1' title='Форум' limit=5">
@@ -180,8 +181,10 @@
 <decel name='perror' file='parts/utils.php' params='id,text'>
 <decel name='peruser' file='parts/peruser.php' params='topic_id'>
 <decel name='picture' file='parts/picture.php'
-       params='picture,showtopic,showdiscuss,shorten,rel'
-       defaults="showtopic='*true' showdiscuss='*true' shorten='*false' rel=''">
+       params='picture,showtopic,showdiscuss,shorten,rel,list_index,list_size,
+               hollow'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false' rel=''
+                 list_index=0 list_size=0 hollow='*false'">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,title,image_href' defaults="title=''">
 <decel name='pointer' file='parts/pointer.php' params='href,text,title,left'
@@ -203,9 +206,10 @@
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
        params='posting,align,image_title,title,href,title_large,rel,edithref,
-               rmhref,title_large_id,rating'
+               rmhref,title_large_id,rating,enlarge_always,hollow'
        defaults="align='' image_title='' title='' href='' title_large=''
-                 rel='' edithref='' rmhref='' title_large_id='' rating=0">
+                 rel='' edithref='' rmhref='' title_large_id='' rating=0
+                 enlarge_always='*false' hollow='*false'">
 <decel name='posting_og_image' file='parts/posting.php' params='posting'>
 <decel name='posting_peruser' file='parts/posting-peruser.php'
        params='posting,showtopic,showdiscuss,shorten'

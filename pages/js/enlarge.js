@@ -4,6 +4,7 @@ function enlargeInit() {
         closeEffect: 'elastic',
         nextEffect: 'fade',
         prevEffect: 'fade',
+        padding: 0,
 
         helpers: {
             title: {

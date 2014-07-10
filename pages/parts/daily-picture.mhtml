@@ -12,8 +12,18 @@
    <assign name='edithref' value=''>
   </iswrite>
   <posting_image posting='$picture' title='$picture.TitleHTML'
-                 title_large='$picture.TitleLineHTML' rel='$rel'
+                 title_large_id#='picture-controls-$picture.Id' rel='$rel'
                  edithref='$edithref'>
+  <div id='picture-controls-$picture.Id' class='picture-controls'>
+   <vote_panel id='$picture.Id' rating='$picture.Rating' align='left'>
+   <ifnzero what='$list_size'>
+    <div class='n-of'>$list_index из $list_size</div>
+   </ifnzero>
+   <span class='picture-title'>$picture.TitleLineHTML</span>
+   <div class="picture-bottom">
+    <editlink posting='$picture'>
+   </div>
+  </div>
  </if>
 </div>
 </element>

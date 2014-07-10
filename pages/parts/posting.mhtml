@@ -79,20 +79,24 @@
  <assign name='tl' value#='data-title-large="$title_large"'>
 </ifne>
 <div class='pic' style='width: ${posting.SmallImageX}px; $float'>
- <if what='$posting.hasLargeImage'>
+ <if what='$posting.hasLargeImage || $enlarge_always'>
   <ife what='$href'>
-   <a class='enlargeable' href='$posting.LargeImageURL' $tl $rl>
+   <a class='enlargeable' href='$posting.LargeImageURL' $tl&sp;$rl>
   <else>
    <a href='$href'>
   </ife>
-  <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
-            $alt src='$posting.SmallImageURL'><asp>
+  <if what='!$hollow'>
+   <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
+             $alt src='$posting.SmallImageURL'><asp>
+  <else>
+   &nbsp;
+  </if>
   </a>
-  <ife what='$href'>
+  <if what="$href == '' && !$hollow">
    <assign name='glass_x' value!='$posting.SmallImageX - 22'>
    <assign name='glass_y' value!='$posting.SmallImageY - 22'>
    <div class='glass' style='top: ${glass_y}px; left: ${glass_x}px'></div>
-  </ife>
+  </if>
  <else>
   <ifne what='$href'>
    <a href='$href'>
@@ -103,43 +107,45 @@
    </a>
   </ifne>
  </if>
- <outer>
-  <div class='buttons'>
-   <inner>
-    <ifne what='$edithref'>
-     <if what="$edithref == 'auto'">
-      <assign name='edithref'
-              value#='${posting.GrpDetailsHref}edit/?redirid=$_'>
-     </if>
-     <notenglish>
-      <assign name='tooltip' value='Изменить'>
-     <else>
-      <assign name='tooltip' value='Edit'>
-     </notenglish>
-     <span><a href='$edithref'><asp>
-      <image src='/pics/edit.png' title='$tooltip' alt='$tooltip'>
-     <asp></a></span>
-    </ifne>
-    <ifne what='$rmhref'>
-     <notenglish>
-      <assign name='tooltip' value='Убрать'>
-     <else>
-      <assign name='tooltip' value='Remove'>
-     </notenglish>
-     <span><a href='$rmhref'><asp>
-      <image src='/pics/remove.png' title='$tooltip' alt='$tooltip'>
-     <asp></a></span>
-    </ifne>
-   </inner>
-  </div>
- </outer>
+ <if what='!$hollow'>
+  <outer>
+   <div class='buttons'>
+    <inner>
+     <ifne what='$edithref'>
+      <if what="$edithref == 'auto'">
+       <assign name='edithref'
+               value#='${posting.GrpDetailsHref}edit/?redirid=$_'>
+      </if>
+      <notenglish>
+       <assign name='tooltip' value='Изменить'>
+      <else>
+       <assign name='tooltip' value='Edit'>
+      </notenglish>
+      <span><a href='$edithref'><asp>
+       <image src='/pics/edit.png' title='$tooltip' alt='$tooltip'>
+      <asp></a></span>
+     </ifne>
+     <ifne what='$rmhref'>
+      <notenglish>
+       <assign name='tooltip' value='Убрать'>
+      <else>
+       <assign name='tooltip' value='Remove'>
+      </notenglish>
+      <span><a href='$rmhref'><asp>
+       <image src='/pics/remove.png' title='$tooltip' alt='$tooltip'>
+      <asp></a></span>
+     </ifne>
+    </inner>
+   </div>
+  </outer>
+ </if>
  <ifne what='$title'>
   <div class='pic-title'>$title</div>
  </ifne>
- <ifnzero what='$rating'>
+ <if what='$rating != 0 && !$hollow'>
   <assign name='rating_y' value!='$posting.SmallImageY - 25'>
   <rating value='$rating' style#='top: ${rating_y}px'>
- </ifnzero>
+ </if>
 </div>
 </element>
 
