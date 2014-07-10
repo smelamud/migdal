@@ -2,16 +2,18 @@
 # @(#) $Id$
 
 require_once('lib/selectiterator.php');
+require_once('lib/pager.php');
 require_once('lib/bug.php');
 require_once('lib/sql.php');
 
 class LimitSelectIterator
-        extends SelectIterator {
+        extends SelectIterator
+        implements Pageable {
+
+    use AbstractPager;
 
     private $sizeQuery;
     private $size;
-    private $limit;
-    private $offset;
 
     public function __construct($aClass, $query, $limit = 10, $offset = 0,
                                 $squery = '') {
@@ -48,41 +50,6 @@ class LimitSelectIterator
     public function getSize() {
         $this->sizeSelect();
         return $this->size;
-    }
-
-    public function getLimit() {
-        return $this->limit;
-    }
-
-    public function getOffset() {
-        return $this->offset;
-    }
-
-    public function getPrevOffset() {
-        $n = $this->offset - $this->limit;
-        return $n < 0 ? 0 : $n;
-    }
-
-    public function getNextOffset() {
-        return $this->offset + $this->limit;
-    }
-
-    public function getBeginValue() {
-        return $this->offset + 1;
-    }
-
-    public function getEndValue() {
-        return $this->offset + $this->getCount();
-    }
-
-    public function getPage() {
-        return (int)($this->offset / $this->limit) + 1;
-    }
-
-    public function getPageCount() {
-        $this->sizeSelect();
-        return $this->size == 0 ? 0
-                                : (int)(($this->size - 1) / $this->limit) + 1;
     }
 
 }

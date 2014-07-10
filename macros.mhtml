@@ -288,6 +288,12 @@
  <assign_global name='bodyClass' value%!value='%class'>
 </macro>
 
+<macro name='pager_new' defaults="name=''">
+ <require name='lib/pager.php'>
+ <obj name='%name' class='Pager' arg1%!size='%size' arg2%!limit='%limit'
+      arg3%!offset='%offset'>
+</macro>
+
 <macro name='parse_url'>
  <assign name='fragments' value!='parse_url(%url)'>
  <?php
