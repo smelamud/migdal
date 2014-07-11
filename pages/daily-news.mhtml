@@ -132,7 +132,7 @@
      </ifnzero>
      <rss>
     </td>
-    <outer><td class='daily-gallery' width=130 style='padding-left: 20px'><inner>
+    <outer><td class='daily-gallery' width=130 style='padding-left: 10px'><inner>
      <rewind_iterator>
      <for>
       <if what='!$;isOdd'>
