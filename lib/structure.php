@@ -111,7 +111,7 @@ class LocationInfo {
     }
 
     public function getId($name) {
-        return $this->ids[$name];
+        return isset($this->ids[$name]) ? $this->ids[$name] : '';
     }
 
     public function origHasIds($ids) {
