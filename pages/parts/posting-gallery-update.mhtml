@@ -1,0 +1,28 @@
+<< @(#) $Id$ >>
+
+<element name='topic' params='posting,showtopic'>
+<if what='$showtopic'>
+ <topiclink posting='$posting'><br>
+</if>
+</element>
+
+<element name='posting_gallery_update'>
+<dl class='posting'>
+ <dt>
+  <topic posting='$posting' showtopic='$showtopic'>
+  <vote_panel align='right' id='$posting.Id' rating='$posting.Rating'>
+  <biff time='$posting.Modified'>
+  <plural value='$posting.Index1' words='фотография,фотографии,фотографий'>
+  <a class='posting-subject' href='$posting.GrpDetailsHref'>
+   +$posting.Index1$,</a>
+ </dt>
+ <dd><p>
+ $posting.BodyHTML
+ <div class='sent' style="clear: left">
+  <sentview date='$posting.Sent'>&nbsp;
+  <senderlink message='$posting'>
+ </div>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'
+                   showprint='*false' showedit='*false'>
+</dl>
+</element>

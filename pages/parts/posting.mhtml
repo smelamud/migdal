@@ -155,14 +155,18 @@
   <td>
    <table cellspacing=0 cellpadding=0><tr>
     <td><posting_selflink posting='$posting'></td>
-    <td>&nbsp;&nbsp;&nbsp;</td>
-    <td><printlink posting='$posting'></td>
-    <td>&nbsp;&nbsp;&nbsp;</td>
-    <td>
-     <iswrite what='$posting'>
-      <editlink posting='$posting'>
-     </iswrite>
-    </td>
+    <if what='$showprint'>
+     <td>&nbsp;&nbsp;&nbsp;</td>
+     <td><printlink posting='$posting'></td>
+    </if>
+    <if what='$showedit'>
+     <td>&nbsp;&nbsp;&nbsp;</td>
+     <td>
+      <iswrite what='$posting'>
+       <editlink posting='$posting'>
+      </iswrite>
+     </td>
+    </if>
    </tr></table>
   </td>
   <if what='$showdiscuss'>
