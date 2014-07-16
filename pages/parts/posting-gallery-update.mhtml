@@ -12,9 +12,10 @@
   <topic posting='$posting' showtopic='$showtopic'>
   <vote_panel align='right' id='$posting.Id' rating='$posting.Rating'>
   <biff time='$posting.Modified'>
-  <plural value='$posting.Index1' words='фотография,фотографии,фотографий'>
+  <array vals='фотография,фотографии,фотографий'>
+  <plural value='$posting.Index1'>
   <a class='posting-subject' href='$posting.GrpDetailsHref'>
-   +$posting.Index1$,</a>
+   +$posting.Index1&sp;$,</a>
  </dt>
  <dd><p>
  $posting.BodyHTML

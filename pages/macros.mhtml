@@ -236,9 +236,10 @@
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='postings' file='parts/postings.php'
        params='grp,topic_id,limit,offset,user_id,showadvert,showshadows,sort,
-               recursive'
+               recursive,add_grp'
        defaults="topic_id=-1 limit=10 offset=0 user_id=0 showadvert='*true'
-                 showshadows='*true' sort='*SORT_PSENT' recursive='*false'">
+                 showshadows='*true' sort='*SORT_PSENT' recursive='*false'
+                 add_grp=0">
 <decel name='postings_migdal_news' file='parts/postings-migdal-news.php'
        params='topic_id,offset' defaults="offset=0">
 <decel name='printlink' file='parts/posting.php' params='posting'>

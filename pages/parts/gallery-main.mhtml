@@ -21,74 +21,7 @@
 </table>
 </element>
 
-<element name='announce' params='posting,count'>
-<table class='posting' width=100%>
- <tr valign=top>
-  <td align=center width='$$thumbnailWidth' style='padding-top: 20px'>
-   <if what='$posting.hasImage'>
-    <posting_image posting='$posting' title_large='$posting.TitleLineHTML'>
-   </if>
-  </td>
-  <td width=10>&nbsp;</td>
-  <td align=left>
-   <p class='posting-subject'>
-    <topiclink posting='$posting' prefix='/gallery'>
-   </p>
-   <p>
-    <biff time='$posting.Sent'>
-    <assign name='href' value#='/gallery$posting.GrpGeneralHref'>
-    <array vals='0,1,2'>
-    <plural value='$count'>
-    <if what='$,==0'>
-     Добавлена <a href='$href'>$count новая картинка</a>.
-    <elif what='$,==1'>
-     Добавлены <a href='$href'>$count новые картинки</a>.
-    <else>
-     Добавлены <a href='$href'>$count новых картинок</a>.
-    </if>
-   </p>
-   <p class='sent'>
-    <sentview date='$posting.Sent'><br>
-    <senderlink message='$posting'>
-   </p>
-  </td>
- </tr>
- <tr><td colspan=3>
-  <table width=100% class='posting-bottom'><tr><td>&nbsp;</td></tr></table>
- </td></tr>
-</table>
-</element>
-
 <element name='gallery_main'>
-<iterate_postinglist grp='*GRP_GRAPHICS' topic_id='$topic_id' limit=40
-                     offset='$offset' recursive='*true'>
-<batcher list='$;' topic_id='$topic_id'>
-<assign name='count' value=0>
-<assign name='topic_id' value=0>
-<assign name='user_id' value=0>
-<assign name='sent' value=0>
-<array name='postings'>
-<for>
- <if what='$topic_id!=$.TopicId || $user_id!=$.UserId || ($sent-$.Sent)/3600>6'>
-  <ifnzero what='$topic_id'>
-   <array_random array='$postings'>
-   <announce posting='$,' count='$count'>
-  </ifnzero>
-  <assign name='count' value=1>
-  <assign name='topic_id' value='$.TopicId'>
-  <assign name='user_id' value='$.UserId'>
-  <array name='postings' val1='$.'>
- <else>
-  <assign name='count' value!='$count+1'>
-  <array_push array='$postings' value='$.'>
- </if>
- <assign name='sent' value='$.Sent'>
-</for>
-<ifnzero what='$topic_id'>
- <array_random array='$postings'>
- <announce posting='$,' count='$count'>
-</ifnzero>
-<ifnzero what='$;Count'>
- <batcher list='$;' topic_id='$topic_id'>
-</ifnzero>
+<postings grp='*GRP_GALLERY_UPDATE' add_grp='*GRP_GALLERY' topic_id='$topic_id'
+          limit=20 offset='$offset' recursive='*true'>
 </element>

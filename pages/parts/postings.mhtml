@@ -11,27 +11,30 @@
     <td>
      <assign name='noguests' value!='$access ? 0 : 1'>
      <catalog name='catalog' id='$topic_id'>
+     <if what='$grp == *GRP_GALLERY'>
+      <assign name='catalog' value#='gallery/$catalog'>
+     </if>
      <grp_valid grp='$grp'>
      <if what='$,'>
       <posting_new name='sample' grp='$grp'>
       <a href='/${catalog}add?noguests=$noguests&redirid=$_'
-	 >Добавить $sample.GrpWhat</a>
+         >Добавить $sample.GrpWhat</a>
      <else>
       <notenglish>
        <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
-	  >Добавить новость</a>,
+          >Добавить новость</a>,
        <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
-	  >статью</a><asp>
+          >статью</a><asp>
        <moderator>
-	<asp>,
-	<a href='/${catalog}add-book?noguests=$noguests&redirid=$_'
-	   >книгу</a>
+        <asp>,
+        <a href='/${catalog}add-book?noguests=$noguests&redirid=$_'
+           >книгу</a>
        </moderator>
       <else>
        <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
-	  >Add news</a>,
+          >Add news</a>,
        <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
-	  >article</a>
+          >article</a>
       </notenglish>
      </if>
     </td>
@@ -49,19 +52,22 @@
 <else>
  <assign name='access' value!='$$userId>0'>
 </if>
+<if what='$add_grp<=0'>
+ <assign name='add_grp' value='$grp'>
+</if>
 <iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
                      offset='$offset' sort='$sort' user='$user_id'
-		     showshadows='$showshadows' recursive='$recursive'>
+                     showshadows='$showshadows' recursive='$recursive'>
 <if what='$access || $showadvert || $;Count!=0'>
- <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'
-          access='$access'>
+ <batcher list='$;' topic_id='$topic_id' grp='$add_grp'
+          showadvert='$showadvert' access='$access'>
  <for>
   <posting posting='$.' showtopic!='$recursive || $topic_id<0' shorten='*true'
            showdiscuss='*true'>
  </for>
  <ifnzero what='$;Count'>
-  <batcher list='$;' topic_id='$topic_id' grp='$grp' showadvert='$showadvert'
-           access='$access'>
+  <batcher list='$;' topic_id='$topic_id' grp='$add_grp'
+           showadvert='$showadvert' access='$access'>
  </ifnzero>
 <else>
  &nbsp;
