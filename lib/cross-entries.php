@@ -11,15 +11,15 @@ const LINKT_NONE = 0;
 class CrossEntry
         extends DataObject {
 
-    protected $id;
+    protected $id = 0;
     protected $source_name = null;
     protected $source_id = null;
-    protected $link_type;
+    protected $link_type = LINKT_NONE;
     protected $peer_name = null;
     protected $peer_id = null;
-    protected $peer_path;
-    protected $peer_subject;
-    protected $peer_icon;
+    protected $peer_path = '';
+    protected $peer_subject = '';
+    protected $peer_icon = '';
 
     public function __construct(array $row = array()) {
         parent::__construct($row);

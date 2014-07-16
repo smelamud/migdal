@@ -113,7 +113,7 @@ class Posting
             $this->perms = permString($this->perm_string,
                                       strPerms($this->perms));
         else
-            if($vars['hidden'])
+            if ($vars['hidden'])
                 $this->perms &= ~0x1100;
             else
                 $this->perms |= 0x1100;
@@ -656,7 +656,7 @@ function storePosting(Posting $posting) {
         $vars['created'] = sqlNow();
         $vars['creator_id'] = $vars['modifier_id'];
         $vars['track'] = (string) time();
-        sql(sqlInsert('entries',
+        $result = sql(sqlInsert('entries',
                       $vars),
             __FUNCTION__, 'insert');
         $posting->setId(sql_insert_id());
