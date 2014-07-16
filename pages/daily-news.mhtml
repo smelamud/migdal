@@ -103,8 +103,8 @@
       <if what='$;isOdd'>
        <posting_og_image posting='$.'>
        <p>
-        <daily_picture picture='$.' rel#='gallery-$event.Id'
-                       list_index!='$list_index++' list_size='$;Count'>
+        <picture picture='$.' title='$.TitleHTML' rel#='gallery-$event.Id'
+                 list_index!='$list_index++' list_size='$;Count'>
        </p>
       </if>
      </for>
@@ -137,8 +137,8 @@
      <for>
       <if what='!$;isOdd'>
        <p>
-        <daily_picture picture='$.' rel#='gallery-$event.Id'
-                       list_index!='$list_index++' list_size='$;Count'>
+        <picture picture='$.' title='$.TitleHTML' rel#='gallery-$event.Id'
+                 list_index!='$list_index++' list_size='$;Count'>
        </p>
       </if>
      </for>

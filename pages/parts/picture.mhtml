@@ -10,8 +10,9 @@
   <assign name='edithref' value=''>
  </iswrite>
 </if>
-<posting_image posting='$picture' title_large_id#='picture-controls-$picture.Id'
-               rel='$rel' edithref='$edithref' rating='$picture.Rating'
+<posting_image posting='$picture' title='$title'
+               title_large_id#='picture-controls-$picture.Id' rel='$rel'
+               edithref='$edithref' rating='$picture.Rating'
                enlarge_always='*true' hollow='$hollow' align='$align'
                noclear='$noclear' nomargin='$nomargin'
                fixed_width='$fixed_width' fixed_height='$fixed_height'>

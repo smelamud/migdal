@@ -59,10 +59,6 @@
 <decel name='countdown_pic' file='parts/countdown.php'
        params='title,day,image,href' defaults="href=''">
 <decel name='daily_announce' file='parts/daily-announce.php' params='topic_id'>
-<decel name='daily_picture' file='parts/daily-picture.php'
-       params='picture,rel,showtopic,showdiscuss,shorten,list_index,list_size'
-       defaults="rel='' showtopic='*true' showdiscuss='*true' shorten='*false'
-                 list_index=0 list_size=0">
 <decel name='discussions' file='parts/discussions.php'
        params='topic_id,title,limit'
        defaults="topic_id='-1' title='Форум' limit=5">
@@ -182,11 +178,11 @@
 <decel name='peruser' file='parts/peruser.php' params='topic_id'>
 <decel name='picture' file='parts/picture.php'
        params='picture,showtopic,showdiscuss,shorten,rel,list_index,list_size,
-               hollow,align,noclear,nomargin,fixed_width,fixed_height'
+               hollow,align,noclear,nomargin,fixed_width,fixed_height,title'
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false' rel=''
                  list_index=0 list_size=0 hollow='*false' align=''
                  noclear='*false' nomargin='*false' fixed_width=0
-                 fixed_height=0">
+                 fixed_height=0 title=''">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,title,image_href' defaults="title=''">
 <decel name='pointer' file='parts/pointer.php' params='href,text,title,left'
