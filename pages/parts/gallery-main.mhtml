@@ -1,26 +1,5 @@
 << @(#) $Id$ >>
 
-<element name='batcher' params='&list,topic_id'>
-<table width=100%>
- <tr valign=bottom>
-  <td align=left class='info'>
-   <table><tr valign=center>
-    <td><image src='/pics/sheet.gif'></td>
-    <td>
-     <if what='$topic_id<=0'>
-      <a href='/gallery/add/?redirid=$_'>Добавить картинку</a>
-     <else>
-      <catalog name='catalog' id='$topic_id'>
-      <a href='/gallery/${catalog}add/?redirid=$_'>Добавить картинку</a>
-     </if>
-    </td>
-   </tr></table>
-  </td>
-  <td align=center><spin list='$list'></td>
- </tr>
-</table>
-</element>
-
 <element name='gallery_main'>
 <postings grp='*GRP_GALLERY_UPDATE' add_grp='*GRP_GALLERY' topic_id='$topic_id'
           limit=20 offset='$offset' recursive='*true'>

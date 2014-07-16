@@ -72,14 +72,14 @@
 	           as_guest='*false'">
 <deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
          params='grp,topic_id,recursive,limit,offset,person_id,sort,withanswers,
-	         user,index1,later,up,showshadows,fields,modbits,
-		 hidden,disabled,prefix,withident,earlier,as_guest'
+	         user,index1,later,up,showshadows,fields,modbits,hidden,
+                 disabled,prefix,withident,earlier,as_guest,cross_type,cross_id'
          defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
 	           person_id=-1 sort='*SORT_SENT' withanswers='*GRP_NONE'
 		   user=0 index1=-1 later=0 up=-1 showshadows='*true'
 		   fields='*SELECT_GENERAL' modbits='*MOD_NONE' hidden=-1
 		   disabled=-1 prefix='' withident='*false' earlier=0
-		   as_guest='*false'">
+		   as_guest='*false' cross_type='*LINKT_NONE' cross_id=0">
 <deciter macro='prisonerlist' class='PrisonerListIterator'
          file='lib/prisoners.php'
          params='prefix,sort'

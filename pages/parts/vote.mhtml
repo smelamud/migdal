@@ -16,7 +16,7 @@
 <else>
  <assign name='st' value=''>
 </ifne>
-<span class='$class'$st>($value)</span>
+<span class='small-rating-$id&sp;$class'$st>($value)</span>
 </element>
 
 <element name='vote_panel'>

@@ -13,6 +13,10 @@ class RowsIterator
         $this->cols = $cols;
     }
 
+    public function isBol() {
+        return $this->iterator->getPosition() % $this->cols == 0;
+    }
+
     public function isEol() {
         return $this->iterator->getPosition() % $this->cols == $this->cols - 1;
     }

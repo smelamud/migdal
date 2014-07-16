@@ -33,7 +33,7 @@
      </ifnzero>
     </li>
     <li class='topics-nobullet' style='text-align: right'>
-     <rating value='$.Rating'>
+     <rating id='$.Id' value='$.Rating'>
     </li>
    </for>
   </topics_table>

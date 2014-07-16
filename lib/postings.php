@@ -191,216 +191,227 @@ class Posting
 
 }
 
-function postingsPermFilter($right,$prefix='',$asGuest=false)
-{
-global $userModerator,$userId;
+function postingsPermFilter($right, $prefix = '', $asGuest = false) {
+    global $userModerator, $userId;
 
-$eUserId=!$asGuest ? $userId : 0;
-$eUserModerator=!$asGuest ? $userModerator : 0;
+    $eUserId = !$asGuest ? $userId : 0;
+    $eUserModerator = !$asGuest ? $userModerator : 0;
 
-if($eUserModerator)
-  return '1';
-$filter=permFilter($right,$prefix,$asGuest);
-if($prefix!='' && substr($prefix,-1)!='.')
-  $prefix.='.';
-return "$filter and (${prefix}disabled=0".
-       ($eUserId>0 ? " or ${prefix}user_id=$eUserId)" : ')');
+    if ($eUserModerator)
+        return '1';
+    $filter = permFilter($right, $prefix, $asGuest);
+    if ($prefix != '' && substr($prefix, -1) != '.')
+        $prefix .= '.';
+    return "$filter and (${prefix}disabled=0".
+           ($eUserId > 0 ? " or ${prefix}user_id=$eUserId)" : ')');
 }
 
-function postingListFields($fields=SELECT_GENERAL)
-{
-$Fields='entries.id as id,entries.ident as ident,entries.up as up,
-         entries.track as track,entries.catalog as catalog,
-         entries.parent_id as parent_id,entries.orig_id as orig_id,
-         entries.grp as grp,entries.person_id as person_id,
-         entries.guest_login as guest_login,entries.user_id as user_id,
-         entries.group_id as group_id,entries.perms as perms,
-         entries.disabled as disabled,
-         entries.subject as subject,entries.lang as lang,
-         entries.author as author,entries.author_xml as author_xml,
-         entries.source as source,entries.source_xml as source_xml,
-         entries.title as title,entries.title_xml as title_xml,
-         entries.comment0 as comment0,entries.comment0_xml as comment0_xml,
-         entries.comment1 as comment1,entries.comment1_xml as comment1_xml,
-         entries.url as url,entries.url_domain as url_domain,
-         entries.url_check_success as url_check_success,entries.body as body,
-         entries.body_xml as body_xml,entries.body_format as body_format,
-         entries.body_format as body_format,
-         entries.has_large_body as has_large_body,
-         entries.large_body_format as large_body_format,
-         entries.large_body_filename as large_body_filename,
-         entries.priority as priority,entries.index0 as index0,
-         entries.index1 as index1,entries.index2 as index2,
-         entries.vote as vote,entries.vote_count as vote_count,
-         entries.rating as rating,entries.sent as sent,
-         entries.modified as modified,entries.modbits as modbits,
-         entries.answers as answers,entries.last_answer as last_answer,
-         entries.last_answer_id as last_answer_id,
-         entries.last_answer_user_id as last_answer_user_id,
-         entries.last_answer_guest_login as last_answer_guest_login,
-         if(entries.answers!=0,entries.last_answer,entries.modified) as age,
-         entries.small_image as small_image,
-         entries.small_image_x as small_image_x,
-         entries.small_image_y as small_image_y,
-         entries.small_image_format as small_image_format,
-         entries.large_image as large_image,
-         entries.large_image_x as large_image_x,
-         entries.large_image_y as large_image_y,
-         entries.large_image_size as large_image_size,
-         entries.large_image_format as large_image_format,
-         entries.large_image_filename as large_image_filename,
-         users.login as login,users.gender as gender,users.email as email,
-         users.hide_email as hide_email,users.hidden as user_hidden,
-         users.guest as user_guest';
-if(($fields & SELECT_LARGE_BODY)!=0)
-  $Fields.=',entries.large_body as large_body,
-            entries.large_body_xml as large_body_xml';
-if(($fields & SELECT_CTR)!=0)
-  $Fields.=',counter0.value as counter_value0,
-            counter1.value as counter_value1,
-            if(counter1.value is null or counter1.value=0,
-               1000000,counter0.value/counter1.value) as co_ctr,
-            if((entries.perms & 0x1100)=0,1,0) as hidden';
-return $Fields;
+function postingListFields($fields = SELECT_GENERAL) {
+    $Fields = 'entries.id as id,entries.ident as ident,entries.up as up,
+               entries.track as track,entries.catalog as catalog,
+               entries.parent_id as parent_id,entries.orig_id as orig_id,
+               entries.grp as grp,entries.person_id as person_id,
+               entries.guest_login as guest_login,entries.user_id as user_id,
+               entries.group_id as group_id,entries.perms as perms,
+               entries.disabled as disabled,
+               entries.subject as subject,entries.lang as lang,
+               entries.author as author,entries.author_xml as author_xml,
+               entries.source as source,entries.source_xml as source_xml,
+               entries.title as title,entries.title_xml as title_xml,
+               entries.comment0 as comment0,
+               entries.comment0_xml as comment0_xml,
+               entries.comment1 as comment1,
+               entries.comment1_xml as comment1_xml,
+               entries.url as url,entries.url_domain as url_domain,
+               entries.url_check_success as url_check_success,
+               entries.body as body,entries.body_xml as body_xml,
+               entries.body_format as body_format,
+               entries.has_large_body as has_large_body,
+               entries.large_body_format as large_body_format,
+               entries.large_body_filename as large_body_filename,
+               entries.priority as priority,entries.index0 as index0,
+               entries.index1 as index1,entries.index2 as index2,
+               entries.vote as vote,entries.vote_count as vote_count,
+               entries.rating as rating,entries.sent as sent,
+               entries.modified as modified,entries.modbits as modbits,
+               entries.answers as answers,entries.last_answer as last_answer,
+               entries.last_answer_id as last_answer_id,
+               entries.last_answer_user_id as last_answer_user_id,
+               entries.last_answer_guest_login as last_answer_guest_login,
+               if(entries.answers!=0,entries.last_answer,entries.modified) as age,
+               entries.small_image as small_image,
+               entries.small_image_x as small_image_x,
+               entries.small_image_y as small_image_y,
+               entries.small_image_format as small_image_format,
+               entries.large_image as large_image,
+               entries.large_image_x as large_image_x,
+               entries.large_image_y as large_image_y,
+               entries.large_image_size as large_image_size,
+               entries.large_image_format as large_image_format,
+               entries.large_image_filename as large_image_filename,
+               users.login as login,users.gender as gender,users.email as email,
+               users.hide_email as hide_email,users.hidden as user_hidden,
+               users.guest as user_guest';
+    if (($fields & SELECT_LARGE_BODY) != 0)
+        $Fields .= ',entries.large_body as large_body,
+                    entries.large_body_xml as large_body_xml';
+    if (($fields & SELECT_CTR) != 0)
+        $Fields .= ',counter0.value as counter_value0,
+                    counter1.value as counter_value1,
+                    if(counter1.value is null or counter1.value=0,
+                       1000000,counter0.value/counter1.value) as co_ctr,
+                    if((entries.perms & 0x1100)=0,1,0) as hidden';
+    return $Fields;
 }
 
-function origFields($fields=SELECT_GENERAL)
-{
-$Fields='entries.subject as subject,
-         entries.author as author,entries.author_xml as author_xml,
-         entries.source as source,entries.source_xml as source_xml,
-         entries.title as title,entries.title_xml as title_xml,
-         entries.comment0 as comment0,entries.comment0_xml as comment0_xml,
-         entries.comment1 as comment1,entries.comment1_xml as comment1_xml,
-         entries.url as url,entries.url_domain as url_domain,
-         entries.url_check_success as url_check_success,entries.body as body,
-         entries.body_xml as body_xml,entries.body_format as body_format,
-         entries.has_large_body as has_large_body,
-         entries.large_body_format as large_body_format,
-         entries.large_body_filename as large_body_filename,
-         entries.small_image as small_image,
-         entries.small_image_x as small_image_x,
-         entries.small_image_y as small_image_y,
-         entries.small_image_format as small_image_format,
-         entries.large_image as large_image,
-         entries.large_image_x as large_image_x,
-         entries.large_image_y as large_image_y,
-         entries.large_image_size as large_image_size,
-         entries.large_image_format as large_image_format,
-         entries.large_image_filename as large_image_filename';
-if(($fields & SELECT_LARGE_BODY)!=0)
-  $Fields.=',entries.large_body as large_body,
-            entries.large_body_xml as large_body_xml';
-return $Fields;
+function origFields($fields = SELECT_GENERAL) {
+    $Fields = 'entries.subject as subject,
+               entries.author as author,entries.author_xml as author_xml,
+               entries.source as source,entries.source_xml as source_xml,
+               entries.title as title,entries.title_xml as title_xml,
+               entries.comment0 as comment0,
+               entries.comment0_xml as comment0_xml,
+               entries.comment1 as comment1,
+               entries.comment1_xml as comment1_xml,
+               entries.url as url,entries.url_domain as url_domain,
+               entries.url_check_success as url_check_success,
+               entries.body as body,entries.body_xml as body_xml,
+               entries.body_format as body_format,
+               entries.has_large_body as has_large_body,
+               entries.large_body_format as large_body_format,
+               entries.large_body_filename as large_body_filename,
+               entries.small_image as small_image,
+               entries.small_image_x as small_image_x,
+               entries.small_image_y as small_image_y,
+               entries.small_image_format as small_image_format,
+               entries.large_image as large_image,
+               entries.large_image_x as large_image_x,
+               entries.large_image_y as large_image_y,
+               entries.large_image_size as large_image_size,
+               entries.large_image_format as large_image_format,
+               entries.large_image_filename as large_image_filename';
+    if (($fields & SELECT_LARGE_BODY) != 0)
+        $Fields .= ',entries.large_body as large_body,
+                    entries.large_body_xml as large_body_xml';
+    return $Fields;
 }
 
-function postingListTables($fields=SELECT_GENERAL,$sort=SORT_SENT)
-{
-$Tables='entries
-         left join users
-              on entries.user_id=users.id';
-if(($fields & SELECT_CTR)!=0)
-  $Tables.=' left join counters as counter0
-                  on entries.orig_id=counter0.entry_id and counter0.serial=1
-                     and counter0.mode='.CMODE_EAR_HITS.'
-             left join counters as counter1
-                  on entries.orig_id=counter1.entry_id and counter1.serial=1
-                     and counter1.mode='.CMODE_EAR_CLICKS;
-if($sort==SORT_TOPIC_INDEX0_INDEX0)
-  $Tables.=' left join entries as topics
-                  on entries.parent_id=topics.id';
-return $Tables;
+function postingListTables($fields = SELECT_GENERAL, $sort = SORT_SENT,
+                           $cross_type = 0, $cross_id = 0) {
+    $Tables = 'entries
+               left join users
+                    on entries.user_id=users.id';
+    if (($fields & SELECT_CTR) != 0)
+        $Tables .= ' left join counters as counter0
+                          on entries.orig_id=counter0.entry_id
+                             and counter0.serial=1
+                             and counter0.mode='.CMODE_EAR_HITS.'
+                     left join counters as counter1
+                          on entries.orig_id=counter1.entry_id
+                             and counter1.serial=1
+                             and counter1.mode='.CMODE_EAR_CLICKS;
+    if ($sort == SORT_TOPIC_INDEX0_INDEX0)
+        $Tables .= ' left join entries as topics
+                          on entries.parent_id=topics.id';
+    if ($cross_type != 0 || $cross_id != 0)
+        $Tables .= ' left join cross_entries
+                          on entries.id=cross_entries.peer_id';
+    return $Tables;
 }
 
-function origTables($fields=SELECT_GENERAL)
-{
-$Tables='entries';
-return $Tables;
+function origTables($fields = SELECT_GENERAL) {
+    $Tables = 'entries';
+    return $Tables;
 }
 
-function postingListGrpFilter($grp,$withAnswers=GRP_NONE)
-{
-$grp=grpArray($grp);
-$withAnswers=grpArray($withAnswers);
-$conds=array();
-foreach($withAnswers as $g)
-       $conds[]="entries.grp=$g and entries.answers<>0";
-foreach($grp as $g)
-       if(!in_array($g,$withAnswers))
-         $conds[]="entries.grp=$g";
-return count($conds)>0 ? '('.join(' or ',$conds).')' : '1';
+function postingListGrpFilter($grp, $withAnswers = GRP_NONE) {
+    $grp = grpArray($grp);
+    $withAnswers = grpArray($withAnswers);
+    $conds = array();
+    foreach ($withAnswers as $g)
+        $conds[] = "entries.grp=$g and entries.answers<>0";
+    foreach ($grp as $g)
+        if (!in_array($g, $withAnswers))
+            $conds[] = "entries.grp=$g";
+    return count($conds) > 0 ? '('.join(' or ', $conds).')' : '1';
 }
 
-function postingListTopicFilter($topic_id=-1,$recursive=false)
-{
-if($topic_id<0 || $topic_id==0 && $recursive)
-  return '1';
-if(!is_array($topic_id))
-  $topic_id=array($topic_id);
-if(!is_array($recursive))
-  $recursive=array($recursive);
-$conds=array();
-for($i=0;$i<count($topic_id);$i++)
-   if($topic_id[$i]>0 || $topic_id[$i]==0 && !$recursive[$i])
-     $conds[]='entries.'.subtree('entries',$topic_id[$i],$recursive[$i]);
-return count($conds)>0 ? '('.join(' or ',$conds).')' : '1';
+function postingListTopicFilter($topic_id = -1, $recursive = false) {
+    if ($topic_id < 0 || $topic_id == 0 && $recursive)
+        return '1';
+    if (!is_array($topic_id))
+        $topic_id = array($topic_id);
+    if (!is_array($recursive))
+        $recursive = array($recursive);
+    $conds = array();
+    for ($i = 0; $i < count($topic_id); $i++)
+        if ($topic_id[$i] > 0 || $topic_id[$i] == 0 && !$recursive[$i])
+            $conds[] = 'entries.'.subtree('entries', $topic_id[$i],
+                                          $recursive[$i]);
+    return count($conds) > 0 ? '('.join(' or ', $conds).')' : '1';
 }
 
-function postingListFilter($grp,$topic_id=-1,$recursive=false,$person_id=-1,
-                           $sort=SORT_SENT,$withAnswers=GRP_NONE,$user=0,
-                           $index1=-1,$later=0,$up=-1,$fields=SELECT_GENERAL,
-                           $modbits=MOD_NONE,$hidden=-1,$disabled=-1,$prefix='',
-                           $withIdent=false,$earlier=0,$asGuest=false)
-{
-$Filter='entries.entry='.ENT_POSTING;
-$Filter.=' and '.postingsPermFilter(PERM_READ,'entries',$asGuest);
-$Filter.=' and '.postingListGrpFilter($grp,$withAnswers);
-$Filter.=' and '.postingListTopicFilter($topic_id,$recursive);
-if($person_id>=0)
-  $Filter.=" and entries.person_id=$person_id";
-if($user>0)
-  $Filter.=" and entries.user_id=$user";
-if($index1>=0)
-  switch($sort)
-        {
-        case SORT_INDEX1:
-             $Filter.=" and entries.index1>=$index1";
-             break;
-        case SORT_RINDEX1:
-             $Filter.=" and entries.index1<=$index1";
-             break;
-        default;
-             $Filter.=" and entries.index1=$index1";
+function postingListFilter($grp, $topic_id = -1, $recursive = false,
+                           $person_id = -1, $sort = SORT_SENT,
+                           $withAnswers = GRP_NONE, $user = 0, $index1 = -1,
+                           $later = 0, $up = -1, $fields = SELECT_GENERAL,
+                           $modbits = MOD_NONE, $hidden = -1, $disabled = -1,
+                           $prefix = '', $withIdent = false, $earlier = 0,
+                           $asGuest = false, $cross_type = 0, $cross_id = 0) {
+    $Filter = 'entries.entry='.ENT_POSTING;
+    $Filter .= ' and '.postingsPermFilter(PERM_READ, 'entries', $asGuest);
+    $Filter .= ' and '.postingListGrpFilter($grp, $withAnswers);
+    $Filter .= ' and '.postingListTopicFilter($topic_id, $recursive);
+    if ($person_id >= 0)
+        $Filter .= " and entries.person_id=$person_id";
+    if ($user > 0)
+        $Filter .= " and entries.user_id=$user";
+    if ($index1 >= 0)
+        switch($sort) {
+            case SORT_INDEX1:
+                $Filter .= " and entries.index1>=$index1";
+                break;
+
+            case SORT_RINDEX1:
+                $Filter .= " and entries.index1<=$index1";
+                break;
+
+            default;
+                $Filter .= " and entries.index1=$index1";
         }
-if($later>0)
-  $Filter.=" and unix_timestamp(entries.sent)>=$later";
-if($earlier>0)
-  $Filter.=" and unix_timestamp(entries.sent)<$earlier";
-if($up>0)
-  $Filter.=" and entries.up=$up";
-if($modbits>0)
-  $Filter.=" and (entries.modbits & $modbits)<>0";
-if($hidden>=0)
-  if($hidden)
-    $Filter.=" and (entries.perms & 0x1100)=0";
-  else
-    $Filter.=" and (entries.perms & 0x1100)<>0";
-if($disabled>=0)
-  if($disabled)
-    $Filter.=" and entries.disabled<>0";
-  else
-    $Filter.=" and entries.disabled=0";
-if($prefix!='')
-  {
-  $lprefix=strtolower($prefix);
-  $prefixFilters=array(SORT_NAME       => " and entries.subject like '$prefix%'",
-                       SORT_URL_DOMAIN => " and entries.url_domain like '$lprefix%'
-                                            and entries.url_domain<>''");
-  $Filter.=@$prefixFilters[$sort]!='' ? $prefixFilters[$sort] : '';
-  }
-if($withIdent)
-  $Filter.=" and entries.ident<>''";
-return $Filter;
+    if ($later > 0)
+        $Filter .= " and unix_timestamp(entries.sent)>=$later";
+    if ($earlier > 0)
+        $Filter .= " and unix_timestamp(entries.sent)<$earlier";
+    if ($up > 0)
+        $Filter .= " and entries.up=$up";
+    if ($modbits > 0)
+        $Filter .= " and (entries.modbits & $modbits)<>0";
+    if ($cross_type != 0)
+        $Filter .= " and cross_entries.link_type=$cross_type";
+    if ($cross_id > 0)
+        $Filter .= " and cross_entries.source_id=$cross_id";
+    if ($hidden >= 0)
+        if ($hidden)
+            $Filter .= " and (entries.perms & 0x1100)=0";
+        else
+            $Filter .= " and (entries.perms & 0x1100)<>0";
+    if ($disabled >= 0)
+        if ($disabled)
+            $Filter .= " and entries.disabled<>0";
+        else
+            $Filter .= " and entries.disabled=0";
+    if ($prefix != '') {
+        $lprefix = strtolower($prefix);
+        $prefixFilters = array(
+            SORT_NAME       => " and entries.subject like '$prefix%'",
+            SORT_URL_DOMAIN => " and entries.url_domain like '$lprefix%'
+                                 and entries.url_domain<>''");
+        $Filter .= @$prefixFilters[$sort] != '' ? $prefixFilters[$sort] : '';
+    }
+    if ($withIdent)
+        $Filter .= " and entries.ident<>''";
+    return $Filter;
 }
 
 class PostingListIterator
@@ -414,7 +425,8 @@ class PostingListIterator
             $withAnswers = GRP_NONE, $user = 0, $index1 = -1, $later = 0,
             $up = -1, $showShadows = true, $fields = SELECT_GENERAL,
             $modbits = MOD_NONE, $hidden = -1, $disabled = -1, $prefix = '',
-            $withIdent = false, $earlier = 0, $asGuest = false) {
+            $withIdent = false, $earlier = 0, $asGuest = false, $cross_type = 0,
+            $cross_id = 0) {
         if ($sort == SORT_CTR)
             $fields |= SELECT_CTR;
         $this->fields = $fields;
@@ -423,11 +435,11 @@ class PostingListIterator
                                : 'distinct entries.orig_id';
         $SelectCount = $showShadows ? 'count(*)'
                                     : 'count(distinct entries.orig_id)';
-        $From = postingListTables($this->fields, $sort);
+        $From = postingListTables($this->fields, $sort, $cross_type, $cross_id);
         $this->where = postingListFilter($grp, $topic_id, $recursive,
                 $person_id, $sort, $withAnswers, $user, $index1, $later, $up,
                 $fields, $modbits, $hidden, $disabled, $prefix, $withIdent,
-                $earlier, $asGuest);
+                $earlier, $asGuest, $cross_type, $cross_id);
         $Order = getOrderBy($sort,
             array(SORT_SENT       => 'entries.sent desc',
                   SORT_NAME       => 'entries.subject',

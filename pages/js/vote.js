@@ -19,8 +19,11 @@ function voteClick(event) {
                 className = "rating-minus";
             }
             var idClass = "rating-" + data.id;
-            $("." + idClass).removeClass("rating-zero").addClass(idClass)
+            $("." + idClass).removeClass().addClass(idClass)
                             .addClass(className).text(data.rating);
+            $(".small-" + idClass).removeClass().addClass("small-" + idClass)
+                                  .addClass("small-" + className)
+                                  .text("(" + data.rating + ")");
             if (data.vote > 3) {
                 $(".vote-minus-" + data.id).css("visibility", "hidden");
                 button = $(".vote-plus-" + data.id);

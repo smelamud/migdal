@@ -182,9 +182,11 @@
 <decel name='peruser' file='parts/peruser.php' params='topic_id'>
 <decel name='picture' file='parts/picture.php'
        params='picture,showtopic,showdiscuss,shorten,rel,list_index,list_size,
-               hollow'
+               hollow,align,noclear,nomargin,fixed_width,fixed_height'
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false' rel=''
-                 list_index=0 list_size=0 hollow='*false'">
+                 list_index=0 list_size=0 hollow='*false' align=''
+                 noclear='*false' nomargin='*false' fixed_width=0
+                 fixed_height=0">
 <decel name='picture_main' file='parts/picture-main.php'
        params='href,biff,name,title,image_href' defaults="title=''">
 <decel name='pointer' file='parts/pointer.php' params='href,text,title,left'
@@ -210,10 +212,12 @@
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_image' file='parts/posting.php'
        params='posting,align,image_title,title,href,title_large,rel,edithref,
-               rmhref,title_large_id,rating,enlarge_always,hollow'
+               rmhref,title_large_id,rating,enlarge_always,hollow,noclear,
+               nomargin,fixed_width,fixed_height'
        defaults="align='' image_title='' title='' href='' title_large=''
                  rel='' edithref='' rmhref='' title_large_id='' rating=0
-                 enlarge_always='*false' hollow='*false'">
+                 enlarge_always='*false' hollow='*false' noclear='*false'
+                 nomargin='*false' fixed_width=0 fixed_height=0">
 <decel name='posting_og_image' file='parts/posting.php' params='posting'>
 <decel name='posting_peruser' file='parts/posting-peruser.php'
        params='posting,showtopic,showdiscuss,shorten'
@@ -243,8 +247,8 @@
 <decel name='postings_migdal_news' file='parts/postings-migdal-news.php'
        params='topic_id,offset' defaults="offset=0">
 <decel name='printlink' file='parts/posting.php' params='posting'>
-<decel name='rating' file='parts/vote.php' params='value,style'
-       defaults="style=''">
+<decel name='rating' file='parts/vote.php' params='value,style,id'
+       defaults="style='' id=0">
 <decel name='rss' file='parts/utils.php'>
 <decel name='seealso' file='parts/seealso.php'
        params='source_name,source_id,link_type,title,adddir'

@@ -58,13 +58,17 @@
 <ifne what='$align'>
  <if what="$align != 'center'">
   <if what="$align == 'left'">
-   <assign name='float' value='float: left; clear: left; margin-right: 1em'>
+   <assign name='clear' value!="!$noclear ? 'clear: left' : ''">
+   <assign name='margin' value!="!$nomargin ? 'margin-right: 1em' : ''">
+   <assign name='float' value#='float: left; $clear; $margin'>
   <else>
-   <assign name='float' value='float: right; clear: right; margin-left: 1em'>
+   <assign name='clear' value!="!$noclear ? 'clear: right' : ''">
+   <assign name='margin' value!="!$nomargin ? 'margin-left: 1em' : ''">
+   <assign name='float' value#='float: right; $clear; $margin'>
   </if>
  <else>
-  <assign name='float'
-          value='margin-left: auto; margin-right: auto; clear: both'>
+  <assign name='clear' value!="!$noclear ? 'clear: both' : ''">
+  <assign name='float' value#='margin-left: auto; margin-right: auto; $clear'>
  </if>
 </ifne>
 <ifne what='$image_title'>
@@ -78,7 +82,11 @@
 <else>
  <assign name='tl' value#='data-title-large="$title_large"'>
 </ifne>
-<div class='pic' style='width: ${posting.SmallImageX}px; $float'>
+<assign name='size_x'
+        value!="$fixed_width!=0 ? $fixed_width : $posting.SmallImageX">
+<assign name='size_y'
+        value!="$fixed_height!=0 ? $fixed_height : $posting.SmallImageY">
+<div class='pic' style='width: ${size_x}px; $float'>
  <if what='$posting.hasLargeImage || $enlarge_always'>
   <ife what='$href'>
    <a class='enlargeable' href='$posting.LargeImageURL' $tl&sp;$rl>
@@ -86,15 +94,15 @@
    <a href='$href'>
   </ife>
   <if what='!$hollow'>
-   <asp><img width='$posting.SmallImageX' height='$posting.SmallImageY'
+   <asp><img width='$size_x' height='$size_y'
              $alt src='$posting.SmallImageURL'><asp>
   <else>
    &nbsp;
   </if>
   </a>
   <if what="$href == '' && !$hollow">
-   <assign name='glass_x' value!='$posting.SmallImageX - 22'>
-   <assign name='glass_y' value!='$posting.SmallImageY - 22'>
+   <assign name='glass_x' value!='$size_x - 22'>
+   <assign name='glass_y' value!='$size_y - 22'>
    <div class='glass' style='top: ${glass_y}px; left: ${glass_x}px'></div>
   </if>
  <else>
@@ -142,9 +150,9 @@
  <ifne what='$title'>
   <div class='pic-title'>$title</div>
  </ifne>
- <if what='$rating != 0 && !$hollow'>
-  <assign name='rating_y' value!='$posting.SmallImageY - 25'>
-  <rating value='$rating' style#='top: ${rating_y}px'>
+ <if what='!$hollow'>
+  <assign name='rating_y' value!='$size_y - 25'>
+  <rating id='$posting.Id' value='$rating' style#='top: ${rating_y}px'>
  </if>
 </div>
 </element>
