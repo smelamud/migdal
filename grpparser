@@ -505,6 +505,7 @@ sub processValue
 my ($value)=@_;
 
 return $value unless $value=~/^[A-Z_]+$/;
+return "${constPrefix}NONE" if $value eq 'NONE';
 for(@Classes)
    {
    return "$constPrefix$value" if $value eq $_->getFlag();
