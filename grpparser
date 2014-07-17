@@ -500,6 +500,18 @@ my ($name)=@_;
 printScalarParam($name);
 }
 
+sub processValue
+{
+my ($value)=@_;
+
+return $value unless $value=~/^[A-Z_]+$/;
+for(@Classes)
+   {
+   return "$constPrefix$value" if $value eq $_->getFlag();
+   }
+return $value;
+}
+
 sub printConstParam
 {
 my ($name)=@_;
@@ -519,12 +531,16 @@ for(@Classes)
          $out.="        array(\n";
 	 while(my ($key,$val)=each(%$item))
 	      {
-	      $out.="            '$key' => $val,\n";
+	      $out.="            '$key' => ".processValue($val).",\n";
 	      }
          $out.="        ),\n";
 	 }
      $out.="    )";
      $value=$out;
+     }
+   else
+     {
+     $value=processValue($value);
      }
    $composite=1 if $value=~/\$[\[{]/;
    print GRPS "    $flag => $value,\n";
@@ -538,12 +554,16 @@ if(ref($value) eq 'ARRAY')
       $out.="        array(\n";
       while(my ($key,$val)=each(%$item))
 	   {
-	   $out.="            '$key' => $val,\n";
+	   $out.="            '$key' => ".processValue($val).",\n";
 	   }
       $out.="        ),\n";
       }
   $out.="    )";
   $value=$out;
+  }
+else
+  {
+  $value=processValue($value);
   }
 $composite=1 if $value=~/\$[\[{]/;
 print GRPS "    ${constPrefix}NONE => $value,\n";
