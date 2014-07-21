@@ -110,7 +110,7 @@
 + lib/perm.php
 + lib/postings-info.php
 - lib/postings.php
-- lib/postings-random.php
++ lib/postings-random.php
 + lib/post.php
 + lib/prisoners.php
 + lib/profiling.php
