@@ -71,12 +71,12 @@
 + lib/groups.php
 + lib/grpentry.php
 + lib/grpiterator.php
-- lib/grps.php
++ lib/grps.php
 + lib/html-cache.php
 + lib/ident.php
 + lib/image-files.php
 + lib/image-file-transforms.php
-- lib/images.php
++ lib/images.php
 + lib/image-types.php
 + lib/image-upload.php
 + lib/initstop-mail.php
@@ -93,10 +93,10 @@
 + lib/limitselect.php
 + lib/logging.php
 + lib/logs.php
-- lib/mail-format.php
++ lib/mail-format.php
 - lib/mail.php
 + lib/mime.php
-- lib/modbits.php
++ lib/modbits.php
 + lib/mtext-callback-data.php
 + lib/mtext-html.php
 + lib/mtext-shorten.php
@@ -114,7 +114,7 @@
 + lib/post.php
 + lib/prisoners.php
 + lib/profiling.php
-- lib/pwgen.php
++ lib/pwgen.php
 + lib/random.php
 + lib/redirs.php
 + lib/rowscols.php

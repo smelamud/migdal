@@ -127,39 +127,35 @@ class TopicModbitIterator
 
 }
 
-function getModbitsByEntryId($id)
-{
-$result=sql("select modbits
-	     from entries
-	     where id=$id",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getModbitsByEntryId($id) {
+    $result = sql("select modbits
+                   from entries
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function setModbitsByEntryId($id,$bits)
-{
-sql("update entries
-     set modbits=modbits | $bits
-     where id=$id",
-    __FUNCTION__);
-incContentVersionsByEntryId($id);
+function setModbitsByEntryId($id, $bits) {
+    sql("update entries
+         set modbits=modbits | $bits
+         where id=$id",
+        __FUNCTION__);
+    incContentVersionsByEntryId($id);
 }
 
-function resetModbitsByEntryId($id,$bits)
-{
-sql("update entries
-     set modbits=modbits & ~$bits
-     where id=$id",
-    __FUNCTION__);
-incContentVersionsByEntryId($id);
+function resetModbitsByEntryId($id, $bits) {
+    sql("update entries
+         set modbits=modbits & ~$bits
+         where id=$id",
+        __FUNCTION__);
+    incContentVersionsByEntryId($id);
 }
 
-function assignModbitsByEntryId($id,$bits)
-{
-sql("update entries
-     set modbits=$bits
-     where id=$id",
-    __FUNCTION__);
-incContentVersionsByEntryId($id);
+function assignModbitsByEntryId($id, $bits) {
+    sql("update entries
+         set modbits=$bits
+         where id=$id",
+        __FUNCTION__);
+    incContentVersionsByEntryId($id);
 }
 ?>

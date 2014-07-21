@@ -89,49 +89,46 @@ class FormatMailXML
 
 }
 
-function getMailScriptName($template)
-{
-global $mailingsDir;
+function getMailScriptName($template) {
+    global $mailingsDir;
 
-return $mailingsDir.'/'.strtr($template,'_','-').'.php';
+    return $mailingsDir.'/'.strtr($template,'_','-').'.php';
 }
 
-function getMailFunctionName($template)
-{
-return "displaymailing_$template";
+function getMailFunctionName($template) {
+    return "displaymailing_$template";
 }
 
-function formatMail($template,$params)
-{
-global $mailSubjectPrefix,$charsetExternal,$mailFromAddress,$mailReplyToAddress,
-       $mailHeadersDelimiter;
+function formatMail($template, array $params) {
+    global $mailSubjectPrefix, $charsetExternal, $mailFromAddress,
+           $mailReplyToAddress, $mailHeadersDelimiter;
 
-debugLog(LL_FUNCTIONS,'formatMail(template=%,params=%)',
-         array($template,$params));
-include(getMailScriptName($template));
-$func=getMailFunctionName($template);
-if(function_exists($func))
-  {
-  $mail=call_user_func_array($func,$params);
-  $xml=new FormatMailXML();
-  $xml->parse('mail', $mail);
-  $xml->free();
-  $result=$xml->getResult();
-  // Subject
-  $result[0]=convertOutput($mailSubjectPrefix).$result[0];
-  $result[0]="=?$charsetExternal?B?".base64_encode($result[0]).'?=';
-  // Headers
-  $result[1]=join($mailHeadersDelimiter,
-                  array("From: $mailFromAddress",
-                        "Reply-To: $mailReplyToAddress",
-                        "Content-Type: text/plain; charset=$charsetExternal",
-			"Content-Transfer-Encoding: base64",
-			$result[1]));
-  $result[2]=wordwrap(base64_encode($result[2]),70,"\n",true);
-  debugLog(LL_DEBUG,'result=%',array($result));
-  return $result;
-  }
-else
-  return array('','','');
+    debugLog(LL_FUNCTIONS, 'formatMail(template=%,params=%)',
+             array($template, $params));
+    include(getMailScriptName($template));
+    $func = getMailFunctionName($template);
+    if (function_exists($func)) {
+        $mail = call_user_func_array($func, $params);
+        $xml = new FormatMailXML();
+        $xml->parse('mail', $mail);
+        $xml->free();
+        $result = $xml->getResult();
+        // Subject
+        $result[0] = convertOutput($mailSubjectPrefix).$result[0];
+        $result[0] = "=?$charsetExternal?B?".base64_encode($result[0]).'?=';
+        // Headers
+        $result[1] = join($mailHeadersDelimiter, array(
+            "From: $mailFromAddress",
+            "Reply-To: $mailReplyToAddress",
+            "Content-Type: text/plain; charset=$charsetExternal",
+            "Content-Transfer-Encoding: base64",
+            $result[1]
+        ));
+        $result[2] = wordwrap(base64_encode($result[2]), 70, "\n", true);
+        debugLog(LL_DEBUG, 'result=%', array($result));
+        return $result;
+    } else {
+        return array('', '', '');
+    }
 }
 ?>
