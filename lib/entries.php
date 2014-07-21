@@ -871,253 +871,233 @@ class Entry
 
 }
 
-function newEntry($row)
-{
-global $entryClassNames;
+function newEntry(array $row) {
+    global $entryClassNames;
 
-if(isset($entryClassNames[$row['entry']]))
-  $className=$entryClassNames[$row['entry']];
-else
-  $className='Entry';
-if(!class_exists($className))
-  $className='Entry';
-return new $className($row);
+    if (isset($entryClassNames[$row['entry']]))
+        $className = $entryClassNames[$row['entry']];
+    else
+        $className = 'Entry';
+    if (!class_exists($className))
+        $className = 'Entry';
+    return new $className($row);
 }
 
-function getGrpsByEntryId($id)
-{
-if(hasCachedValue('grps','entries',$id))
-  return getCachedValue('grps','entries',$id);
-$result=sql("select grp
-	     from entry_grps
-	     where entry_id=$id",
-	    __FUNCTION__);
-$grps=array();
-while(list($grp)=mysql_fetch_row($result))
-     $grps[]=$grp;
-setCachedValue('grps','entries',$id,$grps);
-return $grps;
+function getGrpsByEntryId($id) {
+    if (hasCachedValue('grps', 'entries', $id))
+        return getCachedValue('grps', 'entries', $id);
+    $result = sql("select grp
+                   from entry_grps
+                   where entry_id=$id",
+                  __FUNCTION__);
+    $grps = array();
+    while (list($grp) = mysql_fetch_row($result))
+        $grps[] = $grp;
+    setCachedValue('grps', 'entries', $id, $grps);
+    return $grps;
 }
 
-function setGrpsByEntryId($id,$grps)
-{
-sql('lock tables entry_grps write',
-    __FUNCTION__,'lock');
-sql("delete
-     from entry_grps
-     where entry_id=$id",
-    __FUNCTION__,'delete');
-foreach($grps as $grp)
-       {
-       sql("insert into entry_grps(entry_id,grp)
-            values($id,$grp)",
-	   __FUNCTION__,'insert');
-       $eid=sql_insert_id();
-       }
-setCachedValue('grps','entries',$id,$grps);
-sql('unlock tables',
-    __FUNCTION__,'unlock');
-incContentVersionsByEntryId($id);
+function setGrpsByEntryId($id, array $grps) {
+    sql('lock tables entry_grps write',
+        __FUNCTION__, 'lock');
+    sql("delete
+         from entry_grps
+         where entry_id=$id",
+        __FUNCTION__, 'delete');
+    foreach ($grps as $grp) {
+        sql("insert into entry_grps(entry_id,grp)
+             values($id,$grp)",
+            __FUNCTION__, 'insert');
+        $eid = sql_insert_id();
+    }
+    setCachedValue('grps', 'entries', $id, $grps);
+    sql('unlock tables',
+        __FUNCTION__, 'unlock');
+    incContentVersionsByEntryId($id);
 }
 
-function setHiddenByEntryId($id,$hidden)
-{
-if($hidden)
-  $op='& ~0x1100';
-else
-  $op='| 0x1100';
-sql("update entries
-     set perms=perms $op
-     where id=$id",
-    __FUNCTION__);
-if(getTypeByEntryId($id)==ENT_FORUM)
-  answerUpdate(getParentIdByEntryId($id));
-incContentVersionsByEntryId($id);
+function setHiddenByEntryId($id, $hidden) {
+    if ($hidden)
+        $op = '& ~0x1100';
+    else
+        $op = '| 0x1100';
+    sql("update entries
+         set perms=perms $op
+         where id=$id",
+        __FUNCTION__);
+    if (getTypeByEntryId($id) == ENT_FORUM)
+        answerUpdate(getParentIdByEntryId($id));
+    incContentVersionsByEntryId($id);
 }
 
-function setDisabledByEntryId($id,$disabled)
-{
-$disabled=(int)$disabled;
-sql("update entries
-     set disabled=$disabled
-     where id=$id",
-    __FUNCTION__);
-if(getTypeByEntryId($id)==ENT_FORUM)
-  answerUpdate(getParentIdByEntryId($id));
-incContentVersionsByEntryId($id);
+function setDisabledByEntryId($id, $disabled) {
+    $disabled = (int) $disabled;
+    sql("update entries
+         set disabled=$disabled
+         where id=$id",
+        __FUNCTION__);
+    if (getTypeByEntryId($id) == ENT_FORUM)
+        answerUpdate(getParentIdByEntryId($id));
+    incContentVersionsByEntryId($id);
 }
 
-function getTypeByEntryId($id)
-{
-if(hasCachedValue('entry','entries',$id))
-  return getCachedValue('entry','entries',$id);
-$result=sql("select entry
-	     from entries
-	     where id=$id",
-	    __FUNCTION__);
-if(mysql_num_rows($result)>0)
-  {
-  $type=mysql_result($result,0,0);
-  setCachedValue('entry','entries',$id,$type);
-  return $type;
-  }
-else
-  return ENT_NULL;
+function getTypeByEntryId($id) {
+    if (hasCachedValue('entry', 'entries', $id))
+        return getCachedValue('entry', 'entries', $id);
+    $result = sql("select entry
+                   from entries
+                   where id=$id",
+                  __FUNCTION__);
+    if (mysql_num_rows($result) > 0) {
+        $type = mysql_result($result, 0, 0);
+        setCachedValue('entry', 'entries', $id, $type);
+        return $type;
+    } else {
+        return ENT_NULL;
+    }
 }
 
-function getGrpByEntryId($id)
-{
-if(hasCachedValue('grp','entries',$id))
-  return getCachedValue('grp','entries',$id);
-$result=sql("select grp
-	     from entries
-	     where id=$id",
-	    __FUNCTION__);
-if(mysql_num_rows($result)>0)
-  {
-  $grp=mysql_result($result,0,0);
-  setCachedValue('grp','entries',$id,$grp);
-  return $grp;
-  }
-else
-  return 0;
+function getGrpByEntryId($id) {
+    if (hasCachedValue('grp', 'entries', $id))
+        return getCachedValue('grp', 'entries', $id);
+    $result = sql("select grp
+                   from entries
+                   where id=$id",
+                  __FUNCTION__);
+    if (mysql_num_rows($result) > 0) {
+        $grp = mysql_result($result, 0, 0);
+        setCachedValue('grp', 'entries', $id, $grp);
+        return $grp;
+    } else {
+        return 0;
+    }
 }
 
-function getParentIdByEntryId($id)
-{
-$result=sql("select parent_id
-	     from entries
-	     where id=$id",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getParentIdByEntryId($id) {
+    $result = sql("select parent_id
+                   from entries
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function getOrigIdByEntryId($id)
-{
-$result=sql("select orig_id
-	     from entries
-	     where id=$id",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getOrigIdByEntryId($id) {
+    $result = sql("select orig_id
+                   from entries
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
 function setOrigIdToEntryId(Entry $entry) {
     sql("update entries
          set orig_id=id
          where id={$entry->getId()}",
-        __FUNCTION__,'orig_id');
+        __FUNCTION__, 'orig_id');
     $entry->setOrigId($entry->getId());
     incContentVersionsByEntryId($entry->getId());
 }
 
-function getRatingByEntryId($id)
-{
-$result=sql("select rating
-	     from entries
-	     where id=$id",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getRatingByEntryId($id) {
+    $result = sql("select rating
+                   from entries
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function validateHierarchy($parentId,$up,$entry,$id)
-{
-if($parentId<0)
-  return EVH_NO_PARENT;
-if($up<0)
-  return EVH_NO_UP;
-if($parentId!=0 && $up==0)
-  return EVH_NOT_UP_UNDER_PARENT;
-$parentTrack=$parentId>0 ? trackById('entries',$parentId) : '';
-if($parentTrack===0)
-  return EVH_NO_PARENT;
-$upTrack=$up>0 ? trackById('entries',$up) : '';
-if($upTrack===0)
-  return EVH_NO_UP;
-if(substr($upTrack,0,strlen($parentTrack))!=$parentTrack)
-  return EVH_NOT_UP_UNDER_PARENT;
-if(strpos($upTrack,track($id))!==false)
-  return EVH_LOOP;
-$parentEntry=getTypeByEntryId($parentId);
-$upEntry=getTypeByEntryId($up);
-$correct=false;
-switch($entry)
-      {
-      case ENT_POSTING:
-           $correct=$parentEntry==ENT_TOPIC
-	            && ($upEntry==ENT_POSTING || $parentId==$up);
-           break;
-      case ENT_FORUM:
-           $correct=$parentEntry==ENT_POSTING
-	            && ($upEntry==ENT_FORUM || $parentId==$up);
-           break;
-      case ENT_TOPIC:
-           $correct=$parentId==0 && ($upEntry==ENT_TOPIC || $up==0);
-           break;
-      case ENT_IMAGE:
-           $correct=$parentId==0 && ($upEntry==ENT_POSTING
-	                             || $upEntry==ENT_FORUM
-				     || $upEntry==ENT_TOPIC
-				     || $up==0);
-           break;
-      }
-if(!$correct)
-  return EVH_INCORRECT;
-return EG_OK;
+function validateHierarchy($parentId, $up, $entry, $id) {
+    if ($parentId < 0)
+        return EVH_NO_PARENT;
+    if ($up < 0)
+        return EVH_NO_UP;
+    if ($parentId != 0 && $up == 0)
+        return EVH_NOT_UP_UNDER_PARENT;
+    $parentTrack = $parentId > 0 ? trackById('entries', $parentId) : '';
+    if ($parentTrack === 0)
+        return EVH_NO_PARENT;
+    $upTrack = $up > 0 ? trackById('entries', $up) : '';
+    if ($upTrack === 0)
+        return EVH_NO_UP;
+    if (substr($upTrack, 0, strlen($parentTrack)) != $parentTrack)
+        return EVH_NOT_UP_UNDER_PARENT;
+    if (strpos($upTrack,track($id)) !== false)
+        return EVH_LOOP;
+    $parentEntry = getTypeByEntryId($parentId);
+    $upEntry = getTypeByEntryId($up);
+    $correct = false;
+    switch($entry) {
+        case ENT_POSTING:
+            $correct = $parentEntry == ENT_TOPIC
+                       && ($upEntry == ENT_POSTING || $parentId == $up);
+            break;
+        case ENT_FORUM:
+            $correct = $parentEntry == ENT_POSTING
+                       && ($upEntry == ENT_FORUM || $parentId == $up);
+            break;
+        case ENT_TOPIC:
+            $correct = $parentId == 0 && ($upEntry == ENT_TOPIC || $up == 0);
+            break;
+        case ENT_IMAGE:
+            $correct = $parentId == 0
+                       && ($upEntry == ENT_POSTING
+                           || $upEntry == ENT_FORUM
+                           || $upEntry == ENT_TOPIC
+                           || $up == 0);
+            break;
+    }
+    if (!$correct)
+        return EVH_INCORRECT;
+    return EG_OK;
 }
 
-function entryExists($entry,$id)
-{
-$filter="id=$id";
-if($entry!=ENT_NULL)
-  $filter.=" and entry=$entry";
-$result=sql("select id
-             from entries
-             where $filter",
+function entryExists($entry, $id) {
+    $filter = "id=$id";
+    if ($entry != ENT_NULL)
+        $filter .= " and entry=$entry";
+    $result = sql("select id
+                   from entries
+                   where $filter",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
+}
+
+function reorderEntries(array $ids) {
+    $n = 1;
+    $some_id = null;
+    foreach ($ids as $id) {
+        $some_id = $id;
+        sql("update entries
+             set index0=$n
+             where id=$id",
             __FUNCTION__);
-return mysql_num_rows($result)>0;
+        $n++;
+    }
+    if ($some_id != null)
+        incContentVersionsByEntryId($some_id);
 }
 
-function reorderEntries($ids)
-{
-$n=1;
-$some_id=null;
-foreach($ids as $id)
-       {
-       $some_id=$id;
-       sql("update entries
-	    set index0=$n
-	    where id=$id",
-	   __FUNCTION__);
-       $n++;
-       }
-if($some_id!=null)
-  incContentVersionsByEntryId($some_id);
+function renewEntry($id) {
+    $now = sqlNow();
+    sql("update entries
+         set sent='$now'
+         where id=$id",
+        __FUNCTION__);
+    incContentVersionsByEntryId($id);
 }
 
-function renewEntry($id)
-{
-$now=sqlNow();
-sql("update entries
-     set sent='$now'
-     where id=$id",
-    __FUNCTION__);
-incContentVersionsByEntryId($id);
-}
-
-function incContentVersionsByEntryId($id)
-{
-$type=getTypeByEntryId($id);
-switch($type)
-      {
-      case ENT_POSTING:
-           incContentVersions('postings');
-	   break;
-      case ENT_FORUM:
-           incContentVersions('forums');
-	   break;
-      case ENT_TOPIC:
-           incContentVersions('topics');
-	   break;
-      }
+function incContentVersionsByEntryId($id) {
+    $type = getTypeByEntryId($id);
+    switch ($type) {
+        case ENT_POSTING:
+            incContentVersions('postings');
+            break;
+        case ENT_FORUM:
+            incContentVersions('forums');
+            break;
+        case ENT_TOPIC:
+            incContentVersions('topics');
+            break;
+    }
 }
 ?>

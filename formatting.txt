@@ -60,7 +60,7 @@
 + lib/dataobject.php
 + lib/debug-log-levels.php
 + lib/debug-log.php
-- lib/entries.php
++ lib/entries.php
 + lib/entry-types.php
 + lib/errorreporting.php
 + lib/errors.php
