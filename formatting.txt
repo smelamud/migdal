@@ -18,7 +18,7 @@
 + actions/link.php
 + actions/login.php
 + actions/logout.php
-- actions/modbits.php
++ actions/modbits.php
 - actions/moderatemass.php
 + actions/moderate.php
 - actions/postingcopy.php
