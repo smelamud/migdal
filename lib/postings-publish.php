@@ -1,4 +1,6 @@
 <?php
+# @(#) $Id$
+
 require_once('conf/migdal.conf');
 
 require_once('lib/postings.php');
