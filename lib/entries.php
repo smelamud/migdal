@@ -582,12 +582,24 @@ class Entry
         return $this->index0;
     }
 
+    public function setIndex0($index0) {
+        $this->index0 = $index0;
+    }
+
     public function getIndex1() {
         return $this->index1;
     }
 
+    public function setIndex1($index1) {
+        $this->index1 = $index1;
+    }
+
     public function getIndex2() {
         return $this->index2;
+    }
+
+    public function setIndex2($index2) {
+        $this->index2 = $index2;
     }
 
     public function getVote() {

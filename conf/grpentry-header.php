@@ -19,7 +19,3 @@ public function getGrpImageEditor() {
     return array();
 }
 
-public function getPublish() {
-    return $this->publish;
-}
-

@@ -28,22 +28,14 @@
    <topics>
    <ears>
   </td>
-  <td class='cframe'><outer>
-   <table width=100% cellspacing=0 cellpadding=5><tr valign=top>
-    <td><common>
-     <subtitle>
-     <notonly>
-     <p>
-     <seealso_frame>
-     <gallery_main topic_id='$topic_id' offset='$offset'>
-     <rss>
-    </common></td>
-    <td width=130 class='nframe'><inner>
-     <hit_parade_gallery_month grp='*GRP_GRAPHICS' topic_id='$topic_id'
-			       showshadows!='$topic_id>0'>
-    </inner></td>
-   </tr></table>
-  </outer></td>
+  <td class='cframe'>
+   <subtitle>
+   <notonly>
+   <p>
+   <seealso_frame>
+   <gallery_main topic_id='$topic_id' offset='$offset'>
+   <rss>
+  </td>
  </tr></table>
  <bottom>
 </html>

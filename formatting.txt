@@ -106,9 +106,9 @@
 + lib/old-ids.php
 - lib/packages.php
 + lib/permission-schemes.php
-- lib/permissions.php
++ lib/permissions.php
 + lib/perm.php
-- lib/postings-info.php
++ lib/postings-info.php
 - lib/postings.php
 - lib/postings-random.php
 + lib/post.php

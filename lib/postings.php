@@ -27,6 +27,7 @@ require_once('lib/uri.php');
 require_once('lib/time.php');
 require_once('lib/text-any.php');
 require_once('lib/html-cache.php');
+require_once('lib/postings-publish.php');
 
 class Posting
         extends GrpEntry {
@@ -351,6 +352,10 @@ function postingListTopicFilter($topic_id = -1, $recursive = false) {
     return count($conds) > 0 ? '('.join(' or ', $conds).')' : '1';
 }
 
+function postingListUserFilter($user_id = 0) {
+    return $user_id > 0 ? " entries.user_id=$user_id" : '1';
+}
+
 function postingListFilter($grp, $topic_id = -1, $recursive = false,
                            $person_id = -1, $sort = SORT_SENT,
                            $withAnswers = GRP_NONE, $user = 0, $index1 = -1,
@@ -362,10 +367,9 @@ function postingListFilter($grp, $topic_id = -1, $recursive = false,
     $Filter .= ' and '.postingsPermFilter(PERM_READ, 'entries', $asGuest);
     $Filter .= ' and '.postingListGrpFilter($grp, $withAnswers);
     $Filter .= ' and '.postingListTopicFilter($topic_id, $recursive);
+    $Filter .= ' and '.postingListUserFilter($user);
     if ($person_id >= 0)
         $Filter .= " and entries.person_id=$person_id";
-    if ($user > 0)
-        $Filter .= " and entries.user_id=$user";
     if ($index1 >= 0)
         switch($sort) {
             case SORT_INDEX1:
@@ -414,6 +418,23 @@ function postingListFilter($grp, $topic_id = -1, $recursive = false,
     return $Filter;
 }
 
+function postingListOrder($sort = SORT_SENT) {
+    return getOrderBy($sort,
+        array(SORT_SENT       => 'entries.sent desc',
+              SORT_NAME       => 'entries.subject',
+              SORT_ACTIVITY   => 'if(entries.answers!=0,entries.last_answer,entries.sent) desc',
+              SORT_CTR        => 'hidden asc,co_ctr asc,counter_value0 asc',
+              SORT_INDEX0     => 'entries.index0',
+              SORT_INDEX1     => 'entries.index1',
+              SORT_RINDEX1    => 'entries.index1 desc',
+              SORT_RATING     => 'entries.rating desc,entries.vote_count desc,
+                                  entries.sent desc',
+              SORT_URL_DOMAIN => 'entries.url_domain,entries.url',
+              SORT_TOPIC_INDEX0_INDEX0
+                              => 'topics.index0,entries.index0',
+              SORT_RSENT      => 'entries.sent asc'));
+}
+
 class PostingListIterator
         extends LimitSelectIterator {
 
@@ -440,20 +461,7 @@ class PostingListIterator
                 $person_id, $sort, $withAnswers, $user, $index1, $later, $up,
                 $fields, $modbits, $hidden, $disabled, $prefix, $withIdent,
                 $earlier, $asGuest, $cross_type, $cross_id);
-        $Order = getOrderBy($sort,
-            array(SORT_SENT       => 'entries.sent desc',
-                  SORT_NAME       => 'entries.subject',
-                  SORT_ACTIVITY   => 'if(entries.answers!=0,entries.last_answer,entries.sent) desc',
-                  SORT_CTR        => 'hidden asc,co_ctr asc,counter_value0 asc',
-                  SORT_INDEX0     => 'entries.index0',
-                  SORT_INDEX1     => 'entries.index1',
-                  SORT_RINDEX1    => 'entries.index1 desc',
-                  SORT_RATING     => 'entries.rating desc,entries.vote_count desc,
-                                      entries.sent desc',
-                  SORT_URL_DOMAIN => 'entries.url_domain,entries.url',
-                  SORT_TOPIC_INDEX0_INDEX0
-                                  => 'topics.index0,entries.index0',
-                  SORT_RSENT      => 'entries.sent asc'));
+        $Order = postingListOrder($sort);
         parent::__construct('Posting',
                             "select $Select
                              from $From
@@ -675,122 +683,117 @@ function storePosting(Posting $posting) {
         setOrigIdToEntryId($posting);
         createTrack('entries', $posting->getId());
         updateCatalogs(trackById('entries', $posting->getId()));
+        publishPosting($posting);
     }
     incContentVersions('postings');
     return $result;
 }
 
-function getRootPosting($grp,$topic_id,$up,$index1=0)
-{
-global $userId,$realUserId,$rootPostingPerms;
+function getRootPosting($grp, $topic_id, $up, $index1 = 0) {
+    global $userId, $realUserId, $rootPostingPerms;
 
-if($up>0 && $up!=$topic_id)
-  {
-  $msg=getPermsById($up);
-  $group_id=$msg->getGroupId();
-  $perms=$msg->getPerms();
-  }
-else if($topic_id>0)
-  {
-  $topic=getPermsById($topic_id);
-  $group_id=$topic->getGroupId();
-  $perms=$rootPostingPerms;
-  }
-else
-  {
-  $group_id=0;
-  $perms=$rootPostingPerms;
-  }
-return new Posting(array('id'        => 0,
-                         'grp'       => $grp,
-                         'parent_id' => $topic_id,
-                         'up'        => $up>0 ? $up : $topic_id,
-                         'user_id'   => $userId>0 ? $userId : $realUserId,
-                         'group_id'  => $group_id,
-                         'perms'     => $perms,
-                         'index1'    => $index1,
-                         'sent'      => sqlNow()));
-}
-
-function postingExists($id)
-{
-$hide=postingsPermFilter(PERM_READ);
-$result=sql("select id
-             from entries
-             where id=$id and entry=".ENT_POSTING." and $hide",
-            __FUNCTION__);
-return mysql_num_rows($result)>0;
-}
-
-function getPostingById($id=-1,$grp=GRP_ALL,$topic_id=-1,$fields=SELECT_GENERAL,
-                        $up=-1,$index1=0)
-{
-if($id=='' || $id<0)
-  return getRootPosting($grp,$topic_id,$up,$index1);
-if($fields==SELECT_GENERAL && hasCachedValue('obj','entries',$id))
-  return getCachedValue('obj','entries',$id);
-$Select=postingListFields($fields);
-$From=postingListTables($fields);
-$result=sql("select $Select
-             from $From
-             where entries.id=$id",
-            __FUNCTION__,'shadow');
-if(mysql_num_rows($result)>0)
-  {
-  $row=mysql_fetch_assoc($result);
-  if($row['id']!=$row['orig_id'])
-    {
-    $Select=origFields($fields);
-    $From=origTables($fields);
-    $result=sql("select $Select
-                 from $From
-                 where entries.id={$row['orig_id']}",
-                __FUNCTION__,'original');
-    $orig=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
-    $row=array_merge($row,$orig);
+    if ($up > 0 && $up != $topic_id) {
+        $msg = getPermsById($up);
+        $group_id = $msg->getGroupId();
+        $perms = $msg->getPerms();
+    } else if($topic_id > 0) {
+        $topic = getPermsById($topic_id);
+        $group_id = $topic->getGroupId();
+        $perms = $rootPostingPerms;
+    } else {
+        $group_id = 0;
+        $perms = $rootPostingPerms;
     }
-  $posting=new Posting($row);
-  setCachedValue('obj','entries',$id,$posting);
-  return $posting;
-  }
-else
-  return getRootPosting($grp,$topic_id,$up,$index1);
+    return new Posting(array('id'        => 0,
+                             'grp'       => $grp,
+                             'parent_id' => $topic_id,
+                             'up'        => $up > 0 ? $up : $topic_id,
+                             'user_id'   => $userId > 0 ? $userId : $realUserId,
+                             'group_id'  => $group_id,
+                             'perms'     => $perms,
+                             'index1'    => $index1,
+                             'sent'      => sqlNow()));
 }
 
-function getPostingId($grp=GRP_ALL,$index1=-1,$topic_id=-1)
-{
-/* эта функция может вызываться из structure.conf */
-$index1=(int)$index1;
-$topic_id=(int)$topic_id;
-
-$Where='entry='.ENT_POSTING;
-$Where.=' and '.postingsPermFilter(PERM_READ);
-$Where.=' and '.postingListGrpFilter($grp);
-$Where.=' and '.postingListTopicFilter($topic_id);
-if($index1>=0)
-  $Where.=" and index1=$index1";
-$result=sql("select id
-             from entries
-             where $Where",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function postingExists($id) {
+    $hide = postingsPermFilter(PERM_READ);
+    $result = sql("select id
+                   from entries
+                   where id=$id and entry=".ENT_POSTING." and $hide",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
 }
 
-function getVoteInfoByPostingId($id,$grp=GRP_ALL)
-{
-$result=sql("select id,vote,vote_count,rating
-             from entries
-             where id=$id",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? new Posting(mysql_fetch_assoc($result))
-                                 : new Posting(array('grp' => $grp));
+function getPostingById($id = -1, $grp = GRP_ALL, $topic_id = -1,
+                        $fields = SELECT_GENERAL, $up = -1, $index1 = 0) {
+    if ($id == '' || $id < 0)
+        return getRootPosting($grp, $topic_id, $up, $index1);
+    if ($fields == SELECT_GENERAL && hasCachedValue('obj', 'entries', $id))
+        return getCachedValue('obj', 'entries', $id);
+    $Select = postingListFields($fields);
+    $From = postingListTables($fields);
+    $result = sql("select $Select
+                   from $From
+                   where entries.id=$id",
+                  __FUNCTION__, 'shadow');
+    if (mysql_num_rows($result) > 0) {
+        $row = mysql_fetch_assoc($result);
+        if ($row['id'] != $row['orig_id']) {
+            $Select = origFields($fields);
+            $From = origTables($fields);
+            $result = sql("select $Select
+                           from $From
+                           where entries.id={$row['orig_id']}",
+                          __FUNCTION__, 'original');
+            $orig = mysql_num_rows($result) > 0
+                    ? mysql_fetch_assoc($result) : array();
+            $row = array_merge($row, $orig);
+        }
+        $posting = new Posting($row);
+        setCachedValue('obj', 'entries', $id, $posting);
+        return $posting;
+    } else {
+        return getRootPosting($grp, $topic_id, $up, $index1);
+    }
 }
 
-define('SIBLING_ID',1);
-define('SIBLING_INDEX',2);
+function getPostingId($grp = GRP_ALL, $index1 = -1, $topic_id = -1,
+                      $user_id = 0, $sort = SORT_SENT) {
+    /* эта функция может вызываться из structure.conf */
+    $index1 = (int) $index1;
+    $topic_id = (int) $topic_id;
 
-define('SIBLING_UNDEF',-1);
-define('SIBLING_EDGE',-2);
+    $Where = 'entry='.ENT_POSTING;
+    $Where .= ' and '.postingsPermFilter(PERM_READ);
+    $Where .= ' and '.postingListGrpFilter($grp);
+    $Where .= ' and '.postingListTopicFilter($topic_id);
+    $Where .= ' and '.postingListUserFilter($user_id);
+    if ($index1 >= 0)
+        $Where .= " and index1=$index1";
+    $Order = postingListOrder($sort);
+    $result = sql("select id
+                   from entries
+                   where $Where
+                   $Order
+                   limit 1",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
+}
+
+function getVoteInfoByPostingId($id, $grp = GRP_ALL) {
+    $result = sql("select id,vote,vote_count,rating
+                   from entries
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? new Posting(mysql_fetch_assoc($result))
+                                       : new Posting(array('grp' => $grp));
+}
+
+const SIBLING_ID = 1;
+const SIBLING_INDEX = 2;
+
+const SIBLING_UNDEF = -1;
+const SIBLING_EDGE = -2;
 
 function getSibling($grp=GRP_ALL,$topic_id=-1,$up=-1,$index0=SIBLING_UNDEF,
                     $index1=SIBLING_UNDEF,$next=true,$field=SIBLING_ID)
@@ -955,45 +958,44 @@ replaceTracks('entries',trackById('entries',$origId).' ',
 incContentVersions('postings');
 }
 
-function deletePosting($id)
-{
-$posting=getPostingById($id);
-if($id!=$posting->getOrigId())
-  {
-  deleteShadowPosting($id);
-  return;
-  }
-if(getPostingShadowCount($id)>1)
-  {
-  selectNewOrigPosting($id);
-  deleteShadowPosting($id);
-  return;
-  }
-$up=$posting->getUpValue();
-sql("update entries
-     set up=$up
-     where up=$id and entry<>".ENT_IMAGE." and entry<>".ENT_FORUM,
-    __FUNCTION__,'update_up');
-$result=sql("select id,small_image,small_image_format,
-                    large_image,large_image_format
-             from entries
-             where parent_id=$id or up=$id and entry=".ENT_IMAGE,
-            __FUNCTION__,'select_children');
-sql("delete from entries
-     where parent_id=$id or up=$id and entry=".ENT_IMAGE,
-    __FUNCTION__,'delete_children');
-sql("delete from inner_images
-     where entry_id=$id",
-    __FUNCTION__,'inner_images');
-$result=sql("select id
-             from entries
-             where up=$id and entry=".ENT_FORUM,
-            __FUNCTION__,'select_forum');
-while($row=mysql_fetch_assoc($result))
-     deleteForum($row['id']);
-updateCatalogs($posting->getTrack().' ');
-replaceTracks('entries',$posting->getTrack().' ',trackById('entries',$up).' ');
-deleteShadowPosting($id);
+function deletePosting($id) {
+    $posting = getPostingById($id);
+    if ($id != $posting->getOrigId()) {
+        deleteShadowPosting($id);
+        return;
+    }
+    if (getPostingShadowCount($id) > 1) {
+        selectNewOrigPosting($id);
+        deleteShadowPosting($id);
+        return;
+    }
+    unpublishPosting($posting);
+    $up = $posting->getUpValue();
+    sql("update entries
+         set up=$up
+         where up=$id and entry<>".ENT_IMAGE." and entry<>".ENT_FORUM,
+        __FUNCTION__, 'update_up');
+    $result = sql("select id,small_image,small_image_format,
+                          large_image,large_image_format
+                   from entries
+                   where parent_id=$id or up=$id and entry=".ENT_IMAGE,
+                  __FUNCTION__, 'select_children');
+    sql("delete from entries
+         where parent_id=$id or up=$id and entry=".ENT_IMAGE,
+        __FUNCTION__, 'delete_children');
+    sql("delete from inner_images
+         where entry_id=$id",
+        __FUNCTION__, 'inner_images');
+    $result = sql("select id
+                   from entries
+                   where up=$id and entry=".ENT_FORUM,
+                  __FUNCTION__, 'select_forum');
+    while ($row = mysql_fetch_assoc($result))
+        deleteForum($row['id']);
+    updateCatalogs($posting->getTrack().' ');
+    replaceTracks('entries', $posting->getTrack().' ',
+                  trackById('entries',$up).' ');
+    deleteShadowPosting($id);
 }
 
 function createPostingShadow($id)

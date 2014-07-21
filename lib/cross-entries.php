@@ -104,7 +104,7 @@ class CrossEntryIterator
 
     public function __construct($source_name = '', $source_id = 0,
                                 $link_type = LINKT_NONE) {
-        $filter = '';
+        $filter = '1';
         if ($source_name != '')
             $filter .= " and source_name='$source_name'";
         if ($source_id > 0)
@@ -116,7 +116,7 @@ class CrossEntryIterator
                 "select id,source_name,source_id,link_type,peer_name,peer_id,
                         peer_path,peer_subject,peer_icon
                  from cross_entries
-                 where 1 $filter
+                 where $filter
                  order by peer_icon,peer_subject");
     }
 
@@ -143,6 +143,24 @@ function storeCrossEntry(CrossEntry $cross) {
         $cross->setId(sql_insert_id());
     }
     return $result;
+}
+
+function getCrossEntry($link_type = LINKT_NONE, $source_id = 0, $peer_id = 0) {
+    $filter = '1';
+    if ($link_type != LINKT_NONE)
+        $filter .= " and link_type=$link_type";
+    if ($source_id > 0)
+        $filter .= " and source_id=$source_id";
+    if ($peer_id > 0)
+        $filter .= " and peer_id=$peer_id";
+    $result = sql("select id,source_name,source_id,link_type,peer_name,peer_id,
+                          peer_path,peer_subject,peer_icon
+                   from cross_entries
+                   where $filter
+                   limit 1",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0
+           ? new CrossEntry(mysql_fetch_assoc($result)) : null;
 }
 
 function deleteCrossEntry($id) {
