@@ -14,19 +14,19 @@ OBJECTS = addtoany.mhtml article.mhtml backtrace.mhtml banner-rabbi.mhtml \
 	  history.mhtml hit-parade.mhtml langselect.mhtml login.mhtml menu.mhtml \
 	  migdal-news.mhtml peruser.mhtml peruser-intros.mhtml picture.mhtml \
 	  picture-main.mhtml pointer.mhtml posting.mhtml posting-book.mhtml \
-	  posting-ear.mhtml posting-gallery-update.mhtml posting-general.mhtml \
-	  posting-peruser.mhtml posting-printing.mhtml posting-textear.mhtml \
-	  posting-times.mhtml posting-times-cover.mhtml posting-tip.mhtml \
-	  postings.mhtml postings-migdal-news.mhtml relogin.mhtml \
-	  seealso.mhtml spin.mhtml subtitle.mhtml textears.mhtml tip.mhtml \
-	  today.mhtml top.mhtml top-404.mhtml topics.mhtml topics-admin.mhtml \
-	  topics-book.mhtml topics-daily.mhtml topics-events.mhtml \
-	  topics-gallery-general.mhtml topics-gallery-major.mhtml \
-	  topics-gallery-migdal.mhtml topics-gallery-peruser.mhtml \
-	  topics-major.mhtml topics-migdal.mhtml topics-migdal-english.mhtml \
-	  topics-peruser.mhtml topics-times.mhtml topicselect.mhtml \
-	  tweetfeed.mhtml tzdaka.mhtml uploader.mhtml utils.mhtml vote.mhtml \
-	  xml-text.mhtml
+	  posting-ear.mhtml posting-gallery.mhtml posting-gallery-update.mhtml \
+	  posting-general.mhtml posting-peruser.mhtml posting-printing.mhtml \
+	  posting-textear.mhtml posting-times.mhtml posting-times-cover.mhtml \
+	  posting-tip.mhtml postings.mhtml postings-migdal-news.mhtml \
+	  relogin.mhtml seealso.mhtml spin.mhtml subtitle.mhtml textears.mhtml \
+	  tip.mhtml today.mhtml top.mhtml top-404.mhtml topics.mhtml \
+	  topics-admin.mhtml topics-book.mhtml topics-daily.mhtml \
+	  topics-events.mhtml topics-gallery-general.mhtml \
+	  topics-gallery-major.mhtml topics-gallery-migdal.mhtml \
+	  topics-gallery-peruser.mhtml topics-major.mhtml topics-migdal.mhtml \
+	  topics-migdal-english.mhtml topics-peruser.mhtml topics-times.mhtml \
+	  topicselect.mhtml tweetfeed.mhtml tzdaka.mhtml uploader.mhtml \
+	  utils.mhtml vote.mhtml xml-text.mhtml
 	  
 $(targetdir)/.stamp:
 	-mkdir -p $(targetdir)

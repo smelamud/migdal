@@ -200,7 +200,10 @@
 <decel name='posting_ear' file='parts/posting-ear.php'
        params='posting,showtopic,showdiscuss,shorten'
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
-<decel name='posting_gallery_update' file='parts/posting-gallery_update.php'
+<decel name='posting_gallery' file='parts/posting-gallery.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_gallery_update' file='parts/posting-gallery-update.php'
        params='posting,showtopic,showdiscuss,shorten'
        defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
 <decel name='posting_general' file='parts/posting-general.php'
