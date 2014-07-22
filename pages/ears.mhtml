@@ -3,19 +3,14 @@
 <int name='offset'>
 
 <element name='batcher' params='&list'>
-<table width=100%>
- <tr valign=bottom>
-  <td align=left class='info'>
-   <table><tr valign=center>
-    <td><image src='/pics/sheet.gif'></td>
-    <td>
-     <a href='/admin/ears/add/?redirid=$_'>Добавить ушко</a>
-    </td>
-   </tr></table>
-  </td>
-  <td align=center><spin list='$list'></td>
- </tr>
-</table>
+<div class='batcher'>
+ <div class='adder'>
+  <image src='/pics/sheet.gif'>&sp;
+  <a href='/admin/ears/add/?redirid=$_'>Добавить ушко</a>
+ </div>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
 </element>
 
 <element name='error_lines'>

@@ -17,17 +17,17 @@
 
 <element name='batcher' params='event,day'>
 <editor>
- <table class='info'><tr valign=center>
-  <td><image src='/pics/sheet.gif'></td>
-  <td>
+ <div class='batcher'>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
    <a href='/${event.Catalog}add-day?redirid=$_'>Добавить репортаж</a>
-  </td>
-  <td>&nbsp;</td>
-  <td><image src='/pics/sheet.gif'></td>
-  <td>
+  </div>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
    <a href='/${event.Catalog}day-$day/add-picture?redirid=$_'>Добавить картинку</a>
-  </td>
- </tr></table>
+  </div>
+  <div class='clear-floats'></div>
+ </div>
 </editor>
 </element>
 

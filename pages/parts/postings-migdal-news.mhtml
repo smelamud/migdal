@@ -3,23 +3,20 @@
 <grps>
 
 <element name='batcher' params='&list,topic_id,access'>
-<table width=100%><tr valign=bottom>
- <td align=left class='info'>
-  <table><tr valign=center>
-   <td><image src='/pics/sheet.gif'></td>
-   <td>
-    <catalog name='catalog' id='$topic_id'>
-    <a href='/${catalog}add-news?noguests=$access&redirid=$_'
-       >Добавить новость</a>,
-    <a href='/${catalog}add-article?noguests=$access&redirid=$_'
-       >статью</a>,
-    <a href='/${catalog}add-book?noguests=$access&redirid=$_'
-       >книгу</a>
-   </td>
-  </tr></table>
- </td>
- <td align=center><spin list='$list'></td>
-</tr></table>
+<div class='batcher'>
+ <div class='adder'>
+  <image src='/pics/sheet.gif'>&sp;
+  <catalog name='catalog' id='$topic_id'>
+  <a href='/${catalog}add-news?noguests=$access&redirid=$_'
+     >Добавить новость</a>,
+  <a href='/${catalog}add-article?noguests=$access&redirid=$_'
+     >статью</a>,
+  <a href='/${catalog}add-book?noguests=$access&redirid=$_'
+     >книгу</a>
+ </div>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
 </element>
 
 <element name='postings_migdal_news'>

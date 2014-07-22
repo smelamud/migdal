@@ -8,17 +8,17 @@
 
 <element name='batcher' params='topic_id'>
  <catalog name='catalog' id='$topic_id'>
- <table class='info'><tr valign=center>
-  <td><image src='/pics/sheet.gif'></td>
-  <td>
+ <div class='batcher'>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
    <a href='/${catalog}add-message?redirid=$_'>Добавить сообщение</a>
-  </td>
-  <td>&nbsp;</td>
-  <td><image src='/pics/sheet.gif'></td>
-  <td>
+  </div>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
    <a href='/${catalog}add-photo?redirid=$_'>Добавить фотографию</a>
-  </td>
- </tr></table>
+  </div>
+  <div class='clear-floats'></div>
+ </div>
 </element>
 
 <html>
@@ -36,7 +36,7 @@
     <require name='parts/peruser-intros.php'>
     <exec element='$intro_element'>
    </div>
-   <p><batcher topic_id='$topic_id'></p>
+   <batcher topic_id='$topic_id'>
    <peruser topic_id='$topic_id'>
    <rss>
   </td>

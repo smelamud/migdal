@@ -1,23 +1,18 @@
 << @(#) $Id$ >>
 
 <element name='batcher' params='&list,parent_id'>
-<table width=100%><tr valign=bottom>
+<div class='batcher'>
  <perms id='$parent_id'>
  <if what='$,isPostable'>
-  <td align=left class='info'>
-   <table><tr valign=center>
-    <td><image src='/pics/sheet.gif'></td>
-    <td>
-     <forum_obj id=0 parent_id='$parent_id'>
-     <a href='$,ParentHref/add/?redirid=$_'>Добавить комментарий</a>
-    </td>
-   </tr></table>
-  </td>
+  <div class='adder'>
+   <forum_obj id=0 parent_id='$parent_id'>
+   <image src='/pics/sheet.gif'>&sp;
+   <a href='$,ParentHref/add/?redirid=$_'>Добавить комментарий</a>
+  </div>
  </if>
- <td align=center>
-  <spin list='$list'>
- </td>
-</tr></table>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
 </element>
 
 <element name='forums'>

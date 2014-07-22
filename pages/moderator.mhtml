@@ -10,9 +10,10 @@
 <assign name='sort' value!='$sort!=*SORT_RSENT ? *SORT_SENT : *SORT_RSENT'>
 
 <element name='batcher' params='&list'>
-<center style='margin: 0; padding: 0'>
+<div class='batcher'>
  <spin list='$list'>
-</center>
+ <div class='clear-floats'></div>
+</div>
 </element>
 
 <element name='buttons'>

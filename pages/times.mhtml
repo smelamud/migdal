@@ -31,18 +31,17 @@
 
 <element name='batcher'>
 <editor>
- <table class='info'><tr valign=center>
-  <td><image src='/pics/sheet.gif'></td>
-  <td>
+ <div class='batcher'>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
    <a href='/times/$$issue/add/?redirid=$_'>Добавить статью</a>
-  </td>
-  <if what='$$issue>0'>
-   <td>&nbsp;</td>
-   <td>
+   <if what='$$issue>0'>
+    &nbsp;
     <a href='/times/$$issue/reorder/?redirid=$_'>Расставить</a>
-   </td>
-  </if>
- </tr></table>
+   </if>
+  </div>
+  <div class='clear-floats'></div>
+ </div>
 </editor>
 </element>
 
@@ -77,12 +76,13 @@
   <table width=100% cellspacing=0 cellpadding=5>
    <editor>
     <tr><td colspan=2>
-     <table class='info'><tr valign=center>
-      <td><image src='/pics/sheet.gif'></td>
-      <td>
+     <div class='batcher'>
+      <div class='adder'>
+       <image src='/pics/sheet.gif'>&sp;
        <a href='/times/add/?redirid=$_'>Добавить номер</a>
-      </td>
-     </tr></table>
+      </div>
+      <div class='clear-floats'></div>
+     </div>
     </td></tr>
    </editor>
    <tr><td colspan=2><select_issue></td></tr>
@@ -234,20 +234,19 @@
      <times_info>
     </div></td>
     <td>
-     <p>
      <batcher>
      <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`times`'
-			  recursive='*true' limit=0 sort='*SORT_INDEX0'
-			  index1!='$issue<0 ? 0 : $issue'>
+                          recursive='*true' limit=0 sort='*SORT_INDEX0'
+                          index1!='$issue<0 ? 0 : $issue'>
      <assign name='topicname' value=''>
      <for>
       <if what='$topicname!=$^.Comment0'>
        <assign name='topicname' value='$^.Comment0'>
        <ifne what='$topicname'>
         <table width=100% class='heading'><tr>
-	 <td align=left><image src='/pics/times-bullet.gif'></td>
-	 <td align=right>$=topicname</td>
-	</tr></table>
+         <td align=left><image src='/pics/times-bullet.gif'></td>
+         <td align=right>$=topicname</td>
+        </tr></table>
        </ifne>
       </if>
       <posting_times posting='$.' showtopic='*false' showdiscuss='*true'>

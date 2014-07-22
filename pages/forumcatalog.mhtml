@@ -6,24 +6,21 @@
 <log event=forumcatalog text#='offset=$offset'>
 
 <element name='batcher' params='&list'>
-<table width=100%><tr valign=bottom>
- <td align=left class='info'>
-  <table><tr valign=center>
-   <td><image src='/pics/sheet.gif'></td>
-   <td>
-    <a href='/forum/add/?redirid=$_'>Добавить тему</a>
-   </td>
-  </tr></table>
- </td>
- <td><spin list='$list'></td>
-</tr></table>
+<div class='batcher'>
+ <div class='adder'>
+  <image src='/pics/sheet.gif'>&sp;
+  <a href='/forum/add/?redirid=$_'>Добавить тему</a>
+ </div>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
 </element>
 
 <html>
  <preamble>
 
  <top ident='discuss'>
- <div style='padding: 5'>
+ <div style='padding: 5px'>
   <iterate_users_now name='list' period='30'>
   <b class='ninept'>Сейчас на сайте:</b>&sp;
   <ifnzero what='$;Count'>
@@ -42,7 +39,7 @@
    </zone>
    &sp;и <em>$,</em> $guests
   </ifnzero>
-  <br /><br />
+  <br />
   <html_cache ident#='forumcatalog-$offset' period!='3 * 60 * 60'
               depends='postings,forums'>
    <grp_diff name='grp' grp1='*GRP_ALL' grp2='*GRP_FORUMS'>

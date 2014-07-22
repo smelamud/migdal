@@ -1,28 +1,23 @@
 << @(#) $Id$ >>
 
 <element name='batcher' params='list,topic_id,noguests,noadd'>
-<table width=100%>
- <tr valign=bottom>
-  <if what='!$noadd'>
-   <td align=left class='info'>
-    <table><tr valign=center>
-     <td><image src='/pics/sheet.gif'></td>
-     <td>
-      <catalog name='catalog' id='$topic_id'>
-      <a href='/gallery/${catalog}add/?noguests=$noguests&redirid=$_'
-	 >Добавить картинку</a>
-     </td>
-    </tr></table>
-   </td>
-  </if>
-  <td align=center><spin list='$list'></td>
-  <td align=right class='eightpt'>
-   <b>Сортировать</b>
-   <navi_sort title='по дате' value='*SORT_PSENT'>|
-   <navi_sort title='по рейтингу' value='*SORT_RATING'>
-  </td>
- </tr>
-</table>
+<div class='batcher'>
+ <if what='!$noadd'>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
+   <catalog name='catalog' id='$topic_id'>
+   <a href='/gallery/${catalog}add/?noguests=$noguests&redirid=$_'
+    >Добавить картинку</a>
+  </div>
+ </if>
+ <div class='sorter'>
+  <b>Сортировать</b>
+  <navi_sort title='по дате' value='*SORT_PSENT'>|
+  <navi_sort title='по рейтингу' value='*SORT_RATING'>
+ </div>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
 </element>
 
 <element name='gallery'>
@@ -37,10 +32,12 @@
  <div style='display: none'>
   <for>
    <if what='$list.Position == $offset'>
+    <div class='clear-floats'></div>
     </div>
     <div class='pictures'>
    </if>
    <if what='$list.Position == $offset + $limit'>
+    <div class='clear-floats'></div>
     </div>
     <div style='display: none'>
    </if>
@@ -49,11 +46,10 @@
                    || $list.Position >= $offset + $limit'>
    <picture picture='$.' showtopic!='$topic_id<0' showdiscuss='*true'
             rel#='gallery-$topic_id' list_index!='$list.Position + 1'
-            list_size='$list.Size' hollow='$hollow'>
-   <if what='$;isEol'>
-    <br/>
-   </if>
+            list_size='$list.Size' hollow='$hollow' align='left'
+            noclear!='!$;isBol' nomargin='*true'>
   </for>
+  <div class='clear-floats'></div>
  </div>
  <batcher list='$pager' topic_id='$topic_id' noguests='$noguests' noadd='$noadd'>
 </ifnzero>

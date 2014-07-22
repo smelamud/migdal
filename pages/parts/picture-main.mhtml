@@ -2,14 +2,14 @@
 
 <element name='picture_main'>
 <table cellspacing=0 cellpadding=0 width=150>
- <tr valign='center'><td class='picture-main' align='center'>
-  &nbsp;
+ <tr valign='center'><td align='center'>
   <a href='$href'><asp>
    <ifne what='$image_href'>
     <asp><img border=0 src='$image_href'><asp>
+   <else>
+    <asp><img border=0 src='/pics/film.png'><asp>
    </ifne>
   <asp></a>
-  &nbsp;
  </td></tr>
  <tr><td align='center'>
   <biff time='$biff' small='*true'>

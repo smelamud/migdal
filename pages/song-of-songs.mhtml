@@ -7,16 +7,15 @@
 <log event=event text#='topic($,Id)'>
 
 <element name='batcher' params='topic_id,access'>
-<div style='width: 100%; padding: 5px' class='info'>
+<div class='batcher' style='margin: 1em'>
  <if what='$access'>
-  <table><tr valign=center>
-   <td><image src='/pics/sheet.gif'></td>
-   <td>
-    <catalog name='catalog' id='$topic_id'>
-    <a href='/${catalog}add?noguests=1&redirid=$_'>Добавить участника</a>
-   </td>
-  </tr></table>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
+   <catalog name='catalog' id='$topic_id'>
+   <a href='/${catalog}add?noguests=1&redirid=$_'>Добавить участника</a>
+  </div>
  </if>
+ <div class='clear-floats'></div>
 </div>
 </element>
 
