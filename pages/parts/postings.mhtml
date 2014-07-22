@@ -3,46 +3,44 @@
 <grps>
 
 <element name='batcher' params='&list,topic_id,grp,showadvert,access'>
-<table width=100%><tr valign=bottom>
- <td align=left class='info'>
-  <if what='$access || $showadvert'>
-   <table><tr valign=center>
-    <td><image src='/pics/sheet.gif'></td>
-    <td>
-     <assign name='noguests' value!='$access ? 0 : 1'>
-     <catalog name='catalog' id='$topic_id'>
-     <if what='$grp == *GRP_GALLERY'>
-      <assign name='catalog' value#='gallery/$catalog'>
-     </if>
-     <grp_valid grp='$grp'>
-     <if what='$,'>
-      <posting_new name='sample' grp='$grp'>
-      <a href='/${catalog}add?noguests=$noguests&redirid=$_'
-         >Добавить $sample.GrpWhat</a>
-     <else>
-      <notenglish>
-       <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
-          >Добавить новость</a>,
-       <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
-          >статью</a><asp>
-       <moderator>
-        <asp>,
-        <a href='/${catalog}add-book?noguests=$noguests&redirid=$_'
-           >книгу</a>
-       </moderator>
-      <else>
-       <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
-          >Add news</a>,
-       <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
-          >article</a>
-      </notenglish>
-     </if>
-    </td>
-   </tr></table>
-  </if>
- </td>
- <td align=center><spin list='$list'></td>
-</tr></table>
+<div class='batcher'>
+ <if what='$access || $showadvert'>
+  <div class='adder'>
+   <assign name='noguests' value!='$access ? 0 : 1'>
+   <catalog name='catalog' id='$topic_id'>
+   <if what='$grp == *GRP_GALLERY'>
+    <assign name='catalog' value#='gallery/$catalog'>
+   </if>
+   <grp_valid grp='$grp'>
+
+   <image src='/pics/sheet.gif'>&sp;
+   <if what='$,'>
+    <posting_new name='sample' grp='$grp'>
+    <a href='/${catalog}add?noguests=$noguests&redirid=$_'
+       >Добавить $sample.GrpWhat</a>
+   <else>
+    <notenglish>
+     <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
+        >Добавить новость</a>,
+     <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
+        >статью</a><asp>
+     <moderator>
+      <asp>,
+      <a href='/${catalog}add-book?noguests=$noguests&redirid=$_'
+         >книгу</a>
+     </moderator>
+    <else>
+     <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
+        >Add news</a>,
+     <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
+        >article</a>
+    </notenglish>
+   </if>
+  </div>
+ </if>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
 </element>
 
 <element name='postings'>

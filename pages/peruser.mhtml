@@ -6,6 +6,21 @@
 <grps>
 <log event=community text#='topic($topic_id)'>
 
+<element name='batcher' params='topic_id'>
+ <catalog name='catalog' id='$topic_id'>
+ <table class='info'><tr valign=center>
+  <td><image src='/pics/sheet.gif'></td>
+  <td>
+   <a href='/${catalog}add-message?redirid=$_'>Добавить сообщение</a>
+  </td>
+  <td>&nbsp;</td>
+  <td><image src='/pics/sheet.gif'></td>
+  <td>
+   <a href='/${catalog}add-photo?redirid=$_'>Добавить фотографию</a>
+  </td>
+ </tr></table>
+</element>
+
 <html>
  <preamble>
 
@@ -21,20 +36,7 @@
     <require name='parts/peruser-intros.php'>
     <exec element='$intro_element'>
    </div>
-   <p>
-    <catalog name='catalog' id='$topic_id'>
-    <table class='info'><tr valign=center>
-     <td><image src='/pics/sheet.gif'></td>
-     <td>
-      <a href='/${catalog}add-message?redirid=$_'>Добавить сообщение</a>
-     </td>
-     <td>&nbsp;</td>
-     <td><image src='/pics/sheet.gif'></td>
-     <td>
-      <a href='/${catalog}add-photo?redirid=$_'>Добавить фотографию</a>
-     </td>
-    </tr></table>
-   </p>
+   <p><batcher topic_id='$topic_id'></p>
    <peruser topic_id='$topic_id'>
    <rss>
   </td>
