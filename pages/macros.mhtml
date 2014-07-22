@@ -308,6 +308,8 @@
        params='posting'>
 <decel name='topics_gallery_veterans' file='parts/topics-gallery-general.php'
        params='posting'>
+<decel name='topics_general' file='parts/topics-major.php' params='index,base'
+       defaults="base=''">
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_kes' file='parts/topics-migdal.php' params='index,base'
