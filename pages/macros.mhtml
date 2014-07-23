@@ -308,8 +308,6 @@
        params='posting'>
 <decel name='topics_gallery_veterans' file='parts/topics-gallery-general.php'
        params='posting'>
-<decel name='topics_general' file='parts/topics-major.php' params='index,base'
-       defaults="base=''">
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_kes' file='parts/topics-migdal.php' params='index,base'
@@ -321,6 +319,8 @@
        file='parts/topics.php'>
 <decel name='topics_major' file='parts/topics-major.php' params='index,base'
        defaults="base=''">
+<decel name='topics_major_sub' file='parts/topics-major.php'
+       params='index,base' defaults="base=''">
 <decel name='topics_mazltov' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_methodology' file='parts/topics-migdal.php'
