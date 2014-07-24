@@ -7,7 +7,7 @@
    <image src='/pics/sheet.gif'>&sp;
    <catalog name='catalog' id='$topic_id'>
    <a href='/${catalog}add-picture/?noguests=$noguests&redirid=$_'
-    >Добавить картинку</a>
+    >Добавить фотографию</a>
   </div>
  </if>
  <div class='sorter'>

@@ -22,7 +22,7 @@
   <if what='in_array(*GRP_GALLERY,$grps)'>
    <asp>,
    <a href='/${catalog}add-picture?noguests=$access&redirid=$_'
-      >картинку</a><asp>
+      >фотографию</a><asp>
   </if>
   <if what='$$userModerator && in_array(*GRP_BOOKS,$grps)'>
    <asp>,

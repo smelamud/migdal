@@ -24,7 +24,8 @@
   </div>
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
-   <a href='/${event.Catalog}day-$day/add-picture?redirid=$_'>Добавить картинку</a>
+   <a href='/${event.Catalog}day-$day/add-picture?redirid=$_'
+      >Добавить фотографию</a>
   </div>
   <div class='clear-floats'></div>
  </div>
