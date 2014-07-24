@@ -9,31 +9,47 @@
    <assign name='noguests' value!='$access ? 0 : 1'>
    <catalog name='catalog' id='$topic_id'>
    <if what='$grp == *GRP_GALLERY'>
-    <assign name='catalog' value#='gallery/$catalog'>
+    <assign name='catalog' value#='${catalog}gallery/'>
    </if>
-   <grp_valid grp='$grp'>
 
+   <grp_valid grp='$grp'>
    <image src='/pics/sheet.gif'>&sp;
    <if what='$,'>
     <posting_new name='sample' grp='$grp'>
     <a href='/${catalog}add?noguests=$noguests&redirid=$_'
        >Добавить $sample.GrpWhat</a>
    <else>
+    <if what='$topic_id>0'>
+     <entry_grps name='grps' id='$topic_id'>
+    <else>
+     <grp_array name='grps' grp='*GRP_ALL'>
+    </if>
     <notenglish>
      <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
-        >Добавить новость</a>,
-     <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
-        >статью</a><asp>
-     <moderator>
+        >Добавить новость</a><asp>
+     <if what='in_array(*GRP_ARTICLES,$grps)'>
+      <asp>,
+      <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
+         >статью</a><asp>
+     </if>
+     <if what='in_array(*GRP_GALLERY,$grps)'>
+      <asp>,
+      <a href='/${catalog}add-picture?noguests=$noguests&redirid=$_'
+         >картинку</a><asp>
+     </if>
+     <if what='$$userModerator && in_array(*GRP_BOOKS,$grps)'>
       <asp>,
       <a href='/${catalog}add-book?noguests=$noguests&redirid=$_'
          >книгу</a>
-     </moderator>
+     </if>
     <else>
      <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
-        >Add news</a>,
-     <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
-        >article</a>
+        >Add news</a><asp>
+     <if what='in_array(*GRP_ARTICLES,$grps)'>
+      <asp>,
+      <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
+         >article</a>
+     </if>
     </notenglish>
    </if>
   </div>

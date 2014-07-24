@@ -57,7 +57,7 @@ while($$item{'_path_regex'}=~/{([^}]*)}/)
        SWITCH: {
                $$item{'_path_regex'}=~s/{([^}]*)}/(.+)/,last if $type eq 'path';
                $$item{'_path_regex'}=~s/{([^}]*)}/([^\\\/]+)/;
-	       }
+               }
        }
      else
        {
@@ -248,8 +248,8 @@ for my $sub(@{$$item{'_subs'}})
       {
       next unless $var=~/^(?:arg|id)\./ || $var eq 'parent.path'
                   || $var eq '_cond' || $var eq 'orig.path'
-		  || $var eq 'redirect.path'
-		  || $var=~/^link\.(?:id|name|icon)$/;
+                  || $var eq 'redirect.path'
+                  || $var=~/^link\.(?:id|name|icon)$/;
       $var="_$1" if $var=~/^((?:arg|id)\.\w+):\w+$/;
       $$item{$var}=~s/\${$sub}/"{\$m[$n]}"/ge;
       }
@@ -385,9 +385,9 @@ addItem($item);
 sub init
 {
 $|=1;
-GetOptions('help|h|?'	      => \&help,
+GetOptions('help|h|?'         => \&help,
            'output|o=s'       => \$outputFileName,
-           'version|v'	      => \&version);
+           'version|v'        => \&version);
 open OUT,">$outputFileName";
 readStructure;
 }
@@ -465,11 +465,11 @@ EOF
        next unless $key=~/^_id\.([\w:]*)$/;
        if(!$f)
          {
-	 print OUT <<EOF;
+         print OUT <<EOF;
   \$ids=array(
 EOF
-	 $f=1;
-	 }
+         $f=1;
+         }
        my $value=trimQuotes('"'.$$item{$key}.'"');
        print OUT <<EOF
   '$1' => $value,
@@ -488,11 +488,11 @@ EOF
        next unless $key=~/^_arg\.([\w:]*)$/;
        if(!$f)
          {
-	 print OUT <<EOF;
+         print OUT <<EOF;
   \$args=array(
 EOF
-	 $f=1;
-	 }
+         $f=1;
+         }
        my $value=trimQuotes('"'.$$item{$key}.'"');
        print OUT <<EOF
   '$1' => $value,

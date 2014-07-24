@@ -1,7 +1,7 @@
 - actions/bookupload.php
 - actions/checkcookies.php
 - actions/chmod.php
-- actions/crossentryadd.php
++ actions/crossentryadd.php
 - actions/crossentrydel.php
 + actions/ear.php
 - actions/entryrenew.php
@@ -50,7 +50,7 @@
 + lib/calendar-tables.php
 + lib/callbacks.php
 + lib/captcha.php
-- lib/catalog.php
++ lib/catalog.php
 + lib/charsets.php
 + lib/chat.php
 + lib/counters.php

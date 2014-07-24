@@ -6,7 +6,7 @@
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
    <catalog name='catalog' id='$topic_id'>
-   <a href='/gallery/${catalog}add/?noguests=$noguests&redirid=$_'
+   <a href='/${catalog}add-picture/?noguests=$noguests&redirid=$_'
     >Добавить картинку</a>
   </div>
  </if>

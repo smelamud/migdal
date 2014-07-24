@@ -5,7 +5,7 @@
 </element>
 
 <element name='topiclink'>
-<assign name='href' value#='$prefix$posting.GrpGeneralHref'>
+<assign name='href' value#='$prefix$posting.GrpGeneralHref$suffix'>
 <location_info path='$href'>
 <a href='$href' class='$class'>$=,TitleFull</a>
 </element>

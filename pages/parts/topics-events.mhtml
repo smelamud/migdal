@@ -24,3 +24,21 @@
  </topics_table>
 </html_cache>
 </element>
+
+<element name='topics_event'>
+<upper_level name='События' href='/migdal/events/'>
+<topic_obj name='topic' id='$base'>
+<topics_table title='$=topic.Subject'>
+ <html_cache ident#='topics_event-$base-$index' period!='3 * 60 * 60'
+             depends='postings,topics'>
+  <posting_last grp='*GRP_TAPE' topic_id='$topic.Id' recursive='*false'
+                as_guest='*true'>
+  <topics_line time='$,' text='Новости' href#='/$topic.Catalog'
+               arrow!="$index=='news'" class='topics-item ninept'>
+  <posting_last grp='*GRP_GALLERY' topic_id='$topic.Id' recursive='*false'
+                as_guest='*true'>
+  <topics_line time='$,' text='Галерея' href#='/${topic.Catalog}gallery/'
+               arrow!="$index=='gallery'" class='topics-item ninept'>
+ </html_cache>
+</topics_table>
+</element>

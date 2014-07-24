@@ -273,8 +273,8 @@
        defaults="transref=''">
 <decel name='top_404' file='parts/top-404.php'>
 <decel name='topiclink' file='parts/posting.php'
-       params='&posting,class,prefix'
-       defaults="class='posting-topic' prefix=''">
+       params='&posting,class,prefix,suffix'
+       defaults="class='posting-topic' prefix='' suffix=''">
 <decel name='topics' file='parts/topics.php'>
 <decel name='topics_admin' file='parts/topics-admin.php' params='index,base'
        defaults="base=''">
@@ -289,6 +289,8 @@
 <decel name='topics_daily' file='parts/topics-daily.php' params='index,base'
        defaults="base=''">
 <decel name='topics_dances' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_event' file='parts/topics-events.php' params='index,base'
        defaults="base=''">
 <decel name='topics_events' file='parts/topics-events.php' params='index,base'
        defaults="base=''">

@@ -304,7 +304,7 @@
  ?>
 </macro>
 
-<macro name='posting_catalog' defaults='start=0 length=0'>
+<macro name='entry_catalog' defaults='start=0 length=0'>
  <call name='%name' object='%entry' func='getCatalog' arg1='%start'
        arg2='%length'>
 </macro>

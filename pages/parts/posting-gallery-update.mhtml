@@ -2,7 +2,7 @@
 
 <element name='topic' params='posting,showtopic'>
 <if what='$showtopic'>
- <topiclink posting='$posting' prefix='/gallery'><br>
+ <topiclink posting='$posting' suffix='gallery/'><br>
 </if>
 </element>
 
@@ -14,7 +14,7 @@
   <biff time='$posting.Modified'>
   <array vals='фотография,фотографии,фотографий'>
   <plural value='$posting.Index1'>
-  <a class='posting-subject' href='/gallery$posting.GrpDetailsHref'>
+  <a class='posting-subject' href='$posting.GrpDetailsHref'>
    +$posting.Index1&sp;$,</a>
  </dt>
  <dd>
