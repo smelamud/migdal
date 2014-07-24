@@ -10,9 +10,9 @@ OBJECTS = 404.mhtml 500.mhtml archive.mhtml article.mhtml article-times.mhtml \
 	  chat-archive.mhtml chmod.mhtml cross-entries.mhtml cross-entry-add.mhtml \
 	  daily-news.mhtml ears.mhtml event.mhtml events.mhtml \
 	  events-english.mhtml forum.mhtml forumedit.mhtml forumcatalog.mhtml \
-	  gallery.mhtml gallery-main.mhtml groupadd.mhtml grouporg.mhtml \
-	  index-english.mhtml index-www.mhtml jcc.mhtml limedit.mhtml \
-	  liminsert.mhtml methodic-center.mhtml methodics.mhtml migdal.mhtml \
+	  gallery.mhtml groupadd.mhtml grouporg.mhtml index-english.mhtml \
+	  index-www.mhtml jcc.mhtml limedit.mhtml liminsert.mhtml \
+	  methodic-center.mhtml methodics.mhtml migdal.mhtml \
 	  migdal-library.mhtml migdal-library-novelties.mhtml migdal-news.mhtml \
 	  modbits.mhtml moderator.mhtml peruser.mhtml peruser-user.mhtml \
 	  posting.mhtml postingedit.mhtml postingorg.mhtml printings.mhtml \

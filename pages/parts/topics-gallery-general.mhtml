@@ -1,7 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='topics_gallery_general'>
-<topics_gallery_major index='$index' base='$base'>
-<topics_gallery_events index='$index' base='$base'>
-<topics_gallery_misc index='$index' base='$base'>
-</element>

@@ -140,8 +140,6 @@
        params='topic_id,rows,cols,offset,sort,user_id,noguests,noadd'
        defaults="rows=4 cols=5 offset=0 sort='*SORT_SENT' user_id=0
                  noguests='*false' noadd='*false'">
-<decel name='gallery_main' file='parts/gallery-main.php'
-       params='topic_id,offset' defaults='offset=0'>
 <decel name='grpselect' file='parts/grpselect.php'
        params='name,value,rows,multiple' defaults="rows=8 multiple='*false'">
 <decel name='hannukah' file='parts/hannukah.php'>
@@ -152,13 +150,6 @@
        params='grp,topic_id,title,later,limit,sort,showshadows'
        defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
                  limit=10 sort='*SORT_RATING' showshadows='*true'">
-<decel name='hit_parade_gallery' file='parts/hit-parade.php'
-       params='grp,topic_id,title,later,limit,sort,showshadows'
-       defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
-                 limit=10 sort='*SORT_RATING' showshadows='*true'">
-<decel name='hit_parade_gallery_month' file='parts/hit-parade.php'
-       params='grp,topic_id,showshadows'
-       defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
 <decel name='hit_parade_month' file='parts/hit-parade.php'
        params='grp,topic_id,showshadows'
        defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
@@ -294,22 +285,6 @@
        defaults="base=''">
 <decel name='topics_events' file='parts/topics-events.php' params='index,base'
        defaults="base=''">
-<decel name='topics_gallery_events' file='parts/topics-events.php'
-       params='index,base' defaults="base=''">
-<decel name='topics_gallery_general' file='parts/topics-gallery-general.php'
-       params='index,base' defaults="base=''">
-<decel name='topics_gallery_major' file='parts/topics-gallery-major.php'
-       params='index,base' defaults="base=''">
-<decel name='topics_gallery_migdal' file='parts/topics-gallery-migdal.php'
-       params='index,base' defaults="base=''">
-<decel name='topics_gallery_misc' file='parts/topics-gallery-major.php'
-       params='index,base' defaults="base=''">
-<decel name='topics_gallery_peruser' file='parts/topics-gallery-peruser.php'
-       params='index,base' defaults="base=''">
-<decel name='topics_gallery_taglit' file='parts/topics-gallery-general.php'
-       params='posting'>
-<decel name='topics_gallery_veterans' file='parts/topics-gallery-general.php'
-       params='posting'>
 <decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
        defaults="base=''">
 <decel name='topics_kes' file='parts/topics-migdal.php' params='index,base'

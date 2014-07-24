@@ -167,18 +167,13 @@ function trapGallery(array $args) {
         $topic_id = 175;
     if ($user_id <= 0)
         if ($topic_id <= 0)
-            return remakeMakeURI('/gallery/', $args, $rm);
+            return remakeMakeURI('/', $args, $rm);
         else {
             $topic = getTopicById(getNewId('topics', $topic_id));
             if ($topic->getId() > 0)
-                if ($general <= 0)
-                    return remakeMakeURI('/gallery/'.$topic->getCatalog(),
-                                         $args,
-                                         $rm);
-                else
-                    return remakeMakeURI('/'.$topic->getCatalog().'gallery/',
-                                         $args,
-                                         $rm);
+                return remakeMakeURI('/'.$topic->getCatalog().'gallery/',
+                                     $args,
+                                     $rm);
             else
                 return '';
         }
@@ -189,7 +184,7 @@ function trapGallery(array $args) {
         $user = getUserById($user_id);
         if ($user->getId() <= 0)
             return '';
-        return remakeMakeURI('/gallery/'.$topic->getCatalog().$user->getFolder().'/',
+        return remakeMakeURI('/'.$topic->getCatalog().$user->getFolder().'/',
                              $args,
                              $rm);
     }

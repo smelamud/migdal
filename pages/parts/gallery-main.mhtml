@@ -1,6 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='gallery_main'>
-<postings grp='*GRP_GALLERY_UPDATE' add_grp='*GRP_GALLERY' topic_id='$topic_id'
-          limit=20 offset='$offset' recursive='*true'>
-</element>

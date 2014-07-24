@@ -34,8 +34,6 @@
 	       time='$times_time'>
      <menuitem ident='discuss' alt='Форум' link='/forum/' current='$ident'
 	       time='$forums_time'>
-     <menuitem ident='gallery' alt='Галерея' link='/gallery/' current='$ident'
-	       time='$gallery_time'>
     <asp></td>
     <td align=right style='line-height: 1px'><asp>
      <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
