@@ -208,41 +208,53 @@
  </if>
 <elif what="$ident=='image'">
  <if what='$visible'>
-  <error id='*EP_IMAGE_ABSENT' text='Нужно указать картинку для отображения'>
+  <error id='*EP_IMAGE_ABSENT' text#='Нужно указать $editor.WhatSV'>
   <error id='*EIU_UNKNOWN_IMAGE'
-         text='Неизвестный формат картинки. Сайт понимает картинки только в
-	       форматах JPEG, PNG и GIF'>
-  <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
+         text#='Неизвестный формат $editor.WhatSR. Сайт понимает
+                $editor.WhatSVs только в форматах JPEG, PNG и GIF'>
+  <error id='*EIU_IMAGE_LARGE'
+         text#='$editor.WhatLI слишком велика (больше 2M)'>
   <error id='*EIU_THUMBNAIL_LARGE'
-         text='Маленькая картинка слишком велика (больше 2M)'>
+         text#='Маленькая $editor.WhatSI слишком велика (больше 2M)'>
   <error id='*EIU_UNKNOWN_THUMBNAIL'
-	 text='Формат маленькой картинки, указанный при конфигурации сервера,
-	       не поддерживается, либо вы загрузили картинку не этого формата'>
-  <error id='*EIU_INTERNAL_ERROR' text='Не удалось загрузить картинку'>
+         text#='Формат маленькой $editor.WhatSR, указанный при конфигурации
+                сервера, не поддерживается, либо вы загрузили $editor.WhatSV
+                не этого формата'>
+  <error id='*EIU_INTERNAL_ERROR' text#='Не удалось загрузить $editor.WhatSV'>
   <error id='*EP_LARGE_IMAGE_EXACT'
-         text#='Картинка должна быть размером ${editor.ImageExactX}x$editor.ImageExactY'>
+         text#='$editor.WhatLI должна быть размером
+                ${editor.ImageExactX}x$editor.ImageExactY'>
   <error id='*EP_LARGE_IMAGE_EXACT_X'
-         text#='Картинка должна быть шириной $editor.ImageExactX пикселов'>
+         text#='$editor.WhatLI должна быть шириной $editor.ImageExactX пикселов'>
   <error id='*EP_LARGE_IMAGE_EXACT_Y'
-         text#='Картинка должна быть высотой $editor.ImageExactY пикселов'>
+         text#='$editor.WhatLI должна быть высотой $editor.ImageExactY пикселов'>
   <error id='*EP_SMALL_IMAGE_EXACT'
-         text#='Уменьшенная картинка должна быть размером ${editor.ThumbExactX}x$editor.ThumbExactY'>
+         text#='Уменьшенная $editor.WhatSI должна быть размером
+                ${editor.ThumbExactX}x$editor.ThumbExactY'>
   <error id='*EP_SMALL_IMAGE_EXACT_X'
-         text#='Уменьшенная картинка должна быть шириной $editor.ThumbExactX пикселов'>
+         text#='Уменьшенная $editor.WhatSI должна быть шириной
+                $editor.ThumbExactX пикселов'>
   <error id='*EP_SMALL_IMAGE_EXACT_Y'
-         text#='Уменьшенная картинка должна быть высотой $editor.ThumbExactY пикселов'>
+         text#='Уменьшенная $editor.WhatSI должна быть высотой
+                $editor.ThumbExactY пикселов'>
   <error id='*EP_LARGE_IMAGE_MAX'
-         text#='Картинка должна быть размером не более ${editor.ImageMaxX}x$editor.ImageMaxY'>
+         text#='$editor.WhatLI должна быть размером не более
+                ${editor.ImageMaxX}x$editor.ImageMaxY'>
   <error id='*EP_LARGE_IMAGE_MAX_X'
-         text#='Картинка должна быть шириной не более $editor.ImageMaxX пикселов'>
+         text#='$editor.WhatLI должна быть шириной не более $editor.ImageMaxX
+                пикселов'>
   <error id='*EP_LARGE_IMAGE_MAX_Y'
-         text#='Картинка должна быть высотой не более $editor.ImageMaxY пикселов'>
+         text#='$editor.WhatLI должна быть высотой не более $editor.ImageMaxY
+                пикселов'>
   <error id='*EP_SMALL_IMAGE_MAX'
-         text#='Уменьшенная картинка должна быть размером не более ${editor.ThumbMaxX}x$editor.ThumbMaxY'>
+         text#='Уменьшенная $editor.WhatSI должна быть размером не более
+                ${editor.ThumbMaxX}x$editor.ThumbMaxY'>
   <error id='*EP_SMALL_IMAGE_MAX_X'
-         text#='Уменьшенная картинка должна быть шириной не более $editor.ThumbMaxX пикселов'>
+         text#='Уменьшенная $editor.WhatSI должна быть шириной не более
+                $editor.ThumbMaxX пикселов'>
   <error id='*EP_SMALL_IMAGE_MAX_Y'
-         text#='Уменьшенная картинка должна быть высотой не более $editor.ThumbMaxY пикселов'>
+         text#='Уменьшенная $editor.WhatSI должна быть высотой не более
+                $editor.ThumbMaxY пикселов'>
   <if what='$posting.hasSmallImage'>
    <hidden name='small_image' value='$posting.SmallImage'>
    <hidden name='small_image_x' value='$posting.SmallImageX'>

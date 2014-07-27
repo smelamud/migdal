@@ -53,45 +53,21 @@ function grpFilter($grp, $field = 'grp', $prefix = '') {
 
 class GrpEditor {
 
-    private $ident;
-    private $title;
-    private $comment;
-    private $mandatory;
-    private $style;
-    private $base;
-
-    private $imageExactX = 0;
-    private $imageExactY = 0;
-    private $imageMaxX = 0;
-    private $imageMaxY = 0;
-    private $thumbExactX = 0;
-    private $thumbExactY = 0;
-    private $thumbMaxX = 0;
-    private $thumbMaxY = 0;
+    private $properties = array();
 
     public function __construct(array $props) {
-        foreach($props as $key => $value)
-            $this->$key = $value;
+        $this->properties = /*clone*/ $props;
     }
 
-    public function getIdent() {
-        return $this->ident;
-    }
-
-    public function getTitle() {
-        return $this->title;
-    }
-
-    public function getComment() {
-        return $this->comment;
-    }
-
-    public function isMandatory() {
-        return $this->mandatory;
-    }
-
-    public function getStyle() {
-        return $this->style;
+    public function __call($name, $args) {
+        if (substr($name, 0, 3) == 'get') {
+            $pos = 3;
+        } elseif (substr($name, 0, 2) == 'is') {
+            $pos = 2;
+        } else {
+            trigger_error("Unknown method GrpEditor::$name()", E_USER_ERROR);
+        }
+        return $this->properties[lcfirst(substr($name, $pos))];
     }
 
     public function getImageStyle() {
@@ -102,42 +78,6 @@ class GrpEditor {
     public function getThumbnailStyle() {
         @list($thumbFlag, $imageFlag) = explode('-', $this->getStyle());
         return isset($thumbFlag) && $thumbFlag != '' ? $thumbFlag : 'auto';
-    }
-
-    public function getBase() {
-        return $this->base;
-    }
-
-    public function getImageExactX() {
-        return $this->imageExactX;
-    }
-
-    public function getImageExactY() {
-        return $this->imageExactY;
-    }
-
-    public function getImageMaxX() {
-        return $this->imageMaxX;
-    }
-
-    public function getImageMaxY() {
-        return $this->imageMaxY;
-    }
-
-    public function getThumbExactX() {
-        return $this->thumbExactX;
-    }
-
-    public function getThumbExactY() {
-        return $this->thumbExactY;
-    }
-
-    public function getThumbMaxX() {
-        return $this->thumbMaxX;
-    }
-
-    public function getThumbMaxY() {
-        return $this->thumbMaxY;
     }
 
 }
