@@ -13,18 +13,8 @@
 <else>
  <meta_noindex>
 </ifzero>
-<string name='notonly_href'>
 
 <log event=gallery text#='topic($topic_id) offset=$offset'>
-
-<element name='notonly'>
-<ifne what='$$notonly_href'>
- <div class='ninept'>
-  Этот раздел содержит не только фотографии.
-  <a href='$$notonly_href'>Увидеть раздел полностью.</a>
- </div>
-</ifne>
-</element>
 
 <html>
  <preamble>
@@ -40,7 +30,6 @@
   </td>
   <td class='cframe'>
    <subtitle>
-   <notonly>
    <p>
    <seealso_frame>
    <perms id='$topic_id'>
