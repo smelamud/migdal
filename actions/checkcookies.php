@@ -12,11 +12,22 @@ httpRequestString('faildir');
 httpRequestString('svalue');
 
 dbOpen();
-if(getSessionCookie()==$svalue)
-  header('Location: '.remakeURI($okdir,array('err')));
+if (getSessionCookie() == $svalue)
+    header(
+        'Location: '.
+        remakeURI(
+            $okdir,
+            array('err')
+        )
+    );
 else
-  header('Location: '.remakeURI($faildir,
-                                array(),
-		  	        array('err' => EL_NO_COOKIES)).'#error');
+    header(
+        'Location: '.
+        remakeURI(
+            $faildir,
+            array(),
+            array('err' => EL_NO_COOKIES)
+        ).'#error'
+    );
 dbClose();
 ?>

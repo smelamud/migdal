@@ -795,167 +795,163 @@ const SIBLING_INDEX = 2;
 const SIBLING_UNDEF = -1;
 const SIBLING_EDGE = -2;
 
-function getSibling($grp=GRP_ALL,$topic_id=-1,$up=-1,$index0=SIBLING_UNDEF,
-                    $index1=SIBLING_UNDEF,$next=true,$field=SIBLING_ID)
-{
-if($index0!=SIBLING_UNDEF)
-  {
-  $indexField='index0';
-  if($index0!=SIBLING_EDGE)
-    $filter=$next ? "index0>$index0" : "index0<$index0";
-  else
-    $filter='1';
-  if($index1!=SIBLING_UNDEF)
-    $filter.=" and index1=$index1";
-  }
-else
-  {
-  $indexField='index1';
-  if($index1!=SIBLING_EDGE)
-    $filter=$next ? "index1>$index1" : "index1<$index1";
-  else
-    $filter='1';
-  }
-$filter.=' and '.postingsPermFilter(PERM_READ);
-$filter.=' and '.postingListGrpFilter($grp);
-$filter.=' and '.postingListTopicFilter($topic_id,false);
-if($up>0)
-  $filter.=" and up=$up";
-$order=$next ? 'asc' : 'desc';
-$select=$field==SIBLING_ID ? 'id' : $indexField;
-$result=sql("select $select
-             from entries
-             where $filter
-             order by $indexField $order
-             limit 1",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getSibling($grp = GRP_ALL, $topic_id = -1, $up = -1,
+                    $index0 = SIBLING_UNDEF, $index1 = SIBLING_UNDEF,
+                    $next = true, $field = SIBLING_ID) {
+    if ($index0 != SIBLING_UNDEF) {
+        $indexField = 'index0';
+        if ($index0 != SIBLING_EDGE)
+            $filter = $next ? "index0>$index0" : "index0<$index0";
+        else
+            $filter = '1';
+        if ($index1 != SIBLING_UNDEF)
+            $filter .= " and index1=$index1";
+    } else {
+        $indexField = 'index1';
+        if ($index1 != SIBLING_EDGE)
+            $filter = $next ? "index1>$index1" : "index1<$index1";
+        else
+            $filter = '1';
+    }
+    $filter .= ' and '.postingsPermFilter(PERM_READ);
+    $filter .= ' and '.postingListGrpFilter($grp);
+    $filter .= ' and '.postingListTopicFilter($topic_id ,false);
+    if ($up > 0)
+        $filter .= " and up=$up";
+    $order = $next ? 'asc' : 'desc';
+    $select = $field == SIBLING_ID ? 'id' : $indexField;
+    $result = sql("select $select
+                   from entries
+                   where $filter
+                   order by $indexField $order
+                   limit 1",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function getSiblingId($grp=GRP_ALL,$topic_id=-1,$up=-1,$index0=SIBLING_UNDEF,
-                      $index1=SIBLING_UNDEF,$next=true)
-{
-return getSibling($grp,$topic_id,$up,$index0,$index1,$next,SIBLING_ID);
+function getSiblingId($grp = GRP_ALL, $topic_id = -1, $up = -1,
+                      $index0 = SIBLING_UNDEF, $index1 = SIBLING_UNDEF,
+                      $next = true) {
+    return getSibling($grp, $topic_id, $up, $index0, $index1, $next,
+                      SIBLING_ID);
 }
 
-function getSiblingIndex($grp=GRP_ALL,$topic_id=-1,$up=-1,$index0=SIBLING_UNDEF,
-                         $index1=SIBLING_UNDEF,$next=true)
-{
-return getSibling($grp,$topic_id,$up,$index0,$index1,$next,SIBLING_INDEX);
+function getSiblingIndex($grp = GRP_ALL, $topic_id = -1, $up = -1,
+                         $index0 = SIBLING_UNDEF, $index1 = SIBLING_UNDEF,
+                         $next = true) {
+    return getSibling($grp, $topic_id, $up, $index0, $index1, $next,
+                      SIBLING_INDEX);
 }
 
-function getPostingDomainCount($topic_id=-1,$recursive=false,$grp=GRP_ALL)
-{
-$hide='and '.postingsPermFilter(PERM_READ);
-$topicFilter=$topic_id>=0 ? 'and '.subtree('entries',$topic_id,$recursive) : '';
-$grpFilter='and '.grpFilter($grp);
-$result=sql("select count(distinct url_domain)
-             from entries
-             where entry=".ENT_POSTING." and id=orig_id $hide $topicFilter
-                   $grpFilter",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getPostingDomainCount($topic_id = -1, $recursive = false,
+                               $grp = GRP_ALL) {
+    $hide = 'and '.postingsPermFilter(PERM_READ);
+    $topicFilter = $topic_id >= 0
+                   ? 'and '.subtree('entries', $topic_id, $recursive) : '';
+    $grpFilter = 'and '.grpFilter($grp);
+    $result = sql("select count(distinct url_domain)
+                   from entries
+                   where entry=".ENT_POSTING." and id=orig_id $hide
+                         $topicFilter $grpFilter",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function isModbitRequired($topicModbits,$bit,$posting)
-{
-global $userId,$userModerator;
+function isModbitRequired($topicModbits, $bit, Posting $posting) {
+    global $userId, $userModerator;
 
-$required=($topicModbits & $bit)!=0;
-switch($bit)
-      {
-      case MODT_PREMODERATE:
-           $required=($posting->getId()==0 || $posting->isDisabled())
-                     && $required && $userId>0 && !$userModerator;
-           break;
-      case MODT_MODERATE:
-           $required=$required && !$userModerator;
-           break;
-      case MODT_EDIT:
-           $required=$required && !$userModerator;
-           break;
-      }
-return $required;
+    $required = ($topicModbits & $bit) != 0;
+    switch ($bit) {
+        case MODT_PREMODERATE:
+            $required = ($posting->getId() == 0 || $posting->isDisabled())
+                         && $required && $userId > 0 && !$userModerator;
+            break;
+
+        case MODT_MODERATE:
+            $required = $required && !$userModerator;
+            break;
+
+        case MODT_EDIT:
+            $required = $required && !$userModerator;
+            break;
+    }
+    return $required;
 }
 
-function setPremoderates(&$posting,$original,$required=MODT_ALL)
-{
-$tmod=getModbitsByTopicId($posting->getParentId());
-$tmod&=$required;
-if(isModbitRequired($tmod,MODT_PREMODERATE,$original))
-  {
-  setDisabledByEntryId($posting->getId(),1);
-  $posting->setDisabled(1);
-  }
-$modbits=MOD_NONE;
-if(isModbitRequired($tmod,MODT_MODERATE,$original))
-  $modbits|=MOD_MODERATE;
-if(isModbitRequired($tmod,MODT_EDIT,$original))
-  $modbits|=MOD_EDIT;
-setModbitsByEntryId($posting->getId(),$modbits);
-$posting->setModbits($modbits);
-incContentVersions('postings');
+function setPremoderates(Posting $posting, Posting $original,
+                         $required = MODT_ALL) {
+    $tmod = getModbitsByTopicId($posting->getParentId());
+    $tmod &= $required;
+    if (isModbitRequired($tmod, MODT_PREMODERATE, $original)) {
+        setDisabledByEntryId($posting->getId(), 1);
+        $posting->setDisabled(1);
+    }
+    $modbits = MOD_NONE;
+    if (isModbitRequired($tmod, MODT_MODERATE, $original))
+        $modbits |= MOD_MODERATE;
+    if (isModbitRequired($tmod, MODT_EDIT, $original))
+        $modbits |= MOD_EDIT;
+    setModbitsByEntryId($posting->getId(), $modbits);
+    $posting->setModbits($modbits);
+    incContentVersions('postings');
 }
 
-function deleteShadowPosting($id)
-{
-sql("delete from entries
-     where id=$id",
-    __FUNCTION__,'delete_posting');
-sql("delete from cross_entries
-     where source_id=$id or peer_id=$id",
-    __FUNCTION__,'delete_cross_postings');
-incContentVersions('postings');
+function deleteShadowPosting($id) {
+    sql("delete from entries
+         where id=$id",
+        __FUNCTION__, 'delete_posting');
+    sql("delete from cross_entries
+         where source_id=$id or peer_id=$id",
+        __FUNCTION__, 'delete_cross_postings');
+    incContentVersions('postings');
 }
 
-function getPostingShadowCount($origId)
-{
-$result=sql("select count(*)
-             from entries
-             where orig_id=$origId",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function getPostingShadowCount($origId) {
+    $result = sql("select count(*)
+                   from entries
+                   where orig_id=$origId",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function selectNewOrigPosting($origId)
-{
-$result=sql("select min(id)
-             from entries
-             where orig_id=$origId and id<>$origId",
-            __FUNCTION__,'find');
-if(mysql_num_rows($result)<=0)
-  return;
-$destId=mysql_result($result,0,0);
-sql("update entries
-     set up=$destId
-     where up=$origId",
-    __FUNCTION__,'update_up');
-sql("update entries
-     set parent_id=$destId
-     where parent_id=$origId",
-    __FUNCTION__,'update_parent_id');
-sql("update entries
-     set orig_id=$destId
-     where orig_id=$origId",
-    __FUNCTION__,'move');
-$fields=origFields(SELECT_ALLPOSTING);
-$result=sql("select $fields
-             from entries
-             where id=$origId",
-            __FUNCTION__,'get_fields');
-$row=mysql_num_rows($result)>0 ? mysql_fetch_assoc($result) : array();
-sql(sqlUpdate('entries',
-              $row,
-              array('id' => $destId)),
-    __FUNCTION__,'move_fields');
-sql("update inner_images
-     set entry_id=$destId
-     where entry_id=$origId",
-    __FUNCTION__,'inner_images');
-updateCatalogs(trackById('entries',$origId).' ');
-replaceTracks('entries',trackById('entries',$origId).' ',
-              trackById('entries',$destId).' ');
-incContentVersions('postings');
+function selectNewOrigPosting($origId) {
+    $result = sql("select min(id)
+                   from entries
+                   where orig_id=$origId and id<>$origId",
+                  __FUNCTION__, 'find');
+    if (mysql_num_rows($result) <= 0)
+        return;
+    $destId = mysql_result($result, 0, 0);
+    sql("update entries
+         set up=$destId
+         where up=$origId",
+        __FUNCTION__, 'update_up');
+    sql("update entries
+         set parent_id=$destId
+         where parent_id=$origId",
+        __FUNCTION__, 'update_parent_id');
+    sql("update entries
+         set orig_id=$destId
+         where orig_id=$origId",
+        __FUNCTION__, 'move');
+    $fields = origFields(SELECT_ALLPOSTING);
+    $result = sql("select $fields
+                   from entries
+                   where id=$origId",
+                  __FUNCTION__, 'get_fields');
+    $row = mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result) : array();
+    sql(sqlUpdate('entries',
+                  $row,
+                  array('id' => $destId)),
+        __FUNCTION__, 'move_fields');
+    sql("update inner_images
+         set entry_id=$destId
+         where entry_id=$origId",
+        __FUNCTION__, 'inner_images');
+    updateCatalogs(trackById('entries', $origId).' ');
+    replaceTracks('entries', trackById('entries', $origId).' ',
+                  trackById('entries', $destId).' ');
+    incContentVersions('postings');
 }
 
 function deletePosting($id) {
@@ -998,47 +994,45 @@ function deletePosting($id) {
     deleteShadowPosting($id);
 }
 
-function createPostingShadow($id)
-{
-global $userId,$realUserId;
+function createPostingShadow($id) {
+    global $userId,$realUserId;
 
-$result=sql("select entry,up,parent_id,orig_id,grp,person_id,guest_login,
-                    user_id,group_id,perms,disabled,lang,priority,index0,
-                    index1,index2,set0,set0_index,set1,set1_index,vote,
-                    vote_count,rating,sent,accessed,modbits,answers,
-                    last_answer,last_answer_id,last_answer_user_id,
-                    last_answer_guest_login
-             from entries
-             where id=$id",
-            __FUNCTION__,'select');
-if(mysql_num_rows($result)<=0)
-  return;
-$row=mysql_fetch_assoc($result);
-$row['created']=sqlNow();
-$row['modified']=sqlNow();
-$row['creator_id']=$userId>0 ? $userId : $realUserId;
-$row['modifier_id']=$row['creator_id'];
-sql(sqlInsert('entries',
-              $row),
-    __FUNCTION__,'insert');
-$shid=sql_insert_id();
-createTrack('entries',$shid);
-updateCatalogs(trackById('entries',$shid));
-incContentVersions('postings');
+    $result = sql("select entry,up,parent_id,orig_id,grp,person_id,guest_login,
+                          user_id,group_id,perms,disabled,lang,priority,index0,
+                          index1,index2,set0,set0_index,set1,set1_index,vote,
+                          vote_count,rating,sent,accessed,modbits,answers,
+                          last_answer,last_answer_id,last_answer_user_id,
+                          last_answer_guest_login
+                   from entries
+                   where id=$id",
+                  __FUNCTION__, 'select');
+    if (mysql_num_rows($result) <= 0)
+        return;
+    $row = mysql_fetch_assoc($result);
+    $row['created'] = sqlNow();
+    $row['modified'] = sqlNow();
+    $row['creator_id'] = $userId > 0 ? $userId : $realUserId;
+    $row['modifier_id'] = $row['creator_id'];
+    sql(sqlInsert('entries',
+                  $row),
+        __FUNCTION__, 'insert');
+    $shid = sql_insert_id();
+    createTrack('entries', $shid);
+    updateCatalogs(trackById('entries', $shid));
+    incContentVersions('postings');
 }
 
-function autoEnablePostings()
-{
-global $messageEnableTimeout;
+function autoEnablePostings() {
+    global $messageEnableTimeout;
 
-$now=sqlNow();
-$result=sql('select id
-             from entries
-             where entry='.ENT_POSTING.' and disabled<>0
-                   and (modbits & '.MOD_MODERATE.")<>0
-                   and modified+interval $messageEnableTimeout hour<'$now'",
-            __FUNCTION__);
-while($row=mysql_fetch_assoc($result))
-     setDisabledByEntryId($row['id'],0);
+    $now = sqlNow();
+    $result = sql('select id
+                   from entries
+                   where entry='.ENT_POSTING.' and disabled<>0
+                         and (modbits & '.MOD_MODERATE.")<>0
+                         and modified+interval $messageEnableTimeout hour<'$now'",
+                  __FUNCTION__);
+    while($row = mysql_fetch_assoc($result))
+        setDisabledByEntryId($row['id'], 0);
 }
 ?>

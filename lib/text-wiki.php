@@ -32,15 +32,15 @@ for($n=0;$n<strlen($s);$n++)
    if(!$intag && !$tag && $s[$n]==$foo
       && ($n==0 || (!$delim || is_delim($s[$n-1])) && $s[$n-1]!='&'
                                          # &#entity; combinations are
-					 # not replaced
+                                         # not replaced
                                                    && $s[$n-1]!=$foo)
       && $n!=strlen($s)-1 && (!$delim || !is_delim($s[$n+1]) || $s[$n+1]=='&'
                             || $s[$n+1]=='=' || $s[$n+1]=='~' || $s[$n+1]=='-'
-			    || $s[$n+1]=='<' || $s[$n+1]=='(' || $s[$n+1]=='[')
+                            || $s[$n+1]=='<' || $s[$n+1]=='(' || $s[$n+1]=='[')
                                          # word may start by entity or font
-					 # style markup or by dash or by tag
-					 # or by parenthesis or by bracket
-			&& $s[$n+1]!=$foo)
+                                         # style markup or by dash or by tag
+                                         # or by parenthesis or by bracket
+                        && $s[$n+1]!=$foo)
      {
      $c.=$bar;
      $tag=1;
@@ -48,8 +48,8 @@ for($n=0;$n<strlen($s);$n++)
    elseif(!$intag && $tag && $s[$n]==$foo
           && ($n==strlen($s) || (!$delim || is_delim($s[$n+1])))
           && $n!=0 && (!$delim || !is_space($s[$n-1])))
-	                                 # final punctuation is part
-					 # of the word
+                                         # final punctuation is part
+                                         # of the word
      {
      $c.=$_bar;
      $tag=0;
@@ -80,8 +80,8 @@ beginProfiling(POBJ_FUNCTION,'goFurther');
 if($end>$start)
   {
   $out.=preg_replace('/(^|[\s.,:;\(\)])(([^\s\(\)]+:\/)?\/[^\s&;]\S*[^\s.,:;\(\)&\\\\])/e',
-		     "'\\1'.getURLTag('\\2','\\2','\\3','\\2')",
-		     substr($in,$start,$end-$start));
+                     "'\\1'.getURLTag('\\2','\\2','\\3','\\2')",
+                     substr($in,$start,$end-$start));
   $start=$end;
   }
 $state=$target;
@@ -99,41 +99,41 @@ while($ed<strlen($s))
      {
      switch($state)
            {
-	   case 0:
-	        $ed=strpos($s,"'",$st);
+           case 0:
+                $ed=strpos($s,"'",$st);
                 $ed=$ed===false ? strlen($s) : $ed;
-		goFurther($c,$s,$st,$ed,$state,1);
-		break;
+                goFurther($c,$s,$st,$ed,$state,1);
+                break;
            case 1:
-	        $ed=$st+1;
-	        if($st!=0 && !is_delim($s[$st-1]))
-		  goFurther($c,$s,$st,$ed,$state);
-		else
-		  $state=2;
-		break;
-	   case 2:
-	        $ed=strpos($s,"'",$ed);
-		$ed=$ed===false ? strlen($s) : $ed+1;
-		$state=3;
-		break;
-	   case 3:
+                $ed=$st+1;
+                if($st!=0 && !is_delim($s[$st-1]))
+                  goFurther($c,$s,$st,$ed,$state);
+                else
+                  $state=2;
+                break;
+           case 2:
+                $ed=strpos($s,"'",$ed);
+                $ed=$ed===false ? strlen($s) : $ed+1;
+                $state=3;
+                break;
+           case 3:
                 if(!preg_match('/^\s+((\S+:\/)?\/[^\s&;]\S*[^\s.,:;\(\)&\\\\])/',
-		               substr($s,$ed),$matches))
-		  {
-		  $ed-=1;
-		  goFurther($c,$s,$st,$ed,$state);
-		  }
-		else
-		  $state=4;
-		break;
-	   case 4:
-	        $c.=getURLTag($matches[0],$matches[1],$matches[2],
-		              substr($s,$st+1,$ed-$st-2));
-	        $st=$ed+strlen($matches[0]);
-		$ed=$st;
-		$state=0;
-		break;
-	   }
+                               substr($s,$ed),$matches))
+                  {
+                  $ed-=1;
+                  goFurther($c,$s,$st,$ed,$state);
+                  }
+                else
+                  $state=4;
+                break;
+           case 4:
+                $c.=getURLTag($matches[0],$matches[1],$matches[2],
+                              substr($s,$st+1,$ed-$st-2));
+                $st=$ed+strlen($matches[0]);
+                $ed=$st;
+                $state=0;
+                break;
+           }
      }
 if($ed>$st)
   $c.=substr($s,$st,$ed-$st);
@@ -268,43 +268,43 @@ switch($format)
       {
       default:
       case TF_MAIL:
-	   if($dformat>=MTEXT_SHORT)
-	     $c=replaceQuoting($c);
+           if($dformat>=MTEXT_SHORT)
+             $c=replaceQuoting($c);
       case TF_PLAIN:
- 	   $c=globalReplaceURLs($c);
-	   if($dformat>=MTEXT_SHORT)
-	     {
-	     $c=replaceHeadings($c);
-	     $c=replaceCenter($c);
-	     $c=replaceParagraphs($c);
-	     }
-	   if($dformat>=MTEXT_LONG)
-	     $c=replaceFootnotes($c);
- 	   $c=str_replace("\n",'<br />',$c);
-	   $c=str_replace('\\\\','<br />',$c);
- 	   $c=flipReplace('_','<u>','</u>',$c);
- 	   $c=flipReplace('~','<b>','</b>',$c);
- 	   $c=flipReplace('=','<i>','</i>',$c);
- 	   $c=flipReplace('^','<sup>','</sup>',$c,false);
- 	   $c=flipReplace('#','<tt>','</tt>',$c);
-	   break;
+           $c=globalReplaceURLs($c);
+           if($dformat>=MTEXT_SHORT)
+             {
+             $c=replaceHeadings($c);
+             $c=replaceCenter($c);
+             $c=replaceParagraphs($c);
+             }
+           if($dformat>=MTEXT_LONG)
+             $c=replaceFootnotes($c);
+           $c=str_replace("\n",'<br />',$c);
+           $c=str_replace('\\\\','<br />',$c);
+           $c=flipReplace('_','<u>','</u>',$c);
+           $c=flipReplace('~','<b>','</b>',$c);
+           $c=flipReplace('=','<i>','</i>',$c);
+           $c=flipReplace('^','<sup>','</sup>',$c,false);
+           $c=flipReplace('#','<tt>','</tt>',$c);
+           break;
       case TF_TEX:
-	   $c=globalReplaceURLs($c);
-	   if($dformat>=MTEXT_SHORT)
-	     {
-	     $c=replaceHeadings($c);
-	     $c=replaceCenter($c);
-	     $c=replaceParagraphs($c);
-	     }
-	   if($dformat>=MTEXT_LONG)
-	     $c=replaceFootnotes($c);
-	   $c=str_replace('\\\\','<br />',$c);
-	   $c=flipReplace('_','<u>','</u>',$c);
-	   $c=flipReplace('~','<b>','</b>',$c);
-	   $c=flipReplace('=','<i>','</i>',$c);
- 	   $c=flipReplace('^','<sup>','</sup>',$c,false);
-	   $c=flipReplace('#','<tt>','</tt>',$c);
-	   break;
+           $c=globalReplaceURLs($c);
+           if($dformat>=MTEXT_SHORT)
+             {
+             $c=replaceHeadings($c);
+             $c=replaceCenter($c);
+             $c=replaceParagraphs($c);
+             }
+           if($dformat>=MTEXT_LONG)
+             $c=replaceFootnotes($c);
+           $c=str_replace('\\\\','<br />',$c);
+           $c=flipReplace('_','<u>','</u>',$c);
+           $c=flipReplace('~','<b>','</b>',$c);
+           $c=flipReplace('=','<i>','</i>',$c);
+           $c=flipReplace('^','<sup>','</sup>',$c,false);
+           $c=flipReplace('#','<tt>','</tt>',$c);
+           break;
       }
 endProfiling();
 return delicateAmps(cleanupXML($c));

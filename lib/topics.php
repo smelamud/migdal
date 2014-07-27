@@ -359,170 +359,164 @@ function storeTopic(Topic $topic) {
     return $result;
 }
 
-function getModbitsByTopicId($id)
-{
-global $rootTopicModbits;
+function getModbitsByTopicId($id) {
+    global $rootTopicModbits;
 
-$hide=topicsPermFilter(PERM_READ);
-$result=sql("select modbits
-             from entries
-             where id=$id and $hide",
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0)
-                                 : $rootTopicModbits;
+    $hide = topicsPermFilter(PERM_READ);
+    $result = sql("select modbits
+                   from entries
+                   where id=$id and $hide",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0)
+                                       : $rootTopicModbits;
 }
 
-function getTopicById($id,$up=0,$fields=SELECT_GENERAL,$asGuest=false)
-{
-global $userId,$userLogin,$userModerator,$rootTopicModbits,$rootTopicGroupName,
-       $rootTopicPerms;
+function getTopicById($id, $up = 0, $fields = SELECT_GENERAL,
+                      $asGuest = false) {
+    global $userId, $userLogin, $userModerator, $rootTopicModbits,
+           $rootTopicGroupName, $rootTopicPerms;
 
-if(hasCachedValue('obj','entries',$id))
-  return getCachedValue('obj','entries',$id);
-$mhide=$userModerator ? 2 : 1;
-$hide=topicsPermFilter(PERM_READ,'entries');
-$result=sql(
-       "select entries.id as id,entries.up as up,entries.track as track,
-               entries.catalog as catalog,entries.subject as subject,
-               entries.comment0 as comment0,
-               entries.comment0_xml as comment0_xml,
-               entries.comment1 as comment1,
-               entries.comment1_xml as comment1_xml,entries.body as body,
-               entries.body_xml as body_xml,entries.body_format as body_format,
-               entries.grp as grp,entries.modbits as modbits,
-               entries.ident as ident,entries.user_id as user_id,
-               users.login as login,users.gender as gender,users.email as email,
-               users.hide_email as hide_email,entries.group_id as group_id,
-               gusers.login as group_login,entries.perms as perms,
-               entries.index2 as index2
-        from entries
-             left join users
-                  on entries.user_id=users.id
-             left join users as gusers
-                  on entries.group_id=gusers.id
-        where entries.id=$id and $hide",
-       __FUNCTION__);
-if(mysql_num_rows($result)>0)
-  {
-  $row=mysql_fetch_assoc($result);
-  if(!is_null($row['ident']))
-    setCachedValue('ident','entries',$row['ident'],$row['id']);
-  $topic=new Topic($row); 
-  if(($fields & SELECT_TOPICS)!=0)
-    $topic->setSubCount(getSubtopicsCountById($id));
-  if(($fields & SELECT_GRPS)!=0)
-    $topic->setGrps(getGrpsByEntryId($id));
-  if(($fields & SELECT_INFO)!=0)
-    $topic->setPostingsInfo(getPostingsInfo(GRP_ALL,$id,GRP_NONE,0,false,
-                                            $asGuest));
-  setCachedValue('obj','entries',$id,$topic);
-  }
-else
-  if($up>0)
-    {
-    $topic=getTopicById($up,0,SELECT_GENERAL|SELECT_GRPS);
-    $modbits=$topic->getModbits() & ~(MODT_ROOT|MODT_TRANSPARENT);
-    $topic=new Topic(array('up'          => $topic->getId(),
-                           'grps'        => $topic->getGrps(),
-                           'modbits'     => $modbits,
-                           'user_id'     => $userId,
-                           'login'       => $userLogin,
-                           'group_id'    => $topic->getGroupId(),
-                           'group_login' => $topic->getGroupLogin(),
-                           'perms'       => $topic->getPerms()));
+    if (hasCachedValue('obj', 'entries', $id))
+         return getCachedValue('obj', 'entries', $id);
+    $mhide = $userModerator ? 2 : 1;
+    $hide = topicsPermFilter(PERM_READ, 'entries');
+    $result = sql(
+        "select entries.id as id,entries.up as up,entries.track as track,
+                entries.catalog as catalog,entries.subject as subject,
+                entries.comment0 as comment0,
+                entries.comment0_xml as comment0_xml,
+                entries.comment1 as comment1,
+                entries.comment1_xml as comment1_xml,entries.body as body,
+                entries.body_xml as body_xml,entries.body_format as body_format,
+                entries.grp as grp,entries.modbits as modbits,
+                entries.ident as ident,entries.user_id as user_id,
+                users.login as login,users.gender as gender,
+                users.email as email,users.hide_email as hide_email,
+                entries.group_id as group_id,gusers.login as group_login,
+                entries.perms as perms,entries.index2 as index2
+         from entries
+              left join users
+                   on entries.user_id=users.id
+              left join users as gusers
+                   on entries.group_id=gusers.id
+         where entries.id=$id and $hide",
+        __FUNCTION__);
+    if (mysql_num_rows($result) > 0) {
+        $row = mysql_fetch_assoc($result);
+        if (!is_null($row['ident']))
+            setCachedValue('ident', 'entries', $row['ident'], $row['id']);
+        $topic = new Topic($row); 
+        if (($fields & SELECT_TOPICS) != 0)
+            $topic->setSubCount(getSubtopicsCountById($id));
+        if (($fields & SELECT_GRPS) != 0)
+            $topic->setGrps(getGrpsByEntryId($id));
+        if (($fields & SELECT_INFO) != 0)
+            $topic->setPostingsInfo(
+                getPostingsInfo(GRP_ALL, $id, GRP_NONE, 0, false, $asGuest));
+        setCachedValue('obj', 'entries', $id, $topic);
+    } else {
+        if ($up > 0) {
+            $topic = getTopicById($up, 0, SELECT_GENERAL | SELECT_GRPS);
+            $modbits = $topic->getModbits() & ~(MODT_ROOT | MODT_TRANSPARENT);
+            $topic = new Topic(array(
+                'up'          => $topic->getId(),
+                'grps'        => $topic->getGrps(),
+                'modbits'     => $modbits,
+                'user_id'     => $userId,
+                'login'       => $userLogin,
+                'group_id'    => $topic->getGroupId(),
+                'group_login' => $topic->getGroupLogin(),
+                'perms'       => $topic->getPerms()));
+        } else {
+            $topic = new Topic(array(
+                'grps'        => grpArray(GRP_ALL),
+                'modbits'     => $rootTopicModbits,
+                'user_id'     => $userId,
+                'login'       => $userLogin,
+                'group_id'    => getUserIdByLogin($rootTopicGroupName),
+                'group_login' => $rootTopicGroupName,
+                'perms'       => $rootTopicPerms));
+        }
     }
-  else
-    $topic=new Topic(array('grps'        => grpArray(GRP_ALL),
-                           'modbits'     => $rootTopicModbits,
-                           'user_id'     => $userId,
-                           'login'       => $userLogin,
-                           'group_id'    => getUserIdByLogin($rootTopicGroupName),
-                           'group_login' => $rootTopicGroupName,
-                           'perms'       => $rootTopicPerms));
-return $topic;
+    return $topic;
 }
 
-function getTopicNameById($id)
-{
-if(hasCachedValue('name','entries',$id))
-  return getCachedValue('name','entries',$id);
-$hide=topicsPermFilter(PERM_READ);
-$result=sql("select id,up,subject
-             from entries
-             where id=$id and $hide",
-            __FUNCTION__);
-$topic=new Topic(mysql_num_rows($result)>0 ? mysql_fetch_assoc($result)
-                                           : array());
-setCachedValue('name','entries',$id,$topic);
-return $topic;
+function getTopicNameById($id) {
+    if (hasCachedValue('name', 'entries', $id))
+        return getCachedValue('name', 'entries', $id);
+    $hide = topicsPermFilter(PERM_READ);
+    $result = sql("select id,up,subject
+                   from entries
+                   where id=$id and $hide",
+                  __FUNCTION__);
+    $topic = new Topic(mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result)
+                                                   : array());
+    setCachedValue('name', 'entries', $id, $topic);
+    return $topic;
 }
 
-function getTopicFullNameById($id,$root=0,$delimiter=' :: ')
-{
-if($id==$root)
-  return '';
-$topic=getTopicNameById($id);
-if($topic->getUpValue()!=0 && $topic->getUpValue()!=$root)
-  return getTopicFullNameById($topic->getUpValue(),$root,$delimiter).$delimiter
-         .$topic->getSubject();
-else
-  return $topic->getSubject();
+function getTopicFullNameById($id, $root = 0, $delimiter = ' :: ') {
+    if ($id == $root)
+        return '';
+    $topic = getTopicNameById($id);
+    if ($topic->getUpValue() != 0 && $topic->getUpValue() != $root)
+        return getTopicFullNameById($topic->getUpValue(), $root, $delimiter).
+               $delimiter.$topic->getSubject();
+    else
+        return $topic->getSubject();
 }
 
-function getSubtopicsCountById($id,$recursive=false)
-{
-$id=idByIdent($id);
-$result=sql('select count(*)
-             from entries
-             where entry='.ENT_TOPIC.' and '
-                          .subtree('entries',$id,$recursive,'up'),
-            __FUNCTION__);
-return mysql_num_rows($result)>0
-       ? mysql_result($result,0,0)-($recursive ? 1 : 0) : 0;
+function getSubtopicsCountById($id, $recursive = false) {
+    $id = idByIdent($id);
+    $result = sql('select count(*)
+                   from entries
+                   where entry='.ENT_TOPIC.' and '
+                                .subtree('entries', $id, $recursive, 'up'),
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0
+           ? mysql_result($result, 0, 0) - ($recursive ? 1 : 0) : 0;
 }
 
-function topicExists($id)
-{
-$hide=topicsPermFilter(PERM_READ);
-$result=sql("select id
-             from entries
-             where id=$id and entry=".ENT_TOPIC." and $hide",
-            __FUNCTION__);
-return mysql_num_rows($result)>0;
+function topicExists($id) {
+    $hide = topicsPermFilter(PERM_READ);
+    $result = sql("select id
+                   from entries
+                   where id=$id and entry=".ENT_TOPIC." and $hide",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
 }
 
-function topicHasContent($id)
-{
-$result=sql("select count(*)
-             from entries
-             where (parent_id=$id or up=$id)
-                   and (entry=".ENT_TOPIC.' or entry='.ENT_POSTING.')',
-            __FUNCTION__);
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0)>0 : false;
+function topicHasContent($id) {
+    $result = sql("select count(*)
+                   from entries
+                   where (parent_id=$id or up=$id)
+                         and (entry=".ENT_TOPIC.' or entry='.ENT_POSTING.')',
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0
+           ? mysql_result($result, 0, 0) > 0 : false;
 }
 
-function deleteTopic($id,$destid)
-{
-$oldTrack=trackById('entries',$id);
-sql("delete from entries
-     where id=$id",
-    __FUNCTION__,'delete_topic');
-sql("delete from cross_entries
-     where source_id=$id or peer_id=$id",
-    __FUNCTION__,'delete_cross_topics');
-incContentVersions('topics');
-if($destid<=0)
-  return;
-sql("update entries
-     set up=$destid
-     where up=$id",
-    __FUNCTION__,'update_up');
-sql("update entries
-     set parent_id=$destid
-     where parent_id=$id",
-    __FUNCTION__,'update_parent_id');
-updateCatalogs($oldTrack.' ');
-replaceTracks('entries',$oldTrack.' ',trackById('entries',$destid).' ');
-incContentVersions('postings');
+function deleteTopic($id, $destid) {
+    $oldTrack = trackById('entries', $id);
+    sql("delete from entries
+         where id=$id",
+        __FUNCTION__, 'delete_topic');
+    sql("delete from cross_entries
+         where source_id=$id or peer_id=$id",
+        __FUNCTION__, 'delete_cross_topics');
+    incContentVersions('topics');
+    if ($destid <= 0)
+        return;
+    sql("update entries
+         set up=$destid
+         where up=$id",
+        __FUNCTION__, 'update_up');
+    sql("update entries
+         set parent_id=$destid
+         where parent_id=$id",
+        __FUNCTION__, 'update_parent_id');
+    updateCatalogs($oldTrack.' ');
+    replaceTracks('entries', $oldTrack.' ', trackById('entries', $destid).' ');
+    incContentVersions('postings');
 }
 ?>

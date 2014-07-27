@@ -125,28 +125,26 @@ class Forum
 
 }
 
-function forumPermFilter($right,$prefix='',$asGuest=false)
-{
-global $userModerator,$userId;
+function forumPermFilter($right, $prefix = '', $asGuest = false) {
+    global $userModerator, $userId;
 
-$eUserId=!$asGuest ? $userId : 0;
-$eUserModerator=!$asGuest ? $userModerator : 0;
+    $eUserId = !$asGuest ? $userId : 0;
+    $eUserModerator = !$asGuest ? $userModerator : 0;
 
-if($eUserModerator)
-  return '1';
-$filter=permFilter($right,$prefix,$asGuest);
-if($prefix!='' && substr($prefix,-1)!='.')
-  $prefix.='.';
-return "$filter and (${prefix}disabled=0".
-       ($eUserId>0 ? " or ${prefix}user_id=$eUserId)" : ')');
+    if ($eUserModerator)
+        return '1';
+    $filter = permFilter($right, $prefix, $asGuest);
+    if ($prefix != '' && substr($prefix, -1) != '.')
+        $prefix .= '.';
+    return "$filter and (${prefix}disabled=0".
+           ($eUserId > 0 ? " or ${prefix}user_id=$eUserId)" : ')');
 }
 
-function forumListFilter($parent_id)
-{
-$Filter='entry='.ENT_FORUM;
-$Filter.=' and '.forumPermFilter(PERM_READ);
-$Filter.=" and parent_id=$parent_id";
-return $Filter;
+function forumListFilter($parent_id) {
+    $Filter = 'entry='.ENT_FORUM;
+    $Filter .= ' and '.forumPermFilter(PERM_READ);
+    $Filter .= " and parent_id=$parent_id";
+    return $Filter;
 }
 
 class ForumListIterator
@@ -201,173 +199,167 @@ class ForumListIterator
 
 }
 
-function storeForum(Forum $forum)
-{
-global $userId,$realUserId,$forumPremoderate;
+function storeForum(Forum $forum) {
+    global $userId, $realUserId, $forumPremoderate;
 
-$vars=array('entry' => $forum->getEntry(),
-            'modified' => sqlNow(),
-            'modifier_id' => $userId>0 ? $userId : $realUserId,
-            'subject' => $forum->getSubject(),
-	    'author' => $forum->getAuthor(),
-	    'author_xml' => $forum->getAuthorXML(),
-	    'body' => $forum->getBody(),
-	    'body_xml' => $forum->getBodyXML(),
-	    'body_format' => $forum->getBodyFormat(),
-	    'small_image' => $forum->getSmallImage(),
-	    'small_image_x' => $forum->getSmallImageX(),
-	    'small_image_y' => $forum->getSmallImageY(),
-	    'small_image_format' => $forum->getSmallImageFormat(),
-	    'large_image' => $forum->getLargeImage(),
-	    'large_image_x' => $forum->getLargeImageX(),
-	    'large_image_y' => $forum->getLargeImageY(),
-	    'large_image_size' => $forum->getLargeImageSize(),
-	    'large_image_format' => $forum->getLargeImageFormat(),
-	    'large_image_filename' => $forum->getLargeImageFilename(),
-	    'guest_login' => $forum->getGuestLogin(),
-	    'user_id' => $forum->getUserId(),
-	    'group_id' => $forum->getGroupId(),
-	    'perms' => $forum->getPerms(),
-            'up' => $forum->getUpValue(),
-	    'parent_id' => $forum->getParentId());
-if($userModerator)
-  $vars=array_merge($vars,
-		    array('disabled' => $forum->isDisabled(),
-			  'priority' => $forum->getPriority()));
-else
-  if($forumPremoderate && $forum->getId()<=0)
-    $vars['disabled']=true;
-if($forum->getId())
-  {
-  $forum->setTrack(trackById('entries',$forum->getId()));
-  $result=sql(sqlUpdate('entries',
-			$vars,
-			array('id' => $forum->getId())),
-	      __FUNCTION__,'update');
-  updateCatalogs($forum->getTrack());
-  replaceTracksToUp('entries',$forum->getTrack(),$forum->getUpValue(),
-                    $forum->getId());
-  }
-else
-  {
-  $vars['sent']=sqlNow();
-  $vars['created']=sqlNow();
-  $vars['creator_id']=$vars['modifier_id'];
-  $vars['track']=(string) time();
-  $result=sql(sqlInsert('entries',
-                        $vars),
-	      __FUNCTION__,'insert');
-  $forum->setId(sql_insert_id());
-  createTrack('entries',$forum->getId());
-  updateCatalogs(trackById('entries',$forum->getId()));
-  }
-answerUpdate($forum->getParentId());
-incContentVersions('forums');
-return $result;
-}
-
-function forumExists($id)
-{
-$hide=forumPermFilter(PERM_READ);
-$result=sql("select id
-	     from entries
-	     where id=$id and entry=".ENT_FORUM." and $hide",
-	    __FUNCTION__);
-return mysql_num_rows($result)>0;
-}
-
-function getForumById($id,$parent_id=0,$quote='',$quoteWidth=77)
-{
-global $userId,$realUserId;
-
-$hide=forumPermFilter(PERM_READ);
-$result=sql("select entries.id as id,track,subject,author,author_xml,body,
-                    body_xml,body_format,guest_login,user_id,group_id,perms,
-		    small_image,small_image_x,small_image_y,small_image_format,
-                    large_image,large_image_x,large_image_y,large_image_size,
-		    large_image_format,large_image_filename,up,parent_id,
-		    disabled,sent,entries.created as created,
-		    entries.modified as modified,users.login as login,
-		    users.gender as gender,users.email as email,
-		    users.hide_email as hide_email,users.hidden as user_hidden,
-		    users.guest as user_guest
-	     from entries
-		  left join users
-		       on entries.user_id=users.id
-	     where entries.id=$id and $hide",
-	    __FUNCTION__);
-if(mysql_num_rows($result)>0)
-  {
-  $row=mysql_fetch_assoc($result);
-  $row['parent_type']=getTypeByEntryId($row['parent_id']);
-  setCachedValue('track','entries',$row['id'],$row['track']);
-  return new Forum($row);
-  }
-else
-  {
-  global $rootForumPerms;
-
-  if($parent_id>0)
-    {
-    $perms=getPermsById($parent_id);
-    $group_id=$perms->getGroupId();
+    $vars = array(
+        'entry' => $forum->getEntry(),
+        'modified' => sqlNow(),
+        'modifier_id' => $userId > 0 ? $userId : $realUserId,
+        'subject' => $forum->getSubject(),
+        'author' => $forum->getAuthor(),
+        'author_xml' => $forum->getAuthorXML(),
+        'body' => $forum->getBody(),
+        'body_xml' => $forum->getBodyXML(),
+        'body_format' => $forum->getBodyFormat(),
+        'small_image' => $forum->getSmallImage(),
+        'small_image_x' => $forum->getSmallImageX(),
+        'small_image_y' => $forum->getSmallImageY(),
+        'small_image_format' => $forum->getSmallImageFormat(),
+        'large_image' => $forum->getLargeImage(),
+        'large_image_x' => $forum->getLargeImageX(),
+        'large_image_y' => $forum->getLargeImageY(),
+        'large_image_size' => $forum->getLargeImageSize(),
+        'large_image_format' => $forum->getLargeImageFormat(),
+        'large_image_filename' => $forum->getLargeImageFilename(),
+        'guest_login' => $forum->getGuestLogin(),
+        'user_id' => $forum->getUserId(),
+        'group_id' => $forum->getGroupId(),
+        'perms' => $forum->getPerms(),
+        'up' => $forum->getUpValue(),
+        'parent_id' => $forum->getParentId()
+    );
+    if ($userModerator)
+        $vars = array_merge(
+            $vars,
+            array(
+                'disabled' => $forum->isDisabled(),
+                'priority' => $forum->getPriority()
+            )
+        );
+    else
+        if ($forumPremoderate && $forum->getId() <= 0)
+            $vars['disabled'] = true;
+    if ($forum->getId()) {
+        $forum->setTrack(trackById('entries', $forum->getId()));
+        $result = sql(sqlUpdate('entries',
+                                $vars,
+                                array('id' => $forum->getId())),
+                      __FUNCTION__, 'update');
+        updateCatalogs($forum->getTrack());
+        replaceTracksToUp('entries', $forum->getTrack(), $forum->getUpValue(),
+                          $forum->getId());
+    } else {
+        $vars['sent'] = sqlNow();
+        $vars['created'] = sqlNow();
+        $vars['creator_id'] = $vars['modifier_id'];
+        $vars['track'] = (string) time();
+        $result = sql(sqlInsert('entries',
+                                $vars),
+                      __FUNCTION__, 'insert');
+        $forum->setId(sql_insert_id());
+        createTrack('entries', $forum->getId());
+        updateCatalogs(trackById('entries', $forum->getId()));
     }
-  else
-    $group_id=0;
-  return new Forum(array('parent_id'   => $parent_id,
-                         'parent_type' => getTypeByEntryId($parent_id),
-			 'body'        => $quote!=''
-					  ? getQuote($quote,$quoteWidth)
-					  : '',
-			 'user_id'     => $userId>0 ? $userId : $realUserId,
-			 'group_id'    => $group_id,
-			 'perms'       => $rootForumPerms));
-  }
+    answerUpdate($forum->getParentId());
+    incContentVersions('forums');
+    return $result;
 }
 
-function getForumListOffset($parent_id,$id,$sort=SORT_SENT)
-{
-$Filter=forumListFilter($parent_id);
-$conds=array(SORT_SENT  => array('field' => 'sent',
-                                 'condition' => "sent > '%s'"),
-             SORT_RSENT => array('field' => 'sent',
-                                 'condition' => "sent < '%s'"));
-$field=$conds[$sort]['field'];
-$result=sql("select $field
-             from entries
-	     where id=$id",
-	    __FUNCTION__,'find');
-$value=mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
-$Filter.=' and '.sprintf($conds[$sort]['condition'],$value);
-$result=sql("select count(*)
-	     from entries
-	     where $Filter",
-	    __FUNCTION__,'count');
-return mysql_num_rows($result)>0 ? mysql_result($result,0,0) : 0;
+function forumExists($id) {
+    $hide = forumPermFilter(PERM_READ);
+    $result = sql("select id
+                   from entries
+                   where id=$id and entry=".ENT_FORUM." and $hide",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0;
 }
 
-function deleteForum($id)
-{
-$forum=getForumById($id);
-$up=$forum->getUpValue();
-sql("update entries
-     set up=$up
-     where up=$id",
-    __FUNCTION__,'children');
-sql("delete from entries
-     where id=$id",
-    __FUNCTION__,'delete');
-updateCatalogs($forum->getTrack());
-replaceTracks('entries',$forum->getTrack(),trackById('entries',$up));
-answerUpdate($forum->getParentId());
-incContentVersions('forums');
+function getForumById($id, $parent_id = 0, $quote = '', $quoteWidth = 77) {
+    global $userId, $realUserId;
+
+    $hide = forumPermFilter(PERM_READ);
+    $result = sql("select entries.id as id,track,subject,author,author_xml,body,
+                          body_xml,body_format,guest_login,user_id,group_id,
+                          perms,small_image,small_image_x,small_image_y,
+                          small_image_format,large_image,large_image_x,
+                          large_image_y,large_image_size,large_image_format,
+                          large_image_filename,up,parent_id,disabled,sent,
+                          entries.created as created,
+                          entries.modified as modified,users.login as login,
+                          users.gender as gender,users.email as email,
+                          users.hide_email as hide_email,
+                          users.hidden as user_hidden,users.guest as user_guest
+                   from entries
+                        left join users
+                             on entries.user_id=users.id
+                   where entries.id=$id and $hide",
+                  __FUNCTION__);
+    if (mysql_num_rows($result) > 0) {
+        $row = mysql_fetch_assoc($result);
+        $row['parent_type'] = getTypeByEntryId($row['parent_id']);
+        setCachedValue('track', 'entries', $row['id'], $row['track']);
+        return new Forum($row);
+    } else {
+        global $rootForumPerms;
+
+        if ($parent_id > 0) {
+            $perms = getPermsById($parent_id);
+            $group_id = $perms->getGroupId();
+        } else {
+            $group_id = 0;
+        }
+        return new Forum(array(
+            'parent_id'   => $parent_id,
+            'parent_type' => getTypeByEntryId($parent_id),
+            'body'        => $quote != '' ? getQuote($quote, $quoteWidth) : '',
+            'user_id'     => $userId > 0 ? $userId : $realUserId,
+            'group_id'    => $group_id,
+            'perms'       => $rootForumPerms
+        ));
+    }
 }
 
-function renewForum($id)
-{
-renewEntry($id);
-$parent_id=getParentByEntryId($id);
-answerUpdate($parent_id);
-incContentVersions('forums');
+function getForumListOffset($parent_id, $id, $sort = SORT_SENT) {
+    $Filter = forumListFilter($parent_id);
+    $conds = array(SORT_SENT  => array('field' => 'sent',
+                                       'condition' => "sent > '%s'"),
+                   SORT_RSENT => array('field' => 'sent',
+                                       'condition' => "sent < '%s'"));
+    $field = $conds[$sort]['field'];
+    $result = sql("select $field
+                   from entries
+                   where id=$id",
+                  __FUNCTION__, 'find');
+    $value = mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
+    $Filter .= ' and '.sprintf($conds[$sort]['condition'], $value);
+    $result = sql("select count(*)
+                   from entries
+                   where $Filter",
+                  __FUNCTION__, 'count');
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
+}
+
+function deleteForum($id) {
+    $forum = getForumById($id);
+    $up = $forum->getUpValue();
+    sql("update entries
+         set up=$up
+         where up=$id",
+        __FUNCTION__, 'children');
+    sql("delete from entries
+         where id=$id",
+        __FUNCTION__, 'delete');
+    updateCatalogs($forum->getTrack());
+    replaceTracks('entries', $forum->getTrack(), trackById('entries', $up));
+    answerUpdate($forum->getParentId());
+    incContentVersions('forums');
+}
+
+function renewForum($id) {
+    renewEntry($id);
+    $parent_id = getParentByEntryId($id);
+    answerUpdate($parent_id);
+    incContentVersions('forums');
 }
 ?>

@@ -1,10 +1,10 @@
 - actions/bookupload.php
-- actions/checkcookies.php
++ actions/checkcookies.php
 - actions/chmod.php
 + actions/crossentryadd.php
 - actions/crossentrydel.php
 + actions/ear.php
-- actions/entryrenew.php
++ actions/entryrenew.php
 - actions/forumdel.php
 + actions/forummod.php
 + actions/goto-href.php
@@ -12,7 +12,7 @@
 + actions/goto-topic.php
 - actions/groupadd.php
 - actions/groupdel.php
-- actions/hide.php
++ actions/hide.php
 + actions/limdel.php
 + actions/limmod.php
 + actions/link.php
@@ -65,7 +65,7 @@
 + lib/errorreporting.php
 + lib/errors.php
 + lib/exec.php
-- lib/forums.php
++ lib/forums.php
 + lib/fuzzy-calendar.php
 - lib/gregor-calendar.php
 + lib/groups.php
@@ -109,7 +109,7 @@
 + lib/permissions.php
 + lib/perm.php
 + lib/postings-info.php
-- lib/postings.php
++ lib/postings.php
 + lib/postings-random.php
 + lib/post.php
 + lib/prisoners.php
@@ -121,7 +121,7 @@
 + lib/run-script.php
 + lib/selectiterator.php
 + lib/select.php
-- lib/session.php
++ lib/session.php
 + lib/sessions.php
 + lib/settings.php
 + lib/sort.php
@@ -137,7 +137,7 @@
 + lib/text-xml.php
 + lib/time.php
 + lib/tmptexts.php
-- lib/topics.php
++ lib/topics.php
 + lib/track.php
 + lib/unix-calendar.php
 + lib/uri.php
