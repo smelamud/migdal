@@ -140,10 +140,11 @@ function forumPermFilter($right, $prefix = '', $asGuest = false) {
            ($eUserId > 0 ? " or ${prefix}user_id=$eUserId)" : ')');
 }
 
-function forumListFilter($parent_id) {
+function forumListFilter($parent_id = -1) {
     $Filter = 'entry='.ENT_FORUM;
     $Filter .= ' and '.forumPermFilter(PERM_READ);
-    $Filter .= " and parent_id=$parent_id";
+    if ($parent_id >= 0)
+        $Filter .= " and parent_id=$parent_id";
     return $Filter;
 }
 

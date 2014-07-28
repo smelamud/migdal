@@ -43,6 +43,10 @@
          params='parent_id,limit,offset,sort,disabled'
 	 defaults="parent_id=0 limit=10 offset=0 sort='*SORT_SENT'
 	           disabled='-1'">
+<deciter macro='forum_or_postinglist' class='ForumOrPostingListIterator'
+         file='lib/forums-postings.php'
+         params='grp,limit,offset,sort,as_guest'
+	 defaults="limit=10 offset=0 sort='*SORT_SENT' as_guest='*true'">
 <deciter macro='grp_editor' class='GrpEditorIterator' file='lib/grps.php'
          params='grp,inverse' defaults="grp='*GRP_NONE' inverse='*false'">
 <deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>

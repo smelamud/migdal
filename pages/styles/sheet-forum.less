@@ -39,3 +39,43 @@
         padding-left: 5px;
     }
 }
+
+.discussions {
+
+    .item {
+        font-size: 8pt;
+        margin-bottom: 1ex;
+
+        .content {
+            max-height: 55px;
+            overflow: hidden;
+
+            A.name, SPAN.guest-name {
+                font-size: 8pt;
+            }
+
+            .quote {
+
+                A {
+                    color: @discussions_names;
+                    text-decoration: none;
+                }
+
+                A:hover {
+                    color: @discussions_names_hover;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .time {
+            color: @discussions_time;
+        }
+    }
+
+    .other {
+        font-size: 8pt;
+        text-align: center;
+    }
+
+}

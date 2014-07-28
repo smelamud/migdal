@@ -2,31 +2,31 @@
 
 <element name='discussions'>
 <grps>
-<html_cache ident#='discussions-$topic_id' period!='3 * 60 * 60'
-            depends='postings,forums'>
- <topics_table class='eightpt' title='$title'>
-  <grp_diff name='withanswers' grp1='*GRP_DISCUSS' grp2='*GRP_FORUMS'>
-  <iterate_postinglist grp='*GRP_DISCUSS' topic_id='$topic_id' limit='$limit'
-		       sort='*SORT_ACTIVITY' showshadows='*false'
-		       withanswers='$withanswers' as_guest='*true'>
+<<html_cache ident#='discussions-$topic_id' period!='3 * 60 * 60'
+            depends='postings,forums'>>
+ <div class='topics-header'>Последние комментарии</div>
+ <div class='discussions'>
+  <iterate_forum_or_postinglist grp='*GRP_FORUMS' limit='$limit'>
   <for>
-   <ifzero what='$.LastAnswer'>
-    <assign name='last' value='$.Sent'>
-    <assign name='login' value='$.Login'>
+   <if what='$.Entry == *ENT_POSTING'>
+    <ifnzero what='$.Answers'>
+     <assign name='href' value#='/forum/$.Id/'>
+    <else>
+     <assign name='href' value#='/forum/$.Id/add/'>
+    </ifnzero>
    <else>
-    <assign name='last' value='$.LastAnswer'>
-    <user_obj id='$.LastAnswerUserId'>
-    <assign name='login' value='$,Login'>
-   </ifzero>
-   <ifnzero what='$.Answers'>
-    <assign name='href' value#='/forum/$.Id/'>
-   <else>
-    <assign name='href' value#='/forum/$.Id/add/'>
-   </ifnzero>
-   <topics_line time!='$.Sent>$.LastAnswer ? $.Sent : $.LastAnswer'
-		href='$href' text='$=.Heading' count='$.Answers'
-		title#='$login - $last@j.$last@m.$last@Y&sp;$last@H:$last@i'>
+    <assign name='href' value#='/forum/$.ParentId/?tid=$.Id#t$.Id'>
+   </if>
+   <div class='item'>
+    <div class='content'>
+     <senderlink message='$.'>&sp;<span class='quote'>
+      <a href='$href'>$=.BodyTiny</a>
+     </span>
+    </div>
+    <span class='time'>$.SentFuzzy</span>
+   </div>
   </for>
- </topics_table>
-</html_cache>
+  <div class='other'><a href='/forum/'>Все обсуждения</a></div>
+ </div>
+<</html_cache>>
 </element>

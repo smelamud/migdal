@@ -60,8 +60,7 @@
        params='title,day,image,href' defaults="href=''">
 <decel name='daily_announce' file='parts/daily-announce.php' params='topic_id'>
 <decel name='discussions' file='parts/discussions.php'
-       params='topic_id,title,limit'
-       defaults="topic_id='-1' title='Форум' limit=5">
+       params='topic_id,limit' defaults="topic_id='-1' limit=5">
 <decel name='discusslink' file='parts/posting.php' params='posting'>
 <decel name='ears' file='parts/ears.php'>
 <decel name='edit' file='parts/formutils.php'

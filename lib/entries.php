@@ -626,6 +626,10 @@ class Entry
         return strtotime($this->sent);
     }
 
+    public function getSentFuzzy() {
+        return formatFuzzyTimeElapsed(strtotime($this->sent));
+    }
+
     public function getCreated() {
         return strtotime($this->created);
     }

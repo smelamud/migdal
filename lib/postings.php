@@ -497,7 +497,7 @@ class PostingListIterator
                           __FUNCTION__, 'original');
             $orig = mysql_num_rows($result) > 0 ? mysql_fetch_assoc($result)
                                                 : array();
-            $row=array_merge($row,$orig);
+            $row = array_merge($row, $orig);
         }
         if ($row['id'] > 0) {
             if ($row['ident'] != '')
