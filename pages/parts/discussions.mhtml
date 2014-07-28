@@ -2,8 +2,8 @@
 
 <element name='discussions'>
 <grps>
-<<html_cache ident#='discussions-$topic_id' period!='3 * 60 * 60'
-            depends='postings,forums'>>
+<html_cache ident#='discussions' period!='3 * 60 * 60'
+            depends='postings,forums'>
  <div class='topics-header'>Последние комментарии</div>
  <div class='discussions'>
   <iterate_forum_or_postinglist grp='*GRP_FORUMS' limit='$limit'>
@@ -28,5 +28,5 @@
   </for>
   <div class='other'><a href='/forum/'>Все обсуждения</a></div>
  </div>
-<</html_cache>>
+</html_cache>
 </element>
