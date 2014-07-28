@@ -29,7 +29,7 @@
 - actions/reorder.php
 + actions/search.php
 + actions/setup.php
-- actions/shadow.php
++ actions/shadow.php
 + actions/_template.php
 - actions/topicdel.php
 - actions/topicmod.php

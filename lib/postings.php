@@ -649,8 +649,13 @@ function storePostingFields(Posting $posting, $fields) {
     return $vars;
 }
 
-function storePosting(Posting $posting) {
+function storePosting(Posting $posting, $original = null) {
     if ($posting->getId()) {
+        $topicChanged = !is_null($original) && $original->getId() != 0
+                        && $posting->getTopicId() != $original->getTopicId();
+
+        if ($topicChanged)
+            unpublishPosting($original);
         $posting->setTrack(trackById('entries', $posting->getId()));
         $vars = storePostingFields($posting, SPF_SHADOW);
         $result = sql(sqlUpdate('entries',
@@ -671,6 +676,8 @@ function storePosting(Posting $posting) {
         replaceTracksToUp('entries', $posting->getTrack(),
                           $posting->getUpValue(), $posting->getId());
         answerUpdate($posting->getId());
+        if ($topicChanged)
+            publishPosting($posting);
     } else {
         $vars = storePostingFields($posting, SPF_ALL);
         $vars['created'] = sqlNow();

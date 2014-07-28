@@ -148,7 +148,7 @@ function modifyPosting(Posting $posting, Posting $original,
     }
     $posting->setTrack('');
     $posting->setCatalog('');
-    storePosting($posting);
+    storePosting($posting, $original);
     setPremoderates($posting, $original);
     if ($original->getId() == 0)
         createCounters($posting->getId(), $posting->getGrp());
