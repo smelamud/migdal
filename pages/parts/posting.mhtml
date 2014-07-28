@@ -19,13 +19,22 @@
 <notenglish>
  <span>
   <ifnzero what='$posting.Answers'>
-   <a href='/forum/$posting.Id/'><asp>
-    <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
-    <asp>&nbsp;($posting.Answers)<asp>
+   <a href='${posting.GrpDetailsHref}discuss/'><asp>
+    <notenglish>
+     <array vals='комментарий,комментария,комментариев'>
+     <plural value='$posting.Answers'>
+     <asp>$posting.Answers&sp;$,
+    <else>
+     <if what='$posting.Answers == 1'>
+      <asp>1 comment<asp>
+     <else>
+      $posting.Answers comments<asp>
+     </if>
+    </notenglish>
    <asp></a><asp>
   <else>
-   <a href='/forum/$posting.Id/add/'><asp>
-    <asp><notenglish>Обсудить в форуме<else>Comments</notenglish><asp>
+   <asp><a href='${posting.GrpDetailsHref}discuss/add/'><asp>
+    <notenglish><asp>Оставить комментарий<else>Leave a comment<asp></notenglish>
    <asp></a><asp>
   </ifnzero>
   <ifbiff time='$posting.LastAnswer'>

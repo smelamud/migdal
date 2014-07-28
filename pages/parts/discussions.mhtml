@@ -10,12 +10,12 @@
   <for>
    <if what='$.Entry == *ENT_POSTING'>
     <ifnzero what='$.Answers'>
-     <assign name='href' value#='/forum/$.Id/'>
+     <assign name='href' value#='${.GrpDetailsHref}discuss/'>
     <else>
-     <assign name='href' value#='/forum/$.Id/add/'>
+     <assign name='href' value#='${.GrpDetailsHref}discuss/add/'>
     </ifnzero>
    <else>
-    <assign name='href' value#='/forum/$.ParentId/?tid=$.Id#t$.Id'>
+    <assign name='href' value#='$.ParentHref/?tid=$.Id#t$.Id'>
    </if>
    <div class='item'>
     <div class='content'>
