@@ -30,7 +30,7 @@
      class='edit'>Расставить</a>
  </if>
  <ifnzero what='$;Count'>
-  <ul class='names'>
+  <ul class='topics'>
    <for>
     <li><hd item='$.'><br>
     <tt>$.PermString&nbsp;$=.Login:$=.GroupLogin</tt>
@@ -52,7 +52,7 @@
    </td>
    <td class='cframe'>
     <subtitle>
-    <div class='ninept topics' style='padding: 0px'>
+    <div class='topics ninept' style='padding: 0px'>
      <ifnzero what='$up'>
       <topic_full_name name='full_name' id='$up'>
       <topic_obj id='$up'>
@@ -60,7 +60,7 @@
        <td width=20><image src='/pics/up-level.gif'></td>
        <td>
         <a href='/admin/topics/$,ParentTrackPath'
-	   class='ninept'>На уровень вверх</a>
+           class='ninept'>На уровень вверх</a>
        </td>
       </tr></table>
       <br>
@@ -69,11 +69,11 @@
       <for>
        :: <a href='/admin/topics/$.TrackPath'>$=.Subject</a>
        <islast what='$hier'>
-	<ifne what='$.Ident'>
-	 <assign name='info' value#='[$=.Ident=$.Id]'>
-	<else>
-	 <assign name='info' value#='[$.Id]'>
-	</ifne>
+        <ifne what='$.Ident'>
+         <assign name='info' value#='[$=.Ident=$.Id]'>
+        <else>
+         <assign name='info' value#='[$.Id]'>
+        </ifne>
        </islast>
        &sp;$info
       </for>
