@@ -56,7 +56,7 @@ if(!isset($editmodeHistory))
 <element name='article_controls'>
 <notprint>
  <outer>
-  <div align=right>
+  <div align=right style='clear: both'>
    <table class='controls'><tr><inner>
     <td>
      <printlink posting='$posting'>
@@ -94,6 +94,7 @@ if(!isset($editmodeHistory))
 <ifne what='$posting.Source'>
  <p class='source'>Источник: $posting.SourceHTML</p>
 </ifne>
+<div class='clear-floats'></div>
 <if what='$withvote'>
  <vote_panel id='$posting.Id' rating='$posting.Rating'>
 </if>
