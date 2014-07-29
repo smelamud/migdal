@@ -37,9 +37,6 @@
     @eframe_back_pic: "/pics/m-back.jpg";
     @eframe_border: @mrl;
 
-    @aframe_back: @r_c;
-    @aframe_border: @mrd;
-
     @nframe_back: @r_lm;
     @nframe_border: @mrd;
 }
@@ -53,14 +50,29 @@
     @eframe_back_pic: ;
     @eframe_border: ;
 
-    @aframe_back: @grl;
-    @aframe_border: ;
-
     @nframe_back: white;
     @nframe_border: ;
 }
 
 .frames (@flavour);
+
+.cframe {
+	background-color: @cframe_back;
+	background-image: url(@cframe_back_pic);
+	border: solid 1px @cframe_border;
+}
+
+.eframe {
+	background-color: @eframe_back;
+	background-image: url(@eframe_back_pic);
+	border: solid 2px @eframe_border;
+}
+
+.nframe {
+	background-color: @nframe_back;
+	border: solid 1px @nframe_border;
+	margin-bottom: 0.5ex;
+}
 
 @glass_pic: "/pics/glass.png";
 @glass_pic_width: 22px;

@@ -7,12 +7,11 @@
 <element name='times_mark' params='issue'>
 <posting_id grp='*GRP_TIMES_COVERS' index1='$issue' topic_id='$`times`'>
 <posting_obj id='$,' grp='*GRP_TIMES_COVERS'>
-<table align=right class='timesnfo aframe'><tr valign=center>
- <td><a href='/times/$issue/'>
+<div class='timesnfo'>
+ <a href='/times/$issue/'><asp>
   <image src='/pics/times-small.gif'></a>
- </td>
- <td><a href='/times/$issue/'>&no;$,getIssues</a></td>
-</tr></table>
+ <a href='/times/$issue/'>&no;$,getIssues</a>
+</div>
 </element>
 
 <html>
