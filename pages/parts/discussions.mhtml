@@ -20,6 +20,7 @@
    </if>
    <div class='item'>
     <div class='content'>
+     <biff time='$.Sent' small='*true'>
      <senderlink message='$.'>&sp;<span class='quote'>
       <a href='$href'>$=.BodyTiny</a>
      </span>
