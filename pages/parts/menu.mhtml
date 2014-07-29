@@ -25,15 +25,9 @@
     <td style='line-height: 1px'><asp>
      <posting_last name='times_time' topic_id='$`times`' recursive='*true'
                    as_guest='*true'>
-     <posting_last name='forums_time' grp='*GRP_FORUMS' answers='*GRP_ALL'
-                   as_guest='*true'>
-     <posting_last name='gallery_time' grp='*GRP_GRAPHICS' topic_id='-1'
-                   as_guest='*true'>
      <menuitem ident='index' alt='Главная' link='/' current='$ident'>
      <menuitem ident='times' alt='Мигдаль Times' link='/times/' current='$ident'
 	       time='$times_time'>
-     <menuitem ident='discuss' alt='Форум' link='/forum/' current='$ident'
-	       time='$forums_time'>
     <asp></td>
     <td align=right style='line-height: 1px'><asp>
      <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
