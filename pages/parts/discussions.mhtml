@@ -2,8 +2,8 @@
 
 <element name='discussions'>
 <grps>
-<html_cache ident#='discussions' period!='3 * 60 * 60'
-            depends='postings,forums'>
+<<html_cache ident#='discussions' period!='3 * 60 * 60'
+            depends='postings,forums'>>
  <div class='topics-header'>Последние комментарии</div>
  <div class='discussions'>
   <iterate_forum_or_postinglist grp='*GRP_FORUMS' limit='$limit'>
@@ -15,7 +15,8 @@
      <assign name='href' value#='${.GrpDetailsHref}discuss/add/'>
     </ifnzero>
    <else>
-    <assign name='href' value#='$.ParentHref/?tid=$.Id#t$.Id'>
+    <posting_obj id='$.ParentId'>
+    <assign name='href' value#='${,GrpDetailsHref}discuss/?tid=$.Id#t$.Id'>
    </if>
    <div class='item'>
     <div class='content'>
@@ -28,5 +29,5 @@
   </for>
   <div class='other'><a href='/forum/'>Все обсуждения</a></div>
  </div>
-</html_cache>
+<</html_cache>>
 </element>

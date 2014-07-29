@@ -15,8 +15,6 @@ require_once('lib/text-any.php');
 require_once('lib/catalog.php');
 require_once('lib/html-cache.php');
 
-require_once('conf/forums.php');
-
 class Forum
         extends Entry {
 
@@ -114,15 +112,6 @@ class Forum
         return $this->parent_type;
     }
 
-    public function getParentHref() {
-        global $forumParentHref;
-
-        $href = isset($forumParentHref[$this->getParentType()])
-                ? $forumParentHref[$this->getParentType()]
-                : $forumParentHref[ENT_NULL];
-        return $this->getCompositeValue($href);
-    }
-
 }
 
 function forumPermFilter($right, $prefix = '', $asGuest = false) {
@@ -140,9 +129,9 @@ function forumPermFilter($right, $prefix = '', $asGuest = false) {
            ($eUserId > 0 ? " or ${prefix}user_id=$eUserId)" : ')');
 }
 
-function forumListFilter($parent_id = -1) {
+function forumListFilter($parent_id = -1, $asGuest = false) {
     $Filter = 'entry='.ENT_FORUM;
-    $Filter .= ' and '.forumPermFilter(PERM_READ);
+    $Filter .= ' and '.forumPermFilter(PERM_READ, '', $asGuest);
     if ($parent_id >= 0)
         $Filter .= " and parent_id=$parent_id";
     return $Filter;

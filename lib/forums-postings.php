@@ -11,7 +11,7 @@ class ForumOrPostingListIterator
 
     public function __construct($grp, $limit = 10, $offset = 0, 
                                 $sort = SORT_SENT, $asGuest = true) {
-        $Filter = '('.forumListFilter().')';
+        $Filter = '('.forumListFilter(-1, $asGuest).')';
         $Filter .= 'or ('.postingListFilter(
                         $grp, -1, true, -1, $sort, GRP_NONE, 0, -1, 0, -1,
                         SELECT_GENERAL, MOD_NONE, -1, -1, '', false, 0,

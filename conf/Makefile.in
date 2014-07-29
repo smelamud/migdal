@@ -5,8 +5,8 @@
 targetdir=$(builddir)/www/conf/
 
 CONFIGS = migdal.conf .htaccess counters.php subdomains.php titles.php \
-          scripts.php traps.php cross-entries.php forums.php mailings.php \
-	  settings.php kcaptcha.conf
+          scripts.php traps.php cross-entries.php mailings.php settings.php \
+          kcaptcha.conf
 
 all: $(targetdir)/migdal.conf $(targetdir)/grps.php $(targetdir)/grpentry.php \
 	$(targetdir)/structure.php ;

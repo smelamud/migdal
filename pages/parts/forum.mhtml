@@ -1,9 +1,5 @@
 << @(#) $Id$ >>
 
-<element name='forum_selflink' params='forum'>
-<selflink href#='$forum.ParentHref/?tid=$forum.Id#t$forum.Id'>
-</element>
-
 <element name='forum'>
 <a name='t$forum.Id'></a>
 <table width=100% class='forum' cellspacing=1 cellpadding=0>
@@ -18,22 +14,22 @@
    $forum.BodyHTML
   </td>
  </tr>
+ <posting_obj id='$forum.ParentId'>
+ <assign name='href' value#='${,GrpDetailsHref}discuss'>
  <tr valign=bottom>
   <td class='controls' height=22>
    <table cellspacing=0 cellpadding=0><tr valign=bottom>
     <td>&nbsp;&nbsp;&nbsp;</td>
-    <td><forum_selflink forum='$forum'></td>
+    <td><selflink href#='$href/?tid=$forum.Id#t$forum.Id'></td>
     <td>&nbsp;&nbsp;&nbsp;</td>
     <td>
-     <a href="$forum.ParentHref/reply/?peerid=$forum.Id&redirid=$_"
+     <a href="$href/reply/?peerid=$forum.Id&redirid=$_"
         title='Ответить с цитированием'>Ответить</a>
     </td>
     <td>&nbsp;&nbsp;&nbsp;</td>
     <iswrite what='$forum'>
      <td>
-      <a href="$forum.ParentHref/update/?editid=$forum.Id&redirid=$_"><asp>
-       <asp>Изменить<asp>
-      <asp></a>
+      <a href="$href/update/?editid=$forum.Id&redirid=$_">Изменить</a>
      </td>
      <moderator>
       <td>&nbsp;&nbsp;&nbsp;</td>
