@@ -168,28 +168,23 @@
 
 <element name='posting_controls'>
 <notprint>
- <table width=$len class='posting-bottom'><tr>
-  <td>
-   <table cellspacing=0 cellpadding=0><tr>
-    <td><posting_selflink posting='$posting'></td>
-    <if what='$showprint'>
-     <td>&nbsp;&nbsp;&nbsp;</td>
-     <td><printlink posting='$posting'></td>
-    </if>
-    <if what='$showedit'>
-     <td>&nbsp;&nbsp;&nbsp;</td>
-     <td>
-      <iswrite what='$posting'>
-       <editlink posting='$posting'>
-      </iswrite>
-     </td>
-    </if>
-   </tr></table>
-  </td>
-  <if what='$showdiscuss'>
-   <td align=right><discusslink posting='$posting'></td>
+ <div class='posting-bottom'>
+  <posting_selflink posting='$posting'>
+  <if what='$showprint'>
+   &nbsp;&nbsp;
+   <printlink posting='$posting'>
   </if>
- </tr></table>
+  <if what='$showedit'>
+   &nbsp;&nbsp;
+   <iswrite what='$posting'>
+    <editlink posting='$posting'>
+   </iswrite>
+  </if>
+  <if what='$showdiscuss'>
+   <div class='right'><discusslink posting='$posting'></div>
+  </if>
+  <div class='clear-floats'></div>
+ </div>
 </notprint>
 </element>
 

@@ -3,18 +3,25 @@
 .article {
 	font-size: 9pt;
 
-    .controls {
-        border-bottom: 1px solid @article_split;
-        border-spacing: 0;
+    .controls-line {
+        text-align: right;
+        clear: both;
 
-        A {
-            font-size: 8pt;
-            color: @article_controls;
-            text-decoration: none;
+        .controls {
+            border-bottom: 1px solid @article_split;
+            padding-top: 0.5ex;
+            padding-bottom: 0.5ex;
+            display: inline-block;
 
-            &:hover {
-                color: @article_controls_hover;
-                text-decoration: underline;
+            A {
+                font-size: 8pt;
+                color: @article_controls;
+                text-decoration: none;
+
+                &:hover {
+                    color: @article_controls_hover;
+                    text-decoration: underline;
+                }
             }
         }
     }
@@ -64,6 +71,11 @@
     .sent {
         color: @article_sent;
         font-size: 9pt;
+        float: right;
+        text-align: right;
+        margin-top: 3ex;
+        margin-bottom: 2ex;
+        margin-right: 1em;
     }
 
     .preface {

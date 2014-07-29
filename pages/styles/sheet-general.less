@@ -59,7 +59,7 @@ SPAN.guest-name {
 	font-size: 9pt;
 }
 
-.sent {
+.sent { /* FIXME shouldn't be here */
 	color: @sent;
 	font-size: 9pt;
 }
@@ -68,7 +68,7 @@ A IMG {
 	border: 0;
 }
 
-.icon {
+.icon { /* FIXME shouldn't be here */
 	position: relative;
 	top: +2px;
 }
@@ -86,4 +86,17 @@ EM {
 	color: @em;
 	font-weight: bold;
 	font-style: normal;
+}
+
+.rss {
+    text-align: right;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    clear: both;
+    width: 100%;
+
+    IMG {
+        position: relative;
+        top: +3px;
+    }
 }

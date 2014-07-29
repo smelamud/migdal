@@ -19,16 +19,11 @@
   </notprint>
   <td class='article cframe'>
    <article_controls posting='$,'>
-   <table width=100% cellspacing=0 cellpadding=0>
-    <tr>
-     <td colspan=3 align=right>
-      <table class='sent'>
-       <tr><td>&nbsp;</td></tr>
-       <tr><td align=right><sentview date='$,Sent'></td></tr>
-       <tr><td align=right><senderlink message='$,'></td></tr>
-      </table>
-     </td>
-    </tr>
+   <div class='sent'>
+    <sentview date='$,Sent'><br />
+    <senderlink message='$,'>
+   </div>
+   <table width=100% cellspacing=0 cellpadding=0 style='clear: both'>
     <tr valign=top>
      <td width=100>&nbsp;</td>
      <td>

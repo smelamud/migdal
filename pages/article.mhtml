@@ -23,11 +23,10 @@
   </notprint>
   <td class='article cframe'>
    <article_controls posting='$,'>
-   <table align=right class='sent'>
-    <tr><td>&nbsp;</td></tr>
-    <tr><td align=right><sentview date='$,Sent'></td></tr>
-    <tr><td align=right><senderlink message='$,'></td></tr>
-   </table>
+   <div class='sent'>
+    <sentview date='$,Sent'><br />
+    <senderlink message='$,'>
+   </div>
    <h1>
     <topiclink posting='$,'>
     <br>

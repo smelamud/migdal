@@ -56,30 +56,20 @@ if(!isset($editmodeHistory))
 <element name='article_controls'>
 <notprint>
  <outer>
-  <div align=right style='clear: both'>
-   <table class='controls'><tr><inner>
-    <td>
-     <printlink posting='$posting'>
-    </td>
-    <td>
-     &nbsp;&nbsp;
-    </td>
-    <iswrite what='$posting'>
-     <td style='padding-bottom: 3px'>
-      <editlink posting='$posting'>
-      &nbsp;
-     </td>
-     <td style='padding-bottom: 3px'>
-      <a href="${posting.GrpDetailsHref}images/">
-       <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
-      &nbsp;
-     </td>
-    </iswrite>
-    <if what='!$nodiscuss'>
-     <td><discusslink posting='$posting'></td>
-    </if>
-   </inner></tr></table>
-  </div>
+  <div class='controls-line'><div class='controls'><inner>
+   <printlink posting='$posting'>
+   <iswrite what='$posting'>
+    &nbsp;&nbsp;
+    <editlink posting='$posting'>
+    &nbsp;&nbsp;
+    <a href="${posting.GrpDetailsHref}images/">
+     <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
+   </iswrite>
+   <if what='!$nodiscuss'>
+    &nbsp;&nbsp;
+    <discusslink posting='$posting'>
+   </if>
+  </inner></div></div>
  </outer>
 </notprint>
 </element>

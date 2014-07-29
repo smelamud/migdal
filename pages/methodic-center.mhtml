@@ -5,8 +5,8 @@
 <element name='books'>
 <html_cache ident='methodic_center_books' depends='postings'>
  <iterate_postinglist grp='*GRP_BOOKS' topic_id='$`migdal.methodology`'
-		      recursive='*false' limit=0 sort='*SORT_PSENT'
-		      as_guest='*true'>
+                      recursive='*false' limit=0 sort='*SORT_PSENT'
+                      as_guest='*true'>
  <ifnzero what='$;Count'>
   <topics_table title='Методические пособия'>
    <for>
@@ -41,10 +41,10 @@
       </span>
       <notprint>
        <table class='nframe' width=180 align=right
-	      cellpadding=5 cellspacing=0
-	      style='margin-left: 5px; margin-top: 2ex'>
-	<tr><td>
-	 <books>
+              cellpadding=5 cellspacing=0
+              style='margin-left: 5px; margin-top: 2ex'>
+        <tr><td>
+         <books>
         </td></tr>
        </table>
       </notprint>

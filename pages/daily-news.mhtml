@@ -34,17 +34,13 @@
 
 <element name='controls' params='posting,event'>
 <ifnzero what='$posting.Id'>
- <div align=right><table class=controls>
-  <tr valign=bottom>
-   <editor>
-    <td>
-     <editlink posting='$posting'>
-     &nbsp;
-    </td>
-   </editor>
-   <td><discusslink posting='$posting'></td>
-  </tr>
- </table></div>
+ <div class='controls-line'><div class='controls'>
+  <editor>
+   <editlink posting='$posting'>
+   &nbsp;&nbsp;
+  </editor>
+  <discusslink posting='$posting'>
+ </div></div>
 <else>
  &nbsp;
 </ifnzero>
@@ -113,11 +109,10 @@
     <td>
      <controls posting='$posting' event='$event'>
      <ifnzero what='$posting.Id'>
-      <table class=sent align=right>
-       <tr><td>&nbsp;</td></tr>
-       <tr><td align=right><sentview date='$posting.Sent'></td></tr>
-       <tr><td align=right><senderlink message='$posting'></td></tr>
-      </table>
+      <div class='sent'>
+       <sentview date='$posting.Sent'><br />
+       <senderlink message='$posting'>
+      </div>
       <daily_ring current='$posting' event='$event'>
       <h1 style='clear: both'>
        $=posting.Subject
