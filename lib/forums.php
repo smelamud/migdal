@@ -190,7 +190,7 @@ class ForumListIterator
 }
 
 function storeForum(Forum $forum) {
-    global $userId, $realUserId, $forumPremoderate;
+    global $userId, $realUserId, $forumPremoderate, $userModerator;
 
     $vars = array(
         'entry' => $forum->getEntry(),
