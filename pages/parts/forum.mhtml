@@ -6,8 +6,7 @@
  <asp><div class='header'>
   <senderlink message='$forum'><br>
   <span class='sent'><sentview date='$forum.Sent'></span>
-  <p>
-  <biff time='$forum.Modified'>
+  <biff time='$forum.Modified' small='*true'>
  </div><asp>
  <asp><div class='content'>
   <div class='body'>
