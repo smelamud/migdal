@@ -6,7 +6,8 @@ function userInfoContent(id) {
                   "<div class='rank'>" + data.rank + "</div>" +
                   "<div class='last-online'>" +
                   (!data.femine ? "Заходил" : "Заходила") +
-                  " сюда " + data.lastOnline +
+                  " сюда " +
+                  fuzzyTimeFormatElapsed(toOurtime(data.lastOnline)) +
                   "</div>"
     return content;
 }

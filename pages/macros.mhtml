@@ -425,6 +425,12 @@
    </ifne>
    $siteName
   <asp></title>
+  <zone>
+   <timestamp>
+   <script type="text/javascript">
+    window.timeZoneDiff = Math.round((new Date().getTime() / 1000 - $,) / 3600);
+   </script>
+  </zone>
  </head>
 </macro>
 

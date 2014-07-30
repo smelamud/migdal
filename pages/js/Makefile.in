@@ -4,7 +4,8 @@
 
 targetdir=$(builddir)/www/js/
 
-DEFAULT_JS=enlarge.js insert-image.js relogin-captcha.js userinfo.js vote.js
+DEFAULT_JS=enlarge.js fuzzy-calendar.js insert-image.js relogin-captcha.js \
+           userinfo.js utils.js vote.js
 SEPARATE_JS=login-verify.js
 
 all:

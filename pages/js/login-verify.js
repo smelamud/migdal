@@ -1,3 +1,5 @@
+// @(#) $Id$
+
 function loginChanged() {
     $("#login-button").attr("disabled", $("#login").val() == "");
     $("#login-status").text("");

@@ -21,7 +21,6 @@ jsonOutput(array('login' => $user->getLogin(),
                  'fullName' => $user->getFullName(),
                  'rank' => $user->getInfoOrRankHTML(),
                  'femine' => $user->isWoman(),
-                 'lastOnline' => formatFuzzyTimeElapsed(
-                                     $user->getLastOnline())));
+                 'lastOnline' => $user->getLastOnline()));
 dbClose();
 ?>

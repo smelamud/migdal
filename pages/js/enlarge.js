@@ -1,3 +1,5 @@
+// @(#) $Id$
+
 function enlargeInit() {
     $(".enlargeable").fancybox({
         openEffect: 'elastic',

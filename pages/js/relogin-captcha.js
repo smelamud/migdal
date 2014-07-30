@@ -1,15 +1,17 @@
+// @(#) $Id$
+
 function reloginInit() {
     var rg = $("#relogin-guest");
     if (rg.size() > 0) {
-    	rg.each(function() {
-	    if (!this.checked) {
-		$("#captcha").hide();
-	    } else {
-		$("#captcha").show();
-	    }
-	});
+        rg.each(function() {
+            if (!this.checked) {
+                $("#captcha").hide();
+            } else {
+                $("#captcha").show();
+            }
+        });
     } else {
-	$("#captcha").hide();
+        $("#captcha").hide();
     }
 }
 
