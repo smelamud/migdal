@@ -1,25 +1,39 @@
 // @(#) $Id$
 
 .forums {
-	background-color: @forum_border;
 }
 
 .forum {
+    background-color: @forum_body_back;
+    border: solid 1px @forum_border;
+    overflow: hidden;
+
     .header {
-        background-color: @forum_header_back;
         padding-left: .5em;
+        padding-bottom: 9999px;
+        margin-bottom: -9999px;
+        width: 150px;
+        text-align: left;
+        float: left;
+        border-right: solid 1px @forum_border;
+        background-color: @forum_header_back;
+    }
+
+    .content {
+        background-color: @forum_body_back;
+        padding-left: 160px;
+        padding-bottom: 9999px;
+        margin-bottom: -9999px;
     }
 
     .body {
-        background-color: @forum_body_back;
-        padding-left: .5em;
-        padding-top: .5em;
-        padding-bottom: 1em;
+        font-size: 9pt;
+        text-align: left;
     }
 
     .controls {
-        background-color: @forum_body_back;
-        padding-bottom: 0.5ex;
+        height: 22px;
+        border-top: solid 1px @forum_border;
 
         A {
             font-size: 8pt;

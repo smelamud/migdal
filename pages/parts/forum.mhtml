@@ -2,58 +2,47 @@
 
 <element name='forum'>
 <a name='t$forum.Id'></a>
-<table width=100% class='forum' cellspacing=1 cellpadding=0>
- <tr valign=top>
-  <td class='header' rowspan=2 width=150 align=left>
-   <senderlink message='$forum'><br>
-   <span class='sent'><sentview date='$forum.Sent'></span>
-   <p>
-   <biff time='$forum.Modified'>
-  </td>
-  <td class='body ninept' align=left>
+<div class='forum'><asp>
+ <asp><div class='header'>
+  <senderlink message='$forum'><br>
+  <span class='sent'><sentview date='$forum.Sent'></span>
+  <p>
+  <biff time='$forum.Modified'>
+ </div><asp>
+ <asp><div class='content'>
+  <div class='body'>
    $forum.BodyHTML
-  </td>
- </tr>
- <posting_obj id='$forum.ParentId'>
- <assign name='href' value#='${,GrpDetailsHref}discuss'>
- <tr valign=bottom>
-  <td class='controls' height=22>
-   <table cellspacing=0 cellpadding=0><tr valign=bottom>
-    <td>&nbsp;&nbsp;&nbsp;</td>
-    <td><selflink href#='$href/?tid=$forum.Id#t$forum.Id'></td>
-    <td>&nbsp;&nbsp;&nbsp;</td>
-    <td>
-     <a href="$href/reply/?peerid=$forum.Id&redirid=$_"
-        title='Ответить с цитированием'>Ответить</a>
-    </td>
-    <td>&nbsp;&nbsp;&nbsp;</td>
-    <iswrite what='$forum'>
-     <td>
-      <a href="$href/update/?editid=$forum.Id&redirid=$_">Изменить</a>
-     </td>
-     <moderator>
-      <td>&nbsp;&nbsp;&nbsp;</td>
-      <td>
-       <if what='$forum.isDisabled'>
-        <a href="/actions/entry/moderate?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
-         <asp>Разрешить&nbsp;показ<asp>
-        <asp></a>
-       <else>
-        <a href="/actions/entry/moderate?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
-         <asp>Запретить показ<asp>
-        <asp></a>
-       </if>
-      </td>
-      <td>&nbsp;&nbsp;&nbsp;</td>
-      <td>
-       <a href="/actions/forum/delete?id=$forum.Id&okdir=$#-&faildir=$#-"><asp>
-        <asp>Удалить<asp>
-       <asp></a>
-      </td>
-     </moderator>
-    </iswrite>
-   </tr></table>
-  </td>
- </tr>
-</table>
+  </div>
+  <posting_obj id='$forum.ParentId'>
+  <assign name='href' value#='${,GrpDetailsHref}discuss'>
+  <div class='controls'>
+   &nbsp;&nbsp;
+   <selflink href#='$href/?tid=$forum.Id#t$forum.Id'>
+   &nbsp;&nbsp;
+   <a href="$href/reply/?peerid=$forum.Id&redirid=$_"
+      title='Ответить с цитированием'>Ответить</a>
+   <iswrite what='$forum'>
+    &nbsp;&nbsp;
+    <a href="$href/update/?editid=$forum.Id&redirid=$_">Изменить</a>
+    <moderator>
+     &nbsp;&nbsp;
+     <if what='$forum.isDisabled'>
+      <a href="/actions/entry/moderate?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
+       <asp>Разрешить&nbsp;показ<asp>
+      <asp></a>
+     <else>
+      <a href="/actions/entry/moderate?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
+       <asp>Запретить показ<asp>
+      <asp></a>
+     </if>
+     &nbsp;&nbsp;
+     <a href="/actions/forum/delete?id=$forum.Id&okdir=$#-&faildir=$#-"><asp>
+      <asp>Удалить<asp>
+     <asp></a>
+    </moderator>
+   </iswrite>
+  </div>
+ </div>
+ <div class='clear-floats'></div>
+</div>
 </element>
