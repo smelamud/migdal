@@ -133,7 +133,7 @@
 + lib/text-large.php
 + lib/text.php
 + lib/text-upload.php
-- lib/text-wiki.php
++ lib/text-wiki.php
 + lib/text-xml.php
 + lib/time.php
 + lib/tmptexts.php
