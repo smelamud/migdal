@@ -23,7 +23,7 @@
   <a href='/admin/'>Страница модератора</a>
  <else>
   Вебмастер живет по адресу
-  <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+  <a href='mailto:webmaster@migdal.org.ua'>webmaster@migdal.org.ua</a>
  </moderator>
 </div>
 <div class='vcard'>
@@ -35,8 +35,8 @@
   <span class='given-name'>&lt;&lt;Мигдаль&gt;&gt;</span>
  </span>
  Международного Еврейского Общинного Центра
- <a class='url' href='http://www.migdal.ru/migdal/'>&lt;&lt;Мигдаль&gt;&gt;</a>
- <email addr='migdal@migdal.ru'>.
+ <a class='url' href='http://www.migdal.org.ua/migdal/'>&lt;&lt;Мигдаль&gt;&gt;</a>
+ <email addr='migdal@migdal.org.ua'>.
  <p>
  <b>Адрес:</b>
  <span class='adr'>
@@ -52,7 +52,7 @@
  <span class='title'>Председатель правления</span> центра
  <span class='org'>&lt;&lt;Мигдаль&gt;&gt;</span> &mdash;
  <span class='fn'>Кира Верховская</span>
- <email addr='verkhov@migdal.ru'>.
+ <email addr='verkhov@migdal.org.ua'>.
 </p>
 </element>
 
@@ -61,7 +61,7 @@
  <kernel>
  <snapshot>
  Webmaster lives here:
- <a href='mailto:webmaster@migdal.ru'>webmaster@migdal.ru</a>
+ <a href='mailto:webmaster@migdal.org.ua'>webmaster@migdal.org.ua</a>
 </div>
 <div class='vcard'>
  Programming, design and maintenance by <b>Jewish Student Club</b> of
@@ -73,8 +73,8 @@
   </span>
  </span>
  the International Center of Jewish Community Programs
- <a href='http://english.migdal.ru/' class='url'>&lt;&lt;Migdal&gt;&gt;</a>
- <email addr='migdal@migdal.ru'>,
+ <a href='http://english.migdal.org.ua/' class='url'>&lt;&lt;Migdal&gt;&gt;</a>
+ <email addr='migdal@migdal.org.ua'>,
  <span class='adr'><span class='locality'>Odessa</span></span>.
 </div>
 <p class='vcard'>

@@ -231,7 +231,7 @@ Migdal website kernel GRP definition language preprocessor
   -p, --const-prefix=<prefix>  Constant prefix
   -v, --version                Print version information and exit
 
-Report bugs to <balu\@migdal.ru>
+Report bugs to <balu\@migdal.org.ua>
 EOF
 exit;
 }

@@ -91,7 +91,7 @@
      <link>$the_site/</link>
     </image>
     <language>ru-ru</language>
-    <webMaster>webmaster@migdal.ru (Dmitry E. Melamud)</webMaster>
+    <webMaster>webmaster@migdal.org.ua (Shmuel-Leib Melamud)</webMaster>
     <posting_last grp='$grps' topic_id='$topic_ids' recursive='$recursives'>
     <assign name='date' value#='$,@D, $,@d&sp;$,@M&sp;$,@Y&sp;$,@H:$,@i:$,@s&sp;GMT+2'>
     <pubDate>$date</pubDate>

@@ -519,7 +519,7 @@ Migdal report generator (for 'migdal' interface)
 
 Date format is 'DD-MM-YYYY [hh[:mm[:ss]]]'
 
-Report bugs to <balu\@migdal.ru>
+Report bugs to <balu\@migdal.org.ua>
 EOF
 exit;
 }

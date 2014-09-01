@@ -21,7 +21,7 @@ Migdal website kernel structure definition language preprocessor
   -o, --output=<name>          Output file
   -v, --version                Print version information and exit
 
-Report bugs to <balu\@migdal.ru>
+Report bugs to <balu\@migdal.org.ua>
 EOF
 exit;
 }

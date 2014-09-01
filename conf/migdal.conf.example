@@ -281,10 +281,10 @@ $mailSendPeriod=10;
 $mailSubjectPrefix='[Мигдаль] ';
 
 # Адрес, который проставляется в поле "From:" всех отправляемых писем
-$mailFromAddress='mailrobot@migdal.ru';
+$mailFromAddress='mailrobot@migdal.org.ua';
 
 # Адрес, который проставляется в поле "Reply-To:" всех отправляемых писем
-$mailReplyToAddress='webmaster@migdal.ru';
+$mailReplyToAddress='webmaster@migdal.org.ua';
 
 # Разделитель для заголовков письма. Замените на "\n", если SMTP-сервер
 # вставляет лишнюю пустую строку между заголовками.

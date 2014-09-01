@@ -1429,7 +1429,7 @@ Migdal website kernel MHTML macro language preprocessor
   -M, --macros=<filename>   Set macro file path (default is `macros.mhtml')
   -v, --version             Print version information and exit
 
-Report bugs to <balu\@migdal.ru>
+Report bugs to <balu\@migdal.org.ua>
 EOF
 exit;
 }
