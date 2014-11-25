@@ -71,7 +71,7 @@
         <ifnzero what='$.Answers'>
          <assign name='href' value#='/forum/$.Id/'>
         <else>
-         <assign name='href' value#='/forum/$.Id/add/'>
+         <assign name='href' value#='/forum/$.Id/discuss/add/'>
         </ifnzero>
         <tr height=40>
          <td class='$class' width=30>
