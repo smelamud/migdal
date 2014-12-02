@@ -8,7 +8,7 @@
     background-color: @forum_body_back;
     border: solid 1px @forum_border;
     overflow: hidden;
-    margin-top: -1px;
+    margin-top: 3px;
 
     .header {
         padding-left: .5em;
@@ -17,7 +17,6 @@
         width: 150px;
         text-align: left;
         float: left;
-        border-right: solid 1px @forum_border;
         background-color: @forum_header_back;
     }
 
@@ -33,17 +32,21 @@
         text-align: left;
         padding-left: .5em;
         padding-right: .5em;
-        padding-top: .5ex;
+        padding-top: 1ex;
 
         & > P:first-child {
             margin-top: 0;
             padding-top: 0;
         }
+
+        & > P:last-child {
+            margin-bottom: 5px;
+        }
     }
 
     .controls {
         height: 22px;
-        border-top: solid 1px @forum_border;
+        visibility: hidden;
 
         A {
             font-size: 8pt;
@@ -55,6 +58,10 @@
                 text-decoration: underline;
             }
         }
+    }
+
+    &:hover .controls {
+        visibility: visible;
     }
 
     .quote {
