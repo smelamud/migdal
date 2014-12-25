@@ -25,7 +25,7 @@ class ForumOrPostingListIterator
                     comment0_xml,comment1,comment1_xml,body,body_xml,
                     body_format,sent,answers,entries.created as created,
                     entries.modified as modified,guest_login,user_id,group_id,
-                    perms,disabled,parent_id,users.login as login,
+                    perms,disabled,track,catalog,parent_id,users.login as login,
                     users.gender as gender,users.email as email,
                     users.hide_email as hide_email,users.hidden as user_hidden,
                     users.guest as user_guest
