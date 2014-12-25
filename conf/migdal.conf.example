@@ -33,7 +33,7 @@ $dbCharset='koi8u';
 $charsetInternal='KOI8-U';
 
 # Внешняя кодировка, нотация iconv
-$charsetExternal='CP1251';
+$charsetExternal='UTF-8';
 
 # iconv() не возвращает частично сконвертированную строку (такое поведение
 # замечено, например, на FreeBSD)
@@ -54,7 +54,7 @@ $disableRegister=false;
 $cgiExec=false;
 
 # Разрешать ли обращение к PHP-скриптам напрямую из URL-а
-$directScripts=true;
+$directScripts=false;
 
 # Разрешать ли кэширование HTML
 $htmlCache=true;
@@ -75,8 +75,8 @@ $tmpDir='/tmp';
 
 ## Программы ##
 
-# Команда для запуска PHP4 в режиме командной строки
-$phpCommand='/usr/bin/php4';
+# Команда для запуска PHP в режиме командной строки
+$phpCommand='/usr/bin/php';
 
 # Путь к wget
 $wgetPath='wget';
@@ -315,7 +315,7 @@ $usersMandatorySurname=false;
 
 ## Настройки тем ##
 
-$topicMandatoryDescription=true;
+$topicMandatoryDescription=false;
 
 ## Настройки сообщений в форуме (Forum) ##
 
