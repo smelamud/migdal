@@ -8,10 +8,10 @@ require_once('lib/sql.php');
 class UserGroup
         extends DataObject {
 
-    private $user_id;
-    private $group_id;
-    private $user_name;
-    private $group_name;
+    protected $user_id;
+    protected $group_id;
+    protected $user_name;
+    protected $group_name;
 
     public function __construct(array $row) {
         parent::__construct($row);
