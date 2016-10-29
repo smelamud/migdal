@@ -3,32 +3,29 @@
 <element name='countdown'>
 <notenglish>
  <time>
- <assign name='current' value!='$day-$,@z-1'>
+ <assign name='current' value!='($year-$,@Y)*365+$day-$,@z-1'>
  <if what='$current>0'>
-  <table cellspacing=5 cellpadding=0><tr valign='middle'>
-   <td align='right'>
-    <ifne what='href'>
-     <a href='$href'><image src='$image'></a>
+  <ifne what='href'>
+   <a href='$href'><image src='$image'></a>
+  <else>
+   <image src='$image'>
+  </ifne>
+
+  <array vals='остался,осталось,осталось'>
+  <plural name='last' value='$current'>
+  <array vals='день,дня,дней'>
+  <plural name='days' value='$current'>
+  <span style="font: 14pt Arial,sans-serif">
+   До
+   <b>
+    <ifne what='$href'>
+     <a href='$href'>$title</a>
     <else>
-     <image src='$image'>
+     $title
     </ifne>
-   </td>
-   <td align='left' style='font: 14px Arial,sans-serif'>
-    <array vals='остался,осталось,осталось'>
-    <plural name='last' value='$current'>
-    <array vals='день,дня,дней'>
-    <plural name='days' value='$current'>
-    До
-    <b>
-     <ifne what='$href'>
-      <a href='$href'>$title</a>
-     <else>
-      $title
-     </ifne>
-    </b>
-    $last<br>$current&sp;$days
-   </td>
-  </table>
+   </b>
+   $last<br>$current&sp;$days
+  </span>
  </if>
 </notenglish>
 </element>

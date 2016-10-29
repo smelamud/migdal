@@ -54,7 +54,8 @@
 <decel name='catalog_table' file='parts/catalog.php' params='compact'
        defaults="compact='*false'">
 <decel name='/catalog_table' file='parts/catalog.php'>
-<decel name='countdown' file='parts/countdown.php' params='title,day,image,href'
+<decel name='countdown' file='parts/countdown.php'
+       params='title,day,image,href,year'
        defaults="href=''">
 <decel name='countdown_pic' file='parts/countdown.php'
        params='title,day,image,href' defaults="href=''">
