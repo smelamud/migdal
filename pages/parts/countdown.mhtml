@@ -3,30 +3,32 @@
 <element name='countdown'>
 <notenglish>
  <time>
- <assign name='current' value!='($year-$,@Y)*365+$day-$,@z-1'>
- <if what='$current>0'>
-  <ifne what='href'>
-   <a href='$href'><image src='$image'></a>
-  <else>
-   <image src='$image'>
-  </ifne>
-
-  <array vals='остался,осталось,осталось'>
-  <plural name='last' value='$current'>
-  <array vals='день,дня,дней'>
-  <plural name='days' value='$current'>
-  <span style="font: 14pt Arial,sans-serif">
-   До
-   <b>
-    <ifne what='$href'>
-     <a href='$href'>$title</a>
-    <else>
-     $title
-    </ifne>
-   </b>
-   $last<br>$current&sp;$days
-  </span>
- </if>
+ <assign name='current' value!='($year-$,@Y) * 365+$day-$,@z-1'>
+ <div style="float: left; margin-left: 10ex">
+  <if what='$current>0'>
+   <ifne what='href'>
+    <a href='$href'><image src='$image'></a>
+   <else>
+    <image src='$image'>
+   </ifne>
+   &nbsp;
+   <array vals='остался,осталось,осталось'>
+   <plural name='last' value='$current'>
+   <array vals='день,дня,дней'>
+   <plural name='days' value='$current'>
+   <span style="font: 14pt Arial,sans-serif; position: relative; top: -2ex">
+    До
+    <b>
+     <ifne what='$href'>
+      <a href='$href'>$title</a>
+     <else>
+      $title
+     </ifne>
+    </b>
+    $last&sp;$current&sp;$days
+   </span>
+  </if>
+ </div>
 </notenglish>
 </element>
 
