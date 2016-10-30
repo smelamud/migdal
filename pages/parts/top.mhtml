@@ -31,7 +31,7 @@
 <element name='top_web' params='ident,transref'>
 <div id='top'>
  <banner>
- <countdown title='25-летия &#171;Мигдаля&#187;' day='33' year='2017'
+ <countdown title='25-летия &#171;Мигдаля&#187;' day='37' year='2017'
             image='/pics/logo-birthday.gif'>
   <<td align='center' rowspan='2' style="padding-top: 10px">
    <notenglish><table cellspacing='5' cellpadding='0'><tr valign='middle'>
