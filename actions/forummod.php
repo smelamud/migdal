@@ -17,6 +17,19 @@ require_once('lib/image-upload.php');
 require_once('lib/logging.php');
 require_once('lib/captcha.php');
 
+function isSpam($body) {
+    $spams = array('clickcashmoney.com', 'porno-video-free', 'porno-exe',
+                   'rem-stroi.com', 'hiphoprussia.ru', 'retrade.ru', 't35.com',
+                   'viagra','zarplatt.ru');
+    foreach ($spams as $spam) {
+        if (strpos($body, $spam) !== false) {
+            logEvent('spam', $spam);
+            return true;
+        }
+    }
+    return false;
+}
+
 function modifyForum($forum, $original) {
     global $captcha, $userId, $realUserId, $forumMandatoryBody,
            $forumMandatoryImage;
@@ -45,6 +58,8 @@ function modifyForum($forum, $original) {
         return EF_AUTHOR_ABSENT;
     if ($forumMandatoryBody && $forum->getBody() == '')
         return EF_BODY_ABSENT;
+    if ($forum->getBody() != '' && isSpam($forum->getBody()))
+        return EF_SPAM;
     if ($forumMandatoryImage && !$forum->hasSmallImage())
         return EF_IMAGE_ABSENT;
     if ($forum->hasSmallImage()

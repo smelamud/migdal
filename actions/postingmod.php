@@ -65,8 +65,8 @@ function isSpam($body) {
                    'rem-stroi.com', 'hiphoprussia.ru', 'retrade.ru', 't35.com',
                    'viagra');
     foreach ($spams as $spam) {
-        if (strpos($body,$spam) !== false) {
-            logEvent('spam',$spam);
+        if (strpos($body, $spam) !== false) {
+            logEvent('spam', $spam);
             return true;
         }
     }
