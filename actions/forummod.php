@@ -20,7 +20,7 @@ require_once('lib/captcha.php');
 function isSpam($body) {
     $spams = array('clickcashmoney.com', 'porno-video-free', 'porno-exe',
                    'rem-stroi.com', 'hiphoprussia.ru', 'retrade.ru', 't35.com',
-                   'viagra','zarplatt.ru');
+                   'viagra', 'zarplatt', 'stomatolog-stargard', 'off-rabota');
     foreach ($spams as $spam) {
         if (strpos($body, $spam) !== false) {
             logEvent('spam', $spam);
