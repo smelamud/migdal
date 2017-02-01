@@ -1,0 +1,41 @@
+{{> header}}
+<div class="row">
+    <div class="signin-col-left">
+        <div class="row">
+            <div class="signin-col-left-label"><h1>Sign In</h1></div>
+        </div>
+        {{formErrors class="signin-form-error"}}
+        <div class="row">
+            <form class="form-horizontal" method="post" action="/signin">
+                <input type="hidden" name="back" value="{{loginForm.back}}">
+                <div class="form-group {{hasError this "email"}}">
+                    <label for="email" class="control-label signin-form-label">Email</label>
+                    <div class="signin-form-input">
+                        <input type="email" class="form-control" id="email" name="email" value="{{loginForm.email}}">
+                    </div>
+                </div>
+                <div class="form-group {{hasError this "password"}}">
+                    <label for="password" class="control-label signin-form-label">Password</label>
+                    <div class="signin-form-input">
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="signin-form-submit">
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="signin-col-right">
+        <div class="row">
+            <div class="signin-col-right-label">
+                <h1>New visitor?</h1>
+                <p>&nbsp;</p>
+                <p><a class="btn btn-lg btn-success" href="/signup?back={{ue loginForm.back}}">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{{> footer}}

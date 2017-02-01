@@ -1,0 +1,15 @@
+{{> header}}
+<div class="row">
+    <div class="col-sm-offset-2"><h1>Sign Out</h1></div>
+</div>
+<div class="row">
+    <form class="form-horizontal" method="post" action="/signout">
+        <input type="hidden" name="back" value="{{logoutForm.back}}">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-2">
+                <button type="submit" class="btn btn-primary">Sign Out</button>
+            </div>
+        </div>
+    </form>
+</div>
+{{> footer}}
