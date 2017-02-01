@@ -1,4 +1,4 @@
-package daily.coin;
+package ua.org.migdal;
 
 import java.util.HashMap;
 import java.util.Map;

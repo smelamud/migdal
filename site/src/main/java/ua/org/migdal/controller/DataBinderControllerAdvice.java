@@ -1,4 +1,4 @@
-package daily.coin.controller;
+package ua.org.migdal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import daily.coin.form.validator.FormValidator;
+import ua.org.migdal.form.validator.FormValidator;
 
 @ControllerAdvice
 public class DataBinderControllerAdvice {

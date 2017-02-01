@@ -1,4 +1,4 @@
-package daily.coin;
+package ua.org.migdal;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

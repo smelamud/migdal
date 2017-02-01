@@ -1,4 +1,4 @@
-package daily.coin.helper;
+package ua.org.migdal.helper;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

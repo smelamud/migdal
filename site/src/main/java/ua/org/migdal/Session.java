@@ -1,4 +1,4 @@
-package daily.coin;
+package ua.org.migdal;
 
 public interface Session {
 

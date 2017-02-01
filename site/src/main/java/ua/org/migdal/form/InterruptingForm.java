@@ -1,4 +1,4 @@
-package daily.coin.form;
+package ua.org.migdal.form;
 
 import java.util.regex.Pattern;
 

@@ -1,4 +1,4 @@
-package daily.coin.controller;
+package ua.org.migdal.controller;
 
 import java.util.Map;
 
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import daily.coin.Session;
-import daily.coin.data.User;
-import daily.coin.data.UserRepository;
-import daily.coin.form.LoginForm;
-import daily.coin.form.LogoutForm;
+import ua.org.migdal.Session;
+import ua.org.migdal.data.User;
+import ua.org.migdal.data.UserRepository;
+import ua.org.migdal.form.LoginForm;
+import ua.org.migdal.form.LogoutForm;
 
 @Controller
 public class LoginController {

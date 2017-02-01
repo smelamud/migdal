@@ -1,4 +1,4 @@
-package daily.coin.form.validator;
+package ua.org.migdal.form.validator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

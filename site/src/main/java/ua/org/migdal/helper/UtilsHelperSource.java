@@ -1,4 +1,4 @@
-package daily.coin.helper;
+package ua.org.migdal.helper;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

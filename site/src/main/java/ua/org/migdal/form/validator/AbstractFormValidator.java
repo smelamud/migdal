@@ -1,4 +1,4 @@
-package daily.coin.form.validator;
+package ua.org.migdal.form.validator;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

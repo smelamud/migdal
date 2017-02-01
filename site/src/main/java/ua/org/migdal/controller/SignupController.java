@@ -1,11 +1,10 @@
-package daily.coin.controller;
+package ua.org.migdal.controller;
 
 import java.util.Map;
 
 import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
-import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import daily.coin.data.User;
-import daily.coin.form.SignupForm;
-import daily.coin.manager.UsersManager;
+import ua.org.migdal.data.User;
+import ua.org.migdal.form.SignupForm;
+import ua.org.migdal.manager.UsersManager;
 
 @Controller
 public class SignupController {

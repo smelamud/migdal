@@ -1,8 +1,8 @@
-package daily.coin.form.validator;
+package ua.org.migdal.form.validator;
 
 import org.springframework.validation.Errors;
 
-import daily.coin.form.SignupForm;
+import ua.org.migdal.form.SignupForm;
 
 @FormValidator
 public class SignupFormValidator extends AbstractFormValidator<SignupForm> {

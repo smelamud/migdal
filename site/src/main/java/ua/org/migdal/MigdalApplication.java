@@ -1,7 +1,7 @@
-package daily.coin;
+package ua.org.migdal;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
-import daily.coin.helper.HelperSource;
+import ua.org.migdal.helper.HelperSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class CoinDailyApplication {
+public class MigdalApplication {
 
-	private Logger log = LoggerFactory.getLogger(CoinDailyApplication.class);
+	private Logger log = LoggerFactory.getLogger(MigdalApplication.class);
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -31,7 +31,7 @@ public class CoinDailyApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(CoinDailyApplication.class, args);
+		SpringApplication.run(MigdalApplication.class, args);
 	}
 
 }

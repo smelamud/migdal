@@ -1,4 +1,4 @@
-package daily.coin.data;
+package ua.org.migdal.data;
 
 public enum UserRole {
 

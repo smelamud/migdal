@@ -1,4 +1,4 @@
-package daily.coin.data;
+package ua.org.migdal.data;
 
 import org.springframework.data.repository.CrudRepository;
 

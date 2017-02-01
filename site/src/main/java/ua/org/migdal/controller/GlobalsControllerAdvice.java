@@ -1,4 +1,4 @@
-package daily.coin.controller;
+package ua.org.migdal.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import daily.coin.Session;
+import ua.org.migdal.Session;
 
 @ControllerAdvice
 public class GlobalsControllerAdvice {

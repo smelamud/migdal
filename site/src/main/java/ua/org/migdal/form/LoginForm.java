@@ -1,10 +1,9 @@
-package daily.coin.form;
+package ua.org.migdal.form;
 
-import daily.coin.data.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class SignupForm extends InterruptingForm {
+public class LoginForm extends InterruptingForm {
 
     @NotBlank
     @Email
@@ -13,13 +12,10 @@ public class SignupForm extends InterruptingForm {
     @NotBlank
     private String password;
 
-    @NotBlank
-    private String retypePassword;
-
-    public SignupForm() {
+    public LoginForm() {
     }
 
-    public SignupForm(String back, String defaultBack) {
+    public LoginForm(String back, String defaultBack) {
         super(back, defaultBack);
     }
 
@@ -37,19 +33,6 @@ public class SignupForm extends InterruptingForm {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRetypePassword() {
-        return retypePassword;
-    }
-
-    public void setRetypePassword(String retypePassword) {
-        this.retypePassword = retypePassword;
-    }
-
-    public void toUser(User user) {
-        user.setEmail(email);
-        user.setPassword(password);
     }
 
 }

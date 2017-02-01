@@ -1,4 +1,4 @@
-package daily.coin.form;
+package ua.org.migdal.form;
 
 public class LogoutForm extends InterruptingForm {
 
