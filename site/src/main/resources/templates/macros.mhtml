@@ -1,0 +1,508 @@
+<< @(#) $Id$ >>
+
+<< Errors >>
+<macro name='error'>
+ <errors>
+ <perror id%!id='%id' text%!text='%text' color%!color='%color'
+         span%!span='%span'>
+</macro>
+
+<< Date/Time >>
+<macro name='sentview'>
+ <asp>%date@j.%date@m.%date@Y&nbsp;%date@H:%date@i<asp>
+</macro>
+
+<< Styles >>
+<<decstyle ident='test' desc='Тестовый'>>
+
+<< Callbacks >>
+<deccallback event='image' name='article_image' file='parts/article.php'
+             params='data'>
+<deccallback event='user_name' name='user_name' file='parts/utils.php'
+             params='data'>
+<deccallback event='incut' name='incut' file='parts/utils.php' params='data'>
+<deccallback event='_incut' name='_incut' file='parts/utils.php' params='data'>
+
+<< Elements >>
+<decel name='addtoany' file='parts/addtoany.php'>
+<decel name='article' file='parts/article.php'
+       params='posting,withvote,static,note_base_var'
+       defaults="withvote='*true' static='*false' note_base_var=''">
+<decel name='article_controls' file='parts/article.php'
+       params='posting,nodiscuss' defaults="nodiscuss='*false'">
+<decel name='article_editmode' file='parts/article.php' params='editing'>
+<decel name='/article_editmode' file='parts/article.php'>
+<decel name='article_full' file='parts/article.php' params='posting'>
+<decel name='backtrace' file='parts/backtrace.php'>
+<decel name='banner_bannerbank' file='parts/banner-bannerbank.php'>
+<decel name='banner_hotlog' file='parts/banner-hotlog.php'>
+<decel name='banner_hotlog_top' file='parts/banner-hotlog.php'>
+<decel name='banner_mailru' file='parts/banner-mailru.php'>
+<decel name='banner_mailru_top' file='parts/banner-mailru.php'>
+<decel name='banner_rabbi' file='parts/banner-rabbi.php'>
+<decel name='banner_rambler' file='parts/banner-rambler.php'>
+<decel name='banner_rambler_top' file='parts/banner-rambler.php'>
+<decel name='banners' file='parts/banners.php'>
+<decel name='book_chapters' file='parts/book-chapters.php' params='book,id'
+       defaults="id='-1'">
+<decel name='book_chapters_static' file='parts/book-chapters-static.php'
+       params='book,id' defaults="id='-1'">
+<decel name='book_ring' file='parts/book-ring.php' params='book,index'>
+<decel name='book_ring_static' file='parts/book-ring-static.php'
+       params='book,index'>
+<decel name='bottom' file='parts/bottom.php'>
+<decel name='catalog_table' file='parts/catalog.php' params='compact'
+       defaults="compact='*false'">
+<decel name='/catalog_table' file='parts/catalog.php'>
+<decel name='countdown' file='parts/countdown.php'
+       params='title,day,image,href,year'
+       defaults="href=''">
+<decel name='countdown_pic' file='parts/countdown.php'
+       params='title,day,image,href' defaults="href=''">
+<decel name='daily_announce' file='parts/daily-announce.php' params='topic_id'>
+<decel name='discussions' file='parts/discussions.php'
+       params='topic_id,limit' defaults="topic_id='-1' limit=5">
+<decel name='discusslink' file='parts/posting.php' params='posting'>
+<decel name='ears' file='parts/ears.php'>
+<decel name='edit' file='parts/formutils.php'
+       params='name,value,size,maxlength,onkeypress,id'
+       defaults="size=40 maxlength=250 onkeypress='' id=''">
+<decel name='editlink' file='parts/posting.php' params='posting'>
+<decel name='events' file='parts/events.php' params='grp,index,prefix'
+       defaults="index=0 prefix=''">
+<decel name='failpage' file='parts/failpage.php'>
+<decel name='form_buttons' file='parts/formutils.php' params='title,clear'
+       defaults="title='Изменить' clear='*true'">
+<decel name='form_captcha' file='parts/captcha.php' params='name,id'
+       defaults="id=''">
+<decel name='form_checkbox' file='parts/formutils.php'
+       params='title,mandatory,comment,name,value,style,checked,id_yes,id_no'
+       defaults="mandatory='*false' comment='' style='select' value=1
+                 checked='*true' id_yes='' id_no=''">
+<decel name='form_comment' file='parts/formutils.php'>
+<decel name='/form_comment' file='parts/formutils.php'>
+<decel name='form_date' file='parts/formutils.php'
+       params='title,mandatory,comment,name,value,base_year'
+       defaults="mandatory='*false' comment='' base_year=2000">
+<decel name='form_edit' file='parts/formutils.php'
+       params='title,mandatory,comment,name,value,size,maxlength,xmlid'
+       defaults="mandatory='*false' comment='' size=40 maxlength=250 xmlid=0">
+<decel name='form_editor' file='parts/formutils.php'
+       params='title,mandatory,comment,name,body,rows,xmlid'
+       defaults="mandatory='*false' comment='' rows=10 xmlid=0">
+<decel name='form_grpselect' file='parts/grpselect.php'
+       params='name,value,rows,multiple,title,mandatory,comment'
+       defaults="rows=8 multiple='*false' title='Группа' mandatory='*false'
+                 comment=''">
+<decel name='form_langselect' file='parts/langselect.php'
+       params='name,value,mandatory,title,comment'
+       defaults="mandatory='*false' title='Язык' comment=''">
+<decel name='form_line' file='parts/formutils.php'
+       params='title,mandatory,comment,id'
+       defaults="mandatory='*false' comment='' id=''">
+<decel name='/form_line' file='parts/formutils.php'>
+<decel name='form_option' file='parts/formutils.php'
+       params='title,value,selected' defaults="selected='*false'">
+<decel name='form_password' file='parts/formutils.php'
+       params='title,mandatory,comment,name,size,maxlength'
+       defaults="mandatory='*false' comment='' size=40 maxlength=250">
+<decel name='form_relogin' file='parts/relogin.php'
+       params='noguests,relogin,login,remember,onclick'
+       defaults="noguests='*false' relogin=0 login='' remember='*false'
+                 onclick=''">
+<decel name='form_section' file='parts/formutils.php' params='title'>
+<decel name='form_select' file='parts/formutils.php'
+       params='title,name,mandatory,comment,multiple,style,rows'
+       defaults="mandatory='*false' comment='' multiple='*false' style='list'
+                 rows='10'">
+<decel name='/form_select' file='parts/formutils.php'>
+<decel name='form_table' file='parts/formutils.php'
+       params='title,mini,minititle'
+       defaults="mini='*false' minititle='*false'">
+<decel name='/form_table' file='parts/formutils.php'>
+<decel name='form_topicselect' file='parts/topicselect.php'
+       params='name,value,grp,mandatory,title,root,comment,only_appendable,
+	       only_postable'
+       defaults="mandatory='*false' title='Тема' grp='*GRP_ALL' root='-1'
+                 comment='' only_appendable='*false' only_postable='*false'">
+<decel name='form_upload_format' file='parts/uploader.php'
+       params='name,format,title,comment,mandatory'
+       defaults="name='large_body_format' comment='',mandatory='*false'">
+<decel name='form_uploader' file='parts/uploader.php'
+       params='name,small_name,small_title,large_title,loaded,delname,plainid,
+               title,comment,mandatory,small_url,large_url'
+       defaults="small_name='' small_title='' large_title='' plainid=0
+                 comment='' mandatory='*false' small_url='' large_url=''">
+<decel name='forum' file='parts/forum.php' params='forum'>
+<decel name='forums' file='parts/forums.php' params='parent_id,limit,offset'
+       defaults='limit=0 offset=0'>
+<decel name='gallery' file='parts/gallery.php'
+       params='topic_id,rows,cols,offset,sort,user_id,noguests,noadd'
+       defaults="rows=4 cols=5 offset=0 sort='*SORT_SENT' user_id=0
+                 noguests='*false' noadd='*false'">
+<decel name='grpselect' file='parts/grpselect.php'
+       params='name,value,rows,multiple' defaults="rows=8 multiple='*false'">
+<decel name='hannukah' file='parts/hannukah.php'>
+<decel name='help_link' file='parts/help-link.php' params='href,title,span'
+       defaults='span=0'>
+<decel name='history' file='parts/history.php' params='topic_id,current,today'>
+<decel name='hit_parade' file='parts/hit-parade.php'
+       params='grp,topic_id,title,later,limit,sort,showshadows'
+       defaults="grp='*GRP_ALL' topic_id='-1' title='Избранное' later=0
+                 limit=10 sort='*SORT_RATING' showshadows='*true'">
+<decel name='hit_parade_month' file='parts/hit-parade.php'
+       params='grp,topic_id,showshadows'
+       defaults="grp='*GRP_ALL' topic_id='-1' showshadows='*true'">
+<decel name='input_datetime' file='parts/utils.php'
+       params='name,value,format,base_year'
+       defaults="format='yMd' base_year=2000">
+<decel name='langselect' file='parts/langselect.php' params='name,value'>
+<decel name='lastonline' file='parts/utils.php' params='user'>
+<decel name='login' file='parts/login.php'>
+<decel name='maillink' file='parts/utils.php' params='message'>
+<decel name='mailloginlink' file='parts/utils.php' params='message'>
+<decel name='mailtolink' file='parts/utils.php' params='message'>
+<decel name='menu' file='parts/menu.php' params='ident'>
+<decel name='migdal_news' file='parts/migdal-news.php'>
+<decel name='navi_sort' file='parts/utils.php' params='value,title'>
+<decel name='perror' file='parts/utils.php' params='id,text'>
+<decel name='peruser' file='parts/peruser.php' params='topic_id'>
+<decel name='picture' file='parts/picture.php'
+       params='picture,showtopic,showdiscuss,shorten,rel,list_index,list_size,
+               hollow,align,noclear,nomargin,fixed_width,fixed_height,title'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false' rel=''
+                 list_index=0 list_size=0 hollow='*false' align=''
+                 noclear='*false' nomargin='*false' fixed_width=0
+                 fixed_height=0 title=''">
+<decel name='picture_main' file='parts/picture-main.php'
+       params='href,biff,name,title,image_href' defaults="title=''">
+<decel name='pointer' file='parts/pointer.php' params='href,text,title,left'
+       defaults="title=''">
+<decel name='posting' file='parts/posting.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_book' file='parts/posting-book.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_controls' file='parts/posting.php'
+       params='posting,showdiscuss,showprint,showedit'
+       defaults="showdiscuss='*false' showprint='*true' showedit='*true'">
+<decel name='posting_ear' file='parts/posting-ear.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_gallery' file='parts/posting-gallery.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_gallery_update' file='parts/posting-gallery-update.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_general' file='parts/posting-general.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_image' file='parts/posting.php'
+       params='posting,align,image_title,title,href,title_large,rel,edithref,
+               rmhref,title_large_id,rating,enlarge_always,hollow,noclear,
+               nomargin,fixed_width,fixed_height'
+       defaults="align='' image_title='' title='' href='' title_large=''
+                 rel='' edithref='' rmhref='' title_large_id='' rating=0
+                 enlarge_always='*false' hollow='*false' noclear='*false'
+                 nomargin='*false' fixed_width=0 fixed_height=0">
+<decel name='posting_og_image' file='parts/posting.php' params='posting'>
+<decel name='posting_peruser' file='parts/posting-peruser.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_printing' file='parts/posting-printing.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_selflink' file='parts/posting.php' params='posting'>
+<decel name='posting_textear' file='parts/posting-textear.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_times' file='parts/posting-times.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_times_cover' file='parts/posting-times-cover.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='posting_tip' file='parts/posting-tip.php'
+       params='posting,showtopic,showdiscuss,shorten'
+       defaults="showtopic='*true' showdiscuss='*true' shorten='*false'">
+<decel name='postings' file='parts/postings.php'
+       params='grp,topic_id,limit,offset,user_id,showadvert,showshadows,sort,
+               recursive,add_grp'
+       defaults="topic_id=-1 limit=10 offset=0 user_id=0 showadvert='*true'
+                 showshadows='*true' sort='*SORT_PSENT' recursive='*false'
+                 add_grp=0">
+<decel name='postings_migdal_news' file='parts/postings-migdal-news.php'
+       params='topic_id,offset' defaults="offset=0">
+<decel name='printlink' file='parts/posting.php' params='posting'>
+<decel name='rating' file='parts/vote.php' params='value,style,id'
+       defaults="style='' id=0">
+<decel name='rss' file='parts/utils.php'>
+<decel name='seealso' file='parts/seealso.php'
+       params='source_name,source_id,link_type,title,adddir'
+       defaults="source_name='' source_id=0 link_type='*LINKT_SEEALSO'
+                 title='См. также' adddir=''">
+<decel name='seealso_frame' file='parts/seealso.php'
+       params='link_type,title,adddir'
+       defaults="link_type='*LINKT_SEEALSO' title='См. также' adddir=''">
+<decel name='selflink' file='parts/utils.php' params='href'>
+<decel name='senderlink' file='parts/utils.php' params='message'>
+<decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'
+       defaults="picprev='/pics/left.gif' picnext='/pics/right.gif'">
+<decel name='star' file='parts/formutils.php' params='mandatory'
+       defaults="mandatory='*false'">
+<decel name='starinfo' file='parts/formutils.php'>
+<decel name='subtitle' file='parts/subtitle.php' params='title'
+       defaults="title='$$LocationInfo.Title'">
+<decel name='taglit_intro' file='parts/peruser-intros.php'>
+<decel name='textears' file='parts/textears.php'>
+<decel name='tip' file='parts/tip.php'>
+<decel name='today' file='parts/today.php'>
+<decel name='top' file='parts/top.php' params='ident,transref'
+       defaults="transref=''">
+<decel name='top_404' file='parts/top-404.php'>
+<decel name='topiclink' file='parts/posting.php'
+       params='&posting,class,prefix,suffix'
+       defaults="class='posting-topic' prefix='' suffix=''">
+<decel name='topics' file='parts/topics.php'>
+<decel name='topics_admin' file='parts/topics-admin.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_beitenu' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_book' file='parts/topics-book.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_choir' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_common_events' file='parts/topics-events.php'
+       params='id,class_line' defaults="class_line='topics-item'">
+<decel name='topics_daily' file='parts/topics-daily.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_dances' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_event' file='parts/topics-events.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_events' file='parts/topics-events.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_jcc' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_kes' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_line'
+       params='time,arrow,text,title,href,count,class,rating,nobullet'
+       defaults="time=0 arrow='*false' text='' title='' href='' count=''
+                 class='topics-item' rating='' nobullet='*false'"
+       file='parts/topics.php'>
+<decel name='topics_major' file='parts/topics-major.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_major_sub' file='parts/topics-major.php'
+       params='index,base' defaults="base=''">
+<decel name='topics_mazltov' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_methodology' file='parts/topics-migdal.php'
+       params='index,base' defaults="base=''">
+<decel name='topics_migdal' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_migdal_english' file='parts/topics-migdal-english.php'
+       params='index,base' defaults="base=''">
+<decel name='topics_migdal_library' file='parts/topics-migdal.php'
+       params='index,base' defaults="base=''">
+<decel name='topics_migdal_or' file='parts/topics-migdal.php'
+       params='index,base' defaults="base=''">
+<decel name='topics_museum' file='parts/topics-migdal.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_peruser' file='parts/topics-peruser.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_section' file='parts/topics.php'
+       params='class,title' defaults="class='topics-section'">
+<decel name='topics_splitter' file='parts/topics.php'
+       params='class' defaults="class='ninept'">
+<decel name='topics_static' file='parts/topics.php'
+       params='text,class,nobullet' defaults="text='' class='' nobullet='*false'">
+<decel name='topics_subtable' params='class' defaults="class=''" file='parts/topics.php'>
+<decel name='/topics_subtable' file='parts/topics.php'>
+<decel name='topics_table' params='class,title'
+       defaults="class='' title=''" file='parts/topics.php'>
+<decel name='/topics_table' file='parts/topics.php'>
+<decel name='topics_times' file='parts/topics-times.php' params='index,base'
+       defaults="base=''">
+<decel name='topics_tips' file='parts/topics-help.php' params='posting'>
+<decel name='topicselect' file='parts/topicselect.php'
+       params='name,value,grp,root,only_appendable,only_postable,mandatory,
+               null_title'
+       defaults="grp='*GRP_ALL' root='-1' only_appendable='*false'
+                 only_postable='*false' mandatory='*false' null_title=''">
+<decel name='tune' file='parts/tune.php' params='ident,target'
+       defaults="target=''">
+<decel name='tweetfeed' file='parts/tweetfeed.php'>
+<decel name='tzdaka' file='parts/tzdaka.php'>
+<decel name='uploader' file='parts/uploader.php'
+       params='name,small_name,small_title,large_title,loaded,delname,plainid,
+               small_url,large_url'
+       defaults="small_name='' small_title='' large_title='' plainid=0
+                 small_url='' large_url=''">
+<decel name='upload_format' file='parts/uploader.php'
+       params='name,format' defaults="name='large_body_format'">
+<decel name='upper_level' file='parts/topics.php' params='title,name,href'
+       defaults="title='' name=''">
+<decel name='veterans_intro' file='parts/peruser-intros.php'>
+<decel name='vote_panel' file='parts/vote.php' params='id,rating,align'
+       defaults="align=''">
+<decel name='xml_text' file='parts/xml-text.php' params='id,name'>
+
+<macro name='bymessages'>
+ <zone>
+  <array vals='сообщению,сообщения,сообщений'>
+  <plural value%!value='%value'>
+  $,
+ </zone>
+</macro>
+
+<< HTML shortcuts >>
+<decel name='at' file='parts/utils.php' params='target,class,href,title'
+       defaults="target='' class='' title=''">
+
+<macro name='/at'>
+ <asp></a><asp>
+</macro>
+
+<macro name='meta_noindex' defaults="value='*true'">
+ <assign_global name='metaNoIndex' value%!value='%value'>
+</macro>
+
+<macro name='preamble'>
+ <stylesheet ident='style'>
+ <stylesheet_jquery_ui>
+ <stylesheet_jquery_qtip>
+ <stylesheet_jquery_fancybox>
+ <js_basic src='/js/default.js'>
+ << JS files are included in reverse order >>
+ <js_jquery_fancybox>
+ <js_jquery_qtip>
+ <js_jquery_ui>
+ <js_jquery>
+ <preamble_tiny>
+</macro>
+
+<macro name='preamble_tiny'>
+ <conf>
+ <assign_global name='wwwDomain' value!="$$userDomain=='www'">
+ <assign_global name='englishDomain' value!="$$userDomain=='english'">
+ <head>
+  <notprint>
+   <link rel='alternate' media='print' href='$[print=1]'>
+  </notprint>
+  <if what="isset($$rss_href) && $$rss_href != ''">
+   <link rel="alternate" type="application/rss+xml" title="RSS"
+	 href="http://$userDomain.$siteDomain$$rss_href">
+  </if>
+  <link rel='search' href='/search'>
+  <ifne what="'%stylesheet'">
+   <link rel='stylesheet' href='%stylesheet'>
+  </ife>
+  <if what='isset($metaNoIndex) && $metaNoIndex'>
+   <meta property="ROBOTS" content="NOINDEX, NOFOLLOW">
+  </if>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <notenglish>
+   <assign name='siteName' value='Мигдаль'>
+  <else>
+   <assign name='siteName' value='Migdal'>
+  </notenglish>
+  <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='Главная'
+				    && $LocationInfo.Title!='Main'">
+   <meta property="og:type" content="article">
+   <assign name='pageTitle' value='$LocationInfo.Title'>
+  <else>
+   <meta property="og:type" content="website">
+   <assign name='pageTitle' value=''>
+  </if>
+  <meta property="og:site_name" content="$siteName">
+  <meta property="og:title" content="$=pageTitle">
+  <title><asp>
+   <ifne what='$pageTitle'>
+    <asp>$=pageTitle |&sp;<asp>
+   </ifne>
+   $siteName
+  <asp></title>
+  <zone>
+   <timestamp>
+   <script type="text/javascript">
+    window.timeZoneDiff = Math.round((new Date().getTime() / 1000 - $,) / 3600);
+   </script>
+  </zone>
+ </head>
+</macro>
+
+<macro name='preamble_xml'>
+ <conf>
+ <assign_global name='wwwDomain' value!="$$userDomain=='www'">
+ <assign_global name='englishDomain' value!="$$userDomain=='english'">
+</macro>
+
+<macro name='stylesheet_jquery_ui'>
+ <notprint>
+  <stylesheet ident='humanity/jquery-ui-1.10.3'>
+ </notprint>
+</macro>
+
+<macro name='stylesheet_jquery_qtip'>
+ <notprint>
+  <stylesheet ident='jquery.qtip'>
+ </notprint>
+</macro>
+
+<macro name='stylesheet_jquery_fancybox'>
+ <notprint>
+  <stylesheet ident='jquery.fancybox'>
+ </notprint>
+</macro>
+
+<macro name='js_jquery'>
+ <js_basic src='/js/jquery-1.10.2.min.js'>
+</macro>
+
+<macro name='js_jquery_ui'>
+ <js_basic src='/js/jquery-ui-1.10.3.custom.min.js'>
+</macro>
+
+<macro name='js_jquery_qtip'>
+ <js_basic src='/js/jquery.qtip.min.js'>
+</macro>
+
+<macro name='js_jquery_fancybox'>
+ <js_basic src='/js/jquery.fancybox.min.js'>
+</macro>
+
+<< Biff >>
+<macro name='biff' defaults="small='*false'">
+ <ifbiff time%!time='%time'>
+  <if what='%small'>
+   &nbsp;<image src='/pics/ner-small.gif' title='новое'>&nbsp;
+  <else>
+   &nbsp;<image src='/pics/ner.gif' title='новое'>&nbsp;
+  </if>
+ </ifbiff>
+</macro>
+
+<< Subdomains >>
+<macro name='english'>
+ <if what="$$userDomain=='english'">
+</macro>
+<endif name='/english'>
+
+<macro name='notenglish'>
+ <if what="$$userDomain!='english'">
+</macro>
+<endif name='/notenglish'>
+
+<macro name='www'>
+ <if what="$$userDomain=='www'">
+</macro>
+<endif name='/www'>
+
+<macro name='notwww'>
+ <if what="$$userDomain!='www'">
+</macro>
+<endif name='/notwww'>

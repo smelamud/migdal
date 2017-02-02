@@ -1,0 +1,197 @@
+<< @(#) $Id$ >>
+
+<element name='posting_selflink'>
+<selflink href='$posting.GrpDetailsHref'>
+</element>
+
+<element name='topiclink'>
+<assign name='href' value#='$prefix$posting.GrpGeneralHref$suffix'>
+<location_info path='$href'>
+<a href='$href' class='$class'>$=,TitleFull</a>
+</element>
+
+<element name='editlink'>
+<a href="${posting.GrpDetailsHref}edit/?redirid=$_"><asp>
+ <notenglish>Изменить<else>Edit</notenglish></a>
+</element>
+
+<element name='discusslink'>
+<notenglish>
+ <span>
+  <ifnzero what='$posting.Answers'>
+   <a href='${posting.GrpDetailsHref}discuss/'><asp>
+    <notenglish>
+     <array vals='комментарий,комментария,комментариев'>
+     <plural value='$posting.Answers'>
+     <asp>$posting.Answers&sp;$,
+    <else>
+     <if what='$posting.Answers == 1'>
+      <asp>1 comment<asp>
+     <else>
+      $posting.Answers comments<asp>
+     </if>
+    </notenglish>
+   <asp></a><asp>
+  <else>
+   <asp><a href='${posting.GrpDetailsHref}discuss/add/'><asp>
+    <notenglish><asp>Оставить комментарий<else>Leave a comment<asp></notenglish>
+   <asp></a><asp>
+  </ifnzero>
+  <ifbiff time='$posting.LastAnswer'>
+   <asp>&nbsp;<image src='/pics/discussion-new.gif'>
+  <else>
+   <asp>&nbsp;<image src='/pics/discussion.gif'>
+  </ifbiff>
+ </span>
+</notenglish>
+</element>
+
+<element name='printlink'>
+<span>
+ <image src='/pics/print.gif' style='position: relative; top: 1px'>&nbsp;<asp>
+ <asp><a href='$posting.GrpDetailsHref?&print=1' target='_blank'><asp>
+  <notenglish>Для печати<else>Print version</notenglish></a>
+</span>
+</element>
+
+<element name='posting_og_image'>
+<if what='$posting.hasImage'>
+ <og_image src='$posting.ImageURL'>
+</if>
+</element>
+
+<element name='posting_image'>
+<assign name='float' value='float: none'>
+<assign name='alt' value=''>
+<assign name='rl' value=''>
+<ifne what='$align'>
+ <if what="$align != 'center'">
+  <if what="$align == 'left'">
+   <assign name='clear' value!="!$noclear ? 'clear: left' : ''">
+   <assign name='margin' value!="!$nomargin ? 'margin-right: 1em' : ''">
+   <assign name='float' value#='float: left; $clear; $margin'>
+  <else>
+   <assign name='clear' value!="!$noclear ? 'clear: right' : ''">
+   <assign name='margin' value!="!$nomargin ? 'margin-left: 1em' : ''">
+   <assign name='float' value#='float: right; $clear; $margin'>
+  </if>
+ <else>
+  <assign name='clear' value!="!$noclear ? 'clear: both' : ''">
+  <assign name='float' value#='margin-left: auto; margin-right: auto; $clear'>
+ </if>
+</ifne>
+<ifne what='$image_title'>
+ <assign name='alt' value#='alt="$=image_title" title="$=image_title"'>
+</ifne>
+<ifne what='$rel'>
+ <assign name='rl' value#='rel="$rel"'>
+</ifne>
+<ifne what='$title_large_id'>
+ <assign name='tl' value#='data-title-large-id="$title_large_id"'>
+<else>
+ <assign name='tl' value#='data-title-large="$title_large"'>
+</ifne>
+<assign name='size_x'
+        value!="$fixed_width!=0 ? $fixed_width : $posting.SmallImageX">
+<assign name='size_y'
+        value!="$fixed_height!=0 ? $fixed_height : $posting.SmallImageY">
+<div class='pic' style='width: ${size_x}px; $float'>
+ <if what='$posting.hasLargeImage || $enlarge_always'>
+  <ife what='$href'>
+   <a class='enlargeable' href='$posting.LargeImageURL' $tl&sp;$rl>
+  <else>
+   <a href='$href'>
+  </ife>
+  <if what='!$hollow'>
+   <asp><img width='$size_x' height='$size_y'
+             $alt src='$posting.SmallImageURL'><asp>
+  <else>
+   &nbsp;
+  </if>
+  </a>
+  <if what="$href == '' && !$hollow">
+   <assign name='glass_x' value!='$size_x - 22'>
+   <assign name='glass_y' value!='$size_y - 22'>
+   <div class='glass' style='top: ${glass_y}px; left: ${glass_x}px'></div>
+  </if>
+ <else>
+  <ifne what='$href'>
+   <a href='$href'>
+  </ifne>
+  <asp><img width='$posting.ImageX' height='$posting.ImageY' $alt
+        src='$posting.ImageURL'><asp>
+  <ifne what='$href'>
+   </a>
+  </ifne>
+ </if>
+ <if what='!$hollow'>
+  <outer>
+   <div class='buttons'>
+    <inner>
+     <ifne what='$edithref'>
+      <if what="$edithref == 'auto'">
+       <assign name='edithref'
+               value#='${posting.GrpDetailsHref}edit/?redirid=$_'>
+      </if>
+      <notenglish>
+       <assign name='tooltip' value='Изменить'>
+      <else>
+       <assign name='tooltip' value='Edit'>
+      </notenglish>
+      <span><a href='$edithref'><asp>
+       <image src='/pics/edit.png' title='$tooltip' alt='$tooltip'>
+      <asp></a></span>
+     </ifne>
+     <ifne what='$rmhref'>
+      <notenglish>
+       <assign name='tooltip' value='Убрать'>
+      <else>
+       <assign name='tooltip' value='Remove'>
+      </notenglish>
+      <span><a href='$rmhref'><asp>
+       <image src='/pics/remove.png' title='$tooltip' alt='$tooltip'>
+      <asp></a></span>
+     </ifne>
+    </inner>
+   </div>
+  </outer>
+ </if>
+ <ifne what='$title'>
+  <div class='pic-title'>$title</div>
+ </ifne>
+ <if what='!$hollow'>
+  <assign name='rating_y' value!='$size_y - 25'>
+  <rating id='$posting.Id' value='$rating' style#='top: ${rating_y}px'>
+ </if>
+</div>
+</element>
+
+<element name='posting_controls'>
+<notprint>
+ <div class='posting-bottom'>
+  <posting_selflink posting='$posting'>
+  <if what='$showprint'>
+   &nbsp;&nbsp;
+   <printlink posting='$posting'>
+  </if>
+  <if what='$showedit'>
+   &nbsp;&nbsp;
+   <iswrite what='$posting'>
+    <editlink posting='$posting'>
+   </iswrite>
+  </if>
+  <if what='$showdiscuss'>
+   <div class='right'><discusslink posting='$posting'></div>
+  </if>
+  <div class='clear-floats'></div>
+ </div>
+</notprint>
+</element>
+
+<element name='posting'>
+<if what='$posting.GrpTapeCenter'><center></if>
+ <require_once name='$posting.GrpTapeFile'>
+ <exec element='$posting.GrpTapeElement' arg1='$posting' arg2='$showtopic'
+       arg3='$showdiscuss' arg4='$shorten'>
+<if what='$posting.GrpTapeCenter'></center></if>
+</element>

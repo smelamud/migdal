@@ -1,0 +1,87 @@
+<< @(#) $Id$ >>
+
+<int name='istopic'>
+<int name='parent_id'>
+<int name='recursive'>
+<int name='grp'>
+<int name='up'>
+<int name='index1'>
+<int name='index2'>
+<int name='level'>
+<int name='withident'>
+
+<int name='edittag'>
+<int_array name='ids'>
+
+<if what='$index1<=0'>
+ <assign name='index1' value='-1'>
+</if>
+<if what='$index2<=0'>
+ <assign name='index2' value='-1'>
+</if>
+
+<if what='!$istopic'>
+ <assign name='itemNameM' value='статьи'>
+ <assign name='itemNameR' value='статьи'>
+ <assign name='itemNameMR' value='статей'>
+<else>
+ <assign name='itemNameM' value='темы'>
+ <assign name='itemNameR' value='темы'>
+ <assign name='itemNameMR' value='тем'>
+</if>
+
+<element name='order_iterator' params='name'>
+<if what='!$$istopic'>
+ <iterate_postinglist grp='$$grp' topic_id='$$parent_id'
+		      recursive='$$recursive' limit=0 sort='*SORT_INDEX0'
+		      index1='$$index1' up='$$up' withident='$$withident'>
+ <assign_global name='$name' value='$;'>
+<else>
+ <iterate_topiclist grp='*GRP_ALL' up='$$up' sort='*SORT_INDEX0' topic_id='-1'
+                    recursive='$$recursive' level='$$level' index2='$$index2'>
+ <assign_global name='$name' value='$;'>
+</if>
+</element>
+
+<element name='order_selector' params='title,sels,current'>
+<form_select title='$title' name='ids[]'>
+ <form_option title='-- Пусто --' value='0' selected!='$current<=0'>
+ <rewind_iterator list='$sels'>
+ <for list='sels'>
+  <assign name='heading' value!='!$$istopic ? $=.Heading : $=.Subject'>
+  <assign name='heading' value!='shortenNote(${heading},64,16,5)'>
+  <form_option title='$=heading' value='$.Id' selected!='$.Id==$current'>
+ </for>
+</form_select>
+</element>
+
+<html>
+ <preamble>
+
+ <top ident='index'>
+ <form_table title='$LocationInfo.Title' mini='*true' minititle='*true'>
+  <form method='post' action='/actions/reorder'>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <order_iterator name='sels'>
+   <hidden name='count' value='$sels.Count'>
+   <order_iterator name='entries'>
+   <error id='*EO_LITTLE' text#='Не все $itemNameM указаны'>
+   <error id='*EO_DUPS' text#='Некоторые $itemNameM указаны дважды'>
+   <error id='*EO_NO_ENTRY' text#='Нет такой $itemNameR'>
+   <error id='*EO_NO_REORDER'
+          text#='Вы не имеете права менять порядок $itemNameMR'>
+   <assign name='n' value=0>
+   <order_selector title='' sels='$sels' current!='$edittag ? $ids[$n] : -1'>
+   <for list='entries'>
+    <assign name='n' value!='$n+1'>
+    <order_selector title#='$entries.NextPosition.' sels='$sels'
+		    current!='$edittag ? $ids[$n] : $.Id'>
+    <assign name='n' value!='$n+1'>
+    <order_selector title='' sels='$sels' current!='$edittag ? $ids[$n] : -1'>
+   </for>
+   <form_buttons title='Изменить'>
+  </form>
+ </form_table>
+ <bottom>
+</html>

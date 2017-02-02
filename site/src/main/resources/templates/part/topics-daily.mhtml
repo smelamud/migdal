@@ -1,0 +1,36 @@
+<< @(#) $Id$ >>
+
+<element name='topics_daily'>
+<upper_level name='События' href='/migdal/events/'>
+<topic_obj name='event' id='$base'>
+<topics_table class='eightpt' title='$=,Subject'>
+ <ispost what='$event'>
+  <li class='topics-nobullet'>
+   <a href='/${,Catalog}add-article/?redirid=$_' class='edit'>Добавить</a><br>
+   <a href='/${,Catalog}reorder/?redirid=$_' class='edit'>Расставить</a>
+  </li>
+ </ispost>
+ <html_cache ident#='topics_daily-$,Id-$index' period!='3 * 60 * 60'
+             depends='postings'>
+  <iterate_postinglist grp='*GRP_ARTICLES' limit=0 sort='*SORT_INDEX0'
+		       topic_id='$,Id' recursive='*false' as_guest='*true'>
+  <for>
+   <topics_line time='$.Modified' text='$=.Heading' href#='$.GrpDetailsHref'
+		arrow!='$.Id==$index'>
+  </for>
+  <ifnzero what='$;Count'>
+   <topics_splitter>
+  </ifnzero>
+  <zone>
+   <posting_obj id='$index'>
+   <assign name='index1' value='$,Index1'>
+  </zone>
+  <iterate_postinglist topic_id='$,Id' grp='*GRP_DAILY_NEWS'
+		       sort='*SORT_INDEX1' limit=0 as_guest='*true'>
+  <for>
+   <topics_line time='$.Modified' text='$=.Heading'
+		href#='/${,Catalog}day-$.Index1/' arrow!='$.Index1==$index1'>
+  </for>
+ </html_cache>
+</topics_table>
+</element>

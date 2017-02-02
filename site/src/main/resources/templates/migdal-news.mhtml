@@ -1,0 +1,41 @@
+<< @(#) $Id$ >>
+
+<grps>
+<ident name='topic_id'>
+<int name='offset'>
+<ifzero what='$topic_id'>
+ <assign name='topic_id' value='$`migdal`'>
+</ifzero>
+
+<log event=index text#='topic($topic_id) offset=$offset'>
+
+<html>
+ <preamble>
+
+ <top ident='index' transref#='http://english.$$siteDomain/events/'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics>
+    <ears>
+   </td>
+   <td class='cframe'>
+    <outer><table width=100% cellspacing=0 cellpadding=5><tr valign=top>
+     <td><common>
+      <subtitle>
+      <seealso_frame>
+      <postings_migdal_news topic_id='$topic_id' offset='$offset'>
+     </common></td>
+     <td width=130 class='nframe'><inner>
+      <if what='$topic_id==$`migdal`'>
+       <migdal_news>
+       <events grp='*GRP_NONE'>
+      </if>
+     </inner></td>
+    </tr></table></outer>
+    <rss>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</html>

@@ -1,0 +1,85 @@
+<< @(#) $Id$ >>
+
+<element name='topic' params='posting,showtopic'>
+<if what='$showtopic'>
+ <topiclink posting='$posting'><br>
+</if>
+</element>
+
+<element name='source' params='posting'>
+<ifne what='$posting.Source'>
+ <p class='posting-source'>Источник: $posting.SourceHTML</p>
+</ifne>
+</element>
+
+<element name='further' params='posting,title'>
+<p>
+ <image src='/pics/further.gif'>&sp;
+ <a href='$posting.GrpDetailsHref'>$=title</a>
+</p>
+</element>
+
+<element name='further_url' params='posting,url'>
+<p>
+ <image src='/pics/further-far.gif'>&sp;
+ <a href='/actions/link/$posting.Id/?okdir=$#url'><asp>
+  <asp>Подробности на другом сайте</a>
+</p>
+</element>
+
+<element name='posting_general'>
+<dl class='posting'>
+ <dt>
+  <topic posting='$posting' showtopic='$showtopic'>
+  <vote_panel align='right' id='$posting.Id' rating='$posting.Rating'>
+  <biff time='$posting.Modified'>
+  <if what='$posting.hasLargeBody || $shorten && !$posting.isBodyMedium'>
+   <a class='posting-subject'
+      href='$posting.GrpDetailsHref'>$=posting.Heading</a>
+  <else>
+   <span class='posting-subject'>$=posting.Heading</span>
+  </if>
+  <ifne what='$posting.Author'>
+   <br><span class='posting-author'>$=posting.Author</span>
+  </ifne>
+ </dt>
+ <dd>
+ <if what='$posting.hasImage'>
+  <posting_image posting='$posting' title='$posting.TitleHTML'
+                 title_large='$posting.TitleLineHTML' align='left'>
+ </if>
+ <if what='$shorten && !$posting.hasLargeBody'>
+  $posting.BodyMediumHTML<asp>
+  <if what='!$posting.isBodyMedium'>
+   <further posting='$posting'
+	    title!="!$$englishDomain ? 'Читать дальше' : 'Read more'">
+  <else>
+   <source posting='$posting'>
+  </if>
+ <else>
+  $posting.BodyHTML<asp>
+  <if what='!$posting.hasLargeBody'>
+   <source posting='$posting'>
+  </if>
+ </if>
+ <if what='$posting.hasLargeBody'>
+  <if what='$posting.Grp != *GRP_BOOK_CHAPTERS'>
+   <further posting='$posting'
+            title!="!$$englishDomain ? 'Читать статью' : 'Read article'">
+  <else>
+   <further posting='$posting'
+            title!="!$$englishDomain ? 'Читать главу книги'
+                                     : 'Read book chapter'">
+  </if>
+ <else>
+ </if>
+ <ifne what='$posting.URL'>
+  <further_url posting='$posting' url='$posting.URL'>
+ </ifne>
+ <div class='sent' style="clear: left">
+  <sentview date='$posting.Sent'>&nbsp;
+  <senderlink message='$posting'>
+ </div>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
+</dl>
+</element>

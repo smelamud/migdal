@@ -1,0 +1,28 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+
+<grps>
+<log event=review text#='topic($`migdal.library`)'>
+
+<html>
+ <preamble>
+
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics>
+    <ears>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <seealso_frame>
+    <postings grp='*GRP_PRINTINGS' topic_id='$`migdal.library`' limit=10
+              offset='$offset' showshadows='*true' showadvert='*false'>
+    <rss>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</html>

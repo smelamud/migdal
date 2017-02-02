@@ -1,0 +1,81 @@
+<< @(#) $Id$ >>
+
+<element name='uploader'>
+<ifne what='$loaded'>
+ <p>
+  <i>$loaded</i>
+  <ifnzero what='$plainid'>
+   <array vals='koi,win,utf8'>
+   <iterate_array>
+   &nbsp;&nbsp;<b>(</b>&nbsp;
+   <for>
+    <a href='/plaintext/$plainid/$./'><asp>
+     <if what="$.!='utf8'">$.<else>unicode (utf8)</if></a>&nbsp;
+   </for>
+   <b>)</b>
+  </ifnzero>
+  <ifne what='$large_url'>
+   &nbsp;&nbsp;<b>(</b>&nbsp;
+   <ifne what='$small_url'>
+    <a href='$small_url'>маленькая</a>&nbsp;
+   </ifne>
+   <a href='$large_url'>большая</a>&nbsp;
+   <b>)</b>
+  </ifne>
+  <br>
+  <checkbox name='$delname' title='Удалить'>
+ </p>
+</ifne>
+<ifne what='$small_name'>
+ <table cellspacing='5' cellpadding='0'>
+  <tr>
+   <td><ifne what='$large_title'>
+    $large_title
+   </ifne></td>
+   <td><input type='file' name='$name' size='35'></td>
+  </tr>
+  <tr>
+   <td><ifne what='$small_title'>
+    $small_title
+   </ifne></td>
+   <td><input type='file' name='$small_name' size='35'></td>
+  </tr>
+ </table>
+<else>
+ <ifne what='$large_title'>
+  $large_title&nbsp;
+ </ifne>
+ <input type='file' name='$name' size='35'>
+</ifne>
+</element>
+
+<element name='form_uploader'>
+<form_line title='$title' comment='$comment' mandatory='$mandatory'>
+ <uploader name='$name' small_name='$small_name' small_title='$small_title'
+           large_title='$large_title' loaded='$loaded' delname='$delname'
+	   plainid='$plainid' small_url='$small_url' large_url='$large_url'>
+</form_line>
+</element>
+
+<element name='upload_format'>
+<select name='$name'>
+ <iterate_text_formats>
+ <for>
+  <if what='$.Name==$format'>
+   <option value='$.Name' selected>$.Value</option>
+  <else>
+   <option value='$.Name'>$.Value</option>
+  </if>
+ </for>
+</select>
+</element>
+
+<element name='form_upload_format'>
+<form_select name='$name' title='$title' comment='$comment'
+             mandatory='$mandatory'>
+ <iterate_text_formats>
+ <for>
+  <form_option title='$.Value' value='$.Name' selected!='$.Name==$format'>
+ </for>
+</form_select>
+</element>

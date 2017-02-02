@@ -1,0 +1,37 @@
+<< @(#) $Id$ >>
+
+<string name='source_name'>
+<int name='source_id'>
+<int name='link_type'>
+
+<string name='peer_path'>
+
+<html>
+ <preamble>
+
+ <top ident='index'>
+ <center>
+  <form_table title='$$LocationInfo.Title'>
+   <form method=post action='/actions/cross-entry/add'>
+    <hidden name='okdir' value='$--'>
+    <hidden name='faildir' value='$-'>
+    <hidden name='source_name' value='$=source_name'>
+    <hidden name='source_id' value='$source_id'>
+    <hidden name='link_type' value='$link_type'>
+    <starinfo>
+    <error id='*ECEA_NO_ADD'
+	   text='Добавлять перекрестные ссылки может только модератор'>
+    <error id='*ECEA_ENTRY_ABSENT' text='Сообщение-источник не существует'>
+    <error id='*ECEA_NO_SOURCE' text='Источник не указан'>
+    <error id='*ECEA_NO_PATH' text='Адрес страницы не указан'>
+    <error id='*ECEA_PATH_ABSENT' text='Страница не найдена'>
+    <error id='*ECEA_NO_LINKING' text='Эта страница не поддерживает связывание'>
+    <form_edit title='URL' name='peer_path' value='$=peer_path' size=75
+               maxlength=250 mandatory='*true'
+	       comment='Адрес страницы на сайте'>
+    <form_buttons title='Добавить'>
+   </form>
+  </form_table>
+ </center>
+ <bottom>
+</html>

@@ -1,0 +1,20 @@
+<< @(#) $Id$ >>
+
+<log event='event-english' text#='topic(-1)'>
+
+<html>
+ <preamble>
+
+ <top ident='index' transref#='http://www.$$siteDomain/migdal/news/'>
+ <table width=100% cellpadding=5><tr valign=top>
+  <td width=150 class='eframe'>
+   <topics>
+  </td>
+  <td class='cframe'>
+   <subtitle>
+   <postings grp='*GRP_TAPE' topic_id='$`events,e`' limit=0>
+   <rss>
+  </td>
+ </tr></table>
+ <bottom>
+</html>

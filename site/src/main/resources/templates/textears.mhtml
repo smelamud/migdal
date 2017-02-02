@@ -1,0 +1,50 @@
+<< @(#) $Id$ >>
+
+<int name='offset'>
+
+<element name='batcher' params='&list'>
+<div class='batcher'>
+ <div class='adder'>
+  <image src='/pics/sheet.gif'>&sp;
+  <a href='/admin/textears/add/?redirid=$_'>Добавить ушко</a>
+ </div>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
+</element>
+
+<element name='error_lines'>
+<if what='$$err!=0'>
+ <table>
+  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_MODERATE' text='У вас нет прав на редактирование этого сообщения'>
+ </table>
+</if>
+</element>
+
+<html>
+ <preamble>
+
+ <top ident='index'>
+ <table width=100% cellpadding=5>
+  <tr valign=top>
+   <td width=150 class='eframe'>
+    <topics>
+   </td>
+   <td class='cframe'>
+    <subtitle>
+    <iterate_postinglist name='list' grp='*GRP_TEXTEARS' topic_id='$`textears`'
+			 limit=20 offset='$offset' sort='*SORT_SENT'>
+    <error_lines>
+    <batcher list='$list'>
+    <for>
+     <posting_textear posting='$.'>
+    </for>
+    <ifnzero what='$list.Count'>
+     <batcher list='$list'>
+    </ifnzero>
+   </td>
+  </tr>
+ </table>
+ <bottom>
+</html>

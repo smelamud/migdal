@@ -1,0 +1,57 @@
+<< @(#) $Id$ >>
+
+<element name='posting_ear'>
+<table class='posting'>
+ <tr valign=top>
+  <td width=150>
+   <posting_image posting='$posting' href='$posting.URL'>
+   <p class='sent'>$posting.Sent@j.$posting.Sent@m.$posting.Sent@Y</p>
+  </td>
+  <td width=5>&nbsp;</td>
+  <td width=250>
+   $posting.BodyHTML
+   <p>
+   <a href='$posting.URL'>$posting.URL</a>
+   <p>
+   <table cellspacing=0 class='posting-statistics'><tr>
+    <td width=25 align=left>
+     <if what='!$posting.isHidden && $posting.Priority<-1'>
+      <assign name='priority' value!='-$posting.Priority'>
+      <b>*$priority</b>
+     <else>
+      &nbsp;
+     </if>
+    </td>
+    <td width=50 align=right>
+     <if what='!$posting.isHidden'>
+      $posting.CounterValue1/$posting.CounterValue0
+     <else>
+      &nbsp;
+     </if>
+    </td>
+    <td width=5>&nbsp;</td>
+    <td width=20 align=left>
+     <if what='!$posting.isHidden'>
+      [<a href="/actions/entry/hide?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
+          <asp>Выключить</a>]
+     <else>
+      [<a href="/actions/entry/hide?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
+          <asp><b>Включить</b></a>]
+     </if>
+    </td>
+   </tr></table>
+  </td>
+ </tr>
+ <tr height=20><td class='posting-bottom' colspan=3>
+  <iswrite what='$posting'>
+   <a href="/admin/ears/$posting.Id/edit/?redirid=$_"
+      >Изменить</a>
+   &nbsp;
+   <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-"
+      >Удалить</a>
+  <else>
+   &nbsp;
+  </iswrite>
+ </td></tr>
+</table>
+</element>

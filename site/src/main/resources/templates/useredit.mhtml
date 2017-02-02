@@ -1,0 +1,154 @@
+<< @(#) $Id$ >>
+
+<int name='editid'>
+<int name='edittag'>
+<string name='new_login'>
+<string name='new_password'>
+<string name='dup_password'>
+<string name='name'>
+<string name='jewish_name'>
+<string name='surname'>
+<string name='gender'>
+<int_array name='rights'>
+<string name='info'>
+<string name='email'>
+<int name='hide_email'>
+<string name='icq'>
+<int name='hidden'>
+<int name='no_login'>
+<int name='has_personal'>
+<int name='birth_year'>
+<int name='birth_month'>
+<int name='birth_day'>
+<int name='email_enabled'>
+
+<html>
+ <preamble>
+
+ <top ident='index'>
+ <user_obj name='user' id='$editid'>
+ <setup>
+ <form_table title='Информация о пользователе'>
+  <form method=post action='/actions/user/modify'>
+   <hidden name='edittag' value=1>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <hidden name='editid' value='$editid'>
+   <starinfo>
+   <form_section title='Информация для входа на сайт'>
+   <error id='*EUM_DISABLED' text='Регистрация пользователей запрещена'>
+   <error id='*EUM_NO_EDIT'
+          text='У вас нет права менять информацию для этого пользователя'>
+   <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен'>
+   <error id='*EUM_LOGIN_EXISTS'
+          text='Пользователь с таким ником уже существует'>
+   <form_edit title='Ник'
+              comment='Ваш псевдоним, под которым вы будете видны на сайте. Вы
+                       можете сменить его в любой момент'
+              value='$=,Login' name='new_login' size=20 maxlength=30
+              mandatory='*true'>
+   <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
+   <error id='*EUM_PASSWORD_DIFF'
+          text='Опечатка при вводе пароля - введите еще раз'>
+   <form_password title='Новый пароль'
+                  comment='Не менее 5 символов.<br>Заполните это поле, только
+                           если вы хотите сменить пароль'
+                  name='new_password' size=20 maxlength=40>
+   <form_password title='Новый пароль (еще раз)'
+                  comment='Повторите ввод пароля, чтобы убедиться, что вы не
+                           ошиблись при наборе'
+                  name='dup_password' size=20 maxlength=40>
+   <form_section title='Личная информация'>
+   <error id='*EUM_NAME_ABSENT' text='Имя не введено'>
+   <form_edit title='Имя' value='$=,Name' name='name' size=30 maxlength=30
+              mandatory='*true'>
+   <form_edit title='Еврейское имя'
+              comment='Заполните это поле, если у вас есть еврейское имя,
+                       отличное от того, которое вы указали в графе <i>Имя</i>'
+              value='$=,JewishName' name='jewish_name' size=30 maxlength=30>
+   <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена'>
+   <form_edit title='Фамилия' value='$=,Surname' name='surname' size=30
+              maxlength=30 mandatory='$$usersMandatorySurname'>
+   <error id='*EUM_GENDER' text='Неизвестный пол'>
+   <form_line title='Пол'>
+    <radio name='gender' value='mine' checked='$,isMan' title='Мужской'>
+    &nbsp;
+    <radio name='gender' value='femine' checked='$,isWoman' title='Женский'>
+   </form_line>
+   <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
+   <form_line title='Дата рождения'>
+    <edit name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
+    <select name='birth_month'>
+     <array vals='глюкабря,января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря'>
+     <iterate_array>
+     <for>
+      <if what='!$;isFirst'>
+       <call func='$user->isMonthOfBirth' arg1='$;Position'>
+       <select_option value='$;Position' selected!='$;Position==$,' title='$.'>
+      </if>
+     </for>
+    </select>
+    <edit name='birth_year' size=4 maxlength=4 value='$,YearOfBirth'>
+   </form_line>
+   <form_checkbox title='Мигдалевец'
+                  comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
+                           его раньше? Или, может быть, вы чувствуете себя
+                           мигдалевцем в душе?'
+                  name='rights[]' value='*USR_MIGDAL_STUDENT'
+                  checked='$,isMigdalStudent'>
+   <form_editor title='Коротко о себе'
+                comment='Напишите несколько слов о себе: биография, работа,
+                         друзья, интересы...'
+                name='info' body='$=,Info'>
+   <<help_link href='/help/formatting/'
+              title='Список обозначений, используемых в тексте'>>
+   <if what='$,isEditable'>
+    <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен'>
+    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно'>
+    <form_edit title='E-mail'
+               comment='Этот адрес может понадобиться для связи с вами в
+                        экстренных случаях (например, для восстановления
+                        забытого пароля)'
+               value='$=,Email' name='email' size=30 maxlength=70
+               mandatory='*true'>
+   <form_checkbox title='Скрыть E-mail на сайте'
+                  comment='Ответ <i>Да</i> означает, что никто из посетителей
+                           сайта (кроме администратора) не увидит ваш адрес
+                           E-mail'
+                  name='hide_email' checked='$,isHideEmail'>
+   <form_checkbox title='Разрешаю посылать почту на мой адрес'
+                  comment='Ответ <i>Нет</i> означает, что вы не будете получать
+                           письма, которые администрация сайта отправляет всем
+                           зарегистрированным пользователям. Мы крайне редко
+                           отправляем такие письма &mdash; за 5 лет мы не делали
+                           этого ни разу'
+                  name='email_enabled' checked='$,isEmailEnabled'>
+    <if what='$,isEmailDisabled==2'>
+     <tr><td colspan=2 class='error'>
+      Посылка почты на этот адрес временно приостановлена, поскольку адрес не
+      работает
+     </td></tr>
+    </if>
+   </if>
+   <form_edit title='ICQ' value='$=,ICQ' name='icq' size=15 maxlength=15>
+   <admin_users>
+    <form_checkbox name='has_personal' checked='$,isHasPersonal'
+                   title='Имеет персональную страницу'>
+    <form_section title='Привилегии'>
+    <form_checkbox name='rights[]' value='*USR_ADMIN_USERS'
+                   checked='$,isAdminUsers' title='Администратор пользователей'>
+    <form_checkbox name='rights[]' value='*USR_ADMIN_TOPICS'
+                   checked='$,isAdminTopics' title='Администратор тем'>
+    <form_checkbox name='rights[]' value='*USR_MODERATOR'
+                   checked='$,isModerator' title='Модератор'>
+    <form_checkbox name='rights[]' value='*USR_ADMIN_DOMAIN'
+                   checked='$,isAdminDomain' title='Администратор субдоменов'>
+    <form_checkbox name='hidden' checked='$,isHidden'
+                   title='Скрыть в списке пользователей'>
+    <form_checkbox name='no_login' checked='$,isNoLogin' title='Запретить вход'>
+   </admin_users>
+   <form_buttons title='Изменить'>
+  </form>
+ </form_table>
+ <bottom>
+</html>

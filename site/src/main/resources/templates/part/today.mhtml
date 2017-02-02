@@ -1,0 +1,11 @@
+<< @(#) $Id$ >>
+
+<element name='today'>
+<time>
+<notenglish>
+ $,@Jj&nbsp;$,@Jk&nbsp;$,@JY&nbsp;/&nbsp;$,@Rj&nbsp;$,@Rk&nbsp;$,@RY
+<else>
+ $,@IF,&nbsp;$,@Ij$,@IS&nbsp;&nbsp;$,@IY&nbsp;/<asp>
+ <asp>&nbsp;$,@EF,&nbsp;$,@Ej$,@ES&nbsp;&nbsp;$,@EY
+</notenglish>
+</element>

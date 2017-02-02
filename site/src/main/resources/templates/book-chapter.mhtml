@@ -1,0 +1,43 @@
+<< @(#) $Id$ >>
+
+<ident name='bookid'>
+<ident name='postid'>
+<posting_obj id='$postid' grp='*GRP_BOOK_CHAPTERS'
+             fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
+<zone>
+ <posting_obj name='book' id='$bookid' grp='*GRP_BOOKS'>
+</zone>
+<log event=chapter text#='post($,Id) post($book.Id)'>
+
+<html>
+ <posting_og_image posting='$,'>
+ <preamble>
+
+ <top ident='index'>
+ <table width=100% cellpadding=5><tr valign=top>
+  <notprint>
+   <td width=150 class='eframe'>
+    <topics>
+    <ears>
+   </td>
+  </notprint>
+  <td class='article cframe'>
+   <article_controls posting='$,'>
+   <div class='sent'>
+    <sentview date='$,Sent'><br />
+    <senderlink message='$,'>
+   </div>
+   <book_ring book='$book' index='$,Index0'>
+   <h1>$=,Subject
+    <ifne what='$,Author'>
+     <div class='author'>$,AuthorHTML</div>
+    </ifne>
+   </h1>
+   <article posting='$,' withvote='*false'>
+   <addtoany>
+   <book_ring book='$book' index='$,Index0'>
+   <article_controls posting='$,'>
+  </td>
+ </tr></table>
+ <bottom>
+</html>

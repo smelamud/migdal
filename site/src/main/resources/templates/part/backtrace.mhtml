@@ -1,0 +1,16 @@
+<< @(#) $Id$ >>
+
+<element name='backtrace'>
+<iterate_locations name='locs'>
+<if what='$;Count>1'>
+ <div class='return ninept'>
+  <for>
+   <islast what='$locs'>
+    <nobr><b>$=.TitleRelative</b></nobr>
+   <else>
+    <nobr><a href='$.URI'>$=.TitleRelative</a>&sp;&gt;</nobr>
+   </islast>
+  </for>
+ </div>
+</if>
+</element>

@@ -1,0 +1,37 @@
+<< @(#) $Id$ >>
+
+<element name='events'>
+<assign name='active' value!='$grp!==*GRP_NONE'>
+<html_cache ident='events' depends='topics' if!='!$active'>
+ <topic_obj name='topic' id='$`migdal.events`'>
+ <topics_table class!="$active ? 'ninept' : 'eightpt'" title='События'>
+  <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
+		     sort='*SORT_RINDEX2_RINDEX0'>
+  <assign name='year' value='0'>
+  <for>
+   <if what='$.Index2!=$year && $.Index2!=0'>
+    <assign name='year' value='$.Index2'>
+    <assign name='gyearp' value!='$year-3761'>
+    <assign name='gyear' value!='$year-3760'>
+    <topics_section title#='$year/$gyearp-$gyear г.'>
+    <if what='$active'>
+     <iswrite what='$topic'>
+      <li class='topics-nobullet eightpt'>
+       <a href='/migdal/events/reorder/?index2=$year&redirid=$_'
+	  class='eightpt'>Расставить</a>
+      </li>
+     </iswrite>
+    </if>
+   </if>
+   <if what='$active'>
+    <postings_info name='info' grp='$grp' topic_id='$.Id' recursive='*true'>
+   </if>
+   <topics_line time!='$active ? $info.MaxSent : 0' text='$=.Comment0'
+		title='$=.BodyNormal' href#='$prefix/$.Catalog'
+		count!="$active && $grp!=*GRP_ALL ? $info.Total : ''"
+		arrow!='$active && $index==$.Id'
+		class!="$active ? 'topics-item' : 'none'">
+  </for>
+ </topics_table>
+</html_cache>
+</element>

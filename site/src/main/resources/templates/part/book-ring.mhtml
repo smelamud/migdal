@@ -1,0 +1,44 @@
+<< @(#) $Id$ >>
+
+<element name='book_ring'>
+<notprint>
+ <table width=100% style='clear: both' class='ring'>
+  <if what='$index>=0'>
+   <tr valign=bottom><td width=33%>&nbsp;</td><td align=center width=33%>
+    <b><a href='$book.GrpDetailsHref'
+          title='К началу книги'>$=book.Subject</a></b>
+   </td><td width=33%>&nbsp;</td></tr>
+  </if>
+  <tr valign=center>
+   <sibling_id up='$book.OrigId' index0='$index' next='*false'>
+   <if what='$,>0'>
+    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
+    <td align=left width=33%>
+     <pointer href#='${book.GrpDetailsHref}$,Id/' text='$=,Subject'
+              title='Предыдущая глава' left='*true'>
+    </td>
+   <else>
+    <td width=33%>&nbsp;</td>
+   </if>
+   <if what='$index>=0'>
+    <td align=center width=33%><a href='$book.GrpDetailsHref'
+				  title='К началу книги'><asp>
+     <image src='/pics/up.gif'>
+    <asp></a></td>
+   <else>
+    <td width=33%>&nbsp;</td>
+   </if>
+   <sibling_id up='$book.OrigId' index0='$index' next='*true'>
+   <if what='$,>0'>
+    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
+    <td align=right width=33%>
+     <pointer href#='${book.GrpDetailsHref}$,Id/' text='$=,Subject'
+              title='Следующая глава' left='*false'>
+    </td>
+   <else>
+    <td width=33%>&nbsp;</td>
+   </if>
+  </tr>
+ </table>
+</notprint>
+</element>

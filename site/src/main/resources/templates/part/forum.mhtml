@@ -1,0 +1,47 @@
+<< @(#) $Id$ >>
+
+<element name='forum'>
+<a name='t$forum.Id'></a>
+<div class='forum'><asp>
+ <asp><div class='header'>
+  <senderlink message='$forum'><br>
+  <span class='sent'><sentview date='$forum.Sent'></span>
+  <biff time='$forum.Modified' small='*true'>
+ </div><asp>
+ <asp><div class='content'>
+  <div class='body'>
+   $forum.BodyHTML
+  </div>
+  <posting_obj id='$forum.ParentId'>
+  <assign name='href' value#='${,GrpDetailsHref}discuss'>
+  <div class='controls'>
+   &nbsp;&nbsp;
+   <selflink href#='$href/?tid=$forum.Id#t$forum.Id'>
+   &nbsp;&nbsp;
+   <a href="$href/reply/?peerid=$forum.Id&redirid=$_"
+      title='Ответить с цитированием'>Ответить</a>
+   <iswrite what='$forum'>
+    &nbsp;&nbsp;
+    <a href="$href/update/?editid=$forum.Id&redirid=$_">Изменить</a>
+    <moderator>
+     &nbsp;&nbsp;
+     <if what='$forum.isDisabled'>
+      <a href="/actions/entry/moderate?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
+       <asp>Разрешить&nbsp;показ<asp>
+      <asp></a>
+     <else>
+      <a href="/actions/entry/moderate?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
+       <asp>Запретить показ<asp>
+      <asp></a>
+     </if>
+     &nbsp;&nbsp;
+     <a href="/actions/forum/delete?id=$forum.Id&okdir=$#-&faildir=$#-"><asp>
+      <asp>Удалить<asp>
+     <asp></a>
+    </moderator>
+   </iswrite>
+  </div>
+ </div>
+ <div class='clear-floats'></div>
+</div>
+</element>

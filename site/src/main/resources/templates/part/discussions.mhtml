@@ -1,0 +1,34 @@
+<< @(#) $Id$ >>
+
+<element name='discussions'>
+<grps>
+<html_cache ident#='discussions' period!='3 * 60 * 60'
+            depends='postings,forums'>
+ <div class='topics-header'>Последние комментарии</div>
+ <div class='discussions'>
+  <iterate_forum_or_postinglist grp='*GRP_FORUMS' limit='$limit'>
+  <for>
+   <if what='$.Entry == *ENT_POSTING'>
+    <ifnzero what='$.Answers'>
+     <assign name='href' value#='${.GrpDetailsHref}discuss/'>
+    <else>
+     <assign name='href' value#='${.GrpDetailsHref}discuss/add/'>
+    </ifnzero>
+   <else>
+    <posting_obj id='$.ParentId'>
+    <assign name='href' value#='${,GrpDetailsHref}discuss/?tid=$.Id#t$.Id'>
+   </if>
+   <div class='item'>
+    <div class='content'>
+     <senderlink message='$.'>&sp;<span class='quote'>
+      <biff time='$.Sent' small='*true'>
+      <a href='$href'>$=.BodyTiny</a>
+     </span>
+    </div>
+    <span class='time fuzzy-time' data-time='$.Sent'></span>
+   </div>
+  </for>
+  <div class='other'><a href='/forum/'>Все обсуждения</a></div>
+ </div>
+</html_cache>
+</element>

@@ -1,0 +1,95 @@
+<< @(#) $Id$ >>
+
+<ident name='postid' table='postings'>
+<posting_obj name='book' id='$postid' grp='*GRP_BOOKS'>
+
+<log event=book text#='post($,Id)'>
+
+<html>
+ <posting_og_image posting='$,'>
+ <preamble>
+
+ <top ident='index'>
+ <table width=100% cellpadding=5><tr valign=top>
+  <notprint>
+   <td width=150 class='eframe'>
+    <topics>
+    <ears>
+   </td>
+  </notprint>
+  <td class='article cframe'>
+   <article_controls posting='$,'>
+   <div class='sent'>
+    <sentview date='$,Sent'><br />
+    <senderlink message='$,'>
+   </div>
+   <table width=100% cellspacing=0 cellpadding=0 style='clear: both'>
+    <tr valign=top>
+     <td width=100>&nbsp;</td>
+     <td>
+      <if what='$,hasImage'>
+       <posting_image posting='$,'>
+      </ifnzero>
+      <topiclink posting='$,'>
+      <ifne what='$,Author'>
+       <p class='posting-author'>$,AuthorHTML</p>
+      </ifne>
+      <p><h1 style='margin: 0'>$=,Subject</h1></p>
+      <ifne what='$,Comment0'>
+       <p class='posting-source'>$,Comment0HTML</p>
+      </ifne>
+      <p style='clear: left'>$,BodyHTML</p>
+      <notprint>
+       <zone>
+        <sibling_id up='$,OrigId' index0='*SIBLING_EDGE' next='*true'>
+        <if what='$,>0'>
+         <p>
+          <table class='ring' cellpadding=0>
+           <tr valign=center>
+            <td align=right><image src='/pics/further.gif'></td>
+            <td>&nbsp;</td>
+            <td><a href='${book.GrpDetailsHref}$,/'>Читать книгу</a></td>
+           </tr>
+           <tr valign=center>
+            <td align=right><image src='/pics/print.gif'></td>
+            <td>&nbsp;</td>
+            <td>
+             <a href='${book.GrpDetailsHref}print/'>Вся книга для печати</a>
+            </td>
+           </tr>
+           <<iterate_packages posting_id='$postid'>
+           <for>
+            <tr valign=center>
+             <td align=right><image src='/pics/package.gif'></td>
+             <td>&nbsp;</td>
+             <td>
+              <if what='$.Type==*PT_BOOK_ONEFILE'>
+               <assign name='title' value='Вся книга одним файлом в архиве'>
+              <else>
+               <assign name='title' value='Вся книга по главам в архиве'>
+              </if>
+              <a href='$.Href'>$title</a>
+             </td>
+            </tr>
+            <tr valign=center>
+             <td colspan=2>&nbsp;</td>
+             <td><i>(ZIP, ${.SizeKB}KB)</i></td>
+           </for>>
+          </table>
+         </p>
+        </if>
+       </zone>
+      </notprint>
+     </td>
+     <td width=100>
+      <vote_panel id='$,Id' rating='$,Rating'>
+     </td>
+    </tr>
+   </table>
+   <addtoany>
+   <p>
+   <article_controls posting='$,'>
+  </td>
+ </tr></table>
+ <bottom>
+</html>

@@ -1,0 +1,22 @@
+<< @(#) $Id$ >>
+
+<element name='topics_times'>
+<grps>
+<html_cache ident#='topics_times-$base-$index' period!='3 * 60 * 60'
+            depends='postings'>
+ <posting_id grp='*GRP_TIMES_COVERS' index1='$base' topic_id='$`times`'>
+ <posting_obj id='$,' grp='*GRP_TIMES_COVERS'>
+ <upper_level name='Мигдаль Times' href='/times/'>
+ <topics_table title#='В номере &no;$,getIssues'>
+  <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`times`'
+		       recursive='*true' limit=0 sort='*SORT_INDEX0'
+		       index1='$base' as_guest='*true'>
+  <topics_line text='Обложка' href#='/times/$base/' arrow!='$index==$,Id'
+	       class='topics-item ninept'>
+  <for>
+   <topics_line time='$.Modified' text='$=.Subject' href='$.GrpDetailsHref'
+		arrow!='$.Id==$index' class='topics-item ninept'>
+  </for>
+ </topics_table>
+</html_cache>
+</element>

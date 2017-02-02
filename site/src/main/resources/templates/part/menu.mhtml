@@ -1,0 +1,40 @@
+<< @(#) $Id$ >>
+
+<element name='menuitem' params='ident,link,current,time,alt'
+         defaults="time=0 alt=''">
+<ifbiff time='$time'>
+ <assign name='biff' value='-ner'>
+<else>
+ <assign name='biff' value=''>
+</ifbiff>
+<asp><a href='$link'><asp>
+ <if what='$current==$ident'>
+  <image src#='/pics/menu$biff-${ident}.gif' alt='$alt'>
+ <else>
+  <image src#='/pics/menu$biff-${ident}-na.gif' alt='$alt'>
+ </if>
+<asp></a><asp>
+</element>
+
+<element name='menu'>
+<table class='menu' width=100% cellspacing=0 cellpadding=0 vspace=0>
+ <notenglish>
+  <html_cache ident#='menu-$ident' period!='3 * 60 * 60'
+              depends='postings,forums'>
+   <tr valign=bottom>
+    <td style='line-height: 1px'><asp>
+     <posting_last name='times_time' topic_id='$`times`' recursive='*true'
+                   as_guest='*true'>
+     <menuitem ident='index' alt='Главная' link='/' current='$ident'>
+     <menuitem ident='times' alt='Мигдаль Times' link='/times/' current='$ident'
+	       time='$times_time'>
+    <asp></td>
+    <td align=right style='line-height: 1px'><asp>
+     <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
+    <asp></td>
+   </tr>
+  </html_cache>
+ </notenglish>
+ <tr><td colspan=2 class='date' align=right><today>&nbsp;</td></tr>
+</table>
+</element>

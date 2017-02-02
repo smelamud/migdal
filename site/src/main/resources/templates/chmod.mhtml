@@ -1,0 +1,62 @@
+<< @(#) $Id$ >>
+
+<int name='id'>
+<int name='istopic'>
+<if what='$istopic'>
+ <assign name='entry' value='*ENT_TOPIC'>
+ <assign name='itemname' value='тему'>
+ <assign name='thisitem' value='данной темы'>
+ <assign name='subitems' value='подтем'>
+<else>
+ <assign name='entry' value='*ENT_POSTING'>
+ <assign name='itemname' value='сообщение'>
+ <assign name='thisitem' value='данного сообщения'>
+ <assign name='subitems' value='нижестоящих сообщений'>
+</ifzero>
+
+<int name='edittag'>
+<string name='login'>
+<string name='user_name'>
+<string name='group_login'>
+<string name='group_name'>
+<string name='perm_string'>
+<int name='recursive'>
+
+<html>
+ <preamble>
+
+ <top ident='index'>
+ <perms id='$id'>
+ <setup>
+ <form_table title#='Изменение прав на $itemname' mini='*true'>
+  <form method=post action='/actions/entry/chmod'>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <hidden name='edittag' value=1>
+   <hidden name='id' value='$id'>
+   <hidden name='entry' value='$entry'>
+   <error id='*ECHM_NO_CHMOD' text#='Вы не можете менять права на $itemname'>
+   <error id='*ECHM_USER_EMPTY' text='Укажите имя пользователя'>
+   <error id='*ECHM_NO_USER' text='Такого пользователя не существует'>
+   <form_edit title='Владелец' name='user_name' value='$=,UserName' size=20
+	      maxlength=30>
+   <error id='*ECHM_GROUP_EMPTY' text='Укажите имя группы'>
+   <error id='*ECHM_NO_GROUP' text='Такой группы не существует'>
+   <form_edit title='Группа' name='group_name' value='$=,GroupName' size=20
+	      maxlength=30>
+   <error id='*ECHM_BAD_PERMS' text='Права заданы некорректно'>
+   <form_edit title='Права' name='perm_string' value='$,PermString'
+              comment='Права, которые менять не нужно, заменяйте
+	               вопросительными знаками'
+	      size=17 maxlength=17>
+   <form_select title='Рекурсивно' name='recursive' style='box'>
+    <form_option title#='Устанавливать эти права только для $thisitem' value=0
+                 selected!='$recursive==0'>
+    <form_option title#='Устанавливать эти права для всех $subitems' value=1
+                 selected!='$recursive!=0'>
+   </form_select>
+   <form_buttons title='Изменить'>
+  </form>
+ </form_table>
+ <bottom>
+</html>

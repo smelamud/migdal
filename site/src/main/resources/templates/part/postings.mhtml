@@ -1,0 +1,89 @@
+<< @(#) $Id$ >>
+
+<grps>
+
+<element name='batcher' params='&list,topic_id,grp,showadvert,access'>
+<div class='batcher'>
+ <if what='$access || $showadvert'>
+  <div class='adder'>
+   <assign name='noguests' value!='$access ? 0 : 1'>
+   <catalog name='catalog' id='$topic_id'>
+   <if what='$grp == *GRP_GALLERY'>
+    <assign name='catalog' value#='${catalog}gallery/'>
+   </if>
+
+   <grp_valid grp='$grp'>
+   <image src='/pics/sheet.gif'>&sp;
+   <if what='$,'>
+    <posting_new name='sample' grp='$grp'>
+    <a href='/${catalog}add?noguests=$noguests&redirid=$_'
+       >Добавить $sample.GrpWhat</a>
+   <else>
+    <if what='$topic_id>0'>
+     <entry_grps name='grps' id='$topic_id'>
+    <else>
+     <grp_array name='grps' grp='*GRP_ALL'>
+    </if>
+    <notenglish>
+     <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
+        >Добавить новость</a><asp>
+     <if what='in_array(*GRP_ARTICLES,$grps)'>
+      <asp>,
+      <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
+         >статью</a><asp>
+     </if>
+     <if what='in_array(*GRP_GALLERY,$grps)'>
+      <asp>,
+      <a href='/${catalog}add-picture?noguests=$noguests&redirid=$_'
+         >фотографию</a><asp>
+     </if>
+     <if what='$$userModerator && in_array(*GRP_BOOKS,$grps)'>
+      <asp>,
+      <a href='/${catalog}add-book?noguests=$noguests&redirid=$_'
+         >книгу</a>
+     </if>
+    <else>
+     <a href='/${catalog}add-news?noguests=$noguests&redirid=$_'
+        >Add news</a><asp>
+     <if what='in_array(*GRP_ARTICLES,$grps)'>
+      <asp>,
+      <a href='/${catalog}add-article?noguests=$noguests&redirid=$_'
+         >article</a>
+     </if>
+    </notenglish>
+   </if>
+  </div>
+ </if>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
+</element>
+
+<element name='postings'>
+<if what='$topic_id>0'>
+ <perms id='$topic_id'>
+ <assign name='access' value='$,isPostable'>
+<else>
+ <assign name='access' value!='$$userId>0'>
+</if>
+<if what='$add_grp<=0'>
+ <assign name='add_grp' value='$grp'>
+</if>
+<iterate_postinglist grp='$grp' topic_id='$topic_id' limit='$limit'
+                     offset='$offset' sort='$sort' user='$user_id'
+                     showshadows='$showshadows' recursive='$recursive'>
+<if what='$access || $showadvert || $;Count!=0'>
+ <batcher list='$;' topic_id='$topic_id' grp='$add_grp'
+          showadvert='$showadvert' access='$access'>
+ <for>
+  <posting posting='$.' showtopic!='$recursive || $topic_id<0' shorten='*true'
+           showdiscuss='*true'>
+ </for>
+ <ifnzero what='$;Count'>
+  <batcher list='$;' topic_id='$topic_id' grp='$add_grp'
+           showadvert='$showadvert' access='$access'>
+ </ifnzero>
+<else>
+ &nbsp;
+</if>
+</element>

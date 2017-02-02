@@ -1,0 +1,48 @@
+<< @(#) $Id$ >>
+
+<html>
+ <preamble>
+
+ <top ident='setup'>
+ <form_table title='Настройки'>
+  <form method=post action='/actions/setup/'>
+   <hidden name='okdir' value='$--'>
+   <hidden name='faildir' value='$-'>
+   <form_select title='Стиль' name='style' style='list'>
+    <iterate_styles>
+    <for>
+     <form_option title='$.' value='$;NextPosition'
+		  selected!='$;NextPosition==$$userStyle'>
+    </for>
+   </form_select>
+   <<form_select title='Сообщений в форуме' name='forumPortion' style='list'
+                comment='Количество сообщений на одной странице форума'>
+    <array vals='10 15 20 25 30 35 40'>
+    <iterate_array>
+    <for>
+     <form_option value='$.' selected!='$$userForumPortion==$.' title='$.'>
+    </for>
+   </form_select>
+   <form_select title='Картинок в строке' name='pictureRowPortion' style='list'
+                comment='Количество картинок в одной строке в галерее'>
+    <array vals='1 2 3 4 5 6 7 8 9 10'>
+    <iterate_array>
+    <for>
+     <form_option value='$.' selected!='$$userPictureRowPortion==$.' title='$.'>
+    </for>
+   </form_select>
+   <form_select title='Строк в галерее' name='pictureColumnPortion'
+                style='list'
+		comment='Количество строк на одной странице в галерее'>
+    <array vals='1 2 3 4 5 6 7 8 9 10'>
+    <iterate_array>
+    <for>
+     <form_option value='$.' selected!='$$userPictureColumnPortion==$.'
+                  title='$.'>
+    </for>
+   </form_select>>
+   <form_buttons title='Изменить'>
+  </form>
+ </form_table>
+ <bottom>
+</html>

@@ -1,0 +1,22 @@
+<< @(#) $Id$ >>
+
+<element name='topics_admin'>
+<topics_table class='ninept' title='Администратор'>
+ <topics_line arrow!="$index=='moderator'" text='Модератор'
+              href='/admin/moderator/'>
+ <topics_splitter>
+ <topics_line arrow!="$index=='admin-topics'" text='Темы'
+              href='/admin/topics/'>
+ <topics_line arrow!="$index=='admin-postings'" text='Сообщения'
+              href='/admin/postings/'>
+ <topics_line arrow!="$index=='admin-users'" text='Пользователи'
+              href='/admin/users/'>
+ <topics_line arrow!="$index=='admin-groups'" text='Группы'
+              href='/admin/groups/'>
+ <topics_splitter>
+ <topics_line arrow!="$index=='ears'" text='Ушки'
+              href='/admin/ears/'>
+ <topics_line arrow!="$index=='textears'" text='Текстовые ушки'
+              href='/admin/textears/'>
+</topics_table>
+</element>

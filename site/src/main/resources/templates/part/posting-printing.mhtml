@@ -1,0 +1,35 @@
+<< @(#) $Id$ >>
+
+<element name='topic' params='posting,showtopic'>
+<if what='$showtopic'>
+ <topiclink posting='$posting'><br>
+</if>
+</element>
+
+<element name='posting_printing'>
+<dl class='posting'>
+ <dt>
+  <topic posting='$posting' showtopic='$showtopic'>
+  <vote_panel align='right' id='$posting.Id' rating='$posting.Rating'>
+  <biff time='$posting.Modified'>
+  <span class='posting-subject'>
+   $=posting.Heading
+  </span>
+  <br>
+  $=posting.Subject
+ </dt>
+ <dd>
+ <if what='$posting.hasImage'>
+  <posting_image posting='$posting' title='$posting.TitleHTML'
+                 title_large='$posting.TitleLineHTML' align='left'>
+ </if>
+ $posting.BodyHTML
+ <table width=90% style="clear: left"><tr>
+  <td align=left class='sent'>
+   <sentview date='$posting.Sent'>&nbsp;
+   <senderlink message='$posting'>
+  </td>
+ </tr></table>
+ <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
+</dl>
+</element>

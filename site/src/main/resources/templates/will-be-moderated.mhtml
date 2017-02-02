@@ -1,0 +1,31 @@
+<< @(#) $Id: register-ok.mhtml 2460 2007-03-26 19:04:00Z balu $ >>
+
+<string name='okdir'>
+
+<html>
+ <preamble>
+
+ <top ident='index'>
+ <form_table title='Сообщение отправлено модератору' mini='*true'>
+  <form method=get action='/actions/setup'>
+   <form_comment>
+    <b>Ваше сообщение успешно добавлено на сайт.</b>
+    <p>
+     <array vals='час,часа,часов'>
+     <plural name='hours' value='$$messageEnableTimeout'>
+     Начиная с этого момента, у модератора есть $$messageEnableTimeout&sp;
+     $hours, чтобы одобрить или отклонить его. В течение этого времени
+     сообщение сможете видеть только вы и модератор.
+    </p>
+   </form_comment>
+   <hidden name='okdir' value='$okdir'>
+   <hidden name='faildir' value='$-'>
+   <form_comment>
+    <checkbox name='willBeModeratedNote' value=0 checked='*true'
+              title='Не показывать больше это сообщение'>
+   </form_comment>
+   <form_buttons title='Вернуться' clear='*false'>
+  </form>
+ </form_table>
+ <bottom>
+</html>

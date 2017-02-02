@@ -1,0 +1,45 @@
+<< @(#) $Id$ >>
+
+<int name='topic_id'>
+<string name='intro_element'>
+
+<grps>
+<log event=community text#='topic($topic_id)'>
+
+<element name='batcher' params='topic_id'>
+ <catalog name='catalog' id='$topic_id'>
+ <div class='batcher'>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
+   <a href='/${catalog}add-message?redirid=$_'>Добавить сообщение</a>
+  </div>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
+   <a href='/${catalog}add-photo?redirid=$_'>Добавить фотографию</a>
+  </div>
+  <div class='clear-floats'></div>
+ </div>
+</element>
+
+<html>
+ <preamble>
+
+ <top ident='index'>
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=150 class='eframe'>
+   <topics>
+   <ears>
+  </td>
+  <td>
+   <div class='ninept cframe' style='padding: 5'>
+    <subtitle>
+    <require name='parts/peruser-intros.php'>
+    <exec element='$intro_element'>
+   </div>
+   <batcher topic_id='$topic_id'>
+   <peruser topic_id='$topic_id'>
+   <rss>
+  </td>
+ </tr></table>
+ <bottom>
+</html>

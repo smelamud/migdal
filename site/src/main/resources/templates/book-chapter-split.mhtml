@@ -1,0 +1,41 @@
+<< @(#) $Id$ >>
+
+<ident name='chapid' table='postings'>
+<< FIXME |SELECT_LARGE_BODY ? SELECT_IMAGES deprecated >>
+<posting_obj id='$chapid' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_IMAGES'>
+<ifzero what='$,Id'>
+ << deprecated >>
+ <fail>
+</ifzero>
+<zone>
+ <message_posting id='$,UpValue'>
+ << FIXME |SELECT_LARGE_BODY ? >>
+ <posting_obj name='book' id='$,' grp='*GRP_BOOK' fields='*SELECT_GENERAL'>
+</zone>
+<< FIXME pagetitle is deprecated >>
+<pagetitle title#='$book.Subject - $,Subject'>
+
+<html>
+ <head>
+  <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'>
+ </head>
+ <assign_global name='userStyle' value='-1'>
+ <posting_og_image posting='$,'>
+ <preamble_tiny stylesheet='style/static-article.css'>
+
+ <table width=100% cellspacing=5 cellpadding=5><tr valign=top>
+  <td width=150 class='contents'>
+   <book_chapters_static book='$book' id='$,Id'>
+  </td>
+  <td class='article'>
+   <book_ring_static book='$book' index='$,Index0'>
+   <h1>$,Subject
+    <ifne what='$,Author'>
+     <div class='author'>$,AuthorHTML</div>
+    </ifne>
+   </h1>
+   <article posting='$,' withvote='*false' static='*true'>
+   <book_ring_static book='$book' index='$,Index0'>
+  </td>
+ </tr></table>
+</html>

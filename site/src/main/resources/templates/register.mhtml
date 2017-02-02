@@ -1,0 +1,144 @@
+<< @(#) $Id$ >>
+
+<int name='edittag'>
+<string name='new_login'>
+<string name='new_password'>
+<string name='dup_password'>
+<string name='name'>
+<string name='jewish_name'>
+<string name='surname'>
+<string name='gender'>
+<int_array name='rights'>
+<string name='email'>
+<int name='hide_email'>
+<string name='icq'>
+<int name='birth_year'>
+<int name='birth_month'>
+<int name='birth_day'>
+<int name='email_enabled'>
+
+<html>
+ <js src='/js/login-verify.js'>
+ <preamble>
+
+ <top ident='users'>
+ <user_obj name='user' id=0>
+ <setup>
+ <form_table title='Введите информацию о себе'>
+  <form method=post action='/actions/user/modify'>
+   <hidden name='edittag' value=1>
+   <admin_users>
+    <hidden name='okdir' value='$--'>
+   <else>
+    <assign value#='/register/confirm/?redirid=$redirid'>
+    <hidden name='okdir' value='$*'>
+   </admin_users>
+   <hidden name='faildir' value='$-'>
+   <hidden name='editid' value=0>
+   <starinfo>
+   <error id='*EUM_DISABLED' text='Регистрация пользователей запрещена'>
+   <error id='*EUM_NO_EDIT'
+	  text='У вас нет права менять информацию для этого пользователя'>
+   <error id='*EUM_CAPTCHA_ABSENT'
+          text='Пожалуйста, введите цифры и буквы, которые вы видите на
+                картинке. Это необходимо нам для борьбы со спамом.'>
+   <error id='*EUM_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+   <form_captcha name='captcha'>
+   <form_section title='Информация для входа на сайт'>
+   <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен'>
+   <error id='*EUM_LOGIN_EXISTS'
+	  text='Пользователь с таким ником уже существует'>
+   <form_line title='Ник' mandatory='*true'
+              comment='Ваш псевдоним, под которым вы будете видны на сайте'>
+    <table width='100%' cellspacing='0' cellpadding='0' border='0'>
+     <tr valign='center'>
+      <td width='1' align='left'>
+       <edit id='login' name='new_login' value='$=,Login' size=20 maxlength=30>
+      </td>
+      <td align='left' style='padding-left: 5px'>
+       <input type='button' id='login-button' value='Проверить'>
+      </td>
+     </tr>
+     <tr><td colspan='3' id='login-status' style='padding-top: 5px'>
+      &nbsp;
+     </td></tr>
+    </table>
+   </form_line>
+   <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
+   <error id='*EUM_PASSWORD_DIFF'
+	  text='Опечатка при вводе пароля - введите еще раз'>
+   <form_password title='Пароль' comment='Не менее 5 символов'
+                  name='new_password' size=20 maxlength=40 mandatory='*true'>
+   <form_password title='Пароль (еще раз)'
+	          comment='Повторите ввод пароля, чтобы убедиться, что вы не
+		           ошиблись при наборе'
+		  name='dup_password' size=20 maxlength=40 mandatory='*true'>
+   <form_section title='Личная информация'>
+   <error id='*EUM_NAME_ABSENT' text='Имя не введено'>
+   <form_edit title='Имя' value='$=,Name' name='name' size=30 maxlength=30
+	      mandatory='*true'>
+   <form_edit title='Еврейское имя'
+              comment='Заполните это поле, если у вас есть еврейское имя,
+	               отличное от того, которое вы указали в графе <i>Имя</i>'
+	      value='$=,JewishName' name='jewish_name' size=30 maxlength=30>
+   <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена'>
+   <form_edit title='Фамилия' value='$=,Surname' name='surname' size=30
+	      maxlength=30 mandatory='$$usersMandatorySurname'>
+   <error id='*EUM_GENDER' text='Неизвестный пол'>
+   <form_select title='Пол' name='gender' style='box'>
+    <form_option title='Мужской' value='mine' selected="$,isMan">
+    <form_option title='Женский' value='femine' selected="$,isWoman">
+   </form_select>
+   <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
+   <form_line title='Дата рождения'>
+    <edit name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
+    <select name='birth_month'>
+     <array vals='глюкабря,января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря'>
+     <iterate_array>
+     <for>
+      <if what='!$;isFirst'>
+       <call func='$user->isMonthOfBirth' arg1='$;Position'>
+       <select_option value='$;Position' selected!='$;Position==$,' title='$.'>
+      </if>
+     </for>
+    </select>
+    19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
+   </form_line>
+   <form_checkbox title='Мигдалевец'
+                  comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
+		           его раньше? Или, может быть, вы чувствуете себя
+			   мигдалевцем в душе?'
+                  name='rights[]' value='*USR_MIGDAL_STUDENT'
+		  checked='$,isMigdalStudent'>
+   <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен'>
+   <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно'>
+   <form_edit title='E-mail'
+	      comment='Укажите ваш настоящий адрес, потому что на этот адрес
+	               будет выслано письмо для подтверждения вашей
+		       регистрации. Этот адрес также может понадобиться для
+		       связи с вами в экстренных случаях (например, для
+		       восстановления забытого пароля)'
+              value='$=,Email' name='email' size=30 maxlength=70
+	      mandatory='*true'>
+   <form_checkbox title='Скрыть E-mail на сайте'
+                  comment='Ответ <i>Да</i> означает, что никто из посетителей
+		           сайта (кроме администратора) не увидит ваш адрес
+			   E-mail'
+                  name='hide_email' checked='$,isHideEmail'>
+   <form_checkbox title='Разрешаю посылать почту на мой адрес'
+                  comment='Ответ <i>Нет</i> означает, что вы не будете получать
+		           письма, которые администрация сайта отправляет всем
+			   зарегистрированным пользователям. Мы крайне редко
+			   отправляем такие письма &mdash; за 5 лет мы не делали
+			   этого ни разу'
+                  name='email_enabled' checked='$,isEmailEnabled'>
+   <form_edit title='ICQ' value='$=,ICQ' name='icq' size=15 maxlength=15>
+   <admin_users>
+    <form_buttons title='Зарегистрировать'>
+   <else>
+    <form_buttons title='Зарегистрироваться'>
+   </admin_users>
+  </form>
+ </form_table>
+ <bottom>
+</html>

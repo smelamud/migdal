@@ -1,0 +1,66 @@
+<< @(#) $Id$ >>
+
+<element name='banner'>
+<div id='logo'>
+ <a href='/'>
+  <image src='/pics/big-tower.gif'
+	 alt!='!$$englishDomain ? "Башня" : "Tower"'></a>
+ <notenglish>
+  <a href='/'>
+   <image src='/pics/migdal.jpg' alt='Мигдаль' id='migdal'></a>
+ <else>
+  <a href='/'>
+   <image src='/pics/migdal-english.gif' alt='Migdal' id='migdal'></a>
+ </notenglish>
+ <<hannukah>>
+</div>
+</element>
+
+<element name='translation' params='href'>
+<ifne what='$href'>
+ <english>
+  <image src='/pics/lang-ru.gif'>
+  <a href='$href' id='translation'>Русская версия</a>
+ <else>
+  <image src='/pics/lang-us.gif'>
+  <a href='$href' id='translation'>English version</a>
+ </english>
+</ifne>
+</element>
+
+<element name='top_web' params='ident,transref'>
+<div id='top'>
+ <banner>
+ <countdown title='25-летия &#171;Мигдаля&#187;' day='37' year='2017'
+            image='/pics/logo-birthday.gif'>
+  <<td align='center' rowspan='2' style="padding-top: 10px">
+   <notenglish><table cellspacing='5' cellpadding='0'><tr valign='middle'>
+    <td align='right'>
+     <a href='/migdal/events/other/rainbow-festival-2009/'><asp>
+      <image src='/pics/logo-festival.gif'></a>
+    </td>
+    <td align='left' style='font: 14px Arial,sans-serif'>
+     <a href='/migdal/events/other/rainbow-festival-2009/'><asp>
+      <asp>Фестиваль &#171;Радуга еврейской Диаспоры&#187;</a>
+    </td>
+   </table></notenglish>
+  </td>>
+ <div id='bsd-block'>
+  <translation href='$transref'>
+  <image src='/pics/bsd-main.gif' alt='БС"Д' id='bsd'>
+ </div>
+ <login>
+</div>
+<outer><table width='100%' cellspacing='0' cellpadding='0'><inner>
+ <error id='*EL_NO_COOKIES' span='2'
+	text='Не работают cookies. Включите поддержку cookies в настройках вашего браузера.'>
+</inner></table></outer>
+<menu ident='$ident'>
+<backtrace>
+</element>
+
+<element name='top'>
+<notprint>
+ <top_web ident='$ident' transref='$transref'>
+</notprint>
+</element>

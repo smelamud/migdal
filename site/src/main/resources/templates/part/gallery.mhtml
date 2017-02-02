@@ -1,0 +1,56 @@
+<< @(#) $Id$ >>
+
+<element name='batcher' params='list,topic_id,noguests,noadd'>
+<div class='batcher'>
+ <if what='!$noadd'>
+  <div class='adder'>
+   <image src='/pics/sheet.gif'>&sp;
+   <catalog name='catalog' id='$topic_id'>
+   <a href='/${catalog}add-picture/?noguests=$noguests&redirid=$_'
+    >Добавить фотографию</a>
+  </div>
+ </if>
+ <div class='sorter'>
+  <b>Сортировать</b>
+  <navi_sort title='по дате' value='*SORT_PSENT'>|
+  <navi_sort title='по рейтингу' value='*SORT_RATING'>
+ </div>
+ <spin list='$list'>
+ <div class='clear-floats'></div>
+</div>
+</element>
+
+<element name='gallery'>
+<assign name='limit' value!='$rows * $cols'>
+<iterate_postinglist name='list' grp='*GRP_GRAPHICS' topic_id='$topic_id'
+                     limit=0 sort='$sort' subdomain='$subdomain'
+                     user='$user_id'>
+<iterate_rows cols='$cols'>
+<pager_new name='pager' size='$list.Size' limit='$limit' offset='$offset'>
+<batcher list='$pager' topic_id='$topic_id' noguests='$noguests' noadd='$noadd'>
+<ifnzero what='$list.Count'>
+ <div style='display: none'>
+  <for>
+   <if what='$list.Position == $offset'>
+    <div class='clear-floats'></div>
+    </div>
+    <div class='pictures'>
+   </if>
+   <if what='$list.Position == $offset + $limit'>
+    <div class='clear-floats'></div>
+    </div>
+    <div style='display: none'>
+   </if>
+   <assign name='hollow'
+           value!='$list.Position < $offset
+                   || $list.Position >= $offset + $limit'>
+   <picture picture='$.' showtopic!='$topic_id<0' showdiscuss='*true'
+            rel#='gallery-$topic_id' list_index!='$list.Position + 1'
+            list_size='$list.Size' hollow='$hollow' align='left'
+            noclear!='!$;isBol' nomargin='*true'>
+  </for>
+  <div class='clear-floats'></div>
+ </div>
+ <batcher list='$pager' topic_id='$topic_id' noguests='$noguests' noadd='$noadd'>
+</ifnzero>
+</element>
