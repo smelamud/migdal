@@ -80,7 +80,7 @@
 				<version>1.4.0</version>
 				<executions>
 					<execution>
-						<id>LESS compile</id>
+						<id>LESS compile default style</id>
 						<phase>compile</phase>
 						<goals>
 							<goal>exec</goal>
@@ -90,8 +90,57 @@
 							<executable>lessc</executable>
 							<arguments>
 								<argument>-x</argument>
+								<argument>--global-var=flavour=default</argument>
 								<argument>main.less</argument>
-								<argument>${project.build.outputDirectory}/static/css/main.css</argument>
+								<argument>${project.build.outputDirectory}/static/css/main-default.css</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
+				<executions>
+					<execution>
+						<id>LESS compile print style</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${basedir}/src/main/less</workingDirectory>
+							<executable>lessc</executable>
+							<arguments>
+								<argument>-x</argument>
+								<argument>--global-var=flavour=print</argument>
+								<argument>main.less</argument>
+								<argument>${project.build.outputDirectory}/static/css/main-print.css</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
+				<executions>
+					<execution>
+						<id>LESS compile static article style</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${basedir}/src/main/less</workingDirectory>
+							<executable>lessc</executable>
+							<arguments>
+								<argument>-x</argument>
+								<argument>--global-var=flavour=default</argument>
+								<argument>static-article.less</argument>
+								<argument>${project.build.outputDirectory}/static/css/static-article.css</argument>
 							</arguments>
 						</configuration>
 					</execution>

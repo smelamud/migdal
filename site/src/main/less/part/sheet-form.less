@@ -1,0 +1,39 @@
+.form {
+	background-color: @form_title_back;
+	margin-top: 10px;
+
+    &-layer {
+        background-color: transparent;
+    }
+
+    &-title {
+        color: @form_title;
+        font-size: 10pt;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    &-cell {
+        background-color: @form_cell;
+        text-align: left;
+    }
+
+    &-section {
+        background-color: @form_section;
+        text-align: left;
+    }
+
+    &-comment {
+        font-weight: normal;
+        padding-left: 1em;
+
+        &, I, B {
+            font-size: 8pt;
+        }
+    }
+
+    &-star {
+        font-size: 9pt;
+        color: @form_star;
+    }
+}

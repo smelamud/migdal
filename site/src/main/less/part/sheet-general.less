@@ -1,0 +1,99 @@
+.ninept {
+	font-size: 9pt;
+}
+
+.eightpt {
+	font-size: 8pt;
+}
+
+.clear-floats {
+    height: 0;
+    clear: both;
+}
+
+.error {
+	background-color: @error_back;
+	color: @error;
+	font-weight: bold;
+	font-size: 10pt;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+BODY {
+	background-color: @body_back;
+	background-image: url(@body_back_pic);
+	margin: 0;
+	font-size: 10pt;
+	font-family: @verdana;
+
+    &.error-page {
+        background-color: @body_404_back;
+        background-image: none;
+        padding: 10px;
+    }
+}
+
+.page-title {
+	margin: 0 70px 2ex 10px;
+	text-align: left;
+	color: @title;
+	font: bold 18pt @courier;
+}
+
+.name {
+
+    A&, SPAN& {
+        color: @name;
+        font-weight: bold;
+        font-size: 9pt;
+    }
+}
+
+SPAN.guest-name {
+	color: @name;
+	font-style: italic;
+	font-size: 9pt;
+}
+
+.sent { /* FIXME shouldn't be here */
+	color: @sent;
+	font-size: 9pt;
+}
+
+A IMG {
+	border: 0;
+}
+
+.icon { /* FIXME shouldn't be here */
+	position: relative;
+	top: +2px;
+}
+
+.ears IMG {
+	display: block;
+	margin-bottom: 5px;
+}
+
+TT {
+	font-family: @courier;
+}
+
+EM {
+	color: @em;
+	font-weight: bold;
+	font-style: normal;
+}
+
+.rss {
+    text-align: right;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    clear: both;
+    width: 100%;
+
+    IMG {
+        position: relative;
+        top: +3px;
+    }
+}

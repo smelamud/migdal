@@ -1,0 +1,50 @@
+.batcher {
+    text-align: center;
+    width: 100%;
+    margin-top: 1ex;
+
+    .adder {
+        float: left;
+        font-size: 8pt;
+        font-weight: bold;
+        margin-right: 1em;
+        margin-bottom: 1ex;
+
+        IMG {
+            position: relative;
+            top: 2px;
+        }
+    }
+
+    .sorter {
+        float: right;
+        font-size: 8pt;
+    }
+}
+
+.spin {
+    display: inline-block;
+    font-size: 8pt;
+
+    .button {
+        display: inline-block;
+        width: 16px;
+    }
+
+    FORM {
+        display: inline-block;
+        margin: 0;
+        position: relative;
+        top: -4px;
+
+        INPUT {
+            background-color: @spin_input_back;
+            border: solid 1px @spin_input_border;
+            color: @spin_input_text;
+            font-size: 8pt;
+            height: 16px;
+            width: 18px;
+            padding-left: 2px;
+        }
+    }
+}

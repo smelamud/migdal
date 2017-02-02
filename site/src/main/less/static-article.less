@@ -1,0 +1,25 @@
+@import "part/colors.less";
+@import "part/fonts.less";
+@import "part/palette.less";
+
+@import "part/sheet-general.less";
+@import "part/sheet-article.less";
+@import "part/sheet-book.less";
+
+.contents {
+	background-color: @r_lm;
+	border: solid 1px @mrd;
+}
+
+.contents .title {
+	color: @mrd;
+	font: bold 14pt @times;
+}
+
+.contents UL {
+	padding-left: 15px;
+}
+
+.contents LI {
+	padding-bottom: .5ex;
+}

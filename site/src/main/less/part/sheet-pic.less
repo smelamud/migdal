@@ -1,0 +1,81 @@
+.pic {
+    position: relative;
+    margin-bottom: 2ex;
+
+    IMG {
+        display: block;
+    }
+
+    .pic-title {
+        margin-top: .5ex;
+        text-align: left;
+        font-size: 8pt;
+        font-style: italic;
+    }
+
+    .glass {
+        display: none;
+        position: absolute;
+        width: @glass_pic_width;
+        height: @glass_pic_height;
+        background-image: url(@glass_pic);
+        cursor: pointer;
+    }
+
+    &:hover .glass {
+        display: block;
+    }
+
+    .buttons {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        SPAN {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            padding: 1px;
+            background-color: @pic_buttons_background;
+            margin-left: 3px;
+            margin-top: 3px;
+
+            IMG {
+                display: block;
+                border: 0;
+            }
+        }
+    }
+
+    &:hover .buttons {
+        display: block;
+
+        SPAN:hover {
+            background-color: @pic_buttons_background_active;
+        }
+    }
+
+    .small-rating-zero {
+        display: none;
+    }
+
+    .small-rating-plus, .small-rating-minus {
+        display: none;
+        position: absolute;
+        left: 0;
+        background-color: @pic_rating_background;
+        padding: 3px 10px 4px 3px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    &:hover .small-rating-plus, &:hover .small-rating-minus {
+        display: block;
+    }
+}
+
+.pic-rating {
+    text-align: right;
+    margin-bottom: 1pt;
+}

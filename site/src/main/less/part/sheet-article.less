@@ -1,0 +1,134 @@
+.article {
+	font-size: 9pt;
+
+    .controls-line {
+        text-align: right;
+        clear: both;
+
+        .controls {
+            border-bottom: 1px solid @article_split;
+            padding-top: 0.5ex;
+            padding-bottom: 0.5ex;
+            display: inline-block;
+
+            A {
+                font-size: 8pt;
+                color: @article_controls;
+                text-decoration: none;
+
+                &:hover {
+                    color: @article_controls_hover;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    A.topic {
+        color: @article_topic;
+        font-size: 10pt;
+        text-decoration: underline;
+
+        &:hover {
+            color: @article_topic_hover;
+        }
+    }
+
+    H1 {
+        color: @article_title;
+        font: bold 18pt @times;
+        margin: 20px;
+    }
+
+    H2 {
+        font-size: 14pt;
+        font-weight: bold;
+        margin: 15px;
+    }
+
+    H3 {
+        font-size: 12pt;
+        font-weight: bold;
+        margin: 10px;
+    }
+
+    H4 {
+        font-size: 10pt;
+        font-weight: bold;
+        text-decoration: underline;
+        margin: 5px;
+    }
+
+    .author {
+        color: @article_author;
+        font-style: italic;
+        font-weight: normal;
+        font-size: 12pt;
+    }
+
+    .sent {
+        color: @article_sent;
+        font-size: 9pt;
+        float: right;
+        text-align: right;
+        margin-top: 3ex;
+        margin-bottom: 2ex;
+        margin-right: 1em;
+    }
+
+    .preface {
+        border-left: solid 5px @article_preface;
+        padding-left: 1ex;
+    }
+
+    TT {
+        font-size: 10pt;
+    }
+
+    .notes {
+        border-style: none;
+        color: @article_notes_split;
+        background-color: @article_notes_split;
+        height: 1px;
+        width: 200px;
+    }
+
+    .source {
+        color: @article_source;
+        font-style: italic;
+        padding-bottom: 2ex;
+    }
+
+    .insert-image {
+        visibility: hidden;
+        border-top: 1px dotted @article_insert_image_line;
+        height: 0;
+        width: 100%;
+        margin-bottom: -1em;
+        text-align: center;
+
+        SPAN {
+            position: relative;
+            top: -7pt;
+            background-color: @article_insert_image_back;
+            display: inline-block;
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-bottom: 2pt;
+            border: 1px solid @article_insert_image_border;
+            border-radius: 20px;
+
+            A {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .daily-gallery {
+
+        .vote-panel {
+
+            padding-bottom: 1ex;
+        }
+    }
+}

@@ -1,0 +1,110 @@
+.forums {
+    margin-top: 1px;
+}
+
+.forum {
+    background-color: @forum_body_back;
+    border: solid 1px @forum_border;
+    overflow: hidden;
+    margin-top: 3px;
+
+    .header {
+        padding-left: .5em;
+        padding-bottom: 9999px;
+        margin-bottom: -9999px;
+        width: 150px;
+        text-align: left;
+        float: left;
+        background-color: @forum_header_back;
+    }
+
+    .content {
+        background-color: @forum_body_back;
+        padding-left: 160px;
+        padding-bottom: 9999px;
+        margin-bottom: -9999px;
+    }
+
+    .body {
+        font-size: 9pt;
+        text-align: left;
+        padding-left: .5em;
+        padding-right: .5em;
+        padding-top: 1ex;
+
+        & > P:first-child {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        & > P:last-child {
+            margin-bottom: 5px;
+        }
+    }
+
+    .controls {
+        height: 22px;
+        visibility: hidden;
+
+        A {
+            font-size: 8pt;
+            color: @forum_controls;
+            text-decoration: none;
+
+            &:hover {
+                color: @forum_controls_hover;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &:hover .controls {
+        visibility: visible;
+    }
+
+    .quote {
+        font-size: 8pt;
+        border-left: solid 1px @forum_quote;
+        padding-left: 5px;
+    }
+}
+
+.discussions {
+
+    .item {
+        font-size: 8pt;
+        margin-bottom: 1ex;
+
+        .content {
+            max-height: 55px;
+            overflow: hidden;
+
+            A.name, SPAN.guest-name {
+                font-size: 8pt;
+            }
+
+            .quote {
+
+                A {
+                    color: @discussions_names;
+                    text-decoration: none;
+                }
+
+                A:hover {
+                    color: @discussions_names_hover;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .time {
+            color: @discussions_time;
+        }
+    }
+
+    .other {
+        font-size: 8pt;
+        text-align: center;
+    }
+
+}

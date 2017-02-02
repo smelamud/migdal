@@ -1,0 +1,30 @@
+#bottom {
+	margin-top: 1.5ex;
+	padding-left: 1ex;
+	padding-right: 1ex;
+	color: @bottom;
+	font-size: 8pt;
+
+    A {
+        color: @bottom_link;
+        text-decoration: underline;
+
+        &.complains-link {
+            color: @bottom_complainslink;
+            font-size: 9pt;
+            font-weight: bold;
+
+            &:hover {
+                color: @bottom_complainslink_hover;
+            }
+        }
+    }
+
+    HR {
+        clear: both;
+        margin-top: 1em;
+        border-width: 0;
+        border-top: 2px solid @bottom;
+        width: 100%;
+    }
+}

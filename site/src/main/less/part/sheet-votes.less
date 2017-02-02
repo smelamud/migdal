@@ -1,0 +1,62 @@
+.vote-panel {
+    width: 64px;
+    height: 12px;
+
+    .vote-button {
+        display: inline-block;
+        border-width: 0;
+        width: 12px;
+    }
+
+    .vote-active {
+        cursor: pointer;
+    }
+
+    DIV.rating-minus, DIV.rating-zero, DIV.rating-plus {
+        display: inline-block;
+        width: 40px;
+    }
+}
+
+.rating {
+    &-minus {
+        text-align: center;
+        color: @rating_minus;
+        font-weight: bold;
+        font-size: 10pt;
+    }
+
+    &-zero {
+        text-align: center;
+        color: @rating_zero;
+        font-weight: bold;
+        font-size: 10pt;
+    }
+
+    &-plus {
+        text-align: center;
+        color: @rating_plus;
+        font-weight: bold;
+        font-size: 10pt;
+    }
+}
+
+.small-rating {
+    &-minus {
+        color: @rating_minus;
+        font-weight: bold;
+        font-size: 8pt;
+    }
+
+    &-zero {
+        color: @rating_zero;
+        font-weight: bold;
+        font-size: 8pt;
+    }
+
+    &-plus {
+        color: @rating_plus;
+        font-weight: bold;
+        font-size: 8pt;
+    }
+}
