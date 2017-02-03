@@ -130,6 +130,21 @@
 							</arguments>
 						</configuration>
 					</execution>
+					<execution>
+						<id>UglifyJS compile JavaScript</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${basedir}/src/main/js</workingDirectory>
+							<executable>bash</executable>
+							<arguments>
+								<argument>-c</argument>
+								<argument>uglifyjs -o ${project.build.outputDirectory}/static/js/main.js -c -- *.js</argument>
+							</arguments>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
         </plugins>
