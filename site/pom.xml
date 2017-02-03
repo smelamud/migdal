@@ -96,13 +96,6 @@
 							</arguments>
 						</configuration>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.4.0</version>
-				<executions>
 					<execution>
 						<id>LESS compile print style</id>
 						<phase>compile</phase>
@@ -120,13 +113,6 @@
 							</arguments>
 						</configuration>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.4.0</version>
-				<executions>
 					<execution>
 						<id>LESS compile static article style</id>
 						<phase>compile</phase>
