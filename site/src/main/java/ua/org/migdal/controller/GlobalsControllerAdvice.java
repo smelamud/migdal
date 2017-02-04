@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.Session;
+import ua.org.migdal.util.Utils;
 
 @ControllerAdvice
 public class GlobalsControllerAdvice {
@@ -21,10 +21,7 @@ public class GlobalsControllerAdvice {
     @ModelAttribute
     public void session(HttpServletRequest request, Model model) {
         model.addAttribute("session", session);
-        model.addAttribute("location", UriComponentsBuilder
-                .fromPath(request.getRequestURI())
-                .query(request.getQueryString())
-                .toUriString());
+        model.addAttribute("location", Utils.createLocalBuilderFromRequest(request).toUriString());
 
         Map<String, Object> props = new HashMap<>();
         props.put("signIn", true);

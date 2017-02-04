@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class Config {
 
     private String siteDomain;
+    private String[] subdomains;
 
     public String getSiteDomain() {
         return siteDomain;
@@ -13,6 +14,14 @@ public class Config {
 
     public void setSiteDomain(String siteDomain) {
         this.siteDomain = siteDomain;
+    }
+
+    public String[] getSubdomains() {
+        return subdomains;
+    }
+
+    public void setSubdomains(String[] subdomains) {
+        this.subdomains = subdomains;
     }
 
 }
