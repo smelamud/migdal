@@ -1,6 +1,7 @@
 package ua.org.migdal;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import ua.org.migdal.helper.HelperSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableConfigurationProperties(Config.class)
 public class MigdalApplication {
 
 	private Logger log = LoggerFactory.getLogger(MigdalApplication.class);
