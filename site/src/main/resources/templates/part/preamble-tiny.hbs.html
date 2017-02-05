@@ -1,0 +1,25 @@
+{{#unless print}}
+    <link rel='alternate' media='print' href='{{printLocation}}'>
+{{/unless}}
+{{#if rssHref}}
+    <link rel="alternate" type="application/rss+xml" title="RSS"
+          href="http://{{userDomain}}.{{siteDomain}}{{ue rssHref}}">
+{{/if}}
+<link rel='search' href='/search'>
+{{#if metaNoIndex}}
+    <meta property="ROBOTS" content="NOINDEX, NOFOLLOW">
+{{/if}}
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+{{#if pageTitle}}
+    <meta property="og:type" content="article">
+{{else}}
+    <meta property="og:type" content="website">
+{{/if}}
+<meta property="og:site_name" content="{{siteName}}">
+<meta property="og:title" content="{{pageTitle}}">
+<title>{{#if pageTitle}}{{pageTitle}} | {{/if}}{{siteName}}</title>
+
+<script type="text/javascript">
+    window.timeZoneDiff = Math.round((new Date().getTime() - {{now}}) / 3600000);
+</script>
