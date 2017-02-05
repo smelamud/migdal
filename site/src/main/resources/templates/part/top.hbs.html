@@ -1,0 +1,43 @@
+<element name='translation' params='href'>
+<ifne what='$href'>
+ {{#if englishDomain}}
+  <image src='/pics/lang-ru.gif'>
+  <a href='$href' id='translation'>Русская версия</a>
+ {{else}}
+  <image src='/pics/lang-us.gif'>
+  <a href='$href' id='translation'>English version</a>
+ {{/if}}
+</ifne>
+</element>
+
+{{#unless print}}
+<div id='top'>
+ <div id='logo'>
+  <a href='/'>
+   <image src='/pics/big-tower.gif'
+          alt!='!$$englishDomain ? "Башня" : "Tower"'></a>
+  {{#unless englishDomain}}
+   <a href='/'>
+    <image src='/pics/migdal.jpg' alt='Мигдаль' id='migdal'></a>
+   <else>
+    <a href='/'>
+     <image src='/pics/migdal-english.gif' alt='Migdal' id='migdal'></a>
+  {{/unless}}
+  {{! > hannukah}}
+ </div>
+
+ <countdown title='25-летия &#171;Мигдаля&#187;' day='37' year='2017'
+            image='/pics/logo-birthday.gif'>
+ <div id='bsd-block'>
+  <translation href='$transref'>
+  <image src='/pics/bsd-main.gif' alt='БС"Д' id='bsd'>
+ </div>
+ <login>
+</div>
+<outer><table width='100%' cellspacing='0' cellpadding='0'><inner>
+ <error id='*EL_NO_COOKIES' span='2'
+	text='Не работают cookies. Включите поддержку cookies в настройках вашего браузера.'>
+</inner></table></outer>
+<menu ident='$ident'>
+<backtrace>
+{{/unless}}
