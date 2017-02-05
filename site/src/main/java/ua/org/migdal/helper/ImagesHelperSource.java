@@ -12,7 +12,11 @@ public class ImagesHelperSource {
         buf.append("<img src=\"");
         buf.append(href);
         buf.append('"');
-        appendHashParam(buf, "alt", options);
+        if (!options.<Boolean>get("englishDomain") || options.hash("alt_en") == null) {
+            appendHashParam(buf, "alt", options);
+        } else {
+            appendHashParam(buf, "alt_en", "alt", options);
+        }
         appendHashParam(buf, "title", options);
         appendHashParam(buf, "class", options);
         appendHashParam(buf, "id", options);
