@@ -1,0 +1,25 @@
+<element name='menuitem' params='ident,link,current,time,alt'
+         defaults="time=0 alt=''">
+<asp><a href='$link'><asp>
+ <if what='$current==$ident'>
+  <image src#='/pics/menu-${ident}.gif' alt='$alt'>
+ <else>
+  <image src#='/pics/menu-${ident}-na.gif' alt='$alt'>
+ </if>
+<asp></a><asp>
+</element>
+
+<table class="menu" width="100%" cellspacing="0" cellpadding="0" vspace="0">
+    {{#unless englishDomain}}
+        <tr valign="bottom">
+            <td style="line-height: 1px"><asp>
+                <menuitem ident='index' alt='Главная' link='/' current='$ident'>
+                <menuitem ident='times' alt='Мигдаль Times' link='/times/' current='$ident'>
+            <asp></td>
+            <td align="right" style="line-height: 1px"><asp>
+                <menuitem ident='search' alt='Поиск' link='/search/' current='$ident'>
+            <asp></td>
+        </tr>
+    {{/unless}}
+    <tr><td colspan="2" class="date" align="right"><today>&nbsp;</td></tr>
+</table>
