@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 @HelperSource
-public class UtilsHelperSource {
+public class StringHelperSource {
 
     public CharSequence ue(String s) {
         try {
