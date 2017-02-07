@@ -7,6 +7,15 @@
     <a href="{{link}}">{{image src alt=alt}}</a>
 {{/inline}}
 
+{{#*inline "today"}}
+    <time>
+    {{#unless englishDomain}}
+        $,@Jj&nbsp;$,@Jk&nbsp;$,@JY&nbsp;/&nbsp;$,@Rj&nbsp;$,@Rk&nbsp;$,@RY
+    {{else}}
+        $,@IF,&nbsp;$,@Ij$,@IS&nbsp;&nbsp;$,@IY&nbsp;/&nbsp;$,@EF,&nbsp;$,@Ej$,@ES&nbsp;&nbsp;$,@EY
+    {{/unless}}
+{{/inline}}
+
 <table class="menu" width="100%" cellspacing="0" cellpadding="0" vspace="0">
     {{#unless englishDomain}}
         {{#assign "menuBar"}}
