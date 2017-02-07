@@ -42,6 +42,7 @@ public class GlobalsControllerAdvice {
         model.addAttribute("metaNoIndex", false);
         model.addAttribute("rssHref", "");
         model.addAttribute("translationHref", "");
+        model.addAttribute("menuMain", "index");
 
         Map<String, Object> props = new HashMap<>();
         props.put("signIn", true);
