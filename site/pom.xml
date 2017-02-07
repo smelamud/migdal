@@ -66,6 +66,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-social-facebook</artifactId>
         </dependency>
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>58.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

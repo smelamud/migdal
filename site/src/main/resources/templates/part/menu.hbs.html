@@ -8,11 +8,10 @@
 {{/inline}}
 
 {{#*inline "today"}}
-    <time>
     {{#unless englishDomain}}
-        $,@Jj&nbsp;$,@Jk&nbsp;$,@JY&nbsp;/&nbsp;$,@Rj&nbsp;$,@Rk&nbsp;$,@RY
+        {{cal "jewish-ru-gen-lc" "d MMMM yyyy"}}&nbsp;/&nbsp;{{cal "gregorian-ru-gen-lc" "d MMMM yyyy"}}
     {{else}}
-        $,@IF,&nbsp;$,@Ij$,@IS&nbsp;&nbsp;$,@IY&nbsp;/&nbsp;$,@EF,&nbsp;$,@Ej$,@ES&nbsp;&nbsp;$,@EY
+        {{cal "jewish-en" "MMMM d, yyyy"}}&nbsp;/&nbsp;{{cal "gregorian-en" "MMMM d, yyyy"}}
     {{/unless}}
 {{/inline}}
 
@@ -31,5 +30,5 @@
         {{/assign}}
         {{{asp menuBar}}}
     {{/unless}}
-    <tr><td colspan="2" class="date" align="right"><today>&nbsp;</td></tr>
+    <tr><td colspan="2" class="date" align="right">{{> today}}&nbsp;</td></tr>
 </table>
