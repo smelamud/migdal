@@ -1,0 +1,26 @@
+{{! params: href, image, title, date }}
+
+{{#unless englishDomain}}
+    {{daysTill "days" date}}
+    {{#ifgt days "0"}}
+        <div style="float: left; margin-left: 10ex">
+            {{#if href}}
+                <a href="{{href}}">{{image image}}</a>
+            {{else}}
+                {{image image}}
+            {{/if}}
+       &nbsp;
+            <span style="font: 14pt Arial,sans-serif">
+                До
+                <b>
+                    {{#if href}}
+                        <a href="{{href}}">{{{title}}}</a>
+                    {{else}}
+                        {{{title}}}
+                    {{/if}}
+                </b>
+                {{plural days "остался,осталось,осталось"}} {{days}} {{plural days "день,дня,дней"}}
+            </span>
+        </div>
+   {{/ifgt}}
+{{/unless}}

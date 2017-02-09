@@ -27,4 +27,24 @@ public class StatementsHelperSource {
         return condition ? options.apply(options.fn) : options.apply(options.inverse);
     }
 
+    public CharSequence ifgt(String value1, String value2, Options options) throws IOException {
+        boolean condition = HelperUtils.intArgument(0, value1) > HelperUtils.intArgument(1, value2);
+        return condition ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
+    public CharSequence iflt(String value1, String value2, Options options) throws IOException {
+        boolean condition = HelperUtils.intArgument(0, value1) < HelperUtils.intArgument(1, value2);
+        return condition ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
+    public CharSequence ifge(String value1, String value2, Options options) throws IOException {
+        boolean condition = HelperUtils.intArgument(0, value1) >= HelperUtils.intArgument(1, value2);
+        return condition ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
+    public CharSequence ifle(String value1, String value2, Options options) throws IOException {
+        boolean condition = HelperUtils.intArgument(0, value1) <= HelperUtils.intArgument(1, value2);
+        return condition ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
 }
