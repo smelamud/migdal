@@ -36,10 +36,10 @@ public class ImagesHelperSource {
             appendAttribute(buf, "width", imageSize.width);
             appendAttribute(buf, "height", imageSize.height);
         }
-        if (!options.<Boolean>get("englishDomain") || options.hash("alt_en") == null) {
+        if (!options.<Boolean>get("englishDomain") || options.hash("altEn") == null) {
             appendHashParam(buf, "alt", options);
         } else {
-            appendHashParam(buf, "alt_en", "alt", options);
+            appendHashParam(buf, "altEn", "alt", options);
         }
         appendHashParam(buf, "title", options);
         appendHashParam(buf, "class", options);
