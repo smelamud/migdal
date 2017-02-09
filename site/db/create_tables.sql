@@ -60,27 +60,6 @@ CREATE TABLE captcha_keys (
 ALTER TABLE captcha_keys OWNER TO migdal;
 
 --
--- Name: captcha_keys_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE captcha_keys_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE captcha_keys_id_seq OWNER TO migdal;
-
---
--- Name: captcha_keys_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE captcha_keys_id_seq OWNED BY captcha_keys.id;
-
-
---
 -- Name: chat_messages; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -96,27 +75,6 @@ CREATE TABLE chat_messages (
 
 
 ALTER TABLE chat_messages OWNER TO migdal;
-
---
--- Name: chat_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE chat_messages_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE chat_messages_id_seq OWNER TO migdal;
-
---
--- Name: chat_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE chat_messages_id_seq OWNED BY chat_messages.id;
-
 
 --
 -- Name: content_versions; Type: TABLE; Schema: public; Owner: migdal
@@ -150,27 +108,6 @@ CREATE TABLE counters (
 ALTER TABLE counters OWNER TO migdal;
 
 --
--- Name: counters_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE counters_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE counters_id_seq OWNER TO migdal;
-
---
--- Name: counters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE counters_id_seq OWNED BY counters.id;
-
-
---
 -- Name: counters_ip; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -201,27 +138,6 @@ CREATE TABLE cross_entries (
 
 
 ALTER TABLE cross_entries OWNER TO migdal;
-
---
--- Name: cross_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE cross_entries_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE cross_entries_id_seq OWNER TO migdal;
-
---
--- Name: cross_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE cross_entries_id_seq OWNED BY cross_entries.id;
-
 
 --
 -- Name: entries; Type: TABLE; Schema: public; Owner: migdal
@@ -309,27 +225,6 @@ CREATE TABLE entries (
 ALTER TABLE entries OWNER TO migdal;
 
 --
--- Name: entries_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE entries_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE entries_id_seq OWNER TO migdal;
-
---
--- Name: entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE entries_id_seq OWNED BY entries.id;
-
-
---
 -- Name: entry_grps; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -352,6 +247,20 @@ CREATE TABLE groups (
 
 
 ALTER TABLE groups OWNER TO migdal;
+
+--
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: migdal
+--
+
+CREATE SEQUENCE hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hibernate_sequence OWNER TO migdal;
 
 --
 -- Name: html_cache; Type: TABLE; Schema: public; Owner: migdal
@@ -386,27 +295,6 @@ CREATE TABLE image_file_transforms (
 ALTER TABLE image_file_transforms OWNER TO migdal;
 
 --
--- Name: image_file_transforms_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE image_file_transforms_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE image_file_transforms_id_seq OWNER TO migdal;
-
---
--- Name: image_file_transforms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE image_file_transforms_id_seq OWNED BY image_file_transforms.id;
-
-
---
 -- Name: image_files; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -422,27 +310,6 @@ CREATE TABLE image_files (
 
 
 ALTER TABLE image_files OWNER TO migdal;
-
---
--- Name: image_files_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE image_files_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE image_files_id_seq OWNER TO migdal;
-
---
--- Name: image_files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE image_files_id_seq OWNED BY image_files.id;
-
 
 --
 -- Name: inner_images; Type: TABLE; Schema: public; Owner: migdal
@@ -477,27 +344,6 @@ CREATE TABLE logs (
 ALTER TABLE logs OWNER TO migdal;
 
 --
--- Name: logs_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE logs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE logs_id_seq OWNER TO migdal;
-
---
--- Name: logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE logs_id_seq OWNED BY logs.id;
-
-
---
 -- Name: mail_log; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -508,27 +354,6 @@ CREATE TABLE mail_log (
 
 
 ALTER TABLE mail_log OWNER TO migdal;
-
---
--- Name: mail_log_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE mail_log_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE mail_log_id_seq OWNER TO migdal;
-
---
--- Name: mail_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE mail_log_id_seq OWNED BY mail_log.id;
-
 
 --
 -- Name: mail_queue; Type: TABLE; Schema: public; Owner: migdal
@@ -545,27 +370,6 @@ CREATE TABLE mail_queue (
 
 
 ALTER TABLE mail_queue OWNER TO migdal;
-
---
--- Name: mail_queue_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE mail_queue_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE mail_queue_id_seq OWNER TO migdal;
-
---
--- Name: mail_queue_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE mail_queue_id_seq OWNED BY mail_queue.id;
-
 
 --
 -- Name: old_ids; Type: TABLE; Schema: public; Owner: migdal
@@ -602,27 +406,6 @@ CREATE TABLE packages (
 ALTER TABLE packages OWNER TO migdal;
 
 --
--- Name: packages_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE packages_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE packages_id_seq OWNER TO migdal;
-
---
--- Name: packages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE packages_id_seq OWNED BY packages.id;
-
-
---
 -- Name: prisoners; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -641,27 +424,6 @@ CREATE TABLE prisoners (
 
 
 ALTER TABLE prisoners OWNER TO migdal;
-
---
--- Name: prisoners_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE prisoners_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE prisoners_id_seq OWNER TO migdal;
-
---
--- Name: prisoners_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE prisoners_id_seq OWNED BY prisoners.id;
-
 
 --
 -- Name: profiling; Type: TABLE; Schema: public; Owner: migdal
@@ -683,27 +445,6 @@ CREATE TABLE profiling (
 ALTER TABLE profiling OWNER TO migdal;
 
 --
--- Name: profiling_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE profiling_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE profiling_id_seq OWNER TO migdal;
-
---
--- Name: profiling_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE profiling_id_seq OWNED BY profiling.id;
-
-
---
 -- Name: redirs; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -717,27 +458,6 @@ CREATE TABLE redirs (
 
 
 ALTER TABLE redirs OWNER TO migdal;
-
---
--- Name: redirs_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE redirs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE redirs_id_seq OWNER TO migdal;
-
---
--- Name: redirs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE redirs_id_seq OWNED BY redirs.id;
-
 
 --
 -- Name: sessions; Type: TABLE; Schema: public; Owner: migdal
@@ -756,27 +476,6 @@ CREATE TABLE sessions (
 ALTER TABLE sessions OWNER TO migdal;
 
 --
--- Name: sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE sessions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE sessions_id_seq OWNER TO migdal;
-
---
--- Name: sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE sessions_id_seq OWNED BY sessions.id;
-
-
---
 -- Name: tmp_texts; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -788,27 +487,6 @@ CREATE TABLE tmp_texts (
 
 
 ALTER TABLE tmp_texts OWNER TO migdal;
-
---
--- Name: tmp_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE tmp_texts_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE tmp_texts_id_seq OWNER TO migdal;
-
---
--- Name: tmp_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE tmp_texts_id_seq OWNED BY tmp_texts.id;
-
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: migdal
@@ -847,27 +525,6 @@ CREATE TABLE users (
 ALTER TABLE users OWNER TO migdal;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
---
-
-CREATE SEQUENCE users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE users_id_seq OWNER TO migdal;
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
---
-
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
-
-
---
 -- Name: version; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -894,122 +551,74 @@ CREATE TABLE votes (
 ALTER TABLE votes OWNER TO migdal;
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY captcha_keys ALTER COLUMN id SET DEFAULT nextval('captcha_keys_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY chat_messages ALTER COLUMN id SET DEFAULT nextval('chat_messages_id_seq'::regclass);
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_confirm_code_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY counters ALTER COLUMN id SET DEFAULT nextval('counters_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY cross_entries ALTER COLUMN id SET DEFAULT nextval('cross_entries_id_seq'::regclass);
+CREATE INDEX users_confirm_code_idx ON users USING btree (confirm_code);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_confirm_deadline_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY entries ALTER COLUMN id SET DEFAULT nextval('entries_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY image_file_transforms ALTER COLUMN id SET DEFAULT nextval('image_file_transforms_id_seq'::regclass);
+CREATE INDEX users_confirm_deadline_idx ON users USING btree (confirm_deadline);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_guest_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY image_files ALTER COLUMN id SET DEFAULT nextval('image_files_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY logs ALTER COLUMN id SET DEFAULT nextval('logs_id_seq'::regclass);
+CREATE INDEX users_guest_idx ON users USING btree (guest);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_jewish_name_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY mail_log ALTER COLUMN id SET DEFAULT nextval('mail_log_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY mail_queue ALTER COLUMN id SET DEFAULT nextval('mail_queue_id_seq'::regclass);
+CREATE INDEX users_jewish_name_idx ON users USING btree (jewish_name);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_login_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY packages ALTER COLUMN id SET DEFAULT nextval('packages_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY prisoners ALTER COLUMN id SET DEFAULT nextval('prisoners_id_seq'::regclass);
+CREATE INDEX users_login_idx ON users USING btree (login);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_name_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY profiling ALTER COLUMN id SET DEFAULT nextval('profiling_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY redirs ALTER COLUMN id SET DEFAULT nextval('redirs_id_seq'::regclass);
+CREATE INDEX users_name_idx ON users USING btree (name);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_password_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY sessions ALTER COLUMN id SET DEFAULT nextval('sessions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY tmp_texts ALTER COLUMN id SET DEFAULT nextval('tmp_texts_id_seq'::regclass);
+CREATE INDEX users_password_idx ON users USING btree (password);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
+-- Name: users_shames_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+CREATE INDEX users_shames_idx ON users USING btree (shames);
+
+
+--
+-- Name: users_surname_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX users_surname_idx ON users USING btree (surname);
 
 
 --
