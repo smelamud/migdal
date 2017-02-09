@@ -14,15 +14,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: migdal; Type: SCHEMA; Schema: -; Owner: postgres
---
-
-CREATE SCHEMA migdal;
-
-
-ALTER SCHEMA migdal OWNER TO postgres;
-
---
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -36,10 +27,10 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
-SET search_path = migdal, pg_catalog;
+SET search_path = public, pg_catalog;
 
 --
--- Name: users_gender; Type: TYPE; Schema: migdal; Owner: migdal
+-- Name: users_gender; Type: TYPE; Schema: public; Owner: migdal
 --
 
 CREATE TYPE users_gender AS ENUM (
@@ -55,7 +46,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: captcha_keys; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: captcha_keys; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE captcha_keys (
@@ -69,7 +60,7 @@ CREATE TABLE captcha_keys (
 ALTER TABLE captcha_keys OWNER TO migdal;
 
 --
--- Name: captcha_keys_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: captcha_keys_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE captcha_keys_id_seq
@@ -83,14 +74,14 @@ CREATE SEQUENCE captcha_keys_id_seq
 ALTER TABLE captcha_keys_id_seq OWNER TO migdal;
 
 --
--- Name: captcha_keys_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: captcha_keys_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE captcha_keys_id_seq OWNED BY captcha_keys.id;
 
 
 --
--- Name: chat_messages; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: chat_messages; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE chat_messages (
@@ -107,7 +98,7 @@ CREATE TABLE chat_messages (
 ALTER TABLE chat_messages OWNER TO migdal;
 
 --
--- Name: chat_messages_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: chat_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE chat_messages_id_seq
@@ -121,14 +112,14 @@ CREATE SEQUENCE chat_messages_id_seq
 ALTER TABLE chat_messages_id_seq OWNER TO migdal;
 
 --
--- Name: chat_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: chat_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE chat_messages_id_seq OWNED BY chat_messages.id;
 
 
 --
--- Name: content_versions; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: content_versions; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE content_versions (
@@ -141,7 +132,7 @@ CREATE TABLE content_versions (
 ALTER TABLE content_versions OWNER TO migdal;
 
 --
--- Name: counters; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: counters; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE counters (
@@ -159,7 +150,7 @@ CREATE TABLE counters (
 ALTER TABLE counters OWNER TO migdal;
 
 --
--- Name: counters_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: counters_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE counters_id_seq
@@ -173,14 +164,14 @@ CREATE SEQUENCE counters_id_seq
 ALTER TABLE counters_id_seq OWNER TO migdal;
 
 --
--- Name: counters_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: counters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE counters_id_seq OWNED BY counters.id;
 
 
 --
--- Name: counters_ip; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: counters_ip; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE counters_ip (
@@ -193,7 +184,7 @@ CREATE TABLE counters_ip (
 ALTER TABLE counters_ip OWNER TO migdal;
 
 --
--- Name: cross_entries; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: cross_entries; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE cross_entries (
@@ -212,7 +203,7 @@ CREATE TABLE cross_entries (
 ALTER TABLE cross_entries OWNER TO migdal;
 
 --
--- Name: cross_entries_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: cross_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE cross_entries_id_seq
@@ -226,14 +217,14 @@ CREATE SEQUENCE cross_entries_id_seq
 ALTER TABLE cross_entries_id_seq OWNER TO migdal;
 
 --
--- Name: cross_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: cross_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE cross_entries_id_seq OWNED BY cross_entries.id;
 
 
 --
--- Name: entries; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: entries; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE entries (
@@ -318,7 +309,7 @@ CREATE TABLE entries (
 ALTER TABLE entries OWNER TO migdal;
 
 --
--- Name: entries_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: entries_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE entries_id_seq
@@ -332,14 +323,14 @@ CREATE SEQUENCE entries_id_seq
 ALTER TABLE entries_id_seq OWNER TO migdal;
 
 --
--- Name: entries_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE entries_id_seq OWNED BY entries.id;
 
 
 --
--- Name: entry_grps; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: entry_grps; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE entry_grps (
@@ -351,7 +342,7 @@ CREATE TABLE entry_grps (
 ALTER TABLE entry_grps OWNER TO migdal;
 
 --
--- Name: groups; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: groups; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE groups (
@@ -363,7 +354,7 @@ CREATE TABLE groups (
 ALTER TABLE groups OWNER TO migdal;
 
 --
--- Name: html_cache; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: html_cache; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE html_cache (
@@ -379,7 +370,7 @@ CREATE TABLE html_cache (
 ALTER TABLE html_cache OWNER TO migdal;
 
 --
--- Name: image_file_transforms; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: image_file_transforms; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE image_file_transforms (
@@ -395,7 +386,7 @@ CREATE TABLE image_file_transforms (
 ALTER TABLE image_file_transforms OWNER TO migdal;
 
 --
--- Name: image_file_transforms_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: image_file_transforms_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE image_file_transforms_id_seq
@@ -409,14 +400,14 @@ CREATE SEQUENCE image_file_transforms_id_seq
 ALTER TABLE image_file_transforms_id_seq OWNER TO migdal;
 
 --
--- Name: image_file_transforms_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: image_file_transforms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE image_file_transforms_id_seq OWNED BY image_file_transforms.id;
 
 
 --
--- Name: image_files; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: image_files; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE image_files (
@@ -433,7 +424,7 @@ CREATE TABLE image_files (
 ALTER TABLE image_files OWNER TO migdal;
 
 --
--- Name: image_files_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: image_files_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE image_files_id_seq
@@ -447,14 +438,14 @@ CREATE SEQUENCE image_files_id_seq
 ALTER TABLE image_files_id_seq OWNER TO migdal;
 
 --
--- Name: image_files_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: image_files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE image_files_id_seq OWNED BY image_files.id;
 
 
 --
--- Name: inner_images; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: inner_images; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE inner_images (
@@ -471,7 +462,7 @@ CREATE TABLE inner_images (
 ALTER TABLE inner_images OWNER TO migdal;
 
 --
--- Name: logs; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: logs; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE logs (
@@ -486,7 +477,7 @@ CREATE TABLE logs (
 ALTER TABLE logs OWNER TO migdal;
 
 --
--- Name: logs_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: logs_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE logs_id_seq
@@ -500,14 +491,14 @@ CREATE SEQUENCE logs_id_seq
 ALTER TABLE logs_id_seq OWNER TO migdal;
 
 --
--- Name: logs_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE logs_id_seq OWNED BY logs.id;
 
 
 --
--- Name: mail_log; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: mail_log; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE mail_log (
@@ -519,7 +510,7 @@ CREATE TABLE mail_log (
 ALTER TABLE mail_log OWNER TO migdal;
 
 --
--- Name: mail_log_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: mail_log_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE mail_log_id_seq
@@ -533,14 +524,14 @@ CREATE SEQUENCE mail_log_id_seq
 ALTER TABLE mail_log_id_seq OWNER TO migdal;
 
 --
--- Name: mail_log_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: mail_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE mail_log_id_seq OWNED BY mail_log.id;
 
 
 --
--- Name: mail_queue; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: mail_queue; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE mail_queue (
@@ -556,7 +547,7 @@ CREATE TABLE mail_queue (
 ALTER TABLE mail_queue OWNER TO migdal;
 
 --
--- Name: mail_queue_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: mail_queue_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE mail_queue_id_seq
@@ -570,14 +561,14 @@ CREATE SEQUENCE mail_queue_id_seq
 ALTER TABLE mail_queue_id_seq OWNER TO migdal;
 
 --
--- Name: mail_queue_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: mail_queue_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE mail_queue_id_seq OWNED BY mail_queue.id;
 
 
 --
--- Name: old_ids; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: old_ids; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE old_ids (
@@ -591,7 +582,7 @@ CREATE TABLE old_ids (
 ALTER TABLE old_ids OWNER TO migdal;
 
 --
--- Name: packages; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: packages; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE packages (
@@ -611,7 +602,7 @@ CREATE TABLE packages (
 ALTER TABLE packages OWNER TO migdal;
 
 --
--- Name: packages_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: packages_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE packages_id_seq
@@ -625,14 +616,14 @@ CREATE SEQUENCE packages_id_seq
 ALTER TABLE packages_id_seq OWNER TO migdal;
 
 --
--- Name: packages_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: packages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE packages_id_seq OWNED BY packages.id;
 
 
 --
--- Name: prisoners; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: prisoners; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE prisoners (
@@ -652,7 +643,7 @@ CREATE TABLE prisoners (
 ALTER TABLE prisoners OWNER TO migdal;
 
 --
--- Name: prisoners_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: prisoners_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE prisoners_id_seq
@@ -666,14 +657,14 @@ CREATE SEQUENCE prisoners_id_seq
 ALTER TABLE prisoners_id_seq OWNER TO migdal;
 
 --
--- Name: prisoners_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: prisoners_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE prisoners_id_seq OWNED BY prisoners.id;
 
 
 --
--- Name: profiling; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: profiling; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE profiling (
@@ -692,7 +683,7 @@ CREATE TABLE profiling (
 ALTER TABLE profiling OWNER TO migdal;
 
 --
--- Name: profiling_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: profiling_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE profiling_id_seq
@@ -706,14 +697,14 @@ CREATE SEQUENCE profiling_id_seq
 ALTER TABLE profiling_id_seq OWNER TO migdal;
 
 --
--- Name: profiling_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: profiling_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE profiling_id_seq OWNED BY profiling.id;
 
 
 --
--- Name: redirs; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: redirs; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE redirs (
@@ -728,7 +719,7 @@ CREATE TABLE redirs (
 ALTER TABLE redirs OWNER TO migdal;
 
 --
--- Name: redirs_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: redirs_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE redirs_id_seq
@@ -742,14 +733,14 @@ CREATE SEQUENCE redirs_id_seq
 ALTER TABLE redirs_id_seq OWNER TO migdal;
 
 --
--- Name: redirs_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: redirs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE redirs_id_seq OWNED BY redirs.id;
 
 
 --
--- Name: sessions; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: sessions; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE sessions (
@@ -765,7 +756,7 @@ CREATE TABLE sessions (
 ALTER TABLE sessions OWNER TO migdal;
 
 --
--- Name: sessions_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE sessions_id_seq
@@ -779,14 +770,14 @@ CREATE SEQUENCE sessions_id_seq
 ALTER TABLE sessions_id_seq OWNER TO migdal;
 
 --
--- Name: sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE sessions_id_seq OWNED BY sessions.id;
 
 
 --
--- Name: tmp_texts; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: tmp_texts; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE tmp_texts (
@@ -799,7 +790,7 @@ CREATE TABLE tmp_texts (
 ALTER TABLE tmp_texts OWNER TO migdal;
 
 --
--- Name: tmp_texts_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: tmp_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE tmp_texts_id_seq
@@ -813,14 +804,14 @@ CREATE SEQUENCE tmp_texts_id_seq
 ALTER TABLE tmp_texts_id_seq OWNER TO migdal;
 
 --
--- Name: tmp_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: tmp_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE tmp_texts_id_seq OWNED BY tmp_texts.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: users; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE users (
@@ -856,7 +847,7 @@ CREATE TABLE users (
 ALTER TABLE users OWNER TO migdal;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: migdal; Owner: migdal
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: migdal
 --
 
 CREATE SEQUENCE users_id_seq
@@ -870,14 +861,14 @@ CREATE SEQUENCE users_id_seq
 ALTER TABLE users_id_seq OWNER TO migdal;
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: migdal; Owner: migdal
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: migdal
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: version; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: version; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE version (
@@ -888,7 +879,7 @@ CREATE TABLE version (
 ALTER TABLE version OWNER TO migdal;
 
 --
--- Name: votes; Type: TABLE; Schema: migdal; Owner: migdal
+-- Name: votes; Type: TABLE; Schema: public; Owner: migdal
 --
 
 CREATE TABLE votes (
@@ -903,119 +894,119 @@ CREATE TABLE votes (
 ALTER TABLE votes OWNER TO migdal;
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY captcha_keys ALTER COLUMN id SET DEFAULT nextval('captcha_keys_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY chat_messages ALTER COLUMN id SET DEFAULT nextval('chat_messages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY counters ALTER COLUMN id SET DEFAULT nextval('counters_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY cross_entries ALTER COLUMN id SET DEFAULT nextval('cross_entries_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries ALTER COLUMN id SET DEFAULT nextval('entries_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY image_file_transforms ALTER COLUMN id SET DEFAULT nextval('image_file_transforms_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY image_files ALTER COLUMN id SET DEFAULT nextval('image_files_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY logs ALTER COLUMN id SET DEFAULT nextval('logs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY mail_log ALTER COLUMN id SET DEFAULT nextval('mail_log_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY mail_queue ALTER COLUMN id SET DEFAULT nextval('mail_queue_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY packages ALTER COLUMN id SET DEFAULT nextval('packages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY prisoners ALTER COLUMN id SET DEFAULT nextval('prisoners_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY profiling ALTER COLUMN id SET DEFAULT nextval('profiling_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY redirs ALTER COLUMN id SET DEFAULT nextval('redirs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY sessions ALTER COLUMN id SET DEFAULT nextval('sessions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY tmp_texts ALTER COLUMN id SET DEFAULT nextval('tmp_texts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: migdal; Owner: migdal
+-- Name: id; Type: DEFAULT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
