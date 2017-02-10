@@ -1,0 +1,5 @@
+AddDefaultCharset UTF-8
+php_value include_path ".:.."
+php_flag magic_quotes_gpc off
+php_flag magic_quotes_runtime off
+php_flag register_globals off

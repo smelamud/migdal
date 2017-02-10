@@ -1,0 +1,24 @@
+# Makefile for Migdal website (mailings/ directory)
+
+# @(#) $Id$
+
+targetdir=$(builddir)/mailings/
+
+OBJECTS = confirmed.mhtml register.mhtml registering.mhtml \
+	remember-password.mhtml remembering-password.mhtml
+
+$(targetdir)/.stamp:
+	-mkdir -p $(targetdir)
+	touch $@
+
+$(targetdir)/.htaccess: $(targetdir)/.stamp .htaccess
+	cp .htaccess $(targetdir)
+
+$(targetdir)/%.php: %.mhtml ../miparser ../macros.mhtml $(targetdir)/.stamp
+	../miparser -M ../macros.mhtml $< > $@
+
+all: $(targetdir)/.htaccess $(OBJECTS:%.mhtml=$(targetdir)/%.php)
+	cp .htaccess $(targetdir)
+
+Makefile: Makefile.in ../conf/migdal.conf
+	../confmake $^ $(builddir) > Makefile

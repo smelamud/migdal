@@ -1,0 +1,12 @@
+# Makefile for Migdal kernel
+
+# @(#) $Id$
+
+targetdir=$(builddir)/www/sources/
+
+all:
+	-mkdir -p $(targetdir)
+	find . -maxdepth 1 -name '*.php' \
+		| xargs -i cp {} $(targetdir)
+	cp .htaccess $(targetdir)
+	(cd kcaptcha-fonts; $(MAKE) all)

@@ -1,0 +1,11 @@
+# Makefile for Migdal kernel
+
+# @(#) $Id: Makefile.in 2522 2007-07-05 10:09:26Z balu $
+
+targetdir=$(builddir)/www/ajax/actions/
+
+all:
+	-mkdir -p $(targetdir)
+	find . -maxdepth 1 -name '*.php' \
+		| xargs -i cp {} $(targetdir)
+	cp .htaccess $(targetdir)
