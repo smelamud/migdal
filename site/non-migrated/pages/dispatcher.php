@@ -12,34 +12,6 @@ require_once('lib/session.php'); // FIXME Не очень хорошее реш�
 
 require_once('conf/subdomains.php');
 
-function dispatchSubDomain($requestURI) {
-    global $siteDomain, $userDomain, $subdomains;
-
-    $serverName = $_SERVER['SERVER_NAME'];
-    if (isset($_SERVER['HTTP_HOST'])
-        && strlen($_SERVER['HTTP_HOST']) > strlen($serverName))
-        $serverName = $_SERVER['HTTP_HOST'];
-    if ($serverName == '')
-        return;
-    if (strlen($serverName) > strlen($siteDomain))
-        $currentDomain = substr(strtolower($serverName), 0,
-                              strlen($serverName) - strlen($siteDomain) - 1);
-    else
-        $currentDomain = strtolower($serverName);
-    if (in_array($currentDomain, $subdomains))
-        $userDomain = $currentDomain;
-    else
-        $userDomain = $subdomains[1];
-    if ($userDomain != $currentDomain) {
-        $info = new LocationInfo();
-        $info->setPath("http://$userDomain.$siteDomain{$_SERVER['REQUEST_URI']}");
-        return $info;
-    } else {
-        $info = null;
-        return $info;
-    }
-}
-
 function dispatch404($requestPath) {
     $info = getLocationInfo('/404/', 0);
     if ($info->getScript() == '' && $info->getPath() == $requestPath) {
@@ -74,17 +46,6 @@ function dispatchScript($requestPath, $parts) {
     }
     $info->setPath($requestPath);
     $info->setScript($scriptName);
-    return $info;
-}
-
-function dispatchAddSlash($requestPath, $parts) {
-    $href = "$requestPath/";
-    if (isset($parts['query']) && $parts['query'] != '')
-        $href .= '?'.$parts['query'];
-    if (isset($parts['fragment']) && $parts['fragment'] != '')
-        $href .= '#'.$parts['fragment'];
-    $info = new LocationInfo();
-    $info->setPath($href);
     return $info;
 }
 

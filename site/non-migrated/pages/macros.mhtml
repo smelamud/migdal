@@ -370,109 +370,10 @@
  <assign_global name='metaNoIndex' value%!value='%value'>
 </macro>
 
-<macro name='preamble'>
- <stylesheet ident='style'>
- <stylesheet_jquery_ui>
- <stylesheet_jquery_qtip>
- <stylesheet_jquery_fancybox>
- <js_basic src='/js/default.js'>
- << JS files are included in reverse order >>
- <js_jquery_fancybox>
- <js_jquery_qtip>
- <js_jquery_ui>
- <js_jquery>
- <preamble_tiny>
-</macro>
-
-<macro name='preamble_tiny'>
- <conf>
- <assign_global name='wwwDomain' value!="$$userDomain=='www'">
- <assign_global name='englishDomain' value!="$$userDomain=='english'">
- <head>
-  <notprint>
-   <link rel='alternate' media='print' href='$[print=1]'>
-  </notprint>
-  <if what="isset($$rss_href) && $$rss_href != ''">
-   <link rel="alternate" type="application/rss+xml" title="RSS"
-	 href="http://$userDomain.$siteDomain$$rss_href">
-  </if>
-  <link rel='search' href='/search'>
-  <ifne what="'%stylesheet'">
-   <link rel='stylesheet' href='%stylesheet'>
-  </ife>
-  <if what='isset($metaNoIndex) && $metaNoIndex'>
-   <meta property="ROBOTS" content="NOINDEX, NOFOLLOW">
-  </if>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-  <notenglish>
-   <assign name='siteName' value='Мигдаль'>
-  <else>
-   <assign name='siteName' value='Migdal'>
-  </notenglish>
-  <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='Главная'
-				    && $LocationInfo.Title!='Main'">
-   <meta property="og:type" content="article">
-   <assign name='pageTitle' value='$LocationInfo.Title'>
-  <else>
-   <meta property="og:type" content="website">
-   <assign name='pageTitle' value=''>
-  </if>
-  <meta property="og:site_name" content="$siteName">
-  <meta property="og:title" content="$=pageTitle">
-  <title><asp>
-   <ifne what='$pageTitle'>
-    <asp>$=pageTitle |&sp;<asp>
-   </ifne>
-   $siteName
-  <asp></title>
-  <zone>
-   <timestamp>
-   <script type="text/javascript">
-    window.timeZoneDiff = Math.round((new Date().getTime() / 1000 - $,) / 3600);
-   </script>
-  </zone>
- </head>
-</macro>
-
 <macro name='preamble_xml'>
  <conf>
  <assign_global name='wwwDomain' value!="$$userDomain=='www'">
  <assign_global name='englishDomain' value!="$$userDomain=='english'">
-</macro>
-
-<macro name='stylesheet_jquery_ui'>
- <notprint>
-  <stylesheet ident='humanity/jquery-ui-1.10.3'>
- </notprint>
-</macro>
-
-<macro name='stylesheet_jquery_qtip'>
- <notprint>
-  <stylesheet ident='jquery.qtip'>
- </notprint>
-</macro>
-
-<macro name='stylesheet_jquery_fancybox'>
- <notprint>
-  <stylesheet ident='jquery.fancybox'>
- </notprint>
-</macro>
-
-<macro name='js_jquery'>
- <js_basic src='/js/jquery-1.10.2.min.js'>
-</macro>
-
-<macro name='js_jquery_ui'>
- <js_basic src='/js/jquery-ui-1.10.3.custom.min.js'>
-</macro>
-
-<macro name='js_jquery_qtip'>
- <js_basic src='/js/jquery.qtip.min.js'>
-</macro>
-
-<macro name='js_jquery_fancybox'>
- <js_basic src='/js/jquery.fancybox.min.js'>
 </macro>
 
 << Biff >>
@@ -485,24 +386,3 @@
   </if>
  </ifbiff>
 </macro>
-
-<< Subdomains >>
-<macro name='english'>
- <if what="$$userDomain=='english'">
-</macro>
-<endif name='/english'>
-
-<macro name='notenglish'>
- <if what="$$userDomain!='english'">
-</macro>
-<endif name='/notenglish'>
-
-<macro name='www'>
- <if what="$$userDomain=='www'">
-</macro>
-<endif name='/www'>
-
-<macro name='notwww'>
- <if what="$$userDomain!='www'">
-</macro>
-<endif name='/notwww'>

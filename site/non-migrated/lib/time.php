@@ -3,14 +3,6 @@
 
 require_once('conf/migdal.conf');
 
-function ourtime() {
-    global $timeZone;
-
-    $time = explode(',', gmdate('H,i,s,m,d,Y', time()));
-    return mktime($time[0], $time[1], $time[2], $time[3], $time[4], $time[5])
-           + $timeZone * 3600;
-}
-
 function composeDateTime($timestamp, $vars, $base_name) {
     $comps = array('seconds' => 'second',
                    'minutes' => 'minute',
