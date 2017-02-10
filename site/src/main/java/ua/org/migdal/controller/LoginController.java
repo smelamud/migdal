@@ -52,12 +52,14 @@ public class LoginController {
         if (!errors.hasErrors()) {
             User user = userRepository.findByEmail(loginForm.getEmail());
             if (user != null && loginForm.getPassword().equals(user.getPassword())) {
+/*
                 if (user.getRole() != null) {
                     session.setUserId(user.getId());
                     session.setDisplayName(user.getDisplayNameAdministrative());
                 } else {
                     errors.reject("banned");
                 }
+*/
             } else {
                 errors.reject("incorrect");
             }

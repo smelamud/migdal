@@ -48,7 +48,7 @@ public class SignupForm extends InterruptingForm {
     }
 
     public void toUser(User user) {
-        user.setEmail(email);
+//        user.setEmail(email);
         user.setPassword(password);
     }
 
