@@ -1,0 +1,618 @@
+<< @(#) $Id$ >>
+
+<< Constants  & Globals >>
+<macro name='decconst'>
+ <macro name='%name'>
+  <require name='%file'>
+ </macro>
+</macro>
+
+<decconst name='conf' file='conf/migdal.conf'>
+<decconst name='counters' file='conf/counters.php'>
+<decconst name='errors' file='lib/errors.php'>
+<decconst name='grps' file='lib/grps.php'>
+<decconst name='image_placements' file='lib/inner-images.php'>
+<decconst name='link_types' file='lib/cross-entries.php'>
+<decconst name='modbits' file='lib/modbits.php'>
+<decconst name='relogin' file='lib/logging.php'>
+<decconst name='sorts' file='lib/sort.php'>
+<decconst name='text_formats' file='lib/text.php'>
+
+<< Iterators >>
+<macro name='deciter' defaults="name='%name'">
+ <macro name='iterate_%macro' defaults="%defaults">
+  <require name='%file'>
+  <iterate name='%name' class='%class' %@params>
+ </macro>
+</macro>
+
+<deciter macro='array' class='MArrayIterator' file='lib/array.php'
+         params='values' defaults="values='$*'">
+<deciter macro='assoc_array' class='AssocArrayIterator' file='lib/array.php'
+         params='values,class' defaults="values='$*' class='Association'">
+<deciter macro='chat_messagelist' class='ChatMessageListIterator'
+         file='lib/chat.php' params='later,earlier'
+	 defaults='later=0 earlier=0'>
+<deciter macro='entry_cross' class='CrossEntryIterator'
+         file='lib/cross-entries.php' params='source_name,source_id,link_type'
+	 defaults="source_name='',source_id=0,link_type='*LINKT_NONE'">
+<deciter macro='fixed_rows' class='FixedRowsIterator' file='lib/rowscols.php'
+         params='iterator,rows,mincols'
+	 defaults="iterator='$;' rows=5 mincols=3">
+<deciter macro='forumlist' class='ForumListIterator' file='lib/forums.php'
+         params='parent_id,limit,offset,sort,disabled'
+	 defaults="parent_id=0 limit=10 offset=0 sort='*SORT_SENT'
+	           disabled='-1'">
+<deciter macro='forum_or_postinglist' class='ForumOrPostingListIterator'
+         file='lib/forums-postings.php'
+         params='grp,limit,offset,sort,as_guest'
+	 defaults="limit=10 offset=0 sort='*SORT_SENT' as_guest='*true'">
+<deciter macro='grp_editor' class='GrpEditorIterator' file='lib/grps.php'
+         params='grp,inverse' defaults="grp='*GRP_NONE' inverse='*false'">
+<deciter macro='grps' class='GrpIterator' file='lib/grpiterator.php'>
+<deciter macro='groups' class='GroupsIterator' file='lib/groups.php'>
+<deciter macro='images' class='ImagesIterator' file='lib/images.php'
+         params='postid'>
+<deciter macro='langs' class='LangIterator' file='lib/langs.php'>
+<deciter macro='locations' class='LocationIterator' file='lib/structure.php'
+         params='offset' defaults='offset=0'>
+<deciter macro='packages' class='PackagesIterator' file='lib/packages.php'
+         params='posting_id'>
+<deciter macro='posting_alphabet' class='PostingAlphabetIterator'
+         file='lib/postings.php'
+	 params='limit,sort,topic_id,recursive,grp,showshadows'
+	 defaults="limit=0 sort='*SORT_URL_DOMAIN' topic_id=-1
+	           recursive='*false' grp='*GRP_ALL' showshadows='*false'">
+<deciter macro='posting_modbits' class='PostingModbitIterator'
+         file='lib/modbits.php'>
+<deciter macro='posting_random' class='RandomPostingsIterator'
+         file='lib/postings-random.php'
+	 params='limit,grp,topic_id,user_id,index1,as_guest'
+	 defaults="grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1
+	           as_guest='*false'">
+<deciter macro='posting_users' class='PostingUsersIterator'
+         file='lib/postings.php' params='grp,topic_id,recursive,as_guest'
+	 defaults="grp='*GRP_ALL' topic_id=-1 recursive='*false'
+	           as_guest='*false'">
+<deciter macro='postinglist' class='PostingListIterator' file='lib/postings.php'
+         params='grp,topic_id,recursive,limit,offset,person_id,sort,withanswers,
+	         user,index1,later,up,showshadows,fields,modbits,hidden,
+                 disabled,prefix,withident,earlier,as_guest,cross_type,cross_id'
+         defaults="grp='$grp' topic_id=-1 recursive='*false' limit=10 offset=0
+	           person_id=-1 sort='*SORT_SENT' withanswers='*GRP_NONE'
+		   user=0 index1=-1 later=0 up=-1 showshadows='*true'
+		   fields='*SELECT_GENERAL' modbits='*MOD_NONE' hidden=-1
+		   disabled=-1 prefix='' withident='*false' earlier=0
+		   as_guest='*false' cross_type='*LINKT_NONE' cross_id=0">
+<deciter macro='prisonerlist' class='PrisonerListIterator'
+         file='lib/prisoners.php'
+         params='prefix,sort'
+	 defaults="sort='*SORT_NAME'">
+<deciter macro='prisoner_alphabet' class='PrisonerAlphabetIterator'
+         file='lib/prisoners.php' params='limit,sort'
+	 defaults="limit=0 sort='*SORT_NAME'">
+<deciter macro='random_seq' class='RandomSequenceIterator' file='lib/random.php'
+         params='n,min,max'>
+<deciter macro='redirs' class='RedirIterator' file='lib/redirs.php'>
+<deciter macro='rows' class='RowsIterator' file='lib/rowscols.php'
+         params='iterator,cols' defaults="iterator='$;' cols=5">
+<deciter macro='sortarray' class='SortedArrayIterator' file='lib/array.php'
+         params='values' defaults="values='$*'">
+<deciter macro='sortedtopicnames' class='SortedTopicNamesIterator'
+         file='lib/topics.php'
+	 params='grp,up,recursive,delimiter,name_root,only_writable,
+	         only_postable,as_guest'
+	 defaults="up=-1 recursive='*false' delimiter=' :: ' name_root=-1
+	           only_writable='*false' only_postable='*false'
+		   as_guest='*false'">
+<deciter macro='styles' class='StyleNamesIterator' file='lib/style.php'>
+<deciter macro='text_formats' class='TextFormatsIterator' file='lib/text.php'>
+<deciter macro='topic_hierarchy' class='TopicHierarchyIterator'
+         file='lib/topics.php' params='topic_id,root,reverse'
+	 defaults="root=-1 reverse='*false'">
+<deciter macro='topiclist' class='TopicListIterator' file='lib/topics.php'
+         params='grp,up,sort,recursive,level,fields,index2,limit,offset,
+	         as_guest'
+         defaults="up=0 sort='*SORT_SUBJECT' recursive='*false' level=1
+		   fields='*SELECT_GENERAL' index2=-1 limit=0 offset=0
+		   as_guest='*false'">
+<deciter macro='topic_modbits' class='TopicModbitIterator'
+         file='lib/modbits.php'>
+<deciter macro='topicnames' class='TopicNamesIterator' file='lib/topics.php'
+         params='grp,up,recursive,delimiter,name_root,only_writable,
+	         only_postable,as_guest'
+	 defaults="up=-1 recursive='*false' delimiter=' :: ' name_root=-1
+	           only_writable='*false' only_postable='*false'
+		   as_guest='*false'">
+<deciter macro='userlist' class='UserListIterator' file='lib/users.php'
+         params='prefix,sort,right'
+	 defaults="sort='*SORT_LOGIN' right='*USR_NONE'">
+<deciter macro='user_alphabet' class='UserAlphabetIterator'
+         file='lib/users.php' params='limit,sort'
+	 defaults="limit=0 sort='*SORT_LOGIN'">
+<deciter macro='users_now' class='UsersNowIterator' file='lib/users.php'
+         params='period'>
+
+<macro name='rewind_iterator' defaults="list='$;'">
+ <call object%!list='%list' func='rewind'>
+</macro>
+
+<macro name='hash_topic' defaults="recursive='*false'">
+ <mapping key%!topic_id='%topic_id' value%!recursive='%recursive'>
+</macro>
+
+<< Calls >>
+<macro name='deccall' defaults="name='%name'">
+ <macro name='%macro' defaults="%defaults">
+  <require name='%file'>
+  <call name='%name' func='%func' %@params>
+ </macro>
+</macro>
+
+<macro name='decexec'>
+ <macro name='%macro' defaults="%defaults">
+  <require name='%file'>
+  <exec func='%func' %@params>
+ </macro>
+</macro>
+
+<decexec macro='decstyle' func='declareStyle' file='lib/style.php'
+         params='ident,desc'>
+
+<deccall macro='array_pop' func='array_pop' params='array'
+         defaults="array='$*'">
+<deccall macro='array_push' func='array_push' params='array,value'
+         defaults="array='$*'">
+<deccall macro='array_random' func='array_random' file='lib/random.php'
+         params='array' defaults="array='$*'">
+<deccall macro='catalog' func='catalogById' file='lib/catalog.php' params='id'>
+<decexec macro='common' func='beginCommon' file='lib/inner.php'>
+<decexec macro='/common' func='endCommon' file='lib/inner.php'>
+<decexec macro='counter_inc' func='incCounter' file='lib/counters.php'
+         params='entry_id,mode'>
+<deccall macro='counter_value' func='getCounterValue' file='lib/counters.php'
+         params='entry_id,mode,serial' defaults='serial=0'>
+<deccall macro='entry_grps' func='getGrpsByEntryId' file='lib/entries.php'
+         params='id'>
+<deccall macro='entry_type' func='getTypeByEntryId' file='lib/entries.php'
+         params='id'>
+<deccall macro='forum_obj' func='getForumById' file='lib/forums.php'
+         params='id,parent_id,quote,quote_width'
+	 defaults="name=answer parent_id=0 quote='' quote_width=77">
+<deccall macro='forumlist_offset' func='getForumListOffset'
+         file='lib/forums.php' params='parent_id,id,sort'
+	 defaults="sort='*SORT_SENT'">
+<deccall macro='grp_array' func='grpArray' file='lib/grps.php' params='grp'>
+<deccall macro='grp_diff' func='grpDiff' file='lib/grps.php' params='grp1,grp2'>
+<deccall macro='grp_join' func='grpJoin' file='lib/grps.php' params='grp1,grp2'>
+<deccall macro='grp_valid' func='isGrpValid' file='lib/grps.php' params='grp'>
+<deccall macro='guests_now' func='getGuestsNow' file='lib/users.php'
+         params='period'>
+<decexec macro='head' func='beginHead' file='lib/head.php'>
+<decexec macro='/head' func='endHead' file='lib/head.php'>
+<deccall macro='html_cache_obj' func='getHTMLCacheRecord'
+         file='lib/html-cache.php' params='ident,period,depends,if'
+	 defaults='period=*null if=*true'>
+<decexec macro='html_cache_push' func='pushHTMLCacheStack' params='record'>
+<deccall macro='html_cache_pop' func='popHTMLCacheStack'>
+<decexec macro='html_cache_store' func='storeHTMLCacheRecord'
+         params='record,content'>
+<deccall macro='id_ident' func='identById' file='lib/ident.php'
+         params='id,table'>
+<deccall macro='ident_id' func='idByIdent' file='lib/ident.php'
+         params='ident,table'>
+<deccall macro='image_obj' func='getImageById' file='lib/images.php' params='id'
+         defaults='name=image id=0'>
+<decexec macro='inner' func='beginInner' file='lib/inner.php'>
+<decexec macro='/inner' func='endInner' file='lib/inner.php'>
+<deccall macro='inner_image_par' func='getInnerImageByParagraph'
+         file='lib/inner-images.php' params='entry_id,par,x,y'
+	 defaults='name=image x=0 y=0'>
+<decexec macro='js' func='declareJS' file='lib/js.php' params='src'>
+<decexec macro='js_basic' func='declareBasicJS' file='lib/js.php' params='src'>
+<deccall macro='location_info' func='getLocationInfo' file='lib/structure.php'
+         params='path'>
+<decexec macro='log' func='logEvent' file='lib/logs.php' params='event,text'>
+<decexec macro='og_image' func='declareOGImage' file='lib/ogimages.php'
+         params='src'>
+<decexec macro='outer' func='beginOuter' file='lib/inner.php'>
+<decexec macro='/outer' func='endOuter' file='lib/inner.php'>
+<deccall macro='perms' func='getPermsById' file='lib/permissions.php'
+         params='id'>
+<deccall macro='plural' func='getPlural' file='lib/text.php'
+         params='value,words' defaults="words='$*'">
+<deccall macro='posting_domains' func='getPostingDomainCount'
+         file='lib/postings.php' params='topic_id,recursive,grp'
+	 defaults="topic_id=-1 recursive='*false' grp='*GRP_ALL'">
+<deccall macro='posting_id' func='getPostingId' file='lib/postings.php'
+         params='grp,index1,topic_id,user_id,sort'
+	 defaults="grp='*GRP_ALL' index1=-1 topic_id=-1 user_id=0
+                   sort='*SORT_SENT'">
+<deccall macro='posting_last' func='getLastPostingDate'
+         file='lib/postings-info.php'
+	 params='grp,topic_id,answers,user_id,recursive,as_guest'
+	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
+	           recursive=*false as_guest=*false'>
+<deccall macro='posting_obj' func='getPostingById' file='lib/postings.php'
+         params='id,grp,topic_id,fields,up,index1'
+	 defaults="id=-1 name=posting grp=*GRP_ALL topic_id=-1
+	           fields='*SELECT_GENERAL' up=-1 index1=0">
+<deccall macro='posting_random' func='getRandomPostingId'
+         file='lib/postings-random.php'
+	 params='grp,topic_id,user_id,index1,as_guest'
+	 defaults="grp=*GRP_ALL topic_id=-1 user_id=0 index1=-1
+	           as_guest='*false'">
+<deccall macro='posting_vote' func='getVoteInfoByPostingId'
+         file='lib/postings.php' params='id,grp' defaults="grp='*GRP_ALL'">
+<deccall macro='postings_info' func='getPostingsInfo'
+         file='lib/postings-info.php'
+	 params='grp,topic_id,answers,user_id,recursive,as_guest'
+	 defaults='grp=*GRP_ALL topic_id=-1 answers=*GRP_NONE user_id=0
+	           recursive=*false as_guest=*false'>
+<deccall macro='prisoners_summary' func='getPrisonersSummary'
+         file='lib/prisoners.php'>
+<deccall macro='random' func='random' params='min,max'>
+<decexec macro='reload' func='reload' file='lib/utils.php' params='href'>
+<deccall macro='sibling_id' func='getSiblingId' file='lib/postings.php'
+         params='grp,topic_id,up,index0,index1,next'
+	 defaults="grp='*GRP_ALL' topic_id=-1 up=-1 index0=-1 index1=-1
+	           next='*true'">
+<deccall macro='sibling_index' func='getSiblingIndex' file='lib/postings.php'
+         params='grp,topic_id,up,index0,index1,next'
+	 defaults="grp='*GRP_ALL' topic_id=-1 up=-1 index0=-1 index1=-1
+	           next='*true'">
+<decexec macro='stylesheet' func='declareStylesheet' file='lib/style.php'
+         params='ident'>
+<deccall macro='time' func='time'>
+<deccall macro='timestamp' func='getTimestamp' file='lib/time.php'
+         params='year,month,day,hour,minute,second'
+         defaults="year=0,month=0,day=0,hour=-1,minute=-1,second=-1">
+<deccall macro='tmptext' func='tmpTextRestore' file='lib/tmptexts.php'
+         params='id'>
+<deccall macro='topic_count' func='getSubtopicsCountById' file='lib/topics.php'
+         params='id,recursive' defaults="name=topic recursive='*false'">
+<deccall macro='topic_full_name' func='getTopicFullNameById'
+         file='lib/topics.php' params='id,root,delimiter'
+	 defaults="name=topic root=0 delimiter=' :: '">
+<deccall macro='topic_name' func='getTopicNameById' file='lib/topics.php'
+         params='id' defaults='name=topic id="$topic_id"'>
+<deccall macro='topic_obj' func='getTopicById' file='lib/topics.php'
+         params='id,up,fields,as_guest'
+	 defaults="name=topic id='$topic_id' up=0 fields='*SELECT_GENERAL'
+	           as_guest='*false'">
+<deccall macro='user_id' func='getUserIdByLogin' file='lib/users.php'
+         params='login'>
+<deccall macro='user_login' func='getUserLoginById' file='lib/users.php'
+         params='id'>
+<deccall macro='user_obj' func='getUserById' file='lib/users.php'
+         params='id,guest_login' defaults="guest_login=''">
+<deccall macro='users_summary' func='getUsersSummary' file='lib/users.php'>
+<deccall macro='vote' func='getVote' file='lib/votes.php' params='id'>
+
+<macro name='body_class'>
+ <assign_global name='bodyClass' value%!value='%class'>
+</macro>
+
+<macro name='pager_new' defaults="name=''">
+ <require name='lib/pager.php'>
+ <obj name='%name' class='Pager' arg1%!size='%size' arg2%!limit='%limit'
+      arg3%!offset='%offset'>
+</macro>
+
+<macro name='parse_url'>
+ <assign name='fragments' value!='parse_url(%url)'>
+ <?php
+ $pathinfo=pathinfo($fragments['path']);
+ $basename=$pathinfo['basename'];
+ parse_str($fragments['query']);
+ ?>
+</macro>
+
+<macro name='entry_catalog' defaults='start=0 length=0'>
+ <call name='%name' object='%entry' func='getCatalog' arg1='%start'
+       arg2='%length'>
+</macro>
+
+<macro name='posting_new' defaults="name=''">
+ <require name='lib/postings.php'>
+ <hash>
+  <mapping key='grp' value='%grp'>
+ </hash>
+ <obj name='%name' class='Posting' arg1='$*'>
+</macro>
+
+<< Callbacks >>
+<macro name='deccallback'>
+ <require name='lib/callbacks.php'>
+ <require name='%file'>
+ <decel name='%name' file='%file' params='%params'>
+ <?php setCallback('%event','%?name'); ?>
+</macro>
+
+<macro name='callback'>
+ <require name='lib/callbacks.php'>
+ <element name='%name' params='%params'>
+ <?php beginCallback(); ?>
+</macro>
+
+<macro name='/callback'>
+ <?php return endCallback(); ?>
+ </element>
+</macro>
+
+<< Conditionals >>
+<macro name='endif'>
+ <macro name='%name'>
+  </if>
+ </macro>
+</macro>
+
+<macro name='ifzero'>
+ <if what='(%what)==0'>
+</macro>
+<endif name='/ifzero'>
+
+<macro name='ifnzero'>
+ <if what='(%what)!=0'>
+</macro>
+<endif name='/ifnzero'>
+
+<macro name='ife'>
+ <if what="((string)%what)==''">
+</macro>
+<endif name='/ife'>
+
+<macro name='ifne'>
+ <if what="((string)%what)!=''">
+</macro>
+<endif name='/ifne'>
+
+<macro name='isedit'>
+ <if what='%what.isEditable'>
+</macro>
+<endif name='/isedit'>
+
+<macro name='noedit'>
+ <if what='!%what.isEditable'>
+</macro>
+<endif name='/noedit'>
+
+<macro name='isread'>
+ <if what='%what.isReadable'>
+</macro>
+<endif name='/isread'>
+
+<macro name='notread'>
+ <if what='!%what.isReadable'>
+</macro>
+<endif name='/notread'>
+
+<macro name='iswrite'>
+ <if what='%what.isWritable'>
+</macro>
+<endif name='/iswrite'>
+
+<macro name='notwrite'>
+ <if what='!%what.isWritable'>
+</macro>
+<endif name='/notwrite'>
+
+<macro name='isappend'>
+ <if what='%what.isAppendable'>
+</macro>
+<endif name='/isappend'>
+
+<macro name='notappend'>
+ <if what='!%what.isAppendable'>
+</macro>
+<endif name='/notappend'>
+
+<macro name='ispost'>
+ <if what='%what.isPostable'>
+</macro>
+<endif name='/ispost'>
+
+<macro name='notpost'>
+ <if what='!%what.isPostable'>
+</macro>
+<endif name='/notpost'>
+
+<macro name='isfirst'>
+ <if what='%what.isFirst'>
+</macro>
+<endif name='/isfirst'>
+
+<macro name='notfirst'>
+ <if what='!%what.isFirst'>
+</macro>
+<endif name='/notfirst'>
+
+<macro name='islast'>
+ <if what='%what.isLast'>
+</macro>
+<endif name='/islast'>
+
+<macro name='notlast'>
+ <if what='!%what.isLast'>
+</macro>
+<endif name='/notlast'>
+
+<macro name='ifbiff'>
+ <require name='lib/biff.php'>
+ <if what='biff(%time)'>
+</macro>
+<endif name='/ifbiff'>
+
+<< Permissions >>
+<macro name='logged'>
+ <if what='$$userId>0'>
+</macro>
+<endif name='/logged'>
+
+<macro name='notlogged'>
+ <if what='$$userId<=0'>
+</macro>
+<endif name='/notlogged'>
+
+<macro name='admin_users'>
+ <if what='$$userAdminUsers'>
+</macro>
+<endif name='/admin_users'>
+
+<macro name='admin_topics'>
+ <if what='$$userAdminTopics'>
+</macro>
+<endif name='/admin_topics'>
+
+<macro name='moderator'>
+ <if what='$$userModerator'>
+</macro>
+<endif name='/moderator'>
+
+<macro name='admin_domain'>
+ <if what='$$userAdminDomain'>
+</macro>
+<endif name='/admin_domain'>
+
+<< Printing >>
+<macro name='print'>
+ <if what="$$userStyle==-1">
+</macro>
+<endif name='/print'>
+
+<macro name='notprint'>
+ <if what="$$userStyle!=-1">
+</macro>
+<endif name='/notprint'>
+
+<< Typecasts >>
+<macro name='int'>
+ <header>
+  <require name='lib/post.php'>
+  <exec func='httpRequestInteger' arg1='%name'>
+ </header>
+</macro>
+
+<macro name='int_array'>
+ <header>
+  <require name='lib/post.php'>
+  <exec func='httpRequestIntegerArray' arg1='%name'>
+ </header>
+</macro>
+
+<macro name='int_array_2d'>
+ <header>
+  <require name='lib/post.php'>
+  <exec func='httpRequestIntegerArray2D' arg1='%name'>
+ </header>
+</macro>
+
+<macro name='ident' defaults="table='entries'">
+ <header>
+  <require name='lib/post.php'>
+  <exec func='httpRequestIdent' arg1='%name' arg2='%table'>
+ </header>
+</macro>
+
+<macro name='string' defaults="convert='*false'">
+ <header>
+  <require name='lib/post.php'>
+  <exec func='httpRequestString' arg1='%name' arg2='%convert'>
+ </header>
+</macro>
+
+<macro name='user'>
+ <header>
+  <require name='lib/post.php'>
+  <exec func='httpRequestUser' arg1='%name'>
+ </header>
+</macro>
+
+<< HTML shortcuts >>
+<decel name='image' file='lib/utils.php'
+       params='src,alt,title,class,id,data_id,data_value,style'
+       defaults="src='' alt='' title='' class='' id='' data_id='' data_value=''
+                 style=''">
+
+<decel name='tdspan' file='lib/utils.php'
+       params='span,class,align,width,height',
+       defaults="span=0 class='' align='' width='' height=''">
+
+<macro name='/tdspan'>
+ </td>
+</macro>
+
+<macro name='hidden'>
+ <input type=hidden name='%name' value="%value">
+</macro>
+
+<decel name='checkbox_button' file='lib/utils.php'
+       params='name,value,checked,id,class'
+       defaults="value=1 checked='*false' id='' class=''">
+
+<macro name='checkbox'
+       defaults="value=1 checked='*false' id='' class='' title=''">
+ <label>
+  <checkbox_button name%!name='%name' value%!value='%value'
+                   checked%!checked='%checked' id%!id='%id'
+		   class%!class='%class'> %title
+ </label>
+</macro>
+
+<decel name='radio_button' file='lib/utils.php'
+       params='name,value,checked,id,class,onclick'
+       defaults="checked='*false' id='' class='' onclick=''">
+
+<macro name='radio' defaults="checked='*false' id='' class='' title=''
+                              onclick=''">
+ <label>
+  <radio_button name%!name='%name' value%!value='%value'
+                checked%!checked='%checked' id%!id='%id'
+		class%!class='%class' onclick%!onclick='%onclick'> %title
+ </label>
+</macro>
+
+<macro name='select_option' defaults='selected="*false"'>
+ <if what='%selected'>
+  <option value='%value' selected>%title
+ <else>
+  <option value='%value'>%title
+ </if>
+</macro>
+
+<macro name='select_portion'>
+<select name='%name'>
+ <array val1='%vals' val2='%value'>
+ <iterate_sortarray>
+ <for>
+  <radio value='$.' peervalue='%value' title='$.'>
+ </for>
+</select>
+</macro>
+
+<< HTML cache >>
+<macro name='html_cache'>
+<zone>
+ <array vals%!depends='%depends'>
+ <html_cache_obj ident%!ident='%ident' period%!period='%period' depends='$*'
+                 if%!if='%if'>
+ <if what='!$,isEmpty'>
+  $,Content
+ <else>
+  <html_cache_push record='$,'>
+  <?php ob_start(); ?>
+</zone>
+</macro>
+
+<macro name='/html_cache'>
+<zone>
+  <html_cache_pop>
+  <html_cache_store record='$,' content!='ob_get_contents()'>
+  <?php ob_end_flush(); ?>
+ </if>
+</macro>
+
+<< Meta tags >>
+<macro name='description'>
+ <meta name='description' value='%text%value%content'>
+</macro>
