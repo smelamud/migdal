@@ -41,7 +41,7 @@ if(!isset($editmodeHistory))
   </ifne>
   <posting_obj id='$data.Id'>
   <notenglish>
-   <assign name='ititle' value='Вставить картинку'>
+   <assign name='ititle' value='п▓я│я┌п╟п╡п╦я┌я▄ п╨п╟я─я┌п╦п╫п╨я┐'>
   <else>
    <assign name='ititle' value='Insert a Picture'>
   </notenglish>
@@ -63,7 +63,7 @@ if(!isset($editmodeHistory))
     <editlink posting='$posting'>
     &nbsp;&nbsp;
     <a href="${posting.GrpDetailsHref}images/">
-     <notenglish>Список иллюстраций<else>List of pictures</notenglish></a>
+     <notenglish>п║п©п╦я│п╬п╨ п╦п╩п╩я▌я│я┌я─п╟я├п╦п╧<else>List of pictures</notenglish></a>
    </iswrite>
    <if what='!$nodiscuss'>
     &nbsp;&nbsp;
@@ -82,7 +82,7 @@ if(!isset($editmodeHistory))
  $text.TextHTML
 </article_editmode>
 <ifne what='$posting.Source'>
- <p class='source'>Источник: $posting.SourceHTML</p>
+ <p class='source'>п≤я│я┌п╬я┤п╫п╦п╨: $posting.SourceHTML</p>
 </ifne>
 <div class='clear-floats'></div>
 <if what='$withvote'>

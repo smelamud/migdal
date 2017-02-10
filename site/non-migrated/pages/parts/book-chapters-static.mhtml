@@ -11,9 +11,9 @@
 
 <element name='book_chapters_static'>
 <grps>
-<span class='title'>Оглавление</span>
+<span class='title'>п·пЁп╩п╟п╡п╩п╣п╫п╦п╣</span>
 <ul>
- <line text='О книге' href#='index.html' arrow!='$id<=0'>
+ <line text='п· п╨п╫п╦пЁп╣' href#='index.html' arrow!='$id<=0'>
  <iterate_postinglist grp='*GRP_BOOK_CHAPTERS' limit=0 sort='*SORT_INDEX0'
                       up='$book.MessageId' fields='*SELECT_GENERAL'>
  <for>

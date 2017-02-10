@@ -9,35 +9,35 @@ require_once('lib/calendar.php');
 function formatFuzzyTimeElapsed($time, $format/*for future extensions*/ = '') {
     $diff = ourtime() - $time;
     if ($diff < 60)
-        return 'ÔÏÌØËÏ ÞÔÏ';
+        return 'Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ñ‡Ñ‚Ð¾';
     $diff = (int)($diff / 60);
     if ($diff == 1)
-        return 'ÍÉÎÕÔÕ ÎÁÚÁÄ';
+        return 'Ð¼Ð¸Ð½ÑƒÑ‚Ñƒ Ð½Ð°Ð·Ð°Ð´';
     if ($diff < 60)
-        return $diff.getPlural($diff, array(' ÍÉÎÕÔÕ', ' ÍÉÎÕÔÙ', ' ÍÉÎÕÔ')).
-               ' ÎÁÚÁÄ';
+        return $diff.getPlural($diff, array(' Ð¼Ð¸Ð½ÑƒÑ‚Ñƒ', ' Ð¼Ð¸Ð½ÑƒÑ‚Ñ‹', ' Ð¼Ð¸Ð½ÑƒÑ‚')).
+               ' Ð½Ð°Ð·Ð°Ð´';
     $diff = (int)($diff / 60);
     if ($diff == 1)
-        return 'ÞÁÓ ÎÁÚÁÄ';
+        return 'Ñ‡Ð°Ñ Ð½Ð°Ð·Ð°Ð´';
     if ($diff < 24)
-        return $diff.getPlural($diff, array(' ÞÁÓ', ' ÞÁÓÁ', ' ÞÁÓÏ×')).
-               ' ÎÁÚÁÄ';
+        return $diff.getPlural($diff, array(' Ñ‡Ð°Ñ', ' Ñ‡Ð°ÑÐ°', ' Ñ‡Ð°ÑÐ¾Ð²')).
+               ' Ð½Ð°Ð·Ð°Ð´';
     $diff = (int)($diff / 24);
     if ($diff == 1)
-        return '×ÞÅÒÁ';
+        return 'Ð²Ñ‡ÐµÑ€Ð°';
     if ($diff == 2)
-        return 'ÐÏÚÁ×ÞÅÒÁ';
+        return 'Ð¿Ð¾Ð·Ð°Ð²Ñ‡ÐµÑ€Ð°';
     if ($diff < 30)
-        return $diff.getPlural($diff, array(' ÄÅÎØ', ' ÄÎÑ', ' ÄÎÅÊ')).
-               ' ÎÁÚÁÄ';
+        return $diff.getPlural($diff, array(' Ð´ÐµÐ½ÑŒ', ' Ð´Ð½Ñ', ' Ð´Ð½ÐµÐ¹')).
+               ' Ð½Ð°Ð·Ð°Ð´';
     if ($diff < 60)
-        return 'Ä×Á ÍÅÓÑÃÁ ÎÁÚÁÄ';
+        return 'Ð´Ð²Ð° Ð¼ÐµÑÑÑ†Ð° Ð½Ð°Ð·Ð°Ð´';
     if ($diff < 90)
-        return 'ÔÒÉ ÍÅÓÑÃÁ ÎÁÚÁÄ';
+        return 'Ñ‚Ñ€Ð¸ Ð¼ÐµÑÑÑ†Ð° Ð½Ð°Ð·Ð°Ð´';
     $day = gmdate('j ', $time);
     $year = gmdate('Y', $time);
     if ($year == gmdate('Y', ourtime()))
         return $day.formatRussianDate('k', $time);
-    return $day.formatRussianDate('k', $time)." $year Ç.";
+    return $day.formatRussianDate('k', $time)." $year Ð³.";
 }
 ?>

@@ -10,13 +10,13 @@
  <div class='batcher'>
   <div class='adder'>
    <image src='/pics/print.gif'>&sp;
-   <a href='$[print=1]' target='_blank'>Для печати</a>
+   <a href='$[print=1]' target='_blank'>п■п╩я▐ п©п╣я┤п╟я┌п╦</a>
    &nbsp;
    <ispost what='$printings'>
     <image src='/pics/sheet.gif'>&sp;
-    <a href='/migdal/printings/add/?redirid=$_'>Добавить книгу</a>
+    <a href='/migdal/printings/add/?redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ п╨п╫п╦пЁя┐</a>
     &nbsp;
-    <a href='/migdal/printings/reorder/'>Расставить подразделы</a>
+    <a href='/migdal/printings/reorder/'>п═п╟я│я│я┌п╟п╡п╦я┌я▄ п©п╬п╢я─п╟п╥п╢п╣п╩я▀</a>
    </ispost>
   </div>
   <div class='clear-floats'></div>
@@ -59,7 +59,7 @@
         <ispost what='$printings'>
          <div class='batcher'>
           <div class='adder'>
-           <a href='${.GrpGeneralHref}reorder?redirid=$_'>Расставить книги</a>
+           <a href='${.GrpGeneralHref}reorder?redirid=$_'>п═п╟я│я│я┌п╟п╡п╦я┌я▄ п╨п╫п╦пЁп╦</a>
           </div>
           <div class='clear-floats'></div>
          </div>

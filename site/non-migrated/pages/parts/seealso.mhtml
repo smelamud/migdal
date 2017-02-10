@@ -22,7 +22,7 @@
     <moderator>
       <br>
       <a href='${adddir}?source_name=$source_name&source_id=$source_id&link_type=$link_type&redirid=$_'
-	 class='edit'>Добавить</a>
+	 class='edit'>п■п╬п╠п╟п╡п╦я┌я▄</a>
     </moderator>
     <outer><ul><inner>
      <assign name='icon' value=''>
@@ -36,7 +36,7 @@
        <asp>&nbsp;<asp>
        <a href='/actions/cross-entry/delete?id=$.Id&okdir=$#-&faildir=$#-'
 	  class='edit'><asp>
-	<asp>Удалить</a>
+	<asp>пёп╢п╟п╩п╦я┌я▄</a>
       </moderator>
      </for>
     </inner></ul></outer>

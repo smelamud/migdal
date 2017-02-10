@@ -4,36 +4,36 @@
  <preamble>
 
  <top ident='setup'>
- <form_table title='îÁÓÔÒÏÊËÉ'>
+ <form_table title='ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸'>
   <form method=post action='/actions/setup/'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
-   <form_select title='óÔÉÌØ' name='style' style='list'>
+   <form_select title='Ð¡Ñ‚Ð¸Ð»ÑŒ' name='style' style='list'>
     <iterate_styles>
     <for>
      <form_option title='$.' value='$;NextPosition'
 		  selected!='$;NextPosition==$$userStyle'>
     </for>
    </form_select>
-   <<form_select title='óÏÏÂÝÅÎÉÊ × ÆÏÒÕÍÅ' name='forumPortion' style='list'
-                comment='ëÏÌÉÞÅÓÔ×Ï ÓÏÏÂÝÅÎÉÊ ÎÁ ÏÄÎÏÊ ÓÔÒÁÎÉÃÅ ÆÏÒÕÍÁ'>
+   <<form_select title='Ð¡Ð¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ð¹ Ð² Ñ„Ð¾Ñ€ÑƒÐ¼Ðµ' name='forumPortion' style='list'
+                comment='ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ð¹ Ð½Ð° Ð¾Ð´Ð½Ð¾Ð¹ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ðµ Ñ„Ð¾Ñ€ÑƒÐ¼Ð°'>
     <array vals='10 15 20 25 30 35 40'>
     <iterate_array>
     <for>
      <form_option value='$.' selected!='$$userForumPortion==$.' title='$.'>
     </for>
    </form_select>
-   <form_select title='ëÁÒÔÉÎÏË × ÓÔÒÏËÅ' name='pictureRowPortion' style='list'
-                comment='ëÏÌÉÞÅÓÔ×Ï ËÁÒÔÉÎÏË × ÏÄÎÏÊ ÓÔÒÏËÅ × ÇÁÌÅÒÅÅ'>
+   <form_select title='ÐšÐ°Ñ€Ñ‚Ð¸Ð½Ð¾Ðº Ð² ÑÑ‚Ñ€Ð¾ÐºÐµ' name='pictureRowPortion' style='list'
+                comment='ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÐºÐ°Ñ€Ñ‚Ð¸Ð½Ð¾Ðº Ð² Ð¾Ð´Ð½Ð¾Ð¹ ÑÑ‚Ñ€Ð¾ÐºÐµ Ð² Ð³Ð°Ð»ÐµÑ€ÐµÐµ'>
     <array vals='1 2 3 4 5 6 7 8 9 10'>
     <iterate_array>
     <for>
      <form_option value='$.' selected!='$$userPictureRowPortion==$.' title='$.'>
     </for>
    </form_select>
-   <form_select title='óÔÒÏË × ÇÁÌÅÒÅÅ' name='pictureColumnPortion'
+   <form_select title='Ð¡Ñ‚Ñ€Ð¾Ðº Ð² Ð³Ð°Ð»ÐµÑ€ÐµÐµ' name='pictureColumnPortion'
                 style='list'
-		comment='ëÏÌÉÞÅÓÔ×Ï ÓÔÒÏË ÎÁ ÏÄÎÏÊ ÓÔÒÁÎÉÃÅ × ÇÁÌÅÒÅÅ'>
+		comment='ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº Ð½Ð° Ð¾Ð´Ð½Ð¾Ð¹ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ðµ Ð² Ð³Ð°Ð»ÐµÑ€ÐµÐµ'>
     <array vals='1 2 3 4 5 6 7 8 9 10'>
     <iterate_array>
     <for>
@@ -41,7 +41,7 @@
                   title='$.'>
     </for>
    </form_select>>
-   <form_buttons title='éÚÍÅÎÉÔØ'>
+   <form_buttons title='Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ'>
   </form>
  </form_table>
  <bottom>

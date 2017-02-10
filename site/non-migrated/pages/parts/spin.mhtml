@@ -5,7 +5,7 @@
  <div class='spin'>
   <span class='button'>
    <ifnzero what='$list.Offset'>
-    <a href="$[offset='$list.PrevOffset' tid]" title='Предыдущая страница'>
+    <a href="$[offset='$list.PrevOffset' tid]" title='п÷я─п╣п╢я▀п╢я┐я┴п╟я▐ я│я┌я─п╟п╫п╦я├п╟'>
      <image src='$picprev'></a>
    <else>
     &nbsp;
@@ -15,13 +15,13 @@
    <hidden name='okdir' value='$-'>
    <hidden name='pagesize' value='$list.Limit'>
    <hidden name='size' value='$list.Size'>
-   стр. <asp>
+   я│я┌я─. <asp>
    <edit name='value' value='$list.Page' size=2 maxlength=5><asp>
-   <asp> из $list.PageCount
+   <asp> п╦п╥ $list.PageCount
   </form>
   <span class='button'>
    <if what='$list.EndValue<$list.Size'>
-    <a href="$[offset='$list.NextOffset' tid]" title='Следующая страница'>
+    <a href="$[offset='$list.NextOffset' tid]" title='п║п╩п╣п╢я┐я▌я┴п╟я▐ я│я┌я─п╟п╫п╦я├п╟'>
      <image src='$picnext'></a>
    <else>
     &nbsp;

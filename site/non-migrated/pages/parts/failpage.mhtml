@@ -7,24 +7,24 @@
 
 <li>
  <notenglish>
-  Можете начать с
+  п°п╬п╤п╣я┌п╣ п╫п╟я┤п╟я┌я▄ я│
  <else>
   You can start from
  </notenglish>
  &sp;
  <a href='/'><asp>
-  <notenglish>главной страницы<else>the main page<asp></notenglish>
+  <notenglish>пЁп╩п╟п╡п╫п╬п╧ я│я┌я─п╟п╫п╦я├я▀<else>the main page<asp></notenglish>
  <asp></a>.
 </li>
 <notenglish>
  <li>
-  Можете воспользоваться <a href='/search/'>поиском</a>.
+  п°п╬п╤п╣я┌п╣ п╡п╬я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄я│я▐ <a href='/search/'>п©п╬п╦я│п╨п╬п╪</a>.
  </li>
 </notenglish>
 <ifzero what='$$sent'>
  <li>
   <notenglish>
-   Можете сообщить об ошибке вебмастеру по электронной почте
+   п°п╬п╤п╣я┌п╣ я│п╬п╬п╠я┴п╦я┌я▄ п╬п╠ п╬я┬п╦п╠п╨п╣ п╡п╣п╠п╪п╟я│я┌п╣я─я┐ п©п╬ я█п╩п╣п╨я┌я─п╬п╫п╫п╬п╧ п©п╬я┤я┌п╣
   <else>
    You can send a message to the webmaster by e-mail
   </notenglish>
@@ -32,7 +32,7 @@
  </li>
  <li>
   <notenglish>
-   Или отправить это сообщение прямо с сайта:
+   п≤п╩п╦ п╬я┌п©я─п╟п╡п╦я┌я▄ я█я┌п╬ я│п╬п╬п╠я┴п╣п╫п╦п╣ п©я─я▐п╪п╬ я│ я│п╟п╧я┌п╟:
   <else>
    Or send it directly from the website:
   </notenglish>
@@ -50,26 +50,26 @@
    <table>
     <notenglish>
      <error id='*EF_NO_SEND'
-        text='Добавлять комментарии могут только зарегистрированные
-              пользователи'>
-     <error id='*EF_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+        text='п■п╬п╠п╟п╡п╩я▐я┌я▄ п╨п╬п╪п╪п╣п╫я┌п╟я─п╦п╦ п╪п╬пЁя┐я┌ я┌п╬п╩я▄п╨п╬ п╥п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟п╫п╫я▀п╣
+              п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╦'>
+     <error id='*EF_NO_EDIT' text='пё п╡п╟я│ п╫п╣я┌ п©я─п╟п╡п╟ я─п╣п╢п╟п╨я┌п╦я─п╬п╡п╟я┌я▄ я█я┌п╬ я│п╬п╬п╠я┴п╣п╫п╦п╣'>
      <error id='*EF_NO_PARENT'
-        text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
-     <error id='*EF_UP_APPEND' text='У вас нет права отвечать на это сообщение'>
-     <error id='*EVH_NO_PARENT' text='Такого сообщения не существует'>
-     <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
-     <error id='*EVH_LOOP' text='Сообщение не может быть ответом на себя'>
+        text='п║п╬п╬п╠я┴п╣п╫п╦п╣, п╫п╟ п╨п╬я┌п╬я─п╬п╣ п╡я▀ п©я▀я┌п╟п╣я┌п╣я│я▄ п╬я┌п╡п╣я┌п╦я┌я▄, п╣я┴п╣ п╫п╣ п╫п╟п©п╦я│п╟п╫п╬'>
+     <error id='*EF_UP_APPEND' text='пё п╡п╟я│ п╫п╣я┌ п©я─п╟п╡п╟ п╬я┌п╡п╣я┤п╟я┌я▄ п╫п╟ я█я┌п╬ я│п╬п╬п╠я┴п╣п╫п╦п╣'>
+     <error id='*EVH_NO_PARENT' text='п╒п╟п╨п╬пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+     <error id='*EVH_NO_UP' text='п▓я▀я┬п╣я│я┌п╬я▐я┴п╣пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+     <error id='*EVH_LOOP' text='п║п╬п╬п╠я┴п╣п╫п╦п╣ п╫п╣ п╪п╬п╤п╣я┌ п╠я▀я┌я▄ п╬я┌п╡п╣я┌п╬п╪ п╫п╟ я│п╣п╠я▐'>
      <error id='*EVH_NOT_UP_UNDER_PARENT'
-            text='Сообщение и ответ должны находиться в одной ветке'>
-     <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
-     <error id='*EL_INVALID' text='Неверный ник или пароль'>
-     <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>
+            text='п║п╬п╬п╠я┴п╣п╫п╦п╣ п╦ п╬я┌п╡п╣я┌ п╢п╬п╩п╤п╫я▀ п╫п╟я┘п╬п╢п╦я┌я▄я│я▐ п╡ п╬п╢п╫п╬п╧ п╡п╣я┌п╨п╣'>
+     <error id='*EVH_INCORRECT' text='п²п╟я─я┐я┬п╣п╫п╦п╣ п╦п╣я─п╟я─я┘п╦п╦ п╬п╠я┼п╣п╨я┌п╬п╡'>
+     <error id='*EL_INVALID' text='п²п╣п╡п╣я─п╫я▀п╧ п╫п╦п╨ п╦п╩п╦ п©п╟я─п╬п╩я▄'>
+     <error id='*EL_GUEST_LOGIN_ABSENT' text='пёп╨п╟п╤п╦я┌п╣, п©п╬п╤п╟п╩я┐п╧я│я┌п╟, п╡п╟я┬п╣ п╦п╪я▐'>
      <error id='*EF_CAPTCHA_ABSENT'
-            text='Пожалуйста, введите цифры и буквы, которые вы видите на
-                  картинке. Это необходимо нам для борьбы со спамом.'>
-     <error id='*EF_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+            text='п÷п╬п╤п╟п╩я┐п╧я│я┌п╟, п╡п╡п╣п╢п╦я┌п╣ я├п╦я└я─я▀ п╦ п╠я┐п╨п╡я▀, п╨п╬я┌п╬я─я▀п╣ п╡я▀ п╡п╦п╢п╦я┌п╣ п╫п╟
+                  п╨п╟я─я┌п╦п╫п╨п╣. п╜я┌п╬ п╫п╣п╬п╠я┘п╬п╢п╦п╪п╬ п╫п╟п╪ п╢п╩я▐ п╠п╬я─я▄п╠я▀ я│п╬ я│п©п╟п╪п╬п╪.'>
+     <error id='*EF_CAPTCHA' text='п²п╣п╡п╣я─п╫я▀п╣ я├п╦я└я─я▀ п╦ п╠я┐п╨п╡я▀, п©п╬п©я─п╬п╠я┐п╧я┌п╣ п╣я┴п╣ я─п╟п╥'>
      <error id='*EF_BODY_ABSENT'
-        text='Напишите хотя бы пару строчек в теле сообщения'>
+        text='п²п╟п©п╦я┬п╦я┌п╣ я┘п╬я┌я▐ п╠я▀ п©п╟я─я┐ я│я┌я─п╬я┤п╣п╨ п╡ я┌п╣п╩п╣ я│п╬п╬п╠я┴п╣п╫п╦я▐'>
     <else>
      <error id='*EF_NO_SEND' text='Only registered users may add comments'>
      <error id='*EF_NO_EDIT' text='You are not permitted to edit the message'>
@@ -107,13 +107,13 @@
     <hidden name='disabled' value='$,isDisabled'>
     <tr><td colspan=2>
      <notenglish>
-      <input type=submit value='Отправить'>
+      <input type=submit value='п·я┌п©я─п╟п╡п╦я┌я▄'>
      <else>
       <input type=submit value='Send'>
      </notenglish>
      &nbsp;
      <notenglish>
-      <input type=reset value='Очистить'>
+      <input type=reset value='п·я┤п╦я│я┌п╦я┌я▄'>
      <else>
       <input type=reset value='Clear'>
      </notenglish>

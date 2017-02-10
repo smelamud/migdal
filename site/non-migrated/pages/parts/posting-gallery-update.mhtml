@@ -12,7 +12,7 @@
   <topic posting='$posting' showtopic='$showtopic'>
   <vote_panel align='right' id='$posting.Id' rating='$posting.Rating'>
   <biff time='$posting.Modified'>
-  <array vals='ÆÏÔÏÇÒÁÆÉÑ,ÆÏÔÏÇÒÁÆÉÉ,ÆÏÔÏÇÒÁÆÉÊ'>
+  <array vals='Ñ„Ð¾Ñ‚Ð¾Ð³Ñ€Ð°Ñ„Ð¸Ñ,Ñ„Ð¾Ñ‚Ð¾Ð³Ñ€Ð°Ñ„Ð¸Ð¸,Ñ„Ð¾Ñ‚Ð¾Ð³Ñ€Ð°Ñ„Ð¸Ð¹'>
   <plural value='$posting.Index1'>
   <a class='posting-subject' href='$posting.GrpDetailsHref'>
    +$posting.Index1&sp;$,</a>

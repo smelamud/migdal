@@ -192,8 +192,8 @@ function imageFileExists($format, $fileId = 0) {
     return file_exists(getImagePath($format, $fileId));
 }
 
-// Если появятся ссылки на файлы картинок из других таблиц и полей, не забыть
-// упомянуть их здесь
+// п∙я│п╩п╦ п©п╬я▐п╡я▐я┌я│я▐ я│я│я▀п╩п╨п╦ п╫п╟ я└п╟п╧п╩я▀ п╨п╟я─я┌п╦п╫п╬п╨ п╦п╥ п╢я─я┐пЁп╦я┘ я┌п╟п╠п╩п╦я├ п╦ п©п╬п╩п╣п╧, п╫п╣ п╥п╟п╠я▀я┌я▄
+// я┐п©п╬п╪я▐п╫я┐я┌я▄ п╦я┘ п╥п╢п╣я│я▄
 function deleteObsoleteImageFiles() {
     global $imageDir, $imageFileTimeout;
     

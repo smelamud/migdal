@@ -13,21 +13,21 @@
    <grp_array name='grps' grp='*GRP_ALL'>
   </if>
   <a href='/${catalog}add-news?noguests=$access&redirid=$_'
-     >Добавить новость</a><asp>
+     >п■п╬п╠п╟п╡п╦я┌я▄ п╫п╬п╡п╬я│я┌я▄</a><asp>
   <if what='in_array(*GRP_ARTICLES,$grps)'>
    <asp>,
    <a href='/${catalog}add-article?noguests=$access&redirid=$_'
-      >статью</a><asp>
+      >я│я┌п╟я┌я▄я▌</a><asp>
   </if>
   <if what='in_array(*GRP_GALLERY,$grps)'>
    <asp>,
    <a href='/${catalog}add-picture?noguests=$access&redirid=$_'
-      >фотографию</a><asp>
+      >я└п╬я┌п╬пЁя─п╟я└п╦я▌</a><asp>
   </if>
   <if what='$$userModerator && in_array(*GRP_BOOKS,$grps)'>
    <asp>,
    <a href='/${catalog}add-book?noguests=$access&redirid=$_'
-      >книгу</a>
+      >п╨п╫п╦пЁя┐</a>
   </if>
  </div>
  <spin list='$list'>

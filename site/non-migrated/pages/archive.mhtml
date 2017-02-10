@@ -26,7 +26,7 @@
      <assign name='cache_period' value!='24 * 60 * 60'>
     </if>
     <html_cache ident#='archive-$year' period='$cache_period'>
-     <b>Год:</b>
+     <b>п⌠п╬п╢:</b>
      <for n!='$endyear - 2000'>
       <assign name='cyear' value!='$endyear - $.'>
       <if what='$cyear==$year'>
@@ -43,9 +43,9 @@
      <iterate_postinglist grp='*GRP_ARCHIVE' limit=0 showshadows='*false'
 			  later='$later' earlier='$earlier'>
      <p>
-      <array vals='сообщение,сообщения,сообщений'>
+      <array vals='я│п╬п╬п╠я┴п╣п╫п╦п╣,я│п╬п╬п╠я┴п╣п╫п╦я▐,я│п╬п╬п╠я┴п╣п╫п╦п╧'>
       <plural value='$;Count'>
-      <b>Всего <em>$;Count</em> $,</b>
+      <b>п▓я│п╣пЁп╬ <em>$;Count</em> $,</b>
      </p>
      <assign name='day' value=0>
      <dl class='ninept index'>

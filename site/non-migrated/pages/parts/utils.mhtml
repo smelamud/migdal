@@ -44,14 +44,14 @@
 <element name='selflink'>
 <span>
  <image src='/pics/self.gif'>&nbsp;<asp>
- <asp><a href='$href'><asp><notenglish>Ссылка<else>Link</notenglish><asp></a>
+ <asp><a href='$href'><asp><notenglish>п║я│я▀п╩п╨п╟<else>Link</notenglish><asp></a>
 </span>
 </element>
 
 <element name='maillink'>
 <if what='$message.isEmailVisible'>
  <asp>&nbsp;<asp>
- <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
+ <asp><a href='mailto:$#message.Email' title='п²п╟п©п╦я│п╟я┌я▄ п©п╦я│я▄п╪п╬'><asp>
   <image src='/pics/mail.gif'>
  <asp></a>
 </if>
@@ -59,7 +59,7 @@
 
 <element name='mailloginlink'>
 <if what='$message.isEmailVisible'>
- <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
+ <asp><a href='mailto:$#message.Email' title='п²п╟п©п╦я│п╟я┌я▄ п©п╦я│я▄п╪п╬'><asp>
   $=message.Login
  <asp></a>
 </if>
@@ -67,7 +67,7 @@
 
 <element name='mailtolink'>
 <if what='$message.isEmailVisible'>
- <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
+ <asp><a href='mailto:$#message.Email' title='п²п╟п©п╦я│п╟я┌я▄ п©п╦я│я▄п╪п╬'><asp>
   $=message.Email
  <asp></a>
 </if>
@@ -104,7 +104,7 @@
 
 <element name='lastonline'>
 <if what='$user.isTooOld'>
- очень давно
+ п╬я┤п╣п╫я▄ п╢п╟п╡п╫п╬
 <else>
  $user.FuzzyLastOnline
 </if>

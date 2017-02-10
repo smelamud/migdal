@@ -7,13 +7,13 @@
    <image src='/pics/sheet.gif'>&sp;
    <catalog name='catalog' id='$topic_id'>
    <a href='/${catalog}add-picture/?noguests=$noguests&redirid=$_'
-    >Добавить фотографию</a>
+    >п■п╬п╠п╟п╡п╦я┌я▄ я└п╬я┌п╬пЁя─п╟я└п╦я▌</a>
   </div>
  </if>
  <div class='sorter'>
-  <b>Сортировать</b>
-  <navi_sort title='по дате' value='*SORT_PSENT'>|
-  <navi_sort title='по рейтингу' value='*SORT_RATING'>
+  <b>п║п╬я─я┌п╦я─п╬п╡п╟я┌я▄</b>
+  <navi_sort title='п©п╬ п╢п╟я┌п╣' value='*SORT_PSENT'>|
+  <navi_sort title='п©п╬ я─п╣п╧я┌п╦п╫пЁя┐' value='*SORT_RATING'>
  </div>
  <spin list='$list'>
  <div class='clear-floats'></div>

@@ -6,12 +6,12 @@
             depends='postings'>
  <posting_id grp='*GRP_TIMES_COVERS' index1='$base' topic_id='$`times`'>
  <posting_obj id='$,' grp='*GRP_TIMES_COVERS'>
- <upper_level name='íÉÇÄÁÌØ Times' href='/times/'>
- <topics_table title#='÷ ÎÏÍÅÒÅ &no;$,getIssues'>
+ <upper_level name='ÐœÐ¸Ð³Ð´Ð°Ð»ÑŒ Times' href='/times/'>
+ <topics_table title#='Ð’ Ð½Ð¾Ð¼ÐµÑ€Ðµ &no;$,getIssues'>
   <iterate_postinglist grp='*GRP_TIMES_ARTICLES' topic_id='$`times`'
 		       recursive='*true' limit=0 sort='*SORT_INDEX0'
 		       index1='$base' as_guest='*true'>
-  <topics_line text='ïÂÌÏÖËÁ' href#='/times/$base/' arrow!='$index==$,Id'
+  <topics_line text='ÐžÐ±Ð»Ð¾Ð¶ÐºÐ°' href#='/times/$base/' arrow!='$index==$,Id'
 	       class='topics-item ninept'>
   <for>
    <topics_line time='$.Modified' text='$=.Subject' href='$.GrpDetailsHref'

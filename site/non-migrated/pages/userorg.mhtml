@@ -13,11 +13,11 @@
 <table width=100% class='nframe'>
  <tr><td align=right class='eightpt'>
   <subtitle>
-  <b>Сортировать</b>
-  <navi_sort title='по нику' value='*SORT_LOGIN'>|
-  <navi_sort title='по имени' value='*SORT_NAME'>|
-  <navi_sort title='по еврейскому имени' value='*SORT_JEWISH_NAME'>|
-  <navi_sort title='по фамилии' value='*SORT_SURNAME'>
+  <b>п║п╬я─я┌п╦я─п╬п╡п╟я┌я▄</b>
+  <navi_sort title='п©п╬ п╫п╦п╨я┐' value='*SORT_LOGIN'>|
+  <navi_sort title='п©п╬ п╦п╪п╣п╫п╦' value='*SORT_NAME'>|
+  <navi_sort title='п©п╬ п╣п╡я─п╣п╧я│п╨п╬п╪я┐ п╦п╪п╣п╫п╦' value='*SORT_JEWISH_NAME'>|
+  <navi_sort title='п©п╬ я└п╟п╪п╦п╩п╦п╦' value='*SORT_SURNAME'>
  </td></tr>
  <tr><td align='center' style='padding: 10px'>
   <iterate_user_alphabet limit=100 sort='$$sort'>
@@ -39,13 +39,13 @@
  </td></tr>
  <tr><td align=left class='ninept'>
   <users_summary name='summary'>
-  <array vals='зарегистрирован,зарегистрировано,зарегистрировано'>
+  <array vals='п╥п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟п╫,п╥п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟п╫п╬,п╥п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟п╫п╬'>
   <plural name='i_reg' value='$summary.Total'>
-  <array vals='пользователь,пользователя,пользователей'>
+  <array vals='п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▄,п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐,п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣п╧'>
   <plural name='i_users' value='$summary.Total'>
-  Всего $i_reg <em>$summary.Total</em> $i_users
+  п▓я│п╣пЁп╬ $i_reg <em>$summary.Total</em> $i_users
   <ifnzero what='$summary.Waiting'>
-   &nbsp;(<em>$summary.Waiting</em> в процессе регистрации)
+   &nbsp;(<em>$summary.Waiting</em> п╡ п©я─п╬я├п╣я│я│п╣ я─п╣пЁп╦я│я┌я─п╟я├п╦п╦)
   </ifnzero>
  </td></tr>
 </table>
@@ -78,12 +78,12 @@
      <iterate_userlist prefix='$prefix' sort='$sort'>
      <catalog_table>
       <tr valign=top>
-       <th class='catalog-cell'>Ник</th>
-       <th class='catalog-cell'>Имя</th>
-       <th class='catalog-cell'>Возраст</th>
-       <th class='catalog-cell'>Статус</th>
-       <th class='catalog-cell'>Контакты</th>
-       <th class='catalog-cell'>Последний заход</th>
+       <th class='catalog-cell'>п²п╦п╨</th>
+       <th class='catalog-cell'>п≤п╪я▐</th>
+       <th class='catalog-cell'>п▓п╬п╥я─п╟я│я┌</th>
+       <th class='catalog-cell'>п║я┌п╟я┌я┐я│</th>
+       <th class='catalog-cell'>п п╬п╫я┌п╟п╨я┌я▀</th>
+       <th class='catalog-cell'>п÷п╬я│п╩п╣п╢п╫п╦п╧ п╥п╟я┘п╬п╢</th>
       </tr>
       <for>
        <if what='$;isOdd'>
@@ -114,13 +114,13 @@
         <else>
          <td colspan=4 class='$class eightpt'>
           <zone>
-           <array vals='остался,осталось,осталось'>
+           <array vals='п╬я│я┌п╟п╩я│я▐,п╬я│я┌п╟п╩п╬я│я▄,п╬я│я┌п╟п╩п╬я│я▄'>
            <plural name='lasts' value='$.ConfirmDays'>
-           <array vals='день,дня,дней'>
+           <array vals='п╢п╣п╫я▄,п╢п╫я▐,п╢п╫п╣п╧'>
            <plural name='days' value='$.ConfirmDays'>
-           Идет регистрация ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
+           п≤п╢п╣я┌ я─п╣пЁп╦я│я┌я─п╟я├п╦я▐ ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
            <admin_users>
-            <a href='/actions/user/confirm?id=$.Id'>Подтвердить</a>
+            <a href='/actions/user/confirm?id=$.Id'>п÷п╬п╢я┌п╡п╣я─п╢п╦я┌я▄</a>
            </admin_users>
           </zone>
          </td>

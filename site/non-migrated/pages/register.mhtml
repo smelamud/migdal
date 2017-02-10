@@ -24,7 +24,7 @@
  <top ident='users'>
  <user_obj name='user' id=0>
  <setup>
- <form_table title='Введите информацию о себе'>
+ <form_table title='п▓п╡п╣п╢п╦я┌п╣ п╦п╫я└п╬я─п╪п╟я├п╦я▌ п╬ я│п╣п╠п╣'>
   <form method=post action='/actions/user/modify'>
    <hidden name='edittag' value=1>
    <admin_users>
@@ -36,27 +36,27 @@
    <hidden name='faildir' value='$-'>
    <hidden name='editid' value=0>
    <starinfo>
-   <error id='*EUM_DISABLED' text='Регистрация пользователей запрещена'>
+   <error id='*EUM_DISABLED' text='п═п╣пЁп╦я│я┌я─п╟я├п╦я▐ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣п╧ п╥п╟п©я─п╣я┴п╣п╫п╟'>
    <error id='*EUM_NO_EDIT'
-	  text='У вас нет права менять информацию для этого пользователя'>
+	  text='пё п╡п╟я│ п╫п╣я┌ п©я─п╟п╡п╟ п╪п╣п╫я▐я┌я▄ п╦п╫я└п╬я─п╪п╟я├п╦я▌ п╢п╩я▐ я█я┌п╬пЁп╬ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐'>
    <error id='*EUM_CAPTCHA_ABSENT'
-          text='Пожалуйста, введите цифры и буквы, которые вы видите на
-                картинке. Это необходимо нам для борьбы со спамом.'>
-   <error id='*EUM_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+          text='п÷п╬п╤п╟п╩я┐п╧я│я┌п╟, п╡п╡п╣п╢п╦я┌п╣ я├п╦я└я─я▀ п╦ п╠я┐п╨п╡я▀, п╨п╬я┌п╬я─я▀п╣ п╡я▀ п╡п╦п╢п╦я┌п╣ п╫п╟
+                п╨п╟я─я┌п╦п╫п╨п╣. п╜я┌п╬ п╫п╣п╬п╠я┘п╬п╢п╦п╪п╬ п╫п╟п╪ п╢п╩я▐ п╠п╬я─я▄п╠я▀ я│п╬ я│п©п╟п╪п╬п╪.'>
+   <error id='*EUM_CAPTCHA' text='п²п╣п╡п╣я─п╫я▀п╣ я├п╦я└я─я▀ п╦ п╠я┐п╨п╡я▀, п©п╬п©я─п╬п╠я┐п╧я┌п╣ п╣я┴п╣ я─п╟п╥'>
    <form_captcha name='captcha'>
-   <form_section title='Информация для входа на сайт'>
-   <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен'>
+   <form_section title='п≤п╫я└п╬я─п╪п╟я├п╦я▐ п╢п╩я▐ п╡я┘п╬п╢п╟ п╫п╟ я│п╟п╧я┌'>
+   <error id='*EUM_LOGIN_ABSENT' text='п²п╦п╨ п╫п╣ п╠я▀п╩ п╡п╡п╣п╢п╣п╫'>
    <error id='*EUM_LOGIN_EXISTS'
-	  text='Пользователь с таким ником уже существует'>
-   <form_line title='Ник' mandatory='*true'
-              comment='Ваш псевдоним, под которым вы будете видны на сайте'>
+	  text='п÷п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▄ я│ я┌п╟п╨п╦п╪ п╫п╦п╨п╬п╪ я┐п╤п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+   <form_line title='п²п╦п╨' mandatory='*true'
+              comment='п▓п╟я┬ п©я│п╣п╡п╢п╬п╫п╦п╪, п©п╬п╢ п╨п╬я┌п╬я─я▀п╪ п╡я▀ п╠я┐п╢п╣я┌п╣ п╡п╦п╢п╫я▀ п╫п╟ я│п╟п╧я┌п╣'>
     <table width='100%' cellspacing='0' cellpadding='0' border='0'>
      <tr valign='center'>
       <td width='1' align='left'>
        <edit id='login' name='new_login' value='$=,Login' size=20 maxlength=30>
       </td>
       <td align='left' style='padding-left: 5px'>
-       <input type='button' id='login-button' value='Проверить'>
+       <input type='button' id='login-button' value='п÷я─п╬п╡п╣я─п╦я┌я▄'>
       </td>
      </tr>
      <tr><td colspan='3' id='login-status' style='padding-top: 5px'>
@@ -64,36 +64,36 @@
      </td></tr>
     </table>
    </form_line>
-   <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
+   <error id='*EUM_PASSWORD_LEN' text='п÷п╟я─п╬п╩я▄ п╢п╬п╩п╤п╣п╫ п╠я▀я┌я▄ п╫п╣ п╪п╣п╫п╣п╣ 5 я│п╦п╪п╡п╬п╩п╬п╡'>
    <error id='*EUM_PASSWORD_DIFF'
-	  text='Опечатка при вводе пароля - введите еще раз'>
-   <form_password title='Пароль' comment='Не менее 5 символов'
+	  text='п·п©п╣я┤п╟я┌п╨п╟ п©я─п╦ п╡п╡п╬п╢п╣ п©п╟я─п╬п╩я▐ - п╡п╡п╣п╢п╦я┌п╣ п╣я┴п╣ я─п╟п╥'>
+   <form_password title='п÷п╟я─п╬п╩я▄' comment='п²п╣ п╪п╣п╫п╣п╣ 5 я│п╦п╪п╡п╬п╩п╬п╡'
                   name='new_password' size=20 maxlength=40 mandatory='*true'>
-   <form_password title='Пароль (еще раз)'
-	          comment='Повторите ввод пароля, чтобы убедиться, что вы не
-		           ошиблись при наборе'
+   <form_password title='п÷п╟я─п╬п╩я▄ (п╣я┴п╣ я─п╟п╥)'
+	          comment='п÷п╬п╡я┌п╬я─п╦я┌п╣ п╡п╡п╬п╢ п©п╟я─п╬п╩я▐, я┤я┌п╬п╠я▀ я┐п╠п╣п╢п╦я┌я▄я│я▐, я┤я┌п╬ п╡я▀ п╫п╣
+		           п╬я┬п╦п╠п╩п╦я│я▄ п©я─п╦ п╫п╟п╠п╬я─п╣'
 		  name='dup_password' size=20 maxlength=40 mandatory='*true'>
-   <form_section title='Личная информация'>
-   <error id='*EUM_NAME_ABSENT' text='Имя не введено'>
-   <form_edit title='Имя' value='$=,Name' name='name' size=30 maxlength=30
+   <form_section title='п⌡п╦я┤п╫п╟я▐ п╦п╫я└п╬я─п╪п╟я├п╦я▐'>
+   <error id='*EUM_NAME_ABSENT' text='п≤п╪я▐ п╫п╣ п╡п╡п╣п╢п╣п╫п╬'>
+   <form_edit title='п≤п╪я▐' value='$=,Name' name='name' size=30 maxlength=30
 	      mandatory='*true'>
-   <form_edit title='Еврейское имя'
-              comment='Заполните это поле, если у вас есть еврейское имя,
-	               отличное от того, которое вы указали в графе <i>Имя</i>'
+   <form_edit title='п∙п╡я─п╣п╧я│п╨п╬п╣ п╦п╪я▐'
+              comment='п≈п╟п©п╬п╩п╫п╦я┌п╣ я█я┌п╬ п©п╬п╩п╣, п╣я│п╩п╦ я┐ п╡п╟я│ п╣я│я┌я▄ п╣п╡я─п╣п╧я│п╨п╬п╣ п╦п╪я▐,
+	               п╬я┌п╩п╦я┤п╫п╬п╣ п╬я┌ я┌п╬пЁп╬, п╨п╬я┌п╬я─п╬п╣ п╡я▀ я┐п╨п╟п╥п╟п╩п╦ п╡ пЁя─п╟я└п╣ <i>п≤п╪я▐</i>'
 	      value='$=,JewishName' name='jewish_name' size=30 maxlength=30>
-   <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена'>
-   <form_edit title='Фамилия' value='$=,Surname' name='surname' size=30
+   <error id='*EUM_SURNAME_ABSENT' text='п╓п╟п╪п╦п╩п╦я▐ п╫п╣ п╡п╡п╣п╢п╣п╫п╟'>
+   <form_edit title='п╓п╟п╪п╦п╩п╦я▐' value='$=,Surname' name='surname' size=30
 	      maxlength=30 mandatory='$$usersMandatorySurname'>
-   <error id='*EUM_GENDER' text='Неизвестный пол'>
-   <form_select title='Пол' name='gender' style='box'>
-    <form_option title='Мужской' value='mine' selected="$,isMan">
-    <form_option title='Женский' value='femine' selected="$,isWoman">
+   <error id='*EUM_GENDER' text='п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╧ п©п╬п╩'>
+   <form_select title='п÷п╬п╩' name='gender' style='box'>
+    <form_option title='п°я┐п╤я│п╨п╬п╧' value='mine' selected="$,isMan">
+    <form_option title='п√п╣п╫я│п╨п╦п╧' value='femine' selected="$,isWoman">
    </form_select>
-   <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
-   <form_line title='Дата рождения'>
+   <error id='*EUM_BIRTHDAY' text='п║п╬п╡п╣я─я┬п╣п╫п╫п╬ п╦п╢п╦п╬я┌я│п╨п╟я▐ п╢п╟я┌п╟ я─п╬п╤п╢п╣п╫п╦я▐'>
+   <form_line title='п■п╟я┌п╟ я─п╬п╤п╢п╣п╫п╦я▐'>
     <edit name='birth_day' size=2 maxlength=2 value='$,DayOfBirth'>
     <select name='birth_month'>
-     <array vals='глюкабря,января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря'>
+     <array vals='пЁп╩я▌п╨п╟п╠я─я▐,я▐п╫п╡п╟я─я▐,я└п╣п╡я─п╟п╩я▐,п╪п╟я─я┌п╟,п╟п©я─п╣п╩я▐,п╪п╟я▐,п╦я▌п╫я▐,п╦я▌п╩я▐,п╟п╡пЁя┐я│я┌п╟,я│п╣п╫я┌я▐п╠я─я▐,п╬п╨я┌я▐п╠я─я▐,п╫п╬я▐п╠я─я▐,п╢п╣п╨п╟п╠я─я▐'>
      <iterate_array>
      <for>
       <if what='!$;isFirst'>
@@ -104,39 +104,39 @@
     </select>
     19<edit name='birth_year' size=2 maxlength=2 value='$,YearOfBirth'>
    </form_line>
-   <form_checkbox title='Мигдалевец'
-                  comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
-		           его раньше? Или, может быть, вы чувствуете себя
-			   мигдалевцем в душе?'
+   <form_checkbox title='п°п╦пЁп╢п╟п╩п╣п╡п╣я├'
+                  comment='п▓я▀ п©п╬я│п╣я┴п╟п╣я┌п╣ &lt;&lt;п°п╦пЁп╢п╟п╩я▄&gt;&gt; п╦п╩п╦ п©п╬я│п╣я┴п╟п╩п╦
+		           п╣пЁп╬ я─п╟п╫я▄я┬п╣? п≤п╩п╦, п╪п╬п╤п╣я┌ п╠я▀я┌я▄, п╡я▀ я┤я┐п╡я│я┌п╡я┐п╣я┌п╣ я│п╣п╠я▐
+			   п╪п╦пЁп╢п╟п╩п╣п╡я├п╣п╪ п╡ п╢я┐я┬п╣?'
                   name='rights[]' value='*USR_MIGDAL_STUDENT'
 		  checked='$,isMigdalStudent'>
-   <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен'>
-   <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно'>
+   <error id='*EUM_EMAIL_ABSENT' text='E-mail п╫п╣ п╡п╡п╣п╢п╣п╫'>
+   <error id='*EUM_NOT_EMAIL' text='E-mail п╡п╡п╣п╢п╣п╫ п╫п╣п╡п╣я─п╫п╬'>
    <form_edit title='E-mail'
-	      comment='Укажите ваш настоящий адрес, потому что на этот адрес
-	               будет выслано письмо для подтверждения вашей
-		       регистрации. Этот адрес также может понадобиться для
-		       связи с вами в экстренных случаях (например, для
-		       восстановления забытого пароля)'
+	      comment='пёп╨п╟п╤п╦я┌п╣ п╡п╟я┬ п╫п╟я│я┌п╬я▐я┴п╦п╧ п╟п╢я─п╣я│, п©п╬я┌п╬п╪я┐ я┤я┌п╬ п╫п╟ я█я┌п╬я┌ п╟п╢я─п╣я│
+	               п╠я┐п╢п╣я┌ п╡я▀я│п╩п╟п╫п╬ п©п╦я│я▄п╪п╬ п╢п╩я▐ п©п╬п╢я┌п╡п╣я─п╤п╢п╣п╫п╦я▐ п╡п╟я┬п╣п╧
+		       я─п╣пЁп╦я│я┌я─п╟я├п╦п╦. п╜я┌п╬я┌ п╟п╢я─п╣я│ я┌п╟п╨п╤п╣ п╪п╬п╤п╣я┌ п©п╬п╫п╟п╢п╬п╠п╦я┌я▄я│я▐ п╢п╩я▐
+		       я│п╡я▐п╥п╦ я│ п╡п╟п╪п╦ п╡ я█п╨я│я┌я─п╣п╫п╫я▀я┘ я│п╩я┐я┤п╟я▐я┘ (п╫п╟п©я─п╦п╪п╣я─, п╢п╩я▐
+		       п╡п╬я│я│я┌п╟п╫п╬п╡п╩п╣п╫п╦я▐ п╥п╟п╠я▀я┌п╬пЁп╬ п©п╟я─п╬п╩я▐)'
               value='$=,Email' name='email' size=30 maxlength=70
 	      mandatory='*true'>
-   <form_checkbox title='Скрыть E-mail на сайте'
-                  comment='Ответ <i>Да</i> означает, что никто из посетителей
-		           сайта (кроме администратора) не увидит ваш адрес
+   <form_checkbox title='п║п╨я─я▀я┌я▄ E-mail п╫п╟ я│п╟п╧я┌п╣'
+                  comment='п·я┌п╡п╣я┌ <i>п■п╟</i> п╬п╥п╫п╟я┤п╟п╣я┌, я┤я┌п╬ п╫п╦п╨я┌п╬ п╦п╥ п©п╬я│п╣я┌п╦я┌п╣п╩п╣п╧
+		           я│п╟п╧я┌п╟ (п╨я─п╬п╪п╣ п╟п╢п╪п╦п╫п╦я│я┌я─п╟я┌п╬я─п╟) п╫п╣ я┐п╡п╦п╢п╦я┌ п╡п╟я┬ п╟п╢я─п╣я│
 			   E-mail'
                   name='hide_email' checked='$,isHideEmail'>
-   <form_checkbox title='Разрешаю посылать почту на мой адрес'
-                  comment='Ответ <i>Нет</i> означает, что вы не будете получать
-		           письма, которые администрация сайта отправляет всем
-			   зарегистрированным пользователям. Мы крайне редко
-			   отправляем такие письма &mdash; за 5 лет мы не делали
-			   этого ни разу'
+   <form_checkbox title='п═п╟п╥я─п╣я┬п╟я▌ п©п╬я│я▀п╩п╟я┌я▄ п©п╬я┤я┌я┐ п╫п╟ п╪п╬п╧ п╟п╢я─п╣я│'
+                  comment='п·я┌п╡п╣я┌ <i>п²п╣я┌</i> п╬п╥п╫п╟я┤п╟п╣я┌, я┤я┌п╬ п╡я▀ п╫п╣ п╠я┐п╢п╣я┌п╣ п©п╬п╩я┐я┤п╟я┌я▄
+		           п©п╦я│я▄п╪п╟, п╨п╬я┌п╬я─я▀п╣ п╟п╢п╪п╦п╫п╦я│я┌я─п╟я├п╦я▐ я│п╟п╧я┌п╟ п╬я┌п©я─п╟п╡п╩я▐п╣я┌ п╡я│п╣п╪
+			   п╥п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟п╫п╫я▀п╪ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐п╪. п°я▀ п╨я─п╟п╧п╫п╣ я─п╣п╢п╨п╬
+			   п╬я┌п©я─п╟п╡п╩я▐п╣п╪ я┌п╟п╨п╦п╣ п©п╦я│я▄п╪п╟ &mdash; п╥п╟ 5 п╩п╣я┌ п╪я▀ п╫п╣ п╢п╣п╩п╟п╩п╦
+			   я█я┌п╬пЁп╬ п╫п╦ я─п╟п╥я┐'
                   name='email_enabled' checked='$,isEmailEnabled'>
    <form_edit title='ICQ' value='$=,ICQ' name='icq' size=15 maxlength=15>
    <admin_users>
-    <form_buttons title='Зарегистрировать'>
+    <form_buttons title='п≈п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟я┌я▄'>
    <else>
-    <form_buttons title='Зарегистрироваться'>
+    <form_buttons title='п≈п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟я┌я▄я│я▐'>
    </admin_users>
   </form>
  </form_table>

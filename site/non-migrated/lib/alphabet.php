@@ -23,7 +23,7 @@ class AlphabetIterator
         while ($row = mysql_fetch_assoc($result))
             if ($row['count'] != 0)
                 $counts[uc($row['letter'])] += $row['count'];
-        // FIXME должно проставляться в конфиге
+        // FIXME п╢п╬п╩п╤п╫п╬ п©я─п╬я│я┌п╟п╡п╩я▐я┌я▄я│я▐ п╡ п╨п╬п╫я└п╦пЁп╣
         setlocale(LC_COLLATE, 'ru_RU.KOI8-R');
         uksort($counts, 'strcoll');
         $alpha=array();

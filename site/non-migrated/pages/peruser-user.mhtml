@@ -27,7 +27,7 @@
    <div class='cframe' style='padding: 5'>
     <subtitle>
     <div class='ninept'>
-     <a href='/users/$#user.Folder/?redirid=$_'>О пользователе $user.Login</a>
+     <a href='/users/$#user.Folder/?redirid=$_'>п· п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣ $user.Login</a>
     </div>
     <ifzero what='$offset'>
      <p>

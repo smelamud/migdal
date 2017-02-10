@@ -47,9 +47,9 @@
  <forum_obj id='$editid' parent_id='$parent_id' quote='$quote' quote_width=70>
  <setup>
  <if what='$editid'>
-  <assign name='head' value='òÅÄÁËÔÉÒÏ×ÁÎÉÅ ËÏÍÍÅÎÔÁÒÉÑ'>
+  <assign name='head' value='Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸Ñ'>
  <else>
-  <assign name='head' value='äÏÂÁ×ÌÅÎÉÅ ËÏÍÍÅÎÔÁÒÉÑ'>
+  <assign name='head' value='Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÐºÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸Ñ'>
  </if>
  <form_table title='$head'>
   <assign name='xmlid' value!='$$userModerator ? $,Id : 0'>
@@ -63,20 +63,20 @@
    <hidden name='up' value='$,ParentId'>
    <starinfo>
    <error id='*EF_NO_SEND'
-	  text='äÏÂÁ×ÌÑÔØ ËÏÍÍÅÎÔÁÒÉÉ ÍÏÇÕÔ ÔÏÌØËÏ ÚÁÒÅÇÉÓÔÒÉÒÏ×ÁÎÎÙÅ
-	        ÐÏÌØÚÏ×ÁÔÅÌÉ'>
-   <error id='*EF_NO_EDIT' text='õ ×ÁÓ ÎÅÔ ÐÒÁ×Á ÒÅÄÁËÔÉÒÏ×ÁÔØ ÜÔÏ ÓÏÏÂÝÅÎÉÅ'>
+	  text='Ð”Ð¾Ð±Ð°Ð²Ð»ÑÑ‚ÑŒ ÐºÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸Ð¸ Ð¼Ð¾Ð³ÑƒÑ‚ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð·Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ
+	        Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ð¸'>
+   <error id='*EF_NO_EDIT' text='Ð£ Ð²Ð°Ñ Ð½ÐµÑ‚ Ð¿Ñ€Ð°Ð²Ð° Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ ÑÑ‚Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ'>
    <error id='*EF_NO_PARENT'
-	  text='óÏÏÂÝÅÎÉÅ, ÎÁ ËÏÔÏÒÏÅ ×Ù ÐÙÔÁÅÔÅÓØ ÏÔ×ÅÔÉÔØ, ÅÝÅ ÎÅ ÎÁÐÉÓÁÎÏ'>
-   <error id='*EF_UP_APPEND' text='õ ×ÁÓ ÎÅÔ ÐÒÁ×Á ÏÔ×ÅÞÁÔØ ÎÁ ÜÔÏ ÓÏÏÂÝÅÎÉÅ'>
-   <error id='*EVH_NO_PARENT' text='ôÁËÏÇÏ ÓÏÏÂÝÅÎÉÑ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-   <error id='*EVH_NO_UP' text='÷ÙÛÅÓÔÏÑÝÅÇÏ ÓÏÏÂÝÅÎÉÑ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-   <error id='*EVH_LOOP' text='óÏÏÂÝÅÎÉÅ ÎÅ ÍÏÖÅÔ ÂÙÔØ ÏÔ×ÅÔÏÍ ÎÁ ÓÅÂÑ'>
+	  text='Ð¡Ð¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ, Ð½Ð° ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ðµ Ð²Ñ‹ Ð¿Ñ‹Ñ‚Ð°ÐµÑ‚ÐµÑÑŒ Ð¾Ñ‚Ð²ÐµÑ‚Ð¸Ñ‚ÑŒ, ÐµÑ‰Ðµ Ð½Ðµ Ð½Ð°Ð¿Ð¸ÑÐ°Ð½Ð¾'>
+   <error id='*EF_UP_APPEND' text='Ð£ Ð²Ð°Ñ Ð½ÐµÑ‚ Ð¿Ñ€Ð°Ð²Ð° Ð¾Ñ‚Ð²ÐµÑ‡Ð°Ñ‚ÑŒ Ð½Ð° ÑÑ‚Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ'>
+   <error id='*EVH_NO_PARENT' text='Ð¢Ð°ÐºÐ¾Ð³Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+   <error id='*EVH_NO_UP' text='Ð’Ñ‹ÑˆÐµÑÑ‚Ð¾ÑÑ‰ÐµÐ³Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+   <error id='*EVH_LOOP' text='Ð¡Ð¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚Ð²ÐµÑ‚Ð¾Ð¼ Ð½Ð° ÑÐµÐ±Ñ'>
    <error id='*EVH_NOT_UP_UNDER_PARENT'
-          text='óÏÏÂÝÅÎÉÅ É ÏÔ×ÅÔ ÄÏÌÖÎÙ ÎÁÈÏÄÉÔØÓÑ × ÏÄÎÏÊ ×ÅÔËÅ'>
-   <error id='*EVH_INCORRECT' text='îÁÒÕÛÅÎÉÅ ÉÅÒÁÒÈÉÉ ÏÂßÅËÔÏ×'>
-   <error id='*EL_INVALID' text='îÅ×ÅÒÎÙÊ ÎÉË ÉÌÉ ÐÁÒÏÌØ'>
-   <error id='*EL_GUEST_LOGIN_ABSENT' text='õËÁÖÉÔÅ, ÐÏÖÁÌÕÊÓÔÁ, ×ÁÛÅ ÉÍÑ'>
+          text='Ð¡Ð¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð¸ Ð¾Ñ‚Ð²ÐµÑ‚ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ÑŒÑÑ Ð² Ð¾Ð´Ð½Ð¾Ð¹ Ð²ÐµÑ‚ÐºÐµ'>
+   <error id='*EVH_INCORRECT' text='ÐÐ°Ñ€ÑƒÑˆÐµÐ½Ð¸Ðµ Ð¸ÐµÑ€Ð°Ñ€Ñ…Ð¸Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²'>
+   <error id='*EL_INVALID' text='ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð½Ð¸Ðº Ð¸Ð»Ð¸ Ð¿Ð°Ñ€Ð¾Ð»ÑŒ'>
+   <error id='*EL_GUEST_LOGIN_ABSENT' text='Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ, Ð¿Ð¾Ð¶Ð°Ð»ÑƒÐ¹ÑÑ‚Ð°, Ð²Ð°ÑˆÐµ Ð¸Ð¼Ñ'>
    <if what='!$editid'>
     <zone>
      <perms id='$,ParentId'>
@@ -85,57 +85,57 @@
 		   remember='$remember' onclick='reloginSelected(this);'>
     </zone>
     <error id='*EF_CAPTCHA_ABSENT'
-           text='ðÏÖÁÌÕÊÓÔÁ, ××ÅÄÉÔÅ ÃÉÆÒÙ É ÂÕË×Ù, ËÏÔÏÒÙÅ ×Ù ×ÉÄÉÔÅ ÎÁ
-                 ËÁÒÔÉÎËÅ. üÔÏ ÎÅÏÂÈÏÄÉÍÏ ÎÁÍ ÄÌÑ ÂÏÒØÂÙ ÓÏ ÓÐÁÍÏÍ.'>
-    <error id='*EF_CAPTCHA' text='îÅ×ÅÒÎÙÅ ÃÉÆÒÙ É ÂÕË×Ù, ÐÏÐÒÏÂÕÊÔÅ ÅÝÅ ÒÁÚ'>
+           text='ÐŸÐ¾Ð¶Ð°Ð»ÑƒÐ¹ÑÑ‚Ð°, Ð²Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ†Ð¸Ñ„Ñ€Ñ‹ Ð¸ Ð±ÑƒÐºÐ²Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð²Ñ‹ Ð²Ð¸Ð´Ð¸Ñ‚Ðµ Ð½Ð°
+                 ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐµ. Ð­Ñ‚Ð¾ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ Ð½Ð°Ð¼ Ð´Ð»Ñ Ð±Ð¾Ñ€ÑŒÐ±Ñ‹ ÑÐ¾ ÑÐ¿Ð°Ð¼Ð¾Ð¼.'>
+    <error id='*EF_CAPTCHA' text='ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ðµ Ñ†Ð¸Ñ„Ñ€Ñ‹ Ð¸ Ð±ÑƒÐºÐ²Ñ‹, Ð¿Ð¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ðµ Ñ€Ð°Ð·'>
     <form_captcha id='captcha' name='captcha'>
    </if>
    <error id='*EF_BODY_ABSENT'
-	  text='îÁÐÉÛÉÔÅ ÈÏÔÑ ÂÙ ÐÁÒÕ ÓÔÒÏÞÅË × ÔÅÌÅ ÓÏÏÂÝÅÎÉÑ'>
-   <form_editor name='body' title='ôÅËÓÔ' body='$=,Body'
+	  text='ÐÐ°Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ Ñ…Ð¾Ñ‚Ñ Ð±Ñ‹ Ð¿Ð°Ñ€Ñƒ ÑÑ‚Ñ€Ð¾Ñ‡ÐµÐº Ð² Ñ‚ÐµÐ»Ðµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ'>
+   <form_editor name='body' title='Ð¢ÐµÐºÑÑ‚' body='$=,Body'
 		mandatory='$$forumMandatoryBody' rows=12 xmlid='$xmlid'>
    <<help_link href='/help/formatting/'
-	      title='óÐÉÓÏË ÏÂÏÚÎÁÞÅÎÉÊ, ÉÓÐÏÌØÚÕÅÍÙÈ × ÔÅËÓÔÅ'>>
-   <error id='*EF_IMAGE_ABSENT' text='ïÔÓÕÔÓÔ×ÕÅÔ ËÁÒÔÉÎËÁ'>
-   <error id='*EF_NO_IMAGE' text='õËÁÚÁÎÎÏÊ ËÁÒÔÉÎËÉ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-   <error id='*EIU_UNKNOWN_IMAGE' text='îÅÉÚ×ÅÓÔÎÙÊ ÆÏÒÍÁÔ ËÁÒÔÉÎËÉ'>
-   <error id='*EIU_IMAGE_LARGE' text='ëÁÒÔÉÎËÁ ÓÌÉÛËÏÍ ×ÅÌÉËÁ (ÂÏÌØÛÅ 2M)'>
+	      title='Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¾Ð±Ð¾Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ð² Ñ‚ÐµÐºÑÑ‚Ðµ'>>
+   <error id='*EF_IMAGE_ABSENT' text='ÐžÑ‚ÑÑƒÑ‚ÑÑ‚Ð²ÑƒÐµÑ‚ ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ°'>
+   <error id='*EF_NO_IMAGE' text='Ð£ÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ð¹ ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ¸ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+   <error id='*EIU_UNKNOWN_IMAGE' text='ÐÐµÐ¸Ð·Ð²ÐµÑÑ‚Ð½Ñ‹Ð¹ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ¸'>
+   <error id='*EIU_IMAGE_LARGE' text='ÐšÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ° ÑÐ»Ð¸ÑˆÐºÐ¾Ð¼ Ð²ÐµÐ»Ð¸ÐºÐ° (Ð±Ð¾Ð»ÑŒÑˆÐµ 2M)'>
    <error id='*EIU_UNKNOWN_THUMBNAIL'
-	  text='æÏÒÍÁÔ ÍÁÌÅÎØËÏÊ ËÁÒÔÉÎËÉ, ÕËÁÚÁÎÎÙÊ ÐÒÉ ËÏÎÆÉÇÕÒÁÃÉÉ ÓÅÒ×ÅÒÁ,
-		ÎÅ ÐÏÄÄÅÒÖÉ×ÁÅÔÓÑ'>
-   <error id='*EIU_INTERNAL_ERROR' text='îÅ ÕÄÁÌÏÓØ ÚÁÇÒÕÚÉÔØ ËÁÒÔÉÎËÕ'>
+	  text='Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚ Ð¼Ð°Ð»ÐµÐ½ÑŒÐºÐ¾Ð¹ ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ¸, ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ñ‹Ð¹ Ð¿Ñ€Ð¸ ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸ ÑÐµÑ€Ð²ÐµÑ€Ð°,
+		Ð½Ðµ Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶Ð¸Ð²Ð°ÐµÑ‚ÑÑ'>
+   <error id='*EIU_INTERNAL_ERROR' text='ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÑƒ'>
    <moderator>
-    <assign name='who' value='Á×ÔÏÒÕ'>
+    <assign name='who' value='Ð°Ð²Ñ‚Ð¾Ñ€Ñƒ'>
    <else>
-    <assign name='who' value='ÍÎÅ'>
+    <assign name='who' value='Ð¼Ð½Ðµ'>
    </moderator>
    <logged>
-    <form_select title='÷ÉÄÉÍÏÓÔØ' name='hidden' style='box'>
-     <form_option title='óÏÏÂÝÅÎÉÅ ×ÉÄÎÏ ×ÓÅÍ ÐÏÌØÚÏ×ÁÔÅÌÑÍ' value='0'
+    <form_select title='Ð’Ð¸Ð´Ð¸Ð¼Ð¾ÑÑ‚ÑŒ' name='hidden' style='box'>
+     <form_option title='Ð¡Ð¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð²Ð¸Ð´Ð½Ð¾ Ð²ÑÐµÐ¼ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑÐ¼' value='0'
                   selected!='!$,isHidden'>
-     <form_option title#='óÏÏÂÝÅÎÉÅ ×ÉÄÎÏ ÔÏÌØËÏ $who É ÍÏÄÅÒÁÔÏÒÁÍ' value='1'
+     <form_option title#='Ð¡Ð¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð²Ð¸Ð´Ð½Ð¾ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ $who Ð¸ Ð¼Ð¾Ð´ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð°Ð¼' value='1'
                   selected='$,isHidden'>
     </form_select>
    <else>
     <hidden name='hidden' value='0'>
    </logged>
    <moderator>
-    <form_select title='úÁÐÒÅÔÉÔØ ÐÏËÁÚ'
-                 comment='íÏÄÅÒÁÔÏÒÓËÉÊ ÚÁÐÒÅÔ ÎÁ ÐÏËÁÚ ÓÏÏÂÝÅÎÉÑ. ðÏÌØÚÏ×ÁÔÅÌØ
-		          ÎÅ ÍÏÖÅÔ ÓÎÑÔØ ÜÔÏÔ ÚÁÐÒÅÔ.'
+    <form_select title='Ð—Ð°Ð¿Ñ€ÐµÑ‚Ð¸Ñ‚ÑŒ Ð¿Ð¾ÐºÐ°Ð·'
+                 comment='ÐœÐ¾Ð´ÐµÑ€Ð°Ñ‚Ð¾Ñ€ÑÐºÐ¸Ð¹ Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð½Ð° Ð¿Ð¾ÐºÐ°Ð· ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ. ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ
+		          Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ ÑÐ½ÑÑ‚ÑŒ ÑÑ‚Ð¾Ñ‚ Ð·Ð°Ð¿Ñ€ÐµÑ‚.'
 		 name='disabled' style='box'>
-     <form_option title='îÅÔ ÚÁÐÒÅÔÁ ÎÁ ÐÏËÁÚ ×ÓÅÍ ÐÏÌØÚÏ×ÁÔÅÌÑÍ' value='0'
+     <form_option title='ÐÐµÑ‚ Ð·Ð°Ð¿Ñ€ÐµÑ‚Ð° Ð½Ð° Ð¿Ð¾ÐºÐ°Ð· Ð²ÑÐµÐ¼ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑÐ¼' value='0'
                   selected!='!$,isDisabled'>
-     <form_option title#='òÁÚÒÅÛÅÎÏ ÐÏËÁÚÙ×ÁÔØ ÔÏÌØËÏ $who É ÍÏÄÅÒÁÔÏÒÁÍ'
+     <form_option title#='Ð Ð°Ð·Ñ€ÐµÑˆÐµÐ½Ð¾ Ð¿Ð¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ $who Ð¸ Ð¼Ð¾Ð´ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð°Ð¼'
                   value='1' selected='$,isDisabled'>
     </form_select>
    <else>
     <hidden name='disabled' value='$,isDisabled'>
    </moderator>
    <if what='$editid'>
-    <form_buttons title='éÚÍÅÎÉÔØ'>
+    <form_buttons title='Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ'>
    <else>
-    <form_buttons title='äÏÂÁ×ÉÔØ'>
+    <form_buttons title='Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ'>
    </if>
   </form>
  </form_table>

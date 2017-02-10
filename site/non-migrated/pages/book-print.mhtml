@@ -19,7 +19,7 @@
    </ifne>
    <p>$,BodyHTML</p>
   </td></tr></table>
-  <h1>Оглавление</h1>
+  <h1>п·пЁп╩п╟п╡п╩п╣п╫п╦п╣</h1>
   <iterate_postinglist grp='*GRP_BOOK_CHAPTERS' limit=0 sort='*SORT_INDEX0'
                up='$,OrigId'>
   <ul>

@@ -34,10 +34,10 @@
  <div class='batcher'>
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
-   <a href='/times/$$issue/add/?redirid=$_'>Добавить статью</a>
+   <a href='/times/$$issue/add/?redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ я│я┌п╟я┌я▄я▌</a>
    <if what='$$issue>0'>
     &nbsp;
-    <a href='/times/$$issue/reorder/?redirid=$_'>Расставить</a>
+    <a href='/times/$$issue/reorder/?redirid=$_'>п═п╟я│я│я┌п╟п╡п╦я┌я▄</a>
    </if>
   </div>
   <div class='clear-floats'></div>
@@ -50,7 +50,7 @@
             if!='!$$times.isPostable'>
  <form method='get' action='/actions/goto/href'><table class='ninept'>
   <tr>
-   <td>Номер</td>
+   <td>п²п╬п╪п╣я─</td>
    <td><select name='okdir'>
     <iterate_postinglist grp='*GRP_TIMES_COVERS' limit=0 sort='*SORT_RINDEX1'>
     <for>
@@ -63,7 +63,7 @@
     </for>
    </select></td>
    <td>
-    <input type=submit value='Выбрать'>
+    <input type=submit value='п▓я▀п╠я─п╟я┌я▄'>
    </td>
   </tr>
  </tr></table></form>
@@ -79,7 +79,7 @@
      <div class='batcher'>
       <div class='adder'>
        <image src='/pics/sheet.gif'>&sp;
-       <a href='/times/add/?redirid=$_'>Добавить номер</a>
+       <a href='/times/add/?redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ п╫п╬п╪п╣я─</a>
       </div>
       <div class='clear-floats'></div>
      </div>
@@ -106,60 +106,60 @@
 <div class='ninept'>
  <dl class='info'>
   <if what='$$issue>=26'>
-   <dt>Директор издания</dt>
-   <dd>Кира Верховская</dd>
+   <dt>п■п╦я─п╣п╨я┌п╬я─ п╦п╥п╢п╟п╫п╦я▐</dt>
+   <dd>п п╦я─п╟ п▓п╣я─я┘п╬п╡я│п╨п╟я▐</dd>
   </if>
   <if what='$$issue<26'>
-   <dt>Главный редактор</dt>
-   <dd>Болеслав Капулкин</dd>
+   <dt>п⌠п╩п╟п╡п╫я▀п╧ я─п╣п╢п╟п╨я┌п╬я─</dt>
+   <dd>п▒п╬п╩п╣я│п╩п╟п╡ п п╟п©я┐п╩п╨п╦п╫</dd>
   <elif what='$$issue>=36'>
-   <dt>Главный редактор</dt>
-   <dd>Инна Найдис</dd>
+   <dt>п⌠п╩п╟п╡п╫я▀п╧ я─п╣п╢п╟п╨я┌п╬я─</dt>
+   <dd>п≤п╫п╫п╟ п²п╟п╧п╢п╦я│</dd>
   </if>
 
   <if what='$$issue>=38 && $$issue<67 || $$issue>=86 && $$issue<99'>
-   <dt>Редактор</dt>
-   <dd>Ольга Ксендзюк</dd>
+   <dt>п═п╣п╢п╟п╨я┌п╬я─</dt>
+   <dd>п·п╩я▄пЁп╟ п я│п╣п╫п╢п╥я▌п╨</dd>
   <elif what='$$issue>=67 && $$issue<86'>
-   <dt>Редактор</dt>
-   <dd>Людмила Клигман</dd>
+   <dt>п═п╣п╢п╟п╨я┌п╬я─</dt>
+   <dd>п⌡я▌п╢п╪п╦п╩п╟ п п╩п╦пЁп╪п╟п╫</dd>
   </if>
 
-  <dt>Редколлегия</dt>
+  <dt>п═п╣п╢п╨п╬п╩п╩п╣пЁп╦я▐</dt>
   <if what='$$issue>=26'>
-   <dd>Полина Блиндер</dd>
+   <dd>п÷п╬п╩п╦п╫п╟ п▒п╩п╦п╫п╢п╣я─</dd>
   </if>
   <if what='$$issue<27'>
-   <dd>Елена Каракина</dd>
+   <dd>п∙п╩п╣п╫п╟ п п╟я─п╟п╨п╦п╫п╟</dd>
   </if>
-  <dd>Анна Мисюк</dd>
+  <dd>п░п╫п╫п╟ п°п╦я│я▌п╨</dd>
   <if what='$$issue<36'>
-   <dd>Инна Найдис</dd>
+   <dd>п≤п╫п╫п╟ п²п╟п╧п╢п╦я│</dd>
   </if>
   <if what='$$issue<99'>
-   <dd>Леонид Штекель</dd>
+   <dd>п⌡п╣п╬п╫п╦п╢ п╗я┌п╣п╨п╣п╩я▄</dd>
   </if>
   <if what='$$issue>=112'>
-   <dd>Ольга Ксендзюк</dd>
+   <dd>п·п╩я▄пЁп╟ п я│п╣п╫п╢п╥я▌п╨</dd>
   </if>
 
-  <dt>Адрес редакции:</dt>
-  <dd>г. Одесса, ул. М. Арнаутская, 46-а, к.1. Тел.: 37-21-28.</dd>
+  <dt>п░п╢я─п╣я│ я─п╣п╢п╟п╨я├п╦п╦:</dt>
+  <dd>пЁ. п·п╢п╣я│я│п╟, я┐п╩. п°. п░я─п╫п╟я┐я┌я│п╨п╟я▐, 46-п╟, п╨.1. п╒п╣п╩.: 37-21-28.</dd>
 
   <dt>E-mail:</dt>
   <dd><a href='mailto:m_times@migdal.org.ua'>m_times@migdal.org.ua</a></dd>
  </dl>
  <p>
- <em>ДА НЕ ОСКУДЕЕТ РУКА ДАЮЩЕГО</em><br>
- Редакция благодарит Американский распределительный комитет
- &lt;&lt;Джойнт&gt;&gt;, чья любезная помощь сделала возможным выход этого
- номера.
+ <em>п■п░ п²п∙ п·п║п пёп■п∙п∙п╒ п═пёп п░ п■п░п╝п╘п∙п⌠п·</em><br>
+ п═п╣п╢п╟п╨я├п╦я▐ п╠п╩п╟пЁп╬п╢п╟я─п╦я┌ п░п╪п╣я─п╦п╨п╟п╫я│п╨п╦п╧ я─п╟я│п©я─п╣п╢п╣п╩п╦я┌п╣п╩я▄п╫я▀п╧ п╨п╬п╪п╦я┌п╣я┌
+ &lt;&lt;п■п╤п╬п╧п╫я┌&gt;&gt;, я┤я▄я▐ п╩я▌п╠п╣п╥п╫п╟я▐ п©п╬п╪п╬я┴я▄ я│п╢п╣п╩п╟п╩п╟ п╡п╬п╥п╪п╬п╤п╫я▀п╪ п╡я▀я┘п╬п╢ я█я┌п╬пЁп╬
+ п╫п╬п╪п╣я─п╟.
  <p>
- <em>ДА НЕ ОСКУДЕЕТ ГЛАЗ ЧИТАЮЩЕГО</em><br>
- Редакция благодарит всех читателей, взявших на себя труд прочесть этот номер.
+ <em>п■п░ п²п∙ п·п║п пёп■п∙п∙п╒ п⌠п⌡п░п≈ п╖п≤п╒п░п╝п╘п∙п⌠п·</em><br>
+ п═п╣п╢п╟п╨я├п╦я▐ п╠п╩п╟пЁп╬п╢п╟я─п╦я┌ п╡я│п╣я┘ я┤п╦я┌п╟я┌п╣п╩п╣п╧, п╡п╥я▐п╡я┬п╦я┘ п╫п╟ я│п╣п╠я▐ я┌я─я┐п╢ п©я─п╬я┤п╣я│я┌я▄ я█я┌п╬я┌ п╫п╬п╪п╣я─.
  <p>
- <em>ОСОБАЯ БЛАГОДАРНОСТЬ</em><br>
- Вс-вышнему, благословен Он, для которого нет ничего невозможного.
+ <em>п·п║п·п▒п░п╞ п▒п⌡п░п⌠п·п■п░п═п²п·п║п╒п╛</em><br>
+ п▓я│-п╡я▀я┬п╫п╣п╪я┐, п╠п╩п╟пЁп╬я│п╩п╬п╡п╣п╫ п·п╫, п╢п╩я▐ п╨п╬я┌п╬я─п╬пЁп╬ п╫п╣я┌ п╫п╦я┤п╣пЁп╬ п╫п╣п╡п╬п╥п╪п╬п╤п╫п╬пЁп╬.
 </div>
 </element>
 
@@ -186,7 +186,7 @@
   </ifnzero>
  </for>
  <sibling_index grp='*GRP_TIMES_COVERS' index1='$nfirst' next='*true'>
- <issue_further issue='$,' pic='/pics/upper.gif' title='Новые номера'>
+ <issue_further issue='$,' pic='/pics/upper.gif' title='п²п╬п╡я▀п╣ п╫п╬п╪п╣я─п╟'>
  <iterate_postinglist name='covers' grp='*GRP_TIMES_COVERS' limit=5
 		      sort='*SORT_RINDEX1' index1='$nfirst' as_guest='*true'>
  <for>
@@ -209,7 +209,7 @@
   <p>
  </for>
  <sibling_index grp='*GRP_TIMES_COVERS' index1='$nlast' next='*false'>
- <issue_further issue='$,' pic='/pics/lower.gif' title='Старые номера'>
+ <issue_further issue='$,' pic='/pics/lower.gif' title='п║я┌п╟я─я▀п╣ п╫п╬п╪п╣я─п╟'>
 </html_cache>
 </element>
 
@@ -221,7 +221,7 @@
   <td class='mtimes cframe'>
    <table><tr valign=bottom><td>
     <a href='/times/'><asp>
-     <image src='/pics/times.gif' alt='Мигдаль Times'>
+     <image src='/pics/times.gif' alt='п°п╦пЁп╢п╟п╩я▄ Times'>
     <asp></a>
    </td><td>
     <times_issue>

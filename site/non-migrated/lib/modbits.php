@@ -19,11 +19,11 @@ const MOD_DISABLED = -2;
 const MOD_DELETE = -3;
 
 $modbitLetters = array('M', 'H' /* deprecated */, 'E', 'S', 'L');
-$modbitNames = array('Модерировать',
+$modbitNames = array('п°п╬п╢п╣я─п╦я─п╬п╡п╟я┌я▄',
                      'HTML',  # deprecated
-                     'Редактировать',
-                     'Особо проверить',
-                     'Многостраничное');
+                     'п═п╣п╢п╟п╨я┌п╦я─п╬п╡п╟я┌я▄',
+                     'п·я│п╬п╠п╬ п©я─п╬п╡п╣я─п╦я┌я▄',
+                     'п°п╫п╬пЁп╬я│я┌я─п╟п╫п╦я┤п╫п╬п╣');
 
 // For topics
 const MODT_NONE = 0x0000;
@@ -34,11 +34,11 @@ const MODT_ROOT = 0x0008;
 const MODT_TRANSPARENT = 0x0010;
 const MODT_ALL = 0x001f;
 
-$modbitTNames = array('Премодерировать',
-                      'Модерировать',
-                      'Редактировать',
-                      'Корневая',
-                      'Прозрачная');
+$modbitTNames = array('п÷я─п╣п╪п╬п╢п╣я─п╦я─п╬п╡п╟я┌я▄',
+                      'п°п╬п╢п╣я─п╦я─п╬п╡п╟я┌я▄',
+                      'п═п╣п╢п╟п╨я┌п╦я─п╬п╡п╟я┌я▄',
+                      'п п╬я─п╫п╣п╡п╟я▐',
+                      'п÷я─п╬п╥я─п╟я┤п╫п╟я▐');
 
 class Modbit {
 

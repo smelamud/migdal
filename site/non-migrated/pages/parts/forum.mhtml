@@ -19,24 +19,24 @@
    <selflink href#='$href/?tid=$forum.Id#t$forum.Id'>
    &nbsp;&nbsp;
    <a href="$href/reply/?peerid=$forum.Id&redirid=$_"
-      title='Ответить с цитированием'>Ответить</a>
+      title='п·я┌п╡п╣я┌п╦я┌я▄ я│ я├п╦я┌п╦я─п╬п╡п╟п╫п╦п╣п╪'>п·я┌п╡п╣я┌п╦я┌я▄</a>
    <iswrite what='$forum'>
     &nbsp;&nbsp;
-    <a href="$href/update/?editid=$forum.Id&redirid=$_">Изменить</a>
+    <a href="$href/update/?editid=$forum.Id&redirid=$_">п≤п╥п╪п╣п╫п╦я┌я▄</a>
     <moderator>
      &nbsp;&nbsp;
      <if what='$forum.isDisabled'>
       <a href="/actions/entry/moderate?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
-       <asp>Разрешить&nbsp;показ<asp>
+       <asp>п═п╟п╥я─п╣я┬п╦я┌я▄&nbsp;п©п╬п╨п╟п╥<asp>
       <asp></a>
      <else>
       <a href="/actions/entry/moderate?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
-       <asp>Запретить показ<asp>
+       <asp>п≈п╟п©я─п╣я┌п╦я┌я▄ п©п╬п╨п╟п╥<asp>
       <asp></a>
      </if>
      &nbsp;&nbsp;
      <a href="/actions/forum/delete?id=$forum.Id&okdir=$#-&faildir=$#-"><asp>
-      <asp>Удалить<asp>
+      <asp>пёп╢п╟п╩п╦я┌я▄<asp>
      <asp></a>
     </moderator>
    </iswrite>

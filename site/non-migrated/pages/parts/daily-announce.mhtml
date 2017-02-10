@@ -21,7 +21,7 @@
    </ul></td></tr>
    <islast what='$days'>
     <tr><td style='padding-left: 2em'>
-     <a href='$href' class='eightpt'><b>Все дни</b></a>
+     <a href='$href' class='eightpt'><b>п▓я│п╣ п╢п╫п╦</b></a>
     </td></tr>
    </islast>
   </table>

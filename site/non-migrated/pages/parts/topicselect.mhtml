@@ -16,9 +16,9 @@
    <if what='!$mandatory || $value<=0'>
     <ife what='$null_title'>
      <if what='$mandatory'>
-      <assign name='title' value='-- ÷ÙÂÅÒÉÔÅ ÔÅÍÕ --'>
+      <assign name='title' value='-- Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ‚ÐµÐ¼Ñƒ --'>
      <else>
-      <assign name='title' value='-- âÅÚ ÔÅÍÙ --'>
+      <assign name='title' value='-- Ð‘ÐµÐ· Ñ‚ÐµÐ¼Ñ‹ --'>
      </if>
     <else>
      <assign name='title' value#='-- $null_title --'>
@@ -52,9 +52,9 @@
 	       mandatory='$mandatory'>
    <if what='!$mandatory || $value<=0'>
     <if what='$mandatory'>
-     <assign name='title' value='-- ÷ÙÂÅÒÉÔÅ ÔÅÍÕ --'>
+     <assign name='title' value='-- Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ‚ÐµÐ¼Ñƒ --'>
     <else>
-     <assign name='title' value='-- âÅÚ ÔÅÍÙ --'>
+     <assign name='title' value='-- Ð‘ÐµÐ· Ñ‚ÐµÐ¼Ñ‹ --'>
     </if>
     <form_option title='$title' value='0' selected!='$value==0'>
    </if>

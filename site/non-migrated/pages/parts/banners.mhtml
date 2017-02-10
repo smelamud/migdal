@@ -19,12 +19,12 @@
 	val6='/pics/banners/secret.jpg'
 	val7='/pics/banners/drnona.gif'>
  <array name='alts'
-        val1='÷ÓÅÍÉÒÎÙÊ&sp;ËÌÕÂ&sp;ÏÄÅÓÓÉÔÏ×'
-        val2='å×ÒÅÊÓËÉÊ&sp;ÐÅÄÓÏ×ÅÔ'
+        val1='Ð’ÑÐµÐ¼Ð¸Ñ€Ð½Ñ‹Ð¹&sp;ÐºÐ»ÑƒÐ±&sp;Ð¾Ð´ÐµÑÑÐ¸Ñ‚Ð¾Ð²'
+        val2='Ð•Ð²Ñ€ÐµÐ¹ÑÐºÐ¸Ð¹&sp;Ð¿ÐµÐ´ÑÐ¾Ð²ÐµÑ‚'
         val3='Jerusalem&sp;Anthologia'
-	val4='öÕÒÎÁÌ&sp;"óÐÅËÔÒ"'
+	val4='Ð–ÑƒÑ€Ð½Ð°Ð»&sp;"Ð¡Ð¿ÐµÐºÑ‚Ñ€"'
 	val5='Jewniverse&sp;-&sp;Yiddish&sp;Shtetl'
-	val6='åÖÅÎÅÄÅÌØÎÉË&sp;"óÅËÒÅÔ"'
+	val6='Ð•Ð¶ÐµÐ½ÐµÐ´ÐµÐ»ÑŒÐ½Ð¸Ðº&sp;"Ð¡ÐµÐºÑ€ÐµÑ‚"'
 	val7='Dr.&sp;NONA'>
  <assign name='count' value!='count($urls)'>
  <iterate_random_seq n=3 min=1 max='$count'>

@@ -32,7 +32,7 @@
 
  <top ident='index'>
  <posting_obj id='$postid'>
- <form_table title#='˜”‘¡◊À¡ À¡“‘…ŒÀ… ◊ ”‘¡‘ÿ¿ "$=,Subject"'>
+ <form_table title#='–í—Å—Ç–∞–≤–∫–∞ –∫–∞—Ä—Ç–∏–Ω–∫–∏ –≤ —Å—Ç–∞—Ç—å—é "$=,Subject"'>
   <form method=post enctype='multipart/form-data'
 	action='/actions/posting/image/modify'>
    <hidden name='edittag' value=1>
@@ -43,11 +43,11 @@
    <starinfo>
    <inner_image_par name='inner' entry_id='$postid' par='$par' x='$x' y='$y'>
    <setup>
-   <form_section title='˜Ÿ¬“¡‘ÿ …⁄ ”–…”À¡'>
-   <error id='*ELIM_POSTING_WRITE' text='˜Ÿ Œ≈ Õœ÷≈‘≈ ◊”‘¡◊Ã—‘ÿ À¡“‘…ŒÀ… ◊ ‹‘œ ”œœ¬›≈Œ…≈'>
+   <form_section title='–í—ã–±—Ä–∞—Ç—å –∏–∑ —Å–ø–∏—Å–∫–∞'>
+   <error id='*ELIM_POSTING_WRITE' text='–í—ã –Ω–µ –º–æ–∂–µ—Ç–µ –≤—Å—Ç–∞–≤–ª—è—Ç—å –∫–∞—Ä—Ç–∏–Ω–∫–∏ –≤ —ç—Ç–æ —Å–æ–æ–±—â–µ–Ω–∏–µ'>
    <iterate_images postid='$postid'>
-   <form_select title='˜Ÿ¬“¡‘ÿ À¡“‘…ŒÀ’' name='editid'>
-    <form_option title='-- ’”‘œ --' value='0' selected!='$,ImageId==0'>
+   <form_select title='–í—ã–±—Ä–∞—Ç—å –∫–∞—Ä—Ç–∏–Ω–∫—É' name='editid'>
+    <form_option title='-- –ü—É—Å—Ç–æ --' value='0' selected!='$,ImageId==0'>
     <for>
      <ife what='$.Title'>
       <assign name='name' value='$.LargeImageFilename'>
@@ -66,43 +66,43 @@
    </form_select>
    <image_obj id='$editid'>
    <setup>
-   <form_section title='˙¡«“’⁄…‘ÿ …⁄ ∆¡ Ã¡'>
-   <form_select title='˙¡Õ≈Œ…‘ÿ À¡“‘…ŒÀ’ …⁄ ”–…”À¡' name='append' style='box'>
-    <form_option title='‰œ¬¡◊…‘ÿ À¡“‘…ŒÀ’ …⁄ ∆¡ Ã¡ À ”–…”À’' value='1'
+   <form_section title='–ó–∞–≥—Ä—É–∑–∏—Ç—å –∏–∑ —Ñ–∞–π–ª–∞'>
+   <form_select title='–ó–∞–º–µ–Ω–∏—Ç—å –∫–∞—Ä—Ç–∏–Ω–∫—É –∏–∑ —Å–ø–∏—Å–∫–∞' name='append' style='box'>
+    <form_option title='–î–æ–±–∞–≤–∏—Ç—å –∫–∞—Ä—Ç–∏–Ω–∫—É –∏–∑ —Ñ–∞–π–ª–∞ –∫ —Å–ø–∏—Å–∫—É' value='1'
                  selected!='$append!=0'>
-    <form_option title='˙¡Õ≈Œ…‘ÿ ◊Ÿ¬“¡ŒŒ’¿ À¡“‘…ŒÀ’ …⁄ ”–…”À¡ Œ¡ À¡“‘…ŒÀ’
-                        …⁄ ∆¡ Ã¡' value='0' selected!='$append==0'>
+    <form_option title='–ó–∞–º–µ–Ω–∏—Ç—å –≤—ã–±—Ä–∞–Ω–Ω—É—é –∫–∞—Ä—Ç–∏–Ω–∫—É –∏–∑ —Å–ø–∏—Å–∫–∞ –Ω–∞ –∫–∞—Ä—Ç–∏–Ω–∫—É
+                        –∏–∑ —Ñ–∞–π–ª–∞' value='0' selected!='$append==0'>
    </form_select>
-   <error id='*ELIM_NO_EDIT' text='˜Ÿ Œ≈ Õœ÷≈‘≈ “≈ƒ¡À‘…“œ◊¡‘ÿ ‹‘’ À¡“‘…ŒÀ’'>
-   <error id='*ELIM_NO_POSTING' text='˜Ÿ€≈”‘œ—›≈«œ ”œœ¬›≈Œ…— Œ≈ ”’›≈”‘◊’≈‘'>
-   <error id='*ELIM_POSTING_APPEND' text='˜Ÿ Œ≈ Õœ÷≈‘≈ “≈ƒ¡À‘…“œ◊¡‘ÿ ‹‘œ‘ ”–…”œÀ'>
-   <error id='*ELIM_IMAGE_ABSENT' text='Î¡“‘…ŒÀ¡ Œ≈ ’À¡⁄¡Œ¡'>
-   <error id='*EIU_UNKNOWN_IMAGE' text='Ó≈…⁄◊≈”‘ŒŸ  ∆œ“Õ¡‘ À¡“‘…ŒÀ…'>
-   <error id='*EIU_IMAGE_LARGE' text='Î¡“‘…ŒÀ¡ ”Ã…€ÀœÕ ◊≈Ã…À¡ (¬œÃÿ€≈ 2M)'>
+   <error id='*ELIM_NO_EDIT' text='–í—ã –Ω–µ –º–æ–∂–µ—Ç–µ —Ä–µ–¥–∞–∫—Ç–∏—Ä–æ–≤–∞—Ç—å —ç—Ç—É –∫–∞—Ä—Ç–∏–Ω–∫—É'>
+   <error id='*ELIM_NO_POSTING' text='–í—ã—à–µ—Å—Ç–æ—è—â–µ–≥–æ —Å–æ–æ–±—â–µ–Ω–∏—è –Ω–µ —Å—É—â–µ—Å—Ç–≤—É–µ—Ç'>
+   <error id='*ELIM_POSTING_APPEND' text='–í—ã –Ω–µ –º–æ–∂–µ—Ç–µ —Ä–µ–¥–∞–∫—Ç–∏—Ä–æ–≤–∞—Ç—å —ç—Ç–æ—Ç —Å–ø–∏—Å–æ–∫'>
+   <error id='*ELIM_IMAGE_ABSENT' text='–ö–∞—Ä—Ç–∏–Ω–∫–∞ –Ω–µ —É–∫–∞–∑–∞–Ω–∞'>
+   <error id='*EIU_UNKNOWN_IMAGE' text='–ù–µ–∏–∑–≤–µ—Å—Ç–Ω—ã–π —Ñ–æ—Ä–º–∞—Ç –∫–∞—Ä—Ç–∏–Ω–∫–∏'>
+   <error id='*EIU_IMAGE_LARGE' text='–ö–∞—Ä—Ç–∏–Ω–∫–∞ —Å–ª–∏—à–∫–æ–º –≤–µ–ª–∏–∫–∞ (–±–æ–ª—å—à–µ 2M)'>
    <error id='*EIU_UNKNOWN_THUMBNAIL'
-	  text='Êœ“Õ¡‘ Õ¡Ã≈ŒÿÀœ  À¡“‘…ŒÀ…, ’À¡⁄¡ŒŒŸ  –“… ÀœŒ∆…«’“¡√…… ”≈“◊≈“¡,
-		Œ≈ –œƒƒ≈“÷…◊¡≈‘”—'>
-   <error id='*EIU_INTERNAL_ERROR' text='Ó≈ ’ƒ¡Ãœ”ÿ ⁄¡«“’⁄…‘ÿ À¡“‘…ŒÀ’'>
-   <error id='*EVH_NO_PARENT' text='Ù¡Àœ  ‘≈ÕŸ Œ≈ ”’›≈”‘◊’≈‘'>
-   <error id='*EVH_NO_UP' text='˜Ÿ€≈”‘œ—›≈«œ ”œœ¬›≈Œ…— Œ≈ ”’›≈”‘◊’≈‘'>
-   <error id='*EVH_LOOP' text='Ûœœ¬›≈Œ…≈ Œ≈ Õœ÷≈‘ ¬Ÿ‘ÿ –œƒﬁ…Œ≈ŒŒŸÕ ”≈¬≈'>
+	  text='–§–æ—Ä–º–∞—Ç –º–∞–ª–µ–Ω—å–∫–æ–π –∫–∞—Ä—Ç–∏–Ω–∫–∏, —É–∫–∞–∑–∞–Ω–Ω—ã–π –ø—Ä–∏ –∫–æ–Ω—Ñ–∏–≥—É—Ä–∞—Ü–∏–∏ —Å–µ—Ä–≤–µ—Ä–∞,
+		–Ω–µ –ø–æ–¥–¥–µ—Ä–∂–∏–≤–∞–µ—Ç—Å—è'>
+   <error id='*EIU_INTERNAL_ERROR' text='–ù–µ —É–¥–∞–ª–æ—Å—å –∑–∞–≥—Ä—É–∑–∏—Ç—å –∫–∞—Ä—Ç–∏–Ω–∫—É'>
+   <error id='*EVH_NO_PARENT' text='–¢–∞–∫–æ–π —Ç–µ–º—ã –Ω–µ —Å—É—â–µ—Å—Ç–≤—É–µ—Ç'>
+   <error id='*EVH_NO_UP' text='–í—ã—à–µ—Å—Ç–æ—è—â–µ–≥–æ —Å–æ–æ–±—â–µ–Ω–∏—è –Ω–µ —Å—É—â–µ—Å—Ç–≤—É–µ—Ç'>
+   <error id='*EVH_LOOP' text='–°–æ–æ–±—â–µ–Ω–∏–µ –Ω–µ –º–æ–∂–µ—Ç –±—ã—Ç—å –ø–æ–¥—á–∏–Ω–µ–Ω–Ω—ã–º —Å–µ–±–µ'>
    <error id='*EVH_NOT_UP_UNDER_PARENT'
-	  text='Ù≈Õ¡ ◊Ÿ€≈”‘œ—›≈«œ ”œœ¬›≈Œ…— ƒœÃ÷Œ¡ ”œ◊–¡ƒ¡‘ÿ ” ‹‘œ  ‘≈Õœ '>
-   <error id='*EVH_INCORRECT' text='Ó¡“’€≈Œ…≈ …≈“¡“»…… œ¬ﬂ≈À‘œ◊'>
+	  text='–¢–µ–º–∞ –≤—ã—à–µ—Å—Ç–æ—è—â–µ–≥–æ —Å–æ–æ–±—â–µ–Ω–∏—è –¥–æ–ª–∂–Ω–∞ —Å–æ–≤–ø–∞–¥–∞—Ç—å —Å —ç—Ç–æ–π —Ç–µ–º–æ–π'>
+   <error id='*EVH_INCORRECT' text='–ù–∞—Ä—É—à–µ–Ω–∏–µ –∏–µ—Ä–∞—Ä—Ö–∏–∏ –æ–±—ä–µ–∫—Ç–æ–≤'>
    <if what='$,hasSmallImage'>
-    <assign name='loaded' value#='˙¡«“’÷≈Œ ∆¡ Ã $=,LargeImageFilename
+    <assign name='loaded' value#='–ó–∞–≥—Ä—É–∂–µ–Ω —Ñ–∞–π–ª $=,LargeImageFilename
 				  (${,LargeImageSizeKB}K)'>
    <else>
     <assign name='loaded' value=''>
    </if>
    <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
    <assign name='large_url' value="$,LargeImageURL">
-   <form_uploader title='È⁄œ¬“¡÷≈Œ…≈' name='image_file'
+   <form_uploader title='–ò–∑–æ–±—Ä–∞–∂–µ–Ω–∏–µ' name='image_file'
                   loaded='$loaded' delname='del_image'
 		  small_url='$small_url' large_url='$large_url'>
-   <form_checkbox title='˜”‘¡◊Ã—‘ÿ ◊ ’Õ≈Œÿ€≈ŒŒœÕ ◊…ƒ≈' name='has_large_image'
+   <form_checkbox title='–í—Å—Ç–∞–≤–ª—è—Ç—å –≤ —É–º–µ–Ω—å—à–µ–Ω–Ω–æ–º –≤–∏–¥–µ' name='has_large_image'
 		  checked='$,hasLargeImage' style='radio' id_yes='hlm-yes'>
-   <form_line title='Ú¡⁄Õ≈“'>
+   <form_line title='–†–∞–∑–º–µ—Ä'>
     <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4
           onkeypress='$("#hlm-yes").attr("checked", true)'>
     x
@@ -117,15 +117,15 @@
    <hidden name='large_image_size' value='$,LargeImageSize'>
    <hidden name='large_image_format' value='$,LargeImageFormat'>
    <hidden name='large_image_filename' value='$,LargeImageFilename'>
-   <form_editor title='œƒ–…”ÿ' name='title' body='$=,Title' rows=3>
-   <form_checkbox title='˙¡«“’÷¡‘ÿ ◊ ◊Ÿ”œÀœÕ “¡⁄“≈€≈Œ……'
-                  comment='È”–œÃÿ⁄œ◊¡‘ÿ ‘œÃÿÀœ ◊ …”ÀÃ¿ﬁ…‘≈ÃÿŒŸ» ”Ã’ﬁ¡—»'
+   <form_editor title='–ü–æ–¥–ø–∏—Å—å' name='title' body='$=,Title' rows=3>
+   <form_checkbox title='–ó–∞–≥—Ä—É–∂–∞—Ç—å –≤ –≤—ã—Å–æ–∫–æ–º —Ä–∞–∑—Ä–µ—à–µ–Ω–∏–∏'
+                  comment='–ò—Å–ø–æ–ª—å–∑–æ–≤–∞—Ç—å —Ç–æ–ª—å–∫–æ –≤ –∏—Å–∫–ª—é—á–∏—Ç–µ–ª—å–Ω—ã—Ö —Å–ª—É—á–∞—è—Ö'
                   name='no_resize' style='box' checked!='$no_resize!=0'>
-   <form_section title='Ú¡⁄Õ≈›≈Œ…≈'>
+   <form_section title='–†–∞–∑–º–µ—â–µ–Ω–∏–µ'>
    <hidden name='par' value='$par'>
    <hidden name='x' value='$x'>
    <hidden name='y' value='$y'>
-   <form_line title='Ú¡⁄Õ≈›≈Œ…≈ À¡“‘…ŒÀ… œ‘Œœ”…‘≈ÃÿŒœ ‘≈À”‘¡'>
+   <form_line title='–†–∞–∑–º–µ—â–µ–Ω–∏–µ –∫–∞—Ä—Ç–∏–Ω–∫–∏ –æ—Ç–Ω–æ—Å–∏—Ç–µ–ª—å–Ω–æ —Ç–µ–∫—Å—Ç–∞'>
     <table>
      <tr>
       <td align=center><place value='*IPL_CENTERLEFT'></td>
@@ -134,12 +134,12 @@
      </tr>
      <tr>
       <td align=center><place value='*IPL_BOTTOMLEFT'></td>
-      <td align=center><i>Ù≈À”‘</i></td>
+      <td align=center><i>–¢–µ–∫—Å—Ç</i></td>
       <td align=center><place value='*IPL_BOTTOMRIGHT'></td>
      </tr>
     </table>
    </form_line>
-   <form_buttons title='˜”‘¡◊…‘ÿ'>
+   <form_buttons title='–í—Å—Ç–∞–≤–∏—Ç—å'>
   </form>
  </form_table>
  <bottom>

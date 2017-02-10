@@ -31,7 +31,7 @@ const PERM_EP = 0x8000;
 const PERM_NONE = 0x0000;
 const PERM_ALL = 0xFFFF;
 
-// Проверка, разрешают ли указанные permission'ы указанное действие
+// п÷я─п╬п╡п╣я─п╨п╟, я─п╟п╥я─п╣я┬п╟я▌я┌ п╩п╦ я┐п╨п╟п╥п╟п╫п╫я▀п╣ permission'я▀ я┐п╨п╟п╥п╟п╫п╫п╬п╣ п╢п╣п╧я│я┌п╡п╦п╣
 function perm($user_id, $group_id, $perms, $right) {
     global $userId, $userGroups;
 
@@ -47,8 +47,8 @@ function perm($user_id, $group_id, $perms, $right) {
            ($perms & $right << PB_GUEST) != 0;
 }
 
-// Преобразование строки прав в маску. Вопросительные знаки заменяются
-// значениями из $default.
+// п÷я─п╣п╬п╠я─п╟п╥п╬п╡п╟п╫п╦п╣ я│я┌я─п╬п╨п╦ п©я─п╟п╡ п╡ п╪п╟я│п╨я┐. п▓п╬п©я─п╬я│п╦я┌п╣п╩я▄п╫я▀п╣ п╥п╫п╟п╨п╦ п╥п╟п╪п╣п╫я▐я▌я┌я│я▐
+// п╥п╫п╟я┤п╣п╫п╦я▐п╪п╦ п╦п╥ $default.
 function permString($s, $default = '----------------') {
     $tmpl = "rwaprwaprwaprwap";
     if (strlen($s) != strlen($tmpl))
@@ -67,7 +67,7 @@ function permString($s, $default = '----------------') {
     return $perm;
 }
 
-// Раскладывает строку прав на две маски - AND и OR
+// п═п╟я│п╨п╩п╟п╢я▀п╡п╟п╣я┌ я│я┌я─п╬п╨я┐ п©я─п╟п╡ п╫п╟ п╢п╡п╣ п╪п╟я│п╨п╦ - AND п╦ OR
 function permStringMask($s, &$andMask, &$orMask) {
     $tmpl = "rwaprwaprwaprwap";
     $andMask = PERM_ALL;
@@ -88,7 +88,7 @@ function permStringMask($s, &$andMask, &$orMask) {
     return 0;
 }
 
-// Преобразует маску в строку прав
+// п÷я─п╣п╬п╠я─п╟п╥я┐п╣я┌ п╪п╟я│п╨я┐ п╡ я│я┌я─п╬п╨я┐ п©я─п╟п╡
 function strPerms($perm, $escape = false) {
     $tmpl = "rwaprwaprwaprwap";
     $s = '';

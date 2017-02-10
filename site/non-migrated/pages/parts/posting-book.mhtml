@@ -11,7 +11,7 @@
 <if what='$,>0'>
  <p>
   <image src='/pics/further.gif'>&sp;
-  <a href='${posting.GrpDetailsHref}$,/'>Читать книгу</a>
+  <a href='${posting.GrpDetailsHref}$,/'>п╖п╦я┌п╟я┌я▄ п╨п╫п╦пЁя┐</a>
  </p>
 </if>
 </element>
@@ -39,9 +39,9 @@
  <for>
   <br><image src='pics/package.gif'>&sp;
   <if what='$.Type==*PT_BOOK_ONEFILE'>
-   <assign name='title' value='Вся книга одним файлом в архиве'>
+   <assign name='title' value='п▓я│я▐ п╨п╫п╦пЁп╟ п╬п╢п╫п╦п╪ я└п╟п╧п╩п╬п╪ п╡ п╟я─я┘п╦п╡п╣'>
   <else>
-   <assign name='title' value='Вся книга по главам в архиве'>
+   <assign name='title' value='п▓я│я▐ п╨п╫п╦пЁп╟ п©п╬ пЁп╩п╟п╡п╟п╪ п╡ п╟я─я┘п╦п╡п╣'>
   </if>
   <a href='$.Href'>$title</a>&sp;<i>(ZIP, ${.SizeKB}KB)</i>
  </for>>

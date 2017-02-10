@@ -8,7 +8,7 @@ require_once('lib/post.php');
 require_once('lib/database.php');
 require_once('lib/redirs.php');
 require_once('lib/logs.php');
-require_once('lib/session.php'); // FIXME Не очень хорошее решение
+require_once('lib/session.php'); // FIXME п²п╣ п╬я┤п╣п╫я▄ я┘п╬я─п╬я┬п╣п╣ я─п╣я┬п╣п╫п╦п╣
 
 require_once('conf/subdomains.php');
 
@@ -129,8 +129,8 @@ httpRequestInteger('redirid');
 unset($Args['redirid']);
 
 dbOpen();
-session(); // FIXME Не очень хорошее решение для того, чтобы можно было в
-           // structure.conf проверять права юзера
+session(); // FIXME п²п╣ п╬я┤п╣п╫я▄ я┘п╬я─п╬я┬п╣п╣ я─п╣я┬п╣п╫п╦п╣ п╢п╩я▐ я┌п╬пЁп╬, я┤я┌п╬п╠я▀ п╪п╬п╤п╫п╬ п╠я▀п╩п╬ п╡
+           // structure.conf п©я─п╬п╡п╣я─я▐я┌я▄ п©я─п╟п╡п╟ я▌п╥п╣я─п╟
 $LocationInfo = dispatch();
 $ScriptName = $LocationInfo->getScript();
 if ($ScriptName!='') {

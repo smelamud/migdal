@@ -8,7 +8,7 @@
 
 <element name='source' params='posting'>
 <ifne what='$posting.Source'>
- <p class='posting-source'>È”‘œﬁŒ…À: $posting.SourceHTML</p>
+ <p class='posting-source'>–ò—Å—Ç–æ—á–Ω–∏–∫: $posting.SourceHTML</p>
 </ifne>
 </element>
 

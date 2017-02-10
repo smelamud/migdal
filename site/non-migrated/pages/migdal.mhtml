@@ -38,7 +38,7 @@
     <assign name='title' value='$,Subject'>
    <else>
     <assign name='title'
-            value#='$,Subject (ÁÒÈÉ× ÏÔ $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
+            value#='$,Subject (Ð°Ñ€Ñ…Ð¸Ð² Ð¾Ñ‚ $,Sent@Rj $,Sent@Rk $,Sent@RY)'>
    </ifzero>
    <subtitle title='$title'>
    <article_controls posting='$,' nodiscuss='$englishDomain'>

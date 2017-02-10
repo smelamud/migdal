@@ -12,7 +12,7 @@ function grpArray($grp) {
         return $grp;
     if ($grp === GRP_NONE)
         return array();
-    if (is_numeric("0$grp")) // Странный глюк...
+    if (is_numeric("0$grp")) // п║я┌я─п╟п╫п╫я▀п╧ пЁп╩я▌п╨...
         return array($grp);
     return isset($grpGroups[$grp]) ? $grpGroups[$grp] : array();
 }

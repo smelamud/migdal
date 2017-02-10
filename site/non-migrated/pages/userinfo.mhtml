@@ -18,7 +18,7 @@
   &nbsp;
   <assign name='tree' value!="$$admin ? '/admin' : ''">
   <a href='$tree/users/$#user.Folder/edit/?redirid=$_'><asp>
-     <asp>Изменить информацию о пользователе</a>
+     <asp>п≤п╥п╪п╣п╫п╦я┌я▄ п╦п╫я└п╬я─п╪п╟я├п╦я▌ п╬ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣</a>
  </p>
 </isedit>
 </element>
@@ -33,29 +33,29 @@
   <log event=userinfo text#='user($user.Id)'>
   <controls>
   <table width=100% cellspacing=5 cellpadding=0 class='vcard'>
-   <infoline title='Ник' value='$,Login' class='nickname'>
+   <infoline title='п²п╦п╨' value='$,Login' class='nickname'>
    <tr style='display: none'><td colspan='2' class='n'>
     <span class='given-name'>$,Name</span>
     <span class='family-name'>$,Surname</span>
     <span class='additional-name'>$,JewishName</span>
    </td></tr>
-   <infoline title='Имя' value='$,FullName' class='fn'>
+   <infoline title='п≤п╪я▐' value='$,FullName' class='fn'>
    <if what='$,isMan'>
-    <infoline title='Пол' value='Мужской'>
+    <infoline title='п÷п╬п╩' value='п°я┐п╤я│п╨п╬п╧'>
    <else>
-    <infoline title='Пол' value='Женский'>
+    <infoline title='п÷п╬п╩' value='п√п╣п╫я│п╨п╦п╧'>
    </if>
    <if what="$,Age!='-'">
-    <infoline title='Дата рождения'
+    <infoline title='п■п╟я┌п╟ я─п╬п╤п╢п╣п╫п╦я▐'
               value#='$,RussianBirthday / $,JewishBirthday'>
    </if>
    <if what='$,isMigdalStudent'>
-    <infoline title='Мигдалевец' value='Да'>
+    <infoline title='п°п╦пЁп╢п╟п╩п╣п╡п╣я├' value='п■п╟'>
    <else>
-    <infoline title='Мигдалевец' value='Нет'>
+    <infoline title='п°п╦пЁп╢п╟п╩п╣п╡п╣я├' value='п²п╣я┌'>
    </if>
    <ifne what='$,Info'>
-    <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
+    <infoline title='п п╬я─п╬я┌п╨п╬ п╬ я│п╣п╠п╣' value='$,InfoHTML' escape='*false'>
    </ifne>
    <if what='$,isEmailVisible'>
     <tr valign='top'>
@@ -65,7 +65,7 @@
      <td width='100%' class='email'>
       <mailtolink message='$,'>&nbsp;
       <if what='$,isEmailDisabled==2'>
-       <i>(адрес не работает)</i>
+       <i>(п╟п╢я─п╣я│ п╫п╣ я─п╟п╠п╬я┌п╟п╣я┌)</i>
       </if>
      </td>
     </tr>
@@ -75,7 +75,7 @@
    </ifne>
    <tr valign='top'>
     <th style='white-space: nowrap' align='left'>
-     Последний раз<br>заходил сюда:
+     п÷п╬я│п╩п╣п╢п╫п╦п╧ я─п╟п╥<br>п╥п╟я┘п╬п╢п╦п╩ я│я▌п╢п╟:
     </th>
     <td width='100%'><lastonline user='$,'></td>
    </tr>

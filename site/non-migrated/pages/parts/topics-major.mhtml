@@ -1,24 +1,24 @@
 << @(#) $Id$ >>
 
 <element name='navi_main' params='index'>
-<topics_line href='/' title='На главную страницу' text='Главная' arrow!="$index=='index'">
+<topics_line href='/' title='п²п╟ пЁп╩п╟п╡п╫я┐я▌ я│я┌я─п╟п╫п╦я├я┐' text='п⌠п╩п╟п╡п╫п╟я▐' arrow!="$index=='index'">
 </element>
 
 <element name='navi_migdal' params='index'>
-<topics_line href='/migdal/' text='Мигдаль' arrow!="$index=='migdal'">
+<topics_line href='/migdal/' text='п°п╦пЁп╢п╟п╩я▄' arrow!="$index=='migdal'">
 </element>
 
 <element name='navi_help' params='index'>
 <topic_obj name='tips' id='$`tips`'>
 
 <posting_last topic_id='$`tips`' recursive='*false' as_guest='*true'>
-<topics_line time='$,' href='/tips/' title='Помощь по работе с сайтом'
-	     text='Справка' arrow!="$index=='tips'" class='topics-item ninept'>
+<topics_line time='$,' href='/tips/' title='п÷п╬п╪п╬я┴я▄ п©п╬ я─п╟п╠п╬я┌п╣ я│ я│п╟п╧я┌п╬п╪'
+	     text='п║п©я─п╟п╡п╨п╟' arrow!="$index=='tips'" class='topics-item ninept'>
 </element>
 
 <element name='navi_forum' params='index'>
 <posting_last grp='*GRP_FORUMS' as_guest='*true'>
-<topics_line time='$,' href='/forum/' text='Все обсуждения'
+<topics_line time='$,' href='/forum/' text='п▓я│п╣ п╬п╠я│я┐п╤п╢п╣п╫п╦я▐'
              arrow!="$index=='forum'" class='topics-item eightpt'>
 </element>
 
@@ -33,14 +33,14 @@
 </element>
 
 <element name='navi_archive' params='index'>
- <topics_line href='/archive/' text='Архив' arrow!="$index=='archive'"
+ <topics_line href='/archive/' text='п░я─я┘п╦п╡' arrow!="$index=='archive'"
               class='topics-item eightpt'>
- <topics_line href='/chat-archive/' text='Архив чата'
+ <topics_line href='/chat-archive/' text='п░я─я┘п╦п╡ я┤п╟я┌п╟'
               arrow!="$index=='chat-archive'" class='topics-item eightpt'>
 </element>
 
 <element name='topics_major'>
-<topics_table title='Разделы'>
+<topics_table title='п═п╟п╥п╢п╣п╩я▀'>
  <html_cache ident#='topics_major-$index' period!='3 * 60 * 60'
              depends='postings,topics'>
   <navi_main index='$index'>
@@ -54,25 +54,25 @@
  </html_cache>
  <admin_topics>
   <li class='topics-nobullet eightpt'>
-   <a href='/major/?redirid=$_'>Изменить</a>
+   <a href='/major/?redirid=$_'>п≤п╥п╪п╣п╫п╦я┌я▄</a>
   </li>
  </admin_topics>
 </topics_table>
 </element>
 
 <element name='topics_major_sub'>
-<upper_level title='На главную страницу' href='/'>
+<upper_level title='п²п╟ пЁп╩п╟п╡п╫я┐я▌ я│я┌я─п╟п╫п╦я├я┐' href='/'>
 <topic_obj name='topic' id='$base'>
 <topics_table title='$=topic.Subject'>
  <html_cache ident#='topics_general-$base-$index' period!='3 * 60 * 60'
              depends='postings,topics'>
   <posting_last grp='*GRP_TAPE' topic_id='$topic.Id' recursive='*false'
                 as_guest='*true'>
-  <topics_line time='$,' text='Новости' href#='/$topic.Ident/'
+  <topics_line time='$,' text='п²п╬п╡п╬я│я┌п╦' href#='/$topic.Ident/'
                arrow!="$index=='news'" class='topics-item ninept'>
   <posting_last grp='*GRP_GALLERY' topic_id='$topic.Id' recursive='*false'
                 as_guest='*true'>
-  <topics_line time='$,' text='Галерея' href#='/$topic.Ident/gallery/'
+  <topics_line time='$,' text='п⌠п╟п╩п╣я─п╣я▐' href#='/$topic.Ident/gallery/'
                arrow!="$index=='gallery'" class='topics-item ninept'>
  </html_cache>
 </topics_table>

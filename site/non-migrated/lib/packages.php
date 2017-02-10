@@ -41,22 +41,22 @@ function __construct($row)
 parent::__construct($row);
 }
 
-# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() ÕĞÒÁÚÄÎÅÎÙ
+# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() ÑƒĞ¿Ñ€Ğ°Ğ·Ğ´Ğ½ĞµĞ½Ñ‹
 function getWorldVars()
 {
 return array('message_id','type','mime_type','title','body','size','url');
 }
 
-# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() ÕĞÒÁÚÄÎÅÎÙ
+# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() ÑƒĞ¿Ñ€Ğ°Ğ·Ğ´Ğ½ĞµĞ½Ñ‹
 function getAdminVars()
 {
 return array();
 }
 
-# FIXME ÍÅÔÏÄ store() ÄÏÌÖÅÎ ÂÙÔØ ÚÁÍÅÎÅÎ ÎÁ ÆÕÎËÃÉÀ storeObject(&$obj)
+# FIXME Ğ¼ĞµÑ‚Ğ¾Ğ´ store() Ğ´Ğ¾Ğ»Ğ¶ĞµĞ½ Ğ±Ñ‹Ñ‚ÑŒ Ğ·Ğ°Ğ¼ĞµĞ½ĞµĞ½ Ğ½Ğ° Ñ„ÑƒĞ½ĞºÑ†Ğ¸Ñ storeObject(&$obj)
 function store()
 {
-# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() ÕĞÒÁÚÄÎÅÎÙ
+# FIXME getWorldVars(), getAdminVars(), collectVars(), getNormal() ÑƒĞ¿Ñ€Ğ°Ğ·Ğ´Ğ½ĞµĞ½Ñ‹
 $normal=$this->getNormal(false);
 $METHOD=get_method($this,'store');
 if($this->id)

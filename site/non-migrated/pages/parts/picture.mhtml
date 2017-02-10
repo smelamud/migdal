@@ -19,7 +19,7 @@
 <div id='picture-controls-$picture.Id' class='picture-controls'>
  <vote_panel id='$picture.Id' rating='$picture.Rating' align='left'>
  <ifnzero what='$list_size'>
-  <div class='n-of'>$list_index из $list_size</div>
+  <div class='n-of'>$list_index п╦п╥ $list_size</div>
  </ifnzero>
  <span class='picture-title'>$picture.TitleLineHTML</span>
  <ifne what='$picture.Source'>$picture.SourceHTML</ifne><br />

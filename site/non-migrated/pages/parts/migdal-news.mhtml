@@ -1,14 +1,14 @@
 << @(#) $Id$ >>
 
 <element name='migdal_news'>
-<topics_table class='ninept' title='îÏ×ÏÓÔÉ'>
+<topics_table class='ninept' title='ÐÐ¾Ð²Ð¾ÑÑ‚Ð¸'>
 <posting_last grp='*GRP_TAPE' topic_id='$`migdal.museum`' recursive='*false'>
-<topics_line time='$,' text='íÕÚÅÊ ÉÓÔÏÒÉÉ Å×ÒÅÅ× ïÄÅÓÓÙ'
+<topics_line time='$,' text='ÐœÑƒÐ·ÐµÐ¹ Ð¸ÑÑ‚Ð¾Ñ€Ð¸Ð¸ ÐµÐ²Ñ€ÐµÐµÐ² ÐžÐ´ÐµÑÑÑ‹'
 	     href='/migdal/museum/news/' class='none'>
 <posting_last grp='*GRP_TAPE' topic_id='$`migdal.mazltov`' recursive='*false'>
-<topics_line time='$,' text='íÁÚÌ ôÏ×' href='/migdal/mazltov/news/'
+<topics_line time='$,' text='ÐœÐ°Ð·Ð» Ð¢Ð¾Ð²' href='/migdal/mazltov/news/'
              class='none'>
 <posting_last grp='*GRP_TAPE' topic_id='$`migdal.beitenu`' recursive='*false'>
-<topics_line time='$,' text='âÅÊÔÅÎÕ' href='/migdal/beitenu/news/' class='none'>
+<topics_line time='$,' text='Ð‘ÐµÐ¹Ñ‚ÐµÐ½Ñƒ' href='/migdal/beitenu/news/' class='none'>
 </topics_table>
 </element>

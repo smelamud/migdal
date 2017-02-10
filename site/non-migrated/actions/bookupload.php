@@ -30,7 +30,7 @@ $package=new Package(array('message_id' => $message_id,
 			   'mime_type'  => $mime_type,
 			   'size'       => filesize("$bookCompressDir/$fname"),
 			   'url'        => "$bookCompressURL/$fname"));
-# FIXME метод store() должен быть заменен на функцию storeObject(&$obj)
+# FIXME п╪п╣я┌п╬п╢ store() п╢п╬п╩п╤п╣п╫ п╠я▀я┌я▄ п╥п╟п╪п╣п╫п╣п╫ п╫п╟ я└я┐п╫п╨я├п╦я▌ storeObject(&$obj)
 $package->store();
 }
 

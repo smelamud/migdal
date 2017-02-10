@@ -3,19 +3,19 @@
 <mail name='registering' params='user_id'>
  <user_obj id='$user_id'>
  <headers>
-  <subject>Запрос на регистрацию</subject>
+  <subject>п≈п╟п©я─п╬я│ п╫п╟ я─п╣пЁп╦я│я┌я─п╟я├п╦я▌</subject>
  </headers>
  <content>
   <p>
-   Поступил запрос на регистрацию пользователя:
+   п÷п╬я│я┌я┐п©п╦п╩ п╥п╟п©я─п╬я│ п╫п╟ я─п╣пЁп╦я│я┌я─п╟я├п╦я▌ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐:
   </p>
   <p>
-   Ник:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Login<br />
-   Имя:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Name<br />
-   Еврейское&sp;имя:&sp;&sp;$=,JewishName<br />
-   Фамилия:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Surname<br />
-   <assign value!="$,isMan ? 'Мужской' : 'Женский'">
-   Пол:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$*<br />
+   п²п╦п╨:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Login<br />
+   п≤п╪я▐:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Name<br />
+   п∙п╡я─п╣п╧я│п╨п╬п╣&sp;п╦п╪я▐:&sp;&sp;$=,JewishName<br />
+   п╓п╟п╪п╦п╩п╦я▐:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Surname<br />
+   <assign value!="$,isMan ? 'п°я┐п╤я│п╨п╬п╧' : 'п√п╣п╫я│п╨п╦п╧'">
+   п÷п╬п╩:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$*<br />
    E-mail:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,Email<br />
    ICQ:&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;&sp;$=,ICQ
   </p>

@@ -9,7 +9,7 @@
                          as_guest='*true'>
  <p class='ears'>
   <for>
-   << FIXME ÉÚ-ÚÁ ËÜÛÉÒÏ×ÁÎÉÑ ÂÕÄÅÔ ÒÁÂÏÔÁÔØ ÎÅËÏÒÒÅËÔÎÏ >>
+   << FIXME Ð¸Ð·-Ð·Ð° ÐºÑÑˆÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ Ð±ÑƒÐ´ÐµÑ‚ Ñ€Ð°Ð±Ð¾Ñ‚Ð°Ñ‚ÑŒ Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾ >>
    <counter_inc entry_id='$.' mode='*CMODE_EAR_HITS'>
    <posting_obj id='$.' grp='*GRP_EARS'>
    <posting_image posting='$,' image_title='$,BodyNormal'

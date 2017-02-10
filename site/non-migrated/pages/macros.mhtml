@@ -13,7 +13,7 @@
 </macro>
 
 << Styles >>
-<<decstyle ident='test' desc='ôÅÓÔÏ×ÙÊ'>>
+<<decstyle ident='test' desc='Ð¢ÐµÑÑ‚Ð¾Ð²Ñ‹Ð¹'>>
 
 << Callbacks >>
 <deccallback event='image' name='article_image' file='parts/article.php'
@@ -72,7 +72,7 @@
        defaults="index=0 prefix=''">
 <decel name='failpage' file='parts/failpage.php'>
 <decel name='form_buttons' file='parts/formutils.php' params='title,clear'
-       defaults="title='éÚÍÅÎÉÔØ' clear='*true'">
+       defaults="title='Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ' clear='*true'">
 <decel name='form_captcha' file='parts/captcha.php' params='name,id'
        defaults="id=''">
 <decel name='form_checkbox' file='parts/formutils.php'
@@ -92,11 +92,11 @@
        defaults="mandatory='*false' comment='' rows=10 xmlid=0">
 <decel name='form_grpselect' file='parts/grpselect.php'
        params='name,value,rows,multiple,title,mandatory,comment'
-       defaults="rows=8 multiple='*false' title='çÒÕÐÐÁ' mandatory='*false'
+       defaults="rows=8 multiple='*false' title='Ð“Ñ€ÑƒÐ¿Ð¿Ð°' mandatory='*false'
                  comment=''">
 <decel name='form_langselect' file='parts/langselect.php'
        params='name,value,mandatory,title,comment'
-       defaults="mandatory='*false' title='ñÚÙË' comment=''">
+       defaults="mandatory='*false' title='Ð¯Ð·Ñ‹Ðº' comment=''">
 <decel name='form_line' file='parts/formutils.php'
        params='title,mandatory,comment,id'
        defaults="mandatory='*false' comment='' id=''">
@@ -123,7 +123,7 @@
 <decel name='form_topicselect' file='parts/topicselect.php'
        params='name,value,grp,mandatory,title,root,comment,only_appendable,
 	       only_postable'
-       defaults="mandatory='*false' title='ôÅÍÁ' grp='*GRP_ALL' root='-1'
+       defaults="mandatory='*false' title='Ð¢ÐµÐ¼Ð°' grp='*GRP_ALL' root='-1'
                  comment='' only_appendable='*false' only_postable='*false'">
 <decel name='form_upload_format' file='parts/uploader.php'
        params='name,format,title,comment,mandatory'
@@ -148,7 +148,7 @@
 <decel name='history' file='parts/history.php' params='topic_id,current,today'>
 <decel name='hit_parade' file='parts/hit-parade.php'
        params='grp,topic_id,title,later,limit,sort,showshadows'
-       defaults="grp='*GRP_ALL' topic_id='-1' title='éÚÂÒÁÎÎÏÅ' later=0
+       defaults="grp='*GRP_ALL' topic_id='-1' title='Ð˜Ð·Ð±Ñ€Ð°Ð½Ð½Ð¾Ðµ' later=0
                  limit=10 sort='*SORT_RATING' showshadows='*true'">
 <decel name='hit_parade_month' file='parts/hit-parade.php'
        params='grp,topic_id,showshadows'
@@ -242,10 +242,10 @@
 <decel name='seealso' file='parts/seealso.php'
        params='source_name,source_id,link_type,title,adddir'
        defaults="source_name='' source_id=0 link_type='*LINKT_SEEALSO'
-                 title='óÍ. ÔÁËÖÅ' adddir=''">
+                 title='Ð¡Ð¼. Ñ‚Ð°ÐºÐ¶Ðµ' adddir=''">
 <decel name='seealso_frame' file='parts/seealso.php'
        params='link_type,title,adddir'
-       defaults="link_type='*LINKT_SEEALSO' title='óÍ. ÔÁËÖÅ' adddir=''">
+       defaults="link_type='*LINKT_SEEALSO' title='Ð¡Ð¼. Ñ‚Ð°ÐºÐ¶Ðµ' adddir=''">
 <decel name='selflink' file='parts/utils.php' params='href'>
 <decel name='senderlink' file='parts/utils.php' params='message'>
 <decel name='spin' file='parts/spin.php' params='&list,picprev,picnext'
@@ -352,7 +352,7 @@
 
 <macro name='bymessages'>
  <zone>
-  <array vals='ÓÏÏÂÝÅÎÉÀ,ÓÏÏÂÝÅÎÉÑ,ÓÏÏÂÝÅÎÉÊ'>
+  <array vals='ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸ÑŽ,ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ,ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ð¹'>
   <plural value%!value='%value'>
   $,
  </zone>
@@ -406,11 +406,11 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <notenglish>
-   <assign name='siteName' value='íÉÇÄÁÌØ'>
+   <assign name='siteName' value='ÐœÐ¸Ð³Ð´Ð°Ð»ÑŒ'>
   <else>
    <assign name='siteName' value='Migdal'>
   </notenglish>
-  <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='çÌÁ×ÎÁÑ'
+  <if what="$LocationInfo.Title!='' && $LocationInfo.Title!='Ð“Ð»Ð°Ð²Ð½Ð°Ñ'
 				    && $LocationInfo.Title!='Main'">
    <meta property="og:type" content="article">
    <assign name='pageTitle' value='$LocationInfo.Title'>
@@ -479,9 +479,9 @@
 <macro name='biff' defaults="small='*false'">
  <ifbiff time%!time='%time'>
   <if what='%small'>
-   &nbsp;<image src='/pics/ner-small.gif' title='ÎÏ×ÏÅ'>&nbsp;
+   &nbsp;<image src='/pics/ner-small.gif' title='Ð½Ð¾Ð²Ð¾Ðµ'>&nbsp;
   <else>
-   &nbsp;<image src='/pics/ner.gif' title='ÎÏ×ÏÅ'>&nbsp;
+   &nbsp;<image src='/pics/ner.gif' title='Ð½Ð¾Ð²Ð¾Ðµ'>&nbsp;
   </if>
  </ifbiff>
 </macro>

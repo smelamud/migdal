@@ -12,7 +12,7 @@
 
 <element name='editlink'>
 <a href="${posting.GrpDetailsHref}edit/?redirid=$_"><asp>
- <notenglish>Изменить<else>Edit</notenglish></a>
+ <notenglish>п≤п╥п╪п╣п╫п╦я┌я▄<else>Edit</notenglish></a>
 </element>
 
 <element name='discusslink'>
@@ -21,7 +21,7 @@
   <ifnzero what='$posting.Answers'>
    <a href='${posting.GrpDetailsHref}discuss/'><asp>
     <notenglish>
-     <array vals='комментарий,комментария,комментариев'>
+     <array vals='п╨п╬п╪п╪п╣п╫я┌п╟я─п╦п╧,п╨п╬п╪п╪п╣п╫я┌п╟я─п╦я▐,п╨п╬п╪п╪п╣п╫я┌п╟я─п╦п╣п╡'>
      <plural value='$posting.Answers'>
      <asp>$posting.Answers&sp;$,
     <else>
@@ -34,7 +34,7 @@
    <asp></a><asp>
   <else>
    <asp><a href='${posting.GrpDetailsHref}discuss/add/'><asp>
-    <notenglish><asp>Оставить комментарий<else>Leave a comment<asp></notenglish>
+    <notenglish><asp>п·я│я┌п╟п╡п╦я┌я▄ п╨п╬п╪п╪п╣п╫я┌п╟я─п╦п╧<else>Leave a comment<asp></notenglish>
    <asp></a><asp>
   </ifnzero>
   <ifbiff time='$posting.LastAnswer'>
@@ -50,7 +50,7 @@
 <span>
  <image src='/pics/print.gif' style='position: relative; top: 1px'>&nbsp;<asp>
  <asp><a href='$posting.GrpDetailsHref?&print=1' target='_blank'><asp>
-  <notenglish>Для печати<else>Print version</notenglish></a>
+  <notenglish>п■п╩я▐ п©п╣я┤п╟я┌п╦<else>Print version</notenglish></a>
 </span>
 </element>
 
@@ -134,7 +134,7 @@
                value#='${posting.GrpDetailsHref}edit/?redirid=$_'>
       </if>
       <notenglish>
-       <assign name='tooltip' value='Изменить'>
+       <assign name='tooltip' value='п≤п╥п╪п╣п╫п╦я┌я▄'>
       <else>
        <assign name='tooltip' value='Edit'>
       </notenglish>
@@ -144,7 +144,7 @@
      </ifne>
      <ifne what='$rmhref'>
       <notenglish>
-       <assign name='tooltip' value='Убрать'>
+       <assign name='tooltip' value='пёп╠я─п╟я┌я▄'>
       <else>
        <assign name='tooltip' value='Remove'>
       </notenglish>

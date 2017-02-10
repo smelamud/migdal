@@ -1,11 +1,11 @@
 << @(#) $Id$ >>
 
 <<
-1. Если поле something отсутствует из-за того, что редактор данного типа
-   сообщения его не предусматривает, оно должно присутствовать в виде hidden,
-   поскольку может присутствовать в других тенях этого же сообщения. В
-   противном случае actions/postingmod.php затрет это поле.
-2. Все поля должны включаться, если $full!=0.
+1. п∙я│п╩п╦ п©п╬п╩п╣ something п╬я┌я│я┐я┌я│я┌п╡я┐п╣я┌ п╦п╥-п╥п╟ я┌п╬пЁп╬, я┤я┌п╬ я─п╣п╢п╟п╨я┌п╬я─ п╢п╟п╫п╫п╬пЁп╬ я┌п╦п©п╟
+   я│п╬п╬п╠я┴п╣п╫п╦я▐ п╣пЁп╬ п╫п╣ п©я─п╣п╢я┐я│п╪п╟я┌я─п╦п╡п╟п╣я┌, п╬п╫п╬ п╢п╬п╩п╤п╫п╬ п©я─п╦я│я┐я┌я│я┌п╡п╬п╡п╟я┌я▄ п╡ п╡п╦п╢п╣ hidden,
+   п©п╬я│п╨п╬п╩я▄п╨я┐ п╪п╬п╤п╣я┌ п©я─п╦я│я┐я┌я│я┌п╡п╬п╡п╟я┌я▄ п╡ п╢я─я┐пЁп╦я┘ я┌п╣п╫я▐я┘ я█я┌п╬пЁп╬ п╤п╣ я│п╬п╬п╠я┴п╣п╫п╦я▐. п▓
+   п©я─п╬я┌п╦п╡п╫п╬п╪ я│п╩я┐я┤п╟п╣ actions/postingmod.php п╥п╟я┌я─п╣я┌ я█я┌п╬ п©п╬п╩п╣.
+2. п▓я│п╣ п©п╬п╩я▐ п╢п╬п╩п╤п╫я▀ п╡п╨п╩я▌я┤п╟я┌я▄я│я▐, п╣я│п╩п╦ $full!=0.
 >>
 
 <grps>
@@ -100,8 +100,8 @@
  </if>
 <elif what="$ident=='ident'">
  <if what='$visible'>
-  <error id='*EP_IDENT_ABSENT' text='Обозначение не указано'>
-  <error id='*EP_IDENT_UNIQUE' text='Так уже обозначено другое сообщение'>
+  <error id='*EP_IDENT_ABSENT' text='п·п╠п╬п╥п╫п╟я┤п╣п╫п╦п╣ п╫п╣ я┐п╨п╟п╥п╟п╫п╬'>
+  <error id='*EP_IDENT_UNIQUE' text='п╒п╟п╨ я┐п╤п╣ п╬п╠п╬п╥п╫п╟я┤п╣п╫п╬ п╢я─я┐пЁп╬п╣ я│п╬п╬п╠я┴п╣п╫п╦п╣'>
   <form_edit title='$=editor.Title' comment='$editor.Comment' name='ident'
              value='$posting.Ident' size=20 maxlength=75
 	     mandatory='$editor.isMandatory'>
@@ -110,7 +110,7 @@
  </if>
 <elif what="$ident=='subject'">
  <if what='$visible'>
-  <error id='*EP_SUBJECT_ABSENT' text#='$=editor.Title не указан'>
+  <error id='*EP_SUBJECT_ABSENT' text#='$=editor.Title п╫п╣ я┐п╨п╟п╥п╟п╫'>
   <form_edit title='$=editor.Title' comment='$editor.Comment'
              value='$=posting.Subject' name='subject' size=70 maxlength=250
 	     mandatory='$editor.isMandatory'>
@@ -119,7 +119,7 @@
  </if>
 <elif what="$ident=='author'">
  <if what='$visible'>
-  <error id='*EP_AUTHOR_ABSENT' text#='$=editor.Title не указан'>
+  <error id='*EP_AUTHOR_ABSENT' text#='$=editor.Title п╫п╣ я┐п╨п╟п╥п╟п╫'>
   <form_edit title='$=editor.Title' comment='$editor.Comment'
              value='$=posting.Author' name='author' size=52 maxlength=250
 	     mandatory='$editor.isMandatory' xmlid='$xmlid'>
@@ -128,7 +128,7 @@
  </if>
 <elif what="$ident=='source'">
  <if what='$visible'>
-  <error id='*EP_SOURCE_ABSENT' text#='$=editor.Title не указан'>
+  <error id='*EP_SOURCE_ABSENT' text#='$=editor.Title п╫п╣ я┐п╨п╟п╥п╟п╫'>
   <form_edit title='$=editor.Title' comment='$editor.Comment'
              value='$=posting.Source' name='source' size=52 maxlength=250
 	     mandatory='$editor.isMandatory' xmlid='$xmlid'>
@@ -145,7 +145,7 @@
  </if>
 <elif what="$ident=='body'">
  <if what='$visible'>
-  <error id='*EP_BODY_ABSENT' text='Текст пуст'>
+  <error id='*EP_BODY_ABSENT' text='п╒п╣п╨я│я┌ п©я┐я│я┌'>
   <form_editor title='$=editor.Title' comment='$editor.Comment'
                name='body' body='$=posting.Body' rows=9
 	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
@@ -162,7 +162,7 @@
  </if>
 <elif what="$ident=='index1'">
  <if what='$visible'>
-  <error id='*EP_INDEX1_ABSENT' text#='$=editor.Title не указан'>
+  <error id='*EP_INDEX1_ABSENT' text#='$=editor.Title п╫п╣ я┐п╨п╟п╥п╟п╫'>
   <form_edit title='$=editor.Title' comment='$editor.Comment'
              value='$posting.Index1' name='index1' size=3 maxlength=5
 	     mandatory='$editor.isMandatory'>
@@ -174,10 +174,10 @@
   <if what="$editor.Style=='issue-length'">
    <form_select title='$=editor.Title' comment='$editor.Comment'
 	        name='index2' mandatory='$editor.isMandatory'>
-    <form_option title='Обычный номер' value=0 selected!='$posting.Index2==0'>
-    <form_option title='Сдвоенный номер' value=1 selected!='$posting.Index2==1'>
-    <form_option title='Строенный номер' value=2 selected!='$posting.Index2==2'>
-    <form_option title='Счетверенный номер' value=3
+    <form_option title='п·п╠я▀я┤п╫я▀п╧ п╫п╬п╪п╣я─' value=0 selected!='$posting.Index2==0'>
+    <form_option title='п║п╢п╡п╬п╣п╫п╫я▀п╧ п╫п╬п╪п╣я─' value=1 selected!='$posting.Index2==1'>
+    <form_option title='п║я┌я─п╬п╣п╫п╫я▀п╧ п╫п╬п╪п╣я─' value=2 selected!='$posting.Index2==2'>
+    <form_option title='п║я┤п╣я┌п╡п╣я─п╣п╫п╫я▀п╧ п╫п╬п╪п╣я─' value=3
                  selected!='$posting.Index2==3'>
    </form_select>
   <else>
@@ -190,7 +190,7 @@
  </if>
 <elif what="$ident=='lang'">
  <if what='$visible'>
-  <error id='*EP_LANG_ABSENT' text#='$=editor.Title не указан'>
+  <error id='*EP_LANG_ABSENT' text#='$=editor.Title п╫п╣ я┐п╨п╟п╥п╟п╫'>
   <form_langselect title='$=editor.Title' comment='$editor.Comment'
                    value='$posting.Lang' name='lang'
 	           mandatory='$editor.isMandatory'>
@@ -199,7 +199,7 @@
  </if>
 <elif what="$ident=='url'">
  <if what='$visible'>
-  <error id='*EP_URL_ABSENT' text#='$=editor.Title не указана'>
+  <error id='*EP_URL_ABSENT' text#='$=editor.Title п╫п╣ я┐п╨п╟п╥п╟п╫п╟'>
   <form_edit title='$=editor.Title' comment='$editor.Comment'
              value='$=posting.URL' name='url' size=52 maxlength=250
 	     mandatory='$editor.isMandatory'>
@@ -208,53 +208,53 @@
  </if>
 <elif what="$ident=='image'">
  <if what='$visible'>
-  <error id='*EP_IMAGE_ABSENT' text#='Нужно указать $editor.WhatSV'>
+  <error id='*EP_IMAGE_ABSENT' text#='п²я┐п╤п╫п╬ я┐п╨п╟п╥п╟я┌я▄ $editor.WhatSV'>
   <error id='*EIU_UNKNOWN_IMAGE'
-         text#='Неизвестный формат $editor.WhatSR. Сайт понимает
-                $editor.WhatSVs только в форматах JPEG, PNG и GIF'>
+         text#='п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╧ я└п╬я─п╪п╟я┌ $editor.WhatSR. п║п╟п╧я┌ п©п╬п╫п╦п╪п╟п╣я┌
+                $editor.WhatSVs я┌п╬п╩я▄п╨п╬ п╡ я└п╬я─п╪п╟я┌п╟я┘ JPEG, PNG п╦ GIF'>
   <error id='*EIU_IMAGE_LARGE'
-         text#='$editor.WhatLI слишком велика (больше 2M)'>
+         text#='$editor.WhatLI я│п╩п╦я┬п╨п╬п╪ п╡п╣п╩п╦п╨п╟ (п╠п╬п╩я▄я┬п╣ 2M)'>
   <error id='*EIU_THUMBNAIL_LARGE'
-         text#='Маленькая $editor.WhatSI слишком велика (больше 2M)'>
+         text#='п°п╟п╩п╣п╫я▄п╨п╟я▐ $editor.WhatSI я│п╩п╦я┬п╨п╬п╪ п╡п╣п╩п╦п╨п╟ (п╠п╬п╩я▄я┬п╣ 2M)'>
   <error id='*EIU_UNKNOWN_THUMBNAIL'
-         text#='Формат маленькой $editor.WhatSR, указанный при конфигурации
-                сервера, не поддерживается, либо вы загрузили $editor.WhatSV
-                не этого формата'>
-  <error id='*EIU_INTERNAL_ERROR' text#='Не удалось загрузить $editor.WhatSV'>
+         text#='п╓п╬я─п╪п╟я┌ п╪п╟п╩п╣п╫я▄п╨п╬п╧ $editor.WhatSR, я┐п╨п╟п╥п╟п╫п╫я▀п╧ п©я─п╦ п╨п╬п╫я└п╦пЁя┐я─п╟я├п╦п╦
+                я│п╣я─п╡п╣я─п╟, п╫п╣ п©п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌я│я▐, п╩п╦п╠п╬ п╡я▀ п╥п╟пЁя─я┐п╥п╦п╩п╦ $editor.WhatSV
+                п╫п╣ я█я┌п╬пЁп╬ я└п╬я─п╪п╟я┌п╟'>
+  <error id='*EIU_INTERNAL_ERROR' text#='п²п╣ я┐п╢п╟п╩п╬я│я▄ п╥п╟пЁя─я┐п╥п╦я┌я▄ $editor.WhatSV'>
   <error id='*EP_LARGE_IMAGE_EXACT'
-         text#='$editor.WhatLI должна быть размером
+         text#='$editor.WhatLI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ я─п╟п╥п╪п╣я─п╬п╪
                 ${editor.ImageExactX}x$editor.ImageExactY'>
   <error id='*EP_LARGE_IMAGE_EXACT_X'
-         text#='$editor.WhatLI должна быть шириной $editor.ImageExactX пикселов'>
+         text#='$editor.WhatLI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ я┬п╦я─п╦п╫п╬п╧ $editor.ImageExactX п©п╦п╨я│п╣п╩п╬п╡'>
   <error id='*EP_LARGE_IMAGE_EXACT_Y'
-         text#='$editor.WhatLI должна быть высотой $editor.ImageExactY пикселов'>
+         text#='$editor.WhatLI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ п╡я▀я│п╬я┌п╬п╧ $editor.ImageExactY п©п╦п╨я│п╣п╩п╬п╡'>
   <error id='*EP_SMALL_IMAGE_EXACT'
-         text#='Уменьшенная $editor.WhatSI должна быть размером
+         text#='пёп╪п╣п╫я▄я┬п╣п╫п╫п╟я▐ $editor.WhatSI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ я─п╟п╥п╪п╣я─п╬п╪
                 ${editor.ThumbExactX}x$editor.ThumbExactY'>
   <error id='*EP_SMALL_IMAGE_EXACT_X'
-         text#='Уменьшенная $editor.WhatSI должна быть шириной
-                $editor.ThumbExactX пикселов'>
+         text#='пёп╪п╣п╫я▄я┬п╣п╫п╫п╟я▐ $editor.WhatSI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ я┬п╦я─п╦п╫п╬п╧
+                $editor.ThumbExactX п©п╦п╨я│п╣п╩п╬п╡'>
   <error id='*EP_SMALL_IMAGE_EXACT_Y'
-         text#='Уменьшенная $editor.WhatSI должна быть высотой
-                $editor.ThumbExactY пикселов'>
+         text#='пёп╪п╣п╫я▄я┬п╣п╫п╫п╟я▐ $editor.WhatSI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ п╡я▀я│п╬я┌п╬п╧
+                $editor.ThumbExactY п©п╦п╨я│п╣п╩п╬п╡'>
   <error id='*EP_LARGE_IMAGE_MAX'
-         text#='$editor.WhatLI должна быть размером не более
+         text#='$editor.WhatLI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ я─п╟п╥п╪п╣я─п╬п╪ п╫п╣ п╠п╬п╩п╣п╣
                 ${editor.ImageMaxX}x$editor.ImageMaxY'>
   <error id='*EP_LARGE_IMAGE_MAX_X'
-         text#='$editor.WhatLI должна быть шириной не более $editor.ImageMaxX
-                пикселов'>
+         text#='$editor.WhatLI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ я┬п╦я─п╦п╫п╬п╧ п╫п╣ п╠п╬п╩п╣п╣ $editor.ImageMaxX
+                п©п╦п╨я│п╣п╩п╬п╡'>
   <error id='*EP_LARGE_IMAGE_MAX_Y'
-         text#='$editor.WhatLI должна быть высотой не более $editor.ImageMaxY
-                пикселов'>
+         text#='$editor.WhatLI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ п╡я▀я│п╬я┌п╬п╧ п╫п╣ п╠п╬п╩п╣п╣ $editor.ImageMaxY
+                п©п╦п╨я│п╣п╩п╬п╡'>
   <error id='*EP_SMALL_IMAGE_MAX'
-         text#='Уменьшенная $editor.WhatSI должна быть размером не более
+         text#='пёп╪п╣п╫я▄я┬п╣п╫п╫п╟я▐ $editor.WhatSI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ я─п╟п╥п╪п╣я─п╬п╪ п╫п╣ п╠п╬п╩п╣п╣
                 ${editor.ThumbMaxX}x$editor.ThumbMaxY'>
   <error id='*EP_SMALL_IMAGE_MAX_X'
-         text#='Уменьшенная $editor.WhatSI должна быть шириной не более
-                $editor.ThumbMaxX пикселов'>
+         text#='пёп╪п╣п╫я▄я┬п╣п╫п╫п╟я▐ $editor.WhatSI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ я┬п╦я─п╦п╫п╬п╧ п╫п╣ п╠п╬п╩п╣п╣
+                $editor.ThumbMaxX п©п╦п╨я│п╣п╩п╬п╡'>
   <error id='*EP_SMALL_IMAGE_MAX_Y'
-         text#='Уменьшенная $editor.WhatSI должна быть высотой не более
-                $editor.ThumbMaxY пикселов'>
+         text#='пёп╪п╣п╫я▄я┬п╣п╫п╫п╟я▐ $editor.WhatSI п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ п╡я▀я│п╬я┌п╬п╧ п╫п╣ п╠п╬п╩п╣п╣
+                $editor.ThumbMaxY п©п╦п╨я│п╣п╩п╬п╡'>
   <if what='$posting.hasSmallImage'>
    <hidden name='small_image' value='$posting.SmallImage'>
    <hidden name='small_image_x' value='$posting.SmallImageX'>
@@ -266,7 +266,7 @@
    <hidden name='large_image_size' value='$posting.LargeImageSize'>
    <hidden name='large_image_format' value='$posting.LargeImageFormat'>
    <hidden name='large_image_filename' value='$posting.LargeImageFilename'>
-   <assign name='loaded' value#='Загружен файл $=posting.LargeImageFilename
+   <assign name='loaded' value#='п≈п╟пЁя─я┐п╤п╣п╫ я└п╟п╧п╩ $=posting.LargeImageFilename
                                  (${posting.LargeImageX}x$posting.LargeImageY,
                                  ${posting.LargeImageSizeKB}K)'>
    <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
@@ -285,7 +285,7 @@
   <else>
    <form_uploader title='$=editor.Title' comment='$editor.Comment'
 		  name='image_file' small_name='image_file_thumb'
-		  small_title='Маленькая:' large_title='Большая:'
+		  small_title='п°п╟п╩п╣п╫я▄п╨п╟я▐:' large_title='п▒п╬п╩я▄я┬п╟я▐:'
 		  loaded='$loaded' delname='del_image'
 		  small_url='$small_url' large_url='$large_url'
 		  mandatory='$editor.isMandatory'>
@@ -312,7 +312,7 @@
  </if>
 <elif what="$ident=='large_body'">
  <if what='$visible'>
-  <error id='*EP_LARGE_BODY_ABSENT' text#='$=editor.Title пуст'>
+  <error id='*EP_LARGE_BODY_ABSENT' text#='$=editor.Title п©я┐я│я┌'>
   <form_editor title='$=editor.Title' comment='$editor.Comment'
                name='large_body' body='$=posting.LargeBody' rows=11
 	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
@@ -321,17 +321,17 @@
  </if>
 <elif what="$ident=='large_body_upload'">
  <if what='$visible'>
-  <error id='*EUL_LARGE' text#='$=editor.Title слишком велик (больше 2M)'>
+  <error id='*EUL_LARGE' text#='$=editor.Title я│п╩п╦я┬п╨п╬п╪ п╡п╣п╩п╦п╨ (п╠п╬п╩я▄я┬п╣ 2M)'>
   <error id='*EUL_UNKNOWN_FORMAT'
-         text='Этот файл не является простым текстовым файлом. Сайт не понимает
-	       документы MS Word и другие подобные форматы. Допускается
-	       загрузка только простого текстового файла.'>
+         text='п╜я┌п╬я┌ я└п╟п╧п╩ п╫п╣ я▐п╡п╩я▐п╣я┌я│я▐ п©я─п╬я│я┌я▀п╪ я┌п╣п╨я│я┌п╬п╡я▀п╪ я└п╟п╧п╩п╬п╪. п║п╟п╧я┌ п╫п╣ п©п╬п╫п╦п╪п╟п╣я┌
+	       п╢п╬п╨я┐п╪п╣п╫я┌я▀ MS Word п╦ п╢я─я┐пЁп╦п╣ п©п╬п╢п╬п╠п╫я▀п╣ я└п╬я─п╪п╟я┌я▀. п■п╬п©я┐я│п╨п╟п╣я┌я│я▐
+	       п╥п╟пЁя─я┐п╥п╨п╟ я┌п╬п╩я▄п╨п╬ п©я─п╬я│я┌п╬пЁп╬ я┌п╣п╨я│я┌п╬п╡п╬пЁп╬ я└п╟п╧п╩п╟.'>
   <if what='$posting.hasLargeBody'>
    <ifne what='$posting.LargeBodyFilename'>
-    <assign name='loaded' value#='Загружен файл $=posting.LargeBodyFilename
+    <assign name='loaded' value#='п≈п╟пЁя─я┐п╤п╣п╫ я└п╟п╧п╩ $=posting.LargeBodyFilename
 				  (${posting.LargeBodySizeKB}K)'>
    <else>
-    <assign name='loaded' value#='Загружен текст (${posting.LargeBodySizeKB}K)'>
+    <assign name='loaded' value#='п≈п╟пЁя─я┐п╤п╣п╫ я┌п╣п╨я│я┌ (${posting.LargeBodySizeKB}K)'>
    </ifne>
   <else>
    <assign name='loaded' value=''>
@@ -374,9 +374,9 @@
  <top ident='index'>
  <setup>
  <if what='$editid'>
-  <assign name='head' value#='Редактирование $,GrpWhatV'>
+  <assign name='head' value#='п═п╣п╢п╟п╨я┌п╦я─п╬п╡п╟п╫п╦п╣ $,GrpWhatV'>
  <else>
-  <assign name='head' value#='Добавление $posting.GrpWhatV'>
+  <assign name='head' value#='п■п╬п╠п╟п╡п╩п╣п╫п╦п╣ $posting.GrpWhatV'>
  </if>
  <form_table title='$head'>
   <form method=post enctype='multipart/form-data'
@@ -389,31 +389,31 @@
    <hidden name='person_id' value='$,PersonId'>
    <hidden name='up' value='$,UpValue'>
    <starinfo>
-   <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+   <error id='*EP_NO_EDIT' text='пё п╡п╟я│ п╫п╣я┌ п©я─п╟п╡п╟ я─п╣п╢п╟п╨я┌п╦я─п╬п╡п╟я┌я▄ я█я┌п╬ я│п╬п╬п╠я┴п╣п╫п╦п╣'>
    <error id='*EP_NO_PERSON'
-	  text='У этого пользователя нет персональной страницы'>
-   <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
-   <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
+	  text='пё я█я┌п╬пЁп╬ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐ п╫п╣я┌ п©п╣я─я│п╬п╫п╟п╩я▄п╫п╬п╧ я│я┌я─п╟п╫п╦я├я▀'>
+   <error id='*EP_INVALID_GRP' text='п╒п╟п╨п╬пЁп╬ я┌п╦п©п╟ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+   <error id='*EP_TOPIC_ABSENT' text='п╒п╣п╪п╟ п╢п╬п╩п╤п╫п╟ п╠я▀я┌я▄ п╡я▀п╠я─п╟п╫п╟'>
    <error id='*EP_TOPIC_ACCESS'
-	  text='Вы не имеете права добавлять сообщения по этой теме'>
-   <error id='*EVH_NO_PARENT' text='Такой темы не существует'>
-   <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
-   <error id='*EVH_LOOP' text='Сообщение не может быть подчиненным себе'>
+	  text='п▓я▀ п╫п╣ п╦п╪п╣п╣я┌п╣ п©я─п╟п╡п╟ п╢п╬п╠п╟п╡п╩я▐я┌я▄ я│п╬п╬п╠я┴п╣п╫п╦я▐ п©п╬ я█я┌п╬п╧ я┌п╣п╪п╣'>
+   <error id='*EVH_NO_PARENT' text='п╒п╟п╨п╬п╧ я┌п╣п╪я▀ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+   <error id='*EVH_NO_UP' text='п▓я▀я┬п╣я│я┌п╬я▐я┴п╣пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+   <error id='*EVH_LOOP' text='п║п╬п╬п╠я┴п╣п╫п╦п╣ п╫п╣ п╪п╬п╤п╣я┌ п╠я▀я┌я▄ п©п╬п╢я┤п╦п╫п╣п╫п╫я▀п╪ я│п╣п╠п╣'>
    <error id='*EVH_NOT_UP_UNDER_PARENT'
-          text='Тема вышестоящего сообщения должна совпадать с этой темой'>
-   <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
+          text='п╒п╣п╪п╟ п╡я▀я┬п╣я│я┌п╬я▐я┴п╣пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╢п╬п╩п╤п╫п╟ я│п╬п╡п©п╟п╢п╟я┌я▄ я│ я█я┌п╬п╧ я┌п╣п╪п╬п╧'>
+   <error id='*EVH_INCORRECT' text='п²п╟я─я┐я┬п╣п╫п╦п╣ п╦п╣я─п╟я─я┘п╦п╦ п╬п╠я┼п╣п╨я┌п╬п╡'>
    <error id='*EP_UP_APPEND'
-	  text='Вы не имеете права присоединять сообщения к этому сообщению'>
-   <error id='*EL_INVALID' text='Неверный ник или пароль'>
-   <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>
+	  text='п▓я▀ п╫п╣ п╦п╪п╣п╣я┌п╣ п©я─п╟п╡п╟ п©я─п╦я│п╬п╣п╢п╦п╫я▐я┌я▄ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╨ я█я┌п╬п╪я┐ я│п╬п╬п╠я┴п╣п╫п╦я▌'>
+   <error id='*EL_INVALID' text='п²п╣п╡п╣я─п╫я▀п╧ п╫п╦п╨ п╦п╩п╦ п©п╟я─п╬п╩я▄'>
+   <error id='*EL_GUEST_LOGIN_ABSENT' text='пёп╨п╟п╤п╦я┌п╣, п©п╬п╤п╟п╩я┐п╧я│я┌п╟, п╡п╟я┬п╣ п╦п╪я▐'>
    <moderator>
     <form_comment><table><tr>
      <full>
       <td><image src='/pics/down.gif'></td>
-      <td><a href='$[full=0]'>Скрыть все неиспользуемые поля</a></td>
+      <td><a href='$[full=0]'>п║п╨я─я▀я┌я▄ п╡я│п╣ п╫п╣п╦я│п©п╬п╩я▄п╥я┐п╣п╪я▀п╣ п©п╬п╩я▐</a></td>
      <else>
       <td><image src='/pics/right.gif'></td>
-      <td><a href='$[full=1]'>Показать все поля</a></td>
+      <td><a href='$[full=1]'>п÷п╬п╨п╟п╥п╟я┌я▄ п╡я│п╣ п©п╬п╩я▐</a></td>
      </full>
     </tr></table></form_comment>
    </moderator>
@@ -422,13 +422,13 @@
                   login!='$edittag ? $login : $$userLoginHint'
                   remember='$remember' onclick='reloginSelected(this);'>
     <error id='*EP_CAPTCHA_ABSENT'
-           text='Пожалуйста, введите цифры и буквы, которые вы видите на
-                 картинке. Это необходимо нам для борьбы со спамом.'>
-    <error id='*EP_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+           text='п÷п╬п╤п╟п╩я┐п╧я│я┌п╟, п╡п╡п╣п╢п╦я┌п╣ я├п╦я└я─я▀ п╦ п╠я┐п╨п╡я▀, п╨п╬я┌п╬я─я▀п╣ п╡я▀ п╡п╦п╢п╦я┌п╣ п╫п╟
+                 п╨п╟я─я┌п╦п╫п╨п╣. п╜я┌п╬ п╫п╣п╬п╠я┘п╬п╢п╦п╪п╬ п╫п╟п╪ п╢п╩я▐ п╠п╬я─я▄п╠я▀ я│п╬ я│п©п╟п╪п╬п╪.'>
+    <error id='*EP_CAPTCHA' text='п²п╣п╡п╣я─п╫я▀п╣ я├п╦я└я─я▀ п╦ п╠я┐п╨п╡я▀, п©п╬п©я─п╬п╠я┐п╧я┌п╣ п╣я┴п╣ я─п╟п╥'>
     <form_captcha id='captcha' name='captcha'>
    </if>
    <full>
-    <form_grpselect title='Группа' mandatory='*true' name='grp' value='$,Grp'>
+    <form_grpselect title='п⌠я─я┐п©п©п╟' mandatory='*true' name='grp' value='$,Grp'>
    <else>
     <hidden name='grp' value='$,Grp'>
    </full>
@@ -441,37 +441,37 @@
     <editor_line posting='$,' editor='$.' visible='*false'>
    </for>
    <moderator>
-    <assign name='who' value='автору'>
+    <assign name='who' value='п╟п╡я┌п╬я─я┐'>
    <else>
-    <assign name='who' value='мне'>
+    <assign name='who' value='п╪п╫п╣'>
    </moderator>
    <logged>
-    <form_select title='Видимость' name='hidden' style='box'>
-     <form_option title='Сообщение видно всем пользователям' value='0'
+    <form_select title='п▓п╦п╢п╦п╪п╬я│я┌я▄' name='hidden' style='box'>
+     <form_option title='п║п╬п╬п╠я┴п╣п╫п╦п╣ п╡п╦п╢п╫п╬ п╡я│п╣п╪ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐п╪' value='0'
                   selected!='!$,isHidden'>
-     <form_option title#='Сообщение видно только $who и модераторам' value='1'
+     <form_option title#='п║п╬п╬п╠я┴п╣п╫п╦п╣ п╡п╦п╢п╫п╬ я┌п╬п╩я▄п╨п╬ $who п╦ п╪п╬п╢п╣я─п╟я┌п╬я─п╟п╪' value='1'
                   selected='$,isHidden'>
     </form_select>
    <else>
     <hidden name='hidden' value='0'>
    </logged>
    <full>
-    <form_select title='Запретить показ'
-                 comment='Модераторский запрет на показ сообщения. Пользователь
-		          не может снять этот запрет.'
+    <form_select title='п≈п╟п©я─п╣я┌п╦я┌я▄ п©п╬п╨п╟п╥'
+                 comment='п°п╬п╢п╣я─п╟я┌п╬я─я│п╨п╦п╧ п╥п╟п©я─п╣я┌ п╫п╟ п©п╬п╨п╟п╥ я│п╬п╬п╠я┴п╣п╫п╦я▐. п÷п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▄
+		          п╫п╣ п╪п╬п╤п╣я┌ я│п╫я▐я┌я▄ я█я┌п╬я┌ п╥п╟п©я─п╣я┌.'
 		 name='disabled' style='box'>
-     <form_option title='Нет запрета на показ всем пользователям' value='0'
+     <form_option title='п²п╣я┌ п╥п╟п©я─п╣я┌п╟ п╫п╟ п©п╬п╨п╟п╥ п╡я│п╣п╪ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐п╪' value='0'
                   selected!='!$,isDisabled'>
-     <form_option title#='Разрешено показывать только $who и модераторам'
+     <form_option title#='п═п╟п╥я─п╣я┬п╣п╫п╬ п©п╬п╨п╟п╥я▀п╡п╟я┌я▄ я┌п╬п╩я▄п╨п╬ $who п╦ п╪п╬п╢п╣я─п╟я┌п╬я─п╟п╪'
                   value='1' selected='$,isDisabled'>
     </form_select>
    <else>
     <hidden name='disabled' value='$,isDisabled'>
    </full>
    <if what='$editid'>
-    <form_buttons title='Изменить'>
+    <form_buttons title='п≤п╥п╪п╣п╫п╦я┌я▄'>
    <else>
-    <form_buttons title='Добавить'>
+    <form_buttons title='п■п╬п╠п╟п╡п╦я┌я▄'>
    </if>
   </form>
  </form_table>

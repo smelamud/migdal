@@ -35,7 +35,7 @@
 <if what='$posting.hasImage'>
  <if what='$posting.hasLargeImage'>
   &lt;a href='$$the_site$posting.LargeImageURL'
-	title='Нажмите, чтобы увеличить'&gt;
+	title='п²п╟п╤п╪п╦я┌п╣, я┤я┌п╬п╠я▀ я┐п╡п╣п╩п╦я┤п╦я┌я▄'&gt;
   <asp>&lt;img border=0 width='$posting.SmallImageX'
                height='$posting.SmallImageY'
 	       src='$$the_site$posting.SmallImageURL'&gt;<asp>
@@ -57,7 +57,7 @@
 <element name='item_further_url' params='posting,url'>
 &lt;p&gt;
  &lt;a href='$$the_site/actions/link/$posting.Id/?okdir=$#url'&gt;<asp>
-  <asp>&#187; Подробности на другом сайте&lt;/a&gt;
+  <asp>&#187; п÷п╬п╢я─п╬п╠п╫п╬я│я┌п╦ п╫п╟ п╢я─я┐пЁп╬п╪ я│п╟п╧я┌п╣&lt;/a&gt;
 &lt;/p&gt;
 </element>
 
@@ -72,8 +72,8 @@
   <&nil;rss version="2.0">
    <channel>
     <title><asp>
-     <notenglish>Мигдаль<else>Migdal</notenglish>
-     <if what="$loc.Title!='' && $loc.Title!='Главная' && $loc.Title!='Main'">
+     <notenglish>п°п╦пЁп╢п╟п╩я▄<else>Migdal</notenglish>
+     <if what="$loc.Title!='' && $loc.Title!='п⌠п╩п╟п╡п╫п╟я▐' && $loc.Title!='Main'">
       &sp;- $=loc.Title<asp>
      </if>
     </title>
@@ -82,12 +82,12 @@
      <ifne what='$topic.Body'>
       $=topic.Body
      <else>
-      <asp>Мигдаль<asp>
+      <asp>п°п╦пЁп╢п╟п╩я▄<asp>
      </ifne>
     </description>
     <&nil;image>
      <url>${the_site}/pics/big-tower.gif</url>
-     <title>Мигдаль</title>
+     <title>п°п╦пЁп╢п╟п╩я▄</title>
      <link>$the_site/</link>
     </image>
     <language>ru-ru</language>
@@ -133,11 +133,11 @@
        <if what='$.hasLargeBody'>
 	<if what='$.Grp != *GRP_BOOK_CHAPTERS'>
 	 <item_further posting='$.'
-		       title!="!$$englishDomain ? 'Читать статью'
+		       title!="!$$englishDomain ? 'п╖п╦я┌п╟я┌я▄ я│я┌п╟я┌я▄я▌'
 		                                : 'Read article'">
 	<else>
 	 <item_further posting='$.'
-		       title!="!$$englishDomain ? 'Читать главу книги'
+		       title!="!$$englishDomain ? 'п╖п╦я┌п╟я┌я▄ пЁп╩п╟п╡я┐ п╨п╫п╦пЁп╦'
 		 			        : 'Read book chapter'">
 	</if>
        </if>

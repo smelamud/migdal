@@ -5,11 +5,11 @@
   <notlogged>
    <div class='top-button'>
     <a href='/signin/?redirid=$_'><asp>
-     <asp><image src='/pics/enter.gif' alt='Войти'></a>
+     <asp><image src='/pics/enter.gif' alt='п▓п╬п╧я┌п╦'></a>
    </div>
    <master>
     <div class='eightpt top-button'>
-     Чтобы войти, сначала <a href='/register/?redirid=$_'>зарегистрируйтесь</a>.
+     п╖я┌п╬п╠я▀ п╡п╬п╧я┌п╦, я│п╫п╟я┤п╟п╩п╟ <a href='/register/?redirid=$_'>п╥п╟я─п╣пЁп╦я│я┌я─п╦я─я┐п╧я┌п╣я│я▄</a>.
     </div>
    </master>
   <else>
@@ -20,10 +20,10 @@
      <a href='/users/$$#userFolder/?redirid=$_' id='login'>$$=userLogin</a>
     </if>
     <a href='/actions/logout?okdir=$#-'><asp>
-     <asp><image src='/pics/exit.gif' alt='Выйти'></a>
+     <asp><image src='/pics/exit.gif' alt='п▓я▀п╧я┌п╦'></a>
     <admin_users>
      <a href='/signin/?redirid=$_'><asp>
-      <asp><image src='/pics/su.gif' alt='Сменить'></a>
+      <asp><image src='/pics/su.gif' alt='п║п╪п╣п╫п╦я┌я▄'></a>
     </admin_users>
    </div>
   </notlogged>

@@ -52,8 +52,8 @@ class ImagesIterator
         extends SelectIterator {
 
     public function __construct($postid) {
-        // Показываем все нижестоящие entries, в которых есть картинка, не обязательно
-        // типа ENT_IMAGE
+        // п÷п╬п╨п╟п╥я▀п╡п╟п╣п╪ п╡я│п╣ п╫п╦п╤п╣я│я┌п╬я▐я┴п╦п╣ entries, п╡ п╨п╬я┌п╬я─я▀я┘ п╣я│я┌я▄ п╨п╟я─я┌п╦п╫п╨п╟, п╫п╣ п╬п╠я▐п╥п╟я┌п╣п╩я▄п╫п╬
+        // я┌п╦п©п╟ ENT_IMAGE
         parent::__construct(
             'Entry',
             "select id,ident,entry,up,track,catalog,parent_id,

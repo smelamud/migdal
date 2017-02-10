@@ -1,7 +1,7 @@
 << @(#) $Id$ >>
 
 <element name='topics_events'>
-<upper_level name='íÉÇÄÁÌØ' href='/migdal/'>
+<upper_level name='ÐœÐ¸Ð³Ð´Ð°Ð»ÑŒ' href='/migdal/'>
 <events grp='*GRP_ALL' index='$index'>
 </element>
 
@@ -22,18 +22,18 @@
 </element>
 
 <element name='topics_event'>
-<upper_level name='óÏÂÙÔÉÑ' href='/migdal/events/'>
+<upper_level name='Ð¡Ð¾Ð±Ñ‹Ñ‚Ð¸Ñ' href='/migdal/events/'>
 <topic_obj name='topic' id='$base'>
 <topics_table title='$=topic.Subject'>
  <html_cache ident#='topics_event-$base-$index' period!='3 * 60 * 60'
              depends='postings,topics'>
   <posting_last grp='*GRP_TAPE' topic_id='$topic.Id' recursive='*false'
                 as_guest='*true'>
-  <topics_line time='$,' text='îÏ×ÏÓÔÉ' href#='/$topic.Catalog'
+  <topics_line time='$,' text='ÐÐ¾Ð²Ð¾ÑÑ‚Ð¸' href#='/$topic.Catalog'
                arrow!="$index=='news'" class='topics-item ninept'>
   <posting_last grp='*GRP_GALLERY' topic_id='$topic.Id' recursive='*false'
                 as_guest='*true'>
-  <topics_line time='$,' text='çÁÌÅÒÅÑ' href#='/${topic.Catalog}gallery/'
+  <topics_line time='$,' text='Ð“Ð°Ð»ÐµÑ€ÐµÑ' href#='/${topic.Catalog}gallery/'
                arrow!="$index=='gallery'" class='topics-item ninept'>
  </html_cache>
 </topics_table>

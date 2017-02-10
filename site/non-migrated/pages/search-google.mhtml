@@ -3,7 +3,7 @@
 <string name='q' convert='*true'>
 
 <ifne what='$q'>
- <?php $LocationInfo->setTitle('ðÏÉÓË: '.$Args['q']); ?>
+ <?php $LocationInfo->setTitle('ÐŸÐ¾Ð¸ÑÐº: '.$Args['q']); ?>
  <log event=search text#='query=$#q'>
 </ifne>
 
@@ -15,7 +15,7 @@
     <input type="hidden" name="cx" value="000382786483905528259:szxa26ocu1k" />
     <input type="hidden" name="cof" value="FORID:1" />
     <input name="q" type="text" size="85" />
-    <input type="submit" name="sa" value="îÁÊÔÉ" />
+    <input type="submit" name="sa" value="ÐÐ°Ð¹Ñ‚Ð¸" />
   </form>
   <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_000382786483905528259%3Aszxa26ocu1k"></script>
 <!-- Google CSE Search Box Ends -->
@@ -31,7 +31,7 @@
     <input type="hidden" name="cx" value="000382786483905528259:szxa26ocu1k" />
     <input type="hidden" name="cof" value="FORID:9" />
     <input name="q" type="text" size="85" />
-    <input type="submit" name="sa" value="îÁÊÔÉ" />
+    <input type="submit" name="sa" value="ÐÐ°Ð¹Ñ‚Ð¸" />
   </form>
   <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=searchbox_000382786483905528259%3Aszxa26ocu1k"></script>
 <!-- Google CSE Search Box Ends -->
@@ -62,7 +62,7 @@
  <div class='cframe' style='background-image: none; padding: 5'>
   <subtitle>
   <table><tr valign='center'>
-   <td><b>ñ ÉÝÕ:</b></td>
+   <td><b>Ð¯ Ð¸Ñ‰Ñƒ:</b></td>
    <td><google_search_inplace></td>
   </tr></table>
   <ifne what='$q'>

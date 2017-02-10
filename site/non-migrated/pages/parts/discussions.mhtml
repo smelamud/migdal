@@ -4,7 +4,7 @@
 <grps>
 <html_cache ident#='discussions' period!='3 * 60 * 60'
             depends='postings,forums'>
- <div class='topics-header'>Последние комментарии</div>
+ <div class='topics-header'>п÷п╬я│п╩п╣п╢п╫п╦п╣ п╨п╬п╪п╪п╣п╫я┌п╟я─п╦п╦</div>
  <div class='discussions'>
   <iterate_forum_or_postinglist grp='*GRP_FORUMS' limit='$limit'>
   <for>
@@ -28,7 +28,7 @@
     <span class='time fuzzy-time' data-time='$.Sent'></span>
    </div>
   </for>
-  <div class='other'><a href='/forum/'>Все обсуждения</a></div>
+  <div class='other'><a href='/forum/'>п▓я│п╣ п╬п╠я│я┐п╤п╢п╣п╫п╦я▐</a></div>
  </div>
 </html_cache>
 </element>

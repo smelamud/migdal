@@ -1,13 +1,13 @@
 << @(#) $Id$ >>
 
 <element name='topics_peruser'>
-<upper_level title='îÁ ÇÌÁ×ÎÕÀ ÓÔÒÁÎÉÃÕ' href='/'>
+<upper_level title='ÐÐ° Ð³Ð»Ð°Ð²Ð½ÑƒÑŽ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñƒ' href='/'>
 <html_cache ident#='topics_peruser-$base-$index' period!='3 * 60 * 60'
             depends='postings'>
  <topic_obj id='$base'>
  <topics_table title='$=,Subject'>
   <iterate_posting_users topic_id='$,Id' as_guest='*true'>
-  <topics_line text='÷ÓÅ ÐÏÌØÚÏ×ÁÔÅÌÉ' href#='/$,Catalog' arrow!='$index<=0'
+  <topics_line text='Ð’ÑÐµ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ð¸' href#='/$,Catalog' arrow!='$index<=0'
 	       class='ninept topics-item'>
   <for>
    <zone>

@@ -26,9 +26,9 @@
  <setup>
  <assign name='xmlid' value!='$$userModerator ? $editid : 0'>
  <if what='$editid'>
-  <form_table title='òÅÄÁËÔÉÒÏ×ÁÎÉÅ ÔÅÍÙ'>
+  <form_table title='Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ‚ÐµÐ¼Ñ‹'>
  <else>
-  <form_table title='äÏÂÁ×ÌÅÎÉÅ ÔÅÍÙ'>
+  <form_table title='Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ñ‚ÐµÐ¼Ñ‹'>
  </if>
  <form method=post enctype='multipart/form-data'
        action='/actions/topic/modify/'>
@@ -37,41 +37,41 @@
   <hidden name='faildir' value='$-'>
   <hidden name='editid' value='$editid'>
   <starinfo>
-  <form_section title='ïÐÉÓÁÎÉÅ ÔÅÍÙ'>
-  <error id='*ET_NO_EDIT' text='÷Ù ÎÅ ÍÏÖÅÔÅ ÒÅÄÁËÔÉÒÏ×ÁÔØ ÜÔÕ ÔÅÍÕ'>
-  <error id='*EVH_NO_UP' text='÷ÙÛÅÓÔÏÑÝÅÊ ÔÅÍÙ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-  <error id='*EVH_LOOP' text='ôÅÍÁ ÎÅ ÍÏÖÅÔ ÂÙÔØ ÐÏÄÔÅÍÏÊ ÓÁÍÏÊ ÓÅÂÑ'>
-  <error id='*EVH_INCORRECT' text='îÁÒÕÛÅÎÉÅ ÉÅÒÁÒÈÉÉ ÏÂßÅËÔÏ×'>
-  <error id='*ET_NO_APPEND' text='÷Ù ÎÅ ÍÏÖÅÔÅ ÄÏÂÁ×ÌÑÔØ ÐÏÄÔÅÍÙ ÄÌÑ ÜÔÏÊ ÔÅÍÙ'>
-  <form_topicselect title='îÁÄÔÅÍÁ' name='up' value='$,UpValue'
+  <form_section title='ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ Ñ‚ÐµÐ¼Ñ‹'>
+  <error id='*ET_NO_EDIT' text='Ð’Ñ‹ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ ÑÑ‚Ñƒ Ñ‚ÐµÐ¼Ñƒ'>
+  <error id='*EVH_NO_UP' text='Ð’Ñ‹ÑˆÐµÑÑ‚Ð¾ÑÑ‰ÐµÐ¹ Ñ‚ÐµÐ¼Ñ‹ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+  <error id='*EVH_LOOP' text='Ð¢ÐµÐ¼Ð° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¿Ð¾Ð´Ñ‚ÐµÐ¼Ð¾Ð¹ ÑÐ°Ð¼Ð¾Ð¹ ÑÐµÐ±Ñ'>
+  <error id='*EVH_INCORRECT' text='ÐÐ°Ñ€ÑƒÑˆÐµÐ½Ð¸Ðµ Ð¸ÐµÑ€Ð°Ñ€Ñ…Ð¸Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²'>
+  <error id='*ET_NO_APPEND' text='Ð’Ñ‹ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÑ‚ÑŒ Ð¿Ð¾Ð´Ñ‚ÐµÐ¼Ñ‹ Ð´Ð»Ñ ÑÑ‚Ð¾Ð¹ Ñ‚ÐµÐ¼Ñ‹'>
+  <form_topicselect title='ÐÐ°Ð´Ñ‚ÐµÐ¼Ð°' name='up' value='$,UpValue'
                     only_appendable='*true'>
-  <error id='*ET_IDENT_UNIQUE' text='ôÁË ÕÖÅ ÏÂÏÚÎÁÞÅÎÁ ÄÒÕÇÁÑ ÔÅÍÁ'>
-  <form_edit title='ïÂÏÚÎÁÞÅÎÉÅ' name='ident' value='$=,Ident' size=20
+  <error id='*ET_IDENT_UNIQUE' text='Ð¢Ð°Ðº ÑƒÐ¶Ðµ Ð¾Ð±Ð¾Ð·Ð½Ð°Ñ‡ÐµÐ½Ð° Ð´Ñ€ÑƒÐ³Ð°Ñ Ñ‚ÐµÐ¼Ð°'>
+  <form_edit title='ÐžÐ±Ð¾Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ' name='ident' value='$=,Ident' size=20
 	     maxlength=75>
-  <error id='*ET_NAME_ABSENT' text='îÁÚ×ÁÎÉÅ ÎÅ ÂÙÌÏ ××ÅÄÅÎÏ'>
-  <form_edit title='îÁÚ×ÁÎÉÅ' value='$=,Subject' name='subject' size=50
+  <error id='*ET_NAME_ABSENT' text='ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð½Ðµ Ð±Ñ‹Ð»Ð¾ Ð²Ð²ÐµÐ´ÐµÐ½Ð¾'>
+  <form_edit title='ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ' value='$=,Subject' name='subject' size=50
 	     maxlength=70 mandatory='*true'>
-  <form_edit title='ëÏÍÍÅÎÔÁÒÉÊ 0' value='$=,Comment0' name='comment0' size=50
+  <form_edit title='ÐšÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸Ð¹ 0' value='$=,Comment0' name='comment0' size=50
 	     maxlength=70 xmlid='$xmlid'>
-  <form_edit title='ëÏÍÍÅÎÔÁÒÉÊ 1' value='$=,Comment1' name='comment1' size=50
+  <form_edit title='ÐšÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸Ð¹ 1' value='$=,Comment1' name='comment1' size=50
 	     maxlength=70 xmlid='$xmlid'>
-  <form_edit title='çÏÄ' value='$,Index2' name='index2' size=6 maxlength=6>
-  <error id='*ET_DESCRIPTION_ABSENT' text='ïÐÉÓÁÎÉÅ ÎÅ ÂÙÌÏ ÚÁÄÁÎÏ'>
-  <form_editor title='ïÐÉÓÁÎÉÅ' name='body' body='$=,Body'
+  <form_edit title='Ð“Ð¾Ð´' value='$,Index2' name='index2' size=6 maxlength=6>
+  <error id='*ET_DESCRIPTION_ABSENT' text='ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ Ð½Ðµ Ð±Ñ‹Ð»Ð¾ Ð·Ð°Ð´Ð°Ð½Ð¾'>
+  <form_editor title='ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ' name='body' body='$=,Body'
 	       mandatory='$topicMandatoryDescription' xmlid='$xmlid'>
-  <form_section title='ðÒÁ×Á ÄÏÓÔÕÐÁ'>
-  <error id='*ET_NO_USER' text='ôÁËÏÇÏ ÐÏÌØÚÏ×ÁÔÅÌÑ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-  <form_edit title='÷ÌÁÄÅÌÅÃ' name='login' value='$=,Login' size=20
+  <form_section title='ÐŸÑ€Ð°Ð²Ð° Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°'>
+  <error id='*ET_NO_USER' text='Ð¢Ð°ÐºÐ¾Ð³Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+  <form_edit title='Ð’Ð»Ð°Ð´ÐµÐ»ÐµÑ†' name='login' value='$=,Login' size=20
 	     maxlength=30>
-  <error id='*ET_NO_GROUP' text='ôÁËÏÊ ÇÒÕÐÐÙ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-  <form_edit title='çÒÕÐÐÁ' name='group_login' value='$=,GroupLogin' size=20
+  <error id='*ET_NO_GROUP' text='Ð¢Ð°ÐºÐ¾Ð¹ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+  <form_edit title='Ð“Ñ€ÑƒÐ¿Ð¿Ð°' name='group_login' value='$=,GroupLogin' size=20
 	     maxlength=30>
-  <error id='*ET_BAD_PERMS' text='ðÒÁ×Á ÚÁÄÁÎÙ ÎÅËÏÒÒÅËÔÎÏ'>
-  <form_edit title='ðÒÁ×Á' name='perm_string' value='$,PermString' size=17
+  <error id='*ET_BAD_PERMS' text='ÐŸÑ€Ð°Ð²Ð° Ð·Ð°Ð´Ð°Ð½Ñ‹ Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾'>
+  <form_edit title='ÐŸÑ€Ð°Ð²Ð°' name='perm_string' value='$,PermString' size=17
 	     maxlength=17>
-  <form_grpselect title='äÏÐÕÓÔÉÍÙÅ ÓÏÏÂÝÅÎÉÑ' name='grps[]' value='$,Grps'
+  <form_grpselect title='Ð”Ð¾Ð¿ÑƒÑÑ‚Ð¸Ð¼Ñ‹Ðµ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ' name='grps[]' value='$,Grps'
                   rows='8' multiple='*true'>
-  <form_select title='íÏÄÅÒÉÒÏ×ÁÎÉÅ' name='modbits[]' style='box'
+  <form_select title='ÐœÐ¾Ð´ÐµÑ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ' name='modbits[]' style='box'
                multiple='*true'>
    <iterate_topic_modbits>
    <for>
@@ -80,9 +80,9 @@
    </for>
   </form_select>
   <if what='$editid'>
-   <form_buttons title='éÚÍÅÎÉÔØ'>
+   <form_buttons title='Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ'>
   <else>
-   <form_buttons title='äÏÂÁ×ÉÔØ'>
+   <form_buttons title='Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ'>
   </if>
  </form>
  </form_table>

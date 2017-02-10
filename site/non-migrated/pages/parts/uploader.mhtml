@@ -17,13 +17,13 @@
   <ifne what='$large_url'>
    &nbsp;&nbsp;<b>(</b>&nbsp;
    <ifne what='$small_url'>
-    <a href='$small_url'>маленькая</a>&nbsp;
+    <a href='$small_url'>п╪п╟п╩п╣п╫я▄п╨п╟я▐</a>&nbsp;
    </ifne>
-   <a href='$large_url'>большая</a>&nbsp;
+   <a href='$large_url'>п╠п╬п╩я▄я┬п╟я▐</a>&nbsp;
    <b>)</b>
   </ifne>
   <br>
-  <checkbox name='$delname' title='Удалить'>
+  <checkbox name='$delname' title='пёп╢п╟п╩п╦я┌я▄'>
  </p>
 </ifne>
 <ifne what='$small_name'>

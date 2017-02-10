@@ -3,8 +3,8 @@
 <relogin>
 
 <element name='form_relogin'>
-<error id='*EL_INVALID' text='Неверный ник или пароль'>
-<form_line title='Подписать сообщение как'>
+<error id='*EL_INVALID' text='п²п╣п╡п╣я─п╫я▀п╧ п╫п╦п╨ п╦п╩п╦ п©п╟я─п╬п╩я▄'>
+<form_line title='п÷п╬п╢п©п╦я│п╟я┌я▄ я│п╬п╬п╠я┴п╣п╫п╦п╣ п╨п╟п╨'>
  <ifzero what='$relogin'>
   <logged>
    <assign name='relogin' value='*RELOGIN_SAME'>
@@ -19,19 +19,19 @@
      <radio id='relogin-guest' name='relogin' value='*RELOGIN_GUEST'
             checked!='$relogin==*RELOGIN_GUEST' onclick='$onclick'>
     </td>
-    <td>Имя</td>
+    <td>п≤п╪я▐</td>
     <td>
      <input type=text name='guest_login' value='$$=userGuestLogin' size=15
             maxlength=30 onkeypress='$("#relogin-guest").attr("checked", true)'>
     </td>
     <td colspan=4>
-     <label for='relogin-guest'>без пароля (гостевой вход)</label>
+     <label for='relogin-guest'>п╠п╣п╥ п©п╟я─п╬п╩я▐ (пЁп╬я│я┌п╣п╡п╬п╧ п╡я┘п╬п╢)</label>
     </td>
    <else>
     <td width='1' align='center'>
      (&nbsp;)
     </td>
-    <td colspan=6><i>гости не могут писать сюда</i></td>
+    <td colspan=6><i>пЁп╬я│я┌п╦ п╫п╣ п╪п╬пЁя┐я┌ п©п╦я│п╟я┌я▄ я│я▌п╢п╟</i></td>
    </if>
   </tr>
   <logged>
@@ -41,7 +41,7 @@
             checked!='$relogin==*RELOGIN_SAME' onclick='$onclick'>
     </td>
     <td colspan=6>
-     <label for='relogin-same'>Зарегистрированный пользователь</label>
+     <label for='relogin-same'>п≈п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟п╫п╫я▀п╧ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▄</label>
      <b><a href='/users/$$#userFolder/?redirid=$_'>$$=userLogin</a></b>
     </td>
    </tr>
@@ -51,24 +51,24 @@
     <radio id='relogin-login' name='relogin' value='*RELOGIN_LOGIN'
            checked!='$relogin==*RELOGIN_LOGIN' onclick='$onclick'>
    </td>
-   <td>Ник</td>
+   <td>п²п╦п╨</td>
    <td>
     <input type=text name='login' value='$=login' size=15 maxlength=30
            onkeypress='$("#relogin-login").attr("checked", true)'>
    </td>
-   <td>Пароль</td>
+   <td>п÷п╟я─п╬п╩я▄</td>
    <td>
     <input type=password name='password' size=15
            onkeypress='$("#relogin-login").attr("checked", true)'>
    </td>
-   <td>Войти?</td>
+   <td>п▓п╬п╧я┌п╦?</td>
    <td><checkbox_button name='remember' checked='$remember'></td>
    <master>
     <tr valign='top'>
      <td width='1'>&nbsp;</td>
      <td colspan=6>
-      <a href='/register/?redirid=$_'>Зарегистрироваться</a>&nbsp;&nbsp;<asp>
-      <asp><a href='/remember-password/?redirid=$_'>Забыли пароль?</a>
+      <a href='/register/?redirid=$_'>п≈п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟я┌я▄я│я▐</a>&nbsp;&nbsp;<asp>
+      <asp><a href='/remember-password/?redirid=$_'>п≈п╟п╠я▀п╩п╦ п©п╟я─п╬п╩я▄?</a>
      </td>
     </tr>
    </master>

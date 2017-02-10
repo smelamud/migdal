@@ -86,7 +86,7 @@ function formatRussianDate($f, $time = 0) {
         case 'M':
             return $rusMonth3[formatEnglishDate('n', $time)];
         case 'S':
-            return 'ое';
+            return 'п╬п╣';
         default:
             return formatEnglishDate($f, $time);
     }
@@ -136,7 +136,7 @@ function formatJewishDate($f, $time=0) {
         case 'Q':
             return getJewishYearLength(formatJewishDate('Y', $time));
         case 'S':
-            return 'ое';
+            return 'п╬п╣';
         case 't':
             getJewishFromUNIXDetailed($time, $jmonth, $jday, $jyear);
             return getJewishMonthLength($jmonth, $jyear);

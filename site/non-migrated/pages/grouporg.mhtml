@@ -14,7 +14,7 @@
     <table class='topics'>
      <admin_users>
       <tr><td colspan=2>
-       <a href='/admin/groups/add/?redirid=$_' class='edit'>Добавить</a>
+       <a href='/admin/groups/add/?redirid=$_' class='edit'>п■п╬п╠п╟п╡п╦я┌я▄</a>
       </td></tr>
      </admin_users>
      <iterate_groups>
@@ -28,12 +28,12 @@
         <td>
          <admin_users>
           <a href='/admin/groups/add/?group_name=$#.GroupName&redirid=$_'
-             class='edit'>Добавить</a>&nbsp;
+             class='edit'>п■п╬п╠п╟п╡п╦я┌я▄</a>&nbsp;
          </admin_users>
       </if>
       <admin_users>
        <a href='/actions/group/delete?user_id=$.UserId&group_id=$.GroupId&okdir=$#-&faildir=$#-'
-          title='Удалить'>$.UserName</a>&nbsp;
+          title='пёп╢п╟п╩п╦я┌я▄'>$.UserName</a>&nbsp;
       <else>
        $.UserName&nbsp;
       </admin_users>

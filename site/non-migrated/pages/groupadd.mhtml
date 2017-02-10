@@ -7,21 +7,21 @@
  <preamble>
 
  <top ident='index'>
- <form_table title='äÏÂÁ×ÌÅÎÉÅ ÐÏÌØÚÏ×ÁÔÅÌÑ × ÇÒÕÐÐÕ'>
+ <form_table title='Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð² Ð³Ñ€ÑƒÐ¿Ð¿Ñƒ'>
   <form method=post action='/actions/group/add'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <starinfo>
-   <error id='*EGA_NO_ADD' text='÷Ù ÎÅ ÁÄÍÉÎÉÓÔÒÁÔÏÒ'>
-   <error id='*EGA_GROUP_EMPTY' text='õËÁÖÉÔÅ ÉÍÑ ÇÒÕÐÐÙ'>
-   <error id='*EGA_NO_GROUP' text='ôÁËÏÊ ÇÒÕÐÐÙ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-   <form_edit title='çÒÕÐÐÁ' mandatory='*true' name='group_name'
+   <error id='*EGA_NO_ADD' text='Ð’Ñ‹ Ð½Ðµ Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€'>
+   <error id='*EGA_GROUP_EMPTY' text='Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹'>
+   <error id='*EGA_NO_GROUP' text='Ð¢Ð°ÐºÐ¾Ð¹ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+   <form_edit title='Ð“Ñ€ÑƒÐ¿Ð¿Ð°' mandatory='*true' name='group_name'
 	      value='$group_name' size=30 maxlength=30>
-   <error id='*EGA_USER_EMPTY' text='õËÁÖÉÔÅ ÉÍÑ ÐÏÌØÚÏ×ÁÔÅÌÑ'>
-   <error id='*EGA_NO_USER' text='ôÁËÏÇÏ ÐÏÌØÚÏ×ÁÔÅÌÑ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-   <form_edit title='ðÏÌØÚÏ×ÁÔÅÌØ' mandatory='*true' name='user_name'
+   <error id='*EGA_USER_EMPTY' text='Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ'>
+   <error id='*EGA_NO_USER' text='Ð¢Ð°ÐºÐ¾Ð³Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+   <form_edit title='ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ' mandatory='*true' name='user_name'
 	      value='$user_name' size=30 maxlength=30>
-   <form_buttons title='äÏÂÁ×ÉÔØ'>
+   <form_buttons title='Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ'>
   </form>
  </form_table>
  <bottom>

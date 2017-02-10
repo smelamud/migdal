@@ -12,7 +12,7 @@
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
    <catalog name='catalog' id='$topic_id'>
-   <a href='/${catalog}add?noguests=1&redirid=$_'>Добавить участника</a>
+   <a href='/${catalog}add?noguests=1&redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ я┐я┤п╟я│я┌п╫п╦п╨п╟</a>
   </div>
  </if>
  <div class='clear-floats'></div>
@@ -41,7 +41,7 @@
     </tr>
    </for>
   </table>
-  <input type=submit value='Проголосовать'>
+  <input type=submit value='п÷я─п╬пЁп╬п╩п╬я│п╬п╡п╟я┌я▄'>
  </form>
  <ifnzero what='$;Count'>
   <batcher topic_id='$topic_id' access='$access'>

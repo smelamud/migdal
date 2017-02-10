@@ -20,14 +20,14 @@
   <br>
  </if>
  <if what='$append'>
-  <a href='/admin/topics/${up_path}add/?redirid=$_' class='edit'>Добавить</a>
+  <a href='/admin/topics/${up_path}add/?redirid=$_' class='edit'>п■п╬п╠п╟п╡п╦я┌я▄</a>
  </if>
  <if what='$up!=0 && $write'>
-  <a href='/admin/topics/${up_path}edit/?redirid=$_' class='edit'>Изменить</a>
-  <a href='/admin/topics/${up_path}delete/?redirid=$_' class='edit'>Удалить</a>
-  <a href='/admin/topics/${up_path}chmod/?redirid=$_' class='edit'>Права</a>
+  <a href='/admin/topics/${up_path}edit/?redirid=$_' class='edit'>п≤п╥п╪п╣п╫п╦я┌я▄</a>
+  <a href='/admin/topics/${up_path}delete/?redirid=$_' class='edit'>пёп╢п╟п╩п╦я┌я▄</a>
+  <a href='/admin/topics/${up_path}chmod/?redirid=$_' class='edit'>п÷я─п╟п╡п╟</a>
   <a href='/admin/topics/${up_path}reorder/?redirid=$_'
-     class='edit'>Расставить</a>
+     class='edit'>п═п╟я│я│я┌п╟п╡п╦я┌я▄</a>
  </if>
  <ifnzero what='$;Count'>
   <ul class='topics'>
@@ -60,11 +60,11 @@
        <td width=20><image src='/pics/up-level.gif'></td>
        <td>
         <a href='/admin/topics/$,ParentTrackPath'
-           class='ninept'>На уровень вверх</a>
+           class='ninept'>п²п╟ я┐я─п╬п╡п╣п╫я▄ п╡п╡п╣я─я┘</a>
        </td>
       </tr></table>
       <br>
-      <a href='/admin/topics/'>Все темы</a>
+      <a href='/admin/topics/'>п▓я│п╣ я┌п╣п╪я▀</a>
       <iterate_topic_hierarchy name='hier' topic_id='$up'>
       <for>
        :: <a href='/admin/topics/$.TrackPath'>$=.Subject</a>

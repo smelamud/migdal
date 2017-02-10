@@ -25,9 +25,9 @@
  <table width=100%><tr valign=top>
   <td class='eframe' width=200>
    <iterate_images postid='$,Id'>
-   <topics_table class='ninept' title='Иллюстрации'>
+   <topics_table class='ninept' title='п≤п╩п╩я▌я│я┌я─п╟я├п╦п╦'>
     <topics_line arrow!='$editid==0' href='$[err edittag editid=0]'
-                 class='new' text='-- Добавить --'>
+                 class='new' text='-- п■п╬п╠п╟п╡п╦я┌я▄ --'>
     <for>
      <ife what='$.Title'>
       <assign name='name' value='$.LargeImageFilename'>
@@ -48,13 +48,13 @@
       </if>
       ${.ImageX}x${.ImageY}, ${.LargeImageSizeKB}KB
       <br><a href='/actions/posting/image/delete?editid=$.Id&okdir=$#-&faildir=$#-'
-             class='edit'>Удалить</a>
+             class='edit'>пёп╢п╟п╩п╦я┌я▄</a>
      </li>
     </for>
    </topics_table>
   </td>
   <td>
-   <form_table title#='Иллюстрации к статье "$=,Subject"'>
+   <form_table title#='п≤п╩п╩я▌я│я┌я─п╟я├п╦п╦ п╨ я│я┌п╟я┌я▄п╣ "$=,Subject"'>
     <image_obj id='$editid'>
     <setup>
     <form method=post enctype='multipart/form-data'
@@ -65,37 +65,37 @@
      <hidden name='postid' value='$postid'>
      <hidden name='editid' value='$editid'>
      <starinfo>
-     <error id='*ELIM_NO_EDIT' text='Вы не можете редактировать эту картинку'>
-     <error id='*ELIM_NO_POSTING' text='Вышестоящего сообщения не существует'>
-     <error id='*ELIM_POSTING_APPEND' text='Вы не можете редактировать этот список'>
-     <error id='*ELIM_IMAGE_ABSENT' text='Картинка не указана'>
-     <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки'>
-     <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
+     <error id='*ELIM_NO_EDIT' text='п▓я▀ п╫п╣ п╪п╬п╤п╣я┌п╣ я─п╣п╢п╟п╨я┌п╦я─п╬п╡п╟я┌я▄ я█я┌я┐ п╨п╟я─я┌п╦п╫п╨я┐'>
+     <error id='*ELIM_NO_POSTING' text='п▓я▀я┬п╣я│я┌п╬я▐я┴п╣пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+     <error id='*ELIM_POSTING_APPEND' text='п▓я▀ п╫п╣ п╪п╬п╤п╣я┌п╣ я─п╣п╢п╟п╨я┌п╦я─п╬п╡п╟я┌я▄ я█я┌п╬я┌ я│п©п╦я│п╬п╨'>
+     <error id='*ELIM_IMAGE_ABSENT' text='п п╟я─я┌п╦п╫п╨п╟ п╫п╣ я┐п╨п╟п╥п╟п╫п╟'>
+     <error id='*EIU_UNKNOWN_IMAGE' text='п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╧ я└п╬я─п╪п╟я┌ п╨п╟я─я┌п╦п╫п╨п╦'>
+     <error id='*EIU_IMAGE_LARGE' text='п п╟я─я┌п╦п╫п╨п╟ я│п╩п╦я┬п╨п╬п╪ п╡п╣п╩п╦п╨п╟ (п╠п╬п╩я▄я┬п╣ 2M)'>
      <error id='*EIU_UNKNOWN_THUMBNAIL'
-	    text='Формат маленькой картинки, указанный при конфигурации сервера,
-		  не поддерживается'>
-     <error id='*EIU_INTERNAL_ERROR' text='Не удалось загрузить картинку'>
-     <error id='*EVH_NO_PARENT' text='Такой темы не существует'>
-     <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
-     <error id='*EVH_LOOP' text='Сообщение не может быть подчиненным себе'>
+	    text='п╓п╬я─п╪п╟я┌ п╪п╟п╩п╣п╫я▄п╨п╬п╧ п╨п╟я─я┌п╦п╫п╨п╦, я┐п╨п╟п╥п╟п╫п╫я▀п╧ п©я─п╦ п╨п╬п╫я└п╦пЁя┐я─п╟я├п╦п╦ я│п╣я─п╡п╣я─п╟,
+		  п╫п╣ п©п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌я│я▐'>
+     <error id='*EIU_INTERNAL_ERROR' text='п²п╣ я┐п╢п╟п╩п╬я│я▄ п╥п╟пЁя─я┐п╥п╦я┌я▄ п╨п╟я─я┌п╦п╫п╨я┐'>
+     <error id='*EVH_NO_PARENT' text='п╒п╟п╨п╬п╧ я┌п╣п╪я▀ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+     <error id='*EVH_NO_UP' text='п▓я▀я┬п╣я│я┌п╬я▐я┴п╣пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+     <error id='*EVH_LOOP' text='п║п╬п╬п╠я┴п╣п╫п╦п╣ п╫п╣ п╪п╬п╤п╣я┌ п╠я▀я┌я▄ п©п╬п╢я┤п╦п╫п╣п╫п╫я▀п╪ я│п╣п╠п╣'>
      <error id='*EVH_NOT_UP_UNDER_PARENT'
-	    text='Тема вышестоящего сообщения должна совпадать с этой темой'>
-     <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
+	    text='п╒п╣п╪п╟ п╡я▀я┬п╣я│я┌п╬я▐я┴п╣пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╢п╬п╩п╤п╫п╟ я│п╬п╡п©п╟п╢п╟я┌я▄ я│ я█я┌п╬п╧ я┌п╣п╪п╬п╧'>
+     <error id='*EVH_INCORRECT' text='п²п╟я─я┐я┬п╣п╫п╦п╣ п╦п╣я─п╟я─я┘п╦п╦ п╬п╠я┼п╣п╨я┌п╬п╡'>
      <if what='$,hasSmallImage'>
-      <assign name='loaded' value#='Загружен файл $=,LargeImageFilename
+      <assign name='loaded' value#='п≈п╟пЁя─я┐п╤п╣п╫ я└п╟п╧п╩ $=,LargeImageFilename
 				    (${,LargeImageSizeKB}K)'>
      <else>
       <assign name='loaded' value=''>
      </if>
      <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
      <assign name='large_url' value="$,LargeImageURL">
-     <form_uploader title='Изображение' name='image_file'
+     <form_uploader title='п≤п╥п╬п╠я─п╟п╤п╣п╫п╦п╣' name='image_file'
                     loaded='$loaded' delname='del_image'
 		    small_url='$small_url' large_url='$large_url'
 		    mandatory='*true'>
-     <form_checkbox title='Вставлять в уменьшенном виде' name='has_large_image'
+     <form_checkbox title='п▓я│я┌п╟п╡п╩я▐я┌я▄ п╡ я┐п╪п╣п╫я▄я┬п╣п╫п╫п╬п╪ п╡п╦п╢п╣' name='has_large_image'
                     checked='$,hasLargeImage' style='radio' id_yes='hlm-yes'>
-     <form_line title='Размер'>
+     <form_line title='п═п╟п╥п╪п╣я─'>
       <edit name='small_image_x' value='$,SmallImageX' size=4 maxlength=4
             onkeypress='$("#hlm-yes").attr("checked", true)'>
       x
@@ -110,14 +110,14 @@
      <hidden name='large_image_size' value='$,LargeImageSize'>
      <hidden name='large_image_format' value='$,LargeImageFormat'>
      <hidden name='large_image_filename' value='$,LargeImageFilename'>
-     <form_editor title='Подпись' name='title' body='$=,Title' rows=3>
-     <form_checkbox title='Загружать в высоком разрешении'
-                    comment='Использовать только в исключительных случаях'
+     <form_editor title='п÷п╬п╢п©п╦я│я▄' name='title' body='$=,Title' rows=3>
+     <form_checkbox title='п≈п╟пЁя─я┐п╤п╟я┌я▄ п╡ п╡я▀я│п╬п╨п╬п╪ я─п╟п╥я─п╣я┬п╣п╫п╦п╦'
+                    comment='п≤я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ я┌п╬п╩я▄п╨п╬ п╡ п╦я│п╨п╩я▌я┤п╦я┌п╣п╩я▄п╫я▀я┘ я│п╩я┐я┤п╟я▐я┘'
                     name='no_resize' style='box' checked!='$no_resize!=0'>
      <if what='$editid'>
-      <form_buttons title='Изменить'>
+      <form_buttons title='п≤п╥п╪п╣п╫п╦я┌я▄'>
      <else>
-      <form_buttons title='Добавить'>
+      <form_buttons title='п■п╬п╠п╟п╡п╦я┌я▄'>
      </if>
     </form>
    </form_table>

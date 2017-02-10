@@ -30,7 +30,7 @@
                  title_large='$posting.TitleLineHTML' align='left'>
  </if>
  $posting.BodyHTML<asp>
- <further posting='$posting' title='þÉÔÁÔØ ÓÔÁÔØÀ'>
+ <further posting='$posting' title='Ð§Ð¸Ñ‚Ð°Ñ‚ÑŒ ÑÑ‚Ð°Ñ‚ÑŒÑŽ'>
  <posting_controls posting='$posting' showdiscuss='$showdiscuss'>
 </dl>
 </element>

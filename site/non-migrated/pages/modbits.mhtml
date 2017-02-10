@@ -7,17 +7,17 @@
 
  <top ident='index'>
  <posting_obj id='$postid'>
- <form_table title='òÅÄÁËÔÉÒÏ×ÁÎÉÅ ÆÌÁÇÏ× ÓÏÏÂÝÅÎÉÑ' mini='*true'>
+ <form_table title='Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ„Ð»Ð°Ð³Ð¾Ð² ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ' mini='*true'>
   <form method=post action='/actions/entry/modbits/'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='id' value='$,Id'>
-   <error id='*EMO_NO_MODERATE' text='÷Ù ÎÅ ÍÏÄÅÒÁÔÏÒ'>
-   <error id='*EMO_NO_ENTRY' text='ôÁËÏÇÏ ÓÏÏÂÝÅÎÉÑ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-   <form_select title='æÌÁÇÉ' name='modbits[]' multiple='*true' style='box'>
-    <form_option title='(h) îÅ ÐÏËÁÚÙ×ÁÔØ' value='*MOD_HIDDEN'
+   <error id='*EMO_NO_MODERATE' text='Ð’Ñ‹ Ð½Ðµ Ð¼Ð¾Ð´ÐµÑ€Ð°Ñ‚Ð¾Ñ€'>
+   <error id='*EMO_NO_ENTRY' text='Ð¢Ð°ÐºÐ¾Ð³Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+   <form_select title='Ð¤Ð»Ð°Ð³Ð¸' name='modbits[]' multiple='*true' style='box'>
+    <form_option title='(h) ÐÐµ Ð¿Ð¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ' value='*MOD_HIDDEN'
                  selected='$,isHidden'>
-    <form_option title='(d) úÁÐÒÅÔÉÔØ ÐÏËÁÚ' value='*MOD_DISABLED'
+    <form_option title='(d) Ð—Ð°Ð¿Ñ€ÐµÑ‚Ð¸Ñ‚ÑŒ Ð¿Ð¾ÐºÐ°Ð·' value='*MOD_DISABLED'
                  selected='$,isDisabled'>
     <iterate_posting_modbits>
     <for>
@@ -25,7 +25,7 @@
                   selected!='($,Modbits & $.Bit)!=0'>
     </for>
    </form_select>
-   <form_buttons title='éÚÍÅÎÉÔØ'>
+   <form_buttons title='Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ'>
   </form>
  </form_table>
  <bottom>

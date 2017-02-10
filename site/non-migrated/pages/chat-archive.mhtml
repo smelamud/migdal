@@ -24,7 +24,7 @@
    <td class='cframe'>
     <html_cache ident#='chat_archive-$year-$month'>
      <subtitle>
-     <b>Год:</b>
+     <b>п⌠п╬п╢:</b>
      <for n=7>
       <assign name='cyear' value!='2007 - $.'>
       <if what='$cyear==$year'>
@@ -34,7 +34,7 @@
       </if>
      </for>
      <p>
-     <b>Месяц:</b>
+     <b>п°п╣я│я▐я├:</b>
      <for n=12>
       <assign name='n' value!='12 - $.'>
       <assign name='name' value!='$$rusMonthIL[$n]'>
@@ -62,9 +62,9 @@
 		minute=0 second=0>
      <iterate_chat_messagelist later='$later' earlier='$earlier'>
      <p>
-      <array vals='сообщение,сообщения,сообщений'>
+      <array vals='я│п╬п╬п╠я┴п╣п╫п╦п╣,я│п╬п╬п╠я┴п╣п╫п╦я▐,я│п╬п╬п╠я┴п╣п╫п╦п╧'>
       <plural value='$;Count'>
-      <b>Всего <em>$;Count</em> $,</b>
+      <b>п▓я│п╣пЁп╬ <em>$;Count</em> $,</b>
      </p>
      <assign name='day' value=0>
      <p>

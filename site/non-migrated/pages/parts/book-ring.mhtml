@@ -6,7 +6,7 @@
   <if what='$index>=0'>
    <tr valign=bottom><td width=33%>&nbsp;</td><td align=center width=33%>
     <b><a href='$book.GrpDetailsHref'
-          title='ë ÎÁÞÁÌÕ ËÎÉÇÉ'>$=book.Subject</a></b>
+          title='Ðš Ð½Ð°Ñ‡Ð°Ð»Ñƒ ÐºÐ½Ð¸Ð³Ð¸'>$=book.Subject</a></b>
    </td><td width=33%>&nbsp;</td></tr>
   </if>
   <tr valign=center>
@@ -15,14 +15,14 @@
     <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
     <td align=left width=33%>
      <pointer href#='${book.GrpDetailsHref}$,Id/' text='$=,Subject'
-              title='ðÒÅÄÙÄÕÝÁÑ ÇÌÁ×Á' left='*true'>
+              title='ÐŸÑ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰Ð°Ñ Ð³Ð»Ð°Ð²Ð°' left='*true'>
     </td>
    <else>
     <td width=33%>&nbsp;</td>
    </if>
    <if what='$index>=0'>
     <td align=center width=33%><a href='$book.GrpDetailsHref'
-				  title='ë ÎÁÞÁÌÕ ËÎÉÇÉ'><asp>
+				  title='Ðš Ð½Ð°Ñ‡Ð°Ð»Ñƒ ÐºÐ½Ð¸Ð³Ð¸'><asp>
      <image src='/pics/up.gif'>
     <asp></a></td>
    <else>
@@ -33,7 +33,7 @@
     <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS'>
     <td align=right width=33%>
      <pointer href#='${book.GrpDetailsHref}$,Id/' text='$=,Subject'
-              title='óÌÅÄÕÀÝÁÑ ÇÌÁ×Á' left='*false'>
+              title='Ð¡Ð»ÐµÐ´ÑƒÑŽÑ‰Ð°Ñ Ð³Ð»Ð°Ð²Ð°' left='*false'>
     </td>
    <else>
     <td width=33%>&nbsp;</td>

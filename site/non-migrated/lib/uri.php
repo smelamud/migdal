@@ -2,7 +2,7 @@
 # @(#) $Id$
 
 function makeQuery($vars, array $remove = array(), array $subs = array()) {
-    // Кодирование происходит внутри - передавайте раскодированные параметры
+    // п п╬п╢п╦я─п╬п╡п╟п╫п╦п╣ п©я─п╬п╦я│я┘п╬п╢п╦я┌ п╡п╫я┐я┌я─п╦ - п©п╣я─п╣п╢п╟п╡п╟п╧я┌п╣ я─п╟я│п╨п╬п╢п╦я─п╬п╡п╟п╫п╫я▀п╣ п©п╟я─п╟п╪п╣я┌я─я▀
     $s = '';
     $varsub = count($subs) != 0 ? array_merge($vars, $subs) : $vars;
     foreach ($varsub as $key => $value)

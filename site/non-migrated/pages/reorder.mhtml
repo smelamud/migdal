@@ -21,13 +21,13 @@
 </if>
 
 <if what='!$istopic'>
- <assign name='itemNameM' value='ÓÔÁÔØÉ'>
- <assign name='itemNameR' value='ÓÔÁÔØÉ'>
- <assign name='itemNameMR' value='ÓÔÁÔÅÊ'>
+ <assign name='itemNameM' value='ÑÑ‚Ð°Ñ‚ÑŒÐ¸'>
+ <assign name='itemNameR' value='ÑÑ‚Ð°Ñ‚ÑŒÐ¸'>
+ <assign name='itemNameMR' value='ÑÑ‚Ð°Ñ‚ÐµÐ¹'>
 <else>
- <assign name='itemNameM' value='ÔÅÍÙ'>
- <assign name='itemNameR' value='ÔÅÍÙ'>
- <assign name='itemNameMR' value='ÔÅÍ'>
+ <assign name='itemNameM' value='Ñ‚ÐµÐ¼Ñ‹'>
+ <assign name='itemNameR' value='Ñ‚ÐµÐ¼Ñ‹'>
+ <assign name='itemNameMR' value='Ñ‚ÐµÐ¼'>
 </if>
 
 <element name='order_iterator' params='name'>
@@ -45,7 +45,7 @@
 
 <element name='order_selector' params='title,sels,current'>
 <form_select title='$title' name='ids[]'>
- <form_option title='-- ðÕÓÔÏ --' value='0' selected!='$current<=0'>
+ <form_option title='-- ÐŸÑƒÑÑ‚Ð¾ --' value='0' selected!='$current<=0'>
  <rewind_iterator list='$sels'>
  <for list='sels'>
   <assign name='heading' value!='!$$istopic ? $=.Heading : $=.Subject'>
@@ -66,11 +66,11 @@
    <order_iterator name='sels'>
    <hidden name='count' value='$sels.Count'>
    <order_iterator name='entries'>
-   <error id='*EO_LITTLE' text#='îÅ ×ÓÅ $itemNameM ÕËÁÚÁÎÙ'>
-   <error id='*EO_DUPS' text#='îÅËÏÔÏÒÙÅ $itemNameM ÕËÁÚÁÎÙ Ä×ÁÖÄÙ'>
-   <error id='*EO_NO_ENTRY' text#='îÅÔ ÔÁËÏÊ $itemNameR'>
+   <error id='*EO_LITTLE' text#='ÐÐµ Ð²ÑÐµ $itemNameM ÑƒÐºÐ°Ð·Ð°Ð½Ñ‹'>
+   <error id='*EO_DUPS' text#='ÐÐµÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ $itemNameM ÑƒÐºÐ°Ð·Ð°Ð½Ñ‹ Ð´Ð²Ð°Ð¶Ð´Ñ‹'>
+   <error id='*EO_NO_ENTRY' text#='ÐÐµÑ‚ Ñ‚Ð°ÐºÐ¾Ð¹ $itemNameR'>
    <error id='*EO_NO_REORDER'
-          text#='÷Ù ÎÅ ÉÍÅÅÔÅ ÐÒÁ×Á ÍÅÎÑÔØ ÐÏÒÑÄÏË $itemNameMR'>
+          text#='Ð’Ñ‹ Ð½Ðµ Ð¸Ð¼ÐµÐµÑ‚Ðµ Ð¿Ñ€Ð°Ð²Ð° Ð¼ÐµÐ½ÑÑ‚ÑŒ Ð¿Ð¾Ñ€ÑÐ´Ð¾Ðº $itemNameMR'>
    <assign name='n' value=0>
    <order_selector title='' sels='$sels' current!='$edittag ? $ids[$n] : -1'>
    <for list='entries'>
@@ -80,7 +80,7 @@
     <assign name='n' value!='$n+1'>
     <order_selector title='' sels='$sels' current!='$edittag ? $ids[$n] : -1'>
    </for>
-   <form_buttons title='éÚÍÅÎÉÔØ'>
+   <form_buttons title='Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ'>
   </form>
  </form_table>
  <bottom>

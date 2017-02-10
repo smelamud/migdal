@@ -4,14 +4,14 @@
 <int name='istopic'>
 <if what='$istopic'>
  <assign name='entry' value='*ENT_TOPIC'>
- <assign name='itemname' value='ÔÅÍÕ'>
- <assign name='thisitem' value='ÄÁÎÎÏÊ ÔÅÍÙ'>
- <assign name='subitems' value='ÐÏÄÔÅÍ'>
+ <assign name='itemname' value='Ñ‚ÐµÐ¼Ñƒ'>
+ <assign name='thisitem' value='Ð´Ð°Ð½Ð½Ð¾Ð¹ Ñ‚ÐµÐ¼Ñ‹'>
+ <assign name='subitems' value='Ð¿Ð¾Ð´Ñ‚ÐµÐ¼'>
 <else>
  <assign name='entry' value='*ENT_POSTING'>
- <assign name='itemname' value='ÓÏÏÂÝÅÎÉÅ'>
- <assign name='thisitem' value='ÄÁÎÎÏÇÏ ÓÏÏÂÝÅÎÉÑ'>
- <assign name='subitems' value='ÎÉÖÅÓÔÏÑÝÉÈ ÓÏÏÂÝÅÎÉÊ'>
+ <assign name='itemname' value='ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ'>
+ <assign name='thisitem' value='Ð´Ð°Ð½Ð½Ð¾Ð³Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ'>
+ <assign name='subitems' value='Ð½Ð¸Ð¶ÐµÑÑ‚Ð¾ÑÑ‰Ð¸Ñ… ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ð¹'>
 </ifzero>
 
 <int name='edittag'>
@@ -28,34 +28,34 @@
  <top ident='index'>
  <perms id='$id'>
  <setup>
- <form_table title#='éÚÍÅÎÅÎÉÅ ÐÒÁ× ÎÁ $itemname' mini='*true'>
+ <form_table title#='Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ Ð¿Ñ€Ð°Ð² Ð½Ð° $itemname' mini='*true'>
   <form method=post action='/actions/entry/chmod'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='edittag' value=1>
    <hidden name='id' value='$id'>
    <hidden name='entry' value='$entry'>
-   <error id='*ECHM_NO_CHMOD' text#='÷Ù ÎÅ ÍÏÖÅÔÅ ÍÅÎÑÔØ ÐÒÁ×Á ÎÁ $itemname'>
-   <error id='*ECHM_USER_EMPTY' text='õËÁÖÉÔÅ ÉÍÑ ÐÏÌØÚÏ×ÁÔÅÌÑ'>
-   <error id='*ECHM_NO_USER' text='ôÁËÏÇÏ ÐÏÌØÚÏ×ÁÔÅÌÑ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-   <form_edit title='÷ÌÁÄÅÌÅÃ' name='user_name' value='$=,UserName' size=20
+   <error id='*ECHM_NO_CHMOD' text#='Ð’Ñ‹ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ð¼ÐµÐ½ÑÑ‚ÑŒ Ð¿Ñ€Ð°Ð²Ð° Ð½Ð° $itemname'>
+   <error id='*ECHM_USER_EMPTY' text='Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ'>
+   <error id='*ECHM_NO_USER' text='Ð¢Ð°ÐºÐ¾Ð³Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+   <form_edit title='Ð’Ð»Ð°Ð´ÐµÐ»ÐµÑ†' name='user_name' value='$=,UserName' size=20
 	      maxlength=30>
-   <error id='*ECHM_GROUP_EMPTY' text='õËÁÖÉÔÅ ÉÍÑ ÇÒÕÐÐÙ'>
-   <error id='*ECHM_NO_GROUP' text='ôÁËÏÊ ÇÒÕÐÐÙ ÎÅ ÓÕÝÅÓÔ×ÕÅÔ'>
-   <form_edit title='çÒÕÐÐÁ' name='group_name' value='$=,GroupName' size=20
+   <error id='*ECHM_GROUP_EMPTY' text='Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹'>
+   <error id='*ECHM_NO_GROUP' text='Ð¢Ð°ÐºÐ¾Ð¹ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚'>
+   <form_edit title='Ð“Ñ€ÑƒÐ¿Ð¿Ð°' name='group_name' value='$=,GroupName' size=20
 	      maxlength=30>
-   <error id='*ECHM_BAD_PERMS' text='ðÒÁ×Á ÚÁÄÁÎÙ ÎÅËÏÒÒÅËÔÎÏ'>
-   <form_edit title='ðÒÁ×Á' name='perm_string' value='$,PermString'
-              comment='ðÒÁ×Á, ËÏÔÏÒÙÅ ÍÅÎÑÔØ ÎÅ ÎÕÖÎÏ, ÚÁÍÅÎÑÊÔÅ
-	               ×ÏÐÒÏÓÉÔÅÌØÎÙÍÉ ÚÎÁËÁÍÉ'
+   <error id='*ECHM_BAD_PERMS' text='ÐŸÑ€Ð°Ð²Ð° Ð·Ð°Ð´Ð°Ð½Ñ‹ Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾'>
+   <form_edit title='ÐŸÑ€Ð°Ð²Ð°' name='perm_string' value='$,PermString'
+              comment='ÐŸÑ€Ð°Ð²Ð°, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð¼ÐµÐ½ÑÑ‚ÑŒ Ð½Ðµ Ð½ÑƒÐ¶Ð½Ð¾, Ð·Ð°Ð¼ÐµÐ½ÑÐ¹Ñ‚Ðµ
+	               Ð²Ð¾Ð¿Ñ€Ð¾ÑÐ¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼Ð¸ Ð·Ð½Ð°ÐºÐ°Ð¼Ð¸'
 	      size=17 maxlength=17>
-   <form_select title='òÅËÕÒÓÉ×ÎÏ' name='recursive' style='box'>
-    <form_option title#='õÓÔÁÎÁ×ÌÉ×ÁÔØ ÜÔÉ ÐÒÁ×Á ÔÏÌØËÏ ÄÌÑ $thisitem' value=0
+   <form_select title='Ð ÐµÐºÑƒÑ€ÑÐ¸Ð²Ð½Ð¾' name='recursive' style='box'>
+    <form_option title#='Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°Ñ‚ÑŒ ÑÑ‚Ð¸ Ð¿Ñ€Ð°Ð²Ð° Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð´Ð»Ñ $thisitem' value=0
                  selected!='$recursive==0'>
-    <form_option title#='õÓÔÁÎÁ×ÌÉ×ÁÔØ ÜÔÉ ÐÒÁ×Á ÄÌÑ ×ÓÅÈ $subitems' value=1
+    <form_option title#='Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°Ñ‚ÑŒ ÑÑ‚Ð¸ Ð¿Ñ€Ð°Ð²Ð° Ð´Ð»Ñ Ð²ÑÐµÑ… $subitems' value=1
                  selected!='$recursive!=0'>
    </form_select>
-   <form_buttons title='éÚÍÅÎÉÔØ'>
+   <form_buttons title='Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ'>
   </form>
  </form_table>
  <bottom>

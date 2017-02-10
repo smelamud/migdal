@@ -85,7 +85,7 @@
 
 <element name='upper_level'>
 <ife what='$title'>
- <assign name='title' value#='ë ÒÁÚÄÅÌÕ &lt;&lt;$name&gt;&gt;'>
+ <assign name='title' value#='Ðš Ñ€Ð°Ð·Ð´ÐµÐ»Ñƒ &lt;&lt;$name&gt;&gt;'>
 </ife>
 <div class='up-level'>
  <a href='$href'>$=title</a>

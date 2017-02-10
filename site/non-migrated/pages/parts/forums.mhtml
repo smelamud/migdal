@@ -6,7 +6,7 @@
  <if what='$,isPostable'>
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
-   <a href='${,GrpDetailsHref}discuss/add/?redirid=$_'>Добавить комментарий</a>
+   <a href='${,GrpDetailsHref}discuss/add/?redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ п╨п╬п╪п╪п╣п╫я┌п╟я─п╦п╧</a>
   </div>
  </if>
  <spin list='$list'>
@@ -19,8 +19,8 @@
                    sort='*SORT_RSENT'>
 <batcher list='$;' parent_id='$parent_id'>
 <outer><table width=100% cellspacing=0 cellpadding=0><tr><td><inner>
- <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
- <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+ <error id='*EMH_NO_ENTRY' text='п╒п╟п╨п╬пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+ <error id='*EMH_NO_MODERATE' text='п▓я▀ п╫п╣ п╪п╬п╢п╣я─п╟я┌п╬я─'>
 </inner></tr></td></table></outer>
 <div class='forums'>
  <for>

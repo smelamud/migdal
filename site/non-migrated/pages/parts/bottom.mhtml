@@ -7,7 +7,7 @@
 
 <element name='email' params='addr'>
 <assign name='title'
-        value!='!$$englishDomain ? "Написать письмо" : "Send e-mail"'>
+        value!='!$$englishDomain ? "п²п╟п©п╦я│п╟я┌я▄ п©п╦я│я▄п╪п╬" : "Send e-mail"'>
 <a href="mailto:$addr" title="$title" class="email">
    <image class="icon" src="/pics/mail.gif" alt="$addr"></a>
 </element>
@@ -16,42 +16,42 @@
 <div style='float: right; text-align: right; width: 30%'>
  <image class='icon' src='/pics/book.gif'>&nbsp;
  <a href='/forum/$`post.criticism`' class='complains-link'>
-   Замечания/предложения<br>по работе сайта</a><br><br>
+   п≈п╟п╪п╣я┤п╟п╫п╦я▐/п©я─п╣п╢п╩п╬п╤п╣п╫п╦я▐<br>п©п╬ я─п╟п╠п╬я┌п╣ я│п╟п╧я┌п╟</a><br><br>
  <span class='eightpt'><?php echo sqlNow();?></span><br>
  <kernel>
  <moderator>
-  <a href='/admin/'>Страница модератора</a>
+  <a href='/admin/'>п║я┌я─п╟п╫п╦я├п╟ п╪п╬п╢п╣я─п╟я┌п╬я─п╟</a>
  <else>
-  Вебмастер живет по адресу
+  п▓п╣п╠п╪п╟я│я┌п╣я─ п╤п╦п╡п╣я┌ п©п╬ п╟п╢я─п╣я│я┐
   <a href='mailto:webmaster@migdal.org.ua'>webmaster@migdal.org.ua</a>
  </moderator>
 </div>
 <div class='vcard'>
- Сайт создан и поддерживается
- <a href='/migdal/jcc/student/'>Клубом Еврейского Студента</a>
+ п║п╟п╧я┌ я│п╬п╥п╢п╟п╫ п╦ п©п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌я│я▐
+ <a href='/migdal/jcc/student/'>п п╩я┐п╠п╬п╪ п∙п╡я─п╣п╧я│п╨п╬пЁп╬ п║я┌я┐п╢п╣п╫я┌п╟</a>
  <br>
  <span class='n fn org' style='display: none'>
-  <span class='honorific-prefix'>Международный Еврейский Общинный Центр</span>
-  <span class='given-name'>&lt;&lt;Мигдаль&gt;&gt;</span>
+  <span class='honorific-prefix'>п°п╣п╤п╢я┐п╫п╟я─п╬п╢п╫я▀п╧ п∙п╡я─п╣п╧я│п╨п╦п╧ п·п╠я┴п╦п╫п╫я▀п╧ п╕п╣п╫я┌я─</span>
+  <span class='given-name'>&lt;&lt;п°п╦пЁп╢п╟п╩я▄&gt;&gt;</span>
  </span>
- Международного Еврейского Общинного Центра
- <a class='url' href='http://www.migdal.org.ua/migdal/'>&lt;&lt;Мигдаль&gt;&gt;</a>
+ п°п╣п╤п╢я┐п╫п╟я─п╬п╢п╫п╬пЁп╬ п∙п╡я─п╣п╧я│п╨п╬пЁп╬ п·п╠я┴п╦п╫п╫п╬пЁп╬ п╕п╣п╫я┌я─п╟
+ <a class='url' href='http://www.migdal.org.ua/migdal/'>&lt;&lt;п°п╦пЁп╢п╟п╩я▄&gt;&gt;</a>
  <email addr='migdal@migdal.org.ua'>.
  <p>
- <b>Адрес:</b>
+ <b>п░п╢я─п╣я│:</b>
  <span class='adr'>
-  г. <span class='locality'>Одесса</span>,
-  <span class='street-address'>ул. Малая Арнаутская, 46-а.</span>
+  пЁ. <span class='locality'>п·п╢п╣я│я│п╟</span>,
+  <span class='street-address'>я┐п╩. п°п╟п╩п╟я▐ п░я─п╫п╟я┐я┌я│п╨п╟я▐, 46-п╟.</span>
  </span><br>
- <b>Тел.:</b>
+ <b>п╒п╣п╩.:</b>
  <span class='tel'>37-21-28</span>,
  <span class='tel'>777-07-18</span>,
- факс: <span class='tel'>34-39-68</span>.
+ я└п╟п╨я│: <span class='tel'>34-39-68</span>.
 </div>
 <p class='vcard'>
- <span class='title'>Председатель правления</span> центра
- <span class='org'>&lt;&lt;Мигдаль&gt;&gt;</span> &mdash;
- <span class='fn'>Кира Верховская</span>
+ <span class='title'>п÷я─п╣п╢я│п╣п╢п╟я┌п╣п╩я▄ п©я─п╟п╡п╩п╣п╫п╦я▐</span> я├п╣п╫я┌я─п╟
+ <span class='org'>&lt;&lt;п°п╦пЁп╢п╟п╩я▄&gt;&gt;</span> &mdash;
+ <span class='fn'>п п╦я─п╟ п▓п╣я─я┘п╬п╡я│п╨п╟я▐</span>
  <email addr='verkhov@migdal.org.ua'>.
 </p>
 </element>

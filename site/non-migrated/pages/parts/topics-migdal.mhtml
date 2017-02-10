@@ -1,10 +1,10 @@
 << @(#) $Id$ >>
 
 <element name='topics_choir'>
-<upper_level name='Общинный центр (JCC)' href='/migdal/jcc/'>
-<topics_table title='Хоровые коллективы'>
+<upper_level name='п·п╠я┴п╦п╫п╫я▀п╧ я├п╣п╫я┌я─ (JCC)' href='/migdal/jcc/'>
+<topics_table title='п╔п╬я─п╬п╡я▀п╣ п╨п╬п╩п╩п╣п╨я┌п╦п╡я▀'>
  <posting_obj id='$`post.migdal.jcc.choir`'>
- <topics_line time='$,Modified' text='О коллективах' href='/migdal/jcc/choir/'
+ <topics_line time='$,Modified' text='п· п╨п╬п╩п╩п╣п╨я┌п╦п╡п╟я┘' href='/migdal/jcc/choir/'
               arrow!="$index==$`post.migdal.jcc.choir`"
 	      class='topics-item ninept'>
 </topics_table>
@@ -13,10 +13,10 @@
 </element>
 
 <element name='topics_dances'>
-<upper_level name='Общинный центр (JCC)' href='/migdal/jcc/'>
-<topics_table title='Танцевальные коллективы'>
+<upper_level name='п·п╠я┴п╦п╫п╫я▀п╧ я├п╣п╫я┌я─ (JCC)' href='/migdal/jcc/'>
+<topics_table title='п╒п╟п╫я├п╣п╡п╟п╩я▄п╫я▀п╣ п╨п╬п╩п╩п╣п╨я┌п╦п╡я▀'>
  <posting_obj id='$`post.migdal.jcc.dances`'>
- <topics_line time='$,Modified' text='О коллективах' href='/migdal/jcc/dances/'
+ <topics_line time='$,Modified' text='п· п╨п╬п╩п╩п╣п╨я┌п╦п╡п╟я┘' href='/migdal/jcc/dances/'
               arrow!="$index==$`post.migdal.jcc.dances`"
 	      class='topics-item ninept'>
 </topics_table>
@@ -25,14 +25,14 @@
 </element>
 
 <element name='topics_kes'>
-<upper_level name='Общинный центр (JCC)' href='/migdal/jcc/'>
-<topics_table title='КЕС'>
+<upper_level name='п·п╠я┴п╦п╫п╫я▀п╧ я├п╣п╫я┌я─ (JCC)' href='/migdal/jcc/'>
+<topics_table title='п п∙п║'>
  <posting_obj id='$`post.migdal.jcc.student`'>
- <topics_line time='$,Modified' text='О клубе' href='/migdal/jcc/student/'
+ <topics_line time='$,Modified' text='п· п╨п╩я┐п╠п╣' href='/migdal/jcc/student/'
               arrow!="$index==$`post.migdal.jcc.student`"
 	      class='topics-item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`kes`' recursive='*false'>
- <topics_line time='$,' text='Галерея' href='/migdal/jcc/student/gallery/'
+ <topics_line time='$,' text='п⌠п╟п╩п╣я─п╣я▐' href='/migdal/jcc/student/gallery/'
               arrow!="$index=='migdal.jcc.student.gallery'"
 	      class='topics-item ninept'>
 </topics_table>
@@ -42,30 +42,30 @@
 </element>
 
 <element name='topics_jcc'>
-<upper_level name='Мигдаль' href='/migdal/'>
+<upper_level name='п°п╦пЁп╢п╟п╩я▄' href='/migdal/'>
 <topic_obj name='jcc' id='$`migdal.jcc`'>
 <topics_table title='$,Subject'>
  <html_cache ident#='topics_jcc_1-$index' period!='3 * 60 * 60'
              depends='postings'>
   <posting_obj id='$`post.migdal.jcc`'>
-  <topics_line time='$,Modified' text='Об общинном центре' href='/migdal/jcc/'
+  <topics_line time='$,Modified' text='п·п╠ п╬п╠я┴п╦п╫п╫п╬п╪ я├п╣п╫я┌я─п╣' href='/migdal/jcc/'
 	       arrow!="$index=='migdal.jcc'" class='topics-item ninept'>
   <posting_last topic_id='$`migdal.jcc.choir`' recursive='*true'
                 as_guest='*true'>
-  <topics_line time='$,' text='Хоровые коллективы' href='/migdal/jcc/choir/'
+  <topics_line time='$,' text='п╔п╬я─п╬п╡я▀п╣ п╨п╬п╩п╩п╣п╨я┌п╦п╡я▀' href='/migdal/jcc/choir/'
 	       arrow!="$index==$`post.migdal.jcc.choir`"
 	       class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.jcc.dances`' recursive='*true'
                 as_guest='*true'>
-  <topics_line time='$,' text='Танцевальные коллективы'
+  <topics_line time='$,' text='п╒п╟п╫я├п╣п╡п╟п╩я▄п╫я▀п╣ п╨п╬п╩п╩п╣п╨я┌п╦п╡я▀'
 	       href='/migdal/jcc/dances/'
 	       arrow!="$index==$`post.migdal.jcc.dances`"
 	       class='topics-item eightpt'>
  </html_cache>
  <ispost what='$jcc'>
   <li class='topics-nobullet'>
-   <a href='/migdal/jcc/add/?redirid=$_' class='edit'>Добавить</a><br>
-   <a href='/migdal/jcc/reorder/?redirid=$_' class='edit'>Расставить</a>
+   <a href='/migdal/jcc/add/?redirid=$_' class='edit'>п■п╬п╠п╟п╡п╦я┌я▄</a><br>
+   <a href='/migdal/jcc/reorder/?redirid=$_' class='edit'>п═п╟я│я│я┌п╟п╡п╦я┌я▄</a>
   </li>
  </ispost>
  <html_cache ident#='topics_jcc_2-$index' period!='3 * 60 * 60'
@@ -80,7 +80,7 @@
   </for>
   <posting_last topic_id='$`migdal.jcc.student`' recursive='*true'
 		as_guest='*true'>
-  <topics_line time='$,' text='Клуб Еврейского Студента'
+  <topics_line time='$,' text='п п╩я┐п╠ п∙п╡я─п╣п╧я│п╨п╬пЁп╬ п║я┌я┐п╢п╣п╫я┌п╟'
 	       href='/migdal/jcc/student/'
 	       arrow!="$index==$`post.migdal.jcc.student`"
 	       class='topics-item eightpt'>
@@ -91,21 +91,21 @@
 </element>
 
 <element name='topics_beitenu'>
-<upper_level name='Мигдаль' href='/migdal/'>
-<topics_table title='Бейтену'>
+<upper_level name='п°п╦пЁп╢п╟п╩я▄' href='/migdal/'>
+<topics_table title='п▒п╣п╧я┌п╣п╫я┐'>
  <html_cache ident#='topics_beitenu-$index' period!='3 * 60 * 60'
              depends='postings'>
   <posting_obj id='$`post.migdal.beitenu`'>
-  <topics_line time='$,Modified' text='О программе' href='/migdal/beitenu/'
+  <topics_line time='$,Modified' text='п· п©я─п╬пЁя─п╟п╪п╪п╣' href='/migdal/beitenu/'
 	       arrow!="$index=='migdal.beitenu'" class='topics-item ninept'>
   <posting_last grp='*GRP_NEWS' topic_id='$`migdal.beitenu`'
 		recursive='*false' as_guest='*true'>
-  <topics_line time='$,' text='Новости' href='/migdal/beitenu/news/'
+  <topics_line time='$,' text='п²п╬п╡п╬я│я┌п╦' href='/migdal/beitenu/news/'
 	       arrow!="$index=='migdal.beitenu.news'"
 	       class='topics-item ninept'>
   <posting_last grp='*GRP_GALLERY' topic_id='$`migdal-beitenu`'
 		recursive='*false' as_guest='*true'>
-  <topics_line time='$,' text='Галерея' href='/migdal/beitenu/gallery/'
+  <topics_line time='$,' text='п⌠п╟п╩п╣я─п╣я▐' href='/migdal/beitenu/gallery/'
 	       arrow!="$index=='migdal.beitenu.gallery'"
 	       class='topics-item ninept'>
  </html_cache>
@@ -113,25 +113,25 @@
 </element>
 
 <element name='topics_mazltov'>
-<upper_level name='Мигдаль' href='/migdal/'>
-<topics_table title='Мазл Тов'>
+<upper_level name='п°п╦пЁп╢п╟п╩я▄' href='/migdal/'>
+<topics_table title='п°п╟п╥п╩ п╒п╬п╡'>
  <html_cache ident#='topics_mazltov-$index' period!='3 * 60 * 60'
              depends='postings'>
   <posting_obj id='$`post.migdal.mazltov`'>
-  <topics_line time='$,Modified' text='О программе' href='/migdal/mazltov/'
+  <topics_line time='$,Modified' text='п· п©я─п╬пЁя─п╟п╪п╪п╣' href='/migdal/mazltov/'
 	       arrow!="$index=='migdal.mazltov'" class='topics-item ninept'>
   <posting_last grp='*GRP_NEWS' topic_id='$`migdal.mazltov`'
 		recursive='*false' as_guest='*true'>
-  <topics_line time='$,' text='Новости' href='/migdal/mazltov/news/'
+  <topics_line time='$,' text='п²п╬п╡п╬я│я┌п╦' href='/migdal/mazltov/news/'
 	       arrow!="$index=='migdal.mazltov.news'"
 	       class='topics-item ninept'>
   <posting_last grp='*GRP_GALLERY' topic_id='$`migdal.mazltov`'
 		recursive='*false' as_guest='*true'>
-  <topics_line time='$,' text='Галерея' href='/migdal/mazltov/gallery/'
+  <topics_line time='$,' text='п⌠п╟п╩п╣я─п╣я▐' href='/migdal/mazltov/gallery/'
 	       arrow!="$index=='migdal.mazltov.gallery'"
 	       class='topics-item ninept'>
   <posting_obj id='$`post.migdal.mazltov.funny-stories`'>
-  <topics_line time='$,Modified' text='&laquo;Веселые истории&raquo;'
+  <topics_line time='$,Modified' text='&laquo;п▓п╣я│п╣п╩я▀п╣ п╦я│я┌п╬я─п╦п╦&raquo;'
                href='/migdal/mazltov/funny-stories/' arrow!="$index==$,Id"
 	       class='topics-item ninept'>
  </html_cache>
@@ -140,14 +140,14 @@
 </element>
 
 <element name='topics_methodology'>
-<upper_level name='Мигдаль' href='/migdal/'>
-<topics_table title='Методический центр'>
+<upper_level name='п°п╦пЁп╢п╟п╩я▄' href='/migdal/'>
+<topics_table title='п°п╣я┌п╬п╢п╦я┤п╣я│п╨п╦п╧ я├п╣п╫я┌я─'>
  <posting_obj id='$`post.migdal.methodology`'>
- <topics_line time='$,Modified' text='О центре' href='/migdal/methodology/'
+ <topics_line time='$,Modified' text='п· я├п╣п╫я┌я─п╣' href='/migdal/methodology/'
               arrow!="$index=='migdal.methodology'" class='topics-item ninept'>
  <posting_last grp='*GRP_BOOKS' topic_id='$`migdal.methodology`'
                recursive='*false'>
- <topics_line time='$,' text='Методические пособия'
+ <topics_line time='$,' text='п°п╣я┌п╬п╢п╦я┤п╣я│п╨п╦п╣ п©п╬я│п╬п╠п╦я▐'
               href='/migdal/methodology/books/'
               arrow!="$index=='migdal.methodology.books'"
 	      class='topics-item ninept'>
@@ -159,14 +159,14 @@
 </element>
 
 <element name='topics_migdal_library'>
-<upper_level name='Мигдаль' href='/migdal/'>
-<topics_table title='Библиотека'>
- <topics_line text='О библиотеке' href='/migdal/library/'
+<upper_level name='п°п╦пЁп╢п╟п╩я▄' href='/migdal/'>
+<topics_table title='п▒п╦п╠п╩п╦п╬я┌п╣п╨п╟'>
+ <topics_line text='п· п╠п╦п╠п╩п╦п╬я┌п╣п╨п╣' href='/migdal/library/'
 	      arrow!="$index=='migdal.library'"
 	      class='topics-item ninept'>
  <posting_last grp='*GRP_PRINTINGS' topic_id='$`migdal.library`'
                recursive='*false'>
- <topics_line time='$,' text='Новинки' href='/migdal/library/novelties/'
+ <topics_line time='$,' text='п²п╬п╡п╦п╫п╨п╦' href='/migdal/library/novelties/'
 	      arrow!="$index=='migdal.library.novelties'"
 	      class='topics-item ninept'>
 </topics_table>
@@ -175,14 +175,14 @@
 </element>
 
 <element name='topics_migdal_or'>
-<upper_level name='Мигдаль' href='/migdal/'>
-<topics_table title='Мигдаль-ор'>
+<upper_level name='п°п╦пЁп╢п╟п╩я▄' href='/migdal/'>
+<topics_table title='п°п╦пЁп╢п╟п╩я▄-п╬я─'>
  <posting_obj id='$`post.migdal.migdal-or`'>
- <topics_line time='$,Modified' text='О театре' href='/migdal/migdal-or/'
+ <topics_line time='$,Modified' text='п· я┌п╣п╟я┌я─п╣' href='/migdal/migdal-or/'
               arrow!="$index=='migdal.migdal-or'" class='topics-item ninept'>
  <posting_last grp='*GRP_GALLERY' topic_id='$`migdal.migdal-or`'
                recursive='*false'>
- <topics_line time='$,' text='Галерея' href='/migdal/migdal-or/gallery/'
+ <topics_line time='$,' text='п⌠п╟п╩п╣я─п╣я▐' href='/migdal/migdal-or/gallery/'
               arrow!="$index=='migdal.migdal-or.gallery'"
 	      class='topics-item ninept'>
 </topics_table>
@@ -190,26 +190,26 @@
 </element>
 
 <element name='topics_museum'>
-<upper_level name='Мигдаль' href='/migdal/'>
-<topics_table title='Еврейский музей Одессы'>
+<upper_level name='п°п╦пЁп╢п╟п╩я▄' href='/migdal/'>
+<topics_table title='п∙п╡я─п╣п╧я│п╨п╦п╧ п╪я┐п╥п╣п╧ п·п╢п╣я│я│я▀'>
  <html_cache ident#='topics_museum-$index' period!='3 * 60 * 60'
              depends='postings'>
   <posting_obj id='$`post.migdal.museum`'>
-  <topics_line time='$,Modified' text='О музее' href='/migdal/museum/'
+  <topics_line time='$,Modified' text='п· п╪я┐п╥п╣п╣' href='/migdal/museum/'
 	       arrow!="$index=='migdal.museum'" class='topics-item ninept'>
   <posting_last grp='*GRP_NEWS' topic_id='$`migdal.museum`' recursive='*false'
                 as_guest='*true'>
-  <topics_line time='$,' text='Новости' href='/migdal/museum/news/'
+  <topics_line time='$,' text='п²п╬п╡п╬я│я┌п╦' href='/migdal/museum/news/'
 	       arrow!="$index=='migdal.museum.news'" class='topics-item ninept'>
   <posting_last grp='*GRP_GALLERY' topic_id='$`migdal.museum`'
 		recursive='*false' as_guest='*true'>
-  <topics_line time='$,' text='Галерея' href='/migdal/museum/gallery/'
+  <topics_line time='$,' text='п⌠п╟п╩п╣я─п╣я▐' href='/migdal/museum/gallery/'
 	       arrow!="$index=='migdal.museum.gallery'"
 	       class='topics-item ninept'>
-  <topics_line text='Одесские евреи и русские революции'
+  <topics_line text='п·п╢п╣я│я│п╨п╦п╣ п╣п╡я─п╣п╦ п╦ я─я┐я│я│п╨п╦п╣ я─п╣п╡п╬п╩я▌я├п╦п╦'
                href='/migdal/museum/catalog/'
 	       arrow='*false' class='topics-item ninept'>
-  <topics_line text='Узники гетто'
+  <topics_line text='пёп╥п╫п╦п╨п╦ пЁп╣я┌я┌п╬'
                href='/migdal/museum/prisoners/'
 	       arrow!="$index=='migdal.museum.prisoners'"
 	       class='topics-item ninept'>
@@ -225,45 +225,45 @@
  <topics_subtable>
   <posting_last topic_id='$`migdal`' recursive='*true' grp='*GRP_TAPE'
 		as_guest='*true'>
-  <topics_line time='$,' href='/migdal/news/' text='Новости'
+  <topics_line time='$,' href='/migdal/news/' text='п²п╬п╡п╬я│я┌п╦'
 	       arrow!="$index=='migdal.news'" class='topics-item eightpt'>
   <posting_last topic_id='$`events`' grp='*GRP_TAPE' as_guest='*true'>
-  <topics_line time='$,' href='/migdal/events/' text='События'
+  <topics_line time='$,' href='/migdal/events/' text='п║п╬п╠я▀я┌п╦я▐'
 	       arrow!="$index=='migdal.events'" class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.jcc`' recursive='*true' as_guest='*true'>
-  <topics_line time='$,' href='/migdal/jcc/' text='Общинный центр (JCC)'
-	       title='Живопись, музыка, танцы, программы для всех возрастов'
+  <topics_line time='$,' href='/migdal/jcc/' text='п·п╠я┴п╦п╫п╫я▀п╧ я├п╣п╫я┌я─ (JCC)'
+	       title='п√п╦п╡п╬п©п╦я│я▄, п╪я┐п╥я▀п╨п╟, я┌п╟п╫я├я▀, п©я─п╬пЁя─п╟п╪п╪я▀ п╢п╩я▐ п╡я│п╣я┘ п╡п╬п╥я─п╟я│я┌п╬п╡'
 	       arrow!="$index=='migdal.jcc'" class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.library`' recursive='*true' as_guest='*true'>
-  <topics_line time='$,' href='/migdal/library/' text='Библиотека'
+  <topics_line time='$,' href='/migdal/library/' text='п▒п╦п╠п╩п╦п╬я┌п╣п╨п╟'
 	       arrow!="$index=='migdal.library'" class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.museum`' recursive='*true' as_guest='*true'>
-  <topics_line time='$,' href='/migdal/museum/' text='Еврейский музей Одессы'
+  <topics_line time='$,' href='/migdal/museum/' text='п∙п╡я─п╣п╧я│п╨п╦п╧ п╪я┐п╥п╣п╧ п·п╢п╣я│я│я▀'
 	       arrow!="$index=='migdal.museum'" class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.migdal-or`' as_guest='*true'>
   <topics_line time='$,' href='/migdal/migdal-or/'
-	       text='Одесский еврейский театр &lt;&lt;Мигдаль-ор&gt;&gt;'
+	       text='п·п╢п╣я│я│п╨п╦п╧ п╣п╡я─п╣п╧я│п╨п╦п╧ я┌п╣п╟я┌я─ &lt;&lt;п°п╦пЁп╢п╟п╩я▄-п╬я─&gt;&gt;'
 	       arrow!="$index=='migdal.migdal-or'" class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.mazltov`' recursive='*true' as_guest='*true'>
   <topics_line time='$,' href='/migdal/mazltov/'
-	       text='Центр раннего развития детей &lt;&lt;Мазл Тов&gt;&gt;'
+	       text='п╕п╣п╫я┌я─ я─п╟п╫п╫п╣пЁп╬ я─п╟п╥п╡п╦я┌п╦я▐ п╢п╣я┌п╣п╧ &lt;&lt;п°п╟п╥п╩ п╒п╬п╡&gt;&gt;'
 	       arrow!="$index=='migdal.mazltov'" class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.beitenu`' recursive='*true' as_guest='*true'>
   <topics_line time='$,' href='/migdal/beitenu/'
-	       text='Центр продленного дня &lt;&lt;Бейтену&gt;&gt;'
+	       text='п╕п╣п╫я┌я─ п©я─п╬п╢п╩п╣п╫п╫п╬пЁп╬ п╢п╫я▐ &lt;&lt;п▒п╣п╧я┌п╣п╫я┐&gt;&gt;'
 	       arrow!="$index=='migdal.beitenu'" class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.methodology`' recursive='*true'
 		as_guest='*true'>
-  <topics_line time='$,' text='Методический центр'
+  <topics_line time='$,' text='п°п╣я┌п╬п╢п╦я┤п╣я│п╨п╦п╧ я├п╣п╫я┌я─'
 	       href='/migdal/methodology/'
-	       title='Южно-украинский региональный методический центр'
+	       title='п╝п╤п╫п╬-я┐п╨я─п╟п╦п╫я│п╨п╦п╧ я─п╣пЁп╦п╬п╫п╟п╩я▄п╫я▀п╧ п╪п╣я┌п╬п╢п╦я┤п╣я│п╨п╦п╧ я├п╣п╫я┌я─'
 	       arrow!="$index=='migdal.methodology'" class='topics-item eightpt'>
   <posting_last topic_id='$`migdal.printings`' recursive='*true'
 		as_guest='*true'>
-  <topics_line time='$,' text='Издательский центр'
+  <topics_line time='$,' text='п≤п╥п╢п╟я┌п╣п╩я▄я│п╨п╦п╧ я├п╣п╫я┌я─'
 	       href='/migdal/printings/'
 	       arrow!="$index=='migdal.printings'" class='topics-item eightpt'>
-  <topics_line text='Пожертвования' href='/migdal/tzdaka/'
+  <topics_line text='п÷п╬п╤п╣я─я┌п╡п╬п╡п╟п╫п╦я▐' href='/migdal/tzdaka/'
 	       arrow!="$index=='migdal.tzdaka'" class='topics-item eightpt'>
  </topics_subtable>
 </html_cache>

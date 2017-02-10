@@ -8,7 +8,7 @@
 		      as_guest='*true'>
  <ifnzero what='$;Count'>
   <table style='margin: 0'>
-   <tr><td class='textears-title'>Коротко о важном:</td></tr>
+   <tr><td class='textears-title'>п п╬я─п╬я┌п╨п╬ п╬ п╡п╟п╤п╫п╬п╪:</td></tr>
    <tr><td><ul class='ninept'>
     <for>
      <li><a href='$.URL'>$=.Subject</a></li>

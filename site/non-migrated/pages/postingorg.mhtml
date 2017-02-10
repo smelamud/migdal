@@ -17,7 +17,7 @@
  <div class='adder'>
   <image src='/pics/sheet.gif'>&sp;
   <a href='/admin/postings/add/?grp=*GRP_NEWS&full=1&redirid=$_'
-     >Добавить сообщение</a>
+     >п■п╬п╠п╟п╡п╦я┌я▄ я│п╬п╬п╠я┴п╣п╫п╦п╣</a>
  </div>
  <spin list='$list'>
  <div class='clear-floats'></div>
@@ -27,12 +27,12 @@
 <element name='error_lines'>
 <if what='$$err!=0'>
  <table>
-  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
-  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
-  <error id='*EMR_NO_RENEW' text='Вы не модератор'>
-  <error id='*EMR_NO_ENTRY' text='Такого сообщения не существует'>
-  <error id='*EPD_NO_DELETE' text='Вы не модератор'>
-  <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_ENTRY' text='п╒п╟п╨п╬пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+  <error id='*EMH_NO_MODERATE' text='п▓я▀ п╫п╣ п╪п╬п╢п╣я─п╟я┌п╬я─'>
+  <error id='*EMR_NO_RENEW' text='п▓я▀ п╫п╣ п╪п╬п╢п╣я─п╟я┌п╬я─'>
+  <error id='*EMR_NO_ENTRY' text='п╒п╟п╨п╬пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+  <error id='*EPD_NO_DELETE' text='п▓я▀ п╫п╣ п╪п╬п╢п╣я─п╟я┌п╬я─'>
+  <error id='*EPD_POSTING_ABSENT' text='п╒п╟п╨п╬пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
  </table>
 </if>
 </element>
@@ -45,7 +45,7 @@
 <tr>
  <td>&nbsp;</td>
  <td>
-  <checkbox title='С подтемами' name#='recursive($n)' checked='$recursive'>
+  <checkbox title='п║ п©п╬п╢я┌п╣п╪п╟п╪п╦' name#='recursive($n)' checked='$recursive'>
  </td>
 </tr>
 </element>
@@ -75,14 +75,14 @@
    <tr><td>
     $posting.RatingString
     &nbsp;
-    <array vals='голос,голоса,голосов'>
+    <array vals='пЁп╬п╩п╬я│,пЁп╬п╩п╬я│п╟,пЁп╬п╩п╬я│п╬п╡'>
     <plural value='$posting.VoteCount'>
     ($posting.VoteCount&sp;$,)
    </td></tr>
   </ifnzero>
   <if what='$posting.hasImage'>
    <tr><td>
-    <a href='$posting.ImageURL'>Картинка</a>
+    <a href='$posting.ImageURL'>п п╟я─я┌п╦п╫п╨п╟</a>
     &nbsp;
     ${posting.ImageX}x${posting.ImageY}, ${posting.ImageSizeKB}KB
    </td></tr>
@@ -97,31 +97,31 @@
     <b>[X]</b>
     &nbsp;
    </if>
-   <a href="/admin/postings/$posting.Id/edit/?full=1&redirid=$_">Изменить</a>
+   <a href="/admin/postings/$posting.Id/edit/?full=1&redirid=$_">п≤п╥п╪п╣п╫п╦я┌я▄</a>
    &nbsp;
    <if what='$posting.isDisabled'>
     <a href="/actions/entry/moderate?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"
-       >Разрешить&nbsp;показ</a>
+       >п═п╟п╥я─п╣я┬п╦я┌я▄&nbsp;п©п╬п╨п╟п╥</a>
    <else>
     <a href="/actions/entry/moderate?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"
-       >Запретить&nbsp;показ</a>
+       >п≈п╟п©я─п╣я┌п╦я┌я▄&nbsp;п©п╬п╨п╟п╥</a>
    </if>
    &nbsp;
    <a href='/actions/posting/shadow?postid=$posting.Id&okdir=$#-&faildir=$#-'
-      >Тень</a>
+      >п╒п╣п╫я▄</a>
    &nbsp;
    <a href='/actions/posting/copy?postid=$posting.Id&okdir=$#-&faildir=$#-'
-      >Скопировать</a>
+      >п║п╨п╬п©п╦я─п╬п╡п╟я┌я▄</a>
    &nbsp;
    <a href="/actions/entry/renew?id=$posting.Id&okdir=$#-&faildir=$#-"
-      >Осовременить</a>
+      >п·я│п╬п╡я─п╣п╪п╣п╫п╦я┌я▄</a>
    &nbsp;
    <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-"
-      >Удалить</a>
+      >пёп╢п╟п╩п╦я┌я▄</a>
    &nbsp;
-   <a href="/admin/postings/$posting.Id/chmod/?redirid=$_">Права</a>
+   <a href="/admin/postings/$posting.Id/chmod/?redirid=$_">п÷я─п╟п╡п╟</a>
    &nbsp;
-   <a href="/admin/postings/$posting.Id/modbits/?redirid=$_">Флаги</a>
+   <a href="/admin/postings/$posting.Id/modbits/?redirid=$_">п╓п╩п╟пЁп╦</a>
   </td></tr>
  </table>
 <ifnzero what='$posting.isShadow'></blockquote></ifnzero>
@@ -146,23 +146,23 @@
       <hidden name='okdir' value='$-'>
       <hidden name='faildir' value='$-'>
       <tr><td colspan=2>
-       <subtitle title='Сообщения'>
+       <subtitle title='п║п╬п╬п╠я┴п╣п╫п╦я▐'>
       </td></tr>
       <tr><td align=left colspan=2><table><zone>
-       <assign name='title' value='Тема'>
+       <assign name='title' value='п╒п╣п╪п╟'>
        <iterate_array values='$topic_id'>
        <assign name='n' value=0>
        <for>
         <assign name='id' value!='abs($.)'>
         <assign name='rec' value!='$recursive[$n]'>
         <topic_choice title='$title' id='$id' n='$n' recursive='$rec'>
-        <assign name='title' value='<i>Или</i>'>
+        <assign name='title' value='<i>п≤п╩п╦</i>'>
         <assign name='n' value!='$n+1'>
        </for>
        <topic_choice title='$title' id='0' n='$n' recursive='*true'>
       </zone></table></td></tr>
       <tr><td align=left colspan=2>
-       Тип сообщения
+       п╒п╦п© я│п╬п╬п╠я┴п╣п╫п╦я▐
       </td></tr>
       <tr valign=top>
        <td align=left>
@@ -171,27 +171,27 @@
        <td align=left><table>
         <tr>
          <td><checkbox_button name='use_index1' checked='$use_index1'></td>
-         <td>Номер </td>
+         <td>п²п╬п╪п╣я─ </td>
          <td><edit name='index1' value='$index1' size=8 maxlength=8></td>
         </tr>
         <tr>
          <td><checkbox_button name='shadows' checked='$shadows'></td>
-         <td colspan=2>Показывать все тени</td>
+         <td colspan=2>п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ п╡я│п╣ я┌п╣п╫п╦</td>
         </tr>
        </table></td>
       </tr>
       <tr><td align=left colspan=2>
        <table cellspacing=10><tr>
-        <td><input type=submit value='Просмотр'></td>
-        <td><input type=reset value='Очистить'></td>
+        <td><input type=submit value='п÷я─п╬я│п╪п╬я┌я─'></td>
+        <td><input type=reset value='п·я┤п╦я│я┌п╦я┌я▄'></td>
        </tr></table>
       </td></tr>
      </form>
      <assign name='size' value='$;Size'>
      <tr><td class='info' colspan=2>
-      <array vals='сообщение,сообщения,сообщений'>
+      <array vals='я│п╬п╬п╠я┴п╣п╫п╦п╣,я│п╬п╬п╠я┴п╣п╫п╦я▐,я│п╬п╬п╠я┴п╣п╫п╦п╧'>
       <plural value='$size'>
-      Выбрано&nbsp;<em>$size</em>&nbsp;$,
+      п▓я▀п╠я─п╟п╫п╬&nbsp;<em>$size</em>&nbsp;$,
      </td></tr>
     </table>
     <table class='ninept cframe' width=100%><tr><td>

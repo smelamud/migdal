@@ -11,11 +11,11 @@
  <div class='batcher'>
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
-   <a href='/${catalog}add-message?redirid=$_'>Добавить сообщение</a>
+   <a href='/${catalog}add-message?redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ я│п╬п╬п╠я┴п╣п╫п╦п╣</a>
   </div>
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
-   <a href='/${catalog}add-photo?redirid=$_'>Добавить фотографию</a>
+   <a href='/${catalog}add-photo?redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ я└п╬я┌п╬пЁя─п╟я└п╦я▌</a>
   </div>
   <div class='clear-floats'></div>
  </div>

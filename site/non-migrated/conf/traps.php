@@ -163,7 +163,7 @@ function trapGallery(array $args) {
     $user_id = trapInteger($args, 'user_id');
     $general = trapInteger($args, 'general');
     $rm = array('topic_id', 'user_id', 'general', 'grp');
-    if ($topic_id == 143) /* Á¡Ã≈“≈— Õ’⁄≈— */
+    if ($topic_id == 143) /* –ì–∞–ª–µ—Ä–µ—è –º—É–∑–µ—è */
         $topic_id = 175;
     if ($user_id <= 0)
         if ($topic_id <= 0)
@@ -233,19 +233,19 @@ function trapHelp(array $args) {
 
 function trapIndex(array $args) {
     $id = trapInteger($args, 'topic_id');
-    if ($id == 5) /* Â◊“≈ ”À…  ÈŒ‘≈“Œ≈‘ */
+    if ($id == 5) /* –ï–≤—Ä–µ–π—Å–∫–∏–π –ò–Ω—Ç–µ—Ä–Ω–µ—Ç */
         return remakeMakeURI('/links/',
                              $args,
                              array('topic_id'));
-    if ($id == 13) /* ÎÂÛ */
+    if ($id == 13) /* –ö–ï–° */
         return remakeMakeURI('/migdal/jcc/student/',
                              $args,
                              array('topic_id'));
-    if ($id == 24) /* Ù’ ¬…-˚◊¡‘ */
+    if ($id == 24) /* –¢—É –±–∏-–®–≤–∞—Ç */
         return remakeMakeURI('/judaism/',
                              $args,
                              array('topic_id'));
-    if ($id == 146) /* Ì≈‘œƒ…ﬁ≈”À…  √≈Œ‘“ */
+    if ($id == 146) /* –ú–µ—Ç–æ–¥–∏—á–µ—Å–∫–∏–π —Ü–µ–Ω—Ç—Ä */
         return remakeMakeURI('/migdal/methodology/books/',
                              $args,
                              array('topic_id'));

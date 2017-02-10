@@ -2,11 +2,11 @@
 
 <element name='further' params='posting'>
 <p><image src='/pics/further.gif'>&sp;
-<a href='$posting.GrpDetailsHref'>Читать дальше</a>
+<a href='$posting.GrpDetailsHref'>п╖п╦я┌п╟я┌я▄ п╢п╟п╩я▄я┬п╣</a>
 </element>
 
 <element name='tip'>
-<div class='topics-header'>Знаете ли вы, что...</div>
+<div class='topics-header'>п≈п╫п╟п╣я┌п╣ п╩п╦ п╡я▀, я┤я┌п╬...</div>
 <posting_random grp='*GRP_TIPS'>
 <posting_obj id='$,' grp='*GRP_TIPS'>
 <div class='eightpt'>
@@ -15,6 +15,6 @@
  <if what='!$,isBodySmall'>
   <further posting='$,'>
  </if>
- <div style='margin-top: -10px; text-align: center'><a href='/tips/'>Все советы</a></div>
+ <div style='margin-top: -10px; text-align: center'><a href='/tips/'>п▓я│п╣ я│п╬п╡п╣я┌я▀</a></div>
 </div>
 </element>

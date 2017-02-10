@@ -58,8 +58,8 @@ function getQuote($s, $width) {
     return $out;
 }
 
-$TextFormats = array(TF_PLAIN => 'Простой текст (без переносов строк)',
-                     TF_TEX   => 'Простой текст (с переносами строк)',
+$TextFormats = array(TF_PLAIN => 'п÷я─п╬я│я┌п╬п╧ я┌п╣п╨я│я┌ (п╠п╣п╥ п©п╣я─п╣п╫п╬я│п╬п╡ я│я┌я─п╬п╨)',
+                     TF_TEX   => 'п÷я─п╬я│я┌п╬п╧ я┌п╣п╨я│я┌ (я│ п©п╣я─п╣п╫п╬я│п╟п╪п╦ я│я┌я─п╬п╨)',
                      TF_XML   => 'XML');
 
 class TextFormatsIterator

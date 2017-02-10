@@ -36,7 +36,7 @@
 
 <element name='starinfo'>
 <tr valign='top'><td class='form-cell eightpt' colspan=2>
- Поля, отмеченные <star mandatory='*true'>, заполнять обязательно
+ п÷п╬п╩я▐, п╬я┌п╪п╣я┤п╣п╫п╫я▀п╣ <star mandatory='*true'>, п╥п╟п©п╬п╩п╫я▐я┌я▄ п╬п╠я▐п╥п╟я┌п╣п╩я▄п╫п╬
 </td></tr>
 </element>
 
@@ -121,13 +121,13 @@
 <form_line title='$title' mandatory='$mandatory' comment='$comment'>
  <if what="$style=='select'">
   <select name='$name'>
-   <select_option value='$value' selected='$checked' title='Да'>
-   <select_option value='0' selected!='!$checked' title='Нет'>
+   <select_option value='$value' selected='$checked' title='п■п╟'>
+   <select_option value='0' selected!='!$checked' title='п²п╣я┌'>
   </select>
  <elif what="$style=='radio'">
-  <radio name='$name' value='$value' checked='$checked' title='Да' id='$id_yes'>
+  <radio name='$name' value='$value' checked='$checked' title='п■п╟' id='$id_yes'>
   &nbsp;
-  <radio name='$name' value='0' checked!='!$checked' title='Нет' id='$id_no'>
+  <radio name='$name' value='0' checked!='!$checked' title='п²п╣я┌' id='$id_no'>
  <elif what="$style=='box'">
   <checkbox_button name='$name' value='$value' checked='$checked'>
  <else>
@@ -140,7 +140,7 @@
 <tr><td colspan='2' class='form-section' style='text-align: center'>
  <input type=submit value='$title'>
  <if what='$clear'>
-  &nbsp;&nbsp;<input type=reset value='Очистить'>
+  &nbsp;&nbsp;<input type=reset value='п·я┤п╦я│я┌п╦я┌я▄'>
  </if>
 </td></tr>
 </element>

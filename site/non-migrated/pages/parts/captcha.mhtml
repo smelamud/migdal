@@ -1,8 +1,8 @@
 << @(#) $Id$ >>
 
 <element name='form_captcha'>
-<form_line id='$id' title='÷×ÅÄÉÔÅ ÜÔÉ ÃÉÆÒÙ É ÂÕË×Ù' mandatory='*true'
-           comment='äÏËÁÖÉÔÅ, ÞÔÏ ×Ù ÎÅ ÒÏÂÏÔ'>
+<form_line id='$id' title='Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚Ð¸ Ñ†Ð¸Ñ„Ñ€Ñ‹ Ð¸ Ð±ÑƒÐºÐ²Ñ‹' mandatory='*true'
+           comment='Ð”Ð¾ÐºÐ°Ð¶Ð¸Ñ‚Ðµ, Ñ‡Ñ‚Ð¾ Ð²Ñ‹ Ð½Ðµ Ñ€Ð¾Ð±Ð¾Ñ‚'>
  <table cellspacing='0' cellpadding='0'><tr valign='top'>
   <td><img src='/captcha/' width='120' height='60'></td>
   <td>&nbsp;&nbsp;</td>

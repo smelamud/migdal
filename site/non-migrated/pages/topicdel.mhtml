@@ -16,35 +16,35 @@
 
  <top ident='index'>
  <topic_obj id='$topic_id'>
- <form_table title#='Удалить тему &lt;&lt;$=,Subject&gt;&gt;'>
+ <form_table title#='пёп╢п╟п╩п╦я┌я▄ я┌п╣п╪я┐ &lt;&lt;$=,Subject&gt;&gt;'>
   <form method=post action='/actions/topic/delete'>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
    <hidden name='id' value='$topic_id'>
    <starinfo>
    <form_comment>
-    Тема &lt;&lt;$=,Subject&gt;&gt; содержит
+    п╒п╣п╪п╟ &lt;&lt;$=,Subject&gt;&gt; я│п╬п╢п╣я─п╤п╦я┌
     <ifnzero what='$tops'>
-     <array vals='подтему,подтемы,подтем'>
+     <array vals='п©п╬п╢я┌п╣п╪я┐,п©п╬п╢я┌п╣п╪я▀,п©п╬п╢я┌п╣п╪'>
      <plural value='$tops'>
      <em>$tops</em> $,
     </ifnzero>
-    <if what='$tops!=0 && $posts!=0'>&sp;и&sp;</if>
+    <if what='$tops!=0 && $posts!=0'>&sp;п╦&sp;</if>
     <ifnzero what='$posts'>
-     <array vals='сообщение,сообщения,сообщений'>
+     <array vals='я│п╬п╬п╠я┴п╣п╫п╦п╣,я│п╬п╬п╠я┴п╣п╫п╦я▐,я│п╬п╬п╠я┴п╣п╫п╦п╧'>
      <plural value='$posts'>
      <em>$posts</em> $,
     </ifnzero>
-    <asp>, которые необходимо переместить в другую тему.
+    <asp>, п╨п╬я┌п╬я─я▀п╣ п╫п╣п╬п╠я┘п╬п╢п╦п╪п╬ п©п╣я─п╣п╪п╣я│я┌п╦я┌я▄ п╡ п╢я─я┐пЁя┐я▌ я┌п╣п╪я┐.
    </form_comment>
-   <error id='*ETD_DEST_ABSENT' text='Тема для перемещения не указана'>
-   <error id='*ETD_DEST_ACCESS' text='В эту тему нельзя добавлять сообщения'>
-   <error id='*ETD_NO_DELETE' text='Вы не имеете права удалять эту тему'>
-   <error id='*ETD_TOPIC_ABSENT' text='Тема не указана'>
-   <form_topicselect title='Отправить сообщения и подтемы в' name='destid'
+   <error id='*ETD_DEST_ABSENT' text='п╒п╣п╪п╟ п╢п╩я▐ п©п╣я─п╣п╪п╣я┴п╣п╫п╦я▐ п╫п╣ я┐п╨п╟п╥п╟п╫п╟'>
+   <error id='*ETD_DEST_ACCESS' text='п▓ я█я┌я┐ я┌п╣п╪я┐ п╫п╣п╩я▄п╥я▐ п╢п╬п╠п╟п╡п╩я▐я┌я▄ я│п╬п╬п╠я┴п╣п╫п╦я▐'>
+   <error id='*ETD_NO_DELETE' text='п▓я▀ п╫п╣ п╦п╪п╣п╣я┌п╣ п©я─п╟п╡п╟ я┐п╢п╟п╩я▐я┌я▄ я█я┌я┐ я┌п╣п╪я┐'>
+   <error id='*ETD_TOPIC_ABSENT' text='п╒п╣п╪п╟ п╫п╣ я┐п╨п╟п╥п╟п╫п╟'>
+   <form_topicselect title='п·я┌п©я─п╟п╡п╦я┌я▄ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╦ п©п╬п╢я┌п╣п╪я▀ п╡' name='destid'
                      value='$destid' only_appendable='*true'
 		     only_postable='*true' mandatory='*true'>
-   <form_buttons title='Удалить тему'>
+   <form_buttons title='пёп╢п╟п╩п╦я┌я▄ я┌п╣п╪я┐'>
   </form>
  </form_table>
  <bottom>

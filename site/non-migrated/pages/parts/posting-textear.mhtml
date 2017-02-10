@@ -13,17 +13,17 @@
   <iswrite what='$posting'>
    <if what='!$posting.isDisabled'>
     [<a href="/actions/entry/moderate?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-"><asp>
-	<asp>Выключить</a>]
+	<asp>п▓я▀п╨п╩я▌я┤п╦я┌я▄</a>]
    <else>
     [<a href="/actions/entry/moderate?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><asp>
-	<asp><b>Включить</b></a>]
+	<asp><b>п▓п╨п╩я▌я┤п╦я┌я▄</b></a>]
    </if>
    &nbsp;
    <a href="/admin/textears/$posting.Id/edit/?redirid=$_"
-      >Изменить</a>
+      >п≤п╥п╪п╣п╫п╦я┌я▄</a>
    &nbsp;
    <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-"
-      >Удалить</a>
+      >пёп╢п╟п╩п╦я┌я▄</a>
   <else>
    &nbsp;
   </iswrite>

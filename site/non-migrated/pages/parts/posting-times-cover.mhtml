@@ -9,7 +9,7 @@
 <element name='further' params='posting'>
 <p>
  <image src='/pics/further.gif'>&sp;
- <a href='/times/$posting.Index1/'>Читать журнал</a>
+ <a href='/times/$posting.Index1/'>п╖п╦я┌п╟я┌я▄ п╤я┐я─п╫п╟п╩</a>
 </p>
 </element>
 
@@ -20,7 +20,7 @@
   <vote_panel align='right' id='$posting.Id' rating='$posting.Rating'>
   <biff time='$posting.Modified'>
   <a class='posting-subject' href='/times/$posting.Index1/'>
-   &lt;&lt;Мигдаль Times&gt;&gt; &no;$posting.getIssues</a>
+   &lt;&lt;п°п╦пЁп╢п╟п╩я▄ Times&gt;&gt; &no;$posting.getIssues</a>
  </dt>
  <dd><p>
  <if what='$posting.hasImage'>

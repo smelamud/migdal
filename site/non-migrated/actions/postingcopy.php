@@ -1,7 +1,7 @@
 <?php
 # @(#) $Id$
 
-# FIXME ËÏÐÉÒÏ×ÁÎÉÅ large_imageset ÎÅÒÁÂÏÔÏÓÐÏÓÏÂÎÏ
+# FIXME ÐºÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ large_imageset Ð½ÐµÑ€Ð°Ð±Ð¾Ñ‚Ð¾ÑÐ¿Ð¾ÑÐ¾Ð±Ð½Ð¾
 
 require_once('lib/errorreporting.php');
 require_once('lib/database.php');
@@ -34,14 +34,14 @@ while($row=mysql_fetch_assoc($result))
      if($new_set==0)
        {
        $image->setImageSet(0);
-       # FIXME ÍÅÔÏÄ store() ÚÁÍÅÎÅÎ ÎÁ ÆÕÎËÃÉÀ storeObject(&$obj)
+       # FIXME Ð¼ÐµÑ‚Ð¾Ð´ store() Ð·Ð°Ð¼ÐµÐ½ÐµÐ½ Ð½Ð° Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ storeObject(&$obj)
        $image->store();
        $new_set=$image->getImageSet();
        }
      else
        {
        $image->setImageSet($new_set);
-       # FIXME ÍÅÔÏÄ store() ÚÁÍÅÎÅÎ ÎÁ ÆÕÎËÃÉÀ storeObject(&$obj)
+       # FIXME Ð¼ÐµÑ‚Ð¾Ð´ store() Ð·Ð°Ð¼ÐµÐ½ÐµÐ½ Ð½Ð° Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ storeObject(&$obj)
        $image->store();
        }
      $stimage=getStotextImageByImageId($row['id']);
@@ -61,7 +61,7 @@ global $stotextImages;
 foreach($stotextImages as $stimage)
        {
        $stimage->stotext_id=$stotext_id;
-       # FIXME ÍÅÔÏÄ store() ÚÁÍÅÎÅÎ ÎÁ ÆÕÎËÃÉÀ storeObject(&$obj)
+       # FIXME Ð¼ÐµÑ‚Ð¾Ð´ store() Ð·Ð°Ð¼ÐµÐ½ÐµÐ½ Ð½Ð° Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ storeObject(&$obj)
        $stimage->store();
        }
 }
@@ -82,7 +82,7 @@ $posting->message_id=0;
 $posting->setStotextId(0);
 $posting->setImageSet(copyImageSet($posting->getImageSet()));
 $posting->setLargeImageSet(copyImageSet($posting->getLargeImageSet()));
-# FIXME ÍÅÔÏÄ store() ÚÁÍÅÎÅÎ ÎÁ ÆÕÎËÃÉÀ storeObject(&$obj)
+# FIXME Ð¼ÐµÑ‚Ð¾Ð´ store() Ð·Ð°Ð¼ÐµÐ½ÐµÐ½ Ð½Ð° Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ storeObject(&$obj)
 $posting->store();
 storeStotextImages($posting->getStotextId());
 return EG_OK;

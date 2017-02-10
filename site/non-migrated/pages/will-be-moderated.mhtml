@@ -6,25 +6,25 @@
  <preamble>
 
  <top ident='index'>
- <form_table title='Сообщение отправлено модератору' mini='*true'>
+ <form_table title='п║п╬п╬п╠я┴п╣п╫п╦п╣ п╬я┌п©я─п╟п╡п╩п╣п╫п╬ п╪п╬п╢п╣я─п╟я┌п╬я─я┐' mini='*true'>
   <form method=get action='/actions/setup'>
    <form_comment>
-    <b>Ваше сообщение успешно добавлено на сайт.</b>
+    <b>п▓п╟я┬п╣ я│п╬п╬п╠я┴п╣п╫п╦п╣ я┐я│п©п╣я┬п╫п╬ п╢п╬п╠п╟п╡п╩п╣п╫п╬ п╫п╟ я│п╟п╧я┌.</b>
     <p>
-     <array vals='час,часа,часов'>
+     <array vals='я┤п╟я│,я┤п╟я│п╟,я┤п╟я│п╬п╡'>
      <plural name='hours' value='$$messageEnableTimeout'>
-     Начиная с этого момента, у модератора есть $$messageEnableTimeout&sp;
-     $hours, чтобы одобрить или отклонить его. В течение этого времени
-     сообщение сможете видеть только вы и модератор.
+     п²п╟я┤п╦п╫п╟я▐ я│ я█я┌п╬пЁп╬ п╪п╬п╪п╣п╫я┌п╟, я┐ п╪п╬п╢п╣я─п╟я┌п╬я─п╟ п╣я│я┌я▄ $$messageEnableTimeout&sp;
+     $hours, я┤я┌п╬п╠я▀ п╬п╢п╬п╠я─п╦я┌я▄ п╦п╩п╦ п╬я┌п╨п╩п╬п╫п╦я┌я▄ п╣пЁп╬. п▓ я┌п╣я┤п╣п╫п╦п╣ я█я┌п╬пЁп╬ п╡я─п╣п╪п╣п╫п╦
+     я│п╬п╬п╠я┴п╣п╫п╦п╣ я│п╪п╬п╤п╣я┌п╣ п╡п╦п╢п╣я┌я▄ я┌п╬п╩я▄п╨п╬ п╡я▀ п╦ п╪п╬п╢п╣я─п╟я┌п╬я─.
     </p>
    </form_comment>
    <hidden name='okdir' value='$okdir'>
    <hidden name='faildir' value='$-'>
    <form_comment>
     <checkbox name='willBeModeratedNote' value=0 checked='*true'
-              title='Не показывать больше это сообщение'>
+              title='п²п╣ п©п╬п╨п╟п╥я▀п╡п╟я┌я▄ п╠п╬п╩я▄я┬п╣ я█я┌п╬ я│п╬п╬п╠я┴п╣п╫п╦п╣'>
    </form_comment>
-   <form_buttons title='Вернуться' clear='*false'>
+   <form_buttons title='п▓п╣я─п╫я┐я┌я▄я│я▐' clear='*false'>
   </form>
  </form_table>
  <bottom>

@@ -357,11 +357,11 @@ class User
 
     public function getRank() {
         if ($this->isAdminUsers())
-            return '÷ÅÂÍÁÓÔÅÒ';
+            return 'Ð’ÐµÐ±Ð¼Ð°ÑÑ‚ÐµÑ€';
         if ($this->isModerator())
-            return 'íÏÄÅÒÁÔÏÒ';
+            return 'ÐœÐ¾Ð´ÐµÑ€Ð°Ñ‚Ð¾Ñ€';
         if ($this->isMigdalStudent())
-            return 'íÉÇÄÁÌÅ×ÅÃ';
+            return 'ÐœÐ¸Ð³Ð´Ð°Ð»ÐµÐ²ÐµÑ†';
         return '';
     }
 
@@ -495,8 +495,8 @@ function getUserById($id, $guest_login = '') {
 function storeUser(User $user) {
     global $userAdminUsers;
 
-    // úÄÅÓØ ÄÏÐÕÓËÁÅÔÓÑ ÕÓÔÁÎÏ×ËÁ ÁÄÍÉÎÓËÉÈ ÐÒÁ× ÎÅ ÁÄÍÉÎÏÍ! ðÒÏ×ÅÒËÁ ÄÏÌÖÎÁ
-    // ÐÒÏÉÚ×ÏÄÉÔØÓÑ ÒÁÎØÛÅ.
+    // Ð—Ð´ÐµÑÑŒ Ð´Ð¾Ð¿ÑƒÑÐºÐ°ÐµÑ‚ÑÑ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð°Ð´Ð¼Ð¸Ð½ÑÐºÐ¸Ñ… Ð¿Ñ€Ð°Ð² Ð½Ðµ Ð°Ð´Ð¼Ð¸Ð½Ð¾Ð¼! ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð´Ð¾Ð»Ð¶Ð½Ð°
+    // Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÑŒÑÑ Ñ€Ð°Ð½ÑŒÑˆÐµ.
     $vars = array(
         'login' => $user->getLogin(),
         'name' => $user->getName(),

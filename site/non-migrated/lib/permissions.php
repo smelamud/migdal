@@ -6,8 +6,8 @@ require_once('lib/sql.php');
 require_once('lib/perm.php');
 require_once('lib/html-cache.php');
 
-// Этот класс используется как объект формы при редактировании permission'ов
-// отдельно от всех остальных атрибутов
+// п╜я┌п╬я┌ п╨п╩п╟я│я│ п╦я│п©п╬п╩я▄п╥я┐п╣я┌я│я▐ п╨п╟п╨ п╬п╠я┼п╣п╨я┌ я└п╬я─п╪я▀ п©я─п╦ я─п╣п╢п╟п╨я┌п╦я─п╬п╡п╟п╫п╦п╦ permission'п╬п╡
+// п╬я┌п╢п╣п╩я▄п╫п╬ п╬я┌ п╡я│п╣я┘ п╬я│я┌п╟п╩я▄п╫я▀я┘ п╟я┌я─п╦п╠я┐я┌п╬п╡
 class Perms
         extends Entry {
 
@@ -44,8 +44,8 @@ class Perms
 
 }
 
-// Извлечение permission'ов от указанного entry (в виде соответствующего
-// наследника Entry)
+// п≤п╥п╡п╩п╣я┤п╣п╫п╦п╣ permission'п╬п╡ п╬я┌ я┐п╨п╟п╥п╟п╫п╫п╬пЁп╬ entry (п╡ п╡п╦п╢п╣ я│п╬п╬я┌п╡п╣я┌я│я┌п╡я┐я▌я┴п╣пЁп╬
+// п╫п╟я│п╩п╣п╢п╫п╦п╨п╟ Entry)
 function getPermsById($id) {
     $result = sql("select entries.id as id,entry,user_id,group_id,
                           users.login as login,gusers.login as group_login,
@@ -61,8 +61,8 @@ function getPermsById($id) {
            ? new Perms(mysql_fetch_assoc($result)) : 0;
 }
 
-// Извлечение permission'ов для "корневого" entry указанного класса
-// (в виде объекта Entry)
+// п≤п╥п╡п╩п╣я┤п╣п╫п╦п╣ permission'п╬п╡ п╢п╩я▐ "п╨п╬я─п╫п╣п╡п╬пЁп╬" entry я┐п╨п╟п╥п╟п╫п╫п╬пЁп╬ п╨п╩п╟я│я│п╟
+// (п╡ п╡п╦п╢п╣ п╬п╠я┼п╣п╨я┌п╟ Entry)
 function getRootPerms($class) {
     return new $class(array(
         'user_id'  => getUserIdByLogin($GLOBALS["root${class}UserName"]),
@@ -71,7 +71,7 @@ function getRootPerms($class) {
     ));
 }
 
-// Сохранение указанных permission'ов
+// п║п╬я┘я─п╟п╫п╣п╫п╦п╣ я┐п╨п╟п╥п╟п╫п╫я▀я┘ permission'п╬п╡
 function setPermsById($perms) {
     sql('update entries
          set user_id='.$perms->getUserId().',
@@ -82,9 +82,9 @@ function setPermsById($perms) {
     incContentVersionsByEntryId($perms->getId());
 }
 
-// Сохранение указанных permission'ов рекурсивно от указанного entry. Можно
-// не указывать владельца/группу, а в строке прав указывать вопросительные
-// знаки.
+// п║п╬я┘я─п╟п╫п╣п╫п╦п╣ я┐п╨п╟п╥п╟п╫п╫я▀я┘ permission'п╬п╡ я─п╣п╨я┐я─я│п╦п╡п╫п╬ п╬я┌ я┐п╨п╟п╥п╟п╫п╫п╬пЁп╬ entry. п°п╬п╤п╫п╬
+// п╫п╣ я┐п╨п╟п╥я▀п╡п╟я┌я▄ п╡п╩п╟п╢п╣п╩я▄я├п╟/пЁя─я┐п©п©я┐, п╟ п╡ я│я┌я─п╬п╨п╣ п©я─п╟п╡ я┐п╨п╟п╥я▀п╡п╟я┌я▄ п╡п╬п©я─п╬я│п╦я┌п╣п╩я▄п╫я▀п╣
+// п╥п╫п╟п╨п╦.
 function setPermsRecursive($id, $user_id, $group_id, $perms,
                            $entry = ENT_NULL) {
     $set = array();
@@ -132,7 +132,7 @@ function permMask($perms,$right) {
             return '('.join(' or ', $cases).')';
 }
 
-// Получение SQL-выражения для проверки наличия указанного права
+// п÷п╬п╩я┐я┤п╣п╫п╦п╣ SQL-п╡я▀я─п╟п╤п╣п╫п╦я▐ п╢п╩я▐ п©я─п╬п╡п╣я─п╨п╦ п╫п╟п╩п╦я┤п╦я▐ я┐п╨п╟п╥п╟п╫п╫п╬пЁп╬ п©я─п╟п╡п╟
 function permFilter($right, $prefix = '', $asGuest = false) {
     global $userId, $userGroups;
 

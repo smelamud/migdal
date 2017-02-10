@@ -86,8 +86,8 @@ function getPostingsAnswersInfo($grp = GRP_NONE, $topic_id = -1, $user_id = 0,
                   __FUNCTION__);
     $row = mysql_fetch_assoc($result);
     $row['max_sent'] = $row['max_sent'] != '' ? strtotime($row['max_sent']) : 0;
-    $row['total'] = 0; // Общее количество ответов не используется, поэтому
-                       // убрано для экономии времени
+    $row['total'] = 0; // п·п╠я┴п╣п╣ п╨п╬п╩п╦я┤п╣я│я┌п╡п╬ п╬я┌п╡п╣я┌п╬п╡ п╫п╣ п╦я│п©п╬п╩я▄п╥я┐п╣я┌я│я▐, п©п╬я█я┌п╬п╪я┐
+                       // я┐п╠я─п╟п╫п╬ п╢п╩я▐ я█п╨п╬п╫п╬п╪п╦п╦ п╡я─п╣п╪п╣п╫п╦
     return new PostingsInfo($row);
     }
 

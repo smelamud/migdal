@@ -20,12 +20,12 @@
  <div class='batcher'>
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
-   <a href='/${event.Catalog}add-day?redirid=$_'>Добавить репортаж</a>
+   <a href='/${event.Catalog}add-day?redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ я─п╣п©п╬я─я┌п╟п╤</a>
   </div>
   <div class='adder'>
    <image src='/pics/sheet.gif'>&sp;
    <a href='/${event.Catalog}day-$day/add-picture?redirid=$_'
-      >Добавить фотографию</a>
+      >п■п╬п╠п╟п╡п╦я┌я▄ я└п╬я┌п╬пЁя─п╟я└п╦я▌</a>
   </div>
   <div class='clear-floats'></div>
  </div>
@@ -56,7 +56,7 @@
     <posting_obj id='$,' grp='*GRP_DAILY_NEWS'>
     <td align=left width=40%>
      <pointer href#='/${event.Catalog}day-$,Index1/'
-              text='$=,Subject' title='Предыдущий выпуск' left='*true'>
+              text='$=,Subject' title='п÷я─п╣п╢я▀п╢я┐я┴п╦п╧ п╡я▀п©я┐я│п╨' left='*true'>
     </td>
    <else>
     <td width=40%>&nbsp;</td>
@@ -68,7 +68,7 @@
     <posting_obj id='$,' grp='*GRP_DAILY_NEWS'>
     <td align=right width=40%>
      <pointer href#='/${event.Catalog}day-$,Index1/'
-              text='$=,Subject' title='Следующий выпуск' left='*false'>
+              text='$=,Subject' title='п║п╩п╣п╢я┐я▌я┴п╦п╧ п╡я▀п©я┐я│п╨' left='*false'>
     </td>
    <else>
     <td width=40%>&nbsp;</td>

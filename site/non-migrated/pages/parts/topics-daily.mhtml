@@ -1,13 +1,13 @@
 << @(#) $Id$ >>
 
 <element name='topics_daily'>
-<upper_level name='События' href='/migdal/events/'>
+<upper_level name='п║п╬п╠я▀я┌п╦я▐' href='/migdal/events/'>
 <topic_obj name='event' id='$base'>
 <topics_table class='eightpt' title='$=,Subject'>
  <ispost what='$event'>
   <li class='topics-nobullet'>
-   <a href='/${,Catalog}add-article/?redirid=$_' class='edit'>Добавить</a><br>
-   <a href='/${,Catalog}reorder/?redirid=$_' class='edit'>Расставить</a>
+   <a href='/${,Catalog}add-article/?redirid=$_' class='edit'>п■п╬п╠п╟п╡п╦я┌я▄</a><br>
+   <a href='/${,Catalog}reorder/?redirid=$_' class='edit'>п═п╟я│я│я┌п╟п╡п╦я┌я▄</a>
   </li>
  </ispost>
  <html_cache ident#='topics_daily-$,Id-$index' period!='3 * 60 * 60'

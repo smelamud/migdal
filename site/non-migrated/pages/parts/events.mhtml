@@ -4,7 +4,7 @@
 <assign name='active' value!='$grp!==*GRP_NONE'>
 <html_cache ident='events' depends='topics' if!='!$active'>
  <topic_obj name='topic' id='$`migdal.events`'>
- <topics_table class!="$active ? 'ninept' : 'eightpt'" title='События'>
+ <topics_table class!="$active ? 'ninept' : 'eightpt'" title='п║п╬п╠я▀я┌п╦я▐'>
   <iterate_topiclist grp='*GRP_EVENT' up='$,Id' recursive='*true' level=2
 		     sort='*SORT_RINDEX2_RINDEX0'>
   <assign name='year' value='0'>
@@ -13,12 +13,12 @@
     <assign name='year' value='$.Index2'>
     <assign name='gyearp' value!='$year-3761'>
     <assign name='gyear' value!='$year-3760'>
-    <topics_section title#='$year/$gyearp-$gyear г.'>
+    <topics_section title#='$year/$gyearp-$gyear пЁ.'>
     <if what='$active'>
      <iswrite what='$topic'>
       <li class='topics-nobullet eightpt'>
        <a href='/migdal/events/reorder/?index2=$year&redirid=$_'
-	  class='eightpt'>Расставить</a>
+	  class='eightpt'>п═п╟я│я│я┌п╟п╡п╦я┌я▄</a>
       </li>
      </iswrite>
     </if>

@@ -8,7 +8,7 @@
                       recursive='*false' limit=0 sort='*SORT_PSENT'
                       as_guest='*true'>
  <ifnzero what='$;Count'>
-  <topics_table title='íÅÔÏÄÉÞÅÓËÉÅ ÐÏÓÏÂÉÑ'>
+  <topics_table title='ÐœÐµÑ‚Ð¾Ð´Ð¸Ñ‡ÐµÑÐºÐ¸Ðµ Ð¿Ð¾ÑÐ¾Ð±Ð¸Ñ'>
    <for>
     <topics_line href='$.GrpDetailsHref' text='$=.Heading' class='ninept'>
    </for>

@@ -14,13 +14,13 @@
    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_GENERAL'>
    <td align=left width=33%>
     <pointer href#='chapter-${,Index0}.html' text='$,Subject'
-	     title='ðÒÅÄÙÄÕÝÁÑ ÇÌÁ×Á' left='*true'>
+	     title='ÐŸÑ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰Ð°Ñ Ð³Ð»Ð°Ð²Ð°' left='*true'>
    </td>
   <else>
    <td width=33%>&nbsp;</td>
   </if>
   <if what='$index>=0'>
-   <td align=center width=33%><a href='index.html' title='ë ÎÁÞÁÌÕ ËÎÉÇÉ'><asp>
+   <td align=center width=33%><a href='index.html' title='Ðš Ð½Ð°Ñ‡Ð°Ð»Ñƒ ÐºÐ½Ð¸Ð³Ð¸'><asp>
     <image src='pics/up.gif'>
    <asp></a></td>
   <else>
@@ -32,7 +32,7 @@
    <posting_obj id='$,' grp='*GRP_BOOK_CHAPTERS' fields='*SELECT_GENERAL'>
    <td align=right width=33%>
     <pointer href#='chapter-${,Index0}.html' text='$,Subject'
-	     title='óÌÅÄÕÀÝÁÑ ÇÌÁ×Á' left='*false'>
+	     title='Ð¡Ð»ÐµÐ´ÑƒÑŽÑ‰Ð°Ñ Ð³Ð»Ð°Ð²Ð°' left='*false'>
    </td>
   <else>
    <td width=33%>&nbsp;</td>

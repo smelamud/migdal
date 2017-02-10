@@ -48,13 +48,13 @@
            <tr valign=center>
             <td align=right><image src='/pics/further.gif'></td>
             <td>&nbsp;</td>
-            <td><a href='${book.GrpDetailsHref}$,/'>Читать книгу</a></td>
+            <td><a href='${book.GrpDetailsHref}$,/'>п╖п╦я┌п╟я┌я▄ п╨п╫п╦пЁя┐</a></td>
            </tr>
            <tr valign=center>
             <td align=right><image src='/pics/print.gif'></td>
             <td>&nbsp;</td>
             <td>
-             <a href='${book.GrpDetailsHref}print/'>Вся книга для печати</a>
+             <a href='${book.GrpDetailsHref}print/'>п▓я│я▐ п╨п╫п╦пЁп╟ п╢п╩я▐ п©п╣я┤п╟я┌п╦</a>
             </td>
            </tr>
            <<iterate_packages posting_id='$postid'>
@@ -64,9 +64,9 @@
              <td>&nbsp;</td>
              <td>
               <if what='$.Type==*PT_BOOK_ONEFILE'>
-               <assign name='title' value='Вся книга одним файлом в архиве'>
+               <assign name='title' value='п▓я│я▐ п╨п╫п╦пЁп╟ п╬п╢п╫п╦п╪ я└п╟п╧п╩п╬п╪ п╡ п╟я─я┘п╦п╡п╣'>
               <else>
-               <assign name='title' value='Вся книга по главам в архиве'>
+               <assign name='title' value='п▓я│я▐ п╨п╫п╦пЁп╟ п©п╬ пЁп╩п╟п╡п╟п╪ п╡ п╟я─я┘п╦п╡п╣'>
               </if>
               <a href='$.Href'>$title</a>
              </td>

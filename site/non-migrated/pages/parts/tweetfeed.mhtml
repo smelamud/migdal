@@ -2,7 +2,7 @@
 
 <element name='tweetfeed'>
 <table style='margin: 0'>
- <tr><td class='textears-title'>Новости &#171;Халома&#187;:</td></tr>
+ <tr><td class='textears-title'>п²п╬п╡п╬я│я┌п╦ &#171;п╔п╟п╩п╬п╪п╟&#187;:</td></tr>
  <tr><td class='ninept' style="padding-left: 2em">
   <style>
    #tweetbox .date {
@@ -18,7 +18,7 @@
   <script type="text/javascript" src="http://tweetfeed.com/showwidget.php?k=from:halom13+OR+%23halom+OR+%23halom13&l=5&w=600&u=lamed_t"></script>
  </td></tr>
  <tr><td>
-  <a href="http://search.twitter.com/search?q=%23halom" class="eightpt">Все новости</a>
+  <a href="http://search.twitter.com/search?q=%23halom" class="eightpt">п▓я│п╣ п╫п╬п╡п╬я│я┌п╦</a>
  </td></tr>
 </table>
 </element>

@@ -26,7 +26,7 @@ function answerSet($id, $answers, $last, $last_id, $last_user_id,
         __FUNCTION__);
     if ($incVersion)
         incContentVersions('forums');
-    // id=$id or orig_id=$id требуется для жалоб, у которых не проставлено orig_id
+    // id=$id or orig_id=$id я┌я─п╣п╠я┐п╣я┌я│я▐ п╢п╩я▐ п╤п╟п╩п╬п╠, я┐ п╨п╬я┌п╬я─я▀я┘ п╫п╣ п©я─п╬я│я┌п╟п╡п╩п╣п╫п╬ orig_id
 }
 
 function answerFindLastId($id) {

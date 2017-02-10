@@ -6,7 +6,7 @@
 <div class='batcher'>
  <div class='adder'>
   <image src='/pics/sheet.gif'>&sp;
-  <a href='/admin/ears/add/?redirid=$_'>Добавить ушко</a>
+  <a href='/admin/ears/add/?redirid=$_'>п■п╬п╠п╟п╡п╦я┌я▄ я┐я┬п╨п╬</a>
  </div>
  <spin list='$list'>
  <div class='clear-floats'></div>
@@ -16,8 +16,8 @@
 <element name='error_lines'>
 <if what='$$err!=0'>
  <table>
-  <error id='*EMS_NO_ENTRY' text='Такого сообщения не существует'>
-  <error id='*EMS_NO_HIDE' text='У вас нет прав на редактирование этого сообщения'>
+  <error id='*EMS_NO_ENTRY' text='п╒п╟п╨п╬пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+  <error id='*EMS_NO_HIDE' text='пё п╡п╟я│ п╫п╣я┌ п©я─п╟п╡ п╫п╟ я─п╣п╢п╟п╨я┌п╦я─п╬п╡п╟п╫п╦п╣ я█я┌п╬пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐'>
  </table>
 </if>
 </element>

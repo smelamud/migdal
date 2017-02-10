@@ -4,7 +4,7 @@
 <iterate_langs>
 <select name='$name'>
  <assign name='none' value=''>
- <select_option title='-- îÅÉÚ×ÅÓÔÅÎ --' value='' selected!="empty($value)">
+ <select_option title='-- ÐÐµÐ¸Ð·Ð²ÐµÑÑ‚ÐµÐ½ --' value='' selected!="empty($value)">
  <for>
   <select_option title='$.Name' value='$.Code' selected!='$value==$.Code'>
  </for>
@@ -15,7 +15,7 @@
 <iterate_langs>
 <form_select title='$title' name='$name' comment='$comment'
              mandatory='$mandatory'>
- <form_option title='-- îÅÉÚ×ÅÓÔÅÎ --' value='' selected!="$value=''">
+ <form_option title='-- ÐÐµÐ¸Ð·Ð²ÐµÑÑ‚ÐµÐ½ --' value='' selected!="$value=''">
  <for>
   <form_option title='$.Name' value='$.Code' selected!='$value==$.Code'>
  </for>

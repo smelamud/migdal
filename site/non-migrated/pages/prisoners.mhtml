@@ -13,12 +13,12 @@
 <table width=100% class='nframe'>
  <tr><td align=right class='eightpt'>
   <subtitle>
-  <b>Сортировать</b>
-  <navi_sort title='по имени' value='*SORT_NAME'>|
-  <navi_sort title='по русскому имени' value='*SORT_NAME_RUSSIAN'>|
-  <navi_sort title='по месту' value='*SORT_LOCATION'>|
-  <navi_sort title='по гетто' value='*SORT_GHETTO_NAME'>|
-  <navi_sort title='по сообщившему' value='*SORT_SENDER_NAME'>
+  <b>п║п╬я─я┌п╦я─п╬п╡п╟я┌я▄</b>
+  <navi_sort title='п©п╬ п╦п╪п╣п╫п╦' value='*SORT_NAME'>|
+  <navi_sort title='п©п╬ я─я┐я│я│п╨п╬п╪я┐ п╦п╪п╣п╫п╦' value='*SORT_NAME_RUSSIAN'>|
+  <navi_sort title='п©п╬ п╪п╣я│я┌я┐' value='*SORT_LOCATION'>|
+  <navi_sort title='п©п╬ пЁп╣я┌я┌п╬' value='*SORT_GHETTO_NAME'>|
+  <navi_sort title='п©п╬ я│п╬п╬п╠я┴п╦п╡я┬п╣п╪я┐' value='*SORT_SENDER_NAME'>
  </td></tr>
  <tr><td align='center' style='padding: 10px'>
   <iterate_prisoner_alphabet limit=100 sort='$$sort'>
@@ -40,9 +40,9 @@
  </td></tr>
  <tr><td align=left class='ninept'>
   <prisoners_summary name='total'>
-  <array vals='запись,записи,записей'>
+  <array vals='п╥п╟п©п╦я│я▄,п╥п╟п©п╦я│п╦,п╥п╟п©п╦я│п╣п╧'>
   <plural name='records' value='$total'>
-  Всего в базе данных <em>$total</em> $records
+  п▓я│п╣пЁп╬ п╡ п╠п╟п╥п╣ п╢п╟п╫п╫я▀я┘ <em>$total</em> $records
  </td></tr>
 </table>
 </element>
@@ -64,13 +64,13 @@
    <iterate_prisonerlist prefix='$prefix' sort='$sort'>
    <catalog_table>
     <tr valign=top>
-     <th class='catalog-cell'>Имя</th>
-     <th class='catalog-cell'>Русское имя</th>
-     <th class='catalog-cell'>Место</th>
-     <th class='catalog-cell'>Гетто</th>
-     <th class='catalog-cell'>Сообщил</th>
-     <th class='catalog-cell'>Сумма</th>
-     <th class='catalog-cell'>Поисковые данные</th>
+     <th class='catalog-cell'>п≤п╪я▐</th>
+     <th class='catalog-cell'>п═я┐я│я│п╨п╬п╣ п╦п╪я▐</th>
+     <th class='catalog-cell'>п°п╣я│я┌п╬</th>
+     <th class='catalog-cell'>п⌠п╣я┌я┌п╬</th>
+     <th class='catalog-cell'>п║п╬п╬п╠я┴п╦п╩</th>
+     <th class='catalog-cell'>п║я┐п╪п╪п╟</th>
+     <th class='catalog-cell'>п÷п╬п╦я│п╨п╬п╡я▀п╣ п╢п╟п╫п╫я▀п╣</th>
     </tr>
     <for>
      <if what='$;isOdd'>

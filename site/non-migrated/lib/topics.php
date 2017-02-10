@@ -288,7 +288,7 @@ class SortedTopicNamesIterator
         $topics = array();
         foreach ($iterator as $item)
             $topics[$item->getFullName()] = $item;
-        // FIXME должно проставляться в конфиге
+        // FIXME п╢п╬п╩п╤п╫п╬ п©я─п╬я│я┌п╟п╡п╩я▐я┌я▄я│я▐ п╡ п╨п╬п╫я└п╦пЁп╣
         setlocale(LC_COLLATE, 'ru_RU.KOI8-R');
         uksort($topics, 'strcoll');
         parent::__construct($topics);
