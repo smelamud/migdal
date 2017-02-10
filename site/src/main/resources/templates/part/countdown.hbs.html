@@ -1,6 +1,6 @@
 {{! params: href, image, title, date }}
 
-{{#unless englishDomain}}
+{{#notEnglish}}
     {{daysTill "days" date}}
     {{#ifgt days "0"}}
         <div style="float: left; margin-left: 10ex">
@@ -23,4 +23,4 @@
             </span>
         </div>
    {{/ifgt}}
-{{/unless}}
+{{/notEnglish}}

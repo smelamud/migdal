@@ -2,26 +2,26 @@
     <div id='logo'>
         <a href='/'>
             {{image "/pics/big-tower.gif" alt="Башня" altEn="Tower"}}</a>
-        {{#unless englishDomain}}
+        {{#notEnglish}}
             <a href='/'>
                 {{image "/pics/migdal.jpg" alt="Мигдаль" id="migdal"}}</a>
         {{else}}
             <a href='/'>
                 {{image "/pics/migdal-english.gif" alt="Migdal" id="migdal"}}</a>
-        {{/unless}}
+        {{/notEnglish}}
         {{! > hannukah}}
     </div>
 {{/inline}}
 
 {{#*inline "translation"}}
     {{#if translationHref}}
-        {{#if englishDomain}}
+        {{#english}}
             {{image "/pics/lang-ru.gif"}}
             <a href='{{translationHref}}' id='translation'>Русская версия</a>
         {{else}}
             {{image "/pics/lang-us.gif"}}
             <a href='{{translationHref}}' id='translation'>English version</a>
-        {{/if}}
+        {{/english}}
     {{/if}}
 {{/inline}}
 

@@ -35,8 +35,6 @@ public class GlobalsControllerAdvice {
         String subdomain = getUserDomain(request);
         model.addAttribute("siteDomain", config.getSiteDomain());
         model.addAttribute("userDomain", subdomain);
-        model.addAttribute("wwwDomain", subdomain.equals("www"));
-        model.addAttribute("englishDomain", subdomain.equals("english"));
         model.addAttribute("siteName", !subdomain.equals("english") ? "Мигдаль" : "Migdal");
         model.addAttribute("pageTitle", "");
         model.addAttribute("metaNoIndex", false);

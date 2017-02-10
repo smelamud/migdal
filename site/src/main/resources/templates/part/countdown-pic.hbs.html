@@ -1,6 +1,6 @@
 {{! params: href, image, title, date }}
 
-{{#unless englishDomain}}
+{{#notEnglish}}
     {{daysTill "days" date}}
     {{#ifgt days "0"}}
         <div style="background-image: url('{{image}}'); width: 123px; height: 36px; padding: 22px 90px; font: bold 12pt 'Times New Roman',serif">
@@ -13,4 +13,4 @@
             {{plural days "остался,осталось,осталось"}}<br>{{days}} {{plural days "день,дня,дней"}}
         </div>
     {{/ifgt}}
-{{/unless}}
+{{/notEnglish}}

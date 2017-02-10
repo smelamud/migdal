@@ -8,15 +8,15 @@
 {{/inline}}
 
 {{#*inline "today"}}
-    {{#unless englishDomain}}
+    {{#notEnglish}}
         {{cal "jewish-ru-gen-lc" "d MMMM yyyy"}}&nbsp;/&nbsp;{{cal "gregorian-ru-gen-lc" "d MMMM yyyy"}}
     {{else}}
         {{cal "jewish-en" "MMMM d, yyyy"}}&nbsp;/&nbsp;{{cal "gregorian-en" "MMMM d, yyyy"}}
-    {{/unless}}
+    {{/notEnglish}}
 {{/inline}}
 
 <table class="menu" width="100%" cellspacing="0" cellpadding="0" vspace="0">
-    {{#unless englishDomain}}
+    {{#notEnglish}}
         {{#assign "menuBar"}}
             <tr valign="bottom">
                 <td style="line-height: 1px">
@@ -29,6 +29,6 @@
             </tr>
         {{/assign}}
         {{{asp menuBar}}}
-    {{/unless}}
+    {{/notEnglish}}
     <tr><td colspan="2" class="date" align="right">{{> today}}&nbsp;</td></tr>
 </table>

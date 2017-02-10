@@ -36,7 +36,7 @@ public class ImagesHelperSource {
             appendAttribute(buf, "width", imageSize.width);
             appendAttribute(buf, "height", imageSize.height);
         }
-        if (!options.<Boolean>get("englishDomain") || options.hash("altEn") == null) {
+        if (!options.get("userDomain").equals("english") || options.hash("altEn") == null) {
             appendHashParam(buf, "alt", options);
         } else {
             appendHashParam(buf, "altEn", "alt", options);
