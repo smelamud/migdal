@@ -1,6 +1,6 @@
-{{#unless print}}
+{{#notPrint}}
     <link rel='alternate' media='print' href='{{printLocation}}'>
-{{/unless}}
+{{/notPrint}}
 {{#if rssHref}}
     <link rel="alternate" type="application/rss+xml" title="RSS"
           href="http://{{userDomain}}.{{siteDomain}}{{rssHref}}">

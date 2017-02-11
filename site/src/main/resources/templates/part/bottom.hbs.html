@@ -1,2 +1,106 @@
-</body>
+{{#*inline "kernel"}}
+    // Powered by
+    <b>Migdal website kernel</b><br>
+{{/inline}}
+
+{{#*inline "email"}} {{! params: addr}}
+    {{#notenglish}}
+        {{#assign "title"}}Написать письмо{{/assign}}
+    {{else}}
+        {{#assign "title"}}Send e-mail{{/assign}}
+    {{/notenglish}}
+    <a href="mailto:{{addr}}" title="{{title}}" class="email">
+        {{image "/pics/mail.gif" class="icon" alt=addr}}</a>
+{{/inline}}
+
+{{#*inline "bottomWww"}}
+    <div style="float: right; text-align: right; width: 30%">
+        {{image "/pics/book.gif" class="icon"}}&nbsp;
+        <a href="/forum/$`post.criticism`" class="complains-link">
+            Замечания/предложения<br>по работе сайта</a><br><br>
+        <span class="eightpt">{{cal "gregorian-en" "yyyy-MM-dd hh:mm:ss"}}</span><br>
+        {{> kernel}}
+        {{#moderator}}
+            <a href='/admin/'>Страница модератора</a>
+        {{else}}
+            Вебмастер живет по адресу
+            <a href='mailto:webmaster@migdal.org.ua'>webmaster@migdal.org.ua</a>
+        {{/moderator}}
+    </div>
+    <div class="vcard">
+        <p>
+            Сайт создан и поддерживается
+            <a href="/migdal/jcc/student/">Клубом Еврейского Студента</a>
+            <br>
+            <span class="n fn org" style="display: none">
+                <span class="honorific-prefix">Международный Еврейский Общинный Центр</span>
+                <span class="given-name">&laquo;Мигдаль&raquo;</span>
+            </span>
+            Международного Еврейского Общинного Центра
+            <a class="url" href="http://www.migdal.org.ua/migdal/">&laquo;Мигдаль&raquo;</a>
+            {{> email addr="migdal@migdal.org.ua"}}.
+        </p>
+        <p>
+            <b>Адрес:</b>
+            <span class="adr">
+                г. <span class="locality">Одесса</span>,
+                <span class="street-address">ул. Малая Арнаутская, 46-а.</span>
+            </span><br>
+            <b>Тел.:</b>
+            <span class="tel">37-21-28</span>,
+            <span class="tel">777-07-18</span>,
+            факс: <span class="tel">34-39-68</span>.
+        </p>
+    </div>
+    <p class="vcard">
+        <span class="title">Председатель правления</span> центра
+        <span class="org">&laquo;Мигдаль&raquo;</span> &mdash;
+        <span class="fn">Кира Верховская</span>
+        {{> email addr="verkhov@migdal.org.ua"}}.
+    </p>
+{{/inline}}
+
+{{#*inline "bottomEnglish"}}
+    <div style="float: right; text-align: right; width: 30%">
+        {{> kernel}}
+        Webmaster lives here:
+        <a href="mailto:webmaster@migdal.org.ua">webmaster@migdal.org.ua</a>
+    </div>
+    <p class="vcard">
+        Programming, design and maintenance by <b>Jewish Student Club</b> of
+        <br>
+        <span class="n fn org">
+            <span class="given-name">Migdal</span>
+            <span class="honorific-suffix">
+                International Center of Jewish Community Programs
+            </span>
+        </span>
+        the International Center of Jewish Community Programs
+        <a href="http://english.migdal.org.ua/" class="url">&laquo;Migdal&raquo;</a>
+        {{> email addr="migdal@migdal.org.ua"}},
+        <span class="adr"><span class="locality">Odessa</span></span>.
+    </p>
+    <p class="vcard">
+        <b class="fn">Kira Verkhovskaya</b> {{> email addr="verkhov@tm.odessa.ua"}},
+        the <span class="title">President</span> of the
+        <span class="org">JCC &laquo;Migdal&raquo;</span> center.
+    </p>
+{{/inline}}
+
+        {{#notPrint}}
+            <backtrace>
+            <div id="bottom">
+                <div style="width: 100%">
+                    {{#notEnglish}}
+                        {{> bottomWww}}
+                    {{else}}
+                        {{> bottomEnglish}}
+                    {{/notEnglish}}
+                </div>
+                <hr>
+                <p><banners></p>
+            </div>
+            <og_image src="/pics/big-tower.gif">
+        {{/notPrint}}
+    </body>
 </html>

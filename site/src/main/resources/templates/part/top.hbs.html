@@ -25,10 +25,10 @@
     {{/if}}
 {{/inline}}
 
-{{#unless print}}
+{{#notPrint}}
     <div id='top'>
         {{> banner}}
-        {{> part/countdown title="25-летия &#171;Мигдаля&#187;" date="2017-02-06"
+        {{> part/countdown title="25-летия &laquo;Мигдаля&raquo;" date="2017-02-06"
                            image="/pics/logo-birthday.gif"}}
         <div id='bsd-block'>
             {{> translation}}
@@ -38,4 +38,4 @@
     </div>
     {{> part/menu}}
     <backtrace>
-{{/unless}}
+{{/notPrint}}
