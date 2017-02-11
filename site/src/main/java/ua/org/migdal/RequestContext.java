@@ -8,6 +8,8 @@ public interface RequestContext {
 
     void setUserId(long userId);
 
+    boolean isLogged();
+
     long getRealUserId();
 
     void setRealUserId(long realUserId);

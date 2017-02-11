@@ -38,6 +38,11 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
+    public boolean isLogged() {
+        return userId > 0;
+    }
+
+    @Override
     public long getRealUserId() {
         return realUserId;
     }
