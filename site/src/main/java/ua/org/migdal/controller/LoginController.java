@@ -35,13 +35,13 @@ public class LoginController {
         Map<String, Object> menuProps = (Map<String, Object>) model.get("menu");
         menuProps.put("signIn", false);
 
-        if (!session.isLoggedIn()) {
+        /*if (!session.isLoggedIn()) {
             model.putIfAbsent("loginForm", new LoginForm(back, "/"));
             return "signin";
         } else {
-            model.putIfAbsent("logoutForm", new LogoutForm(back, "/"));
+            model.putIfAbsent("logoutForm", new LogoutForm(back, "/"));*/
             return "signout";
-        }
+//        }
     }
 
     @PostMapping("/signin")

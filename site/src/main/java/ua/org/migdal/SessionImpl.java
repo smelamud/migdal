@@ -1,20 +1,15 @@
 package ua.org.migdal;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
-@Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
+@SessionScope(proxyMode = ScopedProxyMode.INTERFACES)
 @Component
 public class SessionImpl implements Session {
 
     private long userId;
-    private String displayName;
-
-    @Override
-    public boolean isLoggedIn() {
-        return userId != 0;
-    }
+    private long realUserId;
 
     @Override
     public long getUserId() {
@@ -26,14 +21,12 @@ public class SessionImpl implements Session {
         this.userId = userId;
     }
 
-    @Override
-    public String getDisplayName() {
-        return displayName;
+    public long getRealUserId() {
+        return realUserId;
     }
 
-    @Override
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setRealUserId(long realUserId) {
+        this.realUserId = realUserId;
     }
 
 }

@@ -126,4 +126,188 @@ public class User {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getJewishName() {
+        return jewishName;
+    }
+
+    public void setJewishName(String jewishName) {
+        this.jewishName = jewishName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getInfoXml() {
+        return infoXml;
+    }
+
+    public void setInfoXml(String infoXml) {
+        this.infoXml = infoXml;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
+    public Timestamp getModified() {
+        return modified;
+    }
+
+    public void setModified(Timestamp modified) {
+        this.modified = modified;
+    }
+
+    public Timestamp getLastOnline() {
+        return lastOnline;
+    }
+
+    public void setLastOnline(Timestamp lastOnline) {
+        this.lastOnline = lastOnline;
+    }
+
+    public Timestamp getConfirmDeadline() {
+        return confirmDeadline;
+    }
+
+    public void setConfirmDeadline(Timestamp confirmDeadline) {
+        this.confirmDeadline = confirmDeadline;
+    }
+
+    public String getConfirmCode() {
+        return confirmCode;
+    }
+
+    public void setConfirmCode(String confirmCode) {
+        this.confirmCode = confirmCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isHideEmail() {
+        return hideEmail;
+    }
+
+    public void setHideEmail(boolean hideEmail) {
+        this.hideEmail = hideEmail;
+    }
+
+    public String getIcq() {
+        return icq;
+    }
+
+    public void setIcq(String icq) {
+        this.icq = icq;
+    }
+
+    public boolean isEmailDisabled() {
+        return emailDisabled;
+    }
+
+    public void setEmailDisabled(boolean emailDisabled) {
+        this.emailDisabled = emailDisabled;
+    }
+
+    public boolean isShames() {
+        return shames;
+    }
+
+    public void setShames(boolean shames) {
+        this.shames = shames;
+    }
+
+    public boolean isGuest() {
+        return guest;
+    }
+
+    public void setGuest(boolean guest) {
+        this.guest = guest;
+    }
+
+    public long getRights() {
+        return rights;
+    }
+
+    public void setRights(long rights) {
+        this.rights = rights;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public boolean isNoLogin() {
+        return noLogin;
+    }
+
+    public void setNoLogin(boolean noLogin) {
+        this.noLogin = noLogin;
+    }
+
+    public boolean isHasPersonal() {
+        return hasPersonal;
+    }
+
+    public void setHasPersonal(boolean hasPersonal) {
+        this.hasPersonal = hasPersonal;
+    }
+
+    public String getSettings() {
+        return settings;
+    }
+
+    public void setSettings(String settings) {
+        this.settings = settings;
+    }
+
 }
