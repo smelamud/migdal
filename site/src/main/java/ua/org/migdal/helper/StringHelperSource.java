@@ -3,6 +3,8 @@ package ua.org.migdal.helper;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.springframework.web.util.HtmlUtils;
+
 @HelperSource
 public class StringHelperSource {
 
@@ -12,6 +14,10 @@ public class StringHelperSource {
         } catch (UnsupportedEncodingException e) {
             return "ue:" + e.getMessage();
         }
+    }
+
+    public CharSequence he(String s) {
+        return HtmlUtils.htmlEscape(s);
     }
 
     public CharSequence asp(String s) {
