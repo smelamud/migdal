@@ -64,7 +64,7 @@ public class ImagesHelperSource {
             buf.append(' ');
             buf.append(attributeName);
             buf.append("=\"");
-            buf.append(HtmlUtils.htmlEscape(value.toString()));
+            buf.append(value);
             buf.append('"');
         }
     }
