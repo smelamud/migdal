@@ -2,11 +2,10 @@ package ua.org.migdal.helper;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Options;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import ua.org.migdal.helper.exception.MissingArgumentException;
 
 @HelperSource
 public class FormsHelperSource {
@@ -17,8 +16,8 @@ public class FormsHelperSource {
     public CharSequence hidden(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"hidden\"");
-        appendHashParam(buf, "name", "name", null, options);
-        appendHashParam(buf, "value", "value", "", options);
+        HelperUtils.appendHashParam(buf, "name", "name", null, options);
+        HelperUtils.appendHashParam(buf, "value", "value", "", options);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -26,14 +25,14 @@ public class FormsHelperSource {
     public CharSequence checkboxButton(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"checkbox\"");
-        appendHashParam(buf, "name", "name", null, options);
-        appendHashParam(buf, "value", "value", "1", options);
+        HelperUtils.appendHashParam(buf, "name", "name", null, options);
+        HelperUtils.appendHashParam(buf, "value", "value", "1", options);
         boolean checked = options.<Boolean> hash("checked", false);
         if (checked) {
             buf.append(" checked");
         }
-        appendHashParam(buf,"id", options);
-        appendHashParam(buf, "class", options);
+        HelperUtils.appendHashParam(buf,"id", options);
+        HelperUtils.appendHashParam(buf, "class", options);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -52,15 +51,15 @@ public class FormsHelperSource {
     public CharSequence radioButton(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"radio\"");
-        appendHashParam(buf, "name", "name", null, options);
-        appendHashParam(buf, "value", "value", null, options);
+        HelperUtils.appendHashParam(buf, "name", "name", null, options);
+        HelperUtils.appendHashParam(buf, "value", "value", null, options);
         boolean checked = options.<Boolean> hash("checked", false);
         if (checked) {
             buf.append(" checked");
         }
-        appendHashParam(buf,"id", options);
-        appendHashParam(buf, "class", options);
-        appendHashParam(buf, "onclick", options);
+        HelperUtils.appendHashParam(buf,"id", options);
+        HelperUtils.appendHashParam(buf, "class", options);
+        HelperUtils.appendHashParam(buf, "onclick", options);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -78,10 +77,7 @@ public class FormsHelperSource {
 
     public CharSequence selectOption(Options options) {
         boolean selected = options.<Boolean> hash("selected", false);
-        String value = options.hash("value");
-        if (value == null) {
-            throw new MissingArgumentException("value");
-        }
+        String value = HelperUtils.mandatoryHash("value", options);
         String title = options.hash("title", "");
         if (selected) {
             return new Handlebars.SafeString(String.format("<option value=\"%s\" selected>%s", value, title));
@@ -142,10 +138,7 @@ public class FormsHelperSource {
     }
 
     public CharSequence formLine(Options options) throws IOException {
-        String title = options.hash("title");
-        if (title == null) {
-            throw new MissingArgumentException("title");
-        }
+        String title = HelperUtils.mandatoryHash("title", options);
         boolean mandatory = options.hash("mandatory", false);
         String comment = options.hash("comment", "");
         String id = options.hash("id", "");
@@ -189,10 +182,7 @@ public class FormsHelperSource {
     }
 
     public CharSequence formSection(Options options) {
-        String title = options.hash("title");
-        if (title == null) {
-            throw new MissingArgumentException("title");
-        }
+        String title = HelperUtils.mandatoryHash("title", options);
 
         StringBuilder buf = new StringBuilder();
         buf.append("<tr valign=\"top\">");
@@ -206,12 +196,12 @@ public class FormsHelperSource {
     public CharSequence edit(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"text\"");
-        appendHashParam(buf, "name", "name", null, options);
-        appendHashParam(buf, "value", "value", null, options);
-        appendHashParam(buf, "size", "size", "40", options);
-        appendHashParam(buf, "maxlength", "maxlength", "250", options);
-        appendHashParam(buf, "onkeypress", options);
-        appendHashParam(buf, "id", options);
+        HelperUtils.appendHashParam(buf, "name", "name", null, options);
+        HelperUtils.appendHashParam(buf, "value", "value", null, options);
+        HelperUtils.appendHashParam(buf, "size", "size", "40", options);
+        HelperUtils.appendHashParam(buf, "maxlength", "maxlength", "250", options);
+        HelperUtils.appendHashParam(buf, "onkeypress", options);
+        HelperUtils.appendHashParam(buf, "id", options);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -326,47 +316,14 @@ public class FormsHelperSource {
 */
 
     public CharSequence xmlText(Options options) {
-        String id = options.hash("id");
-        if (id == null) {
-            throw new MissingArgumentException("id");
-        }
-        String name = options.hash("name");
-        if (name == null) {
-            throw new MissingArgumentException("name");
-        }
+        String id = HelperUtils.mandatoryHash("id", options);
+        String name = HelperUtils.mandatoryHash("name", options);
 
         StringBuilder buf = new StringBuilder();
         buf.append(String.format("<a href=\"/xml/%s/%s/\">", id, name));
         buf.append(imagesHelperSource.image("/pics/xml.gif"));
         buf.append("</a>");
         return new Handlebars.SafeString(buf);
-    }
-
-    private void appendHashParam(StringBuilder buf, String name, Options options) {
-        appendHashParam(buf, name, name, options);
-    }
-
-    private void appendHashParam(StringBuilder buf, String name, String attrName, Options options) {
-        appendAttribute(buf, attrName, options.hash(name));
-    }
-
-    private void appendHashParam(StringBuilder buf, String name, String attrName, String defaultValue,
-                                 Options options) {
-        String value = defaultValue != null ? options.hash(name, defaultValue) : options.hash(name);
-        if (value == null) {
-            throw new MissingArgumentException(name);
-        }
-        appendAttribute(buf, attrName, value);
-    }
-
-    private void appendAttribute(StringBuilder buf, String attributeName, Object value) {
-        if (value != null) {
-            buf.append(' ');
-            buf.append(attributeName);
-            buf.append("=\"");
-            buf.append(value);
-            buf.append('"');
-        }
     }
 
 }

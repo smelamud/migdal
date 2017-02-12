@@ -29,23 +29,23 @@ public class ImagesHelperSource {
     public CharSequence image(String href, Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
-        appendAttribute(buf, "src", href);
+        HelperUtils.appendAttribute(buf, "src", href);
         Dimension imageSize = getImageSize(href);
         if (imageSize != null) {
-            appendAttribute(buf, "width", imageSize.width);
-            appendAttribute(buf, "height", imageSize.height);
+            HelperUtils.appendAttribute(buf, "width", imageSize.width);
+            HelperUtils.appendAttribute(buf, "height", imageSize.height);
         }
         if (!options.get("userDomain").equals("english") || options.hash("altEn") == null) {
-            appendHashParam(buf, "alt", options);
+            HelperUtils.appendHashParam(buf, "alt", options);
         } else {
-            appendHashParam(buf, "altEn", "alt", options);
+            HelperUtils.appendHashParam(buf, "altEn", "alt", options);
         }
-        appendHashParam(buf, "title", options);
-        appendHashParam(buf, "class", options);
-        appendHashParam(buf, "id", options);
-        appendHashParam(buf, "data_id", "data-id", options);
-        appendHashParam(buf, "data_value", "data-value", options);
-        appendHashParam(buf, "style", options);
+        HelperUtils.appendHashParam(buf, "title", options);
+        HelperUtils.appendHashParam(buf, "class", options);
+        HelperUtils.appendHashParam(buf, "id", options);
+        HelperUtils.appendHashParam(buf, "data_id", "data-id", options);
+        HelperUtils.appendHashParam(buf, "data_value", "data-value", options);
+        HelperUtils.appendHashParam(buf, "style", options);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -53,32 +53,14 @@ public class ImagesHelperSource {
     CharSequence image(String href) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
-        appendAttribute(buf, "src", href);
+        HelperUtils.appendAttribute(buf, "src", href);
         Dimension imageSize = getImageSize(href);
         if (imageSize != null) {
-            appendAttribute(buf, "width", imageSize.width);
-            appendAttribute(buf, "height", imageSize.height);
+            HelperUtils.appendAttribute(buf, "width", imageSize.width);
+            HelperUtils.appendAttribute(buf, "height", imageSize.height);
         }
         buf.append('>');
         return new Handlebars.SafeString(buf);
-    }
-
-    private void appendHashParam(StringBuilder buf, String name, Options options) {
-        appendHashParam(buf, name, name, options);
-    }
-
-    private void appendHashParam(StringBuilder buf, String name, String attrName, Options options) {
-        appendAttribute(buf, attrName, options.hash(name));
-    }
-
-    private void appendAttribute(StringBuilder buf, String attributeName, Object value) {
-        if (value != null) {
-            buf.append(' ');
-            buf.append(attributeName);
-            buf.append("=\"");
-            buf.append(value);
-            buf.append('"');
-        }
     }
 
     private Dimension getImageSize(String path) {
