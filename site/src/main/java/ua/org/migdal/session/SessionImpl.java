@@ -1,4 +1,4 @@
-package ua.org.migdal;
+package ua.org.migdal.session;
 
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;

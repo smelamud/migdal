@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import ua.org.migdal.Session;
+import ua.org.migdal.session.Session;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRepository;
 import ua.org.migdal.form.LoginForm;

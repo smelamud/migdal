@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.jknack.handlebars.Options;
 
-import ua.org.migdal.RequestContext;
+import ua.org.migdal.session.RequestContext;
 
 @HelperSource
 public class SessionHelperSource {

@@ -1,4 +1,4 @@
-package ua.org.migdal;
+package ua.org.migdal.session;
 
 import java.util.List;
 
