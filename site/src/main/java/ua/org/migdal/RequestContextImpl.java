@@ -3,11 +3,14 @@ package ua.org.migdal;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+
+import ua.org.migdal.util.Utils;
 
 @RequestScope(proxyMode = ScopedProxyMode.INTERFACES)
 @Component
@@ -16,6 +19,14 @@ public class RequestContextImpl implements RequestContext {
     @Autowired
     private Session session;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private Utils utils;
+
+    private String subdomain;
+    private Boolean printMode;
     private long userId;
     private long realUserId;
     private List<Long> userGroups;
@@ -26,6 +37,33 @@ public class RequestContextImpl implements RequestContext {
     private boolean userAdminTopics;
     private boolean userModerator;
     private boolean userAdminDomain;
+
+    @Override
+    public String getSubdomain() {
+        if (subdomain == null) {
+            String hostname = Utils.createBuilderFromRequest(request).build().getHost();
+            subdomain = utils.validateSubdomain(hostname).getSubdomain();
+        }
+        return subdomain;
+    }
+
+    @Override
+    public boolean isWww() {
+        return subdomain.equals("www");
+    }
+
+    @Override
+    public boolean isEnglish() {
+        return subdomain.equals("english");
+    }
+
+    @Override
+    public boolean isPrintMode() {
+        if (printMode == null) {
+            printMode = "1".equals(request.getParameter("print"));
+        }
+        return printMode;
+    }
 
     @Override
     public long getUserId() {

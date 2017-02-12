@@ -4,6 +4,14 @@ import java.util.List;
 
 public interface RequestContext {
 
+    String getSubdomain();
+
+    boolean isWww();
+
+    boolean isEnglish();
+
+    boolean isPrintMode();
+
     long getUserId();
 
     void setUserId(long userId);
