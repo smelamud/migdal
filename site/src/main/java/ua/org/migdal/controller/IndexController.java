@@ -15,7 +15,7 @@ public class IndexController {
 		return "index-www";
 	}
 
-	public LocationInfo indexLocationInfo(Model model) {
+	public static LocationInfo indexLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withRssHref("/rss/")
                 .withTranslationHref("/")

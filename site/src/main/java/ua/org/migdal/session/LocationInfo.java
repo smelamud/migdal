@@ -11,6 +11,7 @@ public class LocationInfo {
     private static final Logger log = LoggerFactory.getLogger(LocationInfo.class);
 
     private Model model;
+    private LocationInfo parent;
 
     private String pageTitle = "";
     private boolean metaNoIndex;
@@ -19,6 +20,10 @@ public class LocationInfo {
     private String menuMain = "index";
     private String menuElement;
     private String menuIndex;
+
+    public LocationInfo getParent() {
+        return parent;
+    }
 
     public String getPageTitle() {
         return pageTitle;
@@ -63,52 +68,63 @@ public class LocationInfo {
         }
 
         for (Field field : getClass().getDeclaredFields()) {
-            if (field.getName().equals("model")) {
+            if (field.getName().equals("model") || field.getName().equals("parent")) {
                 continue;
             }
             model.addAttribute(field.getName(), field.get(this));
         }
     }
 
+    public LocationInfo withParent(LocationInfo parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    private void addAttribute(String name, Object value) {
+        if (model != null) {
+            model.addAttribute(name, value);
+        }
+    }
+
     public LocationInfo withPageTitle(String pageTitle) {
         this.pageTitle = pageTitle;
-        model.addAttribute("pageTitle", pageTitle);
+        addAttribute("pageTitle", pageTitle);
         return this;
     }
 
     public LocationInfo withMetaNoIndex(boolean metaNoIndex) {
         this.metaNoIndex = metaNoIndex;
-        model.addAttribute("metaNoIndex", metaNoIndex);
+        addAttribute("metaNoIndex", metaNoIndex);
         return this;
     }
 
     public LocationInfo withRssHref(String rssHref) {
         this.rssHref = rssHref;
-        model.addAttribute("rssHref", rssHref);
+        addAttribute("rssHref", rssHref);
         return this;
     }
 
     public LocationInfo withTranslationHref(String translationHref) {
         this.translationHref = translationHref;
-        model.addAttribute("translationHref", translationHref);
+        addAttribute("translationHref", translationHref);
         return this;
     }
 
     public LocationInfo withMenuMain(String menuMain) {
         this.menuMain = menuMain;
-        model.addAttribute("menuMain", menuMain);
+        addAttribute("menuMain", menuMain);
         return this;
     }
 
     public LocationInfo withMenuElement(String menuElement) {
         this.menuElement = menuElement;
-        model.addAttribute("menuElement", menuElement);
+        addAttribute("menuElement", menuElement);
         return this;
     }
 
     public LocationInfo withMenuIndex(String menuIndex) {
         this.menuIndex = menuIndex;
-        model.addAttribute("menuIndex", menuIndex);
+        addAttribute("menuIndex", menuIndex);
         return this;
     }
 
