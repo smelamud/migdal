@@ -542,44 +542,6 @@
  </td>
 </macro>
 
-<macro name='hidden'>
- <input type=hidden name='%name' value="%value">
-</macro>
-
-<decel name='checkbox_button' file='lib/utils.php'
-       params='name,value,checked,id,class'
-       defaults="value=1 checked='*false' id='' class=''">
-
-<macro name='checkbox'
-       defaults="value=1 checked='*false' id='' class='' title=''">
- <label>
-  <checkbox_button name%!name='%name' value%!value='%value'
-                   checked%!checked='%checked' id%!id='%id'
-		   class%!class='%class'> %title
- </label>
-</macro>
-
-<decel name='radio_button' file='lib/utils.php'
-       params='name,value,checked,id,class,onclick'
-       defaults="checked='*false' id='' class='' onclick=''">
-
-<macro name='radio' defaults="checked='*false' id='' class='' title=''
-                              onclick=''">
- <label>
-  <radio_button name%!name='%name' value%!value='%value'
-                checked%!checked='%checked' id%!id='%id'
-		class%!class='%class' onclick%!onclick='%onclick'> %title
- </label>
-</macro>
-
-<macro name='select_option' defaults='selected="*false"'>
- <if what='%selected'>
-  <option value='%value' selected>%title
- <else>
-  <option value='%value'>%title
- </if>
-</macro>
-
 <macro name='select_portion'>
 <select name='%name'>
  <array val1='%vals' val2='%value'>
