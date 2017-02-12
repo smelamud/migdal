@@ -18,7 +18,7 @@
 {{/if}}
 <meta property="og:site_name" content="{{siteName}}">
 <meta property="og:title" content="{{pageTitle}}">
-<title>{{#if pageTitle}}{{pageTitle}} | {{/if}}{{siteName}}</title>
+<title>{{#if pageTitle}}{{#ifne pageTitle "Главная"}}{{#ifne pageTitle "Home"}}{{pageTitle}} | {{/ifne}}{{/ifne}}{{/if}}{{siteName}}</title>
 
 {{#notPrint}}
     <script type="text/javascript">
