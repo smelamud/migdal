@@ -1,0 +1,11 @@
+{{#if locations}}
+    <div class="return ninept">
+        {{#each locations}}
+            {{#if @last}}
+                <nobr><b>{{pageTitleRelative}}</b></nobr>
+            {{else}}
+                <nobr><a href="{{uri}}">{{pageTitleRelative}}</a> &gt;</nobr>
+            {{/if}}
+        {{/each}}
+    </div>
+{{/if}}

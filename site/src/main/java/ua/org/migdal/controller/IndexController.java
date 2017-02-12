@@ -17,6 +17,7 @@ public class IndexController {
 
 	public static LocationInfo indexLocationInfo(Model model) {
         return new LocationInfo(model)
+                .withUri("/")
                 .withRssHref("/rss/")
                 .withTranslationHref("/")
                 .withMenuElement("topicsMajor")

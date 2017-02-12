@@ -19,12 +19,9 @@ public class SearchController {
         return "search-google";
     }
 
-    public static LocationInfo searchLocationInfo(Model model) {
-        return searchLocationInfo(model, null);
-    }
-
     public static LocationInfo searchLocationInfo(Model model, String q) {
         return new LocationInfo(model)
+                .withUri("/search")
                 .withParent(IndexController.indexLocationInfo(null))
                 .withMenuMain("search")
                 .withPageTitle(q == null ? "Поиск" : "Поиск: " + q);
