@@ -5,10 +5,14 @@ import java.io.IOException;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Options;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.org.migdal.helper.exception.MissingArgumentException;
 
 @HelperSource
 public class FormsHelperSource {
+
+    @Autowired
+    private ImagesHelperSource imagesHelperSource;
 
     public CharSequence hidden(Options options) {
         StringBuilder buf = new StringBuilder();
@@ -320,6 +324,24 @@ public class FormsHelperSource {
 </form_line>
 </element>
 */
+
+    public CharSequence xmlText(Options options) {
+        String id = options.hash("id");
+        if (id == null) {
+            throw new MissingArgumentException("id");
+        }
+        String name = options.hash("name");
+        if (name == null) {
+            throw new MissingArgumentException("name");
+        }
+
+        StringBuilder buf = new StringBuilder();
+        buf.append(String.format("<a href=\"/xml/%s/%s/\">", id, name));
+        buf.append(imagesHelperSource.image("/pics/xml.gif"));
+        buf.append("</a>");
+        return new Handlebars.SafeString(buf);
+    }
+
     private void appendHashParam(StringBuilder buf, String name, Options options) {
         appendHashParam(buf, name, name, options);
     }

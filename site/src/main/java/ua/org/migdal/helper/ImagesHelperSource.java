@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.util.HtmlUtils;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Options;
@@ -47,6 +46,19 @@ public class ImagesHelperSource {
         appendHashParam(buf, "data_id", "data-id", options);
         appendHashParam(buf, "data_value", "data-value", options);
         appendHashParam(buf, "style", options);
+        buf.append('>');
+        return new Handlebars.SafeString(buf);
+    }
+
+    CharSequence image(String href) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<img");
+        appendAttribute(buf, "src", href);
+        Dimension imageSize = getImageSize(href);
+        if (imageSize != null) {
+            appendAttribute(buf, "width", imageSize.width);
+            appendAttribute(buf, "height", imageSize.height);
+        }
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
