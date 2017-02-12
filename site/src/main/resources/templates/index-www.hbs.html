@@ -1,5 +1,44 @@
 {{> part/preamble}}
 {{> part/top}}
-<div class="row">
-</div>
+
+<table width="100%" cellpadding="5">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            <topics>
+            <ears>
+            <if what='$id<=0'>
+                <p>&nbsp;</p>
+                <p>{{! banner_rabbi}}</p>
+            </if>
+        </td>
+        <td class="cframe">
+            <table width="100%" cellspacing="0" cellpadding="5"><tr valign="top">
+                <td>
+                    <if what='$id>0'>
+                        <topic_name id='$id'>
+                        <subtitle title='$,Subject'>
+                    </if>
+                    <seealso_frame>
+                    <if what='$id<=0'>
+                        {{! daily_announce topic_id='$`migdal.events.kaitanot.5772.summer`'}}
+                        {{! tweetfeed}}
+                        <textears>
+                    </if>
+                    <postings grp='*GRP_TAPE' topic_id='$id' limit=10 offset='$offset'
+                              showshadows!='$id>0'>
+                    <rss>
+                </td>
+                <td width="130" class="nframe">
+                    <tzdaka>
+                    {{! tip}}
+                    <hit_parade_month grp='*GRP_WRITINGS' topic_id='$id' showshadows!='$id>0'>
+                    <if what='$id<=0'>
+                        <discussions limit=7>
+                    </if>
+                </td>
+            </tr></table>
+        </td>
+    </tr>
+</table>
+
 {{> part/bottom}}
