@@ -1,41 +1,79 @@
-{{> header}}
-<div class="row">
-    <div class="signin-col-left">
-        <div class="row">
-            <div class="signin-col-left-label"><h1>Sign In</h1></div>
-        </div>
-        {{formErrors class="signin-form-error"}}
-        <div class="row">
-            <form class="form-horizontal" method="post" action="/signin">
-                <input type="hidden" name="back" value="{{loginForm.back}}">
-                <div class="form-group {{hasError this "email"}}">
-                    <label for="email" class="control-label signin-form-label">Email</label>
-                    <div class="signin-form-input">
-                        <input type="email" class="form-control" id="email" name="email" value="{{loginForm.email}}">
-                    </div>
-                </div>
-                <div class="form-group {{hasError this "password"}}">
-                    <label for="password" class="control-label signin-form-label">Password</label>
-                    <div class="signin-form-input">
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="signin-form-submit">
-                        <button type="submit" class="btn btn-primary">Sign In</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="signin-col-right">
-        <div class="row">
-            <div class="signin-col-right-label">
-                <h1>New visitor?</h1>
-                <p>&nbsp;</p>
-                <p><a class="btn btn-lg btn-success" href="/signup?back={{ue loginForm.back}}">Sign Up</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-{{> footer}}
+{{> part/preamble}}
+{{> part/top}}
+
+{{#formTable title="Вход на сайт" mini=true}}
+    {{#notLogged}}
+        <form method="post" action="/actions/login">
+            {{#ifieq novice "0"}}
+                {{hidden name="back" value=back}}
+            {{else}}
+                {{hidden name="back" value="/register/ok/"}}
+            {{/ifieq}}
+            {{#ifieq novice "1"}}
+                {{#formComment}}
+                    <b>Поздравляем, ваша регистрация успешно подтверждена!</b>
+                    <p>
+                        Чтобы войти на сайт под своим ником, введите ник и пароль в эту форму и
+                        нажмите кнопку &laquo;Войти&raquo; внизу.
+                    </p>
+                {{/formComment}}
+            {{/ifieq}}
+            {{#ifieq novice "2"}}
+                {{#formComment}}
+                    <b>Вы уже подтвердили регистрацию.</b>
+                    <p>
+                        Не нужно снова и снова подтверждать свою регистрацию. Вместо этого
+                        нажмите кнопку &laquo;Войти&raquo;, которая находится в верхнем правом
+                        углу каждой страницы. Откроется такая же форма, как та, которую вы видите
+                        сейчас на экране.
+                    </p>
+                    <p>
+                        Введите ник и пароль в эту форму и нажмите кнопку &laquo;Войти&raquo; внизу.
+                    </p>
+                {{/formComment}}
+            {{/ifieq}}
+            <error id='*EL_INVALID' text='Неверный ник или пароль'>
+            {{formEdit title="Ник" name="login" value="$$userLoginHint" size="30" maxlength="30"}}
+            {{formPassword title="Пароль" name="password" size="30" maxlength="30"}}
+            {{#formSelect title="Чужой компьютер" name="my_computer" style="box"}}
+                {{formOption title="Я захожу со своего компьютера" value="1" selected=true}}
+                {{formOption title="Я захожу с чужого компьютера" value="0" selected=false}}
+            {{/formSelect}}
+            {{#formComment}}
+                {{#ifieq novice "0"}}
+                    Если у вас еще нет ника и пароля, вам нужно
+                    <a href="/register/?back={{ue back}}">зарегистрироваться</a>.<br>
+                {{/ifieq}}
+                Забыли пароль? Мы
+                <a href="/remember-password/?back={{ue location}}">вышлем вам новый</a>.
+            {{/formComment}}
+            {{formButtons title="Войти"}}
+        </form>
+    {{else}}
+        <form method="post" action="/actions/logout">
+            {{hidden name="back" value=back}}
+            {{#formComment}}
+                Вы вошли на сайт как
+                {{#if rc.userHidden}}
+                    <b>{{rc.userLogin}}</b>.
+                {{else}}
+                    <a href="/users/{{rc.userFolder}}/">{{rc.userLogin}}</a>.
+                {{/if}}
+            {{/formComment}}
+            {{formButtons title="Выйти" clear=false}}
+        </form>
+    {{/notLogged}}
+{{/formTable}}
+{{#adminUsers}}
+    {{#formTable title="Сменить пользователя" mini=true}}
+        <form method="post" action="/actions/su">
+            {{hidden name="back" value=back}}
+            <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
+            <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
+            {{formEdit title="Ник" name="login" size="30" maxlength="30"}}
+            {{formButtons title="Сменить"}}
+        </form>
+    {{/formTable}}
+{{/adminUsers}}
+
+{{> part/bottom}}

@@ -27,6 +27,16 @@ public class StatementsHelperSource {
         return condition ? options.apply(options.fn) : options.apply(options.inverse);
     }
 
+    public CharSequence ifieq(String value1, String value2, Options options) throws IOException {
+        boolean condition = HelperUtils.intArg(0, value1) == HelperUtils.intArg(1, value2);
+        return condition ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
+    public CharSequence ifine(String value1, String value2, Options options) throws IOException {
+        boolean condition = HelperUtils.intArg(0, value1) != HelperUtils.intArg(1, value2);
+        return condition ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
     public CharSequence ifgt(String value1, String value2, Options options) throws IOException {
         boolean condition = HelperUtils.intArg(0, value1) > HelperUtils.intArg(1, value2);
         return condition ? options.apply(options.fn) : options.apply(options.inverse);

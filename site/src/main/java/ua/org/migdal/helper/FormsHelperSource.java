@@ -275,7 +275,7 @@ public class FormsHelperSource {
 
         StringBuilder buf = new StringBuilder();
         buf.append(formLineBegin(title, mandatory, comment, "", options));
-        edit(name, value, size, maxlength, null, null);
+        buf.append(edit(name, value, size, maxlength, null, null));
         if (xmlid != 0) {
             buf.append("<br>");
             buf.append(xmlText(xmlid, name));

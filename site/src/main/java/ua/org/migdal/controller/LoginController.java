@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.Session;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRepository;
@@ -29,19 +31,38 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
+/*
     @GetMapping("/signin")
     public String signin(@RequestParam(required = false) String back, Map<String, Object> model) {
         @SuppressWarnings("unchecked")
         Map<String, Object> menuProps = (Map<String, Object>) model.get("menu");
         menuProps.put("signIn", false);
 
-        /*if (!session.isLoggedIn()) {
+        if (!session.isLoggedIn()) {
             model.putIfAbsent("loginForm", new LoginForm(back, "/"));
             return "signin";
         } else {
-            model.putIfAbsent("logoutForm", new LogoutForm(back, "/"));*/
+            model.putIfAbsent("logoutForm", new LogoutForm(back, "/"));
             return "signout";
-//        }
+        }
+    }
+*/
+
+    @GetMapping("/signin")
+    public String signin(@RequestParam(required = false) Integer novice, @RequestParam(required = false) String back,
+                         Model model) {
+        signinLocationInfo(model);
+
+        model.addAttribute("novice", Integer.toString(novice != null ? novice : 0));
+        model.addAttribute("back", back != null ? back : "/");
+        return "signin";
+    }
+
+    public static LocationInfo signinLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/signin")
+                .withParent(IndexController.indexLocationInfo(null))
+                .withPageTitle("Вход на сайт");
     }
 
     @PostMapping("/signin")
