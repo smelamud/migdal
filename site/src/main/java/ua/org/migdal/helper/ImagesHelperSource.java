@@ -29,23 +29,23 @@ public class ImagesHelperSource {
     public CharSequence image(String href, Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
-        HelperUtils.appendAttribute(buf, "src", href);
+        HelperUtils.appendAttr(buf, "src", href);
         Dimension imageSize = getImageSize(href);
         if (imageSize != null) {
-            HelperUtils.appendAttribute(buf, "width", imageSize.width);
-            HelperUtils.appendAttribute(buf, "height", imageSize.height);
+            HelperUtils.appendAttr(buf, "width", imageSize.width);
+            HelperUtils.appendAttr(buf, "height", imageSize.height);
         }
         if (!options.get("userDomain").equals("english") || options.hash("altEn") == null) {
-            HelperUtils.appendHashParam(buf, "alt", options);
+            HelperUtils.appendOptionalArgAttr(buf, "alt", options);
         } else {
-            HelperUtils.appendHashParam(buf, "altEn", "alt", options);
+            HelperUtils.appendOptionalArgAttr(buf, "altEn", "alt", options);
         }
-        HelperUtils.appendHashParam(buf, "title", options);
-        HelperUtils.appendHashParam(buf, "class", options);
-        HelperUtils.appendHashParam(buf, "id", options);
-        HelperUtils.appendHashParam(buf, "data_id", "data-id", options);
-        HelperUtils.appendHashParam(buf, "data_value", "data-value", options);
-        HelperUtils.appendHashParam(buf, "style", options);
+        HelperUtils.appendOptionalArgAttr(buf, "title", options);
+        HelperUtils.appendOptionalArgAttr(buf, "class", options);
+        HelperUtils.appendOptionalArgAttr(buf, "id", options);
+        HelperUtils.appendOptionalArgAttr(buf, "data_id", "data-id", options);
+        HelperUtils.appendOptionalArgAttr(buf, "data_value", "data-value", options);
+        HelperUtils.appendOptionalArgAttr(buf, "style", options);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -53,11 +53,11 @@ public class ImagesHelperSource {
     CharSequence image(String href) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
-        HelperUtils.appendAttribute(buf, "src", href);
+        HelperUtils.appendAttr(buf, "src", href);
         Dimension imageSize = getImageSize(href);
         if (imageSize != null) {
-            HelperUtils.appendAttribute(buf, "width", imageSize.width);
-            HelperUtils.appendAttribute(buf, "height", imageSize.height);
+            HelperUtils.appendAttr(buf, "width", imageSize.width);
+            HelperUtils.appendAttr(buf, "height", imageSize.height);
         }
         buf.append('>');
         return new Handlebars.SafeString(buf);

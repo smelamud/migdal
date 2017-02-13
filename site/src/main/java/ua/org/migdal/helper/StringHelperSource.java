@@ -25,10 +25,10 @@ public class StringHelperSource {
     }
 
     public CharSequence plural(String nS, String forms) {
-        int n = HelperUtils.intArgument(0, nS);
+        long n = HelperUtils.intArg(0, nS);
         String[] formsA = forms.split(",");
-        int a = n % 10;
-        int b = n / 10 % 10;
+        long a = n % 10;
+        long b = n / 10 % 10;
         return b == 1 || a >= 5 || a == 0
                 ? formsA[2]
                 : (a == 1 ? formsA[0] : formsA[1]);

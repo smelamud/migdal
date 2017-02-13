@@ -16,8 +16,8 @@ public class FormsHelperSource {
     public CharSequence hidden(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"hidden\"");
-        HelperUtils.appendHashParam(buf, "name", "name", null, options);
-        HelperUtils.appendHashParam(buf, "value", "value", "", options);
+        HelperUtils.appendMandatoryArgAttr(buf, "name", options);
+        HelperUtils.appendArgAttr(buf, "value", "", options);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -25,14 +25,23 @@ public class FormsHelperSource {
     public CharSequence checkboxButton(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"checkbox\"");
-        HelperUtils.appendHashParam(buf, "name", "name", null, options);
-        HelperUtils.appendHashParam(buf, "value", "value", "1", options);
-        boolean checked = options.<Boolean> hash("checked", false);
-        if (checked) {
-            buf.append(" checked");
-        }
-        HelperUtils.appendHashParam(buf,"id", options);
-        HelperUtils.appendHashParam(buf, "class", options);
+        HelperUtils.appendMandatoryArgAttr(buf, "name", options);
+        HelperUtils.appendArgAttr(buf, "value", "1", options);
+        HelperUtils.appendArgAttr(buf, "checked", false, options);
+        HelperUtils.appendOptionalArgAttr(buf,"id", options);
+        HelperUtils.appendOptionalArgAttr(buf, "class", options);
+        buf.append('>');
+        return new Handlebars.SafeString(buf);
+    }
+
+    private CharSequence checkboxButton(String name, String value, boolean checked, String id, String cls) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<input type=\"checkbox\"");
+        HelperUtils.appendAttr(buf, "name", name);
+        HelperUtils.appendAttr(buf, "value", value);
+        HelperUtils.appendAttr(buf, "checked", checked);
+        HelperUtils.appendAttr(buf,"id", id);
+        HelperUtils.appendAttr(buf, "class", cls);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -41,9 +50,8 @@ public class FormsHelperSource {
         StringBuilder buf = new StringBuilder();
         buf.append("<label>");
         buf.append(checkboxButton(options));
-        String title = options.hash("title", "");
         buf.append(' ');
-        buf.append(title);
+        buf.append(options.hash("title", "").toString());
         buf.append("</label>");
         return new Handlebars.SafeString(buf);
     }
@@ -51,15 +59,24 @@ public class FormsHelperSource {
     public CharSequence radioButton(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"radio\"");
-        HelperUtils.appendHashParam(buf, "name", "name", null, options);
-        HelperUtils.appendHashParam(buf, "value", "value", null, options);
-        boolean checked = options.<Boolean> hash("checked", false);
-        if (checked) {
-            buf.append(" checked");
-        }
-        HelperUtils.appendHashParam(buf,"id", options);
-        HelperUtils.appendHashParam(buf, "class", options);
-        HelperUtils.appendHashParam(buf, "onclick", options);
+        HelperUtils.appendMandatoryArgAttr(buf, "name", options);
+        HelperUtils.appendMandatoryArgAttr(buf, "value", options);
+        HelperUtils.appendArgAttr(buf, "checked", false, options);
+        HelperUtils.appendOptionalArgAttr(buf,"id", options);
+        HelperUtils.appendOptionalArgAttr(buf, "class", options);
+        HelperUtils.appendOptionalArgAttr(buf, "onclick", options);
+        buf.append('>');
+        return new Handlebars.SafeString(buf);
+    }
+
+    private CharSequence radioButton(String name, String value, boolean checked, String id, String cls) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<input type=\"radio\"");
+        HelperUtils.appendAttr(buf, "name", name);
+        HelperUtils.appendAttr(buf, "value", value);
+        HelperUtils.appendAttr(buf, "checked", checked);
+        HelperUtils.appendAttr(buf,"id", id);
+        HelperUtils.appendAttr(buf, "class", cls);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
@@ -68,7 +85,16 @@ public class FormsHelperSource {
         StringBuilder buf = new StringBuilder();
         buf.append("<label>");
         buf.append(radioButton(options));
-        String title = options.hash("title", "");
+        buf.append(' ');
+        buf.append(options.hash("title", "").toString());
+        buf.append("</label>");
+        return new Handlebars.SafeString(buf);
+    }
+
+    private CharSequence radio(String name, String value, boolean checked, String id, String cls, String title) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<label>");
+        buf.append(radioButton(name, value, checked, id, cls));
         buf.append(' ');
         buf.append(title);
         buf.append("</label>");
@@ -76,14 +102,23 @@ public class FormsHelperSource {
     }
 
     public CharSequence selectOption(Options options) {
-        boolean selected = options.<Boolean> hash("selected", false);
-        String value = HelperUtils.mandatoryHash("value", options);
-        String title = options.hash("title", "");
-        if (selected) {
-            return new Handlebars.SafeString(String.format("<option value=\"%s\" selected>%s", value, title));
-        } else {
-            return new Handlebars.SafeString(String.format("<option value=\"%s\">%s", value, title));
-        }
+        StringBuilder buf = new StringBuilder();
+        buf.append("<option");
+        HelperUtils.appendMandatoryArgAttr(buf, "value", options);
+        HelperUtils.appendArgAttr(buf, "selected", false, options);
+        buf.append(options.hash("title", "").toString());
+        buf.append('>');
+        return new Handlebars.SafeString(buf);
+    }
+
+    private CharSequence selectOption(String value, boolean selected, String title) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<option");
+        HelperUtils.appendAttr(buf, "value", value);
+        HelperUtils.appendAttr(buf, "selected", selected);
+        buf.append(title);
+        buf.append('>');
+        return new Handlebars.SafeString(buf);
     }
 
     public CharSequence formTable(Options options) throws IOException {
@@ -144,16 +179,24 @@ public class FormsHelperSource {
         String id = options.hash("id", "");
 
         StringBuilder buf = new StringBuilder();
-        if (!id.isEmpty()) {
-            buf.append("<tr id=\"");
-            buf.append(id);
-            buf.append("\" valign=\"top\">");
+        buf.append(formLineBegin(title, mandatory, comment, id, options));
+        buf.append(options.apply(options.fn));
+        buf.append(formLineEnd());
+        return new Handlebars.SafeString(buf);
+    }
+
+    private CharSequence formLineBegin(String title, boolean mandatory, String comment, String id, Options options) {
+        StringBuilder buf = new StringBuilder();
+        if (id != null && !id.isEmpty()) {
+            buf.append("<tr");
+            HelperUtils.appendAttr(buf, "id", id);
+            buf.append(" valign=\"top\">");
         } else {
             buf.append("<tr valign=\"top\">");
         }
-        buf.append("<th class=\"form-cell\" width=\"");
-        buf.append(options.get("formTitleWidth").toString());
-        buf.append("\">");
+        buf.append("<th class=\"form-cell\"");
+        HelperUtils.appendAttr(buf, "width", options.get("formTitleWidth"));
+        buf.append('>');
         if (options.get("formStar")) {
             buf.append(star(mandatory));
         }
@@ -164,13 +207,14 @@ public class FormsHelperSource {
             buf.append("</p>");
         }
         buf.append("</th>");
-        buf.append("<td class=\"form-cell ninept\" width=\"");
-        buf.append(options.get("formValueWidth").toString());
-        buf.append("\">");
-        buf.append(options.apply(options.fn));
-        buf.append("</td>");
-        buf.append("</tr>");
+        buf.append("<td class=\"form-cell ninept\"");
+        HelperUtils.appendAttr(buf, "width", options.get("formValueWidth"));
+        buf.append('>');
         return new Handlebars.SafeString(buf);
+    }
+
+    private CharSequence formLineEnd() {
+        return new Handlebars.SafeString("</td></tr>");
     }
 
     public CharSequence formComment(Options options) throws IOException {
@@ -196,131 +240,217 @@ public class FormsHelperSource {
     public CharSequence edit(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"text\"");
-        HelperUtils.appendHashParam(buf, "name", "name", null, options);
-        HelperUtils.appendHashParam(buf, "value", "value", null, options);
-        HelperUtils.appendHashParam(buf, "size", "size", "40", options);
-        HelperUtils.appendHashParam(buf, "maxlength", "maxlength", "250", options);
-        HelperUtils.appendHashParam(buf, "onkeypress", options);
-        HelperUtils.appendHashParam(buf, "id", options);
+        HelperUtils.appendMandatoryArgAttr(buf, "name", options);
+        HelperUtils.appendMandatoryArgAttr(buf, "value", options);
+        HelperUtils.appendArgAttr(buf, "size", "40", options);
+        HelperUtils.appendArgAttr(buf, "maxlength", "250", options);
+        HelperUtils.appendOptionalArgAttr(buf, "onkeypress", options);
+        HelperUtils.appendOptionalArgAttr(buf, "id", options);
         buf.append('>');
         return new Handlebars.SafeString(buf);
     }
-/*
-<element name='form_edit'>
-<form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <edit name='$name' value='$value' size='$size' maxlength='$maxlength'>
- <ifnzero what='$xmlid'>
-  <br><xml_text id='$xmlid' name='$name'>
- </ifnzero>
-</form_line>
-</element>
 
-<element name='form_password'>
-<form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <input type='password' name='$name' size='$size' maxlength='$maxlength'>
-</form_line>
-</element>
+    private CharSequence edit(String name, String value, String size, String maxlength, String onkeypress, String id) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<input type=\"text\"");
+        HelperUtils.appendAttr(buf, "name", name);
+        HelperUtils.appendAttr(buf, "value", value);
+        HelperUtils.appendAttr(buf, "size", size);
+        HelperUtils.appendAttr(buf, "maxlength", maxlength);
+        HelperUtils.appendAttr(buf, "onkeypress", onkeypress);
+        HelperUtils.appendAttr(buf, "id", id);
+        buf.append('>');
+        return new Handlebars.SafeString(buf);
+    }
 
-<element name='form_editor'>
-<form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <textarea name='$name' rows='$rows' wrap='virtual'
-    style='width: 100%'>$body</textarea>
- <ifnzero what='$xmlid'>
-  <br><xml_text id='$xmlid' name='$name'>
- </ifnzero>
-</form_line>
-</element>
-
-<element name='form_checkbox'>
-<form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <if what="$style=='select'">
-  <select name='$name'>
-   <select_option value='$value' selected='$checked' title='Да'>
-   <select_option value='0' selected!='!$checked' title='Нет'>
-  </select>
- <elif what="$style=='radio'">
-  <radio name='$name' value='$value' checked='$checked' title='Да' id='$id_yes'>
-            &nbsp;
-  <radio name='$name' value='0' checked!='!$checked' title='Нет' id='$id_no'>
- <elif what="$style=='box'">
-  <checkbox_button name='$name' value='$value' checked='$checked'>
- <else>
-  <checkbox_button name='$name' value='$value' checked='$checked'>
- </if>
-</form_line>
-</element>
-
-<element name='form_buttons'>
-<tr><td colspan='2' class='form-section' style='text-align: center'>
- <input type=submit value='$title'>
- <if what='$clear'>
-            &nbsp;&nbsp;<input type=reset value='Очистить'>
- </if>
-</td></tr>
-</element>
-
-<element name='form_select'>
-<form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <if what="$style=='list'">
-  <if what='$multiple'>
-   <select name='$name' size='$rows' multiple>
-  <else>
-   <select name='$name'>
-  </if>
- <elif what="$style=='box'">
-  <table border='0' cellspacing='0' cellpadding='3' width='100%'>
- </if>
- <assign_global name='FormSelectName' value='$name'>
- <assign_global name='FormSelectStyle' value='$style'>
- <assign_global name='FormSelectMultiple' value='$multiple'>
-</element>
-
-<element name='/form_select'>
- <if what="$$FormSelectStyle=='list'">
-  </select>
- <elif what="$$FormSelectStyle=='box'">
-  </table>
- </if>
-</form_line>
-</element>
-
-<element name='form_option'>
-<if what="$$FormSelectStyle=='list'">
- <if what='$selected'>
-  <option value='$value' selected>$title
-            <else>
-  <option value='$value'>$title
-            </if>
-<elif what="$$FormSelectStyle=='box'">
- <assign name='type' value!='$$FormSelectMultiple ? "checkbox" : "radio"'>
- <tr>
-  <td width='1'>
-   <if what='$selected'>
-    <input id='$$FormSelectName$value' type='$type' name='$$FormSelectName'
-    value='$value' checked>
-   <else>
-    <input id='$$FormSelectName$value' type='$type' name='$$FormSelectName'
-    value='$value'>
-   </if>
-  </td>
-  <td><label for='$$FormSelectName$value'>$title</label></td>
- </tr>
-</if>
-</element>
-
-<element name='form_date'>
-<form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <input_datetime name='$name' value='$value' base_year='$base_year'>
-</form_line>
-</element>
-*/
-
-    public CharSequence xmlText(Options options) {
-        String id = HelperUtils.mandatoryHash("id", options);
+    public CharSequence formEdit(Options options) {
+        String title = HelperUtils.mandatoryHash("title", options);
+        boolean mandatory = options.hash("mandatory", false);
+        String comment = options.hash("comment", "");
         String name = HelperUtils.mandatoryHash("name", options);
+        String value = HelperUtils.mandatoryHash("value", options);
+        String size = options.hash("size", "40");
+        String maxlength = options.hash("maxlength", "250");
+        long xmlid = HelperUtils.intArg("xmlid", options.hash("xmlid"));
 
         StringBuilder buf = new StringBuilder();
-        buf.append(String.format("<a href=\"/xml/%s/%s/\">", id, name));
+        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        edit(name, value, size, maxlength, null, null);
+        if (xmlid != 0) {
+            buf.append("<br>");
+            buf.append(xmlText(xmlid, name));
+        }
+        buf.append(formLineEnd());
+        return new Handlebars.SafeString(buf);
+    }
+
+    public CharSequence formPassword(Options options) {
+        String title = HelperUtils.mandatoryHash("title", options);
+        boolean mandatory = options.hash("mandatory", false);
+        String comment = options.hash("comment", "");
+        String name = HelperUtils.mandatoryHash("name", options);
+        String size = options.hash("size", "40");
+        String maxlength = options.hash("maxlength", "250");
+
+        StringBuilder buf = new StringBuilder();
+        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        buf.append(String.format("<input type='password' name=\"%s\" size=\"%s\" maxlength=\"%s\">",
+                                 name, size, maxlength));
+        buf.append(formLineEnd());
+        return new Handlebars.SafeString(buf);
+    }
+
+    public CharSequence formEditor(Options options) {
+        String title = HelperUtils.mandatoryHash("title", options);
+        boolean mandatory = options.hash("mandatory", false);
+        String comment = options.hash("comment", "");
+        String name = HelperUtils.mandatoryHash("name", options);
+        String body = HelperUtils.mandatoryHash("body", options);
+        String rows = options.hash("rows", "10");
+        long xmlid = HelperUtils.intArg("xmlid", options.hash("xmlid"));
+
+        StringBuilder buf = new StringBuilder();
+        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        buf.append(String.format("<textarea name=\"%s\" rows=\"%s\" wrap=\"virtual\" style=\"width: 100%\">%s</textarea>",
+                                 name, rows, body));
+        if (xmlid != 0) {
+            buf.append("<br>");
+            buf.append(xmlText(xmlid, name));
+        }
+        buf.append(formLineEnd());
+        return new Handlebars.SafeString(buf);
+    }
+
+    public CharSequence formCheckbox(Options options) {
+        String title = HelperUtils.mandatoryHash("title", options);
+        boolean mandatory = options.hash("mandatory", false);
+        String comment = options.hash("comment", "");
+        String name = HelperUtils.mandatoryHash("name", options);
+        String value = options.hash("value", "1");
+        boolean checked = options.hash("checked", true);
+        String style = options.hash("style", "select");
+        String idYes = options.hash("idYes", "");
+        String idNo = options.hash("idNo", "");
+
+        StringBuilder buf = new StringBuilder();
+        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        if (style.equals("select")) {
+            buf.append("<select");
+            HelperUtils.appendAttr(buf, "name", name);
+            buf.append('>');
+            buf.append(selectOption(value, checked, "Да"));
+            buf.append(selectOption("0", !checked, "Нет"));
+            buf.append("</select>");
+        } else if (style.equals("radio")) {
+            buf.append(radio(name, value, checked, idYes, null, "Да"));
+            buf.append(" &nbsp; ");
+            buf.append(radio(name, "0", !checked, idNo, null, "Нет"));
+        } else if (style.equals("box")) {
+            buf.append(checkboxButton(name, value, checked, null, null));
+        } else {
+            buf.append(checkboxButton(name, value, checked, null, null));
+        }
+        buf.append(formLineEnd());
+        return new Handlebars.SafeString(buf);
+    }
+
+    public CharSequence formButtons(Options options) {
+        String title = options.hash("title", "Изменить");
+        boolean clear = options.hash("clear", true);
+
+        StringBuilder buf = new StringBuilder();
+        buf.append("<tr><td colspan=\"2\" class=\"form-section\" style=\"text-align: center\">");
+        buf.append("<input type=\"submit\"");
+        HelperUtils.appendAttr(buf, "value", title);
+        buf.append('>');
+        if (clear) {
+            buf.append("&nbsp;&nbsp;<input type=\"reset\" value=\"Очистить\">");
+        }
+        buf.append("</td></tr>");
+        return new Handlebars.SafeString(buf);
+    }
+
+    public CharSequence formSelect(Options options) throws IOException {
+        String title = HelperUtils.mandatoryHash("title", options);
+        boolean mandatory = options.hash("mandatory", false);
+        String comment = options.hash("comment", "");
+        String name = HelperUtils.mandatoryHash("name", options);
+        String style = options.hash("style", "list");
+        boolean multiple = options.hash("multiple", false);
+        String rows = options.hash("rows", "10");
+
+        StringBuilder buf = new StringBuilder();
+        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        if (style.equals("list")) {
+            buf.append("<select");
+            HelperUtils.appendAttr(buf, "name", name);
+            if (multiple) {
+                HelperUtils.appendAttr(buf, "size", rows);
+                HelperUtils.appendAttr(buf, "multiple", true);
+            }
+            buf.append('>');
+        } else if (style.equals("box")) {
+            buf.append("<table border=\"0\" cellspacing=\"0\" cellpadding=\"3\" width=\"100%\">");
+        }
+        options.data("FormSelectName", name);
+        options.data("FormSelectStyle", style);
+        options.data("FormSelectMultiple", multiple);
+        buf.append(options.apply(options.fn));
+        if (style.equals("list")) {
+            buf.append("</select>");
+        } else if (style.equals("box")) {
+            buf.append("</table>");
+        }
+        buf.append(formLineEnd());
+        return new Handlebars.SafeString(buf);
+    }
+
+    public CharSequence formOption(Options options) {
+        String title = HelperUtils.mandatoryHash("title", options);
+        String value = HelperUtils.mandatoryHash("value", options);
+        boolean selected = options.hash("selected", false);
+
+        StringBuilder buf = new StringBuilder();
+        String style = options.get("FormSelectStyle");
+        if (style.equals("list")) {
+            buf.append("<option");
+            HelperUtils.appendAttr(buf, "value", value);
+            HelperUtils.appendAttr(buf, "selected", selected);
+            buf.append('>');
+            buf.append(title);
+        } else if (style.equals("box")) {
+            String id = options.get("FormSelectName") + value;
+            String type = options.get("FormSelectMultiple") ? "checkbox" : "radio";
+            buf.append("<tr>");
+            buf.append("<td width=\"1\">");
+            buf.append("<input");
+            HelperUtils.appendAttr(buf, "id", id);
+            HelperUtils.appendAttr(buf, "type", type);
+            HelperUtils.appendAttr(buf, "name", options.get("FormSelectName"));
+            HelperUtils.appendAttr(buf, "value", value);
+            HelperUtils.appendAttr(buf, "checked", selected);
+            buf.append('>');
+            buf.append("</td>");
+            buf.append("<td><label");
+            HelperUtils.appendAttr(buf, "for", id);
+            buf.append('>');
+            buf.append(title);
+            buf.append("</label></td>");
+            buf.append("</tr>");
+        }
+        return new Handlebars.SafeString(buf);
+    }
+
+    public CharSequence xmlText(Options options) {
+        long id = HelperUtils.intArg("id", HelperUtils.mandatoryHash("id", options));
+        String name = HelperUtils.mandatoryHash("name", options);
+
+        return xmlText(id, name);
+    }
+
+    private CharSequence xmlText(long id, String name) {
+        StringBuilder buf = new StringBuilder();
+        buf.append(String.format("<a href=\"/xml/%d/%s/\">", id, name));
         buf.append(imagesHelperSource.image("/pics/xml.gif"));
         buf.append("</a>");
         return new Handlebars.SafeString(buf);
