@@ -2,8 +2,26 @@
 	background-color: @form_title_back;
 	margin-top: 10px;
 
+    & > TBODY > TR > TD {
+        padding: 1px;
+    }
+
+    INPUT[type="radio"], INPUT[type="checkbox"] {
+        margin-left: 5px;
+        margin-top: 3px;
+        margin-right: 3px;
+    }
+
+    LABEL {
+        margin: 0;
+        font-weight: normal;
+    }
+
     &-layer {
         background-color: transparent;
+        border-collapse: separate;
+        border-spacing: 1px;
+        width: 100%;
     }
 
     &-title {
@@ -16,11 +34,13 @@
     &-cell {
         background-color: @form_cell;
         text-align: left;
+        padding: 5px;
     }
 
     &-section {
         background-color: @form_section;
         text-align: left;
+        padding: 5px;
     }
 
     &-comment {

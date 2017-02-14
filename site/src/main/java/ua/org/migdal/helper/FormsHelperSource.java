@@ -136,15 +136,15 @@ public class FormsHelperSource {
             options.data("formValueWidth", "75%");
         }
         StringBuilder buf = new StringBuilder();
-        buf.append("<center><table class=\"form\" width=\"");
-        buf.append(width);
-        buf.append("\" cellspacing=\"0\" cellpadding=\"1\">");
+        buf.append("<center><table class=\"form\"");
+        HelperUtils.appendAttr(buf, "width", width);
+        buf.append('>');
         if (!title.isEmpty()) {
             buf.append("<tr><td class=\"form-title\">");
             buf.append(title);
             buf.append("</td></tr>");
         }
-        buf.append("<tr><td><table class=\"form-layer\" width=\"100%\" cellspacing=\"1\" cellpadding=\"5\">");
+        buf.append("<tr><td><table class=\"form-layer\" width=\"100%\">");
         buf.append(options.apply(options.fn));
         buf.append("</table></td></tr></table></center>");
         return new Handlebars.SafeString(buf);
