@@ -80,7 +80,8 @@ public class RequestContextImpl implements RequestContext {
     }
 
     public boolean isHasBack() {
-        return getBack() != null;
+        processRequest();
+        return back != null;
     }
 
     @Override

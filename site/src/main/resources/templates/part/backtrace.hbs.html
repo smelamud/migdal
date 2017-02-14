@@ -1,11 +1,15 @@
-{{#if locations}}
-    <div class="return ninept">
-        {{#each locations}}
-            {{#if @last}}
-                <nobr><b>{{pageTitleRelative}}</b></nobr>
-            {{else}}
-                <nobr><a href="{{uri}}">{{pageTitleRelative}}</a> &gt;</nobr>
-            {{/if}}
-        {{/each}}
-    </div>
+{{#if rc.hasBack}}
+    <div class="return ninept"><a href="{{rc.back}}">&larr;&nbsp;Назад</a></div>
+{{else}}
+    {{#if locations}}
+        <div class="return ninept">
+            {{#each locations}}
+                {{#if @last}}
+                    <nobr><b>{{pageTitleRelative}}</b></nobr>
+                {{else}}
+                    <nobr><a href="{{uri}}">{{pageTitleRelative}}</a> &gt;</nobr>
+                {{/if}}
+            {{/each}}
+        </div>
+    {{/if}}
 {{/if}}
