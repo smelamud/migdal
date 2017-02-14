@@ -2,6 +2,7 @@
 {{> part/top}}
 
 {{#formTable title="Вход на сайт" mini=true}}
+    {{formErrors}}
     {{#notLogged}}
         <form method="post" action="/actions/login">
             {{#ifieq novice 0}}

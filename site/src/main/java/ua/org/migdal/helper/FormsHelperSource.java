@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Options;
+import org.springframework.validation.Errors;
 
 @HelperSource
 public class FormsHelperSource {
@@ -174,18 +175,20 @@ public class FormsHelperSource {
 
     public CharSequence formLine(Options options) throws IOException {
         String title = HelperUtils.mandatoryHash("title", options);
+        String name = HelperUtils.mandatoryHash("name", options);
         boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         String comment = options.hash("comment", "");
         String id = options.hash("id", "");
 
         StringBuilder buf = new StringBuilder();
-        buf.append(formLineBegin(title, mandatory, comment, id, options));
+        buf.append(formLineBegin(title, name, mandatory, comment, id, options));
         buf.append(options.apply(options.fn));
         buf.append(formLineEnd());
         return new Handlebars.SafeString(buf);
     }
 
-    private CharSequence formLineBegin(String title, boolean mandatory, String comment, String id, Options options) {
+    private CharSequence formLineBegin(String title, String name, boolean mandatory, String comment, String id,
+                                       Options options) {
         StringBuilder buf = new StringBuilder();
         if (id != null && !id.isEmpty()) {
             buf.append("<tr");
@@ -207,7 +210,14 @@ public class FormsHelperSource {
             buf.append("</p>");
         }
         buf.append("</th>");
-        buf.append("<td class=\"form-cell ninept\"");
+        buf.append("<td class=\"form-cell ninept");
+        if (options.get("errors") instanceof Errors) {
+            Errors errors = (Errors) options.get("errors");
+            if (errors.hasFieldErrors(name)) {
+                buf.append(" has-error");
+            }
+        }
+        buf.append('"');
         HelperUtils.appendAttr(buf, "width", options.get("formValueWidth"));
         buf.append('>');
         return new Handlebars.SafeString(buf);
@@ -274,7 +284,7 @@ public class FormsHelperSource {
         long xmlid = HelperUtils.intArg("xmlid", options.hash("xmlid"));
 
         StringBuilder buf = new StringBuilder();
-        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        buf.append(formLineBegin(title, name, mandatory, comment, "", options));
         buf.append(edit(name, value, size, maxlength, null, null));
         if (xmlid != 0) {
             buf.append("<br>");
@@ -293,7 +303,7 @@ public class FormsHelperSource {
         String maxlength = options.hash("maxlength", "250");
 
         StringBuilder buf = new StringBuilder();
-        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        buf.append(formLineBegin(title, name, mandatory, comment, "", options));
         buf.append(String.format("<input type='password' name=\"%s\" size=\"%s\" maxlength=\"%s\">",
                                  name, size, maxlength));
         buf.append(formLineEnd());
@@ -310,7 +320,7 @@ public class FormsHelperSource {
         long xmlid = HelperUtils.intArg("xmlid", options.hash("xmlid"));
 
         StringBuilder buf = new StringBuilder();
-        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        buf.append(formLineBegin(title, name, mandatory, comment, "", options));
         buf.append(String.format("<textarea name=\"%s\" rows=\"%s\" wrap=\"virtual\" style=\"width: 100%\">%s</textarea>",
                                  name, rows, body));
         if (xmlid != 0) {
@@ -333,7 +343,7 @@ public class FormsHelperSource {
         String idNo = options.hash("idNo", "");
 
         StringBuilder buf = new StringBuilder();
-        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        buf.append(formLineBegin(title, name, mandatory, comment, "", options));
         if (style.equals("select")) {
             buf.append("<select");
             HelperUtils.appendAttr(buf, "name", name);
@@ -380,7 +390,7 @@ public class FormsHelperSource {
         String rows = options.hash("rows", "10");
 
         StringBuilder buf = new StringBuilder();
-        buf.append(formLineBegin(title, mandatory, comment, "", options));
+        buf.append(formLineBegin(title, name, mandatory, comment, "", options));
         if (style.equals("list")) {
             buf.append("<select");
             HelperUtils.appendAttr(buf, "name", name);

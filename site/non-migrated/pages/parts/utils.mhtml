@@ -32,15 +32,6 @@
 </ifne>
 </element>
 
-<element name='perror'>
-<if what='$$err==$id'>
- <tr><td colspan=2 class='error'>
-  <a name='error'></a>
-  $text
- </td></tr>
-</if>
-</element>
-
 <element name='selflink'>
 <span>
  <image src='/pics/self.gif'>&nbsp;<asp>
