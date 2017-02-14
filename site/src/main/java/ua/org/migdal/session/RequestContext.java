@@ -10,6 +10,10 @@ public interface RequestContext {
 
     boolean isEnglish();
 
+    String getBack();
+
+    boolean isHasBack();
+
     boolean isPrintMode();
 
     long getUserId();

@@ -3,7 +3,7 @@ package ua.org.migdal.form;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class LoginForm extends InterruptingForm {
+public class LoginForm {
 
     @NotBlank
     @Email
@@ -13,10 +13,6 @@ public class LoginForm extends InterruptingForm {
     private String password;
 
     public LoginForm() {
-    }
-
-    public LoginForm(String back, String defaultBack) {
-        super(back, defaultBack);
     }
 
     public String getEmail() {

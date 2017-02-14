@@ -4,7 +4,7 @@ import ua.org.migdal.data.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class SignupForm extends InterruptingForm {
+public class SignupForm {
 
     @NotBlank
     @Email
@@ -17,10 +17,6 @@ public class SignupForm extends InterruptingForm {
     private String retypePassword;
 
     public SignupForm() {
-    }
-
-    public SignupForm(String back, String defaultBack) {
-        super(back, defaultBack);
     }
 
     public String getEmail() {

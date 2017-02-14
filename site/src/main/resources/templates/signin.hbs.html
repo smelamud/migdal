@@ -5,7 +5,7 @@
     {{#notLogged}}
         <form method="post" action="/actions/login">
             {{#ifieq novice "0"}}
-                {{hidden name="back" value=back}}
+                {{hidden name="back" value=rc.back}}
             {{else}}
                 {{hidden name="back" value="/register/ok/"}}
             {{/ifieq}}
@@ -42,7 +42,7 @@
             {{#formComment}}
                 {{#ifieq novice "0"}}
                     Если у вас еще нет ника и пароля, вам нужно
-                    <a href="/register/?back={{ue back}}">зарегистрироваться</a>.<br>
+                    <a href="/register/?back={{ue rc.back}}">зарегистрироваться</a>.<br>
                 {{/ifieq}}
                 Забыли пароль? Мы
                 <a href="/remember-password/?back={{ue location}}">вышлем вам новый</a>.
@@ -51,7 +51,7 @@
         </form>
     {{else}}
         <form method="post" action="/actions/logout">
-            {{hidden name="back" value=back}}
+            {{hidden name="back" value=rc.back}}
             {{#formComment}}
                 Вы вошли на сайт как
                 {{#if rc.userHidden}}
@@ -67,7 +67,7 @@
 {{#adminUsers}}
     {{#formTable title="Сменить пользователя" mini=true}}
         <form method="post" action="/actions/su">
-            {{hidden name="back" value=back}}
+            {{hidden name="back" value=rc.back}}
             <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
             <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
             {{formEdit title="Ник" name="login" size="30" maxlength="30"}}

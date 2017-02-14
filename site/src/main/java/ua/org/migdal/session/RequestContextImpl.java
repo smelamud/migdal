@@ -1,6 +1,7 @@
 package ua.org.migdal.session;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ import ua.org.migdal.util.Utils;
 @Component
 public class RequestContextImpl implements RequestContext {
 
+    private final static Pattern LOCATION_REGEX = Pattern.compile("^(/[a-zA-z0-9-~@]*)+(\\?.*)?$");
+
     @Autowired
     private Session session;
 
@@ -25,7 +28,10 @@ public class RequestContextImpl implements RequestContext {
     @Autowired
     private Utils utils;
 
+    private boolean requestProcessed;
+
     private String subdomain;
+    private String back;
     private Boolean printMode;
     private long userId;
     private long realUserId;
@@ -38,12 +44,22 @@ public class RequestContextImpl implements RequestContext {
     private boolean userModerator;
     private boolean userAdminDomain;
 
+    private void processRequest() {
+        if (requestProcessed) {
+            return;
+        }
+        requestProcessed = true;
+
+        String hostname = Utils.createBuilderFromRequest(request).build().getHost();
+        subdomain = utils.validateSubdomain(hostname).getSubdomain();
+        printMode = "1".equals(request.getParameter("print"));
+        back = request.getParameter("back");
+        back = back != null && LOCATION_REGEX.matcher(back).matches() ? back : null;
+    }
+
     @Override
     public String getSubdomain() {
-        if (subdomain == null) {
-            String hostname = Utils.createBuilderFromRequest(request).build().getHost();
-            subdomain = utils.validateSubdomain(hostname).getSubdomain();
-        }
+        processRequest();
         return subdomain;
     }
 
@@ -58,10 +74,18 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
+    public String getBack() {
+        processRequest();
+        return back != null ? back : "/";
+    }
+
+    public boolean isHasBack() {
+        return getBack() != null;
+    }
+
+    @Override
     public boolean isPrintMode() {
-        if (printMode == null) {
-            printMode = "1".equals(request.getParameter("print"));
-        }
+        processRequest();
         return printMode;
     }
 

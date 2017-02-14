@@ -29,7 +29,7 @@ public class SignupController {
 
     @Autowired
     private UsersManager usersManager;
-
+/*
     @GetMapping("/signup")
     public String signup(@RequestParam(required = false) String back, Map<String, Object> model) {
         @SuppressWarnings("unchecked")
@@ -74,5 +74,5 @@ public class SignupController {
                     .toUriString();
         }
     }
-
+*/
 }

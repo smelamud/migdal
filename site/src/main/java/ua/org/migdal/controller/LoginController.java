@@ -1,26 +1,14 @@
 package ua.org.migdal.controller;
 
-import java.util.Map;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.Session;
-import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRepository;
-import ua.org.migdal.form.LoginForm;
-import ua.org.migdal.form.LogoutForm;
 
 @Controller
 public class LoginController {
@@ -49,12 +37,10 @@ public class LoginController {
 */
 
     @GetMapping("/signin")
-    public String signin(@RequestParam(required = false) Integer novice, @RequestParam(required = false) String back,
-                         Model model) {
+    public String signin(@RequestParam(required = false) Integer novice, Model model) {
         signinLocationInfo(model);
 
         model.addAttribute("novice", Integer.toString(novice != null ? novice : 0));
-        model.addAttribute("back", back != null ? back : "/");
         return "signin";
     }
 
@@ -64,7 +50,7 @@ public class LoginController {
                 .withParent(IndexController.indexLocationInfo(null))
                 .withPageTitle("Вход на сайт");
     }
-
+/*
     @PostMapping("/signin")
     public String signin(
             @ModelAttribute @Valid LoginForm loginForm,
@@ -73,14 +59,12 @@ public class LoginController {
         if (!errors.hasErrors()) {
             User user = userRepository.findByEmail(loginForm.getEmail());
             if (user != null && loginForm.getPassword().equals(user.getPassword())) {
-/*
                 if (user.getRole() != null) {
                     session.setUserId(user.getId());
                     session.setDisplayName(user.getDisplayNameAdministrative());
                 } else {
                     errors.reject("banned");
                 }
-*/
             } else {
                 errors.reject("incorrect");
             }
@@ -103,5 +87,5 @@ public class LoginController {
 
         return "redirect:" + logoutForm.getBackUrlSafe();
     }
-
+*/
 }
