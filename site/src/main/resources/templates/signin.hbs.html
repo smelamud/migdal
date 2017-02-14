@@ -33,10 +33,9 @@
                     </p>
                 {{/formComment}}
             {{/ifieq}}
-            <error id='*EL_INVALID' text='Неверный ник или пароль'>
-            {{formEdit title="Ник" name="loginForm.login" value=(he loginForm.login) size="30" maxlength="30"}}
-            {{formPassword title="Пароль" name="loginForm.password" size="30" maxlength="30"}}
-            {{#formSelect title="Чужой компьютер" name="loginForm.myComputer" style="box"}}
+            {{formEdit title="Ник" name="login" value=(he loginForm.login) size="30" maxlength="30"}}
+            {{formPassword title="Пароль" name="password" size="30" maxlength="30"}}
+            {{#formSelect title="Чужой компьютер" name="myComputer" style="box"}}
                 {{formOption title="Я захожу со своего компьютера" value="1" selected=loginForm.myComputer}}
                 {{formOption title="Я захожу с чужого компьютера" value="0" selected=(not loginForm.myComputer)}}
             {{/formSelect}}

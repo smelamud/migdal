@@ -5,10 +5,10 @@ import org.hibernate.validator.constraints.NotBlank;
 public class LoginForm {
 
     @NotBlank
-    private String login;
+    private String login = "";
 
     @NotBlank
-    private String password;
+    private String password = "";
 
     private boolean myComputer = true;
 
