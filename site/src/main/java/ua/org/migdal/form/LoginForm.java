@@ -1,26 +1,26 @@
 package ua.org.migdal.form;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class LoginForm {
 
     @NotBlank
-    @Email
-    private String email;
+    private String login;
 
     @NotBlank
     private String password;
 
+    private boolean myComputer = true;
+
     public LoginForm() {
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -29,6 +29,14 @@ public class LoginForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isMyComputer() {
+        return myComputer;
+    }
+
+    public void setMyComputer(boolean myComputer) {
+        this.myComputer = myComputer;
     }
 
 }

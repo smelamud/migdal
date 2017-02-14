@@ -123,8 +123,8 @@ public class FormsHelperSource {
 
     public CharSequence formTable(Options options) throws IOException {
         String title = options.hash("title", "");
-        boolean mini = options.hash("mini", false);
-        boolean miniTitle = options.hash("miniTitle", false);
+        boolean mini = HelperUtils.boolArg(options.hash("mini", false));
+        boolean miniTitle = HelperUtils.boolArg(options.hash("miniTitle", false));
         String width = mini ? "50%" : "95%";
         if (miniTitle) {
             options.data("formStar", false);
@@ -174,7 +174,7 @@ public class FormsHelperSource {
 
     public CharSequence formLine(Options options) throws IOException {
         String title = HelperUtils.mandatoryHash("title", options);
-        boolean mandatory = options.hash("mandatory", false);
+        boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         String comment = options.hash("comment", "");
         String id = options.hash("id", "");
 
@@ -265,7 +265,7 @@ public class FormsHelperSource {
 
     public CharSequence formEdit(Options options) {
         String title = HelperUtils.mandatoryHash("title", options);
-        boolean mandatory = options.hash("mandatory", false);
+        boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         String comment = options.hash("comment", "");
         String name = HelperUtils.mandatoryHash("name", options);
         String value = HelperUtils.mandatoryHash("value", options);
@@ -286,7 +286,7 @@ public class FormsHelperSource {
 
     public CharSequence formPassword(Options options) {
         String title = HelperUtils.mandatoryHash("title", options);
-        boolean mandatory = options.hash("mandatory", false);
+        boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         String comment = options.hash("comment", "");
         String name = HelperUtils.mandatoryHash("name", options);
         String size = options.hash("size", "40");
@@ -302,7 +302,7 @@ public class FormsHelperSource {
 
     public CharSequence formEditor(Options options) {
         String title = HelperUtils.mandatoryHash("title", options);
-        boolean mandatory = options.hash("mandatory", false);
+        boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         String comment = options.hash("comment", "");
         String name = HelperUtils.mandatoryHash("name", options);
         String body = HelperUtils.mandatoryHash("body", options);
@@ -323,11 +323,11 @@ public class FormsHelperSource {
 
     public CharSequence formCheckbox(Options options) {
         String title = HelperUtils.mandatoryHash("title", options);
-        boolean mandatory = options.hash("mandatory", false);
+        boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         String comment = options.hash("comment", "");
         String name = HelperUtils.mandatoryHash("name", options);
         String value = options.hash("value", "1");
-        boolean checked = options.hash("checked", true);
+        boolean checked = HelperUtils.boolArg(options.hash("checked", true));
         String style = options.hash("style", "select");
         String idYes = options.hash("idYes", "");
         String idNo = options.hash("idNo", "");
@@ -356,7 +356,7 @@ public class FormsHelperSource {
 
     public CharSequence formButtons(Options options) {
         String title = options.hash("title", "Изменить");
-        boolean clear = options.hash("clear", true);
+        boolean clear = HelperUtils.boolArg(options.hash("clear", true));
 
         StringBuilder buf = new StringBuilder();
         buf.append("<tr><td colspan=\"2\" class=\"form-section\" style=\"text-align: center\">");
@@ -372,11 +372,11 @@ public class FormsHelperSource {
 
     public CharSequence formSelect(Options options) throws IOException {
         String title = HelperUtils.mandatoryHash("title", options);
-        boolean mandatory = options.hash("mandatory", false);
+        boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         String comment = options.hash("comment", "");
         String name = HelperUtils.mandatoryHash("name", options);
         String style = options.hash("style", "list");
-        boolean multiple = options.hash("multiple", false);
+        boolean multiple = HelperUtils.boolArg(options.hash("multiple", false));
         String rows = options.hash("rows", "10");
 
         StringBuilder buf = new StringBuilder();
@@ -408,7 +408,7 @@ public class FormsHelperSource {
     public CharSequence formOption(Options options) {
         String title = HelperUtils.mandatoryHash("title", options);
         String value = HelperUtils.mandatoryHash("value", options);
-        boolean selected = options.hash("selected", false);
+        boolean selected = HelperUtils.boolArg(options.hash("selected", false));
 
         StringBuilder buf = new StringBuilder();
         String style = options.get("FormSelectStyle");

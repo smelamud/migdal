@@ -4,12 +4,12 @@
 {{#formTable title="Вход на сайт" mini=true}}
     {{#notLogged}}
         <form method="post" action="/actions/login">
-            {{#ifieq novice "0"}}
+            {{#ifieq novice 0}}
                 {{hidden name="back" value=rc.back}}
             {{else}}
                 {{hidden name="back" value="/register/ok/"}}
             {{/ifieq}}
-            {{#ifieq novice "1"}}
+            {{#ifieq novice 1}}
                 {{#formComment}}
                     <b>Поздравляем, ваша регистрация успешно подтверждена!</b>
                     <p>
@@ -18,7 +18,7 @@
                     </p>
                 {{/formComment}}
             {{/ifieq}}
-            {{#ifieq novice "2"}}
+            {{#ifieq novice 2}}
                 {{#formComment}}
                     <b>Вы уже подтвердили регистрацию.</b>
                     <p>
@@ -33,14 +33,14 @@
                 {{/formComment}}
             {{/ifieq}}
             <error id='*EL_INVALID' text='Неверный ник или пароль'>
-            {{formEdit title="Ник" name="login" value="$$userLoginHint" size="30" maxlength="30"}}
-            {{formPassword title="Пароль" name="password" size="30" maxlength="30"}}
-            {{#formSelect title="Чужой компьютер" name="my_computer" style="box"}}
-                {{formOption title="Я захожу со своего компьютера" value="1" selected=true}}
-                {{formOption title="Я захожу с чужого компьютера" value="0" selected=false}}
+            {{formEdit title="Ник" name="loginForm.login" value=(he loginForm.login) size="30" maxlength="30"}}
+            {{formPassword title="Пароль" name="loginForm.password" size="30" maxlength="30"}}
+            {{#formSelect title="Чужой компьютер" name="loginForm.myComputer" style="box"}}
+                {{formOption title="Я захожу со своего компьютера" value="1" selected=loginForm.myComputer}}
+                {{formOption title="Я захожу с чужого компьютера" value="0" selected=(not loginForm.myComputer)}}
             {{/formSelect}}
             {{#formComment}}
-                {{#ifieq novice "0"}}
+                {{#ifieq novice 0}}
                     Если у вас еще нет ника и пароля, вам нужно
                     <a href="/register/?back={{ue rc.back}}">зарегистрироваться</a>.<br>
                 {{/ifieq}}

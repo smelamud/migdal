@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ua.org.migdal.form.LoginForm;
 import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.Session;
 import ua.org.migdal.data.UserRepository;
 
@@ -14,7 +16,7 @@ import ua.org.migdal.data.UserRepository;
 public class LoginController {
 
     @Autowired
-    private Session session;
+    private RequestContext requestContext;
 
     @Autowired
     private UserRepository userRepository;
@@ -41,6 +43,9 @@ public class LoginController {
         signinLocationInfo(model);
 
         model.addAttribute("novice", Integer.toString(novice != null ? novice : 0));
+        if (!requestContext.isLogged()) {
+            model.asMap().putIfAbsent("loginForm", new LoginForm());
+        }
         return "signin";
     }
 
