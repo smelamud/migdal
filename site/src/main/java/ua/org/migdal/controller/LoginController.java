@@ -1,11 +1,18 @@
 package ua.org.migdal.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 import ua.org.migdal.form.LoginForm;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
@@ -53,7 +60,24 @@ public class LoginController {
         return new LocationInfo(model)
                 .withUri("/signin")
                 .withParent(IndexController.indexLocationInfo(null))
+                .withMenuNoLogin(true)
                 .withPageTitle("Вход на сайт");
+    }
+
+    @PostMapping("/actions/login")
+    public String actionLogin(
+            @ModelAttribute @Valid LoginForm loginForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("loginForm", loginForm);
+            return UriComponentsBuilder.fromUriString("redirect:/signin")
+                    .queryParam("back", requestContext.getBack())
+                    .toUriString();
+        }
     }
 /*
     @PostMapping("/signin")

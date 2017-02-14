@@ -39,6 +39,7 @@ public class LocationInfo {
     private String menuMain = "index";
     private String menuElement;
     private String menuIndex;
+    private boolean menuNoLogin;
 
     public LocationInfo getParent() {
         return parent;
@@ -82,6 +83,10 @@ public class LocationInfo {
 
     public String getMenuIndex() {
         return menuIndex;
+    }
+
+    public boolean isMenuNoLogin() {
+        return menuNoLogin;
     }
 
     public LocationInfo(Model model) {
@@ -190,6 +195,12 @@ public class LocationInfo {
     public LocationInfo withMenuIndex(String menuIndex) {
         this.menuIndex = menuIndex;
         addAttribute("menuIndex", menuIndex);
+        return this;
+    }
+
+    public LocationInfo withMenuNoLogin(boolean menuNoLogin) {
+        this.menuNoLogin = menuNoLogin;
+        addAttribute("menuNoLogin", menuNoLogin);
         return this;
     }
 

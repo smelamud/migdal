@@ -1,22 +1,24 @@
 {{#notEnglish}}
-    {{#notLogged}}
-        <div class="top-button">
-            <a href="/signin/?back={{ue location}}">{{image "/pics/enter.gif" alt="Войти"}}</a>
-        </div>
-        <div class="eightpt top-button">
-            Чтобы войти, сначала <a href="/register/?back={{ue location}}">зарегистрируйтесь</a>.
-        </div>
-    {{else}}
-        <div class="top-button">
-            {{#if rc.userHidden}}
-                <strong id='login'>{{rc.userLogin}}</strong>
-            {{else}}
-                <a href="/users/{{rc.userFolder}}/?back={{ue location}}" id="login">{{rc.userLogin}}</a>
-            {{/if}}
-            <a href="/actions/logout?back={{ue location}}">{{image "/pics/exit.gif" alt="Выйти"}}</a>
-            {{#adminUsers}}
-                <a href="/signin/?back={{ue location}}">{{image "/pics/su.gif" alt="Сменить"}}</a>
-            {{/adminUsers}}
-        </div>
-    {{/notLogged}}
+    {{#unless menuNoLogin}}
+        {{#notLogged}}
+            <div class="top-button">
+                <a href="/signin/?back={{ue location}}">{{image "/pics/enter.gif" alt="Войти"}}</a>
+            </div>
+            <div class="eightpt top-button">
+                Чтобы войти, сначала <a href="/register/?back={{ue location}}">зарегистрируйтесь</a>.
+            </div>
+        {{else}}
+            <div class="top-button">
+                {{#if rc.userHidden}}
+                    <strong id='login'>{{rc.userLogin}}</strong>
+                {{else}}
+                    <a href="/users/{{rc.userFolder}}/?back={{ue location}}" id="login">{{rc.userLogin}}</a>
+                {{/if}}
+                <a href="/actions/logout?back={{ue location}}">{{image "/pics/exit.gif" alt="Выйти"}}</a>
+                {{#adminUsers}}
+                    <a href="/signin/?back={{ue location}}">{{image "/pics/su.gif" alt="Сменить"}}</a>
+                {{/adminUsers}}
+            </div>
+        {{/notLogged}}
+    {{/unless}}
 {{/notEnglish}}

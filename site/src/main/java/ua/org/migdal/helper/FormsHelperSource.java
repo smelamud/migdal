@@ -187,6 +187,11 @@ public class FormsHelperSource {
         return new Handlebars.SafeString(buf);
     }
 
+    private String fieldName(String name) {
+        int pos = name.lastIndexOf('.');
+        return pos >= 0 ? name.substring(pos + 1) : name;
+    }
+
     private CharSequence formLineBegin(String title, String name, boolean mandatory, String comment, String id,
                                        Options options) {
         StringBuilder buf = new StringBuilder();
@@ -213,7 +218,7 @@ public class FormsHelperSource {
         buf.append("<td class=\"form-cell ninept");
         if (options.get("errors") instanceof Errors) {
             Errors errors = (Errors) options.get("errors");
-            if (errors.hasFieldErrors(name)) {
+            if (errors.hasFieldErrors(fieldName(name))) {
                 buf.append(" has-error");
             }
         }
