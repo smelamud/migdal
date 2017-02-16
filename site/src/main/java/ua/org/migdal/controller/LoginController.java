@@ -79,7 +79,7 @@ public class LoginController {
             @ModelAttribute @Valid LoginForm loginForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
-        new ControllerAction(errors)
+        new ControllerAction(LoginController.class, "actionLogin", errors)
                 .execute(() -> {
                     User user = usersManager.findByLogin(loginForm.getLogin());
                     String md5Password = Utils.md5(loginForm.getPassword());
