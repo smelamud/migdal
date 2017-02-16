@@ -18,6 +18,10 @@ public class UsersManager {
     @PersistenceContext
     private EntityManager entityManager;
 
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
     @Transactional
     public void registerUser(User user) {
         userRepository.save(user);

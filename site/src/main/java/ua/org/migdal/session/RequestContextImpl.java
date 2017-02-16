@@ -11,8 +11,6 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
-import ua.org.migdal.util.Utils;
-
 @RequestScope(proxyMode = ScopedProxyMode.INTERFACES)
 @Component
 public class RequestContextImpl implements RequestContext {
@@ -26,7 +24,7 @@ public class RequestContextImpl implements RequestContext {
     private HttpServletRequest request;
 
     @Autowired
-    private Utils utils;
+    private SubdomainUtils subdomainUtils;
 
     private boolean requestProcessed;
 
@@ -50,8 +48,8 @@ public class RequestContextImpl implements RequestContext {
         }
         requestProcessed = true;
 
-        String hostname = Utils.createBuilderFromRequest(request).build().getHost();
-        subdomain = utils.validateSubdomain(hostname).getSubdomain();
+        String hostname = SubdomainUtils.createBuilderFromRequest(request).build().getHost();
+        subdomain = subdomainUtils.validateSubdomain(hostname).getSubdomain();
         printMode = "1".equals(request.getParameter("print"));
         back = request.getParameter("back");
         back = back != null && LOCATION_REGEX.matcher(back).matches() ? back : null;

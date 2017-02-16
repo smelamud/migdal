@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import ua.org.migdal.util.Utils;
+import ua.org.migdal.session.SubdomainUtils;
 
 @Component
 public class SubdomainInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private Utils utils;
+    private SubdomainUtils subdomainUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        UriComponentsBuilder builder = Utils.createBuilderFromRequest(request);
-        Utils.SubdomainInfo subdomainInfo = utils.validateSubdomain(builder.build().getHost());
+        UriComponentsBuilder builder = SubdomainUtils.createBuilderFromRequest(request);
+        SubdomainUtils.SubdomainInfo subdomainInfo = subdomainUtils.validateSubdomain(builder.build().getHost());
         if (subdomainInfo.getRedirectTo() == null) {
             return true;
         }

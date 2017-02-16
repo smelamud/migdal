@@ -30,16 +30,16 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET search_path = public, pg_catalog;
 
 --
--- Name: users_gender; Type: TYPE; Schema: public; Owner: migdal
+-- Name: gender; Type: TYPE; Schema: public; Owner: migdal
 --
 
-CREATE TYPE users_gender AS ENUM (
-    'mine',
-    'femine'
+CREATE TYPE gender AS ENUM (
+    'MINE',
+    'FEMINE'
 );
 
 
-ALTER TYPE users_gender OWNER TO migdal;
+ALTER TYPE gender OWNER TO migdal;
 
 SET default_tablespace = '';
 
@@ -499,7 +499,7 @@ CREATE TABLE users (
     name character varying(30) NOT NULL,
     jewish_name character varying(30) NOT NULL,
     surname character varying(30) NOT NULL,
-    gender users_gender DEFAULT 'mine'::users_gender NOT NULL,
+    gender gender DEFAULT 'MINE'::gender NOT NULL,
     info text NOT NULL,
     info_xml text NOT NULL,
     birthday date NOT NULL,

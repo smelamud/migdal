@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ua.org.migdal.Config;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.util.Utils;
+import ua.org.migdal.session.SubdomainUtils;
 
 @ControllerAdvice
 public class GlobalsControllerAdvice {
@@ -23,9 +23,9 @@ public class GlobalsControllerAdvice {
     @ModelAttribute
     public void session(HttpServletRequest request, Model model) {
         model.addAttribute("rc", requestContext);
-        model.addAttribute("location", Utils.createLocalBuilderFromRequest(request).toUriString());
+        model.addAttribute("location", SubdomainUtils.createLocalBuilderFromRequest(request).toUriString());
         model.addAttribute("printLocation",
-                Utils.createLocalBuilderFromRequest(request).queryParam("print", 1).toUriString());
+                SubdomainUtils.createLocalBuilderFromRequest(request).queryParam("print", 1).toUriString());
         model.addAttribute("siteDomain", config.getSiteDomain());
         model.addAttribute("userDomain", requestContext.getSubdomain());
         model.addAttribute("siteName", !requestContext.isEnglish() ? "Мигдаль" : "Migdal");

@@ -1,6 +1,11 @@
 package ua.org.migdal.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.validation.Valid;
+import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,14 +15,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import ua.org.migdal.data.User;
 import ua.org.migdal.form.LoginForm;
+import ua.org.migdal.manager.UsersManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.Session;
-import ua.org.migdal.data.UserRepository;
+import ua.org.migdal.util.Utils;
 
 @Controller
 public class LoginController {
@@ -26,7 +33,10 @@ public class LoginController {
     private RequestContext requestContext;
 
     @Autowired
-    private UserRepository userRepository;
+    private Session session;
+
+    @Autowired
+    private UsersManager usersManager;
 
 /*
     @GetMapping("/signin")
@@ -69,6 +79,21 @@ public class LoginController {
             @ModelAttribute @Valid LoginForm loginForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
+        new ControllerAction(errors)
+                .execute(() -> {
+                    User user = usersManager.findByLogin(loginForm.getLogin());
+                    String md5Password = Utils.md5(loginForm.getPassword());
+                    if (user == null || !md5Password.equalsIgnoreCase(user.getPassword())) {
+                        return "incorrect";
+                    }
+                    if (user.isNoLogin()) {
+                        return "banned";
+                    }
+                    session.setUserId(user.getId());
+                    // TODO Duration
+                    return null;
+                });
+
         if (!errors.hasErrors()) {
             return "redirect:" + requestContext.getBack();
         } else {
@@ -80,36 +105,6 @@ public class LoginController {
         }
     }
 /*
-    @PostMapping("/signin")
-    public String signin(
-            @ModelAttribute @Valid LoginForm loginForm,
-            Errors errors,
-            RedirectAttributes redirectAttributes) {
-        if (!errors.hasErrors()) {
-            User user = userRepository.findByEmail(loginForm.getEmail());
-            if (user != null && loginForm.getPassword().equals(user.getPassword())) {
-                if (user.getRole() != null) {
-                    session.setUserId(user.getId());
-                    session.setDisplayName(user.getDisplayNameAdministrative());
-                } else {
-                    errors.reject("banned");
-                }
-            } else {
-                errors.reject("incorrect");
-            }
-        }
-
-        if (!errors.hasErrors()) {
-            return "redirect:" + loginForm.getBackUrlSafe();
-        } else {
-            redirectAttributes.addFlashAttribute("errors", errors);
-            redirectAttributes.addFlashAttribute("loginForm", loginForm);
-            return UriComponentsBuilder.fromUriString("redirect:/signin")
-                    .queryParam("back", loginForm.getBackUrlSafe())
-                    .toUriString();
-        }
-    }
-
     @PostMapping("/signout")
     public String signout(@ModelAttribute LogoutForm logoutForm) {
         session.setUserId(0);
