@@ -6,8 +6,22 @@ public interface Session {
 
     void setUserId(long userId);
 
-    public long getRealUserId();
+    long getRealUserId();
 
-    public void setRealUserId(long realUserId);
+    void setRealUserId(long realUserId);
+
+    /**
+     * Get timestamp (in milliseconds from the beginning of the UNIX epoch of the last access to the session.
+     */
+    long getLast();
+
+    void setLast(long last);
+
+    /**
+     * Get maximum duration of the session (in hours).
+     */
+    int getDuration();
+
+    void setDuration(int duration);
 
 }

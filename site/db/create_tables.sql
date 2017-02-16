@@ -460,22 +460,6 @@ CREATE TABLE redirs (
 ALTER TABLE redirs OWNER TO migdal;
 
 --
--- Name: sessions; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE sessions (
-    id bigint NOT NULL,
-    user_id bigint DEFAULT '0'::bigint NOT NULL,
-    real_user_id bigint DEFAULT '0'::bigint NOT NULL,
-    last timestamp with time zone NOT NULL,
-    duration bigint DEFAULT '0'::bigint NOT NULL,
-    sid character(32)
-);
-
-
-ALTER TABLE sessions OWNER TO migdal;
-
---
 -- Name: tmp_texts; Type: TABLE; Schema: public; Owner: migdal
 --
 

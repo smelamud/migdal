@@ -42,6 +42,18 @@ public class RequestContextImpl implements RequestContext {
     private boolean userModerator;
     private boolean userAdminDomain;
 
+    private void touchSession() {
+        long now = System.currentTimeMillis();
+        if (session.getUserId() > 0 && session.getLast() + session.getDuration() * 3600 * 1000 < now) {
+            session.setUserId(0);
+            session.setRealUserId(0);
+        }
+        if (session.getUserId() <= 0 && session.getRealUserId() <= 0) {
+            // set guest id
+        }
+        session.setLast(now);
+    }
+
     private void processRequest() {
         if (requestProcessed) {
             return;

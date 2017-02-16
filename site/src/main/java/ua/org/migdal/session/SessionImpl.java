@@ -10,6 +10,8 @@ public class SessionImpl implements Session {
 
     private long userId;
     private long realUserId;
+    private long last;
+    private int duration;
 
     @Override
     public long getUserId() {
@@ -21,12 +23,34 @@ public class SessionImpl implements Session {
         this.userId = userId;
     }
 
+    @Override
     public long getRealUserId() {
         return realUserId;
     }
 
+    @Override
     public void setRealUserId(long realUserId) {
         this.realUserId = realUserId;
+    }
+
+    @Override
+    public long getLast() {
+        return last;
+    }
+
+    @Override
+    public void setLast(long last) {
+        this.last = last;
+    }
+
+    @Override
+    public int getDuration() {
+        return duration;
+    }
+
+    @Override
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
 }

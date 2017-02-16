@@ -7,6 +7,8 @@ public class Config {
 
     private String siteDomain;
     private String[] subdomains;
+    private int sessionTimeoutShort;
+    private int sessionTimeoutLong;
 
     public String getSiteDomain() {
         return siteDomain;
@@ -22,6 +24,22 @@ public class Config {
 
     public void setSubdomains(String[] subdomains) {
         this.subdomains = subdomains;
+    }
+
+    public int getSessionTimeoutShort() {
+        return sessionTimeoutShort;
+    }
+
+    public void setSessionTimeoutShort(int sessionTimeoutShort) {
+        this.sessionTimeoutShort = sessionTimeoutShort;
+    }
+
+    public int getSessionTimeoutLong() {
+        return sessionTimeoutLong;
+    }
+
+    public void setSessionTimeoutLong(int sessionTimeoutLong) {
+        this.sessionTimeoutLong = sessionTimeoutLong;
     }
 
 }

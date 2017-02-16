@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.LoginForm;
 import ua.org.migdal.manager.UsersManager;
@@ -28,6 +29,9 @@ import ua.org.migdal.util.Utils;
 
 @Controller
 public class LoginController {
+
+    @Autowired
+    private Config config;
 
     @Autowired
     private RequestContext requestContext;
@@ -90,7 +94,9 @@ public class LoginController {
                         return "banned";
                     }
                     session.setUserId(user.getId());
-                    // TODO Duration
+                    session.setDuration(loginForm.isMyComputer()
+                            ? config.getSessionTimeoutLong()
+                            : config.getSessionTimeoutShort());
                     return null;
                 });
 
