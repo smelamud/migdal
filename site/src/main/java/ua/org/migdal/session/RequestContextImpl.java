@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+import ua.org.migdal.manager.UsersManager;
 
 @RequestScope(proxyMode = ScopedProxyMode.INTERFACES)
 @Component
@@ -25,6 +26,9 @@ public class RequestContextImpl implements RequestContext {
 
     @Autowired
     private SubdomainUtils subdomainUtils;
+
+    @Autowired
+    private UsersManager usersManager;
 
     private boolean requestProcessed;
 
@@ -49,7 +53,7 @@ public class RequestContextImpl implements RequestContext {
             session.setRealUserId(0);
         }
         if (session.getUserId() <= 0 && session.getRealUserId() <= 0) {
-            // set guest id
+            session.setRealUserId(usersManager.getGuestId());
         }
         session.setLast(now);
     }
@@ -207,6 +211,7 @@ public class RequestContextImpl implements RequestContext {
 
     @PostConstruct
     private void init() {
+        touchSession();
         userId = session.getUserId();
         realUserId = session.getRealUserId();
     }
