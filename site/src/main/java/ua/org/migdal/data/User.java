@@ -22,35 +22,35 @@ public class User {
 
     @NotNull
     @Size(max=30)
-    private String login;
+    private String login = "";
 
     @NotNull
     @Size(max=40)
-    private String password;
+    private String password ="";
 
     @NotNull
     @Size(max=30)
-    private String name;
+    private String name = "";
 
     @NotNull
     @Size(max=30)
-    private String jewishName;
+    private String jewishName = "";
 
     @NotNull
     @Size(max=30)
-    private String surname;
+    private String surname = "";
 
     @Enumerated(EnumType.STRING)
     private Gender gender = Gender.MINE;
 
     @NotNull
-    private String info;
+    private String info = "";
 
     @NotNull
-    private String infoXml;
+    private String infoXml = "";
 
-    @NotNull
-    private Date birthday;
+    @NotNull  // TODO make it nullable
+    private Date birthday = new Date(0);
 
     private Timestamp created;
 
