@@ -493,15 +493,15 @@ CREATE TABLE users (
     confirm_deadline timestamp with time zone,
     confirm_code character varying(20) DEFAULT ''::character varying NOT NULL,
     email character varying(70) DEFAULT ''::character varying NOT NULL,
-    hide_email smallint DEFAULT '0'::smallint NOT NULL,
+    hide_email boolean NOT NULL,
     icq character varying(15) DEFAULT ''::character varying NOT NULL,
-    email_disabled smallint DEFAULT '0'::smallint NOT NULL,
-    shames smallint DEFAULT '0'::smallint NOT NULL,
-    guest smallint DEFAULT '0'::smallint NOT NULL,
+    email_disabled boolean NOT NULL,
+    shames boolean NOT NULL,
+    guest boolean NOT NULL,
     rights bigint DEFAULT '0'::bigint NOT NULL,
     hidden smallint DEFAULT '0'::smallint NOT NULL,
-    no_login smallint DEFAULT '0'::smallint NOT NULL,
-    has_personal smallint DEFAULT '0'::smallint NOT NULL,
+    no_login boolean NOT NULL,
+    has_personal boolean NOT NULL,
     settings character varying(70) DEFAULT ''::character varying NOT NULL
 );
 
