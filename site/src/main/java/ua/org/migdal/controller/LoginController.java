@@ -1,11 +1,6 @@
 package ua.org.migdal.controller;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.validation.Valid;
-import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,7 +80,7 @@ public class LoginController {
             RedirectAttributes redirectAttributes) {
         new ControllerAction(LoginController.class, "actionLogin", errors)
                 .execute(() -> {
-                    User user = usersManager.findByLogin(loginForm.getLogin());
+                    User user = usersManager.getByLogin(loginForm.getLogin());
                     String md5Password = Utils.md5(loginForm.getPassword());
                     if (user == null || !md5Password.equalsIgnoreCase(user.getPassword())) {
                         return "incorrect";
