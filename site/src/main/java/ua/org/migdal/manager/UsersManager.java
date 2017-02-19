@@ -28,6 +28,10 @@ public class UsersManager {
 
     private final CachedValue<Long> guestId = new CachedValue<>(this::fetchGuestId);
 
+    public User get(Long id) {
+        return userRepository.findOne(id);
+    }
+
     public User getByLogin(String login) {
         return userRepository.findByLogin(login);
     }

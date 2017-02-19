@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ua.org.migdal.util.Utils;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -112,6 +114,10 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getFolder() {
+        return Utils.isAsciiNoWhitespace(getLogin()) ? getLogin() : Long.toString(getId());
     }
 
     public String getPassword() {

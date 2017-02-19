@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+import ua.org.migdal.Config;
+import ua.org.migdal.data.User;
+import ua.org.migdal.data.UserRight;
 import ua.org.migdal.manager.UsersManager;
 
 @RequestScope(proxyMode = ScopedProxyMode.INTERFACES)
@@ -17,6 +20,9 @@ import ua.org.migdal.manager.UsersManager;
 public class RequestContextImpl implements RequestContext {
 
     private final static Pattern LOCATION_REGEX = Pattern.compile("^(/[a-zA-z0-9-~@]*)+(\\?.*)?$");
+
+    @Autowired
+    private Config config;
 
     @Autowired
     private Session session;
@@ -42,16 +48,16 @@ public class RequestContextImpl implements RequestContext {
     private String userLogin;
     private String userFolder;
     private short userHidden;
-    private boolean userAdminUsers;
-    private boolean userAdminTopics;
-    private boolean userModerator;
-    private boolean userAdminDomain;
+    private long userRights;
 
     private void touchSession() {
         long now = System.currentTimeMillis();
         if (session.getUserId() > 0 && session.getLast() + session.getDuration() * 3600 * 1000 < now) {
             session.setUserId(0);
-            session.setRealUserId(0);
+            session.setRealUserId(usersManager.getGuestId());
+        }
+        if (session.getUserId() <= 0 && session.getRealUserId() <= 0) { // freshly created session
+            session.setRealUserId(usersManager.getGuestId());
         }
         session.setLast(now);
     }
@@ -62,11 +68,34 @@ public class RequestContextImpl implements RequestContext {
         }
         sessionProcessed = true;
 
-        if (session.getUserId() <= 0 && session.getRealUserId() <= 0) {
-            session.setRealUserId(usersManager.getGuestId());
+        touchSession();
+
+        User user = null;
+        if (session.getUserId() > 0) {
+            user = usersManager.get(session.getUserId());
+            if (user == null) {
+                session.setUserId(0);
+                session.setRealUserId(usersManager.getGuestId());
+            }
         }
 
+        userId = session.getUserId();
         realUserId = session.getRealUserId();
+
+        if (user == null) {
+            if (realUserId > 0) {
+                userLogin = config.getGuestLogin();
+            }
+            return;
+        }
+
+        userLogin = user.getLogin();
+        userFolder = user.getFolder();
+        userHidden = user.getHidden();
+        userRights = user.getRights();
+        if (isUserAdminUsers() && userHidden > 0) {
+            userHidden--;
+        }
     }
 
     private void processRequest() {
@@ -117,12 +146,13 @@ public class RequestContextImpl implements RequestContext {
 
     @Override
     public long getUserId() {
+        processSession();
         return userId;
     }
 
     @Override
     public boolean isLogged() {
-        return userId > 0;
+        return getUserId() > 0;
     }
 
     @Override
@@ -156,34 +186,33 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
+    public boolean isMigdalStudent() {
+        processSession();
+        return (userRights & UserRight.MIGDAL_STUDENT.getValue()) != 0;
+    }
+
+    @Override
     public boolean isUserAdminUsers() {
         processSession();
-        return userAdminUsers;
+        return (userRights & UserRight.ADMIN_USERS.getValue()) != 0;
     }
 
     @Override
     public boolean isUserAdminTopics() {
         processSession();
-        return userAdminTopics;
+        return (userRights & UserRight.ADMIN_TOPICS.getValue()) != 0;
     }
 
     @Override
     public boolean isUserModerator() {
         processSession();
-        return userModerator;
+        return (userRights & UserRight.MODERATOR.getValue()) != 0;
     }
 
     @Override
     public boolean isUserAdminDomain() {
         processSession();
-        return userAdminDomain;
-    }
-
-    @PostConstruct
-    private void init() {
-        touchSession();
-        userId = session.getUserId();
-        realUserId = session.getRealUserId();
+        return (userRights & UserRight.ADMIN_DOMAIN.getValue()) != 0;
     }
 
 }

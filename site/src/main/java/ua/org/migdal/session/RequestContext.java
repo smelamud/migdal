@@ -30,6 +30,8 @@ public interface RequestContext {
 
     short getUserHidden();
 
+    boolean isMigdalStudent();
+
     boolean isUserAdminUsers();
 
     boolean isUserAdminTopics();

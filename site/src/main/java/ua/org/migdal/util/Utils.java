@@ -12,4 +12,14 @@ public class Utils {
                 MessageDigest.getInstance("MD5").digest(s.getBytes(StandardCharsets.UTF_8)));
     }
 
+    public static boolean isAsciiNoWhitespace(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c <= 32 || c >= 127) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
