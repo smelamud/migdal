@@ -9,6 +9,8 @@ public class Config {
     private String[] subdomains;
     private int sessionTimeoutShort;
     private int sessionTimeoutLong;
+    private boolean allowGuests;
+    private String guestLogin;
 
     public String getSiteDomain() {
         return siteDomain;
@@ -40,6 +42,22 @@ public class Config {
 
     public void setSessionTimeoutLong(int sessionTimeoutLong) {
         this.sessionTimeoutLong = sessionTimeoutLong;
+    }
+
+    public boolean isAllowGuests() {
+        return allowGuests;
+    }
+
+    public void setAllowGuests(boolean allowGuests) {
+        this.allowGuests = allowGuests;
+    }
+
+    public String getGuestLogin() {
+        return guestLogin;
+    }
+
+    public void setGuestLogin(String guestLogin) {
+        this.guestLogin = guestLogin;
     }
 
 }

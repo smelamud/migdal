@@ -635,17 +635,6 @@ function idByLogin($login) {
     return $id;
 }
 
-function getUserIdByLoginPassword($login, $password) {
-    $loginS = addslashes($login);
-    $passwordMD5 = md5($password);
-    $result = sql("select id
-                   from users
-                   where login='$login' and password='$passwordMD5'
-                         and no_login=0",
-                  __FUNCTION__);
-    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
-}
-
 function setPasswordByUserId($id, $password) {
     $now = sqlNow();
     sql("update users
@@ -660,28 +649,6 @@ function getShamesId() {
                    where shames=1',
                   __FUNCTION__);
     return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
-}
-
-function getGuestId() {
-    global $allowGuests, $shortSessionTimeout, $guestLogin;
-
-    if (!$allowGuests)
-        return 0;
-    $result = sql("select id
-                   from users
-                   where guest<>0
-                   order by login
-                   limit 1",
-                  __FUNCTION__, 'locate_guest');
-    if (mysql_num_rows($result) > 0)
-        return mysql_result($result, 0, 0);
-    $now = sqlNow();
-    sql("insert into users(login,email_disabled,guest,hidden,no_login,created,
-                           modified)
-         values('$guestLogin',1,1,2,1,'$now','$now')",
-        __FUNCTION__,'create');
-    $id = sql_insert_id();
-    return $id;
 }
 
 function updateLastOnline($userId) {

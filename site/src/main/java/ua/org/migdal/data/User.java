@@ -40,7 +40,7 @@ public class User {
     @Size(max=30)
     private String surname = "";
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private Gender gender = Gender.MINE;
 
     @NotNull
@@ -61,18 +61,18 @@ public class User {
     private Timestamp confirmDeadline;
 
     @NotNull
-    private String confirmCode;
+    private String confirmCode = "";
 
     @NotNull
     @Size(max=70)
-    private String email;
+    private String email = "";
 
     @NotNull
     private boolean hideEmail;
 
     @NotNull
     @Size(max=15)
-    private String icq;
+    private String icq = "";
 
     @NotNull
     private boolean emailDisabled;
@@ -87,7 +87,7 @@ public class User {
     private long rights;
 
     @NotNull
-    private boolean hidden;
+    private short hidden;
 
     @NotNull
     private boolean noLogin;
@@ -97,7 +97,7 @@ public class User {
 
     @NotNull
     @Size(max=70)
-    private String settings;
+    private String settings = "";
 
     public User() {
     }
@@ -278,11 +278,11 @@ public class User {
         this.rights = rights;
     }
 
-    public boolean isHidden() {
+    public short getHidden() {
         return hidden;
     }
 
-    public void setHidden(boolean hidden) {
+    public void setHidden(short hidden) {
         this.hidden = hidden;
     }
 

@@ -30,6 +30,7 @@ public class RequestContextImpl implements RequestContext {
     @Autowired
     private UsersManager usersManager;
 
+    private boolean sessionProcessed;
     private boolean requestProcessed;
 
     private String subdomain;
@@ -52,10 +53,20 @@ public class RequestContextImpl implements RequestContext {
             session.setUserId(0);
             session.setRealUserId(0);
         }
+        session.setLast(now);
+    }
+
+    private void processSession() {
+        if (sessionProcessed) {
+            return;
+        }
+        sessionProcessed = true;
+
         if (session.getUserId() <= 0 && session.getRealUserId() <= 0) {
             session.setRealUserId(usersManager.getGuestId());
         }
-        session.setLast(now);
+
+        realUserId = session.getRealUserId();
     }
 
     private void processRequest() {
@@ -110,103 +121,62 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    @Override
     public boolean isLogged() {
         return userId > 0;
     }
 
     @Override
     public long getRealUserId() {
+        processSession();
         return realUserId;
     }
 
     @Override
-    public void setRealUserId(long realUserId) {
-        this.realUserId = realUserId;
-    }
-
-    @Override
     public List<Long> getUserGroups() {
+        processSession();
         return userGroups;
     }
 
     @Override
-    public void setUserGroups(List<Long> userGroups) {
-        this.userGroups = userGroups;
-    }
-
-    @Override
     public String getUserLogin() {
+        processSession();
         return userLogin;
     }
 
     @Override
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
-    }
-
-    @Override
     public String getUserFolder() {
+        processSession();
         return userFolder;
     }
 
     @Override
-    public void setUserFolder(String userFolder) {
-        this.userFolder = userFolder;
-    }
-
-    @Override
     public short getUserHidden() {
+        processSession();
         return userHidden;
     }
 
     @Override
-    public void setUserHidden(short userHidden) {
-        this.userHidden = userHidden;
-    }
-
-    @Override
     public boolean isUserAdminUsers() {
+        processSession();
         return userAdminUsers;
     }
 
     @Override
-    public void setUserAdminUsers(boolean userAdminUsers) {
-        this.userAdminUsers = userAdminUsers;
-    }
-
-    @Override
     public boolean isUserAdminTopics() {
+        processSession();
         return userAdminTopics;
     }
 
     @Override
-    public void setUserAdminTopics(boolean userAdminTopics) {
-        this.userAdminTopics = userAdminTopics;
-    }
-
-    @Override
     public boolean isUserModerator() {
+        processSession();
         return userModerator;
     }
 
     @Override
-    public void setUserModerator(boolean userModerator) {
-        this.userModerator = userModerator;
-    }
-
-    @Override
     public boolean isUserAdminDomain() {
+        processSession();
         return userAdminDomain;
-    }
-
-    @Override
-    public void setUserAdminDomain(boolean userAdminDomain) {
-        this.userAdminDomain = userAdminDomain;
     }
 
     @PostConstruct

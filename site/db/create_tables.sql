@@ -29,18 +29,6 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
---
--- Name: gender; Type: TYPE; Schema: public; Owner: migdal
---
-
-CREATE TYPE gender AS ENUM (
-    'MINE',
-    'FEMINE'
-);
-
-
-ALTER TYPE gender OWNER TO migdal;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -483,7 +471,6 @@ CREATE TABLE users (
     name character varying(30) NOT NULL,
     jewish_name character varying(30) NOT NULL,
     surname character varying(30) NOT NULL,
-    gender gender DEFAULT 'MINE'::gender NOT NULL,
     info text NOT NULL,
     info_xml text NOT NULL,
     birthday date NOT NULL,
@@ -502,7 +489,8 @@ CREATE TABLE users (
     hidden smallint DEFAULT '0'::smallint NOT NULL,
     no_login boolean NOT NULL,
     has_personal boolean NOT NULL,
-    settings character varying(70) DEFAULT ''::character varying NOT NULL
+    settings character varying(70) DEFAULT ''::character varying NOT NULL,
+    gender smallint NOT NULL
 );
 
 
