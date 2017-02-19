@@ -651,14 +651,6 @@ function getShamesId() {
     return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
-function updateLastOnline($userId) {
-    $now = sqlNow();
-    sql("update users
-         set last_online='$now'
-         where id=$userId",
-        __FUNCTION__);
-}
-
 function personalExists($id) {
     global $userAdminUsers;
 

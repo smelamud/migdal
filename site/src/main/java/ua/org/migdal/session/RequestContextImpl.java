@@ -1,5 +1,6 @@
 package ua.org.migdal.session;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,7 @@ import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
 import ua.org.migdal.manager.UsersManager;
+import ua.org.migdal.util.Utils;
 
 @RequestScope(proxyMode = ScopedProxyMode.INTERFACES)
 @Component
@@ -96,6 +98,7 @@ public class RequestContextImpl implements RequestContext {
         if (isUserAdminUsers() && userHidden > 0) {
             userHidden--;
         }
+        usersManager.updateLastOnline(realUserId, Utils.now());
     }
 
     private void processRequest() {

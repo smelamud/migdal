@@ -3,6 +3,7 @@ package ua.org.migdal.util;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import javax.xml.bind.DatatypeConverter;
 
 public class Utils {
@@ -20,6 +21,10 @@ public class Utils {
             }
         }
         return true;
+    }
+
+    public static Timestamp now() {
+        return new Timestamp(System.currentTimeMillis());
     }
 
 }

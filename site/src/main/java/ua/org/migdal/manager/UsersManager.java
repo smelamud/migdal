@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.IdProjection;
@@ -66,6 +67,11 @@ public class UsersManager {
     public void registerUser(User user) {
         userRepository.save(user);
 //        entityManager.flush();
+    }
+
+    @Transactional
+    public void updateLastOnline(long id, Timestamp lastOnline) {
+        userRepository.updateLastOnline(id, lastOnline);
     }
 
 }
