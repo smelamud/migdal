@@ -119,12 +119,12 @@ public class RequestContextImpl implements RequestContext {
 
     @Override
     public boolean isWww() {
-        return subdomain.equals("www");
+        return getSubdomain().equals("www");
     }
 
     @Override
     public boolean isEnglish() {
-        return subdomain.equals("english");
+        return getSubdomain().equals("english");
     }
 
     @Override

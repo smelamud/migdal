@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Options;
+import ua.org.migdal.session.RequestContext;
 
 @HelperSource
 public class ImagesHelperSource {
@@ -23,6 +24,9 @@ public class ImagesHelperSource {
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    @Autowired
+    private RequestContext requestContext;
 
     private Map<String, Dimension> imageSizeCache = new HashMap<>();
 
@@ -36,7 +40,7 @@ public class ImagesHelperSource {
             HelperUtils.appendAttr(buf, "width", imageSize.width);
             HelperUtils.appendAttr(buf, "height", imageSize.height);
         }
-        if (!options.get("userDomain").equals("english") || options.hash("altEn") == null) {
+        if (!requestContext.isEnglish() || options.hash("altEn") == null) {
             HelperUtils.appendOptionalArgAttr(buf, "alt", options);
         } else {
             HelperUtils.appendOptionalArgAttr(buf, "altEn", "alt", options);

@@ -27,7 +27,6 @@ public class GlobalsControllerAdvice {
         model.addAttribute("printLocation",
                 SubdomainUtils.createLocalBuilderFromRequest(request).queryParam("print", 1).toUriString());
         model.addAttribute("siteDomain", config.getSiteDomain());
-        model.addAttribute("userDomain", requestContext.getSubdomain());
         model.addAttribute("siteName", !requestContext.isEnglish() ? "Мигдаль" : "Migdal");
     }
 
