@@ -37,23 +37,6 @@ public class LoginController {
     @Autowired
     private UsersManager usersManager;
 
-/*
-    @GetMapping("/signin")
-    public String signin(@RequestParam(required = false) String back, Map<String, Object> model) {
-        @SuppressWarnings("unchecked")
-        Map<String, Object> menuProps = (Map<String, Object>) model.get("menu");
-        menuProps.put("signIn", false);
-
-        if (!session.isLoggedIn()) {
-            model.putIfAbsent("loginForm", new LoginForm(back, "/"));
-            return "signin";
-        } else {
-            model.putIfAbsent("logoutForm", new LogoutForm(back, "/"));
-            return "signout";
-        }
-    }
-*/
-
     @GetMapping("/signin")
     public String signin(@RequestParam(required = false) Integer novice, Model model) {
         signinLocationInfo(model);
@@ -89,6 +72,7 @@ public class LoginController {
                         return "banned";
                     }
                     session.setUserId(user.getId());
+                    session.setRealUserId(user.getId());
                     session.setDuration(loginForm.isMyComputer()
                             ? config.getSessionTimeoutLong()
                             : config.getSessionTimeoutShort());
@@ -105,12 +89,16 @@ public class LoginController {
                     .toUriString();
         }
     }
-/*
-    @PostMapping("/signout")
-    public String signout(@ModelAttribute LogoutForm logoutForm) {
-        session.setUserId(0);
 
-        return "redirect:" + logoutForm.getBackUrlSafe();
+    @PostMapping("/actions/logout")
+    public String actionLogout() {
+        if (session.getUserId() > 0 && session.getUserId() != session.getRealUserId()) {
+            session.setUserId(session.getRealUserId());
+        } else {
+            session.setUserId(0);
+            session.setRealUserId(usersManager.getGuestId());
+        }
+        return "redirect:" + requestContext.getBack();
     }
-*/
+
 }

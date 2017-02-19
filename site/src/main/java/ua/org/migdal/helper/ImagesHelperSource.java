@@ -28,7 +28,8 @@ public class ImagesHelperSource {
 
     public CharSequence image(String href, Options options) {
         StringBuilder buf = new StringBuilder();
-        buf.append("<img");
+        boolean button = HelperUtils.boolArg(options.hash("button", false));
+        buf.append(!button ? "<img" : "<input type=\"image\"");
         HelperUtils.appendAttr(buf, "src", href);
         Dimension imageSize = getImageSize(href);
         if (imageSize != null) {

@@ -14,7 +14,10 @@
                 {{else}}
                     <a href="/users/{{rc.userFolder}}/?back={{ue location}}" id="login">{{rc.userLogin}}</a>
                 {{/if}}
-                <a href="/actions/logout?back={{ue location}}">{{image "/pics/exit.gif" alt="Выйти"}}</a>
+                <form method="post" action="/actions/logout">
+                    {{hidden name="back" value=location}}
+                    {{image "/pics/exit.gif" alt="Выйти" button=true}}
+                </form>
                 {{#adminUsers}}
                     <a href="/signin/?back={{ue location}}">{{image "/pics/su.gif" alt="Сменить"}}</a>
                 {{/adminUsers}}
