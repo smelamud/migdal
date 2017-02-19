@@ -71,10 +71,6 @@ public class User {
     private boolean hideEmail;
 
     @NotNull
-    @Size(max=15)
-    private String icq = "";
-
-    @NotNull
     private boolean emailDisabled;
 
     @NotNull
@@ -236,14 +232,6 @@ public class User {
 
     public void setHideEmail(boolean hideEmail) {
         this.hideEmail = hideEmail;
-    }
-
-    public String getIcq() {
-        return icq;
-    }
-
-    public void setIcq(String icq) {
-        this.icq = icq;
     }
 
     public boolean isEmailDisabled() {

@@ -481,7 +481,6 @@ CREATE TABLE users (
     confirm_code character varying(20) DEFAULT ''::character varying NOT NULL,
     email character varying(70) DEFAULT ''::character varying NOT NULL,
     hide_email boolean NOT NULL,
-    icq character varying(15) DEFAULT ''::character varying NOT NULL,
     email_disabled boolean NOT NULL,
     shames boolean NOT NULL,
     guest boolean NOT NULL,
