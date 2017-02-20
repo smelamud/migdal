@@ -34,7 +34,7 @@
             <span class="family-name">{{user.surname}}</span>
             <span class="additional-name">{{user.jewishName}}</span>
         </td></tr>
-        <infoline title='Имя' value='$,FullName' class='fn'>
+        {{> infoline title="Имя" value=user.fullName class="fn" escape=true}}
         {{#if user.man}}
             {{> infoline title="Пол" value="Мужской" class="" escape=false}}
         {{else}}

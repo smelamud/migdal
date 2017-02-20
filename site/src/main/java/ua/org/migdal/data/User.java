@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.StringUtils;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
 
@@ -174,6 +175,57 @@ public class User implements Editable {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getFullName() {
+        StringBuilder buf = new StringBuilder();
+        if (!StringUtils.isEmpty(getJewishName())) {
+            buf.append(getJewishName());
+            buf.append(" (");
+            buf.append(getName());
+            buf.append(')');
+        } else {
+            buf.append(getName());
+        }
+        if (!StringUtils.isEmpty(getSurname())) {
+            buf.append(' ');
+            buf.append(getSurname());
+        }
+        return buf.toString();
+    }
+
+    public String getFullNameCivil() {
+        StringBuilder buf = new StringBuilder();
+        if (!StringUtils.isEmpty(getJewishName())) {
+            buf.append(getName());
+            buf.append(" (");
+            buf.append(getJewishName());
+            buf.append(')');
+        } else {
+            buf.append(getName());
+        }
+        if (!StringUtils.isEmpty(getSurname())) {
+            buf.append(' ');
+            buf.append(getSurname());
+        }
+        return buf.toString();
+    }
+
+    public String getFullNameSurname() {
+        StringBuilder buf = new StringBuilder();
+        if (!StringUtils.isEmpty(getSurname())) {
+            buf.append(getSurname());
+            buf.append(' ');
+        }
+        if (!StringUtils.isEmpty(getJewishName())) {
+            buf.append(getJewishName());
+            buf.append(" (");
+            buf.append(getName());
+            buf.append(')');
+        } else {
+            buf.append(getName());
+        }
+        return buf.toString();
     }
 
     public Gender getGender() {
