@@ -62,7 +62,7 @@ public class UsersManager {
     private long addGuestUser() {
         User user = new User();
         user.setLogin(config.getGuestLogin());
-        user.setEmailDisabled(true);
+        user.setEmailDisabled((short) 1);
         user.setGuest(true);
         user.setHidden((short) 2);
         user.setNoLogin(true);

@@ -82,7 +82,7 @@ public class User implements Editable {
     private boolean hideEmail;
 
     @NotNull
-    private boolean emailDisabled;
+    private short emailDisabled;
 
     @NotNull
     private boolean shames;
@@ -236,10 +236,12 @@ public class User implements Editable {
         this.gender = gender;
     }
 
+    @Transient
     public boolean isMan() {
         return getGender() == null || getGender() == Gender.MINE;
     }
 
+    @Transient
     public boolean isWoman() {
         return getGender() == Gender.FEMINE;
     }
@@ -324,11 +326,16 @@ public class User implements Editable {
         this.hideEmail = hideEmail;
     }
 
-    public boolean isEmailDisabled() {
+    @Transient
+    public boolean isEmailVisible() {
+        return !StringUtils.isEmpty(getEmail()) && !isHideEmail();
+    }
+
+    public short getEmailDisabled() {
         return emailDisabled;
     }
 
-    public void setEmailDisabled(boolean emailDisabled) {
+    public void setEmailDisabled(short emailDisabled) {
         this.emailDisabled = emailDisabled;
     }
 
@@ -388,22 +395,27 @@ public class User implements Editable {
         this.settings = settings;
     }
 
+    @Transient
     public boolean isMigdalStudent() {
         return (getRights() & UserRight.MIGDAL_STUDENT.getValue()) != 0;
     }
 
+    @Transient
     public boolean isAdminUsers() {
         return (getRights() & UserRight.ADMIN_USERS.getValue()) != 0;
     }
 
+    @Transient
     public boolean isAdminTopics() {
         return (getRights() & UserRight.ADMIN_TOPICS.getValue()) != 0;
     }
 
+    @Transient
     public boolean isModerator() {
         return (getRights() & UserRight.MODERATOR.getValue()) != 0;
     }
 
+    @Transient
     public boolean isAdminDomain() {
         return (getRights() & UserRight.ADMIN_DOMAIN.getValue()) != 0;
     }

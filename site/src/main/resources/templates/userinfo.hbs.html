@@ -52,17 +52,17 @@
         <ifne what='$,Info'>
             <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
         </ifne>
-        <if what='$,isEmailVisible'>
+        {{#if user.emailVisible}}
             <tr valign="top">
-                <th>E-mail</th>
+                <th>E-mail:</th>
                 <td width="100%" class="email">
-                    <mailtolink message='$,'>&nbsp;
-                    <if what='$,isEmailDisabled==2'>
+                    {{mailToLink user}}&nbsp;
+                    {{#ifieq user.emailDisabled 2}}
                         <i>(адрес не работает)</i>
-                    </if>
+                    {{/ifieq}}
                 </td>
             </tr>
-        </if>
+        {{/if}}
         <tr valign="top">
             <th>Последний раз<br>заходил сюда:</th>
             <td width="100%"><lastonline user="$,"></td>

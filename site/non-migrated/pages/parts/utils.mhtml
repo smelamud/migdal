@@ -56,14 +56,6 @@
 </if>
 </element>
 
-<element name='mailtolink'>
-<if what='$message.isEmailVisible'>
- <asp><a href='mailto:$#message.Email' title='Написать письмо'><asp>
-  $=message.Email
- <asp></a>
-</if>
-</element>
-
 <element name='senderlink'>
 <notenglish>
  <if what='!$message.isUserGuest'>
