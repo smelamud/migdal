@@ -11,6 +11,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByLogin(String login);
 
+    IdProjection findIdByLogin(String login);
+
     IdProjection findFirstIdByGuestTrueOrderByLogin();
 
     @Modifying

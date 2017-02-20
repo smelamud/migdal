@@ -15,7 +15,7 @@ public class IndexController {
 		return "index-www";
 	}
 
-	public static LocationInfo indexLocationInfo(Model model) {
+	public LocationInfo indexLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/")
                 .withRssHref("/rss/")

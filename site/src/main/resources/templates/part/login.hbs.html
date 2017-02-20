@@ -12,10 +12,10 @@
                 {{#if rc.userHidden}}
                     <strong>{{rc.userLogin}}</strong>
                 {{else}}
-                    <a href="/users/{{rc.userFolder}}/?back={{ue location}}"><strong>{{rc.userLogin}}</strong></a>
+                    <a href="/users/{{rc.userFolder}}"><strong>{{rc.userLogin}}</strong></a>
                 {{/if}}
                 <form method="post" action="/actions/logout">
-                    {{hidden name="back" value=location}}
+                    {{hidden name="back" value=(he location)}}
                     {{image "/pics/exit.gif" alt="Выйти" button=true}}
                 </form>
                 {{#adminUsers}}

@@ -5,8 +5,6 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.IdProjection;
 import ua.org.migdal.data.User;
@@ -15,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.org.migdal.util.CachedValue;
+import ua.org.migdal.util.Utils;
 
 @Service
 public class UsersManager {
@@ -36,6 +35,15 @@ public class UsersManager {
 
     public User getByLogin(String login) {
         return userRepository.findByLogin(login);
+    }
+
+    public long getIdByLogin(String login) {
+        IdProjection idp = userRepository.findIdByLogin(login);  // TODO add caching
+        return idp != null ? idp.getId() : 0;
+    }
+
+    public long idOrLogin(String login) {
+        return Utils.idOrName(login, this::getIdByLogin);
     }
 
     public long getGuestId() {

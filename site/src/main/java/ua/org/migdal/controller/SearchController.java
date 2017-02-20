@@ -1,5 +1,6 @@
 package ua.org.migdal.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -10,6 +11,9 @@ import ua.org.migdal.session.LocationInfo;
 @Controller
 public class SearchController {
 
+    @Autowired
+    private IndexController indexController;
+
     @GetMapping("/search")
     public String search(@RequestParam(required = false) String q, Model model) {
         searchLocationInfo(model, q);
@@ -19,10 +23,10 @@ public class SearchController {
         return "search-google";
     }
 
-    public static LocationInfo searchLocationInfo(Model model, String q) {
+    public LocationInfo searchLocationInfo(Model model, String q) {
         return new LocationInfo(model)
                 .withUri("/search")
-                .withParent(IndexController.indexLocationInfo(null))
+                .withParent(indexController.indexLocationInfo(null))
                 .withMenuMain("search")
                 .withPageTitle(q == null ? "Поиск" : "Поиск: " + q);
     }

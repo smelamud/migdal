@@ -1,0 +1,74 @@
+{{#*inline "infoline"}} {{! params: title, value, class, escape }}
+    {{#if value}}
+        <tr valign="top" class="{{class}}">
+            <th>{{title}}:</th>
+            <td width="100%">{{#if escape}}{{value}}{{else}}{{{value}}}{{/if}}</td>
+        </tr>
+    {{/if}}
+{{/inline}}
+
+{{#*inline "controls"}}
+    {{#editable user}}
+        <p class="ninept">
+            &nbsp;
+            {{#if admin}}
+                {{#assign "path"}}/admin/users/{{user.folder}}/edit{{/assign}}
+            {{else}}
+                {{#assign "path"}}/users/{{user.folder}}/edit{{/assign}}
+            {{/if}}
+            <a href="{{path}}">Изменить информацию о пользователе</a>
+        </p>
+    {{/editable}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<div style="padding: 5px; margin: 10px" class="cframe">
+    {{subtitle}}
+    {{> controls}}
+    <table width="100%" class="userinfo vcard">
+        {{> infoline title="Ник" value=user.login class="nickname" escape=true}}
+        <tr style="display: none"><td colspan="2" class="n">
+            <span class="given-name">{{user.name}}</span>
+            <span class="family-name">{{user.surname}}</span>
+            <span class="additional-name">{{user.jewishName}}</span>
+        </td></tr>
+        <infoline title='Имя' value='$,FullName' class='fn'>
+        {{#if user.man}}
+            {{> infoline title="Пол" value="Мужской" class="" escape=false}}
+        {{else}}
+            {{> infoline title="Пол" value="Женский" class="" escape=false}}
+        {{/if}}
+        <if what="$,Age!='-'">
+            <infoline title='Дата рождения'
+                      value#='$,RussianBirthday / $,JewishBirthday'>
+        </if>
+        {{#if user.migdalStudent}}
+            {{> infoline title="Мигдалевец" value="Да" class="" escape=false}}
+        {{else}}
+            {{> infoline title="Мигдалевец" value="Нет" class="" escape=false}}
+        {{/if}}
+        <ifne what='$,Info'>
+            <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
+        </ifne>
+        <if what='$,isEmailVisible'>
+            <tr valign="top">
+                <th>E-mail</th>
+                <td width="100%" class="email">
+                    <mailtolink message='$,'>&nbsp;
+                    <if what='$,isEmailDisabled==2'>
+                        <i>(адрес не работает)</i>
+                    </if>
+                </td>
+            </tr>
+        </if>
+        <tr valign="top">
+            <th>Последний раз<br>заходил сюда:</th>
+            <td width="100%"><lastonline user="$,"></td>
+        </tr>
+    </table>
+    {{> controls}}
+</div>
+
+{{> part/bottom}}

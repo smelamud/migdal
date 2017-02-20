@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.jknack.handlebars.Options;
 
+import ua.org.migdal.data.Editable;
 import ua.org.migdal.session.RequestContext;
 
 @HelperSource
@@ -44,6 +45,12 @@ public class SessionHelperSource {
 
     public CharSequence adminUsers(Options options) throws IOException {
         return requestContext.isUserAdminUsers() ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
+    public CharSequence editable(Editable object, Options options) throws IOException {
+        return object != null && object.isEditable(requestContext)
+                ? options.apply(options.fn)
+                : options.apply(options.inverse);
     }
 
 }

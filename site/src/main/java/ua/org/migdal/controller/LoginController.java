@@ -38,6 +38,9 @@ public class LoginController {
     @Autowired
     private UsersManager usersManager;
 
+    @Autowired
+    private IndexController indexController;
+
     @GetMapping("/signin")
     public String signin(@RequestParam(required = false) Integer novice, Model model) {
         signinLocationInfo(model);
@@ -51,10 +54,10 @@ public class LoginController {
         return "signin";
     }
 
-    public static LocationInfo signinLocationInfo(Model model) {
+    public LocationInfo signinLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/signin")
-                .withParent(IndexController.indexLocationInfo(null))
+                .withParent(indexController.indexLocationInfo(null))
                 .withMenuNoLogin(true)
                 .withPageTitle("Вход на сайт");
     }
@@ -114,11 +117,11 @@ public class LoginController {
                     if (!requestContext.isUserAdminUsers()) {
                         return "notAdmin";
                     }
-                    User user = usersManager.getByLogin(suForm.getLogin());
-                    if (user == null) {
+                    long userId = usersManager.getIdByLogin(suForm.getLogin());
+                    if (userId <= 0) {
                         return "noUser";
                     }
-                    session.setUserId(user.getId());
+                    session.setUserId(userId);
                     return null;
                 });
 

@@ -127,8 +127,8 @@ public class HelperUtils {
         }
     }
 
-    public static String mandatoryHash(String name, Options options) {
-        String value = options.hash(name);
+    public static <T> T mandatoryHash(String name, Options options) {
+        T value = options.hash(name);
         if (value == null) {
             throw new MissingArgumentException(name);
         }

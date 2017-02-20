@@ -18,11 +18,12 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Editable {
 
     @Id
     @GeneratedValue
@@ -116,6 +117,12 @@ public class User {
     public User() {
     }
 
+    @Override
+    public boolean isEditable(RequestContext requestContext) {
+        return requestContext.getUserId() > 0
+                && (getId() == requestContext.getUserId() || requestContext.isUserAdminUsers());
+    }
+
     public long getId() {
         return id;
     }
@@ -175,6 +182,14 @@ public class User {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public boolean isMan() {
+        return getGender() == null || getGender() == Gender.MINE;
+    }
+
+    public boolean isWoman() {
+        return getGender() == Gender.FEMINE;
     }
 
     public String getInfo() {
@@ -319,6 +334,26 @@ public class User {
 
     public void setSettings(String settings) {
         this.settings = settings;
+    }
+
+    public boolean isMigdalStudent() {
+        return (getRights() & UserRight.MIGDAL_STUDENT.getValue()) != 0;
+    }
+
+    public boolean isAdminUsers() {
+        return (getRights() & UserRight.ADMIN_USERS.getValue()) != 0;
+    }
+
+    public boolean isAdminTopics() {
+        return (getRights() & UserRight.ADMIN_TOPICS.getValue()) != 0;
+    }
+
+    public boolean isModerator() {
+        return (getRights() & UserRight.MODERATOR.getValue()) != 0;
+    }
+
+    public boolean isAdminDomain() {
+        return (getRights() & UserRight.ADMIN_DOMAIN.getValue()) != 0;
     }
 
     public Set<User> getGroups() {

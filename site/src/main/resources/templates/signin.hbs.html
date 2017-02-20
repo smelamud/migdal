@@ -6,7 +6,7 @@
         {{formErrors form="loginForm"}}
         <form method="post" action="/actions/login">
             {{#ifieq novice 0}}
-                {{hidden name="back" value=rc.back}}
+                {{hidden name="back" value=(he rc.back)}}
             {{else}}
                 {{hidden name="back" value="/register/ok/"}}
             {{/ifieq}}
@@ -51,7 +51,7 @@
         </form>
     {{else}}
         <form method="post" action="/actions/logout">
-            {{hidden name="back" value=rc.back}}
+            {{hidden name="back" value=(he rc.back)}}
             {{#formComment}}
                 Вы вошли на сайт как
                 {{#if rc.userHidden}}
@@ -68,7 +68,7 @@
     {{#formTable title="Сменить пользователя" mini=true}}
         {{formErrors form="suForm"}}
         <form method="post" action="/actions/su">
-            {{hidden name="back" value=rc.back}}
+            {{hidden name="back" value=(he rc.back)}}
             <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
             <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
             {{formEdit title="Ник" name="login" value=(he suForm.login) size="30" maxlength="30"}}

@@ -614,14 +614,6 @@ function getUserGenderById($id) {
     return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 'mine';
 }
 
-function getUserIdByLogin($login) {
-    $loginS = addslashes($login);
-    $result = sql("select id
-                   from users
-                   where login='$loginS'",
-                  __FUNCTION__);
-    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
-}
 
 function idByLogin($login) {
     if (isId($login))
