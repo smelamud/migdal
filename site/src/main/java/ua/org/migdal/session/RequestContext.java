@@ -1,6 +1,6 @@
 package ua.org.migdal.session;
 
-import java.util.List;
+import java.util.Set;
 
 public interface RequestContext {
 
@@ -22,7 +22,7 @@ public interface RequestContext {
 
     long getRealUserId();
 
-    List<Long> getUserGroups();
+    Set<Long> getUserGroups();
 
     String getUserLogin();
 

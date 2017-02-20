@@ -530,6 +530,20 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: groups_group_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX groups_group_id_idx ON groups USING btree (group_id);
+
+
+--
+-- Name: groups_user_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX groups_user_id_idx ON groups USING btree (user_id);
+
+
+--
 -- Name: users_confirm_code_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
@@ -590,6 +604,22 @@ CREATE INDEX users_shames_idx ON users USING btree (shames);
 --
 
 CREATE INDEX users_surname_idx ON users USING btree (surname);
+
+
+--
+-- Name: groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY groups
+    ADD CONSTRAINT groups_group_id_fkey FOREIGN KEY (group_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: groups_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY groups
+    ADD CONSTRAINT groups_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

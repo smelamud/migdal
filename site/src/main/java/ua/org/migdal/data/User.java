@@ -2,13 +2,19 @@ package ua.org.migdal.data;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,6 +26,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    @Access(AccessType.PROPERTY)
     private long id;
 
     @NotNull
@@ -97,6 +104,15 @@ public class User {
     @Size(max=70)
     private String settings = "";
 
+    @ManyToMany
+    @JoinTable(name = "groups",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id", referencedColumnName = "id")})
+    private Set<User> groups;
+
+    @ManyToMany(mappedBy = "groups")
+    private Set<User> users;
+
     public User() {
     }
 
@@ -116,6 +132,7 @@ public class User {
         this.login = login;
     }
 
+    @Transient
     public String getFolder() {
         return Utils.isAsciiNoWhitespace(getLogin()) ? getLogin() : Long.toString(getId());
     }
@@ -302,6 +319,22 @@ public class User {
 
     public void setSettings(String settings) {
         this.settings = settings;
+    }
+
+    public Set<User> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<User> groups) {
+        this.groups = groups;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
 }

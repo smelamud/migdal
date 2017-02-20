@@ -1,6 +1,7 @@
 package ua.org.migdal.manager;
 
 import java.sql.Timestamp;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -72,6 +73,10 @@ public class UsersManager {
     @Transactional
     public void updateLastOnline(long id, Timestamp lastOnline) {
         userRepository.updateLastOnline(id, lastOnline);
+    }
+
+    public Set<Long> getGroupIdsByUserId(long id) {
+        return userRepository.findGroupIdsByUserId(id);
     }
 
 }

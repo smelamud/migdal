@@ -1,16 +1,17 @@
 package ua.org.migdal.session;
 
-import java.sql.Timestamp;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+
 import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
@@ -46,7 +47,7 @@ public class RequestContextImpl implements RequestContext {
     private Boolean printMode;
     private long userId;
     private long realUserId;
-    private List<Long> userGroups;
+    private Set<Long> userGroups = new HashSet<>();
     private String userLogin;
     private String userFolder;
     private short userHidden;
@@ -98,6 +99,7 @@ public class RequestContextImpl implements RequestContext {
         if (isUserAdminUsers() && userHidden > 0) {
             userHidden--;
         }
+        userGroups.addAll(usersManager.getGroupIdsByUserId(userId));
         usersManager.updateLastOnline(realUserId, Utils.now());
     }
 
@@ -165,7 +167,7 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
-    public List<Long> getUserGroups() {
+    public Set<Long> getUserGroups() {
         processSession();
         return userGroups;
     }
