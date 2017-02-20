@@ -23,8 +23,12 @@ public class FormErrorsHelperSource {
         }
 
         String className = options.hash("class", "");
+        String formName = options.hash("form");
         Errors errors = (Errors) options.get("errors");
 
+        if (formName != null && !errors.getObjectName().equals(formName)) {
+            return "";
+        }
         if (!errors.hasErrors()) {
             return "";
         }

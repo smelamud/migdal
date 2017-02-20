@@ -126,9 +126,6 @@ const ECAD_NO_ACTION = 281;
 const EUL_LARGE = 290;
 const EUL_UNKNOWN_FORMAT = 291;
 
-const EUS_NO_SWITCH = 300;
-const EUS_NO_USER = 301;
-
 const EMR_NO_RENEW = 310;
 const EMR_NO_ENTRY = 311;
 

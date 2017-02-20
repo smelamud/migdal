@@ -2,8 +2,8 @@
 {{> part/top}}
 
 {{#formTable title="Вход на сайт" mini=true}}
-    {{formErrors}}
     {{#notLogged}}
+        {{formErrors form="loginForm"}}
         <form method="post" action="/actions/login">
             {{#ifieq novice 0}}
                 {{hidden name="back" value=rc.back}}
@@ -66,11 +66,12 @@
 {{/formTable}}
 {{#adminUsers}}
     {{#formTable title="Сменить пользователя" mini=true}}
+        {{formErrors form="suForm"}}
         <form method="post" action="/actions/su">
             {{hidden name="back" value=rc.back}}
             <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
             <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
-            {{formEdit title="Ник" name="login" size="30" maxlength="30"}}
+            {{formEdit title="Ник" name="login" value=(he suForm.login) size="30" maxlength="30"}}
             {{formButtons title="Сменить"}}
         </form>
     {{/formTable}}

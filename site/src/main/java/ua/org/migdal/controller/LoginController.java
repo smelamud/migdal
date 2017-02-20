@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.LoginForm;
+import ua.org.migdal.form.SuForm;
 import ua.org.migdal.manager.UsersManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
@@ -44,6 +45,8 @@ public class LoginController {
         model.addAttribute("novice", Integer.toString(novice != null ? novice : 0));
         if (!requestContext.isLogged()) {
             model.asMap().putIfAbsent("loginForm", new LoginForm());
+        } else {
+            model.asMap().putIfAbsent("suForm", new SuForm());
         }
         return "signin";
     }
@@ -99,6 +102,35 @@ public class LoginController {
             session.setRealUserId(usersManager.getGuestId());
         }
         return "redirect:" + requestContext.getBack();
+    }
+
+    @PostMapping("/actions/su")
+    public String actionSu(
+            @ModelAttribute @Valid SuForm suForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(LoginController.class, "actionSu", errors)
+                .execute(() -> {
+                    if (!requestContext.isUserAdminUsers()) {
+                        return "notAdmin";
+                    }
+                    User user = usersManager.getByLogin(suForm.getLogin());
+                    if (user == null) {
+                        return "noUser";
+                    }
+                    session.setUserId(user.getId());
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("suForm", suForm);
+            return UriComponentsBuilder.fromUriString("redirect:/signin")
+                    .queryParam("back", requestContext.getBack())
+                    .toUriString();
+        }
     }
 
 }
