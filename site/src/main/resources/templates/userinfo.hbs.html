@@ -9,6 +9,7 @@
 
 {{#*inline "controls"}}
     {{#editable user}}
+        <br>
         <p class="ninept">
             &nbsp;
             {{#if admin}}
@@ -65,7 +66,7 @@
         {{/if}}
         <tr valign="top">
             <th>Последний раз<br>заходил сюда:</th>
-            <td width="100%"><lastonline user="$,"></td>
+            <td width="100%">{{lastOnline user}}</td>
         </tr>
     </table>
     {{> controls}}

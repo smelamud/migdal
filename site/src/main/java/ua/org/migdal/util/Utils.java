@@ -7,11 +7,21 @@ import java.sql.Timestamp;
 import java.util.function.Function;
 import javax.xml.bind.DatatypeConverter;
 
+import ua.org.migdal.helper.HelperUtils;
+
 public class Utils {
 
     public static String md5(String s) throws NoSuchAlgorithmException {
         return DatatypeConverter.printHexBinary(
                 MessageDigest.getInstance("MD5").digest(s.getBytes(StandardCharsets.UTF_8)));
+    }
+
+    public static String plural(long n, String[] forms) {
+        long a = n % 10;
+        long b = n / 10 % 10;
+        return b == 1 || a >= 5 || a == 0
+                ? forms[2]
+                : (a == 1 ? forms[0] : forms[1]);
     }
 
     public static boolean isAsciiNoWhitespace(String s) {

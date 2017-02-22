@@ -85,14 +85,6 @@
 </if>
 </callback>
 
-<element name='lastonline'>
-<if what='$user.isTooOld'>
- очень давно
-<else>
- $user.FuzzyLastOnline
-</if>
-</element>
-
 <element name='navi_sort'>
 <if what='$$sort!=$value'>
  <a href='$[sort=$value offset prefix]'>$title</a>

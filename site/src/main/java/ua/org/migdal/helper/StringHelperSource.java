@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import org.springframework.web.util.HtmlUtils;
+import ua.org.migdal.util.Utils;
 
 @HelperSource
 public class StringHelperSource {
@@ -24,14 +25,8 @@ public class StringHelperSource {
         return s != null ? s.replaceAll(">\\s+", ">") : null;
     }
 
-    public CharSequence plural(String nS, String forms) {
-        long n = HelperUtils.intArg(0, nS);
-        String[] formsA = forms.split(",");
-        long a = n % 10;
-        long b = n / 10 % 10;
-        return b == 1 || a >= 5 || a == 0
-                ? formsA[2]
-                : (a == 1 ? formsA[0] : formsA[1]);
+    public CharSequence plural(Object n, String forms) {
+        return Utils.plural(HelperUtils.intArg(0, n), forms.split(","));
     }
 
 }

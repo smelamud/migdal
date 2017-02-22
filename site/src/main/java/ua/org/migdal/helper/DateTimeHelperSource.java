@@ -45,4 +45,10 @@ public class DateTimeHelperSource {
         return "";
     }
 
+    public CharSequence fuzzy(Options options) {
+        String dateString = options.hash("date");
+        Date timestamp = dateString != null ? new Date(Long.parseLong(dateString)) : new Date();
+        return Formatter.formatFuzzyTimeElapsed(timestamp);
+    }
+
 }

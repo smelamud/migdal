@@ -294,6 +294,11 @@ public class User implements Editable {
         this.lastOnline = lastOnline;
     }
 
+    @Transient
+    public boolean isTooOld() {
+        return System.currentTimeMillis() - getLastOnline().getTime() > 10 * 365 * 24 * 3600 * 1000L;
+    }
+
     public Timestamp getConfirmDeadline() {
         return confirmDeadline;
     }
