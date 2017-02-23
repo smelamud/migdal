@@ -41,10 +41,26 @@
         {{else}}
             {{> infoline title="Пол" value="Женский" class="" escape=false}}
         {{/if}}
-        <if what="$,Age!='-'">
-            <infoline title='Дата рождения'
-                      value#='$,RussianBirthday / $,JewishBirthday'>
-        </if>
+        {{#unless user.birthday}}
+            {{#assign "birthdayDate"}}
+                {{#if user.birthdayDay}}
+                    {{user.birthdayDay}}
+                {{/if}}
+                {{#if user.birthdayMonth}}
+                    {{month "gregorian-ru-gen-lc" user.birthdayMonth}}
+                {{/if}}
+                {{#if user.birthdayYear}}
+                    {{user.birthdayYear}}
+                {{/if}}
+            {{/assign}}
+        {{else}}
+            {{#assign "birthdayDate"}}
+                {{cal "gregorian-ru-gen-lc" "dd MMMM yyyy" date=user.birthday}}
+                /
+                {{cal "jewish-ru-gen-lc" "dd MMMM yyyy" date=user.birthday}}
+            {{/assign}}
+        {{/unless}}
+        {{> infoline title="Дата рождения" value=birthdayDate class="" escape=false}}
         {{#if user.migdalStudent}}
             {{> infoline title="Мигдалевец" value="Да" class="" escape=false}}
         {{else}}

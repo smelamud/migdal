@@ -1,8 +1,15 @@
 package ua.org.migdal.helper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 import com.github.jknack.handlebars.Options;
 
@@ -14,40 +21,71 @@ import ua.org.migdal.helper.exception.TypeMismatchException;
 @HelperSource
 public class DateTimeHelperSource {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
     public CharSequence now() {
         return Long.toString(System.currentTimeMillis());
     }
 
-    public CharSequence cal(String type, String pattern, Options options) {
+    private CalendarType calendarTypeArg(String type) {
         type = type.replace('-', '_').toUpperCase();
-        CalendarType calendarType = null;
         try {
-            calendarType = CalendarType.valueOf(type);
+            return CalendarType.valueOf(type);
         } catch (IllegalArgumentException e) {
             throw new TypeMismatchException(0, CalendarType.class, type);
         }
-        String dateString = options.hash("date");
-        Date timestamp = dateString != null ? new Date(Long.parseLong(dateString)) : new Date();
+    }
+
+    private LocalDateTime timestampArg(String paramName, Object value) {
+        if (value == null) {
+            return LocalDateTime.now();
+        }
+        if (value instanceof Instant) {
+            return ((Instant) value).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+        if (value instanceof LocalDate) {
+            return ((LocalDate) value).atStartOfDay();
+        }
+        if (value instanceof LocalDateTime) {
+            return (LocalDateTime) value;
+        }
+        if (value instanceof ZonedDateTime) {
+            return ((ZonedDateTime) value).toLocalDateTime();
+        }
+        if (value instanceof Date) {
+            return ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+        if (value instanceof Timestamp) {
+            return ((Timestamp) value).toLocalDateTime();
+        }
+        return Instant.ofEpochMilli(HelperUtils.intArg(paramName, value))
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    public CharSequence cal(String type, String pattern, Options options) {
+        CalendarType calendarType = calendarTypeArg(type);
+        LocalDateTime timestamp = timestampArg("date", options.hash("date"));
         return Formatter.format(calendarType, pattern, timestamp);
+    }
+
+    public CharSequence month(String type, Object monthN) {
+        CalendarType calendarType = calendarTypeArg(type);
+        short n = (short) HelperUtils.intArg(1, monthN);
+        return Formatter.formatMonth(calendarType, n);
     }
 
     public CharSequence daysTill(String var, String date, Options options) {
         try {
-            long till = DATE_FORMAT.parse(date).getTime();
-            long now = System.currentTimeMillis();
-            int days = (int)((till - now) / 1000 / 3600 / 24);
-            options.data(var, Integer.toString(days));
-        } catch (ParseException e) {
-            throw new DateFormatException(1, DATE_FORMAT.toPattern(), date);
+            LocalDate till = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+            long days = LocalDate.now().until(till, ChronoUnit.DAYS);
+            options.data(var, Long.toString(days));
+        } catch (DateTimeParseException e) {
+            throw new DateFormatException(1, DateTimeFormatter.ISO_LOCAL_DATE.toString(), date);
         }
         return "";
     }
 
     public CharSequence fuzzy(Options options) {
-        String dateString = options.hash("date");
-        Date timestamp = dateString != null ? new Date(Long.parseLong(dateString)) : new Date();
+        LocalDateTime timestamp = timestampArg("date", options.hash("date"));
         return Formatter.formatFuzzyTimeElapsed(timestamp);
     }
 

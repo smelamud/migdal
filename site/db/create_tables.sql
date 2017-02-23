@@ -473,7 +473,6 @@ CREATE TABLE users (
     surname character varying(30) NOT NULL,
     info text NOT NULL,
     info_xml text NOT NULL,
-    birthday date NOT NULL,
     created timestamp with time zone,
     modified timestamp with time zone,
     last_online timestamp with time zone,
@@ -489,7 +488,10 @@ CREATE TABLE users (
     no_login boolean NOT NULL,
     has_personal boolean NOT NULL,
     settings character varying(70) DEFAULT ''::character varying NOT NULL,
-    gender smallint NOT NULL
+    gender smallint NOT NULL,
+    birthday_day smallint NOT NULL,
+    birthday_month smallint NOT NULL,
+    birthday_year smallint NOT NULL
 );
 
 

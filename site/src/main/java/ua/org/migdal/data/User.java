@@ -2,6 +2,11 @@ package ua.org.migdal.data;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.Set;
 
 import javax.persistence.Access;
@@ -60,8 +65,14 @@ public class User implements Editable {
     @NotNull
     private String infoXml = "";
 
-    @NotNull  // TODO make it nullable
-    private Date birthday = new Date(0);
+    @NotNull
+    private short birthdayDay;
+
+    @NotNull
+    private short birthdayMonth;
+
+    @NotNull
+    private short birthdayYear;
 
     private Timestamp created;
 
@@ -262,12 +273,37 @@ public class User implements Editable {
         this.infoXml = infoXml;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public short getBirthdayDay() {
+        return birthdayDay;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirthdayDay(short birthdayDay) {
+        this.birthdayDay = birthdayDay;
+    }
+
+    public short getBirthdayMonth() {
+        return birthdayMonth;
+    }
+
+    public void setBirthdayMonth(short birthdayMonth) {
+        this.birthdayMonth = birthdayMonth;
+    }
+
+    public short getBirthdayYear() {
+        return birthdayYear;
+    }
+
+    public void setBirthdayYear(short birthdayYear) {
+        this.birthdayYear = birthdayYear;
+    }
+
+    @Transient
+    public LocalDate getBirthday() {
+        try {
+            return LocalDate.of(getBirthdayYear(), getBirthdayMonth(), getBirthdayDay());
+        } catch (DateTimeException e) {
+            return null;
+        }
     }
 
     public Timestamp getCreated() {

@@ -1,7 +1,10 @@
 package ua.org.migdal.helper.calendar;
 
 public class Tables {
-    
+
+    public static String[] GREGORIAN_MONTH_EN = { "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December" };
+
     public static String[] GREGORIAN_DOW_RU_PC_SHORT = {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"};
     public static String[] GREGORIAN_DOW_RU_LC_SHORT = {"пн", "вт", "ср", "чт", "пт", "сб", "вс"};
     public static String[] GREGORIAN_DOW_RU_PC_LONG = {"Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг",
@@ -19,6 +22,8 @@ public class Tables {
             "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"};
     public static String[] GREGORIAN_MONTH_RU_GEN_PC_LONG = {"Января", "Февраля", "Марта", "Апреля", "Мая", "Июня",
             "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"};
+    public static String[] GREGORIAN_MONTH_RU_GEN_LC_LONG = {"января", "февраля", "марта", "апреля", "мая", "июня",
+            "июля", "августа", "сентября", "октября", "ноября", "декабря"};
 
     public static String[] JEWISH_DOW_RU_PC_SHORT = {"Ршн", "Шен", "Шлш", "Рви", "Хмш", "Шиш", "Шаб"};
     public static String[] JEWISH_DOW_RU_LC_SHORT = {"ршн", "шен", "шлш", "рви", "хмш", "шиш", "шаб"};

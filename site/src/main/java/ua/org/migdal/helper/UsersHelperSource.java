@@ -30,7 +30,7 @@ public class UsersHelperSource {
         if (user.isTooOld()) {
             return "очень давно";
         } else {
-            return Formatter.formatFuzzyTimeElapsed(user.getLastOnline());
+            return Formatter.formatFuzzyTimeElapsed(user.getLastOnline().toLocalDateTime());
         }
     }
 
