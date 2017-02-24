@@ -11,55 +11,6 @@ require_once('lib/text.php');
 require_once('lib/inner-images.php');
 require_once('lib/mtext-tags.php');
 
-class InnerImageBlock {
-
-    private $sizeX = 0;
-    private $sizeY = 0;
-    private $placement = IPL_CENTER;
-    private $images = array();
-
-    public function getSizeX() {
-        return $this->sizeX;
-    }
-
-    public function setSizeX($sizeX) {
-        $this->sizeX = $sizeX;
-    }
-
-    public function getSizeY() {
-        return $this->sizeY;
-    }
-
-    public function setSizeY($sizeY) {
-        $this->sizeY = $sizeY;
-    }
-
-    public function getPlacement() {
-        return $this->placement;
-    }
-
-    public function isPlaced($place) {
-        $hplace = $place & IPL_HORIZONTAL;
-        $h = $hplace == 0 || ($this->placement & IPL_HORIZONTAL) == $hplace;
-        $vplace = $place & IPL_VERTICAL;
-        $v = $vplace == 0 || ($this->placement & IPL_VERTICAL) == $vplace;
-        return $h && $v;
-    }
-
-    public function setPlacement($placement) {
-        $this->placement = $placement;
-    }
-
-    public function addImage($image) {
-        $this->images[] = $image;
-    }
-
-    public function getImage() {
-        return isset($this->images[0]) ? $this->images[0] : null;
-    }
-
-}
-
 class MTextToHTMLXML
         extends XMLParser {
 
@@ -429,23 +380,6 @@ class MTextToHTMLXML
             $this->xmlFootnote .= $s;
     }
 
-}
-
-function getImageBlocks($iterator) {
-    $blocks = array();
-    if (is_null($iterator))
-        return $blocks;
-    foreach ($iterator as $image) {
-        $par = $image->getPar();
-        if (!isset($blocks[$par]))
-            $blocks[$par] = new InnerImageBlock();
-        $block = $blocks[$par];
-        $block->addImage($image);
-        $block->setSizeX(max($block->getSizeX(), $image->getX() + 1));
-        $block->setSizeY(max($block->getSizeY(), $image->getY() + 1));
-        $block->setPlacement($image->getPlacement());
-    }
-    return $blocks;
 }
 
 function mtextToHTML($body, $format = MTEXT_LINE, $id = 0,

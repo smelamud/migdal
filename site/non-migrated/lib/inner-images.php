@@ -5,25 +5,6 @@ require_once('lib/dataobject.php');
 require_once('lib/sql.php');
 require_once('lib/selectiterator.php');
 
-const IPL_LEFT = 1;
-const IPL_HCENTER = 2;
-const IPL_RIGHT = 3;
-const IPL_HORIZONTAL = 3;
-const IPL_TOP = 4;
-const IPL_VCENTER = 8;
-const IPL_BOTTOM = 12;
-const IPL_VERTICAL = 12;
-
-define('IPL_TOPLEFT', IPL_TOP | IPL_LEFT);
-define('IPL_TOPCENTER', IPL_TOP | IPL_HCENTER);
-define('IPL_TOPRIGHT', IPL_TOP | IPL_RIGHT);
-define('IPL_CENTERLEFT', IPL_VCENTER | IPL_LEFT);
-define('IPL_CENTER', IPL_VCENTER | IPL_HCENTER);
-define('IPL_CENTERRIGHT', IPL_VCENTER | IPL_RIGHT);
-define('IPL_BOTTOMLEFT', IPL_BOTTOM | IPL_LEFT);
-define('IPL_BOTTOMCENTER', IPL_BOTTOM | IPL_HCENTER);
-define('IPL_BOTTOMRIGHT', IPL_BOTTOM | IPL_RIGHT);
-
 class InnerImage
         extends DataObject {
 
