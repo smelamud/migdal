@@ -5,42 +5,6 @@ require_once('lib/xml.php');
 require_once('lib/charsets.php');
 require_once('lib/text.php');
 
-class MTextToLineXML
-        extends XMLParser {
-
-    private $line = '';
-
-    protected function xmlError($message) {
-        $this->line .= $message;
-    }
-
-    public function parse($body) {
-        parent::parse('mtext-short', $body);
-    }
-
-    public function getLine() {
-        return $this->line;
-    }
-
-    protected function endElement($parser, $name) {
-        switch ($name) {
-            case 'P':
-            case 'LI':
-            case 'CENTER':
-            case 'QUOTE':
-            case 'H2':
-            case 'H3':
-            case 'H4':
-                $this->line .= "\x1F";
-        }
-    }
-
-    protected function characterData($parser, $data) {
-        $this->line .= unhtmlentities(convertFromXMLText($data));
-    }
-
-}
-
 class MTextShortenXML
         extends XMLParser {
 
