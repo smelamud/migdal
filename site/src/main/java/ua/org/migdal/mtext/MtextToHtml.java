@@ -167,11 +167,10 @@ class MtextToHtml extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        String name = qName.toUpperCase();
-        if (!MtextTagLevel.TAGS.containsKey(name) || MtextTagLevel.TAGS.get(name).greaterThan(format)) {
+        if (!MtextTagLevel.TAGS.containsKey(qName) || MtextTagLevel.TAGS.get(qName).greaterThan(format)) {
             if (!ignoreWrongFormat) {
                 html.append("<b>** &lt;");
-                html.append(name);
+                html.append(qName);
                 html.append("&gt; **</b>");
             } else {
                 html.append(' ');
@@ -179,92 +178,93 @@ class MtextToHtml extends DefaultHandler {
             return;
         }
         if (inFootnote) {
-            xmlFootnote.append(XmlUtils.makeTag(name, attributes));
+            xmlFootnote.append(XmlUtils.makeTag(qName, attributes));
         }
-        switch (name) {
-            case "MTEXT-LINE":
-            case "MTEXT-SHORT":
-            case "MTEXT-LONG":
+        switch (qName) {
+            case "mtext-line":
+            case "mtext-short":
+            case "mtext-long":
                 break;
 
-            case "A":
-                if (attributes.getIndex("HREF") < 0) {
+            case "a": {
+                if (attributes.getIndex("href") < 0) {
                     html.append("<b>&lt;A HREF?&gt;</b>");
                     break;
                 }
-                String href = verifyURL(attributes.getValue("HREF"));
+                String href = verifyURL(attributes.getValue("href"));
                 // Attribute "LOCAL" may be present, but ignored for now
-                html.append(XmlUtils.makeTag(name, Collections.singletonMap("href", href)));
+                html.append(XmlUtils.makeTag(qName, Collections.singletonMap("href", href)));
                 break;
+            }
 
-            case "EMAIL":
-                if (attributes.getIndex("ADDR") < 0) {
+            case "email":
+                if (attributes.getIndex("addr") < 0) {
                     html.append("<b>&lt;EMAIL ADDR?&gt;</b>");
                     break;
                 }
                 html.append(XmlUtils.makeTag("a",
-                        Collections.singletonMap("href", "mailto:" + attributes.getValue("ADDR"))));
-                html.append(XmlUtils.makeText(attributes.getValue("ADDR")));
+                        Collections.singletonMap("href", "mailto:" + attributes.getValue("addr"))));
+                html.append(XmlUtils.makeText(attributes.getValue("addr")));
                 html.append(XmlUtils.makeTag("/a"));
                 break;
 
-            case "USER":
-                if (attributes.getIndex("NAME") < 0 && attributes.getIndex("GUEST-NAME") < 0) {
+            case "user":
+                if (attributes.getIndex("name") < 0 && attributes.getIndex("guest-name") < 0) {
                     html.append("<b>&lt;USER NAME?&gt;</b>");
                     break;
                 }
-                if (attributes.getIndex("NAME") >= 0) {
-                    html.append(invokeUserNameCallback(false, attributes.getValue("NAME")));
+                if (attributes.getIndex("name") >= 0) {
+                    html.append(invokeUserNameCallback(false, attributes.getValue("name")));
                 } else {
-                    html.append(invokeUserNameCallback(true, attributes.getValue("GUEST-NAME")));
+                    html.append(invokeUserNameCallback(true, attributes.getValue("guest-name")));
                 }
                 break;
 
-            case "H2":
-            case "H3":
-            case "H4":
-                html.append(XmlUtils.makeTag(name, attributes));
+            case "h2":
+            case "h3":
+            case "h4":
+                html.append(XmlUtils.makeTag(qName, attributes));
                 inHx = true;
                 brInHx = false;
                 break;
 
-            case "BR":
-                html.append(XmlUtils.makeTag(name, attributes, true));
+            case "br":
+                html.append(XmlUtils.makeTag(qName, attributes, true));
                 if (inHx && !brInHx) {
                     brInHx = true;
                     html.append(XmlUtils.makeTag("span", Collections.singletonMap("class", "subheading")));
                 }
                 break;
 
-            case "P": {
+            case "p": {
                 putImageBlock();
-                String clear = attributes.getIndex("CLEAR") >= 0 ? attributes.getValue("CLEAR") : getParagraphClear();
+                String clear = attributes.getIndex("clear") >= 0 ? attributes.getValue("clear") : getParagraphClear();
                 if (clear.equals("none")) {
-                    html.append(XmlUtils.makeTag(name));
+                    html.append(XmlUtils.makeTag(qName));
                 } else {
-                    html.append(XmlUtils.makeTag(name, Collections.singletonMap("style", "clear: " + clear)));
+                    html.append(XmlUtils.makeTag(qName, Collections.singletonMap("style", "clear: " + clear)));
                 }
                 break;
             }
 
-            case "LI":
+            case "li":
                 if (listStyles.empty()) {
                     html.append("<b>&lt;LI?&gt;</b>");
                     break;
                 }
                 if (listStyles.peek() != 'd') {
-                    html.append(XmlUtils.makeTag(name));
+                    html.append(XmlUtils.makeTag(qName));
                 }
-                if (attributes.getIndex("TITLE") >= 0) {
+                if (attributes.getIndex("title") >= 0) {
                     if (listStyles.peek() != 'd') {
                         html.append(XmlUtils.makeTag(listFonts.peek().toString()));
-                        html.append(XmlUtils.makeText(attributes.getValue("TITLE")));
+                        html.append(XmlUtils.makeText(attributes.getValue("title")));
                         html.append(XmlUtils.makeTag("/" + listFonts.peek()));
                         html.append(' ');
                     } else {
                         html.append(XmlUtils.makeTag("dt"));
                         html.append(XmlUtils.makeTag(listFonts.peek().toString()));
-                        html.append(XmlUtils.makeText(attributes.getValue("TITLE")));
+                        html.append(XmlUtils.makeText(attributes.getValue("title")));
                         html.append(XmlUtils.makeTag("/" + listFonts.peek()));
                         html.append(XmlUtils.makeTag("/dt"));
                     }
@@ -274,44 +274,44 @@ class MtextToHtml extends DefaultHandler {
                 }
                 break;
 
-            case "UL":
+            case "ul":
                 listStyles.push('u');
                 listStyles.push('i');
-                html.append(XmlUtils.makeTag(name, attributes));
+                html.append(XmlUtils.makeTag(qName, attributes));
                 break;
 
-            case "OL":
+            case "ol":
                 listStyles.push('o');
                 listStyles.push('i');
-                html.append(XmlUtils.makeTag(name, attributes));
+                html.append(XmlUtils.makeTag(qName, attributes));
                 break;
 
-            case "DL": {
+            case "dl": {
                 listStyles.push('d');
-                String font = attributes.getValue("FONT");
+                String font = attributes.getValue("font");
                 listStyles.push(StringUtils.isEmpty(font) ? 'b' : font.charAt(0));
-                html.append(XmlUtils.makeTag(name, attributes));
+                html.append(XmlUtils.makeTag(qName, attributes));
                 break;
             }
 
-            case "QUOTE":
+            case "quote":
                 html.append(XmlUtils.makeTag("div", Collections.singletonMap("class", "quote")));
                 break;
 
-            case "FOOTNOTE":
+            case "footnote":
                 htmlFootnote = new StringBuilder();
                 xmlFootnote = new StringBuilder();
                 html = htmlFootnote;
                 inFootnote = true;
                 html.append(XmlUtils.makeTag("a", Collections.singletonMap("href", "#_ref" + noteNo)));
-                if (attributes.getIndex("TITLE") < 0) {
+                if (attributes.getIndex("title") < 0) {
                     footnoteTitle = "";
                     html.append(XmlUtils.makeTag("sup"));
                     html.append(noteNo);
                     html.append(XmlUtils.makeTag("/sup"));
                     html.append(XmlUtils.makeTag("/a"));
                 } else {
-                    footnoteTitle = attributes.getValue("TITLE");
+                    footnoteTitle = attributes.getValue("title");
                     html.append(footnoteTitle);
                     html.append(XmlUtils.makeTag("/a"));
                     html.append(" &mdash; ");
@@ -320,9 +320,9 @@ class MtextToHtml extends DefaultHandler {
                 html.append(XmlUtils.makeTag("/a"));
                 break;
 
-            case "INCUT": {
-                String align = attributes.getValue("ALIGN");
-                String width = attributes.getValue("WIDTH");
+            case "incut": {
+                String align = attributes.getValue("align");
+                String width = attributes.getValue("width");
                 html.append(invokeIncutOpenCallback(
                         align != null ? align : "right",
                         width != null ? width : "50%"));
@@ -330,66 +330,65 @@ class MtextToHtml extends DefaultHandler {
             }
 
             default:
-                html.append(XmlUtils.makeTag(name, attributes));
+                html.append(XmlUtils.makeTag(qName, attributes));
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        String name = qName.toUpperCase();
-        if (!MtextTagLevel.TAGS.containsKey(name) || MtextTagLevel.TAGS.get(name).greaterThan(format)) {
+        if (!MtextTagLevel.TAGS.containsKey(qName) || MtextTagLevel.TAGS.get(qName).greaterThan(format)) {
             if (!ignoreWrongFormat) {
                 html.append("<b>** &lt;/");
-                html.append(name);
+                html.append(qName);
                 html.append("&gt; **</b>");
             } else {
                 html.append(' ');
             }
             return;
         }
-        switch (name) {
-            case "MTEXT-LINE":
-            case "MTEXT-SHORT":
-            case "MTEXT-LONG":
-            case "BR":
+        switch (qName) {
+            case "mtext-line":
+            case "mtext-short":
+            case "mtext-long":
+            case "br":
                 break;
 
-            case "H2":
-            case "H3":
-            case "H4":
+            case "h2":
+            case "h3":
+            case "h4":
                 if (brInHx) {
                     html.append(XmlUtils.makeTag("/span"));
                 }
                 inHx = false;
                 brInHx = false;
-                html.append(XmlUtils.makeTag("/" + name));
+                html.append(XmlUtils.makeTag("/" + qName));
                 break;
 
-            case "LI":
+            case "li":
                 if (listStyles.empty()) {
                     html.append("<b>&lt;/LI?&gt;</b>");
                     break;
                 }
                 if (listStyles.peek() != 'd') {
-                    html.append(XmlUtils.makeTag("/" + name));
+                    html.append(XmlUtils.makeTag("/" + qName));
                 } else {
                     html.append(XmlUtils.makeTag("/dd"));
                 }
                 break;
 
-            case "UL":
-            case "OL":
-            case "DL":
+            case "ul":
+            case "ol":
+            case "dl":
                 listStyles.pop();
                 listFonts.pop();
-                html.append(XmlUtils.makeTag("/" + name));
+                html.append(XmlUtils.makeTag("/" + qName));
                 break;
 
-            case "QUOTE":
+            case "quote":
                 html.append(XmlUtils.makeTag("/div"));
                 break;
 
-            case "FOOTNOTE":
+            case "footnote":
                 html.append(XmlUtils.makeTag("br", (Attributes) null, true));
                 htmlFootnotes.append(htmlFootnote);
                 html = htmlBody;
@@ -416,15 +415,15 @@ class MtextToHtml extends DefaultHandler {
                 noteNo++;
                 break;
 
-            case "INCUT":
+            case "incut":
                 html.append(invokeIncutCloseCallback());
                 break;
 
             default:
-                html.append(XmlUtils.makeTag("/" + name));
+                html.append(XmlUtils.makeTag("/" + qName));
         }
         if (inFootnote) {
-            xmlFootnote.append(XmlUtils.makeTag("/" + name));
+            xmlFootnote.append(XmlUtils.makeTag("/" + qName));
         }
     }
 
