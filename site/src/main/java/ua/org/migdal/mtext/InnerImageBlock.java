@@ -10,7 +10,7 @@ public class InnerImageBlock {
 
     private int sizeX = 0;
     private int sizeY = 0;
-    private short placement = ImagePlacement.IPL_CENTER;
+    private short placement = ImagePlacement.CENTER;
     private List<InnerImage> images = new ArrayList<>();
 
     public int getSizeX() {
@@ -38,10 +38,10 @@ public class InnerImageBlock {
     }
 
     public boolean isPlaced(short place) {
-        int hplace = place & ImagePlacement.IPL_HORIZONTAL;
-        boolean h = hplace == 0 || (placement & ImagePlacement.IPL_HORIZONTAL) == hplace;
-        int vplace = place & ImagePlacement.IPL_VERTICAL;
-        boolean v = vplace == 0 || (placement & ImagePlacement.IPL_VERTICAL) == vplace;
+        int hplace = place & ImagePlacement.HORIZONTAL;
+        boolean h = hplace == 0 || (placement & ImagePlacement.HORIZONTAL) == hplace;
+        int vplace = place & ImagePlacement.VERTICAL;
+        boolean v = vplace == 0 || (placement & ImagePlacement.VERTICAL) == vplace;
         return h && v;
     }
 

@@ -1,6 +1,6 @@
 package ua.org.migdal.helper.calendar;
 
-public class Tables {
+class Tables {
 
     public static String[] GREGORIAN_MONTH_EN = { "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December" };

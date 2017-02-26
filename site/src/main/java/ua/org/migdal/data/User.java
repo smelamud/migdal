@@ -24,6 +24,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
+import ua.org.migdal.mtext.Mtext;
+import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
 
@@ -188,7 +190,7 @@ public class User implements Editable {
         this.surname = surname;
     }
 
-    public String getFullName() {
+    public CharSequence getFullName() {
         StringBuilder buf = new StringBuilder();
         if (!StringUtils.isEmpty(getJewishName())) {
             buf.append(getJewishName());
@@ -202,10 +204,10 @@ public class User implements Editable {
             buf.append(' ');
             buf.append(getSurname());
         }
-        return buf.toString();
+        return buf;
     }
 
-    public String getFullNameCivil() {
+    public CharSequence getFullNameCivil() {
         StringBuilder buf = new StringBuilder();
         if (!StringUtils.isEmpty(getJewishName())) {
             buf.append(getName());
@@ -219,10 +221,10 @@ public class User implements Editable {
             buf.append(' ');
             buf.append(getSurname());
         }
-        return buf.toString();
+        return buf;
     }
 
-    public String getFullNameSurname() {
+    public CharSequence getFullNameSurname() {
         StringBuilder buf = new StringBuilder();
         if (!StringUtils.isEmpty(getSurname())) {
             buf.append(getSurname());
@@ -236,7 +238,7 @@ public class User implements Editable {
         } else {
             buf.append(getName());
         }
-        return buf.toString();
+        return buf;
     }
 
     public Gender getGender() {
@@ -271,6 +273,11 @@ public class User implements Editable {
 
     public void setInfoXml(String infoXml) {
         this.infoXml = infoXml;
+    }
+
+    @Transient
+    public Mtext getInfoMtext() {
+        return new Mtext(getInfoXml(), MtextFormat.SHORT);
     }
 
     public short getBirthdayDay() {

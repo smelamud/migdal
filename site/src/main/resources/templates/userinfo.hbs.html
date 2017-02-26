@@ -66,9 +66,10 @@
         {{else}}
             {{> infoline title="Мигдалевец" value="Нет" class="" escape=false}}
         {{/if}}
-        <ifne what='$,Info'>
-            <infoline title='Коротко о себе' value='$,InfoHTML' escape='*false'>
-        </ifne>
+        {{#if user.infoXml}}
+            {{#assign "infoHtml"}}{{{mtext user.infoMtext}}}{{/assign}}
+            {{> infoline title="Коротко о себе" value=infoHtml escape=false}}
+        {{/if}}
         {{#if user.emailVisible}}
             <tr valign="top">
                 <th>E-mail:</th>

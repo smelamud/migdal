@@ -23,7 +23,7 @@ public class UsersHelperSource {
         buf.append("\" title=\"Написать письмо\">");
         buf.append(stringHelperSource.he(user.getEmail()));
         buf.append("</a>");
-        return new Handlebars.SafeString(buf.toString());
+        return new Handlebars.SafeString(buf);
     }
 
     public CharSequence lastOnline(User user) {

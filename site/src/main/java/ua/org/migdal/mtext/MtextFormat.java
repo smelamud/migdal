@@ -4,6 +4,18 @@ public enum MtextFormat {
 
     LINE,
     SHORT,
-    LONG
+    LONG;
+
+    public boolean lessThan(MtextFormat peer) {
+        return ordinal() < peer.ordinal();
+    }
+
+    public boolean greaterThan(MtextFormat peer) {
+        return ordinal() > peer.ordinal();
+    }
+
+    public boolean atLeast(MtextFormat peer) {
+        return ordinal() >= peer.ordinal();
+    }
 
 }

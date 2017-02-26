@@ -7,5 +7,7 @@ public interface InnerImage {
     short getX();
     short getY();
     short getPlacement();
+    boolean isPlaced(short place);
+    Image getImage();
 
 }

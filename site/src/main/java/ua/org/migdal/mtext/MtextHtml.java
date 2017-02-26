@@ -2,23 +2,23 @@ package ua.org.migdal.mtext;
 
 public class MtextHtml {
 
-    private String bodyHtml;
-    private String footnotesHtml;
+    private CharSequence bodyHtml;
+    private CharSequence footnotesHtml;
 
     public MtextHtml(String bodyHtml) {
         this(bodyHtml, null);
     }
 
-    public MtextHtml(String bodyHtml, String footnotesHtml) {
+    public MtextHtml(CharSequence bodyHtml, CharSequence footnotesHtml) {
         this.bodyHtml = bodyHtml;
         this.footnotesHtml = footnotesHtml;
     }
 
-    public String getBodyHtml() {
+    public CharSequence getBodyHtml() {
         return bodyHtml;
     }
 
-    public String getFootnotesHtml() {
+    public CharSequence getFootnotesHtml() {
         return footnotesHtml;
     }
 
