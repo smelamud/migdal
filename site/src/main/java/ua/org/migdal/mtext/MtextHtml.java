@@ -1,5 +1,6 @@
 package ua.org.migdal.mtext;
 
+/* FIXME do we need this class? */
 public class MtextHtml {
 
     private CharSequence bodyHtml;
