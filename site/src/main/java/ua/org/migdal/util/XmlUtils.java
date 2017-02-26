@@ -100,4 +100,16 @@ public class XmlUtils {
         return delicateSpecialChars(text, true, false);
     }
 
+    public static boolean hasMarkup(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if ("<>&=~_^[]{}'".indexOf(s.charAt(i)) >= 0) {
+                return true;
+            }
+            if (s.charAt(i) == '/' && (i == 0 || s.charAt(i - 1) == ' ' || s.charAt(i - 1) == ':')) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

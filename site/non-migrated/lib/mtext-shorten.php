@@ -52,16 +52,6 @@ function getShortenLength($s, $len, $mdlen, $pdlen) {
     return $len;
 }
 
-function hasMarkup($s) {
-    for ($i = 0; $i < strlen($s); $i++) {
-        if (strpos("<>&=~_^[]{}'", $s[$i]) !== false)
-            return true;
-        if ($s[$i] == '/' && ($i == 0 || $s[$i - 1] == ' ' || $s[$i - 1] == ':'))
-            return true;
-    }
-    return false;
-}
-
 function cleanLength($s) {
     if (!hasMarkup($s))
         return strlen($s);
