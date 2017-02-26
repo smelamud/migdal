@@ -4,12 +4,6 @@
 require_once('lib/array.php');
 require_once('lib/text-formats.php');
 
-function unhtmlentities($s) {
-    $table = array_flip(get_html_translation_table(HTML_ENTITIES, ENT_QUOTES));
-    $table['&#039;'] = "'";
-    return strtr($s, $table);
-}
-
 function getQuote($s, $width) {
     $lines = explode("\n", $s);
     $out = '';
