@@ -16,7 +16,7 @@ import ua.org.migdal.data.ImagePlacement;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.util.XmlUtils;
 
-class MtextToHtml extends DefaultHandler {
+public class MtextToHtml extends DefaultHandler {
 
     /**
      * Points to {@link #htmlBody} or {@link #htmlFootnote}
