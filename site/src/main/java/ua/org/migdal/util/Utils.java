@@ -16,6 +16,29 @@ public class Utils {
                 MessageDigest.getInstance("MD5").digest(s.getBytes(StandardCharsets.UTF_8)));
     }
 
+    public static String ellipsize(String s, int len) {
+        if (s.length() <= len) {
+            return s;
+        }
+        String c = s.substring(0, (len - 3) / 2);
+        return c + "..." + s.substring(s.length() - (len - 3 - c.length()));
+    }
+
+    public static String camelCase(String s) {
+        boolean up = true;
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '_') {
+                up = true;
+            } else {
+                buf.append(up ? Character.isUpperCase(c) : c);
+                up = false;
+            }
+        }
+        return buf.toString();
+    }
+
     public static String plural(long n, String[] forms) {
         long a = n % 10;
         long b = n / 10 % 10;
