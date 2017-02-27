@@ -11,6 +11,10 @@ import ua.org.migdal.helper.HelperUtils;
 
 public class Utils {
 
+    public static int random(int min, int max) {
+        return (int) (Math.random() * (max - min)) + min;
+    }
+    
     public static String md5(String s) throws NoSuchAlgorithmException {
         return DatatypeConverter.printHexBinary(
                 MessageDigest.getInstance("MD5").digest(s.getBytes(StandardCharsets.UTF_8)));
