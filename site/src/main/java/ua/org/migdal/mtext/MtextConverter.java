@@ -18,12 +18,16 @@ import ua.org.migdal.util.XmlUtils;
 public class MtextConverter {
 
     public static void convert(Mtext mtext, ContentHandler handler) throws MtextConverterException {
+        convert(mtext.getXml(), handler);
+    }
+
+    public static void convert(String xml, ContentHandler handler) throws MtextConverterException {
         try {
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
             SAXParser saxParser = saxParserFactory.newSAXParser();
             XMLReader xmlReader = saxParser.getXMLReader();
             xmlReader.setContentHandler(handler);
-            xmlReader.parse(new InputSource(new StringReader(XmlUtils.delicateAmps(mtext.getXml(), false).toString())));
+            xmlReader.parse(new InputSource(new StringReader(XmlUtils.delicateAmps(xml, false).toString())));
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new MtextConverterException(e);
         }

@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.ImagePlacement;
 import ua.org.migdal.data.InnerImage;
@@ -39,6 +40,7 @@ public class MtextToHtml extends DefaultHandler {
     private boolean inHx = false;
     private boolean brInHx = false;
 
+    private Config config;
     private ImageCallback imageCallback;
     private UserNameCallback userNameCallback;
     private IncutCallback incutCallback;
@@ -64,6 +66,14 @@ public class MtextToHtml extends DefaultHandler {
 
     public ImageCallback getImageCallback() {
         return imageCallback;
+    }
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
     }
 
     public void setImageCallback(ImageCallback imageCallback) {
@@ -108,12 +118,11 @@ public class MtextToHtml extends DefaultHandler {
     }
 
     private String getInplaceFootnote() {
-        /*global $inplaceSize, $inplaceSizeMinus, $inplaceSizePlus;
-
-        return strtr(shortenNote($this->xmlFootnote, $inplaceSize,
-                $inplaceSizeMinus, $inplaceSizePlus),
-                "\n", ' ');*/
-        return xmlFootnote.toString();
+        return MtextShorten.shortenNote(xmlFootnote.toString(),
+                                        config.getInplaceSize(),
+                                        config.getInplaceSizeMinus(),
+                                        config.getInplaceSizePlus())
+                           .replace('\n', ' ');
     }
 
     private String getParagraphClear() {

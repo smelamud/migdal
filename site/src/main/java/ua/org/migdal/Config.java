@@ -11,6 +11,9 @@ public class Config {
     private int sessionTimeoutLong;
     private boolean allowGuests;
     private String guestLogin;
+    private int inplaceSize;
+    private int inplaceSizeMinus;
+    private int inplaceSizePlus;
 
     public String getSiteDomain() {
         return siteDomain;
@@ -58,6 +61,30 @@ public class Config {
 
     public void setGuestLogin(String guestLogin) {
         this.guestLogin = guestLogin;
+    }
+
+    public int getInplaceSize() {
+        return inplaceSize;
+    }
+
+    public void setInplaceSize(int inplaceSize) {
+        this.inplaceSize = inplaceSize;
+    }
+
+    public int getInplaceSizeMinus() {
+        return inplaceSizeMinus;
+    }
+
+    public void setInplaceSizeMinus(int inplaceSizeMinus) {
+        this.inplaceSizeMinus = inplaceSizeMinus;
+    }
+
+    public int getInplaceSizePlus() {
+        return inplaceSizePlus;
+    }
+
+    public void setInplaceSizePlus(int inplaceSizePlus) {
+        this.inplaceSizePlus = inplaceSizePlus;
     }
 
 }
