@@ -9,7 +9,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 import ua.org.migdal.util.XmlUtils;
 
-class MtextShorten extends DefaultHandler {
+class MtextToLength extends DefaultHandler {
 
     private int len;
     private boolean clearTags;
@@ -19,11 +19,11 @@ class MtextShorten extends DefaultHandler {
     private int clen = 0;
     private boolean stop = false;
 
-    public MtextShorten(int len) {
+    public MtextToLength(int len) {
         this(len, false);
     }
 
-    public MtextShorten(int len, boolean clearTags) {
+    public MtextToLength(int len, boolean clearTags) {
         this.len = len;
         this.clearTags = clearTags;
     }
@@ -117,12 +117,12 @@ class MtextShorten extends DefaultHandler {
 
         String data = new String(ch, start, length);
         int n = HtmlEscape.unescapeHtml(data).length();
-        clen += n;
-        String text = data.substring(0, n - (clen - len));
+        String text = clen + n < len ? data : data.substring(0, n - (clen - len));
         if (!clearTags) {
             text = XmlUtils.delicateSpecialChars(text);
         }
         shortened.append(text);
+        clen += n;
         if (clen >= len) {
             stop = true;
         }

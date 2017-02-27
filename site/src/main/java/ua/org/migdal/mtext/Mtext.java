@@ -4,6 +4,7 @@ public class Mtext {
 
     private String xml;
     private MtextFormat format;
+    private boolean ignoreWrongFormat;
     private long id;
 
     public Mtext(String xml, MtextFormat format) {
@@ -22,6 +23,10 @@ public class Mtext {
 
     public MtextFormat getFormat() {
         return format;
+    }
+
+    public boolean isIgnoreWrongFormat() {
+        return ignoreWrongFormat;
     }
 
     public long getId() {
