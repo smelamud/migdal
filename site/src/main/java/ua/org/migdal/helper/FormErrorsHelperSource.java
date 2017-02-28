@@ -6,7 +6,6 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.util.HtmlUtils;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
@@ -39,9 +38,9 @@ public class FormErrorsHelperSource {
                 String message = messageSource.getMessage(code, null, "", LocaleContextHolder.getLocale());
                 if (!StringUtils.isEmpty(message)) {
                     buf.append("<tr><td colspan=\"2\" class=\"error ");
-                    buf.append(className);
+                    HelperUtils.safeAppend(buf, className);
                     buf.append("\">");
-                    buf.append(HtmlUtils.htmlEscape(message));
+                    HelperUtils.safeAppend(buf, message);
                     buf.append("</td></tr>");
                 }
             }
