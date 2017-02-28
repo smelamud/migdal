@@ -2,6 +2,7 @@ package ua.org.migdal.helper;
 
 import java.io.IOException;
 
+import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,8 @@ public class StatementsHelperSource {
 
     public CharSequence assign(String variableName, Options options) throws IOException {
         CharSequence finalValue = options.apply(options.fn);
-        options.data(variableName, finalValue.toString().trim());
+        finalValue = finalValue instanceof SafeString ? finalValue : finalValue.toString().trim();
+        options.data(variableName, finalValue);
         return "";
     }
 

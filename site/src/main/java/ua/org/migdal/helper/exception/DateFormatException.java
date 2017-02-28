@@ -4,12 +4,12 @@ public class DateFormatException extends TypeMismatchException {
 
     private String datePattern;
 
-    public DateFormatException(String paramName, String datePattern, String value) {
+    public DateFormatException(String paramName, String datePattern, Object value) {
         super(paramName, "date", value);
         this.datePattern = datePattern;
     }
 
-    public DateFormatException(int paramN, String datePattern, String value) {
+    public DateFormatException(int paramN, String datePattern, Object value) {
         this(Integer.toString(paramN), datePattern, value);
     }
 

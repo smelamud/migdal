@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
-import org.springframework.web.util.HtmlUtils;
+
 import ua.org.migdal.util.Utils;
 
 @HelperSource
@@ -16,10 +16,6 @@ public class StringHelperSource {
         } catch (UnsupportedEncodingException e) {
             return "ue:" + e.getMessage();
         }
-    }
-
-    public CharSequence he(String s) {
-        return HtmlUtils.htmlEscape(s);
     }
 
     public CharSequence safe(String s) {

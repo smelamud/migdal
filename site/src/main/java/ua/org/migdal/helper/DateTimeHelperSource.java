@@ -73,7 +73,7 @@ public class DateTimeHelperSource {
         return Formatter.formatMonth(calendarType, n);
     }
 
-    public CharSequence daysTill(String var, String date, Options options) {
+    public CharSequence daysTill(String var, CharSequence date, Options options) {
         try {
             LocalDate till = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
             long days = LocalDate.now().until(till, ChronoUnit.DAYS);
