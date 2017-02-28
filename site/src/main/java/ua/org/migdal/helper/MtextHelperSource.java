@@ -2,7 +2,7 @@ package ua.org.migdal.helper;
 
 import java.util.List;
 
-import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +28,9 @@ public class MtextHelperSource {
         handler.setConfig(config);
         try {
             MtextConverter.convert(mtext, handler);
-            return new Handlebars.SafeString(handler.getHtmlBody());
+            return new SafeString(handler.getHtmlBody());
         } catch (MtextConverterException e) {
-            return new Handlebars.SafeString(
-                    String.format("<b>** %s: %s</b>", e.getMessage(), e.getCause().getMessage()));
+            return new SafeString(String.format("<b>** %s: %s</b>", e.getMessage(), e.getCause().getMessage()));
         }
     }
 

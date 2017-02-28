@@ -2,7 +2,7 @@ package ua.org.migdal.helper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Handlebars.SafeString;
 
 import ua.org.migdal.data.User;
 import ua.org.migdal.helper.calendar.Formatter;
@@ -23,7 +23,7 @@ public class UsersHelperSource {
         buf.append("\" title=\"Написать письмо\">");
         buf.append(stringHelperSource.he(user.getEmail()));
         buf.append("</a>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence lastOnline(User user) {

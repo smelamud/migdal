@@ -6,6 +6,14 @@ import ua.org.migdal.helper.exception.TypeMismatchException;
 
 public class HelperUtils {
 
+    public static <T> T mandatoryHash(String name, Options options) {
+        T value = options.hash(name);
+        if (value == null) {
+            throw new MissingArgumentException(name);
+        }
+        return value;
+    }
+
     public static Long integerArg(String paramName, Object value) {
         if (value == null) {
             return null;
@@ -125,14 +133,6 @@ public class HelperUtils {
             buf.append(' ');
             buf.append(attrName);
         }
-    }
-
-    public static <T> T mandatoryHash(String name, Options options) {
-        T value = options.hash(name);
-        if (value == null) {
-            throw new MissingArgumentException(name);
-        }
-        return value;
     }
 
 }

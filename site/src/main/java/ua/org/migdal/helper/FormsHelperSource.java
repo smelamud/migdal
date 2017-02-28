@@ -3,10 +3,10 @@ package ua.org.migdal.helper;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.github.jknack.handlebars.Handlebars;
-import com.github.jknack.handlebars.Options;
 import org.springframework.validation.Errors;
+
+import com.github.jknack.handlebars.Handlebars.SafeString;
+import com.github.jknack.handlebars.Options;
 
 @HelperSource
 public class FormsHelperSource {
@@ -20,7 +20,7 @@ public class FormsHelperSource {
         HelperUtils.appendMandatoryArgAttr(buf, "name", options);
         HelperUtils.appendArgAttr(buf, "value", "", options);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence checkboxButton(Options options) {
@@ -32,7 +32,7 @@ public class FormsHelperSource {
         HelperUtils.appendOptionalArgAttr(buf,"id", options);
         HelperUtils.appendOptionalArgAttr(buf, "class", options);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     private CharSequence checkboxButton(String name, String value, boolean checked, String id, String cls) {
@@ -44,7 +44,7 @@ public class FormsHelperSource {
         HelperUtils.appendAttr(buf,"id", id);
         HelperUtils.appendAttr(buf, "class", cls);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence checkbox(Options options) {
@@ -54,7 +54,7 @@ public class FormsHelperSource {
         buf.append(' ');
         buf.append(options.hash("title", "").toString());
         buf.append("</label>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence radioButton(Options options) {
@@ -67,7 +67,7 @@ public class FormsHelperSource {
         HelperUtils.appendOptionalArgAttr(buf, "class", options);
         HelperUtils.appendOptionalArgAttr(buf, "onclick", options);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     private CharSequence radioButton(String name, String value, boolean checked, String id, String cls) {
@@ -79,7 +79,7 @@ public class FormsHelperSource {
         HelperUtils.appendAttr(buf,"id", id);
         HelperUtils.appendAttr(buf, "class", cls);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence radio(Options options) {
@@ -89,7 +89,7 @@ public class FormsHelperSource {
         buf.append(' ');
         buf.append(options.hash("title", "").toString());
         buf.append("</label>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     private CharSequence radio(String name, String value, boolean checked, String id, String cls, String title) {
@@ -99,7 +99,7 @@ public class FormsHelperSource {
         buf.append(' ');
         buf.append(title);
         buf.append("</label>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence selectOption(Options options) {
@@ -109,7 +109,7 @@ public class FormsHelperSource {
         HelperUtils.appendArgAttr(buf, "selected", false, options);
         buf.append(options.hash("title", "").toString());
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     private CharSequence selectOption(String value, boolean selected, String title) {
@@ -119,7 +119,7 @@ public class FormsHelperSource {
         HelperUtils.appendAttr(buf, "selected", selected);
         buf.append(title);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formTable(Options options) throws IOException {
@@ -148,7 +148,7 @@ public class FormsHelperSource {
         buf.append("<tr><td><table class=\"form-layer\" width=\"100%\">");
         buf.append(options.apply(options.fn));
         buf.append("</table></td></tr></table></center>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence star(Options options) {
@@ -157,9 +157,9 @@ public class FormsHelperSource {
 
     private CharSequence star(boolean mandatory) {
         if (mandatory) {
-            return new Handlebars.SafeString("<span class=\"form-star\">* </span>");
+            return new SafeString("<span class=\"form-star\">* </span>");
         } else {
-            return new Handlebars.SafeString("<span class=\"form-star\" style=\"visibility: hidden\">* </span>");
+            return new SafeString("<span class=\"form-star\" style=\"visibility: hidden\">* </span>");
         }
     }
 
@@ -170,7 +170,7 @@ public class FormsHelperSource {
         buf.append(star(true));
         buf.append(", заполнять обязательно");
         buf.append("</td></tr>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formLine(Options options) throws IOException {
@@ -184,7 +184,7 @@ public class FormsHelperSource {
         buf.append(formLineBegin(title, name, mandatory, comment, id, options));
         buf.append(options.apply(options.fn));
         buf.append(formLineEnd());
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     private String fieldName(String name) {
@@ -225,11 +225,11 @@ public class FormsHelperSource {
         buf.append('"');
         HelperUtils.appendAttr(buf, "width", options.get("formValueWidth"));
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     private CharSequence formLineEnd() {
-        return new Handlebars.SafeString("</td></tr>");
+        return new SafeString("</td></tr>");
     }
 
     public CharSequence formComment(Options options) throws IOException {
@@ -237,7 +237,7 @@ public class FormsHelperSource {
         buf.append("<tr><td class=\"form-cell\" colspan=\"2\">");
         buf.append(options.apply(options.fn));
         buf.append("</td></tr>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formSection(Options options) {
@@ -249,7 +249,7 @@ public class FormsHelperSource {
         buf.append(title);
         buf.append("</th>");
         buf.append("</tr>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence edit(Options options) {
@@ -262,7 +262,7 @@ public class FormsHelperSource {
         HelperUtils.appendOptionalArgAttr(buf, "onkeypress", options);
         HelperUtils.appendOptionalArgAttr(buf, "id", options);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     private CharSequence edit(String name, String value, String size, String maxlength, String onkeypress, String id) {
@@ -275,7 +275,7 @@ public class FormsHelperSource {
         HelperUtils.appendAttr(buf, "onkeypress", onkeypress);
         HelperUtils.appendAttr(buf, "id", id);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formEdit(Options options) {
@@ -296,7 +296,7 @@ public class FormsHelperSource {
             buf.append(xmlText(xmlid, name));
         }
         buf.append(formLineEnd());
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formPassword(Options options) {
@@ -312,7 +312,7 @@ public class FormsHelperSource {
         buf.append(String.format("<input type='password' name=\"%s\" size=\"%s\" maxlength=\"%s\">",
                                  name, size, maxlength));
         buf.append(formLineEnd());
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formEditor(Options options) {
@@ -326,14 +326,14 @@ public class FormsHelperSource {
 
         StringBuilder buf = new StringBuilder();
         buf.append(formLineBegin(title, name, mandatory, comment, "", options));
-        buf.append(String.format("<textarea name=\"%s\" rows=\"%s\" wrap=\"virtual\" style=\"width: 100%\">%s</textarea>",
+        buf.append(String.format("<textarea name=\"%s\" rows=\"%s\" wrap=\"virtual\" style=\"width: 100%%\">%s</textarea>",
                                  name, rows, body));
         if (xmlid != 0) {
             buf.append("<br>");
             buf.append(xmlText(xmlid, name));
         }
         buf.append(formLineEnd());
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formCheckbox(Options options) {
@@ -366,7 +366,7 @@ public class FormsHelperSource {
             buf.append(checkboxButton(name, value, checked, null, null));
         }
         buf.append(formLineEnd());
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formButtons(Options options) {
@@ -382,7 +382,7 @@ public class FormsHelperSource {
             buf.append("&nbsp;&nbsp;<input type=\"reset\" value=\"Очистить\">");
         }
         buf.append("</td></tr>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formSelect(Options options) throws IOException {
@@ -417,7 +417,7 @@ public class FormsHelperSource {
             buf.append("</table>");
         }
         buf.append(formLineEnd());
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence formOption(Options options) {
@@ -453,7 +453,7 @@ public class FormsHelperSource {
             buf.append("</label></td>");
             buf.append("</tr>");
         }
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     public CharSequence xmlText(Options options) {
@@ -468,7 +468,7 @@ public class FormsHelperSource {
         buf.append(String.format("<a href=\"/xml/%d/%s/\">", id, name));
         buf.append(imagesHelperSource.image("/pics/xml.gif"));
         buf.append("</a>");
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
 }

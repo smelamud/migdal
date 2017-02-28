@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
-import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 import ua.org.migdal.session.RequestContext;
 
@@ -52,7 +52,7 @@ public class ImagesHelperSource {
         HelperUtils.appendOptionalArgAttr(buf, "data_value", "data-value", options);
         HelperUtils.appendOptionalArgAttr(buf, "style", options);
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     CharSequence image(String href) {
@@ -65,7 +65,7 @@ public class ImagesHelperSource {
             HelperUtils.appendAttr(buf, "height", imageSize.height);
         }
         buf.append('>');
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
     private Dimension getImageSize(String path) {

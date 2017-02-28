@@ -8,7 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.util.HtmlUtils;
 
-import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
 @HelperSource
@@ -24,7 +24,7 @@ public class FormErrorsHelperSource {
 
         String className = options.hash("class", "");
         String formName = options.hash("form");
-        Errors errors = (Errors) options.get("errors");
+        Errors errors = options.get("errors");
 
         if (formName != null && !errors.getObjectName().equals(formName)) {
             return "";
@@ -46,7 +46,7 @@ public class FormErrorsHelperSource {
                 }
             }
         }
-        return new Handlebars.SafeString(buf);
+        return new SafeString(buf);
     }
 
 }
