@@ -3,6 +3,7 @@ package ua.org.migdal.helper;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import com.github.jknack.handlebars.Handlebars.SafeString;
 import org.springframework.web.util.HtmlUtils;
 import ua.org.migdal.util.Utils;
 
@@ -19,6 +20,10 @@ public class StringHelperSource {
 
     public CharSequence he(String s) {
         return HtmlUtils.htmlEscape(s);
+    }
+
+    public CharSequence safe(String s) {
+        return new SafeString(s);
     }
 
     public CharSequence asp(String s) {
