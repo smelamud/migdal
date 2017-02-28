@@ -1,10 +1,31 @@
 package ua.org.migdal.helper;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
+import org.springframework.web.util.HtmlUtils;
 import ua.org.migdal.helper.exception.MissingArgumentException;
 import ua.org.migdal.helper.exception.TypeMismatchException;
 
 public class HelperUtils {
+
+    public static String ue(Object s) {
+        try {
+            return URLEncoder.encode(s.toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return "ue:" + e.getMessage();
+        }
+    }
+
+    public static SafeString he(Object s) {
+        return s instanceof SafeString ? (SafeString) s : new SafeString(HtmlUtils.htmlEscape(s.toString()));
+    }
+
+    public static void safeAppend(StringBuilder buf, Object s) {
+        buf.append(he(s));
+    }
 
     public static <T> T mandatoryHash(String name, Options options) {
         T value = options.hash(name);
@@ -123,7 +144,7 @@ public class HelperUtils {
             buf.append(' ');
             buf.append(attrName);
             buf.append("=\"");
-            buf.append(value);
+            safeAppend(buf, value);
             buf.append('"');
         }
     }
