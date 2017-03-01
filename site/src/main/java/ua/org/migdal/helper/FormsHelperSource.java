@@ -110,8 +110,9 @@ public class FormsHelperSource {
         buf.append("<option");
         HelperUtils.appendMandatoryArgAttr(buf, "value", options);
         HelperUtils.appendArgAttr(buf, "selected", false, options);
-        HelperUtils.safeAppend(buf, options.hash("title", ""));
         buf.append('>');
+        HelperUtils.safeAppend(buf, options.hash("title", ""));
+        buf.append("</option>");
         return new SafeString(buf);
     }
 

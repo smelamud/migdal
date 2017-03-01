@@ -69,14 +69,12 @@
         {{#formLine title="Дата рождения" name="birthDay"}}
             {{edit name="birthDay" size="2" maxlength="2" value=userForm.birthDay}}
             <select name="birthMonth">
-                <array vals="глюкабря,января,февраля,марта,апреля,мая,июня,июля,августа,сентября,октября,ноября,декабря">
-                <iterate_array>
-                <for>
-                    <if what="!$;isFirst">
-                        <call func="$user->isMonthOfBirth" arg1="$;Position">
-                        <select_option value="$;Position" selected!="$;Position==$," title="$.">
-                    </if>
-                </for>
+                {{assignIeq "selected" 0 userForm.birthMonth}}
+                {{selectOption value=0 title=(safe "&mdash;") selected=selected}}
+                {{#each const.gregorianMonthRuGenLcLong}}
+                    {{assignIeq "selected" first userForm.birthMonth}}
+                    {{selectOption value=first title=second selected=selected}}
+                {{/each}}
             </select>
             {{edit name="birthYear" size="4" maxlength="4" value=userForm.birthYear}}
         {{/formLine}}

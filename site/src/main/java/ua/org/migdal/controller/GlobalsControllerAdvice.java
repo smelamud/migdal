@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.session.Constants;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.SubdomainUtils;
 
 @ControllerAdvice
 public class GlobalsControllerAdvice {
+
+    @Autowired
+    private Constants constants;
 
     @Autowired
     private RequestContext requestContext;
@@ -22,6 +26,7 @@ public class GlobalsControllerAdvice {
 
     @ModelAttribute
     public void session(HttpServletRequest request, Model model) {
+        model.addAttribute("const", constants);
         model.addAttribute("rc", requestContext);
         model.addAttribute("location", SubdomainUtils.createLocalBuilderFromRequest(request).toUriString());
         model.addAttribute("printLocation",

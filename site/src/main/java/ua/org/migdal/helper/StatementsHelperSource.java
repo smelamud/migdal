@@ -19,6 +19,20 @@ public class StatementsHelperSource {
         return "";
     }
 
+    public CharSequence assignIeq(String variableName, Object value1, Object value2, Options options)
+            throws IOException {
+        boolean condition = HelperUtils.intArg(0, value1) == HelperUtils.intArg(1, value2);
+        options.data(variableName, condition);
+        return "";
+    }
+
+    public CharSequence assignIne(String variableName, Object value1, Object value2, Options options)
+            throws IOException {
+        boolean condition = HelperUtils.intArg(0, value1) != HelperUtils.intArg(1, value2);
+        options.data(variableName, condition);
+        return "";
+    }
+
     public CharSequence not(Object value) {
         return Boolean.toString(!HelperUtils.boolArg(value));
     }
