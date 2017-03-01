@@ -119,7 +119,7 @@ public class HelperUtils {
 
     public static void appendArgAttr(StringBuilder buf, String name, String attrName, String defaultValue,
                                      Options options) {
-        String value = defaultValue != null ? options.hash(name, defaultValue) : options.hash(name);
+        Object value = defaultValue != null ? options.hash(name, defaultValue) : options.hash(name);
         if (value == null) {
             throw new MissingArgumentException(name);
         }

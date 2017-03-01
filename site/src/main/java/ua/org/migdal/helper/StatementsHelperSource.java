@@ -14,7 +14,7 @@ public class StatementsHelperSource {
 
     public CharSequence assign(String variableName, Options options) throws IOException {
         CharSequence finalValue = options.apply(options.fn);
-        finalValue = finalValue instanceof SafeString ? finalValue : finalValue.toString().trim();
+        finalValue = finalValue instanceof SafeString ? finalValue : new SafeString(finalValue.toString().trim());
         options.data(variableName, finalValue);
         return "";
     }

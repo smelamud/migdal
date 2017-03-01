@@ -30,12 +30,12 @@ public class ImagesHelperSource {
 
     private Map<String, Dimension> imageSizeCache = new HashMap<>();
 
-    public CharSequence image(String href, Options options) {
+    public CharSequence image(CharSequence href, Options options) {
         StringBuilder buf = new StringBuilder();
         boolean button = HelperUtils.boolArg(options.hash("button", false));
         buf.append(!button ? "<img" : "<input type=\"image\"");
         HelperUtils.appendAttr(buf, "src", href);
-        Dimension imageSize = getImageSize(href);
+        Dimension imageSize = getImageSize(href.toString());
         if (imageSize != null) {
             HelperUtils.appendAttr(buf, "width", imageSize.width);
             HelperUtils.appendAttr(buf, "height", imageSize.height);
@@ -55,11 +55,11 @@ public class ImagesHelperSource {
         return new SafeString(buf);
     }
 
-    CharSequence image(String href) {
+    CharSequence image(CharSequence href) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
         HelperUtils.appendAttr(buf, "src", href);
-        Dimension imageSize = getImageSize(href);
+        Dimension imageSize = getImageSize(href.toString());
         if (imageSize != null) {
             HelperUtils.appendAttr(buf, "width", imageSize.width);
             HelperUtils.appendAttr(buf, "height", imageSize.height);

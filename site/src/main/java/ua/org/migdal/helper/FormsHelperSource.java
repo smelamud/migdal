@@ -120,8 +120,9 @@ public class FormsHelperSource {
         buf.append("<option");
         HelperUtils.appendAttr(buf, "value", value);
         HelperUtils.appendAttr(buf, "selected", selected);
-        HelperUtils.safeAppend(buf, title);
         buf.append('>');
+        HelperUtils.safeAppend(buf, title);
+        buf.append("</option>");
         return new SafeString(buf);
     }
 
