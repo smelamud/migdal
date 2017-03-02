@@ -36,7 +36,7 @@ public class Utils {
             if (c == '_') {
                 up = true;
             } else {
-                buf.append(up ? Character.isUpperCase(c) : c);
+                buf.append(up ? Character.toUpperCase(c) : Character.toLowerCase(c));
                 up = false;
             }
         }
