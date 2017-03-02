@@ -3,6 +3,8 @@ package ua.org.migdal.form;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import ua.org.migdal.data.UserRight;
+
 public class UserForm {
 
     @NotBlank
@@ -103,6 +105,23 @@ public class UserForm {
 
     public void setRights(long[] rights) {
         this.rights = rights;
+    }
+
+    private boolean hasRight(long right) {
+        if (rights == null) {
+            return false;
+        }
+
+        for (long r : rights) {
+            if (r == right) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isMigdalStudent() {
+        return hasRight(UserRight.MIGDAL_STUDENT.getValue());
     }
 
     public String getEmail() {

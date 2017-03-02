@@ -35,7 +35,7 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence checkboxButton(CharSequence name, CharSequence value, boolean checked, CharSequence id,
+    private CharSequence checkboxButton(CharSequence name, Object value, boolean checked, CharSequence id,
                                         CharSequence cls) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"checkbox\"");
@@ -71,7 +71,7 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence radioButton(CharSequence name, CharSequence value, boolean checked, CharSequence id,
+    private CharSequence radioButton(CharSequence name, Object value, boolean checked, CharSequence id,
                                      CharSequence cls) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"radio\"");
@@ -94,7 +94,7 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence radio(CharSequence name, CharSequence value, boolean checked, CharSequence id,
+    private CharSequence radio(CharSequence name, Object value, boolean checked, CharSequence id,
                                CharSequence cls, CharSequence title) {
         StringBuilder buf = new StringBuilder();
         buf.append("<label>");
@@ -116,7 +116,7 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence selectOption(CharSequence value, boolean selected, CharSequence title) {
+    private CharSequence selectOption(Object value, boolean selected, CharSequence title) {
         StringBuilder buf = new StringBuilder();
         buf.append("<option");
         HelperUtils.appendAttr(buf, "value", value);
@@ -347,7 +347,7 @@ public class FormsHelperSource {
         boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         CharSequence comment = options.hash("comment", "");
         String name = HelperUtils.mandatoryHash("name", options);
-        CharSequence value = options.hash("value", "1");
+        Object value = options.hash("value", "1");
         boolean checked = HelperUtils.boolArg(options.hash("checked", true));
         CharSequence style = options.hash("style", "select");
         CharSequence idYes = options.hash("idYes", "");

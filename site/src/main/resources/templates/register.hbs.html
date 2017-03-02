@@ -78,12 +78,10 @@
             </select>
             {{edit name="birthYear" size="4" maxlength="4" value=userForm.birthYear}}
         {{/formLine}}
-        <form_checkbox title='Мигдалевец'
-                       comment='Вы посещаете &lt;&lt;Мигдаль&gt;&gt; или посещали
-его раньше? Или, может быть, вы чувствуете себя
-мигдалевцем в душе?'
-                       name='rights[]' value='*USR_MIGDAL_STUDENT'
-                       checked='$,isMigdalStudent'>
+        {{#assign "comment"}}Вы посещаете &laquo;Мигдаль&raquo; или посещали его раньше? Или, может быть, вы чувствуете
+                             себя мигдалевцем в душе?{{/assign}}
+        {{formCheckbox title="Мигдалевец" comment=comment name="rights" value=const.userRight.MIGDAL_STUDENT
+                       checked=userForm.migdalStudent style="box"}}
         {{#assign "comment"}}Укажите ваш настоящий адрес, потому что на этот адрес будет выслано письмо для
                              подтверждения вашей регистрации. Этот адрес также может понадобиться для связи с вами в
                              экстренных случаях (например, для восстановления забытого пароля){{/assign}}

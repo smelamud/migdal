@@ -8,13 +8,13 @@ public enum UserRight {
     MODERATOR(0x0040),
     ADMIN_DOMAIN(0x0100);
 
-    private int value;
+    private long value;
 
-    UserRight(int value) {
+    UserRight(long value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
