@@ -55,12 +55,12 @@
 		<dependency>
 			<groupId>com.github.jknack</groupId>
 			<artifactId>handlebars</artifactId>
-			<version>4.0.5</version>
+			<version>4.0.6</version>
 		</dependency>
         <dependency>
 			<groupId>com.github.jknack</groupId>
 			<artifactId>handlebars-springmvc</artifactId>
-			<version>4.0.5</version>
+			<version>4.0.6</version>
 		</dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
