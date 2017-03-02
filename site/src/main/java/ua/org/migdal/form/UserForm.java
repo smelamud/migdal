@@ -1,5 +1,7 @@
 package ua.org.migdal.form;
 
+import javax.validation.constraints.Digits;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -32,11 +34,13 @@ public class UserForm {
 
     private boolean hideEmail;
 
-    private int birthYear;
+    @Digits(integer = 4, fraction = 0)
+    private String birthYear = "";
 
     private int birthMonth;
 
-    private int birthDay;
+    @Digits(integer = 2, fraction = 0)
+    private String birthDay = "";
 
     private boolean emailEnabled;
 
@@ -140,11 +144,11 @@ public class UserForm {
         this.hideEmail = hideEmail;
     }
 
-    public int getBirthYear() {
+    public String getBirthYear() {
         return birthYear;
     }
 
-    public void setBirthYear(int birthYear) {
+    public void setBirthYear(String birthYear) {
         this.birthYear = birthYear;
     }
 
@@ -156,11 +160,11 @@ public class UserForm {
         this.birthMonth = birthMonth;
     }
 
-    public int getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(int birthDay) {
+    public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
 
