@@ -4,7 +4,6 @@
 const EG_OK = 0;
 
 const EUM_PASSWORD_LEN = 100;
-const EUM_BIRTHDAY = 105;
 const EUM_NO_EDIT = 106;
 const EUM_DISABLED = 1011;
 const EUM_CAPTCHA_ABSENT = 1012;
