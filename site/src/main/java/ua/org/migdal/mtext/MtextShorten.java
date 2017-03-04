@@ -6,7 +6,7 @@ import java.util.List;
 import ua.org.migdal.mtext.exception.MtextConverterException;
 import ua.org.migdal.util.XmlUtils;
 
-public class MtextShorten {
+class MtextShorten {
 
     private final static String[][] ENDS = {
             {"\u001F"},
@@ -62,11 +62,11 @@ public class MtextShorten {
         return handler.getLine().length();
     }
 
-    private static String shortenUniversal(String s, int len, int mdlen, int pdlen) {
-        return shortenUniversal(s, len, mdlen, pdlen, false, "");
+    public static String shorten(String s, int len, int mdlen, int pdlen) {
+        return shorten(s, len, mdlen, pdlen, false, "");
     }
 
-    private static String shortenUniversal(String s, int len, int mdlen, int pdlen, boolean clearTags, String suffix) {
+    public static String shorten(String s, int len, int mdlen, int pdlen, boolean clearTags, String suffix) {
         boolean hasMarkup = XmlUtils.hasMarkup(s);
 
         try {
@@ -94,14 +94,6 @@ public class MtextShorten {
         } catch (MtextConverterException e) {
             return String.format("<b>** %s: %s **</b>", e.getMessage(), e.getCause().getMessage());
         }
-    }
-
-    public static String shorten(String s, int len, int mdlen, int pdlen) {
-        return shortenUniversal(s, len, mdlen, pdlen);
-    }
-
-    public static String shortenNote(String s, int len, int mdlen, int pdlen) {
-        return shortenUniversal(s, len, mdlen, pdlen, true, "...");
     }
 
 }

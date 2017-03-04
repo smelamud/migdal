@@ -33,4 +33,12 @@ public class Mtext {
         return id;
     }
 
+    public Mtext shorten(int len, int mdlen, int pdlen) {
+        return new Mtext(MtextShorten.shorten(xml, len, mdlen, pdlen), format, id);
+    }
+
+    public Mtext shortenNote(int len, int mdlen, int pdlen) {
+        return new Mtext(MtextShorten.shorten(xml, len, mdlen, pdlen, true, "..."), format, id);
+    }
+
 }
