@@ -7,6 +7,7 @@ import org.springframework.validation.Errors;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
+import ua.org.migdal.helper.exception.AmbiguousArgumentsException;
 
 @HelperSource
 public class FormsHelperSource {
@@ -106,21 +107,29 @@ public class FormsHelperSource {
     }
 
     public CharSequence selectOption(Options options) {
-        StringBuilder buf = new StringBuilder();
-        buf.append("<option");
-        HelperUtils.appendMandatoryArgAttr(buf, "value", options);
-        HelperUtils.appendArgAttr(buf, "selected", false, options);
-        buf.append('>');
-        HelperUtils.safeAppend(buf, options.hash("title", ""));
-        buf.append("</option>");
-        return new SafeString(buf);
+        Object value = HelperUtils.mandatoryHash("value", options);
+        Object selectedValue = options.hash("selectedValue");
+        CharSequence title = options.hash("title", "");
+        if (selectedValue == null) {
+            boolean selected = HelperUtils.boolArg(options.hash("selected", false));
+            return selectOption(value, selected, selectedValue, title);
+        } else {
+            if (options.hash("selected") != null) {
+                throw new AmbiguousArgumentsException("selected", "selectedValue");
+            }
+            return selectOption(value, false, selectedValue, title);
+        }
     }
 
-    private CharSequence selectOption(Object value, boolean selected, CharSequence title) {
+    private CharSequence selectOption(Object value, boolean selected, Object selectedValue, CharSequence title) {
         StringBuilder buf = new StringBuilder();
         buf.append("<option");
         HelperUtils.appendAttr(buf, "value", value);
-        HelperUtils.appendAttr(buf, "selected", selected);
+        if (selectedValue != null) {
+            HelperUtils.appendAttr(buf, "selected", selectedValue.equals(value));
+        } else {
+            HelperUtils.appendAttr(buf, "selected", selected);
+        }
         buf.append('>');
         HelperUtils.safeAppend(buf, title);
         buf.append("</option>");
@@ -359,8 +368,8 @@ public class FormsHelperSource {
             buf.append("<select");
             HelperUtils.appendAttr(buf, "name", name);
             buf.append('>');
-            buf.append(selectOption(value, checked, "Да"));
-            buf.append(selectOption("0", !checked, "Нет"));
+            buf.append(selectOption(value, checked, null, "Да"));
+            buf.append(selectOption("0", !checked, null, "Нет"));
             buf.append("</select>");
         } else if (style.equals("radio")) {
             buf.append(radio(name, value, checked, idYes, null, "Да"));

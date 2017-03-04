@@ -69,11 +69,9 @@
         {{#formLine title="Дата рождения" name="birthDay"}}
             {{edit name="birthDay" size="2" maxlength="2" value=userForm.birthDay}}
             <select name="birthMonth">
-                {{assignIeq "selected" 0 userForm.birthMonth}}
-                {{selectOption value=0 title=(safe "&mdash;") selected=selected}}
+                {{selectOption value=0 title=(safe "&mdash;") selectedValue=userForm.birthMonth}}
                 {{#each const.gregorianMonthRuGenLcLong}}
-                    {{assignIeq "selected" first userForm.birthMonth}}
-                    {{selectOption value=first title=second selected=selected}}
+                    {{selectOption value=first title=second selectedValue=userForm.birthMonth}}
                 {{/each}}
             </select>
             {{edit name="birthYear" size="4" maxlength="4" value=userForm.birthYear}}
