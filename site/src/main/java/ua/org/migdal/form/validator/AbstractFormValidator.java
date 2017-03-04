@@ -24,9 +24,12 @@ public abstract class AbstractFormValidator<T> implements Validator {
 
         @SuppressWarnings("unchecked")
         T form = (T) o;
-        validateForm(form, errors);
+        String errorCode = validateForm(form);
+        if (errorCode != null) {
+            errors.reject(errorCode);
+        }
     }
 
-    public abstract void validateForm(T form, Errors errors);
+    public abstract String validateForm(T form);
 
 }

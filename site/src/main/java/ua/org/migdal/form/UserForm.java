@@ -1,13 +1,13 @@
 package ua.org.migdal.form;
 
-import javax.validation.constraints.Digits;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import ua.org.migdal.data.UserRight;
 
 public class UserForm {
+
+    private long id;
 
     @NotBlank
     private String newLogin = "";
@@ -34,17 +34,23 @@ public class UserForm {
 
     private boolean hideEmail;
 
-    @Digits(integer = 4, fraction = 0)
     private String birthYear = "";
 
     private int birthMonth;
 
-    @Digits(integer = 2, fraction = 0)
     private String birthDay = "";
 
     private boolean emailEnabled;
 
     public UserForm() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNewLogin() {

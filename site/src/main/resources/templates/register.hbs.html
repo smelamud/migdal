@@ -9,28 +9,14 @@
                text='Пожалуйста, введите цифры и буквы, которые вы видите на
 картинке. Это необходимо нам для борьбы со спамом.'>
             <error id='*EUM_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
-                <error id='*EUM_LOGIN_ABSENT' text='Ник не был введен'>
-                    <error id='*EUM_LOGIN_EXISTS'
-                           text='Пользователь с таким ником уже существует'>
                         <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
-                            <error id='*EUM_PASSWORD_DIFF'
-                                   text='Опечатка при вводе пароля - введите еще раз'>
-                                <error id='*EUM_NAME_ABSENT' text='Имя не введено'>
-                                    <error id='*EUM_SURNAME_ABSENT' text='Фамилия не введена'>
-                                        <error id='*EUM_GENDER' text='Неизвестный пол'>
                                             <error id='*EUM_BIRTHDAY' text='Совершенно идиотская дата рождения'>
-                                                <error id='*EUM_EMAIL_ABSENT' text='E-mail не введен'>
-                                                    <error id='*EUM_NOT_EMAIL' text='E-mail введен неверно'>
 --}}
 
 {{#formTable title="Введите информацию о себе"}}
+    {{formErrors}}
     <form method="post" action="/actions/user/modify">
-        {{#adminUsers}}
-            {{hidden name="back" value=rc.back}}
-        {{else}}
-            {{#assign "confirm"}}/register/confirm/?back={{ue rc.back}}{{/assign}}
-            {{hidden name="back" value=confirm}}
-        {{/adminUsers}}
+        {{hidden name="back" value=rc.back}}
         {{starInfo}}
         <form_captcha name='captcha'>
         {{formSection title="Информация для входа на сайт"}}
