@@ -9,7 +9,6 @@
                text='Пожалуйста, введите цифры и буквы, которые вы видите на
 картинке. Это необходимо нам для борьбы со спамом.'>
             <error id='*EUM_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
-                        <error id='*EUM_PASSWORD_LEN' text='Пароль должен быть не менее 5 символов'>
 --}}
 
 {{#formTable title="Введите информацию о себе"}}
@@ -35,7 +34,7 @@
                 </td></tr>
             </table>
         {{/formLine}}
-        {{formPassword title="Пароль" comment="Не менее 5 символов"
+        {{formPassword title="Пароль" comment="Не менее 6 символов"
                        name="newPassword" size="20" maxlength="40" mandatory=true}}
         {{formPassword title="Пароль (еще раз)"
                        comment="Повторите ввод пароля, чтобы убедиться, что вы не ошиблись при наборе"

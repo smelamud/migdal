@@ -16,9 +16,13 @@ public class UserFormValidator extends AbstractFormValidator<UserForm> {
 
     @Override
     public String validateForm(UserForm userForm) {
-        if (!StringUtils.isEmpty(userForm.getNewPassword())
-                && !userForm.getNewPassword().equals(userForm.getDupPassword())) {
-            return "passwordsDifferent";
+        if (!StringUtils.isEmpty(userForm.getNewPassword())) {
+            if (!userForm.getNewPassword().equals(userForm.getDupPassword())) {
+                return "passwordsDifferent";
+            }
+            if (userForm.getNewPassword().length() < 6) {
+                return "newPassword.length";
+            }
         }
         int year = 1984;
         int month = 1;
