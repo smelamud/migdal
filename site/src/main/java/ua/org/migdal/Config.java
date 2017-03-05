@@ -11,6 +11,8 @@ public class Config {
     private int sessionTimeoutLong;
     private boolean allowGuests;
     private String guestLogin;
+    private boolean disableRegister;
+    private int regConfirmTimeout;
     private int inplaceSize;
     private int inplaceSizeMinus;
     private int inplaceSizePlus;
@@ -61,6 +63,22 @@ public class Config {
 
     public void setGuestLogin(String guestLogin) {
         this.guestLogin = guestLogin;
+    }
+
+    public boolean isDisableRegister() {
+        return disableRegister;
+    }
+
+    public void setDisableRegister(boolean disableRegister) {
+        this.disableRegister = disableRegister;
+    }
+
+    public int getRegConfirmTimeout() {
+        return regConfirmTimeout;
+    }
+
+    public void setRegConfirmTimeout(int regConfirmTimeout) {
+        this.regConfirmTimeout = regConfirmTimeout;
     }
 
     public int getInplaceSize() {

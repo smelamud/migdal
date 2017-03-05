@@ -1,9 +1,20 @@
 package ua.org.migdal.form;
 
+import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import org.springframework.util.StringUtils;
+import ua.org.migdal.Config;
+import ua.org.migdal.data.Gender;
+import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
+import ua.org.migdal.util.Utils;
 
 public class UserForm {
 
@@ -26,6 +37,8 @@ public class UserForm {
 
     private boolean gender;
 
+    private String info = "";
+
     private long[] rights;
 
     @NotBlank
@@ -40,7 +53,13 @@ public class UserForm {
 
     private String birthDay = "";
 
-    private boolean emailEnabled;
+    private boolean emailEnabled = true;
+
+    private short hidden;
+
+    private boolean noLogin;
+
+    private boolean hasPersonal;
 
     public UserForm() {
     }
@@ -107,6 +126,14 @@ public class UserForm {
 
     public void setGender(boolean gender) {
         this.gender = gender;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public long[] getRights() {
@@ -180,6 +207,77 @@ public class UserForm {
 
     public void setEmailEnabled(boolean emailEnabled) {
         this.emailEnabled = emailEnabled;
+    }
+
+    public short getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(short hidden) {
+        this.hidden = hidden;
+    }
+
+    public boolean isNoLogin() {
+        return noLogin;
+    }
+
+    public void setNoLogin(boolean noLogin) {
+        this.noLogin = noLogin;
+    }
+
+    public boolean isHasPersonal() {
+        return hasPersonal;
+    }
+
+    public void setHasPersonal(boolean hasPersonal) {
+        this.hasPersonal = hasPersonal;
+    }
+
+    public void toUser(User user, boolean isAdmin, Config config) throws NoSuchAlgorithmException {
+        user.setLogin(getNewLogin());
+        user.setName(getName());
+        user.setJewishName(getJewishName());
+        user.setSurname(getSurname());
+        user.setGender(!isGender() ? Gender.MINE : Gender.FEMINE);
+        user.setInfo(getInfo());
+        // TODO  $this->info_xml = anyToXML($this->info, $tfUser, MTEXT_SHORT);
+        user.setModified(Utils.now());
+        user.setBirthdayDay(!StringUtils.isEmpty(getBirthDay()) ? Short.parseShort(getBirthDay()) : 0);
+        user.setBirthdayMonth((short) getBirthMonth());
+        user.setBirthdayYear(!StringUtils.isEmpty(getBirthDay()) ? Short.parseShort(getBirthDay()) : 0);
+        long rights = 0;
+        if (getRights() != null) {
+            for (long right : getRights()) {
+                rights |= right;
+            }
+        }
+        user.setRights(rights);
+        user.setEmail(getEmail());
+        user.setHideEmail(isHideEmail());
+        user.setEmailDisabled(isEmailEnabled() ? (short) 0 : (short) 1);
+        if (isAdmin) {
+            user.setHidden(getHidden());
+            user.setNoLogin(isNoLogin());
+            user.setHasPersonal(isHasPersonal());
+        } else {
+            user.setNoLogin(true);
+            user.setConfirmCode(generateConfirmCode());
+            user.setConfirmDeadline(Timestamp.from(Instant.now().plus(config.getRegConfirmTimeout(), ChronoUnit.DAYS)));
+        }
+        if (user.getId() <= 0 || !StringUtils.isEmpty(getNewPassword())) {
+            user.setPassword(Utils.md5(getNewPassword()));
+        }
+        if (user.getId() <= 0) {
+            user.setCreated(Utils.now());
+        }
+    }
+
+    private String generateConfirmCode() {
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; i < 20; i++) {
+            buf.append((char) Utils.random((int) 'A', (int) 'Z' + 1));
+        }
+        return buf.toString();
     }
 
 }

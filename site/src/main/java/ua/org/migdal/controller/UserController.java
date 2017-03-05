@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.User;
+import ua.org.migdal.data.UserRight;
 import ua.org.migdal.form.UserForm;
 import ua.org.migdal.manager.UsersManager;
 import ua.org.migdal.session.LocationInfo;
@@ -22,6 +24,9 @@ import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private Config config;
 
     @Autowired
     private RequestContext requestContext;
@@ -79,7 +84,30 @@ public class UserController {
             Errors errors,
             RedirectAttributes redirectAttributes) {
         new ControllerAction(UserController.class, "actionUserModify", errors)
+                .constraint("users_login_key", "newLogin.used")
                 .execute(() -> {
+                    String errorCode = validateRights(userForm);
+                    if (errorCode != null) {
+                        return errorCode;
+                    }
+
+                    User user;
+                    if (userForm.getId() <= 0) {
+                        if (config.isDisableRegister() && !requestContext.isUserAdminUsers()) {
+                            return "disabled";
+                        }
+                        user = new User();
+                    } else {
+                        user = usersManager.get(userForm.getId());
+                        if (user == null) {
+                            return "noUser";
+                        }
+                        if (!user.isEditable(requestContext)) {
+                            return "notEditable";
+                        }
+                    }
+                    userForm.toUser(user, requestContext.isUserAdminUsers(), config);
+                    usersManager.save(user);
                     return null;
                 });
 
@@ -92,6 +120,23 @@ public class UserController {
                     .queryParam("back", requestContext.getBack())
                     .toUriString();
         }
+    }
+
+    private String validateRights(UserForm userForm) {
+        if (userForm.getRights() == null) {
+            return null;
+        }
+
+        for (long right : userForm.getRights()) {
+            UserRight userRight = UserRight.findByValue(right);
+            if (userRight == null) {
+                return "noRight";
+            }
+            if (userRight.isAdmin() && !requestContext.isUserAdminUsers()) {
+                return "adminRight";
+            }
+        }
+        return null;
     }
 
 }
