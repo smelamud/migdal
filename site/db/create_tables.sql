@@ -524,6 +524,14 @@ CREATE TABLE votes (
 ALTER TABLE votes OWNER TO migdal;
 
 --
+-- Name: users_login_key; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_login_key UNIQUE (login);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
