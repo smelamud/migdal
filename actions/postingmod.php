@@ -63,7 +63,7 @@ function imageSizeErrorCode($err, $imageEditor) {
 function isSpam($body) {
     $spams = array('clickcashmoney.com', 'porno-video-free', 'porno-exe',
                    'rem-stroi.com', 'hiphoprussia.ru', 'retrade.ru', 't35.com',
-                   'viagra');
+                   'viagra', 'snapbackneweracap', '[/url]');
     foreach ($spams as $spam) {
         if (strpos($body, $spam) !== false) {
             logEvent('spam', $spam);
