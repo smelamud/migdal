@@ -16,6 +16,10 @@ public class Config {
     private int inplaceSize;
     private int inplaceSizeMinus;
     private int inplaceSizePlus;
+    private int mailSendLimit;
+    private int mailSendPeriod;
+    private String mailFromAddress;
+    private String mailReplyToAddress;
 
     public String getSiteDomain() {
         return siteDomain;
@@ -103,6 +107,38 @@ public class Config {
 
     public void setInplaceSizePlus(int inplaceSizePlus) {
         this.inplaceSizePlus = inplaceSizePlus;
+    }
+
+    public int getMailSendLimit() {
+        return mailSendLimit;
+    }
+
+    public void setMailSendLimit(int mailSendLimit) {
+        this.mailSendLimit = mailSendLimit;
+    }
+
+    public int getMailSendPeriod() {
+        return mailSendPeriod;
+    }
+
+    public void setMailSendPeriod(int mailSendPeriod) {
+        this.mailSendPeriod = mailSendPeriod;
+    }
+
+    public String getMailFromAddress() {
+        return mailFromAddress;
+    }
+
+    public void setMailFromAddress(String mailFromAddress) {
+        this.mailFromAddress = mailFromAddress;
+    }
+
+    public String getMailReplyToAddress() {
+        return mailReplyToAddress;
+    }
+
+    public void setMailReplyToAddress(String mailReplyToAddress) {
+        this.mailReplyToAddress = mailReplyToAddress;
     }
 
 }
