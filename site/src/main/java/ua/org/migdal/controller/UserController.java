@@ -1,5 +1,6 @@
 package ua.org.migdal.controller;
 
+import java.util.HashMap;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +113,7 @@ public class UserController {
                     }
                     userForm.toUser(user, requestContext.isUserAdminUsers(), config);
                     usersManager.save(user);
-                    mailService.sendMail();
+                    mailService.sendMail(user, "register", new HashMap<>());
                     return null;
                 });
 
