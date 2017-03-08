@@ -18,6 +18,7 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
 import ua.org.migdal.form.UserForm;
+import ua.org.migdal.mail.MailService;
 import ua.org.migdal.manager.UsersManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
@@ -33,6 +34,9 @@ public class UserController {
 
     @Autowired
     private UsersManager usersManager;
+
+    @Autowired
+    private MailService mailService;
 
     @Autowired
     private IndexController indexController;
@@ -108,6 +112,7 @@ public class UserController {
                     }
                     userForm.toUser(user, requestContext.isUserAdminUsers(), config);
                     usersManager.save(user);
+                    mailService.sendMail();
                     return null;
                 });
 
