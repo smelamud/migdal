@@ -1,5 +1,3 @@
-// @(#) $Id$
-
 function loginChanged() {
     $("#login-button").attr("disabled", $("#login").val() == "");
     $("#login-status").text("");
@@ -7,7 +5,7 @@ function loginChanged() {
 
 function loginVerify(event) {
     $("#login-status").removeClass().text("Идет проверка...");
-    $.getJSON("/ajax/sources/user/login/exists",
+    $.getJSON("/api/user/login/exists",
               {login: $("#login").val()},
               function(data) {
                   if (data.exists) {

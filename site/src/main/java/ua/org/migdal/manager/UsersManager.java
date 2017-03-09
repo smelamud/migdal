@@ -42,6 +42,10 @@ public class UsersManager {
         return idp != null ? idp.getId() : 0;
     }
 
+    public boolean loginExists(String login) {
+        return userRepository.countByLogin(login) > 0;
+    }
+
     public long idOrLogin(String login) {
         return Utils.idOrName(login, this::getIdByLogin);
     }

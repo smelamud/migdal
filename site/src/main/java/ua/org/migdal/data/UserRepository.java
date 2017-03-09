@@ -13,6 +13,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     IdProjection findIdByLogin(String login);
 
+    @Query("select count(*) from User u where u.login=?1")
+    int countByLogin(String login);
+
     IdProjection findFirstIdByGuestTrueOrderByLogin();
 
     @Modifying

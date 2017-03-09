@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -19,6 +21,7 @@ import ua.org.migdal.Config;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
+import ua.org.migdal.data.api.LoginExistence;
 import ua.org.migdal.form.UserForm;
 import ua.org.migdal.mail.MailController;
 import ua.org.migdal.manager.UsersManager;
@@ -145,6 +148,12 @@ public class UserController {
             }
         }
         return null;
+    }
+
+    @GetMapping("/api/user/login/exists")
+    @ResponseBody
+    public LoginExistence loginExists(@RequestParam String login) {
+        return new LoginExistence(login, usersManager.loginExists(login));
     }
 
 }
