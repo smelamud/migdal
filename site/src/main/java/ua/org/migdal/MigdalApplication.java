@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -28,8 +29,8 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
 	@Autowired
     private SubdomainInterceptor subdomainInterceptor;
 
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
+	@Bean
+    public HandlebarsViewResolver handlebarsViewResolver() {
         HandlebarsViewResolver resolver = new HandlebarsViewResolver();
         resolver.setPrefix("classpath:/templates/");
         resolver.setSuffix(".hbs.html");
@@ -37,7 +38,12 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
             log.info("Registering Handlebars helper class {}", helperSource.getClass().getName());
             resolver.registerHelpers(helperSource);
         }
-        registry.viewResolver(resolver);
+        return resolver;
+    }
+
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.viewResolver(handlebarsViewResolver());
     }
 
     @Override
