@@ -332,34 +332,6 @@ CREATE TABLE logs (
 ALTER TABLE logs OWNER TO migdal;
 
 --
--- Name: mail_log; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE mail_log (
-    id bigint NOT NULL,
-    sent timestamp with time zone DEFAULT now() NOT NULL
-);
-
-
-ALTER TABLE mail_log OWNER TO migdal;
-
---
--- Name: mail_queue; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE mail_queue (
-    id bigint NOT NULL,
-    created timestamp with time zone DEFAULT now() NOT NULL,
-    destination character varying(255) DEFAULT ''::character varying NOT NULL,
-    subject character varying(255) DEFAULT ''::character varying NOT NULL,
-    headers text NOT NULL,
-    body text NOT NULL
-);
-
-
-ALTER TABLE mail_queue OWNER TO migdal;
-
---
 -- Name: old_ids; Type: TABLE; Schema: public; Owner: migdal
 --
 
