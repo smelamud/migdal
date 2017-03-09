@@ -14,6 +14,7 @@ import ua.org.migdal.Config;
 import ua.org.migdal.data.IdProjection;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRepository;
+import ua.org.migdal.data.UserRight;
 import ua.org.migdal.util.CachedValue;
 import ua.org.migdal.util.Utils;
 
@@ -83,6 +84,10 @@ public class UsersManager {
 
     public Set<Long> getGroupIdsByUserId(long id) {
         return userRepository.findGroupIdsByUserId(id);
+    }
+
+    public Set<User> getAdmins(UserRight right) {
+        return userRepository.findAdmins(right.getValue());
     }
 
 }

@@ -22,4 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select group_id from groups where user_id=?1", nativeQuery = true)
     Set<Long> findGroupIdsByUserId(long id);
 
+    @Query("from User u where (u.rights & ?1)<>0")
+    Set<User> findAdmins(long right);
+
 }

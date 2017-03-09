@@ -7,6 +7,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -26,9 +27,11 @@ import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
 import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
+import ua.org.migdal.data.UserRight;
 import ua.org.migdal.mail.exception.MailServiceException;
 import ua.org.migdal.mail.exception.SendMailInterruptedException;
 import ua.org.migdal.mail.exception.TemplateCompilingException;
+import ua.org.migdal.manager.UsersManager;
 import ua.org.migdal.util.XmlConverter;
 
 @Service
@@ -44,6 +47,9 @@ public class MailService {
 
     @Autowired
     private HandlebarsViewResolver handlebarsViewResolver;
+
+    @Autowired
+    private UsersManager usersManager;
 
     private BlockingQueue<MimeMessagePreparator> mailQueue = new LinkedBlockingQueue<>();
 
@@ -79,6 +85,14 @@ public class MailService {
         }
     }
 
+    public void sendMailToAdmins(UserRight right, String templateName, Map<String, Object> model)
+            throws MailServiceException {
+        Set<User> admins = usersManager.getAdmins(right);
+        for (User admin : admins) {
+            sendMail(admin, templateName, model);
+        }
+    }
+    
     private String getDocument(User to, String templateName, Map<String, Object> model) throws MailServiceException {
         Template template = getTemplate(templateName);
         Map<String, Object> fullModel = new HashMap<>();
