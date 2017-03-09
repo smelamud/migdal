@@ -1,0 +1,20 @@
+package ua.org.migdal.mail;
+
+import java.util.Collections;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ua.org.migdal.data.User;
+import ua.org.migdal.mail.exception.MailServiceException;
+
+@Service
+public class MailController {
+
+    @Autowired
+    private MailService mailService;
+
+    public void register(User user) throws MailServiceException {
+        mailService.sendMail(user, "register", Collections.singletonMap("user", user));
+    }
+
+}
