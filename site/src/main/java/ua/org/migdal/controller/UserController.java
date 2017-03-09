@@ -115,6 +115,7 @@ public class UserController {
                     userForm.toUser(user, requestContext.isUserAdminUsers(), config);
                     usersManager.save(user);
                     mailController.register(user);
+                    mailController.registering(user);
                     return null;
                 });
 
