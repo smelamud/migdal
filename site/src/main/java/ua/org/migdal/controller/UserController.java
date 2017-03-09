@@ -117,13 +117,21 @@ public class UserController {
                     }
                     userForm.toUser(user, requestContext.isUserAdminUsers(), config);
                     usersManager.save(user);
+                    userForm.setId(user.getId());
                     mailController.register(user);
                     mailController.registering(user);
                     return null;
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getBack();
+            if (requestContext.isUserAdminUsers()) {
+                return "redirect:" + requestContext.getBack();
+            } else {
+                redirectAttributes.addFlashAttribute("id", userForm.getId());
+                return UriComponentsBuilder.fromUriString("redirect:/register/confirm/")
+                        .queryParam("back", requestContext.getBack())
+                        .toUriString();
+            }
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("userForm", userForm);
@@ -154,6 +162,29 @@ public class UserController {
     @ResponseBody
     public LoginExistence loginExists(@RequestParam String login) {
         return new LoginExistence(login, usersManager.loginExists(login));
+    }
+
+    @GetMapping("/register/confirm")
+    public String registerConfirm(Model model) throws PageNotFoundException {
+        registerConfirmLocationInfo(model);
+
+        Object id = model.asMap().get("id");
+        if (id == null || !(id instanceof Long)) {
+            throw new PageNotFoundException();
+        }
+        User user = usersManager.get((Long) id);
+        if (user == null) {
+            throw new PageNotFoundException();
+        }
+        model.addAttribute("user", user);
+        return "register-confirm";
+    }
+
+    public LocationInfo registerConfirmLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/register/confirm")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Подтверждение регистрации");
     }
 
 }

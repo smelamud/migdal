@@ -27,6 +27,7 @@ public class GlobalsControllerAdvice {
     @ModelAttribute
     public void session(HttpServletRequest request, Model model) {
         model.addAttribute("const", constants);
+        model.addAttribute("config", config);
         model.addAttribute("rc", requestContext);
         model.addAttribute("location", SubdomainUtils.createLocalBuilderFromRequest(request).toUriString());
         model.addAttribute("printLocation",
