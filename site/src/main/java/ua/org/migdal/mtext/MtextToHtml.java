@@ -114,7 +114,7 @@ public class MtextToHtml extends DefaultHandler {
 
     @Override
     public void error(SAXParseException e) throws SAXException {
-        html.append("<b>$message</b>");
+        html.append(String.format("<b>%s</b>", e.getMessage()));
     }
 
     private String getInplaceFootnote() {

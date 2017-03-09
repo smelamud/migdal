@@ -29,6 +29,7 @@ import ua.org.migdal.data.User;
 import ua.org.migdal.mail.exception.MailServiceException;
 import ua.org.migdal.mail.exception.SendMailInterruptedException;
 import ua.org.migdal.mail.exception.TemplateCompilingException;
+import ua.org.migdal.util.XmlConverter;
 
 @Service
 public class MailService {
@@ -63,13 +64,15 @@ public class MailService {
         try {
             mailQueue.put(mimeMessage -> {
                 String document = getDocument(to, templateName, model);
+                MailXmlToText handler = new MailXmlToText();
+                XmlConverter.convert(document, handler);
 
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
                 message.setTo(to.getEmail());
                 message.setFrom(config.getMailFromAddress());
                 message.setReplyTo(config.getMailReplyToAddress());
-                message.setSubject("Subject of the test");
-                message.setText(document);
+                message.setSubject(handler.getResult().getSubject().toString());
+                message.setText(handler.getResult().getBody().toString());
             });
         } catch (InterruptedException e) {
             throw new SendMailInterruptedException();
