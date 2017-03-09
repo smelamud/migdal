@@ -14,7 +14,7 @@ public class MailController {
     private MailService mailService;
 
     public void register(User user) throws MailServiceException {
-        mailService.sendMail(user, "register", Collections.singletonMap("user", user));
+        mailService.sendMail(user, true, "register", Collections.singletonMap("user", user));
     }
 
 }

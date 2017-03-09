@@ -66,7 +66,12 @@ public class MailService {
         thread.start();
     }
 
-    public void sendMail(User to, String templateName, Map<String, Object> model) throws MailServiceException {
+    public void sendMail(User to, boolean force, String templateName, Map<String, Object> model)
+            throws MailServiceException {
+        if (to.getEmailDisabled() == 1 && !force) {
+            return;
+        }
+
         try {
             mailQueue.put(mimeMessage -> {
                 String document = getDocument(to, templateName, model);
@@ -85,11 +90,11 @@ public class MailService {
         }
     }
 
-    public void sendMailToAdmins(UserRight right, String templateName, Map<String, Object> model)
+    public void sendMailToAdmins(UserRight right, boolean force, String templateName, Map<String, Object> model)
             throws MailServiceException {
         Set<User> admins = usersManager.getAdmins(right);
         for (User admin : admins) {
-            sendMail(admin, templateName, model);
+            sendMail(admin, force, templateName, model);
         }
     }
     
