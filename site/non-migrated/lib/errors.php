@@ -53,9 +53,6 @@ const EP_SPAM = 1332;
 const EMH_NO_MODERATE = 140;
 const EMH_NO_ENTRY = 141;
 
-const EUC_NO_USER = 170;
-const EUC_ALREADY_CONFIRMED = 171;
-
 const ECHP_NO_PERSON = 180;
 const ECHP_NO_ADD = 181;
 

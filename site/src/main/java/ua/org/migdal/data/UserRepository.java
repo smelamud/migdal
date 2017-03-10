@@ -13,7 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     IdProjection findIdByLogin(String login);
 
-    @Query("select count(*) from User u where u.login=?1")
     int countByLogin(String login);
 
     IdProjection findFirstIdByGuestTrueOrderByLogin();
@@ -27,5 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select * from users where (rights & ?1)<>0", nativeQuery = true)
     Set<User> findAdmins(long right);
+
+    User findByConfirmCodeAndHiddenLessThan(String confirmCode, short hidden);
 
 }

@@ -1,0 +1,107 @@
+package ua.org.migdal.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.User;
+import ua.org.migdal.data.api.LoginExistence;
+import ua.org.migdal.form.UserForm;
+import ua.org.migdal.mail.MailController;
+import ua.org.migdal.mail.exception.MailServiceException;
+import ua.org.migdal.manager.UsersManager;
+import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.session.RequestContext;
+
+@Controller
+public class RegisterController {
+
+    private Logger log = LoggerFactory.getLogger(RegisterController.class);
+
+    @Autowired
+    private RequestContext requestContext;
+
+    @Autowired
+    private UsersManager usersManager;
+
+    @Autowired
+    private MailController mailController;
+
+    @Autowired
+    private IndexController indexController;
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        registerLocationInfo(model);
+
+        model.asMap().putIfAbsent("userForm", new UserForm());
+        return "register";
+    }
+
+    public LocationInfo registerLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/register")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Регистрация пользователя");
+    }
+
+    @GetMapping("/api/user/login/exists")
+    @ResponseBody
+    public LoginExistence loginExists(@RequestParam String login) {
+        return new LoginExistence(login, usersManager.loginExists(login));
+    }
+
+    @GetMapping("/register/confirm")
+    public String registerConfirm(Model model) throws PageNotFoundException {
+        registerConfirmLocationInfo(model);
+
+        Object id = model.asMap().get("id");
+        if (id == null || !(id instanceof Long)) {
+            throw new PageNotFoundException();
+        }
+        User user = usersManager.get((Long) id);
+        if (user == null) {
+            throw new PageNotFoundException();
+        }
+        model.addAttribute("user", user);
+        return "register-confirm";
+    }
+
+    public LocationInfo registerConfirmLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/register/confirm")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Подтверждение регистрации");
+    }
+
+    @GetMapping("/actions/user/confirm")
+    public String actionConfirm(@RequestParam(required = false) Long id, @RequestParam(required = false) String code) {
+        User user = null;
+        if (requestContext.isUserAdminUsers() && id != null && id != 0) {
+            user = usersManager.get(id);
+        } else {
+            user = usersManager.begByConfirmCode(code);
+        }
+        if (user == null) {
+            return "redirect:/register/error/";
+        }
+        if (user.isConfirmed()) {
+            return "redirect:/register/already-confirmed/";
+        }
+        usersManager.confirm(user);
+        try {
+            mailController.confirmed(user);
+        } catch (MailServiceException e) {
+            log.error("Mail error while confirming user {} ({}): {}", user.getId(), user.getLogin(), e.getMessage());
+            log.error("Exception: ", e);
+        }
+        return "redirect:/register/signin/";
+    }
+
+}

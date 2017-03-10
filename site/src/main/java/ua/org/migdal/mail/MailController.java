@@ -23,4 +23,9 @@ public class MailController {
                 Collections.singletonMap("user", user));
     }
 
+    public void confirmed(User user) throws MailServiceException {
+        mailService.sendMailToAdmins(UserRight.ADMIN_USERS, false, "confirmed",
+                Collections.singletonMap("user", user));
+    }
+
 }

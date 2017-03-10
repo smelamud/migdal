@@ -3,9 +3,6 @@ package ua.org.migdal.manager;
 import java.sql.Timestamp;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +25,10 @@ public class UsersManager {
     private UserRepository userRepository;
 
     private final CachedValue<Long> guestId = new CachedValue<>(this::fetchGuestId);
+
+    public boolean exists(Long id) {
+        return userRepository.exists(id);
+    }
 
     public User get(Long id) {
         return userRepository.findOne(id);
@@ -59,11 +60,11 @@ public class UsersManager {
 
     private Long fetchGuestId() {
         IdProjection data = userRepository.findFirstIdByGuestTrueOrderByLogin();
-        return data != null ? data.getId() : addGuestUser();
+        return data != null ? data.getId() : addGuest();
     }
 
     @Transactional
-    private long addGuestUser() {
+    private long addGuest() {
         User user = new User();
         user.setLogin(config.getGuestLogin());
         user.setEmailDisabled((short) 1);
@@ -92,6 +93,19 @@ public class UsersManager {
 
     public Set<User> getAdmins(UserRight right) {
         return userRepository.findAdmins(right.getValue());
+    }
+
+    public User begByConfirmCode(String confirmCode) {
+        return userRepository.findByConfirmCodeAndHiddenLessThan(confirmCode, (short) 2);
+    }
+
+    @Transactional
+    public void confirm(User user) {
+        user.setNoLogin(false);
+        user.setHidden((short) 0);
+        user.setConfirmDeadline(null);
+        user.setLastOnline(Utils.now());
+        userRepository.save(user);
     }
 
 }

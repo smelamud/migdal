@@ -350,6 +350,10 @@ public class User implements Editable {
         this.confirmDeadline = confirmDeadline;
     }
 
+    public boolean isConfirmed() {
+        return getConfirmDeadline() == null;
+    }
+
     public String getConfirmCode() {
         return confirmCode;
     }
