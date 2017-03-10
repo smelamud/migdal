@@ -90,10 +90,10 @@ public class RegisterController {
             user = usersManager.begByConfirmCode(code);
         }
         if (user == null) {
-            return "redirect:/register/error/";
+            return "redirect:/register/error";
         }
         if (user.isConfirmed()) {
-            return "redirect:/register/already-confirmed/";
+            return "redirect:/register/already-confirmed";
         }
         usersManager.confirm(user);
         try {
@@ -102,7 +102,7 @@ public class RegisterController {
             log.error("Mail error while confirming user {} ({}): {}", user.getId(), user.getLogin(), e.getMessage());
             log.error("Exception: ", e);
         }
-        return "redirect:/register/signin/";
+        return "redirect:/register/signin";
     }
 
     @GetMapping("/register/signin")

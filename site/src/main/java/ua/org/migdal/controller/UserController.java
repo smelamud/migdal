@@ -108,7 +108,7 @@ public class UserController {
                 return "redirect:" + requestContext.getBack();
             } else {
                 redirectAttributes.addFlashAttribute("id", userForm.getId());
-                return UriComponentsBuilder.fromUriString("redirect:/register/confirm/")
+                return UriComponentsBuilder.fromUriString("redirect:/register/confirm")
                         .queryParam("back", requestContext.getBack())
                         .toUriString();
             }
