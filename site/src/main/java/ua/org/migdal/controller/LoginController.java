@@ -86,11 +86,7 @@ public class LoginController {
                 });
 
         if (!errors.hasErrors()) {
-            if (requestContext.isHasBack()) {
-                return "redirect:" + requestContext.getBack();
-            } else {
-                return "redirect:/register/ok";
-            }
+            return "redirect:" + requestContext.getBack();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("loginForm", loginForm);

@@ -139,4 +139,19 @@ public class RegisterController {
                 .withPageTitle("Вход на сайт");
     }
 
+    @GetMapping("/register/ok")
+    public String registerOk(Model model) {
+        registerOkLocationInfo(model);
+
+        return "register-ok";
+    }
+
+    public LocationInfo registerOkLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/signin")
+                .withParent(indexController.indexLocationInfo(null))
+                .withMenuNoLogin(true)
+                .withPageTitle("Вход на сайт");
+    }
+
 }
