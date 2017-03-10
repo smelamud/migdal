@@ -6,13 +6,13 @@
         {{#formComment}}
             <p>
                 Это, скорее всего, означает, что с момента регистрации прошло более {{config.regConfirmTimeout}}
-                {{plural config.regConfirmTimeout "день,дня,дней"}} и регистрация была отменена автоматически. Если
+                {{plural config.regConfirmTimeout "дня,дней,дней"}} и регистрация была отменена автоматически. Если
                 же вы вводили код регистрации вручную, то вы, возможно, ошиблись при его
                 наборе.
             </p>
             <p>
                 Пожалуйста, проверьте еще раз правильность кода и убедитесь, что с момента регистрации
-                прошло не более {{config.regConfirmTimeout}} {{plural config.regConfirmTimeout "день,дня,дней"}}.
+                прошло не более {{config.regConfirmTimeout}} {{plural config.regConfirmTimeout "дня,дней,дней"}}.
             </p>
         {{/formComment}}
         {{formButtons title="На главную страницу" clear=false}}
