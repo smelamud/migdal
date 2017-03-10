@@ -42,10 +42,10 @@ public class LoginController {
     private IndexController indexController;
 
     @GetMapping("/signin")
-    public String signin(@RequestParam(required = false) Integer novice, Model model) {
+    public String signin(Model model) {
         signinLocationInfo(model);
 
-        model.addAttribute("novice", Integer.toString(novice != null ? novice : 0));
+        model.addAttribute("novice", 0);
         if (!requestContext.isLogged()) {
             model.asMap().putIfAbsent("loginForm", new LoginForm());
         } else {

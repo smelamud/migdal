@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.api.LoginExistence;
+import ua.org.migdal.form.LoginForm;
 import ua.org.migdal.form.UserForm;
 import ua.org.migdal.mail.MailController;
 import ua.org.migdal.mail.exception.MailServiceException;
@@ -102,6 +103,40 @@ public class RegisterController {
             log.error("Exception: ", e);
         }
         return "redirect:/register/signin/";
+    }
+
+    @GetMapping("/register/signin")
+    public String signin(Model model) {
+        signinLocationInfo(model);
+
+        model.addAttribute("novice", 1);
+        model.asMap().putIfAbsent("loginForm", new LoginForm());
+        return "signin";
+    }
+
+    public LocationInfo signinLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/signin")
+                .withParent(indexController.indexLocationInfo(null))
+                .withMenuNoLogin(true)
+                .withPageTitle("Вход на сайт");
+    }
+
+    @GetMapping("/register/already-confirmed")
+    public String alreadyConfirmed(Model model) {
+        alreadyConfirmedLocationInfo(model);
+
+        model.addAttribute("novice", 2);
+        model.asMap().putIfAbsent("loginForm", new LoginForm());
+        return "signin";
+    }
+
+    public LocationInfo alreadyConfirmedLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/signin")
+                .withParent(indexController.indexLocationInfo(null))
+                .withMenuNoLogin(true)
+                .withPageTitle("Вход на сайт");
     }
 
 }
