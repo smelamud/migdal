@@ -116,7 +116,7 @@ public class RegisterController {
 
     public LocationInfo signinLocationInfo(Model model) {
         return new LocationInfo(model)
-                .withUri("/signin")
+                .withUri("/register/signin")
                 .withParent(indexController.indexLocationInfo(null))
                 .withMenuNoLogin(true)
                 .withPageTitle("Вход на сайт");
@@ -133,7 +133,7 @@ public class RegisterController {
 
     public LocationInfo alreadyConfirmedLocationInfo(Model model) {
         return new LocationInfo(model)
-                .withUri("/signin")
+                .withUri("/register/already-confirmed")
                 .withParent(indexController.indexLocationInfo(null))
                 .withMenuNoLogin(true)
                 .withPageTitle("Вход на сайт");
@@ -148,10 +148,23 @@ public class RegisterController {
 
     public LocationInfo registerOkLocationInfo(Model model) {
         return new LocationInfo(model)
-                .withUri("/signin")
+                .withUri("/register/ok")
                 .withParent(indexController.indexLocationInfo(null))
-                .withMenuNoLogin(true)
-                .withPageTitle("Вход на сайт");
+                .withPageTitle("Вы зашли на сайт");
+    }
+
+    @GetMapping("/register/error")
+    public String registerError(Model model) {
+        registerErrorLocationInfo(model);
+
+        return "register-error";
+    }
+
+    public LocationInfo registerErrorLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/register/error")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Ошибка при подтверждении регистрации");
     }
 
 }
