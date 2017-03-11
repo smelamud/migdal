@@ -14,6 +14,7 @@ import ua.org.migdal.Config;
 import ua.org.migdal.data.Gender;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
+import ua.org.migdal.util.Password;
 import ua.org.migdal.util.Utils;
 
 public class UserForm {
@@ -265,7 +266,7 @@ public class UserForm {
             user.setConfirmDeadline(Timestamp.from(Instant.now().plus(config.getRegConfirmTimeout(), ChronoUnit.DAYS)));
         }
         if (user.getId() <= 0 || !StringUtils.isEmpty(getNewPassword())) {
-            user.setPassword(Utils.md5(getNewPassword()));
+            Password.assign(user, getNewPassword());
         }
         if (user.getId() <= 0) {
             user.setCreated(Utils.now());

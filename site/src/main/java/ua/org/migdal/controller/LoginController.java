@@ -9,7 +9,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -21,7 +20,7 @@ import ua.org.migdal.manager.UsersManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.Session;
-import ua.org.migdal.util.Utils;
+import ua.org.migdal.util.Password;
 
 @Controller
 public class LoginController {
@@ -70,8 +69,7 @@ public class LoginController {
         new ControllerAction(LoginController.class, "actionLogin", errors)
                 .execute(() -> {
                     User user = usersManager.getByLogin(loginForm.getLogin());
-                    String md5Password = Utils.md5(loginForm.getPassword());
-                    if (user == null || !md5Password.equalsIgnoreCase(user.getPassword())) {
+                    if (!Password.validate(user, loginForm.getPassword())) {
                         return "incorrect";
                     }
                     if (user.isNoLogin()) {
