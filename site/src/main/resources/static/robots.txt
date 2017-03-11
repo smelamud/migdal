@@ -29,8 +29,8 @@ Disallow: /old-ids
 Disallow: /phpinfo
 Disallow: /plaintext/
 Disallow: /rating/
+Disallow: /recall-password/
 Disallow: /register/
-Disallow: /remember-password/
 Disallow: /reorder-reviews
 Disallow: /setup
 Disallow: /signin

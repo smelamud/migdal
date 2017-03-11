@@ -69,11 +69,11 @@ public class PasswordGenerator {
         PASSWORD_ELEMENTS = Collections.unmodifiableList(passwordElements);
     }
 
-    public String generatePassword() {
+    public static String generatePassword() {
         return generatePassword(8);
     }
 
-    public String generatePassword(int size) {
+    public static String generatePassword(int size) {
         StringBuilder password = new StringBuilder();
         int prev = 0;
         int shouldBe = Utils.random(0, 2) == 0 ? PWG_VOWEL : PWG_CONSONANT;

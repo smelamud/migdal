@@ -15,12 +15,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.LoginForm;
+import ua.org.migdal.form.RecallPasswordForm;
 import ua.org.migdal.form.SuForm;
+import ua.org.migdal.mail.MailController;
 import ua.org.migdal.manager.UsersManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.Session;
 import ua.org.migdal.util.Password;
+import ua.org.migdal.util.PasswordGenerator;
 
 @Controller
 public class LoginController {
@@ -36,6 +39,9 @@ public class LoginController {
 
     @Autowired
     private UsersManager usersManager;
+
+    @Autowired
+    private MailController mailController;
 
     @Autowired
     private IndexController indexController;
@@ -132,6 +138,71 @@ public class LoginController {
                     .queryParam("back", requestContext.getBack())
                     .toUriString();
         }
+    }
+
+    @GetMapping("/recall-password")
+    public String recall(Model model) {
+        recallLocationInfo(model);
+
+        model.asMap().putIfAbsent("recallPasswordForm", new RecallPasswordForm());
+        return "recall-password";
+    }
+
+    public LocationInfo recallLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/recall-password")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Восстановление пароля");
+    }
+
+    @PostMapping("/actions/recall-password")
+    public String actionRecall(
+            @ModelAttribute @Valid RecallPasswordForm recallPasswordForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(LoginController.class, "actionRecall", errors)
+                .execute(() -> {
+                    User user = usersManager.getByLogin(recallPasswordForm.getLogin());
+                    if (user == null) {
+                        return "login.noUser";
+                    }
+                    if (!user.isConfirmed()) {
+                        return "notConfirmed";
+                    }
+                    String password = PasswordGenerator.generatePassword();
+                    Password.assign(user, password);
+                    usersManager.save(user);
+                    redirectAttributes.addFlashAttribute("user", user);
+                    mailController.recallPassword(user, password);
+                    mailController.recallingPassword(user);
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return UriComponentsBuilder.fromUriString("redirect:/recall-password/ok")
+                    .queryParam("back", requestContext.getBack())
+                    .toUriString();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("recallPasswordForm", recallPasswordForm);
+            return UriComponentsBuilder.fromUriString("redirect:/recall-password")
+                    .queryParam("back", requestContext.getBack())
+                    .toUriString();
+        }
+    }
+
+    @GetMapping("/recall-password/ok")
+    public String recallOk(Model model) {
+        recallOkLocationInfo(model);
+
+        return "recall-password-ok";
+    }
+
+    public LocationInfo recallOkLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/recall-password/ok")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Новый пароль отправлен");
     }
 
 }
