@@ -127,9 +127,6 @@ const EV_NO_LOGIN = 333;
 const EDM_NO_CHANGE = 340;
 const EDM_NO_POSTING = 341;
 
-const EPL_NO_LOGIN = 350;
-const EPL_NOT_CONFIRMED = 351;
-
 const ECEA_NO_ADD = 360;
 const ECEA_ENTRY_ABSENT = 361;
 const ECEA_NO_SOURCE = 362;
