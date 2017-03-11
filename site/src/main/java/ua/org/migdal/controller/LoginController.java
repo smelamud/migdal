@@ -18,7 +18,7 @@ import ua.org.migdal.form.LoginForm;
 import ua.org.migdal.form.RecallPasswordForm;
 import ua.org.migdal.form.SuForm;
 import ua.org.migdal.mail.MailController;
-import ua.org.migdal.manager.UsersManager;
+import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.Session;
@@ -38,7 +38,7 @@ public class LoginController {
     private Session session;
 
     @Autowired
-    private UsersManager usersManager;
+    private UserManager userManager;
 
     @Autowired
     private MailController mailController;
@@ -74,7 +74,7 @@ public class LoginController {
             RedirectAttributes redirectAttributes) {
         new ControllerAction(LoginController.class, "actionLogin", errors)
                 .execute(() -> {
-                    User user = usersManager.getByLogin(loginForm.getLogin());
+                    User user = userManager.getByLogin(loginForm.getLogin());
                     if (!Password.validate(user, loginForm.getPassword())) {
                         return "incorrect";
                     }
@@ -106,7 +106,7 @@ public class LoginController {
             session.setUserId(session.getRealUserId());
         } else {
             session.setUserId(0);
-            session.setRealUserId(usersManager.getGuestId());
+            session.setRealUserId(userManager.getGuestId());
         }
         return "redirect:" + requestContext.getBack();
     }
@@ -121,7 +121,7 @@ public class LoginController {
                     if (!requestContext.isUserAdminUsers()) {
                         return "notAdmin";
                     }
-                    long userId = usersManager.getIdByLogin(suForm.getLogin());
+                    long userId = userManager.getIdByLogin(suForm.getLogin());
                     if (userId <= 0) {
                         return "noUser";
                     }
@@ -162,7 +162,7 @@ public class LoginController {
             RedirectAttributes redirectAttributes) {
         new ControllerAction(LoginController.class, "actionRecall", errors)
                 .execute(() -> {
-                    User user = usersManager.getByLogin(recallPasswordForm.getLogin());
+                    User user = userManager.getByLogin(recallPasswordForm.getLogin());
                     if (user == null) {
                         return "login.noUser";
                     }
@@ -171,7 +171,7 @@ public class LoginController {
                     }
                     String password = PasswordGenerator.generatePassword();
                     Password.assign(user, password);
-                    usersManager.save(user);
+                    userManager.save(user);
                     redirectAttributes.addFlashAttribute("user", user);
                     mailController.recallPassword(user, password);
                     mailController.recallingPassword(user);

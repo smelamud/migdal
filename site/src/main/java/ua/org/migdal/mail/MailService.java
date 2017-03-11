@@ -31,7 +31,7 @@ import ua.org.migdal.data.UserRight;
 import ua.org.migdal.mail.exception.MailServiceException;
 import ua.org.migdal.mail.exception.SendMailInterruptedException;
 import ua.org.migdal.mail.exception.TemplateCompilingException;
-import ua.org.migdal.manager.UsersManager;
+import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.util.XmlConverter;
 
 @Service
@@ -49,7 +49,7 @@ public class MailService {
     private HandlebarsViewResolver handlebarsViewResolver;
 
     @Autowired
-    private UsersManager usersManager;
+    private UserManager userManager;
 
     private BlockingQueue<MimeMessagePreparator> mailQueue = new LinkedBlockingQueue<>();
 
@@ -92,7 +92,7 @@ public class MailService {
 
     public void sendMailToAdmins(UserRight right, boolean force, String templateName, Map<String, Object> model)
             throws MailServiceException {
-        Set<User> admins = usersManager.getAdmins(right);
+        Set<User> admins = userManager.getAdmins(right);
         for (User admin : admins) {
             sendMail(admin, force, templateName, model);
         }

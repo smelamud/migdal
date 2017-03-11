@@ -16,7 +16,7 @@ import ua.org.migdal.form.LoginForm;
 import ua.org.migdal.form.UserForm;
 import ua.org.migdal.mail.MailController;
 import ua.org.migdal.mail.exception.MailServiceException;
-import ua.org.migdal.manager.UsersManager;
+import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
@@ -29,7 +29,7 @@ public class RegisterController {
     private RequestContext requestContext;
 
     @Autowired
-    private UsersManager usersManager;
+    private UserManager userManager;
 
     @Autowired
     private MailController mailController;
@@ -55,7 +55,7 @@ public class RegisterController {
     @GetMapping("/api/user/login/exists")
     @ResponseBody
     public LoginExistence loginExists(@RequestParam String login) {
-        return new LoginExistence(login, usersManager.loginExists(login));
+        return new LoginExistence(login, userManager.loginExists(login));
     }
 
     @GetMapping("/register/confirm")
@@ -66,7 +66,7 @@ public class RegisterController {
         if (id == null || !(id instanceof Long)) {
             throw new PageNotFoundException();
         }
-        User user = usersManager.get((Long) id);
+        User user = userManager.get((Long) id);
         if (user == null) {
             throw new PageNotFoundException();
         }
@@ -85,9 +85,9 @@ public class RegisterController {
     public String actionConfirm(@RequestParam(required = false) Long id, @RequestParam(required = false) String code) {
         User user = null;
         if (requestContext.isUserAdminUsers() && id != null && id != 0) {
-            user = usersManager.get(id);
+            user = userManager.get(id);
         } else {
-            user = usersManager.begByConfirmCode(code);
+            user = userManager.begByConfirmCode(code);
         }
         if (user == null) {
             return "redirect:/register/error";
@@ -95,7 +95,7 @@ public class RegisterController {
         if (user.isConfirmed()) {
             return "redirect:/register/already-confirmed";
         }
-        usersManager.confirm(user);
+        userManager.confirm(user);
         try {
             mailController.confirmed(user);
         } catch (MailServiceException e) {

@@ -19,7 +19,7 @@ import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
 import ua.org.migdal.form.UserForm;
 import ua.org.migdal.mail.MailController;
-import ua.org.migdal.manager.UsersManager;
+import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
@@ -33,7 +33,7 @@ public class UserController {
     private RequestContext requestContext;
 
     @Autowired
-    private UsersManager usersManager;
+    private UserManager userManager;
 
     @Autowired
     private MailController mailController;
@@ -48,7 +48,7 @@ public class UserController {
 
     @GetMapping("/users/{folder}")
     public String userInfo(@PathVariable String folder, Model model) throws PageNotFoundException {
-        User user = usersManager.get(usersManager.idOrLogin(folder));
+        User user = userManager.get(userManager.idOrLogin(folder));
         if (user == null) {
             throw new PageNotFoundException();
         }
@@ -87,7 +87,7 @@ public class UserController {
                         }
                         user = new User();
                     } else {
-                        user = usersManager.get(userForm.getId());
+                        user = userManager.get(userForm.getId());
                         if (user == null) {
                             return "noUser";
                         }
@@ -96,7 +96,7 @@ public class UserController {
                         }
                     }
                     userForm.toUser(user, requestContext.isUserAdminUsers(), config);
-                    usersManager.save(user);
+                    userManager.save(user);
                     userForm.setId(user.getId());
                     mailController.register(user);
                     mailController.registering(user);

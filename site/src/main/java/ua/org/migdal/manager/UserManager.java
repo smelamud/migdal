@@ -16,7 +16,7 @@ import ua.org.migdal.util.CachedValue;
 import ua.org.migdal.util.Utils;
 
 @Service
-public class UsersManager {
+public class UserManager {
 
     @Autowired
     private Config config;

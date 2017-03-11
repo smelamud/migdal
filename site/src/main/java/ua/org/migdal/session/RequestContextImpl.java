@@ -3,7 +3,6 @@ package ua.org.migdal.session;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +14,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
-import ua.org.migdal.manager.UsersManager;
+import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.util.Utils;
 
 @RequestScope(proxyMode = ScopedProxyMode.INTERFACES)
@@ -37,7 +36,7 @@ public class RequestContextImpl implements RequestContext {
     private SubdomainUtils subdomainUtils;
 
     @Autowired
-    private UsersManager usersManager;
+    private UserManager userManager;
 
     private boolean sessionProcessed;
     private boolean requestProcessed;
@@ -57,10 +56,10 @@ public class RequestContextImpl implements RequestContext {
         long now = System.currentTimeMillis();
         if (session.getUserId() > 0 && session.getLast() + session.getDuration() * 3600 * 1000 < now) {
             session.setUserId(0);
-            session.setRealUserId(usersManager.getGuestId());
+            session.setRealUserId(userManager.getGuestId());
         }
         if (session.getUserId() <= 0 && session.getRealUserId() <= 0) { // freshly created session
-            session.setRealUserId(usersManager.getGuestId());
+            session.setRealUserId(userManager.getGuestId());
         }
         session.setLast(now);
     }
@@ -75,10 +74,10 @@ public class RequestContextImpl implements RequestContext {
 
         User user = null;
         if (session.getUserId() > 0) {
-            user = usersManager.get(session.getUserId());
+            user = userManager.get(session.getUserId());
             if (user == null) {
                 session.setUserId(0);
-                session.setRealUserId(usersManager.getGuestId());
+                session.setRealUserId(userManager.getGuestId());
             }
         }
 
@@ -99,8 +98,8 @@ public class RequestContextImpl implements RequestContext {
         if (isUserAdminUsers() && userHidden > 0) {
             userHidden--;
         }
-        userGroups.addAll(usersManager.getGroupIdsByUserId(userId));
-        usersManager.updateLastOnline(realUserId, Utils.now());
+        userGroups.addAll(userManager.getGroupIdsByUserId(userId));
+        userManager.updateLastOnline(realUserId, Utils.now());
     }
 
     private void processRequest() {
