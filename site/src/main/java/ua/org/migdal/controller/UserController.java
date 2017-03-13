@@ -142,6 +142,9 @@ public class UserController {
     public String adminUsers(Model model) {
         adminUsersLocationInfo(model);
 
+        if (requestContext.isUserModerator()) {
+            model.addAttribute("users", userManager.begAll(0, 20));
+        }
         return "admin-users";
     }
 

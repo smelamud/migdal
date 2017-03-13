@@ -83,44 +83,37 @@
                         <th class="catalog-cell">Контакты</th>
                         <th class="catalog-cell">Последний заход</th>
                     </tr>
-                    <for>
-                        <if what="$;isOdd">
-                            <assign name="class" value="catalog-cell-odd">
-                        <else>
-                            <assign name="class" value="catalog-cell">
-                        </if>
+                    {{#each users}}
+                        {{#if @odd}}
+                            {{#assign "class"}}catalog-cell-odd{{/assign}}
+                        {{else}}
+                            {{#assign "class"}}catalog-cell{{/assign}}
+                        {{/if}}
                         <tr>
-                            <td class="$class ninept">
-                                <a href="/admin/users/$#.Folder/">$=.Login</a>
+                            <td class="{{class}} ninept">
+                                <a href="/admin/users/{{ue folder}}/">{{login}}</a>
                             </td>
-                            <td class="$class eightpt"><fullname user="$."></td>
-                            <if what="$.isConfirmed">
-                                <td align=center class="$class eightpt">$.Age</td>
-                                <td align=center class="$class">$.Rank</td>
-                                <td class="$class">
-                                    <if what="$.isEmailVisible">
-                                        <span class="email ninept"><mailtolink message="$."></span>
-                                    </if>
+                            <td class="{{class}} eightpt">{{> fullname user=this}}</td>
+                            {{#if confirmed}}
+                                <td align="center" class="{{class}} eightpt">{{age}}</td>
+                                <td align="center" class="{{class}}">{{rank}}</td>
+                                <td class="{{class}}">
+                                    <span class="email ninept">{{mailToLink this}}</span>
                                 </td>
-                                <td class="$class eightpt">
-                                    <lastonline user="$.">
+                                <td class="{{class}} eightpt">
+                                    {{lastOnline this}}
                                 </td>
-                            <else>
-                                <td colspan=4 class="$class eightpt">
-                                    <zone>
-                                        <array vals="остался,осталось,осталось">
-                                        <plural name="lasts" value="$.ConfirmDays">
-                                        <array vals="день,дня,дней">
-                                        <plural name="days" value="$.ConfirmDays">
-                                        Идет регистрация ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
-                                        {{#adminUsers}}
-                                            <a href="/actions/user/confirm?id=$.Id">Подтвердить</a>
-                                        {{/adminUsers}}
-                                    </zone>
+                            {{else}}
+                                <td colspan="4" class="{{class}} eightpt">
+                                    Идет регистрация ({{plural confirmDays "остался,осталось,осталось"}}
+                                    {{confirmDays}} {{plural confirmDays "день,дня,дней"}})
+                                    {{#adminUsers}}
+                                        <a href="/actions/user/confirm?id={{id}}">Подтвердить</a>
+                                    {{/adminUsers}}
                                 </td>
-                            </if>
+                            {{/if}}
                         </tr>
-                    </for>
+                    {{/each}}
                 {{/catalogTable}}
             {{/moderator}}
         </td>

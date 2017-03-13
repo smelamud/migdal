@@ -1,9 +1,11 @@
 package ua.org.migdal.manager;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +14,7 @@ import ua.org.migdal.data.IdProjection;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRepository;
 import ua.org.migdal.data.UserRight;
+import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.CachedValue;
 import ua.org.migdal.util.Utils;
 
@@ -23,6 +26,9 @@ public class UserManager {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RequestContext requestContext;
 
     private final CachedValue<Long> guestId = new CachedValue<>(this::fetchGuestId);
 
@@ -106,6 +112,11 @@ public class UserManager {
         user.setConfirmDeadline(null);
         user.setLastOnline(Utils.now());
         userRepository.save(user);
+    }
+
+    public List<User> begAll(int offset, int limit) {
+        short hide = requestContext.isUserAdminUsers() ? (short) 2 : 1;
+        return userRepository.findAllByHiddenLessThanOrderById(hide, new PageRequest(offset / limit, limit));
     }
 
 }

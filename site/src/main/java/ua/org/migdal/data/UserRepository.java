@@ -1,8 +1,10 @@
 package ua.org.migdal.data;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -28,5 +30,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Set<User> findAdmins(long right);
 
     User findByConfirmCodeAndHiddenLessThan(String confirmCode, short hidden);
+
+    List<User> findAllByHiddenLessThanOrderById(short hidden, Pageable pageable);
 
 }

@@ -313,6 +313,18 @@ public class User implements Editable {
         }
     }
 
+    @Transient
+    public int getAge() {
+        LocalDate birthday = getBirthday();
+        if (birthday != null) {
+            return birthday.until(LocalDate.now()).getYears();
+        }
+        if (getBirthdayYear() > 0) {
+            return LocalDate.of(getBirthdayYear(), 1, 1).until(LocalDate.now()).getYears();
+        }
+        return 0;
+    }
+
     public Timestamp getCreated() {
         return created;
     }
@@ -350,8 +362,17 @@ public class User implements Editable {
         this.confirmDeadline = confirmDeadline;
     }
 
+    @Transient
     public boolean isConfirmed() {
         return getConfirmDeadline() == null;
+    }
+
+    @Transient
+    public int getConfirmDays() {
+        if (getConfirmDeadline() == null) {
+            return 0;
+        }
+        return LocalDate.now().until(getConfirmDeadline().toLocalDateTime().toLocalDate()).getDays();
     }
 
     public String getConfirmCode() {
@@ -470,6 +491,20 @@ public class User implements Editable {
     @Transient
     public boolean isAdminDomain() {
         return (getRights() & UserRight.ADMIN_DOMAIN.getValue()) != 0;
+    }
+
+    @Transient
+    public String getRank() {
+        if (isAdminUsers()) {
+            return "Вебмастер";
+        }
+        if (isModerator()) {
+            return "Модератор";
+        }
+        if (isMigdalStudent()) {
+            return "Мигдалевец";
+        }
+        return "";
     }
 
     public Set<User> getGroups() {
