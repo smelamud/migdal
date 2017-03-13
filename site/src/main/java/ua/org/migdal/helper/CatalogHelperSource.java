@@ -17,7 +17,7 @@ public class CatalogHelperSource {
             buf.append(" width=\"100%\"");
         }
         buf.append("class=\"catalog\"><tr><td>");
-        buf.append("<table width=\"100%\" class=\"catalog-layer\" cellspacing=\"1\" cellpadding=\"3\">");
+        buf.append("<table class=\"catalog-layer\">");
         buf.append(options.apply(options.fn));
         buf.append("</table>");
         buf.append("</td></tr></table>");
