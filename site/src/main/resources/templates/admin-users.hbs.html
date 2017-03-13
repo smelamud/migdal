@@ -9,41 +9,27 @@
 --}}
 
 {{#*inline "navigator"}}
-    <table width="100%" class="nframe">
-        <tr><td align="right" class="eightpt">
-            {{subtitle}}
-            <b>Сортировать</b>
-            <navi_sort title="по нику" value="*SORT_LOGIN">|
-            <navi_sort title="по имени" value="*SORT_NAME">|
-            <navi_sort title="по еврейскому имени" value="*SORT_JEWISH_NAME">|
-            <navi_sort title="по фамилии" value="*SORT_SURNAME">
-        </td></tr>
-        <tr><td align="center" style="padding: 10px">
-            <iterate_user_alphabet limit=100 sort="$$sort">
-            <assign name="rus" value="*false">
-            <for>
-                <if what="$;isFirst && $$prefix==""">
-                    <assign_global name="prefix" value="$.">
-                </if>
-                <if what="!$rus && ord($.{0})>127">
-                    <br>
-                    <assign name="rus" value="*true">
-                </if>
-                <if what="$.!=$$prefix">
-                    <a href="$[prefix=$.]">$=.</a>&sp;
-                <else>
-                    <b>$.</b>&sp;
-                </if>
-            </for>
-        </td></tr>
-        <tr><td align="left" class="ninept">
+    <div class="nframe">
+        {{subtitle}}
+        <p>
+            <form method="get" action="{{rc.location}}">
+                <select name="sort" style="margin-left: 5px">
+                    {{#each sorts}}
+                        {{selectOption value=value title=title selectedValue=""}}
+                    {{/each}}
+                </select>
+                {{edit name="prefix" value="" maxlength="255"}}
+                <input type="submit" value="Поиск">
+            </form>
+        </p>
+        <p class="ninept" style="margin-left: 5px">
             Всего {{plural totalUsers "зарегистрирован,зарегистрировано,зарегистрировано"}} <em>{{totalUsers}}</em>
             {{plural totalUsers "пользователь,пользователя,пользователей"}}
             {{#if totalNotConfirmedUsers}}
                 &nbsp;(<em>{{totalNotConfirmedUsers}}</em> в процессе регистрации)
             {{/if}}
-        </td></tr>
-    </table>
+        </p>
+    </div>
 {{/inline}}
 
 {{#*inline "fullname"}} {{! params: user }}

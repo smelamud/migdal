@@ -18,6 +18,7 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
 import ua.org.migdal.form.UserForm;
+import ua.org.migdal.helper.util.Constant;
 import ua.org.migdal.mail.MailController;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
@@ -138,10 +139,17 @@ public class UserController {
         return null;
     }
 
+    private final static Constant[] SORTS = new Constant[] {
+            new Constant("по нику", "login"),
+            new Constant("по имени", "name"),
+            new Constant("по фамилии", "surname")
+    };
+
     @GetMapping("/admin/users")
     public String adminUsers(Model model) {
         adminUsersLocationInfo(model);
 
+        model.addAttribute("sorts", SORTS);
         if (requestContext.isUserModerator()) {
             model.addAttribute("totalUsers", userManager.count());
             model.addAttribute("totalNotConfirmedUsers", userManager.countNotConfirmed());
