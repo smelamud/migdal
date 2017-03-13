@@ -20,8 +20,8 @@ public class IndexController {
                 .withUri("/")
                 .withRssHref("/rss/")
                 .withTranslationHref("/")
-                .withMenuElement("topicsMajor")
-                .withMenuIndex("index")
+                .withTopics("topicsMajor")
+                .withTopicsIndex("index")
                 .withPageTitle("Главная");
     }
 

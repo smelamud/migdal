@@ -37,8 +37,8 @@ public class LocationInfo {
     private String rssHref = "";
     private String translationHref = "";
     private String menuMain = "index";
-    private String menuElement;
-    private String menuIndex;
+    private String topics;
+    private String topicsIndex;
     private boolean menuNoLogin;
 
     public LocationInfo getParent() {
@@ -77,12 +77,12 @@ public class LocationInfo {
         return menuMain;
     }
 
-    public String getMenuElement() {
-        return menuElement;
+    public String getTopics() {
+        return topics;
     }
 
-    public String getMenuIndex() {
-        return menuIndex;
+    public String getTopicsIndex() {
+        return topicsIndex;
     }
 
     public boolean isMenuNoLogin() {
@@ -186,15 +186,15 @@ public class LocationInfo {
         return this;
     }
 
-    public LocationInfo withMenuElement(String menuElement) {
-        this.menuElement = menuElement;
-        addAttribute("menuElement", menuElement);
+    public LocationInfo withTopics(String topics) {
+        this.topics = topics;
+        addAttribute("topics", topics);
         return this;
     }
 
-    public LocationInfo withMenuIndex(String menuIndex) {
-        this.menuIndex = menuIndex;
-        addAttribute("menuIndex", menuIndex);
+    public LocationInfo withTopicsIndex(String topicsIndex) {
+        this.topicsIndex = topicsIndex;
+        addAttribute("topicsIndex", topicsIndex);
         return this;
     }
 

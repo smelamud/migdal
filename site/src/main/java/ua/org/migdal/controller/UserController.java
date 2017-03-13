@@ -153,8 +153,8 @@ public class UserController {
     public LocationInfo adminUsersLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/admin/users")
-                .withMenuElement("topics_admin")
-                .withMenuIndex("admin-users")
+                .withTopics("topics-admin")
+                .withTopicsIndex("admin-users")
                 .withParent(indexController.indexLocationInfo(null))
                 .withPageTitle("Пользователи");
     }

@@ -1,24 +1,5 @@
 << @(#) $Id$ >>
 
-<element name='rating'>
-<ifzero what='$value'>
- <assign name='class' value='small-rating-zero'>
-<else>
- <if what='$value>0'>
-  <assign name='class' value='small-rating-plus'>
-  <assign name='value' value#='+$value'>
- <else>
-  <assign name='class' value='small-rating-minus'>
- </if>
-</ifzero>
-<ifne what='$style'>
- <assign name='st' value#=' style="$style"'>
-<else>
- <assign name='st' value=''>
-</ifne>
-<span class='small-rating-$id&sp;$class'$st>($value)</span>
-</element>
-
 <element name='vote_panel'>
 <notprint>
  <notenglish>

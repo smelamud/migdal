@@ -1,45 +1,8 @@
 << @(#) $Id$ >>
 
-<element name='topics_line'>
-<if what='$arrow'>
- <ifbiff time='$time'>
-  <li class='topics-ner-arrow'>
- <else>
-  <li class='topics-arrow'>
- </ifbiff>
-<else>
- <ifbiff time='$time'>
-  <li class='topics-ner'>
- <else>
-  <if what='$nobullet'>
-   <li class='topics-nobullet'>
-  <else>
-   <li>
-  </if>
- </ifbiff>
-</if>
- <ifne what='$title'>
-  <a href='$href' title='$title' class='$class'><asp>
- <else>
-  <a href='$href' class='$class'><asp>
- </ifne>
- <asp>$text<asp>
- <ifne what='$count'>
-  <asp>&nbsp;<span class='topics-answers'>($count)</span><asp>
- </ifne></a>
- <ifne what='$rating'><rating value='$rating'></ifne>
-</li>
-</element>
-
 <element name='topics_section'>
 <li class='$class'>
  $title
-</li>
-</element>
-
-<element name='topics_splitter'>
-<li class='topics-nobullet $class'>
- &nbsp;
 </li>
 </element>
 
@@ -52,22 +15,6 @@
 <li class='$liclass'>
  $text
 </li>
-</element>
-
-<element name='topics_table'>
-<ifne what='$title'>
- <div class='topics-header'>$title</div>
-</ifne>
-<ifne what='$class'>
- <assign name='tableclass' value#='topics $class'>
-<else>
- <assign name='tableclass' value='topics'>
-</ifne>
-<ul class='$tableclass'>
-</element>
-
-<element name='/topics_table'>
-</ul>
 </element>
 
 <element name='topics_subtable'>
@@ -90,9 +37,4 @@
 <div class='up-level'>
  <a href='$href'>$=title</a>
 </div>
-</element>
-
-<element name='topics'>
-<require_once name='$$menu_file'>
-<exec element='$$menu_element' arg1='$$menu_index' arg2='$$menu_base'>
 </element>

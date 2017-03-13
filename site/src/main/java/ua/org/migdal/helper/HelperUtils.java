@@ -2,6 +2,13 @@ package ua.org.migdal.helper;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
@@ -50,7 +57,7 @@ public class HelperUtils {
         }
         String valueS = value.toString();
         if (valueS.isEmpty()) {
-            return 0L;
+            return null;
         }
         try {
             return Long.parseLong(valueS);
@@ -95,6 +102,37 @@ public class HelperUtils {
     public static boolean boolArg(Object value) {
         Boolean valueB = booleanArg(value);
         return valueB != null ? valueB : false;
+    }
+
+    public static LocalDateTime timestampArg(String paramName, Object value) {
+        return timestampArg(paramName, value, true);
+    }
+
+    public static LocalDateTime timestampArg(String paramName, Object value, boolean defaultNow) {
+        if (value == null) {
+            return defaultNow ? LocalDateTime.now() : null;
+        }
+        if (value instanceof Instant) {
+            return ((Instant) value).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+        if (value instanceof LocalDate) {
+            return ((LocalDate) value).atStartOfDay();
+        }
+        if (value instanceof LocalDateTime) {
+            return (LocalDateTime) value;
+        }
+        if (value instanceof ZonedDateTime) {
+            return ((ZonedDateTime) value).toLocalDateTime();
+        }
+        if (value instanceof Date) {
+            return ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+        if (value instanceof Timestamp) {
+            return ((Timestamp) value).toLocalDateTime();
+        }
+        return Instant.ofEpochMilli(HelperUtils.intArg(paramName, value))
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     public static void appendOptionalArgAttr(StringBuilder buf, String name, Options options) {

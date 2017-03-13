@@ -4,6 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.function.Function;
 import javax.xml.bind.DatatypeConverter;
 
@@ -91,6 +94,10 @@ public class Utils {
 
     public static Timestamp now() {
         return new Timestamp(System.currentTimeMillis());
+    }
+
+    public static boolean biff(LocalDateTime dateTime) {
+        return dateTime != null && dateTime.plusDays(1).isAfter(LocalDateTime.now());
     }
 
 }
