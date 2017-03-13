@@ -138,4 +138,20 @@ public class UserController {
         return null;
     }
 
+    @GetMapping("/admin/users")
+    public String adminUsers(Model model) {
+        adminUsersLocationInfo(model);
+
+        return "admin-users";
+    }
+
+    public LocationInfo adminUsersLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/users")
+                .withMenuElement("topics_admin")
+                .withMenuIndex("admin-users")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Пользователи");
+    }
+
 }

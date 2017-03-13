@@ -1,0 +1,130 @@
+{{!--
+<string name='prefix'>
+    <int name='sort'>
+        <ifzero what='$sort'>
+            <assign name='sort' value='*SORT_LOGIN'>
+                <else>
+                    <meta_noindex>
+        </ifzero>
+--}}
+
+{{#*inline "navigator"}}
+    <table width="100%" class="nframe">
+        <tr><td align="right" class="eightpt">
+            {{subtitle}}
+            <b>Сортировать</b>
+            <navi_sort title="по нику" value="*SORT_LOGIN">|
+            <navi_sort title="по имени" value="*SORT_NAME">|
+            <navi_sort title="по еврейскому имени" value="*SORT_JEWISH_NAME">|
+            <navi_sort title="по фамилии" value="*SORT_SURNAME">
+        </td></tr>
+        <tr><td align="center" style="padding: 10px">
+            <iterate_user_alphabet limit=100 sort="$$sort">
+            <assign name="rus" value="*false">
+            <for>
+                <if what="$;isFirst && $$prefix==""">
+                    <assign_global name="prefix" value="$.">
+                </if>
+                <if what="!$rus && ord($.{0})>127">
+                    <br>
+                    <assign name="rus" value="*true">
+                </if>
+                <if what="$.!=$$prefix">
+                    <a href="$[prefix=$.]">$=.</a>&sp;
+                <else>
+                    <b>$.</b>&sp;
+                </if>
+            </for>
+        </td></tr>
+        <tr><td align="left" class="ninept">
+            <users_summary name="summary">
+            <array vals="зарегистрирован,зарегистрировано,зарегистрировано">
+            <plural name="i_reg" value="$summary.Total">
+            <array vals="пользователь,пользователя,пользователей">
+            <plural name="i_users" value="$summary.Total">
+            Всего $i_reg <em>$summary.Total</em> $i_users
+            <ifnzero what="$summary.Waiting">
+                &nbsp;(<em>$summary.Waiting</em> в процессе регистрации)
+            </ifnzero>
+        </td></tr>
+    </table>
+{{/inline}}
+
+{{#*inline "fullname"}} {{! params: user }}
+    {{#ifeq sort "name"}}
+        {{user.fullNameCivil}}
+    {{else}}
+        {{#ifeq sort "surname"}}
+            {{user.fullNameSurname}}
+        {{else}}
+            {{user.fullName}}
+        {{/ifeq}}
+    {{/ifeq}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table width="100%" cellpadding="5">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            <topics>
+        </td>
+        <td style="padding: 0">
+            {{#moderator}}
+                {{> navigator}}
+                <iterate_userlist prefix='$prefix' sort='$sort'>
+                {{#catalogTable}}
+                    <tr valign="top">
+                        <th class="catalog-cell">Ник</th>
+                        <th class="catalog-cell">Имя</th>
+                        <th class="catalog-cell">Возраст</th>
+                        <th class="catalog-cell">Статус</th>
+                        <th class="catalog-cell">Контакты</th>
+                        <th class="catalog-cell">Последний заход</th>
+                    </tr>
+                    <for>
+                        <if what="$;isOdd">
+                            <assign name="class" value="catalog-cell-odd">
+                        <else>
+                            <assign name="class" value="catalog-cell">
+                        </if>
+                        <tr>
+                            <td class="$class ninept">
+                                <a href="/admin/users/$#.Folder/">$=.Login</a>
+                            </td>
+                            <td class="$class eightpt"><fullname user="$."></td>
+                            <if what="$.isConfirmed">
+                                <td align=center class="$class eightpt">$.Age</td>
+                                <td align=center class="$class">$.Rank</td>
+                                <td class="$class">
+                                    <if what="$.isEmailVisible">
+                                        <span class="email ninept"><mailtolink message="$."></span>
+                                    </if>
+                                </td>
+                                <td class="$class eightpt">
+                                    <lastonline user="$.">
+                                </td>
+                            <else>
+                                <td colspan=4 class="$class eightpt">
+                                    <zone>
+                                        <array vals="остался,осталось,осталось">
+                                        <plural name="lasts" value="$.ConfirmDays">
+                                        <array vals="день,дня,дней">
+                                        <plural name="days" value="$.ConfirmDays">
+                                        Идет регистрация ($lasts&nbsp;$.ConfirmDays&nbsp;$days)
+                                        {{#adminUsers}}
+                                            <a href="/actions/user/confirm?id=$.Id">Подтвердить</a>
+                                        {{/adminUsers}}
+                                    </zone>
+                                </td>
+                            </if>
+                        </tr>
+                    </for>
+                {{/catalogTable}}
+            {{/moderator}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
