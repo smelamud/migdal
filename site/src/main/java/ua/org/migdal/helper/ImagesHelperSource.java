@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
+import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.session.RequestContext;
 
 @HelperSource

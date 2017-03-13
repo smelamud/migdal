@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 
+import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.util.Utils;
 
 @HelperSource

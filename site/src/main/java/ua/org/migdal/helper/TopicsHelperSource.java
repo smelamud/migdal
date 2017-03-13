@@ -12,6 +12,7 @@ import com.github.jknack.handlebars.Options;
 import com.github.jknack.handlebars.Template;
 
 import ua.org.migdal.helper.exception.AmbiguousArgumentsException;
+import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.util.Utils;
 
 @HelperSource

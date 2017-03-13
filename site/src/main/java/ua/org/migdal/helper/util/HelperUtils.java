@@ -1,4 +1,4 @@
-package ua.org.migdal.helper;
+package ua.org.migdal.helper.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

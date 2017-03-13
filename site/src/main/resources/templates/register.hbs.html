@@ -52,7 +52,7 @@
             <select name="birthMonth">
                 {{selectOption value=0 title=(safe "&mdash;") selectedValue=userForm.birthMonth}}
                 {{#each const.gregorianMonthRuGenLcLong}}
-                    {{selectOption value=first title=second selectedValue=userForm.birthMonth}}
+                    {{selectOption value=value title=title selectedValue=userForm.birthMonth}}
                 {{/each}}
             </select>
             {{edit name="birthYear" size="4" maxlength="4" value=userForm.birthYear}}

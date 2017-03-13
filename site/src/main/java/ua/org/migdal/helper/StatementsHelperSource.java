@@ -6,6 +6,7 @@ import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ua.org.migdal.helper.util.HelperUtils;
 
 @HelperSource
 public class StatementsHelperSource {

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
+import ua.org.migdal.helper.util.HelperUtils;
 
 @HelperSource
 public class CatalogHelperSource {

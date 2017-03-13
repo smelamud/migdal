@@ -5,12 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.function.Function;
 import javax.xml.bind.DatatypeConverter;
-
-import ua.org.migdal.helper.HelperUtils;
 
 public class Utils {
 
