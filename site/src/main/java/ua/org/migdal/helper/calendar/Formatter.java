@@ -159,7 +159,7 @@ public class Formatter {
 
     public static String formatFuzzyTimeElapsed(LocalDateTime dateTime) {
         /* FIXME what to do with English? */
-        long diff = LocalDateTime.now().until(dateTime, ChronoUnit.SECONDS);
+        long diff = dateTime.until(LocalDateTime.now(), ChronoUnit.SECONDS);
         if (diff < 60)
             return "только что";
         diff /= 60;
