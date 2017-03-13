@@ -143,6 +143,8 @@ public class UserController {
         adminUsersLocationInfo(model);
 
         if (requestContext.isUserModerator()) {
+            model.addAttribute("totalUsers", userManager.count());
+            model.addAttribute("totalNotConfirmedUsers", userManager.countNotConfirmed());
             model.addAttribute("users", userManager.begAll(0, 20));
         }
         return "admin-users";

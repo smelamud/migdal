@@ -37,15 +37,11 @@
             </for>
         </td></tr>
         <tr><td align="left" class="ninept">
-            <users_summary name="summary">
-            <array vals="зарегистрирован,зарегистрировано,зарегистрировано">
-            <plural name="i_reg" value="$summary.Total">
-            <array vals="пользователь,пользователя,пользователей">
-            <plural name="i_users" value="$summary.Total">
-            Всего $i_reg <em>$summary.Total</em> $i_users
-            <ifnzero what="$summary.Waiting">
-                &nbsp;(<em>$summary.Waiting</em> в процессе регистрации)
-            </ifnzero>
+            Всего {{plural totalUsers "зарегистрирован,зарегистрировано,зарегистрировано"}} <em>{{totalUsers}}</em>
+            {{plural totalUsers "пользователь,пользователя,пользователей"}}
+            {{#if totalNotConfirmedUsers}}
+                &nbsp;(<em>{{totalNotConfirmedUsers}}</em> в процессе регистрации)
+            {{/if}}
         </td></tr>
     </table>
 {{/inline}}

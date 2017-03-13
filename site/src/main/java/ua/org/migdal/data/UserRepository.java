@@ -31,6 +31,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByConfirmCodeAndHiddenLessThan(String confirmCode, short hidden);
 
+    int countByConfirmDeadlineNotNull();
+
     List<User> findAllByHiddenLessThanOrderById(short hidden, Pageable pageable);
 
 }

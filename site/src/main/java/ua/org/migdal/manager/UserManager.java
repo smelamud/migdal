@@ -36,6 +36,10 @@ public class UserManager {
         return userRepository.exists(id);
     }
 
+    public long count() {
+        return userRepository.count();
+    }
+
     public User get(Long id) {
         return userRepository.findOne(id);
     }
@@ -103,6 +107,10 @@ public class UserManager {
 
     public User begByConfirmCode(String confirmCode) {
         return userRepository.findByConfirmCodeAndHiddenLessThan(confirmCode, (short) 2);
+    }
+
+    public int countNotConfirmed() {
+        return userRepository.countByConfirmDeadlineNotNull();
     }
 
     @Transactional
