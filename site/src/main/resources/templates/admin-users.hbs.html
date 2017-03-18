@@ -15,10 +15,10 @@
             <form method="get" action="{{rc.location}}">
                 <select name="sort" style="margin-left: 5px">
                     {{#each sorts}}
-                        {{selectOption value=value title=title selectedValue=""}}
+                        {{selectOption value=value title=title selectedValue=sort}}
                     {{/each}}
                 </select>
-                {{edit name="prefix" value="" maxlength="255"}}
+                {{edit name="prefix" value=prefix maxlength="255"}}
                 <input type="submit" value="Поиск">
             </form>
         </p>

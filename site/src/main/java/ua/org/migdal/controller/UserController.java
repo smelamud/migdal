@@ -5,11 +5,13 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -146,14 +148,21 @@ public class UserController {
     }
 
     @GetMapping("/admin/users")
-    public String adminUsers(Model model) {
+    public String adminUsers(@RequestParam(required = false) String prefix,
+                             @RequestParam(required = false) String sort, Model model) throws PageNotFoundException {
         adminUsersLocationInfo(model);
 
+        if (!StringUtils.isEmpty(sort) && !Constant.hasValue(SORTS, sort)) {
+            throw new PageNotFoundException();
+        }
+
+        model.addAttribute("prefix", prefix);
+        model.addAttribute("sort", sort);
         model.addAttribute("sorts", SORTS);
         if (requestContext.isUserModerator()) {
             model.addAttribute("totalUsers", userManager.count());
             model.addAttribute("totalNotConfirmedUsers", userManager.countNotConfirmed());
-            model.addAttribute("users", userManager.begAll(0, 20));
+            model.addAttribute("users", userManager.begAll(prefix, sort, 0, 20));
         }
         return "admin-users";
     }

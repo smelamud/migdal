@@ -6,16 +6,22 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import com.querydsl.core.BooleanBuilder;
 
 import ua.org.migdal.Config;
 import ua.org.migdal.data.IdProjection;
+import ua.org.migdal.data.QUser;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRepository;
 import ua.org.migdal.data.UserRight;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.CachedValue;
+import ua.org.migdal.util.LikeUtils;
 import ua.org.migdal.util.Utils;
 
 @Service
@@ -122,9 +128,32 @@ public class UserManager {
         userRepository.save(user);
     }
 
-    public List<User> begAll(int offset, int limit) {
+    public List<User> begAll(String prefix, String sortField, int offset, int limit) {
         short hide = requestContext.isUserAdminUsers() ? (short) 2 : 1;
-        return userRepository.findAllByHiddenLessThanOrderById(hide, new PageRequest(offset / limit, limit));
+        sortField = !StringUtils.isEmpty(sortField) ? sortField : "login";
+
+        QUser user = QUser.user;
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(user.hidden.lt(hide));
+        switch (sortField) {
+            case "login":
+                builder.and(user.login.likeIgnoreCase(LikeUtils.startsWith(prefix), LikeUtils.ESCAPE_CHAR));
+                break;
+
+            case "name": {
+                BooleanBuilder sub = new BooleanBuilder();
+                sub.or(user.name.likeIgnoreCase(LikeUtils.startsWith(prefix)));
+                sub.or(user.jewishName.likeIgnoreCase(LikeUtils.startsWith(prefix)));
+                builder.and(sub);
+                break;
+            }
+
+            case "surname":
+                builder.and(user.surname.likeIgnoreCase(LikeUtils.startsWith(prefix), LikeUtils.ESCAPE_CHAR));
+                break;
+        }
+        return userRepository.findAll(builder,
+                new PageRequest(offset / limit, limit, Sort.Direction.ASC, sortField)).getContent();
     }
 
 }

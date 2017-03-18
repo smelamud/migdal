@@ -1,15 +1,14 @@
 package ua.org.migdal.data;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, QueryDslPredicateExecutor<User> {
 
     User findByLogin(String login);
 
@@ -32,7 +31,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByConfirmCodeAndHiddenLessThan(String confirmCode, short hidden);
 
     int countByConfirmDeadlineNotNull();
-
-    List<User> findAllByHiddenLessThanOrderById(short hidden, Pageable pageable);
 
 }

@@ -29,4 +29,13 @@ public class Constant {
         this.value = value;
     }
 
+    public static boolean hasValue(Constant[] constants, Object value) {
+        for (Constant constant : constants) {
+            if (constant.getValue().equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
