@@ -2,21 +2,9 @@ package ua.org.migdal.helper.exception;
 
 public class TypeMismatchException extends RuntimeException {
 
-    private String paramName;
-    private String typeName;
-    private Object value;
-
-    public String getParamName() {
-        return paramName;
-    }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public Object getValue() {
-        return value;
-    }
+    private final String paramName;
+    private final String typeName;
+    private final Object value;
 
     public TypeMismatchException(String paramName, String typeName, Object value) {
         this.paramName = paramName;
@@ -53,6 +41,18 @@ public class TypeMismatchException extends RuntimeException {
 
     public TypeMismatchException(int paramN, Class<?> cls, Object value, Throwable cause) {
         this(Integer.toString(paramN), cls, value, cause);
+    }
+
+    public String getParamName() {
+        return paramName;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public Object getValue() {
+        return value;
     }
 
     @Override

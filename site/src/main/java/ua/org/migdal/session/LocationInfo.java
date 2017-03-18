@@ -41,6 +41,15 @@ public class LocationInfo {
     private String topicsIndex;
     private boolean menuNoLogin;
 
+    public LocationInfo(Model model) {
+        this.model = model;
+        try {
+            initModel();
+        } catch (IllegalAccessException e) {
+            log.error("Error initializing model from LocationInfo", e);
+        }
+    }
+
     public LocationInfo getParent() {
         return parent;
     }
@@ -87,15 +96,6 @@ public class LocationInfo {
 
     public boolean isMenuNoLogin() {
         return menuNoLogin;
-    }
-
-    public LocationInfo(Model model) {
-        this.model = model;
-        try {
-            initModel();
-        } catch (IllegalAccessException e) {
-            log.error("Error initializing model from LocationInfo", e);
-        }
     }
 
     private void initModel() throws IllegalAccessException {

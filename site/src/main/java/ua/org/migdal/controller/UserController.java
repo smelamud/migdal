@@ -27,6 +27,12 @@ import ua.org.migdal.session.RequestContext;
 @Controller
 public class UserController {
 
+    private static final Constant[] SORTS = new Constant[] {
+            new Constant("по нику", "login"),
+            new Constant("по имени", "name"),
+            new Constant("по фамилии", "surname")
+    };
+
     @Autowired
     private Config config;
 
@@ -138,12 +144,6 @@ public class UserController {
         }
         return null;
     }
-
-    private final static Constant[] SORTS = new Constant[] {
-            new Constant("по нику", "login"),
-            new Constant("по имени", "name"),
-            new Constant("по фамилии", "surname")
-    };
 
     @GetMapping("/admin/users")
     public String adminUsers(Model model) {

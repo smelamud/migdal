@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class MtextTagLevel {
 
-    public final static Map<String, MtextFormat> TAGS;
+    public static final Map<String, MtextFormat> TAGS;
 
     static {
         Map<String, MtextFormat> tags = new HashMap<>();

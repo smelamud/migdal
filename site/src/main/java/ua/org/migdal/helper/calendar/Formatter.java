@@ -1,6 +1,5 @@
 package ua.org.migdal.helper.calendar;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
@@ -160,29 +159,39 @@ public class Formatter {
     public static String formatFuzzyTimeElapsed(LocalDateTime dateTime) {
         /* FIXME what to do with English? */
         long diff = dateTime.until(LocalDateTime.now(), ChronoUnit.SECONDS);
-        if (diff < 60)
+        if (diff < 60) {
             return "только что";
+        }
         diff /= 60;
-        if (diff == 1)
+        if (diff == 1) {
             return "минуту назад";
-        if (diff < 60)
+        }
+        if (diff < 60) {
             return String.format("%d %s назад", diff, Utils.plural(diff, new String[]{" минуту", " минуты", " минут"}));
+        }
         diff /= 60;
-        if (diff == 1)
+        if (diff == 1) {
             return "час назад";
-        if (diff < 24)
+        }
+        if (diff < 24) {
             return String.format("%d %s назад", diff, Utils.plural(diff, new String[]{" час", " часа", " часов"}));
+        }
         diff /= 24;
-        if (diff == 1)
+        if (diff == 1) {
             return "вчера";
-        if (diff == 2)
+        }
+        if (diff == 2) {
             return "позавчера";
-        if (diff < 30)
+        }
+        if (diff < 30) {
             return String.format("%d %s назад", diff, Utils.plural(diff, new String[]{" день", " дня", " дней"}));
-        if (diff < 60)
+        }
+        if (diff < 60) {
             return "два месяца назад";
-        if (diff < 90)
+        }
+        if (diff < 90) {
             return "три месяца назад";
+        }
         if (dateTime.getYear() == LocalDateTime.now().getYear()) {
             return format(CalendarType.GREGORIAN_RU_GEN_LC, "d MMMM", dateTime);
         }

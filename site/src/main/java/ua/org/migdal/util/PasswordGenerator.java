@@ -7,6 +7,7 @@
  * This file may be distributed under the terms of the GNU Public
  * License.
  */
+
 package ua.org.migdal.util;
 
 import java.util.ArrayList;
@@ -17,12 +18,12 @@ import org.springframework.data.util.Pair;
 
 public class PasswordGenerator {
     
-    private final static int PWG_CONSONANT = 0x0001;
-    private final static int PWG_VOWEL =     0x0002;
-    private final static int PWG_DIPTHONG =  0x0004;
-    private final static int PWG_NOT_FIRST = 0x0008;
+    private static final int PWG_CONSONANT = 0x0001;
+    private static final int PWG_VOWEL     = 0x0002;
+    private static final int PWG_DIPTHONG  = 0x0004;
+    private static final int PWG_NOT_FIRST = 0x0008;
 
-    private final static List<Pair<String, Integer>> PASSWORD_ELEMENTS;
+    private static final List<Pair<String, Integer>> PASSWORD_ELEMENTS;
 
     static {
         List<Pair<String, Integer>> passwordElements = new ArrayList<>();

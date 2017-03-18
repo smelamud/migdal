@@ -9,8 +9,8 @@ import org.xml.sax.Attributes;
 
 public class XmlUtils {
 
-    private final static Pattern AMPS_PATTERN = Pattern.compile("&(?:#[0-9]{1,5}|#x[0-9A-Fa-f]{1,4}|[A-Za-z]+);");
-    private final static Pattern AMPS_XML_PATTERN = Pattern.compile("&(?:#[0-9]{1,5}|#x[0-9A-Fa-f]{1,4}|lt|amp|quot);");
+    private static final Pattern AMPS_PATTERN = Pattern.compile("&(?:#[0-9]{1,5}|#x[0-9A-Fa-f]{1,4}|[A-Za-z]+);");
+    private static final Pattern AMPS_XML_PATTERN = Pattern.compile("&(?:#[0-9]{1,5}|#x[0-9A-Fa-f]{1,4}|lt|amp|quot);");
 
     public static String delicateSpecialChars(String s) {
         return delicateSpecialChars(s, false, false);

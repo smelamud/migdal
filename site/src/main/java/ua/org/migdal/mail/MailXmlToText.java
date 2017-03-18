@@ -16,7 +16,7 @@ public class MailXmlToText extends DefaultHandler {
         P
     }
 
-    public static class Result {
+    public static final class Result {
 
         private CharSequence subject;
         private CharSequence body;

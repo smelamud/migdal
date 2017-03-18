@@ -8,14 +8,14 @@ import ua.org.migdal.session.LocationInfo;
 @Controller
 public class IndexController {
 
-	@GetMapping("/")
-	public String index(Model model) {
-	    indexLocationInfo(model);
+    @GetMapping("/")
+    public String index(Model model) {
+        indexLocationInfo(model);
 
-		return "index-www";
-	}
+        return "index-www";
+    }
 
-	public LocationInfo indexLocationInfo(Model model) {
+    public LocationInfo indexLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/")
                 .withRssHref("/rss/")

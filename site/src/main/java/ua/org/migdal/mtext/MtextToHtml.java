@@ -131,12 +131,15 @@ public class MtextToHtml extends DefaultHandler {
             return "none";
         }
         InnerImageBlock block = imageBlocks.get(par);
-        if (block == null)
+        if (block == null) {
             return "none";
-        if (block.isPlaced(ImagePlacement.CENTERLEFT))
+        }
+        if (block.isPlaced(ImagePlacement.CENTERLEFT)) {
             return "left";
-        if (block.isPlaced(ImagePlacement.CENTERRIGHT))
+        }
+        if (block.isPlaced(ImagePlacement.CENTERRIGHT)) {
             return "right";
+        }
         return "none";
     }
 
@@ -169,9 +172,10 @@ public class MtextToHtml extends DefaultHandler {
         putImage(image, par);
     }
 
-    private String verifyURL(String url) {
-        if (url.toLowerCase().contains("javascript:"))
+    private String verifyUrl(String url) {
+        if (url.toLowerCase().contains("javascript:")) {
             return "";
+        }
         return url;
     }
 
@@ -201,7 +205,7 @@ public class MtextToHtml extends DefaultHandler {
                     html.append("<b>&lt;A HREF?&gt;</b>");
                     break;
                 }
-                String href = verifyURL(attributes.getValue("href"));
+                String href = verifyUrl(attributes.getValue("href"));
                 // Attribute "LOCAL" may be present, but ignored for now
                 html.append(XmlUtils.makeTag(qName, Collections.singletonMap("href", href)));
                 break;

@@ -2,7 +2,7 @@ package ua.org.migdal.helper.exception;
 
 public class DateFormatException extends TypeMismatchException {
 
-    private String datePattern;
+    private final String datePattern;
 
     public DateFormatException(String paramName, String datePattern, Object value) {
         super(paramName, "date", value);

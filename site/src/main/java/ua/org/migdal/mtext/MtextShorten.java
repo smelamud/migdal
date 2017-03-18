@@ -8,7 +8,7 @@ import ua.org.migdal.util.XmlUtils;
 
 class MtextShorten {
 
-    private final static String[][] ENDS = {
+    private static final String[][] ENDS = {
             {"\u001F"},
             {". ", "! ", "? ", ".\n", "!\n", "?\n"},
             {": ", ", ", "; ", ") ", ":\n", ",\n", ";\n", ")\n"}
@@ -55,8 +55,9 @@ class MtextShorten {
     }
 
     private static int cleanLength(String s) throws MtextConverterException {
-        if (!XmlUtils.hasMarkup(s))
+        if (!XmlUtils.hasMarkup(s)) {
             return s.length();
+        }
         MtextToLine handler = new MtextToLine();
         MtextConverter.convert(s, handler);
         return handler.getLine().length();

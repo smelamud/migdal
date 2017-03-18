@@ -21,7 +21,7 @@ import ua.org.migdal.util.Utils;
 @Component
 public class RequestContextImpl implements RequestContext {
 
-    private final static Pattern LOCATION_REGEX = Pattern.compile("^(/[a-zA-z0-9-~@]*)+(\\?.*)?$");
+    private static final Pattern LOCATION_REGEX = Pattern.compile("^(/[a-zA-z0-9-~@]*)+(\\?.*)?$");
 
     @Autowired
     private Config config;

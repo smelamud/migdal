@@ -19,11 +19,11 @@ class MtextToLength extends DefaultHandler {
     private int clen = 0;
     private boolean stop = false;
 
-    public MtextToLength(int len) {
+    MtextToLength(int len) {
         this(len, false);
     }
 
-    public MtextToLength(int len, boolean clearTags) {
+    MtextToLength(int len, boolean clearTags) {
         this.len = len;
         this.clearTags = clearTags;
     }
@@ -97,7 +97,7 @@ class MtextToLength extends DefaultHandler {
             case "h3":
             case "h4":
                 clen++;
-                /*continue*/
+                /* fall through */
             default:
                 if (!clearTags) {
                     shortened.append(XmlUtils.makeTag("/" + qName));

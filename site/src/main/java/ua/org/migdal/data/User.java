@@ -1,12 +1,8 @@
 package ua.org.migdal.data;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
 import java.util.Set;
 
 import javax.persistence.Access;
@@ -24,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
+
 import ua.org.migdal.mtext.Mtext;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContext;

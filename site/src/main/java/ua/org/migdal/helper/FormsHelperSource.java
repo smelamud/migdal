@@ -31,7 +31,7 @@ public class FormsHelperSource {
         HelperUtils.appendMandatoryArgAttr(buf, "name", options);
         HelperUtils.appendArgAttr(buf, "value", "1", options);
         HelperUtils.appendArgAttr(buf, "checked", false, options);
-        HelperUtils.appendOptionalArgAttr(buf,"id", options);
+        HelperUtils.appendOptionalArgAttr(buf, "id", options);
         HelperUtils.appendOptionalArgAttr(buf, "class", options);
         buf.append('>');
         return new SafeString(buf);
@@ -44,7 +44,7 @@ public class FormsHelperSource {
         HelperUtils.appendAttr(buf, "name", name);
         HelperUtils.appendAttr(buf, "value", value);
         HelperUtils.appendAttr(buf, "checked", checked);
-        HelperUtils.appendAttr(buf,"id", id);
+        HelperUtils.appendAttr(buf, "id", id);
         HelperUtils.appendAttr(buf, "class", cls);
         buf.append('>');
         return new SafeString(buf);
@@ -66,7 +66,7 @@ public class FormsHelperSource {
         HelperUtils.appendMandatoryArgAttr(buf, "name", options);
         HelperUtils.appendMandatoryArgAttr(buf, "value", options);
         HelperUtils.appendArgAttr(buf, "checked", false, options);
-        HelperUtils.appendOptionalArgAttr(buf,"id", options);
+        HelperUtils.appendOptionalArgAttr(buf, "id", options);
         HelperUtils.appendOptionalArgAttr(buf, "class", options);
         HelperUtils.appendOptionalArgAttr(buf, "onclick", options);
         buf.append('>');
@@ -80,7 +80,7 @@ public class FormsHelperSource {
         HelperUtils.appendAttr(buf, "name", name);
         HelperUtils.appendAttr(buf, "value", value);
         HelperUtils.appendAttr(buf, "checked", checked);
-        HelperUtils.appendAttr(buf,"id", id);
+        HelperUtils.appendAttr(buf, "id", id);
         HelperUtils.appendAttr(buf, "class", cls);
         buf.append('>');
         return new SafeString(buf);
@@ -342,8 +342,8 @@ public class FormsHelperSource {
 
         StringBuilder buf = new StringBuilder();
         buf.append(formLineBegin(title, name, mandatory, comment, "", options));
-        buf.append(String.format("<textarea name=\"%s\" rows=\"%s\" wrap=\"virtual\" style=\"width: 100%%\">%s</textarea>",
-                                 HelperUtils.he(name), HelperUtils.he(rows), HelperUtils.he(body)));
+        buf.append(String.format("<textarea name=\"%s\" rows=\"%s\" wrap=\"virtual\" style=\"width: 100%%\">%s"
+                        + "</textarea>", HelperUtils.he(name), HelperUtils.he(rows), HelperUtils.he(body)));
         if (xmlid != 0) {
             buf.append("<br>");
             buf.append(xmlText(xmlid, name));

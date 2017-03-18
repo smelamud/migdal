@@ -21,15 +21,15 @@ import ua.org.migdal.helper.HelperSource;
 @EnableConfigurationProperties(Config.class)
 public class MigdalApplication extends WebMvcConfigurerAdapter {
 
-	private Logger log = LoggerFactory.getLogger(MigdalApplication.class);
+    private Logger log = LoggerFactory.getLogger(MigdalApplication.class);
 
-	@Autowired
-	private ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
-	@Autowired
+    @Autowired
     private SubdomainInterceptor subdomainInterceptor;
 
-	@Bean
+    @Bean
     public HandlebarsViewResolver handlebarsViewResolver() {
         HandlebarsViewResolver resolver = new HandlebarsViewResolver();
         resolver.setPrefix("classpath:/templates/");
@@ -51,8 +51,8 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
         registry.addInterceptor(subdomainInterceptor);
     }
 
-	public static void main(String[] args) {
-		SpringApplication.run(MigdalApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MigdalApplication.class, args);
+    }
 
 }
