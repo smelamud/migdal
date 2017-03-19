@@ -294,6 +294,11 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
+    CharSequence edit(CharSequence name, CharSequence value, CharSequence size, CharSequence maxlength,
+                      CharSequence id) {
+        return edit(name, value, size, maxlength, null, id);
+    }
+
     public CharSequence formEdit(Options options) {
         CharSequence title = HelperUtils.mandatoryHash("title", options);
         boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));

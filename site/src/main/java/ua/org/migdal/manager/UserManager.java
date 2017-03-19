@@ -1,10 +1,10 @@
 package ua.org.migdal.manager;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -128,7 +128,7 @@ public class UserManager {
         userRepository.save(user);
     }
 
-    public List<User> begAll(String prefix, String sortField, int offset, int limit) {
+    public Page<User> begAll(String prefix, String sortField, int offset, int limit) {
         short hide = requestContext.isUserAdminUsers() ? (short) 2 : 1;
         sortField = !StringUtils.isEmpty(sortField) ? sortField : "login";
 
@@ -153,7 +153,7 @@ public class UserManager {
             }
         }
         return userRepository.findAll(builder,
-                new PageRequest(offset / limit, limit, Sort.Direction.ASC, sortField)).getContent();
+                new PageRequest(offset / limit, limit, Sort.Direction.ASC, sortField));
     }
 
 }

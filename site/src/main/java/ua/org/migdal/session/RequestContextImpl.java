@@ -41,6 +41,7 @@ public class RequestContextImpl implements RequestContext {
     private boolean sessionProcessed;
     private boolean requestProcessed;
 
+    private String location;
     private String subdomain;
     private String back;
     private Boolean printMode;
@@ -108,11 +109,18 @@ public class RequestContextImpl implements RequestContext {
         }
         requestProcessed = true;
 
+        location = SubdomainUtils.createLocalBuilderFromRequest(request).toUriString();
         String hostname = SubdomainUtils.createBuilderFromRequest(request).build().getHost();
         subdomain = subdomainUtils.validateSubdomain(hostname).getSubdomain();
         printMode = "1".equals(request.getParameter("print"));
         back = request.getParameter("back");
         back = back != null && LOCATION_REGEX.matcher(back).matches() ? back : null;
+    }
+
+    @Override
+    public String getLocation() {
+        processRequest();
+        return location;
     }
 
     @Override

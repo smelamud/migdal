@@ -1,13 +1,3 @@
-{{!--
-<string name='prefix'>
-    <int name='sort'>
-        <ifzero what='$sort'>
-            <assign name='sort' value='*SORT_LOGIN'>
-                <else>
-                    <meta_noindex>
-        </ifzero>
---}}
-
 {{#*inline "navigator"}}
     <div class="nframe">
         {{subtitle}}
@@ -29,6 +19,13 @@
                 &nbsp;(<em>{{totalNotConfirmedUsers}}</em> в процессе регистрации)
             {{/if}}
         </p>
+    </div>
+{{/inline}}
+
+{{#*inline "batcher"}} {{! params: list }}
+    <div class='batcher'>
+        {{spin list}}
+        <div class='clear-floats'></div>
     </div>
 {{/inline}}
 
@@ -55,7 +52,7 @@
         <td style="padding: 0">
             {{#moderator}}
                 {{> navigator}}
-                <iterate_userlist prefix='$prefix' sort='$sort'>
+                {{> batcher list=users}}
                 {{#catalogTable}}
                     <tr valign="top">
                         <th class="catalog-cell">Ник</th>
@@ -65,7 +62,7 @@
                         <th class="catalog-cell">Контакты</th>
                         <th class="catalog-cell">Последний заход</th>
                     </tr>
-                    {{#each users}}
+                    {{#each users.content}}
                         {{#if @odd}}
                             {{#assign "class"}}catalog-cell-odd{{/assign}}
                         {{else}}
@@ -97,6 +94,7 @@
                         </tr>
                     {{/each}}
                 {{/catalogTable}}
+                {{> batcher list=users}}
             {{/moderator}}
         </td>
     </tr>

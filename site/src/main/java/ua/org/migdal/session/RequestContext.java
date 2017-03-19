@@ -4,6 +4,8 @@ import java.util.Set;
 
 public interface RequestContext {
 
+    String getLocation();
+
     String getSubdomain();
 
     boolean isWww();
