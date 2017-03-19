@@ -135,22 +135,22 @@ public class UserManager {
         QUser user = QUser.user;
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(user.hidden.lt(hide));
-        switch (sortField) {
-            case "login":
-                builder.and(user.login.likeIgnoreCase(LikeUtils.startsWith(prefix), LikeUtils.ESCAPE_CHAR));
-                break;
+        if (!StringUtils.isEmpty(prefix)) {
+            switch (sortField) {
+                case "login":
+                    builder.and(user.login.likeIgnoreCase(LikeUtils.startsWith(prefix), LikeUtils.ESCAPE_CHAR));
+                    break;
 
-            case "name": {
-                BooleanBuilder sub = new BooleanBuilder();
-                sub.or(user.name.likeIgnoreCase(LikeUtils.startsWith(prefix)));
-                sub.or(user.jewishName.likeIgnoreCase(LikeUtils.startsWith(prefix)));
-                builder.and(sub);
-                break;
+                case "name":
+                    builder.andAnyOf(
+                            user.name.likeIgnoreCase(LikeUtils.startsWith(prefix)),
+                            user.jewishName.likeIgnoreCase(LikeUtils.startsWith(prefix)));
+                    break;
+
+                case "surname":
+                    builder.and(user.surname.likeIgnoreCase(LikeUtils.startsWith(prefix), LikeUtils.ESCAPE_CHAR));
+                    break;
             }
-
-            case "surname":
-                builder.and(user.surname.likeIgnoreCase(LikeUtils.startsWith(prefix), LikeUtils.ESCAPE_CHAR));
-                break;
         }
         return userRepository.findAll(builder,
                 new PageRequest(offset / limit, limit, Sort.Direction.ASC, sortField)).getContent();

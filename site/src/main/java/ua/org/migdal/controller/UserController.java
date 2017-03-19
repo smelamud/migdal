@@ -156,8 +156,8 @@ public class UserController {
             throw new PageNotFoundException();
         }
 
-        model.addAttribute("prefix", prefix);
-        model.addAttribute("sort", sort);
+        model.addAttribute("prefix", prefix != null ? prefix : "");
+        model.addAttribute("sort", sort != null ? sort : "login");
         model.addAttribute("sorts", SORTS);
         if (requestContext.isUserModerator()) {
             model.addAttribute("totalUsers", userManager.count());
