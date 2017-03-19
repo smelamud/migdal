@@ -1,5 +1,3 @@
-// @(#) $Id$
-
 function plural(n, forms) {
     var a = n % 10;
     var b = Math.floor(n / 10) % 10;

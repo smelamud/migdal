@@ -1,5 +1,3 @@
-// @(#) $Id$
-
 function voteClick(event) {
     id = $(this).attr("data-id");
     idClass = "rating-" + id;

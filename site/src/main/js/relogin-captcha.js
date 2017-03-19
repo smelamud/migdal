@@ -1,5 +1,3 @@
-// @(#) $Id$
-
 function reloginInit() {
     var rg = $("#relogin-guest");
     if (rg.size() > 0) {

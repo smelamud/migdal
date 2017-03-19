@@ -1,5 +1,3 @@
-// @(#) $Id$
-
 /* Time is in seconds of Unix epoch */
 
 window.rusMonthRL = ["января", "февраля", "марта", "апреля", "мая", "июня",

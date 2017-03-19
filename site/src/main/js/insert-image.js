@@ -1,5 +1,3 @@
-// @(#) $Id$
-
 function insertImageMouseMoved(event) {
     var div = null;
     var minDiff = 100;

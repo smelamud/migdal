@@ -1,5 +1,3 @@
-// @(#) $Id$
-
 function userInfoContent(id) {
     var data = window.userInfo[id];
     var content = "<div class='fullname'>" + data.fullName + "</div>" +
