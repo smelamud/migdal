@@ -10,6 +10,8 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 public interface UserRepository extends JpaRepository<User, Long>, QueryDslPredicateExecutor<User> {
 
+    User findByIdAndHiddenLessThan(long id, short hidden);
+
     User findByLogin(String login);
 
     IdProjection findIdByLogin(String login);

@@ -57,7 +57,7 @@ public class UserController {
 
     @GetMapping("/users/{folder}")
     public String userInfo(@PathVariable String folder, Model model) throws PageNotFoundException {
-        User user = userManager.get(userManager.idOrLogin(folder));
+        User user = userManager.beg(userManager.idOrLogin(folder));
         if (user == null) {
             throw new PageNotFoundException();
         }

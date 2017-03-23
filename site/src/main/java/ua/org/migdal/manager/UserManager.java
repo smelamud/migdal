@@ -38,7 +38,7 @@ public class UserManager {
 
     private final CachedValue<Long> guestId = new CachedValue<>(this::fetchGuestId);
 
-    public boolean exists(Long id) {
+    public boolean exists(long id) {
         return userRepository.exists(id);
     }
 
@@ -46,8 +46,13 @@ public class UserManager {
         return userRepository.count();
     }
 
-    public User get(Long id) {
+    public User get(long id) {
         return userRepository.findOne(id);
+    }
+
+    public User beg(long id) {
+        short hide = requestContext.isUserAdminUsers() ? (short) 2 : 1;
+        return userRepository.findByIdAndHiddenLessThan(id, hide);
     }
 
     public User getByLogin(String login) {

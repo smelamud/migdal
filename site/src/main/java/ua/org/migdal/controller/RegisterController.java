@@ -66,7 +66,7 @@ public class RegisterController {
         if (id == null || !(id instanceof Long)) {
             throw new PageNotFoundException();
         }
-        User user = userManager.get((Long) id);
+        User user = userManager.get((long) id);
         if (user == null) {
             throw new PageNotFoundException();
         }
