@@ -76,57 +76,88 @@ public class UserController {
                 .withPageTitle("О пользователе " + login);
     }
 
+    @GetMapping("/users/{folder}/edit")
+    public String userEdit(@PathVariable String folder, Model model) throws PageNotFoundException {
+        User user = userManager.beg(userManager.idOrLogin(folder));
+        if (user == null) {
+            throw new PageNotFoundException();
+        }
+
+        userEditLocationInfo(folder, user.getLogin(), model);
+
+        model.addAttribute("user", user);
+        model.asMap().putIfAbsent("userForm", new UserForm(user));
+        return "useredit";
+    }
+
+    public LocationInfo userEditLocationInfo(String folder, String login, Model model) {
+        return new LocationInfo(model)
+                .withUri("/users/" + folder + "/edit")
+                .withParent(userInfoLocationInfo(folder, login, null))
+                .withPageTitle("Изменение информации о пользователе");
+    }
+
     @PostMapping("/actions/user/modify")
     public String actionUserModify(
             @ModelAttribute @Valid UserForm userForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
+        User user = userForm.getId() > 0 ? userManager.get(userForm.getId()) : new User();
         new ControllerAction(UserController.class, "actionUserModify", errors)
                 .constraint("users_login_key", "newLogin.used")
                 .execute(() -> {
+                    if (userForm.getId() <= 0) {
+                        if (config.isDisableRegister() && !requestContext.isUserAdminUsers()) {
+                            return "disabled";
+                        }
+                    } else {
+                        if (user == null) {
+                            return "noUser";
+                        }
+                    }
+
+                    if (!user.isEditable(requestContext)) {
+                        return "notEditable";
+                    }
                     String errorCode = validateRights(userForm);
                     if (errorCode != null) {
                         return errorCode;
                     }
 
-                    User user;
-                    if (userForm.getId() <= 0) {
-                        if (config.isDisableRegister() && !requestContext.isUserAdminUsers()) {
-                            return "disabled";
-                        }
-                        user = new User();
-                    } else {
-                        user = userManager.get(userForm.getId());
-                        if (user == null) {
-                            return "noUser";
-                        }
-                        if (!user.isEditable(requestContext)) {
-                            return "notEditable";
-                        }
-                    }
                     userForm.toUser(user, requestContext.isUserAdminUsers(), config);
                     userManager.save(user);
-                    userForm.setId(user.getId());
-                    mailController.register(user);
-                    mailController.registering(user);
+                    if (userForm.getId() <= 0) {
+                        mailController.register(user);
+                        mailController.registering(user);
+                    }
                     return null;
                 });
 
-        if (!errors.hasErrors()) {
-            if (requestContext.isUserAdminUsers()) {
-                return "redirect:" + requestContext.getBack();
+        if (userForm.getId() <= 0) {
+            if (!errors.hasErrors()) {
+                if (requestContext.isUserAdminUsers()) {
+                    return "redirect:" + requestContext.getBack();
+                } else {
+                    redirectAttributes.addFlashAttribute("id", user.getId());
+                    return UriComponentsBuilder.fromUriString("redirect:/register/confirm")
+                            .queryParam("back", requestContext.getBack())
+                            .toUriString();
+                }
             } else {
-                redirectAttributes.addFlashAttribute("id", userForm.getId());
-                return UriComponentsBuilder.fromUriString("redirect:/register/confirm")
+                redirectAttributes.addFlashAttribute("errors", errors);
+                redirectAttributes.addFlashAttribute("userForm", userForm);
+                return UriComponentsBuilder.fromUriString("redirect:/register")
                         .queryParam("back", requestContext.getBack())
                         .toUriString();
             }
         } else {
-            redirectAttributes.addFlashAttribute("errors", errors);
-            redirectAttributes.addFlashAttribute("userForm", userForm);
-            return UriComponentsBuilder.fromUriString("redirect:/register")
-                    .queryParam("back", requestContext.getBack())
-                    .toUriString();
+            if (!errors.hasErrors()) {
+                return "redirect:/users/" + user.getFolder();
+            } else {
+                redirectAttributes.addFlashAttribute("errors", errors);
+                redirectAttributes.addFlashAttribute("userForm", userForm);
+                return "redirect:/users/" + user.getFolder() + "/edit";
+            }
         }
     }
 

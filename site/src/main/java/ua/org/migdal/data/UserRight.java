@@ -1,5 +1,8 @@
 package ua.org.migdal.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum UserRight {
 
     MIGDAL_STUDENT(0x0001, false),
@@ -31,6 +34,26 @@ public enum UserRight {
             }
         }
         return null;
+    }
+
+    public static long collect(long[] rights) {
+        long result = 0;
+        if (rights != null) {
+            for (long right : rights) {
+                result |= right;
+            }
+        }
+        return result;
+    }
+
+    public static long[] parse(long rights) {
+        List<UserRight> result = new ArrayList<>();
+        for (UserRight right : values()) {
+            if ((rights & right.getValue()) != 0) {
+                result.add(right);
+            }
+        }
+        return result.stream().mapToLong(UserRight::getValue).toArray();
     }
 
 }

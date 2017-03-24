@@ -55,6 +55,8 @@ public class UserForm {
 
     private boolean emailEnabled = true;
 
+    private boolean bouncingEmail;
+
     private short hidden;
 
     private boolean noLogin;
@@ -62,6 +64,31 @@ public class UserForm {
     private boolean hasPersonal;
 
     public UserForm() {
+    }
+
+    public UserForm(User user) {
+        if (user == null) {
+            return;
+        }
+
+        id = user.getId();
+        newLogin = user.getLogin();
+        name = user.getName();
+        jewishName = user.getJewishName();
+        surname = user.getSurname();
+        gender = user.isWoman();
+        info = user.getInfo();
+        rights = UserRight.parse(user.getRights());
+        email = user.getEmail();
+        hideEmail = user.isHideEmail();
+        birthYear = Short.toString(user.getBirthdayYear());
+        birthMonth = user.getBirthdayMonth();
+        birthDay = Short.toString(user.getBirthdayDay());
+        emailEnabled = user.getEmailDisabled() == 0;
+        bouncingEmail = user.getEmailDisabled() == 2;
+        hidden = user.getHidden();
+        noLogin = user.isNoLogin();
+        hasPersonal = user.isHasPersonal();
     }
 
     public long getId() {
@@ -161,6 +188,22 @@ public class UserForm {
         return hasRight(UserRight.MIGDAL_STUDENT.getValue());
     }
 
+    public boolean isAdminUsers() {
+        return hasRight(UserRight.ADMIN_USERS.getValue());
+    }
+
+    public boolean isAdminTopics() {
+        return hasRight(UserRight.ADMIN_TOPICS.getValue());
+    }
+
+    public boolean isModerator() {
+        return hasRight(UserRight.MODERATOR.getValue());
+    }
+
+    public boolean isAdminDomain() {
+        return hasRight(UserRight.ADMIN_DOMAIN.getValue());
+    }
+
     public String getEmail() {
         return email;
     }
@@ -209,6 +252,14 @@ public class UserForm {
         this.emailEnabled = emailEnabled;
     }
 
+    public boolean isBouncingEmail() {
+        return bouncingEmail;
+    }
+
+    public void setBouncingEmail(boolean bouncingEmail) {
+        this.bouncingEmail = bouncingEmail;
+    }
+
     public short getHidden() {
         return hidden;
     }
@@ -244,14 +295,8 @@ public class UserForm {
         user.setModified(Utils.now());
         user.setBirthdayDay(!StringUtils.isEmpty(getBirthDay()) ? Short.parseShort(getBirthDay()) : 0);
         user.setBirthdayMonth((short) getBirthMonth());
-        user.setBirthdayYear(!StringUtils.isEmpty(getBirthDay()) ? Short.parseShort(getBirthDay()) : 0);
-        long rights = 0;
-        if (getRights() != null) {
-            for (long right : getRights()) {
-                rights |= right;
-            }
-        }
-        user.setRights(rights);
+        user.setBirthdayYear(!StringUtils.isEmpty(getBirthYear()) ? Short.parseShort(getBirthYear()) : 0);
+        user.setRights(UserRight.collect(getRights()));
         user.setEmail(getEmail());
         user.setHideEmail(isHideEmail());
         user.setEmailDisabled(isEmailEnabled() ? (short) 0 : (short) 1);

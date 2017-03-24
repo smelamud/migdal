@@ -83,6 +83,9 @@ public class HelperUtils {
         if (value == null) {
             return null;
         }
+        if (value instanceof Integer) {
+            return ((Integer) value) != 0;
+        }
         if (value instanceof Boolean) {
             return (Boolean) value;
         }

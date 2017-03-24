@@ -130,6 +130,9 @@ public class User implements Editable {
 
     @Override
     public boolean isEditable(RequestContext requestContext) {
+        if (getId() <= 0) {
+            return true;
+        }
         return requestContext.getUserId() > 0
                 && (getId() == requestContext.getUserId() || requestContext.isUserAdminUsers());
     }
