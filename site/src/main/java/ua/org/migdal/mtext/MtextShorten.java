@@ -3,8 +3,9 @@ package ua.org.migdal.mtext;
 import java.util.ArrayList;
 import java.util.List;
 
-import ua.org.migdal.mtext.exception.MtextConverterException;
+import ua.org.migdal.util.XmlConverter;
 import ua.org.migdal.util.XmlUtils;
+import ua.org.migdal.util.exception.XmlConverterException;
 
 class MtextShorten {
 
@@ -54,12 +55,12 @@ class MtextShorten {
         return len;
     }
 
-    private static int cleanLength(String s) throws MtextConverterException {
+    private static int cleanLength(String s) throws XmlConverterException {
         if (!XmlUtils.hasMarkup(s)) {
             return s.length();
         }
         MtextToLine handler = new MtextToLine();
-        MtextConverter.convert(s, handler);
+        XmlConverter.convert(s, handler);
         return handler.getLine().length();
     }
 
@@ -74,7 +75,7 @@ class MtextShorten {
             String line;
             if (hasMarkup) {
                 MtextToLine handler = new MtextToLine();
-                MtextConverter.convert(s, handler);
+                XmlConverter.convert(s, handler);
                 line = handler.getLine().toString();
             } else {
                 line = s;
@@ -86,13 +87,13 @@ class MtextShorten {
             String result;
             if (hasMarkup) {
                 MtextToLength handler = new MtextToLength(n, clearTags);
-                MtextConverter.convert(s, handler);
+                XmlConverter.convert(s, handler);
                 result = handler.getShortened().toString();
             } else {
                 result = s.substring(0, n);
             }
             return XmlUtils.delicateAmps(result) + c;
-        } catch (MtextConverterException e) {
+        } catch (XmlConverterException e) {
             return String.format("<b>** %s: %s **</b>", e.getMessage(), e.getCause().getMessage());
         }
     }

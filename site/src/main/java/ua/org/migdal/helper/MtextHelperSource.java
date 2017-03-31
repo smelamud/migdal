@@ -2,17 +2,18 @@ package ua.org.migdal.helper;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.mtext.InnerImageBlock;
 import ua.org.migdal.mtext.Mtext;
-import ua.org.migdal.mtext.MtextConverter;
 import ua.org.migdal.mtext.MtextToHtml;
-import ua.org.migdal.mtext.exception.MtextConverterException;
+import ua.org.migdal.util.XmlConverter;
+import ua.org.migdal.util.exception.XmlConverterException;
 
 @HelperSource
 public class MtextHelperSource {
@@ -27,9 +28,9 @@ public class MtextHelperSource {
                                               InnerImageBlock.getImageBlocks(innerImages));
         handler.setConfig(config);
         try {
-            MtextConverter.convert(mtext, handler);
+            XmlConverter.convert(mtext.getXml(), handler);
             return new SafeString(handler.getHtmlBody());
-        } catch (MtextConverterException e) {
+        } catch (XmlConverterException e) {
             return new SafeString(String.format("<b>** %s: %s</b>", e.getMessage(), e.getCause().getMessage()));
         }
     }
