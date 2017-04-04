@@ -181,7 +181,7 @@ public class MtextToHtml extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (!MtextTagLevel.TAGS.containsKey(qName) || MtextTagLevel.TAGS.get(qName).greaterThan(format)) {
+        if (!MtextTags.isAllowed(qName) || MtextTags.getLevel(qName).greaterThan(format)) {
             if (!ignoreWrongFormat) {
                 html.append("<b>** &lt;");
                 html.append(qName);
@@ -350,7 +350,7 @@ public class MtextToHtml extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (!MtextTagLevel.TAGS.containsKey(qName) || MtextTagLevel.TAGS.get(qName).greaterThan(format)) {
+        if (!MtextTags.isAllowed(qName) || MtextTags.getLevel(qName).greaterThan(format)) {
             if (!ignoreWrongFormat) {
                 html.append("<b>** &lt;/");
                 html.append(qName);

@@ -2,11 +2,14 @@ package ua.org.migdal.mtext;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-public class MtextTagLevel {
+public class MtextTags {
 
-    public static final Map<String, MtextFormat> TAGS;
+    private static final Map<String, MtextFormat> TAGS;
+    private static final Set<String> EMPTY_TAGS;
 
     static {
         Map<String, MtextFormat> tags = new HashMap<>();
@@ -45,6 +48,26 @@ public class MtextTagLevel {
         tags.put("th",          MtextFormat.LONG);
         tags.put("incut",       MtextFormat.LONG);
         TAGS = Collections.unmodifiableMap(tags);
+
+        Set<String> emptyTags = new HashSet<>();
+        emptyTags.add("email");
+        emptyTags.add("user");
+        emptyTags.add("br");
+        emptyTags.add("img");
+        emptyTags.add("param");
+        EMPTY_TAGS = Collections.unmodifiableSet(emptyTags);
+    }
+
+    public static boolean isAllowed(String tag) {
+        return TAGS.containsKey(tag);
+    }
+
+    public static boolean isEmpty(String tag) {
+        return EMPTY_TAGS.contains(tag);
+    }
+
+    public static MtextFormat getLevel(String tag) {
+        return TAGS.get(tag);
     }
 
 }

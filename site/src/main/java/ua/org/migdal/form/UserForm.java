@@ -13,6 +13,9 @@ import ua.org.migdal.Config;
 import ua.org.migdal.data.Gender;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
+import ua.org.migdal.mtext.MtextFormat;
+import ua.org.migdal.text.Text;
+import ua.org.migdal.text.TextFormat;
 import ua.org.migdal.util.Password;
 import ua.org.migdal.util.Utils;
 
@@ -291,7 +294,7 @@ public class UserForm {
         user.setSurname(getSurname());
         user.setGender(!isGender() ? Gender.MINE : Gender.FEMINE);
         user.setInfo(getInfo());
-        // TODO  $this->info_xml = anyToXML($this->info, $tfUser, MTEXT_SHORT);
+        user.setInfoXml(Text.convert(getInfo(), TextFormat.PLAIN, MtextFormat.SHORT));
         user.setModified(Utils.now());
         user.setBirthdayDay(!StringUtils.isEmpty(getBirthDay()) ? Short.parseShort(getBirthDay()) : 0);
         user.setBirthdayMonth((short) getBirthMonth());

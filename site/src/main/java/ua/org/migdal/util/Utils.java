@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.bind.DatatypeConverter;
 
 public class Utils {
@@ -62,6 +64,16 @@ public class Utils {
 
     public static boolean isNumber(String s) {
         return s.matches("^\\d+$");
+    }
+
+    public static String replaceAll(String text, Pattern regex, Function<Matcher, String> replacement) {
+        Matcher matcher = regex.matcher(text);
+        StringBuffer buf = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(buf, replacement.apply(matcher));
+        }
+        matcher.appendTail(buf);
+        return buf.toString();
     }
 
     public static long idOrName(Object value, Function<String, Long> nameToId) {
