@@ -16,21 +16,7 @@ require_once('lib/permissions.php');
 require_once('lib/image-upload.php');
 require_once('lib/logging.php');
 require_once('lib/captcha.php');
-
-function isSpam($body) {
-    $spams = array('clickcashmoney.com', 'porno-video-free', 'porno-exe',
-                   'rem-stroi.com', 'hiphoprussia.ru', 'retrade.ru', 't35.com',
-                   'viagra', 'zarplatt', 'stomatolog-stargard', 'off-rabota',
-                   '[/url]', 'cialis', 'levitra', 'kamagra', 'tadacip',
-                   'apcalis');
-    foreach ($spams as $spam) {
-        if (strpos($body, $spam) !== false) {
-            logEvent('spam', $spam);
-            return true;
-        }
-    }
-    return false;
-}
+require_once('lib/spam.php');
 
 function modifyForum($forum, $original) {
     global $captcha, $userId, $realUserId, $forumMandatoryBody,
@@ -60,7 +46,7 @@ function modifyForum($forum, $original) {
         return EF_AUTHOR_ABSENT;
     if ($forumMandatoryBody && $forum->getBody() == '')
         return EF_BODY_ABSENT;
-    if ($forum->getBody() != '' && isSpam($forum->getBody()))
+    if (isSpam($forum->getSubject(), $forum->getBody()))
         return EF_SPAM;
     if ($forumMandatoryImage && !$forum->hasSmallImage())
         return EF_IMAGE_ABSENT;

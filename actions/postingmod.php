@@ -23,6 +23,7 @@ require_once('lib/counters.php');
 require_once('lib/logging.php');
 require_once('lib/sql.php');
 require_once('lib/captcha.php');
+require_once('lib/spam.php');
 
 function imageSizeErrorCode($err, $imageEditor) {
     if ($err == EIU_WRONG_IMAGE_SIZE) {
@@ -60,19 +61,6 @@ function imageSizeErrorCode($err, $imageEditor) {
     return $err;
 }
 
-function isSpam($body) {
-    $spams = array('clickcashmoney.com', 'porno-video-free', 'porno-exe',
-                   'rem-stroi.com', 'hiphoprussia.ru', 'retrade.ru', 't35.com',
-                   'viagra', 'snapbackneweracap', '[/url]');
-    foreach ($spams as $spam) {
-        if (strpos($body, $spam) !== false) {
-            logEvent('spam', $spam);
-            return true;
-        }
-    }
-    return false;
-}
-
 function modifyPosting(Posting $posting, Posting $original,
                        array $imageEditor) {
     global $captcha, $userId;
@@ -83,7 +71,7 @@ function modifyPosting(Posting $posting, Posting $original,
         return EP_INVALID_GRP;
     if ($posting->isMandatory('body') && $posting->getBody() == '')
         return EP_BODY_ABSENT;
-    if ($posting->getBody() != '' && isSpam($posting->getBody()))
+    if (isSpam($posting->getSubject(), $posting->getBody()))
         return EP_SPAM;
     if ($posting->isMandatory('lang') && $posting->getLang() == '')
         return EP_LANG_ABSENT;
