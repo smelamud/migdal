@@ -1,5 +1,10 @@
-target/
-.idea
 *.iml
 .*.swp
+.build/
+.idea/
+Makefile
+conf/grpentry-body.php
+conf/kcaptcha.conf
+conf/migdal.conf
 site.log
+target/
