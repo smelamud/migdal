@@ -7,14 +7,14 @@ targetdir=$(builddir)/www/parts/
 OBJECTS = addtoany.mhtml article.mhtml backtrace.mhtml banner-rabbi.mhtml \
 	  banners.mhtml book-chapters.mhtml book-chapters-static.mhtml \
 	  book-ring.mhtml book-ring-static.mhtml bottom.mhtml captcha.mhtml \
-	  catalog.mhtml countdown.mhtml daily-announce.mhtml daily-picture.mhtml \
-	  discussions.mhtml ears.mhtml events.mhtml failpage.mhtml \
-	  formutils.mhtml forum.mhtml forums.mhtml gallery.mhtml \
-	  grpselect.mhtml hannukah.mhtml help-link.mhtml history.mhtml \
-	  hit-parade.mhtml langselect.mhtml login.mhtml menu.mhtml \
-	  migdal-news.mhtml peruser.mhtml peruser-intros.mhtml picture.mhtml \
-	  picture-main.mhtml pointer.mhtml posting.mhtml posting-book.mhtml \
-	  posting-ear.mhtml posting-gallery.mhtml posting-gallery-update.mhtml \
+	  catalog.mhtml countdown.mhtml daily-announce.mhtml discussions.mhtml \
+	  ears.mhtml events.mhtml failpage.mhtml formutils.mhtml forum.mhtml \
+	  forums.mhtml gallery.mhtml grpselect.mhtml hannukah.mhtml \
+	  help-link.mhtml history.mhtml hit-parade.mhtml langselect.mhtml \
+	  login.mhtml menu.mhtml migdal-news.mhtml peruser.mhtml \
+	  peruser-intros.mhtml picture.mhtml picture-main.mhtml pointer.mhtml \
+	  posting.mhtml posting-book.mhtml posting-ear.mhtml \
+	  posting-gallery.mhtml posting-gallery-update.mhtml \
 	  posting-general.mhtml posting-peruser.mhtml posting-printing.mhtml \
 	  posting-textear.mhtml posting-times.mhtml posting-times-cover.mhtml \
 	  posting-tip.mhtml postings.mhtml postings-migdal-news.mhtml \
