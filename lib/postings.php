@@ -28,6 +28,7 @@ require_once('lib/time.php');
 require_once('lib/text-any.php');
 require_once('lib/html-cache.php');
 require_once('lib/postings-publish.php');
+require_once('lib/spam.php');
 
 class Posting
         extends GrpEntry {
@@ -885,11 +886,18 @@ function isModbitRequired($topicModbits, $bit, Posting $posting) {
     return $required;
 }
 
+function needsAttention(Posting $posting) {
+    global $userModerator;
+
+    return !$userModerator && containsLinks($posting->getBody());
+}
+
 function setPremoderates(Posting $posting, Posting $original,
                          $required = MODT_ALL) {
     $tmod = getModbitsByTopicId($posting->getParentId());
     $tmod &= $required;
-    if (isModbitRequired($tmod, MODT_PREMODERATE, $original)) {
+    if (isModbitRequired($tmod, MODT_PREMODERATE, $original)
+        || needsAttention($posting)) {
         setDisabledByEntryId($posting->getId(), 1);
         $posting->setDisabled(1);
     }
@@ -898,6 +906,8 @@ function setPremoderates(Posting $posting, Posting $original,
         $modbits |= MOD_MODERATE;
     if (isModbitRequired($tmod, MODT_EDIT, $original))
         $modbits |= MOD_EDIT;
+    if (needsAttention($posting))
+        $modbits |= MOD_ATTENTION;
     setModbitsByEntryId($posting->getId(), $modbits);
     $posting->setModbits($modbits);
     incContentVersions('postings');
@@ -1036,7 +1046,8 @@ function autoEnablePostings() {
     $result = sql('select id
                    from entries
                    where entry='.ENT_POSTING.' and disabled<>0
-                         and (modbits & '.MOD_MODERATE.")<>0
+                         and (modbits & '.MOD_MODERATE.')<>0
+                         and (modbits & '.MOD_ATTENTION.")=0
                          and modified+interval $messageEnableTimeout hour<'$now'",
                   __FUNCTION__);
     while($row = mysql_fetch_assoc($result))

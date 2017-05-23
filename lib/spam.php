@@ -13,6 +13,9 @@ function isSpam($subject, $body) {
     if (preg_match('/^[0-9a-z]{8}$/', $subject)) {
         return true;
     }
+    if (containsLinks($subject)) {
+        return true;
+    }
     foreach ($spamTerms as $term) {
         if (strpos($subject, $term) !== false) {
             return true;
@@ -20,6 +23,16 @@ function isSpam($subject, $body) {
         if (strpos($body, $term) !== false) {
             return true;
         }
+    }
+    return false;
+}
+
+function containsLinks($text) {
+    if (strpos($text, '<a') !== false) {
+        return true;
+    }
+    if (preg_match('/http[s]?:/', $text)) {
+        return true;
     }
     return false;
 }
