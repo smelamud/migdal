@@ -17,6 +17,7 @@ const MOD_ALL = 0x001f;
 const MOD_HIDDEN = -1;
 const MOD_DISABLED = -2;
 const MOD_DELETE = -3;
+const MOD_SPAM = -4;
 
 $modbitLetters = array('M', 'H' /* deprecated */, 'E', 'S', 'L');
 $modbitNames = array('Модерировать',

@@ -591,6 +591,13 @@ function deleteNonConfirmedUsers() {
         __FUNCTION__,'optimize');
 }
 
+function banUser($userId) {
+    sql("update users
+         set no_login=1,hidden=1
+         where id=$userId",
+        __FUNCTION__);
+}
+
 function getUserLoginById($id) {
     // Hidden users' logins must be returned, because system users must be
     // identified

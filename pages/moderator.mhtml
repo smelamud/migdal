@@ -95,6 +95,7 @@
 	</for>
        </zone>
        <th class='catalog-cell' width=20>уд</th>
+       <th class='catalog-cell' width=20>сп</th>
       </tr>
       <for name='posting'>
        <if what='$;isOdd'>
@@ -130,6 +131,9 @@
 	</zone>
 	<td class='$class' align=center>
 	 <checkbox_button name#='modbits[$.Id][]' value='*MOD_DELETE'>
+	</td>
+	<td class='$class' align=center>
+	 <checkbox_button name#='modbits[$.Id][]' value='*MOD_SPAM'>
 	</td>
        </tr>
       </for>

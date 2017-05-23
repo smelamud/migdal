@@ -977,6 +977,14 @@ function getGrpByEntryId($id) {
     }
 }
 
+function getUserIdByEntryId($id) {
+    $result = sql("select user_id
+                   from entries
+                   where id=$id",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
+}
+
 function getParentIdByEntryId($id) {
     $result = sql("select parent_id
                    from entries
