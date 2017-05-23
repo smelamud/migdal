@@ -889,7 +889,10 @@ function isModbitRequired($topicModbits, $bit, Posting $posting) {
 function needsAttention(Posting $posting) {
     global $userModerator;
 
-    return !$userModerator && containsLinks($posting->getBody());
+    return !$userModerator
+           && (containsLinks($posting->getBody())
+               || containsLinks($posting->getSource())
+               || $posting->getURL() != '');
 }
 
 function setPremoderates(Posting $posting, Posting $original,
