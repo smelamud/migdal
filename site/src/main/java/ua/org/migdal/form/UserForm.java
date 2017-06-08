@@ -290,7 +290,11 @@ public class UserForm {
     public void toUser(User user, boolean isAdmin, Config config) throws NoSuchAlgorithmException {
         user.setLogin(getNewLogin());
         user.setName(getName());
-        user.setJewishName(getJewishName());
+        if (getJewishName() != null && !getJewishName().equals(getName())) {
+            user.setJewishName(getJewishName());
+        } else {
+            user.setJewishName("");
+        }
         user.setSurname(getSurname());
         user.setGender(!isGender() ? Gender.MINE : Gender.FEMINE);
         user.setInfo(getInfo());
