@@ -306,6 +306,10 @@ public class User implements Editable {
 
     @Transient
     public LocalDate getBirthday() {
+        if (getBirthdayDay() == 0 || getBirthdayMonth() == 0 || getBirthdayYear() < 1800) {
+            return null;
+        }
+
         try {
             return LocalDate.of(getBirthdayYear(), getBirthdayMonth(), getBirthdayDay());
         } catch (DateTimeException e) {

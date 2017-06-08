@@ -29,13 +29,19 @@ public class UserFormValidator extends AbstractFormValidator<UserForm> {
         int day = 1;
         try {
             if (!StringUtils.isEmpty(userForm.getBirthYear())) {
-                year = Integer.parseInt(userForm.getBirthYear());
+                int value = Integer.parseInt(userForm.getBirthYear());
+                if (value != 0) {
+                    year = value;
+                }
             }
             if (userForm.getBirthMonth() != 0) {
                 month = userForm.getBirthMonth();
             }
             if (!StringUtils.isEmpty(userForm.getBirthDay())) {
-                day = Integer.parseInt(userForm.getBirthDay());
+                int value = Integer.parseInt(userForm.getBirthDay());
+                if (value != 0) {
+                    day = value;
+                }
             }
             LocalDate.of(year, month, day);
         } catch (NumberFormatException | DateTimeException e) {
