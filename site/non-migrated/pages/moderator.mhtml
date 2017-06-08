@@ -19,8 +19,8 @@
 <element name='buttons'>
 <table width=100%><tr>
  <td align=right><table><tr>
-  <td><input type=submit value='п║п╬я┘я─п╟п╫п╦я┌я▄'></td>
-  <td><input type=reset value='п·я┤п╦я│я┌п╦я┌я▄'></td>
+  <td><input type=submit value='Сохранить'></td>
+  <td><input type=reset value='Очистить'></td>
  </tr></table></td>
 </tr></table>
 </element>
@@ -39,9 +39,9 @@
  <form method=get action='$-'>
   <hidden name='sort' value='$$sort'>
   <td><select name='bit'>
-   <select_option title='(h) п²п╣ п©п╬п╨п╟п╥я▀п╡п╟я┌я▄' value='*MOD_HIDDEN'
+   <select_option title='(h) Не показывать' value='*MOD_HIDDEN'
                   selected!='$$bit==*MOD_HIDDEN'>
-   <select_option title='(d) п≈п╟п©я─п╣я┌п╦я┌я▄' value='*MOD_DISABLED'
+   <select_option title='(d) Запретить' value='*MOD_DISABLED'
                   selected!='$$bit==*MOD_DISABLED'>
    <iterate_posting_modbits>
    <for>
@@ -49,7 +49,7 @@
                    selected!='$$bit==$.Bit'>
    </for>
   </select></td>
-  <td><input type=submit value='п÷я─п╬я│п╪п╬я┌я─'></td>
+  <td><input type=submit value='Просмотр'></td>
  </form>
 </tr></table>
 </element>
@@ -77,15 +77,15 @@
      <hidden name='faildir' value='$-'>
      <buttons>
      <outer><table><inner>
-      <error id='*EMO_NO_MODERATE' text='п▓я▀ п╫п╣ п╪п╬п╢п╣я─п╟я┌п╬я─'>
-      <error id='*EMO_NO_ENTRY' text='п╒п╟п╨п╬пЁп╬ я│п╬п╬п╠я┴п╣п╫п╦я▐ п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌'>
+      <error id='*EMO_NO_MODERATE' text='Вы не модератор'>
+      <error id='*EMO_NO_ENTRY' text='Такого сообщения не существует'>
       <error id='*EMO_CANNOT_DELETE'
-             text='п²п╣ п╪п╬пЁя┐ я┐п╢п╟п╩п╦я┌я▄ я│п╬п╬п╠я┴п╣п╫п╦п╣ я█я┌п╬пЁп╬ я┌п╦п©п╟'>
+             text='Не могу удалить сообщение этого типа'>
      </inner></table></outer>
      <catalog_table>
       <tr>
        <th class='catalog-cell' width=40>id</th>
-       <th class='catalog-cell'>п≈п╟пЁп╬п╩п╬п╡п╬п╨</th>
+       <th class='catalog-cell'>Заголовок</th>
        <th class='catalog-cell' width=20>h</th>
        <th class='catalog-cell' width=20>d</th>
        <zone>
@@ -94,7 +94,8 @@
 	 <th class='catalog-cell' width=20>$.Letter</th>
 	</for>
        </zone>
-       <th class='catalog-cell' width=20>я┐п╢</th>
+       <th class='catalog-cell' width=20>уд</th>
+       <th class='catalog-cell' width=20>сп</th>
       </tr>
       <for name='posting'>
        <if what='$;isOdd'>
@@ -109,7 +110,7 @@
 	</td>
 	<td class='$class'>
 	 <a href='$.GrpDetailsHref' class='ninept'>$=.Heading</a><br>
-	 <span class='subject eightpt'>(п═п╟п╥п╢п╣п╩ <topiclink posting='$.'>)</span>
+	 <span class='subject eightpt'>(Раздел <topiclink posting='$.'>)</span>
 	</td>
 	<td class='$class' align=center>
 	 <checkbox_button name#='modbits[$.Id][]' value='*MOD_HIDDEN'
@@ -130,6 +131,9 @@
 	</zone>
 	<td class='$class' align=center>
 	 <checkbox_button name#='modbits[$.Id][]' value='*MOD_DELETE'>
+	</td>
+	<td class='$class' align=center>
+	 <checkbox_button name#='modbits[$.Id][]' value='*MOD_SPAM'>
 	</td>
        </tr>
       </for>

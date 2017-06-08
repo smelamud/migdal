@@ -12,6 +12,7 @@ require_once('lib/entries.php');
 require_once('lib/postings.php');
 require_once('lib/forums.php');
 require_once('lib/modbits.php');
+require_once('lib/users.php');
 
 function modifyEntry($id,$modbits)
 {
@@ -21,7 +22,13 @@ if(!$userModerator)
   return EMO_NO_MODERATE;
 if(!entryExists(ENT_NULL,$id))
   return EMO_NO_ENTRY;
-if(in_array(MOD_DELETE,$modbits))
+if (in_array(MOD_SPAM,$modbits)) {
+    $userId = getUserIdByEntryId($id);
+    if ($userId > 0) {
+        banUser($userId);
+    }
+}
+if(in_array(MOD_DELETE,$modbits) || in_array(MOD_SPAM,$modbits))
   {
   $entryType=getTypeByEntryId($id);
   switch($entryType)

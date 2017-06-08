@@ -357,11 +357,11 @@ class User
 
     public function getRank() {
         if ($this->isAdminUsers())
-            return 'Ð’ÐµÐ±Ð¼Ð°ÑÑ‚ÐµÑ€';
+            return '÷ÅÂÍÁÓÔÅÒ';
         if ($this->isModerator())
-            return 'ÐœÐ¾Ð´ÐµÑ€Ð°Ñ‚Ð¾Ñ€';
+            return 'íÏÄÅÒÁÔÏÒ';
         if ($this->isMigdalStudent())
-            return 'ÐœÐ¸Ð³Ð´Ð°Ð»ÐµÐ²ÐµÑ†';
+            return 'íÉÇÄÁÌÅ×ÅÃ';
         return '';
     }
 
@@ -495,8 +495,8 @@ function getUserById($id, $guest_login = '') {
 function storeUser(User $user) {
     global $userAdminUsers;
 
-    // Ð—Ð´ÐµÑÑŒ Ð´Ð¾Ð¿ÑƒÑÐºÐ°ÐµÑ‚ÑÑ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° Ð°Ð´Ð¼Ð¸Ð½ÑÐºÐ¸Ñ… Ð¿Ñ€Ð°Ð² Ð½Ðµ Ð°Ð´Ð¼Ð¸Ð½Ð¾Ð¼! ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð´Ð¾Ð»Ð¶Ð½Ð°
-    // Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÑŒÑÑ Ñ€Ð°Ð½ÑŒÑˆÐµ.
+    // úÄÅÓØ ÄÏÐÕÓËÁÅÔÓÑ ÕÓÔÁÎÏ×ËÁ ÁÄÍÉÎÓËÉÈ ÐÒÁ× ÎÅ ÁÄÍÉÎÏÍ! ðÒÏ×ÅÒËÁ ÄÏÌÖÎÁ
+    // ÐÒÏÉÚ×ÏÄÉÔØÓÑ ÒÁÎØÛÅ.
     $vars = array(
         'login' => $user->getLogin(),
         'name' => $user->getName(),
@@ -591,6 +591,13 @@ function deleteNonConfirmedUsers() {
         __FUNCTION__,'optimize');
 }
 
+function banUser($userId) {
+    sql("update users
+         set no_login=1,hidden=1
+         where id=$userId",
+        __FUNCTION__);
+}
+
 function getUserLoginById($id) {
     // Hidden users' logins must be returned, because system users must be
     // identified
@@ -614,6 +621,14 @@ function getUserGenderById($id) {
     return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 'mine';
 }
 
+function getUserIdByLogin($login) {
+    $loginS = addslashes($login);
+    $result = sql("select id
+                   from users
+                   where login='$loginS'",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
+}
 
 function idByLogin($login) {
     if (isId($login))
@@ -625,6 +640,17 @@ function idByLogin($login) {
     $id = getUserIdByLogin($login);
     setCachedValue('login', 'users', $login, $id);
     return $id;
+}
+
+function getUserIdByLoginPassword($login, $password) {
+    $loginS = addslashes($login);
+    $passwordMD5 = md5($password);
+    $result = sql("select id
+                   from users
+                   where login='$login' and password='$passwordMD5'
+                         and no_login=0",
+                  __FUNCTION__);
+    return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
 }
 
 function setPasswordByUserId($id, $password) {
@@ -641,6 +667,36 @@ function getShamesId() {
                    where shames=1',
                   __FUNCTION__);
     return mysql_num_rows($result) > 0 ? mysql_result($result, 0, 0) : 0;
+}
+
+function getGuestId() {
+    global $allowGuests, $shortSessionTimeout, $guestLogin;
+
+    if (!$allowGuests)
+        return 0;
+    $result = sql("select id
+                   from users
+                   where guest<>0
+                   order by login
+                   limit 1",
+                  __FUNCTION__, 'locate_guest');
+    if (mysql_num_rows($result) > 0)
+        return mysql_result($result, 0, 0);
+    $now = sqlNow();
+    sql("insert into users(login,email_disabled,guest,hidden,no_login,created,
+                           modified)
+         values('$guestLogin',1,1,2,1,'$now','$now')",
+        __FUNCTION__,'create');
+    $id = sql_insert_id();
+    return $id;
+}
+
+function updateLastOnline($userId) {
+    $now = sqlNow();
+    sql("update users
+         set last_online='$now'
+         where id=$userId",
+        __FUNCTION__);
 }
 
 function personalExists($id) {
