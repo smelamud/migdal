@@ -10,6 +10,9 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.validation.Errors;
 
 public class ControllerAction {
@@ -18,12 +21,19 @@ public class ControllerAction {
     private String actionName;
     private Errors errors;
 
+    private PlatformTransactionManager txManager;
+
     private Map<String, String> constraints = new HashMap<>();
 
     public ControllerAction(Class<?> cls, String actionName, Errors errors) {
         log = LoggerFactory.getLogger(cls);
         this.actionName = actionName;
         this.errors = errors;
+    }
+
+    public ControllerAction transactional(PlatformTransactionManager txManager) {
+        this.txManager = txManager;
+        return this;
     }
 
     public ControllerAction constraint(String constraintName, String errorCode) {
@@ -59,6 +69,39 @@ public class ControllerAction {
             log.error("Exception:", e);
             errors.reject("internal-failure");
         }
+    }
+
+    private TransactionStatus beginTransaction() {
+        return txManager != null ? txManager.getTransaction(new DefaultTransactionDefinition()) : null;
+    }
+
+    private void commitTransaction(TransactionStatus status) {
+        if (status != null) {
+            txManager.commit(status);
+        }
+    }
+
+    private void rollbackTransaction(TransactionStatus status) {
+        if (status != null) {
+            txManager.rollback(status);
+        }
+    }
+
+    private String executeCallable(Callable<String> callable) throws Exception {
+        TransactionStatus status = beginTransaction();
+        String errorCode = null;
+        try {
+            errorCode = callable.call();
+        } catch (Exception e) {
+            rollbackTransaction(status);
+            throw e;
+        }
+        if (errorCode != null && !errorCode.isEmpty()) {
+            rollbackTransaction(status);
+        } else {
+            commitTransaction(status);
+        }
+        return errorCode;
     }
 
 }

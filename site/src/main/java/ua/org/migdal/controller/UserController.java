@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -37,6 +38,9 @@ public class UserController {
 
     @Autowired
     private Config config;
+
+    @Autowired
+    private PlatformTransactionManager txManager;
 
     @Autowired
     private RequestContext requestContext;
@@ -103,7 +107,9 @@ public class UserController {
             Errors errors,
             RedirectAttributes redirectAttributes) {
         User user = userForm.getId() > 0 ? userManager.get(userForm.getId()) : new User();
+        String userFolder = user.getFolder(); // The folder before login modification
         new ControllerAction(UserController.class, "actionUserModify", errors)
+                .transactional(txManager)
                 .constraint("users_login_key", "newLogin.used")
                 .execute(() -> {
                     if (userForm.getId() <= 0) {
@@ -156,7 +162,7 @@ public class UserController {
             } else {
                 redirectAttributes.addFlashAttribute("errors", errors);
                 redirectAttributes.addFlashAttribute("userForm", userForm);
-                return "redirect:/users/" + user.getFolder() + "/edit";
+                return "redirect:/users/" + userFolder + "/edit";
             }
         }
     }

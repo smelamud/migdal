@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,9 @@ public class LoginController {
 
     @Autowired
     private Config config;
+
+    @Autowired
+    private PlatformTransactionManager txManager;
 
     @Autowired
     private RequestContext requestContext;
@@ -161,6 +165,7 @@ public class LoginController {
             Errors errors,
             RedirectAttributes redirectAttributes) {
         new ControllerAction(LoginController.class, "actionRecall", errors)
+                .transactional(txManager)
                 .execute(() -> {
                     User user = userManager.getByLogin(recallPasswordForm.getLogin());
                     if (user == null) {

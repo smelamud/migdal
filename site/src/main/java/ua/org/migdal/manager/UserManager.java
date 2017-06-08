@@ -98,7 +98,6 @@ public class UserManager {
         return user.getId();
     }
 
-    @Transactional
     public void save(User user) {
         userRepository.save(user);
     }
