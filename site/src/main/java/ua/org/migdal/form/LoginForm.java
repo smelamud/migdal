@@ -1,13 +1,17 @@
 package ua.org.migdal.form;
 
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 public class LoginForm {
 
     @NotBlank
+    @Size(max=30)
     private String login = "";
 
     @NotBlank
+    @Size(max=40)
     private String password = "";
 
     private boolean myComputer = true;

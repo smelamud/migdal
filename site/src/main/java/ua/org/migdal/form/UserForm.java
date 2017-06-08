@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
@@ -24,28 +26,36 @@ public class UserForm {
     private long id;
 
     @NotBlank
+    @Size(max=30)
     private String newLogin = "";
 
+    @Size(max=40)
     private String newPassword = "";
 
+    @Size(max=40)
     private String dupPassword = "";
 
     @NotBlank
+    @Size(max=30)
     private String name = "";
 
+    @Size(max=30)
     private String jewishName = "";
 
     @NotBlank
+    @Size(max=30)
     private String surname = "";
 
     private boolean gender;
 
+    @Size(max=4096)
     private String info = "";
 
     private long[] rights;
 
     @NotBlank
     @Email
+    @Size(max=70)
     private String email = "";
 
     private boolean hideEmail;
