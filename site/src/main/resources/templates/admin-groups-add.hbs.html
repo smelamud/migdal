@@ -1,0 +1,18 @@
+{{> part/preamble}}
+{{> part/top}}
+
+{{#formTable title="Добавление пользователя в группу" mini=true}}
+    <form method="post" action="/actions/group/add">
+        {{starInfo}}
+        <error id='*EGA_NO_ADD' text='Вы не администратор'>
+        <error id='*EGA_GROUP_EMPTY' text='Укажите имя группы'>
+        <error id='*EGA_NO_GROUP' text='Такой группы не существует'>
+        {{formEdit title="Группа" mandatory=true name="group_name" value=form.groupName size="30" maxlength="30"}}
+        <error id='*EGA_USER_EMPTY' text='Укажите имя пользователя'>
+        <error id='*EGA_NO_USER' text='Такого пользователя не существует'>
+        {{formEdit title="Пользователь" mandatory=true name="user_name" value=form.userName size="30" maxlength="30"}}
+        {{formButtons title="Добавить"}}
+    </form>
+{{/formTable}}
+
+{{> part/bottom}}

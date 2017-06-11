@@ -185,9 +185,9 @@ public class UserController {
     }
 
     @GetMapping("/admin/users")
-    public String adminUsers(@RequestParam(required = false) String prefix,
-                             @RequestParam(required = false) String sort,
-                             @RequestParam(required = false) Integer offset, Model model) throws PageNotFoundException {
+    public String adminUsers(@RequestParam(required=false) String prefix,
+                             @RequestParam(required=false) String sort,
+                             @RequestParam(required=false) Integer offset, Model model) throws PageNotFoundException {
         adminUsersLocationInfo(model);
 
         if (!StringUtils.isEmpty(sort) && !Constant.hasValue(SORTS, sort)) {
