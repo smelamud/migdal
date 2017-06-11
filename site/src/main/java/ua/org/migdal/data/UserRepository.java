@@ -1,6 +1,7 @@
 package ua.org.migdal.data;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,5 +34,8 @@ public interface UserRepository extends JpaRepository<User, Long>, QueryDslPredi
     User findByConfirmCodeAndHiddenLessThan(String confirmCode, short hidden);
 
     int countByConfirmDeadlineNotNull();
+
+    @Query("select distinct g.id, g.login, u.id, u.login from User g inner join g.users u order by g.login, u.login")
+    List<Object[]> findGroupsAndUsersOrderByLogin();
 
 }

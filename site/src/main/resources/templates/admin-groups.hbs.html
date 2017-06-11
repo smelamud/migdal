@@ -11,30 +11,30 @@
             <table class="topics">
                 {{#adminUsers}}
                     <tr><td colspan="2">
-                        <a href="/admin/groups/add/?redirid={{ue rc.location}}" class="edit">Добавить</a>
+                        <a href="/admin/groups/add" class="edit">Добавить</a>
                     </td></tr>
                 {{/adminUsers}}
-                <iterate_groups>
-                <assign name='cu' value=0>
-                <for>
-                    <if what='$cu!=$.GroupId'>
-                        <ifnzero what='$cu'></td></tr></ifnzero>
-                        <tr class='ninept'>
-                        <td><b>$.GroupName</b></td>
-                        <td width=20>&nbsp;</td>
+                {{#each groups}}
+                    <tr class="ninept">
+                        <td><b>{{groupName}}</b></td>
+                        <td width="20">&nbsp;</td>
                         <td>
-                        <admin_users>
-                            <a href='/admin/groups/add/?group_name=$#.GroupName&redirid=$_' class='edit'>Добавить</a>&nbsp;
-                        </admin_users>
-                    </if>
-                    <admin_users>
-                        <a href='/actions/group/delete?user_id=$.UserId&group_id=$.GroupId&okdir=$#-&faildir=$#-'
-                           title='Удалить'>$.UserName</a>&nbsp;
-                    <else>
-                        $.UserName&nbsp;
-                    </admin_users>
-                    <assign name='cu' value='$.GroupId'>
-                </for>
+                            {{#adminUsers}}
+                                <a href="/admin/groups/add?group_name={{ue groupName}}"
+                                   class="edit">Добавить</a>&nbsp;
+                            {{/adminUsers}}
+                            {{#each users}}
+                                {{#assign "comma"}}{{#unless @last}},&nbsp;{{/unless}}{{/assign}}
+                                {{#adminUsers}}
+                                    <a href="/actions/group/delete?user_id={{id}}&amp;group_id={{groupId}}"
+                                       title="Удалить">{{login}}</a>{{comma}}
+                                {{else}}
+                                    {{login}}{{comma}}
+                                {{/adminUsers}}
+                            {{/each}}
+                        </td>
+                    </tr>
+                {{/each}}
             </table>
         </td>
     </tr>
