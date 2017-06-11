@@ -8,15 +8,22 @@ public class GroupAddForm {
 
     @NotBlank
     @Size(max=30)
-    private String groupName;
+    private String groupName = "";
 
     @NotBlank
     @Size(max=30)
-    private String userName;
+    private String userName = "";
+
+    public GroupAddForm() {
+    }
 
     public GroupAddForm(String groupName, String userName) {
-        this.groupName = groupName != null ? groupName : "";
-        this.userName = userName != null ? userName : "";
+        if (groupName != null) {
+            this.groupName = groupName;
+        }
+        if (userName != null) {
+            this.userName = userName;
+        }
     }
 
     public String getGroupName() {
