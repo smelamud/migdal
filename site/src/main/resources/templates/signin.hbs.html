@@ -68,8 +68,6 @@
         {{formErrors form="suForm"}}
         <form method="post" action="/actions/su">
             {{hidden name="back" value=rc.back}}
-            <error id='*EUS_NO_SWITCH' text='Вы не администратор'>
-            <error id='*EUS_NO_USER' text='Такого пользователя не существует'>
             {{formEdit title="Ник" name="login" value=suForm.login size="30" maxlength="30"}}
             {{formButtons title="Сменить"}}
         </form>
