@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ua.org.migdal.data.User;
 import ua.org.migdal.form.GroupAddForm;
 import ua.org.migdal.manager.GroupManager;
+import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
@@ -21,10 +24,16 @@ import ua.org.migdal.session.RequestContext;
 public class GroupController {
 
     @Autowired
+    private PlatformTransactionManager txManager;
+
+    @Autowired
     private RequestContext requestContext;
 
     @Autowired
     private GroupManager groupManager;
+
+    @Autowired
+    private UserManager userManager;
 
     @Autowired
     private IndexController indexController;
@@ -68,7 +77,26 @@ public class GroupController {
             @ModelAttribute @Valid GroupAddForm groupAddForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
-
+        new ControllerAction(GroupController.class, "actionGroupAdd", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    if (!requestContext.isUserAdminUsers()) {
+                        return "notAdmin";
+                    }
+                    User group = userManager.getByLogin(groupAddForm.getGroupName());
+                    if (group == null) {
+                        return "groupName.noGroup";
+                    }
+                    User user = userManager.getByLogin(groupAddForm.getUserName());
+                    if (user == null) {
+                        return "userName.noUser";
+                    }
+                    group.getUsers().add(user);
+                    user.getGroups().add(group);
+                    userManager.save(group);
+                    userManager.save(user);
+                    return null;
+                });
         if (!errors.hasErrors()) {
             return "redirect:/admin/groups/";
         } else {
