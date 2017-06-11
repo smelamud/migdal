@@ -1,0 +1,43 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{topics}}
+        </td>
+        <td class="cframe">
+            {{subtitle}}
+            <table class="topics">
+                {{#adminUsers}}
+                    <tr><td colspan="2">
+                        <a href="/admin/groups/add/?redirid={{ue rc.location}}" class="edit">Добавить</a>
+                    </td></tr>
+                {{/adminUsers}}
+                <iterate_groups>
+                <assign name='cu' value=0>
+                <for>
+                    <if what='$cu!=$.GroupId'>
+                        <ifnzero what='$cu'></td></tr></ifnzero>
+                        <tr class='ninept'>
+                        <td><b>$.GroupName</b></td>
+                        <td width=20>&nbsp;</td>
+                        <td>
+                        <admin_users>
+                            <a href='/admin/groups/add/?group_name=$#.GroupName&redirid=$_' class='edit'>Добавить</a>&nbsp;
+                        </admin_users>
+                    </if>
+                    <admin_users>
+                        <a href='/actions/group/delete?user_id=$.UserId&group_id=$.GroupId&okdir=$#-&faildir=$#-'
+                           title='Удалить'>$.UserName</a>&nbsp;
+                    <else>
+                        $.UserName&nbsp;
+                    </admin_users>
+                    <assign name='cu' value='$.GroupId'>
+                </for>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
