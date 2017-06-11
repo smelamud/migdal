@@ -26,7 +26,7 @@
                             {{#each users}}
                                 {{#assign "comma"}}{{#unless @last}},&nbsp;{{/unless}}{{/assign}}
                                 {{#adminUsers}}
-                                    <a href="/actions/group/delete?user_id={{id}}&amp;group_id={{groupId}}"
+                                    <a href="/actions/group/delete?userId={{id}}&amp;groupId={{groupId}}"
                                        title="Удалить">{{login}}</a>{{comma}}
                                 {{else}}
                                     {{login}}{{comma}}

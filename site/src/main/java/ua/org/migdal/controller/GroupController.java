@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.GroupAddForm;
+import ua.org.migdal.form.GroupDeleteForm;
 import ua.org.migdal.manager.GroupManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
@@ -104,6 +105,42 @@ public class GroupController {
             redirectAttributes.addFlashAttribute("groupAddForm", groupAddForm);
             return "redirect:" + requestContext.getBack();
         }
+    }
+
+    @GetMapping("/actions/group/delete") // TODO deprecate this
+    @PostMapping("/actions/group/delete")
+    public String actionGroupDelete(
+            @ModelAttribute @Valid GroupDeleteForm groupDeleteForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(GroupController.class, "actionGroupDelete", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    if (!requestContext.isUserAdminUsers()) {
+                        return "notAdmin";
+                    }
+                    User group = userManager.get(groupDeleteForm.getGroupId());
+                    if (group == null) {
+                        return "noGroup";
+                    }
+                    User user = userManager.get(groupDeleteForm.getUserId());
+                    if (user == null) {
+                        return "noUser";
+                    }
+                    if (!group.getUsers().contains(user)) {
+                        return "notMember";
+                    }
+                    group.getUsers().remove(user);
+                    user.getGroups().remove(group);
+                    userManager.save(group);
+                    userManager.save(user);
+                    return null;
+                });
+        if (errors.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("groupDeleteForm", groupDeleteForm);
+        }
+        return "redirect:/admin/groups/";
     }
 
 }
