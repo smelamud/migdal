@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -81,7 +82,8 @@ public class RegisterController {
                 .withPageTitle("Подтверждение регистрации");
     }
 
-    @GetMapping("/actions/user/confirm")
+    @GetMapping("/actions/user/confirm") // TODO deprecate this
+    @PostMapping("/actions/user/confirm")
     public String actionConfirm(@RequestParam(required = false) Long id, @RequestParam(required = false) String code) {
         User user = null;
         if (requestContext.isUserAdminUsers() && id != null && id != 0) {
