@@ -7,4 +7,6 @@ conf/grpentry-body.php
 conf/kcaptcha.conf
 conf/migdal.conf
 site.log
+site/db/data/*.csv
+!site/db/data/Makefile
 target/

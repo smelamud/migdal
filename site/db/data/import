@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Importing $1..."
+echo "\\copy $1 from '$1.converted.csv' (format csv, null 'NULL');" | \
+    psql -d migdal -U migdal -W
