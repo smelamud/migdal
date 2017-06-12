@@ -9,6 +9,12 @@ def null_time(time):
     else:
         return time
 
+def null_id(id):
+    if id == '0':
+        return 'NULL'
+    else:
+        return id
+
 def convert_users(row):
     if row['birthday'] != '1900-01-01':
         birth = row['birthday'].split('-')
@@ -49,21 +55,23 @@ def convert_users(row):
     ]
 
 def convert_entries(row):
+    if row['group_id'] == '172':
+        row['group_id'] = row['user_id']
     return [
         row['id'],
         row['ident'],
         row['entry'],
-        row['up'],
+        null_id(row['up']),
         row['track'],
         row['catalog'],
-        row['parent_id'],
-        row['orig_id'],
-        row['current_id'],
+        null_id(row['parent_id']),
+        null_id(row['orig_id']),
+        null_id(row['current_id']),
         row['grp'],
-        row['person_id'],
+        null_id(row['person_id']),
         row['guest_login'],
-        row['user_id'],
-        row['group_id'],
+        null_id(row['user_id']),
+        null_id(row['group_id']),
         row['perms'],
         row['disabled'],
         row['subject'],
