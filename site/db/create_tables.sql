@@ -136,7 +136,7 @@ CREATE TABLE entries (
     ident character varying(75),
     entry smallint DEFAULT '0'::smallint NOT NULL,
     up bigint DEFAULT '0'::bigint NOT NULL,
-    track character varying(255) DEFAULT ''::character varying NOT NULL,
+    track character varying(255) DEFAULT ''::character varying,
     catalog character varying(255) DEFAULT ''::character varying NOT NULL,
     parent_id bigint DEFAULT '0'::bigint NOT NULL,
     orig_id bigint DEFAULT '0'::bigint NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE entries (
     user_id bigint DEFAULT '0'::bigint NOT NULL,
     group_id bigint DEFAULT '0'::bigint NOT NULL,
     perms bigint DEFAULT '0'::bigint NOT NULL,
-    disabled smallint DEFAULT '0'::smallint NOT NULL,
+    disabled boolean NOT NULL,
     subject character varying(255) NOT NULL,
     lang character varying(7) DEFAULT ''::character varying NOT NULL,
     author character varying(255) DEFAULT ''::character varying NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE entries (
     body text NOT NULL,
     body_xml text NOT NULL,
     body_format bigint DEFAULT '0'::bigint NOT NULL,
-    has_large_body smallint DEFAULT '0'::smallint NOT NULL,
+    has_large_body boolean NOT NULL,
     large_body text NOT NULL,
     large_body_xml text NOT NULL,
     large_body_format bigint DEFAULT '0'::bigint NOT NULL,
@@ -183,7 +183,6 @@ CREATE TABLE entries (
     vote bigint DEFAULT '0'::bigint NOT NULL,
     vote_count bigint DEFAULT '0'::bigint NOT NULL,
     rating double precision DEFAULT '0'::double precision NOT NULL,
-    tmpid bigint,
     sent timestamp with time zone,
     created timestamp with time zone,
     modified timestamp with time zone,
@@ -205,8 +204,7 @@ CREATE TABLE entries (
     large_image_y smallint DEFAULT '0'::smallint NOT NULL,
     large_image_size bigint DEFAULT '0'::bigint NOT NULL,
     large_image_format character varying(30) DEFAULT ''::character varying NOT NULL,
-    large_image_filename character varying(70) DEFAULT ''::character varying NOT NULL,
-    used smallint DEFAULT '0'::smallint NOT NULL
+    large_image_filename character varying(70) DEFAULT ''::character varying NOT NULL
 );
 
 
@@ -496,6 +494,30 @@ CREATE TABLE votes (
 ALTER TABLE votes OWNER TO migdal;
 
 --
+-- Name: entries_ident_key; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_ident_key UNIQUE (ident);
+
+
+--
+-- Name: entries_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: entries_track_key; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_track_key UNIQUE (track);
+
+
+--
 -- Name: users_login_key; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -509,6 +531,167 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: entries_answers_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_answers_idx ON entries USING btree (answers);
+
+
+--
+-- Name: entries_current_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_current_id_idx ON entries USING btree (current_id);
+
+
+--
+-- Name: entries_disabled_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_disabled_idx ON entries USING btree (disabled);
+
+
+--
+-- Name: entries_entry_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_entry_idx ON entries USING btree (entry);
+
+
+--
+-- Name: entries_group_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_group_id_idx ON entries USING btree (group_id);
+
+
+--
+-- Name: entries_grp_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_grp_idx ON entries USING btree (grp);
+
+
+--
+-- Name: entries_index0_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_index0_idx ON entries USING btree (index0);
+
+
+--
+-- Name: entries_index1_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_index1_idx ON entries USING btree (index1);
+
+
+--
+-- Name: entries_last_answer_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_last_answer_idx ON entries USING btree (last_answer);
+
+
+--
+-- Name: entries_modbits_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_modbits_idx ON entries USING btree (modbits);
+
+
+--
+-- Name: entries_orig_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_orig_id_idx ON entries USING btree (orig_id);
+
+
+--
+-- Name: entries_parent_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_parent_id_idx ON entries USING btree (parent_id);
+
+
+--
+-- Name: entries_perms_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_perms_idx ON entries USING btree (perms);
+
+
+--
+-- Name: entries_person_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_person_id_idx ON entries USING btree (person_id);
+
+
+--
+-- Name: entries_priority_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_priority_idx ON entries USING btree (priority);
+
+
+--
+-- Name: entries_rating_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_rating_idx ON entries USING btree (rating);
+
+
+--
+-- Name: entries_sent_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_sent_idx ON entries USING btree (sent);
+
+
+--
+-- Name: entries_subject_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_subject_idx ON entries USING btree (subject);
+
+
+--
+-- Name: entries_up_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_up_idx ON entries USING btree (up);
+
+
+--
+-- Name: entries_url_check_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_url_check_idx ON entries USING btree (url_check);
+
+
+--
+-- Name: entries_url_check_success_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_url_check_success_idx ON entries USING btree (url_check_success);
+
+
+--
+-- Name: entries_url_domain_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_url_domain_idx ON entries USING btree (url_domain);
+
+
+--
+-- Name: entries_user_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_user_id_idx ON entries USING btree (user_id);
 
 
 --
@@ -586,6 +769,62 @@ CREATE INDEX users_shames_idx ON users USING btree (shames);
 --
 
 CREATE INDEX users_surname_idx ON users USING btree (surname);
+
+
+--
+-- Name: entries_current_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_current_id_fkey FOREIGN KEY (current_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entries_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_group_id_fkey FOREIGN KEY (group_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entries_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_orig_id_fkey FOREIGN KEY (orig_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entries_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_parent_id_fkey FOREIGN KEY (parent_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entries_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_person_id_fkey FOREIGN KEY (person_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entries_up_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_up_fkey FOREIGN KEY (up) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entries_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
