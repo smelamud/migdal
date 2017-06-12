@@ -1,5 +1,8 @@
 #!/bin/bash
 
-echo "Importing $1..."
-echo "\\copy $1 from '$1.converted.csv' (format csv, null 'NULL');" | \
-    psql -d migdal -U migdal -W
+make || exit 1
+for t in $*; do
+    echo "Importing $t..." >&2
+    echo "delete from $t;"
+    echo "\\copy $t from '$t.converted.csv' (format csv, null 'NULL');"
+done | psql -d migdal -U migdal -W

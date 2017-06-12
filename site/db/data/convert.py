@@ -51,7 +51,10 @@ with open(table_name + '.csv', 'r') as infile:
     with open(table_name + '.converted.csv', 'w') as outfile:
         reader = csv.DictReader(infile)
         writer = csv.writer(outfile)
-        converter = globals()['convert_' + table_name]
+        try:
+            converter = globals()['convert_' + table_name]
+        except KeyError:
+            converter = None
         for row in reader:
             if converter is not None:
                 result = converter(row)

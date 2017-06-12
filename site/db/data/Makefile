@@ -1,4 +1,4 @@
-TABLES=users
+TABLES=users groups
 
 %.converted.csv: %.csv ./convert.py
 	./convert.py $*
