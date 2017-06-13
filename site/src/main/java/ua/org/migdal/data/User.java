@@ -27,7 +27,7 @@ import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
 
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class User implements Editable {
 
     @Id

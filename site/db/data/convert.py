@@ -57,6 +57,9 @@ def convert_users(row):
 def convert_entries(row):
     if row['group_id'] == '172':
         row['group_id'] = row['user_id']
+    if row['user_id'] == '165':
+        row['creator_id'] = '165'
+        row['modifier_id'] = 'NULL'
     return [
         row['id'],
         row['ident'],
@@ -113,13 +116,13 @@ def convert_entries(row):
         row['created'],
         row['modified'],
         null_time(row['accessed']),
-        row['creator_id'],
-        row['modifier_id'],
+        null_id(row['creator_id']),
+        null_id(row['modifier_id']),
         row['modbits'],
         row['answers'],
         null_time(row['last_answer']),
-        row['last_answer_id'],
-        row['last_answer_user_id'],
+        null_id(row['last_answer_id']),
+        null_id(row['last_answer_user_id']),
         row['last_answer_guest_login'],
         row['small_image'],
         row['small_image_x'],
