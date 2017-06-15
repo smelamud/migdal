@@ -19,6 +19,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ua.org.migdal.session.RequestContextImpl;
+import ua.org.migdal.util.Perm;
 import ua.org.migdal.util.PermUtils;
 import ua.org.migdal.util.TrackUtils;
 
@@ -390,6 +392,42 @@ public class Entry implements TreeElement {
     @Transient
     public String getPermString() {
         return PermUtils.toString(getPerms());
+    }
+
+    @Transient
+    public boolean isPermitted(long right) {
+        return PermUtils.perm(getUser().getId(), getGroup().getId(), getPerms(), right,
+                RequestContextImpl.getInstance());
+    }
+
+    @Transient
+    public boolean isReadable() {
+        return isPermitted(Perm.READ);
+    }
+
+    @Transient
+    public boolean isWritable() {
+        return isPermitted(Perm.WRITE);
+    }
+
+    @Transient
+    public boolean isAppendable() {
+        return isPermitted(Perm.APPEND);
+    }
+
+    @Transient
+    public boolean isPostable() {
+        return isPermitted(Perm.POST);
+    }
+
+    @Transient
+    public boolean isGuestPostable() {
+        return (getPerms() & Perm.EP) != 0;
+    }
+
+    @Transient
+    public boolean isHidden() {
+        return (getPerms() & (Perm.OR | Perm.ER)) == 0;
     }
 
     public boolean isDisabled() {

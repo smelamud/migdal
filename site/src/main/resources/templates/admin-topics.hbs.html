@@ -10,19 +10,27 @@
     <br>{{item.catalog}}
 {{/inline}}
 
-{{#*inline "branch"}} {{! params: node, upPath }}
-    <if what='$up!=0 && ($append || $write)'>
-        <br>
-    </if>
-    <if what='$append'>
+{{#*inline "branch"}} {{! params: node, upPath, append, write }}
+    {{#if node.parent}}
+        {{#if write}}
+            <br>
+        {{else}}
+            {{#if append}}
+                <br>
+            {{/if}}
+        {{/if}}
+    {{/if}}
+    {{#if append}}
         <a href="/admin/topics/{{upPath}}add/?redirid=$_" class="edit">Добавить</a>
-    </if>
-    <if what='$up!=0 && $write'>
-        <a href="/admin/topics/{{upPath}}edit/?redirid=$_" class="edit">Изменить</a>
-        <a href="/admin/topics/{{upPath}}delete/?redirid=$_" class="edit">Удалить</a>
-        <a href="/admin/topics/{{upPath}}chmod/?redirid=$_" class="edit">Права</a>
-        <a href="/admin/topics/{{upPath}}reorder/?redirid=$_" class="edit">Расставить</a>
-    </if>
+    {{/if}}
+    {{#if node.parent}}
+        {{#if write}}
+            <a href="/admin/topics/{{upPath}}edit/?redirid=$_" class="edit">Изменить</a>
+            <a href="/admin/topics/{{upPath}}delete/?redirid=$_" class="edit">Удалить</a>
+            <a href="/admin/topics/{{upPath}}chmod/?redirid=$_" class="edit">Права</a>
+            <a href="/admin/topics/{{upPath}}reorder/?redirid=$_" class="edit">Расставить</a>
+        {{/if}}
+    {{/if}}
     {{#unless node.children.empty}}
         <ul class="topics">
             {{#each node.children}}
@@ -31,8 +39,7 @@
                         {{> hd item=this}}<br>
                         <tt>{{permString}}&nbsp;{{user.login}}:{{group.login}}</tt>
                     {{/with}}
-                    {{> branch node=this upPath=element.trackPath}}
-                    <branch up='$.Id' up_path='$.TrackPath' append='$.isAppendable' write='$.isWritable'>
+                    {{> branch node=this upPath=element.trackPath append=element.appendable write=element.writable}}
                 </li>
             {{/each}}
         </ul>
@@ -77,8 +84,7 @@
                 <else>
                     <assign name='up_path' value=''>
                 {{/if}}
-                {{> branch node=topicTree upPath=""}}
-                <branch up='$up' up_path='$up_path' append='$userAdminTopics' write='$userAdminTopics' root='*true'>
+                {{> branch node=topicTree upPath="" append=rc.userAdminTopics write=rc.userAdminTopics}}
             </div>
         </td>
     </tr>

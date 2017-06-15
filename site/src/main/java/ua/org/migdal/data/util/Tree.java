@@ -18,6 +18,10 @@ public class Tree<T extends TreeElement> {
         putAll(elements);
     }
 
+    public TreeNode<T> getParent() {
+        return null;
+    }
+
     public List<TreeNode<T>> getChildren() {
         return children;
     }
