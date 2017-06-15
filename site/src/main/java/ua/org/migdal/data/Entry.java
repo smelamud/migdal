@@ -15,8 +15,11 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import ua.org.migdal.util.TrackUtils;
 
 @Entity
 @Table(name="entries")
@@ -296,6 +299,11 @@ public class Entry implements TreeElement {
 
     public void setTrack(String track) {
         this.track = track;
+    }
+
+    @Transient
+    public String getTrackPath() {
+        return TrackUtils.toPath(getTrack());
     }
 
     public String getCatalog() {

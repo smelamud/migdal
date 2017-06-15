@@ -1,7 +1,7 @@
 <ident name='up'>
 
 {{#*inline "hd"}} {{! params: item }}
-    <a href="/admin/topics/$item.TrackPath" title="$=item.BodyNormal">{{item.subject}}</a>
+    <a href="/admin/topics/{{item.trackPath}}" title="$=item.BodyNormal">{{item.subject}}</a>
     {{#if item.ident}}
         [{{item.ident}}={{item.id}}]
     {{else}}

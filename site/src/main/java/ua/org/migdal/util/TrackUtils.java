@@ -11,4 +11,14 @@ public class TrackUtils {
         return ids;
     }
 
+    public static String toPath(String track) {
+        long[] ids = parse(track);
+        StringBuilder buf = new StringBuilder();
+        for (long id : ids) {
+            buf.append(id);
+            buf.append('/');
+        }
+        return buf.toString();
+    }
+
 }
