@@ -60,6 +60,27 @@ def convert_entries(row):
     if row['user_id'] == '165':
         row['creator_id'] = '165'
         row['modifier_id'] = 'NULL'
+    row['subject'] = row['subject'].replace('&#171;', '\u00ab')\
+                                   .replace('&#187;', '\u00bb')\
+                                   .replace('&#x00ab;', '\u00ab')\
+                                   .replace('&#x00bb;', '\u00bb')\
+                                   .replace('&#8212;', '\u2014')\
+                                   .replace('&#x2014;', '\u2014')\
+                                   .replace('&#x2013;', '\u2013')\
+                                   .replace('&#8220;', '\u201c')\
+                                   .replace('&#8221;', '\u201d')\
+                                   .replace('&#x201c;', '\u201c')\
+                                   .replace('&#x201d;', '\u201d')\
+                                   .replace('&#x2026;', '\u2026')\
+                                   .replace('&#x2019;', '\u2019')\
+                                   .replace('&#x201e;', '\u201e')\
+                                   .replace('&#x0453;', '\u0453')\
+                                   .replace('&#x0403;', '\u0403')\
+                                   .replace('&#x05de;', '\u05de')\
+                                   .replace('&#x05ea;', '\u05ea')\
+                                   .replace('&#x05d9;', '\u05d9')\
+                                   .replace('&#x2116;', '\u2116')\
+                                   .replace('&#8470;', '\u2116')
     return [
         row['id'],
         row['ident'],
