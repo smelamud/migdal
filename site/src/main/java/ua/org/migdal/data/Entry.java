@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ua.org.migdal.util.PermUtils;
 import ua.org.migdal.util.TrackUtils;
 
 @Entity
@@ -384,6 +385,11 @@ public class Entry implements TreeElement {
 
     public void setPerms(long perms) {
         this.perms = perms;
+    }
+
+    @Transient
+    public String getPermString() {
+        return PermUtils.toString(getPerms());
     }
 
     public boolean isDisabled() {

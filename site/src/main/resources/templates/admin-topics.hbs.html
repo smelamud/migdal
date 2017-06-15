@@ -42,7 +42,7 @@
                 <li>
                     {{#with element}}
                         {{> hd item=this}}<br>
-                        <tt>{{perms}}&nbsp;{{user.login}}:{{group.login}}</tt>
+                        <tt>{{permString}}&nbsp;{{user.login}}:{{group.login}}</tt>
                     {{/with}}
                     {{> branch node=this}}
                 </li>
