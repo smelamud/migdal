@@ -187,13 +187,13 @@ CREATE TABLE entries (
     created timestamp with time zone,
     modified timestamp with time zone,
     accessed timestamp with time zone,
-    creator_id bigint DEFAULT '0'::bigint NOT NULL,
-    modifier_id bigint DEFAULT '0'::bigint NOT NULL,
+    creator_id bigint,
+    modifier_id bigint,
     modbits bigint DEFAULT '0'::bigint NOT NULL,
     answers bigint DEFAULT '0'::bigint NOT NULL,
     last_answer timestamp with time zone,
-    last_answer_id bigint DEFAULT '0'::bigint NOT NULL,
-    last_answer_user_id bigint DEFAULT '0'::bigint NOT NULL,
+    last_answer_id bigint,
+    last_answer_user_id bigint,
     last_answer_guest_login character varying(30) NOT NULL,
     small_image bigint DEFAULT '0'::bigint NOT NULL,
     small_image_x smallint DEFAULT '0'::smallint NOT NULL,
@@ -772,6 +772,14 @@ CREATE INDEX users_surname_idx ON users USING btree (surname);
 
 
 --
+-- Name: entries_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_creator_id_fkey FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: entries_current_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -785,6 +793,30 @@ ALTER TABLE ONLY entries
 
 ALTER TABLE ONLY entries
     ADD CONSTRAINT entries_group_id_fkey FOREIGN KEY (group_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entries_last_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_last_answer_id_fkey FOREIGN KEY (last_answer_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entries_last_answer_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_last_answer_user_id_fkey FOREIGN KEY (last_answer_user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: entries_modifier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_modifier_id_fkey FOREIGN KEY (modifier_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
