@@ -10,32 +10,19 @@
     <br>{{item.catalog}}
 {{/inline}}
 
-{{#*inline "oldbranch"}} {{! params: up, up_path, append, write, root }}
-    <iterate_topiclist grp='*GRP_ALL' up='$up'>
+{{#*inline "branch"}} {{! params: node, upPath }}
     <if what='$up!=0 && ($append || $write)'>
         <br>
     </if>
     <if what='$append'>
-        <a href='/admin/topics/${up_path}add/?redirid=$_' class='edit'>Добавить</a>
+        <a href="/admin/topics/{{upPath}}add/?redirid=$_" class="edit">Добавить</a>
     </if>
     <if what='$up!=0 && $write'>
-        <a href='/admin/topics/${up_path}edit/?redirid=$_' class='edit'>Изменить</a>
-        <a href='/admin/topics/${up_path}delete/?redirid=$_' class='edit'>Удалить</a>
-        <a href='/admin/topics/${up_path}chmod/?redirid=$_' class='edit'>Права</a>
-        <a href='/admin/topics/${up_path}reorder/?redirid=$_' class='edit'>Расставить</a>
+        <a href="/admin/topics/{{upPath}}edit/?redirid=$_" class="edit">Изменить</a>
+        <a href="/admin/topics/{{upPath}}delete/?redirid=$_" class="edit">Удалить</a>
+        <a href="/admin/topics/{{upPath}}chmod/?redirid=$_" class="edit">Права</a>
+        <a href="/admin/topics/{{upPath}}reorder/?redirid=$_" class="edit">Расставить</a>
     </if>
-    <ifnzero what='$;Count'>
-        <ul class='topics'>
-            <for>
-                <li><hd item='$.'><br>
-                <tt>$.PermString&nbsp;$=.Login:$=.GroupLogin</tt>
-                <branch up='$.Id' up_path='$.TrackPath' append='$.isAppendable' write='$.isWritable'>
-            </for>
-        </ul>
-    </ifnzero>
-{{/inline}}
-
-{{#*inline "branch"}} {{! params: node }}
     {{#unless node.children.empty}}
         <ul class="topics">
             {{#each node.children}}
@@ -44,7 +31,8 @@
                         {{> hd item=this}}<br>
                         <tt>{{permString}}&nbsp;{{user.login}}:{{group.login}}</tt>
                     {{/with}}
-                    {{> branch node=this}}
+                    {{> branch node=this upPath=element.trackPath}}
+                    <branch up='$.Id' up_path='$.TrackPath' append='$.isAppendable' write='$.isWritable'>
                 </li>
             {{/each}}
         </ul>
@@ -61,7 +49,7 @@
         </td>
         <td class="cframe">
             {{subtitle}}
-            <div class='topics ninept' style='padding: 0px'>
+            <div class="topics ninept" style="padding: 0px">
                 {{#if up}}
                     <topic_full_name name='full_name' id='$up'>
                     <topic_obj id='$up'>
@@ -89,7 +77,7 @@
                 <else>
                     <assign name='up_path' value=''>
                 {{/if}}
-                {{> branch node=topicTree}}
+                {{> branch node=topicTree upPath=""}}
                 <branch up='$up' up_path='$up_path' append='$userAdminTopics' write='$userAdminTopics' root='*true'>
             </div>
         </td>
