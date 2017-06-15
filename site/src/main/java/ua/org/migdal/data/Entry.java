@@ -112,6 +112,7 @@ public class Entry implements TreeElement {
 
     @NotNull
     @Size(max=255)
+    @Column(name="comment0_xml")
     private String comment0Xml = "";
 
     @NotNull
@@ -120,6 +121,7 @@ public class Entry implements TreeElement {
 
     @NotNull
     @Size(max=255)
+    @Column(name="comment1_xml")
     private String comment1Xml = "";
 
     @NotNull
@@ -175,12 +177,14 @@ public class Entry implements TreeElement {
     private long set0;
 
     @NotNull
+    @Column(name="set0_index")
     private long set0Index;
 
     @NotNull
     private long set1;
 
     @NotNull
+    @Column(name="set1_index")
     private long set1Index;
 
     @NotNull
@@ -229,9 +233,11 @@ public class Entry implements TreeElement {
     private long smallImage;
 
     @NotNull
+    @Column(name="small_image_x")
     private short smallImageX;
 
     @NotNull
+    @Column(name="small_image_y")
     private short smallImageY;
 
     @NotNull
@@ -242,9 +248,11 @@ public class Entry implements TreeElement {
     private long largeImage;
 
     @NotNull
+    @Column(name="large_image_x")
     private short largeImageX;
 
     @NotNull
+    @Column(name="large_image_y")
     private short largeImageY;
 
     @NotNull

@@ -45,7 +45,7 @@ public class TreeNode<T extends TreeElement> {
         return children;
     }
 
-    protected TreeNode<T> insert(T element, long[] ids, int index) {
+    protected TreeNode<T> put(T element, long[] ids, int index) {
         if (index >= ids.length) {
             setElement(element);
             return this;
@@ -61,7 +61,7 @@ public class TreeNode<T extends TreeElement> {
             node = new TreeNode<T>(ids[index], this);
             children.add(node);
         }
-        return node.insert(element, ids, index + 1);
+        return node.put(element, ids, index + 1);
     }
 
 }

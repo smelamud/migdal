@@ -1,6 +1,7 @@
 package ua.org.migdal.data.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import ua.org.migdal.data.TreeElement;
@@ -10,11 +11,18 @@ public class Tree<T extends TreeElement> {
 
     private List<TreeNode<T>> children = new ArrayList<>();
 
+    public Tree() {
+    }
+
+    public Tree(Collection<T> elements) {
+        putAll(elements);
+    }
+
     public List<TreeNode<T>> getChildren() {
         return children;
     }
 
-    public TreeNode<T> insert(T element) {
+    public TreeNode<T> put(T element) {
         long[] ids = TrackUtils.parse(element.getTrack());
         TreeNode<T> node = null;
         for (TreeNode<T> child : children) {
@@ -27,7 +35,13 @@ public class Tree<T extends TreeElement> {
             node = new TreeNode<T>(ids[0]);
             children.add(node);
         }
-        return node.insert(element, ids, 1);
+        return node.put(element, ids, 1);
+    }
+
+    public void putAll(Collection<T> elements) {
+        for (T element : elements) {
+            put(element);
+        }
     }
 
 }
