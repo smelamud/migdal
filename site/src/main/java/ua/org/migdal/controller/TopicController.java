@@ -16,7 +16,7 @@ public class TopicController {
     public String adminTopics(Model model) {
         adminTopicsLocationInfo(model);
 
-        return "admin-groups";
+        return "admin-topics";
     }
 
     public LocationInfo adminTopicsLocationInfo(Model model) {

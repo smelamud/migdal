@@ -1,6 +1,6 @@
 <ident name='up'>
 
-<element name='hd' params='item'>
+{{#*inline "hd"}} {{! params: item }}
      <ifne what='$item.Ident'>
           <assign name='info' value#='[$=item.Ident=$item.Id]'>
      <else>
@@ -9,10 +9,9 @@
      <a href='/admin/topics/$item.TrackPath' title='$=item.BodyNormal'><asp>
       $=item.Subject</a>&sp;$info&sp;
      <br>$item.Catalog
-</element>
+{{/inline}}
 
-<element name='branch' params='up,up_path,append,write,root'
-         defaults="root='*false'">
+{{#*inline "branch"}} {{! params: up, up_path, append, write, root }}
      <iterate_topiclist grp='*GRP_ALL' up='$up'>
      <if what='$up!=0 && ($append || $write)'>
           <br>
@@ -35,7 +34,7 @@
                </for>
           </ul>
      </ifnzero>
-</element>
+{{/inline}}
 
 {{> part/preamble}}
 {{> part/top}}
