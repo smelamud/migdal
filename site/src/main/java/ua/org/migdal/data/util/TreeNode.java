@@ -12,6 +12,9 @@ public class TreeNode<T extends TreeElement> {
     private TreeNode<T> parent;
     private List<TreeNode<T>> children = new ArrayList<>();
 
+    public TreeNode() {
+    }
+
     public TreeNode(long id) {
         this.id = id;
     }
