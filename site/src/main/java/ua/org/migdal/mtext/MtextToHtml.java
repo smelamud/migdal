@@ -118,12 +118,12 @@ public class MtextToHtml extends DefaultHandler {
     }
 
     private String getInplaceFootnote() {
-        Mtext footnote = new Mtext(xmlFootnote.toString(), format, id)
+        String footnote = new Mtext(xmlFootnote.toString(), format, id)
                             .shortenNote(
                                     config.getInplaceSize(),
                                     config.getInplaceSizeMinus(),
                                     config.getInplaceSizePlus());
-        return footnote.getXml().replace('\n', ' ');
+        return footnote.replace('\n', ' ');
     }
 
     private String getParagraphClear() {

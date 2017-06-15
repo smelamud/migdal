@@ -1,5 +1,7 @@
 package ua.org.migdal.mtext;
 
+import ua.org.migdal.util.exception.XmlConverterException;
+
 public class Mtext {
 
     private String xml;
@@ -33,12 +35,20 @@ public class Mtext {
         return id;
     }
 
+    public int cleanLength() {
+        try {
+            return MtextShorten.cleanLength(xml);
+        } catch (XmlConverterException e) {
+            return 0;
+        }
+    }
+
     public Mtext shorten(int len, int mdlen, int pdlen) {
         return new Mtext(MtextShorten.shorten(xml, len, mdlen, pdlen), format, id);
     }
 
-    public Mtext shortenNote(int len, int mdlen, int pdlen) {
-        return new Mtext(MtextShorten.shorten(xml, len, mdlen, pdlen, true, "..."), format, id);
+    public String shortenNote(int len, int mdlen, int pdlen) {
+        return MtextShorten.shorten(xml, len, mdlen, pdlen, true, "...");
     }
 
 }

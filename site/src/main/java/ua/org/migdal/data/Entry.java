@@ -19,6 +19,9 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import ua.org.migdal.Config;
+import ua.org.migdal.mtext.Mtext;
+import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContextImpl;
 import ua.org.migdal.util.Perm;
 import ua.org.migdal.util.PermUtils;
@@ -580,6 +583,73 @@ public class Entry implements TreeElement {
 
     public void setBodyXml(String bodyXml) {
         this.bodyXml = bodyXml;
+    }
+
+    @Transient
+    public Mtext getBodyMtext() {
+        return new Mtext(getBodyXml(), MtextFormat.SHORT, getId());
+    }
+
+    @Transient
+    public String getBodyNormal() {
+        return getBodyMtext().shortenNote(65535, 0, 0);
+    }
+
+    @Transient
+    public boolean isBodyTiny() {
+        Config config = Config.getInstance();
+
+        return getBodyMtext().cleanLength() <= config.getTinySize() + config.getTinySizePlus();
+    }
+
+    @Transient
+    public String getBodyTiny() {
+        Config config = Config.getInstance();
+
+        return getBodyMtext().shortenNote(config.getTinySize(), config.getTinySizeMinus(), config.getTinySizePlus());
+    }
+
+    @Transient
+    public Mtext getBodyTinyMtext() {
+        Config config = Config.getInstance();
+
+        return getBodyMtext().shorten(config.getTinySize(), config.getTinySizeMinus(), config.getTinySizePlus());
+    }
+
+    @Transient
+    public boolean isBodySmall() {
+        Config config = Config.getInstance();
+
+        return getBodyMtext().cleanLength() <= config.getSmallSize() + config.getSmallSizePlus();
+    }
+
+    @Transient
+    public Mtext getBodySmallMtext() {
+        Config config = Config.getInstance();
+
+        return getBodyMtext().shorten(config.getSmallSize(), config.getSmallSizeMinus(), config.getSmallSizePlus());
+    }
+
+    @Transient
+    public boolean isBodyMedium() {
+        Config config = Config.getInstance();
+
+        return getBodyMtext().cleanLength() <= config.getMediumSize() + config.getMediumSizePlus();
+    }
+
+    @Transient
+    public String getBodyMedium() {
+        Config config = Config.getInstance();
+
+        return getBodyMtext().shortenNote(config.getMediumSize(), config.getMediumSizeMinus(),
+                config.getMediumSizePlus());
+    }
+
+    @Transient
+    public Mtext getBodyMediumMtext() {
+        Config config = Config.getInstance();
+
+        return getBodyMtext().shorten(config.getMediumSize(), config.getMediumSizeMinus(), config.getMediumSizePlus());
     }
 
     public long getBodyFormat() {

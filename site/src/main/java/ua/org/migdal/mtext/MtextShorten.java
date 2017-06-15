@@ -55,7 +55,7 @@ class MtextShorten {
         return len;
     }
 
-    private static int cleanLength(String s) throws XmlConverterException {
+    static int cleanLength(String s) throws XmlConverterException {
         if (!XmlUtils.hasMarkup(s)) {
             return s.length();
         }
@@ -64,11 +64,11 @@ class MtextShorten {
         return handler.getLine().length();
     }
 
-    public static String shorten(String s, int len, int mdlen, int pdlen) {
+    static String shorten(String s, int len, int mdlen, int pdlen) {
         return shorten(s, len, mdlen, pdlen, false, "");
     }
 
-    public static String shorten(String s, int len, int mdlen, int pdlen, boolean clearTags, String suffix) {
+    static String shorten(String s, int len, int mdlen, int pdlen, boolean clearTags, String suffix) {
         boolean hasMarkup = XmlUtils.hasMarkup(s);
 
         try {
