@@ -66,6 +66,20 @@ public class Utils {
         return s.matches("^\\d+$");
     }
 
+    public static String convertLigatures(String s) {
+        return s.replace("<<", "\u00ab")
+                .replace(">>", "\u00bb")
+                .replace("---", "\u2014")
+                .replace("``", "\u201c")
+                .replace("(c)", "\u00a9")
+                .replace("(C)", "\u00a9")
+                .replace("(r)", "\u00ae")
+                .replace("(R)", "\u00ae")
+                .replace("(tm)", "\u2122")
+                .replace("(TM)", "\u2122")
+                .replace("No.", "\u2116");
+    }
+
     public static String replaceAll(String text, Pattern regex, Function<Matcher, String> replacement) {
         Matcher matcher = regex.matcher(text);
         StringBuffer buf = new StringBuffer();
