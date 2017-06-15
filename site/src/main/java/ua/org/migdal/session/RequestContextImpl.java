@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import ua.org.migdal.util.Utils;
 public class RequestContextImpl implements RequestContext {
 
     private static final Pattern LOCATION_REGEX = Pattern.compile("^(/[a-zA-z0-9-~@]*)+(\\?.*)?$");
+
+    private static ThreadLocal<RequestContext> instance = new ThreadLocal<>();
 
     @Autowired
     private Config config;
@@ -52,6 +55,15 @@ public class RequestContextImpl implements RequestContext {
     private String userFolder;
     private short userHidden;
     private long userRights;
+
+    @PostConstruct
+    public void init() {
+        instance.set(this);
+    }
+
+    public static RequestContext getInstance() {
+        return instance.get();
+    }
 
     private void touchSession() {
         long now = System.currentTimeMillis();
