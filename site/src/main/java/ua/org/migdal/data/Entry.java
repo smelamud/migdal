@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 @Table(name="entries")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="entry", discriminatorType=DiscriminatorType.INTEGER)
-public class Entry {
+public class Entry implements TreeElement {
 
     @Id
     @GeneratedValue
