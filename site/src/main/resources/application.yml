@@ -1,0 +1,84 @@
+server:
+  port: 8081  # Server port
+  session:
+    timeout: 8640000  # Session timeout (2400 hours in seconds)
+
+spring:
+  # DataSource settings
+  datasource:
+    url: jdbc:postgresql:migdal?characterEncoding=UTF-8
+    username: migdal
+    password: migdal
+    testWhileIdle: true  # Keep the connection alive if idle for a long time (needed in production)
+    validationQuery: SELECT 1
+
+  jpa:
+    show-sql: true  # Show or not log for each sql query
+    hibernate:
+      ddl-auto: none  # Hibernate DDL auto (create, create-drop, update)
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy  # Naming strategy
+
+    # Use spring.jpa.properties.* for Hibernate native properties (the prefix is
+    # stripped before adding them to the entity manager)
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL82Dialect  # The SQL dialect makes Hibernate generate better SQL for the chosen database
+
+  # Mail hub properties
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    #username:
+    #password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+migdal:
+  siteDomain: localhost.localdomain  # Site domain
+  subdomains: www,english  # Site subdomains (the first one is default)
+
+  # Maximum period (in hours) of session inactivity. After it elapses, the session is cleared.
+  # The short session is opened if user logs in from public computer, the long one - if he logs in from
+  # his private computer.
+  sessionTimeoutShort: 3
+  sessionTimeoutLong: 2400
+
+  allowGuests: true  # Allow guest users
+  guestLogin: Гость  # Login of guest user
+
+
+  disableRegister: false  # Disable users' self-registration, allow creation of users by admin only
+  regConfirmTimeout: 3  # Timeout (in days) of user e-mail confirmation
+
+  # Text cropping parameters for "tiny size"
+  tinySize: 64
+  tinySizeMinus: 32
+  tinySizePlus: 32
+
+  # Text cropping parameters for "small size"
+  smallSize: 256
+  smallSizeMinus: 128
+  smallSizePlus: 128
+
+  # Text cropping parameters for "medium size"
+  mediumSize: 1024
+  mediumSizeMinus: 512
+  mediumSizePlus: 512
+
+  # Text cropping parameters to insert footnotes as tooltips of footnote references
+  inplaceSize: 256
+  inplaceSizeMinus: 128
+  inplaceSizePlus: 128
+
+  ## Mail service properties
+
+  # Maximum rate of sending mails: <mailSendLimit> mails per <mailSendPeriod> minutes
+  mailSendLimit: 10
+  mailSendPeriod: 10
+
+  mailFromAddress: mailrobot@migdal.org.ua  # "From:" address of all mails
+  mailReplyToAddress: webmaster@migdal.org.ua  # "Reply-To:" address of all mails
