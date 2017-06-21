@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
@@ -13,7 +13,7 @@ import ua.org.migdal.mail.exception.MailServiceException;
 @Service
 public class MailController {
 
-    @Autowired
+    @Inject
     private MailService mailService;
 
     public void register(User user) throws MailServiceException {

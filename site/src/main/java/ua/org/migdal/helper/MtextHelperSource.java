@@ -2,7 +2,7 @@ package ua.org.migdal.helper;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
@@ -18,7 +18,7 @@ import ua.org.migdal.util.exception.XmlConverterException;
 @HelperSource
 public class MtextHelperSource {
 
-    @Autowired
+    @Inject
     private Config config;
 
     public CharSequence mtext(Mtext mtext, Options options) {

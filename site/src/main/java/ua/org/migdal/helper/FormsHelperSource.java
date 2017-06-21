@@ -2,7 +2,7 @@ package ua.org.migdal.helper;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.validation.Errors;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
@@ -13,7 +13,7 @@ import ua.org.migdal.helper.util.HelperUtils;
 @HelperSource
 public class FormsHelperSource {
 
-    @Autowired
+    @Inject
     private ImagesHelperSource imagesHelperSource;
 
     public CharSequence hidden(Options options) {

@@ -3,7 +3,7 @@ package ua.org.migdal.manager;
 import java.sql.Timestamp;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,13 +27,13 @@ import ua.org.migdal.util.Utils;
 @Service
 public class UserManager {
 
-    @Autowired
+    @Inject
     private Config config;
 
-    @Autowired
+    @Inject
     private UserRepository userRepository;
 
-    @Autowired
+    @Inject
     private RequestContext requestContext;
 
     private final CachedValue<Long> guestId = new CachedValue<>(this::fetchGuestId);

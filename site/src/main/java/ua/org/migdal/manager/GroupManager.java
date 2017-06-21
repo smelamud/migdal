@@ -3,7 +3,7 @@ package ua.org.migdal.manager;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import ua.org.migdal.data.GroupUsersProjection;
@@ -13,7 +13,7 @@ import ua.org.migdal.data.UserRepository;
 @Service
 public class GroupManager {
 
-    @Autowired
+    @Inject
     private UserRepository userRepository;
 
     public List<GroupUsersProjection> getAll() {

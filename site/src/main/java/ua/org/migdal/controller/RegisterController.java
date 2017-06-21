@@ -2,7 +2,7 @@ package ua.org.migdal.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,16 +26,16 @@ public class RegisterController {
 
     private Logger log = LoggerFactory.getLogger(RegisterController.class);
 
-    @Autowired
+    @Inject
     private RequestContext requestContext;
 
-    @Autowired
+    @Inject
     private UserManager userManager;
 
-    @Autowired
+    @Inject
     private MailController mailController;
 
-    @Autowired
+    @Inject
     private IndexController indexController;
 
     @GetMapping("/register")

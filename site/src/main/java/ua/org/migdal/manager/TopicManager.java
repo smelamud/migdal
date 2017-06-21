@@ -2,7 +2,7 @@ package ua.org.migdal.manager;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import ua.org.migdal.data.Topic;
@@ -11,7 +11,7 @@ import ua.org.migdal.data.TopicRepository;
 @Service
 public class TopicManager {
 
-    @Autowired
+    @Inject
     private TopicRepository entryRepository;
 
     public Topic get(long id) {

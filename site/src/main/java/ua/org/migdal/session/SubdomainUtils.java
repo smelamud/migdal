@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 import ua.org.migdal.Config;
@@ -12,7 +12,7 @@ import ua.org.migdal.Config;
 @Component
 public class SubdomainUtils {
 
-    @Autowired
+    @Inject
     private Config config;
 
     public static class SubdomainInfo {

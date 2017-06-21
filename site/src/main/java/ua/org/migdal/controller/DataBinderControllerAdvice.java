@@ -1,6 +1,6 @@
 package ua.org.migdal.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.DefaultMessageCodesResolver;
 import org.springframework.validation.Validator;
@@ -13,7 +13,7 @@ import ua.org.migdal.form.validator.FormValidator;
 @ControllerAdvice
 public class DataBinderControllerAdvice {
 
-    @Autowired
+    @Inject
     private ApplicationContext applicationContext;
 
     @InitBinder

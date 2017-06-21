@@ -2,7 +2,7 @@ package ua.org.migdal.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
@@ -36,22 +36,22 @@ public class UserController {
             new Constant("по фамилии", "surname")
     };
 
-    @Autowired
+    @Inject
     private Config config;
 
-    @Autowired
+    @Inject
     private PlatformTransactionManager txManager;
 
-    @Autowired
+    @Inject
     private RequestContext requestContext;
 
-    @Autowired
+    @Inject
     private UserManager userManager;
 
-    @Autowired
+    @Inject
     private MailController mailController;
 
-    @Autowired
+    @Inject
     private IndexController indexController;
 
     @GetMapping("/users")

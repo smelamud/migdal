@@ -2,7 +2,7 @@ package ua.org.migdal.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
@@ -24,19 +24,19 @@ import ua.org.migdal.session.RequestContext;
 @Controller
 public class GroupController {
 
-    @Autowired
+    @Inject
     private PlatformTransactionManager txManager;
 
-    @Autowired
+    @Inject
     private RequestContext requestContext;
 
-    @Autowired
+    @Inject
     private GroupManager groupManager;
 
-    @Autowired
+    @Inject
     private UserManager userManager;
 
-    @Autowired
+    @Inject
     private IndexController indexController;
 
     @GetMapping("/admin/groups")

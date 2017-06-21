@@ -2,7 +2,7 @@ package ua.org.migdal.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,13 +15,13 @@ import ua.org.migdal.session.SubdomainUtils;
 @ControllerAdvice
 public class GlobalsControllerAdvice {
 
-    @Autowired
+    @Inject
     private Constants constants;
 
-    @Autowired
+    @Inject
     private RequestContext requestContext;
 
-    @Autowired
+    @Inject
     private Config config;
 
     @ModelAttribute

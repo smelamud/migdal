@@ -2,7 +2,7 @@ package ua.org.migdal.helper;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 
 import com.github.jknack.handlebars.Options;
 
@@ -12,7 +12,7 @@ import ua.org.migdal.session.RequestContext;
 @HelperSource
 public class SessionHelperSource {
 
-    @Autowired
+    @Inject
     private RequestContext requestContext;
 
     public CharSequence print(Options options) throws IOException {

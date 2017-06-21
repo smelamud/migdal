@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
@@ -26,19 +26,19 @@ public class RequestContextImpl implements RequestContext {
 
     private static ThreadLocal<RequestContext> instance = new ThreadLocal<>();
 
-    @Autowired
+    @Inject
     private Config config;
 
-    @Autowired
+    @Inject
     private Session session;
 
-    @Autowired
+    @Inject
     private HttpServletRequest request;
 
-    @Autowired
+    @Inject
     private SubdomainUtils subdomainUtils;
 
-    @Autowired
+    @Inject
     private UserManager userManager;
 
     private boolean sessionProcessed;

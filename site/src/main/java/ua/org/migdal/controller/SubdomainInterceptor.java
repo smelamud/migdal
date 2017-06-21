@@ -3,7 +3,7 @@ package ua.org.migdal.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -13,7 +13,7 @@ import ua.org.migdal.session.SubdomainUtils;
 @Component
 public class SubdomainInterceptor extends HandlerInterceptorAdapter {
 
-    @Autowired
+    @Inject
     private SubdomainUtils subdomainUtils;
 
     @Override

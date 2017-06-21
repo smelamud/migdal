@@ -1,6 +1,6 @@
 package ua.org.migdal.helper;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.data.domain.Page;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -13,13 +13,13 @@ import ua.org.migdal.session.RequestContext;
 @HelperSource
 public class SpinHelperSource {
 
-    @Autowired
+    @Inject
     private RequestContext requestContext;
 
-    @Autowired
+    @Inject
     private ImagesHelperSource imagesHelperSource;
 
-    @Autowired
+    @Inject
     private FormsHelperSource formsHelperSource;
 
     public CharSequence spin(Page<?> page, Options options) {

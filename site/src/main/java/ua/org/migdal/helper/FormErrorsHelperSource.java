@@ -1,6 +1,6 @@
 package ua.org.migdal.helper;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.util.StringUtils;
@@ -15,7 +15,7 @@ import ua.org.migdal.helper.util.HelperUtils;
 @HelperSource
 public class FormErrorsHelperSource {
 
-    @Autowired
+    @Inject
     private MessageSource messageSource;
 
     public CharSequence formErrors(Options options) {

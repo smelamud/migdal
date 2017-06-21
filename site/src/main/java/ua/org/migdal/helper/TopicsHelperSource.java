@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.ApplicationContext;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
@@ -18,10 +18,10 @@ import ua.org.migdal.util.Utils;
 @HelperSource
 public class TopicsHelperSource {
 
-    @Autowired
+    @Inject
     private ApplicationContext applicationContext;
 
-    @Autowired
+    @Inject
     private VoteHelperSource voteHelperSource;
 
     public CharSequence topicsTable(Options options) throws IOException {

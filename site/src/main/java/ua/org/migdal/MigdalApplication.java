@@ -2,7 +2,7 @@ package ua.org.migdal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,10 +23,10 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
 
     private Logger log = LoggerFactory.getLogger(MigdalApplication.class);
 
-    @Autowired
+    @Inject
     private ApplicationContext applicationContext;
 
-    @Autowired
+    @Inject
     private SubdomainInterceptor subdomainInterceptor;
 
     @Bean

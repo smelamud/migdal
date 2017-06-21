@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -39,16 +39,16 @@ public class MailService {
 
     private Logger log = LoggerFactory.getLogger(MailService.class);
 
-    @Autowired
+    @Inject
     private Config config;
 
-    @Autowired
+    @Inject
     private JavaMailSender mailSender;
 
-    @Autowired
+    @Inject
     private HandlebarsViewResolver handlebarsViewResolver;
 
-    @Autowired
+    @Inject
     private UserManager userManager;
 
     private BlockingQueue<MimeMessagePreparator> mailQueue = new LinkedBlockingQueue<>();
