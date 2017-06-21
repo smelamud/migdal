@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import ua.org.migdal.data.util.Tree;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.LocationInfo;
@@ -19,9 +20,19 @@ public class TopicController {
     private IndexController indexController;
 
     @GetMapping("/admin/topics")
-    public String adminTopics(Model model) {
+    public String adminTopicsRoot(Model model) {
+        return adminTopics(null, model);
+    }
+
+    @GetMapping("/admin/topics/**/{upId}")
+    public String adminTopicsSubtree(@PathVariable long upId, Model model) {
+        return adminTopics(upId, model);
+    }
+
+    private String adminTopics(Long upId, Model model) {
         adminTopicsLocationInfo(model);
 
+        model.addAttribute("up", upId != null ? topicManager.beg(upId) : null);
         model.addAttribute("topicTree", new Tree<>(topicManager.getAll()));
         return "admin-topics";
     }

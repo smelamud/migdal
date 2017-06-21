@@ -1,7 +1,9 @@
 package ua.org.migdal.manager;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -107,7 +109,7 @@ public class UserManager {
     }
 
     public Set<Long> getGroupIdsByUserId(long id) {
-        return userRepository.findGroupIdsByUserId(id);
+        return userRepository.findGroupIdsByUserId(id).stream().map(BigInteger::longValue).collect(Collectors.toSet());
     }
 
     public Set<User> getAdmins(UserRight right) {

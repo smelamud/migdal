@@ -59,15 +59,15 @@
             <div class="topics ninept" style="padding: 0px">
                 {{#if up}}
                     <topic_full_name name='full_name' id='$up'>
-                    <topic_obj id='$up'>
                     <table><tr>
-                        <td width=20><image src='/pics/up-level.gif'></td>
+                        <td width="20">{{image "/pics/up-level.gif"}}</td>
                         <td>
-                            <a href='/admin/topics/$,ParentTrackPath' class='ninept'>На уровень вверх</a>
+                            <a href="/admin/topics/$,ParentTrackPath" class="ninept">На уровень вверх</a>
+                            IDENT={{up.ident}}:{{up.id}}
                         </td>
                     </tr></table>
                     <br>
-                    <a href='/admin/topics/'>Все темы</a>
+                    <a href="/admin/topics/">Все темы</a>
                     <iterate_topic_hierarchy name='hier' topic_id='$up'>
                     <for>
                         :: <a href='/admin/topics/$.TrackPath'>$=.Subject</a>

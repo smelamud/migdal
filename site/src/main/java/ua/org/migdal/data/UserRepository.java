@@ -1,5 +1,6 @@
 package ua.org.migdal.data;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long>, QueryDslPredi
     void updateLastOnline(long id, Timestamp lastOnline);
 
     @Query(value = "select group_id from groups where user_id=?1", nativeQuery = true)
-    Set<Long> findGroupIdsByUserId(long id);
+    Set<BigInteger> findGroupIdsByUserId(long id);
 
     @Query(value = "select * from users where (rights & ?1)<>0", nativeQuery = true)
     Set<User> findAdmins(long right);
