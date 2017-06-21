@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -19,6 +20,7 @@ import ua.org.migdal.helper.HelperSource;
 
 @SpringBootApplication
 @EnableConfigurationProperties(Config.class)
+@EnableJdbcHttpSession
 public class MigdalApplication extends WebMvcConfigurerAdapter {
 
     private Logger log = LoggerFactory.getLogger(MigdalApplication.class);

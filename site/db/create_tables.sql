@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.7
+-- Dumped by pg_dump version 9.5.7
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -418,6 +418,34 @@ CREATE TABLE redirs (
 ALTER TABLE redirs OWNER TO migdal;
 
 --
+-- Name: spring_session; Type: TABLE; Schema: public; Owner: migdal
+--
+
+CREATE TABLE spring_session (
+    session_id character(36) NOT NULL,
+    creation_time bigint NOT NULL,
+    last_access_time bigint NOT NULL,
+    max_inactive_interval integer NOT NULL,
+    principal_name character varying(100)
+);
+
+
+ALTER TABLE spring_session OWNER TO migdal;
+
+--
+-- Name: spring_session_attributes; Type: TABLE; Schema: public; Owner: migdal
+--
+
+CREATE TABLE spring_session_attributes (
+    session_id character(36) NOT NULL,
+    attribute_name character varying(200) NOT NULL,
+    attribute_bytes bytea
+);
+
+
+ALTER TABLE spring_session_attributes OWNER TO migdal;
+
+--
 -- Name: tmp_texts; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -515,6 +543,22 @@ ALTER TABLE ONLY entries
 
 ALTER TABLE ONLY entries
     ADD CONSTRAINT entries_track_key UNIQUE (track);
+
+
+--
+-- Name: spring_session_attributes_pk; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY spring_session_attributes
+    ADD CONSTRAINT spring_session_attributes_pk PRIMARY KEY (session_id, attribute_name);
+
+
+--
+-- Name: spring_session_pk; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY spring_session
+    ADD CONSTRAINT spring_session_pk PRIMARY KEY (session_id);
 
 
 --
@@ -709,6 +753,20 @@ CREATE INDEX groups_user_id_idx ON groups USING btree (user_id);
 
 
 --
+-- Name: spring_session_attributes_ix1; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX spring_session_attributes_ix1 ON spring_session_attributes USING btree (session_id);
+
+
+--
+-- Name: spring_session_ix1; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX spring_session_ix1 ON spring_session USING btree (last_access_time);
+
+
+--
 -- Name: users_confirm_code_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
@@ -873,6 +931,14 @@ ALTER TABLE ONLY groups
 
 ALTER TABLE ONLY groups
     ADD CONSTRAINT groups_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: spring_session_attributes_fk; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY spring_session_attributes
+    ADD CONSTRAINT spring_session_attributes_fk FOREIGN KEY (session_id) REFERENCES spring_session(session_id) ON DELETE CASCADE;
 
 
 --

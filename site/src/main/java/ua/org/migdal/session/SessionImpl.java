@@ -1,12 +1,16 @@
 package ua.org.migdal.session;
 
+import java.io.Serializable;
+
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 @SessionScope(proxyMode = ScopedProxyMode.INTERFACES)
 @Component
-public class SessionImpl implements Session {
+public class SessionImpl implements Session, Serializable {
+
+    private static final long serialVersionUID = -5758885365302557269L;
 
     private long userId;
     private long realUserId;
