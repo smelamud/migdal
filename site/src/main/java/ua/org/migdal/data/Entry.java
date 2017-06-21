@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -40,7 +41,7 @@ public class Entry implements TreeElement {
 
     private String ident;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="up")
     private Entry up;
 
@@ -58,7 +59,7 @@ public class Entry implements TreeElement {
     @ManyToOne
     private Entry orig;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Entry current;
 
     @NotNull
@@ -213,10 +214,10 @@ public class Entry implements TreeElement {
 
     private Timestamp accessed;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private User creator;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private User modifier;
 
     @NotNull
@@ -228,10 +229,10 @@ public class Entry implements TreeElement {
     @Column(name="last_answer")
     private Timestamp lastAnswerTimestamp;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Entry lastAnswer;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private User lastAnswerUser;
 
     @NotNull
