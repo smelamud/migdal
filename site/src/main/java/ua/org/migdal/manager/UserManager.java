@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.inject.Inject;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,7 +22,6 @@ import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRepository;
 import ua.org.migdal.data.UserRight;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.util.CachedValue;
 import ua.org.migdal.util.LikeUtils;
 import ua.org.migdal.util.Utils;
 
@@ -35,8 +36,6 @@ public class UserManager {
 
     @Inject
     private RequestContext requestContext;
-
-    private final CachedValue<Long> guestId = new CachedValue<>(this::fetchGuestId);
 
     public boolean exists(long id) {
         return userRepository.exists(id);
@@ -72,14 +71,11 @@ public class UserManager {
         return Utils.idOrName(login, this::getIdByLogin);
     }
 
+    @Cacheable("users-guestid")
     public long getGuestId() {
         if (!config.isAllowGuests()) {
             return 0;
         }
-        return guestId.get();
-    }
-
-    private Long fetchGuestId() {
         IdProjection data = userRepository.findFirstIdByGuestTrueOrderByLogin();
         return data != null ? data.getId() : addGuest();
     }

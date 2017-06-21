@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
@@ -21,6 +22,7 @@ import ua.org.migdal.helper.HelperSource;
 @SpringBootApplication
 @EnableConfigurationProperties(Config.class)
 @EnableJdbcHttpSession
+@EnableCaching
 public class MigdalApplication extends WebMvcConfigurerAdapter {
 
     private Logger log = LoggerFactory.getLogger(MigdalApplication.class);
