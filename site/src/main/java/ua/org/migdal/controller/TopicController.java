@@ -1,11 +1,12 @@
 package ua.org.migdal.controller;
 
 import javax.inject.Inject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PathVariable;
+
 import ua.org.migdal.data.util.Tree;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.LocationInfo;
@@ -32,9 +33,15 @@ public class TopicController {
     private String adminTopics(Long upId, Model model) {
         adminTopicsLocationInfo(model);
 
-        model.addAttribute("up", upId != null ? topicManager.beg(upId) : null);
-        model.addAttribute("ancestors", upId != null ? topicManager.begAncestors(upId) : null);
-        model.addAttribute("topicTree", new Tree<>(topicManager.begAll(upId != null ? upId : 0, true)));
+        if (upId != null) {
+            model.addAttribute("up", topicManager.beg(upId));
+            model.addAttribute("ancestors", topicManager.begAncestors(upId));
+            model.addAttribute("topicTree", new Tree<>(upId, topicManager.begAll(upId, true)));
+        } else {
+            model.addAttribute("up", null);
+            model.addAttribute("ancestors", null);
+            model.addAttribute("topicTree", new Tree<>(topicManager.begAll(0, true)));
+        }
         return "admin-topics";
     }
 

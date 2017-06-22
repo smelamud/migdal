@@ -9,7 +9,7 @@
 {{/inline}}
 
 {{#*inline "branch"}} {{! params: node, upPath, append, write }}
-    {{#if node.parent}}
+    {{#if node.id}}
         {{#if write}}
             <br>
         {{else}}
@@ -21,7 +21,7 @@
     {{#if append}}
         <a href="/admin/topics/{{upPath}}add/?redirid=$_" class="edit">Добавить</a>
     {{/if}}
-    {{#if node.parent}}
+    {{#if node.id}}
         {{#if write}}
             <a href="/admin/topics/{{upPath}}edit/?redirid=$_" class="edit">Изменить</a>
             <a href="/admin/topics/{{upPath}}delete/?redirid=$_" class="edit">Удалить</a>
@@ -56,13 +56,9 @@
             {{subtitle}}
             <div class="topics ninept" style="padding: 0px">
                 {{#if up}}
-                    <table><tr>
-                        <td width="20">{{image "/pics/up-level.gif"}}</td>
-                        <td>
-                            <a href="/admin/topics/{{up.parentTrackPath}}" class="ninept">На уровень вверх</a>
-                        </td>
-                    </tr></table>
-                    <br>
+                    {{image "/pics/up-level.gif"}}
+                    <a href="/admin/topics/{{up.parentTrackPath}}" class="ninept">На уровень вверх</a>
+                    <p>&nbsp;</p>
                     <a href="/admin/topics/">Все темы</a>
                     {{#each ancestors}}
                         :: <a href="/admin/topics/{{trackPath}}">{{subject}}</a>
