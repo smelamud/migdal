@@ -1,5 +1,3 @@
-<ident name='up'>
-
 {{#*inline "hd"}} {{! params: item }}
     <a href="/admin/topics/{{item.trackPath}}" title="{{item.bodyNormal}}">{{item.subject}}</a>
     {{#if item.ident}}
@@ -58,33 +56,26 @@
             {{subtitle}}
             <div class="topics ninept" style="padding: 0px">
                 {{#if up}}
-                    <topic_full_name name='full_name' id='$up'>
                     <table><tr>
                         <td width="20">{{image "/pics/up-level.gif"}}</td>
                         <td>
-                            <a href="/admin/topics/$,ParentTrackPath" class="ninept">На уровень вверх</a>
-                            IDENT={{up.ident}}:{{up.id}}
+                            <a href="/admin/topics/{{up.parentTrackPath}}" class="ninept">На уровень вверх</a>
                         </td>
                     </tr></table>
                     <br>
                     <a href="/admin/topics/">Все темы</a>
-                    <iterate_topic_hierarchy name='hier' topic_id='$up'>
-                    <for>
-                        :: <a href='/admin/topics/$.TrackPath'>$=.Subject</a>
-                        <islast what='$hier'>
-                            <ifne what='$.Ident'>
-                                <assign name='info' value#='[$=.Ident=$.Id]'>
-                            <else>
-                                <assign name='info' value#='[$.Id]'>
-                            </ifne>
-                        </islast>
-                        &sp;$info
-                    </for>
-                    <assign name='up_path' value='$,TrackPath'>
-                <else>
-                    <assign name='up_path' value=''>
+                    {{#each ancestors}}
+                        :: <a href="/admin/topics/{{trackPath}}">{{subject}}</a>
+                    {{/each}}
+                    {{#if up.ident}}
+                        [{{up.ident}}={{up.id}}]
+                    {{else}}
+                        [{{up.id}}]
+                    {{/if}}
+                    {{> branch node=topicTree upPath=up.trackPath append=up.appendable write=up.writable}}
+                {{else}}
+                    {{> branch node=topicTree upPath="" append=rc.userAdminTopics write=rc.userAdminTopics}}
                 {{/if}}
-                {{> branch node=topicTree upPath="" append=rc.userAdminTopics write=rc.userAdminTopics}}
             </div>
         </td>
     </tr>

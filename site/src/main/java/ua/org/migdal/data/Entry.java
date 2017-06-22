@@ -313,6 +313,11 @@ public class Entry implements TreeElement {
         return TrackUtils.toPath(getTrack());
     }
 
+    @Transient
+    public String getParentTrackPath() {
+        return TrackUtils.toPath(getTrack(), 1);
+    }
+
     public String getCatalog() {
         return catalog;
     }

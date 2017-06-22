@@ -1,5 +1,6 @@
 package ua.org.migdal.manager;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,6 +59,16 @@ public class TopicManager {
             return null;
         }
         return permManager.getFilter(topic.user.id, topic.group.id, topic.perms, right, asGuest);
+    }
+
+    public List<Topic> begAncestors(long id) {
+        LinkedList<Topic> ancestors = new LinkedList<>();
+        Topic topic = beg(id);
+        while (topic != null) {
+            ancestors.addFirst(topic);
+            topic = topic.getUp() != null ? beg(topic.getUp().getId()) : null;
+        }
+        return ancestors;
     }
 
 }

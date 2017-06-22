@@ -33,6 +33,7 @@ public class TopicController {
         adminTopicsLocationInfo(model);
 
         model.addAttribute("up", upId != null ? topicManager.beg(upId) : null);
+        model.addAttribute("ancestors", upId != null ? topicManager.begAncestors(upId) : null);
         model.addAttribute("topicTree", new Tree<>(topicManager.getAll()));
         return "admin-topics";
     }
