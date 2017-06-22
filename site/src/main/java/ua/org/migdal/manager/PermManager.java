@@ -1,19 +1,16 @@
 package ua.org.migdal.manager;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.NumberPath;
 
-import ua.org.migdal.data.EntryRepository;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Perm;
 
@@ -24,23 +21,11 @@ public class PermManager {
     private RequestContext requestContext;
 
     @Inject
-    private EntryRepository entryRepository;
-
-    // We need a separate class here, because @Cacheable doesn't work for internal calls
-    private class Internal {
-
-        @Cacheable("entries-permsall")
-        private List<Long> getPermsVariety() {
-            return entryRepository.permsVariety();
-        }
-
-    }
-
-    private Internal internal = new Internal();
+    private PermManagerInternal permManagerInternal;
 
     private Predicate getMask(NumberPath<Long> field, long right) {
         BooleanBuilder builder = new BooleanBuilder();
-        for (Long perms : internal.getPermsVariety()) {
+        for (Long perms : permManagerInternal.getPermsVariety()) {
             if ((perms & right) != 0) {
                 builder.or(field.eq(perms));
             }
