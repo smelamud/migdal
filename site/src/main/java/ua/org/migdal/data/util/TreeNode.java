@@ -54,6 +54,9 @@ public class TreeNode<T extends TreeElement> {
             while (index < ids.length && ids[index] != getId()) {
                 index++;
             }
+            if (index >= ids.length) { // The element doesn't belong to this subtree
+                return null;
+            }
             index++;
         }
         if (index >= ids.length) {
