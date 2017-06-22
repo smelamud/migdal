@@ -26,14 +26,20 @@ public class PermManager {
     @Inject
     private EntryRepository entryRepository;
 
-    @Cacheable("entries-permsall")
-    private List<Long> getPermsVariety() {
-        return entryRepository.permsVariety();
+    private class Internal {
+
+        @Cacheable("entries-permsall")
+        private List<Long> getPermsVariety() {
+            return entryRepository.permsVariety();
+        }
+
     }
+
+    private Internal internal = new Internal();
 
     private Predicate getMask(NumberPath<Long> field, long right) {
         BooleanBuilder builder = new BooleanBuilder();
-        for (Long perms : getPermsVariety()) {
+        for (Long perms : internal.getPermsVariety()) {
             if ((perms & right) != 0) {
                 builder.or(field.eq(perms));
             }
