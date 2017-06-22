@@ -11,4 +11,7 @@ public interface EntryRepository extends JpaRepository<Entry, Long>, QueryDslPre
     @Query("select distinct e.perms from Entry e")
     List<Long> permsVariety();
 
+    @Query("select e.track from Entry e where id=?1")
+    String findTrackById(long id);
+
 }

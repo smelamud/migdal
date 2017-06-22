@@ -21,11 +21,11 @@ public class PermManager {
     private RequestContext requestContext;
 
     @Inject
-    private PermManagerInternal permManagerInternal;
+    private EntryManager entryManager;
 
     private Predicate getMask(NumberPath<Long> field, long right) {
         BooleanBuilder builder = new BooleanBuilder();
-        for (Long perms : permManagerInternal.getPermsVariety()) {
+        for (Long perms : entryManager.getPermsVariety()) {
             if ((perms & right) != 0) {
                 builder.or(field.eq(perms));
             }

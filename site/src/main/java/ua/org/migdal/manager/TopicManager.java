@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
 import ua.org.migdal.data.QTopic;
@@ -27,6 +28,9 @@ public class TopicManager {
     @Inject
     private PermManager permManager;
 
+    @Inject
+    private TrackManager trackManager;
+
     public Topic get(long id) {
         return entryRepository.findOne(id);
     }
@@ -40,8 +44,14 @@ public class TopicManager {
         entryRepository.save(topic);
     }
 
-    public List<Topic> getAll() {
-        return entryRepository.findByOrderByTrack();
+    public Iterable<Topic> begAll(long upId, boolean recursive) {
+        QTopic topic = QTopic.topic;
+        BooleanBuilder where = new BooleanBuilder();
+        if (upId > 0) {
+            where.and(recursive ? trackManager.subtree(topic.track, upId) : topic.up.id.eq(upId));
+        }
+        where.and(getPermFilter(topic, Perm.READ));
+        return entryRepository.findAll(where, topic.track.asc());
     }
 
     private Predicate getPermFilter(QTopic topic, long right) {

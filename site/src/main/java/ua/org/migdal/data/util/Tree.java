@@ -1,7 +1,5 @@
 package ua.org.migdal.data.util;
 
-import java.util.Collection;
-
 import ua.org.migdal.data.TreeElement;
 import ua.org.migdal.util.TrackUtils;
 
@@ -10,7 +8,7 @@ public class Tree<T extends TreeElement> extends TreeNode<T> {
     public Tree() {
     }
 
-    public Tree(Collection<T> elements) {
+    public Tree(Iterable<T> elements) {
         putAll(elements);
     }
 
@@ -18,7 +16,7 @@ public class Tree<T extends TreeElement> extends TreeNode<T> {
         return put(element, TrackUtils.parse(element.getTrack()), 0);
     }
 
-    public void putAll(Collection<T> elements) {
+    public void putAll(Iterable<T> elements) {
         for (T element : elements) {
             put(element);
         }
