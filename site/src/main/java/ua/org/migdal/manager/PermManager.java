@@ -26,6 +26,7 @@ public class PermManager {
     @Inject
     private EntryRepository entryRepository;
 
+    // We need a separate class here, because @Cacheable doesn't work for internal calls
     private class Internal {
 
         @Cacheable("entries-permsall")
