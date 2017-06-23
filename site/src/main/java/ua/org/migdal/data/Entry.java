@@ -39,6 +39,7 @@ public class Entry implements TreeElement {
     @Access(AccessType.PROPERTY)
     private long id;
 
+    @Size(max=75)
     private String ident;
 
     @ManyToOne(fetch=FetchType.LAZY)
