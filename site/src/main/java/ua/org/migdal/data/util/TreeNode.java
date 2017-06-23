@@ -1,6 +1,7 @@
 package ua.org.migdal.data.util;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import ua.org.migdal.data.TreeElement;
@@ -75,6 +76,13 @@ public class TreeNode<T extends TreeElement> {
             children.add(node);
         }
         return node.put(element, ids);
+    }
+
+    public void sort(Comparator<? super T> c) {
+        children.sort((node1, node2) -> c.compare(node1.getElement(), node2.getElement()));
+        for (TreeNode<T> child : children) {
+            child.sort(c);
+        }
     }
 
 }

@@ -51,7 +51,7 @@ public class TopicManager {
             where.and(recursive ? trackManager.subtree(topic.track, upId) : topic.up.id.eq(upId));
         }
         where.and(getPermFilter(topic, Perm.READ));
-        return entryRepository.findAll(where, topic.track.asc());
+        return entryRepository.findAll(where, topic.subject.asc());
     }
 
     private Predicate getPermFilter(QTopic topic, long right) {
