@@ -34,6 +34,9 @@ function containsLinks($text) {
     if (preg_match('/http[s]?:/', $text)) {
         return true;
     }
+    if (strpos($text, 'bit.ly/') !== false) {
+        return true;
+    }
     return false;
 }
 ?>
