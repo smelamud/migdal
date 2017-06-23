@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import ua.org.migdal.data.PostingModbit;
+import ua.org.migdal.data.TopicModbit;
 import ua.org.migdal.data.UserRight;
 import ua.org.migdal.helper.calendar.Tables;
 import ua.org.migdal.helper.util.Constant;
@@ -37,6 +39,14 @@ public class Constants {
             }
         }
         return userRight;
+    }
+
+    public PostingModbit[] getPostingModbits() {
+        return PostingModbit.values();
+    }
+
+    public TopicModbit[] getTopicModbits() {
+        return TopicModbit.values();
     }
 
 }

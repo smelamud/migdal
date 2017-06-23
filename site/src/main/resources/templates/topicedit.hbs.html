@@ -1,7 +1,3 @@
-<int name='up'>
-<int_array name='modbits'>
-<int_array name='grps'>
-
 {{> part/preamble}}
 {{> part/top}}
 
@@ -42,14 +38,12 @@
         {{formEdit title="Права" name="permString" value=topicForm.permString size="17" maxlength="17"}}
         <form_grpselect title='Допустимые сообщения' name='grps[]' value='$,Grps'
                           rows='8' multiple='*true'>
-        <form_select title='Модерирование' name='modbits[]' style='box'
-                       multiple='*true'>
-            <iterate_topic_modbits>
-            <for>
-                <form_option value='$.Bit' title='$.Name'
-                         selected!='($,Modbits & $.Bit)!=0'>
-            </for>
-        </form_select>
+        {{#formSelect title="Модерирование" name="modbits" style="box" multiple=true}}
+            {{#each const.topicModbits}}
+                {{formOption value=value title=description}}
+                         {{! selected!='($,Modbits & $.Bit)!=0'}}
+            {{/each}}
+        {{/formSelect}}
         {{#if topicForm.id}}
             {{#assign "buttonTitle"}}Изменить{{/assign}}
         {{else}}

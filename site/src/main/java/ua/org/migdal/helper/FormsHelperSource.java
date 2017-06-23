@@ -443,7 +443,7 @@ public class FormsHelperSource {
 
     public CharSequence formOption(Options options) {
         CharSequence title = HelperUtils.mandatoryHash("title", options);
-        CharSequence value = HelperUtils.mandatoryHash("value", options);
+        Object value = HelperUtils.mandatoryHash("value", options);
         boolean selected = HelperUtils.boolArg(options.hash("selected", false));
 
         StringBuilder buf = new StringBuilder();
