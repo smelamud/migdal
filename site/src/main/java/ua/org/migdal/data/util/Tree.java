@@ -1,6 +1,5 @@
 package ua.org.migdal.data.util;
 
-import ua.org.migdal.data.TreeElement;
 import ua.org.migdal.util.TrackUtils;
 
 public class Tree<T extends TreeElement> extends TreeNode<T> {

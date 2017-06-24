@@ -39,9 +39,8 @@
         <form_grpselect title='Допустимые сообщения' name='grps[]' value='$,Grps'
                           rows='8' multiple='*true'>
         {{#formSelect title="Модерирование" name="modbits" style="box" multiple=true}}
-            {{#each const.topicModbits}}
-                {{formOption value=value title=description}}
-                         {{! selected!='($,Modbits & $.Bit)!=0'}}
+            {{#each topicForm.modbitsSelection}}
+                {{formOption value=value.value title=value.description selected=selected}}
             {{/each}}
         {{/formSelect}}
         {{#if topicForm.id}}

@@ -1,9 +1,17 @@
 package ua.org.migdal.form;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+
 import ua.org.migdal.data.Topic;
+import ua.org.migdal.data.TopicModbit;
+import ua.org.migdal.data.util.Selected;
+import ua.org.migdal.util.Utils;
 
 public class TopicForm {
 
@@ -40,6 +48,8 @@ public class TopicForm {
     @Size(max=17)
     private String permString = "";
 
+    private long[] modbits = new long[0];
+
     public TopicForm() {
     }
 
@@ -58,6 +68,7 @@ public class TopicForm {
         userName = topic.getUser().getLogin();
         groupName = topic.getGroup().getLogin();
         permString = topic.getPermString();
+        modbits = TopicModbit.parse(topic.getModbits());
     }
 
     public long getId() {
@@ -138,6 +149,20 @@ public class TopicForm {
 
     public void setPermString(String permString) {
         this.permString = permString;
+    }
+
+    public long[] getModbits() {
+        return modbits;
+    }
+
+    public void setModbits(long[] modbits) {
+        this.modbits = modbits;
+    }
+
+    public List<Selected<TopicModbit>> getModbitsSelection() {
+        return Arrays.stream(TopicModbit.values())
+                .map(bit -> new Selected<>(bit, Utils.contains(modbits, bit.getValue())))
+                .collect(Collectors.toList());
     }
 
 }

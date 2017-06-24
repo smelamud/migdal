@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.data.util.TreeElement;
 import ua.org.migdal.mtext.Mtext;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContextImpl;

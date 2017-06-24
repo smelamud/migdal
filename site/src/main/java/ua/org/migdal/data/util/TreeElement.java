@@ -1,4 +1,4 @@
-package ua.org.migdal.data;
+package ua.org.migdal.data.util;
 
 public interface TreeElement {
 

@@ -1,5 +1,10 @@
 package ua.org.migdal.data;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import ua.org.migdal.util.Utils;
+
 public enum TopicModbit {
 
     PREMODERATE(0x0001, "Премодерировать"),
@@ -24,4 +29,11 @@ public enum TopicModbit {
         return description;
     }
 
+    public static long[] parse(long modbits) {
+        return Utils.toArray(Arrays.stream(values())
+                .map(TopicModbit::getValue)
+                .filter(value -> (modbits & value) != 0)
+                .collect(Collectors.toList()));
+    }
+    
 }

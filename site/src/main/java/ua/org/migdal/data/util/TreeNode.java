@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import ua.org.migdal.data.TreeElement;
-
 public class TreeNode<T extends TreeElement> {
 
     private long id;

@@ -5,9 +5,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.xml.bind.DatatypeConverter;
 
 public class Utils {
@@ -120,6 +122,32 @@ public class Utils {
 
     public static boolean biff(LocalDateTime dateTime) {
         return dateTime != null && dateTime.plusDays(1).isAfter(LocalDateTime.now());
+    }
+
+    public static boolean contains(long[] array, long value) {
+        for (long x : array) {
+            if (x == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static long disjunct(long[] array) {
+        long value = 0;
+        for (long x : array) {
+            value |= x;
+        }
+        return value;
+    }
+
+    public static long[] toArray(Collection<Long> list) {
+        long[] array = new long[list.size()];
+        int i = 0;
+        for (Long x : list) {
+            array[i++] = x;
+        }
+        return array;
     }
 
 }
