@@ -5,7 +5,7 @@ $spamTerms = array('clickcashmoney.com', 'porno-video-free', 'porno-exe',
                    'snapbackneweracap', 'viagra', 'zarplatt',
                    'stomatolog-stargard', 'off-rabota', '[/url]', 'cialis',
                    'levitra', 'kamagra', 'tadacip', 'apcalis', 'АЛКОВЕРИН',
-                   'порно');
+                   'порно', 'Joycasino');
 
 function isSpam($subject, $body) {
     global $spamTerms;
