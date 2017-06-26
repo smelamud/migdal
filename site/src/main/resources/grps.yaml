@@ -131,10 +131,10 @@
       mandatory: Yes
 
       style: "clip-resize"
+      imageMaxX: 900
+      imageMaxY: 900
       thumbExactX: 200
       thumbExactY: 200
-      thumbMaxX: 0
-      thumbMaxY: 0
       whatN: "фотография"
       whatG: "фотографии"
       whatA: "фотографию"
