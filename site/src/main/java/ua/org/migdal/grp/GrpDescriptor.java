@@ -17,6 +17,8 @@ public class GrpDescriptor {
      */
     private String publishGrp;
 
+    private String heading = "";
+
     /**
      * Page to show the posting's topic ("general view")
      */
@@ -36,11 +38,6 @@ public class GrpDescriptor {
      * Helper to show the posting in a feed
      */
     private String feedHelper = "postingGeneral";
-
-    /**
-     * Center the posting in a feed
-     */
-    private boolean feedCenter = false;
 
     /**
      * Допустимые сообщения: {}
@@ -104,6 +101,14 @@ public class GrpDescriptor {
         this.publishGrp = publishGrp;
     }
 
+    public String getHeading() {
+        return heading;
+    }
+
+    public void setHeading(String heading) {
+        this.heading = heading;
+    }
+
     public String getGeneralHref() {
         return generalHref;
     }
@@ -134,14 +139,6 @@ public class GrpDescriptor {
 
     public void setFeedHelper(String feedHelper) {
         this.feedHelper = feedHelper;
-    }
-
-    public boolean isFeedCenter() {
-        return feedCenter;
-    }
-
-    public void setFeedCenter(boolean feedCenter) {
-        this.feedCenter = feedCenter;
     }
 
     public String getTitle() {

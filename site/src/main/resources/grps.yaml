@@ -28,17 +28,125 @@
   whatA: "темы"
 
   editors:
-    - title: "Тема"
+    - field: topic
+      title: "Тема"
       comment: ""
       mandatory: Yes
 
-    - title: "Заголовок"
+    - field: subject
+      title: "Заголовок"
       comment: ""
       mandatory: Yes
 
-    - title: "Текст"
+    - field: body
+      title: "Текст"
       comment: ""
       mandatory: Yes
 
 - name: NEWS
+  bit: 1
+  groups: [DISCUSS, TAPE, WRITINGS, ARCHIVE, EVENT]
+
+  rootIdent: general
+
+  generalHref: "/$[0,-1]"
+  detailsHref: "/$[0]"
+  detailsHelper: posting
+
+  feedHelper: postingGeneral
+
+  title: "Новости"
+  what: "новость"
+  whatA: "новости"
+
+  editors:
+    - field: topic
+      title: "Тема"
+      comment: ""
+      mandatory: Yes
+
+    - field: subject
+      title: "Заголовок"
+      comment: ""
+      mandatory: Yes
+
+    - field: source
+      title: "Источник"
+      comment: ""
+      mandatory: No
+
+    - title: "Картинка"
+
+    - field: image
+      title: "Картинка"
+      comment: ""
+      mandatory: No
+
+    - field: title
+      title: "Подпись под картинкой"
+      comment: ""
+      mandatory: No
+
+    - title: "Текст"
+
+    - field: body
+      title: "Текст"
+      comment: ""
+      mandatory: Yes
+
+    - field: url
+      title: "Ссылка"
+      comment: ""
+      mandatory: No
+
 - name: GALLERY
+  bit: 2
+  groups: [DISCUSS, GRAPHICS]
+
+  rootIdent: general
+
+  publishGrp: GALLERY_UPDATE
+
+  heading: "${titleTiny}"
+
+  generalHref: "subtree taglit /$[0,-1]${userFolder}/ subtree veterans /$[0,-1]${userFolder}/ default /$[0,-1]"
+  detailsHref: "subtree taglit /$[0,-1]${userFolder}/$[-1] subtree veterans /$[0,-1]${userFolder}/$[-1] default /$[0]"
+  detailsHelper: posting
+
+  feedHelper: postingGallery
+
+  title: "Галерея"
+  what: "фотографию"
+  whatA: "фотографии"
+
+  editors:
+    - field: topic
+      title: "Тема"
+      comment: ""
+      mandatory: Yes
+
+    - field: image
+      title: "Фотография"
+      comment: ""
+      mandatory: Yes
+
+      style: "clip-resize"
+      thumbExactX: 200
+      thumbExactY: 200
+      thumbMaxX: 0
+      thumbMaxY: 0
+      whatN: "фотография"
+      whatG: "фотографии"
+      whatA: "фотографию"
+      whatAs: "фотографии"
+      what: "Фотография"
+
+    - field: title
+      title: "Подпись под фотографией"
+      comment: ""
+      mandatory: No
+
+    - field: source
+      title: "Источник"
+      comment: ""
+      mandatory: No

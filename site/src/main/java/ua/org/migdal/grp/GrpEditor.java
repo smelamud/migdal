@@ -2,6 +2,7 @@ package ua.org.migdal.grp;
 
 public class GrpEditor {
 
+    private String field;
     private String title;
     private String comment = "";
     private boolean mandatory = false;
@@ -22,6 +23,14 @@ public class GrpEditor {
     private String what = "";
 
     public GrpEditor() {
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
     }
 
     public String getTitle() {
