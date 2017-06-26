@@ -33,7 +33,7 @@ public class Grp {
                 });
         log.info("Loaded {} grps:", grps.size());
         for (GrpDescriptor grp : grps) {
-            log.info("- {}", grp.getName());
+            log.info("- {}({})", grp.getName(), grp.getBit());
         }
     }
 

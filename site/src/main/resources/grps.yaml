@@ -1,3 +1,44 @@
+# Группы:
+#
+# ARCHIVE
+#   Попадают на страницу архива.
+# DISCUSS
+#   Могут обсуждаться и попадать в форум.
+# EVENT
+#   Темы, допускающие такие сообщения, попадают на страницу "События".
+# GRAPHICS
+#   Попадают в галерею.
+# TAPE
+#   Попадают на новостную ленту.
+# WRITINGS
+#   Попадают в "Избранное".
+
 - name: FORUMS
+  bit: 0
+  groups: [DISCUSS, WRITINGS, ARCHIVE]
+
+  generalHref: "/$[0,-1]"
+  detailsHref: "/$[0]"
+  detailsHelper: posting
+
+  feedHelper: postingGeneral
+
+  title: "Темы для обсуждения"
+  what: "тему"
+  whatA: "темы"
+
+  editors:
+    - title: "Тема"
+      comment: ""
+      mandatory: Yes
+
+    - title: "Заголовок"
+      comment: ""
+      mandatory: Yes
+
+    - title: "Текст"
+      comment: ""
+      mandatory: Yes
+
 - name: NEWS
 - name: GALLERY
