@@ -17,7 +17,7 @@ public class GrpDescriptor {
      */
     private String publishGrp;
 
-    private String heading = "";
+    private String heading = "${subject}";
 
     /**
      * Page to show the posting's topic ("general view")
@@ -30,9 +30,9 @@ public class GrpDescriptor {
     private String detailsHref = "";
 
     /**
-     * Helper to show the posting's details
+     * Template to show the posting's details
      */
-    private String detailsHelper = "posting";
+    private String detailsTemplate = "posting";
 
     /**
      * Helper to show the posting in a feed
@@ -125,12 +125,12 @@ public class GrpDescriptor {
         this.detailsHref = detailsHref;
     }
 
-    public String getDetailsHelper() {
-        return detailsHelper;
+    public String getDetailsTemplate() {
+        return detailsTemplate;
     }
 
-    public void setDetailsHelper(String detailsHelper) {
-        this.detailsHelper = detailsHelper;
+    public void setDetailsTemplate(String detailsTemplate) {
+        this.detailsTemplate = detailsTemplate;
     }
 
     public String getFeedHelper() {

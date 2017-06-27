@@ -19,9 +19,6 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0]"
-  detailsHelper: posting
-
-  feedHelper: postingGeneral
 
   title: "Темы для обсуждения"
   what: "тему"
@@ -52,9 +49,6 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0]"
-  detailsHelper: posting
-
-  feedHelper: postingGeneral
 
   title: "Новости"
   what: "новость"
@@ -122,9 +116,14 @@
 
   heading: "${titleTiny}"
 
-  generalHref: "subtree taglit /$[0,-1]${userFolder}/ subtree veterans /$[0,-1]${userFolder}/ default /$[0,-1]"
-  detailsHref: "subtree taglit /$[0,-1]${userFolder}/$[-1] subtree veterans /$[0,-1]${userFolder}/$[-1] default /$[0]"
-  detailsHelper: posting
+  generalHref: >
+    subtree taglit /$[0,-1]${userFolder}/
+    subtree veterans /$[0,-1]${userFolder}/
+    default /$[0,-1]
+  detailsHref: >
+    subtree taglit /$[0,-1]${userFolder}/$[-1]
+    subtree veterans /$[0,-1]${userFolder}/$[-1]
+    default /$[0]
 
   feedHelper: postingGallery
 
@@ -173,9 +172,7 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0]"
-  detailsHelper: article
-
-  feedHelper: postingGeneral
+  detailsTemplate: article
 
   title: "Статьи"
   what: "статью"
@@ -258,7 +255,7 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0]"
-  detailsHelper: book
+  detailsTemplate: book
 
   feedHelper: postingBook
 
@@ -315,11 +312,10 @@
 
   generalHref: "/times/"
   detailsHref: "/times/${index1}/"
-  detailsHelper: posting
 
   feedHelper: postingTimesCover
 
-  heading: "&#171Мигдаль Times&#187 &#8470${index1}"
+  heading: "«Мигдаль Times» №${index1}"
 
   title: "Обложки М.Т."
   what: "обложку"
@@ -376,7 +372,6 @@
 
   generalHref: "/$[0,-1]${userFolder}/"
   detailsHref: "/$[0,-1]${userFolder}/$[-1]"
-  detailsHelper: posting
 
   feedHelper: postingPeruser
 
@@ -427,7 +422,7 @@
 
   generalHref: "/times/${index1}/"
   detailsHref: "/times/${index1}/${id}/"
-  detailsHelper: article-times
+  detailsTemplate: article-times
 
   title: "Статьи М.Т."
   what: "статью"
@@ -530,7 +525,9 @@
 
     - field: image
       title: "Картинка"
-      comment: "Стандартные размеры ушка 150x80.<br>Чтобы удалить уже загруженный файл, поставьте галочку &laquoУдалить&raquo. Или, если вы выберете другой файл, старый будет заменен."
+      comment: >
+        Стандартные размеры ушка 150x80.<br>Чтобы удалить уже загруженный файл, поставьте галочку &laquoУдалить&raquo.
+        Или, если вы выберете другой файл, старый будет заменен.
       mandatory: Yes
 
       style: "none-manual"
@@ -561,7 +558,7 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0,-1]day-${index1}/"
-  detailsHelper: daily-news
+  detailsTemplate: daily-news
 
   title: "Ежедневные репортажи"
   what: "репортаж"
@@ -600,7 +597,6 @@
 
   generalHref: "/$[0,-1]day-${index1}/"
   detailsHref: "/$[0]"
-  detailsHelper: posting
 
   heading: "${titleTiny}"
 
@@ -649,7 +645,6 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0]"
-  detailsHelper: posting
 
   feedHelper: postingTip
 
@@ -677,7 +672,6 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0]"
-  detailsHelper: posting
 
   feedHelper: postingGalleryUpdate
 
@@ -707,9 +701,7 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0]"
-  detailsHelper: book-chapter
-
-  feedHelper: postingGeneral
+  detailsTemplate: book-chapter
 
   title: "Главы книги"
   what: "главу"
@@ -788,11 +780,10 @@
 
   generalHref: "/$[0,-1]"
   detailsHref: "/$[0]"
-  detailsHelper: posting
 
   feedHelper: postingPrinting
 
-  heading: "${author} &#171${comment0}&#187"
+  heading: "${author} «${comment0}»"
 
   title: "Печатные издания"
   what: "издание"
