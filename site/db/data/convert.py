@@ -47,12 +47,16 @@ def convert_users(row):
         gender = 0
     else:
         gender = 1
+    if row['jewish_name'] != row['name']:
+        jewish_name = row['jewish_name']
+    else:
+        jewish_name = ''
     return [
         row['id'],
         row['login'],
         row['password'],
         row['name'],
-        row['jewish_name'],
+        jewish_name,
         row['surname'],
         row['info'],
         row['info_xml'],
