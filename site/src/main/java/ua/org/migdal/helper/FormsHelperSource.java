@@ -3,10 +3,12 @@ package ua.org.migdal.helper;
 import java.io.IOException;
 
 import javax.inject.Inject;
+
 import org.springframework.validation.Errors;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
+
 import ua.org.migdal.helper.exception.AmbiguousArgumentsException;
 import ua.org.migdal.helper.util.HelperUtils;
 
@@ -122,7 +124,7 @@ public class FormsHelperSource {
         }
     }
 
-    private CharSequence selectOption(Object value, boolean selected, Object selectedValue, CharSequence title) {
+    CharSequence selectOption(Object value, boolean selected, Object selectedValue, CharSequence title) {
         StringBuilder buf = new StringBuilder();
         buf.append("<option");
         HelperUtils.appendAttr(buf, "value", value);
@@ -416,6 +418,15 @@ public class FormsHelperSource {
         CharSequence rows = options.hash("rows", "10");
 
         StringBuilder buf = new StringBuilder();
+        buf.append(formSelectBegin(options, title, mandatory, comment, name, style, multiple, rows));
+        buf.append(options.apply(options.fn));
+        buf.append(formSelectEnd(style));
+        return new SafeString(buf);
+    }
+
+    CharSequence formSelectBegin(Options options, CharSequence title, boolean mandatory, CharSequence comment,
+                                 String name, CharSequence style, boolean multiple, CharSequence rows) {
+        StringBuilder buf = new StringBuilder();
         buf.append(formLineBegin(title, name, mandatory, comment, "", options));
         if (style.equals("list")) {
             buf.append("<select");
@@ -431,7 +442,11 @@ public class FormsHelperSource {
         options.data("FormSelectName", name);
         options.data("FormSelectStyle", style);
         options.data("FormSelectMultiple", multiple);
-        buf.append(options.apply(options.fn));
+        return new SafeString(buf);
+    }
+
+    CharSequence formSelectEnd(CharSequence style) {
+        StringBuilder buf = new StringBuilder();
         if (style.equals("list")) {
             buf.append("</select>");
         } else if (style.equals("box")) {
@@ -446,6 +461,10 @@ public class FormsHelperSource {
         Object value = HelperUtils.mandatoryHash("value", options);
         boolean selected = HelperUtils.boolArg(options.hash("selected", false));
 
+        return formOption(options, title, value, selected);
+    }
+
+    CharSequence formOption(Options options, CharSequence title, Object value, boolean selected) {
         StringBuilder buf = new StringBuilder();
         String style = options.get("FormSelectStyle");
         if (style.equals("list")) {

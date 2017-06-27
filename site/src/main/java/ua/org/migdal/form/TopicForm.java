@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.TopicModbit;
 import ua.org.migdal.data.util.Selected;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.util.Utils;
 
 public class TopicForm {
@@ -48,6 +49,8 @@ public class TopicForm {
     @Size(max=17)
     private String permString = "";
 
+    private long[] grps = new long[0];
+
     private long[] modbits = new long[0];
 
     public TopicForm() {
@@ -68,6 +71,7 @@ public class TopicForm {
         userName = topic.getUser().getLogin();
         groupName = topic.getGroup().getLogin();
         permString = topic.getPermString();
+        grps = GrpEnum.getInstance().parse(topic.getGrp());
         modbits = TopicModbit.parse(topic.getModbits());
     }
 
@@ -149,6 +153,14 @@ public class TopicForm {
 
     public void setPermString(String permString) {
         this.permString = permString;
+    }
+
+    public long[] getGrps() {
+        return grps;
+    }
+
+    public void setGrps(long[] grps) {
+        this.grps = grps;
     }
 
     public long[] getModbits() {

@@ -77,6 +77,10 @@ public class GrpDescriptor {
         this.bit = bit;
     }
 
+    public long getValue() {
+        return 1L << getBit();
+    }
+
     public List<String> getGroups() {
         return groups;
     }

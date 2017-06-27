@@ -2,6 +2,7 @@ package ua.org.migdal.grp;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -15,10 +16,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-@Component
-public class Grp {
+import ua.org.migdal.util.Utils;
 
-    private static Logger log = LoggerFactory.getLogger(Grp.class);
+@Component
+public class GrpEnum {
+
+    private static Logger log = LoggerFactory.getLogger(GrpEnum.class);
+
+    private static GrpEnum instance;
 
     private List<GrpDescriptor> grps;
 
@@ -27,6 +32,8 @@ public class Grp {
 
     @PostConstruct
     public void init() throws IOException {
+        instance = this;
+
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         grps = mapper.readValue(applicationContext.getResource("classpath:grps.yaml").getInputStream(),
                 new TypeReference<List<GrpDescriptor>>() {
@@ -35,6 +42,21 @@ public class Grp {
         for (GrpDescriptor grp : grps) {
             log.info("- {}({})", grp.getName(), grp.getBit());
         }
+    }
+
+    public static GrpEnum getInstance() {
+        return instance;
+    }
+
+    public List<GrpDescriptor> getGrps() {
+        return grps;
+    }
+
+    public long[] parse(long grp) {
+        return Utils.toArray(grps.stream()
+                .map(GrpDescriptor::getValue)
+                .filter(value -> (grp & value) != 0)
+                .collect(Collectors.toList()));
     }
 
 }

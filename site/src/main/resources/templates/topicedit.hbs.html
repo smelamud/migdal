@@ -36,8 +36,7 @@
         {{formEdit title="Группа" name="groupName" value=topicForm.groupName size="20" maxlength="30"}}
         <error id='*ET_BAD_PERMS' text='Права заданы некорректно'>
         {{formEdit title="Права" name="permString" value=topicForm.permString size="17" maxlength="17"}}
-        <form_grpselect title='Допустимые сообщения' name='grps[]' value='$,Grps'
-                          rows='8' multiple='*true'>
+        {{formGrpSelect title="Допустимые сообщения" name="grps" value=topicForm.grps rows="8" multiple=true}}
         {{#formSelect title="Модерирование" name="modbits" style="box" multiple=true}}
             {{#each topicForm.modbitsSelection}}
                 {{formOption value=value.value title=value.description selected=selected}}
