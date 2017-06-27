@@ -150,3 +150,87 @@
       title: "Источник"
       comment: ""
       mandatory: No
+
+- name: ARTICLES
+  bit: 3
+  groups: [DISCUSS, TAPE, WRITINGS, ARCHIVE, EVENT]
+
+  rootIdent: general
+
+  generalHref: "/$[0,-1]"
+  detailsHref: "/$[0]"
+  detailsHelper: article
+
+  feedHelper: postingGeneral
+
+  title: "Статьи"
+  what: "статью"
+  whatA: "статьи"
+
+  editors:
+    - field: topic
+      title: "Тема"
+      comment: ""
+      mandatory: Yes
+
+    - field: subject
+      title: "Заголовок"
+      comment: ""
+      mandatory: Yes
+
+    - field: author
+      title: "Автор"
+      comment: ""
+      mandatory: No
+
+    - field: source
+      title: "Источник"
+      comment: ""
+      mandatory: No
+
+    - title: "Картинка"
+
+    - field: image
+      title: "Картинка"
+      comment: ""
+      mandatory: No
+
+      style: "auto-resize"
+      imageMaxX: 900
+      imageMaxY: 900
+      thumbMaxX: 120
+      thumbMaxY: 120
+      whatN: "картинка"
+      whatG: "картинки"
+      whatA: "картинку"
+      whatAs: "картинки"
+      what: "Картинка"
+
+    - field: title
+      title: "Подпись под картинкой"
+      comment: ""
+      mandatory: No
+
+    - title: "Аннотация"
+
+    - field: body
+      title: "Текст аннотации"
+      comment: "Этот текст попадет на ленту новостей."
+      mandatory: Yes
+
+    - title: "Статья"
+
+    - field: large_body
+      title: "Текст статьи"
+      comment: "Полный текст статьи. Не нужно повторять здесь заголовок, аннотацию и т.п."
+      mandatory: Yes
+
+    - field: large_body_upload
+      title: "Текст статьи из файла"
+      comment: ""
+      mandatory: No
+
+    - field: large_body_format
+      title: "Формат текста"
+      comment: ""
+      mandatory: Yes
