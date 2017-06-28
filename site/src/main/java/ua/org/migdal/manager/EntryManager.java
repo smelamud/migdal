@@ -29,7 +29,7 @@ public class EntryManager {
     }
 
     @Query("select e.modbits from Entry e where id=?1")
-    public String findModbitsById(long id) {
+    public String getModbitsById(long id) {
         return entryRepository.findModbitsById(id);
     }
 
