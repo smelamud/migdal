@@ -69,9 +69,9 @@ ALTER TABLE chat_messages OWNER TO migdal;
 --
 
 CREATE TABLE content_versions (
-    postings_version bigint NOT NULL,
-    forums_version bigint NOT NULL,
-    topics_version bigint NOT NULL
+    postings_version integer NOT NULL,
+    forums_version integer NOT NULL,
+    topics_version integer NOT NULL
 );
 
 
@@ -116,7 +116,7 @@ CREATE TABLE cross_entries (
     id bigint NOT NULL,
     source_name character varying(255),
     source_id bigint,
-    link_type bigint DEFAULT '0'::bigint NOT NULL,
+    link_type integer NOT NULL,
     peer_name character varying(255),
     peer_id bigint,
     peer_path character varying(255) DEFAULT ''::character varying NOT NULL,
@@ -180,8 +180,8 @@ CREATE TABLE entries (
     set0_index bigint DEFAULT '0'::bigint NOT NULL,
     set1 bigint DEFAULT '0'::bigint NOT NULL,
     set1_index bigint DEFAULT '0'::bigint NOT NULL,
-    vote bigint DEFAULT '0'::bigint NOT NULL,
-    vote_count bigint DEFAULT '0'::bigint NOT NULL,
+    vote integer DEFAULT 0 NOT NULL,
+    vote_count integer DEFAULT 0 NOT NULL,
     rating double precision DEFAULT '0'::double precision NOT NULL,
     sent timestamp with time zone,
     created timestamp with time zone,
@@ -190,7 +190,7 @@ CREATE TABLE entries (
     creator_id bigint,
     modifier_id bigint,
     modbits bigint DEFAULT '0'::bigint NOT NULL,
-    answers bigint DEFAULT '0'::bigint NOT NULL,
+    answers integer DEFAULT 0 NOT NULL,
     last_answer timestamp with time zone,
     last_answer_id bigint,
     last_answer_user_id bigint,
@@ -244,9 +244,9 @@ CREATE TABLE html_cache (
     ident character varying(255) NOT NULL,
     content text NOT NULL,
     deadline timestamp with time zone,
-    postings_version bigint,
-    forums_version bigint,
-    topics_version bigint
+    postings_version integer,
+    forums_version integer,
+    topics_version integer
 );
 
 
@@ -261,8 +261,8 @@ CREATE TABLE image_file_transforms (
     dest_id bigint NOT NULL,
     orig_id bigint NOT NULL,
     transform smallint NOT NULL,
-    size_x bigint NOT NULL,
-    size_y bigint NOT NULL
+    size_x integer NOT NULL,
+    size_y integer NOT NULL
 );
 
 
@@ -275,8 +275,8 @@ ALTER TABLE image_file_transforms OWNER TO migdal;
 CREATE TABLE image_files (
     id bigint NOT NULL,
     mime_type character varying(30) NOT NULL,
-    size_x smallint NOT NULL,
-    size_y smallint NOT NULL,
+    size_x integer NOT NULL,
+    size_y integer NOT NULL,
     file_size bigint NOT NULL,
     created timestamp with time zone NOT NULL,
     accessed timestamp with time zone NOT NULL
@@ -291,9 +291,9 @@ ALTER TABLE image_files OWNER TO migdal;
 
 CREATE TABLE inner_images (
     entry_id bigint DEFAULT '0'::bigint NOT NULL,
-    par bigint DEFAULT '0'::bigint NOT NULL,
-    x smallint DEFAULT '0'::smallint NOT NULL,
-    y smallint DEFAULT '0'::smallint NOT NULL,
+    par integer NOT NULL,
+    x integer NOT NULL,
+    y integer NOT NULL,
     image_id bigint DEFAULT '0'::bigint NOT NULL,
     placement smallint DEFAULT '0'::smallint NOT NULL,
     used smallint DEFAULT '0'::smallint NOT NULL
@@ -338,7 +338,7 @@ ALTER TABLE old_ids OWNER TO migdal;
 CREATE TABLE packages (
     id bigint NOT NULL,
     entry_id bigint DEFAULT '0'::bigint NOT NULL,
-    type bigint DEFAULT '0'::bigint NOT NULL,
+    type integer NOT NULL,
     mime_type character varying(50) DEFAULT ''::character varying NOT NULL,
     title character varying(250) DEFAULT ''::character varying NOT NULL,
     body bytea NOT NULL,
@@ -364,7 +364,7 @@ CREATE TABLE prisoners (
     location character varying(255) NOT NULL,
     ghetto_name character varying(255) NOT NULL,
     sender_name character varying(255) NOT NULL,
-    sum bigint NOT NULL,
+    sum integer NOT NULL,
     search_data character varying(255) NOT NULL
 );
 
@@ -488,7 +488,7 @@ ALTER TABLE users OWNER TO migdal;
 --
 
 CREATE TABLE version (
-    db_version bigint DEFAULT '0'::bigint NOT NULL
+    db_version integer NOT NULL
 );
 
 
@@ -503,7 +503,7 @@ CREATE TABLE votes (
     ip bigint DEFAULT '0'::bigint NOT NULL,
     user_id bigint DEFAULT '0'::bigint NOT NULL,
     sent timestamp with time zone DEFAULT now() NOT NULL,
-    vote bigint DEFAULT '0'::bigint NOT NULL
+    vote integer NOT NULL
 );
 
 
