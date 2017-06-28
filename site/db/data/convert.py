@@ -3,6 +3,21 @@
 import sys
 import csv
 
+entry_grps = {}
+
+def read_entry_grps():
+    global entry_grps
+
+    with open('entry_grps.csv', 'r') as infile:
+        reader = csv.DictReader(infile)
+        for row in reader:
+            id = row['entry_id']
+            grp = int(row['grp'])
+            if id not in entry_grps:
+                entry_grps[id] = grp
+            else:
+                entry_grps[id] |= grp
+
 def null_time(time):
     if time == '0000-00-00 00:00:00':
         return 'NULL'
@@ -82,11 +97,15 @@ def convert_users(row):
     ]
 
 def convert_entries(row):
+    global entry_grps
+
     if row['group_id'] == '172':
         row['group_id'] = row['user_id']
     if row['user_id'] == '165':
         row['creator_id'] = '165'
         row['modifier_id'] = 'NULL'
+    if row['id'] in entry_grps:
+        row['grp'] = str(entry_grps[row['id']])
     return [
         row['id'],
         row['ident'],
@@ -164,6 +183,7 @@ def convert_entries(row):
     ]
 
 csv.field_size_limit(300000)
+read_entry_grps()
 table_name = sys.argv[1]
 with open(table_name + '.csv', 'r') as infile:
     with open(table_name + '.converted.csv', 'w') as outfile:

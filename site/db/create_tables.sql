@@ -211,18 +211,6 @@ CREATE TABLE entries (
 ALTER TABLE entries OWNER TO migdal;
 
 --
--- Name: entry_grps; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE entry_grps (
-    entry_id bigint DEFAULT '0'::bigint NOT NULL,
-    grp bigint DEFAULT '0'::bigint NOT NULL
-);
-
-
-ALTER TABLE entry_grps OWNER TO migdal;
-
---
 -- Name: groups; Type: TABLE; Schema: public; Owner: migdal
 --
 
