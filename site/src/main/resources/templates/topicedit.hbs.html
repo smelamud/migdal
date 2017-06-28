@@ -18,8 +18,7 @@
         <error id='*EVH_LOOP' text='Тема не может быть подтемой самой себя'>
         <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
         <error id='*ET_NO_APPEND' text='Вы не можете добавлять подтемы для этой темы'>
-        <form_topicselect title='Надтема' name='up' value='$,UpValue'
-                            only_appendable='*true'>
+        {{formTopicSelect list=topicNames title="Надтема" name="upId" value=topicForm.upId}}
         <error id='*ET_IDENT_UNIQUE' text='Так уже обозначена другая тема'>
         {{formEdit title="Обозначение" name="ident" value=topicForm.ident size="20" maxlength="75"}}
         <error id='*ET_NAME_ABSENT' text='Название не было введено'>

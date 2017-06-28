@@ -27,6 +27,16 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
+    CharSequence hidden(String name, Object value) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<input type=\"hidden\" name=\"");
+        buf.append(name);
+        buf.append("\" value=\"");
+        buf.append(value);
+        buf.append("\">");
+        return new SafeString(buf);
+    }
+
     public CharSequence checkboxButton(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"checkbox\"");

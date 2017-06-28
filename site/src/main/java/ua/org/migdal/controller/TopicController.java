@@ -78,6 +78,7 @@ public class TopicController {
         topicEditLocationInfo(topic, model);
 
         model.addAttribute("xmlid", requestContext.isUserModerator() ? topic.getId() : 0);
+        model.addAttribute("topicNames", topicManager.begNames(0, -1, true, false));
         model.asMap().putIfAbsent("topicForm", new TopicForm(topic));
         return "topicedit";
     }

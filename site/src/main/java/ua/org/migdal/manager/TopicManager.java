@@ -1,5 +1,6 @@
 package ua.org.migdal.manager;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,9 +11,12 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
+import ua.org.migdal.data.NameProjection;
 import ua.org.migdal.data.QTopic;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.TopicRepository;
+import ua.org.migdal.data.util.Tree;
+import ua.org.migdal.data.util.TreeNode;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Perm;
 
@@ -23,7 +27,10 @@ public class TopicManager {
     private RequestContext requestContext;
 
     @Inject
-    private TopicRepository entryRepository;
+    private TopicRepository topicRepository;
+
+    @Inject
+    private EntryManager entryManager;
 
     @Inject
     private PermManager permManager;
@@ -32,26 +39,34 @@ public class TopicManager {
     private TrackManager trackManager;
 
     public Topic get(long id) {
-        return entryRepository.findOne(id);
+        return topicRepository.findOne(id);
     }
 
     public Topic beg(long id) {
         QTopic topic = QTopic.topic;
-        return entryRepository.findOne(topic.id.eq(id).and(getPermFilter(topic, Perm.READ)));
+        return topicRepository.findOne(topic.id.eq(id).and(getPermFilter(topic, Perm.READ)));
     }
 
     public void save(Topic topic) {
-        entryRepository.save(topic);
+        topicRepository.save(topic);
+    }
+
+    public Iterable<Topic> begAll() {
+        return begAll(0, true);
     }
 
     public Iterable<Topic> begAll(long upId, boolean recursive) {
         QTopic topic = QTopic.topic;
+        return topicRepository.findAll(getWhere(topic, upId, recursive), topic.subject.asc());
+    }
+
+    private Predicate getWhere(QTopic topic, long upId, boolean recursive) {
         BooleanBuilder where = new BooleanBuilder();
         if (upId > 0) {
             where.and(recursive ? trackManager.subtree(topic.track, upId) : topic.up.id.eq(upId));
         }
         where.and(getPermFilter(topic, Perm.READ));
-        return entryRepository.findAll(where, topic.subject.asc());
+        return where;
     }
 
     private Predicate getPermFilter(QTopic topic, long right) {
@@ -79,6 +94,38 @@ public class TopicManager {
             topic = topic.getUp() != null ? beg(topic.getUp().getId()) : null;
         }
         return ancestors;
+    }
+
+    public List<NameProjection> begNames(long rootId, long grp, boolean onlyAppendable, boolean onlyPostable) {
+        Tree<Topic> tree = new Tree<>(begAll());
+        List<NameProjection> names = new ArrayList<>();
+        extractNames(names, tree, null, rootId, grp, onlyAppendable, onlyPostable);
+        names.sort((np1, np2) -> np1.getName().compareToIgnoreCase(np2.getName()));
+        return names;
+    }
+
+    private void extractNames(List<NameProjection> names, TreeNode<Topic> subtree, String prefix, long rootId,
+                              long grp, boolean onlyAppendable, boolean onlyPostable) {
+        if (prefix == null) { // Didn't find the root yet
+            if (subtree.getId() == rootId || rootId <= 0 && subtree.getId() <= 0) {
+                prefix = "";
+            }
+        } else { // Below the root
+            Topic topic = subtree.getElement();
+            if (prefix.equals("")) {
+                prefix = topic.getSubject();
+            } else {
+                prefix = String.format("%s :: %s", prefix, topic.getSubject());
+            }
+            if ((grp < 0 || (topic.getGrp() & grp) != 0)
+                    && (!onlyAppendable || topic.isAppendable())
+                    && (!onlyPostable || topic.isPostable())) {
+                names.add(new NameProjection(subtree.getId(), prefix));
+            }
+        }
+        for (TreeNode<Topic> child : subtree.getChildren()) {
+            extractNames(names, child, prefix, rootId, grp, onlyAppendable, onlyPostable);
+        }
     }
 
 }

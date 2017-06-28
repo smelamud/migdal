@@ -1,14 +1,12 @@
 package ua.org.migdal.helper;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
-import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.grp.GrpDescriptor;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.helper.exception.TypeMismatchException;
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.util.Utils;
@@ -61,7 +59,7 @@ public class GrpHelperSource {
         return new SafeString(buf);
     }
 
-    public CharSequence formGrpSelect(Options options) throws IOException {
+    public CharSequence formGrpSelect(Options options) {
         CharSequence title = HelperUtils.mandatoryHash("title", options);
         boolean mandatory = HelperUtils.boolArg(options.hash("mandatory", false));
         CharSequence comment = options.hash("comment", "");
