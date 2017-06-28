@@ -79,6 +79,9 @@ migdal:
   inplaceSizeMinus: 128
   inplaceSizePlus: 128
 
+  # Topic full name maximal size
+  topicFullNameEllipSize: 80
+
   ## Mail service properties
 
   # Maximum rate of sending mails: <mailSendLimit> mails per <mailSendPeriod> minutes

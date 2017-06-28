@@ -1,11 +1,13 @@
 package ua.org.migdal.data;
 
-public class NameProjection {
+import ua.org.migdal.Config;
+
+public class IdNameProjection {
 
     private long id;
     private String name;
 
-    public NameProjection(long id, String name) {
+    public IdNameProjection(long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -24,6 +26,11 @@ public class NameProjection {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameShort() {
+        int maxSize = Config.getInstance().getTopicFullNameEllipSize();
+        return name.length() <= maxSize ? name : "..." + name.substring(name.length() - maxSize + 3);
     }
 
 }

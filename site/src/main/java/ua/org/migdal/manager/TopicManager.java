@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
-import ua.org.migdal.data.NameProjection;
+import ua.org.migdal.data.IdNameProjection;
 import ua.org.migdal.data.QTopic;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.TopicRepository;
@@ -96,15 +96,15 @@ public class TopicManager {
         return ancestors;
     }
 
-    public List<NameProjection> begNames(long rootId, long grp, boolean onlyAppendable, boolean onlyPostable) {
+    public List<IdNameProjection> begNames(long rootId, long grp, boolean onlyAppendable, boolean onlyPostable) {
         Tree<Topic> tree = new Tree<>(begAll());
-        List<NameProjection> names = new ArrayList<>();
+        List<IdNameProjection> names = new ArrayList<>();
         extractNames(names, tree, null, rootId, grp, onlyAppendable, onlyPostable);
         names.sort((np1, np2) -> np1.getName().compareToIgnoreCase(np2.getName()));
         return names;
     }
 
-    private void extractNames(List<NameProjection> names, TreeNode<Topic> subtree, String prefix, long rootId,
+    private void extractNames(List<IdNameProjection> names, TreeNode<Topic> subtree, String prefix, long rootId,
                               long grp, boolean onlyAppendable, boolean onlyPostable) {
         if (prefix == null) { // Didn't find the root yet
             if (subtree.getId() == rootId || rootId <= 0 && subtree.getId() <= 0) {
@@ -120,7 +120,7 @@ public class TopicManager {
             if ((grp < 0 || (topic.getGrp() & grp) != 0)
                     && (!onlyAppendable || topic.isAppendable())
                     && (!onlyPostable || topic.isPostable())) {
-                names.add(new NameProjection(subtree.getId(), prefix));
+                names.add(new IdNameProjection(subtree.getId(), prefix));
             }
         }
         for (TreeNode<Topic> child : subtree.getChildren()) {

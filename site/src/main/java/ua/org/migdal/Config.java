@@ -29,6 +29,7 @@ public class Config {
     private int inplaceSize;
     private int inplaceSizeMinus;
     private int inplaceSizePlus;
+    private int topicFullNameEllipSize;
     private int mailSendLimit;
     private int mailSendPeriod;
     private String mailFromAddress;
@@ -201,6 +202,14 @@ public class Config {
 
     public void setInplaceSizePlus(int inplaceSizePlus) {
         this.inplaceSizePlus = inplaceSizePlus;
+    }
+
+    public int getTopicFullNameEllipSize() {
+        return topicFullNameEllipSize;
+    }
+
+    public void setTopicFullNameEllipSize(int topicFullNameEllipSize) {
+        this.topicFullNameEllipSize = topicFullNameEllipSize;
     }
 
     public int getMailSendLimit() {
