@@ -117,7 +117,7 @@ public class UserController {
                             return "disabled";
                         }
                     } else {
-                        if (user == null) {
+                        if (user.getId() <= 0) {
                             return "noUser";
                         }
                     }
