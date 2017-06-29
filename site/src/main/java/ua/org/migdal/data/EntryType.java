@@ -2,12 +2,12 @@ package ua.org.migdal.data;
 
 public enum EntryType {
 
-    Null,
-    Posting,
-    Forum,
-    Topic,
-    Image,
-    Complain, // deprecated
-    Version
+    NULL,
+    POSTING,
+    FORUM,
+    TOPIC,
+    IMAGE,
+    COMPLAIN, // DEPRECATED
+    VERSION
 
 }
