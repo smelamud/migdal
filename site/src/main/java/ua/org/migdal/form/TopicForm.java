@@ -18,6 +18,8 @@ public class TopicForm {
 
     private long id;
 
+    private long upId;
+
     @Size(max=75)
     private String ident = "";
 
@@ -62,6 +64,7 @@ public class TopicForm {
         }
 
         id = topic.getId();
+        upId = topic.getUp() != null ? topic.getUp().getId() : 0;
         ident = topic.getIdent() != null ? topic.getIdent() : "";
         subject = topic.getSubject();
         comment0 = topic.getComment0();
@@ -81,6 +84,14 @@ public class TopicForm {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getUpId() {
+        return upId;
+    }
+
+    public void setUpId(long upId) {
+        this.upId = upId;
     }
 
     public String getIdent() {

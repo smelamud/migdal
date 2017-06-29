@@ -13,27 +13,16 @@
         {{hidden name="id" value=topicForm.id}}
         {{starInfo}}
         {{formSection title="Описание темы"}}
-        <error id='*ET_NO_EDIT' text='Вы не можете редактировать эту тему'>
-        <error id='*EVH_NO_UP' text='Вышестоящей темы не существует'>
-        <error id='*EVH_LOOP' text='Тема не может быть подтемой самой себя'>
-        <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
-        <error id='*ET_NO_APPEND' text='Вы не можете добавлять подтемы для этой темы'>
         {{formTopicSelect list=topicNames title="Надтема" name="upId" value=topicForm.upId}}
-        <error id='*ET_IDENT_UNIQUE' text='Так уже обозначена другая тема'>
         {{formEdit title="Обозначение" name="ident" value=topicForm.ident size="20" maxlength="75"}}
-        <error id='*ET_NAME_ABSENT' text='Название не было введено'>
         {{formEdit title="Название" name="subject" value=topicForm.subject size="50" maxlength="70" mandatory=true}}
         {{formEdit title="Комментарий 0" name="comment0" value=topicForm.comment0 size="50" maxlength="70" xmlid=xmlid}}
         {{formEdit title="Комментарий 1" name="comment1" value=topicForm.comment1 size="50" maxlength="70" xmlid=xmlid}}
         {{formEdit title="Год" name="year" value=topicForm.year size="6" maxlength="6"}}
-        <error id='*ET_DESCRIPTION_ABSENT' text='Описание не было задано'>
         {{formEditor title="Описание" name="body" body=topicForm.body xmlid=xmlid}}
         {{formSection title="Права доступа"}}
-        <error id='*ET_NO_USER' text='Такого пользователя не существует'>
         {{formEdit title="Владелец" name="userName" value=topicForm.userName size="20" maxlength="30"}}
-        <error id='*ET_NO_GROUP' text='Такой группы не существует'>
         {{formEdit title="Группа" name="groupName" value=topicForm.groupName size="20" maxlength="30"}}
-        <error id='*ET_BAD_PERMS' text='Права заданы некорректно'>
         {{formEdit title="Права" name="permString" value=topicForm.permString size="17" maxlength="17"}}
         {{formGrpSelect title="Допустимые сообщения" name="grps" value=topicForm.grps rows="8" multiple=true}}
         {{#formSelect title="Модерирование" name="modbits" style="box" multiple=true}}
