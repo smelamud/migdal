@@ -10,6 +10,7 @@
 {{#formTable title=formTitle}}
     {{formErrors}}
     <form method="post" action="/actions/topic/modify">
+        {{hidden name="back" value=rc.back}}
         {{hidden name="id" value=topicForm.id}}
         {{starInfo}}
         {{formSection title="Описание темы"}}

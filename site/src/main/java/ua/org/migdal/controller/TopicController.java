@@ -115,11 +115,11 @@ public class TopicController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:/users/" /*+ topic.getFolder()*/;
+            return "redirect:" + requestContext.getBack();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("topicForm", topicForm);
-            return "redirect:/users/" /*+ userFolder + "/edit"*/;
+            return "redirect:/admin/topics/" + topic.getTrackPath() + "edit";
         }
     }
 
