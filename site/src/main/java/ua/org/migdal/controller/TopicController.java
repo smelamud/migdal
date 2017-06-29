@@ -1,11 +1,17 @@
 package ua.org.migdal.controller;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Topic;
@@ -17,6 +23,9 @@ import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class TopicController {
+
+    @Inject
+    private PlatformTransactionManager txManager;
 
     @Inject
     private RequestContext requestContext;
@@ -88,6 +97,30 @@ public class TopicController {
                 .withUri("/admin/topics/" + topic.getTrackPath() + "edit")
                 .withParent(adminTopicsLocationInfo(null))
                 .withPageTitle("Редактирование темы");
+    }
+
+    @PostMapping("/actions/topic/modify")
+    public String actionTopicModify(
+            @ModelAttribute @Valid TopicForm topicForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        Topic topic = topicForm.getId() > 0 ? topicManager.beg(topicForm.getId()) : new Topic();
+        new ControllerAction(TopicController.class, "actionTopicModify", errors)
+                .transactional(txManager)
+                .constraint("entries_ident_key", "ident.used")
+                .execute(() -> {
+                    //topicForm.toTopic(topic);
+                    topicManager.save(topic);
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:/users/" /*+ topic.getFolder()*/;
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("topicForm", topicForm);
+            return "redirect:/users/" /*+ userFolder + "/edit"*/;
+        }
     }
 
 }
