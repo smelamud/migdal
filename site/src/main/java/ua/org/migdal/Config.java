@@ -34,6 +34,10 @@ public class Config {
     private int mailSendPeriod;
     private String mailFromAddress;
     private String mailReplyToAddress;
+    private String rootTopicUserName;
+    private String rootTopicGroupName;
+    private long rootTopicPerms;
+    private long rootTopicModbits;
 
     @PostConstruct
     public void init() {
@@ -242,6 +246,38 @@ public class Config {
 
     public void setMailReplyToAddress(String mailReplyToAddress) {
         this.mailReplyToAddress = mailReplyToAddress;
+    }
+
+    public String getRootTopicUserName() {
+        return rootTopicUserName;
+    }
+
+    public void setRootTopicUserName(String rootTopicUserName) {
+        this.rootTopicUserName = rootTopicUserName;
+    }
+
+    public String getRootTopicGroupName() {
+        return rootTopicGroupName;
+    }
+
+    public void setRootTopicGroupName(String rootTopicGroupName) {
+        this.rootTopicGroupName = rootTopicGroupName;
+    }
+
+    public long getRootTopicPerms() {
+        return rootTopicPerms;
+    }
+
+    public void setRootTopicPerms(long rootTopicPerms) {
+        this.rootTopicPerms = rootTopicPerms;
+    }
+
+    public long getRootTopicModbits() {
+        return rootTopicModbits;
+    }
+
+    public void setRootTopicModbits(long rootTopicModbits) {
+        this.rootTopicModbits = rootTopicModbits;
     }
 
 }

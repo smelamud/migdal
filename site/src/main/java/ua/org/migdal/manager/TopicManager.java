@@ -11,17 +11,22 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.data.IdNameProjection;
 import ua.org.migdal.data.QTopic;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.TopicRepository;
 import ua.org.migdal.data.util.Tree;
 import ua.org.migdal.data.util.TreeNode;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Perm;
 
 @Service
 public class TopicManager {
+
+    @Inject
+    private Config config;
 
     @Inject
     private RequestContext requestContext;
@@ -38,11 +43,34 @@ public class TopicManager {
     @Inject
     private TrackManager trackManager;
 
+    @Inject
+    private UserManager userManager;
+
+    @Inject
+    private GrpEnum grpEnum;
+
+    public Topic getRoot() {
+        Topic root = new Topic();
+        root.setGrp(grpEnum.all);
+        root.setModbits(config.getRootTopicModbits());
+        root.setUser(userManager.get(requestContext.getUserId()));
+        root.setGroup(userManager.getByLogin(config.getRootTopicGroupName()));
+        root.setPerms(config.getRootTopicPerms());
+        return root;
+    }
+
     public Topic get(long id) {
+        if (id <= 0) {
+            return getRoot();
+        }
         return topicRepository.findOne(id);
     }
 
     public Topic beg(long id) {
+        if (id <= 0) {
+            return getRoot();
+        }
+
         QTopic topic = QTopic.topic;
         return topicRepository.findOne(topic.id.eq(id).and(getPermFilter(topic, Perm.READ)));
     }

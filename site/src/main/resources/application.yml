@@ -90,3 +90,11 @@ migdal:
 
   mailFromAddress: mailrobot@migdal.org.ua  # "From:" address of all mails
   mailReplyToAddress: webmaster@migdal.org.ua  # "Reply-To:" address of all mails
+
+  ## Default permissions
+
+  # Virtual "root" topic permissions
+  rootTopicUserName: admin
+  rootTopicGroupName: admin
+  rootTopicPerms: 0x19FF
+  rootTopicModbits: 0x0007

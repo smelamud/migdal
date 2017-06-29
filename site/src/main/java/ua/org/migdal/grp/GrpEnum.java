@@ -25,6 +25,8 @@ public class GrpEnum {
 
     private static GrpEnum instance;
 
+    public long all;
+
     private List<GrpDescriptor> grps;
 
     @Inject
@@ -41,6 +43,7 @@ public class GrpEnum {
         log.info("Loaded {} grps:", grps.size());
         for (GrpDescriptor grp : grps) {
             log.info("- {}({})", grp.getName(), grp.getBit());
+            all |= grp.getValue();
         }
     }
 
