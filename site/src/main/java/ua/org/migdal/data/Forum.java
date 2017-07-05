@@ -17,4 +17,19 @@ public class Forum extends Entry {
                || (!isDisabled() || getUser().getId() == rc.getUserId()) && super.isPermitted(right);
     }
 
+    public static String validateHierarchy(Entry parent, Entry up, long id) {
+        String errorCode = Entry.validateHierarchy(parent, up, id);
+        if (errorCode != null) {
+            return errorCode;
+        }
+        if (parent == null) {
+            return "hierarchy.noParent";
+        }
+        if (parent.getEntryType() != EntryType.POSTING
+                || parent.getId() != up.getId() && up.getEntryType() != EntryType.FORUM) {
+            return "hierarchy.incorrect";
+        }
+        return null;
+    }
+
 }

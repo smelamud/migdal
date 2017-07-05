@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,11 +16,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Topic;
+import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Tree;
 import ua.org.migdal.form.TopicForm;
 import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.PermUtils;
 
 @Controller
 public class TopicController {
@@ -32,6 +36,9 @@ public class TopicController {
 
     @Inject
     private TopicManager topicManager;
+
+    @Inject
+    private UserManager userManager;
 
     @Inject
     private IndexController indexController;
@@ -109,6 +116,53 @@ public class TopicController {
                 .transactional(txManager)
                 .constraint("entries_ident_key", "ident.used")
                 .execute(() -> {
+                    if (topicForm.getId() > 0) {
+                        if (topic == null) {
+                            return "noTopic";
+                        }
+                        if (!topic.isWritable()) {
+                            return "notEditable";
+                        }
+                    }
+
+                    User user;
+                    if (StringUtils.isEmpty(topicForm.getUserName())) {
+                        user = userManager.get(requestContext.getUserId());
+                    } else {
+                        user = userManager.getByLogin(topicForm.getUserName());
+                    }
+                    if (user == null) {
+                        return "userName.noUser";
+                    }
+                    User group;
+                    if (StringUtils.isEmpty(topicForm.getGroupName())) {
+                        group = userManager.get(requestContext.getUserId());
+                    } else {
+                        group = userManager.getByLogin(topicForm.getGroupName());
+                    }
+                    if (group == null) {
+                        return "groupName.noGroup";
+                    }
+                    long perms = PermUtils.parse(topicForm.getPermString());
+                    if (perms < 0) {
+                        return "permString.invalid";
+                    }
+
+                    if (topicForm.getUpId() < 0) {
+                        topicForm.setUpId(0);
+                    }
+                    Topic up = topicManager.beg(topicForm.getUpId());
+                    if (topicForm.getUpId() > 0 && up == null) {
+                        return "upId.noUp";
+                    }
+                    String errorCode = Topic.validateHierarchy(null, up, topicForm.getId());
+                    if (errorCode != null) {
+                        return errorCode;
+                    }
+                    if (!up.isAppendable()) {
+                        return "upId.noAppend";
+                    }
+
                     //topicForm.toTopic(topic);
                     topicManager.save(topic);
                     return null;

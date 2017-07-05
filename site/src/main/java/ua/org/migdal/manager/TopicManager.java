@@ -54,7 +54,7 @@ public class TopicManager {
         Topic root = new Topic();
         root.setGrp(grpEnum.all);
         root.setModbits(config.getRootTopicModbits());
-        root.setUser(userManager.get(requestContext.getUserId()));
+        root.setUser(userManager.getByLogin(config.getRootTopicUserName()));
         root.setGroup(userManager.getByLogin(config.getRootTopicGroupName()));
         root.setPerms(config.getRootTopicPerms());
         return root;

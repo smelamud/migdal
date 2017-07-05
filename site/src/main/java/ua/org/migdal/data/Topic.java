@@ -19,4 +19,15 @@ public class Topic extends Entry {
                || super.isPermitted(right);
     }
 
+    public static String validateHierarchy(Entry parent, Entry up, long id) {
+        String errorCode = Entry.validateHierarchy(parent, up, id);
+        if (errorCode != null) {
+            return errorCode;
+        }
+        if (parent != null || up != null && up.getEntryType() != EntryType.TOPIC) {
+            return "hierarchy.incorrect";
+        }
+        return null;
+    }
+
 }

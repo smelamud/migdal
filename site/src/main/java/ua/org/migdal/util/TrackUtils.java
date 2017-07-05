@@ -1,6 +1,45 @@
 package ua.org.migdal.util;
 
+import org.springframework.util.StringUtils;
+
 public class TrackUtils {
+
+    public static String track(long id) {
+        return track(id, null);
+    }
+
+    public static String track(long id, String prev) {
+        StringBuilder buf = new StringBuilder();
+        if (!StringUtils.isEmpty(prev)) {
+            buf.append(prev);
+            buf.append(' ');
+        }
+        buf.append(String.format("%010d", id));
+        return buf.toString();
+    }
+
+    public static String track(long[] ids) {
+        return track(ids, null);
+    }
+
+    public static String track(long[] ids, String prev) {
+        StringBuilder buf = new StringBuilder();
+        if (!StringUtils.isEmpty(prev)) {
+            buf.append(prev);
+            if (ids != null && ids.length > 0) {
+                buf.append(' ');
+            }
+        }
+        if (ids != null) {
+            for (int i = 0; i < ids.length; i++) {
+                if (i != 0) {
+                    buf.append(' ');
+                }
+                buf.append(String.format("%010d", ids[i]));
+            }
+        }
+        return buf.toString();
+    }
 
     public static long[] parse(String track) {
         String[] items = track.split(" ");

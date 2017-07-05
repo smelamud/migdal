@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -42,6 +43,11 @@ public class Entry implements TreeElement {
 
     @Size(max=75)
     private String ident;
+
+    @NotNull
+    @Column(name="entry", insertable=false, updatable=false)
+    @Enumerated
+    private EntryType entryType = EntryType.NULL;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="up")
@@ -292,6 +298,14 @@ public class Entry implements TreeElement {
 
     public void setIdent(String ident) {
         this.ident = ident;
+    }
+
+    public EntryType getEntryType() {
+        return entryType;
+    }
+
+    public void setEntryType(EntryType entryType) {
+        this.entryType = entryType;
     }
 
     public Entry getUp() {
@@ -970,6 +984,21 @@ public class Entry implements TreeElement {
 
     public void setLargeImageFilename(String largeImageFilename) {
         this.largeImageFilename = largeImageFilename;
+    }
+
+    public static String validateHierarchy(Entry parent, Entry up, long id) {
+        if (parent != null && up == null) {
+            return "hierarchy.notUpUnderParent";
+        }
+        String parentTrack = parent != null ? parent.getTrack() : "";
+        String upTrack = up != null ? up.getTrack() : "";
+        if (!upTrack.startsWith(parentTrack)) {
+            return "hierarchy.notUpUnderParent";
+        }
+        if (upTrack.contains(TrackUtils.track(id))) {
+            return "hierarchy.loop";
+        }
+        return null;
     }
 
 }
