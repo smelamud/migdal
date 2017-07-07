@@ -11,6 +11,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.NumberPath;
 
+import ua.org.migdal.data.EntryRepository;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Perm;
 
@@ -21,11 +22,11 @@ public class PermManager {
     private RequestContext requestContext;
 
     @Inject
-    private EntryManager entryManager;
+    private EntryRepository entryRepository;
 
     private Predicate getMask(NumberPath<Long> field, long right) {
         BooleanBuilder builder = new BooleanBuilder();
-        for (Long perms : entryManager.getPermsVariety()) {
+        for (Long perms : entryRepository.permsVariety()) {
             if ((perms & right) != 0) {
                 builder.or(field.eq(perms));
             }

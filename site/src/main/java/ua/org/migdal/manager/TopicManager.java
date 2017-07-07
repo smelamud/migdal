@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import com.querydsl.core.BooleanBuilder;
@@ -34,9 +33,6 @@ public class TopicManager {
 
     @Inject
     private TopicRepository topicRepository;
-
-    @Inject
-    private EntryManager entryManager;
 
     @Inject
     private PermManager permManager;
@@ -76,7 +72,6 @@ public class TopicManager {
         return topicRepository.findOne(topic.id.eq(id).and(getPermFilter(topic, Perm.READ)));
     }
 
-    @CacheEvict(cacheNames={"entries-permsall", "entries-track"}, allEntries=true)
     public void save(Topic topic) {
         topicRepository.save(topic);
     }
