@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,10 +14,15 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 public interface UserRepository extends JpaRepository<User, Long>, QueryDslPredicateExecutor<User> {
 
+    @Override
+    @CacheEvict(cacheNames="users-id", allEntries=true)
+    <S extends User> S save(S s);
+
     User findByIdAndHiddenLessThan(long id, short hidden);
 
     User findByLogin(String login);
 
+    @Cacheable(value="users-id", unless="#result == null")
     IdProjection findIdByLogin(String login);
 
     int countByLogin(String login);

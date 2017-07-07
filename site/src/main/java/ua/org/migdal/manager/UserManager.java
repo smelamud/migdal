@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -61,7 +59,6 @@ public class UserManager {
         return userRepository.findByLogin(login);
     }
 
-    @Cacheable("users-id")
     public long getIdByLogin(String login) {
         IdProjection idp = userRepository.findIdByLogin(login);
         return idp != null ? idp.getId() : 0;
@@ -97,7 +94,6 @@ public class UserManager {
         return user.getId();
     }
 
-    @CacheEvict(cacheNames="users-id", allEntries=true)
     public void save(User user) {
         userRepository.save(user);
     }
