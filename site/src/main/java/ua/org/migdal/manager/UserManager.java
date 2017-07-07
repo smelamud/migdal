@@ -75,7 +75,6 @@ public class UserManager {
         return Utils.idOrName(login, this::getIdByLogin);
     }
 
-    @Cacheable("users-guestid")
     public long getGuestId() {
         if (!config.isAllowGuests()) {
             return 0;
