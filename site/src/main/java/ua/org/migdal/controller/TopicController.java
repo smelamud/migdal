@@ -163,7 +163,7 @@ public class TopicController {
                         return "upId.noAppend";
                     }
 
-                    //topicForm.toTopic(topic);
+                    topicForm.toTopic(topic, up, user, group, requestContext);
                     topicManager.save(topic);
                     return null;
                 });

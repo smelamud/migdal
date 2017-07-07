@@ -3,6 +3,8 @@ package ua.org.migdal.data;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.Hibernate;
+
 @Entity
 @DiscriminatorValue("4")
 public class Image extends Entry {
@@ -12,10 +14,14 @@ public class Image extends Entry {
         if (errorCode != null) {
             return errorCode;
         }
-        if (parent != null
-                || up != null && up.getEntryType() != EntryType.POSTING && up.getEntryType() != EntryType.FORUM
-                              && up.getEntryType() != EntryType.TOPIC) {
+        if (parent != null) {
             return "hierarchy.incorrect";
+        }
+        if (up != null) {
+            Class upClass = Hibernate.getClass(up);
+            if (upClass != Posting.class && upClass != Forum.class && upClass != Topic.class) {
+                return "hierarchy.incorrect";
+            }
         }
         return null;
     }

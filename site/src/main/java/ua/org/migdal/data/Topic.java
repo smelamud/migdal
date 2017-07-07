@@ -3,6 +3,7 @@ package ua.org.migdal.data;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.Hibernate;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.RequestContextImpl;
 import ua.org.migdal.util.Perm;
@@ -24,7 +25,7 @@ public class Topic extends Entry {
         if (errorCode != null) {
             return errorCode;
         }
-        if (parent != null || up != null && up.getEntryType() != EntryType.TOPIC) {
+        if (parent != null || up != null && Hibernate.getClass(up) != Topic.class) {
             return "hierarchy.incorrect";
         }
         return null;

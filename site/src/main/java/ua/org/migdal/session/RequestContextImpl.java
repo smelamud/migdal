@@ -49,12 +49,11 @@ public class RequestContextImpl implements RequestContext {
     private String back;
     private Boolean printMode;
     private long userId;
+    private User user;
     private long realUserId;
     private Set<Long> userGroups = new HashSet<>();
     private String userLogin;
-    private String userFolder;
     private short userHidden;
-    private long userRights;
 
     @PostConstruct
     public void init() {
@@ -85,7 +84,7 @@ public class RequestContextImpl implements RequestContext {
 
         touchSession();
 
-        User user = null;
+        user = null;
         if (session.getUserId() > 0) {
             user = userManager.get(session.getUserId());
             if (user == null) {
@@ -105,9 +104,7 @@ public class RequestContextImpl implements RequestContext {
         }
 
         userLogin = user.getLogin();
-        userFolder = user.getFolder();
         userHidden = user.getHidden();
-        userRights = user.getRights();
         if (isUserAdminUsers() && userHidden > 0) {
             userHidden--;
         }
@@ -180,6 +177,12 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
+    public User getUser() {
+        processSession();
+        return user;
+    }
+
+    @Override
     public long getRealUserId() {
         processSession();
         return realUserId;
@@ -200,7 +203,7 @@ public class RequestContextImpl implements RequestContext {
     @Override
     public String getUserFolder() {
         processSession();
-        return userFolder;
+        return getUser() != null ? getUser().getFolder() : null;
     }
 
     @Override
@@ -209,34 +212,34 @@ public class RequestContextImpl implements RequestContext {
         return userHidden;
     }
 
+    private long getUserRights() {
+        processSession();
+        return getUser() != null ? getUser().getRights() : 0;
+    }
+
     @Override
     public boolean isMigdalStudent() {
-        processSession();
-        return (userRights & UserRight.MIGDAL_STUDENT.getValue()) != 0;
+        return (getUserRights() & UserRight.MIGDAL_STUDENT.getValue()) != 0;
     }
 
     @Override
     public boolean isUserAdminUsers() {
-        processSession();
-        return (userRights & UserRight.ADMIN_USERS.getValue()) != 0;
+        return (getUserRights() & UserRight.ADMIN_USERS.getValue()) != 0;
     }
 
     @Override
     public boolean isUserAdminTopics() {
-        processSession();
-        return (userRights & UserRight.ADMIN_TOPICS.getValue()) != 0;
+        return (getUserRights() & UserRight.ADMIN_TOPICS.getValue()) != 0;
     }
 
     @Override
     public boolean isUserModerator() {
-        processSession();
-        return (userRights & UserRight.MODERATOR.getValue()) != 0;
+        return (getUserRights() & UserRight.MODERATOR.getValue()) != 0;
     }
 
     @Override
     public boolean isUserAdminDomain() {
-        processSession();
-        return (userRights & UserRight.ADMIN_DOMAIN.getValue()) != 0;
+        return (getUserRights() & UserRight.ADMIN_DOMAIN.getValue()) != 0;
     }
 
 }

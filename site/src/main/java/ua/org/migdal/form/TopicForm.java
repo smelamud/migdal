@@ -1,5 +1,6 @@
 package ua.org.migdal.form;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,13 +9,22 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import org.springframework.util.StringUtils;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.TopicModbit;
+import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Selected;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.mtext.MtextFormat;
+import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.text.Text;
+import ua.org.migdal.text.TextFormat;
+import ua.org.migdal.util.PermUtils;
 import ua.org.migdal.util.Utils;
 
-public class TopicForm {
+public class TopicForm implements Serializable {
+
+    private static final long serialVersionUID = -6998221348586905382L;
 
     private long id;
 
@@ -186,6 +196,31 @@ public class TopicForm {
         return Arrays.stream(TopicModbit.values())
                 .map(bit -> new Selected<>(bit, Utils.contains(modbits, bit.getValue())))
                 .collect(Collectors.toList());
+    }
+
+    public void toTopic(Topic topic, Topic up, User user, User group, RequestContext requestContext) {
+        topic.setUp(up.getId() > 0 ? up : null);
+        topic.setIdent(getIdent());
+        topic.setSubject(Utils.convertLigatures(getSubject()));
+        topic.setComment0(Utils.convertLigatures(getComment0()));
+        topic.setComment0Xml(Text.convert(topic.getComment0(), TextFormat.PLAIN, MtextFormat.LINE));
+        topic.setComment1(Utils.convertLigatures(getComment1()));
+        topic.setComment1Xml(Text.convert(topic.getComment1(), TextFormat.PLAIN, MtextFormat.LINE));
+        topic.setIndex2(!StringUtils.isEmpty(getYear()) ? Long.parseLong(getYear()) : 0);
+        topic.setBody(Utils.convertLigatures(getBody()));
+        topic.setBodyXml(Text.convert(topic.getBody(), TextFormat.PLAIN, MtextFormat.SHORT));
+        topic.setUser(user);
+        topic.setGroup(group);
+        topic.setPerms(PermUtils.parse(getPermString()));
+        topic.setGrp(Utils.disjunct(getGrps()));
+        topic.setModbits(Utils.disjunct(getModbits()));
+        topic.setModifier(requestContext.getUser());
+        topic.setModified(Utils.now());
+        if (getId() <= 0) {
+            topic.setSent(Utils.now());
+            topic.setCreator(requestContext.getUser());
+            topic.setCreated(Utils.now());
+        }
     }
 
 }

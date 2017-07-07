@@ -3,6 +3,7 @@ package ua.org.migdal.data;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.hibernate.Hibernate;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.RequestContextImpl;
 
@@ -25,8 +26,8 @@ public class Forum extends Entry {
         if (parent == null) {
             return "hierarchy.noParent";
         }
-        if (parent.getEntryType() != EntryType.POSTING
-                || parent.getId() != up.getId() && up.getEntryType() != EntryType.FORUM) {
+        if (Hibernate.getClass(parent) != Posting.class
+                || parent.getId() != up.getId() && Hibernate.getClass(up) != Forum.class) {
             return "hierarchy.incorrect";
         }
         return null;

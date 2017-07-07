@@ -2,6 +2,8 @@ package ua.org.migdal.session;
 
 import java.util.Set;
 
+import ua.org.migdal.data.User;
+
 public interface RequestContext {
 
     String getLocation();
@@ -19,6 +21,8 @@ public interface RequestContext {
     boolean isPrintMode();
 
     long getUserId();
+
+    User getUser();
 
     boolean isLogged();
 
