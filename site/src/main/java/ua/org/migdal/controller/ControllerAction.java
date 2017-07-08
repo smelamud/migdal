@@ -46,7 +46,7 @@ public class ControllerAction {
             return;
         }
         try {
-            String errorCode = callable.call();
+            String errorCode = executeCallable(callable);
             if (errorCode != null && !errorCode.isEmpty()) {
                 errors.reject(errorCode);
             }
