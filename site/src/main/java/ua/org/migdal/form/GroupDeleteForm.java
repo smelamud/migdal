@@ -1,6 +1,10 @@
 package ua.org.migdal.form;
 
-public class GroupDeleteForm {
+import java.io.Serializable;
+
+public class GroupDeleteForm implements Serializable {
+
+    private static final long serialVersionUID = -48825897149078130L;
 
     private long groupId;
     private long userId;

@@ -1,5 +1,6 @@
 package ua.org.migdal.form;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -21,7 +22,9 @@ import ua.org.migdal.text.TextFormat;
 import ua.org.migdal.util.Password;
 import ua.org.migdal.util.Utils;
 
-public class UserForm {
+public class UserForm implements Serializable {
+
+    private static final long serialVersionUID = -2357469327570735073L;
 
     private long id;
 

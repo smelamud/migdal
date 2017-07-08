@@ -1,10 +1,13 @@
 package ua.org.migdal.form;
 
+import java.io.Serializable;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class LoginForm {
+public class LoginForm implements Serializable{
+
+    private static final long serialVersionUID = 23343297276290154L;
 
     @NotBlank
     @Size(max=30)
