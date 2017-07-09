@@ -37,7 +37,7 @@ import ua.org.migdal.util.XmlConverter;
 @Service
 public class MailService {
 
-    private Logger log = LoggerFactory.getLogger(MailService.class);
+    private static Logger log = LoggerFactory.getLogger(MailService.class);
 
     @Inject
     private Config config;

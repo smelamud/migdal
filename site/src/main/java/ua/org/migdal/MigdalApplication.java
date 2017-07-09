@@ -26,7 +26,7 @@ import ua.org.migdal.helper.HelperSource;
 @EnableCaching
 public class MigdalApplication extends WebMvcConfigurerAdapter {
 
-    private Logger log = LoggerFactory.getLogger(MigdalApplication.class);
+    private static Logger log = LoggerFactory.getLogger(MigdalApplication.class);
 
     @Inject
     private ApplicationContext applicationContext;

@@ -24,7 +24,7 @@ import ua.org.migdal.session.RequestContext;
 @Controller
 public class RegisterController {
 
-    private Logger log = LoggerFactory.getLogger(RegisterController.class);
+    private static Logger log = LoggerFactory.getLogger(RegisterController.class);
 
     @Inject
     private RequestContext requestContext;
