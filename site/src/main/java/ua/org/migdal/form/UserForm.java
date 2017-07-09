@@ -310,7 +310,7 @@ public class UserForm implements Serializable {
         }
         user.setSurname(getSurname());
         user.setGender(!isGender() ? Gender.MINE : Gender.FEMINE);
-        user.setInfo(Utils.convertLigatures(getInfo()));
+        user.setInfo(Text.convertLigatures(getInfo()));
         user.setInfoXml(Text.convert(user.getInfo(), TextFormat.PLAIN, MtextFormat.SHORT));
         user.setModified(Utils.now());
         user.setBirthdayDay(!StringUtils.isEmpty(getBirthDay()) ? Short.parseShort(getBirthDay()) : 0);

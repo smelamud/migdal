@@ -201,13 +201,13 @@ public class TopicForm implements Serializable {
     public void toTopic(Topic topic, Topic up, User user, User group, RequestContext requestContext) {
         topic.setUp(up.getId() > 0 ? up : null);
         topic.setIdent(!StringUtils.isEmpty(getIdent()) ? getIdent() : null);
-        topic.setSubject(Utils.convertLigatures(getSubject()));
-        topic.setComment0(Utils.convertLigatures(getComment0()));
+        topic.setSubject(Text.convertLigatures(getSubject()));
+        topic.setComment0(Text.convertLigatures(getComment0()));
         topic.setComment0Xml(Text.convert(topic.getComment0(), TextFormat.PLAIN, MtextFormat.LINE));
-        topic.setComment1(Utils.convertLigatures(getComment1()));
+        topic.setComment1(Text.convertLigatures(getComment1()));
         topic.setComment1Xml(Text.convert(topic.getComment1(), TextFormat.PLAIN, MtextFormat.LINE));
         topic.setIndex2(!StringUtils.isEmpty(getYear()) ? Long.parseLong(getYear()) : 0);
-        topic.setBody(Utils.convertLigatures(getBody()));
+        topic.setBody(Text.convertLigatures(getBody()));
         topic.setBodyXml(Text.convert(topic.getBody(), TextFormat.PLAIN, MtextFormat.SHORT));
         topic.setUser(user);
         topic.setGroup(group);
