@@ -33,6 +33,17 @@ public interface EntryRepository extends JpaRepository<Entry, Long>, QueryDslPre
     @Query(value="update entries set track=concat(?2, substring(track from ?3)) where track like ?1", nativeQuery=true)
     void replaceTracks(String searchWildcard, String replacement, int tailPosition);
 
+    @Cacheable("entries-catalog")
+    @Query("select e.catalog from Entry e where id=?1")
+    String findCatalogById(long id);
+
+    List<CatalogBuildProjection> findCatalogBuildInfoByTrackLikeOrderByTrack(String trackWildcard);
+
+    @CacheEvict(cacheNames="entries-catalog", key="#a0")
+    @Modifying
+    @Query("update Entry e set e.catalog=?2 where id=?1")
+    void updateCatalogById(long id, String catalog);
+
     @Query("select e.modbits from Entry e where id=?1")
     String findModbitsById(long id);
 

@@ -19,6 +19,7 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Tree;
 import ua.org.migdal.form.TopicForm;
+import ua.org.migdal.manager.CatalogManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
@@ -44,6 +45,9 @@ public class TopicController {
 
     @Inject
     private TrackManager trackManager;
+
+    @Inject
+    private CatalogManager catalogManager;
 
     @Inject
     private IndexController indexController;
@@ -170,15 +174,20 @@ public class TopicController {
 
                     String oldTrack = topic.getTrack();
                     boolean trackChanged = topicForm.isTrackChanged(topic);
+                    boolean catalogChanged = topicForm.isCatalogChanged(topic);
 
                     topicForm.toTopic(topic, up, user, group, requestContext);
                     topicManager.saveAndFlush(topic); // We need to have the record in DB and to know ID after this point
 
+                    String newTrack = TrackUtils.track(topic.getId(), up.getTrack());
                     if (topicForm.getId() <= 0) {
-                        trackManager.setTrack(topic.getId(), TrackUtils.track(topic.getId(), up.getTrack()));
+                        trackManager.setTrack(topic.getId(), newTrack);
                     }
                     if (trackChanged) {
-                        trackManager.replaceTracks(oldTrack, TrackUtils.track(topic.getId(), up.getTrack()));
+                        trackManager.replaceTracks(oldTrack, newTrack);
+                    }
+                    if (catalogChanged) {
+                        catalogManager.updateCatalogs(newTrack);
                     }
 
                     return null;

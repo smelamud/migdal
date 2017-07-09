@@ -29,6 +29,10 @@ public enum TopicModbit {
         return description;
     }
 
+    public boolean isSet(long modbits) {
+        return (modbits & getValue()) != 0;
+    }
+
     public static long[] parse(long modbits) {
         return Utils.toArray(Arrays.stream(values())
                 .map(TopicModbit::getValue)

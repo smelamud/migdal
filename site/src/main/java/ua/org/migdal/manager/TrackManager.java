@@ -16,7 +16,7 @@ public class TrackManager {
     @Inject
     private EntryRepository entryRepository;
 
-    private String trackWildcard(String track) {
+    static String trackWildcard(String track) {
         return track != null ? track + '%' : "%";
     }
 

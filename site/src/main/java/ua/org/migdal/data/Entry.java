@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -42,6 +43,10 @@ public class Entry implements TreeElement {
 
     @Size(max=75)
     private String ident;
+
+    @Enumerated
+    @Column(name = "entry", insertable = false, updatable = false)
+    private EntryType entryType;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="up")

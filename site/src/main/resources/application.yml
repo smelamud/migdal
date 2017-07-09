@@ -13,7 +13,7 @@ spring:
     validationQuery: SELECT 1
 
   cache:
-    cache-names: users-guestid, users-id, entries-permsall, entries-track
+    cache-names: users-guestid, users-id, entries-permsall, entries-track, entries-catalog
     caffeine:
       spec: maximumSize=500
 
