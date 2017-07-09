@@ -14,8 +14,8 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 public interface UserRepository extends JpaRepository<User, Long>, QueryDslPredicateExecutor<User> {
 
-    @Override
     @CacheEvict(cacheNames="users-id", allEntries=true)
+    @Override
     <S extends User> S save(S s);
 
     User findByIdAndHiddenLessThan(long id, short hidden);

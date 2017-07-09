@@ -76,6 +76,10 @@ public class TopicManager {
         topicRepository.save(topic);
     }
 
+    public void saveAndFlush(Topic topic) {
+        topicRepository.saveAndFlush(topic);
+    }
+
     public Iterable<Topic> begAll() {
         return begAll(0, true);
     }

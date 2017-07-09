@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-
 import org.springframework.util.StringUtils;
+
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.TopicModbit;
 import ua.org.migdal.data.User;
@@ -74,7 +74,7 @@ public class TopicForm implements Serializable {
         }
 
         id = topic.getId();
-        upId = topic.getUp() != null ? topic.getUp().getId() : 0;
+        upId = topic.getUpId();
         ident = topic.getIdent() != null ? topic.getIdent() : "";
         subject = topic.getSubject();
         comment0 = topic.getComment0();
@@ -200,7 +200,7 @@ public class TopicForm implements Serializable {
 
     public void toTopic(Topic topic, Topic up, User user, User group, RequestContext requestContext) {
         topic.setUp(up.getId() > 0 ? up : null);
-        topic.setIdent(getIdent());
+        topic.setIdent(!StringUtils.isEmpty(getIdent()) ? getIdent() : null);
         topic.setSubject(Utils.convertLigatures(getSubject()));
         topic.setComment0(Utils.convertLigatures(getComment0()));
         topic.setComment0Xml(Text.convert(topic.getComment0(), TextFormat.PLAIN, MtextFormat.LINE));
@@ -221,6 +221,16 @@ public class TopicForm implements Serializable {
             topic.setCreator(requestContext.getUser());
             topic.setCreated(Utils.now());
         }
+    }
+
+    public boolean isTrackChanged(Topic topic) {
+        return getId() > 0 && getUpId() != topic.getUpId();
+    }
+
+    public boolean isCatalogChanged(Topic topic) {
+        return getId() > 0 && (getUpId() != topic.getUpId()
+                               || !getIdent().equals(topic.getIdent())
+                               || Utils.disjunct(getModbits()) != topic.getModbits());
     }
 
 }

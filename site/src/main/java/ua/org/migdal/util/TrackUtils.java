@@ -8,10 +8,10 @@ public class TrackUtils {
         return track(id, null);
     }
 
-    public static String track(long id, String prev) {
+    public static String track(long id, String upTrack) {
         StringBuilder buf = new StringBuilder();
-        if (!StringUtils.isEmpty(prev)) {
-            buf.append(prev);
+        if (!StringUtils.isEmpty(upTrack)) {
+            buf.append(upTrack);
             buf.append(' ');
         }
         buf.append(String.format("%010d", id));
@@ -22,10 +22,10 @@ public class TrackUtils {
         return track(ids, null);
     }
 
-    public static String track(long[] ids, String prev) {
+    public static String track(long[] ids, String upTrack) {
         StringBuilder buf = new StringBuilder();
-        if (!StringUtils.isEmpty(prev)) {
-            buf.append(prev);
+        if (!StringUtils.isEmpty(upTrack)) {
+            buf.append(upTrack);
             if (ids != null && ids.length > 0) {
                 buf.append(' ');
             }

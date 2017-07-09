@@ -302,6 +302,11 @@ public class Entry implements TreeElement {
         this.up = up;
     }
 
+    @Transient
+    public long getUpId() {
+        return getUp() != null ? getUp().getId() : 0;
+    }
+
     public String getTrack() {
         return track;
     }

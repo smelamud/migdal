@@ -20,10 +20,12 @@ import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Tree;
 import ua.org.migdal.form.TopicForm;
 import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.PermUtils;
+import ua.org.migdal.util.TrackUtils;
 
 @Controller
 public class TopicController {
@@ -39,6 +41,9 @@ public class TopicController {
 
     @Inject
     private UserManager userManager;
+
+    @Inject
+    private TrackManager trackManager;
 
     @Inject
     private IndexController indexController;
@@ -163,8 +168,19 @@ public class TopicController {
                         return "upId.noAppend";
                     }
 
+                    String oldTrack = topic.getTrack();
+                    boolean trackChanged = topicForm.isTrackChanged(topic);
+
                     topicForm.toTopic(topic, up, user, group, requestContext);
-                    topicManager.save(topic);
+                    topicManager.saveAndFlush(topic); // We need to have the record in DB and to know ID after this point
+
+                    if (topicForm.getId() <= 0) {
+                        trackManager.setTrack(topic.getId(), TrackUtils.track(topic.getId(), up.getTrack()));
+                    }
+                    if (trackChanged) {
+                        trackManager.replaceTracks(oldTrack, TrackUtils.track(topic.getId(), up.getTrack()));
+                    }
+
                     return null;
                 });
 
