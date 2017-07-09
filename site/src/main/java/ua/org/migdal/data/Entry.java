@@ -26,6 +26,7 @@ import ua.org.migdal.data.util.TreeElement;
 import ua.org.migdal.mtext.Mtext;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContextImpl;
+import ua.org.migdal.text.TextFormat;
 import ua.org.migdal.util.Perm;
 import ua.org.migdal.util.PermUtils;
 import ua.org.migdal.util.TrackUtils;
@@ -160,7 +161,8 @@ public class Entry implements TreeElement {
     private String bodyXml = "";
 
     @NotNull
-    private long bodyFormat;
+    @Enumerated
+    private TextFormat bodyFormat = TextFormat.PLAIN;
 
     @NotNull
     private boolean hasLargeBody;
@@ -172,7 +174,8 @@ public class Entry implements TreeElement {
     private String largeBodyXml = "";
 
     @NotNull
-    private long largeBodyFormat;
+    @Enumerated
+    private TextFormat largeBodyFormat = TextFormat.PLAIN;
 
     @NotNull
     @Size(max=70)
@@ -670,11 +673,11 @@ public class Entry implements TreeElement {
         return getBodyMtext().shorten(config.getMediumSize(), config.getMediumSizeMinus(), config.getMediumSizePlus());
     }
 
-    public long getBodyFormat() {
+    public TextFormat getBodyFormat() {
         return bodyFormat;
     }
 
-    public void setBodyFormat(long bodyFormat) {
+    public void setBodyFormat(TextFormat bodyFormat) {
         this.bodyFormat = bodyFormat;
     }
 
@@ -702,11 +705,11 @@ public class Entry implements TreeElement {
         this.largeBodyXml = largeBodyXml;
     }
 
-    public long getLargeBodyFormat() {
+    public TextFormat getLargeBodyFormat() {
         return largeBodyFormat;
     }
 
-    public void setLargeBodyFormat(long largeBodyFormat) {
+    public void setLargeBodyFormat(TextFormat largeBodyFormat) {
         this.largeBodyFormat = largeBodyFormat;
     }
 
