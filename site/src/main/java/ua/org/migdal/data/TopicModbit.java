@@ -33,6 +33,10 @@ public enum TopicModbit {
         return (modbits & getValue()) != 0;
     }
 
+    public long unset(long modbits) {
+        return modbits & ~getValue();
+    }
+
     public static long[] parse(long modbits) {
         return Utils.toArray(Arrays.stream(values())
                 .map(TopicModbit::getValue)

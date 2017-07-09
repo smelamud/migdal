@@ -166,17 +166,17 @@ public class Entry implements TreeElement {
     private boolean hasLargeBody;
 
     @NotNull
-    private String largeBody;
+    private String largeBody = "";
 
     @NotNull
-    private String largeBodyXml;
+    private String largeBodyXml = "";
 
     @NotNull
     private long largeBodyFormat;
 
     @NotNull
     @Size(max=70)
-    private String largeBodyFilename;
+    private String largeBodyFilename = "";
 
     @NotNull
     private short priority;
@@ -244,7 +244,7 @@ public class Entry implements TreeElement {
 
     @NotNull
     @Size(max=30)
-    private String lastAnswerGuestLogin;
+    private String lastAnswerGuestLogin = "";
 
     @NotNull
     private long smallImage;
@@ -259,7 +259,7 @@ public class Entry implements TreeElement {
 
     @NotNull
     @Size(max=30)
-    private String smallImageFormat;
+    private String smallImageFormat = "";
 
     @NotNull
     private long largeImage;

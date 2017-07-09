@@ -94,7 +94,7 @@ migdal:
   ## Default permissions
 
   # Virtual "root" topic permissions
-  rootTopicUserName: admin
-  rootTopicGroupName: admin
+  rootTopicUserName: balu
+  rootTopicGroupName: balu
   rootTopicPerms: 0x19FF
   rootTopicModbits: 0x0007

@@ -28,7 +28,7 @@ public class TrackManager {
         return trackField.like(trackWildcard(track));
     }
 
-    public void setTrack(long id, String track) {
+    public void setTrackById(long id, String track) {
         entryRepository.updateTrackById(id, track);
     }
 

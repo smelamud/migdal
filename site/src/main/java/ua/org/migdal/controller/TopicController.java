@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import org.springframework.web.util.UriComponentsBuilder;
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Tree;
@@ -25,6 +27,7 @@ import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.PermUtils;
 import ua.org.migdal.util.TrackUtils;
 
@@ -93,6 +96,37 @@ public class TopicController {
                 .withPageTitle("Темы");
     }
 
+    @GetMapping("/admin/topics/add")
+    public String topicAddTop(Model model) throws PageNotFoundException {
+        return topicAdd(0, model);
+    }
+
+    @GetMapping("/admin/topics/**/{id}/add")
+    public String topicAddNotTop(@PathVariable long id, Model model) throws PageNotFoundException {
+        return topicAdd(id, model);
+    }
+
+    private String topicAdd(long id, Model model) throws PageNotFoundException {
+        Topic up = topicManager.beg(id);
+        if (up == null) {
+            throw new PageNotFoundException();
+        }
+
+        topicAddLocationInfo(up, model);
+
+        model.addAttribute("xmlid", 0);
+        model.addAttribute("topicNames", topicManager.begNames(0, -1, true, false));
+        model.asMap().putIfAbsent("topicForm", new TopicForm(new Topic(up, requestContext)));
+        return "topicedit";
+    }
+
+    public LocationInfo topicAddLocationInfo(Topic up, Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/topics/" + up.getTrackPath() + "add")
+                .withParent(adminTopicsLocationInfo(null))
+                .withPageTitle("Добавление темы");
+    }
+
     @GetMapping("/admin/topics/**/{id}/edit")
     public String topicEdit(@PathVariable long id, Model model) throws PageNotFoundException {
         Topic topic = topicManager.beg(id);
@@ -120,7 +154,18 @@ public class TopicController {
             @ModelAttribute @Valid TopicForm topicForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
-        Topic topic = topicForm.getId() > 0 ? topicManager.beg(topicForm.getId()) : new Topic();
+        if (topicForm.getUpId() < 0) {
+            topicForm.setUpId(0);
+        }
+        Topic up = topicManager.beg(topicForm.getUpId());
+
+        Topic topic;
+        if (topicForm.getId() <= 0) {
+            topic = new Topic(up, requestContext);
+        } else {
+            topic = topicManager.beg(topicForm.getId());
+        }
+
         new ControllerAction(TopicController.class, "actionTopicModify", errors)
                 .transactional(txManager)
                 .constraint("entries_ident_key", "ident.used")
@@ -157,10 +202,6 @@ public class TopicController {
                         return "permString.invalid";
                     }
 
-                    if (topicForm.getUpId() < 0) {
-                        topicForm.setUpId(0);
-                    }
-                    Topic up = topicManager.beg(topicForm.getUpId());
                     if (topicForm.getUpId() > 0 && up == null) {
                         return "upId.noUp";
                     }
@@ -181,7 +222,10 @@ public class TopicController {
 
                     String newTrack = TrackUtils.track(topic.getId(), up.getTrack());
                     if (topicForm.getId() <= 0) {
-                        trackManager.setTrack(topic.getId(), newTrack);
+                        trackManager.setTrackById(topic.getId(), newTrack);
+                        String newCatalog = CatalogUtils.catalog(EntryType.TOPIC, topic.getId(), topic.getIdent(),
+                                                                 topic.getModbits(), up.getCatalog());
+                        catalogManager.setCatalogById(topic.getId(), newCatalog);
                     }
                     if (trackChanged) {
                         trackManager.replaceTracks(oldTrack, newTrack);
@@ -198,7 +242,15 @@ public class TopicController {
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("topicForm", topicForm);
-            return "redirect:/admin/topics/" + topic.getTrackPath() + "edit";
+            String location;
+            if (topicForm.getId() <= 0) {
+                location = "redirect:/admin/topics/" + up.getTrackPath() + "add";
+            } else {
+                location = "redirect:/admin/topics/" + topic.getTrackPath() + "edit";
+            }
+            return UriComponentsBuilder.fromUriString(location)
+                    .queryParam("back", requestContext.getBack())
+                    .toUriString();
         }
     }
 

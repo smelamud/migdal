@@ -12,6 +12,21 @@ import ua.org.migdal.util.Perm;
 @DiscriminatorValue("3")
 public class Topic extends Entry {
 
+    public Topic() {
+    }
+
+    public Topic(Topic up, RequestContext requestContext) {
+        setUp(up);
+        setGrp(up.getGrp());
+        long modbits = up.getModbits();
+        modbits = TopicModbit.ROOT.unset(modbits);
+        modbits = TopicModbit.TRANSPARENT.unset(modbits);
+        setModbits(modbits);
+        setUser(requestContext.getUser());
+        setGroup(up.getGroup());
+        setPerms(up.getPerms());
+    }
+
     @Override
     public boolean isPermitted(long right) {
         RequestContext rc = RequestContextImpl.getInstance();

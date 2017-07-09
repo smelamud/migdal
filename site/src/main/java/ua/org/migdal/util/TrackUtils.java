@@ -42,6 +42,10 @@ public class TrackUtils {
     }
 
     public static long[] parse(String track) {
+        if (StringUtils.isEmpty(track)) {
+            return new long[0];
+        }
+
         String[] items = track.split(" ");
         long[] ids = new long[items.length];
         for (int i = 0; i < items.length; i++) {
