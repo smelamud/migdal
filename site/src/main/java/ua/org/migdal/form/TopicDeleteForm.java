@@ -7,6 +7,9 @@ public class TopicDeleteForm implements Serializable {
     private long id;
     private long destId;
 
+    public TopicDeleteForm() {
+    }
+
     public TopicDeleteForm(long id) {
         this.id = id;
     }

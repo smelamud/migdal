@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.util.UriComponentsBuilder;
@@ -291,6 +292,57 @@ public class TopicController {
                 .withUri("/admin/topics/" + topic.getTrackPath() + "delete")
                 .withParent(adminTopicsLocationInfo(null))
                 .withPageTitle("Удаление темы");
+    }
+
+    // FIXME need to allow only POST requests
+    @RequestMapping("/actions/topic/delete")
+    public String actionTopicDelete(
+            @ModelAttribute @Valid TopicDeleteForm topicDeleteForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        Topic topic = topicManager.beg(topicDeleteForm.getId());
+
+        new ControllerAction(TopicController.class, "actionTopicDelete", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    if (topicDeleteForm.getId() <= 0) {
+                        return "absent";
+                    }
+                    if (topic.getId() <= 0) {
+                        return "noTopic";
+                    }
+                    if (!topic.isWritable()) {
+                        return "noDelete";
+                    }
+
+                    Topic destTopic = null;
+                    boolean hasSubtopics = topicManager.getSubtopicsCount(topic.getId()) > 0;
+                    boolean hasPostings = postingManager.getPostingsCount(topic.getId()) > 0;
+
+                    if (hasSubtopics || hasPostings) {
+                        if (topicDeleteForm.getDestId() <= 0 || topicDeleteForm.getDestId() == topicDeleteForm.getId()) {
+                            return "destId.absent";
+                        }
+                        destTopic = topicManager.beg(topicDeleteForm.getDestId());
+                        if (hasSubtopics && !topic.isAppendable()) {
+                            return "dest.noAppend";
+                        }
+                        if (hasPostings && !topic.isPostable()) {
+                            return "destId.noPost";
+                        }
+                    }
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("topicDeleteForm", topicDeleteForm);
+            return UriComponentsBuilder.fromUriString("redirect:/admin/topics/" + topic.getTrackPath() + "delete")
+                    .queryParam("back", requestContext.getBack())
+                    .toUriString();
+        }
     }
 
 }
