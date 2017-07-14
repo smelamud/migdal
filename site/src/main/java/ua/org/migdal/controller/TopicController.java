@@ -331,6 +331,8 @@ public class TopicController {
                             return "destId.noPost";
                         }
                     }
+
+                    topicManager.deleteTopic(topic, destTopic);
                     return null;
                 });
 

@@ -51,4 +51,12 @@ public interface EntryRepository extends JpaRepository<Entry, Long>, QueryDslPre
     @Query("update Entry e set e.modbits=?2 where id=?1")
     void updateModbitsById(long id, long modbits);
 
+    @Modifying
+    @Query("update Entry e set e.up.id=?2 where e.up.id=?1")
+    void updateUpId(long oldUpId, long newUpId);
+
+    @Modifying
+    @Query("update Entry e set e.parent.id=?2 where e.parent.id=?1")
+    void updateParentId(long oldParentId, long newParentId);
+
 }

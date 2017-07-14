@@ -36,13 +36,15 @@ public class CatalogManager {
                 TrackManager.trackWildcard(trackPrefix));
         Map<Long, String> catalogs = new HashMap<>();
         for (CatalogBuildProjection info : list) {
-            if (!catalogs.containsKey(info.getUp().getId())) {
-                catalogs.put(info.getUp().getId(), getCatalogById(info.getUp().getId()));
+            long upId = info.getUp() != null ? info.getUp().getId() : 0;
+            if (upId > 0 && !catalogs.containsKey(upId)) {
+                catalogs.put(upId, getCatalogById(upId));
             }
+            String upCatalog = upId > 0 ? catalogs.get(upId) : "";
             catalogs.put(
                     info.getId(),
                     CatalogUtils.catalog(info.getEntryType(), info.getId(), info.getIdent(), info.getModbits(),
-                                         catalogs.get(info.getUp().getId())));
+                                         upCatalog));
             if (!catalogs.get(info.getId()).equals(info.getCatalog())) {
                 entryRepository.updateCatalogById(info.getId(), catalogs.get(info.getId()));
             }

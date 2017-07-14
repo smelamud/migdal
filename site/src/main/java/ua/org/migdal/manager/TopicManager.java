@@ -12,6 +12,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.data.EntryRepository;
 import ua.org.migdal.data.IdNameProjection;
 import ua.org.migdal.data.QTopic;
 import ua.org.migdal.data.Topic;
@@ -32,6 +33,9 @@ public class TopicManager {
     private RequestContext requestContext;
 
     @Inject
+    private EntryRepository entryRepository;
+
+    @Inject
     private TopicRepository topicRepository;
 
     @Inject
@@ -39,6 +43,9 @@ public class TopicManager {
 
     @Inject
     private TrackManager trackManager;
+
+    @Inject
+    private CatalogManager catalogManager;
 
     @Inject
     private UserManager userManager;
@@ -159,6 +166,23 @@ public class TopicManager {
 
     public int getSubtopicsCount(long id) {
         return topicRepository.countByUpId(id);
+    }
+
+    public void deleteTopic(Topic topic, Topic destTopic) {
+        String oldTrack = topic.getTrack();
+        if (destTopic != null) {
+            entryRepository.updateUpId(topic.getId(), destTopic.getId());
+            entryRepository.updateParentId(topic.getId(), destTopic.getId());
+        }
+        topicRepository.delete(topic);
+        topicRepository.flush();
+        if (destTopic != null) {
+            trackManager.replaceTracks(oldTrack, destTopic.getTrack());
+            catalogManager.updateCatalogs(destTopic.getTrack());
+        }
+        /*sql("delete from cross_entries
+                where source_id=$id or peer_id=$id",
+                __FUNCTION__, 'delete_cross_topics');*/
     }
 
 }
