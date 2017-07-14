@@ -1,0 +1,30 @@
+{{> part/preamble}}
+{{> part/top}}
+
+{{#assign "formTitle"}}Удалить тему &laquo;{{topic.subject}}&raquo;{{/assign}}
+{{#formTable title=formTitle}}
+    <form method="post" action="/actions/topic/delete">
+        {{hidden name="back" value=rc.back}}
+        {{hidden name="id" value=topicDeleteForm.id}}
+        {{starInfo}}
+        {{#formComment}}
+            Тема &laquo;{{topic.subject}}&raquo; содержит
+            {{#if subtopics}}
+                <em>{{subtopics}}</em> {{plural subtopics "подтему,подтемы,подтем"}}
+                {{#if posts}} и {{/if}}
+            {{/if}}
+            {{#if posts}}
+                <em>{{posts}}</em> {{plural posts "сообщение,сообщения,сообщений"}}
+            {{/if}}
+        {{/formComment}}
+    <error id='*ETD_DEST_ABSENT' text='Тема для перемещения не указана'>
+    <error id='*ETD_DEST_ACCESS' text='В эту тему нельзя добавлять сообщения'>
+    <error id='*ETD_NO_DELETE' text='Вы не имеете права удалять эту тему'>
+    <error id='*ETD_TOPIC_ABSENT' text='Тема не указана'>
+        {{formTopicSelect list=topicNames title="Отправить сообщения и подтемы в" name="destId"
+                          value=topicDeleteForm.destId mandatory=true}}
+        {{formButtons title="Удалить тему"}}
+    </form>
+{{/formTable}}
+
+{{> part/bottom}}

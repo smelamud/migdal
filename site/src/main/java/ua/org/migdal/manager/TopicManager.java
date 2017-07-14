@@ -157,4 +157,8 @@ public class TopicManager {
         }
     }
 
+    public int getSubtopicsCount(long id) {
+        return topicRepository.countByUpId(id);
+    }
+
 }

@@ -20,8 +20,10 @@ import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Tree;
+import ua.org.migdal.form.TopicDeleteForm;
 import ua.org.migdal.form.TopicForm;
 import ua.org.migdal.manager.CatalogManager;
+import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
@@ -42,6 +44,9 @@ public class TopicController {
 
     @Inject
     private TopicManager topicManager;
+
+    @Inject
+    private PostingManager postingManager;
 
     @Inject
     private UserManager userManager;
@@ -252,6 +257,40 @@ public class TopicController {
                     .queryParam("back", requestContext.getBack())
                     .toUriString();
         }
+    }
+
+    @GetMapping("/admin/topics/**/{id}/delete")
+    public String topicDelete(@PathVariable long id, Model model) throws PageNotFoundException {
+        Topic topic = topicManager.beg(id);
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        int subtopicsCount = topicManager.getSubtopicsCount(topic.getId());
+        int postsCount = postingManager.getPostingsCount(topic.getId());
+
+        if (subtopicsCount == 0 && postsCount == 0) {
+            return UriComponentsBuilder.fromUriString("redirect:/actions/topic/delete")
+                    .queryParam("id", topic.getId())
+                    .queryParam("back", requestContext.getBack())
+                    .toUriString();
+        }
+
+        topicDeleteLocationInfo(topic, model);
+
+        model.addAttribute("topic", topic);
+        model.addAttribute("subtopics", topicManager.getSubtopicsCount(topic.getId()));
+        model.addAttribute("posts", postingManager.getPostingsCount(topic.getId()));
+        model.addAttribute("topicNames", topicManager.begNames(0, -1, true, true));
+        model.asMap().putIfAbsent("topicDeleteForm", new TopicDeleteForm(topic.getId()));
+        return "topic-delete";
+    }
+
+    public LocationInfo topicDeleteLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/topics/" + topic.getTrackPath() + "delete")
+                .withParent(adminTopicsLocationInfo(null))
+                .withPageTitle("Удаление темы");
     }
 
 }
