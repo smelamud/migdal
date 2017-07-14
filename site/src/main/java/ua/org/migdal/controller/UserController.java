@@ -70,7 +70,7 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("admin", false);
-        return "userinfo";
+        return "user-info";
     }
 
     public LocationInfo userInfoLocationInfo(String folder, String login, Model model) {
@@ -91,7 +91,7 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.asMap().putIfAbsent("userForm", new UserForm(user));
-        return "useredit";
+        return "user-edit";
     }
 
     public LocationInfo userEditLocationInfo(String folder, String login, Model model) {

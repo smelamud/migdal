@@ -117,7 +117,7 @@ public class TopicController {
         model.addAttribute("xmlid", 0);
         model.addAttribute("topicNames", topicManager.begNames(0, -1, true, false));
         model.asMap().putIfAbsent("topicForm", new TopicForm(new Topic(up, requestContext)));
-        return "topicedit";
+        return "topic-edit";
     }
 
     public LocationInfo topicAddLocationInfo(Topic up, Model model) {
@@ -139,7 +139,7 @@ public class TopicController {
         model.addAttribute("xmlid", requestContext.isUserModerator() ? topic.getId() : 0);
         model.addAttribute("topicNames", topicManager.begNames(0, -1, true, false));
         model.asMap().putIfAbsent("topicForm", new TopicForm(topic));
-        return "topicedit";
+        return "topic-edit";
     }
 
     public LocationInfo topicEditLocationInfo(Topic topic, Model model) {
