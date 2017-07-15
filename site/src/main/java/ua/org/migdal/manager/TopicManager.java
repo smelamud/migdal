@@ -180,9 +180,6 @@ public class TopicManager {
             catalogManager.updateCatalogs(oldTrack);
             trackManager.replaceTracks(oldTrack, destTopic.getTrack());
         }
-        /*sql("delete from cross_entries
-                where source_id=$id or peer_id=$id",
-                __FUNCTION__, 'delete_cross_topics');*/
     }
 
 }

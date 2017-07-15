@@ -182,6 +182,19 @@ def convert_entries(row):
         row['large_image_filename']
     ]
 
+def convert_cross_entries(row):
+    return [
+        row['id'],
+        row['source_name'],
+        row['source_id'],
+        row['link_type'],
+        row['peer_name'],
+        row['peer_id'],
+        row['peer_path'],
+        row['peer_subject'],
+        row['peer_icon']
+    ]
+
 csv.field_size_limit(300000)
 read_entry_grps()
 table_name = sys.argv[1]

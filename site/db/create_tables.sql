@@ -818,6 +818,22 @@ CREATE INDEX users_surname_idx ON users USING btree (surname);
 
 
 --
+-- Name: cross_entries_peer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY cross_entries
+    ADD CONSTRAINT cross_entries_peer_id_fkey FOREIGN KEY (peer_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cross_entries_source_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY cross_entries
+    ADD CONSTRAINT cross_entries_source_id_fkey FOREIGN KEY (source_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: entries_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
