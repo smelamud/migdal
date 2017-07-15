@@ -18,8 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long>, QueryDslPredi
     @Override
     <S extends User> S save(S s);
 
-    User findByIdAndHiddenLessThan(long id, short hidden);
-
     User findByLogin(String login);
 
     @Cacheable(value="users-id", unless="#result == null")

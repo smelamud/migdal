@@ -52,7 +52,8 @@ public class UserManager {
 
     public User beg(long id) {
         short hide = requestContext.isUserAdminUsers() ? (short) 2 : 1;
-        return userRepository.findByIdAndHiddenLessThan(id, hide);
+        User user = userRepository.findOne(id);
+        return user.getHidden() <  hide ? user : null;
     }
 
     public User getByLogin(String login) {
