@@ -177,8 +177,8 @@ public class TopicManager {
         topicRepository.delete(topic);
         topicRepository.flush();
         if (destTopic != null) {
+            catalogManager.updateCatalogs(oldTrack);
             trackManager.replaceTracks(oldTrack, destTopic.getTrack());
-            catalogManager.updateCatalogs(destTopic.getTrack());
         }
         /*sql("delete from cross_entries
                 where source_id=$id or peer_id=$id",

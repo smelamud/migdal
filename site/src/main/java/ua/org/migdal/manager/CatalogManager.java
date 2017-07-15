@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import ua.org.migdal.data.CatalogBuildProjection;
+import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.EntryRepository;
 import ua.org.migdal.util.CatalogUtils;
 
@@ -30,6 +31,11 @@ public class CatalogManager {
         entryRepository.updateCatalogById(id, catalog);
     }
 
+    /**
+     * Note that this method does not use {@link Entry#track} and can be used when
+     * track information is incorrect (for example, when entries are moved from one
+     * subtree to another).
+     */
     // FIXME this algoritm is memory-consuming
     public void updateCatalogs(String trackPrefix) {
         List<CatalogBuildProjection> list = entryRepository.findCatalogBuildInfoByTrackLikeOrderByTrack(
