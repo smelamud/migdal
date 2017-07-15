@@ -17,6 +17,7 @@ return $n>0;
 
 function reorderAction($ids,$count)
 {
+// Permissions???
 $ids=array_filter($ids,'positive');
 if(count($ids)<$count)
   return EO_LITTLE;
