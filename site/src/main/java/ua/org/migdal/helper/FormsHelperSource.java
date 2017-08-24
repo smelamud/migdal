@@ -469,18 +469,34 @@ public class FormsHelperSource {
     public CharSequence formOption(Options options) {
         CharSequence title = HelperUtils.mandatoryHash("title", options);
         Object value = HelperUtils.mandatoryHash("value", options);
-        boolean selected = HelperUtils.boolArg(options.hash("selected", false));
+        Object selectedValue = options.hash("selectedValue");
+        if (selectedValue == null) {
+            boolean selected = HelperUtils.boolArg(options.hash("selected", false));
+            return formOption(options, title, value, selected, selectedValue);
+        } else {
+            if (options.hash("selected") != null) {
+                throw new AmbiguousArgumentsException("selected", "selectedValue");
+            }
+            return formOption(options, title, value, false, selectedValue);
+        }
 
-        return formOption(options, title, value, selected);
     }
 
     CharSequence formOption(Options options, CharSequence title, Object value, boolean selected) {
+        return formOption(options, title, value, selected, null);
+    }
+
+    CharSequence formOption(Options options, CharSequence title, Object value, boolean selected, Object selectedValue) {
         StringBuilder buf = new StringBuilder();
         String style = options.get("FormSelectStyle");
         if (style.equals("list")) {
             buf.append("<option");
             HelperUtils.appendAttr(buf, "value", value);
-            HelperUtils.appendAttr(buf, "selected", selected);
+            if (selectedValue != null) {
+                HelperUtils.appendAttr(buf, "selected", selectedValue.equals(value));
+            } else {
+                HelperUtils.appendAttr(buf, "selected", selected);
+            }
             buf.append('>');
             buf.append(HelperUtils.he(title));
         } else if (style.equals("box")) {
@@ -493,7 +509,11 @@ public class FormsHelperSource {
             HelperUtils.appendAttr(buf, "type", type);
             HelperUtils.appendAttr(buf, "name", options.get("FormSelectName"));
             HelperUtils.appendAttr(buf, "value", value);
-            HelperUtils.appendAttr(buf, "checked", selected);
+            if (selectedValue != null) {
+                HelperUtils.appendAttr(buf, "checked", selectedValue.equals(value));
+            } else {
+                HelperUtils.appendAttr(buf, "checked", selected);
+            }
             buf.append('>');
             buf.append("</td>");
             buf.append("<td><label");
