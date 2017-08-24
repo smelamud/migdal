@@ -1,22 +1,6 @@
-<int name='id'>
-<int name='istopic'>
-<if what='$istopic'>
- <assign name='entry' value='*ENT_TOPIC'>
-<else>
- <assign name='entry' value='*ENT_POSTING'>
-</ifzero>
-
-<string name='login'>
-<string name='user_name'>
-<string name='group_login'>
-<string name='group_name'>
-<string name='perm_string'>
-<int name='recursive'>
-
 {{> part/preamble}}
 {{> part/top}}
 
-<perms id='$id'>
 {{#formTable title="Изменение прав на объект" mini=true}}
     {{formErrors}}
     <form method="post" action="/actions/entry/chmod">
@@ -24,14 +8,8 @@
         {{hidden name="id" value=chmodForm.id}}
         {{hidden name="entryType" value=chmodForm.entryType}}
         {{starInfo}}
-   <error id='*ECHM_NO_CHMOD' text#='Вы не можете менять права на данный объект'>
-   <error id='*ECHM_USER_EMPTY' text='Укажите имя пользователя'>
-   <error id='*ECHM_NO_USER' text='Такого пользователя не существует'>
         {{formEdit title="Владелец" name="userName" value=chmodForm.userName size="20" maxlength="30"}}
-   <error id='*ECHM_GROUP_EMPTY' text='Укажите имя группы'>
-   <error id='*ECHM_NO_GROUP' text='Такой группы не существует'>
         {{formEdit title="Группа" name="groupName" value=chmodForm.groupName size="20" maxlength="30"}}
-   <error id='*ECHM_BAD_PERMS' text='Права заданы некорректно'>
         {{formEdit title="Права" name="permString" value=chmodForm.permString size="17" maxlength="17"
                    comment="Права, которые менять не нужно, заменяйте вопросительными знаками"}}
         {{#formSelect title="Рекурсивно" name="recursive" style="box"}}
