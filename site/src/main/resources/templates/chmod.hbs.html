@@ -14,9 +14,9 @@
                    comment="Права, которые менять не нужно, заменяйте вопросительными знаками"}}
         {{#formSelect title="Рекурсивно" name="recursive" style="box"}}
             {{formOption title="Устанавливать эти права только для данного объекта" value=0
-                         selectedValue=chmodForm.recursive}}
+                         selected=(not chmodForm.recursive)}}
             {{formOption title="Устанавливать эти права для всех нижестоящих объектов" value=1
-                         selectedValue=chmodForm.recursive}}
+                         selected=chmodForm.recursive}}
         {{/formSelect}}
         {{formButtons title="Изменить"}}
     </form>

@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
+import ua.org.migdal.data.User;
+import ua.org.migdal.util.PermUtils;
+import ua.org.migdal.util.Utils;
 
 public class ChmodForm implements Serializable {
 
@@ -16,22 +18,18 @@ public class ChmodForm implements Serializable {
 
     private long id;
 
-    @NotBlank
-    private EntryType entryType;
+    private int entryType;
 
-    @NotBlank
     @Size(max=30)
     private String userName = "";
 
-    @NotBlank
     @Size(max=30)
     private String groupName = "";
 
-    @NotBlank
     @Size(max=17)
     private String permString = "";
 
-    private short recursive;
+    private boolean recursive;
 
     public ChmodForm() {
     }
@@ -42,6 +40,7 @@ public class ChmodForm implements Serializable {
         }
 
         id = entry.getId();
+        this.entryType = entryType.ordinal();
         userName = entry.getUser().getLogin();
         groupName = entry.getGroup().getLogin();
         permString = entry.getPermString();
@@ -63,11 +62,11 @@ public class ChmodForm implements Serializable {
         this.id = id;
     }
 
-    public EntryType getEntryType() {
+    public int getEntryType() {
         return entryType;
     }
 
-    public void setEntryType(EntryType entryType) {
+    public void setEntryType(int entryType) {
         this.entryType = entryType;
     }
 
@@ -95,12 +94,19 @@ public class ChmodForm implements Serializable {
         this.permString = permString;
     }
 
-    public short getRecursive() {
+    public boolean isRecursive() {
         return recursive;
     }
 
-    public void setRecursive(short recursive) {
+    public void setRecursive(boolean recursive) {
         this.recursive = recursive;
+    }
+
+    public void toEntry(Entry entry, User user, User group) {
+        entry.setUser(user);
+        entry.setGroup(group);
+        entry.setPerms(PermUtils.parse(getPermString()));
+        entry.setModified(Utils.now());
     }
 
 }

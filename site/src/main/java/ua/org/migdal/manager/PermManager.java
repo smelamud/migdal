@@ -1,6 +1,7 @@
 package ua.org.migdal.manager;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -12,8 +13,11 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.NumberPath;
 
 import ua.org.migdal.data.EntryRepository;
+import ua.org.migdal.data.EntryType;
+import ua.org.migdal.data.User;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Perm;
+import ua.org.migdal.util.PermUtils;
 
 @Service
 public class PermManager {
@@ -57,6 +61,22 @@ public class PermManager {
         builder.or(getMask(permsField, right << Perm.OTHER));
         builder.or(getMask(permsField, right << Perm.GUEST));
         return builder;
+    }
+
+    public void updateUserRecursive(EntryType entryType, String track, User user) {
+        entryRepository.updateUser(entryType, TrackManager.trackWildcard(track), user);
+    }
+
+    public void updateGroupRecursive(EntryType entryType, String track, User group) {
+        entryRepository.updateGroup(entryType, TrackManager.trackWildcard(track), group);
+    }
+
+    public void updatePermsRecursive(EntryType entryType, String track, String permMask) {
+        List<Long> permsVariety = entryRepository.permsVariety();
+        PermUtils.AndOrMask andOrMask = PermUtils.parseMask(permMask);
+        for (Long perms : permsVariety) {
+            entryRepository.updatePerms(entryType, TrackManager.trackWildcard(track), perms, andOrMask.apply(perms));
+        }
     }
 
 }

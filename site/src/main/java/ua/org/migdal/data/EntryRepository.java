@@ -15,6 +15,19 @@ public interface EntryRepository extends JpaRepository<Entry, Long>, QueryDslPre
     @Query("select distinct e.perms from Entry e")
     List<Long> permsVariety();
 
+    @Modifying
+    @Query("update Entry e set e.user=?3 where entryType=?1 and track like ?2")
+    void updateUser(EntryType entryType, String searchWildcard, User user);
+
+    @Modifying
+    @Query("update Entry e set e.group=?3 where entryType=?1 and track like ?2")
+    void updateGroup(EntryType entryType, String searchWildcard, User group);
+
+    @CacheEvict(cacheNames="entries-permsall")
+    @Modifying
+    @Query("update Entry e set e.perms=?4 where entryType=?1 and perms=?3 and track like ?2")
+    void updatePerms(EntryType entryType, String searchWildcard, long oldPerms, long newPerms);
+
     @Cacheable("entries-track")
     @Query("select e.track from Entry e where id=?1")
     String findTrackById(long id);

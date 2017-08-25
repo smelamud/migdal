@@ -24,6 +24,10 @@ public class PermUtils {
             return orMask;
         }
 
+        public long apply(long perms) {
+            return perms & andMask | orMask;
+        }
+
     }
 
     /**

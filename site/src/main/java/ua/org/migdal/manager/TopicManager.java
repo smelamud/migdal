@@ -12,6 +12,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.EntryRepository;
 import ua.org.migdal.data.IdNameProjection;
 import ua.org.migdal.data.QTopic;
@@ -24,7 +25,7 @@ import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Perm;
 
 @Service
-public class TopicManager {
+public class TopicManager implements EntryManagerBase {
 
     @Inject
     private Config config;
@@ -77,6 +78,14 @@ public class TopicManager {
 
         QTopic topic = QTopic.topic;
         return topicRepository.findOne(topic.id.eq(id).and(getPermFilter(topic, Perm.READ)));
+    }
+
+    @Override
+    public void save(Entry entry) {
+        if (!(entry instanceof Topic)) {
+            throw new IllegalArgumentException("TopicManager accepts Topic entries only");
+        }
+        save((Topic) entry);
     }
 
     public void save(Topic topic) {

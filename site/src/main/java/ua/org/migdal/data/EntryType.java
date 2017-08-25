@@ -8,6 +8,13 @@ public enum EntryType {
     TOPIC,
     IMAGE,
     COMPLAIN, // DEPRECATED
-    VERSION
+    VERSION;
+
+    public static EntryType valueOf(int n) {
+        if (n < 0 || n >= values().length) {
+            return null;
+        }
+        return values()[n];
+    }
 
 }
