@@ -1,0 +1,20 @@
+{{> part/preamble}}
+{{> part/top}}
+
+{{#formTable title="Расстановка" mini=true miniTitle=true}}
+    {{formErrors}}
+    <form method="post" action="/actions/entry/reorder">
+        {{hidden name="back" value=rc.back}}
+        {{#formComment}}Перетаскивайте элементы мышью{{/formComment}}
+        {{#formComment}}
+            <ul id="sortable" class="list-group">
+                {{#each entries}}
+                    <li class="list-group-item">{{subject}}{{hidden name="ids" value=id}}</li>
+                {{/each}}
+            </ul>
+        {{/formComment}}
+        {{formButtons title="Изменить"}}
+    </form>
+{{/formTable}}
+
+{{> part/bottom}}

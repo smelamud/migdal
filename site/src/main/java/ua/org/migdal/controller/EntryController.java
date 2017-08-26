@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import org.springframework.web.util.UriComponentsBuilder;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.EntryType;
@@ -177,6 +177,27 @@ public class EntryController {
                     .queryParam("back", requestContext.getBack())
                     .toUriString();
         }
+    }
+
+    @GetMapping("/admin/topics/**/{id}/reorder")
+    public String topicReorder(@PathVariable long id, Model model) throws PageNotFoundException {
+        Topic topic = topicManager.beg(id);
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        topicReorderLocationInfo(topic, model);
+
+        model.asMap().putIfAbsent("entries", topicManager.begAll(id, false, "index0"));
+        //model.asMap().putIfAbsent("chmodForm", new ChmodForm(topic));
+        return "reorder";
+    }
+
+    public LocationInfo topicReorderLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/topics/" + topic.getTrackPath() + "reorder")
+                .withParent(topicController.adminTopicsLocationInfo(null))
+                .withPageTitle("Расстановка подтем");
     }
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.querydsl.core.BooleanBuilder;
@@ -101,8 +102,12 @@ public class TopicManager implements EntryManagerBase {
     }
 
     public Iterable<Topic> begAll(long upId, boolean recursive) {
+        return begAll(upId, recursive, "subject");
+    }
+
+    public Iterable<Topic> begAll(long upId, boolean recursive, String sortField) {
         QTopic topic = QTopic.topic;
-        return topicRepository.findAll(getWhere(topic, upId, recursive), topic.subject.asc());
+        return topicRepository.findAll(getWhere(topic, upId, recursive), new Sort(Sort.Direction.ASC, sortField));
     }
 
     private Predicate getWhere(QTopic topic, long upId, boolean recursive) {
