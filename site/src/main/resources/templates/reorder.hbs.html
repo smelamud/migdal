@@ -9,7 +9,7 @@
         {{#formComment}}Перетаскивайте элементы мышью{{/formComment}}
         {{#formComment}}
             <ul id="sortable" class="list-group">
-                {{#each entries}}
+                {{#each reorderForm.entries}}
                     <li class="list-group-item">{{subject}}{{hidden name="ids" value=id}}</li>
                 {{/each}}
             </ul>

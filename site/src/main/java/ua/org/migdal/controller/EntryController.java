@@ -189,8 +189,8 @@ public class EntryController {
 
         topicReorderLocationInfo(topic, model);
 
-        model.addAttribute("entries", topicManager.begAll(id, false, "index0"));
         model.asMap().computeIfAbsent("reorderForm", key -> new ReorderForm(EntryType.TOPIC));
+        ((ReorderForm) model.asMap().get("reorderForm")).setEntries(topicManager.begAll(id, false, "index0"));
         return "reorder";
     }
 

@@ -5,7 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -134,6 +136,14 @@ public class Utils {
             array[i++] = x;
         }
         return array;
+    }
+
+    public static List<Long> toList(long[] array) {
+        List<Long> list = new ArrayList<>(array.length);
+        for (long x : array) {
+            list.add(x);
+        }
+        return list;
     }
 
 }
