@@ -19,6 +19,11 @@ public class PostingManager implements EntryManagerBase {
     }
 
     @Override
+    public Posting beg(long id) {
+        return null; // TBE
+    }
+
+    @Override
     public void save(Entry entry) {
         if (!(entry instanceof Posting)) {
             throw new IllegalArgumentException("PostingManager accepts Posting entries only");

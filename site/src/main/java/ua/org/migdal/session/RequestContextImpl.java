@@ -47,6 +47,7 @@ public class RequestContextImpl implements RequestContext {
     private String location;
     private String subdomain;
     private String back;
+    private String origin;
     private Boolean printMode;
     private long userId;
     private User user;
@@ -124,6 +125,8 @@ public class RequestContextImpl implements RequestContext {
         printMode = "1".equals(request.getParameter("print"));
         back = request.getParameter("back");
         back = back != null && LOCATION_REGEX.matcher(back).matches() ? back : null;
+        origin = request.getParameter("origin");
+        origin = origin != null && LOCATION_REGEX.matcher(origin).matches() ? origin : null;
     }
 
     @Override
@@ -157,6 +160,12 @@ public class RequestContextImpl implements RequestContext {
     public boolean isHasBack() {
         processRequest();
         return back != null;
+    }
+
+    @Override
+    public String getOrigin() {
+        processRequest();
+        return origin != null ? origin : "/";
     }
 
     @Override

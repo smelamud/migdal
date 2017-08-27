@@ -1,5 +1,7 @@
 package ua.org.migdal.controller;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -199,6 +201,64 @@ public class EntryController {
                 .withUri("/admin/topics/" + topic.getTrackPath() + "reorder")
                 .withParent(topicController.adminTopicsLocationInfo(null))
                 .withPageTitle("Расстановка подтем");
+    }
+
+    @PostMapping("/actions/entry/reorder")
+    public String actionReorder(
+            @ModelAttribute @Valid ReorderForm reorderForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        EntryType entryType = EntryType.valueOf(reorderForm.getEntryType());
+        EntryManagerBase manager;
+
+        switch (entryType) {
+            case TOPIC:
+                manager = topicManager;
+                break;
+            case POSTING:
+                // TODO Fetch posting and maybe do this via manager
+                manager = postingManager;
+                break;
+            default:
+                manager = null;
+                break;
+        }
+
+        new ControllerAction(EntryController.class, "actionReorder", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    if (manager == null) {
+                        return "unknownEntryType";
+                    }
+
+                    Set<Long> processedIds = new HashSet<>();
+                    int n = 1;
+                    for (long id : reorderForm.getIds()) {
+                        if (processedIds.contains(id)) {
+                            return "duplicate";
+                        }
+                        processedIds.add(id);
+
+                        Entry entry = manager.beg(id);
+                        if (!entry.isWritable()) {
+                            return "noWrite";
+                        }
+                        entry.setIndex0(n++);
+                        manager.save(entry);
+                    }
+
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("reorderForm", reorderForm);
+            return UriComponentsBuilder.fromUriString("redirect:" + requestContext.getOrigin())
+                    .replaceQueryParam("back", requestContext.getBack())
+                    .toUriString();
+        }
     }
 
 }

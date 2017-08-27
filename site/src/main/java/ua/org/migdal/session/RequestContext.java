@@ -18,6 +18,8 @@ public interface RequestContext {
 
     boolean isHasBack();
 
+    String getOrigin();
+
     boolean isPrintMode();
 
     long getUserId();

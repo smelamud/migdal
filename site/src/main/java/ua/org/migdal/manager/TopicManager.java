@@ -72,6 +72,7 @@ public class TopicManager implements EntryManagerBase {
         return topicRepository.findOne(id);
     }
 
+    @Override
     public Topic beg(long id) {
         if (id <= 0) {
             return getRoot();
