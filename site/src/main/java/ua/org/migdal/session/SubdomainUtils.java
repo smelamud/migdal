@@ -1,5 +1,7 @@
 package ua.org.migdal.session;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,16 +58,28 @@ public class SubdomainUtils {
         }
     }
 
+    private static String decodedQueryString(HttpServletRequest request) {
+        String queryString = request.getQueryString();
+        if (queryString != null) {
+            try {
+                queryString = URLDecoder.decode(queryString, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                queryString = "";
+            }
+        }
+        return queryString;
+    }
+
     public static UriComponentsBuilder createBuilderFromRequest(HttpServletRequest request) {
         return UriComponentsBuilder
                 .fromHttpUrl(request.getRequestURL().toString())
-                .query(request.getQueryString());
+                .query(decodedQueryString(request));
     }
 
     public static UriComponentsBuilder createLocalBuilderFromRequest(HttpServletRequest request) {
         return UriComponentsBuilder
                 .fromPath(request.getRequestURI())
-                .query(request.getQueryString());
+                .query(decodedQueryString(request));
     }
 
 }
