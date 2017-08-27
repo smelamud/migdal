@@ -21,6 +21,7 @@ import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.ChmodForm;
+import ua.org.migdal.form.ReorderForm;
 import ua.org.migdal.manager.EntryManagerBase;
 import ua.org.migdal.manager.PermManager;
 import ua.org.migdal.manager.PostingManager;
@@ -63,7 +64,7 @@ public class EntryController {
 
         topicChmodLocationInfo(topic, model);
 
-        model.asMap().putIfAbsent("chmodForm", new ChmodForm(topic));
+        model.asMap().computeIfAbsent("chmodForm", key -> new ChmodForm(topic));
         return "chmod";
     }
 
@@ -188,8 +189,8 @@ public class EntryController {
 
         topicReorderLocationInfo(topic, model);
 
-        model.asMap().putIfAbsent("entries", topicManager.begAll(id, false, "index0"));
-        //model.asMap().putIfAbsent("chmodForm", new ChmodForm(topic));
+        model.addAttribute("entries", topicManager.begAll(id, false, "index0"));
+        model.asMap().computeIfAbsent("reorderForm", key -> new ReorderForm(EntryType.TOPIC));
         return "reorder";
     }
 

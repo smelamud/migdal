@@ -122,7 +122,7 @@ public class TopicController {
 
         model.addAttribute("xmlid", 0);
         model.addAttribute("topicNames", topicManager.begNames(0, -1, true, false));
-        model.asMap().putIfAbsent("topicForm", new TopicForm(new Topic(up, requestContext)));
+        model.asMap().computeIfAbsent("topicForm", key -> new TopicForm(new Topic(up, requestContext)));
         return "topic-edit";
     }
 
@@ -144,7 +144,7 @@ public class TopicController {
 
         model.addAttribute("xmlid", requestContext.isUserModerator() ? topic.getId() : 0);
         model.addAttribute("topicNames", topicManager.begNames(0, -1, true, false));
-        model.asMap().putIfAbsent("topicForm", new TopicForm(topic));
+        model.asMap().computeIfAbsent("topicForm", key -> new TopicForm(topic));
         return "topic-edit";
     }
 
@@ -283,7 +283,7 @@ public class TopicController {
         model.addAttribute("subtopics", topicManager.getSubtopicsCount(topic.getId()));
         model.addAttribute("posts", postingManager.getPostingsCount(topic.getId()));
         model.addAttribute("topicNames", topicManager.begNames(0, -1, true, true));
-        model.asMap().putIfAbsent("topicDeleteForm", new TopicDeleteForm(topic.getId()));
+        model.asMap().computeIfAbsent("topicDeleteForm", key -> new TopicDeleteForm(topic.getId()));
         return "topic-delete";
     }
 

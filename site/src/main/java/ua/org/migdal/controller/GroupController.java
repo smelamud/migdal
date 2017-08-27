@@ -62,7 +62,7 @@ public class GroupController {
                                  Model model) {
         adminGroupsAddLocationInfo(model);
 
-        model.asMap().putIfAbsent("groupAddForm", new GroupAddForm(groupName, userName));
+        model.asMap().computeIfAbsent("groupAddForm", key -> new GroupAddForm(groupName, userName));
         return "admin-groups-add";
     }
 

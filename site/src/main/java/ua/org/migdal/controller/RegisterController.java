@@ -42,7 +42,7 @@ public class RegisterController {
     public String register(Model model) {
         registerLocationInfo(model);
 
-        model.asMap().putIfAbsent("userForm", new UserForm());
+        model.asMap().computeIfAbsent("userForm", key -> new UserForm());
         return "register";
     }
 
@@ -112,7 +112,7 @@ public class RegisterController {
         signinLocationInfo(model);
 
         model.addAttribute("novice", 1);
-        model.asMap().putIfAbsent("loginForm", new LoginForm());
+        model.asMap().computeIfAbsent("loginForm", key -> new LoginForm());
         return "signin";
     }
 
@@ -129,7 +129,7 @@ public class RegisterController {
         alreadyConfirmedLocationInfo(model);
 
         model.addAttribute("novice", 2);
-        model.asMap().putIfAbsent("loginForm", new LoginForm());
+        model.asMap().computeIfAbsent("loginForm", key -> new LoginForm());
         return "signin";
     }
 

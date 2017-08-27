@@ -56,9 +56,9 @@ public class LoginController {
 
         model.addAttribute("novice", 0);
         if (!requestContext.isLogged()) {
-            model.asMap().putIfAbsent("loginForm", new LoginForm());
+            model.asMap().computeIfAbsent("loginForm", key -> new LoginForm());
         } else {
-            model.asMap().putIfAbsent("suForm", new SuForm());
+            model.asMap().computeIfAbsent("suForm", key -> new SuForm());
         }
         return "signin";
     }
@@ -148,7 +148,7 @@ public class LoginController {
     public String recall(Model model) {
         recallLocationInfo(model);
 
-        model.asMap().putIfAbsent("recallPasswordForm", new RecallPasswordForm());
+        model.asMap().computeIfAbsent("recallPasswordForm", key -> new RecallPasswordForm());
         return "recall-password";
     }
 

@@ -5,6 +5,7 @@
     {{formErrors}}
     <form method="post" action="/actions/entry/reorder">
         {{hidden name="back" value=rc.back}}
+        {{hidden name="entryType" value=reorderForm.entryType}}
         {{#formComment}}Перетаскивайте элементы мышью{{/formComment}}
         {{#formComment}}
             <ul id="sortable" class="list-group">

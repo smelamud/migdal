@@ -90,7 +90,7 @@ public class UserController {
         userEditLocationInfo(folder, user.getLogin(), model);
 
         model.addAttribute("user", user);
-        model.asMap().putIfAbsent("userForm", new UserForm(user));
+        model.asMap().computeIfAbsent("userForm", key -> new UserForm(user));
         return "user-edit";
     }
 
