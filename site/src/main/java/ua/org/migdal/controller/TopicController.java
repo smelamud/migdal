@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import org.springframework.web.util.UriComponentsBuilder;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Topic;
@@ -60,6 +60,9 @@ public class TopicController {
 
     @Inject
     private IndexController indexController;
+
+    @Inject
+    private EntryController entryController;
 
     @GetMapping("/admin/topics")
     public String adminTopicsRoot(Model model) throws PageNotFoundException {
@@ -345,6 +348,44 @@ public class TopicController {
                     .queryParam("back", requestContext.getBack())
                     .toUriString();
         }
+    }
+
+    @GetMapping("/admin/topics/**/{id}/chmod")
+    public String topicChmod(@PathVariable long id, Model model) throws PageNotFoundException {
+        Topic topic = topicManager.beg(id);
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        topicChmodLocationInfo(topic, model);
+
+        return entryController.entryChmod(topic, model);
+    }
+
+    public LocationInfo topicChmodLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/topics/" + topic.getTrackPath() + "chmod")
+                .withParent(adminTopicsLocationInfo(null))
+                .withPageTitle("Изменение прав на тему");
+    }
+
+    @GetMapping("/admin/topics/**/{id}/reorder")
+    public String topicReorder(@PathVariable long id, Model model) throws PageNotFoundException {
+        Topic topic = topicManager.beg(id);
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        topicReorderLocationInfo(topic, model);
+
+        return entryController.entryReorder(id, model);
+    }
+
+    public LocationInfo topicReorderLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/topics/" + topic.getTrackPath() + "reorder")
+                .withParent(adminTopicsLocationInfo(null))
+                .withPageTitle("Расстановка подтем");
     }
 
 }

@@ -2,6 +2,7 @@ package ua.org.migdal.controller;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -10,16 +11,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.EntryType;
+import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.ChmodForm;
@@ -29,7 +28,6 @@ import ua.org.migdal.manager.PermManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
-import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.PermUtils;
 
@@ -54,27 +52,14 @@ public class EntryController {
     @Inject
     private PermManager permManager;
 
-    @Inject
-    private TopicController topicController;
-
-    @GetMapping("/admin/topics/**/{id}/chmod")
-    public String topicChmod(@PathVariable long id, Model model) throws PageNotFoundException {
-        Topic topic = topicManager.beg(id);
-        if (topic == null) {
-            throw new PageNotFoundException();
-        }
-
-        topicChmodLocationInfo(topic, model);
-
+    public String entryChmod(Topic topic, Model model) {
         model.asMap().computeIfAbsent("chmodForm", key -> new ChmodForm(topic));
         return "chmod";
     }
 
-    public LocationInfo topicChmodLocationInfo(Topic topic, Model model) {
-        return new LocationInfo(model)
-                .withUri("/admin/topics/" + topic.getTrackPath() + "chmod")
-                .withParent(topicController.adminTopicsLocationInfo(null))
-                .withPageTitle("Изменение прав на тему");
+    public String entryChmod(Posting posting, Model model) {
+        model.asMap().computeIfAbsent("chmodForm", key -> new ChmodForm(posting));
+        return "chmod";
     }
 
     @PostMapping("/actions/entry/chmod")
@@ -182,25 +167,10 @@ public class EntryController {
         }
     }
 
-    @GetMapping("/admin/topics/**/{id}/reorder")
-    public String topicReorder(@PathVariable long id, Model model) throws PageNotFoundException {
-        Topic topic = topicManager.beg(id);
-        if (topic == null) {
-            throw new PageNotFoundException();
-        }
-
-        topicReorderLocationInfo(topic, model);
-
+    public String entryReorder(long id, Model model) {
         model.asMap().computeIfAbsent("reorderForm", key -> new ReorderForm(EntryType.TOPIC));
         ((ReorderForm) model.asMap().get("reorderForm")).setEntries(topicManager.begAll(id, false, "index0"));
         return "reorder";
-    }
-
-    public LocationInfo topicReorderLocationInfo(Topic topic, Model model) {
-        return new LocationInfo(model)
-                .withUri("/admin/topics/" + topic.getTrackPath() + "reorder")
-                .withParent(topicController.adminTopicsLocationInfo(null))
-                .withPageTitle("Расстановка подтем");
     }
 
     @PostMapping("/actions/entry/reorder")
