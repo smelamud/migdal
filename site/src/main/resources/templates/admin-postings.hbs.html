@@ -1,0 +1,200 @@
+{{!
+<int_array name='topic_id'>
+<int_array name='recursive'>
+<int name='offset'>
+<int_array name='grp'>
+<if what='!$grp'>
+ <grp_array name='grp' grp='*GRP_TAPE'>
+</if>
+<int name='index1'>
+<int name='use_index1'>
+<int name='shadows'>
+}}
+
+{{#*inline "batcher"}} {{! params: list }}
+    <div class="batcher">
+        <div class="adder">
+            <image src="/pics/sheet.gif">&sp;
+            <a href="/admin/postings/add/?grp=*GRP_NEWS&full=1&redirid=$_">Добавить сообщение</a>
+        </div>
+        <spin list="$list">
+        <div class="clear-floats"></div>
+    </div>
+{{/inline}}
+
+{{!
+<element name='error_lines'>
+<if what='$$err!=0'>
+ <table>
+  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
+  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+  <error id='*EMR_NO_RENEW' text='Вы не модератор'>
+  <error id='*EMR_NO_ENTRY' text='Такого сообщения не существует'>
+  <error id='*EPD_NO_DELETE' text='Вы не модератор'>
+  <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'>
+ </table>
+</if>
+</element>
+}}
+
+{{#*inline "topic_choice"}} {{! params: title,id,n,recursive }}
+    <tr>
+        <td>$title</td>
+        <td><topicselect name="topic_id[]" value="$id"></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            <checkbox title="С подтемами" name#="recursive($n)" checked="$recursive">
+        </td>
+    </tr>
+{{/inline}}
+
+{{#*inline "post"}} {{! params: posting }}
+<ifnzero what="$posting.isShadow"><blockquote></ifnzero>
+    <table class="posting" width="100%">
+        <tr><td>
+            <iterate_topic_hierarchy topic_id="$posting.TopicId">
+            <a href="$[topic_id=$posting.TopicId]" class="posting-topic"><asp>
+                <for>
+                    <if what="!$;isFirst">&sp;::&sp;</if>
+                    $=.Subject
+                </for>
+            <asp></a>
+            // $=posting.GrpTitle
+        </td></tr>
+        <tr><td>
+            <b><a href="$posting.GrpDetailsHref">$=posting.Heading</a></b>
+            <ifne what="$posting.Ident">
+                [$posting.Ident=$posting.Id]
+            <else>
+                [$posting.Id]
+            </ifne>
+        </td></tr>
+        <ifnzero what="$posting.VoteCount">
+            <tr><td>
+                $posting.RatingString
+                &nbsp;
+                <array vals="голос,голоса,голосов">
+                <plural value="$posting.VoteCount">
+                ($posting.VoteCount&sp;$,)
+            </td></tr>
+        </ifnzero>
+        <if what="$posting.hasImage">
+            <tr><td>
+                <a href="$posting.ImageURL">Картинка</a>
+                &nbsp;
+                ${posting.ImageX}x${posting.ImageY}, ${posting.ImageSizeKB}KB
+            </td></tr>
+        </if>
+        <tr><td class="sent">
+            <sentview date="$posting.Sent">&nbsp;<asp>
+            <asp>(<asp><sentview date="$posting.Modified">)
+            <senderlink message="$posting">
+        </td></tr>
+        <tr><td class="posting-bottom">
+            <if what="$posting.isHidden">
+                <b>[X]</b>
+                &nbsp;
+            </if>
+            <a href="/admin/postings/$posting.Id/edit/?full=1&redirid=$_">Изменить</a>
+            &nbsp;
+            <if what="$posting.isDisabled">
+                <a href="/actions/entry/moderate?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-">Разрешить&nbsp;показ</a>
+            <else>
+                <a href="/actions/entry/moderate?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-">Запретить&nbsp;показ</a>
+            </if>
+            &nbsp;
+            <a href="/actions/posting/copy?postid=$posting.Id&okdir=$#-&faildir=$#-">Скопировать</a>
+            &nbsp;
+            <a href="/actions/entry/renew?id=$posting.Id&okdir=$#-&faildir=$#-">Осовременить</a>
+            &nbsp;
+            <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-">Удалить</a>
+            &nbsp;
+            <a href="/admin/postings/$posting.Id/chmod/?redirid=$_">Права</a>
+            &nbsp;
+            <a href="/admin/postings/$posting.Id/modbits/?redirid=$_">Флаги</a>
+        </td></tr>
+    </table>
+    <ifnzero what="$posting.isShadow"></blockquote></ifnzero>
+    <p>
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<iterate_postinglist limit=20 offset='$offset' topic_id='$topic_id'
+                     recursive='$recursive' showshadows='$shadows' grp='$grp'
+                     index1!='$use_index1 ? $index1 : -1'>
+<table width="100%" cellpadding="5">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{topics}}
+        </td>
+        <td style="padding: 0">
+            <table class="ninept nframe" style="padding: 5px">
+                <form method="post" action="/actions/admin/postings">
+                    <hidden name="okdir" value="$-">
+                    <hidden name="faildir" value="$-">
+                    <tr><td colspan="2">
+                        {{subtitle}}
+                    </td></tr>
+                    <tr><td align="left" colspan="2"><table><zone>
+                        <assign name="title" value="Тема">
+                        <iterate_array values="$topic_id">
+                        <assign name="n" value=0>
+                        <for>
+                            <assign name="id" value!="abs($.)">
+                            <assign name="rec" value!="$recursive[$n]">
+                            <topic_choice title="$title" id="$id" n="$n" recursive="$rec">
+                            <assign name="title" value="<i>Или</i>">
+                            <assign name="n" value!="$n+1">
+                        </for>
+                        <topic_choice title="$title" id="0" n="$n" recursive="*true">
+                    </zone></table></td></tr>
+                    <tr><td align="left" colspan="2">Тип сообщения</td></tr>
+                    <tr valign="top">
+                        <td align="left">
+                            <grpselect name="grp[]" value="$grp" size="6" multiple="*true">
+                        </td>
+                        <td align="left"><table>
+                            <tr>
+                                <td><checkbox_button name="use_index1" checked="$use_index1"></td>
+                                <td>Номер </td>
+                                <td><edit name="index1" value="$index1" size="8" maxlength="8"></td>
+                            </tr>
+                            <tr>
+                                <td><checkbox_button name="shadows" checked="$shadows"></td>
+                                <td colspan="2">Показывать все тени</td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                    <tr><td align="left" colspan="2">
+                        <table cellspacing="10"><tr>
+                            <td><input type="submit" value="Просмотр"></td>
+                            <td><input type="reset" value="Очистить"></td>
+                        </tr></table>
+                    </td></tr>
+                </form>
+                <assign name="size" value="$;Size">
+                <tr><td class="info" colspan="2">
+                    <array vals="сообщение,сообщения,сообщений">
+                    <plural value="$size">
+                    Выбрано&nbsp;<em>$size</em>&nbsp;$,
+                </td></tr>
+            </table>
+            <table class="ninept cframe" width=100%><tr><td>
+                <error_lines>
+                <batcher list="$;">
+                <ifnzero what="$;Count">
+                    <for>
+                        <post posting="$.">
+                    </for>
+                    <batcher list="$;">
+                </ifnzero>
+            </td></tr></table>
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
