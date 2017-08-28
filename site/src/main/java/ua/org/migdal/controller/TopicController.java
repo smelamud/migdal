@@ -378,7 +378,7 @@ public class TopicController {
 
         topicReorderLocationInfo(topic, model);
 
-        return entryController.entryReorder(id, model);
+        return entryController.entryReorder(topicManager.begAll(id, false, "index0"), model);
     }
 
     public LocationInfo topicReorderLocationInfo(Topic topic, Model model) {

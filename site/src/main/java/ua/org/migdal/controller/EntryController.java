@@ -167,9 +167,9 @@ public class EntryController {
         }
     }
 
-    public String entryReorder(long id, Model model) {
+    public <T extends Entry> String entryReorder(Iterable<T> entries, Model model) {
         model.asMap().computeIfAbsent("reorderForm", key -> new ReorderForm(EntryType.TOPIC));
-        ((ReorderForm) model.asMap().get("reorderForm")).setEntries(topicManager.begAll(id, false, "index0"));
+        ((ReorderForm) model.asMap().get("reorderForm")).setEntries(entries);
         return "reorder";
     }
 
