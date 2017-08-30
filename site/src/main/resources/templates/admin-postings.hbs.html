@@ -126,18 +126,23 @@
 <iterate_postinglist limit=20 offset='$offset' topic_id='$topic_id'
                      recursive='$recursive' showshadows='$shadows' grp='$grp'
                      index1!='$use_index1 ? $index1 : -1'>
-<table width="100%" cellpadding="5">
+<style>
+    .padded TD {
+        padding: 5px;
+    }
+</style>
+<table class="page-layout">
     <tr valign="top">
         <td width="150" class="eframe">
             {{topics}}
         </td>
         <td style="padding: 0">
             <form method="get" action="/admin/postings">
-                <table class="ninept nframe" cellspacing="5" cellpadding="5">
+                <table class="ninept nframe padded">
                     <tr><td colspan="2">
                         {{subtitle}}
                     </td></tr>
-                    <tr><td align="left" colspan="2"><table cellspacing="5" cellpadding="5">
+                    <tr><td align="left" colspan="2"><table>
                         {{#assign "title"}}Тема{{/assign}}
                         {{#each adminPostingsForm.topicChoices}}
                             {{> topicChoice title=title n=n id=topicId recursive=recursive}}
@@ -151,13 +156,9 @@
                         </td>
                         <td align="left"><table>
                             <tr>
-                                <td><checkbox_button name="use_index1" checked="$use_index1"></td>
+                                <td>{{checkboxButton name="useIndex1" checked=adminPostingsForm.useIndex1}}</td>
                                 <td>Номер </td>
-                                <td><edit name="index1" value="$index1" size="8" maxlength="8"></td>
-                            </tr>
-                            <tr>
-                                <td><checkbox_button name="shadows" checked="$shadows"></td>
-                                <td colspan="2">Показывать все тени</td>
+                                <td>{{edit name="index1" value=adminPostingsForm.index1 size="8" maxlength="8"}}</td>
                             </tr>
                         </table></td>
                     </tr>

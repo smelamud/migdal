@@ -52,6 +52,8 @@ public class AdminPostingsForm implements Serializable {
     private long[] topicIds = new long[0];
     private int[] recursive = new int[0];
     private long[] grps = new long[0];
+    private boolean useIndex1;
+    private int index1;
 
     public AdminPostingsForm() {
         grps = GrpEnum.getInstance().group("TAPE");
@@ -96,6 +98,22 @@ public class AdminPostingsForm implements Serializable {
 
     public void setGrps(long[] grps) {
         this.grps = grps;
+    }
+
+    public boolean isUseIndex1() {
+        return useIndex1;
+    }
+
+    public void setUseIndex1(boolean useIndex1) {
+        this.useIndex1 = useIndex1;
+    }
+
+    public int getIndex1() {
+        return index1;
+    }
+
+    public void setIndex1(int index1) {
+        this.index1 = index1;
     }
 
 }
