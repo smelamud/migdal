@@ -37,15 +37,15 @@
 </element>
 }}
 
-{{#*inline "topic_choice"}} {{! params: title,id,n,recursive }}
+{{#*inline "topicChoice"}} {{! params: title,n,id,recursive }}
     <tr>
-        <td>$title</td>
-        <td><topicselect name="topic_id[]" value="$id"></td>
+        <td>{{{title}}}</td>
+        <td>{{topicSelect list=topicNames name="topicIds" value=id}}</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td>
-            <checkbox title="С подтемами" name#="recursive($n)" checked="$recursive">
+            {{checkbox title="С подтемами" name="recursive" value=n checked=recursive}}
         </td>
     </tr>
 {{/inline}}
@@ -132,26 +132,18 @@
             {{topics}}
         </td>
         <td style="padding: 0">
-            <table class="ninept nframe" style="padding: 5px">
-                <form method="post" action="/actions/admin/postings">
-                    <hidden name="okdir" value="$-">
-                    <hidden name="faildir" value="$-">
+            <form method="get" action="/admin/postings">
+                <table class="ninept nframe"  cellspacing="5" cellpadding="5">
                     <tr><td colspan="2">
                         {{subtitle}}
                     </td></tr>
-                    <tr><td align="left" colspan="2"><table><zone>
-                        <assign name="title" value="Тема">
-                        <iterate_array values="$topic_id">
-                        <assign name="n" value=0>
-                        <for>
-                            <assign name="id" value!="abs($.)">
-                            <assign name="rec" value!="$recursive[$n]">
-                            <topic_choice title="$title" id="$id" n="$n" recursive="$rec">
-                            <assign name="title" value="<i>Или</i>">
-                            <assign name="n" value!="$n+1">
-                        </for>
-                        <topic_choice title="$title" id="0" n="$n" recursive="*true">
-                    </zone></table></td></tr>
+                    <tr><td align="left" colspan="2"><table>
+                        {{#assign "title"}}Тема{{/assign}}
+                        {{#each adminPostingsForm.topicChoices}}
+                            {{> topicChoice title=title n=n id=topicId recursive=recursive}}
+                            {{#assign "title"}}<i>Или</i>{{/assign}}
+                        {{/each}}
+                    </table></td></tr>
                     <tr><td align="left" colspan="2">Тип сообщения</td></tr>
                     <tr valign="top">
                         <td align="left">
@@ -175,15 +167,15 @@
                             <td><input type="reset" value="Очистить"></td>
                         </tr></table>
                     </td></tr>
-                </form>
-                <assign name="size" value="$;Size">
-                <tr><td class="info" colspan="2">
-                    <array vals="сообщение,сообщения,сообщений">
-                    <plural value="$size">
-                    Выбрано&nbsp;<em>$size</em>&nbsp;$,
-                </td></tr>
-            </table>
-            <table class="ninept cframe" width=100%><tr><td>
+                    <assign name="size" value="$;Size">
+                    <tr><td class="info" colspan="2">
+                        <array vals="сообщение,сообщения,сообщений">
+                        <plural value="$size">
+                        Выбрано&nbsp;<em>$size</em>&nbsp;$,
+                    </td></tr>
+                </table>
+            </form>
+            <table class="ninept cframe" width="100%"><tr><td>
                 <error_lines>
                 <batcher list="$;">
                 <ifnzero what="$;Count">
