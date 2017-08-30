@@ -1,7 +1,9 @@
 package ua.org.migdal.grp;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +28,7 @@ public class GrpEnum {
     private static GrpEnum instance;
 
     public long all;
+    private Map<String, Long> groups = new HashMap<>();
 
     private List<GrpDescriptor> grps;
 
@@ -44,6 +47,13 @@ public class GrpEnum {
         for (GrpDescriptor grp : grps) {
             log.info("- {}({})", grp.getName(), grp.getBit());
             all |= grp.getValue();
+            for (String groupName : grp.getGroups()) {
+                if (!groups.containsKey(groupName)) {
+                    groups.put(groupName, grp.getValue());
+                } else {
+                    groups.put(groupName, groups.get(groupName) | grp.getValue());
+                }
+            }
         }
     }
 
@@ -53,6 +63,15 @@ public class GrpEnum {
 
     public List<GrpDescriptor> getGrps() {
         return grps;
+    }
+
+    public long[] group(String name) {
+        return parse(groupValue(name));
+    }
+
+    public long groupValue(String name) {
+        Long value = groups.get(name);
+        return value != null ? value : 0;
     }
 
     public long[] parse(long grp) {

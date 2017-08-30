@@ -133,11 +133,11 @@
         </td>
         <td style="padding: 0">
             <form method="get" action="/admin/postings">
-                <table class="ninept nframe"  cellspacing="5" cellpadding="5">
+                <table class="ninept nframe" cellspacing="5" cellpadding="5">
                     <tr><td colspan="2">
                         {{subtitle}}
                     </td></tr>
-                    <tr><td align="left" colspan="2"><table>
+                    <tr><td align="left" colspan="2"><table cellspacing="5" cellpadding="5">
                         {{#assign "title"}}Тема{{/assign}}
                         {{#each adminPostingsForm.topicChoices}}
                             {{> topicChoice title=title n=n id=topicId recursive=recursive}}
@@ -147,7 +147,7 @@
                     <tr><td align="left" colspan="2">Тип сообщения</td></tr>
                     <tr valign="top">
                         <td align="left">
-                            <grpselect name="grp[]" value="$grp" size="6" multiple="*true">
+                            {{grpSelect name="grps" value=adminPostingsForm.grps size="6" multiple=true}}
                         </td>
                         <td align="left"><table>
                             <tr>
