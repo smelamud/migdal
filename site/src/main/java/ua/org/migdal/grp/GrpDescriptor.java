@@ -3,6 +3,11 @@ package ua.org.migdal.grp;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.ParserContext;
+
 public class GrpDescriptor {
 
     private String name;
@@ -18,16 +23,19 @@ public class GrpDescriptor {
     private String publishGrp;
 
     private String heading = "${subject}";
+    private Expression headingExpression;
 
     /**
      * Page to show the posting's topic ("general view")
      */
     private String generalHref = "";
+    private Expression generalHrefExpression;
 
     /**
      * Page to show the posting's details ("best view")
      */
     private String detailsHref = "";
+    private Expression detailsHrefExpression;
 
     /**
      * Template to show the posting's details
@@ -113,6 +121,10 @@ public class GrpDescriptor {
         this.heading = heading;
     }
 
+    public String getHeading(EvaluationContext evaluationContext) {
+        return headingExpression.getValue(evaluationContext, String.class);
+    }
+
     public String getGeneralHref() {
         return generalHref;
     }
@@ -121,12 +133,20 @@ public class GrpDescriptor {
         this.generalHref = generalHref;
     }
 
+    public String getGeneralHref(EvaluationContext evaluationContext) {
+        return generalHrefExpression.getValue(evaluationContext, String.class);
+    }
+
     public String getDetailsHref() {
         return detailsHref;
     }
 
     public void setDetailsHref(String detailsHref) {
         this.detailsHref = detailsHref;
+    }
+
+    public String getDetailsHref(EvaluationContext evaluationContext) {
+        return detailsHrefExpression.getValue(evaluationContext, String.class);
     }
 
     public String getDetailsTemplate() {
@@ -175,6 +195,13 @@ public class GrpDescriptor {
 
     public void setEditors(List<GrpEditor> editors) {
         this.editors = editors;
+    }
+
+    public void parseExpressions(ExpressionParser parser) {
+        ParserContext parserContext = new TemplateParserContext();
+        headingExpression = parser.parseExpression(heading, parserContext);
+        generalHrefExpression = parser.parseExpression(generalHref, parserContext);
+        detailsHrefExpression = parser.parseExpression(detailsHref, parserContext);
     }
 
 }

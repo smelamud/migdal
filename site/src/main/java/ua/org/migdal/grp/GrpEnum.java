@@ -12,6 +12,8 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -45,8 +47,10 @@ public class GrpEnum {
                 new TypeReference<List<GrpDescriptor>>() {
                 });
         log.info("Loaded {} grps:", grps.size());
+        ExpressionParser parser = new SpelExpressionParser();
         for (GrpDescriptor grp : grps) {
             log.info("- {}({})", grp.getName(), grp.getBit());
+            grp.parseExpressions(parser);
             all |= grp.getValue();
             grpMap.put(grp.getValue(), grp);
             for (String groupName : grp.getGroups()) {
