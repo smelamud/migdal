@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.data.util.Pair;
 import ua.org.migdal.grp.GrpEnum;
 
 public class AdminPostingsForm implements Serializable {
@@ -53,7 +55,7 @@ public class AdminPostingsForm implements Serializable {
     private int[] recursive = new int[0];
     private long[] grps = new long[0];
     private boolean useIndex1;
-    private int index1;
+    private long index1;
 
     public AdminPostingsForm() {
         grps = GrpEnum.getInstance().group("TAPE");
@@ -81,15 +83,21 @@ public class AdminPostingsForm implements Serializable {
 
         if (topicIds != null) {
             for (int i = 0; i < topicIds.length; i++) {
-                boolean rcv = Arrays.binarySearch(recursive, i) >= 0;
-                choices.add(new TopicChoice(i, topicIds[i], rcv));
+                if (topicIds[i] > 0) {
+                    boolean rcv = Arrays.binarySearch(recursive, i) >= 0;
+                    choices.add(new TopicChoice(i, topicIds[i], rcv));
+                }
             }
         }
-        if (topicIds == null || topicIds.length == 0 || topicIds[topicIds.length - 1] > 0) {
-            choices.add(new TopicChoice(topicIds != null ? topicIds.length : 0, 0, true));
-        }
+        choices.add(new TopicChoice(topicIds != null ? topicIds.length : 0, 0, true));
 
         return choices;
+    }
+
+    public List<Pair<Long, Boolean>> getTopicRoots() {
+        return getTopicChoices().stream()
+                .map(choice -> Pair.of(choice.getTopicId(), choice.isRecursive()))
+                .collect(Collectors.toList());
     }
 
     public long[] getGrps() {
@@ -108,11 +116,11 @@ public class AdminPostingsForm implements Serializable {
         this.useIndex1 = useIndex1;
     }
 
-    public int getIndex1() {
+    public long getIndex1() {
         return index1;
     }
 
-    public void setIndex1(int index1) {
+    public void setIndex1(long index1) {
         this.index1 = index1;
     }
 

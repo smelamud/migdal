@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import ua.org.migdal.form.AdminPostingsForm;
+import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.LocationInfo;
 
@@ -18,6 +19,9 @@ public class PostingController {
     private TopicManager topicManager;
 
     @Inject
+    private PostingManager postingManager;
+
+    @Inject
     private IndexController indexController;
 
     @GetMapping("/admin/postings")
@@ -26,6 +30,11 @@ public class PostingController {
 
         model.addAttribute("topicNames", topicManager.begNames(0, -1, false, false));
         model.addAttribute("adminPostingsForm", adminPostingsForm);
+        model.addAttribute("postings",
+                postingManager.begAll(
+                        adminPostingsForm.getTopicRoots(),
+                        adminPostingsForm.getGrps(),
+                        adminPostingsForm.isUseIndex1() ? adminPostingsForm.getIndex1() : null));
         return "admin-postings";
     }
 

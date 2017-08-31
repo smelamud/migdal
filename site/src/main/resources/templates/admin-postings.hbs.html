@@ -51,7 +51,6 @@
 {{/inline}}
 
 {{#*inline "post"}} {{! params: posting }}
-<ifnzero what="$posting.isShadow"><blockquote></ifnzero>
     <table class="posting" width="100%">
         <tr><td>
             <iterate_topic_hierarchy topic_id="$posting.TopicId">
@@ -64,12 +63,12 @@
             // $=posting.GrpTitle
         </td></tr>
         <tr><td>
-            <b><a href="$posting.GrpDetailsHref">$=posting.Heading</a></b>
-            <ifne what="$posting.Ident">
-                [$posting.Ident=$posting.Id]
-            <else>
-                [$posting.Id]
-            </ifne>
+            <b><a href="$posting.GrpDetailsHref">{{posting.subject}}$=posting.Heading</a></b>
+            {{#if posting.ident}}
+                [{{posting.ident}}={{posting.id}}]
+            {{else}}
+                [{{posting.id}}]
+            {{/if}}
         </td></tr>
         <ifnzero what="$posting.VoteCount">
             <tr><td>
@@ -116,7 +115,6 @@
             <a href="/admin/postings/$posting.Id/modbits/?redirid=$_">Флаги</a>
         </td></tr>
     </table>
-    <ifnzero what="$posting.isShadow"></blockquote></ifnzero>
     <p>
 {{/inline}}
 
@@ -180,9 +178,9 @@
                 <error_lines>
                 <batcher list="$;">
                 <ifnzero what="$;Count">
-                    <for>
-                        <post posting="$.">
-                    </for>
+                    {{#each postings}}
+                        {{> post posting=this}}
+                    {{/each}}
                     <batcher list="$;">
                 </ifnzero>
             </td></tr></table>
