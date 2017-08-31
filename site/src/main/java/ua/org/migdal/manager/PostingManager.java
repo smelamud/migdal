@@ -50,6 +50,11 @@ public class PostingManager implements EntryManagerBase {
                 new PageRequest(offset / limit, limit, Sort.Direction.DESC, "sent"));
     }
 
+    public long countAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1) {
+        QPosting posting = QPosting.posting;
+        return postingRepository.count(getWhere(posting, topicRoots, grps, index1));
+    }
+
     private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1) {
         BooleanBuilder where = new BooleanBuilder();
         if (topicRoots != null) {

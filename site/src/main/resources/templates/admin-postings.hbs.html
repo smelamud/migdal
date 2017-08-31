@@ -1,41 +1,27 @@
-{{!
-<int_array name='topic_id'>
-<int_array name='recursive'>
-<int name='offset'>
-<int_array name='grp'>
-<if what='!$grp'>
- <grp_array name='grp' grp='*GRP_TAPE'>
-</if>
-<int name='index1'>
-<int name='use_index1'>
-<int name='shadows'>
-}}
-
 {{#*inline "batcher"}} {{! params: list }}
     <div class="batcher">
         <div class="adder">
             {{image "/pics/sheet.gif"}}
-            <a href="/admin/postings/add/?grp=*GRP_NEWS&full=1&redirid=$_">Добавить сообщение</a>
+            <a href="/admin/postings/add/?grp=*GRP_NEWS&amp;full=1&amp;redirid=$_">Добавить сообщение</a>
         </div>
         {{spin list}}
         <div class="clear-floats"></div>
     </div>
 {{/inline}}
 
-{{!
-<element name='error_lines'>
-<if what='$$err!=0'>
- <table>
-  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
+{{#*inline "errorLines"}}
+    {{#if errors}}
+        <table>
+            {{formErrors}}
+        </table>
+    {{/if}}
+{{!  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
   <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
   <error id='*EMR_NO_RENEW' text='Вы не модератор'>
   <error id='*EMR_NO_ENTRY' text='Такого сообщения не существует'>
   <error id='*EPD_NO_DELETE' text='Вы не модератор'>
-  <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'>
- </table>
-</if>
-</element>
-}}
+  <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'> }}
+{{/inline}}
 
 {{#*inline "topicChoice"}} {{! params: title,n,id,recursive }}
     <tr>
@@ -53,13 +39,12 @@
 {{#*inline "post"}} {{! params: posting }}
     <table class="posting" width="100%">
         <tr><td>
-            <iterate_topic_hierarchy topic_id="$posting.TopicId">
-            <a href="$[topic_id=$posting.TopicId]" class="posting-topic"><asp>
-                <for>
-                    <if what="!$;isFirst">&sp;::&sp;</if>
-                    $=.Subject
-                </for>
-            <asp></a>
+            <a href="$[topic_id=$posting.TopicId]" class="posting-topic">
+                {{#each posting.ancestors}}
+                    {{subject}}
+                    {{#unless @last}} :: {{/unless}}
+                {{/each}}
+            </a>
             // $=posting.GrpTitle
         </td></tr>
         <tr><td>
@@ -92,23 +77,23 @@
             <senderlink message="$posting">
         </td></tr>
         <tr><td class="posting-bottom">
-            <if what="$posting.isHidden">
+            {{#if pposting.hidden}}
                 <b>[X]</b>
                 &nbsp;
-            </if>
-            <a href="/admin/postings/$posting.Id/edit/?full=1&redirid=$_">Изменить</a>
+            {{/if}}
+            <a href="/admin/postings/$posting.Id/edit/?full=1&amp;redirid=$_">Изменить</a>
             &nbsp;
             <if what="$posting.isDisabled">
-                <a href="/actions/entry/moderate?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-">Разрешить&nbsp;показ</a>
+                <a href="/actions/entry/moderate?editid=$posting.Id&amp;hide=0&amp;okdir=$#-&amp;faildir=$#-">Разрешить&nbsp;показ</a>
             <else>
-                <a href="/actions/entry/moderate?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-">Запретить&nbsp;показ</a>
+                <a href="/actions/entry/moderate?editid=$posting.Id&amp;hide=1&amp;okdir=$#-&amp;faildir=$#-">Запретить&nbsp;показ</a>
             </if>
             &nbsp;
-            <a href="/actions/posting/copy?postid=$posting.Id&okdir=$#-&faildir=$#-">Скопировать</a>
+            <a href="/actions/posting/copy?postid=$posting.Id&amp;okdir=$#-&amp;faildir=$#-">Скопировать</a>
             &nbsp;
-            <a href="/actions/entry/renew?id=$posting.Id&okdir=$#-&faildir=$#-">Осовременить</a>
+            <a href="/actions/entry/renew?id=$posting.Id&amp;okdir=$#-&amp;faildir=$#-">Осовременить</a>
             &nbsp;
-            <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-">Удалить</a>
+            <a href="/actions/posting/delete?id=$posting.Id&amp;okdir=$#-&amp;faildir=$#-">Удалить</a>
             &nbsp;
             <a href="/admin/postings/$posting.Id/chmod/?redirid=$_">Права</a>
             &nbsp;
@@ -163,16 +148,13 @@
                             <td><input type="reset" value="Очистить"></td>
                         </tr></table>
                     </td></tr>
-                    <assign name="size" value="$;Size">
                     <tr><td class="info" colspan="2">
-                        <array vals="сообщение,сообщения,сообщений">
-                        <plural value="$size">
-                        Выбрано&nbsp;<em>$size</em>&nbsp;$,
+                        Выбрано&nbsp;<em>{{postingsTotal}}</em>&nbsp;{{plural postingsTotal "сообщение,сообщения,сообщений"}}
                     </td></tr>
                 </table>
             </form>
             <table class="ninept cframe" width="100%"><tr><td>
-                <error_lines>
+                {{> errorLines}}
                 {{> batcher list=postings}}
                 {{#if postings}}
                     {{#each postings}}

@@ -1,7 +1,9 @@
 package ua.org.migdal.data;
 
+import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import org.hibernate.Hibernate;
 import ua.org.migdal.session.RequestContext;
@@ -10,6 +12,17 @@ import ua.org.migdal.session.RequestContextImpl;
 @Entity
 @DiscriminatorValue("1")
 public class Posting extends Entry {
+
+    @Transient
+    private List<Topic> ancestors;
+
+    public List<Topic> getAncestors() {
+        return ancestors;
+    }
+
+    public void setAncestors(List<Topic> ancestors) {
+        this.ancestors = ancestors;
+    }
 
     @Override
     public boolean isPermitted(long right) {
