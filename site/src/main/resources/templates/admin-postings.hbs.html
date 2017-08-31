@@ -14,10 +14,10 @@
 {{#*inline "batcher"}} {{! params: list }}
     <div class="batcher">
         <div class="adder">
-            <image src="/pics/sheet.gif">&sp;
+            {{image "/pics/sheet.gif"}}
             <a href="/admin/postings/add/?grp=*GRP_NEWS&full=1&redirid=$_">Добавить сообщение</a>
         </div>
-        <spin list="$list">
+        {{spin list}}
         <div class="clear-floats"></div>
     </div>
 {{/inline}}
@@ -121,9 +121,6 @@
 {{> part/preamble}}
 {{> part/top}}
 
-<iterate_postinglist limit=20 offset='$offset' topic_id='$topic_id'
-                     recursive='$recursive' showshadows='$shadows' grp='$grp'
-                     index1!='$use_index1 ? $index1 : -1'>
 <style>
     .padded TD {
         padding: 5px;
@@ -176,13 +173,13 @@
             </form>
             <table class="ninept cframe" width="100%"><tr><td>
                 <error_lines>
-                <batcher list="$;">
-                <ifnzero what="$;Count">
+                {{> batcher list=postings}}
+                {{#if postings}}
                     {{#each postings}}
                         {{> post posting=this}}
                     {{/each}}
-                    <batcher list="$;">
-                </ifnzero>
+                    {{> batcher list=postings}}
+                {{/if}}
             </td></tr></table>
         </td>
     </tr>

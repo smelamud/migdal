@@ -355,6 +355,9 @@ public class User implements Editable {
 
     @Transient
     public boolean isTooOld() {
+        if (getLastOnline() == null) {
+            return true;
+        }
         return System.currentTimeMillis() - getLastOnline().getTime() > 10 * 365 * 24 * 3600 * 1000L;
     }
 

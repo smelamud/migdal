@@ -185,22 +185,22 @@ public class UserController {
     }
 
     @GetMapping("/admin/users")
-    public String adminUsers(@RequestParam(required=false) String prefix,
-                             @RequestParam(required=false) String sort,
-                             @RequestParam(required=false) Integer offset, Model model) throws PageNotFoundException {
+    public String adminUsers(@RequestParam(defaultValue="") String prefix,
+                             @RequestParam(defaultValue="login") String sort,
+                             @RequestParam(defaultValue="0") Integer offset, Model model) throws PageNotFoundException {
         adminUsersLocationInfo(model);
 
         if (!StringUtils.isEmpty(sort) && !Constant.hasValue(SORTS, sort)) {
             throw new PageNotFoundException();
         }
 
-        model.addAttribute("prefix", prefix != null ? prefix : "");
-        model.addAttribute("sort", sort != null ? sort : "login");
+        model.addAttribute("prefix", prefix);
+        model.addAttribute("sort", sort);
         model.addAttribute("sorts", SORTS);
         if (requestContext.isUserModerator()) {
             model.addAttribute("totalUsers", userManager.count());
             model.addAttribute("totalNotConfirmedUsers", userManager.countNotConfirmed());
-            model.addAttribute("users", userManager.begAll(prefix, sort, offset != null ? offset : 0, 20));
+            model.addAttribute("users", userManager.begAll(prefix, sort, offset, 20));
         }
         return "admin-users";
     }

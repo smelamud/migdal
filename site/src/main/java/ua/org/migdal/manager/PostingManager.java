@@ -43,10 +43,11 @@ public class PostingManager implements EntryManagerBase {
         return null; // TBE
     }
 
-    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1) {
+    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,
+                                    int offset, int limit) {
         QPosting posting = QPosting.posting;
         return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1),
-                new PageRequest(0, 20, Sort.Direction.DESC, "sent"));
+                new PageRequest(offset / limit, limit, Sort.Direction.DESC, "sent"));
     }
 
     private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1) {
