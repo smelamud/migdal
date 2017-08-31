@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import org.hibernate.Hibernate;
+import ua.org.migdal.grp.GrpDescriptor;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.RequestContextImpl;
 
@@ -15,6 +17,16 @@ public class Posting extends Entry {
 
     @Transient
     private List<Topic> ancestors;
+
+    @Transient
+    public GrpDescriptor getGrpDescriptor() {
+        return GrpEnum.getInstance().grp(getGrp()); // FIXME not null-safe
+    }
+
+    @Transient
+    public String getGrpTitle() {
+        return getGrpDescriptor().getTitle();
+    }
 
     public List<Topic> getAncestors() {
         return ancestors;

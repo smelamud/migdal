@@ -39,13 +39,15 @@
 {{#*inline "post"}} {{! params: posting }}
     <table class="posting" width="100%">
         <tr><td>
-            <a href="$[topic_id=$posting.TopicId]" class="posting-topic">
-                {{#each posting.ancestors}}
-                    {{subject}}
-                    {{#unless @last}} :: {{/unless}}
-                {{/each}}
-            </a>
-            // $=posting.GrpTitle
+            {{#assign "topicLink"}}
+                <a href="$[topic_id=$posting.TopicId]" class="posting-topic">
+                    {{#each posting.ancestors}}
+                        {{subject}}
+                        {{#unless @last}} :: {{/unless}}
+                    {{/each}}
+                </a>
+            {{/assign}}
+            {{asp topicLink}} // {{posting.grpTitle}}
         </td></tr>
         <tr><td>
             <b><a href="$posting.GrpDetailsHref">{{posting.subject}}$=posting.Heading</a></b>

@@ -26,7 +26,9 @@ public class StringHelperSource {
     public CharSequence asp(Object s) {
         boolean safe = s instanceof SafeString;
         String str = s.toString();
-        str = str != null ? str.replaceAll(">\\s+", ">") : null;
+        str = str != null
+                ? str.replaceAll(">\\s+", ">").replaceAll("\\s+<", "<")
+                : null;
         return safe ? new SafeString(str) : str;
     }
 
