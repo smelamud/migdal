@@ -9,6 +9,7 @@ import javax.persistence.Transient;
 import org.hibernate.Hibernate;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.util.StringUtils;
 
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
@@ -38,9 +39,30 @@ public class Posting extends Entry {
         return getGrpDescriptor().getHeading(spelEvaluationContext);
     }
 
+    private String getGrpGeneralHref() {
+        return getGrpDescriptor().getGeneralHref(spelEvaluationContext);
+    }
+
+    private String getGrpDetailsHref() {
+        return getGrpDescriptor().getDetailsHref(spelEvaluationContext);
+    }
+
     @Transient
-    public String getHeading() {
-        return getGrpHeading();
+    public String getHeading(boolean useUrl) {
+        String heading = getGrpHeading();
+        if (StringUtils.isEmpty(heading)) {
+            heading = getSubject();
+        }
+        if (StringUtils.isEmpty(heading)) {
+            heading = getBodyTiny();
+        }
+        if (StringUtils.isEmpty(heading) && useUrl) {
+            heading = getGrpDetailsHref();
+        }
+        if (StringUtils.isEmpty(heading)) {
+            heading = "Без названия";
+        }
+        return heading;
     }
 
     public List<Topic> getAncestors() {
