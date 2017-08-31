@@ -187,7 +187,7 @@ class Posting
             && method_exists($this,'getGrpDetailsHref'))
             $heading = $this->getGrpDetailsHref();
         if ($heading == '')
-            $heading = 'Без названия';
+            $heading = '??? ????????';
         return $heading;
     }
 
@@ -767,7 +767,7 @@ function getPostingById($id = -1, $grp = GRP_ALL, $topic_id = -1,
 
 function getPostingId($grp = GRP_ALL, $index1 = -1, $topic_id = -1,
                       $user_id = 0, $sort = SORT_SENT) {
-    /* эта функция может вызываться из structure.conf */
+    /* ??? ??????? ????? ?????????? ?? structure.conf */
     $index1 = (int) $index1;
     $topic_id = (int) $topic_id;
 
