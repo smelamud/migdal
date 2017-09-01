@@ -1,5 +1,6 @@
 package ua.org.migdal.mtext;
 
+import ua.org.migdal.util.XmlUtils;
 import ua.org.migdal.util.exception.XmlConverterException;
 
 public class Mtext {
@@ -17,6 +18,15 @@ public class Mtext {
         this.xml = xml;
         this.format = format;
         this.id = id;
+        wrapXml();
+    }
+
+    private void wrapXml() {
+        if (!XmlUtils.hasMarkup(xml)) {
+            return;
+        }
+        String rootTag = "MTEXT-" + format.name();
+        xml = String.format("<%s>%s</%s>", rootTag, xml, rootTag);
     }
 
     public String getXml() {
