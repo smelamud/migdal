@@ -59,6 +59,9 @@ migdal:
   disableRegister: false  # Disable users' self-registration, allow creation of users by admin only
   regConfirmTimeout: 3  # Timeout (in days) of user e-mail confirmation
 
+  imageDir: /home/smelamud/migdal-images  # Image directory
+  imageUrl: /images  # Base image URL
+
   # Text cropping parameters for "tiny size"
   tinySize: 64
   tinySizeMinus: 32

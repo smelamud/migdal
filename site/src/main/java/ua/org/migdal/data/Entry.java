@@ -27,6 +27,7 @@ import ua.org.migdal.mtext.Mtext;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContextImpl;
 import ua.org.migdal.text.TextFormat;
+import ua.org.migdal.util.ImageFileUtils;
 import ua.org.migdal.util.Perm;
 import ua.org.migdal.util.PermUtils;
 import ua.org.migdal.util.TrackUtils;
@@ -952,6 +953,11 @@ public class Entry implements TreeElement {
         this.smallImageFormat = smallImageFormat;
     }
 
+    @Transient
+    public String getSmallImageUrl() {
+        return ImageFileUtils.imageUrl(getSmallImageFormat(), getSmallImage());
+    }
+
     public long getLargeImage() {
         return largeImage;
     }
@@ -1028,6 +1034,16 @@ public class Entry implements TreeElement {
 
     public void setLargeImageFilename(String largeImageFilename) {
         this.largeImageFilename = largeImageFilename;
+    }
+
+    @Transient
+    public String getLargeImageUrl() {
+        return ImageFileUtils.imageUrl(getSmallImageFormat(), getSmallImage());
+    }
+
+    @Transient
+    public String getImageUrl() {
+        return getLargeImageUrl();
     }
 
     public static String validateHierarchy(Entry parent, Entry up, long id) {

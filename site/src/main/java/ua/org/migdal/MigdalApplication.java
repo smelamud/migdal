@@ -12,11 +12,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
+import org.springframework.web.servlet.resource.PathResourceResolver;
 import ua.org.migdal.controller.SubdomainInterceptor;
 import ua.org.migdal.helper.HelperSource;
 
@@ -33,6 +35,9 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
 
     @Inject
     private SubdomainInterceptor subdomainInterceptor;
+
+    @Inject
+    private Config config;
 
     @Bean
     public HandlebarsViewResolver handlebarsViewResolver() {
@@ -54,6 +59,14 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(subdomainInterceptor);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(config.getImageUrl() + "/**")
+                .addResourceLocations("file:" + config.getImageDir())
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver());
     }
 
     public static void main(String[] args) {

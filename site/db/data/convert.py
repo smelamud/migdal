@@ -195,6 +195,17 @@ def convert_cross_entries(row):
         row['peer_icon']
     ]
 
+def convert_image_files(row):
+    return [
+        row['id'],
+        row['mime_type'],
+        row['size_x'],
+        row['size_y'],
+        row['file_size'],
+        null_time(row['created']),
+        null_time(row['accessed']),
+    ]
+
 csv.field_size_limit(300000)
 read_entry_grps()
 table_name = sys.argv[1]

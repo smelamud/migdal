@@ -68,7 +68,7 @@
         </ifnzero>
         {{#if posting.hasImage}}
             <tr><td>
-                <a href="$posting.ImageURL">Картинка</a>
+                <a href="{{posting.imageUrl}}">Картинка</a>
                 &nbsp;
                 {{posting.imageX}}x{{posting.imageY}}, {{posting.imageSizeKb}}KB
             </td></tr>

@@ -17,6 +17,8 @@ public class Config {
     private String guestLogin;
     private boolean disableRegister;
     private int regConfirmTimeout;
+    private String imageDir;
+    private String imageUrl;
     private int tinySize;
     private int tinySizeMinus;
     private int tinySizePlus;
@@ -110,6 +112,22 @@ public class Config {
 
     public void setRegConfirmTimeout(int regConfirmTimeout) {
         this.regConfirmTimeout = regConfirmTimeout;
+    }
+
+    public String getImageDir() {
+        return imageDir;
+    }
+
+    public void setImageDir(String imageDir) {
+        this.imageDir = imageDir;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getTinySize() {
