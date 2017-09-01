@@ -48,6 +48,11 @@ public class Posting extends Entry {
     }
 
     @Transient
+    public String getHeading() {
+        return getHeading(false);
+    }
+
+    @Transient
     public String getHeading(boolean useUrl) {
         String heading = getGrpHeading();
         if (StringUtils.isEmpty(heading)) {
