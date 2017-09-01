@@ -117,7 +117,7 @@ class MtextToLength extends DefaultHandler {
 
         String data = new String(ch, start, length);
         int n = HtmlEscape.unescapeHtml(data).length();
-        String text = clen + n < len ? data : data.substring(0, n - (clen - len));
+        String text = clen + n < len ? data : data.substring(0, len - clen);
         if (!clearTags) {
             text = XmlUtils.delicateSpecialChars(text);
         }
