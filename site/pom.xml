@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>ua.org.migdal</groupId>
-	<artifactId>migdal-site</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+    <groupId>ua.org.migdal</groupId>
+    <artifactId>migdal-site</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-	<name>migdal-site</name>
-	<description>JCC Migdal Official Website</description>
+    <name>migdal-site</name>
+    <description>JCC Migdal Official Website</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -51,39 +51,39 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-jdbc</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.jknack</groupId>
-			<artifactId>handlebars</artifactId>
-			<version>4.0.6</version>
-		</dependency>
         <dependency>
-			<groupId>com.github.jknack</groupId>
-			<artifactId>handlebars-springmvc</artifactId>
-			<version>4.0.6</version>
-		</dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jknack</groupId>
+            <artifactId>handlebars</artifactId>
+            <version>4.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jknack</groupId>
+            <artifactId>handlebars-springmvc</artifactId>
+            <version>4.0.6</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-social-facebook</artifactId>
         </dependency>
-		<dependency>
-			<groupId>com.ibm.icu</groupId>
-			<artifactId>icu4j</artifactId>
-			<version>58.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.unbescape</groupId>
-			<artifactId>unbescape</artifactId>
-			<version>1.1.4.RELEASE</version>
-		</dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>58.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.unbescape</groupId>
+            <artifactId>unbescape</artifactId>
+            <version>1.1.4.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
@@ -103,101 +103,101 @@
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
         </dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.8.9</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-yaml</artifactId>
-			<version>2.8.9</version>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+    </dependencies>
 
     <build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.4.0</version>
-				<executions>
-					<execution>
-						<id>LESS compile default style</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<workingDirectory>${basedir}/src/main/less</workingDirectory>
-							<executable>lessc</executable>
-							<arguments>
-								<argument>-x</argument>
-								<argument>--global-var=flavour=default</argument>
-								<argument>main.less</argument>
-								<argument>${project.build.outputDirectory}/static/css/main-default.css</argument>
-							</arguments>
-						</configuration>
-					</execution>
-					<execution>
-						<id>LESS compile print style</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<workingDirectory>${basedir}/src/main/less</workingDirectory>
-							<executable>lessc</executable>
-							<arguments>
-								<argument>-x</argument>
-								<argument>--global-var=flavour=print</argument>
-								<argument>main.less</argument>
-								<argument>${project.build.outputDirectory}/static/css/main-print.css</argument>
-							</arguments>
-						</configuration>
-					</execution>
-					<execution>
-						<id>LESS compile static article style</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<workingDirectory>${basedir}/src/main/less</workingDirectory>
-							<executable>lessc</executable>
-							<arguments>
-								<argument>-x</argument>
-								<argument>--global-var=flavour=default</argument>
-								<argument>static-article.less</argument>
-								<argument>${project.build.outputDirectory}/static/css/static-article.css</argument>
-							</arguments>
-						</configuration>
-					</execution>
-					<execution>
-						<id>UglifyJS compile JavaScript</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<workingDirectory>${basedir}/src/main/js</workingDirectory>
-							<executable>bash</executable>
-							<arguments>
-								<argument>-c</argument>
-								<argument>uglifyjs -o ${project.build.outputDirectory}/static/js/main.js -c -- *.js</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.17</version>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <id>LESS compile default style</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${basedir}/src/main/less</workingDirectory>
+                            <executable>lessc</executable>
+                            <arguments>
+                                <argument>-x</argument>
+                                <argument>--global-var=flavour=default</argument>
+                                <argument>main.less</argument>
+                                <argument>${project.build.outputDirectory}/static/css/main-default.css</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>LESS compile print style</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${basedir}/src/main/less</workingDirectory>
+                            <executable>lessc</executable>
+                            <arguments>
+                                <argument>-x</argument>
+                                <argument>--global-var=flavour=print</argument>
+                                <argument>main.less</argument>
+                                <argument>${project.build.outputDirectory}/static/css/main-print.css</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>LESS compile static article style</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${basedir}/src/main/less</workingDirectory>
+                            <executable>lessc</executable>
+                            <arguments>
+                                <argument>-x</argument>
+                                <argument>--global-var=flavour=default</argument>
+                                <argument>static-article.less</argument>
+                                <argument>${project.build.outputDirectory}/static/css/static-article.css</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>UglifyJS compile JavaScript</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${basedir}/src/main/js</workingDirectory>
+                            <executable>bash</executable>
+                            <arguments>
+                                <argument>-c</argument>
+                                <argument>uglifyjs -o ${project.build.outputDirectory}/static/js/main.js -c -- *.js</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
@@ -205,22 +205,22 @@
                         <version>7.6</version>
                     </dependency>
                 </dependencies>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<phase>validate</phase>
-						<configuration>
-							<configLocation>checkstyle.xml</configLocation>
-							<encoding>UTF-8</encoding>
-							<consoleOutput>true</consoleOutput>
-							<failsOnError>true</failsOnError>
-						</configuration>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <encoding>UTF-8</encoding>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>true</failsOnError>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>com.mysema.maven</groupId>
                 <artifactId>apt-maven-plugin</artifactId>
@@ -238,5 +238,5 @@
                 </executions>
             </plugin>
         </plugins>
-	</build>
+    </build>
 </project>
