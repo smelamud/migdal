@@ -64,7 +64,7 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(config.getImageUrl() + "/**")
-                .addResourceLocations("file:" + config.getImageDir())
+                .addResourceLocations("file:" + config.getImageDir() + "/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
     }
