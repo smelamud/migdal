@@ -48,6 +48,16 @@ public class Posting extends Entry {
     }
 
     @Transient
+    public Topic getTopic() {
+        return (Topic) getParent();
+    }
+
+    @Transient
+    public long getTopicId() {
+        return getParent().getId();
+    }
+
+    @Transient
     public String getHeading() {
         return getHeading(false);
     }

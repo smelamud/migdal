@@ -40,7 +40,7 @@
     <table class="posting" width="100%">
         <tr><td>
             {{#assign "topicLink"}}
-                <a href="$[topic_id=$posting.TopicId]" class="posting-topic">
+                <a href="/admin/postings?topicIds={{posting.topicId}}" class="posting-topic">
                     {{#each posting.ancestors}}
                         {{subject}}
                         {{#unless @last}} :: {{/unless}}
@@ -66,13 +66,13 @@
                 ($posting.VoteCount&sp;$,)
             </td></tr>
         </ifnzero>
-        <if what="$posting.hasImage">
+        {{#if posting.hasImage}}
             <tr><td>
                 <a href="$posting.ImageURL">Картинка</a>
                 &nbsp;
-                ${posting.ImageX}x${posting.ImageY}, ${posting.ImageSizeKB}KB
+                {{posting.imageX}}x{{posting.imageY}}, {{posting.imageSizeKb}}KB
             </td></tr>
-        </if>
+        {{/if}}
         <tr><td class="sent">
             <sentview date="$posting.Sent">&nbsp;<asp>
             <asp>(<asp><sentview date="$posting.Modified">)
@@ -153,7 +153,7 @@
                     </td></tr>
                 </table>
             </form>
-            <table class="ninept cframe" width="100%"><tr><td>
+            <table class="ninept cframe" width="100%"><tr><td style="padding: 5px">
                 {{> errorLines}}
                 {{> batcher list=postings}}
                 {{#if postings}}

@@ -349,6 +349,11 @@ public class Entry implements TreeElement {
         this.parent = parent;
     }
 
+    @Transient
+    public long getParentId() {
+        return getParent().getId();
+    }
+
     public Entry getOrig() {
         return orig;
     }
@@ -913,6 +918,16 @@ public class Entry implements TreeElement {
         this.smallImage = smallImage;
     }
 
+    @Transient
+    public boolean isHasSmallImage() {
+        return getSmallImage() != 0;
+    }
+
+    @Transient
+    public boolean isHasImage() {
+        return isHasSmallImage();
+    }
+
     public short getSmallImageX() {
         return smallImageX;
     }
@@ -945,12 +960,22 @@ public class Entry implements TreeElement {
         this.largeImage = largeImage;
     }
 
+    @Transient
+    public boolean isHasLargeImage() {
+        return getLargeImage() != 0 && getLargeImage() != getSmallImage();
+    }
+
     public short getLargeImageX() {
         return largeImageX;
     }
 
     public void setLargeImageX(short largeImageX) {
         this.largeImageX = largeImageX;
+    }
+
+    @Transient
+    public short getImageX() {
+        return getLargeImageX();
     }
 
     public short getLargeImageY() {
@@ -961,12 +986,32 @@ public class Entry implements TreeElement {
         this.largeImageY = largeImageY;
     }
 
+    @Transient
+    public short getImageY() {
+        return getLargeImageY();
+    }
+
     public long getLargeImageSize() {
         return largeImageSize;
     }
 
     public void setLargeImageSize(long largeImageSize) {
         this.largeImageSize = largeImageSize;
+    }
+
+    @Transient
+    public long getLargeImageSizeKb() {
+        return (long) Math.ceil(getLargeImageSize() / 1024f);
+    }
+
+    @Transient
+    public long getImageSize() {
+        return getLargeImageSize();
+    }
+
+    @Transient
+    public long getImageSizeKb() {
+        return getLargeImageSizeKb();
     }
 
     public String getLargeImageFormat() {
