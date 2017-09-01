@@ -3,6 +3,7 @@ package ua.org.migdal.mtext;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.StringUtils;
 import ua.org.migdal.util.XmlConverter;
 import ua.org.migdal.util.XmlUtils;
 import ua.org.migdal.util.exception.XmlConverterException;
@@ -12,7 +13,8 @@ class MtextShorten {
     private static final String[][] ENDS = {
             {"\u001F"},
             {". ", "! ", "? ", ".\n", "!\n", "?\n"},
-            {": ", ", ", "; ", ") ", ":\n", ",\n", ";\n", ")\n"}
+            {": ", ", ", "; ", ") ", ":\n", ",\n", ";\n", ")\n"},
+            {" "}
     };
 
     private static int indexOfAll(String haystack, String needle, List<Integer> found) {
@@ -92,7 +94,7 @@ class MtextShorten {
             } else {
                 result = s.substring(0, n);
             }
-            return XmlUtils.delicateAmps(result) + c;
+            return StringUtils.trimTrailingWhitespace(XmlUtils.delicateAmps(result).toString()) + c;
         } catch (XmlConverterException e) {
             return String.format("<b>** %s: %s **</b>", e.getMessage(), e.getCause().getMessage());
         }
