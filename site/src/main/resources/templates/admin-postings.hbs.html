@@ -57,15 +57,13 @@
                 [{{posting.id}}]
             {{/if}}
         </td></tr>
-        <ifnzero what="$posting.VoteCount">
+        {{#if posting.voteCount}}
             <tr><td>
-                $posting.RatingString
+                {{posting.ratingString}}
                 &nbsp;
-                <array vals="голос,голоса,голосов">
-                <plural value="$posting.VoteCount">
-                ($posting.VoteCount&sp;$,)
+                ({{posting.voteCount}} {{plural posting.voteCount "голос,голоса,голосов"}})
             </td></tr>
-        </ifnzero>
+        {{/if}}
         {{#if posting.hasImage}}
             <tr><td>
                 <a href="{{posting.imageUrl}}">Картинка</a>
@@ -85,11 +83,11 @@
             {{/if}}
             <a href="/admin/postings/$posting.Id/edit/?full=1&amp;redirid=$_">Изменить</a>
             &nbsp;
-            <if what="$posting.isDisabled">
+            {{#if posting.disabled}}
                 <a href="/actions/entry/moderate?editid=$posting.Id&amp;hide=0&amp;okdir=$#-&amp;faildir=$#-">Разрешить&nbsp;показ</a>
-            <else>
+            {{else}}
                 <a href="/actions/entry/moderate?editid=$posting.Id&amp;hide=1&amp;okdir=$#-&amp;faildir=$#-">Запретить&nbsp;показ</a>
-            </if>
+            {{/if}}
             &nbsp;
             <a href="/actions/entry/renew?id=$posting.Id&amp;okdir=$#-&amp;faildir=$#-">Осовременить</a>
             &nbsp;

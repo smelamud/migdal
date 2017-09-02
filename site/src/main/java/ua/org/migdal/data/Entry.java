@@ -425,6 +425,7 @@ public class Entry implements TreeElement {
         this.user = user;
     }
 
+    @Transient
     public String getUserFolder() {
         return getUser() != null ? getUser().getFolder() : "";
     }
@@ -838,6 +839,11 @@ public class Entry implements TreeElement {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    @Transient
+    public String getRatingString() {
+        return String.format("%1.2f", getRating());
     }
 
     public Timestamp getSent() {
