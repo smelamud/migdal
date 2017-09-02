@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.util.Utils;
 
 @Component
@@ -38,6 +39,9 @@ public class GrpEnum {
     @Inject
     private ApplicationContext applicationContext;
 
+    @Inject
+    private IdentManager identManager;
+
     @PostConstruct
     public void init() throws IOException {
         instance = this;
@@ -50,7 +54,7 @@ public class GrpEnum {
         ExpressionParser parser = new SpelExpressionParser();
         for (GrpDescriptor grp : grps) {
             log.info("- {}({})", grp.getName(), grp.getBit());
-            grp.parseExpressions(parser);
+            grp.parseExpressions(identManager, parser);
             all |= grp.getValue();
             grpMap.put(grp.getValue(), grp);
             for (String groupName : grp.getGroups()) {

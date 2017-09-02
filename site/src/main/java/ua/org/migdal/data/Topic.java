@@ -28,7 +28,7 @@ public class Topic extends Entry {
     }
 
     @Override
-    public boolean isPermitted(long right) {
+    protected boolean isPermitted(long right) {
         RequestContext rc = RequestContextImpl.getInstance();
         return right != Perm.POST && rc.isUserAdminTopics()
                || right == Perm.POST && rc.isUserModerator()

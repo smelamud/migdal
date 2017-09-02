@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.StringUtils;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.util.TreeElement;
 import ua.org.migdal.mtext.Mtext;
@@ -344,6 +345,25 @@ public class Entry implements TreeElement {
         this.catalog = catalog;
     }
 
+    public String getCatalog(int start) {
+        return getCatalog(start, 1);
+    }
+
+    public String getCatalog(int start, int length) {
+        if (length == 0 || StringUtils.isEmpty(catalog)) {
+            return "";
+        }
+        String[] elements = catalog.substring(0, catalog.length() - 1).split("/");
+        StringBuilder buf = new StringBuilder();
+        int begin = start >= 0 ? start : elements.length + start;
+        int end = length > 0 ? begin + length : elements.length + length;
+        for (int i = begin; i < end; i++) {
+            buf.append(elements[i]);
+            buf.append('/');
+        }
+        return buf.toString();
+    }
+
     public Entry getParent() {
         return parent;
     }
@@ -405,6 +425,10 @@ public class Entry implements TreeElement {
         this.user = user;
     }
 
+    public String getUserFolder() {
+        return getUser() != null ? getUser().getFolder() : "";
+    }
+
     public User getGroup() {
         return group;
     }
@@ -426,8 +450,7 @@ public class Entry implements TreeElement {
         return PermUtils.toString(getPerms());
     }
 
-    @Transient
-    public boolean isPermitted(long right) {
+    protected boolean isPermitted(long right) {
         return PermUtils.perm(getUser().getId(), getGroup().getId(), getPerms(), right,
                 RequestContextImpl.getInstance());
     }

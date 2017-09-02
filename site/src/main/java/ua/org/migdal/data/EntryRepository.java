@@ -11,6 +11,9 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 public interface EntryRepository extends JpaRepository<Entry, Long>, QueryDslPredicateExecutor<Entry> {
 
+    @Cacheable(value="entries-id", unless="#result == null")
+    IdProjection findIdByIdent(String ident);
+
     @Cacheable("entries-permsall")
     @Query("select distinct e.perms from Entry e")
     List<Long> permsVariety();

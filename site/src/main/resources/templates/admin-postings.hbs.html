@@ -40,7 +40,7 @@
     <table class="posting" width="100%">
         <tr><td>
             {{#assign "topicLink"}}
-                <a href="/admin/postings?topicIds={{posting.topicId}}" class="posting-topic">
+                <a href="?topicIds={{posting.topicId}}" class="posting-topic">
                     {{#each posting.ancestors}}
                         {{subject}}
                         {{#unless @last}} :: {{/unless}}
@@ -50,7 +50,7 @@
             {{asp topicLink}} // {{posting.grpTitle}}
         </td></tr>
         <tr><td>
-            <b><a href="$posting.GrpDetailsHref">{{posting.heading}}</a></b>
+            <b><a href="{{posting.grpDetailsHref}}">{{posting.heading}}</a></b>
             {{#if posting.ident}}
                 [{{posting.ident}}={{posting.id}}]
             {{else}}

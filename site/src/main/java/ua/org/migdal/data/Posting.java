@@ -39,11 +39,11 @@ public class Posting extends Entry {
         return getGrpDescriptor().getHeading(spelEvaluationContext);
     }
 
-    private String getGrpGeneralHref() {
+    public String getGrpGeneralHref() {
         return getGrpDescriptor().getGeneralHref(spelEvaluationContext);
     }
 
-    private String getGrpDetailsHref() {
+    public String getGrpDetailsHref() {
         return getGrpDescriptor().getDetailsHref(spelEvaluationContext);
     }
 
@@ -89,7 +89,7 @@ public class Posting extends Entry {
     }
 
     @Override
-    public boolean isPermitted(long right) {
+    protected boolean isPermitted(long right) {
         RequestContext rc = RequestContextImpl.getInstance();
         return rc.isUserModerator()
                || (!isDisabled() || getUser().getId() == rc.getUserId()) && super.isPermitted(right);

@@ -17,8 +17,10 @@
   bit: 0
   groups: [DISCUSS, WRITINGS, ARCHIVE]
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${catalog}"
 
   title: "Темы для обсуждения"
   what: "тему"
@@ -47,8 +49,10 @@
 
   rootIdent: general
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${catalog}"
 
   title: "Новости"
   what: "новость"
@@ -116,14 +120,18 @@
 
   heading: "${titleTiny}"
 
-  generalHref: >
-    subtree taglit /$[0,-1]${userFolder}/
-    subtree veterans /$[0,-1]${userFolder}/
-    default /$[0,-1]
-  detailsHref: >
-    subtree taglit /$[0,-1]${userFolder}/$[-1]
-    subtree veterans /$[0,-1]${userFolder}/$[-1]
-    default /$[0]
+  generalHref:
+    - subtree: taglit
+      href: "/${getCatalog(0,-1)}${userFolder}/"
+    - subtree: veterans
+      href: "/${getCatalog(0,-1)}${userFolder}/"
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - subtree: taglit
+      href: "/${getCatalog(0,-1)}${userFolder}/${getCatalog(-1)}"
+    - subtree: veterans
+      href: "/${getCatalog(0,-1)}${userFolder}/${getCatalog(-1)}"
+    - href: "/${catalog}"
 
   feedHelper: postingGallery
 
@@ -170,8 +178,10 @@
 
   rootIdent: general
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${catalog}"
   detailsTemplate: article
 
   title: "Статьи"
@@ -253,8 +263,10 @@
 
   rootIdent: general
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${catalog}"
   detailsTemplate: book
 
   feedHelper: postingBook
@@ -310,8 +322,10 @@
   bit: 5
   groups: [TAPE, DISCUSS]
 
-  generalHref: "/times/"
-  detailsHref: "/times/${index1}/"
+  generalHref:
+    - href: "/times/"
+  detailsHref:
+    - href: "/times/${index1}/"
 
   feedHelper: postingTimesCover
 
@@ -370,8 +384,10 @@
   bit: 6
   groups: [DISCUSS, WRITINGS, ARCHIVE]
 
-  generalHref: "/$[0,-1]${userFolder}/"
-  detailsHref: "/$[0,-1]${userFolder}/$[-1]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}${userFolder}/"
+  detailsHref:
+    - href: "/${getCatalog(0,-1)}${userFolder}/${getCatalog(-1)}"
 
   feedHelper: postingPeruser
 
@@ -420,8 +436,10 @@
   bit: 7
   groups: [DISCUSS, WRITINGS, ARCHIVE, EVENT]
 
-  generalHref: "/times/${index1}/"
-  detailsHref: "/times/${index1}/${id}/"
+  generalHref:
+    - href: "/times/${index1}/"
+  detailsHref:
+    - href: "/times/${index1}/${id}/"
   detailsTemplate: article-times
 
   title: "Статьи М.Т."
@@ -556,8 +574,10 @@
   bit: 9
   groups: [DISCUSS, WRITINGS, ARCHIVE, EVENT]
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0,-1]day-${index1}/"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${getCatalog(0,-1)}day-${index1}/"
   detailsTemplate: daily-news
 
   title: "Ежедневные репортажи"
@@ -595,8 +615,10 @@
   bit: 10
   groups: [DISCUSS, GRAPHICS]
 
-  generalHref: "/$[0,-1]day-${index1}/"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}day-${index1}/"
+  detailsHref:
+    - href: "/${catalog}"
 
   heading: "${titleTiny}"
 
@@ -643,8 +665,10 @@
   bit: 11
   groups: [DISCUSS, ARCHIVE]
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${catalog}"
 
   feedHelper: postingTip
 
@@ -670,8 +694,10 @@
   bit: 12
   groups: [TAPE, DISCUSS, EVENT, WRITINGS]
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${catalog}"
 
   feedHelper: postingGalleryUpdate
 
@@ -699,8 +725,10 @@
 
   rootIdent: general
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${catalog}"
   detailsTemplate: book-chapter
 
   title: "Главы книги"
@@ -738,8 +766,10 @@
   bit: 14
   groups: [DISCUSS, ARCHIVE]
 
-  generalHref: "/$[0]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${catalog}"
+  detailsHref:
+    - href: "/${catalog}"
 
   title: "Обзорные статьи"
   what: "статью"
@@ -778,8 +808,10 @@
 
   rootIdent: migdal
 
-  generalHref: "/$[0,-1]"
-  detailsHref: "/$[0]"
+  generalHref:
+    - href: "/${getCatalog(0,-1)}"
+  detailsHref:
+    - href: "/${catalog}"
 
   feedHelper: postingPrinting
 

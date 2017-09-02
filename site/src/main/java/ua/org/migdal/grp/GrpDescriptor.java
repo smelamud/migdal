@@ -7,6 +7,7 @@ import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
+import ua.org.migdal.manager.IdentManager;
 
 public class GrpDescriptor {
 
@@ -28,14 +29,12 @@ public class GrpDescriptor {
     /**
      * Page to show the posting's topic ("general view")
      */
-    private String generalHref = "";
-    private Expression generalHrefExpression;
+    private List<SubtreeHref> generalHref = Collections.emptyList();
 
     /**
      * Page to show the posting's details ("best view")
      */
-    private String detailsHref = "";
-    private Expression detailsHrefExpression;
+    private List<SubtreeHref> detailsHref = Collections.emptyList();
 
     /**
      * Template to show the posting's details
@@ -65,6 +64,8 @@ public class GrpDescriptor {
     private String whatA = "сообщения";
 
     private List<GrpEditor> editors = Collections.emptyList();
+
+    private Expression trackExpression;
 
     public GrpDescriptor() {
     }
@@ -125,28 +126,28 @@ public class GrpDescriptor {
         return headingExpression.getValue(evaluationContext, String.class);
     }
 
-    public String getGeneralHref() {
+    public List<SubtreeHref> getGeneralHref() {
         return generalHref;
     }
 
-    public void setGeneralHref(String generalHref) {
+    public void setGeneralHref(List<SubtreeHref> generalHref) {
         this.generalHref = generalHref;
     }
 
     public String getGeneralHref(EvaluationContext evaluationContext) {
-        return generalHrefExpression.getValue(evaluationContext, String.class);
+        return evaluateSubtreeExpression(generalHref, evaluationContext);
     }
 
-    public String getDetailsHref() {
+    public List<SubtreeHref> getDetailsHref() {
         return detailsHref;
     }
 
-    public void setDetailsHref(String detailsHref) {
+    public void setDetailsHref(List<SubtreeHref> detailsHref) {
         this.detailsHref = detailsHref;
     }
 
     public String getDetailsHref(EvaluationContext evaluationContext) {
-        return detailsHrefExpression.getValue(evaluationContext, String.class);
+        return evaluateSubtreeExpression(detailsHref, evaluationContext);
     }
 
     public String getDetailsTemplate() {
@@ -197,11 +198,22 @@ public class GrpDescriptor {
         this.editors = editors;
     }
 
-    public void parseExpressions(ExpressionParser parser) {
+    private String evaluateSubtreeExpression(List<SubtreeHref> subtreeHrefs, EvaluationContext evaluationContext) {
+        String track = trackExpression.getValue(evaluationContext, String.class);
+        for (SubtreeHref subtreeHref : subtreeHrefs) {
+            if (subtreeHref.isUnder(track)) {
+                return subtreeHref.getHref(evaluationContext);
+            }
+        }
+        return "";
+    }
+
+    void parseExpressions(IdentManager identManager, ExpressionParser parser) {
         ParserContext parserContext = new TemplateParserContext();
         headingExpression = parser.parseExpression(heading, parserContext);
-        generalHrefExpression = parser.parseExpression(generalHref, parserContext);
-        detailsHrefExpression = parser.parseExpression(detailsHref, parserContext);
+        generalHref.forEach(element -> element.parseExpressions(identManager, parser, parserContext));
+        detailsHref.forEach(element -> element.parseExpressions(identManager, parser, parserContext));
+        trackExpression = parser.parseExpression("${track}", parserContext);
     }
 
 }

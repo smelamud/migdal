@@ -8,7 +8,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 public interface TopicRepository extends JpaRepository<Topic, Long>, QueryDslPredicateExecutor<Topic> {
 
     @Override
-    @CacheEvict(cacheNames={"entries-permsall", "entries-track"}, allEntries=true)
+    @CacheEvict(cacheNames={"entries-permsall", "entries-track", "entries-id"}, allEntries=true)
     <S extends Topic> S save(S s);
 
     @Query("select count(*) from Topic t where t.up.id=?1")
