@@ -250,8 +250,9 @@ public class Entry implements TreeElement {
     @Size(max=30)
     private String lastAnswerGuestLogin = "";
 
-    @NotNull
-    private long smallImage;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="small_image")
+    private ImageFile smallImage;
 
     @NotNull
     @Column(name="small_image_x")
@@ -265,8 +266,9 @@ public class Entry implements TreeElement {
     @Size(max=30)
     private String smallImageFormat = "";
 
-    @NotNull
-    private long largeImage;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="large_image")
+    private ImageFile largeImage;
 
     @NotNull
     @Column(name="large_image_x")
@@ -911,17 +913,17 @@ public class Entry implements TreeElement {
         this.lastAnswerGuestLogin = lastAnswerGuestLogin;
     }
 
-    public long getSmallImage() {
+    public ImageFile getSmallImage() {
         return smallImage;
     }
 
-    public void setSmallImage(long smallImage) {
+    public void setSmallImage(ImageFile smallImage) {
         this.smallImage = smallImage;
     }
 
     @Transient
     public boolean isHasSmallImage() {
-        return getSmallImage() != 0;
+        return getSmallImage() != null;
     }
 
     @Transient
@@ -955,20 +957,21 @@ public class Entry implements TreeElement {
 
     @Transient
     public String getSmallImageUrl() {
-        return ImageFileUtils.imageUrl(getSmallImageFormat(), getSmallImage());
+        return ImageFileUtils.imageUrl(getSmallImageFormat(), getSmallImage().getId());
     }
 
-    public long getLargeImage() {
+    public ImageFile getLargeImage() {
         return largeImage;
     }
 
-    public void setLargeImage(long largeImage) {
+    public void setLargeImage(ImageFile largeImage) {
         this.largeImage = largeImage;
     }
 
     @Transient
     public boolean isHasLargeImage() {
-        return getLargeImage() != 0 && getLargeImage() != getSmallImage();
+        return getLargeImage() != null
+                && (getSmallImage() == null || getLargeImage().getId() != getSmallImage().getId());
     }
 
     public short getLargeImageX() {
@@ -1038,7 +1041,7 @@ public class Entry implements TreeElement {
 
     @Transient
     public String getLargeImageUrl() {
-        return ImageFileUtils.imageUrl(getSmallImageFormat(), getSmallImage());
+        return ImageFileUtils.imageUrl(getLargeImageFormat(), getLargeImage().getId());
     }
 
     @Transient

@@ -195,11 +195,11 @@ CREATE TABLE entries (
     last_answer_id bigint,
     last_answer_user_id bigint,
     last_answer_guest_login character varying(30) NOT NULL,
-    small_image bigint DEFAULT '0'::bigint NOT NULL,
+    small_image bigint,
     small_image_x smallint DEFAULT '0'::smallint NOT NULL,
     small_image_y smallint DEFAULT '0'::smallint NOT NULL,
     small_image_format character varying(30) NOT NULL,
-    large_image bigint DEFAULT '0'::bigint NOT NULL,
+    large_image bigint,
     large_image_x smallint DEFAULT '0'::smallint NOT NULL,
     large_image_y smallint DEFAULT '0'::smallint NOT NULL,
     large_image_size bigint DEFAULT '0'::bigint NOT NULL,
@@ -275,11 +275,11 @@ ALTER TABLE image_file_transforms OWNER TO migdal;
 CREATE TABLE image_files (
     id bigint NOT NULL,
     mime_type character varying(30) NOT NULL,
-    size_x integer NOT NULL,
-    size_y integer NOT NULL,
+    size_x smallint NOT NULL,
+    size_y smallint NOT NULL,
     file_size bigint NOT NULL,
-    created timestamp with time zone NOT NULL,
-    accessed timestamp with time zone NOT NULL
+    created timestamp with time zone,
+    accessed timestamp with time zone
 );
 
 
@@ -534,6 +534,14 @@ ALTER TABLE ONLY entries
 
 
 --
+-- Name: image_files_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY image_files
+    ADD CONSTRAINT image_files_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: spring_session_attributes_pk; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -622,6 +630,13 @@ CREATE INDEX entries_index1_idx ON entries USING btree (index1);
 
 
 --
+-- Name: entries_large_image_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_large_image_idx ON entries USING btree (large_image);
+
+
+--
 -- Name: entries_last_answer_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
@@ -682,6 +697,13 @@ CREATE INDEX entries_rating_idx ON entries USING btree (rating);
 --
 
 CREATE INDEX entries_sent_idx ON entries USING btree (sent);
+
+
+--
+-- Name: entries_small_image_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entries_small_image_idx ON entries USING btree (small_image);
 
 
 --
@@ -858,6 +880,14 @@ ALTER TABLE ONLY entries
 
 
 --
+-- Name: entries_large_image_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_large_image_fkey FOREIGN KEY (large_image) REFERENCES image_files(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: entries_last_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -903,6 +933,14 @@ ALTER TABLE ONLY entries
 
 ALTER TABLE ONLY entries
     ADD CONSTRAINT entries_person_id_fkey FOREIGN KEY (person_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: entries_small_image_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY entries
+    ADD CONSTRAINT entries_small_image_fkey FOREIGN KEY (small_image) REFERENCES image_files(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
