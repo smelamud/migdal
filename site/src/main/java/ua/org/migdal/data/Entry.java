@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
+
 import ua.org.migdal.Config;
 import ua.org.migdal.data.util.TreeElement;
 import ua.org.migdal.mtext.Mtext;
@@ -426,8 +427,35 @@ public class Entry implements TreeElement {
     }
 
     @Transient
+    public String getUserLogin() {
+        return getUser() != null ? getUser().getLogin() : "";
+    }
+
+    @Transient
     public String getUserFolder() {
         return getUser() != null ? getUser().getFolder() : "";
+    }
+
+    @Transient
+    public boolean isUserHidden() {
+        return getUser().getHidden() > 0;
+    }
+
+    @Transient
+    public boolean isUserAdminHidden() {
+        return getUser().getHidden() > 1;
+    }
+
+    @Transient
+    public boolean isUserVisible() {
+        boolean userAdminUsers = RequestContextImpl.getInstance().isUserAdminUsers();
+
+        return !isUserHidden() || (userAdminUsers && !isUserAdminHidden());
+    }
+
+    @Transient
+    public boolean isUserGuest() {
+        return getUser() == null || getUser().isGuest();
     }
 
     public User getGroup() {

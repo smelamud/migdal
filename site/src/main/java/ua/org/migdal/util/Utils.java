@@ -66,6 +66,16 @@ public class Utils {
         return true;
     }
 
+    public static boolean isAsciiNoWhitespaceHtmlSafe(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c <= 32 || c >= 127 || c == '<' || c == '>' | c == '&') {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean isNumber(String s) {
         return s.matches("^\\d+$");
     }

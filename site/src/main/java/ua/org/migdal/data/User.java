@@ -155,7 +155,7 @@ public class User implements Editable {
 
     @Transient
     public String getFolder() {
-        return Utils.isAsciiNoWhitespace(getLogin()) ? getLogin() : Long.toString(getId());
+        return Utils.isAsciiNoWhitespaceHtmlSafe(getLogin()) ? getLogin() : Long.toString(getId());
     }
 
     public String getPassword() {

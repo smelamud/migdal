@@ -73,7 +73,7 @@
         {{/if}}
         <tr><td class="sent">
             {{sentView date=posting.sent}}&nbsp;({{sentView date=posting.modified}})
-            <senderlink message="$posting">
+            {{senderLink posting}}
         </td></tr>
         <tr><td class="posting-bottom">
             {{#if pposting.hidden}}
