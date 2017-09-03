@@ -1,38 +1,20 @@
 package ua.org.migdal.helper;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
-import ua.org.migdal.Config;
-import ua.org.migdal.data.InnerImage;
-import ua.org.migdal.mtext.InnerImageBlock;
 import ua.org.migdal.mtext.Mtext;
-import ua.org.migdal.mtext.MtextToHtml;
-import ua.org.migdal.util.XmlConverter;
-import ua.org.migdal.util.exception.XmlConverterException;
+import ua.org.migdal.mtext.MtextConverter;
 
 @HelperSource
 public class MtextHelperSource {
 
     @Inject
-    private Config config;
+    private MtextConverter mtextConverter;
 
     public CharSequence mtext(Mtext mtext, Options options) {
-        List<InnerImage> innerImages = options.hash("innerImages");
-
-        MtextToHtml handler = new MtextToHtml(mtext.getFormat(), mtext.isIgnoreWrongFormat(), mtext.getId(),
-                                              InnerImageBlock.getImageBlocks(innerImages));
-        handler.setConfig(config);
-        try {
-            XmlConverter.convert(mtext.getXml(), handler);
-            return new SafeString(handler.getHtmlBody());
-        } catch (XmlConverterException e) {
-            return new SafeString(String.format("<b>** %s: %s</b>", e.getMessage(), e.getCause().getMessage()));
-        }
+        return mtextConverter.toHtml(mtext, options.hash("innerImages"));
     }
 
 }

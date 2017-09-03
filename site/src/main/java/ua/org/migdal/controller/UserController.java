@@ -1,8 +1,8 @@
 package ua.org.migdal.controller;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
-import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,6 +21,7 @@ import ua.org.migdal.Config;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
+import ua.org.migdal.data.api.UserInfo;
 import ua.org.migdal.form.UserForm;
 import ua.org.migdal.helper.util.Constant;
 import ua.org.migdal.mail.MailController;
@@ -78,6 +80,18 @@ public class UserController {
                 .withUri("/users/" + folder)
                 .withParent(indexController.indexLocationInfo(null))
                 .withPageTitle("О пользователе " + login);
+    }
+
+    @GetMapping("/api/user/{id}")
+    @ResponseBody
+    public UserInfo loginExists(@PathVariable long id) {
+        User user = userManager.beg(id);
+        return new UserInfo(
+                user.getLogin(),
+                user.getFullName().toString(),
+                user.getInfoOrRankHtml().toString(),
+                user.isWoman(),
+                user.getLastOnline().getTime() / 1000);
     }
 
     @GetMapping("/users/{folder}/edit")

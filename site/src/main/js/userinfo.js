@@ -25,7 +25,7 @@ function userInfoInit(root) {
                 if (window.userInfo[id]) {
                     return userInfoContent(id);
                 }
-                $.getJSON("/ajax/sources/user/" + id, function(data) {
+                $.getJSON("/api/user/" + id, function(data) {
                     window.userInfo[id] = data;
                     api.set("content.text", userInfoContent(id)); 
                 });

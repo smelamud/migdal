@@ -22,6 +22,7 @@ import javax.validation.constraints.Size;
 import org.springframework.util.StringUtils;
 
 import ua.org.migdal.mtext.Mtext;
+import ua.org.migdal.mtext.MtextConverter;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
@@ -512,6 +513,11 @@ public class User implements Editable {
             return "Мигдалевец";
         }
         return "";
+    }
+
+    @Transient
+    public CharSequence getInfoOrRankHtml() {
+        return !StringUtils.isEmpty(getInfo()) ? MtextConverter.getInstance().toHtml(getInfoMtext()) : getRank();
     }
 
     public Set<User> getGroups() {
