@@ -72,8 +72,7 @@
             </td></tr>
         {{/if}}
         <tr><td class="sent">
-            <sentview date="$posting.Sent">&nbsp;<asp>
-            <asp>(<asp><sentview date="$posting.Modified">)
+            {{sentView date=posting.sent}}&nbsp;({{sentView date=posting.modified}})
             <senderlink message="$posting">
         </td></tr>
         <tr><td class="posting-bottom">
