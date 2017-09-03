@@ -25,7 +25,7 @@ public class Mtext {
         if (!XmlUtils.hasMarkup(xml)) {
             return;
         }
-        String rootTag = "MTEXT-" + format.name();
+        String rootTag = ("MTEXT-" + format.name()).toLowerCase();
         xml = String.format("<%s>%s</%s>", rootTag, xml, rootTag);
     }
 
