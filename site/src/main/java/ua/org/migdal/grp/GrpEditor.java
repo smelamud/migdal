@@ -1,5 +1,7 @@
 package ua.org.migdal.grp;
 
+import org.springframework.util.StringUtils;
+
 public class GrpEditor {
 
     private String field;
@@ -31,6 +33,10 @@ public class GrpEditor {
 
     public void setField(String field) {
         this.field = field;
+    }
+
+    public boolean isSection() {
+        return StringUtils.isEmpty(field);
     }
 
     public String getTitle() {

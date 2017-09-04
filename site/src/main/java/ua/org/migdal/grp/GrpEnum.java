@@ -1,6 +1,7 @@
 package ua.org.migdal.grp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,8 @@ public class GrpEnum {
     public long all;
     private Map<String, Long> groups = new HashMap<>();
 
-    private List<GrpDescriptor> grps;
+    private GrpDescriptor grpNone;
+    private List<GrpDescriptor> grps = new ArrayList<>();
     private Map<Long, GrpDescriptor> grpMap = new HashMap<>();
     private Map<String, GrpDescriptor> grpNameMap = new HashMap<>();
 
@@ -48,13 +50,22 @@ public class GrpEnum {
         instance = this;
 
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        grps = mapper.readValue(applicationContext.getResource("classpath:grps.yaml").getInputStream(),
+        List<GrpDescriptor> data = mapper.readValue(
+                applicationContext.getResource("classpath:grps.yaml").getInputStream(),
                 new TypeReference<List<GrpDescriptor>>() {
                 });
-        log.info("Loaded {} grps:", grps.size());
+        log.info("Loaded {} grps:", data.size());
+
         ExpressionParser parser = new SpelExpressionParser();
-        for (GrpDescriptor grp : grps) {
+        for (GrpDescriptor grp : data) {
+            if (grp.getName().equals("NONE")) {
+                log.info("- NONE");
+                grpNone = grp;
+                continue;
+            }
+
             log.info("- {}({})", grp.getName(), grp.getBit());
+            grps.add(grp);
             grp.parseExpressions(identManager, parser);
             all |= grp.getValue();
             grpMap.put(grp.getValue(), grp);
@@ -67,6 +78,7 @@ public class GrpEnum {
                 }
             }
         }
+        grps.forEach(grp -> grp.fillHiddenEditors(grpNone));
     }
 
     public static GrpEnum getInstance() {
@@ -75,6 +87,10 @@ public class GrpEnum {
 
     public List<GrpDescriptor> getGrps() {
         return grps;
+    }
+
+    public GrpDescriptor getGrpNone() {
+        return grpNone;
     }
 
     public GrpDescriptor grp(long grp) {

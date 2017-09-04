@@ -1,12 +1,16 @@
 package ua.org.migdal.grp;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
+
 import ua.org.migdal.manager.IdentManager;
 
 public class GrpDescriptor {
@@ -64,6 +68,7 @@ public class GrpDescriptor {
     private String whatA = "сообщения";
 
     private List<GrpEditor> editors = Collections.emptyList();
+    private List<GrpEditor> hiddenEditors;
 
     private Expression trackExpression;
 
@@ -198,6 +203,10 @@ public class GrpDescriptor {
         this.editors = editors;
     }
 
+    public List<GrpEditor> getHiddenEditors() {
+        return hiddenEditors;
+    }
+
     private String evaluateSubtreeExpression(List<SubtreeHref> subtreeHrefs, EvaluationContext evaluationContext) {
         String track = trackExpression.getValue(evaluationContext, String.class);
         for (SubtreeHref subtreeHref : subtreeHrefs) {
@@ -214,6 +223,16 @@ public class GrpDescriptor {
         generalHref.forEach(element -> element.parseExpressions(identManager, parser, parserContext));
         detailsHref.forEach(element -> element.parseExpressions(identManager, parser, parserContext));
         trackExpression = parser.parseExpression("${track}", parserContext);
+    }
+
+    void fillHiddenEditors(GrpDescriptor grpNone) {
+        Set<String> visible = new HashSet<>();
+        editors.stream()
+                .filter(editor -> !editor.isSection())
+                .forEach(editor -> visible.add(editor.getField()));
+        hiddenEditors = grpNone.editors.stream()
+                            .filter(editor -> !editor.isSection() && !visible.contains(editor.getField()))
+                            .collect(Collectors.toList());
     }
 
 }

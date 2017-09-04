@@ -90,6 +90,7 @@ public class PostingController {
         postingAddLocationInfo(model);
 
         model.addAttribute("topicNames", topicManager.begNames(0, -1, false, true));
+        model.addAttribute("xmlid", 0); // value!='$$full ? $posting.Id : 0
         model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(full, grpEnum.grpValue("NEWS")));
         return "posting-edit";
     }

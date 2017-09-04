@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.Constants;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.SubdomainUtils;
@@ -24,6 +25,9 @@ public class GlobalsControllerAdvice {
     @Inject
     private Config config;
 
+    @Inject
+    private GrpEnum grpEnum;
+
     @ModelAttribute
     public void session(HttpServletRequest request, Model model) {
         model.addAttribute("const", constants);
@@ -34,6 +38,7 @@ public class GlobalsControllerAdvice {
                 SubdomainUtils.createLocalBuilderFromRequest(request).queryParam("print", 1).toUriString());
         model.addAttribute("siteDomain", config.getSiteDomain());
         model.addAttribute("siteName", !requestContext.isEnglish() ? "Мигдаль" : "Migdal");
+        model.addAttribute("grpNone", grpEnum.getGrpNone());
     }
 
 }

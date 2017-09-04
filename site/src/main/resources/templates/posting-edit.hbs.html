@@ -6,19 +6,15 @@
 2. Все поля должны включаться, если $full!=0.
 }}
 
-{{! <ident name='editid'>
-<ident name='parent_id'>
+{{! <ident name='parent_id'>
 <int name='grp'>
-<int name='up'>
 <int name='index1'>
-<int name='full'>
 <int name='noguests'>
 
 <int name='relogin'>
 <string name='login'>
 <int name='remember'>
 
-<int name='edittag'>
 <int name='index2'>
 <string name='body'>
 <int name='body_format'>
@@ -46,9 +42,6 @@
 <int name='large_image_size'>
 <string name='large_image_format'>
 <string name='large_image_filename'>
-<int name='person_id'>
-<int name='hidden'>
-<int name='disabled'>
 <int name='sent'>
 
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
@@ -66,298 +59,295 @@
  <assign name='grp' value='$posting.Grp'>
 </if>
 
-{{#*inline "editorLine"}} {{! params: posting,editor,visible }}
-<assign name='ident' value='$editor.Ident'>
-<assign name='xmlid' value!='$$full ? $posting.Id : 0'>
-<if what="$ident=='' || $ident[0]=='_'">
- <if what='$visible'>
-  <form_section title='$=editor.Title'>
- </if>
-<elif what="$ident=='priority'">
- <if what='$visible'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment' name='priority'
-             value='$posting.Priority' size=4 maxlength=3
-	     mandatory='$editor.isMandatory'>
- <else>
-  <hidden name='priority' value='$posting.Priority'>
- </if>
-<elif what="$ident=='topic'">
- <if what='$visible'>
-  <form_topicselect title='$=editor.Title' comment='$editor.Comment'
-                    name='parent_id' value='$posting.ParentId' grp='$$grp'
-	            mandatory='$editor.isMandatory' root='$$root'
-	            only_postable='*true'>
- <else>
-  <hidden name='parent_id' value='$posting.TopicId'>
- </if>
-<elif what="$ident=='ident'">
- <if what='$visible'>
-  <error id='*EP_IDENT_ABSENT' text='Обозначение не указано'>
-  <error id='*EP_IDENT_UNIQUE' text='Так уже обозначено другое сообщение'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment' name='ident'
-             value='$posting.Ident' size=20 maxlength=75
-	     mandatory='$editor.isMandatory'>
- <else>
-  <hidden name='ident' value='$posting.Ident'>
- </if>
-<elif what="$ident=='subject'">
- <if what='$visible'>
-  <error id='*EP_SUBJECT_ABSENT' text#='$=editor.Title не указан'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment'
-             value='$=posting.Subject' name='subject' size=70 maxlength=250
-	     mandatory='$editor.isMandatory'>
- <else>
-  <hidden name='subject' value='$=posting.Subject'>
- </if>
-<elif what="$ident=='author'">
- <if what='$visible'>
-  <error id='*EP_AUTHOR_ABSENT' text#='$=editor.Title не указан'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment'
-             value='$=posting.Author' name='author' size=52 maxlength=250
-	     mandatory='$editor.isMandatory' xmlid='$xmlid'>
- <else>
-  <hidden name='author' value='$=posting.Author'>
- </if>
-<elif what="$ident=='source'">
- <if what='$visible'>
-  <error id='*EP_SOURCE_ABSENT' text#='$=editor.Title не указан'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment'
-             value='$=posting.Source' name='source' size=52 maxlength=250
-	     mandatory='$editor.isMandatory' xmlid='$xmlid'>
- <else>
-  <hidden name='source' value='$=posting.Source'>
- </if>
-<elif what="$ident=='comment0'">
- <if what='$visible'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment'
-             value='$=posting.Comment0' name='comment0' size=52 maxlength=250
-	     mandatory='$editor.isMandatory' xmlid='$xmlid'>
- <else>
-  <hidden name='comment0' value='$=posting.Comment0'>
- </if>
-<elif what="$ident=='body'">
- <if what='$visible'>
-  <error id='*EP_BODY_ABSENT' text='Текст пуст'>
-  <form_editor title='$=editor.Title' comment='$editor.Comment'
-               name='body' body='$=posting.Body' rows=9
-	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
- <else>
-  <hidden name='body' value='$=posting.Body'>
- </if>
-<elif what="$ident=='body_format'">
- <if what='$visible'>
-  <form_upload_format title='$=editor.Title' comment='$editor.Comment'
-		      name='body_format' format='$posting.BodyFormat'
-		      mandatory='$editor.isMandatory'>
- <else>
-  <hidden name='body_format' value='$posting.BodyFormat'>
- </if>
-<elif what="$ident=='index1'">
- <if what='$visible'>
-  <error id='*EP_INDEX1_ABSENT' text#='$=editor.Title не указан'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment'
-             value='$posting.Index1' name='index1' size=3 maxlength=5
-	     mandatory='$editor.isMandatory'>
- <else>
-  <hidden name='index1' value='$posting.Index1'>
- </if>
-<elif what="$ident=='index2'">
- <if what='$visible'>
-  <if what="$editor.Style=='issue-length'">
-   <form_select title='$=editor.Title' comment='$editor.Comment'
-	        name='index2' mandatory='$editor.isMandatory'>
-    <form_option title='Обычный номер' value=0 selected!='$posting.Index2==0'>
-    <form_option title='Сдвоенный номер' value=1 selected!='$posting.Index2==1'>
-    <form_option title='Строенный номер' value=2 selected!='$posting.Index2==2'>
-    <form_option title='Счетверенный номер' value=3
-                 selected!='$posting.Index2==3'>
-   </form_select>
-  <else>
-   <form_edit title='$=editor.Title' comment='$editor.Comment'
-	      value='$posting.Index2' name='index2' size=3 maxlength=5
-	      mandatory='$editor.isMandatory'>
-  </if>
- <else>
-  <hidden name='index2' value='$posting.Index2'>
- </if>
-<elif what="$ident=='lang'">
- <if what='$visible'>
-  <error id='*EP_LANG_ABSENT' text#='$=editor.Title не указан'>
-  <form_langselect title='$=editor.Title' comment='$editor.Comment'
-                   value='$posting.Lang' name='lang'
-	           mandatory='$editor.isMandatory'>
- <else>
-  <hidden name='lang' value='$posting.Lang'>
- </if>
-<elif what="$ident=='url'">
- <if what='$visible'>
-  <error id='*EP_URL_ABSENT' text#='$=editor.Title не указана'>
-  <form_edit title='$=editor.Title' comment='$editor.Comment'
-             value='$=posting.URL' name='url' size=52 maxlength=250
-	     mandatory='$editor.isMandatory'>
- <else>
-  <hidden name='url' value='$=posting.URL'>
- </if>
-<elif what="$ident=='image'">
- <if what='$visible'>
-  <error id='*EP_IMAGE_ABSENT' text#='Нужно указать $editor.WhatSV'>
-  <error id='*EIU_UNKNOWN_IMAGE'
-         text#='Неизвестный формат $editor.WhatSR. Сайт понимает
-                $editor.WhatSVs только в форматах JPEG, PNG и GIF'>
-  <error id='*EIU_IMAGE_LARGE'
-         text#='$editor.WhatLI слишком велика (больше 2M)'>
-  <error id='*EIU_THUMBNAIL_LARGE'
-         text#='Маленькая $editor.WhatSI слишком велика (больше 2M)'>
-  <error id='*EIU_UNKNOWN_THUMBNAIL'
-         text#='Формат маленькой $editor.WhatSR, указанный при конфигурации
-                сервера, не поддерживается, либо вы загрузили $editor.WhatSV
-                не этого формата'>
-  <error id='*EIU_INTERNAL_ERROR' text#='Не удалось загрузить $editor.WhatSV'>
-  <error id='*EP_LARGE_IMAGE_EXACT'
-         text#='$editor.WhatLI должна быть размером
-                ${editor.ImageExactX}x$editor.ImageExactY'>
-  <error id='*EP_LARGE_IMAGE_EXACT_X'
-         text#='$editor.WhatLI должна быть шириной $editor.ImageExactX пикселов'>
-  <error id='*EP_LARGE_IMAGE_EXACT_Y'
-         text#='$editor.WhatLI должна быть высотой $editor.ImageExactY пикселов'>
-  <error id='*EP_SMALL_IMAGE_EXACT'
-         text#='Уменьшенная $editor.WhatSI должна быть размером
-                ${editor.ThumbExactX}x$editor.ThumbExactY'>
-  <error id='*EP_SMALL_IMAGE_EXACT_X'
-         text#='Уменьшенная $editor.WhatSI должна быть шириной
-                $editor.ThumbExactX пикселов'>
-  <error id='*EP_SMALL_IMAGE_EXACT_Y'
-         text#='Уменьшенная $editor.WhatSI должна быть высотой
-                $editor.ThumbExactY пикселов'>
-  <error id='*EP_LARGE_IMAGE_MAX'
-         text#='$editor.WhatLI должна быть размером не более
-                ${editor.ImageMaxX}x$editor.ImageMaxY'>
-  <error id='*EP_LARGE_IMAGE_MAX_X'
-         text#='$editor.WhatLI должна быть шириной не более $editor.ImageMaxX
-                пикселов'>
-  <error id='*EP_LARGE_IMAGE_MAX_Y'
-         text#='$editor.WhatLI должна быть высотой не более $editor.ImageMaxY
-                пикселов'>
-  <error id='*EP_SMALL_IMAGE_MAX'
-         text#='Уменьшенная $editor.WhatSI должна быть размером не более
-                ${editor.ThumbMaxX}x$editor.ThumbMaxY'>
-  <error id='*EP_SMALL_IMAGE_MAX_X'
-         text#='Уменьшенная $editor.WhatSI должна быть шириной не более
-                $editor.ThumbMaxX пикселов'>
-  <error id='*EP_SMALL_IMAGE_MAX_Y'
-         text#='Уменьшенная $editor.WhatSI должна быть высотой не более
-                $editor.ThumbMaxY пикселов'>
-  <if what='$posting.hasSmallImage'>
-   <hidden name='small_image' value='$posting.SmallImage'>
-   <hidden name='small_image_x' value='$posting.SmallImageX'>
-   <hidden name='small_image_y' value='$posting.SmallImageY'>
-   <hidden name='small_image_format' value='$posting.SmallImageFormat'>
-   <hidden name='large_image' value='$posting.LargeImage'>
-   <hidden name='large_image_x' value='$posting.LargeImageX'>
-   <hidden name='large_image_y' value='$posting.LargeImageY'>
-   <hidden name='large_image_size' value='$posting.LargeImageSize'>
-   <hidden name='large_image_format' value='$posting.LargeImageFormat'>
-   <hidden name='large_image_filename' value='$posting.LargeImageFilename'>
-   <assign name='loaded' value#='Загружен файл $=posting.LargeImageFilename
-                                 (${posting.LargeImageX}x$posting.LargeImageY,
-                                 ${posting.LargeImageSizeKB}K)'>
-   <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
-   <assign name='large_url' value="$,LargeImageURL">
-  <else>
-   <assign name='loaded' value=''>
-   <assign name='small_url' value=''>
-   <assign name='large_url' value=''>
-  </if>
-  <assign name='flags' value='$editor.ThumbnailStyle'>
-  <if what="$flags!='manual' && $flags!='resize'">
-   <form_uploader title='$=editor.Title' comment='$editor.Comment'
-		  name='image_file' loaded='$loaded' delname='del_image'
-		  small_url='$small_url' large_url='$large_url'
-		  mandatory='$editor.isMandatory'>
-  <else>
-   <form_uploader title='$=editor.Title' comment='$editor.Comment'
-		  name='image_file' small_name='image_file_thumb'
-		  small_title='Маленькая:' large_title='Большая:'
-		  loaded='$loaded' delname='del_image'
-		  small_url='$small_url' large_url='$large_url'
-		  mandatory='$editor.isMandatory'>
-  </if>
- <else>
-  <hidden name='small_image' value='$posting.SmallImage'>
-  <hidden name='small_image_x' value='$posting.SmallImageX'>
-  <hidden name='small_image_y' value='$posting.SmallImageY'>
-  <hidden name='small_image_format' value='$posting.SmallImageFormat'>
-  <hidden name='large_image' value='$posting.LargeImage'>
-  <hidden name='large_image_x' value='$posting.LargeImageX'>
-  <hidden name='large_image_y' value='$posting.LargeImageY'>
-  <hidden name='large_image_size' value='$posting.LargeImageSize'>
-  <hidden name='large_image_format' value='$posting.LargeImageFormat'>
-  <hidden name='large_image_filename' value='$posting.LargeImageFilename'>
- </if>
-<elif what="$ident=='title'">
- <if what='$visible'>
-  <form_editor title='$=editor.Title' comment='$editor.Comment'
-               name='title' body='$=posting.Title' rows=3
-	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
- <else>
-  <hidden name='title' value='$=posting.Title'>
- </if>
-<elif what="$ident=='large_body'">
- <if what='$visible'>
-  <error id='*EP_LARGE_BODY_ABSENT' text#='$=editor.Title пуст'>
-  <form_editor title='$=editor.Title' comment='$editor.Comment'
-               name='large_body' body='$=posting.LargeBody' rows=11
-	       mandatory='$editor.isMandatory' xmlid='$xmlid'>
- <else>
-  <hidden name='large_body' value='$=posting.LargeBody'>
- </if>
-<elif what="$ident=='large_body_upload'">
- <if what='$visible'>
-  <error id='*EUL_LARGE' text#='$=editor.Title слишком велик (больше 2M)'>
-  <error id='*EUL_UNKNOWN_FORMAT'
-         text='Этот файл не является простым текстовым файлом. Сайт не понимает
-	       документы MS Word и другие подобные форматы. Допускается
-	       загрузка только простого текстового файла.'>
-  <if what='$posting.hasLargeBody'>
-   <ifne what='$posting.LargeBodyFilename'>
-    <assign name='loaded' value#='Загружен файл $=posting.LargeBodyFilename
-				  (${posting.LargeBodySizeKB}K)'>
-   <else>
-    <assign name='loaded' value#='Загружен текст (${posting.LargeBodySizeKB}K)'>
-   </ifne>
-  <else>
-   <assign name='loaded' value=''>
-  </if>
-  <form_uploader title='$=editor.Title' comment='$editor.Comment'
-                 name='large_body_file' loaded='$loaded'
-		 delname='del_large_body' mandatory='$editor.isMandatory'
-		 plainid='$posting.Id'>
- </if>
-<elif what="$ident=='large_body_format'">
- <if what='$visible'>
-  <form_upload_format title='$=editor.Title' comment='$editor.Comment'
-		      name='large_body_format'
-		      format='$posting.LargeBodyFormat'
-		      mandatory='$editor.isMandatory'>
- <else>
-  <hidden name='large_body_format' value='$posting.LargeBodyFormat'>
- </if>
-<elif what="$ident=='sent'">
- <if what='$visible'>
-  <form_date title='$=editor.Title' comment='$editor.Comment'
-             name='sent' value='$posting.Sent'
-	     mandatory='$editor.isMandatory' base_year='$editor.Base'>
- <else>
-  <hidden name='sent_year' value=0>
-  <hidden name='sent_month' value=0>
-  <hidden name='sent_day' value=0>
-  <hidden name='sent_hour' value='-1'>
-  <hidden name='sent_minute' value='-1'>
-  <hidden name='sent_second' value='-1'>
- </if>
-<else>
- <form_section title='$ident'>
-</if>
+{{#*inline "editorLine"}} {{! params: editor,visible }}
+    {{#if editor.section}}
+        {{formSection title=editor.title}}
+    {{/if}}
+    <elif what="$ident=='priority'">
+     <if what='$visible'>
+      <form_edit title='$=editor.Title' comment='$editor.Comment' name='priority'
+                 value='$posting.Priority' size=4 maxlength=3
+             mandatory='$editor.isMandatory'>
+     <else>
+      <hidden name='priority' value='$posting.Priority'>
+     </if>
+    <elif what="$ident=='topic'">
+     <if what='$visible'>
+      <form_topicselect title='$=editor.Title' comment='$editor.Comment'
+                        name='parent_id' value='$posting.ParentId' grp='$$grp'
+                    mandatory='$editor.isMandatory' root='$$root'
+                    only_postable='*true'>
+     <else>
+      <hidden name='parent_id' value='$posting.TopicId'>
+     </if>
+    <elif what="$ident=='ident'">
+     <if what='$visible'>
+      <error id='*EP_IDENT_ABSENT' text='Обозначение не указано'>
+      <error id='*EP_IDENT_UNIQUE' text='Так уже обозначено другое сообщение'>
+      <form_edit title='$=editor.Title' comment='$editor.Comment' name='ident'
+                 value='$posting.Ident' size=20 maxlength=75
+             mandatory='$editor.isMandatory'>
+     <else>
+      <hidden name='ident' value='$posting.Ident'>
+     </if>
+    <elif what="$ident=='subject'">
+     <if what='$visible'>
+      <error id='*EP_SUBJECT_ABSENT' text#='$=editor.Title не указан'>
+      <form_edit title='$=editor.Title' comment='$editor.Comment'
+                 value='$=posting.Subject' name='subject' size=70 maxlength=250
+             mandatory='$editor.isMandatory'>
+     <else>
+      <hidden name='subject' value='$=posting.Subject'>
+     </if>
+    <elif what="$ident=='author'">
+     <if what='$visible'>
+      <error id='*EP_AUTHOR_ABSENT' text#='$=editor.Title не указан'>
+      <form_edit title='$=editor.Title' comment='$editor.Comment'
+                 value='$=posting.Author' name='author' size=52 maxlength=250
+             mandatory='$editor.isMandatory' xmlid='$xmlid'>
+     <else>
+      <hidden name='author' value='$=posting.Author'>
+     </if>
+    <elif what="$ident=='source'">
+     <if what='$visible'>
+      <error id='*EP_SOURCE_ABSENT' text#='$=editor.Title не указан'>
+      <form_edit title='$=editor.Title' comment='$editor.Comment'
+                 value='$=posting.Source' name='source' size=52 maxlength=250
+             mandatory='$editor.isMandatory' xmlid='$xmlid'>
+     <else>
+      <hidden name='source' value='$=posting.Source'>
+     </if>
+    <elif what="$ident=='comment0'">
+     <if what='$visible'>
+      <form_edit title='$=editor.Title' comment='$editor.Comment'
+                 value='$=posting.Comment0' name='comment0' size=52 maxlength=250
+             mandatory='$editor.isMandatory' xmlid='$xmlid'>
+     <else>
+      <hidden name='comment0' value='$=posting.Comment0'>
+     </if>
+    <elif what="$ident=='body'">
+     <if what='$visible'>
+      <error id='*EP_BODY_ABSENT' text='Текст пуст'>
+      <form_editor title='$=editor.Title' comment='$editor.Comment'
+                   name='body' body='$=posting.Body' rows=9
+               mandatory='$editor.isMandatory' xmlid='$xmlid'>
+     <else>
+      <hidden name='body' value='$=posting.Body'>
+     </if>
+    <elif what="$ident=='body_format'">
+     <if what='$visible'>
+      <form_upload_format title='$=editor.Title' comment='$editor.Comment'
+                  name='body_format' format='$posting.BodyFormat'
+                  mandatory='$editor.isMandatory'>
+     <else>
+      <hidden name='body_format' value='$posting.BodyFormat'>
+     </if>
+    <elif what="$ident=='index1'">
+     <if what='$visible'>
+      <error id='*EP_INDEX1_ABSENT' text#='$=editor.Title не указан'>
+      <form_edit title='$=editor.Title' comment='$editor.Comment'
+                 value='$posting.Index1' name='index1' size=3 maxlength=5
+             mandatory='$editor.isMandatory'>
+     <else>
+      <hidden name='index1' value='$posting.Index1'>
+     </if>
+    <elif what="$ident=='index2'">
+     <if what='$visible'>
+      <if what="$editor.Style=='issue-length'">
+       <form_select title='$=editor.Title' comment='$editor.Comment'
+                name='index2' mandatory='$editor.isMandatory'>
+        <form_option title='Обычный номер' value=0 selected!='$posting.Index2==0'>
+        <form_option title='Сдвоенный номер' value=1 selected!='$posting.Index2==1'>
+        <form_option title='Строенный номер' value=2 selected!='$posting.Index2==2'>
+        <form_option title='Счетверенный номер' value=3
+                     selected!='$posting.Index2==3'>
+       </form_select>
+      <else>
+       <form_edit title='$=editor.Title' comment='$editor.Comment'
+              value='$posting.Index2' name='index2' size=3 maxlength=5
+              mandatory='$editor.isMandatory'>
+      </if>
+     <else>
+      <hidden name='index2' value='$posting.Index2'>
+     </if>
+    <elif what="$ident=='lang'">
+     <if what='$visible'>
+      <error id='*EP_LANG_ABSENT' text#='$=editor.Title не указан'>
+      <form_langselect title='$=editor.Title' comment='$editor.Comment'
+                       value='$posting.Lang' name='lang'
+                   mandatory='$editor.isMandatory'>
+     <else>
+      <hidden name='lang' value='$posting.Lang'>
+     </if>
+    <elif what="$ident=='url'">
+     <if what='$visible'>
+      <error id='*EP_URL_ABSENT' text#='$=editor.Title не указана'>
+      <form_edit title='$=editor.Title' comment='$editor.Comment'
+                 value='$=posting.URL' name='url' size=52 maxlength=250
+             mandatory='$editor.isMandatory'>
+     <else>
+      <hidden name='url' value='$=posting.URL'>
+     </if>
+    <elif what="$ident=='image'">
+     <if what='$visible'>
+      <error id='*EP_IMAGE_ABSENT' text#='Нужно указать $editor.WhatSV'>
+      <error id='*EIU_UNKNOWN_IMAGE'
+             text#='Неизвестный формат $editor.WhatSR. Сайт понимает
+                    $editor.WhatSVs только в форматах JPEG, PNG и GIF'>
+      <error id='*EIU_IMAGE_LARGE'
+             text#='$editor.WhatLI слишком велика (больше 2M)'>
+      <error id='*EIU_THUMBNAIL_LARGE'
+             text#='Маленькая $editor.WhatSI слишком велика (больше 2M)'>
+      <error id='*EIU_UNKNOWN_THUMBNAIL'
+             text#='Формат маленькой $editor.WhatSR, указанный при конфигурации
+                    сервера, не поддерживается, либо вы загрузили $editor.WhatSV
+                    не этого формата'>
+      <error id='*EIU_INTERNAL_ERROR' text#='Не удалось загрузить $editor.WhatSV'>
+      <error id='*EP_LARGE_IMAGE_EXACT'
+             text#='$editor.WhatLI должна быть размером
+                    ${editor.ImageExactX}x$editor.ImageExactY'>
+      <error id='*EP_LARGE_IMAGE_EXACT_X'
+             text#='$editor.WhatLI должна быть шириной $editor.ImageExactX пикселов'>
+      <error id='*EP_LARGE_IMAGE_EXACT_Y'
+             text#='$editor.WhatLI должна быть высотой $editor.ImageExactY пикселов'>
+      <error id='*EP_SMALL_IMAGE_EXACT'
+             text#='Уменьшенная $editor.WhatSI должна быть размером
+                    ${editor.ThumbExactX}x$editor.ThumbExactY'>
+      <error id='*EP_SMALL_IMAGE_EXACT_X'
+             text#='Уменьшенная $editor.WhatSI должна быть шириной
+                    $editor.ThumbExactX пикселов'>
+      <error id='*EP_SMALL_IMAGE_EXACT_Y'
+             text#='Уменьшенная $editor.WhatSI должна быть высотой
+                    $editor.ThumbExactY пикселов'>
+      <error id='*EP_LARGE_IMAGE_MAX'
+             text#='$editor.WhatLI должна быть размером не более
+                    ${editor.ImageMaxX}x$editor.ImageMaxY'>
+      <error id='*EP_LARGE_IMAGE_MAX_X'
+             text#='$editor.WhatLI должна быть шириной не более $editor.ImageMaxX
+                    пикселов'>
+      <error id='*EP_LARGE_IMAGE_MAX_Y'
+             text#='$editor.WhatLI должна быть высотой не более $editor.ImageMaxY
+                    пикселов'>
+      <error id='*EP_SMALL_IMAGE_MAX'
+             text#='Уменьшенная $editor.WhatSI должна быть размером не более
+                    ${editor.ThumbMaxX}x$editor.ThumbMaxY'>
+      <error id='*EP_SMALL_IMAGE_MAX_X'
+             text#='Уменьшенная $editor.WhatSI должна быть шириной не более
+                    $editor.ThumbMaxX пикселов'>
+      <error id='*EP_SMALL_IMAGE_MAX_Y'
+             text#='Уменьшенная $editor.WhatSI должна быть высотой не более
+                    $editor.ThumbMaxY пикселов'>
+      <if what='$posting.hasSmallImage'>
+       <hidden name='small_image' value='$posting.SmallImage'>
+       <hidden name='small_image_x' value='$posting.SmallImageX'>
+       <hidden name='small_image_y' value='$posting.SmallImageY'>
+       <hidden name='small_image_format' value='$posting.SmallImageFormat'>
+       <hidden name='large_image' value='$posting.LargeImage'>
+       <hidden name='large_image_x' value='$posting.LargeImageX'>
+       <hidden name='large_image_y' value='$posting.LargeImageY'>
+       <hidden name='large_image_size' value='$posting.LargeImageSize'>
+       <hidden name='large_image_format' value='$posting.LargeImageFormat'>
+       <hidden name='large_image_filename' value='$posting.LargeImageFilename'>
+       <assign name='loaded' value#='Загружен файл $=posting.LargeImageFilename
+                                     (${posting.LargeImageX}x$posting.LargeImageY,
+                                     ${posting.LargeImageSizeKB}K)'>
+       <assign name='small_url' value!="$,hasLargeImage ? $,SmallImageURL : ''">
+       <assign name='large_url' value="$,LargeImageURL">
+      <else>
+       <assign name='loaded' value=''>
+       <assign name='small_url' value=''>
+       <assign name='large_url' value=''>
+      </if>
+      <assign name='flags' value='$editor.ThumbnailStyle'>
+      <if what="$flags!='manual' && $flags!='resize'">
+       <form_uploader title='$=editor.Title' comment='$editor.Comment'
+              name='image_file' loaded='$loaded' delname='del_image'
+              small_url='$small_url' large_url='$large_url'
+              mandatory='$editor.isMandatory'>
+      <else>
+       <form_uploader title='$=editor.Title' comment='$editor.Comment'
+              name='image_file' small_name='image_file_thumb'
+              small_title='Маленькая:' large_title='Большая:'
+              loaded='$loaded' delname='del_image'
+              small_url='$small_url' large_url='$large_url'
+              mandatory='$editor.isMandatory'>
+      </if>
+     <else>
+      <hidden name='small_image' value='$posting.SmallImage'>
+      <hidden name='small_image_x' value='$posting.SmallImageX'>
+      <hidden name='small_image_y' value='$posting.SmallImageY'>
+      <hidden name='small_image_format' value='$posting.SmallImageFormat'>
+      <hidden name='large_image' value='$posting.LargeImage'>
+      <hidden name='large_image_x' value='$posting.LargeImageX'>
+      <hidden name='large_image_y' value='$posting.LargeImageY'>
+      <hidden name='large_image_size' value='$posting.LargeImageSize'>
+      <hidden name='large_image_format' value='$posting.LargeImageFormat'>
+      <hidden name='large_image_filename' value='$posting.LargeImageFilename'>
+     </if>
+    <elif what="$ident=='title'">
+     <if what='$visible'>
+      <form_editor title='$=editor.Title' comment='$editor.Comment'
+                   name='title' body='$=posting.Title' rows=3
+               mandatory='$editor.isMandatory' xmlid='$xmlid'>
+     <else>
+      <hidden name='title' value='$=posting.Title'>
+     </if>
+    <elif what="$ident=='large_body'">
+     <if what='$visible'>
+      <error id='*EP_LARGE_BODY_ABSENT' text#='$=editor.Title пуст'>
+      <form_editor title='$=editor.Title' comment='$editor.Comment'
+                   name='large_body' body='$=posting.LargeBody' rows=11
+               mandatory='$editor.isMandatory' xmlid='$xmlid'>
+     <else>
+      <hidden name='large_body' value='$=posting.LargeBody'>
+     </if>
+    <elif what="$ident=='large_body_upload'">
+     <if what='$visible'>
+      <error id='*EUL_LARGE' text#='$=editor.Title слишком велик (больше 2M)'>
+      <error id='*EUL_UNKNOWN_FORMAT'
+             text='Этот файл не является простым текстовым файлом. Сайт не понимает
+               документы MS Word и другие подобные форматы. Допускается
+               загрузка только простого текстового файла.'>
+      <if what='$posting.hasLargeBody'>
+       <ifne what='$posting.LargeBodyFilename'>
+        <assign name='loaded' value#='Загружен файл $=posting.LargeBodyFilename
+                      (${posting.LargeBodySizeKB}K)'>
+       <else>
+        <assign name='loaded' value#='Загружен текст (${posting.LargeBodySizeKB}K)'>
+       </ifne>
+      <else>
+       <assign name='loaded' value=''>
+      </if>
+      <form_uploader title='$=editor.Title' comment='$editor.Comment'
+                     name='large_body_file' loaded='$loaded'
+             delname='del_large_body' mandatory='$editor.isMandatory'
+             plainid='$posting.Id'>
+     </if>
+    <elif what="$ident=='large_body_format'">
+     <if what='$visible'>
+      <form_upload_format title='$=editor.Title' comment='$editor.Comment'
+                  name='large_body_format'
+                  format='$posting.LargeBodyFormat'
+                  mandatory='$editor.isMandatory'>
+     <else>
+      <hidden name='large_body_format' value='$posting.LargeBodyFormat'>
+     </if>
+    <elif what="$ident=='sent'">
+     <if what='$visible'>
+      <form_date title='$=editor.Title' comment='$editor.Comment'
+                 name='sent' value='$posting.Sent'
+             mandatory='$editor.isMandatory' base_year='$editor.Base'>
+     <else>
+      <hidden name='sent_year' value=0>
+      <hidden name='sent_month' value=0>
+      <hidden name='sent_day' value=0>
+      <hidden name='sent_hour' value='-1'>
+      <hidden name='sent_minute' value='-1'>
+      <hidden name='sent_second' value='-1'>
+     </if>
+    <else>
+     <form_section title='$ident'>
+    </if>
 {{/inline}}
 
 {{> part/preamble}}
@@ -420,14 +410,18 @@
         {{else}}
             {{hidden name="grp" value=postingForm.grp}}
         {{/if}}
-        <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE'>
-        <for>
-            <editor_line posting='$,' editor='$.' visible='*true'>
-        </for>
-        <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE' inverse='*true'>
-        <for>
-            <editor_line posting='$,' editor='$.' visible='*false'>
-        </for>
+        {{#unless postingForm.full}}
+            {{#each postingForm.grpInfo.editors}}
+                {{> editorLine editor=this visible=true}}
+            {{/each}}
+            {{#each postingForm.grpInfo.hiddenEditors}}
+                {{> editorLine editor=this visible=false}}
+            {{/each}}
+        {{else}}
+            {{#each grpNone.editors}}
+                {{> editorLine editor=this visible=true}}
+            {{/each}}
+        {{/unless}}
         {{#moderator}}
             {{#assign "hiddenTitle"}}Сообщение видно только автору и модераторам{{/assign}}
         {{else}}

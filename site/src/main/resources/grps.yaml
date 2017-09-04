@@ -13,6 +13,129 @@
 # WRITINGS
 #   Попадают в "Избранное".
 
+- name: NONE  # Used for "full" mode of the posting editor
+  editors:
+    - field: body_format
+      title: "Формат небольших текстов"
+      comment: ""
+      mandatory: No
+
+    - field: topic
+      title: "Тема"
+      comment: ""
+      mandatory: No
+
+    - title: "Номер"
+
+    - field: index1
+      title: "Номер"
+      comment: ""
+      mandatory: No
+
+    - field: index2
+      title: "Длина"
+      comment: ""
+      mandatory: No
+
+    - title: "Заголовки"
+
+    - field: ident
+      title: "Обозначение"
+      comment: ""
+      mandatory: No
+
+    - field: subject
+      title: "Заголовок"
+      comment: ""
+      mandatory: No
+
+    - field: comment0
+      title: "Подзаголовок"
+      comment: ""
+      mandatory: No
+
+    - field: author
+      title: "Автор"
+      comment: ""
+      mandatory: No
+
+    - field: source
+      title: "Источник"
+      comment: ""
+      mandatory: No
+
+    - title: "Картинка"
+
+    - field: image
+      title: "Картинка"
+      comment: ""
+      mandatory: No
+
+      style: "auto-resize"
+      imageMaxX: 900
+      imageMaxY: 900
+      thumbMaxX: 120
+      thumbMaxY: 120
+      whatN: "картинка"
+      whatG: "картинки"
+      whatA: "картинку"
+      whatAs: "картинки"
+      what: "Картинка"
+
+    - field: title
+      title: "Подпись под картинкой"
+      comment: ""
+      mandatory: No
+
+    - title: "Текст"
+
+    - field: body
+      title: "Текст"
+      comment: ""
+      mandatory: No
+
+    - field: lang
+      title: "Язык"
+      comment: ""
+      mandatory: No
+
+    - field: url
+      title: "Ссылка"
+      comment: ""
+      mandatory: No
+
+    - title: "Большой текст"
+
+    - field: large_body
+      title: "Большой текст"
+      comment: ""
+      mandatory: No
+
+    - field: large_body_upload
+      title: "Большой текст из файла"
+      comment: ""
+      mandatory: No
+
+    - field: large_body_format
+      title: "Формат большого текста"
+      comment: ""
+      mandatory: No
+
+    - title: "Дата"
+
+    - field: sent
+      title: "Дата"
+      comment: ""
+      mandatory: No
+
+    - title: "Привилегии"
+
+    - field: priority
+      title: "Приоритет"
+      comment: ""
+      mandatory: No
+
+
 - name: FORUMS
   bit: 0
   groups: [DISCUSS, WRITINGS, ARCHIVE]
