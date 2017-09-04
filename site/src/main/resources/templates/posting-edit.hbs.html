@@ -54,19 +54,14 @@
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
              index1='$index1' fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>}}
 
-<macro name='full'>
- <if what='$$full'>
-</macro>
-<endif name='/full'>
-
-<full>
+{{#if postingForm.full}}
  <assign name='root' value='-1'>
 <else>
  <assign name='root' value='$posting.RootId'>
  <if what='$root!=-1'>
   <assign name='root' value='$`$root`'>
  </if>
-</full>
+{{/if}}
 <if what='$grp<=0 && $posting.Grp>0'>
  <assign name='grp' value='$posting.Grp'>
 </if>
@@ -368,22 +363,21 @@
 {{> part/preamble}}
 {{> part/top}}
 
- <if what='$editid'>
-  <assign name='head' value#='Редактирование $,GrpWhatV'>
- <else>
-  <assign name='head' value#='Добавление $posting.GrpWhatV'>
- </if>
+{{#if postingForm.id}}
+    {{#assign "formTitle"}}Редактирование {{postingForm.grpInfo.whatA}}{{/assign}}
+{{else}}
+    {{#assign "formTitle"}}Добавление {{postingForm.grpInfo.whatA}}{{/assign}}
+{{/if}}
 <form method="post" enctype="multipart/form-data" action="/actions/posting/modify">
- <form_table title='$head'>
-   <hidden name='edittag' value=1>
-   <hidden name='okdir' value='$--'>
-   <hidden name='faildir' value='$-'>
-   <hidden name='full' value='$full'>
-   <hidden name='editid' value='$editid'>
-   <hidden name='person_id' value='$,PersonId'>
-   <hidden name='up' value='$,UpValue'>
-   <starinfo>
-   <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+    {{#formTable title=formTitle}}
+        {{formErrors}}
+        {{hidden name="back" value=rc.back}}
+        {{hidden name="full" value=postingForm.full}}
+        {{hidden name="id" value=postingForm.id}}
+        {{hidden name="personId" value=postingForm.personId}}
+        {{hidden name="upId" value=postingForm.upId}}
+        {{starInfo}}
+   {{! <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
    <error id='*EP_NO_PERSON'
 	  text='У этого пользователя нет персональной страницы'>
    <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
@@ -399,75 +393,75 @@
    <error id='*EP_UP_APPEND'
 	  text='Вы не имеете права присоединять сообщения к этому сообщению'>
    <error id='*EL_INVALID' text='Неверный ник или пароль'>
-   <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>
-   <moderator>
-    <form_comment><table><tr>
-     <full>
-      <td><image src='/pics/down.gif'></td>
-      <td><a href='$[full=0]'>Скрыть все неиспользуемые поля</a></td>
-     <else>
-      <td><image src='/pics/right.gif'></td>
-      <td><a href='$[full=1]'>Показать все поля</a></td>
-     </full>
-    </tr></table></form_comment>
-   </moderator>
-   <if what='!$editid'>
-    <form_relogin noguests='$noguests' relogin='$relogin'
-                  login!='$edittag ? $login : $$userLoginHint'
-                  remember='$remember' onclick='reloginSelected(this);'>
-    <error id='*EP_CAPTCHA_ABSENT'
-           text='Пожалуйста, введите цифры и буквы, которые вы видите на
-                 картинке. Это необходимо нам для борьбы со спамом.'>
-    <error id='*EP_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
-    <form_captcha id='captcha' name='captcha'>
-   </if>
-   <full>
-    <form_grpselect title='Группа' mandatory='*true' name='grp' value='$,Grp'>
-   <else>
-    <hidden name='grp' value='$,Grp'>
-   </full>
-   <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE'>
-   <for>
-    <editor_line posting='$,' editor='$.' visible='*true'>
-   </for>
-   <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE' inverse='*true'>
-   <for>
-    <editor_line posting='$,' editor='$.' visible='*false'>
-   </for>
-   <moderator>
-    <assign name='who' value='автору'>
-   <else>
-    <assign name='who' value='мне'>
-   </moderator>
-   <logged>
-    <form_select title='Видимость' name='hidden' style='box'>
-     <form_option title='Сообщение видно всем пользователям' value='0'
-                  selected!='!$,isHidden'>
-     <form_option title#='Сообщение видно только $who и модераторам' value='1'
-                  selected='$,isHidden'>
-    </form_select>
-   <else>
-    <hidden name='hidden' value='0'>
-   </logged>
-   <full>
-    <form_select title='Запретить показ'
-                 comment='Модераторский запрет на показ сообщения. Пользователь
-		          не может снять этот запрет.'
-		 name='disabled' style='box'>
-     <form_option title='Нет запрета на показ всем пользователям' value='0'
-                  selected!='!$,isDisabled'>
-     <form_option title#='Разрешено показывать только $who и модераторам'
-                  value='1' selected='$,isDisabled'>
-    </form_select>
-   <else>
-    <hidden name='disabled' value='$,isDisabled'>
-   </full>
-   <if what='$editid'>
-    <form_buttons title='Изменить'>
-   <else>
-    <form_buttons title='Добавить'>
-   </if>
- </form_table>
+   <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>}}
+        {{#moderator}}
+            {{#formComment}}<table><tr>
+                {{#if postingForm.full}}
+                    <td>{{image "/pics/down.gif"}}</td>
+                    <td><a href="?full=0">Скрыть все неиспользуемые поля</a></td>
+                {{else}}
+                    <td>{{image "/pics/right.gif"}}</td>
+                    <td><a href="?full=1">Показать все поля</a></td>
+                {{/if}}
+            </tr></table>{{/formComment}}
+        {{/moderator}}
+        {{#unless postingForm.id}}
+            <form_relogin noguests='$noguests' relogin='$relogin'
+                          login!='$edittag ? $login : $$userLoginHint'
+                          remember='$remember' onclick='reloginSelected(this);'>
+            <error id='*EP_CAPTCHA_ABSENT'
+                   text='Пожалуйста, введите цифры и буквы, которые вы видите на
+                         картинке. Это необходимо нам для борьбы со спамом.'>
+            <error id='*EP_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+            <form_captcha id='captcha' name='captcha'>
+        {{/unless}}
+        {{#if postingForm.full}}
+            {{formGrpSelect title="Группа" mandatory=true name="grp" value=postingForm.grp}}
+        {{else}}
+            {{hidden name="grp" value=postingForm.grp}}
+        {{/if}}
+        <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE'>
+        <for>
+            <editor_line posting='$,' editor='$.' visible='*true'>
+        </for>
+        <iterate_grp_editor grp!='!$full ? $,Grp : *GRP_NONE' inverse='*true'>
+        <for>
+            <editor_line posting='$,' editor='$.' visible='*false'>
+        </for>
+        {{#moderator}}
+            {{#assign "hiddenTitle"}}Сообщение видно только автору и модераторам{{/assign}}
+        {{else}}
+            {{#assign "hiddenTitle"}}Сообщение видно только мне и модераторам{{/assign}}
+        {{/moderator}}
+        {{#logged}}
+            {{#formSelect title="Видимость" name="hidden" style="box"}}
+                {{formOption title="Сообщение видно всем пользователям" value="0" selected=(not postingForm.hidden)}}
+                {{formOption title=hiddenTitle value="1" selected=postingForm.hidden}}
+            {{/formSelect}}
+        {{else}}
+            {{hidden name="hidden" value="0"}}
+        {{/logged}}
+        {{#moderator}}
+            {{#assign "disabledTitle"}}Разрешено показывать только автору и модераторам{{/assign}}
+        {{else}}
+            {{#assign "disabledTitle"}}Разрешено показывать только мне и модераторам{{/assign}}
+        {{/moderator}}
+        {{#if postingForm.full}}
+            {{#formSelect title="Запретить показ"
+                          comment="Модераторский запрет на показ сообщения. Пользователь не может снять этот запрет."
+                          name="disabled" style="box"}}
+                {{formOption title="Нет запрета на показ всем пользователям" value="0" selected=(not postingForm.disabled)}}
+                {{formOption title=disabledTitle value="1" selected=postingForm.disabled}}
+            {{/formSelect}}
+        {{else}}
+            {{hidden name="disabled" value=postingForm.disabled}}
+        {{/if}}
+        {{#if postingForm.id}}
+            {{formButtons title="Изменить"}}
+        {{else}}
+            {{formButtons title="Добавить"}}
+        {{/if}}
+    {{/formTable}}
 </form>
 
 {{> part/bottom}}

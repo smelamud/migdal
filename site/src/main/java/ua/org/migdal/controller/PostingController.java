@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.form.AdminPostingsForm;
-import ua.org.migdal.form.TopicForm;
+import ua.org.migdal.form.PostingForm;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.LocationInfo;
 
 @Controller
 public class PostingController {
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private TopicManager topicManager;
@@ -86,8 +90,7 @@ public class PostingController {
         postingAddLocationInfo(model);
 
         model.addAttribute("topicNames", topicManager.begNames(0, -1, false, true));
-        model.addAttribute("full", full);
-        model.asMap().computeIfAbsent("postingForm", key -> new TopicForm());
+        model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(full, grpEnum.grpValue("NEWS")));
         return "posting-edit";
     }
 

@@ -35,6 +35,7 @@ public class GrpEnum {
 
     private List<GrpDescriptor> grps;
     private Map<Long, GrpDescriptor> grpMap = new HashMap<>();
+    private Map<String, GrpDescriptor> grpNameMap = new HashMap<>();
 
     @Inject
     private ApplicationContext applicationContext;
@@ -57,6 +58,7 @@ public class GrpEnum {
             grp.parseExpressions(identManager, parser);
             all |= grp.getValue();
             grpMap.put(grp.getValue(), grp);
+            grpNameMap.put(grp.getName(), grp);
             for (String groupName : grp.getGroups()) {
                 if (!groups.containsKey(groupName)) {
                     groups.put(groupName, grp.getValue());
@@ -77,6 +79,14 @@ public class GrpEnum {
 
     public GrpDescriptor grp(long grp) {
         return grpMap.get(grp);
+    }
+
+    public GrpDescriptor grp(String name) {
+        return grpNameMap.get(name);
+    }
+
+    public long grpValue(String name) {
+        return grp(name).getValue();
     }
 
     public long[] group(String name) {
