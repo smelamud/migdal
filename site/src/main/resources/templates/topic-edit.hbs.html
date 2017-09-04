@@ -7,9 +7,9 @@
     {{#assign "formTitle"}}Добавление темы{{/assign}}
 {{/if}}
 
-{{#formTable title=formTitle}}
-    {{formErrors}}
-    <form method="post" action="/actions/topic/modify">
+<form method="post" action="/actions/topic/modify">
+    {{#formTable title=formTitle}}
+        {{formErrors}}
         {{hidden name="back" value=rc.back}}
         {{hidden name="id" value=topicForm.id}}
         {{starInfo}}
@@ -37,7 +37,7 @@
             {{#assign "buttonTitle"}}Добавить{{/assign}}
         {{/if}}
         {{formButtons title=buttonTitle}}
-    </form>
-{{/formTable}}
+    {{/formTable}}
+</form>
 
 {{> part/bottom}}

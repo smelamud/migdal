@@ -1,15 +1,12 @@
-<< @(#) $Id$ >>
-
-<<
+{{!
 1. Если поле something отсутствует из-за того, что редактор данного типа
    сообщения его не предусматривает, оно должно присутствовать в виде hidden,
    поскольку может присутствовать в других тенях этого же сообщения. В
    противном случае actions/postingmod.php затрет это поле.
 2. Все поля должны включаться, если $full!=0.
->>
+}}
 
-<grps>
-<ident name='editid'>
+{{! <ident name='editid'>
 <ident name='parent_id'>
 <int name='grp'>
 <int name='up'>
@@ -55,7 +52,7 @@
 <int name='sent'>
 
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
-             index1='$index1' fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>
+             index1='$index1' fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>}}
 
 <macro name='full'>
  <if what='$$full'>
@@ -74,7 +71,7 @@
  <assign name='grp' value='$posting.Grp'>
 </if>
 
-<element name='editor_line' params='posting,editor,visible'>
+{{#*inline "editorLine"}} {{! params: posting,editor,visible }}
 <assign name='ident' value='$editor.Ident'>
 <assign name='xmlid' value!='$$full ? $posting.Id : 0'>
 <if what="$ident=='' || $ident[0]=='_'">
@@ -366,21 +363,18 @@
 <else>
  <form_section title='$ident'>
 </if>
-</element>
+{{/inline}}
 
-<html>
- <preamble>
+{{> part/preamble}}
+{{> part/top}}
 
- <top ident='index'>
- <setup>
  <if what='$editid'>
   <assign name='head' value#='Редактирование $,GrpWhatV'>
  <else>
   <assign name='head' value#='Добавление $posting.GrpWhatV'>
  </if>
+<form method="post" enctype="multipart/form-data" action="/actions/posting/modify">
  <form_table title='$head'>
-  <form method=post enctype='multipart/form-data'
-	action='/actions/posting/modify'>
    <hidden name='edittag' value=1>
    <hidden name='okdir' value='$--'>
    <hidden name='faildir' value='$-'>
@@ -473,7 +467,7 @@
    <else>
     <form_buttons title='Добавить'>
    </if>
-  </form>
  </form_table>
- <bottom>
-</html>
+</form>
+
+{{> part/bottom}}
