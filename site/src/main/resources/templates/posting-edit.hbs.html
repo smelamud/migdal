@@ -63,14 +63,14 @@
     {{#if editor.section}}
         {{formSection title=editor.title}}
     {{/if}}
-    <elif what="$ident=='priority'">
-     <if what='$visible'>
-      <form_edit title='$=editor.Title' comment='$editor.Comment' name='priority'
-                 value='$posting.Priority' size=4 maxlength=3
-             mandatory='$editor.isMandatory'>
-     <else>
-      <hidden name='priority' value='$posting.Priority'>
-     </if>
+    {{#ifeq editor.field "priority"}}
+        {{#if visible}}
+            {{formEdit title=editor.title comment=editor.comment name="priority" value=postingForm.priority
+                       size="4" maxlength="3" mandatory=editor.mandatory}}
+        {{else}}
+            {{hidden name="priority" value=postingForm.priority}}
+        {{/if}}
+    {{/ifeq}}
     <elif what="$ident=='topic'">
      <if what='$visible'>
       <form_topicselect title='$=editor.Title' comment='$editor.Comment'

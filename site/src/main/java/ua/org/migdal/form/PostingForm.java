@@ -19,6 +19,8 @@ public class PostingForm implements Serializable {
 
     private long grp;
 
+    private String priority = "0";
+
     private boolean hidden;
 
     private boolean disabled;
@@ -70,6 +72,14 @@ public class PostingForm implements Serializable {
 
     public GrpDescriptor getGrpInfo() {
         return GrpEnum.getInstance().grp(grp);
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     public boolean isHidden() {
