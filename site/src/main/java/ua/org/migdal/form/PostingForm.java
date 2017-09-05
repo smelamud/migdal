@@ -40,6 +40,10 @@ public class PostingForm implements Serializable {
     @Size(max=250)
     private String comment0 = "";
 
+    private String body = "";
+
+    private String index1 = "0";
+
     private boolean hidden;
 
     private boolean disabled;
@@ -147,6 +151,22 @@ public class PostingForm implements Serializable {
 
     public void setComment0(String comment0) {
         this.comment0 = comment0;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getIndex1() {
+        return index1;
+    }
+
+    public void setIndex1(String index1) {
+        this.index1 = index1;
     }
 
     public boolean isHidden() {

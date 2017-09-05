@@ -8,7 +8,6 @@
 
 {{!
 <int name='grp'>
-<int name='index1'>
 <int name='noguests'>
 
 <int name='relogin'>
@@ -16,7 +15,6 @@
 <int name='remember'>
 
 <int name='index2'>
-<string name='body'>
 <int name='body_format'>
 <string name='large_body'>
 <string name='large_body_filename'>
@@ -117,11 +115,10 @@
     {{#ifeq editor.field "body"}}
         {{#if visible}}
             {{!<error id='*EP_BODY_ABSENT' text='Текст пуст'>}}
-            <form_editor title='$=editor.Title' comment='$editor.Comment'
-                         name='body' body='$=posting.Body' rows=9
-                         mandatory='$editor.isMandatory' xmlid='$xmlid'>
+            {{formEditor title=editor.title comment=editor.comment name="body" body=postingForm.body rows="9"
+                         mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
-            <hidden name='body' value='$=posting.Body'>
+            {{hidden name="body" value=postingForm.body}}
         {{/if}}
     {{/ifeq}}
 
@@ -138,11 +135,10 @@
     {{#ifeq editor.field "index1"}}
         {{#if visible}}
             {{!<error id='*EP_INDEX1_ABSENT' text#='$=editor.Title не указан'>}}
-            <form_edit title='$=editor.Title' comment='$editor.Comment'
-                       value='$posting.Index1' name='index1' size=3 maxlength=5
-                       mandatory='$editor.isMandatory'>
+            {{formEdit title=editor.title comment=editor.comment value=postingForm.index1 name="index1" size="3"
+                       maxlength="5" mandatory=editor.mandatory}}
         {{else}}
-            <hidden name='index1' value='$posting.Index1'>
+            {{hidden name="index1" value=postingForm.index1}}
         {{/if}}
     {{/ifeq}}
 
@@ -399,10 +395,10 @@
             {{#formComment}}<table><tr>
                 {{#if postingForm.full}}
                     <td>{{image "/pics/down.gif"}}</td>
-                    <td><a href="?full=0">Скрыть все неиспользуемые поля</a></td>
+                    <td>&nbsp;<a href="?full=0">Скрыть все неиспользуемые поля</a></td>
                 {{else}}
                     <td>{{image "/pics/right.gif"}}</td>
-                    <td><a href="?full=1">Показать все поля</a></td>
+                    <td>&nbsp;<a href="?full=1">Показать все поля</a></td>
                 {{/if}}
             </tr></table>{{/formComment}}
         {{/moderator}}
