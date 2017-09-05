@@ -6,7 +6,7 @@
 2. Все поля должны включаться, если $full!=0.
 }}
 
-{{! <ident name='parent_id'>
+{{!
 <int name='grp'>
 <int name='index1'>
 <int name='noguests'>
@@ -22,15 +22,9 @@
 <string name='large_body_filename'>
 <int name='del_large_body'>
 <int name='large_body_format'>
-<string name='subject'>
-<string name='author'>
-<string name='source'>
-<string name='comment0'>
 <string name='comment1'>
 <string name='title'>
 <string name='url'>
-<int name='priority'>
-<string name='ident'>
 <string name='lang'>
 <int name='small_image'>
 <int name='small_image_x'>
@@ -46,18 +40,6 @@
 
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
              index1='$index1' fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>}}
-
-{{#if postingForm.full}}
- <assign name='root' value='-1'>
-<else>
- <assign name='root' value='$posting.RootId'>
- <if what='$root!=-1'>
-  <assign name='root' value='$`$root`'>
- </if>
-{{/if}}
-<if what='$grp<=0 && $posting.Grp>0'>
- <assign name='grp' value='$posting.Grp'>
-</if>
 
 {{#*inline "editorLine"}} {{! params: editor,visible }}
     {{#if editor.section}}
@@ -75,12 +57,10 @@
 
     {{#ifeq editor.field "topic"}}
         {{#if visible}}
-            <form_topicselect title='$=editor.Title' comment='$editor.Comment'
-                              name='parent_id' value='$posting.ParentId' grp='$$grp'
-                              mandatory='$editor.isMandatory' root='$$root'
-                              only_postable='*true'>
+            {{formTopicSelect title=editor.title comment=editor.comment name="parent_id" value=postingForm.parentId
+                              mandatory=editor.mandatory list=topicNames}}
         {{else}}
-            <hidden name='parent_id' value='$posting.TopicId'>
+            {{hidden name="parent_id" value=postingForm.parentId}}
         {{/if}}
     {{/ifeq}}
 
@@ -88,54 +68,49 @@
         {{#if visible}}
             {{!<error id='*EP_IDENT_ABSENT' text='Обозначение не указано'>
             <error id='*EP_IDENT_UNIQUE' text='Так уже обозначено другое сообщение'>}}
-            <form_edit title='$=editor.Title' comment='$editor.Comment' name='ident'
-                       value='$posting.Ident' size=20 maxlength=75
-                       mandatory='$editor.isMandatory'>
+            {{formEdit title=editor.title comment=editor.comment name="ident" value=postingForm.ident size="20"
+                       maxlength="75" mandatory=editor.mandatory}}
         {{else}}
-            <hidden name='ident' value='$posting.Ident'>
+            {{hidden name="ident" value=postingForm.ident}}
         {{/if}}
     {{/ifeq}}
 
     {{#ifeq editor.field "subject"}}
         {{#if visible}}
             {{!<error id='*EP_SUBJECT_ABSENT' text#='$=editor.Title не указан'>}}
-            <form_edit title='$=editor.Title' comment='$editor.Comment'
-                       value='$=posting.Subject' name='subject' size=70 maxlength=250
-                       mandatory='$editor.isMandatory'>
+            {{formEdit title=editor.title comment=editor.comment value=postingForm.subject name="subject" size="70"
+                       maxlength="250" mandatory=editor.mandatory}}
         {{else}}
-            <hidden name='subject' value='$=posting.Subject'>
+            {{hidden name="subject" value=postingForm.subject}}
         {{/if}}
     {{/ifeq}}
 
     {{#ifeq editor.field "author"}}
         {{#if visible}}
             {{!<error id='*EP_AUTHOR_ABSENT' text#='$=editor.Title не указан'>}}
-            <form_edit title='$=editor.Title' comment='$editor.Comment'
-                       value='$=posting.Author' name='author' size=52 maxlength=250
-                       mandatory='$editor.isMandatory' xmlid='$xmlid'>
+            {{formEdit title=editor.title comment=editor.comment value=postingForm.author name="author" size="52"
+                       maxlength="250" mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
-            <hidden name='author' value='$=posting.Author'>
+            {{hidden name="author" value=postingForm.author}}
         {{/if}}
     {{/ifeq}}
 
     {{#ifeq editor.field "source"}}
         {{#if visible}}
-            {{!<error id='*EP_SOURCE_ABSENT' text#='$=editor.Title не указан'>}}
-            <form_edit title='$=editor.Title' comment='$editor.Comment'
-                       value='$=posting.Source' name='source' size=52 maxlength=250
-                       mandatory='$editor.isMandatory' xmlid='$xmlid'>
+            {{!<error id="*EP_SOURCE_ABSENT" text#="$=editor.Title не указан">}}
+            {{formEdit title=editor.title comment=editor.comment value=postingForm.source name="source" size="52"
+                       maxlength="250" mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
-            <hidden name='source' value='$=posting.Source'>
+            {{hidden name="source" value=postingForm.source}}
         {{/if}}
     {{/ifeq}}
 
     {{#ifeq editor.field "comment0"}}
         {{#if visible}}
-            <form_edit title='$=editor.Title' comment='$editor.Comment'
-                       value='$=posting.Comment0' name='comment0' size=52 maxlength=250
-                       mandatory='$editor.isMandatory' xmlid='$xmlid'>
+            {{formEdit title=editor.title comment=editor.comment value=postingForm.comment0 name="comment0" size="52"
+                       maxlength="250" mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
-            <hidden name='comment0' value='$=posting.Comment0'>
+            {{hidden name="comment0" value=postingForm.comment0}}
         {{/if}}
     {{/ifeq}}
 

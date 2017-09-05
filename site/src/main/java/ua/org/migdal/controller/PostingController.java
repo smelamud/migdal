@@ -17,6 +17,7 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.form.AdminPostingsForm;
 import ua.org.migdal.form.PostingForm;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.LocationInfo;
@@ -26,6 +27,9 @@ public class PostingController {
 
     @Inject
     private GrpEnum grpEnum;
+
+    @Inject
+    private IdentManager identManager;
 
     @Inject
     private TopicManager topicManager;
@@ -89,9 +93,12 @@ public class PostingController {
     private String postingAdd(@RequestParam boolean full, Model model) {
         postingAddLocationInfo(model);
 
-        model.addAttribute("topicNames", topicManager.begNames(0, -1, false, true));
         model.addAttribute("xmlid", 0); // value!='$$full ? $posting.Id : 0
         model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(full, grpEnum.grpValue("NEWS")));
+        PostingForm postingForm = (PostingForm) model.asMap().get("postingForm");
+        String rootIdent = postingForm.getGrpInfo().getRootIdent();
+        long rootId = full || rootIdent == null ? 0 : identManager.getIdByIdent(rootIdent);
+        model.addAttribute("topicNames", topicManager.begNames(rootId, -1, false, true));
         return "posting-edit";
     }
 
