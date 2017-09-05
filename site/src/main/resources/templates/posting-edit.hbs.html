@@ -7,14 +7,12 @@
 }}
 
 {{!
-<int name='grp'>
 <int name='noguests'>
 
 <int name='relogin'>
 <string name='login'>
 <int name='remember'>
 
-<int name='index2'>
 <int name='body_format'>
 <string name='large_body'>
 <string name='large_body_filename'>
@@ -144,22 +142,19 @@
 
     {{#ifeq editor.field "index2"}}
         {{#if visible}}
-            <if what="$editor.Style=='issue-length'">
-                <form_select title='$=editor.Title' comment='$editor.Comment'
-                             name='index2' mandatory='$editor.isMandatory'>
-                    <form_option title='Обычный номер' value=0 selected!='$posting.Index2==0'>
-                    <form_option title='Сдвоенный номер' value=1 selected!='$posting.Index2==1'>
-                    <form_option title='Строенный номер' value=2 selected!='$posting.Index2==2'>
-                    <form_option title='Счетверенный номер' value=3
-                                 selected!='$posting.Index2==3'>
-                </form_select>
-            <else>
-                <form_edit title='$=editor.Title' comment='$editor.Comment'
-                           value='$posting.Index2' name='index2' size=3 maxlength=5
-                           mandatory='$editor.isMandatory'>
-            </if>
+            {{#ifeq editor.style "issue-length"}}
+                {{#formSelect title=editor.title comment=editor.comment name="index2" mandatory=editor.mandatory}}
+                    {{formOption title="Обычный номер" value=0 selectedValue=postingForm.index2}}
+                    {{formOption title="Сдвоенный номер" value=1 selectedValue=postingForm.index2}}
+                    {{formOption title="Строенный номер" value=2 selectedValue=postingForm.index2}}
+                    {{formOption title="Счетверенный номер" value=3 selectedValue=postingForm.index2}}
+                {{/formSelect}}
+            {{else}}
+                {{formEdit title=editor.title comment=editor.comment value=postingForm.index2 name="index2" size="3"
+                           maxlength="5" mandatory=editor.mandatory}}
+            {{/ifeq}}
         {{else}}
-            <hidden name='index2' value='$posting.Index2'>
+            {{hidden name="index2" value=postingForm.index2}}
         {{/if}}
     {{/ifeq}}
 
