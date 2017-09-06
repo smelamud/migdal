@@ -1,8 +1,8 @@
 function sortableInit() {
-    $( "#sortable" ).sortable({
+    $("#sortable").sortable({
         placeholder: "list-group-item-info"
     });
-    $( "#sortable" ).disableSelection();
+    $("#sortable").disableSelection();
 }
 
 $(function() {

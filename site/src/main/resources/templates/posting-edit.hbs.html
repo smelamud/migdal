@@ -43,6 +43,15 @@
     {{/formSelect}}
 {{/inline}}
 
+{{#*inline "formDateTime"}} {{! params: title,comment,name,date,time,mandatory }}
+    {{#formLine title=title name=name mandatory=mandatory comment=comment}}
+        {{#assign "editName"}}{{name}}Date{{/assign}}
+        {{edit name=editName value=date size="16" maxlength="16" class="datepicker"}}
+        {{#assign "editName"}}{{name}}Time{{/assign}}
+        {{edit name=editName value=time size="12" maxlength="12"}}
+    {{/formLine}}
+{{/inline}}
+
 {{#*inline "editorLine"}} {{! params: editor,visible }}
     {{#if editor.section}}
         {{formSection title=editor.title}}
@@ -317,16 +326,11 @@
 
     {{#ifeq editor.field "sent"}}
         {{#if visible}}
-            <form_date title='$=editor.Title' comment='$editor.Comment'
-                       name='sent' value='$posting.Sent'
-                       mandatory='$editor.isMandatory' base_year='$editor.Base'>
+            {{> formDateTime title=editor.title comment=editor.comment name="sent" date=postingForm.sentDate
+                             time=postingForm.sentTime mandatory=editor.mandatory}}
         {{else}}
-            <hidden name='sent_year' value=0>
-            <hidden name='sent_month' value=0>
-            <hidden name='sent_day' value=0>
-            <hidden name='sent_hour' value='-1'>
-            <hidden name='sent_minute' value='-1'>
-            <hidden name='sent_second' value='-1'>
+            {{hidden name="sentDate" value=postingForm.sentDate}}
+            {{hidden name="sentTime" value=postingForm.sentTime}}
         {{/if}}
     {{/ifeq}}
 {{/inline}}

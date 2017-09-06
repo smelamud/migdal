@@ -1,16 +1,22 @@
 package ua.org.migdal.form;
 
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.text.TextFormat;
+import ua.org.migdal.util.Utils;
 
 public class PostingForm implements Serializable {
 
     private static final long serialVersionUID = 4588207664747142717L;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private boolean full;
 
@@ -60,6 +66,12 @@ public class PostingForm implements Serializable {
     private String largeBody = "";
 
     private int largeBodyFormat = TextFormat.PLAIN.getValue();
+
+    @NotBlank
+    private String sentDate = DATE_FORMATTER.format(Utils.now().toLocalDateTime());
+
+    @NotBlank
+    private String sentTime = TIME_FORMATTER.format(Utils.now().toLocalDateTime());
 
     private boolean hidden;
 
@@ -240,6 +252,22 @@ public class PostingForm implements Serializable {
 
     public void setLargeBodyFormat(int largeBodyFormat) {
         this.largeBodyFormat = largeBodyFormat;
+    }
+
+    public String getSentDate() {
+        return sentDate;
+    }
+
+    public void setSentDate(String sentDate) {
+        this.sentDate = sentDate;
+    }
+
+    public String getSentTime() {
+        return sentTime;
+    }
+
+    public void setSentTime(String sentTime) {
+        this.sentTime = sentTime;
     }
 
     public boolean isHidden() {

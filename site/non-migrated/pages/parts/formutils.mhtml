@@ -1,7 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='form_date'>
-<form_line title='$title' mandatory='$mandatory' comment='$comment'>
- <input_datetime name='$name' value='$value' base_year='$base_year'>
-</form_line>
-</element>

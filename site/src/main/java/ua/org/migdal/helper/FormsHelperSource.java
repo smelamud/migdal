@@ -288,6 +288,7 @@ public class FormsHelperSource {
         HelperUtils.appendArgAttr(buf, "maxlength", "250", options);
         HelperUtils.appendOptionalArgAttr(buf, "onkeypress", options);
         HelperUtils.appendOptionalArgAttr(buf, "id", options);
+        HelperUtils.appendOptionalArgAttr(buf, "class", options);
         buf.append('>');
         return new SafeString(buf);
     }
