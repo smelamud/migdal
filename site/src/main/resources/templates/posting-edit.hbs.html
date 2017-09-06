@@ -175,11 +175,10 @@
     {{#ifeq editor.field "url"}}
         {{#if visible}}
             {{!<error id='*EP_URL_ABSENT' text#='$=editor.Title не указана'>}}
-            <form_edit title='$=editor.Title' comment='$editor.Comment'
-                       value='$=posting.URL' name='url' size=52 maxlength=250
-                       mandatory='$editor.isMandatory'>
+            {{formEdit title=editor.title comment=editor.comment value=postingForm.url name="url" size="52"
+                       maxlength="250" mandatory=editor.mandatory}}
         {{else}}
-            <hidden name='url' value='$=posting.URL'>
+            {{hidden name="url" value=postingForm.url}}
         {{/if}}
     {{/ifeq}}
 
@@ -285,11 +284,10 @@
 
     {{#ifeq editor.field "title"}}
         {{#if visible}}
-            <form_editor title='$=editor.Title' comment='$editor.Comment'
-                         name='title' body='$=posting.Title' rows=3
-                         mandatory='$editor.isMandatory' xmlid='$xmlid'>
+            {{formEditor title=editor.title comment=editor.comment name="title" body=postingForm.title rows="3"
+                         mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
-            <hidden name='title' value='$=posting.Title'>
+            {{hidden name="title" value=postingForm.title}}
         {{/if}}
     {{/ifeq}}
 

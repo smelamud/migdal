@@ -46,7 +46,13 @@ public class PostingForm implements Serializable {
 
     private String index2 = "0";
 
+    @Size(max=7)
     private String lang = "";
+
+    @Size(max=250)
+    private String url = "";
+
+    private String title = "";
 
     private boolean hidden;
 
@@ -187,6 +193,22 @@ public class PostingForm implements Serializable {
 
     public void setLang(String lang) {
         this.lang = lang;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public boolean isHidden() {
