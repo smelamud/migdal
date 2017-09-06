@@ -14,14 +14,8 @@
 <int name='remember'>
 
 <int name='body_format'>
-<string name='large_body'>
-<string name='large_body_filename'>
-<int name='del_large_body'>
 <int name='large_body_format'>
 <string name='comment1'>
-<string name='title'>
-<string name='url'>
-<string name='lang'>
 <int name='small_image'>
 <int name='small_image_x'>
 <int name='small_image_y'>
@@ -53,10 +47,10 @@
 
     {{#ifeq editor.field "topic"}}
         {{#if visible}}
-            {{formTopicSelect title=editor.title comment=editor.comment name="parent_id" value=postingForm.parentId
+            {{formTopicSelect title=editor.title comment=editor.comment name="parentId" value=postingForm.parentId
                               mandatory=editor.mandatory list=topicNames}}
         {{else}}
-            {{hidden name="parent_id" value=postingForm.parentId}}
+            {{hidden name="parentId" value=postingForm.parentId}}
         {{/if}}
     {{/ifeq}}
 
@@ -294,35 +288,10 @@
     {{#ifeq editor.field "large_body"}}
         {{#if visible}}
             {{!<error id='*EP_LARGE_BODY_ABSENT' text#='$=editor.Title пуст'>}}
-            <form_editor title='$=editor.Title' comment='$editor.Comment'
-                         name='large_body' body='$=posting.LargeBody' rows=11
-                         mandatory='$editor.isMandatory' xmlid='$xmlid'>
+            {{formEditor title=editor.title comment=editor.comment name="largeBody" body=postingForm.largeBody rows="11"
+                         mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
-            <hidden name='large_body' value='$=posting.LargeBody'>
-        {{/if}}
-    {{/ifeq}}
-
-    {{#ifeq editor.field "large_body_upload"}}
-        {{#if visible}}
-            {{!<error id='*EUL_LARGE' text#='$=editor.Title слишком велик (больше 2M)'>
-            <error id='*EUL_UNKNOWN_FORMAT'
-             text='Этот файл не является простым текстовым файлом. Сайт не понимает
-               документы MS Word и другие подобные форматы. Допускается
-               загрузка только простого текстового файла.'>}}
-            <if what='$posting.hasLargeBody'>
-                <ifne what='$posting.LargeBodyFilename'>
-                    <assign name='loaded' value#='Загружен файл $=posting.LargeBodyFilename
-                                                  (${posting.LargeBodySizeKB}K)'>
-                <else>
-                    <assign name='loaded' value#='Загружен текст (${posting.LargeBodySizeKB}K)'>
-                </ifne>
-            <else>
-                <assign name='loaded' value=''>
-            </if>
-            <form_uploader title='$=editor.Title' comment='$editor.Comment'
-                           name='large_body_file' loaded='$loaded'
-                           delname='del_large_body' mandatory='$editor.isMandatory'
-                           plainid='$posting.Id'>
+            {{hidden name="largeBody" value=postingForm.largeBody}}
         {{/if}}
     {{/ifeq}}
 

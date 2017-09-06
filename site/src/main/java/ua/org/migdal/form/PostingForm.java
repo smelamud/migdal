@@ -54,6 +54,8 @@ public class PostingForm implements Serializable {
 
     private String title = "";
 
+    private String largeBody = "";
+
     private boolean hidden;
 
     private boolean disabled;
@@ -209,6 +211,14 @@ public class PostingForm implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getLargeBody() {
+        return largeBody;
+    }
+
+    public void setLargeBody(String largeBody) {
+        this.largeBody = largeBody;
     }
 
     public boolean isHidden() {
