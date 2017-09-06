@@ -1,14 +1,14 @@
 package ua.org.migdal.helper.util;
 
-public class Constant {
+public class Constant<T> {
 
     private CharSequence title;
-    private Object value;
+    private T value;
 
     public Constant() {
     }
 
-    public Constant(CharSequence title, Object value) {
+    public Constant(CharSequence title, T value) {
         this.title = title;
         this.value = value;
     }
@@ -21,15 +21,15 @@ public class Constant {
         this.title = title;
     }
 
-    public Object getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value = value;
     }
 
-    public static boolean hasValue(Constant[] constants, Object value) {
+    public static <T> boolean hasValue(Constant<? extends T>[] constants, T value) {
         for (Constant constant : constants) {
             if (constant.getValue().equals(value)) {
                 return true;

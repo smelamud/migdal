@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.text.TextFormat;
 
 public class PostingForm implements Serializable {
 
@@ -42,6 +43,8 @@ public class PostingForm implements Serializable {
 
     private String body = "";
 
+    private int bodyFormat = TextFormat.PLAIN.getValue();
+
     private String index1 = "0";
 
     private String index2 = "0";
@@ -55,6 +58,8 @@ public class PostingForm implements Serializable {
     private String title = "";
 
     private String largeBody = "";
+
+    private int largeBodyFormat = TextFormat.PLAIN.getValue();
 
     private boolean hidden;
 
@@ -173,6 +178,14 @@ public class PostingForm implements Serializable {
         this.body = body;
     }
 
+    public int getBodyFormat() {
+        return bodyFormat;
+    }
+
+    public void setBodyFormat(int bodyFormat) {
+        this.bodyFormat = bodyFormat;
+    }
+
     public String getIndex1() {
         return index1;
     }
@@ -219,6 +232,14 @@ public class PostingForm implements Serializable {
 
     public void setLargeBody(String largeBody) {
         this.largeBody = largeBody;
+    }
+
+    public int getLargeBodyFormat() {
+        return largeBodyFormat;
+    }
+
+    public void setLargeBodyFormat(int largeBodyFormat) {
+        this.largeBodyFormat = largeBodyFormat;
     }
 
     public boolean isHidden() {

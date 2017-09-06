@@ -2,19 +2,29 @@ package ua.org.migdal.text;
 
 public enum TextFormat {
 
-    PLAIN(0),
-    TEX(1),
-    XML(2),
-    MAIL(3);
+    PLAIN("Простой текст (без переносов строк)", true),
+    TEX("Простой текст (с переносами строк)", false),
+    XML("XML", true),
+    MAIL("Текст с цитированием", false);
 
-    private short value;
+    private String title;
+    private boolean user;
 
-    TextFormat(int value) {
-        this.value = (short) value;
+    TextFormat(String title, boolean user) {
+        this.title = title;
+        this.user = user;
     }
 
-    public short getValue() {
-        return value;
+    public String getTitle() {
+        return title;
+    }
+
+    public int getValue() {
+        return ordinal();
+    }
+
+    public boolean isUser() {
+        return user;
     }
 
 }

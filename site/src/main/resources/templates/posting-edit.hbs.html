@@ -13,8 +13,6 @@
 <string name='login'>
 <int name='remember'>
 
-<int name='body_format'>
-<int name='large_body_format'>
 <string name='comment1'>
 <int name='small_image'>
 <int name='small_image_x'>
@@ -30,6 +28,20 @@
 
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
              index1='$index1' fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>}}
+
+{{#*inline "formUploadFormat"}} {{! params: title,comment,name,format,mandatory }}
+    {{#formSelect title=title comment=comment name=name mandatory=mandatory}}
+        {{#each const.textFormats}}
+            {{#if user}}
+                {{formOption title=title value=value selectedValue=format}}
+            {{else}}
+                {{#if postingForm.full}}
+                    {{formOption title=title value=value selectedValue=format}}
+                {{/if}}
+            {{/if}}
+        {{/each}}
+    {{/formSelect}}
+{{/inline}}
 
 {{#*inline "editorLine"}} {{! params: editor,visible }}
     {{#if editor.section}}
@@ -116,11 +128,10 @@
 
     {{#ifeq editor.field "body_format"}}
         {{#if visible}}
-            <form_upload_format title='$=editor.Title' comment='$editor.Comment'
-                                name='body_format' format='$posting.BodyFormat'
-                                mandatory='$editor.isMandatory'>
+            {{> formUploadFormat title=editor.title comment=editor.comment name="bodyFormat"
+                                 format=postingForm.bodyFormat mandatory=editor.mandatory}}
         {{else}}
-            <hidden name='body_format' value='$posting.BodyFormat'>
+            {{hidden name="bodyFormat" value=postingForm.bodyFormat}}
         {{/if}}
     {{/ifeq}}
 
@@ -297,12 +308,10 @@
 
     {{#ifeq editor.field "large_body_format"}}
         {{#if visible}}
-            <form_upload_format title='$=editor.Title' comment='$editor.Comment'
-                                name='large_body_format'
-                                format='$posting.LargeBodyFormat'
-                                mandatory='$editor.isMandatory'>
+            {{> formUploadFormat title=editor.title comment=editor.comment name="largeBodyFormat"
+                                 format=postingForm.largeBodyFormat mandatory=editor.mandatory}}
         {{else}}
-            <hidden name='large_body_format' value='$posting.LargeBodyFormat'>
+            {{hidden name="largeBodyFormat" value=postingForm.largeBodyFormat}}
         {{/if}}
     {{/ifeq}}
 
