@@ -18,6 +18,7 @@ public class Constants {
 
     private List<Constant> gregorianMonthRuGenLcLong = new ArrayList<>();
     private Map<String, Long> userRight = new HashMap<>();
+    private List<Constant> langs = new ArrayList<>();
 
     public Constants() {
     }
@@ -47,6 +48,19 @@ public class Constants {
 
     public TopicModbit[] getTopicModbits() {
         return TopicModbit.values();
+    }
+
+    public List<Constant> getLangs() {
+        if (langs.isEmpty()) {
+            langs.add(new Constant("Русский", "ru"));
+            langs.add(new Constant("Английский", "en"));
+            langs.add(new Constant("Иврит", "he"));
+            langs.add(new Constant("Украинский", "uk"));
+            langs.add(new Constant("Белорусский", "be"));
+            langs.add(new Constant("Идиш", "yi"));
+            langs.add(new Constant("Немецкий", "de"));
+        }
+        return langs;
     }
 
 }

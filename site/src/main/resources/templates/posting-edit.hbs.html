@@ -161,11 +161,14 @@
     {{#ifeq editor.field "lang"}}
         {{#if visible}}
             {{!<error id='*EP_LANG_ABSENT' text#='$=editor.Title не указан'>}}
-            <form_langselect title='$=editor.Title' comment='$editor.Comment'
-                             value='$posting.Lang' name='lang'
-                             mandatory='$editor.isMandatory'>
+            {{#formSelect title=editor.title comment=editor.comment name="lang" mandatory=editor.mandatory}}
+                {{formOption title=(safe "&mdash; Неизвестен &mdash;") value="" selectedValue=postingForm.lang}}
+                {{#each const.langs}}
+                    {{formOption title=title value=value selectedValue=postingForm.lang}}
+                {{/each}}
+            {{/formSelect}}
         {{else}}
-            <hidden name='lang' value='$posting.Lang'>
+            {{hidden name="lang" value=postingForm.lang}}
         {{/if}}
     {{/ifeq}}
 

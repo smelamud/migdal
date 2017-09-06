@@ -46,6 +46,8 @@ public class PostingForm implements Serializable {
 
     private String index2 = "0";
 
+    private String lang = "";
+
     private boolean hidden;
 
     private boolean disabled;
@@ -177,6 +179,14 @@ public class PostingForm implements Serializable {
 
     public void setIndex2(String index2) {
         this.index2 = index2;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public boolean isHidden() {
