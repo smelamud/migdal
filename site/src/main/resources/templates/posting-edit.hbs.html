@@ -29,7 +29,7 @@
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
              index1='$index1' fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>}}
 
-{{#*inline "formUploadFormat"}} {{! params: title,comment,name,format,mandatory }}
+{{#*inline "formTextFormat"}} {{! params: title,comment,name,format,mandatory }}
     {{#formSelect title=title comment=comment name=name mandatory=mandatory}}
         {{#each const.textFormats}}
             {{#if user}}
@@ -137,7 +137,7 @@
 
     {{#ifeq editor.field "body_format"}}
         {{#if visible}}
-            {{> formUploadFormat title=editor.title comment=editor.comment name="bodyFormat"
+            {{> formTextFormat title=editor.title comment=editor.comment name="bodyFormat"
                                  format=postingForm.bodyFormat mandatory=editor.mandatory}}
         {{else}}
             {{hidden name="bodyFormat" value=postingForm.bodyFormat}}
@@ -317,7 +317,7 @@
 
     {{#ifeq editor.field "large_body_format"}}
         {{#if visible}}
-            {{> formUploadFormat title=editor.title comment=editor.comment name="largeBodyFormat"
+            {{> formTextFormat title=editor.title comment=editor.comment name="largeBodyFormat"
                                  format=postingForm.largeBodyFormat mandatory=editor.mandatory}}
         {{else}}
             {{hidden name="largeBodyFormat" value=postingForm.largeBodyFormat}}
