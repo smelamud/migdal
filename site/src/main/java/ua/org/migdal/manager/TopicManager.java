@@ -55,19 +55,19 @@ public class TopicManager implements EntryManagerBase {
     @Inject
     private GrpEnum grpEnum;
 
-    public Topic getRoot() {
-        Topic root = new Topic();
-        root.setGrp(grpEnum.all);
-        root.setModbits(config.getRootTopicModbits());
-        root.setUser(userManager.getByLogin(config.getRootTopicUserName()));
-        root.setGroup(userManager.getByLogin(config.getRootTopicGroupName()));
-        root.setPerms(config.getRootTopicPerms());
-        return root;
+    private Topic newTopic() {
+        Topic topic = new Topic();
+        topic.setGrp(grpEnum.all);
+        topic.setModbits(config.getRootTopicModbits());
+        topic.setUser(userManager.getByLogin(config.getRootTopicUserName()));
+        topic.setGroup(userManager.getByLogin(config.getRootTopicGroupName()));
+        topic.setPerms(config.getRootTopicPerms());
+        return topic;
     }
 
     public Topic get(long id) {
         if (id <= 0) {
-            return getRoot();
+            return newTopic();
         }
         return topicRepository.findOne(id);
     }
@@ -75,7 +75,7 @@ public class TopicManager implements EntryManagerBase {
     @Override
     public Topic beg(long id) {
         if (id <= 0) {
-            return getRoot();
+            return newTopic();
         }
 
         QTopic topic = QTopic.topic;
