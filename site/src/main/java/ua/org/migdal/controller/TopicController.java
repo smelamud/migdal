@@ -116,7 +116,7 @@ public class TopicController {
     }
 
     private String topicAdd(long id, Model model) throws PageNotFoundException {
-        Topic up = topicManager.beg(id);
+        Topic up = topicManager.begOrRoot(id);
         if (up == null) {
             throw new PageNotFoundException();
         }
@@ -166,7 +166,7 @@ public class TopicController {
         if (topicForm.getUpId() < 0) {
             topicForm.setUpId(0);
         }
-        Topic up = topicManager.beg(topicForm.getUpId());
+        Topic up = topicManager.begOrRoot(topicForm.getUpId());
 
         Topic topic;
         if (topicForm.getId() <= 0) {

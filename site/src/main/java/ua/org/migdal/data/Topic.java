@@ -16,7 +16,9 @@ public class Topic extends Entry {
     }
 
     public Topic(Topic up, RequestContext requestContext) {
-        setUp(up);
+        if (up != null && up.getId() > 0) { // Virtual root topic with id == 0 may be passed
+            setUp(up);
+        }
         setGrp(up.getGrp());
         long modbits = up.getModbits();
         modbits = TopicModbit.ROOT.unset(modbits);

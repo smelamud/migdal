@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
-import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.PostingRepository;
 import ua.org.migdal.data.QPosting;
@@ -20,7 +19,7 @@ import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Perm;
 
 @Service
-public class PostingManager implements EntryManagerBase {
+public class PostingManager implements EntryManagerBase<Posting> {
 
     @Inject
     private RequestContext requestContext;
@@ -107,13 +106,6 @@ public class PostingManager implements EntryManagerBase {
     }
 
     @Override
-    public void save(Entry entry) {
-        if (!(entry instanceof Posting)) {
-            throw new IllegalArgumentException("PostingManager accepts Posting entries only");
-        }
-        save((Posting) entry);
-    }
-
     public void save(Posting posting) {
         postingRepository.save(posting);
     }
