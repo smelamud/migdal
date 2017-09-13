@@ -3,7 +3,9 @@ package ua.org.migdal.grp;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.expression.EvaluationContext;
@@ -11,6 +13,7 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
 
+import org.springframework.util.StringUtils;
 import ua.org.migdal.manager.IdentManager;
 
 public class GrpDescriptor {
@@ -68,6 +71,7 @@ public class GrpDescriptor {
     private String whatA = "сообщения";
 
     private List<GrpEditor> editors = Collections.emptyList();
+    private Map<String, GrpEditor> fieldEditors;
     private List<GrpEditor> hiddenEditors;
 
     private Expression trackExpression;
@@ -201,6 +205,13 @@ public class GrpDescriptor {
 
     public void setEditors(List<GrpEditor> editors) {
         this.editors = editors;
+        fieldEditors = editors.stream()
+                .filter(editor -> !StringUtils.isEmpty(editor.getField()))
+                .collect(Collectors.toMap(GrpEditor::getField, Function.identity()));
+    }
+
+    public boolean isMandatory(String field) {
+        return fieldEditors.get(field).isMandatory();
     }
 
     public List<GrpEditor> getHiddenEditors() {
