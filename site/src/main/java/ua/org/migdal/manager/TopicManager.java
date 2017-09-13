@@ -70,8 +70,8 @@ public class TopicManager implements EntryManagerBase<Topic> {
 
     @Override
     public Topic beg(long id) {
-        QTopic topic = QTopic.topic;
-        return topicRepository.findOne(topic.id.eq(id).and(getPermFilter(topic, Perm.READ)));
+        Topic topic = get(id);
+        return topic.isReadable() ? topic : null;
     }
 
     public Topic begOrRoot(long id) {
