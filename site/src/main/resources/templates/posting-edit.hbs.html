@@ -77,8 +77,6 @@
 
     {{#ifeq editor.field "ident"}}
         {{#if visible}}
-            {{!<error id='*EP_IDENT_ABSENT' text='Обозначение не указано'>
-            <error id='*EP_IDENT_UNIQUE' text='Так уже обозначено другое сообщение'>}}
             {{formEdit title=editor.title comment=editor.comment name="ident" value=postingForm.ident size="20"
                        maxlength="75" mandatory=editor.mandatory}}
         {{else}}
@@ -347,12 +345,13 @@
     {{#formTable title=formTitle}}
         {{formErrors}}
         {{hidden name="back" value=rc.back}}
+        {{hidden name="origin" value=rc.location}}
         {{hidden name="full" value=postingForm.full}}
         {{hidden name="id" value=postingForm.id}}
         {{hidden name="personId" value=postingForm.personId}}
         {{hidden name="upId" value=postingForm.upId}}
         {{starInfo}}
-   {{! <error id='*EP_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+   {{!
    <error id='*EP_NO_PERSON'
 	  text='У этого пользователя нет персональной страницы'>
    <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>

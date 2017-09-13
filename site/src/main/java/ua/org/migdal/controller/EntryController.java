@@ -225,9 +225,7 @@ public class EntryController {
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("reorderForm", reorderForm);
-            return UriComponentsBuilder.fromUriString("redirect:" + requestContext.getOrigin())
-                    .replaceQueryParam("back", requestContext.getBack())
-                    .toUriString();
+            return "redirect:" + requestContext.getOrigin();
         }
     }
 

@@ -211,7 +211,8 @@ public class GrpDescriptor {
     }
 
     public boolean isMandatory(String field) {
-        return fieldEditors.get(field).isMandatory();
+        GrpEditor editor = fieldEditors.get(field);
+        return editor != null && editor.isMandatory();
     }
 
     public List<GrpEditor> getHiddenEditors() {

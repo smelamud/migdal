@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
@@ -177,6 +177,10 @@ public class PostingController {
                         }
                     }
 
+                    if (postingForm.getGrpInfo().isMandatory("ident") && StringUtils.isEmpty(postingForm.getIdent())) {
+                        return "ident.NotBlank";
+                    }
+
                     /*String errorCode = Topic.validateHierarchy(null, up, postingForm.getId());
                     if (errorCode != null) {
                         return errorCode;
@@ -215,15 +219,7 @@ public class PostingController {
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("postingForm", postingForm);
-            String location;
-            if (postingForm.getId() <= 0) {
-                location = "redirect:/admin/postings/add";
-            } else {
-                location = "redirect:/admin/postings/" + posting.getId() + "/edit";
-            }
-            return UriComponentsBuilder.fromUriString(location)
-                    .queryParam("back", requestContext.getBack())
-                    .toUriString();
+            return "redirect:" + requestContext.getOrigin();
         }
     }
 

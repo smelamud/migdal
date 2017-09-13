@@ -78,6 +78,9 @@ public class PostingForm implements Serializable {
 
     private boolean disabled;
 
+    public PostingForm() {
+    }
+
     public PostingForm(boolean full, long grp) {
         this.full = full;
         this.grp = grp;
