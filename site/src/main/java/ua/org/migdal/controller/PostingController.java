@@ -5,13 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
@@ -23,9 +29,16 @@ import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class PostingController {
+
+    @Inject
+    private PlatformTransactionManager txManager;
+
+    @Inject
+    private RequestContext requestContext;
 
     @Inject
     private GrpEnum grpEnum;
@@ -137,6 +150,81 @@ public class PostingController {
         long rootId = full || rootIdent == null ? 0 : identManager.getIdByIdent(rootIdent);
         model.addAttribute("topicNames", topicManager.begNames(rootId, -1, false, true));
         return "posting-edit";
+    }
+
+    @PostMapping("/actions/posting/modify")
+    public String actionPostingModify(
+            @ModelAttribute @Valid PostingForm postingForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        Posting posting;
+        if (postingForm.getId() <= 0) {
+            posting = new Posting();
+        } else {
+            posting = postingManager.beg(postingForm.getId());
+        }
+
+        new ControllerAction(PostingController.class, "actionPostingModify", errors)
+                .transactional(txManager)
+                .constraint("entries_ident_key", "ident.used")
+                .execute(() -> {
+                    if (postingForm.getId() > 0) {
+                        if (posting == null) {
+                            return "noPosting";
+                        }
+                        if (!posting.isWritable()) {
+                            return "notEditable";
+                        }
+                    }
+
+                    /*String errorCode = Topic.validateHierarchy(null, up, postingForm.getId());
+                    if (errorCode != null) {
+                        return errorCode;
+                    }
+                    if (!up.isAppendable()) {
+                        return "upId.noAppend";
+                    }
+
+                    String oldTrack = posting.getTrack();
+                    boolean trackChanged = postingForm.isTrackChanged(posting);
+                    boolean catalogChanged = postingForm.isCatalogChanged(posting);
+
+                    postingForm.toTopic(posting, up, user, group, requestContext);
+                    postingManager.saveAndFlush(posting); // We need to have the record in DB and to know ID
+                                                          // after this point
+
+                    String newTrack = TrackUtils.track(posting.getId(), up.getTrack());
+                    if (postingForm.getId() <= 0) {
+                        trackManager.setTrackById(posting.getId(), newTrack);
+                        String newCatalog = CatalogUtils.catalog(EntryType.TOPIC, posting.getId(), posting.getIdent(),
+                                posting.getModbits(), up.getCatalog());
+                        catalogManager.setCatalogById(posting.getId(), newCatalog);
+                    }
+                    if (trackChanged) {
+                        trackManager.replaceTracks(oldTrack, newTrack);
+                    }
+                    if (catalogChanged) {
+                        catalogManager.updateCatalogs(newTrack);
+                    }*/
+
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("postingForm", postingForm);
+            String location;
+            if (postingForm.getId() <= 0) {
+                location = "redirect:/admin/postings/add";
+            } else {
+                location = "redirect:/admin/postings/" + posting.getId() + "/edit";
+            }
+            return UriComponentsBuilder.fromUriString(location)
+                    .queryParam("back", requestContext.getBack())
+                    .toUriString();
+        }
     }
 
 }
