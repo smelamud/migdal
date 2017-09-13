@@ -375,7 +375,7 @@ public class Entry implements TreeElement {
 
     @Transient
     public long getParentId() {
-        return getParent().getId();
+        return getParent() != null ? getParent().getId() : 0;
     }
 
     public Entry getOrig() {

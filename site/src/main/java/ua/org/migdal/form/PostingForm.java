@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import ua.org.migdal.data.Posting;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.text.TextFormat;
@@ -80,6 +81,34 @@ public class PostingForm implements Serializable {
     public PostingForm(boolean full, long grp) {
         this.full = full;
         this.grp = grp;
+    }
+
+    public PostingForm(Posting posting, boolean full) {
+        this.full = full;
+        id = posting.getId();
+        personId = posting.getPerson() != null ? posting.getPerson().getId() : 0;
+        upId = posting.getUpId();
+        grp = posting.getGrp();
+        priority = Short.toString(posting.getPriority());
+        parentId = posting.getParentId();
+        ident = posting.getIdent() != null ? posting.getIdent() : "";
+        subject = posting.getSubject();
+        author = posting.getAuthor();
+        source = posting.getSource();
+        comment0 = posting.getComment0();
+        body = posting.getBody();
+        bodyFormat = posting.getBodyFormat().getValue();
+        index1 = Long.toString(posting.getIndex1());
+        index2 = Long.toString(posting.getIndex2());
+        lang = posting.getLang();
+        url = posting.getUrl();
+        title = posting.getTitle();
+        largeBody = posting.getLargeBody();
+        largeBodyFormat = posting.getLargeBodyFormat().getValue();
+        sentDate = DATE_FORMATTER.format(posting.getSent().toLocalDateTime());
+        sentTime = TIME_FORMATTER.format(posting.getSent().toLocalDateTime());
+        hidden = posting.isHidden();
+        disabled = posting.isDisabled();
     }
 
     public boolean isFull() {

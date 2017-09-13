@@ -80,7 +80,7 @@
                 <b>[X]</b>
                 &nbsp;
             {{/if}}
-            <a href="/admin/postings/$posting.Id/edit/?full=1&amp;redirid=$_">Изменить</a>
+            <a href="/admin/postings/{{posting.id}}/edit/?full=1&amp;back={{ue rc.location}}">Изменить</a>
             &nbsp;
             {{#if posting.disabled}}
                 <a href="/actions/entry/moderate?editid=$posting.Id&amp;hide=0&amp;okdir=$#-&amp;faildir=$#-">Разрешить&nbsp;показ</a>
