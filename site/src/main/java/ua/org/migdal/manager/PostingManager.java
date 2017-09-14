@@ -44,7 +44,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
     @Override
     public Posting beg(long id) {
         Posting posting = get(id);
-        return posting.isReadable() ? posting : null;
+        return posting != null && posting.isReadable() ? posting : null;
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,

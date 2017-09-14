@@ -220,19 +220,13 @@ public class PostingController {
                         up = postingManager.beg(postingForm.getUpId());
                         if (up != null) { // up is a Posting
                             postingForm.setParentId(up.getParentId());
+                        } else {
+                            return "upId.noPosting";
                         }
+                    } else { // up is a Topic
+                        postingForm.setParentId(up.getId());
                     }
                     Topic parent = topicManager.beg(postingForm.getParentId());
-
-                    // What does this code check? Better not to touch it for now.
-                    if (up != null && up instanceof Topic || postingForm.getUpId() == posting.getParentId()) {
-                        postingForm.setUpId(postingForm.getParentId());
-                        up = parent;
-                    }
-
-                    if (up == null) {
-                        return "upId.noPosting";
-                    }
 
                     String errorCode = Posting.validateHierarchy(parent, up, postingForm.getId());
                     if (errorCode != null) {

@@ -71,7 +71,7 @@ public class TopicManager implements EntryManagerBase<Topic> {
     @Override
     public Topic beg(long id) {
         Topic topic = get(id);
-        return topic.isReadable() ? topic : null;
+        return topic != null && topic.isReadable() ? topic : null;
     }
 
     public Topic begOrRoot(long id) {
