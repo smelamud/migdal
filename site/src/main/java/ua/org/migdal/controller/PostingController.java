@@ -194,6 +194,16 @@ public class PostingController {
                     if (postingForm.isMandatory("subject") && StringUtils.isEmpty(postingForm.getSubject())) {
                         return "subject.NotBlank";
                     }
+                    if (postingForm.isMandatory("author") && StringUtils.isEmpty(postingForm.getAuthor())) {
+                        return "author.NotBlank";
+                    }
+                    if (postingForm.isMandatory("source") && StringUtils.isEmpty(postingForm.getSource())) {
+                        return "source.NotBlank";
+                    }
+
+                    if (postingForm.isMandatory("large_body") && StringUtils.isEmpty(postingForm.getLargeBody())) {
+                        return "largeBody.NotBlank";
+                    }
 
                     /*String errorCode = Topic.validateHierarchy(null, up, postingForm.getId());
                     if (errorCode != null) {

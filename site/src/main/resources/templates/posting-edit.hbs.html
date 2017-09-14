@@ -94,7 +94,6 @@
 
     {{#ifeq editor.field "author"}}
         {{#if visible}}
-            {{!<error id='*EP_AUTHOR_ABSENT' text#='$=editor.Title не указан'>}}
             {{formEdit title=editor.title comment=editor.comment value=postingForm.author name="author" size="52"
                        maxlength="250" mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
@@ -104,7 +103,6 @@
 
     {{#ifeq editor.field "source"}}
         {{#if visible}}
-            {{!<error id="*EP_SOURCE_ABSENT" text#="$=editor.Title не указан">}}
             {{formEdit title=editor.title comment=editor.comment value=postingForm.source name="source" size="52"
                        maxlength="250" mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
@@ -301,7 +299,6 @@
 
     {{#ifeq editor.field "large_body"}}
         {{#if visible}}
-            {{!<error id='*EP_LARGE_BODY_ABSENT' text#='$=editor.Title пуст'>}}
             {{formEditor title=editor.title comment=editor.comment name="largeBody" body=postingForm.largeBody rows="11"
                          mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
