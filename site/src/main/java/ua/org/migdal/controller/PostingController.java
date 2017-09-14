@@ -180,9 +180,6 @@ public class PostingController {
                     if (!grpEnum.exists(postingForm.getGrp())) {
                         return "grp.noGrp";
                     }
-                    if (postingForm.isMandatory("ident") && StringUtils.isEmpty(postingForm.getIdent())) {
-                        return "ident.NotBlank";
-                    }
                     if (postingForm.isMandatory("body") && StringUtils.isEmpty(postingForm.getBody())) {
                         return "body.NotBlank";
                     }
@@ -200,11 +197,23 @@ public class PostingController {
                     if (postingForm.isMandatory("source") && StringUtils.isEmpty(postingForm.getSource())) {
                         return "source.NotBlank";
                     }
-
                     if (postingForm.isMandatory("large_body") && StringUtils.isEmpty(postingForm.getLargeBody())) {
                         return "largeBody.NotBlank";
                     }
+                    if (postingForm.isMandatory("url") && StringUtils.isEmpty(postingForm.getUrl())) {
+                        return "url.NotBlank";
+                    }
+                    /*if ($posting->getURL() != ''
+                            && strpos($posting->getURL(), '://') === false
+                            && $posting->getURL()[0] != '/')
+                        $posting->setURL("http://{$posting->getURL()}");*/
+                    if (postingForm.isMandatory("topic") && postingForm.getParentId() <= 0) {
+                        return "parentId.noParentId";
+                    }
 
+                    if (postingForm.isMandatory("ident") && StringUtils.isEmpty(postingForm.getIdent())) {
+                        return "ident.NotBlank";
+                    }
                     /*String errorCode = Topic.validateHierarchy(null, up, postingForm.getId());
                     if (errorCode != null) {
                         return errorCode;

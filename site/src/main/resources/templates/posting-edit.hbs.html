@@ -180,7 +180,6 @@
 
     {{#ifeq editor.field "url"}}
         {{#if visible}}
-            {{!<error id='*EP_URL_ABSENT' text#='$=editor.Title не указана'>}}
             {{formEdit title=editor.title comment=editor.comment value=postingForm.url name="url" size="52"
                        maxlength="250" mandatory=editor.mandatory}}
         {{else}}
@@ -347,7 +346,6 @@
    {{!
    <error id='*EP_NO_PERSON'
 	  text='У этого пользователя нет персональной страницы'>
-   <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
    <error id='*EP_TOPIC_ACCESS'
 	  text='Вы не имеете права добавлять сообщения по этой теме'>
    <error id='*EVH_NO_PARENT' text='Такой темы не существует'>
