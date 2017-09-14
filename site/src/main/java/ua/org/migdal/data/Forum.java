@@ -24,11 +24,11 @@ public class Forum extends Entry {
             return errorCode;
         }
         if (parent == null) {
-            return "hierarchy.noParent";
+            return "hierarchyNoParent";
         }
         if (Hibernate.getClass(parent) != Posting.class
                 || parent.getId() != up.getId() && Hibernate.getClass(up) != Forum.class) {
-            return "hierarchy.incorrect";
+            return "hierarchyIncorrect";
         }
         return null;
     }

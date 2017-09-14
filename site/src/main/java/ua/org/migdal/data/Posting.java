@@ -101,11 +101,11 @@ public class Posting extends Entry {
             return errorCode;
         }
         if (parent == null) {
-            return "hierarchy.noParent";
+            return "hierarchyNoParent";
         }
         if (Hibernate.getClass(parent) != Topic.class
                 || parent.getId() != up.getId() && Hibernate.getClass(up) != Posting.class) {
-            return "hierarchy.incorrect";
+            return "hierarchyIncorrect";
         }
         return null;
     }

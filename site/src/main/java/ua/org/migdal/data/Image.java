@@ -15,12 +15,12 @@ public class Image extends Entry {
             return errorCode;
         }
         if (parent != null) {
-            return "hierarchy.incorrect";
+            return "hierarchyIncorrect";
         }
         if (up != null) {
             Class upClass = Hibernate.getClass(up);
             if (upClass != Posting.class && upClass != Forum.class && upClass != Topic.class) {
-                return "hierarchy.incorrect";
+                return "hierarchyIncorrect";
             }
         }
         return null;

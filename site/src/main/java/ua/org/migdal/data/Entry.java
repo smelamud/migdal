@@ -1108,15 +1108,15 @@ public class Entry implements TreeElement {
 
     public static String validateHierarchy(Entry parent, Entry up, long id) {
         if (parent != null && up == null) {
-            return "hierarchy.notUpUnderParent";
+            return "hierarchyNotUpUnderParent";
         }
         String parentTrack = parent != null ? parent.getTrack() : "";
         String upTrack = up != null ? up.getTrack() : "";
         if (!upTrack.startsWith(parentTrack)) {
-            return "hierarchy.notUpUnderParent";
+            return "hierarchyNotUpUnderParent";
         }
         if (upTrack.contains(TrackUtils.track(id))) {
-            return "hierarchy.loop";
+            return "hierarchyLoop";
         }
         return null;
     }

@@ -43,7 +43,7 @@ public class Topic extends Entry {
             return errorCode;
         }
         if (parent != null || up != null && Hibernate.getClass(up) != Topic.class) {
-            return "hierarchy.incorrect";
+            return "hierarchyIncorrect";
         }
         return null;
     }
