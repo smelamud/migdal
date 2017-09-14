@@ -23,7 +23,6 @@ require_once('lib/counters.php');
 require_once('lib/logging.php');
 require_once('lib/sql.php');
 require_once('lib/captcha.php');
-require_once('lib/spam.php');
 
 function imageSizeErrorCode($err, $imageEditor) {
     if ($err == EIU_WRONG_IMAGE_SIZE) {
@@ -61,85 +60,94 @@ function imageSizeErrorCode($err, $imageEditor) {
     return $err;
 }
 
+function isSpam($body) {
+    $spams = array('clickcashmoney.com', 'porno-video-free', 'porno-exe',
+                   'rem-stroi.com', 'hiphoprussia.ru', 'retrade.ru', 't35.com',
+                   'viagra');
+    foreach ($spams as $spam) {
+        if (strpos($body,$spam) !== false) {
+            logEvent('spam',$spam);
+            return true;
+        }
+    }
+    return false;
+}
+
 function modifyPosting(Posting $posting, Posting $original,
                        array $imageEditor) {
     global $captcha, $userId;
 
     if ($original->getId() != 0 && !$original->isWritable())
         return EP_NO_EDIT;
-    if (!isGrpValid($posting->getGrp()))
+    if (!isGrpValid($posting->grp))
         return EP_INVALID_GRP;
-    if ($posting->isMandatory('body') && $posting->getBody() == '')
+    if ($posting->isMandatory('body') && $posting->body == '')
         return EP_BODY_ABSENT;
-    if (isSpam($posting->getSubject(), $posting->getBody()))
+    if ($posting->body != '' && isSpam($posting->body))
         return EP_SPAM;
-    if ($posting->isMandatory('lang') && $posting->getLang() == '')
+    if ($posting->isMandatory('lang') && $posting->lang == '')
         return EP_LANG_ABSENT;
-    if ($posting->isMandatory('subject') && $posting->getSubject() == '')
+    if ($posting->isMandatory('subject') && $posting->subject == '')
         return EP_SUBJECT_ABSENT;
-    if ($posting->isMandatory('author') && $posting->getAuthor() == '')
+    if ($posting->isMandatory('author') && $posting->author == '')
         return EP_AUTHOR_ABSENT;
-    if ($posting->isMandatory('source') && $posting->getSource() == '')
+    if ($posting->isMandatory('source') && $posting->source == '')
         return EP_SOURCE_ABSENT;
     if (($posting->isMandatory('large_body')
          || $posting->isMandatory('large_body_upload'))
-        && $posting->getLargeBody() == '')
+        && $posting->large_body == '')
         return EP_LARGE_BODY_ABSENT;
-    if ($posting->isMandatory('url') && $posting->getURL() == '')
+    if ($posting->isMandatory('url') && $posting->url == '')
         return EP_URL_ABSENT;
-    if ($posting->getURL() != ''
-        && strpos($posting->getURL(), '://') === false
-        && $posting->getURL()[0] != '/')
-        $posting->setURL("http://{$posting->getURL()}");
-    if ($posting->isMandatory('topic') && $posting->getParentId() == 0)
+    if ($posting->url != '' && strpos($posting->url, '://') === false
+        && $posting->url{0} != '/')
+        $posting->url = "http://{$posting->url}";
+    if ($posting->isMandatory('topic') && $posting->parent_id == 0)
         return EP_TOPIC_ABSENT;
-    if (getTypeByEntryId($posting->getUpValue()) == ENT_TOPIC
-        || $posting->getUpValue() == $original->getParentId())
-        $posting->setUpValue($posting->getParentId());
-    $correct = validateHierarchy($posting->getParentId(),
-                                 $posting->getUpValue(), ENT_POSTING,
-                                 $posting->getId());
+    if (getTypeByEntryId($posting->up) == ENT_TOPIC
+        || $posting->up == $original->parent_id)
+        $posting->up = $posting->parent_id;
+    $correct = validateHierarchy($posting->parent_id, $posting->up,
+                                 ENT_POSTING, $posting->id);
     if ($correct != EG_OK)
         return $correct;
     if ($original->getId() == 0
-        || $original->getParentId() != $posting->getParentId()) {
-        if ($posting->getParentId() != 0)
-            $perms = getPermsById($posting->getParentId());
+        || $original->parent_id != $posting->parent_id) {
+        if ($posting->parent_id != 0)
+            $perms = getPermsById($posting->parent_id);
         else
             $perms = getRootPerms('Topic');
         if (!$perms->isPostable())
             return EP_TOPIC_ACCESS;
     }
-    if ($posting->getUpValue() != 0
-        && $posting->getUpValue() != $posting->getParentId()) {
-        $perms = getPermsById($posting->getUpValue());
+    if ($posting->up != 0 && $posting->up != $posting->parent_id) {
+        $perms = getPermsById($posting->up);
         if (!$perms->isAppendable())
             return EP_UP_APPEND;
     }
-    if ($posting->isMandatory('ident') && $posting->getIdent() == '')
+    if ($posting->isMandatory('ident') && $posting->ident == '')
         return EP_IDENT_ABSENT;
-    $cid = idByIdent($posting->getIdent());
-    if ($posting->getIdent() != '' && $cid != 0 && $posting->getId() != $cid)
+    $cid = idByIdent($posting->ident);
+    if ($posting->ident != '' && $cid != 0 && $posting->id != $cid)
         return EP_IDENT_UNIQUE;
-    if ($posting->isMandatory('index1') && $posting->getIndex1() == 0)
+    if ($posting->isMandatory('index1') && $posting->index1 == 0)
         return EP_INDEX1_ABSENT;
     if ($posting->isMandatory('image') && !$posting->hasImage())
         return EP_IMAGE_ABSENT;
-    if ($posting->getPersonId() != 0
-        && !personalExists($posting->getPersonId()))
+    if ($posting->person_id != 0 && !personalExists($posting->person_id))
         return EP_NO_PERSON;
-    if ($posting->getId() <= 0 && $userId <= 0) {
+    if ($posting->id <= 0 && $userId <= 0) {
         if ($captcha == '')
             return EP_CAPTCHA_ABSENT;
         if (!validateCaptcha($captcha))
             return EP_CAPTCHA;
     }
-    $posting->setTrack('');
-    $posting->setCatalog('');
-    storePosting($posting, $original);
+    $posting->track = '';
+    $posting->catalog = '';
+    storePosting($posting);
     setPremoderates($posting, $original);
     if ($original->getId() == 0)
-        createCounters($posting->getId(), $posting->getGrp());
+        createCounters($posting->id, $posting->grp);
     return EG_OK;
 }
 
@@ -222,7 +230,7 @@ if ($erru != EG_OK)
 if ($err == EG_OK)
     $err = $erru;
 
-$erru = uploadLargeBody($posting, $del_large_body);
+$erru = uploadLargeBody($posting,$del_large_body);
 if ($err == EG_OK)
     $err = $erru;
 
@@ -242,8 +250,8 @@ if ($err == EG_OK) {
         header("Location: $okdir");
 } else {
     $bodyId = tmpTextSave($body);
-    $largeBodyId = tmpTextSave($posting->getLargeBody());
-    $largeBodyFilenameId = tmpTextSave($posting->getLargeBodyFilename());
+    $largeBodyId = tmpTextSave($posting->large_body);
+    $largeBodyFilenameId = tmpTextSave($posting->large_body_filename);
     $subjectId = tmpTextSave($subject);
     $authorId = tmpTextSave($author);
     $sourceId = tmpTextSave($source);
@@ -251,9 +259,9 @@ if ($err == EG_OK) {
     $comment1Id = tmpTextSave($comment1);
     $titleId = tmpTextSave($title);
     $urlId = tmpTextSave($url);
-    $smallImageFormatId = tmpTextSave($posting->getSmallImageFormat());
-    $largeImageFormatId = tmpTextSave($posting->getLargeImageFormat());
-    $largeImageFilenameId = tmpTextSave($posting->getLargeImageFilename());
+    $smallImageFormatId = tmpTextSave($posting->small_image_format);
+    $largeImageFormatId = tmpTextSave($posting->large_image_format);
+    $largeImageFilenameId = tmpTextSave($posting->large_image_filename);
     header(
         'Location: '.
         remakeMakeURI(
@@ -290,14 +298,14 @@ if ($err == EG_OK) {
                 'comment1_i'    => $comment1Id,
                 'title_i'       => $titleId,
                 'url_i'         => $urlId,
-                'small_image'   => $posting->getSmallImage(),
-                'small_image_x' => $posting->getSmallImageX(),
-                'small_image_y' => $posting->getSmallImageY(),
+                'small_image'   => $posting->small_image,
+                'small_image_x' => $posting->small_image_x,
+                'small_image_y' => $posting->small_image_y,
                 'small_image_format_i' => $smallImageFormatId,
-                'large_image'   => $posting->getLargeImage(),
-                'large_image_x' => $posting->getLargeImageX(),
-                'large_image_y' => $posting->getLargeImageY(),
-                'large_image_size' => $posting->getLargeImageSize(),
+                'large_image'   => $posting->large_image,
+                'large_image_x' => $posting->large_image_x,
+                'large_image_y' => $posting->large_image_y,
+                'large_image_size' => $posting->large_image_size,
                 'large_image_format_i' => $largeImageFormatId,
                 'large_image_filename_i' => $largeImageFilenameId,
                 'sent'          => $posting->getSent(),

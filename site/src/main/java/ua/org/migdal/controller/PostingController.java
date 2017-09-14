@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.form.AdminPostingsForm;
@@ -211,18 +212,45 @@ public class PostingController {
                         return "parentId.noParentId";
                     }
 
-                    if (postingForm.isMandatory("ident") && StringUtils.isEmpty(postingForm.getIdent())) {
-                        return "ident.NotBlank";
+                    if (postingForm.getUpId() <= 0) {
+                        postingForm.setUpId(postingForm.getParentId());
                     }
-                    /*String errorCode = Topic.validateHierarchy(null, up, postingForm.getId());
+                    Entry up = topicManager.beg(postingForm.getUpId());
+                    if (up == null) {
+                        up = postingManager.beg(postingForm.getUpId());
+                        if (up != null) { // up is a Posting
+                            postingForm.setParentId(up.getParentId());
+                        }
+                    }
+                    Topic parent = topicManager.beg(postingForm.getParentId());
+
+                    // What does this code check? Better not to touch it for now.
+                    if (up != null && up instanceof Topic || postingForm.getUpId() == posting.getParentId()) {
+                        postingForm.setUpId(postingForm.getParentId());
+                        up = parent;
+                    }
+
+                    if (up == null) {
+                        return "upId.noPosting";
+                    }
+
+                    String errorCode = Posting.validateHierarchy(parent, up, postingForm.getId());
                     if (errorCode != null) {
                         return errorCode;
                     }
-                    if (!up.isAppendable()) {
+
+                    if (!parent.isPostable()) {
+                        return "parentId.noPost";
+                    }
+                    if (up.getId() != parent.getId() && !up.isAppendable()) {
                         return "upId.noAppend";
                     }
 
-                    String oldTrack = posting.getTrack();
+                    if (postingForm.isMandatory("ident") && StringUtils.isEmpty(postingForm.getIdent())) {
+                        return "ident.NotBlank";
+                    }
+
+                    /*String oldTrack = posting.getTrack();
                     boolean trackChanged = postingForm.isTrackChanged(posting);
                     boolean catalogChanged = postingForm.isCatalogChanged(posting);
 
