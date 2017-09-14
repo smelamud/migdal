@@ -177,8 +177,22 @@ public class PostingController {
                         }
                     }
 
-                    if (postingForm.getGrpInfo().isMandatory("ident") && StringUtils.isEmpty(postingForm.getIdent())) {
+                    if (!grpEnum.exists(postingForm.getGrp())) {
+                        return "grp.noGrp";
+                    }
+                    if (postingForm.isMandatory("ident") && StringUtils.isEmpty(postingForm.getIdent())) {
                         return "ident.NotBlank";
+                    }
+                    if (postingForm.isMandatory("body") && StringUtils.isEmpty(postingForm.getBody())) {
+                        return "body.NotBlank";
+                    }
+                    //if (isSpam($posting->getSubject(), $posting->getBody()))
+                    //    return EP_SPAM;
+                    if (postingForm.isMandatory("lang") && StringUtils.isEmpty(postingForm.getLang())) {
+                        return "lang.NotBlank";
+                    }
+                    if (postingForm.isMandatory("subject") && StringUtils.isEmpty(postingForm.getSubject())) {
+                        return "subject.NotBlank";
                     }
 
                     /*String errorCode = Topic.validateHierarchy(null, up, postingForm.getId());

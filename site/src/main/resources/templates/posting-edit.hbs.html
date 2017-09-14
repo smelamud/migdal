@@ -24,7 +24,6 @@
 <int name='large_image_size'>
 <string name='large_image_format'>
 <string name='large_image_filename'>
-<int name='sent'>
 
 <posting_obj id='$editid' grp='$grp' topic_id='$parent_id' up='$up'
              index1='$index1' fields!='*SELECT_GENERAL|*SELECT_LARGE_BODY'>}}
@@ -86,7 +85,6 @@
 
     {{#ifeq editor.field "subject"}}
         {{#if visible}}
-            {{!<error id='*EP_SUBJECT_ABSENT' text#='$=editor.Title не указан'>}}
             {{formEdit title=editor.title comment=editor.comment value=postingForm.subject name="subject" size="70"
                        maxlength="250" mandatory=editor.mandatory}}
         {{else}}
@@ -125,7 +123,6 @@
 
     {{#ifeq editor.field "body"}}
         {{#if visible}}
-            {{!<error id='*EP_BODY_ABSENT' text='Текст пуст'>}}
             {{formEditor title=editor.title comment=editor.comment name="body" body=postingForm.body rows="9"
                          mandatory=editor.mandatory xmlid=xmlid}}
         {{else}}
@@ -172,7 +169,6 @@
 
     {{#ifeq editor.field "lang"}}
         {{#if visible}}
-            {{!<error id='*EP_LANG_ABSENT' text#='$=editor.Title не указан'>}}
             {{#formSelect title=editor.title comment=editor.comment name="lang" mandatory=editor.mandatory}}
                 {{formOption title=(safe "&mdash; Неизвестен &mdash;") value="" selectedValue=postingForm.lang}}
                 {{#each const.langs}}
@@ -343,7 +339,7 @@
 {{/if}}
 <form method="post" enctype="multipart/form-data" action="/actions/posting/modify">
     {{#formTable title=formTitle}}
-        {{formErrors}}
+        {{formErrors object=postingForm.grpInfo.fieldEditors}}
         {{hidden name="back" value=rc.back}}
         {{hidden name="origin" value=rc.location}}
         {{hidden name="full" value=postingForm.full}}
@@ -354,7 +350,6 @@
    {{!
    <error id='*EP_NO_PERSON'
 	  text='У этого пользователя нет персональной страницы'>
-   <error id='*EP_INVALID_GRP' text='Такого типа сообщения не существует'>
    <error id='*EP_TOPIC_ABSENT' text='Тема должна быть выбрана'>
    <error id='*EP_TOPIC_ACCESS'
 	  text='Вы не имеете права добавлять сообщения по этой теме'>

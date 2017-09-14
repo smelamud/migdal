@@ -210,6 +210,10 @@ public class GrpDescriptor {
                 .collect(Collectors.toMap(GrpEditor::getField, Function.identity()));
     }
 
+    public Map<String, GrpEditor> getFieldEditors() {
+        return fieldEditors;
+    }
+
     public boolean isMandatory(String field) {
         GrpEditor editor = fieldEditors.get(field);
         return editor != null && editor.isMandatory();

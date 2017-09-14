@@ -122,6 +122,10 @@ public class PostingForm implements Serializable {
         this.full = full;
     }
 
+    public boolean isMandatory(String field) {
+        return getGrpInfo().isMandatory(field);
+    }
+
     public long getId() {
         return id;
     }
