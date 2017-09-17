@@ -119,7 +119,7 @@ public class RequestContextImpl implements RequestContext {
         }
         requestProcessed = true;
 
-        location = SubdomainUtils.createLocalBuilderFromRequest(request).toUriString();
+        location = SubdomainUtils.createLocalBuilderFromRequest(request).build(true).toUriString();
         String hostname = SubdomainUtils.createBuilderFromRequest(request).build().getHost();
         subdomain = subdomainUtils.validateSubdomain(hostname).getSubdomain();
         printMode = "1".equals(request.getParameter("print"));

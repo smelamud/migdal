@@ -35,7 +35,10 @@ public class GlobalsControllerAdvice {
         model.addAttribute("rc", requestContext);
         model.addAttribute("location", requestContext.getLocation());
         model.addAttribute("printLocation",
-                SubdomainUtils.createLocalBuilderFromRequest(request).queryParam("print", 1).toUriString());
+                SubdomainUtils.createLocalBuilderFromRequest(request)
+                        .queryParam("print", 1)
+                        .build(true)
+                        .toUriString());
         model.addAttribute("siteDomain", config.getSiteDomain());
         model.addAttribute("siteName", !requestContext.isEnglish() ? "Мигдаль" : "Migdal");
         model.addAttribute("grpNone", grpEnum.getGrpNone());

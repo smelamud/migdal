@@ -25,7 +25,7 @@ public class SubdomainInterceptor extends HandlerInterceptorAdapter {
         }
 
         builder.host(subdomainInfo.getRedirectTo());
-        response.sendRedirect(response.encodeRedirectURL(builder.toUriString()));
+        response.sendRedirect(response.encodeRedirectURL(builder.build(true).toUriString()));
         return false;
     }
 
