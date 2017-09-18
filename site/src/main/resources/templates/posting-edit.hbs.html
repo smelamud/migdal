@@ -139,7 +139,6 @@
 
     {{#ifeq editor.field "index1"}}
         {{#if visible}}
-            {{!<error id='*EP_INDEX1_ABSENT' text#='$=editor.Title не указан'>}}
             {{formEdit title=editor.title comment=editor.comment value=postingForm.index1 name="index1" size="3"
                        maxlength="5" mandatory=editor.mandatory}}
         {{else}}

@@ -31,6 +31,7 @@ import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.Utils;
 
 @Controller
 public class PostingController {
@@ -242,6 +243,12 @@ public class PostingController {
 
                     if (postingForm.isMandatory("ident") && StringUtils.isEmpty(postingForm.getIdent())) {
                         return "ident.NotBlank";
+                    }
+                    if (postingForm.isMandatory("index1") && StringUtils.isEmpty(postingForm.getIndex1())) {
+                        return "index1.NotBlank";
+                    }
+                    if (!StringUtils.isEmpty(postingForm.getIndex1()) && !Utils.isNumber(postingForm.getIndex1())) {
+                        return "index1.notNumber";
                     }
 
                     /*String oldTrack = posting.getTrack();
