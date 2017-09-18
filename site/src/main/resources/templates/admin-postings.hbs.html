@@ -40,7 +40,7 @@
     <table class="posting" width="100%">
         <tr><td>
             {{#assign "topicLink"}}
-                <a href="?topicIds={{posting.topicId}}" class="posting-topic">
+                <a href="{{location "topicIds" posting.topicId}}" class="posting-topic">
                     {{#each posting.ancestors}}
                         {{subject}}
                         {{#unless @last}} :: {{/unless}}

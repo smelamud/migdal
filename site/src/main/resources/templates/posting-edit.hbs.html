@@ -352,10 +352,10 @@
             {{#formComment}}<table><tr>
                 {{#if postingForm.full}}
                     <td>{{image "/pics/down.gif"}}</td>
-                    <td>&nbsp;<a href="?full=0">Скрыть все неиспользуемые поля</a></td>
+                    <td>&nbsp;<a href="{{location "full" 0}}">Скрыть все неиспользуемые поля</a></td>
                 {{else}}
                     <td>{{image "/pics/right.gif"}}</td>
-                    <td>&nbsp;<a href="?full=1">Показать все поля</a></td>
+                    <td>&nbsp;<a href="{{location "full" 1}}">Показать все поля</a></td>
                 {{/if}}
             </tr></table>{{/formComment}}
         {{/moderator}}
