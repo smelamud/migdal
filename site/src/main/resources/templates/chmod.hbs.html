@@ -4,7 +4,8 @@
 {{#formTable title="Изменение прав на объект" mini=true}}
     {{formErrors}}
     <form method="post" action="/actions/entry/chmod">
-        {{hidden name="back" value=rc.back}}
+        {{hidden name="back" value=rc.location}}
+        {{hidden name="origin" value=rc.back}}
         {{hidden name="id" value=chmodForm.id}}
         {{hidden name="entryType" value=chmodForm.entryType}}
         {{starInfo}}

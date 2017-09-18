@@ -247,7 +247,7 @@ public class TopicController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getBack();
+            return "redirect:" + requestContext.getOrigin();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("topicForm", topicForm);
@@ -258,7 +258,7 @@ public class TopicController {
                 location = "redirect:/admin/topics/" + topic.getTrackPath() + "edit";
             }
             return UriComponentsBuilder.fromUriString(location)
-                    .queryParam("back", requestContext.getBack())
+                    .queryParam("back", requestContext.getOrigin())
                     .toUriString();
         }
     }
@@ -276,7 +276,7 @@ public class TopicController {
         if (subtopicsCount == 0 && postsCount == 0) {
             return UriComponentsBuilder.fromUriString("redirect:/actions/topic/delete")
                     .queryParam("id", topic.getId())
-                    .queryParam("back", requestContext.getBack())
+                    .queryParam("origin", requestContext.getBack())
                     .toUriString();
         }
 
@@ -340,12 +340,12 @@ public class TopicController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getBack();
+            return "redirect:" + requestContext.getOrigin();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("topicDeleteForm", topicDeleteForm);
             return UriComponentsBuilder.fromUriString("redirect:/admin/topics/" + topic.getTrackPath() + "delete")
-                    .queryParam("back", requestContext.getBack())
+                    .queryParam("back", requestContext.getOrigin())
                     .toUriString();
         }
     }

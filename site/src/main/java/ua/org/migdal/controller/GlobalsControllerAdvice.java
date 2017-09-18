@@ -33,7 +33,6 @@ public class GlobalsControllerAdvice {
         model.addAttribute("const", constants);
         model.addAttribute("config", config);
         model.addAttribute("rc", requestContext);
-        model.addAttribute("location", requestContext.getLocation());
         model.addAttribute("printLocation",
                 SubdomainUtils.createLocalBuilderFromRequest(request)
                         .queryParam("print", 1)

@@ -156,18 +156,18 @@ public class UserController {
         if (userForm.getId() <= 0) {
             if (!errors.hasErrors()) {
                 if (requestContext.isUserAdminUsers()) {
-                    return "redirect:" + requestContext.getBack();
+                    return "redirect:" + requestContext.getOrigin();
                 } else {
                     redirectAttributes.addFlashAttribute("id", user.getId());
                     return UriComponentsBuilder.fromUriString("redirect:/register/confirm")
-                            .queryParam("back", requestContext.getBack())
+                            .queryParam("back", requestContext.getOrigin())
                             .toUriString();
                 }
             } else {
                 redirectAttributes.addFlashAttribute("errors", errors);
                 redirectAttributes.addFlashAttribute("userForm", userForm);
                 return UriComponentsBuilder.fromUriString("redirect:/register")
-                        .queryParam("back", requestContext.getBack())
+                        .queryParam("back", requestContext.getOrigin())
                         .toUriString();
             }
         } else {

@@ -14,7 +14,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.EntryType;
@@ -145,25 +144,11 @@ public class EntryController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getBack();
+            return "redirect:" + requestContext.getOrigin();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("chmodForm", chmodForm);
-            String location;
-            switch (entryType) {
-                case TOPIC:
-                    location = "redirect:/admin/topics/" + (entry != null ? entry.getTrackPath() : "") + "chmod";
-                    break;
-                case POSTING:
-                    location = "redirect:/admin/postings"; // FIXME
-                    break;
-                default:
-                    location = "redirect:/admin/topics";
-                    break;
-            }
-            return UriComponentsBuilder.fromUriString(location)
-                    .queryParam("back", requestContext.getBack())
-                    .toUriString();
+            return "redirect:" + requestContext.getBack();
         }
     }
 
@@ -221,11 +206,11 @@ public class EntryController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getBack();
+            return "redirect:" + requestContext.getOrigin();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("reorderForm", reorderForm);
-            return "redirect:" + requestContext.getOrigin();
+            return "redirect:" + requestContext.getBack();
         }
     }
 

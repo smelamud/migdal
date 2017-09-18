@@ -11,7 +11,7 @@
 {{#formTable title="Введите информацию о себе"}}
     {{formErrors}}
     <form method="post" action="/actions/user/modify">
-        {{hidden name="back" value=rc.back}}
+        {{hidden name="origin" value=rc.back}}
         {{starInfo}}
         <form_captcha name='captcha'>
         {{formSection title="Информация для входа на сайт"}}

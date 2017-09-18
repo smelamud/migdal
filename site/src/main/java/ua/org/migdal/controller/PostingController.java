@@ -270,11 +270,11 @@ public class PostingController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getBack();
+            return "redirect:" + requestContext.getOrigin();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("postingForm", postingForm);
-            return "redirect:" + requestContext.getOrigin();
+            return "redirect:" + requestContext.getBack();
         }
     }
 

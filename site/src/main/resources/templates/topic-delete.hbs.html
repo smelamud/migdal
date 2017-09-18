@@ -5,7 +5,7 @@
 {{#formTable title=formTitle}}
     {{formErrors}}
     <form method="post" action="/actions/topic/delete">
-        {{hidden name="back" value=rc.back}}
+        {{hidden name="origin" value=rc.back}}
         {{hidden name="id" value=topicDeleteForm.id}}
         {{starInfo}}
         {{#formComment}}

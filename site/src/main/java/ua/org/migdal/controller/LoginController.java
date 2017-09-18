@@ -94,12 +94,12 @@ public class LoginController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getBack();
+            return "redirect:" + requestContext.getOrigin();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("loginForm", loginForm);
             return UriComponentsBuilder.fromUriString("redirect:/signin")
-                    .queryParam("back", requestContext.getBack())
+                    .queryParam("back", requestContext.getOrigin())
                     .toUriString();
         }
     }
@@ -112,7 +112,7 @@ public class LoginController {
             session.setUserId(0);
             session.setRealUserId(userManager.getGuestId());
         }
-        return "redirect:" + requestContext.getBack();
+        return "redirect:" + requestContext.getOrigin();
     }
 
     @PostMapping("/actions/su")
@@ -134,12 +134,12 @@ public class LoginController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getBack();
+            return "redirect:" + requestContext.getOrigin();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("suForm", suForm);
             return UriComponentsBuilder.fromUriString("redirect:/signin")
-                    .queryParam("back", requestContext.getBack())
+                    .queryParam("back", requestContext.getOrigin())
                     .toUriString();
         }
     }
@@ -185,13 +185,13 @@ public class LoginController {
 
         if (!errors.hasErrors()) {
             return UriComponentsBuilder.fromUriString("redirect:/recall-password/ok")
-                    .queryParam("back", requestContext.getBack())
+                    .queryParam("back", requestContext.getOrigin())
                     .toUriString();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("recallPasswordForm", recallPasswordForm);
             return UriComponentsBuilder.fromUriString("redirect:/recall-password")
-                    .queryParam("back", requestContext.getBack())
+                    .queryParam("back", requestContext.getOrigin())
                     .toUriString();
         }
     }

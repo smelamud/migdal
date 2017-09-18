@@ -19,14 +19,14 @@
         {{/if}}
     {{/if}}
     {{#if append}}
-        <a href="/admin/topics/{{upPath}}add/?back={{ue location}}" class="edit">Добавить</a>
+        <a href="/admin/topics/{{upPath}}add/?back={{ue rc.location}}" class="edit">Добавить</a>
     {{/if}}
     {{#if node.id}}
         {{#if write}}
-            <a href="/admin/topics/{{upPath}}edit/?back={{ue location}}" class="edit">Изменить</a>
-            <a href="/admin/topics/{{upPath}}delete/?back={{ue location}}" class="edit">Удалить</a>
-            <a href="/admin/topics/{{upPath}}chmod/?back={{ue location}}" class="edit">Права</a>
-            <a href="/admin/topics/{{upPath}}reorder/?back={{ue location}}" class="edit">Расставить</a>
+            <a href="/admin/topics/{{upPath}}edit/?back={{ue rc.location}}" class="edit">Изменить</a>
+            <a href="/admin/topics/{{upPath}}delete/?back={{ue rc.location}}" class="edit">Удалить</a>
+            <a href="/admin/topics/{{upPath}}chmod/?back={{ue rc.location}}" class="edit">Права</a>
+            <a href="/admin/topics/{{upPath}}reorder/?back={{ue rc.location}}" class="edit">Расставить</a>
         {{/if}}
     {{/if}}
     {{#unless node.children.empty}}

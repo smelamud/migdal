@@ -6,9 +6,9 @@
         {{formErrors form="loginForm"}}
         <form method="post" action="/actions/login">
             {{#ifieq novice 0}}
-                {{hidden name="back" value=rc.back}}
+                {{hidden name="origin" value=rc.back}}
             {{else}}
-                {{hidden name="back" value="/register/ok"}}
+                {{hidden name="origin" value="/register/ok"}}
             {{/ifieq}}
             {{#ifieq novice 1}}
                 {{#formComment}}
@@ -44,13 +44,13 @@
                     Если у вас еще нет ника и пароля, вам нужно
                     <a href="/register/?back={{ue rc.back}}">зарегистрироваться</a>.<br>
                 {{/ifieq}}
-                <a href="/recall-password/?back={{ue location}}">Забыли пароль</a>? Мы вышлем вам новый.
+                <a href="/recall-password/?back={{ue rc.location}}">Забыли пароль</a>? Мы вышлем вам новый.
             {{/formComment}}
             {{formButtons title="Войти"}}
         </form>
     {{else}}
         <form method="post" action="/actions/logout">
-            {{hidden name="back" value=rc.back}}
+            {{hidden name="origin" value=rc.back}}
             {{#formComment}}
                 Вы вошли на сайт как
                 {{#if rc.userHidden}}
@@ -67,7 +67,7 @@
     {{#formTable title="Сменить пользователя" mini=true}}
         {{formErrors form="suForm"}}
         <form method="post" action="/actions/su">
-            {{hidden name="back" value=rc.back}}
+            {{hidden name="origin" value=rc.back}}
             {{formEdit title="Ник" name="login" value=suForm.login size="30" maxlength="30"}}
             {{formButtons title="Сменить"}}
         </form>

@@ -4,8 +4,8 @@
 <form method="post" action="/actions/entry/reorder">
     {{#formTable title="Расстановка" mini=true miniTitle=true}}
         {{formErrors}}
-        {{hidden name="back" value=rc.back}}
-        {{hidden name="origin" value=rc.location}}
+        {{hidden name="back" value=rc.location}}
+        {{hidden name="origin" value=rc.back}}
         {{hidden name="entryType" value=reorderForm.entryType}}
         {{#formComment}}Перетаскивайте элементы мышью{{/formComment}}
         {{#formComment}}

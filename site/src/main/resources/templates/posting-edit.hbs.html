@@ -336,8 +336,8 @@
 <form method="post" enctype="multipart/form-data" action="/actions/posting/modify">
     {{#formTable title=formTitle}}
         {{formErrors object=postingForm.grpInfo.fieldEditors}}
-        {{hidden name="back" value=rc.back}}
-        {{hidden name="origin" value=rc.location}}
+        {{hidden name="back" value=rc.location}}
+        {{hidden name="origin" value=rc.back}}
         {{hidden name="full" value=postingForm.full}}
         {{hidden name="id" value=postingForm.id}}
         {{hidden name="personId" value=postingForm.personId}}
