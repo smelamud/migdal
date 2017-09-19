@@ -418,4 +418,12 @@ public class PostingForm implements Serializable {
         }
     }
 
+    public boolean isTrackChanged(Posting posting) {
+        return getId() > 0 && getUpId() != posting.getUpId();
+    }
+
+    public boolean isCatalogChanged(Posting posting) {
+        return getId() > 0 && (getUpId() != posting.getUpId() || !getIdent().equals(posting.getIdent()));
+    }
+
 }

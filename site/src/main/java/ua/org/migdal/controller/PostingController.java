@@ -21,18 +21,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Entry;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.AdminPostingsForm;
 import ua.org.migdal.form.PostingForm;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.manager.CatalogManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.CatalogUtils;
+import ua.org.migdal.util.TrackUtils;
 import ua.org.migdal.util.Utils;
 
 @Controller
@@ -58,6 +63,12 @@ public class PostingController {
 
     @Inject
     private UserManager userManager;
+
+    @Inject
+    private TrackManager trackManager;
+
+    @Inject
+    private CatalogManager catalogManager;
 
     @Inject
     private IndexController indexController;
@@ -174,10 +185,10 @@ public class PostingController {
                 postingForm.setParentId(upPosting.getParentId());
             }
         } else { // up is a Topic
-            postingForm.setParentId(upTopic.getId());
+            postingForm.setUpId(postingForm.getParentId());
         }
         Topic parent = topicManager.beg(postingForm.getParentId());
-        Entry up = upTopic != null ? upTopic : upPosting;
+        Entry up = upTopic != null ? parent : upPosting;
         Long index1 = Utils.toLong(postingForm.getIndex1());
 
         Posting posting;
@@ -272,18 +283,18 @@ public class PostingController {
                             return EP_CAPTCHA;
                     }*/
 
-                    /*String oldTrack = posting.getTrack();
+                    String oldTrack = posting.getTrack();
                     boolean trackChanged = postingForm.isTrackChanged(posting);
-                    boolean catalogChanged = postingForm.isCatalogChanged(posting);*/
+                    boolean catalogChanged = postingForm.isCatalogChanged(posting);
 
                     postingForm.toPosting(posting, up, parent, person, requestContext);
                     postingManager.saveAndFlush(posting); /* We need to have the record in DB and to know ID
                                                              after this point */
 
-                    /*String newTrack = TrackUtils.track(posting.getId(), up.getTrack());
+                    String newTrack = TrackUtils.track(posting.getId(), up.getTrack());
                     if (postingForm.getId() <= 0) {
                         trackManager.setTrackById(posting.getId(), newTrack);
-                        String newCatalog = CatalogUtils.catalog(EntryType.TOPIC, posting.getId(), posting.getIdent(),
+                        String newCatalog = CatalogUtils.catalog(EntryType.POSTING, posting.getId(), posting.getIdent(),
                                 posting.getModbits(), up.getCatalog());
                         catalogManager.setCatalogById(posting.getId(), newCatalog);
                     }
@@ -292,7 +303,7 @@ public class PostingController {
                     }
                     if (catalogChanged) {
                         catalogManager.updateCatalogs(newTrack);
-                    }*/
+                    }
 
                     return null;
                 });
