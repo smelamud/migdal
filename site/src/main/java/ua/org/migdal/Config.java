@@ -40,6 +40,7 @@ public class Config {
     private String rootTopicGroupName;
     private long rootTopicPerms;
     private long rootTopicModbits;
+    private long defaultPostingPerms;
 
     @PostConstruct
     public void init() {
@@ -296,6 +297,14 @@ public class Config {
 
     public void setRootTopicModbits(long rootTopicModbits) {
         this.rootTopicModbits = rootTopicModbits;
+    }
+
+    public long getDefaultPostingPerms() {
+        return defaultPostingPerms;
+    }
+
+    public void setDefaultPostingPerms(long defaultPostingPerms) {
+        this.defaultPostingPerms = defaultPostingPerms;
     }
 
 }

@@ -147,11 +147,10 @@ public class PostingController {
 
     private String postingAddOrEdit(Posting posting, boolean full, Model model) {
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
-        if (posting == null) {
-            model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(full, grpEnum.grpValue("NEWS")));
-        } else {
-            model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(posting, full));
-        }
+        model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(
+                posting != null
+                    ? posting
+                    : new Posting(grpEnum.grpValue("NEWS"), null, null, 0, requestContext), full));
         PostingForm postingForm = (PostingForm) model.asMap().get("postingForm");
         String rootIdent = postingForm.getGrpInfo().getRootIdent();
         long rootId = full || rootIdent == null ? 0 : identManager.getIdByIdent(rootIdent);
@@ -164,9 +163,26 @@ public class PostingController {
             @ModelAttribute @Valid PostingForm postingForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
+        if (postingForm.getUpId() <= 0) {
+            postingForm.setUpId(postingForm.getParentId());
+        }
+        Topic upTopic = topicManager.beg(postingForm.getUpId());
+        Posting upPosting = null;
+        if (upTopic == null) {
+            upPosting = postingManager.beg(postingForm.getUpId());
+            if (upPosting != null) { // up is a Posting
+                postingForm.setParentId(upPosting.getParentId());
+            }
+        } else { // up is a Topic
+            postingForm.setParentId(upTopic.getId());
+        }
+        Topic parent = topicManager.beg(postingForm.getParentId());
+        Entry up = upTopic != null ? upTopic : upPosting;
+        Long index1 = Utils.toLong(postingForm.getIndex1());
+
         Posting posting;
         if (postingForm.getId() <= 0) {
-            posting = new Posting();
+            posting = new Posting(grpEnum.grpValue("NEWS"), parent, up, index1 != null ? index1 : 0, requestContext);
         } else {
             posting = postingManager.beg(postingForm.getId());
         }
@@ -214,25 +230,12 @@ public class PostingController {
                             && strpos($posting->getURL(), '://') === false
                             && $posting->getURL()[0] != '/')
                         $posting->setURL("http://{$posting->getURL()}");*/
-                    if (postingForm.isMandatory("topic") && postingForm.getParentId() <= 0) {
+                    if (postingForm.isMandatory("topic") && parent == null) {
                         return "parentId.noParentId";
                     }
-
-                    if (postingForm.getUpId() <= 0) {
-                        postingForm.setUpId(postingForm.getParentId());
-                    }
-                    Entry up = topicManager.beg(postingForm.getUpId());
                     if (up == null) {
-                        up = postingManager.beg(postingForm.getUpId());
-                        if (up != null) { // up is a Posting
-                            postingForm.setParentId(up.getParentId());
-                        } else {
-                            return "upId.noPosting";
-                        }
-                    } else { // up is a Topic
-                        postingForm.setParentId(up.getId());
+                        return "upId.noPosting";
                     }
-                    Topic parent = topicManager.beg(postingForm.getParentId());
 
                     String errorCode = Posting.validateHierarchy(parent, up, postingForm.getId());
                     if (errorCode != null) {
@@ -252,7 +255,7 @@ public class PostingController {
                     if (postingForm.isMandatory("index1") && StringUtils.isEmpty(postingForm.getIndex1())) {
                         return "index1.NotBlank";
                     }
-                    if (!StringUtils.isEmpty(postingForm.getIndex1()) && !Utils.isNumber(postingForm.getIndex1())) {
+                    if (!StringUtils.isEmpty(postingForm.getIndex1()) && index1 == null) {
                         return "index1.notNumber";
                     }
                     if (postingForm.getPersonId() > 0) {

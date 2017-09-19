@@ -11,10 +11,12 @@ import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.RequestContextImpl;
+import ua.org.migdal.util.Utils;
 
 @Entity
 @DiscriminatorValue("1")
@@ -25,6 +27,27 @@ public class Posting extends Entry {
 
     @Transient
     private List<Topic> ancestors;
+
+    public Posting() {
+    }
+
+    public Posting(long grp, Topic topic, Entry up, long index1, RequestContext requestContext) {
+        setGrp(grp);
+        setParent(topic);
+        setUp(up != null ? up : topic);
+        setUser(requestContext.isLogged() ? requestContext.getUser() : requestContext.getRealUser());
+        if (up != null && up.getId() != topic.getId()) {
+            setGroup(up.getGroup());
+            setPerms(up.getPerms());
+        } else if (topic != null) {
+            setGroup(topic.getGroup());
+            setPerms(Config.getInstance().getDefaultPostingPerms());
+        } else {
+            setPerms(Config.getInstance().getDefaultPostingPerms());
+        }
+        setIndex1(index1);
+        setSent(Utils.now());
+    }
 
     private GrpDescriptor getGrpDescriptor() {
         return GrpEnum.getInstance().grp(getGrp()); // FIXME not null-safe

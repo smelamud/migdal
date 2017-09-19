@@ -52,6 +52,7 @@ public class RequestContextImpl implements RequestContext {
     private long userId;
     private User user;
     private long realUserId;
+    private User realUser;
     private Set<Long> userGroups = new HashSet<>();
     private String userLogin;
     private short userHidden;
@@ -96,6 +97,8 @@ public class RequestContextImpl implements RequestContext {
 
         userId = session.getUserId();
         realUserId = session.getRealUserId();
+
+        realUser = userManager.get(realUserId);
 
         if (user == null) {
             if (realUserId > 0) {
@@ -195,6 +198,12 @@ public class RequestContextImpl implements RequestContext {
     public long getRealUserId() {
         processSession();
         return realUserId;
+    }
+
+    @Override
+    public User getRealUser() {
+        processSession();
+        return realUser;
     }
 
     @Override

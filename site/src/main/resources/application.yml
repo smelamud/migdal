@@ -101,3 +101,5 @@ migdal:
   rootTopicGroupName: balu
   rootTopicPerms: 0x19FF
   rootTopicModbits: 0x0007
+
+  defaultPostingPerms: 0x99FF

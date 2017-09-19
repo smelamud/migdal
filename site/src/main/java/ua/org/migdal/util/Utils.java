@@ -80,6 +80,14 @@ public class Utils {
         return s.matches("^\\d+$");
     }
 
+    public static Long toLong(String s) {
+        try {
+            return Long.valueOf(s);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     public static String replaceAll(String text, Pattern regex, Function<Matcher, String> replacement) {
         Matcher matcher = regex.matcher(text);
         StringBuffer buf = new StringBuffer();

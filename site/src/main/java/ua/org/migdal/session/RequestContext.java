@@ -30,6 +30,8 @@ public interface RequestContext {
 
     long getRealUserId();
 
+    User getRealUser();
+
     Set<Long> getUserGroups();
 
     String getUserLogin();
