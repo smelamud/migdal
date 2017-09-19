@@ -264,6 +264,12 @@ public class PostingController {
                             return "personId.noPerson";
                         }
                     }
+                    /*if ($posting->getId() <= 0 && $userId <= 0) {
+                        if ($captcha == '')
+                            return EP_CAPTCHA_ABSENT;
+                        if (!validateCaptcha($captcha))
+                            return EP_CAPTCHA;
+                    }*/
 
                     /*String oldTrack = posting.getTrack();
                     boolean trackChanged = postingForm.isTrackChanged(posting);
