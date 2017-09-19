@@ -226,10 +226,6 @@ public class PostingController {
                     if (postingForm.isMandatory("url") && StringUtils.isEmpty(postingForm.getUrl())) {
                         return "url.NotBlank";
                     }
-                    /*if ($posting->getURL() != ''
-                            && strpos($posting->getURL(), '://') === false
-                            && $posting->getURL()[0] != '/')
-                        $posting->setURL("http://{$posting->getURL()}");*/
                     if (postingForm.isMandatory("topic") && parent == null) {
                         return "parentId.noParentId";
                     }
@@ -258,8 +254,13 @@ public class PostingController {
                     if (!StringUtils.isEmpty(postingForm.getIndex1()) && index1 == null) {
                         return "index1.notNumber";
                     }
+                    if (!StringUtils.isEmpty(postingForm.getPriority())
+                            && Utils.toShort(postingForm.getPriority()) == null) {
+                        return "priority.notNumber";
+                    }
+                    User person = null;
                     if (postingForm.getPersonId() > 0) {
-                        User person = userManager.beg(postingForm.getPersonId());
+                        person = userManager.beg(postingForm.getPersonId());
                         if (person == null || !person.isHasPersonal()) {
                             return "personId.noPerson";
                         }
@@ -273,13 +274,13 @@ public class PostingController {
 
                     /*String oldTrack = posting.getTrack();
                     boolean trackChanged = postingForm.isTrackChanged(posting);
-                    boolean catalogChanged = postingForm.isCatalogChanged(posting);
+                    boolean catalogChanged = postingForm.isCatalogChanged(posting);*/
 
-                    postingForm.toTopic(posting, up, user, group, requestContext);
-                    postingManager.saveAndFlush(posting); // We need to have the record in DB and to know ID
-                                                          // after this point
+                    postingForm.toPosting(posting, up, parent, person, requestContext);
+                    postingManager.saveAndFlush(posting); /* We need to have the record in DB and to know ID
+                                                             after this point */
 
-                    String newTrack = TrackUtils.track(posting.getId(), up.getTrack());
+                    /*String newTrack = TrackUtils.track(posting.getId(), up.getTrack());
                     if (postingForm.getId() <= 0) {
                         trackManager.setTrackById(posting.getId(), newTrack);
                         String newCatalog = CatalogUtils.catalog(EntryType.TOPIC, posting.getId(), posting.getIdent(),

@@ -27,4 +27,11 @@ public enum TextFormat {
         return user;
     }
 
+    public static TextFormat valueOf(int value, TextFormat defaultFormat) {
+        if (value >= 0 && value < values().length) {
+            return values()[value];
+        }
+        return defaultFormat;
+    }
+
 }

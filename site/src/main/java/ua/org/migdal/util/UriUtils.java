@@ -1,6 +1,7 @@
 package ua.org.migdal.util;
 
 import org.springframework.util.StringUtils;
+import org.springframework.web.util.UriComponentsBuilder;
 
 public class UriUtils {
 
@@ -32,6 +33,18 @@ public class UriUtils {
 
     public static String normalizePath(String path) {
         return normalizePath(path, false, Slash.ANY, Slash.ANY);
+    }
+
+    public static String getUrlDomain(String url) {
+        try {
+            String host = UriComponentsBuilder.fromUriString(url).build().getHost().toLowerCase();
+            if (host.startsWith("www.")) {
+                host = host.substring(4);
+            }
+            return host;
+        } catch (Exception e) {
+            return "";
+        }
     }
 
 }

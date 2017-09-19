@@ -115,4 +115,8 @@ public class PostingManager implements EntryManagerBase<Posting> {
         postingRepository.save(posting);
     }
 
+    public void saveAndFlush(Posting posting) {
+        postingRepository.saveAndFlush(posting);
+    }
+
 }

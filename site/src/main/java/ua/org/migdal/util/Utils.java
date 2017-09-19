@@ -92,6 +92,18 @@ public class Utils {
         return toLong(s, null);
     }
 
+    public static Short toShort(String s, Short defaultValue) {
+        try {
+            return Short.valueOf(s);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    public static Short toShort(String s) {
+        return toShort(s, null);
+    }
+
     public static String replaceAll(String text, Pattern regex, Function<Matcher, String> replacement) {
         Matcher matcher = regex.matcher(text);
         StringBuffer buf = new StringBuffer();

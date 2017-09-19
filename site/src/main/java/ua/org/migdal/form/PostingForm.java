@@ -1,15 +1,30 @@
 package ua.org.migdal.form;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
+
+import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.data.Topic;
+import ua.org.migdal.data.User;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.mtext.MtextFormat;
+import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.text.Text;
 import ua.org.migdal.text.TextFormat;
+import ua.org.migdal.util.Perm;
+import ua.org.migdal.util.UriUtils;
 import ua.org.migdal.util.Utils;
 
 public class PostingForm implements Serializable {
@@ -306,6 +321,21 @@ public class PostingForm implements Serializable {
         this.sentTime = sentTime;
     }
 
+    private Timestamp getSent() {
+        if (!StringUtils.isEmpty(getSentDate())) {
+            try {
+                LocalDate sentDate = LocalDate.parse(getSentDate(), DATE_FORMATTER);
+                LocalTime sentTime = LocalTime.MIDNIGHT;
+                if (!StringUtils.isEmpty(getSentTime())) {
+                    sentTime = LocalTime.parse(getSentTime(), TIME_FORMATTER);
+                }
+                return Timestamp.from(LocalDateTime.of(sentDate, sentTime).toInstant(ZoneOffset.UTC));
+            } catch (Exception e) {
+            }
+        }
+        return Utils.now();
+    }
+
     public boolean isHidden() {
         return hidden;
     }
@@ -320,6 +350,72 @@ public class PostingForm implements Serializable {
 
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
+    }
+
+    public void toPosting(Posting posting, Entry up, Topic parent, User person, RequestContext requestContext) {
+        posting.setBodyFormat(TextFormat.valueOf(getBodyFormat(), TextFormat.PLAIN));
+        posting.setBody(Text.convertLigatures(getBody()));
+        posting.setBodyXml(Text.convert(posting.getBody(), posting.getBodyFormat(), MtextFormat.SHORT));
+        posting.setLargeBodyFormat(TextFormat.valueOf(getLargeBodyFormat(), TextFormat.PLAIN));
+        posting.setHasLargeBody(false);
+        if (!StringUtils.isEmpty(getLargeBody())) {
+            posting.setHasLargeBody(true);
+            posting.setLargeBody(Text.convertLigatures(getLargeBody()));
+            posting.setLargeBodyXml(
+                    Text.convert(posting.getLargeBody(), posting.getLargeBodyFormat(), MtextFormat.SHORT));
+        }
+        /*$this->small_image = $vars['small_image'];
+        $this->small_image_x = $vars['small_image_x'];
+        $this->small_image_y = $vars['small_image_y'];
+        $this->small_image_format = $vars['small_image_format'];
+        $this->large_image = $vars['large_image'];
+        $this->large_image_x = $vars['large_image_x'];
+        $this->large_image_y = $vars['large_image_y'];
+        $this->large_image_size = $vars['large_image_size'];
+        $this->large_image_format = $vars['large_image_format'];
+        $this->large_image_filename = $vars['large_image_filename'];*/
+        posting.setUp(up != null && up.getId() > 0 ? up : null);
+        posting.setSubject(Text.convertLigatures(getSubject()));
+        posting.setComment0(Text.convertLigatures(getComment0()));
+        posting.setComment0Xml(Text.convert(posting.getComment0(), posting.getBodyFormat(), MtextFormat.LINE));
+        posting.setAuthor(Text.convertLigatures(getAuthor()));
+        posting.setAuthorXml(Text.convert(posting.getAuthor(), posting.getBodyFormat(), MtextFormat.LINE));
+        posting.setSource(Text.convertLigatures(getSource()));
+        posting.setSourceXml(Text.convert(posting.getSource(), posting.getBodyFormat(), MtextFormat.LINE));
+        posting.setTitle(Text.convertLigatures(getTitle()));
+        posting.setTitleXml(Text.convert(posting.getTitle(), posting.getBodyFormat(), MtextFormat.LINE));
+        //$this->guest_login = isset($vars['guest_login']) ? $vars['guest_login'] : '';
+        if (isHidden()) {
+            posting.setPerms(posting.getPerms() & ~(Perm.OR | Perm.ER));
+        } else {
+            posting.setPerms(posting.getPerms() | Perm.OR | Perm.ER);
+        }
+        posting.setLang(getLang());
+        if (!StringUtils.isEmpty(getUrl()) && !getUrl().contains("://") && !getUrl().startsWith("/")) {
+            posting.setUrl(String.format("http://%s", getUrl())); // FIXME maybe https?
+        } else {
+            posting.setUrl(getUrl());
+        }
+        posting.setUrlDomain(UriUtils.getUrlDomain(posting.getUrl()));
+        posting.setIndex1(Utils.toLong(getIndex1(), 0L));
+        posting.setIndex2(Utils.toLong(getIndex2(), 0L));
+        posting.setParent(parent != null && parent.getId() > 0 ? parent : null);
+        posting.setGrp(getGrp());
+        posting.setPerson(person != null && person.getId() > 0 ? person : null);
+        if (requestContext.isUserModerator()) {
+            posting.setIdent(!StringUtils.isEmpty(getIdent()) ? getIdent() : null);
+            posting.setDisabled(isDisabled());
+            posting.setPriority(Utils.toShort(getPriority(), (short) 0));
+        }
+        if (getId() <= 0 || requestContext.isUserModerator()) {
+            posting.setSent(getSent());
+        }
+        posting.setModifier(requestContext.getUser());
+        posting.setModified(Utils.now());
+        if (getId() <= 0) {
+            posting.setCreator(requestContext.getUser());
+            posting.setCreated(Utils.now());
+        }
     }
 
 }
