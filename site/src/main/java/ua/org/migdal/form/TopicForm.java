@@ -206,7 +206,7 @@ public class TopicForm implements Serializable {
         topic.setComment0Xml(Text.convert(topic.getComment0(), TextFormat.PLAIN, MtextFormat.LINE));
         topic.setComment1(Text.convertLigatures(getComment1()));
         topic.setComment1Xml(Text.convert(topic.getComment1(), TextFormat.PLAIN, MtextFormat.LINE));
-        topic.setIndex2(!StringUtils.isEmpty(getYear()) ? Long.parseLong(getYear()) : 0);
+        topic.setIndex2(!StringUtils.isEmpty(getYear()) ? Utils.toLong(getYear(), 0L) : 0);
         topic.setBody(Text.convertLigatures(getBody()));
         topic.setBodyXml(Text.convert(topic.getBody(), TextFormat.PLAIN, MtextFormat.SHORT));
         topic.setUser(user);
