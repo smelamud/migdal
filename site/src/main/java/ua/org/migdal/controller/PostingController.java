@@ -23,12 +23,14 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
+import ua.org.migdal.data.User;
 import ua.org.migdal.form.AdminPostingsForm;
 import ua.org.migdal.form.PostingForm;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
@@ -53,6 +55,9 @@ public class PostingController {
 
     @Inject
     private PostingManager postingManager;
+
+    @Inject
+    private UserManager userManager;
 
     @Inject
     private IndexController indexController;
@@ -249,6 +254,12 @@ public class PostingController {
                     }
                     if (!StringUtils.isEmpty(postingForm.getIndex1()) && !Utils.isNumber(postingForm.getIndex1())) {
                         return "index1.notNumber";
+                    }
+                    if (postingForm.getPersonId() > 0) {
+                        User person = userManager.beg(postingForm.getPersonId());
+                        if (person == null || !person.isHasPersonal()) {
+                            return "personId.noPerson";
+                        }
                     }
 
                     /*String oldTrack = posting.getTrack();
