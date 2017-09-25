@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
-import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Tree;
@@ -30,9 +29,7 @@ import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.PermUtils;
-import ua.org.migdal.util.TrackUtils;
 
 @Controller
 public class TopicController {
@@ -222,26 +219,12 @@ public class TopicController {
                         return "upId.noAppend";
                     }
 
-                    String oldTrack = topic.getTrack();
-                    boolean trackChanged = topicForm.isTrackChanged(topic);
-                    boolean catalogChanged = topicForm.isCatalogChanged(topic);
-
-                    topicForm.toTopic(topic, up, user, group, requestContext);
-                    topicManager.saveAndFlush(topic); // We need to have the record in DB and to know ID after this point
-
-                    String newTrack = TrackUtils.track(topic.getId(), up.getTrack());
-                    if (topicForm.getId() <= 0) {
-                        trackManager.setTrackById(topic.getId(), newTrack);
-                        String newCatalog = CatalogUtils.catalog(EntryType.TOPIC, topic.getId(), topic.getIdent(),
-                                                                 topic.getModbits(), up.getCatalog());
-                        catalogManager.setCatalogById(topic.getId(), newCatalog);
-                    }
-                    if (trackChanged) {
-                        trackManager.replaceTracks(oldTrack, newTrack);
-                    }
-                    if (catalogChanged) {
-                        catalogManager.updateCatalogs(newTrack);
-                    }
+                    topicManager.store(
+                            topic,
+                            t -> topicForm.toTopic(t, up, user, group, requestContext),
+                            topicForm.getId() <= 0,
+                            topicForm.isTrackChanged(topic),
+                            topicForm.isCatalogChanged(topic));
 
                     return null;
                 });

@@ -3,6 +3,7 @@ package ua.org.migdal.manager;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -13,7 +14,9 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.EntryRepository;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.IdNameProjection;
 import ua.org.migdal.data.QTopic;
 import ua.org.migdal.data.Topic;
@@ -22,7 +25,9 @@ import ua.org.migdal.data.util.Tree;
 import ua.org.migdal.data.util.TreeNode;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.Perm;
+import ua.org.migdal.util.TrackUtils;
 
 @Service
 public class TopicManager implements EntryManagerBase<Topic> {
@@ -85,6 +90,33 @@ public class TopicManager implements EntryManagerBase<Topic> {
 
     public void saveAndFlush(Topic topic) {
         topicRepository.saveAndFlush(topic);
+    }
+
+    public void store(
+            Topic topic,
+            Consumer<Topic> applyChanges,
+            boolean newTopic,
+            boolean trackChanged,
+            boolean catalogChanged) {
+
+        String oldTrack = topic.getTrack();
+        applyChanges.accept(topic);
+        saveAndFlush(topic); // We need to have the record in DB and to know ID after this point
+
+        Entry up = topic.getUp() != null ? topic.getUp() : rootTopic();
+        String newTrack = TrackUtils.track(topic.getId(), up.getTrack());
+        if (newTopic) {
+            trackManager.setTrackById(topic.getId(), newTrack);
+            String newCatalog = CatalogUtils.catalog(EntryType.TOPIC, topic.getId(), topic.getIdent(),
+                    topic.getModbits(), up.getCatalog());
+            catalogManager.setCatalogById(topic.getId(), newCatalog);
+        }
+        if (trackChanged) {
+            trackManager.replaceTracks(oldTrack, newTrack);
+        }
+        if (catalogChanged) {
+            catalogManager.updateCatalogs(newTrack);
+        }
     }
 
     public Iterable<Topic> begAll() {
