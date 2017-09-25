@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Entry;
-import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
@@ -36,8 +35,6 @@ import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.util.CatalogUtils;
-import ua.org.migdal.util.TrackUtils;
 import ua.org.migdal.util.Utils;
 
 @Controller
@@ -269,12 +266,9 @@ public class PostingController {
                             && Utils.toShort(postingForm.getPriority()) == null) {
                         return "priority.notNumber";
                     }
-                    User person = null;
-                    if (postingForm.getPersonId() > 0) {
-                        person = userManager.beg(postingForm.getPersonId());
-                        if (person == null || !person.isHasPersonal()) {
-                            return "personId.noPerson";
-                        }
+                    User person = postingForm.getPersonId() > 0 ? userManager.beg(postingForm.getPersonId()) : null;
+                    if (postingForm.getPersonId() > 0 && (person == null || !person.isHasPersonal())) {
+                        return "personId.noPerson";
                     }
                     /*if ($posting->getId() <= 0 && $userId <= 0) {
                         if ($captcha == '')
@@ -283,27 +277,12 @@ public class PostingController {
                             return EP_CAPTCHA;
                     }*/
 
-                    String oldTrack = posting.getTrack();
-                    boolean trackChanged = postingForm.isTrackChanged(posting);
-                    boolean catalogChanged = postingForm.isCatalogChanged(posting);
-
-                    postingForm.toPosting(posting, up, parent, person, requestContext);
-                    postingManager.saveAndFlush(posting); /* We need to have the record in DB and to know ID
-                                                             after this point */
-
-                    String newTrack = TrackUtils.track(posting.getId(), up.getTrack());
-                    if (postingForm.getId() <= 0) {
-                        trackManager.setTrackById(posting.getId(), newTrack);
-                        String newCatalog = CatalogUtils.catalog(EntryType.POSTING, posting.getId(), posting.getIdent(),
-                                posting.getModbits(), up.getCatalog());
-                        catalogManager.setCatalogById(posting.getId(), newCatalog);
-                    }
-                    if (trackChanged) {
-                        trackManager.replaceTracks(oldTrack, newTrack);
-                    }
-                    if (catalogChanged) {
-                        catalogManager.updateCatalogs(newTrack);
-                    }
+                    postingManager.store(
+                            posting,
+                            p -> postingForm.toPosting(p, up, parent, person, requestContext),
+                            postingForm.getId() <= 0,
+                            postingForm.isTrackChanged(posting),
+                            postingForm.isCatalogChanged(posting));
 
                     return null;
                 });

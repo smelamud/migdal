@@ -1,6 +1,7 @@
 package ua.org.migdal.manager;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -12,11 +13,14 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.PostingRepository;
 import ua.org.migdal.data.QPosting;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.Perm;
+import ua.org.migdal.util.TrackUtils;
 
 @Service
 public class PostingManager implements EntryManagerBase<Posting> {
@@ -29,7 +33,10 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
     @Inject
     private TrackManager trackManager;
-    
+
+    @Inject
+    private CatalogManager catalogManager;
+
     @Inject
     private PostingRepository postingRepository;
 
@@ -117,6 +124,33 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
     public void saveAndFlush(Posting posting) {
         postingRepository.saveAndFlush(posting);
+    }
+
+    public void store(
+            Posting posting,
+            Consumer<Posting> applyChanges,
+            boolean newPosting,
+            boolean trackChanged,
+            boolean catalogChanged) {
+
+        String oldTrack = posting.getTrack();
+        applyChanges.accept(posting);
+        saveAndFlush(posting); /* We need to have the record in DB and to know ID
+                                                             after this point */
+
+        String newTrack = TrackUtils.track(posting.getId(), posting.getUp().getTrack());
+        if (newPosting) {
+            trackManager.setTrackById(posting.getId(), newTrack);
+            String newCatalog = CatalogUtils.catalog(EntryType.POSTING, posting.getId(), posting.getIdent(),
+                    posting.getModbits(), posting.getUp().getCatalog());
+            catalogManager.setCatalogById(posting.getId(), newCatalog);
+        }
+        if (trackChanged) {
+            trackManager.replaceTracks(oldTrack, newTrack);
+        }
+        if (catalogChanged) {
+            catalogManager.updateCatalogs(newTrack);
+        }
     }
 
 }
