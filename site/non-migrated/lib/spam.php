@@ -5,7 +5,7 @@ $spamTerms = array('clickcashmoney.com', 'porno-video-free', 'porno-exe',
                    'snapbackneweracap', 'viagra', 'zarplatt',
                    'stomatolog-stargard', 'off-rabota', '[/url]', 'cialis',
                    'levitra', 'kamagra', 'tadacip', 'apcalis', 'АЛКОВЕРИН',
-                   'порно');
+                   'порно', 'Joycasino', 'гадкий я', 'diflucan', 'Kingsman');
 
 function isSpam($subject, $body) {
     global $spamTerms;
@@ -32,6 +32,9 @@ function containsLinks($text) {
         return true;
     }
     if (preg_match('/http[s]?:/', $text)) {
+        return true;
+    }
+    if (strpos($text, 'bit.ly/') !== false) {
         return true;
     }
     return false;
