@@ -142,6 +142,11 @@ public class PostingManager implements EntryManagerBase<Posting> {
             boolean trackChanged,
             boolean catalogChanged) {
 
+        /*$topicChanged = !is_null($original) && $original->getId() != 0
+                && $posting->getTopicId() != $original->getTopicId(); DO THIS IN CONTROLLER?
+
+        if ($topicChanged)
+            unpublishPosting($original);*/
         String oldTrack = posting.getTrack();
         applyChanges.accept(posting);
         updateModbits(posting);
@@ -161,6 +166,11 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (catalogChanged) {
             catalogManager.updateCatalogs(newTrack);
         }
+        /*answerUpdate($posting->getId());
+        if ($topicChanged)
+            publishPosting($posting);*/
+        /*    if ($original->getId() == 0)
+        createCounters($posting->getId(), $posting->getGrp());*/
     }
 
     private void updateModbits(Posting posting) {
