@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import javax.validation.constraints.Size;
@@ -330,7 +329,7 @@ public class PostingForm implements Serializable {
                 if (!StringUtils.isEmpty(getSentTime())) {
                     sentTime = LocalTime.parse(getSentTime(), TIME_FORMATTER);
                 }
-                return Timestamp.from(LocalDateTime.of(sentDate, sentTime).toInstant(ZoneOffset.UTC));
+                return Timestamp.valueOf(LocalDateTime.of(sentDate, sentTime));
             } catch (Exception e) {
             }
         }
