@@ -1,6 +1,6 @@
 package ua.org.migdal.data;
 
-public enum PostingModbit {
+public enum PostingModbit implements Modbit {
 
     MODERATE(0x0001, 'M', "Модерировать"),
     @Deprecated HTML(0x0002, 'H', "HTML"),
@@ -28,6 +28,7 @@ public enum PostingModbit {
         this.description = description;
     }
 
+    @Override
     public long getValue() {
         return value;
     }

@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import ua.org.migdal.util.Utils;
 
-public enum TopicModbit {
+public enum TopicModbit implements Modbit {
 
     PREMODERATE(0x0001, "Премодерировать"),
     MODERATE(0x0002, "Модерировать"),
@@ -21,6 +21,7 @@ public enum TopicModbit {
         this.description = description;
     }
 
+    @Override
     public long getValue() {
         return value;
     }

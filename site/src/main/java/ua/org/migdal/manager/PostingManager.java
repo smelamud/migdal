@@ -15,8 +15,11 @@ import com.querydsl.core.types.Predicate;
 
 import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.data.PostingModbit;
 import ua.org.migdal.data.PostingRepository;
 import ua.org.migdal.data.QPosting;
+import ua.org.migdal.data.Topic;
+import ua.org.migdal.data.TopicModbit;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.Perm;
@@ -29,6 +32,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
     private RequestContext requestContext;
 
     @Inject
+    private TopicManager topicManager;
+
+    @Inject
     private PermManager permManager;
 
     @Inject
@@ -36,6 +42,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
     @Inject
     private CatalogManager catalogManager;
+
+    @Inject
+    private SpamManager spamManager;
 
     @Inject
     private PostingRepository postingRepository;
@@ -135,6 +144,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
         String oldTrack = posting.getTrack();
         applyChanges.accept(posting);
+        updateModbits(posting);
         saveAndFlush(posting); /* We need to have the record in DB and to know ID
                                                              after this point */
 
@@ -150,6 +160,27 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
         if (catalogChanged) {
             catalogManager.updateCatalogs(newTrack);
+        }
+    }
+
+    private void updateModbits(Posting posting) {
+        if (requestContext.isUserModerator() || requestContext.getUser().isShames()) {
+            return;
+        }
+
+        Topic topic = posting.getTopic() != null ? posting.getTopic() : topicManager.rootTopic();
+        boolean attention = spamManager.needsAttention(posting);
+        if ((topic.hasModbit(TopicModbit.PREMODERATE) || attention) && posting.getId() <= 0) {
+            posting.setDisabled(true);
+        }
+        if (topic.hasModbit(TopicModbit.MODERATE)) {
+            posting.setModbit(PostingModbit.MODERATE);
+        }
+        if (topic.hasModbit(TopicModbit.EDIT)) {
+            posting.setModbit(PostingModbit.EDIT);
+        }
+        if (attention) {
+            posting.setModbit(PostingModbit.ATTENTION);
         }
     }
 

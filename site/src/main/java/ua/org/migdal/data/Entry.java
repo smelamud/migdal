@@ -930,6 +930,14 @@ public class Entry implements TreeElement {
         this.modbits = modbits;
     }
 
+    public boolean hasModbit(Modbit modbit) {
+        return (getModbits() & modbit.getValue()) != 0;
+    }
+
+    public void setModbit(Modbit modbit) {
+        setModbits(getModbits() | modbit.getValue());
+    }
+
     public long getAnswers() {
         return answers;
     }

@@ -59,7 +59,7 @@ public class TopicManager implements EntryManagerBase<Topic> {
     @Inject
     private GrpEnum grpEnum;
 
-    private Topic rootTopic() {
+    public Topic rootTopic() {
         Topic topic = new Topic();
         topic.setGrp(grpEnum.all);
         topic.setModbits(config.getRootTopicModbits());

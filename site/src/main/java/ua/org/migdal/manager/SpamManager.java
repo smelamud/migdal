@@ -13,12 +13,17 @@ import javax.inject.Inject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import ua.org.migdal.data.Posting;
+import ua.org.migdal.session.RequestContext;
 
 @Service
 public class SpamManager {
 
     @Inject
     private ApplicationContext applicationContext;
+
+    @Inject
+    private RequestContext requestContext;
 
     private List<Pattern> spamWords = new ArrayList<>();
     
@@ -49,6 +54,13 @@ public class SpamManager {
                 || text.contains("http:")
                 || text.contains("https:")
                 || text.contains("bit.ly/");
+    }
+
+    public boolean needsAttention(Posting posting) {
+        return !requestContext.isUserModerator()
+                && (containsLinks(posting.getBody())
+                        || containsLinks(posting.getSource())
+                        || !StringUtils.isEmpty(posting.getUrl()));
     }
 
 }
