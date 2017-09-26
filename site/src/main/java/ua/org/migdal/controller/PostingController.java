@@ -30,6 +30,7 @@ import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.CatalogManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
@@ -66,6 +67,9 @@ public class PostingController {
 
     @Inject
     private CatalogManager catalogManager;
+
+    @Inject
+    private SpamManager spamManager;
 
     @Inject
     private IndexController indexController;
@@ -214,8 +218,9 @@ public class PostingController {
                     if (postingForm.isMandatory("body") && StringUtils.isEmpty(postingForm.getBody())) {
                         return "body.NotBlank";
                     }
-                    //if (isSpam($posting->getSubject(), $posting->getBody()))
-                    //    return EP_SPAM;
+                    if (postingForm.isSpam(spamManager)) {
+                        return "spam";
+                    }
                     if (postingForm.isMandatory("lang") && StringUtils.isEmpty(postingForm.getLang())) {
                         return "lang.NotBlank";
                     }

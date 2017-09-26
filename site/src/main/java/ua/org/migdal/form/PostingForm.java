@@ -19,6 +19,7 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.text.Text;
@@ -350,6 +351,13 @@ public class PostingForm implements Serializable {
 
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
+    }
+
+    public boolean isSpam(SpamManager spamManager) {
+        return spamManager.containsLinks(getSubject())
+                || spamManager.isSpam(getSubject())
+                || spamManager.isSpam(getBody())
+                || spamManager.isSpam(getLargeBody());
     }
 
     public void toPosting(Posting posting, Entry up, Topic parent, User person, RequestContext requestContext) {
