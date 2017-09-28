@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.7
--- Dumped by pg_dump version 9.5.7
+-- Dumped from database version 9.5.8
+-- Dumped by pg_dump version 9.5.8
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -261,8 +261,8 @@ CREATE TABLE image_file_transforms (
     dest_id bigint NOT NULL,
     orig_id bigint NOT NULL,
     transform smallint NOT NULL,
-    size_x integer NOT NULL,
-    size_y integer NOT NULL
+    size_x smallint NOT NULL,
+    size_y smallint NOT NULL
 );
 
 
@@ -534,6 +534,14 @@ ALTER TABLE ONLY entries
 
 
 --
+-- Name: image_file_transforms_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY image_file_transforms
+    ADD CONSTRAINT image_file_transforms_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: image_files_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -763,6 +771,20 @@ CREATE INDEX groups_user_id_idx ON groups USING btree (user_id);
 
 
 --
+-- Name: image_file_transforms_dest_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX image_file_transforms_dest_id_idx ON image_file_transforms USING btree (dest_id);
+
+
+--
+-- Name: image_file_transforms_orig_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX image_file_transforms_orig_id_idx ON image_file_transforms USING btree (orig_id);
+
+
+--
 -- Name: spring_session_attributes_ix1; Type: INDEX; Schema: public; Owner: migdal
 --
 
@@ -973,6 +995,22 @@ ALTER TABLE ONLY groups
 
 ALTER TABLE ONLY groups
     ADD CONSTRAINT groups_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: image_file_transforms_dest_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY image_file_transforms
+    ADD CONSTRAINT image_file_transforms_dest_id_fkey FOREIGN KEY (dest_id) REFERENCES image_files(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: image_file_transforms_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY image_file_transforms
+    ADD CONSTRAINT image_file_transforms_orig_id_fkey FOREIGN KEY (orig_id) REFERENCES image_files(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

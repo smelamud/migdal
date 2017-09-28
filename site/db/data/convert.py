@@ -206,6 +206,16 @@ def convert_image_files(row):
         null_time(row['accessed']),
     ]
 
+def convert_image_file_transforms(row):
+    return [
+        row['id'],
+        row['dest_id'],
+        row['orig_id'],
+        row['transform'],
+        row['size_x'],
+        row['size_y'],
+    ]
+
 csv.field_size_limit(300000)
 read_entry_grps()
 table_name = sys.argv[1]
