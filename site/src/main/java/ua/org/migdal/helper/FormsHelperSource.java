@@ -72,6 +72,17 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
+    CharSequence checkbox(CharSequence title, CharSequence name, Object value, boolean checked, CharSequence id,
+                          CharSequence cls) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<label>");
+        buf.append(checkboxButton(name, value, checked, id, cls));
+        buf.append(' ');
+        HelperUtils.safeAppend(buf, title);
+        buf.append("</label>");
+        return new SafeString(buf);
+    }
+
     public CharSequence radioButton(Options options) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"radio\"");
@@ -219,8 +230,8 @@ public class FormsHelperSource {
         return pos >= 0 ? name.substring(pos + 1) : name;
     }
 
-    private CharSequence formLineBegin(CharSequence title, String name, boolean mandatory, CharSequence comment,
-                                       CharSequence id, Options options) {
+    CharSequence formLineBegin(CharSequence title, String name, boolean mandatory, CharSequence comment,
+                               CharSequence id, Options options) {
         StringBuilder buf = new StringBuilder();
         if (id != null && id.length() > 0) {
             buf.append("<tr");
@@ -255,7 +266,7 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence formLineEnd() {
+    CharSequence formLineEnd() {
         return new SafeString("</td></tr>");
     }
 
