@@ -40,12 +40,6 @@ public class ImageUploadManager {
         }
     }
 
-    public String create() {
-        UUID uuid = UUID.randomUUID();
-        uploads.put(uuid, new UploadedImage());
-        return uuid.toString();
-    }
-
     public String extract(Entry entry) {
         if (entry.getSmallImage() == null && entry.getLargeImage() == null) {
             return "";
