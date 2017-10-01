@@ -1,5 +1,6 @@
 package ua.org.migdal.form;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -18,6 +19,8 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.imageupload.ImageUploadManager;
+import ua.org.migdal.imageupload.UploadedImage;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContext;
@@ -83,6 +86,8 @@ public class PostingForm implements Serializable {
 
     private int largeBodyFormat = TextFormat.PLAIN.getValue();
 
+    private String imageUuid = "";
+
     @NotBlank
     private String sentDate = DATE_FORMATTER.format(Utils.now().toLocalDateTime());
 
@@ -123,6 +128,7 @@ public class PostingForm implements Serializable {
         title = posting.getTitle();
         largeBody = posting.getLargeBody();
         largeBodyFormat = posting.getLargeBodyFormat().getValue();
+        imageUuid = ImageUploadManager.getInstance().extract(posting);
         sentDate = DATE_FORMATTER.format(posting.getSent().toLocalDateTime());
         sentTime = TIME_FORMATTER.format(posting.getSent().toLocalDateTime());
         hidden = posting.isHidden();
@@ -303,6 +309,15 @@ public class PostingForm implements Serializable {
 
     public void setLargeBodyFormat(int largeBodyFormat) {
         this.largeBodyFormat = largeBodyFormat;
+    }
+
+    public String getImageUuid() {
+        return imageUuid;
+    }
+
+    @Transient
+    public UploadedImage getImage() {
+        return ImageUploadManager.getInstance().get(getImageUuid());
     }
 
     public String getSentDate() {

@@ -1,5 +1,7 @@
 package ua.org.migdal.imageupload;
 
+import ua.org.migdal.util.ImageFileUtils;
+
 public class UploadedImageFile {
 
     private long id;
@@ -60,6 +62,10 @@ public class UploadedImageFile {
         this.fileSize = fileSize;
     }
 
+    public long getFileSizeKb() {
+        return (long) Math.ceil(getFileSize() / 1024f);
+    }
+
     public String getFormat() {
         return format;
     }
@@ -74,6 +80,10 @@ public class UploadedImageFile {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public String getUrl() {
+        return getId() > 0 ? ImageFileUtils.imageUrl(getFormat(), getId()) : "";
     }
 
 }
