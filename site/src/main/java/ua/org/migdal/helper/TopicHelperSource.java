@@ -50,11 +50,11 @@ public class TopicHelperSource {
         String nullTitle = options.hash("nullTitle", mandatory ? "Выберите тему" : "Без темы");
 
         if (list.size() == 0) {
-            return formsHelperSource.hidden(name, value);
+            return formsHelperSource.hidden(name, value, null);
         }
         if (list.size() == 1 && mandatory) {
             IdNameProjection topic = list.get(0);
-            return formsHelperSource.hidden(name, topic.getId());
+            return formsHelperSource.hidden(name, topic.getId(), null);
         }
 
         StringBuilder buf = new StringBuilder();

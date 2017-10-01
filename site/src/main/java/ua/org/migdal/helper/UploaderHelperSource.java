@@ -18,17 +18,22 @@ public class UploaderHelperSource {
         CharSequence loaded = options.hash("loaded", "");
         CharSequence smallUrl = options.hash("smallUrl", "");
         CharSequence largeUrl = options.hash("largeUrl", "");
-        CharSequence largeTitle = options.hash("largeTitle", "");
         CharSequence name = options.hash("name", "");
+        CharSequence uuidName = options.hash("uuidName", "");
+        CharSequence uuid = options.hash("uuid", "");
 
-        return uploader(loaded, smallUrl, largeUrl, largeTitle, name);
+        return uploader(loaded, smallUrl, largeUrl, name, uuidName, uuid);
     }
 
     private CharSequence uploader(CharSequence loaded, CharSequence smallUrl, CharSequence largeUrl,
-                                  CharSequence largeTitle, CharSequence name) {
+                                  CharSequence name, CharSequence uuidName, CharSequence uuid) {
         StringBuilder buf = new StringBuilder();
+        buf.append("<div class=\"image-uploader\">");
+        buf.append(formsHelperSource.hidden(uuidName.toString(), uuid, "image-uploader-uuid"));
         if (StringUtils.hasText(loaded)) {
-            buf.append("<p><input type=\"button\" class=\"btn btn-default btn-xs\" value=\"Удалить\">&nbsp;<i>");
+            buf.append("<span class=\"image-uploader-loaded\">");
+            buf.append("<input type=\"button\" class=\"image-uploader-delete btn btn-default btn-xs\"");
+            buf.append(" value=\"Удалить\">&nbsp;<i>");
             buf.append(loaded);
             buf.append("</i>");
             if (!StringUtils.isEmpty(largeUrl)) {
@@ -42,15 +47,15 @@ public class UploaderHelperSource {
                 buf.append(HelperUtils.he(largeUrl));
                 buf.append("\">большая</a>&nbsp;<b>)</b>");
             }
-            buf.append("</p>");
+            buf.append("</span>");
         }
-        if (!StringUtils.isEmpty(largeTitle)) {
-            buf.append(largeTitle);
-            buf.append("&nbsp;");
+        buf.append("<input class=\"image-uploader-file\"");
+        if (StringUtils.hasText(loaded)) {
+            buf.append(" style=\"display: none\"");
         }
-        buf.append("<input type=\"file\" name=\"");
+        buf.append(" type=\"file\" name=\"");
         buf.append(name);
-        buf.append("\" size=\"35\">");
+        buf.append("\" size=\"35\"></div>");
         return new Handlebars.SafeString(buf);
     }
 
@@ -61,12 +66,13 @@ public class UploaderHelperSource {
         CharSequence loaded = options.hash("loaded", "");
         CharSequence smallUrl = options.hash("smallUrl", "");
         CharSequence largeUrl = options.hash("largeUrl", "");
-        CharSequence largeTitle = options.hash("largeTitle", "");
         CharSequence name = options.hash("name", "");
+        CharSequence uuidName = options.hash("uuidName", "");
+        CharSequence uuid = options.hash("uuid", "");
 
         StringBuilder buf = new StringBuilder();
         buf.append(formsHelperSource.formLineBegin(title, name.toString(), mandatory, comment, null, options));
-        buf.append(uploader(loaded, smallUrl, largeUrl, largeTitle, name));
+        buf.append(uploader(loaded, smallUrl, largeUrl, name, uuidName, uuid));
         buf.append(formsHelperSource.formLineEnd());
         return new Handlebars.SafeString(buf);
     }

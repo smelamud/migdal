@@ -184,7 +184,6 @@
     {{/ifeq}}
 
     {{#ifeq editor.field "image"}}
-        {{hidden name="imageUuid" value=postingForm.imageUuid}}
         {{#if visible}}
             {{!  <error id='*EP_IMAGE_ABSENT' text#='Нужно указать $editor.WhatSV'>
               <error id='*EIU_UNKNOWN_IMAGE'
@@ -240,9 +239,11 @@
                      {{postingForm.imagelarge.fileSizeKb}} KiB)
                 {{/if}}
             {{/assign}}
-            {{formUploader title=editor.title comment=editor.comment name=imageFile loaded=loaded delName="delImage"
+            {{formUploader title=editor.title comment=editor.comment name="imageFile" loaded=loaded
                            smallUrl=postingForm.image.small.url largeUrl=postingForm.image.large.url
-                           mandatory=editor.mandatory}}
+                           mandatory=editor.mandatory uuidName="imageUuid" uuid=postingForm.imageUuid}}
+        {{else}}
+            {{hidden name="imageUuid" value=postingForm.imageUuid}}
         {{/if}}
     {{/ifeq}}
 

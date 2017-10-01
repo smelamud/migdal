@@ -27,12 +27,16 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    CharSequence hidden(String name, Object value) {
+    CharSequence hidden(String name, Object value, CharSequence klass) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"hidden\" name=\"");
         buf.append(name);
         buf.append("\" value=\"");
         buf.append(value);
+        if (klass != null) {
+            buf.append("\" class=\"");
+            buf.append(klass);
+        }
         buf.append("\">");
         return new SafeString(buf);
     }
