@@ -20,16 +20,15 @@ public class UploaderHelperSource {
         CharSequence largeUrl = options.hash("largeUrl", "");
         CharSequence largeTitle = options.hash("largeTitle", "");
         CharSequence name = options.hash("name", "");
-        CharSequence delName = options.hash("delName", "");
 
-        return uploader(loaded, smallUrl, largeUrl, largeTitle, name, delName);
+        return uploader(loaded, smallUrl, largeUrl, largeTitle, name);
     }
 
     private CharSequence uploader(CharSequence loaded, CharSequence smallUrl, CharSequence largeUrl,
-                                  CharSequence largeTitle, CharSequence name, CharSequence delName) {
+                                  CharSequence largeTitle, CharSequence name) {
         StringBuilder buf = new StringBuilder();
         if (StringUtils.hasText(loaded)) {
-            buf.append("<p><i>");
+            buf.append("<p><input type=\"button\" class=\"btn btn-default btn-xs\" value=\"Удалить\">&nbsp;<i>");
             buf.append(loaded);
             buf.append("</i>");
             if (!StringUtils.isEmpty(largeUrl)) {
@@ -43,8 +42,6 @@ public class UploaderHelperSource {
                 buf.append(HelperUtils.he(largeUrl));
                 buf.append("\">большая</a>&nbsp;<b>)</b>");
             }
-            buf.append("<br>");
-            buf.append(formsHelperSource.checkbox("Удалить", delName, 1, false, null, null));
             buf.append("</p>");
         }
         if (!StringUtils.isEmpty(largeTitle)) {
@@ -66,11 +63,10 @@ public class UploaderHelperSource {
         CharSequence largeUrl = options.hash("largeUrl", "");
         CharSequence largeTitle = options.hash("largeTitle", "");
         CharSequence name = options.hash("name", "");
-        CharSequence delName = options.hash("delName", "");
 
         StringBuilder buf = new StringBuilder();
         buf.append(formsHelperSource.formLineBegin(title, name.toString(), mandatory, comment, null, options));
-        buf.append(uploader(loaded, smallUrl, largeUrl, largeTitle, name, delName));
+        buf.append(uploader(loaded, smallUrl, largeUrl, largeTitle, name));
         buf.append(formsHelperSource.formLineEnd());
         return new Handlebars.SafeString(buf);
     }
