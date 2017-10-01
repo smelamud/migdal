@@ -5,6 +5,4 @@ function datepickerInit() {
     $(".datepicker").datepicker("setDate", val);
 }
 
-$(function() {
-    datepickerInit();
-});
+$(datepickerInit);

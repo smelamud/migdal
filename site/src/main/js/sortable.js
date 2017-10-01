@@ -5,6 +5,4 @@ function sortableInit() {
     $("#sortable").disableSelection();
 }
 
-$(function() {
-    sortableInit();
-});
+$(sortableInit);
