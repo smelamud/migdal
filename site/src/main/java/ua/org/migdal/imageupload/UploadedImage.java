@@ -14,6 +14,11 @@ public class UploadedImage {
     public UploadedImage() {
     }
 
+    public UploadedImage(UploadedImageFile small, UploadedImageFile large) {
+        this.small = small;
+        this.large = large;
+    }
+
     public UploadedImage(Entry entry) {
         if (entry.getSmallImage() == null && entry.getLargeImage() == null) {
             return;

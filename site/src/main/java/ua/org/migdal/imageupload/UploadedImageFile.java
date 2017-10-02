@@ -86,4 +86,12 @@ public class UploadedImageFile implements Cloneable {
         return getId() > 0 ? ImageFileUtils.imageUrl(getFormat(), getId()) : "";
     }
 
+    public UploadedImageFile clone() {
+        try {
+            return (UploadedImageFile) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+
 }
