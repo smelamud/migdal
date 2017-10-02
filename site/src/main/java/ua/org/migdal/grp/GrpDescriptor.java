@@ -214,8 +214,12 @@ public class GrpDescriptor {
         return fieldEditors;
     }
 
+    public GrpEditor getFieldEditor(String field) {
+        return fieldEditors.get(field);
+    }
+
     public boolean isMandatory(String field) {
-        GrpEditor editor = fieldEditors.get(field);
+        GrpEditor editor = getFieldEditor(field);
         return editor != null && editor.isMandatory();
     }
 

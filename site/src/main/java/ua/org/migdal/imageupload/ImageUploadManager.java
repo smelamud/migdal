@@ -8,7 +8,10 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import ua.org.migdal.data.Entry;
+import ua.org.migdal.grp.ImageTransformFlag;
+import ua.org.migdal.grp.ThumbnailTransformFlag;
 
 @Service
 public class ImageUploadManager {
@@ -33,7 +36,9 @@ public class ImageUploadManager {
 
         try {
             UploadedImage uploadedImage = uploads.get(UUID.fromString(uuid));
-            uploadedImage.access();
+            if (uploadedImage != null) {
+                uploadedImage.access();
+            }
             return uploadedImage;
         } catch (IllegalArgumentException e) {
             return null;
@@ -48,6 +53,13 @@ public class ImageUploadManager {
         UUID uuid = UUID.randomUUID();
         uploads.put(uuid, new UploadedImage(entry));
         return uuid.toString();
+    }
+
+    public String uploadStandard(MultipartFile imageFile,
+                                 ThumbnailTransformFlag thumbFlag, ImageTransformFlag imageFlag,
+                                 short thumbExactX, short thumbExactY, short thumbMaxX, short thumbMaxY,
+                                 short imageExactX, short imageExactY, short imageMaxX, short imageMaxY) {
+        return "";
     }
 
 }

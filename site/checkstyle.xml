@@ -35,7 +35,6 @@
         <!-- Design -->
         <module name="FinalClass"/>
         <module name="InterfaceIsType"/>
-        <module name="MutableException"/>
         <module name="OneTopLevelClass"/>
         <module name="ThrowsCount"/>
 

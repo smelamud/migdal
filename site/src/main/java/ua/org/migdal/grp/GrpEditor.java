@@ -10,14 +10,14 @@ public class GrpEditor {
     private boolean mandatory = false;
 
     private String style = "";
-    private int imageExactX;
-    private int imageExactY;
-    private int imageMaxX;
-    private int imageMaxY;
-    private int thumbExactX;
-    private int thumbExactY;
-    private int thumbMaxX;
-    private int thumbMaxY;
+    private short imageExactX;
+    private short imageExactY;
+    private short imageMaxX;
+    private short imageMaxY;
+    private short thumbExactX;
+    private short thumbExactY;
+    private short thumbMaxX;
+    private short thumbMaxY;
     private String whatN = "";
     private String whatG = "";
     private String whatA = "";
@@ -71,67 +71,75 @@ public class GrpEditor {
         this.style = style;
     }
 
-    public int getImageExactX() {
+    public ThumbnailTransformFlag getThumbnailStyle() {
+        return ThumbnailTransformFlag.parse(getStyle().split("-")[0]);
+    }
+
+    public ImageTransformFlag getImageStyle() {
+        return ImageTransformFlag.parse(getStyle().split("-")[1]);
+    }
+
+    public short getImageExactX() {
         return imageExactX;
     }
 
-    public void setImageExactX(int imageExactX) {
+    public void setImageExactX(short imageExactX) {
         this.imageExactX = imageExactX;
     }
 
-    public int getImageExactY() {
+    public short getImageExactY() {
         return imageExactY;
     }
 
-    public void setImageExactY(int imageExactY) {
+    public void setImageExactY(short imageExactY) {
         this.imageExactY = imageExactY;
     }
 
-    public int getImageMaxX() {
+    public short getImageMaxX() {
         return imageMaxX;
     }
 
-    public void setImageMaxX(int imageMaxX) {
+    public void setImageMaxX(short imageMaxX) {
         this.imageMaxX = imageMaxX;
     }
 
-    public int getImageMaxY() {
+    public short getImageMaxY() {
         return imageMaxY;
     }
 
-    public void setImageMaxY(int imageMaxY) {
+    public void setImageMaxY(short imageMaxY) {
         this.imageMaxY = imageMaxY;
     }
 
-    public int getThumbExactX() {
+    public short getThumbExactX() {
         return thumbExactX;
     }
 
-    public void setThumbExactX(int thumbExactX) {
+    public void setThumbExactX(short thumbExactX) {
         this.thumbExactX = thumbExactX;
     }
 
-    public int getThumbExactY() {
+    public short getThumbExactY() {
         return thumbExactY;
     }
 
-    public void setThumbExactY(int thumbExactY) {
+    public void setThumbExactY(short thumbExactY) {
         this.thumbExactY = thumbExactY;
     }
 
-    public int getThumbMaxX() {
+    public short getThumbMaxX() {
         return thumbMaxX;
     }
 
-    public void setThumbMaxX(int thumbMaxX) {
+    public void setThumbMaxX(short thumbMaxX) {
         this.thumbMaxX = thumbMaxX;
     }
 
-    public int getThumbMaxY() {
+    public short getThumbMaxY() {
         return thumbMaxY;
     }
 
-    public void setThumbMaxY(int thumbMaxY) {
+    public void setThumbMaxY(short thumbMaxY) {
         this.thumbMaxY = thumbMaxY;
     }
 

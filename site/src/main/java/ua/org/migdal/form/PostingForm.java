@@ -315,6 +315,10 @@ public class PostingForm implements Serializable {
         return imageUuid;
     }
 
+    public void setImageUuid(String imageUuid) {
+        this.imageUuid = imageUuid;
+    }
+
     @Transient
     public UploadedImage getImage() {
         return ImageUploadManager.getInstance().get(getImageUuid());

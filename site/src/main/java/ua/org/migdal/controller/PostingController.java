@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
@@ -26,7 +27,10 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.AdminPostingsForm;
 import ua.org.migdal.form.PostingForm;
+import ua.org.migdal.grp.GrpEditor;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.imageupload.ImageUploadException;
+import ua.org.migdal.imageupload.ImageUploadManager;
 import ua.org.migdal.manager.CatalogManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
@@ -70,6 +74,9 @@ public class PostingController {
 
     @Inject
     private SpamManager spamManager;
+
+    @Inject
+    private ImageUploadManager imageUploadManager;
 
     @Inject
     private IndexController indexController;
@@ -172,6 +179,7 @@ public class PostingController {
 
     @PostMapping("/actions/posting/modify")
     public String actionPostingModify(
+            @RequestParam MultipartFile imageFile,
             @ModelAttribute @Valid PostingForm postingForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
@@ -203,6 +211,19 @@ public class PostingController {
                 .transactional(txManager)
                 .constraint("entries_ident_key", "ident.used")
                 .execute(() -> {
+                    try {
+                        GrpEditor editor = postingForm.getGrpInfo().getFieldEditor("image");
+                        postingForm.setImageUuid(imageUploadManager.uploadStandard(
+                                imageFile, editor.getThumbnailStyle(), editor.getImageStyle(),
+                                editor.getThumbExactX(), editor.getThumbExactY(),
+                                editor.getThumbMaxX(), editor.getThumbMaxY(),
+                                editor.getImageExactX(), editor.getImageExactY(),
+                                editor.getImageMaxX(), editor.getImageMaxY()));
+                    } catch (ImageUploadException e) {
+                        e.setFieldName("imageFile");
+                        throw e;
+                    }
+
                     if (postingForm.getId() > 0) {
                         if (posting == null) {
                             return "noPosting";

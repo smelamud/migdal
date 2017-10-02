@@ -14,6 +14,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.validation.Errors;
+import ua.org.migdal.imageupload.ImageUploadException;
 
 public class ControllerAction {
 
@@ -50,6 +51,8 @@ public class ControllerAction {
             if (errorCode != null && !errorCode.isEmpty()) {
                 errors.reject(errorCode);
             }
+        } catch (ImageUploadException e) {
+            errors.reject(e.getFieldErrorCode());
         } catch (PersistenceException | DataAccessException e) {
             log.error("{}: database failure: {}", actionName, e.getMessage());
             if (e.getCause() != null) {
