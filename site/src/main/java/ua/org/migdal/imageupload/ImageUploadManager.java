@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ua.org.migdal.data.Entry;
+import ua.org.migdal.data.ImageFileTransform;
 import ua.org.migdal.grp.ImageTransformFlag;
 import ua.org.migdal.grp.ThumbnailTransformFlag;
 
@@ -62,4 +63,14 @@ public class ImageUploadManager {
         return "";
     }
 
+    private UploadedImageFile uploadImageFile(MultipartFile imageFile, short exactX, short exactY,
+                                              short maxX, short maxY, ImageFileTransform transform,
+                                              short transformX, short transformY) {
+        return null;
+    }
+
+    private UploadedImageFile thumbnailImageFile(UploadedImageFile imageFile, ImageFileTransform transform,
+                                                 short transformX, short transformY) {
+        return null;
+    }
 }
