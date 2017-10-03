@@ -61,6 +61,7 @@ migdal:
 
   imageDir: /home/smelamud/migdal-images  # Image directory
   imageUrl: /images  # Base image URL
+  maxImageSize: 2097152  # Maximal uploaded image size (in bytes)
 
   # Text cropping parameters for "tiny size"
   tinySize: 64

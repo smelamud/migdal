@@ -19,6 +19,7 @@ public class Config {
     private int regConfirmTimeout;
     private String imageDir;
     private String imageUrl;
+    private long maxImageSize;
     private int tinySize;
     private int tinySizeMinus;
     private int tinySizePlus;
@@ -129,6 +130,14 @@ public class Config {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public long getMaxImageSize() {
+        return maxImageSize;
+    }
+
+    public void setMaxImageSize(long maxImageSize) {
+        this.maxImageSize = maxImageSize;
     }
 
     public int getTinySize() {
