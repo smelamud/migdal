@@ -261,6 +261,9 @@ public class PostingController {
                     if (postingForm.isMandatory("large_body") && StringUtils.isEmpty(postingForm.getLargeBody())) {
                         return "largeBody.NotBlank";
                     }
+                    if (postingForm.isMandatory("image") && postingForm.getImage() == null) {
+                        return "imageFile.NotBlank";
+                    }
                     if (postingForm.isMandatory("url") && StringUtils.isEmpty(postingForm.getUrl())) {
                         return "url.NotBlank";
                     }

@@ -95,6 +95,26 @@ public class GrpEditor {
         this.imageExactY = imageExactY;
     }
 
+    private String formatDimensions(short x, short y) {
+        if (x > 0) {
+            if (y > 0) {
+                return String.format("%d x %d пикселов", x, y);
+            } else {
+                return String.format("%d пикселов по ширине", x);
+            }
+        } else {
+            if (y > 0) {
+                return String.format("%d пикселов по высоте", y);
+            } else {
+                return "";
+            }
+        }
+    }
+    
+    public String getImageExact() {
+        return formatDimensions(getImageExactX(), getImageExactY());
+    }
+
     public short getImageMaxX() {
         return imageMaxX;
     }
@@ -109,6 +129,10 @@ public class GrpEditor {
 
     public void setImageMaxY(short imageMaxY) {
         this.imageMaxY = imageMaxY;
+    }
+
+    public String getImageMax() {
+        return formatDimensions(getImageMaxX(), getImageMaxY());
     }
 
     public short getThumbExactX() {
