@@ -2,6 +2,7 @@ package ua.org.migdal.data;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,10 +38,24 @@ public class ImageFileTransform {
     private ImageFileTransformType transform;
 
     @NotNull
+    @Column(name="size_x")
     private short sizeX;
 
     @NotNull
+    @Column(name="size_y")
     private short sizeY;
+
+    public ImageFileTransform() {
+    }
+
+    public ImageFileTransform(ImageFile destination, ImageFile original, ImageFileTransformType transform,
+                              short sizeX, short sizeY) {
+        this.destination = destination;
+        this.original = original;
+        this.transform = transform;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+    }
 
     public long getId() {
         return id;

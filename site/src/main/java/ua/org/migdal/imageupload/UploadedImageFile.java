@@ -1,5 +1,6 @@
 package ua.org.migdal.imageupload;
 
+import ua.org.migdal.data.ImageFile;
 import ua.org.migdal.util.ImageFileUtils;
 
 public class UploadedImageFile implements Cloneable {
@@ -15,10 +16,7 @@ public class UploadedImageFile implements Cloneable {
     }
 
     public UploadedImageFile(long id, short sizeX, short sizeY, String format) {
-        this.id = id;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.format = format;
+        this(id, sizeX, sizeY, 0, format, null);
     }
 
     public UploadedImageFile(long id, short sizeX, short sizeY, long fileSize, String format, String originalFilename) {
@@ -28,6 +26,11 @@ public class UploadedImageFile implements Cloneable {
         this.fileSize = fileSize;
         this.format = format;
         this.originalFilename = originalFilename;
+    }
+
+    public UploadedImageFile(ImageFile imageFile) {
+        this(imageFile.getId(), imageFile.getSizeX(), imageFile.getSizeY(), imageFile.getFileSize(),
+             imageFile.getMimeType(), null);
     }
 
     public long getId() {
@@ -80,6 +83,10 @@ public class UploadedImageFile implements Cloneable {
 
     public void setOriginalFilename(String originalFilename) {
         this.originalFilename = originalFilename;
+    }
+
+    public String getPath() {
+        return getId() > 0 ? ImageFileUtils.imagePath(getFormat(), getId()) : "";
     }
 
     public String getUrl() {

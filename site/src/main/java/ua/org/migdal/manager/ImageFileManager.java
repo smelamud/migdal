@@ -12,6 +12,10 @@ public class ImageFileManager {
     @Inject
     private ImageFileRepository imageFileRepository;
 
+    public ImageFile get(Long id) {
+        return imageFileRepository.findOne(id);
+    }
+
     public void save(ImageFile imageFile) {
         imageFileRepository.save(imageFile);
     }

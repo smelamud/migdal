@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class MimeUtils {
 
+    public static final String JPEG = "image/jpeg";
+
     private static final Map<String, String> MIME_EXTENSIONS = new HashMap<>();
     private static final Map<String, String> MIME_TYPES = new HashMap<>();
     private static final Map<String, String> IMAGE_TYPES = new HashMap<>();

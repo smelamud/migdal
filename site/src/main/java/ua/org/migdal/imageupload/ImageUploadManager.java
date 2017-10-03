@@ -1,5 +1,7 @@
 package ua.org.migdal.imageupload;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.ImageFile;
+import ua.org.migdal.data.ImageFileTransform;
 import ua.org.migdal.data.ImageFileTransformType;
 import ua.org.migdal.grp.ImageTransformFlag;
 import ua.org.migdal.grp.ThumbnailTransformFlag;
 import ua.org.migdal.manager.ImageFileManager;
+import ua.org.migdal.manager.ImageFileTransformManager;
 import ua.org.migdal.util.MimeUtils;
 
 @Service
@@ -36,6 +40,9 @@ public class ImageUploadManager {
 
     @Inject
     private ImageFileManager imageFileManager;
+
+    @Inject
+    private ImageFileTransformManager imageFileTransformManager;
 
     private Map<UUID, UploadedImage> uploads = new HashMap<>();
 
@@ -200,7 +207,54 @@ public class ImageUploadManager {
 
     private UploadedImageFile thumbnailImageFile(UploadedImageFile imageFile, ImageFileTransformType transform,
                                                  short transformX, short transformY) {
-        return null;
+        if (imageFile.getId() == 0 || isTransformedImage(imageFile, transform, transformX, transformY)) {
+            return imageFile.clone();
+        }
+
+        ImageFileTransform readyTransform = imageFileTransformManager.getBySource(
+                imageFile.getId(), transform, transformX, transformY);
+        if (readyTransform != null) {
+            return new UploadedImageFile(readyTransform.getDestination());
+        }
+
+        BufferedImage image;
+        try {
+            image = ImageIO.read(new File(imageFile.getPath()));
+        } catch (IOException e) {
+            throw new ImageUploadException("imageFileReadError", e);
+        }
+
+        image = transformImage(image, transform, transformX, transformY);
+
+        readyTransform = imageFileTransformManager.getBySource(
+                imageFile.getId(), transform, (short) image.getWidth(), (short) image.getHeight());
+        if (readyTransform != null) {
+            return new UploadedImageFile(readyTransform.getDestination());
+        }
+
+        UploadedImageFile thumbFile = writeImageFile(image, MimeUtils.JPEG);
+
+        ImageFile destination = imageFileManager.get(thumbFile.getId());
+        ImageFile source = imageFileManager.get(imageFile.getId());
+        imageFileTransformManager.save(new ImageFileTransform(destination, source, transform, transformX, transformY));
+
+        return thumbFile;
+    }
+
+    private boolean isTransformedImage(UploadedImageFile imageFile, ImageFileTransformType transform,
+                                       short transformX, short transformY) {
+        switch (transform) {
+            case RESIZE:
+                return (transformX <= 0 || imageFile.getSizeX() <= transformX)
+                        && (transformY <= 0 || imageFile.getSizeY() <= transformY);
+
+            case CLIP:
+                return (transformX <= 0 || imageFile.getSizeX() == transformX)
+                        && (transformY <= 0 || imageFile.getSizeY() == transformY);
+
+            default:
+                return true;
+        }
     }
 
     private BufferedImage transformImage(BufferedImage image, ImageFileTransformType transform,
@@ -218,11 +272,80 @@ public class ImageUploadManager {
     }
 
     private BufferedImage resizeImage(BufferedImage image, short maxX, short maxY) {
-        return image;
+        // Calculate the dimensions
+        short largeSizeX = (short) image.getWidth();
+        short largeSizeY = (short) image.getHeight();
+
+        double aspect = (double) largeSizeX / largeSizeY;
+
+        if (maxX == 0) {
+            maxX = (short) 65535;
+        }
+        if (maxY == 0) {
+            maxY = (short) 65535;
+        }
+
+        short smallSizeX;
+        short smallSizeY;
+        if (largeSizeX > maxX || largeSizeY > maxY) {
+            smallSizeX = maxX;
+            smallSizeY = (short) (smallSizeX / aspect);
+            if (smallSizeY > maxY) {
+                smallSizeY = maxY;
+                smallSizeX = (short) (smallSizeY * aspect);
+            }
+        } else {
+            smallSizeX = largeSizeX;
+            smallSizeY = largeSizeY;
+        }
+        double scale = (double) smallSizeX / largeSizeX;
+
+        // Resize the image
+        BufferedImage smallImage = new BufferedImage(smallSizeX, smallSizeY, BufferedImage.TYPE_INT_RGB);
+        AffineTransform affine = new AffineTransform();
+        affine.scale(scale, scale);
+        smallImage.createGraphics().drawImage(
+                image, new AffineTransformOp(affine, AffineTransformOp.TYPE_BICUBIC), 0, 0);
+
+        return smallImage;
     }
 
     private BufferedImage clipImage(BufferedImage image, short clipX, short clipY) {
-        return image;
+        // Calculate the dimensions
+        short largeSizeX = (short) image.getWidth();
+        short largeSizeY = (short) image.getHeight();
+
+        double aspect = (double) largeSizeX / largeSizeY;
+
+        short smallSizeX;
+        short smallSizeY;
+        if (clipX > 0 || clipY > 0) {
+            smallSizeX = clipX;
+            smallSizeY = (short) (clipX / aspect);
+            if (smallSizeY < clipY) {
+                smallSizeY = clipY;
+                smallSizeX = (short) (clipY * aspect);
+            }
+        } else {
+            smallSizeX = largeSizeX;
+            smallSizeY = largeSizeY;
+        }
+
+        short smallX = (short) ((smallSizeX - clipX) / 2);
+        short smallY = (short) ((smallSizeY - clipY) / 2);
+        double scale = (double) largeSizeX / smallSizeX;
+        short largeX = (short) (smallX * scale);
+        short largeY = (short) (smallY * scale);
+        short largeClipX = (short) (clipX * scale);
+        short largeClipY = (short) (clipY * scale);
+
+        // Resize the image
+        BufferedImage smallImage = new BufferedImage(smallSizeX, smallSizeY, BufferedImage.TYPE_INT_RGB);
+        smallImage.createGraphics().drawImage(image,
+                0, 0, clipX, clipY,
+                largeX, largeY, largeClipX, largeClipY, null);
+
+        return smallImage;
     }
 
 }
