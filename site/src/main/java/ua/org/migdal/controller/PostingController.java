@@ -33,6 +33,7 @@ import ua.org.migdal.imageupload.ImageUploadException;
 import ua.org.migdal.imageupload.ImageUploadManager;
 import ua.org.migdal.manager.CatalogManager;
 import ua.org.migdal.manager.IdentManager;
+import ua.org.migdal.manager.ImageFileManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.manager.TopicManager;
@@ -71,6 +72,9 @@ public class PostingController {
 
     @Inject
     private CatalogManager catalogManager;
+
+    @Inject
+    private ImageFileManager imageFileManager;
 
     @Inject
     private SpamManager spamManager;
@@ -305,7 +309,7 @@ public class PostingController {
 
                     postingManager.store(
                             posting,
-                            p -> postingForm.toPosting(p, up, parent, person, requestContext),
+                            p -> postingForm.toPosting(p, up, parent, person, imageFileManager, requestContext),
                             postingForm.getId() <= 0,
                             postingForm.isTrackChanged(posting),
                             postingForm.isCatalogChanged(posting));

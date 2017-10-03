@@ -21,6 +21,7 @@ import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.imageupload.ImageUploadManager;
 import ua.org.migdal.imageupload.UploadedImage;
+import ua.org.migdal.manager.ImageFileManager;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContext;
@@ -378,7 +379,8 @@ public class PostingForm implements Serializable {
                 || spamManager.isSpam(getLargeBody());
     }
 
-    public void toPosting(Posting posting, Entry up, Topic parent, User person, RequestContext requestContext) {
+    public void toPosting(Posting posting, Entry up, Topic parent, User person, ImageFileManager imageFileManager,
+                          RequestContext requestContext) {
         posting.setBodyFormat(TextFormat.valueOf(getBodyFormat(), TextFormat.PLAIN));
         posting.setBody(Text.convertLigatures(getBody()));
         posting.setBodyXml(Text.convert(posting.getBody(), posting.getBodyFormat(), MtextFormat.SHORT));
@@ -390,16 +392,11 @@ public class PostingForm implements Serializable {
             posting.setLargeBodyXml(
                     Text.convert(posting.getLargeBody(), posting.getLargeBodyFormat(), MtextFormat.SHORT));
         }
-        /*$this->small_image = $vars['small_image'];
-        $this->small_image_x = $vars['small_image_x'];
-        $this->small_image_y = $vars['small_image_y'];
-        $this->small_image_format = $vars['small_image_format'];
-        $this->large_image = $vars['large_image'];
-        $this->large_image_x = $vars['large_image_x'];
-        $this->large_image_y = $vars['large_image_y'];
-        $this->large_image_size = $vars['large_image_size'];
-        $this->large_image_format = $vars['large_image_format'];
-        $this->large_image_filename = $vars['large_image_filename'];*/
+        if (getImage() != null) {
+            getImage().toEntry(posting, imageFileManager);
+        } else {
+            UploadedImage.clearEntry(posting);
+        }
         posting.setUp(up != null && up.getId() > 0 ? up : null);
         posting.setSubject(Text.convertLigatures(getSubject()));
         posting.setComment0(Text.convertLigatures(getComment0()));
