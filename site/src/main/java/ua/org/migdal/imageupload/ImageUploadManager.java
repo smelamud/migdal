@@ -172,8 +172,13 @@ public class ImageUploadManager {
 
         image = transformImage(image, transform, transformX, transformY);
 
+        // FIXME what if we transformed GIF to JPG?
+        return writeImageFile(image, uploadedFile.getContentType());
+    }
+
+    private UploadedImageFile writeImageFile(BufferedImage image, String mimeType) {
         UploadedImageFile imageInfo = new UploadedImageFile();
-        imageInfo.setFormat(uploadedFile.getContentType()); // FIXME what if we transformed GIF to JPG?
+        imageInfo.setFormat(mimeType);
         imageInfo.setSizeX((short) image.getWidth());
         imageInfo.setSizeY((short) image.getHeight());
         ImageFile imageFile = new ImageFile(imageInfo);
@@ -190,7 +195,6 @@ public class ImageUploadManager {
         }
         imageFile.setFileSize(imageInfo.getFileSize());
         imageFileManager.save(imageFile);
-
         return imageInfo;
     }
 
