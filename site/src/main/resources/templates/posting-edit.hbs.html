@@ -1,9 +1,5 @@
 {{!
 <int name='noguests'>
-
-<int name='relogin'>
-<string name='login'>
-<int name='remember'>
 }}
 
 {{#*inline "formTextFormat"}} {{! params: title,comment,name,format,mandatory }}
@@ -252,6 +248,7 @@
             </tr></table>{{/formComment}}
         {{/moderator}}
         {{#unless postingForm.id}}
+            {{formRelogin relogin=postingForm.relogin login=postingForm.login remember=postingForm.remember}}
             <form_relogin noguests='$noguests' relogin='$relogin'
                           login!='$edittag ? $login : $$userLoginHint'
                           remember='$remember' onclick='reloginSelected(this);'>

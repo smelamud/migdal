@@ -36,6 +36,8 @@ public interface RequestContext {
 
     String getUserLogin();
 
+    String getUserGuestLogin();
+
     String getUserFolder();
 
     short getUserHidden();

@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.inject.Inject;
@@ -55,6 +56,7 @@ public class RequestContextImpl implements RequestContext {
     private User realUser;
     private Set<Long> userGroups = new HashSet<>();
     private String userLogin;
+    private String userGuestLogin;
     private short userHidden;
 
     @PostConstruct
@@ -114,6 +116,12 @@ public class RequestContextImpl implements RequestContext {
         }
         userGroups.addAll(userManager.getGroupIdsByUserId(userId));
         userManager.updateLastOnline(realUserId, Utils.now());
+
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals("userGuestLogin")) {
+                userGuestLogin = cookie.getValue();
+            }
+        }
     }
 
     private void processRequest() {
@@ -216,6 +224,12 @@ public class RequestContextImpl implements RequestContext {
     public String getUserLogin() {
         processSession();
         return userLogin;
+    }
+
+    @Override
+    public String getUserGuestLogin() {
+        processSession();
+        return userGuestLogin;
     }
 
     @Override

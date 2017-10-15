@@ -27,6 +27,9 @@ public class HelperUtils {
     }
 
     public static SafeString he(Object s) {
+        if (s == null) {
+            return new SafeString("");
+        }
         return s instanceof SafeString ? (SafeString) s : new SafeString(HtmlUtils.htmlEscape(s.toString()));
     }
 

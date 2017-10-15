@@ -99,6 +99,16 @@ public class PostingForm implements Serializable {
 
     private boolean disabled;
 
+    private short relogin;
+
+    @Size(max=30)
+    private String login = "";
+
+    @Size(max=40)
+    private String password = "";
+
+    private boolean remember;
+
     public PostingForm() {
     }
 
@@ -377,6 +387,38 @@ public class PostingForm implements Serializable {
                 || spamManager.isSpam(getSubject())
                 || spamManager.isSpam(getBody())
                 || spamManager.isSpam(getLargeBody());
+    }
+
+    public short getRelogin() {
+        return relogin;
+    }
+
+    public void setRelogin(short relogin) {
+        this.relogin = relogin;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isRemember() {
+        return remember;
+    }
+
+    public void setRemember(boolean remember) {
+        this.remember = remember;
     }
 
     public void toPosting(Posting posting, Entry up, Topic parent, User person, ImageFileManager imageFileManager,

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.Errors;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
@@ -53,8 +54,7 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence checkboxButton(CharSequence name, Object value, boolean checked, CharSequence id,
-                                        CharSequence cls) {
+    CharSequence checkboxButton(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence cls) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"checkbox\"");
         HelperUtils.appendAttr(buf, "name", name);
@@ -123,14 +123,18 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence radio(CharSequence name, Object value, boolean checked, CharSequence id,
-                               CharSequence cls, CharSequence title) {
+    CharSequence radio(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence cls,
+                       CharSequence title) {
         StringBuilder buf = new StringBuilder();
-        buf.append("<label>");
+        if (StringUtils.isNotEmpty(title)) {
+            buf.append("<label>");
+        }
         buf.append(radioButton(name, value, checked, id, cls));
-        buf.append(' ');
-        HelperUtils.safeAppend(buf, title);
-        buf.append("</label>");
+        if (StringUtils.isNotEmpty(title)) {
+            buf.append(' ');
+            HelperUtils.safeAppend(buf, title);
+            buf.append("</label>");
+        }
         return new SafeString(buf);
     }
 
@@ -251,7 +255,7 @@ public class FormsHelperSource {
             buf.append(star(mandatory));
         }
         HelperUtils.safeAppend(buf, title);
-        if (comment.length() > 0) {
+        if (StringUtils.isNotEmpty(comment)) {
             buf.append("<p class=\"form-comment\">");
             HelperUtils.safeAppend(buf, comment);
             buf.append("</p>");
