@@ -70,6 +70,17 @@ public class RequestContextImpl implements RequestContext {
         return instance.get();
     }
 
+    private void processSession() {
+        if (sessionProcessed) {
+            return;
+        }
+        sessionProcessed = true;
+
+        touchSession();
+        readSession();
+        extractPermissions();
+    }
+
     private void touchSession() {
         long now = System.currentTimeMillis();
         if (session.getUserId() > 0 && session.getLast() + session.getDuration() * 3600 * 1000 < now) {
@@ -82,14 +93,7 @@ public class RequestContextImpl implements RequestContext {
         session.setLast(now);
     }
 
-    private void processSession() {
-        if (sessionProcessed) {
-            return;
-        }
-        sessionProcessed = true;
-
-        touchSession();
-
+    private void readSession() {
         user = null;
         if (session.getUserId() > 0) {
             user = userManager.get(session.getUserId());
@@ -101,7 +105,9 @@ public class RequestContextImpl implements RequestContext {
 
         userId = session.getUserId();
         realUserId = session.getRealUserId();
+    }
 
+    private void extractPermissions() {
         realUser = userManager.get(realUserId);
 
         if (user == null) {

@@ -19,6 +19,7 @@ import ua.org.migdal.form.LoginForm;
 import ua.org.migdal.form.RecallPasswordForm;
 import ua.org.migdal.form.SuForm;
 import ua.org.migdal.mail.MailController;
+import ua.org.migdal.manager.LoginManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
@@ -30,9 +31,6 @@ import ua.org.migdal.util.PasswordGenerator;
 public class LoginController {
 
     @Inject
-    private Config config;
-
-    @Inject
     private PlatformTransactionManager txManager;
 
     @Inject
@@ -40,6 +38,9 @@ public class LoginController {
 
     @Inject
     private Session session;
+
+    @Inject
+    private LoginManager loginManager;
 
     @Inject
     private UserManager userManager;
@@ -77,21 +78,8 @@ public class LoginController {
             Errors errors,
             RedirectAttributes redirectAttributes) {
         new ControllerAction(LoginController.class, "actionLogin", errors)
-                .execute(() -> {
-                    User user = userManager.getByLogin(loginForm.getLogin());
-                    if (!Password.validate(user, loginForm.getPassword())) {
-                        return "incorrect";
-                    }
-                    if (user.isNoLogin()) {
-                        return "banned";
-                    }
-                    session.setUserId(user.getId());
-                    session.setRealUserId(user.getId());
-                    session.setDuration(loginForm.isMyComputer()
-                            ? config.getSessionTimeoutLong()
-                            : config.getSessionTimeoutShort());
-                    return null;
-                });
+                .execute(() -> loginManager.login(loginForm.getLogin(), loginForm.getPassword(),
+                                                  loginForm.isMyComputer()));
 
         if (!errors.hasErrors()) {
             return "redirect:" + requestContext.getOrigin();
@@ -106,12 +94,7 @@ public class LoginController {
 
     @PostMapping("/actions/logout")
     public String actionLogout() {
-        if (session.getUserId() > 0 && session.getUserId() != session.getRealUserId()) {
-            session.setUserId(session.getRealUserId());
-        } else {
-            session.setUserId(0);
-            session.setRealUserId(userManager.getGuestId());
-        }
+        loginManager.logout();
         return "redirect:" + requestContext.getOrigin();
     }
 
