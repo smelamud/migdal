@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
 import org.springframework.web.servlet.resource.PathResourceResolver;
+import ua.org.migdal.controller.SaveCookiesInterceptor;
 import ua.org.migdal.controller.SubdomainInterceptor;
 import ua.org.migdal.helper.HelperSource;
 
@@ -35,6 +36,9 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
 
     @Inject
     private SubdomainInterceptor subdomainInterceptor;
+
+    @Inject
+    private SaveCookiesInterceptor saveCookiesInterceptor;
 
     @Inject
     private Config config;
@@ -59,6 +63,7 @@ public class MigdalApplication extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(subdomainInterceptor);
+        registry.addInterceptor(saveCookiesInterceptor);
     }
 
     @Override

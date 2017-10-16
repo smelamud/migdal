@@ -173,7 +173,8 @@ public class PostingController {
         model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(
                 posting != null
                     ? posting
-                    : new Posting(grpEnum.grpValue("NEWS"), null, null, 0, requestContext), full));
+                    : new Posting(grpEnum.grpValue("NEWS"), null, null, 0, requestContext), full,
+                requestContext));
         PostingForm postingForm = (PostingForm) model.asMap().get("postingForm");
         String rootIdent = postingForm.getGrpInfo().getRootIdent();
         long rootId = full || rootIdent == null ? 0 : identManager.getIdByIdent(rootIdent);
@@ -226,6 +227,11 @@ public class PostingController {
                     } catch (ImageUploadException e) {
                         e.setFieldName("imageFile");
                         throw e;
+                    }
+
+                    // FIXME temporarily
+                    if (postingForm.getRelogin() == ReloginVariant.GUEST.getValue()) {
+                        requestContext.setUserGuestLoginHint(postingForm.getGuestLogin());
                     }
 
                     if (postingForm.getId() > 0) {

@@ -9,6 +9,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
@@ -56,7 +58,7 @@ public class RequestContextImpl implements RequestContext {
     private User realUser;
     private Set<Long> userGroups = new HashSet<>();
     private String userLogin;
-    private String userGuestLogin;
+    private String userGuestLoginHint = "";
     private short userHidden;
 
     @PostConstruct
@@ -116,12 +118,6 @@ public class RequestContextImpl implements RequestContext {
         }
         userGroups.addAll(userManager.getGroupIdsByUserId(userId));
         userManager.updateLastOnline(realUserId, Utils.now());
-
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("userGuestLogin")) {
-                userGuestLogin = cookie.getValue();
-            }
-        }
     }
 
     private void processRequest() {
@@ -138,6 +134,14 @@ public class RequestContextImpl implements RequestContext {
         back = back != null && LOCATION_REGEX.matcher(back).matches() ? back : null;
         origin = request.getParameter("origin");
         origin = origin != null && LOCATION_REGEX.matcher(origin).matches() ? origin : null;
+
+        if (StringUtils.isEmpty(userGuestLoginHint)) {
+            for (Cookie cookie : request.getCookies()) {
+                if (cookie.getName().equals("userGuestLoginHint")) {
+                    userGuestLoginHint = cookie.getValue();
+                }
+            }
+        }
     }
 
     @Override
@@ -227,9 +231,14 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
-    public String getUserGuestLogin() {
-        processSession();
-        return userGuestLogin;
+    public String getUserGuestLoginHint() {
+        processRequest();
+        return userGuestLoginHint;
+    }
+
+    @Override
+    public void setUserGuestLoginHint(String userGuestLoginHint) {
+        this.userGuestLoginHint = userGuestLoginHint;
     }
 
     @Override

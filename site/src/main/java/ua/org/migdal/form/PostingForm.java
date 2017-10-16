@@ -102,6 +102,9 @@ public class PostingForm implements Serializable {
     private short relogin;
 
     @Size(max=30)
+    private String guestLogin = "";
+
+    @Size(max=30)
     private String login = "";
 
     @Size(max=40)
@@ -112,12 +115,7 @@ public class PostingForm implements Serializable {
     public PostingForm() {
     }
 
-    public PostingForm(boolean full, long grp) {
-        this.full = full;
-        this.grp = grp;
-    }
-
-    public PostingForm(Posting posting, boolean full) {
+    public PostingForm(Posting posting, boolean full, RequestContext requestContext) {
         this.full = full;
         id = posting.getId();
         personId = posting.getPerson() != null ? posting.getPerson().getId() : 0;
@@ -144,6 +142,7 @@ public class PostingForm implements Serializable {
         sentTime = TIME_FORMATTER.format(posting.getSent().toLocalDateTime());
         hidden = posting.isHidden();
         disabled = posting.isDisabled();
+        guestLogin = requestContext.getUserGuestLoginHint();
     }
 
     public boolean isFull() {
@@ -395,6 +394,14 @@ public class PostingForm implements Serializable {
 
     public void setRelogin(short relogin) {
         this.relogin = relogin;
+    }
+
+    public String getGuestLogin() {
+        return guestLogin;
+    }
+
+    public void setGuestLogin(String guestLogin) {
+        this.guestLogin = guestLogin;
     }
 
     public String getLogin() {

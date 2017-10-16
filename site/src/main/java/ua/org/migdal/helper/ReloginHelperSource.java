@@ -20,10 +20,11 @@ public class ReloginHelperSource {
     public CharSequence formRelogin(Options options) {
         boolean noGuests = HelperUtils.boolArg(options.hash("noGuests"));
         long relogin = HelperUtils.intArg("relogin", options.hash("relogin"));
+        CharSequence guestLogin = options.hash("guestLogin", "");
         CharSequence login = options.hash("login", "");
         boolean remember = HelperUtils.boolArg(options.hash("remember"));
 
-        ReloginVariant reloginVariant = ReloginVariant.NONE;
+        ReloginVariant reloginVariant;
         if (relogin == 0) {
             if (requestContext.isLogged()) {
                 reloginVariant = ReloginVariant.SAME;
@@ -44,8 +45,7 @@ public class ReloginHelperSource {
                                                reloginVariant == ReloginVariant.GUEST, "relogin-guest",
                                                null, null));
             buf.append("&nbsp;Имя&nbsp;");
-            buf.append(formsHelperSource.edit("guestLogin", requestContext.getUserGuestLogin(), "15",
-                                              "35", null));
+            buf.append(formsHelperSource.edit("guestLogin", guestLogin, "15", "35", null));
             buf.append("&nbsp;без пароля (гостевой вход)</label>");
         } else {
             buf.append("<input type=\"radio\" disabled>&nbsp;<i>гости не могут писать сюда</i>");

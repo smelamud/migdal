@@ -248,7 +248,8 @@
             </tr></table>{{/formComment}}
         {{/moderator}}
         {{#unless postingForm.id}}
-            {{formRelogin relogin=postingForm.relogin login=postingForm.login remember=postingForm.remember}}
+            {{formRelogin relogin=postingForm.relogin guestLogin=postingForm.guestLogin login=postingForm.login
+                          remember=postingForm.remember}}
             <form_relogin noguests='$noguests' relogin='$relogin'
                           login!='$edittag ? $login : $$userLoginHint'
                           remember='$remember' onclick='reloginSelected(this);'>

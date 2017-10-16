@@ -36,7 +36,9 @@ public interface RequestContext {
 
     String getUserLogin();
 
-    String getUserGuestLogin();
+    String getUserGuestLoginHint();
+
+    void setUserGuestLoginHint(String userGuestLoginHint);
 
     String getUserFolder();
 
