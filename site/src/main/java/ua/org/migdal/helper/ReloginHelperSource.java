@@ -41,7 +41,7 @@ public class ReloginHelperSource {
         if (!noGuests) {
             buf.append("<label>");
             buf.append(formsHelperSource.radio("relogin", ReloginVariant.GUEST.getValue(),
-                                               reloginVariant == ReloginVariant.GUEST, null,
+                                               reloginVariant == ReloginVariant.GUEST, "relogin-guest",
                                                null, null));
             buf.append("&nbsp;Имя&nbsp;");
             buf.append(formsHelperSource.edit("guestLogin", requestContext.getUserGuestLogin(), "15",
