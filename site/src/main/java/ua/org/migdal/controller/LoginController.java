@@ -1,8 +1,8 @@
 package ua.org.migdal.controller;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
-import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.LoginForm;
 import ua.org.migdal.form.RecallPasswordForm;

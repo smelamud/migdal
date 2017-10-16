@@ -6,6 +6,8 @@ import ua.org.migdal.data.User;
 
 public interface RequestContext {
 
+    void temporarySession(User user, long realUserId);
+
     String getLocation();
 
     String getSubdomain();

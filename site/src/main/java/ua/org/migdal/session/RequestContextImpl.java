@@ -81,6 +81,17 @@ public class RequestContextImpl implements RequestContext {
         extractPermissions();
     }
 
+    @Override
+    public void temporarySession(User user, long realUserId) {
+        sessionProcessed = true;
+
+        this.user = user;
+        userId = user != null ? user.getId() : 0;
+        this.realUserId = realUserId;
+
+        extractPermissions();
+    }
+
     private void touchSession() {
         long now = System.currentTimeMillis();
         if (session.getUserId() > 0 && session.getLast() + session.getDuration() * 3600 * 1000 < now) {

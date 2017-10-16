@@ -1,11 +1,15 @@
 package ua.org.migdal.manager;
 
 import java.security.NoSuchAlgorithmException;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
+import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.Session;
 import ua.org.migdal.util.Password;
 
@@ -17,6 +21,9 @@ public class LoginManager {
 
     @Inject
     private Session session;
+
+    @Inject
+    private RequestContext requestContext;
 
     @Inject
     private UserManager userManager;
@@ -44,6 +51,50 @@ public class LoginManager {
             session.setUserId(0);
             session.setRealUserId(userManager.getGuestId());
         }
+    }
+
+    public String relogin(ReloginVariant reloginVariant, String guestLogin, String login, String password,
+                          boolean remember) {
+        if (reloginVariant == null) {
+            return "reloginIncorrect";
+        }
+        switch (reloginVariant) {
+            case NONE:
+            case SAME:
+                return null;
+
+            case GUEST:
+                if (StringUtils.isEmpty(guestLogin)) {
+                    return "guestLoginBlank";
+                }
+                requestContext.setUserGuestLoginHint(guestLogin);
+                requestContext.temporarySession(null, userManager.getGuestId());
+                return null;
+
+            case LOGIN:
+                if (remember) {
+                    try {
+                        return login(login, password, false);
+                    } catch (NoSuchAlgorithmException e) {
+                        return "internal-failure";
+                    }
+                }
+
+                User user = userManager.getByLogin(login);
+                try {
+                    if (!Password.validate(user, password)) {
+                        return "internal-failure";
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    return "incorrect";
+                }
+                if (user.isNoLogin()) {
+                    return "banned";
+                }
+                requestContext.temporarySession(user, user.getId());
+                return null;
+        }
+        return "reloginIncorrect";
     }
 
 }

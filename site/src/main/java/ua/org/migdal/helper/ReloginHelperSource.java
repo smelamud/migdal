@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Options;
-import ua.org.migdal.controller.ReloginVariant;
+import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.session.RequestContext;
 

@@ -34,7 +34,9 @@ import ua.org.migdal.imageupload.ImageUploadManager;
 import ua.org.migdal.manager.CatalogManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.ImageFileManager;
+import ua.org.migdal.manager.LoginManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.TrackManager;
@@ -81,6 +83,9 @@ public class PostingController {
 
     @Inject
     private ImageUploadManager imageUploadManager;
+
+    @Inject
+    private LoginManager loginManager;
 
     @Inject
     private IndexController indexController;
@@ -188,6 +193,13 @@ public class PostingController {
             @ModelAttribute @Valid PostingForm postingForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
+        String reloginErrorCode = loginManager.relogin(
+                ReloginVariant.valueOf(postingForm.getRelogin()),
+                postingForm.getGuestLogin(),
+                postingForm.getLogin(),
+                postingForm.getPassword(),
+                postingForm.isRemember());
+
         if (postingForm.getUpId() <= 0) {
             postingForm.setUpId(postingForm.getParentId());
         }
@@ -216,22 +228,23 @@ public class PostingController {
                 .transactional(txManager)
                 .constraint("entries_ident_key", "ident.used")
                 .execute(() -> {
-                    try {
-                        GrpEditor editor = postingForm.getGrpInfo().getFieldEditor("image");
-                        postingForm.setImageUuid(imageUploadManager.uploadStandard(
-                                imageFile, editor.getThumbnailStyle(), editor.getImageStyle(),
-                                editor.getThumbExactX(), editor.getThumbExactY(),
-                                editor.getThumbMaxX(), editor.getThumbMaxY(),
-                                editor.getImageExactX(), editor.getImageExactY(),
-                                editor.getImageMaxX(), editor.getImageMaxY()));
-                    } catch (ImageUploadException e) {
-                        e.setFieldName("imageFile");
-                        throw e;
+                    GrpEditor editor = postingForm.getGrpInfo().getFieldEditor("image");
+                    if (editor != null) {
+                        try {
+                            postingForm.setImageUuid(imageUploadManager.uploadStandard(
+                                    imageFile, editor.getThumbnailStyle(), editor.getImageStyle(),
+                                    editor.getThumbExactX(), editor.getThumbExactY(),
+                                    editor.getThumbMaxX(), editor.getThumbMaxY(),
+                                    editor.getImageExactX(), editor.getImageExactY(),
+                                    editor.getImageMaxX(), editor.getImageMaxY()));
+                        } catch (ImageUploadException e) {
+                            e.setFieldName("imageFile");
+                            throw e;
+                        }
                     }
 
-                    // FIXME temporarily
-                    if (postingForm.getRelogin() == ReloginVariant.GUEST.getValue()) {
-                        requestContext.setUserGuestLoginHint(postingForm.getGuestLogin());
+                    if (reloginErrorCode != null) {
+                        return "relogin." + reloginErrorCode;
                     }
 
                     if (postingForm.getId() > 0) {

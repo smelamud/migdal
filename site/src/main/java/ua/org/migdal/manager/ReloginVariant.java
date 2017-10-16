@@ -1,4 +1,4 @@
-package ua.org.migdal.controller;
+package ua.org.migdal.manager;
 
 public enum ReloginVariant {
 
