@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Options;
+import ua.org.migdal.Config;
 import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.session.RequestContext;
@@ -12,13 +13,16 @@ import ua.org.migdal.session.RequestContext;
 public class ReloginHelperSource {
 
     @Inject
+    private Config config;
+
+    @Inject
     private FormsHelperSource formsHelperSource;
 
     @Inject
     private RequestContext requestContext;
 
     public CharSequence formRelogin(Options options) {
-        boolean noGuests = HelperUtils.boolArg(options.hash("noGuests"));
+        boolean noGuests = !config.isAllowGuests() || HelperUtils.boolArg(options.hash("noGuests"));
         long relogin = HelperUtils.intArg("relogin", options.hash("relogin"));
         CharSequence guestLogin = options.hash("guestLogin", "");
         CharSequence login = options.hash("login", "");
@@ -41,21 +45,19 @@ public class ReloginHelperSource {
         buf.append("<div class=\"relogin\">");
         if (!noGuests) {
             buf.append("<label>");
-            buf.append(formsHelperSource.radio("relogin", ReloginVariant.GUEST.getValue(),
-                                               reloginVariant == ReloginVariant.GUEST, "relogin-guest",
-                                               null, null));
+            buf.append(formsHelperSource.radioButton("relogin", ReloginVariant.GUEST.getValue(),
+                                                     reloginVariant == ReloginVariant.GUEST,
+                                                     "relogin-guest", null));
             buf.append("&nbsp;Имя&nbsp;");
             buf.append(formsHelperSource.edit("guestLogin", guestLogin, "15", "35", null));
             buf.append("&nbsp;без пароля (гостевой вход)</label>");
-        } else {
-            buf.append("<input type=\"radio\" disabled>&nbsp;<i>гости не могут писать сюда</i>");
         }
         buf.append("<br>");
         if (requestContext.isLogged()) {
             buf.append("<label>");
-            buf.append(formsHelperSource.radio("relogin", ReloginVariant.SAME.getValue(),
-                                               reloginVariant == ReloginVariant.SAME, null,
-                                               null, null));
+            buf.append(formsHelperSource.radioButton("relogin", ReloginVariant.SAME.getValue(),
+                                                     reloginVariant == ReloginVariant.SAME, null,
+                                                     null));
             buf.append("&nbsp;Зарегистрированный пользователь&nbsp;<b><a href=\"/users/");
             buf.append(HelperUtils.ue(requestContext.getUserFolder()));
             buf.append("/\">");
@@ -64,9 +66,11 @@ public class ReloginHelperSource {
             buf.append("<br>");
         }
         buf.append("<label>");
-        buf.append(formsHelperSource.radio("relogin", ReloginVariant.LOGIN.getValue(),
-                                           reloginVariant == ReloginVariant.LOGIN, null,
-                                           null, null));
+        if (!noGuests || requestContext.isLogged()) {
+            buf.append(formsHelperSource.radioButton("relogin", ReloginVariant.LOGIN.getValue(),
+                                                     reloginVariant == ReloginVariant.LOGIN, null,
+                                                     null));
+        }
         buf.append("&nbsp;Ник&nbsp;");
         buf.append(formsHelperSource.edit("login", login, "15", "30", null));
         buf.append("&nbsp;Пароль&nbsp;");

@@ -100,8 +100,7 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence radioButton(CharSequence name, Object value, boolean checked, CharSequence id,
-                                     CharSequence cls) {
+    CharSequence radioButton(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence cls) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"radio\"");
         HelperUtils.appendAttr(buf, "name", name);

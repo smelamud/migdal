@@ -174,6 +174,7 @@ public class PostingController {
     }
 
     private String postingAddOrEdit(Posting posting, boolean full, Model model) {
+        model.addAttribute("noguests", false);
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
         model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(
                 posting != null
