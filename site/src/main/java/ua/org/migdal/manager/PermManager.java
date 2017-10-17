@@ -29,6 +29,8 @@ public class PermManager {
     private EntryRepository entryRepository;
 
     private Predicate getMask(NumberPath<Long> field, long right) {
+        right = PermUtils.limitGuests(right);
+
         BooleanBuilder builder = new BooleanBuilder();
         for (Long perms : entryRepository.permsVariety()) {
             if ((perms & right) != 0) {

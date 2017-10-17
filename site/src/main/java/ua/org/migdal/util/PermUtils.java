@@ -1,5 +1,6 @@
 package ua.org.migdal.util;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.session.RequestContext;
 
 public class PermUtils {
@@ -30,10 +31,18 @@ public class PermUtils {
 
     }
 
+    public static long limitGuests(long perms) {
+        if (!Config.getInstance().isAllowGuests()) {
+            perms = perms & ~(Perm.EW | Perm.EA | Perm.EP);
+        }
+        return perms;
+    }
+
     /**
      * Check whether the permissions allow the given action 
      */
     public static boolean perm(long userId, long groupId, long perms, long right, RequestContext rc) {
+        perms = limitGuests(perms);
         return rc.getUserId() == userId
                        && (perms & right << Perm.USER) != 0
                ||
