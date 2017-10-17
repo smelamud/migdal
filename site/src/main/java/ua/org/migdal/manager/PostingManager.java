@@ -174,7 +174,8 @@ public class PostingManager implements EntryManagerBase<Posting> {
     }
 
     private void updateModbits(Posting posting) {
-        if (requestContext.isUserModerator() || requestContext.getUser().isShames()) {
+        if (requestContext.isUserModerator()
+                || requestContext.getUser() != null && requestContext.getUser().isShames()) {
             return;
         }
 
