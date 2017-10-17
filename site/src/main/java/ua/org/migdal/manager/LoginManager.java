@@ -61,7 +61,10 @@ public class LoginManager {
         switch (reloginVariant) {
             case NONE:
             case SAME:
-                return null;
+                if (requestContext.isLogged()) {
+                    return null;
+                }
+                /* fallthru */
 
             case GUEST:
                 if (StringUtils.isEmpty(guestLogin)) {
