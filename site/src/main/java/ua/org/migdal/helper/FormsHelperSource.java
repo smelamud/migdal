@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
@@ -126,11 +126,11 @@ public class FormsHelperSource {
     CharSequence radio(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence cls,
                        CharSequence title) {
         StringBuilder buf = new StringBuilder();
-        if (StringUtils.isNotEmpty(title)) {
+        if (!StringUtils.isEmpty(title)) {
             buf.append("<label>");
         }
         buf.append(radioButton(name, value, checked, id, cls));
-        if (StringUtils.isNotEmpty(title)) {
+        if (!StringUtils.isEmpty(title)) {
             buf.append(' ');
             HelperUtils.safeAppend(buf, title);
             buf.append("</label>");
@@ -255,7 +255,7 @@ public class FormsHelperSource {
             buf.append(star(mandatory));
         }
         HelperUtils.safeAppend(buf, title);
-        if (StringUtils.isNotEmpty(comment)) {
+        if (!StringUtils.isEmpty(comment)) {
             buf.append("<p class=\"form-comment\">");
             HelperUtils.safeAppend(buf, comment);
             buf.append("</p>");

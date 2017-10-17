@@ -142,7 +142,9 @@ public class PostingForm implements Serializable {
         sentTime = TIME_FORMATTER.format(posting.getSent().toLocalDateTime());
         hidden = posting.isHidden();
         disabled = posting.isDisabled();
-        guestLogin = requestContext.getUserGuestLoginHint();
+        guestLogin = !StringUtils.isEmpty(posting.getGuestLogin())
+                ? posting.getGuestLogin()
+                : requestContext.getUserGuestLoginHint();
     }
 
     public boolean isFull() {
@@ -456,7 +458,7 @@ public class PostingForm implements Serializable {
         posting.setSourceXml(Text.convert(posting.getSource(), posting.getBodyFormat(), MtextFormat.LINE));
         posting.setTitle(Text.convertLigatures(getTitle()));
         posting.setTitleXml(Text.convert(posting.getTitle(), posting.getBodyFormat(), MtextFormat.LINE));
-        //$this->guest_login = isset($vars['guest_login']) ? $vars['guest_login'] : '';
+        posting.setGuestLogin(getGuestLogin());
         if (isHidden()) {
             posting.setPerms(posting.getPerms() & ~(Perm.OR | Perm.ER));
         } else {

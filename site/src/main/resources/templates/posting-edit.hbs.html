@@ -233,9 +233,6 @@
         {{hidden name="personId" value=postingForm.personId}}
         {{hidden name="upId" value=postingForm.upId}}
         {{starInfo}}
-   {{!
-   <error id='*EL_INVALID' text='Неверный ник или пароль'>
-   <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>}}
         {{#moderator}}
             {{#formComment}}<table><tr>
                 {{#if postingForm.full}}
@@ -253,7 +250,6 @@
             <form_relogin noguests='$noguests' relogin='$relogin'
                           login!='$edittag ? $login : $$userLoginHint'
                           remember='$remember' onclick='reloginSelected(this);'>
-            <error id='*EL_INVALID' text='Неверный ник или пароль'>
             <error id='*EP_CAPTCHA_ABSENT'
                    text='Пожалуйста, введите цифры и буквы, которые вы видите на
                          картинке. Это необходимо нам для борьбы со спамом.'>

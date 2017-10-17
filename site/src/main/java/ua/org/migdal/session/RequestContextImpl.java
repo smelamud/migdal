@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.annotation.RequestScope;
 
 import ua.org.migdal.Config;

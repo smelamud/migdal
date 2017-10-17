@@ -83,10 +83,10 @@ public class LoginManager {
                 User user = userManager.getByLogin(login);
                 try {
                     if (!Password.validate(user, password)) {
-                        return "internal-failure";
+                        return "incorrect";
                     }
                 } catch (NoSuchAlgorithmException e) {
-                    return "incorrect";
+                    return "internal-failure";
                 }
                 if (user.isNoLogin()) {
                     return "banned";
