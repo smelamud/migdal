@@ -57,24 +57,25 @@ public class GrpEnum {
         log.info("Loaded {} grps:", data.size());
 
         ExpressionParser parser = new SpelExpressionParser();
-        for (GrpDescriptor grp : data) {
-            if (grp.getName().equals("NONE")) {
+        for (GrpDescriptor grpDesc : data) {
+            if (grpDesc.getName().equals("NONE")) {
                 log.info("- NONE");
-                grpNone = grp;
+                grpNone = grpDesc;
                 continue;
             }
 
-            log.info("- {}({})", grp.getName(), grp.getBit());
-            grps.add(grp);
-            grp.parseExpressions(identManager, parser);
-            all |= grp.getValue();
-            grpMap.put(grp.getValue(), grp);
-            grpNameMap.put(grp.getName(), grp);
-            for (String groupName : grp.getGroups()) {
+            log.info("- {}({})", grpDesc.getName(), grpDesc.getBit());
+            grps.add(grpDesc);
+            grpDesc.parseExpressions(identManager, parser);
+            all |= grpDesc.getValue();
+            grpMap.put(grpDesc.getValue(), grpDesc);
+            grpNameMap.put(grpDesc.getName(), grpDesc);
+            groups.put(grpDesc.getName(), grpDesc.getValue());
+            for (String groupName : grpDesc.getGroups()) {
                 if (!groups.containsKey(groupName)) {
-                    groups.put(groupName, grp.getValue());
+                    groups.put(groupName, grpDesc.getValue());
                 } else {
-                    groups.put(groupName, groups.get(groupName) | grp.getValue());
+                    groups.put(groupName, groups.get(groupName) | grpDesc.getValue());
                 }
             }
         }

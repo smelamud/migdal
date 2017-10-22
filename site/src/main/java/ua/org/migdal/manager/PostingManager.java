@@ -1,5 +1,9 @@
 package ua.org.migdal.manager;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.PostingModbit;
@@ -20,13 +25,21 @@ import ua.org.migdal.data.PostingRepository;
 import ua.org.migdal.data.QPosting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.TopicModbit;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.Perm;
 import ua.org.migdal.util.TrackUtils;
+import ua.org.migdal.util.Utils;
 
 @Service
 public class PostingManager implements EntryManagerBase<Posting> {
+
+    @Inject
+    private Config config;
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private RequestContext requestContext;
@@ -63,19 +76,30 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return posting != null && posting.isReadable() ? posting : null;
     }
 
-    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,
+    public Posting begLast(long[] grps, long topicId, Long userId) {
+        QPosting posting = QPosting.posting;
+        List<Pair<Long, Boolean>> topicRoots = topicId <= 0 ? null : Collections.singletonList(Pair.of(topicId, false));
+        Iterable<Posting> postings = begAll(topicRoots, grps, null, userId, 0, 1);
+        for (Posting lastPosting : postings) {
+            return lastPosting;
+        }
+        return null;
+    }
+
+    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
                                     int offset, int limit) {
         QPosting posting = QPosting.posting;
-        return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1),
+        return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1, userId),
                 new PageRequest(offset / limit, limit, Sort.Direction.DESC, "sent"));
     }
 
-    public long countAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1) {
+    public long countAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId) {
         QPosting posting = QPosting.posting;
-        return postingRepository.count(getWhere(posting, topicRoots, grps, index1));
+        return postingRepository.count(getWhere(posting, topicRoots, grps, index1, userId));
     }
 
-    private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1) {
+    private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,
+                               Long userId) {
         BooleanBuilder where = new BooleanBuilder();
         if (topicRoots != null) {
             BooleanBuilder byTopic = new BooleanBuilder();
@@ -97,6 +121,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
         if (index1 != null) {
             where.and(posting.index1.eq(index1));
+        }
+        if (userId != null && userId > 0) {
+            where.and(posting.user.id.eq(userId));
         }
         where.and(getPermFilter(posting, Perm.READ));
         return where;
@@ -140,15 +167,22 @@ public class PostingManager implements EntryManagerBase<Posting> {
             Consumer<Posting> applyChanges,
             boolean newPosting,
             boolean trackChanged,
-            boolean catalogChanged) {
+            boolean catalogChanged,
+            boolean topicChanged) {
 
-        /*$topicChanged = !is_null($original) && $original->getId() != 0
-                && $posting->getTopicId() != $original->getTopicId(); DO THIS IN CONTROLLER?
-
-        if ($topicChanged)
-            unpublishPosting($original);*/
+        if (topicChanged) {
+            // unpublishPosting($original);
+        }
         String oldTrack = posting.getTrack();
-        applyChanges.accept(posting);
+        if (applyChanges != null) {
+            applyChanges.accept(posting);
+        }
+        posting.setModifier(requestContext.getUser());
+        posting.setModified(Utils.now());
+        if (newPosting) {
+            posting.setCreator(requestContext.getUser());
+            posting.setCreated(Utils.now());
+        }
         updateModbits(posting);
         saveAndFlush(posting); /* We need to have the record in DB and to know ID
                                                              after this point */
@@ -166,9 +200,10 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (catalogChanged) {
             catalogManager.updateCatalogs(newTrack);
         }
-        /*answerUpdate($posting->getId());
-        if ($topicChanged)
-            publishPosting($posting);*/
+        //answerUpdate($posting->getId());
+        if (newPosting || topicChanged) {
+            //publishPosting($posting);
+        }
         /*    if ($original->getId() == 0)
         createCounters($posting->getId(), $posting->getGrp());*/
     }
@@ -193,6 +228,55 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (attention) {
             posting.setModbit(PostingModbit.ATTENTION);
         }
+    }
+
+    private void publishPosting(Posting posting) {
+        String publishGrp = posting.getGrpPublish();
+        if (publishGrp == null) {
+            return;
+        }
+        long grpValue = grpEnum.grpValue(publishGrp);
+        if (grpValue <= 0) {
+            return;
+        }
+        long[] grps = new long[] { grpValue };
+        Posting publish = begLast(grps, posting.getTopicId(), posting.getUser().getId());
+        if (publish == null || publish.getModified().after(
+                Timestamp.from(Instant.now().plus(config.getPublishingInterval(), ChronoUnit.HOURS)))) {
+            publish = new Posting(grpValue, posting.getTopic(), posting.getTopic(), 0, requestContext);
+        }
+        publish.setIndex1(publish.getIndex1() + 1);
+        store(publish,
+                null,
+                publish.getId() <= 0,
+                false,
+                false,
+                false);
+        /*$cross = new CrossEntry();
+        $cross->setSourceId($publish->getId());
+        $cross->setLinkType(LINKT_PUBLISH);
+        $cross->setPeerId($posting->getId());
+        storeCrossEntry($cross);*/
+    }
+
+    private void unpublishPosting(Posting posting) {
+        String publishGrp = posting.getGrpPublish();
+        if (publishGrp == null) {
+            return;
+        }
+        /*$cross = getCrossEntry(LINKT_PUBLISH, 0, $posting->getId());
+        if (is_null($cross))
+            return;
+        deleteCrossEntry($cross->getId());
+        $publish = getPostingById($cross->getSourceId());
+        if ($publish->getId() <= 0)
+            return;
+        if ($publish->getIndex1() > 1) {
+            $publish->setIndex1($publish->getIndex1() - 1);
+            storePosting($publish);
+        } else {
+            deletePosting($publish->getId());
+        }*/
     }
 
 }

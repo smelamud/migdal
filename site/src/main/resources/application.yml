@@ -57,6 +57,10 @@ migdal:
   sessionTimeoutShort: 3
   sessionTimeoutLong: 2400
 
+  # Interval (in hours) of picture grouping. After it elapses, a picture in the same topic by the same user is
+  # announced in a new posting.
+  publishingInterval: 6
+
   allowGuests: true  # Allow guest users
   guestLogin: Гость  # Login of guest user
 

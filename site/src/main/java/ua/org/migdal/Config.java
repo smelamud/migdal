@@ -13,6 +13,7 @@ public class Config {
     private String[] subdomains;
     private int sessionTimeoutShort;
     private int sessionTimeoutLong;
+    private int publishingInterval;
     private boolean allowGuests;
     private String guestLogin;
     private boolean disableRegister;
@@ -82,6 +83,14 @@ public class Config {
 
     public void setSessionTimeoutLong(int sessionTimeoutLong) {
         this.sessionTimeoutLong = sessionTimeoutLong;
+    }
+
+    public int getPublishingInterval() {
+        return publishingInterval;
+    }
+
+    public void setPublishingInterval(int publishingInterval) {
+        this.publishingInterval = publishingInterval;
     }
 
     public boolean isAllowGuests() {

@@ -107,13 +107,15 @@ public class PostingController {
                             adminPostingsForm.getTopicRoots(),
                             adminPostingsForm.getGrps(),
                             index1,
+                            null,
                             offset,
                             20)));
         model.addAttribute("postingsTotal",
                 postingManager.countAll(
                         adminPostingsForm.getTopicRoots(),
                         adminPostingsForm.getGrps(),
-                        index1));
+                        index1,
+                        null));
         return "admin-postings";
     }
 
@@ -335,7 +337,8 @@ public class PostingController {
                             p -> postingForm.toPosting(p, up, parent, person, imageFileManager, requestContext),
                             postingForm.getId() <= 0,
                             postingForm.isTrackChanged(posting),
-                            postingForm.isCatalogChanged(posting));
+                            postingForm.isCatalogChanged(posting),
+                            postingForm.isTopicChanged(posting));
 
                     return null;
                 });

@@ -70,6 +70,10 @@ public class Posting extends Entry {
         return getGrpDescriptor().getDetailsHref(spelEvaluationContext);
     }
 
+    public String getGrpPublish() {
+        return getGrpDescriptor().getPublishGrp();
+    }
+
     @Transient
     public Topic getTopic() {
         return (Topic) getParent();
@@ -77,7 +81,7 @@ public class Posting extends Entry {
 
     @Transient
     public long getTopicId() {
-        return getParent().getId();
+        return getParentId();
     }
 
     @Transient

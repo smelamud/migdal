@@ -484,12 +484,6 @@ public class PostingForm implements Serializable {
         if (getId() <= 0 || requestContext.isUserModerator()) {
             posting.setSent(getSent());
         }
-        posting.setModifier(requestContext.getUser());
-        posting.setModified(Utils.now());
-        if (getId() <= 0) {
-            posting.setCreator(requestContext.getUser());
-            posting.setCreated(Utils.now());
-        }
     }
 
     public boolean isTrackChanged(Posting posting) {
@@ -498,6 +492,10 @@ public class PostingForm implements Serializable {
 
     public boolean isCatalogChanged(Posting posting) {
         return getId() > 0 && (getUpId() != posting.getUpId() || !getIdent().equals(posting.getIdent()));
+    }
+
+    public boolean isTopicChanged(Posting posting) {
+        return getId() > 0 && getParentId() != posting.getParentId();
     }
 
 }
