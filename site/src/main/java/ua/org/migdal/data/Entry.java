@@ -586,6 +586,18 @@ public class Entry implements TreeElement {
         this.titleXml = titleXml;
     }
 
+    @Transient
+    public Mtext getTitleMtext() {
+        return new Mtext(getTitleXml(), MtextFormat.SHORT, getId());
+    }
+
+    @Transient
+    public String getTitleTiny() {
+        Config config = Config.getInstance();
+
+        return getTitleMtext().shortenNote(config.getTinySize(), config.getTinySizeMinus(), config.getTinySizePlus());
+    }
+
     public String getComment0() {
         return comment0;
     }

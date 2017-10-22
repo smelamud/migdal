@@ -53,6 +53,15 @@ public class CrossEntry {
     @Size(max=64)
     private String peerIcon = "";
 
+    public CrossEntry() {
+    }
+
+    public CrossEntry(Entry source, LinkType linkType, Entry peer) {
+        this.source = source;
+        this.linkType = linkType;
+        this.peer = peer;
+    }
+
     public long getId() {
         return id;
     }

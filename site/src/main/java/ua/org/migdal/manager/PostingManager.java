@@ -18,7 +18,9 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.EntryType;
+import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.PostingModbit;
 import ua.org.migdal.data.PostingRepository;
@@ -58,6 +60,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
     @Inject
     private SpamManager spamManager;
+
+    @Inject
+    private CrossEntryManager crossEntryManager;
 
     @Inject
     private PostingRepository postingRepository;
@@ -155,11 +160,27 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
     @Override
     public void save(Posting posting) {
+        if (posting.getId() <= 0) {
+            posting.setCreator(requestContext.getUser());
+            posting.setCreated(Utils.now());
+        }
+        posting.setModifier(requestContext.getUser());
+        posting.setModified(Utils.now());
         postingRepository.save(posting);
     }
 
     public void saveAndFlush(Posting posting) {
+        if (posting.getId() <= 0) {
+            posting.setCreator(requestContext.getUser());
+            posting.setCreated(Utils.now());
+        }
+        posting.setModifier(requestContext.getUser());
+        posting.setModified(Utils.now());
         postingRepository.saveAndFlush(posting);
+    }
+
+    public void delete(Posting posting) {
+        postingRepository.delete(posting);
     }
 
     public void store(
@@ -171,21 +192,14 @@ public class PostingManager implements EntryManagerBase<Posting> {
             boolean topicChanged) {
 
         if (topicChanged) {
-            // unpublishPosting($original);
+            unpublishPosting(posting);
         }
         String oldTrack = posting.getTrack();
         if (applyChanges != null) {
             applyChanges.accept(posting);
         }
-        posting.setModifier(requestContext.getUser());
-        posting.setModified(Utils.now());
-        if (newPosting) {
-            posting.setCreator(requestContext.getUser());
-            posting.setCreated(Utils.now());
-        }
         updateModbits(posting);
-        saveAndFlush(posting); /* We need to have the record in DB and to know ID
-                                                             after this point */
+        saveAndFlush(posting); /* We need to have the record in DB to know ID after this point */
 
         String newTrack = TrackUtils.track(posting.getId(), posting.getUp().getTrack());
         if (newPosting) {
@@ -202,7 +216,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
         //answerUpdate($posting->getId());
         if (newPosting || topicChanged) {
-            //publishPosting($posting);
+            publishPosting(posting);
         }
         /*    if ($original->getId() == 0)
         createCounters($posting->getId(), $posting->getGrp());*/
@@ -252,11 +266,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
                 false,
                 false,
                 false);
-        /*$cross = new CrossEntry();
-        $cross->setSourceId($publish->getId());
-        $cross->setLinkType(LINKT_PUBLISH);
-        $cross->setPeerId($posting->getId());
-        storeCrossEntry($cross);*/
+        crossEntryManager.save(new CrossEntry(publish, LinkType.PUBLISH, posting));
     }
 
     private void unpublishPosting(Posting posting) {
@@ -264,19 +274,21 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (publishGrp == null) {
             return;
         }
-        /*$cross = getCrossEntry(LINKT_PUBLISH, 0, $posting->getId());
-        if (is_null($cross))
+        CrossEntry crossEntry = crossEntryManager.get(LinkType.PUBLISH, posting.getId());
+        if (crossEntry == null) {
             return;
-        deleteCrossEntry($cross->getId());
-        $publish = getPostingById($cross->getSourceId());
-        if ($publish->getId() <= 0)
+        }
+        Posting publish = (Posting) crossEntry.getSource();
+        crossEntryManager.delete(crossEntry);
+        if (publish == null) {
             return;
-        if ($publish->getIndex1() > 1) {
-            $publish->setIndex1($publish->getIndex1() - 1);
-            storePosting($publish);
+        }
+        if (publish.getIndex1() > 1) {
+            publish.setIndex1(publish.getIndex1() - 1);
+            save(publish);
         } else {
-            deletePosting($publish->getId());
-        }*/
+            delete(publish);
+        }
     }
 
 }
