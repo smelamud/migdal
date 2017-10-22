@@ -152,7 +152,7 @@ public class RequestContextImpl implements RequestContext {
         origin = request.getParameter("origin");
         origin = origin != null && LOCATION_REGEX.matcher(origin).matches() ? origin : null;
 
-        if (StringUtils.isEmpty(userGuestLoginHint)) {
+        if (StringUtils.isEmpty(userGuestLoginHint) && request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("userGuestLoginHint")) {
                     userGuestLoginHint = cookie.getValue();
