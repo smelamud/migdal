@@ -11,16 +11,16 @@
 
 {{#*inline "errorLines"}}
     {{#if errors}}
-        <table>
+        <table class="form" width="100%">
             {{formErrors}}
         </table>
     {{/if}}
-{{!  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
-  <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+{{!
   <error id='*EMR_NO_RENEW' text='Вы не модератор'>
   <error id='*EMR_NO_ENTRY' text='Такого сообщения не существует'>
   <error id='*EPD_NO_DELETE' text='Вы не модератор'>
-  <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'> }}
+  <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'>
+}}
 {{/inline}}
 
 {{#*inline "topicChoice"}} {{! params: title,n,id,recursive }}
@@ -83,9 +83,9 @@
             <a href="/admin/postings/{{posting.id}}/edit/?full=1&amp;back={{ue rc.location}}">Изменить</a>
             &nbsp;
             {{#if posting.disabled}}
-                <a href="/actions/entry/moderate?editid=$posting.Id&amp;hide=0&amp;okdir=$#-&amp;faildir=$#-">Разрешить&nbsp;показ</a>
+                <a href="/actions/entry/moderate?id={{posting.id}}&amp;hide=0&amp;back={{ue rc.location}}">Разрешить&nbsp;показ</a>
             {{else}}
-                <a href="/actions/entry/moderate?editid=$posting.Id&amp;hide=1&amp;okdir=$#-&amp;faildir=$#-">Запретить&nbsp;показ</a>
+                <a href="/actions/entry/moderate?id={{posting.id}}&amp;hide=1&amp;back={{ue rc.location}}">Запретить&nbsp;показ</a>
             {{/if}}
             &nbsp;
             <a href="/actions/entry/renew?id=$posting.Id&amp;okdir=$#-&amp;faildir=$#-">Осовременить</a>

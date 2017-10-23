@@ -11,6 +11,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,7 +22,9 @@ import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.ChmodForm;
+import ua.org.migdal.form.ModerateForm;
 import ua.org.migdal.form.ReorderForm;
+import ua.org.migdal.manager.EntryManager;
 import ua.org.migdal.manager.EntryManagerBase;
 import ua.org.migdal.manager.PermManager;
 import ua.org.migdal.manager.PostingManager;
@@ -38,6 +41,9 @@ public class EntryController {
 
     @Inject
     private RequestContext requestContext;
+
+    @Inject
+    private EntryManager entryManager;
 
     @Inject
     private TopicManager topicManager;
@@ -148,6 +154,33 @@ public class EntryController {
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("chmodForm", chmodForm);
+            return "redirect:" + requestContext.getBack();
+        }
+    }
+
+    @GetMapping("/actions/entry/moderate")  // FIXME leave only POST
+    @PostMapping("/actions/entry/moderate")
+    public String actionModerate(
+            @ModelAttribute @Valid ModerateForm moderateForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(EntryController.class, "actionModerate", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    if (!requestContext.isUserModerator()) {
+                        return "notModerator";
+                    }
+                    if (!entryManager.exists(moderateForm.getId())) {
+                        return "noEntry";
+                    }
+                    entryManager.updateDisabledById(moderateForm.getId(), moderateForm.isHide());
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:" + requestContext.getBack();
         }
     }
