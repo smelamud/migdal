@@ -39,7 +39,7 @@ public class UserManager {
     private RequestContext requestContext;
 
     public boolean exists(long id) {
-        return userRepository.exists(id);
+        return userRepository.existsById(id);
     }
 
     public long count() {
@@ -47,12 +47,12 @@ public class UserManager {
     }
 
     public User get(long id) {
-        return userRepository.findOne(id);
+        return userRepository.findById(id).orElse(null);
     }
 
     public User beg(long id) {
         short hide = requestContext.isUserAdminUsers() ? (short) 2 : 1;
-        User user = userRepository.findOne(id);
+        User user = get(id);
         return user.getHidden() <  hide ? user : null;
     }
 
@@ -154,7 +154,7 @@ public class UserManager {
             }
         }
         return userRepository.findAll(builder,
-                new PageRequest(offset / limit, limit, Sort.Direction.ASC, sortField));
+                PageRequest.of(offset / limit, limit, Sort.Direction.ASC, sortField));
     }
 
 }

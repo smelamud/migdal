@@ -14,11 +14,11 @@ import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHtt
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
-import org.springframework.web.servlet.resource.PathResourceResolver;
 import ua.org.migdal.controller.SaveCookiesInterceptor;
 import ua.org.migdal.controller.SubdomainInterceptor;
 import ua.org.migdal.helper.HelperSource;
@@ -27,7 +27,7 @@ import ua.org.migdal.helper.HelperSource;
 @EnableConfigurationProperties(Config.class)
 @EnableJdbcHttpSession
 @EnableCaching
-public class MigdalApplication extends WebMvcConfigurerAdapter {
+public class MigdalApplication implements WebMvcConfigurer {
 
     private static Logger log = LoggerFactory.getLogger(MigdalApplication.class);
 

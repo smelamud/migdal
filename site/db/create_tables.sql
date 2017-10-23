@@ -410,10 +410,12 @@ ALTER TABLE redirs OWNER TO migdal;
 --
 
 CREATE TABLE spring_session (
+    primary_id character(36) NOT NULL,
     session_id character(36) NOT NULL,
     creation_time bigint NOT NULL,
     last_access_time bigint NOT NULL,
     max_inactive_interval integer NOT NULL,
+    expiry_time bigint NOT NULL,
     principal_name character varying(100)
 );
 
@@ -425,9 +427,9 @@ ALTER TABLE spring_session OWNER TO migdal;
 --
 
 CREATE TABLE spring_session_attributes (
-    session_id character(36) NOT NULL,
+    session_primary_id character(36) NOT NULL,
     attribute_name character varying(200) NOT NULL,
-    attribute_bytes bytea
+    attribute_bytes bytea NOT NULL
 );
 
 
@@ -554,7 +556,7 @@ ALTER TABLE ONLY image_files
 --
 
 ALTER TABLE ONLY spring_session_attributes
-    ADD CONSTRAINT spring_session_attributes_pk PRIMARY KEY (session_id, attribute_name);
+    ADD CONSTRAINT spring_session_attributes_pk PRIMARY KEY (session_primary_id, attribute_name);
 
 
 --
@@ -562,7 +564,7 @@ ALTER TABLE ONLY spring_session_attributes
 --
 
 ALTER TABLE ONLY spring_session
-    ADD CONSTRAINT spring_session_pk PRIMARY KEY (session_id);
+    ADD CONSTRAINT spring_session_pk PRIMARY KEY (primary_id);
 
 
 --
@@ -788,14 +790,28 @@ CREATE INDEX image_file_transforms_orig_id_idx ON image_file_transforms USING bt
 -- Name: spring_session_attributes_ix1; Type: INDEX; Schema: public; Owner: migdal
 --
 
-CREATE INDEX spring_session_attributes_ix1 ON spring_session_attributes USING btree (session_id);
+CREATE INDEX spring_session_attributes_ix1 ON spring_session_attributes USING btree (session_primary_id);
 
 
 --
 -- Name: spring_session_ix1; Type: INDEX; Schema: public; Owner: migdal
 --
 
-CREATE INDEX spring_session_ix1 ON spring_session USING btree (last_access_time);
+CREATE UNIQUE INDEX spring_session_ix1 ON spring_session USING btree (session_id);
+
+
+--
+-- Name: spring_session_ix2; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX spring_session_ix2 ON spring_session USING btree (expiry_time);
+
+
+--
+-- Name: spring_session_ix3; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX spring_session_ix3 ON spring_session USING btree (principal_name);
 
 
 --
@@ -1018,7 +1034,7 @@ ALTER TABLE ONLY image_file_transforms
 --
 
 ALTER TABLE ONLY spring_session_attributes
-    ADD CONSTRAINT spring_session_attributes_fk FOREIGN KEY (session_id) REFERENCES spring_session(session_id) ON DELETE CASCADE;
+    ADD CONSTRAINT spring_session_attributes_fk FOREIGN KEY (session_primary_id) REFERENCES spring_session(primary_id) ON DELETE CASCADE;
 
 
 --

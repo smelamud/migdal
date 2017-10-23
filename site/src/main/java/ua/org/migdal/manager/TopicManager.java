@@ -70,7 +70,7 @@ public class TopicManager implements EntryManagerBase<Topic> {
     }
 
     public Topic get(long id) {
-        return topicRepository.findOne(id);
+        return topicRepository.findById(id).orElse(null);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class SpinHelperSource {
         buf.append("<div class=\"spin\">");
         buf.append("<span class=\"button\">");
         if (page.hasPrevious()) {
-            int prevOffset = page.previousPageable().getOffset();
+            long prevOffset = page.previousPageable().getOffset();
             buf.append("<a href=\"");
             HelperUtils.safeAppend(buf,
                     UriComponentsBuilder.fromUriString(requestContext.getLocation())
@@ -60,7 +60,7 @@ public class SpinHelperSource {
         buf.append("</form>");
         buf.append("<span class=\"button\">");
         if (page.hasNext()) {
-            int nextOffset = page.nextPageable().getOffset();
+            long nextOffset = page.nextPageable().getOffset();
             buf.append("<a href=\"");
             HelperUtils.safeAppend(buf,
                     UriComponentsBuilder.fromUriString(requestContext.getLocation())

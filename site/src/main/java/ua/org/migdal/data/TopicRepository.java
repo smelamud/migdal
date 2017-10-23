@@ -3,9 +3,9 @@ package ua.org.migdal.data;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface TopicRepository extends JpaRepository<Topic, Long>, QueryDslPredicateExecutor<Topic> {
+public interface TopicRepository extends JpaRepository<Topic, Long>, QuerydslPredicateExecutor<Topic> {
 
     @Override
     @CacheEvict(cacheNames={"entries-permsall", "entries-track", "entries-id"}, allEntries=true)

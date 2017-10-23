@@ -72,7 +72,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
     }
 
     public Posting get(long id) {
-        return postingRepository.findOne(id);
+        return postingRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
                                     int offset, int limit) {
         QPosting posting = QPosting.posting;
         return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1, userId),
-                new PageRequest(offset / limit, limit, Sort.Direction.DESC, "sent"));
+                PageRequest.of(offset / limit, limit, Sort.Direction.DESC, "sent"));
     }
 
     public long countAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId) {

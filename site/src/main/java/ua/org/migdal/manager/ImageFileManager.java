@@ -13,7 +13,7 @@ public class ImageFileManager {
     private ImageFileRepository imageFileRepository;
 
     public ImageFile get(Long id) {
-        return imageFileRepository.findOne(id);
+        return imageFileRepository.findById(id).orElse(null);
     }
 
     public void save(ImageFile imageFile) {
