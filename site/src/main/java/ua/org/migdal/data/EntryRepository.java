@@ -1,5 +1,6 @@
 package ua.org.migdal.data;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.cache.annotation.CacheEvict;
@@ -78,5 +79,9 @@ public interface EntryRepository extends JpaRepository<Entry, Long>, QuerydslPre
     @Modifying
     @Query("update Entry e set e.disabled=?2 where e.id=?1")
     void updateDisabledById(long id, boolean disabled);
+
+    @Modifying
+    @Query("update Entry e set e.sent=?2 where e.id=?1")
+    void updateSentById(long id, Timestamp sent);
 
 }

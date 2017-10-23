@@ -23,6 +23,7 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.ChmodForm;
 import ua.org.migdal.form.ModerateForm;
+import ua.org.migdal.form.RenewForm;
 import ua.org.migdal.form.ReorderForm;
 import ua.org.migdal.manager.EntryManager;
 import ua.org.migdal.manager.EntryManagerBase;
@@ -174,6 +175,35 @@ public class EntryController {
                         return "noEntry";
                     }
                     entryManager.updateDisabledById(moderateForm.getId(), moderateForm.isHide());
+                    // TODO for Forums update answers info in the parent Posting
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:" + requestContext.getBack();
+        }
+    }
+
+    @GetMapping("/actions/entry/renew")  // FIXME leave only POST
+    @PostMapping("/actions/entry/renew")
+    public String actionRenew(
+            @ModelAttribute @Valid RenewForm renewForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(EntryController.class, "actionRenew", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    if (!requestContext.isUserModerator()) {
+                        return "notModerator";
+                    }
+                    if (!entryManager.exists(renewForm.getId())) {
+                        return "noEntry";
+                    }
+                    entryManager.renewById(renewForm.getId());
+                    // TODO for Forums update answers info in the parent Posting
                     return null;
                 });
 

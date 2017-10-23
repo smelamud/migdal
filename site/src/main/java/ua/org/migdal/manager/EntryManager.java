@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import ua.org.migdal.data.EntryRepository;
+import ua.org.migdal.util.Utils;
 
 @Service
 public class EntryManager {
@@ -18,6 +19,10 @@ public class EntryManager {
 
     public void updateDisabledById(long id, boolean disabled) {
         entryRepository.updateDisabledById(id, disabled);
+    }
+
+    public void renewById(long id) {
+        entryRepository.updateSentById(id, Utils.now());
     }
 
 }

@@ -16,8 +16,6 @@
         </table>
     {{/if}}
 {{!
-  <error id='*EMR_NO_RENEW' text='Вы не модератор'>
-  <error id='*EMR_NO_ENTRY' text='Такого сообщения не существует'>
   <error id='*EPD_NO_DELETE' text='Вы не модератор'>
   <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'>
 }}
@@ -88,7 +86,7 @@
                 <a href="/actions/entry/moderate?id={{posting.id}}&amp;hide=1&amp;back={{ue rc.location}}">Запретить&nbsp;показ</a>
             {{/if}}
             &nbsp;
-            <a href="/actions/entry/renew?id=$posting.Id&amp;okdir=$#-&amp;faildir=$#-">Осовременить</a>
+            <a href="/actions/entry/renew?id={{posting.id}}&amp;back={{ue rc.location}}">Осовременить</a>
             &nbsp;
             <a href="/actions/posting/delete?id=$posting.Id&amp;okdir=$#-&amp;faildir=$#-">Удалить</a>
             &nbsp;
