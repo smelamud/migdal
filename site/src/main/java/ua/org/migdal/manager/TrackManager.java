@@ -28,6 +28,10 @@ public class TrackManager {
         return trackField.like(trackWildcard(track));
     }
 
+    public String get(long id) {
+        return entryRepository.findTrackById(id);
+    }
+
     public void setTrackById(long id, String track) {
         entryRepository.updateTrackById(id, track);
     }

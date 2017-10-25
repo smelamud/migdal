@@ -2,9 +2,9 @@ package ua.org.migdal.form;
 
 import java.io.Serializable;
 
-public class RenewForm implements Serializable {
+public class PostingDeleteForm implements Serializable {
 
-    private static final long serialVersionUID = -2330054322526656637L;
+    private static final long serialVersionUID = 2351298282079362475L;
 
     private long id;
 

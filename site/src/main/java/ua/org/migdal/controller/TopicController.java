@@ -318,7 +318,7 @@ public class TopicController {
                         }
                     }
 
-                    topicManager.deleteTopic(topic, destTopic);
+                    topicManager.drop(topic, destTopic);
                     return null;
                 });
 

@@ -204,7 +204,7 @@ public class TopicManager implements EntryManagerBase<Topic> {
         return topicRepository.countByUpId(id);
     }
 
-    public void deleteTopic(Topic topic, Topic destTopic) {
+    public void drop(Topic topic, Topic destTopic) {
         String oldTrack = topic.getTrack();
         if (destTopic != null) {
             entryRepository.updateUpId(topic.getId(), destTopic.getId());

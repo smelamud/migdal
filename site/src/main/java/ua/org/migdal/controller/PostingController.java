@@ -26,6 +26,7 @@ import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.AdminPostingsForm;
+import ua.org.migdal.form.PostingDeleteForm;
 import ua.org.migdal.form.PostingForm;
 import ua.org.migdal.grp.GrpEditor;
 import ua.org.migdal.grp.GrpEnum;
@@ -348,6 +349,34 @@ public class PostingController {
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("postingForm", postingForm);
+            return "redirect:" + requestContext.getBack();
+        }
+    }
+
+    @GetMapping("/actions/posting/delete")  // FIXME leave only POST
+    @PostMapping("/actions/posting/delete")
+    public String actionPostingDelete(
+            @ModelAttribute @Valid PostingDeleteForm postingDeleteForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(EntryController.class, "actionPostingDelete", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    Posting posting = postingManager.beg(postingDeleteForm.getId());
+                    if (posting == null) {
+                        return "noPosting";
+                    }
+                    if (!posting.isWritable()) {
+                        return "noDelete";
+                    }
+                    postingManager.drop(posting);
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:" + requestContext.getBack();
         }
     }

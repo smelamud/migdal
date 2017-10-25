@@ -15,10 +15,6 @@
             {{formErrors}}
         </table>
     {{/if}}
-{{!
-  <error id='*EPD_NO_DELETE' text='Вы не модератор'>
-  <error id='*EPD_POSTING_ABSENT' text='Такого сообщения не существует'>
-}}
 {{/inline}}
 
 {{#*inline "topicChoice"}} {{! params: title,n,id,recursive }}
@@ -88,7 +84,7 @@
             &nbsp;
             <a href="/actions/entry/renew?id={{posting.id}}&amp;back={{ue rc.location}}">Осовременить</a>
             &nbsp;
-            <a href="/actions/posting/delete?id=$posting.Id&amp;okdir=$#-&amp;faildir=$#-">Удалить</a>
+            <a href="/actions/posting/delete?id={{posting.id}}&amp;back={{ue rc.location}}">Удалить</a>
             &nbsp;
             <a href="/admin/postings/$posting.Id/chmod/?redirid=$_">Права</a>
             &nbsp;

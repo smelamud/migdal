@@ -179,10 +179,6 @@ public class PostingManager implements EntryManagerBase<Posting> {
         postingRepository.saveAndFlush(posting);
     }
 
-    public void delete(Posting posting) {
-        postingRepository.delete(posting);
-    }
-
     public void store(
             Posting posting,
             Consumer<Posting> applyChanges,
@@ -244,6 +240,16 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
     }
 
+    public void drop(Posting posting) {
+        unpublishPosting(posting);
+        String track = posting.getTrack() + ' ';
+        String upTrack = trackManager.get(posting.getUpId()) + ' ';
+        postingRepository.updateUpId(posting.getId(), posting.getUpId());
+        postingRepository.delete(posting);
+        catalogManager.updateCatalogs(track);
+        trackManager.replaceTracks(track, upTrack);
+    }
+
     private void publishPosting(Posting posting) {
         String publishGrp = posting.getGrpPublish();
         if (publishGrp == null) {
@@ -278,7 +284,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (crossEntry == null) {
             return;
         }
-        Posting publish = (Posting) crossEntry.getSource();
+        Posting publish = get(crossEntry.getSource().getId());
         crossEntryManager.delete(crossEntry);
         if (publish == null) {
             return;
@@ -287,7 +293,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
             publish.setIndex1(publish.getIndex1() - 1);
             save(publish);
         } else {
-            delete(publish);
+            postingRepository.delete(publish);
         }
     }
 
