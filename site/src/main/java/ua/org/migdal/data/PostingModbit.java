@@ -1,5 +1,11 @@
 package ua.org.migdal.data;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import ua.org.migdal.util.Utils;
+
 public enum PostingModbit implements Modbit {
 
     MODERATE(0x0001, 'M', "Модерировать"),
@@ -43,6 +49,21 @@ public enum PostingModbit implements Modbit {
 
     public String getDescription() {
         return description;
+    }
+
+    public static long[] parse(long modbits, boolean hidden, boolean disabled) {
+        List<Long> bitList = Arrays.stream(values())
+                .filter(bit -> !bit.isSpecial())
+                .map(PostingModbit::getValue)
+                .filter(value -> (modbits & value) != 0)
+                .collect(Collectors.toList());
+        if (hidden) {
+            bitList.add(HIDDEN.getValue());
+        }
+        if (disabled) {
+            bitList.add(DISABLED.getValue());
+        }
+        return Utils.toArray(bitList);
     }
 
 }

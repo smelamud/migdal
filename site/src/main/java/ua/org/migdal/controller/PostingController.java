@@ -26,6 +26,7 @@ import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.AdminPostingsForm;
+import ua.org.migdal.form.ModbitForm;
 import ua.org.migdal.form.PostingDeleteForm;
 import ua.org.migdal.form.PostingForm;
 import ua.org.migdal.grp.GrpEditor;
@@ -398,9 +399,29 @@ public class PostingController {
 
     public LocationInfo postingChmodLocationInfo(long id, Model model) {
         return new LocationInfo(model)
-                .withUri("/admin/topics/" + id + "chmod")
+                .withUri("/admin/postings/" + id + "chmod")
                 .withParent(adminPostingsLocationInfo(null))
                 .withPageTitle("Изменение прав на сообщение");
+    }
+
+    @GetMapping("/admin/postings/{id}/modbits")
+    public String postingModbits(@PathVariable long id, Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        postingModbitsLocationInfo(posting.getId(), model);
+
+        model.asMap().computeIfAbsent("modbitForm", key -> new ModbitForm(posting));
+        return "modbits";
+    }
+
+    public LocationInfo postingModbitsLocationInfo(long id, Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/postings/" + id + "modbits")
+                .withParent(adminPostingsLocationInfo(null))
+                .withPageTitle("Редактирование флагов сообщения");
     }
 
 }

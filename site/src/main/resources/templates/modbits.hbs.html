@@ -1,0 +1,23 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<form method="post" action="/actions/entry/modbits/">
+    {{#formTable title="Редактирование флагов сообщения" mini=true}}
+        {{formErrors}}
+        {{hidden name="origin" value=rc.back}}
+        {{hidden name="id" value=modbitForm.id}}
+   {{!<error id='*EMO_NO_MODERATE' text='Вы не модератор'>
+   <error id='*EMO_NO_ENTRY' text='Такого сообщения не существует'>}}
+        {{#formSelect title="Флаги" name="modbits" style="box" multiple=true}}
+            {{formOption value=const.postingModbit.HIDDEN title="(h) Не показывать" selected=modbitForm.hidden}}
+            {{formOption value=const.postingModbit.DISABLED title="(d) Запретить показ" selected=modbitForm.disabled}}
+            {{#each modbitForm.modbitsSelection}}
+                {{#assign "title"}}({{value.letter}}) {{value.description}}{{/assign}}
+                {{formOption value=value.value title=title selected=selected}}
+            {{/each}}
+        {{/formSelect}}
+        {{formButtons title="Изменить"}}
+    {{/formTable}}
+</form>
+
+{{> part/bottom}}

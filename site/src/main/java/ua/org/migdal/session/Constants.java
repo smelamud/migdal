@@ -19,6 +19,7 @@ public class Constants {
 
     private List<Constant<Integer>> gregorianMonthRuGenLcLong = new ArrayList<>();
     private Map<String, Long> userRight = new HashMap<>();
+    private Map<String, Long> postingModbit = new HashMap<>();
     private List<Constant<String>> langs = new ArrayList<>();
 
     public Constants() {
@@ -45,6 +46,15 @@ public class Constants {
 
     public PostingModbit[] getPostingModbits() {
         return PostingModbit.values();
+    }
+
+    public Map<String, Long> getPostingModbit() {
+        if (postingModbit.isEmpty()) {
+            for (PostingModbit modbit : PostingModbit.values()) {
+                postingModbit.put(modbit.name(), modbit.getValue());
+            }
+        }
+        return postingModbit;
     }
 
     public TopicModbit[] getTopicModbits() {
