@@ -1,5 +1,7 @@
 package ua.org.migdal.data;
 
+import javax.validation.constraints.NotNull;
+
 public enum EntryType {
 
     NULL,
@@ -10,9 +12,9 @@ public enum EntryType {
     COMPLAIN, // DEPRECATED
     VERSION;
 
-    public static EntryType valueOf(int n) {
+    public static @NotNull EntryType valueOf(int n) {
         if (n < 0 || n >= values().length) {
-            return null;
+            return NULL;
         }
         return values()[n];
     }
