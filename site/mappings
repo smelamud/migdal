@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+
+@results = ();
+%addresses = {};
+$maxlen = 0;
+
+sub scan {
+    my $fname = shift;
+
+    $fname =~ /\/(\w+)\.java$/;
+    my $class = $1;
+
+    open(FD, $fname);
+    my $line = 1;
+    my @patterns = ();
+    while (<FD>) {
+        push @patterns, $2.' '.uc($1) if /^\s*@(Get|Post)Mapping\("([^"]+)"/;
+        if (/^\s*public\s+\S+\s+(\w+)\(/) {
+            my $method = $1;
+            for (@patterns) {
+                $addresses{$_} = "$method:$line";
+                push @results, $_;
+                my $n = length;
+                $maxlen = $n if $n > $maxlen;
+            }
+            @patterns = ();
+        }
+        $line++;
+    }
+    close(FD);
+}
+
+open(FIND, "find src/main/java/ua/org/migdal/controller/ -name *.java|");
+while (<FIND>) {
+    chomp;
+    scan($_);
+}
+close(FIND);
+
+@results = sort(@results);
+for (@results) {
+    print $_.(' ' x ($maxlen + 1 - length)).$addresses{$_}."\n";
+}
