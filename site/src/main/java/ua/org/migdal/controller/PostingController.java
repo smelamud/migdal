@@ -91,6 +91,9 @@ public class PostingController {
     @Inject
     private IndexController indexController;
 
+    @Inject
+    private EntryController entryController;
+
     @GetMapping("/admin/postings")
     public String adminPostings(
             @ModelAttribute AdminPostingsForm adminPostingsForm,
@@ -379,6 +382,25 @@ public class PostingController {
             redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:" + requestContext.getBack();
         }
+    }
+
+    @GetMapping("/admin/postings/{id}/chmod")
+    public String postingChmod(@PathVariable long id, Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        postingChmodLocationInfo(posting.getId(), model);
+
+        return entryController.entryChmod(posting, model);
+    }
+
+    public LocationInfo postingChmodLocationInfo(long id, Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/topics/" + id + "chmod")
+                .withParent(adminPostingsLocationInfo(null))
+                .withPageTitle("Изменение прав на сообщение");
     }
 
 }

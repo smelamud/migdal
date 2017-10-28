@@ -85,9 +85,8 @@ public class EntryController {
                 moderator = requestContext.isUserAdminTopics();
                 break;
             case POSTING:
-                // TODO Fetch posting and maybe do this via manager
                 manager = postingManager;
-                entry = null;
+                entry = postingManager.beg(chmodForm.getId());
                 moderator = requestContext.isUserModerator();
                 break;
             default:
