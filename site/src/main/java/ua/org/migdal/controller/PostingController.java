@@ -424,4 +424,36 @@ public class PostingController {
                 .withPageTitle("Редактирование флагов сообщения");
     }
 
+    @PostMapping("/actions/posting/modbits")
+    public String actionModbits(
+            @ModelAttribute @Valid ModbitForm modbitForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(EntryController.class, "actionModbits", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    Posting posting = postingManager.beg(modbitForm.getId());
+
+                    if (posting == null) {
+                        return "noPosting";
+                    }
+                    if (!posting.isWritable()) {
+                        return "notModerator";
+                    }
+
+                    modbitForm.toPosting(posting);
+                    postingManager.save(posting);
+
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getOrigin();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("modbitForm", modbitForm);
+            return "redirect:" + requestContext.getBack();
+        }
+    }
+
 }

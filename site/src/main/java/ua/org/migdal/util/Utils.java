@@ -158,7 +158,9 @@ public class Utils {
     public static long disjunct(long[] array) {
         long value = 0;
         for (long x : array) {
-            value |= x;
+            if (x > 0) { // negative means special values
+                value |= x;
+            }
         }
         return value;
     }

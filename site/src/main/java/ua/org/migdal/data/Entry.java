@@ -514,6 +514,15 @@ public class Entry implements TreeElement {
         return (getPerms() & (Perm.OR | Perm.ER)) == 0;
     }
 
+    @Transient
+    public void setHidden(boolean hidden) {
+        if (hidden) {
+            setPerms(getPerms() & ~Perm.OR & ~Perm.ER);
+        } else {
+            setPerms(getPerms() | Perm.OR | Perm.ER);
+        }
+    }
+
     public boolean isDisabled() {
         return disabled;
     }

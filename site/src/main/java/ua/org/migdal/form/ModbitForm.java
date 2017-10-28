@@ -61,4 +61,10 @@ public class ModbitForm implements Serializable {
         return Utils.contains(modbits, PostingModbit.DISABLED.getValue());
     }
 
+    public void toPosting(Posting posting) {
+        posting.setHidden(isHidden());
+        posting.setDisabled(isDisabled());
+        posting.setModbits(Utils.disjunct(getModbits()));
+    }
+
 }
