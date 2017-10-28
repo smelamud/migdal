@@ -18,7 +18,7 @@ sub scan {
         if (/^\s*public\s+\S+\s+(\w+)\(/) {
             my $method = $1;
             for (@patterns) {
-                $addresses{$_} = "$method:$line";
+                $addresses{$_} = "$class#$method:$line";
                 push @results, $_;
                 my $n = length;
                 $maxlen = $n if $n > $maxlen;
