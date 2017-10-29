@@ -30,6 +30,10 @@ public enum TopicModbit implements Modbit {
         return description;
     }
 
+    public int getBit() {
+        return ordinal();
+    }
+
     public boolean isSet(long modbits) {
         return (modbits & getValue()) != 0;
     }

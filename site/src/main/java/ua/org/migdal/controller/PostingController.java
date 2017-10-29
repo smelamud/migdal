@@ -25,6 +25,7 @@ import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
+import ua.org.migdal.form.AdminModeratorForm;
 import ua.org.migdal.form.AdminPostingsForm;
 import ua.org.migdal.form.ModbitForm;
 import ua.org.migdal.form.PostingDeleteForm;
@@ -98,7 +99,7 @@ public class PostingController {
     @GetMapping("/admin/postings")
     public String adminPostings(
             @ModelAttribute AdminPostingsForm adminPostingsForm,
-            @RequestParam(defaultValue="0") Integer offset,
+            @RequestParam(defaultValue = "0") Integer offset,
             Model model) {
         adminPostingsLocationInfo(model);
 
@@ -108,13 +109,13 @@ public class PostingController {
         model.addAttribute("adminPostingsForm", adminPostingsForm);
         model.addAttribute("postings",
                 fetchAncestors(
-                    postingManager.begAll(
-                            adminPostingsForm.getTopicRoots(),
-                            adminPostingsForm.getGrps(),
-                            index1,
-                            null,
-                            offset,
-                            20)));
+                        postingManager.begAll(
+                                adminPostingsForm.getTopicRoots(),
+                                adminPostingsForm.getGrps(),
+                                index1,
+                                null,
+                                offset,
+                                20)));
         model.addAttribute("postingsTotal",
                 postingManager.countAll(
                         adminPostingsForm.getTopicRoots(),
@@ -185,8 +186,8 @@ public class PostingController {
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
         model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(
                 posting != null
-                    ? posting
-                    : new Posting(grpEnum.grpValue("NEWS"), null, null, 0, requestContext), full,
+                        ? posting
+                        : new Posting(grpEnum.grpValue("NEWS"), null, null, 0, requestContext), full,
                 requestContext));
         PostingForm postingForm = (PostingForm) model.asMap().get("postingForm");
         String rootIdent = postingForm.getGrpInfo().getRootIdent();
@@ -454,6 +455,34 @@ public class PostingController {
             redirectAttributes.addFlashAttribute("modbitForm", modbitForm);
             return "redirect:" + requestContext.getBack();
         }
+    }
+
+    @GetMapping("/admin/moderator")
+    public String adminModerator(
+            @ModelAttribute AdminModeratorForm adminModeratorForm,
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) {
+        adminModeratorLocationInfo(model);
+
+        model.addAttribute("adminModeratorForm", adminModeratorForm);
+        /*model.addAttribute("postings",
+                        postingManager.begAll(
+                                adminPostingsForm.getTopicRoots(),
+                                adminPostingsForm.getGrps(),
+                                index1,
+                                null,
+                                offset,
+                                20));*/
+        return "admin-moderator";
+    }
+
+    public LocationInfo adminModeratorLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/moderator")
+                .withTopics("topics-admin")
+                .withTopicsIndex("moderator")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Модератор");
     }
 
 }

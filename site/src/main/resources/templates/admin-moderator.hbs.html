@@ -1,0 +1,136 @@
+{{#*inline "batcher"}} {{! params: list }}
+    <div class="batcher">
+        {{spin list}}
+        <div class="clear-floats"></div>
+    </div>
+{{/inline}}
+
+{{#*inline "buttons"}}
+    <table width="100%"><tr>
+        <td align="right"><table><tr>
+            <td><input type="submit" value="Сохранить"></td>
+            <td><input type="reset" value="Очистить"></td>
+        </tr></table></td>
+    </tr></table>
+{{/inline}}
+
+{{#*inline "selector"}}
+    <form method="get" action="/admin/moderator">
+        <table class="nframe"><tr>
+            <td>
+                {{hidden name="asc" value=adminModeratorForm.asc}}
+                {{#if adminModeratorForm.asc}}
+                    <a href="{{location "asc" 0}}">{{image "/pics/down-level.gif"}}</a>
+                {{else}}
+                    <a href="{{location "asc" 1}}">{{image "/pics/up-level.gif"}}</a>
+                {{/if}}
+            </td>
+            <td>
+                <select name="bit">
+                    {{selectOption title="(h) Не показывать" value=const.postingModbit.HIDDEN
+                                   selectedValue=adminModeratorForm.bit}}
+                    {{selectOption title="(d) Запретить" value=const.postingModbit.DISABLED
+                                   selectedValue=adminModeratorForm.bit}}
+                    {{#each const.postingModbits}}
+                        {{#unless special}}
+                            {{#assign "title"}}({{letter}}) {{description}}{{/assign}}
+                            {{selectOption title=title value=bit selectedValue=adminModeratorForm.bit}}
+                        {{/unless}}
+                    {{/each}}
+                </select>
+            </td>
+            <td><input type="submit" value="Просмотр"></td>
+        </tr></table>
+    </form>
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{topics}}
+        </td>
+        <td class="cframe">
+            {{subtitle}}
+            {{> selector}}
+            <br><br>
+    {{! <iterate_postinglist grp="*GRP_ALL" limit=20 offset="$offset" sort="$sort"
+                         showshadows="*false" modbits!="$bit>=0 ? $bit : 0"
+			 hidden!="$bit==MOD_HIDDEN ? 1 : -1"
+			 disabled!="$bit==MOD_DISABLED ? 1 : -1">}}
+            <batcher list="$;">
+            <form method="post" action="/actions/entries/modbits" style="margin: 0">
+                <hidden name="okdir" value="$-">
+                <hidden name="faildir" value="$-">
+                {{> buttons}}
+                {{#if errors}}
+                    <table class="form" width="100%">
+                        {{formErrors}}
+                    </table>
+                {{/if}}
+     {{! <outer><table><inner>
+      <error id="*EMO_NO_MODERATE" text="Вы не модератор">
+      <error id="*EMO_NO_ENTRY" text="Такого сообщения не существует">
+      <error id="*EMO_CANNOT_DELETE"
+             text="Не могу удалить сообщение этого типа">
+     </inner></table></outer>}}
+                {{#catalogTable}}
+                    <tr>
+                        <th class="catalog-cell" width="40">id</th>
+                        <th class="catalog-cell">Заголовок</th>
+                        <th class="catalog-cell" width="20">h</th>
+                        <th class="catalog-cell" width="20">d</th>
+                        {{#each const.postingModbits}}
+                            {{#unless special}}
+	                            <th class="catalog-cell" width="20">{{letter}}</th>
+                            {{/unless}}
+	                    {{/each}}
+                        <th class="catalog-cell" width="20">уд</th>
+                        <th class="catalog-cell" width="20">сп</th>
+                    </tr>
+                    <for name="posting">
+                        <if what="$;isOdd">
+	                        <assign name="class" value="catalog-cell-odd">
+                        <else>
+	                        <assign name="class" value="catalog-cell">
+                        </if>
+                        <tr height="40">
+	                        <td class="$class" width="40" align="right">
+	                            $.Id
+	                            <hidden name="ids[]" value="$.Id">
+	                        </td>
+	                        <td class="$class">
+	                            <a href="$.GrpDetailsHref" class="ninept">$=.Heading</a><br>
+	                            <span class="subject eightpt">(Раздел <topiclink posting="$.">)</span>
+	                        </td>
+	                        <td class="$class" align="center">
+	                            <checkbox_button name#="modbits[$.Id][]" value="*MOD_HIDDEN" checked="$.isHidden">
+	                        </td>
+	                        <td class="$class" align="center">
+	                            <checkbox_button name#="modbits[$.Id][]" value="*MOD_DISABLED" checked="$.isDisabled">
+	                        </td>
+	                        <iterate_posting_modbits>
+                            <for>
+	                            <td class="$class" align="center">
+                                    <checkbox_button name#="modbits[$posting.Id][]" value="$.Bit" checked!="($posting.Modbits & $.Bit)!=0">
+	                            </td>
+	                        </for>
+	                        <td class="$class" align="center">
+	                            <checkbox_button name#="modbits[$.Id][]" value="*MOD_DELETE">
+	                        </td>
+	                        <td class="$class" align="center">
+	                            <checkbox_button name#="modbits[$.Id][]" value="*MOD_SPAM">
+	                        </td>
+                        </tr>
+                    </for>
+                {{/catalogTable}}
+                {{> buttons}}
+            </form>
+            <batcher list="$;">
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
