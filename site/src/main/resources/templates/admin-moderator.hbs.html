@@ -95,6 +95,7 @@
                         {{else}}
                             {{#assign "class"}}catalog-cell{{/assign}}
                         {{/if}}
+                        {{#assign "name"}}modbits[{{id}}]{{/assign}}
                         <tr height="40">
 	                        <td class="{{class}}" width="40" align="right">
 	                            {{id}}
@@ -104,19 +105,16 @@
 	                            <a href="{{grpDetailsHref}}" class="ninept">{{heading}}</a><br>
 	                            <span class="subject eightpt">(Раздел <topiclink posting="$.">)</span>
 	                        </td>
-                            {{#assign "name"}}modbits[{{id}}]{{/assign}}
 	                        <td class="{{class}}" align="center">
 	                            {{checkboxButton name=name value=const.postingModbit.HIDDEN checked=hidden}}
 	                        </td>
 	                        <td class="{{class}}" align="center">
                                 {{checkboxButton name=name value=const.postingModbit.DISABLED checked=disabled}}
 	                        </td>
-                            {{#each const.postingModbits}}
-                                {{#unless special}}
-                                    <td class="{{class}}" align="center">
-                                        {{checkboxButton name=name value=bit checked="hasModbit(this)"}}
-                                    </td>
-                                {{/unless}}
+                            {{#each modbitsSelection}}
+                                <td class="{{class}}" align="center">
+                                    {{checkboxButton name=name value=value checked=selected}}
+                                </td>
                             {{/each}}
 	                        <td class="{{class}}" align="center">
                                 {{checkboxButton name=name value=const.postingModbit.DELETE}}

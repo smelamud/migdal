@@ -1,6 +1,8 @@
 package ua.org.migdal.data;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.data.util.Selected;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.RequestContext;
@@ -120,6 +123,14 @@ public class Posting extends Entry {
         RequestContext rc = RequestContextImpl.getInstance();
         return rc.isUserModerator()
                || (!isDisabled() || getUser().getId() == rc.getUserId()) && super.isPermitted(right);
+    }
+
+    @Transient
+    public List<Selected<PostingModbit>> getModbitsSelection() {
+        return Arrays.stream(PostingModbit.values())
+                .filter(bit -> !bit.isSpecial())
+                .map(bit -> new Selected<>(bit, (getModbits() & bit.getValue()) != 0))
+                .collect(Collectors.toList());
     }
 
     public static String validateHierarchy(Entry parent, Entry up, long id) {
