@@ -465,14 +465,14 @@ public class PostingController {
         adminModeratorLocationInfo(model);
 
         model.addAttribute("adminModeratorForm", adminModeratorForm);
-        /*model.addAttribute("postings",
+        model.addAttribute("postings",
                         postingManager.begAll(
-                                adminPostingsForm.getTopicRoots(),
-                                adminPostingsForm.getGrps(),
-                                index1,
+                                null,
+                                null,
+                                null,
                                 null,
                                 offset,
-                                20));*/
+                                20));
         return "admin-moderator";
     }
 

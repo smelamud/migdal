@@ -60,7 +60,7 @@
                          showshadows="*false" modbits!="$bit>=0 ? $bit : 0"
 			 hidden!="$bit==MOD_HIDDEN ? 1 : -1"
 			 disabled!="$bit==MOD_DISABLED ? 1 : -1">}}
-            <batcher list="$;">
+            {{> batcher list=postings}}
             <form method="post" action="/actions/entries/modbits" style="margin: 0">
                 <hidden name="okdir" value="$-">
                 <hidden name="faildir" value="$-">
@@ -70,12 +70,11 @@
                         {{formErrors}}
                     </table>
                 {{/if}}
-     {{! <outer><table><inner>
-      <error id="*EMO_NO_MODERATE" text="Вы не модератор">
-      <error id="*EMO_NO_ENTRY" text="Такого сообщения не существует">
-      <error id="*EMO_CANNOT_DELETE"
-             text="Не могу удалить сообщение этого типа">
-     </inner></table></outer>}}
+                {{!
+                <error id="*EMO_NO_MODERATE" text="Вы не модератор">
+                <error id="*EMO_NO_ENTRY" text="Такого сообщения не существует">
+                <error id="*EMO_CANNOT_DELETE" text="Не могу удалить сообщение этого типа">
+                }}
                 {{#catalogTable}}
                     <tr>
                         <th class="catalog-cell" width="40">id</th>
@@ -90,45 +89,47 @@
                         <th class="catalog-cell" width="20">уд</th>
                         <th class="catalog-cell" width="20">сп</th>
                     </tr>
-                    <for name="posting">
-                        <if what="$;isOdd">
-	                        <assign name="class" value="catalog-cell-odd">
-                        <else>
-	                        <assign name="class" value="catalog-cell">
-                        </if>
+                    {{#each postings}}
+                        {{#if @odd}}
+                            {{#assign "class"}}catalog-cell-odd{{/assign}}
+                        {{else}}
+                            {{#assign "class"}}catalog-cell{{/assign}}
+                        {{/if}}
                         <tr height="40">
-	                        <td class="$class" width="40" align="right">
-	                            $.Id
-	                            <hidden name="ids[]" value="$.Id">
+	                        <td class="{{class}}" width="40" align="right">
+	                            {{id}}
+	                            {{hidden name="ids" value=id}}
 	                        </td>
-	                        <td class="$class">
-	                            <a href="$.GrpDetailsHref" class="ninept">$=.Heading</a><br>
+	                        <td class="{{class}}">
+	                            <a href="{{grpDetailsHref}}" class="ninept">{{heading}}</a><br>
 	                            <span class="subject eightpt">(Раздел <topiclink posting="$.">)</span>
 	                        </td>
-	                        <td class="$class" align="center">
-	                            <checkbox_button name#="modbits[$.Id][]" value="*MOD_HIDDEN" checked="$.isHidden">
+                            {{#assign "name"}}modbits[{{id}}]{{/assign}}
+	                        <td class="{{class}}" align="center">
+	                            {{checkboxButton name=name value=const.postingModbit.HIDDEN checked=hidden}}
 	                        </td>
-	                        <td class="$class" align="center">
-	                            <checkbox_button name#="modbits[$.Id][]" value="*MOD_DISABLED" checked="$.isDisabled">
+	                        <td class="{{class}}" align="center">
+                                {{checkboxButton name=name value=const.postingModbit.DISABLED checked=disabled}}
 	                        </td>
-	                        <iterate_posting_modbits>
-                            <for>
-	                            <td class="$class" align="center">
-                                    <checkbox_button name#="modbits[$posting.Id][]" value="$.Bit" checked!="($posting.Modbits & $.Bit)!=0">
-	                            </td>
-	                        </for>
-	                        <td class="$class" align="center">
-	                            <checkbox_button name#="modbits[$.Id][]" value="*MOD_DELETE">
+                            {{#each const.postingModbits}}
+                                {{#unless special}}
+                                    <td class="{{class}}" align="center">
+                                        {{checkboxButton name=name value=bit checked="hasModbit(this)"}}
+                                    </td>
+                                {{/unless}}
+                            {{/each}}
+	                        <td class="{{class}}" align="center">
+                                {{checkboxButton name=name value=const.postingModbit.DELETE}}
 	                        </td>
-	                        <td class="$class" align="center">
-	                            <checkbox_button name#="modbits[$.Id][]" value="*MOD_SPAM">
+	                        <td class="{{class}}" align="center">
+                                {{checkboxButton name=name value=const.postingModbit.SPAM}}
 	                        </td>
                         </tr>
-                    </for>
+                    {{/each}}
                 {{/catalogTable}}
                 {{> buttons}}
             </form>
-            <batcher list="$;">
+            {{> batcher list=postings}}
         </td>
     </tr>
 </table>
