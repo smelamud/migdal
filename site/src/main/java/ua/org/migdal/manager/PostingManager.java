@@ -94,17 +94,23 @@ public class PostingManager implements EntryManagerBase<Posting> {
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
                                     int offset, int limit) {
         QPosting posting = QPosting.posting;
-        return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1, userId),
+        return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1, userId, null),
                 PageRequest.of(offset / limit, limit, Sort.Direction.DESC, "sent"));
     }
 
     public long countAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId) {
         QPosting posting = QPosting.posting;
-        return postingRepository.count(getWhere(posting, topicRoots, grps, index1, userId));
+        return postingRepository.count(getWhere(posting, topicRoots, grps, index1, userId, null));
+    }
+
+    public Iterable<Posting> begAllByModbit(PostingModbit modbit, int offset, int limit, boolean asc) {
+        QPosting posting = QPosting.posting;
+        return postingRepository.findAll(getWhere(posting, null, null, null, null, modbit),
+                PageRequest.of(offset / limit, limit, asc ? Sort.Direction.ASC : Sort.Direction.DESC, "sent"));
     }
 
     private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,
-                               Long userId) {
+                               Long userId, PostingModbit modbit) {
         BooleanBuilder where = new BooleanBuilder();
         if (topicRoots != null) {
             BooleanBuilder byTopic = new BooleanBuilder();
@@ -130,8 +136,30 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (userId != null && userId > 0) {
             where.and(posting.user.id.eq(userId));
         }
+        if (modbit != null) {
+            return getModbitFilter(posting, modbit);
+        }
         where.and(getPermFilter(posting, Perm.READ));
         return where;
+    }
+
+    private Predicate getModbitFilter(QPosting posting, PostingModbit modbit) {
+        if (modbit == PostingModbit.HIDDEN) {
+            return permManager.getReverseMask(posting.perms, Perm.OR | Perm.ER);
+        }
+        if (modbit == PostingModbit.DISABLED) {
+            return posting.disabled.eq(true);
+        }
+
+        BooleanBuilder builder = new BooleanBuilder();
+        if (!modbit.isSpecial()) {
+            for (Long modbits : postingRepository.modbitsVariety()) {
+                if ((modbits & modbit.getValue()) != 0) {
+                    builder.or(posting.modbits.eq(modbits));
+                }
+            }
+        }
+        return builder;
     }
 
     private Predicate getPermFilter(QPosting posting, long right) {

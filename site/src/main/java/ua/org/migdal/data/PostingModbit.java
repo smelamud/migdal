@@ -55,6 +55,15 @@ public enum PostingModbit implements Modbit {
         return ordinal();
     }
 
+    public static PostingModbit valueOf(long value) {
+        for (PostingModbit modbit : values()) {
+            if (modbit.getValue() == value) {
+                return modbit;
+            }
+        }
+        return null;
+    }
+
     public static long[] parse(long modbits, boolean hidden, boolean disabled) {
         List<Long> bitList = Arrays.stream(values())
                 .filter(bit -> !bit.isSpecial())

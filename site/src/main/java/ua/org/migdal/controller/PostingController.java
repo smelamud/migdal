@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.data.PostingModbit;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.AdminModeratorForm;
@@ -466,13 +467,11 @@ public class PostingController {
 
         model.addAttribute("adminModeratorForm", adminModeratorForm);
         model.addAttribute("postings",
-                        postingManager.begAll(
-                                null,
-                                null,
-                                null,
-                                null,
+                        postingManager.begAllByModbit(
+                                PostingModbit.valueOf(adminModeratorForm.getBit()),
                                 offset,
-                                20));
+                                20,
+                                adminModeratorForm.isAsc()));
         return "admin-moderator";
     }
 

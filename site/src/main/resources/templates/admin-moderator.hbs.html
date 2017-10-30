@@ -34,7 +34,7 @@
                     {{#each const.postingModbits}}
                         {{#unless special}}
                             {{#assign "title"}}({{letter}}) {{description}}{{/assign}}
-                            {{selectOption title=title value=bit selectedValue=adminModeratorForm.bit}}
+                            {{selectOption title=title value=value selectedValue=adminModeratorForm.bit}}
                         {{/unless}}
                     {{/each}}
                 </select>

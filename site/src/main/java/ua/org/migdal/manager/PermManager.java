@@ -40,6 +40,16 @@ public class PermManager {
         return builder;
     }
 
+    public Predicate getReverseMask(NumberPath<Long> field, long right) {
+        BooleanBuilder builder = new BooleanBuilder();
+        for (Long perms : entryRepository.permsVariety()) {
+            if ((perms & right) == 0) {
+                builder.or(field.eq(perms));
+            }
+        }
+        return builder;
+    }
+
     public Predicate getFilter(NumberPath<Long> userIdField, NumberPath<Long> groupIdField, NumberPath<Long> permsField,
                                long right) {
         return getFilter(userIdField, groupIdField, permsField, right, false);

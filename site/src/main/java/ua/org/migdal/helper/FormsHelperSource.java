@@ -143,7 +143,7 @@ public class FormsHelperSource {
         CharSequence title = options.hash("title", "");
         if (selectedValue == null) {
             boolean selected = HelperUtils.boolArg(options.hash("selected", false));
-            return selectOption(value, selected, selectedValue, title);
+            return selectOption(value, selected, null, title);
         } else {
             if (options.hash("selected") != null) {
                 throw new AmbiguousArgumentsException("selected", "selectedValue");
@@ -157,10 +157,13 @@ public class FormsHelperSource {
         buf.append("<option");
         HelperUtils.appendAttr(buf, "value", value);
         if (selectedValue != null) {
-            HelperUtils.appendAttr(buf, "selected", selectedValue.equals(value));
-        } else {
-            HelperUtils.appendAttr(buf, "selected", selected);
+            if (selectedValue instanceof Number && value instanceof Number) {
+                selected = ((Number) selectedValue).longValue() == ((Number) value).longValue();
+            } else {
+                selected = selectedValue.equals(value);
+            }
         }
+        HelperUtils.appendAttr(buf, "selected", selected);
         buf.append('>');
         HelperUtils.safeAppend(buf, title);
         buf.append("</option>");
