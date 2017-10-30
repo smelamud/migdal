@@ -39,6 +39,11 @@ public class GrpDescriptor {
     private List<SubtreeHref> generalHref = Collections.emptyList();
 
     /**
+     * Title of the posting's topic
+     */
+    private List<SubtreeTitle> generalTitle = Collections.emptyList();
+
+    /**
      * Page to show the posting's details ("best view")
      */
     private List<SubtreeHref> detailsHref = Collections.emptyList();
@@ -144,7 +149,19 @@ public class GrpDescriptor {
     }
 
     public String getGeneralHref(EvaluationContext evaluationContext) {
-        return evaluateSubtreeExpression(generalHref, evaluationContext);
+        return SubtreeValue.evaluateSubtreeExpression(generalHref, trackExpression, evaluationContext);
+    }
+
+    public List<SubtreeTitle> getGeneralTitle() {
+        return generalTitle;
+    }
+
+    public void setGeneralTitle(List<SubtreeTitle> generalTitle) {
+        this.generalTitle = generalTitle;
+    }
+
+    public String getGeneralTitle(EvaluationContext evaluationContext) {
+        return SubtreeValue.evaluateSubtreeExpression(generalTitle, trackExpression, evaluationContext);
     }
 
     public List<SubtreeHref> getDetailsHref() {
@@ -156,7 +173,7 @@ public class GrpDescriptor {
     }
 
     public String getDetailsHref(EvaluationContext evaluationContext) {
-        return evaluateSubtreeExpression(detailsHref, evaluationContext);
+        return SubtreeValue.evaluateSubtreeExpression(detailsHref, trackExpression, evaluationContext);
     }
 
     public String getDetailsTemplate() {
@@ -227,20 +244,11 @@ public class GrpDescriptor {
         return hiddenEditors;
     }
 
-    private String evaluateSubtreeExpression(List<SubtreeHref> subtreeHrefs, EvaluationContext evaluationContext) {
-        String track = trackExpression.getValue(evaluationContext, String.class);
-        for (SubtreeHref subtreeHref : subtreeHrefs) {
-            if (subtreeHref.isUnder(track)) {
-                return subtreeHref.getHref(evaluationContext);
-            }
-        }
-        return "";
-    }
-
     void parseExpressions(IdentManager identManager, ExpressionParser parser) {
         ParserContext parserContext = new TemplateParserContext();
         headingExpression = parser.parseExpression(heading, parserContext);
         generalHref.forEach(element -> element.parseExpressions(identManager, parser, parserContext));
+        generalTitle.forEach(element -> element.parseExpressions(identManager, parser, parserContext));
         detailsHref.forEach(element -> element.parseExpressions(identManager, parser, parserContext));
         trackExpression = parser.parseExpression("${track}", parserContext);
     }

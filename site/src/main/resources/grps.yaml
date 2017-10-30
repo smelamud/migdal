@@ -142,6 +142,8 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - title: "Форум"
   detailsHref:
     - href: "/${catalog}"
 
@@ -174,6 +176,14 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - topic: migdal
+      title: "Мигдаль"
+    - subtree: migdal.events
+      title: "События :: ${parent.subject}"
+    - subtree: migdal
+      title: "Мигдаль :: ${parent.subject}"
+    - title: "${parent.subject}"
   detailsHref:
     - href: "/${catalog}"
 
@@ -249,6 +259,14 @@
     - subtree: veterans
       href: "/${getCatalog(0,-1)}${userFolder}/"
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - topic: migdal
+      title: "Мигдаль"
+    - subtree: migdal.events
+      title: "События :: ${parent.subject}"
+    - subtree: migdal
+      title: "Мигдаль :: ${parent.subject}"
+    - title: "${parent.subject}"
   detailsHref:
     - subtree: taglit
       href: "/${getCatalog(0,-1)}${userFolder}/${getCatalog(-1)}"
@@ -303,6 +321,14 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - topic: migdal
+      title: "Мигдаль"
+    - subtree: migdal.events
+      title: "События :: ${parent.subject}"
+    - subtree: migdal
+      title: "Мигдаль :: ${parent.subject}"
+    - title: "${parent.subject}"
   detailsHref:
     - href: "/${catalog}"
   detailsTemplate: article
@@ -388,6 +414,14 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - topic: migdal
+      title: "Мигдаль"
+    - subtree: migdal.events
+      title: "События :: ${parent.subject}"
+    - subtree: migdal
+      title: "Мигдаль :: ${parent.subject}"
+    - title: "${parent.subject}"
   detailsHref:
     - href: "/${catalog}"
   detailsTemplate: book
@@ -447,6 +481,8 @@
 
   generalHref:
     - href: "/times/"
+  generalTitle:
+    - title: "Мигдаль Times"
   detailsHref:
     - href: "/times/${index1}/"
 
@@ -509,6 +545,8 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}${userFolder}/"
+  generalTitle:
+    - title: "${parent.subject}"
   detailsHref:
     - href: "/${getCatalog(0,-1)}${userFolder}/${getCatalog(-1)}"
 
@@ -561,6 +599,8 @@
 
   generalHref:
     - href: "/times/${index1}/"
+  generalTitle:
+    - title: "Мигдаль Times №${index1}"
   detailsHref:
     - href: "/times/${index1}/${id}/"
   detailsTemplate: article-times
@@ -652,6 +692,9 @@
   bit: 8
   groups: []
 
+  generalTitle:
+    - title: "Ушки"
+
   heading: "${bodyTiny}"
 
   title: "Ушки"
@@ -699,6 +742,8 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - title: "События :: ${parent.subject}"
   detailsHref:
     - href: "/${getCatalog(0,-1)}day-${index1}/"
   detailsTemplate: daily-news
@@ -740,6 +785,8 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}day-${index1}/"
+  generalTitle:
+    - title: "События :: ${parent.subject}"
   detailsHref:
     - href: "/${catalog}"
 
@@ -790,6 +837,8 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - title: "Советы"
   detailsHref:
     - href: "/${catalog}"
 
@@ -819,6 +868,14 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - topic: migdal
+      title: "Мигдаль"
+    - subtree: migdal.events
+      title: "События :: ${parent.subject}"
+    - subtree: migdal
+      title: "Мигдаль :: ${parent.subject}"
+    - title: "${parent.subject}"
   detailsHref:
     - href: "/${catalog}"
 
@@ -850,6 +907,12 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - subtree: migdal.events
+      title: "События :: ${parent.parent.subject} :: ${parent.subject}"
+    - subtree: migdal
+      title: "Мигдаль :: ${parent.parent.subject} :: ${parent.subject}"
+    - title: "${parent.parent.subject} :: ${parent.subject}"
   detailsHref:
     - href: "/${catalog}"
   detailsTemplate: book-chapter
@@ -891,6 +954,14 @@
 
   generalHref:
     - href: "/${catalog}"
+  generalTitle:
+    - topic: migdal
+      title: "Мигдаль"
+    - subtree: migdal.events
+      title: "События :: ${parent.subject}"
+    - subtree: migdal
+      title: "Мигдаль :: ${parent.subject}"
+    - title: "${parent.subject}"
   detailsHref:
     - href: "/${catalog}"
 
@@ -933,6 +1004,14 @@
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
+  generalTitle:
+    - topic: migdal
+      title: "Мигдаль"
+    - subtree: migdal.events
+      title: "События :: ${parent.subject}"
+    - subtree: migdal
+      title: "Мигдаль :: ${parent.subject}"
+    - title: "${parent.subject}"
   detailsHref:
     - href: "/${catalog}"
 
@@ -990,6 +1069,9 @@
 - name: TEXTEARS
   bit: 16
   groups: []
+
+  generalTitle:
+    - title: "Текстовые ушки"
 
   title: "Текстовые ушки"
   what: "ушко"

@@ -1,5 +1,7 @@
 package ua.org.migdal.util;
 
+import java.util.Arrays;
+
 import org.springframework.util.StringUtils;
 
 public class TrackUtils {
@@ -52,6 +54,11 @@ public class TrackUtils {
             ids[i] = Long.parseLong(items[i]);
         }
         return ids;
+    }
+
+    public static String parent(String track) {
+        long[] ids = parse(track);
+        return track(Arrays.copyOf(ids, ids.length - 1));
     }
 
     public static String toPath(String track) {

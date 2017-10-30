@@ -69,6 +69,10 @@ public class Posting extends Entry {
         return getGrpDescriptor().getGeneralHref(spelEvaluationContext);
     }
 
+    public String getGrpGeneralTitle() {
+        return getGrpDescriptor().getGeneralTitle(spelEvaluationContext);
+    }
+
     public String getGrpDetailsHref() {
         return getGrpDescriptor().getDetailsHref(spelEvaluationContext);
     }

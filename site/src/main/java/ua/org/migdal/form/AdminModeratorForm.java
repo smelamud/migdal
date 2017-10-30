@@ -8,15 +8,15 @@ public class AdminModeratorForm implements Serializable {
 
     private static final long serialVersionUID = 6483801443202853111L;
 
-    private int bit = PostingModbit.MODERATE.ordinal();
+    private long bit = PostingModbit.MODERATE.getValue();
 
     private boolean asc;
 
-    public int getBit() {
+    public long getBit() {
         return bit;
     }
 
-    public void setBit(int bit) {
+    public void setBit(long bit) {
         this.bit = bit;
     }
 

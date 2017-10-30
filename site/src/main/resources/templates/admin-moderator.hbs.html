@@ -20,9 +20,9 @@
             <td>
                 {{hidden name="asc" value=adminModeratorForm.asc}}
                 {{#if adminModeratorForm.asc}}
-                    <a href="{{location "asc" 0}}">{{image "/pics/down-level.gif"}}</a>
+                    <a href="{{location "asc" 0}}">{{image "/pics/up-level.gif"}}</a>
                 {{else}}
-                    <a href="{{location "asc" 1}}">{{image "/pics/up-level.gif"}}</a>
+                    <a href="{{location "asc" 1}}">{{image "/pics/down-level.gif"}}</a>
                 {{/if}}
             </td>
             <td>
@@ -56,10 +56,6 @@
             {{subtitle}}
             {{> selector}}
             <br><br>
-    {{! <iterate_postinglist grp="*GRP_ALL" limit=20 offset="$offset" sort="$sort"
-                         showshadows="*false" modbits!="$bit>=0 ? $bit : 0"
-			 hidden!="$bit==MOD_HIDDEN ? 1 : -1"
-			 disabled!="$bit==MOD_DISABLED ? 1 : -1">}}
             {{> batcher list=postings}}
             <form method="post" action="/actions/entries/modbits" style="margin: 0">
                 <hidden name="okdir" value="$-">
@@ -103,7 +99,9 @@
 	                        </td>
 	                        <td class="{{class}}">
 	                            <a href="{{grpDetailsHref}}" class="ninept">{{heading}}</a><br>
-	                            <span class="subject eightpt">(Раздел <topiclink posting="$.">)</span>
+	                            <span class="subject eightpt">
+                                    (Раздел <a href="{{grpGeneralHref}}">{{grpGeneralTitle}}</a>)
+                                </span>
 	                        </td>
 	                        <td class="{{class}}" align="center">
 	                            {{checkboxButton name=name value=const.postingModbit.HIDDEN checked=hidden}}
