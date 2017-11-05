@@ -8,8 +8,8 @@
 {{#*inline "buttons"}}
     <table width="100%"><tr>
         <td align="right"><table><tr>
-            <td><input type="submit" value="Сохранить"></td>
-            <td><input type="reset" value="Очистить"></td>
+            <td style="padding: 3px"><input type="submit" value="Сохранить"></td>
+            <td style="padding: 3px"><input type="reset" value="Очистить"></td>
         </tr></table></td>
     </tr></table>
 {{/inline}}
@@ -57,20 +57,19 @@
             {{> selector}}
             <br><br>
             {{> batcher list=postings}}
-            <form method="post" action="/actions/entries/modbits" style="margin: 0">
-                <hidden name="okdir" value="$-">
-                <hidden name="faildir" value="$-">
+            {{#if errors}}
+                <table class="form" width="100%">
+                    {{formErrors}}
+                </table>
+            {{/if}}
+            {{!
+            <error id="*EMO_NO_MODERATE" text="Вы не модератор">
+            <error id="*EMO_NO_ENTRY" text="Такого сообщения не существует">
+            <error id="*EMO_CANNOT_DELETE" text="Не могу удалить сообщение этого типа">
+            }}
+            <form method="post" action="/actions/postings/modbits" style="margin: 0">
+                {{hidden name="back" value=rc.location}}
                 {{> buttons}}
-                {{#if errors}}
-                    <table class="form" width="100%">
-                        {{formErrors}}
-                    </table>
-                {{/if}}
-                {{!
-                <error id="*EMO_NO_MODERATE" text="Вы не модератор">
-                <error id="*EMO_NO_ENTRY" text="Такого сообщения не существует">
-                <error id="*EMO_CANNOT_DELETE" text="Не могу удалить сообщение этого типа">
-                }}
                 {{#catalogTable}}
                     <tr>
                         <th class="catalog-cell" width="40">id</th>
@@ -111,7 +110,7 @@
 	                        </td>
                             {{#each modbitsSelection}}
                                 <td class="{{class}}" align="center" style="width: 40px">
-                                    {{checkboxButton name=name value=value checked=selected}}
+                                    {{checkboxButton name=name value=value.value checked=selected}}
                                 </td>
                             {{/each}}
 	                        <td class="{{class}}" align="center" style="width: 40px">

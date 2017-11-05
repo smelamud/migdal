@@ -29,6 +29,7 @@ import ua.org.migdal.data.User;
 import ua.org.migdal.form.AdminModeratorForm;
 import ua.org.migdal.form.AdminPostingsForm;
 import ua.org.migdal.form.ModbitForm;
+import ua.org.migdal.form.ModerateMassForm;
 import ua.org.migdal.form.PostingDeleteForm;
 import ua.org.migdal.form.PostingForm;
 import ua.org.migdal.grp.GrpEditor;
@@ -482,6 +483,27 @@ public class PostingController {
                 .withTopicsIndex("moderator")
                 .withParent(indexController.indexLocationInfo(null))
                 .withPageTitle("Модератор");
+    }
+
+    @PostMapping("/actions/postings/modbits")
+    public String actionModerateMass(
+            @ModelAttribute @Valid ModerateMassForm moderateMassForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(EntryController.class, "actionModerateMass", errors)
+                .transactional(txManager)
+                .execute(() -> {
+
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("moderateMassForm", moderateMassForm);
+            return "redirect:" + requestContext.getBack();
+        }
     }
 
 }
