@@ -33,9 +33,9 @@ import ua.org.migdal.session.RequestContext;
 public class UserController {
 
     private static final Constant[] SORTS = new Constant[] {
-            new Constant("по нику", "login"),
-            new Constant("по имени", "name"),
-            new Constant("по фамилии", "surname")
+            new Constant<>("по нику", "login"),
+            new Constant<>("по имени", "name"),
+            new Constant<>("по фамилии", "surname")
     };
 
     @Inject

@@ -8,6 +8,7 @@ import java.time.temporal.ChronoUnit;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
@@ -30,6 +31,7 @@ public class UserForm implements Serializable {
 
     @NotBlank
     @Size(max=30)
+    @Pattern(regexp=".*[^0-9].*")
     private String newLogin = "";
 
     @Size(max=40)
