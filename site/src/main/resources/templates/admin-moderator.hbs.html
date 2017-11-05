@@ -62,11 +62,6 @@
                     {{formErrors}}
                 </table>
             {{/if}}
-            {{!
-            <error id="*EMO_NO_MODERATE" text="Вы не модератор">
-            <error id="*EMO_NO_ENTRY" text="Такого сообщения не существует">
-            <error id="*EMO_CANNOT_DELETE" text="Не могу удалить сообщение этого типа">
-            }}
             <form method="post" action="/actions/postings/modbits" style="margin: 0">
                 {{hidden name="back" value=rc.location}}
                 {{> buttons}}

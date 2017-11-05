@@ -82,7 +82,7 @@ public class UserManager {
     }
 
     @Transactional
-    private long addGuest() {
+    protected long addGuest() {
         User user = new User();
         user.setLogin(config.getGuestLogin());
         user.setEmailDisabled((short) 1);
@@ -126,6 +126,12 @@ public class UserManager {
         user.setHidden((short) 0);
         user.setConfirmDeadline(null);
         user.setLastOnline(Utils.now());
+        userRepository.save(user);
+    }
+
+    public void ban(User user) {
+        user.setNoLogin(true);
+        user.setHidden((short) 1);
         userRepository.save(user);
     }
 

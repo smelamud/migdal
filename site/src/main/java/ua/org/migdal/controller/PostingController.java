@@ -493,6 +493,26 @@ public class PostingController {
         new ControllerAction(EntryController.class, "actionModerateMass", errors)
                 .transactional(txManager)
                 .execute(() -> {
+                    if (!requestContext.isUserModerator()) {
+                        return "notModerator";
+                    }
+                    for (long id : moderateMassForm.getIds()) {
+                        Posting posting = postingManager.beg(id);
+
+                        if (posting == null) {
+                            return "noPosting";
+                        }
+
+                        if (moderateMassForm.isSpam(id)) {
+                            userManager.ban(posting.getUser());
+                        }
+                        if (moderateMassForm.isSpam(id) || moderateMassForm.isDelete(id)) {
+                            postingManager.drop(posting);
+                        } else {
+                            moderateMassForm.toPosting(posting);
+                            postingManager.save(posting);
+                        }
+                    }
 
                     return null;
                 });
