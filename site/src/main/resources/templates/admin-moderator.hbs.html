@@ -6,12 +6,10 @@
 {{/inline}}
 
 {{#*inline "buttons"}}
-    <table width="100%"><tr>
-        <td align="right"><table><tr>
-            <td style="padding: 3px"><input type="submit" value="Сохранить"></td>
-            <td style="padding: 3px"><input type="reset" value="Очистить"></td>
-        </tr></table></td>
-    </tr></table>
+    <div style="text-align: right; padding: 3px">
+        <input type="submit" value="Сохранить">
+        <input type="reset" value="Очистить">
+    </div>
 {{/inline}}
 
 {{#*inline "selector"}}
@@ -97,21 +95,21 @@
                                     (Раздел <a href="{{grpGeneralHref}}">{{grpGeneralTitle}}</a>)
                                 </span>
 	                        </td>
-	                        <td class="{{class}}" align="center" style="width: 40px">
+	                        <td class="{{class}} moderator-cell" align="center">
 	                            {{checkboxButton name=name value=const.postingModbit.HIDDEN checked=hidden}}
 	                        </td>
-	                        <td class="{{class}}" align="center" style="width: 40px">
+	                        <td class="{{class}} moderator-cell" align="center">
                                 {{checkboxButton name=name value=const.postingModbit.DISABLED checked=disabled}}
 	                        </td>
                             {{#each modbitsSelection}}
-                                <td class="{{class}}" align="center" style="width: 40px">
+                                <td class="{{class}} moderator-cell" align="center">
                                     {{checkboxButton name=name value=value.value checked=selected}}
                                 </td>
                             {{/each}}
-	                        <td class="{{class}}" align="center" style="width: 40px">
+	                        <td class="{{class}} moderator-cell" align="center">
                                 {{checkboxButton name=name value=const.postingModbit.DELETE}}
 	                        </td>
-	                        <td class="{{class}}" align="center" style="width: 40px">
+	                        <td class="{{class}} moderator-cell" align="center">
                                 {{checkboxButton name=name value=const.postingModbit.SPAM}}
 	                        </td>
                         </tr>
