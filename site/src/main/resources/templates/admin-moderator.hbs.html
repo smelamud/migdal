@@ -7,6 +7,8 @@
 
 {{#*inline "buttons"}}
     <div style="text-align: right; padding: 3px">
+        <input type="button" value="Авто" id="auto">
+        &nbsp;
         <input type="submit" value="Сохранить">
         <input type="reset" value="Очистить">
     </div>
@@ -102,14 +104,14 @@
                                 {{checkboxButton name=name value=const.postingModbit.DISABLED checked=disabled}}
 	                        </td>
                             {{#each modbitsSelection}}
-                                <td class="{{class}} moderator-cell" align="center">
+                                <td class="{{class}} moderator-cell moderator-{{lc value.name}}" align="center">
                                     {{checkboxButton name=name value=value.value checked=selected}}
                                 </td>
                             {{/each}}
 	                        <td class="{{class}} moderator-cell" align="center">
                                 {{checkboxButton name=name value=const.postingModbit.DELETE}}
 	                        </td>
-	                        <td class="{{class}} moderator-cell" align="center">
+	                        <td class="{{class}} moderator-cell moderator-spam" align="center">
                                 {{checkboxButton name=name value=const.postingModbit.SPAM}}
 	                        </td>
                         </tr>

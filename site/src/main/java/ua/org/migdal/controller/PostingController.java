@@ -503,7 +503,7 @@ public class PostingController {
                             return "noPosting";
                         }
 
-                        if (moderateMassForm.isSpam(id)) {
+                        if (moderateMassForm.isSpam(id) && posting.getUser() != null) {
                             userManager.ban(posting.getUser());
                         }
                         if (moderateMassForm.isSpam(id) || moderateMassForm.isDelete(id)) {

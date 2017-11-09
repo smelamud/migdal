@@ -36,4 +36,12 @@ public class StringHelperSource {
         return Utils.plural(HelperUtils.intArg(0, n), forms.split(","));
     }
 
+    public CharSequence lc(Object s) {
+        return s != null ? s.toString().toLowerCase() : null;
+    }
+
+    public CharSequence uc(Object s) {
+        return s != null ? s.toString().toUpperCase() : null;
+    }
+
 }

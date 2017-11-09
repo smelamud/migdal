@@ -34,6 +34,10 @@ public enum PostingModbit implements Modbit {
         this.description = description;
     }
 
+    public String getName() {
+        return name();
+    }
+
     @Override
     public long getValue() {
         return value;
