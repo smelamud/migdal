@@ -1,0 +1,47 @@
+{{#*inline "batcher"}} {{! params: list }}
+    <div class="batcher">
+        <div class="adder">
+            {{image "/pics/sheet.gif"}}
+            <a href="/admin/ears/add/?redirid=$_">Добавить ушко</a>
+        </div>
+        {{spin list}}
+        <div class="clear-floats"></div>
+    </div>
+{{/inline}}
+
+{{#*inline "errorLines"}}
+    {{#if errors}}
+        <table class="form" width="100%">
+            {{formErrors}}
+            {{! <error id="*EMS_NO_ENTRY" text="Такого сообщения не существует">
+            <error id="*EMS_NO_HIDE" text="У вас нет прав на редактирование этого сообщения"> }}
+        </table>
+    {{/if}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{topics}}
+        </td>
+        <td class="cframe">
+            {{subtitle}}
+            {{!<iterate_postinglist name="list" grp="*GRP_EARS" topic_id="$`ears`"
+			    limit=20 offset="$offset" fields="*SELECT_CTR"
+			    sort="*SORT_CTR">}}
+            {{> errorLines}}
+            {{> batcher list=postings}}
+            {{#if postings}}
+                {{#each postings}}
+                    {{!<posting_ear posting="$.">}}
+                {{/each}}
+                {{> batcher list=postings}}
+            {{/if}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
