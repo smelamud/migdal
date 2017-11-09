@@ -1,8 +1,8 @@
 package ua.org.migdal.controller;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
-import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
@@ -37,7 +37,7 @@ public class GroupController {
     private UserManager userManager;
 
     @Inject
-    private IndexController indexController;
+    private AdminController adminController;
 
     @GetMapping("/admin/groups")
     public String adminGroups(Model model) {
@@ -52,7 +52,7 @@ public class GroupController {
                 .withUri("/admin/groups")
                 .withTopics("topics-admin")
                 .withTopicsIndex("admin-groups")
-                .withParent(indexController.indexLocationInfo(null))
+                .withParent(adminController.adminLocationInfo(null))
                 .withPageTitle("Группы");
     }
 

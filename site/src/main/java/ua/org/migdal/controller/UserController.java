@@ -56,6 +56,9 @@ public class UserController {
     @Inject
     private IndexController indexController;
 
+    @Inject
+    private AdminController adminController;
+
     @GetMapping("/users")
     public String users() {
         return requestContext.isUserAdminUsers() ? "redirect:/admin/users" : "redirect:/";
@@ -224,7 +227,7 @@ public class UserController {
                 .withUri("/admin/users")
                 .withTopics("topics-admin")
                 .withTopicsIndex("admin-users")
-                .withParent(indexController.indexLocationInfo(null))
+                .withParent(adminController.adminLocationInfo(null))
                 .withPageTitle("Пользователи");
     }
 

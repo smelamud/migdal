@@ -21,10 +21,8 @@ import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Tree;
 import ua.org.migdal.form.TopicDeleteForm;
 import ua.org.migdal.form.TopicForm;
-import ua.org.migdal.manager.CatalogManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
-import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
@@ -49,13 +47,7 @@ public class TopicController {
     private UserManager userManager;
 
     @Inject
-    private TrackManager trackManager;
-
-    @Inject
-    private CatalogManager catalogManager;
-
-    @Inject
-    private IndexController indexController;
+    private AdminController adminController;
 
     @Inject
     private EntryController entryController;
@@ -97,7 +89,7 @@ public class TopicController {
                 .withUri("/admin/topics")
                 .withTopics("topics-admin")
                 .withTopicsIndex("admin-topics")
-                .withParent(indexController.indexLocationInfo(null))
+                .withParent(adminController.adminLocationInfo(null))
                 .withPageTitle("Темы");
     }
 

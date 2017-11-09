@@ -36,7 +36,6 @@ import ua.org.migdal.grp.GrpEditor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.imageupload.ImageUploadException;
 import ua.org.migdal.imageupload.ImageUploadManager;
-import ua.org.migdal.manager.CatalogManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.ImageFileManager;
 import ua.org.migdal.manager.LoginManager;
@@ -44,7 +43,6 @@ import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.manager.TopicManager;
-import ua.org.migdal.manager.TrackManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
@@ -75,12 +73,6 @@ public class PostingController {
     private UserManager userManager;
 
     @Inject
-    private TrackManager trackManager;
-
-    @Inject
-    private CatalogManager catalogManager;
-
-    @Inject
     private ImageFileManager imageFileManager;
 
     @Inject
@@ -93,7 +85,7 @@ public class PostingController {
     private LoginManager loginManager;
 
     @Inject
-    private IndexController indexController;
+    private AdminController adminController;
 
     @Inject
     private EntryController entryController;
@@ -145,7 +137,7 @@ public class PostingController {
                 .withUri("/admin/postings")
                 .withTopics("topics-admin")
                 .withTopicsIndex("admin-postings")
-                .withParent(indexController.indexLocationInfo(null))
+                .withParent(adminController.adminLocationInfo(null))
                 .withPageTitle("Сообщения");
     }
 
@@ -481,7 +473,7 @@ public class PostingController {
                 .withUri("/admin/moderator")
                 .withTopics("topics-admin")
                 .withTopicsIndex("moderator")
-                .withParent(indexController.indexLocationInfo(null))
+                .withParent(adminController.adminLocationInfo(null))
                 .withPageTitle("Модератор");
     }
 
