@@ -38,6 +38,10 @@ public class StatementsHelperSource {
         return Boolean.toString(!HelperUtils.boolArg(value));
     }
 
+    public CharSequence neg(Object value) {
+        return Long.toString(-HelperUtils.intArg(1, value));
+    }
+
     public CharSequence ifeq(String value1, String value2, Options options) throws IOException {
         boolean condition = value1 == null && value2 == null || value1 != null && value1.equals(value2);
         return condition ? options.apply(options.fn) : options.apply(options.inverse);

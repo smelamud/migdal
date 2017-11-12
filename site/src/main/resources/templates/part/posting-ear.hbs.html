@@ -14,12 +14,15 @@
             </p>
             <table class="posting-statistics"><tr>
                 <td width="25" align="left">
-                    <if what="!$posting.isHidden && $posting.Priority<-1">
-                        <assign name="priority" value!="-$posting.Priority">
-                        <b>*$priority</b>
-                    <else>
+                    {{#unless posting.hidden}}
+                        {{#iflt posting.priority -1}}
+                            <b>*{{neg posting.priority}}</b>
+                        {{else}}
+                            &nbsp;
+                        {{/iflt}}
+                    {{else}}
                         &nbsp;
-                    </if>
+                    {{/unless}}
                 </td>
                 <td width="50" align="right">
                     <if what="!$posting.isHidden">
