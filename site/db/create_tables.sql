@@ -509,7 +509,8 @@ CREATE TABLE votes (
     vote integer NOT NULL,
     id bigint NOT NULL,
     count_entry_id bigint,
-    vote_count integer NOT NULL
+    vote_count integer NOT NULL,
+    vote_type smallint NOT NULL
 );
 
 
@@ -908,6 +909,13 @@ CREATE INDEX users_shames_idx ON users USING btree (shames);
 --
 
 CREATE INDEX users_surname_idx ON users USING btree (surname);
+
+
+--
+-- Name: vote_type_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX vote_type_idx ON votes USING btree (vote_type);
 
 
 --
