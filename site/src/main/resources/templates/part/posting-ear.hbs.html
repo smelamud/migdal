@@ -3,8 +3,7 @@
 <table class="posting">
     <tr valign="top">
         <td width="150">
-            <img src="{{posting.imageUrl}}">
-            {{!<posting_image posting="$posting" href="$posting.URL">}}
+            {{postingImage posting=posting href=posting.url}}
             <p class="sent">{{sentView date=posting.sent}}</p>
         </td>
         <td width="5">&nbsp;</td>

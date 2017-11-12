@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
+import org.springframework.util.StringUtils;
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.session.RequestContext;
 
@@ -57,6 +58,10 @@ public class ImagesHelperSource {
     }
 
     CharSequence image(CharSequence href) {
+        return image(href, null, null);
+    }
+
+    CharSequence image(CharSequence href, CharSequence alt, CharSequence title) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
         HelperUtils.appendAttr(buf, "src", href);
@@ -64,6 +69,12 @@ public class ImagesHelperSource {
         if (imageSize != null) {
             HelperUtils.appendAttr(buf, "width", imageSize.width);
             HelperUtils.appendAttr(buf, "height", imageSize.height);
+        }
+        if (!StringUtils.isEmpty(alt)) {
+            HelperUtils.appendAttr(buf, "alt", alt);
+        }
+        if (!StringUtils.isEmpty(title)) {
+            HelperUtils.appendAttr(buf, "title", title);
         }
         buf.append('>');
         return new SafeString(buf);
