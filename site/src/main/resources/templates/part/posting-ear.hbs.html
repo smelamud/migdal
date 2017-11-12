@@ -30,11 +30,11 @@
                 </td>
                 <td width="5">&nbsp;</td>
                 <td width="20" align="left">
-                    <if what="!$posting.isHidden">
+                    {{#unless posting.hidden}}
                         [<a href="/actions/entry/hide?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-">Выключить</a>]
-                    <else>
+                    {{else}}
                         [<a href="/actions/entry/hide?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><b>Включить</b></a>]
-                    </if>
+                    {{/unless}}
                 </td>
             </tr></table>
         </td>
