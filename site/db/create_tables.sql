@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.8
--- Dumped by pg_dump version 9.5.8
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -501,18 +502,21 @@ ALTER TABLE version OWNER TO migdal;
 --
 
 CREATE TABLE votes (
-    entry_id bigint DEFAULT '0'::bigint NOT NULL,
-    ip bigint DEFAULT '0'::bigint NOT NULL,
-    user_id bigint DEFAULT '0'::bigint NOT NULL,
-    sent timestamp with time zone DEFAULT now() NOT NULL,
-    vote integer NOT NULL
+    entry_id bigint,
+    ip inet NOT NULL,
+    user_id bigint,
+    expires timestamp with time zone NOT NULL,
+    vote integer NOT NULL,
+    id bigint NOT NULL,
+    count_entry_id bigint,
+    vote_count integer NOT NULL
 );
 
 
 ALTER TABLE votes OWNER TO migdal;
 
 --
--- Name: entries_ident_key; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_ident_key; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -520,7 +524,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -528,7 +532,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_track_key; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_track_key; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -536,7 +540,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: image_file_transforms_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: image_file_transforms image_file_transforms_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY image_file_transforms
@@ -544,7 +548,7 @@ ALTER TABLE ONLY image_file_transforms
 
 
 --
--- Name: image_files_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: image_files image_files_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY image_files
@@ -552,7 +556,7 @@ ALTER TABLE ONLY image_files
 
 
 --
--- Name: spring_session_attributes_pk; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: spring_session_attributes spring_session_attributes_pk; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY spring_session_attributes
@@ -560,7 +564,7 @@ ALTER TABLE ONLY spring_session_attributes
 
 
 --
--- Name: spring_session_pk; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: spring_session spring_session_pk; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY spring_session
@@ -568,7 +572,7 @@ ALTER TABLE ONLY spring_session
 
 
 --
--- Name: users_login_key; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: users users_login_key; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY users
@@ -576,11 +580,26 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: votes votes_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY votes
+    ADD CONSTRAINT votes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: count_entry_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX count_entry_id_idx ON votes USING btree (count_entry_id);
 
 
 --
@@ -759,6 +778,13 @@ CREATE INDEX entries_user_id_idx ON entries USING btree (user_id);
 
 
 --
+-- Name: entry_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX entry_id_idx ON votes USING btree (entry_id);
+
+
+--
 -- Name: groups_group_id_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
@@ -812,6 +838,13 @@ CREATE INDEX spring_session_ix2 ON spring_session USING btree (expiry_time);
 --
 
 CREATE INDEX spring_session_ix3 ON spring_session USING btree (principal_name);
+
+
+--
+-- Name: user_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX user_id_idx ON votes USING btree (user_id);
 
 
 --
@@ -878,7 +911,7 @@ CREATE INDEX users_surname_idx ON users USING btree (surname);
 
 
 --
--- Name: cross_entries_peer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: cross_entries cross_entries_peer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY cross_entries
@@ -886,7 +919,7 @@ ALTER TABLE ONLY cross_entries
 
 
 --
--- Name: cross_entries_source_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: cross_entries cross_entries_source_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY cross_entries
@@ -894,7 +927,7 @@ ALTER TABLE ONLY cross_entries
 
 
 --
--- Name: entries_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_creator_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -902,7 +935,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_current_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_current_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -910,7 +943,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -918,7 +951,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_large_image_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_large_image_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -926,7 +959,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_last_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_last_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -934,7 +967,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_last_answer_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_last_answer_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -942,7 +975,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_modifier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_modifier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -950,7 +983,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -958,7 +991,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -966,7 +999,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_person_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -974,7 +1007,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_small_image_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_small_image_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -982,7 +1015,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_up_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_up_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -990,7 +1023,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: entries_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY entries
@@ -998,7 +1031,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: groups groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY groups
@@ -1006,7 +1039,7 @@ ALTER TABLE ONLY groups
 
 
 --
--- Name: groups_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: groups groups_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY groups
@@ -1014,7 +1047,7 @@ ALTER TABLE ONLY groups
 
 
 --
--- Name: image_file_transforms_dest_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: image_file_transforms image_file_transforms_dest_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY image_file_transforms
@@ -1022,7 +1055,7 @@ ALTER TABLE ONLY image_file_transforms
 
 
 --
--- Name: image_file_transforms_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: image_file_transforms image_file_transforms_orig_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY image_file_transforms
@@ -1030,11 +1063,35 @@ ALTER TABLE ONLY image_file_transforms
 
 
 --
--- Name: spring_session_attributes_fk; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: spring_session_attributes spring_session_attributes_fk; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY spring_session_attributes
     ADD CONSTRAINT spring_session_attributes_fk FOREIGN KEY (session_primary_id) REFERENCES spring_session(primary_id) ON DELETE CASCADE;
+
+
+--
+-- Name: votes votes_count_entry_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY votes
+    ADD CONSTRAINT votes_count_entry_id_fkey FOREIGN KEY (count_entry_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: votes votes_entry_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY votes
+    ADD CONSTRAINT votes_entry_id_fkey FOREIGN KEY (entry_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: votes votes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY votes
+    ADD CONSTRAINT votes_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
