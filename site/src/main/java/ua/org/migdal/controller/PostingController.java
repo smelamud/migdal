@@ -234,12 +234,15 @@ public class PostingController {
                     GrpEditor editor = postingForm.getGrpInfo().getFieldEditor("image");
                     if (editor != null) {
                         try {
-                            postingForm.setImageUuid(imageUploadManager.uploadStandard(
+                            String uploadedImageUuid = imageUploadManager.uploadStandard(
                                     imageFile, editor.getThumbnailStyle(), editor.getImageStyle(),
                                     editor.getThumbExactX(), editor.getThumbExactY(),
                                     editor.getThumbMaxX(), editor.getThumbMaxY(),
                                     editor.getImageExactX(), editor.getImageExactY(),
-                                    editor.getImageMaxX(), editor.getImageMaxY()));
+                                    editor.getImageMaxX(), editor.getImageMaxY());
+                            if (!StringUtils.isEmpty(uploadedImageUuid)) {
+                                postingForm.setImageUuid(uploadedImageUuid);
+                            }
                         } catch (ImageUploadException e) {
                             e.setFieldName("imageFile");
                             throw e;
