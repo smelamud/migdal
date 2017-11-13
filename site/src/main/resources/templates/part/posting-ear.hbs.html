@@ -42,13 +42,11 @@
             </tr></table>
         </td>
     </tr>
-    <tr height="20"><td class="posting-bottom" colspan="3">
-        <iswrite what="$posting">
+    {{#writable posting}}
+        <tr><td class="posting-bottom" colspan="3">
             <a href="/admin/ears/$posting.Id/edit/?redirid=$_">Изменить</a>
             &nbsp;
             <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-">Удалить</a>
-        <else>
-            &nbsp;
-        </iswrite>
-    </td></tr>
+        </td></tr>
+    {{/writable}}
 </table>
