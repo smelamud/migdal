@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,10 +42,12 @@ public class EarController {
                         postingManager.begAll(
                                 Collections.singletonList(Pair.of(topicId, true)),
                                 grpEnum.group("EARS"),
-                                null,
-                                null,
                                 offset,
-                                20));
+                                20,
+                                Sort.Direction.DESC,
+                                "ratio",
+                                "counter0",
+                                "sent"));
         return "admin-ears";
     }
 

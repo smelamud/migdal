@@ -211,13 +211,28 @@ public class Entry implements TreeElement {
     private long set1Index;
 
     @NotNull
-    private long vote;
+    private int vote;
 
     @NotNull
-    private long voteCount;
+    private int voteCount;
 
     @NotNull
     private double rating;
+
+    @NotNull
+    private int counter0;
+
+    @NotNull
+    private int counter1;
+
+    @NotNull
+    private int counter2;
+
+    @NotNull
+    private int counter3;
+
+    @NotNull
+    private double ratio;
 
     private Timestamp sent;
 
@@ -866,19 +881,19 @@ public class Entry implements TreeElement {
         this.set1Index = set1Index;
     }
 
-    public long getVote() {
+    public int getVote() {
         return vote;
     }
 
-    public void setVote(long vote) {
+    public void setVote(int vote) {
         this.vote = vote;
     }
 
-    public long getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(long voteCount) {
+    public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
 
@@ -888,6 +903,46 @@ public class Entry implements TreeElement {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public int getCounter0() {
+        return counter0;
+    }
+
+    public void setCounter0(int counter0) {
+        this.counter0 = counter0;
+    }
+
+    public int getCounter1() {
+        return counter1;
+    }
+
+    public void setCounter1(int counter1) {
+        this.counter1 = counter1;
+    }
+
+    public int getCounter2() {
+        return counter2;
+    }
+
+    public void setCounter2(int counter2) {
+        this.counter2 = counter2;
+    }
+
+    public int getCounter3() {
+        return counter3;
+    }
+
+    public void setCounter3(int counter3) {
+        this.counter3 = counter3;
+    }
+
+    public double getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(double ratio) {
+        this.ratio = ratio;
     }
 
     @Transient

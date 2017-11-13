@@ -205,7 +205,12 @@ CREATE TABLE entries (
     large_image_y smallint DEFAULT '0'::smallint NOT NULL,
     large_image_size bigint DEFAULT '0'::bigint NOT NULL,
     large_image_format character varying(30) DEFAULT ''::character varying NOT NULL,
-    large_image_filename character varying(70) DEFAULT ''::character varying NOT NULL
+    large_image_filename character varying(70) DEFAULT ''::character varying NOT NULL,
+    counter0 integer DEFAULT 0 NOT NULL,
+    counter1 integer DEFAULT 0 NOT NULL,
+    counter2 integer DEFAULT 0 NOT NULL,
+    counter3 integer DEFAULT 0 NOT NULL,
+    ratio double precision DEFAULT 0 NOT NULL
 );
 
 
@@ -508,8 +513,6 @@ CREATE TABLE votes (
     expires timestamp with time zone NOT NULL,
     vote integer NOT NULL,
     id bigint NOT NULL,
-    count_entry_id bigint,
-    vote_count integer NOT NULL,
     vote_type smallint NOT NULL
 );
 
@@ -594,13 +597,6 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY votes
     ADD CONSTRAINT votes_pkey PRIMARY KEY (id);
-
-
---
--- Name: count_entry_id_idx; Type: INDEX; Schema: public; Owner: migdal
---
-
-CREATE INDEX count_entry_id_idx ON votes USING btree (count_entry_id);
 
 
 --
@@ -1076,14 +1072,6 @@ ALTER TABLE ONLY image_file_transforms
 
 ALTER TABLE ONLY spring_session_attributes
     ADD CONSTRAINT spring_session_attributes_fk FOREIGN KEY (session_primary_id) REFERENCES spring_session(primary_id) ON DELETE CASCADE;
-
-
---
--- Name: votes votes_count_entry_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
---
-
-ALTER TABLE ONLY votes
-    ADD CONSTRAINT votes_count_entry_id_fkey FOREIGN KEY (count_entry_id) REFERENCES entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

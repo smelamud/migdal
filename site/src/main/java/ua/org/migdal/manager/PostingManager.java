@@ -91,11 +91,25 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return null;
     }
 
+    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, int offset, int limit) {
+        return begAll(topicRoots, grps, null, null, offset, limit, Sort.Direction.DESC, "sent");
+    }
+
+    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, int offset, int limit,
+                                    Sort.Direction sortDirection, String... sortFields) {
+        return begAll(topicRoots, grps, null, null, offset, limit, sortDirection, sortFields);
+    }
+
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
                                     int offset, int limit) {
+        return begAll(topicRoots, grps, index1, userId, offset, limit, Sort.Direction.DESC, "sent");
+    }
+
+    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
+                                    int offset, int limit, Sort.Direction sortDirection, String... sortFields) {
         QPosting posting = QPosting.posting;
         return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1, userId, null),
-                PageRequest.of(offset / limit, limit, Sort.Direction.DESC, "sent"));
+                PageRequest.of(offset / limit, limit, sortDirection, sortFields));
     }
 
     public long countAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId) {

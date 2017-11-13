@@ -25,11 +25,11 @@
                     {{/unless}}
                 </td>
                 <td width="50" align="right">
-                    <if what="!$posting.isHidden">
-                        $posting.CounterValue1/$posting.CounterValue0
-                    <else>
+                    {{#unless posting.hidden}}
+                        {{posting.counter1}}/{{posting.counter0}}
+                    {{else}}
                         &nbsp;
-                    </if>
+                    {{/unless}}
                 </td>
                 <td width="5">&nbsp;</td>
                 <td width="20" align="left">
