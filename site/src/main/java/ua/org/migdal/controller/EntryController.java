@@ -22,6 +22,7 @@ import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.form.ChmodForm;
+import ua.org.migdal.form.HideForm;
 import ua.org.migdal.form.ModerateForm;
 import ua.org.migdal.form.RenewForm;
 import ua.org.migdal.form.ReorderForm;
@@ -154,6 +155,38 @@ public class EntryController {
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("chmodForm", chmodForm);
+            return "redirect:" + requestContext.getBack();
+        }
+    }
+
+    @GetMapping("/actions/entry/hide")  // FIXME leave only POST
+    @PostMapping("/actions/entry/hide")
+    public String actionHide(
+            @ModelAttribute @Valid HideForm hideForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(EntryController.class, "actionHide", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    Entry entry = entryManager.get(hideForm.getId());
+
+                    if (entry == null) {
+                        return "noEntry";
+                    }
+                    if (!entry.isWritable()) {
+                        return "noHide";
+                    }
+
+                    entry.setHidden(hideForm.isHide());
+                    entryManager.save(entry);
+                    // TODO for Forums update answers info in the parent Posting
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:" + requestContext.getBack();
         }
     }

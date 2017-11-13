@@ -13,8 +13,6 @@
     {{#if errors}}
         <table class="form" width="100%">
             {{formErrors}}
-            {{! <error id="*EMS_NO_ENTRY" text="Такого сообщения не существует">
-            <error id="*EMS_NO_HIDE" text="У вас нет прав на редактирование этого сообщения"> }}
         </table>
     {{/if}}
 {{/inline}}
@@ -29,9 +27,6 @@
         </td>
         <td class="cframe">
             {{subtitle}}
-            {{!<iterate_postinglist name="list" grp="*GRP_EARS" topic_id="$`ears`"
-			    limit=20 offset="$offset" fields="*SELECT_CTR"
-			    sort="*SORT_CTR">}}
             {{> errorLines}}
             {{> batcher list=postings}}
             {{#if postings}}

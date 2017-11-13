@@ -34,9 +34,9 @@
                 <td width="5">&nbsp;</td>
                 <td width="20" align="left">
                     {{#unless posting.hidden}}
-                        [<a href="/actions/entry/hide?editid=$posting.Id&hide=1&okdir=$#-&faildir=$#-">Выключить</a>]
+                        [<a href="/actions/entry/hide?id={{posting.id}}&hide=1&back={{ue rc.location}}">Выключить</a>]
                     {{else}}
-                        [<a href="/actions/entry/hide?editid=$posting.Id&hide=0&okdir=$#-&faildir=$#-"><b>Включить</b></a>]
+                        [<a href="/actions/entry/hide?id={{posting.id}}&hide=0&back={{ue rc.location}}"><b>Включить</b></a>]
                     {{/unless}}
                 </td>
             </tr></table>
