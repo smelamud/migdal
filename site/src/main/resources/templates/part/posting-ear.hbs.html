@@ -44,7 +44,7 @@
     </tr>
     {{#writable posting}}
         <tr><td class="posting-bottom" colspan="3">
-            <a href="/admin/ears/$posting.Id/edit/?redirid=$_">Изменить</a>
+            <a href="/admin/ears/{{posting.id}}/edit/?back={{ue rc.location}}">Изменить</a>
             &nbsp;
             <a href="/actions/posting/delete?id=$posting.Id&okdir=$#-&faildir=$#-">Удалить</a>
         </td></tr>

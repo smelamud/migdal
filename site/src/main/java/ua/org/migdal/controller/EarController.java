@@ -9,8 +9,10 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
@@ -30,6 +32,9 @@ public class EarController {
 
     @Inject
     private AdminController adminController;
+
+    @Inject
+    private PostingController postingController;
 
     @GetMapping("/admin/ears")
     public String adminPostings(
@@ -58,6 +63,35 @@ public class EarController {
                 .withTopicsIndex("admin-ears")
                 .withParent(adminController.adminLocationInfo(null))
                 .withPageTitle("Ушки");
+    }
+
+    @GetMapping("/admin/ears/add")
+    public String postingAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
+        postingAddLocationInfo(model);
+
+        return postingController.postingAddOrEdit(null, "EARS", full, model);
+    }
+
+    public LocationInfo postingAddLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/ears/add")
+                .withParent(adminEarsLocationInfo(null))
+                .withPageTitle("Добавление ушка");
+    }
+
+    @GetMapping("/admin/ears/{id}/edit")
+    public String postingEdit(@PathVariable long id, @RequestParam(required = false) boolean full, Model model)
+            throws PageNotFoundException {
+        postingEditLocationInfo(id, model);
+
+        return postingController.postingAddOrEdit(id, "EARS", full, model);
+    }
+
+    public LocationInfo postingEditLocationInfo(long id, Model model) {
+        return new LocationInfo(model)
+                .withUri("/admin/ears/" + id + "/edit")
+                .withParent(adminEarsLocationInfo(null))
+                .withPageTitle("Редактирование ушка");
     }
 
 }

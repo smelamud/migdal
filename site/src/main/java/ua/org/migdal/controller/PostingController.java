@@ -32,6 +32,7 @@ import ua.org.migdal.form.ModbitForm;
 import ua.org.migdal.form.ModerateMassForm;
 import ua.org.migdal.form.PostingDeleteForm;
 import ua.org.migdal.form.PostingForm;
+import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEditor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.imageupload.ImageUploadException;
@@ -142,10 +143,10 @@ public class PostingController {
     }
 
     @GetMapping("/admin/postings/add")
-    public String postingAdd(@RequestParam boolean full, Model model) {
+    public String postingAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         postingAddLocationInfo(model);
 
-        return postingAddOrEdit(null, full, model);
+        return postingAddOrEdit(null, "NEWS", full, model);
     }
 
     public LocationInfo postingAddLocationInfo(Model model) {
@@ -156,16 +157,11 @@ public class PostingController {
     }
 
     @GetMapping("/admin/postings/{id}/edit")
-    public String postingEdit(@PathVariable long id, @RequestParam boolean full, Model model)
+    public String postingEdit(@PathVariable long id, @RequestParam(required = false) boolean full, Model model)
             throws PageNotFoundException {
-        Posting posting = postingManager.beg(id);
-        if (posting == null) {
-            throw new PageNotFoundException();
-        }
-
         postingEditLocationInfo(id, model);
 
-        return postingAddOrEdit(posting, full, model);
+        return postingAddOrEdit(id, "NEWS", full, model);
     }
 
     public LocationInfo postingEditLocationInfo(long id, Model model) {
@@ -175,18 +171,43 @@ public class PostingController {
                 .withPageTitle("Редактирование сообщения");
     }
 
-    private String postingAddOrEdit(Posting posting, boolean full, Model model) {
+    private Posting createPosting(String grpName) {
+        GrpDescriptor grpDescriptor = grpEnum.grp(grpName);
+        Topic topic = null;
+        if (!StringUtils.isEmpty(grpDescriptor.getDefaultIdent())) {
+            long id = identManager.getIdByIdent(grpDescriptor.getDefaultIdent());
+            topic = topicManager.beg(id);
+        }
+        return new Posting(grpDescriptor.getValue(), topic, topic, 0, requestContext);
+    }
+
+    private Posting openPosting(Long id) throws PageNotFoundException {
+        if (id == null) {
+            return null;
+        }
+
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+        return posting;
+    }
+
+    String postingAddOrEdit(Long id, String grpName, boolean full, Model model) throws PageNotFoundException {
+        if (full && !requestContext.isUserModerator()) {
+            throw new PageNotFoundException();
+        }
+
+        Posting posting = openPosting(id);
         model.addAttribute("noguests", false);
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
-        model.asMap().computeIfAbsent("postingForm", key -> new PostingForm(
-                posting != null
-                        ? posting
-                        : new Posting(grpEnum.grpValue("NEWS"), null, null, 0, requestContext), full,
-                requestContext));
+        model.asMap().computeIfAbsent("postingForm",
+                key -> new PostingForm(posting != null ? posting : createPosting(grpName), full, requestContext));
         PostingForm postingForm = (PostingForm) model.asMap().get("postingForm");
         String rootIdent = postingForm.getGrpInfo().getRootIdent();
         long rootId = full || rootIdent == null ? 0 : identManager.getIdByIdent(rootIdent);
-        model.addAttribute("topicNames", topicManager.begNames(rootId, -1, false, true));
+        long grp = full ? -1 : grpEnum.grpValue(grpName);
+        model.addAttribute("topicNames", topicManager.begNames(rootId, grp, false, !full));
         return "posting-edit";
     }
 

@@ -140,6 +140,8 @@
   bit: 0
   groups: [DISCUSS, WRITINGS, ARCHIVE]
 
+  defaultIdent: forum
+
   generalHref:
     - href: "/${getCatalog(0,-1)}"
   generalTitle:
@@ -479,6 +481,8 @@
   bit: 5
   groups: [TAPE, DISCUSS]
 
+  defaultIdent: times
+
   generalHref:
     - href: "/times/"
   generalTitle:
@@ -597,6 +601,8 @@
   bit: 7
   groups: [DISCUSS, WRITINGS, ARCHIVE, EVENT]
 
+  defaultIdent: times
+
   generalHref:
     - href: "/times/${index1}/"
   generalTitle:
@@ -691,6 +697,8 @@
 - name: EARS
   bit: 8
   groups: []
+
+  defaultIdent: ears
 
   generalTitle:
     - title: "Ушки"
@@ -834,6 +842,8 @@
 - name: TIPS
   bit: 11
   groups: [DISCUSS, ARCHIVE]
+
+  defaultIdent: tips
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
@@ -1069,6 +1079,8 @@
 - name: TEXTEARS
   bit: 16
   groups: []
+
+  defaultIdent: textears
 
   generalTitle:
     - title: "Текстовые ушки"

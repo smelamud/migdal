@@ -9,16 +9,12 @@ import com.github.jknack.handlebars.Options;
 
 import ua.org.migdal.data.IdNameProjection;
 import ua.org.migdal.helper.util.HelperUtils;
-import ua.org.migdal.manager.TopicManager;
 
 @HelperSource
 public class TopicHelperSource {
 
     @Inject
     private FormsHelperSource formsHelperSource;
-
-    @Inject
-    private TopicManager topicManager;
 
     public CharSequence topicSelect(Options options) {
         List<IdNameProjection> list = HelperUtils.mandatoryHash("list", options);
