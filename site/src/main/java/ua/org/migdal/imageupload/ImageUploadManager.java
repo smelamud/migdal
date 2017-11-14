@@ -1,5 +1,7 @@
 package ua.org.migdal.imageupload;
 
+import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
+
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -14,6 +16,7 @@ import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -81,6 +84,7 @@ public class ImageUploadManager {
         return uuid.toString();
     }
 
+    @Transactional(REQUIRES_NEW)
     public String uploadStandard(MultipartFile imageFile,
                                  ThumbnailTransformFlag thumbFlag, ImageTransformFlag imageFlag,
                                  short thumbExactX, short thumbExactY, short thumbMaxX, short thumbMaxY,

@@ -3,7 +3,6 @@ package ua.org.migdal.imageupload;
 import java.time.Instant;
 
 import ua.org.migdal.data.Entry;
-import ua.org.migdal.data.ImageFile;
 import ua.org.migdal.manager.ImageFileManager;
 
 public class UploadedImage {
@@ -67,7 +66,6 @@ public class UploadedImage {
     }
 
     public void toEntry(Entry entry, ImageFileManager imageFileManager) {
-        ImageFile largeImage = imageFileManager.get(getLarge().getId());
         entry.setSmallImage(imageFileManager.get(getSmall().getId()));
         entry.setSmallImageX(getSmall().getSizeX());
         entry.setSmallImageY(getSmall().getSizeY());
