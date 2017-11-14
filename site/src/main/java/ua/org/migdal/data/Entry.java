@@ -1098,6 +1098,9 @@ public class Entry implements TreeElement {
 
     @Transient
     public String getSmallImageUrl() {
+        if (getSmallImage() == null) {
+            return null;
+        }
         return ImageFileUtils.imageUrl(getSmallImageFormat(), getSmallImage().getId());
     }
 
@@ -1182,6 +1185,9 @@ public class Entry implements TreeElement {
 
     @Transient
     public String getLargeImageUrl() {
+        if (getLargeImage() == null) {
+            return null;
+        }
         return ImageFileUtils.imageUrl(getLargeImageFormat(), getLargeImage().getId());
     }
 
