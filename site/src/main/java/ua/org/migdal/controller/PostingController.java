@@ -213,7 +213,7 @@ public class PostingController {
 
     @PostMapping("/actions/posting/modify")
     public String actionPostingModify(
-            @RequestParam MultipartFile imageFile,
+            @RequestParam(required = false) MultipartFile imageFile,
             @ModelAttribute @Valid PostingForm postingForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {

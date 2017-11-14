@@ -1,0 +1,28 @@
+{{! params: posting}}
+
+<table class="posting" width="50%">
+    <tr valign="top"><td>
+        <p>
+            <span class="sent">{{sentView date=posting.sent}}</span><br>
+            {{posting.subject}}
+        </p>
+        <p>
+            <a href="{{posting.url}}">{{posting.url}}</a>
+        </p>
+    </td></tr>
+    <tr><td class="posting-bottom">
+        {{#writable posting}}
+            {{#unless posting.disabled}}
+                [<a href="/actions/entry/moderate?id={{posting.id}}&amp;hide=1&amp;back={{ue rc.location}}">Выключить</a>]
+            {{else}}
+                [<a href="/actions/entry/moderate?id={{posting.id}}&amp;hide=0&amp;back={{ue rc.location}}"><b>Включить</b></a>]
+            {{/unless}}
+            &nbsp;
+            <a href="/admin/textears/{{posting.id}}/edit/?back={{ue rc.location}}">Изменить</a>
+            &nbsp;
+            <a href="/actions/posting/delete?id={{posting.id}}&amp;back={{ue rc.location}}">Удалить</a>
+        {{else}}
+            &nbsp;
+        {{/writable}}
+    </td></tr>
+</table>

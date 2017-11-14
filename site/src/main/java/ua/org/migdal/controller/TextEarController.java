@@ -4,7 +4,6 @@ import java.util.Collections;
 
 import javax.inject.Inject;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +18,7 @@ import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.session.LocationInfo;
 
 @Controller
-public class EarController {
+public class TextEarController {
 
     @Inject
     private PostingManager postingManager;
@@ -36,61 +35,57 @@ public class EarController {
     @Inject
     private PostingController postingController;
 
-    @GetMapping("/admin/ears")
-    public String adminEars(
+    @GetMapping("/admin/textears")
+    public String adminTextEars(
             @RequestParam(defaultValue = "0") Integer offset,
             Model model) {
-        adminEarsLocationInfo(model);
+        adminTextEarsLocationInfo(model);
 
-        long topicId = identManager.getIdByIdent("ears");
+        long topicId = identManager.getIdByIdent("textears");
         model.addAttribute("postings",
                         postingManager.begAll(
                                 Collections.singletonList(Pair.of(topicId, true)),
-                                grpEnum.group("EARS"),
+                                grpEnum.group("TEXTEARS"),
                                 offset,
-                                20,
-                                Sort.Direction.DESC,
-                                "ratio",
-                                "counter0",
-                                "sent"));
-        return "admin-ears";
+                                20));
+        return "admin-textears";
     }
 
-    public LocationInfo adminEarsLocationInfo(Model model) {
+    public LocationInfo adminTextEarsLocationInfo(Model model) {
         return new LocationInfo(model)
-                .withUri("/admin/ears")
+                .withUri("/admin/textears")
                 .withTopics("topics-admin")
-                .withTopicsIndex("admin-ears")
+                .withTopicsIndex("admin-textears")
                 .withParent(adminController.adminLocationInfo(null))
-                .withPageTitle("Ушки");
+                .withPageTitle("Текстовые ушки");
     }
 
-    @GetMapping("/admin/ears/add")
-    public String earAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
-        earAddLocationInfo(model);
+    @GetMapping("/admin/textears/add")
+    public String textEarAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
+        textEarAddLocationInfo(model);
 
-        return postingController.postingAddOrEdit(null, "EARS", full, model);
+        return postingController.postingAddOrEdit(null, "TEXTEARS", full, model);
     }
 
-    public LocationInfo earAddLocationInfo(Model model) {
+    public LocationInfo textEarAddLocationInfo(Model model) {
         return new LocationInfo(model)
-                .withUri("/admin/ears/add")
-                .withParent(adminEarsLocationInfo(null))
+                .withUri("/admin/textears/add")
+                .withParent(adminTextEarsLocationInfo(null))
                 .withPageTitle("Добавление ушка");
     }
 
-    @GetMapping("/admin/ears/{id}/edit")
-    public String earEdit(@PathVariable long id, @RequestParam(required = false) boolean full, Model model)
+    @GetMapping("/admin/textears/{id}/edit")
+    public String textEarEdit(@PathVariable long id, @RequestParam(required = false) boolean full, Model model)
             throws PageNotFoundException {
-        earEditLocationInfo(id, model);
+        textEarEditLocationInfo(id, model);
 
-        return postingController.postingAddOrEdit(id, "EARS", full, model);
+        return postingController.postingAddOrEdit(id, "TEXTEARS", full, model);
     }
 
-    public LocationInfo earEditLocationInfo(long id, Model model) {
+    public LocationInfo textEarEditLocationInfo(long id, Model model) {
         return new LocationInfo(model)
-                .withUri("/admin/ears/" + id + "/edit")
-                .withParent(adminEarsLocationInfo(null))
+                .withUri("/admin/textears/" + id + "/edit")
+                .withParent(adminTextEarsLocationInfo(null))
                 .withPageTitle("Редактирование ушка");
     }
 

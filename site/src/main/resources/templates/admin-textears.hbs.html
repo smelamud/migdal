@@ -1,0 +1,42 @@
+{{#*inline "batcher"}} {{! params: list }}
+    <div class="batcher">
+        <div class="adder">
+            {{image "/pics/sheet.gif"}}
+            <a href="/admin/textears/add/?back={{ue rc.location}}">Добавить ушко</a>
+        </div>
+        {{spin list}}
+        <div class="clear-floats"></div>
+    </div>
+{{/inline}}
+
+{{#*inline "errorLines"}}
+    {{#if errors}}
+        <table class="form" width="100%">
+            {{formErrors}}
+        </table>
+    {{/if}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{topics}}
+        </td>
+        <td class="cframe">
+            {{subtitle}}
+            {{> errorLines}}
+            {{> batcher list=postings}}
+            {{#if postings}}
+                {{#each postings}}
+                    {{> part/posting-textear posting=this}}
+                {{/each}}
+                {{> batcher list=postings}}
+            {{/if}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
