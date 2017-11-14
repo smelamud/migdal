@@ -1,10 +1,10 @@
 {{> part/preamble}}
 {{> part/top}}
 
-<table width="100%" cellpadding="5">
+<table class="page-layout">
     <tr valign="top">
         <td width="150" class="eframe">
-            <topics>
+            {{topics}}
             <ears>
             <if what='$id<=0'>
                 <p>&nbsp;</p>
@@ -12,7 +12,7 @@
             </if>
         </td>
         <td class="cframe">
-            <table width="100%" cellspacing="0" cellpadding="5"><tr valign="top">
+            <table class="page-layout"><tr valign="top">
                 <td>
                     <if what='$id>0'>
                         <topic_name id='$id'>
