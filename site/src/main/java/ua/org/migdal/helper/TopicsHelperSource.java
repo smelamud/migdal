@@ -11,6 +11,7 @@ import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 import com.github.jknack.handlebars.Template;
 
+import org.springframework.util.StringUtils;
 import ua.org.migdal.helper.exception.AmbiguousArgumentsException;
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.util.Utils;
@@ -45,6 +46,22 @@ public class TopicsHelperSource {
         return new SafeString(buf);
     }
 
+    public CharSequence topicsSubtable(Options options) throws IOException {
+        CharSequence cls = options.hash("class");
+
+        String tableClass = StringUtils.isEmpty(cls) ? "topics" : "topics " + cls;
+
+        StringBuilder buf = new StringBuilder();
+        buf.append("<li class=\"topics-subtable\">");
+        buf.append("<ul class=\"");
+        buf.append(tableClass);
+        buf.append("\">");
+        buf.append(options.apply(options.fn));
+        buf.append("</ul>");
+        buf.append("</li>");
+        return new SafeString(buf);
+    }
+
     public CharSequence topicsLine(Options options) throws IOException {
         boolean arrow;
         Object index = options.hash("index");
@@ -64,7 +81,7 @@ public class TopicsHelperSource {
 
         StringBuilder buf = new StringBuilder();
         if (arrow) {
-            if (Utils.biff(time)) {
+            if (Utils.biff(time)) { // FIXME deprecated?
                 buf.append("<li class=\"topics-ner-arrow\">");
             } else {
                 buf.append("<li class=\"topics-arrow\">");
