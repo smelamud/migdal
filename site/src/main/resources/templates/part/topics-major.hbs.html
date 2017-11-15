@@ -6,6 +6,13 @@
     {{topicsLine index="migdal" href="/migdal/" text="Мигдаль"}}
 {{/inline}}
 
+{{#*inline "general"}}
+    {{#each majors}}
+        {{#assign "href"}}/{{catalog}}{{/assign}}
+        {{topicsLine index=id class="topics-item ninept" href=href title=bodyNormal text=subject}}
+    {{/each}}
+{{/inline}}
+
 {{#*inline "navi_help"}}
     {{topicsLine index="tips" href="/tips/" title="Помощь по работе с сайтом" text="Справка"
                  class="topics-item ninept"}}
@@ -24,6 +31,7 @@
     {{> navi_main}}
     {{> navi_migdal}}
     {{> part/topics-migdal}}
+    {{> general}}
 
     {{topicsSplitter}}
     {{> navi_help}}

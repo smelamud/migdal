@@ -1,5 +1,6 @@
 package ua.org.migdal.manager;
 
+import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class CrossEntryManager {
 
     public CrossEntry get(LinkType linkType, long peerId) {
         return crossEntryRepository.findByLinkTypeAndPeerId(linkType, peerId);
+    }
+
+    public List<CrossEntry> getAll(LinkType linkType, String sourceName) {
+        return crossEntryRepository.findAllByLinkTypeAndSourceNameOrderByPeerSubject(linkType, sourceName);
     }
 
 }
