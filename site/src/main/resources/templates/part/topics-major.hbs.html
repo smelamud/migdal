@@ -2,6 +2,35 @@
     {{topicsLine index="index" href="/" title="На главную страницу" text="Главная"}}
 {{/inline}}
 
+{{#*inline "navi_migdal"}}
+    {{topicsLine index="migdal" href="/migdal/" text="Мигдаль"}}
+{{/inline}}
+
+{{#*inline "navi_help"}}
+    {{topicsLine index="tips" href="/tips/" title="Помощь по работе с сайтом" text="Справка"
+                 class="topics-item ninept"}}
+{{/inline}}
+
+{{#*inline "navi_forum"}}
+    {{topicsLine index="forum" href="/forum/" text="Все обсуждения" class="topics-item eightpt"}}
+{{/inline}}
+
+{{#*inline "navi_archive"}}
+    {{topicsLine index="archive" href="/archive/" text="Архив" class="topics-item eightpt"}}
+    {{topicsLine index="chat-archive" href="/chat-archive/" text="Архив чата" class="topics-item eightpt"}}
+{{/inline}}
+
 {{#topicsTable title="Разделы"}}
     {{> navi_main}}
+    {{> navi_migdal}}
+
+    {{topicsSplitter}}
+    {{> navi_help}}
+    {{> navi_forum}}
+    {{> navi_archive}}
+    {{#adminTopics}}
+        <li class="topics-nobullet eightpt">
+            <a href="/major/?redirid=$_">Изменить</a>
+        </li>
+    {{/adminTopics}}
 {{/topicsTable}}

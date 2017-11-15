@@ -44,6 +44,10 @@ public class SessionHelperSource {
         return requestContext.isUserModerator() ? options.apply(options.fn) : options.apply(options.inverse);
     }
 
+    public CharSequence adminTopics(Options options) throws IOException {
+        return requestContext.isUserAdminTopics() ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
     public CharSequence adminUsers(Options options) throws IOException {
         return requestContext.isUserAdminUsers() ? options.apply(options.fn) : options.apply(options.inverse);
     }
