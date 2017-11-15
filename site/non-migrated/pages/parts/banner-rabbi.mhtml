@@ -1,7 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='banner_rabbi'>
-<a href='http://yosele.livejournal.com/'>
- <image src='/pics/banners/rabbi.gif' alt='Раввин сайта - Йосеф Херсонский'>
-<asp></a>
-</element>
