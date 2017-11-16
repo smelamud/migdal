@@ -58,20 +58,20 @@ public class PostingHelperSource {
 
     public CharSequence postingImage(Options options) {
         Posting posting = HelperUtils.mandatoryHash("posting", options);
-        String align = options.hash("align");
+        CharSequence align = options.hash("align");
         boolean noClear = HelperUtils.boolArg(options.hash("noClear"));
         boolean noMargin = HelperUtils.boolArg(options.hash("noMargin"));
         Object imageTitle = options.hash("imageTitle");
-        String rel = options.hash("rel");
+        CharSequence rel = options.hash("rel");
         Object title = options.hash("title");
         long titleLargeId = HelperUtils.intArg("titleLargeId", options.hash("titleLargeId"));
         String titleLarge = options.hash("titleLarge");
         long fixedWidth = HelperUtils.intArg("fixedWidth", options.hash("fixedWidth"));
         long fixedHeight = HelperUtils.intArg("fixedHeight", options.hash("fixedHeight"));
         boolean enlargeAlways = HelperUtils.boolArg(options.hash("enlargeAlways"));
-        String href = options.hash("href");
-        String editHref = options.hash("editHref");
-        String rmHref = options.hash("rmHref");
+        CharSequence href = options.hash("href");
+        CharSequence editHref = options.hash("editHref");
+        CharSequence rmHref = options.hash("rmHref");
         boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
 
         String relation = "";
@@ -160,7 +160,7 @@ public class PostingHelperSource {
         return new SafeString(buf);
     }
 
-    private CharSequence imageDivFloat(String align, boolean noClear, boolean noMargin) {
+    private CharSequence imageDivFloat(CharSequence align, boolean noClear, boolean noMargin) {
         if (!StringUtils.isEmpty(align)) {
             StringBuilder buf = new StringBuilder();
             if (!align.equals("center")) {
@@ -225,7 +225,7 @@ public class PostingHelperSource {
         return buf;
     }
 
-    private CharSequence imageButton(String src, String href, String tooltip) {
+    private CharSequence imageButton(CharSequence src, CharSequence href, String tooltip) {
         StringBuilder buf = new StringBuilder();
         buf.append("<span>");
         buf.append("<a href=\"");

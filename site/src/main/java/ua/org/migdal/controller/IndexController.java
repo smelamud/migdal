@@ -1,12 +1,14 @@
 package ua.org.migdal.controller;
 
 import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
@@ -14,6 +16,7 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.IdentManager;
+import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.LocationInfo;
 
@@ -32,12 +35,16 @@ public class IndexController {
     @Inject
     private TopicManager topicManager;
 
+    @Inject
+    private PostingManager postingManager;
+
     @GetMapping("/")
     public String index(Model model) {
         indexLocationInfo(model);
 
         model.addAttribute("topic", null);
         addMajors(model);
+        addEars(model);
         return "index-www";
     }
 
@@ -66,6 +73,7 @@ public class IndexController {
 
         model.addAttribute("topic", topic);
         addMajors(model);
+        addEars(model);
         return "index-www";
     }
 
@@ -83,6 +91,10 @@ public class IndexController {
                                                       .stream()
                                                       .map(CrossEntry::getPeer)
                                                       .collect(Collectors.toList()));
+    }
+
+    private void addEars(Model model) {
+        model.addAttribute("ears", postingManager.begRandom(null, grpEnum.group("EARS"), 3));
     }
 
 }

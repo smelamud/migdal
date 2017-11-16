@@ -1,0 +1,6 @@
+<p class="ears">
+    {{#each ears}}
+        {{#assign "href"}}/actions/ear/{{id}}{{/assign}}
+        {{postingImage posting=this imageTitle=bodyNormal href=href}}
+    {{/each}}
+</p>

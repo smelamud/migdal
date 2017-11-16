@@ -3,8 +3,12 @@ package ua.org.migdal.manager;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import javax.inject.Inject;
@@ -123,8 +127,36 @@ public class PostingManager implements EntryManagerBase<Posting> {
                 PageRequest.of(offset / limit, limit, asc ? Sort.Direction.ASC : Sort.Direction.DESC, "sent"));
     }
 
+    // TODO ineffective
+    public Set<Posting> begRandom(List<Pair<Long, Boolean>> topicRoots, long[] grps, int limit) {
+        QPosting posting = QPosting.posting;
+        Iterable<Posting> postings = postingRepository.findAll(
+                getWhere(posting, topicRoots, grps, null, null, null, true),
+                Sort.by(Sort.Direction.DESC, "sent"));
+
+        List<Posting> postingList = new ArrayList<>();
+        for (Posting post : postings) {
+            for (int i = 0; i < 1 - post.getPriority(); i++) {
+                postingList.add(post);
+            }
+        }
+
+        Set<Posting> selected = new HashSet<>();
+        Random random = new Random();
+        while (selected.size() < limit) {
+            selected.add(postingList.get(random.nextInt(postingList.size())));
+        }
+
+        return selected;
+    }
+
     private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,
                                Long userId, PostingModbit modbit) {
+        return getWhere(posting, topicRoots, grps, index1, userId, modbit, false);
+    }
+
+    private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,
+                               Long userId, PostingModbit modbit, boolean asGuest) {
         BooleanBuilder where = new BooleanBuilder();
         if (topicRoots != null) {
             BooleanBuilder byTopic = new BooleanBuilder();
@@ -153,7 +185,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (modbit != null) {
             return getModbitFilter(posting, modbit);
         }
-        where.and(getPermFilter(posting, Perm.READ));
+        where.and(getPermFilter(posting, Perm.READ, asGuest));
         return where;
     }
 
@@ -174,10 +206,6 @@ public class PostingManager implements EntryManagerBase<Posting> {
             }
         }
         return builder;
-    }
-
-    private Predicate getPermFilter(QPosting posting, long right) {
-        return getPermFilter(posting, right, false);
     }
 
     private Predicate getPermFilter(QPosting posting, long right, boolean asGuest) {
