@@ -13,13 +13,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.Posting;
+import ua.org.migdal.data.VoteType;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.VoteManager;
 import ua.org.migdal.session.LocationInfo;
 
 @Controller
 public class EarController {
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private PostingManager postingManager;
@@ -28,7 +34,7 @@ public class EarController {
     private IdentManager identManager;
 
     @Inject
-    private GrpEnum grpEnum;
+    private VoteManager voteManager;
 
     @Inject
     private AdminController adminController;
@@ -92,6 +98,17 @@ public class EarController {
                 .withUri("/admin/ears/" + id + "/edit")
                 .withParent(adminEarsLocationInfo(null))
                 .withPageTitle("Редактирование ушка");
+    }
+
+    @GetMapping("/actions/ear/{id}")
+    public String actionEarClick(@PathVariable long id) throws PageNotFoundException {
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+        voteManager.vote(posting, VoteType.CLICK, 1);
+        postingManager.save(posting);
+        return "redirect:" + posting.getUrl();
     }
 
 }
