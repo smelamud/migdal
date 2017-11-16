@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
+import org.springframework.util.StringUtils;
 import ua.org.migdal.data.IdNameProjection;
 import ua.org.migdal.helper.util.HelperUtils;
 
@@ -61,6 +62,25 @@ public class TopicHelperSource {
                                                     value == topic.getId()));
         }
         buf.append(formsHelperSource.formSelectEnd("list"));
+        return new SafeString(buf);
+    }
+
+    public CharSequence upperLevel(Options options) {
+        CharSequence href = HelperUtils.mandatoryHash("href", options);
+        CharSequence title = options.hash("title");
+
+        if (StringUtils.isEmpty(title)) {
+            title = "К разделу «name»";
+        }
+
+        StringBuilder buf = new StringBuilder();
+        buf.append("<div class=\"up-level\">");
+        buf.append("<a href=\"");
+        HelperUtils.safeAppend(buf, href);
+        buf.append("\">");
+        HelperUtils.safeAppend(buf, title);
+        buf.append("</a>");
+        buf.append("</div>");
         return new SafeString(buf);
     }
 

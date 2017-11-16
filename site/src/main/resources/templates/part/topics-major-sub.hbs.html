@@ -1,0 +1,7 @@
+{{upperLevel title="На главную страницу" href="/"}}
+{{#topicsTable title=topic.subject}}
+    {{#assign "href"}}/{{topic.ident}}/{{/assign}}
+    {{topicsLine index="news" text="Новости" href=href class="topics-item ninept"}}
+    {{#assign "href"}}/{{topic.ident}}/gallery/{{/assign}}
+    {{topicsLine index="gallery" text="Галерея" href=href class="topics-item ninept"}}
+{{/topicsTable}}

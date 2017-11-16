@@ -119,6 +119,10 @@ public class GrpEnum {
         return value != null ? value : 0;
     }
 
+    public boolean inGroup(String name, long grp) {
+        return (grpValue(name) & grp) != 0;
+    }
+
     public long[] parse(long grp) {
         return Utils.toArray(grps.stream()
                 .map(GrpDescriptor::getValue)

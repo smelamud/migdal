@@ -11,6 +11,7 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.Topic;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.TopicManager;
@@ -18,6 +19,9 @@ import ua.org.migdal.session.LocationInfo;
 
 @Controller
 public class IndexController {
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private IdentManager identManager;
@@ -69,7 +73,7 @@ public class IndexController {
         return new LocationInfo(model)
                 .withUri("/" + topic.getIdent())
                 .withRssHref("/rss/")
-                .withTopics("topics-major")
+                .withTopics(!grpEnum.inGroup("GALLERY", topic.getGrp()) ? "topics-major" : "topics-major-sub")
                 .withTopicsIndex(topic.getIdent())
                 .withPageTitle(topic.getSubject());
     }
