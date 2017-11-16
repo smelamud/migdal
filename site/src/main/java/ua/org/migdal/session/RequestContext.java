@@ -16,6 +16,8 @@ public interface RequestContext {
 
     boolean isEnglish();
 
+    String getIp();
+
     String getBack();
 
     boolean isHasBack();

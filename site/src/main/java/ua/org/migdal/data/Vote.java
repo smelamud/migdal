@@ -1,6 +1,8 @@
 package ua.org.migdal.data;
 
 import java.sql.Timestamp;
+import java.time.temporal.ChronoUnit;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
@@ -41,6 +43,19 @@ public class Vote {
 
     @NotNull
     private int vote;
+
+    public Vote() {
+    }
+
+    public Vote(@NotNull VoteType voteType, Entry entry, @NotNull String ip, User user, @NotNull int vote) {
+        this.voteType = voteType;
+        this.entry = entry;
+        this.ip = ip;
+        this.user = user;
+        this.vote = vote;
+        int period = voteType.getExpirationPeriod(user);
+        expires = Timestamp.from(Utils.now().toInstant().plus(period, ChronoUnit.HOURS));
+    }
 
     public long getId() {
         return id;

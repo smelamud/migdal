@@ -508,7 +508,7 @@ ALTER TABLE version OWNER TO migdal;
 
 CREATE TABLE votes (
     entry_id bigint,
-    ip inet NOT NULL,
+    ip character varying(40) NOT NULL,
     user_id bigint,
     expires timestamp with time zone NOT NULL,
     vote integer NOT NULL,

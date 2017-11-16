@@ -49,6 +49,7 @@ public class RequestContextImpl implements RequestContext {
 
     private String location;
     private String subdomain;
+    private String ip;
     private String back;
     private String origin;
     private Boolean printMode;
@@ -146,6 +147,7 @@ public class RequestContextImpl implements RequestContext {
         location = SubdomainUtils.createLocalBuilderFromRequest(request).build(true).toUriString();
         String hostname = SubdomainUtils.createBuilderFromRequest(request).build().getHost();
         subdomain = subdomainUtils.validateSubdomain(hostname).getSubdomain();
+        ip = request.getRemoteAddr();
         printMode = "1".equals(request.getParameter("print"));
         back = request.getParameter("back");
         back = back != null && LOCATION_REGEX.matcher(back).matches() ? back : null;
@@ -181,6 +183,12 @@ public class RequestContextImpl implements RequestContext {
     @Override
     public boolean isEnglish() {
         return getSubdomain().equals("english");
+    }
+
+    @Override
+    public String getIp() {
+        processRequest();
+        return ip;
     }
 
     @Override

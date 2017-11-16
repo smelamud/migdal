@@ -1,5 +1,6 @@
 package ua.org.migdal.controller;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
+import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
+import ua.org.migdal.data.VoteType;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.manager.VoteManager;
 import ua.org.migdal.session.LocationInfo;
 
 @Controller
@@ -37,6 +41,9 @@ public class IndexController {
 
     @Inject
     private PostingManager postingManager;
+
+    @Inject
+    private VoteManager voteManager;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -94,7 +101,12 @@ public class IndexController {
     }
 
     private void addEars(Model model) {
-        model.addAttribute("ears", postingManager.begRandom(null, grpEnum.group("EARS"), 3));
+        Set<Posting> ears = postingManager.begRandom(null, grpEnum.group("EARS"), 3);
+        ears.forEach(posting -> {
+            voteManager.vote(posting, VoteType.VIEW, 1);
+            postingManager.save(posting);
+        });
+        model.addAttribute("ears", ears);
     }
 
 }
