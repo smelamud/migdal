@@ -10,27 +10,24 @@
         <td class="cframe">
             <table class="page-layout"><tr valign="top">
                 <td>
-                    <if what='$id>0'>
-                        <topic_name id='$id'>
-                        <subtitle title='$,Subject'>
-                    </if>
+                    {{subtitle}}
                     <seealso_frame>
-                    <if what='$id<=0'>
+                    {{#unless topic}}
                         {{! daily_announce topic_id='$`migdal.events.kaitanot.5772.summer`'}}
                         {{! tweetfeed}}
                         <textears>
-                    </if>
+                    {{/unless}}
                     <postings grp='*GRP_TAPE' topic_id='$id' limit=10 offset='$offset'
                               showshadows!='$id>0'>
                     <rss>
                 </td>
                 <td width="130" class="nframe">
-                    <tzdaka>
+                    {{tzdaka}}
                     {{! tip}}
                     <hit_parade_month grp='*GRP_WRITINGS' topic_id='$id' showshadows!='$id>0'>
-                    <if what='$id<=0'>
+                    {{#unless topic}}
                         <discussions limit=7>
-                    </if>
+                    {{/unless}}
                 </td>
             </tr></table>
         </td>
