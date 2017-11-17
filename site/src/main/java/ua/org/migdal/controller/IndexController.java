@@ -85,11 +85,12 @@ public class IndexController {
     }
 
     public LocationInfo majorLocationInfo(Topic topic, Model model) {
+        boolean withGallery = grpEnum.inGroup("GALLERY", topic.getGrp());
         return new LocationInfo(model)
                 .withUri("/" + topic.getIdent())
                 .withRssHref("/rss/")
-                .withTopics(!grpEnum.inGroup("GALLERY", topic.getGrp()) ? "topics-major" : "topics-major-sub")
-                .withTopicsIndex(topic.getIdent())
+                .withTopics(!withGallery ? "topics-major" : "topics-major-sub")
+                .withTopicsIndex(!withGallery ? topic.getIdent() : "news")
                 .withPageTitle(topic.getSubject());
     }
 
