@@ -52,6 +52,7 @@ public class IndexController {
         model.addAttribute("topic", null);
         addMajors(model);
         addEars(model);
+        addTextEars(model);
         return "index-www";
     }
 
@@ -108,6 +109,10 @@ public class IndexController {
             postingManager.save(posting);
         });
         model.addAttribute("ears", ears);
+    }
+
+    private void addTextEars(Model model) {
+        model.addAttribute("textears", postingManager.begAll(null, grpEnum.group("TEXTEARS"), true, 0, 3));
     }
 
 }

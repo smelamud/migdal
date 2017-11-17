@@ -1,3 +1,24 @@
+{{#*inline "textears-block"}}
+    {{#if textears}}
+        <table style="margin: 0">
+            <tr><td class="textears-title">Коротко о важном:</td></tr>
+            <tr><td><ul class="ninept">
+                {{#each textears}}
+                    <li><a href="{{url}}">{{subject}}</a></li>
+                {{/each}}
+            </ul></td></tr>
+        </table>
+        <table width="100%" class="eightpt">
+            <tr>
+                <td rowspan="2" width="15%" height="5">&nbsp;</td>
+                <td width="70%" height="5">&nbsp;</td>
+                <td rowspan="2" width="15%" height="5">&nbsp;</td>
+            </tr>
+            <tr><td class="textears-split" height="5">&nbsp;</td></tr>
+        </table>
+    {{/if}}
+{{/inline}}
+
 {{> part/preamble}}
 {{> part/top}}
 
@@ -15,7 +36,7 @@
                     {{#unless topic}}
                         {{! daily_announce topic_id='$`migdal.events.kaitanot.5772.summer`'}}
                         {{! tweetfeed}}
-                        <textears>
+                        {{> textears-block}}
                     {{/unless}}
                     <postings grp='*GRP_TAPE' topic_id='$id' limit=10 offset='$offset'
                               showshadows!='$id>0'>
