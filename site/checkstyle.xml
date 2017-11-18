@@ -57,7 +57,6 @@
 
         <!-- Miscellaneous -->
         <module name="ArrayTypeStyle"/>
-        <module name="CommentsIndentation"/>
         <module name="OuterTypeFilename"/>
         <module name="OuterTypeFilename"/>
         <module name="UpperEll"/>
