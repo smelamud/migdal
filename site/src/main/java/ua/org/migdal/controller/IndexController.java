@@ -49,7 +49,6 @@ public class IndexController {
     public String index(Model model) {
         indexLocationInfo(model);
 
-        model.addAttribute("topic", null);
         addMajors(model);
         addEars(model);
         addTextEars(model);
