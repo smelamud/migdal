@@ -13,11 +13,13 @@
                 {{/moderator}}
                 <ul>
                     {{#each seeAlsoLinks}}
-                        <li class="seealso-{{peerIcon}}"><a href="{{peerPath}}">{{peerSubject}}</a>
+                        <li class="seealso-{{peerIcon}}">
+                            <a href="{{peerPath}}">{{peerSubject}}</a>
                             {{#moderator}}
                                 <a href="/actions/cross-entry/delete?id={{id}}&okdir=$#-&faildir=$#-"
                                    class="edit">Удалить</a>
                             {{/moderator}}
+                        </li>
                     {{/each}}
                 </ul>
             </div>
