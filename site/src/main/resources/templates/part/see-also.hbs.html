@@ -1,0 +1,26 @@
+{{#notPrint}}
+    {{#if seeAlsoVisible}}
+        <div class="nframe" style="padding: 5px">
+            <div class="seealso">
+                <b>См. также:</b>
+                {{#moderator}}
+                    <br>
+                    <ife what="$adddir">
+                        <assign name="adddir" value#="$~add-cross/">
+                    </ife>
+                    <a href="${adddir}?source_name=$source_name&source_id=$source_id&link_type=$link_type&redirid=$_"
+                       class="edit">Добавить</a>
+                {{/moderator}}
+                <ul>
+                    {{#each seeAlsoLinks}}
+                        <li class="seealso-{{peerIcon}}"><a href="{{peerPath}}">{{peerSubject}}</a>
+                            {{#moderator}}
+                                <a href="/actions/cross-entry/delete?id={{id}}&okdir=$#-&faildir=$#-"
+                                   class="edit">Удалить</a>
+                            {{/moderator}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    {{/if}}
+{{/notPrint}}

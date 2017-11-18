@@ -10,4 +10,6 @@ public interface CrossEntryRepository extends JpaRepository<CrossEntry, Long> {
 
     List<CrossEntry> findAllByLinkTypeAndSourceNameOrderByPeerSubject(LinkType linkType, String sourceName);
 
+    List<CrossEntry> findAllByLinkTypeAndSourceIdOrderByPeerSubject(LinkType linkType, long sourceId);
+
 }

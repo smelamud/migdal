@@ -30,4 +30,8 @@ public class CrossEntryManager {
         return crossEntryRepository.findAllByLinkTypeAndSourceNameOrderByPeerSubject(linkType, sourceName);
     }
 
+    public List<CrossEntry> getAll(LinkType linkType, long sourceId) {
+        return crossEntryRepository.findAllByLinkTypeAndSourceIdOrderByPeerSubject(linkType, sourceId);
+    }
+
 }

@@ -1,5 +1,6 @@
 package ua.org.migdal.controller;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,9 +24,13 @@ import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.VoteManager;
 import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class IndexController {
+
+    @Inject
+    private RequestContext requestContext;
 
     @Inject
     private GrpEnum grpEnum;
@@ -80,6 +85,7 @@ public class IndexController {
 
         model.addAttribute("topic", topic);
         addMajors(model);
+        addSeeAlso(topic.getId(), model);
         addEars(model);
         return "index-www";
     }
@@ -108,6 +114,13 @@ public class IndexController {
             postingManager.save(posting);
         });
         model.addAttribute("ears", ears);
+    }
+
+    private void addSeeAlso(long id, Model model) {
+        List<CrossEntry> links = crossEntryManager.getAll(LinkType.SEE_ALSO, id);
+        model.addAttribute("seeAlsoVisible", links.size() > 0 || requestContext.isUserModerator());
+        model.addAttribute("seeAlsoLinks", links);
+
     }
 
     private void addTextEars(Model model) {

@@ -3,7 +3,7 @@ package ua.org.migdal.data;
 public enum LinkType {
 
     NONE,
-    SEEALSO,
+    SEE_ALSO,
     MAJOR,
     PUBLISH
 
