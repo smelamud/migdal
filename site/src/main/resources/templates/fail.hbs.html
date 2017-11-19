@@ -1,0 +1,89 @@
+{{#notEnglish}}
+    {{#ifieq status 404}}
+        {{#assign "comment"}}Страница не найдена{{/assign}}
+    {{else}}
+        {{#assign "comment"}}Ошибка на сервере{{/assign}}
+    {{/ifieq}}
+{{else}}
+    {{#ifieq status 404}}
+        {{#assign "comment"}}Page not found{{/assign}}
+    {{else}}
+        {{#assign "comment"}}Server error{{/assign}}
+    {{/ifieq}}
+{{/notEnglish}}
+<html>
+    <head>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <title>{{status}} - {{comment}} | Мигдаль</title>
+        <style>
+            #content {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+            }
+            .column {
+                width: 400px;
+                margin: 25px;
+            }
+            #status {
+                font-size: 40pt;
+                font-weight: bold;
+                position: relative;
+                top: -6pt;
+                margin-left: 0.5em;
+            }
+            #comment {
+                font-size: 24pt;
+                font-style: italic;
+            }
+            HEADER {
+                font-weight: bold;
+                font-size: larger;
+            }
+            LI {
+                margin: 5pt 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="content">
+            <div class="column">
+                {{image "/pics/bw-tower.gif"}}
+                <span id="status">{{status}}</span><br>
+                <span id="comment">{{comment}}</span>
+            </div>
+            <div class="column">
+                {{#notEnglish}}
+                    <header>Вы можете:</header>
+                    <ul>
+                        {{#ifine status 404}}
+                            <li><a href="#" onclick="location.reload()">Обновить</a> страницу</li>
+                        {{/ifine}}
+                        <li>Начать с <a href='/'>главной страницы</a></li>
+                        <li>Воспользоваться <a href='/search/'>поиском</a></li>
+                        <li>
+                            Связаться с вебмастером по электронной почте
+                            <a href='mailto:webmaster@migdal.org.ua'>webmaster@migdal.org.ua</a>
+                        </li>
+                        <li>
+                            <a href="/forum/29738/">Оставить сообщение</a> на сайте
+                        </li>
+                    </ul>
+                {{else}}
+                    <header>You can:</header>
+                    <ul>
+                        {{#ifine status 404}}
+                            <li><a href="#" onclick="location.reload()">Reload</a> the page</li>
+                        {{/ifine}}
+                        <li>Start from <a href='/'>the main page</a></li>
+                        <li>
+                            Send a message to webmaster by e-mail
+                            <a href='mailto:webmaster@migdal.org.ua'>webmaster@migdal.org.ua</a>
+                        </li>
+                    </ul>
+                {{/notEnglish}}
+            </div>
+        </div>
+    </body>
+</html>

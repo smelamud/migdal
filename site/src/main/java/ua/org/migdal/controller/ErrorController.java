@@ -23,9 +23,8 @@ public class ErrorController extends BasicErrorController {
                                             HttpStatus status, Map<String, Object> model) {
         switch (status) {
             case NOT_FOUND:
-                return new ModelAndView("404", model);
             case INTERNAL_SERVER_ERROR:
-                return new ModelAndView("500", model);
+                return new ModelAndView("fail", model);
             default:
                 return super.resolveErrorView(request, response, status, model);
         }
