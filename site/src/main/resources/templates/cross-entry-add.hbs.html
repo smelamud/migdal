@@ -1,0 +1,33 @@
+{{!<string name='source_name'>
+<int name='source_id'>
+<int name='link_type'>
+
+<string name='peer_path'>
+}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<form method="post" action="/actions/cross-entry/add">
+    {{#formTable title="Добавление перекрестной ссылки" mini=true}}
+        {{formErrors}}
+        {{hidden name="back" value=rc.location}}
+        {{hidden name="origin" value=rc.back}}
+        {{hidden name="sourceName" value=crossEntryAddForm.sourceName}}
+        {{hidden name="sourceId" value=crossEntryAddForm.sourceId}}
+        {{hidden name="linkType" value=crossEntryAddForm.linkType}}
+        {{starInfo}}
+        {{!<error id="*ECEA_NO_ADD"
+           text="Добавлять перекрестные ссылки может только модератор">
+        <error id="*ECEA_ENTRY_ABSENT" text="Сообщение-источник не существует">
+        <error id="*ECEA_NO_SOURCE" text="Источник не указан">
+        <error id="*ECEA_NO_PATH" text="Адрес страницы не указан">
+        <error id="*ECEA_PATH_ABSENT" text="Страница не найдена">
+        <error id="*ECEA_NO_LINKING" text="Эта страница не поддерживает связывание">}}
+        {{formEdit title="ID" name="peerIdent" value=crossEntryAddForm.peerIdent size="75" maxlength="250"
+                   mandatory=true comment="Идентификатор объекта"}}
+        {{formButtons title="Добавить"}}
+    {{/formTable}}
+</form>
+
+{{> part/bottom}}

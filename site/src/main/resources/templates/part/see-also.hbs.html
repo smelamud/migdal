@@ -5,10 +5,7 @@
                 <b>См. также:</b>
                 {{#moderator}}
                     <br>
-                    <ife what="$adddir">
-                        <assign name="adddir" value#="$~add-cross/">
-                    </ife>
-                    <a href="${adddir}?source_name=$source_name&source_id=$source_id&link_type=$link_type&redirid=$_"
+                    <a href="/add-cross?source_name=$source_name&source_id=$source_id&link_type=$link_type&back={{ue rc.location}}"
                        class="edit">Добавить</a>
                 {{/moderator}}
                 <ul>
