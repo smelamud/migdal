@@ -22,9 +22,8 @@ public class CrossEntry {
     @Access(AccessType.PROPERTY)
     private long id;
 
-    @NotNull
     @Size(max=255)
-    private String sourceName = "";
+    private String sourceName;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="source_id")
