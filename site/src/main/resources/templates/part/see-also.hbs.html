@@ -1,7 +1,16 @@
+{{#*inline "errorLines"}}
+    {{#if errors}}
+        <table class="form" width="100%">
+            {{formErrors}}
+        </table>
+    {{/if}}
+{{/inline}}
+
 {{#notPrint}}
     {{#if seeAlsoVisible}}
         <div class="nframe" style="padding: 5px">
             <div class="seealso">
+                {{> errorLines}}
                 <b>См. также:</b>
                 {{#moderator}}
                     <br>

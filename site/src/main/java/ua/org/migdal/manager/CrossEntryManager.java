@@ -22,6 +22,10 @@ public class CrossEntryManager {
         crossEntryRepository.delete(crossEntry);
     }
 
+    public CrossEntry get(long id) {
+        return crossEntryRepository.getOne(id);
+    }
+
     public CrossEntry get(LinkType linkType, long peerId) {
         return crossEntryRepository.findByLinkTypeAndPeerId(linkType, peerId);
     }

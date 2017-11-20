@@ -18,6 +18,7 @@ import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.LinkType;
 import ua.org.migdal.form.CrossEntryAddForm;
+import ua.org.migdal.form.CrossEntryDeleteForm;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.EntryManager;
 import ua.org.migdal.manager.IdentManager;
@@ -106,6 +107,34 @@ public class CrossEntryController {
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("crossEntryAddForm", crossEntryAddForm);
+            return "redirect:" + requestContext.getBack();
+        }
+    }
+
+    @GetMapping("/actions/cross-entry/delete")  // FIXME leave only POST
+    @PostMapping("/actions/cross-entry/delete")
+    public String actionCrossDelete(
+            @ModelAttribute @Valid CrossEntryDeleteForm crossEntryDeleteForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(EntryController.class, "actionCrossDelete", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    if (!requestContext.isUserModerator()) {
+                        return "notModerator";
+                    }
+                    CrossEntry crossEntry = crossEntryManager.get(crossEntryDeleteForm.getId());
+                    if (crossEntry == null) {
+                        return "noCross";
+                    }
+                    crossEntryManager.delete(crossEntry);
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:" + requestContext.getBack();
         }
     }
