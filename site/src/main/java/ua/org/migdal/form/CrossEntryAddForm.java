@@ -28,11 +28,11 @@ public class CrossEntryAddForm implements Serializable {
     public CrossEntryAddForm() {
     }
 
-    public CrossEntryAddForm(String sourceName, long sourceId, int linkType) {
+    public CrossEntryAddForm(String sourceName, Long sourceId, int linkType) {
         if (sourceName != null) {
             this.sourceName = sourceName;
         }
-        this.sourceId = sourceId;
+        this.sourceId = sourceId != null ? sourceId : 0;
         this.linkType = linkType;
     }
 

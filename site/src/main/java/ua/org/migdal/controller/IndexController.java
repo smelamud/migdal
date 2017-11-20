@@ -97,6 +97,7 @@ public class IndexController {
                 .withRssHref("/rss/")
                 .withTopics(!withGallery ? "topics-major" : "topics-major-sub")
                 .withTopicsIndex(!withGallery ? topic.getIdent() : "news")
+                .withParent(indexLocationInfo(model))
                 .withPageTitle(topic.getSubject());
     }
 
@@ -126,6 +127,23 @@ public class IndexController {
 
     private void addTextEars(Model model) {
         model.addAttribute("textears", postingManager.begAll(null, grpEnum.group("TEXTEARS"), true, 0, 3));
+    }
+
+    @GetMapping("/major")
+    public String crossEntries(Model model) {
+        crossEntriesLocationInfo(model);
+
+        model.addAttribute("sourceName", "major");
+        model.addAttribute("linkType", LinkType.MAJOR.ordinal());
+        model.addAttribute("crossEntries", crossEntryManager.getAll(LinkType.MAJOR, "major"));
+        return "cross-entries";
+    }
+
+    public LocationInfo crossEntriesLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/major")
+                .withParent(indexLocationInfo(model))
+                .withPageTitle("Основные темы");
     }
 
 }

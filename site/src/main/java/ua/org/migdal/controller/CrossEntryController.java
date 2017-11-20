@@ -48,7 +48,7 @@ public class CrossEntryController {
 
     @GetMapping("/add-cross")
     public String crossAdd(@RequestParam(required = false) String sourceName,
-                           @RequestParam(required = false) long sourceId,
+                           @RequestParam(required = false) Long sourceId,
                            @RequestParam int linkType,
                            Model model) {
         crossAddLocationInfo(model);

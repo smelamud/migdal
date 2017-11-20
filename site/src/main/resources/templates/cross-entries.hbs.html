@@ -1,0 +1,34 @@
+{{#*inline "errorLines"}}
+    {{#if errors}}
+        <table class="form" width="100%">
+            {{formErrors}}
+        </table>
+    {{/if}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<div class="nframe" style="width: 90%; padding: 5px; margin: 0 auto">
+    {{subtitle}}
+    <div class="seealso">
+        {{> errorLines}}
+        {{#moderator}}
+            <a href="/add-cross?sourceName={{sourceName}}&amp;linkType={{linkType}}&amp;back={{ue rc.location}}"
+               class="edit">Добавить</a>
+        {{/moderator}}
+        <ul>
+            {{#each crossEntries}}
+                <li class="seealso-{{peerIcon}}">
+                    <a href="{{peerPath}}">{{peerSubject}}</a>
+                    {{#moderator}}
+                        <a href="/actions/cross-entry/delete?id={{id}}&amp;back={{ue rc.location}}"
+                           class="edit">Удалить</a>
+                    {{/moderator}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+
+{{> part/bottom}}
