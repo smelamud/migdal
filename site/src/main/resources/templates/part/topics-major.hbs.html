@@ -13,11 +13,6 @@
     {{/each}}
 {{/inline}}
 
-{{#*inline "navi_help"}}
-    {{topicsLine index="tips" href="/tips/" title="Помощь по работе с сайтом" text="Справка"
-                 class="topics-item ninept"}}
-{{/inline}}
-
 {{#*inline "navi_forum"}}
     {{topicsLine index="forum" href="/forum/" text="Все обсуждения" class="topics-item eightpt"}}
 {{/inline}}
@@ -34,7 +29,6 @@
     {{> general}}
 
     {{topicsSplitter}}
-    {{> navi_help}}
     {{> navi_forum}}
     {{> navi_archive}}
     {{#adminTopics}}
