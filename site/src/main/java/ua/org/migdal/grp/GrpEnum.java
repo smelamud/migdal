@@ -106,6 +106,10 @@ public class GrpEnum {
         return grp(grp) != null;
     }
 
+    public boolean exists(String name) {
+        return grp(name) != null;
+    }
+
     public long grpValue(String name) {
         return grp(name).getValue();
     }

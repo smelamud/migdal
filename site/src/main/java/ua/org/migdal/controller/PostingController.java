@@ -199,6 +199,11 @@ public class PostingController {
         }
 
         Posting posting = openPosting(id);
+
+        if (posting == null && !grpEnum.exists(grpName)) {
+            throw new PageNotFoundException();
+        }
+
         model.addAttribute("noguests", false);
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
         model.asMap().computeIfAbsent("postingForm",
