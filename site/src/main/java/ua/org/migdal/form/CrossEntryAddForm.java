@@ -1,17 +1,22 @@
 package ua.org.migdal.form;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class CrossEntryAddForm implements Serializable {
 
     private static final long serialVersionUID = 826038977178847630L;
 
+    @Size(max = 255)
     private String sourceName = "";
 
     private long sourceId;
 
     private int linkType;
 
+    @NotBlank
+    @Size(max = 75)
     private String peerIdent = "";
 
     public CrossEntryAddForm() {
