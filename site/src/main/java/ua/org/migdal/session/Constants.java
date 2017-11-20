@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.PostingModbit;
 import ua.org.migdal.data.TopicModbit;
 import ua.org.migdal.data.UserRight;
@@ -20,6 +21,7 @@ public class Constants {
     private List<Constant<Integer>> gregorianMonthRuGenLcLong = new ArrayList<>();
     private Map<String, Long> userRight = new HashMap<>();
     private Map<String, Long> postingModbit = new HashMap<>();
+    private Map<String, Integer> linkType = new HashMap<>();
     private List<Constant<String>> langs = new ArrayList<>();
 
     public Constants() {
@@ -76,6 +78,15 @@ public class Constants {
 
     public TextFormat[] getTextFormats() {
         return TextFormat.values();
+    }
+
+    public Map<String, Integer> getLinkType() {
+        if (linkType.isEmpty()) {
+            for (LinkType type : LinkType.values()) {
+                linkType.put(type.name(), type.ordinal());
+            }
+        }
+        return linkType;
     }
 
 }

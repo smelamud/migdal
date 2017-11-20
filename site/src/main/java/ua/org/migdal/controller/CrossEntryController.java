@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.org.migdal.form.CrossEntryAddForm;
 import ua.org.migdal.session.LocationInfo;
 
@@ -15,10 +17,13 @@ public class CrossEntryController {
     private IndexController indexController;
 
     @GetMapping("/add-cross")
-    public String crossAdd(Model model) {
+    public String crossAdd(@RequestParam(required = false) String sourceName,
+                           @RequestParam(required = false) long sourceId,
+                           @RequestParam int linkType,
+                           Model model) {
         crossAddLocationInfo(model);
 
-        model.asMap().computeIfAbsent("crossEntryAddForm", key -> new CrossEntryAddForm());
+        model.asMap().computeIfAbsent("crossEntryAddForm", key -> new CrossEntryAddForm(sourceName, sourceId, linkType));
         return "cross-entry-add";
     }
 

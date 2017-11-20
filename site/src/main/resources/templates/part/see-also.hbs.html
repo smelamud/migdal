@@ -5,7 +5,7 @@
                 <b>См. также:</b>
                 {{#moderator}}
                     <br>
-                    <a href="/add-cross?source_name=$source_name&source_id=$source_id&link_type=$link_type&back={{ue rc.location}}"
+                    <a href="/add-cross?sourceId={{seeAlsoSourceId}}&amp;linkType={{const.linkType.SEE_ALSO}}&amp;back={{ue rc.location}}"
                        class="edit">Добавить</a>
                 {{/moderator}}
                 <ul>
@@ -13,7 +13,7 @@
                         <li class="seealso-{{peerIcon}}">
                             <a href="{{peerPath}}">{{peerSubject}}</a>
                             {{#moderator}}
-                                <a href="/actions/cross-entry/delete?id={{id}}&okdir=$#-&faildir=$#-"
+                                <a href="/actions/cross-entry/delete?id={{id}}&amp;back={{ue rc.location}}"
                                    class="edit">Удалить</a>
                             {{/moderator}}
                         </li>

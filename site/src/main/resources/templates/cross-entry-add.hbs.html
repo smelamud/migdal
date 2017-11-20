@@ -9,13 +9,13 @@
 {{> part/top}}
 
 <form method="post" action="/actions/cross-entry/add">
+    {{hidden name="back" value=rc.location}}
+    {{hidden name="origin" value=rc.back}}
+    {{hidden name="sourceName" value=crossEntryAddForm.sourceName}}
+    {{hidden name="sourceId" value=crossEntryAddForm.sourceId}}
+    {{hidden name="linkType" value=crossEntryAddForm.linkType}}
     {{#formTable title="Добавление перекрестной ссылки" mini=true}}
         {{formErrors}}
-        {{hidden name="back" value=rc.location}}
-        {{hidden name="origin" value=rc.back}}
-        {{hidden name="sourceName" value=crossEntryAddForm.sourceName}}
-        {{hidden name="sourceId" value=crossEntryAddForm.sourceId}}
-        {{hidden name="linkType" value=crossEntryAddForm.linkType}}
         {{starInfo}}
         {{!<error id="*ECEA_NO_ADD"
            text="Добавлять перекрестные ссылки может только модератор">

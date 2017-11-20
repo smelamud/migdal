@@ -14,6 +14,17 @@ public class CrossEntryAddForm implements Serializable {
 
     private String peerIdent = "";
 
+    public CrossEntryAddForm() {
+    }
+
+    public CrossEntryAddForm(String sourceName, long sourceId, int linkType) {
+        if (sourceName != null) {
+            this.sourceName = sourceName;
+        }
+        this.sourceId = sourceId;
+        this.linkType = linkType;
+    }
+
     public String getSourceName() {
         return sourceName;
     }

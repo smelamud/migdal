@@ -119,6 +119,7 @@ public class IndexController {
     private void addSeeAlso(long id, Model model) {
         List<CrossEntry> links = crossEntryManager.getAll(LinkType.SEE_ALSO, id);
         model.addAttribute("seeAlsoVisible", links.size() > 0 || requestContext.isUserModerator());
+        model.addAttribute("seeAlsoSourceId", id);
         model.addAttribute("seeAlsoLinks", links);
 
     }
