@@ -33,7 +33,7 @@ public class TextEarController {
     private AdminController adminController;
 
     @Inject
-    private PostingController postingController;
+    private PostingEditingController postingEditingController;
 
     @GetMapping("/admin/textears")
     public String adminTextEars(
@@ -64,7 +64,7 @@ public class TextEarController {
     public String textEarAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         textEarAddLocationInfo(model);
 
-        return postingController.postingAddOrEdit(null, "TEXTEARS", full, model);
+        return postingEditingController.postingAddOrEdit(null, "TEXTEARS", full, model);
     }
 
     public LocationInfo textEarAddLocationInfo(Model model) {
@@ -79,7 +79,7 @@ public class TextEarController {
             throws PageNotFoundException {
         textEarEditLocationInfo(id, model);
 
-        return postingController.postingAddOrEdit(id, "TEXTEARS", full, model);
+        return postingEditingController.postingAddOrEdit(id, "TEXTEARS", full, model);
     }
 
     public LocationInfo textEarEditLocationInfo(long id, Model model) {

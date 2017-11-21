@@ -40,7 +40,7 @@ public class EarController {
     private AdminController adminController;
 
     @Inject
-    private PostingController postingController;
+    private PostingEditingController postingEditingController;
 
     @GetMapping("/admin/ears")
     public String adminEars(
@@ -75,7 +75,7 @@ public class EarController {
     public String earAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         earAddLocationInfo(model);
 
-        return postingController.postingAddOrEdit(null, "EARS", full, model);
+        return postingEditingController.postingAddOrEdit(null, "EARS", full, model);
     }
 
     public LocationInfo earAddLocationInfo(Model model) {
@@ -90,7 +90,7 @@ public class EarController {
             throws PageNotFoundException {
         earEditLocationInfo(id, model);
 
-        return postingController.postingAddOrEdit(id, "EARS", full, model);
+        return postingEditingController.postingAddOrEdit(id, "EARS", full, model);
     }
 
     public LocationInfo earEditLocationInfo(long id, Model model) {
