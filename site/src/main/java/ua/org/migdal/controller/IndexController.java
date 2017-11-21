@@ -1,22 +1,28 @@
 package ua.org.migdal.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.VoteType;
+import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.IdentManager;
@@ -51,12 +57,16 @@ public class IndexController {
     private VoteManager voteManager;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) {
+
         indexLocationInfo(model);
 
         addMajors(model);
         addEars(model);
         addTextEars(model);
+        addPostings("TAPE", new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, null, offset, model);
         return "index-www";
     }
 
@@ -71,7 +81,11 @@ public class IndexController {
     }
 
     @GetMapping("/{ident}")
-    public String major(@PathVariable String ident, Model model) throws PageNotFoundException {
+    public String major(
+            @PathVariable String ident,
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) throws PageNotFoundException {
+
         long id = identManager.idOrIdent(ident);
         if (id <= 0) {
             throw new PageNotFoundException();
@@ -85,8 +99,9 @@ public class IndexController {
 
         model.addAttribute("topic", topic);
         addMajors(model);
-        addSeeAlso(topic.getId(), model);
         addEars(model);
+        addSeeAlso(topic.getId(), model);
+        addPostings("TAPE", new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, topic, offset, model);
         return "index-www";
     }
 
@@ -97,7 +112,7 @@ public class IndexController {
                 .withRssHref("/rss/")
                 .withTopics(!withGallery ? "topics-major" : "topics-major-sub")
                 .withTopicsIndex(!withGallery ? topic.getIdent() : "news")
-                .withParent(indexLocationInfo(model))
+                .withParent(indexLocationInfo(null))
                 .withPageTitle(topic.getSubject());
     }
 
@@ -127,6 +142,37 @@ public class IndexController {
 
     private void addTextEars(Model model) {
         model.addAttribute("textears", postingManager.begAll(null, grpEnum.group("TEXTEARS"), true, 0, 3));
+    }
+
+    private void addPostings(String groupName, String[] addGrpNames, Topic topic, Integer offset, Model model) {
+        model.addAttribute("addTopicId", topic != null ? topic.getId() : -1);
+        List<Pair<Long, Boolean>> topicRoots = null;
+        if (topic != null) {
+            topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
+        }
+        model.addAttribute("postings",
+                postingManager.begAll(
+                        topicRoots,
+                        grpEnum.group(groupName),
+                        offset,
+                        20,
+                        Sort.Direction.DESC,
+                        "priority",
+                        "sent"));
+        List<GrpDescriptor> addGrps = new ArrayList<>();
+        if (addGrpNames != null) {
+            for (String addGrpName : addGrpNames) {
+                GrpDescriptor desc = grpEnum.grp(addGrpName);
+                if (desc == null) {
+                    continue;
+                }
+                if (topic != null && !topic.accepts(desc.getValue())) {
+                    continue;
+                }
+                addGrps.add(desc);
+            }
+        }
+        model.addAttribute("addGrps", addGrps);
     }
 
     @GetMapping("/major")

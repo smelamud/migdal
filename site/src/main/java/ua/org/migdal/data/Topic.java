@@ -29,6 +29,10 @@ public class Topic extends Entry {
         setPerms(up.getPerms());
     }
 
+    public boolean accepts(long grp) {
+        return (getGrp() & grp) != 0;
+    }
+
     @Override
     protected boolean isPermitted(long right) {
         RequestContext rc = RequestContextImpl.getInstance();

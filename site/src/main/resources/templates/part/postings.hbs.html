@@ -1,0 +1,34 @@
+{{#*inline "batcher"}} {{! params: list }}
+    <div class="batcher">
+        <div class="adder">
+            {{#each addGrps}}
+                {{#assign "href"}}/add-posting/?grp={{name}}&amp;topic_id={{addTopicId}}&amp;back={{ue rc.location}}{{/assign}}
+                {{#if @first}}
+                    {{image "/pics/sheet.gif"}}
+                    {{#unless @last}}
+                        <a href="{{href}}">Добавить {{what}}</a>,
+                    {{else}}
+                        <a href="{{href}}">Добавить {{what}}</a>
+                    {{/unless}}
+                {{else}}
+                    {{#unless @last}}
+                        <a href="{{href}}">{{what}}</a>,
+                    {{else}}
+                        <a href="{{href}}">{{what}}</a>
+                    {{/unless}}
+                {{/if}}
+            {{/each}}
+        </div>
+        {{spin list}}
+        <div class="clear-floats"></div>
+    </div>
+{{/inline}}
+
+{{> batcher list=postings}}
+{{#if postings}}
+    {{#each postings}}
+        {{! > part/posting-ear posting=this}}
+        {{subject}}<br>
+    {{/each}}
+    {{> batcher list=postings}}
+{{/if}}

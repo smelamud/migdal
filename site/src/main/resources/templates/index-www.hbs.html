@@ -37,6 +37,7 @@
                         {{! daily_announce topic_id='$`migdal.events.kaitanot.5772.summer`'}}
                         {{> textears-block}}
                     {{/unless}}
+                    {{> part/postings}}
                     <postings grp='*GRP_TAPE' topic_id='$id' limit=10 offset='$offset'
                               showshadows!='$id>0'>
                 </td>
