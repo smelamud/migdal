@@ -76,6 +76,8 @@ public class GrpDescriptor {
      */
     private String whatA = "сообщения";
 
+    private String enWhat = "message";
+
     private List<GrpEditor> editors = Collections.emptyList();
     private Map<String, GrpEditor> fieldEditors;
     private List<GrpEditor> hiddenEditors;
@@ -223,6 +225,14 @@ public class GrpDescriptor {
 
     public void setWhatA(String whatA) {
         this.whatA = whatA;
+    }
+
+    public String getEnWhat() {
+        return enWhat;
+    }
+
+    public void setEnWhat(String enWhat) {
+        this.enWhat = enWhat;
     }
 
     public List<GrpEditor> getEditors() {

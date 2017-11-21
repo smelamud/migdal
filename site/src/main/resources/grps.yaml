@@ -152,6 +152,7 @@
   title: "Темы для обсуждения"
   what: "тему"
   whatA: "темы"
+  enWhat: "topic"
 
   editors:
     - field: topic
@@ -192,6 +193,7 @@
   title: "Новости"
   what: "новость"
   whatA: "новости"
+  enWhat: "news"
 
   editors:
     - field: topic
@@ -281,6 +283,7 @@
   title: "Галерея"
   what: "фотографию"
   whatA: "фотографии"
+  enWhat: "photo"
 
   editors:
     - field: topic
@@ -338,6 +341,7 @@
   title: "Статьи"
   what: "статью"
   whatA: "статьи"
+  enWhat: "article"
 
   editors:
     - field: topic
@@ -433,6 +437,7 @@
   title: "Книги"
   what: "книгу"
   whatA: "книги"
+  enWhat: "book"
 
   editors:
     - field: topic
@@ -497,6 +502,7 @@
   title: "Обложки М.Т."
   what: "обложку"
   whatA: "обложки"
+  enWhat: "cover"
 
   editors:
     - field: topic
@@ -561,6 +567,7 @@
   title: "Личные мнения"
   what: "мнение"
   whatA: "мнения"
+  enWhat: "opinion"
 
   editors:
     - field: topic
@@ -614,6 +621,7 @@
   title: "Статьи М.Т."
   what: "статью"
   whatA: "статьи"
+  enWhat: "article"
 
   editors:
     - field: topic
@@ -708,6 +716,7 @@
   title: "Ушки"
   what: "ушко"
   whatA: "ушка"
+  enWhat: "ear"
 
   editors:
     - field: topic
@@ -759,6 +768,7 @@
   title: "Ежедневные репортажи"
   what: "репортаж"
   whatA: "репортажа"
+  enWhat: "report"
 
   editors:
     - field: topic
@@ -805,6 +815,7 @@
   title: "Ежедневная галерея"
   what: "фотографию"
   whatA: "фотографии"
+  enWhat: "photo"
 
   editors:
     - field: topic
@@ -859,6 +870,7 @@
   title: "Советы"
   what: "совет"
   whatA: "совета"
+  enWhat: "hint"
 
   editors:
     - field: topic
@@ -896,6 +908,7 @@
   title: "Обновления галереи"
   what: "обновление"
   whatA: "обновления"
+  enWhat: "update"
 
   editors:
     - field: topic
@@ -930,6 +943,7 @@
   title: "Главы книги"
   what: "главу"
   whatA: "главы"
+  enWhat: "chapter"
 
   editors:
     - field: subject
@@ -978,6 +992,7 @@
   title: "Обзорные статьи"
   what: "статью"
   whatA: "статьи"
+  enWhat: "article"
 
   editors:
     - field: topic
@@ -1032,6 +1047,7 @@
   title: "Печатные издания"
   what: "издание"
   whatA: "издания"
+  enWhat: "book"
 
   editors:
     - field: topic
@@ -1088,6 +1104,7 @@
   title: "Текстовые ушки"
   what: "ушко"
   whatA: "ушка"
+  enWhat: "ear"
 
   editors:
     - field: topic
