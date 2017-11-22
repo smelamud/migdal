@@ -21,14 +21,13 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.util.StringUtils;
-
 import ua.org.migdal.Config;
 import ua.org.migdal.data.util.TreeElement;
 import ua.org.migdal.mtext.Mtext;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContextImpl;
 import ua.org.migdal.text.TextFormat;
+import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.ImageFileUtils;
 import ua.org.migdal.util.Perm;
 import ua.org.migdal.util.PermUtils;
@@ -366,18 +365,7 @@ public class Entry implements TreeElement {
     }
 
     public String getCatalog(int start, int length) {
-        if (length == 0 || StringUtils.isEmpty(catalog)) {
-            return "";
-        }
-        String[] elements = catalog.substring(0, catalog.length() - 1).split("/");
-        StringBuilder buf = new StringBuilder();
-        int begin = start >= 0 ? start : elements.length + start;
-        int end = length > 0 ? begin + length : elements.length + length;
-        for (int i = begin; i < end; i++) {
-            buf.append(elements[i]);
-            buf.append('/');
-        }
-        return buf.toString();
+        return CatalogUtils.sub(catalog, start, length);
     }
 
     public Entry getParent() {

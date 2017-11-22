@@ -18,12 +18,12 @@ public class CatalogUtils {
                 ident = ident.substring(0, pos);
             }
             String path = ident.replace('.', '/');
-            return UriUtils.normalizePath(path, false, Slash.NO, Slash.YES);
+            return normalize(path);
         } else {
             if (StringUtils.isEmpty(upCatalog)) {
                 return String.format("%d/", id);
             }
-            upCatalog = UriUtils.normalizePath(upCatalog, false, Slash.NO, Slash.YES);
+            upCatalog = normalize(upCatalog);
             return String.format("%s%d/", upCatalog, id);
         }
     }
@@ -42,6 +42,25 @@ public class CatalogUtils {
         } else {
             return catalog(id, ident, upCatalog);
         }
+    }
+
+    public static String normalize(String catalog) {
+        return !StringUtils.isEmpty(catalog) ? UriUtils.normalizePath(catalog, true, Slash.NO, Slash.YES) : "";
+    }
+
+    public static String sub(String catalog, int start, int length) {
+        if (length == 0 || StringUtils.isEmpty(catalog)) {
+            return "";
+        }
+        String[] elements = catalog.substring(0, catalog.length() - 1).split("/");
+        StringBuilder buf = new StringBuilder();
+        int begin = start >= 0 ? start : elements.length + start;
+        int end = length > 0 ? begin + length : elements.length + length;
+        for (int i = begin; i < end; i++) {
+            buf.append(elements[i]);
+            buf.append('/');
+        }
+        return buf.toString();
     }
 
 }

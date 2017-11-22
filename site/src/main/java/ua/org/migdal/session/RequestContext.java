@@ -10,6 +10,10 @@ public interface RequestContext {
 
     String getLocation();
 
+    String getCatalog();
+
+    String getCatalog(int start, int length);
+
     String getSubdomain();
 
     boolean isWww();
