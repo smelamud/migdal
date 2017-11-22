@@ -1,31 +1,33 @@
 {{#*inline "batcher"}} {{! params: list }}
     <div class="batcher">
-        <div class="adder">
-            {{#each addGrps}}
-                {{#assign "href"}}/add-posting/?grp={{name}}&amp;topic_id={{addTopicId}}&amp;back={{ue rc.location}}{{/assign}}
-                {{#notEnglish}}
-                    {{#assign "add"}}Добавить{{/assign}}
-                    {{#assign "w"}}{{what}}{{/assign}}
-                {{else}}
-                    {{#assign "add"}}Add{{/assign}}
-                    {{#assign "w"}}{{enWhat}}{{/assign}}
-                {{/notEnglish}}
-                {{#if @first}}
-                    {{image "/pics/sheet.gif"}}
-                    {{#unless @last}}
-                        <a href="{{href}}">{{add}} {{w}}</a>,
+        {{#if postingsAddVisible}}
+            <div class="adder">
+                {{#each postingsAddGrps}}
+                    {{#assign "href"}}/add-posting/?grp={{name}}&amp;topic_id={{postingsAddTopicId}}&amp;back={{ue rc.location}}{{/assign}}
+                    {{#notEnglish}}
+                        {{#assign "add"}}Добавить{{/assign}}
+                        {{#assign "w"}}{{what}}{{/assign}}
                     {{else}}
-                        <a href="{{href}}">{{add}} {{w}}</a>
-                    {{/unless}}
-                {{else}}
-                    {{#unless @last}}
-                        <a href="{{href}}">{{w}}</a>,
+                        {{#assign "add"}}Add{{/assign}}
+                        {{#assign "w"}}{{enWhat}}{{/assign}}
+                    {{/notEnglish}}
+                    {{#if @first}}
+                        {{image "/pics/sheet.gif"}}
+                        {{#unless @last}}
+                            <a href="{{href}}">{{add}} {{w}}</a>,
+                        {{else}}
+                            <a href="{{href}}">{{add}} {{w}}</a>
+                        {{/unless}}
                     {{else}}
-                        <a href="{{href}}">{{w}}</a>
-                    {{/unless}}
-                {{/if}}
-            {{/each}}
-        </div>
+                        {{#unless @last}}
+                            <a href="{{href}}">{{w}}</a>,
+                        {{else}}
+                            <a href="{{href}}">{{w}}</a>
+                        {{/unless}}
+                    {{/if}}
+                {{/each}}
+            </div>
+        {{/if}}
         {{spin list}}
         <div class="clear-floats"></div>
     </div>

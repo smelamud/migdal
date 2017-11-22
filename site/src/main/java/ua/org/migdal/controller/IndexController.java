@@ -66,7 +66,7 @@ public class IndexController {
         addMajors(model);
         addEars(model);
         addTextEars(model);
-        addPostings("TAPE", new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, null, offset, model);
+        addPostings("TAPE", null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
         return "index-www";
     }
 
@@ -101,7 +101,7 @@ public class IndexController {
         addMajors(model);
         addEars(model);
         addSeeAlso(topic.getId(), model);
-        addPostings("TAPE", new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, topic, offset, model);
+        addPostings("TAPE", topic, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
         return "index-www";
     }
 
@@ -144,8 +144,10 @@ public class IndexController {
         model.addAttribute("textears", postingManager.begAll(null, grpEnum.group("TEXTEARS"), true, 0, 3));
     }
 
-    private void addPostings(String groupName, String[] addGrpNames, Topic topic, Integer offset, Model model) {
-        model.addAttribute("addTopicId", topic != null ? topic.getId() : -1);
+    private void addPostings(String groupName, Topic topic, String[] addGrpNames, boolean addVisible, Integer offset,
+                             Model model) {
+        model.addAttribute("postingsAddVisible", addVisible);
+        model.addAttribute("postingsAddTopicId", topic != null ? topic.getId() : -1);
         List<Pair<Long, Boolean>> topicRoots = null;
         if (topic != null) {
             topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
@@ -172,7 +174,7 @@ public class IndexController {
                 addGrps.add(desc);
             }
         }
-        model.addAttribute("addGrps", addGrps);
+        model.addAttribute("postingsAddGrps", addGrps);
     }
 
     @GetMapping("/major")
