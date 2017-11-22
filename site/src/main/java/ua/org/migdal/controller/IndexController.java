@@ -147,7 +147,7 @@ public class IndexController {
     private void addPostings(String groupName, Topic topic, String[] addGrpNames, boolean addVisible, Integer offset,
                              Model model) {
         model.addAttribute("postingsAddVisible", addVisible);
-        model.addAttribute("postingsAddTopicId", topic != null ? topic.getId() : -1);
+        model.addAttribute("postingsAddCatalog", topic != null ? topic.getCatalog() : "");
         List<Pair<Long, Boolean>> topicRoots = null;
         if (topic != null) {
             topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));

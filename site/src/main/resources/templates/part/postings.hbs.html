@@ -3,7 +3,7 @@
         {{#if postingsAddVisible}}
             <div class="adder">
                 {{#each postingsAddGrps}}
-                    {{#assign "href"}}/add-posting/?grp={{name}}&amp;topic_id={{postingsAddTopicId}}&amp;back={{ue rc.location}}{{/assign}}
+                    {{#assign "href"}}/{{postingsAddCatalog}}add-{{pn name}}?back={{ue rc.location}}{{/assign}}
                     {{#notEnglish}}
                         {{#assign "add"}}Добавить{{/assign}}
                         {{#assign "w"}}{{what}}{{/assign}}

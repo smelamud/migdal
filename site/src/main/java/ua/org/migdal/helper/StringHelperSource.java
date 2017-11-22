@@ -44,4 +44,8 @@ public class StringHelperSource {
         return s != null ? s.toString().toUpperCase() : null;
     }
 
+    public CharSequence pn(Object s) {
+        return s != null ? Utils.toPathName(s.toString()) : null;
+    }
+
 }

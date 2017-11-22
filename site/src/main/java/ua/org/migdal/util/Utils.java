@@ -182,4 +182,12 @@ public class Utils {
         return list;
     }
 
+    public static String toPathName(String constName) {
+        return constName.replace('_', '-').toLowerCase();
+    }
+
+    public static String toConstName(String pathName) {
+        return pathName.replace('-', '_').toUpperCase();
+    }
+
 }
