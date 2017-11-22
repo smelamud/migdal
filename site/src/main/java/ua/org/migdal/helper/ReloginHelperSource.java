@@ -22,7 +22,9 @@ public class ReloginHelperSource {
     private RequestContext requestContext;
 
     public CharSequence formRelogin(Options options) {
-        boolean noGuests = !config.isAllowGuests() || HelperUtils.boolArg(options.hash("noGuests"));
+        boolean noGuests = !config.isAllowGuests()
+                            || HelperUtils.boolArg(options.hash("noGuests"))
+                            || requestContext.isLogged();
         long relogin = HelperUtils.intArg("relogin", options.hash("relogin"));
         CharSequence guestLogin = options.hash("guestLogin", "");
         CharSequence login = options.hash("login", "");
