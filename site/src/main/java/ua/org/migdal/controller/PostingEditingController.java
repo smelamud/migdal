@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +36,7 @@ import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
+import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
 
@@ -73,6 +75,40 @@ public class PostingEditingController {
 
     @Inject
     private LoginManager loginManager;
+
+    @Inject
+    private IndexController indexController;
+
+    @GetMapping("/add-{grpPathName}")
+    public String rootPostingAdd(
+            @PathVariable String grpPathName,
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        return postingAdd(grpPathName, full, model);
+    }
+
+    @GetMapping("/**/add-{grpPathName}")
+    public String postingAdd(
+            @PathVariable String grpPathName,
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        String grpName = Utils.toConstName(grpPathName);
+
+        postingAddLocationInfo(grpName, model);
+
+        long topicId = identManager.topicIdFromRequestPath(0, -1);
+        return postingAddOrEdit(null, grpName, topicId, full, model);
+    }
+
+    public LocationInfo postingAddLocationInfo(String grpName, Model model) {
+        GrpDescriptor desc = grpEnum.grp(grpName);
+        return new LocationInfo(model)
+                .withUri("/admin/postings/add")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Добавление " + desc.getWhatA());
+    }
 
     private Posting createPosting(String grpName, long topicId) {
         GrpDescriptor grpDescriptor = grpEnum.grp(grpName);

@@ -14,8 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
@@ -31,8 +31,6 @@ import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.VoteManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.util.CatalogUtils;
-import ua.org.migdal.util.Utils;
 
 @Controller
 public class IndexController {
@@ -57,9 +55,6 @@ public class IndexController {
 
     @Inject
     private VoteManager voteManager;
-
-    @Inject
-    private PostingEditingController postingEditingController;
 
     @GetMapping("/")
     public String index(
@@ -180,37 +175,6 @@ public class IndexController {
             }
         }
         model.addAttribute("postingsAddGrps", addGrps);
-    }
-
-    @GetMapping("/add-{grpPathName}")
-    public String rootPostingAdd(
-            @PathVariable String grpPathName,
-            @RequestParam(required = false) boolean full,
-            Model model) throws PageNotFoundException {
-
-        return postingAdd(grpPathName, full, model);
-    }
-
-    @GetMapping("/**/add-{grpPathName}")
-    public String postingAdd(
-            @PathVariable String grpPathName,
-            @RequestParam(required = false) boolean full,
-            Model model) throws PageNotFoundException {
-
-        String grpName = Utils.toConstName(grpPathName);
-
-        postingAddLocationInfo(grpName, model);
-
-        long topicId = identManager.idOrIdent(CatalogUtils.toIdent(requestContext.getCatalog(0, -1)));
-        return postingEditingController.postingAddOrEdit(null, grpName, topicId, full, model);
-    }
-
-    public LocationInfo postingAddLocationInfo(String grpName, Model model) {
-        GrpDescriptor desc = grpEnum.grp(grpName);
-        return new LocationInfo(model)
-                .withUri("/admin/postings/add")
-                .withParent(indexLocationInfo(null))
-                .withPageTitle("Добавление " + desc.getWhatA());
     }
 
     @GetMapping("/major")
