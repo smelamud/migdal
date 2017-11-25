@@ -74,10 +74,10 @@ public class PostingEditingController {
     @Inject
     private LoginManager loginManager;
 
-    private Posting createPosting(String grpName) {
+    private Posting createPosting(String grpName, long topicId) {
         GrpDescriptor grpDescriptor = grpEnum.grp(grpName);
-        Topic topic = null;
-        if (!StringUtils.isEmpty(grpDescriptor.getRootIdent())) {
+        Topic topic = topicId > 0 ? topicManager.beg(topicId) : null;
+        if (topic == null && !StringUtils.isEmpty(grpDescriptor.getRootIdent())) {
             topic = topicManager.beg(identManager.idOrIdent(grpDescriptor.getRootIdent()));
         }
         return new Posting(grpDescriptor.getValue(), topic, topic, 0, requestContext);
@@ -95,7 +95,9 @@ public class PostingEditingController {
         return posting;
     }
 
-    String postingAddOrEdit(Long id, String grpName, boolean full, Model model) throws PageNotFoundException {
+    String postingAddOrEdit(Long id, String grpName, long topicId, boolean full, Model model)
+            throws PageNotFoundException {
+
         if (full && !requestContext.isUserModerator()) {
             throw new PageNotFoundException();
         }
@@ -108,11 +110,13 @@ public class PostingEditingController {
 
         model.addAttribute("noguests", true);
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
-        model.asMap().computeIfAbsent("postingForm",
-                key -> new PostingForm(posting != null ? posting : createPosting(grpName), full, requestContext));
+        model.asMap().computeIfAbsent("postingForm", key -> {
+            Posting p = posting != null ? posting : createPosting(grpName, topicId);
+            return new PostingForm(p, full, requestContext);
+        });
         PostingForm postingForm = (PostingForm) model.asMap().get("postingForm");
         String rootIdent = postingForm.getGrpInfo().getRootIdent();
-        long rootId = full || rootIdent == null ? 0 : identManager.getIdByIdent(rootIdent);
+        long rootId = full || rootIdent == null ? 0 : identManager.idOrIdent(rootIdent);
         long grp = full ? -1 : grpEnum.grpValue(grpName);
         model.addAttribute("topicNames", topicManager.begNames(rootId, grp, false, !full));
         return "posting-edit";

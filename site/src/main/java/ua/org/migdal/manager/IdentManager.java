@@ -13,7 +13,7 @@ public class IdentManager {
     @Inject
     private EntryRepository entryRepository;
 
-    public long getIdByIdent(String ident) {
+    private long getIdByIdent(String ident) {
         IdProjection idp = entryRepository.findIdByIdent(ident);
         return idp != null ? idp.getId() : 0;
     }

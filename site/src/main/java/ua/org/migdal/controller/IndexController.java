@@ -31,6 +31,7 @@ import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.VoteManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.Utils;
 
 @Controller
@@ -200,7 +201,8 @@ public class IndexController {
 
         postingAddLocationInfo(grpName, model);
 
-        return postingEditingController.postingAddOrEdit(null, grpName, full, model);
+        long topicId = identManager.idOrIdent(CatalogUtils.toIdent(requestContext.getCatalog(0, -1)));
+        return postingEditingController.postingAddOrEdit(null, grpName, topicId, full, model);
     }
 
     public LocationInfo postingAddLocationInfo(String grpName, Model model) {

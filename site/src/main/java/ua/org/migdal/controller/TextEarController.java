@@ -41,7 +41,7 @@ public class TextEarController {
             Model model) {
         adminTextEarsLocationInfo(model);
 
-        long topicId = identManager.getIdByIdent("textears");
+        long topicId = identManager.idOrIdent("textears");
         model.addAttribute("postings",
                         postingManager.begAll(
                                 Collections.singletonList(Pair.of(topicId, true)),
@@ -64,7 +64,7 @@ public class TextEarController {
     public String textEarAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         textEarAddLocationInfo(model);
 
-        return postingEditingController.postingAddOrEdit(null, "TEXTEARS", full, model);
+        return postingEditingController.postingAddOrEdit(null, "TEXTEARS", 0, full, model);
     }
 
     public LocationInfo textEarAddLocationInfo(Model model) {
@@ -79,7 +79,7 @@ public class TextEarController {
             throws PageNotFoundException {
         textEarEditLocationInfo(id, model);
 
-        return postingEditingController.postingAddOrEdit(id, "TEXTEARS", full, model);
+        return postingEditingController.postingAddOrEdit(id, "TEXTEARS", 0, full, model);
     }
 
     public LocationInfo textEarEditLocationInfo(long id, Model model) {

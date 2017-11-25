@@ -48,7 +48,7 @@ public class EarController {
             Model model) {
         adminEarsLocationInfo(model);
 
-        long topicId = identManager.getIdByIdent("ears");
+        long topicId = identManager.idOrIdent("ears");
         model.addAttribute("postings",
                         postingManager.begAll(
                                 Collections.singletonList(Pair.of(topicId, true)),
@@ -75,7 +75,7 @@ public class EarController {
     public String earAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         earAddLocationInfo(model);
 
-        return postingEditingController.postingAddOrEdit(null, "EARS", full, model);
+        return postingEditingController.postingAddOrEdit(null, "EARS", 0, full, model);
     }
 
     public LocationInfo earAddLocationInfo(Model model) {
@@ -90,7 +90,7 @@ public class EarController {
             throws PageNotFoundException {
         earEditLocationInfo(id, model);
 
-        return postingEditingController.postingAddOrEdit(id, "EARS", full, model);
+        return postingEditingController.postingAddOrEdit(id, "EARS", 0, full, model);
     }
 
     public LocationInfo earEditLocationInfo(long id, Model model) {
