@@ -105,9 +105,31 @@ public class PostingEditingController {
     public LocationInfo postingAddLocationInfo(String grpName, Model model) {
         GrpDescriptor desc = grpEnum.grp(grpName);
         return new LocationInfo(model)
-                .withUri("/admin/postings/add")
+                .withUri("/add-" + Utils.toPathName(grpName))
                 .withParent(indexController.indexLocationInfo(null))
                 .withPageTitle("Добавление " + desc.getWhatA());
+    }
+
+    @GetMapping("/**/edit")
+    public String postingEdit(
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        Posting posting = postingManager.beg(identManager.postingIdFromRequestPath(0, -1));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        postingEditLocationInfo(posting, model);
+
+        return postingAddOrEdit(null, posting.getGrpName(), posting.getTopicId(), full, model);
+    }
+
+    public LocationInfo postingEditLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/" + posting.getCatalog() + "edit")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Редактирование " + posting.getGrpWhatA());
     }
 
     private Posting createPosting(String grpName, long topicId) {

@@ -57,6 +57,11 @@ public class Posting extends Entry {
     }
 
     @Transient
+    public String getGrpName() {
+        return getGrpDescriptor().getName();
+    }
+
+    @Transient
     public String getGrpTitle() {
         return getGrpDescriptor().getTitle();
     }
@@ -65,20 +70,32 @@ public class Posting extends Entry {
         return getGrpDescriptor().getHeading(spelEvaluationContext);
     }
 
+    @Transient
     public String getGrpGeneralHref() {
         return getGrpDescriptor().getGeneralHref(spelEvaluationContext);
     }
 
+    @Transient
     public String getGrpGeneralTitle() {
         return getGrpDescriptor().getGeneralTitle(spelEvaluationContext);
     }
 
+    @Transient
     public String getGrpDetailsHref() {
         return getGrpDescriptor().getDetailsHref(spelEvaluationContext);
     }
 
+    @Transient
     public String getGrpPublish() {
         return getGrpDescriptor().getPublishGrp();
+    }
+
+    public String getGrpWhat() {
+        return getGrpDescriptor().getWhat();
+    }
+
+    public String getGrpWhatA() {
+        return getGrpDescriptor().getWhatA();
     }
 
     @Transient
