@@ -502,9 +502,18 @@ public class Entry implements TreeElement {
         return isPermitted(Perm.APPEND);
     }
 
+    public boolean isAnyAppendable() {
+        return (getPerms() & (Perm.UA | Perm.GA | Perm.OA | Perm.EA)) != 0;
+    }
+
     @Transient
     public boolean isPostable() {
         return isPermitted(Perm.POST);
+    }
+
+    @Transient
+    public boolean isAnyPostable() {
+        return (getPerms() & (Perm.UP | Perm.GP | Perm.OP | Perm.EP)) != 0;
     }
 
     @Transient

@@ -77,9 +77,8 @@ public class PostingEditingController {
     private Posting createPosting(String grpName) {
         GrpDescriptor grpDescriptor = grpEnum.grp(grpName);
         Topic topic = null;
-        if (!StringUtils.isEmpty(grpDescriptor.getDefaultIdent())) {
-            long id = identManager.getIdByIdent(grpDescriptor.getDefaultIdent());
-            topic = topicManager.beg(id);
+        if (!StringUtils.isEmpty(grpDescriptor.getRootIdent())) {
+            topic = topicManager.beg(identManager.idOrIdent(grpDescriptor.getRootIdent()));
         }
         return new Posting(grpDescriptor.getValue(), topic, topic, 0, requestContext);
     }

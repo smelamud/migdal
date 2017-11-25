@@ -140,7 +140,7 @@
   bit: 0
   groups: [DISCUSS, WRITINGS, ARCHIVE]
 
-  defaultIdent: forum
+  rootIdent: forum
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
@@ -174,8 +174,6 @@
 - name: NEWS
   bit: 1
   groups: [DISCUSS, TAPE, WRITINGS, ARCHIVE, EVENT]
-
-  rootIdent: general
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
@@ -251,8 +249,6 @@
   bit: 2
   groups: [DISCUSS, GRAPHICS]
 
-  rootIdent: general
-
   publishGrp: GALLERY_UPDATE
 
   heading: "${titleTiny}"
@@ -321,8 +317,6 @@
 - name: ARTICLES
   bit: 3
   groups: [DISCUSS, TAPE, WRITINGS, ARCHIVE, EVENT]
-
-  rootIdent: general
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
@@ -416,8 +410,6 @@
   bit: 4
   groups: [TAPE, DISCUSS, WRITINGS, ARCHIVE, EVENT]
 
-  rootIdent: general
-
   generalHref:
     - href: "/${getCatalog(0,-1)}"
   generalTitle:
@@ -486,7 +478,7 @@
   bit: 5
   groups: [TAPE, DISCUSS]
 
-  defaultIdent: times
+  rootIdent: times
 
   generalHref:
     - href: "/times/"
@@ -608,7 +600,7 @@
   bit: 7
   groups: [DISCUSS, WRITINGS, ARCHIVE, EVENT]
 
-  defaultIdent: times
+  rootIdent: times
 
   generalHref:
     - href: "/times/${index1}/"
@@ -706,7 +698,7 @@
   bit: 8
   groups: []
 
-  defaultIdent: ears
+  rootIdent: ears
 
   generalTitle:
     - title: "Ушки"
@@ -757,6 +749,8 @@
   bit: 9
   groups: [DISCUSS, WRITINGS, ARCHIVE, EVENT]
 
+  rootIdent: migdal.events
+
   generalHref:
     - href: "/${getCatalog(0,-1)}"
   generalTitle:
@@ -800,6 +794,8 @@
 - name: DAILY_GALLERY
   bit: 10
   groups: [DISCUSS, GRAPHICS]
+
+  rootIdent: migdal.events
 
   generalHref:
     - href: "/${getCatalog(0,-1)}day-${index1}/"
@@ -854,7 +850,7 @@
   bit: 11
   groups: [DISCUSS, ARCHIVE]
 
-  defaultIdent: tips
+  rootIdent: tips
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
@@ -925,8 +921,6 @@
 - name: BOOK_CHAPTERS
   bit: 13
   groups: [DISCUSS, ARCHIVE]
-
-  rootIdent: general
 
   generalHref:
     - href: "/${getCatalog(0,-1)}"
@@ -1096,7 +1090,7 @@
   bit: 16
   groups: []
 
-  defaultIdent: textears
+  rootIdent: textears
 
   generalTitle:
     - title: "Текстовые ушки"

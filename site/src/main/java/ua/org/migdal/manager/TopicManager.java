@@ -189,9 +189,9 @@ public class TopicManager implements EntryManagerBase<Topic> {
             } else {
                 prefix = String.format("%s :: %s", prefix, topic.getSubject());
             }
-            if ((grp < 0 || (topic.getGrp() & grp) != 0)
-                    && (!onlyAppendable || topic.isAppendable())
-                    && (!onlyPostable || topic.isPostable())) {
+            if ((grp < 0 || topic.accepts(grp))
+                    && (!onlyAppendable || topic.isAnyAppendable())
+                    && (!onlyPostable || topic.isAnyPostable())) {
                 names.add(new IdNameProjection(subtree.getId(), prefix));
             }
         }

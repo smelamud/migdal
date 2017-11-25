@@ -23,7 +23,6 @@ public class GrpDescriptor {
     private List<String> groups;
 
     private String rootIdent;
-    private String defaultIdent;
 
     /**
      * Grp used to publish this postings as collection (for example,
@@ -121,14 +120,6 @@ public class GrpDescriptor {
 
     public void setRootIdent(String rootIdent) {
         this.rootIdent = rootIdent;
-    }
-
-    public String getDefaultIdent() {
-        return defaultIdent;
-    }
-
-    public void setDefaultIdent(String defaultIdent) {
-        this.defaultIdent = defaultIdent;
     }
 
     public String getPublishGrp() {
