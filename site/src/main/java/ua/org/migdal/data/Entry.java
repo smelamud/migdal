@@ -591,6 +591,11 @@ public class Entry implements TreeElement {
         this.sourceXml = sourceXml;
     }
 
+    @Transient
+    public Mtext getSourceMtext() {
+        return new Mtext(getSourceXml(), MtextFormat.LINE, getId());
+    }
+
     public String getTitle() {
         return title;
     }

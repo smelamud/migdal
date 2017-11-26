@@ -36,6 +36,10 @@ public class MtextConverter {
     }
 
     public CharSequence toHtml(Mtext mtext, List<InnerImage> innerImages) {
+        if (mtext == null) {
+            return new SafeString("<i>null</i>");
+        }
+
         MtextToHtml handler = new MtextToHtml(mtext.getFormat(), mtext.isIgnoreWrongFormat(), mtext.getId(),
                 InnerImageBlock.getImageBlocks(innerImages));
         handler.setConfig(config);

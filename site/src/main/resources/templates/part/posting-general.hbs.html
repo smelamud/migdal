@@ -1,3 +1,82 @@
-<p>
-    {{posting.subject}}
-</p>
+{{#*inline "topic"}} {{! params: posting, showTopic }}
+    {{#if showTopic}}
+        <topiclink posting="$posting"><br>
+    {{/if}}
+{{/inline}}
+
+{{#*inline "source"}} {{! params: posting }}
+    {{#if posting.source}}
+        <p class="posting-source">Источник: {{mtext posting.sourceMtext}}</p>
+    {{/if}}
+{{/inline}}
+
+{{#*inline "further"}} {{! params: posting, title }}
+    <p>
+        {{image "/pics/further.gif"}} <a href="{{posting.grpDetailsHref}}">{{title}}</a>
+    </p>
+{{/inline}}
+
+{{#*inline "furtherUrl"}} {{! params: posting, url }}
+    <p>
+        {{image "/pics/further-far.gif"}}
+        <a href="/actions/link/{{posting.id}}/?to={{ue url}}">Подробности на другом сайте</a>
+    </p>
+{{/inline}}
+
+<dl class="posting">
+    <dt>
+        {{> topic posting=posting showTopic=showTopic}}
+        <vote_panel align="right" id="$posting.Id" rating="$posting.Rating">
+        <a class="posting-subject" href="{{posting.grpDetailsHref}}">{{posting.heading}}</a>
+        {{#if posting.author}}
+            <br><span class="posting-author">{{posting.author}}</span>
+        {{/if}}
+    </dt>
+    <dd>
+        {{#if posting.hasImage}}
+            <posting_image posting="$posting" title="$posting.TitleHTML"
+                           title_large="$posting.TitleLineHTML" align="left">
+        {{/if}}
+        <if what="$shorten && !$posting.hasLargeBody">
+            {{mtext posting.bodyMediumMtext}}
+            {{#unless posting.isBodyMedium}}
+                {{#notEnglish}}
+                    {{#assign "title"}}Читать дальше{{/assign}}
+                {{else}}
+                    {{#assign "title"}}Read more{{/assign}}
+                {{/notEnglish}}
+                {{> further posting=posting title=title}}
+            {{else}}
+                {{> source posting=posting}}
+            {{/unless}}
+        <else>
+            {{mtext posting.bodyMtext}}
+            {{#unless posting.hasLargeBody}}
+                {{> source posting=posting}}
+            {{/unless}}
+        </if>
+        {{#if posting.hasLargeBody}}
+            <if what="$posting.Grp != *GRP_BOOK_CHAPTERS">
+                {{#notEnglish}}
+                    {{#assign "title"}}Читать статью{{/assign}}
+                {{else}}
+                    {{#assign "title"}}Read article{{/assign}}
+                {{/notEnglish}}
+            <else>
+                {{#notEnglish}}
+                    {{#assign "title"}}Читать главу книги{{/assign}}
+                {{else}}
+                    {{#assign "title"}}Read book chapter{{/assign}}
+                {{/notEnglish}}
+            </if>
+            {{> further posting=posting title=title}}
+        {{/if}}
+        {{#if posting.url}}
+            {{> furtherUrl posting=posting url=posting.url}}
+        {{/if}}
+        <div class="sent" style="clear: left">
+            {{sentView date=posting.sent}}&nbsp;
+            <senderlink message="$posting">
+        </div>
+        <posting_controls posting="$posting" showdiscuss="$showdiscuss">
+</dl>
