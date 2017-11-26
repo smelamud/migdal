@@ -241,7 +241,7 @@
             </tr></table>{{/formComment}}
         {{/moderator}}
         {{#unless postingForm.id}}
-            {{formRelogin relogin=postingForm.relogin noGuests=noguests guestLogin=postingForm.guestLogin
+            {{formRelogin relogin=postingForm.relogin noGuests=noGuests guestLogin=postingForm.guestLogin
                           login=postingForm.login remember=postingForm.remember}}
             <error id='*EP_CAPTCHA_ABSENT'
                    text='Пожалуйста, введите цифры и буквы, которые вы видите на

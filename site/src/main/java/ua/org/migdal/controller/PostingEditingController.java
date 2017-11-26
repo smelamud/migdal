@@ -166,7 +166,7 @@ public class PostingEditingController {
             throw new PageNotFoundException();
         }
 
-        model.addAttribute("noguests", true);
+        model.addAttribute("noGuests", true);
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
         model.asMap().computeIfAbsent("postingForm", key -> {
             Posting p = posting != null ? posting : createPosting(grpName, topicId);
