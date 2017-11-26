@@ -36,8 +36,7 @@
 {{> batcher list=postings}}
 {{#if postings}}
     {{#each postings}}
-        {{! > part/posting-ear posting=this}}
-        {{subject}}<br>
+        {{> (postingFeedPartial this) posting=this showTopic=postingsShowTopic shorten=true showDiscuss=true}}
     {{/each}}
     {{> batcher list=postings}}
 {{/if}}

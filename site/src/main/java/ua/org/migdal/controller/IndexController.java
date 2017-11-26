@@ -146,6 +146,7 @@ public class IndexController {
 
     private void addPostings(String groupName, Topic topic, String[] addGrpNames, boolean addVisible, Integer offset,
                              Model model) {
+        model.addAttribute("postingsShowTopic", true);
         model.addAttribute("postingsAddVisible", addVisible);
         model.addAttribute("postingsAddCatalog", topic != null ? topic.getCatalog() : "");
         List<Pair<Long, Boolean>> topicRoots = null;

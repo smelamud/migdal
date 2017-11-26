@@ -1,12 +1,16 @@
 package ua.org.migdal.helper;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import javax.inject.Inject;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.util.StringUtils;
+
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
-import org.springframework.util.StringUtils;
+
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.helper.calendar.CalendarType;
@@ -16,6 +20,9 @@ import ua.org.migdal.session.RequestContext;
 
 @HelperSource
 public class PostingHelperSource {
+
+    @Inject
+    private ApplicationContext applicationContext;
 
     @Inject
     private RequestContext requestContext;
@@ -235,6 +242,10 @@ public class PostingHelperSource {
         buf.append("</a>");
         buf.append("</span>");
         return buf;
+    }
+
+    public CharSequence postingFeedPartial(Posting posting, Options options) throws IOException {
+        return "part/" + posting.getGrpFeedPartial();
     }
 
 }

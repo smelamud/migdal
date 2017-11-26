@@ -90,12 +90,19 @@ public class Posting extends Entry {
         return getGrpDescriptor().getPublishGrp();
     }
 
+    @Transient
     public String getGrpWhat() {
         return getGrpDescriptor().getWhat();
     }
 
+    @Transient
     public String getGrpWhatA() {
         return getGrpDescriptor().getWhatA();
+    }
+
+    @Transient
+    public String getGrpFeedPartial() {
+        return getGrpDescriptor().getFeedPartial();
     }
 
     @Transient
