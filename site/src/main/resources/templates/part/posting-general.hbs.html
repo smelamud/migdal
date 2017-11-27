@@ -40,11 +40,7 @@
         {{#if (and shorten (not posting.hasLargeBody))}}
             {{mtext posting.bodyMediumMtext}}
             {{#unless posting.isBodyMedium}}
-                {{#notEnglish}}
-                    {{#assign "title"}}Читать дальше{{/assign}}
-                {{else}}
-                    {{#assign "title"}}Read more{{/assign}}
-                {{/notEnglish}}
+                {{#notEnglish var="title"}}Читать дальше{{else}}Read more{{/notEnglish}}
                 {{> further posting=posting title=title}}
             {{else}}
                 {{> source posting=posting}}
@@ -56,19 +52,7 @@
             {{/unless}}
         {{/if}}
         {{#if posting.hasLargeBody}}
-            <if what="$posting.Grp != *GRP_BOOK_CHAPTERS">
-                {{#notEnglish}}
-                    {{#assign "title"}}Читать статью{{/assign}}
-                {{else}}
-                    {{#assign "title"}}Read article{{/assign}}
-                {{/notEnglish}}
-            <else>
-                {{#notEnglish}}
-                    {{#assign "title"}}Читать главу книги{{/assign}}
-                {{else}}
-                    {{#assign "title"}}Read book chapter{{/assign}}
-                {{/notEnglish}}
-            </if>
+            {{#notEnglish var="title"}}Читать {{posting.grpWhat}}{{else}}Read {{posting.grpEnWhat}}{{/notEnglish}}
             {{> further posting=posting title=title}}
         {{/if}}
         {{#if posting.url}}

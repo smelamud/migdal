@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Options;
 
 import ua.org.migdal.data.Editable;
@@ -25,11 +26,25 @@ public class SessionHelperSource {
     }
 
     public CharSequence english(Options options) throws IOException {
-        return requestContext.isEnglish() ? options.apply(options.fn) : options.apply(options.inverse);
+        CharSequence result = requestContext.isEnglish() ? options.apply(options.fn) : options.apply(options.inverse);
+        Object variableName = options.hash("var", null);
+        if (variableName == null) {
+            return result;
+        }
+        result = result instanceof Handlebars.SafeString ? result : new Handlebars.SafeString(result.toString().trim());
+        options.context.combine(variableName.toString(), result);
+        return "";
     }
 
     public CharSequence notEnglish(Options options) throws IOException {
-        return !requestContext.isEnglish() ? options.apply(options.fn) : options.apply(options.inverse);
+        CharSequence result = !requestContext.isEnglish() ? options.apply(options.fn) : options.apply(options.inverse);
+        Object variableName = options.hash("var", null);
+        if (variableName == null) {
+            return result;
+        }
+        result = result instanceof Handlebars.SafeString ? result : new Handlebars.SafeString(result.toString().trim());
+        options.context.combine(variableName.toString(), result);
+        return "";
     }
 
     public CharSequence logged(Options options) throws IOException {
