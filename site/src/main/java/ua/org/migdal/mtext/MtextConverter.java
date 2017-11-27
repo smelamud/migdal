@@ -12,6 +12,7 @@ import com.github.jknack.handlebars.Handlebars.SafeString;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.util.XmlConverter;
+import ua.org.migdal.util.XmlUtils;
 import ua.org.migdal.util.exception.XmlConverterException;
 
 @Service
@@ -38,6 +39,9 @@ public class MtextConverter {
     public CharSequence toHtml(Mtext mtext, List<InnerImage> innerImages) {
         if (mtext == null) {
             return new SafeString("<i>null</i>");
+        }
+        if (!XmlUtils.hasMarkup(mtext.getXml())) {
+            return new SafeString(mtext.getXml());
         }
 
         MtextToHtml handler = new MtextToHtml(mtext.getFormat(), mtext.isIgnoreWrongFormat(), mtext.getId(),
