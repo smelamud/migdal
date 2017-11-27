@@ -1,16 +1,9 @@
-{{#notEnglish}}
-    {{#ifieq status 404}}
-        {{#assign "comment"}}Страница не найдена{{/assign}}
-    {{else}}
-        {{#assign "comment"}}Ошибка на сервере{{/assign}}
-    {{/ifieq}}
+{{#ifieq status 404}}
+    {{#notEnglish var="comment"}}Страница не найдена{{else}}Page not found{{/notEnglish}}
 {{else}}
-    {{#ifieq status 404}}
-        {{#assign "comment"}}Page not found{{/assign}}
-    {{else}}
-        {{#assign "comment"}}Server error{{/assign}}
-    {{/ifieq}}
-{{/notEnglish}}
+    {{#notEnglish var="comment"}}Ошибка на сервере{{else}}Server error{{/notEnglish}}
+{{/ifieq}}
+
 <html>
     <head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
