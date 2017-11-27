@@ -37,7 +37,7 @@
             <posting_image posting="$posting" title="$posting.TitleHTML"
                            title_large="$posting.TitleLineHTML" align="left">
         {{/if}}
-        <if what="$shorten && !$posting.hasLargeBody">
+        {{#if (and shorten (not posting.hasLargeBody))}}
             {{mtext posting.bodyMediumMtext}}
             {{#unless posting.isBodyMedium}}
                 {{#notEnglish}}
@@ -49,12 +49,12 @@
             {{else}}
                 {{> source posting=posting}}
             {{/unless}}
-        <else>
+        {{else}}
             {{mtext posting.bodyMtext}}
             {{#unless posting.hasLargeBody}}
                 {{> source posting=posting}}
             {{/unless}}
-        </if>
+        {{/if}}
         {{#if posting.hasLargeBody}}
             <if what="$posting.Grp != *GRP_BOOK_CHAPTERS">
                 {{#notEnglish}}

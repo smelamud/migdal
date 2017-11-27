@@ -38,6 +38,14 @@ public class StatementsHelperSource {
         return HelperUtils.boolResult(!HelperUtils.boolArg(value));
     }
 
+    public CharSequence and(Object left, Object right) {
+        return HelperUtils.boolResult(HelperUtils.boolArg(left) && HelperUtils.boolArg(right));
+    }
+
+    public CharSequence or(Object left, Object right) {
+        return HelperUtils.boolResult(HelperUtils.boolArg(left) || HelperUtils.boolArg(right));
+    }
+
     public CharSequence neg(Object value) {
         return Long.toString(-HelperUtils.intArg(1, value));
     }
