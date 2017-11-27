@@ -16,10 +16,9 @@
     </p>
 {{/inline}}
 
-{{#*inline "furtherUrl"}} {{! params: posting, url }}
+{{#*inline "furtherUrl"}} {{! params: posting }}
     <p>
-        {{image "/pics/further-far.gif"}}
-        <a href="/actions/link/{{posting.id}}/?to={{ue url}}">Подробности на другом сайте</a>
+        {{image "/pics/further-far.gif"}} <a href="{{posting.url}}">Подробности на другом сайте</a>
     </p>
 {{/inline}}
 
@@ -56,7 +55,7 @@
             {{> further posting=posting title=furtherTitle}}
         {{/if}}
         {{#if posting.url}}
-            {{> furtherUrl posting=posting url=posting.url}}
+            {{> furtherUrl posting=posting}}
         {{/if}}
         <div class="sent" style="clear: left">
             {{sentView date=posting.sent}}&nbsp;
