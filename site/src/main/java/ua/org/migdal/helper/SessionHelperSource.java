@@ -32,7 +32,7 @@ public class SessionHelperSource {
             return result;
         }
         result = result instanceof Handlebars.SafeString ? result : new Handlebars.SafeString(result.toString().trim());
-        options.context.combine(variableName.toString(), result);
+        options.data(variableName.toString(), result);
         return "";
     }
 
@@ -43,7 +43,7 @@ public class SessionHelperSource {
             return result;
         }
         result = result instanceof Handlebars.SafeString ? result : new Handlebars.SafeString(result.toString().trim());
-        options.context.combine(variableName.toString(), result);
+        options.data(variableName.toString(), result);
         return "";
     }
 

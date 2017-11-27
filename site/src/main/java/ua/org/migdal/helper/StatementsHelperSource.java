@@ -16,21 +16,21 @@ public class StatementsHelperSource {
     public CharSequence assign(String variableName, Options options) throws IOException {
         CharSequence finalValue = options.apply(options.fn);
         finalValue = finalValue instanceof SafeString ? finalValue : new SafeString(finalValue.toString().trim());
-        options.context.combine(variableName, finalValue);
+        options.data(variableName, finalValue);
         return "";
     }
 
     public CharSequence assignIeq(String variableName, Object value1, Object value2, Options options)
             throws IOException {
         boolean condition = HelperUtils.intArg(0, value1) == HelperUtils.intArg(1, value2);
-        options.context.combine(variableName, condition);
+        options.data(variableName, condition);
         return "";
     }
 
     public CharSequence assignIne(String variableName, Object value1, Object value2, Options options)
             throws IOException {
         boolean condition = HelperUtils.intArg(0, value1) != HelperUtils.intArg(1, value2);
-        options.context.combine(variableName, condition);
+        options.data(variableName, condition);
         return "";
     }
 

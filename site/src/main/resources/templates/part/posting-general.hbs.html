@@ -40,8 +40,8 @@
         {{#if (and shorten (not posting.hasLargeBody))}}
             {{mtext posting.bodyMediumMtext}}
             {{#unless posting.isBodyMedium}}
-                {{#notEnglish var="title"}}Читать дальше{{else}}Read more{{/notEnglish}}
-                {{> further posting=posting title=title}}
+                {{#notEnglish var="furtherTitle"}}Читать дальше{{else}}Read more{{/notEnglish}}
+                {{> further posting=posting title=furtherTitle}}
             {{else}}
                 {{> source posting=posting}}
             {{/unless}}
@@ -52,8 +52,8 @@
             {{/unless}}
         {{/if}}
         {{#if posting.hasLargeBody}}
-            {{#notEnglish var="title"}}Читать {{posting.grpWhat}}{{else}}Read {{posting.grpEnWhat}}{{/notEnglish}}
-            {{> further posting=posting title=title}}
+            {{#notEnglish var="furtherTitle"}}Читать {{posting.grpWhat}}{{else}}Read {{posting.grpEnWhat}}{{/notEnglish}}
+            {{> further posting=posting title=furtherTitle}}
         {{/if}}
         {{#if posting.url}}
             {{> furtherUrl posting=posting url=posting.url}}
