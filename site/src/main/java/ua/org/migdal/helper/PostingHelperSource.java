@@ -72,7 +72,7 @@ public class PostingHelperSource {
         CharSequence rel = options.hash("rel");
         Object title = options.hash("title");
         long titleLargeId = HelperUtils.intArg("titleLargeId", options.hash("titleLargeId"));
-        String titleLarge = options.hash("titleLarge");
+        CharSequence titleLarge = options.hash("titleLarge");
         long fixedWidth = HelperUtils.intArg("fixedWidth", options.hash("fixedWidth"));
         long fixedHeight = HelperUtils.intArg("fixedHeight", options.hash("fixedHeight"));
         boolean enlargeAlways = HelperUtils.boolArg(options.hash("enlargeAlways"));
@@ -91,7 +91,8 @@ public class PostingHelperSource {
             dataTitle = String.format(" data-title-large-id=\"%d\"", titleLargeId);
         } else {
             if (!StringUtils.isEmpty(titleLarge)) {
-                dataTitle = String.format(" data-title-large=\"%s\"", HelperUtils.he(titleLarge));
+                CharSequence safeTitleLarge = titleLarge instanceof SafeString ? titleLarge : HelperUtils.he(titleLarge);
+                dataTitle = String.format(" data-title-large=\"%s\"", safeTitleLarge);
             }
         }
 

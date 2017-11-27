@@ -618,6 +618,11 @@ public class Entry implements TreeElement {
     }
 
     @Transient
+    public Mtext getTitleLineMtext() {
+        return new Mtext(getTitleXml(), MtextFormat.LINE, getId());
+    }
+
+    @Transient
     public String getTitleTiny() {
         Config config = Config.getInstance();
 
