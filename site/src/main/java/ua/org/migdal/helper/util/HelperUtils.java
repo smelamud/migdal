@@ -110,6 +110,10 @@ public class HelperUtils {
         return valueB != null ? valueB : false;
     }
 
+    public static String boolResult(boolean value) {
+        return value ? "true" : "";
+    }
+
     public static LocalDateTime timestampArg(String paramName, Object value) {
         return timestampArg(paramName, value, true);
     }

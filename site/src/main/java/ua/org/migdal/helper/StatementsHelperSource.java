@@ -35,7 +35,7 @@ public class StatementsHelperSource {
     }
 
     public CharSequence not(Object value) {
-        return Boolean.toString(!HelperUtils.boolArg(value));
+        return HelperUtils.boolResult(!HelperUtils.boolArg(value));
     }
 
     public CharSequence neg(Object value) {
