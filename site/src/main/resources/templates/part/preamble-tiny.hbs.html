@@ -1,5 +1,7 @@
 {{#notPrint}}
     <link rel='alternate' media='print' href='{{printLocation}}'>
+{{else}}
+    <meta property="robots" content="noindex, nofollow">
 {{/notPrint}}
 {{#if rssHref}}
     <link rel="alternate" type="application/rss+xml" title="RSS"
@@ -7,7 +9,7 @@
 {{/if}}
 <link rel='search' href='/search'>
 {{#if metaNoIndex}}
-    <meta property="ROBOTS" content="NOINDEX, NOFOLLOW">
+    <meta property="robots" content="noindex, nofollow">
 {{/if}}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
