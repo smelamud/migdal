@@ -54,9 +54,9 @@ public class GrpDescriptor {
     private String detailsTemplate = "posting";
 
     /**
-     * Partial to show the posting in a feed
+     * Partial to show the posting
      */
-    private String feedPartial = "posting-general";
+    private String partial = "posting-general";
 
     /**
      * Допустимые сообщения: {}
@@ -186,12 +186,12 @@ public class GrpDescriptor {
         this.detailsTemplate = detailsTemplate;
     }
 
-    public String getFeedPartial() {
-        return feedPartial;
+    public String getPartial() {
+        return partial;
     }
 
-    public void setFeedPartial(String feedPartial) {
-        this.feedPartial = feedPartial;
+    public void setPartial(String partial) {
+        this.partial = partial;
     }
 
     public String getTitle() {

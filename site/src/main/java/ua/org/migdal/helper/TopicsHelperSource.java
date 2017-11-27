@@ -3,15 +3,14 @@ package ua.org.migdal.helper;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 import javax.inject.Inject;
+
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.StringUtils;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
-import com.github.jknack.handlebars.Template;
 
-import org.springframework.util.StringUtils;
 import ua.org.migdal.helper.exception.AmbiguousArgumentsException;
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.util.Utils;
@@ -129,14 +128,8 @@ public class TopicsHelperSource {
         return new SafeString(buf);
     }
 
-    public CharSequence topics(Options options) throws IOException {
-        String partialName = "part/" + options.get("topics");
-        Template template = options.partial(partialName);
-        if (template == null) {
-            template = applicationContext.getBean(HandlebarsViewResolver.class).getHandlebars().compile(partialName);
-            options.partial(partialName, template);
-        }
-        return new SafeString(options.apply(template));
+    public CharSequence topicsPartial(Options options) throws IOException {
+        return "part/" + options.get("topics");
     }
 
 }

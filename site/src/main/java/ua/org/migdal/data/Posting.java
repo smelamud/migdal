@@ -101,8 +101,8 @@ public class Posting extends Entry {
     }
 
     @Transient
-    public String getGrpFeedPartial() {
-        return getGrpDescriptor().getFeedPartial();
+    public String getGrpPartial() {
+        return getGrpDescriptor().getPartial();
     }
 
     @Transient

@@ -245,7 +245,7 @@ public class PostingHelperSource {
     }
 
     public CharSequence postingFeedPartial(Posting posting, Options options) throws IOException {
-        return "part/" + posting.getGrpFeedPartial();
+        return "part/" + posting.getGrpPartial();
     }
 
 }

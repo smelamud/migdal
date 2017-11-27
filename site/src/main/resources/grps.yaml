@@ -274,7 +274,7 @@
       href: "/${getCatalog(0,-1)}${userFolder}/${getCatalog(-1)}"
     - href: "/${catalog}"
 
-  feedPartial: posting-gallery
+  partial: posting-gallery
 
   title: "Галерея"
   what: "фотографию"
@@ -424,7 +424,7 @@
     - href: "/${catalog}"
   detailsTemplate: book
 
-  feedPartial: posting-book
+  partial: posting-book
 
   title: "Книги"
   what: "книгу"
@@ -487,7 +487,7 @@
   detailsHref:
     - href: "/times/${index1}/"
 
-  feedPartial: posting-times-cover
+  partial: posting-times-cover
 
   heading: "«Мигдаль Times» №${index1}"
 
@@ -552,7 +552,7 @@
   detailsHref:
     - href: "/${getCatalog(0,-1)}${userFolder}/${getCatalog(-1)}"
 
-  feedPartial: posting-peruser
+  partial: posting-peruser
 
   heading: "${bodyTiny}"
 
@@ -806,7 +806,7 @@
 
   heading: "${titleTiny}"
 
-  feedPartial: posting-gallery
+  partial: posting-gallery
 
   title: "Ежедневная галерея"
   what: "фотографию"
@@ -859,7 +859,7 @@
   detailsHref:
     - href: "/${catalog}"
 
-  feedPartial: posting-tip
+  partial: posting-tip
 
   heading: "${bodyTiny}"
 
@@ -897,7 +897,7 @@
   detailsHref:
     - href: "/${catalog}"
 
-  feedPartial: posting-gallery-update
+  partial: posting-gallery-update
 
   heading: "+${index1} фото"
 
@@ -1034,7 +1034,7 @@
   detailsHref:
     - href: "/${catalog}"
 
-  feedPartial: posting-printing
+  partial: posting-printing
 
   heading: "${author} «${comment0}»"
 
