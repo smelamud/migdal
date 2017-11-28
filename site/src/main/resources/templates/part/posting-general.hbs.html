@@ -1,9 +1,3 @@
-{{#*inline "topic"}} {{! params: posting, showTopic }}
-    {{#if showTopic}}
-        <topiclink posting="$posting"><br>
-    {{/if}}
-{{/inline}}
-
 {{#*inline "source"}} {{! params: posting }}
     {{#if posting.source}}
         <p class="posting-source">Источник: {{mtext posting.sourceMtext}}</p>
@@ -24,7 +18,9 @@
 
 <dl class="posting">
     <dt>
-        {{> topic posting=posting showTopic=showTopic}}
+        {{#if showTopic}}
+            {{topicLink posting}}<br>
+        {{/if}}
         {{! <vote_panel align="right" id="$posting.Id" rating="$posting.Rating">}}
         <a class="posting-subject" href="{{posting.grpDetailsHref}}">{{posting.heading}}</a>
         {{#if posting.author}}

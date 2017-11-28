@@ -63,6 +63,16 @@ public class PostingHelperSource {
         return new SafeString(buf);
     }
 
+    public CharSequence topicLink(Posting posting, Options options) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<a class=\"posting-topic\"");
+        HelperUtils.appendAttr(buf, "href", posting.getGrpGeneralHref());
+        buf.append('>');
+        HelperUtils.safeAppend(buf, posting.getGrpGeneralTitle());
+        buf.append("</a>");
+        return new SafeString(buf);
+    }
+
     public CharSequence postingImage(Options options) {
         Posting posting = HelperUtils.mandatoryHash("posting", options);
         CharSequence align = options.hash("align");
