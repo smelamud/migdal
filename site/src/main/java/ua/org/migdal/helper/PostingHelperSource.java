@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import javax.inject.Inject;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
@@ -20,9 +19,6 @@ import ua.org.migdal.session.RequestContext;
 
 @HelperSource
 public class PostingHelperSource {
-
-    @Inject
-    private ApplicationContext applicationContext;
 
     @Inject
     private RequestContext requestContext;
@@ -70,6 +66,38 @@ public class PostingHelperSource {
         buf.append('>');
         HelperUtils.safeAppend(buf, posting.getGrpGeneralTitle());
         buf.append("</a>");
+        return new SafeString(buf);
+    }
+
+    public CharSequence postingControls(Options options) {
+        if (requestContext.isPrintMode()) {
+            return "";
+        }
+
+        Posting posting = HelperUtils.mandatoryHash("posting", options);
+        boolean showPrint = HelperUtils.boolArg(options.hash("showPrint", "true"));
+        boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true"));
+        boolean showDiscuss = HelperUtils.boolArg(options.hash("showDiscuss"));
+
+        StringBuilder buf = new StringBuilder();
+        buf.append("<div class=\"posting-bottom\">");
+        if (showPrint) {
+            buf.append("&nbsp;&nbsp;");
+            //<printlink posting='$posting'>
+        }
+        if (showEdit) {
+            buf.append("&nbsp;&nbsp;");
+            if (posting.isWritable()) {
+                //<editlink posting='$posting'>
+            }
+        }
+        if (showDiscuss) {
+            buf.append("<div class=\"right\">");
+            // <discusslink posting='$posting'>
+            buf.append("</div>");
+        }
+        buf.append("<div class=\"clear-floats\"></div>");
+        buf.append("</div>");
         return new SafeString(buf);
     }
 
