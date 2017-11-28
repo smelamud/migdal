@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import javax.inject.Inject;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
@@ -17,9 +16,6 @@ import ua.org.migdal.util.Utils;
 
 @HelperSource
 public class TopicsHelperSource {
-
-    @Inject
-    private ApplicationContext applicationContext;
 
     @Inject
     private VoteHelperSource voteHelperSource;
@@ -62,6 +58,10 @@ public class TopicsHelperSource {
     }
 
     public CharSequence topicsLine(Options options) throws IOException {
+        CharSequence href = HelperUtils.mandatoryHash("href", options);
+        CharSequence title = options.hash("title");
+        CharSequence klass = options.hash("class", "topics-item");
+
         boolean arrow;
         Object index = options.hash("index");
         if (index == null) {
@@ -97,9 +97,9 @@ public class TopicsHelperSource {
             }
         }
         buf.append("<a");
-        HelperUtils.appendMandatoryArgAttr(buf, "href", options);
-        HelperUtils.appendOptionalArgAttr(buf, "title", options);
-        HelperUtils.appendArgAttr(buf, "class", "topics-item", options);
+        HelperUtils.appendAttr(buf, "href", href);
+        HelperUtils.appendAttr(buf, "title", title);
+        HelperUtils.appendAttr(buf, "class", klass);
         buf.append('>');
         HelperUtils.safeAppend(buf, text);
         if (count != null) {

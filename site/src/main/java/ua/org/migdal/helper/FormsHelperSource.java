@@ -20,67 +20,62 @@ public class FormsHelperSource {
     private ImagesHelperSource imagesHelperSource;
 
     public CharSequence hidden(Options options) {
-        StringBuilder buf = new StringBuilder();
-        buf.append("<input type=\"hidden\"");
-        HelperUtils.appendMandatoryArgAttr(buf, "name", options);
-        HelperUtils.appendArgAttr(buf, "value", "", options);
-        buf.append('>');
-        return new SafeString(buf);
+        CharSequence name = HelperUtils.mandatoryHash("name", options);
+        Object value = options.hash("value", "");
+        CharSequence klass = options.hash("class");
+
+        return hidden(name, value, klass);
     }
 
-    CharSequence hidden(String name, Object value, CharSequence klass) {
+    CharSequence hidden(CharSequence name, Object value, CharSequence klass) {
         StringBuilder buf = new StringBuilder();
-        buf.append("<input type=\"hidden\" name=\"");
-        buf.append(name);
-        buf.append("\" value=\"");
-        buf.append(value);
-        if (klass != null) {
-            buf.append("\" class=\"");
-            buf.append(klass);
-        }
-        buf.append("\">");
+        buf.append("<input type=\"hidden\"");
+        HelperUtils.appendAttr(buf, "name", name);
+        HelperUtils.appendAttr(buf, "value", value);
+        HelperUtils.appendAttr(buf, "class", klass);
+        buf.append('>');
         return new SafeString(buf);
     }
 
     public CharSequence checkboxButton(Options options) {
-        StringBuilder buf = new StringBuilder();
-        buf.append("<input type=\"checkbox\"");
-        HelperUtils.appendMandatoryArgAttr(buf, "name", options);
-        HelperUtils.appendArgAttr(buf, "value", "1", options);
-        HelperUtils.appendArgAttr(buf, "checked", false, options);
-        HelperUtils.appendOptionalArgAttr(buf, "id", options);
-        HelperUtils.appendOptionalArgAttr(buf, "class", options);
-        buf.append('>');
-        return new SafeString(buf);
+        CharSequence name = HelperUtils.mandatoryHash("name", options);
+        Object value = options.hash("value", "1");
+        boolean checked = HelperUtils.boolArg(options.hash("checked", false));
+        CharSequence id = options.hash("id");
+        CharSequence klass = options.hash("class");
+
+        return checkboxButton(name, value, checked, id, klass);
     }
 
-    CharSequence checkboxButton(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence cls) {
+    CharSequence checkboxButton(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence klass) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"checkbox\"");
         HelperUtils.appendAttr(buf, "name", name);
         HelperUtils.appendAttr(buf, "value", value);
         HelperUtils.appendAttr(buf, "checked", checked);
         HelperUtils.appendAttr(buf, "id", id);
-        HelperUtils.appendAttr(buf, "class", cls);
+        HelperUtils.appendAttr(buf, "class", klass);
         buf.append('>');
         return new SafeString(buf);
     }
 
     public CharSequence checkbox(Options options) {
+        CharSequence title = options.hash("title", "");
+
         StringBuilder buf = new StringBuilder();
         buf.append("<label>");
         buf.append(checkboxButton(options));
         buf.append(' ');
-        HelperUtils.safeAppend(buf, options.hash("title", ""));
+        HelperUtils.safeAppend(buf, title);
         buf.append("</label>");
         return new SafeString(buf);
     }
 
     CharSequence checkbox(CharSequence title, CharSequence name, Object value, boolean checked, CharSequence id,
-                          CharSequence cls) {
+                          CharSequence klass) {
         StringBuilder buf = new StringBuilder();
         buf.append("<label>");
-        buf.append(checkboxButton(name, value, checked, id, cls));
+        buf.append(checkboxButton(name, value, checked, id, klass));
         buf.append(' ');
         HelperUtils.safeAppend(buf, title);
         buf.append("</label>");
@@ -88,26 +83,23 @@ public class FormsHelperSource {
     }
 
     public CharSequence radioButton(Options options) {
-        StringBuilder buf = new StringBuilder();
-        buf.append("<input type=\"radio\"");
-        HelperUtils.appendMandatoryArgAttr(buf, "name", options);
-        HelperUtils.appendMandatoryArgAttr(buf, "value", options);
-        HelperUtils.appendArgAttr(buf, "checked", false, options);
-        HelperUtils.appendOptionalArgAttr(buf, "id", options);
-        HelperUtils.appendOptionalArgAttr(buf, "class", options);
-        HelperUtils.appendOptionalArgAttr(buf, "onclick", options);
-        buf.append('>');
-        return new SafeString(buf);
+        CharSequence name = HelperUtils.mandatoryHash("name", options);
+        Object value = HelperUtils.mandatoryHash("value", options);
+        boolean checked = HelperUtils.boolArg(options.hash("checked", false));
+        CharSequence id = options.hash("id");
+        CharSequence klass = options.hash("class");
+
+        return radioButton(name, value, checked, id, klass);
     }
 
-    CharSequence radioButton(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence cls) {
+    CharSequence radioButton(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence klass) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"radio\"");
         HelperUtils.appendAttr(buf, "name", name);
         HelperUtils.appendAttr(buf, "value", value);
         HelperUtils.appendAttr(buf, "checked", checked);
         HelperUtils.appendAttr(buf, "id", id);
-        HelperUtils.appendAttr(buf, "class", cls);
+        HelperUtils.appendAttr(buf, "class", klass);
         buf.append('>');
         return new SafeString(buf);
     }
@@ -122,13 +114,13 @@ public class FormsHelperSource {
         return new SafeString(buf);
     }
 
-    CharSequence radio(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence cls,
+    CharSequence radio(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence klass,
                        CharSequence title) {
         StringBuilder buf = new StringBuilder();
         if (!StringUtils.isEmpty(title)) {
             buf.append("<label>");
         }
-        buf.append(radioButton(name, value, checked, id, cls));
+        buf.append(radioButton(name, value, checked, id, klass));
         if (!StringUtils.isEmpty(title)) {
             buf.append(' ');
             HelperUtils.safeAppend(buf, title);
@@ -301,36 +293,28 @@ public class FormsHelperSource {
     }
 
     public CharSequence edit(Options options) {
-        StringBuilder buf = new StringBuilder();
-        buf.append("<input type=\"text\"");
-        HelperUtils.appendMandatoryArgAttr(buf, "name", options);
-        HelperUtils.appendMandatoryArgAttr(buf, "value", options);
-        HelperUtils.appendArgAttr(buf, "size", "40", options);
-        HelperUtils.appendArgAttr(buf, "maxlength", "250", options);
-        HelperUtils.appendOptionalArgAttr(buf, "onkeypress", options);
-        HelperUtils.appendOptionalArgAttr(buf, "id", options);
-        HelperUtils.appendOptionalArgAttr(buf, "class", options);
-        buf.append('>');
-        return new SafeString(buf);
+        CharSequence name = HelperUtils.mandatoryHash("name", options);
+        CharSequence value = HelperUtils.mandatoryHash("value", options);
+        CharSequence size = options.hash("size", "40");
+        CharSequence maxlength = options.hash("maxlength", "250");
+        CharSequence id = options.hash("id");
+        CharSequence klass = options.hash("class");
+
+        return edit(name, value, size, maxlength, id, klass);
     }
 
-    private CharSequence edit(CharSequence name, CharSequence value, CharSequence size, CharSequence maxlength,
-                              CharSequence onkeypress, CharSequence id) {
+    CharSequence edit(CharSequence name, CharSequence value, CharSequence size, CharSequence maxlength, CharSequence id,
+                      CharSequence klass) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"text\"");
         HelperUtils.appendAttr(buf, "name", name);
         HelperUtils.appendAttr(buf, "value", value);
         HelperUtils.appendAttr(buf, "size", size);
         HelperUtils.appendAttr(buf, "maxlength", maxlength);
-        HelperUtils.appendAttr(buf, "onkeypress", onkeypress);
         HelperUtils.appendAttr(buf, "id", id);
+        HelperUtils.appendAttr(buf, "class", klass);
         buf.append('>');
         return new SafeString(buf);
-    }
-
-    CharSequence edit(CharSequence name, CharSequence value, CharSequence size, CharSequence maxlength,
-                      CharSequence id) {
-        return edit(name, value, size, maxlength, null, id);
     }
 
     public CharSequence formEdit(Options options) {

@@ -54,7 +54,7 @@ public class SpinHelperSource {
         buf.append("\">");
         buf.append("стр. ");
         HelperUtils.safeAppend(buf, formsHelperSource.edit("value", Integer.toString(page.getNumber() + 1),
-                                                           "3", "5", null));
+                                                           "3", "5", null, null));
         buf.append(" из ");
         buf.append(page.getTotalPages());
         buf.append("</form>");

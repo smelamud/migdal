@@ -145,48 +145,6 @@ public class HelperUtils {
                 .toLocalDateTime();
     }
 
-    public static void appendOptionalArgAttr(StringBuilder buf, String name, Options options) {
-        appendOptionalArgAttr(buf, name, name, options);
-    }
-
-    public static void appendOptionalArgAttr(StringBuilder buf, String name, String attrName, Options options) {
-        appendAttr(buf, attrName, options.hash(name));
-    }
-
-    public static void appendMandatoryArgAttr(StringBuilder buf, String name, Options options) {
-        appendMandatoryArgAttr(buf, name, name, options);
-    }
-
-    public static void appendMandatoryArgAttr(StringBuilder buf, String name, String attrName, Options options) {
-        appendArgAttr(buf, name, attrName, (String) null, options);
-    }
-
-    public static void appendArgAttr(StringBuilder buf, String name, String defaultValue, Options options) {
-        appendArgAttr(buf, name, name, defaultValue, options);
-    }
-
-    public static void appendArgAttr(StringBuilder buf, String name, String attrName, String defaultValue,
-                                     Options options) {
-        Object value = defaultValue != null ? options.hash(name, defaultValue) : options.hash(name);
-        if (value == null) {
-            throw new MissingArgumentException(name);
-        }
-        appendAttr(buf, attrName, value);
-    }
-
-    public static void appendArgAttr(StringBuilder buf, String name, Boolean defaultValue, Options options) {
-        appendArgAttr(buf, name, name, defaultValue, options);
-    }
-
-    public static void appendArgAttr(StringBuilder buf, String name, String attrName, Boolean defaultValue,
-                                     Options options) {
-        Object value = defaultValue != null ? options.hash(name, defaultValue) : options.hash(name);
-        if (value == null) {
-            throw new MissingArgumentException(name);
-        }
-        appendAttr(buf, attrName, boolArg(value));
-    }
-
     public static void appendAttr(StringBuilder buf, String attrName, Object value) {
         if (value != null) {
             buf.append(' ');

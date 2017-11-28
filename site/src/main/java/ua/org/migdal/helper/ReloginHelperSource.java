@@ -51,7 +51,7 @@ public class ReloginHelperSource {
                                                      reloginVariant == ReloginVariant.GUEST,
                                                      "relogin-guest", null));
             buf.append("&nbsp;Имя&nbsp;");
-            buf.append(formsHelperSource.edit("guestLogin", guestLogin, "15", "35", null));
+            buf.append(formsHelperSource.edit("guestLogin", guestLogin, "15", "35", null, null));
             buf.append("&nbsp;без пароля (гостевой вход)</label>");
         }
         buf.append("<br>");
@@ -74,7 +74,7 @@ public class ReloginHelperSource {
                                                      null));
         }
         buf.append("&nbsp;Ник&nbsp;");
-        buf.append(formsHelperSource.edit("login", login, "15", "30", null));
+        buf.append(formsHelperSource.edit("login", login, "15", "30", null, null));
         buf.append("&nbsp;Пароль&nbsp;");
         buf.append("<input type=\"password\" name=\"password\" size=15 maxlength=30>");
         buf.append("&nbsp;Войти?&nbsp;");

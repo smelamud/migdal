@@ -33,6 +33,17 @@ public class ImagesHelperSource {
     private Map<String, Dimension> imageSizeCache = new HashMap<>();
 
     public CharSequence image(CharSequence href, Options options) {
+        CharSequence alt = options.hash("altEn");
+        if (!requestContext.isEnglish() || alt == null) {
+            alt = options.hash("alt");
+        }
+        CharSequence title = options.hash("title");
+        CharSequence klass = options.hash("class");
+        CharSequence id = options.hash("id");
+        CharSequence dataId = options.hash("dataId");
+        CharSequence dataValue = options.hash("dataValue");
+        CharSequence style = options.hash("style");
+
         StringBuilder buf = new StringBuilder();
         boolean button = HelperUtils.boolArg(options.hash("button", false));
         buf.append(!button ? "<img" : "<input type=\"image\"");
@@ -42,17 +53,13 @@ public class ImagesHelperSource {
             HelperUtils.appendAttr(buf, "width", imageSize.width);
             HelperUtils.appendAttr(buf, "height", imageSize.height);
         }
-        if (!requestContext.isEnglish() || options.hash("altEn") == null) {
-            HelperUtils.appendOptionalArgAttr(buf, "alt", options);
-        } else {
-            HelperUtils.appendOptionalArgAttr(buf, "altEn", "alt", options);
-        }
-        HelperUtils.appendOptionalArgAttr(buf, "title", options);
-        HelperUtils.appendOptionalArgAttr(buf, "class", options);
-        HelperUtils.appendOptionalArgAttr(buf, "id", options);
-        HelperUtils.appendOptionalArgAttr(buf, "data_id", "data-id", options);
-        HelperUtils.appendOptionalArgAttr(buf, "data_value", "data-value", options);
-        HelperUtils.appendOptionalArgAttr(buf, "style", options);
+        HelperUtils.appendAttr(buf, "alt", alt);
+        HelperUtils.appendAttr(buf, "title", title);
+        HelperUtils.appendAttr(buf, "class", klass);
+        HelperUtils.appendAttr(buf, "id", id);
+        HelperUtils.appendAttr(buf, "data-id", dataId);
+        HelperUtils.appendAttr(buf, "data-value", dataValue);
+        HelperUtils.appendAttr(buf, "style", style);
         buf.append('>');
         return new SafeString(buf);
     }
