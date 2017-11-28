@@ -43,11 +43,11 @@ public class PostingHelperSource {
         StringBuilder buf = new StringBuilder();
         if (!entry.isUserGuest()) {
             if (entry.isUserVisible()) {
-                buf.append("<a href=\"/users/");
+                buf.append("<a class=\"name\" href=\"/users/");
                 buf.append(HelperUtils.ue(entry.getUserFolder()));
-                buf.append("/\" data-id=\"");
-                buf.append(entry.getUser().getId());
-                buf.append("\" class=\"name\">");
+                buf.append("/\"");
+                HelperUtils.appendAttr(buf, "data-id", entry.getUser().getId());
+                buf.append('>');
                 buf.append(HelperUtils.he(entry.getUserLogin()));
                 buf.append("</a>");
             } else {
@@ -81,21 +81,6 @@ public class PostingHelperSource {
         CharSequence rmHref = options.hash("rmHref");
         boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
 
-        String relation = "";
-        if (!StringUtils.isEmpty(rel)) {
-            relation = String.format(" rel=\"%s\"", rel);
-        }
-
-        String dataTitle = "";
-        if (titleLargeId > 0) {
-            dataTitle = String.format(" data-title-large-id=\"%d\"", titleLargeId);
-        } else {
-            if (!StringUtils.isEmpty(titleLarge)) {
-                CharSequence safeTitleLarge = titleLarge instanceof SafeString ? titleLarge : HelperUtils.he(titleLarge);
-                dataTitle = String.format(" data-title-large=\"%s\"", safeTitleLarge);
-            }
-        }
-
         long sizeX = fixedWidth != 0 ? fixedWidth : posting.getSmallImageX();
         long sizeY = fixedHeight != 0 ? fixedHeight : posting.getSmallImageY();
 
@@ -107,16 +92,19 @@ public class PostingHelperSource {
         buf.append("\">");
         if (posting.isHasLargeImage() || enlargeAlways) {
             if (StringUtils.isEmpty(href)) {
-                buf.append("<a class=\"enlargeable\" href=\"");
-                buf.append(posting.getLargeImageUrl());
-                buf.append('"');
-                buf.append(dataTitle);
-                buf.append(relation);
+                buf.append("<a class=\"enlargeable\"");
+                HelperUtils.appendAttr(buf, "href", posting.getLargeImageUrl());
+                if (titleLargeId > 0) {
+                    HelperUtils.appendAttr(buf, "data-title-large-id", titleLargeId);
+                } else {
+                    HelperUtils.appendAttr(buf, "data-title-large", titleLarge);
+                }
+                HelperUtils.appendAttr(buf, "rel", rel);
                 buf.append('>');
             } else {
-                buf.append("<a href=\"");
-                HelperUtils.safeAppend(buf, href);
-                buf.append("\">");
+                buf.append("<a");
+                HelperUtils.appendAttr(buf, "href", href);
+                buf.append(">");
             }
             if (!hollow) {
                 buf.append(imageTag(posting.getSmallImageUrl(), sizeX, sizeY, imageTitle));
@@ -129,9 +117,9 @@ public class PostingHelperSource {
             }
         } else {
             if (!StringUtils.isEmpty(href)) {
-                buf.append("<a href=\"");
-                HelperUtils.safeAppend(buf, href);
-                buf.append("\">");
+                buf.append("<a");
+                HelperUtils.appendAttr(buf, "href", href);
+                buf.append(">");
             }
             buf.append(imageTag(posting.getImageUrl(), posting.getImageX(), posting.getImageY(), imageTitle));
             if (!StringUtils.isEmpty(href)) {
@@ -203,21 +191,15 @@ public class PostingHelperSource {
 
     private CharSequence imageTag(String src, long sizeX, long sizeY, Object title) {
         StringBuilder buf = new StringBuilder();
-        buf.append("<img width=\"");
-        buf.append(sizeX);
-        buf.append("\" height=\"");
-        buf.append(sizeY);
-        buf.append('"');
+        buf.append("<img");
+        HelperUtils.appendAttr(buf, "width", sizeX);
+        HelperUtils.appendAttr(buf, "height", sizeY);
         if (!StringUtils.isEmpty(title)) {
-            buf.append(" alt=\"");
-            HelperUtils.safeAppend(buf, title);
-            buf.append("\" title=\"");
-            HelperUtils.safeAppend(buf, title);
-            buf.append('"');
+            HelperUtils.appendAttr(buf, "alt", title);
+            HelperUtils.appendAttr(buf, "title", title);
         }
-        buf.append(" src=\"");
-        buf.append(src);
-        buf.append("\">");
+        HelperUtils.appendAttr(buf, "src", src);
+        buf.append('>');
         return buf;
     }
 
@@ -236,9 +218,9 @@ public class PostingHelperSource {
     private CharSequence imageButton(CharSequence src, CharSequence href, String tooltip) {
         StringBuilder buf = new StringBuilder();
         buf.append("<span>");
-        buf.append("<a href=\"");
-        HelperUtils.safeAppend(buf, href);
-        buf.append("\">");
+        buf.append("<a");
+        HelperUtils.appendAttr(buf, "href", href);
+        buf.append('>');
         buf.append(imagesHelperSource.image(src, tooltip, tooltip));
         buf.append("</a>");
         buf.append("</span>");
