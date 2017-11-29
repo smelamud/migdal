@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.inject.Inject;
 import org.springframework.context.ApplicationContext;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
-import org.springframework.util.StringUtils;
+
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.session.RequestContext;
 
@@ -65,10 +65,14 @@ public class ImagesHelperSource {
     }
 
     CharSequence image(CharSequence href) {
-        return image(href, null, null);
+        return image(href, null, null, null);
     }
 
     CharSequence image(CharSequence href, CharSequence alt, CharSequence title) {
+        return image(href, alt, title, null);
+    }
+
+    CharSequence image(CharSequence href, CharSequence alt, CharSequence title, CharSequence style) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
         HelperUtils.appendAttr(buf, "src", href);
@@ -79,6 +83,7 @@ public class ImagesHelperSource {
         }
         HelperUtils.appendAttr(buf, "alt", alt);
         HelperUtils.appendAttr(buf, "title", title);
+        HelperUtils.appendAttr(buf, "style", style);
         buf.append('>');
         return new SafeString(buf);
     }

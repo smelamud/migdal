@@ -16,6 +16,7 @@ import ua.org.migdal.helper.calendar.CalendarType;
 import ua.org.migdal.helper.calendar.Formatter;
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.Utils;
 
 @HelperSource
 public class PostingHelperSource {
@@ -69,6 +70,70 @@ public class PostingHelperSource {
         return new SafeString(buf);
     }
 
+    public CharSequence printLink(Posting posting) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<span>");
+        buf.append(imagesHelperSource.image("/pics/print.gif", null, null, "position: relative; top: 1px"));
+        buf.append("&nbsp;");
+        buf.append("<a target=\"_blank\"");
+        String href = String.format("%s?print=1", posting.getGrpDetailsHref());
+        HelperUtils.appendAttr(buf, "href", href);
+        buf.append('>');
+        if (!requestContext.isEnglish()) {
+            buf.append("Для печати");
+        } else {
+            buf.append("Print version");
+        }
+        buf.append("</a>");
+        buf.append("</span>");
+        return new SafeString(buf);
+    }
+
+    public CharSequence editLink(Posting posting) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<a");
+        String href = String.format("%sedit/?back=%s",
+                posting.getGrpDetailsHref(), HelperUtils.ue(requestContext.getLocation()));
+        HelperUtils.appendAttr(buf, "href", href);
+        buf.append('>');
+        if (!requestContext.isEnglish()) {
+            buf.append("Изменить");
+        } else {
+            buf.append("Edit");
+        }
+        buf.append("</a>");
+        return new SafeString(buf);
+    }
+
+    public CharSequence discussLink(Posting posting) {
+        if (requestContext.isEnglish()) {
+            return "";
+        }
+
+        StringBuilder buf = new StringBuilder();
+        buf.append("<span>");
+        if (posting.getAnswers() > 0) {
+            buf.append("<a");
+            String href = String.format("%sdiscuss/", posting.getGrpDetailsHref());
+            HelperUtils.appendAttr(buf, "href", href);
+            buf.append('>');
+            buf.append(posting.getAnswers());
+            buf.append(' ');
+            buf.append(Utils.plural(posting.getAnswers(), new String[]{"комментарий", "комментария", "комментариев"}));
+        } else {
+            buf.append("<a");
+            String href = String.format("%sdiscuss/add/", posting.getGrpDetailsHref());
+            HelperUtils.appendAttr(buf, "href", href);
+            buf.append('>');
+            buf.append("Оставить комментарий");
+        }
+        buf.append("</a>");
+        buf.append("&nbsp;");
+        buf.append(imagesHelperSource.image("/pics/discussion.gif"));
+        buf.append("</span>");
+        return new SafeString(buf);
+    }
+
     public CharSequence postingControls(Options options) {
         if (requestContext.isPrintMode()) {
             return "";
@@ -86,18 +151,16 @@ public class PostingHelperSource {
         StringBuilder buf = new StringBuilder();
         buf.append("<div class=\"posting-bottom\">");
         if (showPrint) {
+            buf.append(printLink(posting));
             buf.append("&nbsp;&nbsp;");
-            //<printlink posting='$posting'>
         }
-        if (showEdit) {
+        if (showEdit && posting.isWritable()) {
+            buf.append(editLink(posting));
             buf.append("&nbsp;&nbsp;");
-            if (posting.isWritable()) {
-                //<editlink posting='$posting'>
-            }
         }
         if (showDiscuss) {
             buf.append("<div class=\"right\">");
-            // <discusslink posting='$posting'>
+            buf.append(discussLink(posting));
             buf.append("</div>");
         }
         buf.append("<div class=\"clear-floats\"></div>");
