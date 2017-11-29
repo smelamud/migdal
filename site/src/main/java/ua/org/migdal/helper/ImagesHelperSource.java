@@ -77,12 +77,8 @@ public class ImagesHelperSource {
             HelperUtils.appendAttr(buf, "width", imageSize.width);
             HelperUtils.appendAttr(buf, "height", imageSize.height);
         }
-        if (!StringUtils.isEmpty(alt)) {
-            HelperUtils.appendAttr(buf, "alt", alt);
-        }
-        if (!StringUtils.isEmpty(title)) {
-            HelperUtils.appendAttr(buf, "title", title);
-        }
+        HelperUtils.appendAttr(buf, "alt", alt);
+        HelperUtils.appendAttr(buf, "title", title);
         buf.append('>');
         return new SafeString(buf);
     }
