@@ -1,5 +1,6 @@
 package ua.org.migdal.session;
 
+import java.util.List;
 import java.util.Set;
 
 import ua.org.migdal.data.User;
@@ -61,5 +62,9 @@ public interface RequestContext {
     boolean isUserModerator();
 
     boolean isUserAdminDomain();
+
+    List<String> getOgImages();
+
+    void addOgImage(String src);
 
 }

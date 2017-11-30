@@ -32,6 +32,13 @@
     <script src="/js/URI.js"></script>
     <script src="/js/main.js"></script>
 
+    {{#each rc.ogImages}}
+        {{#if @first}}
+            <link rel="image_src" href="{{this}}">
+        {{/if}}
+        <meta property="og:image" content="{{this}}">
+    {{/each}}
+
     {{> part/preamble-tiny}}
 </head>
 <body>

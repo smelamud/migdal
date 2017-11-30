@@ -1,6 +1,8 @@
 package ua.org.migdal.session;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -63,6 +65,7 @@ public class RequestContextImpl implements RequestContext {
     private String userLogin;
     private String userGuestLoginHint = "";
     private short userHidden;
+    private List<String> ogImages = new ArrayList<>();
 
     @PostConstruct
     public void init() {
@@ -320,6 +323,22 @@ public class RequestContextImpl implements RequestContext {
     @Override
     public boolean isUserAdminDomain() {
         return (getUserRights() & UserRight.ADMIN_DOMAIN.getValue()) != 0;
+    }
+
+    @Override
+    public List<String> getOgImages() {
+        return ogImages;
+    }
+
+    @Override
+    public void addOgImage(String src) {
+        String url;
+        if (getSubdomain() == null) { // TODO use https
+            url = String.format("http://%s%s", config.getSiteDomain(), src);
+        } else {
+            url = String.format("http://%s.%s%s", getSubdomain(), config.getSiteDomain(), src);
+        }
+        ogImages.add(url);
     }
 
 }
