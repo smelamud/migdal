@@ -187,6 +187,7 @@ public class PostingHelperSource {
         CharSequence href = options.hash("href");
         CharSequence editHref = options.hash("editHref");
         CharSequence rmHref = options.hash("rmHref");
+        boolean controls = HelperUtils.boolArg(options.hash("controls"));
         boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
 
         long sizeX = fixedWidth != 0 ? fixedWidth : posting.getSmallImageX();
@@ -204,7 +205,7 @@ public class PostingHelperSource {
                 HelperUtils.appendAttr(buf, "href", posting.getLargeImageUrl());
                 if (titleLargeId > 0) {
                     HelperUtils.appendAttr(buf, "data-title-large-id", titleLargeId);
-                } else {
+                } else if (!StringUtils.isEmpty(titleLarge)) {
                     HelperUtils.appendAttr(buf, "data-title-large", titleLarge);
                 }
                 HelperUtils.appendAttr(buf, "rel", rel);
@@ -234,7 +235,7 @@ public class PostingHelperSource {
                 buf.append("</a>");
             }
         }
-        if (!hollow && (!StringUtils.isEmpty(editHref) || !StringUtils.isEmpty(rmHref))) {
+        if (!hollow && controls && (!StringUtils.isEmpty(editHref) || !StringUtils.isEmpty(rmHref))) {
             buf.append("<div class=\"buttons\">");
             if (!StringUtils.isEmpty(editHref)) {
                 if (editHref.equals("auto")) {
@@ -255,7 +256,7 @@ public class PostingHelperSource {
             HelperUtils.safeAppend(buf, title);
             buf.append("</div>");
         }
-        if (!hollow) {
+        if (!hollow && controls) {
             String style = String.format("top: %dpx", sizeY - 25);
             buf.append(voteHelperSource.rating((long) posting.getRating(), style, posting.getId()));
         }
