@@ -20,7 +20,11 @@ public class VoteManager {
     private VoteRepository voteRepository;
 
     public Vote findVote(VoteType voteType, long entryId) {
-        return voteRepository.findVote(voteType, entryId, requestContext.getIp(), requestContext.getUserId());
+        if (requestContext.isLogged()) {
+            return voteRepository.findByVoteTypeAndEntryIdAndUserId(voteType, entryId, requestContext.getUserId());
+        } else {
+            return voteRepository.findByVoteTypeAndEntryIdAndIp(voteType, entryId, requestContext.getIp());
+        }
     }
 
     public void vote(Entry entry, VoteType voteType, int voteAmount) {
