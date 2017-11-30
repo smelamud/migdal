@@ -21,7 +21,7 @@
         {{#if showTopic}}
             {{topicLink posting}}<br>
         {{/if}}
-        {{! <vote_panel align="right" id="$posting.Id" rating="$posting.Rating">}}
+        {{votePanel align="right" id=posting.id rating=posting.rating}}
         <a class="posting-subject" href="{{posting.grpDetailsHref}}">{{posting.heading}}</a>
         {{#if posting.author}}
             <br><span class="posting-author">{{posting.author}}</span>

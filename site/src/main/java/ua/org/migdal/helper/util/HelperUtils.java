@@ -58,6 +58,9 @@ public class HelperUtils {
         if (value instanceof Long) {
             return (Long) value;
         }
+        if (value instanceof Double) {
+            return ((Double) value).longValue();
+        }
         String valueS = value.toString();
         if (valueS.isEmpty()) {
             return null;

@@ -73,7 +73,7 @@ public class PostingHelperSource {
     public CharSequence printLink(Posting posting) {
         StringBuilder buf = new StringBuilder();
         buf.append("<span>");
-        buf.append(imagesHelperSource.image("/pics/print.gif", null, null, "position: relative; top: 1px"));
+        buf.append(imagesHelperSource.image("/pics/print.gif", null, null, "position: relative; top: 1px", null));
         buf.append("&nbsp;");
         buf.append("<a target=\"_blank\"");
         String href = String.format("%s?print=1", posting.getGrpDetailsHref());

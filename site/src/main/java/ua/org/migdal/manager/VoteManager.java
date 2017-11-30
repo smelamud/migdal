@@ -3,6 +3,7 @@ package ua.org.migdal.manager;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Vote;
 import ua.org.migdal.data.VoteRepository;
@@ -18,8 +19,12 @@ public class VoteManager {
     @Inject
     private VoteRepository voteRepository;
 
+    public Vote findVote(VoteType voteType, long entryId) {
+        return voteRepository.findVote(voteType, entryId, requestContext.getIp(), requestContext.getUserId());
+    }
+
     public void vote(Entry entry, VoteType voteType, int voteAmount) {
-        Vote vote = voteRepository.findVote(voteType, entry.getId(), requestContext.getIp(), requestContext.getUserId());
+        Vote vote = findVote(voteType, entry.getId());
         if (vote != null) {
             return;
         }

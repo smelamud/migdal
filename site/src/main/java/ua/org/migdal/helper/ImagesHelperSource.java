@@ -32,7 +32,7 @@ public class ImagesHelperSource {
 
     private Map<String, Dimension> imageSizeCache = new HashMap<>();
 
-    public CharSequence image(CharSequence href, Options options) {
+    public CharSequence image(CharSequence src, Options options) {
         CharSequence alt = options.hash("altEn");
         if (!requestContext.isEnglish() || alt == null) {
             alt = options.hash("alt");
@@ -40,15 +40,15 @@ public class ImagesHelperSource {
         CharSequence title = options.hash("title");
         CharSequence klass = options.hash("class");
         CharSequence id = options.hash("id");
-        CharSequence dataId = options.hash("dataId");
-        CharSequence dataValue = options.hash("dataValue");
+        Object dataId = options.hash("dataId");
+        Object dataValue = options.hash("dataValue");
         CharSequence style = options.hash("style");
+        boolean button = HelperUtils.boolArg(options.hash("button", false));
 
         StringBuilder buf = new StringBuilder();
-        boolean button = HelperUtils.boolArg(options.hash("button", false));
         buf.append(!button ? "<img" : "<input type=\"image\"");
-        HelperUtils.appendAttr(buf, "src", href);
-        Dimension imageSize = getImageSize(href.toString());
+        HelperUtils.appendAttr(buf, "src", src);
+        Dimension imageSize = getImageSize(src.toString());
         if (imageSize != null) {
             HelperUtils.appendAttr(buf, "width", imageSize.width);
             HelperUtils.appendAttr(buf, "height", imageSize.height);
@@ -64,25 +64,34 @@ public class ImagesHelperSource {
         return new SafeString(buf);
     }
 
-    CharSequence image(CharSequence href) {
-        return image(href, null, null, null);
+    CharSequence image(CharSequence src) {
+        return image(src, null, null, null, null, null, null);
     }
 
-    CharSequence image(CharSequence href, CharSequence alt, CharSequence title) {
-        return image(href, alt, title, null);
+    CharSequence image(CharSequence src, CharSequence alt, CharSequence title) {
+        return image(src, alt, title, null, null, null, null);
     }
 
-    CharSequence image(CharSequence href, CharSequence alt, CharSequence title, CharSequence style) {
+    CharSequence image(CharSequence src, CharSequence alt, CharSequence title, CharSequence style,
+                       CharSequence klass) {
+        return image(src, alt, title, style, klass, null, null);
+    }
+
+    CharSequence image(CharSequence src, CharSequence alt, CharSequence title, CharSequence style,
+                       CharSequence klass, Object dataId, Object dataValue) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
-        HelperUtils.appendAttr(buf, "src", href);
-        Dimension imageSize = getImageSize(href.toString());
+        HelperUtils.appendAttr(buf, "src", src);
+        Dimension imageSize = getImageSize(src.toString());
         if (imageSize != null) {
             HelperUtils.appendAttr(buf, "width", imageSize.width);
             HelperUtils.appendAttr(buf, "height", imageSize.height);
         }
         HelperUtils.appendAttr(buf, "alt", alt);
         HelperUtils.appendAttr(buf, "title", title);
+        HelperUtils.appendAttr(buf, "class", klass);
+        HelperUtils.appendAttr(buf, "data-id", dataId);
+        HelperUtils.appendAttr(buf, "data-value", dataValue);
         HelperUtils.appendAttr(buf, "style", style);
         buf.append('>');
         return new SafeString(buf);

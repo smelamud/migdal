@@ -1,11 +1,27 @@
 package ua.org.migdal.helper;
 
+import javax.inject.Inject;
+
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
+import org.springframework.util.StringUtils;
+import ua.org.migdal.data.Vote;
+import ua.org.migdal.data.VoteType;
 import ua.org.migdal.helper.util.HelperUtils;
+import ua.org.migdal.manager.VoteManager;
+import ua.org.migdal.session.RequestContext;
 
 @HelperSource
 public class VoteHelperSource {
+
+    @Inject
+    private RequestContext requestContext;
+
+    @Inject
+    private VoteManager voteManager;
+
+    @Inject
+    private ImagesHelperSource imagesHelperSource;
 
     public CharSequence rating(Options options) {
         long value = HelperUtils.intArg("value", options.hash("value"));
@@ -43,6 +59,77 @@ public class VoteHelperSource {
         }
         buf.append(value);
         buf.append(")</span>");
+        return new SafeString(buf);
+    }
+
+    public CharSequence votePanel(Options options) {
+        if (requestContext.isPrintMode() || requestContext.isEnglish()) {
+            return "";
+        }
+
+        long id = HelperUtils.intArg("id", HelperUtils.mandatoryHash("id", options));
+        long rating = HelperUtils.intArg("rating", HelperUtils.mandatoryHash("rating", options));
+        CharSequence align = options.hash("align");
+
+        Vote vote = voteManager.findVote(VoteType.VOTE, id);
+
+        StringBuilder buf = new StringBuilder();
+        buf.append("<div class=\"vote-panel\"");
+        if (!StringUtils.isEmpty(align)) {
+            HelperUtils.appendAttr(buf, "style", String.format("float: %s", align));
+        }
+        buf.append('>');
+
+        if (vote == null) {
+            if (requestContext.isLogged()) {
+                String title = "Неинтересно, плохо написано";
+                String klass = String.format("vote-minus-%d vote-button vote-active", id);
+                buf.append(imagesHelperSource.image("/pics/vote-minus.gif", title, title, null, klass, id, 2));
+            } else {
+                String title = "Чтобы ставить отрицательные оценки, нужно зарегистрироваться";
+                buf.append(imagesHelperSource.image("/pics/vote-minus-gray.gif", title, title, null, "vote-button"));
+            }
+        } else {
+            if (vote.getVote() >= 0 && vote.getVote() < 3) {
+                buf.append(imagesHelperSource.image("/pics/vote-minus-gray.gif", null, null, null, "vote-button"));
+            } else {
+                buf.append("<div class=\"vote-button\">&nbsp;</div>");
+            }
+        }
+
+        {
+            String klass;
+            String ratingS;
+            if (rating == 0) {
+                klass = "rating-zero";
+                ratingS = "0";
+            } else if (rating > 0) {
+                klass = "rating-plus";
+                ratingS = String.format("+%d", rating);
+            } else {
+                klass = "rating-minus";
+                ratingS = Long.toString(rating);
+            }
+            buf.append("<div");
+            HelperUtils.appendAttr(buf, "class", String.format("rating-%d %s", id, klass));
+            buf.append('>');
+            buf.append(ratingS);
+            buf.append("</div>");
+        }
+
+        if (vote == null) {
+            String title = "Интересно, хорошо написано";
+            String klass = String.format("vote-plus-%d vote-button vote-active", id);
+            buf.append(imagesHelperSource.image("/pics/vote-plus.gif", title, title, null, klass, id, 4));
+        } else {
+            if (vote.getVote() > 3) {
+                buf.append(imagesHelperSource.image("/pics/vote-plus-gray.gif", null, null, null, "vote-button"));
+            } else {
+                buf.append("<div class=\"vote-button\">&nbsp;</div>");
+            }
+        }
+
+        buf.append("</div>");
         return new SafeString(buf);
     }
 
