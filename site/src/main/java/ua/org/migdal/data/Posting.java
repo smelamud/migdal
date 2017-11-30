@@ -138,6 +138,16 @@ public class Posting extends Entry {
         return heading;
     }
 
+    public CharSequence getIssues() {
+        StringBuilder buf = new StringBuilder();
+        buf.append(getIndex1());
+        if (getIndex2() > 0) {
+            buf.append('-');
+            buf.append(getIndex1() + getIndex2());
+        }
+        return buf;
+    }
+
     public List<Topic> getAncestors() {
         return ancestors;
     }
