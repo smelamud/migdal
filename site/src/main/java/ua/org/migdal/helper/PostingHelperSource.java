@@ -27,6 +27,9 @@ public class PostingHelperSource {
     @Inject
     private ImagesHelperSource imagesHelperSource;
 
+    @Inject
+    private VoteHelperSource voteHelperSource;
+
     public CharSequence sentView(Options options) {
         LocalDateTime timestamp = HelperUtils.timestampArg("date", options.hash("date"));
         return new SafeString(Formatter.format(CalendarType.GREGORIAN_EN, "dd.MM.yyyy'&nbsp;'HH:mm", timestamp));
@@ -253,8 +256,8 @@ public class PostingHelperSource {
             buf.append("</div>");
         }
         if (!hollow) {
-            long ratingY = sizeY - 25;
-            //<rating id='$posting.Id' value= $rating' style#='top: ${rating_y}px'>
+            String style = String.format("top: %dpx", sizeY - 25);
+            buf.append(voteHelperSource.rating((long) posting.getRating(), style, posting.getId()));
         }
         buf.append("</div>");
 
