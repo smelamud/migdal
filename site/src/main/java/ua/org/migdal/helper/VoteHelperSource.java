@@ -87,7 +87,8 @@ public class VoteHelperSource {
                 buf.append(imagesHelperSource.image("/pics/vote-minus.gif", title, title, null, klass, id, 2));
             } else {
                 String title = "Чтобы ставить отрицательные оценки, нужно зарегистрироваться";
-                buf.append(imagesHelperSource.image("/pics/vote-minus-gray.gif", title, title, null, "vote-button"));
+                String klass = String.format("vote-minus-%d vote-button", id);
+                buf.append(imagesHelperSource.image("/pics/vote-minus-gray.gif", title, title, null, klass));
             }
         } else {
             if (vote.getVote() >= 0 && vote.getVote() < 3) {

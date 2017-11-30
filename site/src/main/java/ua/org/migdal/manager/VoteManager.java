@@ -27,10 +27,10 @@ public class VoteManager {
         }
     }
 
-    public void vote(Entry entry, VoteType voteType, int voteAmount) {
+    public boolean vote(Entry entry, VoteType voteType, int voteAmount) {
         Vote vote = findVote(voteType, entry.getId());
         if (vote != null) {
-            return;
+            return false;
         }
         if (voteType.getExpirationPeriod(requestContext.getUser()) > 0) {
             if (requestContext.isLogged()) {
@@ -43,6 +43,7 @@ public class VoteManager {
             voteRepository.save(vote);
         }
         voteType.castVote(entry, voteAmount, requestContext.getUser());
+        return true;
     }
 
 }
