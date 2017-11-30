@@ -32,8 +32,7 @@ public class Vote {
     @ManyToOne(fetch = FetchType.LAZY)
     private Entry entry;
 
-    @NotNull
-    private String ip = "";
+    private String ip;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -47,7 +46,7 @@ public class Vote {
     public Vote() {
     }
 
-    public Vote(@NotNull VoteType voteType, Entry entry, @NotNull String ip, User user, @NotNull int vote) {
+    public Vote(@NotNull VoteType voteType, Entry entry, String ip, User user, @NotNull int vote) {
         this.voteType = voteType;
         this.entry = entry;
         this.ip = ip;

@@ -33,7 +33,13 @@ public class VoteManager {
             return;
         }
         if (voteType.getExpirationPeriod(requestContext.getUser()) > 0) {
-            vote = new Vote(voteType, entry, requestContext.getIp(), requestContext.getUser(), voteAmount);
+            if (requestContext.isLogged()) {
+                // Do not store IP for registered users, because we don't want to prevent unregistered
+                // users from the same IP from voting.
+                vote = new Vote(voteType, entry, null, requestContext.getUser(), voteAmount);
+            } else {
+                vote = new Vote(voteType, entry, requestContext.getIp(), null, voteAmount);
+            }
             voteRepository.save(vote);
         }
         voteType.castVote(entry, voteAmount, requestContext.getUser());
