@@ -1,5 +1,8 @@
 package ua.org.migdal.controller;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -67,6 +70,7 @@ public class IndexController {
         addEars(model);
         addTextEars(model);
         addPostings("TAPE", null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
+        addHitParade(null, model);
         return "index-www";
     }
 
@@ -102,6 +106,7 @@ public class IndexController {
         addEars(model);
         addSeeAlso(topic.getId(), model);
         addPostings("TAPE", topic, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
+        addHitParade(topic.getId(), model);
         return "index-www";
     }
 
@@ -176,6 +181,25 @@ public class IndexController {
             }
         }
         model.addAttribute("postingsAddGrps", addGrps);
+    }
+
+    private void addHitParade(Long topicId, Model model) {
+        List<Pair<Long, Boolean>> topicRoots = null;
+        if (topicId != null) {
+            topicRoots = Collections.singletonList(Pair.of(topicId, true));
+        }
+        model.addAttribute("hitParade",
+                postingManager.begAll(
+                        topicRoots,
+                        grpEnum.group("WRITINGS"),
+                        null,
+                        null,
+                        true,
+                        Timestamp.from(Instant.now().minus(31, ChronoUnit.DAYS)),
+                        0,
+                        10,
+                        Sort.Direction.DESC,
+                        "rating"));
     }
 
     @GetMapping("/major")

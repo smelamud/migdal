@@ -1,0 +1,7 @@
+{{#if hitParade}}
+    {{#topicsTable class="eightpt" title="Избранное<br>за месяц"}}
+        {{#each hitParade}}
+            {{topicsLine href=grpDetailsHref text=heading rating=rating}}
+        {{/each}}
+    {{/topicsTable}}
+{{/if}}

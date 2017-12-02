@@ -294,7 +294,7 @@ public class FormsHelperSource {
 
     public CharSequence edit(Options options) {
         CharSequence name = HelperUtils.mandatoryHash("name", options);
-        CharSequence value = HelperUtils.mandatoryHash("value", options);
+        Object value = HelperUtils.mandatoryHash("value", options);
         CharSequence size = options.hash("size", "40");
         CharSequence maxlength = options.hash("maxlength", "250");
         CharSequence id = options.hash("id");
@@ -303,7 +303,7 @@ public class FormsHelperSource {
         return edit(name, value, size, maxlength, id, klass);
     }
 
-    CharSequence edit(CharSequence name, CharSequence value, CharSequence size, CharSequence maxlength, CharSequence id,
+    CharSequence edit(CharSequence name, Object value, CharSequence size, CharSequence maxlength, CharSequence id,
                       CharSequence klass) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"text\"");

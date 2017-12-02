@@ -41,7 +41,7 @@
                 </td>
                 <td width="130" class="nframe">
                     {{tzdaka}}
-                    <hit_parade_month grp='*GRP_WRITINGS' topic_id='$id' showshadows!='$id>0'>
+                    {{> part/hit-parade}}
                     {{#unless topic}}
                         <discussions limit=7>
                     {{/unless}}
