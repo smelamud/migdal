@@ -1,7 +1,5 @@
 package ua.org.migdal.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,9 +21,6 @@ import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
-import ua.org.migdal.data.VoteSettings;
-import ua.org.migdal.data.VoteType;
-import ua.org.migdal.data.api.PostingVote;
 import ua.org.migdal.form.PostingDeleteForm;
 import ua.org.migdal.form.PostingForm;
 import ua.org.migdal.grp.GrpDescriptor;
@@ -34,7 +28,6 @@ import ua.org.migdal.grp.GrpEditor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.imageupload.ImageUploadException;
 import ua.org.migdal.imageupload.ImageUploadManager;
-import ua.org.migdal.manager.ErrorMessageResolver;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.ImageFileManager;
 import ua.org.migdal.manager.LoginManager;
@@ -43,10 +36,8 @@ import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
-import ua.org.migdal.manager.VoteManager;
 import ua.org.migdal.session.LocationInfo;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.util.NoObjectErrors;
 import ua.org.migdal.util.Utils;
 
 @Controller
@@ -84,12 +75,6 @@ public class PostingEditingController {
 
     @Inject
     private LoginManager loginManager;
-
-    @Inject
-    private VoteManager voteManager;
-
-    @Inject
-    private ErrorMessageResolver errorMessageResolver;
 
     @Inject
     private IndexController indexController;
@@ -386,40 +371,6 @@ public class PostingEditingController {
             redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:" + requestContext.getBack();
         }
-    }
-
-    @PostMapping("/api/posting/{id}/vote")
-    @ResponseBody
-    public PostingVote actionPostingVote(@PathVariable long id, @RequestParam int vote) {
-        PostingVote postingVote = new PostingVote();
-        Errors errors = new NoObjectErrors("postingVoteApi");
-        new ControllerAction(EntryController.class, "actionPostingVote", errors)
-                .transactional(txManager)
-                .execute(() -> {
-                    Posting posting = postingManager.beg(id);
-                    if (posting == null) {
-                        return "noPosting";
-                    }
-                    if (vote < VoteSettings.VOTE_MIN || vote > VoteSettings.VOTE_MAX) {
-                        return "voteOutOfRange";
-                    }
-                    if (vote < VoteSettings.VOTE_ZERO && !requestContext.isLogged()) {
-                        return "noLogin";
-                    }
-
-                    if (!voteManager.vote(posting, VoteType.VOTE, vote)) {
-                        return "alreadyVoted";
-                    }
-                    postingVote.setId(posting.getId());
-                    postingVote.setVote(vote);
-                    postingVote.setRating((long) posting.getRating());
-                    return null;
-                });
-        List<String> messages = errorMessageResolver.createContext().getMessages(errors);
-        if (messages.size() > 0) {
-            postingVote.setError(messages.get(0));
-        }
-        return postingVote;
     }
 
 }
