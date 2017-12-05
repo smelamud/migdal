@@ -1,0 +1,19 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        {{#notPrint}}
+            <td width="150" class="eframe">
+                {{> (topicsPartial)}}
+                {{! > part/ears}}
+            </td>
+        {{/notPrint}}
+        <td class="cframe">
+            {{> (postingPartial posting) posting=posting showDiscuss=true}}
+            {{! <addtoany>}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

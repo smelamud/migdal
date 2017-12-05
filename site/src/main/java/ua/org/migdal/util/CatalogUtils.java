@@ -68,6 +68,7 @@ public class CatalogUtils {
             return "0";
         }
         String last = sub(catalog, -1, 1);
+        last = last.substring(0, last.length() - 1);
         return Utils.isNumber(last) ? last : catalog.substring(0, catalog.length() - 1).replace('/', '.');
     }
 

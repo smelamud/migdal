@@ -31,6 +31,12 @@ public class IdentManager {
         return idOrIdent(CatalogUtils.toIdent(requestContext.getCatalog(start, length)));
     }
 
+    public long postingIdFromRequestPath() {
+        String ident = CatalogUtils.toIdent(requestContext.getCatalog());
+        ident = Utils.isNumber(ident) ? ident : "post." + ident;
+        return idOrIdent(ident);
+    }
+
     public long postingIdFromRequestPath(int start, int length) {
         String ident = CatalogUtils.toIdent(requestContext.getCatalog(start, length));
         ident = Utils.isNumber(ident) ? ident : "post." + ident;

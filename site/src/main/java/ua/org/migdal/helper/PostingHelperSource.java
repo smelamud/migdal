@@ -336,7 +336,7 @@ public class PostingHelperSource {
         return buf;
     }
 
-    public CharSequence postingFeedPartial(Posting posting, Options options) throws IOException {
+    public CharSequence postingPartial(Posting posting, Options options) throws IOException {
         return "part/" + posting.getGrpPartial();
     }
 
