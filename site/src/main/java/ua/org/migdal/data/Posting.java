@@ -86,6 +86,11 @@ public class Posting extends Entry {
     }
 
     @Transient
+    public String getGrpDetailsTemplate() {
+        return getGrpDescriptor().getDetailsTemplate();
+    }
+
+    @Transient
     public String getGrpPublish() {
         return getGrpDescriptor().getPublishGrp();
     }

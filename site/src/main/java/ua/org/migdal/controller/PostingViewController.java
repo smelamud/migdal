@@ -43,7 +43,7 @@ public class PostingViewController {
 
         model.addAttribute("posting", posting);
 
-        return "posting";
+        return posting.getGrpDetailsTemplate();
     }
 
     public LocationInfo postingViewLocationInfo(Posting posting, Model model) {
