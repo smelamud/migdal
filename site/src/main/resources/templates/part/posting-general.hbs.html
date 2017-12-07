@@ -54,6 +54,9 @@
         {{#if posting.url}}
             {{> furtherUrl posting=posting}}
         {{/if}}
+        {{#unless shorten}}
+            {{postingShare}}
+        {{/unless}}
         <div class="sent" style="clear: left">
             {{sentView date=posting.sent}}&nbsp;
             {{senderLink posting}}

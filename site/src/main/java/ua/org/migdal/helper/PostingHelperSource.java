@@ -336,6 +336,10 @@ public class PostingHelperSource {
         return buf;
     }
 
+    public CharSequence postingShare() {
+        return new SafeString("<div class=\"addthis_inline_share_toolbox\"></div>");
+    }
+
     public CharSequence postingPartial(Posting posting, Options options) throws IOException {
         return "part/" + posting.getGrpPartial();
     }
