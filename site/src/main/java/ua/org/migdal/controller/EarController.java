@@ -1,6 +1,7 @@
 package ua.org.migdal.controller;
 
 import java.util.Collections;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -109,6 +110,15 @@ public class EarController {
         voteManager.vote(posting, VoteType.CLICK, 1);
         postingManager.save(posting);
         return "redirect:" + posting.getUrl();
+    }
+
+    public void addEars(Model model) {
+        Set<Posting> ears = postingManager.begRandom(null, grpEnum.group("EARS"), 3);
+        ears.forEach(posting -> {
+            voteManager.vote(posting, VoteType.VIEW, 1);
+            postingManager.save(posting);
+        });
+        model.addAttribute("ears", ears);
     }
 
 }

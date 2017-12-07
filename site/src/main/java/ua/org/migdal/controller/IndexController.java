@@ -6,7 +6,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -22,19 +21,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
-import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
-import ua.org.migdal.data.VoteType;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.GeneralViewFor;
 import ua.org.migdal.location.GeneralViewPriority;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
-import ua.org.migdal.manager.VoteManager;
-import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
 @Controller
@@ -59,7 +55,7 @@ public class IndexController {
     private PostingManager postingManager;
 
     @Inject
-    private VoteManager voteManager;
+    private EarController earController;
 
     @GetMapping("/")
     public String index(
@@ -69,7 +65,7 @@ public class IndexController {
         indexLocationInfo(model);
 
         addMajors(model);
-        addEars(model);
+        earController.addEars(model);
         addTextEars(model);
         addPostings("TAPE", null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
         addHitParade(null, model);
@@ -105,7 +101,7 @@ public class IndexController {
 
         model.addAttribute("topic", topic);
         addMajors(model);
-        addEars(model);
+        earController.addEars(model);
         addSeeAlso(topic.getId(), model);
         addPostings("TAPE", topic, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
         addHitParade(topic.getId(), model);
@@ -129,15 +125,6 @@ public class IndexController {
                                                       .stream()
                                                       .map(CrossEntry::getPeer)
                                                       .collect(Collectors.toList()));
-    }
-
-    private void addEars(Model model) {
-        Set<Posting> ears = postingManager.begRandom(null, grpEnum.group("EARS"), 3);
-        ears.forEach(posting -> {
-            voteManager.vote(posting, VoteType.VIEW, 1);
-            postingManager.save(posting);
-        });
-        model.addAttribute("ears", ears);
     }
 
     private void addSeeAlso(long id, Model model) {

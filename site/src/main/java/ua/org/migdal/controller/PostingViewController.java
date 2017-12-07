@@ -31,6 +31,9 @@ public class PostingViewController {
     @Inject
     private IndexController indexController;
 
+    @Inject
+    private EarController earController;
+
     @GetMapping(path={"/**/{id:\\d+}", "/**/{ident:[^.]+}"})
     public String postingView(Model model) throws PageNotFoundException {
         long id = identManager.postingIdFromRequestPath();
@@ -47,6 +50,7 @@ public class PostingViewController {
 
         model.addAttribute("posting", posting);
         indexController.addMajors(model);
+        earController.addEars(model);
 
         return posting.getGrpDetailsTemplate();
     }
