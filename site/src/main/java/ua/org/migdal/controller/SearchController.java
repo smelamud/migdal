@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 
 @Controller
 public class SearchController {

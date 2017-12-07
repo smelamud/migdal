@@ -29,7 +29,7 @@ import ua.org.migdal.form.ModerateMassForm;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
 @Controller

@@ -7,9 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.location.GeneralViewFinder;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
 @Controller
@@ -23,6 +24,9 @@ public class PostingViewController {
 
     @Inject
     private PostingManager postingManager;
+
+    @Inject
+    private GeneralViewFinder generalViewFinder;
 
     @Inject
     private IndexController indexController;
@@ -42,18 +46,19 @@ public class PostingViewController {
         }
 
         model.addAttribute("posting", posting);
+        indexController.addMajors(model);
 
         return posting.getGrpDetailsTemplate();
     }
 
     public LocationInfo postingViewLocationInfo(Posting posting, Model model) {
-        String menuMain = posting.getCatalog().startsWith("times/") ? "times" : "index";
+        LocationInfo generalView = generalViewFinder.findFor(posting);
         return new LocationInfo(model)
                 .withUri(posting.getGrpDetailsHref())
-                .withMenuMain(menuMain)
-                .withTopics("topics-major")
-                .withTopicsIndex("index")
-                .withParent(indexController.indexLocationInfo(null)) // FIXME need somehow to get topic's location info
+                .withMenuMain(generalView.getMenuMain())
+                .withTopics(generalView.getTopics())
+                .withTopicsIndex(generalView.getTopicsIndex())
+                .withParent(generalView)
                 .withPageTitle(posting.getHeading());
     }
 

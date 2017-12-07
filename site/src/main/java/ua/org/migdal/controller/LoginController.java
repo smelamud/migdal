@@ -20,7 +20,7 @@ import ua.org.migdal.form.SuForm;
 import ua.org.migdal.mail.MailController;
 import ua.org.migdal.manager.LoginManager;
 import ua.org.migdal.manager.UserManager;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.Session;
 import ua.org.migdal.util.Password;

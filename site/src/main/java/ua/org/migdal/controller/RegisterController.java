@@ -18,7 +18,7 @@ import ua.org.migdal.form.UserForm;
 import ua.org.migdal.mail.MailController;
 import ua.org.migdal.mail.exception.MailServiceException;
 import ua.org.migdal.manager.UserManager;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
 @Controller

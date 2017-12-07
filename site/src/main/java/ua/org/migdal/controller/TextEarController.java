@@ -15,7 +15,7 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 
 @Controller
 public class TextEarController {

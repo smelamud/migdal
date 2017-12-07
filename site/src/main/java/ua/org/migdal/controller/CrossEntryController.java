@@ -22,7 +22,7 @@ import ua.org.migdal.form.CrossEntryDeleteForm;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.EntryManager;
 import ua.org.migdal.manager.IdentManager;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
 @Controller

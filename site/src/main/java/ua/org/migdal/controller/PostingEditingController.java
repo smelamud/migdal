@@ -36,7 +36,7 @@ import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
 

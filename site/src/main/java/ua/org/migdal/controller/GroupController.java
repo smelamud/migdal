@@ -18,7 +18,7 @@ import ua.org.migdal.form.GroupAddForm;
 import ua.org.migdal.form.GroupDeleteForm;
 import ua.org.migdal.manager.GroupManager;
 import ua.org.migdal.manager.UserManager;
-import ua.org.migdal.session.LocationInfo;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 
 @Controller
