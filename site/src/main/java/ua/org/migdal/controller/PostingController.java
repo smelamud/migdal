@@ -114,7 +114,7 @@ public class PostingController {
     public String postingAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         postingAddLocationInfo(model);
 
-        return postingEditingController.postingAddOrEdit(null, "NEWS", 0, full, model);
+        return postingEditingController.postingAdd("NEWS", 0, full, model);
     }
 
     public LocationInfo postingAddLocationInfo(Model model) {

@@ -99,7 +99,7 @@ public class PostingEditingController {
         postingAddLocationInfo(grpName, model);
 
         long topicId = identManager.topicIdFromRequestPath(0, -1);
-        return postingAddOrEdit(null, grpName, topicId, full, model);
+        return postingAdd(grpName, topicId, full, model);
     }
 
     public LocationInfo postingAddLocationInfo(String grpName, Model model) {
@@ -122,7 +122,7 @@ public class PostingEditingController {
 
         postingEditLocationInfo(posting, model);
 
-        return postingAddOrEdit(null, posting.getGrpName(), posting.getTopicId(), full, model);
+        return postingAddOrEdit(posting, posting.getGrpName(), posting.getTopicId(), full, model);
     }
 
     public LocationInfo postingEditLocationInfo(Posting posting, Model model) {
@@ -153,14 +153,21 @@ public class PostingEditingController {
         return posting;
     }
 
+    String postingAdd(String grpName, long topicId, boolean full, Model model) throws PageNotFoundException {
+        return postingAddOrEdit((Posting) null, grpName, topicId, full, model);
+    }
+
     String postingAddOrEdit(Long id, String grpName, long topicId, boolean full, Model model)
+            throws PageNotFoundException {
+        return postingAddOrEdit(openPosting(id), grpName, topicId, full, model);
+    }
+
+    String postingAddOrEdit(Posting posting, String grpName, long topicId, boolean full, Model model)
             throws PageNotFoundException {
 
         if (full && !requestContext.isUserModerator()) {
             throw new PageNotFoundException();
         }
-
-        Posting posting = openPosting(id);
 
         if (posting == null && !grpEnum.exists(grpName)) {
             throw new PageNotFoundException();

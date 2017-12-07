@@ -64,7 +64,7 @@ public class TextEarController {
     public String textEarAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         textEarAddLocationInfo(model);
 
-        return postingEditingController.postingAddOrEdit(null, "TEXTEARS", 0, full, model);
+        return postingEditingController.postingAdd("TEXTEARS", 0, full, model);
     }
 
     public LocationInfo textEarAddLocationInfo(Model model) {
