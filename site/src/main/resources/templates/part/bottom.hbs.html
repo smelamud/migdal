@@ -13,6 +13,10 @@
         {{image "/pics/mail.gif" class="icon" alt=addr}}</a>
 {{/inline}}
 
+{{#*inline "addThis"}}
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=migdal"></script>
+{{/inline}}
+
 {{#*inline "bottomWww"}}
     <div style="float: right; text-align: right; width: 30%">
         {{image "/pics/book.gif" class="icon"}}&nbsp;
@@ -100,8 +104,7 @@
                 <hr>
                 <p><banners></p>
             </div>
-            <og_image src="/pics/big-tower.gif">
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=migdal"></script>
+            {{> addThis}}
         {{/notPrint}}
     </body>
 </html>

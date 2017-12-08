@@ -1,6 +1,7 @@
 package ua.org.migdal.session;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -327,18 +328,20 @@ public class RequestContextImpl implements RequestContext {
 
     @Override
     public List<String> getOgImages() {
-        return ogImages;
+        return !ogImages.isEmpty() ? ogImages : Collections.singletonList(ogImageUrl("/pics/big-tower.gif"));
     }
 
     @Override
     public void addOgImage(String src) {
-        String url;
+        ogImages.add(ogImageUrl(src));
+    }
+
+    private String ogImageUrl(String src) {
         if (getSubdomain() == null) { // TODO use https
-            url = String.format("http://%s%s", config.getSiteDomain(), src);
+            return String.format("http://%s%s", config.getSiteDomain(), src);
         } else {
-            url = String.format("http://%s.%s%s", getSubdomain(), config.getSiteDomain(), src);
+            return String.format("http://%s.%s%s", getSubdomain(), config.getSiteDomain(), src);
         }
-        ogImages.add(url);
     }
 
 }
