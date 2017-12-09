@@ -1,13 +1,7 @@
 function userInfoContent(id) {
     var data = window.userInfo[id];
-    var content = "<div class='fullname'>" + data.fullName + "</div>" +
-                  "<div class='rank'>" + data.rank + "</div>" +
-                  "<div class='last-online'>" +
-                  (!data.femine ? "Заходил" : "Заходила") +
-                  " сюда " +
-                  fuzzyTimeFormatElapsed(toOurtime(data.lastOnline)) +
-                  "</div>"
-    return content;
+    data.lastOnlineFuzzy = fuzzyTimeFormatElapsed(toOurtime(data.lastOnline));
+    return Mustache.render($("#client-user-info-hbs-html").html(), data);
 }
 
 function userInfoInit(root) {

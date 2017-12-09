@@ -30,6 +30,7 @@
     <script src="/js/jquery.qtip.min.js"></script>
     <script src="/js/jquery.fancybox.min.js"></script>
     <script src="/js/URI.js"></script>
+    <script src="/js/mustache.min.js"></script>
     <script src="/js/main.js"></script>
 
     {{#each rc.ogImages}}
@@ -40,5 +41,7 @@
     {{/each}}
 
     {{> part/preamble-tiny}}
+
+    {{embedded "client/user-info"}}
 </head>
 <body>
