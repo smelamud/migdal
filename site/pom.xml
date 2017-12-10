@@ -208,7 +208,7 @@
                             <executable>bash</executable>
                             <arguments>
                                 <argument>-c</argument>
-                                <argument>uglifyjs -o ${project.build.outputDirectory}/static/js/main.js -c -- *.js</argument>
+                                <argument>uglifyjs -o ${project.build.outputDirectory}/static/js/main.js -c -- lib/*.js *.js</argument>
                             </arguments>
                         </configuration>
                     </execution>
