@@ -1,0 +1,32 @@
+<a name="t{{forum.id}}"></a>
+<div class="forum">
+    <div class="header">
+        {{senderLink forum}}<br>
+        <span class="sent">{{sentView date=forum.sent}}</span>
+    </div>
+    <div class="content">
+        <div class="body">
+            {{mtext forum.bodyMtext}}
+        </div>
+        {{#assign "href"}}{{posting.grpDetailsHref}}discuss{{/assign}}
+        <div class="controls">
+            &nbsp;&nbsp;
+            <a href="{{href}}/reply/?peerid={{forum.id}}&redirid=$_" title="Ответить с цитированием">Ответить</a>
+            {{#writable forum}}
+                &nbsp;&nbsp;
+                <a href="{{href}}/update/?editid=$forum.Id&redirid=$_">Изменить</a>
+                {{#moderator}}
+                    &nbsp;&nbsp;
+                    {{#if forum.disabled}}
+                        <a href="/actions/entry/moderate?editid=$forum.Id&hide=0&okdir=$#-&faildir=$#-">Разрешить показ</a>
+                    {{else}}
+                        <a href="/actions/entry/moderate?editid=$forum.Id&hide=1&okdir=$#-&faildir=$#-">Запретить показ</a>
+                    {{/if}}
+                    &nbsp;&nbsp;
+                    <a href="/actions/forum/delete?id=$forum.Id&okdir=$#-&faildir=$#-">Удалить</a>
+                {{/moderator}}
+            {{/writable}}
+        </div>
+    </div>
+    <div class="clear-floats"></div>
+</div>

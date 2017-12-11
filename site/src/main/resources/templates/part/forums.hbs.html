@@ -1,0 +1,26 @@
+{{#*inline "batcher"}} {{! params: list }}
+    <div class="batcher">
+        {{#postable posting}}
+        <div class="adder">
+            {{image "/pics/sheet.gif"}}
+            <a href="{{posting.grpDetailsHref}}discuss/add/?back={{ue rc.location}}">Добавить комментарий</a>
+        </div>
+        {{/postable}}
+        {{spin list}}
+        <div class="clear-floats"></div>
+    </div>
+{{/inline}}
+
+{{> batcher list=forums}}
+{{!<outer><table width=100% cellspacing=0 cellpadding=0><tr><td><inner>
+ <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
+ <error id='*EMH_NO_MODERATE' text='Вы не модератор'>
+</inner></tr></td></table></outer>}}
+<div class="forums">
+    {{#each forums}}
+        {{> part/forum forum=this posting=posting}}
+    {{/each}}
+</div>
+{{#if forums}}
+    {{> batcher list=forums}}
+{{/if}}

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.location.GeneralViewFinder;
+import ua.org.migdal.manager.ForumManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.location.LocationInfo;
@@ -24,6 +25,9 @@ public class PostingViewController {
 
     @Inject
     private PostingManager postingManager;
+
+    @Inject
+    private ForumManager forumManager;
 
     @Inject
     private GeneralViewFinder generalViewFinder;
@@ -49,6 +53,7 @@ public class PostingViewController {
         }
 
         model.addAttribute("posting", posting);
+        model.addAttribute("comments", forumManager.begAll(posting.getId(), 0, Integer.MAX_VALUE));
         indexController.addMajors(model);
         earController.addEars(model);
 
