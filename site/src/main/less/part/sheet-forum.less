@@ -5,24 +5,20 @@
 .forum {
     background-color: @forum_body_back;
     border: solid 1px @forum_border;
-    overflow: hidden;
     margin-top: 3px;
+    display: flex;
 
     .header {
+        flex: none;
         padding-left: .5em;
-        padding-bottom: 9999px;
-        margin-bottom: -9999px;
         width: 150px;
         text-align: left;
-        float: left;
         background-color: @forum_header_back;
     }
 
     .content {
+        flex: auto;
         background-color: @forum_body_back;
-        padding-left: 160px;
-        padding-bottom: 9999px;
-        margin-bottom: -9999px;
     }
 
     .body {

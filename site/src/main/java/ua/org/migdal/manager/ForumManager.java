@@ -32,7 +32,7 @@ public class ForumManager {
         BooleanBuilder where = new BooleanBuilder();
         where.and(forum.parent.id.eq(parentId));
         where.and(getPermFilter(forum, Perm.READ, false));
-        return forumRepository.findAll(where, PageRequest.of(offset / limit, limit, Sort.Direction.DESC, "sent"));
+        return forumRepository.findAll(where, PageRequest.of(offset / limit, limit, Sort.Direction.ASC, "sent"));
     }
 
     private Predicate getPermFilter(QForum forum, long right, boolean asGuest) {
