@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.Forum;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.form.ForumForm;
 import ua.org.migdal.location.GeneralViewFinder;
 import ua.org.migdal.manager.ForumManager;
 import ua.org.migdal.manager.IdentManager;
@@ -54,6 +56,7 @@ public class PostingViewController {
 
         model.addAttribute("posting", posting);
         model.addAttribute("comments", forumManager.begAll(posting.getId(), 0, Integer.MAX_VALUE));
+        model.asMap().computeIfAbsent("forumForm", key -> new ForumForm(new Forum(), requestContext));
         indexController.addMajors(model);
         earController.addEars(model);
 
