@@ -1,17 +1,16 @@
 {{#*inline "batcher"}} {{! params: list }}
     <div class="batcher">
         {{#postable posting}}
-        <div class="adder">
-            {{image "/pics/sheet.gif"}}
-            <a href="{{posting.grpDetailsHref}}discuss/add/">Добавить комментарий</a>
-        </div>
+            <div class="adder">
+                {{image "/pics/sheet.gif"}}
+                <a href="{{posting.grpDetailsHref}}discuss/add/">Добавить комментарий</a>
+            </div>
         {{/postable}}
         {{spin list}}
         <div class="clear-floats"></div>
     </div>
 {{/inline}}
 
-{{embedded "client/forum"}}
 {{> batcher list=forums}}
 {{!<outer><table width=100% cellspacing=0 cellpadding=0><tr><td><inner>
  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
