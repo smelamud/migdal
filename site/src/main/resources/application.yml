@@ -121,3 +121,5 @@ migdal:
   rootTopicModbits: 0x0007
 
   defaultPostingPerms: 0x99FF
+
+  defaultForumPerms: 0x5557

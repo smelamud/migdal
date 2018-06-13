@@ -56,7 +56,8 @@ public class PostingViewController {
 
         model.addAttribute("posting", posting);
         model.addAttribute("comments", forumManager.begAll(posting.getId(), 0, Integer.MAX_VALUE));
-        model.asMap().computeIfAbsent("forumForm", key -> new ForumForm(new Forum(), requestContext));
+        model.asMap().computeIfAbsent("forumForm",
+                key -> new ForumForm(new Forum(posting, requestContext), requestContext));
         indexController.addMajors(model);
         earController.addEars(model);
 

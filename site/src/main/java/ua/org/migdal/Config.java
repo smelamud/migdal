@@ -43,6 +43,7 @@ public class Config {
     private long rootTopicPerms;
     private long rootTopicModbits;
     private long defaultPostingPerms;
+    private long defaultForumPerms;
 
     @PostConstruct
     public void init() {
@@ -323,6 +324,14 @@ public class Config {
 
     public void setDefaultPostingPerms(long defaultPostingPerms) {
         this.defaultPostingPerms = defaultPostingPerms;
+    }
+
+    public long getDefaultForumPerms() {
+        return defaultForumPerms;
+    }
+
+    public void setDefaultForumPerms(long defaultForumPerms) {
+        this.defaultForumPerms = defaultForumPerms;
     }
 
 }
