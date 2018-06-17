@@ -5,7 +5,7 @@
     </div>
 {{/inline}}
 
-{{#*inline "editor"}}
+{{#*inline "editor"}} {{! params: forumForm, posting }}
     <form method="post" enctype="multipart/form-data" action="/actions/forum/modify">
         {{#formTable title="Добавление комментария"}}
             {{formErrors}}
@@ -13,8 +13,8 @@
             {{hidden name="back" value=rc.location}}
             {{hidden name="parentId" value=forumForm.parentId}}
             {{starInfo}}
-            {{formRelogin relogin=forumForm.relogin noGuests=noGuests guestLogin=forumForm.guestLogin
-                          login=forumForm.login remember=forumForm.remember}}
+            {{formRelogin relogin=forumForm.relogin noGuests=(not posting.isGuestPostable)
+                          guestLogin=forumForm.guestLogin login=forumForm.login remember=forumForm.remember}}
             {{!<form_captcha id='captcha' name='captcha'>}}
             {{formEditor title="Текст" name="body" body=forumForm.body rows="12" mandatory=true}}
             {{#logged}}
@@ -56,5 +56,5 @@
     {{> batcher list=forums}}
 {{/if}}
 {{#postable posting}}
-    {{> editor}}
+    {{> editor forumForm=forumForm posting=posting}}
 {{/postable}}
