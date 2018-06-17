@@ -1,5 +1,7 @@
 package ua.org.migdal.manager;
 
+import java.util.function.Consumer;
+
 import javax.inject.Inject;
 
 import org.springframework.data.domain.PageRequest;
@@ -9,14 +11,18 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Forum;
 import ua.org.migdal.data.ForumRepository;
 import ua.org.migdal.data.QForum;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.CatalogUtils;
 import ua.org.migdal.util.Perm;
+import ua.org.migdal.util.TrackUtils;
+import ua.org.migdal.util.Utils;
 
 @Service
-public class ForumManager {
+public class ForumManager implements EntryManagerBase<Forum> {
 
     @Inject
     private RequestContext requestContext;
@@ -25,7 +31,72 @@ public class ForumManager {
     private PermManager permManager;
 
     @Inject
+    private TrackManager trackManager;
+
+    @Inject
+    private CatalogManager catalogManager;
+
+    @Inject
     private ForumRepository forumRepository;
+
+    public Forum get(long id) {
+        return forumRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Forum beg(long id) {
+        Forum forum = get(id);
+        return forum != null && forum.isReadable() ? forum : null;
+    }
+
+    @Override
+    public void save(Forum forum) {
+        if (forum.getId() <= 0) {
+            forum.setCreator(requestContext.getUser());
+            forum.setCreated(Utils.now());
+        }
+        forum.setModifier(requestContext.getUser());
+        forum.setModified(Utils.now());
+        forumRepository.save(forum);
+    }
+
+    public void saveAndFlush(Forum forum) {
+        if (forum.getId() <= 0) {
+            forum.setCreator(requestContext.getUser());
+            forum.setCreated(Utils.now());
+        }
+        forum.setModifier(requestContext.getUser());
+        forum.setModified(Utils.now());
+        forumRepository.saveAndFlush(forum);
+    }
+
+    public void store(
+            Forum forum,
+            Consumer<Forum> applyChanges,
+            boolean newForum,
+            boolean trackChanged,
+            boolean catalogChanged) {
+
+        String oldTrack = forum.getTrack();
+        if (applyChanges != null) {
+            applyChanges.accept(forum);
+        }
+        saveAndFlush(forum); /* We need to have the record in DB to know ID after this point */
+
+        String newTrack = TrackUtils.track(forum.getId(), forum.getUp().getTrack());
+        if (newForum) {
+            trackManager.setTrackById(forum.getId(), newTrack);
+            String newCatalog = CatalogUtils.catalog(EntryType.FORUM, forum.getId(), "", 0, forum.getUp().getCatalog());
+            catalogManager.setCatalogById(forum.getId(), newCatalog);
+        }
+        if (trackChanged) {
+            trackManager.replaceTracks(oldTrack, newTrack);
+        }
+        if (catalogChanged) {
+            catalogManager.updateCatalogs(newTrack);
+        }
+        //answerUpdate($forum->getParentId());
+    }
 
     public Iterable<Forum> begAll(long parentId, int offset, int limit) {
         QForum forum = QForum.forum;

@@ -325,7 +325,8 @@ public class PostingEditingController {
                     if (postingForm.getPersonId() > 0 && (person == null || !person.isHasPersonal())) {
                         return "personId.noPerson";
                     }
-                    /*if ($posting->getId() <= 0 && $userId <= 0) {
+                    /* TODO
+                    if ($posting->getId() <= 0 && $userId <= 0) {
                         if ($captcha == '')
                             return EP_CAPTCHA_ABSENT;
                         if (!validateCaptcha($captcha))

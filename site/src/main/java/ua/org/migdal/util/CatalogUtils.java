@@ -8,7 +8,7 @@ import ua.org.migdal.util.UriUtils.Slash;
 
 public class CatalogUtils {
 
-    public static String catalog(long id, String ident, String upCatalog) {
+    private static String catalog(long id, String ident, String upCatalog) {
         if (!StringUtils.isEmpty(ident)) {
             if (ident.startsWith("post.")) {
                 ident = ident.substring(5);
@@ -28,7 +28,7 @@ public class CatalogUtils {
         }
     }
 
-    public static String catalog(long id, String ident) {
+    private static String catalog(long id, String ident) {
         return catalog(id, ident, "");
     }
 

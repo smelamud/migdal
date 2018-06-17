@@ -1,11 +1,18 @@
 package ua.org.migdal.form;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
 import ua.org.migdal.data.Forum;
+import ua.org.migdal.data.Posting;
+import ua.org.migdal.manager.SpamManager;
+import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.text.Text;
+import ua.org.migdal.text.TextFormat;
+import ua.org.migdal.util.Perm;
 
 public class ForumForm implements Serializable {
 
@@ -15,6 +22,7 @@ public class ForumForm implements Serializable {
 
     private long parentId;
 
+    @NotBlank
     @Size(max=4096)
     private String body = "";
 
@@ -131,6 +139,33 @@ public class ForumForm implements Serializable {
 
     public void setRemember(boolean remember) {
         this.remember = remember;
+    }
+
+    public boolean isSpam(SpamManager spamManager) {
+        return spamManager.isSpam(getBody());
+    }
+
+    public void toForum(Forum forum, Posting parent, RequestContext requestContext) {
+        forum.setParent(parent);
+        forum.setBody(Text.convertLigatures(getBody()));
+        forum.setBodyXml(Text.convert(forum.getBody(), TextFormat.MAIL, MtextFormat.SHORT));
+        forum.setGuestLogin(getGuestLogin());
+        if (isHidden()) {
+            forum.setPerms(forum.getPerms() & ~(Perm.OR | Perm.ER));
+        } else {
+            forum.setPerms(forum.getPerms() | Perm.OR | Perm.ER);
+        }
+        if (requestContext.isUserModerator()) {
+            forum.setDisabled(isDisabled());
+        }
+    }
+
+    public boolean isTrackChanged(Forum forum) {
+        return getId() > 0 && getParentId() != forum.getParentId();
+    }
+
+    public boolean isCatalogChanged(Forum forum) {
+        return getId() > 0 && getParentId() != forum.getParentId();
     }
 
 }
