@@ -5,43 +5,6 @@
     </div>
 {{/inline}}
 
-{{#*inline "editor"}} {{! params: forumForm, posting }}
-    <form method="post" enctype="multipart/form-data" action="/actions/forum/modify">
-        {{#formTable title="Добавление комментария"}}
-            {{formErrors}}
-            {{hidden name="origin" value=rc.location}}
-            {{hidden name="back" value=rc.location}}
-            {{hidden name="parentId" value=forumForm.parentId}}
-            {{starInfo}}
-            {{formRelogin relogin=forumForm.relogin noGuests=(not posting.isGuestPostable)
-                          guestLogin=forumForm.guestLogin login=forumForm.login remember=forumForm.remember}}
-            {{!<form_captcha id='captcha' name='captcha'>}}
-            {{formEditor title="Текст" name="body" body=forumForm.body rows="12" mandatory=true}}
-            {{#logged}}
-                {{#formSelect title="Видимость" name="hidden" style="box"}}
-                    {{formOption title="Сообщение видно всем пользователям" value="0" selected=(not forumForm.hidden)}}
-                    {{formOption title="Сообщение видно только автору и модераторам" value="1" selected=forumForm.hidden}}
-                {{/formSelect}}
-            {{else}}
-                {{hidden name="hidden" value="0"}}
-            {{/logged}}
-            {{#moderator}}
-                {{#formSelect title="Запретить показ"
-                              comment="Модераторский запрет на показ сообщения. Пользователь не может снять этот запрет."
-                              name="disabled" style="box"}}
-                    {{formOption title="Нет запрета на показ всем пользователям" value="0"
-                                 selected=(not forumForm.disabled)}}
-                    {{formOption title="Разрешено показывать только автору и модераторам" value="1"
-                                 selected=forumForm.disabled}}
-                {{/formSelect}}
-            {{else}}
-                {{hidden name="disabled" value=forumForm.disabled}}
-            {{/moderator}}
-            {{formButtons title="Добавить"}}
-        {{/formTable}}
-    </form>
-{{/inline}}
-
 {{> batcher list=forums}}
 {{!<outer><table width=100% cellspacing=0 cellpadding=0><tr><td><inner>
  <error id='*EMH_NO_ENTRY' text='Такого сообщения не существует'>
@@ -56,5 +19,5 @@
     {{> batcher list=forums}}
 {{/if}}
 {{#postable posting}}
-    {{> editor forumForm=forumForm posting=posting}}
+    {{> part/forum-edit forumForm=forumForm posting=posting xmlid=0}}
 {{/postable}}

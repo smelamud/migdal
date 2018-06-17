@@ -1,0 +1,49 @@
+{{> part/preamble}}
+{{> part/top}}
+
+{{> part/forum-edit forumForm=forumForm posting=posting xmlid=xmlid back=rc.back}}
+
+{{!<error id='*EF_NO_SEND'
+	  text='Добавлять комментарии могут только зарегистрированные
+	        пользователи'>
+   <error id='*EF_NO_EDIT' text='У вас нет права редактировать это сообщение'>
+   <error id='*EF_NO_PARENT'
+	  text='Сообщение, на которое вы пытаетесь ответить, еще не написано'>
+   <error id='*EF_UP_APPEND' text='У вас нет права отвечать на это сообщение'>
+   <error id='*EVH_NO_PARENT' text='Такого сообщения не существует'>
+   <error id='*EVH_NO_UP' text='Вышестоящего сообщения не существует'>
+   <error id='*EVH_LOOP' text='Сообщение не может быть ответом на себя'>
+   <error id='*EVH_NOT_UP_UNDER_PARENT'
+          text='Сообщение и ответ должны находиться в одной ветке'>
+   <error id='*EVH_INCORRECT' text='Нарушение иерархии объектов'>
+   <error id='*EL_INVALID' text='Неверный ник или пароль'>
+   <error id='*EL_GUEST_LOGIN_ABSENT' text='Укажите, пожалуйста, ваше имя'>
+   <if what='!$editid'>
+    <zone>
+     <perms id='$,ParentId'>
+     <form_relogin noguests!='!$,isGuestPostable' relogin='$relogin'
+                   login!='$edittag ? $login : $$userLoginHint'
+		   remember='$remember' onclick='reloginSelected(this);'>
+    </zone>
+    <error id='*EF_CAPTCHA_ABSENT'
+           text='Пожалуйста, введите цифры и буквы, которые вы видите на
+                 картинке. Это необходимо нам для борьбы со спамом.'>
+    <error id='*EF_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
+    <form_captcha id='captcha' name='captcha'>
+   </if>
+   <error id='*EF_BODY_ABSENT'
+	  text='Напишите хотя бы пару строчек в теле сообщения'>
+   <form_editor name='body' title='Текст' body='$=,Body'
+		mandatory='$$forumMandatoryBody' rows=12 xmlid='$xmlid'>
+   <<help_link href='/help/formatting/'
+	      title='Список обозначений, используемых в тексте'>>
+   <error id='*EF_IMAGE_ABSENT' text='Отсутствует картинка'>
+   <error id='*EF_NO_IMAGE' text='Указанной картинки не существует'>
+   <error id='*EIU_UNKNOWN_IMAGE' text='Неизвестный формат картинки'>
+   <error id='*EIU_IMAGE_LARGE' text='Картинка слишком велика (больше 2M)'>
+   <error id='*EIU_UNKNOWN_THUMBNAIL'
+	  text='Формат маленькой картинки, указанный при конфигурации сервера,
+		не поддерживается'>
+   <error id='*EIU_INTERNAL_ERROR' text='Не удалось загрузить картинку'>}}
+
+{{> part/bottom}}

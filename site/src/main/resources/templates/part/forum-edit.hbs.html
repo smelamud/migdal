@@ -1,0 +1,52 @@
+{{! params: forumForm, posting, xmlid }}
+
+{{#if forumForm.id}}
+    {{#assign "formTitle"}}Редактирование комментария{{/assign}}
+{{else}}
+    {{#assign "formTitle"}}Добавление комментария{{/assign}}
+{{/if}}
+
+<form method="post" enctype="multipart/form-data" action="/actions/forum/modify">
+    {{#formTable title=formTitle}}
+        {{formErrors}}
+        {{#if back}}
+            {{hidden name="origin" value=back}}
+        {{else}}
+            {{hidden name="origin" value=rc.location}}
+        {{/if}}
+        {{hidden name="parentId" value=forumForm.parentId}}
+        {{starInfo}}
+        {{#unless forumForm.id}}
+            {{formRelogin relogin=forumForm.relogin noGuests=(not posting.isGuestPostable)
+                          guestLogin=forumForm.guestLogin login=forumForm.login remember=forumForm.remember}}
+            {{!<form_captcha id='captcha' name='captcha'>}}
+        {{/unless}}
+        {{formEditor title="Текст" name="body" body=forumForm.body rows="12" mandatory=true xmlid=xmlid}}
+        {{#logged}}
+            {{#formSelect title="Видимость" name="hidden" style="box"}}
+                {{formOption title="Сообщение видно всем пользователям" value="0" selected=(not forumForm.hidden)}}
+                {{formOption title="Сообщение видно только автору и модераторам" value="1" selected=forumForm.hidden}}
+            {{/formSelect}}
+        {{else}}
+            {{hidden name="hidden" value="0"}}
+        {{/logged}}
+        {{#moderator}}
+            {{#formSelect title="Запретить показ"
+                          comment="Модераторский запрет на показ сообщения. Пользователь не может снять этот запрет."
+                          name="disabled" style="box"}}
+                {{formOption title="Нет запрета на показ всем пользователям" value="0"
+                             selected=(not forumForm.disabled)}}
+                {{formOption title="Разрешено показывать только автору и модераторам" value="1"
+                             selected=forumForm.disabled}}
+            {{/formSelect}}
+        {{else}}
+            {{hidden name="disabled" value=forumForm.disabled}}
+        {{/moderator}}
+        {{#if forumForm.id}}
+            {{#assign "buttonTitle"}}Изменить{{/assign}}
+        {{else}}
+            {{#assign "buttonTitle"}}Добавить{{/assign}}
+        {{/if}}
+        {{formButtons title=buttonTitle}}
+    {{/formTable}}
+</form>

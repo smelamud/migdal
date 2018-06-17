@@ -46,6 +46,10 @@ public class ForumForm implements Serializable {
     public ForumForm() {
     }
 
+    public ForumForm(Posting posting, RequestContext requestContext) {
+        this(new Forum(posting, requestContext), requestContext);
+    }
+
     public ForumForm(Forum forum, RequestContext requestContext) {
         if (forum == null) {
             return;

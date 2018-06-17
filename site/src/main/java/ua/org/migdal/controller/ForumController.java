@@ -5,14 +5,20 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Forum;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.form.ForumForm;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.ForumManager;
 import ua.org.migdal.manager.LoginManager;
 import ua.org.migdal.manager.PostingManager;
@@ -40,6 +46,52 @@ public class ForumController {
 
     @Inject
     private SpamManager spamManager;
+
+    @Inject
+    private IndexController indexController;
+
+    @GetMapping("/add-forum/{id}")
+    public String forumAdd(@PathVariable long id, Model model) throws PageNotFoundException {
+        Posting parent = postingManager.beg(id);
+        if (parent == null) {
+            throw new PageNotFoundException();
+        }
+
+        forumAddLocationInfo(parent, model);
+
+        model.addAttribute("xmlid", 0);
+        model.asMap().computeIfAbsent("forumForm",
+                key -> new ForumForm(parent, requestContext));
+        return "forum-edit";
+    }
+
+    public LocationInfo forumAddLocationInfo(Posting parent, Model model) {
+        return new LocationInfo(model)
+                .withUri("/add-forum/" + parent.getId())
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Добавление комментария");
+    }
+
+    @GetMapping("/edit-forum/{id}")
+    public String forumEdit(@PathVariable long id, Model model) throws PageNotFoundException {
+        Forum forum = forumManager.beg(id);
+        if (forum == null) {
+            throw new PageNotFoundException();
+        }
+
+        forumEditLocationInfo(forum, model);
+
+        model.addAttribute("xmlid", requestContext.isUserModerator() ? forum.getId() : 0);
+        model.asMap().computeIfAbsent("forumForm", key -> new ForumForm(forum, requestContext));
+        return "forum-edit";
+    }
+
+    public LocationInfo forumEditLocationInfo(Forum forum, Model model) {
+        return new LocationInfo(model)
+                .withUri("/edit-forum/" + forum.getId())
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Редактирование комментария");
+    }
 
     @PostMapping("/actions/forum/modify")
     public String actionForumModify(
@@ -114,16 +166,15 @@ public class ForumController {
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("forumForm", forumForm);
-            return "redirect:" + requestContext.getBack();
-            /*String location;
+            String location;
             if (forumForm.getId() <= 0) {
-                location = "redirect:/admin/topics/" + parent.getTrackPath() + "add";
+                location = "redirect:/add-forum/" + parent.getId();
             } else {
-                location = "redirect:/admin/topics/" + forum.getTrackPath() + "edit";
+                location = "redirect:/edit-forum/" + forumForm.getId();
             }
             return UriComponentsBuilder.fromUriString(location)
                     .queryParam("back", requestContext.getOrigin())
-                    .toUriString();*/
+                    .toUriString();
         }
     }
 

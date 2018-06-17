@@ -10,19 +10,19 @@
         </div>
         {{#assign "href"}}{{posting.grpDetailsHref}}discuss{{/assign}}
         <div class="controls">
-            &nbsp;&nbsp;
+            &nbsp;
             <a href="{{href}}/{{forum.id}}/reply/" title="Ответить с цитированием">Ответить</a>
             {{#writable forum}}
-                &nbsp;&nbsp;
-                <a href="{{href}}/{{forum.id}}/edit/">Изменить</a>
+                &nbsp;
+                <a href="/edit-forum/{{forum.id}}?back={{ue rc.location}}">Изменить</a>
                 {{#moderator}}
-                    &nbsp;&nbsp;
+                    &nbsp;
                     {{#if forum.disabled}}
                         <a href="/actions/entry/moderate?id={{forum.id}}&amp;hide=0&amp;back={{ue rc.location}}">Разрешить показ</a>
                     {{else}}
                         <a href="/actions/entry/moderate?id={{forum.id}}&amp;hide=1&amp;back={{ue rc.location}}">Запретить показ</a>
                     {{/if}}
-                    &nbsp;&nbsp;
+                    &nbsp;
                     <a href="/actions/forum/delete?id={{forum.id}}&amp;back={{ue rc.location}}">Удалить</a>
                 {{/moderator}}
             {{/writable}}
