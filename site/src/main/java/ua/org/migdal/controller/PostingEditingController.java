@@ -198,7 +198,8 @@ public class PostingEditingController {
                 postingForm.getGuestLogin(),
                 postingForm.getLogin(),
                 postingForm.getPassword(),
-                postingForm.isRemember());
+                postingForm.isRemember(),
+                true);
 
         if (postingForm.getUpId() <= 0) {
             postingForm.setUpId(postingForm.getParentId());

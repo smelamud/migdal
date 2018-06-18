@@ -54,7 +54,7 @@ public class LoginManager {
     }
 
     public String relogin(ReloginVariant reloginVariant, String guestLogin, String login, String password,
-                          boolean remember) {
+                          boolean remember, boolean noGuests) {
         if (reloginVariant == null) {
             return "reloginIncorrect";
         }
@@ -67,6 +67,9 @@ public class LoginManager {
                 /* fallthru */
 
             case GUEST:
+                if (!config.isAllowGuests() || noGuests) {
+                    return "notLogged";
+                }
                 if (StringUtils.isEmpty(guestLogin)) {
                     return "guestLoginBlank";
                 }

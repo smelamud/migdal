@@ -59,6 +59,7 @@ public class ForumController {
 
         forumAddLocationInfo(parent, model);
 
+        model.addAttribute("posting", parent);
         model.addAttribute("xmlid", 0);
         model.asMap().computeIfAbsent("forumForm",
                 key -> new ForumForm(parent, requestContext));
@@ -81,6 +82,7 @@ public class ForumController {
 
         forumEditLocationInfo(forum, model);
 
+        model.addAttribute("posting", forum.getParent());
         model.addAttribute("xmlid", requestContext.isUserModerator() ? forum.getId() : 0);
         model.asMap().computeIfAbsent("forumForm", key -> new ForumForm(forum, requestContext));
         return "forum-edit";
@@ -98,14 +100,15 @@ public class ForumController {
             @ModelAttribute @Valid ForumForm forumForm,
             Errors errors,
             RedirectAttributes redirectAttributes) {
+        Posting parent = postingManager.beg(forumForm.getParentId());
+
         String reloginErrorCode = loginManager.relogin(
                 ReloginVariant.valueOf(forumForm.getRelogin()),
                 forumForm.getGuestLogin(),
                 forumForm.getLogin(),
                 forumForm.getPassword(),
-                forumForm.isRemember());
-
-        Posting parent = postingManager.beg(forumForm.getParentId());
+                forumForm.isRemember(),
+                parent == null || !parent.isGuestPostable());
 
         Forum forum;
         if (forumForm.getId() <= 0) {

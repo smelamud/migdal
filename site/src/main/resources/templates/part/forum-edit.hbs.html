@@ -17,7 +17,7 @@
         {{hidden name="parentId" value=forumForm.parentId}}
         {{starInfo}}
         {{#unless forumForm.id}}
-            {{formRelogin relogin=forumForm.relogin noGuests=(not posting.isGuestPostable)
+            {{formRelogin relogin=forumForm.relogin noGuests=(not posting.guestPostable)
                           guestLogin=forumForm.guestLogin login=forumForm.login remember=forumForm.remember}}
             {{!<form_captcha id='captcha' name='captcha'>}}
         {{/unless}}
