@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -52,6 +53,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
     @Inject
     private TopicManager topicManager;
+
+    @Inject
+    private ForumManager forumManager;
 
     @Inject
     private PermManager permManager;
@@ -274,6 +278,10 @@ public class PostingManager implements EntryManagerBase<Posting> {
             applyChanges.accept(posting);
         }
         updateModbits(posting);
+        if (!newPosting) {
+            posting.setAnswers(forumManager.countAnswers(posting.getId()));
+            posting.setLastAnswerDetails(forumManager.begLastAnswer(posting.getId()));
+        }
         saveAndFlush(posting); /* We need to have the record in DB to know ID after this point */
 
         String newTrack = TrackUtils.track(posting.getId(), posting.getUp().getTrack());
@@ -289,7 +297,6 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (catalogChanged) {
             catalogManager.updateCatalogs(newTrack);
         }
-        //answerUpdate($posting->getId());
         if (newPosting || topicChanged) {
             publishPosting(posting);
         }
@@ -374,6 +381,17 @@ public class PostingManager implements EntryManagerBase<Posting> {
         } else {
             postingRepository.delete(publish);
         }
+    }
+
+    @Transactional
+    public void updateAnswersDetails(long postingId) {
+        Posting posting = get(postingId);
+        if (posting == null) {
+            return;
+        }
+        posting.setAnswers(forumManager.countAnswers(postingId));
+        posting.setLastAnswerDetails(forumManager.begLastAnswer(postingId));
+        saveAndFlush(posting);
     }
 
 }

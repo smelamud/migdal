@@ -176,6 +176,19 @@ public class Posting extends Entry {
                 .collect(Collectors.toList());
     }
 
+    public void setLastAnswerDetails(Forum forum) {
+        setLastAnswer(forum);
+        if (forum != null) {
+            setLastAnswerTimestamp(forum.getSent());
+            setLastAnswerUser(forum.getUser());
+            setLastAnswerGuestLogin(forum.getGuestLogin());
+        } else {
+            setLastAnswerTimestamp(null);
+            setLastAnswerUser(null);
+            setLastAnswerGuestLogin("");
+        }
+    }
+
     public static String validateHierarchy(Entry parent, Entry up, long id) {
         String errorCode = Entry.validateHierarchy(parent, up, id);
         if (errorCode != null) {

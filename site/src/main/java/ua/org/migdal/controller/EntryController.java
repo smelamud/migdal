@@ -179,7 +179,7 @@ public class EntryController {
 
                     entry.setHidden(hideForm.isHide());
                     entryManager.save(entry);
-                    // TODO for Forums update answers info in the parent Posting
+                    postingManager.updateAnswersDetails(entry.getParentId());
                     return null;
                 });
 
@@ -200,14 +200,16 @@ public class EntryController {
         new ControllerAction(EntryController.class, "actionModerate", errors)
                 .transactional(txManager)
                 .execute(() -> {
+                    Entry entry = entryManager.get(moderateForm.getId());
+
+                    if (entry == null) {
+                        return "noEntry";
+                    }
                     if (!requestContext.isUserModerator()) {
                         return "notModerator";
                     }
-                    if (!entryManager.exists(moderateForm.getId())) {
-                        return "noEntry";
-                    }
                     entryManager.updateDisabledById(moderateForm.getId(), moderateForm.isHide());
-                    // TODO for Forums update answers info in the parent Posting
+                    postingManager.updateAnswersDetails(entry.getParentId());
                     return null;
                 });
 

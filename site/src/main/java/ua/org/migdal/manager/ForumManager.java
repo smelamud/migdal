@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,9 @@ public class ForumManager implements EntryManagerBase<Forum> {
 
     @Inject
     private CatalogManager catalogManager;
+
+    @Inject
+    private PostingManager postingManager;
 
     @Inject
     private ForumRepository forumRepository;
@@ -95,7 +99,7 @@ public class ForumManager implements EntryManagerBase<Forum> {
         if (catalogChanged) {
             catalogManager.updateCatalogs(newTrack);
         }
-        //answerUpdate($forum->getParentId());
+        postingManager.updateAnswersDetails(forum.getParentId());
     }
 
     public Iterable<Forum> begAll(long parentId, int offset, int limit) {
@@ -104,6 +108,23 @@ public class ForumManager implements EntryManagerBase<Forum> {
         where.and(forum.parent.id.eq(parentId));
         where.and(getPermFilter(forum, Perm.READ, false));
         return forumRepository.findAll(where, PageRequest.of(offset / limit, limit, Sort.Direction.ASC, "sent"));
+    }
+
+    public long countAnswers(long parentId) {
+        QForum forum = QForum.forum;
+        BooleanBuilder where = new BooleanBuilder();
+        where.and(forum.parent.id.eq(parentId));
+        where.and(getPermFilter(forum, Perm.READ, true));
+        return forumRepository.count(where);
+    }
+
+    public Forum begLastAnswer(long parentId) {
+        QForum forum = QForum.forum;
+        BooleanBuilder where = new BooleanBuilder();
+        where.and(forum.parent.id.eq(parentId));
+        where.and(getPermFilter(forum, Perm.READ, true));
+        Page<Forum> page = forumRepository.findAll(where, PageRequest.of(0, 1, Sort.Direction.DESC, "sent"));
+        return page.hasContent() ? page.getContent().get(0) : null;
     }
 
     private Predicate getPermFilter(QForum forum, long right, boolean asGuest) {
