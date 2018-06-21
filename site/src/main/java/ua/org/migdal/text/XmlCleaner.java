@@ -141,7 +141,7 @@ class XmlCleaner {
         Deque<String> rstack = new ArrayDeque<>();
         while (!tagStack.isEmpty() && !tagStack.peek().equals(tagName)) {
             String tag = tagStack.pop();
-            xmlQueue.addLast(new Tag(tag));
+            xmlQueue.addLast(new Tag(tag, true));
             rstack.push(tag);
         }
         if (StringUtils.isEmpty(tagName)) {
@@ -155,7 +155,7 @@ class XmlCleaner {
         xmlQueue.addLast(tagObject);
         while (!rstack.isEmpty()) {
             String tag = rstack.pop();
-            xmlQueue.addLast(new Tag(tagName));
+            xmlQueue.addLast(new Tag(tag));
             tagStack.push(tag);
         }
     }
