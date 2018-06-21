@@ -15,6 +15,7 @@
 
 {{> errorLines}}
 {{> batcher list=forums}}
+<a name="comments"></a>
 <div class="forums">
     {{#each forums}}
         {{> part/forum forum=this posting=posting}}
@@ -24,5 +25,6 @@
     {{> batcher list=forums}}
 {{/if}}
 {{#postable posting}}
+    <a name="comment-add"></a>
     {{> part/forum-edit forumForm=forumForm posting=posting xmlid=0}}
 {{/postable}}

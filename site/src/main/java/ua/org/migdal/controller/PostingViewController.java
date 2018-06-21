@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.form.ForumForm;
@@ -41,7 +42,9 @@ public class PostingViewController {
     private EarController earController;
 
     @GetMapping(path={"/**/{id:\\d+}", "/**/{ident:[^.]+}"})
-    public String postingView(Model model) throws PageNotFoundException {
+    public String postingView(
+            Model model,
+            @RequestParam(defaultValue = "0") Integer offset) throws PageNotFoundException {
         long id = identManager.postingIdFromRequestPath();
         Posting posting = postingManager.beg(id);
         if (posting == null) {
@@ -55,7 +58,7 @@ public class PostingViewController {
         }
 
         model.addAttribute("posting", posting);
-        model.addAttribute("comments", forumManager.begAll(posting.getId(), 0, Integer.MAX_VALUE));
+        model.addAttribute("comments", forumManager.begAll(posting.getId(), offset, 20));
         model.addAttribute("forumForm", new ForumForm(posting, requestContext));
         indexController.addMajors(model);
         earController.addEars(model);

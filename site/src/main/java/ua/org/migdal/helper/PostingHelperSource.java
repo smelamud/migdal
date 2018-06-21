@@ -117,7 +117,7 @@ public class PostingHelperSource {
         buf.append("<span>");
         if (posting.getAnswers() > 0) {
             buf.append("<a");
-            String href = String.format("%sdiscuss/", posting.getGrpDetailsHref());
+            String href = String.format("%s#comments", posting.getGrpDetailsHref());
             HelperUtils.appendAttr(buf, "href", href);
             buf.append('>');
             buf.append(posting.getAnswers());
@@ -125,7 +125,7 @@ public class PostingHelperSource {
             buf.append(Utils.plural(posting.getAnswers(), new String[]{"комментарий", "комментария", "комментариев"}));
         } else {
             buf.append("<a");
-            String href = String.format("%sdiscuss/add/", posting.getGrpDetailsHref());
+            String href = String.format("%s#comment-add", posting.getGrpDetailsHref());
             HelperUtils.appendAttr(buf, "href", href);
             buf.append('>');
             buf.append("Оставить комментарий");
