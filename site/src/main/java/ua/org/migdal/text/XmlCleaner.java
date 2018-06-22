@@ -103,63 +103,6 @@ class XmlCleaner {
         return ((Tag) tail).getTagName().equals(name);
     }
 
-    private String joinQueue() {
-        while (!xmlQueue.isEmpty()) {
-            if (startsWithTag("br")) {
-                xmlQueue.removeFirst();
-                continue;
-            }
-            if (xmlQueue.size() >= 2 && startsWithTag("p")) {
-                Slice head = xmlQueue.removeFirst();
-                if (startsWithTag("/p")) {
-                    xmlQueue.removeFirst();
-                    continue;
-                }
-                xmlQueue.addFirst(head);
-            }
-            break;
-        }
-        while (!xmlQueue.isEmpty()) {
-            if (endsWithTag("br")) {
-                xmlQueue.removeLast();
-                continue;
-            }
-            if (xmlQueue.size() >= 2 && endsWithTag("/p")) {
-                Slice tail = xmlQueue.removeLast();
-                if (endsWithTag("p")) {
-                    xmlQueue.removeLast();
-                    continue;
-                }
-                xmlQueue.addLast(tail);
-            }
-            break;
-        }
-        return xmlQueue.stream().map(Slice::toString).collect(Collectors.joining());
-    }
-
-    private void closeTag(String tagName, Tag tagObject) {
-        Deque<String> rstack = new ArrayDeque<>();
-        while (!tagStack.isEmpty() && !tagStack.peek().equals(tagName)) {
-            String tag = tagStack.pop();
-            xmlQueue.addLast(new Tag(tag, true));
-            rstack.push(tag);
-        }
-        if (StringUtils.isEmpty(tagName)) {
-            return;
-        }
-        if (tagStack.isEmpty()) {
-            xmlQueue.addLast(new Tag(tagName));
-        } else {
-            tagStack.pop();
-        }
-        xmlQueue.addLast(tagObject);
-        while (!rstack.isEmpty()) {
-            String tag = rstack.pop();
-            xmlQueue.addLast(new Tag(tag));
-            tagStack.push(tag);
-        }
-    }
-
     private boolean processTag(String tag) {
         Matcher m = TAG.matcher(tag);
         if (!m.matches()) {
@@ -223,6 +166,63 @@ class XmlCleaner {
             }
         }
         return true;
+    }
+
+    private void closeTag(String tagName, Tag tagObject) {
+        Deque<String> rstack = new ArrayDeque<>();
+        while (!tagStack.isEmpty() && !tagStack.peek().equals(tagName)) {
+            String tag = tagStack.pop();
+            xmlQueue.addLast(new Tag(tag, true));
+            rstack.push(tag);
+        }
+        if (StringUtils.isEmpty(tagName)) {
+            return;
+        }
+        if (tagStack.isEmpty()) {
+            xmlQueue.addLast(new Tag(tagName));
+        } else {
+            tagStack.pop();
+        }
+        xmlQueue.addLast(tagObject);
+        while (!rstack.isEmpty()) {
+            String tag = rstack.pop();
+            xmlQueue.addLast(new Tag(tag));
+            tagStack.push(tag);
+        }
+    }
+
+    private String joinQueue() {
+        while (!xmlQueue.isEmpty()) {
+            if (startsWithTag("br")) {
+                xmlQueue.removeFirst();
+                continue;
+            }
+            if (xmlQueue.size() >= 2 && startsWithTag("p")) {
+                Slice head = xmlQueue.removeFirst();
+                if (startsWithTag("/p")) {
+                    xmlQueue.removeFirst();
+                    continue;
+                }
+                xmlQueue.addFirst(head);
+            }
+            break;
+        }
+        while (!xmlQueue.isEmpty()) {
+            if (endsWithTag("br")) {
+                xmlQueue.removeLast();
+                continue;
+            }
+            if (xmlQueue.size() >= 2 && endsWithTag("/p")) {
+                Slice tail = xmlQueue.removeLast();
+                if (endsWithTag("p")) {
+                    xmlQueue.removeLast();
+                    continue;
+                }
+                xmlQueue.addLast(tail);
+            }
+            break;
+        }
+        return xmlQueue.stream().map(Slice::toString).collect(Collectors.joining());
     }
 
     private String cleanup() {
