@@ -10,6 +10,7 @@ public class MtextTags {
 
     private static final Map<String, MtextFormat> TAGS;
     private static final Set<String> EMPTY_TAGS;
+    private static final Set<String> CHAPTER_TAGS;
 
     static {
         Map<String, MtextFormat> tags = new HashMap<>();
@@ -56,6 +57,16 @@ public class MtextTags {
         emptyTags.add("img");
         emptyTags.add("param");
         EMPTY_TAGS = Collections.unmodifiableSet(emptyTags);
+
+        Set<String> chapterTags = new HashSet<>();
+        chapterTags.add("quote");
+        chapterTags.add("footnote");
+        chapterTags.add("table");
+        chapterTags.add("tr");
+        chapterTags.add("td");
+        chapterTags.add("th");
+        chapterTags.add("incut");
+        CHAPTER_TAGS = Collections.unmodifiableSet(chapterTags);
     }
 
     public static boolean isAllowed(String tag) {
@@ -68,6 +79,10 @@ public class MtextTags {
 
     public static MtextFormat getLevel(String tag) {
         return TAGS.get(tag);
+    }
+
+    public static boolean isChapter(String tag) {
+        return CHAPTER_TAGS.contains(tag);
     }
 
 }

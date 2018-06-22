@@ -171,7 +171,7 @@ public class WikiText {
             } else {
                 StringBuilder buf = new StringBuilder(lines[i - 1]);
                 for (int j = 0; j < level - l; j++) {
-                    buf.append("</p></quote>");
+                    buf.append("</p></quote><p>");
                 }
                 lines[i - 1] = buf.toString();
             }
@@ -263,7 +263,7 @@ public class WikiText {
                 if (destFormat.atLeast(MtextFormat.LONG)) {
                     s = replaceFootnotes(s);
                 }
-                s = s.replace("\n", "<br />");
+                s = s.replace("\r", "").replace("\n", "<br />");
                 s = s.replace("\\\\", "<br />");
                 s = flipReplace('_', "<u>", "</u>", s);
                 s = flipReplace('~', "<b>", "</b>", s);

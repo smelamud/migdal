@@ -46,7 +46,7 @@ class XmlCleaner {
         }
 
         Tag(String name, boolean isClosing) {
-            this(name, String.format(!isClosing ? "<%s>" : "</%s>", name.toLowerCase()));
+            this(!isClosing ? name : '/' + name, String.format(!isClosing ? "<%s>" : "</%s>", name.toLowerCase()));
         }
 
         Tag(String name) {
@@ -82,34 +82,28 @@ class XmlCleaner {
     }
 
     private boolean startsWithTag(String name) {
-        if (xmlQueue.isEmpty()) {
-            return false;
-        }
-        Slice head = xmlQueue.getFirst();
+        Slice head = xmlQueue.peekFirst();
         if (!(head instanceof Tag)) {
             return false;
         }
-        return ((Tag) head).getTagName().equals(name);
+        return ((Tag) head).getName().equals(name);
     }
 
     private boolean endsWithTag(String name) {
-        if (xmlQueue.isEmpty()) {
-            return false;
-        }
-        Slice tail = xmlQueue.getLast();
+        Slice tail = xmlQueue.peekLast();
         if (!(tail instanceof Tag)) {
             return false;
         }
-        return ((Tag) tail).getTagName().equals(name);
+        return ((Tag) tail).getName().equals(name);
     }
 
-    private boolean processTag(String tag) {
+    private Tag buildTag(String tag) {
         Matcher m = TAG.matcher(tag);
         if (!m.matches()) {
-            return false;
+            return null;
         }
         if (!isTagValid(m.group(1))) {
-            return false;
+            return null;
         }
         StringBuilder out = new StringBuilder();
         out.append('<');
@@ -148,18 +142,36 @@ class XmlCleaner {
             }
             tail = tail.substring(1);
         }
-        Tag tagObject = new Tag(tagName, out);
+        return new Tag(tagName, out);
+    }
+
+    private boolean processTag(String tag) {
+        Tag tagObject = buildTag(tag);
+        if (tagObject == null) {
+            return false;
+        }
+        String tagName = tagObject.getName();
         if (tagName.startsWith("/")) {
             if (!MtextTags.isEmpty(tagName.substring(1))) {
+                if (endsWithTag(tagName)) {
+                    return true; // ignore duplicated tags
+                }
                 tagObject.appendText(">");
-                closeTag(tagName.substring(1), tagObject);
+                closeTag(tagObject);
             }
             // For empty tags closing tag is silently ignored
         } else {
             if (!MtextTags.isEmpty(tagName)) {
+                if (endsWithTag(tagName)) {
+                    return true; // ignore duplicated tags
+                }
                 tagObject.appendText(">");
-                tagStack.push(tagName);
-                xmlQueue.addLast(tagObject);
+                if (MtextTags.isChapter(tagName)) {
+                    closeLowerLevelTags(tagObject);
+                } else {
+                    tagStack.push(tagName);
+                    xmlQueue.addLast(tagObject);
+                }
             } else {
                 tagObject.appendText(" />");
                 xmlQueue.addLast(tagObject);
@@ -168,7 +180,9 @@ class XmlCleaner {
         return true;
     }
 
-    private void closeTag(String tagName, Tag tagObject) {
+    private void closeTag(Tag tagObject) {
+        String tagName = tagObject != null ? tagObject.getTagName() : "";
+
         Deque<String> rstack = new ArrayDeque<>();
         while (!tagStack.isEmpty() && !tagStack.peek().equals(tagName)) {
             String tag = tagStack.pop();
@@ -184,6 +198,22 @@ class XmlCleaner {
             tagStack.pop();
         }
         xmlQueue.addLast(tagObject);
+        while (!rstack.isEmpty()) {
+            String tag = rstack.pop();
+            xmlQueue.addLast(new Tag(tag));
+            tagStack.push(tag);
+        }
+    }
+
+    private void closeLowerLevelTags(Tag tagObject) {
+        Deque<String> rstack = new ArrayDeque<>();
+        while (!tagStack.isEmpty() && !MtextTags.isChapter(tagStack.peek())) {
+            String tag = tagStack.pop();
+            xmlQueue.addLast(new Tag(tag, true));
+            rstack.push(tag);
+        }
+        xmlQueue.addLast(tagObject);
+        tagStack.push(tagObject.getTagName());
         while (!rstack.isEmpty()) {
             String tag = rstack.pop();
             xmlQueue.addLast(new Tag(tag));
@@ -251,7 +281,7 @@ class XmlCleaner {
                 }
             }
         }
-        closeTag("", null);
+        closeTag(null);
         return joinQueue();
     }
 
