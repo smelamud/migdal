@@ -164,14 +164,14 @@ public class WikiText {
             if (l >= level) {
                 StringBuilder buf = new StringBuilder();
                 for (int j = 0; j < l - level; j++) {
-                    buf.append("<quote><p>");
+                    buf.append("<quote>");
                 }
                 buf.append(lines[i]);
                 lines[i] = buf.toString();
             } else {
                 StringBuilder buf = new StringBuilder(lines[i - 1]);
                 for (int j = 0; j < level - l; j++) {
-                    buf.append("</p></quote><p>");
+                    buf.append("</quote>");
                 }
                 lines[i - 1] = buf.toString();
             }
