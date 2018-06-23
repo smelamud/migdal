@@ -22,7 +22,8 @@
                           guestLogin=forumForm.guestLogin login=forumForm.login remember=forumForm.remember}}
             {{!<form_captcha id='captcha' name='captcha'>}}
         {{/unless}}
-        {{formEditor title="Текст" name="body" body=forumForm.body rows="12" mandatory=true xmlid=xmlid}}
+        {{formEditor title="Текст" name="body" body=forumForm.body rows="12" mandatory=true xmlid=xmlid
+                     id="comment-add"}}
         {{#logged}}
             {{#formSelect title="Видимость" name="hidden" style="box"}}
                 {{formOption title="Сообщение видно всем пользователям" value="0" selected=(not forumForm.hidden)}}

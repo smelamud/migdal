@@ -11,7 +11,7 @@
         {{#assign "href"}}{{posting.grpDetailsHref}}discuss{{/assign}}
         <div class="controls">
             &nbsp;
-            <a href="{{href}}/{{forum.id}}/reply/" title="Ответить с цитированием">Ответить</a>
+            <a href="#comment-add" class="forum-reply" title="Ответить с цитированием">Ответить</a>
             {{#writable forum}}
                 &nbsp;
                 <a href="/edit-forum/{{forum.id}}?back={{ue rc.location}}">Изменить</a>

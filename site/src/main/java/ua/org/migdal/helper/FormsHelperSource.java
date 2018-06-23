@@ -362,11 +362,17 @@ public class FormsHelperSource {
         CharSequence body = HelperUtils.mandatoryHash("body", options);
         CharSequence rows = options.hash("rows", "10");
         long xmlid = HelperUtils.intArg("xmlid", options.hash("xmlid"));
+        CharSequence id = options.hash("id");
 
         StringBuilder buf = new StringBuilder();
         buf.append(formLineBegin(title, name, mandatory, comment, "", options));
-        buf.append(String.format("<textarea name=\"%s\" rows=\"%s\" wrap=\"virtual\" style=\"width: 100%%\">%s"
-                        + "</textarea>", HelperUtils.he(name), HelperUtils.he(rows), HelperUtils.he(body)));
+        buf.append("<textarea wrap=\"virtual\" style=\"width: 100%\"");
+        HelperUtils.appendAttr(buf, "name", name);
+        HelperUtils.appendAttr(buf, "rows", rows);
+        HelperUtils.appendAttr(buf, "id", id);
+        buf.append('>');
+        HelperUtils.safeAppend(buf, body);
+        buf.append("</textarea>");
         if (xmlid != 0) {
             buf.append("<br>");
             buf.append(xmlText(xmlid, name));
