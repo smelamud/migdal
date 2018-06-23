@@ -153,18 +153,12 @@ class XmlCleaner {
         String tagName = tagObject.getName();
         if (tagName.startsWith("/")) {
             if (!MtextTags.isEmpty(tagName.substring(1))) {
-                if (endsWithTag(tagName)) {
-                    return true; // ignore duplicated tags
-                }
                 tagObject.appendText(">");
                 closeTag(tagObject);
             }
             // For empty tags closing tag is silently ignored
         } else {
             if (!MtextTags.isEmpty(tagName)) {
-                if (endsWithTag(tagName)) {
-                    return true; // ignore duplicated tags
-                }
                 tagObject.appendText(">");
                 if (MtextTags.isChapter(tagName)) {
                     closeLowerLevelTags(tagObject);
@@ -221,7 +215,7 @@ class XmlCleaner {
         }
     }
 
-    private String joinQueue() {
+    private void crop() {
         while (!xmlQueue.isEmpty()) {
             if (startsWithTag("br")) {
                 xmlQueue.removeFirst();
@@ -252,6 +246,38 @@ class XmlCleaner {
             }
             break;
         }
+    }
+
+    private void deduplicate() {
+        Deque<Slice> filtered = new ArrayDeque<>();
+        for (Slice slice : xmlQueue) {
+            if (!(slice instanceof Tag)) {
+                filtered.addLast(slice);
+                continue;
+            }
+            Tag tag = (Tag) slice;
+            if (!(filtered.peekLast() instanceof Tag)) {
+                filtered.addLast(tag);
+                continue;
+            }
+            Tag prevTag = (Tag) filtered.peekLast();
+            if (prevTag.getName().equals(tag.getName()) && !MtextTags.isEmpty(tag.getTagName())) {
+                continue;
+            }
+            if (prevTag.getName().equals("p") && tag.getTagName().equals("br")) {
+                continue;
+            }
+            if (tag.getName().equals("/p")) {
+                while (filtered.peekLast() instanceof Tag && ((Tag) filtered.peekLast()).getTagName().equals("br")) {
+                    filtered.removeLast();
+                }
+            }
+            filtered.addLast(tag);
+        }
+        xmlQueue = filtered;
+    }
+
+    private String joinQueue() {
         return xmlQueue.stream().map(Slice::toString).collect(Collectors.joining());
     }
 
@@ -282,6 +308,8 @@ class XmlCleaner {
             }
         }
         closeTag(null);
+        crop();
+        deduplicate();
         return joinQueue();
     }
 
