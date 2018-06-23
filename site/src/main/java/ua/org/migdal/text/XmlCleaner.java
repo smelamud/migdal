@@ -12,7 +12,7 @@ import ua.org.migdal.util.XmlUtils;
 
 class XmlCleaner {
 
-    private static final Pattern TAG = Pattern.compile("<\\s*(\\/?\\w+)\\s*(.*)>");
+    private static final Pattern TAG = Pattern.compile("<\\s*(/?\\w+)\\s*(.*)>");
     private static final Pattern ATTRIBUTE_QUOTED = Pattern.compile("([-\\w]+)\\s*=\\s*(\"[^\"]*\"|'[^']*')\\s*(.*)");
     private static final Pattern ATTRIBUTE_SIMPLE = Pattern.compile("([-\\w]+)\\s*=\\s*(\\S+)\\s*(.*)");
     private static final Pattern ATTRIBUTE_FLAG = Pattern.compile("([-\\w]+)\\s*(.*)");
