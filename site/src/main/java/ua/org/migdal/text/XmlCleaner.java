@@ -216,35 +216,11 @@ class XmlCleaner {
     }
 
     private void crop() {
-        while (!xmlQueue.isEmpty()) {
-            if (startsWithTag("br")) {
-                xmlQueue.removeFirst();
-                continue;
-            }
-            if (xmlQueue.size() >= 2 && startsWithTag("p")) {
-                Slice head = xmlQueue.removeFirst();
-                if (startsWithTag("/p")) {
-                    xmlQueue.removeFirst();
-                    continue;
-                }
-                xmlQueue.addFirst(head);
-            }
-            break;
+        while (!xmlQueue.isEmpty() && startsWithTag("br")) {
+            xmlQueue.removeFirst();
         }
-        while (!xmlQueue.isEmpty()) {
-            if (endsWithTag("br")) {
-                xmlQueue.removeLast();
-                continue;
-            }
-            if (xmlQueue.size() >= 2 && endsWithTag("/p")) {
-                Slice tail = xmlQueue.removeLast();
-                if (endsWithTag("p")) {
-                    xmlQueue.removeLast();
-                    continue;
-                }
-                xmlQueue.addLast(tail);
-            }
-            break;
+        while (!xmlQueue.isEmpty() && endsWithTag("br")) {
+            xmlQueue.removeLast();
         }
     }
 
@@ -261,7 +237,9 @@ class XmlCleaner {
                 continue;
             }
             Tag prevTag = (Tag) filtered.peekLast();
-            if (prevTag.getName().equals(tag.getName()) && !MtextTags.isEmpty(tag.getTagName())) {
+            if (prevTag.getName().equals(tag.getName())
+                    && !MtextTags.isEmpty(tag.getTagName())
+                    && !tag.getTagName().equals("quote")) {
                 continue;
             }
             if (prevTag.getName().equals("p") && tag.getTagName().equals("br")) {
@@ -270,6 +248,10 @@ class XmlCleaner {
             if (tag.getName().equals("/p")) {
                 while (filtered.peekLast() instanceof Tag && ((Tag) filtered.peekLast()).getTagName().equals("br")) {
                     filtered.removeLast();
+                }
+                if (filtered.peekLast() instanceof Tag && ((Tag) filtered.peekLast()).getTagName().equals("p")) {
+                    filtered.removeLast();
+                    continue;
                 }
             }
             filtered.addLast(tag);
@@ -308,8 +290,8 @@ class XmlCleaner {
             }
         }
         closeTag(null);
-        crop();
         deduplicate();
+        crop();
         return joinQueue();
     }
 
