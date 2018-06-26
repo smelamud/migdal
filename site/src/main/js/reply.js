@@ -1,7 +1,8 @@
 function replyInit() {
     $("a.forum-reply").click(function(event) {
         var body = $(this).parent().parent().children(".body").html().trim();
-        body = body.replace(/<div class="quote">/g, "<quote>")
+        body = body.replace(/<a href="mailto:[^"]+">([^<]+)<\/a>/g, "$1")
+                   .replace(/<div class="quote">/g, "<quote>")
                    .replace(/<\/p>\s*<\/div>/g, "</quote>")
                    .replace(/<\/div>/g, "</quote>")
                    .replace(/<p>/g, "")
