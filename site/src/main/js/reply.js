@@ -12,7 +12,8 @@ function replyInit() {
         var userName = comment.find(".header .name").html();
         var guestName = comment.find(".header .guest-name").html();
 
-        body = body.replace(/<a href="mailto:[^"]+">([^<]+)<\/a>/g, "$1")
+        body = body.replace(/[\r\n]/g, "")
+                   .replace(/<a href="mailto:[^"]+">([^<]+)<\/a>/g, "$1")
                    .replace(/<a class="name"[^>]*>([^<]+)<\/a>/g, "<user name=\"$1\">")
                    .replace(/<span class="guest-name">([^<]+)<\/span>/g, "<user guest-name=\"$1\">")
                    .replace(/<div class="quote">/g, "<quote>")
@@ -21,14 +22,16 @@ function replyInit() {
                    .replace(/<p>/g, "")
                    .replace(/<\/p>$/, "")
                    .replace(/<\/p>/g, "\n\n")
-                   .replace(/<br>/g, "\n");
+                   .replace(/<br>/g, "\n")
+                   .replace(/^\n+/, "");
         body = "<quote>" + userLink(userName, guestName) + " пишет:\n\n" + body + "</quote>";
 
         var textarea = $("#comment-add");
-        textarea.val(body + "\n\n" + textarea.val());
+        textarea.val(textarea.val() + body + "\n\n");
         textarea.focus();
-        textarea.prop("selectionStart", body.length + 2);
-        textarea.prop("selectionEnd", body.length + 2);
+        var len = textarea.val().length;
+        textarea.prop("selectionStart", len);
+        textarea.prop("selectionEnd", len);
 
         event.preventDefault();
     })
