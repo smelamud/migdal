@@ -25,6 +25,7 @@ import ua.org.migdal.mtext.Mtext;
 import ua.org.migdal.mtext.MtextConverter;
 import ua.org.migdal.mtext.MtextFormat;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.session.RequestContextImpl;
 import ua.org.migdal.util.Utils;
 
 @Entity
@@ -450,6 +451,13 @@ public class User implements Editable {
 
     public void setHidden(short hidden) {
         this.hidden = hidden;
+    }
+
+    @Transient
+    public boolean isVisible() {
+        boolean userAdminUsers = RequestContextImpl.getInstance().isUserAdminUsers();
+
+        return getHidden() <= 0 || (userAdminUsers && getHidden() == 1);
     }
 
     public boolean isNoLogin() {

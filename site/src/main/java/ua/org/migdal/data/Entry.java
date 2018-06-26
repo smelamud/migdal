@@ -451,9 +451,7 @@ public class Entry implements TreeElement {
 
     @Transient
     public boolean isUserVisible() {
-        boolean userAdminUsers = RequestContextImpl.getInstance().isUserAdminUsers();
-
-        return !isUserHidden() || (userAdminUsers && !isUserAdminHidden());
+        return getUser().isVisible();
     }
 
     @Transient

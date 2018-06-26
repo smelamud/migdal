@@ -28,6 +28,9 @@ public class PostingHelperSource {
     private ImagesHelperSource imagesHelperSource;
 
     @Inject
+    private UsersHelperSource usersHelperSource;
+
+    @Inject
     private VoteHelperSource voteHelperSource;
 
     public CharSequence sentView(Options options) {
@@ -40,27 +43,7 @@ public class PostingHelperSource {
             return "";
         }
 
-        StringBuilder buf = new StringBuilder();
-        if (!entry.isUserGuest()) {
-            if (entry.isUserVisible()) {
-                buf.append("<a class=\"name\" href=\"/users/");
-                buf.append(HelperUtils.ue(entry.getUserFolder()));
-                buf.append("/\"");
-                HelperUtils.appendAttr(buf, "data-id", entry.getUser().getId());
-                buf.append('>');
-                buf.append(HelperUtils.he(entry.getUserLogin()));
-                buf.append("</a>");
-            } else {
-                buf.append("<span class=\"name\">");
-                buf.append(HelperUtils.he(entry.getUserLogin()));
-                buf.append("</span>");
-            }
-        } else {
-            buf.append("<span class=\"guest-name\">");
-            buf.append(HelperUtils.he(entry.getGuestLogin()));
-            buf.append("</span>");
-        }
-        return new SafeString(buf);
+        return usersHelperSource.userLink(entry.getUser(), entry.getGuestLogin());
     }
 
     public CharSequence topicLink(Posting posting, Options options) {

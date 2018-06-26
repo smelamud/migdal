@@ -15,6 +15,7 @@ import ua.org.migdal.Config;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.ImagePlacement;
 import ua.org.migdal.data.InnerImage;
+import ua.org.migdal.helper.UsersHelperSource;
 import ua.org.migdal.util.XmlUtils;
 
 public class MtextToHtml extends DefaultHandler {
@@ -42,7 +43,7 @@ public class MtextToHtml extends DefaultHandler {
 
     private Config config;
     private ImageCallback imageCallback;
-    private UserNameCallback userNameCallback;
+    private UsersHelperSource usersHelperSource;
     private IncutCallback incutCallback;
 
     public MtextToHtml(MtextFormat format, boolean ignoreWrongFormat, long id,
@@ -64,16 +65,16 @@ public class MtextToHtml extends DefaultHandler {
         return htmlFootnotes;
     }
 
-    public ImageCallback getImageCallback() {
-        return imageCallback;
-    }
-
     public Config getConfig() {
         return config;
     }
 
     public void setConfig(Config config) {
         this.config = config;
+    }
+
+    public ImageCallback getImageCallback() {
+        return imageCallback;
     }
 
     public void setImageCallback(ImageCallback imageCallback) {
@@ -84,16 +85,12 @@ public class MtextToHtml extends DefaultHandler {
         return imageCallback != null ? imageCallback.format(id, par, image, align) : "";
     }
 
-    public UserNameCallback getUserNameCallback() {
-        return userNameCallback;
+    public UsersHelperSource getUsersHelperSource() {
+        return usersHelperSource;
     }
 
-    public void setUserNameCallback(UserNameCallback userNameCallback) {
-        this.userNameCallback = userNameCallback;
-    }
-
-    private CharSequence invokeUserNameCallback(boolean guest, String login) {
-        return userNameCallback != null ? userNameCallback.format(guest, login) : "";
+    public void setUsersHelperSource(UsersHelperSource usersHelperSource) {
+        this.usersHelperSource = usersHelperSource;
     }
 
     public IncutCallback getIncutCallback() {
@@ -228,9 +225,9 @@ public class MtextToHtml extends DefaultHandler {
                     break;
                 }
                 if (attributes.getIndex("name") >= 0) {
-                    html.append(invokeUserNameCallback(false, attributes.getValue("name")));
+                    html.append(usersHelperSource.userNameLink(attributes.getValue("name"), null));
                 } else {
-                    html.append(invokeUserNameCallback(true, attributes.getValue("guest-name")));
+                    html.append(usersHelperSource.userNameLink(null, attributes.getValue("guest-name")));
                 }
                 break;
 
