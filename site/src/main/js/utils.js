@@ -5,3 +5,12 @@ function plural(n, forms) {
            ? forms[2]
            : (a === 1 ? forms[0] : forms[1]);
 }
+
+function he(s) {
+    return $("<div/>").text(s).html();
+}
+
+
+function hd(s) {
+    return $("<div/>").html(s).text();
+}
