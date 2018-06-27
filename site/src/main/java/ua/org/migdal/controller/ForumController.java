@@ -166,7 +166,10 @@ public class ForumController {
                 });
 
         if (!errors.hasErrors()) {
-            return "redirect:" + requestContext.getOrigin();
+            return UriComponentsBuilder.fromUriString("redirect:" + requestContext.getOrigin())
+                    .replaceQueryParam("tid", forum.getId())
+                    .fragment("t" + forum.getId())
+                    .toUriString();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("forumForm", forumForm);

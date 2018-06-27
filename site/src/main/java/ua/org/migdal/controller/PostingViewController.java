@@ -44,7 +44,8 @@ public class PostingViewController {
     @GetMapping(path={"/**/{id:\\d+}", "/**/{ident:[^.]+}"})
     public String postingView(
             Model model,
-            @RequestParam(defaultValue = "0") Integer offset) throws PageNotFoundException {
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "0") Long tid) throws PageNotFoundException {
         long id = identManager.postingIdFromRequestPath();
         Posting posting = postingManager.beg(id);
         if (posting == null) {
@@ -55,6 +56,13 @@ public class PostingViewController {
 
         if (posting.isHasImage()) {
             requestContext.addOgImage(posting.getImageUrl());
+        }
+
+        if (tid > 0) {
+            int toffset = forumManager.begOffset(posting.getId(), tid);
+            if (toffset > 0) {
+                offset = (toffset / 20) * 20;
+            }
         }
 
         model.addAttribute("posting", posting);

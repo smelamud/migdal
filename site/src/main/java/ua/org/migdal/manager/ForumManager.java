@@ -139,6 +139,20 @@ public class ForumManager implements EntryManagerBase<Forum> {
         return page.hasContent() ? page.getContent().get(0) : null;
     }
 
+    public int begOffset(long parentId, long id) {
+        Forum target = beg(id);
+        if (target == null) {
+            return -1;
+        }
+
+        QForum forum = QForum.forum;
+        BooleanBuilder where = new BooleanBuilder();
+        where.and(forum.parent.id.eq(parentId));
+        where.and(getPermFilter(forum, Perm.READ, false));
+        where.and(forum.sent.lt(target.getSent()));
+        return (int) forumRepository.count(where);
+    }
+
     private Predicate getPermFilter(QForum forum, long right, boolean asGuest) {
         long eUserId = !asGuest ? requestContext.getUserId() : 0;
         boolean eUserModerator = !asGuest && requestContext.isUserModerator();
