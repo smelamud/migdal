@@ -8,7 +8,7 @@
 
 <form method="post" enctype="multipart/form-data" action="/actions/forum/modify">
     {{#formTable title=formTitle}}
-        {{formErrors}}
+        {{formErrors form="forumForm"}}
         {{#if back}}
             {{hidden name="origin" value=back}}
         {{else}}

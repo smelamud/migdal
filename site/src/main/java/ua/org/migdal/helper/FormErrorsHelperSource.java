@@ -25,10 +25,14 @@ public class FormErrorsHelperSource {
 
         String className = options.hash("class", "");
         String formName = options.hash("form");
+        String exceptFormName = options.hash("exceptForm");
         Object object = options.hash("object");
         Errors errors = options.get("errors");
 
         if (formName != null && !errors.getObjectName().equals(formName)) {
+            return "";
+        }
+        if (exceptFormName != null && errors.getObjectName().equals(exceptFormName)) {
             return "";
         }
         List<String> messages = errorMessageResolver.createContext(object).getMessages(errors);
