@@ -3,12 +3,12 @@
     <div class="header">
         {{senderLink forum}}<br>
         <span class="sent">{{sentView date=forum.sent}}</span>
+        <a href="{{posting.grpDetailsHref}}?tid={{forum.id}}#t{{forum.id}}">{{image "/pics/self.gif"}}</a>
     </div>
     <div class="content">
         <div class="body">
             {{mtext forum.bodyMtext}}
         </div>
-        {{#assign "href"}}{{posting.grpDetailsHref}}discuss{{/assign}}
         <div class="controls">
             &nbsp;
             <a href="#comment-add" class="forum-reply" title="Ответить с цитированием">Ответить</a>
