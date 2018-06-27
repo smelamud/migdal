@@ -31,12 +31,30 @@ public class GrpEnum {
 
     private static GrpEnum instance;
 
+    /**
+     * Grp mask that includes all grps
+     */
     public long all;
+    /**
+     * Mapping from name of a compound group to its grp mask
+     */
     private Map<String, Long> groups = new HashMap<>();
 
+    /**
+     * Descriptor of the "NONE" grp with default settings
+     */
     private GrpDescriptor grpNone;
+    /**
+     * List of descriptors of all defined grps
+     */
     private List<GrpDescriptor> grps = new ArrayList<>();
+    /**
+     * Mapping from a grp value to its descriptor
+     */
     private Map<Long, GrpDescriptor> grpMap = new HashMap<>();
+    /**
+     * Mapping from a grp name to its descriptor
+     */
     private Map<String, GrpDescriptor> grpNameMap = new HashMap<>();
 
     @Inject
@@ -86,47 +104,80 @@ public class GrpEnum {
         return instance;
     }
 
+    /**
+     * Get the list of descriptors of all defined grps
+     */
     public List<GrpDescriptor> getGrps() {
         return grps;
     }
 
+    /**
+     * Get the descriptor of the "NONE" grp with default settings
+     */
     public GrpDescriptor getGrpNone() {
         return grpNone;
     }
 
+    /**
+     * Get the descriptor by grp value
+     */
     public GrpDescriptor grp(long grp) {
         return grpMap.get(grp);
     }
 
+    /**
+     * Get the descriptor by grp name
+     */
     public GrpDescriptor grp(String name) {
         return grpNameMap.get(name);
     }
 
+    /**
+     * Check if a grp with the given value exists
+     */
     public boolean exists(long grp) {
         return grp(grp) != null;
     }
 
+    /**
+     * Check if a grp with the given name exists
+     */
     public boolean exists(String name) {
         return grp(name) != null;
     }
 
+    /**
+     * Get the grp value by its name
+     */
     public long grpValue(String name) {
         return grp(name).getValue();
     }
 
+    /**
+     * Get the array of grp values that are included into a compound group by its name
+     */
     public long[] group(String name) {
         return parse(groupValue(name));
     }
 
+    /**
+     * Get the grp mask by the name of a compound group
+     */
     public long groupValue(String name) {
         Long value = groups.get(name);
         return value != null ? value : 0;
     }
 
+    /**
+     * Check if a grp with the given value is included into the compound group designated by name
+     */
     public boolean inGroup(String name, long grp) {
         return (grpValue(name) & grp) != 0;
     }
 
+    /**
+     * Convert a grp mask to array of values
+     */
     public long[] parse(long grp) {
         return Utils.toArray(grps.stream()
                 .map(GrpDescriptor::getValue)
