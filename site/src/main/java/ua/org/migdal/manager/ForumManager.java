@@ -102,6 +102,18 @@ public class ForumManager implements EntryManagerBase<Forum> {
         postingManager.updateAnswersDetails(forum.getParentId());
     }
 
+    public void drop(Forum forum) {
+        String track = forum.getTrack() + ' ';
+        String upTrack = trackManager.get(forum.getUpId()) + ' ';
+        long parentId = forum.getParentId();
+        forumRepository.updateUpId(forum.getId(), forum.getUpId());
+        postingManager.invalidateLastAnswer(parentId);
+        forumRepository.delete(forum);
+        catalogManager.updateCatalogs(track);
+        trackManager.replaceTracks(track, upTrack);
+        postingManager.updateAnswersDetails(parentId);
+    }
+
     public Iterable<Forum> begAll(long parentId, int offset, int limit) {
         QForum forum = QForum.forum;
         BooleanBuilder where = new BooleanBuilder();

@@ -1,5 +1,7 @@
 package ua.org.migdal.manager;
 
+import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
+
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -381,6 +383,12 @@ public class PostingManager implements EntryManagerBase<Posting> {
         } else {
             postingRepository.delete(publish);
         }
+    }
+
+    @Transactional(REQUIRES_NEW)
+    public void invalidateLastAnswer(long postingId) {
+        postingRepository.clearLastAnswerId(postingId);
+        postingRepository.flush();
     }
 
     @Transactional

@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Forum;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.form.ForumDeleteForm;
 import ua.org.migdal.form.ForumForm;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.ForumManager;
@@ -178,6 +179,34 @@ public class ForumController {
             return UriComponentsBuilder.fromUriString(location)
                     .queryParam("back", requestContext.getOrigin())
                     .toUriString();
+        }
+    }
+
+    @GetMapping("/actions/forum/delete")  // FIXME leave only POST
+    @PostMapping("/actions/forum/delete")
+    public String actionForumDelete(
+            @ModelAttribute @Valid ForumDeleteForm forumDeleteForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        new ControllerAction(EntryController.class, "actionForumDelete", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    Forum forum = forumManager.beg(forumDeleteForm.getId());
+                    if (forum == null) {
+                        return "noForum";
+                    }
+                    if (!forum.isWritable()) {
+                        return "noDelete";
+                    }
+                    forumManager.drop(forum);
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return "redirect:" + requestContext.getBack();
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:" + requestContext.getBack();
         }
     }
 

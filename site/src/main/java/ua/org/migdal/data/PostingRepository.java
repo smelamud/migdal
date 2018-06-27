@@ -26,4 +26,8 @@ public interface PostingRepository extends JpaRepository<Posting, Long>, Queryds
     @Query("select distinct p.modbits from Posting p")
     List<Long> modbitsVariety();
 
+    @Modifying
+    @Query("update Posting p set p.lastAnswer=null where p.id=?1")
+    void clearLastAnswerId(long id);
+
 }
