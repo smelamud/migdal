@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -101,46 +102,68 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return null;
     }
 
+    public List<Posting> begLastDiscussions(long[] grps, long[] additionalGrps, int limit) {
+        Set<Posting> postingSet = new HashSet<>();
+        Iterable<Posting> postings = begAll(null, grps, null, null, true, null, true, 0, limit, Sort.Direction.DESC,
+                                            "lastAnswerTimestamp");
+        for (Posting posting : postings) {
+            postingSet.add(posting);
+        }
+        postings = begAll(null, additionalGrps, true, 0, limit);
+        for (Posting posting : postings) {
+            postingSet.add(posting);
+        }
+        return postingSet.stream()
+                .sorted((p1, p2) -> {
+                    Timestamp t1 = p1.getAnswers() > 0 ? p1.getLastAnswerTimestamp() : p1.getSent();
+                    Timestamp t2 = p2.getAnswers() > 0 ? p2.getLastAnswerTimestamp() : p2.getSent();
+                    return -t1.compareTo(t2);
+                })
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
+
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, int offset, int limit) {
-        return begAll(topicRoots, grps, null, null, false, null, offset, limit, Sort.Direction.DESC, "sent");
+        return begAll(topicRoots, grps, null, null, false, null, false, offset, limit, Sort.Direction.DESC, "sent");
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, boolean asGuest,
                                     int offset, int limit) {
-        return begAll(topicRoots, grps, null, null, asGuest, null, offset, limit, Sort.Direction.DESC, "sent");
+        return begAll(topicRoots, grps, null, null, asGuest, null, false, offset, limit, Sort.Direction.DESC, "sent");
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, int offset, int limit,
                                     Sort.Direction sortDirection, String... sortFields) {
-        return begAll(topicRoots, grps, null, null, false, null, offset, limit, sortDirection, sortFields);
+        return begAll(topicRoots, grps, null, null, false, null, false, offset, limit, sortDirection, sortFields);
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
                                     int offset, int limit) {
-        return begAll(topicRoots, grps, index1, userId, false, null, offset, limit, Sort.Direction.DESC, "sent");
+        return begAll(topicRoots, grps, index1, userId, false, null, false, offset, limit, Sort.Direction.DESC, "sent");
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
                                     int offset, int limit, Sort.Direction sortDirection, String... sortFields) {
-        return begAll(topicRoots, grps, index1, userId, false, null, offset, limit, sortDirection, sortFields);
+        return begAll(topicRoots, grps, index1, userId, false, null, false, offset, limit, sortDirection, sortFields);
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
-                                    boolean asGuest, Timestamp laterThan, int offset, int limit,
+                                    boolean asGuest, Timestamp laterThan, boolean withAnswers, int offset, int limit,
                                     Sort.Direction sortDirection, String... sortFields) {
         QPosting posting = QPosting.posting;
-        return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1, userId, null, asGuest, laterThan),
+        return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1, userId, null, asGuest, laterThan,
+                                                  withAnswers),
                 PageRequest.of(offset / limit, limit, sortDirection, sortFields));
     }
 
     public long countAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId) {
         QPosting posting = QPosting.posting;
-        return postingRepository.count(getWhere(posting, topicRoots, grps, index1, userId, null, false, null));
+        return postingRepository.count(getWhere(posting, topicRoots, grps, index1, userId, null, false, null, false));
     }
 
     public Iterable<Posting> begAllByModbit(PostingModbit modbit, int offset, int limit, boolean asc) {
         QPosting posting = QPosting.posting;
-        return postingRepository.findAll(getWhere(posting, null, null, null, null, modbit, false, null),
+        return postingRepository.findAll(getWhere(posting, null, null, null, null, modbit, false, null, false),
                 PageRequest.of(offset / limit, limit, asc ? Sort.Direction.ASC : Sort.Direction.DESC, "sent"));
     }
 
@@ -148,7 +171,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
     public Set<Posting> begRandom(List<Pair<Long, Boolean>> topicRoots, long[] grps, int limit) {
         QPosting posting = QPosting.posting;
         Iterable<Posting> postings = postingRepository.findAll(
-                getWhere(posting, topicRoots, grps, null, null, null, true, null),
+                getWhere(posting, topicRoots, grps, null, null, null, true, null, false),
                 Sort.by(Sort.Direction.DESC, "sent"));
 
         List<Posting> postingList = new ArrayList<>();
@@ -168,7 +191,8 @@ public class PostingManager implements EntryManagerBase<Posting> {
     }
 
     private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,
-                               Long userId, PostingModbit modbit, boolean asGuest, Timestamp laterThan) {
+                               Long userId, PostingModbit modbit, boolean asGuest, Timestamp laterThan,
+                               boolean withAnswers) {
         BooleanBuilder where = new BooleanBuilder();
         if (topicRoots != null) {
             BooleanBuilder byTopic = new BooleanBuilder();
@@ -199,6 +223,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
         if (laterThan != null) {
             where.and(posting.sent.after(laterThan));
+        }
+        if (withAnswers) {
+            where.and(posting.answers.gt(0));
         }
         where.and(getPermFilter(posting, Perm.READ, asGuest));
         return where;

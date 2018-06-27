@@ -69,6 +69,7 @@ public class IndexController {
         addTextEars(model);
         addPostings("TAPE", null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
         addHitParade(null, model);
+        addDiscussions(model);
         return "index-www";
     }
 
@@ -186,10 +187,19 @@ public class IndexController {
                         null,
                         true,
                         Timestamp.from(Instant.now().minus(31, ChronoUnit.DAYS)),
+                        false,
                         0,
                         10,
                         Sort.Direction.DESC,
                         "rating"));
+    }
+
+    private void addDiscussions(Model model) {
+        model.addAttribute("discussions",
+                postingManager.begLastDiscussions(
+                        grpEnum.group("DISCUSS"),
+                        new long[]{grpEnum.grpValue("FORUMS")},
+                        7));
     }
 
     @GetMapping("/major")

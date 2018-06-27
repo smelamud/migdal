@@ -49,7 +49,7 @@ function fuzzyTimeFormatElapsed(time) {
 
 function fuzzyTimeUpdate() {
     $(".fuzzy-time").each(function() {
-        var time = toOurtime(parseInt($(this).attr("data-time")));
+        var time = toOurtime(parseInt($(this).attr("data-time")) / 1000);
         $(this).text(fuzzyTimeFormatElapsed(time));
     });
 }
