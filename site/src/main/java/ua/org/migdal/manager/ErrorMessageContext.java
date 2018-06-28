@@ -33,6 +33,7 @@ public class ErrorMessageContext {
             EvaluationContext evaluationContext) {
 
         this.messageSource = messageSource;
+        this.parser = parser;
         this.parserContext = parserContext;
         this.evaluationContext = evaluationContext;
     }
