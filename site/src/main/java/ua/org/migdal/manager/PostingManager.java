@@ -1,7 +1,5 @@
 package ua.org.migdal.manager;
 
-import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
-
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -12,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -93,7 +90,6 @@ public class PostingManager implements EntryManagerBase<Posting> {
     }
 
     public Posting begLast(long[] grps, long topicId, Long userId) {
-        QPosting posting = QPosting.posting;
         List<Pair<Long, Boolean>> topicRoots = topicId <= 0 ? null : Collections.singletonList(Pair.of(topicId, false));
         Iterable<Posting> postings = begAll(topicRoots, grps, null, userId, 0, 1);
         for (Posting lastPosting : postings) {
@@ -102,25 +98,12 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return null;
     }
 
-    public List<Posting> begLastDiscussions(long[] grps, long[] additionalGrps, int limit) {
-        Set<Posting> postingSet = new HashSet<>();
-        Iterable<Posting> postings = begAll(null, grps, null, null, true, null, true, 0, limit, Sort.Direction.DESC,
-                                            "lastAnswerTimestamp");
-        for (Posting posting : postings) {
-            postingSet.add(posting);
-        }
-        postings = begAll(null, additionalGrps, true, 0, limit);
-        for (Posting posting : postings) {
-            postingSet.add(posting);
-        }
-        return postingSet.stream()
-                .sorted((p1, p2) -> {
-                    Timestamp t1 = p1.getAnswers() > 0 ? p1.getLastAnswerTimestamp() : p1.getSent();
-                    Timestamp t2 = p2.getAnswers() > 0 ? p2.getLastAnswerTimestamp() : p2.getSent();
-                    return -t1.compareTo(t2);
-                })
-                .limit(limit)
-                .collect(Collectors.toList());
+    public Iterable<Posting> begLastDiscussions(long[] grps, long[] additionalGrps, int limit) {
+        QPosting posting = QPosting.posting;
+        BooleanBuilder where = new BooleanBuilder();
+        where.or(getWhere(posting, null, grps, null, null, null, true, null, true));
+        where.or(getWhere(posting, null, additionalGrps, null, null, null, true, null, false));
+        return postingRepository.findAll(where, PageRequest.of(0, limit, Sort.Direction.DESC, "lastAnswerTimestamp"));
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, int offset, int limit) {
