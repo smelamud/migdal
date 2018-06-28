@@ -15,6 +15,12 @@ sub scan {
     my @patterns = ();
     while (<FD>) {
         push @patterns, $2.' '.uc($1) if /^\s*@(Get|Post)Mapping\("([^"]+)"/;
+        if (/^\s*@(Get|Post)Mapping\(path=\{(.+)\}[^}]*$/) {
+            my $proto = uc($1);
+            for (split(/\s*,\s*/, $2)) {
+                push @patterns, $1.' '.$proto if /^\s*"([^"]+)"/;
+            }
+        }
         if (/^\s*public\s+\S+\s+(\w+)\(/) {
             my $method = $1;
             for (@patterns) {
