@@ -16,6 +16,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -1199,6 +1200,13 @@ public class Entry implements TreeElement {
     @Transient
     public String getImageUrl() {
         return getLargeImageUrl();
+    }
+
+    @PreRemove
+    public void preRemove() {
+        if (getParent() != null && getParent().getLastAnswer().getId() == getId()) {
+            getParent().setLastAnswer(null);
+        }
     }
 
     public static String validateHierarchy(Entry parent, Entry up, long id) {

@@ -107,7 +107,6 @@ public class ForumManager implements EntryManagerBase<Forum> {
         String upTrack = trackManager.get(forum.getUpId()) + ' ';
         long parentId = forum.getParentId();
         forumRepository.updateUpId(forum.getId(), forum.getUpId());
-        postingManager.invalidateLastAnswer(parentId);
         forumRepository.delete(forum);
         catalogManager.updateCatalogs(track);
         trackManager.replaceTracks(track, upTrack);

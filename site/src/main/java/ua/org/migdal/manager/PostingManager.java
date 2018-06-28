@@ -412,12 +412,6 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
     }
 
-    @Transactional(REQUIRES_NEW)
-    public void invalidateLastAnswer(long postingId) {
-        postingRepository.clearLastAnswerId(postingId);
-        postingRepository.flush();
-    }
-
     @Transactional
     public void updateAnswersDetails(long postingId) {
         Posting posting = get(postingId);
