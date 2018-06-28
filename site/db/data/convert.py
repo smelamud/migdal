@@ -106,6 +106,8 @@ def convert_entries(row):
         row['modifier_id'] = 'NULL'
     if row['id'] in entry_grps:
         row['grp'] = str(entry_grps[row['id']])
+    if row['entry'] == '1' and row['answers'] == '0':
+        row['last_answer'] = row['sent']
     return [
         row['id'],
         row['ident'],
@@ -179,7 +181,12 @@ def convert_entries(row):
         row['large_image_y'],
         row['large_image_size'],
         row['large_image_format'],
-        row['large_image_filename']
+        row['large_image_filename'],
+        0,
+        0,
+        0,
+        0,
+        0
     ]
 
 def convert_cross_entries(row):

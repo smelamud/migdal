@@ -310,6 +310,8 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (!newPosting) {
             posting.setAnswers(forumManager.countAnswers(posting.getId()));
             posting.setLastAnswerDetails(forumManager.begLastAnswer(posting.getId()));
+        } else {
+            posting.setLastAnswerDetails(null);
         }
         saveAndFlush(posting); /* We need to have the record in DB to know ID after this point */
 

@@ -183,7 +183,7 @@ public class Posting extends Entry {
             setLastAnswerUser(forum.getUser());
             setLastAnswerGuestLogin(forum.getGuestLogin());
         } else {
-            setLastAnswerTimestamp(null);
+            setLastAnswerTimestamp(getSent());
             setLastAnswerUser(null);
             setLastAnswerGuestLogin("");
         }
