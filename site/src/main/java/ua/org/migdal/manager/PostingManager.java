@@ -183,7 +183,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
         Set<Posting> selected = new HashSet<>();
         Random random = new Random();
-        while (selected.size() < limit) {
+        while (selected.size() < limit && selected.size() < postingList.size()) {
             selected.add(postingList.get(random.nextInt(postingList.size())));
         }
 
