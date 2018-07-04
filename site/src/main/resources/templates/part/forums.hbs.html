@@ -1,5 +1,11 @@
-{{#*inline "batcher"}} {{! params: list }}
+{{#*inline "batcher"}} {{! params: list, showAdder }}
     <div class="batcher">
+        {{#if showAdder}}
+            <div class="adder">
+                {{image "/pics/sheet.gif"}}
+                <a href="#comment-add">Добавить комментарий</a>
+            </div>
+        {{/if}}
         {{spin list}}
         <div class="clear-floats"></div>
     </div>
@@ -14,7 +20,7 @@
 {{/inline}}
 
 {{> errorLines}}
-{{> batcher list=forums}}
+{{> batcher list=forums showAdder=true}}
 <a name="comments"></a>
 <div class="forums">
     {{#each forums}}
@@ -22,7 +28,7 @@
     {{/each}}
 </div>
 {{#if forums}}
-    {{> batcher list=forums}}
+    {{> batcher list=forums showAdder=false}}
 {{/if}}
 {{#postable posting}}
     <a name="comment-add"></a>
