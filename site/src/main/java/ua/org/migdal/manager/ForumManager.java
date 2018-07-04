@@ -152,6 +152,18 @@ public class ForumManager implements EntryManagerBase<Forum> {
         return (int) forumRepository.count(where);
     }
 
+    /**
+     * @return the offset of the page where the given comment is located. If there is no comment id passed or
+     *         no such comment exists, the value of {@code offset} parameter is returned.
+     */
+    public int jumpToComment(long postingId, long commentId, int offset, int limit) {
+        if (commentId <= 0) {
+            return offset;
+        }
+        int toffset = begOffset(postingId, commentId);
+        return toffset >= 0 ? (toffset / limit) * limit : offset;
+    }
+
     private Predicate getPermFilter(QForum forum, long right, boolean asGuest) {
         long eUserId = !asGuest ? requestContext.getUserId() : 0;
         boolean eUserModerator = !asGuest && requestContext.isUserModerator();

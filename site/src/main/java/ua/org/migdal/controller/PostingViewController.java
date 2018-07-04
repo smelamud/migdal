@@ -58,12 +58,7 @@ public class PostingViewController {
             requestContext.addOgImage(posting.getImageUrl());
         }
 
-        if (tid > 0) {
-            int toffset = forumManager.begOffset(posting.getId(), tid);
-            if (toffset > 0) {
-                offset = (toffset / 20) * 20;
-            }
-        }
+        offset = forumManager.jumpToComment(posting.getId(), tid, offset, 20);
 
         model.addAttribute("posting", posting);
         model.addAttribute("comments", forumManager.begAll(posting.getId(), offset, 20));
