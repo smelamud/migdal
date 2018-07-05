@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Component;
 
 import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.PostingModbit;
 import ua.org.migdal.data.TopicModbit;
 import ua.org.migdal.data.UserRight;
+import ua.org.migdal.grp.GrpDescriptor;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.helper.calendar.Tables;
 import ua.org.migdal.helper.util.Constant;
 import ua.org.migdal.text.TextFormat;
@@ -18,11 +22,15 @@ import ua.org.migdal.text.TextFormat;
 @Component
 public class Constants {
 
+    @Inject
+    private GrpEnum grpEnum;
+
     private List<Constant<Integer>> gregorianMonthRuGenLcLong = new ArrayList<>();
     private Map<String, Long> userRight = new HashMap<>();
     private Map<String, Long> postingModbit = new HashMap<>();
     private Map<String, Integer> linkType = new HashMap<>();
     private List<Constant<String>> langs = new ArrayList<>();
+    private Map<String, Long> grp = new HashMap<>();
 
     public Constants() {
     }
@@ -87,6 +95,15 @@ public class Constants {
             }
         }
         return linkType;
+    }
+
+    public Map<String, Long> getGrp() {
+        if (grp.isEmpty()) {
+            for (GrpDescriptor grpDescriptor : grpEnum.getGrps()) {
+                grp.put(grpDescriptor.getName(), grpDescriptor.getValue());
+            }
+        }
+        return grp;
     }
 
 }

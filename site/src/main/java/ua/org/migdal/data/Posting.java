@@ -1,5 +1,6 @@
 package ua.org.migdal.data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
 
 import ua.org.migdal.Config;
+import ua.org.migdal.data.util.AnswersPage;
 import ua.org.migdal.data.util.Selected;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
@@ -176,6 +178,7 @@ public class Posting extends Entry {
                 .collect(Collectors.toList());
     }
 
+    @Transient
     public void setLastAnswerDetails(Forum forum) {
         setLastAnswer(forum);
         if (forum != null) {
@@ -187,6 +190,36 @@ public class Posting extends Entry {
             setLastAnswerUser(null);
             setLastAnswerGuestLogin("");
         }
+    }
+
+    private List<AnswersPage> getAnswersPages(int limit) {
+        List<AnswersPage> pages = new ArrayList<>();
+        int total = (int) getAnswers();
+        int n = total / limit;
+        if (total % limit > 0) {
+            n++;
+        }
+        if (n > 1) {
+            if (n > 6) {
+                for (int offset = 0; offset < 3 * limit; offset += limit) {
+                    pages.add(new AnswersPage(offset / limit + 1, offset));
+                }
+                pages.add(new AnswersPage(true));
+                for (int offset = (n - 3) * limit; offset < total; offset += limit) {
+                    pages.add(new AnswersPage(offset / limit + 1, offset));
+                }
+            } else {
+                for (int offset = 0; offset < total; offset += limit) {
+                    pages.add(new AnswersPage(offset / limit + 1, offset));
+                }
+            }
+        }
+        return pages;
+    }
+
+    @Transient
+    public List<AnswersPage> getAnswersPages() {
+        return getAnswersPages(20);
     }
 
     public static String validateHierarchy(Entry parent, Entry up, long id) {
