@@ -199,6 +199,7 @@ public class IndexController {
                 postingManager.begLastDiscussions(
                         grpEnum.group("DISCUSS"),
                         new long[]{grpEnum.grpValue("FORUMS")},
+                        false,
                         0,
                         7));
     }

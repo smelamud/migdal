@@ -98,13 +98,22 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return null;
     }
 
-    public Iterable<Posting> begLastDiscussions(long[] grps, long[] additionalGrps, int offset, int limit) {
+    public Iterable<Posting> begLastDiscussions(long[] grps, long[] additionalGrps, boolean prioritize,
+                                                int offset, int limit) {
         QPosting posting = QPosting.posting;
         BooleanBuilder where = new BooleanBuilder();
         where.or(getWhere(posting, null, grps, null, null, null, true, null, true));
         where.or(getWhere(posting, null, additionalGrps, null, null, null, true, null, false));
-        return postingRepository.findAll(where,
-                PageRequest.of(offset / limit, limit, Sort.Direction.DESC, "lastAnswerTimestamp"));
+        Sort sort;
+        if (prioritize) {
+            sort = Sort.by(
+                       Sort.Order.asc("priority"),
+                       Sort.Order.desc("lastAnswerTimestamp")
+                   );
+        } else {
+            sort = Sort.by(Sort.Direction.DESC, "lastAnswerTimestamp");
+        }
+        return postingRepository.findAll(where, PageRequest.of(offset / limit, limit, sort));
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, int offset, int limit) {
