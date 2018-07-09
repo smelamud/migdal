@@ -6,8 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.location.GeneralViewFor;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 
 @Controller
@@ -20,10 +23,16 @@ public class ForumController {
     private PostingManager postingManager;
 
     @Inject
+    private IdentManager identManager;
+
+    @Inject
     private IndexController indexController;
 
     @Inject
     private EarController earController;
+
+    @Inject
+    private PostingEditingController postingEditingController;
 
     @GetMapping("/forum")
     public String forums(
@@ -44,6 +53,7 @@ public class ForumController {
         return "forums";
     }
 
+    @GeneralViewFor("^forum/.*$")
     public LocationInfo forumLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/forum")
@@ -51,6 +61,24 @@ public class ForumController {
                 .withTopicsIndex("forum")
                 .withParent(indexController.indexLocationInfo(null))
                 .withPageTitle("Все обсуждения");
+    }
+
+    @GetMapping("/forum/add")
+    public String forumAdd(
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        forumAddLocationInfo(model);
+
+        long topicId = identManager.idOrIdent("forum");
+        return postingEditingController.postingAdd("FORUMS", topicId, full, model);
+    }
+
+    public LocationInfo forumAddLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/forum/add")
+                .withParent(forumLocationInfo(null))
+                .withPageTitle("Добавление темы для обсуждения");
     }
 
 }

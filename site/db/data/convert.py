@@ -104,6 +104,9 @@ def convert_entries(row):
     if row['user_id'] == '165':
         row['creator_id'] = '165'
         row['modifier_id'] = 'NULL'
+    if row['ident'] == 'post.criticism':
+        row['ident'] = 'post.forum.criticism'
+        row['catalog'] = 'forum/criticism/'
     if row['id'] in entry_grps:
         row['grp'] = str(entry_grps[row['id']])
     if row['entry'] == '1' and row['answers'] == '0':
