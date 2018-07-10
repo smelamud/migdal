@@ -22,8 +22,11 @@
                     <div class="author">{{mtext posting.authorMtext}}</div>
                 {{/if}}
             </h1>
-            {{!<article_full posting='$,'>
-            <addtoany>}}
+            <div class="preface">
+                {{mtext posting.bodyMtext}}
+            </div>
+            {{!<article posting='$posting'>}}
+            {{postingShare}}
             {{articleControls posting=posting}}
         </td>
     </tr>
