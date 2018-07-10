@@ -3,6 +3,7 @@ package ua.org.migdal.data;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -18,7 +19,7 @@ public class InnerImage {
     @Access(AccessType.PROPERTY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Entry entry;
 
     @NotNull
@@ -30,7 +31,7 @@ public class InnerImage {
     @NotNull
     private int y;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Image image;
 
     @NotNull
