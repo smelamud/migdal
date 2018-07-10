@@ -76,9 +76,6 @@ public class ArticleHelperSource {
             buf.append("</p>");
         }
         buf.append("<div class=\"clear-floats\"></div>");
-//<if what='$withvote'>
-// <vote_panel id='$posting.Id' rating='$posting.Rating'>
-//</if>
         if (!StringUtils.isEmpty(converted.getHtmlFootnotes().toString())) {
             buf.append("<hr class=\"notes\" align=\"left\">");
             buf.append(converted.getHtmlFootnotes());

@@ -10,11 +10,13 @@
         </td>
         {{/notPrint}}
         <td class="article cframe">
-            {{articleControls posting=posting}}
             <div class="sent">
                 {{sentView date=posting.sent}}<br>
                 {{senderLink posting}}
             </div>
+            {{articleControls posting=posting}}
+            <div class="clear-floats"></div>
+            {{votePanel align="right" id=posting.id rating=posting.rating}}
             <h1>
                 {{topicLink posting}}<br>
                 {{posting.subject}}
@@ -28,6 +30,7 @@
             {{article posting}}
             {{postingShare}}
             {{articleControls posting=posting}}
+            <div class="clear-floats"></div>
         </td>
     </tr>
 </table>W
