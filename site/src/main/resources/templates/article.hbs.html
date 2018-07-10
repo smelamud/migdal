@@ -10,7 +10,7 @@
         </td>
         {{/notPrint}}
         <td class="article cframe">
-            {{!<article_controls posting='$,'>}}
+            {{articleControls posting=posting}}
             <div class="sent">
                 {{sentView date=posting.sent}}<br>
                 {{senderLink posting}}
@@ -23,8 +23,8 @@
                 {{/if}}
             </h1>
             {{!<article_full posting='$,'>
-            <addtoany>
-            <article_controls posting='$,'>}}
+            <addtoany>}}
+            {{articleControls posting=posting}}
         </td>
     </tr>
 </table>W
