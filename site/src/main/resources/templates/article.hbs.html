@@ -1,0 +1,32 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        {{#notPrint}}
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        {{/notPrint}}
+        <td class="article cframe">
+            {{!<article_controls posting='$,'>}}
+            <div class="sent">
+                {{sentView date=posting.sent}}<br>
+                {{senderLink posting}}
+            </div>
+            <h1>
+                {{topicLink posting}}<br>
+                {{posting.subject}}
+                {{#if posting.author}}
+                    <div class="author">{{mtext posting.authorMtext}}</div>
+                {{/if}}
+            </h1>
+            {{!<article_full posting='$,'>
+            <addtoany>
+            <article_controls posting='$,'>}}
+        </td>
+    </tr>
+</table>W
+
+{{> part/bottom}}
