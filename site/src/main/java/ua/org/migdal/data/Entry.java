@@ -815,6 +815,11 @@ public class Entry implements TreeElement {
         this.largeBodyFormat = largeBodyFormat;
     }
 
+    @Transient
+    public Mtext getLargeBodyMtext() {
+        return new Mtext(getLargeBodyXml(), MtextFormat.LONG, getId());
+    }
+
     public String getLargeBodyFilename() {
         return largeBodyFilename;
     }

@@ -18,7 +18,7 @@ import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.helper.UsersHelperSource;
 import ua.org.migdal.util.XmlUtils;
 
-public class MtextToHtml extends DefaultHandler {
+public class MtextToHtml extends DefaultHandler implements MtextConverted {
 
     /**
      * Points to {@link #htmlBody} or {@link #htmlFootnote}
@@ -57,10 +57,12 @@ public class MtextToHtml extends DefaultHandler {
         listFonts.push('i');
     }
 
+    @Override
     public CharSequence getHtmlBody() {
         return htmlBody;
     }
 
+    @Override
     public CharSequence getHtmlFootnotes() {
         return htmlFootnotes;
     }
