@@ -1,4 +1,5 @@
-TABLES=cross_entries entries groups image_files image_file_transforms users
+TABLES=cross_entries entries groups image_files image_file_transforms \
+	inner_images users
 
 %.converted.csv: %.csv ./convert.py
 	./convert.py $*

@@ -1,18 +1,99 @@
 package ua.org.migdal.data;
 
-// FIXME temporary stub
-public interface InnerImage {
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-    int getPar();
+@Entity
+@Table(name="inner_images")
+public class InnerImage {
 
-    short getX();
+    @Id
+    @GeneratedValue
+    @Access(AccessType.PROPERTY)
+    private long id;
 
-    short getY();
+    @ManyToOne
+    private Entry entry;
 
-    short getPlacement();
+    @NotNull
+    private int paragraph;
 
-    boolean isPlaced(short place);
+    @NotNull
+    private int x;
 
-    Image getImage();
+    @NotNull
+    private int y;
+
+    @ManyToOne
+    private Image image;
+
+    @NotNull
+    private short placement;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Entry getEntry() {
+        return entry;
+    }
+
+    public void setEntry(Entry entry) {
+        this.entry = entry;
+    }
+
+    public int getParagraph() {
+        return paragraph;
+    }
+
+    public void setParagraph(int paragraph) {
+        this.paragraph = paragraph;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public short getPlacement() {
+        return placement;
+    }
+
+    public void setPlacement(short placement) {
+        this.placement = placement;
+    }
+
+    public boolean isPlaced(short place) {
+        return (getPlacement() & place) != 0;
+    }
 
 }

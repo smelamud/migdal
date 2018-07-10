@@ -4,6 +4,7 @@ import sys
 import csv
 
 entry_grps = {}
+entry_ids = {}
 
 def read_entry_grps():
     global entry_grps
@@ -17,6 +18,14 @@ def read_entry_grps():
                 entry_grps[id] = grp
             else:
                 entry_grps[id] |= grp
+
+def read_entry_ids():
+    global entry_ids
+
+    with open('entries.csv', 'r') as infile:
+        reader = csv.DictReader(infile)
+        for row in reader:
+            entry_ids[row['id']] = True
 
 def null_time(time):
     if time == '0000-00-00 00:00:00':
@@ -66,6 +75,11 @@ def convert_users(row):
         jewish_name = row['jewish_name']
     else:
         jewish_name = ''
+    if row['login'] in convert_users.used_logins:
+        print(row['id'],':',row['login'])
+        return None
+    else:
+        convert_users.used_logins[row['login']] = True
     return [
         row['id'],
         row['login'],
@@ -95,6 +109,7 @@ def convert_users(row):
         birth[1],
         birth[0]
     ]
+convert_users.used_logins = {}
 
 def convert_entries(row):
     global entry_grps
@@ -226,9 +241,30 @@ def convert_image_file_transforms(row):
         row['size_y'],
     ]
 
+def convert_inner_images(row):
+    global entry_ids
+
+    if row['image_id'] == '0':
+        return None
+    if not row['entry_id'] in entry_ids:
+        return None
+    convert_inner_images.id += 1
+    return [
+        row['entry_id'],
+        row['par'],
+        row['x'],
+        row['y'],
+        row['image_id'],
+        row['placement'],
+        convert_inner_images.id
+    ]
+convert_inner_images.id = 0
+
 csv.field_size_limit(300000)
 read_entry_grps()
 table_name = sys.argv[1]
+if table_name == 'inner_images':
+    read_entry_ids()
 with open(table_name + '.csv', 'r') as infile:
     with open(table_name + '.converted.csv', 'w') as outfile:
         reader = csv.DictReader(infile)
@@ -242,4 +278,5 @@ with open(table_name + '.csv', 'r') as infile:
                 result = converter(row)
             else:
                 result = row.values()
-            writer.writerow(result)
+            if result is not None:
+                writer.writerow(result)

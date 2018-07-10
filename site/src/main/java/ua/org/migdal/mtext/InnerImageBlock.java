@@ -61,7 +61,7 @@ public class InnerImageBlock {
             return blocks;
         }
         for (InnerImage image : images) {
-            int par = image.getPar();
+            int par = image.getParagraph();
             if (!blocks.containsKey(par)) {
                 blocks.put(par, new InnerImageBlock());
             }
