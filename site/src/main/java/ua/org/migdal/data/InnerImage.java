@@ -94,7 +94,7 @@ public class InnerImage {
     }
 
     public boolean isPlaced(short place) {
-        return (getPlacement() & place) != 0;
+        return ImagePlacement.isPlaced(placement, place);
     }
 
 }

@@ -21,4 +21,12 @@ public class ImagePlacement {
     public static final short BOTTOMCENTER = BOTTOM | HCENTER;
     public static final short BOTTOMRIGHT = BOTTOM | RIGHT;
 
+    public static boolean isPlaced(short placement, short place) {
+        int hplace = place & ImagePlacement.HORIZONTAL;
+        boolean h = hplace == 0 || (placement & ImagePlacement.HORIZONTAL) == hplace;
+        int vplace = place & ImagePlacement.VERTICAL;
+        boolean v = vplace == 0 || (placement & ImagePlacement.VERTICAL) == vplace;
+        return h && v;
+    }
+
 }

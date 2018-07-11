@@ -40,11 +40,7 @@ public class InnerImageBlock {
     }
 
     public boolean isPlaced(short place) {
-        int hplace = place & ImagePlacement.HORIZONTAL;
-        boolean h = hplace == 0 || (placement & ImagePlacement.HORIZONTAL) == hplace;
-        int vplace = place & ImagePlacement.VERTICAL;
-        boolean v = vplace == 0 || (placement & ImagePlacement.VERTICAL) == vplace;
-        return h && v;
+        return ImagePlacement.isPlaced(placement, place);
     }
 
     public void addImage(InnerImage image) {

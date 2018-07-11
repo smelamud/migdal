@@ -77,6 +77,8 @@ public class GrpDescriptor {
 
     private String enWhat = "message";
 
+    private boolean innerImages;
+
     private List<GrpEditor> editors = Collections.emptyList();
     private Map<String, GrpEditor> fieldEditors;
     private List<GrpEditor> hiddenEditors;
@@ -224,6 +226,14 @@ public class GrpDescriptor {
 
     public void setEnWhat(String enWhat) {
         this.enWhat = enWhat;
+    }
+
+    public boolean isInnerImages() {
+        return innerImages;
+    }
+
+    public void setInnerImages(boolean innerImages) {
+        this.innerImages = innerImages;
     }
 
     public List<GrpEditor> getEditors() {

@@ -337,6 +337,8 @@
   whatA: "статьи"
   enWhat: "article"
 
+  innerImages: true
+
   editors:
     - field: topic
       title: "Тема"
@@ -614,6 +616,8 @@
   what: "статью"
   whatA: "статьи"
   enWhat: "article"
+
+  innerImages: true
 
   editors:
     - field: topic
@@ -939,6 +943,8 @@
   whatA: "главы"
   enWhat: "chapter"
 
+  innerImages: true
+
   editors:
     - field: subject
       title: "Название"
@@ -987,6 +993,8 @@
   what: "статью"
   whatA: "статьи"
   enWhat: "article"
+
+  innerImages: true
 
   editors:
     - field: topic

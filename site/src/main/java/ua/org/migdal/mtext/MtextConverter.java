@@ -11,6 +11,7 @@ import com.github.jknack.handlebars.Handlebars.SafeString;
 
 import ua.org.migdal.Config;
 import ua.org.migdal.data.InnerImage;
+import ua.org.migdal.helper.ArticleHelperSource;
 import ua.org.migdal.helper.UsersHelperSource;
 import ua.org.migdal.util.XmlConverter;
 import ua.org.migdal.util.XmlUtils;
@@ -23,6 +24,9 @@ public class MtextConverter {
 
     @Inject
     private Config config;
+
+    @Inject
+    private ArticleHelperSource articleHelperSource;
 
     @Inject
     private UsersHelperSource usersHelperSource;
@@ -47,6 +51,7 @@ public class MtextConverter {
         MtextToHtml handler = new MtextToHtml(mtext.getFormat(), mtext.isIgnoreWrongFormat(), mtext.getId(),
                 InnerImageBlock.getImageBlocks(innerImages));
         handler.setConfig(config);
+        handler.setArticleHelperSource(articleHelperSource);
         handler.setUsersHelperSource(usersHelperSource);
         try {
             XmlConverter.convert(mtext.getXml(), handler);

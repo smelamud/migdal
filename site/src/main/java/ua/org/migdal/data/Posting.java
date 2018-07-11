@@ -113,6 +113,11 @@ public class Posting extends Entry {
     }
 
     @Transient
+    public boolean isGrpInnerImages() {
+        return getGrpDescriptor().isInnerImages();
+    }
+
+    @Transient
     public Topic getTopic() {
         return (Topic) getParent();
     }

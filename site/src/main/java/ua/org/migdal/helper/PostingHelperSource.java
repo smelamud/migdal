@@ -173,8 +173,30 @@ public class PostingHelperSource {
         boolean controls = HelperUtils.boolArg(options.hash("controls"));
         boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
 
-        long sizeX = fixedWidth != 0 ? fixedWidth : posting.getSmallImageX();
-        long sizeY = fixedHeight != 0 ? fixedHeight : posting.getSmallImageY();
+        return entryImage(posting, align, noClear, noMargin, imageTitle, rel, title, titleLargeId, titleLarge,
+                fixedWidth, fixedHeight, enlargeAlways, href, editHref, rmHref, controls, hollow);
+    }
+
+    CharSequence entryImage(
+            Entry entry,
+            CharSequence align,
+            boolean noClear,
+            boolean noMargin,
+            Object imageTitle,
+            CharSequence rel,
+            Object title,
+            long titleLargeId,
+            CharSequence titleLarge,
+            long fixedWidth,
+            long fixedHeight,
+            boolean enlargeAlways,
+            CharSequence href,
+            CharSequence editHref,
+            CharSequence rmHref,
+            boolean controls,
+            boolean hollow) {
+        long sizeX = fixedWidth != 0 ? fixedWidth : entry.getSmallImageX();
+        long sizeY = fixedHeight != 0 ? fixedHeight : entry.getSmallImageY();
 
         StringBuilder buf = new StringBuilder();
         buf.append("<div class=\"pic\" style=\"width: ");
@@ -182,10 +204,10 @@ public class PostingHelperSource {
         buf.append("px");
         buf.append(imageDivFloat(align, noClear, noMargin));
         buf.append("\">");
-        if (posting.isHasLargeImage() || enlargeAlways) {
+        if (entry.isHasLargeImage() || enlargeAlways) {
             if (StringUtils.isEmpty(href)) {
                 buf.append("<a class=\"enlargeable\"");
-                HelperUtils.appendAttr(buf, "href", posting.getLargeImageUrl());
+                HelperUtils.appendAttr(buf, "href", entry.getLargeImageUrl());
                 if (titleLargeId > 0) {
                     HelperUtils.appendAttr(buf, "data-title-large-id", titleLargeId);
                 } else if (!StringUtils.isEmpty(titleLarge)) {
@@ -199,7 +221,7 @@ public class PostingHelperSource {
                 buf.append(">");
             }
             if (!hollow) {
-                buf.append(imageTag(posting.getSmallImageUrl(), sizeX, sizeY, imageTitle));
+                buf.append(imageTag(entry.getSmallImageUrl(), sizeX, sizeY, imageTitle));
             } else {
                 buf.append("&nbsp;");
             }
@@ -213,7 +235,7 @@ public class PostingHelperSource {
                 HelperUtils.appendAttr(buf, "href", href);
                 buf.append(">");
             }
-            buf.append(imageTag(posting.getImageUrl(), posting.getImageX(), posting.getImageY(), imageTitle));
+            buf.append(imageTag(entry.getImageUrl(), entry.getImageX(), entry.getImageY(), imageTitle));
             if (!StringUtils.isEmpty(href)) {
                 buf.append("</a>");
             }
@@ -221,9 +243,9 @@ public class PostingHelperSource {
         if (!hollow && controls && (!StringUtils.isEmpty(editHref) || !StringUtils.isEmpty(rmHref))) {
             buf.append("<div class=\"buttons\">");
             if (!StringUtils.isEmpty(editHref)) {
-                if (editHref.equals("auto")) {
+                if (editHref.equals("auto") && (entry instanceof Posting)) {
                     editHref = String.format("%sedit/?back=%s",
-                            posting.getGrpDetailsHref(), requestContext.getLocation());
+                            ((Posting) entry).getGrpDetailsHref(), requestContext.getLocation());
                 }
                 String tooltip = !requestContext.isEnglish() ? "Изменить" : "Edit";
                 buf.append(imageButton("/pics/edit.png", editHref, tooltip));
@@ -241,7 +263,7 @@ public class PostingHelperSource {
         }
         if (!hollow && controls) {
             String style = String.format("top: %dpx", sizeY - 25);
-            buf.append(voteHelperSource.rating((long) posting.getRating(), style, posting.getId()));
+            buf.append(voteHelperSource.rating((long) entry.getRating(), style, entry.getId()));
         }
         buf.append("</div>");
 

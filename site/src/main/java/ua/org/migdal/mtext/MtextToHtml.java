@@ -12,9 +12,9 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import ua.org.migdal.Config;
-import ua.org.migdal.data.Image;
 import ua.org.migdal.data.ImagePlacement;
 import ua.org.migdal.data.InnerImage;
+import ua.org.migdal.helper.ArticleHelperSource;
 import ua.org.migdal.helper.UsersHelperSource;
 import ua.org.migdal.util.XmlUtils;
 
@@ -42,7 +42,7 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
     private boolean brInHx = false;
 
     private Config config;
-    private ImageCallback imageCallback;
+    private ArticleHelperSource articleHelperSource;
     private UsersHelperSource usersHelperSource;
     private IncutCallback incutCallback;
 
@@ -75,16 +75,12 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
         this.config = config;
     }
 
-    public ImageCallback getImageCallback() {
-        return imageCallback;
+    public ArticleHelperSource getArticleHelperSource() {
+        return articleHelperSource;
     }
 
-    public void setImageCallback(ImageCallback imageCallback) {
-        this.imageCallback = imageCallback;
-    }
-
-    private CharSequence invokeImageCallback(long id, int par, Image image, String align) {
-        return imageCallback != null ? imageCallback.format(id, par, image, align) : "";
+    public void setArticleHelperSource(ArticleHelperSource articleHelperSource) {
+        this.articleHelperSource = articleHelperSource;
     }
 
     public UsersHelperSource getUsersHelperSource() {
@@ -154,9 +150,9 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             if (image.isPlaced(ImagePlacement.RIGHT)) {
                 align = "right";
             }
-            html.append(invokeImageCallback(id, par, image.getImage(), align));
+            html.append(articleHelperSource.articleImage(id, par, image.getImage(), align));
         } else {
-            html.append(invokeImageCallback(id, par, null, ""));
+            html.append(articleHelperSource.articleImage(id, par, null, ""));
         }
     }
 
