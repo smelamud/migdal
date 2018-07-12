@@ -29,13 +29,18 @@ public class ArticleHelperSource {
 
     public CharSequence imagesLink(Posting posting) {
         StringBuilder buf = new StringBuilder();
-        buf.append("<a");
-        HelperUtils.appendAttr(buf, "href", String.format("%simages/", posting.getGrpDetailsHref()));
-        buf.append('>');
+        buf.append("<a id=\"switch-image-editing-on\" href=\"#image-editing\">");
         if (!requestContext.isEnglish()) {
-            buf.append("Список иллюстраций");
+            buf.append("Расставить картинки");
         } else {
-            buf.append("List of pictures");
+            buf.append("Arrange pictures");
+        }
+        buf.append("</a>");
+        buf.append("<a id=\"switch-image-editing-off\" href=\"#\">");
+        if (!requestContext.isEnglish()) {
+            buf.append("Закончить расстановку картинок");
+        } else {
+            buf.append("End the picture arrangement");
         }
         buf.append("</a>");
         return new SafeString(buf);
