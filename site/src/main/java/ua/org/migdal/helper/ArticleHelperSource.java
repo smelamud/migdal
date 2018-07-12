@@ -67,9 +67,7 @@ public class ArticleHelperSource {
         MtextConverted converted = mtextConverter.convert(posting.getLargeBodyMtext(), innerImages);
 
         StringBuilder buf = new StringBuilder();
-//<article_editmode editing!='$posting.isWritable'>
         buf.append(converted.getHtmlBody());
-//                </article_editmode>
         if (!StringUtils.isEmpty(posting.getSource())) {
             buf.append("<p class=\"source\">");
             if (!requestContext.isEnglish()) {
@@ -91,40 +89,27 @@ public class ArticleHelperSource {
     public CharSequence articleImage(long id, int paragraph, Image image, String align) {
         StringBuilder buf = new StringBuilder();
         if (image != null) {
-/*<if what = '$$editmode' >
-  <posting_obj id = '$data.Id' >
-  <assign name = 'edithref'
-            value#='${,GrpDetailsHref}images/insert/?par=$data.Par&editid=$image.Id' >
-  <assign name = 'rmhref'
-            value#=
-            '/actions/posting/image/modify
-            ?edittag=1&insert=1&postid=$data.Id&editid=0&par=$data.Par&okdir=$#-&faildir=$#-'>
- <else>*/
-        String editHref = "";
-        String rmHref = "";
-//</if>
-        CharSequence titleHtml = mtextConverter.toHtml(image.getTitleMtext());
-        CharSequence titleLineHtml = mtextConverter.toHtml(image.getTitleLineMtext());
-        buf.append(postingHelperSource.entryImage(image, align, false, false, null, String.format("article-%d", id),
-                titleHtml, 0, titleLineHtml, 0, 0, false, null, editHref, rmHref, false, false));
-//        } else {
-/*<if what = '$$editmode' >
-  <ifne what = '$data.Align' >
-   <assign name = 'align' value#='style="float: $data.Align; clear: $data.Align"' >
-  <else>
-   <assign name = 'align' value = '' >
-  </ifne >
-  <posting_obj id = '$data.Id' >
-  <notenglish >
-   <assign name = 'ititle' value = 'Вставить картинку' >
-  <else>
-   <assign name = 'ititle' value = 'Insert a Picture' >
-  </notenglish >
-  <div class='insert-image' $align ><span >
-   <a href = '${,GrpDetailsHref}images/insert/?par=$data.Par'
-            class='eightpt' > $ititle </a >
-  </span ></div >
- </if>*/
+            CharSequence titleHtml = mtextConverter.toHtml(image.getTitleMtext());
+            CharSequence titleLineHtml = mtextConverter.toHtml(image.getTitleLineMtext());
+            String editHref = String.format("/insert-image/?postingId=%d&paragraph=%d&imageId=%d",
+                    id, paragraph, image.getId());
+            String rmHref = String.format("/actions/posting/image/modify?insert=1&postingId=%s&imageId=0&paragraph=%s",
+                    id, paragraph);
+            buf.append(postingHelperSource.entryImage(image, align, false, false, null, String.format("article-%d", id),
+                    titleHtml, 0, titleLineHtml, 0, 0, false, null, editHref, rmHref, true, false));
+        } else {
+            buf.append("<div class=\"insert-image\"");
+            if (!StringUtils.isEmpty(align)) {
+                HelperUtils.appendAttr(buf, "align", String.format("float %s; clear %s", align, align));
+            }
+            buf.append("><span>");
+            buf.append(String.format("<a href=\"/insert-image/?paragraph=%d\" class=\"eightpt\">", paragraph));
+            if (!requestContext.isEnglish()) {
+                buf.append("Вставить картинку");
+            } else {
+                buf.append("Insert a Picture");
+            }
+            buf.append("</a></span></div>");
         }
         return new SafeString(buf);
     }

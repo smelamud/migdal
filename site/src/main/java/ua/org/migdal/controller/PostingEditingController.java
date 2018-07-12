@@ -110,7 +110,7 @@ public class PostingEditingController {
                 .withPageTitle("Добавление " + desc.getWhatA());
     }
 
-    @GetMapping("/**/edit")
+    @GetMapping("/**/{edit:edit$}") // Regex is needed to match against the extension too
     public String postingEdit(
             @RequestParam(required = false) boolean full,
             Model model) throws PageNotFoundException {
