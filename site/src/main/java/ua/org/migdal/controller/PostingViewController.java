@@ -76,6 +76,7 @@ public class PostingViewController {
                     .forEach(requestContext::addOgImage);
             model.addAttribute("innerImages", innerImages);
         }
+        model.addAttribute("topic", posting.getTopic());
         model.addAttribute("comments", forumManager.begAll(posting.getId(), offset, 20));
         model.addAttribute("forumForm", new ForumForm(posting, requestContext));
         indexController.addMajors(model);
