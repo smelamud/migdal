@@ -21,6 +21,8 @@ public class Config {
     private String imageDir;
     private String imageUrl;
     private long maxImageSize;
+    private short innerImageMaxWidth;
+    private short innerImageMaxHeight;
     private int tinySize;
     private int tinySizeMinus;
     private int tinySizePlus;
@@ -148,6 +150,22 @@ public class Config {
 
     public void setMaxImageSize(long maxImageSize) {
         this.maxImageSize = maxImageSize;
+    }
+
+    public short getInnerImageMaxWidth() {
+        return innerImageMaxWidth;
+    }
+
+    public void setInnerImageMaxWidth(short innerImageMaxWidth) {
+        this.innerImageMaxWidth = innerImageMaxWidth;
+    }
+
+    public short getInnerImageMaxHeight() {
+        return innerImageMaxHeight;
+    }
+
+    public void setInnerImageMaxHeight(short innerImageMaxHeight) {
+        this.innerImageMaxHeight = innerImageMaxHeight;
     }
 
     public int getTinySize() {

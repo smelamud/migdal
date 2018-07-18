@@ -80,6 +80,10 @@ migdal:
   imageUrl: /images  # Base image URL
   maxImageSize: 2097152  # Maximal uploaded image size (in bytes)
 
+  # Inner image auto-resizing dimensions
+  innerImageMaxWidth: 900
+  innerImageMaxHeight: 900
+
   # Text cropping parameters for "tiny size"
   tinySize: 64
   tinySizeMinus: 32
